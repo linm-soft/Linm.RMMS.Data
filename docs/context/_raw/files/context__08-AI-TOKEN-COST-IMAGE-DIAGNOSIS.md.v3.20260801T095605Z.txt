@@ -1,0 +1,213 @@
+# source: context/08-AI-TOKEN-COST-IMAGE-DIAGNOSIS.md
+# version: 3
+# scannedAt: 2026-08-01T09:56:05.362Z
+# sha256: ea360b7e8c0c3d1537e37456e6ae0672512c7f93048ae87b4eb201b9b2f274f4
+# mtimeMs: 1785473604859.808
+# RMMS — Chi phí token AI (P1 · online model)
+
+> **Mục đích:** Đề xuất **model online** + ước lượng **$/lần** và **$/tháng** cho mọi phần AI P1 (#3 · #8 · #10 · #16).  
+> **Nguyên tắc:** P1 = **toàn bộ online LLM/API** — không GPU, không train local. P2 = local YOLOv8 / XGBoost / RAG on-prem *nếu* đơn vị muốn.  
+> **Đơn giá tham chiếu (2026):** Azure OpenAI / OpenAI — kiểm tra [Azure OpenAI Pricing](https://azure.microsoft.com/pricing/details/cognitive-services/openai-service/) trước khi ký ngân sách.  
+> **Không gồm:** GPU, đội SV gán nhãn, Dev man-month (xem `04-PROGRAMS.md` · báo giá P1 900 tr).  
+> **HTML:** `Linm.RMMS.Demo/docs/chi-phi-token-ai.html`
+
+---
+
+## 0. Đề xuất model P1 (SSOT)
+
+| # | Hạng mục | Model đề xuất | Vai trò |
+|---|----------|---------------|---------|
+| **3** | Kiểm định ảnh | **GPT-4o** Vision | Engine chính · `detail: high` |
+| **3** | Triage ảnh | **GPT-4o-mini** Vision *hoặc* GPT-4o `detail: low` | Lọc trước, giảm bill |
+| **8** | Dự báo bảo trì | **GPT-4o** (text/JSON) · fallback **4o-mini** | Dự báo từ PCI / lịch sử / feature |
+| **10** | Ước lượng sửa chữa | **GPT-4o** (structured JSON) | Khối lượng / chi phí |
+| **16** | Copilot | **GPT-4o-mini** (default) · **GPT-4o** (câu phức tạp) | Q&A / báo cáo NL |
+
+**Stack:** Azure OpenAI (ưu tiên VN/enterprise) hoặc OpenAI.  
+**Code:** adapter `IDefectDiagnoser` / tương đương — đổi model không đổi mono.
+
+### Đơn giá tham chiếu (2026)
+
+| Model | Input / 1M tokens | Output / 1M tokens |
+|-------|-------------------|--------------------|
+| **GPT-4o** | **$2.50** | **$10.00** |
+| **GPT-4o-mini** | **~$0.15** | **~$0.60** |
+
+### Chi phí vận hành (ước lượng $/lần)
+
+| Use case | Đơn vị | **$/lần** |
+|----------|--------|-----------|
+| #3 Chuẩn đoán ảnh (`high` 1024) | /ảnh | **~$0.01** |
+| #3 Triage `low` | /ảnh | **~$0.005** |
+| #8 Dự báo 1 đoạn | /call | **~$0.008–0.015** |
+| #10 Ước lượng 1 sự cố | /call | **~$0.01–0.02** |
+| #16 Copilot (4o-mini) | /câu | **~$0.0005** |
+| #16 Copilot (4o) | /câu | **~$0.005–0.01** |
+
+### Pilot tháng (gợi ý UAT)
+
+| Gói | Volume | Token ≈ |
+|-----|--------|---------|
+| Ảnh #3 | 5k–20k ảnh high | **$45–$180** |
+| + triage 30% high | 20k thô | **~$70** |
+| #8 + #10 | ~500 call | **~$5–10** |
+| #16 Copilot | ~1k câu mini | **~$0.5** |
+| **Tổng pilot gợi ý** | | **~$50–200 / tháng** |
+
+→ Alert ngân sách Azure **$200/tháng** đủ P1. **Bên A** trả token (ngoài hợp đồng 900 tr).
+
+---
+
+## 1. Cách tính token ảnh (Vision · #3)
+
+GPT-4o **không tính phí theo file MB** — ảnh quy đổi **input tokens** theo độ phân giải + `detail`:
+
+| Chế độ | Ước lượng token / ảnh | Khi dùng |
+|--------|----------------------|----------|
+| `detail: low` | **~85** tokens | Triage nhanh, lọc ảnh trống / không phải mặt đường |
+| `detail: high` ~1024×1024 | **~765** tokens | Chuẩn đoán hư hỏng P1 |
+| `detail: high` ảnh lớn (~1920×1080) | **~1.100–1.600** tokens | Camera tuần tra HD |
+
+Thêm mỗi lần gọi:
+
+| Thành phần | Token ước lượng |
+|------------|-----------------|
+| Prompt hệ thống + hướng dẫn chuẩn đoán (VN/EN, JSON schema) | **300–500** |
+| Output JSON (loại hư hỏng, mức độ, mô tả, gợi ý PCI) | **400–800** |
+
+---
+
+## 2. Chi phí 1 ảnh chuẩn đoán (GPT-4o Vision)
+
+```
+Cost ≈ (token_ảnh + token_prompt) × $2.50/1M  +  token_output × $10/1M
+```
+
+| Kịch bản | Input (ảnh+prompt) | Output | **$/ảnh** | Ghi chú |
+|----------|-------------------|--------|-----------|---------|
+| **A — Triage low** | ~435 | ~400 | **~$0.005** | Lọc trước, rẻ |
+| **B — Chuẩn đoán high 1024** | ~1.165 | ~600 | **~$0.009** | **Khuyến nghị P1** |
+| **C — Ảnh lớn high** | ~1.800 | ~700 | **~$0.012** | Camera HD tuần tra |
+
+> Làm tròn vận hành: **~$0.01 / ảnh chuẩn đoán** (kịch bản B).
+
+### Ví dụ 1 ảnh (kịch bản B)
+
+| | Tokens | Đơn giá | Tiền |
+|--|--------|---------|------|
+| Input | 1.165 | $2.50/1M | $0.0029 |
+| Output | 600 | $10/1M | $0.0060 |
+| **Tổng** | | | **~$0.0089 ≈ $0.01** |
+
+---
+
+## 3. Bảng chi phí theo khối lượng ảnh (#3)
+
+Giả định **100% ảnh gọi chuẩn đoán** (không triage). Dùng cột B (~$0.009/ảnh).
+
+| Khối lượng ảnh | Mục đích | Token input ≈ | Token output ≈ | **Chi phí GPT-4o** |
+|----------------|----------|---------------|----------------|---------------------|
+| **1.000** | Smoke test API | ~1,2M | ~0,6M | **~$9** |
+| **5.000** | 1 tuyến ngắn | ~5,8M | ~3,0M | **~$45** |
+| **20.000** | Đánh giá vs expert | ~23M | ~12M | **~$180** |
+| **50.000** | 1–2 tháng 1 đơn vị | ~58M | ~30M | **~$450** |
+| **100.000** | Mở rộng | ~117M | ~60M | **~$900** |
+
+### Tối ưu chi phí
+
+1. **Triage `low` trước** → chỉ ~20–40% ảnh nghi ngờ gọi `high`  
+2. Batch offline cuối ngày (không realtime từng frame video)  
+3. Resize về ~1280 cạnh dài trước khi gửi API  
+
+| Khối lượng thô | Sau triage 30% high | **Chi phí ước lượng** |
+|----------------|---------------------|------------------------|
+| 20.000 ảnh | 6.000 high + 14.000 low | **~$70** (thay vì ~$180) |
+| 50.000 ảnh | 15.000 high + 35.000 low | **~$175** (thay vì ~$450) |
+
+---
+
+## 4. Toàn bộ AI P1 — Vision + dự báo + ước lượng + Copilot
+
+| # | Bước | Model | $/lần | Vai trò |
+|---|------|-------|-------|---------|
+| 3 | Nhìn ảnh → loại hư hỏng + severity | **GPT-4o Vision** | **~$0.01** | Chuẩn đoán chính |
+| 3 | (tuỳ chọn) Gộp defect → gợi ý PCI | GPT-4o text | **~$0.013** | Báo cáo đoạn |
+| 8 | Dự báo bảo trì / ưu tiên đầu tư | GPT-4o / **4o-mini** | **~$0.008–0.015** | Predictive online |
+| 10 | Ước lượng khối lượng / chi phí | GPT-4o JSON | **~$0.01–0.02** | Estimate online |
+| 16 | Hỏi Copilot trên DB (không ảnh) | **4o-mini** / GPT-4o | **~$0.0005** / **~$0.005–0.01** | Điều hành |
+
+**Pilot tháng gộp (ví dụ):**
+
+| Hạng mục | Số lần | Chi phí |
+|----------|--------|---------|
+| #3 Vision (B, không triage) | 20.000 | ~$180 |
+| #3 Báo cáo đoạn (text) | 500 | ~$7 |
+| #8 + #10 | 500 | ~$5–10 |
+| #16 Copilot (4o-mini) | 1.000 | ~$0.5–1 |
+| **Tổng token AI pilot** | | **~$190–200** |
+
+> Token P1 thường **$50–200/tháng** pilot; alert **$200/tháng**. Mục tiêu = **đánh giá + vận hành online**, không thay GPU production.
+
+---
+
+## 5. So sánh P1 online vs P2 local
+
+| Hướng | Chi phí AI (ước lượng) | Ưu | Nhược |
+|-------|------------------------|----|------|
+| **P1 — online (#3+#8+#10+#16)** | **$50–200** / tháng pilot | Full AI, không train, không GPU | Latency/giá theo volume |
+| **P1 — CV API YOLO public (Roboflow…)** | ~**$0.004–0.006**/ảnh | Rẻ hơn Vision một chút | Ít ngữ nghĩa chuẩn đoán |
+| **P2 — YOLOv8 local + train** | Đội SV + GPU (`04-PROGRAMS`) | Rẻ biên volume lớn, offline | Dataset VN; thời gian |
+| **P2 — XGBoost/ONNX (#8/#10)** | Train + host local | Chủ quyền dữ liệu | Cần lịch sử sạch |
+| **P2 — Copilot RAG on-prem (#16)** | Qdrant / GPU nhẹ | On-prem | Ops phức tạp hơn cloud |
+
+**Quyết định đề xuất**
+
+```
+P1  = Online full: GPT-4o Vision (#3) + GPT-4o/mini (#8/#10/#16)
+    → UAT P/R + chi phí token → Go local / No-go / Pivot
+P2  = (nếu muốn local) YOLOv8+train · XGBoost ONNX · RAG on-prem
+    → Online chỉ còn fallback case khó
+```
+
+---
+
+## 6. Prompt chuẩn đoán (gợi ý — giảm output token)
+
+Giữ output **JSON ngắn**:
+
+```json
+{
+  "defects": [
+    { "class": "pothole", "severity": "high", "confidence": 0.82, "note": "ổ gà ~40cm" }
+  ],
+  "pciHint": 55,
+  "action": "create_incident"
+}
+```
+
+Tránh mô tả dài / markdown — mỗi +500 output token ≈ **+$0.005 / ảnh**.
+
+---
+
+## 7. Checklist P1 — online AI
+
+- [ ] Azure OpenAI (hoặc OpenAI): **GPT-4o** + **GPT-4o-mini** · khóa riêng tenant  
+- [ ] Alert ngân sách: **$200 / tháng**  
+- [ ] #3: upload → Vision diagnose → `ai_vision.detections` → BA chấm P/R (≥500 ảnh expert)  
+- [ ] #8 / #10: structured JSON online · không train XGBoost trong P1  
+- [ ] #16: Copilot default **4o-mini** · escalate 4o khi cần  
+- [ ] Gate: giữ online lâu dài **hoặc** Go local (P2)  
+- [ ] **Không** mua GPU / mở đội SV train chỉ để pilot nếu volume &lt; ~50k ảnh/tháng  
+
+---
+
+## Tài liệu liên quan
+
+| File | Nội dung |
+|------|----------|
+| `09-PLAN-P1-V2.md` | Lộ trình P1 online ↔ P2 local |
+| `07-TECHNICAL-IMPLEMENTATION.md` | Hạng mục AiVision / Copilot |
+| `04-PROGRAMS.md` | Capex GPU / team |
+| `Linm.RMMS.Demo/docs/bao-gia/` | Báo giá P1 (AI Service 200 · token ngoài HĐ) |
+| `Linm.RMMS.Demo/docs/chi-phi-token-ai.html` | Máy tính $/ảnh |
+| `Linm.RMMS.Demo/docs/plan-p1-v2.html` | So sánh P1 / V2 HTML |

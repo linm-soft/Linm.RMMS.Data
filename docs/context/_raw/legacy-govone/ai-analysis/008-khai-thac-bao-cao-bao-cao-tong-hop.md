@@ -10,7 +10,7 @@
 | **screenshot** | `screenshots/008-khai-thac-bao-cao-bao-cao-tong-hop.png` |
 | **DOM fields** | 1 |
 | **DOM labels** | 0 |
-| **DOM buttons** | 87 |
+| **DOM buttons** | 98 |
 
 ## DOM inventory (đã capture)
 
@@ -18,17 +18,22 @@
 - _(trống — ưu tiên đọc từ ảnh)_
 
 ### Buttons / actions
+- Báo cáo tổng hợp
+- Phân quyền
+- Bản đồ
+- Vấn đề
+- Giám sát
+- Hồ sơ
 - govone.vn
 - youtube
 - facebook
 - Giao diện sáng
 - Giao diện tối
-- Ban.TK.Nguyễn Anh Phúc  nguyenanhphuc.dbna@cloudgis.vn
+- Ban.TK.Nguyễn Anh Phúc nguyenanhphuc.dbna@cloudgis.vn
 - Thông tin của tôi
 - Đổi mật khẩu
 - Đăng xuất
 - Bảng tổng hợp nhanh
-- Báo cáo tổng hợp
 - QUẢN LÝ BẢO TRÌ
 - Tổng hợp bảo trì
 - Dự án bảo trì
@@ -53,11 +58,6 @@
 - Công văn đi - đến
 - Quản lý tài sản
 - QUẢN TRỊ ỨNG DỤNG
-- Phân quyền
-- Phân quyền báo cáo
-- BẢO DƯỠNG THƯỜNG XUYÊN
-- Nhật kýNhật ký tuần đườngNhật ký tuần kiểmNhật ký công việc
-- Nhật ký tuần kiểm
 
 ### Inputs
 

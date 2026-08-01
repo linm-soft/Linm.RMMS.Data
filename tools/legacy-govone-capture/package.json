@@ -11,9 +11,10 @@
     "map": "node map-to-features.mjs",
     "analyze": "node analyze-screenshots.mjs",
     "map:context": "node map-to-step-context.mjs",
+    "map:demo": "node map-to-demo-mfe.mjs",
     "all": "node capture.mjs && node map-to-features.mjs",
-    "pipeline:deep": "node capture.mjs --deep && node map-to-features.mjs && node analyze-screenshots.mjs && node map-to-step-context.mjs",
-    "pipeline:full": "node capture.mjs --full && node map-to-features.mjs && node analyze-screenshots.mjs && node map-to-step-context.mjs",
+    "pipeline:deep": "node capture.mjs --deep && node map-to-features.mjs && node analyze-screenshots.mjs && node map-to-step-context.mjs && node map-to-demo-mfe.mjs",
+    "pipeline:full": "node capture.mjs --full && node map-to-features.mjs && node analyze-screenshots.mjs && node map-to-step-context.mjs && node map-to-demo-mfe.mjs",
     "install-browser": "npx playwright install chromium"
   },
   "engines": {

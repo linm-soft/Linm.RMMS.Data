@@ -1,0 +1,341 @@
+{
+  "id": "001-apps-shell",
+  "menuText": "(apps-shell)",
+  "kind": "shell",
+  "via": "shell",
+  "href": "https://pmdb.govone.vn/apps.aspx",
+  "finalUrl": "https://pmdb.govone.vn/apps.aspx",
+  "capturedAt": "2026-08-01T10:25:58.421Z",
+  "mode": "full",
+  "masterTitle": "(apps-shell)",
+  "pageTitle": "_root",
+  "formSample": null,
+  "title": "Trang chủ - gServer Phiên bản 2.1",
+  "headings": [
+    "Tiêu đề nội dung mới",
+    "SỞ XÂY DỰNG TỈNH NGHỆ AN",
+    "PHẦN MỀM QUẢN LÝ, GIÁM SÁT VÀ BẢO TRÌ ĐƯỜNG BỘ",
+    "BẢN ĐỒ CÔNG TRÌNH GIAO THÔNG ...",
+    "DASHBOAD",
+    "QUẢN LÝ GIÁM SÁT",
+    "QUẢN LÝ VẤN ĐỀ",
+    "QUẢN TRỊ PHÂN QUYỀN",
+    "KHAI THÁC BÁO CÁO",
+    "SỔ TÀI SẢN",
+    "SỬA CHỮA ĐỊNH KỲ",
+    "VIDEO HƯỚNG DẪN",
+    "...",
+    "SỞ XÂY DỰNG TỈNH NGHỆ AN",
+    "PHẦN MỀM QUẢN LÝ, GIÁM SÁT VÀ BẢO TRÌ ĐƯỜNG BỘ",
+    "SỞ XÂY DỰNG TỈNH NGHỆ AN",
+    "PHẦN MỀM QUẢN LÝ, GIÁM SÁT VÀ BẢO TRÌ ĐƯỜNG BỘ"
+  ],
+  "labels": [],
+  "fields": [],
+  "buttons": [
+    "Xin chào: Ban.TK.Nguyễn Anh Phúc",
+    "Hồ sơ của tôi",
+    "Đăng xuất",
+    "Trợ giúp",
+    "BẢN ĐỒ CÔNG TRÌNH GIAO THÔNG ...",
+    "DASHBOAD",
+    "QUẢN LÝ GIÁM SÁT",
+    "QUẢN LÝ VẤN ĐỀ",
+    "QUẢN TRỊ PHÂN QUYỀN",
+    "KHAI THÁC BÁO CÁO",
+    "SỔ TÀI SẢN",
+    "SỬA CHỮA ĐỊNH KỲ",
+    "VIDEO HƯỚNG DẪN",
+    "...",
+    "eKGIS"
+  ],
+  "actions": [
+    {
+      "label": "Xin chào: Ban.TK.Nguyễn Anh Phúc",
+      "kind": "export",
+      "zone": "header",
+      "tag": "a",
+      "type": "",
+      "href": "/Secure/UserProfile.aspx",
+      "id": "",
+      "name": "",
+      "title": "Thông tin cá nhân",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Hồ sơ của tôi",
+      "kind": "nav",
+      "zone": "header",
+      "tag": "a",
+      "type": "",
+      "href": "/Secure/UserProfile.aspx",
+      "id": "",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Đăng xuất",
+      "kind": "export",
+      "zone": "header",
+      "tag": "a",
+      "type": "",
+      "href": "/Logoff.aspx",
+      "id": "",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Trợ giúp",
+      "kind": "nav",
+      "zone": "header",
+      "tag": "a",
+      "type": "",
+      "href": "/html/index.html",
+      "id": "",
+      "name": "",
+      "title": "Trợ giúp",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "BẢN ĐỒ CÔNG TRÌNH GIAO THÔNG ...",
+      "kind": "nav",
+      "zone": "footer",
+      "tag": "a",
+      "type": "",
+      "href": "#",
+      "id": "",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": true
+    },
+    {
+      "label": "DASHBOAD",
+      "kind": "nav",
+      "zone": "footer",
+      "tag": "a",
+      "type": "",
+      "href": "#",
+      "id": "",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": true
+    },
+    {
+      "label": "QUẢN LÝ GIÁM SÁT",
+      "kind": "nav",
+      "zone": "footer",
+      "tag": "a",
+      "type": "",
+      "href": "#",
+      "id": "",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": true
+    },
+    {
+      "label": "QUẢN LÝ VẤN ĐỀ",
+      "kind": "nav",
+      "zone": "footer",
+      "tag": "a",
+      "type": "",
+      "href": "#",
+      "id": "",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": true
+    },
+    {
+      "label": "QUẢN TRỊ PHÂN QUYỀN",
+      "kind": "nav",
+      "zone": "footer",
+      "tag": "a",
+      "type": "",
+      "href": "#",
+      "id": "",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": true
+    },
+    {
+      "label": "KHAI THÁC BÁO CÁO",
+      "kind": "nav",
+      "zone": "footer",
+      "tag": "a",
+      "type": "",
+      "href": "#",
+      "id": "",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": true
+    },
+    {
+      "label": "SỔ TÀI SẢN",
+      "kind": "nav",
+      "zone": "footer",
+      "tag": "a",
+      "type": "",
+      "href": "#",
+      "id": "",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": true
+    },
+    {
+      "label": "SỬA CHỮA ĐỊNH KỲ",
+      "kind": "edit",
+      "zone": "footer",
+      "tag": "a",
+      "type": "",
+      "href": "#",
+      "id": "",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": true
+    },
+    {
+      "label": "VIDEO HƯỚNG DẪN",
+      "kind": "nav",
+      "zone": "footer",
+      "tag": "a",
+      "type": "",
+      "href": "#",
+      "id": "",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": true
+    },
+    {
+      "label": "...",
+      "kind": "nav",
+      "zone": "footer",
+      "tag": "a",
+      "type": "",
+      "href": "#",
+      "id": "",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": true
+    },
+    {
+      "label": "eKGIS",
+      "kind": "nav",
+      "zone": "footer",
+      "tag": "a",
+      "type": "",
+      "href": "http://ekgis.com.vn",
+      "id": "",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    }
+  ],
+  "actionsByZone": {
+    "header": [
+      "Xin chào: Ban.TK.Nguyễn Anh Phúc",
+      "Hồ sơ của tôi",
+      "Đăng xuất",
+      "Trợ giúp"
+    ],
+    "footer": [
+      "BẢN ĐỒ CÔNG TRÌNH GIAO THÔNG ...",
+      "DASHBOAD",
+      "QUẢN LÝ GIÁM SÁT",
+      "QUẢN LÝ VẤN ĐỀ",
+      "QUẢN TRỊ PHÂN QUYỀN",
+      "KHAI THÁC BÁO CÁO",
+      "SỔ TÀI SẢN",
+      "SỬA CHỮA ĐỊNH KỲ",
+      "VIDEO HƯỚNG DẪN",
+      "...",
+      "eKGIS"
+    ]
+  },
+  "actionCount": 15,
+  "tableHeaders": [],
+  "navHints": [
+    {
+      "text": "Xin chào: Ban.TK.Nguyễn Anh Phúc",
+      "href": "https://pmdb.govone.vn/Secure/UserProfile.aspx"
+    },
+    {
+      "text": "Hồ sơ của tôi",
+      "href": "https://pmdb.govone.vn/Secure/UserProfile.aspx"
+    },
+    {
+      "text": "Đăng xuất",
+      "href": "https://pmdb.govone.vn/Logoff.aspx"
+    },
+    {
+      "text": "Xin chào: Ban.TK.Nguyễn Anh Phúc",
+      "href": "https://pmdb.govone.vn/Secure/UserProfile.aspx"
+    },
+    {
+      "text": "Đăng xuất",
+      "href": "https://pmdb.govone.vn/Logoff.aspx"
+    },
+    {
+      "text": "BẢN ĐỒ CÔNG TRÌNH GIAO THÔNG ...",
+      "href": "https://pmdb.govone.vn/apps.aspx#"
+    },
+    {
+      "text": "DASHBOAD",
+      "href": "https://pmdb.govone.vn/apps.aspx#"
+    },
+    {
+      "text": "QUẢN LÝ GIÁM SÁT",
+      "href": "https://pmdb.govone.vn/apps.aspx#"
+    },
+    {
+      "text": "QUẢN LÝ VẤN ĐỀ",
+      "href": "https://pmdb.govone.vn/apps.aspx#"
+    },
+    {
+      "text": "QUẢN TRỊ PHÂN QUYỀN",
+      "href": "https://pmdb.govone.vn/apps.aspx#"
+    },
+    {
+      "text": "KHAI THÁC BÁO CÁO",
+      "href": "https://pmdb.govone.vn/apps.aspx#"
+    },
+    {
+      "text": "SỔ TÀI SẢN",
+      "href": "https://pmdb.govone.vn/apps.aspx#"
+    },
+    {
+      "text": "SỬA CHỮA ĐỊNH KỲ",
+      "href": "https://pmdb.govone.vn/apps.aspx#"
+    },
+    {
+      "text": "VIDEO HƯỚNG DẪN",
+      "href": "https://pmdb.govone.vn/apps.aspx#"
+    },
+    {
+      "text": "...",
+      "href": "https://pmdb.govone.vn/apps.aspx#"
+    }
+  ],
+  "bodySample": "SỞ XÂY DỰNG TỈNH NGHỆ AN PHẦN MỀM QUẢN LÝ, GIÁM SÁT VÀ BẢO TRÌ ĐƯỜNG BỘ BẢN ĐỒ CÔNG TRÌNH GIAO THÔNG ... DASHBOAD QUẢN LÝ GIÁM SÁT QUẢN LÝ VẤN ĐỀ QUẢN TRỊ PHÂN QUYỀN KHAI THÁC BÁO CÁO SỔ TÀI SẢN SỬA CHỮA ĐỊNH KỲ VIDEO HƯỚNG DẪN ... Copyright © 2015 by eKGIS",
+  "path": {
+    "master": "shell",
+    "page": "root",
+    "action": "view",
+    "rel": "capture/shell/root/view"
+  }
+}

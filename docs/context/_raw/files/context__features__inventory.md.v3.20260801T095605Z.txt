@@ -1,0 +1,15 @@
+# source: context/features/inventory.md
+# version: 3
+# scannedAt: 2026-08-01T09:56:05.362Z
+# sha256: d1a2671b2e95071f10546c1cc61e7c5e3f6ac3e2f6b4da3c23dd181ff5f667d5
+# mtimeMs: 1785516443366.8137
+# Vật tư và thiết bị — Feature Context
+
+> **Slug:** `inventory` · **Module:** Inventory (Contract/Asset) · **Phase:** P3 · **Status:** Draft  
+> **Sources:** `RMMS` §12 · `09` OUT P1
+
+## 1. Tổng quan
+Kho VT · máy móc · xe chuyên dụng · nhiên liệu · bảo dưỡng · GPS thiết bị.
+
+## 2–7
+DEFER P3 — không demo P1. API/DB khi vào phase.

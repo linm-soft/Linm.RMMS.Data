@@ -1,0 +1,515 @@
+{
+  "id": "011-quan-ly-giam-sat-tai-lai",
+  "menuText": "QUẢN LÝ GIÁM SÁT › Tải lại › +",
+  "kind": "form-sample",
+  "via": "create",
+  "href": null,
+  "finalUrl": "https://pmdb.govone.vn/dbv3giamsat.aspx#pnlViTriHienThoi",
+  "capturedAt": "2026-08-01T10:00:13.413Z",
+  "mode": "full",
+  "masterTitle": "QUẢN LÝ GIÁM SÁT",
+  "pageTitle": "Tải lại",
+  "formSample": {
+    "trigger": "+",
+    "labels": [
+      "Danh sách nhân viên",
+      "Chưa checkin: 0",
+      "Tổng số : 0"
+    ],
+    "fields": [
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "treepickerex-1025-inputEl",
+        "id": "treepickerex-1025-inputEl",
+        "placeholder": "Chọn Công ty/Nhân viên",
+        "ariaLabel": "",
+        "zone": "sidebar"
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "doanduong",
+        "id": "combo-1026-inputEl",
+        "placeholder": "Chọn đoạn đường",
+        "ariaLabel": "",
+        "zone": "content"
+      }
+    ],
+    "actions": [
+      {
+        "label": "Ban.TK.Nguyễn Anh Phúc",
+        "kind": "nav",
+        "zone": "toolbar",
+        "tag": "a",
+        "type": "",
+        "href": "",
+        "id": "button-1014",
+        "name": "",
+        "title": "",
+        "disabled": false,
+        "hasOnClick": false
+      },
+      {
+        "label": "Xuất excel",
+        "kind": "export",
+        "zone": "toolbar",
+        "tag": "a",
+        "type": "",
+        "href": "",
+        "id": "button-1037",
+        "name": "",
+        "title": "",
+        "disabled": false,
+        "hasOnClick": false
+      },
+      {
+        "label": "Tải lại",
+        "kind": "nav",
+        "zone": "toolbar",
+        "tag": "a",
+        "type": "",
+        "href": "",
+        "id": "idbadgeGiamSatNhanVien",
+        "name": "",
+        "title": "",
+        "disabled": false,
+        "hasOnClick": false
+      },
+      {
+        "label": "Vệ tinh",
+        "kind": "nav",
+        "zone": "content",
+        "tag": "a",
+        "type": "",
+        "href": "#",
+        "id": "",
+        "name": "",
+        "title": "",
+        "disabled": false,
+        "hasOnClick": false
+      },
+      {
+        "label": "Google",
+        "kind": "nav",
+        "zone": "content",
+        "tag": "a",
+        "type": "",
+        "href": "#",
+        "id": "",
+        "name": "",
+        "title": "",
+        "disabled": false,
+        "hasOnClick": false
+      },
+      {
+        "label": "Giao thông",
+        "kind": "nav",
+        "zone": "content",
+        "tag": "a",
+        "type": "",
+        "href": "#",
+        "id": "",
+        "name": "",
+        "title": "",
+        "disabled": false,
+        "hasOnClick": false
+      },
+      {
+        "label": "Hành chính",
+        "kind": "nav",
+        "zone": "content",
+        "tag": "a",
+        "type": "",
+        "href": "#",
+        "id": "",
+        "name": "",
+        "title": "",
+        "disabled": false,
+        "hasOnClick": false
+      },
+      {
+        "label": "Không nền",
+        "kind": "nav",
+        "zone": "content",
+        "tag": "a",
+        "type": "",
+        "href": "#",
+        "id": "",
+        "name": "",
+        "title": "",
+        "disabled": false,
+        "hasOnClick": false
+      },
+      {
+        "label": "Bản đồ nền",
+        "kind": "nav",
+        "zone": "content",
+        "tag": "a",
+        "type": "",
+        "href": "#",
+        "id": "",
+        "name": "",
+        "title": "",
+        "disabled": false,
+        "hasOnClick": false
+      },
+      {
+        "label": "+",
+        "kind": "create",
+        "zone": "content",
+        "tag": "a",
+        "type": "",
+        "href": "#zoomIn",
+        "id": "",
+        "name": "",
+        "title": "",
+        "disabled": false,
+        "hasOnClick": false
+      },
+      {
+        "label": "−",
+        "kind": "nav",
+        "zone": "content",
+        "tag": "a",
+        "type": "",
+        "href": "#zoomOut",
+        "id": "",
+        "name": "",
+        "title": "",
+        "disabled": false,
+        "hasOnClick": false
+      },
+      {
+        "label": "Hồ sơ của tôi",
+        "kind": "nav",
+        "zone": "grid",
+        "tag": "a",
+        "type": "",
+        "href": "Secure/UserProfile.aspx",
+        "id": "menuitem-1016-itemEl",
+        "name": "",
+        "title": "",
+        "disabled": false,
+        "hasOnClick": false
+      },
+      {
+        "label": "Đổi mật khẩu",
+        "kind": "nav",
+        "zone": "grid",
+        "tag": "a",
+        "type": "",
+        "href": "gclient/gadmin/doimatkhau.aspx",
+        "id": "menuitem-1017-itemEl",
+        "name": "",
+        "title": "",
+        "disabled": false,
+        "hasOnClick": false
+      },
+      {
+        "label": "Đăng xuất",
+        "kind": "export",
+        "zone": "grid",
+        "tag": "a",
+        "type": "",
+        "href": "logoff.aspx",
+        "id": "menuitem-1019-itemEl",
+        "name": "",
+        "title": "",
+        "disabled": false,
+        "hasOnClick": false
+      }
+    ],
+    "headings": [
+      "Vị trí hiện thời",
+      "Vệ tinh",
+      "Google",
+      "Giao thông",
+      "Hành chính",
+      "Không nền",
+      "Bản đồ nền",
+      "Bản đồ nền"
+    ]
+  },
+  "title": "Giám sát - gServer Phiên bản 2.1",
+  "headings": [
+    "Vị trí hiện thời",
+    "Vệ tinh",
+    "Google",
+    "Giao thông",
+    "Hành chính",
+    "Không nền",
+    "Bản đồ nền",
+    "Bản đồ nền"
+  ],
+  "labels": [
+    "Danh sách nhân viên",
+    "Chưa checkin: 0",
+    "Tổng số : 0"
+  ],
+  "fields": [
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "treepickerex-1025-inputEl",
+      "id": "treepickerex-1025-inputEl",
+      "placeholder": "Chọn Công ty/Nhân viên",
+      "ariaLabel": "",
+      "zone": "sidebar"
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "doanduong",
+      "id": "combo-1026-inputEl",
+      "placeholder": "Chọn đoạn đường",
+      "ariaLabel": "",
+      "zone": "content"
+    }
+  ],
+  "buttons": [
+    "Ban.TK.Nguyễn Anh Phúc",
+    "Xuất excel",
+    "Tải lại",
+    "Vệ tinh",
+    "Google",
+    "Giao thông",
+    "Hành chính",
+    "Không nền",
+    "Bản đồ nền",
+    "+",
+    "−",
+    "Hồ sơ của tôi",
+    "Đổi mật khẩu",
+    "Đăng xuất"
+  ],
+  "actions": [
+    {
+      "label": "Ban.TK.Nguyễn Anh Phúc",
+      "kind": "nav",
+      "zone": "toolbar",
+      "tag": "a",
+      "type": "",
+      "href": "",
+      "id": "button-1014",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Xuất excel",
+      "kind": "export",
+      "zone": "toolbar",
+      "tag": "a",
+      "type": "",
+      "href": "",
+      "id": "button-1037",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Tải lại",
+      "kind": "nav",
+      "zone": "toolbar",
+      "tag": "a",
+      "type": "",
+      "href": "",
+      "id": "idbadgeGiamSatNhanVien",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Vệ tinh",
+      "kind": "nav",
+      "zone": "content",
+      "tag": "a",
+      "type": "",
+      "href": "#",
+      "id": "",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Google",
+      "kind": "nav",
+      "zone": "content",
+      "tag": "a",
+      "type": "",
+      "href": "#",
+      "id": "",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Giao thông",
+      "kind": "nav",
+      "zone": "content",
+      "tag": "a",
+      "type": "",
+      "href": "#",
+      "id": "",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Hành chính",
+      "kind": "nav",
+      "zone": "content",
+      "tag": "a",
+      "type": "",
+      "href": "#",
+      "id": "",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Không nền",
+      "kind": "nav",
+      "zone": "content",
+      "tag": "a",
+      "type": "",
+      "href": "#",
+      "id": "",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Bản đồ nền",
+      "kind": "nav",
+      "zone": "content",
+      "tag": "a",
+      "type": "",
+      "href": "#",
+      "id": "",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "+",
+      "kind": "create",
+      "zone": "content",
+      "tag": "a",
+      "type": "",
+      "href": "#zoomIn",
+      "id": "",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "−",
+      "kind": "nav",
+      "zone": "content",
+      "tag": "a",
+      "type": "",
+      "href": "#zoomOut",
+      "id": "",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Hồ sơ của tôi",
+      "kind": "nav",
+      "zone": "grid",
+      "tag": "a",
+      "type": "",
+      "href": "Secure/UserProfile.aspx",
+      "id": "menuitem-1016-itemEl",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Đổi mật khẩu",
+      "kind": "nav",
+      "zone": "grid",
+      "tag": "a",
+      "type": "",
+      "href": "gclient/gadmin/doimatkhau.aspx",
+      "id": "menuitem-1017-itemEl",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Đăng xuất",
+      "kind": "export",
+      "zone": "grid",
+      "tag": "a",
+      "type": "",
+      "href": "logoff.aspx",
+      "id": "menuitem-1019-itemEl",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    }
+  ],
+  "actionsByZone": {
+    "toolbar": [
+      "Ban.TK.Nguyễn Anh Phúc",
+      "Xuất excel",
+      "Tải lại"
+    ],
+    "content": [
+      "Vệ tinh",
+      "Google",
+      "Giao thông",
+      "Hành chính",
+      "Không nền",
+      "Bản đồ nền",
+      "+",
+      "−"
+    ],
+    "grid": [
+      "Hồ sơ của tôi",
+      "Đổi mật khẩu",
+      "Đăng xuất"
+    ]
+  },
+  "actionCount": 14,
+  "tableHeaders": [],
+  "navHints": [
+    {
+      "text": "Hồ sơ của tôi",
+      "href": "https://pmdb.govone.vn/Secure/UserProfile.aspx"
+    },
+    {
+      "text": "Đổi mật khẩu",
+      "href": "https://pmdb.govone.vn/gclient/gadmin/doimatkhau.aspx"
+    },
+    {
+      "text": "Đăng xuất",
+      "href": "https://pmdb.govone.vn/logoff.aspx"
+    }
+  ],
+  "bodySample": "Vị trí hiện thời Ban.TK.Nguyễn Anh Phúc Giám sát nhân viên 2 Giám sát tuyến đường 2 Lịch sử checkin 2 Tổng hợp 2 Không có bản ghi nào Xuất excel Tải lại Tổng số : 0 5 km 2 mi Bản đồ nền + −",
+  "path": {
+    "master": "patrol",
+    "page": "tai-lai",
+    "action": "page",
+    "rel": "capture/patrol/tai-lai/page"
+  }
+}

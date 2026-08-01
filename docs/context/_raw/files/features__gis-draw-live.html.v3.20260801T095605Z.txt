@@ -1,0 +1,266 @@
+# source: features/gis-draw-live.html
+# version: 3
+# scannedAt: 2026-08-01T09:56:05.362Z
+# sha256: 3fc8483629300f5bfbffce8108c53e7584f53a89eecd6eee9077f90e29ce2cd2
+# mtimeMs: 1785493213775.7722
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RMMS — Bản đồ live (vẽ thử) · Leaflet</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+<link rel="stylesheet" href="https://unpkg.com/leaflet-draw@1.0.4/dist/leaflet.draw.css" crossorigin="">
+<style>
+:root{--navy:#1e3a5f;--accent:#2563eb;--green:#0d9488;--border:#c5d0dc;--muted:#64748b}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;font-family:system-ui,sans-serif;color:#0f172a}
+.app{display:flex;flex-direction:column;height:100%}
+.hdr{display:flex;align-items:center;gap:10px;padding:0 12px;height:48px;background:linear-gradient(90deg,#1e3a5f,#0d9488);color:#fff;flex-shrink:0}
+.hdr a{color:#ccfbf1;text-decoration:none;font-size:.8rem}
+.hdr h1{font-size:.95rem;font-weight:700;flex:1}
+.tag{background:#fef3c7;color:#92400e;font-size:.65rem;font-weight:800;padding:3px 8px;border-radius:999px}
+.body{display:flex;flex:1;min-height:0}
+.side{width:300px;background:#fff;border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;overflow:auto}
+.side h3{font-size:.75rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);padding:12px 12px 6px}
+.side .box{padding:0 12px 12px}
+.radio,.check{display:flex;gap:8px;align-items:center;font-size:.82rem;padding:4px 0;cursor:pointer}
+.tree{border:1px solid var(--border);border-radius:6px;padding:6px 8px;max-height:280px;overflow:auto;background:#f8fafc}
+.main{flex:1;display:flex;flex-direction:column;min-width:0}
+#map{flex:1;min-height:320px;background:#94a3b8}
+.bar{display:flex;gap:8px;align-items:center;padding:8px 12px;background:#fff;border-bottom:1px solid var(--border);flex-wrap:wrap;font-size:.8rem}
+.bar button{padding:6px 10px;border:1px solid var(--border);border-radius:6px;background:#f1f5f9;cursor:pointer;font-size:.78rem;font-weight:600}
+.bar button.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.bar button.danger{color:#b91c1c}
+.bar .hint{color:var(--muted);margin-left:auto}
+.props{border-top:1px solid var(--border);padding:12px;background:#f8fafc}
+.props label{display:block;font-size:.72rem;color:var(--muted);margin:6px 0 3px}
+.props input, .props select, .props textarea{width:100%;padding:7px 8px;border:1px solid var(--border);border-radius:6px;font-size:.82rem}
+.props textarea{min-height:48px}
+.btn-row{display:flex;gap:8px;margin-top:10px}
+.msg{font-size:.75rem;color:var(--green);margin-top:8px;min-height:1.2em}
+.list{font-size:.78rem;padding:8px 12px;border-top:1px solid var(--border)}
+.list li{margin:4px 0;color:var(--muted)}
+.note{font-size:.72rem;color:var(--muted);padding:8px 12px;line-height:1.4;border-top:1px solid var(--border);background:#fffbeb}
+@media(max-width:860px){.side{width:240px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="hdr">
+    <a href="../tinh-nang-demo.html">← Hub</a>
+    <a href="gis-draw-google-demo.html">Mock screenshot</a>
+    <h1>Bản đồ live — vẽ Point / Line / Polygon</h1>
+    <span class="tag">Leaflet + OSM · DEMO</span>
+  </header>
+  <div class="body">
+    <aside class="side">
+      <h3>Lớp nền</h3>
+      <div class="box">
+        <label class="radio"><input type="radio" name="bm" value="osm" checked> OpenStreetMap</label>
+        <label class="radio"><input type="radio" name="bm" value="topo"> OpenTopoMap</label>
+        <label class="radio"><input type="radio" name="bm" value="sat"> Esri World Imagery</label>
+      </div>
+      <h3>Loại tài sản (target vẽ)</h3>
+      <div class="box">
+        <div class="tree" id="layers"></div>
+      </div>
+      <h3>Thuộc tính draft</h3>
+      <div class="box props" id="propBox">
+        <label>Loại</label>
+        <input id="fLayer" readonly>
+        <label>Hình học (GeoJSON)</label>
+        <textarea id="fGeom" readonly placeholder="Vẽ trên map…"></textarea>
+        <label>Mã *</label>
+        <input id="fCode" placeholder="TD-NA-001">
+        <label>Tên *</label>
+        <input id="fName" placeholder="Tên đối tượng">
+        <div class="btn-row">
+          <button type="button" class="primary" id="btnSave" style="flex:1;padding:8px;border:none;border-radius:6px;background:var(--accent);color:#fff;font-weight:600;cursor:pointer">Lưu local</button>
+          <button type="button" id="btnClear" style="padding:8px 10px;border:1px solid var(--border);border-radius:6px;cursor:pointer">Huỷ</button>
+        </div>
+        <div class="msg" id="msg"></div>
+      </div>
+      <div class="list">
+        <strong style="font-size:.75rem">Đã lưu (session)</strong>
+        <ul id="saved"></ul>
+      </div>
+      <p class="note">Cần mạng để tải tile. Production: đổi tile Google Maps JS (parity GOVOne) + <code>POST /api/v1/gis/drawings</code>. Context: <a href="../../../docs/context/features/gis-draw-google.md">gis-draw-google.md</a></p>
+    </aside>
+    <div class="main">
+      <div class="bar">
+        <button type="button" id="btnLocate">📍 Về Nghệ An</button>
+        <button type="button" id="btnExport">Export GeoJSON</button>
+        <button type="button" class="danger" id="btnWipe">Xoá hết layer</button>
+        <span class="hint">Dùng toolbar góc trái map (Leaflet.draw) · chọn icon Point/Line/Polygon</span>
+      </div>
+      <div id="map"></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZsWNBgpxnqeu5QTkmwhVm+cL4LQ=" crossorigin=""></script>
+<script src="https://unpkg.com/leaflet-draw@1.0.4/dist/leaflet.draw.js" crossorigin=""></script>
+<script>
+const LAYERS = [
+  {code:'tuyen-duong', name:'Tuyến đường', geom:'LineString'},
+  {code:'cot-km', name:'Cột km', geom:'Point'},
+  {code:'bien-bao', name:'Biển báo', geom:'Point'},
+  {code:'cau', name:'Cầu', geom:'Polygon'},
+  {code:'ho-lan', name:'Hộ lan', geom:'LineString'},
+  {code:'cong', name:'Cống', geom:'Point'},
+  {code:'ta-luy', name:'Ta luy / tường chắn', geom:'Polygon'},
+  {code:'mat-duong', name:'Đoạn mặt đường', geom:'LineString'},
+];
+let target = LAYERS[0].code;
+const layersEl = document.getElementById('layers');
+layersEl.innerHTML = LAYERS.map((l,i) =>
+  `<label class="check"><input type="radio" name="tg" value="${l.code}" ${i===0?'checked':''}> ${l.name} <small style="color:#94a3b8">(${l.geom})</small></label>`
+).join('');
+layersEl.addEventListener('change', e => {
+  if (e.target.name==='tg') {
+    target = e.target.value;
+    document.getElementById('fLayer').value = layerLabel(target);
+  }
+});
+document.getElementById('fLayer').value = layerLabel(target);
+function layerLabel(c){ const L=LAYERS.find(x=>x.code===c); return L?`${L.name} (${L.code})`:c; }
+
+const NA = [18.679, 105.681];
+const map = L.map('map', { center: NA, zoom: 11 });
+
+const tiles = {
+  osm: L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom:19, attribution:'© OpenStreetMap' }),
+  topo: L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', { maxZoom:17, attribution:'© OpenTopoMap' }),
+  sat: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { maxZoom:19, attribution:'© Esri' }),
+};
+let currentTile = tiles.osm.addTo(map);
+document.querySelectorAll('input[name=bm]').forEach(r => {
+  r.addEventListener('change', () => {
+    map.removeLayer(currentTile);
+    currentTile = tiles[r.value].addTo(map);
+  });
+});
+
+const drawn = new L.FeatureGroup().addTo(map);
+const draftLayer = new L.FeatureGroup().addTo(map);
+
+const drawControl = new L.Control.Draw({
+  position: 'topleft',
+  draw: {
+    marker: { shapeOptions: {} },
+    polyline: { shapeOptions: { color:'#f59e0b', weight:4 } },
+    polygon: { allowIntersection:false, shapeOptions: { color:'#f59e0b', fillOpacity:0.25 } },
+    rectangle: false,
+    circle: false,
+    circlemarker: false,
+  },
+  edit: { featureGroup: drawn, remove: true },
+});
+map.addControl(drawControl);
+
+let draft = null;
+let saved = JSON.parse(localStorage.getItem('rmms-gis-live') || '[]');
+
+map.on(L.Draw.Event.CREATED, e => {
+  draftLayer.clearLayers();
+  const layer = e.layer;
+  draftLayer.addLayer(layer);
+  const gj = layer.toGeoJSON();
+  draft = { layerCode: target, geometry: gj.geometry, leafletLayer: layer };
+  document.getElementById('fLayer').value = layerLabel(target);
+  document.getElementById('fGeom').value = JSON.stringify(gj.geometry, null, 2);
+  document.getElementById('fCode').value = '';
+  document.getElementById('fName').value = '';
+  document.getElementById('msg').textContent = 'Draft sẵn — nhập Mã/Tên rồi Lưu local';
+});
+
+document.getElementById('btnLocate').onclick = () => map.setView(NA, 11);
+document.getElementById('btnClear').onclick = () => {
+  draftLayer.clearLayers();
+  draft = null;
+  document.getElementById('fGeom').value = '';
+  document.getElementById('msg').textContent = '';
+};
+document.getElementById('btnSave').onclick = () => {
+  const code = document.getElementById('fCode').value.trim();
+  const name = document.getElementById('fName').value.trim();
+  if (!draft) { document.getElementById('msg').textContent = 'Chưa có geometry — vẽ trước.'; return; }
+  if (!code || !name) { document.getElementById('msg').textContent = 'Nhập Mã và Tên.'; return; }
+  const item = {
+    id: crypto.randomUUID ? crypto.randomUUID() : String(Date.now()),
+    code, name,
+    layerCode: draft.layerCode,
+    geometry: draft.geometry,
+    at: new Date().toISOString(),
+  };
+  // commit style
+  if (draft.leafletLayer.setStyle) {
+    draft.leafletLayer.setStyle({ color:'#2563eb', fillColor:'#2563eb', fillOpacity:0.25, weight:3 });
+  }
+  drawn.addLayer(draft.leafletLayer);
+  draft.leafletLayer.bindPopup(`<b>${code}</b><br>${name}<br><small>${draft.layerCode}</small>`);
+  draftLayer.clearLayers();
+  draft = null;
+  saved.push(item);
+  localStorage.setItem('rmms-gis-live', JSON.stringify(saved));
+  document.getElementById('fGeom').value = '';
+  document.getElementById('msg').textContent = 'Đã lưu → mock POST /api/v1/gis/drawings';
+  renderSaved();
+  // restore from geojson for reload persistence of drawn visuals
+  persistDrawnVisual();
+};
+
+function persistDrawnVisual(){
+  localStorage.setItem('rmms-gis-live-fc', JSON.stringify({
+    type:'FeatureCollection',
+    features: saved.map(s => ({ type:'Feature', properties:{code:s.code,name:s.name,layerCode:s.layerCode}, geometry:s.geometry }))
+  }));
+}
+
+function renderSaved(){
+  const ul = document.getElementById('saved');
+  ul.innerHTML = saved.length
+    ? saved.slice().reverse().slice(0,12).map(s => `<li><strong>${s.code}</strong> — ${s.name} · ${s.layerCode}</li>`).join('')
+    : '<li>Chưa có</li>';
+}
+
+function loadSavedOntoMap(){
+  const fc = localStorage.getItem('rmms-gis-live-fc');
+  if (!fc) return;
+  try {
+    const data = JSON.parse(fc);
+    L.geoJSON(data, {
+      style: { color:'#2563eb', weight:3, fillOpacity:0.25 },
+      pointToLayer: (f, latlng) => L.circleMarker(latlng, { radius:8, color:'#fff', fillColor:'#7c3aed', fillOpacity:1, weight:2 }),
+      onEachFeature: (f, layer) => {
+        const p = f.properties||{};
+        layer.bindPopup(`<b>${p.code||''}</b><br>${p.name||''}`);
+        drawn.addLayer(layer);
+      }
+    });
+  } catch(e) {}
+}
+
+document.getElementById('btnExport').onclick = () => {
+  const blob = new Blob([localStorage.getItem('rmms-gis-live-fc') || '{"type":"FeatureCollection","features":[]}'], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'rmms-drawings.geojson';
+  a.click();
+};
+document.getElementById('btnWipe').onclick = () => {
+  if (!confirm('Xoá toàn bộ layer đã lưu trên trình duyệt?')) return;
+  saved = [];
+  localStorage.removeItem('rmms-gis-live');
+  localStorage.removeItem('rmms-gis-live-fc');
+  drawn.clearLayers();
+  draftLayer.clearLayers();
+  renderSaved();
+};
+
+renderSaved();
+loadSavedOntoMap();
+</script>
+</body>
+</html>

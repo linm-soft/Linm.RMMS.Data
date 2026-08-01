@@ -10,7 +10,7 @@
 | **screenshot** | `screenshots/004-quan-ly-giam-sat.png` |
 | **DOM fields** | 2 |
 | **DOM labels** | 3 |
-| **DOM buttons** | 3 |
+| **DOM buttons** | 11 |
 
 ## DOM inventory (đã capture)
 
@@ -23,6 +23,14 @@
 - Ban.TK.Nguyễn Anh Phúc
 - Xuất excel
 - Tải lại
+- Vệ tinh
+- Google
+- Giao thông
+- Hành chính
+- Không nền
+- Bản đồ nền
+- +
+- −
 
 ### Inputs
 

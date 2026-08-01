@@ -1,0 +1,93 @@
+{
+  "master": "reports",
+  "capturedAt": "2026-08-01T10:31:29.207Z",
+  "count": 14,
+  "rail": [
+    {
+      "text": "Bảng tổng hợp nhanh",
+      "href": "",
+      "depth": 7,
+      "rail": "left"
+    },
+    {
+      "text": "Báo cáo tổng hợp",
+      "href": "",
+      "depth": 7,
+      "rail": "left"
+    },
+    {
+      "text": "QUẢN LÝ BẢO TRÌ",
+      "href": "",
+      "depth": 7,
+      "rail": "left"
+    },
+    {
+      "text": "Tổng hợp bảo trì",
+      "href": "",
+      "depth": 7,
+      "rail": "left"
+    },
+    {
+      "text": "Dự án bảo trì",
+      "href": "",
+      "depth": 7,
+      "rail": "left"
+    },
+    {
+      "text": "QUẢN LÝ BDTX",
+      "href": "",
+      "depth": 7,
+      "rail": "left"
+    },
+    {
+      "text": "Tuần kiểm",
+      "href": "",
+      "depth": 7,
+      "rail": "left"
+    },
+    {
+      "text": "Tuần đường",
+      "href": "",
+      "depth": 7,
+      "rail": "left"
+    },
+    {
+      "text": "Số liệu",
+      "href": "",
+      "depth": 7,
+      "rail": "left"
+    },
+    {
+      "text": "Tài liệu",
+      "href": "",
+      "depth": 7,
+      "rail": "left"
+    },
+    {
+      "text": "QUẢN TRỊ ỨNG DỤNG",
+      "href": "",
+      "depth": 7,
+      "rail": "left"
+    },
+    {
+      "text": "Phân quyền",
+      "href": "",
+      "depth": 7,
+      "rail": "left"
+    },
+    {
+      "text": "BẢO DƯỠNG THƯỜNG XUYÊN",
+      "href": "",
+      "depth": 6,
+      "rail": "left"
+    },
+    {
+      "text": "TÀI SẢN ĐƯỜNG BỘ",
+      "href": "",
+      "depth": 6,
+      "rail": "left"
+    }
+  ],
+  "tabs": [],
+  "topMenus": []
+}

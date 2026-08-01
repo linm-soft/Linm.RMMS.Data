@@ -10,7 +10,7 @@
 | **screenshot** | `screenshots/009-khai-thac-bao-cao-bang-tong-hop-nhanh.png` |
 | **DOM fields** | 0 |
 | **DOM labels** | 0 |
-| **DOM buttons** | 9 |
+| **DOM buttons** | 20 |
 
 ## DOM inventory (đã capture)
 
@@ -18,15 +18,26 @@
 - _(trống — ưu tiên đọc từ ảnh)_
 
 ### Buttons / actions
+- dropdown trigger
+- Báo cáo tổng hợp
+- Phân quyền
+- Bản đồ
+- Vấn đề
+- Giám sát
+- Hồ sơ
 - govone.vn
 - youtube
 - facebook
+- Thiết lập cỡ chữ
 - Giao diện sáng
 - Giao diện tối
-- Ban.TK.Nguyễn Anh Phúc  nguyenanhphuc.dbna@cloudgis.vn
+- Ban.TK.Nguyễn Anh Phúc nguyenanhphuc.dbna@cloudgis.vn
 - Thông tin của tôi
 - Đổi mật khẩu
 - Đăng xuất
+- CÔNG TÁC TUẦN ĐƯỜNG
+- CÔNG TÁC TUẦN KIỂM
+- CÔNG VIỆC
 
 ### Inputs
 

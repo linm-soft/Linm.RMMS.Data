@@ -1,0 +1,146 @@
+# AI Vision — BẢN ĐỒ CÔNG TRÌNH GIAO THÔNG › Bản đồ quản lý hạ tầng giao thông Nghệ An
+
+> Autogen. Agent **phải** mở ảnh + điền mục Analysis. Không chứa password.
+
+| | |
+|---|---|
+| **id** | `003-ban-o-cong-trinh-giao-thong-ban-o-quan-ly-ha-tang-giao-thong-nghe-an` |
+| **slug** | `gis-draw-google` |
+| **url** | https://pmdb.govone.vn/geditor.aspx?mapid=17384&gtoken=[REDACTED] |
+| **screenshot** | `screenshots/003-ban-o-cong-trinh-giao-thong-ban-o-quan-ly-ha-tang-giao-thong-nghe-an.png` |
+| **DOM fields** | 46 |
+| **DOM labels** | 6 |
+| **DOM buttons** | 53 |
+
+## DOM inventory (đã capture)
+
+### Labels
+- Tên bản đồ(*):
+- Loại bản đồ:
+- Mô tả:
+- Hệ tọa độ:
+- Chọn mẫu bản đồ:
+- Màu nền mặc định:
+
+### Buttons / actions
+- Lớp bản đồ
+- Chú giải
+- Thuộc tính
+- Kết quả
+- Đo diện tích
+- Đo chiều dài
+- Lấy thông tin vị trí
+- Chụp màn hình
+- Xuất bản đồ
+- In bản đồ
+- Chuẩn hóa cột Km
+- Xem hướng đoạn đường
+- Gộp đoạn đường multiline
+- Tạo đoạn đánh giá 100m
+- Gán mã đoạn đánh giá cho điểm thu thập
+- Tự động đánh giá chất lượng mặt đường
+- Danh sách thiết bị
+- Sao chép thiết bị
+- Sao chép tài sản
+- Tổng hợp
+- Hủy biên tập
+- Lưu kết quả (Ctrl + S)
+- Vệ tinh
+- Google
+- Giao thông
+- Hành chính
+- Không nền
+- Bản đồ nền
+- Biểu đồ
+- Bản đồ quản lý hạ tầng giao thông Nghệ An
+- Bản đồ
+- Mở bản đồ
+- Công cụ
+- Video Tracking
+- Phân tích không gian
+- Phân tích mạng lưới
+- Thiết kế mạng lưới
+- Tạo biểu mẫu
+- Quản lý biểu mẫu
+- Thiết lập hướng
+
+### Inputs
+
+| tag | type | name/id |
+|-----|------|---------|
+| input | button | — |
+| input | button | — |
+| input | button | — |
+| input | button | — |
+| input | button | — |
+| input | button | — |
+| input | button | — |
+| input | button | — |
+| input | button | — |
+| input | button | — |
+| input | button | — |
+| input | button | — |
+| input | button | — |
+| input | button | — |
+| input | button | — |
+| input | button | — |
+| input | button | — |
+| input | button | — |
+| input | button | — |
+| input | button | — |
+| input | button | — |
+| input | button | — |
+| input | button | — |
+| input | button | — |
+| input | button | — |
+| input | button | — |
+| input | button | — |
+| input | button | — |
+| input | button | — |
+| input | button | — |
+| input | button | — |
+| input | button | — |
+| input | text | inputDienTich |
+| input | text | inputChieuDai |
+| input | text | inputChieuDaiKhongGian |
+| input | text | inputDienTichKhongGian |
+| input | text | — |
+| input | text | gMapInputTextSearch |
+| select | — | ddlLopDuLieu |
+| input | text | tenBanDo |
+
+## Analysis (AI điền)
+
+### Màn hình / mục đích
+
+_(TODO AI)_
+
+### Vùng UI (layout zones)
+
+| Zone | Mô tả | Controls thấy trên ảnh |
+|------|-------|------------------------|
+| Header | | |
+| Filter / toolbar | | |
+| Grid / map / content | | |
+| Footer / actions | | |
+
+### Field list (từ ảnh — bổ sung DOM)
+
+| Nhãn VN | Control gợi ý | Bắt buộc? | Ghi chú |
+|---------|---------------|-----------|---------|
+| | | | |
+
+### Tính năng / hành động
+
+- 
+
+### Map → step context
+
+- Feature: `docs/context/features/gis-draw-google.md`
+- Section: `## Legacy GOVOne (auto-capture)`
+- Demo: parity UI trong `*-demo.html`
+
+## Status
+
+- [ ] Vision reviewed
+- [ ] Mapped to step context

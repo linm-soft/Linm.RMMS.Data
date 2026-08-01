@@ -1,0 +1,1195 @@
+{
+  "id": "002-ban-o-cong-trinh-giao-thong",
+  "menuText": "BẢN ĐỒ CÔNG TRÌNH GIAO THÔNG",
+  "kind": "app-tile",
+  "via": "popup",
+  "href": null,
+  "finalUrl": "https://pmdb.govone.vn/geditor.aspx?mapid=17384&gtoken=[REDACTED]",
+  "capturedAt": "2026-08-01T10:26:14.298Z",
+  "mode": "full",
+  "masterTitle": "BẢN ĐỒ CÔNG TRÌNH GIAO THÔNG",
+  "pageTitle": "_root",
+  "formSample": null,
+  "title": "Tạo bản đồ - gServer Phiên bản 2.1",
+  "headings": [
+    "Diện tích",
+    "km2",
+    "Chiều dài",
+    "km",
+    "Chiều dài:",
+    "m",
+    "Diện tích:",
+    "m2",
+    "Vệ tinh",
+    "Google",
+    "Giao thông",
+    "Hành chính",
+    "Không nền",
+    "Bản đồ nền",
+    "Bản đồ nền",
+    "Bản đồ quản lý hạ tầng giao thông Nghệ An",
+    "Danh sách ứng dụng",
+    "Xin chào: Ban.TK.Nguyễn Anh Phúc"
+  ],
+  "labels": [],
+  "fields": [
+    {
+      "tag": "input",
+      "type": "button",
+      "name": "",
+      "id": "",
+      "placeholder": "",
+      "ariaLabel": "",
+      "zone": "sidebar"
+    },
+    {
+      "tag": "input",
+      "type": "button",
+      "name": "",
+      "id": "",
+      "placeholder": "",
+      "ariaLabel": "",
+      "zone": "sidebar"
+    },
+    {
+      "tag": "input",
+      "type": "button",
+      "name": "",
+      "id": "",
+      "placeholder": "",
+      "ariaLabel": "",
+      "zone": "sidebar"
+    },
+    {
+      "tag": "input",
+      "type": "button",
+      "name": "",
+      "id": "",
+      "placeholder": "",
+      "ariaLabel": "",
+      "zone": "sidebar"
+    },
+    {
+      "tag": "input",
+      "type": "button",
+      "name": "",
+      "id": "",
+      "placeholder": "",
+      "ariaLabel": "",
+      "zone": "sidebar"
+    },
+    {
+      "tag": "input",
+      "type": "button",
+      "name": "",
+      "id": "",
+      "placeholder": "",
+      "ariaLabel": "",
+      "zone": "sidebar"
+    },
+    {
+      "tag": "input",
+      "type": "button",
+      "name": "",
+      "id": "",
+      "placeholder": "",
+      "ariaLabel": "",
+      "zone": "sidebar"
+    },
+    {
+      "tag": "input",
+      "type": "button",
+      "name": "",
+      "id": "",
+      "placeholder": "",
+      "ariaLabel": "",
+      "zone": "sidebar"
+    },
+    {
+      "tag": "input",
+      "type": "button",
+      "name": "",
+      "id": "",
+      "placeholder": "",
+      "ariaLabel": "",
+      "zone": "sidebar"
+    },
+    {
+      "tag": "input",
+      "type": "button",
+      "name": "",
+      "id": "",
+      "placeholder": "",
+      "ariaLabel": "",
+      "zone": "sidebar"
+    },
+    {
+      "tag": "input",
+      "type": "button",
+      "name": "",
+      "id": "",
+      "placeholder": "",
+      "ariaLabel": "",
+      "zone": "sidebar"
+    },
+    {
+      "tag": "input",
+      "type": "button",
+      "name": "",
+      "id": "",
+      "placeholder": "",
+      "ariaLabel": "",
+      "zone": "sidebar"
+    },
+    {
+      "tag": "input",
+      "type": "button",
+      "name": "",
+      "id": "",
+      "placeholder": "",
+      "ariaLabel": "",
+      "zone": "sidebar"
+    },
+    {
+      "tag": "input",
+      "type": "button",
+      "name": "",
+      "id": "",
+      "placeholder": "",
+      "ariaLabel": "",
+      "zone": "sidebar"
+    },
+    {
+      "tag": "input",
+      "type": "button",
+      "name": "",
+      "id": "",
+      "placeholder": "",
+      "ariaLabel": "",
+      "zone": "sidebar"
+    },
+    {
+      "tag": "input",
+      "type": "button",
+      "name": "",
+      "id": "",
+      "placeholder": "",
+      "ariaLabel": "",
+      "zone": "sidebar"
+    },
+    {
+      "tag": "input",
+      "type": "button",
+      "name": "",
+      "id": "",
+      "placeholder": "",
+      "ariaLabel": "",
+      "zone": "sidebar"
+    },
+    {
+      "tag": "input",
+      "type": "button",
+      "name": "",
+      "id": "",
+      "placeholder": "",
+      "ariaLabel": "",
+      "zone": "sidebar"
+    },
+    {
+      "tag": "input",
+      "type": "button",
+      "name": "",
+      "id": "",
+      "placeholder": "",
+      "ariaLabel": "",
+      "zone": "sidebar"
+    },
+    {
+      "tag": "input",
+      "type": "button",
+      "name": "",
+      "id": "",
+      "placeholder": "",
+      "ariaLabel": "",
+      "zone": "sidebar"
+    },
+    {
+      "tag": "input",
+      "type": "button",
+      "name": "",
+      "id": "",
+      "placeholder": "",
+      "ariaLabel": "",
+      "zone": "sidebar"
+    },
+    {
+      "tag": "input",
+      "type": "button",
+      "name": "",
+      "id": "",
+      "placeholder": "",
+      "ariaLabel": "",
+      "zone": "sidebar"
+    },
+    {
+      "tag": "input",
+      "type": "button",
+      "name": "",
+      "id": "",
+      "placeholder": "",
+      "ariaLabel": "",
+      "zone": "sidebar"
+    },
+    {
+      "tag": "input",
+      "type": "button",
+      "name": "",
+      "id": "",
+      "placeholder": "",
+      "ariaLabel": "",
+      "zone": "sidebar"
+    },
+    {
+      "tag": "input",
+      "type": "button",
+      "name": "",
+      "id": "",
+      "placeholder": "",
+      "ariaLabel": "",
+      "zone": "sidebar"
+    },
+    {
+      "tag": "input",
+      "type": "button",
+      "name": "",
+      "id": "",
+      "placeholder": "",
+      "ariaLabel": "",
+      "zone": "sidebar"
+    },
+    {
+      "tag": "input",
+      "type": "button",
+      "name": "",
+      "id": "",
+      "placeholder": "",
+      "ariaLabel": "",
+      "zone": "sidebar"
+    },
+    {
+      "tag": "input",
+      "type": "button",
+      "name": "",
+      "id": "",
+      "placeholder": "",
+      "ariaLabel": "",
+      "zone": "sidebar"
+    },
+    {
+      "tag": "input",
+      "type": "button",
+      "name": "",
+      "id": "",
+      "placeholder": "",
+      "ariaLabel": "",
+      "zone": "sidebar"
+    },
+    {
+      "tag": "input",
+      "type": "button",
+      "name": "",
+      "id": "",
+      "placeholder": "",
+      "ariaLabel": "",
+      "zone": "sidebar"
+    },
+    {
+      "tag": "input",
+      "type": "button",
+      "name": "",
+      "id": "",
+      "placeholder": "",
+      "ariaLabel": "",
+      "zone": "sidebar"
+    },
+    {
+      "tag": "input",
+      "type": "button",
+      "name": "",
+      "id": "",
+      "placeholder": "",
+      "ariaLabel": "",
+      "zone": "sidebar"
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "",
+      "id": "inputDienTich",
+      "placeholder": "",
+      "ariaLabel": "",
+      "zone": "content"
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "",
+      "id": "inputChieuDai",
+      "placeholder": "",
+      "ariaLabel": "",
+      "zone": "content"
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "",
+      "id": "inputChieuDaiKhongGian",
+      "placeholder": "",
+      "ariaLabel": "",
+      "zone": "content"
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "",
+      "id": "inputDienTichKhongGian",
+      "placeholder": "",
+      "ariaLabel": "",
+      "zone": "content"
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "",
+      "id": "",
+      "placeholder": "Nhập thông tin đối tượng...",
+      "ariaLabel": "",
+      "zone": "header"
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "",
+      "id": "gMapInputTextSearch",
+      "placeholder": "Nhập thông tin đối tượng...",
+      "ariaLabel": "",
+      "zone": "header"
+    },
+    {
+      "tag": "select",
+      "type": "",
+      "name": "",
+      "id": "ddlLopDuLieu",
+      "placeholder": "",
+      "ariaLabel": "",
+      "zone": "toolbar"
+    }
+  ],
+  "buttons": [
+    "Lớp bản đồ",
+    "Chú giải",
+    "Thuộc tính",
+    "Kết quả",
+    "Đo diện tích",
+    "Đo chiều dài",
+    "Lấy thông tin vị trí",
+    "Chụp màn hình",
+    "Xuất bản đồ",
+    "In bản đồ",
+    "Chuẩn hóa cột Km",
+    "Xem hướng đoạn đường",
+    "Gộp đoạn đường multiline",
+    "Tạo đoạn đánh giá 100m",
+    "Gán mã đoạn đánh giá cho điểm thu thập",
+    "Tự động đánh giá chất lượng mặt đường",
+    "Danh sách thiết bị",
+    "Sao chép thiết bị",
+    "Sao chép tài sản",
+    "Tổng hợp",
+    "Hủy biên tập",
+    "Lưu kết quả (Ctrl + S)",
+    "Vệ tinh",
+    "Google",
+    "Giao thông",
+    "Hành chính",
+    "Không nền",
+    "Bản đồ nền",
+    "Biểu đồ",
+    "Bản đồ quản lý hạ tầng giao thông Nghệ An",
+    "Bản đồ",
+    "Mở bản đồ",
+    "Công cụ",
+    "Video Tracking",
+    "Phân tích không gian",
+    "Phân tích mạng lưới",
+    "Thiết kế mạng lưới",
+    "Tạo biểu mẫu",
+    "Quản lý biểu mẫu",
+    "Thiết lập hướng",
+    "Tìm kiếm",
+    "Về trang chủ",
+    "Hồ sơ của tôi",
+    "Đăng xuất"
+  ],
+  "actions": [
+    {
+      "label": "Lớp bản đồ",
+      "kind": "action",
+      "zone": "grid",
+      "tag": "button",
+      "type": "button",
+      "href": "",
+      "id": "tab-1016-btnEl",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Chú giải",
+      "kind": "action",
+      "zone": "grid",
+      "tag": "button",
+      "type": "button",
+      "href": "",
+      "id": "tab-1017-btnEl",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Thuộc tính",
+      "kind": "action",
+      "zone": "grid",
+      "tag": "button",
+      "type": "button",
+      "href": "",
+      "id": "tab-1018-btnEl",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Kết quả",
+      "kind": "action",
+      "zone": "grid",
+      "tag": "button",
+      "type": "button",
+      "href": "",
+      "id": "tab-1019-btnEl",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Đo diện tích",
+      "kind": "nav",
+      "zone": "toolbar",
+      "tag": "a",
+      "type": "",
+      "href": "#",
+      "id": "btTienIchDoDienTich",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Đo chiều dài",
+      "kind": "nav",
+      "zone": "toolbar",
+      "tag": "a",
+      "type": "",
+      "href": "#",
+      "id": "btTienIchDoChieuDai",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Lấy thông tin vị trí",
+      "kind": "export",
+      "zone": "toolbar",
+      "tag": "a",
+      "type": "",
+      "href": "#",
+      "id": "btTienIchThongTinDiem",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Chụp màn hình",
+      "kind": "nav",
+      "zone": "toolbar",
+      "tag": "a",
+      "type": "",
+      "href": "#",
+      "id": "btnScreenMap",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Xuất bản đồ",
+      "kind": "export",
+      "zone": "toolbar",
+      "tag": "a",
+      "type": "",
+      "href": "#",
+      "id": "btnExportMap",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "In bản đồ",
+      "kind": "export",
+      "zone": "toolbar",
+      "tag": "a",
+      "type": "",
+      "href": "#",
+      "id": "btnPrintMap",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Chuẩn hóa cột Km",
+      "kind": "nav",
+      "zone": "toolbar",
+      "tag": "a",
+      "type": "",
+      "href": "#",
+      "id": "btChuanHoaCotKm",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Xem hướng đoạn đường",
+      "kind": "view",
+      "zone": "toolbar",
+      "tag": "a",
+      "type": "",
+      "href": "#",
+      "id": "btXemHuongDoanDuong",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Gộp đoạn đường multiline",
+      "kind": "nav",
+      "zone": "toolbar",
+      "tag": "a",
+      "type": "",
+      "href": "#",
+      "id": "btGopDoanDuong",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Tạo đoạn đánh giá 100m",
+      "kind": "create",
+      "zone": "toolbar",
+      "tag": "a",
+      "type": "",
+      "href": "#",
+      "id": "btTaoDoan100m",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Gán mã đoạn đánh giá cho điểm thu thập",
+      "kind": "nav",
+      "zone": "toolbar",
+      "tag": "a",
+      "type": "",
+      "href": "#",
+      "id": "btGanMaDoanDanhGia",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Tự động đánh giá chất lượng mặt đường",
+      "kind": "nav",
+      "zone": "toolbar",
+      "tag": "a",
+      "type": "",
+      "href": "#",
+      "id": "btTinhToanCLMD",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Danh sách thiết bị",
+      "kind": "nav",
+      "zone": "toolbar",
+      "tag": "a",
+      "type": "",
+      "href": "#",
+      "id": "toolThietBi",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Sao chép thiết bị",
+      "kind": "nav",
+      "zone": "toolbar",
+      "tag": "a",
+      "type": "",
+      "href": "#",
+      "id": "toolSaoChepThietBi",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Sao chép tài sản",
+      "kind": "nav",
+      "zone": "toolbar",
+      "tag": "a",
+      "type": "",
+      "href": "#",
+      "id": "toolSaoChepTaiSanFM",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Tổng hợp",
+      "kind": "nav",
+      "zone": "toolbar",
+      "tag": "a",
+      "type": "",
+      "href": "#",
+      "id": "toolTongHopThietBi",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Hủy biên tập",
+      "kind": "destructive",
+      "zone": "toolbar",
+      "tag": "a",
+      "type": "",
+      "href": "#",
+      "id": "resetEditing",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Lưu kết quả (Ctrl + S)",
+      "kind": "submit",
+      "zone": "toolbar",
+      "tag": "a",
+      "type": "",
+      "href": "#",
+      "id": "saveEditing",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Vệ tinh",
+      "kind": "nav",
+      "zone": "content",
+      "tag": "a",
+      "type": "",
+      "href": "#",
+      "id": "",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Google",
+      "kind": "nav",
+      "zone": "content",
+      "tag": "a",
+      "type": "",
+      "href": "#",
+      "id": "",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Giao thông",
+      "kind": "nav",
+      "zone": "content",
+      "tag": "a",
+      "type": "",
+      "href": "#",
+      "id": "",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Hành chính",
+      "kind": "nav",
+      "zone": "content",
+      "tag": "a",
+      "type": "",
+      "href": "#",
+      "id": "",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Không nền",
+      "kind": "nav",
+      "zone": "content",
+      "tag": "a",
+      "type": "",
+      "href": "#",
+      "id": "",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Bản đồ nền",
+      "kind": "nav",
+      "zone": "footer",
+      "tag": "a",
+      "type": "",
+      "href": "#",
+      "id": "",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Biểu đồ",
+      "kind": "action",
+      "zone": "grid",
+      "tag": "button",
+      "type": "button",
+      "href": "",
+      "id": "tab-1026-btnEl",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Bản đồ quản lý hạ tầng giao thông Nghệ An",
+      "kind": "nav",
+      "zone": "toolbar",
+      "tag": "a",
+      "type": "",
+      "href": "",
+      "id": "",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Bản đồ",
+      "kind": "action",
+      "zone": "toolbar",
+      "tag": "li",
+      "type": "",
+      "href": "",
+      "id": "",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Mở bản đồ",
+      "kind": "nav",
+      "zone": "toolbar",
+      "tag": "a",
+      "type": "",
+      "href": "",
+      "id": "geditor_OpenMap",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Công cụ",
+      "kind": "action",
+      "zone": "toolbar",
+      "tag": "li",
+      "type": "",
+      "href": "",
+      "id": "tool_congcu",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Video Tracking",
+      "kind": "nav",
+      "zone": "toolbar",
+      "tag": "a",
+      "type": "",
+      "href": "#",
+      "id": "g-tools-videotracking",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Phân tích không gian",
+      "kind": "nav",
+      "zone": "toolbar",
+      "tag": "a",
+      "type": "",
+      "href": "#",
+      "id": "g-tools-analytics",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Phân tích mạng lưới",
+      "kind": "nav",
+      "zone": "toolbar",
+      "tag": "a",
+      "type": "",
+      "href": "#",
+      "id": "g-tools-network",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Thiết kế mạng lưới",
+      "kind": "nav",
+      "zone": "toolbar",
+      "tag": "a",
+      "type": "",
+      "href": "#",
+      "id": "g-tools-network-design",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Tạo biểu mẫu",
+      "kind": "create",
+      "zone": "toolbar",
+      "tag": "a",
+      "type": "",
+      "href": "#",
+      "id": "g-tools-create-form",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Quản lý biểu mẫu",
+      "kind": "nav",
+      "zone": "toolbar",
+      "tag": "a",
+      "type": "",
+      "href": "#",
+      "id": "g-tools-form",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Thiết lập hướng",
+      "kind": "nav",
+      "zone": "toolbar",
+      "tag": "a",
+      "type": "",
+      "href": "#",
+      "id": "g-tools-direction",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Tìm kiếm",
+      "kind": "filter",
+      "zone": "toolbar",
+      "tag": "li",
+      "type": "",
+      "href": "",
+      "id": "divAdvanceSearch",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Về trang chủ",
+      "kind": "nav",
+      "zone": "header",
+      "tag": "a",
+      "type": "",
+      "href": "/apps.aspx",
+      "id": "",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Hồ sơ của tôi",
+      "kind": "nav",
+      "zone": "header",
+      "tag": "a",
+      "type": "",
+      "href": "/Secure/UserProfile.aspx",
+      "id": "",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Đăng xuất",
+      "kind": "export",
+      "zone": "header",
+      "tag": "a",
+      "type": "",
+      "href": "/Logoff.aspx",
+      "id": "",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    }
+  ],
+  "actionsByZone": {
+    "grid": [
+      "Lớp bản đồ",
+      "Chú giải",
+      "Thuộc tính",
+      "Kết quả",
+      "Biểu đồ"
+    ],
+    "toolbar": [
+      "Đo diện tích",
+      "Đo chiều dài",
+      "Lấy thông tin vị trí",
+      "Chụp màn hình",
+      "Xuất bản đồ",
+      "In bản đồ",
+      "Chuẩn hóa cột Km",
+      "Xem hướng đoạn đường",
+      "Gộp đoạn đường multiline",
+      "Tạo đoạn đánh giá 100m",
+      "Gán mã đoạn đánh giá cho điểm thu thập",
+      "Tự động đánh giá chất lượng mặt đường",
+      "Danh sách thiết bị",
+      "Sao chép thiết bị",
+      "Sao chép tài sản",
+      "Tổng hợp",
+      "Hủy biên tập",
+      "Lưu kết quả (Ctrl + S)",
+      "Bản đồ quản lý hạ tầng giao thông Nghệ An",
+      "Bản đồ",
+      "Mở bản đồ",
+      "Công cụ",
+      "Video Tracking",
+      "Phân tích không gian",
+      "Phân tích mạng lưới",
+      "Thiết kế mạng lưới",
+      "Tạo biểu mẫu",
+      "Quản lý biểu mẫu",
+      "Thiết lập hướng",
+      "Tìm kiếm"
+    ],
+    "content": [
+      "Vệ tinh",
+      "Google",
+      "Giao thông",
+      "Hành chính",
+      "Không nền"
+    ],
+    "footer": [
+      "Bản đồ nền"
+    ],
+    "header": [
+      "Về trang chủ",
+      "Hồ sơ của tôi",
+      "Đăng xuất"
+    ]
+  },
+  "actionCount": 44,
+  "tableHeaders": [],
+  "navHints": [
+    {
+      "text": "Đo diện tích",
+      "href": "https://pmdb.govone.vn/geditor.aspx?mapid=17384&gtoken=3C6AEDCD5466CDB2981F82B9C4833820C574E303FC55F654862447D2CABD13D434138B887395E9163A6579B8EE1BC9E19EAE1B76A3C0518D80643332AF375DD001A51B65F06F92C3AEC84F579215B5449CFAD3532298D5EAE85222C0804FC63628CE6EBA#"
+    },
+    {
+      "text": "Đo chiều dài",
+      "href": "https://pmdb.govone.vn/geditor.aspx?mapid=17384&gtoken=3C6AEDCD5466CDB2981F82B9C4833820C574E303FC55F654862447D2CABD13D434138B887395E9163A6579B8EE1BC9E19EAE1B76A3C0518D80643332AF375DD001A51B65F06F92C3AEC84F579215B5449CFAD3532298D5EAE85222C0804FC63628CE6EBA#"
+    },
+    {
+      "text": "Lấy thông tin vị trí",
+      "href": "https://pmdb.govone.vn/geditor.aspx?mapid=17384&gtoken=3C6AEDCD5466CDB2981F82B9C4833820C574E303FC55F654862447D2CABD13D434138B887395E9163A6579B8EE1BC9E19EAE1B76A3C0518D80643332AF375DD001A51B65F06F92C3AEC84F579215B5449CFAD3532298D5EAE85222C0804FC63628CE6EBA#"
+    },
+    {
+      "text": "Chụp màn hình",
+      "href": "https://pmdb.govone.vn/geditor.aspx?mapid=17384&gtoken=3C6AEDCD5466CDB2981F82B9C4833820C574E303FC55F654862447D2CABD13D434138B887395E9163A6579B8EE1BC9E19EAE1B76A3C0518D80643332AF375DD001A51B65F06F92C3AEC84F579215B5449CFAD3532298D5EAE85222C0804FC63628CE6EBA#"
+    },
+    {
+      "text": "Xuất bản đồ",
+      "href": "https://pmdb.govone.vn/geditor.aspx?mapid=17384&gtoken=3C6AEDCD5466CDB2981F82B9C4833820C574E303FC55F654862447D2CABD13D434138B887395E9163A6579B8EE1BC9E19EAE1B76A3C0518D80643332AF375DD001A51B65F06F92C3AEC84F579215B5449CFAD3532298D5EAE85222C0804FC63628CE6EBA#"
+    },
+    {
+      "text": "In bản đồ",
+      "href": "https://pmdb.govone.vn/geditor.aspx?mapid=17384&gtoken=3C6AEDCD5466CDB2981F82B9C4833820C574E303FC55F654862447D2CABD13D434138B887395E9163A6579B8EE1BC9E19EAE1B76A3C0518D80643332AF375DD001A51B65F06F92C3AEC84F579215B5449CFAD3532298D5EAE85222C0804FC63628CE6EBA#"
+    },
+    {
+      "text": "Chuẩn hóa cột Km",
+      "href": "https://pmdb.govone.vn/geditor.aspx?mapid=17384&gtoken=3C6AEDCD5466CDB2981F82B9C4833820C574E303FC55F654862447D2CABD13D434138B887395E9163A6579B8EE1BC9E19EAE1B76A3C0518D80643332AF375DD001A51B65F06F92C3AEC84F579215B5449CFAD3532298D5EAE85222C0804FC63628CE6EBA#"
+    },
+    {
+      "text": "Xem hướng đoạn đường",
+      "href": "https://pmdb.govone.vn/geditor.aspx?mapid=17384&gtoken=3C6AEDCD5466CDB2981F82B9C4833820C574E303FC55F654862447D2CABD13D434138B887395E9163A6579B8EE1BC9E19EAE1B76A3C0518D80643332AF375DD001A51B65F06F92C3AEC84F579215B5449CFAD3532298D5EAE85222C0804FC63628CE6EBA#"
+    },
+    {
+      "text": "Gộp đoạn đường multiline",
+      "href": "https://pmdb.govone.vn/geditor.aspx?mapid=17384&gtoken=3C6AEDCD5466CDB2981F82B9C4833820C574E303FC55F654862447D2CABD13D434138B887395E9163A6579B8EE1BC9E19EAE1B76A3C0518D80643332AF375DD001A51B65F06F92C3AEC84F579215B5449CFAD3532298D5EAE85222C0804FC63628CE6EBA#"
+    },
+    {
+      "text": "Tạo đoạn đánh giá 100m",
+      "href": "https://pmdb.govone.vn/geditor.aspx?mapid=17384&gtoken=3C6AEDCD5466CDB2981F82B9C4833820C574E303FC55F654862447D2CABD13D434138B887395E9163A6579B8EE1BC9E19EAE1B76A3C0518D80643332AF375DD001A51B65F06F92C3AEC84F579215B5449CFAD3532298D5EAE85222C0804FC63628CE6EBA#"
+    },
+    {
+      "text": "Gán mã đoạn đánh giá cho điểm thu thập",
+      "href": "https://pmdb.govone.vn/geditor.aspx?mapid=17384&gtoken=3C6AEDCD5466CDB2981F82B9C4833820C574E303FC55F654862447D2CABD13D434138B887395E9163A6579B8EE1BC9E19EAE1B76A3C0518D80643332AF375DD001A51B65F06F92C3AEC84F579215B5449CFAD3532298D5EAE85222C0804FC63628CE6EBA#"
+    },
+    {
+      "text": "Tự động đánh giá chất lượng mặt đường",
+      "href": "https://pmdb.govone.vn/geditor.aspx?mapid=17384&gtoken=3C6AEDCD5466CDB2981F82B9C4833820C574E303FC55F654862447D2CABD13D434138B887395E9163A6579B8EE1BC9E19EAE1B76A3C0518D80643332AF375DD001A51B65F06F92C3AEC84F579215B5449CFAD3532298D5EAE85222C0804FC63628CE6EBA#"
+    },
+    {
+      "text": "Danh sách thiết bị",
+      "href": "https://pmdb.govone.vn/geditor.aspx?mapid=17384&gtoken=3C6AEDCD5466CDB2981F82B9C4833820C574E303FC55F654862447D2CABD13D434138B887395E9163A6579B8EE1BC9E19EAE1B76A3C0518D80643332AF375DD001A51B65F06F92C3AEC84F579215B5449CFAD3532298D5EAE85222C0804FC63628CE6EBA#"
+    },
+    {
+      "text": "Sao chép thiết bị",
+      "href": "https://pmdb.govone.vn/geditor.aspx?mapid=17384&gtoken=3C6AEDCD5466CDB2981F82B9C4833820C574E303FC55F654862447D2CABD13D434138B887395E9163A6579B8EE1BC9E19EAE1B76A3C0518D80643332AF375DD001A51B65F06F92C3AEC84F579215B5449CFAD3532298D5EAE85222C0804FC63628CE6EBA#"
+    },
+    {
+      "text": "Sao chép tài sản",
+      "href": "https://pmdb.govone.vn/geditor.aspx?mapid=17384&gtoken=3C6AEDCD5466CDB2981F82B9C4833820C574E303FC55F654862447D2CABD13D434138B887395E9163A6579B8EE1BC9E19EAE1B76A3C0518D80643332AF375DD001A51B65F06F92C3AEC84F579215B5449CFAD3532298D5EAE85222C0804FC63628CE6EBA#"
+    },
+    {
+      "text": "Tổng hợp",
+      "href": "https://pmdb.govone.vn/geditor.aspx?mapid=17384&gtoken=3C6AEDCD5466CDB2981F82B9C4833820C574E303FC55F654862447D2CABD13D434138B887395E9163A6579B8EE1BC9E19EAE1B76A3C0518D80643332AF375DD001A51B65F06F92C3AEC84F579215B5449CFAD3532298D5EAE85222C0804FC63628CE6EBA#"
+    },
+    {
+      "text": "Hủy biên tập",
+      "href": "https://pmdb.govone.vn/geditor.aspx?mapid=17384&gtoken=3C6AEDCD5466CDB2981F82B9C4833820C574E303FC55F654862447D2CABD13D434138B887395E9163A6579B8EE1BC9E19EAE1B76A3C0518D80643332AF375DD001A51B65F06F92C3AEC84F579215B5449CFAD3532298D5EAE85222C0804FC63628CE6EBA#"
+    },
+    {
+      "text": "Lưu kết quả (Ctrl + S)",
+      "href": "https://pmdb.govone.vn/geditor.aspx?mapid=17384&gtoken=3C6AEDCD5466CDB2981F82B9C4833820C574E303FC55F654862447D2CABD13D434138B887395E9163A6579B8EE1BC9E19EAE1B76A3C0518D80643332AF375DD001A51B65F06F92C3AEC84F579215B5449CFAD3532298D5EAE85222C0804FC63628CE6EBA#"
+    },
+    {
+      "text": "Mở bản đồ",
+      "href": ""
+    },
+    {
+      "text": "Video Tracking",
+      "href": "https://pmdb.govone.vn/geditor.aspx?mapid=17384&gtoken=3C6AEDCD5466CDB2981F82B9C4833820C574E303FC55F654862447D2CABD13D434138B887395E9163A6579B8EE1BC9E19EAE1B76A3C0518D80643332AF375DD001A51B65F06F92C3AEC84F579215B5449CFAD3532298D5EAE85222C0804FC63628CE6EBA#"
+    },
+    {
+      "text": "Phân tích không gian",
+      "href": "https://pmdb.govone.vn/geditor.aspx?mapid=17384&gtoken=3C6AEDCD5466CDB2981F82B9C4833820C574E303FC55F654862447D2CABD13D434138B887395E9163A6579B8EE1BC9E19EAE1B76A3C0518D80643332AF375DD001A51B65F06F92C3AEC84F579215B5449CFAD3532298D5EAE85222C0804FC63628CE6EBA#"
+    },
+    {
+      "text": "Phân tích mạng lưới",
+      "href": "https://pmdb.govone.vn/geditor.aspx?mapid=17384&gtoken=3C6AEDCD5466CDB2981F82B9C4833820C574E303FC55F654862447D2CABD13D434138B887395E9163A6579B8EE1BC9E19EAE1B76A3C0518D80643332AF375DD001A51B65F06F92C3AEC84F579215B5449CFAD3532298D5EAE85222C0804FC63628CE6EBA#"
+    },
+    {
+      "text": "Thiết kế mạng lưới",
+      "href": "https://pmdb.govone.vn/geditor.aspx?mapid=17384&gtoken=3C6AEDCD5466CDB2981F82B9C4833820C574E303FC55F654862447D2CABD13D434138B887395E9163A6579B8EE1BC9E19EAE1B76A3C0518D80643332AF375DD001A51B65F06F92C3AEC84F579215B5449CFAD3532298D5EAE85222C0804FC63628CE6EBA#"
+    },
+    {
+      "text": "Tạo biểu mẫu",
+      "href": "https://pmdb.govone.vn/geditor.aspx?mapid=17384&gtoken=3C6AEDCD5466CDB2981F82B9C4833820C574E303FC55F654862447D2CABD13D434138B887395E9163A6579B8EE1BC9E19EAE1B76A3C0518D80643332AF375DD001A51B65F06F92C3AEC84F579215B5449CFAD3532298D5EAE85222C0804FC63628CE6EBA#"
+    },
+    {
+      "text": "Quản lý biểu mẫu",
+      "href": "https://pmdb.govone.vn/geditor.aspx?mapid=17384&gtoken=3C6AEDCD5466CDB2981F82B9C4833820C574E303FC55F654862447D2CABD13D434138B887395E9163A6579B8EE1BC9E19EAE1B76A3C0518D80643332AF375DD001A51B65F06F92C3AEC84F579215B5449CFAD3532298D5EAE85222C0804FC63628CE6EBA#"
+    },
+    {
+      "text": "Thiết lập hướng",
+      "href": "https://pmdb.govone.vn/geditor.aspx?mapid=17384&gtoken=3C6AEDCD5466CDB2981F82B9C4833820C574E303FC55F654862447D2CABD13D434138B887395E9163A6579B8EE1BC9E19EAE1B76A3C0518D80643332AF375DD001A51B65F06F92C3AEC84F579215B5449CFAD3532298D5EAE85222C0804FC63628CE6EBA#"
+    },
+    {
+      "text": "Về trang chủ",
+      "href": "https://pmdb.govone.vn/apps.aspx"
+    },
+    {
+      "text": "Ban.TK.Nguyễn Anh Phúc",
+      "href": ""
+    },
+    {
+      "text": "Hồ sơ của tôi",
+      "href": "https://pmdb.govone.vn/Secure/UserProfile.aspx"
+    },
+    {
+      "text": "Đăng xuất",
+      "href": "https://pmdb.govone.vn/Logoff.aspx"
+    }
+  ],
+  "bodySample": "Lớp bản đồ Chú giải Thuộc tính Kết quả Lớp nền Hành chính Giao thông Google Vệ tinh Không nền Lớp chuyên đề Lớp tài sản Tuyến đường Cột km Cột H Điểm đấu nối Đinh phản quang Tà luy Vạch kẻ đường Gồ, gờ giảm tốc Tường chắn Cọc thủy chí Cầu Hộ lan Biển báo Đoạn cọc tiêu Đinh phản quang Gồ, gờ giảm tốc Cống Mốc lộ giới Rãnh đỉnh Nền, lề đường Kết cấu mặt đường Rãnh dọc Đoạn đường Lớp bảo trì Gói bảo trì theo tuyến Gói bảo trì - đoạn lý trình Lớp dữ liệu 20 km 10 mi Bản đồ nền Danh sách biểu đồ Bản đồ quản lý hạ tầng giao thông Nghệ An Bản đồ Công cụ Tìm kiếm",
+  "path": {
+    "master": "gis-draw-google",
+    "page": "root",
+    "action": "view",
+    "rel": "capture/gis-draw-google/root/view"
+  }
+}

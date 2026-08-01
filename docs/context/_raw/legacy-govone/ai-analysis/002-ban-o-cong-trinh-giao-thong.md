@@ -10,7 +10,7 @@
 | **screenshot** | `screenshots/002-ban-o-cong-trinh-giao-thong.png` |
 | **DOM fields** | 39 |
 | **DOM labels** | 0 |
-| **DOM buttons** | 26 |
+| **DOM buttons** | 44 |
 
 ## DOM inventory (đã capture)
 
@@ -40,10 +40,24 @@
 - Tổng hợp
 - Hủy biên tập
 - Lưu kết quả (Ctrl + S)
+- Vệ tinh
+- Google
+- Giao thông
+- Hành chính
+- Không nền
+- Bản đồ nền
 - Biểu đồ
+- Bản đồ quản lý hạ tầng giao thông Nghệ An
 - Bản đồ
+- Mở bản đồ
 - Công cụ
-- Tìm kiếm
+- Video Tracking
+- Phân tích không gian
+- Phân tích mạng lưới
+- Thiết kế mạng lưới
+- Tạo biểu mẫu
+- Quản lý biểu mẫu
+- Thiết lập hướng
 
 ### Inputs
 

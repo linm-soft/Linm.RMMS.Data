@@ -1,0 +1,438 @@
+{
+  "id": "025-so-tai-san-24",
+  "menuText": "SỔ TÀI SẢN › 24 › +",
+  "kind": "form-sample",
+  "via": "create",
+  "href": null,
+  "finalUrl": "https://pmdb.govone.vn/ketcauhatang.aspx#pnltaisan",
+  "capturedAt": "2026-08-01T10:02:20.703Z",
+  "mode": "full",
+  "masterTitle": "SỔ TÀI SẢN",
+  "pageTitle": "24",
+  "formSample": {
+    "trigger": "+",
+    "labels": [
+      "Lý trình từ:",
+      "Lý trình đến:"
+    ],
+    "fields": [
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "textfield-1033-inputEl",
+        "id": "textfield-1033-inputEl",
+        "placeholder": "Nhập và Enter để lọc dữ liệu",
+        "ariaLabel": "",
+        "zone": "toolbar"
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "textfield-1079-inputEl",
+        "id": "textfield-1079-inputEl",
+        "placeholder": "vd: km1+100",
+        "ariaLabel": "",
+        "zone": "toolbar"
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "textfield-1080-inputEl",
+        "id": "textfield-1080-inputEl",
+        "placeholder": "vd: km5+100",
+        "ariaLabel": "",
+        "zone": "toolbar"
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "inputItem",
+        "id": "numberfield-1104-inputEl",
+        "placeholder": "",
+        "ariaLabel": "",
+        "zone": "toolbar"
+      }
+    ],
+    "actions": [
+      {
+        "label": "24",
+        "kind": "nav",
+        "zone": "toolbar",
+        "tag": "a",
+        "type": "",
+        "href": "",
+        "id": "idbadgeGiamSat",
+        "name": "",
+        "title": "",
+        "disabled": false,
+        "hasOnClick": false
+      },
+      {
+        "label": "Ban.TK.Nguyễn Anh Phúc",
+        "kind": "nav",
+        "zone": "toolbar",
+        "tag": "a",
+        "type": "",
+        "href": "",
+        "id": "button-1017",
+        "name": "",
+        "title": "",
+        "disabled": false,
+        "hasOnClick": false
+      },
+      {
+        "label": "Tiện ích",
+        "kind": "nav",
+        "zone": "toolbar",
+        "tag": "a",
+        "type": "",
+        "href": "",
+        "id": "button-1070",
+        "name": "",
+        "title": "",
+        "disabled": false,
+        "hasOnClick": false
+      },
+      {
+        "label": "Xóa điều kiện",
+        "kind": "destructive",
+        "zone": "grid",
+        "tag": "a",
+        "type": "",
+        "href": "",
+        "id": "button-1083",
+        "name": "",
+        "title": "",
+        "disabled": false,
+        "hasOnClick": false
+      },
+      {
+        "label": "Lấy dữ liệu",
+        "kind": "nav",
+        "zone": "grid",
+        "tag": "a",
+        "type": "",
+        "href": "",
+        "id": "button-1084",
+        "name": "",
+        "title": "",
+        "disabled": false,
+        "hasOnClick": false
+      },
+      {
+        "label": "+",
+        "kind": "create",
+        "zone": "grid",
+        "tag": "button",
+        "type": "button",
+        "href": "",
+        "id": "",
+        "name": "",
+        "title": "Zoom in",
+        "disabled": false,
+        "hasOnClick": false
+      },
+      {
+        "label": "−",
+        "kind": "action",
+        "zone": "grid",
+        "tag": "button",
+        "type": "button",
+        "href": "",
+        "id": "",
+        "name": "",
+        "title": "Zoom out",
+        "disabled": false,
+        "hasOnClick": false
+      },
+      {
+        "label": "⇧",
+        "kind": "action",
+        "zone": "grid",
+        "tag": "button",
+        "type": "button",
+        "href": "",
+        "id": "",
+        "name": "",
+        "title": "Reset rotation",
+        "disabled": false,
+        "hasOnClick": false
+      },
+      {
+        "label": "Vị trí của tôi",
+        "kind": "action",
+        "zone": "grid",
+        "tag": "button",
+        "type": "button",
+        "href": "",
+        "id": "",
+        "name": "",
+        "title": "Vị trí của tôi",
+        "disabled": false,
+        "hasOnClick": false
+      },
+      {
+        "label": "Lớp nền",
+        "kind": "action",
+        "zone": "grid",
+        "tag": "button",
+        "type": "button",
+        "href": "",
+        "id": "",
+        "name": "",
+        "title": "Lớp nền",
+        "disabled": false,
+        "hasOnClick": false
+      },
+      {
+        "label": "Lớp chuyên đề",
+        "kind": "action",
+        "zone": "modal",
+        "tag": "button",
+        "type": "button",
+        "href": "",
+        "id": "",
+        "name": "",
+        "title": "Lớp chuyên đề",
+        "disabled": false,
+        "hasOnClick": false
+      }
+    ],
+    "headings": [
+      "Kết cấu hạ tầng"
+    ]
+  },
+  "title": "Kết cấu hạ tầng - gServer Phiên bản 2.1",
+  "headings": [
+    "Kết cấu hạ tầng"
+  ],
+  "labels": [
+    "Lý trình từ:",
+    "Lý trình đến:"
+  ],
+  "fields": [
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "textfield-1033-inputEl",
+      "id": "textfield-1033-inputEl",
+      "placeholder": "Nhập và Enter để lọc dữ liệu",
+      "ariaLabel": "",
+      "zone": "toolbar"
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "textfield-1079-inputEl",
+      "id": "textfield-1079-inputEl",
+      "placeholder": "vd: km1+100",
+      "ariaLabel": "",
+      "zone": "toolbar"
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "textfield-1080-inputEl",
+      "id": "textfield-1080-inputEl",
+      "placeholder": "vd: km5+100",
+      "ariaLabel": "",
+      "zone": "toolbar"
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "inputItem",
+      "id": "numberfield-1104-inputEl",
+      "placeholder": "",
+      "ariaLabel": "",
+      "zone": "toolbar"
+    }
+  ],
+  "buttons": [
+    "24",
+    "Ban.TK.Nguyễn Anh Phúc",
+    "Tiện ích",
+    "Xóa điều kiện",
+    "Lấy dữ liệu",
+    "+",
+    "−",
+    "⇧",
+    "Vị trí của tôi",
+    "Lớp nền",
+    "Lớp chuyên đề"
+  ],
+  "actions": [
+    {
+      "label": "24",
+      "kind": "nav",
+      "zone": "toolbar",
+      "tag": "a",
+      "type": "",
+      "href": "",
+      "id": "idbadgeGiamSat",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Ban.TK.Nguyễn Anh Phúc",
+      "kind": "nav",
+      "zone": "toolbar",
+      "tag": "a",
+      "type": "",
+      "href": "",
+      "id": "button-1017",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Tiện ích",
+      "kind": "nav",
+      "zone": "toolbar",
+      "tag": "a",
+      "type": "",
+      "href": "",
+      "id": "button-1070",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Xóa điều kiện",
+      "kind": "destructive",
+      "zone": "grid",
+      "tag": "a",
+      "type": "",
+      "href": "",
+      "id": "button-1083",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Lấy dữ liệu",
+      "kind": "nav",
+      "zone": "grid",
+      "tag": "a",
+      "type": "",
+      "href": "",
+      "id": "button-1084",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "+",
+      "kind": "create",
+      "zone": "grid",
+      "tag": "button",
+      "type": "button",
+      "href": "",
+      "id": "",
+      "name": "",
+      "title": "Zoom in",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "−",
+      "kind": "action",
+      "zone": "grid",
+      "tag": "button",
+      "type": "button",
+      "href": "",
+      "id": "",
+      "name": "",
+      "title": "Zoom out",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "⇧",
+      "kind": "action",
+      "zone": "grid",
+      "tag": "button",
+      "type": "button",
+      "href": "",
+      "id": "",
+      "name": "",
+      "title": "Reset rotation",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Vị trí của tôi",
+      "kind": "action",
+      "zone": "grid",
+      "tag": "button",
+      "type": "button",
+      "href": "",
+      "id": "",
+      "name": "",
+      "title": "Vị trí của tôi",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Lớp nền",
+      "kind": "action",
+      "zone": "grid",
+      "tag": "button",
+      "type": "button",
+      "href": "",
+      "id": "",
+      "name": "",
+      "title": "Lớp nền",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Lớp chuyên đề",
+      "kind": "action",
+      "zone": "modal",
+      "tag": "button",
+      "type": "button",
+      "href": "",
+      "id": "",
+      "name": "",
+      "title": "Lớp chuyên đề",
+      "disabled": false,
+      "hasOnClick": false
+    }
+  ],
+  "actionsByZone": {
+    "toolbar": [
+      "24",
+      "Ban.TK.Nguyễn Anh Phúc",
+      "Tiện ích"
+    ],
+    "grid": [
+      "Xóa điều kiện",
+      "Lấy dữ liệu",
+      "+",
+      "−",
+      "⇧",
+      "Vị trí của tôi",
+      "Lớp nền"
+    ],
+    "modal": [
+      "Lớp chuyên đề"
+    ]
+  },
+  "actionCount": 11,
+  "tableHeaders": [],
+  "navHints": [],
+  "bodySample": "Kết cấu hạ tầng 24 Ban.TK.Nguyễn Anh Phúc Tuyến đường Lớp dữ liệu Công ty Cổ phần 495 QL.48C QL.7 Lý trình từ: Lý trình đến: Lấy dữ liệu + − ⇧ /0",
+  "path": {
+    "master": "asset",
+    "page": "24",
+    "action": "page",
+    "rel": "capture/asset/24/page"
+  }
+}

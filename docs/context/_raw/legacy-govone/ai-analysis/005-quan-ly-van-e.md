@@ -10,7 +10,7 @@
 | **screenshot** | `screenshots/005-quan-ly-van-e.png` |
 | **DOM fields** | 20 |
 | **DOM labels** | 15 |
-| **DOM buttons** | 13 |
+| **DOM buttons** | 21 |
 
 ## DOM inventory (đã capture)
 
@@ -43,6 +43,14 @@
 - Phản hồi
 - Xuất dữ liệu
 - BC sở
+- Vệ tinh
+- Google
+- Giao thông
+- Hành chính
+- Không nền
+- Bản đồ nền
+- +
+- −
 - Hủy
 - Áp dụng
 

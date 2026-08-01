@@ -1,0 +1,477 @@
+{
+  "id": "004-dashboad",
+  "menuText": "DASHBOAD",
+  "kind": "app-tile",
+  "via": "popup",
+  "href": null,
+  "finalUrl": "https://pmdb.govone.vn/DuongBo/dashboard",
+  "capturedAt": "2026-08-01T10:26:27.676Z",
+  "mode": "full",
+  "masterTitle": "DASHBOAD",
+  "pageTitle": "_root",
+  "formSample": null,
+  "title": "GOVONE - TỔNG HỢP CÔNG TÁC QUẢN LÝ VÀ BẢO DƯỠNG THƯỜNG XUYÊN",
+  "headings": [
+    "TỔNG HỢP CÔNG TÁC QUẢN LÝ VÀ BẢO DƯỠNG THƯỜNG XUYÊN",
+    "TỔNG HỢP CÔNG TÁC QUẢN LÝ VÀ BẢO DƯỠNG THƯỜNG XUYÊN",
+    "LIÊN KẾT TRUY CẬP NHANH",
+    "THIẾT LẬP CỠ CHỮ"
+  ],
+  "labels": [],
+  "fields": [],
+  "buttons": [
+    "dropdown trigger",
+    "Báo cáo tổng hợp",
+    "Phân quyền",
+    "Bản đồ",
+    "Vấn đề",
+    "Giám sát",
+    "Hồ sơ",
+    "govone.vn",
+    "youtube",
+    "facebook",
+    "Thiết lập cỡ chữ",
+    "Giao diện sáng",
+    "Giao diện tối",
+    "Ban.TK.Nguyễn Anh Phúc nguyenanhphuc.dbna@cloudgis.vn",
+    "Thông tin của tôi",
+    "Đổi mật khẩu",
+    "Đăng xuất",
+    "CÔNG TÁC TUẦN ĐƯỜNG",
+    "CÔNG TÁC TUẦN KIỂM",
+    "CÔNG VIỆC"
+  ],
+  "actions": [
+    {
+      "label": "dropdown trigger",
+      "kind": "action",
+      "zone": "header",
+      "tag": "div",
+      "type": "",
+      "href": "",
+      "id": "",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Báo cáo tổng hợp",
+      "kind": "nav",
+      "zone": "footer",
+      "tag": "a",
+      "type": "",
+      "href": "/DuongBo/baocaotonghop/nhatkytuanduong",
+      "id": "",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Phân quyền",
+      "kind": "nav",
+      "zone": "footer",
+      "tag": "a",
+      "type": "",
+      "href": "/dbv3quantri.aspx",
+      "id": "",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Bản đồ",
+      "kind": "nav",
+      "zone": "footer",
+      "tag": "a",
+      "type": "",
+      "href": "/geditor.aspx",
+      "id": "",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Vấn đề",
+      "kind": "nav",
+      "zone": "footer",
+      "tag": "a",
+      "type": "",
+      "href": "/dbv3baotri.aspx",
+      "id": "",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Giám sát",
+      "kind": "nav",
+      "zone": "footer",
+      "tag": "a",
+      "type": "",
+      "href": "/dbv3giamsat.aspx",
+      "id": "",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Hồ sơ",
+      "kind": "nav",
+      "zone": "footer",
+      "tag": "a",
+      "type": "",
+      "href": "/quanlyhosocongtrinh.aspx",
+      "id": "",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "govone.vn",
+      "kind": "nav",
+      "zone": "header",
+      "tag": "a",
+      "type": "",
+      "href": "https://govone.vn",
+      "id": "",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "youtube",
+      "kind": "nav",
+      "zone": "header",
+      "tag": "a",
+      "type": "",
+      "href": "https://www.youtube.com/@phanmemgovone4201",
+      "id": "",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "facebook",
+      "kind": "nav",
+      "zone": "header",
+      "tag": "a",
+      "type": "",
+      "href": "https://www.facebook.com/govone.vn/",
+      "id": "",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Thiết lập cỡ chữ",
+      "kind": "nav",
+      "zone": "header",
+      "tag": "a",
+      "type": "",
+      "href": "",
+      "id": "",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Giao diện sáng",
+      "kind": "action",
+      "zone": "header",
+      "tag": "div",
+      "type": "",
+      "href": "",
+      "id": "",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Giao diện tối",
+      "kind": "action",
+      "zone": "header",
+      "tag": "div",
+      "type": "",
+      "href": "",
+      "id": "",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Ban.TK.Nguyễn Anh Phúc nguyenanhphuc.dbna@cloudgis.vn",
+      "kind": "action",
+      "zone": "header",
+      "tag": "div",
+      "type": "",
+      "href": "",
+      "id": "",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Thông tin của tôi",
+      "kind": "export",
+      "zone": "header",
+      "tag": "div",
+      "type": "",
+      "href": "",
+      "id": "",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Thông tin của tôi",
+      "kind": "export",
+      "zone": "header",
+      "tag": "a",
+      "type": "",
+      "href": "/Secure/UserProfile.aspx",
+      "id": "",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Đổi mật khẩu",
+      "kind": "action",
+      "zone": "header",
+      "tag": "div",
+      "type": "",
+      "href": "",
+      "id": "",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Đổi mật khẩu",
+      "kind": "nav",
+      "zone": "header",
+      "tag": "a",
+      "type": "",
+      "href": "/gclient/gadmin/doimatkhau.aspx",
+      "id": "",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Đăng xuất",
+      "kind": "export",
+      "zone": "header",
+      "tag": "div",
+      "type": "",
+      "href": "",
+      "id": "",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Đăng xuất",
+      "kind": "export",
+      "zone": "header",
+      "tag": "a",
+      "type": "",
+      "href": "/Logoff.aspx",
+      "id": "",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "CÔNG TÁC TUẦN ĐƯỜNG",
+      "kind": "action",
+      "zone": "header",
+      "tag": "button",
+      "type": "button",
+      "href": "",
+      "id": "pn_id_1_header",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "CÔNG TÁC TUẦN KIỂM",
+      "kind": "action",
+      "zone": "header",
+      "tag": "button",
+      "type": "button",
+      "href": "",
+      "id": "pn_id_2_header",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "CÔNG VIỆC",
+      "kind": "action",
+      "zone": "header",
+      "tag": "button",
+      "type": "button",
+      "href": "",
+      "id": "pn_id_3_header",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    }
+  ],
+  "actionsByZone": {
+    "header": [
+      "dropdown trigger",
+      "govone.vn",
+      "youtube",
+      "facebook",
+      "Thiết lập cỡ chữ",
+      "Giao diện sáng",
+      "Giao diện tối",
+      "Ban.TK.Nguyễn Anh Phúc nguyenanhphuc.dbna@cloudgis.vn",
+      "Thông tin của tôi",
+      "Thông tin của tôi",
+      "Đổi mật khẩu",
+      "Đổi mật khẩu",
+      "Đăng xuất",
+      "Đăng xuất",
+      "CÔNG TÁC TUẦN ĐƯỜNG",
+      "CÔNG TÁC TUẦN KIỂM",
+      "CÔNG VIỆC"
+    ],
+    "footer": [
+      "Báo cáo tổng hợp",
+      "Phân quyền",
+      "Bản đồ",
+      "Vấn đề",
+      "Giám sát",
+      "Hồ sơ"
+    ]
+  },
+  "actionCount": 23,
+  "tableHeaders": [],
+  "navHints": [
+    {
+      "text": "Báo cáo tổng hợp",
+      "href": "https://pmdb.govone.vn/DuongBo/baocaotonghop/nhatkytuanduong"
+    },
+    {
+      "text": "Phân quyền",
+      "href": "https://pmdb.govone.vn/dbv3quantri.aspx"
+    },
+    {
+      "text": "Bản đồ",
+      "href": "https://pmdb.govone.vn/geditor.aspx"
+    },
+    {
+      "text": "Vấn đề",
+      "href": "https://pmdb.govone.vn/dbv3baotri.aspx"
+    },
+    {
+      "text": "Giám sát",
+      "href": "https://pmdb.govone.vn/dbv3giamsat.aspx"
+    },
+    {
+      "text": "Hồ sơ",
+      "href": "https://pmdb.govone.vn/quanlyhosocongtrinh.aspx"
+    },
+    {
+      "text": "govone.vn",
+      "href": "https://govone.vn/"
+    },
+    {
+      "text": "youtube",
+      "href": "https://www.youtube.com/@phanmemgovone4201"
+    },
+    {
+      "text": "facebook",
+      "href": "https://www.facebook.com/govone.vn/"
+    },
+    {
+      "text": "Thiết lập cỡ chữ",
+      "href": "javascript:;"
+    },
+    {
+      "text": "Thiết lập cỡ chữ",
+      "href": "javascript:;"
+    },
+    {
+      "text": "Thiết lập cỡ chữ",
+      "href": "javascript:;"
+    },
+    {
+      "text": "Thiết lập cỡ chữ",
+      "href": "javascript:;"
+    },
+    {
+      "text": "Thiết lập cỡ chữ",
+      "href": "javascript:;"
+    },
+    {
+      "text": "Thiết lập cỡ chữ",
+      "href": "javascript:;"
+    },
+    {
+      "text": "Thiết lập cỡ chữ",
+      "href": "javascript:;"
+    },
+    {
+      "text": "Thiết lập cỡ chữ",
+      "href": "javascript:;"
+    },
+    {
+      "text": "Giao diện sáng",
+      "href": ""
+    },
+    {
+      "text": "Giao diện tối",
+      "href": ""
+    },
+    {
+      "text": "nguyenanhphuc.dbna@cloudgis.vn",
+      "href": ""
+    },
+    {
+      "text": "Thông tin của tôi",
+      "href": "https://pmdb.govone.vn/Secure/UserProfile.aspx"
+    },
+    {
+      "text": "Đổi mật khẩu",
+      "href": "https://pmdb.govone.vn/gclient/gadmin/doimatkhau.aspx"
+    },
+    {
+      "text": "Đăng xuất",
+      "href": "https://pmdb.govone.vn/Logoff.aspx"
+    }
+  ],
+  "bodySample": "TỔNG HỢP CÔNG TÁC QUẢN LÝ VÀ BẢO DƯỠNG THƯỜNG XUYÊN 01/08/2026 9 Tuần đường 0 Tuần kiểm 0 Tình hình bão lũ 0 Tai nạn giao thông 0 Vi phạm xâm phạm 0 Công việc CÔNG TÁC TUẦN ĐƯỜNG Công ty Cổ phần 495 QL.48C8 Km 122 + 393Km 35 + 999Km 21 + 998Km 75 + 996Km 76 + 383Km 106 + 201Km 46 + 006Km 114 + 000 QL.721 Km 83 + 980Km 9 + 113Km 138 + 264Km 182 + 791Km 146 + 888Km 51 + 584Km 65 + 278Km 124 + 328Km 175 + 820Km 122 + 998Km 34 + 994Km 103 + 366Km 180 + 034Km 85 + 117Km 170 + 085Km 121 + 924Km 120 + 929Km 5 + 626Km 163 + 496Km 214 + 270Km 206 + 873 CÔNG TÁC TUẦN KIỂM QL.48C Chưa thực hiện checkin QL.7 Chưa thực hiện checkin CÔNG VIỆC Chưa có dữ liệu được ghi nhận!",
+  "path": {
+    "master": "dashboard",
+    "page": "root",
+    "action": "view",
+    "rel": "capture/dashboard/root/view"
+  }
+}

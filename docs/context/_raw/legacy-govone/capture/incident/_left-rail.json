@@ -1,0 +1,90 @@
+{
+  "master": "incident",
+  "capturedAt": "2026-08-01T10:28:19.093Z",
+  "count": 8,
+  "rail": [
+    {
+      "text": "Ban.TK.Nguyễn Anh Phúc",
+      "href": "",
+      "depth": 1,
+      "rail": "left"
+    },
+    {
+      "text": "Tìm mới",
+      "href": "",
+      "depth": 8,
+      "rail": "left"
+    },
+    {
+      "text": "Tìm kiếm",
+      "href": "",
+      "depth": 8,
+      "rail": "left"
+    },
+    {
+      "text": "Thêm",
+      "href": "",
+      "depth": 8,
+      "rail": "left"
+    },
+    {
+      "text": "Thêm CV",
+      "href": "",
+      "depth": 8,
+      "rail": "left"
+    },
+    {
+      "text": "Xem CV",
+      "href": "",
+      "depth": 8,
+      "rail": "left"
+    },
+    {
+      "text": "Xem",
+      "href": "",
+      "depth": 8,
+      "rail": "left"
+    },
+    {
+      "text": "Xuất dữ liệu",
+      "href": "",
+      "depth": 8,
+      "rail": "left"
+    }
+  ],
+  "tabs": [],
+  "topMenus": [
+    {
+      "text": "Ban.TK.Nguyễn Anh Phúc",
+      "kind": "top-menu"
+    },
+    {
+      "text": "Tìm mới",
+      "kind": "top-menu"
+    },
+    {
+      "text": "Tìm kiếm",
+      "kind": "top-menu"
+    },
+    {
+      "text": "Thêm",
+      "kind": "top-menu"
+    },
+    {
+      "text": "Thêm CV",
+      "kind": "top-menu"
+    },
+    {
+      "text": "Xem CV",
+      "kind": "top-menu"
+    },
+    {
+      "text": "Xem",
+      "kind": "top-menu"
+    },
+    {
+      "text": "Xuất dữ liệu",
+      "kind": "top-menu"
+    }
+  ]
+}

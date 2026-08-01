@@ -31,11 +31,22 @@ yarn scan-qlbd-demo -- --full --docs-root D:/AI-QLBD/Linm.RMMS.Data/docs --mfe-s
 
 Output: `docs/context/_raw/legacy-govone/`
 
+**Tree theo tính năng** (`master` = app tile · `page` = left-rail · `action` = `view` | `create` | `tab-*`):
+
+```
+capture/{master}/{page}/{action}/
+  inventory.json · screenshot.png · form-sample.json (nếu Thêm/Add)
+```
+
+Deep/full: click **all tabs · top menus · left-rail · Thêm/Add** — **không** Save/Submit.  
+Nếu click không phản hồi / UI trống → **Tải lại** hoặc `page.reload()`.
+
 | File | |
 |------|--|
-| `catalog.json` · `CAPTURE-SUMMARY.md` | Inventory |
-| `pages/*.json` | Per-page fields |
-| `screenshots/*.png` | UI (gitignored) |
+| `capture/{master}/…` | SSOT theo master → page → action |
+| `catalog.json` · `CAPTURE-SUMMARY.md` | Index (+ `capturePath`) |
+| `pages/*.json` | Flat mirror (compat map scripts) |
+| `screenshots/*.png` | Flat shots (gitignored) |
 | `features/{slug}.md` | Input cho `/qlbd-analy-demo` |
 | `feature-map.json` | Slug index |
 

@@ -1,0 +1,15 @@
+# source: context/features/drone.md
+# version: 5
+# scannedAt: 2026-08-01T10:31:55.764Z
+# sha256: 4abfd919b0e36577afdbc166aa23666bd848d4a48ac44d740d84257d743121c1
+# mtimeMs: 1785516443366.8137
+# Drone / Reality Capture — Feature Context
+
+> **Slug:** `drone` · **Module:** `Drone` · **Phase:** P2–P3 · **Status:** Draft  
+> **Sources:** `RMMS` §13 · `09`
+
+## 1. Tổng quan
+Bay kiểm tra · 3D mapping · point cloud · orthophoto · cầu/taluy/sạt lở.
+
+## 2–7
+OUT P1. P2: upload job + viewer stub. Chi tiết khi gate.

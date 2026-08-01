@@ -1,0 +1,52 @@
+{
+  "master": "patrol",
+  "capturedAt": "2026-08-01T10:26:40.665Z",
+  "count": 5,
+  "rail": [
+    {
+      "text": "Ban.TK.Nguyễn Anh Phúc",
+      "href": "",
+      "depth": 1,
+      "rail": "left"
+    },
+    {
+      "text": "Xuất excel",
+      "href": "",
+      "depth": 8,
+      "rail": "left"
+    },
+    {
+      "text": "Tải lại",
+      "href": "",
+      "depth": 8,
+      "rail": "left"
+    },
+    {
+      "text": "Hồ sơ của tôi",
+      "href": "https://pmdb.govone.vn/Secure/UserProfile.aspx",
+      "depth": 4,
+      "rail": "left"
+    },
+    {
+      "text": "Đổi mật khẩu",
+      "href": "https://pmdb.govone.vn/gclient/gadmin/doimatkhau.aspx",
+      "depth": 4,
+      "rail": "left"
+    }
+  ],
+  "tabs": [],
+  "topMenus": [
+    {
+      "text": "Ban.TK.Nguyễn Anh Phúc",
+      "kind": "top-menu"
+    },
+    {
+      "text": "Hồ sơ của tôi",
+      "kind": "top-menu"
+    },
+    {
+      "text": "Đổi mật khẩu",
+      "kind": "top-menu"
+    }
+  ]
+}

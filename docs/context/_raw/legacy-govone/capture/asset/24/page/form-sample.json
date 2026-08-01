@@ -1,0 +1,193 @@
+{
+  "trigger": "+",
+  "labels": [
+    "Lý trình từ:",
+    "Lý trình đến:"
+  ],
+  "fields": [
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "textfield-1033-inputEl",
+      "id": "textfield-1033-inputEl",
+      "placeholder": "Nhập và Enter để lọc dữ liệu",
+      "ariaLabel": "",
+      "zone": "toolbar"
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "textfield-1079-inputEl",
+      "id": "textfield-1079-inputEl",
+      "placeholder": "vd: km1+100",
+      "ariaLabel": "",
+      "zone": "toolbar"
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "textfield-1080-inputEl",
+      "id": "textfield-1080-inputEl",
+      "placeholder": "vd: km5+100",
+      "ariaLabel": "",
+      "zone": "toolbar"
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "inputItem",
+      "id": "numberfield-1104-inputEl",
+      "placeholder": "",
+      "ariaLabel": "",
+      "zone": "toolbar"
+    }
+  ],
+  "actions": [
+    {
+      "label": "24",
+      "kind": "nav",
+      "zone": "toolbar",
+      "tag": "a",
+      "type": "",
+      "href": "",
+      "id": "idbadgeGiamSat",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Ban.TK.Nguyễn Anh Phúc",
+      "kind": "nav",
+      "zone": "toolbar",
+      "tag": "a",
+      "type": "",
+      "href": "",
+      "id": "button-1017",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Tiện ích",
+      "kind": "nav",
+      "zone": "toolbar",
+      "tag": "a",
+      "type": "",
+      "href": "",
+      "id": "button-1070",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Xóa điều kiện",
+      "kind": "destructive",
+      "zone": "grid",
+      "tag": "a",
+      "type": "",
+      "href": "",
+      "id": "button-1083",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Lấy dữ liệu",
+      "kind": "nav",
+      "zone": "grid",
+      "tag": "a",
+      "type": "",
+      "href": "",
+      "id": "button-1084",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "+",
+      "kind": "create",
+      "zone": "grid",
+      "tag": "button",
+      "type": "button",
+      "href": "",
+      "id": "",
+      "name": "",
+      "title": "Zoom in",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "−",
+      "kind": "action",
+      "zone": "grid",
+      "tag": "button",
+      "type": "button",
+      "href": "",
+      "id": "",
+      "name": "",
+      "title": "Zoom out",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "⇧",
+      "kind": "action",
+      "zone": "grid",
+      "tag": "button",
+      "type": "button",
+      "href": "",
+      "id": "",
+      "name": "",
+      "title": "Reset rotation",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Vị trí của tôi",
+      "kind": "action",
+      "zone": "grid",
+      "tag": "button",
+      "type": "button",
+      "href": "",
+      "id": "",
+      "name": "",
+      "title": "Vị trí của tôi",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Lớp nền",
+      "kind": "action",
+      "zone": "grid",
+      "tag": "button",
+      "type": "button",
+      "href": "",
+      "id": "",
+      "name": "",
+      "title": "Lớp nền",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Lớp chuyên đề",
+      "kind": "action",
+      "zone": "modal",
+      "tag": "button",
+      "type": "button",
+      "href": "",
+      "id": "",
+      "name": "",
+      "title": "Lớp chuyên đề",
+      "disabled": false,
+      "hasOnClick": false
+    }
+  ],
+  "headings": [
+    "Kết cấu hạ tầng"
+  ]
+}

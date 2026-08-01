@@ -1,0 +1,108 @@
+{
+  "id": "009-quan-ly-giam-sat-oi-mat-khau",
+  "menuText": "QUẢN LÝ GIÁM SÁT › Đổi mật khẩu",
+  "kind": "left-rail",
+  "via": "deep",
+  "href": null,
+  "finalUrl": "https://pmdb.govone.vn/gclient/gadmin/doimatkhau.aspx",
+  "capturedAt": "2026-08-01T10:27:15.993Z",
+  "mode": "full",
+  "masterTitle": "QUẢN LÝ GIÁM SÁT",
+  "pageTitle": "Đổi mật khẩu",
+  "formSample": null,
+  "title": "Đổi mật khẩu - gServer Phiên bản 2.1",
+  "headings": [
+    "Đổi mật khẩu"
+  ],
+  "labels": [
+    "MẬT KHẨU CŨ",
+    "MẬT KHẨU MỚI",
+    "XÁC NHẬN MẬT KHẨU MỚI"
+  ],
+  "fields": [
+    {
+      "tag": "input",
+      "type": "password",
+      "name": "ctl00$mainContent$ChangePassword1$ChangePasswordContainerID$CurrentPassword",
+      "id": "ctl00_mainContent_ChangePassword1_ChangePasswordContainerID_CurrentPassword",
+      "placeholder": "",
+      "ariaLabel": "",
+      "zone": "footer"
+    },
+    {
+      "tag": "input",
+      "type": "password",
+      "name": "ctl00$mainContent$ChangePassword1$ChangePasswordContainerID$NewPassword",
+      "id": "ctl00_mainContent_ChangePassword1_ChangePasswordContainerID_NewPassword",
+      "placeholder": "",
+      "ariaLabel": "",
+      "zone": "footer"
+    },
+    {
+      "tag": "input",
+      "type": "password",
+      "name": "ctl00$mainContent$ChangePassword1$ChangePasswordContainerID$ConfirmNewPassword",
+      "id": "ctl00_mainContent_ChangePassword1_ChangePasswordContainerID_ConfirmNewPassword",
+      "placeholder": "",
+      "ariaLabel": "",
+      "zone": "footer"
+    },
+    {
+      "tag": "input",
+      "type": "submit",
+      "name": "ctl00$mainContent$ChangePassword1$ChangePasswordContainerID$ChangePasswordPushButton",
+      "id": "ctl00_mainContent_ChangePassword1_ChangePasswordContainerID_ChangePasswordPushButton",
+      "placeholder": "",
+      "ariaLabel": "",
+      "zone": "footer"
+    }
+  ],
+  "buttons": [
+    "Đổi mật khẩu",
+    "VỀ TRANG CHỦ"
+  ],
+  "actions": [
+    {
+      "label": "Đổi mật khẩu",
+      "kind": "submit",
+      "zone": "footer",
+      "tag": "input",
+      "type": "submit",
+      "href": "",
+      "id": "ctl00_mainContent_ChangePassword1_ChangePasswordContainerID_ChangePasswordPushButton",
+      "name": "ctl00$mainContent$ChangePassword1$ChangePasswordContainerID$ChangePasswordPushButton",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": true
+    },
+    {
+      "label": "VỀ TRANG CHỦ",
+      "kind": "nav",
+      "zone": "footer",
+      "tag": "a",
+      "type": "",
+      "href": "/apps.aspx",
+      "id": "",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    }
+  ],
+  "actionsByZone": {
+    "footer": [
+      "Đổi mật khẩu",
+      "VỀ TRANG CHỦ"
+    ]
+  },
+  "actionCount": 2,
+  "tableHeaders": [],
+  "navHints": [],
+  "bodySample": "Đổi mật khẩu MẬT KHẨU CŨ MẬT KHẨU MỚI XÁC NHẬN MẬT KHẨU MỚI Chú ý: Mật khẩu yêu cầu tối thiểu 8 ký tự, ít nhất 1 chữ và 1 số VỀ TRANG CHỦ",
+  "path": {
+    "master": "patrol",
+    "page": "oi-mat-khau",
+    "action": "view",
+    "rel": "capture/patrol/oi-mat-khau/view"
+  }
+}

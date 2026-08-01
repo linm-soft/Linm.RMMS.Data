@@ -1,0 +1,69 @@
+# source: context/features/predict.md
+# version: 3
+# scannedAt: 2026-08-01T09:56:05.362Z
+# sha256: 80cc1cf9acd2eb44707e838c407f683709916d6cf132a58ad1aa0eaf13880c95
+# mtimeMs: 1785516443366.8137
+# AI dự báo bảo trì — Feature Context
+
+> **Slug:** `predict` · **Module:** `AiVision` + ML · **Phase:** P1 online · P2 XGBoost/ONNX  
+> **Status:** Context  
+> **Sources:** `RMMS` §8 · `07` §8 · `08` · `09` · `15-SCREEN-AI-MAP.md`
+
+## 1. Tổng quan
+
+| | |
+|--|--|
+| Mục tiêu | Dự báo xuống cấp · tuổi thọ còn lại · ưu tiên đại tu/đầu tư từ lưu lượng, thời tiết, vật liệu, tuổi, lịch sử SC |
+| Persona | Ban QLDA · kế hoạch bảo trì |
+| App hiện có | — (mới; gắn Web Báo cáo / Dashboard) |
+| DoD P1 | Priority list online LLM · không train XGBoost |
+| DoD P2 | Feature store + XGBoost→ONNX→ML.NET |
+
+## 2. Design / UI
+
+| Screen | Pattern | Zones | Ghi chú |
+|--------|---------|-------|---------|
+| Priority list | Full | Filter tuyến · score · horizon | Web |
+| Section detail | Slideout | Drivers · chart stub · recommend | |
+| Badge model | — | online / local version | |
+
+**Mock:** 8 đoạn đường · score 0–100 · «ưu tiên đại tu».
+
+## 3. API
+
+| Method | Path | Mô tả |
+|--------|------|-------|
+| POST | `/api/v1/ai-predict/section/{id}` | Predict 1 đoạn |
+| GET | `/api/v1/ai-predict/priority-list?routeId=&top=` | Danh sách ưu tiên |
+| GET | `/api/v1/ai-predict/history/{sectionId}` | Audit |
+
+```json
+{ "sectionId": "…", "score": 82, "horizonMonths": 12, "drivers": ["age", "traffic", "pci"], "model": "gpt-4o-mini" }
+```
+
+## 4. Database
+
+| Entity | Key columns | Notes |
+|--------|-------------|-------|
+| SectionFeatures | SectionId, Traffic, Material, Age, WeatherAgg | Feature store |
+| PredictionAudit | SectionId, Score, Model, At, RawJson | |
+
+## 5. Events / tích hợp
+
+| Event | Publisher | Consumer |
+|-------|-----------|----------|
+| `predict.updated` | Predict | Dashboard · Copilot tools |
+
+## 6. Gaps / quyết định
+
+| ID | Question | Default |
+|----|----------|---------|
+| GAP-F-PRD-01 | Local train | OUT P1 |
+| GAP-F-PRD-02 | Weather/traffic data source | Stub / import P1 |
+
+## 7. Demo checklist (chốt khách)
+
+- [ ] Priority list mock
+- [ ] Badge P1 online
+- [ ] Link Dashboard
+- [ ] Không hiện GPU/train

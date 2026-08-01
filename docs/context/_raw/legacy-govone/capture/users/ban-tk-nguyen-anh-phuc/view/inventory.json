@@ -1,0 +1,139 @@
+{
+  "id": "019-quan-tri-phan-quyen-ban-tk-nguyen-anh-phuc",
+  "menuText": "QUẢN TRỊ PHÂN QUYỀN › Ban.TK.Nguyễn Anh Phúc",
+  "kind": "left-rail",
+  "via": "deep",
+  "href": null,
+  "finalUrl": "https://pmdb.govone.vn/dbv3quantri.aspx#quanTriDanhMucTuyen",
+  "capturedAt": "2026-08-01T10:31:15.710Z",
+  "mode": "full",
+  "masterTitle": "QUẢN TRỊ PHÂN QUYỀN",
+  "pageTitle": "Ban.TK.Nguyễn Anh Phúc",
+  "formSample": null,
+  "title": "Quản trị - gServer Phiên bản 2.1",
+  "headings": [
+    "Danh mục đoạn đường"
+  ],
+  "labels": [
+    "Đoạn đường (73)"
+  ],
+  "fields": [
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "textfield-1031-inputEl",
+      "id": "textfield-1031-inputEl",
+      "placeholder": "Nhập đoạn đường",
+      "ariaLabel": "",
+      "zone": "toolbar"
+    }
+  ],
+  "buttons": [
+    "Ban.TK.Nguyễn Anh Phúc",
+    "Thêm tag",
+    "Hồ sơ của tôi",
+    "Đổi mật khẩu",
+    "Đăng xuất"
+  ],
+  "actions": [
+    {
+      "label": "Ban.TK.Nguyễn Anh Phúc",
+      "kind": "nav",
+      "zone": "toolbar",
+      "tag": "a",
+      "type": "",
+      "href": "",
+      "id": "button-1014",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Thêm tag",
+      "kind": "create",
+      "zone": "grid",
+      "tag": "a",
+      "type": "",
+      "href": "",
+      "id": "button-1047",
+      "name": "",
+      "title": "",
+      "disabled": true,
+      "hasOnClick": false
+    },
+    {
+      "label": "Hồ sơ của tôi",
+      "kind": "nav",
+      "zone": "grid",
+      "tag": "a",
+      "type": "",
+      "href": "Secure/UserProfile.aspx",
+      "id": "menuitem-1016-itemEl",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Đổi mật khẩu",
+      "kind": "nav",
+      "zone": "grid",
+      "tag": "a",
+      "type": "",
+      "href": "gclient/gadmin/doimatkhau.aspx",
+      "id": "menuitem-1017-itemEl",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    },
+    {
+      "label": "Đăng xuất",
+      "kind": "export",
+      "zone": "grid",
+      "tag": "a",
+      "type": "",
+      "href": "logoff.aspx",
+      "id": "menuitem-1019-itemEl",
+      "name": "",
+      "title": "",
+      "disabled": false,
+      "hasOnClick": false
+    }
+  ],
+  "actionsByZone": {
+    "toolbar": [
+      "Ban.TK.Nguyễn Anh Phúc"
+    ],
+    "grid": [
+      "Thêm tag",
+      "Hồ sơ của tôi",
+      "Đổi mật khẩu",
+      "Đăng xuất"
+    ]
+  },
+  "actionCount": 5,
+  "tableHeaders": [],
+  "navHints": [
+    {
+      "text": "Hồ sơ của tôi",
+      "href": "https://pmdb.govone.vn/Secure/UserProfile.aspx"
+    },
+    {
+      "text": "Đổi mật khẩu",
+      "href": "https://pmdb.govone.vn/gclient/gadmin/doimatkhau.aspx"
+    },
+    {
+      "text": "Đăng xuất",
+      "href": "https://pmdb.govone.vn/logoff.aspx"
+    }
+  ],
+  "bodySample": "Danh mục đoạn đường Ban.TK.Nguyễn Anh Phúc Danh mục đoạn đường Phân quyền dữ liệu Quản lý người dùng Đoạn đường (73) # Đoạn đường 1 2 ĐT.531 3 ĐT.531B 4 ĐT.531C 5 ĐT.532 6 ĐT.533 7 ĐT.533B 8 ĐT.533C 9 ĐT.533D 10 ĐT.533E 11 ĐT.534 12 ĐT.534B 13 ĐT.534C 14 ĐT.534D 15 ĐT.534E 16 ĐT.535 17 ĐT.535B 18 ĐT.536 19 ĐT.536B 20 ĐT.536C 21 ĐT.537 22 ĐT.537B 23 ĐT.537C 24 ĐT.537D 25 ĐT.538 (Km0+00-Km44+00) 26 ĐT.538 (Km44+000-Km68+000) 27 ĐT.538B 28 ĐT.538C 29 ĐT.538D 30 ĐT.538E 31 ĐT.538F 32 ĐT.539 33 ĐT.539B 34 ĐT.539C 35 ĐT.539D 36 ĐT.540 37 ĐT.541 38 ĐT.541(them) 39 ĐT.541B 40 ĐT.542B 41 ĐT.542C 42 ĐT.542D 43 ĐT.542E 44 ĐT.542F 45 ĐT.543 46 ĐT.543B 47 ĐT.543C 48 ĐT.543D 49 ĐT.543E 50 ĐT.544 51 ĐT.544 cũ 52 ĐT.544B 53 ĐT.544C 54 ĐT.545 55 Đường số 23 56 QL.15 (Km208+350 - Km310+500) 57 QL.15 (Km310+500 - Km355+00) 58 QL.16 (Km195+695 - Km238+00) 59 QL.16 (Km248+00 - Km278+00) 60 QL.16 (Km278+00-Km406+00) 61 QL.46 62 QL.46B 63 QL.46C (Km0+00 - Km119+150) 64 QL.48 (Km0+00 - Km160+00) 65 QL.48B (Km0+00 - Km25+00) 66 QL.48C 67 QL.48D (Km0+00 - Km41+123) 68 QL.48D (Km47+00-Km158+00) 69 QL.48E (Km0+00 - Km125+00) 70 QL.48E (Km137+700 - Km236+00) 71 QL.7 72 QL.7B (Km0+00 - Km47+800) 73 QL.7C Danh sách biểu mẫu # Không có bản ghi nào",
+  "path": {
+    "master": "users",
+    "page": "ban-tk-nguyen-anh-phuc",
+    "action": "view",
+    "rel": "capture/users/ban-tk-nguyen-anh-phuc/view"
+  }
+}

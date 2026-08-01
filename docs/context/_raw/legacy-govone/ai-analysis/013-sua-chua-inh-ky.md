@@ -10,7 +10,7 @@
 | **screenshot** | `screenshots/013-sua-chua-inh-ky.png` |
 | **DOM fields** | 0 |
 | **DOM labels** | 0 |
-| **DOM buttons** | 37 |
+| **DOM buttons** | 41 |
 
 ## DOM inventory (đã capture)
 
@@ -18,17 +18,22 @@
 - _(trống — ưu tiên đọc từ ảnh)_
 
 ### Buttons / actions
+- Báo cáo tổng hợp
+- Phân quyền
+- Bản đồ
+- Vấn đề
+- Giám sát
+- Hồ sơ
 - govone.vn
 - youtube
 - facebook
 - Giao diện sáng
 - Giao diện tối
-- Ban.TK.Nguyễn Anh Phúc  nguyenanhphuc.dbna@cloudgis.vn
+- Ban.TK.Nguyễn Anh Phúc nguyenanhphuc.dbna@cloudgis.vn
 - Thông tin của tôi
 - Đổi mật khẩu
 - Đăng xuất
 - Bảng tổng hợp nhanh
-- Báo cáo tổng hợp
 - QUẢN LÝ BẢO TRÌ
 - Tổng hợp bảo trì
 - Dự án bảo trì
@@ -53,8 +58,6 @@
 - Công văn đi - đến
 - Quản lý tài sản
 - QUẢN TRỊ ỨNG DỤNG
-- Phân quyền
-- Phân quyền báo cáo
 
 ### Inputs
 

@@ -18,45 +18,76 @@
 - **title:** GOVONE - Tổng hợp bảo trì
 - **headings:** Tổng hợp bảo trì · Tổng hợp bảo trì · LIÊN KẾT TRUY CẬP NHANH · Tổng hợp bảo trì · Biểu đồ bảo trì
 
-#### Actions
+#### Actions / buttons (full)
 
-- govone.vn
-- youtube
-- facebook
-- Giao diện sáng
-- Giao diện tối
-- Ban.TK.Nguyễn Anh Phúc  nguyenanhphuc.dbna@cloudgis.vn
-- Thông tin của tôi
-- Đổi mật khẩu
-- Đăng xuất
-- Bảng tổng hợp nhanh
-- Báo cáo tổng hợp
-- QUẢN LÝ BẢO TRÌ
-- Tổng hợp bảo trì
-- Dự án bảo trì
-- QUẢN LÝ BDTX
-- Tuần kiểm
-- Hoạt động tuần kiểm
-- Tuần đường
-- Hoạt động tuần đường
-- Nhật ký tuần đường
-- Nhật ký công việc
-- Số liệu
-- Thiên tai, bão lũ Số liệu thiệt hạiÙn tắc giao thông
-- Số liệu thiệt hại
-- Ùn tắc giao thông
-- Hạng mục hư hỏng
-- Vi phạm HLATĐB
-- Tai nạn giao thông
-- Đếm xe
-- Kiểm tra cầu
-- Tài liệu
-- Giấy phép thi công
-- Công văn đi - đến
-- Quản lý tài sản
-- QUẢN TRỊ ỨNG DỤNG
-- Phân quyền
-- Phân quyền báo cáo
+| label | kind | zone | tag | disabled |
+|-------|------|------|-----|----------|
+| Báo cáo tổng hợp | nav | footer | a |  |
+| Phân quyền | nav | footer | a |  |
+| Bản đồ | nav | footer | a |  |
+| Vấn đề | nav | footer | a |  |
+| Giám sát | nav | footer | a |  |
+| Hồ sơ | nav | footer | a |  |
+| govone.vn | nav | header | a |  |
+| youtube | nav | header | a |  |
+| facebook | nav | header | a |  |
+| Giao diện sáng | action | header | div |  |
+| Giao diện tối | action | header | div |  |
+| Ban.TK.Nguyễn Anh Phúc nguyenanhphuc.dbna@cloudgis.vn | action | header | div |  |
+| Thông tin của tôi | export | header | div |  |
+| Thông tin của tôi | export | header | a |  |
+| Đổi mật khẩu | action | header | div |  |
+| Đổi mật khẩu | nav | header | a |  |
+| Đăng xuất | export | header | div |  |
+| Đăng xuất | export | header | a |  |
+| Bảng tổng hợp nhanh | action | sidebar | div |  |
+| Bảng tổng hợp nhanh | nav | sidebar | a |  |
+| Báo cáo tổng hợp | action | sidebar | div |  |
+| Báo cáo tổng hợp | nav | sidebar | a |  |
+| QUẢN LÝ BẢO TRÌ | action | sidebar | div |  |
+| Tổng hợp bảo trì | action | sidebar | div |  |
+| Tổng hợp bảo trì | nav | sidebar | a |  |
+| Dự án bảo trì | action | sidebar | div |  |
+| Dự án bảo trì | nav | sidebar | a |  |
+| QUẢN LÝ BDTX | action | sidebar | div |  |
+| Tuần kiểm | action | sidebar | div |  |
+| Hoạt động tuần kiểm | action | sidebar | div |  |
+| Hoạt động tuần kiểm | nav | sidebar | a |  |
+| Tuần đường | action | sidebar | div |  |
+| Hoạt động tuần đường | action | sidebar | div |  |
+| Hoạt động tuần đường | nav | sidebar | a |  |
+| Nhật ký tuần đường | action | sidebar | div |  |
+| Nhật ký tuần đường | nav | sidebar | a |  |
+| Nhật ký công việc | action | sidebar | div |  |
+| Nhật ký công việc | nav | sidebar | a |  |
+| Số liệu | action | sidebar | div |  |
+| Thiên tai, bão lũ Số liệu thiệt hạiÙn tắc giao thông | action | sidebar | div |  |
+| Số liệu thiệt hại | action | sidebar | div |  |
+| Số liệu thiệt hại | nav | sidebar | a |  |
+| Ùn tắc giao thông | action | sidebar | div |  |
+| Ùn tắc giao thông | nav | sidebar | a |  |
+| Hạng mục hư hỏng | action | sidebar | div |  |
+| Hạng mục hư hỏng | nav | sidebar | a |  |
+| Vi phạm HLATĐB | action | sidebar | div |  |
+| Vi phạm HLATĐB | nav | sidebar | a |  |
+| Tai nạn giao thông | action | sidebar | div |  |
+| Tai nạn giao thông | nav | sidebar | a |  |
+| Đếm xe | action | sidebar | div |  |
+| Đếm xe | nav | sidebar | a |  |
+| Kiểm tra cầu | action | sidebar | div |  |
+| Kiểm tra cầu | nav | sidebar | a |  |
+| Tài liệu | action | sidebar | div |  |
+| Giấy phép thi công | action | sidebar | div |  |
+| Giấy phép thi công | nav | sidebar | a |  |
+| Công văn đi - đến | action | sidebar | div |  |
+| Công văn đi - đến | nav | sidebar | a |  |
+| Quản lý tài sản | action | sidebar | div |  |
+| QUẢN TRỊ ỨNG DỤNG | action | sidebar | div |  |
+| Phân quyền | action | sidebar | div |  |
+| Phân quyền báo cáo | action | sidebar | div |  |
+| Phân quyền báo cáo | nav | sidebar | a |  |
+
+- **actionCount:** 64
 
 ### SỬA CHỮA ĐỊNH KỲ › Bảng tổng hợp nhanh
 
@@ -65,17 +96,35 @@
 - **title:** GOVONE - TỔNG HỢP CÔNG TÁC QUẢN LÝ VÀ BẢO DƯỠNG THƯỜNG XUYÊN
 - **headings:** TỔNG HỢP CÔNG TÁC QUẢN LÝ VÀ BẢO DƯỠNG THƯỜNG XUYÊN · TỔNG HỢP CÔNG TÁC QUẢN LÝ VÀ BẢO DƯỠNG THƯỜNG XUYÊN · LIÊN KẾT TRUY CẬP NHANH · THIẾT LẬP CỠ CHỮ
 
-#### Actions
+#### Actions / buttons (full)
 
-- govone.vn
-- youtube
-- facebook
-- Giao diện sáng
-- Giao diện tối
-- Ban.TK.Nguyễn Anh Phúc  nguyenanhphuc.dbna@cloudgis.vn
-- Thông tin của tôi
-- Đổi mật khẩu
-- Đăng xuất
+| label | kind | zone | tag | disabled |
+|-------|------|------|-----|----------|
+| dropdown trigger | action | header | div |  |
+| Báo cáo tổng hợp | nav | footer | a |  |
+| Phân quyền | nav | footer | a |  |
+| Bản đồ | nav | footer | a |  |
+| Vấn đề | nav | footer | a |  |
+| Giám sát | nav | footer | a |  |
+| Hồ sơ | nav | footer | a |  |
+| govone.vn | nav | header | a |  |
+| youtube | nav | header | a |  |
+| facebook | nav | header | a |  |
+| Thiết lập cỡ chữ | nav | header | a |  |
+| Giao diện sáng | action | header | div |  |
+| Giao diện tối | action | header | div |  |
+| Ban.TK.Nguyễn Anh Phúc nguyenanhphuc.dbna@cloudgis.vn | action | header | div |  |
+| Thông tin của tôi | export | header | div |  |
+| Thông tin của tôi | export | header | a |  |
+| Đổi mật khẩu | action | header | div |  |
+| Đổi mật khẩu | nav | header | a |  |
+| Đăng xuất | export | header | div |  |
+| Đăng xuất | export | header | a |  |
+| CÔNG TÁC TUẦN ĐƯỜNG | action | header | button |  |
+| CÔNG TÁC TUẦN KIỂM | action | header | button |  |
+| CÔNG VIỆC | action | header | button |  |
+
+- **actionCount:** 23
 
 ### SỬA CHỮA ĐỊNH KỲ › Tai nạn giao thông
 
@@ -84,19 +133,38 @@
 - **title:** GOVONE - TỔNG HỢP CÔNG TÁC QUẢN LÝ VÀ BẢO DƯỠNG THƯỜNG XUYÊN
 - **headings:** TỔNG HỢP CÔNG TÁC QUẢN LÝ VÀ BẢO DƯỠNG THƯỜNG XUYÊN · TỔNG HỢP CÔNG TÁC QUẢN LÝ VÀ BẢO DƯỠNG THƯỜNG XUYÊN · LIÊN KẾT TRUY CẬP NHANH · THIẾT LẬP CỠ CHỮ
 
-#### Actions
+#### Actions / buttons (full)
 
-- govone.vn
-- youtube
-- facebook
-- Giao diện sáng
-- Giao diện tối
-- Ban.TK.Nguyễn Anh Phúc  nguyenanhphuc.dbna@cloudgis.vn
-- Thông tin của tôi
-- Đổi mật khẩu
-- Đăng xuất
+| label | kind | zone | tag | disabled |
+|-------|------|------|-----|----------|
+| dropdown trigger | action | header | div |  |
+| Báo cáo tổng hợp | nav | footer | a |  |
+| Phân quyền | nav | footer | a |  |
+| Bản đồ | nav | footer | a |  |
+| Vấn đề | nav | footer | a |  |
+| Giám sát | nav | footer | a |  |
+| Hồ sơ | nav | footer | a |  |
+| govone.vn | nav | header | a |  |
+| youtube | nav | header | a |  |
+| facebook | nav | header | a |  |
+| Thiết lập cỡ chữ | nav | header | a |  |
+| Giao diện sáng | action | header | div |  |
+| Giao diện tối | action | header | div |  |
+| Ban.TK.Nguyễn Anh Phúc nguyenanhphuc.dbna@cloudgis.vn | action | header | div |  |
+| Thông tin của tôi | export | header | div |  |
+| Thông tin của tôi | export | header | a |  |
+| Đổi mật khẩu | action | header | div |  |
+| Đổi mật khẩu | nav | header | a |  |
+| Đăng xuất | export | header | div |  |
+| Đăng xuất | export | header | a |  |
+| CÔNG TÁC TUẦN ĐƯỜNG | action | header | button |  |
+| CÔNG TÁC TUẦN KIỂM | action | header | button |  |
+| CÔNG VIỆC | action | header | button |  |
+| Đóng | close | header | button |  |
+
+- **actionCount:** 24
 
 ## Migration notes
 
-- Map fields → control-map / feature context `docs/context/features/maintenance.md`.
-- Demo parity: HTML mock trong `Linm.RMMS.Demo` — **cấm** call legacy API từ MFE.
+- Map fields/actions → `npm run map:demo` (modern MFE control-map · erp-form-context).
+- Demo: same fields · Linm shell — **cấm** clone skin GOVOne · **cấm** BE.

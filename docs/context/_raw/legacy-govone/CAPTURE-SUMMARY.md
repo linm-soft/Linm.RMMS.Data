@@ -1,28 +1,38 @@
 # GOVOne legacy capture
 
-- **When:** 2026-08-01T09:50:12.080Z
+- **When:** 2026-08-01T10:31:53.261Z
 - **Base:** https://pmdb.govone.vn
-- **Pages:** 17
+- **Mode:** full
+- **Layout:** `capture/{master}/{page}/{action}/` (inventory.json · screenshot · form-sample)
+- **Leaves:** 25 · **form samples:** 4
 - **Menu candidates:** 8
 
 Next: `npm run map` → feature fragments under `features/`.
 
-| id | menu | fields | labels |
-|----|------|--------|--------|
-| 001-apps-shell | (apps-shell) | 0 | 0 |
-| 002-ban-o-cong-trinh-giao-thong | BẢN ĐỒ CÔNG TRÌNH GIAO THÔNG | 39 | 0 |
-| 003-dashboad | DASHBOAD | 0 | 0 |
-| 004-quan-ly-giam-sat | QUẢN LÝ GIÁM SÁT | 2 | 3 |
-| 005-quan-ly-van-e | QUẢN LÝ VẤN ĐỀ | 20 | 15 |
-| 006-quan-tri-phan-quyen | QUẢN TRỊ PHÂN QUYỀN | 1 | 1 |
-| 007-khai-thac-bao-cao | KHAI THÁC BÁO CÁO | 1 | 0 |
-| 008-khai-thac-bao-cao-bao-cao-tong-hop | KHAI THÁC BÁO CÁO › Báo cáo tổng hợp | 1 | 0 |
-| 009-khai-thac-bao-cao-bang-tong-hop-nhanh | KHAI THÁC BÁO CÁO › Bảng tổng hợp nhanh | 0 | 0 |
-| 010-khai-thac-bao-cao-tai-nan-giao-thong | KHAI THÁC BÁO CÁO › Tai nạn giao thông | 0 | 0 |
-| 011-khai-thac-bao-cao-bao-duong-thuong-xuyen | KHAI THÁC BÁO CÁO › BẢO DƯỠNG THƯỜNG XUYÊN | 0 | 0 |
-| 012-so-tai-san | SỔ TÀI SẢN | 4 | 2 |
-| 013-sua-chua-inh-ky | SỬA CHỮA ĐỊNH KỲ | 0 | 0 |
-| 014-sua-chua-inh-ky-bang-tong-hop-nhanh | SỬA CHỮA ĐỊNH KỲ › Bảng tổng hợp nhanh | 0 | 0 |
-| 015-sua-chua-inh-ky-tai-nan-giao-thong | SỬA CHỮA ĐỊNH KỲ › Tai nạn giao thông | 0 | 0 |
-| 016-sua-chua-inh-ky-tuan-kiem | SỬA CHỮA ĐỊNH KỲ › Tuần kiểm | 0 | 0 |
-| 017-sua-chua-inh-ky-tuan-uong | SỬA CHỮA ĐỊNH KỲ › Tuần đường | 0 | 0 |
+| id | path | menu | fields | actions | form |
+|----|------|------|--------|---------|------|
+| 001-apps-shell | `capture/shell/root/view` | (apps-shell) | 0 | 15 |  |
+| 002-ban-o-cong-trinh-giao-thong | `capture/gis-draw-google/root/view` | BẢN ĐỒ CÔNG TRÌNH GIAO THÔNG | 39 | 44 |  |
+| 003-ban-o-cong-trinh-giao-thong-ban-o-quan-ly-ha-tang-giao-thong-nghe-an | `capture/gis-draw-google/ban-o-quan-ly-ha-tang-giao-thong-nghe-an/view` | BẢN ĐỒ CÔNG TRÌNH GIAO THÔNG › Bản đồ quản lý hạ tầng giao thông Nghệ An | 46 | 54 |  |
+| 004-dashboad | `capture/dashboard/root/view` | DASHBOAD | 0 | 23 |  |
+| 005-quan-ly-giam-sat | `capture/patrol/root/view` | QUẢN LÝ GIÁM SÁT | 2 | 11 |  |
+| 006-quan-ly-giam-sat-ban-tk-nguyen-anh-phuc | `capture/patrol/ban-tk-nguyen-anh-phuc/view` | QUẢN LÝ GIÁM SÁT › Ban.TK.Nguyễn Anh Phúc | 2 | 14 |  |
+| 007-quan-ly-giam-sat-xuat-excel | `capture/patrol/xuat-excel/view` | QUẢN LÝ GIÁM SÁT › Xuất excel | 8 | 14 |  |
+| 008-quan-ly-giam-sat-tai-lai | `capture/patrol/tai-lai/view` | QUẢN LÝ GIÁM SÁT › Tải lại | 2 | 14 |  |
+| 009-quan-ly-giam-sat-oi-mat-khau | `capture/patrol/oi-mat-khau/view` | QUẢN LÝ GIÁM SÁT › Đổi mật khẩu | 4 | 2 |  |
+| 010-quan-ly-van-e | `capture/incident/root/view` | QUẢN LÝ VẤN ĐỀ | 20 | 21 |  |
+| 011-quan-ly-van-e-root-them | `capture/incident/root/create` | QUẢN LÝ VẤN ĐỀ › _root › Thêm | 144 | 42 | yes |
+| 012-quan-ly-van-e-ban-tk-nguyen-anh-phuc | `capture/incident/ban-tk-nguyen-anh-phuc/view` | QUẢN LÝ VẤN ĐỀ › Ban.TK.Nguyễn Anh Phúc | 20 | 24 |  |
+| 013-quan-ly-van-e-ban-tk-nguyen-anh-phuc-them | `capture/incident/ban-tk-nguyen-anh-phuc/create` | QUẢN LÝ VẤN ĐỀ › Ban.TK.Nguyễn Anh Phúc › Thêm | 144 | 42 | yes |
+| 014-quan-ly-van-e-ban-tk-nguyen-anh-phuc-them-cv | `capture/incident/ban-tk-nguyen-anh-phuc/create` | QUẢN LÝ VẤN ĐỀ › Ban.TK.Nguyễn Anh Phúc › Thêm CV | 144 | 42 | yes |
+| 015-quan-ly-van-e-ban-tk-nguyen-anh-phuc | `capture/incident/ban-tk-nguyen-anh-phuc/page` | QUẢN LÝ VẤN ĐỀ › Ban.TK.Nguyễn Anh Phúc › + | 20 | 34 | yes |
+| 016-quan-ly-van-e-them | `capture/incident/them/view` | QUẢN LÝ VẤN ĐỀ › Thêm | 144 | 42 |  |
+| 017-quan-ly-van-e-them-tab-thong-tin-van-e | `capture/incident/them/tab-thong-tin-van-e` | QUẢN LÝ VẤN ĐỀ › Thêm › tab:Thông tin vấn đề | 28 | 39 |  |
+| 018-quan-tri-phan-quyen | `capture/users/root/view` | QUẢN TRỊ PHÂN QUYỀN | 1 | 2 |  |
+| 019-quan-tri-phan-quyen-ban-tk-nguyen-anh-phuc | `capture/users/ban-tk-nguyen-anh-phuc/view` | QUẢN TRỊ PHÂN QUYỀN › Ban.TK.Nguyễn Anh Phúc | 1 | 5 |  |
+| 020-quan-tri-phan-quyen-oi-mat-khau | `capture/users/oi-mat-khau/view` | QUẢN TRỊ PHÂN QUYỀN › Đổi mật khẩu | 4 | 2 |  |
+| 021-khai-thac-bao-cao | `capture/reports/root/view` | KHAI THÁC BÁO CÁO | 1 | 172 |  |
+| 022-khai-thac-bao-cao-bang-tong-hop-nhanh | `capture/reports/bang-tong-hop-nhanh/view` | KHAI THÁC BÁO CÁO › Bảng tổng hợp nhanh | 0 | 23 |  |
+| 023-khai-thac-bao-cao-tuan-kiem | `capture/reports/tuan-kiem/view` | KHAI THÁC BÁO CÁO › Tuần kiểm | 0 | 24 |  |
+| 024-khai-thac-bao-cao-tuan-uong | `capture/reports/tuan-uong/view` | KHAI THÁC BÁO CÁO › Tuần đường | 0 | 24 |  |
+| 025-khai-thac-bao-cao-bao-duong-thuong-xuyen | `capture/reports/bao-duong-thuong-xuyen/view` | KHAI THÁC BÁO CÁO › BẢO DƯỠNG THƯỜNG XUYÊN | 0 | 24 |  |

@@ -1,0 +1,37 @@
+{
+  "master": "asset",
+  "capturedAt": "2026-08-01T10:02:17.494Z",
+  "count": 5,
+  "rail": [
+    {
+      "text": "24",
+      "href": "",
+      "depth": 1,
+      "rail": "left"
+    },
+    {
+      "text": "Ban.TK.Nguyễn Anh Phúc",
+      "href": "",
+      "depth": 1,
+      "rail": "left"
+    },
+    {
+      "text": "Tuyến đường",
+      "href": "",
+      "depth": 8,
+      "rail": "left"
+    },
+    {
+      "text": "Lớp dữ liệu",
+      "href": "",
+      "depth": 8,
+      "rail": "left"
+    },
+    {
+      "text": "Lấy dữ liệu",
+      "href": "",
+      "depth": 8,
+      "rail": "left"
+    }
+  ]
+}

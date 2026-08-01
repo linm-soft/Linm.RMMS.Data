@@ -60,10 +60,22 @@ function renderFeatureMd(slug, pages) {
     lines.push(`### ${p.menuText || p.title || p.id}`);
     lines.push(``);
     lines.push(`- **id:** \`${p.id}\``);
+    if (p.capturePath) {
+      lines.push(`- **capture:** \`${p.capturePath}/\` (master/page/action)`);
+    }
     lines.push(`- **url:** ${p.finalUrl || p.href || "—"}`);
     lines.push(`- **title:** ${p.title || "—"}`);
     if (p.headings?.length) {
       lines.push(`- **headings:** ${p.headings.slice(0, 12).join(" · ")}`);
+    }
+    if (p.formSample?.fields?.length || p.formSample?.labels?.length) {
+      lines.push(``);
+      lines.push(`#### Form sample (Create/Thêm)`);
+      lines.push(``);
+      lines.push(`- **trigger:** ${p.formSample.trigger || "create"}`);
+      for (const l of [...new Set(p.formSample.labels || [])].slice(0, 40)) {
+        lines.push(`- ${l}`);
+      }
     }
     lines.push(``);
     if (p.labels?.length) {
@@ -95,10 +107,23 @@ function renderFeatureMd(slug, pages) {
       }
       lines.push(``);
     }
-    if (p.buttons?.length) {
+    if (p.actions?.length) {
+      lines.push(`#### Actions / buttons (full)`);
+      lines.push(``);
+      lines.push(`| label | kind | zone | tag | disabled |`);
+      lines.push(`|-------|------|------|-----|----------|`);
+      for (const a of p.actions.slice(0, 120)) {
+        lines.push(
+          `| ${a.label} | ${a.kind || "—"} | ${a.zone || "—"} | ${a.tag || "—"} | ${a.disabled ? "yes" : ""} |`,
+        );
+      }
+      lines.push(``);
+      lines.push(`- **actionCount:** ${p.actionCount ?? p.actions.length}`);
+      lines.push(``);
+    } else if (p.buttons?.length) {
       lines.push(`#### Actions`);
       lines.push(``);
-      for (const b of p.buttons.slice(0, 40)) {
+      for (const b of p.buttons.slice(0, 80)) {
         lines.push(`- ${b}`);
       }
       lines.push(``);
@@ -107,9 +132,11 @@ function renderFeatureMd(slug, pages) {
   lines.push(`## Migration notes`);
   lines.push(``);
   lines.push(
-    `- Map fields → control-map / feature context \`docs/context/features/${slug}.md\`.`,
+    `- Map fields/actions → \`npm run map:demo\` (modern MFE control-map · erp-form-context).`,
   );
-  lines.push(`- Demo parity: HTML mock trong \`Linm.RMMS.Demo\` — **cấm** call legacy API từ MFE.`);
+  lines.push(
+    `- Demo: same fields · Linm shell — **cấm** clone skin GOVOne · **cấm** BE.`,
+  );
   lines.push(``);
   return lines.join("\n");
 }

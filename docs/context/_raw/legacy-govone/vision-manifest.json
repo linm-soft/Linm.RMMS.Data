@@ -1,6 +1,6 @@
 {
-  "createdAt": "2026-08-01T09:50:12.470Z",
-  "count": 34,
+  "createdAt": "2026-08-01T10:31:54.688Z",
+  "count": 76,
   "packets": [
     {
       "id": "002-ban-o-cong-trinh-giao-thong",
@@ -8,6 +8,14 @@
       "menuText": "BẢN ĐỒ CÔNG TRÌNH GIAO THÔNG",
       "screenshot": "screenshots/002-ban-o-cong-trinh-giao-thong.png",
       "analysisPath": "ai-analysis/002-ban-o-cong-trinh-giao-thong.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "003-ban-o-cong-trinh-giao-thong-ban-o-quan-ly-ha-tang-giao-thong-nghe-an",
+      "slug": "gis-draw-google",
+      "menuText": "BẢN ĐỒ CÔNG TRÌNH GIAO THÔNG › Bản đồ quản lý hạ tầng giao thông Nghệ An",
+      "screenshot": "screenshots/003-ban-o-cong-trinh-giao-thong-ban-o-quan-ly-ha-tang-giao-thong-nghe-an.png",
+      "analysisPath": "ai-analysis/003-ban-o-cong-trinh-giao-thong-ban-o-quan-ly-ha-tang-giao-thong-nghe-an.md",
       "skillHint": "/qlbd-analy-demo"
     },
     {
@@ -19,6 +27,14 @@
       "skillHint": "/qlbd-analy-demo"
     },
     {
+      "id": "004-dashboad",
+      "slug": "dashboard",
+      "menuText": "DASHBOAD",
+      "screenshot": "screenshots/004-dashboad.png",
+      "analysisPath": "ai-analysis/004-dashboad.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
       "id": "004-quan-ly-giam-sat",
       "slug": "patrol",
       "menuText": "QUẢN LÝ GIÁM SÁT",
@@ -27,11 +43,27 @@
       "skillHint": "/qlbd-analy-demo"
     },
     {
+      "id": "005-quan-ly-giam-sat",
+      "slug": "patrol",
+      "menuText": "QUẢN LÝ GIÁM SÁT",
+      "screenshot": "screenshots/005-quan-ly-giam-sat.png",
+      "analysisPath": "ai-analysis/005-quan-ly-giam-sat.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
       "id": "005-quan-ly-van-e",
       "slug": "incident",
       "menuText": "QUẢN LÝ VẤN ĐỀ",
       "screenshot": "screenshots/005-quan-ly-van-e.png",
       "analysisPath": "ai-analysis/005-quan-ly-van-e.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "006-quan-ly-giam-sat-ban-tk-nguyen-anh-phuc",
+      "slug": "patrol",
+      "menuText": "QUẢN LÝ GIÁM SÁT › Ban.TK.Nguyễn Anh Phúc",
+      "screenshot": "screenshots/006-quan-ly-giam-sat-ban-tk-nguyen-anh-phuc.png",
+      "analysisPath": "ai-analysis/006-quan-ly-giam-sat-ban-tk-nguyen-anh-phuc.md",
       "skillHint": "/qlbd-analy-demo"
     },
     {
@@ -51,11 +83,43 @@
       "skillHint": "/qlbd-analy-demo"
     },
     {
+      "id": "007-quan-ly-giam-sat-ban-tk-nguyen-anh-phuc",
+      "slug": "patrol",
+      "menuText": "QUẢN LÝ GIÁM SÁT › Ban.TK.Nguyễn Anh Phúc › +",
+      "screenshot": "screenshots/007-quan-ly-giam-sat-ban-tk-nguyen-anh-phuc.png",
+      "analysisPath": "ai-analysis/007-quan-ly-giam-sat-ban-tk-nguyen-anh-phuc.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "007-quan-ly-giam-sat-xuat-excel",
+      "slug": "patrol",
+      "menuText": "QUẢN LÝ GIÁM SÁT › Xuất excel",
+      "screenshot": "screenshots/007-quan-ly-giam-sat-xuat-excel.png",
+      "analysisPath": "ai-analysis/007-quan-ly-giam-sat-xuat-excel.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
       "id": "008-khai-thac-bao-cao-bao-cao-tong-hop",
       "slug": "reports",
       "menuText": "KHAI THÁC BÁO CÁO › Báo cáo tổng hợp",
       "screenshot": "screenshots/008-khai-thac-bao-cao-bao-cao-tong-hop.png",
       "analysisPath": "ai-analysis/008-khai-thac-bao-cao-bao-cao-tong-hop.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "008-quan-ly-giam-sat-tai-lai",
+      "slug": "patrol",
+      "menuText": "QUẢN LÝ GIÁM SÁT › Tải lại",
+      "screenshot": "screenshots/008-quan-ly-giam-sat-tai-lai.png",
+      "analysisPath": "ai-analysis/008-quan-ly-giam-sat-tai-lai.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "008-quan-ly-giam-sat-xuat-excel",
+      "slug": "patrol",
+      "menuText": "QUẢN LÝ GIÁM SÁT › Xuất excel",
+      "screenshot": "screenshots/008-quan-ly-giam-sat-xuat-excel.png",
+      "analysisPath": "ai-analysis/008-quan-ly-giam-sat-xuat-excel.md",
       "skillHint": "/qlbd-analy-demo"
     },
     {
@@ -72,6 +136,22 @@
       "menuText": "KHAI THÁC BÁO CÁO › Bảng tổng hợp nhanh",
       "screenshot": "screenshots/009-khai-thac-bao-cao-bang-tong-hop-nhanh.png",
       "analysisPath": "ai-analysis/009-khai-thac-bao-cao-bang-tong-hop-nhanh.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "009-quan-ly-giam-sat-oi-mat-khau",
+      "slug": "patrol",
+      "menuText": "QUẢN LÝ GIÁM SÁT › Đổi mật khẩu",
+      "screenshot": "screenshots/009-quan-ly-giam-sat-oi-mat-khau.png",
+      "analysisPath": "ai-analysis/009-quan-ly-giam-sat-oi-mat-khau.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "009-quan-ly-giam-sat-xuat-excel",
+      "slug": "patrol",
+      "menuText": "QUẢN LÝ GIÁM SÁT › Xuất excel › +",
+      "screenshot": "screenshots/009-quan-ly-giam-sat-xuat-excel.png",
+      "analysisPath": "ai-analysis/009-quan-ly-giam-sat-xuat-excel.md",
       "skillHint": "/qlbd-analy-demo"
     },
     {
@@ -99,6 +179,22 @@
       "skillHint": "/qlbd-analy-demo"
     },
     {
+      "id": "010-quan-ly-giam-sat-tai-lai",
+      "slug": "patrol",
+      "menuText": "QUẢN LÝ GIÁM SÁT › Tải lại",
+      "screenshot": "screenshots/010-quan-ly-giam-sat-tai-lai.png",
+      "analysisPath": "ai-analysis/010-quan-ly-giam-sat-tai-lai.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "010-quan-ly-van-e",
+      "slug": "incident",
+      "menuText": "QUẢN LÝ VẤN ĐỀ",
+      "screenshot": "screenshots/010-quan-ly-van-e.png",
+      "analysisPath": "ai-analysis/010-quan-ly-van-e.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
       "id": "011-khai-thac-bao-cao-bao-duong-thuong-xuyen",
       "slug": "reports",
       "menuText": "KHAI THÁC BÁO CÁO › BẢO DƯỠNG THƯỜNG XUYÊN",
@@ -115,11 +211,43 @@
       "skillHint": "/qlbd-analy-demo"
     },
     {
+      "id": "011-quan-ly-giam-sat-tai-lai",
+      "slug": "patrol",
+      "menuText": "QUẢN LÝ GIÁM SÁT › Tải lại › +",
+      "screenshot": "screenshots/011-quan-ly-giam-sat-tai-lai.png",
+      "analysisPath": "ai-analysis/011-quan-ly-giam-sat-tai-lai.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "011-quan-ly-van-e-root-them",
+      "slug": "incident",
+      "menuText": "QUẢN LÝ VẤN ĐỀ › _root › Thêm",
+      "screenshot": "screenshots/011-quan-ly-van-e-root-them.png",
+      "analysisPath": "ai-analysis/011-quan-ly-van-e-root-them.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
       "id": "012-lay-thong-tin-vi-tri",
       "slug": "gis-draw-google",
       "menuText": "Lấy thông tin vị trí",
       "screenshot": "screenshots/012-lay-thong-tin-vi-tri.png",
       "analysisPath": "ai-analysis/012-lay-thong-tin-vi-tri.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "012-quan-ly-van-e-ban-tk-nguyen-anh-phuc",
+      "slug": "incident",
+      "menuText": "QUẢN LÝ VẤN ĐỀ › Ban.TK.Nguyễn Anh Phúc",
+      "screenshot": "screenshots/012-quan-ly-van-e-ban-tk-nguyen-anh-phuc.png",
+      "analysisPath": "ai-analysis/012-quan-ly-van-e-ban-tk-nguyen-anh-phuc.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "012-quan-ly-van-e",
+      "slug": "incident",
+      "menuText": "QUẢN LÝ VẤN ĐỀ",
+      "screenshot": "screenshots/012-quan-ly-van-e.png",
+      "analysisPath": "ai-analysis/012-quan-ly-van-e.md",
       "skillHint": "/qlbd-analy-demo"
     },
     {
@@ -139,6 +267,22 @@
       "skillHint": "/qlbd-analy-demo"
     },
     {
+      "id": "013-quan-ly-van-e-ban-tk-nguyen-anh-phuc-them",
+      "slug": "incident",
+      "menuText": "QUẢN LÝ VẤN ĐỀ › Ban.TK.Nguyễn Anh Phúc › Thêm",
+      "screenshot": "screenshots/013-quan-ly-van-e-ban-tk-nguyen-anh-phuc-them.png",
+      "analysisPath": "ai-analysis/013-quan-ly-van-e-ban-tk-nguyen-anh-phuc-them.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "013-quan-ly-van-e-ban-tk-nguyen-anh-phuc",
+      "slug": "incident",
+      "menuText": "QUẢN LÝ VẤN ĐỀ › Ban.TK.Nguyễn Anh Phúc",
+      "screenshot": "screenshots/013-quan-ly-van-e-ban-tk-nguyen-anh-phuc.png",
+      "analysisPath": "ai-analysis/013-quan-ly-van-e-ban-tk-nguyen-anh-phuc.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
       "id": "013-sua-chua-inh-ky",
       "slug": "maintenance",
       "menuText": "SỬA CHỮA ĐỊNH KỲ",
@@ -155,11 +299,43 @@
       "skillHint": "/qlbd-analy-demo"
     },
     {
+      "id": "014-quan-ly-van-e-ban-tk-nguyen-anh-phuc-them-cv",
+      "slug": "incident",
+      "menuText": "QUẢN LÝ VẤN ĐỀ › Ban.TK.Nguyễn Anh Phúc › Thêm CV",
+      "screenshot": "screenshots/014-quan-ly-van-e-ban-tk-nguyen-anh-phuc-them-cv.png",
+      "analysisPath": "ai-analysis/014-quan-ly-van-e-ban-tk-nguyen-anh-phuc-them-cv.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "014-quan-ly-van-e-ban-tk-nguyen-anh-phuc-them",
+      "slug": "incident",
+      "menuText": "QUẢN LÝ VẤN ĐỀ › Ban.TK.Nguyễn Anh Phúc › Thêm",
+      "screenshot": "screenshots/014-quan-ly-van-e-ban-tk-nguyen-anh-phuc-them.png",
+      "analysisPath": "ai-analysis/014-quan-ly-van-e-ban-tk-nguyen-anh-phuc-them.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
       "id": "014-sua-chua-inh-ky-bang-tong-hop-nhanh",
       "slug": "maintenance",
       "menuText": "SỬA CHỮA ĐỊNH KỲ › Bảng tổng hợp nhanh",
       "screenshot": "screenshots/014-sua-chua-inh-ky-bang-tong-hop-nhanh.png",
       "analysisPath": "ai-analysis/014-sua-chua-inh-ky-bang-tong-hop-nhanh.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "015-quan-ly-van-e-ban-tk-nguyen-anh-phuc-them-cv",
+      "slug": "incident",
+      "menuText": "QUẢN LÝ VẤN ĐỀ › Ban.TK.Nguyễn Anh Phúc › Thêm CV",
+      "screenshot": "screenshots/015-quan-ly-van-e-ban-tk-nguyen-anh-phuc-them-cv.png",
+      "analysisPath": "ai-analysis/015-quan-ly-van-e-ban-tk-nguyen-anh-phuc-them-cv.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "015-quan-ly-van-e-ban-tk-nguyen-anh-phuc",
+      "slug": "incident",
+      "menuText": "QUẢN LÝ VẤN ĐỀ › Ban.TK.Nguyễn Anh Phúc › +",
+      "screenshot": "screenshots/015-quan-ly-van-e-ban-tk-nguyen-anh-phuc.png",
+      "analysisPath": "ai-analysis/015-quan-ly-van-e-ban-tk-nguyen-anh-phuc.md",
       "skillHint": "/qlbd-analy-demo"
     },
     {
@@ -187,11 +363,43 @@
       "skillHint": "/qlbd-analy-demo"
     },
     {
+      "id": "016-quan-ly-van-e-them",
+      "slug": "incident",
+      "menuText": "QUẢN LÝ VẤN ĐỀ › Thêm",
+      "screenshot": "screenshots/016-quan-ly-van-e-them.png",
+      "analysisPath": "ai-analysis/016-quan-ly-van-e-them.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "016-quan-tri-phan-quyen",
+      "slug": "users",
+      "menuText": "QUẢN TRỊ PHÂN QUYỀN",
+      "screenshot": "screenshots/016-quan-tri-phan-quyen.png",
+      "analysisPath": "ai-analysis/016-quan-tri-phan-quyen.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
       "id": "016-sua-chua-inh-ky-tuan-kiem",
       "slug": "patrol",
       "menuText": "SỬA CHỮA ĐỊNH KỲ › Tuần kiểm",
       "screenshot": "screenshots/016-sua-chua-inh-ky-tuan-kiem.png",
       "analysisPath": "ai-analysis/016-sua-chua-inh-ky-tuan-kiem.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "017-quan-ly-van-e-them-tab-thong-tin-van-e",
+      "slug": "incident",
+      "menuText": "QUẢN LÝ VẤN ĐỀ › Thêm › tab:Thông tin vấn đề",
+      "screenshot": "screenshots/017-quan-ly-van-e-them-tab-thong-tin-van-e.png",
+      "analysisPath": "ai-analysis/017-quan-ly-van-e-them-tab-thong-tin-van-e.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "017-quan-tri-phan-quyen-ban-tk-nguyen-anh-phuc",
+      "slug": "users",
+      "menuText": "QUẢN TRỊ PHÂN QUYỀN › Ban.TK.Nguyễn Anh Phúc",
+      "screenshot": "screenshots/017-quan-tri-phan-quyen-ban-tk-nguyen-anh-phuc.png",
+      "analysisPath": "ai-analysis/017-quan-tri-phan-quyen-ban-tk-nguyen-anh-phuc.md",
       "skillHint": "/qlbd-analy-demo"
     },
     {
@@ -219,6 +427,38 @@
       "skillHint": "/qlbd-analy-demo"
     },
     {
+      "id": "018-khai-thac-bao-cao",
+      "slug": "reports",
+      "menuText": "KHAI THÁC BÁO CÁO",
+      "screenshot": "screenshots/018-khai-thac-bao-cao.png",
+      "analysisPath": "ai-analysis/018-khai-thac-bao-cao.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "018-quan-tri-phan-quyen",
+      "slug": "users",
+      "menuText": "QUẢN TRỊ PHÂN QUYỀN",
+      "screenshot": "screenshots/018-quan-tri-phan-quyen.png",
+      "analysisPath": "ai-analysis/018-quan-tri-phan-quyen.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "019-khai-thac-bao-cao-bang-tong-hop-nhanh",
+      "slug": "reports",
+      "menuText": "KHAI THÁC BÁO CÁO › Bảng tổng hợp nhanh",
+      "screenshot": "screenshots/019-khai-thac-bao-cao-bang-tong-hop-nhanh.png",
+      "analysisPath": "ai-analysis/019-khai-thac-bao-cao-bang-tong-hop-nhanh.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "019-quan-tri-phan-quyen-ban-tk-nguyen-anh-phuc",
+      "slug": "users",
+      "menuText": "QUẢN TRỊ PHÂN QUYỀN › Ban.TK.Nguyễn Anh Phúc",
+      "screenshot": "screenshots/019-quan-tri-phan-quyen-ban-tk-nguyen-anh-phuc.png",
+      "analysisPath": "ai-analysis/019-quan-tri-phan-quyen-ban-tk-nguyen-anh-phuc.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
       "id": "019-tu-ong-anh-gia-chat-luong-mat-uong",
       "slug": "gis-draw-google",
       "menuText": "Tự động đánh giá chất lượng mặt đường",
@@ -235,11 +475,59 @@
       "skillHint": "/qlbd-analy-demo"
     },
     {
+      "id": "020-khai-thac-bao-cao-tuan-kiem",
+      "slug": "patrol",
+      "menuText": "KHAI THÁC BÁO CÁO › Tuần kiểm",
+      "screenshot": "screenshots/020-khai-thac-bao-cao-tuan-kiem.png",
+      "analysisPath": "ai-analysis/020-khai-thac-bao-cao-tuan-kiem.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "020-quan-tri-phan-quyen-oi-mat-khau",
+      "slug": "users",
+      "menuText": "QUẢN TRỊ PHÂN QUYỀN › Đổi mật khẩu",
+      "screenshot": "screenshots/020-quan-tri-phan-quyen-oi-mat-khau.png",
+      "analysisPath": "ai-analysis/020-quan-tri-phan-quyen-oi-mat-khau.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "021-khai-thac-bao-cao-tuan-uong",
+      "slug": "patrol",
+      "menuText": "KHAI THÁC BÁO CÁO › Tuần đường",
+      "screenshot": "screenshots/021-khai-thac-bao-cao-tuan-uong.png",
+      "analysisPath": "ai-analysis/021-khai-thac-bao-cao-tuan-uong.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "021-khai-thac-bao-cao",
+      "slug": "reports",
+      "menuText": "KHAI THÁC BÁO CÁO",
+      "screenshot": "screenshots/021-khai-thac-bao-cao.png",
+      "analysisPath": "ai-analysis/021-khai-thac-bao-cao.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
       "id": "021-sao-chep-thiet-bi",
       "slug": "gis-draw-google",
       "menuText": "Sao chép thiết bị",
       "screenshot": "screenshots/021-sao-chep-thiet-bi.png",
       "analysisPath": "ai-analysis/021-sao-chep-thiet-bi.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "022-khai-thac-bao-cao-bang-tong-hop-nhanh",
+      "slug": "reports",
+      "menuText": "KHAI THÁC BÁO CÁO › Bảng tổng hợp nhanh",
+      "screenshot": "screenshots/022-khai-thac-bao-cao-bang-tong-hop-nhanh.png",
+      "analysisPath": "ai-analysis/022-khai-thac-bao-cao-bang-tong-hop-nhanh.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "022-khai-thac-bao-cao-bao-duong-thuong-xuyen",
+      "slug": "reports",
+      "menuText": "KHAI THÁC BÁO CÁO › BẢO DƯỠNG THƯỜNG XUYÊN",
+      "screenshot": "screenshots/022-khai-thac-bao-cao-bao-duong-thuong-xuyen.png",
+      "analysisPath": "ai-analysis/022-khai-thac-bao-cao-bao-duong-thuong-xuyen.md",
       "skillHint": "/qlbd-analy-demo"
     },
     {
@@ -259,11 +547,59 @@
       "skillHint": "/qlbd-analy-demo"
     },
     {
+      "id": "023-khai-thac-bao-cao-tuan-kiem",
+      "slug": "patrol",
+      "menuText": "KHAI THÁC BÁO CÁO › Tuần kiểm",
+      "screenshot": "screenshots/023-khai-thac-bao-cao-tuan-kiem.png",
+      "analysisPath": "ai-analysis/023-khai-thac-bao-cao-tuan-kiem.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "023-so-tai-san",
+      "slug": "asset",
+      "menuText": "SỔ TÀI SẢN",
+      "screenshot": "screenshots/023-so-tai-san.png",
+      "analysisPath": "ai-analysis/023-so-tai-san.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "024-khai-thac-bao-cao-tuan-uong",
+      "slug": "patrol",
+      "menuText": "KHAI THÁC BÁO CÁO › Tuần đường",
+      "screenshot": "screenshots/024-khai-thac-bao-cao-tuan-uong.png",
+      "analysisPath": "ai-analysis/024-khai-thac-bao-cao-tuan-uong.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
       "id": "024-luu-ket-qua-ctrl-s",
       "slug": "gis-draw-google",
       "menuText": "Lưu kết quả (Ctrl + S)",
       "screenshot": "screenshots/024-luu-ket-qua-ctrl-s.png",
       "analysisPath": "ai-analysis/024-luu-ket-qua-ctrl-s.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "024-so-tai-san-24",
+      "slug": "asset",
+      "menuText": "SỔ TÀI SẢN › 24",
+      "screenshot": "screenshots/024-so-tai-san-24.png",
+      "analysisPath": "ai-analysis/024-so-tai-san-24.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "025-khai-thac-bao-cao-bao-duong-thuong-xuyen",
+      "slug": "reports",
+      "menuText": "KHAI THÁC BÁO CÁO › BẢO DƯỠNG THƯỜNG XUYÊN",
+      "screenshot": "screenshots/025-khai-thac-bao-cao-bao-duong-thuong-xuyen.png",
+      "analysisPath": "ai-analysis/025-khai-thac-bao-cao-bao-duong-thuong-xuyen.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "025-so-tai-san-24",
+      "slug": "asset",
+      "menuText": "SỔ TÀI SẢN › 24 › +",
+      "screenshot": "screenshots/025-so-tai-san-24.png",
+      "analysisPath": "ai-analysis/025-so-tai-san-24.md",
       "skillHint": "/qlbd-analy-demo"
     },
     {
