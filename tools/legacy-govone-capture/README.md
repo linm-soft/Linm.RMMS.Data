@@ -17,6 +17,16 @@ npm run install-browser
 ```bash
 npm run all
 # hoặc: npm run capture && npm run map
+
+npm run pipeline:deep   # deep menu trong từng app + analyze + step context
+npm run pipeline:full   # full limits + vision packets + step context
+```
+
+Từ **AI-AutoCode**:
+
+```bash
+yarn scan-qlbd-demo -- --deep --docs-root D:/AI-QLBD/Linm.RMMS.Data/docs
+yarn scan-qlbd-demo -- --full --docs-root D:/AI-QLBD/Linm.RMMS.Data/docs --mfe-source D:/AI-QLBD/MFE-Source
 ```
 
 Output: `docs/context/_raw/legacy-govone/`
@@ -42,3 +52,6 @@ Trigger: `workflow_dispatch` (manual).
 3. Sau Signed → `/qlbd-align-mfe`
 
 Skill: `/qlbd-legacy-capture` (Linm.Development.Rules).
+
+**Chạy từ AI-AutoCode (scan · dashboard · worker):**  
+`AI-AutoCode/docs/QLBD-LEGACY-CAPTURE.md`

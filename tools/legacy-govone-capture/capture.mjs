@@ -12,10 +12,20 @@ import {
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { chromium } from "playwright";
+import { clickInnerItem, collectInnerNav } from "./deep-crawl.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const TOOL_ROOT = __dirname;
 const DATA_ROOT = resolve(TOOL_ROOT, "../..");
+
+/** shallow | deep | full — full = deep + higher limits */
+function captureMode() {
+  const m = env("GOVONE_MODE", "shallow").toLowerCase();
+  if (m === "full" || m === "deep" || m === "shallow") return m;
+  if (process.argv.includes("--full")) return "full";
+  if (process.argv.includes("--deep")) return "deep";
+  return "shallow";
+}
 
 function loadEnvFile(path) {
   if (!existsSync(path)) return;
@@ -63,6 +73,15 @@ function slugify(s) {
     .slice(0, 80) || "page";
 }
 
+/** Strip session tokens from URLs before logging / writing artifacts. */
+function redactUrl(u) {
+  if (!u) return u;
+  return String(u)
+    .replace(/([?&]gtoken=)[^&#]+/gi, "$1[REDACTED]")
+    .replace(/([?&]token=)[^&#]+/gi, "$1[REDACTED]")
+    .replace(/([?&]access_token=)[^&#]+/gi, "$1[REDACTED]");
+}
+
 async function extractPageInventory(page) {
   return page.evaluate(() => {
     const textOf = (el) => (el?.innerText || el?.textContent || "").trim();
@@ -83,12 +102,12 @@ async function extractPageInventory(page) {
       .slice(0, 300);
     const buttons = [
       ...document.querySelectorAll(
-        "button, a.btn, input[type=submit], input[type=button], .btn, [role=button]",
+        "button, a.btn, input[type=submit], input[type=button], .btn, [role=button], .nav-link, .sidebar a, .menu-item, [class*=toolbar] a, [class*=Toolbar] button",
       ),
     ]
-      .map((el) => textOf(el) || el.getAttribute("value") || "")
+      .map((el) => textOf(el) || el.getAttribute("value") || el.getAttribute("title") || "")
       .filter(Boolean)
-      .slice(0, 150);
+      .slice(0, 200);
     const tableHeaders = [...document.querySelectorAll("th")]
       .map((el) => textOf(el))
       .filter(Boolean)
@@ -123,31 +142,123 @@ async function extractPageInventory(page) {
   });
 }
 
-async function collectMenuCandidates(page) {
-  return page.evaluate(() => {
+const SKIP_TEXT_RE =
+  /đăng xuất|log\s?off|log\s?out|quên mật khẩu|đăng ký|eKGIS|copyright|xin chào|hồ sơ của tôi|video hướng dẫn|^\.\.\.$|@|^\d{2,}/i;
+
+function isSkippableHref(href, baseHost) {
+  if (!href) return false;
+  const h = href.toLowerCase();
+  if (h.startsWith("javascript:") || h.startsWith("mailto:") || h.startsWith("tel:")) {
+    return true;
+  }
+  if (h.includes("logoff") || h.includes("logout") || h.includes("recoverpassword")) {
+    return true;
+  }
+  if (h.includes("facebook.com") || h.includes("ekgis.com")) return true;
+  try {
+    const u = new URL(href);
+    if (u.hostname && baseHost && !u.hostname.endsWith(baseHost.replace(/^www\./, ""))) {
+      // allow subdomain of govone.vn
+      if (!u.hostname.endsWith("govone.vn") && !u.hostname.endsWith(baseHost)) {
+        return true;
+      }
+    }
+  } catch {
+    /* ignore */
+  }
+  return false;
+}
+
+async function collectMenuCandidates(page, baseHost) {
+  const raw = await page.evaluate(() => {
     const textOf = (el) => (el?.innerText || el?.textContent || "").trim();
     const seen = new Set();
     const out = [];
     const push = (text, href, kind) => {
-      const t = (text || "").replace(/\s+/g, " ").trim();
-      if (!t || t.length > 100) return;
-      const key = `${t}|${href || ""}`;
+      const t = (text || "").replace(/\s+/g, " ").trim().split("\n")[0];
+      if (!t || t.length > 120) return;
+      const key = `${t}|${kind}`;
       if (seen.has(key)) return;
       seen.add(key);
       out.push({ text: t, href: href || "", kind });
     };
+
+    // App tiles on apps.aspx (often href=# with JS open)
+    const headings = [
+      ...document.querySelectorAll(
+        ".app-item, .AppItem, .appTile, [class*=App] a, .dashboard-app, h3, h4, .Title",
+      ),
+    ];
+    for (const el of headings) {
+      const t = textOf(el).split("\n")[0];
+      if (
+        /BẢN ĐỒ|DASHBOAD|DASHBOARD|GIÁM SÁT|VẤN ĐỀ|PHÂN QUYỀN|BÁO CÁO|TÀI SẢN|SỬA CHỮA|VIDEO/i.test(
+          t,
+        )
+      ) {
+        push(t.replace(/\s*\.\.\.\s*$/, "").trim(), "", "app-tile");
+      }
+    }
+
     for (const a of document.querySelectorAll("a[href]")) {
       const href = a.href || "";
-      if (!href || href.startsWith("javascript:") || href.includes("logout")) continue;
-      push(textOf(a), href, "link");
+      const t = textOf(a).split("\n")[0];
+      if (!t) continue;
+      const isHash =
+        !href
+        || href.endsWith("#")
+        || href.includes("apps.aspx#")
+        || href === location.href.split("#")[0] + "#";
+      if (isHash && /BẢN ĐỒ|DASHBOAD|DASHBOARD|GIÁM SÁT|VẤN ĐỀ|PHÂN QUYỀN|BÁO CÁO|TÀI SẢN|SỬA CHỮA/i.test(t)) {
+        push(t.replace(/\s*\.\.\.\s*$/, "").trim(), href, "app-tile");
+        continue;
+      }
+      push(t, href, "link");
     }
     for (const el of document.querySelectorAll(
-      "[role=treeitem], .dxm-item, .tree-node, .MenuItem, li[data-key]",
+      "[role=treeitem], .dxm-item, .tree-node, .MenuItem, li[data-key], .dxm-content",
     )) {
       push(textOf(el).split("\n")[0], "", "tree");
     }
     return out.slice(0, 400);
   });
+
+  return raw.filter(
+    (m) =>
+      !SKIP_TEXT_RE.test(m.text)
+      && !isSkippableHref(m.href, baseHost)
+      && m.text.length > 1,
+  );
+}
+
+async function openAppTile(page, context, tileText) {
+  const label = tileText.replace(/\s*\.\.\.\s*$/, "").trim();
+  const locator = page
+    .getByText(label, { exact: false })
+    .first();
+  if (!(await locator.isVisible({ timeout: 3000 }).catch(() => false))) {
+    return { page, opened: false };
+  }
+
+  const popupPromise = context.waitForEvent("page", { timeout: 8000 }).catch(() => null);
+  await locator.click({ timeout: 10_000 });
+  const popup = await popupPromise;
+  if (popup) {
+    await popup.waitForLoadState("domcontentloaded").catch(() => {});
+    await popup.waitForLoadState("networkidle", { timeout: 12_000 }).catch(() => {});
+    await popup.waitForTimeout(2000);
+    return { page: popup, opened: true, via: "popup" };
+  }
+
+  await page.waitForLoadState("domcontentloaded").catch(() => {});
+  await page.waitForTimeout(1200);
+
+  // iframe app shell
+  const frames = page.frames().filter((f) => f.url() && !f.url().startsWith("about:"));
+  if (frames.length > 1) {
+    return { page, opened: true, via: "frame", frame: frames[frames.length - 1] };
+  }
+  return { page, opened: true, via: "nav" };
 }
 
 async function tryLogin(page, baseUrl, user, pass) {
@@ -156,12 +267,15 @@ async function tryLogin(page, baseUrl, user, pass) {
 
   const userSel = env(
     "GOVONE_USER_SELECTOR",
-    'input[type="text"], input[name*="User"], input[id*="User"], input[name*="Login"], input[id*="txt"]',
+    '#ctl00_mainContent_login1_LoginCtrl_UserName, input[name*="UserName"], input[type="text"]',
   );
-  const passSel = env("GOVONE_PASS_SELECTOR", 'input[type="password"]');
+  const passSel = env(
+    "GOVONE_PASS_SELECTOR",
+    '#ctl00_mainContent_login1_LoginCtrl_Password, input[type="password"]',
+  );
   const submitSel = env(
     "GOVONE_SUBMIT_SELECTOR",
-    'input[type="submit"], button[type="submit"], button:has-text("Đăng nhập"), input[value*="Đăng"]',
+    '#ctl00_mainContent_login1_LoginCtrl_Login, input[type="submit"], button:has-text("Đăng nhập")',
   );
 
   const passBox = page.locator(passSel).first();
@@ -219,18 +333,25 @@ async function main() {
   mkdirSync(pagesDir, { recursive: true });
   if (boolEnv("GOVONE_SCREENSHOTS", true)) mkdirSync(shotDir, { recursive: true });
 
-  const maxPages = Number(env("GOVONE_MAX_PAGES", "80")) || 80;
-  const maxMenu = Number(env("GOVONE_MAX_MENU", "120")) || 120;
+  const mode = captureMode();
+  const deep = mode === "deep" || mode === "full";
+  const defaultMax = mode === "full" ? "200" : deep ? "120" : "80";
+  const maxPages = Number(env("GOVONE_MAX_PAGES", defaultMax)) || 80;
+  const maxMenu = Number(env("GOVONE_MAX_MENU", mode === "full" ? "200" : "120")) || 120;
+  const maxInner = Number(env("GOVONE_MAX_INNER", mode === "full" ? "40" : "25")) || 25;
   const headless = boolEnv("GOVONE_HEADLESS", true);
 
   console.log(
     JSON.stringify({
       event: "start",
+      mode,
+      deep,
       baseUrl,
       outDir,
       userSet: Boolean(user),
       passLen: pass.length,
       maxPages,
+      maxInner,
       headless,
     }),
   );
@@ -242,10 +363,16 @@ async function main() {
   });
   const page = await context.newPage();
 
+  const baseHost = new URL(baseUrl).hostname;
   const login = await tryLogin(page, baseUrl, user, pass);
   console.log(JSON.stringify({ event: "login", ...login, user: "[REDACTED]" }));
 
-  const menu = (await collectMenuCandidates(page)).slice(0, maxMenu);
+  // Always re-open apps shell as crawl home
+  const appsUrl = `${baseUrl.replace(/\/$/, "")}${env("GOVONE_APPS_PATH", "/apps.aspx")}`;
+  await page.goto(appsUrl, { waitUntil: "domcontentloaded", timeout: 60_000 });
+  await page.waitForTimeout(1000);
+
+  const menu = (await collectMenuCandidates(page, baseHost)).slice(0, maxMenu);
   writeFileSync(
     join(outDir, "menu-candidates.json"),
     JSON.stringify({ capturedAt: nowIso(), count: menu.length, menu }, null, 2),
@@ -256,83 +383,181 @@ async function main() {
   const pages = [];
   const queue = [];
 
-  // Seed: current shell + unique hrefs from menu
-  queue.push({
-    text: "(shell)",
-    href: page.url(),
-    kind: "shell",
-  });
-  for (const m of menu) {
-    if (m.href && m.href.startsWith("http")) queue.push(m);
-  }
+  queue.push({ text: "(apps-shell)", href: appsUrl, kind: "shell" });
+  const tiles = menu.filter((m) => m.kind === "app-tile");
+  const others = menu.filter(
+    (m) =>
+      m.kind !== "app-tile"
+      && m.href
+      && m.href.startsWith("http")
+      && !m.href.includes("apps.aspx#")
+      && !m.href.endsWith("#"),
+  );
+  for (const t of tiles) queue.push(t);
+  for (const o of others) queue.push(o);
+
+  let active = page;
 
   while (queue.length && pages.length < maxPages) {
     const item = queue.shift();
-    const key = item.href || item.text;
+    const key = `${item.kind}|${item.text}|${item.href || ""}`;
     if (visited.has(key)) continue;
     visited.add(key);
 
     try {
-      if (item.href && item.href.startsWith("http")) {
+      // Return to apps shell before each tile click
+      if (item.kind === "app-tile" || item.kind === "shell") {
+        if (active !== page && !active.isClosed?.()) {
+          await active.close().catch(() => {});
+          active = page;
+        }
+        if (!page.url().includes("apps.aspx")) {
+          await page.goto(appsUrl, {
+            waitUntil: "domcontentloaded",
+            timeout: 60_000,
+          });
+        }
+      }
+
+      let invTarget = page;
+      let finalUrl = page.url();
+      let via = item.kind;
+
+      if (item.kind === "shell") {
+        invTarget = page;
+      } else if (item.kind === "app-tile") {
+        const opened = await openAppTile(page, context, item.text);
+        if (!opened.opened) {
+          console.log(
+            JSON.stringify({ event: "tile_miss", menuText: item.text }),
+          );
+          continue;
+        }
+        via = opened.via;
+        if (opened.via === "popup") {
+          active = opened.page;
+          invTarget = opened.page;
+          finalUrl = opened.page.url();
+        } else if (opened.via === "frame" && opened.frame) {
+          invTarget = opened.frame;
+          finalUrl = opened.frame.url();
+        } else {
+          invTarget = page;
+          finalUrl = page.url();
+          // Session lost → login page: re-login and skip
+          if (/login\.aspx/i.test(finalUrl)) {
+            await tryLogin(page, baseUrl, user, pass);
+            continue;
+          }
+        }
+      } else if (item.href && item.href.startsWith("http")) {
         await page.goto(item.href, {
           waitUntil: "domcontentloaded",
           timeout: 45_000,
         });
-      } else if (item.text && item.text !== "(shell)") {
-        // Click by text in nav (WebForms postback)
-        const clickable = page
-          .getByRole("link", { name: item.text, exact: true })
-          .or(page.locator(`text=${item.text}`).first());
-        if (await clickable.first().isVisible({ timeout: 2000 }).catch(() => false)) {
-          await clickable.first().click({ timeout: 10_000 });
-          await page.waitForLoadState("domcontentloaded").catch(() => {});
-          await page.waitForTimeout(800);
-        } else {
+        invTarget = page;
+        finalUrl = page.url();
+        if (/login\.aspx/i.test(finalUrl)) {
+          await tryLogin(page, baseUrl, user, pass);
           continue;
+        }
+      } else if (item.kind === "tree") {
+        const clickable = page.getByText(item.text, { exact: true }).first();
+        if (!(await clickable.isVisible({ timeout: 2000 }).catch(() => false))) {
+          continue;
+        }
+        await clickable.click({ timeout: 10_000 });
+        await page.waitForTimeout(800);
+        invTarget = page;
+        finalUrl = page.url();
+      } else {
+        continue;
+      }
+
+      const savePage = async (menuText, kind, viaKind, target, url) => {
+        if (pages.length >= maxPages) return null;
+        const inv = await extractPageInventory(target);
+        const id = `${String(pages.length + 1).padStart(3, "0")}-${slugify(menuText || inv.title)}`;
+        const record = {
+          id,
+          menuText,
+          kind,
+          via: viaKind,
+          href: item.href ? redactUrl(item.href) : null,
+          finalUrl: redactUrl(url),
+          capturedAt: nowIso(),
+          mode,
+          ...inv,
+        };
+        pages.push(record);
+        writeFileSync(
+          join(pagesDir, `${id}.json`),
+          JSON.stringify(record, null, 2),
+          "utf8",
+        );
+        if (boolEnv("GOVONE_SCREENSHOTS", true)) {
+          const shotPage =
+            active && typeof active.screenshot === "function" ? active : page;
+          await shotPage
+            .screenshot({ path: join(shotDir, `${id}.png`), fullPage: false })
+            .catch(() => {});
+        }
+        console.log(
+          JSON.stringify({
+            event: "page",
+            id,
+            menuText,
+            via: viaKind,
+            fields: inv.fields.length,
+            labels: inv.labels.length,
+            url: redactUrl(url),
+          }),
+        );
+        return record;
+      };
+
+      await savePage(item.text, item.kind, via, invTarget, finalUrl);
+
+      // Deep: crawl inner nav inside popup before closing
+      if (
+        deep
+        && item.kind === "app-tile"
+        && via === "popup"
+        && active !== page
+        && !active.isClosed?.()
+      ) {
+        const inner = (await collectInnerNav(active)).slice(0, maxInner);
+        for (const nav of inner) {
+          if (pages.length >= maxPages) break;
+          const ik = `inner|${item.text}|${nav.text}`;
+          if (visited.has(ik)) continue;
+          visited.add(ik);
+          const ok = await clickInnerItem(active, nav.text);
+          if (!ok) continue;
+          await savePage(
+            `${item.text} › ${nav.text}`,
+            "inner",
+            "deep",
+            active,
+            active.url(),
+          );
+        }
+      } else if (!deep) {
+        const more = await collectMenuCandidates(
+          active && typeof active.evaluate === "function" ? active : page,
+          baseHost,
+        );
+        for (const m of more.filter((x) => x.kind === "tree" || x.kind === "link")) {
+          const k = `${m.kind}|${m.text}|${m.href || ""}`;
+          if (!visited.has(k) && queue.length < maxMenu * 2) queue.push(m);
         }
       }
 
-      const inv = await extractPageInventory(page);
-      const id = `${String(pages.length + 1).padStart(3, "0")}-${slugify(item.text || inv.title)}`;
-      const record = {
-        id,
-        menuText: item.text,
-        kind: item.kind,
-        href: item.href || null,
-        finalUrl: page.url(),
-        capturedAt: nowIso(),
-        ...inv,
-      };
-      pages.push(record);
-      writeFileSync(
-        join(pagesDir, `${id}.json`),
-        JSON.stringify(record, null, 2),
-        "utf8",
-      );
-
-      if (boolEnv("GOVONE_SCREENSHOTS", true)) {
-        await page.screenshot({
-          path: join(shotDir, `${id}.png`),
-          fullPage: false,
-        });
+      // Close popup after tile (+ deep inner) done
+      if (via === "popup" && active !== page && !active.isClosed?.()) {
+        await active.close().catch(() => {});
+        active = page;
       }
-
-      // Expand menu from this page
-      const more = await collectMenuCandidates(page);
-      for (const m of more) {
-        const k = m.href || m.text;
-        if (!visited.has(k) && queue.length < maxMenu * 2) queue.push(m);
-      }
-
-      console.log(
-        JSON.stringify({
-          event: "page",
-          id,
-          menuText: item.text,
-          fields: inv.fields.length,
-          labels: inv.labels.length,
-        }),
-      );
     } catch (e) {
       console.log(
         JSON.stringify({
@@ -341,6 +566,10 @@ async function main() {
           error: e instanceof Error ? e.message : String(e),
         }),
       );
+      if (active !== page) {
+        await active.close().catch(() => {});
+        active = page;
+      }
     }
   }
 

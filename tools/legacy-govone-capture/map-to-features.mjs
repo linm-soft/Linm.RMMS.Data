@@ -126,7 +126,11 @@ function main() {
   mkdirSync(FEAT_DIR, { recursive: true });
   const bySlug = new Map();
   for (const p of pages) {
-    const hay = [p.menuText, p.title, ...(p.headings || [])].join(" | ");
+    if (/^\(apps-shell\)$/i.test(p.menuText || "") || p.kind === "shell") {
+      continue; // shell catalog only — không gán 1 slug
+    }
+    // Prefer menu tile text for mapping (tránh heading chung “hạ tầng giao thông”)
+    const hay = [p.menuText, p.title].join(" | ");
     const slug = matchSlug(hay, rules);
     if (!bySlug.has(slug)) bySlug.set(slug, []);
     bySlug.get(slug).push(p);
