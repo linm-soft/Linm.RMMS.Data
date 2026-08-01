@@ -13,10 +13,10 @@
 | Legacy | type | zone | Control | Linm SSOT |
 |--------|------|------|---------|-----------|
 | (unnamed) | button | sidebar | Text | TextField · common-field-control |
-| inputDienTich | text | content | Text | TextField · common-field-control |
-| inputChieuDai | text | content | Text | TextField · common-field-control |
-| inputChieuDaiKhongGian | text | content | Text | TextField · common-field-control |
-| inputDienTichKhongGian | text | content | Text | TextField · common-field-control |
+| inputDienTich | text | content | Text readonly (measure) | TextField readOnly · common-field-control · kết quả Đo diện tích (m²/km²) |
+| inputChieuDai | text | content | Text readonly (measure) | TextField readOnly · common-field-control · kết quả Đo chiều dài (m/km) |
+| inputChieuDaiKhongGian | text | content | Text readonly (measure) | TextField readOnly · common-field-control · chiều dài không gian |
+| inputDienTichKhongGian | text | content | Text readonly (measure) | TextField readOnly · common-field-control · diện tích không gian |
 | Nhập thông tin đối tượng... | text | header | Lookup ĐT | SearchInput · form-catalog-lookup-input |
 | gMapInputTextSearch | text | header | Lookup ĐT | SearchInput · form-catalog-lookup-input |
 | ddlLopDuLieu | select | toolbar | Select | Select · useFormOptions (cấm hardcode VN) |
@@ -36,9 +36,9 @@
 | Chú giải | action | grid | Chú giải | Button · toolbar zone |
 | Thuộc tính | action | grid | Thuộc tính | Button · toolbar zone |
 | Kết quả | action | grid | Kết quả | Button · toolbar zone |
-| Đo diện tích | nav | toolbar | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
-| Đo chiều dài | nav | toolbar | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
-| Lấy thông tin vị trí | export | toolbar | Xuất Excel | export-excel · toolbar |
+| Đo diện tích | nav | toolbar | Tool Đo diện tích | GIS toolbar · polygon measure · bind `inputDienTich` / `inputDienTichKhongGian` |
+| Đo chiều dài | nav | toolbar | Tool Đo chiều dài | GIS toolbar · polyline measure · bind `inputChieuDai` / `inputChieuDaiKhongGian` |
+| Lấy thông tin vị trí | export | toolbar | Tool Lấy thông tin vị trí | GIS toolbar · click point · readout lng/lat (X/Y) · `btTienIchThongTinDiem` |
 | Chụp màn hình | nav | toolbar | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
 | Xuất bản đồ | export | toolbar | Xuất Excel | export-excel · toolbar |
 | In bản đồ | export | toolbar | Xuất Excel | export-excel · toolbar |
