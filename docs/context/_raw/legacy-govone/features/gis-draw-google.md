@@ -8,7 +8,7 @@
 ### BẢN ĐỒ CÔNG TRÌNH GIAO THÔNG
 
 - **id:** `002-ban-o-cong-trinh-giao-thong`
-- **url:** https://pmdb.govone.vn/geditor.aspx?mapid=17384[REDACTED]
+- **url:** https://pmdb.govone.vn/geditor.aspx?mapid=17384&gtoken=[REDACTED]
 - **title:** Tạo bản đồ - gServer Phiên bản 2.1
 - **headings:** Diện tích · km2 · Chiều dài · km · Chiều dài: · m · Diện tích: · m2 · Vệ tinh · Google · Giao thông · Hành chính
 
@@ -62,6 +62,24 @@
 - Chú giải
 - Thuộc tính
 - Kết quả
+- Đo diện tích
+- Đo chiều dài
+- Lấy thông tin vị trí
+- Chụp màn hình
+- Xuất bản đồ
+- In bản đồ
+- Chuẩn hóa cột Km
+- Xem hướng đoạn đường
+- Gộp đoạn đường multiline
+- Tạo đoạn đánh giá 100m
+- Gán mã đoạn đánh giá cho điểm thu thập
+- Tự động đánh giá chất lượng mặt đường
+- Danh sách thiết bị
+- Sao chép thiết bị
+- Sao chép tài sản
+- Tổng hợp
+- Hủy biên tập
+- Lưu kết quả (Ctrl + S)
 - Biểu đồ
 - Bản đồ
 - Công cụ

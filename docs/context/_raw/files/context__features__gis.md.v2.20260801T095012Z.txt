@@ -1,0 +1,60 @@
+# source: context/features/gis.md
+# version: 2
+# scannedAt: 2026-08-01T09:50:12.685Z
+# sha256: 37ae23cb2da79380205fe2da7c9c3a9548fbc282004497132f7d500cfa0a48a2
+# mtimeMs: 1785492730184.9077
+# GIS và Digital Twin — Feature Context
+
+> **Slug:** `gis` · **Module:** `Gis` · **Phase:** P1 (2D) / P2 (3D Twin)  
+> **Status:** Demo  
+> **Sources:** `07` §2 · `09`  
+> **Demo HTML:** `Linm.RMMS.Demo/docs/features/gis-demo.html`  
+> **Sub-feature vẽ Google:** [`gis-draw-google.md`](gis-draw-google.md) · demo [gis-draw-google-demo.html](../../Linm.RMMS.Demo/docs/features/gis-draw-google-demo.html) · screenshot `docs/1-ban-do.png`
+
+## 1. Tổng quan
+
+| | |
+|--|--|
+| Mục tiêu | Bản đồ vector tiles + overlay realtime; Digital Twin 3D sau P2; **P1 ưu tiên parity vẽ trên Google** (app GOVOne) |
+| Persona | Điều hành · tuần đường · BA |
+| App hiện có | Bản đồ giám sát |
+| DoD P1 | Tiles PBF · GeoJSON bbox · heatmap PCI stub · SignalR overlay |
+
+## 2. Design / UI
+
+| Screen | Pattern | Zones |
+|--------|---------|-------|
+| Map 2D | Full | Toolbar layer · MapLibre · legend PCI |
+| Heatmap PCI | Full | Same map · toggle layer |
+| 3D Twin | Full | Cesium — **P2 only** |
+
+## 3. API
+
+| Method | Path | Mô tả |
+|--------|------|-------|
+| GET | `/api/v1/gis/tiles/{layer}/{z}/{x}/{y}.pbf` | Vector tiles |
+| GET | `/api/v1/gis/geojson/{layer}?bbox=` | GeoJSON |
+| GET | `/api/v1/gis/heatmap/pci` | Heatmap |
+| GET | `/api/v1/gis/3d-tiles/{assetId}` | P2 |
+
+## 4. Database
+
+PostGIS layers publish → Martin/pg_tileserv · Redis tile cache · SignalR `GisHub`.
+
+## 5. Events
+
+`asset.updated` · `defect.detected` → refresh overlay.
+
+## 6. Gaps
+
+| ID | Default |
+|----|---------|
+| GAP-F-GIS-01 3D Twin | DEFER P2 |
+| GAP-F-GIS-02 Vẽ Point/Line/Polygon trên Google | Xem **`gis-draw-google`** (P1 parity) |
+
+## 7. Demo checklist
+
+- [ ] Map 2D + legend PCI
+- [ ] Layer toggle rõ
+- [ ] 3D gắn badge «P2»
+- [ ] Flow vẽ Google — demo `gis-draw-google-demo.html`

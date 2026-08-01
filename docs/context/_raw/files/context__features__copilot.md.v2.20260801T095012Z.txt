@@ -1,0 +1,73 @@
+# source: context/features/copilot.md
+# version: 2
+# scannedAt: 2026-08-01T09:50:12.685Z
+# sha256: 6766adc84b4eb02dccd5d5a8c50e1cd1db2debcaa525fbdf484827e5a5df36c1
+# mtimeMs: 1785516443366.8137
+# AI Copilot — Feature Context
+
+> **Slug:** `copilot` · **Module:** `Copilot` · **Phase:** P1 online · P2 RAG on-prem  
+> **Status:** Context  
+> **Sources:** `RMMS` §16 · `07` · `08` · `09` · `15-SCREEN-AI-MAP.md`  
+> **Demo HTML:** — (hub sau)
+
+## 1. Tổng quan
+
+| | |
+|--|--|
+| Mục tiêu | Hỏi NL: tuyến xuống cấp · ổ gà mở · tài sản cần chú ý · sinh báo cáo/biểu đồ gợi ý |
+| Persona | Lãnh đạo · điều hành · BA |
+| App hiện có | — (mới trên Web shell) |
+| DoD P1 | Chat + suggested prompts · 4o-mini default · rate limit · disclaimer |
+| DoD P2 | RAG on-prem / Qdrant khi Go local |
+
+## 2. Design / UI
+
+| Screen | Pattern | Zones | Ghi chú |
+|--------|---------|-------|---------|
+| Drawer chat | Slideout | Messages · prompts · citations | Gắn mọi trang Web |
+| Suggested prompts | — | 3–5 chip | «Tuyến nào xuống cấp nhanh nhất?» |
+
+**Mock:** 3 hội thoại mẫu + disclaimer «AI hỗ trợ — kiểm tra nghiệp vụ».
+
+## 3. API
+
+| Method | Path | Mô tả |
+|--------|------|-------|
+| POST | `/api/v1/copilot/chat` | Message + sessionId |
+| GET | `/api/v1/copilot/sessions/{id}` | History |
+| POST | `/api/v1/copilot/feedback` | Thumb up/down |
+
+Request skeleton:
+
+```json
+{ "sessionId": "…", "message": "Có bao nhiêu ổ gà chưa xử lý?", "locale": "vi" }
+```
+
+Auth: JWT · rate limit (`06`). Function-calling SQL **read-only** khi implement.
+
+## 4. Database
+
+| Entity | Key columns | Notes |
+|--------|-------------|-------|
+| CopilotSession | Id, UserId, CreatedAt | |
+| CopilotMessage | SessionId, Role, Content, Tokens | Audit token |
+| (P2) Vector store | — | Qdrant |
+
+## 5. Events / tích hợp
+
+Không bắt buộc. Đọc Report/Incident/Asset qua tool adapters.
+
+## 6. Gaps / quyết định
+
+| ID | Question | Default |
+|----|----------|---------|
+| GAP-F-COP-01 | RAG on-prem | P2 |
+| GAP-F-COP-02 | Ghi SQL tool whitelist | Chỉ view/read API nội bộ |
+| GAP-F-COP-03 | Token budget | Chung alert ~$200/tháng (`08`) |
+
+## 7. Demo checklist (chốt khách)
+
+- [ ] Drawer + 3 prompt mẫu
+- [ ] Disclaimer rõ
+- [ ] Badge P1 online · không hứa RAG local
+- [ ] Không gắn Mobile P1

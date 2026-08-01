@@ -1,0 +1,279 @@
+{
+  "createdAt": "2026-08-01T09:50:12.470Z",
+  "count": 34,
+  "packets": [
+    {
+      "id": "002-ban-o-cong-trinh-giao-thong",
+      "slug": "gis-draw-google",
+      "menuText": "BẢN ĐỒ CÔNG TRÌNH GIAO THÔNG",
+      "screenshot": "screenshots/002-ban-o-cong-trinh-giao-thong.png",
+      "analysisPath": "ai-analysis/002-ban-o-cong-trinh-giao-thong.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "003-dashboad",
+      "slug": "dashboard",
+      "menuText": "DASHBOAD",
+      "screenshot": "screenshots/003-dashboad.png",
+      "analysisPath": "ai-analysis/003-dashboad.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "004-quan-ly-giam-sat",
+      "slug": "patrol",
+      "menuText": "QUẢN LÝ GIÁM SÁT",
+      "screenshot": "screenshots/004-quan-ly-giam-sat.png",
+      "analysisPath": "ai-analysis/004-quan-ly-giam-sat.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "005-quan-ly-van-e",
+      "slug": "incident",
+      "menuText": "QUẢN LÝ VẤN ĐỀ",
+      "screenshot": "screenshots/005-quan-ly-van-e.png",
+      "analysisPath": "ai-analysis/005-quan-ly-van-e.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "006-quan-tri-phan-quyen",
+      "slug": "users",
+      "menuText": "QUẢN TRỊ PHÂN QUYỀN",
+      "screenshot": "screenshots/006-quan-tri-phan-quyen.png",
+      "analysisPath": "ai-analysis/006-quan-tri-phan-quyen.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "007-khai-thac-bao-cao",
+      "slug": "reports",
+      "menuText": "KHAI THÁC BÁO CÁO",
+      "screenshot": "screenshots/007-khai-thac-bao-cao.png",
+      "analysisPath": "ai-analysis/007-khai-thac-bao-cao.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "008-khai-thac-bao-cao-bao-cao-tong-hop",
+      "slug": "reports",
+      "menuText": "KHAI THÁC BÁO CÁO › Báo cáo tổng hợp",
+      "screenshot": "screenshots/008-khai-thac-bao-cao-bao-cao-tong-hop.png",
+      "analysisPath": "ai-analysis/008-khai-thac-bao-cao-bao-cao-tong-hop.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "008-so-tai-san",
+      "slug": "asset",
+      "menuText": "SỔ TÀI SẢN",
+      "screenshot": "screenshots/008-so-tai-san.png",
+      "analysisPath": "ai-analysis/008-so-tai-san.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "009-khai-thac-bao-cao-bang-tong-hop-nhanh",
+      "slug": "reports",
+      "menuText": "KHAI THÁC BÁO CÁO › Bảng tổng hợp nhanh",
+      "screenshot": "screenshots/009-khai-thac-bao-cao-bang-tong-hop-nhanh.png",
+      "analysisPath": "ai-analysis/009-khai-thac-bao-cao-bang-tong-hop-nhanh.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "009-sua-chua-inh-ky",
+      "slug": "maintenance",
+      "menuText": "SỬA CHỮA ĐỊNH KỲ",
+      "screenshot": "screenshots/009-sua-chua-inh-ky.png",
+      "analysisPath": "ai-analysis/009-sua-chua-inh-ky.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "010-khai-thac-bao-cao-tai-nan-giao-thong",
+      "slug": "reports",
+      "menuText": "KHAI THÁC BÁO CÁO › Tai nạn giao thông",
+      "screenshot": "screenshots/010-khai-thac-bao-cao-tai-nan-giao-thong.png",
+      "analysisPath": "ai-analysis/010-khai-thac-bao-cao-tai-nan-giao-thong.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "010-o-dien-tich",
+      "slug": "gis-draw-google",
+      "menuText": "Đo diện tích",
+      "screenshot": "screenshots/010-o-dien-tich.png",
+      "analysisPath": "ai-analysis/010-o-dien-tich.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "011-khai-thac-bao-cao-bao-duong-thuong-xuyen",
+      "slug": "reports",
+      "menuText": "KHAI THÁC BÁO CÁO › BẢO DƯỠNG THƯỜNG XUYÊN",
+      "screenshot": "screenshots/011-khai-thac-bao-cao-bao-duong-thuong-xuyen.png",
+      "analysisPath": "ai-analysis/011-khai-thac-bao-cao-bao-duong-thuong-xuyen.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "011-o-chieu-dai",
+      "slug": "gis-draw-google",
+      "menuText": "Đo chiều dài",
+      "screenshot": "screenshots/011-o-chieu-dai.png",
+      "analysisPath": "ai-analysis/011-o-chieu-dai.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "012-lay-thong-tin-vi-tri",
+      "slug": "gis-draw-google",
+      "menuText": "Lấy thông tin vị trí",
+      "screenshot": "screenshots/012-lay-thong-tin-vi-tri.png",
+      "analysisPath": "ai-analysis/012-lay-thong-tin-vi-tri.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "012-so-tai-san",
+      "slug": "asset",
+      "menuText": "SỔ TÀI SẢN",
+      "screenshot": "screenshots/012-so-tai-san.png",
+      "analysisPath": "ai-analysis/012-so-tai-san.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "013-chup-man-hinh",
+      "slug": "gis-draw-google",
+      "menuText": "Chụp màn hình",
+      "screenshot": "screenshots/013-chup-man-hinh.png",
+      "analysisPath": "ai-analysis/013-chup-man-hinh.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "013-sua-chua-inh-ky",
+      "slug": "maintenance",
+      "menuText": "SỬA CHỮA ĐỊNH KỲ",
+      "screenshot": "screenshots/013-sua-chua-inh-ky.png",
+      "analysisPath": "ai-analysis/013-sua-chua-inh-ky.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "014-chuan-hoa-cot-km",
+      "slug": "gis-draw-google",
+      "menuText": "Chuẩn hóa cột Km",
+      "screenshot": "screenshots/014-chuan-hoa-cot-km.png",
+      "analysisPath": "ai-analysis/014-chuan-hoa-cot-km.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "014-sua-chua-inh-ky-bang-tong-hop-nhanh",
+      "slug": "maintenance",
+      "menuText": "SỬA CHỮA ĐỊNH KỲ › Bảng tổng hợp nhanh",
+      "screenshot": "screenshots/014-sua-chua-inh-ky-bang-tong-hop-nhanh.png",
+      "analysisPath": "ai-analysis/014-sua-chua-inh-ky-bang-tong-hop-nhanh.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "015-sua-chua-inh-ky-tai-nan-giao-thong",
+      "slug": "maintenance",
+      "menuText": "SỬA CHỮA ĐỊNH KỲ › Tai nạn giao thông",
+      "screenshot": "screenshots/015-sua-chua-inh-ky-tai-nan-giao-thong.png",
+      "analysisPath": "ai-analysis/015-sua-chua-inh-ky-tai-nan-giao-thong.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "015-xem-huong-oan-uong",
+      "slug": "gis-draw-google",
+      "menuText": "Xem hướng đoạn đường",
+      "screenshot": "screenshots/015-xem-huong-oan-uong.png",
+      "analysisPath": "ai-analysis/015-xem-huong-oan-uong.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "016-gop-oan-uong-multiline",
+      "slug": "gis-draw-google",
+      "menuText": "Gộp đoạn đường multiline",
+      "screenshot": "screenshots/016-gop-oan-uong-multiline.png",
+      "analysisPath": "ai-analysis/016-gop-oan-uong-multiline.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "016-sua-chua-inh-ky-tuan-kiem",
+      "slug": "patrol",
+      "menuText": "SỬA CHỮA ĐỊNH KỲ › Tuần kiểm",
+      "screenshot": "screenshots/016-sua-chua-inh-ky-tuan-kiem.png",
+      "analysisPath": "ai-analysis/016-sua-chua-inh-ky-tuan-kiem.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "017-sua-chua-inh-ky-tuan-uong",
+      "slug": "patrol",
+      "menuText": "SỬA CHỮA ĐỊNH KỲ › Tuần đường",
+      "screenshot": "screenshots/017-sua-chua-inh-ky-tuan-uong.png",
+      "analysisPath": "ai-analysis/017-sua-chua-inh-ky-tuan-uong.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "017-tao-oan-anh-gia-100m",
+      "slug": "gis-draw-google",
+      "menuText": "Tạo đoạn đánh giá 100m",
+      "screenshot": "screenshots/017-tao-oan-anh-gia-100m.png",
+      "analysisPath": "ai-analysis/017-tao-oan-anh-gia-100m.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "018-gan-ma-oan-anh-gia-cho-iem-thu-thap",
+      "slug": "gis-draw-google",
+      "menuText": "Gán mã đoạn đánh giá cho điểm thu thập",
+      "screenshot": "screenshots/018-gan-ma-oan-anh-gia-cho-iem-thu-thap.png",
+      "analysisPath": "ai-analysis/018-gan-ma-oan-anh-gia-cho-iem-thu-thap.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "019-tu-ong-anh-gia-chat-luong-mat-uong",
+      "slug": "gis-draw-google",
+      "menuText": "Tự động đánh giá chất lượng mặt đường",
+      "screenshot": "screenshots/019-tu-ong-anh-gia-chat-luong-mat-uong.png",
+      "analysisPath": "ai-analysis/019-tu-ong-anh-gia-chat-luong-mat-uong.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "020-danh-sach-thiet-bi",
+      "slug": "gis-draw-google",
+      "menuText": "Danh sách thiết bị",
+      "screenshot": "screenshots/020-danh-sach-thiet-bi.png",
+      "analysisPath": "ai-analysis/020-danh-sach-thiet-bi.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "021-sao-chep-thiet-bi",
+      "slug": "gis-draw-google",
+      "menuText": "Sao chép thiết bị",
+      "screenshot": "screenshots/021-sao-chep-thiet-bi.png",
+      "analysisPath": "ai-analysis/021-sao-chep-thiet-bi.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "022-tong-hop",
+      "slug": "gis-draw-google",
+      "menuText": "Tổng hợp",
+      "screenshot": "screenshots/022-tong-hop.png",
+      "analysisPath": "ai-analysis/022-tong-hop.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "023-huy-bien-tap",
+      "slug": "gis-draw-google",
+      "menuText": "Hủy biên tập",
+      "screenshot": "screenshots/023-huy-bien-tap.png",
+      "analysisPath": "ai-analysis/023-huy-bien-tap.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "024-luu-ket-qua-ctrl-s",
+      "slug": "gis-draw-google",
+      "menuText": "Lưu kết quả (Ctrl + S)",
+      "screenshot": "screenshots/024-luu-ket-qua-ctrl-s.png",
+      "analysisPath": "ai-analysis/024-luu-ket-qua-ctrl-s.md",
+      "skillHint": "/qlbd-analy-demo"
+    },
+    {
+      "id": "025-ve-tinh",
+      "slug": "gis-draw-google",
+      "menuText": "Vệ tinh",
+      "screenshot": "screenshots/025-ve-tinh.png",
+      "analysisPath": "ai-analysis/025-ve-tinh.md",
+      "skillHint": "/qlbd-analy-demo"
+    }
+  ],
+  "instruction": "Agent: mở từng screenshot + ai-analysis/*.md → điền Analysis → chạy map-to-step-context"
+}

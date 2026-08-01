@@ -8,8 +8,67 @@
 ### QUẢN LÝ VẤN ĐỀ
 
 - **id:** `005-quan-ly-van-e`
-- **url:** https://pmdb.govone.vn/dbv3baotri.aspx
+- **url:** https://pmdb.govone.vn/dbv3baotri.aspx#panelVanDe
 - **title:** Bảo trì - gServer Phiên bản 2.1
+- **headings:** Vấn đề · Vệ tinh · Google · Giao thông · Hành chính · Không nền · Bản đồ nền · Bản đồ nền
+
+#### Labels / field captions
+
+- Đoạn đường:
+- Loại vấn đề:
+- Người ghi VĐ:
+- Công ty:
+- Tuần đường:
+- Trạng thái:
+- Trạng thái đọc:
+- Tuần kiểm:
+- Đơn vị BĐTX:
+- Mức độ:
+- Hướng xử lý:
+- Tài sản:
+- TT báo cáo:
+- Định vị
+
+#### Inputs
+
+| tag | type | name/id | placeholder |
+|-----|------|---------|-------------|
+| input | text | treepickerex-1026-inputEl |  |
+| input | text | doanduong | Chọn đoạn đường |
+| input | text | loaivande | Loại vấn đề |
+| input | text | treepickerex-1030-inputEl | Chọn Công ty/Người ghi vấn đề |
+| input | text | congty | Chọn công ty |
+| input | text | tuanduong | Chọn tuần đường |
+| input | text | trangthaixuly | Trạng thái xử lý |
+| input | text | trangthaidoc | Trạng thái đọc |
+| input | text | tuankiemchidao |  |
+| input | text | hattruongchidao |  |
+| input | text | mucdonghiemtrong | Mức độ nghiêm trọng |
+| input | text | mota | Mô tả |
+| input | text | huongxuly | Chọn hướng xử lý |
+| input | text | loaiTaiSan |  |
+| input | text | trangthaibaocao | Trạng thái báo cáo |
+| input | text | textfield-1087-inputEl |  |
+| input | text | textfield-1088-inputEl |  |
+| input | text | textfield-1089-inputEl |  |
+| input | checkbox | ckDinhVi |  |
+| input | text | inputItem |  |
+
+#### Actions
+
+- Ban.TK.Nguyễn Anh Phúc
+- Tìm mới
+- Tìm kiếm
+- Thêm
+- Thêm CV
+- Xem CV
+- Xem
+- Xóa
+- Phản hồi
+- Xuất dữ liệu
+- BC sở
+- Hủy
+- Áp dụng
 
 ## Migration notes
 

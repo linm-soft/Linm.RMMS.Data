@@ -339,7 +339,17 @@ async function main() {
   const maxPages = Number(env("GOVONE_MAX_PAGES", defaultMax)) || 80;
   const maxMenu = Number(env("GOVONE_MAX_MENU", mode === "full" ? "200" : "120")) || 120;
   const maxInner = Number(env("GOVONE_MAX_INNER", mode === "full" ? "40" : "25")) || 25;
-  const headless = boolEnv("GOVONE_HEADLESS", true);
+  // deep/full: mặc định HIỆN browser để theo dõi; set GOVONE_HEADLESS=true để ẩn
+  // shallow: mặc định headless
+  const headlessEnv = env("GOVONE_HEADLESS");
+  const headless =
+    headlessEnv !== ""
+      ? boolEnv("GOVONE_HEADLESS", !deep)
+      : !deep;
+  const headedForce =
+    process.argv.includes("--headed") || process.argv.includes("--show");
+  const headlessForce = process.argv.includes("--headless");
+  const useHeadless = headedForce ? false : headlessForce ? true : headless;
 
   console.log(
     JSON.stringify({
@@ -352,11 +362,15 @@ async function main() {
       passLen: pass.length,
       maxPages,
       maxInner,
-      headless,
+      headless: useHeadless,
+      showBrowser: !useHeadless,
     }),
   );
 
-  const browser = await chromium.launch({ headless });
+  const browser = await chromium.launch({
+    headless: useHeadless,
+    slowMo: useHeadless ? Number(env("GOVONE_SLOW_MO", "80")) || 80 : 0,
+  });
   const context = await browser.newContext({
     locale: "vi-VN",
     viewport: { width: 1440, height: 900 },

@@ -17,6 +17,12 @@
 - govone.vn
 - youtube
 - facebook
+- Giao diện sáng
+- Giao diện tối
+- Ban.TK.Nguyễn Anh Phúc  nguyenanhphuc.dbna@cloudgis.vn
+- Thông tin của tôi
+- Đổi mật khẩu
+- Đăng xuất
 
 ## Migration notes
 

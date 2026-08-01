@@ -6,8 +6,8 @@
   "description": "Login GOVOne PMDB → crawl menu/pages → extract fields for QLBD migration context",
   "scripts": {
     "capture": "node capture.mjs",
-    "capture:deep": "node capture.mjs --deep",
-    "capture:full": "node capture.mjs --full",
+    "capture:deep": "node capture.mjs --deep --headed",
+    "capture:full": "node capture.mjs --full --headed",
     "map": "node map-to-features.mjs",
     "analyze": "node analyze-screenshots.mjs",
     "map:context": "node map-to-step-context.mjs",

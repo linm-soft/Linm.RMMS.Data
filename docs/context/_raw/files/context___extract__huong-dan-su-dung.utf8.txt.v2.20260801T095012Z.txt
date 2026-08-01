@@ -1,0 +1,507 @@
+# source: context/_extract/huong-dan-su-dung.utf8.txt
+# version: 2
+# scannedAt: 2026-08-01T09:50:12.685Z
+# sha256: 085398951eee0fa3328c6acbf79f8e7927eb819d17c2317ededdfba2085747c8
+# mtimeMs: 1785512353074.136
+﻿
+
+Trên điện thoại
+Check in
+Quản lý sử dụng RMMS để Check in vị trí khi đi tuần. Cán bộ quản lý có thể check in để chấm công theo tuần , theo tháng.
+Sử dụng ứng dụng Vấn Đề để ghi nhận các vấn đề trên tuyến. Ghi lại các vấn đề đang xảy ra trên tuyến, theo quy định phải ghi nhận tối thiểu 3/vấn đề/tuyến/ngày.
+Sử dụng chức năng Công việc để theo dõi công việc và tiến độ , kết quả công việc (trạng thái). Để cán bộ quản lý nắm bắt công việc đã giao và theo dõi trạng thái công việc.
+Sử dụng mục Tài Sản để quản lý những tài sản của nhà nước trên tuyến đường mà họ quản lý , thu thập và cập nhật tài sản.
+Sử dụng ứng dụng lưu trữ để xem lại những điểm check in và sự cố đã lưu khi thiết bị di động không có sóng và có mạng. Mục đích : để cán bộ quản lý có thể check in và ghi nhận sự cố khi điện thoại không kết nối 3G , 4G và không có sóng .
+Sử dụng ứng dụng Góp ý để nếu ý kiến , phản ảnh về tính năng phần mềm.
+Sử dụng ứng dụng Giám sát để quản lý lịch sử của tuần đường theo danh sách và bản đồ.
+
+                                              
+a. Check in trên di động
+Mục đích:
+Hỗ trợ cán bộ quản lý khai báo vị trí tuần đường cho cấp trên, cũng làm căn cứ chấm công tuần đường;
+Hỗ trợ người dùng có thể checkin ngay cả khi không có mạng 3G,4G;
+Hỗ trợ người dùng xem lịch sử Checkin;
+Nhằm hồ trợ người dùng không ra vào nhiều ứng dụng, người dùng có thể Checkin ở các mục Checkin, vấn đề;
+Theo quy định nếu là Quốc lộ, tỉnh lộ mỗi đoạn đường tuần đường checkin 3 lần/ngày/tuyến gồm điểm đầu tuyến, điểm giữa tuyến, điểm cuối tuyến. Tuy nhiên số lần checkin còn tùy vào quy chế của từng đơn vị bảo trì, quy chế của nhà thầu mà quy định số điểm check in trên 1 tuyến đường, 1 ngày là bao nhiêu
+Hỗ trợ người dùng có thể làm việc online hoăc offline tức là có thể làm khi không có 3G, 4G, Wifi vẫn thực hiện checkin bình thường
+Cách 1: CheckIn khi điện thoại có kết nối với 3G ,4G, wifi
+Cách thực hiện:
+Kích vào ứng dụng Check In
+Nhấn vào nút + để tạo điểm check in
+Điền nội dung để check in
+Xem lại điểm mình vừa check in.
+     
+Cách 2: CheckIn khi không có 3G , 4G ,wifi
+Cách thực hiện:
+Kích vào ứng dụng Check In
+Nhấn vào nút   để tạo điểm check in
+Điền nội dung để check in offline
+Kích vào ứng dùng Lưu Trữ
+Kích vào nút    để tải điểm check in lên (khi có kết nối 3G ,4G ,wifi)
+Kích vào mục Check In để xem lại lịch sử check in
+    
+Giám sát
+Hỗ trợ cán bộ Hạt trưởng giám sát công tác tuần đường của các cán bộ trong hạt, gửi và nhận thông báo từ các cán bộ hạt quản lý
+Ứng dụng Giám sát người dùng sử dụng 3G, 4G, Wifi để sử dụng phần mềm
+Hỗ trợ cán bộ giám sát nhân viên tuần đường trên danh sách lịch sử check in và trên bản đồ
+                                              
+a. Giám sát lịch sử check in của cán bộ tuần đường theo danh sách và lọc theo tuyến đường và ngày mà cán bộ giám sát quản lý
+Cách thực hiện:
+Kích vào ứng dụng Giám sát
+Nhấn vào nút  để lọc lịch sử check in của tuần đường theo tuyến đường và theo ngày
+Cho tuyến đường và thời gian sau đó bấm “tìm kiếm” lịch sử của tuần đường.
+        
+b. Giám sát lịch sử check in của cán bộ tuần đường theo bản đồ
+Cách thực hiện:
+Kích vào ứng dụng Giám sát
+Nhấn vào nút  để xem lịch sử check in của tuần đường trên bản đồ
+Chọn khu vực bạn muốn xem
+Chọn điểm check in  của tuần đường bạn muốn xem.
+   
+Vấn đề
+Tra cứu, khai thác vấn đề, sự cố.
+Trao đổi vấn đề sự cố.
+Ghi nhận vấn đề, sự cố (ghi nhận Online – vấn đề sẽ gửi tức thì, báo cáo luôn cho đơn vị BDTX, Tuần kiểm). Ghi nhận vấn đề, sự cố ở ứng dụng Vấn đề đều được khi thiết bị di động sử dụng có hoặc không kết nối mạng 3G/4G/wifi
+Tiếp nhận ý kiến từ đơn vị BDTX, ý kiến chỉ đạo của Tuần kiểm về xử lý sự cố.
+Giao công việc xử lý vấn đề nếu Tuần đường có thể xử lý tại chỗ.
+                                       
+a. Xem vấn đề của cán bộ tuần đường đã ghi nhận
+Cách thực hiện
+Kích vào ứng dụng Vấn đề
+Nhấn vào nút  để xem chi tiết vấn đề vừa báo cáo.
+  
+
+
+
+
+
+Thông tin vấn đề hiện thị gồm
+                
+  
+b.Trao đổi vấn đề của cán bộ tuần đường đã ghi nhận
+Cách 1 :
+Kích vào ứng dụng Vấn đề
+Nhấn vào nút  để trao đổi vấn đề vừa báo cáo
+Nhập nội dung cần trao đổi và nhấn nút “gửi”.
+   
+Cách 2 :
+Kích vào ứng dụng  (sẽ nhận được thông báo khi có sự cố )
+Nhấn vào vấn đề vừa được báo cáo
+Nhập nội dung cần trao đổi và nhấn nút “gửi”.
+         
+c. Thêm vấn đề mà cán bộ quản lý ghi nhận khi đi tuần ( khi có wifi, 3G, 4G)
+Cách thực hiện:
+Kích vào ứng dụng Vấn đề
+Nhấn vào nút  để thêm vấn đề
+Chọn loại sự cố
+Điền nội dụng và bấm nút thêm
+   
+d. Thêm vấn đề mà cán bộ tuần đường ghi nhận khi đi tuần ( khi có không có wifi, 3G, 4G)
+Cách thực hiện:
+Kích vào ứng dụng Vấn đề
+Nhấn vào nút  để thêm vấn đề
+Điền nội dung và nhấn “thêm sự cố offline“
+Vào mục Lưu Trữ để xem sự cố vừa lưu
+Bấm nút  để đồng bộ sự cố ( khi có wifi, 3G, 4G )
+-  Vào lại mụcVấn đề để kiểm tra sự cố vừa tải lên
+e. Tìm đường đến vấn đề của cán bộ tuần đường đã ghi nhận
+Cách thực hiện:
+Kích vào ứng dụng Vấn đề
+Nhấn vào nút  để xem vị trí vấn đề
+Chọn vị trí hiện tại của bạn
+Bấm “start” để tìm đường đến vị trí sự cố
+
+f. Giao việc cho nhân viên xử lý khi có vấn đề của cán bộ tuần đường đã ghi nhận
+Cách thực hiện:
+Kích vào ứng dụng Vấn đề
+Nhấn vào nút  để giao việc
+Điền thông tin và nhấn nút “thêm công việc”
+Chọn mục Công việc để xem lại công việc vừa giao
+Thấy được công việc vừa giao
+     
+g. Xem vấn đề của cán bộ tuần đường đã ghi nhận trên bản đồ
+Cách thực hiện:
+Kích vào ứng dụng Vấn đề
+Nhấn vào “bản đồ” để xem danh sách tuyến đường quản lý
+Chọn tuyến đường bạn muốn xem sự cố
+Nhấn vào  để xem chi tiết sự cố và giao việc tai sự cố đó khi nhấn vào nút 
+            
+Thu thập tài sản
+Thêm và cập nhật vị trí, hình ảnh, tình trạng công trình trên tuyến Ứng dụng thu thập cho phép đi động có kết nối 3G, 4G vẫn thu thập được công trình.
+Tùy theo đợt thu thập và tùy theo nhu cầu của từng đơn vị mà danh mục các tài sản thu thập khác nhau
+Quy trình thu thập:
+Dữ liệu quản lý sẽ được tích hợp vào phần mềm quản lý sử dụng thiết bị di động để cập nhật lại vị trí, cập nhật tình trạng, cập nhật thông tin tài sản, chụp ảnh tài sản
+Dữ liệu quản lý của công ty --> Tích hợp lên phần mềm --> Tuần đường cập nhật thông tin vị trí, hình ảnh, tình trạng tài sản
+                  
+a. Thu thập tài sản trên tuyến đường quản lý
+Cách thực hiện:
+Kích vào ứng dụng Tài Sản
+Chọn loại tài sản cần thu thập
+Nhập thông tin tài sản cột km và nhấn nút “Thêm cột km”.
+
+
+b. Cập nhật thông tin tài sản trên tuyến đường quản lý
+Cách thực hiện:
+Kích vào ứng dụng Tài Sản
+Chọn nút 
+Chọn tài sản bạn muốn cập nhật và nhấn nút 
+Điền thông tin bạn muốn cập nhật. và nhấn cập nhật tài sản
+
+
+c. Xem tài sản trên bản đồ
+Cách thực hiện:
+Kích vào ứng dụng Tài Sản
+Nhấn vào nút 
+Chọn “bản đồ”
+Chọn tuyến đường muốn xem tài sản
+Chọn loại tài sản “cột km “ vào nhấn vào cột km để hiện thông tin chi tiết
+
+Công việc
+Hỗ trợ cán bộ Hạt trưởng tiếp nhận công việc, trao đổi công việc một trực tuyến mà không cần phải về văn phòng
+Hỗ trợ cán bộ hạt trưởng có công cụ khai báo tiến độ công viêc, chất lượng công việc bằng cách chụp ảnh công việc
+Ứng dụng : Ứng dụng công việc người dùng phải sử dụng 3G,4G, Wifi thì mới nhận được công việc, phản hồi công việc
+                                          
+a. Xem chi tiết công việc đã tạo
+Cách thực hiện:
+Kích vào ứng dụng Công việc
+Chọn nút  để xem chi tiết
+Chi tiết của công việc .
+      
+b. Trao đổi công việc đã giao
+Cách 1:
+Kích vào ứng dụng Công việc
+Chọn nút  để trao đổi công việc
+Soạn nội dung cần trao đổi và nhấn gửi.
+   
+Cách 2 :
+Kích vào ứng dụng Công việc
+Chọn nút  để xem chi tiết
+Chi tiết của công việc .
+      
+c. Cập nhật nội dung và trạng thái công việc
+Cách thực hiện:
+Kích vào ứng dụng Công việc
+Chọn nút  để cập nhật công việc
+Điền nội dung và cập nhật công việc.
+  
+d. Lọc công việc theo tuyến đường
+Cách thực hiện:
+Kích vào ứng dụng Công việc
+Chọn nút  để lọc công việc
+Chọn tuyến đường và bấm “tìm kiếm”
+  
+Góp ý
+Giúp người tuần đường , quản lý , tuần kiểm ,…v.v Có thể nếu góp ý của mình về phần mềm để đội kĩ thuật có thể ghi nhận vào khắc phục và nâng cấp theo yêu cầu.
+Ứng dụng Giám sát người dùng sử dụng 3G, 4G, Wifi để sử dụng phần mềm
+Hỗ trợ cán bộ giám sát nhân viên tuần đường trên danh sách lịch sử check in và trên bản đồ
+Cách thực hiện:
+Kích vào ứng dụng Góp ý
+Điền nội dung cần góp ý và nhấn “gửi góp ý của bạn”
+         
+Cập nhật thông tin
+Hướng dẫn Tuần đường cập nhật các thông tin cá nhân như: SĐT: tuần đường cập nhật SĐT , email , ảnh đại diện , đổi mật khẩu để cán bộ quản lý hạt, công ty và tuần kiểm có thể liên lạc trực tiếp trên phần mềm RMMS.
+a. Cập nhật thông tin người dùng
+Cách thực hiện:
+Kích vào ứng dụng 
+Chọn nút  để chỉnh sửa thông tin
+Sửa thông tin và bấm “thay đổi”
+ 
+   
+
+
+Trên website
+Quản lý giám sát
+Phần mềm RMMS hỗ trợ cán bộ QL Hạt, cán bộ quản lý các mục check in
+Giám sát việc hoạt động của cán bộ tuần đường
+Mô hình hóa tài sản trên bản đồ
+Mô hình hóa sự cố trên bản đồ
+a. Giám sát hoạt động
+Xem cán bộ hoạt động trên bản đồ:
+Kích vào mục Giám sát hoạt động
+
+
+
+Xem lịch sử cán bộ hoạt động:
+Kích vào cán bộ
+
+b. Giám sát tài sản
+Xem danh sách tài sản trên bản đồ:
+Kích vào mục Giám sát tài sản
+Chọn Chọn tuyến đường
+Chọn Bộ lọc
+   
+
+
+
+Xem Chi tiết tài sản:
+-   Kích tài sản trên bản đồ
+      c. Giám sát sự cố
+Xem danh sách sự cố trên bản đồ:
+Kích vào mục Giám sát sự cố
+Chọn Chọn tuyến đường
+Chọn Bộ lọc
+
+
+
+Xem Chi tiết sự cố:
+Kích sự cố trên bản đồ
+
+Quản lý vấn đề
+Phần mềm RMMS hỗ trợ cán bộ QL Hạt, cán bộ quản lý các mục sự cố
+Giám sát danh sách sự cố của cán bộ tuần đường đã báo cáo trên tuyến đường quản lý
+Giao việc xử lý khi có sự cố
+Trao đổi với nhân viên tuần đường
+Giám sát sự cố trên bản đồ , Tại Trang chủ → Cán bộ tích vào ô Sự cố/QL sự cố để bắt đầu với ứng dụng Vấn đề , sự cố
+a. Quản lý vấn đề, sự cố
+Kích vào mục Sự Cố
+
+Xem danh sách vấn đề, sự cố:
+Kích vào mục Sự Cố
+
+
+Hoặc kích vào trang chủ
+
+Tìm kiếm vấn đề, sự cố:
+Nhập vào ô tìm kiếm
+Nhập vào nút tìm kiếm hoặc enter
+
+Xem chi tiết và bình luận vấn đề, sự cố:
+Nhập vào nút chi tiết
+
+
+Nhập bình luận, chọn cán bộ liên quan.
+Nhấn nút Gửi
+
+b. Quản lý loại vấn đề, sự cố
+Xem danh sách vấn đề, sự cố:
+Kích vào mục Loại Sự Cố
+
+Quản lý tài sản
+Tình năng giúp cán bộ quản lý được toàn bộ tài sản có trên hệ thống.
+Quản lý tài sản
+Quản lý tuyến đường
+Quản lý đoạn đường
+Quản lý lý trình
+Quản lý địa bàn
+Quản lý loại tài sản
+a. Quản lý tài sản KCHT
+Xem tài sản:
+Kích vào ứng dụng Tài sản KCHT
+Nhấn mục QL tài sản để xem danh sách tài sản.
+
+Import tài sản:
+Kích vào ứng dụng Tài sản KCHT
+Nhấn mục QL tài sản để xem danh sách tài sản .
+Nhấn nút import
+
+Các bước thực hiện
+Chọn loại tài sản có hỗ trợ
+Chọn địa bàn
+Chọn tuyến đường
+Nhập đoạn đường
+Nhấn nút import
+
+b. Quản lý tuyến đường
+Thêm tuyến đường:
+Tính năng quan trọng, nên phân cho cán bộ chuyên trách.
+Kích vào mục Tài sản KCHT
+Nhấn mục QL tuyến đường để xem danh sách tuyến đường.
+Nhấn nút Thêm
+
+Các bước thực hiện
+
+
+
+Sửa tuyến đường:
+Kích vào mục Tài sản KCHT
+Nhấn mục QL tuyến đường để xem danh sách tuyến đường.
+Nhấn nút Sửa
+Các bước thực hiện :
+Chọn địa bàn
+Nhập các thông tin cần sửa đổi
+Nhấn nút save
+
+c. Quản lý đoạn đường
+Thêm đoạn đường đường:
+Tính năng quan trọng, nên phân cho cán bộ chuyên trách.
+Kích vào mục Tài sản KCHT
+Nhấn mục QL đoạn đường để xem danh sách tuyến đường.
+Nhấn nút Thêm
+
+Các bước thực hiện :
+Chọn địa bàn
+Chọn tuyến đường
+Chọn điểm bất đầu
+Chọn điểm kết thúc
+Nhấn nút save
+
+d. Quản lý lý trình
+Xem lý trình:
+Kích vào mục Tài sản KCHT
+Nhấn mục QL lý trình
+
+e. Quản lý địa bàn
+Xem địa bàn:
+Kích vào mục Tài sản KCHT
+Nhấn mục QL địa bàn .
+
+Thêm địa bàn:
+Kích vào mục Tài sản KCHT
+Nhấn mục QL địa bàn.
+Nhấn nút thêm .
+
+Các bước thực hiện :
+Nhập tên địa danh ở mục tìm kiếm
+Nhập tên địa bàn
+Nhập mô tả
+Nhấn nút save
+
+f. Quản lý loại tài sản
+Xem loại tài sản:
+Kích vào mục Tài sản KCHT
+Nhấn mục QL loại tài sản.
+
+Quản lý công việc
+Phần mềm RMMS hỗ trợ cán bộ QL Hạt, cán bộ quản lý các mục công việc
+a. Quản lý công việc
+Xem danh sách công việc: Kích vào mục Công việc
+
+Kích vào mục trang chủ
+
+Xem chi tiết và bình luận công việc:
+Nhập vào nút chi tiết
+
+Nhập nội dung bình luận
+
+Nhấn nút Gửi
+Xem tiết độ và bình luận công việc:
+Nhập vào nút tiến độ
+
+
+Tạo công việc:
+Nhập vào nút Tạo CV Hoặc tạo ở mục sự cố
+
+
+Thực hiện các bước:
+Chọn đơn vị phụ trách
+Chọn cán bộ
+Chọn loại công việc
+Chọn thời hạn
+Nhập tên công việc
+Chọn cán bộ liên quan
+Nhập chi tiết
+Nhấn nút Tạo
+
+Quản lý người dùng
+Hỗ trợ cán bộ quản lý các thành viên trong tổ chức.
+a. Quản lý cơ quan, tổ chức
+Xem danh sách cơ quan
+Kích vào mục QL Cơ quan, tổ chức
+
+Thêm tổ chức
+Kích vào mục QL Cơ quan, tổ chức
+Thực hiện thao tác:
+Nhấn cuột phải vào cơ quản cần thêm
+Chọn thêm tổ chức
+
+Nhập tên tổ chức
+
+Xem danh sách cán bộc của tổ chức
+Kích vào mục QL Cơ quan, tổ chức
+Nhấp chuột trái vào cơ quản cần xem
+
+Thêm người dùng vào cơ quan
+Kích vào mục QL Cơ quan, tổ chức
+Thực hiện thao tác:
+Nhấn cuột phải vào cơ quản cần thêm
+Chọn Thêm người dùng
+
+Nhập Thông tin người dùng
+Nhấn nút save
+
+Phân tuyến đường cho cơ quan
+Kích vào mục QL Cơ quan, tổ chức
+Thực hiện thao tác:
+Nhấn cuột phải vào cơ quản
+Chọn Phân tuyến
+
+Chọn các tuyến
+Nhấn nút Xác Nhận
+
+Phân tuyến đường cho cán bộ quản lý
+Kích vào mục QL Cơ quan, tổ chức
+Thực hiện thao tác:
+Nhấn cuột phải vào cán bộ
+Chọn Phân tuyến
+
+Chọn các tuyến
+Nhấn nút Xác Nhận
+
+Phân cán bộ được quản lý cho cán bộ quản lý
+Kích vào mục QL Cơ quan, tổ chức
+Thực hiện thao tác:
+Nhấn cuột phải vào cán bộ
+Chọn Cán bộ được quản lý
+
+Chọn các cán bộ
+Nhấn nút Xác Nhận
+
+
+Sửa thông tin cán bộ
+Kích vào mục QL Cơ quan, tổ chức
+Thực hiện thao tác:
+Nhấn cuột phải vào cán bộ
+Chọn Sửa thông tin
+
+Sửa thông tin
+Nhấn nút save
+
+b. Quản lý người dùng
+Xem danh sách người dùng
+Kích vào mục QL Người dùng
+
+c. Quản lý cấp người dùng
+Xem danh sách cấp người dùng
+Kích vào mục QL cấp Người dùng
+
+Quản lý báo cáo
+Phần mềm RMMS hỗ trợ cán bộ QL Hạt, cán bộ quản lý các mục công việc
+Quản lý công việc
+a. Báo cáo tài sản
+Xem báo cáo
+Kích vào mục Báo cáo tài sản
+
+Thực hiện thao tác:
+Chọn loại báo cáo
+Chọn tuyến đường
+Nhấn nút Xem
+
+        
+b. Báo cáo sự cố
+Xem báo cáo
+Kích vào mục Báo cáo sự cố
+
+Thực hiện thao tác:
+Chọn loại báo cáo
+Chọn tuyến đường
+Chọn Thời gian
+Nhấn nút Xem
+
+c. Báo cáo checkin
+Xem báo cáo
+Kích vào mục Báo cáo checkin
+
+Thực hiện thao tác:
+Chọn loại báo cáo
+Chọn tuyến đường
+Chọn Thời gian
+Nhấn nút Xem
+
+Xuất báo cáo
+Kích vào mục Báo cáo checkin
+Thực hiện thao tác:
+Chọn loại báo cáo
+Chọn tuyến đường
+Chọn Thời gian
+Nhấn nút Xuất execl 
+

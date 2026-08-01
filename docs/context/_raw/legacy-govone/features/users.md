@@ -8,8 +8,24 @@
 ### QUẢN TRỊ PHÂN QUYỀN
 
 - **id:** `006-quan-tri-phan-quyen`
-- **url:** https://pmdb.govone.vn/dbv3quantri.aspx
+- **url:** https://pmdb.govone.vn/dbv3quantri.aspx#quanTriDanhMucTuyen
 - **title:** Quản trị - gServer Phiên bản 2.1
+- **headings:** Danh mục đoạn đường
+
+#### Labels / field captions
+
+- Đoạn đường (73)
+
+#### Inputs
+
+| tag | type | name/id | placeholder |
+|-----|------|---------|-------------|
+| input | text | textfield-1031-inputEl | Nhập đoạn đường |
+
+#### Actions
+
+- Ban.TK.Nguyễn Anh Phúc
+- Thêm tag
 
 ## Migration notes
 
