@@ -1,0 +1,71 @@
+# Capture legacy GOVOne PMDB UI → docs/context/_raw/legacy-govone (artifact).
+# Secrets: GOVONE_USER, GOVONE_PASS (never commit).
+name: legacy-govone-capture
+
+on:
+  workflow_dispatch:
+    inputs:
+      max_pages:
+        description: Max pages to crawl
+        required: false
+        default: "60"
+      headless:
+        description: Headless browser
+        required: false
+        default: "true"
+
+permissions:
+  contents: read
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    defaults:
+      run:
+        working-directory: tools/legacy-govone-capture
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install deps + Chromium
+        run: |
+          npm install
+          npx playwright install --with-deps chromium
+
+      - name: Capture + map
+        env:
+          GOVONE_BASE_URL: https://pmdb.govone.vn
+          GOVONE_USER: ${{ secrets.GOVONE_USER }}
+          GOVONE_PASS: ${{ secrets.GOVONE_PASS }}
+          GOVONE_MAX_PAGES: ${{ inputs.max_pages }}
+          GOVONE_HEADLESS: ${{ inputs.headless }}
+          GOVONE_SCREENSHOTS: "true"
+        run: |
+          if [ -z "$GOVONE_USER" ] || [ -z "$GOVONE_PASS" ]; then
+            echo "Missing secrets GOVONE_USER / GOVONE_PASS"
+            exit 1
+          fi
+          echo "user set: yes · pass length: ${#GOVONE_PASS}"
+          npm run all
+
+      - name: Upload capture artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: legacy-govone-capture
+          path: |
+            docs/context/_raw/legacy-govone/catalog.json
+            docs/context/_raw/legacy-govone/CAPTURE-SUMMARY.md
+            docs/context/_raw/legacy-govone/FEATURE-MAP.md
+            docs/context/_raw/legacy-govone/feature-map.json
+            docs/context/_raw/legacy-govone/menu-candidates.json
+            docs/context/_raw/legacy-govone/pages/**
+            docs/context/_raw/legacy-govone/features/**
+            docs/context/_raw/legacy-govone/screenshots/**
+          if-no-files-found: error
+          retention-days: 14

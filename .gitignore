@@ -13,6 +13,17 @@ Thumbs.db
 .env.*.local
 *.local
 
+# Legacy GOVOne capture (credentials + screenshots / bulky JSON)
+tools/legacy-govone-capture/.env
+tools/legacy-govone-capture/.env.local
+tools/legacy-govone-capture/node_modules/
+docs/context/_raw/legacy-govone/screenshots/
+docs/context/_raw/legacy-govone/pages/
+# Keep features/*.md + catalog summaries if intentionally committed; ignore by default until reviewed:
+docs/context/_raw/legacy-govone/catalog.json
+docs/context/_raw/legacy-govone/menu-candidates.json
+docs/context/_raw/legacy-govone/feature-map.json
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

@@ -1,0 +1,644 @@
+# source: context/07-TECHNICAL-IMPLEMENTATION.md
+# version: 1
+# scannedAt: 2026-08-01T09:05:15.389Z
+# sha256: 2418e4ec77812fa242c78a0a6b40e6989051b72cfb57a3182eff970ad5d2b77b
+# mtimeMs: 1785516443366.8137
+# RMMS — Đặc tả kỹ thuật triển khai theo hạng mục (Team Dev)
+
+> **Nguồn nghiệp vụ:** `docs/RMMS_Giaiphap_tinhnang.docx`  
+> **App hiện có:** `docs/Hướng dẫn sử dụng phần mềm.docx` (Check-in · Vấn đề · Công việc · Tài sản · Giám sát · Offline · Góp ý · Web KCHT/BC…)  
+> **Map màn ↔ AI (SSOT):** [`15-SCREEN-AI-MAP.md`](15-SCREEN-AI-MAP.md) · feature contexts [`features/README.md`](features/README.md)  
+> **Kiến trúc:** Modular Monolith .NET 8 — **14 domain modules / 1 host**, tách worker khi scale  
+> **Dữ liệu:** Đã có — ưu tiên **API tích hợp**, không xây lại từ zero  
+> **Mục đích file:** Spec outsource / checklist để team code theo từng hạng mục
+
+---
+
+## 0. Quy ước chung cho team
+
+### 0.1 Tech stack bắt buộc
+
+| Lớp | Công nghệ | Ghi chú |
+|-----|-----------|---------|
+| Backend host | **C# .NET 8** ASP.NET Core Web API | 1 process `Rmms.Api` |
+| Module layout | `src/Modules/{Name}/` | Controllers · Application · Domain · Infrastructure |
+| ORM | EF Core 8 + Npgsql | `ApplyUtcDateTimeConvention()` |
+| Spatial | **PostGIS** (NetTopologySuite) | Asset, GIS, Patrol |
+| Time-series | **TimescaleDB** | GPS track, IoT, sensor |
+| Cache / realtime | Redis + **SignalR** | Dashboard, notification |
+| Object storage | MinIO (S3 API) | Ảnh, video, point cloud |
+| Queue (in-process → scale) | MassTransit + RabbitMQ | Event giữa modules |
+| Auth | JWT access 15' + refresh HttpOnly | Claim `company_id` / `tenant_id` |
+| API | `api/v1/...` + OpenAPI/Swagger | Bắt buộc |
+| AI Vision | ONNX/TensorRT detector + SAM (`14`) | Triton hoặc ONNX Runtime |
+| AI Copilot | GPT-4o (Azure OpenAI) + Qdrant RAG | Function-calling SQL read-only |
+| Predictive | XGBoost → ONNX → ML.NET | Dự báo xuống cấp / ước lượng |
+| FE (giữ app) | Mobile + Web RMMS hiện có | Chỉ bổ sung API consumer |
+| FE (nâng cấp) | React 18 + TS (tuỳ module) | Dashboard / Copilot / GIS 3D |
+
+### 0.2 Cấu trúc solution (mono)
+
+```
+Rmms/
+├── src/
+│   ├── Rmms.Api/                    # Host duy nhất
+│   ├── Rmms.BuildingBlocks/         # Shared: Result, IdCode, Auth, Events
+│   └── Modules/
+│       ├── Asset/
+│       ├── Gis/
+│       ├── AiVision/
+│       ├── Patrol/
+│       ├── Incident/
+│       ├── Maintenance/
+│       ├── Workflow/
+│       ├── Notification/
+│       ├── Iot/
+│       ├── Copilot/
+│       ├── Report/
+│       ├── Contract/
+│       ├── Drone/
+│       └── Integration/
+├── workers/                         # Phase B khi scale
+│   ├── Rmms.Worker.AiVision/
+│   └── Rmms.Worker.Iot/
+└── tests/
+```
+
+### 0.3 Mapping 18 phân hệ nghiệp vụ ↔ module kỹ thuật
+
+| # | Phân hệ (docx) | Module code | App hiện có (giữ) | Phase |
+|---|----------------|-------------|-------------------|-------|
+| 1 | Quản lý tài sản đường bộ | `Asset` | Tài sản (Mobile/Web) | P1 |
+| 2 | GIS và Digital Twin | `Gis` | Bản đồ giám sát | P1–P2 |
+| 3 | AI kiểm định mặt đường | `AiVision` | — (mới) | P1–P2 |
+| 4 | Quản lý tuần đường / tuần kiểm | `Patrol` | Check-in + Giám sát | P1 |
+| 5 | Chấm công và Định vị | `Patrol` / Attendance | Check-in | P1 |
+| 6 | Quản lý sự cố | `Incident` | Vấn đề | P1 |
+| 7 | Lập lịch sửa chữa / bảo trì | `Maintenance` | Công việc | P2 |
+| 8 | AI dự báo bảo trì | `AiVision` + ML | — | P2 |
+| 9 | Chỉ đạo điều hành | `Notification` + Dashboard | Giám sát | P2 |
+| 10 | AI ước lượng sửa chữa | ML estimate | — | P2 |
+| 11 | Hợp đồng và ngân sách | `Contract` | — | P2–P3 |
+| 12 | Vật tư và thiết bị | Inventory (trong Contract/Asset) | — | P3 |
+| 13 | Drone và Reality Capture | `Drone` | — | P2–P3 |
+| 14 | Trung tâm điều hành GT | Traffic (trong AiVision/Gis) | — | P3 |
+| 15 | Cổng người dân | `Integration` + FE | — | P3 |
+| 16 | AI Copilot | `Copilot` | — | P2 |
+| 17 | Dashboard điều hành | `Report` + FE | Web giám sát | P2 |
+| 18 | Open API và tích hợp | `Integration` | — | P1–P3 |
+
+### 0.4 Definition of Done (mọi hạng mục)
+
+- [ ] API `api/v1/...` + Swagger + auth
+- [ ] Schema DB + migration EF (Schema_* / Seed_* tách file)
+- [ ] Unit test domain + 1 integration test happy path
+- [ ] Event publish/consume (nếu có side-effect sang module khác)
+- [ ] `data-testid` / contract FE nếu có UI mới
+- [ ] Ghi chú trong PR: map sang mục docx nào
+
+---
+
+## Hạng mục 1 — Quản lý tài sản đường bộ (`Asset`)
+
+### Nghiệp vụ (docx)
+Quản lý: mặt đường, cầu, hầm, cống, taluy, hộ lan, biển báo, đèn chiếu sáng, camera ITS, cột Km/H, sơn kẻ đường, lan can, hàng rào, cây xanh.  
+Thông tin: GPS, mã QR, hình ảnh, hồ sơ kỹ thuật, tuổi thọ, giá trị, lịch sử sửa chữa, tình trạng hiện tại.
+
+### Map app hiện có
+Mobile **Tài sản**: thu thập / cập nhật / xem trên bản đồ.
+
+### Công nghệ
+| Thành phần | Tech |
+|------------|------|
+| API | ASP.NET Core Controllers / Minimal APIs |
+| DB | PostgreSQL + **PostGIS** `GEOMETRY` |
+| Media | MinIO + presigned URL |
+| QR | `QRCoder` hoặc lib tương đương → deep link `asset/{id}` |
+| Search | Trigram / full-text trên `code`, `name` |
+
+### Entity tối thiểu
+`RoadSection`, `Bridge`, `Tunnel`, `Culvert`, `Slope`, `Guardrail`, `TrafficSign`, `Lighting`, `KmPost`, `AssetMedia`, `AssetHistory`
+
+### API (P1)
+```
+GET/POST/PUT/DELETE  /api/v1/assets/{type}
+GET                  /api/v1/assets/nearby?lat=&lng=&radiusM=
+GET                  /api/v1/assets/within-bbox?...
+POST                 /api/v1/assets/{id}/media
+POST                 /api/v1/assets/{id}/qr
+GET                  /api/v1/assets/qr/{code}
+POST                 /api/v1/assets/import
+GET                  /api/v1/assets/export
+```
+
+### Tasks team
+1. Domain model + EF mapping PostGIS  
+2. CRUD + soft delete + tenant filter  
+3. Media upload (presign)  
+4. QR generate/lookup  
+5. Adapter sync dữ liệu tài sản **đã có** (import/API)  
+6. Contract cho Mobile Tài sản (không đổi UX lớn)
+
+---
+
+## Hạng mục 2 — GIS và Digital Twin (`Gis`)
+
+### Nghiệp vụ (docx)
+Bản đồ GIS 2D/3D, Digital Twin toàn tuyến, theo dõi realtime, lịch sử thay đổi, mô phỏng hiện trạng.
+
+### Công nghệ
+| Thành phần | Tech |
+|------------|------|
+| Vector tiles | Martin / pg_tileserv → MapLibre GL JS |
+| 3D | CesiumJS + 3D Tiles |
+| Cache tile | Redis + CDN |
+| Realtime layer | SignalR `GisHub` |
+
+### API
+```
+GET  /api/v1/gis/tiles/{layer}/{z}/{x}/{y}.pbf
+GET  /api/v1/gis/geojson/{layer}?bbox=
+GET  /api/v1/gis/heatmap/pci
+GET  /api/v1/gis/3d-tiles/{assetId}
+```
+
+### Tasks team
+1. Publish PostGIS layers → tiles  
+2. Style JSON (PCI color ramp)  
+3. SignalR overlay khi `asset.updated` / `defect.detected`  
+4. (P2) Cesium Digital Twin viewer
+
+---
+
+## Hạng mục 3 — AI kiểm định mặt đường (`AiVision`)
+
+### Nghiệp vụ (docx)
+Thu thập: Camera AI, Line Scan, 360, GPS, IMU.  
+Nhận diện: ổ gà, nứt dọc/ngang/mai rùa, bong bật, lún vệt bánh, chảy nhựa, vá đường, sạt lở, hư mép.  
+Tính: **PCI, IRI, SCI**, mức hư hỏng, mức ưu tiên sửa chữa.
+
+### Classes detect (bắt buộc train — P2)
+
+`pothole`, `longitudinal_crack`, `transverse_crack`, `alligator_crack`, `bleeding`, `raveling`, `rutting`, `patching`, `edge_damage`, `landslide`
+
+> **P2 chuẩn hóa (SSOT):** `14-P2-AI-VISION-STANDARD.md` — mặc định **P2-A** Apache (YOLOX / RTMDet / RT-DETR → ONNX); **P2-B** Ultralytics + **Enterprise**. Không dùng Ultralytics AGPL cho prod đóng.
+
+### Công nghệ
+| Thành phần | Tech |
+|------------|------|
+| Detect | **ONNX/TensorRT detector** (P2-A Apache **hoặc** P2-B Ultralytics Enterprise) |
+| Segment | **SAM** (Apache) mask → m² — optional |
+| Edge (nếu có) | Jetson + MQTT |
+| Cloud | Module `AiVision` trong mono (+ Worker khi scale) |
+| Storage raw | MinIO |
+| Index | `ai_vision.detections`, `ai_vision.pci_history` |
+
+### Đội training (sinh viên) — bắt buộc
+| Vai trò | Việc |
+|---------|------|
+| **Đội SV gán nhãn** | Thu ảnh hiện trường (tuần tra/drone) → gán nhãn 10 classes theo guideline → QA chéo |
+| **AI/ML lead (mentor)** | Guideline, review mAP, train detector (P2-A/B), xuất **ONNX** bàn giao Dev |
+| **Dev outsource** | Chỉ tích hợp inference (Triton/ONNX Runtime) + API — **không** thay gán nhãn |
+| **BA / nghiệp vụ** | Xác nhận định nghĩa class theo đường VN + UAT tuyến pilot |
+
+**Mục tiêu dataset P2:** ≥ **20.000** ảnh đã gán nhãn, cân bằng theo 10 classes. Không có dataset VN → AI Vision local không đạt độ chính xác vận hành.
+
+**P1 (online full):** mọi AI dùng cloud API — **GPT-4o Vision** (#3) · **GPT-4o / 4o-mini** (#8 · #10 · #16). ~**$0.01/ảnh** chuẩn đoán; pilot tháng **~$50–200** (alert **$200**). **Không** train detector local trong P1.  
+Chi tiết model + $: `08-AI-TOKEN-COST-IMAGE-DIAGNOSIS.md` §0.  
+**P2 (nếu muốn local):** theo **`14-P2-AI-VISION-STANDARD.md`** · GPU `10` · server `13`.
+
+### API
+```
+POST /api/v1/ai-vision/detect
+POST /api/v1/ai-vision/batch
+POST /api/v1/ai-vision/segment
+POST /api/v1/ai-vision/calculate-pci
+GET  /api/v1/ai-vision/defects?sectionId=&from=&to=
+GET  /api/v1/ai-vision/pci-history/{sectionId}
+```
+
+### Tasks team
+1. Model registry + Triton/ONNX hosting (Dev — sau khi nhận ONNX từ đội SV)  
+2. Pipeline detect → segment → severity → PCI (ASTM D6433)  
+3. Event `defect.detected` → Asset/GIS/Incident  
+4. Batch nhận ảnh realtime **và** upload cuối ngày  
+5. Dashboard xem defect trên map  
+6. **P2 (sau gate local):** theo `14-P2-AI-VISION-STANDARD.md` — đội SV gán nhãn + train detector P2-A/B — bàn giao ONNX; P1 chỉ online Vision
+
+---
+
+## Hạng mục 4 — Quản lý tuần đường / tuần kiểm (`Patrol`)
+
+### Nghiệp vụ (docx)
+Kế hoạch tuần tra, tuyến, GPS, hành trình, ghi hình, phát hiện bỏ sót tuyến, tốc độ, chất lượng tuần tra, KPI.
+
+### Map app hiện có
+**Check-in** (≥3 điểm/tuyến/ngày QL/TL), **Giám sát** danh sách + bản đồ, **Offline**.
+
+### Công nghệ
+| Thành phần | Tech |
+|------------|------|
+| Track | TimescaleDB hypertable `patrol.gps_tracks` |
+| Coverage | PostGIS `ST_Buffer` / `ST_Difference` |
+| KPI | Rule engine trong Application layer |
+
+### API
+```
+POST /api/v1/patrols
+POST /api/v1/patrols/{id}/check-ins
+POST /api/v1/patrols/{id}/tracks          # batch GPS points
+GET  /api/v1/patrols/{id}/coverage
+GET  /api/v1/patrols/{id}/kpi
+GET  /api/v1/patrols?routeId=&from=&to=
+```
+
+### Tasks team
+1. Chuẩn hóa API cho Check-in hiện có (không đổi UX)  
+2. Hypertable GPS + coverage analyzer  
+3. KPI score (coverage %, tốc độ, số điểm)  
+4. Event `patrol.started` / `patrol.completed`
+
+---
+
+## Hạng mục 5 — Chấm công và Định vị (Attendance)
+
+### Nghiệp vụ (docx)
+Điểm danh GPS, nhận diện khuôn mặt (tuỳ chọn), QR/NFC (tuỳ chọn), định vị theo tuyến/Km, đúng ca/đúng tuyến, phân quyền khu vực.
+
+### Công nghệ
+Geo-fence `ST_Contains` / `ST_DWithin` · Face (tuỳ chọn Azure Face / local) · QR/NFC scan
+
+### Tasks team
+1. Gộp vào module Patrol (Attendance service nội bộ)  
+2. Rule check-in đúng zone/tuyến  
+3. Báo cáo chấm công theo tuần/tháng (app đã mô tả)
+
+---
+
+## Hạng mục 6 — Quản lý sự cố (`Incident`)
+
+### Nghiệp vụ (docx)
+Nguồn: AI Camera, xe tuần tra, Drone, ITS, người dân, tổng đài, mobile.  
+QL: tiếp nhận, phân loại, ưu tiên, điều phối, tiến độ, SLA, đóng.
+
+### Map app hiện có
+**Vấn đề**: ghi nhận online/offline, trao đổi, giao việc, bản đồ.
+
+### Công nghệ
+| Thành phần | Tech |
+|------------|------|
+| Priority engine | Rules + (P2) ML classify ảnh |
+| SLA | Background job / Hangfire / hosted service |
+| Chat | SignalR thread theo incident |
+
+### API
+```
+POST /api/v1/incidents
+GET  /api/v1/incidents?status=&routeId=
+POST /api/v1/incidents/{id}/comments
+POST /api/v1/incidents/{id}/assign
+POST /api/v1/incidents/{id}/close
+```
+
+### Tasks team
+1. Adapter nguồn multi-source → 1 model Incident  
+2. Map 1:1 với Vấn đề hiện có  
+3. Auto-create từ `defect.detected` (severity critical)  
+4. SLA timer + escalation Workflow
+
+---
+
+## Hạng mục 7 — Lập lịch sửa chữa / bảo trì (`Maintenance`)
+
+### Nghiệp vụ (docx)
+Tự động tạo lệnh sửa chữa, phân công đội, tiến độ, nghiệm thu, nhật ký, hồ sơ, lịch sử bảo trì.
+
+### Map app hiện có
+**Công việc**: giao việc, trao đổi, cập nhật trạng thái/ảnh.
+
+### Công nghệ
+Workflow state machine · WorkOrder entity · MinIO ảnh nghiệm thu
+
+### API
+```
+POST /api/v1/work-orders
+PUT  /api/v1/work-orders/{id}/progress
+POST /api/v1/work-orders/{id}/accept
+GET  /api/v1/work-orders?crewId=&status=
+```
+
+### Tasks team
+1. WorkOrder từ Incident / AI estimate  
+2. Contract API cho app Công việc  
+3. Event `workorder.completed` → cập nhật Asset history
+
+---
+
+## Hạng mục 8 — AI dự báo bảo trì
+
+### Nghiệp vụ (docx)
+Phân tích: lưu lượng, thời tiết, vật liệu, tuổi công trình, lịch sử sửa chữa.  
+Kết quả: dự báo xuống cấp, thời gian còn lại, kế hoạch đại tu, ưu tiên đầu tư.
+
+### Công nghệ
+**XGBoost / LightGBM** train offline (Python) → export **ONNX** → **ML.NET** inference trong mono  
+Feature store bảng `ai_vision.section_features`
+
+### API
+```
+POST /api/v1/ai-predict/section/{id}
+GET  /api/v1/ai-predict/priority-list?route=
+```
+
+### Tasks team
+1. Feature pipeline từ PCI history + traffic + weather API  
+2. Train + version model  
+3. Inference endpoint + giải thích (feature importance)
+
+---
+
+## Hạng mục 9 — Chỉ đạo điều hành
+
+### Nghiệp vụ (docx)
+Điều hành tuần tra / sự cố / sửa chữa; dashboard realtime; GIS; theo dõi nhân lực, thiết bị, phương tiện.
+
+### Công nghệ
+SignalR hubs · Redis pub/sub · Aggregation queries · Web dashboard
+
+### Tasks team
+1. `CommandHub`: map, incidents, patrols  
+2. FE dashboard (nâng cấp Web giám sát)  
+3. Live vehicle/crew positions (5–10s)
+
+---
+
+## Hạng mục 10 — AI ước lượng sửa chữa
+
+### Nghiệp vụ (docx)
+Tự động tính: khối lượng bóc dỡ, bê tông nhựa, nhân công, thiết bị, máy móc, thời gian, chi phí, vật tư.
+
+### Công nghệ
+Regression model (XGBoost) hoặc rule + unit-price catalog · Input: defect type/area/severity
+
+### API
+```
+POST /api/v1/ai-estimate/from-defects
+POST /api/v1/ai-estimate/from-incident/{id}
+```
+
+### Tasks team
+1. Bảng đơn giá vật tư theo tenant  
+2. Estimate service gắn vào WorkOrder create  
+3. Audit log ước lượng vs thực tế (để retrain)
+
+---
+
+## Hạng mục 11 — Hợp đồng và ngân sách (`Contract`)
+
+### Nghiệp vụ (docx)
+HĐ bảo trì, ngân sách, thanh toán, KPI nhà thầu, bảo hành, quyết toán.
+
+### Công nghệ
+EF entities Contract/Budget/Payment/Kpi · Report Excel · Workflow phê duyệt
+
+### API
+```
+CRUD /api/v1/contracts
+CRUD /api/v1/budgets
+GET  /api/v1/contracts/{id}/kpi
+```
+
+### Tasks team (P2–P3)
+1. Domain + permissions Finance  
+2. Liên kết WorkOrder → thanh toán  
+3. KPI nhà thầu từ SLA / nghiệm thu
+
+---
+
+## Hạng mục 12 — Vật tư và thiết bị
+
+### Nghiệp vụ (docx)
+Kho VT, máy móc, xe chuyên dụng, nhiên liệu, bảo dưỡng TB, GPS thiết bị.
+
+### Công nghệ
+Inventory module (có thể nằm trong Asset/Contract P3) · GPS track TimescaleDB
+
+### Tasks team (P3)
+CRUD kho · gán vật tư WorkOrder · GPS thiết bị realtime
+
+---
+
+## Hạng mục 13 — Drone và Reality Capture (`Drone`)
+
+### Nghiệp vụ (docx)
+Bay kiểm tra, 3D mapping, point cloud, orthophoto, kiểm tra cầu/taluy/sạt lở.
+
+### Công nghệ
+| Thành phần | Tech |
+|------------|------|
+| Pipeline | PDAL / WebODM / CloudCompare |
+| Storage | MinIO (raw + processed) |
+| Output | Point cloud → Cesium 3D Tiles |
+
+### API
+```
+POST /api/v1/drone/scans
+POST /api/v1/drone/scans/{id}/process
+GET  /api/v1/drone/scans/{id}/artifacts
+```
+
+### Tasks team
+1. Upload batch drone files  
+2. Job queue xử lý (Worker khi nặng)  
+3. Event `drone.scan.completed` → Gis / AiVision
+
+---
+
+## Hạng mục 14 — Trung tâm điều hành giao thông
+
+### Nghiệp vụ (docx)
+Giám sát GT, AI ùn tắc / tai nạn / xe dừng / vật cản, điều khiển VMS, tốc độ động.
+
+### Công nghệ
+YOLOv8 traffic models · Stream ingest · ITS adapter (`Integration`) · VMS command API
+
+### Tasks team (P3)
+1. ITS camera connector  
+2. Detection events → Incident  
+3. VMS control (Open API partner)
+
+---
+
+## Hạng mục 15 — Cổng người dân
+
+### Nghiệp vụ (docx)
+Báo sự cố, upload ảnh/video, theo dõi xử lý, phản ánh hiện trường.
+
+### Công nghệ
+Next.js / static + public API · OTP tuỳ chọn · Rate limit IP · Incident source=`Citizen`
+
+### API
+```
+POST /api/v1/public/incidents
+GET  /api/v1/public/incidents/{trackingCode}
+```
+
+### Tasks team (P3)
+Public FE · tracking code · notify SMS khi đổi trạng thái
+
+---
+
+## Hạng mục 16 — AI Copilot (`Copilot`)
+
+### Nghiệp vụ (docx)
+Hỏi ngôn ngữ tự nhiên: tuyến xuống cấp nhanh nhất? bao nhiêu ổ gà chưa xử lý? tài sản cần chú ý?  
+Sinh báo cáo + biểu đồ.
+
+### Công nghệ
+| Thành phần | Tech |
+|------------|------|
+| LLM | **Azure OpenAI GPT-4o** |
+| RAG | **Qdrant** + embedding `text-embedding-3-large` |
+| Tools | Function calling → SQL **read-only** |
+| Chart | LLM trả ECharts JSON |
+
+### API
+```
+POST /api/v1/copilot/ask
+GET  /api/v1/copilot/history
+```
+
+### Tasks team
+1. Index documents / báo cáo vào Qdrant  
+2. Tool `execute_sql` (read-only role)  
+3. Chat UI (Web)  
+4. Rate limit 10 req/phút/user
+
+---
+
+## Hạng mục 17 — Dashboard điều hành (`Report`)
+
+### Nghiệp vụ (docx)
+Chỉ số: tổng chiều dài, PCI TB, tài sản hoạt động, sự cố mở, lệnh CV, % đúng SLA, đội tuần tra/sửa chữa, ngân sách, KPI đơn vị.
+
+### Công nghệ
+Materialized views / nightly job · SignalR refresh · ECharts / Recharts · Excel/PDF export
+
+### KPI bắt buộc
+PCI TB · Defect resolution time · Patrol coverage · SLA% · Budget utilization · Crew utilization
+
+### Tasks team
+1. Aggregation API `/api/v1/dashboard/summary`  
+2. Widgets Web  
+3. Scheduled reports (email)
+
+---
+
+## Hạng mục 18 — Open API và tích hợp (`Integration`)
+
+### Nghiệp vụ (docx)
+Tích hợp: ERP, CMMS, PMIS, ITS, ETC, Camera AI, SAP, GIS, IoT, cổng dịch vụ công.
+
+### Công nghệ
+| Thành phần | Tech |
+|------------|------|
+| Outbound | HttpClient + Polly retry |
+| Inbound | Webhook endpoints + API Key |
+| Mapping | Adapter per partner |
+| Auth partner | API Key / OAuth2 client credentials |
+
+### API
+```
+POST /api/v1/integrations/webhooks/{partner}
+GET  /api/v1/integrations/health
+# Partner OpenAPI riêng /api/v1/partner/...
+```
+
+### Tasks team (xuyên suốt P1–P3)
+1. OpenAPI chuẩn cho app hiện có  
+2. Adapter ưu tiên: Camera AI → AiVision; ERP budget → Contract  
+3. Idempotency key + dead-letter
+
+---
+
+## Luồng vận hành tổng (docx §V) → event
+
+| Bước nghiệp vụ | Tech trigger |
+|----------------|--------------|
+| Thu thập xe/camera/drone/IoT | MQTT / upload / offline-batch |
+| AI nhận diện hư hỏng | AiVision pipeline |
+| Định vị + cập nhật map | GPS + Gis tiles invalidate |
+| Ưu tiên tự động | Priority engine |
+| Sinh Incident + WorkOrder | Incident + Maintenance |
+| Điều phối đội | Workflow + Notification |
+| Theo dõi realtime | SignalR |
+| Nghiệm thu + lịch sử tài sản | Maintenance → AssetHistory |
+| AI phân tích / dự báo | XGBoost + Copilot |
+
+**Hai chế độ bắt buộc:**
+1. **Realtime** (có mạng): stream / MQTT / SignalR  
+2. **Upload cuối ngày** (offline): batch `/ingestion/offline-batch` (app Lưu trữ)
+
+---
+
+## Công nghệ tổng hợp (docx §VI) — checklist implement
+
+| Docx | Implement bằng |
+|------|----------------|
+| AI Computer Vision | ONNX detector (P2-A/B) + SAM + Triton/ONNX |
+| Generative AI & Copilot | GPT-4o + Qdrant RAG |
+| GIS 2D/3D | PostGIS + MapLibre + CesiumJS |
+| BIM Integration | (P3) IFC → 3D Tiles nếu có |
+| IoT Platform | Module Iot + TimescaleDB |
+| Edge Computing | Jetson (hiện trường đã có) + MQTT |
+| Big Data / DW | PostgreSQL + export warehouse (P3) |
+| Cloud/Hybrid/On-Prem | Docker + K8s / IIS |
+| Microservices | **Mono modules trước** → split khi scale |
+| Kubernetes | Deploy Rmms.Api (+ workers) |
+| API Gateway | YARP trong host hoặc reverse proxy |
+| Mobile Offline | App hiện có + chuẩn hóa batch API |
+| Data Warehouse | Report views / nightly ETL (P3) |
+
+---
+
+## Backlog — tách **P1** / **V2** (SSOT: `09-PLAN-P1-V2.md`)
+
+> **Cấm** trộn hạng mục V2 vào sprint P1. Gate Go V2 sau UAT P1.
+
+### P1 — Full AI online · Windows Server (8–12 tuần)
+- [ ] Scaffold mono + BuildingBlocks + Auth → **Windows Server** (IIS/Kestrel)  
+- [ ] PostGIS + Redis + object storage (không GPU)  
+- [ ] Asset + Incident + Patrol API (map app hiện có)  
+- [ ] Offline batch ingestion  
+- [ ] Integration OpenAPI baseline  
+- [ ] AI online: #3 GPT-4o Vision · #8/#10 GPT-4o · #16 4o-mini (`IDefectDiagnoser`…)  
+- [ ] Token alert ~**$200/tháng** · UAT ≥500 ảnh · P/R · xem `08-AI-TOKEN-COST…`  
+- [ ] **Gate:** giữ online / Go local / Pivot (văn bản)
+
+### V2 / P2 — Local AI (chỉ sau Go local · 12–20 tuần)
+- [ ] Đội SV gán nhãn **10 classes** ≥20k + AI lead (`14`)  
+- [ ] Train detector P2-A/B → ONNX · so sánh baseline P1 online  
+- [ ] GPU worker / Triton · `OnnxDetectorDiagnoser`  
+- [ ] SAM + PCI/IRI · (tuỳ) XGBoost local · Copilot RAG on-prem  
+- [ ] Dashboard KPI · GIS heatmap · Maintenance full  
+- [ ] (V2.1+) Contract · Drone · Citizen · Traffic · ERP/ITS
+
+---
+
+## Tài liệu liên quan
+
+| File | Khi nào đọc |
+|------|-------------|
+| **`09-PLAN-P1-V2.md`** / **`plan-p1-v2.html`** | **Kịch bản + plan P1 vs V2** |
+| `02-SYSTEM-ARCHITECTURE.md` | Kiến trúc mono + Railway |
+| `03-EVENT-ARCHITECTURE.md` | Event + offline |
+| `06-SECURITY-RATELIMIT.md` | Auth / rate limit |
+| `05-DASHBOARD.md` | KPI dashboard |
+| `08-AI-TOKEN-COST-IMAGE-DIAGNOSIS.md` | **Đề xuất model online + chi phí token** |
+| `10-YOLO-SERVER-REQUIREMENTS.md` | **GPU worker P2** · DMS vs GPU |
+| **`14-P2-AI-VISION-STANDARD.md`** | **Chuẩn P2 detect · license · data** |
+| `index.html` / `workflow-demo.html` / `chi-phi-token-ai.html` | Demo + token |
+
+---
+
+*Cập nhật theo `RMMS_Giaiphap_tinhnang.docx` — dùng làm SSOT kỹ thuật cho team phát triển / outsource.*

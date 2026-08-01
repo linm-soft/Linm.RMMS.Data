@@ -1,0 +1,92 @@
+# source: features/incident-demo.html
+# version: 1
+# scannedAt: 2026-08-01T09:05:15.389Z
+# sha256: 65fede353a42c630460ddf64f095ca669ab4afea3a3d3c30df5ca10b006ac9c4
+# mtimeMs: 1785492073132.9695
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vấn đề / Incident — Demo UI</title>
+<style>
+:root{--navy:#0a1628;--green:#0d9488;--bg:#f1f5f9;--border:#e2e8f0;--txt:#0f172a;--muted:#64748b;--radius:10px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,sans-serif;background:var(--bg);color:var(--txt);line-height:1.5}
+.top{position:sticky;top:0;z-index:10;background:var(--navy);color:#fff;display:flex;align-items:center;gap:12px;padding:12px 18px;flex-wrap:wrap}
+.top a{color:#99f6e4;text-decoration:none;font-size:.85rem}
+.top h1{font-size:1.05rem;font-weight:700;flex:1}
+.badge{font-size:.7rem;padding:3px 8px;border-radius:999px;background:#134e4a;color:#5eead4;font-weight:700}
+.badge.demo{background:#fef3c7;color:#92400e}
+.wrap{max-width:1100px;margin:0 auto;padding:20px;display:grid;grid-template-columns:1fr 300px;gap:16px}
+@media(max-width:860px){.wrap{grid-template-columns:1fr}}
+.panel{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:16px}
+.panel h2{font-size:.95rem;margin-bottom:12px}
+.mock{position:relative;overflow:hidden}
+.watermark{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;font-size:4rem;font-weight:800;color:rgba(13,148,136,.08);transform:rotate(-18deg)}
+table{width:100%;border-collapse:collapse;font-size:.82rem}
+th,td{border-bottom:1px solid var(--border);padding:8px 6px;text-align:left}
+th{color:var(--muted);font-weight:600;font-size:.75rem}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.toolbar select{padding:7px 10px;border:1px solid var(--border);border-radius:6px;font-size:.82rem}
+.btn{padding:7px 12px;background:var(--green);color:#fff;border:none;border-radius:6px;font-size:.8rem;font-weight:600;cursor:pointer}
+.ai{background:#ecfdf5;border:1px solid #99f6e4;border-radius:8px;padding:10px;font-size:.8rem;margin-bottom:12px;color:#0f766e}
+.side details{border-bottom:1px solid var(--border);padding:8px 0}
+.side summary{cursor:pointer;font-weight:600;font-size:.85rem}
+.side pre{font-size:.72rem;background:#0f172a;color:#e2e8f0;padding:10px;border-radius:6px;overflow:auto;margin-top:8px;white-space:pre-wrap}
+.chk label{display:flex;gap:8px;align-items:flex-start;font-size:.8rem;margin:8px 0;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="top">
+  <a href="../tinh-nang-demo.html">← Hub</a>
+  <h1>Sự cố / Vấn đề</h1>
+  <span class="badge">P1</span>
+  <span class="badge demo">DEMO</span>
+</div>
+<div class="wrap">
+  <div class="panel mock">
+    <div class="watermark">DEMO</div>
+    <h2>Mock — List Vấn đề (giữ UX app)</h2>
+    <div class="ai">Từ AI DET-901 (Critical) → đề xuất tạo Vấn đề · <a href="#">Xác nhận</a></div>
+    <div class="toolbar">
+      <select><option>Tất cả trạng thái</option><option>Mới</option><option>Đang XL</option><option>Đã đóng</option></select>
+      <button class="btn" type="button">Làm mới</button>
+    </div>
+    <table>
+      <thead><tr><th>Mã</th><th>Mô tả</th><th>TT</th><th></th></tr></thead>
+      <tbody>
+        <tr><td>VD-441</td><td>Ổ gà Km12 — từ AI</td><td>Mới</td><td><a href="#">Giao việc</a></td></tr>
+        <tr><td>VD-438</td><td>Sạt taluy đoạn dốc</td><td>Đang XL</td><td><a href="#">Chat</a></td></tr>
+        <tr><td>VD-420</td><td>Biển báo nghiêng</td><td>Đã đóng</td><td><a href="#">Xem</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div>
+    <div class="panel side">
+      <h2>Spec tóm tắt</h2>
+      <details open><summary>API</summary><pre>POST /api/v1/incidents
+GET /incidents?status=&routeId=
+POST /incidents/{id}/assign
+POST /incidents/{id}/comments|close</pre></details>
+      <details><summary>Database</summary><pre>Incident · Comment · Assignment
+link detectionId</pre></details>
+      <details open><summary>Chốt với khách</summary>
+        <div class="chk" id="chk">
+          <label><input type="checkbox" data-k="c1"> List/filter khớp Vấn đề</label>
+          <label><input type="checkbox" data-k="c2"> Flow AI → tạo Vấn đề</label>
+          <label><input type="checkbox" data-k="c3"> Assign + đóng trên mock</label>
+        </div>
+      </details>
+    </div>
+    <p style="font-size:.75rem;color:#94a3b8;margin-top:10px">Context: <a href="../../../docs/context/features/incident.md">incident.md</a></p>
+  </div>
+</div>
+<script>
+const KEY='tn-demo:incident:signed';
+const box=document.getElementById('chk');
+try{const s=JSON.parse(localStorage.getItem(KEY)||'{}');box.querySelectorAll('input').forEach(i=>{i.checked=!!s[i.dataset.k]});}catch(e){}
+box.addEventListener('change',()=>{const o={};box.querySelectorAll('input').forEach(i=>o[i.dataset.k]=i.checked);localStorage.setItem(KEY,JSON.stringify(o));});
+</script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+# source: context/features/dashboard.md
+# version: 1
+# scannedAt: 2026-08-01T09:05:15.389Z
+# sha256: c1ec7a8a582b4f0b12482cf70e6fa110c6135817fa1aa8cb6999e0f110bb46f6
+# mtimeMs: 1785516443366.8137
+# Dashboard điều hành — Feature Context
+
+> **Slug:** `dashboard` · **Module:** `Report` + FE · **Phase:** KPI nhẹ P1 · full P2  
+> **Status:** Context  
+> **Sources:** `RMMS` §17 · `05` · `07` §17 · `09` · `15-SCREEN-AI-MAP.md`  
+> **Gắn màn:** Web **Giám sát** · **Báo cáo** *
+
+## 1. Tổng quan
+
+| | |
+|--|--|
+| Mục tiêu | KPI: chiều dài QL · PCI TB · TS hoạt động · sự cố mở · CV · SLA · đội tuần tra/SC · ngân sách · KPI đơn vị |
+| Persona | Lãnh đạo · Hạt trưởng · điều hành |
+| App hiện có | Web Giám sát + Báo cáo — giữ; Dashboard tổng hợp = nâng cấp |
+| DoD P1 | 4–8 KPI cards + link drill · không live 5s |
+| DoD P2 | SignalR CommandHub realtime |
+
+## 2. Design / UI
+
+| Screen | Pattern | Zones | Ghi chú |
+|--------|---------|-------|---------|
+| Dashboard home | Full | KPI cards · mini map · top incidents | 1 composition |
+| Drill KPI | Full / Slideout | List nguồn | → Incident/Patrol |
+| Báo cáo * (guide) | Full | Filter · Xem · Excel | Giữ UX báo cáo |
+
+**Mock:** 6 KPI · 5 sự cố mở · coverage tuần tra %.
+
+## 3. API
+
+| Method | Path | Mô tả |
+|--------|------|-------|
+| GET | `/api/v1/dashboard/kpis?from=&to=` | Aggregation |
+| GET | `/api/v1/dashboard/top-incidents?top=` | |
+| GET | `/api/v1/reports/assets` | Map guide BC tài sản |
+| GET | `/api/v1/reports/incidents` | BC sự cố |
+| GET | `/api/v1/reports/checkins` | BC checkin + export |
+
+## 4. Database
+
+Read models / views: `report.kpi_daily` (optional) · query modules gốc P1.
+
+## 5. Events / tích hợp
+
+Subscribe: `patrol.*` · `incident.*` · `defect.detected` · `predict.updated` (P2 push).
+
+## 6. Gaps / quyết định
+
+| ID | Question | Default |
+|----|----------|---------|
+| GAP-F-DSH-01 | Live 5–10s | P2 SignalR |
+| GAP-F-DSH-02 | Ngân sách KPI | Stub / P2 Contract |
+
+## 7. Demo checklist (chốt khách)
+
+- [ ] ≥4 KPI cards
+- [ ] Link Incident / Patrol
+- [ ] Báo cáo checkin Excel stub
+- [ ] Badge «P2 realtime» tách riêng

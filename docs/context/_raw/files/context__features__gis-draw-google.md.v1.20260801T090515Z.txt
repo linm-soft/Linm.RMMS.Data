@@ -1,0 +1,132 @@
+# source: context/features/gis-draw-google.md
+# version: 1
+# scannedAt: 2026-08-01T09:05:15.389Z
+# sha256: 5790d2c1ff6b9eb4b815cab9b24770ff75f3d5a55741193065d16db75b3c8410
+# mtimeMs: 1785493331251.8704
+# Vẽ tài sản trên Google Map — Feature Context
+
+> **Slug:** `gis-draw-google` · **Module:** `Gis` + `Asset` · **Phase:** P1  
+> **Status:** Demo  
+> **Sources:** App hiện có screenshot `docs/1-ban-do.png` (GOVOne · Nghệ An) · `07` §1–§2 · `09` GIS 2D  
+> **Demo HTML:** `Linm.RMMS.Demo/docs/features/gis-draw-google-demo.html` (mock screenshot)  
+> **Live map (chạy thử):** `Linm.RMMS.Demo/docs/features/gis-draw-live.html` — Leaflet + OSM/Esri · Leaflet.draw  
+> **Parent:** [`gis.md`](gis.md) · liên quan [`asset.md`](asset.md) · [`pavement-section.md`](pavement-section.md)
+
+## 1. Tổng quan
+
+| | |
+|--|--|
+| Mục tiêu | **Giữ UX bản đồ hiện có**: nền Google + lớp tài sản + **vẽ Point / Line / Polygon** → lưu geometry PostGIS |
+| Persona | Cán bộ GIS · tuần đường · Ban QLDA |
+| App hiện có | GOVOne «Bản đồ quản lý hạ tầng giao thông» — screenshot `1-ban-do.png` |
+| DoD P1 | Base Google · toggle lớp · toolbar vẽ · save draft → API · form thuộc tính tối thiểu |
+
+**Nguyên tắc:** Không redesign shell — parity layout screenshot (header · sidebar lớp · toolbar · map). Nâng cấp = API/DB chuẩn Linm + adapter.
+
+## 2. Design / UI (parity screenshot)
+
+### Layout zones (Full page)
+
+| Zone | Nội dung (khớp GOVOne) |
+|------|------------------------|
+| **Z1 Header** | Logo · tiêu đề tỉnh · menu Bản đồ / Công cụ / Tìm kiếm · ô «Nhập thông tin đối tượng» · icons user |
+| **Z2 Sidebar** | Tabs: Lớp bản đồ · Chú giải · Thuộc tính · Kết quả |
+| **Z2a Lớp nền** | Radio: Hành chính · Giao thông · **Google** (default giữ) · Vệ tinh · Không nền |
+| **Z2b Lớp tài sản** | Tree checkbox: Tuyến đường, Cột km, Cột H, Điểm đấu nối, Ta luy, Cầu, Hộ lan, Biển báo, Cống, … |
+| **Z3 Toolbar map** | Select · Pan · Zoom · Đo · **Point · Line · Polygon** · Text · Delete · Undo/Redo |
+| **Z4 Map** | Google Maps base + overlay tuyến (đỏ/xanh) + marker |
+| **Z5 Thuộc tính** | Panel sau khi vẽ xong: loại tài sản · mã · tên · lưu |
+
+### Flow vẽ (chốt khách)
+
+```
+1. Chọn Lớp nền = Google
+2. Chọn loại tài sản trên tree (vd. Tuyến đường / Biển báo)
+3. Chọn tool Point | Line | Polygon trên toolbar
+4. Click/drag trên map → geometry tạm (draft)
+5. Tab Thuộc tính → nhập mã/tên → Lưu
+6. Geometry → PostGIS + hiện trên lớp tương ứng
+```
+
+**UI pattern:** Full page (map + sidebar) — Kind G-like shell · không Modal cho canvas chính.
+
+**Control map:** [`gis-draw-google-control-map.md`](gis-draw-google-control-map.md)
+
+## 3. API
+
+Base: `api/v1/gis` + `api/v1/assets`
+
+| Method | Path | Mô tả |
+|--------|------|-------|
+| GET | `/api/v1/gis/basemap-config` | Key/style Google · options lớp nền |
+| GET | `/api/v1/gis/layers` | Catalog lớp tài sản (code · geomType · style) |
+| GET | `/api/v1/gis/geojson/{layer}?bbox=` | Load overlay theo viewport |
+| POST | `/api/v1/gis/drawings` | Lưu draft vẽ (GeoJSON + layerCode) |
+| PUT | `/api/v1/gis/drawings/{id}` | Sửa geometry / thuộc tính |
+| DELETE | `/api/v1/gis/drawings/{id}` | Xóa |
+| POST | `/api/v1/assets/{type}` | Commit drawing → asset chính thức (optional 2-step) |
+
+### Request skeleton — lưu vẽ
+
+```json
+{
+  "layerCode": "tuyen-duong",
+  "geomType": "LineString",
+  "geometry": {
+    "type": "LineString",
+    "coordinates": [[105.68, 18.67], [105.72, 18.71]]
+  },
+  "properties": {
+    "code": "TD-NA-012",
+    "name": "Tuyến QL1A đoạn …",
+    "status": "draft"
+  },
+  "srid": 4326
+}
+```
+
+Auth: JWT · tenant. Google Maps JS API key: config server / env (không hardcode FE).
+
+## 4. Database
+
+| Entity / table | Key columns | Notes |
+|----------------|-------------|-------|
+| `gis.layer_defs` | Code, Name, GeomType, StyleJson | Catalog lớp = tree sidebar |
+| `gis.drawings` / Asset geom | Id, LayerCode, Geom (PostGIS), Props jsonb, Status | SRID 4326 |
+| Asset tables (§ Asset) | … + `Geom` | Commit từ drawing |
+
+Indexes: GIST(`Geom`) · `(LayerCode, Status)` · bbox query.
+
+## 5. Events / tích hợp
+
+| Event | Publisher | Consumer |
+|-------|-----------|----------|
+| `gis.drawing.saved` | Gis | Asset sync / audit |
+| `asset.updated` | Asset | Map refresh overlay |
+
+## 6. Gaps / quyết định
+
+| ID | Question | Default P1 |
+|----|----------|------------|
+| GAP-F-GDG-01 | Giữ Google Maps JS vs MapLibre + Google raster tiles | **Giữ Google JS** (parity app) |
+| GAP-F-GDG-02 | Snap to road / Google Roads API | DEFER P2 |
+| GAP-F-GDG-03 | Edit vertex sau khi lưu | P1 minimal (select + redraw) |
+| GAP-F-GDG-04 | Multi-user lock khi vẽ cùng đoạn | DEFER |
+| GAP-F-GDG-05 | License Google Maps (billing) | Bên A cung cấp key + quota |
+
+## 7. Demo checklist (chốt khách)
+
+- [ ] Layout khớp screenshot: sidebar lớp + toolbar + nền Google
+- [ ] Chọn loại tài sản trước khi vẽ
+- [ ] Vẽ được Point / Line / Polygon trên map
+- [ ] Panel thuộc tính sau vẽ + Lưu (mock)
+- [ ] Undo / xóa draft rõ
+- [ ] Tuyến hiện có (đỏ/xanh) vẫn thấy khi bật lớp
+- [ ] Không đổi UX tìm kiếm đối tượng trên header
+
+## Ref ảnh
+
+| File | Dùng |
+|------|------|
+| `docs/1-ban-do.png` | SSOT UX hiện trường |
+| `Linm.RMMS.Demo/docs/features/ref/1-ban-do.png` | Copy cho demo HTML |

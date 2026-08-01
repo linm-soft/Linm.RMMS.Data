@@ -1,0 +1,29 @@
+{
+  "comment": "Keyword (lowercase, không dấu ưu tiên) → QLBD feature slug. First match wins.",
+  "rules": [
+    { "slug": "gis-draw-google", "any": ["bản đồ", "ban do", "google map", "hạ tầng giao thông", "ha tang giao thong"] },
+    { "slug": "gis", "any": ["gis", "digital twin", "bản đồ quản lý", "ban do quan ly"] },
+    { "slug": "asset", "any": ["tài sản", "tai san", "kcht", "cột km", "cot km", "tuyến", "tuyen", "đoạn đường", "doan duong"] },
+    { "slug": "pavement-section", "any": ["mặt đường", "mat duong", "biểu 1", "bieu 1", "phân loại mặt"] },
+    { "slug": "csdl-so-sach", "any": ["sổ sách", "so sach", "biểu ", "csdl", "hồ sơ chuẩn"] },
+    { "slug": "patrol", "any": ["tuần đường", "tuan duong", "tuần kiểm", "check-in", "checkin", "giám sát hoạt động"] },
+    { "slug": "attendance", "any": ["chấm công", "cham cong", "định vị", "dinh vi"] },
+    { "slug": "incident", "any": ["sự cố", "su co", "vấn đề", "van de", "loại sự cố"] },
+    { "slug": "maintenance", "any": ["công việc", "cong viec", "bảo trì", "bao tri", "sửa chữa", "sua chua", "lịch sc"] },
+    { "slug": "ops", "any": ["chỉ đạo", "chi dao", "điều hành", "dieu hanh", "thông báo", "thong bao"] },
+    { "slug": "dashboard", "any": ["dashboard", "giám sát tổng", "điều hành tổng"] },
+    { "slug": "reports", "any": ["báo cáo", "bao cao", "xuất excel", "xuat excel"] },
+    { "slug": "users", "any": ["người dùng", "nguoi dung", "cơ quan", "co quan", "phân quyền", "phan quyen", "cấp "] },
+    { "slug": "feedback", "any": ["góp ý", "gop y", "feedback"] },
+    { "slug": "ai-vision", "any": ["ai ", "kiểm định", "kiem dinh", "nhận diện", "nhan dien"] },
+    { "slug": "predict", "any": ["dự báo", "du bao"] },
+    { "slug": "estimate", "any": ["ước lượng", "uoc luong", "khối lượng", "chi phí sửa"] },
+    { "slug": "copilot", "any": ["copilot", "trợ lý ai", "tro ly ai"] },
+    { "slug": "contract", "any": ["hợp đồng", "hop dong", "ngân sách", "ngan sach"] },
+    { "slug": "inventory", "any": ["vật tư", "vat tu", "thiết bị", "thiet bi"] },
+    { "slug": "drone", "any": ["drone", "uav", "reality capture"] },
+    { "slug": "integration", "any": ["tích hợp", "tich hop", "api", "đồng bộ", "dong bo"] },
+    { "slug": "citizen", "any": ["người dân", "nguoi dan", "cổng dân"] },
+    { "slug": "iot", "any": ["iot", "cảm biến", "cam bien", "offline", "lưu trữ"] }
+  ]
+}

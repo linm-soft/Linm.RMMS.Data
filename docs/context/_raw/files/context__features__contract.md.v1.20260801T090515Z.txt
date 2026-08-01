@@ -1,0 +1,30 @@
+# source: context/features/contract.md
+# version: 1
+# scannedAt: 2026-08-01T09:05:15.389Z
+# sha256: 0f611cbc47433f6802de8f0aafd3848f675be05780269bb3dda7a34ca9bc02aa
+# mtimeMs: 1785516443366.8137
+# Hợp đồng và ngân sách — Feature Context
+
+> **Slug:** `contract` · **Module:** `Contract` · **Phase:** P2–P3 · **Status:** Draft  
+> **Sources:** `RMMS` §11 · `07` · `09` OUT P1
+
+## 1. Tổng quan
+HĐ bảo trì · ngân sách · thanh toán · KPI nhà thầu · bảo hành · quyết toán.
+
+## 2. Design / UI
+Full list + form HĐ · KPI cards nhà thầu.
+
+## 3. API
+`/api/v1/contracts` · payments · warranties (định nghĩa P2).
+
+## 4. Database
+Contract · Budget · Payment · ContractorKpi.
+
+## 5. Events
+`contract.signed` · `payment.posted`.
+
+## 6. Gaps
+GAP-F-CTR-01 — OUT P1.
+
+## 7. Demo checklist
+- [ ] Badge P2–P3 only trên hub

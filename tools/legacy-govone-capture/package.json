@@ -1,0 +1,19 @@
+{
+  "name": "legacy-govone-capture",
+  "private": true,
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Login GOVOne PMDB → crawl menu/pages → extract fields for QLBD migration context",
+  "scripts": {
+    "capture": "node capture.mjs",
+    "map": "node map-to-features.mjs",
+    "all": "node capture.mjs && node map-to-features.mjs",
+    "install-browser": "npx playwright install chromium"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "playwright": "^1.51.0"
+  }
+}

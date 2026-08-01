@@ -1,0 +1,109 @@
+# source: context/features/pavement-section.md
+# version: 1
+# scannedAt: 2026-08-01T09:05:15.389Z
+# sha256: 7f93d6511d9be1eaaadbcb55a5c31d6b1f22d8595122512034ec915a8ad5e51f
+# mtimeMs: 1785493242854.5806
+# Phân loại mặt đường (Biểu 1) — ERP Form Context
+
+> **Slug:** `pavement-section` · **Module:** `Asset` / infra  
+> **Kind:** **B (Catalog list)** + **Full page form** (≥10 field — không Modal)  
+> **Status:** In Review · Demo HTML  
+> **Sources:** `11-CSDL-SO-SACH-DATABASE-API.md` § Biểu 1 · hồ sơ chuẩn hóa sổ sách  
+> **API:** `api/v1/infra/pavement-sections`  
+> **IdCode:** `MD-YYYYMMDD-NNNN` (vd. `MD-20260731-0001`)  
+> **Demo:** `Linm.RMMS.Demo/docs/features/pavement-section-list.html`  
+> **Control map:** [`pavement-section-control-map.md`](pavement-section-control-map.md)  
+> **Readonly lock:** [`pavement-section-readonly-lock.md`](pavement-section-readonly-lock.md)
+
+## 0. Kind gate (Step 2a-K)
+
+| | |
+|--|--|
+| **Kind** | **B** — Danh mục / master inventory list + form |
+| **UI pattern** | List shell (filter · grid · toolbar) · Form **Full page** (không Modal — >10 input) |
+| **Confirm** | Auto (docs hồ sơ) — user có thể đổi sang Slideout nếu muốn |
+
+## 1. Tổng quan
+
+| | |
+|--|--|
+| Mục tiêu | CRUD đoạn mặt đường theo Biểu mẫu số 1 (thống kê phân loại mặt đường) |
+| Persona | Khu QLĐB · Văn phòng · Nhà thầu BDTX |
+| Map app | Link bản đồ live / GIS draw (`layerCode=mat-duong`) |
+| DoD | List + filter · form full · IdCode · import/export Excel cột biểu 1 |
+
+## 2. Design / UI (erp-form-context §8.4 / list §8.7)
+
+### List (Step 2h parity catalog)
+
+| Zone | Control |
+|------|---------|
+| Header | Title «Phân loại mặt đường» · help |
+| Toolbar | Tạo mới · Import · Export · Làm mới · Cấu hình cột |
+| Filter | SearchText · Tỉnh · Tên đường · Từ Km–Đến Km · Tình trạng · nút Tìm |
+| Grid | STT · Mã · Đường · Tỉnh · KmFrom–To · Kết cấu · Cấp · Tình trạng · ĐV QL · menu hàng |
+| Pagination | pageSize 20/50 |
+
+### Form Full page
+
+| Section | Fields |
+|---------|--------|
+| Header compact (mặc định full) | Mã · Tên đường · Tỉnh · KmFrom · KmTo |
+| Kết cấu | B nền · B mặt · Loại KC · Dày mặt · Cấp đường |
+| Khai thác | Số năm · Bàn giao BT/XDCB · Năm đại tu · Năm SC · Tình trạng |
+| Đơn vị | ĐV thi công · ĐV quản lý · Chủ QLSD |
+| Audit | Ngày cập nhật · Người cập nhật · Ghi chú (readonly sau save một phần) |
+
+## 3. API (Step §5)
+
+| Action | Method | Path |
+|--------|--------|------|
+| List | GET | `/api/v1/infra/pavement-sections?search=&province=&road=&kmFrom=&kmTo=&status=&page=` |
+| Get | GET | `/api/v1/infra/pavement-sections/{id}` |
+| Create | POST | `/api/v1/infra/pavement-sections` |
+| Update | PUT | `/api/v1/infra/pavement-sections/{id}` |
+| Delete | DELETE | `/api/v1/infra/pavement-sections/{id}` |
+| Export | GET | `/api/v1/infra/pavement-sections/export` |
+| Import | POST | `/api/v1/infra/pavement-sections/import` |
+| Init | GET | `/api/v1/infra/pavement-sections/form-init-data` |
+
+Toast: success hardcode VI · error từ BE (form-api-error-handling).
+
+## 4. Database
+
+Entity `PavementSection` — xem `11-CSDL-SO-SACH-DATABASE-API.md` §1.2 Biểu 1.  
+Index: `(CompanyCode, Code)` unique · `(RoadName, KmFrom, KmTo)` · GIST optional nếu có Geom.
+
+## 5. IdCode (Step 2e)
+
+| | |
+|--|--|
+| Prefix | `MD` |
+| Format | `MD-YYYYMMDD-NNNN` |
+| Generate | BE `IIdCodeService.GenerateAsync()` on create · Copy → reset |
+
+## 6. Permissions (Step 2p)
+
+| Action | Permission gợi ý |
+|--------|------------------|
+| View list/form | `infra.pavement.view` |
+| Create/Edit | `infra.pavement.edit` |
+| Delete | `infra.pavement.delete` |
+| Import/Export | `infra.pavement.import` / `.export` |
+
+## 7. Gaps §9
+
+| ID | Severity | Note |
+|----|----------|------|
+| GAP-P2-KIND-RMMS | Info | Không phải voucher ERP KT — Kind B catalog adapted |
+| GAP-P1-CC | P1 | Demo HTML chưa wire `@linm-soft-org/linm-web-common-components` — parity visual only |
+| GAP-P2-LKP | P2 | Lookup tỉnh/đường khi có master catalog |
+| GAP-P2-DT | P1 | `UpdatedAt` UTC ↔ local khi implement MFE thật |
+
+## 8. Demo checklist
+
+- [ ] List filter + grid cột Biểu 1
+- [ ] Form full đủ field bắt buộc
+- [ ] Mã MD-* hiển thị (mock generate)
+- [ ] Lưu local / mock API payload JSON
+- [ ] Link mở bản đồ live vẽ đoạn
