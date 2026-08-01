@@ -1,0 +1,36 @@
+# source: context/analy-demo-notes.md
+# version: 2
+# scannedAt: 2026-08-01T11:13:50.138Z
+# sha256: 27cf573b3db8e117b509793bd9ea8695b6dd906f5af23c4f77f2944810504503
+# mtimeMs: 1785582826304.8
+# Analy-demo notes
+
+| | |
+|--|--|
+| Last skill | `/qlbd-analy-demo @estimate` |
+| Date | 2026-08-01 |
+| Manifest | `context/_raw/manifest.json` (docs-scan-cache) |
+| DemoRoot | `Linm.RMMS.Demo/public/demo` (+ mirror `src/demo`) |
+
+## @estimate (task_42d3c388)
+
+- Legacy capture: synthetized (no GOVOne AI screen) · `features/estimate.md` § Legacy GOVOne
+- Control-map: `_raw/legacy-govone/demo-maps/estimate-control-map.md` (20 fields · 13 actions)
+- Kind: **D** slideout — erp-form-context · leave-confirm · pattern_inline_grid
+- Demo HTML: `public/demo/ai-vision/estimate.html` (+ `js/estimate-data.js` · `js/estimate-app.js`)
+- Catalog: `demoCatalog.ts` badge `run` · `aiSupport`
+- BE: `/api/v1/ai-estimate/*` MISSING → GAP-F-EST-03 · be_align OFF (demo only)
+- **No** MFE production / BE changes (demo only)
+
+## @asset (task_2f8df910)
+
+- Legacy capture: `features/asset.md` § Legacy GOVOne · vision 008/012/023/024/025
+- Control-map: `_raw/legacy-govone/demo-maps/asset-control-map.md` (4 fields · 11 actions)
+- Kind: F/custom map + list — erp-list-page-shell + GIS toolbar
+- Demo HTML: `public/demo/asset/asset.html` (+ `js/asset-data.js` · `js/asset-app.js`)
+- Catalog: `demoCatalog.ts` badge `run`
+- **No** MFE production / BE changes (demo only)
+
+## Next
+
+Khi Status `Signed` → `/qlbd-align-mfe @estimate` vào `Linm.Web.RMMS.AiVision` · BE Step 4b endpoints.

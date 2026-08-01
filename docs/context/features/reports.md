@@ -1,8 +1,9 @@
 # Báo cáo (Web guide) — Feature Context
 
 > **Slug:** `reports` · **Module:** `Report` · **Phase:** P1  
-> **Status:** Context  
-> **Sources:** guide **Quản lý báo cáo** · `15-SCREEN-AI-MAP.md` · liên quan `dashboard`
+> **Status:** Demo  
+> **Sources:** guide **Quản lý báo cáo** · `15-SCREEN-AI-MAP.md` · liên quan `dashboard`  
+> **Demo:** `Linm.RMMS.Demo/src/demo/bao-cao/reports.html` · Kind E · **cấm BE**
 
 ## 1. Tổng quan
 
@@ -12,16 +13,27 @@
 | Persona | Hạt trưởng · quản lý |
 | App hiện có | Web **Báo cáo *** — giữ UX |
 | DoD | API filter tuyến/thời gian · Xem · Excel checkin |
+| Kind | **E** (report) — `/erp-report-context` · AnalyticsReportShell |
+| Align MFE | `Linm.Web.RMMS.Report` · `/bao-cao` |
 
 ## 2. Design / UI
 
 | Screen | Pattern | Zones |
 |--------|---------|-------|
-| BC tài sản | Full | Loại BC · tuyến · Xem |
-| BC sự cố | Full | Loại · tuyến · thời gian · Xem |
-| BC checkin | Full | Loại · tuyến · thời gian · Xem · Xuất Excel |
+| BC tài sản | Kind E Full | Loại BC · tuyến · kỳ · Xem · grid STT |
+| BC sự cố | Kind E Full | Loại · tuyến · từ/đến · Xem · grid |
+| BC check-in | Kind E Full | Loại · tuyến · từ/đến · Xem · Xuất Excel · grid |
+| Legacy catalog | Side + Catalog tab | 172 actions GOVOne → toast mock (không clone skin) |
 
-## 3. API
+### Interactions (demo)
+
+- Tab switch 3 loại · shared filter bar · «Xem báo cáo» → fake grid
+- Check-in: «Xuất Excel» → CSV mock (BOM UTF-8)
+- Toolbar Kind E: Làm mới · Biểu đồ stub · In stub · Sửa config stub · Dashboard nav
+- Header theme sáng/tối · user menu · footer quick nav
+- Checklist chốt khách → `localStorage` `rmms-demo-reports-chk`
+
+## 3. API (skeleton — DEFER implement)
 
 | Method | Path |
 |--------|------|
@@ -30,24 +42,32 @@
 | GET | `/api/v1/reports/checkins?type=&routeId=&from=&to=` |
 | GET | `/api/v1/reports/checkins/export` | Excel |
 
+> Demo **không** gọi API. BE align Step 4b khi Signed / thiếu endpoint.
+
 ## 4. Database
 
 Query Asset / Incident / Patrol — không schema riêng bắt buộc.
 
 ## 5. Events / tích hợp
 
-Không.
+Không. Dashboard = KPI tổng (slug `dashboard`) — tách `reports`.
 
 ## 6. Gaps / quyết định
 
 | ID | Default |
 |----|---------|
 | GAP-F-RPT-01 Gộp vào `dashboard`? | Tách slug `reports` (parity guide) · Dashboard = KPI tổng |
+| GAP-P2-REPORT-API-01 | Endpoints stub — align khi `/qlbd-align-mfe` |
+| Legacy GOVOne catalog rộng | Demo giữ 172 actions toast · P1 product = 3 loại Web |
 
 ## 7. Demo checklist (chốt khách)
 
-- [ ] 3 loại BC trên mock
-- [ ] Nút Xuất Excel checkin
+- [x] 3 loại BC trên mock
+- [x] Nút Xuất Excel checkin
+- [x] Filter loại · tuyến · thời gian
+- [x] Toolbar Kind E (Xem · Làm mới · In · Config)
+- [x] Đủ 172 actions control-map
+- [x] Không clone skin GOVOne · không BE
 
 <!-- LEGACY-GOVONE-CAPTURE:START -->
 ## Legacy GOVOne (auto-capture)

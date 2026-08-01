@@ -35,13 +35,78 @@ const SECTION_END = "<!-- DEMO-MFE-MODERN:END -->";
 function mapFieldToLinControl(f) {
   const hay = `${f.name} ${f.id} ${f.placeholder} ${f.ariaLabel} ${f.type}`.toLowerCase();
   const type = (f.type || "").toLowerCase();
-  if (type === "checkbox" || /check|active|is_/.test(hay)) {
+  // Panel tuần kiểm — check-in status (trước checkbox heuristic — «check» trong check-in)
+  if (/trạng thái check-in|trang thai check-in|checkin|chưa thực hiện checkin|check-in/.test(hay)) {
+    return {
+      control: "Status / badge",
+      lin: "StatusBadge · check-in pending/done · erp-report-context · patrol",
+    };
+  }
+  if (/công tác tuần kiểm|cong tac tuan kiem|paneltuankiemheader/.test(hay)) {
+    return {
+      control: "Collapsible panel header",
+      lin: "Collapsible panel · loading/empty · erp-report-context",
+    };
+  }
+  // Panel tuần đường — trước KPI heuristic («tuần đường» trong tên panel)
+  if (/công tác tuần đường|cong tac tuan duong|paneltuanduongheader/.test(hay)) {
+    return {
+      control: "Collapsible panel header",
+      lin: "Collapsible panel · tree Company→QL→Km chips · erp-report-context",
+    };
+  }
+  if (/badge count|route badge|tuanDuongRouteBadge/i.test(hay)) {
+    return {
+      control: "Badge / count",
+      lin: "Count badge trên node QL · erp-report-context · patrol",
+    };
+  }
+  if (type === "checkbox" || /checkbox|check all|chọn tất cả|active|is_/.test(hay)) {
     return { control: "Checkbox / Switch", lin: "LinCheckbox · form field" };
   }
-  if (type === "date" || /date|ngày|ngay/.test(hay)) {
+  if (type === "date" || /date|ngày|ngay|ngày tổng hợp/.test(hay)) {
     return {
       control: "Date",
-      lin: "utcToLocalInputValue · localInputToISOWithOffset (form-datetime-local-utc)",
+      lin: "utcToLocalInputValue · localInputToISOWithOffset (form-datetime-local-utc) · report period filter",
+    };
+  }
+  // Dashboard drill modal (vision 015 TNGT · 016 miscapture chrome)
+  if (/tiêu đề modal|tieu de modal|modaltngttitle|modalmiscapturetitle/.test(hay)) {
+    return {
+      control: "DialogTitle",
+      lin: "Modal/Slideout title · erp-report-context · leave-confirm",
+    };
+  }
+  if (/empty state modal|modalmiscaptureempty|modal.?body/.test(hay)) {
+    return {
+      control: "Status / empty",
+      lin: "EmptyState · Modal body · erp-report-context",
+    };
+  }
+  // Tree / route rows trước KPI (tên field có «tuần kiểm» nhưng không phải KPI card)
+  if (/điểm km|diem km|lý trình|ly trinh|km chip/.test(hay)) {
+    return {
+      control: "Chip / tag (Km)",
+      lin: "Chip list · Company→Route→Km · drill chi tiết",
+    };
+  }
+  if (/đơn vị|don vi|công ty|cong ty|tuyến \(ql\)|tuyen \(ql\)|tuyến ql|tuankiemroute/.test(hay)) {
+    return {
+      control: "Tree node",
+      lin: "Collapsible tree · report panel · expand/collapse",
+    };
+  }
+  // Dashboard Bảng tổng hợp nhanh — KPI metric cards (vision 014)
+  if (type === "metric" || /kpi|tuần đường|tuan duong|tuần kiểm|tuan kiem|bão lũ|bao lu|tai nạn|tai nan|vi phạm|vi pham|công việc|cong viec/.test(hay)) {
+    return {
+      control: "KPI metric card",
+      lin: "erp-report-context · KPI strip · click → focus panel / filter",
+    };
+  }
+  if (/đang xử lý|dang xu ly|empty state|chưa có dữ liệu|chua co du lieu/.test(hay)) {
+    return {
+      control: "Status / empty",
+      lin: "Loading overlay · EmptyState alert · erp-report-context",
     };
   }
   if (type === "number" || /qty|sl|amount|tiền|tien|money|số/.test(hay)) {
@@ -59,6 +124,55 @@ function mapFieldToLinControl(f) {
   if (/code|mã|ma_/.test(hay)) {
     return { control: "Code", lin: "form-code-field · uppercase" };
   }
+  if (/inputdientichkhonggian/.test(hay)) {
+    return {
+      control: "Text readonly (measure)",
+      lin: "TextField readOnly · common-field-control · diện tích không gian",
+    };
+  }
+  if (/inputdientich/.test(hay)) {
+    return {
+      control: "Text readonly (measure)",
+      lin: "TextField readOnly · common-field-control · kết quả Đo diện tích (m²/km²)",
+    };
+  }
+  if (/inputchieudaikhonggian/.test(hay)) {
+    return {
+      control: "Text readonly (measure)",
+      lin: "TextField readOnly · common-field-control · chiều dài không gian",
+    };
+  }
+  if (/inputchieudai/.test(hay)) {
+    return {
+      control: "Text readonly (measure)",
+      lin: "TextField readOnly · common-field-control · kết quả Đo chiều dài (m/km)",
+    };
+  }
+  if (/gmapinputtextsearch|nhập thông tin đối tượng|nhap thong tin doi tuong/.test(hay)) {
+    return { control: "Lookup ĐT", lin: "SearchInput · form-catalog-lookup-input" };
+  }
+  if (/ddllopdulieu/.test(hay)) {
+    return { control: "Select", lin: "Select · useFormOptions (cấm hardcode VN)" };
+  }
+  // Asset sổ TS — filter tree / lý trình / pager
+  if (/nhập và enter để lọc|nhap va enter de loc|textfield-1033/.test(hay)) {
+    return {
+      control: "Search (tree filter)",
+      lin: "SearchInput · LinErpListFilterBar · lọc tree tuyến",
+    };
+  }
+  if (/km1\+100|km5\+100|textfield-1079|textfield-1080|lý trình|ly trinh/.test(hay)) {
+    return {
+      control: "Text (lý trình)",
+      lin: "TextField · common-field-control · filter lý trình từ/đến",
+    };
+  }
+  if (/inputitem/.test(hay)) {
+    return {
+      control: "Number (pager)",
+      lin: "Pagination current page · list shell",
+    };
+  }
   if (f.tag === "textarea" || /note|ghi chú|mô tả|desc/.test(hay)) {
     return { control: "TextArea", lin: "TextField multiline" };
   }
@@ -66,6 +180,121 @@ function mapFieldToLinControl(f) {
 }
 
 function mapActionToLinToolbar(a) {
+  const label = (a.label || "").trim();
+  const hay = label.toLowerCase();
+  // GIS tool overrides — capture kind heuristic hay sai (vd. «Lấy thông tin vị trí» = export)
+  if (/đo diện tích|do dien tich/.test(hay)) {
+    return {
+      btn: "Tool Đo diện tích",
+      lin: "GIS toolbar · polygon measure · bind `inputDienTich` / `inputDienTichKhongGian`",
+    };
+  }
+  if (/đo chiều dài|do chieu dai/.test(hay)) {
+    return {
+      btn: "Tool Đo chiều dài",
+      lin: "GIS toolbar · polyline measure · bind `inputChieuDai` / `inputChieuDaiKhongGian`",
+    };
+  }
+  if (/lấy thông tin vị trí|lay thong tin vi tri|thông tin điểm|thong tin diem/.test(hay)) {
+    return {
+      btn: "Tool Lấy thông tin vị trí",
+      lin: "GIS toolbar · click point · readout lng/lat (X/Y) · `btTienIchThongTinDiem`",
+    };
+  }
+  if (/chụp màn hình|chup man hinh/.test(hay)) {
+    return {
+      btn: "Tool Chụp màn hình",
+      lin: "GIS toolbar · `btnScreenMap` · map screenshot · download/png",
+    };
+  }
+  if (/xuất bản đồ|xuat ban do/.test(hay)) {
+    return { btn: "Xuất bản đồ", lin: "GIS toolbar · export map image/PDF" };
+  }
+  if (/in bản đồ|in ban do/.test(hay)) {
+    return { btn: "In bản đồ", lin: "GIS toolbar · print map" };
+  }
+  if (/xem hướng đoạn đường|xem huong doan duong/.test(hay)) {
+    return {
+      btn: "Tool Xem hướng đoạn đường",
+      lin: "GIS toolbar · `btXemHuongDoanDuong` · direction arrows on route polyline (view-only)",
+    };
+  }
+  if (/gộp đoạn đường multiline|gop doan duong multiline|gộp đoạn multiline|gop doan multiline/.test(hay)) {
+    return {
+      btn: "Tool Gộp đoạn đường multiline",
+      lin: "GIS toolbar · `btGopDoanDuong` · multi-select ≥2 route polylines · merge geometry · Lưu/Hủy biên tập",
+    };
+  }
+  if (/đăng xuất|dang xuat/.test(hay)) {
+    return { btn: "Đăng xuất", lin: "Auth logout · mfe-run-modes" };
+  }
+  // Asset sổ TS / KCHT map+list — capture kind heuristic hay sai (nav/create)
+  if (/lấy dữ liệu|lay du lieu/.test(hay)) {
+    return {
+      btn: "Lấy dữ liệu",
+      lin: "LinErpListFilterBar · query map pins + grid · GAP-P2-87",
+    };
+  }
+  if (/xóa điều kiện|xoa dieu kien/.test(hay)) {
+    return {
+      btn: "Xóa điều kiện",
+      lin: "LinErpListFilterBar · clear filter lý trình / điều kiện",
+    };
+  }
+  if (/lớp nền|lop nen/.test(hay)) {
+    return { btn: "Lớp nền", lin: "Map basemap switcher · GIS toolbar" };
+  }
+  if (/lớp chuyên đề|lop chuyen de/.test(hay)) {
+    return { btn: "Lớp chuyên đề", lin: "Map thematic layers · GIS toolbar / modal" };
+  }
+  if (/vị trí của tôi|vi tri cua toi/.test(hay)) {
+    return { btn: "Vị trí của tôi", lin: "Map geolocate · GIS toolbar" };
+  }
+  if (/^tiện ích$|^tien ich$/.test(hay)) {
+    return { btn: "Tiện ích", lin: "Overflow / utilities menu · toolbar" };
+  }
+  if (/^\d+$/.test(label)) {
+    return { btn: "Thông báo", lin: "Notification badge · header · mfe-run-modes" };
+  }
+  if (/ban\.tk\.|hồ sơ|ho so|đổi mật khẩu|doi mat khau/.test(hay)) {
+    return { btn: "User menu", lin: "Avatar dropdown · profile / logout · mfe-run-modes" };
+  }
+  // Dashboard Bảng tổng hợp nhanh (vision 014) — date + collapsible panels
+  if (/dropdown trigger/.test(hay)) {
+    return {
+      btn: "Date filter",
+      lin: "DatePicker · report period · reload KPI + panels",
+    };
+  }
+  if (/công tác tuần đường|cong tac tuan duong/.test(hay)) {
+    return {
+      btn: "Panel Tuần đường",
+      lin: "Collapsible panel · tree Company→QL→Km chips · erp-report-context",
+    };
+  }
+  if (/công tác tuần kiểm|cong tac tuan kiem/.test(hay)) {
+    return {
+      btn: "Panel Tuần kiểm",
+      lin: "Collapsible panel · loading/empty · erp-report-context",
+    };
+  }
+  if (/^công việc$|^cong viec$/.test(hay)) {
+    return {
+      btn: "Panel Công việc",
+      lin: "Collapsible panel · WO summary empty/list · erp-report-context",
+    };
+  }
+  if (/thiết lập cỡ chữ|thiet lap co chu/.test(hay)) {
+    return { btn: "Cỡ chữ", lin: "App shell · font-size preference" };
+  }
+  // Dashboard drill modal TNGT (vision 015)
+  if (/^maximize$|pop-out|phóng to|phong to/.test(hay)) {
+    return {
+      btn: "Maximize",
+      lin: "Modal maximize / pop-out · erp-report-context",
+    };
+  }
+
   const k = a.kind || "action";
   const map = {
     create: { btn: "Tạo mới / Thêm", lin: "Button primary · catalog/voucher toolbar" },
@@ -86,6 +315,10 @@ function mapActionToLinToolbar(a) {
 function inferKind(pageHints) {
   const t = pageHints.join(" ").toLowerCase();
   if (/báo cáo|bao cao|dashboard|biểu đồ/.test(t)) return "E (report) — erp-report-context";
+  // Sổ tài sản KCHT = map + list (slug asset / pnltaisan) — trước heuristic «sổ » → Kind B
+  if (/asset|sổ tài sản|so tai san|pnltaisan|kết cấu hạ tầng|ket cau ha tang/.test(t)) {
+    return "F/custom map + list — erp-custom-manage + GIS · erp-list-page-shell";
+  }
   if (/bản đồ|ban do|gis|map|geditor/.test(t)) return "F/custom map — erp-custom-manage + GIS";
   if (/danh mục|danh sach|sổ |so /.test(t)) return "B (catalog list+modal) — erp-form-context Kind B";
   if (/phiếu|chung tu|chứng từ|công việc|sự cố/.test(t)) {

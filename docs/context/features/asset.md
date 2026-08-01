@@ -3,7 +3,7 @@
 > **Slug:** `asset` · **Module:** `Asset` · **Phase:** P1  
 > **Status:** Demo  
 > **Sources:** guide Tài sản / Tài sản KCHT · `RMMS` §1 · `07` §1 · `09` · **`11-CSDL-SO-SACH`** · [`15-SCREEN-AI-MAP.md`](../15-SCREEN-AI-MAP.md)  
-> **Demo HTML:** `Linm.RMMS.Demo/src/demo/features/asset-demo.html`
+> **Demo HTML:** `Linm.RMMS.Demo/public/demo/asset/asset.html`
 
 ## 1. Tổng quan
 
@@ -59,6 +59,7 @@ Indexes: trigram/`code`+`name` · spatial GIST trên `Geom`.
 | Event | Publisher | Consumer |
 |-------|-----------|----------|
 | `asset.updated` | Asset | Gis (overlay) |
+| `asset.candidate.detected` / Confirm | AiVision [`ai-asset-detect`](ai-asset-detect.md) | Asset CRUD · Gis pin «AI new» |
 
 ## 6. Gaps / quyết định
 
@@ -69,10 +70,11 @@ Indexes: trigram/`code`+`name` · spatial GIST trên `Geom`.
 
 ## 7. Demo checklist (chốt khách)
 
-- [ ] List + filter loại tài sản khớp app Tài sản
-- [ ] Chi tiết có GPS / ảnh / mã QR
-- [ ] Map nearby hiểu được trên mock
-- [ ] Không yêu cầu nhập lại toàn bộ dữ liệu (import/API)
+- [x] List + filter loại tài sản khớp app Tài sản (demo HTML interactive)
+- [x] Chi tiết có GPS / ảnh / mã QR
+- [x] Map nearby hiểu được trên mock
+- [x] Không yêu cầu nhập lại toàn bộ dữ liệu (import/API mock)
+- [x] Đủ field + 11 action từ `demo-maps/asset-control-map.md`
 
 <!-- LEGACY-GOVONE-CAPTURE:START -->
 ## Legacy GOVOne (auto-capture)
@@ -291,7 +293,7 @@ Indexes: trigram/`code`+`name` · spatial GIST trên `Geom`.
 - Control-map: [`asset-control-map.md`](../_raw/legacy-govone/demo-maps/asset-control-map.md)
 - Actions: [`asset-actions.md`](../_raw/legacy-govone/demo-maps/asset-actions.md)
 - Fields mapped: 4 · Actions: 11
-- Kind hint: B (catalog list+modal) — erp-form-context Kind B
+- Kind hint: F/custom map + list — erp-custom-manage + GIS · erp-list-page-shell
 
 Gen demo: `/qlbd-analy-demo @asset` — load control-map trên + `/erp-form-context` rules (2a-K · 2g · common controls).
 <!-- DEMO-MFE-MODERN:END -->

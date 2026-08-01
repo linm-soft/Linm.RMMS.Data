@@ -41,6 +41,8 @@
 | Màn hiện có | AI / nâng cấp gắn vào | Phase | Engine P1 | Engine P2 |
 |-------------|----------------------|-------|-----------|-----------|
 | Mobile **Vấn đề** · chụp ảnh | #3 AI kiểm định → class/severity/bbox → đề xuất tạo sự cố | P1 | GPT-4o Vision | ONNX detector + SAM (`14`) |
+| Camera **xe tuần đường** · Patrol feed | **`ai-asset-detect`** — nhận diện loại TS/thiết bị **mới** → candidate (tọa độ · loại · tuyến) → Confirm tạo Asset | P1 | GPT-4o Vision | ONNX asset-class + nearby dedupe |
+| Web **Tài sản** / Giám sát TS | List candidate AI · pin «AI new» · Confirm/Dismiss | P1 | — (read + confirm) | Auto-create ngưỡng cao (tuỳ) |
 | Web **Sự cố** chi tiết | Hiển thị detection · link `detectionId` · severity | P1 | — (read) | Local model version badge |
 | Mobile/Web **Công việc** | #10 AI ước lượng khối lượng/chi phí từ defect | P1 | GPT-4o JSON | Regression + đơn giá |
 | Web **Báo cáo** / Dashboard mới | #8 AI dự báo xuống cấp · priority list | P1 | GPT-4o / 4o-mini | XGBoost/ONNX |
@@ -59,6 +61,7 @@
 | 1 | Quản lý tài sản đường bộ | Tài sản | Tài sản KCHT · Giám sát TS | `asset` · `pavement-section` · `csdl-so-sach` | P1 |
 | 2 | GIS và Digital Twin | Bản đồ trong TS/Vấn đề/Giám sát | Giám sát * · GIS nâng cấp | `gis` · `gis-draw-google` | P1–P2 |
 | 3 | AI kiểm định mặt đường | Vấn đề (+ upload) | Sự cố · list detection | `ai-vision` | P1 online / P2 local |
+| 3b | AI phát hiện TS/thiết bị mới | Camera tuần đường | Candidate → Asset Confirm | `ai-asset-detect` | P1 online / P2 local |
 | 4 | Tuần đường / tuần kiểm | Check-in · Giám sát | Giám sát hoạt động · BC checkin | `patrol` | P1 |
 | 5 | Chấm công và định vị | Check-in (rules) | BC checkin · báo cáo công | `attendance` | P1 |
 | 6 | Quản lý sự cố | Vấn đề · Lưu trữ | Sự cố · Giám sát sự cố | `incident` | P1 |
@@ -85,6 +88,9 @@ Check-in / GPS track (Mobile)
 Ảnh hiện trường (Mobile Vấn đề)
     → AiVision detect (P1 GPT-4o / P2 ONNX)
     → defect.detected → Incident (critical)
+Camera xe tuần đường (Patrol)
+    → ai-asset-detect (P1 GPT-4o / P2 ONNX class TS)
+    → asset.candidate → Confirm → Asset (tọa độ · loại · tuyến)
 Incident / Vấn đề (Mobile+Web)
     → Assign · Comment · SLA stub
     → AI Estimate (P1 JSON) → Work Order (P2 Maintenance)

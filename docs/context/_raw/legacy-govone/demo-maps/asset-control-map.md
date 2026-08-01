@@ -5,34 +5,34 @@
 
 ## Kind hint
 
-- B (catalog list+modal) — erp-form-context Kind B
+- F/custom map + list — erp-custom-manage + GIS · erp-list-page-shell
 - Step 2a-K · 2d readonly · 2g control-map · 2g common controls mandatory
 
 ## Fields (legacy → Linm)
 
 | Legacy | type | zone | Control | Linm SSOT |
 |--------|------|------|---------|-----------|
-| textfield-1033-inputEl | text | toolbar | Text | TextField · common-field-control |
-| textfield-1079-inputEl | text | toolbar | Text | TextField · common-field-control |
-| textfield-1080-inputEl | text | toolbar | Text | TextField · common-field-control |
-| inputItem | text | toolbar | Text | TextField · common-field-control |
+| textfield-1033-inputEl | text | toolbar | Search (tree filter) | SearchInput · LinErpListFilterBar · lọc tree tuyến |
+| textfield-1079-inputEl | text | toolbar | Text (lý trình) | TextField · common-field-control · filter lý trình từ/đến |
+| textfield-1080-inputEl | text | toolbar | Text (lý trình) | TextField · common-field-control · filter lý trình từ/đến |
+| inputItem | text | toolbar | Number (pager) | Pagination current page · list shell |
 
 
 ## Actions / buttons (legacy → toolbar MFE)
 
 | Legacy label | kind | zone | Demo button | Linm SSOT |
 |--------------|------|------|-------------|-----------|
-| 24 | nav | toolbar | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
-| Ban.TK.Nguyễn Anh Phúc | nav | toolbar | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
-| Tiện ích | nav | toolbar | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
-| Xóa điều kiện | destructive | grid | Xóa / Hủy | Button danger · Confirm modal |
-| Lấy dữ liệu | nav | grid | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
+| 24 | nav | toolbar | Thông báo | Notification badge · header · mfe-run-modes |
+| Ban.TK.Nguyễn Anh Phúc | nav | toolbar | User menu | Avatar dropdown · profile / logout · mfe-run-modes |
+| Tiện ích | nav | toolbar | Tiện ích | Overflow / utilities menu · toolbar |
+| Xóa điều kiện | destructive | grid | Xóa điều kiện | LinErpListFilterBar · clear filter lý trình / điều kiện |
+| Lấy dữ liệu | nav | grid | Lấy dữ liệu | LinErpListFilterBar · query map pins + grid · GAP-P2-87 |
 | + | create | grid | Tạo mới / Thêm | Button primary · catalog/voucher toolbar |
 | − | action | grid | − | Button · toolbar zone |
 | ⇧ | action | grid | ⇧ | Button · toolbar zone |
-| Vị trí của tôi | action | grid | Vị trí của tôi | Button · toolbar zone |
-| Lớp nền | action | grid | Lớp nền | Button · toolbar zone |
-| Lớp chuyên đề | action | modal | Lớp chuyên đề | Button · toolbar zone |
+| Vị trí của tôi | action | grid | Vị trí của tôi | Map geolocate · GIS toolbar |
+| Lớp nền | action | grid | Lớp nền | Map basemap switcher · GIS toolbar |
+| Lớp chuyên đề | action | modal | Lớp chuyên đề | Map thematic layers · GIS toolbar / modal |
 
 
 ## Demo page rules (bắt buộc)

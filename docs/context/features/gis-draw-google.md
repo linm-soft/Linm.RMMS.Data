@@ -4,8 +4,9 @@
 > **Status:** Demo  
 > **Feature Kind:** F/custom map (GIS shell) · Confirmed by: ai-autocode-autopilot 2026-08-01 · vision `002-ban-o-cong-trinh-giao-thong`  
 > **Sources:** GOVOne screenshot `1-ban-do.png` + vision `002`/`003` · `07` §1–§2 · `09` GIS 2D  
-> **Demo HTML:** `Linm.RMMS.Demo/public/demo/gis/gis-draw-google.html`  
-> **Live map:** `Linm.RMMS.Demo/public/demo/gis/gis-draw-live.html` — Leaflet + OSM/Esri · Leaflet.draw  
+> **Demo HTML (runtime):** `Linm.RMMS.Demo/public/demo/gis/gis-draw-live.html` — Leaflet + OSM/Esri · Leaflet.draw  
+> **Alias URL:** `gis-draw-google.html` → redirect live (**đã xóa** mock screenshot CSS + `1-ban-do.png` làm nền)  
+> **Ảnh ref only:** `public/demo/gis/assets/1-ban-do.png` (không dùng làm map runtime)  
 > **MFE:** `Linm.Web.RMMS.Gis` · page `GisDrawGoogleDemoPage`  
 > **Parent:** [`gis.md`](gis.md) · liên quan [`asset.md`](asset.md) · [`pavement-section.md`](pavement-section.md)
 

@@ -24,17 +24,17 @@
 | Bản đồ | nav | footer | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
 | Vấn đề | nav | footer | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
 | Giám sát | nav | footer | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
-| Hồ sơ | nav | footer | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
+| Hồ sơ | nav | footer | User menu | Avatar dropdown · profile / logout · mfe-run-modes |
 | govone.vn | nav | header | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
 | youtube | nav | header | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
 | facebook | nav | header | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
 | Giao diện sáng | action | header | Giao diện sáng | Button · toolbar zone |
 | Giao diện tối | action | header | Giao diện tối | Button · toolbar zone |
-| Ban.TK.Nguyễn Anh Phúc nguyenanhphuc.dbna@cloudgis.vn | action | header | Ban.TK.Nguyễn Anh Phúc nguyenanhphuc.dbna@cloudgis.vn | Button · toolbar zone |
+| Ban.TK.Nguyễn Anh Phúc nguyenanhphuc.dbna@cloudgis.vn | action | header | User menu | Avatar dropdown · profile / logout · mfe-run-modes |
 | Thông tin của tôi | export | header | Xuất Excel | export-excel · toolbar |
-| Đổi mật khẩu | action | header | Đổi mật khẩu | Button · toolbar zone |
-| Đổi mật khẩu | nav | header | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
-| Đăng xuất | export | header | Xuất Excel | export-excel · toolbar |
+| Đổi mật khẩu | action | header | User menu | Avatar dropdown · profile / logout · mfe-run-modes |
+| Đổi mật khẩu | nav | header | User menu | Avatar dropdown · profile / logout · mfe-run-modes |
+| Đăng xuất | export | header | Đăng xuất | Auth logout · mfe-run-modes |
 | Bảng tổng hợp nhanh | action | sidebar | Bảng tổng hợp nhanh | Button · toolbar zone |
 | Bảng tổng hợp nhanh | nav | sidebar | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
 | Báo cáo tổng hợp | action | sidebar | Báo cáo tổng hợp | Button · toolbar zone |

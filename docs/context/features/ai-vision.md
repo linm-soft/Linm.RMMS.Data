@@ -58,6 +58,8 @@ Object storage: MinIO raw images.
 
 `defect.detected` → Incident (nếu critical) · Gis · Asset.
 
+**Liên quan (không gộp slug):** phát hiện **TS/thiết bị mới** từ camera tuần đường → [`ai-asset-detect.md`](ai-asset-detect.md) (tạo Asset, không tạo Vấn đề).
+
 ## 6. Gaps
 
 | ID | Default |

@@ -1,25 +1,38 @@
 # Quản lý người dùng / tổ chức — Feature Context
 
-> **Slug:** `users` · **Module:** Auth / Admin · **Phase:** P1 (giữ)  
-> **Status:** Context  
-> **Sources:** guide Web **Quản lý người dùng** · Mobile cập nhật profile · `15-SCREEN-AI-MAP.md`
+> **Slug:** `users` · **Module:** Auth / Admin (tạm host Integration) · **Phase:** P1 (giữ)  
+> **Status:** Demo  
+> **Kind confirmed:** **B** (CatalogListShell list + modal) — erp-form-context 2a-K  
+> **Sources:** guide Web **Quản lý người dùng** · Mobile cập nhật profile · `15-SCREEN-AI-MAP.md` · legacy GOVOne capture  
+> **Demo:** `Linm.RMMS.Demo/public/demo/integration/users.html` · `src/demo/integration/users.html`
 
 ## 1. Tổng quan
 
 | | |
 |--|--|
-| Mục tiêu | Cơ quan · user · cấp · phân tuyến · phân cán bộ quản lý · profile Mobile |
+| Mục tiêu | Cơ quan · user · cấp · phân tuyến · phân cán bộ quản lý · profile / đổi MK |
 | Persona | Admin hạt/công ty |
 | App hiện có | Web QL Cơ quan/Người dùng/Cấp · Mobile cập nhật TT |
-| DoD | Giữ UX · API consumer khi migrate Auth |
+| DoD | Demo parity · giữ UX · API consumer khi migrate Auth |
+| Align MFE | `Linm.Web.RMMS.Integration` · `/integration/users` (Auth host sau — GAP-F-USR-01) |
 
 ## 2. Design / UI
 
 | Screen | Pattern | Zones |
 |--------|---------|-------|
-| QL Cơ quan (tree) | Full (giữ) | Context menu thêm TC/user · phân tuyến |
-| QL Người dùng / Cấp | Full | List |
-| Profile Mobile | Full | SĐT · email · ảnh · MK |
+| QL Cơ quan (tree) | Kind B sidebar | Cây TC · chọn node lọc user · thêm TC |
+| QL Người dùng / Cấp | Kind B CatalogListShell | Filter (tìm đoạn đường/tuyến/user) · grid STT · row actions |
+| User form | Kind B modal / slideout | Mã · username · họ tên · email · SĐT · TC · vai trò · TT · tuyến |
+| Đổi mật khẩu | Modal | MK cũ · MK mới · xác nhận · submit (legacy `doimatkhau`) |
+| Hồ sơ của tôi | Modal | Profile readonly + link đổi MK |
+| Phân tuyến / Cán bộ QL | Modal | Checkbox tuyến · checkbox user thuộc QL |
+| User menu | Toolbar avatar | Ban.TK… · Hồ sơ · Đổi MK · Đăng xuất · VỀ TRANG CHỦ |
+
+### Mock interactions (demo)
+
+- Fake data + localStorage (`rmms-demo-users-*`) · toast · leave-confirm dirty  
+- **Cấm** fetch BE · **cấm** clone skin GOVOne  
+- IdCode: `USR-YYYYMMDD-NNNN`
 
 ## 3. API
 
@@ -46,12 +59,17 @@ Org · User · Role · UserRoute · ManagerUser — schema Auth (có thể host 
 | ID | Default |
 |----|---------|
 | GAP-F-USR-01 Auth service tách | Theo HĐ — có thể ngoài gói AI |
-| GAP-F-USR-02 Deep demo | Thấp ưu tiên vs AI modules |
+| GAP-F-USR-02 Deep demo | Done demo Kind B (task_ab9fcdec) · Signed → align |
 
 ## 7. Demo checklist (chốt khách)
 
-- [ ] Sơ đồ phân tuyến 1 trang
-- [ ] Không mở rộng scope AI
+- [ ] Cây tổ chức + lọc user theo node
+- [ ] Grid user đủ cột · filter «đoạn đường / tuyến»
+- [ ] Form thêm/sửa user + validation banner
+- [ ] Đổi mật khẩu 3 field + submit
+- [ ] Đủ 7 actions legacy (user menu · Thêm · Hồ sơ · Đổi MK · Đăng xuất · VỀ TRANG CHỦ)
+- [ ] Phân tuyến · phân cán bộ QL (mock)
+- [ ] Không mở rộng scope AI · không gọi BE
 
 <!-- LEGACY-GOVONE-CAPTURE:START -->
 ## Legacy GOVOne (auto-capture)

@@ -1,0 +1,197 @@
+# source: context/features/pavement-section.md
+# version: 6
+# scannedAt: 2026-08-01T15:31:24.584Z
+# sha256: 8dc85283e62e054a67f23b8a16711a769dab6a3d828178176704297612009c49
+# mtimeMs: 1785597832157.155
+# Phân loại mặt đường (Biểu 1) — ERP Form Context
+
+> **Slug:** `pavement-section` · **Module:** `Asset` / infra  
+> **Kind:** **B (Catalog list)** + **Full page form** (≥10 field — không Modal)  
+> **Status:** Demo HTML · In Review  
+> **Sources:** `11-CSDL-SO-SACH-DATABASE-API.md` § Biểu 1 · hồ sơ chuẩn hóa sổ sách  
+> **API:** `api/v1/infra/pavement-sections`  
+> **IdCode:** `MD-YYYYMMDD-NNNN` (vd. `MD-20260731-0001`)  
+> **Demo:** `Linm.RMMS.Demo/public/demo/asset/pavement-section.html` (+ mirror `src/demo/asset/`)  
+> **Control map:** [`pavement-section-control-map.md`](pavement-section-control-map.md)  
+> **Readonly lock:** [`pavement-section-readonly-lock.md`](pavement-section-readonly-lock.md)  
+> **Demo-maps:** `_raw/legacy-govone/demo-maps/pavement-section-control-map.md` · `-actions.md`
+
+## 0. Kind gate (Step 2a-K)
+
+| | |
+|--|--|
+| **Kind** | **B** — Danh mục / master inventory list + form |
+| **UI pattern** | List shell (filter · grid · toolbar) · Form **Full page** (không Modal — >10 input) |
+| **Confirm** | **Confirmed by: ai-autocode-autopilot** (docs hồ sơ Biểu 1) |
+
+## 1. Tổng quan
+
+| | |
+|--|--|
+| Mục tiêu | CRUD đoạn mặt đường theo Biểu mẫu số 1 (thống kê phân loại mặt đường) |
+| Persona | Khu QLĐB · Văn phòng · Nhà thầu BDTX |
+| Map app | Link bản đồ live / GIS draw (`layerCode=mat-duong`) |
+| DoD | List + filter · form full · IdCode · import/export Excel cột biểu 1 |
+
+## 2. Design / UI (erp-form-context §8.4 / list §8.7)
+
+### List (Step 2h parity catalog)
+
+| Zone | Control |
+|------|---------|
+| Header | Title «Phân loại mặt đường» · help · thông báo · user |
+| Toolbar | Tạo mới · Import · Export · Làm mới · Cấu hình cột |
+| Filter | SearchText · Tỉnh · Tên đường · Từ Km–Đến Km · Tình trạng · Tìm · Xóa điều kiện |
+| Grid | STT · Mã · Đường · Tỉnh · KmFrom–To · Kết cấu · Cấp · Tình trạng · ĐV QL · Xem/Sửa/Xóa |
+| Pagination | pageSize 20/50 · prev/next |
+
+### Form Full page
+
+| Section | Fields |
+|---------|--------|
+| Header compact (mặc định full) | Mã · Tên đường · Tỉnh · KmFrom · KmTo · lengthKm |
+| Kết cấu | B nền · B mặt · Loại KC · Dày mặt · Cấp đường |
+| Khai thác | Số năm · Bàn giao BT/XDCB · Năm đại tu · Năm SC · Tình trạng |
+| Đơn vị | ĐV thi công · ĐV quản lý · Chủ QLSD |
+| Audit | Ngày cập nhật · Người cập nhật · Ghi chú (readonly sau save một phần) |
+
+### Form toolbar
+
+| Mode | Buttons |
+|------|---------|
+| Create | Lưu · Huỷ · Mở bản đồ live |
+| Edit | Lưu · Huỷ · Xóa · Mở bản đồ live |
+| View | Sửa · Đóng · Mở bản đồ live |
+
+## 3. API (Step §5)
+
+| Action | Method | Path |
+|--------|--------|------|
+| List | GET | `/api/v1/infra/pavement-sections?search=&province=&road=&kmFrom=&kmTo=&status=&page=` |
+| Get | GET | `/api/v1/infra/pavement-sections/{id}` |
+| Create | POST | `/api/v1/infra/pavement-sections` |
+| Update | PUT | `/api/v1/infra/pavement-sections/{id}` |
+| Delete | DELETE | `/api/v1/infra/pavement-sections/{id}` |
+| Export | GET | `/api/v1/infra/pavement-sections/export` |
+| Import | POST | `/api/v1/infra/pavement-sections/import` |
+| Init | GET | `/api/v1/infra/pavement-sections/form-init-data` |
+
+Toast: success hardcode VI · error từ BE (form-api-error-handling).
+
+> **BE status (demo_scan):** endpoints **MISSING** trên `Linm.Web.ERP.WebService` → **GAP-F-PVT-01** · **be_align OFF** (skill `/qlbd-analy-demo` · demo only).
+
+## 4. Database
+
+Entity `PavementSection` — xem `11-CSDL-SO-SACH-DATABASE-API.md` §1.2 Biểu 1.  
+Index: `(CompanyCode, Code)` unique · `(RoadName, KmFrom, KmTo)` · GIST optional nếu có Geom.
+
+## 5. IdCode (Step 2e)
+
+| | |
+|--|--|
+| Prefix | `MD` |
+| Format | `MD-YYYYMMDD-NNNN` |
+| Generate | BE `IIdCodeService.GenerateAsync()` on create · Copy → reset |
+| Demo | mock `genCode()` localStorage |
+
+## 6. Permissions (Step 2p)
+
+| Action | Permission gợi ý |
+|--------|------------------|
+| View list/form | `infra.pavement.view` |
+| Create/Edit | `infra.pavement.edit` |
+| Delete | `infra.pavement.delete` |
+| Import/Export | `infra.pavement.import` / `.export` |
+
+## 7. Gaps §9
+
+| ID | Severity | Note |
+|----|----------|------|
+| GAP-P2-KIND-RMMS | Info | Không phải voucher ERP KT — Kind B catalog adapted |
+| GAP-P1-CC | P1 | Demo HTML chưa wire `@linm-soft-org/linm-web-common-components` — parity visual only |
+| GAP-P2-LKP | P2 | Lookup tỉnh/đường khi có master catalog |
+| GAP-P2-DT | P1 | `UpdatedAt` UTC ↔ local khi implement MFE thật |
+| GAP-F-PVT-01 | P1 | BE `/api/v1/infra/pavement-sections/*` chưa có — be_align OFF (demo only) |
+
+## 8. Demo checklist
+
+- [x] List filter + grid cột Biểu 1
+- [x] Form full đủ field bắt buộc
+- [x] Mã MD-* hiển thị (mock generate)
+- [x] Lưu local / mock API payload JSON
+- [x] Link mở bản đồ live vẽ đoạn
+- [x] Mọi action control-map (23) có trên demo
+- [x] Cấu hình cột · Xóa điều kiện · pager 20/50
+- [x] View: Sửa · Đóng · không disabled xám
+- [ ] Wire common-components (align-mfe sau Signed)
+
+<!-- LEGACY-GOVONE-CAPTURE:START -->
+## Legacy GOVOne (auto-capture)
+
+> Không có màn GOVOne vision cho Biểu 1.  
+> GOVOne **SỔ TÀI SẢN** → slug **`asset`** (không remap vào pavement-section).  
+> Synthetized từ product context + hồ sơ CSDL Biểu 1.
+
+### Nguồn
+
+- Raw feature: `docs/context/_raw/legacy-govone/features/pavement-section.md`
+- Control-map: `docs/context/_raw/legacy-govone/demo-maps/pavement-section-control-map.md`
+- Actions: `docs/context/_raw/legacy-govone/demo-maps/pavement-section-actions.md`
+- Guides: `11-CSDL-SO-SACH-DATABASE-API.md` § Biểu 1
+- Vision packets pavement: 0 (related asset sổ TS → `asset`)
+
+### Capture inventory
+
+> Input cho `/product-analy-demo` · `/qlbd-analy-demo`.
+
+## Pages (2)
+
+### DANH SÁCH PHÂN LOẠI MẶT ĐƯỜNG (list)
+
+- **id:** `pavement-section-list`
+- **url:** (planned) `/asset/pavement-sections`
+- **title:** Phân loại mặt đường (Biểu 1)
+
+#### Labels / field captions
+
+- Tìm · Tỉnh · Tên đường · Từ Km · Đến Km · Tình trạng · Mã · Kết cấu · Cấp · ĐV quản lý
+
+#### Actions / buttons (full)
+
+| label | kind | zone |
+|-------|------|------|
+| Tạo mới | create | toolbar |
+| Import | import | toolbar |
+| Export | export | toolbar |
+| Làm mới | action | toolbar |
+| Cấu hình cột | action | toolbar |
+| Tìm | filter | filter |
+| Xóa điều kiện | filter | filter |
+| Xem | view | grid |
+| Sửa | edit | grid |
+| Xóa | destructive | grid |
+| Vẽ trên bản đồ live | nav | header |
+| Trợ giúp | nav | header |
+| Thông báo | nav | header |
+| User menu | nav | header |
+| Trang trước | nav | pager |
+| Trang sau | nav | pager |
+
+### FORM ĐOẠN MẶT ĐƯỜNG (full page)
+
+- **id:** `pavement-section-form`
+- **url:** (planned) `/asset/pavement-sections/new` · `/:id`
+
+#### Actions / buttons (full)
+
+| label | kind | zone |
+|-------|------|------|
+| ← Danh sách | nav | form |
+| Lưu | save | form |
+| Huỷ | close | form |
+| Xóa | destructive | form |
+| Sửa | edit | form |
+| Đóng | close | form |
+| Mở bản đồ live | nav | form |
+
+<!-- LEGACY-GOVONE-CAPTURE:END -->

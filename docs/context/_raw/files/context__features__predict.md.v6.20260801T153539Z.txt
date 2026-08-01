@@ -1,0 +1,181 @@
+# source: context/features/predict.md
+# version: 6
+# scannedAt: 2026-08-01T15:35:39.839Z
+# sha256: 7229c5f3a25bc8a873cdff98fd2bf626ab3fb56825fd838fb1b26be00600a083
+# mtimeMs: 1785598377403.9373
+# AI dự báo bảo trì — Feature Context
+
+> **Slug:** `predict` · **Module:** `AiVision` + ML · **Phase:** P1 online · P2 XGBoost/ONNX  
+> **Status:** Demo  
+> **Kind:** **B** (CatalogListShell) + **D** (section slideout) — Confirmed by: ai-autocode-autopilot  
+> **Sources:** `RMMS` §8 · `07` §8 · `08` · `09` · `15-SCREEN-AI-MAP.md`  
+> **Gắn màn:** Web **Báo cáo** / **Dashboard** · route MFE `/ai-vision/predict`  
+> **Demo HTML:** `Linm.RMMS.Demo/public/demo/ai-vision/predict.html`  
+> **MFE (align):** `Linm.Web.RMMS.AiVision` · **cấm** sửa MFE ở phase demo
+
+## 1. Tổng quan
+
+| | |
+|--|--|
+| Mục tiêu | Dự báo xuống cấp · tuổi thọ còn lại · ưu tiên đại tu/đầu tư từ lưu lượng, thời tiết, vật liệu, tuổi, lịch sử SC |
+| Persona | Ban QLDA · kế hoạch bảo trì |
+| App hiện có | — (mới; gắn Web Báo cáo / Dashboard) |
+| DoD P1 | Priority list online LLM · không train XGBoost |
+| DoD P2 | Feature store + XGBoost→ONNX→ML.NET |
+
+## 2. Design / UI
+
+| Screen | Pattern | Zones | Ghi chú |
+|--------|---------|-------|---------|
+| Priority list | Kind B Full | Filter tuyến · score · horizon · KPI · grid | Web |
+| Section detail | Kind D Slideout | Drivers · chart stub · recommend · audit | |
+| Badge model | — | online / local version | P1 online · P2 local |
+
+**Kind B+D layout (erp-form-context):**
+
+- **List Z1** — CatalogToolbar: Làm mới · Chạy dự báo hàng loạt · Xuất Excel · Mở Dashboard · Column picker · Sort  
+- **List Z2** — FilterBar: Tuyến · Horizon · Top N · Score min · Áp dụng / Xóa lọc  
+- **List Z3** — KPI strip · CatalogListShell 8 đoạn  
+- **Detail Z1** — Quay lại · Đóng · Copy mã · Chạy lại · Lịch sử · badge P1 online · dirty  
+- **Detail Z2** — Header features · Drivers · chart stub · recommend · ghi chú  
+- **Detail Z3** — Ưu tiên đại tu · Gắn kế hoạch BT · Lưu ghi chú · Hủy thay đổi  
+
+**Mock:** 8 đoạn đường · score 0–100 · «ưu tiên đại tu» · model `gpt-4o-mini`.
+
+**2d readonly:** rule_defaults · Confirmed by: ai-autocode-autopilot  
+**2e IdCode:** `SEC-*` (section) · không IdCode voucher  
+**2k:** leave-confirm khi ghi chú dirty  
+**2j platform event:** `predict.updated` → Dashboard · Copilot (P2 push)
+
+## 3. API
+
+| Method | Path | Mô tả | BE status |
+|--------|------|-------|-----------|
+| POST | `/api/v1/ai-predict/section/{id}` | Predict 1 đoạn | **MISSING** (Step 4b) |
+| GET | `/api/v1/ai-predict/priority-list?routeId=&top=` | Danh sách ưu tiên | **MISSING** (Step 4b) |
+| GET | `/api/v1/ai-predict/history/{sectionId}` | Audit | **MISSING** (Step 4b) |
+
+```json
+{ "sectionId": "SEC-001", "score": 82, "horizonMonths": 12, "drivers": ["age", "traffic", "pci"], "model": "gpt-4o-mini" }
+```
+
+> Phase demo: **cấm** gọi BE · fake JSON only. Align BE khi Status Signed + be_align ON.
+
+## 4. Database
+
+| Entity | Key columns | Notes |
+|--------|-------------|-------|
+| SectionFeatures | SectionId, Traffic, Material, Age, WeatherAgg | Feature store |
+| PredictionAudit | SectionId, Score, Model, At, RawJson | |
+
+## 5. Events / tích hợp
+
+| Event | Publisher | Consumer |
+|-------|-----------|----------|
+| `predict.updated` | Predict | Dashboard · Copilot tools |
+
+## 6. Gaps / quyết định
+
+| ID | Question | Default |
+|----|----------|---------|
+| GAP-F-PRD-01 | Local train | OUT P1 |
+| GAP-F-PRD-02 | Weather/traffic data source | Stub / import P1 |
+| GAP-F-PRD-03 | BE endpoints `/api/v1/ai-predict/*` | MISSING · be_align khi Signed |
+| GAP-F-PRD-04 | Auto tạo WorkOrder từ «Ưu tiên đại tu» | OUT P1 · stub Gắn kế hoạch BT |
+
+## 7. Demo checklist (chốt khách)
+
+- [ ] Priority list mock (8 đoạn)
+- [ ] Badge P1 online
+- [ ] Link Dashboard
+- [ ] Không hiện GPU/train
+- [ ] Đủ field + 20 actions từ control-map
+- [ ] Leave-confirm khi ghi chú dirty
+- [ ] Section slideout: drivers · chart stub · recommend
+
+<!-- LEGACY-GOVONE-CAPTURE:START -->
+## Legacy GOVOne (auto-capture)
+
+> Không có màn GOVOne riêng — synthetized từ product docs + host Dashboard/Báo cáo.  
+> Dùng làm **step context** cho `/qlbd-analy-demo` · `yarn scan-qlbd-demo`.
+
+### Nguồn
+
+- Raw feature: `docs/context/_raw/legacy-govone/features/predict.md`
+- Vision packets: 0 (AI feature mới)
+
+### Capture inventory
+
+## Pages (2)
+
+### PRIORITY LIST + SECTION DETAIL
+
+- **id:** `predict-priority-list` · `predict-section-detail`
+- **url:** (planned) `/ai-vision/predict`
+- **title:** AI dự báo bảo trì
+
+#### Labels / field captions
+
+- Tuyến · Horizon · Top N · Score tối thiểu · Mã đoạn · Tên đoạn/Km · Thứ hạng · Score · Tuổi thọ còn lại · Khuyến nghị · Model AI · PCI · Lưu lượng · Vật liệu · Tuổi công trình · Thời tiết · Lịch sử SC · Dự báo lúc · Drivers · Trọng số · Ghi chú · Audit fields
+
+#### Actions / buttons (full)
+
+| label | kind | zone |
+|-------|------|------|
+| Áp dụng lọc | action | filter |
+| Xóa lọc | action | filter |
+| Làm mới danh sách | action | toolbar |
+| Chạy dự báo hàng loạt | create | toolbar |
+| Xuất Excel | export | toolbar |
+| Mở Dashboard | nav | toolbar |
+| Column picker | action | toolbar |
+| Sort theo score | action | toolbar |
+| Refresh KPI | action | toolbar |
+| Xem chi tiết | nav | row |
+| Chạy dự báo đoạn | action | row |
+| Ưu tiên đại tu | action | row |
+| Chạy lại dự báo | action | toolbar |
+| Xem lịch sử audit | action | toolbar |
+| Gắn kế hoạch BT | nav | footer |
+| Lưu ghi chú | action | footer |
+| Hủy thay đổi | close | footer |
+| Đóng | close | header |
+| Quay lại | nav | header |
+| Copy mã đoạn | action | header |
+
+- **actionCount:** 20
+
+## Migration notes
+
+- Map fields/actions → control-map modern MFE · erp-form-context Kind B+D.
+- Demo: same fields · Linm shell — **cấm** clone skin GOVOne · **cấm** BE.
+
+### Step context checklist
+
+- [x] Design demo parity (Kind B list + Kind D slideout)
+- [x] Control-map fields từ Labels/Inputs
+- [ ] Status Demo → Signed → `/qlbd-align-mfe`
+<!-- LEGACY-GOVONE-CAPTURE:END -->
+
+<!-- DEMO-MFE-MODERN:START -->
+## Demo MFE modern (erp-form-context)
+
+> Same fields/actions từ capture · UI chuẩn Linm — **không** clone skin legacy.
+
+- Control-map: [`predict-control-map.md`](../_raw/legacy-govone/demo-maps/predict-control-map.md)
+- Actions: [`predict-actions.md`](../_raw/legacy-govone/demo-maps/predict-actions.md)
+- Fields mapped: 22 · Actions: 20
+- Kind hint: **B+D** — CatalogListShell + slideout · leave-confirm · common controls
+
+Gen demo: `/qlbd-analy-demo @predict` — load control-map trên + `/erp-form-context` rules (2a-K · 2g · common controls · list shell).
+<!-- DEMO-MFE-MODERN:END -->
+
+## 8. Tracking (autopilot)
+
+| | |
+|--|--|
+| Task | `task_94118a43` |
+| Skill | `/qlbd-analy-demo @predict` |
+| Files | `predict.md` · `demo-maps/predict-*.md` · `public/demo/ai-vision/predict.html` · `js/predict-*.js` · `demoCatalog.ts` |
+| BE align | OFF (demo) · GAP-F-PRD-03 documented |
+| Confirmed by | ai-autocode-autopilot |

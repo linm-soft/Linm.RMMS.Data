@@ -1,6 +1,7 @@
 # Control map — Phân loại mặt đường (`pavement-section`)
 
-> erp-form-context Step **2g** · AskQuestion confirm = **accepted defaults** (hồ sơ biểu 1)
+> erp-form-context Step **2g** · **Confirmed by: ai-autocode-autopilot** (hồ sơ biểu 1)  
+> Modern demo-map: `_raw/legacy-govone/demo-maps/pavement-section-control-map.md`
 
 ## List filter
 
@@ -12,6 +13,7 @@
 | kmFrom / kmTo | Number | Lý trình |
 | status | Select | Tình trạng |
 | Tìm | Button | Filter bar (không trùng Làm mới toolbar) |
+| Xóa điều kiện | Button | Clear filter |
 
 ## Form fields
 
@@ -40,13 +42,23 @@
 | notes | Textarea | No | Audit |
 | updatedAt / updatedBy | Readonly | — | Audit |
 
+## Toolbar list
+
+| Button | Notes |
+|--------|-------|
+| Tạo mới | Primary |
+| Import | Excel biểu 1 stub |
+| Export | JSON/Excel stub |
+| Làm mới | Refresh local |
+| Cấu hình cột | Column picker |
+
 ## Toolbar form
 
 | Mode | Buttons |
 |------|---------|
-| Create | Lưu · Huỷ |
-| Edit | Lưu · Huỷ · Xóa (perm) |
-| View | Sửa · Đóng |
+| Create | Lưu · Huỷ · Mở bản đồ live |
+| Edit | Lưu · Huỷ · Xóa (perm) · Mở bản đồ live |
+| View | Sửa · Đóng · Mở bản đồ live |
 
 ## Footer money
 

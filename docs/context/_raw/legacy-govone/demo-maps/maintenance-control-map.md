@@ -12,7 +12,21 @@
 
 | Legacy | type | zone | Control | Linm SSOT |
 |--------|------|------|---------|-----------|
-| _(chưa capture field — bổ sung vision)_ | | | | |
+| Ngày tổng hợp | date | header | Date | utcToLocalInputValue · localInputToISOWithOffset (form-datetime-local-utc) · report period filter |
+| Tuần đường | metric | kpi | KPI metric card | erp-report-context · KPI strip · click → focus panel / filter |
+| Tuần kiểm | metric | kpi | KPI metric card | erp-report-context · KPI strip · click → focus panel / filter |
+| Tình hình bão lũ | metric | kpi | KPI metric card | erp-report-context · KPI strip · click → focus panel / filter |
+| Tai nạn giao thông | metric | kpi | KPI metric card | erp-report-context · KPI strip · click → focus panel / filter |
+| Vi phạm xâm phạm | metric | kpi | KPI metric card | erp-report-context · KPI strip · click → focus panel / filter |
+| Công việc | metric | kpi | KPI metric card | erp-report-context · KPI strip · click → focus panel / filter |
+| Đơn vị / công ty | text | panel-tuan-duong | Tree node | Collapsible tree · report panel · expand/collapse |
+| Tuyến (QL) | text | panel-tuan-duong | Tree node | Collapsible tree · report panel · expand/collapse |
+| Điểm Km / lý trình | text | panel-tuan-duong | Chip / tag (Km) | Chip list · Company→Route→Km · drill chi tiết |
+| Trạng thái tải | text | panel-tuan-kiem | Status / empty | Loading overlay · EmptyState alert · erp-report-context |
+| Empty state | text | content | Status / empty | Loading overlay · EmptyState alert · erp-report-context |
+| Tiêu đề modal | text | modal-header | DialogTitle | Modal/Slideout title · erp-report-context · leave-confirm |
+| Empty state (TNGT) | text | modal-body | Status / empty | Loading overlay · EmptyState alert · erp-report-context |
+
 
 ## Actions / buttons (legacy → toolbar MFE)
 
@@ -23,17 +37,17 @@
 | Bản đồ | nav | footer | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
 | Vấn đề | nav | footer | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
 | Giám sát | nav | footer | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
-| Hồ sơ | nav | footer | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
+| Hồ sơ | nav | footer | User menu | Avatar dropdown · profile / logout · mfe-run-modes |
 | govone.vn | nav | header | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
 | youtube | nav | header | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
 | facebook | nav | header | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
 | Giao diện sáng | action | header | Giao diện sáng | Button · toolbar zone |
 | Giao diện tối | action | header | Giao diện tối | Button · toolbar zone |
-| Ban.TK.Nguyễn Anh Phúc nguyenanhphuc.dbna@cloudgis.vn | action | header | Ban.TK.Nguyễn Anh Phúc nguyenanhphuc.dbna@cloudgis.vn | Button · toolbar zone |
+| Ban.TK.Nguyễn Anh Phúc nguyenanhphuc.dbna@cloudgis.vn | action | header | User menu | Avatar dropdown · profile / logout · mfe-run-modes |
 | Thông tin của tôi | export | header | Xuất Excel | export-excel · toolbar |
-| Đổi mật khẩu | action | header | Đổi mật khẩu | Button · toolbar zone |
-| Đổi mật khẩu | nav | header | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
-| Đăng xuất | export | header | Xuất Excel | export-excel · toolbar |
+| Đổi mật khẩu | action | header | User menu | Avatar dropdown · profile / logout · mfe-run-modes |
+| Đổi mật khẩu | nav | header | User menu | Avatar dropdown · profile / logout · mfe-run-modes |
+| Đăng xuất | export | header | Đăng xuất | Auth logout · mfe-run-modes |
 | Bảng tổng hợp nhanh | action | sidebar | Bảng tổng hợp nhanh | Button · toolbar zone |
 | Bảng tổng hợp nhanh | nav | sidebar | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
 | Báo cáo tổng hợp | action | sidebar | Báo cáo tổng hợp | Button · toolbar zone |
@@ -80,12 +94,13 @@
 | Phân quyền | action | sidebar | Phân quyền | Button · toolbar zone |
 | Phân quyền báo cáo | action | sidebar | Phân quyền báo cáo | Button · toolbar zone |
 | Phân quyền báo cáo | nav | sidebar | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
-| dropdown trigger | action | header | dropdown trigger | Button · toolbar zone |
-| Thiết lập cỡ chữ | nav | header | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
-| CÔNG TÁC TUẦN ĐƯỜNG | action | header | CÔNG TÁC TUẦN ĐƯỜNG | Button · toolbar zone |
-| CÔNG TÁC TUẦN KIỂM | action | header | CÔNG TÁC TUẦN KIỂM | Button · toolbar zone |
-| CÔNG VIỆC | action | header | CÔNG VIỆC | Button · toolbar zone |
-| Đóng | close | header | Đóng | Modal/Slideout close · leave-confirm |
+| dropdown trigger | action | header | Date filter | DatePicker · report period · reload KPI + panels |
+| Thiết lập cỡ chữ | nav | header | Cỡ chữ | App shell · font-size preference |
+| CÔNG TÁC TUẦN ĐƯỜNG | action | header | Panel Tuần đường | Collapsible panel · tree Company→QL→Km chips · erp-report-context |
+| CÔNG TÁC TUẦN KIỂM | action | header | Panel Tuần kiểm | Collapsible panel · loading/empty · erp-report-context |
+| CÔNG VIỆC | action | header | Panel Công việc | Collapsible panel · WO summary empty/list · erp-report-context |
+| Maximize | action | modal-header | Maximize | Modal maximize / pop-out · erp-report-context |
+| Đóng | close | modal-header | Đóng | Modal/Slideout close · leave-confirm |
 
 
 ## Demo page rules (bắt buộc)

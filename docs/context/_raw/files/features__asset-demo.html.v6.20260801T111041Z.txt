@@ -1,0 +1,352 @@
+# source: features/asset-demo.html
+# version: 6
+# scannedAt: 2026-08-01T11:10:41.216Z
+# sha256: ffa2bc3275df09c3d47ae4c4559caa63e5a3d8ae3801072f32f44a37ad2087b9
+# mtimeMs: 1785582423425.4941
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quản lý tài sản đường bộ — Linm MFE Demo</title>
+<style>
+:root{
+  --bg:#f1f5f9;--card:#fff;--border:#e2e8f0;--txt:#0f172a;--muted:#64748b;
+  --primary:#0f766e;--primary2:#0d9488;--hdr:#0f172a;--danger:#b91c1c;
+  --ok:#047857;--warn:#b45309;--bad:#b91c1c;--radius:10px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--txt);min-height:100vh}
+.demo-banner{background:#fef3c7;color:#92400e;font-size:.72rem;font-weight:700;padding:6px 14px;text-align:center;border-bottom:1px solid #fde68a}
+.topnav{display:flex;align-items:center;gap:10px;padding:8px 14px;background:var(--hdr);color:#fff;flex-wrap:wrap}
+.topnav a{color:#99f6e4;text-decoration:none;font-size:.78rem}
+.topnav .ttl{font-weight:700;font-size:.92rem;flex:1;min-width:140px}
+.badge{font-size:.65rem;background:#134e4a;color:#5eead4;padding:2px 8px;border-radius:999px;font-weight:800}
+.hdr-actions{display:flex;align-items:center;gap:6px}
+.menu-wrap{position:relative}
+.icon-btn{position:relative;border:none;background:rgba(255,255,255,.1);color:#fff;border-radius:8px;padding:6px 10px;font-size:.78rem;font-weight:600;cursor:pointer}
+.icon-btn:hover{background:rgba(255,255,255,.18)}
+.bell-count{position:absolute;top:-4px;right:-4px;background:#dc2626;color:#fff;font-size:.6rem;min-width:16px;height:16px;border-radius:999px;display:flex;align-items:center;justify-content:center;font-weight:800}
+.dropdown{display:none;position:absolute;right:0;top:calc(100% + 6px);background:#fff;color:var(--txt);border:1px solid var(--border);border-radius:8px;min-width:200px;box-shadow:0 8px 24px rgba(15,23,42,.12);z-index:40;padding:6px}
+.dropdown.on{display:block}
+.dropdown button{display:block;width:100%;text-align:left;border:none;background:transparent;padding:8px 10px;font-size:.8rem;cursor:pointer;border-radius:6px}
+.dropdown button:hover{background:#f0fdfa}
+.notif{min-width:260px}
+.notif .item{padding:8px 10px;font-size:.78rem;border-bottom:1px solid var(--border);color:var(--muted)}
+.notif .item:last-child{border-bottom:none}
+
+.app{display:grid;grid-template-columns:260px 1fr;gap:0;min-height:calc(100vh - 90px)}
+@media(max-width:960px){.app{grid-template-columns:1fr}.side{border-right:none;border-bottom:1px solid var(--border)}}
+
+.side{background:var(--card);border-right:1px solid var(--border);display:flex;flex-direction:column;min-height:420px}
+.side-tabs{display:flex;border-bottom:1px solid var(--border)}
+.side-tabs span{flex:1;text-align:center;padding:10px 6px;font-size:.75rem;font-weight:700;color:var(--muted);border-bottom:2px solid transparent}
+.side-tabs span.on{color:var(--primary);border-bottom-color:var(--primary);background:#f8fafc}
+.side-body{padding:12px;flex:1;overflow:auto}
+.side-body label{display:flex;flex-direction:column;gap:4px;font-size:.7rem;color:var(--muted);margin-bottom:10px}
+.side-body input,.filter input,.filter select,.form input,.form select,.form textarea{
+  padding:7px 10px;border:1px solid var(--border);border-radius:6px;font-size:.82rem;font-family:inherit
+}
+.tree-org{font-size:.78rem;font-weight:700;padding:6px 4px;color:var(--txt)}
+.tree-item{display:flex;align-items:center;gap:4px;padding:2px 0}
+.tree-item.on .tree-name{background:#ccfbf1;color:#0f766e}
+.tree-name,.tree-eye{border:none;background:transparent;cursor:pointer;font-size:.8rem;padding:6px 8px;border-radius:6px}
+.tree-name{flex:1;text-align:left}
+.tree-name:hover,.tree-eye:hover{background:#f1f5f9}
+.side-links{font-size:.72rem;color:var(--muted);margin-top:12px;line-height:1.5}
+.side-links a{color:var(--primary)}
+
+.main{display:flex;flex-direction:column;min-width:0}
+.shell{background:var(--card);border-bottom:1px solid var(--border)}
+.head{padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.head h1{font-size:1.1rem;font-weight:700}
+.head .help{font-size:.75rem;color:var(--muted);margin-top:2px}
+.toolbar{display:flex;gap:8px;padding:10px 16px;border-bottom:1px solid var(--border);flex-wrap:wrap;background:#f8fafc}
+.toolbar button,.btn{padding:7px 12px;border-radius:6px;border:1px solid var(--border);background:#fff;font-size:.8rem;font-weight:600;cursor:pointer}
+.btn-primary{background:var(--primary);color:#fff;border-color:var(--primary)}
+.btn-danger{color:var(--danger);border-color:#fecaca}
+.filter{display:flex;gap:8px;padding:12px 16px;border-bottom:1px solid var(--border);flex-wrap:wrap;align-items:flex-end}
+.filter label{display:flex;flex-direction:column;gap:4px;font-size:.7rem;color:var(--muted)}
+
+.map-zone{position:relative;height:280px;background:#cbd5e1;overflow:hidden;border-bottom:1px solid var(--border)}
+.map-canvas{position:absolute;inset:0;background:
+  radial-gradient(circle at 30% 40%,#86efac55,#0000 40%),
+  radial-gradient(circle at 70% 55%,#7dd3fc66,#0000 35%),
+  linear-gradient(160deg,#0f766e22,#1e3a5f33),
+  repeating-linear-gradient(0deg,#94a3b822 0 1px,transparent 1px 28px),
+  repeating-linear-gradient(90deg,#94a3b822 0 1px,transparent 1px 28px),
+  #64748b;
+  transform-origin:center center;transition:transform .15s ease}
+.map-canvas[data-basemap="sat"]{background:linear-gradient(135deg,#14532d,#1e3a5f 50%,#0f172a)}
+.map-canvas[data-basemap="topo"]{background:linear-gradient(180deg,#d6d3d1,#a8a29e 40%,#78716c)}
+.pins{position:absolute;inset:0;z-index:2}
+.pin{position:absolute;transform:translate(-50%,-100%);border:none;background:transparent;font-size:1.2rem;cursor:pointer;filter:drop-shadow(0 1px 2px rgba(0,0,0,.35))}
+.pin.on{font-size:1.45rem}
+.map-tools{position:absolute;right:10px;bottom:10px;z-index:3;display:flex;flex-direction:column;gap:4px}
+.map-tools button,.map-top-tools button{width:34px;height:34px;border:1px solid var(--border);background:#fff;border-radius:8px;cursor:pointer;font-weight:700;box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.map-top-tools{position:absolute;right:10px;top:10px;z-index:3;display:flex;flex-direction:column;gap:4px}
+.map-meta{position:absolute;left:10px;bottom:10px;z-index:3;background:rgba(15,23,42,.8);color:#e2e8f0;font-size:.7rem;padding:4px 8px;border-radius:6px}
+
+.grid-wrap{overflow:auto;max-height:280px}
+table{width:100%;border-collapse:collapse;font-size:.8rem}
+th,td{padding:8px 10px;border-bottom:1px solid var(--border);text-align:left;white-space:nowrap}
+th{background:#f8fafc;color:var(--muted);font-weight:600;font-size:.72rem;position:sticky;top:0}
+tr:hover td{background:#f0fdfa}
+tr.sel td{background:#ccfbf1}
+.st{font-size:.72rem;font-weight:700;padding:2px 6px;border-radius:999px}
+.st-ok{background:#ecfdf5;color:var(--ok)}
+.st-warn{background:#fffbeb;color:var(--warn)}
+.st-bad{background:#fef2f2;color:var(--bad)}
+.linkish{border:none;background:transparent;color:var(--primary);font-weight:600;cursor:pointer;font-size:.78rem;margin-right:6px}
+.empty{text-align:center;color:#94a3b8;padding:24px !important;white-space:normal}
+.pager{display:flex;justify-content:space-between;align-items:center;padding:10px 16px;font-size:.78rem;color:var(--muted);flex-wrap:wrap;gap:8px;border-top:1px solid var(--border);background:#fff}
+.pager-nav{display:flex;align-items:center;gap:4px}
+.pager-nav button{padding:4px 8px;border:1px solid var(--border);background:#fff;border-radius:6px;cursor:pointer}
+.pager-nav input{width:48px;text-align:center;padding:4px}
+
+.detail{display:none;border-top:1px solid var(--border);background:#fff}
+.detail.on{display:block}
+.detail.view .form .field input:not([readonly]),.detail.view .form .field select,.detail.view .form .field textarea{pointer-events:none;background:#f8fafc;opacity:.95}
+.form-toolbar{display:flex;gap:8px;padding:10px 16px;border-bottom:1px solid var(--border);background:#f8fafc;flex-wrap:wrap;align-items:center}
+.banner{display:none;margin:12px 16px 0;padding:10px 12px;background:#fef2f2;border:1px solid #fecaca;border-radius:8px;color:#991b1b;font-size:.82rem}
+.banner.on{display:block}
+.sections{padding:16px;display:grid;gap:14px}
+.section{border:1px solid var(--border);border-radius:8px;padding:14px}
+.section h2{font-size:.85rem;margin-bottom:12px;color:var(--primary)}
+.fields{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.field{display:flex;flex-direction:column;gap:4px}
+.field label{font-size:.72rem;color:var(--muted)}
+.field.full{grid-column:1/-1}
+.field .err{font-size:.7rem;color:var(--danger);display:none}
+.field.invalid input,.field.invalid select{border-color:var(--danger)}
+.field.invalid .err{display:block}
+
+.chk{padding:12px 16px 16px;border-top:1px solid var(--border);background:#f8fafc}
+.chk h3{font-size:.8rem;margin-bottom:8px}
+.chk label{display:flex;gap:8px;align-items:flex-start;font-size:.78rem;color:var(--muted);margin:6px 0}
+
+.modal{display:none;position:fixed;inset:0;background:rgba(15,23,42,.45);z-index:50;align-items:center;justify-content:center;padding:16px}
+.modal.on{display:flex}
+.modal-card{background:#fff;border-radius:12px;padding:16px;max-width:360px;width:100%;border:1px solid var(--border)}
+.modal-card h3{font-size:.95rem;margin-bottom:10px}
+.modal-card label{display:flex;gap:8px;align-items:center;font-size:.82rem;margin:8px 0;cursor:pointer}
+.modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:14px}
+
+.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%) translateY(20px);background:#0f172a;color:#e2e8f0;padding:10px 16px;border-radius:999px;font-size:.8rem;opacity:0;pointer-events:none;transition:.2s;z-index:60;max-width:90vw}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+.muted{color:var(--muted);font-size:.75rem}
+.pad{padding:8px}
+</style>
+</head>
+<body>
+<div class="demo-banner">DEMO — no backend · MFE-modern shell (erp-form-context Kind F · list + GIS) · không clone skin GOVOne</div>
+
+<header class="topnav">
+  <a href="../index.html">← Hub</a>
+  <a href="./pavement-section.html">Biểu 1</a>
+  <span class="ttl">Quản lý tài sản đường bộ</span>
+  <span class="badge">Kind F · map+list</span>
+  <div class="hdr-actions">
+    <div class="menu-wrap">
+      <button type="button" class="icon-btn" data-action="notif" title="Thông báo" aria-label="Thông báo">🔔<span class="bell-count">24</span></button>
+      <div class="dropdown notif" id="notifPanel">
+        <div class="item">24 thông báo chưa đọc (mock)</div>
+        <div class="item">TS-088 cần bảo trì phản quang</div>
+        <div class="item">Import KCHT hoàn tất — 120 bản ghi</div>
+      </div>
+    </div>
+    <div class="menu-wrap">
+      <button type="button" class="icon-btn" data-action="user">Ban.TK.Nguyễn Anh Phúc ▾</button>
+      <div class="dropdown" id="userMenu">
+        <button type="button" data-action="profile">Hồ sơ</button>
+        <button type="button" data-action="logout">Đăng xuất</button>
+      </div>
+    </div>
+    <div class="menu-wrap">
+      <button type="button" class="icon-btn" data-action="util">Tiện ích ▾</button>
+      <div class="dropdown" id="utilMenu">
+        <button type="button" data-action="util-import">Import</button>
+        <button type="button" data-action="util-export">Export</button>
+        <button type="button" data-action="util-help">Hướng dẫn</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="app">
+  <!-- Left: tree filter (textfield-1033) -->
+  <aside class="side">
+    <div class="side-tabs">
+      <span class="on">Tuyến đường</span>
+      <span>Lớp dữ liệu</span>
+    </div>
+    <div class="side-body">
+      <label data-i18n="asset.filter.tree">Lọc tree tuyến
+        <input id="fTree" type="search" placeholder="Nhập và Enter để lọc dữ liệu" autocomplete="off">
+      </label>
+      <div id="tree"></div>
+      <div class="side-links">
+        Context: <a href="../../../../Linm.RMMS.Data/docs/context/features/asset.md">asset.md</a><br>
+        Control-map: <a href="../../../../Linm.RMMS.Data/docs/context/_raw/legacy-govone/demo-maps/asset-control-map.md">asset-control-map.md</a>
+      </div>
+    </div>
+  </aside>
+
+  <div class="main">
+    <div class="shell">
+      <div class="head">
+        <div>
+          <h1>Sổ tài sản KCHT</h1>
+          <div class="help">LinErpListFilterBar · map GIS mock · grid STT · fake data · localStorage</div>
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <button type="button" class="btn-primary" data-action="create" data-i18n="asset.action.create">+ Tạo mới</button>
+        <button type="button" data-action="bring-front" title="⇧">⇧ Đưa lên</button>
+        <button type="button" data-action="geolocate">Vị trí của tôi</button>
+        <button type="button" data-action="basemap">Lớp nền</button>
+        <button type="button" data-action="thematic">Lớp chuyên đề</button>
+      </div>
+
+      <div class="filter">
+        <label data-i18n="asset.filter.kmFrom">Lý trình từ
+          <input id="fKmFrom" placeholder="vd: km1+100" autocomplete="off">
+        </label>
+        <label data-i18n="asset.filter.kmTo">Lý trình đến
+          <input id="fKmTo" placeholder="vd: km5+100" autocomplete="off">
+        </label>
+        <label>Loại tài sản
+          <select id="fType"></select>
+        </label>
+        <button type="button" class="btn-primary" data-action="fetch-data">Lấy dữ liệu</button>
+        <button type="button" class="btn-danger" data-action="clear-filter">Xóa điều kiện</button>
+      </div>
+    </div>
+
+    <div class="map-zone">
+      <div class="map-canvas" id="mapCanvas" data-basemap="osm"></div>
+      <div class="pins" id="pins"></div>
+      <div class="map-top-tools">
+        <button type="button" data-action="basemap" title="Lớp nền">🗺</button>
+        <button type="button" data-action="thematic" title="Lớp chuyên đề">📑</button>
+      </div>
+      <div class="map-tools">
+        <button type="button" data-action="zoom-in" title="+">+</button>
+        <button type="button" data-action="zoom-out" title="−">−</button>
+        <button type="button" data-action="geolocate" title="Vị trí của tôi">◎</button>
+      </div>
+      <div class="map-meta" id="mapMeta">0 pin</div>
+    </div>
+
+    <div class="grid-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>STT</th><th>Mã</th><th>Tên</th><th>Loại</th><th>Tuyến</th>
+            <th>Lý trình từ</th><th>Lý trình đến</th><th>Trạng thái</th><th>GPS</th><th></th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+
+    <div class="pager">
+      <span id="pagerInfo">0 bản ghi</span>
+      <div class="pager-nav">
+        <button type="button" data-action="page-first">&lt;&lt;</button>
+        <button type="button" data-action="page-prev">&lt;</button>
+        <input id="pageInput" type="text" inputmode="numeric" title="Trang hiện tại (inputItem)" value="1">
+        <span id="pageTotal">/ 1</span>
+        <button type="button" data-action="page-next">&gt;</button>
+        <button type="button" data-action="page-last">&gt;&gt;</button>
+      </div>
+    </div>
+
+    <!-- Detail / create form -->
+    <div class="detail" id="detailPanel">
+      <div class="form-toolbar">
+        <strong id="formTitle">Chi tiết</strong>
+        <span style="flex:1"></span>
+        <button type="button" class="btn-primary" id="btnSave">Lưu</button>
+        <button type="button" id="btnEdit">Sửa</button>
+        <button type="button" id="btnCloseDetail">Đóng</button>
+      </div>
+      <div class="banner" id="banner">Vui lòng nhập đủ các trường bắt buộc (*).</div>
+      <form class="sections form" id="assetForm" onsubmit="return false">
+        <div class="section">
+          <h2>Thông tin tài sản</h2>
+          <div class="fields">
+            <div class="field"><label>Mã</label><input name="code" readonly></div>
+            <div class="field" data-req="name"><label>Tên *</label><input name="name"><span class="err">Bắt buộc</span></div>
+            <div class="field" data-req="type"><label>Loại *</label><select name="type"></select><span class="err">Bắt buộc</span></div>
+            <div class="field" data-req="route"><label>Tuyến *</label><select name="route"></select><span class="err">Bắt buộc</span></div>
+            <div class="field" data-req="kmFrom"><label>Lý trình từ *</label><input name="kmFrom" placeholder="vd: km1+100"><span class="err">Bắt buộc</span></div>
+            <div class="field"><label>Lý trình đến</label><input name="kmTo" placeholder="vd: km5+100"></div>
+            <div class="field" data-req="status"><label>Trạng thái *</label>
+              <select name="status"><option>Tốt</option><option>Theo dõi</option><option>Cần bảo trì</option></select>
+              <span class="err">Bắt buộc</span>
+            </div>
+          </div>
+        </div>
+        <div class="section">
+          <h2>GPS · QR · media</h2>
+          <div class="fields">
+            <div class="field"><label>Lat</label><input name="lat" type="number" step="0.0001"></div>
+            <div class="field"><label>Lng</label><input name="lng" type="number" step="0.0001"></div>
+            <div class="field"><label>Mã QR</label><input name="qr"></div>
+            <div class="field full"><label>Ảnh (mock, cách nhau dấu phẩy)</label><input name="photos"></div>
+            <div class="field"><label>Giá trị (VND)</label><input name="valueVnd" type="number"></div>
+            <div class="field"><label>Giá trị hiển thị</label><input name="valueDisplay" readonly></div>
+            <div class="field full"><label>Ghi chú</label><textarea name="note" rows="2"></textarea></div>
+            <div class="field"><label>Cập nhật (ISO)</label><input name="updatedAt" readonly></div>
+            <div class="field"><label>Cập nhật (local)</label><input name="updatedAtDisplay" readonly></div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="chk">
+      <h3>Chốt UI với khách</h3>
+      <div id="chk">
+        <label><input type="checkbox" data-k="c1"> List + filter loại / lý trình / tree tuyến khớp sổ tài sản</label>
+        <label><input type="checkbox" data-k="c2"> Chi tiết có GPS / ảnh / mã QR</label>
+        <label><input type="checkbox" data-k="c3"> Map pin nearby hiểu được trên mock</label>
+        <label><input type="checkbox" data-k="c4"> Import / tiện ích mock — không nhập lại toàn bộ</label>
+        <label><input type="checkbox" data-k="c5"> Đủ 11 action legacy (24, user, tiện ích, xóa ĐK, lấy DL, +/−/⇧, GPS, lớp nền, lớp CĐ)</label>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modals: Lớp nền / Lớp chuyên đề -->
+<div class="modal" id="basemapModal">
+  <div class="modal-card">
+    <h3>Lớp nền</h3>
+    <label><input type="radio" name="basemap" value="osm" checked> OSM / đường phố</label>
+    <label><input type="radio" name="basemap" value="sat"> Vệ tinh</label>
+    <label><input type="radio" name="basemap" value="topo"> Địa hình</label>
+    <div class="modal-actions">
+      <button type="button" data-action="close-basemap">Huỷ</button>
+      <button type="button" class="btn-primary" data-action="pick-basemap">Áp dụng</button>
+    </div>
+  </div>
+</div>
+<div class="modal" id="thematicModal">
+  <div class="modal-card">
+    <h3>Lớp chuyên đề</h3>
+    <label><input type="checkbox" checked> Tài sản KCHT</label>
+    <label><input type="checkbox" checked> Lý trình</label>
+    <label><input type="checkbox"> Camera ITS</label>
+    <label><input type="checkbox"> PCI / hư hỏng</label>
+    <div class="modal-actions">
+      <button type="button" data-action="close-thematic">Huỷ</button>
+      <button type="button" class="btn-primary" data-action="pick-thematic">Áp dụng</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script type="module" src="./js/asset-app.js"></script>
+</body>
+</html>

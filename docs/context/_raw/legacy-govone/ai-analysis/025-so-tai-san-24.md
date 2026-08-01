@@ -1,6 +1,6 @@
 # AI Vision — SỔ TÀI SẢN › 24 › +
 
-> Autogen. Agent **phải** mở ảnh + điền mục Analysis. Không chứa password.
+> Autogen + AI review. Không chứa password.
 
 | | |
 |---|---|
@@ -18,19 +18,6 @@
 - Lý trình từ:
 - Lý trình đến:
 
-### Buttons / actions
-- 24
-- Ban.TK.Nguyễn Anh Phúc
-- Tiện ích
-- Xóa điều kiện
-- Lấy dữ liệu
-- +
-- −
-- ⇧
-- Vị trí của tôi
-- Lớp nền
-- Lớp chuyên đề
-
 ### Inputs
 
 | tag | type | name/id |
@@ -40,38 +27,42 @@
 | input | text | textfield-1080-inputEl |
 | input | text | inputItem |
 
+### Buttons / actions
+- 24 · Ban.TK.Nguyễn Anh Phúc · Tiện ích · Xóa điều kiện · Lấy dữ liệu · + · − · ⇧ · Vị trí của tôi · Lớp nền · Lớp chuyên đề
+
 ## Analysis (AI điền)
 
 ### Màn hình / mục đích
 
-_(TODO AI)_
+Cùng sổ tài sản sau khi mở thông báo (badge 24) / luồng tạo (+). Parity field/action với root SỔ TÀI SẢN — form tạo mẫu gắn lý trình từ/đến.
 
 ### Vùng UI (layout zones)
 
 | Zone | Mô tả | Controls thấy trên ảnh |
 |------|-------|------------------------|
-| Header | | |
-| Filter / toolbar | | |
-| Grid / map / content | | |
-| Footer / actions | | |
+| Header | Shell + badge 24 | Notification · User · Tiện ích |
+| Filter / toolbar | Lý trình + Lấy dữ liệu | textfield-1079/1080 |
+| Grid / map / content | Map + grid placeholder | Zoom · layers · locate |
+| Create | Trigger + | Form sample lý trình từ/đến |
 
 ### Field list (từ ảnh — bổ sung DOM)
 
 | Nhãn VN | Control gợi ý | Bắt buộc? | Ghi chú |
 |---------|---------------|-----------|---------|
-| | | | |
+| Lý trình từ | TextField | * trên create | Form sample |
+| Lý trình đến | TextField | * trên create | Form sample |
+| Lọc tree | SearchInput | | sidebar |
 
 ### Tính năng / hành động
 
-- 
+- Mọi action DOM (11) · create modal mock trên demo MFE modern
 
 ### Map → step context
 
 - Feature: `docs/context/features/asset.md`
-- Section: `## Legacy GOVOne (auto-capture)`
-- Demo: parity UI trong `*-demo.html`
+- Demo: `public/demo/asset/asset.html` · control-map `asset-control-map.md`
 
 ## Status
 
-- [ ] Vision reviewed
-- [ ] Mapped to step context
+- [x] Vision reviewed
+- [x] Mapped to step context

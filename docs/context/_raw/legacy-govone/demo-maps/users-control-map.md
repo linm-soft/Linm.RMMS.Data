@@ -23,12 +23,12 @@
 
 | Legacy label | kind | zone | Demo button | Linm SSOT |
 |--------------|------|------|-------------|-----------|
-| Ban.TK.Nguyễn Anh Phúc | nav | toolbar | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
+| Ban.TK.Nguyễn Anh Phúc | nav | toolbar | User menu | Avatar dropdown · profile / logout · mfe-run-modes |
 | Thêm tag | create | grid | Tạo mới / Thêm | Button primary · catalog/voucher toolbar |
-| Hồ sơ của tôi | nav | grid | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
-| Đổi mật khẩu | nav | grid | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
-| Đăng xuất | export | grid | Xuất Excel | export-excel · toolbar |
-| Đổi mật khẩu | submit | footer | Lưu | Button primary · form-api-error-handling toast |
+| Hồ sơ của tôi | nav | grid | User menu | Avatar dropdown · profile / logout · mfe-run-modes |
+| Đổi mật khẩu | nav | grid | User menu | Avatar dropdown · profile / logout · mfe-run-modes |
+| Đăng xuất | export | grid | Đăng xuất | Auth logout · mfe-run-modes |
+| Đổi mật khẩu | submit | footer | User menu | Avatar dropdown · profile / logout · mfe-run-modes |
 | VỀ TRANG CHỦ | nav | footer | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
 
 

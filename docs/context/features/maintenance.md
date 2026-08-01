@@ -1,16 +1,19 @@
 # Lập lịch sửa chữa / bảo trì — Feature Context
 
 > **Slug:** `maintenance` · **Module:** `Maintenance` · **Phase:** P2 (API khung P1)  
-> **Status:** Draft → Context  
-> **Sources:** `RMMS` §7 · guide **Công việc** · `07` §7 · `09` · `15-SCREEN-AI-MAP.md`
+> **Status:** Demo  
+> **Kind:** **E** (report Tổng hợp bảo trì) + WO list CatalogListShell + Kind **D** slideout — Confirmed by: ai-autocode-autopilot  
+> **Sources:** `RMMS` §7 · guide **Công việc** · `07` §7 · `09` · `15-SCREEN-AI-MAP.md` · GOVOne vision 009/013/014/015  
+> **Demo HTML:** `Linm.RMMS.Demo/public/demo/maintenance/maintenance.html`  
+> **MFE (align):** `Linm.Web.RMMS.Maintenance` · **cấm** sửa MFE ở phase demo
 
 ## 1. Tổng quan
 
 | | |
 |--|--|
-| Mục tiêu | Lệnh sửa chữa · phân công đội · tiến độ · nghiệm thu · nhật ký · hồ sơ · lịch sử BT |
+| Mục tiêu | Lệnh sửa chữa · phân công đội · tiến độ · nghiệm thu · nhật ký · hồ sơ · lịch sử BT · KPI tổng hợp bảo trì |
 | Persona | Hạt trưởng · đội SC · Ban QLDA |
-| App hiện có | Mobile/Web **Công việc** — giữ UX |
+| App hiện có | Mobile/Web **Công việc** — giữ UX · GOVOne Tổng hợp bảo trì |
 | DoD P1 | API map 1:1 Công việc (list · comment · status · tạo từ sự cố) |
 | DoD P2 | WO đầy đủ · SLA · nghiệm thu · link Estimate |
 
@@ -18,20 +21,39 @@
 
 | Screen | Pattern | Zones | Ghi chú |
 |--------|---------|-------|---------|
-| List Công việc | Full (giữ) | Filter tuyến · status · grid | Mobile + Web |
-| Chi tiết + tiến độ | Full | Timeline · ảnh · bình luận | Guide |
-| Tạo CV từ sự cố | Modal / Full | Đơn vị · cán bộ · loại · hạn | Guide Web |
-| Nhật ký thi công | Full | P2 | |
+| Tổng hợp bảo trì | Kind E report | KPI 6 thẻ · Biểu đồ bảo trì · period filter | Vision 009/013 |
+| List Công việc | CatalogListShell | Filter tuyến · status · grid | Mobile + Web |
+| Chi tiết + tiến độ | Kind D slideout | Timeline · ảnh · bình luận · leave-confirm | Guide |
+| Tạo CV từ sự cố | Kind D slideout | Đơn vị · cán bộ · loại · hạn | Guide Web |
+| Dự án bảo trì | List stub | Status · BH | Sidebar nav |
+| Bảng tổng hợp nhanh | Tab tiles | Tuần đường / tuần kiểm / công việc | Vision 014/015 |
+
+**Kind E + D layout (erp-form-context / erp-report-context):**
+
+- **Report Z1** — title «Tổng hợp bảo trì» · KPI strip (6 metrics) · chart series Dự án  
+- **List Z2** — Công việc filter bar · STT grid · row Chi tiết / Tiến độ  
+- **Slideout** — Z1 Đóng · Z2 fields WO · Z3 Lưu nháp / Cập nhật tiến độ / Nghiệm thu (P2)  
+
+**Mock:** 4 WO · 4 dự án · IdCode `WO-YYYYMMDD-NNNN` · localStorage · 68 actions parity.
+
+**2d readonly:** rule_defaults · Confirmed by: ai-autocode-autopilot  
+**2e IdCode:** `WO-YYYYMMDD-NNNN`  
+**2k:** leave-confirm khi WO dirty  
+**2fd:** period filter stub trên KPI  
+**2h:** CatalogListShell công việc + dự án
 
 ## 3. API
 
-| Method | Path | Mô tả |
-|--------|------|-------|
-| GET/POST | `/api/v1/work-orders` | List / create |
-| GET/PUT | `/api/v1/work-orders/{id}` | Detail / update |
-| POST | `/api/v1/work-orders/{id}/comments` | Trao đổi |
-| POST | `/api/v1/work-orders/{id}/progress` | Tiến độ + ảnh |
-| POST | `/api/v1/work-orders/{id}/complete` | Nghiệm thu P2 |
+| Method | Path | Mô tả | BE status |
+|--------|------|-------|-----------|
+| GET/POST | `/api/v1/work-orders` | List / create | **MISSING** (Step 4b khi Signed) |
+| GET/PUT | `/api/v1/work-orders/{id}` | Detail / update | **MISSING** |
+| POST | `/api/v1/work-orders/{id}/comments` | Trao đổi | **MISSING** |
+| POST | `/api/v1/work-orders/{id}/progress` | Tiến độ + ảnh | **MISSING** |
+| POST | `/api/v1/work-orders/{id}/complete` | Nghiệm thu P2 | **MISSING** |
+| GET | `/api/v1/maintenance/summary` | KPI + chart | **MISSING** |
+
+> Phase demo: **cấm** gọi BE · fake / localStorage only. Align BE khi Status Signed + be_align ON.
 
 ## 4. Database
 
@@ -40,6 +62,7 @@
 | WorkOrder | Id, Code, IncidentId?, RouteId, Status, DueAt, AssigneeId | |
 | WorkOrderProgress | WOId, At, Note, MediaUrl | |
 | WorkOrderComment | WOId, UserId, Body, At | |
+| MaintenanceProject | Id, Code, Status, WarrantyUntil | KPI source |
 
 ## 5. Events / tích hợp
 
@@ -56,12 +79,17 @@ Consume `estimate.created` (P2).
 |----|----------|---------|
 | GAP-F-MNT-01 | Đổi tên API `work-orders` vs giữ `jobs` legacy | `work-orders` + adapter legacy |
 | GAP-F-MNT-02 | Auto WO từ AI | Confirm user · P2 |
+| GAP-F-MNT-03 | BE endpoints work-orders / summary | MISSING · be_align khi Signed |
 
 ## 7. Demo checklist (chốt khách)
 
 - [ ] List/status khớp Công việc
 - [ ] Tạo từ Sự cố
 - [ ] Badge «P2: nghiệm thu / SLA full»
+- [ ] KPI + biểu đồ bảo trì
+- [ ] Đủ 68 actions từ control-map
+- [ ] Leave-confirm khi WO dirty
+- [ ] Không gọi BE
 
 <!-- LEGACY-GOVONE-CAPTURE:START -->
 ## Legacy GOVOne (auto-capture)
@@ -247,8 +275,18 @@ Consume `estimate.created` (P2).
 
 - Control-map: [`maintenance-control-map.md`](../_raw/legacy-govone/demo-maps/maintenance-control-map.md)
 - Actions: [`maintenance-actions.md`](../_raw/legacy-govone/demo-maps/maintenance-actions.md)
-- Fields mapped: 0 · Actions: 68
+- Fields mapped: 14 · Actions: 69
 - Kind hint: E (report) — erp-report-context
 
 Gen demo: `/qlbd-analy-demo @maintenance` — load control-map trên + `/erp-form-context` rules (2a-K · 2g · common controls).
 <!-- DEMO-MFE-MODERN:END -->
+
+## 8. Tracking (autopilot)
+
+| | |
+|--|--|
+| Task | `task_da43ff6b` |
+| Skill | `/qlbd-analy-demo @maintenance` |
+| Files | `maintenance.md` · `demo-maps/maintenance-*.md` · `public/demo/maintenance/maintenance.html` · `js/maintenance-*.js` · `demoCatalog.ts` |
+| BE align | OFF (demo) · GAP-F-MNT-03 documented |
+| Confirmed by | ai-autocode-autopilot |

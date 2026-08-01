@@ -1,0 +1,179 @@
+# source: context/features/citizen.md
+# version: 6
+# scannedAt: 2026-08-01T16:13:30.279Z
+# sha256: 91ec286310426a0d7d296483c084858b4923aaebe5652a5e8cd284404cab11ea
+# mtimeMs: 1785600425337.421
+# Cổng người dân — Feature Context
+
+> **Slug:** `citizen` · **Module:** `Integration` + FE public · **Phase:** P3  
+> **Status:** Demo  
+> **Kind:** **G** (public host) + **D** (slideout form báo sự cố) — Confirmed by: ai-autocode-autopilot  
+> **Sources:** `RMMS` §15 · `07` Hạng mục 15 · `06` rate-limit/PII · `09` · `15-SCREEN-AI-MAP.md`  
+> **Demo HTML:** `Linm.RMMS.Demo/public/demo/integration/citizen.html`  
+> **MFE (align):** `Linm.Web.RMMS.Integration` · **cấm** sửa MFE ở phase demo  
+> **≠** Mobile **Góp ý** phần mềm (`feedback`)
+
+## 1. Tổng quan
+
+| | |
+|--|--|
+| Mục tiêu | Người dân báo sự cố · upload ảnh/video · theo dõi xử lý · phản ánh hiện trường |
+| Persona | Công dân / khách anonymous (OTP tuỳ chọn) |
+| App hiện có | Portal mới — không có màn GOVOne |
+| DoD | POST public incident · GET by trackingCode · rate-limit IP · source=`citizen` |
+
+## 2. Design / UI
+
+| Screen | Pattern | Zones | Ghi chú |
+|--------|---------|-------|---------|
+| Host portal | Kind G | Landing CTAs · recent mock · track | Public shell |
+| Báo sự cố | Kind D Slideout | Z1 toolbar · Z2 fields+map · Z3 footer | Leaflet pin |
+| Theo dõi xử lý | Panel / filter | Tra cứu mã · timeline readonly | Không admin inbox |
+
+**Kind D layout (erp-form-context):**
+
+- **Z1** — Quay lại · Đóng · title «Báo sự cố» · hint · badge ≠ feedback  
+- **Z2a** — Validation banner (họ tên · SĐT · mô tả)  
+- **Z2b** — Mã · PII · loại · mô tả · vị trí · lat/lng · tuyến · lý trình · ảnh · video · OTP · TT · nguồn  
+- **Z2c** — Leaflet map pin  
+- **Z3** — Gửi báo cáo · Lưu nháp · Xóa nội dung · Hủy thay đổi  
+
+**Mock:** nháp localStorage · IdCode `CIT-YYYYMMDD-NNNN` · toast gửi thành công (no BE) · track fake list.
+
+**2d readonly:** rule_defaults · Confirmed by: ai-autocode-autopilot  
+**2e IdCode:** `CIT-YYYYMMDD-NNNN`  
+**2k:** voucher_default · leave-confirm khi dirty  
+
+## 3. API
+
+| Method | Path | Mô tả | BE status |
+|--------|------|-------|-----------|
+| POST | `/api/v1/public/incidents` | Báo sự cố (+ media meta) | **MISSING** (Step 4b khi Signed) |
+| GET | `/api/v1/public/incidents/{trackingCode}` | Theo dõi xử lý | **MISSING** |
+| POST | `/api/v1/citizen/incident` | Alias rate-limit doc | **MISSING** · đồng bộ schema khi align |
+| POST | `/api/v1/upload/presign` | Presign ảnh/video | **MISSING** · demo file mock only |
+
+> Phase demo: **cấm** gọi BE · fake / localStorage only. Align BE khi Status Signed + be_align ON.
+
+## 4. Database
+
+| Entity | Key columns |
+|--------|-------------|
+| CitizenIncident | Id, TrackingCode, ReporterName(enc), Phone(enc), Email(enc), Type, Description, Lat, Lng, Road, Chainage, Status, Source=`citizen`, ReportedAt |
+| CitizenMedia | Id, IncidentId, Kind(photo/video), ObjectKey, Size |
+| CitizenStatusEvent | Id, IncidentId, Status, Note, At |
+
+## 5. Events / tích hợp
+
+- Map → Incident `source=citizen` (adapter stub trên Incident — GAP-F-CIT-01)  
+- SMS/notify khi đổi trạng thái — DEFER P3  
+- Rate limit 5 req/min/IP · Citizen Temp Token 24h (localStorage mock)
+
+## 6. Gaps / quyết định
+
+| ID | Question | Default |
+|----|----------|---------|
+| GAP-F-CIT-01 | Adapter Incident source=`citizen` | OUT P1 · stub khi align |
+| GAP-F-CIT-02 | BE public endpoints | MISSING · be_align khi Signed |
+| GAP-F-CIT-03 | OTP bắt buộc? | Optional UX mock |
+| GAP-F-CIT-04 | Phân biệt feedback | Luôn badge / copy ≠ Góp ý nội bộ |
+
+## 7. Demo checklist (chốt khách)
+
+- [ ] Form báo sự cố đủ field control-map (17)
+- [ ] Upload ảnh/video mock + GPS/map pin
+- [ ] Theo dõi xử lý bằng mã tracking
+- [ ] Không nhầm Mobile **Góp ý** (`feedback`)
+- [ ] Đủ 17 actions từ control-map
+- [ ] Leave-confirm khi dirty
+- [ ] Không gọi BE
+
+<!-- LEGACY-GOVONE-CAPTURE:START -->
+## Legacy GOVOne (auto-capture)
+
+> Không có màn GOVOne vision — synthetized từ product §15 (portal mới).  
+> Dùng làm **step context** cho `/qlbd-analy-demo` · `yarn scan-qlbd-demo`.
+
+### Nguồn
+
+- Raw feature: `docs/context/_raw/legacy-govone/features/citizen.md`
+- Tech: `07-TECHNICAL-IMPLEMENTATION.md` § Hạng mục 15
+- Security: `06-SECURITY-RATELIMIT.md` · `/api/v1/citizen/incident`
+- Vision packets: 0
+
+### Capture inventory
+
+> Input cho `/product-analy-demo` · `/qlbd-analy-demo`.
+
+## Pages (2)
+
+### BÁO SỰ CỐ / PHẢN ÁNH HIỆN TRƯỜNG
+
+- **id:** `citizen-report-form`
+- **url:** (planned) `/citizen`
+- **title:** Cổng người dân — Báo sự cố
+
+#### Labels / field captions
+
+- Mã theo dõi · Họ tên · Số điện thoại · Email · Loại sự cố · Mô tả / phản ánh hiện trường · Địa chỉ vị trí · Vĩ độ · Kinh độ · Tuyến đường · Lý trình (Km) · Ảnh · Video · Thời gian báo cáo · OTP · Trạng thái xử lý · Nguồn
+
+#### Actions / buttons (full)
+
+| label | kind | zone |
+|-------|------|------|
+| Báo sự cố | create | host |
+| Theo dõi xử lý | view | host |
+| Tra cứu mã | filter | track |
+| Làm mới tra cứu | filter | track |
+| Gửi báo cáo | create | footer |
+| Lưu nháp | action | footer |
+| Xóa nội dung | destructive | footer |
+| Chọn ảnh | action | content |
+| Xóa ảnh | destructive | content |
+| Chọn video | action | content |
+| Xóa video | destructive | content |
+| Lấy vị trí GPS | action | content |
+| Gửi OTP | action | content |
+| Xác thực OTP | action | content |
+| Đóng | close | header |
+| Quay lại | nav | header |
+| Hủy thay đổi | close | footer |
+
+- **actionCount:** 17
+- **fieldCount:** 17
+
+## Migration notes
+
+- Map fields/actions → control-map modern MFE · erp-form-context Kind G+D.
+- Demo: same fields · Linm shell — **cấm** clone skin GOVOne · **cấm** BE · **≠** feedback.
+- Live Leaflet map bắt buộc cho pin vị trí.
+
+### Step context checklist
+
+- [x] Design demo parity (Kind G host + D slideout)
+- [x] Control-map fields từ Labels/Inputs
+- [ ] Status Demo → Signed → `/qlbd-align-mfe`
+<!-- LEGACY-GOVONE-CAPTURE:END -->
+
+<!-- DEMO-MFE-MODERN:START -->
+## Demo MFE modern (erp-form-context)
+
+> Same fields/actions từ capture · UI chuẩn Linm — **không** clone skin legacy.
+
+- Control-map: [`citizen-control-map.md`](../_raw/legacy-govone/demo-maps/citizen-control-map.md)
+- Actions: [`citizen-actions.md`](../_raw/legacy-govone/demo-maps/citizen-actions.md)
+- Fields mapped: 17 · Actions: 17
+- Kind hint: **G+D** — erp-form-context · leave-confirm · Leaflet pin
+
+Gen demo: `/qlbd-analy-demo @citizen` — load control-map trên + `/erp-form-context` rules (2a-K · 2g · common controls).
+<!-- DEMO-MFE-MODERN:END -->
+
+## 8. Tracking (autopilot)
+
+| | |
+|--|--|
+| Task | `task_01a40d1c` |
+| Skill | `/qlbd-analy-demo @citizen` |
+| Files | `citizen.md` · `demo-maps/citizen-*.md` · `public/demo/integration/citizen.html` · `js/citizen-*.js` · `demoCatalog.ts` |
+| BE align | OFF (demo) · GAP-F-CIT-02 documented |
+| Confirmed by | ai-autocode-autopilot |

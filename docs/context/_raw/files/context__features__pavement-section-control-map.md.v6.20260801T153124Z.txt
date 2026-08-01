@@ -1,0 +1,70 @@
+# source: context/features/pavement-section-control-map.md
+# version: 6
+# scannedAt: 2026-08-01T15:31:24.584Z
+# sha256: 2773216e889c54b45a4d6b9d1cd86e7f958056e584959b24dcc38726e8245bbd
+# mtimeMs: 1785597939690.394
+# Control map — Phân loại mặt đường (`pavement-section`)
+
+> erp-form-context Step **2g** · **Confirmed by: ai-autocode-autopilot** (hồ sơ biểu 1)  
+> Modern demo-map: `_raw/legacy-govone/demo-maps/pavement-section-control-map.md`
+
+## List filter
+
+| Field | Control | Notes |
+|-------|---------|-------|
+| search | SearchTextInput | Mã / tên đường |
+| province | Select | Tỉnh/TP |
+| road | Text / Lookup | Tên đường |
+| kmFrom / kmTo | Number | Lý trình |
+| status | Select | Tình trạng |
+| Tìm | Button | Filter bar (không trùng Làm mới toolbar) |
+| Xóa điều kiện | Button | Clear filter |
+
+## Form fields
+
+| Field | Control | Required | Section |
+|-------|---------|----------|---------|
+| code | Text uppercase (IdCode) | Yes (BE gen) | Header |
+| roadName | Text | Yes | Header |
+| provinceName | Select / Text | Yes | Header |
+| kmFrom | Number | Yes | Header |
+| kmTo | Number | Yes | Header |
+| lengthKm | Number readonly? | No (tính hoặc nhập) | Header |
+| baseWidthM | Number | No | Kết cấu |
+| surfaceWidthM | Number | No | Kết cấu |
+| structureType | Select (BTN/BTXM/…) | Yes | Kết cấu |
+| surfaceThicknessCm | Number | No | Kết cấu |
+| roadClass | Select (I/II/III/…) | No | Kết cấu |
+| yearsInService | Text/Number | No | Khai thác |
+| handoverMaintenance | Checkbox | No | Khai thác |
+| handoverConstruction | Checkbox | No | Khai thác |
+| lastMajorRehabYear | Number year | No | Khai thác |
+| lastSurfaceRepairYear | Number year | No | Khai thác |
+| status | Select | Yes | Khai thác |
+| constructionUnit | Text | No | Đơn vị |
+| manageUnit | Text | Yes | Đơn vị |
+| ownerUnit | Text | No | Đơn vị |
+| notes | Textarea | No | Audit |
+| updatedAt / updatedBy | Readonly | — | Audit |
+
+## Toolbar list
+
+| Button | Notes |
+|--------|-------|
+| Tạo mới | Primary |
+| Import | Excel biểu 1 stub |
+| Export | JSON/Excel stub |
+| Làm mới | Refresh local |
+| Cấu hình cột | Column picker |
+
+## Toolbar form
+
+| Mode | Buttons |
+|------|---------|
+| Create | Lưu · Huỷ · Mở bản đồ live |
+| Edit | Lưu · Huỷ · Xóa (perm) · Mở bản đồ live |
+| View | Sửa · Đóng · Mở bản đồ live |
+
+## Footer money
+
+Không áp dụng (không phải chứng từ tiền).

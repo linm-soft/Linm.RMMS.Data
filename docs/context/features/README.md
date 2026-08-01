@@ -25,31 +25,33 @@
 | 2 | `gis` | GIS và Digital Twin | Gis | P1–P2 | Bản đồ Giám sát / TS / SC | Demo | [gis.md](gis.md) |
 | 2a | `gis-draw-google` | Vẽ tài sản trên Google Map | Gis+Asset | P1 | GOVOne `1-ban-do.png` | Demo | [gis-draw-google.md](gis-draw-google.md) |
 | 3 | `ai-vision` | AI kiểm định mặt đường | AiVision | P1 online / P2 local | Overlay **Vấn đề** / Sự cố | Demo | [ai-vision.md](ai-vision.md) |
+| 3b | `ai-asset-detect` | AI phát hiện TS/thiết bị mới (camera tuần đường) | AiVision×Asset×Patrol | P1 online / P2 local | Camera xe → loại TS · tọa độ · tuyến → bản ghi Asset | Demo | [ai-asset-detect.md](ai-asset-detect.md) |
 | 4 | `patrol` | Tuần đường / tuần kiểm | Patrol | P1 | Check-in · Giám sát · Lưu trữ | Demo | [patrol.md](patrol.md) |
 | 5 | `attendance` | Chấm công và định vị | Patrol | P1 | Check-in · BC checkin | Context | [attendance.md](attendance.md) |
 | 6 | `incident` | Quản lý sự cố | Incident | P1 | Vấn đề · Sự cố · Giám sát SC | Demo | [incident.md](incident.md) |
 | 7 | `maintenance` | Lập lịch SC / bảo trì | Maintenance | P2 (khung P1) | **Công việc** Mobile/Web | Context | [maintenance.md](maintenance.md) |
-| 8 | `predict` | AI dự báo bảo trì | AiVision+ML | P1 online / P2 | Dashboard / Báo cáo | Context | [predict.md](predict.md) |
-| 9 | `ops` | Chỉ đạo điều hành | Notification | P2 (nhẹ P1) | Giám sát · notify | Context | [ops.md](ops.md) |
-| 10 | `estimate` | AI ước lượng sửa chữa | ML | P1 online / P2 | Panel trên Công việc / SC | Context | [estimate.md](estimate.md) |
-| 11 | `contract` | Hợp đồng và ngân sách | Contract | P2–P3 | — | Draft | [contract.md](contract.md) |
-| 12 | `inventory` | Vật tư và thiết bị | Inventory | P3 | — | Draft | [inventory.md](inventory.md) |
-| 13 | `drone` | Drone / Reality Capture | Drone | P2–P3 | — | Draft | [drone.md](drone.md) |
-| 14 | `toc` | Trung tâm ĐH GT | Traffic | P3 | — | Draft | [toc.md](toc.md) |
-| 15 | `citizen` | Cổng người dân | Integration | P3 | — (≠ Góp ý nội bộ) | Draft | [citizen.md](citizen.md) |
+| 8 | `predict` | AI dự báo bảo trì | AiVision+ML | P1 online / P2 | Dashboard / Báo cáo | Demo | [predict.md](predict.md) |
+| 9 | `ops` | Chỉ đạo điều hành | Notification | P2 (nhẹ P1) | Giám sát · notify | Demo | [ops.md](ops.md) |
+| 10 | `estimate` | AI ước lượng sửa chữa | ML | P1 online / P2 | Panel trên Công việc / SC | Demo | [estimate.md](estimate.md) |
+| 11 | `contract` | Hợp đồng và ngân sách | Contract | P2–P3 | — | Demo | [contract.md](contract.md) |
+| 12 | `inventory` | Vật tư và thiết bị | Inventory | P3 | — | Demo | [inventory.md](inventory.md) |
+| 13 | `drone` | Drone / Reality Capture | Drone | P2–P3 | — | Demo | [drone.md](drone.md) |
+| 14 | `toc` | Trung tâm ĐH GT | Traffic | P3 | — | Demo | [toc.md](toc.md) |
+| 15 | `citizen` | Cổng người dân | Integration | P3 | — (≠ Góp ý nội bộ) | Demo | [citizen.md](citizen.md) |
 | 16 | `copilot` | AI Copilot | Copilot | P1 online / P2 RAG | Web drawer (mới) | Context | [copilot.md](copilot.md) |
 | 17 | `dashboard` | Dashboard điều hành | Report | P1 KPI / P2 full | Giám sát + KPI | Context | [dashboard.md](dashboard.md) |
 | 17b | `reports` | Báo cáo Web (3 loại) | Report | P1 | BC tài sản · SC · checkin | Context | [reports.md](reports.md) |
-| 18 | `integration` | Open API và tích hợp | Integration | P1–P3 | Import TS · offline sync | Context | [integration.md](integration.md) |
-| — | `feedback` | Góp ý phần mềm | Integration | P1 | Mobile **Góp ý** | Context | [feedback.md](feedback.md) |
-| — | `users` | QL người dùng / tổ chức | Auth | P1 | Web QL Cơ quan/User · profile | Context | [users.md](users.md) |
+| 18 | `integration` | Open API và tích hợp | Integration | P1–P3 | Import TS · offline sync | Demo | [integration.md](integration.md) |
+| — | `feedback` | Góp ý phần mềm | Integration | P1 | Mobile **Góp ý** | Demo | [feedback.md](feedback.md) |
+| — | `users` | QL người dùng / tổ chức | Auth / Integration | P1 | Web QL Cơ quan/User · profile | Demo | [users.md](users.md) |
 
 ## Nguyên tắc P1 (từ 09 + map)
 
-1. AI #3+#8+#10+#16 = **online** (GPT-4o / 4o-mini) — không YOLO/XGBoost local trong P1  
+1. AI #3+#8+#10+#16 + **`ai-asset-detect`** = **online** (GPT-4o / 4o-mini) — không YOLO/XGBoost local trong P1  
 2. Giữ UX Mobile/Web guide — bổ sung API consumer + AI overlay  
 3. SSOT màn ↔ AI: [`15-SCREEN-AI-MAP.md`](../15-SCREEN-AI-MAP.md)  
-4. Demo HTML chỉ mock UI + tóm tắt API/DB — không thay production
+4. Demo HTML chỉ mock UI + tóm tắt API/DB — không thay production  
+5. **Analy + gen demo:** mọi feature có AI → badge/icon **AI support** + engine P1/P2 trên hub và page (`/qlbd-analy-demo`)
 
 ## Hub demo
 

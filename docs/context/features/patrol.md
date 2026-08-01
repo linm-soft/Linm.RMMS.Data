@@ -53,9 +53,11 @@
 
 ## 7. Demo checklist
 
-- [ ] Check-in ≥3 điểm mock rõ
-- [ ] Offline badge / queue
-- [ ] Giám sát list + track trên map mock
+- [x] Check-in ≥3 điểm mock rõ
+- [x] Offline badge / queue
+- [x] Giám sát list + track trên map mock
+- [x] Control-map 12 fields · 38 actions (toast/modal)
+- [x] Demo HTML: `src/demo/patrol/patrol.html` · `features/patrol-demo.html`
 
 <!-- LEGACY-GOVONE-CAPTURE:START -->
 ## Legacy GOVOne (auto-capture)
@@ -304,7 +306,7 @@
 
 - Control-map: [`patrol-control-map.md`](../_raw/legacy-govone/demo-maps/patrol-control-map.md)
 - Actions: [`patrol-actions.md`](../_raw/legacy-govone/demo-maps/patrol-actions.md)
-- Fields mapped: 12 · Actions: 38
+- Fields mapped: 27 · Actions: 39
 - Kind hint: E (report) — erp-report-context
 
 Gen demo: `/qlbd-analy-demo @patrol` — load control-map trên + `/erp-form-context` rules (2a-K · 2g · common controls).

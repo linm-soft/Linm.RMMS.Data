@@ -39,6 +39,7 @@
 | CÔNG TÁC TUẦN ĐƯỜNG | action | header | — | — |
 | CÔNG TÁC TUẦN KIỂM | action | header | — | — |
 | CÔNG VIỆC | action | header | — | — |
+| Maximize | action | header | — | — |
 | Đóng | close | header | — | — |
 
-Count: 38
+Count: 39

@@ -69,6 +69,7 @@
 | CÔNG TÁC TUẦN ĐƯỜNG | action | header | — | — |
 | CÔNG TÁC TUẦN KIỂM | action | header | — | — |
 | CÔNG VIỆC | action | header | — | — |
-| Đóng | close | header | — | — |
+| Maximize | action | modal-header | — | — |
+| Đóng | close | modal-header | — | — |
 
-Count: 68
+Count: 69

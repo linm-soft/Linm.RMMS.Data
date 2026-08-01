@@ -1,0 +1,26 @@
+# source: context/analy-demo-notes.md
+# version: 1
+# scannedAt: 2026-08-01T11:10:41.216Z
+# sha256: 16bce02a7b273eb3cae83b8076f4e10de9040295ab0fcd7115c60657372ec4f2
+# mtimeMs: 1785582436211.717
+# Analy-demo notes
+
+| | |
+|--|--|
+| Last skill | `/qlbd-analy-demo @asset` |
+| Date | 2026-08-01 |
+| Manifest | `context/_raw/manifest.json` (docs-scan-cache) |
+| DemoRoot | `Linm.RMMS.Demo/public/demo` |
+
+## @asset (task_2f8df910)
+
+- Legacy capture: `features/asset.md` § Legacy GOVOne · vision 008/012/023/024/025
+- Control-map: `_raw/legacy-govone/demo-maps/asset-control-map.md` (4 fields · 11 actions)
+- Kind: F/custom map + list — erp-list-page-shell + GIS toolbar
+- Demo HTML: `public/demo/asset/asset.html` (+ `js/asset-data.js` · `js/asset-app.js`)
+- Catalog: `demoCatalog.ts` badge `run`
+- **No** MFE production / BE changes (demo only)
+
+## Next
+
+Khi Status `Signed` → `/qlbd-align-mfe @asset` vào `Linm.Web.RMMS.Asset`.

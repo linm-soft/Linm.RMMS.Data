@@ -39,12 +39,12 @@
 | Đo diện tích | nav | toolbar | Tool Đo diện tích | GIS toolbar · polygon measure · bind `inputDienTich` / `inputDienTichKhongGian` |
 | Đo chiều dài | nav | toolbar | Tool Đo chiều dài | GIS toolbar · polyline measure · bind `inputChieuDai` / `inputChieuDaiKhongGian` |
 | Lấy thông tin vị trí | export | toolbar | Tool Lấy thông tin vị trí | GIS toolbar · click point · readout lng/lat (X/Y) · `btTienIchThongTinDiem` |
-| Chụp màn hình | nav | toolbar | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
-| Xuất bản đồ | export | toolbar | Xuất Excel | export-excel · toolbar |
-| In bản đồ | export | toolbar | Xuất Excel | export-excel · toolbar |
+| Chụp màn hình | nav | toolbar | Tool Chụp màn hình | GIS toolbar · `btnScreenMap` · map screenshot · download/png |
+| Xuất bản đồ | export | toolbar | Xuất bản đồ | GIS toolbar · export map image/PDF |
+| In bản đồ | export | toolbar | In bản đồ | GIS toolbar · print map |
 | Chuẩn hóa cột Km | nav | toolbar | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
-| Xem hướng đoạn đường | view | toolbar | Xem | Button/link · View mode · fieldLockProps |
-| Gộp đoạn đường multiline | nav | toolbar | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
+| Xem hướng đoạn đường | view | toolbar | Tool Xem hướng đoạn đường | GIS toolbar · `btXemHuongDoanDuong` · direction arrows on route polyline (view-only) |
+| Gộp đoạn đường multiline | nav | toolbar | Tool Gộp đoạn đường multiline | GIS toolbar · `btGopDoanDuong` · multi-select ≥2 route polylines · merge geometry · Lưu/Hủy biên tập |
 | Tạo đoạn đánh giá 100m | create | toolbar | Tạo mới / Thêm | Button primary · catalog/voucher toolbar |
 | Gán mã đoạn đánh giá cho điểm thu thập | nav | toolbar | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
 | Tự động đánh giá chất lượng mặt đường | nav | toolbar | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
@@ -74,8 +74,8 @@
 | Thiết lập hướng | nav | toolbar | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
 | Tìm kiếm | filter | toolbar | Tìm / Làm mới | LinErpListFilterBar · GAP-P2-87 |
 | Về trang chủ | nav | header | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
-| Hồ sơ của tôi | nav | header | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
-| Đăng xuất | export | header | Xuất Excel | export-excel · toolbar |
+| Hồ sơ của tôi | nav | header | User menu | Avatar dropdown · profile / logout · mfe-run-modes |
+| Đăng xuất | export | header | Đăng xuất | Auth logout · mfe-run-modes |
 | Cơ bản | action | grid | Cơ bản | Button · toolbar zone |
 | Chi tiết | view | grid | Xem | Button/link · View mode · fieldLockProps |
 | Dịch vụ | action | grid | Dịch vụ | Button · toolbar zone |

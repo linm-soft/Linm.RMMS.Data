@@ -1,0 +1,168 @@
+# source: context/features/gis.md
+# version: 6
+# scannedAt: 2026-08-01T11:27:58.332Z
+# sha256: eb4b070a5a2476282ab6c8dd57ed9c065c58a62b6e99b09b6cfa212082397b26
+# mtimeMs: 1785583527120.9456
+# GIS và Digital Twin — Feature Context
+
+> **Slug:** `gis` · **Module:** `Gis` · **Phase:** P1 (2D) / P2 (3D Twin)  
+> **Status:** Demo  
+> **Feature Kind:** F/custom map (GIS viewer) · Confirmed by: ai-autocode-autopilot 2026-08-01  
+> **Sources:** `07` §2 · `09` · legacy shell `geditor` view-mode  
+> **Demo HTML:** `Linm.RMMS.Demo/public/demo/gis/gis.html` (+ mirror `src/demo/gis/`)  
+> **Sub-feature vẽ:** [`gis-draw-google.md`](gis-draw-google.md) · live [`gis-draw-live.html`](../../../Linm.RMMS.Demo/public/demo/gis/gis-draw-live.html)
+
+## 1. Tổng quan
+
+| | |
+|--|--|
+| Mục tiêu | Bản đồ vector/GeoJSON + overlay realtime; heatmap PCI P1; Digital Twin 3D sau P2; link sang parity vẽ Google |
+| Persona | Điều hành · tuần đường · BA |
+| App hiện có | Bản đồ giám sát GOVOne · geditor view |
+| DoD P1 | Live map · layer toggle · legend PCI · heatmap stub · SignalR overlay mock · Twin badge P2 |
+
+## 2. Design / UI
+
+| Screen | Pattern | Zones |
+|--------|---------|-------|
+| Map 2D | Full Kind F | Sidebar tabs · Toolbar · Leaflet · legend PCI · props panel |
+| Heatmap PCI | Full | Same map · toggle layer |
+| 3D Twin | Full | Cesium — **P2 only** · badge trên demo |
+| Vẽ geometry | Nav | → `gis-draw-live` / `gis-draw-google` |
+
+**Mock data:** 5 đoạn đường (PCI) · 3 sự cố pin · bbox Nghệ An pilot.
+
+**Control map:** [`gis-control-map.md`](../_raw/legacy-govone/demo-maps/gis-control-map.md)
+
+## 3. API
+
+| Method | Path | Mô tả |
+|--------|------|-------|
+| GET | `/api/v1/gis/tiles/{layer}/{z}/{x}/{y}.pbf` | Vector tiles |
+| GET | `/api/v1/gis/geojson/{layer}?bbox=` | GeoJSON |
+| GET | `/api/v1/gis/heatmap/pci` | Heatmap |
+| GET | `/api/v1/gis/3d-tiles/{assetId}` | P2 |
+
+> Demo: **cấm** gọi BE — fake GeoJSON trong `js/gis-data.js`.
+
+## 4. Database
+
+PostGIS layers publish → Martin/pg_tileserv · Redis tile cache · SignalR `GisHub`.
+
+## 5. Events
+
+`asset.updated` · `defect.detected` → refresh overlay (mock «Làm mới overlay»).
+
+## 6. Gaps
+
+| ID | Default |
+|----|---------|
+| GAP-F-GIS-01 3D Twin | DEFER P2 |
+| GAP-F-GIS-02 Vẽ Point/Line/Polygon trên Google | Xem **`gis-draw-google`** (P1 parity) |
+| GAP-F-GIS-03 BE `/api/v1/gis/*` | MISSING → be_align khi Signed (demo only) |
+
+## 7. Demo checklist
+
+- [x] Map 2D Leaflet live + legend PCI
+- [x] Layer toggle rõ (road / PCI / incidents)
+- [x] 3D gắn badge «P2»
+- [x] Đủ field + 20 action từ `demo-maps/gis-control-map.md`
+- [x] Flow vẽ Google — link `gis-draw-live.html` / `gis-draw-google.html`
+- [x] Không gọi BE
+
+<!-- LEGACY-GOVONE-CAPTURE:START -->
+## Legacy GOVOne (auto-capture)
+
+> Synthetized từ docs `07` §2 + shell GIS view-mode · vision sibling `002`/`003` (draw) tách sang `gis-draw-google`.  
+> Dùng làm **step context** cho `/qlbd-analy-demo` · `yarn scan-qlbd-demo`.
+
+### Nguồn
+
+- Raw feature: `docs/context/_raw/legacy-govone/features/gis.md`
+- Vision packets: 0 (viewer) · sibling draw: `002`/`003` → `gis-draw-google`
+- Guide/spec: `07-TECHNICAL-IMPLEMENTATION` § GIS · `09-PLAN-P1-V2`
+
+### Capture inventory
+
+> Input cho `/product-analy-demo` · `/qlbd-analy-demo`.
+
+## Pages (2)
+
+### BẢN ĐỒ GIÁM SÁT 2D (PCI + overlay)
+
+- **id:** `gis-map-2d-monitor`
+- **url:** (planned) `/gis`
+- **title:** GIS bản đồ 2D · heatmap PCI
+
+#### Labels / field captions
+
+- Nhập thông tin đối tượng · Lớp dữ liệu · PCI từ · PCI đến · Viewport bbox · Hệ tọa độ · Trạng thái overlay · Tài sản Twin (P2)
+
+#### Actions / buttons (full)
+
+| label | kind | zone |
+|-------|------|------|
+| 24 | nav | toolbar |
+| Ban.TK.Nguyễn Anh Phúc | nav | toolbar |
+| Tiện ích | nav | toolbar |
+| Lớp bản đồ | action | sidebar |
+| Chú giải | action | sidebar |
+| Thuộc tính | action | sidebar |
+| Kết quả | action | sidebar |
+| Lấy dữ liệu | nav | toolbar |
+| Làm mới overlay | action | toolbar |
+| Heatmap PCI | action | toolbar |
+| Lớp nền | action | toolbar |
+| Vị trí của tôi | action | map |
+| Fit viewport | action | map |
+| + | action | map |
+| − | action | map |
+| Chụp màn hình | export | toolbar |
+| Xuất bản đồ | export | toolbar |
+| Digital Twin 3D | nav | toolbar |
+| Mở vẽ Google | nav | toolbar |
+| Tìm kiếm | filter | toolbar |
+| Đóng | close | panel |
+
+- **actionCount:** 20
+
+### DIGITAL TWIN 3D (P2 stub)
+
+- **id:** `gis-digital-twin-p2`
+- **title:** Digital Twin 3D — Cesium (P2)
+- **actionCount:** 2 (subset)
+
+## Migration notes
+
+- Map fields/actions → control-map modern MFE · erp-form-context Kind F.
+- Demo: same fields · Linm shell — **cấm** clone skin GOVOne · **cấm** BE · live Leaflet.
+
+### Step context checklist
+
+- [x] Design demo parity (Kind F map viewer)
+- [x] Control-map fields từ Labels/Inputs
+- [ ] Status Demo → Signed → `/qlbd-align-mfe`
+<!-- LEGACY-GOVONE-CAPTURE:END -->
+
+<!-- DEMO-MFE-MODERN:START -->
+## Demo MFE modern (erp-form-context)
+
+> Same fields/actions từ capture · UI chuẩn Linm — **không** clone skin legacy.
+
+- Control-map: [`gis-control-map.md`](../_raw/legacy-govone/demo-maps/gis-control-map.md)
+- Actions: [`gis-actions.md`](../_raw/legacy-govone/demo-maps/gis-actions.md)
+- Fields mapped: 8 · Actions: 20
+- Kind hint: **F** (custom map GIS viewer) — erp-custom-manage + Leaflet live
+
+Gen demo: `/qlbd-analy-demo @gis` — load control-map trên + `/erp-form-context` rules (2a-K · 2g · common controls).
+<!-- DEMO-MFE-MODERN:END -->
+
+## 8. Tracking (autopilot)
+
+| | |
+|--|--|
+| Task | `task_63740bf8` |
+| Skill | `/qlbd-analy-demo @gis` |
+| Files | `gis.md` · `demo-maps/gis-*.md` · `public/demo/gis/gis.html` · `js/gis-*.js` · `demoCatalog.ts` |
+| BE align | OFF (demo) · GAP-F-GIS-03 documented |
+| Confirmed by | ai-autocode-autopilot |

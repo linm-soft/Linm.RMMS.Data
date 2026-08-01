@@ -1,10 +1,181 @@
 # Vật tư và thiết bị — Feature Context
 
-> **Slug:** `inventory` · **Module:** Inventory (Contract/Asset) · **Phase:** P3 · **Status:** Draft  
-> **Sources:** `RMMS` §12 · `09` OUT P1
+> **Slug:** `inventory` · **Module:** Inventory (trong `Contract` / Asset) · **Phase:** P3  
+> **Status:** Demo  
+> **Kind:** **B** (CatalogListShell) + **D** (slideout form) — Confirmed by: ai-autocode-autopilot  
+> **Sources:** `RMMS` §12 · `07` Hạng mục 12 · `09` OUT P1 · `15-SCREEN-AI-MAP.md`  
+> **Demo HTML:** `Linm.RMMS.Demo/public/demo/contract/inventory.html`  
+> **MFE (align):** `Linm.Web.RMMS.Contract` · route `/contract/inventory` · **cấm** sửa MFE ở phase demo  
+> **≠** Contract HĐ (`contract`) — inventory là sub-route riêng cùng MFE Contract
 
 ## 1. Tổng quan
-Kho VT · máy móc · xe chuyên dụng · nhiên liệu · bảo dưỡng · GPS thiết bị.
 
-## 2–7
-DEFER P3 — không demo P1. API/DB khi vào phase.
+| | |
+|--|--|
+| Mục tiêu | Kho VT · máy móc · xe chuyên dụng · nhiên liệu · bảo dưỡng TB · GPS thiết bị |
+| Persona | Kho · Hạt trưởng · Ban QLDA · Đội thi công |
+| App hiện có | Module mới — không có màn GOVOne riêng |
+| DoD P3 | CRUD kho · phiếu xuất/nhập · gán WO · GPS mock · bảo dưỡng lịch |
+| DoD later | GPS realtime TimescaleDB · sync Asset |
+
+## 2. Design / UI
+
+| Screen | Pattern | Zones | Ghi chú |
+|--------|---------|-------|---------|
+| List `/contract/inventory` | Kind **B** CatalogListShell | KPI · toolbar · filter · grid | P3 |
+| Tạo / Chi tiết | Kind **D** Slideout | Z1 toolbar · Z2 fields+lines · Z3 footer | `/contract/inventory/new` · `/:id` |
+| Bản đồ GPS | Modal stub | Leaflet pin mock | GAP-F-INV-04 |
+| Phiếu xuất/nhập nhanh | Modal / focus lines | pattern_inline_grid | |
+
+**Kind B+D layout (erp-form-context):**
+
+- **List** — title «Vật tư và thiết bị» · toolbar · filter · grid · KPI 4 ô  
+- **Z1** — Quay lại · Đóng · title · dirty badge · hint · badge **P3**  
+- **Z2a** — Validation banner (tên · loại · đơn vị · tồn)  
+- **Z2b** — Header fields control-map (mã · tên · loại · kho · TT)  
+- **Z2c** — GPS / bảo dưỡng / liên kết WO·HĐ  
+- **Z2d** — Phiếu xuất-nhập `pattern_inline_grid`  
+- **Z3** — Lưu · Lưu nháp · Duyệt phiếu · Hủy  
+
+**Mock:** fake VT/TB + stock lines · IdCode `INV-YYYYMMDD-NNNN` · localStorage · toast · **no BE**.
+
+**2d readonly:** rule_defaults · Confirmed by: ai-autocode-autopilot  
+**2e IdCode:** `INV-YYYYMMDD-NNNN`  
+**2k:** voucher_default · leave-confirm khi dirty  
+**2cm:** pattern_inline_grid + toolbar_standard  
+**2j platform event:** DEFER (`inventory.stock.changed` · `inventory.gps.updated`)
+
+## 3. API
+
+| Method | Path | Mô tả | BE status |
+|--------|------|-------|-----------|
+| GET/POST | `/api/v1/inventory/items` | CRUD vật tư/TB | **MISSING** (Step 4b khi Signed) |
+| GET/PUT | `/api/v1/inventory/items/{id}` | Chi tiết | **MISSING** |
+| GET/POST | `/api/v1/inventory/stock-moves` | Phiếu xuất/nhập | **MISSING** |
+| POST | `/api/v1/inventory/items/{id}/assign-wo` | Gán WorkOrder | **MISSING** |
+| GET | `/api/v1/inventory/items/{id}/gps` | GPS thiết bị | **MISSING** |
+| GET | `/api/v1/inventory/kpi` | KPI tồn / BD | **MISSING** |
+
+```json
+{
+  "code": "INV-20260801-0001",
+  "name": "Nhựa đường 60/70",
+  "category": "vat-tu",
+  "unit": "tấn",
+  "qtyOnHand": 42.5,
+  "minQty": 10,
+  "unitPrice": 18500000,
+  "warehouse": "kho-hat-2",
+  "status": "san-sang",
+  "gpsLat": null,
+  "gpsLng": null,
+  "woRef": "WO-2026-0201",
+  "moves": [{ "kind": "xuat", "qty": 5, "at": "2026-07-12", "woRef": "WO-2026-0201" }]
+}
+```
+
+> Phase demo: **cấm** gọi BE · fake / localStorage only. Align BE khi Status Signed + be_align ON.
+
+## 4. Database
+
+| Entity | Key columns | Notes |
+|--------|-------------|-------|
+| InventoryItem | Id, Code, Name, Category, Unit, QtyOnHand, MinQty, UnitPrice, WarehouseId, Status | P3 |
+| InventoryMove | Id, ItemId, Kind, Qty, At, WoRef, Note | P3 phiếu |
+| EquipmentGps | Id, ItemId, Lat, Lng, UpdatedAt | P3 · Timescale later |
+| MaintenanceLog | Id, ItemId, LastAt, NextAt, Note | P3 bảo dưỡng |
+| Warehouse | Id, Code, Name, OfficeId | P3 |
+
+## 5. Events / tích hợp
+
+| Event | Publisher | Consumer |
+|-------|-----------|----------|
+| `inventory.stock.changed` | Inventory | Maintenance / Report — DEFER |
+| `inventory.gps.updated` | Inventory | Ops / GIS — DEFER |
+| `inventory.assigned.wo` | Inventory | Maintenance — DEFER |
+
+Liên kết WorkOrder → xuất VT · Contract HĐ → cấp phát theo gói.
+
+## 6. Gaps / quyết định
+
+| ID | Question | Default |
+|----|----------|---------|
+| GAP-F-INV-01 | OUT P1 · phase P3 | Giữ P3 · badge hub |
+| GAP-F-INV-02 | Host MFE Contract vs Asset | Contract sub-route `/contract/inventory` · autopilot |
+| GAP-F-INV-03 | BE endpoints inventory/* | MISSING · be_align khi Signed |
+| GAP-F-INV-04 | GPS realtime Timescale | Modal pin mock demo · P3+ |
+| GAP-F-INV-05 | Sync Asset registry | DEFER · GPS/TB có thể mirror Asset |
+
+## 7. Demo checklist (chốt khách)
+
+- [ ] List đủ cột + filter loại/TT/kho
+- [ ] KPI 4 ô mock (tồn trị giá · dưới min · TB đang BD · GPS online)
+- [ ] Form Kind D đủ field control-map (kể cả dòng phiếu)
+- [ ] Đủ actions (click → toast/modal/nav)
+- [ ] Stock lines pattern_inline_grid
+- [ ] Badge P3
+- [ ] Leave-confirm khi dirty
+- [ ] Không gọi BE
+
+<!-- LEGACY-GOVONE-CAPTURE:START -->
+## Legacy GOVOne (auto-capture)
+
+> Auto map từ `tools/legacy-govone-capture` · vision: `_raw/legacy-govone/ai-analysis/`.
+> Dùng làm **step context** cho `/qlbd-analy-demo` · `yarn scan-qlbd-demo`.
+
+### Nguồn
+
+- Raw feature: `docs/context/_raw/legacy-govone/features/inventory.md`
+- Vision packets: 0
+
+### Capture inventory
+
+> Module mới P3 — **không** có màn GOVOne vision.  
+> Synthetized từ `07-TECHNICAL-IMPLEMENTATION.md` § Hạng mục 12 · product §12.
+
+## Scope
+
+Kho VT · máy móc · xe chuyên dụng · nhiên liệu · bảo dưỡng TB · GPS thiết bị.
+
+## Labels (master)
+
+- Mã VT/TB · Tên · Loại · Nhóm · ĐVT · Tồn · Tồn min · Đơn giá · Giá trị tồn · Kho · Đơn vị QL · NCC · Serial/biển số · Model · Trạng thái · GPS lat · GPS lng · GPS lúc · Liên kết WO · Liên kết HĐ · Ngày nhập · BD gần nhất · BD kế tiếp · Nhiên liệu (L) · Ghi chú · Loại phiếu · SL phiếu · Ngày phiếu · WO phiếu · Ghi chú phiếu
+
+## Actions
+
+Xem `demo-maps/inventory-actions.md` (25).
+
+## Notes
+
+- ≠ GIS «Danh sách thiết bị» (`gis-draw-google`) — đó là draw toolbar, không phải kho VT.
+- Host align: `Linm.Web.RMMS.Contract` · `/contract/inventory`.
+
+### Step context checklist
+
+- [ ] Design demo parity legacy zones
+- [ ] Control-map fields từ Labels/Inputs/Vision
+- [ ] Status Demo → Signed → `/qlbd-align-mfe`
+<!-- LEGACY-GOVONE-CAPTURE:END -->
+
+<!-- DEMO-MFE-MODERN:START -->
+## Demo MFE modern (erp-form-context)
+
+> Same fields/actions từ capture · UI chuẩn Linm — **không** clone skin legacy.
+
+- Control-map: [`inventory-control-map.md`](../_raw/legacy-govone/demo-maps/inventory-control-map.md)
+- Actions: [`inventory-actions.md`](../_raw/legacy-govone/demo-maps/inventory-actions.md)
+- Fields mapped: 28 · Actions: 25
+- Kind hint: **B+D** — erp-form-context · leave-confirm · pattern_inline_grid · KPI
+
+Gen demo: `/qlbd-analy-demo @inventory` — load control-map trên + `/erp-form-context` rules (2a-K · 2g · common controls).
+<!-- DEMO-MFE-MODERN:END -->
+
+## 8. Tracking (autopilot)
+
+| | |
+|--|--|
+| Task | `task_e2270072` |
+| Skill | `/qlbd-analy-demo @inventory` |
+| Files | `inventory.md` · `demo-maps/inventory-*.md` · `public/demo/contract/inventory.html` · `js/inventory-*.js` · `demoCatalog.ts` |
+| BE align | OFF (demo) · GAP-F-INV-03 documented |
+| Confirmed by | ai-autocode-autopilot |

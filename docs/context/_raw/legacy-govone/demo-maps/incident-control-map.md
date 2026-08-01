@@ -15,9 +15,9 @@
 | treepickerex-1026-inputEl | text | sidebar | Text | TextField · common-field-control |
 | doanduong | text | content | Text | TextField · common-field-control |
 | loaivande | text | content | Text | TextField · common-field-control |
-| treepickerex-1030-inputEl | text | sidebar | Text | TextField · common-field-control |
-| congty | text | content | Text | TextField · common-field-control |
-| tuanduong | text | content | Text | TextField · common-field-control |
+| treepickerex-1030-inputEl | text | sidebar | Tree node | Collapsible tree · report panel · expand/collapse |
+| congty | text | content | Tree node | Collapsible tree · report panel · expand/collapse |
+| tuanduong | text | content | KPI metric card | erp-report-context · KPI strip · click → focus panel / filter |
 | trangthaixuly | text | content | Text | TextField · common-field-control |
 | trangthaidoc | text | content | Text | TextField · common-field-control |
 | tuankiemchidao | text | content | Text | TextField · common-field-control |
@@ -31,23 +31,23 @@
 | textfield-1088-inputEl | text | toolbar | Text | TextField · common-field-control |
 | textfield-1089-inputEl | text | toolbar | Text | TextField · common-field-control |
 | ckDinhVi | checkbox | toolbar | Checkbox / Switch | LinCheckbox · form field |
-| inputItem | text | toolbar | Text | TextField · common-field-control |
+| inputItem | text | toolbar | Number (pager) | Pagination current page · list shell |
 | combo-1290-inputEl | text | content | Text | TextField · common-field-control |
 | combo-1291-inputEl | text | content | Text | TextField · common-field-control |
 | combo-1292-inputEl | text | content | Text | TextField · common-field-control |
 | textfield-1293-inputEl | text | content | Text | TextField · common-field-control |
-| datefield-1294-inputEl | text | content | Date | utcToLocalInputValue · localInputToISOWithOffset (form-datetime-local-utc) |
+| datefield-1294-inputEl | text | content | Date | utcToLocalInputValue · localInputToISOWithOffset (form-datetime-local-utc) · report period filter |
 | textfield-1295-inputEl | text | content | Text | TextField · common-field-control |
-| textfield-1297-inputEl | text | content | Text | TextField · common-field-control |
-| textfield-1299-inputEl | text | content | Text | TextField · common-field-control |
+| textfield-1297-inputEl | text | content | Chip / tag (Km) | Chip list · Company→Route→Km · drill chi tiết |
+| textfield-1299-inputEl | text | content | Chip / tag (Km) | Chip list · Company→Route→Km · drill chi tiết |
 | combo-1300-inputEl | text | content | Text | TextField · common-field-control |
 | combo-1301-inputEl | text | content | Text | TextField · common-field-control |
 | combo-1302-inputEl | text | content | Text | TextField · common-field-control |
 | combo-1303-inputEl | text | content | Text | TextField · common-field-control |
-| datefield-1304-inputEl | text | content | Date | utcToLocalInputValue · localInputToISOWithOffset (form-datetime-local-utc) |
-| datefield-1305-inputEl | text | content | Date | utcToLocalInputValue · localInputToISOWithOffset (form-datetime-local-utc) |
+| datefield-1304-inputEl | text | content | Date | utcToLocalInputValue · localInputToISOWithOffset (form-datetime-local-utc) · report period filter |
+| datefield-1305-inputEl | text | content | Date | utcToLocalInputValue · localInputToISOWithOffset (form-datetime-local-utc) · report period filter |
 | combo-1306-inputEl | text | content | Text | TextField · common-field-control |
-| datefield-1307-inputEl | text | content | Date | utcToLocalInputValue · localInputToISOWithOffset (form-datetime-local-utc) |
+| datefield-1307-inputEl | text | content | Date | utcToLocalInputValue · localInputToISOWithOffset (form-datetime-local-utc) · report period filter |
 | textfield-1308-inputEl | text | content | Text | TextField · common-field-control |
 | textfield-1309-inputEl | text | content | Money/Qty | LabelMoney · INT_IN / form-field-format |
 | combo-1310-inputEl | text | content | Text | TextField · common-field-control |
@@ -60,13 +60,13 @@
 | textfield-1317-inputEl | text | content | Text | TextField · common-field-control |
 | textfield-1318-inputEl | text | content | Text | TextField · common-field-control |
 | textfield-1319-inputEl | text | content | Text | TextField · common-field-control |
-| textfield-1320-inputEl | text | content | Text | TextField · common-field-control |
+| textfield-1320-inputEl | text | content | KPI metric card | erp-report-context · KPI strip · click → focus panel / filter |
 | textfield-1321-inputEl | text | content | Text | TextField · common-field-control |
 | textfield-1322-inputEl | text | content | Text | TextField · common-field-control |
 | textfield-1323-inputEl | text | content | Text | TextField · common-field-control |
-| datefield-1324-inputEl | text | content | Date | utcToLocalInputValue · localInputToISOWithOffset (form-datetime-local-utc) |
-| datefield-1325-inputEl | text | content | Date | utcToLocalInputValue · localInputToISOWithOffset (form-datetime-local-utc) |
-| datefield-1326-inputEl | text | content | Date | utcToLocalInputValue · localInputToISOWithOffset (form-datetime-local-utc) |
+| datefield-1324-inputEl | text | content | Date | utcToLocalInputValue · localInputToISOWithOffset (form-datetime-local-utc) · report period filter |
+| datefield-1325-inputEl | text | content | Date | utcToLocalInputValue · localInputToISOWithOffset (form-datetime-local-utc) · report period filter |
+| datefield-1326-inputEl | text | content | Date | utcToLocalInputValue · localInputToISOWithOffset (form-datetime-local-utc) · report period filter |
 | numberfield-1327-inputEl | text | content | Text | TextField · common-field-control |
 | numberfield-1328-inputEl | text | content | Text | TextField · common-field-control |
 | numberfield-1329-inputEl | text | content | Text | TextField · common-field-control |
@@ -78,7 +78,7 @@
 | numberfield-1335-inputEl | text | content | Text | TextField · common-field-control |
 | numberfield-1336-inputEl | text | content | Text | TextField · common-field-control |
 | numberfield-1337-inputEl | text | content | Text | TextField · common-field-control |
-| combo-1338-inputEl | text | content | Text | TextField · common-field-control |
+| combo-1338-inputEl | text | content | Tree node | Collapsible tree · report panel · expand/collapse |
 | numberfield-1339-inputEl | text | content | Money/Qty | LabelMoney · INT_IN / form-field-format |
 | numberfield-1340-inputEl | text | content | Text | TextField · common-field-control |
 | numberfield-1341-inputEl | text | content | Text | TextField · common-field-control |
@@ -90,7 +90,7 @@
 | textfield-1347-inputEl | text | content | Text | TextField · common-field-control |
 | textfield-1348-inputEl | text | content | Text | TextField · common-field-control |
 | currencyfield-1349-inputEl | text | content | Text | TextField · common-field-control |
-| combo-1350-inputEl | text | content | Text | TextField · common-field-control |
+| combo-1350-inputEl | text | content | KPI metric card | erp-report-context · KPI strip · click → focus panel / filter |
 | textarea-1351-inputEl | textarea | content | TextArea | TextField multiline |
 
 
@@ -98,7 +98,7 @@
 
 | Legacy label | kind | zone | Demo button | Linm SSOT |
 |--------------|------|------|-------------|-----------|
-| Ban.TK.Nguyễn Anh Phúc | nav | toolbar | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
+| Ban.TK.Nguyễn Anh Phúc | nav | toolbar | User menu | Avatar dropdown · profile / logout · mfe-run-modes |
 | Tìm mới | filter | grid | Tìm / Làm mới | LinErpListFilterBar · GAP-P2-87 |
 | Tìm kiếm | filter | grid | Tìm / Làm mới | LinErpListFilterBar · GAP-P2-87 |
 | Thêm | create | toolbar | Tạo mới / Thêm | Button primary · catalog/voucher toolbar |
@@ -119,9 +119,9 @@
 | − | nav | content | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
 | Hủy | destructive | content | Xóa / Hủy | Button danger · Confirm modal |
 | Áp dụng | action | content | Áp dụng | Button · toolbar zone |
-| Hồ sơ của tôi | nav | grid | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
-| Đổi mật khẩu | nav | grid | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
-| Đăng xuất | export | grid | Xuất Excel | export-excel · toolbar |
+| Hồ sơ của tôi | nav | grid | User menu | Avatar dropdown · profile / logout · mfe-run-modes |
+| Đổi mật khẩu | nav | grid | User menu | Avatar dropdown · profile / logout · mfe-run-modes |
+| Đăng xuất | export | grid | Đăng xuất | Auth logout · mfe-run-modes |
 | Xuất NKTĐ Tổng hợp | export | grid | Xuất Excel | export-excel · toolbar |
 | Xuất NKTĐ Tổng hợp 2 | export | grid | Xuất Excel | export-excel · toolbar |
 | Xuất NKTĐ Tổng Hợp (ĐTHP) | export | grid | Xuất Excel | export-excel · toolbar |
@@ -135,8 +135,8 @@
 | Lấy vị trí | nav | grid | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
 | Tải ảnh lên | nav | toolbar | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
 | Đóng vấn đề | close | toolbar | Đóng | Modal/Slideout close · leave-confirm |
-| Công việc | nav | toolbar | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
-| Hồ sơ vi phạm | nav | toolbar | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
+| Công việc | nav | toolbar | Panel Công việc | Collapsible panel · WO summary empty/list · erp-report-context |
+| Hồ sơ vi phạm | nav | toolbar | User menu | Avatar dropdown · profile / logout · mfe-run-modes |
 | Báo cáo sở | nav | toolbar | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
 | Ghi lại | submit | toolbar | Lưu | Button primary · form-api-error-handling toast |
 | Đóng | close | toolbar | Đóng | Modal/Slideout close · leave-confirm |
