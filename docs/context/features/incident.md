@@ -1,0 +1,57 @@
+# Quản lý sự cố (Vấn đề) — Feature Context
+
+> **Slug:** `incident` · **Module:** `Incident` · **Phase:** P1  
+> **Status:** Demo  
+> **Sources:** guide Vấn đề/Sự cố · `RMMS` §6 · `07` §6 · [`15-SCREEN-AI-MAP.md`](../15-SCREEN-AI-MAP.md)  
+> **Demo HTML:** `Linm.RMMS.Demo/src/demo/features/incident-demo.html`
+
+## 1. Tổng quan
+
+| | |
+|--|--|
+| Mục tiêu | Multi-source (AI/camera/tuần tra/dân/tổng đài) → 1 Incident; map 1:1 **Vấn đề**; AI critical → tạo; giao việc · SLA stub |
+| Persona | Tuần đường · tuần kiểm · Hạt · Ban QLDA |
+| App hiện có | Mobile **Vấn đề** (+ Lưu trữ offline) · Web **Sự cố** · **Loại sự cố** · **Giám sát sự cố** — giữ UX |
+| DoD | CRUD · comment · assign/giao CV · close · filter · map · link detection |
+
+## 2. Design / UI
+
+| Screen | Pattern | Zones | Map guide |
+|--------|---------|-------|-----------|
+| List / tìm Vấn đề | Full | Status · tuyến · search | Web Sự cố |
+| Chi tiết + bình luận | Full | Timeline · chat · liên quan | Mobile a–b · Web chi tiết |
+| Thêm online / offline | Full / Modal | Loại SC · nội dung · sync | Mobile c–d |
+| Tìm đường / bản đồ SC | Full | Nav · pin | Mobile e,g · Web Giám sát SC |
+| Giao việc | Modal | Form CV | Mobile f · Web |
+| Tạo từ AI | Modal | Preview detection → Confirm | AI #3 overlay |
+
+## 3. API
+
+| Method | Path |
+|--------|------|
+| POST | `/api/v1/incidents` |
+| GET | `/api/v1/incidents?status=&routeId=` |
+| POST | `/api/v1/incidents/{id}/comments` |
+| POST | `/api/v1/incidents/{id}/assign` |
+| POST | `/api/v1/incidents/{id}/close` |
+
+## 4. Database
+
+Incident · IncidentComment · Assignment · SLA fields · link `detectionId` optional.
+
+## 5. Events
+
+Consume `defect.detected` · publish `incident.created` / `incident.closed` → Workflow / Maintenance P2.
+
+## 6. Gaps
+
+| ID | Default |
+|----|---------|
+| GAP-F-INC-01 SLA full escalation | Stub P1 · full P2 Workflow |
+| GAP-F-INC-02 Citizen / tổng đài source | Adapter stub · UI OUT P1 |
+
+## 7. Demo checklist
+
+- [ ] List/filter khớp Vấn đề
+- [ ] Flow AI → tạo Vấn đề
+- [ ] Assign + đóng trên mock

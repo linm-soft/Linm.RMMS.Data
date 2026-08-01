@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phân loại mặt đường — ERP Form Demo</title>
+<style>
+:root{
+  --bg:#f1f5f9;--card:#fff;--border:#e2e8f0;--txt:#0f172a;--muted:#64748b;
+  --primary:#0f766e;--primary2:#0d9488;--danger:#b91c1c;--hdr:#0f172a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--txt);min-height:100vh}
+.topnav{display:flex;gap:12px;align-items:center;padding:10px 16px;background:var(--hdr);color:#fff}
+.topnav a{color:#99f6e4;text-decoration:none;font-size:.8rem}
+.topnav .ttl{font-weight:700;font-size:.95rem;flex:1}
+.badge{font-size:.65rem;background:#fef3c7;color:#92400e;padding:2px 8px;border-radius:999px;font-weight:800}
+.page{max-width:1200px;margin:0 auto;padding:16px}
+/* List shell */
+.shell{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.head{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--border)}
+.head h1{font-size:1.15rem;font-weight:700}
+.head .help{font-size:.78rem;color:var(--muted)}
+.toolbar{display:flex;gap:8px;padding:10px 16px;border-bottom:1px solid var(--border);flex-wrap:wrap;background:#f8fafc}
+.toolbar button,.btn{padding:7px 12px;border-radius:6px;border:1px solid var(--border);background:#fff;font-size:.8rem;font-weight:600;cursor:pointer}
+.btn-primary{background:var(--primary);color:#fff;border-color:var(--primary)}
+.btn-ghost{background:#fff}
+.btn-danger{color:var(--danger);border-color:#fecaca}
+.filter{display:flex;gap:8px;padding:12px 16px;border-bottom:1px solid var(--border);flex-wrap:wrap;align-items:flex-end}
+.filter label{display:flex;flex-direction:column;gap:4px;font-size:.7rem;color:var(--muted)}
+.filter input,.filter select, .form input,.form select,.form textarea{
+  padding:7px 10px;border:1px solid var(--border);border-radius:6px;font-size:.82rem;min-width:120px;font-family:inherit
+}
+.grid-wrap{overflow:auto}
+table{width:100%;border-collapse:collapse;font-size:.8rem}
+th,td{padding:8px 10px;border-bottom:1px solid var(--border);text-align:left;white-space:nowrap}
+th{background:#f8fafc;color:var(--muted);font-weight:600;font-size:.72rem;position:sticky;top:0}
+tr:hover td{background:#f0fdfa}
+.pager{display:flex;justify-content:space-between;align-items:center;padding:10px 16px;font-size:.78rem;color:var(--muted)}
+/* Form */
+.form-page{display:none}
+.form-page.on{display:block}
+.list-page.hide{display:none}
+.form-shell{background:var(--card);border:1px solid var(--border);border-radius:10px}
+.form-toolbar{display:flex;gap:8px;padding:10px 16px;border-bottom:1px solid var(--border);background:#f8fafc;flex-wrap:wrap}
+.sections{padding:16px;display:grid;gap:16px}
+.section{border:1px solid var(--border);border-radius:8px;padding:14px}
+.section h2{font-size:.85rem;margin-bottom:12px;color:var(--primary)}
+.fields{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.field{display:flex;flex-direction:column;gap:4px}
+.field label{font-size:.72rem;color:var(--muted)}
+.field.full{grid-column:1/-1}
+.field .err{font-size:.7rem;color:var(--danger);display:none}
+.field.invalid input,.field.invalid select{border-color:var(--danger)}
+.field.invalid .err{display:block}
+.view .section{pointer-events:none;opacity:.92}
+.banner{display:none;margin:12px 16px 0;padding:10px 12px;background:#fef2f2;border:1px solid #fecaca;border-radius:8px;color:#991b1b;font-size:.82rem}
+.banner.on{display:block}
+.payload{margin:12px 16px 16px;padding:10px;background:#0f172a;color:#e2e8f0;border-radius:8px;font-size:.72rem;overflow:auto;max-height:160px;display:none}
+.payload.on{display:block}
+.link-map{font-size:.8rem;margin-left:auto}
+</style>
+</head>
+<body>
+<div class="topnav">
+  <a href="../tinh-nang-demo.html">← Hub</a>
+  <a href="gis-draw-live.html">Bản đồ live</a>
+  <span class="ttl">Phân loại mặt đường (Biểu 1)</span>
+  <span class="badge">Kind B · ERP form demo</span>
+</div>
+
+<div class="page">
+  <!-- LIST -->
+  <div class="list-page" id="listPage">
+    <div class="shell">
+      <div class="head">
+        <div>
+          <h1>Phân loại mặt đường</h1>
+          <div class="help">Biểu mẫu số 1 · CSDL BDTX · context <code>pavement-section.md</code></div>
+        </div>
+        <a class="link-map" href="gis-draw-live.html">Vẽ trên bản đồ live →</a>
+      </div>
+      <div class="toolbar">
+        <button type="button" class="btn-primary" id="btnCreate">+ Tạo mới</button>
+        <button type="button" class="btn-ghost" id="btnImport">Import</button>
+        <button type="button" class="btn-ghost" id="btnExport">Export</button>
+        <button type="button" class="btn-ghost" id="btnRefresh">Làm mới</button>
+      </div>
+      <div class="filter">
+        <label>Tìm<input id="fSearch" placeholder="Mã / đường"></label>
+        <label>Tỉnh
+          <select id="fProvince"><option value="">Tất cả</option><option>Lạng Sơn</option><option>Nghệ An</option><option>Hà Nội</option></select>
+        </label>
+        <label>Tình trạng
+          <select id="fStatus"><option value="">Tất cả</option><option>Tốt</option><option>Đang TC</option><option>Theo dõi</option></select>
+        </label>
+        <label>Từ Km<input id="fKmFrom" type="number" step="0.001"></label>
+        <label>Đến Km<input id="fKmTo" type="number" step="0.001"></label>
+        <button type="button" class="btn-primary" id="btnSearch">Tìm</button>
+      </div>
+      <div class="grid-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>STT</th><th>Mã</th><th>Tên đường</th><th>Tỉnh</th><th>Từ Km</th><th>Đến Km</th>
+              <th>Kết cấu</th><th>Cấp</th><th>Tình trạng</th><th>ĐV quản lý</th><th></th>
+            </tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+      <div class="pager"><span id="pagerInfo">0 bản ghi</span><span>Demo · localStorage</span></div>
+    </div>
+  </div>
+
+  <!-- FORM -->
+  <div class="form-page" id="formPage">
+    <div class="form-shell" id="formShell">
+      <div class="form-toolbar">
+        <button type="button" class="btn-ghost" id="btnBack">← Danh sách</button>
+        <strong id="formTitle">Tạo mới</strong>
+        <span style="flex:1"></span>
+        <button type="button" class="btn-primary" id="btnSave">Lưu</button>
+        <button type="button" class="btn-ghost" id="btnCancel">Huỷ</button>
+        <button type="button" class="btn-danger" id="btnDelete" hidden>Xóa</button>
+      </div>
+      <div class="banner" id="banner">Vui lòng nhập đủ các trường bắt buộc (đánh dấu *).</div>
+      <form class="sections form" id="form" onsubmit="return false">
+        <div class="section">
+          <h2>Thông tin đoạn đường</h2>
+          <div class="fields">
+            <div class="field" data-req="code"><label>Mã (IdCode) *</label><input name="code" id="code" readonly placeholder="MD-YYYYMMDD-NNNN"><span class="err">Bắt buộc</span></div>
+            <div class="field" data-req="roadName"><label>Tên đường *</label><input name="roadName" placeholder="QL.1"><span class="err">Bắt buộc</span></div>
+            <div class="field" data-req="provinceName"><label>Tỉnh / địa phương *</label>
+              <select name="provinceName"><option value="">— Chọn —</option><option>Lạng Sơn</option><option>Nghệ An</option><option>Hà Nội</option></select><span class="err">Bắt buộc</span>
+            </div>
+            <div class="field" data-req="kmFrom"><label>Từ Km *</label><input name="kmFrom" type="number" step="0.001"><span class="err">Bắt buộc</span></div>
+            <div class="field" data-req="kmTo"><label>Đến Km *</label><input name="kmTo" type="number" step="0.001"><span class="err">Bắt buộc</span></div>
+            <div class="field"><label>Chiều dài (Km)</label><input name="lengthKm" type="number" step="0.001"></div>
+          </div>
+        </div>
+        <div class="section">
+          <h2>Kết cấu mặt đường</h2>
+          <div class="fields">
+            <div class="field"><label>B nền (m)</label><input name="baseWidthM" type="number" step="0.01"></div>
+            <div class="field"><label>B mặt (m)</label><input name="surfaceWidthM" type="number" step="0.01"></div>
+            <div class="field" data-req="structureType"><label>Loại kết cấu *</label>
+              <select name="structureType"><option value="">—</option><option>BTN</option><option>BTXM</option><option>Cấp phối</option><option>Khác</option></select><span class="err">Bắt buộc</span>
+            </div>
+            <div class="field"><label>Dày mặt (cm)</label><input name="surfaceThicknessCm" type="number"></div>
+            <div class="field"><label>Cấp đường</label>
+              <select name="roadClass"><option value="">—</option><option>I</option><option>II</option><option>III</option><option>IV</option></select>
+            </div>
+          </div>
+        </div>
+        <div class="section">
+          <h2>Khai thác</h2>
+          <div class="fields">
+            <div class="field"><label>Số năm khai thác</label><input name="yearsInService"></div>
+            <div class="field"><label><input type="checkbox" name="handoverMaintenance"> Bàn giao bảo trì</label></div>
+            <div class="field"><label><input type="checkbox" name="handoverConstruction"> Bàn giao XDCB</label></div>
+            <div class="field"><label>Năm đại tu gần nhất</label><input name="lastMajorRehabYear" type="number"></div>
+            <div class="field"><label>Năm SC mặt đường</label><input name="lastSurfaceRepairYear" type="number"></div>
+            <div class="field" data-req="status"><label>Tình trạng *</label>
+              <select name="status"><option value="">—</option><option>Tốt</option><option>Đang TC</option><option>Theo dõi</option><option>Hư hỏng</option></select><span class="err">Bắt buộc</span>
+            </div>
+          </div>
+        </div>
+        <div class="section">
+          <h2>Đơn vị · ghi chú</h2>
+          <div class="fields">
+            <div class="field"><label>Đơn vị thi công</label><input name="constructionUnit"></div>
+            <div class="field" data-req="manageUnit"><label>Đơn vị quản lý *</label><input name="manageUnit" placeholder="Khu QLĐB …"><span class="err">Bắt buộc</span></div>
+            <div class="field"><label>Chủ quản lý sử dụng</label><input name="ownerUnit"></div>
+            <div class="field full"><label>Ghi chú</label><textarea name="notes" rows="2"></textarea></div>
+            <div class="field"><label>Ngày cập nhật</label><input name="updatedAt" readonly></div>
+            <div class="field"><label>Người cập nhật</label><input name="updatedBy" readonly></div>
+          </div>
+        </div>
+      </form>
+      <pre class="payload" id="payload"></pre>
+    </div>
+  </div>
+</div>
+
+<script>
+const KEY = 'rmms-pavement-sections';
+const SEED = [
+  {id:'1', code:'MD-20260701-0001', roadName:'QL.1', provinceName:'Lạng Sơn', kmFrom:0, kmTo:1, lengthKm:1, baseWidthM:23, surfaceWidthM:21, structureType:'BTN', surfaceThicknessCm:12, roadClass:'I', yearsInService:'6', handoverMaintenance:true, handoverConstruction:false, lastMajorRehabYear:2020, lastSurfaceRepairYear:'', status:'Đang TC', constructionUnit:'Công ty XD ..', manageUnit:'Khu QLĐB I', ownerUnit:'Công ty …', notes:'', updatedAt:'2026-07-01T08:00:00+07:00', updatedBy:'admin'},
+  {id:'2', code:'MD-20260701-0002', roadName:'QL.1', provinceName:'Lạng Sơn', kmFrom:1, kmTo:2, lengthKm:1, baseWidthM:23, surfaceWidthM:21, structureType:'BTXM', surfaceThicknessCm:12, roadClass:'II', yearsInService:'> 9', handoverMaintenance:false, handoverConstruction:true, lastMajorRehabYear:'', lastSurfaceRepairYear:'', status:'Đang TC', constructionUnit:'Công ty CP ..', manageUnit:'Khu QLĐB I', ownerUnit:'Công ty …', notes:'', updatedAt:'2026-07-01T08:00:00+07:00', updatedBy:'admin'},
+  {id:'3', code:'MD-20260701-0003', roadName:'QL.1', provinceName:'Lạng Sơn', kmFrom:2, kmTo:3, lengthKm:1, baseWidthM:23, surfaceWidthM:21, structureType:'BTXM', surfaceThicknessCm:12, roadClass:'III', yearsInService:'3', handoverMaintenance:false, handoverConstruction:false, lastMajorRehabYear:'', lastSurfaceRepairYear:2022, status:'Tốt', constructionUnit:'', manageUnit:'Khu QLĐB I', ownerUnit:'Công ty …', notes:'', updatedAt:'2026-07-01T08:00:00+07:00', updatedBy:'admin'},
+];
+
+let rows = JSON.parse(localStorage.getItem(KEY) || 'null') || SEED.slice();
+let mode = 'list'; // list | create | edit | view
+let currentId = null;
+let filter = { search:'', province:'', status:'', kmFrom:'', kmTo:'' };
+
+function saveStore(){ localStorage.setItem(KEY, JSON.stringify(rows)); }
+
+function genCode(){
+  const d = new Date();
+  const ymd = d.toISOString().slice(0,10).replace(/-/g,'');
+  const n = String(rows.length + 1).padStart(4,'0');
+  return `MD-${ymd}-${n}`;
+}
+
+function filtered(){
+  return rows.filter(r => {
+    if (filter.search) {
+      const s = filter.search.toLowerCase();
+      if (!(r.code+r.roadName).toLowerCase().includes(s)) return false;
+    }
+    if (filter.province && r.provinceName !== filter.province) return false;
+    if (filter.status && r.status !== filter.status) return false;
+    if (filter.kmFrom !== '' && Number(r.kmTo) < Number(filter.kmFrom)) return false;
+    if (filter.kmTo !== '' && Number(r.kmFrom) > Number(filter.kmTo)) return false;
+    return true;
+  });
+}
+
+function renderList(){
+  const data = filtered();
+  document.getElementById('tbody').innerHTML = data.map((r,i) => `
+    <tr>
+      <td>${i+1}</td>
+      <td>${r.code}</td>
+      <td>${r.roadName}</td>
+      <td>${r.provinceName||''}</td>
+      <td>${r.kmFrom}</td>
+      <td>${r.kmTo}</td>
+      <td>${r.structureType||''}</td>
+      <td>${r.roadClass||''}</td>
+      <td>${r.status||''}</td>
+      <td>${r.manageUnit||''}</td>
+      <td>
+        <button type="button" class="btn-ghost" data-act="view" data-id="${r.id}">Xem</button>
+        <button type="button" class="btn-ghost" data-act="edit" data-id="${r.id}">Sửa</button>
+      </td>
+    </tr>`).join('') || `<tr><td colspan="11" style="text-align:center;color:#94a3b8;padding:24px">Không có dữ liệu</td></tr>`;
+  document.getElementById('pagerInfo').textContent = data.length + ' bản ghi (demo)';
+}
+
+function showList(){
+  mode = 'list';
+  document.getElementById('listPage').classList.remove('hide');
+  document.getElementById('formPage').classList.remove('on');
+  renderList();
+}
+
+function showForm(m, id){
+  mode = m;
+  currentId = id;
+  document.getElementById('listPage').classList.add('hide');
+  document.getElementById('formPage').classList.add('on');
+  document.getElementById('banner').classList.remove('on');
+  document.getElementById('payload').classList.remove('on');
+  const shell = document.getElementById('formShell');
+  shell.classList.toggle('view', m === 'view');
+  document.getElementById('btnDelete').hidden = m !== 'edit';
+  document.getElementById('btnSave').hidden = m === 'view';
+  document.getElementById('formTitle').textContent =
+    m==='create' ? 'Tạo mới — Phân loại mặt đường' :
+    m==='edit' ? 'Sửa — ' + (rows.find(x=>x.id===id)||{}).code :
+    'Xem — ' + (rows.find(x=>x.id===id)||{}).code;
+
+  const form = document.getElementById('form');
+  form.reset();
+  form.querySelectorAll('.field').forEach(f => f.classList.remove('invalid'));
+  if (m === 'create') {
+    form.code.value = genCode();
+    form.updatedAt.value = '';
+    form.updatedBy.value = '';
+  } else {
+    const r = rows.find(x => x.id === id);
+    if (!r) return showList();
+    Object.keys(r).forEach(k => {
+      const el = form.elements.namedItem(k);
+      if (!el) return;
+      if (el.type === 'checkbox') el.checked = !!r[k];
+      else el.value = r[k] ?? '';
+    });
+  }
+}
+
+document.getElementById('btnCreate').onclick = () => showForm('create');
+document.getElementById('btnBack').onclick = showList;
+document.getElementById('btnCancel').onclick = showList;
+document.getElementById('btnRefresh').onclick = () => { rows = JSON.parse(localStorage.getItem(KEY)||'null') || SEED.slice(); renderList(); };
+document.getElementById('btnSearch').onclick = () => {
+  filter.search = document.getElementById('fSearch').value.trim();
+  filter.province = document.getElementById('fProvince').value;
+  filter.status = document.getElementById('fStatus').value;
+  filter.kmFrom = document.getElementById('fKmFrom').value;
+  filter.kmTo = document.getElementById('fKmTo').value;
+  renderList();
+};
+document.getElementById('btnExport').onclick = () => {
+  const blob = new Blob([JSON.stringify(rows,null,2)], {type:'application/json'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'pavement-sections.json'; a.click();
+};
+document.getElementById('btnImport').onclick = () => alert('Demo: Import Excel biểu 1 → POST /api/v1/infra/pavement-sections/import');
+
+document.getElementById('tbody').addEventListener('click', e => {
+  const b = e.target.closest('[data-act]'); if (!b) return;
+  showForm(b.dataset.act, b.dataset.id);
+});
+
+function readForm(){
+  const form = document.getElementById('form');
+  const fd = new FormData(form);
+  const o = Object.fromEntries(fd.entries());
+  o.handoverMaintenance = form.handoverMaintenance.checked;
+  o.handoverConstruction = form.handoverConstruction.checked;
+  ['kmFrom','kmTo','lengthKm','baseWidthM','surfaceWidthM','surfaceThicknessCm','lastMajorRehabYear','lastSurfaceRepairYear'].forEach(k => {
+    if (o[k] !== '' && o[k] != null) o[k] = Number(o[k]);
+  });
+  return o;
+}
+
+function validate(){
+  let ok = true;
+  document.querySelectorAll('.field[data-req]').forEach(f => {
+    const name = f.dataset.req;
+    const el = document.getElementById('form').elements.namedItem(name);
+    const val = el && (el.type==='checkbox' ? true : String(el.value||'').trim());
+    const bad = !val;
+    f.classList.toggle('invalid', bad);
+    if (bad) ok = false;
+  });
+  document.getElementById('banner').classList.toggle('on', !ok);
+  return ok;
+}
+
+document.getElementById('btnSave').onclick = () => {
+  if (!validate()) return;
+  const o = readForm();
+  o.updatedAt = new Date().toISOString();
+  o.updatedBy = 'demo-user';
+  if (mode === 'create') {
+    o.id = crypto.randomUUID ? crypto.randomUUID() : String(Date.now());
+    rows.unshift(o);
+  } else {
+    o.id = currentId;
+    rows = rows.map(r => r.id === currentId ? { ...r, ...o } : r);
+  }
+  saveStore();
+  const payload = {
+    method: mode==='create' ? 'POST' : 'PUT',
+    url: mode==='create' ? '/api/v1/infra/pavement-sections' : `/api/v1/infra/pavement-sections/${o.id}`,
+    body: o,
+  };
+  const pre = document.getElementById('payload');
+  pre.textContent = JSON.stringify(payload, null, 2);
+  pre.classList.add('on');
+  setTimeout(showList, 600);
+};
+
+document.getElementById('btnDelete').onclick = () => {
+  if (!confirm('Xóa bản ghi?')) return;
+  rows = rows.filter(r => r.id !== currentId);
+  saveStore();
+  showList();
+};
+
+renderList();
+</script>
+</body>
+</html>

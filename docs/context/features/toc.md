@@ -1,0 +1,10 @@
+# Trung tâm điều hành giao thông (TOC) — Feature Context
+
+> **Slug:** `toc` · **Module:** Traffic / AiVision / Gis · **Phase:** P3 · **Status:** Draft  
+> **Sources:** `RMMS` §14 · `09`
+
+## 1. Tổng quan
+Giám sát GT · AI ùn tắc/tai nạn/xe dừng/vật cản · VMS · tốc độ động.
+
+## 2–7
+OUT P1–P2 core. DEFER P3.

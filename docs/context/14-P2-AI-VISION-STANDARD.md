@@ -1,0 +1,242 @@
+# RMMS — P2 AI Vision chuẩn hóa (Local detect)
+
+> **SSOT Phase 2 / V2-core cho #3 Kiểm định ảnh.**  
+> **Áp dụng sau gate Go local** (`09-PLAN-P1-V2.md` §2.7).  
+> **P1:** chỉ GPT-4o online — xem `08` · **không** train local.  
+> **Infra server:** `13-AI-SERVER-BY-PHASE.md` · **GPU spec:** `10-YOLO-SERVER-REQUIREMENTS.md` · **Chi phí:** `12-AI-COST-PHASES.md`
+
+**Nguyên tắc:** Chuẩn hóa theo **hợp đồng kỹ thuật** (class · API · artifact · worker), **không** khóa cứng một vendor Ultralytics.
+
+---
+
+## 1. Phạm vi P2 (AiVision)
+
+| IN | OUT (P2.1+ / HĐ riêng) |
+|----|------------------------|
+| Detect local 10 class → ONNX/TensorRT | Self-host LLM full |
+| SAM (optional) diện tích | Digital Twin 3D bắt buộc |
+| PCI stub / ASTM map từ detection | TOC toàn quốc |
+| GPT-4o **fallback** low-confidence | Thay toàn bộ mono |
+| GPU worker tách DMS | Gắn GPU vào DMS 1U 350W |
+| XGBoost #8/#10 · RAG #16 (tuỳ, HĐ riêng) | — |
+
+**Gate bắt buộc trước P2:** UAT P1 P/R + token + văn bản **Go local**.
+
+---
+
+## 2. Suggest stack (chốt mặc định)
+
+### 2.1 Detect — chọn 1 trong 2 (Ask trước implement)
+
+| Option | Stack | License | Khi nào chọn |
+|--------|--------|---------|--------------|
+| **P2-A (khuyến nghị mặc định)** | **YOLOX** hoặc **RTMDet / MMDetection** hoặc **RT-DETR** → export **ONNX** (+ TensorRT tuỳ) | **Apache-2.0** (xác nhận LICENSE bản dùng) | App đóng thương mại · tránh AGPL |
+| **P2-B** | **Ultralytics YOLO** (v8/v11…) → ONNX/engine | **Enterprise** (báo giá/năm) — **không** dùng AGPL free/Pro cho prod đóng | Đội đã chuẩn Ultralytics · chấp nhận phí license |
+
+| Cấm mặc định | Lý do |
+|---------------|--------|
+| Ultralytics **AGPL** trong sản phẩm đóng | Nghĩa vụ open-source theo vendor |
+| “Copy Ultralytics đổi tên” | Vẫn rủi ro pháp lý |
+
+**SAM (segment):** Meta SAM / biến thể **Apache-2.0** — optional Phase P2-C sau khi detect ổn.
+
+**P1 giữ nguyên:** Azure OpenAI GPT-4o — không thay bằng local trong P2 trừ fallback.
+
+### 2.2 Runtime infer (bắt buộc)
+
+| Thành phần | Chuẩn |
+|------------|--------|
+| Host | GPU worker **tách** DMS (`13` Phase 3–4) |
+| Runtime | **ONNX Runtime GPU** và/hoặc **TensorRT** / Triton |
+| Model file | `.onnx` hoặc `.engine` + `classes.yaml` + `modelVersion` |
+| Queue | Redis / job queue — API không block GPU lâu |
+| Adapter | `IDefectDiagnoser` → P2 `OnnxDetectorDiagnoser` (tên generic; alias cũ `YoloOnnxDiagnoser` OK) |
+
+### 2.3 Server theo phase (tóm tắt)
+
+| Phase | App/DB | Infer | Train |
+|-------|--------|-------|-------|
+| P1 | Vật lý DMS | Cloud GPT | — |
+| P2 Dataset+Train | DMS | GPT so sánh | Vast 4090 **hoặc** lab vật lý |
+| P2 Hybrid/Prod | DMS + queue | **GPU cố định** (vật lý / cloud VN SLA) | Retrain burst |
+
+Chi tiết: `13-AI-SERVER-BY-PHASE.md`.
+
+---
+
+## 3. Taxonomy class (bắt buộc — không đổi id tùy tiện)
+
+| id | `class` (API/EN) | Nhãn VN (UI) |
+|----|------------------|--------------|
+| 0 | `pothole` | Ổ gà |
+| 1 | `longitudinal_crack` | Nứt dọc |
+| 2 | `transverse_crack` | Nứt ngang |
+| 3 | `alligator_crack` | Nứt mai rùa |
+| 4 | `bleeding` | Chảy nhựa |
+| 5 | `raveling` | Bong bật |
+| 6 | `rutting` | Lún vệt bánh |
+| 7 | `patching` | Vá đường |
+| 8 | `edge_damage` | Hư mép |
+| 9 | `landslide` | Sạt lở |
+
+Guideline gán nhãn (BA + AI lead): 1 class / bbox · không overlap mơ hồ · ảnh đủ sáng/GPS khi có.
+
+---
+
+## 4. Data & gán nhãn
+
+### 4.1 Dataset là gì
+
+| Thành phần | Mô tả |
+|------------|--------|
+| Ảnh gốc | Tuần tra / camera / drone — lưu MinIO/NAS |
+| Nhãn | Bounding box + `class_id` (YOLO/COCO format tùy tool) |
+| Meta | `sectionId`, GPS, ngày, nguồn (không thay class) |
+| Mục tiêu | ≥ **20.000** ảnh đã QA · **cân bằng** 10 class (không để 1 class < ~5% nếu có trong hiện trường) |
+
+Tool gợi ý: CVAT / Roboflow / Label Studio — **license tool** tách với model.
+
+### 4.2 Vai trò
+
+| Vai trò | Việc |
+|---------|------|
+| Đội SV | Gán nhãn theo guideline · QA chéo |
+| AI/ML lead | Guideline · train · mAP · export ONNX · `modelVersion` |
+| BA | Chốt định nghĩa class VN · UAT tuyến pilot |
+| Dev | Worker + API — **không** thay gán nhãn |
+
+### 4.3 Phân tích data để AI “đúng lỗi”
+
+| Bước | Việc | Mục tiêu |
+|------|------|----------|
+| 1 | Confusion matrix theo class | Biết class nào nhầm (VD nứt dọc ↔ ngang) |
+| 2 | Hard-negative mining | Ảnh nền “không hư” bị false positive |
+| 3 | Cân bằng / augment | Class hiếm (sạt lở…) |
+| 4 | Threshold theo class | `score_min` khác nhau (ổ gà critical thấp hơn vá) |
+| 5 | So P1 GPT baseline | Cùng bộ UAT ≥500 ảnh expert |
+| 6 | Human-in-loop | Case low-score → GPT fallback hoặc BA xác nhận |
+
+**Đúng lỗi** = taxonomy rõ + nhãn sạch + metric đạt ngưỡng BA — không chỉ “train thêm epoch”.
+
+---
+
+## 5. Artifact sau train (bàn giao Dev)
+
+| File | Bắt buộc | Ghi chú |
+|------|----------|---------|
+| `model.onnx` (hoặc `.engine`) | ✅ | Runtime worker |
+| `classes.yaml` | ✅ | id ↔ class |
+| `manifest.json` | ✅ | `modelVersion`, `imgsz`, `framework`, `licenseOption` (P2-A/P2-B), ngày |
+| Báo cáo mAP / PR | ✅ UAT | Không deploy lên worker |
+| Dataset thô | Lưu lab/NAS | **Không** copy vào DMS |
+
+`manifest.json` mẫu:
+
+```json
+{
+  "modelVersion": "rmms-det-v1-2026.08",
+  "option": "P2-A",
+  "framework": "yolox",
+  "imgsz": 640,
+  "numClasses": 10,
+  "runtime": "onnxruntime-gpu",
+  "licenseNote": "Apache-2.0 detector stack"
+}
+```
+
+---
+
+## 6. Hợp đồng API / DB (không đổi khi đổi framework)
+
+### Request (queue → worker)
+
+```json
+{
+  "imageUrl": "minio://bucket/patrol/xxx.jpg",
+  "sectionId": "…",
+  "gps": { "lat": 0, "lng": 0 },
+  "source": "patrol",
+  "modelVersion": "optional-pin"
+}
+```
+
+### Response → `ai_vision.detections`
+
+```json
+{
+  "modelVersion": "rmms-det-v1-2026.08",
+  "detections": [
+    {
+      "class": "pothole",
+      "score": 0.91,
+      "bbox": [x1, y1, x2, y2],
+      "severity": "critical"
+    }
+  ]
+}
+```
+
+| API | Giữ nguyên |
+|-----|------------|
+| `POST /api/v1/ai-vision/detect` | ✅ |
+| `POST /api/v1/ai-vision/batch` | ✅ |
+| `POST /api/v1/ai-vision/segment` | P2 SAM |
+| `POST /api/v1/ai-vision/calculate-pci` | ✅ |
+| Event `defect.detected` | ✅ → Incident nếu critical |
+
+---
+
+## 7. License (chuẩn hóa wording HĐ)
+
+| Thành phần | Suggest |
+|------------|---------|
+| Detector P2-A | Apache stack — ghi rõ repo + commit/tag trong `manifest` |
+| Detector P2-B | Ultralytics **Enterprise** — đính kèm quote/năm · **cấm** AGPL prod |
+| SAM | Apache-2.0 |
+| CUDA/TensorRT | NVIDIA EULA |
+| Azure GPT | HĐ Azure |
+| Dataset ảnh | Quyền bên A / đơn vị |
+
+Ultralytics **không** công bố giá Enterprise cố định — dòng ngân sách: **TBD quote** ([license form](https://www.ultralytics.com/license)).  
+Platform Pro ($29/seat) **không** = quyền thương mại đóng.
+
+---
+
+## 8. Lộ trình P2 (chuẩn)
+
+| Giai đoạn | Tuần gợi ý | Việc | Server |
+|-----------|------------|------|--------|
+| P2-0 Gate | 0 | Go local bằng văn bản | Giữ P1 |
+| P2-1 Dataset | 1–6 | Guideline + ≥20k nhãn QA | CVAT + storage |
+| P2-2 Train | 5–8 | Train P2-A hoặc P2-B · export ONNX · so GPT | Vast / lab |
+| P2-3 Integrate | 7–12 | Worker GPU · adapter · queue · event | GPU cố định |
+| P2-4 Hybrid UAT | 10–14 | Threshold · fallback GPT · PCI stub | + Azure |
+| P2-5 Prod | 14–16 | Monitoring · modelVersion pin · runbook | L4-class |
+
+---
+
+## 9. Definition of Done — P2 AiVision
+
+- [ ] Chốt **P2-A** hoặc **P2-B** (license) bằng Ask/HĐ  
+- [ ] ≥20k ảnh QA · 10 class đúng taxonomy §3  
+- [ ] `model.onnx` + `classes.yaml` + `manifest.json` bàn giao  
+- [ ] mAP/PR ≥ ngưỡng BA trên bộ UAT chung với P1  
+- [ ] Worker GPU tách DMS · infer không block API  
+- [ ] GPT fallback bật cho low-score  
+- [ ] `defect.detected` → Incident critical  
+- [ ] Không phụ thuộc GPT cho **mọi** frame (chỉ fallback)  
+- [ ] `$/ảnh` hoặc `$/km` đo được (`12`)
+
+---
+
+## 10. Liên kết SSOT
+
+| File | Vai trò |
+|------|---------|
+| **File này** | Chuẩn hóa P2 detect |
+| `09-PLAN-P1-V2.md` | Gate + lịch V2 |
+| `10-YOLO-SERVER-REQUIREMENTS.md` | Spec GPU (áp dụng mọi detector ONNX) |
+| `13-AI-SERVER-BY-PHASE.md` | Cloud / vật lý / Vast |
+| `12-AI-COST-PHASES.md` | Chi phí phase |
+| `08-AI-TOKEN-COST-…` | P1 + fallback GPT |
+| `features/ai-vision.md` | Feature context UI/API |

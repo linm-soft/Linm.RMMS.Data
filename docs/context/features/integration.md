@@ -1,0 +1,54 @@
+# Open API và tích hợp — Feature Context
+
+> **Slug:** `integration` · **Module:** `Integration` · **Phase:** P1–P3  
+> **Status:** Context  
+> **Sources:** `RMMS` §18 · `07` §18 · `09` · `15-SCREEN-AI-MAP.md`
+
+## 1. Tổng quan
+
+| | |
+|--|--|
+| Mục tiêu | OpenAPI baseline · sync dữ liệu sẵn có · adapter ERP/CMMS/PMIS/ITS/ETC/Camera/SAP/GIS/IoT/Cổng DVC |
+| Persona | Dev tích hợp · IT khách |
+| App hiện có | Import tài sản Web · offline sync Mobile |
+| DoD P1 | Swagger · import/export Asset · offline-batch contract |
+| DoD P2+ | Webhook partner · citizen API |
+
+## 2. Design / UI
+
+| Screen | Pattern | Zones |
+|--------|---------|-------|
+| Swagger UI | External | — |
+| Import wizard (Tài sản) | Full (giữ) | Guide import KCHT |
+
+Không UI nghiệp vụ chính ngoài import hiện có.
+
+## 3. API
+
+| Method | Path | Mô tả |
+|--------|------|-------|
+| — | `/swagger` | OpenAPI |
+| POST | `/api/v1/assets/import` | Đồng bộ TS |
+| POST | `/api/v1/sync/offline-batch` | Mobile Lưu trữ |
+| POST | `/api/v1/webhooks/{partner}` | P2+ |
+
+## 4. Database
+
+N/A riêng — schema modules. Bảng `integration.sync_job` optional.
+
+## 5. Events / tích hợp
+
+Catalog event cho partner (P2+). Pattern: `{OrgB}` tích hợp kỹ thuật · `{OrgA}` quyền/data.
+
+## 6. Gaps / quyết định
+
+| ID | Question | Default |
+|----|----------|---------|
+| GAP-F-INT-01 | Public citizen API | P3 `citizen` |
+| GAP-F-INT-02 | SAP/ETC | DEFER theo HĐ |
+
+## 7. Demo checklist (chốt khách)
+
+- [ ] Bảng endpoint P1 ưu tiên
+- [ ] Swagger stub / screenshot
+- [ ] Offline-batch mô tả 1 trang

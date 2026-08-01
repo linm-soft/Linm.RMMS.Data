@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GIS — Demo UI</title>
+<style>
+:root{--navy:#0a1628;--green:#0d9488;--bg:#f1f5f9;--border:#e2e8f0;--txt:#0f172a;--muted:#64748b;--radius:10px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,sans-serif;background:var(--bg);color:var(--txt);line-height:1.5}
+.top{position:sticky;top:0;z-index:10;background:var(--navy);color:#fff;display:flex;align-items:center;gap:12px;padding:12px 18px;flex-wrap:wrap}
+.top a{color:#99f6e4;text-decoration:none;font-size:.85rem}
+.top h1{font-size:1.05rem;font-weight:700;flex:1}
+.badge{font-size:.7rem;padding:3px 8px;border-radius:999px;background:#134e4a;color:#5eead4;font-weight:700}
+.badge.demo{background:#fef3c7;color:#92400e}
+.wrap{max-width:1100px;margin:0 auto;padding:20px;display:grid;grid-template-columns:1fr 300px;gap:16px}
+@media(max-width:860px){.wrap{grid-template-columns:1fr}}
+.panel{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:16px}
+.panel h2{font-size:.95rem;margin-bottom:12px}
+.mock{position:relative;overflow:hidden}
+.watermark{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;font-size:4rem;font-weight:800;color:rgba(13,148,136,.08);transform:rotate(-18deg)}
+table{width:100%;border-collapse:collapse;font-size:.82rem}
+th,td{border-bottom:1px solid var(--border);padding:8px 6px;text-align:left}
+th{color:var(--muted);font-weight:600;font-size:.75rem}
+.mapfake{height:220px;background:linear-gradient(135deg,#ccfbf1,#e0f2fe 40%,#fef3c7);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#0f766e;font-weight:600;margin-bottom:12px;border:1px dashed #99f6e4;flex-direction:column;gap:6px}
+.side details{border-bottom:1px solid var(--border);padding:8px 0}
+.side summary{cursor:pointer;font-weight:600;font-size:.85rem}
+.side pre{font-size:.72rem;background:#0f172a;color:#e2e8f0;padding:10px;border-radius:6px;overflow:auto;margin-top:8px;white-space:pre-wrap}
+.chk label{display:flex;gap:8px;align-items:flex-start;font-size:.8rem;margin:8px 0;color:var(--muted)}
+.legend{display:flex;gap:10px;font-size:.75rem;color:var(--muted);margin-bottom:10px;flex-wrap:wrap}
+.legend span::before{content:'';display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px;vertical-align:middle}
+.l1::before{background:#22c55e}.l2::before{background:#eab308}.l3::before{background:#ef4444}
+</style>
+</head>
+<body>
+<div class="top">
+  <a href="../index.html">← Hub</a>
+  <h1>GIS bản đồ 2D</h1>
+  <span class="badge">P1</span>
+  <span class="badge demo">DEMO</span>
+</div>
+<div class="wrap">
+  <div class="panel mock">
+    <div class="watermark">DEMO</div>
+    <h2>Mock — MapLibre + layer PCI</h2>
+    <div class="legend"><span class="l1">PCI tốt</span><span class="l2">Trung bình</span><span class="l3">Kém</span></div>
+    <div class="mapfake"><span>Vector tiles · heatmap PCI</span><span style="font-size:.75rem;opacity:.8">3D Twin = badge P2</span></div>
+    <table>
+      <thead><tr><th>Layer</th><th>Mô tả</th><th>P1</th></tr></thead>
+      <tbody>
+        <tr><td>road_sections</td><td>Đoạn đường</td><td>ON</td></tr>
+        <tr><td>pci_heatmap</td><td>Heatmap PCI</td><td>ON</td></tr>
+        <tr><td>incidents</td><td>Vấn đề</td><td>Toggle</td></tr>
+        <tr><td>3d_tiles</td><td>Cesium Digital Twin</td><td>P2</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div>
+    <div class="panel side">
+      <h2>Spec tóm tắt</h2>
+      <details open><summary>API</summary><pre>GET /api/v1/gis/tiles/...
+GET /gis/geojson/{layer}?bbox=
+GET /gis/heatmap/pci</pre></details>
+      <details><summary>Database</summary><pre>PostGIS layers
+Redis tile cache
+SignalR GisHub</pre></details>
+      <details open><summary>Chốt với khách</summary>
+        <div class="chk" id="chk">
+          <label><input type="checkbox" data-k="c1"> Map 2D + legend PCI</label>
+          <label><input type="checkbox" data-k="c2"> Layer toggle rõ</label>
+          <label><input type="checkbox" data-k="c3"> 3D gắn badge P2</label>
+        </div>
+      </details>
+    </div>
+    <p style="font-size:.75rem;color:#94a3b8;margin-top:10px">Context: <a href="../../../../docs/context/features/gis.md">gis.md</a></p>
+  </div>
+</div>
+<script>
+const KEY='tn-demo:gis:signed';
+const box=document.getElementById('chk');
+try{const s=JSON.parse(localStorage.getItem(KEY)||'{}');box.querySelectorAll('input').forEach(i=>{i.checked=!!s[i.dataset.k]});}catch(e){}
+box.addEventListener('change',()=>{const o={};box.querySelectorAll('input').forEach(i=>o[i.dataset.k]=i.checked);localStorage.setItem(KEY,JSON.stringify(o));});
+</script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Vision — Demo UI</title>
+<style>
+:root{--navy:#0a1628;--green:#0d9488;--bg:#f1f5f9;--border:#e2e8f0;--txt:#0f172a;--muted:#64748b;--radius:10px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,sans-serif;background:var(--bg);color:var(--txt);line-height:1.5}
+.top{position:sticky;top:0;z-index:10;background:var(--navy);color:#fff;display:flex;align-items:center;gap:12px;padding:12px 18px;flex-wrap:wrap}
+.top a{color:#99f6e4;text-decoration:none;font-size:.85rem}
+.top h1{font-size:1.05rem;font-weight:700;flex:1}
+.badge{font-size:.7rem;padding:3px 8px;border-radius:999px;background:#134e4a;color:#5eead4;font-weight:700}
+.badge.demo{background:#fef3c7;color:#92400e}
+.wrap{max-width:1100px;margin:0 auto;padding:20px;display:grid;grid-template-columns:1fr 300px;gap:16px}
+@media(max-width:860px){.wrap{grid-template-columns:1fr}}
+.panel{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:16px}
+.panel h2{font-size:.95rem;margin-bottom:12px}
+.mock{position:relative;overflow:hidden}
+.watermark{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;font-size:4rem;font-weight:800;color:rgba(13,148,136,.08);transform:rotate(-18deg)}
+table{width:100%;border-collapse:collapse;font-size:.82rem}
+th,td{border-bottom:1px solid var(--border);padding:8px 6px;text-align:left}
+th{color:var(--muted);font-weight:600;font-size:.75rem}
+.btn{padding:7px 12px;background:var(--green);color:#fff;border:none;border-radius:6px;font-size:.8rem;font-weight:600;cursor:pointer;margin-bottom:12px}
+.preview{height:140px;background:#0f172a;border-radius:8px;margin-bottom:12px;display:flex;align-items:center;justify-content:center;color:#5eead4;font-size:.85rem;border:2px dashed #334155}
+.crit{color:#b91c1c;font-weight:600}
+.side details{border-bottom:1px solid var(--border);padding:8px 0}
+.side summary{cursor:pointer;font-weight:600;font-size:.85rem}
+.side pre{font-size:.72rem;background:#0f172a;color:#e2e8f0;padding:10px;border-radius:6px;overflow:auto;margin-top:8px;white-space:pre-wrap}
+.chk label{display:flex;gap:8px;align-items:flex-start;font-size:.8rem;margin:8px 0;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="top">
+  <a href="../tinh-nang-demo.html">← Hub</a>
+  <h1>AI kiểm định mặt đường</h1>
+  <span class="badge">P1 online</span>
+  <span class="badge demo">DEMO</span>
+</div>
+<div class="wrap">
+  <div class="panel mock">
+    <div class="watermark">DEMO</div>
+    <h2>Mock — Detect (GPT-4o Vision)</h2>
+    <button class="btn" type="button">Upload ảnh tuần tra</button>
+    <div class="preview">Ảnh + bbox overlay (mock) · model: GPT-4o Vision</div>
+    <table>
+      <thead><tr><th>ID</th><th>Class</th><th>Mức</th><th></th></tr></thead>
+      <tbody>
+        <tr><td>DET-901</td><td>Ổ gà · 0.91</td><td class="crit">Critical</td><td><a href="#">Tạo Vấn đề</a></td></tr>
+        <tr><td>DET-902</td><td>Nứt mai rùa · 0.84</td><td>High</td><td><a href="#">Chi tiết</a></td></tr>
+        <tr><td>DET-903</td><td>Vá đường · 0.77</td><td>Medium</td><td><a href="#">Chi tiết</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div>
+    <div class="panel side">
+      <h2>Spec tóm tắt</h2>
+      <details open><summary>API</summary><pre>POST /api/v1/ai-vision/detect
+POST /ai-vision/batch
+GET /ai-vision/defects
+IDefectDiagnoser → GPT-4o (P1)
+YoloOnnx = P2</pre></details>
+      <details><summary>Database</summary><pre>ai_vision.detections
+ai_vision.pci_history
+MinIO images</pre></details>
+      <details open><summary>Chốt với khách</summary>
+        <div class="chk" id="chk">
+          <label><input type="checkbox" data-k="c1"> Flow ảnh → class rõ</label>
+          <label><input type="checkbox" data-k="c2"> Badge P1 online vs P2 local</label>
+          <label><input type="checkbox" data-k="c3"> Link tạo Vấn đề critical</label>
+          <label><input type="checkbox" data-k="c4"> Không hứa mAP YOLO trong P1</label>
+        </div>
+      </details>
+    </div>
+    <p style="font-size:.75rem;color:#94a3b8;margin-top:10px">Context: <a href="../../../docs/context/features/ai-vision.md">ai-vision.md</a></p>
+  </div>
+</div>
+<script>
+const KEY='tn-demo:ai-vision:signed';
+const box=document.getElementById('chk');
+try{const s=JSON.parse(localStorage.getItem(KEY)||'{}');box.querySelectorAll('input').forEach(i=>{i.checked=!!s[i.dataset.k]});}catch(e){}
+box.addEventListener('change',()=>{const o={};box.querySelectorAll('input').forEach(i=>o[i.dataset.k]=i.checked);localStorage.setItem(KEY,JSON.stringify(o));});
+</script>
+</body>
+</html>

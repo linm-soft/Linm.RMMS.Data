@@ -1,0 +1,64 @@
+# Lập lịch sửa chữa / bảo trì — Feature Context
+
+> **Slug:** `maintenance` · **Module:** `Maintenance` · **Phase:** P2 (API khung P1)  
+> **Status:** Draft → Context  
+> **Sources:** `RMMS` §7 · guide **Công việc** · `07` §7 · `09` · `15-SCREEN-AI-MAP.md`
+
+## 1. Tổng quan
+
+| | |
+|--|--|
+| Mục tiêu | Lệnh sửa chữa · phân công đội · tiến độ · nghiệm thu · nhật ký · hồ sơ · lịch sử BT |
+| Persona | Hạt trưởng · đội SC · Ban QLDA |
+| App hiện có | Mobile/Web **Công việc** — giữ UX |
+| DoD P1 | API map 1:1 Công việc (list · comment · status · tạo từ sự cố) |
+| DoD P2 | WO đầy đủ · SLA · nghiệm thu · link Estimate |
+
+## 2. Design / UI
+
+| Screen | Pattern | Zones | Ghi chú |
+|--------|---------|-------|---------|
+| List Công việc | Full (giữ) | Filter tuyến · status · grid | Mobile + Web |
+| Chi tiết + tiến độ | Full | Timeline · ảnh · bình luận | Guide |
+| Tạo CV từ sự cố | Modal / Full | Đơn vị · cán bộ · loại · hạn | Guide Web |
+| Nhật ký thi công | Full | P2 | |
+
+## 3. API
+
+| Method | Path | Mô tả |
+|--------|------|-------|
+| GET/POST | `/api/v1/work-orders` | List / create |
+| GET/PUT | `/api/v1/work-orders/{id}` | Detail / update |
+| POST | `/api/v1/work-orders/{id}/comments` | Trao đổi |
+| POST | `/api/v1/work-orders/{id}/progress` | Tiến độ + ảnh |
+| POST | `/api/v1/work-orders/{id}/complete` | Nghiệm thu P2 |
+
+## 4. Database
+
+| Entity | Key columns | Notes |
+|--------|-------------|-------|
+| WorkOrder | Id, Code, IncidentId?, RouteId, Status, DueAt, AssigneeId | |
+| WorkOrderProgress | WOId, At, Note, MediaUrl | |
+| WorkOrderComment | WOId, UserId, Body, At | |
+
+## 5. Events / tích hợp
+
+| Event | Publisher | Consumer |
+|-------|-----------|----------|
+| `workorder.created` | Maintenance | Notification |
+| `workorder.completed` | Maintenance | AssetHistory · Incident close |
+
+Consume `estimate.created` (P2).
+
+## 6. Gaps / quyết định
+
+| ID | Question | Default |
+|----|----------|---------|
+| GAP-F-MNT-01 | Đổi tên API `work-orders` vs giữ `jobs` legacy | `work-orders` + adapter legacy |
+| GAP-F-MNT-02 | Auto WO từ AI | Confirm user · P2 |
+
+## 7. Demo checklist (chốt khách)
+
+- [ ] List/status khớp Công việc
+- [ ] Tạo từ Sự cố
+- [ ] Badge «P2: nghiệm thu / SLA full»

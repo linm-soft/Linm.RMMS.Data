@@ -1,0 +1,402 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "layerCode": "tuyen-duong",
+        "code": "TD-QL22-000",
+        "name": "QL.22 · Km30+250 : Km46+600"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            106.403939,
+            11.017644
+          ],
+          [
+            106.396191,
+            11.02127
+          ],
+          [
+            106.387422,
+            11.025299
+          ],
+          [
+            106.378795,
+            11.027502
+          ],
+          [
+            106.370165,
+            11.030567
+          ],
+          [
+            106.362535,
+            11.03503
+          ],
+          [
+            106.356351,
+            11.042959
+          ],
+          [
+            106.349981,
+            11.048618
+          ],
+          [
+            106.20363,
+            11.02798
+          ],
+          [
+            106.20363,
+            11.03161
+          ],
+          [
+            106.325329,
+            11.058083
+          ],
+          [
+            106.316665,
+            11.061194
+          ],
+          [
+            106.308082,
+            11.064436
+          ],
+          [
+            106.299544,
+            11.067528
+          ],
+          [
+            106.290838,
+            11.070706
+          ],
+          [
+            106.282282,
+            11.073803
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "layerCode": "cot-km",
+        "code": "CKM-QL22-001",
+        "name": "Cột Km31",
+        "lyTrinh": "Km31+0",
+        "tenCotKm": "Km31",
+        "khoangCachToiCotTiepTheoM": 940,
+        "loaiVatLieu": "Bê tông cốt thép",
+        "roadCode": "QL.22"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.403939,
+          11.017644
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "layerCode": "cot-km",
+        "code": "CKM-QL22-002",
+        "name": "Cột Km32",
+        "lyTrinh": "Km32+0",
+        "tenCotKm": "Km32",
+        "khoangCachToiCotTiepTheoM": 1063,
+        "loaiVatLieu": "Bê tông cốt thép",
+        "roadCode": "QL.22"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.396191,
+          11.02127
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "layerCode": "cot-km",
+        "code": "CKM-QL22-003",
+        "name": "Cột Km33",
+        "lyTrinh": "Km33+0",
+        "tenCotKm": "Km33",
+        "khoangCachToiCotTiepTheoM": 982,
+        "loaiVatLieu": "Bê tông cốt thép",
+        "roadCode": "QL.22"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.387422,
+          11.025299
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "layerCode": "cot-km",
+        "code": "CKM-QL22-004",
+        "name": "Cột Km34",
+        "lyTrinh": "Km34+0",
+        "tenCotKm": "Km34",
+        "khoangCachToiCotTiepTheoM": 1008,
+        "loaiVatLieu": "Bê tông cốt thép",
+        "roadCode": "QL.22"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.378795,
+          11.027502
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "layerCode": "cot-km",
+        "code": "CKM-QL22-005",
+        "name": "Cột Km35",
+        "lyTrinh": "Km35+0",
+        "tenCotKm": "Km35",
+        "khoangCachToiCotTiepTheoM": 982,
+        "loaiVatLieu": "Bê tông cốt thép",
+        "roadCode": "QL.22"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.370165,
+          11.030567
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "layerCode": "cot-km",
+        "code": "CKM-QL22-006",
+        "name": "Cột Km36",
+        "lyTrinh": "Km36+0",
+        "tenCotKm": "Km36",
+        "khoangCachToiCotTiepTheoM": 1101,
+        "loaiVatLieu": "Bê tông cốt thép",
+        "roadCode": "QL.22"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.362535,
+          11.03503
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "layerCode": "cot-km",
+        "code": "CKM-QL22-007",
+        "name": "Cột Km37",
+        "lyTrinh": "Km37+0",
+        "tenCotKm": "Km37",
+        "khoangCachToiCotTiepTheoM": 1051,
+        "loaiVatLieu": "Bê tông cốt thép",
+        "roadCode": "QL.22"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.356351,
+          11.042959
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "layerCode": "cot-km",
+        "code": "CKM-QL22-008",
+        "name": "Cột Km38",
+        "lyTrinh": "Km38+0",
+        "tenCotKm": "Km38",
+        "khoangCachToiCotTiepTheoM": 1338,
+        "loaiVatLieu": "Bê tông cốt thép",
+        "roadCode": "QL.22"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.349981,
+          11.048618
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "layerCode": "cot-km",
+        "code": "CKM-QL22-009",
+        "name": "Cột Km39",
+        "lyTrinh": "Km39+0",
+        "tenCotKm": "Km39",
+        "khoangCachToiCotTiepTheoM": 997,
+        "loaiVatLieu": "Bê tông cốt thép",
+        "roadCode": "QL.22"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.20363,
+          11.02798
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "layerCode": "cot-km",
+        "code": "CKM-QL22-010",
+        "name": "Cột Km40",
+        "lyTrinh": "Km40+0",
+        "tenCotKm": "Km40",
+        "khoangCachToiCotTiepTheoM": 985,
+        "loaiVatLieu": "Bê tông cốt thép",
+        "roadCode": "QL.22"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.20363,
+          11.03161
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "layerCode": "cot-km",
+        "code": "CKM-QL22-011",
+        "name": "Cột Km41",
+        "lyTrinh": "Km41+0",
+        "tenCotKm": "Km41",
+        "khoangCachToiCotTiepTheoM": 991,
+        "loaiVatLieu": "Bê tông cốt thép",
+        "roadCode": "QL.22"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.325329,
+          11.058083
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "layerCode": "cot-km",
+        "code": "CKM-QL22-012",
+        "name": "Cột Km42",
+        "lyTrinh": "Km42+0",
+        "tenCotKm": "Km42",
+        "khoangCachToiCotTiepTheoM": 994,
+        "loaiVatLieu": "Bê tông cốt thép",
+        "roadCode": "QL.22"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.316665,
+          11.061194
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "layerCode": "cot-km",
+        "code": "CKM-QL22-013",
+        "name": "Cột Km43",
+        "lyTrinh": "Km43+0",
+        "tenCotKm": "Km43",
+        "khoangCachToiCotTiepTheoM": 989,
+        "loaiVatLieu": "Bê tông cốt thép",
+        "roadCode": "QL.22"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.308082,
+          11.064436
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "layerCode": "cot-km",
+        "code": "CKM-QL22-014",
+        "name": "Cột Km44",
+        "lyTrinh": "Km44+0",
+        "tenCotKm": "Km44",
+        "khoangCachToiCotTiepTheoM": 1012,
+        "loaiVatLieu": "Bê tông cốt thép",
+        "roadCode": "QL.22"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.299544,
+          11.067528
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "layerCode": "cot-km",
+        "code": "CKM-QL22-015",
+        "name": "Cột Km45",
+        "lyTrinh": "Km45+0",
+        "tenCotKm": "Km45",
+        "khoangCachToiCotTiepTheoM": 995,
+        "loaiVatLieu": "Bê tông cốt thép",
+        "roadCode": "QL.22"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.290838,
+          11.070706
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "layerCode": "cot-km",
+        "code": "CKM-QL22-016",
+        "name": "Cột Km46",
+        "lyTrinh": "Km46+0",
+        "tenCotKm": "Km46",
+        "khoangCachToiCotTiepTheoM": 968,
+        "loaiVatLieu": "Bê tông cốt thép",
+        "roadCode": "QL.22"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.282282,
+          11.073803
+        ]
+      }
+    }
+  ]
+}

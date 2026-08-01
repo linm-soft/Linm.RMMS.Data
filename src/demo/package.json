@@ -1,0 +1,14 @@
+{
+  "name": "ai-qlbd-demo",
+  "private": true,
+  "version": "1.0.0",
+  "description": "RMMS standalone demos (std mode) — forms + map + feature HTML",
+  "scripts": {
+    "start": "npm run start:std",
+    "start:std": "npx --yes serve . -p 5180 --no-clipboard",
+    "start:std:python": "python -m http.server 5180"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

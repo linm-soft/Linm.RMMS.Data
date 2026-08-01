@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phân loại mặt đường — ERP Form Demo</title>
+<style>
+:root{
+  --bg:#f1f5f9;--card:#fff;--border:#e2e8f0;--txt:#0f172a;--muted:#64748b;
+  --primary:#0f766e;--primary2:#0d9488;--danger:#b91c1c;--hdr:#0f172a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--txt);min-height:100vh}
+.topnav{display:flex;gap:12px;align-items:center;padding:10px 16px;background:var(--hdr);color:#fff}
+.topnav a{color:#99f6e4;text-decoration:none;font-size:.8rem}
+.topnav .ttl{font-weight:700;font-size:.95rem;flex:1}
+.badge{font-size:.65rem;background:#fef3c7;color:#92400e;padding:2px 8px;border-radius:999px;font-weight:800}
+.page{max-width:1200px;margin:0 auto;padding:16px}
+/* List shell */
+.shell{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.head{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--border)}
+.head h1{font-size:1.15rem;font-weight:700}
+.head .help{font-size:.78rem;color:var(--muted)}
+.toolbar{display:flex;gap:8px;padding:10px 16px;border-bottom:1px solid var(--border);flex-wrap:wrap;background:#f8fafc}
+.toolbar button,.btn{padding:7px 12px;border-radius:6px;border:1px solid var(--border);background:#fff;font-size:.8rem;font-weight:600;cursor:pointer}
+.btn-primary{background:var(--primary);color:#fff;border-color:var(--primary)}
+.btn-ghost{background:#fff}
+.btn-danger{color:var(--danger);border-color:#fecaca}
+.filter{display:flex;gap:8px;padding:12px 16px;border-bottom:1px solid var(--border);flex-wrap:wrap;align-items:flex-end}
+.filter label{display:flex;flex-direction:column;gap:4px;font-size:.7rem;color:var(--muted)}
+.filter input,.filter select, .form input,.form select,.form textarea{
+  padding:7px 10px;border:1px solid var(--border);border-radius:6px;font-size:.82rem;min-width:120px;font-family:inherit
+}
+.grid-wrap{overflow:auto}
+table{width:100%;border-collapse:collapse;font-size:.8rem}
+th,td{padding:8px 10px;border-bottom:1px solid var(--border);text-align:left;white-space:nowrap}
+th{background:#f8fafc;color:var(--muted);font-weight:600;font-size:.72rem;position:sticky;top:0}
+tr:hover td{background:#f0fdfa}
+.pager{display:flex;justify-content:space-between;align-items:center;padding:10px 16px;font-size:.78rem;color:var(--muted)}
+/* Form */
+.form-page{display:none}
+.form-page.on{display:block}
+.list-page.hide{display:none}
+.form-shell{background:var(--card);border:1px solid var(--border);border-radius:10px}
+.form-toolbar{display:flex;gap:8px;padding:10px 16px;border-bottom:1px solid var(--border);background:#f8fafc;flex-wrap:wrap}
+.sections{padding:16px;display:grid;gap:16px}
+.section{border:1px solid var(--border);border-radius:8px;padding:14px}
+.section h2{font-size:.85rem;margin-bottom:12px;color:var(--primary)}
+.fields{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.field{display:flex;flex-direction:column;gap:4px}
+.field label{font-size:.72rem;color:var(--muted)}
+.field.full{grid-column:1/-1}
+.field .err{font-size:.7rem;color:var(--danger);display:none}
+.field.invalid input,.field.invalid select{border-color:var(--danger)}
+.field.invalid .err{display:block}
+.view .section{pointer-events:none;opacity:.92}
+.banner{display:none;margin:12px 16px 0;padding:10px 12px;background:#fef2f2;border:1px solid #fecaca;border-radius:8px;color:#991b1b;font-size:.82rem}
+.banner.on{display:block}
+.payload{margin:12px 16px 16px;padding:10px;background:#0f172a;color:#e2e8f0;border-radius:8px;font-size:.72rem;overflow:auto;max-height:160px;display:none}
+.payload.on{display:block}
+.link-map{font-size:.8rem;margin-left:auto}
+</style>
+</head>
+<body>
+<div class="topnav">
+  <a href="../index.html">← Hub</a>
+  <a href="gis-draw-live.html">Bản đồ live</a>
+  <span class="ttl">Phân loại mặt đường (Biểu 1)</span>
+  <span class="badge">Kind B · ERP form demo</span>
+</div>
+
+<div class="page">
+  <!-- LIST -->
+  <div class="list-page" id="listPage">
+    <div class="shell">
+      <div class="head">
+        <div>
+          <h1>Phân loại mặt đường</h1>
+          <div class="help">Biểu mẫu số 1 · CSDL BDTX · context <code>pavement-section.md</code></div>
+        </div>
+        <a class="link-map" href="gis-draw-live.html">Vẽ trên bản đồ live →</a>
+      </div>
+      <div class="toolbar">
+        <button type="button" class="btn-primary" id="btnCreate">+ Tạo mới</button>
+        <button type="button" class="btn-ghost" id="btnImport">Import</button>
+        <button type="button" class="btn-ghost" id="btnExport">Export</button>
+        <button type="button" class="btn-ghost" id="btnRefresh">Làm mới</button>
+      </div>
+      <div class="filter">
+        <label>Tìm<input id="fSearch" placeholder="Mã / đường"></label>
+        <label>Tỉnh
+          <select id="fProvince"><option value="">Tất cả</option><option>Lạng Sơn</option><option>Nghệ An</option><option>Hà Nội</option></select>
+        </label>
+        <label>Tình trạng
+          <select id="fStatus"><option value="">Tất cả</option><option>Tốt</option><option>Đang TC</option><option>Theo dõi</option></select>
+        </label>
+        <label>Từ Km<input id="fKmFrom" type="number" step="0.001"></label>
+        <label>Đến Km<input id="fKmTo" type="number" step="0.001"></label>
+        <button type="button" class="btn-primary" id="btnSearch">Tìm</button>
+      </div>
+      <div class="grid-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>STT</th><th>Mã</th><th>Tên đường</th><th>Tỉnh</th><th>Từ Km</th><th>Đến Km</th>
+              <th>Kết cấu</th><th>Cấp</th><th>Tình trạng</th><th>ĐV quản lý</th><th></th>
+            </tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+      <div class="pager"><span id="pagerInfo">0 bản ghi</span><span>Demo · localStorage</span></div>
+    </div>
+  </div>
+
+  <!-- FORM -->
+  <div class="form-page" id="formPage">
+    <div class="form-shell" id="formShell">
+      <div class="form-toolbar">
+        <button type="button" class="btn-ghost" id="btnBack">← Danh sách</button>
+        <strong id="formTitle">Tạo mới</strong>
+        <span style="flex:1"></span>
+        <button type="button" class="btn-primary" id="btnSave">Lưu</button>
+        <button type="button" class="btn-ghost" id="btnCancel">Huỷ</button>
+        <button type="button" class="btn-danger" id="btnDelete" hidden>Xóa</button>
+      </div>
+      <div class="banner" id="banner">Vui lòng nhập đủ các trường bắt buộc (đánh dấu *).</div>
+      <form class="sections form" id="form" onsubmit="return false">
+        <div class="section">
+          <h2>Thông tin đoạn đường</h2>
+          <div class="fields">
+            <div class="field" data-req="code"><label>Mã (IdCode) *</label><input name="code" id="code" readonly placeholder="MD-YYYYMMDD-NNNN"><span class="err">Bắt buộc</span></div>
+            <div class="field" data-req="roadName"><label>Tên đường *</label><input name="roadName" placeholder="QL.1"><span class="err">Bắt buộc</span></div>
+            <div class="field" data-req="provinceName"><label>Tỉnh / địa phương *</label>
+              <select name="provinceName"><option value="">— Chọn —</option><option>Lạng Sơn</option><option>Nghệ An</option><option>Hà Nội</option></select><span class="err">Bắt buộc</span>
+            </div>
+            <div class="field" data-req="kmFrom"><label>Từ Km *</label><input name="kmFrom" type="number" step="0.001"><span class="err">Bắt buộc</span></div>
+            <div class="field" data-req="kmTo"><label>Đến Km *</label><input name="kmTo" type="number" step="0.001"><span class="err">Bắt buộc</span></div>
+            <div class="field"><label>Chiều dài (Km)</label><input name="lengthKm" type="number" step="0.001"></div>
+          </div>
+        </div>
+        <div class="section">
+          <h2>Kết cấu mặt đường</h2>
+          <div class="fields">
+            <div class="field"><label>B nền (m)</label><input name="baseWidthM" type="number" step="0.01"></div>
+            <div class="field"><label>B mặt (m)</label><input name="surfaceWidthM" type="number" step="0.01"></div>
+            <div class="field" data-req="structureType"><label>Loại kết cấu *</label>
+              <select name="structureType"><option value="">—</option><option>BTN</option><option>BTXM</option><option>Cấp phối</option><option>Khác</option></select><span class="err">Bắt buộc</span>
+            </div>
+            <div class="field"><label>Dày mặt (cm)</label><input name="surfaceThicknessCm" type="number"></div>
+            <div class="field"><label>Cấp đường</label>
+              <select name="roadClass"><option value="">—</option><option>I</option><option>II</option><option>III</option><option>IV</option></select>
+            </div>
+          </div>
+        </div>
+        <div class="section">
+          <h2>Khai thác</h2>
+          <div class="fields">
+            <div class="field"><label>Số năm khai thác</label><input name="yearsInService"></div>
+            <div class="field"><label><input type="checkbox" name="handoverMaintenance"> Bàn giao bảo trì</label></div>
+            <div class="field"><label><input type="checkbox" name="handoverConstruction"> Bàn giao XDCB</label></div>
+            <div class="field"><label>Năm đại tu gần nhất</label><input name="lastMajorRehabYear" type="number"></div>
+            <div class="field"><label>Năm SC mặt đường</label><input name="lastSurfaceRepairYear" type="number"></div>
+            <div class="field" data-req="status"><label>Tình trạng *</label>
+              <select name="status"><option value="">—</option><option>Tốt</option><option>Đang TC</option><option>Theo dõi</option><option>Hư hỏng</option></select><span class="err">Bắt buộc</span>
+            </div>
+          </div>
+        </div>
+        <div class="section">
+          <h2>Đơn vị · ghi chú</h2>
+          <div class="fields">
+            <div class="field"><label>Đơn vị thi công</label><input name="constructionUnit"></div>
+            <div class="field" data-req="manageUnit"><label>Đơn vị quản lý *</label><input name="manageUnit" placeholder="Khu QLĐB …"><span class="err">Bắt buộc</span></div>
+            <div class="field"><label>Chủ quản lý sử dụng</label><input name="ownerUnit"></div>
+            <div class="field full"><label>Ghi chú</label><textarea name="notes" rows="2"></textarea></div>
+            <div class="field"><label>Ngày cập nhật</label><input name="updatedAt" readonly></div>
+            <div class="field"><label>Người cập nhật</label><input name="updatedBy" readonly></div>
+          </div>
+        </div>
+      </form>
+      <pre class="payload" id="payload"></pre>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="../js/pavement-section-app.js"></script>
+
+</body>
+</html>

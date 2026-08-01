@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RMMS — Bản đồ live (vẽ thử) · Leaflet</title>
+<link rel="stylesheet" href="../vendor/leaflet/leaflet.css">
+<link rel="stylesheet" href="../vendor/leaflet-draw/leaflet.draw.css">
+<style>
+:root{--navy:#1e3a5f;--accent:#2563eb;--green:#0d9488;--border:#c5d0dc;--muted:#64748b}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;font-family:system-ui,sans-serif;color:#0f172a}
+.app{display:flex;flex-direction:column;height:100%}
+.hdr{display:flex;align-items:center;gap:10px;padding:0 12px;height:48px;background:linear-gradient(90deg,#1e3a5f,#0d9488);color:#fff;flex-shrink:0}
+.hdr a{color:#ccfbf1;text-decoration:none;font-size:.8rem}
+.hdr h1{font-size:.95rem;font-weight:700;flex:1}
+.tag{background:#fef3c7;color:#92400e;font-size:.65rem;font-weight:800;padding:3px 8px;border-radius:999px}
+.body{display:flex;flex:1;min-height:0}
+.side{width:300px;background:#fff;border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;overflow:auto}
+.side h3{font-size:.75rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);padding:12px 12px 6px}
+.side .box{padding:0 12px 12px}
+.radio,.check{display:flex;gap:8px;align-items:center;font-size:.82rem;padding:4px 0;cursor:pointer}
+.tree{border:1px solid var(--border);border-radius:6px;padding:6px 8px;max-height:280px;overflow:auto;background:#f8fafc}
+.main{flex:1;display:flex;flex-direction:column;min-width:0}
+#map{flex:1;min-height:320px;background:#94a3b8}
+.bar{display:flex;gap:8px;align-items:center;padding:8px 12px;background:#fff;border-bottom:1px solid var(--border);flex-wrap:wrap;font-size:.8rem}
+.bar button{padding:6px 10px;border:1px solid var(--border);border-radius:6px;background:#f1f5f9;cursor:pointer;font-size:.78rem;font-weight:600}
+.bar button.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.bar button.danger{color:#b91c1c}
+.bar .hint{color:var(--muted);margin-left:auto}
+.props{border-top:1px solid var(--border);padding:12px;background:#f8fafc}
+.props label{display:block;font-size:.72rem;color:var(--muted);margin:6px 0 3px}
+.props input, .props select, .props textarea{width:100%;padding:7px 8px;border:1px solid var(--border);border-radius:6px;font-size:.82rem}
+.props textarea{min-height:48px}
+.btn-row{display:flex;gap:8px;margin-top:10px}
+.msg{font-size:.75rem;color:var(--green);margin-top:8px;min-height:1.2em}
+.list{font-size:.78rem;padding:8px 12px;border-top:1px solid var(--border)}
+.list li{margin:4px 0;color:var(--muted)}
+.note{font-size:.72rem;color:var(--muted);padding:8px 12px;line-height:1.4;border-top:1px solid var(--border);background:#fffbeb}
+.legend{padding:0 12px 12px}
+.legend-row{display:flex;align-items:center;gap:10px;min-height:28px;margin:4px 0;font-family:Arial,sans-serif;font-size:.85rem}
+.legend-sym{width:30px;height:20px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.legend-sym img{max-width:30px;max-height:20px}
+.legend-label{font-weight:600}
+.rmms-icon-cot-km,.rmms-icon-bien-bao{filter:drop-shadow(0 1px 2px rgba(0,0,0,.35))}
+@media(max-width:860px){.side{width:240px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="hdr">
+    <a href="../index.html">← Hub</a>
+    <a href="gis-draw-google-demo.html">Mock screenshot</a>
+    <h1>Bản đồ live — vẽ Point / Line / Polygon</h1>
+    <span class="tag">Leaflet + OSM · DEMO</span>
+  </header>
+  <div class="body">
+    <aside class="side">
+      <h3>Lớp nền</h3>
+      <div class="box">
+        <label class="radio"><input type="radio" name="bm" value="osm" checked> OpenStreetMap</label>
+        <label class="radio"><input type="radio" name="bm" value="topo"> OpenTopoMap</label>
+        <label class="radio"><input type="radio" name="bm" value="sat"> Esri World Imagery</label>
+      </div>
+      <h3>Loại tài sản (target vẽ)</h3>
+      <div class="box">
+        <div class="tree" id="layers"></div>
+      </div>
+      <h3>Chú giải (legend)</h3>
+      <div class="box legend" id="layerLegend"></div>
+      <h3>Thuộc tính draft</h3>
+      <div class="box props" id="propBox">
+        <label>Loại</label>
+        <input id="fLayer" readonly>
+        <label>Hình học (GeoJSON)</label>
+        <textarea id="fGeom" readonly placeholder="Vẽ trên map…"></textarea>
+        <label>Mã *</label>
+        <input id="fCode" placeholder="TD-NA-001">
+        <label>Tên *</label>
+        <input id="fName" placeholder="Tên đối tượng">
+        <div class="btn-row">
+          <button type="button" class="primary" id="btnSave" style="flex:1;padding:8px;border:none;border-radius:6px;background:var(--accent);color:#fff;font-weight:600;cursor:pointer">Lưu local</button>
+          <button type="button" id="btnClear" style="padding:8px 10px;border:1px solid var(--border);border-radius:6px;cursor:pointer">Huỷ</button>
+        </div>
+        <div class="msg" id="msg"></div>
+      </div>
+      <div class="list">
+        <strong style="font-size:.75rem">Đã lưu (session)</strong>
+        <ul id="saved"></ul>
+      </div>
+      <p class="note">Data mẫu từ Excel <code>docs/Cot_km20210421185413.xlsx</code> (16 cột KM · QL.22). Tile OSM cần mạng. Nút <strong>Nạp seed Excel</strong> nếu localStorage cũ (Nghệ An) còn sót. Production: Google Maps JS + <code>POST /api/v1/gis/drawings</code>.</p>
+    </aside>
+    <div class="main">
+      <div class="bar">
+        <button type="button" id="btnLocate">📍 Về QL.22 · Km31–46</button>
+        <button type="button" id="btnReloadSeed">↻ Nạp seed Excel</button>
+        <button type="button" id="btnExport">Export GeoJSON</button>
+        <button type="button" class="danger" id="btnWipe">Xoá hết layer</button>
+        <span class="hint">Seed: <span id="seedSource">…</span></span>
+      </div>
+      <div id="map"></div>
+    </div>
+  </div>
+</div>
+
+<script src="../vendor/leaflet/leaflet.js"></script>
+<script src="../vendor/leaflet-draw/leaflet.draw.js"></script>
+<script type="module" src="../js/gis-draw-live-app.js"></script>
+
+</body>
+</html>
