@@ -7,8 +7,8 @@
 | Tiện ích | nav | toolbar | — | — |
 | Xóa điều kiện | destructive | grid | — | — |
 | Lấy dữ liệu | nav | grid | — | — |
-| + | create | grid | — | — |
-| − | action | grid | — | — |
+| + | action | grid | — | zoomIn · ≠ Create (vision 007/009/011) |
+| − | action | grid | — | zoomOut |
 | ⇧ | action | grid | — | — |
 | Vị trí của tôi | action | grid | — | — |
 | Lớp nền | action | grid | — | — |

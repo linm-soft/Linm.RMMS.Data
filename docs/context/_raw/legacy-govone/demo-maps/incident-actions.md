@@ -19,8 +19,8 @@
 | Hành chính | nav | content | — | — |
 | Không nền | nav | content | — | — |
 | Bản đồ nền | nav | content | — | — |
-| + | create | content | — | — |
-| − | nav | content | — | — |
+| + | action | content | — | zoomIn · ≠ Create (vision 007/009/011) |
+| − | action | content | — | zoomOut |
 | Hủy | destructive | content | — | — |
 | Áp dụng | action | content | — | — |
 | Hồ sơ của tôi | nav | grid | — | — |
@@ -44,10 +44,10 @@
 | Báo cáo sở | nav | toolbar | — | — |
 | Ghi lại | submit | toolbar | — | — |
 | Đóng | close | toolbar | — | — |
-| Tải lại | nav | toolbar | — | — |
+| Tải lại | action | toolbar | — | reload list+map · ≠ navigate (vision 008/010/011) |
 | Giao việc | nav | toolbar | — | — |
 | Tổng hợp loại CV | nav | toolbar | — | — |
 | Tổng hợp theo HD | nav | toolbar | — | — |
-| Xuất excel | export | toolbar | — | — |
+| Xuất excel | export | toolbar | — | modal export Excel (vision 008/009) |
 
 Count: 47

@@ -45,7 +45,7 @@ function mapFieldToLinControl(f) {
   if (/công tác tuần kiểm|cong tac tuan kiem|paneltuankiemheader/.test(hay)) {
     return {
       control: "Collapsible panel header",
-      lin: "Collapsible panel · loading/empty · erp-report-context",
+      lin: "Collapsible panel · route list · check-in status · erp-report-context",
     };
   }
   // Panel tuần đường — trước KPI heuristic («tuần đường» trong tên panel)
@@ -61,6 +61,73 @@ function mapFieldToLinControl(f) {
       lin: "Count badge trên node QL · erp-report-context · patrol",
     };
   }
+  // Patrol export modal / filters (vision 008/009/011)
+  if (/loainhanvien|loại nv|loai nv/.test(hay)) {
+    return {
+      control: "Select / Combo",
+      lin: "SelectField · Loại NV · export modal filter (vision 008/009)",
+    };
+  }
+  if (/doanduong|đoạn đường|doan duong|chọn đoạn đường/.test(hay)) {
+    return {
+      control: "Select / Combo",
+      lin: "SelectField · filter Đoạn đường · patrol list+map (vision 004/005/010/011)",
+    };
+  }
+  if (/treepickerex|chọn công ty\/nhân viên|cong ty\/nhan vien/.test(hay)) {
+    return {
+      control: "TreePicker / Lookup",
+      lin: "TreePicker · filter Công ty/Nhân viên · patrol list+map (vision 004/005/010/011)",
+    };
+  }
+  // Patrol monitor list+map (vision 004/005) — trước GIS/KPI heuristics
+  if (/danh sách nhân viên|danh sach nhan vien|listnhanvien/.test(hay)) {
+    return {
+      control: "DataGrid / List",
+      lin: "DataGrid · staff/location list · erp-form-context list shell · patrol monitor (vision 004/005)",
+    };
+  }
+  if (/chưa checkin|chua checkin|badgechuacheckin/.test(hay)) {
+    return {
+      control: "Metric / badge count",
+      lin: "Count badge · Chưa checkin · patrol monitor KPI nhẹ (vision 004/005)",
+    };
+  }
+  if (/^tổng số$|^tong so$|statustongso/.test(hay)) {
+    return {
+      control: "Count status",
+      lin: "Footer count · Tổng số · patrol list (vision 004/005)",
+    };
+  }
+  if (/không có bản ghi|khong co ban ghi|emptylistpatrol/.test(hay)) {
+    return {
+      control: "Status / empty",
+      lin: "EmptyState · Không có bản ghi nào · patrol list (vision 004/005)",
+    };
+  }
+  if (
+    /basemapswitcher|basemapsatellite|basemapgoogle|basemaptraffic|basemapadmin|basemapnone/.test(hay) ||
+    /^(bản đồ nền|ban do nen|vệ tinh|ve tinh|giao thông|giao thong|hành chính|hanh chinh|không nền|khong nen|google)$/.test(
+      `${f.name || ""}`.trim().toLowerCase(),
+    )
+  ) {
+    return {
+      control: "Basemap switcher",
+      lin: "Map basemap switcher · GIS chrome · patrol map pane (vision 004/005/025)",
+    };
+  }
+  if (/checkall|chọn tất cả|chon tat ca/.test(hay)) {
+    return {
+      control: "Checkbox / Switch",
+      lin: "LinCheckbox · Chọn tất cả org tree · export modal (vision 008/009)",
+    };
+  }
+  if (/xuất người không checkin|xuat nguoi khong checkin|checkbox-1064|checkbox-1065/.test(hay)) {
+    return {
+      control: "Checkbox / Switch",
+      lin: "LinCheckbox · Xuất người không checkin · includeNonCheckin · export modal (vision 008/009)",
+    };
+  }
   if (type === "checkbox" || /checkbox|check all|chọn tất cả|active|is_/.test(hay)) {
     return { control: "Checkbox / Switch", lin: "LinCheckbox · form field" };
   }
@@ -70,17 +137,17 @@ function mapFieldToLinControl(f) {
       lin: "utcToLocalInputValue · localInputToISOWithOffset (form-datetime-local-utc) · report period filter",
     };
   }
-  // Dashboard drill modal (vision 015 TNGT · 016 miscapture chrome)
-  if (/tiêu đề modal|tieu de modal|modaltngttitle|modalmiscapturetitle/.test(hay)) {
+  // Dashboard drill modal (vision 015 TNGT · 016 · 020/023 Chấm công miscapture chrome)
+  if (/tiêu đề modal|tieu de modal|modaltngttitle|modalmiscapturetitle|chấm công|cham cong/.test(hay)) {
     return {
       control: "DialogTitle",
-      lin: "Modal/Slideout title · erp-report-context · leave-confirm",
+      lin: "Modal title miscapture · Chấm công (vision 020/023) · TNGT (016) · erp-report-context · leave-confirm",
     };
   }
   if (/empty state modal|modalmiscaptureempty|modal.?body/.test(hay)) {
     return {
       control: "Status / empty",
-      lin: "EmptyState · Modal body · erp-report-context",
+      lin: "EmptyState · Modal body blank (vision 020/023) · erp-report-context",
     };
   }
   // Tree / route rows trước KPI (tên field có «tuần kiểm» nhưng không phải KPI card)
@@ -182,6 +249,49 @@ function mapFieldToLinControl(f) {
 function mapActionToLinToolbar(a) {
   const label = (a.label || "").trim();
   const hay = label.toLowerCase();
+  const href = String(a.href || a.id || "");
+  // Map zoom chrome — capture kind=create/nav sai (vision 007/009/011 form-sample `› +`)
+  if (
+    /^[＋+]$/.test(label) ||
+    /#zoomin/i.test(href) ||
+    /^zoomin$/i.test(href)
+  ) {
+    return {
+      btn: "Zoom +",
+      lin: "MapPane zoomIn (`#zoomIn`) · GIS chrome · ≠ Create catalog (vision 007/009/011 form-sample miscapture)",
+      kind: "action",
+      note: "zoomIn · ≠ Create (vision 007/009/011)",
+    };
+  }
+  if (
+    /^[−–—-]$/.test(label) ||
+    /#zoomout/i.test(href) ||
+    /^zoomout$/i.test(href)
+  ) {
+    return {
+      btn: "Zoom −",
+      lin: "MapPane zoomOut (`#zoomOut`) · GIS chrome",
+      kind: "action",
+      note: "zoomOut",
+    };
+  }
+  // Patrol monitor toolbar — capture kind=nav sai (vision 008/010/011 Tải lại)
+  if (/^tải lại$|^tai lai$/.test(hay)) {
+    return {
+      btn: "Tải lại",
+      lin: "Reload / refetch list+map theo filter hiện tại · loading + toast «Đã tải lại» · ≠ navigate (vision 008/010/011)",
+      kind: "action",
+      note: "reload list+map · ≠ navigate (vision 008/010/011)",
+    };
+  }
+  if (/^xuất excel$|^xuat excel$/.test(hay)) {
+    return {
+      btn: "Xuất Excel",
+      lin: "export-excel · toolbar → mở Modal «Xuất dữ liệu Excel» (vision 008/009: from/to · org tree · includeNonCheckin · confirm)",
+      kind: "export",
+      note: "modal export Excel (vision 008/009)",
+    };
+  }
   // GIS tool overrides — capture kind heuristic hay sai (vd. «Lấy thông tin vị trí» = export)
   if (/đo diện tích|do dien tich/.test(hay)) {
     return {
@@ -223,6 +333,127 @@ function mapActionToLinToolbar(a) {
     return {
       btn: "Tool Gộp đoạn đường multiline",
       lin: "GIS toolbar · `btGopDoanDuong` · multi-select ≥2 route polylines · merge geometry · Lưu/Hủy biên tập",
+    };
+  }
+  if (/tạo đoạn đánh giá 100m|tao doan danh gia 100m|đoạn đánh giá 100m|doan danh gia 100m/.test(hay)) {
+    return {
+      btn: "Tool Tạo đoạn đánh giá 100m",
+      lin: "GIS toolbar · `btTaoDoan100m` · select route polyline · generate 100m evaluation segments · Lưu/Hủy biên tập",
+    };
+  }
+  if (/gán mã đoạn đánh giá|gan ma doan danh gia/.test(hay)) {
+    return {
+      btn: "Tool Gán mã đoạn đánh giá",
+      lin: "GIS toolbar · `btGanMaDoanDanhGia` · select collection point · assign evaluation segment code · Lưu/Hủy biên tập",
+    };
+  }
+  if (/tự động đánh giá chất lượng mặt đường|tu dong danh gia chat luong mat duong|tính toán clmd|tinh toan clmd/.test(hay)) {
+    return {
+      btn: "Tool Tự động đánh giá CL mặt đường",
+      lin: "GIS toolbar · `btTinhToanCLMD` · select evaluation segments · run CLMD/PCI compute · Lưu/Hủy biên tập",
+    };
+  }
+  if (/^danh sách thiết bị$|^danh sach thiet bi$/.test(hay)) {
+    return {
+      btn: "Tool Danh sách thiết bị",
+      lin: "GIS toolbar · `toolThietBi` · open device/asset list by layer/scope · row→map highlight + Thuộc tính (≠ inventory kho)",
+    };
+  }
+  if (/^sao chép thiết bị$|^sao chep thiet bi$/.test(hay)) {
+    return {
+      btn: "Tool Sao chép thiết bị",
+      lin: "GIS toolbar · `toolSaoChepThietBi` · select source device · copy geometry/attributes · place copy · Lưu/Hủy biên tập (≠ Sao chép tài sản · ≠ inventory kho)",
+    };
+  }
+  // Patrol monitor sidebar (vision 004/005) — trước GIS «Tổng hợp» tool heuristic
+  if (/giám sát nhân viên|giam sat nhan vien/.test(hay)) {
+    return {
+      btn: "Nav Giám sát nhân viên",
+      lin: "MemoryRouter / sidebar · patrol monitor module · erp-form-context (vision 004/005)",
+      kind: "nav",
+    };
+  }
+  if (/giám sát tuyến đường|giam sat tuyen duong/.test(hay)) {
+    return {
+      btn: "Nav Giám sát tuyến đường",
+      lin: "MemoryRouter / sidebar · patrol route monitor · erp-form-context (vision 004/005)",
+      kind: "nav",
+    };
+  }
+  if (/lịch sử checkin|lich su checkin/.test(hay)) {
+    return {
+      btn: "Nav Lịch sử checkin",
+      lin: "MemoryRouter / sidebar · check-in history · erp-form-context (vision 004/005)",
+      kind: "nav",
+    };
+  }
+  if (/^tổng hợp 2$|^tong hop 2$/.test(hay)) {
+    return {
+      btn: "Nav Tổng hợp",
+      lin: "MemoryRouter / sidebar · patrol summary · erp-report-context (vision 004/005) · ≠ GIS toolTongHopThietBi",
+      kind: "nav",
+    };
+  }
+  if (/thu\/mở panel|thu\/mo panel|splitter/.test(hay)) {
+    return {
+      btn: "Splitter list↔map",
+      lin: "SplitPane collapse/expand list · maximize map · patrol monitor (vision 004/005)",
+      kind: "action",
+    };
+  }
+  if (/^tổng hợp$|^tong hop$/.test(hay)) {
+    return {
+      btn: "Tool Tổng hợp",
+      lin: "GIS toolbar · `toolTongHopThietBi` · aggregate devices by layer/scope · Kết quả / Biểu đồ · drill-down map (≠ list `toolThietBi` · ≠ copy · ≠ reports Web tổng hợp)",
+    };
+  }
+  if (/hủy biên tập|huy bien tap/.test(hay)) {
+    return {
+      btn: "Tool Hủy biên tập",
+      lin: "GIS toolbar · `resetEditing` · discard unsaved edit session · Confirm modal · pair `saveEditing` (≠ Hủy bỏ dialog · ≠ delete object)",
+    };
+  }
+  if (/lưu kết quả|luu ket qua|saveediting|ctrl\s*\+\s*s/.test(hay)) {
+    return {
+      btn: "Tool Lưu kết quả (Ctrl+S)",
+      lin: "GIS toolbar · `saveEditing` · Ctrl+S · commit unsaved edit session · toast · form-api-error-handling · pair `resetEditing` (≠ FormActions Lưu catalog · ≠ export/print)",
+    };
+  }
+  // GIS basemap radios / shortcut — capture kind=nav → MemoryRouter sai (vision 025 Vệ tinh)
+  if (/^vệ tinh$|^ve tinh$/.test(hay)) {
+    return {
+      btn: "Basemap Vệ tinh",
+      lin: "Map basemap switcher · `basemap=satellite` · GIS sidebar Lớp nền (≠ route navigate · ≠ overlay checkbox)",
+    };
+  }
+  if (/^google$/.test(hay)) {
+    return {
+      btn: "Basemap Google",
+      lin: "Map basemap switcher · `basemap=google` · GIS sidebar Lớp nền (default parity)",
+    };
+  }
+  if (/^giao thông$|^giao thong$/.test(hay)) {
+    return {
+      btn: "Basemap Giao thông",
+      lin: "Map basemap switcher · `basemap=traffic` · GIS sidebar Lớp nền",
+    };
+  }
+  if (/^hành chính$|^hanh chinh$/.test(hay)) {
+    return {
+      btn: "Basemap Hành chính",
+      lin: "Map basemap switcher · `basemap=admin` · GIS sidebar Lớp nền",
+    };
+  }
+  if (/^không nền$|^khong nen$/.test(hay)) {
+    return {
+      btn: "Basemap Không nền",
+      lin: "Map basemap switcher · `basemap=none` · GIS sidebar Lớp nền",
+    };
+  }
+  if (/^bản đồ nền$|^ban do nen$/.test(hay)) {
+    return {
+      btn: "Bản đồ nền",
+      lin: "Map basemap shortcut (map corner) · same switcher as Lớp nền radios · GIS chrome",
     };
   }
   if (/đăng xuất|dang xuat/.test(hay)) {
@@ -275,7 +506,7 @@ function mapActionToLinToolbar(a) {
   if (/công tác tuần kiểm|cong tac tuan kiem/.test(hay)) {
     return {
       btn: "Panel Tuần kiểm",
-      lin: "Collapsible panel · loading/empty · erp-report-context",
+      lin: "Collapsible panel · route list · check-in status · erp-report-context",
     };
   }
   if (/^công việc$|^cong viec$/.test(hay)) {
@@ -386,9 +617,11 @@ function buildControlMap(slug, pages) {
       const m = mapActionToLinToolbar(a);
       actionRows.push({
         legacy: a.label,
-        kind: a.kind,
+        kind: m.kind || a.kind,
         zone: a.zone,
-        ...m,
+        note: m.note || "—",
+        btn: m.btn,
+        lin: m.lin,
       });
     }
   }
@@ -460,7 +693,7 @@ function buildControlMap(slug, pages) {
     `| label | kind | zone | tag | disabled |`,
     `|-------|------|------|-----|----------|`,
     ...actionRows.map(
-      (r) => `| ${r.legacy} | ${r.kind} | ${r.zone} | — | — |`,
+      (r) => `| ${r.legacy} | ${r.kind} | ${r.zone} | — | ${r.note || "—"} |`,
     ),
     ``,
     `Count: ${actionRows.length}`,

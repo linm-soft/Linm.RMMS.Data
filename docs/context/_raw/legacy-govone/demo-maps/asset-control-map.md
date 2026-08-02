@@ -27,8 +27,8 @@
 | Tiện ích | nav | toolbar | Tiện ích | Overflow / utilities menu · toolbar |
 | Xóa điều kiện | destructive | grid | Xóa điều kiện | LinErpListFilterBar · clear filter lý trình / điều kiện |
 | Lấy dữ liệu | nav | grid | Lấy dữ liệu | LinErpListFilterBar · query map pins + grid · GAP-P2-87 |
-| + | create | grid | Tạo mới / Thêm | Button primary · catalog/voucher toolbar |
-| − | action | grid | − | Button · toolbar zone |
+| + | action | grid | Zoom + | MapPane zoomIn (`#zoomIn`) · GIS chrome · ≠ Create catalog (vision 007/009/011 form-sample miscapture) |
+| − | action | grid | Zoom − | MapPane zoomOut (`#zoomOut`) · GIS chrome |
 | ⇧ | action | grid | ⇧ | Button · toolbar zone |
 | Vị trí của tôi | action | grid | Vị trí của tôi | Map geolocate · GIS toolbar |
 | Lớp nền | action | grid | Lớp nền | Map basemap switcher · GIS toolbar |

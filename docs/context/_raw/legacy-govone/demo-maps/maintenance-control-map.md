@@ -24,7 +24,7 @@
 | Điểm Km / lý trình | text | panel-tuan-duong | Chip / tag (Km) | Chip list · Company→Route→Km · drill chi tiết |
 | Trạng thái tải | text | panel-tuan-kiem | Status / empty | Loading overlay · EmptyState alert · erp-report-context |
 | Empty state | text | content | Status / empty | Loading overlay · EmptyState alert · erp-report-context |
-| Tiêu đề modal | text | modal-header | DialogTitle | Modal/Slideout title · erp-report-context · leave-confirm |
+| Tiêu đề modal | text | modal-header | DialogTitle | Modal title miscapture · Chấm công (vision 020/023) · TNGT (016) · erp-report-context · leave-confirm |
 | Empty state (TNGT) | text | modal-body | Status / empty | Loading overlay · EmptyState alert · erp-report-context |
 
 
@@ -97,7 +97,7 @@
 | dropdown trigger | action | header | Date filter | DatePicker · report period · reload KPI + panels |
 | Thiết lập cỡ chữ | nav | header | Cỡ chữ | App shell · font-size preference |
 | CÔNG TÁC TUẦN ĐƯỜNG | action | header | Panel Tuần đường | Collapsible panel · tree Company→QL→Km chips · erp-report-context |
-| CÔNG TÁC TUẦN KIỂM | action | header | Panel Tuần kiểm | Collapsible panel · loading/empty · erp-report-context |
+| CÔNG TÁC TUẦN KIỂM | action | header | Panel Tuần kiểm | Collapsible panel · route list · check-in status · erp-report-context |
 | CÔNG VIỆC | action | header | Panel Công việc | Collapsible panel · WO summary empty/list · erp-report-context |
 | Maximize | action | modal-header | Maximize | Modal maximize / pop-out · erp-report-context |
 | Đóng | close | modal-header | Đóng | Modal/Slideout close · leave-confirm |

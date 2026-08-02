@@ -174,7 +174,7 @@ Subscribe: `patrol.*` · `incident.*` · `defect.detected` · `predict.updated` 
 
 - Control-map: [`dashboard-control-map.md`](../_raw/legacy-govone/demo-maps/dashboard-control-map.md)
 - Actions: [`dashboard-actions.md`](../_raw/legacy-govone/demo-maps/dashboard-actions.md)
-- Fields mapped: 0 · Actions: 21
+- Fields mapped: 12 · Actions: 21
 - Kind hint: E (report) — erp-report-context
 
 Gen demo: `/qlbd-analy-demo @dashboard` — load control-map trên + `/erp-form-context` rules (2a-K · 2g · common controls).

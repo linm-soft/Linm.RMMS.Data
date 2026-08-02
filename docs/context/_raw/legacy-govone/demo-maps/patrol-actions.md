@@ -3,16 +3,21 @@
 | label | kind | zone | tag | disabled |
 |-------|------|------|-----|----------|
 | Ban.TK.Nguyễn Anh Phúc | nav | toolbar | — | — |
-| Xuất excel | export | toolbar | — | — |
-| Tải lại | nav | toolbar | — | — |
+| Xuất excel | export | toolbar | — | modal export Excel (vision 008/009) |
+| Tải lại | action | toolbar | — | reload list+map · ≠ navigate (vision 008/010/011) |
 | Vệ tinh | nav | content | — | — |
 | Google | nav | content | — | — |
 | Giao thông | nav | content | — | — |
 | Hành chính | nav | content | — | — |
 | Không nền | nav | content | — | — |
 | Bản đồ nền | nav | content | — | — |
-| + | create | content | — | — |
-| − | nav | content | — | — |
+| + | action | content | — | zoomIn · ≠ Create (vision 007/009/011) |
+| − | action | content | — | zoomOut |
+| Giám sát nhân viên 2 | nav | sidebar | — | — |
+| Giám sát tuyến đường 2 | nav | sidebar | — | — |
+| Lịch sử checkin 2 | nav | sidebar | — | — |
+| Tổng hợp 2 | nav | sidebar | — | — |
+| Thu/mở panel list | action | content | — | — |
 | Hồ sơ của tôi | nav | grid | — | — |
 | Đổi mật khẩu | nav | grid | — | — |
 | Đăng xuất | export | grid | — | — |
@@ -42,4 +47,4 @@
 | Maximize | action | header | — | — |
 | Đóng | close | header | — | — |
 
-Count: 39
+Count: 44

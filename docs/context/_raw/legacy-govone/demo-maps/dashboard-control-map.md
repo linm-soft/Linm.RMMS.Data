@@ -12,7 +12,19 @@
 
 | Legacy | type | zone | Control | Linm SSOT |
 |--------|------|------|---------|-----------|
-| _(chưa capture field — bổ sung vision)_ | | | | |
+| Ngày tổng hợp | date | header | Date | utcToLocalInputValue · localInputToISOWithOffset (form-datetime-local-utc) · report period filter |
+| Tuần đường | metric | kpi | KPI metric card | erp-report-context · KPI strip · click → focus panel / filter |
+| Tuần kiểm | metric | kpi | KPI metric card | erp-report-context · KPI strip · click → focus panel / filter |
+| Tình hình bão lũ | metric | kpi | KPI metric card | erp-report-context · KPI strip · click → focus panel / filter |
+| Tai nạn giao thông | metric | kpi | KPI metric card | erp-report-context · KPI strip · click → focus panel / filter |
+| Vi phạm xâm phạm | metric | kpi | KPI metric card | erp-report-context · KPI strip · click → focus panel / filter |
+| Công việc | metric | kpi | KPI metric card | erp-report-context · KPI strip · click → focus panel / filter |
+| Đơn vị / công ty | text | panel-tuan-duong | Tree node | Collapsible tree · report panel · expand/collapse |
+| Tuyến (QL) | text | panel-tuan-duong | Tree node | Collapsible tree · report panel · expand/collapse |
+| Điểm Km / lý trình | text | panel-tuan-duong | Chip / tag (Km) | Chip list · Company→Route→Km · drill chi tiết |
+| Trạng thái check-in | text | panel-tuan-kiem | Status / badge | StatusBadge · check-in pending/done · erp-report-context · patrol |
+| Empty state | text | content | Status / empty | Loading overlay · EmptyState alert · erp-report-context |
+
 
 ## Actions / buttons (legacy → toolbar MFE)
 
@@ -37,7 +49,7 @@
 | Đổi mật khẩu | nav | header | User menu | Avatar dropdown · profile / logout · mfe-run-modes |
 | Đăng xuất | export | header | Đăng xuất | Auth logout · mfe-run-modes |
 | CÔNG TÁC TUẦN ĐƯỜNG | action | header | Panel Tuần đường | Collapsible panel · tree Company→QL→Km chips · erp-report-context |
-| CÔNG TÁC TUẦN KIỂM | action | header | Panel Tuần kiểm | Collapsible panel · loading/empty · erp-report-context |
+| CÔNG TÁC TUẦN KIỂM | action | header | Panel Tuần kiểm | Collapsible panel · route list · check-in status · erp-report-context |
 | CÔNG VIỆC | action | header | Panel Công việc | Collapsible panel · WO summary empty/list · erp-report-context |
 
 

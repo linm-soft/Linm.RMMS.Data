@@ -12,7 +12,7 @@
 
 | Legacy | type | zone | Control | Linm SSOT |
 |--------|------|------|---------|-----------|
-| textfield-1031-inputEl | text | toolbar | Text | TextField · common-field-control |
+| textfield-1031-inputEl | text | toolbar | Select / Combo | SelectField · filter Đoạn đường · patrol list+map (vision 004/005/010/011) |
 | ctl00$mainContent$ChangePassword1$ChangePasswordContainerID$CurrentPassword | password | footer | Text | TextField · common-field-control |
 | ctl00$mainContent$ChangePassword1$ChangePasswordContainerID$NewPassword | password | footer | Text | TextField · common-field-control |
 | ctl00$mainContent$ChangePassword1$ChangePasswordContainerID$ConfirmNewPassword | password | footer | Text | TextField · common-field-control |

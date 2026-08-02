@@ -45,21 +45,21 @@
 | Chuẩn hóa cột Km | nav | toolbar | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
 | Xem hướng đoạn đường | view | toolbar | Tool Xem hướng đoạn đường | GIS toolbar · `btXemHuongDoanDuong` · direction arrows on route polyline (view-only) |
 | Gộp đoạn đường multiline | nav | toolbar | Tool Gộp đoạn đường multiline | GIS toolbar · `btGopDoanDuong` · multi-select ≥2 route polylines · merge geometry · Lưu/Hủy biên tập |
-| Tạo đoạn đánh giá 100m | create | toolbar | Tạo mới / Thêm | Button primary · catalog/voucher toolbar |
-| Gán mã đoạn đánh giá cho điểm thu thập | nav | toolbar | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
-| Tự động đánh giá chất lượng mặt đường | nav | toolbar | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
-| Danh sách thiết bị | nav | toolbar | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
-| Sao chép thiết bị | nav | toolbar | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
+| Tạo đoạn đánh giá 100m | create | toolbar | Tool Tạo đoạn đánh giá 100m | GIS toolbar · `btTaoDoan100m` · select route polyline · generate 100m evaluation segments · Lưu/Hủy biên tập |
+| Gán mã đoạn đánh giá cho điểm thu thập | nav | toolbar | Tool Gán mã đoạn đánh giá | GIS toolbar · `btGanMaDoanDanhGia` · select collection point · assign evaluation segment code · Lưu/Hủy biên tập |
+| Tự động đánh giá chất lượng mặt đường | nav | toolbar | Tool Tự động đánh giá CL mặt đường | GIS toolbar · `btTinhToanCLMD` · select evaluation segments · run CLMD/PCI compute · Lưu/Hủy biên tập |
+| Danh sách thiết bị | nav | toolbar | Tool Danh sách thiết bị | GIS toolbar · `toolThietBi` · open device/asset list by layer/scope · row→map highlight + Thuộc tính (≠ inventory kho) |
+| Sao chép thiết bị | nav | toolbar | Tool Sao chép thiết bị | GIS toolbar · `toolSaoChepThietBi` · select source device · copy geometry/attributes · place copy · Lưu/Hủy biên tập (≠ Sao chép tài sản · ≠ inventory kho) |
 | Sao chép tài sản | nav | toolbar | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
-| Tổng hợp | nav | toolbar | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
-| Hủy biên tập | destructive | toolbar | Xóa / Hủy | Button danger · Confirm modal |
-| Lưu kết quả (Ctrl + S) | submit | toolbar | Lưu | Button primary · form-api-error-handling toast |
-| Vệ tinh | nav | content | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
-| Google | nav | content | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
-| Giao thông | nav | content | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
-| Hành chính | nav | content | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
-| Không nền | nav | content | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
-| Bản đồ nền | nav | footer | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
+| Tổng hợp | nav | toolbar | Tool Tổng hợp | GIS toolbar · `toolTongHopThietBi` · aggregate devices by layer/scope · Kết quả / Biểu đồ · drill-down map (≠ list `toolThietBi` · ≠ copy · ≠ reports Web tổng hợp) |
+| Hủy biên tập | destructive | toolbar | Tool Hủy biên tập | GIS toolbar · `resetEditing` · discard unsaved edit session · Confirm modal · pair `saveEditing` (≠ Hủy bỏ dialog · ≠ delete object) |
+| Lưu kết quả (Ctrl + S) | submit | toolbar | Tool Lưu kết quả (Ctrl+S) | GIS toolbar · `saveEditing` · Ctrl+S · commit unsaved edit session · toast · form-api-error-handling · pair `resetEditing` (≠ FormActions Lưu catalog · ≠ export/print) |
+| Vệ tinh | nav | content | Basemap Vệ tinh | Map basemap switcher · `basemap=satellite` · GIS sidebar Lớp nền (≠ route navigate · ≠ overlay checkbox) |
+| Google | nav | content | Basemap Google | Map basemap switcher · `basemap=google` · GIS sidebar Lớp nền (default parity) |
+| Giao thông | nav | content | Basemap Giao thông | Map basemap switcher · `basemap=traffic` · GIS sidebar Lớp nền |
+| Hành chính | nav | content | Basemap Hành chính | Map basemap switcher · `basemap=admin` · GIS sidebar Lớp nền |
+| Không nền | nav | content | Basemap Không nền | Map basemap switcher · `basemap=none` · GIS sidebar Lớp nền |
+| Bản đồ nền | nav | footer | Bản đồ nền | Map basemap shortcut (map corner) · same switcher as Lớp nền radios · GIS chrome |
 | Biểu đồ | action | grid | Biểu đồ | Button · toolbar zone |
 | Bản đồ quản lý hạ tầng giao thông Nghệ An | nav | toolbar | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
 | Bản đồ | action | toolbar | Bản đồ | Button · toolbar zone |

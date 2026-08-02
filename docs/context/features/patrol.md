@@ -306,7 +306,7 @@
 
 - Control-map: [`patrol-control-map.md`](../_raw/legacy-govone/demo-maps/patrol-control-map.md)
 - Actions: [`patrol-actions.md`](../_raw/legacy-govone/demo-maps/patrol-actions.md)
-- Fields mapped: 27 · Actions: 39
+- Fields mapped: 37 · Actions: 44
 - Kind hint: E (report) — erp-report-context
 
 Gen demo: `/qlbd-analy-demo @patrol` — load control-map trên + `/erp-form-context` rules (2a-K · 2g · common controls).

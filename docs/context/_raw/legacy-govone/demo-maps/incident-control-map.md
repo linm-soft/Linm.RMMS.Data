@@ -12,10 +12,10 @@
 
 | Legacy | type | zone | Control | Linm SSOT |
 |--------|------|------|---------|-----------|
-| treepickerex-1026-inputEl | text | sidebar | Text | TextField · common-field-control |
-| doanduong | text | content | Text | TextField · common-field-control |
+| treepickerex-1026-inputEl | text | sidebar | TreePicker / Lookup | TreePicker · filter Công ty/Nhân viên · patrol list+map (vision 004/005/010/011) |
+| doanduong | text | content | Select / Combo | SelectField · filter Đoạn đường · patrol list+map (vision 004/005/010/011) |
 | loaivande | text | content | Text | TextField · common-field-control |
-| treepickerex-1030-inputEl | text | sidebar | Tree node | Collapsible tree · report panel · expand/collapse |
+| treepickerex-1030-inputEl | text | sidebar | TreePicker / Lookup | TreePicker · filter Công ty/Nhân viên · patrol list+map (vision 004/005/010/011) |
 | congty | text | content | Tree node | Collapsible tree · report panel · expand/collapse |
 | tuanduong | text | content | KPI metric card | erp-report-context · KPI strip · click → focus panel / filter |
 | trangthaixuly | text | content | Text | TextField · common-field-control |
@@ -32,7 +32,7 @@
 | textfield-1089-inputEl | text | toolbar | Text | TextField · common-field-control |
 | ckDinhVi | checkbox | toolbar | Checkbox / Switch | LinCheckbox · form field |
 | inputItem | text | toolbar | Number (pager) | Pagination current page · list shell |
-| combo-1290-inputEl | text | content | Text | TextField · common-field-control |
+| combo-1290-inputEl | text | content | Select / Combo | SelectField · filter Đoạn đường · patrol list+map (vision 004/005/010/011) |
 | combo-1291-inputEl | text | content | Text | TextField · common-field-control |
 | combo-1292-inputEl | text | content | Text | TextField · common-field-control |
 | textfield-1293-inputEl | text | content | Text | TextField · common-field-control |
@@ -109,14 +109,14 @@
 | Phản hồi | nav | toolbar | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
 | Xuất dữ liệu | export | toolbar | Xuất Excel | export-excel · toolbar |
 | BC sở | nav | toolbar | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
-| Vệ tinh | nav | content | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
-| Google | nav | content | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
-| Giao thông | nav | content | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
-| Hành chính | nav | content | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
-| Không nền | nav | content | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
-| Bản đồ nền | nav | content | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
-| + | create | content | Tạo mới / Thêm | Button primary · catalog/voucher toolbar |
-| − | nav | content | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
+| Vệ tinh | nav | content | Basemap Vệ tinh | Map basemap switcher · `basemap=satellite` · GIS sidebar Lớp nền (≠ route navigate · ≠ overlay checkbox) |
+| Google | nav | content | Basemap Google | Map basemap switcher · `basemap=google` · GIS sidebar Lớp nền (default parity) |
+| Giao thông | nav | content | Basemap Giao thông | Map basemap switcher · `basemap=traffic` · GIS sidebar Lớp nền |
+| Hành chính | nav | content | Basemap Hành chính | Map basemap switcher · `basemap=admin` · GIS sidebar Lớp nền |
+| Không nền | nav | content | Basemap Không nền | Map basemap switcher · `basemap=none` · GIS sidebar Lớp nền |
+| Bản đồ nền | nav | content | Bản đồ nền | Map basemap shortcut (map corner) · same switcher as Lớp nền radios · GIS chrome |
+| + | action | content | Zoom + | MapPane zoomIn (`#zoomIn`) · GIS chrome · ≠ Create catalog (vision 007/009/011 form-sample miscapture) |
+| − | action | content | Zoom − | MapPane zoomOut (`#zoomOut`) · GIS chrome |
 | Hủy | destructive | content | Xóa / Hủy | Button danger · Confirm modal |
 | Áp dụng | action | content | Áp dụng | Button · toolbar zone |
 | Hồ sơ của tôi | nav | grid | User menu | Avatar dropdown · profile / logout · mfe-run-modes |
@@ -140,11 +140,11 @@
 | Báo cáo sở | nav | toolbar | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
 | Ghi lại | submit | toolbar | Lưu | Button primary · form-api-error-handling toast |
 | Đóng | close | toolbar | Đóng | Modal/Slideout close · leave-confirm |
-| Tải lại | nav | toolbar | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
+| Tải lại | action | toolbar | Tải lại | Reload / refetch list+map theo filter hiện tại · loading + toast «Đã tải lại» · ≠ navigate (vision 008/010/011) |
 | Giao việc | nav | toolbar | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
 | Tổng hợp loại CV | nav | toolbar | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
 | Tổng hợp theo HD | nav | toolbar | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
-| Xuất excel | export | toolbar | Xuất Excel | export-excel · toolbar |
+| Xuất excel | export | toolbar | Xuất Excel | export-excel · toolbar → mở Modal «Xuất dữ liệu Excel» (vision 008/009: from/to · org tree · includeNonCheckin · confirm) |
 
 
 ## Demo page rules (bắt buộc)
