@@ -3,8 +3,8 @@
 - **master:** QUẢN LÝ VẤN ĐỀ
 - **page:** Thêm
 - **action:** tab-thong-tin-van-e
-- **url:** https://pmdb.govone.vn/dbv3baotri.aspx#quanLyCongViec
-- **fields:** 28
-- **actions:** 39
+- **url:** https://pmdb.govone.vn/dbv3baotri.aspx#panelVanDe
+- **fields:** 20
+- **actions:** 31
 
 

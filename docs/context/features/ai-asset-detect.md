@@ -75,9 +75,17 @@ Dedupe: `nearby` cùng class trong bán kính cấu hình (vd 15–30 m) → c�
 
 ## 7. Demo checklist
 
-- [ ] Frame/camera mock → bbox + **loại thiết bị** rõ
-- [ ] Hiển thị tọa độ + tuyến đường trên candidate
-- [ ] Confirm → bản ghi Asset draft (fake) trên list/map
-- [ ] Cảnh báo duplicate nearby
-- [ ] Badge AI support · P1 online · không hứa mAP local P1
-- [ ] Phân biệt rõ với `ai-vision` (hư mặt đường → Vấn đề)
+- [x] Frame/camera mock → bbox + **loại thiết bị** rõ
+- [x] Hiển thị tọa độ + tuyến đường trên candidate
+- [x] Confirm → bản ghi Asset draft (fake) trên list/map
+- [x] Cảnh báo duplicate nearby
+- [x] Badge AI support · P1 online · không hứa mAP local P1
+- [x] Phân biệt rõ với `ai-vision` (hư mặt đường → Vấn đề)
+- [x] Search list + Create/Edit/View/Copy form pair (ACTION WORK GATE)
+- [x] Leaflet map pin «AI new» vs TS đã có
+- [x] Dev catalog `/dev` · `demoCatalog` · badge run
+
+**Demo path:** `Linm.RMMS.Demo/public/demo/ai-vision/ai-asset-detect.html`  
+**Control-map:** `_raw/legacy-govone/demo-maps/ai-asset-detect-control-map.md`  
+**Actions:** `_raw/legacy-govone/demo-maps/ai-asset-detect-actions.md`  
+**sourceKind:** legacy (docs + feature SSOT; không clone chrome GOVOne)

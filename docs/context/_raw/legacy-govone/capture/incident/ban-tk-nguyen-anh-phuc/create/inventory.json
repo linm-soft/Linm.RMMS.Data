@@ -1,16 +1,16 @@
 {
-  "id": "014-quan-ly-van-e-ban-tk-nguyen-anh-phuc-them-cv",
-  "menuText": "QUẢN LÝ VẤN ĐỀ › Ban.TK.Nguyễn Anh Phúc › Thêm CV",
+  "id": "013-quan-ly-van-e-ban-tk-nguyen-anh-phuc-them",
+  "menuText": "QUẢN LÝ VẤN ĐỀ › Ban.TK.Nguyễn Anh Phúc › Thêm",
   "kind": "form-sample",
   "via": "create",
   "href": null,
   "finalUrl": "https://pmdb.govone.vn/dbv3baotri.aspx#panelVanDe",
-  "capturedAt": "2026-08-01T10:29:42.500Z",
-  "mode": "full",
+  "capturedAt": "2026-08-02T06:44:59.985Z",
+  "mode": "deep",
   "masterTitle": "QUẢN LÝ VẤN ĐỀ",
   "pageTitle": "Ban.TK.Nguyễn Anh Phúc",
   "formSample": {
-    "trigger": "Thêm CV",
+    "trigger": "Thêm",
     "labels": [
       "Đoạn đường:",
       "Đoạn đường:",
@@ -338,8 +338,8 @@
       {
         "tag": "input",
         "type": "text",
-        "name": "combo-1295-inputEl",
-        "id": "combo-1295-inputEl",
+        "name": "combo-1290-inputEl",
+        "id": "combo-1290-inputEl",
         "placeholder": "Chọn đoạn đường",
         "ariaLabel": "",
         "zone": "content"
@@ -347,8 +347,8 @@
       {
         "tag": "input",
         "type": "text",
-        "name": "combo-1296-inputEl",
-        "id": "combo-1296-inputEl",
+        "name": "combo-1291-inputEl",
+        "id": "combo-1291-inputEl",
         "placeholder": "Chọn loại vấn đề",
         "ariaLabel": "",
         "zone": "content"
@@ -356,8 +356,8 @@
       {
         "tag": "input",
         "type": "text",
-        "name": "combo-1297-inputEl",
-        "id": "combo-1297-inputEl",
+        "name": "combo-1292-inputEl",
+        "id": "combo-1292-inputEl",
         "placeholder": "Chọn trạng thái xử lý",
         "ariaLabel": "",
         "zone": "content"
@@ -365,8 +365,8 @@
       {
         "tag": "input",
         "type": "text",
-        "name": "textfield-1298-inputEl",
-        "id": "textfield-1298-inputEl",
+        "name": "textfield-1293-inputEl",
+        "id": "textfield-1293-inputEl",
         "placeholder": "",
         "ariaLabel": "",
         "zone": "content"
@@ -374,8 +374,8 @@
       {
         "tag": "input",
         "type": "text",
-        "name": "datefield-1299-inputEl",
-        "id": "datefield-1299-inputEl",
+        "name": "datefield-1294-inputEl",
+        "id": "datefield-1294-inputEl",
         "placeholder": "",
         "ariaLabel": "",
         "zone": "content"
@@ -383,8 +383,8 @@
       {
         "tag": "input",
         "type": "text",
-        "name": "textfield-1300-inputEl",
-        "id": "textfield-1300-inputEl",
+        "name": "textfield-1295-inputEl",
+        "id": "textfield-1295-inputEl",
         "placeholder": "Tên tài sản",
         "ariaLabel": "",
         "zone": "content"
@@ -392,8 +392,8 @@
       {
         "tag": "input",
         "type": "text",
-        "name": "textfield-1302-inputEl",
-        "id": "textfield-1302-inputEl",
+        "name": "textfield-1297-inputEl",
+        "id": "textfield-1297-inputEl",
         "placeholder": "Nhập lý trình",
         "ariaLabel": "",
         "zone": "content"
@@ -401,8 +401,8 @@
       {
         "tag": "input",
         "type": "text",
-        "name": "textfield-1304-inputEl",
-        "id": "textfield-1304-inputEl",
+        "name": "textfield-1299-inputEl",
+        "id": "textfield-1299-inputEl",
         "placeholder": "Lý trình cuối",
         "ariaLabel": "",
         "zone": "content"
@@ -410,8 +410,53 @@
       {
         "tag": "input",
         "type": "text",
-        "name": "combo-1305-inputEl",
-        "id": "combo-1305-inputEl",
+        "name": "combo-1300-inputEl",
+        "id": "combo-1300-inputEl",
+        "placeholder": "",
+        "ariaLabel": "",
+        "zone": "content"
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "combo-1301-inputEl",
+        "id": "combo-1301-inputEl",
+        "placeholder": "",
+        "ariaLabel": "",
+        "zone": "content"
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "combo-1302-inputEl",
+        "id": "combo-1302-inputEl",
+        "placeholder": "Phân loại điểm đen",
+        "ariaLabel": "",
+        "zone": "content"
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "combo-1303-inputEl",
+        "id": "combo-1303-inputEl",
+        "placeholder": "",
+        "ariaLabel": "",
+        "zone": "content"
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "datefield-1304-inputEl",
+        "id": "datefield-1304-inputEl",
+        "placeholder": "",
+        "ariaLabel": "",
+        "zone": "content"
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "datefield-1305-inputEl",
+        "id": "datefield-1305-inputEl",
         "placeholder": "",
         "ariaLabel": "",
         "zone": "content"
@@ -421,6 +466,15 @@
         "type": "text",
         "name": "combo-1306-inputEl",
         "id": "combo-1306-inputEl",
+        "placeholder": "Tình trạng thông đường",
+        "ariaLabel": "",
+        "zone": "content"
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "datefield-1307-inputEl",
+        "id": "datefield-1307-inputEl",
         "placeholder": "",
         "ariaLabel": "",
         "zone": "content"
@@ -428,36 +482,27 @@
       {
         "tag": "input",
         "type": "text",
-        "name": "combo-1307-inputEl",
-        "id": "combo-1307-inputEl",
-        "placeholder": "Phân loại điểm đen",
+        "name": "textfield-1308-inputEl",
+        "id": "textfield-1308-inputEl",
+        "placeholder": "Biện pháp",
         "ariaLabel": "",
         "zone": "content"
       },
       {
         "tag": "input",
         "type": "text",
-        "name": "combo-1308-inputEl",
-        "id": "combo-1308-inputEl",
-        "placeholder": "",
+        "name": "textfield-1309-inputEl",
+        "id": "textfield-1309-inputEl",
+        "placeholder": "Bão số  (Tên bão)",
         "ariaLabel": "",
         "zone": "content"
       },
       {
         "tag": "input",
         "type": "text",
-        "name": "datefield-1309-inputEl",
-        "id": "datefield-1309-inputEl",
-        "placeholder": "",
-        "ariaLabel": "",
-        "zone": "content"
-      },
-      {
-        "tag": "input",
-        "type": "text",
-        "name": "datefield-1310-inputEl",
-        "id": "datefield-1310-inputEl",
-        "placeholder": "",
+        "name": "combo-1310-inputEl",
+        "id": "combo-1310-inputEl",
+        "placeholder": "Tên xã",
         "ariaLabel": "",
         "zone": "content"
       },
@@ -466,52 +511,52 @@
         "type": "text",
         "name": "combo-1311-inputEl",
         "id": "combo-1311-inputEl",
-        "placeholder": "Tình trạng thông đường",
-        "ariaLabel": "",
-        "zone": "content"
-      },
-      {
-        "tag": "input",
-        "type": "text",
-        "name": "datefield-1312-inputEl",
-        "id": "datefield-1312-inputEl",
-        "placeholder": "",
-        "ariaLabel": "",
-        "zone": "content"
-      },
-      {
-        "tag": "input",
-        "type": "text",
-        "name": "textfield-1313-inputEl",
-        "id": "textfield-1313-inputEl",
-        "placeholder": "Biện pháp",
-        "ariaLabel": "",
-        "zone": "content"
-      },
-      {
-        "tag": "input",
-        "type": "text",
-        "name": "textfield-1314-inputEl",
-        "id": "textfield-1314-inputEl",
-        "placeholder": "Bão số  (Tên bão)",
-        "ariaLabel": "",
-        "zone": "content"
-      },
-      {
-        "tag": "input",
-        "type": "text",
-        "name": "combo-1315-inputEl",
-        "id": "combo-1315-inputEl",
-        "placeholder": "Tên xã",
-        "ariaLabel": "",
-        "zone": "content"
-      },
-      {
-        "tag": "input",
-        "type": "text",
-        "name": "combo-1316-inputEl",
-        "id": "combo-1316-inputEl",
         "placeholder": "Phân loại hư hỏng",
+        "ariaLabel": "",
+        "zone": "content"
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "textfield-1312-inputEl",
+        "id": "textfield-1312-inputEl",
+        "placeholder": "Cống (Sơ bộ hư hỏng)",
+        "ariaLabel": "",
+        "zone": "content"
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "numberfield-1313-inputEl",
+        "id": "numberfield-1313-inputEl",
+        "placeholder": "Chiều dài (m)",
+        "ariaLabel": "",
+        "zone": "content"
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "numberfield-1314-inputEl",
+        "id": "numberfield-1314-inputEl",
+        "placeholder": "Chiều rộng (m)",
+        "ariaLabel": "",
+        "zone": "content"
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "numberfield-1315-inputEl",
+        "id": "numberfield-1315-inputEl",
+        "placeholder": "Chiều cao (m)",
+        "ariaLabel": "",
+        "zone": "content"
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "numberfield-1316-inputEl",
+        "id": "numberfield-1316-inputEl",
+        "placeholder": "Chiều sâu",
         "ariaLabel": "",
         "zone": "content"
       },
@@ -520,43 +565,43 @@
         "type": "text",
         "name": "textfield-1317-inputEl",
         "id": "textfield-1317-inputEl",
-        "placeholder": "Cống (Sơ bộ hư hỏng)",
+        "placeholder": "Xói trôi lề đường (m2)",
         "ariaLabel": "",
         "zone": "content"
       },
       {
         "tag": "input",
         "type": "text",
-        "name": "numberfield-1318-inputEl",
-        "id": "numberfield-1318-inputEl",
-        "placeholder": "Chiều dài (m)",
+        "name": "textfield-1318-inputEl",
+        "id": "textfield-1318-inputEl",
+        "placeholder": "Bùn tràn mặt đường  (m3)",
         "ariaLabel": "",
         "zone": "content"
       },
       {
         "tag": "input",
         "type": "text",
-        "name": "numberfield-1319-inputEl",
-        "id": "numberfield-1319-inputEl",
-        "placeholder": "Chiều rộng (m)",
+        "name": "textfield-1319-inputEl",
+        "id": "textfield-1319-inputEl",
+        "placeholder": "Bùn tràn rãnh dọc",
         "ariaLabel": "",
         "zone": "content"
       },
       {
         "tag": "input",
         "type": "text",
-        "name": "numberfield-1320-inputEl",
-        "id": "numberfield-1320-inputEl",
-        "placeholder": "Chiều cao (m)",
+        "name": "textfield-1320-inputEl",
+        "id": "textfield-1320-inputEl",
+        "placeholder": "Địa chỉ vi phạm",
         "ariaLabel": "",
         "zone": "content"
       },
       {
         "tag": "input",
         "type": "text",
-        "name": "numberfield-1321-inputEl",
-        "id": "numberfield-1321-inputEl",
-        "placeholder": "Chiều sâu",
+        "name": "textfield-1321-inputEl",
+        "id": "textfield-1321-inputEl",
+        "placeholder": "",
         "ariaLabel": "",
         "zone": "content"
       },
@@ -565,7 +610,7 @@
         "type": "text",
         "name": "textfield-1322-inputEl",
         "id": "textfield-1322-inputEl",
-        "placeholder": "Xói trôi lề đường (m2)",
+        "placeholder": "",
         "ariaLabel": "",
         "zone": "content"
       },
@@ -574,33 +619,6 @@
         "type": "text",
         "name": "textfield-1323-inputEl",
         "id": "textfield-1323-inputEl",
-        "placeholder": "Bùn tràn mặt đường  (m3)",
-        "ariaLabel": "",
-        "zone": "content"
-      },
-      {
-        "tag": "input",
-        "type": "text",
-        "name": "textfield-1324-inputEl",
-        "id": "textfield-1324-inputEl",
-        "placeholder": "Bùn tràn rãnh dọc",
-        "ariaLabel": "",
-        "zone": "content"
-      },
-      {
-        "tag": "input",
-        "type": "text",
-        "name": "textfield-1325-inputEl",
-        "id": "textfield-1325-inputEl",
-        "placeholder": "Địa chỉ vi phạm",
-        "ariaLabel": "",
-        "zone": "content"
-      },
-      {
-        "tag": "input",
-        "type": "text",
-        "name": "textfield-1326-inputEl",
-        "id": "textfield-1326-inputEl",
         "placeholder": "",
         "ariaLabel": "",
         "zone": "content"
@@ -608,8 +626,8 @@
       {
         "tag": "input",
         "type": "text",
-        "name": "textfield-1327-inputEl",
-        "id": "textfield-1327-inputEl",
+        "name": "datefield-1324-inputEl",
+        "id": "datefield-1324-inputEl",
         "placeholder": "",
         "ariaLabel": "",
         "zone": "content"
@@ -617,8 +635,8 @@
       {
         "tag": "input",
         "type": "text",
-        "name": "textfield-1328-inputEl",
-        "id": "textfield-1328-inputEl",
+        "name": "datefield-1325-inputEl",
+        "id": "datefield-1325-inputEl",
         "placeholder": "",
         "ariaLabel": "",
         "zone": "content"
@@ -626,8 +644,8 @@
       {
         "tag": "input",
         "type": "text",
-        "name": "datefield-1329-inputEl",
-        "id": "datefield-1329-inputEl",
+        "name": "datefield-1326-inputEl",
+        "id": "datefield-1326-inputEl",
         "placeholder": "",
         "ariaLabel": "",
         "zone": "content"
@@ -635,18 +653,45 @@
       {
         "tag": "input",
         "type": "text",
-        "name": "datefield-1330-inputEl",
-        "id": "datefield-1330-inputEl",
-        "placeholder": "",
+        "name": "numberfield-1327-inputEl",
+        "id": "numberfield-1327-inputEl",
+        "placeholder": "Xe con",
         "ariaLabel": "",
         "zone": "content"
       },
       {
         "tag": "input",
         "type": "text",
-        "name": "datefield-1331-inputEl",
-        "id": "datefield-1331-inputEl",
-        "placeholder": "",
+        "name": "numberfield-1328-inputEl",
+        "id": "numberfield-1328-inputEl",
+        "placeholder": "Xe tải nhẹ",
+        "ariaLabel": "",
+        "zone": "content"
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "numberfield-1329-inputEl",
+        "id": "numberfield-1329-inputEl",
+        "placeholder": "Xe tải hạng trung",
+        "ariaLabel": "",
+        "zone": "content"
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "numberfield-1330-inputEl",
+        "id": "numberfield-1330-inputEl",
+        "placeholder": "Xe tải hạng nặng",
+        "ariaLabel": "",
+        "zone": "content"
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "numberfield-1331-inputEl",
+        "id": "numberfield-1331-inputEl",
+        "placeholder": "Xe tải hạng nặng trên 4 trục",
         "ariaLabel": "",
         "zone": "content"
       },
@@ -655,7 +700,7 @@
         "type": "text",
         "name": "numberfield-1332-inputEl",
         "id": "numberfield-1332-inputEl",
-        "placeholder": "Xe con",
+        "placeholder": "Xe khách nhỏ",
         "ariaLabel": "",
         "zone": "content"
       },
@@ -664,7 +709,7 @@
         "type": "text",
         "name": "numberfield-1333-inputEl",
         "id": "numberfield-1333-inputEl",
-        "placeholder": "Xe tải nhẹ",
+        "placeholder": "Xe khách lớn",
         "ariaLabel": "",
         "zone": "content"
       },
@@ -673,7 +718,7 @@
         "type": "text",
         "name": "numberfield-1334-inputEl",
         "id": "numberfield-1334-inputEl",
-        "placeholder": "Xe tải hạng trung",
+        "placeholder": "Máy kéo",
         "ariaLabel": "",
         "zone": "content"
       },
@@ -682,7 +727,7 @@
         "type": "text",
         "name": "numberfield-1335-inputEl",
         "id": "numberfield-1335-inputEl",
-        "placeholder": "Xe tải hạng nặng",
+        "placeholder": "Xe máy",
         "ariaLabel": "",
         "zone": "content"
       },
@@ -691,7 +736,7 @@
         "type": "text",
         "name": "numberfield-1336-inputEl",
         "id": "numberfield-1336-inputEl",
-        "placeholder": "Xe tải hạng nặng trên 4 trục",
+        "placeholder": "Xe đạp",
         "ariaLabel": "",
         "zone": "content"
       },
@@ -700,16 +745,16 @@
         "type": "text",
         "name": "numberfield-1337-inputEl",
         "id": "numberfield-1337-inputEl",
-        "placeholder": "Xe khách nhỏ",
+        "placeholder": "Khối lượng",
         "ariaLabel": "",
         "zone": "content"
       },
       {
         "tag": "input",
         "type": "text",
-        "name": "numberfield-1338-inputEl",
-        "id": "numberfield-1338-inputEl",
-        "placeholder": "Xe khách lớn",
+        "name": "combo-1338-inputEl",
+        "id": "combo-1338-inputEl",
+        "placeholder": "Đơn vị tính",
         "ariaLabel": "",
         "zone": "content"
       },
@@ -718,7 +763,7 @@
         "type": "text",
         "name": "numberfield-1339-inputEl",
         "id": "numberfield-1339-inputEl",
-        "placeholder": "Máy kéo",
+        "placeholder": "Số vị trí",
         "ariaLabel": "",
         "zone": "content"
       },
@@ -727,7 +772,7 @@
         "type": "text",
         "name": "numberfield-1340-inputEl",
         "id": "numberfield-1340-inputEl",
-        "placeholder": "Xe máy",
+        "placeholder": "Diện tích",
         "ariaLabel": "",
         "zone": "content"
       },
@@ -736,7 +781,7 @@
         "type": "text",
         "name": "numberfield-1341-inputEl",
         "id": "numberfield-1341-inputEl",
-        "placeholder": "Xe đạp",
+        "placeholder": "Hư hỏng rãnh dọc (md)",
         "ariaLabel": "",
         "zone": "content"
       },
@@ -745,16 +790,16 @@
         "type": "text",
         "name": "numberfield-1342-inputEl",
         "id": "numberfield-1342-inputEl",
-        "placeholder": "Khối lượng",
+        "placeholder": "Hộ lan  (md)",
         "ariaLabel": "",
         "zone": "content"
       },
       {
         "tag": "input",
         "type": "text",
-        "name": "combo-1343-inputEl",
-        "id": "combo-1343-inputEl",
-        "placeholder": "Đơn vị tính",
+        "name": "numberfield-1343-inputEl",
+        "id": "numberfield-1343-inputEl",
+        "placeholder": "Biển báo  (cái)",
         "ariaLabel": "",
         "zone": "content"
       },
@@ -763,7 +808,7 @@
         "type": "text",
         "name": "numberfield-1344-inputEl",
         "id": "numberfield-1344-inputEl",
-        "placeholder": "Số vị trí",
+        "placeholder": "Cây đổ (cây)",
         "ariaLabel": "",
         "zone": "content"
       },
@@ -772,51 +817,6 @@
         "type": "text",
         "name": "numberfield-1345-inputEl",
         "id": "numberfield-1345-inputEl",
-        "placeholder": "Diện tích",
-        "ariaLabel": "",
-        "zone": "content"
-      },
-      {
-        "tag": "input",
-        "type": "text",
-        "name": "numberfield-1346-inputEl",
-        "id": "numberfield-1346-inputEl",
-        "placeholder": "Hư hỏng rãnh dọc (md)",
-        "ariaLabel": "",
-        "zone": "content"
-      },
-      {
-        "tag": "input",
-        "type": "text",
-        "name": "numberfield-1347-inputEl",
-        "id": "numberfield-1347-inputEl",
-        "placeholder": "Hộ lan  (md)",
-        "ariaLabel": "",
-        "zone": "content"
-      },
-      {
-        "tag": "input",
-        "type": "text",
-        "name": "numberfield-1348-inputEl",
-        "id": "numberfield-1348-inputEl",
-        "placeholder": "Biển báo  (cái)",
-        "ariaLabel": "",
-        "zone": "content"
-      },
-      {
-        "tag": "input",
-        "type": "text",
-        "name": "numberfield-1349-inputEl",
-        "id": "numberfield-1349-inputEl",
-        "placeholder": "Cây đổ (cây)",
-        "ariaLabel": "",
-        "zone": "content"
-      },
-      {
-        "tag": "input",
-        "type": "text",
-        "name": "numberfield-1350-inputEl",
-        "id": "numberfield-1350-inputEl",
         "placeholder": "Công trình khác (Sơ bộ hư hỏng)",
         "ariaLabel": "",
         "zone": "content"
@@ -824,8 +824,8 @@
       {
         "tag": "input",
         "type": "text",
-        "name": "textfield-1351-inputEl",
-        "id": "textfield-1351-inputEl",
+        "name": "textfield-1346-inputEl",
+        "id": "textfield-1346-inputEl",
         "placeholder": "Nguyên nhân điểm đen",
         "ariaLabel": "",
         "zone": "content"
@@ -833,8 +833,8 @@
       {
         "tag": "input",
         "type": "text",
-        "name": "textfield-1352-inputEl",
-        "id": "textfield-1352-inputEl",
+        "name": "textfield-1347-inputEl",
+        "id": "textfield-1347-inputEl",
         "placeholder": "Giải pháp sơ bộ",
         "ariaLabel": "",
         "zone": "content"
@@ -842,8 +842,8 @@
       {
         "tag": "input",
         "type": "text",
-        "name": "textfield-1353-inputEl",
-        "id": "textfield-1353-inputEl",
+        "name": "textfield-1348-inputEl",
+        "id": "textfield-1348-inputEl",
         "placeholder": "Đề xuất xử lý",
         "ariaLabel": "",
         "zone": "content"
@@ -851,8 +851,8 @@
       {
         "tag": "input",
         "type": "text",
-        "name": "currencyfield-1354-inputEl",
-        "id": "currencyfield-1354-inputEl",
+        "name": "currencyfield-1349-inputEl",
+        "id": "currencyfield-1349-inputEl",
         "placeholder": "Ước tính kinh phí",
         "ariaLabel": "",
         "zone": "content"
@@ -860,9 +860,54 @@
       {
         "tag": "input",
         "type": "text",
-        "name": "combo-1355-inputEl",
-        "id": "combo-1355-inputEl",
+        "name": "combo-1350-inputEl",
+        "id": "combo-1350-inputEl",
         "placeholder": "Hạng mục vi phạm",
+        "ariaLabel": "",
+        "zone": "content"
+      },
+      {
+        "tag": "textarea",
+        "type": "",
+        "name": "textarea-1351-inputEl",
+        "id": "textarea-1351-inputEl",
+        "placeholder": "",
+        "ariaLabel": "",
+        "zone": "content"
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "combo-1352-inputEl",
+        "id": "combo-1352-inputEl",
+        "placeholder": "Chọn tình trạng",
+        "ariaLabel": "",
+        "zone": "content"
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "tagfield-1353-inputEl",
+        "id": "tagfield-1353-inputEl",
+        "placeholder": "",
+        "ariaLabel": "",
+        "zone": "content"
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "textfield-1354-inputEl",
+        "id": "textfield-1354-inputEl",
+        "placeholder": "Mức độ ưu tiên",
+        "ariaLabel": "",
+        "zone": "content"
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "textfield-1355-inputEl",
+        "id": "textfield-1355-inputEl",
+        "placeholder": "Đề xuất",
         "ariaLabel": "",
         "zone": "content"
       },
@@ -880,25 +925,25 @@
         "type": "text",
         "name": "combo-1357-inputEl",
         "id": "combo-1357-inputEl",
-        "placeholder": "Chọn tình trạng",
+        "placeholder": "Chọn loại vi phạm",
         "ariaLabel": "",
         "zone": "content"
       },
       {
         "tag": "input",
         "type": "text",
-        "name": "tagfield-1358-inputEl",
-        "id": "tagfield-1358-inputEl",
-        "placeholder": "",
+        "name": "combo-1358-inputEl",
+        "id": "combo-1358-inputEl",
+        "placeholder": "Tình trạng lập biên bản",
         "ariaLabel": "",
         "zone": "content"
       },
       {
         "tag": "input",
         "type": "text",
-        "name": "textfield-1359-inputEl",
-        "id": "textfield-1359-inputEl",
-        "placeholder": "Mức độ ưu tiên",
+        "name": "combo-1359-inputEl",
+        "id": "combo-1359-inputEl",
+        "placeholder": "Lý do chưa lập biên bản",
         "ariaLabel": "",
         "zone": "content"
       },
@@ -907,51 +952,6 @@
         "type": "text",
         "name": "textfield-1360-inputEl",
         "id": "textfield-1360-inputEl",
-        "placeholder": "Đề xuất",
-        "ariaLabel": "",
-        "zone": "content"
-      },
-      {
-        "tag": "textarea",
-        "type": "",
-        "name": "textarea-1361-inputEl",
-        "id": "textarea-1361-inputEl",
-        "placeholder": "",
-        "ariaLabel": "",
-        "zone": "content"
-      },
-      {
-        "tag": "input",
-        "type": "text",
-        "name": "combo-1362-inputEl",
-        "id": "combo-1362-inputEl",
-        "placeholder": "Chọn loại vi phạm",
-        "ariaLabel": "",
-        "zone": "content"
-      },
-      {
-        "tag": "input",
-        "type": "text",
-        "name": "combo-1363-inputEl",
-        "id": "combo-1363-inputEl",
-        "placeholder": "Tình trạng lập biên bản",
-        "ariaLabel": "",
-        "zone": "content"
-      },
-      {
-        "tag": "input",
-        "type": "text",
-        "name": "combo-1364-inputEl",
-        "id": "combo-1364-inputEl",
-        "placeholder": "Lý do chưa lập biên bản",
-        "ariaLabel": "",
-        "zone": "content"
-      },
-      {
-        "tag": "input",
-        "type": "text",
-        "name": "textfield-1365-inputEl",
-        "id": "textfield-1365-inputEl",
         "placeholder": "Đối tượng vi phạm",
         "ariaLabel": "",
         "zone": "content"
@@ -959,9 +959,54 @@
       {
         "tag": "input",
         "type": "text",
-        "name": "textfield-1366-inputEl",
-        "id": "textfield-1366-inputEl",
+        "name": "textfield-1361-inputEl",
+        "id": "textfield-1361-inputEl",
         "placeholder": "Quy mô vi phạm",
+        "ariaLabel": "",
+        "zone": "content"
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "textfield-1362-inputEl",
+        "id": "textfield-1362-inputEl",
+        "placeholder": "Số biên bản",
+        "ariaLabel": "",
+        "zone": "content"
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "datefield-1363-inputEl",
+        "id": "datefield-1363-inputEl",
+        "placeholder": "Ngày lập biên bản",
+        "ariaLabel": "",
+        "zone": "content"
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "textfield-1364-inputEl",
+        "id": "textfield-1364-inputEl",
+        "placeholder": "Cơ quan ban hành quyết định xử phạt",
+        "ariaLabel": "",
+        "zone": "content"
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "currencyfield-1365-inputEl",
+        "id": "currencyfield-1365-inputEl",
+        "placeholder": "Số tiền xử phạt",
+        "ariaLabel": "",
+        "zone": "content"
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "currencyfield-1366-inputEl",
+        "id": "currencyfield-1366-inputEl",
+        "placeholder": "Số tiền đã chấp hành nộp phạt",
         "ariaLabel": "",
         "zone": "content"
       },
@@ -970,51 +1015,6 @@
         "type": "text",
         "name": "textfield-1367-inputEl",
         "id": "textfield-1367-inputEl",
-        "placeholder": "Số biên bản",
-        "ariaLabel": "",
-        "zone": "content"
-      },
-      {
-        "tag": "input",
-        "type": "text",
-        "name": "datefield-1368-inputEl",
-        "id": "datefield-1368-inputEl",
-        "placeholder": "Ngày lập biên bản",
-        "ariaLabel": "",
-        "zone": "content"
-      },
-      {
-        "tag": "input",
-        "type": "text",
-        "name": "textfield-1369-inputEl",
-        "id": "textfield-1369-inputEl",
-        "placeholder": "Cơ quan ban hành quyết định xử phạt",
-        "ariaLabel": "",
-        "zone": "content"
-      },
-      {
-        "tag": "input",
-        "type": "text",
-        "name": "currencyfield-1370-inputEl",
-        "id": "currencyfield-1370-inputEl",
-        "placeholder": "Số tiền xử phạt",
-        "ariaLabel": "",
-        "zone": "content"
-      },
-      {
-        "tag": "input",
-        "type": "text",
-        "name": "currencyfield-1371-inputEl",
-        "id": "currencyfield-1371-inputEl",
-        "placeholder": "Số tiền đã chấp hành nộp phạt",
-        "ariaLabel": "",
-        "zone": "content"
-      },
-      {
-        "tag": "input",
-        "type": "text",
-        "name": "textfield-1372-inputEl",
-        "id": "textfield-1372-inputEl",
         "placeholder": "Biện pháp ngăn chặn",
         "ariaLabel": "",
         "zone": "content"
@@ -1022,9 +1022,54 @@
       {
         "tag": "input",
         "type": "text",
-        "name": "textfield-1373-inputEl",
-        "id": "textfield-1373-inputEl",
+        "name": "textfield-1368-inputEl",
+        "id": "textfield-1368-inputEl",
         "placeholder": "Nơi nhận hồ sơ đề nghị cưỡng chế giải tỏa",
+        "ariaLabel": "",
+        "zone": "content"
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "combo-1369-inputEl",
+        "id": "combo-1369-inputEl",
+        "placeholder": "",
+        "ariaLabel": "",
+        "zone": "content"
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "combo-1370-inputEl",
+        "id": "combo-1370-inputEl",
+        "placeholder": "Phân loại hư hỏng",
+        "ariaLabel": "",
+        "zone": "content"
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "combo-1371-inputEl",
+        "id": "combo-1371-inputEl",
+        "placeholder": "Phân loại hư hỏng",
+        "ariaLabel": "",
+        "zone": "content"
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "combo-1372-inputEl",
+        "id": "combo-1372-inputEl",
+        "placeholder": "Phân loại hư hỏng",
+        "ariaLabel": "",
+        "zone": "content"
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "combo-1373-inputEl",
+        "id": "combo-1373-inputEl",
+        "placeholder": "Loại công trình",
         "ariaLabel": "",
         "zone": "content"
       },
@@ -1033,7 +1078,7 @@
         "type": "text",
         "name": "combo-1374-inputEl",
         "id": "combo-1374-inputEl",
-        "placeholder": "",
+        "placeholder": "Tình trạng",
         "ariaLabel": "",
         "zone": "content"
       },
@@ -1042,7 +1087,7 @@
         "type": "text",
         "name": "combo-1375-inputEl",
         "id": "combo-1375-inputEl",
-        "placeholder": "Phân loại hư hỏng",
+        "placeholder": "Loại công trình",
         "ariaLabel": "",
         "zone": "content"
       },
@@ -1051,7 +1096,7 @@
         "type": "text",
         "name": "combo-1376-inputEl",
         "id": "combo-1376-inputEl",
-        "placeholder": "Phân loại hư hỏng",
+        "placeholder": "Tình trạng",
         "ariaLabel": "",
         "zone": "content"
       },
@@ -1060,51 +1105,6 @@
         "type": "text",
         "name": "combo-1377-inputEl",
         "id": "combo-1377-inputEl",
-        "placeholder": "Phân loại hư hỏng",
-        "ariaLabel": "",
-        "zone": "content"
-      },
-      {
-        "tag": "input",
-        "type": "text",
-        "name": "combo-1378-inputEl",
-        "id": "combo-1378-inputEl",
-        "placeholder": "Loại công trình",
-        "ariaLabel": "",
-        "zone": "content"
-      },
-      {
-        "tag": "input",
-        "type": "text",
-        "name": "combo-1379-inputEl",
-        "id": "combo-1379-inputEl",
-        "placeholder": "Tình trạng",
-        "ariaLabel": "",
-        "zone": "content"
-      },
-      {
-        "tag": "input",
-        "type": "text",
-        "name": "combo-1380-inputEl",
-        "id": "combo-1380-inputEl",
-        "placeholder": "Loại công trình",
-        "ariaLabel": "",
-        "zone": "content"
-      },
-      {
-        "tag": "input",
-        "type": "text",
-        "name": "combo-1381-inputEl",
-        "id": "combo-1381-inputEl",
-        "placeholder": "Tình trạng",
-        "ariaLabel": "",
-        "zone": "content"
-      },
-      {
-        "tag": "input",
-        "type": "text",
-        "name": "combo-1382-inputEl",
-        "id": "combo-1382-inputEl",
         "placeholder": "Chọn nguyên nhân tai nạn",
         "ariaLabel": "",
         "zone": "content"
@@ -1112,8 +1112,8 @@
       {
         "tag": "input",
         "type": "text",
-        "name": "tagfield-1383-inputEl",
-        "id": "tagfield-1383-inputEl",
+        "name": "tagfield-1378-inputEl",
+        "id": "tagfield-1378-inputEl",
         "placeholder": "",
         "ariaLabel": "",
         "zone": "content"
@@ -1121,8 +1121,8 @@
       {
         "tag": "input",
         "type": "text",
-        "name": "numberfield-1384-inputEl",
-        "id": "numberfield-1384-inputEl",
+        "name": "numberfield-1379-inputEl",
+        "id": "numberfield-1379-inputEl",
         "placeholder": "Số người chết",
         "ariaLabel": "",
         "zone": "content"
@@ -1130,8 +1130,8 @@
       {
         "tag": "input",
         "type": "text",
-        "name": "numberfield-1385-inputEl",
-        "id": "numberfield-1385-inputEl",
+        "name": "numberfield-1380-inputEl",
+        "id": "numberfield-1380-inputEl",
         "placeholder": "Số người bị thương",
         "ariaLabel": "",
         "zone": "content"
@@ -1139,8 +1139,8 @@
       {
         "tag": "input",
         "type": "text",
-        "name": "numberfield-1386-inputEl",
-        "id": "numberfield-1386-inputEl",
+        "name": "numberfield-1381-inputEl",
+        "id": "numberfield-1381-inputEl",
         "placeholder": "Số phương tiện hư hỏng",
         "ariaLabel": "",
         "zone": "content"
@@ -1148,8 +1148,8 @@
       {
         "tag": "input",
         "type": "text",
-        "name": "numberfield-1387-inputEl",
-        "id": "numberfield-1387-inputEl",
+        "name": "numberfield-1382-inputEl",
+        "id": "numberfield-1382-inputEl",
         "placeholder": "Thiệt hại phương tiện",
         "ariaLabel": "",
         "zone": "content"
@@ -1157,9 +1157,54 @@
       {
         "tag": "input",
         "type": "text",
-        "name": "numberfield-1388-inputEl",
-        "id": "numberfield-1388-inputEl",
+        "name": "numberfield-1383-inputEl",
+        "id": "numberfield-1383-inputEl",
         "placeholder": "Thiệt hại công trình",
+        "ariaLabel": "",
+        "zone": "content"
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "combo-1384-inputEl",
+        "id": "combo-1384-inputEl",
+        "placeholder": "Tình trạng",
+        "ariaLabel": "",
+        "zone": "content"
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "combo-1385-inputEl",
+        "id": "combo-1385-inputEl",
+        "placeholder": "Loại công trình",
+        "ariaLabel": "",
+        "zone": "content"
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "textfield-1386-inputEl",
+        "id": "textfield-1386-inputEl",
+        "placeholder": "Tình trạng",
+        "ariaLabel": "",
+        "zone": "content"
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "combo-1387-inputEl",
+        "id": "combo-1387-inputEl",
+        "placeholder": "Tình trạng",
+        "ariaLabel": "",
+        "zone": "content"
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "textfield-1388-inputEl",
+        "id": "textfield-1388-inputEl",
+        "placeholder": "Phương tiện vi phạm",
         "ariaLabel": "",
         "zone": "content"
       },
@@ -1168,51 +1213,6 @@
         "type": "text",
         "name": "combo-1389-inputEl",
         "id": "combo-1389-inputEl",
-        "placeholder": "Tình trạng",
-        "ariaLabel": "",
-        "zone": "content"
-      },
-      {
-        "tag": "input",
-        "type": "text",
-        "name": "combo-1390-inputEl",
-        "id": "combo-1390-inputEl",
-        "placeholder": "Loại công trình",
-        "ariaLabel": "",
-        "zone": "content"
-      },
-      {
-        "tag": "input",
-        "type": "text",
-        "name": "textfield-1391-inputEl",
-        "id": "textfield-1391-inputEl",
-        "placeholder": "Tình trạng",
-        "ariaLabel": "",
-        "zone": "content"
-      },
-      {
-        "tag": "input",
-        "type": "text",
-        "name": "combo-1392-inputEl",
-        "id": "combo-1392-inputEl",
-        "placeholder": "Tình trạng",
-        "ariaLabel": "",
-        "zone": "content"
-      },
-      {
-        "tag": "input",
-        "type": "text",
-        "name": "textfield-1393-inputEl",
-        "id": "textfield-1393-inputEl",
-        "placeholder": "Phương tiện vi phạm",
-        "ariaLabel": "",
-        "zone": "content"
-      },
-      {
-        "tag": "input",
-        "type": "text",
-        "name": "combo-1394-inputEl",
-        "id": "combo-1394-inputEl",
         "placeholder": "Chọn mức độ hư hỏng",
         "ariaLabel": "",
         "zone": "content"
@@ -1220,8 +1220,8 @@
       {
         "tag": "input",
         "type": "text",
-        "name": "textfield-1395-inputEl",
-        "id": "textfield-1395-inputEl",
+        "name": "textfield-1390-inputEl",
+        "id": "textfield-1390-inputEl",
         "placeholder": "Diện tích",
         "ariaLabel": "",
         "zone": "content"
@@ -1229,8 +1229,8 @@
       {
         "tag": "input",
         "type": "text",
-        "name": "combo-1396-inputEl",
-        "id": "combo-1396-inputEl",
+        "name": "combo-1391-inputEl",
+        "id": "combo-1391-inputEl",
         "placeholder": "Chọn phân loại mức độ nghiêm trọng",
         "ariaLabel": "",
         "zone": "content"
@@ -1239,7 +1239,7 @@
         "tag": "input",
         "type": "checkbox",
         "name": "duaVaoSoTuanKiem",
-        "id": "checkbox-1397-inputEl",
+        "id": "checkbox-1392-inputEl",
         "placeholder": "",
         "ariaLabel": "",
         "zone": "content"
@@ -1247,8 +1247,8 @@
       {
         "tag": "input",
         "type": "text",
-        "name": "tagfield-1398-inputEl",
-        "id": "tagfield-1398-inputEl",
+        "name": "tagfield-1393-inputEl",
+        "id": "tagfield-1393-inputEl",
         "placeholder": "",
         "ariaLabel": "",
         "zone": "content"
@@ -1256,8 +1256,8 @@
       {
         "tag": "input",
         "type": "text",
-        "name": "combo-1407-inputEl",
-        "id": "combo-1407-inputEl",
+        "name": "combo-1402-inputEl",
+        "id": "combo-1402-inputEl",
         "placeholder": "Chọn hướng xử lý",
         "ariaLabel": "",
         "zone": "content"
@@ -1265,8 +1265,8 @@
       {
         "tag": "textarea",
         "type": "",
-        "name": "textarea-1408-inputEl",
-        "id": "textarea-1408-inputEl",
+        "name": "textarea-1403-inputEl",
+        "id": "textarea-1403-inputEl",
         "placeholder": "Ý kiến chỉ đạo",
         "ariaLabel": "",
         "zone": "content"
@@ -1274,8 +1274,8 @@
       {
         "tag": "input",
         "type": "text",
-        "name": "datefield-1409-inputEl",
-        "id": "datefield-1409-inputEl",
+        "name": "datefield-1404-inputEl",
+        "id": "datefield-1404-inputEl",
         "placeholder": "Ngày dự kiến hoàn thành",
         "ariaLabel": "",
         "zone": "content"
@@ -1283,9 +1283,45 @@
       {
         "tag": "input",
         "type": "text",
-        "name": "tagfield-1410-inputEl",
-        "id": "tagfield-1410-inputEl",
+        "name": "tagfield-1405-inputEl",
+        "id": "tagfield-1405-inputEl",
         "placeholder": "",
+        "ariaLabel": "",
+        "zone": "content"
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "textfield-1406-inputEl",
+        "id": "textfield-1406-inputEl",
+        "placeholder": "",
+        "ariaLabel": "",
+        "zone": "content"
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "datefield-1407-inputEl",
+        "id": "datefield-1407-inputEl",
+        "placeholder": "",
+        "ariaLabel": "",
+        "zone": "content"
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "textfield-1409-inputEl",
+        "id": "textfield-1409-inputEl",
+        "placeholder": "Ý kiến chỉ đạo",
+        "ariaLabel": "",
+        "zone": "content"
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "datefield-1410-inputEl",
+        "id": "datefield-1410-inputEl",
+        "placeholder": "Ngày phải hoàn thành",
         "ariaLabel": "",
         "zone": "content"
       },
@@ -1308,10 +1344,10 @@
         "zone": "content"
       },
       {
-        "tag": "input",
-        "type": "text",
-        "name": "textfield-1414-inputEl",
-        "id": "textfield-1414-inputEl",
+        "tag": "textarea",
+        "type": "",
+        "name": "textarea-1414-inputEl",
+        "id": "textarea-1414-inputEl",
         "placeholder": "Ý kiến chỉ đạo",
         "ariaLabel": "",
         "zone": "content"
@@ -1319,9 +1355,9 @@
       {
         "tag": "input",
         "type": "text",
-        "name": "datefield-1415-inputEl",
-        "id": "datefield-1415-inputEl",
-        "placeholder": "Ngày phải hoàn thành",
+        "name": "combo-1415-inputEl",
+        "id": "combo-1415-inputEl",
+        "placeholder": "Chọn trạng thái tuần kiểm",
         "ariaLabel": "",
         "zone": "content"
       },
@@ -1330,7 +1366,7 @@
         "type": "text",
         "name": "textfield-1416-inputEl",
         "id": "textfield-1416-inputEl",
-        "placeholder": "",
+        "placeholder": "Ước tính khối lượng",
         "ariaLabel": "",
         "zone": "content"
       },
@@ -1339,42 +1375,6 @@
         "type": "text",
         "name": "datefield-1417-inputEl",
         "id": "datefield-1417-inputEl",
-        "placeholder": "",
-        "ariaLabel": "",
-        "zone": "content"
-      },
-      {
-        "tag": "textarea",
-        "type": "",
-        "name": "textarea-1419-inputEl",
-        "id": "textarea-1419-inputEl",
-        "placeholder": "Ý kiến chỉ đạo",
-        "ariaLabel": "",
-        "zone": "content"
-      },
-      {
-        "tag": "input",
-        "type": "text",
-        "name": "combo-1420-inputEl",
-        "id": "combo-1420-inputEl",
-        "placeholder": "Chọn trạng thái tuần kiểm",
-        "ariaLabel": "",
-        "zone": "content"
-      },
-      {
-        "tag": "input",
-        "type": "text",
-        "name": "textfield-1421-inputEl",
-        "id": "textfield-1421-inputEl",
-        "placeholder": "Ước tính khối lượng",
-        "ariaLabel": "",
-        "zone": "content"
-      },
-      {
-        "tag": "input",
-        "type": "text",
-        "name": "datefield-1422-inputEl",
-        "id": "datefield-1422-inputEl",
         "placeholder": "Ngày phải hoàn thành",
         "ariaLabel": "",
         "zone": "content"
@@ -1382,8 +1382,8 @@
       {
         "tag": "input",
         "type": "text",
-        "name": "tagfield-1423-inputEl",
-        "id": "tagfield-1423-inputEl",
+        "name": "tagfield-1418-inputEl",
+        "id": "tagfield-1418-inputEl",
         "placeholder": "",
         "ariaLabel": "",
         "zone": "content"
@@ -1392,8 +1392,44 @@
         "tag": "input",
         "type": "checkbox",
         "name": "duaVaoSoTuanKiem",
-        "id": "checkbox-1424-inputEl",
+        "id": "checkbox-1419-inputEl",
         "placeholder": "",
+        "ariaLabel": "",
+        "zone": "content"
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "textfield-1420-inputEl",
+        "id": "textfield-1420-inputEl",
+        "placeholder": "",
+        "ariaLabel": "",
+        "zone": "content"
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "datefield-1421-inputEl",
+        "id": "datefield-1421-inputEl",
+        "placeholder": "",
+        "ariaLabel": "",
+        "zone": "content"
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "combo-1423-inputEl",
+        "id": "combo-1423-inputEl",
+        "placeholder": "Chọn trạng thái thanh tra",
+        "ariaLabel": "",
+        "zone": "content"
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "textfield-1424-inputEl",
+        "id": "textfield-1424-inputEl",
+        "placeholder": "Ý kiến thanh tra",
         "ariaLabel": "",
         "zone": "content"
       },
@@ -1411,42 +1447,6 @@
         "type": "text",
         "name": "datefield-1426-inputEl",
         "id": "datefield-1426-inputEl",
-        "placeholder": "",
-        "ariaLabel": "",
-        "zone": "content"
-      },
-      {
-        "tag": "input",
-        "type": "text",
-        "name": "combo-1428-inputEl",
-        "id": "combo-1428-inputEl",
-        "placeholder": "Chọn trạng thái thanh tra",
-        "ariaLabel": "",
-        "zone": "content"
-      },
-      {
-        "tag": "input",
-        "type": "text",
-        "name": "textfield-1429-inputEl",
-        "id": "textfield-1429-inputEl",
-        "placeholder": "Ý kiến thanh tra",
-        "ariaLabel": "",
-        "zone": "content"
-      },
-      {
-        "tag": "input",
-        "type": "text",
-        "name": "textfield-1430-inputEl",
-        "id": "textfield-1430-inputEl",
-        "placeholder": "",
-        "ariaLabel": "",
-        "zone": "content"
-      },
-      {
-        "tag": "input",
-        "type": "text",
-        "name": "datefield-1431-inputEl",
-        "id": "datefield-1431-inputEl",
         "placeholder": "",
         "ariaLabel": "",
         "zone": "content"
@@ -1727,45 +1727,6 @@
         "hasOnClick": false
       },
       {
-        "label": "Hồ sơ của tôi",
-        "kind": "nav",
-        "zone": "grid",
-        "tag": "a",
-        "type": "",
-        "href": "Secure/UserProfile.aspx",
-        "id": "menuitem-1016-itemEl",
-        "name": "",
-        "title": "",
-        "disabled": false,
-        "hasOnClick": false
-      },
-      {
-        "label": "Đổi mật khẩu",
-        "kind": "nav",
-        "zone": "grid",
-        "tag": "a",
-        "type": "",
-        "href": "gclient/gadmin/doimatkhau.aspx",
-        "id": "menuitem-1017-itemEl",
-        "name": "",
-        "title": "",
-        "disabled": false,
-        "hasOnClick": false
-      },
-      {
-        "label": "Đăng xuất",
-        "kind": "export",
-        "zone": "grid",
-        "tag": "a",
-        "type": "",
-        "href": "logoff.aspx",
-        "id": "menuitem-1019-itemEl",
-        "name": "",
-        "title": "",
-        "disabled": false,
-        "hasOnClick": false
-      },
-      {
         "label": "Xuất NKTĐ Tổng hợp",
         "kind": "export",
         "zone": "grid",
@@ -1902,7 +1863,7 @@
         "tag": "a",
         "type": "",
         "href": "",
-        "id": "button-1303",
+        "id": "button-1298",
         "name": "",
         "title": "",
         "disabled": false,
@@ -1915,7 +1876,7 @@
         "tag": "a",
         "type": "",
         "href": "",
-        "id": "button-1403",
+        "id": "button-1398",
         "name": "",
         "title": "",
         "disabled": true,
@@ -1928,7 +1889,7 @@
         "tag": "a",
         "type": "",
         "href": "",
-        "id": "button-1433",
+        "id": "button-1428",
         "name": "",
         "title": "",
         "disabled": false,
@@ -1941,7 +1902,7 @@
         "tag": "a",
         "type": "",
         "href": "",
-        "id": "button-1434",
+        "id": "button-1429",
         "name": "",
         "title": "",
         "disabled": false,
@@ -1954,7 +1915,7 @@
         "tag": "a",
         "type": "",
         "href": "",
-        "id": "button-1435",
+        "id": "button-1430",
         "name": "",
         "title": "",
         "disabled": false,
@@ -1967,7 +1928,7 @@
         "tag": "a",
         "type": "",
         "href": "",
-        "id": "button-1437",
+        "id": "button-1432",
         "name": "",
         "title": "",
         "disabled": false,
@@ -1980,7 +1941,7 @@
         "tag": "a",
         "type": "",
         "href": "",
-        "id": "button-1442",
+        "id": "button-1437",
         "name": "",
         "title": "",
         "disabled": false,
@@ -2337,8 +2298,8 @@
     {
       "tag": "input",
       "type": "text",
-      "name": "combo-1295-inputEl",
-      "id": "combo-1295-inputEl",
+      "name": "combo-1290-inputEl",
+      "id": "combo-1290-inputEl",
       "placeholder": "Chọn đoạn đường",
       "ariaLabel": "",
       "zone": "content"
@@ -2346,8 +2307,8 @@
     {
       "tag": "input",
       "type": "text",
-      "name": "combo-1296-inputEl",
-      "id": "combo-1296-inputEl",
+      "name": "combo-1291-inputEl",
+      "id": "combo-1291-inputEl",
       "placeholder": "Chọn loại vấn đề",
       "ariaLabel": "",
       "zone": "content"
@@ -2355,8 +2316,8 @@
     {
       "tag": "input",
       "type": "text",
-      "name": "combo-1297-inputEl",
-      "id": "combo-1297-inputEl",
+      "name": "combo-1292-inputEl",
+      "id": "combo-1292-inputEl",
       "placeholder": "Chọn trạng thái xử lý",
       "ariaLabel": "",
       "zone": "content"
@@ -2364,8 +2325,8 @@
     {
       "tag": "input",
       "type": "text",
-      "name": "textfield-1298-inputEl",
-      "id": "textfield-1298-inputEl",
+      "name": "textfield-1293-inputEl",
+      "id": "textfield-1293-inputEl",
       "placeholder": "",
       "ariaLabel": "",
       "zone": "content"
@@ -2373,8 +2334,8 @@
     {
       "tag": "input",
       "type": "text",
-      "name": "datefield-1299-inputEl",
-      "id": "datefield-1299-inputEl",
+      "name": "datefield-1294-inputEl",
+      "id": "datefield-1294-inputEl",
       "placeholder": "",
       "ariaLabel": "",
       "zone": "content"
@@ -2382,8 +2343,8 @@
     {
       "tag": "input",
       "type": "text",
-      "name": "textfield-1300-inputEl",
-      "id": "textfield-1300-inputEl",
+      "name": "textfield-1295-inputEl",
+      "id": "textfield-1295-inputEl",
       "placeholder": "Tên tài sản",
       "ariaLabel": "",
       "zone": "content"
@@ -2391,8 +2352,8 @@
     {
       "tag": "input",
       "type": "text",
-      "name": "textfield-1302-inputEl",
-      "id": "textfield-1302-inputEl",
+      "name": "textfield-1297-inputEl",
+      "id": "textfield-1297-inputEl",
       "placeholder": "Nhập lý trình",
       "ariaLabel": "",
       "zone": "content"
@@ -2400,8 +2361,8 @@
     {
       "tag": "input",
       "type": "text",
-      "name": "textfield-1304-inputEl",
-      "id": "textfield-1304-inputEl",
+      "name": "textfield-1299-inputEl",
+      "id": "textfield-1299-inputEl",
       "placeholder": "Lý trình cuối",
       "ariaLabel": "",
       "zone": "content"
@@ -2409,8 +2370,53 @@
     {
       "tag": "input",
       "type": "text",
-      "name": "combo-1305-inputEl",
-      "id": "combo-1305-inputEl",
+      "name": "combo-1300-inputEl",
+      "id": "combo-1300-inputEl",
+      "placeholder": "",
+      "ariaLabel": "",
+      "zone": "content"
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "combo-1301-inputEl",
+      "id": "combo-1301-inputEl",
+      "placeholder": "",
+      "ariaLabel": "",
+      "zone": "content"
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "combo-1302-inputEl",
+      "id": "combo-1302-inputEl",
+      "placeholder": "Phân loại điểm đen",
+      "ariaLabel": "",
+      "zone": "content"
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "combo-1303-inputEl",
+      "id": "combo-1303-inputEl",
+      "placeholder": "",
+      "ariaLabel": "",
+      "zone": "content"
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "datefield-1304-inputEl",
+      "id": "datefield-1304-inputEl",
+      "placeholder": "",
+      "ariaLabel": "",
+      "zone": "content"
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "datefield-1305-inputEl",
+      "id": "datefield-1305-inputEl",
       "placeholder": "",
       "ariaLabel": "",
       "zone": "content"
@@ -2420,6 +2426,15 @@
       "type": "text",
       "name": "combo-1306-inputEl",
       "id": "combo-1306-inputEl",
+      "placeholder": "Tình trạng thông đường",
+      "ariaLabel": "",
+      "zone": "content"
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "datefield-1307-inputEl",
+      "id": "datefield-1307-inputEl",
       "placeholder": "",
       "ariaLabel": "",
       "zone": "content"
@@ -2427,36 +2442,27 @@
     {
       "tag": "input",
       "type": "text",
-      "name": "combo-1307-inputEl",
-      "id": "combo-1307-inputEl",
-      "placeholder": "Phân loại điểm đen",
+      "name": "textfield-1308-inputEl",
+      "id": "textfield-1308-inputEl",
+      "placeholder": "Biện pháp",
       "ariaLabel": "",
       "zone": "content"
     },
     {
       "tag": "input",
       "type": "text",
-      "name": "combo-1308-inputEl",
-      "id": "combo-1308-inputEl",
-      "placeholder": "",
+      "name": "textfield-1309-inputEl",
+      "id": "textfield-1309-inputEl",
+      "placeholder": "Bão số  (Tên bão)",
       "ariaLabel": "",
       "zone": "content"
     },
     {
       "tag": "input",
       "type": "text",
-      "name": "datefield-1309-inputEl",
-      "id": "datefield-1309-inputEl",
-      "placeholder": "",
-      "ariaLabel": "",
-      "zone": "content"
-    },
-    {
-      "tag": "input",
-      "type": "text",
-      "name": "datefield-1310-inputEl",
-      "id": "datefield-1310-inputEl",
-      "placeholder": "",
+      "name": "combo-1310-inputEl",
+      "id": "combo-1310-inputEl",
+      "placeholder": "Tên xã",
       "ariaLabel": "",
       "zone": "content"
     },
@@ -2465,52 +2471,52 @@
       "type": "text",
       "name": "combo-1311-inputEl",
       "id": "combo-1311-inputEl",
-      "placeholder": "Tình trạng thông đường",
-      "ariaLabel": "",
-      "zone": "content"
-    },
-    {
-      "tag": "input",
-      "type": "text",
-      "name": "datefield-1312-inputEl",
-      "id": "datefield-1312-inputEl",
-      "placeholder": "",
-      "ariaLabel": "",
-      "zone": "content"
-    },
-    {
-      "tag": "input",
-      "type": "text",
-      "name": "textfield-1313-inputEl",
-      "id": "textfield-1313-inputEl",
-      "placeholder": "Biện pháp",
-      "ariaLabel": "",
-      "zone": "content"
-    },
-    {
-      "tag": "input",
-      "type": "text",
-      "name": "textfield-1314-inputEl",
-      "id": "textfield-1314-inputEl",
-      "placeholder": "Bão số  (Tên bão)",
-      "ariaLabel": "",
-      "zone": "content"
-    },
-    {
-      "tag": "input",
-      "type": "text",
-      "name": "combo-1315-inputEl",
-      "id": "combo-1315-inputEl",
-      "placeholder": "Tên xã",
-      "ariaLabel": "",
-      "zone": "content"
-    },
-    {
-      "tag": "input",
-      "type": "text",
-      "name": "combo-1316-inputEl",
-      "id": "combo-1316-inputEl",
       "placeholder": "Phân loại hư hỏng",
+      "ariaLabel": "",
+      "zone": "content"
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "textfield-1312-inputEl",
+      "id": "textfield-1312-inputEl",
+      "placeholder": "Cống (Sơ bộ hư hỏng)",
+      "ariaLabel": "",
+      "zone": "content"
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "numberfield-1313-inputEl",
+      "id": "numberfield-1313-inputEl",
+      "placeholder": "Chiều dài (m)",
+      "ariaLabel": "",
+      "zone": "content"
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "numberfield-1314-inputEl",
+      "id": "numberfield-1314-inputEl",
+      "placeholder": "Chiều rộng (m)",
+      "ariaLabel": "",
+      "zone": "content"
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "numberfield-1315-inputEl",
+      "id": "numberfield-1315-inputEl",
+      "placeholder": "Chiều cao (m)",
+      "ariaLabel": "",
+      "zone": "content"
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "numberfield-1316-inputEl",
+      "id": "numberfield-1316-inputEl",
+      "placeholder": "Chiều sâu",
       "ariaLabel": "",
       "zone": "content"
     },
@@ -2519,43 +2525,43 @@
       "type": "text",
       "name": "textfield-1317-inputEl",
       "id": "textfield-1317-inputEl",
-      "placeholder": "Cống (Sơ bộ hư hỏng)",
+      "placeholder": "Xói trôi lề đường (m2)",
       "ariaLabel": "",
       "zone": "content"
     },
     {
       "tag": "input",
       "type": "text",
-      "name": "numberfield-1318-inputEl",
-      "id": "numberfield-1318-inputEl",
-      "placeholder": "Chiều dài (m)",
+      "name": "textfield-1318-inputEl",
+      "id": "textfield-1318-inputEl",
+      "placeholder": "Bùn tràn mặt đường  (m3)",
       "ariaLabel": "",
       "zone": "content"
     },
     {
       "tag": "input",
       "type": "text",
-      "name": "numberfield-1319-inputEl",
-      "id": "numberfield-1319-inputEl",
-      "placeholder": "Chiều rộng (m)",
+      "name": "textfield-1319-inputEl",
+      "id": "textfield-1319-inputEl",
+      "placeholder": "Bùn tràn rãnh dọc",
       "ariaLabel": "",
       "zone": "content"
     },
     {
       "tag": "input",
       "type": "text",
-      "name": "numberfield-1320-inputEl",
-      "id": "numberfield-1320-inputEl",
-      "placeholder": "Chiều cao (m)",
+      "name": "textfield-1320-inputEl",
+      "id": "textfield-1320-inputEl",
+      "placeholder": "Địa chỉ vi phạm",
       "ariaLabel": "",
       "zone": "content"
     },
     {
       "tag": "input",
       "type": "text",
-      "name": "numberfield-1321-inputEl",
-      "id": "numberfield-1321-inputEl",
-      "placeholder": "Chiều sâu",
+      "name": "textfield-1321-inputEl",
+      "id": "textfield-1321-inputEl",
+      "placeholder": "",
       "ariaLabel": "",
       "zone": "content"
     },
@@ -2564,7 +2570,7 @@
       "type": "text",
       "name": "textfield-1322-inputEl",
       "id": "textfield-1322-inputEl",
-      "placeholder": "Xói trôi lề đường (m2)",
+      "placeholder": "",
       "ariaLabel": "",
       "zone": "content"
     },
@@ -2573,33 +2579,6 @@
       "type": "text",
       "name": "textfield-1323-inputEl",
       "id": "textfield-1323-inputEl",
-      "placeholder": "Bùn tràn mặt đường  (m3)",
-      "ariaLabel": "",
-      "zone": "content"
-    },
-    {
-      "tag": "input",
-      "type": "text",
-      "name": "textfield-1324-inputEl",
-      "id": "textfield-1324-inputEl",
-      "placeholder": "Bùn tràn rãnh dọc",
-      "ariaLabel": "",
-      "zone": "content"
-    },
-    {
-      "tag": "input",
-      "type": "text",
-      "name": "textfield-1325-inputEl",
-      "id": "textfield-1325-inputEl",
-      "placeholder": "Địa chỉ vi phạm",
-      "ariaLabel": "",
-      "zone": "content"
-    },
-    {
-      "tag": "input",
-      "type": "text",
-      "name": "textfield-1326-inputEl",
-      "id": "textfield-1326-inputEl",
       "placeholder": "",
       "ariaLabel": "",
       "zone": "content"
@@ -2607,8 +2586,8 @@
     {
       "tag": "input",
       "type": "text",
-      "name": "textfield-1327-inputEl",
-      "id": "textfield-1327-inputEl",
+      "name": "datefield-1324-inputEl",
+      "id": "datefield-1324-inputEl",
       "placeholder": "",
       "ariaLabel": "",
       "zone": "content"
@@ -2616,8 +2595,8 @@
     {
       "tag": "input",
       "type": "text",
-      "name": "textfield-1328-inputEl",
-      "id": "textfield-1328-inputEl",
+      "name": "datefield-1325-inputEl",
+      "id": "datefield-1325-inputEl",
       "placeholder": "",
       "ariaLabel": "",
       "zone": "content"
@@ -2625,8 +2604,8 @@
     {
       "tag": "input",
       "type": "text",
-      "name": "datefield-1329-inputEl",
-      "id": "datefield-1329-inputEl",
+      "name": "datefield-1326-inputEl",
+      "id": "datefield-1326-inputEl",
       "placeholder": "",
       "ariaLabel": "",
       "zone": "content"
@@ -2634,18 +2613,45 @@
     {
       "tag": "input",
       "type": "text",
-      "name": "datefield-1330-inputEl",
-      "id": "datefield-1330-inputEl",
-      "placeholder": "",
+      "name": "numberfield-1327-inputEl",
+      "id": "numberfield-1327-inputEl",
+      "placeholder": "Xe con",
       "ariaLabel": "",
       "zone": "content"
     },
     {
       "tag": "input",
       "type": "text",
-      "name": "datefield-1331-inputEl",
-      "id": "datefield-1331-inputEl",
-      "placeholder": "",
+      "name": "numberfield-1328-inputEl",
+      "id": "numberfield-1328-inputEl",
+      "placeholder": "Xe tải nhẹ",
+      "ariaLabel": "",
+      "zone": "content"
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "numberfield-1329-inputEl",
+      "id": "numberfield-1329-inputEl",
+      "placeholder": "Xe tải hạng trung",
+      "ariaLabel": "",
+      "zone": "content"
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "numberfield-1330-inputEl",
+      "id": "numberfield-1330-inputEl",
+      "placeholder": "Xe tải hạng nặng",
+      "ariaLabel": "",
+      "zone": "content"
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "numberfield-1331-inputEl",
+      "id": "numberfield-1331-inputEl",
+      "placeholder": "Xe tải hạng nặng trên 4 trục",
       "ariaLabel": "",
       "zone": "content"
     },
@@ -2654,7 +2660,7 @@
       "type": "text",
       "name": "numberfield-1332-inputEl",
       "id": "numberfield-1332-inputEl",
-      "placeholder": "Xe con",
+      "placeholder": "Xe khách nhỏ",
       "ariaLabel": "",
       "zone": "content"
     },
@@ -2663,7 +2669,7 @@
       "type": "text",
       "name": "numberfield-1333-inputEl",
       "id": "numberfield-1333-inputEl",
-      "placeholder": "Xe tải nhẹ",
+      "placeholder": "Xe khách lớn",
       "ariaLabel": "",
       "zone": "content"
     },
@@ -2672,7 +2678,7 @@
       "type": "text",
       "name": "numberfield-1334-inputEl",
       "id": "numberfield-1334-inputEl",
-      "placeholder": "Xe tải hạng trung",
+      "placeholder": "Máy kéo",
       "ariaLabel": "",
       "zone": "content"
     },
@@ -2681,7 +2687,7 @@
       "type": "text",
       "name": "numberfield-1335-inputEl",
       "id": "numberfield-1335-inputEl",
-      "placeholder": "Xe tải hạng nặng",
+      "placeholder": "Xe máy",
       "ariaLabel": "",
       "zone": "content"
     },
@@ -2690,7 +2696,7 @@
       "type": "text",
       "name": "numberfield-1336-inputEl",
       "id": "numberfield-1336-inputEl",
-      "placeholder": "Xe tải hạng nặng trên 4 trục",
+      "placeholder": "Xe đạp",
       "ariaLabel": "",
       "zone": "content"
     },
@@ -2699,16 +2705,16 @@
       "type": "text",
       "name": "numberfield-1337-inputEl",
       "id": "numberfield-1337-inputEl",
-      "placeholder": "Xe khách nhỏ",
+      "placeholder": "Khối lượng",
       "ariaLabel": "",
       "zone": "content"
     },
     {
       "tag": "input",
       "type": "text",
-      "name": "numberfield-1338-inputEl",
-      "id": "numberfield-1338-inputEl",
-      "placeholder": "Xe khách lớn",
+      "name": "combo-1338-inputEl",
+      "id": "combo-1338-inputEl",
+      "placeholder": "Đơn vị tính",
       "ariaLabel": "",
       "zone": "content"
     },
@@ -2717,7 +2723,7 @@
       "type": "text",
       "name": "numberfield-1339-inputEl",
       "id": "numberfield-1339-inputEl",
-      "placeholder": "Máy kéo",
+      "placeholder": "Số vị trí",
       "ariaLabel": "",
       "zone": "content"
     },
@@ -2726,7 +2732,7 @@
       "type": "text",
       "name": "numberfield-1340-inputEl",
       "id": "numberfield-1340-inputEl",
-      "placeholder": "Xe máy",
+      "placeholder": "Diện tích",
       "ariaLabel": "",
       "zone": "content"
     },
@@ -2735,7 +2741,7 @@
       "type": "text",
       "name": "numberfield-1341-inputEl",
       "id": "numberfield-1341-inputEl",
-      "placeholder": "Xe đạp",
+      "placeholder": "Hư hỏng rãnh dọc (md)",
       "ariaLabel": "",
       "zone": "content"
     },
@@ -2744,16 +2750,16 @@
       "type": "text",
       "name": "numberfield-1342-inputEl",
       "id": "numberfield-1342-inputEl",
-      "placeholder": "Khối lượng",
+      "placeholder": "Hộ lan  (md)",
       "ariaLabel": "",
       "zone": "content"
     },
     {
       "tag": "input",
       "type": "text",
-      "name": "combo-1343-inputEl",
-      "id": "combo-1343-inputEl",
-      "placeholder": "Đơn vị tính",
+      "name": "numberfield-1343-inputEl",
+      "id": "numberfield-1343-inputEl",
+      "placeholder": "Biển báo  (cái)",
       "ariaLabel": "",
       "zone": "content"
     },
@@ -2762,7 +2768,7 @@
       "type": "text",
       "name": "numberfield-1344-inputEl",
       "id": "numberfield-1344-inputEl",
-      "placeholder": "Số vị trí",
+      "placeholder": "Cây đổ (cây)",
       "ariaLabel": "",
       "zone": "content"
     },
@@ -2771,51 +2777,6 @@
       "type": "text",
       "name": "numberfield-1345-inputEl",
       "id": "numberfield-1345-inputEl",
-      "placeholder": "Diện tích",
-      "ariaLabel": "",
-      "zone": "content"
-    },
-    {
-      "tag": "input",
-      "type": "text",
-      "name": "numberfield-1346-inputEl",
-      "id": "numberfield-1346-inputEl",
-      "placeholder": "Hư hỏng rãnh dọc (md)",
-      "ariaLabel": "",
-      "zone": "content"
-    },
-    {
-      "tag": "input",
-      "type": "text",
-      "name": "numberfield-1347-inputEl",
-      "id": "numberfield-1347-inputEl",
-      "placeholder": "Hộ lan  (md)",
-      "ariaLabel": "",
-      "zone": "content"
-    },
-    {
-      "tag": "input",
-      "type": "text",
-      "name": "numberfield-1348-inputEl",
-      "id": "numberfield-1348-inputEl",
-      "placeholder": "Biển báo  (cái)",
-      "ariaLabel": "",
-      "zone": "content"
-    },
-    {
-      "tag": "input",
-      "type": "text",
-      "name": "numberfield-1349-inputEl",
-      "id": "numberfield-1349-inputEl",
-      "placeholder": "Cây đổ (cây)",
-      "ariaLabel": "",
-      "zone": "content"
-    },
-    {
-      "tag": "input",
-      "type": "text",
-      "name": "numberfield-1350-inputEl",
-      "id": "numberfield-1350-inputEl",
       "placeholder": "Công trình khác (Sơ bộ hư hỏng)",
       "ariaLabel": "",
       "zone": "content"
@@ -2823,8 +2784,8 @@
     {
       "tag": "input",
       "type": "text",
-      "name": "textfield-1351-inputEl",
-      "id": "textfield-1351-inputEl",
+      "name": "textfield-1346-inputEl",
+      "id": "textfield-1346-inputEl",
       "placeholder": "Nguyên nhân điểm đen",
       "ariaLabel": "",
       "zone": "content"
@@ -2832,8 +2793,8 @@
     {
       "tag": "input",
       "type": "text",
-      "name": "textfield-1352-inputEl",
-      "id": "textfield-1352-inputEl",
+      "name": "textfield-1347-inputEl",
+      "id": "textfield-1347-inputEl",
       "placeholder": "Giải pháp sơ bộ",
       "ariaLabel": "",
       "zone": "content"
@@ -2841,8 +2802,8 @@
     {
       "tag": "input",
       "type": "text",
-      "name": "textfield-1353-inputEl",
-      "id": "textfield-1353-inputEl",
+      "name": "textfield-1348-inputEl",
+      "id": "textfield-1348-inputEl",
       "placeholder": "Đề xuất xử lý",
       "ariaLabel": "",
       "zone": "content"
@@ -2850,8 +2811,8 @@
     {
       "tag": "input",
       "type": "text",
-      "name": "currencyfield-1354-inputEl",
-      "id": "currencyfield-1354-inputEl",
+      "name": "currencyfield-1349-inputEl",
+      "id": "currencyfield-1349-inputEl",
       "placeholder": "Ước tính kinh phí",
       "ariaLabel": "",
       "zone": "content"
@@ -2859,9 +2820,54 @@
     {
       "tag": "input",
       "type": "text",
-      "name": "combo-1355-inputEl",
-      "id": "combo-1355-inputEl",
+      "name": "combo-1350-inputEl",
+      "id": "combo-1350-inputEl",
       "placeholder": "Hạng mục vi phạm",
+      "ariaLabel": "",
+      "zone": "content"
+    },
+    {
+      "tag": "textarea",
+      "type": "",
+      "name": "textarea-1351-inputEl",
+      "id": "textarea-1351-inputEl",
+      "placeholder": "",
+      "ariaLabel": "",
+      "zone": "content"
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "combo-1352-inputEl",
+      "id": "combo-1352-inputEl",
+      "placeholder": "Chọn tình trạng",
+      "ariaLabel": "",
+      "zone": "content"
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "tagfield-1353-inputEl",
+      "id": "tagfield-1353-inputEl",
+      "placeholder": "",
+      "ariaLabel": "",
+      "zone": "content"
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "textfield-1354-inputEl",
+      "id": "textfield-1354-inputEl",
+      "placeholder": "Mức độ ưu tiên",
+      "ariaLabel": "",
+      "zone": "content"
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "textfield-1355-inputEl",
+      "id": "textfield-1355-inputEl",
+      "placeholder": "Đề xuất",
       "ariaLabel": "",
       "zone": "content"
     },
@@ -2879,25 +2885,25 @@
       "type": "text",
       "name": "combo-1357-inputEl",
       "id": "combo-1357-inputEl",
-      "placeholder": "Chọn tình trạng",
+      "placeholder": "Chọn loại vi phạm",
       "ariaLabel": "",
       "zone": "content"
     },
     {
       "tag": "input",
       "type": "text",
-      "name": "tagfield-1358-inputEl",
-      "id": "tagfield-1358-inputEl",
-      "placeholder": "",
+      "name": "combo-1358-inputEl",
+      "id": "combo-1358-inputEl",
+      "placeholder": "Tình trạng lập biên bản",
       "ariaLabel": "",
       "zone": "content"
     },
     {
       "tag": "input",
       "type": "text",
-      "name": "textfield-1359-inputEl",
-      "id": "textfield-1359-inputEl",
-      "placeholder": "Mức độ ưu tiên",
+      "name": "combo-1359-inputEl",
+      "id": "combo-1359-inputEl",
+      "placeholder": "Lý do chưa lập biên bản",
       "ariaLabel": "",
       "zone": "content"
     },
@@ -2906,51 +2912,6 @@
       "type": "text",
       "name": "textfield-1360-inputEl",
       "id": "textfield-1360-inputEl",
-      "placeholder": "Đề xuất",
-      "ariaLabel": "",
-      "zone": "content"
-    },
-    {
-      "tag": "textarea",
-      "type": "",
-      "name": "textarea-1361-inputEl",
-      "id": "textarea-1361-inputEl",
-      "placeholder": "",
-      "ariaLabel": "",
-      "zone": "content"
-    },
-    {
-      "tag": "input",
-      "type": "text",
-      "name": "combo-1362-inputEl",
-      "id": "combo-1362-inputEl",
-      "placeholder": "Chọn loại vi phạm",
-      "ariaLabel": "",
-      "zone": "content"
-    },
-    {
-      "tag": "input",
-      "type": "text",
-      "name": "combo-1363-inputEl",
-      "id": "combo-1363-inputEl",
-      "placeholder": "Tình trạng lập biên bản",
-      "ariaLabel": "",
-      "zone": "content"
-    },
-    {
-      "tag": "input",
-      "type": "text",
-      "name": "combo-1364-inputEl",
-      "id": "combo-1364-inputEl",
-      "placeholder": "Lý do chưa lập biên bản",
-      "ariaLabel": "",
-      "zone": "content"
-    },
-    {
-      "tag": "input",
-      "type": "text",
-      "name": "textfield-1365-inputEl",
-      "id": "textfield-1365-inputEl",
       "placeholder": "Đối tượng vi phạm",
       "ariaLabel": "",
       "zone": "content"
@@ -2958,9 +2919,54 @@
     {
       "tag": "input",
       "type": "text",
-      "name": "textfield-1366-inputEl",
-      "id": "textfield-1366-inputEl",
+      "name": "textfield-1361-inputEl",
+      "id": "textfield-1361-inputEl",
       "placeholder": "Quy mô vi phạm",
+      "ariaLabel": "",
+      "zone": "content"
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "textfield-1362-inputEl",
+      "id": "textfield-1362-inputEl",
+      "placeholder": "Số biên bản",
+      "ariaLabel": "",
+      "zone": "content"
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "datefield-1363-inputEl",
+      "id": "datefield-1363-inputEl",
+      "placeholder": "Ngày lập biên bản",
+      "ariaLabel": "",
+      "zone": "content"
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "textfield-1364-inputEl",
+      "id": "textfield-1364-inputEl",
+      "placeholder": "Cơ quan ban hành quyết định xử phạt",
+      "ariaLabel": "",
+      "zone": "content"
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "currencyfield-1365-inputEl",
+      "id": "currencyfield-1365-inputEl",
+      "placeholder": "Số tiền xử phạt",
+      "ariaLabel": "",
+      "zone": "content"
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "currencyfield-1366-inputEl",
+      "id": "currencyfield-1366-inputEl",
+      "placeholder": "Số tiền đã chấp hành nộp phạt",
       "ariaLabel": "",
       "zone": "content"
     },
@@ -2969,51 +2975,6 @@
       "type": "text",
       "name": "textfield-1367-inputEl",
       "id": "textfield-1367-inputEl",
-      "placeholder": "Số biên bản",
-      "ariaLabel": "",
-      "zone": "content"
-    },
-    {
-      "tag": "input",
-      "type": "text",
-      "name": "datefield-1368-inputEl",
-      "id": "datefield-1368-inputEl",
-      "placeholder": "Ngày lập biên bản",
-      "ariaLabel": "",
-      "zone": "content"
-    },
-    {
-      "tag": "input",
-      "type": "text",
-      "name": "textfield-1369-inputEl",
-      "id": "textfield-1369-inputEl",
-      "placeholder": "Cơ quan ban hành quyết định xử phạt",
-      "ariaLabel": "",
-      "zone": "content"
-    },
-    {
-      "tag": "input",
-      "type": "text",
-      "name": "currencyfield-1370-inputEl",
-      "id": "currencyfield-1370-inputEl",
-      "placeholder": "Số tiền xử phạt",
-      "ariaLabel": "",
-      "zone": "content"
-    },
-    {
-      "tag": "input",
-      "type": "text",
-      "name": "currencyfield-1371-inputEl",
-      "id": "currencyfield-1371-inputEl",
-      "placeholder": "Số tiền đã chấp hành nộp phạt",
-      "ariaLabel": "",
-      "zone": "content"
-    },
-    {
-      "tag": "input",
-      "type": "text",
-      "name": "textfield-1372-inputEl",
-      "id": "textfield-1372-inputEl",
       "placeholder": "Biện pháp ngăn chặn",
       "ariaLabel": "",
       "zone": "content"
@@ -3021,9 +2982,54 @@
     {
       "tag": "input",
       "type": "text",
-      "name": "textfield-1373-inputEl",
-      "id": "textfield-1373-inputEl",
+      "name": "textfield-1368-inputEl",
+      "id": "textfield-1368-inputEl",
       "placeholder": "Nơi nhận hồ sơ đề nghị cưỡng chế giải tỏa",
+      "ariaLabel": "",
+      "zone": "content"
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "combo-1369-inputEl",
+      "id": "combo-1369-inputEl",
+      "placeholder": "",
+      "ariaLabel": "",
+      "zone": "content"
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "combo-1370-inputEl",
+      "id": "combo-1370-inputEl",
+      "placeholder": "Phân loại hư hỏng",
+      "ariaLabel": "",
+      "zone": "content"
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "combo-1371-inputEl",
+      "id": "combo-1371-inputEl",
+      "placeholder": "Phân loại hư hỏng",
+      "ariaLabel": "",
+      "zone": "content"
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "combo-1372-inputEl",
+      "id": "combo-1372-inputEl",
+      "placeholder": "Phân loại hư hỏng",
+      "ariaLabel": "",
+      "zone": "content"
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "combo-1373-inputEl",
+      "id": "combo-1373-inputEl",
+      "placeholder": "Loại công trình",
       "ariaLabel": "",
       "zone": "content"
     },
@@ -3032,7 +3038,7 @@
       "type": "text",
       "name": "combo-1374-inputEl",
       "id": "combo-1374-inputEl",
-      "placeholder": "",
+      "placeholder": "Tình trạng",
       "ariaLabel": "",
       "zone": "content"
     },
@@ -3041,7 +3047,7 @@
       "type": "text",
       "name": "combo-1375-inputEl",
       "id": "combo-1375-inputEl",
-      "placeholder": "Phân loại hư hỏng",
+      "placeholder": "Loại công trình",
       "ariaLabel": "",
       "zone": "content"
     },
@@ -3050,7 +3056,7 @@
       "type": "text",
       "name": "combo-1376-inputEl",
       "id": "combo-1376-inputEl",
-      "placeholder": "Phân loại hư hỏng",
+      "placeholder": "Tình trạng",
       "ariaLabel": "",
       "zone": "content"
     },
@@ -3059,51 +3065,6 @@
       "type": "text",
       "name": "combo-1377-inputEl",
       "id": "combo-1377-inputEl",
-      "placeholder": "Phân loại hư hỏng",
-      "ariaLabel": "",
-      "zone": "content"
-    },
-    {
-      "tag": "input",
-      "type": "text",
-      "name": "combo-1378-inputEl",
-      "id": "combo-1378-inputEl",
-      "placeholder": "Loại công trình",
-      "ariaLabel": "",
-      "zone": "content"
-    },
-    {
-      "tag": "input",
-      "type": "text",
-      "name": "combo-1379-inputEl",
-      "id": "combo-1379-inputEl",
-      "placeholder": "Tình trạng",
-      "ariaLabel": "",
-      "zone": "content"
-    },
-    {
-      "tag": "input",
-      "type": "text",
-      "name": "combo-1380-inputEl",
-      "id": "combo-1380-inputEl",
-      "placeholder": "Loại công trình",
-      "ariaLabel": "",
-      "zone": "content"
-    },
-    {
-      "tag": "input",
-      "type": "text",
-      "name": "combo-1381-inputEl",
-      "id": "combo-1381-inputEl",
-      "placeholder": "Tình trạng",
-      "ariaLabel": "",
-      "zone": "content"
-    },
-    {
-      "tag": "input",
-      "type": "text",
-      "name": "combo-1382-inputEl",
-      "id": "combo-1382-inputEl",
       "placeholder": "Chọn nguyên nhân tai nạn",
       "ariaLabel": "",
       "zone": "content"
@@ -3111,8 +3072,8 @@
     {
       "tag": "input",
       "type": "text",
-      "name": "tagfield-1383-inputEl",
-      "id": "tagfield-1383-inputEl",
+      "name": "tagfield-1378-inputEl",
+      "id": "tagfield-1378-inputEl",
       "placeholder": "",
       "ariaLabel": "",
       "zone": "content"
@@ -3120,8 +3081,8 @@
     {
       "tag": "input",
       "type": "text",
-      "name": "numberfield-1384-inputEl",
-      "id": "numberfield-1384-inputEl",
+      "name": "numberfield-1379-inputEl",
+      "id": "numberfield-1379-inputEl",
       "placeholder": "Số người chết",
       "ariaLabel": "",
       "zone": "content"
@@ -3129,8 +3090,8 @@
     {
       "tag": "input",
       "type": "text",
-      "name": "numberfield-1385-inputEl",
-      "id": "numberfield-1385-inputEl",
+      "name": "numberfield-1380-inputEl",
+      "id": "numberfield-1380-inputEl",
       "placeholder": "Số người bị thương",
       "ariaLabel": "",
       "zone": "content"
@@ -3138,8 +3099,8 @@
     {
       "tag": "input",
       "type": "text",
-      "name": "numberfield-1386-inputEl",
-      "id": "numberfield-1386-inputEl",
+      "name": "numberfield-1381-inputEl",
+      "id": "numberfield-1381-inputEl",
       "placeholder": "Số phương tiện hư hỏng",
       "ariaLabel": "",
       "zone": "content"
@@ -3147,8 +3108,8 @@
     {
       "tag": "input",
       "type": "text",
-      "name": "numberfield-1387-inputEl",
-      "id": "numberfield-1387-inputEl",
+      "name": "numberfield-1382-inputEl",
+      "id": "numberfield-1382-inputEl",
       "placeholder": "Thiệt hại phương tiện",
       "ariaLabel": "",
       "zone": "content"
@@ -3156,9 +3117,54 @@
     {
       "tag": "input",
       "type": "text",
-      "name": "numberfield-1388-inputEl",
-      "id": "numberfield-1388-inputEl",
+      "name": "numberfield-1383-inputEl",
+      "id": "numberfield-1383-inputEl",
       "placeholder": "Thiệt hại công trình",
+      "ariaLabel": "",
+      "zone": "content"
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "combo-1384-inputEl",
+      "id": "combo-1384-inputEl",
+      "placeholder": "Tình trạng",
+      "ariaLabel": "",
+      "zone": "content"
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "combo-1385-inputEl",
+      "id": "combo-1385-inputEl",
+      "placeholder": "Loại công trình",
+      "ariaLabel": "",
+      "zone": "content"
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "textfield-1386-inputEl",
+      "id": "textfield-1386-inputEl",
+      "placeholder": "Tình trạng",
+      "ariaLabel": "",
+      "zone": "content"
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "combo-1387-inputEl",
+      "id": "combo-1387-inputEl",
+      "placeholder": "Tình trạng",
+      "ariaLabel": "",
+      "zone": "content"
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "textfield-1388-inputEl",
+      "id": "textfield-1388-inputEl",
+      "placeholder": "Phương tiện vi phạm",
       "ariaLabel": "",
       "zone": "content"
     },
@@ -3167,51 +3173,6 @@
       "type": "text",
       "name": "combo-1389-inputEl",
       "id": "combo-1389-inputEl",
-      "placeholder": "Tình trạng",
-      "ariaLabel": "",
-      "zone": "content"
-    },
-    {
-      "tag": "input",
-      "type": "text",
-      "name": "combo-1390-inputEl",
-      "id": "combo-1390-inputEl",
-      "placeholder": "Loại công trình",
-      "ariaLabel": "",
-      "zone": "content"
-    },
-    {
-      "tag": "input",
-      "type": "text",
-      "name": "textfield-1391-inputEl",
-      "id": "textfield-1391-inputEl",
-      "placeholder": "Tình trạng",
-      "ariaLabel": "",
-      "zone": "content"
-    },
-    {
-      "tag": "input",
-      "type": "text",
-      "name": "combo-1392-inputEl",
-      "id": "combo-1392-inputEl",
-      "placeholder": "Tình trạng",
-      "ariaLabel": "",
-      "zone": "content"
-    },
-    {
-      "tag": "input",
-      "type": "text",
-      "name": "textfield-1393-inputEl",
-      "id": "textfield-1393-inputEl",
-      "placeholder": "Phương tiện vi phạm",
-      "ariaLabel": "",
-      "zone": "content"
-    },
-    {
-      "tag": "input",
-      "type": "text",
-      "name": "combo-1394-inputEl",
-      "id": "combo-1394-inputEl",
       "placeholder": "Chọn mức độ hư hỏng",
       "ariaLabel": "",
       "zone": "content"
@@ -3219,8 +3180,8 @@
     {
       "tag": "input",
       "type": "text",
-      "name": "textfield-1395-inputEl",
-      "id": "textfield-1395-inputEl",
+      "name": "textfield-1390-inputEl",
+      "id": "textfield-1390-inputEl",
       "placeholder": "Diện tích",
       "ariaLabel": "",
       "zone": "content"
@@ -3228,8 +3189,8 @@
     {
       "tag": "input",
       "type": "text",
-      "name": "combo-1396-inputEl",
-      "id": "combo-1396-inputEl",
+      "name": "combo-1391-inputEl",
+      "id": "combo-1391-inputEl",
       "placeholder": "Chọn phân loại mức độ nghiêm trọng",
       "ariaLabel": "",
       "zone": "content"
@@ -3238,7 +3199,7 @@
       "tag": "input",
       "type": "checkbox",
       "name": "duaVaoSoTuanKiem",
-      "id": "checkbox-1397-inputEl",
+      "id": "checkbox-1392-inputEl",
       "placeholder": "",
       "ariaLabel": "",
       "zone": "content"
@@ -3246,8 +3207,8 @@
     {
       "tag": "input",
       "type": "text",
-      "name": "tagfield-1398-inputEl",
-      "id": "tagfield-1398-inputEl",
+      "name": "tagfield-1393-inputEl",
+      "id": "tagfield-1393-inputEl",
       "placeholder": "",
       "ariaLabel": "",
       "zone": "content"
@@ -3255,8 +3216,8 @@
     {
       "tag": "input",
       "type": "text",
-      "name": "combo-1407-inputEl",
-      "id": "combo-1407-inputEl",
+      "name": "combo-1402-inputEl",
+      "id": "combo-1402-inputEl",
       "placeholder": "Chọn hướng xử lý",
       "ariaLabel": "",
       "zone": "content"
@@ -3264,8 +3225,8 @@
     {
       "tag": "textarea",
       "type": "",
-      "name": "textarea-1408-inputEl",
-      "id": "textarea-1408-inputEl",
+      "name": "textarea-1403-inputEl",
+      "id": "textarea-1403-inputEl",
       "placeholder": "Ý kiến chỉ đạo",
       "ariaLabel": "",
       "zone": "content"
@@ -3273,8 +3234,8 @@
     {
       "tag": "input",
       "type": "text",
-      "name": "datefield-1409-inputEl",
-      "id": "datefield-1409-inputEl",
+      "name": "datefield-1404-inputEl",
+      "id": "datefield-1404-inputEl",
       "placeholder": "Ngày dự kiến hoàn thành",
       "ariaLabel": "",
       "zone": "content"
@@ -3282,9 +3243,45 @@
     {
       "tag": "input",
       "type": "text",
-      "name": "tagfield-1410-inputEl",
-      "id": "tagfield-1410-inputEl",
+      "name": "tagfield-1405-inputEl",
+      "id": "tagfield-1405-inputEl",
       "placeholder": "",
+      "ariaLabel": "",
+      "zone": "content"
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "textfield-1406-inputEl",
+      "id": "textfield-1406-inputEl",
+      "placeholder": "",
+      "ariaLabel": "",
+      "zone": "content"
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "datefield-1407-inputEl",
+      "id": "datefield-1407-inputEl",
+      "placeholder": "",
+      "ariaLabel": "",
+      "zone": "content"
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "textfield-1409-inputEl",
+      "id": "textfield-1409-inputEl",
+      "placeholder": "Ý kiến chỉ đạo",
+      "ariaLabel": "",
+      "zone": "content"
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "datefield-1410-inputEl",
+      "id": "datefield-1410-inputEl",
+      "placeholder": "Ngày phải hoàn thành",
       "ariaLabel": "",
       "zone": "content"
     },
@@ -3307,10 +3304,10 @@
       "zone": "content"
     },
     {
-      "tag": "input",
-      "type": "text",
-      "name": "textfield-1414-inputEl",
-      "id": "textfield-1414-inputEl",
+      "tag": "textarea",
+      "type": "",
+      "name": "textarea-1414-inputEl",
+      "id": "textarea-1414-inputEl",
       "placeholder": "Ý kiến chỉ đạo",
       "ariaLabel": "",
       "zone": "content"
@@ -3318,9 +3315,9 @@
     {
       "tag": "input",
       "type": "text",
-      "name": "datefield-1415-inputEl",
-      "id": "datefield-1415-inputEl",
-      "placeholder": "Ngày phải hoàn thành",
+      "name": "combo-1415-inputEl",
+      "id": "combo-1415-inputEl",
+      "placeholder": "Chọn trạng thái tuần kiểm",
       "ariaLabel": "",
       "zone": "content"
     },
@@ -3329,7 +3326,7 @@
       "type": "text",
       "name": "textfield-1416-inputEl",
       "id": "textfield-1416-inputEl",
-      "placeholder": "",
+      "placeholder": "Ước tính khối lượng",
       "ariaLabel": "",
       "zone": "content"
     },
@@ -3338,42 +3335,6 @@
       "type": "text",
       "name": "datefield-1417-inputEl",
       "id": "datefield-1417-inputEl",
-      "placeholder": "",
-      "ariaLabel": "",
-      "zone": "content"
-    },
-    {
-      "tag": "textarea",
-      "type": "",
-      "name": "textarea-1419-inputEl",
-      "id": "textarea-1419-inputEl",
-      "placeholder": "Ý kiến chỉ đạo",
-      "ariaLabel": "",
-      "zone": "content"
-    },
-    {
-      "tag": "input",
-      "type": "text",
-      "name": "combo-1420-inputEl",
-      "id": "combo-1420-inputEl",
-      "placeholder": "Chọn trạng thái tuần kiểm",
-      "ariaLabel": "",
-      "zone": "content"
-    },
-    {
-      "tag": "input",
-      "type": "text",
-      "name": "textfield-1421-inputEl",
-      "id": "textfield-1421-inputEl",
-      "placeholder": "Ước tính khối lượng",
-      "ariaLabel": "",
-      "zone": "content"
-    },
-    {
-      "tag": "input",
-      "type": "text",
-      "name": "datefield-1422-inputEl",
-      "id": "datefield-1422-inputEl",
       "placeholder": "Ngày phải hoàn thành",
       "ariaLabel": "",
       "zone": "content"
@@ -3381,8 +3342,8 @@
     {
       "tag": "input",
       "type": "text",
-      "name": "tagfield-1423-inputEl",
-      "id": "tagfield-1423-inputEl",
+      "name": "tagfield-1418-inputEl",
+      "id": "tagfield-1418-inputEl",
       "placeholder": "",
       "ariaLabel": "",
       "zone": "content"
@@ -3391,8 +3352,44 @@
       "tag": "input",
       "type": "checkbox",
       "name": "duaVaoSoTuanKiem",
-      "id": "checkbox-1424-inputEl",
+      "id": "checkbox-1419-inputEl",
       "placeholder": "",
+      "ariaLabel": "",
+      "zone": "content"
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "textfield-1420-inputEl",
+      "id": "textfield-1420-inputEl",
+      "placeholder": "",
+      "ariaLabel": "",
+      "zone": "content"
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "datefield-1421-inputEl",
+      "id": "datefield-1421-inputEl",
+      "placeholder": "",
+      "ariaLabel": "",
+      "zone": "content"
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "combo-1423-inputEl",
+      "id": "combo-1423-inputEl",
+      "placeholder": "Chọn trạng thái thanh tra",
+      "ariaLabel": "",
+      "zone": "content"
+    },
+    {
+      "tag": "input",
+      "type": "text",
+      "name": "textfield-1424-inputEl",
+      "id": "textfield-1424-inputEl",
+      "placeholder": "Ý kiến thanh tra",
       "ariaLabel": "",
       "zone": "content"
     },
@@ -3410,42 +3407,6 @@
       "type": "text",
       "name": "datefield-1426-inputEl",
       "id": "datefield-1426-inputEl",
-      "placeholder": "",
-      "ariaLabel": "",
-      "zone": "content"
-    },
-    {
-      "tag": "input",
-      "type": "text",
-      "name": "combo-1428-inputEl",
-      "id": "combo-1428-inputEl",
-      "placeholder": "Chọn trạng thái thanh tra",
-      "ariaLabel": "",
-      "zone": "content"
-    },
-    {
-      "tag": "input",
-      "type": "text",
-      "name": "textfield-1429-inputEl",
-      "id": "textfield-1429-inputEl",
-      "placeholder": "Ý kiến thanh tra",
-      "ariaLabel": "",
-      "zone": "content"
-    },
-    {
-      "tag": "input",
-      "type": "text",
-      "name": "textfield-1430-inputEl",
-      "id": "textfield-1430-inputEl",
-      "placeholder": "",
-      "ariaLabel": "",
-      "zone": "content"
-    },
-    {
-      "tag": "input",
-      "type": "text",
-      "name": "datefield-1431-inputEl",
-      "id": "datefield-1431-inputEl",
       "placeholder": "",
       "ariaLabel": "",
       "zone": "content"
@@ -3473,9 +3434,6 @@
     "−",
     "Hủy",
     "Áp dụng",
-    "Hồ sơ của tôi",
-    "Đổi mật khẩu",
-    "Đăng xuất",
     "Xuất NKTĐ Tổng hợp",
     "Xuất NKTĐ Tổng hợp 2",
     "Xuất NKTĐ Tổng Hợp (ĐTHP)",
@@ -3770,45 +3728,6 @@
       "hasOnClick": false
     },
     {
-      "label": "Hồ sơ của tôi",
-      "kind": "nav",
-      "zone": "grid",
-      "tag": "a",
-      "type": "",
-      "href": "Secure/UserProfile.aspx",
-      "id": "menuitem-1016-itemEl",
-      "name": "",
-      "title": "",
-      "disabled": false,
-      "hasOnClick": false
-    },
-    {
-      "label": "Đổi mật khẩu",
-      "kind": "nav",
-      "zone": "grid",
-      "tag": "a",
-      "type": "",
-      "href": "gclient/gadmin/doimatkhau.aspx",
-      "id": "menuitem-1017-itemEl",
-      "name": "",
-      "title": "",
-      "disabled": false,
-      "hasOnClick": false
-    },
-    {
-      "label": "Đăng xuất",
-      "kind": "export",
-      "zone": "grid",
-      "tag": "a",
-      "type": "",
-      "href": "logoff.aspx",
-      "id": "menuitem-1019-itemEl",
-      "name": "",
-      "title": "",
-      "disabled": false,
-      "hasOnClick": false
-    },
-    {
       "label": "Xuất NKTĐ Tổng hợp",
       "kind": "export",
       "zone": "grid",
@@ -3945,7 +3864,7 @@
       "tag": "a",
       "type": "",
       "href": "",
-      "id": "button-1303",
+      "id": "button-1298",
       "name": "",
       "title": "",
       "disabled": false,
@@ -3958,7 +3877,7 @@
       "tag": "a",
       "type": "",
       "href": "",
-      "id": "button-1403",
+      "id": "button-1398",
       "name": "",
       "title": "",
       "disabled": true,
@@ -3971,7 +3890,7 @@
       "tag": "a",
       "type": "",
       "href": "",
-      "id": "button-1433",
+      "id": "button-1428",
       "name": "",
       "title": "",
       "disabled": false,
@@ -3984,7 +3903,7 @@
       "tag": "a",
       "type": "",
       "href": "",
-      "id": "button-1434",
+      "id": "button-1429",
       "name": "",
       "title": "",
       "disabled": false,
@@ -3997,7 +3916,7 @@
       "tag": "a",
       "type": "",
       "href": "",
-      "id": "button-1435",
+      "id": "button-1430",
       "name": "",
       "title": "",
       "disabled": false,
@@ -4010,7 +3929,7 @@
       "tag": "a",
       "type": "",
       "href": "",
-      "id": "button-1437",
+      "id": "button-1432",
       "name": "",
       "title": "",
       "disabled": false,
@@ -4023,7 +3942,7 @@
       "tag": "a",
       "type": "",
       "href": "",
-      "id": "button-1441",
+      "id": "button-1436",
       "name": "",
       "title": "",
       "disabled": false,
@@ -4036,7 +3955,7 @@
       "tag": "a",
       "type": "",
       "href": "",
-      "id": "button-1442",
+      "id": "button-1437",
       "name": "",
       "title": "",
       "disabled": false,
@@ -4065,9 +3984,6 @@
     "grid": [
       "Tìm mới",
       "Tìm kiếm",
-      "Hồ sơ của tôi",
-      "Đổi mật khẩu",
-      "Đăng xuất",
       "Xuất NKTĐ Tổng hợp",
       "Xuất NKTĐ Tổng hợp 2",
       "Xuất NKTĐ Tổng Hợp (ĐTHP)",
@@ -4093,21 +4009,9 @@
       "Áp dụng"
     ]
   },
-  "actionCount": 42,
+  "actionCount": 39,
   "tableHeaders": [],
   "navHints": [
-    {
-      "text": "Hồ sơ của tôi",
-      "href": "https://pmdb.govone.vn/Secure/UserProfile.aspx"
-    },
-    {
-      "text": "Đổi mật khẩu",
-      "href": "https://pmdb.govone.vn/gclient/gadmin/doimatkhau.aspx"
-    },
-    {
-      "text": "Đăng xuất",
-      "href": "https://pmdb.govone.vn/logoff.aspx"
-    },
     {
       "text": "Xuất NKTĐ Tổng hợp",
       "href": "https://pmdb.govone.vn/dbv3baotri.aspx#"

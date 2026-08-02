@@ -323,6 +323,13 @@ function mapActionToLinToolbar(a) {
   if (/in bản đồ|in ban do/.test(hay)) {
     return { btn: "In bản đồ", lin: "GIS toolbar · print map" };
   }
+  // vision 014 — capture kind=nav → MemoryRouter sai; tool chuẩn hóa lớp Cột km
+  if (/chuẩn hóa cột km|chuan hoa cot km|chuẩn hoá cột km/.test(hay)) {
+    return {
+      btn: "Tool Chuẩn hóa cột Km",
+      lin: "GIS toolbar · `btChuanHoaCotKm` · layer `cot-km` · normalize lyTrinh `KmN+OO` · popup/attrs · Lưu/Hủy biên tập (vision 014)",
+    };
+  }
   if (/xem hướng đoạn đường|xem huong doan duong/.test(hay)) {
     return {
       btn: "Tool Xem hướng đoạn đường",

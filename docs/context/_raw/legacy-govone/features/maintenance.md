@@ -96,6 +96,36 @@
 - **title:** GOVONE - TỔNG HỢP CÔNG TÁC QUẢN LÝ VÀ BẢO DƯỠNG THƯỜNG XUYÊN
 - **headings:** TỔNG HỢP CÔNG TÁC QUẢN LÝ VÀ BẢO DƯỠNG THƯỜNG XUYÊN · TỔNG HỢP CÔNG TÁC QUẢN LÝ VÀ BẢO DƯỠNG THƯỜNG XUYÊN · LIÊN KẾT TRUY CẬP NHANH · THIẾT LẬP CỠ CHỮ
 
+#### Labels / field captions
+
+- Ngày tổng hợp
+- Tuần đường
+- Tuần kiểm
+- Tình hình bão lũ
+- Tai nạn giao thông
+- Vi phạm xâm phạm
+- Công việc
+- CÔNG TÁC TUẦN ĐƯỜNG
+- CÔNG TÁC TUẦN KIỂM
+- CÔNG VIỆC
+
+#### Inputs
+
+| tag | type | name/id | placeholder |
+|-----|------|---------|-------------|
+| input | date | Ngày tổng hợp | 01/08/2026 |
+| div | metric | Tuần đường |  |
+| div | metric | Tuần kiểm |  |
+| div | metric | Tình hình bão lũ |  |
+| div | metric | Tai nạn giao thông |  |
+| div | metric | Vi phạm xâm phạm |  |
+| div | metric | Công việc |  |
+| div | text | Đơn vị / công ty |  |
+| div | text | Tuyến (QL) |  |
+| div | text | Điểm Km / lý trình | Km N + MMM |
+| div | text | Trạng thái tải |  |
+| div | text | Empty state |  |
+
 #### Actions / buttons (full)
 
 | label | kind | zone | tag | disabled |
@@ -133,6 +163,20 @@
 - **title:** GOVONE - TỔNG HỢP CÔNG TÁC QUẢN LÝ VÀ BẢO DƯỠNG THƯỜNG XUYÊN
 - **headings:** TỔNG HỢP CÔNG TÁC QUẢN LÝ VÀ BẢO DƯỠNG THƯỜNG XUYÊN · TỔNG HỢP CÔNG TÁC QUẢN LÝ VÀ BẢO DƯỠNG THƯỜNG XUYÊN · LIÊN KẾT TRUY CẬP NHANH · THIẾT LẬP CỠ CHỮ
 
+#### Labels / field captions
+
+- Tai nạn giao thông
+- Empty state (TNGT)
+
+#### Inputs
+
+| tag | type | name/id | placeholder |
+|-----|------|---------|-------------|
+| div | text | Tiêu đề modal |  |
+| div | text | Empty state (TNGT) |  |
+| input | date | Ngày tổng hợp | 01/08/2026 |
+| div | metric | Tai nạn giao thông |  |
+
 #### Actions / buttons (full)
 
 | label | kind | zone | tag | disabled |
@@ -160,9 +204,10 @@
 | CÔNG TÁC TUẦN ĐƯỜNG | action | header | button |  |
 | CÔNG TÁC TUẦN KIỂM | action | header | button |  |
 | CÔNG VIỆC | action | header | button |  |
-| Đóng | close | header | button |  |
+| Maximize | action | modal-header | button |  |
+| Đóng | close | modal-header | button |  |
 
-- **actionCount:** 24
+- **actionCount:** 25
 
 ## Migration notes
 

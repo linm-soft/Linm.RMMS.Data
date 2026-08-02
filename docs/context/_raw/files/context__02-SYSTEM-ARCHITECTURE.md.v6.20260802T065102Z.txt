@@ -1,0 +1,165 @@
+# source: context/02-SYSTEM-ARCHITECTURE.md
+# version: 6
+# scannedAt: 2026-08-02T06:51:02.759Z
+# sha256: c4cf9d69302248e10f2dcc8a8302bbcc9095d1635d9ffcb79b91be4e148d787e
+# mtimeMs: 1785473668028.7737
+# RMMS — Kiến trúc hệ thống (Modular Monolith)
+
+> **Nguyên tắc:** Một **mono service** (.NET 8) chứa **14 phân hệ (sub-service / module domain)**.
+> Tách microservice độc lập chỉ khi scale thật sự cần (tải AI Vision, IoT ingestion, …).
+
+## 1. Bối cảnh hiện trạng
+
+| Thành phần | Trạng thái |
+|------------|------------|
+| **App Mobile + Web RMMS** | Đã có sẵn (xem `docs/Hướng dẫn sử dụng phần mềm.docx`) |
+| **Chức năng hiện có** | Check-in · Vấn đề/Sự cố · Công việc · Tài sản · Giám sát · Lưu trữ offline · Góp ý |
+| **Dữ liệu** | Đã có dữ liệu vận hành; cần **mở rộng / tích hợp thêm API** (ERP, ITS, camera AI, …) |
+| **Phạm vi tài liệu này** | Demo kỹ thuật + spec outsource nâng cấp AI / kiến trúc mới |
+
+## 2. Kiến trúc tổng thể
+
+```
+╔══════════════════════════════════════════════════════════════════════════╗
+║                          CLIENT LAYER                                     ║
+╠═════════════════════╦════════════════════╦═══════════════════════════════╣
+║  Web Portal RMMS    ║  Cổng người dân    ║  Mobile App (đã có)           ║
+║  (nâng cấp MFE)     ║  (mở rộng)         ║  Check-in · Vấn đề · Offline  ║
+╚═════════════════════╩════════════════════╩═══════════════════════════════╝
+          │                      │                       │
+          ▼                      ▼                       ▼
+╔══════════════════════════════════════════════════════════════════════════╗
+║              RMMS API  —  MONO SERVICE (.NET 8)                           ║
+║         api.rmms.vn  ·  Auth · Rate Limit · CORS · OpenAPI               ║
+║                                                                          ║
+║  ┌────────────────────────────────────────────────────────────────────┐  ║
+║  │  14 PHÂN HỆ (sub-service / Domain Modules trong cùng process)      │  ║
+║  │                                                                    │  ║
+║  │  Asset | GIS | AI-Vision | Patrol | Incident | Maintenance         │  ║
+║  │  Workflow | Notification | IoT | Copilot | Report | Contract       │  ║
+║  │  Drone | Integration                                               │  ║
+║  └────────────────────────────────────────────────────────────────────┘  ║
+╚══════════════════════════════════════════════════════════════════════════╝
+          │
+          ▼
+╔══════════════════════════════════════════════════════════════════════════╗
+║  PostgreSQL 16 (+ PostGIS + TimescaleDB)  ·  Redis  ·  MinIO/S3          ║
+║  Schema tách theo phân hệ: asset.* · gis.* · ai_vision.* · …             ║
+╚══════════════════════════════════════════════════════════════════════════╝
+```
+
+## 3. Catalog 14 phân hệ (trong 1 mono)
+
+| # | Phân hệ (module) | Namespace / folder | Trách nhiệm |
+|---|------------------|--------------------|-------------|
+| 1 | Asset | `Modules/Asset` | CRUD tài sản, QR, spatial |
+| 2 | GIS | `Modules/Gis` | Bản đồ 2D/3D, tile, Digital Twin |
+| 3 | AI Vision | `Modules/AiVision` | YOLOv8 + SAM, PCI/IRI |
+| 4 | Patrol | `Modules/Patrol` | Tuần đường, GPS track, KPI |
+| 5 | Incident | `Modules/Incident` | Sự cố / vấn đề (tích hợp app hiện có) |
+| 6 | Maintenance | `Modules/Maintenance` | Lệnh sửa chữa, nghiệm thu |
+| 7 | Workflow | `Modules/Workflow` | Luồng phê duyệt, SLA |
+| 8 | Notification | `Modules/Notification` | Push / SignalR / email / SMS |
+| 9 | IoT Ingestion | `Modules/Iot` | Edge upload, offline batch sync |
+| 10 | AI Copilot | `Modules/Copilot` | GPT-4o RAG, NL query |
+| 11 | Report | `Modules/Report` | Báo cáo, xuất Excel/PDF |
+| 12 | Contract | `Modules/Contract` | Hợp đồng, ngân sách |
+| 13 | Drone | `Modules/Drone` | Point cloud, orthophoto |
+| 14 | Integration | `Modules/Integration` | Open API, webhook ERP/ITS/CMMS |
+
+> **Không** deploy 14 process riêng ở giai đoạn đầu. Mỗi phân hệ = **bounded context** trong cùng solution, cùng DbContext (hoặc schema riêng), cùng API host.
+
+## 4. Chiến lược tách khi scale
+
+| Điều kiện trigger | Hành động |
+|-------------------|-----------|
+| AI Vision inference > 70% CPU/GPU mono | Tách `AiVision` thành service riêng + queue |
+| IoT/offline batch burst lớn | Tách `Iot` + worker |
+| Copilot latency / quota | Tách `Copilot` (có thể gọi Azure OpenAI độc lập) |
+| Nhiều tenant / vùng địa lý | Tách DB read-replica hoặc shard theo `tenant_id` |
+
+```
+Phase A (hiện tại / demo outsource)
+  └── 1 host: Rmms.Api.exe  →  14 modules
+
+Phase B (scale)
+  └── Rmms.Api (core) + AiVision.Worker + Iot.Worker (+ optional Copilot)
+```
+
+## 5. Database — schema theo phân hệ (1 DB)
+
+```
+RMMS_DB (PostgreSQL 16)
+├── asset.* / gis.* / ai_vision.* / patrol.* / incident.*
+├── maintenance.* / workflow.* / notification.* / iot.*
+├── contract.* / identity.* / audit.*
+└── TimescaleDB: patrol.gps_tracks, iot.sensor_readings
+```
+
+## 6. Frontend
+
+| Surface | Ghi chú |
+|---------|---------|
+| **Mobile App (đã có)** | Check-in, Vấn đề, Công việc, Tài sản, Giám sát, Lưu trữ offline — giữ hành vi; bổ sung API AI / sync |
+| **Web Portal** | Nâng cấp theo module MFE khi cần; ưu tiên tích hợp API trước |
+| **Cổng người dân** | Mở rộng báo sự cố (phase sau) |
+
+## 7. Tích hợp dữ liệu & API (ưu tiên)
+
+Hệ thống **đã có dữ liệu vận hành**. Hạng mục outsource tập trung:
+
+1. Chuẩn hóa OpenAPI cho app hiện có
+2. Adapter tích hợp nguồn mới (camera AI, ITS, ERP, CMMS…)
+3. Pipeline AI Vision + Copilot trên dữ liệu hiện có
+4. Đồng bộ offline (đã có Lưu trữ) → chuẩn hóa batch API
+
+## 8. Deployment
+
+```
+Kubernetes / IIS / Docker / Railway (pilot)
+└── rmms-api (1 Deployment) — Modular Monolith
+    ├── HPA khi CPU cao
+    └── Scale-out worker chỉ khi tách module (Phase B)
+```
+
+### 8.1 Railway — khả thi đến đâu?
+
+| Thành phần | Trên Railway? | Ghi chú |
+|------------|---------------|---------|
+| **Rmms.Api (.NET 8 mono)** | **Có** | Bắt buộc **Dockerfile** (Railpack chưa hỗ trợ .NET). Bind `0.0.0.0:$PORT` |
+| **PostgreSQL + PostGIS** | **Có** | Template PostGIS / image `postgis/postgis` + Volume |
+| **TimescaleDB** | **Có (Docker)** | Image TimescaleDB + Volume; hoặc trì hoãn P1 (bảng thường + index thời gian) |
+| **Redis** | **Có** | Managed Redis — SignalR backplane, cache, rate-limit |
+| **RabbitMQ / MassTransit** | **Có (Docker)** | P1 có thể dùng **in-process** / channel trước, thêm Rabbit khi cần |
+| **MinIO** | **Hạn chế** | Volume Railway đắt / giới hạn; **nên dùng Cloudflare R2 / S3** (presign) |
+| **Qdrant (RAG)** | **Có (Docker)** | Pilot nhỏ OK; production lớn cân nhắc managed |
+| **SignalR** | **Có** | 1 replica ổn; nhiều replica → Redis backplane + sticky (cẩn thận) |
+| **GPT-4o Vision / Copilot** | **Có** | Gọi **API ngoài** (Azure OpenAI) — **phù hợp P1 pilot** |
+| **YOLOv8 GPU / TensorRT / Triton** | **Không** | Railway **không có GPU** (GPU đóng với account mới). Train/infer GPU → máy riêng / cloud GPU / ONNX **CPU** (chậm) |
+| **Drone point cloud / 3D Tiles nặng** | **Hạn chế** | CPU/RAM/disk — worker ngoài hoặc job batch sau |
+
+**Kết luận**
+
+- **Khả thi tốt cho P1 pilot / demo / UAT:** mono API + PostGIS + Redis + R2 + **Vision/Copilot qua API** (không GPU).
+- **Không đủ một mình cho production AI Vision full GPU** trên toàn mạng đường — khi go-live YOLO custom cần **GPU ngoài Railway** (hoặc chỉ infer CPU nhẹ / edge Jetson hiện trường).
+- Chiến lược đề xuất: **Railway = control plane + API + DB**; **AI nặng = API cloud hoặc GPU riêng**.
+
+```
+┌─────────────────────────────────────────────────────────┐
+│  Railway project                                        │
+│  · Rmms.Api (.NET 8 Dockerfile)                         │
+│  · PostGIS (+ optional Timescale)                       │
+│  · Redis                                                │
+│  · (optional) RabbitMQ / Qdrant                         │
+└────────────┬───────────────────────────┬────────────────┘
+             │                           │
+             ▼                           ▼
+   Cloudflare R2 / S3              Azure OpenAI
+   (ảnh, video)                    GPT-4o Vision + Copilot
+                                             │
+                     (V2 sau gate) GPU riêng / Jetson / Triton
+                     YOLOv8 ONNX — không chạy trên Railway
+```
+
+> Lộ trình: **`09-PLAN-P1-V2.md`** — P1 = AI full **online** (GPT-4o / 4o-mini); V2/P2 = local YOLO/ML *nếu* muốn. Token: **`08-AI-TOKEN-COST-IMAGE-DIAGNOSIS.md`**.  
+> §8.1 Railway = tham khảo feasibility cũ; deploy thương mại P1 ưu tiên **.NET Server (Windows)** theo báo giá.

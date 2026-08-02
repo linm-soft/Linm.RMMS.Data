@@ -1,10 +1,10 @@
 # GOVOne legacy capture
 
-- **When:** 2026-08-01T10:31:53.261Z
+- **When:** 2026-08-02T06:51:01.847Z
 - **Base:** https://pmdb.govone.vn
-- **Mode:** full
+- **Mode:** deep
 - **Layout:** `capture/{master}/{page}/{action}/` (inventory.json · screenshot · form-sample)
-- **Leaves:** 25 · **form samples:** 4
+- **Leaves:** 25 · **form samples:** 7
 - **Menu candidates:** 8
 
 Next: `npm run map` → feature fragments under `features/`.
@@ -23,16 +23,16 @@ Next: `npm run map` → feature fragments under `features/`.
 | 010-quan-ly-van-e | `capture/incident/root/view` | QUẢN LÝ VẤN ĐỀ | 20 | 21 |  |
 | 011-quan-ly-van-e-root-them | `capture/incident/root/create` | QUẢN LÝ VẤN ĐỀ › _root › Thêm | 144 | 42 | yes |
 | 012-quan-ly-van-e-ban-tk-nguyen-anh-phuc | `capture/incident/ban-tk-nguyen-anh-phuc/view` | QUẢN LÝ VẤN ĐỀ › Ban.TK.Nguyễn Anh Phúc | 20 | 24 |  |
-| 013-quan-ly-van-e-ban-tk-nguyen-anh-phuc-them | `capture/incident/ban-tk-nguyen-anh-phuc/create` | QUẢN LÝ VẤN ĐỀ › Ban.TK.Nguyễn Anh Phúc › Thêm | 144 | 42 | yes |
-| 014-quan-ly-van-e-ban-tk-nguyen-anh-phuc-them-cv | `capture/incident/ban-tk-nguyen-anh-phuc/create` | QUẢN LÝ VẤN ĐỀ › Ban.TK.Nguyễn Anh Phúc › Thêm CV | 144 | 42 | yes |
-| 015-quan-ly-van-e-ban-tk-nguyen-anh-phuc | `capture/incident/ban-tk-nguyen-anh-phuc/page` | QUẢN LÝ VẤN ĐỀ › Ban.TK.Nguyễn Anh Phúc › + | 20 | 34 | yes |
-| 016-quan-ly-van-e-them | `capture/incident/them/view` | QUẢN LÝ VẤN ĐỀ › Thêm | 144 | 42 |  |
-| 017-quan-ly-van-e-them-tab-thong-tin-van-e | `capture/incident/them/tab-thong-tin-van-e` | QUẢN LÝ VẤN ĐỀ › Thêm › tab:Thông tin vấn đề | 28 | 39 |  |
-| 018-quan-tri-phan-quyen | `capture/users/root/view` | QUẢN TRỊ PHÂN QUYỀN | 1 | 2 |  |
-| 019-quan-tri-phan-quyen-ban-tk-nguyen-anh-phuc | `capture/users/ban-tk-nguyen-anh-phuc/view` | QUẢN TRỊ PHÂN QUYỀN › Ban.TK.Nguyễn Anh Phúc | 1 | 5 |  |
-| 020-quan-tri-phan-quyen-oi-mat-khau | `capture/users/oi-mat-khau/view` | QUẢN TRỊ PHÂN QUYỀN › Đổi mật khẩu | 4 | 2 |  |
-| 021-khai-thac-bao-cao | `capture/reports/root/view` | KHAI THÁC BÁO CÁO | 1 | 172 |  |
-| 022-khai-thac-bao-cao-bang-tong-hop-nhanh | `capture/reports/bang-tong-hop-nhanh/view` | KHAI THÁC BÁO CÁO › Bảng tổng hợp nhanh | 0 | 23 |  |
-| 023-khai-thac-bao-cao-tuan-kiem | `capture/reports/tuan-kiem/view` | KHAI THÁC BÁO CÁO › Tuần kiểm | 0 | 24 |  |
-| 024-khai-thac-bao-cao-tuan-uong | `capture/reports/tuan-uong/view` | KHAI THÁC BÁO CÁO › Tuần đường | 0 | 24 |  |
-| 025-khai-thac-bao-cao-bao-duong-thuong-xuyen | `capture/reports/bao-duong-thuong-xuyen/view` | KHAI THÁC BÁO CÁO › BẢO DƯỠNG THƯỜNG XUYÊN | 0 | 24 |  |
+| 013-quan-ly-van-e-ban-tk-nguyen-anh-phuc-them | `capture/incident/ban-tk-nguyen-anh-phuc/create` | QUẢN LÝ VẤN ĐỀ › Ban.TK.Nguyễn Anh Phúc › Thêm | 144 | 39 | yes |
+| 014-quan-ly-van-e-them | `capture/incident/them/view` | QUẢN LÝ VẤN ĐỀ › Thêm | 144 | 29 |  |
+| 015-quan-ly-van-e-them-tab-thong-tin-van-e | `capture/incident/them/tab-thong-tin-van-e` | QUẢN LÝ VẤN ĐỀ › Thêm › tab:Thông tin vấn đề | 20 | 31 |  |
+| 016-quan-ly-van-e-them-them | `capture/incident/them/create` | QUẢN LÝ VẤN ĐỀ › Thêm › Thêm | 144 | 39 | yes |
+| 017-quan-ly-van-e-them-cv | `capture/incident/them-cv/view` | QUẢN LÝ VẤN ĐỀ › Thêm CV | 20 | 21 |  |
+| 018-quan-ly-van-e-them-cv-them | `capture/incident/them-cv/create` | QUẢN LÝ VẤN ĐỀ › Thêm CV › Thêm | 144 | 42 | yes |
+| 019-quan-ly-van-e-xem-cv | `capture/incident/xem-cv/view` | QUẢN LÝ VẤN ĐỀ › Xem CV | 20 | 21 |  |
+| 020-quan-ly-van-e-xem-cv-them | `capture/incident/xem-cv/create` | QUẢN LÝ VẤN ĐỀ › Xem CV › Thêm | 144 | 42 | yes |
+| 021-quan-ly-van-e-xem | `capture/incident/xem/view` | QUẢN LÝ VẤN ĐỀ › Xem | 20 | 21 |  |
+| 022-quan-ly-van-e-xem-them | `capture/incident/xem/create` | QUẢN LÝ VẤN ĐỀ › Xem › Thêm | 144 | 42 | yes |
+| 023-quan-ly-van-e-xuat-du-lieu | `capture/incident/xuat-du-lieu/view` | QUẢN LÝ VẤN ĐỀ › Xuất dữ liệu | 20 | 31 |  |
+| 024-quan-ly-van-e-xuat-du-lieu-them | `capture/incident/xuat-du-lieu/create` | QUẢN LÝ VẤN ĐỀ › Xuất dữ liệu › Thêm | 144 | 42 | yes |
+| 025-quan-tri-phan-quyen | `capture/users/root/view` | QUẢN TRỊ PHÂN QUYỀN | 1 | 2 |  |

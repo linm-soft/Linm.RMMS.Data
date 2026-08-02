@@ -17,6 +17,14 @@
 - Danh sách nhân viên
 - Chưa checkin: 0
 - Tổng số : 0
+- Tất cả
+- Đoạn đường
+- Không có bản ghi nào
+- Vị trí hiện thời
+- Giám sát nhân viên 2
+- Giám sát tuyến đường 2
+- Lịch sử checkin 2
+- Tổng hợp 2
 
 #### Inputs
 
@@ -24,6 +32,16 @@
 |-----|------|---------|-------------|
 | input | text | treepickerex-1025-inputEl | Chọn Công ty/Nhân viên |
 | input | text | doanduong | Chọn đoạn đường |
+| div | text | Danh sách nhân viên |  |
+| div | metric | Chưa checkin | Chưa checkin: 0 |
+| div | metric | Tổng số | Tổng số : 0 |
+| div | text | Empty state | Không có bản ghi nào |
+| button | text | Bản đồ nền |  |
+| a | text | Vệ tinh | basemap=satellite |
+| a | text | Google | basemap=google |
+| a | text | Giao thông | basemap=traffic |
+| a | text | Hành chính | basemap=admin |
+| a | text | Không nền | basemap=none |
 
 #### Actions / buttons (full)
 
@@ -40,8 +58,13 @@
 | Bản đồ nền | nav | content | a |  |
 | + | create | content | a |  |
 | − | nav | content | a |  |
+| Giám sát nhân viên 2 | nav | sidebar | a |  |
+| Giám sát tuyến đường 2 | nav | sidebar | a |  |
+| Lịch sử checkin 2 | nav | sidebar | a |  |
+| Tổng hợp 2 | nav | sidebar | a |  |
+| Thu/mở panel list | action | content | button |  |
 
-- **actionCount:** 11
+- **actionCount:** 16
 
 ### QUẢN LÝ GIÁM SÁT
 
@@ -516,6 +539,28 @@
 - **title:** GOVONE - TỔNG HỢP CÔNG TÁC QUẢN LÝ VÀ BẢO DƯỠNG THƯỜNG XUYÊN
 - **headings:** TỔNG HỢP CÔNG TÁC QUẢN LÝ VÀ BẢO DƯỠNG THƯỜNG XUYÊN · TỔNG HỢP CÔNG TÁC QUẢN LÝ VÀ BẢO DƯỠNG THƯỜNG XUYÊN · LIÊN KẾT TRUY CẬP NHANH · THIẾT LẬP CỠ CHỮ
 
+#### Labels / field captions
+
+- Ngày tổng hợp
+- Tuần kiểm
+- CÔNG TÁC TUẦN KIỂM
+- Tuyến (QL)
+- Trạng thái check-in
+- Empty / loading (panel)
+
+#### Inputs
+
+| tag | type | name/id | placeholder |
+|-----|------|---------|-------------|
+| input | date | Ngày tổng hợp | 01/08/2026 |
+| div | metric | Tuần kiểm |  |
+| button | text | CÔNG TÁC TUẦN KIỂM |  |
+| div | text | Tuyến (QL) — tuần kiểm |  |
+| div | text | Trạng thái check-in |  |
+| div | text | Empty / loading (panel) |  |
+| div | text | Tiêu đề modal (miscapture) |  |
+| div | text | Empty state modal (miscapture) |  |
+
 #### Actions / buttons (full)
 
 | label | kind | zone | tag | disabled |
@@ -543,9 +588,10 @@
 | CÔNG TÁC TUẦN ĐƯỜNG | action | header | button |  |
 | CÔNG TÁC TUẦN KIỂM | action | header | button |  |
 | CÔNG VIỆC | action | header | button |  |
+| Maximize | action | header | button |  |
 | Đóng | close | header | button |  |
 
-- **actionCount:** 24
+- **actionCount:** 25
 
 ### SỬA CHỮA ĐỊNH KỲ › Tuần đường
 
@@ -554,6 +600,31 @@
 - **title:** GOVONE - TỔNG HỢP CÔNG TÁC QUẢN LÝ VÀ BẢO DƯỠNG THƯỜNG XUYÊN
 - **headings:** TỔNG HỢP CÔNG TÁC QUẢN LÝ VÀ BẢO DƯỠNG THƯỜNG XUYÊN · TỔNG HỢP CÔNG TÁC QUẢN LÝ VÀ BẢO DƯỠNG THƯỜNG XUYÊN · LIÊN KẾT TRUY CẬP NHANH · THIẾT LẬP CỠ CHỮ
 
+#### Labels / field captions
+
+- Ngày tổng hợp
+- Tuần đường
+- CÔNG TÁC TUẦN ĐƯỜNG
+- Đơn vị / công ty
+- Tuyến (QL)
+- Badge count (QL)
+- Điểm Km / lý trình
+
+#### Inputs
+
+| tag | type | name/id | placeholder |
+|-----|------|---------|-------------|
+| input | date | Ngày tổng hợp | 01/08/2026 |
+| div | metric | Tuần đường |  |
+| button | text | CÔNG TÁC TUẦN ĐƯỜNG |  |
+| div | text | Đơn vị / công ty |  |
+| div | text | Tuyến (QL) — tuần đường |  |
+| span | text | Badge count (QL) |  |
+| span | text | Điểm Km / lý trình |  |
+| div | text | Tiêu đề modal (miscapture) |  |
+| div | text | Empty state modal (miscapture) |  |
+| div | text | Empty / loading (sibling panel) |  |
+
 #### Actions / buttons (full)
 
 | label | kind | zone | tag | disabled |
@@ -581,9 +652,10 @@
 | CÔNG TÁC TUẦN ĐƯỜNG | action | header | button |  |
 | CÔNG TÁC TUẦN KIỂM | action | header | button |  |
 | CÔNG VIỆC | action | header | button |  |
+| Maximize | action | header | button |  |
 | Đóng | close | header | button |  |
 
-- **actionCount:** 24
+- **actionCount:** 25
 
 ### KHAI THÁC BÁO CÁO › Tuần kiểm
 

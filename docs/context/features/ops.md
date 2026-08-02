@@ -75,14 +75,18 @@ Consume incident/patrol/workorder · publish push/SignalR (P2). Cross-nav demo �
 
 ## 7. Demo checklist (chốt khách)
 
-- [ ] Inbox list đủ cột + filter unread
-- [ ] Overview KPI 4 ô mock
-- [ ] Form Kind D đủ 12 field control-map
-- [ ] Đủ 22 actions (click → toast/modal/nav)
-- [ ] Nav Giám sát / Bản đồ / Sự cố (không clone GOVOne map)
-- [ ] Badge P2 Command center
-- [ ] Leave-confirm khi dirty
-- [ ] Không gọi BE
+- [x] Inbox list đủ cột + filter unread
+- [x] Overview KPI 4 ô mock
+- [x] Form Kind D đủ 12 field control-map
+- [x] Đủ 22 actions (click → toast/modal/nav)
+- [x] Nav Giám sát / Bản đồ / Sự cố (không clone GOVOne map)
+- [x] Badge P2 Command center
+- [x] Leave-confirm khi dirty
+- [x] Không gọi BE
+
+**sourceKind:** `legacy` (synthetized capture · **không** open RECAPTURE-GAPS vì thiếu GOVOne shell)  
+**Demo path:** `Linm.RMMS.Demo/public/demo/ops/ops.html` · catalog domain `ops` · badge `run`  
+**Task:** `task_9ff02e5d` · Autopilot ON · demo only · be_align OFF (Status ≠ Signed)
 
 <!-- LEGACY-GOVONE-CAPTURE:START -->
 ## Legacy GOVOne (auto-capture)
@@ -93,6 +97,8 @@ Consume incident/patrol/workorder · publish push/SignalR (P2). Cross-nav demo �
 ### Nguồn
 
 - Raw feature: `docs/context/_raw/legacy-govone/features/ops.md`
+- Control-map: `docs/context/_raw/legacy-govone/demo-maps/ops-control-map.md`
+- Actions: `docs/context/_raw/legacy-govone/demo-maps/ops-actions.md`
 - Vision packets: 0
 
 ### Capture inventory
@@ -100,7 +106,7 @@ Consume incident/patrol/workorder · publish push/SignalR (P2). Cross-nav demo �
 > **Không có màn GOVOne vision** riêng cho «Chỉ đạo điều hành».  
 > GOVOne **QUẢN LÝ GIÁM SÁT** (`dbv3giamsat.aspx`) đã map slug **`patrol`** — không dùng làm skin/SSOT của `ops`.  
 > Capture synthetized từ `features/ops.md` · Mobile/Web Giám sát notify · Notification MFE routes `/ops` · `15-SCREEN-AI-MAP.md`.  
-> Source: product docs — **không** password · **không** clone skin GOVOne.
+> Source: product docs — **không** password · **không** clone skin GOVOne · skip chrome GOVOne (logo).
 
 ## Pages (3)
 
@@ -213,7 +219,7 @@ Consume incident/patrol/workorder · publish push/SignalR (P2). Cross-nav demo �
 
 ### Step context checklist
 
-- [ ] Design demo parity legacy zones
-- [ ] Control-map fields từ Labels/Inputs/Vision
+- [x] Design demo parity legacy zones
+- [x] Control-map fields từ Labels/Inputs/Vision
 - [ ] Status Demo → Signed → `/qlbd-align-mfe`
 <!-- LEGACY-GOVONE-CAPTURE:END -->

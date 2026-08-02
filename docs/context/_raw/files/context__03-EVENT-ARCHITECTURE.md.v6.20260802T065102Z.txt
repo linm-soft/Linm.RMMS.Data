@@ -1,0 +1,170 @@
+# source: context/03-EVENT-ARCHITECTURE.md
+# version: 6
+# scannedAt: 2026-08-02T06:51:02.759Z
+# sha256: 26b03ef0c8819d2c52594115c8cc4f98a3dd0332f394efe032c1aea37e857a9a
+# mtimeMs: 1785421064380.1877
+# RMMS — Event Architecture & Offline Upload Flow
+
+> **Host:** Events chạy trong **Modular Monolith** (in-process + RabbitMQ). Worker AI/IoT có thể tách process khi scale.  
+> **App hiện có:** Module Lưu trữ offline (Mobile) đã hỗ trợ check-in / sự cố không mạng — chuẩn hóa batch API.  
+> **Dữ liệu:** Đã có; event/API mở rộng nguồn mới (camera AI, ITS…).
+
+## 1. Event Bus Topology
+
+```
+                         ┌──────────────────────────┐
+                         │      RabbitMQ Cluster      │
+                         │   (3-node quorum queue)    │
+                         └──────────┬───────────────┘
+                                    │
+          ┌─────────────────────────┼─────────────────────────┐
+          │                         │                         │
+          ▼                         ▼                         ▼
+  ┌───────────────┐       ┌───────────────┐       ┌───────────────┐
+  │ defect.detected│       │ incident.created│      │ workorder.assigned│
+  │ (AI Vision→    │       │ (Camera/Citizen │      │ (Maintenance→   │
+  │  Asset+GIS)    │       │  →Dispatch)     │      │  Notification)  │
+  └───────────────┘       └───────────────┘       └───────────────┘
+          │                         │                         │
+          ▼                         ▼                         ▼
+  ┌───────────────────────────────────────────────────────────────┐
+  │                     Platform Event Jobs                        │
+  │   (LINM.Platform.Eventing — Leader election, dead-letter)      │
+  └───────────────────────────────────────────────────────────────┘
+```
+
+## 2. Event Catalog
+
+| Event | Publisher | Consumer(s) | Payload Summary |
+|-------|-----------|-------------|-----------------|
+| `defect.detected` | AI Vision (Edge → IoT Ingestion) | Asset, GIS, Incident | `{defectId, type, pci, lat, lng, imageKey, confidence, detectedAt}` |
+| `incident.created` | Incident Service | Notification, Command | `{incidentId, source, priority, lat, lng, description}` |
+| `incident.dispatched` | Incident Service | Notification, Command | `{incidentId, crewId, assignedAt, slaDeadline}` |
+| `incident.resolved` | Incident Service | Asset, Notification | `{incidentId, resolution, photos[], resolvedAt}` |
+| `workorder.created` | Maintenance Service | Notification, Contract | `{workOrderId, assetIds[], crewId, estimatedCost}` |
+| `workorder.completed` | Maintenance Service | Asset, Contract, Notification | `{workOrderId, actualCost, materials[], acceptancePhotos[]}` |
+| `asset.updated` | Asset Service | GIS, Dashboard | `{assetId, changedFields[], updatedBy, updatedAt}` |
+| `patrol.started` | Inspection Service | Command | `{patrolId, routeId, vehicleId, startedAt}` |
+| `patrol.completed` | Inspection Service | Command, AI Vision | `{patrolId, distanceKm, defectsFound, score}` |
+| `offline.sync.batch` | Mobile PWA → IoT Ingestion | AI Vision, Asset, Incident | `{deviceId, batchId, items[], syncedAt}` |
+| `drone.scan.completed` | Drone Service | GIS, AI Vision | `{scanId, pointCloudKey, orthophotoKey, areaKm2}` |
+| `sensor.alert` | IoT Ingestion | Incident, Notification | `{sensorId, type, value, threshold, lat, lng}` |
+
+## 3. Real-time Streaming (Patrol Vehicle → Cloud)
+
+```
+┌─────────────────────┐
+│  AI Patrol Vehicle   │
+│                      │
+│  ┌────────────────┐  │
+│  │ Jetson Orin AGX│  │  YOLOv8 inference @ 30 FPS
+│  │ ONNX Runtime   │──│─────── defect.detected (MQTT / gRPC)
+│  └────────────────┘  │       GPS track @ 1 Hz
+│                      │
+│  ┌────────────────┐  │
+│  │ 4G/5G Modem    │──│─────── MQTT broker → IoT Ingestion → Kafka
+│  └────────────────┘  │
+└──────────────────────┘
+```
+
+**Flow:**
+1. Jetson captures frames from Line Scan + 360° cameras
+2. YOLOv8 detects defects; SAM segments exact region
+3. RTK-GNSS tags each defect with cm-level coordinates
+4. JSON message published via MQTT (QoS 1) over 4G/5G
+5. IoT Ingestion Service consumes → validates → publishes to RabbitMQ
+6. Asset Service updates defect registry; GIS Service refreshes map layer
+7. If defect severity > threshold → auto-creates Incident
+
+## 4. End-of-Day Offline Upload Flow
+
+For remote sections without 4G/5G coverage, the **Mobile PWA** operates fully offline and
+syncs when the crew returns to a WiFi-enabled depot.
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│                         OFFLINE MODE (Daytime)                        │
+│                                                                      │
+│  ┌──────────────────┐    ┌──────────────────┐    ┌───────────────┐  │
+│  │ Rugged Tablet     │    │ Handheld GPS      │    │ Action Camera │  │
+│  │ (Mobile PWA)      │    │ (Garmin)          │    │ (GoPro)       │  │
+│  │                   │    │                    │    │               │  │
+│  │ • IndexedDB store │◄───│ • GPX track export │    │ • SD card     │  │
+│  │ • Service Worker  │    │ • USB sync EOD     │    │ • USB-C EOD   │  │
+│  │ • Background Sync │    └──────────────────┘    └───────────────┘  │
+│  └──────────────────┘                                                │
+│                                                                      │
+│  Data collected offline:                                             │
+│  ├── Inspection form (road section, asset condition, notes)         │
+│  ├── GPS breadcrumb track (lat/lng/time every 5s)                   │
+│  ├── Photos (JPEG, geo-tagged from GPS track time match)            │
+│  ├── QR/NFC asset scans (assetId, scannedAt)                        │
+│  └── Incident reports (type, photo, description)                    │
+└─────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    │  Crew returns to depot
+                                    ▼
+┌─────────────────────────────────────────────────────────────────────┐
+│                     END-OF-DAY SYNC (Evening)                         │
+│                                                                      │
+│  1. Tablet connects to depot WiFi                                    │
+│  2. Service Worker detects connectivity                              │
+│  3. Background Sync API triggers:                                    │
+│     syncManager.register('rmms-sync')                                │
+│  4. Mobile PWA reads all pending records from IndexedDB              │
+│  5. Photos uploaded to MinIO/S3 via presigned URLs (parallel, 10 at) │
+│  6. Metadata batch POST to IoT Ingestion:                            │
+│     POST /api/v1/ingestion/offline-batch                             │
+│     {                                                                 │
+│       "deviceId": "tablet-hg-12",                                    │
+│       "batchId": "2026-07-30-eod-001",                               │
+│       "items": [                                                     │
+│         { "type": "inspection", "data": {...}, "timestamp": "..." }, │
+│         { "type": "defect", "data": {...}, "photoKeys": [...] },    │
+│         { "type": "incident", "data": {...}, "photoKeys": [...] }   │
+│       ],                                                             │
+│       "syncedAt": "2026-07-30T18:30:00+07:00"                       │
+│     }                                                                 │
+│  7. IoT Ingestion validates → deduplicates (by deviceId+batchId)    │
+│  8. Publishes each item as individual event to RabbitMQ              │
+│  9. Mobile PWA receives 200 OK → clears IndexedDB for that batch    │
+│ 10. Crew gets sync confirmation toast                                │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+## 5. Event Job Processing (Leader Election)
+
+```
+┌──────────────────────────────────────────────────────────────────┐
+│  Platform Event Job (low-leader pattern)                          │
+│                                                                   │
+│  1. Leader election via PostgreSQL advisory lock                  │
+│  2. Leader dequeues from RabbitMQ                                │
+│  3. Processes each event (idempotent — eventId dedup)            │
+│  4. On failure: NACK → dead-letter queue → retry (exponential)   │
+│  5. Max retries: 5; then → dead-lettered → admin alert           │
+│  6. Status tracked in jobStatus table (Queued → Running → Done)  │
+└──────────────────────────────────────────────────────────────────┘
+```
+
+## 6. Offline Conflict Resolution
+
+When a crew uploads data from a section that was also inspected by a patrol vehicle earlier
+the same day:
+
+| Conflict | Resolution Strategy |
+|----------|---------------------|
+| Same defect reported twice | Match by GPS (±2m) + defect type → merge, keep earliest `detectedAt` |
+| Conflicting severity | Keep highest severity (worst-case principle) |
+| Asset condition update | Last-write-wins with merge (non-destructive fields preserved) |
+| Photo duplicates | Perceptual hash (pHash) comparison on MinIO → skip duplicate upload |
+
+## 7. SignalR Real-time Channels
+
+| Hub | Channel | Subscribers | Event |
+|-----|---------|-------------|-------|
+| `CommandHub` | `command:map` | Command Center | Asset marker added/updated |
+| `CommandHub` | `command:incidents` | Command Center | New incident, status change |
+| `CommandHub` | `command:patrols` | Command Center | Vehicle position update (5s) |
+| `NotificationHub` | `user:{userId}` | Individual user | Assigned work order, SLA warning |
+| `NotificationHub` | `role:director` | Directors | Daily summary, critical alerts |

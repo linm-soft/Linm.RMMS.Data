@@ -27,6 +27,7 @@
 | Tiêu đề modal | text | modal-header | DialogTitle | Modal title miscapture · Chấm công (vision 020/023) · TNGT (016) · erp-report-context · leave-confirm |
 | Empty state (TNGT) | text | modal-body | Status / empty | Loading overlay · EmptyState alert · erp-report-context |
 
+> Demo wire (`task_56b50f4d`): `#periodDate` · `#quickDate` · `#quickMetrics` · `#treeTuanDuong` · `#treeTuanKiem` · WO slideout · Maximize `a69`.
 
 ## Actions / buttons (legacy → toolbar MFE)
 

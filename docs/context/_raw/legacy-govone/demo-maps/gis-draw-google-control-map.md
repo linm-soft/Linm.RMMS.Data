@@ -42,7 +42,7 @@
 | Chụp màn hình | nav | toolbar | Tool Chụp màn hình | GIS toolbar · `btnScreenMap` · map screenshot · download/png |
 | Xuất bản đồ | export | toolbar | Xuất bản đồ | GIS toolbar · export map image/PDF |
 | In bản đồ | export | toolbar | In bản đồ | GIS toolbar · print map |
-| Chuẩn hóa cột Km | nav | toolbar | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
+| Chuẩn hóa cột Km | nav | toolbar | Tool Chuẩn hóa cột Km | GIS toolbar · `btChuanHoaCotKm` · layer `cot-km` · normalize lyTrinh `KmN+OO` · popup/attrs · Lưu/Hủy biên tập (vision 014) |
 | Xem hướng đoạn đường | view | toolbar | Tool Xem hướng đoạn đường | GIS toolbar · `btXemHuongDoanDuong` · direction arrows on route polyline (view-only) |
 | Gộp đoạn đường multiline | nav | toolbar | Tool Gộp đoạn đường multiline | GIS toolbar · `btGopDoanDuong` · multi-select ≥2 route polylines · merge geometry · Lưu/Hủy biên tập |
 | Tạo đoạn đánh giá 100m | create | toolbar | Tool Tạo đoạn đánh giá 100m | GIS toolbar · `btTaoDoan100m` · select route polyline · generate 100m evaluation segments · Lưu/Hủy biên tập |

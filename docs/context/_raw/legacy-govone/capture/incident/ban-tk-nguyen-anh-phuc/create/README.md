@@ -5,7 +5,7 @@
 - **action:** create
 - **url:** https://pmdb.govone.vn/dbv3baotri.aspx#panelVanDe
 - **fields:** 144
-- **actions:** 42
+- **actions:** 39
 
 ## Form sample (từ nút Create/Thêm)
 

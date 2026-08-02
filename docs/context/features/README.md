@@ -38,7 +38,7 @@
 | 13 | `drone` | Drone / Reality Capture | Drone | P2–P3 | — | Demo | [drone.md](drone.md) |
 | 14 | `toc` | Trung tâm ĐH GT | Traffic | P3 | — | Demo | [toc.md](toc.md) |
 | 15 | `citizen` | Cổng người dân | Integration | P3 | — (≠ Góp ý nội bộ) | Demo | [citizen.md](citizen.md) |
-| 16 | `copilot` | AI Copilot | Copilot | P1 online / P2 RAG | Web drawer (mới) | Context | [copilot.md](copilot.md) |
+| 16 | `copilot` | AI Copilot | Copilot | P1 online / P2 RAG | Web drawer (mới) | Demo | [copilot.md](copilot.md) |
 | 17 | `dashboard` | Dashboard điều hành | Report | P1 KPI / P2 full | Giám sát + KPI | Context | [dashboard.md](dashboard.md) |
 | 17b | `reports` | Báo cáo Web (3 loại) | Report | P1 | BC tài sản · SC · checkin | Context | [reports.md](reports.md) |
 | 18 | `integration` | Open API và tích hợp | Integration | P1–P3 | Import TS · offline sync | Demo | [integration.md](integration.md) |

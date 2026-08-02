@@ -1,8 +1,11 @@
+/* global L */
 import {
   ROUTE_NODES,
   ASSET_TYPES,
   loadRows,
   saveRows,
+  loadAi,
+  saveAi,
   loadChecklist,
   saveChecklist,
   filterRows,
@@ -12,25 +15,35 @@ import {
 } from './asset-data.js';
 
 let rows = loadRows();
+let aiList = loadAi();
 let routeNodes = ROUTE_NODES.map((r) => ({ ...r }));
 let selectedRoute = '';
 let page = 1;
 const PAGE_SIZE = 5;
 let basemap = 'osm';
-let zoom = 1;
-let pinOffset = { x: 0, y: 0 };
 let selectedId = null;
-let formMode = null; // create | view | edit | null
+let formMode = null; // create | view | edit | copy | null
+let map = null;
+let tileLayer = null;
+let markerLayer = null;
+let thematic = { assets: true, chainage: true, its: false, pci: false, ai: true };
 
-const filter = {
-  treeQ: '',
-  kmFrom: '',
-  kmTo: '',
-  type: '',
-  route: '',
-  get visibleRoutes() {
-    return new Set(routeNodes.filter((r) => r.visible).map((r) => r.id));
-  },
+const TILES = {
+  osm: () =>
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '© OpenStreetMap',
+    }),
+  topo: () =>
+    L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+      maxZoom: 17,
+      attribution: '© OpenTopoMap',
+    }),
+  sat: () =>
+    L.tileLayer(
+      'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+      { maxZoom: 19, attribution: '© Esri' },
+    ),
 };
 
 function $(id) {
@@ -42,51 +55,176 @@ function toast(msg) {
   el.textContent = msg;
   el.classList.add('on');
   clearTimeout(toast._t);
-  toast._t = setTimeout(() => el.classList.remove('on'), 2200);
+  toast._t = setTimeout(() => el.classList.remove('on'), 2400);
 }
 
 function closeMenus() {
-  $('userMenu').classList.remove('on');
-  $('utilMenu').classList.remove('on');
-  $('notifPanel').classList.remove('on');
+  $('userMenu')?.classList.remove('on');
+  $('utilMenu')?.classList.remove('on');
+  $('notifPanel')?.classList.remove('on');
 }
 
 function filtered() {
-  filter.treeQ = $('fTree').value;
-  filter.kmFrom = $('fKmFrom').value;
-  filter.kmTo = $('fKmTo').value;
-  filter.type = $('fType').value;
-  filter.route = selectedRoute;
-  return filterRows(rows, filter);
+  return filterRows(rows, {
+    treeQ: $('fTree').value,
+    kmFrom: $('fKmFrom').value,
+    kmTo: $('fKmTo').value,
+    type: $('fType').value,
+    route: selectedRoute,
+    q: $('fSearch')?.value || '',
+    visibleRoutes: new Set(routeNodes.filter((r) => r.visible).map((r) => r.id)),
+  });
+}
+
+function pendingAi() {
+  return aiList.filter((c) => c.status === 'pending' && thematic.ai);
 }
 
 function renderTree() {
   const q = ($('fTree').value || '').trim().toLowerCase();
-  const nodes = routeNodes.filter((r) => !q || r.name.toLowerCase().includes(q) || 'công ty cổ phần 495'.includes(q));
+  const nodes = routeNodes.filter(
+    (r) => !q || r.name.toLowerCase().includes(q) || 'công ty cổ phần 495'.includes(q),
+  );
   $('tree').innerHTML = `
     <div class="tree-org">Công ty Cổ phần 495</div>
-    ${nodes
-      .map(
-        (r) => `
+    ${
+      nodes
+        .map(
+          (r) => `
       <div class="tree-item ${selectedRoute === r.id ? 'on' : ''}" data-route="${r.id}">
         <button type="button" class="tree-name" data-sel="${r.id}">🛣 ${r.name}</button>
         <button type="button" class="tree-eye" data-eye="${r.id}" title="Hiện/ẩn trên map">${r.visible ? '👁' : '👁‍🗨'}</button>
       </div>`,
-      )
-      .join('') || '<div class="muted pad">Không khớp lọc tree</div>'}`;
+        )
+        .join('') || '<div class="muted pad">Không khớp lọc tree</div>'
+    }`;
 }
 
-function renderPins(data) {
-  const layer = $('pins');
-  layer.innerHTML = data
-    .map((r, i) => {
-      const x = 18 + ((i * 17 + (r.lng % 1) * 40) % 70) + pinOffset.x;
-      const y = 22 + ((i * 13 + (r.lat % 1) * 35) % 55) + pinOffset.y;
-      return `<button type="button" class="pin ${selectedId === r.id ? 'on' : ''}" style="left:${x}%;top:${y}%" data-pin="${r.id}" title="${r.code}">📍</button>`;
-    })
+function setBasemap(key) {
+  basemap = key in TILES ? key : 'osm';
+  if (!map) return;
+  if (tileLayer) map.removeLayer(tileLayer);
+  tileLayer = TILES[basemap]().addTo(map);
+}
+
+function initMap() {
+  if (typeof L === 'undefined') {
+    console.error('Leaflet missing — asset demo requires live map');
+    toast('Leaflet thiếu — map live không chạy');
+    return;
+  }
+  map = L.map('map', { center: [19.22, 105.64], zoom: 10, zoomControl: false });
+  setBasemap('osm');
+  markerLayer = L.layerGroup().addTo(map);
+  setTimeout(() => map.invalidateSize(), 80);
+}
+
+function renderMap(data) {
+  if (!map || !markerLayer) return;
+  markerLayer.clearLayers();
+
+  if (thematic.assets) {
+    data.forEach((r) => {
+      const isSel = selectedId === r.id;
+      const color = r.source === 'ai' ? '#7c3aed' : isSel ? '#0f766e' : '#0369a1';
+      const m = L.circleMarker([r.lat, r.lng], {
+        radius: isSel ? 10 : 7,
+        color,
+        fillColor: color,
+        fillOpacity: 0.85,
+        weight: 2,
+      });
+      m.bindTooltip(`${r.code} · ${r.name}`);
+      m.on('click', () => openForm('view', r.id));
+      markerLayer.addLayer(m);
+    });
+  }
+
+  if (thematic.ai) {
+    pendingAi().forEach((c) => {
+      const m = L.circleMarker([c.lat, c.lng], {
+        radius: 9,
+        color: '#6d28d9',
+        fillColor: '#a78bfa',
+        fillOpacity: 0.95,
+        weight: 2,
+        dashArray: '4 2',
+      });
+      m.bindTooltip(`AI new · ${c.type} · ${Math.round(c.conf * 100)}%`);
+      m.on('click', () => {
+        toast(`Candidate ${c.id} — Confirm trong panel AI`);
+        $('aiPanel')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      });
+      markerLayer.addLayer(m);
+    });
+  }
+
+  const nPin = (thematic.assets ? data.length : 0) + pendingAi().length;
+  $('mapMeta').textContent = `Leaflet · ${nPin} pin · ${basemap} · AI ${pendingAi().length} pending`;
+}
+
+function renderAiPanel() {
+  const pending = aiList.filter((c) => c.status === 'pending');
+  const box = $('aiList');
+  $('aiCount').textContent = String(pending.length);
+  if (!pending.length) {
+    box.innerHTML = '<div class="muted pad">Không còn candidate pending</div>';
+    return;
+  }
+  box.innerHTML = pending
+    .map(
+      (c) => `
+    <div class="ai-card" data-ai="${c.id}">
+      <div class="ai-title"><span class="badge-ai">AI new</span> ${c.type} · ${c.route} ${c.km}</div>
+      <div class="muted">conf ${(c.conf * 100).toFixed(0)}% · ${c.lat.toFixed(4)}, ${c.lng.toFixed(4)}</div>
+      <div class="muted">${c.note}</div>
+      <div class="ai-acts">
+        <button type="button" class="btn-primary" data-ai-act="confirm" data-id="${c.id}">Confirm → Asset</button>
+        <button type="button" data-ai-act="dismiss" data-id="${c.id}">Dismiss</button>
+        <button type="button" class="linkish" data-ai-act="fly" data-id="${c.id}">Zoom map</button>
+      </div>
+    </div>`,
+    )
     .join('');
-  $('mapMeta').textContent = `${data.length} pin · lớp ${basemap} · zoom ${zoom.toFixed(1)}`;
-  $('mapCanvas').style.transform = `scale(${zoom})`;
+}
+
+function confirmAi(id) {
+  const c = aiList.find((x) => x.id === id);
+  if (!c || c.status !== 'pending') return;
+  const payload = {
+    id: 'a' + Date.now(),
+    code: genCode(rows.length),
+    name: `${c.type} (AI) · ${c.route} ${c.km}`,
+    type: c.type,
+    route: c.route,
+    kmFrom: c.km,
+    kmTo: c.km,
+    status: 'Theo dõi',
+    lat: c.lat,
+    lng: c.lng,
+    qr: 'QR-AI-' + Date.now().toString(36).toUpperCase(),
+    photos: ['frame camera tuần đường'],
+    valueVnd: 0,
+    note: 'Created from AI candidate ' + c.id,
+    updatedAt: new Date().toISOString().replace(/\.\d{3}Z$/, '+07:00'),
+    source: 'ai',
+  };
+  rows = [payload, ...rows];
+  saveRows(rows);
+  aiList = aiList.map((x) => (x.id === id ? { ...x, status: 'confirmed' } : x));
+  saveAi(aiList);
+  selectedId = payload.id;
+  toast('Confirm AI → đã tạo Asset (mock)');
+  openForm('view', payload.id);
+  refresh();
+}
+
+function dismissAi(id) {
+  aiList = aiList.map((x) => (x.id === id ? { ...x, status: 'dismissed' } : x));
+  saveAi(aiList);
+  toast('Dismiss candidate ' + id);
+  renderAiPanel();
+  renderMap(filtered());
 }
 
 function renderGrid() {
@@ -102,7 +240,7 @@ function renderGrid() {
         (r, i) => `
     <tr class="${selectedId === r.id ? 'sel' : ''}" data-row="${r.id}">
       <td>${start + i + 1}</td>
-      <td>${r.code}</td>
+      <td>${r.code}${r.source === 'ai' ? ' <span class="badge-ai">AI</span>' : ''}</td>
       <td>${r.name}</td>
       <td>${r.type}</td>
       <td>${r.route}</td>
@@ -110,19 +248,21 @@ function renderGrid() {
       <td>${r.kmTo}</td>
       <td><span class="st st-${statusClass(r.status)}">${r.status}</span></td>
       <td>${r.lat.toFixed(4)}, ${r.lng.toFixed(4)}</td>
-      <td>
+      <td class="acts">
         <button type="button" class="linkish" data-act="view" data-id="${r.id}">Xem</button>
+        <button type="button" class="linkish" data-act="edit" data-id="${r.id}">Sửa</button>
+        <button type="button" class="linkish" data-act="copy" data-id="${r.id}">Sao chép</button>
         <button type="button" class="linkish" data-act="qr" data-id="${r.id}">QR</button>
       </td>
     </tr>`,
       )
       .join('') ||
-    `<tr><td colspan="10" class="empty">Không có dữ liệu — chỉnh lọc hoặc bấm «Lấy dữ liệu»</td></tr>`;
+    `<tr><td colspan="10" class="empty">Không có dữ liệu — chỉnh search/filter hoặc «Lấy dữ liệu»</td></tr>`;
 
   $('pageInput').value = String(page);
   $('pageTotal').textContent = `/ ${totalPages}`;
   $('pagerInfo').textContent = `${data.length} bản ghi (demo · localStorage)`;
-  renderPins(data);
+  renderMap(data);
 }
 
 function statusClass(s) {
@@ -131,19 +271,46 @@ function statusClass(s) {
   return 'bad';
 }
 
+function fillFormFromRow(r, mode) {
+  const form = $('assetForm');
+  Object.keys(r).forEach((k) => {
+    const el = form.elements.namedItem(k);
+    if (!el) return;
+    if (k === 'photos') el.value = (r.photos || []).join(', ');
+    else if (k === 'valueVnd') el.value = String(r.valueVnd);
+    else el.value = r[k] ?? '';
+  });
+  form.updatedAtDisplay.value = formatLocal(r.updatedAt);
+  form.valueDisplay.value = formatMoney(r.valueVnd);
+  if (mode === 'copy') {
+    form.code.value = genCode(rows.length);
+    form.qr.value = 'QR-' + form.code.value;
+    form.updatedAt.value = '';
+    form.updatedAtDisplay.value = '';
+    form.name.value = (r.name || '') + ' (bản sao)';
+  }
+}
+
 function openForm(mode, id) {
   formMode = mode;
-  selectedId = id || null;
+  selectedId = mode === 'create' || mode === 'copy' ? null : id || null;
   const panel = $('detailPanel');
   panel.classList.add('on');
   $('banner').classList.remove('on');
   const form = $('assetForm');
   form.reset();
   form.querySelectorAll('.field').forEach((f) => f.classList.remove('invalid'));
-  $('formTitle').textContent =
-    mode === 'create' ? 'Tạo mới tài sản' : mode === 'edit' ? 'Sửa tài sản' : 'Chi tiết tài sản';
+
+  const titles = {
+    create: 'Tạo mới tài sản',
+    edit: 'Sửa tài sản',
+    view: 'Chi tiết tài sản',
+    copy: 'Sao chép tài sản',
+  };
+  $('formTitle').textContent = titles[mode] || 'Chi tiết';
   $('btnSave').hidden = mode === 'view';
   $('btnEdit').hidden = mode !== 'view';
+  $('btnCopy').hidden = mode !== 'view';
   panel.classList.toggle('view', mode === 'view');
 
   if (mode === 'create') {
@@ -156,18 +323,18 @@ function openForm(mode, id) {
     form.lng.value = '105.6500';
     form.qr.value = 'QR-' + form.code.value;
     form.updatedAt.value = '';
+    form.source.value = 'manual';
   } else {
     const r = rows.find((x) => x.id === id);
     if (!r) return;
-    Object.keys(r).forEach((k) => {
-      const el = form.elements.namedItem(k);
-      if (!el) return;
-      if (k === 'photos') el.value = (r.photos || []).join(', ');
-      else if (k === 'valueVnd') el.value = String(r.valueVnd);
-      else el.value = r[k] ?? '';
-    });
-    form.updatedAtDisplay.value = formatLocal(r.updatedAt);
-    form.valueDisplay.value = formatMoney(r.valueVnd);
+    fillFormFromRow(r, mode);
+    if (mode === 'copy') {
+      selectedId = null;
+      form.source.value = 'manual';
+    }
+    if (map && r.lat && r.lng) {
+      map.setView([r.lat, r.lng], Math.max(map.getZoom(), 13));
+    }
   }
   renderGrid();
 }
@@ -197,8 +364,9 @@ function saveForm() {
     return;
   }
   const form = $('assetForm');
+  const isNew = formMode === 'create' || formMode === 'copy' || !selectedId;
   const payload = {
-    id: selectedId || 'a' + Date.now(),
+    id: isNew ? 'a' + Date.now() : selectedId,
     code: form.code.value,
     name: form.name.value.trim(),
     type: form.type.value,
@@ -216,14 +384,21 @@ function saveForm() {
     valueVnd: Number(form.valueVnd.value) || 0,
     note: form.note.value.trim(),
     updatedAt: new Date().toISOString().replace(/\.\d{3}Z$/, '+07:00'),
+    source: form.source?.value === 'ai' ? 'ai' : 'manual',
   };
-  if (formMode === 'create') rows = [payload, ...rows];
+  if (isNew) rows = [payload, ...rows];
   else rows = rows.map((r) => (r.id === payload.id ? payload : r));
   saveRows(rows);
   selectedId = payload.id;
-  toast('Đã lưu (mock · localStorage)');
+  toast(isNew ? 'Đã tạo (mock · localStorage)' : 'Đã lưu (mock · localStorage)');
   openForm('view', payload.id);
+  refresh();
+}
+
+function refresh() {
+  renderTree();
   renderGrid();
+  renderAiPanel();
 }
 
 function initTypeOptions() {
@@ -255,26 +430,38 @@ function bind() {
   document.addEventListener('click', (e) => {
     const t = e.target.closest('[data-action]');
     if (!t) return;
-    const act = t.getAttribute('data-action');
-    handleAction(act, t);
+    handleAction(t.getAttribute('data-action'), t);
   });
 
   $('fTree').addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
       e.preventDefault();
-      renderTree();
+      page = 1;
+      refresh();
       toast('Đã lọc tree tuyến');
     }
   });
   $('fTree').addEventListener('input', () => renderTree());
+
+  $('fSearch').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      page = 1;
+      renderGrid();
+      toast(`Search: ${filtered().length} bản ghi`);
+    }
+  });
+  $('fSearch').addEventListener('input', () => {
+    page = 1;
+    renderGrid();
+  });
 
   $('tree').addEventListener('click', (e) => {
     const eye = e.target.closest('[data-eye]');
     if (eye) {
       const id = eye.getAttribute('data-eye');
       routeNodes = routeNodes.map((r) => (r.id === id ? { ...r, visible: !r.visible } : r));
-      renderTree();
-      renderGrid();
+      refresh();
       toast(`Lớp tuyến ${id}: ${routeNodes.find((r) => r.id === id).visible ? 'hiện' : 'ẩn'}`);
       return;
     }
@@ -283,8 +470,7 @@ function bind() {
       const id = sel.getAttribute('data-sel');
       selectedRoute = selectedRoute === id ? '' : id;
       page = 1;
-      renderTree();
-      renderGrid();
+      refresh();
       toast(selectedRoute ? `Chọn tuyến ${selectedRoute}` : 'Bỏ chọn tuyến');
     }
   });
@@ -293,10 +479,20 @@ function bind() {
     const btn = e.target.closest('[data-act]');
     if (btn) {
       const id = btn.getAttribute('data-id');
-      if (btn.getAttribute('data-act') === 'qr') {
+      const act = btn.getAttribute('data-act');
+      if (act === 'qr') {
         const r = rows.find((x) => x.id === id);
         toast(`QR mock: ${r?.qr || id}`);
         openForm('view', id);
+        return;
+      }
+      if (act === 'edit') {
+        openForm('edit', id);
+        return;
+      }
+      if (act === 'copy') {
+        openForm('copy', id);
+        toast('Sao chép — chỉnh rồi Lưu');
         return;
       }
       openForm('view', id);
@@ -309,88 +505,116 @@ function bind() {
     }
   });
 
-  $('pins').addEventListener('click', (e) => {
-    const pin = e.target.closest('[data-pin]');
-    if (!pin) return;
-    openForm('view', pin.getAttribute('data-pin'));
+  $('aiList').addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-ai-act]');
+    if (!btn) return;
+    const id = btn.getAttribute('data-id');
+    const act = btn.getAttribute('data-ai-act');
+    if (act === 'confirm') confirmAi(id);
+    else if (act === 'dismiss') dismissAi(id);
+    else if (act === 'fly') {
+      const c = aiList.find((x) => x.id === id);
+      if (c && map) {
+        map.setView([c.lat, c.lng], 14);
+        toast('Zoom candidate ' + id);
+      }
+    }
   });
 
   $('pageInput').addEventListener('change', () => {
-    const n = Math.max(1, parseInt($('pageInput').value, 10) || 1);
-    page = n;
+    page = Math.max(1, parseInt($('pageInput').value, 10) || 1);
     renderGrid();
     toast(`Trang ${page}`);
   });
 
   $('btnSave').addEventListener('click', saveForm);
   $('btnEdit').addEventListener('click', () => openForm('edit', selectedId));
+  $('btnCopy').addEventListener('click', () => {
+    if (selectedId) {
+      openForm('copy', selectedId);
+      toast('Sao chép — chỉnh rồi Lưu');
+    }
+  });
   $('btnCloseDetail').addEventListener('click', closeForm);
 
   document.addEventListener('click', (e) => {
     if (!e.target.closest('.menu-wrap')) closeMenus();
   });
+
+  window.addEventListener('resize', () => map?.invalidateSize());
 }
 
 function handleAction(act) {
   switch (act) {
     case 'notif':
       closeMenus();
-      $('notifPanel').classList.toggle('on');
+      $('notifPanel')?.classList.toggle('on');
       toast('Thông báo (badge 24) — mock');
       break;
     case 'user':
       closeMenus();
-      $('userMenu').classList.toggle('on');
+      $('userMenu')?.classList.toggle('on');
       break;
     case 'util':
       closeMenus();
-      $('utilMenu').classList.toggle('on');
+      $('utilMenu')?.classList.toggle('on');
       break;
     case 'clear-filter':
       $('fTree').value = '';
+      $('fSearch').value = '';
       $('fKmFrom').value = '';
       $('fKmTo').value = '';
       $('fType').value = '';
       selectedRoute = '';
       page = 1;
-      renderTree();
-      renderGrid();
+      refresh();
       toast('Đã xóa điều kiện lọc');
       break;
     case 'fetch-data':
       page = 1;
-      renderGrid();
-      toast(`Lấy dữ liệu — ${filtered().length} bản ghi (mock)`);
+      refresh();
+      toast(`Lấy dữ liệu — ${filtered().length} bản ghi · AI ${pendingAi().length} (mock)`);
       break;
     case 'create':
       openForm('create');
       toast('Tạo mới / Thêm');
       break;
+    case 'copy':
+      if (selectedId) {
+        openForm('copy', selectedId);
+        toast('Sao chép — chỉnh rồi Lưu');
+      } else toast('Chọn 1 dòng rồi Sao chép');
+      break;
     case 'zoom-out':
-      zoom = Math.max(0.7, zoom - 0.15);
-      renderPins(filtered());
+      if (map) map.zoomOut();
       toast('Zoom −');
       break;
     case 'zoom-in':
-      zoom = Math.min(1.8, zoom + 0.15);
-      renderPins(filtered());
+      if (map) map.zoomIn();
       toast('Zoom + (map)');
       break;
     case 'bring-front':
-      pinOffset = { x: (pinOffset.x + 3) % 8, y: (pinOffset.y + 2) % 6 };
-      renderPins(filtered());
-      toast('⇧ Đưa lớp pin lên trước (mock)');
+      if (markerLayer && map) {
+        markerLayer.eachLayer((ly) => ly.bringToFront && ly.bringToFront());
+      }
+      toast('⇧ Đưa lớp pin lên trước');
       break;
     case 'geolocate':
-      pinOffset = { x: 0, y: 0 };
-      zoom = 1.2;
-      renderPins(filtered());
+      if (map) map.setView([19.23, 105.67], 13);
       toast('Vị trí của tôi — mock GPS 19.23, 105.67');
       break;
     case 'basemap':
+      document.querySelectorAll('input[name="basemap"]').forEach((r) => {
+        r.checked = r.value === basemap;
+      });
       $('basemapModal').classList.add('on');
       break;
     case 'thematic':
+      $('chkLayerAssets').checked = thematic.assets;
+      $('chkLayerChain').checked = thematic.chainage;
+      $('chkLayerIts').checked = thematic.its;
+      $('chkLayerPci').checked = thematic.pci;
+      $('chkLayerAi').checked = thematic.ai;
       $('thematicModal').classList.add('on');
       break;
     case 'close-basemap':
@@ -400,16 +624,22 @@ function handleAction(act) {
       $('thematicModal').classList.remove('on');
       break;
     case 'pick-basemap':
-      basemap = document.querySelector('input[name="basemap"]:checked')?.value || 'osm';
-      $('mapCanvas').dataset.basemap = basemap;
+      setBasemap(document.querySelector('input[name="basemap"]:checked')?.value || 'osm');
       $('basemapModal').classList.remove('on');
-      renderPins(filtered());
+      renderMap(filtered());
       toast('Lớp nền: ' + basemap);
       break;
     case 'pick-thematic':
+      thematic = {
+        assets: $('chkLayerAssets').checked,
+        chainage: $('chkLayerChain').checked,
+        its: $('chkLayerIts').checked,
+        pci: $('chkLayerPci').checked,
+        ai: $('chkLayerAi').checked,
+      };
       $('thematicModal').classList.remove('on');
-      toast('Lớp chuyên đề đã áp dụng (mock)');
-      renderPins(filtered());
+      renderMap(filtered());
+      toast('Lớp chuyên đề đã áp dụng');
       break;
     case 'page-first':
       page = 1;
@@ -447,8 +677,19 @@ function handleAction(act) {
       closeMenus();
       break;
     case 'util-help':
-      toast('Tiện ích · hướng dẫn demo');
+      toast('Tiện ích · hướng dẫn demo · Leaflet · AI candidate');
       closeMenus();
+      break;
+    case 'fit-all':
+      if (map && markerLayer) {
+        const layers = [];
+        markerLayer.eachLayer((l) => layers.push(l));
+        if (layers.length) {
+          const g = L.featureGroup(layers);
+          map.fitBounds(g.getBounds().pad(0.2));
+        }
+      }
+      toast('Fit tất cả pin');
       break;
     default:
       break;
@@ -457,7 +698,7 @@ function handleAction(act) {
 
 initTypeOptions();
 initChecklist();
+initMap();
 bind();
-renderTree();
-renderGrid();
-toast('DEMO — no backend · MFE-modern shell');
+refresh();
+toast('DEMO — no backend · Leaflet live · AI candidate · MFE-modern');

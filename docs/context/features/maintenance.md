@@ -34,7 +34,7 @@
 - **List Z2** — Công việc filter bar · STT grid · row Chi tiết / Tiến độ  
 - **Slideout** — Z1 Đóng · Z2 fields WO · Z3 Lưu nháp / Cập nhật tiến độ / Nghiệm thu (P2)  
 
-**Mock:** 4 WO · 4 dự án · IdCode `WO-YYYYMMDD-NNNN` · localStorage · 68 actions parity.
+**Mock:** 4 WO · 4 dự án · IdCode `WO-YYYYMMDD-NNNN` · localStorage · **69 actions** parity (control-map + Maximize).
 
 **2d readonly:** rule_defaults · Confirmed by: ai-autocode-autopilot  
 **2e IdCode:** `WO-YYYYMMDD-NNNN`  
@@ -83,13 +83,15 @@ Consume `estimate.created` (P2).
 
 ## 7. Demo checklist (chốt khách)
 
-- [ ] List/status khớp Công việc
-- [ ] Tạo từ Sự cố
-- [ ] Badge «P2: nghiệm thu / SLA full»
-- [ ] KPI + biểu đồ bảo trì
-- [ ] Đủ 68 actions từ control-map
-- [ ] Leave-confirm khi WO dirty
-- [ ] Không gọi BE
+- [x] List/status khớp Công việc
+- [x] Tạo từ Sự cố
+- [x] Badge «P2: nghiệm thu / SLA full»
+- [x] KPI + biểu đồ bảo trì
+- [x] Đủ 69 actions từ control-map
+- [x] Leave-confirm khi WO dirty
+- [x] Không gọi BE
+- [x] Bảng tổng hợp nhanh (014) · metric + tree Company→QL→Km
+- [x] sourceKind=legacy · chrome GOVOne skip
 
 <!-- LEGACY-GOVONE-CAPTURE:START -->
 ## Legacy GOVOne (auto-capture)
@@ -207,6 +209,36 @@ Consume `estimate.created` (P2).
 - **title:** GOVONE - TỔNG HỢP CÔNG TÁC QUẢN LÝ VÀ BẢO DƯỠNG THƯỜNG XUYÊN
 - **headings:** TỔNG HỢP CÔNG TÁC QUẢN LÝ VÀ BẢO DƯỠNG THƯỜNG XUYÊN · TỔNG HỢP CÔNG TÁC QUẢN LÝ VÀ BẢO DƯỠNG THƯỜNG XUYÊN · LIÊN KẾT TRUY CẬP NHANH · THIẾT LẬP CỠ CHỮ
 
+#### Labels / field captions
+
+- Ngày tổng hợp
+- Tuần đường
+- Tuần kiểm
+- Tình hình bão lũ
+- Tai nạn giao thông
+- Vi phạm xâm phạm
+- Công việc
+- CÔNG TÁC TUẦN ĐƯỜNG
+- CÔNG TÁC TUẦN KIỂM
+- CÔNG VIỆC
+
+#### Inputs
+
+| tag | type | name/id | placeholder |
+|-----|------|---------|-------------|
+| input | date | Ngày tổng hợp | 01/08/2026 |
+| div | metric | Tuần đường |  |
+| div | metric | Tuần kiểm |  |
+| div | metric | Tình hình bão lũ |  |
+| div | metric | Tai nạn giao thông |  |
+| div | metric | Vi phạm xâm phạm |  |
+| div | metric | Công việc |  |
+| div | text | Đơn vị / công ty |  |
+| div | text | Tuyến (QL) |  |
+| div | text | Điểm Km / lý trình | Km N + MMM |
+| div | text | Trạng thái tải |  |
+| div | text | Empty state |  |
+
 #### Actions / buttons (full)
 
 | label | kind | zone | tag | disabled |
@@ -240,24 +272,7 @@ Consume `estimate.created` (P2).
 ### SỬA CHỮA ĐỊNH KỲ › Tai nạn giao thông
 
 - **id:** `015-sua-chua-inh-ky-tai-nan-giao-thong`
-- **url:** https://pmdb.govone.vn/DuongBo/dashboard
-- **title:** GOVONE - TỔNG HỢP CÔNG TÁC QUẢN LÝ VÀ BẢO DƯỠNG THƯỜNG XUYÊN
-- **headings:** TỔNG HỢP CÔNG TÁC QUẢN LÝ VÀ BẢO DƯỠNG THƯỜNG XUYÊN · TỔNG HỢP CÔNG TÁC QUẢN LÝ VÀ BẢO DƯỠNG THƯỜNG XUYÊN · LIÊN KẾT TRUY CẬP NHANH · THIẾT LẬP CỠ CHỮ
-
-#### Actions / buttons (full)
-
-| label | kind | zone | tag | disabled |
-|-------|------|------|-----|----------|
-| dropdown trigger | action | header | div |  |
-| Báo cáo tổng hợp | nav | footer | a |  |
-| Phân quyền | nav | footer | a |  |
-| Bản đồ | nav | footer | a |  |
-| Vấn đề | nav | footer | a |  |
-| Giám sát | nav | footer | a |  |
-| Hồ sơ | nav | footer | a |  |
-| govone.vn | nav | header | a |  |
-| youtube | nav | header | a |  |
-| facebook
+- **url:** h
 
 …_(truncated — xem raw)_
 
@@ -277,6 +292,7 @@ Consume `estimate.created` (P2).
 - Actions: [`maintenance-actions.md`](../_raw/legacy-govone/demo-maps/maintenance-actions.md)
 - Fields mapped: 14 · Actions: 69
 - Kind hint: E (report) — erp-report-context
+- **sourceKind:** `legacy` (vision 009/013/014/015 + demo-maps)
 
 Gen demo: `/qlbd-analy-demo @maintenance` — load control-map trên + `/erp-form-context` rules (2a-K · 2g · common controls).
 <!-- DEMO-MFE-MODERN:END -->
@@ -285,8 +301,10 @@ Gen demo: `/qlbd-analy-demo @maintenance` — load control-map trên + `/erp-for
 
 | | |
 |--|--|
-| Task | `task_da43ff6b` |
+| Task | `task_56b50f4d` |
 | Skill | `/qlbd-analy-demo @maintenance` |
-| Files | `maintenance.md` · `demo-maps/maintenance-*.md` · `public/demo/maintenance/maintenance.html` · `js/maintenance-*.js` · `demoCatalog.ts` |
-| BE align | OFF (demo) · GAP-F-MNT-03 documented |
+| sourceKind | `legacy` |
+| Files | `maintenance.md` · `demo-maps/maintenance-*.md` · `src/demo/maintenance/*` · `public/demo/maintenance/*` · `demoCatalog.ts` |
+| BE align | OFF (demo · Status Demo) · GAP-F-MNT-03 documented · Step 4b khi Signed |
+| RECAPTURE | P0 open in `RECAPTURE-GAPS.md` (WO form-sample shallow) — demo WO suy luận guide |
 | Confirmed by | ai-autocode-autopilot |

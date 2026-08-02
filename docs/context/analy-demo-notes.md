@@ -2,10 +2,50 @@
 
 | | |
 |--|--|
-| Last skill | `/qlbd-analy-demo @toc` |
-| Date | 2026-08-01 |
-| Manifest | `context/_raw/manifest.json` (docs-scan-cache) |
+| Last skill | `/qlbd-analy-demo @copilot` |
+| Date | 2026-08-02 |
+| Manifest | `context/_raw/manifest.json` (docs-scan-cache · Unchanged skip re-read) |
 | DemoRoot | `Linm.RMMS.Demo/public/demo` (+ mirror `src/demo`) |
+
+## @copilot (task_f39a3cf8)
+
+- **sourceKind:** `synthetic` (product AI #16 · **no** GOVOne leaf · Web drawer mới)
+- Control-map: `_raw/legacy-govone/demo-maps/copilot-control-map.md` (18 fields · 24 actions)
+- Kind: **D** drawer chat + session strip — erp-form-context · leave-confirm nháp · KPI · 5 prompts · disclaimer
+- Demo HTML: `public/demo/copilot/copilot.html` (+ `js/copilot-data.js` · `js/copilot-app.js`) · mirror `src/demo/copilot/` · `features/copilot-demo.html` → redirect
+- Catalog: `demoCatalog.ts` badge `run` · `aiSupport` · domain `copilot` · alignMfe Copilot · route `/copilot` · removed from `PENDING_DOMAINS`
+- AI: map 15 #16 · P1 gpt-4o-mini (+4o escalate) · P2 RAG Qdrant on-prem · **không hứa local P1**
+- Map live: **không** (NL chat only)
+- BE: `/api/v1/copilot/*` **MISSING** → GAP-F-COP-04 · **be_align OFF** (demo Status ≠ Signed)
+- **No** MFE production / BE changes (demo only)
+- Gap open: **none** (pure synthetic · RECAPTURE closed)
+
+## @attendance (task_bda9013b)
+
+- **sourceKind:** `legacy` (synthetized — no dedicated GOVOne attendance leaf · shared patrol/BC checkin docs)
+- Control-map: `_raw/legacy-govone/demo-maps/attendance-control-map.md` (26 fields · 26 actions)
+- Kind: **E** report+map + Kind **D** zone slideout — erp-form-context · leave-confirm · KPI · Leaflet live
+- Demo HTML: `public/demo/patrol/attendance.html` (+ `js/attendance-data.js` · `js/attendance-app.js`) · mirror `src/demo/patrol/` · `features/attendance-demo.html` → redirect
+- Catalog: `demoCatalog.ts` badge `run` · `aiSupport` · domain `patrol` · alignMfe Patrol · route `/patrol/attendance`
+- AI: map 15 #4–5 · P1 Rule+PostGIS · P2 Edge camera
+- Map live: Leaflet OSM/Esri · zone polygon · InZone markers
+- BE: `/api/v1/attendance/*` **MISSING** → GAP-F-ATT-04 · **be_align OFF** (demo Status ≠ Signed)
+- **No** MFE production / BE changes (demo only)
+- Gap open: **none** P0 for attendance (patrol map track P0 remains riêng)
+
+## @ops (task_9ff02e5d)
+
+- **sourceKind:** `legacy` (synthetized — no GOVOne ops vision · `giamsat` → slug `patrol`)
+- Control-map: `_raw/legacy-govone/demo-maps/ops-control-map.md` (12 fields · 22 actions)
+- Kind: **B** CatalogListShell inbox + Kind **D** slideout — erp-form-context · leave-confirm · overview KPI 4
+- Demo HTML: `public/demo/ops/ops.html` (+ `js/ops-data.js` · `js/ops-app.js`) · mirror `src/demo/ops/` · `features/ops-demo.html` → redirect
+- Header Linm shell: Thông báo (bell dropdown) · User menu (profile/logout mock) — đủ 22 actions
+- Catalog: `demoCatalog.ts` badge `run` · domain `ops` · alignMfe Notification · route `/ops`
+- AI: map 15 #9 **không** AI engine P1 — không gắn `aiSupport` badge
+- Map live: **cấm** embed — nav → patrol/gis
+- BE: `/api/v1/ops/overview` · `/api/v1/notifications/*` · SignalR OpsHub **MISSING** → GAP-F-OPS-03 · **be_align OFF** (demo Status ≠ Signed)
+- **No** MFE production / BE changes (demo only)
+- Gap open: **none** P0 (legacy shallow chỉ khi tile GOVOne có form thiếu — ops không có GOVOne form)
 
 ## @toc (task_e946e237)
 
@@ -77,15 +117,9 @@
 - BE: `/api/v1/infra/pavement-sections/*` MISSING → GAP-F-PVT-01 · be_align OFF (demo only)
 - **No** MFE production / BE changes (demo only)
 
-## @ops (task_427b7c6b)
+## @ops (task_427b7c6b) — superseded by task_9ff02e5d
 
-- Legacy capture: synthetized (no GOVOne ops screen · giamsat → `patrol`) · `features/ops.md` § Legacy GOVOne
-- Control-map: `_raw/legacy-govone/demo-maps/ops-control-map.md` (12 fields · 22 actions)
-- Kind: **B** CatalogListShell inbox + Kind **D** slideout — erp-form-context · leave-confirm · overview KPI
-- Demo HTML: `public/demo/ops/ops.html` (+ `js/ops-data.js` · `js/ops-app.js`)
-- Catalog: `demoCatalog.ts` badge `run` · domain `ops` · alignMfe Notification
-- BE: `/api/v1/ops/overview` · `/api/v1/notifications/*` MISSING → GAP-F-OPS-03 · be_align OFF (demo only)
-- **No** MFE production / BE changes (demo only)
+- Legacy capture: synthetized · demo HTML + catalog badge `run` (lần chạy trước)
 
 ## @maintenance (task_da43ff6b)
 

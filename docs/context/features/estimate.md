@@ -87,12 +87,14 @@
 
 ## 7. Demo checklist (chốt khách)
 
-- [ ] Bảng tiền mock rõ
-- [ ] Badge online
-- [ ] Nút «Gắn Công việc» (stub P1)
-- [ ] Không auto tạo WO
-- [ ] Đủ field + 13 actions từ control-map
-- [ ] Leave-confirm khi dirty
+- [x] Bảng tiền mock rõ
+- [x] Badge online + **AI support**
+- [x] Nút «Gắn Công việc» (stub P1)
+- [x] Không auto tạo WO
+- [x] Đủ field + 13 actions từ control-map
+- [x] Leave-confirm khi dirty
+- [x] Host search work (mã / mô tả / tuyến)
+- [x] sourceKind=legacy (synthetized — không màn GOVOne riêng)
 
 <!-- LEGACY-GOVONE-CAPTURE:START -->
 ## Legacy GOVOne (auto-capture)
@@ -191,8 +193,8 @@
 
 ### Step context checklist
 
-- [ ] Design demo parity legacy zones
-- [ ] Control-map fields từ Labels/Inputs/Vision
+- [x] Design demo parity legacy zones
+- [x] Control-map fields từ Labels/Inputs/Vision
 - [ ] Status Demo → Signed → `/qlbd-align-mfe`
 <!-- LEGACY-GOVONE-CAPTURE:END -->
 
@@ -213,8 +215,10 @@ Gen demo: `/qlbd-analy-demo @estimate` — load control-map trên + `/erp-form-c
 
 | | |
 |--|--|
-| Task | `task_42d3c388` |
+| Task | `task_ff8a59ee` (prev `task_42d3c388`) |
 | Skill | `/qlbd-analy-demo @estimate` |
+| sourceKind | **legacy** (synthetized capture — no GOVOne screen) |
 | Files | `estimate.md` · `demo-maps/estimate-*.md` · `public/demo/ai-vision/estimate.html` · `js/estimate-*.js` · `demoCatalog.ts` |
-| BE align | OFF (demo) · GAP-F-EST-03 documented |
+| BE align | OFF (demo) · GAP-F-EST-03 documented · Step 4b when Signed |
+| Action work | Host search · 13 actions (AI estimate / lines / confirm / attach stub) · no Create/Edit pair dead |
 | Confirmed by | ai-autocode-autopilot |

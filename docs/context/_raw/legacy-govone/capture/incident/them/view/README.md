@@ -5,6 +5,6 @@
 - **action:** view
 - **url:** https://pmdb.govone.vn/dbv3baotri.aspx#panelVanDe
 - **fields:** 144
-- **actions:** 42
+- **actions:** 29
 
 

@@ -1,0 +1,230 @@
+# source: context/features/contract.md
+# version: 8
+# scannedAt: 2026-08-02T07:24:38.669Z
+# sha256: fed15a59f985aab71c721a5a75234f93201b91ab0fea9b10b5433d0ddad2ab17
+# mtimeMs: 1785655230485.9548
+# Hợp đồng và ngân sách — Feature Context
+
+> **Slug:** `contract` · **Module:** `Contract` · **Phase:** P2–P3  
+> **Status:** Demo  
+> **Kind:** **B** (CatalogListShell) + **D** (slideout form) — Confirmed by: ai-autocode-autopilot  
+> **Sources:** `RMMS` §11 · `07` Hạng mục 11 · `09` OUT P1 · `15-SCREEN-AI-MAP.md`  
+> **Demo HTML:** `Linm.RMMS.Demo/public/demo/contract/contract.html`  
+> **MFE (align):** `Linm.Web.RMMS.Contract` · route `/contract` · **cấm** sửa MFE ở phase demo  
+> **≠** Inventory P3 (`inventory`) — vật tư nằm sub-route riêng khi align
+
+## 1. Tổng quan
+
+| | |
+|--|--|
+| Mục tiêu | HĐ bảo trì · ngân sách · thanh toán · KPI nhà thầu · bảo hành · quyết toán |
+| Persona | Ban QLDA · Finance · Hạt trưởng |
+| App hiện có | Module mới — không có màn GOVOne |
+| DoD P2 | CRUD HĐ · ngân sách · thanh toán mock · KPI cards |
+| DoD P3 | Workflow phê duyệt · quyết toán · Inventory link |
+
+## 2. Design / UI
+
+| Screen | Pattern | Zones | Ghi chú |
+|--------|---------|-------|---------|
+| List `/contract` | Kind **B** CatalogListShell | KPI · toolbar · filter · grid | P2 |
+| Tạo / Chi tiết | Kind **D** Slideout | Z1 toolbar · Z2 fields+lines · Z3 footer | `/contract/new` · `/contract/:id` |
+| Quyết toán | Modal stub | Badge P2–P3 | GAP-F-CTR-04 |
+| Inventory | Nav stub | `/contract/inventory` | OUT demo · slug `inventory` |
+
+**Kind B+D layout (erp-form-context):**
+
+- **List** — title «Hợp đồng và ngân sách» · toolbar · filter · grid · KPI 4 ô  
+- **Z1** — Quay lại · Đóng · title · dirty badge · hint · badge P2–P3  
+- **Z2a** — Validation banner (số HĐ · tên · nhà thầu · giá trị)  
+- **Z2b** — Header fields control-map  
+- **Z2c** — Ngân sách / bảo hành / KPI meta  
+- **Z2d** — Payment lines `pattern_inline_grid`  
+- **Z3** — Lưu · Lưu nháp · Phê duyệt · Ghi nhận TT · Hủy  
+
+**Mock:** fake HĐ + payment lines · IdCode `CTR-YYYYMMDD-NNNN` · localStorage · toast · **no BE**.
+
+**2d readonly:** rule_defaults · Confirmed by: ai-autocode-autopilot  
+**2e IdCode:** `CTR-YYYYMMDD-NNNN`  
+**2k:** voucher_default · leave-confirm khi dirty  
+**2cm:** pattern_inline_grid + toolbar_standard  
+**2j platform event:** DEFER (`contract.signed` · `payment.posted`)
+
+## 3. API
+
+| Method | Path | Mô tả | BE status |
+|--------|------|-------|-----------|
+| GET/POST | `/api/v1/contracts` | CRUD HĐ | **MISSING** (Step 4b khi Signed) |
+| GET/PUT | `/api/v1/contracts/{id}` | Chi tiết | **MISSING** |
+| GET/POST | `/api/v1/budgets` | Ngân sách | **MISSING** |
+| GET | `/api/v1/contracts/{id}/kpi` | KPI nhà thầu | **MISSING** |
+| POST | `/api/v1/contracts/{id}/payments` | Ghi nhận TT | **MISSING** |
+| POST | `/api/v1/contracts/{id}/sign` | Ký HĐ | **MISSING** |
+
+```json
+{
+  "code": "CTR-20260801-0001",
+  "contractNo": "HĐ-BT-2026-014",
+  "name": "Bảo trì định kỳ QL1A Km12–Km48",
+  "contractorId": "nt-01",
+  "amount": 12500000000,
+  "budgetYear": 2026,
+  "status": "signed",
+  "kpiScore": 86,
+  "payments": [{ "period": "Đợt 1", "amount": 3000000000, "status": "paid" }]
+}
+```
+
+> Phase demo: **cấm** gọi BE · fake / localStorage only. Align BE khi Status Signed + be_align ON.
+
+## 4. Database
+
+| Entity | Key columns | Notes |
+|--------|-------------|-------|
+| Contract | Id, Code, ContractNo, Name, Type, ContractorId, Amount, SignedAt, EffectiveFrom, EffectiveTo, Status | P2 |
+| Budget | Id, ContractId, Year, Allocated, Disbursed | P2 |
+| Payment | Id, ContractId, Period, Amount, PaidAt, Status | P2 |
+| ContractorKpi | Id, ContractorId, ContractId, Score, SlaPct, At | P2 |
+| Warranty | Id, ContractId, Months, ExpiresAt | P2 |
+| Settlement | Id, ContractId, Status, ClosedAt | P3 |
+
+## 5. Events / tích hợp
+
+| Event | Publisher | Consumer |
+|-------|-----------|----------|
+| `contract.signed` | Contract | Maintenance / Report — DEFER |
+| `payment.posted` | Contract | Budget / Dashboard — DEFER |
+
+Liên kết WorkOrder → thanh toán (task team P2) · KPI từ SLA / nghiệm thu.
+
+## 6. Gaps / quyết định
+
+| ID | Question | Default |
+|----|----------|---------|
+| GAP-F-CTR-01 | OUT P1 | Giữ P2–P3 · badge hub |
+| GAP-F-CTR-02 | Kind plan fallback C | Override **B+D** (list+form+KPI) · autopilot |
+| GAP-F-CTR-03 | BE endpoints contracts/budgets/kpi | MISSING · be_align khi Signed |
+| GAP-F-CTR-04 | Quyết toán UI full | P3 modal stub demo |
+| GAP-F-CTR-05 | Inventory trong Contract MFE | Sub-route `/contract/inventory` · slug riêng |
+
+## 7. Demo checklist (chốt khách)
+
+- [ ] List đủ cột + filter loại/TT/nhà thầu
+- [ ] KPI 4 ô mock (giá trị · NS còn · KPI TB · sắp hết hạn)
+- [ ] Form Kind D đủ 26 field control-map (kể cả dòng TT)
+- [ ] Đủ 24 actions (click → toast/modal/nav)
+- [ ] Payment lines pattern_inline_grid
+- [ ] Badge P2–P3
+- [ ] Leave-confirm khi dirty
+- [ ] Không gọi BE
+
+<!-- LEGACY-GOVONE-CAPTURE:START -->
+## Legacy GOVOne (auto-capture)
+
+> Auto map từ `tools/legacy-govone-capture` · vision: `_raw/legacy-govone/ai-analysis/`.
+> Dùng làm **step context** cho `/qlbd-analy-demo` · `yarn scan-qlbd-demo`.
+
+### Nguồn
+
+- Raw feature: `docs/context/_raw/legacy-govone/features/contract.md`
+- Vision packets: 0
+
+### Capture inventory
+
+> Không có màn GOVOne vision cho Hợp đồng / ngân sách (module mới P2–P3).  
+> Synthetized từ `07-TECHNICAL-IMPLEMENTATION.md` § Hạng mục 11 · `15-SCREEN-AI-MAP.md` · MFE ownership Contract.
+
+## Pages (2)
+
+### DANH SÁCH HỢP ĐỒNG / NGÂN SÁCH
+
+- **id:** `contract-list`
+- **url:** (planned) `/contract`
+- **title:** Hợp đồng và ngân sách
+
+#### Labels / field captions (list + KPI)
+
+- Mã HĐ · Số HĐ · Tên HĐ · Loại HĐ · Nhà thầu · Giá trị HĐ · Ngân sách năm · Đã giải ngân · Ngày ký · Hiệu lực · Hết hạn · Trạng thái · KPI nhà thầu · SLA % · Tháng bảo hành · Ngày hết BH · Tổng đã TT · Quyết toán · Đơn vị QL · Tuyến/đoạn · Năm NS · Liên kết WO
+
+#### Actions / buttons (full)
+
+| label | kind | zone |
+|-------|------|------|
+| Làm mới | action | toolbar |
+| Làm mới KPI | action | toolbar |
+| Tạo hợp đồng | create | toolbar |
+| Lọc / Tìm | filter | filter |
+| Xem chi tiết | view | grid |
+| Sửa | action | grid |
+| Xóa | destructive | grid |
+| Ký hợp đồng | action | grid |
+| Ghi nhận thanh toán | action | grid |
+| Xem KPI nhà thầu | view | grid |
+| Xuất Excel | export | toolbar |
+| Xuất báo cáo ngân sách | export | toolbar |
+| Mở quyết toán | nav | toolbar |
+| Gia hạn bảo hành | action | grid |
+| Liên kết WorkOrder | nav | toolbar |
+| User menu | nav | header |
+
+### CHI TIẾT / TẠO HỢP ĐỒNG
+
+- **id:** `contract-form`
+- **url:** (planned) `/contract/new` · `/contract/:id`
+- **title:** Chi tiết hợp đồng
+
+#### Labels / field captions (form + payment lines)
+
+- Mã HĐ · Số HĐ · Tên HĐ · Loại HĐ · Nhà thầu · Giá trị HĐ · Ngân sách năm · Đã giải ngân · Ngày ký · Ngày hiệu lực · Ngày hết hạn · Trạng thái · Điểm KPI · SLA % · Tháng bảo hành · Ngày hết BH · Đơn vị quản lý · Tuyến/đoạn · Năm ngân sách · Liên kết WO · Ghi chú · Kỳ TT · Số tiền TT · Ngày TT · TT dòng · Ghi chú dòng
+
+#### Actions / buttons (full)
+
+| label | kind | zone |
+|-------|------|------|
+| Lưu | create | footer |
+| Lưu nháp | action | footer |
+| Phê duyệt | action | footer |
+| Thêm dòng thanh toán | create | lines |
+| Xóa dòng thanh toán | destructive | lines |
+| Hủy thay đổi | close | footer |
+| Đóng | close | header |
+| Quay lại | nav | header |
+
+- **fieldCount:** 26
+- **actionCount:** 24
+
+## Migration notes
+
+- Map → control-map modern MFE · erp-form-context Kind **B** list + Kind **D** slideout.
+- Demo: same fields · Linm shell — **cấm** clone skin GOVOne · **cấm** BE.
+- Badge **P2–P3** trên hub/list.
+
+### Step context checklist
+
+- [ ] Design demo parity legacy zones
+- [ ] Control-map fields từ Labels/Inputs/Vision
+- [ ] Status Demo → Signed → `/qlbd-align-mfe`
+<!-- LEGACY-GOVONE-CAPTURE:END -->
+
+<!-- DEMO-MFE-MODERN:START -->
+## Demo MFE modern (erp-form-context)
+
+> Same fields/actions từ capture · UI chuẩn Linm — **không** clone skin legacy.
+
+- Control-map: [`contract-control-map.md`](../_raw/legacy-govone/demo-maps/contract-control-map.md)
+- Actions: [`contract-actions.md`](../_raw/legacy-govone/demo-maps/contract-actions.md)
+- Fields mapped: 26 · Actions: 24
+- Kind hint: **B+D** — erp-form-context · leave-confirm · pattern_inline_grid · KPI
+
+Gen demo: `/qlbd-analy-demo @contract` — load control-map trên + `/erp-form-context` rules (2a-K · 2g · common controls).
+<!-- DEMO-MFE-MODERN:END -->
+
+## 8. Tracking (autopilot)
+
+| | |
+|--|--|
+| Task | `task_adce6684` |
+| Skill | `/qlbd-analy-demo @contract` |
+| Files | `contract.md` · `demo-maps/contract-*.md` · `public/demo/contract/contract.html` · `js/contract-*.js` · `demoCatalog.ts` |
+| BE align | OFF (demo) · GAP-F-CTR-03 documented |
+| Confirmed by | ai-autocode-autopilot |

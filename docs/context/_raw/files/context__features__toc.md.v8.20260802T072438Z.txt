@@ -1,0 +1,303 @@
+# source: context/features/toc.md
+# version: 8
+# scannedAt: 2026-08-02T07:24:38.669Z
+# sha256: 86eaa98ffaab1f5c05b5d44f295ef630479f470b4af5c8d3c680d3768c6228f4
+# mtimeMs: 1785655230491.9197
+# Trung tâm điều hành giao thông (TOC) — Feature Context
+
+> **Slug:** `toc` · **Module:** `Traffic` (trong AiVision/Gis) · **Phase:** P3  
+> **Status:** Demo  
+> **Kind:** **B** (CatalogListShell) + **D** (slideout form) + camera wall stub — Confirmed by: ai-autocode-autopilot  
+> **Sources:** `RMMS` §14 · `07` Hạng mục 14 · `09` OUT P1–P2 · `15-SCREEN-AI-MAP.md` #14 · `01` Traffic Management Center  
+> **Demo HTML:** `Linm.RMMS.Demo/public/demo/toc/toc.html`  
+> **MFE (align):** `Linm.Web.RMMS.AiVision` · route `/toc` · **cấm** sửa MFE ở phase demo  
+> **≠** `ops` (Chỉ đạo điều hành / Notification) · **≠** `incident` (QL sự cố) — TOC phát hiện GT + VMS; đẩy INC khi xác nhận
+
+## 1. Tổng quan
+
+| | |
+|--|--|
+| Mục tiêu | Giám sát GT · AI ùn tắc/tai nạn/xe dừng/vật cản · điều khiển VMS · tốc độ động |
+| Persona | Điều hành viên TOC · Hạt trưởng · ITS ops |
+| App hiện có | Module mới — không có màn GOVOne |
+| DoD P3 | Event list + AI confirm · VMS command mock · camera wall stub · Incident handoff |
+| Công nghệ | YOLOv8 traffic · Stream ingest · ITS adapter · VMS Open API partner |
+
+## 2. Design / UI
+
+| Screen | Pattern | Zones | Ghi chú |
+|--------|---------|-------|---------|
+| List `/toc` | Kind **B** CatalogListShell | KPI · toolbar · filter · grid | P3 |
+| Tạo / Chi tiết | Kind **D** Slideout | Z1 toolbar · Z2 fields+VMS lines · Z3 footer | `/toc/new` · `/toc/:id` |
+| Camera wall | Modal stub | Multi-stream placeholder | GAP-F-TOC-04 |
+| GIS / Incident | Nav | `/gis` · incident demo | Event consumer |
+
+**Kind B+D layout (erp-form-context):**
+
+- **List** — title «Trung tâm ĐH GT» · toolbar · filter · grid · KPI 4 ô  
+- **Z1** — Quay lại · Đóng · title · dirty badge · hint · badge P3 · AI  
+- **Z2a** — Validation banner (loại · tuyến · camera)  
+- **Z2b** — Header fields control-map (sự kiện detection)  
+- **Z2c** — VMS / tốc độ động / refs  
+- **Z2d** — VMS command lines `pattern_inline_grid`  
+- **Z3** — Lưu · Lưu nháp · Gửi VMS · Đặt tốc độ · Đóng sự kiện · Hủy  
+
+**Mock:** fake events + VMS lines · IdCode `TOC-YYYYMMDD-NNNN` · localStorage · toast · **no BE**.
+
+**2d readonly:** rule_defaults · Confirmed by: ai-autocode-autopilot  
+**2e IdCode:** `TOC-YYYYMMDD-NNNN`  
+**2k:** voucher_default · leave-confirm khi dirty  
+**2cm:** pattern_inline_grid + toolbar_standard  
+**2j platform event:** DEFER (`toc.event.confirmed` · `toc.vms.sent`)
+
+## 3. API
+
+| Method | Path | Mô tả | BE status |
+|--------|------|-------|-----------|
+| GET/POST | `/api/v1/toc/events` | CRUD / list detection events | **MISSING** (Step 4b khi Signed) |
+| GET/PUT | `/api/v1/toc/events/{id}` | Chi tiết | **MISSING** |
+| POST | `/api/v1/toc/events/{id}/confirm` | Xác nhận AI | **MISSING** |
+| POST | `/api/v1/toc/events/{id}/false-positive` | Đánh dấu FP | **MISSING** |
+| POST | `/api/v1/toc/vms/commands` | Gửi lệnh VMS | **MISSING** |
+| POST | `/api/v1/toc/speed/dynamic` | Tốc độ động | **MISSING** |
+| GET | `/api/v1/toc/cameras` | Camera / stream meta | **MISSING** |
+
+```json
+{
+  "code": "TOC-20260801-0001",
+  "detectType": "un-tac",
+  "severity": "cao",
+  "camera": "cam-ql1a-12",
+  "road": "QL1A Km40–Km42",
+  "confidence": 92,
+  "status": "moi",
+  "dynamicSpeed": 40,
+  "vmsMessage": "ÙN TẮC — GIẢM TỐC",
+  "vmsCommands": [{ "board": "vms-ql1a-04", "message": "ÙN TẮC — GIẢM TỐC", "status": "cho" }]
+}
+```
+
+> Phase demo: **cấm** gọi BE · fake / localStorage only. Align BE khi Status Signed + be_align ON.
+
+## 4. Database
+
+| Entity | Key columns | Notes |
+|--------|-------------|-------|
+| TocEvent | Id, Code, DetectType, Severity, CameraId, Road, Marker, Lat, Lng, DetectedAt, Confidence, Status, Plate, LaneDir, AvgSpeed, VmsTarget, VmsMessage, DynamicSpeed, IncidentRef, Operator, Note, StreamUrl, FrameKey, ClosedAt | P3 |
+| TocVmsCommand | Id, EventId, BoardCode, Message, Status, SentAt | P3 |
+| TocCamera | Id, Code, Name, Road, StreamUrl, Online | P3 meta |
+
+## 5. Events / tích hợp
+
+| Event | Publisher | Consumer |
+|-------|-----------|----------|
+| `toc.event.confirmed` | Traffic/TOC | Incident · Ops — DEFER |
+| `toc.vms.sent` | Traffic/TOC | Integration ITS adapter — DEFER |
+
+Payload gợi ý: `{eventId, detectType, road, lat, lng, confidence}` · detection → Incident (GAP-F-TOC-02).
+
+## 6. Gaps / quyết định
+
+| ID | Question | Default |
+|----|----------|---------|
+| GAP-F-TOC-01 | OUT P1–P2 | Giữ P3 · badge hub |
+| GAP-F-TOC-02 | Kind | **B+D** + camera wall stub · autopilot |
+| GAP-F-TOC-03 | BE endpoints toc/* · vms · speed | MISSING · be_align khi Signed |
+| GAP-F-TOC-04 | Live multi-stream wall | P3 modal stub |
+| GAP-F-TOC-05 | YOLOv8 local vs partner stream | Model P3 · demo fake confidence |
+
+## 7. Demo checklist (chốt khách)
+
+- [ ] List đủ cột + filter loại/mức/TT/camera
+- [ ] KPI 4 ô mock (mở · ùn tắc · VMS online · camera online)
+- [ ] Form Kind D đủ 26 field control-map (kể cả dòng VMS)
+- [ ] Đủ 25 actions (click → toast/modal/nav)
+- [ ] VMS lines pattern_inline_grid
+- [ ] Camera wall stub modal
+- [ ] Badge P3 + AI support
+- [ ] Leave-confirm khi dirty
+- [ ] Không gọi BE
+
+<!-- LEGACY-GOVONE-CAPTURE:START -->
+## Legacy GOVOne (auto-capture)
+
+> Auto map từ `tools/legacy-govone-capture` · vision: `_raw/legacy-govone/ai-analysis/`.
+> Dùng làm **step context** cho `/qlbd-analy-demo` · `yarn scan-qlbd-demo`.
+
+### Nguồn
+
+- Raw feature: `docs/context/_raw/legacy-govone/features/toc.md`
+- Vision packets: 0
+
+### Capture inventory
+
+> **Không có màn GOVOne vision** riêng cho «Trung tâm ĐH GT».  
+> Module mới P3 — OUT P1–P2 (`09` · `15-SCREEN-AI-MAP` #14).  
+> Capture synthetized từ `07-TECHNICAL-IMPLEMENTATION.md` § Hạng mục 14 · `01-PLATFORM-OVERVIEW` Traffic Management Center.  
+> Source: product docs — **không** password · **không** clone skin GOVOne.
+
+## Pages (3)
+
+### DANH SÁCH SỰ KIỆN GT / AI DETECTION (list)
+
+- **id:** `toc-event-list`
+- **url:** (planned) `/toc`
+- **title:** Trung tâm ĐH GT — Sự kiện
+- **headings:** Overview KPI · Bộ lọc · Danh sách sự kiện · Liên kết GIS / Incident
+
+#### Labels / field captions
+
+- Mã sự kiện:
+- Loại phát hiện:
+- Mức độ:
+- Camera nguồn:
+- Tuyến / đoạn:
+- Km / marker:
+- Lat:
+- Lng:
+- Thời điểm phát hiện:
+- Độ tin cậy AI (%):
+- Trạng thái:
+- Biển số:
+- Hướng làn:
+- Tốc độ TB (km/h):
+- VMS đích:
+- Thông điệp VMS:
+- Tốc độ giới hạn động:
+- Incident ref:
+- Operator:
+- Ghi chú:
+- Stream URL:
+- Frame key:
+- Thời gian đóng:
+
+#### Inputs (filter + grid keys)
+
+| tag | type | name/id | placeholder |
+|-----|------|---------|-------------|
+| input | search | qSearch | Mã · camera · tuyến… |
+| select | select-one | fType | un-tac |
+| select | select-one | fSeverity | cao |
+| select | select-one | fStatus | moi |
+| select | select-one | fCamera | cam-ql1a-12 |
+
+#### Actions / buttons (full)
+
+| label | kind | zone | tag | disabled |
+|-------|------|------|-----|----------|
+| Làm mới | action | toolbar | button | |
+| Làm mới KPI | action | toolbar | button | |
+| Tạo sự kiện thủ công | create | toolbar | button | |
+| Lọc / Tìm | filter | filter | button | |
+| Xem chi tiết | view | grid | button | |
+| Sửa | action | grid | button | |
+| Xóa | destructive | grid | button | |
+| Xác nhận AI | action | grid | button | |
+| False positive | action | grid | button | |
+| Gửi sự cố | action | grid | button | |
+| Gửi lệnh VMS | action | grid/footer | button | |
+| Đặt tốc độ động | action | grid/footer | button | |
+| Mở camera wall | view | toolbar | button | P3 |
+| Mở GIS | nav | toolbar | a/button | → gis |
+| Mở Sự cố | nav | toolbar | a/button | → incident |
+| Xuất Excel | export | toolbar | button | |
+| User menu | nav | header | button | |
+
+### CHI TIẾT / TẠO SỰ KIỆN + VMS (Kind D slideout)
+
+- **id:** `toc-event-form`
+- **url:** (planned) `/toc/new` · `/toc/:id`
+- **title:** Chi tiết sự kiện GT / lệnh VMS
+
+#### Inputs
+
+| tag | type | name/id | placeholder |
+|-----|------|---------|-------------|
+| input | text | code | TOC-20260801-0001 |
+| select | select-one | detectType | un-tac |
+| select | select-one | severity | cao |
+| select | select-one | camera | cam-ql1a-12 |
+| input | text | road | QL1A Km40–Km42 |
+| input | text | marker | Km41+200 |
+| input | number | lat | 10.8231 |
+| input | number | lng | 106.6297 |
+| input | datetime-local | detectedAt | |
+| input | number | confidence | 92 |
+| select | select-one | status | moi |
+| input | text | plate | 51A-123.45 |
+| select | select-one | laneDir | bac-nam |
+| input | number | avgSpeed | 18 |
+| select | select-one | vmsTarget | vms-ql1a-04 |
+| input | text | vmsMessage | ÙN TẮC — GIẢM TỐC |
+| input | number | dynamicSpeed | 40 |
+| input | text | incidentRef | INC-2026-0142 |
+| input | text | operator | Điều hành viên A |
+| textarea | text | note | Ghi chú… |
+| input | text | streamUrl | rtsp://… (stub) |
+| input | text | frameKey | toc/frames/… |
+| input | datetime-local | closedAt | |
+| select | select-one | vmsBoard (line) | vms-ql1a-04 |
+| input | text | vmsLineMsg (line) | Thông điệp |
+| select | select-one | vmsLineStatus (line) | cho |
+
+#### Actions / buttons (full)
+
+| label | kind | zone | tag | disabled |
+|-------|------|------|-----|----------|
+| Lưu | create | footer | button | |
+| Lưu nháp | action | footer | button | |
+| Đóng sự kiện | action | footer | button | |
+| Thêm lệnh VMS | create | lines | button | |
+| Xóa lệnh VMS | destructive | lines | button | |
+| Hủy thay đổi | close | footer | button | |
+| Đóng | close | header | button | |
+| Quay lại | nav | header | button | |
+
+### CAMERA WALL / STREAM STUB (modal)
+
+- **id:** `toc-camera-wall`
+- **title:** Camera wall stub (P3)
+- **Actions:** Đóng
+
+## Summary
+
+- **actionCount:** 25
+- **fieldCount:** 26
+- **pages:** 3
+
+## Migration notes
+
+- Map fields/actions → control-map modern MFE · erp-form-context Kind B+D + camera wall stub.
+- Detection → Incident · VMS Open API partner · ITS adapter (Integration) — demo mock only.
+- Demo: same fields · Linm shell — **cấm** clone skin GOVOne · **cấm** BE.
+)
+
+### Step context checklist
+
+- [ ] Design demo parity legacy zones
+- [ ] Control-map fields từ Labels/Inputs/Vision
+- [ ] Status Demo → Signed → `/qlbd-align-mfe`
+<!-- LEGACY-GOVONE-CAPTURE:END -->
+
+<!-- DEMO-MFE-MODERN:START -->
+## Demo MFE modern (erp-form-context)
+
+> Same fields/actions từ capture · UI chuẩn Linm — **không** clone skin legacy.
+
+- Control-map: [`toc-control-map.md`](../_raw/legacy-govone/demo-maps/toc-control-map.md)
+- Actions: [`toc-actions.md`](../_raw/legacy-govone/demo-maps/toc-actions.md)
+- Fields mapped: 26 · Actions: 25
+- Kind hint: **B+D** — erp-form-context · leave-confirm · pattern_inline_grid · KPI · camera wall stub · AI
+
+Gen demo: `/qlbd-analy-demo @toc` — load control-map trên + `/erp-form-context` rules (2a-K · 2g · common controls).
+<!-- DEMO-MFE-MODERN:END -->
+
+## 8. Tracking (autopilot)
+
+| | |
+|--|--|
+| Task | `task_e946e237` |
+| Skill | `/qlbd-analy-demo @toc` |
+| Files | `toc.md` · `demo-maps/toc-*.md` · `public/demo/toc/toc.html` · `js/toc-*.js` · `demoCatalog.ts` |
+| BE align | OFF (demo) · GAP-F-TOC-03 documented |
+| Confirmed by | ai-autocode-autopilot |

@@ -1,0 +1,149 @@
+# source: context/01-PLATFORM-OVERVIEW.md
+# version: 6
+# scannedAt: 2026-08-02T06:51:02.759Z
+# sha256: 147bf65cb07ca1fe0f71aa5c74494c716ff9a763501aacb2510e9f35cff2d5e2
+# mtimeMs: 1785421018310.9663
+# RMMS — AI Road Infrastructure Platform Overview
+
+## 1. What is RMMS?
+
+RMMS (Road Infrastructure Management & Monitoring System) is a comprehensive AI-powered ecosystem that
+digitizes the entire lifecycle of road infrastructure asset management — from real-time data collection,
+AI-driven damage detection, GIS-based visualization, and predictive maintenance to command-center
+decision support. It serves Departments of Transport (Sở GTVT), project management boards (Ban QLDA),
+maintenance contractors, and field crews.
+
+> RMMS = AI Vision + GIS Digital Twin + IoT Ingestion + Workflow Engine + AI Copilot + 18 Business Modules
+
+## 2. Server Infrastructure for AI/LLM (Required)
+
+> **Note:** All field hardware (cameras, drones, vehicles, tablets, sensors) is assumed
+> already available from existing operations. This section covers ONLY the server-side
+> compute required to run AI models and LLM services.
+
+### 2.1 GPU Server — AI Inference & Training
+
+Minimum configuration to run YOLOv8 defect detection pipeline, SAM segmentation,
+and fine-tune models on new pavement data:
+
+| Component | Specification | Qty | Purpose |
+|-----------|--------------|-----|---------|
+| GPU | NVIDIA A100 80GB (or 2× A6000 48GB) | 2–4 | YOLOv8 batch inference, SAM segmentation, model fine-tuning |
+| CPU | AMD EPYC 7543 (32-core) or Intel Xeon Gold 6348 | 2 | Data preprocessing, feature extraction |
+| RAM | 512 GB DDR4 ECC | — | Large point-cloud / orthophoto processing in memory |
+| Storage (NVMe) | 2× 3.84 TB NVMe U.2 (RAID 1) | — | Fast I/O for training datasets, temporary inference cache |
+| Storage (SATA SSD) | 4× 7.68 TB SATA SSD (RAID 10) | — | Model registry, inference results, processed datasets |
+| Network | 2× 25 GbE SFP28 | — | Low-latency connection to storage cluster |
+| GPU Server Chassis | Dell PowerEdge R750xa / HPE ProLiant DL385 Gen11 | 2 | Redundant power, iDRAC/iLO remote management |
+
+**Estimated cost per GPU server: $45,000–$65,000**
+
+### 2.2 LLM Server — AI Copilot (Self-Hosted Option)
+
+For organizations requiring on-premise LLM hosting (alternative to Azure OpenAI cloud API):
+
+| Component | Specification | Qty | Purpose |
+|-----------|--------------|-----|---------|
+| GPU | 4× NVIDIA A100 80GB (NVLink bridged) | 1 node | Run open-weight LLM (LLaMA 3 70B, Qwen 2.5 72B) for Copilot RAG |
+| CPU | 2× AMD EPYC 7763 (64-core) | 1 | Request orchestration, embedding generation |
+| RAM | 1 TB DDR4 ECC | — | Model weights + KV cache in memory |
+| Storage | 4× 7.68 TB NVMe U.2 (RAID 10) | — | Vector DB storage, document index |
+| Network | 4× 100 GbE InfiniBand | — | Multi-GPU tensor parallelism |
+
+**Estimated cost per LLM server: $180,000–$250,000**
+
+> **Alternative:** Azure OpenAI GPT-4o (cloud API) — no hardware needed. Recommended
+> for Phase 1. Self-hosted LLM server is optional for Phase 3 when data sovereignty
+> or cost-per-token becomes a factor.
+
+### 2.3 General Compute Servers — API & Services
+
+For 14 microservices, workflow engine, and API gateway:
+
+| Component | Specification | Qty | Purpose |
+|-----------|--------------|-----|---------|
+| Node Type | Dual Xeon Silver 4314 (16-core each), 256 GB RAM | 6–10 | Kubernetes worker nodes for .NET 8 services |
+| Storage | 2× 960 GB NVMe boot + 2× 3.84 TB SATA SSD (Ceph) | Per node | Container images, persistent volumes |
+| Network | 2× 25 GbE SFP28 | Per node | East-west service mesh traffic |
+| Chassis | Dell PowerEdge R650xs / HPE ProLiant DL360 Gen11 | 6–10 | 1U rack-mount, remote management |
+
+**Estimated cost per compute node: $12,000–$18,000**
+
+### 2.4 Storage & Database Servers
+
+| Component | Specification | Qty | Purpose |
+|-----------|--------------|-----|---------|
+| PostgreSQL Primary | Dual Xeon Gold 5416S, 512 GB RAM, 4× 7.68 TB NVMe RAID 10 | 2 | PostGIS spatial queries, TimescaleDB hypertables |
+| PostgreSQL Replica | Dual Xeon Silver 4410Y, 256 GB RAM, 4× 7.68 TB NVMe RAID 10 | 2 | Read replicas for dashboard + reporting |
+| Redis/Memcached | Dual Xeon Silver 4310, 256 GB RAM | 2 | Session cache, rate-limit counters, real-time pub/sub |
+| Object Storage (MinIO) | Dual Xeon Silver 4310, 12× 16 TB HDD (JBOD), 2× 960 GB NVMe metadata | 4 | Photos (20M+), videos, drone point clouds, orthophotos |
+| Backup Server | Single Xeon Silver, 8× 20 TB HDD (RAID 6) | 1 | Nightly PostgreSQL dumps, MinIO bucket replication |
+
+### 2.5 Networking & Rack Infrastructure
+
+| Equipment | Specification | Qty | Purpose |
+|-----------|--------------|-----|---------|
+| Core Switch | 32× 100 GbE QSFP28, L3 managed (Arista 7280SR3) | 2 | Spine fabric for GPU-to-storage high bandwidth |
+| Access Switch | 48× 25 GbE SFP28 + 8× 100 GbE uplink | 2 | Leaf switches for compute nodes |
+| Management Switch | 48× 1 GbE RJ45 | 1 | IPMI/iDRAC out-of-band management |
+| Firewall | Fortinet FG-200F / Palo Alto PA-1410 | 2 (HA) | VPN termination, IPS/IDS, traffic inspection |
+| Rack (42U) | APC NetShelter SX 42U 600mm × 1070mm | 3–4 | Physical enclosure, PDUs, cable management |
+| UPS | APC Symmetra LX 16kVA (N+1 redundant) | 2 | 30-min runtime for graceful shutdown |
+| Cooling | In-row precision cooling 25kW | 2 | GPU cluster thermal management |
+
+### 2.6 Total Server Infrastructure Estimate
+
+| Tier | Scope | Servers | Storage Raw | Est. Cost (USD) |
+|------|-------|---------|-------------|-----------------|
+| **Minimal (Phase 1)** | 1 GPU server + 4 compute + 2 DB + 1 storage | 8 nodes | 60 TB | $180,000–$240,000 |
+| **Standard (Phase 2)** | 2 GPU + 1 LLM + 8 compute + 4 DB + 3 storage | 18 nodes | 200 TB | $480,000–$620,000 |
+| **Full (Phase 3)** | 4 GPU + 2 LLM + 12 compute + 6 DB + 6 storage | 30 nodes | 500 TB | $950,000–$1,200,000 |
+
+> **Field hardware (cameras, drones, vehicles, tablets, sensors) — ALREADY AVAILABLE, not included above.**
+
+## 3. Core Principles
+
+| # | Principle | Technical Meaning |
+|---|-----------|-------------------|
+| 1 | AI-First Inspection | Computer Vision replaces manual visual inspection; YOLOv8 + SAM on Edge |
+| 2 | Single Source of Truth | Every asset, defect, work order lives in one geo-referenced database |
+| 3 | Real-time + Offline Dual Mode | Live 4G/5G streaming for patrol vehicles; offline buffer + EOD sync for remote areas |
+| 4 | GIS-Native | PostGIS spatial engine; every entity has lat/lng; 2D/3D map as primary UX |
+| 5 | Predictive Maintenance | ML models (XGBoost) forecast degradation from traffic, weather, material age |
+| 6 | Natural Language Access | GPT-4o Copilot allows "Which section is degrading fastest?" queries |
+| 7 | Open by Design | RESTful API + Webhook for ERP/CMMS/ITS/ETC — extend existing data via API |
+| 8 | Modular Monolith First | 14 domain modules in **one** .NET host; split workers/microservices only when scaling |
+| 9 | Existing App First | Keep current Mobile/Web RMMS (Check-in, Issues, Tasks, Assets, Monitoring, Offline) — see user guide docx |
+
+## 4. Domain Map
+
+| Domain | App | Type | Access |
+|--------|-----|------|--------|
+| `app.rmms.vn` | Web Portal (React MFE Shell) | Authenticated SPA | Staff, Manager, Director |
+| `app.rmms.vn/mobile` | Mobile PWA | Offline-first | Field Crew, Patrol |
+| `cong-dan.rmms.vn` | Citizen Portal | Public | No login |
+| `api.rmms.vn` | API Gateway (YARP) | Internal + Partner | API Key / JWT |
+| `dashboard.rmms.vn` | Command Center | Authenticated | Director, Operations |
+
+## 5. Module Index (18 Business Modules)
+
+| # | Module | Code | Core Capability |
+|---|--------|------|-----------------|
+| 1 | Road Asset Management | `asset` | CRUD all asset types with GPS + QR + lifecycle history |
+| 2 | GIS & Digital Twin | `gis` | 2D/3D map, CesiumJS, live asset overlay |
+| 3 | AI Pavement Inspection | `ai-vision` | Defect detection (pothole, crack, rutting), PCI/IRI |
+| 4 | Patrol & Inspection Management | `patrol` | Route planning, GPS tracking, missing-section alerts |
+| 5 | Attendance & Positioning | `attendance` | GPS check-in, face recognition, zone/route RBAC |
+| 6 | Incident Management | `incident` | Multi-source intake, priority, dispatch, SLA tracking |
+| 7 | Maintenance Scheduling | `maintenance` | Auto work order, crew assignment, acceptance |
+| 8 | AI Predictive Maintenance | `ai-predict` | Degradation forecast, remaining life, investment priority |
+| 9 | Command & Control | `command` | Real-time dashboard, GIS map, personnel/vehicle tracking |
+| 10 | AI Repair Estimation | `ai-estimate` | Auto quantity takeoff, cost & duration estimate |
+| 11 | Contract & Budget | `contract` | Maintenance contracts, budget, payment, KPI |
+| 12 | Materials & Equipment | `inventory` | Warehouse, machinery, fuel, GPS tracking |
+| 13 | Drone & Reality Capture | `drone` | 3D mapping, point cloud, orthophoto, bridge inspection |
+| 14 | Traffic Management Center | `traffic` | Congestion/accident detection, VMS control |
+| 15 | Citizen Portal | `citizen` | Incident reporting, photo/video upload, status tracking |
+| 16 | AI Copilot | `copilot` | NL query, auto report generation, charting |
+| 17 | Executive Dashboard | `dashboard` | PCI average, open incidents, budget burn, KPI scorecard |
+| 18 | Open API & Integration | `integration` | ERP, CMMS, PMIS, ITS, ETC, SAP connectors |

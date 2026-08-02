@@ -1,0 +1,75 @@
+# source: context/features/attendance.md
+# version: 6
+# scannedAt: 2026-08-02T06:51:02.759Z
+# sha256: 6931f492996bd0a5c9da0617f9701e7200beb3364c60789444e521b8beb68cf3
+# mtimeMs: 1785516443366.8137
+# Chấm công và định vị — Feature Context
+
+> **Slug:** `attendance` · **Module:** `Patrol` (Attendance) · **Phase:** P1  
+> **Status:** Context  
+> **Sources:** `Hướng dẫn…` Check-in · `RMMS` §5 · `07` · `15-SCREEN-AI-MAP.md`  
+> **Demo HTML:** — (gộp demo `patrol`)
+
+## 1. Tổng quan
+
+| | |
+|--|--|
+| Mục tiêu | Chấm công theo GPS/tuyến/ca · báo cáo tuần/tháng · căn cứ từ Check-in |
+| Persona | Tuần đường · Hạt trưởng · kế toán công |
+| App hiện có | Mobile **Check-in** (giữ UX) · Web **Báo cáo checkin** |
+| DoD ngắn | Rule đúng tuyến/zone · báo cáo công · không bắt Face/NFC P1 |
+
+## 2. Design / UI
+
+| Screen | Pattern | Zones | Ghi chú |
+|--------|---------|-------|---------|
+| Check-in (Mobile) | Full (giữ) | GPS · nội dung · offline | Cùng màn Patrol |
+| Báo cáo checkin (Web) | Full | Filter tuyến/ngày · bảng · Xuất Excel | Guide § Báo cáo checkin |
+| Cấu hình zone (Web, optional) | Slideout | Polygon tuyến · bán kính | Admin |
+
+**Mock data:** 1 tuyến · 3 điểm/ngày · 5 ngày · % đúng tuyến.
+
+**UI pattern:** Gộp Check-in; báo cáo = Full page.
+
+## 3. API
+
+Base: `api/v1/attendance` (hoặc nested Patrol)
+
+| Method | Path | Mô tả |
+|--------|------|-------|
+| GET | `/attendance/report?from=&to=&routeId=&userId=` | Báo cáo công |
+| GET | `/attendance/summary?period=week\|month` | Tổng hợp |
+| POST | `/attendance/validate-checkin` | Kiểm tra zone (server) |
+| GET | `/attendance/zones?routeId=` | Geo-fence |
+
+Auth: JWT · tenant. Check-in write vẫn qua `/api/v1/patrols/.../check-ins`.
+
+## 4. Database
+
+| Entity | Key columns | Notes |
+|--------|-------------|-------|
+| AttendanceLog | Id, UserId, CheckInId, RouteId, At, InZone | Derived / materialize |
+| GeoFence | Id, RouteId, Geom | PostGIS polygon / buffer |
+
+Indexes: `(UserId, At)` · GIST `Geom`.
+
+## 5. Events / tích hợp
+
+| Event | Publisher | Consumer |
+|-------|-----------|----------|
+| `patrol.checkin.created` | Patrol | Attendance (validate + log) |
+
+## 6. Gaps / quyết định
+
+| ID | Question | Default |
+|----|----------|---------|
+| GAP-F-ATT-01 | Face ID | Optional / DEFER |
+| GAP-F-ATT-02 | QR/NFC | Optional / DEFER |
+| GAP-F-ATT-03 | Số lần check-in/ngày theo đơn vị | Config tenant (guide: 3 mặc định QL/TL) |
+
+## 7. Demo checklist (chốt khách)
+
+- [ ] Rule «đúng tuyến» giải thích trên mock
+- [ ] Báo cáo tuần mẫu + cột InZone
+- [ ] Link Web BC checkin ↔ Mobile Check-in
+- [ ] Face/NFC không hiện P1

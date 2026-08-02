@@ -1,18 +1,18 @@
 {
-  "id": "017-quan-ly-van-e-them-tab-thong-tin-van-e",
+  "id": "015-quan-ly-van-e-them-tab-thong-tin-van-e",
   "menuText": "QUẢN LÝ VẤN ĐỀ › Thêm › tab:Thông tin vấn đề",
   "kind": "tab",
   "via": "tab",
   "href": null,
-  "finalUrl": "https://pmdb.govone.vn/dbv3baotri.aspx#quanLyCongViec",
-  "capturedAt": "2026-08-01T10:31:05.958Z",
-  "mode": "full",
+  "finalUrl": "https://pmdb.govone.vn/dbv3baotri.aspx#panelVanDe",
+  "capturedAt": "2026-08-02T06:46:09.635Z",
+  "mode": "deep",
   "masterTitle": "QUẢN LÝ VẤN ĐỀ",
   "pageTitle": "Thêm",
   "formSample": null,
   "title": "Bảo trì - gServer Phiên bản 2.1",
   "headings": [
-    "Công việc",
+    "Vấn đề",
     "Vệ tinh",
     "Google",
     "Giao thông",
@@ -218,78 +218,6 @@
       "placeholder": "",
       "ariaLabel": "",
       "zone": "toolbar"
-    },
-    {
-      "tag": "input",
-      "type": "text",
-      "name": "combo-1667-inputEl",
-      "id": "combo-1667-inputEl",
-      "placeholder": "Phân loại",
-      "ariaLabel": "",
-      "zone": "content"
-    },
-    {
-      "tag": "input",
-      "type": "text",
-      "name": "combo-1668-inputEl",
-      "id": "combo-1668-inputEl",
-      "placeholder": "Chọn trạng thái công việc",
-      "ariaLabel": "",
-      "zone": "content"
-    },
-    {
-      "tag": "input",
-      "type": "text",
-      "name": "combo-1669-inputEl",
-      "id": "combo-1669-inputEl",
-      "placeholder": "Loại công việc",
-      "ariaLabel": "",
-      "zone": "content"
-    },
-    {
-      "tag": "input",
-      "type": "text",
-      "name": "combo-1670-inputEl",
-      "id": "combo-1670-inputEl",
-      "placeholder": "Nhóm công việc",
-      "ariaLabel": "",
-      "zone": "content"
-    },
-    {
-      "tag": "input",
-      "type": "text",
-      "name": "combo-1673-inputEl",
-      "id": "combo-1673-inputEl",
-      "placeholder": "Người giao việc",
-      "ariaLabel": "",
-      "zone": "content"
-    },
-    {
-      "tag": "input",
-      "type": "text",
-      "name": "treepickerex-1674-inputEl",
-      "id": "treepickerex-1674-inputEl",
-      "placeholder": "Người/Phòng ban thực hiện",
-      "ariaLabel": "",
-      "zone": "sidebar"
-    },
-    {
-      "tag": "input",
-      "type": "text",
-      "name": "treepickerex-1675-inputEl",
-      "id": "treepickerex-1675-inputEl",
-      "placeholder": "",
-      "ariaLabel": "",
-      "zone": "sidebar"
-    },
-    {
-      "tag": "input",
-      "type": "text",
-      "name": "inputItem",
-      "id": "numberfield-1689-inputEl",
-      "placeholder": "",
-      "ariaLabel": "",
-      "zone": "toolbar"
     }
   ],
   "buttons": [
@@ -312,16 +240,8 @@
     "Bản đồ nền",
     "+",
     "−",
-    "Tải lại",
-    "Giao việc",
-    "Tổng hợp loại CV",
-    "Tổng hợp theo HD",
-    "Xuất excel",
     "Hủy",
     "Áp dụng",
-    "Hồ sơ của tôi",
-    "Đổi mật khẩu",
-    "Đăng xuất",
     "Xuất NKTĐ Tổng hợp",
     "Xuất NKTĐ Tổng hợp 2",
     "Xuất NKTĐ Tổng Hợp (ĐTHP)",
@@ -582,71 +502,6 @@
       "hasOnClick": false
     },
     {
-      "label": "Tải lại",
-      "kind": "nav",
-      "zone": "toolbar",
-      "tag": "a",
-      "type": "",
-      "href": "",
-      "id": "button-1677",
-      "name": "",
-      "title": "",
-      "disabled": false,
-      "hasOnClick": false
-    },
-    {
-      "label": "Giao việc",
-      "kind": "nav",
-      "zone": "toolbar",
-      "tag": "a",
-      "type": "",
-      "href": "",
-      "id": "button-1678",
-      "name": "",
-      "title": "",
-      "disabled": false,
-      "hasOnClick": false
-    },
-    {
-      "label": "Tổng hợp loại CV",
-      "kind": "nav",
-      "zone": "toolbar",
-      "tag": "a",
-      "type": "",
-      "href": "",
-      "id": "button-1679",
-      "name": "",
-      "title": "",
-      "disabled": false,
-      "hasOnClick": false
-    },
-    {
-      "label": "Tổng hợp theo HD",
-      "kind": "nav",
-      "zone": "toolbar",
-      "tag": "a",
-      "type": "",
-      "href": "",
-      "id": "button-1681",
-      "name": "",
-      "title": "",
-      "disabled": false,
-      "hasOnClick": false
-    },
-    {
-      "label": "Xuất excel",
-      "kind": "export",
-      "zone": "toolbar",
-      "tag": "a",
-      "type": "",
-      "href": "",
-      "id": "button-1682",
-      "name": "",
-      "title": "",
-      "disabled": false,
-      "hasOnClick": false
-    },
-    {
       "label": "Hủy",
       "kind": "destructive",
       "zone": "content",
@@ -670,45 +525,6 @@
       "name": "",
       "title": "",
       "disabled": true,
-      "hasOnClick": false
-    },
-    {
-      "label": "Hồ sơ của tôi",
-      "kind": "nav",
-      "zone": "grid",
-      "tag": "a",
-      "type": "",
-      "href": "Secure/UserProfile.aspx",
-      "id": "menuitem-1016-itemEl",
-      "name": "",
-      "title": "",
-      "disabled": false,
-      "hasOnClick": false
-    },
-    {
-      "label": "Đổi mật khẩu",
-      "kind": "nav",
-      "zone": "grid",
-      "tag": "a",
-      "type": "",
-      "href": "gclient/gadmin/doimatkhau.aspx",
-      "id": "menuitem-1017-itemEl",
-      "name": "",
-      "title": "",
-      "disabled": false,
-      "hasOnClick": false
-    },
-    {
-      "label": "Đăng xuất",
-      "kind": "export",
-      "zone": "grid",
-      "tag": "a",
-      "type": "",
-      "href": "logoff.aspx",
-      "id": "menuitem-1019-itemEl",
-      "name": "",
-      "title": "",
-      "disabled": false,
       "hasOnClick": false
     },
     {
@@ -852,19 +668,11 @@
       "Xóa",
       "Phản hồi",
       "Xuất dữ liệu",
-      "BC sở",
-      "Tải lại",
-      "Giao việc",
-      "Tổng hợp loại CV",
-      "Tổng hợp theo HD",
-      "Xuất excel"
+      "BC sở"
     ],
     "grid": [
       "Tìm mới",
       "Tìm kiếm",
-      "Hồ sơ của tôi",
-      "Đổi mật khẩu",
-      "Đăng xuất",
       "Xuất NKTĐ Tổng hợp",
       "Xuất NKTĐ Tổng hợp 2",
       "Xuất NKTĐ Tổng Hợp (ĐTHP)",
@@ -889,21 +697,9 @@
       "Áp dụng"
     ]
   },
-  "actionCount": 39,
+  "actionCount": 31,
   "tableHeaders": [],
   "navHints": [
-    {
-      "text": "Hồ sơ của tôi",
-      "href": "https://pmdb.govone.vn/Secure/UserProfile.aspx"
-    },
-    {
-      "text": "Đổi mật khẩu",
-      "href": "https://pmdb.govone.vn/gclient/gadmin/doimatkhau.aspx"
-    },
-    {
-      "text": "Đăng xuất",
-      "href": "https://pmdb.govone.vn/logoff.aspx"
-    },
     {
       "text": "Xuất NKTĐ Tổng hợp",
       "href": "https://pmdb.govone.vn/dbv3baotri.aspx#"
@@ -945,7 +741,7 @@
       "href": "https://pmdb.govone.vn/dbv3baotri.aspx#"
     }
   ],
-  "bodySample": "Công việc Ban.TK.Nguyễn Anh Phúc Vấn đề Công việc Công tác nghiệm thu Kiểm tra Lịch sử bảo trì Tổng hợp vấn đề Gửi thông báo 10 km 5 mi 01/08/2026 - 31/08/2026 # Loại công việc Hình ảnh Tên đoạn Địa điểm Người giao việc Người thực hiện Phòng ban Thời gian Trạng thái Ngày hoàn thành Nghiệm thu Tải lại Giao việc Tổng hợp loại CV Xuất excel Trang của 0 Không có bản ghi nào",
+  "bodySample": "Vấn đề Ban.TK.Nguyễn Anh Phúc Vấn đề Công việc Công tác nghiệm thu Kiểm tra Lịch sử bảo trì Tổng hợp vấn đề Gửi thông báo Thêm Thêm CV Xem CV Xem Xuất dữ liệu Trang của 0 Không có bản ghi nào 20 km 10 mi Bản đồ nền + − Xuất NKTĐ Tổng hợp Xuất NKTĐ Tổng hợp 2 Xuất NKTĐ Tổng Hợp (ĐTHP) Xuất sổ NKTĐ theo vấn đề Xuất sổ NK tuần đường Xuất NK tuần kiểm Xuất tất cả NK Tuần kiểm Xuất nhật ký tuần đèn Xuất nhật ký tuần đường đô thị Xuất bảng tổng hợp",
   "path": {
     "master": "incident",
     "page": "them",

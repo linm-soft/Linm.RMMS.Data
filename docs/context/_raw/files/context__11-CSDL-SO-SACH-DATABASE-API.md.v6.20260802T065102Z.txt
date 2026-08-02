@@ -1,0 +1,438 @@
+# source: context/11-CSDL-SO-SACH-DATABASE-API.md
+# version: 6
+# scannedAt: 2026-08-02T06:51:02.759Z
+# sha256: a720f2628be86048d9d69c0668b99b04c158d10c3cb54548f9365b7397e5e56e
+# mtimeMs: 1785493104624.4128
+# RMMS — CSDL & Sổ sách BDTX: Database + API (từ hồ sơ chuẩn hóa)
+
+> **Nguồn:** `docs/Hồ sơ xin ý kiến chuẩn hóa sổ sách/`  
+> **SSOT biểu mẫu CSDL:** `4.1. In_Mẫu biểu_Cơ sở dữ liệu.xlsx` (12 biểu)  
+> **SSOT mẫu sổ:** `3. Mẫu sổ.docx` (8 sổ)  
+> **Căn cứ nghiệp vụ:** Báo cáo 375/BC-QLBT · TT 41/2024/TT-BGTVT · TT 72/2025/TT-BXD · TCVN 14182:2024  
+> **Mục đích file:** Đặc tả **entity / cột DB / endpoint** để team code + chuyển đổi số  
+> **Prefix API:** `api/v1/` · Auth JWT · tenant (`company_id` / đơn vị QLĐB)
+
+---
+
+## 0. Phân lớp dữ liệu
+
+| Lớp | Ý nghĩa | Module gợi ý | Persist |
+|-----|---------|--------------|---------|
+| **A. CSDL kết cấu hạ tầng** | Thống kê hiện trạng tài sản (12 biểu) | `Asset` + `Gis` | Master + PostGIS |
+| **B. Sổ sách vận hành BDTX** | Nhật ký / trực / kiểm tra / bảo dưỡng (8 sổ) | `Patrol` · `Incident` · `Maintenance` · `BridgeLog` | Transaction + media |
+| **C. Báo cáo tổng hợp** | Export theo biểu / quý / năm | `Report` | Query + Excel |
+
+```
+App tuần đường / Web ──► API sổ sách (B) ──► Events
+                              │
+CSDL biểu 1–12 (A) ◄── sync / import ◄── Excel hiện có
+                              │
+                         Report (C) ◄── filter tuyến · kỳ · Khu
+```
+
+---
+
+## 1. Catalog — 12 biểu mẫu CSDL (Asset inventory)
+
+| # | Tên biểu | Entity đề xuất | Geom | Sheet Excel |
+|---|----------|----------------|------|-------------|
+| 1 | Thống kê phân loại mặt đường | `PavementSection` | Line / từ–đến Km | 1+2 |
+| 2 | Thống kê hiện trạng cầu | `Bridge` | Point / Line | 1+2 |
+| 3 | Thống kê hiện trạng hầm đường bộ | `RoadTunnel` | Point / Line | 3+4 |
+| 4 | Thống kê cống các loại | `Culvert` | Point | 3+4 |
+| 5 | Thống kê rãnh các loại | `Ditch` | Line | 5+6 |
+| 6 | Thống kê hầm chui dân sinh | `Underpass` | Point | 5+6 |
+| 7 | Thống kê hệ thống ATGT | `TrafficSafetyAsset` (+ children) | Point/Line | 7 |
+| 8 | Thống kê mốc lộ giới / GPMB | `BoundaryMarker` | Point | 8+9 |
+| 9 | Thống kê kè, tường chắn | `RetainingWall` | Line | 8+9 |
+| 10 | Thống kê lề đường, phát quang, hàng rào | `ShoulderFence` | Line | 10+11+12 |
+| 11 | Thống kê hệ thống chiếu sáng | `LightingSystem` | Point/Line | 10+11+12 |
+| 12 | Thống kê cây xanh, thảm cỏ | `GreenAsset` | Point/Polygon | 10+11+12 |
+
+### 1.1 Trường dùng chung (mọi biểu A)
+
+| Cột DB | Type | UI / biểu |
+|--------|------|-----------|
+| `Id` | uuid | — |
+| `Code` | varchar(64) | Mã đường / mã tài sản |
+| `RoadName` | varchar(256) | Tên đường / QL |
+| `ProvinceCode` / `ProvinceName` | varchar | Tỉnh/TP · địa phương |
+| `KmFrom` / `KmTo` | numeric(12,3) | Lý trình từ–đến |
+| `StationKm` | numeric(12,3) | Lý trình điểm (nếu 1 điểm) |
+| `Side` | enum L/R/C/Both | Vị trí Trái/Phải |
+| `Status` | varchar(64) | Tình trạng |
+| `ManageUnit` | varchar(256) | Đơn vị quản lý |
+| `OwnerUnit` | varchar(256) | Chủ quản lý sử dụng |
+| `Geom` | geometry(4326) | PostGIS |
+| `UpdatedAt` / `UpdatedBy` | timestamptz / varchar | Ngày / người cập nhật |
+| `Notes` | text | Ghi chú |
+| `CompanyCode` | varchar | Tenant |
+| `LegacyCode` | varchar | Mã hệ cũ (nếu có) |
+
+### 1.2 Chi tiết cột theo biểu (bổ sung ngoài phần chung)
+
+#### Biểu 1 — `PavementSection`
+
+| Cột | Type | Nguồn cột biểu |
+|-----|------|----------------|
+| `LengthKm` | numeric | Chiều dài (Km) |
+| `BaseWidthM` | numeric | B nền (m) |
+| `SurfaceWidthM` | numeric | B mặt (m) |
+| `StructureType` | varchar | Loại kết cấu (BTN/BTXM/…) |
+| `SurfaceThicknessCm` | numeric | Chiều dày mặt đường |
+| `RoadClass` | varchar | Cấp đường (I/II/III) |
+| `YearsInService` | int / varchar | Số năm khai thác |
+| `HandoverMaintenance` | bool | Bàn giao bảo trì |
+| `HandoverConstruction` | bool | Bàn giao XDCB |
+| `LastMajorRehabYear` | int | Năm đại tu gần nhất |
+| `LastSurfaceRepairYear` | int | Năm SC mặt đường |
+| `ConstructionUnit` | varchar | Đơn vị thi công |
+
+#### Biểu 2 — `Bridge`
+
+| Cột | Type | Nguồn |
+|-----|------|-------|
+| `BridgeName` | varchar | Tên cầu |
+| `CrossingType` | varchar | Loại vượt (suối/đường) |
+| `LengthM` / `WidthM` / `CarriageWidthM` | numeric | Cdài / rộng / xe chạy |
+| `ClearanceM` | numeric | Tĩnh không |
+| `SpanCount` / `SpanSchema` / `SpanLengthM` / `BeamStructure` | … | Kết cấu dầm nhịp |
+| `Abutment*` / `Pier*` / `Foundation*` | jsonb hoặc cột | Kết cấu phần dưới |
+| `DesignLoad` / `ActualLoad` | varchar | Tải trọng |
+| `BuiltYear` / `OpenYear` | int | Năm XD / khai thác |
+
+#### Biểu 3 — `RoadTunnel`
+
+| Cột | Type |
+|-----|------|
+| `TunnelName`, `ThroughType` | varchar |
+| `LengthM`, `WidthM`, `CarriageWidthM`, `ClearanceM` | numeric |
+| `TubeCount` | int |
+| `LiningType`, `PavementInTunnel` | varchar |
+| `HasDrainage`, `HasVentilation`, `HasLighting`, `HasFireFighting` | bool |
+| `Cctv`, `Vms`, `OtherMonitoring` | bool/varchar |
+| `DesignLoad`, `ActualLoad`, `BuiltYear`, `OpenYear`, `LastRepairYear` | … |
+| `ConditionDetail` | text | Hiện trạng |
+
+#### Biểu 4 — `Culvert`
+
+| Cột | Type |
+|-----|------|
+| `CulvertCode`, `Aperture`, `Shape` | varchar | Khẩu độ · Hình dạng |
+| `BodyStructure`, `InletHead`, `OutletHead` | varchar |
+| `LengthM`, `DesignLoad`, `BuiltYear` | … |
+
+#### Biểu 5 — `Ditch`
+
+| Cột | Type |
+|-----|------|
+| `DitchCode`, `DitchKind` | varchar | Hở/Kín |
+| `Structure`, `Shape`, `ApertureSize` | varchar |
+| `LengthM`, `DrainageCapacity` | … |
+
+#### Biểu 6 — `Underpass`
+
+| Cột | Type |
+|-----|------|
+| `UnderpassCode`, `ApertureM` | … |
+| `BodyStructure`, `PortalStructure` | varchar |
+| `LengthM`, `DesignLoad`, `PavementInside`, `Lighting`, `Drainage`, `BuiltYear` | … |
+
+#### Biểu 7 — `TrafficSafetyAsset` (chuẩn hóa thành bảng con hoặc JSON typed)
+
+Khuyến nghị **bảng con theo chủng loại** (tránh 1 hàng quá rộng như Excel):
+
+| Sub-type | Entity | Key fields |
+|----------|--------|------------|
+| Biển báo | `TrafficSign` | `SignCode`, `SignSize`, `PoleCount`, `PoleHeightM` |
+| Cọc tiêu / cột H / Km / trụ dẻo / thủy chí | `RoadMarkerPost` | `Kind`, `Qty`, `Structure`, `AreaM2` |
+| Giải phân cách | `MedianBarrier` | `Kind`, `Structure`, `LengthM`, `HeightM` |
+| Tấm chống chói | `AntiGlarePanel` | `Kind`, `Structure`, `Qty`, `LengthM` |
+| Đảo giao thông | `TrafficIsland` | `IslandType`, `Structure`, `AreaM2` |
+| Đinh phản quang | `RoadStud` | `Size`, `Qty` |
+| Hộ lan | `Guardrail` | `Kind`, `Structure`, `LengthM`, `Reflector` |
+| Vạch sơn | `RoadMarking` | `MarkCode`, `LengthM`, `WidthM`, `AreaM2` |
+| Thùng giảm chấn / gương cầu | `CrashCushion` / `ConvexMirror` | qty |
+| Đèn tín hiệu | `TrafficSignal` | `PoleKind`, `HeightM`, `LampKind`, `Qty` |
+
+#### Biểu 8 — `BoundaryMarker`
+
+| Cột | Type |
+|-----|------|
+| `MarkerKind` | enum RoadLimit / GPMB |
+| `Structure`, `AreaM2`, `CompletedYear` | … |
+
+#### Biểu 9 — `RetainingWall` (+ optional `CrestDitch`)
+
+| Cột | Type |
+|-----|------|
+| `WallSide`, `WallKind`, `Structure`, `Material` | … |
+| `LengthM`, `WidthM`, `AreaM2` | numeric |
+| `CrestDitchKind`, `CrestDitchStructure`, `CrestDitchLengthM` | … |
+| `InServiceYear` | int |
+
+#### Biểu 10 — `ShoulderFence`
+
+| Cột | Type |
+|-----|------|
+| `ShoulderStructure`, `ShoulderLengthM`, `ShoulderWidthM`, `ShoulderAreaM2` | … |
+| `SlopeClearingM` | numeric | Phát quang taluy |
+| `FenceKind`, `FencePostCount`, `FencePanelCount`, `FenceLengthM` | … |
+
+#### Biểu 11 — `LightingSystem`
+
+| Cột | Type |
+|-----|------|
+| `GridLed600`…`GridLed125`, `GridStatus`, `GridPoleCount`, `CabinetCount`, `SubstationCount` | int/varchar |
+| `Solar*` columns (pole, controller, panel, lamp, battery, cabinet) | int |
+
+#### Biểu 12 — `GreenAsset`
+
+| Cột | Type |
+|-----|------|
+| `OleanderClumps`, `NgauClumps`, `PalmClumps` | int |
+| `GrassAreaM2` | numeric |
+
+---
+
+## 2. API — CSDL biểu 1–12
+
+### 2.1 Pattern CRUD (mọi loại)
+
+```
+GET    /api/v1/infra/{resource}?road=&province=&kmFrom=&kmTo=&search=&page=&pageSize=
+GET    /api/v1/infra/{resource}/{id}
+POST   /api/v1/infra/{resource}
+PUT    /api/v1/infra/{resource}/{id}
+DELETE /api/v1/infra/{resource}/{id}          # soft-delete
+GET    /api/v1/infra/{resource}/export        # Excel = đúng cột biểu mẫu
+POST   /api/v1/infra/{resource}/import        # import Excel biểu
+```
+
+| `{resource}` | Biểu |
+|--------------|------|
+| `pavement-sections` | 1 |
+| `bridges` | 2 |
+| `road-tunnels` | 3 |
+| `culverts` | 4 |
+| `ditches` | 5 |
+| `underpasses` | 6 |
+| `traffic-safety` | 7 (list + `?type=`) |
+| `boundary-markers` | 8 |
+| `retaining-walls` | 9 |
+| `shoulders-fences` | 10 |
+| `lighting-systems` | 11 |
+| `green-assets` | 12 |
+
+### 2.2 Spatial / báo cáo
+
+```
+GET /api/v1/infra/geojson?layers=bridges,culverts&bbox=
+GET /api/v1/reports/infra/form/{formNo}?road=&province=&asOf=
+# formNo = 1..12 — trả rows đúng layout biểu in
+```
+
+### 2.3 Liên kết GIS vẽ Google
+
+Khi vẽ trên map (`gis-draw-google`): `layerCode` map → `{resource}` ở trên; `POST /api/v1/gis/drawings` commit → `POST /api/v1/infra/{resource}`.
+
+---
+
+## 3. Catalog — 8 mẫu sổ BDTX (vận hành)
+
+| Mẫu | Tên sổ | Căn cứ | Entity / aggregate | Module |
+|-----|--------|--------|-------------------|--------|
+| 1 | Nhật ký tuần đường | TT 41 Phụ lục VIII | `PatrolLogBook` + `PatrolLogEntry` | Patrol |
+| 2 | Trực BĐGT / bão lụt / hotline | TCVN 14182 §4.2.3 | `DutyLog` + `DutyShiftEntry` | Patrol/Ops |
+| 3 | Trực chốt | Thực tế | `CheckpointDutyLog` + entries | Patrol |
+| 4 | Tổng hợp đếm xe (+ TNGT) | TT 41 · TCVN 14182 Phụ lục C | `TrafficCountSummary` · `AccidentSummary` | Report/IoT |
+| 5 | Quản lý cầu/hầm (lý lịch + phiếu KT) | TT 41 · TCVN | `BridgePassport` · `BridgeInspection` | Asset/Maintenance |
+| 6 | Hành lang ATĐB + giấy phép TC | TT 41 điểm l | `RowViolation` · `ConstructionPermit` | Incident/Compliance |
+| 7 | Ghi chép kết quả BDTX | TT 41/72 Mẫu PL III | `MaintenanceWorkLog` | Maintenance |
+| 8 | Nhật ký tuần kiểm | TT 41 Điều 20 · PL VIII | `InspectionLogBook` + `InspectionEntry` | Patrol (supervisor) |
+
+### 3.1 Mẫu 1 — Nhật ký tuần đường
+
+**Header sổ:** `BookNo`, `Contractor`, `KmFrom`, `KmTo`, `RoadCode`, `PatrolStaff`, `StartDate`, `EndDate`
+
+**Entry:**
+
+| Cột | Type |
+|-----|------|
+| `CheckedAt` | timestamptz | Giờ ngày kiểm tra |
+| `LocationText` / `Km` | … | Vị trí, lý trình sự cố/vi phạm |
+| `WeatherAndEvent` | text | Thời tiết + diễn biến |
+| `OnSiteAction` | text | Đã xử lý tại chỗ |
+| `SupervisorNote` | text | Nhận xét người nhận BC |
+| `SupervisorSignedAt` | timestamptz | |
+| `SketchMediaIds` | uuid[] | Vẽ minh họa |
+| `Notes` | text | |
+
+```
+POST /api/v1/patrol-logs/books
+POST /api/v1/patrol-logs/books/{bookId}/entries
+GET  /api/v1/patrol-logs/entries?road=&from=&to=
+```
+
+### 3.2 Mẫu 2 — Trực BĐGT / bão / hotline
+
+**Entry:** `Date`, `Shift`, `StaffName`, `DutyContent`, `Resolution`, `SignedAt`
+
+```
+POST /api/v1/duty-logs
+GET  /api/v1/duty-logs?type=traffic|storm|hotline&from=&to=
+```
+
+### 3.3 Mẫu 3 — Trực chốt
+
+**Header:** `CheckpointName`, `StationKm`, `KmFrom`, `KmTo`, `RoadCode`, `Direction`, `ShiftNo`  
+**Entry:** `Content`, `At`, `Complied` bool, `Result`, `HandoverFrom`, `HandoverTo`
+
+```
+POST /api/v1/checkpoint-duties
+POST /api/v1/checkpoint-duties/{id}/entries
+```
+
+### 3.4 Mẫu 4 — Đếm xe + TNGT
+
+**TrafficCountSummary** — 1 row / trạm / kỳ; cột phân loại xe (xem Excel/Word — ~18 class xe + `TotalCars`).
+
+**AccidentSummary:** `RoadCode`, `Fatalities`, `Injuries`, `DamagedVehicles`, `Notes`, `Period`
+
+```
+POST /api/v1/traffic-counts
+GET  /api/v1/traffic-counts?station=&quarter=&year=
+POST /api/v1/accident-summaries
+GET  /api/v1/reports/traffic-count/{quarter}/{year}
+```
+
+### 3.5 Mẫu 5 — Lý lịch cầu + Phiếu kiểm tra cầu
+
+**BridgePassport** — master (link `Bridge` biểu 2).  
+**BridgeInspection** — header: `BridgeId`, `InspectedAt`, `RoadCode`, `AdminArea`  
+**BridgeInspectionLine** — 20 bộ phận cố định:
+
+`Signage`, `Approach10m`, `Lighting`, `ExpansionJoint`, `DeckMarking`, `DeckDrainage`, `Railing`, `Abutment`, `AbutmentCone`, `RiverTraining`, `Pier`, `Bearing`, `DeckSlab`, `MainGirder`, `CrossGirder`, `LongitudinalBrace`, `Arch`, `RiverSignage`, `ClearanceEncroachment`, `AttachedDevices`
+
+Mỗi line: `DamageDesc`, `ProposedActionQty`, `Priority` (quarter / before-storm / immediate), `PhotoIds`, `Notes`
+
+```
+GET  /api/v1/bridges/{id}/passport
+PUT  /api/v1/bridges/{id}/passport
+POST /api/v1/bridges/{id}/inspections
+GET  /api/v1/bridges/{id}/inspections
+GET  /api/v1/bridge-inspections/{id}
+```
+
+### 3.6 Mẫu 6 — Vi phạm hành lang + giấy phép thi công
+
+**RowViolation:** `At`, `StationKm`, `AdminArea`, `ViolationStatus`, `OrgName`, `MinutesDepot`, `MinutesCommune`, `MinutesAdmin`, `CurrentState`, `UnitConfirm`
+
+**ConstructionPermit:** `PermitNo`, `PermitDate`, `Issuer`, `Investor`, `Contractor`, `WorkName`, `StationKm`, `IssuedAt`, `ExpiresAt`, `ExtendedAt`
+
+```
+POST /api/v1/row-violations
+GET  /api/v1/row-violations?road=&from=&to=
+POST /api/v1/construction-permits
+GET  /api/v1/construction-permits?road=&active=true
+```
+
+### 3.7 Mẫu 7 — Kết quả bảo dưỡng TX
+
+**MaintenanceWorkLog:** `Seq`, `WorkName`, `LocationKm`, `MethodSummary`, `MainResult`, `RoadCode`, `Contractor`, `Office`, `Zone`, `LoggedAt`
+
+```
+POST /api/v1/maintenance-work-logs
+GET  /api/v1/maintenance-work-logs?road=&kmFrom=&kmTo=&from=&to=
+```
+
+### 3.8 Mẫu 8 — Nhật ký tuần kiểm
+
+**InspectionEntry:**
+
+| Cột | Type |
+|-----|------|
+| `Date` | date |
+| `WorkItemProposal` | text | Hạng mục / đề xuất ĐV QL |
+| `KmFrom` / `KmTo` / `Position` | … |
+| `ConditionDetail` | text |
+| `EstimatedQty` | text/numeric |
+| `InspectorOpinion` | text |
+| `ReceiverNote` | text |
+| `RequiredAction` | text | Sửa chữa / xử lý VP / báo cáo |
+| `DueAt` | date |
+| `DoneQty` / `DoneQuality` / `DoneAt` | … |
+| `AfterMediaIds` | uuid[] | Ảnh/video sau sửa |
+
+```
+POST /api/v1/inspection-logs/books
+POST /api/v1/inspection-logs/books/{bookId}/entries
+GET  /api/v1/inspection-logs/entries?road=&from=&to=
+```
+
+---
+
+## 4. Index DB gợi ý (theo UI filter)
+
+| Query UI | Index |
+|----------|-------|
+| List theo đường + lý trình | `(RoadName/RoadCode, KmFrom, KmTo)` |
+| Map bbox | GIST(`Geom`) |
+| Sổ theo kỳ | `(CompanyCode, LoggedAt)` / `(BookId, CheckedAt)` |
+| Tra cứu mã tài sản | unique `(CompanyCode, Code)` where not deleted |
+| Export biểu | covering filter `Province` + `Road` |
+
+---
+
+## 5. Map sang module RMMS hiện có (`07`)
+
+| Hồ sơ chuẩn hóa | Module `07` | Feature context |
+|-----------------|-------------|-----------------|
+| Biểu 1–12 CSDL | Asset · Gis | `asset.md` · `gis.md` · `gis-draw-google.md` |
+| Mẫu 1 tuần đường | Patrol | `patrol.md` |
+| Mẫu 2–3 trực | Patrol / Notification | mở rộng `patrol` |
+| Mẫu 4 đếm xe | IoT / Report | mới `traffic-count` |
+| Mẫu 5 cầu/hầm | Asset + Maintenance | `asset` + inspection |
+| Mẫu 6 hành lang | Incident | `incident.md` |
+| Mẫu 7 BDTX | Maintenance | mới / P2 |
+| Mẫu 8 tuần kiểm | Patrol (supervisor) | `patrol.md` |
+
+---
+
+## 6. Ưu tiên implement (P1)
+
+| Prio | Việc | Endpoint nhóm |
+|------|------|----------------|
+| P0 | Import Excel 12 biểu + CRUD + export đúng cột | `/api/v1/infra/*` |
+| P0 | Nhật ký tuần đường (Mẫu 1) sync app Check-in | `/api/v1/patrol-logs/*` |
+| P1 | Vi phạm HL + giấy phép (Mẫu 6) | `/row-violations` · `/construction-permits` |
+| P1 | Phiếu kiểm tra cầu (Mẫu 5) | `/bridges/{id}/inspections` |
+| P1 | Vẽ Google → tạo bản ghi infra | `/gis/drawings` → `/infra/{resource}` |
+| P2 | Đếm xe (Mẫu 4) · Trực (2–3) · BDTX log (7) · Tuần kiểm (8) | theo bảng §3 |
+
+---
+
+## 7. Open questions (GAP)
+
+| ID | Câu hỏi | Default tạm |
+|----|---------|-------------|
+| GAP-CSDL-01 | Biểu 7 một row “kéo ngang” vs nhiều entity | **Nhiều entity** + `TrafficSafetyAsset` facade |
+| GAP-CSDL-02 | Mã đường / mã cầu quốc gia (Cục) vs mã nội bộ | `Code` + `LegacyCode` + optional `NationalId` |
+| GAP-CSDL-03 | Sổ giấy song song đến khi nào | Digital-first; PDF export mẫu in |
+| GAP-CSDL-04 | Phân quyền Khu I–IV / Văn phòng / Nhà thầu | Tenant + role claims |
+| GAP-CSDL-05 | Đếm xe realtime vs nhập quý | P1 nhập/import; realtime P2 |
+
+---
+
+## 8. File nguồn trong hồ sơ
+
+| File | Dùng cho |
+|------|----------|
+| `4.1. In_Mẫu biểu_Cơ sở dữ liệu.xlsx` | Cột biểu 1–12 |
+| `4. Bìa_Cơ sở dữ liệu.docx` | Bìa bộ biểu |
+| `3. Mẫu sổ.docx` | Layout 8 sổ |
+| `5_P. BT … Chuẩn hoá hồ sơ….docx` | Danh mục + căn cứ pháp lý |
+| `1_Phiếu trình….docx` | Xin ý kiến LĐ Cục |
+| PDF Khu I–IV · CV 4930 · TB 111 · CV 3858 | Hiện trạng / bất cập (tham chiếu) |
+
+**Extract làm việc (dev):** `local-script/hoso-extract/sheet-*.tsv` · `mau-so.txt` · `chuan-hoa-hoso.txt`

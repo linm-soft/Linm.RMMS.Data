@@ -1,8 +1,4 @@
-/** Fake seed — Quản lý tài sản đường bộ · DEMO no BE */
-
-export const ROUTES = [
-  { id: 'org-495', name: 'Công ty Cổ phần 495', kind: 'org', children: ['QL.48C', 'QL.7'] },
-];
+/** Fake seed — Quản lý tài sản đường bộ · DEMO no BE · Leaflet lat/lng */
 
 export const ROUTE_NODES = [
   { id: 'QL.48C', name: 'QL.48C', visible: true },
@@ -20,11 +16,19 @@ export const ASSET_TYPES = [
   'Đèn',
 ];
 
-/** @typedef {{
+/**
+ * @typedef {{
  *  id: string; code: string; name: string; type: string; route: string;
  *  kmFrom: string; kmTo: string; status: string; lat: number; lng: number;
  *  qr: string; photos: string[]; valueVnd: number; note: string; updatedAt: string;
- * }} AssetRow */
+ *  source?: 'manual' | 'ai';
+ * }} AssetRow
+ *
+ * @typedef {{
+ *  id: string; type: string; route: string; km: string; lat: number; lng: number;
+ *  conf: number; status: 'pending' | 'confirmed' | 'dismissed'; note: string;
+ * }} AiCandidate
+ */
 
 /** @type {AssetRow[]} */
 export const SEED = [
@@ -44,6 +48,7 @@ export const SEED = [
     valueVnd: 1250000000,
     note: 'BTXM · theo dõi PCI',
     updatedAt: '2026-07-12T08:30:00+07:00',
+    source: 'manual',
   },
   {
     id: 'a2',
@@ -61,6 +66,7 @@ export const SEED = [
     valueVnd: 4800000000,
     note: 'Nứt nhỏ lan can phải',
     updatedAt: '2026-06-28T14:10:00+07:00',
+    source: 'manual',
   },
   {
     id: 'a3',
@@ -78,6 +84,7 @@ export const SEED = [
     valueVnd: 8500000,
     note: 'Phản quang mờ',
     updatedAt: '2026-07-01T09:00:00+07:00',
+    source: 'manual',
   },
   {
     id: 'a4',
@@ -95,6 +102,7 @@ export const SEED = [
     valueVnd: 92000000,
     note: '',
     updatedAt: '2026-05-20T11:20:00+07:00',
+    source: 'manual',
   },
   {
     id: 'a5',
@@ -112,10 +120,38 @@ export const SEED = [
     valueVnd: 1200000,
     note: 'Đã gắn QR',
     updatedAt: '2026-07-18T16:45:00+07:00',
+    source: 'manual',
   },
 ];
 
-const LS_KEY = 'rmms-demo:asset:rows';
+/** @type {AiCandidate[]} */
+export const AI_SEED = [
+  {
+    id: 'ai1',
+    type: 'Biển báo',
+    route: 'QL.48C',
+    km: 'km8+120',
+    lat: 19.241,
+    lng: 105.682,
+    conf: 0.91,
+    status: 'pending',
+    note: 'Camera tuần đường · GPT-4o Vision · pin «AI new»',
+  },
+  {
+    id: 'ai2',
+    type: 'Cột Km',
+    route: 'QL.7',
+    km: 'km22+000',
+    lat: 19.165,
+    lng: 105.602,
+    conf: 0.84,
+    status: 'pending',
+    note: 'candidate nearby dedupe mock',
+  },
+];
+
+const LS_KEY = 'rmms-demo:asset:rows:v2';
+const AI_KEY = 'rmms-demo:asset:ai:v1';
 const CHK_KEY = 'tn-demo:asset:signed';
 
 export function loadRows() {
@@ -128,6 +164,18 @@ export function loadRows() {
 
 export function saveRows(rows) {
   localStorage.setItem(LS_KEY, JSON.stringify(rows));
+}
+
+export function loadAi() {
+  try {
+    const raw = localStorage.getItem(AI_KEY);
+    if (raw) return JSON.parse(raw);
+  } catch (_) {}
+  return AI_SEED.map((c) => ({ ...c }));
+}
+
+export function saveAi(list) {
+  localStorage.setItem(AI_KEY, JSON.stringify(list));
 }
 
 export function loadChecklist() {
@@ -157,19 +205,24 @@ export function parseKm(s) {
 
 /**
  * @param {AssetRow[]} rows
- * @param {{ treeQ: string; kmFrom: string; kmTo: string; type: string; route: string; visibleRoutes: Set<string> }} f
+ * @param {{ treeQ: string; kmFrom: string; kmTo: string; type: string; route: string; q: string; visibleRoutes: Set<string> }} f
  */
 export function filterRows(rows, f) {
   const from = parseKm(f.kmFrom);
   const to = parseKm(f.kmTo);
-  const q = (f.treeQ || '').trim().toLowerCase();
+  const treeQ = (f.treeQ || '').trim().toLowerCase();
+  const q = (f.q || '').trim().toLowerCase();
   return rows.filter((r) => {
     if (f.visibleRoutes && !f.visibleRoutes.has(r.route)) return false;
     if (f.route && r.route !== f.route) return false;
     if (f.type && r.type !== f.type) return false;
-    if (q) {
+    if (treeQ) {
       const hay = `${r.code} ${r.name} ${r.route} ${r.type}`.toLowerCase();
-      if (!hay.includes(q) && !r.route.toLowerCase().includes(q)) return false;
+      if (!hay.includes(treeQ) && !r.route.toLowerCase().includes(treeQ)) return false;
+    }
+    if (q) {
+      const hay = `${r.code} ${r.name} ${r.route} ${r.type} ${r.kmFrom} ${r.status} ${r.qr}`.toLowerCase();
+      if (!hay.includes(q)) return false;
     }
     const rf = parseKm(r.kmFrom);
     const rt = parseKm(r.kmTo) ?? rf;

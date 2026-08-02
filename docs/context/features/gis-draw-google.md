@@ -2,12 +2,12 @@
 
 > **Slug:** `gis-draw-google` · **Module:** `Gis` + `Asset` · **Phase:** P1  
 > **Status:** Demo  
-> **Feature Kind:** F/custom map (GIS shell) · Confirmed by: ai-autocode-autopilot 2026-08-01 · vision `002-ban-o-cong-trinh-giao-thong`  
-> **Sources:** GOVOne screenshot `1-ban-do.png` + vision `002`/`003` · `07` §1–§2 · `09` GIS 2D  
-> **Demo HTML (runtime):** `Linm.RMMS.Demo/public/demo/gis/gis-draw-live.html` — Leaflet + OSM/Esri · Leaflet.draw  
-> **Alias URL:** `gis-draw-google.html` → redirect live (**đã xóa** mock screenshot CSS + `1-ban-do.png` làm nền)  
+> **Feature Kind:** F/custom map (GIS shell) · Confirmed by: ai-autocode-autopilot 2026-08-02 · vision `002-ban-o-cong-trinh-giao-thong`  
+> **Sources:** GOVOne screenshot `1-ban-do.png` + vision `002`/`003` · `07` §1–§2 · `09` GIS 2D · **sourceKind=legacy**  
+> **Demo HTML (runtime):** `Linm.RMMS.Demo/public/demo/gis/gis-draw-google.html` — Leaflet live · basemap Google proxy (Carto) / Esri / OSM · Leaflet.draw  
+> **Alias live rút gọn:** `gis-draw-live.html`  
 > **Ảnh ref only:** `public/demo/gis/assets/1-ban-do.png` (không dùng làm map runtime)  
-> **MFE:** `Linm.Web.RMMS.Gis` · page `GisDrawGoogleDemoPage`  
+> **MFE:** `Linm.Web.RMMS.Gis` · page `GisDrawGoogleDemoPage` (`/gis/draw-google`) · `GisDrawLivePage` (`/gis/draw`)  
 > **Parent:** [`gis.md`](gis.md) · liên quan [`asset.md`](asset.md) · [`pavement-section.md`](pavement-section.md)
 
 ## 1. Tổng quan
@@ -114,13 +114,16 @@ Indexes: GIST(`Geom`) · `(LayerCode, Status)` · bbox query.
 
 ## 7. Demo checklist (chốt khách)
 
-- [ ] Layout khớp screenshot: sidebar lớp + toolbar + nền Google
-- [ ] Chọn loại tài sản trước khi vẽ
-- [ ] Vẽ được Point / Line / Polygon trên map
-- [ ] Panel thuộc tính sau vẽ + Lưu (mock)
-- [ ] Undo / xóa draft rõ
-- [ ] Tuyến hiện có (đỏ/xanh) vẫn thấy khi bật lớp
-- [ ] Không đổi UX tìm kiếm đối tượng trên header
+- [x] Layout khớp screenshot: sidebar lớp + toolbar + nền Google (proxy demo)
+- [x] Chọn loại tài sản trước khi vẽ
+- [x] Vẽ được Point / Line / Polygon trên map (Leaflet.draw)
+- [x] Panel thuộc tính sau vẽ + Lưu (mock localStorage)
+- [x] Undo / xóa draft rõ (Leaflet.draw edit + Huỷ draft · Hủy biên tập)
+- [x] Tuyến hiện có (seed) vẫn thấy khi bật lớp
+- [x] Không đổi UX tìm kiếm đối tượng trên header
+- [x] Dev menu MFE `/gis/draw-google` · catalog Demo `gis-draw-google`
+- [x] AI badge P1 Leaflet · P2 Google JS
+- [x] sourceKind=legacy · Linm shell (không clone GOVOne)
 
 ## Ref ảnh
 
@@ -343,9 +346,9 @@ Indexes: GIST(`Geom`) · `(LayerCode, Status)` · bbox query.
 
 ### Step context checklist
 
-- [ ] Design demo parity legacy zones
-- [ ] Control-map fields từ Labels/Inputs/Vision
-- [ ] Status Demo → Signed → `/qlbd-align-mfe`
+- [x] Design demo parity legacy zones
+- [x] Control-map fields từ Labels/Inputs/Vision
+- [x] Status Demo · HTML + MFE live map · `/qlbd-align-mfe` sau Signed
 <!-- LEGACY-GOVONE-CAPTURE:END -->
 
 <!-- DEMO-MFE-MODERN:START -->

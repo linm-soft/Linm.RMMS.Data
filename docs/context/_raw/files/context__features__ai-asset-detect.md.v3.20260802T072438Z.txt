@@ -1,0 +1,96 @@
+# source: context/features/ai-asset-detect.md
+# version: 3
+# scannedAt: 2026-08-02T07:24:38.669Z
+# sha256: 6909cb5f6e421e74dce10d2f9260e9b85b0b2fbf8130040efb704848bed6c491
+# mtimeMs: 1785654714020.2134
+# AI phát hiện tài sản / thiết bị mới (camera tuần đường) — Feature Context
+
+> **Slug:** `ai-asset-detect` · **Module:** AiVision × Asset × Patrol  
+> **Phase:** P1 = GPT-4o Vision online · **P2 = ONNX detector** (class thiết bị TS)  
+> **Status:** Demo  
+> **SSOT:** [`15-SCREEN-AI-MAP.md`](../15-SCREEN-AI-MAP.md) · [`ai-vision.md`](ai-vision.md) · [`asset.md`](asset.md) · [`patrol.md`](patrol.md)  
+> **Demo:** `Linm.RMMS.Demo/public/demo/ai-vision/ai-asset-detect.html`  
+> **Khác `ai-vision`:** #3 = hư mặt đường → Vấn đề; **slug này** = nhận diện **TS/thiết bị mới** → bản ghi Asset
+
+## 1. Tổng quan
+
+| | |
+|--|--|
+| Mục tiêu | Camera xe tuần đường phát hiện đối tượng **mới** (chưa có trong CSDL) → AI nhận **loại tài sản/thiết bị** → đề xuất / tự tạo bản ghi: **tọa độ** · **loại thiết bị** · **tuyến đường** (+ đoạn/lý trình khi suy ra được) |
+| Persona | Tuần đường · Ban QLDA · GIS |
+| Nguồn | Stream / frame camera tuần đường (Patrol) · GPS/IMU gắn xe |
+| DoD P1 | Adapter Vision · class thiết bị TS · draft Asset + map pin · confirm UI · cost chung budget AiVision |
+| DoD P2 | ONNX class TS · dedupe nearby · confidence gate · GPT fallback |
+
+## 2. Design / UI
+
+| Screen | Pattern | Zones | Gắn app |
+|--------|---------|-------|---------|
+| Feed / clip tuần đường | Full | Video/ảnh · timeline · GPS track | Patrol Giám sát |
+| Detect «TS mới» | Slideout / Full | Bbox · class loại TS · confidence · ảnh crop | Overlay Patrol + AiVision |
+| Confirm tạo bản ghi | Modal | Loại · tuyến · tọa độ · mã đề xuất · ảnh | → Asset Thu thập |
+| List đề xuất AI | Full | Filter tuyến/ngày/loại · status Draft/Confirmed | Asset / Giám sát TS |
+| Bản đồ pin mới | Full | Pin màu «AI new» vs TS đã có | GIS · Giám sát TS |
+
+**AI support (bắt buộc trên demo):** badge `AI` + engine P1/P2 trên card hub và header page.
+
+**P1 UI:** «AI online (GPT-4o Vision) — phát hiện thiết bị mới».  
+**P2 UI:** badge `modelVersion` · phân biệt online fallback.
+
+**Mock data:** 3 đề xuất (biển báo, hộ lan đoạn, cột Km) + 1 duplicate nearby (cảnh báo không tạo trùng).
+
+## 3. API
+
+| Method | Path | Mô tả |
+|--------|------|-------|
+| POST | `/api/v1/ai-vision/detect-assets` | 1 frame / clip → candidates |
+| POST | `/api/v1/ai-vision/detect-assets/batch` | Batch theo chuyến tuần đường |
+| GET | `/api/v1/ai-vision/asset-candidates?routeId=&from=&to=` | List đề xuất |
+| POST | `/api/v1/ai-vision/asset-candidates/{id}/confirm` | Tạo Asset thật (draft→active) |
+| POST | `/api/v1/ai-vision/asset-candidates/{id}/dismiss` | Bỏ / false positive |
+
+Adapter: cùng `IDefectDiagnoser` pattern hoặc `IAssetDetector` → P1 `Gpt4oVisionAssetDetector` · P2 `OnnxAssetDetector`.
+
+**Payload tối thiểu (candidate):** `class` (loại TS) · `score` · `bbox` · `lat`/`lng` · `routeId`/`routeCode` · `sectionId?` · `imageUrl` · `patrolTripId` · `modelVersion`.
+
+## 4. Database
+
+| Entity / table | Notes |
+|----------------|-------|
+| `ai_vision.asset_candidates` | class, score, geom Point, routeId, status Draft/Confirmed/Dismissed, modelVersion |
+| Asset (theo type) | Tạo khi Confirm — reuse `asset.md` entities |
+| Link | `source=ai-asset-detect` · `candidateId` trên AssetHistory / meta |
+
+Dedupe: `nearby` cùng class trong bán kính cấu hình (vd 15–30 m) → cảnh báo, không auto-create.
+
+## 5. Events
+
+| Event | Consumer |
+|-------|----------|
+| `asset.candidate.detected` | Notification · GIS overlay |
+| `asset.created` (sau confirm) | Gis · Asset list |
+
+## 6. Gaps
+
+| ID | Default |
+|----|---------|
+| GAP-F-AAD-01 Taxonomy class thiết bị vs 10 class mặt đường | Taxonomy **riêng** (biển báo, hộ lan, cột Km/H, đèn, camera ITS, …) — không trộn class ổ gà |
+| GAP-F-AAD-02 Auto-create vs bắt buộc Confirm | P1 = **Confirm bắt buộc** · P2 xem xét auto khi score ≥ ngưỡng + không nearby |
+| GAP-F-AAD-03 Dataset thiết bị TS | OUT P1 train · dùng GPT; P2 dataset riêng |
+
+## 7. Demo checklist
+
+- [x] Frame/camera mock → bbox + **loại thiết bị** rõ
+- [x] Hiển thị tọa độ + tuyến đường trên candidate
+- [x] Confirm → bản ghi Asset draft (fake) trên list/map
+- [x] Cảnh báo duplicate nearby
+- [x] Badge AI support · P1 online · không hứa mAP local P1
+- [x] Phân biệt rõ với `ai-vision` (hư mặt đường → Vấn đề)
+- [x] Search list + Create/Edit/View/Copy form pair (ACTION WORK GATE)
+- [x] Leaflet map pin «AI new» vs TS đã có
+- [x] Dev catalog `/dev` · `demoCatalog` · badge run
+
+**Demo path:** `Linm.RMMS.Demo/public/demo/ai-vision/ai-asset-detect.html`  
+**Control-map:** `_raw/legacy-govone/demo-maps/ai-asset-detect-control-map.md`  
+**Actions:** `_raw/legacy-govone/demo-maps/ai-asset-detect-actions.md`  
+**sourceKind:** legacy (docs + feature SSOT; không clone chrome GOVOne)

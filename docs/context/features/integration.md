@@ -80,13 +80,13 @@
 
 ## 7. Demo checklist (chốt khách)
 
-- [ ] Bảng endpoint P1 ưu tiên
-- [ ] Swagger stub / panel
-- [ ] Offline-batch mô tả 1 trang (modal)
-- [ ] Import wizard đủ field guide (loại TS · địa bàn · tuyến · đoạn · file)
-- [ ] Đủ 19 actions từ control-map
-- [ ] Leave-confirm khi import dirty
-- [ ] Không gọi BE
+- [x] Bảng endpoint P1 ưu tiên
+- [x] Swagger stub / panel
+- [x] Offline-batch mô tả 1 trang (modal)
+- [x] Import wizard đủ field guide (loại TS · địa bàn · tuyến · đoạn · file)
+- [x] Đủ 19 actions từ control-map
+- [x] Leave-confirm khi import dirty
+- [x] Không gọi BE
 
 <!-- LEGACY-GOVONE-CAPTURE:START -->
 ## Legacy GOVOne (auto-capture)
@@ -209,8 +209,8 @@
 
 ### Step context checklist
 
-- [ ] Design demo parity legacy zones
-- [ ] Control-map fields từ Labels/Inputs/Vision
+- [x] Design demo parity legacy zones
+- [x] Control-map fields từ Labels/Inputs/Vision
 - [ ] Status Demo → Signed → `/qlbd-align-mfe`
 <!-- LEGACY-GOVONE-CAPTURE:END -->
 
@@ -231,8 +231,9 @@ Gen demo: `/qlbd-analy-demo @integration` — load control-map trên + `/erp-for
 
 | | |
 |--|--|
-| Task | `task_10c46d36` |
+| Task | `task_14a6f905` |
 | Skill | `/qlbd-analy-demo @integration` |
-| Files | `integration.md` · `demo-maps/integration-*.md` · `public/demo/integration/integration.html` · `js/integration-*.js` · `demoCatalog.ts` |
-| BE align | OFF (demo) · GAP-F-INT-03 documented |
+| sourceKind | legacy (capture synthetized từ docs · không màn GOVOne vision) |
+| Files | `integration.md` · `demo-maps/integration-*.md` · `public/demo/integration/integration.html` · `js/integration-*.js` · `demoCatalog.ts` · `features/integration-demo.html` |
+| BE align | OFF (demo) · GAP-F-INT-03 documented · no P0 open gap |
 | Confirmed by | ai-autocode-autopilot |

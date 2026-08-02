@@ -70,11 +70,14 @@ Indexes: trigram/`code`+`name` · spatial GIST trên `Geom`.
 
 ## 7. Demo checklist (chốt khách)
 
-- [x] List + filter loại tài sản khớp app Tài sản (demo HTML interactive)
-- [x] Chi tiết có GPS / ảnh / mã QR
-- [x] Map nearby hiểu được trên mock
+- [x] List + **search** + filter loại / lý trình / tree tuyến
+- [x] Chi tiết có GPS / ảnh / mã QR · **Create / Edit / View / Copy** form work
+- [x] **Leaflet live** · pin lat/lng seed · lớp nền OSM / sat / topo (cấm CSS gradient map)
 - [x] Không yêu cầu nhập lại toàn bộ dữ liệu (import/API mock)
-- [x] Đủ field + 11 action từ `demo-maps/asset-control-map.md`
+- [x] Đủ field + 11 action từ `demo-maps/asset-control-map.md` (24 · user · tiện ích · xóa ĐK · lấy DL · +/−/⇧ · GPS · lớp nền · lớp CĐ)
+- [x] **AI support** (15-map Giám sát TS): badge · candidate «AI new» · Confirm/Dismiss · P1 read+confirm / P2 auto-create tuỳ
+
+**Demo path:** `Linm.RMMS.Demo/src/demo/asset/asset.html` (+ `public/demo/asset/`) · sourceKind **legacy** · no BE
 
 <!-- LEGACY-GOVONE-CAPTURE:START -->
 ## Legacy GOVOne (auto-capture)
@@ -280,9 +283,9 @@ Indexes: trigram/`code`+`name` · spatial GIST trên `Geom`.
 
 ### Step context checklist
 
-- [ ] Design demo parity legacy zones
-- [ ] Control-map fields từ Labels/Inputs/Vision
-- [ ] Status Demo → Signed → `/qlbd-align-mfe`
+- [x] Design demo parity legacy zones
+- [x] Control-map fields từ Labels/Inputs/Vision
+- [x] Status Demo → (customer) Signed → `/qlbd-align-mfe`
 <!-- LEGACY-GOVONE-CAPTURE:END -->
 
 <!-- DEMO-MFE-MODERN:START -->
@@ -292,8 +295,11 @@ Indexes: trigram/`code`+`name` · spatial GIST trên `Geom`.
 
 - Control-map: [`asset-control-map.md`](../_raw/legacy-govone/demo-maps/asset-control-map.md)
 - Actions: [`asset-actions.md`](../_raw/legacy-govone/demo-maps/asset-actions.md)
-- Fields mapped: 4 · Actions: 11
+- Fields mapped: 4 · Actions: 11 (+ Create/Copy form pair · search grid · Leaflet mandatory)
 - Kind hint: F/custom map + list — erp-custom-manage + GIS · erp-list-page-shell
+- Map: Leaflet live (OSM/Esri/OpenTopo) — **cấm** CSS gradient canvas
+- AI (15): candidate «AI new» Confirm/Dismiss · catalog `aiSupport`
 
 Gen demo: `/qlbd-analy-demo @asset` — load control-map trên + `/erp-form-context` rules (2a-K · 2g · common controls).
+HTML: `Linm.RMMS.Demo/src/demo/asset/asset.html` · catalog `demoCatalog.ts` slug `asset`
 <!-- DEMO-MFE-MODERN:END -->

@@ -67,12 +67,12 @@ Optional email/notify đội kỹ thuật — DEFER P1 demo.
 
 ## 7. Demo checklist (chốt khách)
 
-- [ ] Form gửi đủ field control-map (7)
-- [ ] Nút «Gửi góp ý của bạn» + toast mock
-- [ ] Không nhầm với Báo sự cố người dân (`citizen`)
-- [ ] Đủ 7 actions từ control-map
-- [ ] Leave-confirm khi dirty
-- [ ] Không gọi BE
+- [x] Form gửi đủ field control-map (7)
+- [x] Nút «Gửi góp ý của bạn» + toast mock
+- [x] Không nhầm với Báo sự cố người dân (`citizen`)
+- [x] Đủ 7 actions từ control-map
+- [x] Leave-confirm khi dirty
+- [x] Không gọi BE
 
 <!-- LEGACY-GOVONE-CAPTURE:START -->
 ## Legacy GOVOne (auto-capture)
@@ -140,8 +140,8 @@ Optional email/notify đội kỹ thuật — DEFER P1 demo.
 
 ### Step context checklist
 
-- [ ] Design demo parity legacy zones
-- [ ] Control-map fields từ Labels/Inputs/Vision
+- [x] Design demo parity legacy zones
+- [x] Control-map fields từ Labels/Inputs/Vision
 - [ ] Status Demo → Signed → `/qlbd-align-mfe`
 <!-- LEGACY-GOVONE-CAPTURE:END -->
 
@@ -162,8 +162,11 @@ Gen demo: `/qlbd-analy-demo @feedback` — load control-map trên + `/erp-form-c
 
 | | |
 |--|--|
-| Task | `task_1be6b1db` |
+| Task | `task_4c53dcbe` |
 | Skill | `/qlbd-analy-demo @feedback` |
-| Files | `feedback.md` · `demo-maps/feedback-*.md` · `public/demo/integration/feedback.html` · `js/feedback-*.js` · `demoCatalog.ts` |
-| BE align | OFF (demo) · GAP-F-FB-02 documented |
+| sourceKind | **synthetic** (capture labeled legacy-govone block nhưng **không** màn GOVOne vision — product docs + guide Mobile Góp ý) |
+| Files | `feedback.md` · `demo-maps/feedback-*.md` · `public/demo/integration/feedback.html` · `js/feedback-*.js` · `demoCatalog.ts` · features redirect |
+| Dev | `DEMO_FEATURES` · `/demo/p/feedback` · hub index · DOMAIN integration |
+| ACTION WORK GATE | 7/7 actions work · create host→slideout form pair · no dead Edit/View |
+| BE align | OFF (demo) · GAP-F-FB-02 documented · Step 4b khi Signed |
 | Confirmed by | ai-autocode-autopilot |

@@ -1,0 +1,50 @@
+# source: context/features/gis-draw-google-control-map.md
+# version: 6
+# scannedAt: 2026-08-02T06:51:02.759Z
+# sha256: b5050556015f62eac3419e87815943cfbf1656a414e41bb6949fa216f79674cd
+# mtimeMs: 1785492612875.8857
+# Control map — Vẽ trên Google Map (`gis-draw-google`)
+
+> Ref erp-form-context Step 2g (rút gọn) · Full page map shell
+
+## Toolbar map
+
+| Control | Type | Action |
+|---------|------|--------|
+| Select | Tool | Chọn feature hiện có |
+| Pan | Tool | Kéo map |
+| Zoom +/− | Tool | Zoom |
+| Measure | Tool | Đo khoảng cách / diện tích |
+| **Point** | Draw tool | Vẽ điểm (Cột km, Biển báo, …) |
+| **Line** | Draw tool | Vẽ tuyến / hộ lan / vạch |
+| **Polygon** | Draw tool | Vẽ vùng (ta luy, nền đường, …) |
+| Text | Tool | Nhãn (P1 optional) |
+| Delete | Action | Xóa draft / selection |
+| Undo / Redo | Action | Stack local trước khi save |
+
+## Sidebar
+
+| Control | Type | Bind |
+|---------|------|------|
+| Lớp nền | Radio | `basemap`: admin · traffic · **google** · satellite · none |
+| Lớp tài sản | Checkbox tree | `layers[]` visibility |
+| Tab Thuộc tính | Form | `code`, `name`, `layerCode`, `notes` sau draw |
+| Tab Kết quả | List | Search hits / vừa vẽ |
+
+## Form thuộc tính (sau vẽ)
+
+| Field | Control | Required |
+|-------|---------|----------|
+| layerCode | Readonly / select | Yes (từ tree) |
+| code | Text uppercase | Yes |
+| name | Text | Yes |
+| notes | Textarea | No |
+| geometry | Readonly WKT/GeoJSON preview | Yes |
+
+## Map chrome
+
+| Control | Notes |
+|---------|-------|
+| Search header | «Nhập thông tin đối tượng» — search asset |
+| Bản đồ nền (map corner) | Shortcut đổi base |
+| Scale bar | Google default |

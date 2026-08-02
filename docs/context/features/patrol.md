@@ -109,6 +109,14 @@
 - Danh sách nhân viên
 - Chưa checkin: 0
 - Tổng số : 0
+- Tất cả
+- Đoạn đường
+- Không có bản ghi nào
+- Vị trí hiện thời
+- Giám sát nhân viên 2
+- Giám sát tuyến đường 2
+- Lịch sử checkin 2
+- Tổng hợp 2
 
 #### Inputs
 
@@ -116,6 +124,16 @@
 |-----|------|---------|-------------|
 | input | text | treepickerex-1025-inputEl | Chọn Công ty/Nhân viên |
 | input | text | doanduong | Chọn đoạn đường |
+| div | text | Danh sách nhân viên |  |
+| div | metric | Chưa checkin | Chưa checkin: 0 |
+| div | metric | Tổng số | Tổng số : 0 |
+| div | text | Empty state | Không có bản ghi nào |
+| button | text | Bản đồ nền |  |
+| a | text | Vệ tinh | basemap=satellite |
+| a | text | Google | basemap=google |
+| a | text | Giao thông | basemap=traffic |
+| a | text | Hành chính | basemap=admin |
+| a | text | Không nền | basemap=none |
 
 #### Actions / buttons (full)
 
@@ -132,8 +150,13 @@
 | Bản đồ nền | nav | content | a |  |
 | + | create | content | a |  |
 | − | nav | content | a |  |
+| Giám sát nhân viên 2 | nav | sidebar | a |  |
+| Giám sát tuyến đường 2 | nav | sidebar | a |  |
+| Lịch sử checkin 2 | nav | sidebar | a |  |
+| Tổng hợp 2 | nav | sidebar | a |  |
+| Thu/mở panel list | action | content | button |  |
 
-- **actionCount:** 11
+- **actionCount:** 16
 
 ### QUẢN LÝ GIÁM SÁT
 
@@ -259,36 +282,6 @@
 | Bản đồ nền | nav | content | a |  |
 | + | create | content | a |  |
 | − | nav | content | a |  |
-| Hồ sơ của tôi | nav | grid | a |  |
-| Đổi mật khẩu | nav | grid | a |  |
-| Đăng xuất | export | grid | a |  |
-
-- **actionCount:** 14
-
-### QUẢN LÝ GIÁM SÁT › Xuất excel
-
-- **id:** `007-quan-ly-giam-sat-xuat-excel`
-- **capture:** `capture/patrol/xuat-excel/view/` (master/page/action)
-- **url:** https://pmdb.govone.vn/dbv3giamsat.aspx#pnlViTriHienThoi
-- **title:** Giám sát - gServer Phiên bản 2.1
-- **headings:** Vị trí hiện thời · Vệ tinh · Google · Giao thông · Hành chính · Không nền · Bản đồ nền · Bản đồ nền
-
-#### Labels / field captions
-
-- Danh sách nhân viên
-- Chưa checkin: 0
-- Tổng số : 0
-- Từ ngày:
-- Đến ngày:
-- Chọn tất cả
-- Xuất người không checkin
-- Tất cả
-
-#### Inputs
-
-| tag | type | name/id | placeholder |
-|-----|------|---------|-------------|
-| input | text | treepickerex-1025-inp
 
 …_(truncated — xem raw)_
 

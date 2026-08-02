@@ -87,6 +87,37 @@ Subscribe: `patrol.*` · `incident.*` · `defect.detected` · `predict.updated` 
 - **title:** GOVONE - TỔNG HỢP CÔNG TÁC QUẢN LÝ VÀ BẢO DƯỠNG THƯỜNG XUYÊN
 - **headings:** TỔNG HỢP CÔNG TÁC QUẢN LÝ VÀ BẢO DƯỠNG THƯỜNG XUYÊN · TỔNG HỢP CÔNG TÁC QUẢN LÝ VÀ BẢO DƯỠNG THƯỜNG XUYÊN · LIÊN KẾT TRUY CẬP NHANH · THIẾT LẬP CỠ CHỮ
 
+#### Labels / field captions
+
+- Ngày tổng hợp
+- Tuần đường
+- Tuần kiểm
+- Tình hình bão lũ
+- Tai nạn giao thông
+- Vi phạm xâm phạm
+- Công việc
+- CÔNG TÁC TUẦN ĐƯỜNG
+- CÔNG TÁC TUẦN KIỂM
+- CÔNG VIỆC
+- Chưa thực hiện checkin
+
+#### Inputs
+
+| tag | type | name/id | placeholder |
+|-----|------|---------|-------------|
+| input | date | Ngày tổng hợp | 01/08/2026 |
+| div | metric | Tuần đường |  |
+| div | metric | Tuần kiểm |  |
+| div | metric | Tình hình bão lũ |  |
+| div | metric | Tai nạn giao thông |  |
+| div | metric | Vi phạm xâm phạm |  |
+| div | metric | Công việc |  |
+| div | text | Đơn vị / công ty |  |
+| div | text | Tuyến (QL) |  |
+| div | text | Điểm Km / lý trình | Km N + MMM |
+| div | text | Trạng thái check-in |  |
+| div | text | Empty state |  |
+
 #### Actions / buttons (full)
 
 | label | kind | zone | tag | disabled |
