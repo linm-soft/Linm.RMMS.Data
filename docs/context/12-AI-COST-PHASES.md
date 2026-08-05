@@ -42,7 +42,8 @@
 | Triage low | ~**$0.005** |
 | 20k ảnh + triage ~30% high | ~**$70** (thay vì ~$180) |
 | 50k + triage | ~**$175** |
-| **Train VNSO A100-40 · 20–40 phút** | **≤ ~40.000đ / lần** (`17`) |
+| **Train VNSO A100-40 · máy chạy** | **vài chục nghìn đ / lần** (`17`) — **chưa gồm** đội gán nhãn |
+| **Đội gán nhãn + QA** (thực tế đắt) | **~2–6kđ/ảnh** tham chiếu · ≥20k ảnh ≈ **chục–trăm triệu** / đợt (`14` §4) |
 | Train Vast 4090 · 40–80h (phương án B) | ~**$16–45** / chu kỳ (@ ~$0.25–0.55/h) |
 | **Infer V100 server · tháng** | **~19,5–22 trđ / tháng** (`17`) |
 | **Infer A40 · tháng (cam kết 12th)** | **~12,2 trđ / tháng** |
@@ -56,7 +57,7 @@
 |---|-----------|---------------|---------|
 | **0** | P1 online (8–12 tuần) | Token $50–200/tháng | Vận hành + UAT P/R |
 | **1** | Gate | $0 | Giữ online **hoặc** Go local |
-| **2** | Train burst (A100 VNSO) | **≤40kđ/lần** + đội gán nhãn | Model ONNX/TFLite/MLModel |
+| **2** | Dataset + train | **Đội nhãn (chính)** + A100 PAYG (phụ) | Model ONNX/TFLite/MLModel |
 | **3** | Hybrid infer | Token giảm + GPU worker tháng | Bill ổn khi volume tăng |
 | **4** | GPU prod cố định | V100/L4/A40 thuê tháng VN | SLA · RTSP nội địa |
 

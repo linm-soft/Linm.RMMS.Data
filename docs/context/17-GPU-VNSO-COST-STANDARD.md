@@ -72,7 +72,7 @@ Chạy container Docker, nạp dataset ảnh **biển báo / cọc tiêu** (và 
 | SKU | GPU | VRAM | Hình thức | Giá tham chiếu (VND/giờ) | Khi dùng |
 |-----|-----|------|-----------|--------------------------|----------|
 | **GPU-TRAIN-A100-40** | NVIDIA **A100** | **40 GB** | Pay-as-you-go | **29.000 – 59.000** | **Mặc định** fine-tune YOLOv8-nano |
-| **GPU-TRAIN-A100-80** | NVIDIA **A100** | **80 GB** | Pay-as-you-go | **~80.000** | Batch lớn / multi-job / SAM kèm — **không** mặc định nano |
+| **GPU-TRAIN-A100-80** | NVIDIA **A100** | **80 GB** | Pay-as-you-go | **~49.000** (public) | Batch lớn / multi-job / SAM kèm — **không** mặc định nano |
 
 **Hình thức:** thuê theo giờ · **cấm** always-on tháng cho train.
 
@@ -85,7 +85,8 @@ Chạy container Docker, nạp dataset ảnh **biển báo / cọc tiêu** (và 
 | Epochs fine-tune | **50** | Học bổ sung |
 | Host | A100-40 | SKU `GPU-TRAIN-A100-40` |
 | Thời gian train điển hình | **20 – 40 phút** | 1× A100 |
-| Chi phí / lần cập nhật | **≤ ~40.000đ** | @ ~50k/h × ≤0,7h (lấy mid-range) |
+| **Chi phí / lần cập nhật (chỉ GPU)** | **vài chục nghìn đ** | @ ~50k/h × 0,25–1,5h — **không** gồm đội gán nhãn |
+| **Chi phí đợt thực tế** | **Nhãn + AI lead ≫ GPU** | Xem page `chi-phi-gpu.html` · `14` §4 |
 | Export bắt buộc | `.onnx` · `.tflite` · `.mlmodel` (+ sha256) | Tắt VM ngay sau export |
 | Runtime train | Docker + PyTorch/CUDA | Không train trên máy API |
 
@@ -102,9 +103,44 @@ Budget_alert / lần = 40.000đ   # soft cap mặc định A100-40
 | Fine-tune nhanh | 20 phút (0,33h) | 50.000đ/h | **~16.500đ** |
 | Fine-tune điển hình | 40 phút (0,67h) | 50.000đ/h | **~33.500đ** |
 | Worst A100-40 | 40 phút | 59.000đ/h | **~39.500đ** |
-| A100-80 (không khuyến nghị nano) | 40 phút | 80.000đ/h | **~53.500đ** |
+| A100-80 (không khuyến nghị nano) | 40 phút | 49.000đ/h | **~32.700đ** |
 
 **Phương án B (giữ từ `12`/`13`):** Vast RTX 4090 ~$0,25–0,55/h — chỉ khi data **được** xuất nước ngoài và giá tốt hơn VNSO sau quy đổi.
+
+### 2.5 Chuẩn dữ liệu nhà cung cấp — quota · memory · transfer (Cloud GPU VNSO)
+
+> Nguồn public: [Thuê GPU theo giờ](https://vnso.vn/thue-gpu-theo-gio-dung-thu-mien-phi-chi-tai-vnso/) (cập nhật ~06/2026). **Không** có quota “N request API/tháng” — đây là **IaaS máy + GPU riêng**, billing theo giờ.
+
+| Hạng mục | A100 40GB Cloud | A100 80GB Cloud | H100 80GB Cloud | Ý nghĩa RMMS |
+|----------|-----------------|-----------------|-----------------|--------------|
+| **GPU / VRAM** | 1× A100 SXM4 · **40 GB** | 1× A100 SXM4 · **80 GB** | H100 80GB SXM5 | Nano fine-tune: **40GB đủ** |
+| **CPU** | 16 vCPU | 32 vCPU | 64C / 128T | Không phải bottleneck train |
+| **RAM host** | **48 GB** | **96 GB** | **128 GB** | 40GB gói: RAM host **thấp hơn** khuyến nghị prod infer ≥64GB (`10`) — **chỉ dùng train burst** |
+| **Disk** | **1 TB NVMe** | **2 TB NVMe** | 1 TB NVMe + 2 TB SAN | Dataset 20k ảnh + cache thường OK |
+| **Network** | **500 Mbps ↓ / 15 Mbps ↑** · 1 IPv4 | cùng | **1 Gbps ↓ / 15 Mbps ↑** | **Uplink 15 Mbps = nút thắt transfer** |
+| **GPU share** | Dedicated (không chia card) | cùng | cùng | Ổn định hơn shared cloud |
+| **API request quota** | **Không áp dụng** | — | — | Tự chạy process trên VM |
+| **Billing quota** | PAYG / giờ · nạp trước | cùng | liên hệ | Tắt VM sau export |
+| **Giá public (tham chiếu)** | **29.000đ/giờ** | **49.000đ/giờ** | Liên hệ | Chốt PO — bài khác có thể ghi 39–59–80k |
+
+**Transfer thực tế (ước):**
+
+| Hướng | Bandwidth gói | Throughput ước | Ví dụ |
+|-------|---------------|----------------|-------|
+| **Upload** (dataset vào VM) | 15 Mbps | ~1,5–1,8 MB/s | 50 GB ≈ **8–10 giờ** |
+| **Download** (checkpoint ra) | 500 Mbps (A100) | hàng chục MB/s | `.onnx` vài trăm MB ≈ vài phút |
+
+**Quy tắc vận hành từ quota NCC:**
+
+| # | Rule |
+|---|------|
+| Q1 | Upload / chuẩn bị dataset **trước** hoặc song song khi VM idle storage — **không** để GPU idle chờ transfer |
+| Q2 | Ưu tiên image có CUDA/PyTorch **preloaded** (giảm tải model lớn qua uplink) |
+| Q3 | **Cấm** dùng Cloud GPU 500/15 làm hub **nhiều RTSP** CCTV — chuyển **Server GPU tháng** (`§3`) |
+| Q4 | Backup artifact ra kho ngoài DC trước khi destroy VM |
+| Q5 | Xác nhận RAM/ổ **trên panel** khi mở máy — marketing có thể lệch 48 vs 64 GB |
+
+**UI:** `Linm.RMMS.Page.Index/docs/chi-phi-gpu.html` (card phân tích NCC) · `cau-hinh-ky-thuat-gpu.html`.
 
 ---
 
