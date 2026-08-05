@@ -18,11 +18,6 @@
 | Lịch sử checkin 2 | nav | sidebar | — | — |
 | Tổng hợp 2 | nav | sidebar | — | — |
 | Thu/mở panel list | action | content | — | — |
-| Hồ sơ của tôi | nav | grid | — | — |
-| Đổi mật khẩu | nav | grid | — | — |
-| Đăng xuất | export | grid | — | — |
-| Đổi mật khẩu | submit | footer | — | — |
-| VỀ TRANG CHỦ | nav | footer | — | — |
 | dropdown trigger | action | header | — | — |
 | Báo cáo tổng hợp | nav | footer | — | — |
 | Phân quyền | nav | footer | — | — |
@@ -44,7 +39,14 @@
 | CÔNG TÁC TUẦN ĐƯỜNG | action | header | — | — |
 | CÔNG TÁC TUẦN KIỂM | action | header | — | — |
 | CÔNG VIỆC | action | header | — | — |
-| Maximize | action | header | — | — |
 | Đóng | close | header | — | — |
+| Mapbox logo | nav | footer | — | — |
+| Toggle attribution | action | footer | — | — |
+| Hồ sơ của tôi | nav | grid | — | — |
+| Đổi mật khẩu | nav | grid | — | — |
+| Đăng xuất | export | grid | — | — |
+| Đổi mật khẩu | submit | footer | — | — |
+| VỀ TRANG CHỦ | nav | footer | — | — |
+| Maximize | action | header | — | — |
 
-Count: 44
+Count: 46

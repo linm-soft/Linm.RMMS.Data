@@ -1,8 +1,8 @@
 # Demo control-map (modern MFE) — `integration`
 
-> **Rule:** cùng field/action legacy · UI theo **`/erp-form-context`** (Linm.Development.Rules).  
+> **Rule:** cùng field/action synthetic docs · UI theo **`/erp-form-context`** (Linm.Development.Rules).  
 > Demo HTML mock `Lin*` look · **cấm** copy skin GOVOne cũ · **cấm** BE.  
-> Legacy: synthetized (không màn GOVOne) — `_raw/legacy-govone/features/integration.md`.  
+> sourceKind=**synthetic** (không màn GOVOne) — product docs → `_raw/legacy-govone/features/integration.md`.  
 > Sibling: `feedback` (Kind D) — **không** gộp slug.
 
 ## Kind hint

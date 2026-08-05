@@ -1,6 +1,7 @@
-# Demo actions — `attendance`
+# Demo actions — `attendance` (sourceKind=synthetic)
 
-> Pair with `attendance-control-map.md` · demo `patrol/attendance.html`.
+> Pair with `attendance-control-map.md` · demo `patrol/attendance.html`.  
+> Suy luận từ product docs · không capture GOVOne leaf.
 
 | id | label | data-action | zone |
 |----|-------|-------------|------|

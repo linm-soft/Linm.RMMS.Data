@@ -100,15 +100,16 @@ Payload gợi ý: `{scanId, pointCloudKey, orthophotoKey, areaKm2}` · nguồn s
 
 ## 7. Demo checklist (chốt khách)
 
-- [ ] List đủ cột + filter loại/TT/đơn vị
-- [ ] KPI 4 ô mock (tổng · đang XL · hoàn thành · diện tích)
-- [ ] Form Kind D đủ 27 field control-map (kể cả dòng artifact)
-- [ ] Đủ 24 actions (click → toast/modal/nav)
-- [ ] Artifact lines pattern_inline_grid
-- [ ] Viewer stub modal
-- [ ] Badge P2–P3
-- [ ] Leave-confirm khi dirty
-- [ ] Không gọi BE
+- [x] List đủ cột + filter loại/TT/đơn vị
+- [x] KPI 4 ô mock (tổng · đang XL · hoàn thành · diện tích)
+- [x] Form Kind D đủ 27 field control-map (kể cả dòng artifact)
+- [x] Đủ 24 actions (click → toast/modal/nav)
+- [x] Artifact lines pattern_inline_grid
+- [x] Viewer stub modal
+- [x] Badge P2–P3
+- [x] Leave-confirm khi dirty
+- [x] Không gọi BE
+- [x] sourceKind=synthetic · User menu Linm shell
 
 <!-- LEGACY-GOVONE-CAPTURE:START -->
 ## Legacy GOVOne (auto-capture)
@@ -193,8 +194,8 @@ Payload gợi ý: `{scanId, pointCloudKey, orthophotoKey, areaKm2}` · nguồn s
 
 ### Step context checklist
 
-- [ ] Design demo parity legacy zones
-- [ ] Control-map fields từ Labels/Inputs/Vision
+- [x] Design demo parity synthetic zones (no GOVOne)
+- [x] Control-map fields từ Labels/Inputs · product docs
 - [ ] Status Demo → Signed → `/qlbd-align-mfe`
 <!-- LEGACY-GOVONE-CAPTURE:END -->
 
@@ -215,8 +216,9 @@ Gen demo: `/qlbd-analy-demo @drone` — load control-map trên + `/erp-form-cont
 
 | | |
 |--|--|
-| Task | `task_b4b54109` |
+| Task | `task_98716a69` |
 | Skill | `/qlbd-analy-demo @drone` |
 | Files | `drone.md` · `demo-maps/drone-*.md` · `public/demo/drone/drone.html` · `js/drone-*.js` · `demoCatalog.ts` |
-| BE align | OFF (demo) · GAP-F-DRN-03 documented |
+| BE align | OFF (demo) · GAP-F-DRN-03 documented · Step 4b khi Signed |
+| sourceKind | synthetic |
 | Confirmed by | ai-autocode-autopilot |

@@ -3,7 +3,7 @@
 > **SSOT Phase 2 / V2-core cho #3 Kiểm định ảnh.**  
 > **Áp dụng sau gate Go local** (`09-PLAN-P1-V2.md` §2.7).  
 > **P1:** chỉ GPT-4o online — xem `08` · **không** train local.  
-> **Infra server:** `13-AI-SERVER-BY-PHASE.md` · **GPU spec:** `10-YOLO-SERVER-REQUIREMENTS.md` · **Chi phí:** `12-AI-COST-PHASES.md`
+> **Infra server:** `13-AI-SERVER-BY-PHASE.md` · **GPU spec:** `10-YOLO-SERVER-REQUIREMENTS.md` · **Chi phí:** `12-AI-COST-PHASES.md` · **SKU/giá VNSO:** `17-GPU-VNSO-COST-STANDARD.md`
 
 **Nguyên tắc:** Chuẩn hóa theo **hợp đồng kỹ thuật** (class · API · artifact · worker), **không** khóa cứng một vendor Ultralytics.
 

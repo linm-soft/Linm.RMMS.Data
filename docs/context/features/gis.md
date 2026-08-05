@@ -171,8 +171,8 @@ PostGIS layers publish → Martin/pg_tileserv · Redis tile cache · SignalR `Gi
 
 ### Step context checklist
 
-- [x] Design demo parity legacy zones (sidebar tabs · toolbar · Leaflet · Twin P2)
-- [x] Control-map fields từ Labels/Inputs/Vision (8 fields · 20 actions)
+- [x] Design demo parity legacy zones
+- [x] Control-map fields từ Labels/Inputs/Vision
 - [ ] Status Demo → Signed → `/qlbd-align-mfe`
 <!-- LEGACY-GOVONE-CAPTURE:END -->
 
@@ -193,10 +193,10 @@ Gen demo: `/qlbd-analy-demo @gis` — load control-map trên + `/erp-form-contex
 
 | | |
 |--|--|
-| Task | `task_ec39f9aa` |
+| Task | `task_5610e4a9` |
 | Skill | `/qlbd-analy-demo @gis` |
-| sourceKind | legacy (capture + SYN map-viewer) |
-| Files | `gis.md` · `demo-maps/gis-*.md` · `public/demo/gis/gis.html` · `src/demo/gis/` · `js/gis-*.js` · `demoCatalog.ts` |
-| Dev menu | `/dev` via `DEMO_FEATURES` slug `gis` · domain GIS |
+| sourceKind | synthetic (docs + control-map; no GOVOne recapture required) |
+| Files | `gis.md` · `demo-maps/gis-*.md` · `public/demo/gis/gis.html` · `src/demo/gis/` · `features/gis-demo.html` · `js/gis-*.js` · `demoCatalog.ts` |
+| Dev menu | `/dev` via `DEMO_FEATURES` slug `gis` · domain GIS · hub `index.html` badge run |
 | BE align | OFF (demo only) · GAP-F-GIS-03 MISSING → be_align khi Signed |
 | Confirmed by | ai-autocode-autopilot 2026-08-02 |

@@ -71,11 +71,6 @@
 | Lịch sử checkin 2 | nav | sidebar | Nav Lịch sử checkin | MemoryRouter / sidebar · check-in history · erp-form-context (vision 004/005) |
 | Tổng hợp 2 | nav | sidebar | Nav Tổng hợp | MemoryRouter / sidebar · patrol summary · erp-report-context (vision 004/005) · ≠ GIS toolTongHopThietBi |
 | Thu/mở panel list | action | content | Splitter list↔map | SplitPane collapse/expand list · maximize map · patrol monitor (vision 004/005) |
-| Hồ sơ của tôi | nav | grid | User menu | Avatar dropdown · profile / logout · mfe-run-modes |
-| Đổi mật khẩu | nav | grid | User menu | Avatar dropdown · profile / logout · mfe-run-modes |
-| Đăng xuất | export | grid | Đăng xuất | Auth logout · mfe-run-modes |
-| Đổi mật khẩu | submit | footer | User menu | Avatar dropdown · profile / logout · mfe-run-modes |
-| VỀ TRANG CHỦ | nav | footer | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
 | dropdown trigger | action | header | Date filter | DatePicker · report period · reload KPI + panels |
 | Báo cáo tổng hợp | nav | footer | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
 | Phân quyền | nav | footer | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
@@ -97,8 +92,15 @@
 | CÔNG TÁC TUẦN ĐƯỜNG | action | header | Panel Tuần đường | Collapsible panel · tree Company→QL→Km chips · erp-report-context |
 | CÔNG TÁC TUẦN KIỂM | action | header | Panel Tuần kiểm | Collapsible panel · route list · check-in status · erp-report-context |
 | CÔNG VIỆC | action | header | Panel Công việc | Collapsible panel · WO summary empty/list · erp-report-context |
-| Maximize | action | header | Maximize | Modal maximize / pop-out · erp-report-context |
 | Đóng | close | header | Đóng | Modal/Slideout close · leave-confirm |
+| Mapbox logo | nav | footer | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
+| Toggle attribution | action | footer | Toggle attribution | Button · toolbar zone |
+| Hồ sơ của tôi | nav | grid | User menu | Avatar dropdown · profile / logout · mfe-run-modes |
+| Đổi mật khẩu | nav | grid | User menu | Avatar dropdown · profile / logout · mfe-run-modes |
+| Đăng xuất | export | grid | Đăng xuất | Auth logout · mfe-run-modes |
+| Đổi mật khẩu | submit | footer | User menu | Avatar dropdown · profile / logout · mfe-run-modes |
+| VỀ TRANG CHỦ | nav | footer | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
+| Maximize | action | header | Maximize | Modal maximize / pop-out · erp-report-context |
 
 
 ## Demo page rules (bắt buộc)

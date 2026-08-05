@@ -1,9 +1,13 @@
 # Quản lý sự cố (Vấn đề) — Feature Context
 
 > **Slug:** `incident` · **Module:** `Incident` · **Phase:** P1  
-> **Status:** Demo  
-> **Sources:** guide Vấn đề/Sự cố · `RMMS` §6 · `07` §6 · [`15-SCREEN-AI-MAP.md`](../15-SCREEN-AI-MAP.md)  
-> **Demo HTML:** `Linm.RMMS.Demo/src/demo/features/incident-demo.html`
+> **Status:** Demo (run) · sourceKind=`legacy` · task_63e1d95a · verified build 2026-08-02  
+
+> **Sources:** guide Vấn đề/Sự cố · `RMMS` §6 · `07` §6 · [`15-SCREEN-AI-MAP.md`](../15-SCREEN-AI-MAP.md) · legacy-govone capture  
+> **Demo HTML:** `Linm.RMMS.Demo/public/demo/incident/incident.html` · redirect `features/incident-demo.html`  
+> **Control-map:** [`_raw/legacy-govone/demo-maps/incident-control-map.md`](../_raw/legacy-govone/demo-maps/incident-control-map.md) · actions 47  
+> **Catalog:** `src/demoCatalog.ts` slug `incident` · badge `run` · aiSupport  
+> **MFE align (sau Signed):** `Linm.Web.RMMS.Incident` · `/incident`
 
 ## 1. Tổng quan
 
@@ -18,12 +22,21 @@
 
 | Screen | Pattern | Zones | Map guide |
 |--------|---------|-------|-----------|
-| List / tìm Vấn đề | Full | Status · tuyến · search | Web Sự cố |
-| Chi tiết + bình luận | Full | Timeline · chat · liên quan | Mobile a–b · Web chi tiết |
-| Thêm online / offline | Full / Modal | Loại SC · nội dung · sync | Mobile c–d |
-| Tìm đường / bản đồ SC | Full | Nav · pin | Mobile e,g · Web Giám sát SC |
-| Giao việc | Modal | Form CV | Mobile f · Web |
-| Tạo từ AI | Modal | Preview detection → Confirm | AI #3 overlay |
+| List / tìm Vấn đề | Full · Kind F | Filter (đoạn · loại · TT · mức độ · CT · đọc · GPS) · KPI · grid STT | Web Sự cố |
+| Giám sát map | Full · Leaflet live | Pins severity/status · basemap switcher · zoom ± | Web Giám sát SC · Mobile e,g |
+| Chi tiết + bình luận | Kind D slideout | Timeline · comment · related WO | Mobile a–b · Web chi tiết |
+| Thêm online | Kind D create | Loại SC · đoạn · mức · mô tả · GPS · detectionId | Mobile c–d · legacy form sample |
+| Giao việc | Modal | Assignee · note → CV mock | Mobile f · Web |
+| Đóng vấn đề | Modal confirm | status=đóng · timeline | Web |
+| Tạo từ AI | Banner + Modal | Preview DET-xxx → Confirm create · `modelVersion` badge | AI #3 · 15-map |
+| Xuất Excel / NKTĐ* | Modal export | from/to · org · includeNonCheckin | legacy export grid |
+| Chrome GOVOne | **Skip** | logo/bell/user → tools menu toast mock | Linm modern shell |
+
+**Demo rules (erp-form-context):** layout list zones · filter Tìm/Tìm mới · grid no header `TT` · form validation banner · datetime local/ISO mock · mọi action 47 click → toast/modal.
+
+**AI support (P1):** banner Critical/High detection · Confirm → Incident.seed · pill `AI DET-*` trên grid. P2: auto-create policy + modelVersion trong API.
+
+**Map live (P1):** Leaflet OSM + Esri sat + basemap stubs (Google/Traffic/Admin/None).
 
 ## 3. API
 
@@ -52,9 +65,13 @@ Consume `defect.detected` · publish `incident.created` / `incident.closed` → 
 
 ## 7. Demo checklist
 
-- [ ] List/filter khớp Vấn đề
-- [ ] Flow AI → tạo Vấn đề
-- [ ] Assign + đóng trên mock
+- [x] List/filter khớp Vấn đề (đoạn · loại · TT · mức độ · CT · đọc · GPS)
+- [x] Flow AI → tạo Vấn đề (DET banner · confirm · badge)
+- [x] Assign + đóng + comment trên mock
+- [x] Map Leaflet + basemap + zoom
+- [x] 47 actions inventory (toolbar / export / tools / map)
+- [x] Catalog `/dev` · badge `run` · domain `incident`
+- [ ] Signed khách → `/qlbd-align-mfe @incident`
 
 <!-- LEGACY-GOVONE-CAPTURE:START -->
 ## Legacy GOVOne (auto-capture)
@@ -304,9 +321,9 @@ Consume `defect.detected` · publish `incident.created` / `incident.closed` → 
 
 ### Step context checklist
 
-- [ ] Design demo parity legacy zones
-- [ ] Control-map fields từ Labels/Inputs/Vision
-- [ ] Status Demo → Signed → `/qlbd-align-mfe`
+- [x] Design demo parity legacy zones
+- [x] Control-map fields từ Labels/Inputs/Vision
+- [ ] Status Demo → Signed → `/qlbd-align-mfe` (sau Signed khách — **không** thuộc task demo này)
 <!-- LEGACY-GOVONE-CAPTURE:END -->
 
 <!-- DEMO-MFE-MODERN:START -->

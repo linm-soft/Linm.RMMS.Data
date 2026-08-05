@@ -3,7 +3,7 @@
 > **Slug:** `ai-vision` · **Module:** `AiVision`  
 > **Phase:** P1 = GPT-4o Vision online · **P2 = local ONNX detector + SAM (optional)**  
 > **Status:** Demo  
-> **sourceKind:** product AI (legacy packet · không GOVOne leaf)  
+> **sourceKind:** synthetic (product AI · không GOVOne leaf · suy luận docs)  
 > **SSOT P2:** [`14-P2-AI-VISION-STANDARD.md`](../14-P2-AI-VISION-STANDARD.md)  
 > **Sources:** `RMMS` §3 · `07` §3 · `08` · `09` · `10` · `13` · `14` · [`15-SCREEN-AI-MAP.md`](../15-SCREEN-AI-MAP.md)  
 > **Demo:** `Linm.RMMS.Demo/src/demo/ai-vision/ai-vision.html` · control-map `demo-maps/ai-vision-control-map.md`  

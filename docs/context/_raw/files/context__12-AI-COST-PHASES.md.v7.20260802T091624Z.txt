@@ -1,0 +1,85 @@
+# source: context/12-AI-COST-PHASES.md
+# version: 7
+# scannedAt: 2026-08-02T09:16:24.267Z
+# sha256: dcb6ee35287506259cd3732a79ff5df7d85ab50ecc2579985d2d5cfc6a996b0b
+# mtimeMs: 1785512041153.4688
+# RMMS — Chi phí AI theo giai đoạn (tối ưu vận hành)
+
+> **SSOT chi tiết số:** `08-AI-TOKEN-COST-IMAGE-DIAGNOSIS.md` · `09-PLAN-P1-V2.md` · `10-YOLO-SERVER-REQUIREMENTS.md`  
+> **Server cloud/vật lý theo phase:** **`13-AI-SERVER-BY-PHASE.md`** (bắt buộc đọc khi mua/thuê máy)  
+> **GPU burst:** [Vast.ai](https://cloud.vast.ai/) — giá marketplace động  
+> **Canvas:** `rmms-ai-cost-phases` · `rmms-ai-server-phases`
+
+---
+
+## Nguyên tắc
+
+1. **P1 online trước** — không GPU, alert token ~**$200/tháng**.  
+2. **Gate go/no-go** trước khi mua/thuê GPU cố định.  
+3. **Train theo đợt** (Vast RTX 4090 **hoặc** lab vật lý) — tắt máy sau export ONNX.  
+4. **Infer prod** trên host ổn định (L4 / box VN / cloud VN SLA) — **không** 24/7 Vast.  
+5. **Hybrid:** YOLO lọc + GPT chỉ case khó → giảm 50–80% token khi volume lớn.
+6. **DMS vật lý** luôn giữ API/DB — **không** gắn GPU vào chassis 1U 350W (`10` §5).
+
+---
+
+## Server theo phase (tóm tắt)
+
+| Phase | App/DB | Infer AI | Train |
+|-------|--------|----------|-------|
+| **0 P1** | Vật lý DMS | Cloud Azure GPT | — |
+| **1 Gate** | Giữ 0 | Giữ 0 | — |
+| **2 Train** | DMS | GPT (so sánh) | Vast **hoặc** lab vật lý |
+| **3 Hybrid** | DMS + queue | **GPU worker cố định** + GPT fallback | Retrain burst |
+| **4 Prod** | DMS | L4 vật lý / cloud VN SLA | Vast/lab khi cần |
+
+→ Chi tiết bảng + checklist: **`13-AI-SERVER-BY-PHASE.md`**.
+
+---
+
+## Chi phí nhanh
+
+| Hạng mục | Ước lượng |
+|----------|-----------|
+| 1 ảnh GPT-4o high | ~**$0.01** |
+| Triage low | ~**$0.005** |
+| 20k ảnh + triage ~30% high | ~**$70** (thay vì ~$180) |
+| 50k + triage | ~**$175** |
+| Train Vast 4090 · 40–80h | ~**$16–45** / chu kỳ (@ ~$0.25–0.55/h) |
+| 4090 always-on 1 tháng | ~**$220–400** — **không khuyến nghị** prod |
+
+---
+
+## 5 giai đoạn
+
+| # | Giai đoạn | Chi phí chính | Kết quả |
+|---|-----------|---------------|---------|
+| **0** | P1 online (8–12 tuần) | Token $50–200/tháng | Vận hành + UAT P/R |
+| **1** | Gate | $0 | Giữ online **hoặc** Go local |
+| **2** | Train Vast (burst) | $16–45/đợt + đội gán nhãn | Model ONNX/engine |
+| **3** | Hybrid infer | Token giảm + GPU worker | Bill ổn khi volume tăng |
+| **4** | GPU prod cố định | Thuê L4-class / máy VN | SLA · compliance |
+
+---
+
+## Checklist tối ưu
+
+- [ ] Triage `detail: low` → chỉ ~20–40% gọi `high`  
+- [ ] Resize ảnh ~1280 cạnh dài  
+- [ ] Batch offline (không realtime từng frame)  
+- [ ] Azure budget alert $200 (P1)  
+- [ ] Vast: on-demand · RAM≥64 · tắt sau export  
+- [ ] Prod: queue + worker tách DMS · GPT fallback  
+- [ ] Không A100 từ đầu (YOLO mặt đường không cần)
+
+---
+
+## Liên kết
+
+| **`14-P2-AI-VISION-STANDARD.md`** | **Chuẩn hóa P2 detect** |
+| `09-PLAN-P1-V2.md` | Gate + lịch V2 |
+| `10-YOLO-SERVER-REQUIREMENTS.md` | Spec GPU (áp dụng mọi detector ONNX) |
+| `13-AI-SERVER-BY-PHASE.md` | Cloud / vật lý / Vast |
+| `12-AI-COST-PHASES.md` | Chi phí phase |
+| `08-AI-TOKEN-COST-IMAGE-DIAGNOSIS.md` | P1 + fallback GPT |
+| `features/ai-vision.md` | Feature context UI/API |

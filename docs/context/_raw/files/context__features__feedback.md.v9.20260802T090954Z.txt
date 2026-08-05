@@ -1,0 +1,177 @@
+# source: context/features/feedback.md
+# version: 9
+# scannedAt: 2026-08-02T09:09:54.329Z
+# sha256: d063d56a49b929eccb928580ce83991f664a73beb9cccb13c20ad980da26996f
+# mtimeMs: 1785656209423.1992
+# Góp ý phần mềm — Feature Context
+
+> **Slug:** `feedback` · **Module:** `Integration` (nhẹ) · **Phase:** P1  
+> **Status:** Demo  
+> **Kind:** **D** (slideout / modal form) — Confirmed by: ai-autocode-autopilot  
+> **Sources:** guide Mobile **Góp ý** · `15-SCREEN-AI-MAP.md`  
+> **Demo HTML:** `Linm.RMMS.Demo/public/demo/integration/feedback.html`  
+> **MFE (align):** `Linm.Web.RMMS.Integration` · **cấm** sửa MFE ở phase demo  
+> **≠** Cổng người dân (`citizen`)
+
+## 1. Tổng quan
+
+| | |
+|--|--|
+| Mục tiêu | Tuần đường / quản lý / tuần kiểm gửi góp ý tính năng phần mềm |
+| Persona | Mọi role hiện trường |
+| App hiện có | Mobile **Góp ý** — giữ UX |
+| DoD | POST feedback · list admin (optional) |
+
+## 2. Design / UI
+
+| Screen | Pattern | Zones | Ghi chú |
+|--------|---------|-------|---------|
+| Gửi góp ý | Kind D Slideout / Modal | Z1 toolbar · Z2 fields · Z3 footer | Host: Integration stub |
+| Inbox admin | Full | Optional P1 | DEFER GAP-F-FB-01 |
+| Host stub | Full mock | «Mở góp ý» → slideout | Demo only |
+
+**Kind D layout (erp-form-context):**
+
+- **Z1** — Quay lại · Đóng · title «Góp ý phần mềm» · hint · badge ≠ citizen  
+- **Z2a** — Validation banner (nội dung bắt buộc)  
+- **Z2b** — Mã · Người gửi · Vai trò · Thời gian · Loại · Nội dung · Trạng thái  
+- **Z3** — Gửi góp ý của bạn · Lưu nháp · Xóa nội dung · Hủy thay đổi  
+
+**Mock:** 1 bản nháp localStorage · IdCode `FB-YYYYMMDD-NNNN` · toast gửi thành công (no BE).
+
+**2d readonly:** rule_defaults · Confirmed by: ai-autocode-autopilot  
+**2e IdCode:** `FB-YYYYMMDD-NNNN`  
+**2k:** voucher_default · leave-confirm khi dirty  
+
+## 3. API
+
+| Method | Path | Mô tả | BE status |
+|--------|------|-------|-----------|
+| POST | `/api/v1/feedback` | Gửi góp ý | **MISSING** (Step 4b khi Signed) |
+| GET | `/api/v1/feedback` | List admin | **MISSING** · DEFER UI |
+
+> Phase demo: **cấm** gọi BE · fake / localStorage only. Align BE khi Status Signed + be_align ON.
+
+## 4. Database
+
+| Entity | Key columns |
+|--------|-------------|
+| AppFeedback | Id, UserId, Body, Category, At, Status |
+
+## 5. Events / tích hợp
+
+Optional email/notify đội kỹ thuật — DEFER P1 demo.
+
+## 6. Gaps / quyết định
+
+| ID | Question | Default |
+|----|----------|---------|
+| GAP-F-FB-01 | Admin UI inbox | DEFER nếu ngoài scope AI HĐ |
+| GAP-F-FB-02 | BE endpoints `/api/v1/feedback` | MISSING · be_align khi Signed |
+| GAP-F-FB-03 | Phân biệt citizen | Luôn badge / copy ≠ cổng người dân |
+
+## 7. Demo checklist (chốt khách)
+
+- [x] Form gửi đủ field control-map (7)
+- [x] Nút «Gửi góp ý của bạn» + toast mock
+- [x] Không nhầm với Báo sự cố người dân (`citizen`)
+- [x] Đủ 7 actions từ control-map
+- [x] Leave-confirm khi dirty
+- [x] Không gọi BE
+
+<!-- LEGACY-GOVONE-CAPTURE:START -->
+## Legacy GOVOne (auto-capture)
+
+> Auto map từ `tools/legacy-govone-capture` · vision: `_raw/legacy-govone/ai-analysis/`.
+> Dùng làm **step context** cho `/qlbd-analy-demo` · `yarn scan-qlbd-demo`.
+
+### Nguồn
+
+- Raw feature: `docs/context/_raw/legacy-govone/features/feedback.md`
+- Vision packets: 0
+
+### Capture inventory
+
+> **Không có màn GOVOne vision** riêng cho Mobile **Góp ý**.  
+> Capture synthetized từ `Hướng dẫn sử dụng` § Góp ý · `features/feedback.md` · `15-SCREEN-AI-MAP.md`.  
+> Source: product docs — **không** password · **không** clone skin GOVOne.  
+> **≠** Cổng người dân (`citizen`).
+
+## Pages (1)
+
+### GÓP Ý PHẦN MỀM (form gửi)
+
+- **id:** `feedback-send-form`
+- **url:** (planned) `/integration/feedback`
+- **title:** Góp ý phần mềm
+- **headings:** Thông tin người gửi · Nội dung góp ý · Gửi
+
+#### Labels / field captions
+
+- Mã góp ý:
+- Người gửi:
+- Vai trò:
+- Thời gian:
+- Loại góp ý:
+- Nội dung cần góp ý:
+- Trạng thái:
+
+#### Inputs
+
+| tag | type | name/id | placeholder |
+|-----|------|---------|-------------|
+| input | text | feedbackCode | FB-20260801-0001 |
+| input | text | senderName | Nguyễn Văn A |
+| select | select-one | senderRole | tuan-duong |
+| input | datetime-local | sentAt | 2026-08-01T18:00 |
+| select | select-one | category | de-xuat |
+| textarea | text | body | Nội dung cần góp ý… |
+| select | select-one | status | draft |
+
+#### Actions / buttons (full)
+
+| label | kind | zone | tag | disabled |
+|-------|------|------|-----|----------|
+| Mở góp ý | create | host | button | |
+| Gửi góp ý của bạn | create | footer | button | |
+| Lưu nháp | action | footer | button | |
+| Xóa nội dung | destructive | footer | button | |
+| Đóng | close | header | button | |
+| Quay lại | nav | header | button | |
+| Hủy thay đổi | close | footer | button | |
+
+- **actionCount:** 7
+- **fieldCount:** 7
+
+### Step context checklist
+
+- [x] Design demo parity legacy zones
+- [x] Control-map fields từ Labels/Inputs/Vision
+- [ ] Status Demo → Signed → `/qlbd-align-mfe`
+<!-- LEGACY-GOVONE-CAPTURE:END -->
+
+<!-- DEMO-MFE-MODERN:START -->
+## Demo MFE modern (erp-form-context)
+
+> Same fields/actions từ capture · UI chuẩn Linm — **không** clone skin legacy.
+
+- Control-map: [`feedback-control-map.md`](../_raw/legacy-govone/demo-maps/feedback-control-map.md)
+- Actions: [`feedback-actions.md`](../_raw/legacy-govone/demo-maps/feedback-actions.md)
+- Fields mapped: 7 · Actions: 7
+- Kind hint: **D** (slideout / modal form) — erp-form-context Kind D · leave-confirm
+
+Gen demo: `/qlbd-analy-demo @feedback` — load control-map trên + `/erp-form-context` rules (2a-K · 2g · common controls).
+<!-- DEMO-MFE-MODERN:END -->
+
+## 8. Tracking (autopilot)
+
+| | |
+|--|--|
+| Task | `task_4c53dcbe` |
+| Skill | `/qlbd-analy-demo @feedback` |
+| sourceKind | **synthetic** (capture labeled legacy-govone block nhưng **không** màn GOVOne vision — product docs + guide Mobile Góp ý) |
+| Files | `feedback.md` · `demo-maps/feedback-*.md` · `public/demo/integration/feedback.html` · `js/feedback-*.js` · `demoCatalog.ts` · features redirect |
+| Dev | `DEMO_FEATURES` · `/demo/p/feedback` · hub index · DOMAIN integration |
+| ACTION WORK GATE | 7/7 actions work · create host→slideout form pair · no dead Edit/View |
+| BE align | OFF (demo) · GAP-F-FB-02 documented · Step 4b khi Signed |
+| Confirmed by | ai-autocode-autopilot |

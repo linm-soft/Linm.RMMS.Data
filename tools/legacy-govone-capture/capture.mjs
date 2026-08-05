@@ -1,6 +1,10 @@
 /**
  * GOVOne PMDB legacy capture — login → crawl apps → extract fields/menus.
  * Credentials: GOVONE_USER / GOVONE_PASS (env or .env.local). Never log secrets.
+ *
+ * Modes: shallow | deep | full | rescan
+ * Rescan: all left-rail menus + action forms · full-reload retry · pause/manual.
+ * Flags: --rescan · --pause-on-fail · --master=maintenance,patrol · --all-menus
  */
 
 import {
@@ -23,6 +27,11 @@ import {
   dismissFormOverlay,
   findCreateActions,
   isForbiddenClickLabel,
+  isBlankSignal,
+  isStuckLoadingShell,
+  pageSignal,
+  pauseForManual,
+  waitSpaSettle,
 } from "./deep-crawl.mjs";
 import {
   resolveMasterSlug,
@@ -33,13 +42,35 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const TOOL_ROOT = __dirname;
 const DATA_ROOT = resolve(TOOL_ROOT, "../..");
 
-/** shallow | deep | full — full = deep + higher limits */
+/** shallow | deep | full | rescan — rescan = deep + all menus + retry/pause defaults */
 function captureMode() {
   const m = env("GOVONE_MODE", "shallow").toLowerCase();
-  if (m === "full" || m === "deep" || m === "shallow") return m;
+  if (m === "full" || m === "deep" || m === "shallow" || m === "rescan") return m;
+  if (process.argv.includes("--rescan") || process.argv.includes("--re-scan")) {
+    return "rescan";
+  }
   if (process.argv.includes("--full")) return "full";
   if (process.argv.includes("--deep")) return "deep";
   return "shallow";
+}
+
+/** Parse --master=a,b or GOVONE_MASTER / GOVONE_MASTERS */
+function parseMasterFilter() {
+  const arg = process.argv.find((a) => a.startsWith("--master="));
+  const raw =
+    (arg ? arg.slice("--master=".length) : "")
+    || env("GOVONE_MASTER")
+    || env("GOVONE_MASTERS")
+    || "";
+  if (!raw || raw === "*" || raw.toLowerCase() === "all") return null;
+  return raw
+    .split(/[,|;]+/)
+    .map((s) => s.trim().toLowerCase())
+    .filter(Boolean);
+}
+
+function hasFlag(...names) {
+  return names.some((n) => process.argv.includes(n));
 }
 
 function loadEnvFile(path) {
@@ -470,36 +501,84 @@ async function main() {
   })();
 
   const mode = captureMode();
-  const deep = mode === "deep" || mode === "full";
-  const defaultMax = mode === "full" ? "200" : deep ? "120" : "80";
+  const rescan = mode === "rescan" || hasFlag("--rescan", "--re-scan");
+  const deep = mode === "deep" || mode === "full" || rescan;
+  const allMenus =
+    rescan
+    || hasFlag("--all-menus", "--all-menu")
+    || boolEnv("GOVONE_ALL_MENUS", false);
+  const masterFilter = parseMasterFilter();
+  const pauseOnFail =
+    hasFlag("--pause-on-fail", "--manual", "--pause")
+    || boolEnv("GOVONE_PAUSE_ON_FAIL", rescan && !boolEnv("CI", false));
+  const maxRetries =
+    Number(
+      env(
+        "GOVONE_RETRY",
+        hasFlag("--retry")
+          ? "2"
+          : rescan
+            ? "2"
+            : "1",
+      ),
+    ) || 0;
+  // Explicit --retry=N
+  const retryArg = process.argv.find((a) => a.startsWith("--retry="));
+  const retryCount = retryArg
+    ? Number(retryArg.slice("--retry=".length)) || maxRetries
+    : maxRetries;
+
+  const defaultMax = rescan || mode === "full" ? "250" : deep ? "120" : "80";
   const maxPages = Number(env("GOVONE_MAX_PAGES", defaultMax)) || 80;
-  const maxMenu = Number(env("GOVONE_MAX_MENU", mode === "full" ? "200" : "120")) || 120;
-  // Left-rail: full scan — default cao hơn
-  const maxInner = Number(env("GOVONE_MAX_INNER", mode === "full" ? "80" : "50")) || 50;
-  const maxCreate = Number(env("GOVONE_MAX_CREATE", "4")) || 4;
-  // deep/full: mặc định HIỆN browser để theo dõi; set GOVONE_HEADLESS=true để ẩn
-  // shallow: mặc định headless
+  const maxMenu = Number(env("GOVONE_MAX_MENU", mode === "full" || rescan ? "250" : "120")) || 120;
+  // Left-rail: rescan/all = full enumerate (high cap)
+  const maxInner = Number(
+    env(
+      "GOVONE_MAX_INNER",
+      allMenus ? "200" : mode === "full" ? "80" : "50",
+    ),
+  ) || 50;
+  const maxCreate = Number(
+    env("GOVONE_MAX_CREATE", rescan || allMenus ? "20" : "4"),
+  ) || 4;
+  // deep/full/rescan: mặc định HIỆN browser; pause bắt buộc headed
   const headlessEnv = env("GOVONE_HEADLESS");
   const headless =
-    headlessEnv !== ""
-      ? boolEnv("GOVONE_HEADLESS", !deep)
-      : !deep;
+    pauseOnFail
+      ? false
+      : headlessEnv !== ""
+        ? boolEnv("GOVONE_HEADLESS", !deep)
+        : !deep;
   const headedForce =
     process.argv.includes("--headed") || process.argv.includes("--show");
   const headlessForce = process.argv.includes("--headless");
   const useHeadless = headedForce ? false : headlessForce ? true : headless;
 
+  const crawlOpts = {
+    maxRetries: retryCount,
+    pauseOnFail,
+    fullReloadRetry: true,
+    allActionForms: rescan || allMenus || boolEnv("GOVONE_ALL_ACTION_FORMS", false),
+  };
+
   console.log(
     JSON.stringify({
       event: "start",
-      mode,
+      mode: rescan ? "rescan" : mode,
       deep,
+      rescan,
+      allMenus,
+      masterFilter: masterFilter || "all",
+      pauseOnFail,
+      maxRetries: retryCount,
+      allActionForms: crawlOpts.allActionForms,
       baseUrl,
       outDir,
       userSet: Boolean(user),
       passLen: pass.length,
       maxPages,
       maxInner,
+      maxCreate,
       headless: useHeadless,
       showBrowser: !useHeadless,
     }),
@@ -545,8 +624,40 @@ async function main() {
       && !m.href.includes("apps.aspx#")
       && !m.href.endsWith("#"),
   );
-  for (const t of tiles) queue.push(t);
-  for (const o of others) queue.push(o);
+  for (const t of tiles) {
+    if (masterFilter) {
+      const slug = resolveMasterSlug(t.text, slugRules);
+      const hit = masterFilter.some(
+        (f) =>
+          slug === f
+          || slug.includes(f)
+          || f.includes(slug)
+          || String(t.text).toLowerCase().includes(f),
+      );
+      if (!hit) {
+        console.log(
+          JSON.stringify({
+            event: "tile_skip_master_filter",
+            menuText: t.text,
+            slug,
+            masterFilter,
+          }),
+        );
+        continue;
+      }
+    }
+    queue.push(t);
+  }
+  for (const o of others) {
+    if (masterFilter) {
+      const slug = resolveMasterSlug(o.text, slugRules);
+      const hit = masterFilter.some(
+        (f) => slug === f || slug.includes(f) || f.includes(slug),
+      );
+      if (!hit) continue;
+    }
+    queue.push(o);
+  }
 
   let active = page;
 
@@ -590,6 +701,19 @@ async function main() {
           active = opened.page;
           invTarget = opened.page;
           finalUrl = opened.page.url();
+          // SPA /DuongBo/dashboard — chờ settle, cấm reload loop
+          await waitSpaSettle(active, 6_000);
+          const shellSig = await pageSignal(active);
+          if (isStuckLoadingShell(shellSig)) {
+            console.log(
+              JSON.stringify({
+                event: "spa_loading_shell",
+                menuText: item.text,
+                url: shellSig.url,
+                hint: "capture once then continue — no full reload",
+              }),
+            );
+          }
         } else if (opened.via === "frame" && opened.frame) {
           invTarget = opened.frame;
           finalUrl = opened.frame.url();
@@ -718,13 +842,19 @@ async function main() {
         pageTitle: "_root",
       });
 
-      /** Tabs + top menus + Add (no Save) trên page hiện tại. */
+      /** Tabs + top menus + Add / action forms (no Save) trên page hiện tại. */
       const exploreChromeAndAdd = async (pageKey, pageTitle) => {
         if (!deep || !active || active.isClosed?.()) return;
 
         const chrome = await clickAllTabsAndMenus(active, {
-          maxTabs: mode === "full" ? 24 : 16,
-          maxMenus: mode === "full" ? 18 : 12,
+          maxTabs: mode === "full" || rescan ? 24 : 16,
+          maxMenus: mode === "full" || rescan ? 18 : 12,
+          maxRetries: 0,
+          pauseOnFail: false,
+          noFullReload: true,
+          fullReloadRetry: false,
+          master: masterSlug,
+          pageKey,
         });
         const reloadCount = chrome.log.filter((x) => x.reloaded).length;
         if (chrome.tabs || chrome.menus) {
@@ -759,8 +889,10 @@ async function main() {
           });
         }
 
-        // Add / Thêm — cấm Save/Submit
-        const creates = (await findCreateActions(active))
+        // Add / Tạo / action form — cấm Save/Submit · rescan: all action forms
+        const creates = (await findCreateActions(active, {
+          allActionForms: crawlOpts.allActionForms,
+        }))
           .filter((c) => !isForbiddenClickLabel(c.label))
           .slice(0, maxCreate);
         for (const c of creates) {
@@ -769,42 +901,76 @@ async function main() {
           if (visited.has(ck)) continue;
           visited.add(ck);
 
-          const opened = await clickCreateAndCaptureForm(active, c.label);
+          const opened = await clickCreateAndCaptureForm(active, c.label, {
+            maxRetries: Math.min(crawlOpts.maxRetries, 1),
+            pauseOnFail: crawlOpts.pauseOnFail,
+            master: masterSlug,
+            pageKey,
+          });
           if (!opened.ok) {
-            if (opened.reloaded) {
-              console.log(
-                JSON.stringify({
-                  event: "reload_after_add",
-                  master: masterSlug,
-                  page: pageKey,
-                  label: c.label,
-                  reason: opened.reason,
-                }),
-              );
-            }
+            console.log(
+              JSON.stringify({
+                event: opened.reloaded ? "reload_after_add" : "add_fail",
+                master: masterSlug,
+                page: pageKey,
+                label: c.label,
+                reason: opened.reason,
+                manualSkipped: opened.manualSkipped || false,
+              }),
+            );
             continue;
           }
 
           const formInv = await extractPageInventory(active);
+          const blankForm =
+            (formInv.fields?.length || 0) < 1
+            && (formInv.labels?.length || 0) < 2;
+          if (blankForm && crawlOpts.pauseOnFail) {
+            const manual = await pauseForManual({
+              master: masterSlug,
+              page: pageKey,
+              action: c.label,
+              reason: "form-blank",
+              hint:
+                "Form opened but fields empty. Load form content manually, Enter to re-capture.",
+            });
+            if (!manual.continued) continue;
+          } else if (blankForm && crawlOpts.maxRetries > 0) {
+            // auto full reload was already tried inside clickCreate; one more inventory
+            console.log(
+              JSON.stringify({
+                event: "form_blank",
+                master: masterSlug,
+                page: pageKey,
+                label: c.label,
+              }),
+            );
+          }
+
+          const formInv2 = blankForm ? await extractPageInventory(active) : formInv;
           const formSample = {
             trigger: c.label,
-            labels: formInv.labels,
-            fields: formInv.fields,
-            actions: (formInv.actions || []).filter(
+            actionKind: c.kind || "create",
+            manual: Boolean(opened.manual),
+            labels: formInv2.labels,
+            fields: formInv2.fields,
+            actions: (formInv2.actions || []).filter(
               (a) => !isForbiddenClickLabel(a.label || a.text),
             ),
-            headings: formInv.headings,
-            note: "Captured form only — did NOT click Save/Submit",
+            headings: formInv2.headings,
+            note: opened.manual
+              ? "Manual load + capture — did NOT click Save/Submit"
+              : "Captured form only — did NOT click Save/Submit",
           };
 
           await saveLeaf({
             menuText: `${item.text} › ${pageTitle} › ${c.label}`,
             kind: "form-sample",
-            viaKind: "create",
+            viaKind: opened.manual ? "manual-create" : "create",
             target: active,
             url: active.url(),
             pageKey,
-            actionKey: /create|new|add|thêm/i.test(c.label)
+            actionKey: /create|new|add|thêm|tạo/i.test(c.label)
               ? "create"
               : slugify(c.label),
             formSample,
@@ -817,6 +983,7 @@ async function main() {
       };
 
       // Deep: chrome (tabs/menus/add) + left rail → mỗi page lại chrome + create
+      // Rescan: bắt buộc walk EVERY left-rail menu (allMenus)
       if (
         deep
         && item.kind === "app-tile"
@@ -838,6 +1005,8 @@ async function main() {
             {
               master: masterSlug,
               capturedAt: nowIso(),
+              mode: rescan ? "rescan" : mode,
+              allMenus,
               count: rail.length,
               rail,
               tabs: tabs0,
@@ -855,6 +1024,8 @@ async function main() {
             count: rail.length,
             tabs: tabs0.length,
             topMenus: top0.length,
+            rescan,
+            allMenus,
           }),
         );
 
@@ -866,20 +1037,61 @@ async function main() {
 
           const navClick = await clickSafe(active, nav.text, {
             allowListEmpty: true,
-            reloadOnEmpty: true,
+            reloadOnEmpty: false,
             expectUiChange: false,
+            maxRetries: 0,
+            noFullReload: true,
+            pauseOnFail: false,
+            fullReloadRetry: false,
+            master: masterSlug,
+            pageKey: nav.text,
           });
-          if (!navClick.ok && !navClick.reloaded) continue;
-          if (navClick.reloaded) {
-            // Sau reload thử click lại menu
-            const again = await clickInnerItem(active, nav.text);
-            if (!again) continue;
+          if (!navClick.ok && !navClick.manual) {
+            console.log(
+              JSON.stringify({
+                event: "rail_skip",
+                master: masterSlug,
+                menu: nav.text,
+                reason: navClick.skipped || "click-fail",
+              }),
+            );
+            continue;
+          }
+          // Không full-reload lại left-rail (kẹt /DuongBo/dashboard)
+
+          let afterNav = await pageSignal(active).catch(() => null);
+          if (afterNav?.loading) {
+            afterNav = await waitSpaSettle(active, 4_000);
+          }
+          if (afterNav && isStuckLoadingShell(afterNav)) {
+            console.log(
+              JSON.stringify({
+                event: "rail_stuck_loading",
+                master: masterSlug,
+                menu: nav.text,
+                url: afterNav.url,
+              }),
+            );
+            // inventory shell 1 lần rồi next menu — không pause/reload
+          } else if (
+            afterNav
+            && isBlankSignal(afterNav)
+            && crawlOpts.pauseOnFail
+            && !isStuckLoadingShell(afterNav)
+          ) {
+            const man = await pauseForManual({
+              master: masterSlug,
+              page: nav.text,
+              reason: "blank-content",
+              hint: `Page «${nav.text}» empty. Load content manually, Enter to inventory.`,
+            });
+            if (!man.continued) continue;
           }
 
           await saveLeaf({
             menuText: `${item.text} › ${nav.text}`,
             kind: "left-rail",
-            viaKind: "deep",
+            viaKind: navClick.manual ? "manual-deep" : "deep",
             target: active,
             url: active.url(),
             pageKey: nav.text,
@@ -888,6 +1100,7 @@ async function main() {
             pageTitle: nav.text,
           });
 
+          // per-menu: all action forms (Tạo công việc, Tạo từ sự cố, Thêm…)
           await exploreChromeAndAdd(nav.text, nav.text);
         }
 
@@ -937,7 +1150,12 @@ async function main() {
     baseUrl,
     capturedAt: nowIso(),
     loginOk: true,
-    mode,
+    mode: rescan ? "rescan" : mode,
+    rescan,
+    allMenus,
+    masterFilter: masterFilter || null,
+    pauseOnFail,
+    maxRetries: retryCount,
     layout: "capture/{master}/{page}/{action}/",
     captureRoot: "capture/",
     pageCount: pages.length,
@@ -986,8 +1204,10 @@ async function main() {
   console.log(
     JSON.stringify({
       event: "done",
+      mode: catalog.mode,
       pageCount: pages.length,
       formSampleCount: catalog.formSampleCount,
+      masterFilter: catalog.masterFilter,
       captureRoot: join(outDir, "capture"),
       outDir,
     }),

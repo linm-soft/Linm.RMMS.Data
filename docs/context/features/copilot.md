@@ -99,14 +99,14 @@ Không publish event bắt buộc. Tools đọc Report / Incident / Asset / Pred
 
 ## 7. Demo checklist (chốt khách)
 
-- [ ] Drawer + 3 prompt mẫu (đủ 5)
-- [ ] Disclaimer rõ
-- [ ] Badge AI support · P1 online 4o-mini · không hứa RAG local P1
-- [ ] Không gắn Mobile P1
-- [ ] 3 hội thoại mẫu · citations · chart stub
-- [ ] Thumb feedback · rate limit badge
-- [ ] Catalog `/dev` + hub card domain `copilot`
-- [ ] sourceKind synthetic · no RECAPTURE open
+- [x] Drawer + 3 prompt mẫu (đủ 5)
+- [x] Disclaimer rõ
+- [x] Badge AI support · P1 online 4o-mini · không hứa RAG local P1
+- [x] Không gắn Mobile P1
+- [x] 3 hội thoại mẫu · citations · chart stub
+- [x] Thumb feedback · rate limit badge
+- [x] Catalog `/dev` + hub card domain `copilot`
+- [x] sourceKind synthetic · no RECAPTURE open
 
 ## 8. Legacy / capture
 

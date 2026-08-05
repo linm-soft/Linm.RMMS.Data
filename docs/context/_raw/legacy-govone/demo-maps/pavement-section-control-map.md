@@ -2,8 +2,8 @@
 
 > **Rule:** cùng field/action legacy · UI theo **`/erp-form-context`** (Linm.Development.Rules).  
 > Demo HTML mock `Lin*` look · **cấm** copy skin GOVOne cũ · **cấm** BE.  
-> Legacy: synthetized (Biểu 1 CSDL · hồ sơ sổ sách) — `_raw/legacy-govone/features/pavement-section.md`.  
-> **≠** GOVOne `ketcauhatang` (`asset`) — sổ tài sản map+list riêng.
+> Legacy: **synthetic** (Biểu 1 CSDL · hồ sơ sổ sách · product docs) — `_raw/legacy-govone/features/pavement-section.md`.  
+> **sourceKind:** synthetic · task_12c100cf · **≠** GOVOne `ketcauhatang` (`asset`) — sổ tài sản map+list riêng.
 
 ## Kind hint
 

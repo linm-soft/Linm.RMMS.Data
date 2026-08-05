@@ -1,0 +1,244 @@
+# source: context/features/integration.md
+# version: 9
+# scannedAt: 2026-08-02T09:09:54.329Z
+# sha256: b654442d38fc5116b663cef6c7b57fbd7293f071eb5aa710659321fff11c2cf8
+# mtimeMs: 1785657466860.5872
+# Open API và tích hợp — Feature Context
+
+> **Slug:** `integration` · **Module:** `Integration` · **Phase:** P1–P3  
+> **Status:** Demo  
+> **Kind:** **G** (system layout hub) + Import Kind **D** slideout — Confirmed by: ai-autocode-autopilot  
+> **Sources:** `RMMS` §18 · `07` §18 · `09` · `15-SCREEN-AI-MAP.md` · guide Import tài sản  
+> **Demo HTML:** `Linm.RMMS.Demo/public/demo/integration/integration.html`  
+> **MFE (align):** `Linm.Web.RMMS.Integration` · **cấm** sửa MFE ở phase demo  
+> **Sibling:** `feedback` (Góp ý) — cùng domain folder, slug riêng
+
+## 1. Tổng quan
+
+| | |
+|--|--|
+| Mục tiêu | OpenAPI baseline · sync dữ liệu sẵn có · adapter ERP/CMMS/PMIS/ITS/ETC/Camera/SAP/GIS/IoT/Cổng DVC |
+| Persona | Dev tích hợp · IT khách |
+| App hiện có | Import tài sản Web · offline sync Mobile |
+| DoD P1 | Swagger stub · import/export Asset · offline-batch contract · endpoint catalog |
+| DoD P2+ | Webhook partner · citizen API |
+
+## 2. Design / UI
+
+| Screen | Pattern | Zones | Ghi chú |
+|--------|---------|-------|---------|
+| Open API hub | Kind G system | Tabs Endpoints · Sync · Partners | Swagger stub (no BE) |
+| Import tài sản | Kind D Slideout | Z1 toolbar · Z2 fields · Z3 footer | Guide Import KCHT |
+| Sync jobs list | CatalogListShell | Filter · grid · row actions | offline-batch / import |
+| Partners | CatalogListShell | Health · Bật/Tắt | Adapter catalog |
+| Offline-batch contract | Modal | JSON mock | 1 trang mô tả |
+
+**Kind G + D layout (erp-form-context):**
+
+- **Hub Z1** — Quay lại · title «Open API và tích hợp» · badge P1 baseline · toolbar OpenAPI  
+- **Tab Endpoints** — bảng Method/Path · filter · Swagger stub panel  
+- **Tab Sync** — jobs grid · Xem log · Retry  
+- **Tab Partners** — ERP…Cổng DVC · health · Bật/Tắt  
+- **Import slideout** — Z1 Đóng · Z2 Loại TS/Địa bàn/Tuyến/Đoạn/File · Z3 Chạy import  
+
+**Mock:** endpoint P1 table · 4 sync jobs · 10 partners · IdCode `SYNC-YYYYMMDD-NNNN` · localStorage checklist.
+
+**2d readonly:** rule_defaults · Confirmed by: ai-autocode-autopilot  
+**2e IdCode:** `SYNC-YYYYMMDD-NNNN`  
+**2k:** leave-confirm khi import dirty  
+**2h:** CatalogListShell sync + partners
+
+## 3. API
+
+| Method | Path | Mô tả | BE status |
+|--------|------|-------|-----------|
+| — | `/swagger` | OpenAPI UI | **MISSING** (Step 4b khi Signed) |
+| GET | `/api/v1/integrations/health` | Health adapters | **MISSING** |
+| POST | `/api/v1/assets/import` | Đồng bộ TS | **MISSING** |
+| POST | `/api/v1/sync/offline-batch` | Mobile Lưu trữ | **MISSING** |
+| POST | `/api/v1/integrations/webhooks/{partner}` | Inbound webhook | **MISSING** · P2+ |
+
+> Phase demo: **cấm** gọi BE · fake / localStorage only. Align BE khi Status Signed + be_align ON.
+
+## 4. Database
+
+| Entity | Key columns | Notes |
+|--------|-------------|-------|
+| SyncJob | Id, Code, Type, Partner, Status, RecordCount, StartedAt, FinishedAt, Error | optional `integration.sync_job` |
+| PartnerAdapter | Id, Name, SystemType, Auth, Health, Enabled, Phase | catalog |
+
+## 5. Events / tích hợp
+
+| Event / pattern | Publisher | Consumer |
+|-----------------|-----------|----------|
+| Partner catalog | Integration | ERP/CMMS/PMIS/ITS/ETC/Camera/SAP/GIS/IoT/DVC |
+| `{OrgB}` kỹ thuật · `{OrgA}` quyền/data | — | P2+ |
+
+## 6. Gaps / quyết định
+
+| ID | Question | Default |
+|----|----------|---------|
+| GAP-F-INT-01 | Public citizen API | P3 `citizen` |
+| GAP-F-INT-02 | SAP/ETC | DEFER theo HĐ |
+| GAP-F-INT-03 | BE endpoints swagger/import/offline-batch/webhooks | MISSING · be_align khi Signed |
+| GAP-F-INT-04 | Admin UI adapter full | P1 catalog mock · P2 webhook |
+
+## 7. Demo checklist (chốt khách)
+
+- [x] Bảng endpoint P1 ưu tiên
+- [x] Swagger stub / panel
+- [x] Offline-batch mô tả 1 trang (modal)
+- [x] Import wizard đủ field guide (loại TS · địa bàn · tuyến · đoạn · file)
+- [x] Đủ 19 actions từ control-map
+- [x] Leave-confirm khi import dirty
+- [x] Không gọi BE
+
+<!-- LEGACY-GOVONE-CAPTURE:START -->
+## Legacy GOVOne (auto-capture)
+
+> Auto map từ `tools/legacy-govone-capture` · vision: `_raw/legacy-govone/ai-analysis/`.
+> Dùng làm **step context** cho `/qlbd-analy-demo` · `yarn scan-qlbd-demo`.
+
+### Nguồn
+
+- Raw feature: `docs/context/_raw/legacy-govone/features/integration.md`
+- Vision packets: 0
+
+### Capture inventory
+
+> **Không có màn GOVOne vision** riêng cho Open API hub.  
+> Capture synthetized từ `RMMS` §18 · `07` Hạng mục 18 · `09` Integration OpenAPI baseline · guide **Import tài sản** · `15-SCREEN-AI-MAP.md` screen 18.  
+> Source: product docs — **không** password · **không** clone skin GOVOne.  
+> Sibling domain page: `feedback` (Góp ý) — **không** gộp vào slug này.
+
+## Pages (3)
+
+### OPEN API HUB (system)
+
+- **id:** `integration-openapi-hub`
+- **url:** (planned) `/integration`
+- **title:** Open API và tích hợp
+- **headings:** Endpoint P1 · Swagger stub · Health partner · Sync jobs
+
+#### Labels / field captions
+
+- Method · Path · Mô tả · Phase · Auth · Trạng thái endpoint · OpenAPI URL · Health tổng
+
+#### Inputs
+
+| tag | type | name/id | placeholder |
+|-----|------|---------|-------------|
+| input | search | endpointSearch | Lọc path / mô tả… |
+| select | select-one | phaseFilter | p1 |
+| input | text | openApiUrl | /swagger/v1/swagger.json |
+
+#### Actions / buttons (full)
+
+| label | kind | zone | tag | disabled |
+|-------|------|------|-----|----------|
+| Mở Swagger | nav | toolbar | button | |
+| Copy OpenAPI URL | action | toolbar | button | |
+| Làm mới health | action | toolbar | button | |
+| Xuất catalog endpoint | export | toolbar | button | |
+| Làm mới danh sách | action | toolbar | button | |
+| Lọc / Tìm | action | filter | button | |
+| Xem offline-batch contract | nav | toolbar | button | |
+| Đăng ký webhook | create | toolbar | button | P2 stub |
+| Quay lại | nav | header | button | |
+
+### IMPORT TÀI SẢN (wizard)
+
+- **id:** `integration-asset-import`
+- **url:** (planned) `/integration/import`
+- **title:** Import tài sản KCHT
+- **headings:** Chọn nguồn · Mapping · Chạy import
+
+#### Labels / field captions
+
+- Mã job · Loại tài sản · Địa bàn · Tuyến đường · Đoạn đường · File nguồn · Ghi chú · Trạng thái job
+
+#### Inputs
+
+| tag | type | name/id | placeholder |
+|-----|------|---------|-------------|
+| input | text | jobCode | SYNC-20260801-0001 |
+| select | select-one | assetType | mat-duong |
+| select | select-one | region | hn |
+| select | select-one | route | QL1A |
+| input | text | section | Km 12+000 – 14+500 |
+| input | file | importFile | Chọn file Excel/CSV |
+| textarea | text | note | Ghi chú batch… |
+| select | select-one | jobStatus | draft |
+
+#### Actions / buttons (full)
+
+| label | kind | zone | tag | disabled |
+|-------|------|------|-----|----------|
+| Import tài sản | create | host | button | |
+| Chọn file | action | form | button | |
+| Tải mẫu Excel | export | form | button | |
+| Chạy import | create | footer | button | |
+| Hủy import | close | footer | button | |
+| Hủy thay đổi | close | footer | button | |
+| Đóng | close | header | button | |
+
+### SYNC JOBS + PARTNERS (list)
+
+- **id:** `integration-sync-partners`
+- **url:** (planned) `/integration/sync`
+- **title:** Sync jobs & adapters
+- **headings:** Jobs · Partners ERP/CMMS/… · Log
+
+#### Labels / field captions
+
+- Mã job · Loại sync · Partner · Trạng thái · Số bản ghi · Bắt đầu · Kết thúc · Lỗi · Partner name · Loại hệ thống · Auth · Health · Phase adapter
+
+#### Inputs
+
+| tag | type | name/id | placeholder |
+|-----|------|---------|-------------|
+| input | search | jobSearch | Mã / partner… |
+| select | select-one | syncTypeFilter | all |
+| select | select-one | jobStatusFilter | all |
+
+#### Actions / buttons (full)
+
+| label | kind | zone | tag | disabled |
+|-------|------|------|-----|----------|
+| Xem log sync | action | row | button | |
+| Retry job | action | row | button | |
+| Bật/Tắt adapter | action | row | button | |
+
+- **actionCount:** 19 (hub 9 + import 7 + sync/partners 3)
+- **fieldCount:** 22 (hub 8 · import 8 · sync/partner 14 unique labels; mapped 22 in control-map)
+
+### Step context checklist
+
+- [x] Design demo parity legacy zones
+- [x] Control-map fields từ Labels/Inputs/Vision
+- [ ] Status Demo → Signed → `/qlbd-align-mfe`
+<!-- LEGACY-GOVONE-CAPTURE:END -->
+
+<!-- DEMO-MFE-MODERN:START -->
+## Demo MFE modern (erp-form-context)
+
+> Same fields/actions từ capture · UI chuẩn Linm — **không** clone skin legacy.
+
+- Control-map: [`integration-control-map.md`](../_raw/legacy-govone/demo-maps/integration-control-map.md)
+- Actions: [`integration-actions.md`](../_raw/legacy-govone/demo-maps/integration-actions.md)
+- Fields mapped: 28 · Actions: 19
+- Kind hint: **G** system hub + **D** import slideout — leave-confirm · CatalogListShell
+
+Gen demo: `/qlbd-analy-demo @integration` — load control-map trên + `/erp-form-context` rules (2a-K · 2g · common controls · list shell).
+<!-- DEMO-MFE-MODERN:END -->
+
+## 8. Tracking (autopilot)
+
+| | |
+|--|--|
+| Task | `task_14a6f905` |
+| Skill | `/qlbd-analy-demo @integration` |
+| sourceKind | legacy (capture synthetized từ docs · không màn GOVOne vision) |
+| Files | `integration.md` · `demo-maps/integration-*.md` · `public/demo/integration/integration.html` · `js/integration-*.js` · `demoCatalog.ts` · `features/integration-demo.html` |
+| BE align | OFF (demo) · GAP-F-INT-03 documented · no P0 open gap |
+| Confirmed by | ai-autocode-autopilot |

@@ -62,7 +62,7 @@
 | Theo dõi GPS | view | grid | Theo dõi GPS | Modal GPS stub |
 | Xuất Excel | export | toolbar | Xuất Excel | export-excel stub |
 | Xuất báo cáo tồn | export | toolbar | Xuất báo cáo tồn | Export stub · toast |
-| Bản đồ GPS | nav | toolbar | Bản đồ GPS | Modal map stub P3 |
+| Bản đồ GPS | nav | toolbar | Bản đồ GPS | Modal Leaflet OSM pins · Timescale DEFER |
 | Gán WorkOrder | nav | toolbar | Gán WorkOrder | Nav `/maintenance` demo |
 | Nhập kho | create | toolbar | Nhập kho | Open form + dòng nhập |
 | Xuất kho | action | toolbar | Xuất kho | Open form + dòng xuất |

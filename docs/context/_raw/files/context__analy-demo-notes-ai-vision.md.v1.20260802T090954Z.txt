@@ -1,0 +1,37 @@
+# source: context/analy-demo-notes-ai-vision.md
+# version: 1
+# scannedAt: 2026-08-02T09:09:54.329Z
+# sha256: 2a68e4d512005f68453955e4f3d13ff30ccbf2014b595c9b14a73fc5f44a0471
+# mtimeMs: 1785659096061.2434
+# Analy-demo notes — ai-vision (task_d0478e9e)
+
+> When: 2026-08-02 · skill `/qlbd-analy-demo` · sourceKind: **product AI / docs** (legacy packet; no GOVOne leaf)  
+> DocsRoot: `AI-QLBD/Linm.RMMS.Data/docs` · DemoRoot: `Linm.RMMS.Demo/src/demo`
+
+## Scope
+
+| Field | Value |
+|-------|--------|
+| slug | `ai-vision` |
+| title | AI kiểm định mặt đường |
+| module | AiVision |
+| AI | P1 GPT-4o Vision · P2 ONNX + SAM |
+| entity output | detection → Confirm → **Vấn đề/Incident** (≠ Asset) |
+| status feature | **Demo** |
+
+## Design summary
+
+- Kind **B+D+F** · Linm shell · skip GOVOne chrome  
+- Upload/batch detect · filter list · Leaflet pins · slideout · Confirm VI-*  
+- Control-map: `demo-maps/ai-vision-control-map.md` · actions: `ai-vision-actions.md`  
+- HTML: `/demo/ai-vision/ai-vision.html` · catalog badge **run** · DEV `/demo/p/ai-vision`
+
+## Gaps
+
+- GOVOne recapture: **wontfix** (product AI) — `RECAPTURE-GAPS.md`  
+- BE endpoints: **DEFER** until Signed → `/align-demo-mfe`
+
+## Verify
+
+- Demo `yarn typecheck` · `yarn build` PASS  
+- MFE production build env-gated (localhost blocked) — not required for demo_scan

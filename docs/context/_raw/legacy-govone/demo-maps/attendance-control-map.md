@@ -1,8 +1,9 @@
 # Demo control-map (modern MFE) — `attendance`
 
-> **Rule:** field/action từ product docs (Check-in + BC checkin + geo-fence) · UI **`/erp-form-context`** Kind E+D.
-> **cấm** clone skin GOVOne · **cấm** BE · sourceKind=`legacy` (context only · no raw leaf dedicated).
-> Demo: `public/demo/patrol/attendance.html`
+> **sourceKind:** `synthetic` · suy luận từ product docs (Check-in + BC checkin + geo-fence + 07 §5 + 15 #4–5).  
+> **Không** đợi GOVOne leaf · **cấm** RECAPTURE-GAPS open chỉ vì thiếu capture.  
+> **Rule:** UI **`/erp-form-context`** Kind E+D · **cấm** clone skin GOVOne · **cấm** BE.  
+> Demo: `Linm.RMMS.Demo/src/demo/patrol/attendance.html`
 
 ## Kind hint
 
@@ -45,10 +46,10 @@ See `attendance-actions.md` · toolbar filter export map zone nav (Check-in + BC
 
 ## AI support (map 15 #4–5)
 
-| Phase | Engine |
-|-------|--------|
-| P1 | Rule + PostGIS geo-fence / InZone |
-| P2 | Edge camera (sau) |
+| Phase | Engine | Input | Output |
+|-------|--------|-------|--------|
+| P1 | Rule + PostGIS geo-fence / InZone | GPS · route · zone | InZone · % đúng tuyến · KPI ≥3 |
+| P2 | Edge camera (sau) | — | DEFER · không claim mAP local |
 
 Face/NFC: **DEFER** — không control trên demo P1.
 

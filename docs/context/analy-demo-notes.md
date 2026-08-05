@@ -2,10 +2,70 @@
 
 | | |
 |--|--|
-| Last skill | `/qlbd-analy-demo @copilot` |
+| Last skill | `/qlbd-analy-demo @pavement-section` |
 | Date | 2026-08-02 |
 | Manifest | `context/_raw/manifest.json` (docs-scan-cache · Unchanged skip re-read) |
 | DemoRoot | `Linm.RMMS.Demo/public/demo` (+ mirror `src/demo`) |
+
+## @pavement-section (task_12c100cf)
+
+- **sourceKind:** `synthetic` (product Biểu 1 · CSDL BDTX · **no** GOVOne leaf · suy luận từ `features/pavement-section.md` · `11-CSDL-SO-SACH-DATABASE-API.md` § Biểu 1 · guide/giaiphap · **cấm** RECAPTURE chỉ vì thiếu GOVOne)
+- Control-map: `_raw/legacy-govone/demo-maps/pavement-section-control-map.md` (22 fields · 23 actions) · actions `pavement-section-actions.md`
+- Kind: **B** CatalogListShell + **full page form** (≥10 field — không Modal) — erp-form-context · IdCode `MD-*` · leave-confirm dirty · column picker · pager 20/50
+- Demo HTML: `public/demo/asset/pavement-section.html` (+ `js/pavement-section.js` · `js/pavement-section-app.js`) · mirror `src/demo/asset/` · `features/pavement-section-demo.html`
+- Catalog /dev: `demoCatalog.ts` badge `run` · domain `asset` · alignMfe Asset · route `/asset` · hub `index.html`
+- AI: map 15 Tài sản KCHT — **không** engine detect trên Biểu 1 · **no** `aiSupport` badge (AI pin thuộc slug `asset`)
+- Map live: nav → `gis-draw-live.html?layerCode=mat-duong` (link · **không** embed full map trên form list)
+- Action work: Create/Edit/View/Delete · Import/Export stub · filter/clear · col config · help/notif/user shell · form Lưu/Huỷ/Sửa/Đóng · localStorage
+- BE: `/api/v1/infra/pavement-sections/*` **MISSING** → GAP-F-PVT-01 · **be_align OFF** (Status Demo ≠ Signed · DEFER Step 4b)
+- RECAPTURE: **cấm** open gap chỉ vì không GOVOne · product docs đủ field/action
+- **No** MFE production / BE changes (demo only)
+- Gap open: **none** P0
+
+## @estimate (task_31764117)
+
+- **sourceKind:** `synthetic` (product AI #10 · **no** GOVOne leaf · suy luận từ `features/estimate.md` · `07` §10 · `15` · guide/giaiphap)
+- Control-map: `_raw/legacy-govone/demo-maps/estimate-control-map.md` (20 fields · 13 actions) · actions `estimate-actions.md`
+- Kind: **D** slideout panel host Công việc/Sự cố — erp-form-context · leave-confirm dirty · `pattern_inline_grid` · IdCode `EST-YYYYMMDD-NNNN`
+- Demo HTML: `public/demo/ai-vision/estimate.html` (+ `js/estimate-data.js` · `js/estimate-app.js`) · mirror `src/demo/ai-vision/` · `features/estimate-demo.html` → redirect
+- Catalog: `demoCatalog.ts` badge `run` · `aiSupport` · domain `ai-vision` · alignMfe AiVision · route `/ai-vision` · hub `index.html`
+- AI: map 15 #10 · badge **AI support** · P1 GPT-4o JSON · P2 regression + catalog đơn giá · **không** auto WO (Gắn CV stub)
+- Map live: **không** (panel + host list only)
+- Action work: host search mã/mô tả/tuyến · open AI estimate · from-incident / from-defects / rerun · lines add/edit/delete · confirm · save draft · export stub · leave-confirm
+- BE: `/api/v1/ai-estimate/*` **MISSING** → GAP-F-EST-03 · **be_align OFF** (Status Demo ≠ Signed · DEFER Step 4b)
+- RECAPTURE: **cấm** open gap chỉ vì không GOVOne · wontfix product AI
+- **No** MFE production / BE changes (demo only)
+- Gap open: **none** P0
+
+## @ai-vision (task_b773b8bb)
+
+- **sourceKind:** `synthetic` (product AI #3 · **no** GOVOne leaf · suy luận từ `features/ai-vision.md` · `15` · `14-P2` · `07` · guide/giaiphap)
+- Control-map: `_raw/legacy-govone/demo-maps/ai-vision-control-map.md` (fields full · 20 actions) · actions `ai-vision-actions.md`
+- Kind: **B** CatalogListShell detections + **D** slideout Confirm + **F** Leaflet pin — erp-form-context · leave-confirm dirty · KPI
+- Demo HTML: `public/demo/ai-vision/ai-vision.html` (+ `js/ai-vision-data.js` · `js/ai-vision-app.js`) · mirror `src/demo/ai-vision/` · `features/ai-vision-demo.html` → redirect
+- Catalog: `demoCatalog.ts` badge `run` · `aiSupport` · domain `ai-vision` · alignMfe AiVision · route `/ai-vision` · hub `index.html`
+- AI: map 15 #3 · badge **AI support** · P1 GPT-4o Vision · P2 ONNX+SAM · DET-904 seed P2 · **không hứa mAP P1** · cost alert ~$200/tháng
+- Map live: Leaflet OSM/Esri · Fit · pin Draft/Critical/Incident
+- Flow: upload/batch detect → class/bbox/conf → Confirm Critical → Vấn đề VI-* · PCI history modal
+- Phân biệt: `ai-asset-detect` (TS → Asset) ≠ hư mặt đường → Vấn đề
+- BE: `/api/v1/ai-vision/*` skeleton doc only · **be_align OFF** (Status Demo ≠ Signed · DEFER Step 4b)
+- RECAPTURE: **cấm** open gap chỉ vì không GOVOne · wontfix product AI
+- **No** MFE production / BE changes (demo only)
+- Gap open: **none** P0 (GAP-F-AIV-01/02/03 = OUT P1 / HĐ)
+
+## @reports (task_6ea23376)
+
+- **sourceKind:** `legacy` (11 GOVOne vision packets + guide Web 3 BC)
+- Control-map: `_raw/legacy-govone/demo-maps/reports-control-map.md` (6 fields · 172 actions)
+- Kind: **E** AnalyticsReportShell — tab Tài sản · Sự cố · Check-in · Catalog 172 toast
+- Demo HTML: `public/demo/bao-cao/reports.html` (+ `js/reports-data.js` · `js/reports-app.js`) · mirror `src/demo/bao-cao/` · `features/reports-demo.html` → redirect
+- Catalog: `demoCatalog.ts` badge `run` · domain `bao-cao` · alignMfe Report · route `/bao-cao`
+- AI: map 15 #8/#17 host — predict list → slug `predict` (link demo) · **không** `aiSupport` badge trên 3 BC P1
+- Map live: **không**
+- BE: `/api/v1/reports/{assets|incidents|checkins|checkins/export}` stub · **be_align OFF** (Status Demo)
+- RECAPTURE: filter/Xem/Excel + rail deep **closed** (demo-filled · P1 = 3 loại)
+- **No** MFE production / BE changes (demo only)
+- Gap open: **none** P0 for `reports`
 
 ## @copilot (task_f39a3cf8)
 
@@ -33,19 +93,19 @@
 - **No** MFE production / BE changes (demo only)
 - Gap open: **none** P0 for attendance (patrol map track P0 remains riêng)
 
-## @ops (task_9ff02e5d)
+## @ops (task_e954d58d)
 
-- **sourceKind:** `legacy` (synthetized — no GOVOne ops vision · `giamsat` → slug `patrol`)
+- **sourceKind:** `synthetic` (product docs · no GOVOne ops vision · `giamsat` → slug `patrol`) · prior task_9ff02e5d
 - Control-map: `_raw/legacy-govone/demo-maps/ops-control-map.md` (12 fields · 22 actions)
 - Kind: **B** CatalogListShell inbox + Kind **D** slideout — erp-form-context · leave-confirm · overview KPI 4
 - Demo HTML: `public/demo/ops/ops.html` (+ `js/ops-data.js` · `js/ops-app.js`) · mirror `src/demo/ops/` · `features/ops-demo.html` → redirect
 - Header Linm shell: Thông báo (bell dropdown) · User menu (profile/logout mock) — đủ 22 actions
-- Catalog: `demoCatalog.ts` badge `run` · domain `ops` · alignMfe Notification · route `/ops`
+- Catalog: `demoCatalog.ts` badge `run` · domain `ops` · alignMfe Notification · route `/ops` · **no** `aiSupport` (map 15 #9)
 - AI: map 15 #9 **không** AI engine P1 — không gắn `aiSupport` badge
 - Map live: **cấm** embed — nav → patrol/gis
 - BE: `/api/v1/ops/overview` · `/api/v1/notifications/*` · SignalR OpsHub **MISSING** → GAP-F-OPS-03 · **be_align OFF** (demo Status ≠ Signed)
 - **No** MFE production / BE changes (demo only)
-- Gap open: **none** P0 (legacy shallow chỉ khi tile GOVOne có form thiếu — ops không có GOVOne form)
+- Gap open: **none** P0 · synthetic → **cấm** open RECAPTURE-GAPS chỉ vì thiếu GOVOne
 
 ## @toc (task_e946e237)
 
@@ -57,24 +117,26 @@
 - BE: `/api/v1/toc/*` · vms · speed · cameras MISSING → GAP-F-TOC-03 · be_align OFF (demo only)
 - **No** MFE production / BE changes (demo only)
 
-## @inventory (task_e2270072)
+## @inventory (task_537e1ec7)
 
-- Legacy capture: synthetized (module mới P3 · no GOVOne screen) · `features/inventory.md` § Legacy GOVOne
-- Control-map: `_raw/legacy-govone/demo-maps/inventory-control-map.md` (28 fields · 25 actions)
-- Kind: **B** CatalogListShell + Kind **D** slideout — erp-form-context · leave-confirm · KPI · pattern_inline_grid stock moves · GPS stub
-- Demo HTML: `public/demo/contract/inventory.html` (+ `js/inventory-data.js` · `js/inventory-app.js`) · mirror `src/demo/contract/` · `features/inventory-demo.html`
-- Catalog: `demoCatalog.ts` badge `run` · domain `contract` · alignMfe Contract · route `/contract/inventory`
-- BE: `/api/v1/inventory/*` MISSING → GAP-F-INV-03 · be_align OFF (demo only)
+- sourceKind: **synthetic** (module mới P3 · no GOVOne screen) · `features/inventory.md` § Design + Legacy GOVOne
+- Control-map: `_raw/legacy-govone/demo-maps/inventory-control-map.md` (28 fields · 25 actions · user chrome skip on demo)
+- Kind: **B** CatalogListShell + Kind **D** slideout — erp-form-context · leave-confirm · KPI · pattern_inline_grid stock moves · **Leaflet GPS live** modal
+- Demo HTML: `public/demo/contract/inventory.html` (+ `js/inventory-data.js` · `js/inventory-app.js`) · mirror `src/demo/contract/` · `features/inventory-demo.html` → redirect
+- Catalog /dev: `demoCatalog.ts` badge `run` · domain `contract` · alignMfe Contract · route `/contract/inventory` · hub index
+- AI map #12: module P3 · **no** P1/P2 engine badge on hub (not AI-native screen)
+- BE: `/api/v1/inventory/*` MISSING → GAP-F-INV-03 · be_align OFF (demo only · Step 4b khi Signed)
 - **No** MFE production / BE changes (demo only)
 
-## @drone (task_b4b54109)
+## @drone (task_98716a69)
 
-- Legacy capture: synthetized (module mới P2–P3 · no GOVOne screen) · `features/drone.md` § Legacy GOVOne
-- Control-map: `_raw/legacy-govone/demo-maps/drone-control-map.md` (27 fields · 24 actions)
+- sourceKind: **synthetic** (module mới P2–P3 · no GOVOne screen) · `features/drone.md` § Legacy GOVOne + Design
+- Control-map: `_raw/legacy-govone/demo-maps/drone-control-map.md` (27 fields · 24 actions) · RECAPTURE-GAPS P1 **closed** (demo filled)
 - Kind: **B** CatalogListShell + Kind **D** slideout + viewer stub — erp-form-context · leave-confirm · KPI · pattern_inline_grid artifacts
-- Demo HTML: `public/demo/drone/drone.html` (+ `js/drone-data.js` · `js/drone-app.js`) · mirror `src/demo/drone/` · `features/drone-demo.html`
-- Catalog: `demoCatalog.ts` badge `run` · domain `drone` · alignMfe Drone
-- BE: `/api/v1/drone/scans` · process · artifacts MISSING → GAP-F-DRN-03 · be_align OFF (demo only)
+- Demo HTML: `public/demo/drone/drone.html` (+ `js/drone-data.js` · `js/drone-app.js`) · mirror `src/demo/drone/` · `features/drone-demo.html` → redirect
+- Catalog /dev: `demoCatalog.ts` badge `run` · domain `drone` · alignMfe Drone · hub `public/demo/index.html`
+- AI map #13: not AI-native screen · link AiVision nav · no P1/P2 engine badge on drone hub
+- BE: `/api/v1/drone/scans` · process · artifacts MISSING → GAP-F-DRN-03 · be_align OFF (demo only · Step 4b khi Signed)
 - **No** MFE production / BE changes (demo only)
 
 ## @contract (task_adce6684)
@@ -107,16 +169,10 @@
 - BE: `/api/v1/ai-predict/*` MISSING → GAP-F-PRD-03 · be_align OFF (demo only)
 - **No** MFE production / BE changes (demo only)
 
-## @pavement-section (task_03fdc84a)
+## @pavement-section (task_03fdc84a) — superseded by task_12c100cf
 
-- Legacy capture: synthetized (no GOVOne Biểu 1 screen · sổ TS → `asset`) · `features/pavement-section.md` § Legacy GOVOne
-- Control-map: `_raw/legacy-govone/demo-maps/pavement-section-control-map.md` (22 fields · 23 actions)
-- Kind: **B** CatalogListShell + **full page form** — erp-form-context · IdCode MD-* · leave-confirm · column picker
-- Demo HTML: `public/demo/asset/pavement-section.html` (+ `js/pavement-section.js` · `js/pavement-section-app.js`) · mirror `src/demo/asset/` · `features/pavement-section-demo.html`
-- Catalog: `demoCatalog.ts` badge `run` · domain `asset` · alignMfe Asset
-- BE: `/api/v1/infra/pavement-sections/*` MISSING → GAP-F-PVT-01 · be_align OFF (demo only)
-- **No** MFE production / BE changes (demo only)
-
+- Legacy note: prior synthetic demo pass · same HTML path `public/demo/asset/pavement-section.html`
+- See **@pavement-section (task_12c100cf)** above for current SSOT
 ## @ops (task_427b7c6b) — superseded by task_9ff02e5d
 
 - Legacy capture: synthetized · demo HTML + catalog badge `run` (lần chạy trước)
@@ -151,6 +207,18 @@
 - BE: `/api/v1/gis/*` MISSING → GAP-F-GIS-03 · be_align OFF (demo only)
 - **No** MFE production / BE changes (demo only)
 
+## @gis-draw-google (task_cff06420)
+
+- Legacy capture: vision 002/003 + tool packets 010–025 · `features/gis-draw-google.md` § Legacy GOVOne
+- Control-map: `_raw/legacy-govone/demo-maps/gis-draw-google-control-map.md` (14 fields · 62 actions) · features sibling control-map
+- Kind: **F** full-page map shell — basemap Google proxy · Leaflet.draw · attr form · no GOVOne chrome
+- Demo HTML: `public/demo/gis/gis-draw-google.html` (+ `js/gis-draw-google-app.js` · shares `gis-draw-live.js` store/seed)
+- Catalog: `demoCatalog.ts` badge `run` · domain `gis` · AI P1 Leaflet / P2 Google JS+PCI
+- MFE demo page (not production CRUD): `GisDrawGoogleDemoPage` · route `/gis/draw-google` · `devRoutes` DRAW
+- RECAPTURE P0 draw tools: **closed** (demo filled 2026-08-02)
+- BE: `POST /api/v1/gis/drawings` mock localStorage · be_align OFF (demo only · cấm BE)
+- **No** MFE production / BE WebService changes (demo only)
+
 ## @feedback (task_1be6b1db)
 
 - Legacy capture: synthetized (Mobile Góp ý guide · no GOVOne AI screen) · `features/feedback.md` § Legacy GOVOne
@@ -161,15 +229,7 @@
 - BE: `/api/v1/feedback` MISSING → GAP-F-FB-02 · be_align OFF (demo only)
 - **No** MFE production / BE changes (demo only)
 
-## @estimate (task_42d3c388)
-
-- Legacy capture: synthetized (no GOVOne AI screen) · `features/estimate.md` § Legacy GOVOne
-- Control-map: `_raw/legacy-govone/demo-maps/estimate-control-map.md` (20 fields · 13 actions)
-- Kind: **D** slideout — erp-form-context · leave-confirm · pattern_inline_grid
-- Demo HTML: `public/demo/ai-vision/estimate.html` (+ `js/estimate-data.js` · `js/estimate-app.js`)
-- Catalog: `demoCatalog.ts` badge `run` · `aiSupport`
-- BE: `/api/v1/ai-estimate/*` MISSING → GAP-F-EST-03 · be_align OFF (demo only)
-- **No** MFE production / BE changes (demo only)
+## @estimate (task_42d3c388) — superseded by task_31764117 above
 
 ## @asset (task_2f8df910)
 

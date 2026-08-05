@@ -102,8 +102,9 @@
 ### Capture inventory
 
 > **Không có màn GOVOne vision** riêng cho Open API hub.  
-> Capture synthetized từ `RMMS` §18 · `07` Hạng mục 18 · `09` Integration OpenAPI baseline · guide **Import tài sản** · `15-SCREEN-AI-MAP.md` screen 18.  
-> Source: product docs — **không** password · **không** clone skin GOVOne.  
+> **sourceKind=synthetic** — suy luận module từ product docs (không đợi GOVOne).  
+> Docs: `RMMS` §18 · `07` Hạng mục 18 · `09` Integration OpenAPI baseline · guide **Import tài sản** · `15-SCREEN-AI-MAP.md` screen 18.  
+> **Cấm** RECAPTURE-GAPS open chỉ vì không có vision GOVOne · **cấm** password · **cấm** clone skin GOVOne.  
 > Sibling domain page: `feedback` (Góp ý) — **không** gộp vào slug này.
 
 ## Pages (3)
@@ -209,8 +210,8 @@
 
 ### Step context checklist
 
-- [x] Design demo parity legacy zones
-- [x] Control-map fields từ Labels/Inputs/Vision
+- [ ] Design demo parity legacy zones
+- [ ] Control-map fields từ Labels/Inputs/Vision
 - [ ] Status Demo → Signed → `/qlbd-align-mfe`
 <!-- LEGACY-GOVONE-CAPTURE:END -->
 
@@ -231,9 +232,9 @@ Gen demo: `/qlbd-analy-demo @integration` — load control-map trên + `/erp-for
 
 | | |
 |--|--|
-| Task | `task_14a6f905` |
+| Task | `task_05705758` |
 | Skill | `/qlbd-analy-demo @integration` |
-| sourceKind | legacy (capture synthetized từ docs · không màn GOVOne vision) |
-| Files | `integration.md` · `demo-maps/integration-*.md` · `public/demo/integration/integration.html` · `js/integration-*.js` · `demoCatalog.ts` · `features/integration-demo.html` |
-| BE align | OFF (demo) · GAP-F-INT-03 documented · no P0 open gap |
+| sourceKind | **synthetic** (suy luận từ product docs · không màn GOVOne vision · cấm RECAPTURE-GAPS open) |
+| Files | `integration.md` · `demo-maps/integration-*.md` · `src/demo/integration/integration.html` · `js/integration-*.js` · `demoCatalog.ts` · `features/integration-demo.html` |
+| BE align | OFF (demo) · GAP-F-INT-03 documented · no P0 open gap · Step 4b khi Signed |
 | Confirmed by | ai-autocode-autopilot |

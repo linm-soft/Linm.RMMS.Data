@@ -56,7 +56,8 @@ Adapter: cùng `IDefectDiagnoser` pattern hoặc `IAssetDetector` → P1 `Gpt4oV
 | Asset (theo type) | Tạo khi Confirm — reuse `asset.md` entities |
 | Link | `source=ai-asset-detect` · `candidateId` trên AssetHistory / meta |
 
-Dedupe: `nearby` cùng class trong bán kính cấu hình (vd 15–30 m) → cảnh báo, không auto-create.
+Dedupe: `nearby` cùng class trong bán kính cấu hình (demo JS **25 m** Haversine) → cảnh báo, không auto-create.  
+**Prod ITS SSOT:** bán kính **10 m** PostGIS (`ST_DWithin` geography) — xem [`../16-ITS-TRAFFIC-OBJECT-DETECTION-DESIGN.md`](../16-ITS-TRAFFIC-OBJECT-DETECTION-DESIGN.md) · feature [`its-traffic-detect.md`](its-traffic-detect.md).
 
 ## 5. Events
 
@@ -88,4 +89,4 @@ Dedupe: `nearby` cùng class trong bán kính cấu hình (vd 15–30 m) → c�
 **Demo path:** `Linm.RMMS.Demo/public/demo/ai-vision/ai-asset-detect.html`  
 **Control-map:** `_raw/legacy-govone/demo-maps/ai-asset-detect-control-map.md`  
 **Actions:** `_raw/legacy-govone/demo-maps/ai-asset-detect-actions.md`  
-**sourceKind:** legacy (docs + feature SSOT; không clone chrome GOVOne)
+**sourceKind:** synthetic (docs + feature SSOT; không clone chrome GOVOne; suy luận UI từ product docs)

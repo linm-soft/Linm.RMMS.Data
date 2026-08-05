@@ -2,6 +2,7 @@
 
 > **Mục đích:** Phân tích hạng mục phần cứng + **required** cho **GPU worker infer/train** (ONNX detector — P2-A/P2-B theo `14-P2-AI-VISION-STANDARD.md`).  
 > **P1:** không cần GPU — AI online (GPT-4o…), xem `08-AI-TOKEN-COST-IMAGE-DIAGNOSIS.md` · `09-PLAN-P1-V2.md`.  
+> **SKU + giá thuê VN (VNSO):** **`17-GPU-VNSO-COST-STANDARD.md`** — Train A100 PAYG · Infer V100/L4/A40 tháng.  
 > **Tham chiếu case:** máy thuê VNPT Hà Nội (DMS 1U · Xeon E5-2620 · 16GB · 350W · **không GPU**).  
 > **Tên “YOLO” trong file:** lịch sử — áp dụng mọi **detector xuất ONNX/TensorRT**, không chỉ Ultralytics.
 ---
@@ -49,18 +50,18 @@
 | R7 | Model đã train/export | ONNX / TensorRT engine từ đội SV (P2) |
 | R8 | Monitoring GPU | Utilization, VRAM, nhiệt, queue depth |
 
-### 2.2 Bắt buộc (train — đội SV)
+### 2.2 Bắt buộc (train — đội SV / MLOps)
 
 | # | Required | Ghi chú |
 |---|----------|---------|
-| T1 | GPU **≥ 24 GB** VRAM khuyến nghị | 4090 / A10 / L4; dataset ≥20k ảnh |
+| T1 | GPU Tensor Core mạnh · **PAYG** | **Mặc định VN:** A100 40GB (`17` SKU `GPU-TRAIN-A100-40`); phương án B: 4090 / A10 / L4 |
 | T2 | Disk dataset **≥ 2 TB** NVMe/SSD | + backup |
 | T3 | Tool gán nhãn | CVAT / Roboflow… |
-| T4 | Xuất ONNX/engine → bàn giao infer host | Không train trên máy API 24/7 |
+| T4 | Xuất ONNX / TFLite / MLModel → bàn giao infer host | **Tắt VM ngay** sau export — không train trên máy API 24/7 |
 
 ### 2.3 Không bắt buộc cho YOLO infer
 
-- A100 từ đầu (chỉ khi volume/SLA rất cao hoặc train lớn tại chỗ)
+- A100 **always-on** cho infer (dùng V100/L4 tháng — `17`; A100 chỉ **burst train**)
 - Self-host LLM trên cùng máy YOLO
 - GPU trên máy Windows API (có thể remote worker Linux)
 
@@ -68,14 +69,15 @@
 
 ## 3. Bảng cấu hình đề xuất (tier)
 
-| Tier | GPU | RAM | CPU | Disk | Phù hợp |
-|------|-----|-----|-----|------|---------|
-| **Pilot local** | RTX 4060 Ti 16GB / T4 16GB | 32–64 GB | 8–16 core | NVMe 1 TB | UAT P2, volume nhỏ |
-| **Prod chuẩn** | **1× L4 24GB** (hoặc RTX 4000 Ada) | **64 GB** | 16–32 vCPU | NVMe 1–2 TB | Batch tuần tra + vài stream |
-| **Prod cao tải** | 1–2× L40S / 2× L4 | **128 GB** | 32–64 vCPU | NVMe 2–4 TB + object storage | Nhiều camera realtime + SAM |
-| **Train (tách)** | 1× 4090 / A10 / L4 | 64 GB | 16+ core | NVMe ≥ 2 TB | Đội SV — không phục vụ API |
+| Tier | GPU | RAM | CPU | Disk | Phù hợp | SKU `17` |
+|------|-----|-----|-----|------|---------|----------|
+| **Pilot local** | RTX 4060 Ti 16GB / T4 16GB | 32–64 GB | 8–16 core | NVMe 1 TB | UAT P2, volume nhỏ | — |
+| **Prod chuẩn** | **1× L4 24GB** / **1× V100 32GB** | **64 GB** | 16–32 vCPU / 2× Xeon Platinum | NVMe 1–2 TB | **25–40** CCTV (1 FPS + batch) | `GPU-INF-L4` / `GPU-INF-V100` |
+| **Prod cao tải** | **1× A40 48GB** hoặc 1–2× L40S / 2× L4 | **128 GB** | 32–64 vCPU | NVMe 2–4 TB + object storage | **>50** luồng · hub GIS | `GPU-INF-A40` |
+| **Train (tách · PAYG)** | **1× A100 40GB** (mặc định) · 80GB nếu cần | 64 GB+ | 16+ core | NVMe ≥ 2 TB dataset | Fine-tune YOLOv8n · tắt sau export | `GPU-TRAIN-A100-40` |
 
-**Model gợi ý prod:** detector **s/m** @ 640 (YOLOX/RTMDet/RT-DETR hoặc Ultralytics Enterprise). SAM: async hoặc host riêng nếu cần diện tích PCI.
+**Model gợi ý prod:** detector **n/s/m** @ 640 (YOLOv8-nano ITS · YOLOX/RTMDet/RT-DETR hoặc Ultralytics Enterprise). SAM: async hoặc host riêng nếu cần diện tích PCI.  
+**Giá thuê:** xem bảng VNSO trong **`17-GPU-VNSO-COST-STANDARD.md`**.
 
 ---
 
@@ -132,6 +134,7 @@
 |------|----------|
 | `09-PLAN-P1-V2.md` | P1 online ↔ P2 local |
 | `08-AI-TOKEN-COST-IMAGE-DIAGNOSIS.md` | Chi phí online (không GPU) |
-| `04-PROGRAMS.md` | Ước lượng capex AI (tham khảo; tier A100 là ceiling) |
+| `17-GPU-VNSO-COST-STANDARD.md` | **SSOT SKU + giá VNSO** train/infer |
+| `04-PROGRAMS.md` | Capex ceiling cũ (A100×2) — không thay `17` |
 | `07-TECHNICAL-IMPLEMENTATION.md` | Hạng mục AiVision / classes YOLO |
 | `02-SYSTEM-ARCHITECTURE.md` | Mono + worker tách khi scale |

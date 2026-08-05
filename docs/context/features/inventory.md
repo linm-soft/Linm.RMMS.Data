@@ -6,7 +6,8 @@
 > **Sources:** `RMMS` §12 · `07` Hạng mục 12 · `09` OUT P1 · `15-SCREEN-AI-MAP.md`  
 > **Demo HTML:** `Linm.RMMS.Demo/public/demo/contract/inventory.html`  
 > **MFE (align):** `Linm.Web.RMMS.Contract` · route `/contract/inventory` · **cấm** sửa MFE ở phase demo  
-> **≠** Contract HĐ (`contract`) — inventory là sub-route riêng cùng MFE Contract
+> **≠** Contract HĐ (`contract`) — inventory là sub-route riêng cùng MFE Contract  
+> **sourceKind:** synthetic · **Task:** `task_537e1ec7`
 
 ## 1. Tổng quan
 
@@ -24,7 +25,7 @@
 |--------|---------|-------|---------|
 | List `/contract/inventory` | Kind **B** CatalogListShell | KPI · toolbar · filter · grid | P3 |
 | Tạo / Chi tiết | Kind **D** Slideout | Z1 toolbar · Z2 fields+lines · Z3 footer | `/contract/inventory/new` · `/:id` |
-| Bản đồ GPS | Modal stub | Leaflet pin mock | GAP-F-INV-04 |
+| Bản đồ GPS | Modal **Leaflet live** | OSM pins fake seed | GAP-F-INV-04 Timescale DEFER |
 | Phiếu xuất/nhập nhanh | Modal / focus lines | pattern_inline_grid | |
 
 **Kind B+D layout (erp-form-context):**
@@ -103,19 +104,20 @@ Liên kết WorkOrder → xuất VT · Contract HĐ → cấp phát theo gói.
 | GAP-F-INV-01 | OUT P1 · phase P3 | Giữ P3 · badge hub |
 | GAP-F-INV-02 | Host MFE Contract vs Asset | Contract sub-route `/contract/inventory` · autopilot |
 | GAP-F-INV-03 | BE endpoints inventory/* | MISSING · be_align khi Signed |
-| GAP-F-INV-04 | GPS realtime Timescale | Modal pin mock demo · P3+ |
+| GAP-F-INV-04 | GPS realtime Timescale | Leaflet OSM pins demo · Timescale DEFER P3+ |
 | GAP-F-INV-05 | Sync Asset registry | DEFER · GPS/TB có thể mirror Asset |
 
 ## 7. Demo checklist (chốt khách)
 
-- [ ] List đủ cột + filter loại/TT/kho
-- [ ] KPI 4 ô mock (tồn trị giá · dưới min · TB đang BD · GPS online)
-- [ ] Form Kind D đủ field control-map (kể cả dòng phiếu)
-- [ ] Đủ actions (click → toast/modal/nav)
-- [ ] Stock lines pattern_inline_grid
-- [ ] Badge P3
-- [ ] Leave-confirm khi dirty
-- [ ] Không gọi BE
+- [x] List đủ cột + filter loại/TT/kho
+- [x] KPI 4 ô mock (tồn trị giá · dưới min · TB đang BD · GPS online)
+- [x] Form Kind D đủ field control-map (kể cả dòng phiếu)
+- [x] Đủ actions (click → toast/modal/nav) · user chrome skip
+- [x] Stock lines pattern_inline_grid
+- [x] Badge P3 · sourceKind=synthetic
+- [x] Leave-confirm khi dirty
+- [x] Leaflet GPS map (pin live · không gradient)
+- [x] Không gọi BE
 
 <!-- LEGACY-GOVONE-CAPTURE:START -->
 ## Legacy GOVOne (auto-capture)
@@ -152,9 +154,9 @@ Xem `demo-maps/inventory-actions.md` (25).
 
 ### Step context checklist
 
-- [ ] Design demo parity legacy zones
-- [ ] Control-map fields từ Labels/Inputs/Vision
-- [ ] Status Demo → Signed → `/qlbd-align-mfe`
+- [x] Design demo parity legacy zones
+- [x] Control-map fields từ Labels/Inputs/Vision
+- [x] Status Demo (task_537e1ec7) · Signed → `/qlbd-align-mfe` later
 <!-- LEGACY-GOVONE-CAPTURE:END -->
 
 <!-- DEMO-MFE-MODERN:START -->
@@ -174,8 +176,9 @@ Gen demo: `/qlbd-analy-demo @inventory` — load control-map trên + `/erp-form-
 
 | | |
 |--|--|
-| Task | `task_e2270072` |
+| Task | `task_537e1ec7` |
 | Skill | `/qlbd-analy-demo @inventory` |
+| sourceKind | **synthetic** |
 | Files | `inventory.md` · `demo-maps/inventory-*.md` · `public/demo/contract/inventory.html` · `js/inventory-*.js` · `demoCatalog.ts` |
-| BE align | OFF (demo) · GAP-F-INV-03 documented |
+| BE align | OFF (demo) · GAP-F-INV-03 documented · Step 4b khi Signed |
 | Confirmed by | ai-autocode-autopilot |

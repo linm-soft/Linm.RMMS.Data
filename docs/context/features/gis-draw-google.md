@@ -346,9 +346,9 @@ Indexes: GIST(`Geom`) · `(LayerCode, Status)` · bbox query.
 
 ### Step context checklist
 
-- [x] Design demo parity legacy zones
-- [x] Control-map fields từ Labels/Inputs/Vision
-- [x] Status Demo · HTML + MFE live map · `/qlbd-align-mfe` sau Signed
+- [x] Design demo parity legacy zones (Linm shell · sidebar lớp + toolbar + map)
+- [x] Control-map fields từ Labels/Inputs/Vision (`gis-draw-google-control-map.md` · demo-maps)
+- [x] Status Demo · catalog + MFE `/gis/draw-google` · be_align OFF (demo only · mock drawings API)
 <!-- LEGACY-GOVONE-CAPTURE:END -->
 
 <!-- DEMO-MFE-MODERN:START -->

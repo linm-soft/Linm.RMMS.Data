@@ -4,7 +4,8 @@
 > **not** a commercial service-tier price list.  
 > **Backend model:** Modular Monolith — 14 domain modules in one .NET host; split when scaling.  
 > **Existing app:** Mobile/Web RMMS already live (user guide docx). Data already exists — prioritize API integrations.  
-> **YOLOv8 P2 HW (required + phân tích DMS):** xem **`10-YOLO-SERVER-REQUIREMENTS.md`** (tier L4/prod — A100 bên dưới là ceiling tham khảo).
+> **YOLOv8 P2 HW (required + phân tích DMS):** xem **`10-YOLO-SERVER-REQUIREMENTS.md`**.  
+> **SKU + opex thuê GPU VN (mặc định P2):** **`17-GPU-VNSO-COST-STANDARD.md`** — bảng A100 capex bên dưới chỉ là **ceiling** outsource lớn / LLM, **không** thay `17`.
 
 ## 1. Program Groups (domain modules in mono)
 

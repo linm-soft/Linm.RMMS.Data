@@ -8,6 +8,10 @@
     "capture": "node capture.mjs",
     "capture:deep": "node capture.mjs --deep --headed",
     "capture:full": "node capture.mjs --full --headed",
+    "rescan": "node capture.mjs --rescan --headed --all-menus --retry=2",
+    "rescan:manual": "node capture.mjs --rescan --headed --all-menus --pause-on-fail --retry=2",
+    "rescan:maintenance": "node capture.mjs --rescan --headed --master=maintenance --all-menus --pause-on-fail --retry=2",
+    "rescan:all": "node capture.mjs --rescan --headed --master=all --all-menus --pause-on-fail --retry=2",
     "map": "node map-to-features.mjs",
     "analyze": "node analyze-screenshots.mjs",
     "map:context": "node map-to-step-context.mjs",
@@ -15,6 +19,8 @@
     "all": "node capture.mjs && node map-to-features.mjs",
     "pipeline:deep": "node capture.mjs --deep && node map-to-features.mjs && node analyze-screenshots.mjs && node map-to-step-context.mjs && node map-to-demo-mfe.mjs",
     "pipeline:full": "node capture.mjs --full && node map-to-features.mjs && node analyze-screenshots.mjs && node map-to-step-context.mjs && node map-to-demo-mfe.mjs",
+    "pipeline:rescan": "node capture.mjs --rescan --headed --all-menus --retry=2 && node map-to-features.mjs && node map-to-step-context.mjs && node map-to-demo-mfe.mjs",
+    "pipeline:rescan:maintenance": "node capture.mjs --rescan --headed --master=maintenance --all-menus --pause-on-fail --retry=2 && node map-to-features.mjs && node map-to-step-context.mjs && node map-to-demo-mfe.mjs",
     "install-browser": "npx playwright install chromium"
   },
   "engines": {

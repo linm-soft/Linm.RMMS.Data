@@ -72,5 +72,4 @@
 | Maximize | action | modal-header | — | — |
 | Đóng | close | modal-header | — | — |
 
-Count: 69  
-Demo wired: `a01`–`a69` in `maintenance-data.js` · click → toast / switchTab / slideout (Maximize `a69` · Đóng `a68`).
+Count: 69

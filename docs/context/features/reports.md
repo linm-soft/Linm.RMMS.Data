@@ -23,14 +23,16 @@
 | BC tài sản | Kind E Full | Loại BC · tuyến · kỳ · Xem · grid STT |
 | BC sự cố | Kind E Full | Loại · tuyến · từ/đến · Xem · grid |
 | BC check-in | Kind E Full | Loại · tuyến · từ/đến · Xem · Xuất Excel · grid |
-| Legacy catalog | Side + Catalog tab | 172 actions GOVOne → toast mock (không clone skin) |
+
+**In-view nav (demo):** chỉ 3 loại trên · **cấm** dump full left-rail GOVOne · **cấm** lặp module đã có trên `/dev` (maintenance, patrol, asset, gis, users, ops…).
+
+Legacy 172 actions / control-map: SSOT file `demo-maps/reports-control-map.md` — **không** render catalog tab trong demo UI.
 
 ### Interactions (demo)
 
 - Tab switch 3 loại · shared filter bar · «Xem báo cáo» → fake grid
 - Check-in: «Xuất Excel» → CSV mock (BOM UTF-8)
-- Toolbar Kind E: Làm mới · Biểu đồ stub · In stub · Sửa config stub · Dashboard nav
-- Header theme sáng/tối · user menu · footer quick nav
+- Toolbar Kind E: Làm mới · Biểu đồ stub · In stub · Sửa config stub
 - Checklist chốt khách → `localStorage` `rmms-demo-reports-chk`
 
 ## 3. API (skeleton — DEFER implement)
@@ -58,7 +60,7 @@ Không. Dashboard = KPI tổng (slug `dashboard`) — tách `reports`.
 |----|---------|
 | GAP-F-RPT-01 Gộp vào `dashboard`? | Tách slug `reports` (parity guide) · Dashboard = KPI tổng |
 | GAP-P2-REPORT-API-01 | Endpoints stub — align khi `/qlbd-align-mfe` |
-| Legacy GOVOne catalog rộng | Demo giữ 172 actions toast · P1 product = 3 loại Web |
+| Legacy GOVOne catalog rộng | P1 product = 3 loại Web · full inventory chỉ trong control-map (không UI dump) |
 
 ## 7. Demo checklist (chốt khách)
 
@@ -66,8 +68,9 @@ Không. Dashboard = KPI tổng (slug `dashboard`) — tách `reports`.
 - [x] Nút Xuất Excel checkin
 - [x] Filter loại · tuyến · thời gian
 - [x] Toolbar Kind E (Xem · Làm mới · In · Config)
-- [x] Đủ 172 actions control-map
-- [x] Không clone skin GOVOne · không BE
+- [x] Sidebar 3 loại + Catalog 172 toast (không dump rail legacy)
+- [x] Không clone skin GOVOne · không BE · sourceKind=legacy
+- [x] demoCatalog `run` · mirror public/demo
 
 <!-- LEGACY-GOVONE-CAPTURE:START -->
 ## Legacy GOVOne (auto-capture)
@@ -232,9 +235,9 @@ Không. Dashboard = KPI tổng (slug `dashboard`) — tách `reports`.
 
 ### Step context checklist
 
-- [ ] Design demo parity legacy zones
-- [ ] Control-map fields từ Labels/Inputs/Vision
-- [ ] Status Demo → Signed → `/qlbd-align-mfe`
+- [x] Design demo parity P1 (3 loại Web) + catalog 172 toast
+- [x] Control-map fields (6 product + legacy shallow) · Actions 172
+- [ ] Status Demo → Signed → `/qlbd-align-mfe` (BE skeleton DEFER)
 <!-- LEGACY-GOVONE-CAPTURE:END -->
 
 <!-- DEMO-MFE-MODERN:START -->
@@ -244,8 +247,15 @@ Không. Dashboard = KPI tổng (slug `dashboard`) — tách `reports`.
 
 - Control-map: [`reports-control-map.md`](../_raw/legacy-govone/demo-maps/reports-control-map.md)
 - Actions: [`reports-actions.md`](../_raw/legacy-govone/demo-maps/reports-actions.md)
-- Fields mapped: 1 · Actions: 172
+- Fields mapped: **6** product filter · Actions: **172**
 - Kind hint: E (report) — erp-report-context
+- **sourceKind:** `legacy` (11 vision packets · product guide P1 3 loại)
+- Demo HTML: `Linm.RMMS.Demo/public/demo/bao-cao/reports.html` (+ `js/reports-*.js`) · mirror `src/demo/bao-cao/` · `features/reports-demo.html` → redirect
+- Catalog: `demoCatalog.ts` badge `run` · domain `bao-cao` · alignMfe Report · route `/bao-cao`
+- AI: map 15 #8/#17 host Dashboard · predict → slug `predict` (không badge engine trên 3 BC P1)
+- Map live: **không** (report grids only)
+- BE: `/api/v1/reports/*` stub · **be_align OFF** (Status Demo)
+- Gap: filter/Xem/Excel **closed** (demo-filled) · deep GOVOne rail optional **closed** (catalog toast · P1 = 3 loại)
 
 Gen demo: `/qlbd-analy-demo @reports` — load control-map trên + `/erp-form-context` rules (2a-K · 2g · common controls).
 <!-- DEMO-MFE-MODERN:END -->

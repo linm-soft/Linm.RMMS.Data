@@ -1,0 +1,245 @@
+# source: context/09-PLAN-P1-V2.md
+# version: 8
+# scannedAt: 2026-08-02T09:23:38.246Z
+# sha256: 648e6e70eb6a331864bfdbef24bf55a7628bcdbdd6560017e46cf552db5d3688
+# mtimeMs: 1785512054019.2104
+# RMMS — Kịch bản & Plan: **P1** tách khỏi **V2 / P2**
+
+> **SSOT lộ trình.** P1 và V2/P2 tách rời — không trộn scope trong cùng sprint.  
+> **AI P1:** mọi phần AI (#3 · #8 · #10 · #16) dùng **online model** — chi tiết model + $ → `08-AI-TOKEN-COST-IMAGE-DIAGNOSIS.md`.  
+> **AI P2:** local **ONNX detector** (P2-A/B per `14`) + train · XGBoost/ONNX · RAG on-prem *nếu* Go local — sau gate UAT.
+
+| | **P1** (online AI full) | **V2 / P2** (local nếu muốn) |
+|--|-------------------------|------------------------------|
+| **Mục tiêu** | Vận hành đủ trên .NET Server (Windows) + **online LLM/API** | Local ONNX detector / ML + GPU khi Go local |
+| **AI #3 Kiểm định** | **GPT-4o Vision** (~$0.01/ảnh) | **ONNX detector + SAM** (`14`) + train |
+| **AI #8 Dự báo** | **GPT-4o / 4o-mini** online | XGBoost/ONNX local + train |
+| **AI #10 Ước lượng** | **GPT-4o** JSON online | Model local + đơn giá |
+| **AI #16 Copilot** | **4o-mini** (default) · **GPT-4o** | RAG / on-prem |
+| **GPU / đội SV** | **Không** | **Có** (sau gate) |
+| **Token** | Alert **~$200/tháng** (Bên A) | Biên phí GPU; online = fallback |
+| **Thời lượng gợi ý** | 8–12 tuần | 12–20 tuần (sau gate) |
+
+---
+
+## 1. Nguyên tắc tách (bắt buộc)
+
+1. **P1 không** train detector local / XGBoost, **không** mua A100, **không** đội SV gán nhãn quy mô.  
+2. **P2/V2 không** bắt đầu cho đến khi P1 có báo cáo P/R + chi phí token + quyết định go/no-go.  
+3. Code P1: adapter `IDefectDiagnoser` → P1 = GPT-4o online · V2 = YoloOnnxDiagnoser (đổi implementation).  
+4. App Mobile/Web **giữ UX** — chỉ bổ sung API consumer.  
+5. Có thể **giữ P1 online lâu dài** (No-go local).
+
+```
+P1 (online full AI) ──UAT + go/no-go──► V2/P2 (local YOLO/ML nếu muốn)
+ │                                        │
+ └─ Mono + Azure OpenAI                   └─ + GPU / YOLO / đội SV
+    (#3+#8+#10+#16 online)                   + online chỉ fallback
+```
+
+---
+
+## 2. Kịch bản P1 — “Full AI online”
+
+### 2.1 Câu chuyện người dùng
+
+1. Tuần đường dùng app (Check-in, Vấn đề, Offline).  
+2. Ảnh → API → **GPT-4o Vision** chuẩn đoán → Vấn đề critical (nếu rule).  
+3. Dự báo / ước lượng / Copilot qua **online LLM** (không model local).  
+4. UAT → báo cáo P/R + token → **giữ online** hoặc **Go local (P2)**.
+
+### 2.2 Phạm vi **IN** (P1)
+
+| # | Hạng mục | Việc P1 (online) |
+|---|----------|------------------|
+| 1 | Asset | API CRUD + sync; PostGIS cơ bản |
+| 2 | GIS | Điểm / map 2D tối thiểu |
+| 3 | AiVision | **GPT-4o Vision** + lưu detection; PCI stub |
+| 4–5 | Patrol / Attendance | Check-in API; GPS; offline-batch |
+| 6 | Incident | Map Vấn đề; nhận AI → incident |
+| 7 | Maintenance | API Công việc khung |
+| 8 | AI dự báo | **Online** GPT-4o / 4o-mini (không train XGBoost) |
+| 9 · 17 | ĐH / Dashboard | List / KPI nhẹ |
+| 10 | AI ước lượng | **Online** GPT-4o JSON |
+| 16 | Copilot | **Online** 4o-mini (+ 4o khi cần); RAG cloud nhẹ |
+| 18 | Integration | OpenAPI baseline |
+| — | Platform | Mono .NET 8 · Auth · Redis · storage · deploy Windows Server (IIS/Kestrel) |
+
+### 2.3 Phạm vi **OUT** (P2 / local — cấm trong P1)
+
+- Train / deploy ONNX detector, SAM GPU, Triton (`14`)  
+- Đội SV gán nhãn ≥20k  
+- XGBoost/ONNX local (#8/#10), Copilot RAG on-prem (#16)  
+- Digital Twin 3D, Maintenance SLA full, Contract / Drone / TOC / Citizen  
+- Tách microservice worker AI  
+
+### 2.4 Stack P1
+
+```
+.NET Server (Windows) — IIS / Kestrel
+├── Rmms.Api (.NET 8) — Asset, Patrol, Incident, AiVision, Predict, Estimate, Copilot, Integration…
+├── PostgreSQL + PostGIS
+└── Redis
+Ngoài host
+├── Object storage (ảnh)
+└── Azure OpenAI: GPT-4o + GPT-4o-mini  (xem 08-AI-TOKEN-COST…)
+```
+
+### 2.5 Plan P1 (gợi ý 10 tuần)
+
+| Tuần | Việc | DoD |
+|------|------|-----|
+| 1–2 | Scaffold mono, Auth, EF+PostGIS, deploy Windows | API health + Swagger |
+| 3–4 | Asset + Patrol Check-in + offline-batch | App gọi được API |
+| 5–6 | Incident ↔ Vấn đề; upload ảnh | Tạo/đóng incident |
+| 7–8 | AI online full: #3 Vision · #8 · #10 · #16 | Smoke + cost trong alert $200 |
+| 9 | List detection + map điểm | BA xem kết quả |
+| 10 | UAT ≥500 ảnh expert; P/R + token; **gate** | Giữ online / Go local / Pivot |
+
+**Ngân sách token P1:** alert **~$200/tháng** — bảng model + $ → `08-AI-TOKEN-COST-IMAGE-DIAGNOSIS.md` §0.
+
+### 2.6 Definition of Done — P1
+
+- [ ] Rmms.Api ổn định trên **Windows Server**  
+- [ ] Check-in / Vấn đề / Offline qua API  
+- [ ] #3+#8+#10+#16 chạy **online** (không YOLO/XGBoost local)  
+- [ ] Báo cáo chi phí token thực tế  
+- [ ] Báo cáo precision/recall UAT (#3)  
+- [ ] Quyết định **giữ online / Go local / Pivot** bằng văn bản  
+
+### 2.7 Gate sang V2/P2 (bắt buộc)
+
+| Kết quả UAT | Hành động |
+|-------------|-----------|
+| P/R đạt + đơn vị muốn local | **Go local** — YOLO + train + (tuỳ) ML local |
+| P/R đạt + không cần local | **Giữ online** — No-go P2 AI local |
+| Gần đạt | Pivot prompt/class → re-UAT P1 |
+| Chi phí API quá cao khi scale | Cân nhắc Go local sớm hơn |
+
+---
+
+## 3. Kịch bản V2 / P2 — “Local AI (khi đơn vị muốn)”
+
+> Chỉ sau **Go local**. Kế thừa P1; **đổi Diagnoser / Predict / Estimate**, không rewrite mono.
+
+### 3.1 Câu chuyện người dùng
+
+1. Đội SV (+ AI lead) gán nhãn 10 classes → train detector (**P2-A** Apache hoặc **P2-B** Ultralytics Enterprise) → ONNX — SSOT **`14-P2-AI-VISION-STANDARD.md`**.  
+2. Inference GPU riêng; mono nhận kết quả.  
+3. #8/#10 → XGBoost/ONNX local; #16 → RAG on-prem (tuỳ).  
+4. Online GPT chỉ **fallback** case khó.
+
+### 3.2 Phạm vi **IN** (V2/P2)
+
+| Nhóm | Hạng mục | Việc |
+|------|----------|------|
+| AI local | 3, 8, 10, 16 | ONNX detector+SAM+PCI (`14`); XGBoost local; Copilot on-prem |
+| Đội ngũ | — | SV gán nhãn + AI lead |
+| Infra | — | GPU worker / Triton |
+| Điều hành | 7, 9, 17 | Maintenance full, Command, Dashboard KPI |
+| GIS | 2 | Heatmap / Twin 3D |
+| Mở rộng | 11–15 | Contract, Drone, TOC, Citizen — backlog |
+
+### 3.3 Phạm vi **OUT V2-core** (V2.1+)
+
+- Self-host LLM full (trừ khi chốt riêng)  
+- TOC toàn quốc  
+- Data warehouse enterprise  
+
+### 3.4 Stack V2 (bổ sung lên P1)
+
+```
+Giữ: Rmms.Api + PostGIS + Redis + storage + Azure OpenAI (fallback)
+Thêm:
+├── GPU — ONNX detector (P2-A/P2-B per 14) + SAM optional
+├── Worker AiVision
+├── Đội SV labeling
+└── (tuỳ) Qdrant on-prem + XGBoost ONNX
+```
+
+> **Chuẩn P2 AiVision:** `14-P2-AI-VISION-STANDARD.md` · server `13` · GPU `10`.
+### 3.5 Plan V2 (gợi ý 16 tuần sau gate)
+
+| Giai đoạn | Tuần | Việc |
+|-----------|------|------|
+| V2-A Dataset | 1–6 | Guideline + SV gán nhãn; ≥20k; mAP nội bộ (`14`) |
+| V2-B Model | 5–8 | Train P2-A/B; export ONNX; so sánh vs GPT-4o P1 |
+| V2-C Integrate | 7–12 | Worker GPU; `OnnxDetectorDiagnoser`; PCI; event → Incident |
+| V2-D Product | 10–16 | Copilot MVP, Dashboard KPI, GIS heatmap; UAT tuyến pilot |
+
+### 3.6 Definition of Done — V2
+
+- [ ] Model custom 10 classes đạt mAP đã chốt với BA  
+- [ ] Inference không phụ thuộc GPT-4o cho **mọi** frame (API chỉ fallback)  
+- [ ] PCI/IRI trên đoạn pilot  
+- [ ] WorkOrder từ defect critical  
+- [ ] Chi phí $/km hoặc $/ảnh production đo được và &lt; ngưỡng tài chính  
+
+---
+
+## 4. Mapping 18 hạng mục — P1 vs V2
+
+| # | Phân hệ | P1 | V2 |
+|---|---------|----|----|
+| 1 | Asset | **Core** | Nâng cấp |
+| 2 | GIS | Điểm detection tối thiểu | Tiles + heatmap (+ 3D tuỳ chọn) |
+| 3 | AI kiểm định | **Vision API only** | **YOLO+SAM+PCI** |
+| 4 | Patrol | **Core** | KPI / coverage nâng cao |
+| 5 | Attendance | Gộp Patrol | Như P1 |
+| 6 | Incident | **Core** | Auto + SLA |
+| 7 | Maintenance | — | **Core V2** |
+| 8 | AI dự báo | — | V2 / V2.1 |
+| 9 | Chỉ đạo ĐH | List tối thiểu | Dashboard realtime |
+| 10 | AI ước lượng | — | V2 / V2.1 |
+| 11 | Hợp đồng | — | V2.1 |
+| 12 | Vật tư | — | V2.1 |
+| 13 | Drone | — | V2.1 |
+| 14 | TOC GT | — | V2.1+ |
+| 15 | Cổng dân | — | V2.1 |
+| 16 | Copilot | Hỏi thử nhẹ (optional) | **Core V2** |
+| 17 | Dashboard | List detection | **KPI full** |
+| 18 | Open API | **Baseline** | Adapters ERP/ITS |
+
+---
+
+## 5. Chi phí — tách P1 / V2
+
+| Khoản | P1 | V2 / P2 |
+|-------|----|---------|
+| Windows Server + Postgres + Redis | Hạ tầng Bên A / phụ lục | Tăng theo traffic |
+| Object storage | Theo GB ảnh | Tăng archive |
+| Online AI (#3+#8+#10+#16) | **~$50–200/tháng** pilot (alert $200) | Fallback nhỏ |
+| Đội SV gán nhãn | $0 (ngoài scope) | Bắt buộc nếu Go local |
+| GPU | **$0** | Capex / cloud GPU |
+| Dev outsource | Mono + API + AI online | + YOLO/ML local + FE |
+
+Chi tiết **model + $**: `08-AI-TOKEN-COST-IMAGE-DIAGNOSIS.md` §0 · HTML `chi-phi-token-ai.html`.
+
+---
+
+## 6. Rủi ro & giảm thiểu
+
+| Rủi ro | P1 | V2 / P2 |
+|--------|----|---------|
+| Vision API kém trên đường VN | Đo UAT — không commit local sớm | Dataset VN đúng class |
+| Chi phí API tăng khi scale | Cap $200/tháng + triage | Go local YOLO |
+| Không GPU trên host API | Đúng by design P1 | Worker GPU tách |
+| Trộn scope P1+P2 | Checklist OUT P1 trong PR | Gate văn bản |
+
+---
+
+## 7. Tài liệu liên quan
+
+| File | Vai trò |
+|------|---------|
+| **File này (`09-PLAN-P1-V2.md`)** | SSOT kịch bản + plan |
+| `plan-p1-v2.html` | Trang stakeholder |
+| `08-AI-TOKEN-COST-IMAGE-DIAGNOSIS.md` | **Đề xuất model online + chi phí token** |
+| `02-SYSTEM-ARCHITECTURE.md` | Mono + deploy |
+| `07-TECHNICAL-IMPLEMENTATION.md` | Spec hạng mục |
+| `Linm.RMMS.Demo/docs/bao-gia/` | Báo giá P1 |
+| `10-YOLO-SERVER-REQUIREMENTS.md` | **Required HW YOLO P2** · phân tích DMS vs GPU host |
+
+---
+
+*P1 = AI full online (GPT-4o / 4o-mini). V2/P2 = local YOLO/ML nếu đơn vị muốn — chỉ sau gate.*

@@ -52,10 +52,22 @@ Subscribe: `patrol.*` · `incident.*` · `defect.detected` · `predict.updated` 
 
 ## 7. Demo checklist (chốt khách)
 
-- [ ] ≥4 KPI cards
-- [ ] Link Incident / Patrol
-- [ ] Báo cáo checkin Excel stub
-- [ ] Badge «P2 realtime» tách riêng
+- [x] ≥4 KPI cards
+- [x] Link Incident / Patrol
+- [x] Báo cáo checkin Excel stub
+- [x] Badge «P2 realtime» tách riêng
+
+## 8. Demo ship (`/qlbd-analy-demo @dashboard` · task_4c0cbe3e)
+
+| | |
+|--|--|
+| sourceKind | `legacy` |
+| HTML | `Linm.RMMS.Demo/src/demo/bao-cao/dashboard.html` (+ `js/dashboard-data.js` · `js/dashboard-app.js`) |
+| Hub | `/demo/bao-cao/dashboard.html` · catalog slug `dashboard` · `/dev` via `demoCatalog.ts` |
+| Kind | E (report / KPI home) · Linm shell · **cấm** GOVOne chrome · **cấm** BE |
+| Fields | 12 mapped · Actions product 22 (chrome skip) |
+| Map | Leaflet OSM mini map · 5 incident markers |
+| AI | — (15-SCREEN row 17: KPI P1 / SignalR P2 · no LLM engine) |
 
 <!-- LEGACY-GOVONE-CAPTURE:START -->
 ## Legacy GOVOne (auto-capture)
@@ -193,9 +205,9 @@ Subscribe: `patrol.*` · `incident.*` · `defect.detected` · `predict.updated` 
 
 ### Step context checklist
 
-- [ ] Design demo parity legacy zones
-- [ ] Control-map fields từ Labels/Inputs/Vision
-- [ ] Status Demo → Signed → `/qlbd-align-mfe`
+- [x] Design demo parity legacy zones
+- [x] Control-map fields từ Labels/Inputs/Vision
+- [x] Status Demo → hub + catalog · Signed later `/qlbd-align-mfe`
 <!-- LEGACY-GOVONE-CAPTURE:END -->
 
 <!-- DEMO-MFE-MODERN:START -->

@@ -84,9 +84,9 @@ Consume incident/patrol/workorder · publish push/SignalR (P2). Cross-nav demo �
 - [x] Leave-confirm khi dirty
 - [x] Không gọi BE
 
-**sourceKind:** `legacy` (synthetized capture · **không** open RECAPTURE-GAPS vì thiếu GOVOne shell)  
+**sourceKind:** `synthetic` (product docs · **không** open RECAPTURE-GAPS vì thiếu GOVOne shell)  
 **Demo path:** `Linm.RMMS.Demo/public/demo/ops/ops.html` · catalog domain `ops` · badge `run`  
-**Task:** `task_9ff02e5d` · Autopilot ON · demo only · be_align OFF (Status ≠ Signed)
+**Task:** `task_e954d58d` (prior `task_9ff02e5d`) · Autopilot ON · demo only · be_align OFF (Status ≠ Signed)
 
 <!-- LEGACY-GOVONE-CAPTURE:START -->
 ## Legacy GOVOne (auto-capture)
@@ -97,8 +97,6 @@ Consume incident/patrol/workorder · publish push/SignalR (P2). Cross-nav demo �
 ### Nguồn
 
 - Raw feature: `docs/context/_raw/legacy-govone/features/ops.md`
-- Control-map: `docs/context/_raw/legacy-govone/demo-maps/ops-control-map.md`
-- Actions: `docs/context/_raw/legacy-govone/demo-maps/ops-actions.md`
 - Vision packets: 0
 
 ### Capture inventory
@@ -106,7 +104,7 @@ Consume incident/patrol/workorder · publish push/SignalR (P2). Cross-nav demo �
 > **Không có màn GOVOne vision** riêng cho «Chỉ đạo điều hành».  
 > GOVOne **QUẢN LÝ GIÁM SÁT** (`dbv3giamsat.aspx`) đã map slug **`patrol`** — không dùng làm skin/SSOT của `ops`.  
 > Capture synthetized từ `features/ops.md` · Mobile/Web Giám sát notify · Notification MFE routes `/ops` · `15-SCREEN-AI-MAP.md`.  
-> Source: product docs — **không** password · **không** clone skin GOVOne · skip chrome GOVOne (logo).
+> Source: product docs — **không** password · **không** clone skin GOVOne.
 
 ## Pages (3)
 
@@ -219,7 +217,8 @@ Consume incident/patrol/workorder · publish push/SignalR (P2). Cross-nav demo �
 
 ### Step context checklist
 
-- [x] Design demo parity legacy zones
-- [x] Control-map fields từ Labels/Inputs/Vision
-- [ ] Status Demo → Signed → `/qlbd-align-mfe`
+- [x] Design demo parity (Kind B+D · control-map)
+- [x] Control-map fields/actions (12 · 22)
+- [x] Status Demo · signed → `/qlbd-align-mfe` later
+- [x] sourceKind=synthetic · task_e954d58d
 <!-- LEGACY-GOVONE-CAPTURE:END -->

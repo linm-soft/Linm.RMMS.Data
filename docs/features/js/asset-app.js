@@ -426,6 +426,41 @@ function initChecklist() {
   });
 }
 
+function syncSideLayersFromThematic() {
+  if ($('sideLayerAssets')) $('sideLayerAssets').checked = thematic.assets;
+  if ($('sideLayerChain')) $('sideLayerChain').checked = thematic.chainage;
+  if ($('sideLayerIts')) $('sideLayerIts').checked = thematic.its;
+  if ($('sideLayerPci')) $('sideLayerPci').checked = thematic.pci;
+  if ($('sideLayerAi')) $('sideLayerAi').checked = thematic.ai;
+}
+
+function applyThematicFromSide() {
+  thematic = {
+    assets: !!$('sideLayerAssets')?.checked,
+    chainage: !!$('sideLayerChain')?.checked,
+    its: !!$('sideLayerIts')?.checked,
+    pci: !!$('sideLayerPci')?.checked,
+    ai: !!$('sideLayerAi')?.checked,
+  };
+  renderMap(filtered());
+  renderAiPanel();
+  toast('Lớp dữ liệu đã cập nhật map');
+}
+
+function setSideTab(tab) {
+  const isRoutes = tab === 'routes';
+  document.querySelectorAll('[data-side-tab]').forEach((btn) => {
+    const on = btn.getAttribute('data-side-tab') === tab;
+    btn.classList.toggle('on', on);
+    btn.setAttribute('aria-selected', on ? 'true' : 'false');
+  });
+  $('paneRoutes')?.classList.toggle('on', isRoutes);
+  $('paneLayers')?.classList.toggle('on', !isRoutes);
+  if ($('paneRoutes')) $('paneRoutes').hidden = !isRoutes;
+  if ($('paneLayers')) $('paneLayers').hidden = isRoutes;
+  if (!isRoutes) syncSideLayersFromThematic();
+}
+
 function bind() {
   document.addEventListener('click', (e) => {
     const t = e.target.closest('[data-action]');
@@ -525,6 +560,16 @@ function bind() {
     page = Math.max(1, parseInt($('pageInput').value, 10) || 1);
     renderGrid();
     toast(`Trang ${page}`);
+  });
+
+  $('sideTabs')?.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-side-tab]');
+    if (!btn) return;
+    setSideTab(btn.getAttribute('data-side-tab'));
+  });
+
+  ['sideLayerAssets', 'sideLayerChain', 'sideLayerIts', 'sideLayerPci', 'sideLayerAi'].forEach((id) => {
+    $(id)?.addEventListener('change', applyThematicFromSide);
   });
 
   $('btnSave').addEventListener('click', saveForm);
@@ -638,7 +683,9 @@ function handleAction(act) {
         ai: $('chkLayerAi').checked,
       };
       $('thematicModal').classList.remove('on');
+      syncSideLayersFromThematic();
       renderMap(filtered());
+      renderAiPanel();
       toast('Lớp chuyên đề đã áp dụng');
       break;
     case 'page-first':

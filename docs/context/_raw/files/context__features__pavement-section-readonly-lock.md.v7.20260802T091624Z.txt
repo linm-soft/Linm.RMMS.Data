@@ -1,0 +1,24 @@
+# source: context/features/pavement-section-readonly-lock.md
+# version: 7
+# scannedAt: 2026-08-02T09:16:24.267Z
+# sha256: e7ebd13fe4d301f695475b5abde112839d23c8798fc13dbff469addc082568c6
+# mtimeMs: 1785493246635.4226
+# Readonly / lock map — `pavement-section`
+
+> erp-form-context Step **2d** · `field-readonly-lock-map.md`
+
+| Field | Create | Edit | View |
+|-------|--------|------|------|
+| code | RO (BE gen) / editable nếu import | RO | RO |
+| roadName | RW | RW | RO |
+| provinceName | RW | RW | RO |
+| kmFrom / kmTo | RW | RW | RO |
+| structureType | RW | RW | RO |
+| status | RW | RW | RO |
+| manageUnit | RW | RW | RO |
+| updatedAt / updatedBy | — | RO | RO |
+| lengthKm | RW hoặc computed RO | same | RO |
+
+**View mode:** section `pointer-events: none` · **cấm** disabled xám toàn form (parity phiếu thu).
+
+**Lock sau duyệt (nếu có workflow sau):** TBD — P1 không khóa.

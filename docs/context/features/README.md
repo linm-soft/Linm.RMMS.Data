@@ -20,12 +20,13 @@
 | # | Slug | Tên | Module | Phase | App hiện có (guide) | Status | Context |
 |---|------|-----|--------|-------|---------------------|--------|---------|
 | 1 | `asset` | Quản lý tài sản đường bộ | Asset | P1 | Mobile Tài sản · Web KCHT · Giám sát TS | Demo | [asset.md](asset.md) |
-| 1b | `csdl-so-sach` | CSDL 12 biểu + 8 sổ BDTX | Asset·Patrol·Maint | P1 | Hồ sơ chuẩn hóa sổ sách | Context | [../11-…](../11-CSDL-SO-SACH-DATABASE-API.md) |
+| 1b | `csdl-so-sach` | CSDL 12 biểu + 8 sổ BDTX | Asset·Patrol·Maint | P1 | Hồ sơ chuẩn hóa sổ sách | Demo | [csdl-so-sach.md](csdl-so-sach.md) · [../11-…](../11-CSDL-SO-SACH-DATABASE-API.md) |
 | 1c | `pavement-section` | Phân loại mặt đường (Biểu 1) | Asset | P1 | Hồ sơ CSDL biểu 1 | Demo | [pavement-section.md](pavement-section.md) |
 | 2 | `gis` | GIS và Digital Twin | Gis | P1–P2 | Bản đồ Giám sát / TS / SC | Demo | [gis.md](gis.md) |
 | 2a | `gis-draw-google` | Vẽ tài sản trên Google Map | Gis+Asset | P1 | GOVOne `1-ban-do.png` | Demo | [gis-draw-google.md](gis-draw-google.md) |
 | 3 | `ai-vision` | AI kiểm định mặt đường | AiVision | P1 online / P2 local | Overlay **Vấn đề** / Sự cố | Demo | [ai-vision.md](ai-vision.md) |
 | 3b | `ai-asset-detect` | AI phát hiện TS/thiết bị mới (camera tuần đường) | AiVision×Asset×Patrol | P1 online / P2 local | Camera xe → loại TS · tọa độ · tuyến → bản ghi Asset | Demo | [ai-asset-detect.md](ai-asset-detect.md) |
+| 3c | `its-traffic-detect` | ITS object detect (biển báo · cọc tiêu · edge/dashcam/CCTV) | AiVision×Iot×Asset×Gis | P1 design / P2 local edge+PostGIS | Map realtime · dedupe 10 m · OTA model · triangulation | Context | [its-traffic-detect.md](its-traffic-detect.md) · [../16-…](../16-ITS-TRAFFIC-OBJECT-DETECTION-DESIGN.md) |
 | 4 | `patrol` | Tuần đường / tuần kiểm | Patrol | P1 | Check-in · Giám sát · Lưu trữ | Demo | [patrol.md](patrol.md) |
 | 5 | `attendance` | Chấm công và định vị | Patrol | P1 | Check-in · BC checkin | Context | [attendance.md](attendance.md) |
 | 6 | `incident` | Quản lý sự cố | Incident | P1 | Vấn đề · Sự cố · Giám sát SC | Demo | [incident.md](incident.md) |

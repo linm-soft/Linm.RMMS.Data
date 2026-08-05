@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Báo giá RMMS · P1 · Linm Soft</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0a1628">
+<link rel="stylesheet" href="bao-gia-shared.css">
+</head>
+<body class="contract-locked">
+
+<div id="contract-gate" class="contract-gate" role="dialog" aria-modal="true" aria-labelledby="gate-title">
+  <div class="contract-gate-card">
+    <div class="contract-gate-logo">RMM<span>S</span> · Linm Soft</div>
+    <h1 id="gate-title">Báo giá triển khai</h1>
+    <p>Nhập mã truy cập do Linm cung cấp để xem nội dung báo giá.</p>
+    <form id="contract-gate-form" class="contract-gate-form" autocomplete="off">
+      <label for="contract-gate-code" class="field-label">Mã truy cập</label>
+      <input type="password" id="contract-gate-code" class="field-input" name="code" autocomplete="off" required aria-describedby="contract-gate-error">
+      <p id="contract-gate-error" class="field-error" role="alert" hidden><span id="contract-gate-error-text"></span></p>
+      <button type="submit" class="btn-gate">Vào xem</button>
+    </form>
+  </div>
+</div>
+
+<div id="contract-app" class="contract-app is-locked" aria-hidden="true" hidden>
+
+<nav class="nav">
+  <a class="logo" href="../index.html">RMM<span>S</span> · Báo giá</a>
+  <div class="nav-links">
+    <a href="../index.html">Tổng quan</a>
+    <a href="../hang-muc-trien-khai.html">Hạng mục KT</a>
+    <a href="../plan-p1-v2.html">Plan P1 vs V2</a>
+    <a href="index.html" class="active">Báo giá</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="badge">Báo giá triển khai · RMMS · Linm Soft · 2026</div>
+  <h1>Báo giá <span>P1</span> — Nền tảng RMMS</h1>
+  <p>
+    Giá dưới đây là <strong>P1</strong> trên .NET Server (Windows).
+    <strong>Mọi phần AI ở P1 dùng online model</strong> (GPT-4o Vision…) — giao đủ pipeline AI, không GPU/train.
+    <strong>P2</strong> tập trung chuyển <strong>local YOLOv8 + training</strong> khi đơn vị mong muốn local — báo giá khi thực hiện
+    (<a href="../plan-p1-v2.html" style="color:var(--green-mid)">Plan P1 vs V2</a>).
+    Tích hợp ngoài: tham chiếu <strong>30 / 50 / 80 tr/module</strong>.
+  </p>
+  <div class="hero-stats">
+    <div class="hs"><div class="v">900 tr</div><div class="l">Giá trị P1 cố định</div></div>
+    <div class="hs"><div class="v">30·50·80</div><div class="l">Tích hợp / module<br><small>(báo giá khi tích hợp)</small></div></div>
+    <div class="hs"><div class="v">P2</div><div class="l">Báo giá khi thực hiện</div></div>
+    <div class="hs"><div class="v">3 HĐ TT</div><div class="l">Thanh toán tách<br><small>Web+Svc · Mobile · Camera</small></div></div>
+  </div>
+</header>
+
+<div class="tabs-wrap">
+  <div class="tabs" role="tablist">
+    <button type="button" class="tab active" data-tab="hang-muc" onclick="switchTab(this,'hang-muc')">1 · Hạng mục &amp; giá P1</button>
+    <button type="button" class="tab" data-tab="phan-he" onclick="switchTab(this,'phan-he')">2 · Map P1 / P2</button>
+    <button type="button" class="tab" data-tab="timeline" onclick="switchTab(this,'timeline')">3 · Timeline P1 / P2</button>
+    <button type="button" class="tab" data-tab="ban-giao" onclick="switchTab(this,'ban-giao')">4 · Bàn giao · Ngoài HĐ</button>
+  </div>
+</div>
+
+<main class="main">
+
+<!-- TAB 1 -->
+<article id="panel-hang-muc" class="panel active" data-panel="hang-muc">
+  <h2>Tổng hợp giá trị P1</h2>
+  <div class="sum-grid">
+    <div class="sum-card"><div class="price">500</div><div class="lbl">Web App + Service<br><small>Web 300 + AI online 200 · TT riêng</small></div></div>
+    <div class="sum-card"><div class="price">250</div><div class="lbl">Mobile iOS + Android<br><small>native 2 store · TT riêng</small></div></div>
+    <div class="sum-card"><div class="price">150</div><div class="lbl">Camera realtime Bộ GTVT<br><small>chỉ tích hợp · TT riêng</small></div></div>
+    <div class="sum-card total"><div class="price">900 tr</div><div class="lbl">Tổng P1 cố định<br><small>3 lộ trình thanh toán độc lập · chưa gồm tích hợp ngoài · P2</small></div></div>
+  </div>
+
+  <h2>1 · Chi tiết hạng mục P1</h2>
+  <table>
+    <thead><tr><th>STT</th><th>Hạng mục HĐ</th><th>Phạm vi</th><th>Giá (tr)</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td><strong>Web App + Service</strong></td>
+        <td>
+          <strong>Web (300):</strong> Modular Monolith .NET 8 trên Windows Server (IIS/Kestrel) · OpenAPI · Asset · Patrol · Incident · GIS cơ bản · Maintenance · Report · Workflow · Notification · Web portal.<br>
+          <strong>AI Service (200) — mọi phần AI P1 = online model:</strong>
+          <ul style="margin:6px 0 0;padding-left:18px">
+            <li><strong>#3</strong> Kiểm định mặt đường — GPT-4o Vision</li>
+            <li><strong>#8</strong> Dự báo bảo trì — online LLM / API (không train local)</li>
+            <li><strong>#10</strong> Ước lượng sửa chữa — online LLM / API</li>
+            <li><strong>#16</strong> Copilot — GPT-4o online (RAG cloud nhẹ nếu cần)</li>
+          </ul>
+          Adapter <code>IDefectDiagnoser</code> · <em>Chưa gồm</em> token/tháng (Bên A).
+          <em>Không gồm</em> YOLOv8 local · GPU · đội SV train · model on-prem (P2 nếu muốn local).
+          Tham chiếu <a href="../plan-p1-v2.html">plan-p1-v2.html</a>.
+        </td>
+        <td class="num">500</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td><strong>Mobile — iOS &amp; Android</strong></td>
+        <td>Viết mới native 2 store (convert app RMMS cũ): Check-in · Vấn đề · Công việc · Tài sản · Giám sát · Offline · nối API. <strong>iOS 150 + Android 100.</strong></td>
+        <td class="num">250</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td><strong>Camera realtime — Bộ GTVT</strong></td>
+        <td>
+          <strong>Bên B (Linm):</strong> chỉ <em>tích hợp</em> ingest/API vào hệ thống RMMS (pipeline sự cố / giám sát).<br>
+          <strong>Bên A:</strong> đàm phán / xin quyền / chi phí lấy dữ liệu với Bộ GTVT (hoặc đơn vị chủ quản) — <strong>không thuộc scope</strong> báo giá này.
+        </td>
+        <td class="num">150</td>
+      </tr>
+      <tr class="total-row">
+        <td colspan="3"><strong>Tổng P1 cố định</strong></td>
+        <td class="num"><strong>900</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="note">
+    <strong>Camera / dữ liệu:</strong> Chi phí mua, thuê, bản quyền hoặc kết nối lấy dữ liệu camera từ Bộ GTVT do <strong>Bên A</strong> đàm phán và chi trả.
+    Bên B chỉ thực hiện tích hợp kỹ thuật khi Bên A đã có quyền truy cập / API / feed hợp lệ.
+  </div>
+
+  <h2>1b · Review AI trong báo giá P1</h2>
+  <table>
+    <thead><tr><th>#</th><th>Hạng mục AI</th><th>P1 (trong AI 200)</th><th>P2 (nếu muốn local)</th></tr></thead>
+    <tbody>
+      <tr><td>3</td><td>Kiểm định mặt đường</td><td><span class="tag p1">Online</span> GPT-4o Vision</td><td>YOLOv8 + train + SAM/PCI</td></tr>
+      <tr><td>8</td><td>Dự báo bảo trì</td><td><span class="tag p1">Online</span> LLM / API</td><td>XGBoost / ONNX local</td></tr>
+      <tr><td>10</td><td>Ước lượng sửa chữa</td><td><span class="tag p1">Online</span> LLM / API</td><td>Model local + đơn giá</td></tr>
+      <tr><td>16</td><td>Copilot</td><td><span class="tag p1">Online</span> GPT-4o (+ RAG cloud nhẹ)</td><td>RAG / on-prem</td></tr>
+    </tbody>
+  </table>
+  <p class="lead">Không còn hạng mục AI nào ở P1 dùng model local hoặc đòi train trong 900 tr.</p>
+
+  <h2>2 · Tích hợp hệ thống bên ngoài (không cộng vào 900)</h2>
+  <p class="lead">
+    ERP · CMMS · PMIS · ITS · ETC · Camera AI · SAP · GIS · IoT · cổng dịch vụ công — <strong>báo giá tại thời điểm tích hợp</strong>, dựa trên độ phức tạp thực tế của từng module.
+  </p>
+  <table>
+    <thead><tr><th>Mức phức tạp</th><th>Đơn giá tham chiếu / module</th><th>Ví dụ định hướng</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Đơn giản</strong></td><td class="num">30 tr</td><td>API REST chuẩn · mapping ít field · auth API key</td></tr>
+      <tr><td><strong>Chuẩn</strong></td><td class="num">50 tr</td><td>Webhook 2 chiều · retry/idempotency · mapping nghiệp vụ vừa</td></tr>
+      <tr><td><strong>Phức tạp</strong></td><td class="num">80 tr</td><td>SAP / ITS đặc thù · protocol riêng · SLA realtime cao · UAT dài</td></tr>
+    </tbody>
+  </table>
+  <div class="note">
+    <strong>Nguyên tắc:</strong> Không lock tổng tiền tích hợp trên báo giá P1. Mỗi module ngoài được khảo sát → xếp bậc 30 / 50 / 80 → phụ lục / báo giá bổ sung khi triển khai.
+  </div>
+
+  <h2>3 · P2 — local model &amp; module mở rộng (báo giá khi thực hiện)</h2>
+  <p class="lead">
+    <strong>AI P2:</strong> chuyển engine từ online → <strong>local</strong> khi đơn vị mong muốn:
+    YOLOv8 + train (#3) · XGBoost/ONNX local (#8/#10) · Copilot/RAG on-prem (#16) · GPU · đội SV —
+    theo <a href="../plan-p1-v2.html">Plan P1 vs V2</a>. Online còn fallback.
+    Module non-AI mở rộng (Dashboard full · Twin 3D · Contract/Drone/Citizen · Maintenance SLA…) cũng thuộc P2.
+    Báo giá P2 <strong>sau gate UAT P1</strong> — không gộp vào 900 tr.
+  </p>
+  <div class="note">
+    <strong>Chốt AI (review):</strong> Mọi hạng mục AI (#3 · #8 · #10 · #16) ở <strong>P1 đều online</strong> · nằm trong AI Service 200.
+    P2 = bản local/train <em>nếu</em> Bên A yêu cầu — có thể No-go và giữ online lâu dài.
+  </div>
+
+  <h2>4 · Hợp đồng &amp; thanh toán — tách theo hạng mục</h2>
+  <p class="lead">
+    Mỗi hạng mục có <strong>lộ trình thanh toán riêng (3-3-3-1)</strong>, nghiệm thu và quyết toán độc lập.
+    Không gộp một lịch TT chung cho cả 900 tr.
+  </p>
+
+  <h3 class="pay-h">A · Web App + Service — 500 tr</h3>
+  <p class="lead lead-tight">Gồm Web 300 + AI Service 200 (online: #3+#8+#10+#16). Chưa gồm Google Maps · token AI/tháng.</p>
+  <table>
+    <thead><tr><th>Đợt</th><th>Mốc nghiệm thu</th><th>%</th><th>Số tiền (tr)</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Ký phụ lục / kick-off hạng mục Web+Service</td><td>30%</td><td class="num">150</td></tr>
+      <tr><td>2</td><td>NT mono API + deploy Windows + module core (Asset/Patrol/Incident…)</td><td>30%</td><td class="num">150</td></tr>
+      <tr><td>3</td><td>NT AI P1 online (#3+#8+#10+#16) + Web portal</td><td>30%</td><td class="num">150</td></tr>
+      <tr><td>4</td><td>Bàn giao source / tài liệu hạng mục</td><td>10%</td><td class="num">50</td></tr>
+      <tr class="total-row"><td colspan="3"><strong>Cộng Web App + Service</strong></td><td class="num"><strong>500</strong></td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="pay-h">B · Mobile (iOS + Android) — 250 tr</h3>
+  <p class="lead lead-tight">Viết mới native 2 store — convert app cũ. iOS 150 · Android 100.</p>
+  <table>
+    <thead><tr><th>Đợt</th><th>Mốc nghiệm thu</th><th>%</th><th>Số tiền (tr)</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Ký phụ lục / kick-off Mobile</td><td>30%</td><td class="num">75</td></tr>
+      <tr><td>2</td><td>NT bản alpha (iOS + Android) nối API P1</td><td>30%</td><td class="num">75</td></tr>
+      <tr><td>3</td><td>NT UAT chức năng convert (Check-in · Vấn đề · Offline…)</td><td>30%</td><td class="num">75</td></tr>
+      <tr><td>4</td><td>Nộp Store / bàn giao build + tài liệu</td><td>10%</td><td class="num">25</td></tr>
+      <tr class="total-row"><td colspan="3"><strong>Cộng Mobile</strong></td><td class="num"><strong>250</strong></td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="pay-h">C · Camera realtime Bộ GTVT — 150 tr</h3>
+  <p class="lead lead-tight">
+    Chỉ phí <strong>tích hợp</strong> của Bên B. Chi phí lấy dữ liệu / đàm phán với Bộ GTVT — <strong>Bên A</strong>, ngoài scope.
+  </p>
+  <table>
+    <thead><tr><th>Đợt</th><th>Mốc nghiệm thu</th><th>%</th><th>Số tiền (tr)</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Ký phụ lục · Bên A đã có quyền/API/feed hợp lệ</td><td>30%</td><td class="num">45</td></tr>
+      <tr><td>2</td><td>NT kết nối ingest / adapter (sandbox hoặc staging)</td><td>30%</td><td class="num">45</td></tr>
+      <tr><td>3</td><td>NT realtime trên môi trường thống nhất + map sự cố/giám sát</td><td>30%</td><td class="num">45</td></tr>
+      <tr><td>4</td><td>Bàn giao tài liệu tích hợp</td><td>10%</td><td class="num">15</td></tr>
+      <tr class="total-row"><td colspan="3"><strong>Cộng Camera (tích hợp)</strong></td><td class="num"><strong>150</strong></td></tr>
+    </tbody>
+  </table>
+
+  <div class="note">
+    <strong>Nguyên tắc HĐ:</strong> Ba hạng mục có thể kick-off song song hoặc lệch pha.
+    Thanh toán đợt của hạng mục A không phụ thuộc nghiệm thu hạng mục B/C (trừ khi phụ lục ghi phụ thuộc kỹ thuật cụ thể).
+  </div>
+</article>
+
+<!-- TAB 2 -->
+<article id="panel-phan-he" class="panel" data-panel="phan-he" hidden>
+  <h2>Map 18 hạng mục kỹ thuật → P1 / P2</h2>
+  <p class="lead">
+    Mỗi hạng mục tách cột <strong>P1</strong> (trong 900 tr) và <strong>P2</strong> (báo giá khi thực hiện).
+    Ô trống = không thuộc phase đó.
+  </p>
+
+  <div class="phase-cols">
+    <div class="phase-col p1">
+      <h3><span class="tag p1">P1</span> Cố định — 900 tr</h3>
+      <ul class="phase-list">
+        <li><strong>Web App + Service — 500</strong>
+          <span>Web 300 · <b>AI online 200:</b> #3 Vision · #8 dự báo · #10 ước lượng · #16 Copilot · #1 · #2 GIS 2D · #7 khung · #9/#17 list · #18 OpenAPI</span>
+        </li>
+        <li><strong>Mobile iOS + Android — 250</strong>
+          <span>#4 Tuần đường · #5 Chấm công · #6 Sự cố · Offline · native 2 store</span>
+        </li>
+        <li><strong>Camera Bộ GTVT — 150</strong>
+          <span>Chỉ tích hợp ingest · A đàm phán dữ liệu (ngoài scope)</span>
+        </li>
+      </ul>
+    </div>
+    <div class="phase-col p2">
+      <h3><span class="tag p2">P2</span> Local AI + mở rộng — báo giá sau</h3>
+      <ul class="phase-list">
+        <li><strong>AI → local</strong> (khi muốn): #3 YOLOv8+train · #8/#10 ONNX/XGBoost local · #16 Copilot/RAG on-prem</li>
+        <li><strong>#2</strong> Digital Twin 3D / Cesium</li>
+        <li><strong>#7</strong> Bảo trì / WorkOrder đầy đủ · SLA</li>
+        <li><strong>#9 · #17</strong> Điều hành / Dashboard full</li>
+        <li><strong>#11 · #13</strong> HĐ · Drone</li>
+        <li><strong>#18</strong> Partner ngoài 30/50/80</li>
+        <li class="muted"><strong>#12 · #14 · #15</strong> P2+/P3 — báo giá khi chốt</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>Chi tiết từng hạng mục theo phase</h2>
+  <div class="table-scroll">
+  <table class="map-phase">
+    <thead>
+      <tr>
+        <th style="width:2.5rem">#</th>
+        <th>Hạng mục KT</th>
+        <th class="col-p1">Chi tiết P1</th>
+        <th class="col-p2">Chi tiết P2</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td><td>Quản lý tài sản</td>
+        <td class="col-p1">CRUD · PostGIS · QR · sync dữ liệu đã có · <span class="tag p1">Web+Svc</span></td>
+        <td class="col-p2 muted">—</td>
+      </tr>
+      <tr>
+        <td>2</td><td>GIS / Digital Twin</td>
+        <td class="col-p1">Điểm / map 2D tối thiểu · tile cơ bản · <span class="tag p1">Web+Svc</span></td>
+        <td class="col-p2">Digital Twin 3D · Cesium · overlay realtime · <span class="tag p2">P2</span></td>
+      </tr>
+      <tr>
+        <td>3</td><td>AI kiểm định mặt đường</td>
+        <td class="col-p1"><strong>Full online</strong> · GPT-4o Vision · detection → sự cố · <span class="tag p1">AI 200</span></td>
+        <td class="col-p2"><strong>Local</strong> YOLOv8 + train · SAM/PCI · GPU — khi đơn vị muốn local · <span class="tag p2">P2</span></td>
+      </tr>
+      <tr>
+        <td>4</td><td>Tuần đường / tuần kiểm</td>
+        <td class="col-p1">Patrol API + Mobile native · GPS · offline-batch · <span class="tag p1">Web + Mobile</span></td>
+        <td class="col-p2 muted">—</td>
+      </tr>
+      <tr>
+        <td>5</td><td>Chấm công &amp; định vị</td>
+        <td class="col-p1">Check-in / Attendance trên Mobile + API · <span class="tag p1">Web + Mobile</span></td>
+        <td class="col-p2 muted">—</td>
+      </tr>
+      <tr>
+        <td>6</td><td>Sự cố (Vấn đề)</td>
+        <td class="col-p1">Map nghiệp vụ app cũ → Web + native · upload ảnh · <span class="tag p1">Web + Mobile</span></td>
+        <td class="col-p2 muted">—</td>
+      </tr>
+      <tr>
+        <td>7</td><td>Bảo trì / WorkOrder</td>
+        <td class="col-p1">API Công việc khung · nối Vấn đề · <span class="tag p1">Web+Svc</span></td>
+        <td class="col-p2">Lịch sửa chữa đầy đủ · SLA · phân công nâng cao · <span class="tag p2">P2</span></td>
+      </tr>
+      <tr>
+        <td>8</td><td>AI dự báo bảo trì</td>
+        <td class="col-p1"><strong>Online</strong> · GPT/API dự báo từ lịch sử PCI + rule · <span class="tag p1">AI 200</span></td>
+        <td class="col-p2"><strong>Local</strong> XGBoost/ONNX train trên dữ liệu đơn vị · <span class="tag p2">P2</span></td>
+      </tr>
+      <tr>
+        <td>9</td><td>Chỉ đạo điều hành</td>
+        <td class="col-p1">List / notification nhẹ · <span class="tag p1">Web+Svc</span></td>
+        <td class="col-p2">Điều hành full · luồng chỉ đạo · <span class="tag p2">P2</span></td>
+      </tr>
+      <tr>
+        <td>10</td><td>AI ước lượng sửa chữa</td>
+        <td class="col-p1"><strong>Online</strong> · GPT/API ước lượng khối lượng/chi phí · <span class="tag p1">AI 200</span></td>
+        <td class="col-p2"><strong>Local</strong> model + bảng đơn giá on-prem · <span class="tag p2">P2</span></td>
+      </tr>
+      <tr>
+        <td>11</td><td>Hợp đồng &amp; ngân sách</td>
+        <td class="col-p1 muted">—</td>
+        <td class="col-p2">Module HĐ · ngân sách · <span class="tag p2">P2</span></td>
+      </tr>
+      <tr>
+        <td>12</td><td>Vật tư &amp; thiết bị</td>
+        <td class="col-p1 muted">—</td>
+        <td class="col-p2">Có thể P2/P3 — báo giá khi chốt · <span class="tag p2">P2+</span></td>
+      </tr>
+      <tr>
+        <td>13</td><td>Drone / Reality Capture</td>
+        <td class="col-p1 muted">—</td>
+        <td class="col-p2">Pipeline drone · capture · <span class="tag p2">P2</span></td>
+      </tr>
+      <tr>
+        <td>14</td><td>TOC giao thông</td>
+        <td class="col-p1 muted">—</td>
+        <td class="col-p2">Thường P3 — báo giá riêng · <span class="tag p2">P2+</span></td>
+      </tr>
+      <tr>
+        <td>15</td><td>Cổng người dân</td>
+        <td class="col-p1 muted">—</td>
+        <td class="col-p2">Thường P3 — báo giá riêng · <span class="tag p2">P2+</span></td>
+      </tr>
+      <tr>
+        <td>16</td><td>AI Copilot</td>
+        <td class="col-p1"><strong>Online</strong> · GPT-4o Copilot · RAG cloud nhẹ · <span class="tag p1">AI 200</span></td>
+        <td class="col-p2"><strong>Local / on-prem</strong> RAG + model nội bộ · <span class="tag p2">P2</span></td>
+      </tr>
+      <tr>
+        <td>17</td><td>Dashboard điều hành</td>
+        <td class="col-p1">Báo cáo / list KPI nhẹ · <span class="tag p1">Web+Svc</span></td>
+        <td class="col-p2">Dashboard KPI full · drill-down · <span class="tag p2">P2</span></td>
+      </tr>
+      <tr>
+        <td>18</td><td>Open API / tích hợp</td>
+        <td class="col-p1">OpenAPI / Swagger baseline · <span class="tag p1">Web+Svc</span></td>
+        <td class="col-p2">Partner ngoài theo bậc · <span class="tag int">30/50/80</span></td>
+      </tr>
+      <tr>
+        <td>—</td><td>Camera realtime Bộ GTVT</td>
+        <td class="col-p1">Tích hợp ingest · <span class="tag p1">150 · TT riêng</span><br><small>A đàm phán dữ liệu · ngoài 900 (chi phí lấy data)</small></td>
+        <td class="col-p2 muted">—</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="note">
+    <strong>Cách đọc:</strong> Mọi AI (#3 · #8 · #10 · #16) ở P1 = <strong>online</strong> (trong AI 200).
+    Cột P2 AI = bản <strong>local / train</strong> nếu đơn vị muốn — không gộp 900
+    (<a href="../plan-p1-v2.html">plan-p1-v2</a>).
+  </div>
+</article>
+
+<!-- TAB 3 -->
+<article id="panel-timeline" class="panel" data-panel="timeline" hidden>
+  <h2>Timeline P1 (gợi ý 10–12 tuần)</h2>
+  <div class="tl">
+    <div class="tl-item"><div class="w">T1–2</div><p>Scaffold mono .NET 8 · Auth · PostGIS · deploy Windows Server</p></div>
+    <div class="tl-item"><div class="w">T3–4</div><p>Asset · Patrol/Check-in · offline-batch · OpenAPI</p></div>
+    <div class="tl-item"><div class="w">T5–6</div><p>Incident ↔ Vấn đề · upload ảnh · Mobile native iOS/Android (convert app cũ)</p></div>
+    <div class="tl-item"><div class="w">T7–8</div><p>AI P1 <strong>online full</strong> (#3 Vision · #8 dự báo · #10 ước lượng · #16 Copilot) · Camera ingest <em>(khi A có quyền)</em></p></div>
+    <div class="tl-item"><div class="w">T9–10</div><p>UAT · gate: giữ online / Go local YOLOv8 (P2)</p></div>
+  </div>
+
+  <h2>P2 — sau gate (local YOLO nếu muốn)</h2>
+  <p class="lead">
+    Không khóa giá trên báo giá này. Sau UAT P1: giữ engine online, hoặc <strong>Go local YOLOv8 + train</strong> + module mở rộng —
+    Linm gửi <strong>báo giá P2</strong> theo phạm vi chốt.
+  </p>
+
+  <h2>Mốc thanh toán — tách 3 hạng mục</h2>
+  <table>
+    <thead><tr><th>Hạng mục</th><th>Giá (tr)</th><th>Lộ trình TT</th><th>Mốc gắn kỹ thuật (gợi ý)</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Web App + Service</strong></td>
+        <td class="num">500</td>
+        <td>3-3-3-1 → 150·150·150·50</td>
+        <td>Kick-off → NT API/Windows → NT AI full online → bàn giao</td>
+      </tr>
+      <tr>
+        <td><strong>Mobile iOS + Android</strong></td>
+        <td class="num">250</td>
+        <td>3-3-3-1 → 75·75·75·25</td>
+        <td>Kick-off → alpha → UAT convert → Store</td>
+      </tr>
+      <tr>
+        <td><strong>Camera Bộ GTVT</strong></td>
+        <td class="num">150</td>
+        <td>3-3-3-1 → 45·45·45·15</td>
+        <td>Sau khi Bên A có quyền dữ liệu → ingest → realtime NT → bàn giao</td>
+      </tr>
+      <tr class="total-row">
+        <td><strong>Tổng P1</strong></td>
+        <td class="num"><strong>900</strong></td>
+        <td colspan="2">Ba lịch TT độc lập</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="lead">Camera: đợt 1 chỉ bắt đầu khi Bên A đã hoàn tất đàm phán dữ liệu với Bộ GTVT (hoặc tương đương).</p>
+</article>
+
+<!-- TAB 4 -->
+<article id="panel-ban-giao" class="panel" data-panel="ban-giao" hidden>
+  <h2 id="hosting-ops">Bàn giao &amp; hạ tầng</h2>
+  <div class="split">
+    <div class="box">
+      <h3>Linm giao</h3>
+      <ul>
+        <li>Source mono .NET 8 + OpenAPI/Swagger (hạng mục Web+Service)</li>
+        <li>Hướng dẫn deploy Windows Server (IIS/Kestrel)</li>
+        <li>Tài liệu UAT P1 · báo cáo P/R online Vision (baseline cho gate local)</li>
+        <li>Bàn giao bản Mobile native (iOS + Android) + tài khoản Store (nếu khách cung cấp)</li>
+      </ul>
+    </div>
+    <div class="box amber">
+      <h3>Bên A chuẩn bị</h3>
+      <ul>
+        <li>Windows Server / DB (theo chốt kỹ thuật)</li>
+        <li>Tài khoản Azure OpenAI / OpenAI (token AI)</li>
+        <li><strong>Đàm phán &amp; chi phí lấy dữ liệu camera Bộ GTVT</strong> — ngoài scope Bên B</li>
+        <li>Cung cấp quyền/API/feed hợp lệ trước khi kick-off hạng mục Camera</li>
+        <li>App Store / Play Console (phát hành native)</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>Chi phí ngoài hợp đồng P1 (không gồm trong 900 tr)</h2>
+  <table>
+    <thead><tr><th>Khoản</th><th>Ghi chú</th></tr></thead>
+    <tbody>
+      <tr><td>Google Maps / map license</td><td>Theo đơn giá Google — Bên A</td></tr>
+      <tr><td>Token AI theo tháng</td><td>Pay-as-you-go — Bên A</td></tr>
+      <tr><td><strong>Chi phí lấy dữ liệu camera Bộ GTVT</strong></td><td><strong>Bên A đàm phán</strong> — không thuộc scope Bên B (B chỉ tích hợp)</td></tr>
+      <tr><td>Tích hợp ngoài (ERP, SAP, ITS…)</td><td>30 / 50 / 80 tr/module — báo giá khi tích hợp</td></tr>
+      <tr><td>P2 — local YOLOv8 + train (+ module mở rộng)</td><td>Khi Bên A mong muốn local · báo giá sau gate UAT P1</td></tr>
+      <tr><td>Hosting / điện / backup</td><td>Hạ tầng Bên A hoặc phụ lục vận hành</td></tr>
+    </tbody>
+  </table>
+
+  <div class="note">
+    <strong>Tóm tắt chốt:</strong> P1 = <strong>900 triệu VND</strong> —
+    Web App + Service <strong>500</strong> · Mobile <strong>250</strong> · Camera tích hợp <strong>150</strong>.
+    Thanh toán <strong>tách 3 lộ trình 3-3-3-1</strong>.
+    AI P1 = <strong>online (#3+#8+#10+#16)</strong> · P2 AI = <strong>local/train</strong> nếu muốn.
+    Tích hợp ngoài = 30 / 50 / 80. P2 = báo giá sau.
+  </div>
+</article>
+
+</main>
+
+<footer>
+  <p>RMMS · Báo giá P1 · Linm Soft © 2026</p>
+  <p><a href="../index.html">Tổng quan</a> · <a href="../hang-muc-trien-khai.html">Hạng mục</a> · <a href="../plan-p1-v2.html">Plan P1 vs V2</a></p>
+</footer>
+
+</div><!-- #contract-app -->
+
+<script src="config.js"></script>
+<script src="access.js"></script>
+<script>
+function switchTab(btn, id){
+  document.querySelectorAll('.tab').forEach(t=>{
+    t.classList.toggle('active', t===btn);
+    t.setAttribute('aria-selected', t===btn?'true':'false');
+  });
+  document.querySelectorAll('.panel').forEach(p=>{
+    const on = p.dataset.panel===id;
+    p.classList.toggle('active', on);
+    p.hidden = !on;
+  });
+  history.replaceState(null,'','#'+id);
+}
+(function(){
+  const h=(location.hash||'#hang-muc').slice(1);
+  const btn=document.querySelector('.tab[data-tab="'+h+'"]');
+  if(btn) switchTab(btn,h);
+})();
+</script>
+</body>
+</html>

@@ -1,10 +1,11 @@
 # Quản lý người dùng / tổ chức — Feature Context
 
 > **Slug:** `users` · **Module:** Auth / Admin (tạm host Integration) · **Phase:** P1 (giữ)  
-> **Status:** Demo  
+> **Status:** Demo · **sourceKind:** legacy  
 > **Kind confirmed:** **B** (CatalogListShell list + modal) — erp-form-context 2a-K  
 > **Sources:** guide Web **Quản lý người dùng** · Mobile cập nhật profile · `15-SCREEN-AI-MAP.md` · legacy GOVOne capture  
-> **Demo:** `Linm.RMMS.Demo/public/demo/integration/users.html` · `src/demo/integration/users.html`
+> **Demo:** `Linm.RMMS.Demo/public/demo/integration/users.html` · `src/demo/integration/users.html`  
+> **Catalog /dev:** `demoCatalog.ts` slug `users` · hub `index.html` · domain `integration`
 
 ## 1. Tổng quan
 
@@ -63,13 +64,13 @@ Org · User · Role · UserRoute · ManagerUser — schema Auth (có thể host 
 
 ## 7. Demo checklist (chốt khách)
 
-- [ ] Cây tổ chức + lọc user theo node
-- [ ] Grid user đủ cột · filter «đoạn đường / tuyến»
-- [ ] Form thêm/sửa user + validation banner
-- [ ] Đổi mật khẩu 3 field + submit
-- [ ] Đủ 7 actions legacy (user menu · Thêm · Hồ sơ · Đổi MK · Đăng xuất · VỀ TRANG CHỦ)
-- [ ] Phân tuyến · phân cán bộ QL (mock)
-- [ ] Không mở rộng scope AI · không gọi BE
+- [x] Cây tổ chức + lọc user theo node
+- [x] Grid user đủ cột · filter «đoạn đường / tuyến»
+- [x] Form thêm/sửa user + validation banner
+- [x] Đổi mật khẩu 3 field + submit
+- [x] Đủ 7 actions legacy (user menu · Thêm · Hồ sơ · Đổi MK · Đăng xuất · VỀ TRANG CHỦ)
+- [x] Phân tuyến · phân cán bộ QL (mock)
+- [x] Không mở rộng scope AI · không gọi BE
 
 <!-- LEGACY-GOVONE-CAPTURE:START -->
 ## Legacy GOVOne (auto-capture)
@@ -305,9 +306,9 @@ Org · User · Role · UserRoute · ManagerUser — schema Auth (có thể host 
 
 ### Step context checklist
 
-- [ ] Design demo parity legacy zones
-- [ ] Control-map fields từ Labels/Inputs/Vision
-- [ ] Status Demo → Signed → `/qlbd-align-mfe`
+- [x] Design demo parity legacy zones
+- [x] Control-map fields từ Labels/Inputs/Vision
+- [ ] Status Demo → Signed → `/qlbd-align-mfe` (Auth host GAP-F-USR-01)
 <!-- LEGACY-GOVONE-CAPTURE:END -->
 
 <!-- DEMO-MFE-MODERN:START -->

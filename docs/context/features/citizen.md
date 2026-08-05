@@ -1,12 +1,13 @@
 # Cổng người dân — Feature Context
 
 > **Slug:** `citizen` · **Module:** `Integration` + FE public · **Phase:** P3  
-> **Status:** Demo  
+> **Status:** Demo (run)  
+> **sourceKind:** `synthetic` (portal mới P3 · suy luận product docs · **không** màn GOVOne vision · **không** RECAPTURE-GAPS)  
 > **Kind:** **G** (public host) + **D** (slideout form báo sự cố) — Confirmed by: ai-autocode-autopilot  
 > **Sources:** `RMMS` §15 · `07` Hạng mục 15 · `06` rate-limit/PII · `09` · `15-SCREEN-AI-MAP.md`  
-> **Demo HTML:** `Linm.RMMS.Demo/public/demo/integration/citizen.html`  
+> **Demo HTML:** `Linm.RMMS.Demo/public/demo/integration/citizen.html` (+ `src/demo` mirror · features redirect)  
 > **MFE (align):** `Linm.Web.RMMS.Integration` · **cấm** sửa MFE ở phase demo  
-> **≠** Mobile **Góp ý** phần mềm (`feedback`)
+> **≠** Mobile **Góp ý** phần mềm (`feedback`) · AI map §15: **không** engine P1/P2 (OUT P3 adapter)
 
 ## 1. Tổng quan
 
@@ -75,13 +76,13 @@
 
 ## 7. Demo checklist (chốt khách)
 
-- [ ] Form báo sự cố đủ field control-map (17)
-- [ ] Upload ảnh/video mock + GPS/map pin
-- [ ] Theo dõi xử lý bằng mã tracking
-- [ ] Không nhầm Mobile **Góp ý** (`feedback`)
-- [ ] Đủ 17 actions từ control-map
-- [ ] Leave-confirm khi dirty
-- [ ] Không gọi BE
+- [x] Form báo sự cố đủ field control-map (17)
+- [x] Upload ảnh/video mock + GPS/map pin
+- [x] Theo dõi xử lý bằng mã tracking
+- [x] Không nhầm Mobile **Góp ý** (`feedback`)
+- [x] Đủ 17 actions từ control-map
+- [x] Leave-confirm khi dirty
+- [x] Không gọi BE · sourceKind=synthetic · no RECAPTURE open
 
 <!-- LEGACY-GOVONE-CAPTURE:START -->
 ## Legacy GOVOne (auto-capture)
@@ -200,9 +201,9 @@
 
 ### Step context checklist
 
-- [ ] Design demo parity legacy zones
-- [ ] Control-map fields từ Labels/Inputs/Vision
-- [ ] Status Demo → Signed → `/qlbd-align-mfe`
+- [x] Design demo parity synthetic zones (Kind G host + Kind D slideout)
+- [x] Control-map fields từ Labels/Inputs (product docs · 17)
+- [x] Status Demo run · catalog + hub · BE align khi Signed → `/qlbd-align-mfe`
 <!-- LEGACY-GOVONE-CAPTURE:END -->
 
 <!-- DEMO-MFE-MODERN:START -->
@@ -222,8 +223,13 @@ Gen demo: `/qlbd-analy-demo @citizen` — load control-map trên + `/erp-form-co
 
 | | |
 |--|--|
-| Task | `task_01a40d1c` |
+| Task | `task_aa784e41` |
 | Skill | `/qlbd-analy-demo @citizen` |
-| Files | `citizen.md` · `demo-maps/citizen-*.md` · `public/demo/integration/citizen.html` · `js/citizen-*.js` · `demoCatalog.ts` |
-| BE align | OFF (demo) · GAP-F-CIT-02 documented |
+| sourceKind | **synthetic** (portal mới · product docs §15/07/06 · không GOVOne leaf) |
+| Files | `citizen.md` · `demo-maps/citizen-*.md` · `public/demo/integration/citizen.html` · `js/citizen-*.js` · `demoCatalog.ts` · hub index · features redirect |
+| Dev | `DEMO_FEATURES` · `/demo/p/citizen` · hub · DOMAIN integration |
+| ACTION WORK GATE | 17/17 actions · host report/track · slideout footer/media/OTP/GPS · leave-confirm |
+| Map | Leaflet OSM pin (live tiles · not screenshot) |
+| AI support | OUT §15 (no engine) · badge ≠ feedback only |
+| BE align | OFF (demo) · GAP-F-CIT-02 documented · Step 4b khi Signed |
 | Confirmed by | ai-autocode-autopilot |

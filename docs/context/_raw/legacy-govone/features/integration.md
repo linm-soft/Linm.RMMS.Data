@@ -1,8 +1,8 @@
 # Legacy capture — `integration` (Open API và tích hợp)
 
-> **Không có màn GOVOne vision** riêng cho Open API hub.  
-> Capture synthetized từ `RMMS` §18 · `07` Hạng mục 18 · `09` Integration OpenAPI baseline · guide **Import tài sản** · `15-SCREEN-AI-MAP.md` screen 18.  
-> Source: product docs — **không** password · **không** clone skin GOVOne.  
+> sourceKind=**synthetic** — không màn GOVOne vision riêng cho Open API hub.  
+> Capture suy luận từ `RMMS` §18 · `07` Hạng mục 18 · `09` Integration OpenAPI baseline · guide **Import tài sản** · `15-SCREEN-AI-MAP.md` screen 18.  
+> Source: product docs — **không** password · **không** clone skin GOVOne · **không** mở RECAPTURE-GAPS.  
 > Sibling domain page: `feedback` (Góp ý) — **không** gộp vào slug này.
 
 ## Pages (3)

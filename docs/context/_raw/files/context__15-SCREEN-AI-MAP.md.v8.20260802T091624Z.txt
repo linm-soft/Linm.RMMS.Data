@@ -1,0 +1,143 @@
+# source: context/15-SCREEN-AI-MAP.md
+# version: 8
+# scannedAt: 2026-08-02T09:16:24.267Z
+# sha256: 53690d845d249408c528aaa0faaef2937183fea2905409661567b633aefb3efb
+# mtimeMs: 1785582749813.3372
+# RMMS — Map màn hình hiện có ↔ phân hệ AI / nền tảng
+
+> **SSOT** gắn **Hướng dẫn sử dụng** (Web/Mobile) với **RMMS giải pháp tính năng** (18 phân hệ).  
+> **Sources:** `docs/Hướng dẫn sử dụng phần mềm.docx` · `docs/RMMS_Giaiphap_tinhnang.docx` · `07` · `09` · `features/*`  
+> **Nguyên tắc:** Giữ UX app hiện có · bổ sung API + AI overlay · không rewrite Mobile/Web từ zero.
+
+---
+
+## 1. Catalog app hiện có
+
+### 1.1 Mobile (`Trên điện thoại`)
+
+| App / mục | Chức năng chính (guide) | Slug feature | Module |
+|-----------|-------------------------|--------------|--------|
+| **Check-in** | Khai báo vị trí tuần đường · chấm công · online/offline · lịch sử · ≥3 điểm/ngày/tuyến (QL/TL) | `patrol` · `attendance` | Patrol |
+| **Giám sát** | List + bản đồ lịch sử check-in · lọc tuyến/ngày · thông báo | `patrol` · `ops` | Patrol · Notification |
+| **Vấn đề** | Tra cứu · trao đổi · ghi nhận online/offline · tìm đường · giao việc · bản đồ sự cố | `incident` | Incident |
+| **Tài sản** | Thu thập · cập nhật · xem bản đồ (vd. cột km) · ảnh/GPS | `asset` · `gis` | Asset · Gis |
+| **Công việc** | Chi tiết · trao đổi · cập nhật TT/tiến độ · lọc tuyến · ảnh | `maintenance` (P2) · `estimate` | Maintenance · ML |
+| **Lưu trữ** | Queue offline Check-in / Sự cố · sync khi có mạng | `patrol` · `incident` | Patrol · Incident · Iot |
+| **Góp ý** | Feedback tính năng phần mềm | `feedback` | Integration (nhẹ) |
+| **Cập nhật thông tin** | SĐT · email · ảnh đại diện · đổi MK | `users` | Auth / Integration |
+
+### 1.2 Web (`Trên website`)
+
+| Mục | Chức năng chính (guide) | Slug feature | Module |
+|-----|-------------------------|--------------|--------|
+| **Giám sát hoạt động** | Cán bộ trên bản đồ · lịch sử hoạt động | `patrol` · `dashboard` | Patrol · Report |
+| **Giám sát tài sản** | List/filter tuyến · chi tiết pin bản đồ | `asset` · `gis` | Asset · Gis |
+| **Giám sát sự cố** | Sự cố trên bản đồ · filter | `incident` · `gis` | Incident · Gis |
+| **Sự cố / Loại sự cố** | List · tìm · chi tiết · bình luận · giao việc | `incident` | Incident |
+| **Tài sản KCHT** | QL tài sản · import · tuyến · đoạn · lý trình · địa bàn · loại TS | `asset` · `pavement-section` · `csdl-so-sach` | Asset |
+| **Công việc** | List · tiến độ · bình luận · tạo CV (từ sự cố) | `maintenance` | Maintenance |
+| **QL Cơ quan / Người dùng / Cấp** | Tổ chức · phân tuyến · phân cán bộ | `users` | Auth |
+| **Báo cáo tài sản / sự cố / checkin** | Xem · xuất Excel checkin | `dashboard` · `reports` | Report |
+
+---
+
+## 2. AI / nền tảng bổ sung theo màn hình
+
+| Màn hiện có | AI / nâng cấp gắn vào | Phase | Engine P1 | Engine P2 |
+|-------------|----------------------|-------|-----------|-----------|
+| Mobile **Vấn đề** · chụp ảnh | #3 AI kiểm định → class/severity/bbox → đề xuất tạo sự cố | P1 | GPT-4o Vision | ONNX detector + SAM (`14`) |
+| Camera **xe tuần đường** · Patrol feed | **`ai-asset-detect`** — nhận diện loại TS/thiết bị **mới** → candidate (tọa độ · loại · tuyến) → Confirm tạo Asset | P1 | GPT-4o Vision | ONNX asset-class + nearby dedupe |
+| Web **Tài sản** / Giám sát TS | List candidate AI · pin «AI new» · Confirm/Dismiss | P1 | — (read + confirm) | Auto-create ngưỡng cao (tuỳ) |
+| Web **Sự cố** chi tiết | Hiển thị detection · link `detectionId` · severity | P1 | — (read) | Local model version badge |
+| Mobile/Web **Công việc** | #10 AI ước lượng khối lượng/chi phí từ defect | P1 | GPT-4o JSON | Regression + đơn giá |
+| Web **Báo cáo** / Dashboard mới | #8 AI dự báo xuống cấp · priority list | P1 | GPT-4o / 4o-mini | XGBoost/ONNX |
+| Web shell (mới) | #16 Copilot NL («tuyến nào xuống cấp…») | P1 | 4o-mini (+4o) | RAG on-prem |
+| Mobile **Check-in** · Web **Giám sát hoạt động** | #4–5 Coverage KPI · geo-fence · bỏ sót tuyến | P1 | Rule + PostGIS | + Edge camera (sau) |
+| Web **Giám sát tài sản/sự cố** · Mobile bản đồ | #2 GIS overlay PCI heatmap · Twin 3D | P1 2D / P2 3D | MapLibre tiles | Cesium |
+| Web **Tài sản KCHT** | #1 QR · media · PostGIS · CSDL sổ sách 12 biểu | P1 | — | Twin enrich |
+| Nguồn mới (không có màn cũ) | #13 Drone · #14 TOC · #15 Cổng dân · #11–12 HĐ/VT | P2–P3 | — | Theo `09` OUT |
+
+---
+
+## 3. Ma trận 18 phân hệ → client
+
+| # | Phân hệ (docx giải pháp) | Mobile | Web | Feature slug | Phase |
+|---|--------------------------|--------|-----|--------------|-------|
+| 1 | Quản lý tài sản đường bộ | Tài sản | Tài sản KCHT · Giám sát TS | `asset` · `pavement-section` · `csdl-so-sach` | P1 |
+| 2 | GIS và Digital Twin | Bản đồ trong TS/Vấn đề/Giám sát | Giám sát * · GIS nâng cấp | `gis` · `gis-draw-google` | P1–P2 |
+| 3 | AI kiểm định mặt đường | Vấn đề (+ upload) | Sự cố · list detection | `ai-vision` | P1 online / P2 local |
+| 3b | AI phát hiện TS/thiết bị mới | Camera tuần đường | Candidate → Asset Confirm | `ai-asset-detect` | P1 online / P2 local |
+| 4 | Tuần đường / tuần kiểm | Check-in · Giám sát | Giám sát hoạt động · BC checkin | `patrol` | P1 |
+| 5 | Chấm công và định vị | Check-in (rules) | BC checkin · báo cáo công | `attendance` | P1 |
+| 6 | Quản lý sự cố | Vấn đề · Lưu trữ | Sự cố · Giám sát sự cố | `incident` | P1 |
+| 7 | Lập lịch sửa chữa / bảo trì | Công việc | Công việc | `maintenance` | P2 (khung P1) |
+| 8 | AI dự báo bảo trì | — | Priority / Dashboard | `predict` | P1 online / P2 local |
+| 9 | Chỉ đạo điều hành | Giám sát · thông báo | Giám sát · Command | `ops` | P2 (list nhẹ P1) |
+| 10 | AI ước lượng sửa chữa | Công việc (panel) | Công việc / WO | `estimate` | P1 online / P2 local |
+| 11 | Hợp đồng và ngân sách | — | Module mới | `contract` | P2–P3 |
+| 12 | Vật tư và thiết bị | — | Module mới | `inventory` | P3 |
+| 13 | Drone / Reality Capture | — | Module mới | `drone` | P2–P3 |
+| 14 | Trung tâm ĐH giao thông | — | Module mới | `toc` | P3 |
+| 15 | Cổng người dân | — | Portal mới | `citizen` | P3 |
+| 16 | AI Copilot | — | Drawer chat Web | `copilot` | P1 online / P2 RAG |
+| 17 | Dashboard điều hành | — | Dashboard + Báo cáo | `dashboard` · `reports` | P1 KPI nhẹ / P2 full |
+| 18 | Open API và tích hợp | Sync offline | Swagger · import | `integration` | P1–P3 |
+
+---
+
+## 4. Luồng nghiệp vụ end-to-end (chuẩn hóa)
+
+```
+Check-in / GPS track (Mobile)
+    → Patrol API + Timescale
+Ảnh hiện trường (Mobile Vấn đề)
+    → AiVision detect (P1 GPT-4o / P2 ONNX)
+    → defect.detected → Incident (critical)
+Camera xe tuần đường (Patrol)
+    → ai-asset-detect (P1 GPT-4o / P2 ONNX class TS)
+    → asset.candidate → Confirm → Asset (tọa độ · loại · tuyến)
+Incident / Vấn đề (Mobile+Web)
+    → Assign · Comment · SLA stub
+    → AI Estimate (P1 JSON) → Work Order (P2 Maintenance)
+Công việc (Mobile+Web)
+    → Tiến độ · ảnh nghiệm thu → AssetHistory
+GIS overlay (Web Giám sát)
+    → Asset · Incident · PCI heatmap
+Copilot / Predict / Dashboard (Web)
+    → Đọc aggregation · NL query (P1 online)
+```
+
+---
+
+## 5. Tech stack chuẩn (tóm tắt — chi tiết `07`)
+
+| Lớp | Chuẩn |
+|-----|--------|
+| Host | .NET 8 `Rmms.Api` modular monolith · 14 modules |
+| API | `api/v1/...` · JWT · `company_id` · OpenAPI |
+| DB | PostgreSQL + PostGIS + Timescale · Redis · MinIO |
+| FE | Giữ Mobile/Web RMMS · consumer API · React chỉ module mới |
+| AI P1 | Azure OpenAI GPT-4o / 4o-mini |
+| AI P2 | ONNX detector+SAM · XGBoost/ONNX · RAG local (`14` · `10` · `13`) |
+
+---
+
+## 6. Gaps map-level
+
+| ID | Nội dung | Default |
+|----|----------|---------|
+| GAP-MAP-01 | App «Góp ý» có thành feature riêng hay gộp Integration? | `feedback` Draft · gộp Integration nếu không ưu tiên demo |
+| GAP-MAP-02 | Web «Quản lý người dùng» thuộc Auth riêng hay Integration? | `users` · Auth host — DEFER deep nếu ngoài HĐ AI |
+| GAP-MAP-03 | Công việc P1 = chỉ API khung map Vấn đề → CV | Không SLA/WO full (`09` OUT) |
+| GAP-MAP-04 | Nguồn sự cố Citizen/tổng đài/Drone | Adapter stub P1 · UI P2–P3 |
+
+---
+
+## 7. Liên kết feature context
+
+| Slug | File |
+|------|------|
+| Backlog | [`features/README.md`](features/README.md) |
+| Asset … Integration | [`features/{slug}.md`](features/README.md) |
+| Tech SSOT | [`07-TECHNICAL-IMPLEMENTATION.md`](07-TECHNICAL-IMPLEMENTATION.md) |
+| Phase | [`09-PLAN-P1-V2.md`](09-PLAN-P1-V2.md) |

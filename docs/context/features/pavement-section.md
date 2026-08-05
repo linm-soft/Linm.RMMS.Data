@@ -1,15 +1,17 @@
 # Phân loại mặt đường (Biểu 1) — ERP Form Context
 
 > **Slug:** `pavement-section` · **Module:** `Asset` / infra  
+> **sourceKind:** **synthetic** (product docs Biểu 1 · CSDL BDTX · **không** GOVOne vision packet · **cấm** RECAPTURE vì thiếu GOVOne)  
 > **Kind:** **B (Catalog list)** + **Full page form** (≥10 field — không Modal)  
-> **Status:** Demo HTML · In Review  
-> **Sources:** `11-CSDL-SO-SACH-DATABASE-API.md` § Biểu 1 · hồ sơ chuẩn hóa sổ sách  
+> **Status:** Demo HTML · **run** · task_12c100cf  
+> **Sources:** `11-CSDL-SO-SACH-DATABASE-API.md` § Biểu 1 · `features/pavement-section.md` · hồ sơ chuẩn hóa sổ sách · guide/giaiphap  
 > **API:** `api/v1/infra/pavement-sections`  
 > **IdCode:** `MD-YYYYMMDD-NNNN` (vd. `MD-20260731-0001`)  
 > **Demo:** `Linm.RMMS.Demo/public/demo/asset/pavement-section.html` (+ mirror `src/demo/asset/`)  
 > **Control map:** [`pavement-section-control-map.md`](pavement-section-control-map.md)  
 > **Readonly lock:** [`pavement-section-readonly-lock.md`](pavement-section-readonly-lock.md)  
-> **Demo-maps:** `_raw/legacy-govone/demo-maps/pavement-section-control-map.md` · `-actions.md`
+> **Demo-maps:** `_raw/legacy-govone/demo-maps/pavement-section-control-map.md` · `-actions.md`  
+> **AI (15-map):** Tài sản KCHT § QR/media/PostGIS — **không** engine detect trên Biểu 1 · **no** `aiSupport` badge; AI candidate pin thuộc slug `asset`
 
 ## 0. Kind gate (Step 2a-K)
 
@@ -73,7 +75,7 @@
 
 Toast: success hardcode VI · error từ BE (form-api-error-handling).
 
-> **BE status (demo_scan):** endpoints **MISSING** trên `Linm.Web.ERP.WebService` → **GAP-F-PVT-01** · **be_align OFF** (skill `/qlbd-analy-demo` · demo only).
+> **BE status (demo_scan / task_12c100cf):** endpoints **MISSING** trên `Linm.Web.ERP.WebService` → **GAP-F-PVT-01** · **be_align OFF** (Status Demo ≠ Signed · DEFER Step 4b · skill `/qlbd-analy-demo` · demo only · **cấm** gọi BE).
 
 ## 4. Database
 
@@ -243,7 +245,7 @@ Index: `(CompanyCode, Code)` unique · `(RoadName, KmFrom, KmTo)` · GIST option
 
 ### Step context checklist
 
-- [ ] Design demo parity legacy zones
-- [ ] Control-map fields từ Labels/Inputs/Vision
-- [ ] Status Demo → Signed → `/qlbd-align-mfe`
+- [x] Design demo parity synthetic zones (docs Biểu 1 · erp-form-context Kind B)
+- [x] Control-map fields từ Labels/Inputs (product docs · 22 fields · 23 actions)
+- [ ] Status Demo → Signed → `/qlbd-align-mfe` + BE Step 4b
 <!-- LEGACY-GOVONE-CAPTURE:END -->

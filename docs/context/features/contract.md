@@ -2,9 +2,10 @@
 
 > **Slug:** `contract` · **Module:** `Contract` · **Phase:** P2–P3  
 > **Status:** Demo  
+> **sourceKind:** **synthetic** (module mới P2–P3 · không màn GOVOne)  
 > **Kind:** **B** (CatalogListShell) + **D** (slideout form) — Confirmed by: ai-autocode-autopilot  
 > **Sources:** `RMMS` §11 · `07` Hạng mục 11 · `09` OUT P1 · `15-SCREEN-AI-MAP.md`  
-> **Demo HTML:** `Linm.RMMS.Demo/public/demo/contract/contract.html`  
+> **Demo HTML:** `Linm.RMMS.Demo/src/demo/contract/contract.html` (+ `public/demo` copy)  
 > **MFE (align):** `Linm.Web.RMMS.Contract` · route `/contract` · **cấm** sửa MFE ở phase demo  
 > **≠** Inventory P3 (`inventory`) — vật tư nằm sub-route riêng khi align
 
@@ -104,14 +105,15 @@ Liên kết WorkOrder → thanh toán (task team P2) · KPI từ SLA / nghiệm 
 
 ## 7. Demo checklist (chốt khách)
 
-- [ ] List đủ cột + filter loại/TT/nhà thầu
-- [ ] KPI 4 ô mock (giá trị · NS còn · KPI TB · sắp hết hạn)
-- [ ] Form Kind D đủ 26 field control-map (kể cả dòng TT)
-- [ ] Đủ 24 actions (click → toast/modal/nav)
-- [ ] Payment lines pattern_inline_grid
-- [ ] Badge P2–P3
-- [ ] Leave-confirm khi dirty
-- [ ] Không gọi BE
+- [x] List đủ cột + filter loại/TT/nhà thầu
+- [x] KPI 4 ô mock (giá trị · NS còn · KPI TB · sắp hết hạn)
+- [x] Form Kind D đủ 26 field control-map (kể cả dòng TT)
+- [x] Đủ 24 actions (click → toast/modal/nav) · **User menu** skip chrome GOVOne (null-guard)
+- [x] Payment lines pattern_inline_grid
+- [x] Badge P2–P3
+- [x] Leave-confirm khi dirty
+- [x] Không gọi BE
+- [x] `sourceKind=synthetic` trên hub/catalog · **không** RECAPTURE-GAPS (pure product)
 
 <!-- LEGACY-GOVONE-CAPTURE:START -->
 ## Legacy GOVOne (auto-capture)
@@ -218,8 +220,9 @@ Gen demo: `/qlbd-analy-demo @contract` — load control-map trên + `/erp-form-c
 
 | | |
 |--|--|
-| Task | `task_adce6684` |
-| Skill | `/qlbd-analy-demo @contract` |
-| Files | `contract.md` · `demo-maps/contract-*.md` · `public/demo/contract/contract.html` · `js/contract-*.js` · `demoCatalog.ts` |
-| BE align | OFF (demo) · GAP-F-CTR-03 documented |
-| Confirmed by | ai-autocode-autopilot |
+| Task | `task_0f96c5a2` (prior: `task_adce6684`) |
+| Skill | `/qlbd-analy-demo @contract` · sourceKind=**synthetic** |
+| Files | `contract.md` · `demo-maps/contract-*.md` · `src/demo/contract/contract.html` · `js/contract-*.js` · `demoCatalog.ts` · hub `index.html` |
+| AI support | — (map 15 #11 không AI) |
+| BE align | OFF (demo) · GAP-F-CTR-03 MISSING · Step 4b khi Signed |
+| Confirmed by | ai-autocode-autopilot · 2026-08-02 |

@@ -103,15 +103,16 @@ Payload gợi ý: `{eventId, detectType, road, lat, lng, confidence}` · detecti
 
 ## 7. Demo checklist (chốt khách)
 
-- [ ] List đủ cột + filter loại/mức/TT/camera
-- [ ] KPI 4 ô mock (mở · ùn tắc · VMS online · camera online)
-- [ ] Form Kind D đủ 26 field control-map (kể cả dòng VMS)
-- [ ] Đủ 25 actions (click → toast/modal/nav)
-- [ ] VMS lines pattern_inline_grid
-- [ ] Camera wall stub modal
-- [ ] Badge P3 + AI support
-- [ ] Leave-confirm khi dirty
-- [ ] Không gọi BE
+- [x] List đủ cột + filter loại/mức/TT/camera
+- [x] KPI 4 ô mock (mở · ùn tắc · VMS online · camera online)
+- [x] Form Kind D đủ 26 field control-map (kể cả dòng VMS)
+- [x] Đủ 25 actions (click → toast/modal/nav)
+- [x] VMS lines pattern_inline_grid
+- [x] Camera wall stub modal
+- [x] Badge P3 + AI support
+- [x] Leave-confirm khi dirty
+- [x] Không gọi BE
+- [x] sourceKind=synthetic · user menu mock · catalog `/dev`
 
 <!-- LEGACY-GOVONE-CAPTURE:START -->
 ## Legacy GOVOne (auto-capture)
@@ -269,8 +270,8 @@ Payload gợi ý: `{eventId, detectType, road, lat, lng, confidence}` · detecti
 
 ### Step context checklist
 
-- [ ] Design demo parity legacy zones
-- [ ] Control-map fields từ Labels/Inputs/Vision
+- [x] Design demo parity legacy zones
+- [x] Control-map fields từ Labels/Inputs/Vision
 - [ ] Status Demo → Signed → `/qlbd-align-mfe`
 <!-- LEGACY-GOVONE-CAPTURE:END -->
 
@@ -291,8 +292,9 @@ Gen demo: `/qlbd-analy-demo @toc` — load control-map trên + `/erp-form-contex
 
 | | |
 |--|--|
-| Task | `task_e946e237` |
+| Task | `task_84ac3599` |
 | Skill | `/qlbd-analy-demo @toc` |
+| sourceKind | synthetic |
 | Files | `toc.md` · `demo-maps/toc-*.md` · `public/demo/toc/toc.html` · `js/toc-*.js` · `demoCatalog.ts` |
-| BE align | OFF (demo) · GAP-F-TOC-03 documented |
+| BE align | OFF (demo) · GAP-F-TOC-03 documented · endpoints MISSING until Signed |
 | Confirmed by | ai-autocode-autopilot |

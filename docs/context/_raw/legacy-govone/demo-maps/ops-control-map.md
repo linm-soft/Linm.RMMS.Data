@@ -2,7 +2,7 @@
 
 > **Rule:** cùng field/action legacy · UI theo **`/erp-form-context`** (Linm.Development.Rules).  
 > Demo HTML mock `Lin*` look · **cấm** copy skin GOVOne cũ · **cấm** BE.  
-> Legacy: synthetized (ops product context · notify inbox) — `_raw/legacy-govone/features/ops.md`.  
+> **sourceKind:** `synthetic` (product docs · ops notify inbox) — `_raw/legacy-govone/features/ops.md` · `features/ops.md`.  
 > **≠** GOVOne `dbv3giamsat` (`patrol`) — map realtime → navigate Patrol/Gis.
 
 ## Kind hint

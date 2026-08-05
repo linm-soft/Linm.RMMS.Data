@@ -283,9 +283,9 @@ Indexes: trigram/`code`+`name` · spatial GIST trên `Geom`.
 
 ### Step context checklist
 
-- [x] Design demo parity legacy zones
-- [x] Control-map fields từ Labels/Inputs/Vision
-- [x] Status Demo → (customer) Signed → `/qlbd-align-mfe`
+- [x] Design demo parity legacy zones (map+list+filter · skip chrome GOVOne)
+- [x] Control-map fields từ Labels/Inputs/Vision + product form
+- [ ] Status Demo → Signed → `/qlbd-align-mfe`
 <!-- LEGACY-GOVONE-CAPTURE:END -->
 
 <!-- DEMO-MFE-MODERN:START -->
@@ -295,11 +295,9 @@ Indexes: trigram/`code`+`name` · spatial GIST trên `Geom`.
 
 - Control-map: [`asset-control-map.md`](../_raw/legacy-govone/demo-maps/asset-control-map.md)
 - Actions: [`asset-actions.md`](../_raw/legacy-govone/demo-maps/asset-actions.md)
-- Fields mapped: 4 · Actions: 11 (+ Create/Copy form pair · search grid · Leaflet mandatory)
+- Fields mapped: 18 (filter+form) · Actions: 11 legacy chrome + Create/Edit/View/Copy/AI
 - Kind hint: F/custom map + list — erp-custom-manage + GIS · erp-list-page-shell
-- Map: Leaflet live (OSM/Esri/OpenTopo) — **cấm** CSS gradient canvas
-- AI (15): candidate «AI new» Confirm/Dismiss · catalog `aiSupport`
+- sourceKind: **legacy** · RECAPTURE P0 asset **closed** (demo filled 2026-08-02 · task_4b4da1e1)
 
 Gen demo: `/qlbd-analy-demo @asset` — load control-map trên + `/erp-form-context` rules (2a-K · 2g · common controls).
-HTML: `Linm.RMMS.Demo/src/demo/asset/asset.html` · catalog `demoCatalog.ts` slug `asset`
 <!-- DEMO-MFE-MODERN:END -->

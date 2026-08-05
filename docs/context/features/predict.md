@@ -80,13 +80,13 @@
 
 ## 7. Demo checklist (chốt khách)
 
-- [ ] Priority list mock (8 đoạn)
-- [ ] Badge P1 online
-- [ ] Link Dashboard
-- [ ] Không hiện GPU/train
-- [ ] Đủ field + 20 actions từ control-map
-- [ ] Leave-confirm khi ghi chú dirty
-- [ ] Section slideout: drivers · chart stub · recommend
+- [x] Priority list mock (8 đoạn)
+- [x] Badge P1 online
+- [x] Link Dashboard
+- [x] Không hiện GPU/train
+- [x] Đủ field + 20 actions từ control-map
+- [x] Leave-confirm khi ghi chú dirty
+- [x] Section slideout: drivers · chart stub · recommend
 
 <!-- LEGACY-GOVONE-CAPTURE:START -->
 ## Legacy GOVOne (auto-capture)
@@ -225,8 +225,8 @@
 
 ### Step context checklist
 
-- [ ] Design demo parity legacy zones
-- [ ] Control-map fields từ Labels/Inputs/Vision
+- [x] Design demo parity legacy zones
+- [x] Control-map fields từ Labels/Inputs/Vision
 - [ ] Status Demo → Signed → `/qlbd-align-mfe`
 <!-- LEGACY-GOVONE-CAPTURE:END -->
 
@@ -247,8 +247,11 @@ Gen demo: `/qlbd-analy-demo @predict` — load control-map trên + `/erp-form-co
 
 | | |
 |--|--|
-| Task | `task_94118a43` |
+| Task | `task_d9fe218b` |
+| Alias | `predict` |
 | Skill | `/qlbd-analy-demo @predict` |
-| Files | `predict.md` · `demo-maps/predict-*.md` · `public/demo/ai-vision/predict.html` · `js/predict-*.js` · `demoCatalog.ts` |
-| BE align | OFF (demo) · GAP-F-PRD-03 documented |
+| sourceKind | legacy (doc-synth — không màn GOVOne; capture từ 07/15 + synthetic labels) |
+| Files | `predict.md` · `demo-maps/predict-*.md` · `src/demo/ai-vision/predict.html` · `js/predict-*.js` · `demoCatalog.ts` · hub link `ai-vision.html` |
+| BE align | OFF (demo) · GAP-F-PRD-03 `/api/v1/ai-predict/*` MISSING · be_align khi Signed |
+| Gap open | none (P0 legacy form thiếu — N/A; module mới) |
 | Confirmed by | ai-autocode-autopilot |

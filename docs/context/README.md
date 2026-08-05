@@ -29,6 +29,9 @@
 | [**13-AI-SERVER-BY-PHASE.md**](13-AI-SERVER-BY-PHASE.md) | Phase → cloud / vật lý / Vast | Infra, PM |
 | [**12-AI-COST-PHASES.md**](12-AI-COST-PHASES.md) | Chi phí AI theo giai đoạn | PM, CFO |
 | [**10-YOLO-SERVER-REQUIREMENTS.md**](10-YOLO-SERVER-REQUIREMENTS.md) | Spec GPU worker (ONNX infer/train) | Infra |
+| [**17-GPU-VNSO-COST-STANDARD.md**](17-GPU-VNSO-COST-STANDARD.md) | **SSOT SKU GPU + chi phí VNSO** — Train A100 PAYG · Infer V100/L4/A40 tháng · plan P2/P2.1 | Infra, PM, CFO |
+| [**16-ITS-TRAFFIC-OBJECT-DETECTION-DESIGN.md**](16-ITS-TRAFFIC-OBJECT-DETECTION-DESIGN.md) | **System design ITS** — biển báo/cọc tiêu · edge AI · PostGIS 10 m · BFF/Auth · SignalR · OTA | Architect, BE, AI, Mobile |
+| [`features/its-traffic-detect.md`](features/its-traffic-detect.md) | Feature context ITS (map demo `ai-asset-detect`) | PM, Dev |
 
 ## Demo standalone (std mode)
 

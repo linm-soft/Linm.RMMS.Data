@@ -3,6 +3,7 @@
 > **Slug:** `estimate` · **Module:** ML / AiVision · **Phase:** P1 online · P2 local + đơn giá  
 > **Status:** Demo  
 > **Kind:** **D** (slideout form) — Confirmed by: ai-autocode-autopilot  
+> **sourceKind:** **synthetic** · product docs (không màn GOVOne)  
 > **Sources:** `RMMS` §10 · `07` §10 · `08` · `09` · `15-SCREEN-AI-MAP.md`  
 > **Gắn màn:** Mobile/Web **Công việc** · chi tiết **Sự cố** · route MFE `/ai-vision/estimate`  
 > **Demo HTML:** `Linm.RMMS.Demo/public/demo/ai-vision/estimate.html`  
@@ -94,7 +95,7 @@
 - [x] Đủ field + 13 actions từ control-map
 - [x] Leave-confirm khi dirty
 - [x] Host search work (mã / mô tả / tuyến)
-- [x] sourceKind=legacy (synthetized — không màn GOVOne riêng)
+- [x] sourceKind=synthetic (doc-inferred — không màn GOVOne riêng · **cấm** RECAPTURE-GAPS)
 
 <!-- LEGACY-GOVONE-CAPTURE:START -->
 ## Legacy GOVOne (auto-capture)
@@ -193,8 +194,8 @@
 
 ### Step context checklist
 
-- [x] Design demo parity legacy zones
-- [x] Control-map fields từ Labels/Inputs/Vision
+- [x] Design demo parity Kind D zones (Z1 toolbar · Z2 header+lines · Z3 total)
+- [x] Control-map fields từ Labels/Inputs/docs (20f · 13a)
 - [ ] Status Demo → Signed → `/qlbd-align-mfe`
 <!-- LEGACY-GOVONE-CAPTURE:END -->
 
@@ -215,10 +216,11 @@ Gen demo: `/qlbd-analy-demo @estimate` — load control-map trên + `/erp-form-c
 
 | | |
 |--|--|
-| Task | `task_ff8a59ee` (prev `task_42d3c388`) |
+| Task | `task_31764117` (prev `task_ff8a59ee` · `task_42d3c388`) |
 | Skill | `/qlbd-analy-demo @estimate` |
-| sourceKind | **legacy** (synthetized capture — no GOVOne screen) |
-| Files | `estimate.md` · `demo-maps/estimate-*.md` · `public/demo/ai-vision/estimate.html` · `js/estimate-*.js` · `demoCatalog.ts` |
-| BE align | OFF (demo) · GAP-F-EST-03 documented · Step 4b when Signed |
-| Action work | Host search · 13 actions (AI estimate / lines / confirm / attach stub) · no Create/Edit pair dead |
+| sourceKind | **synthetic** (product docs · no GOVOne screen · RECAPTURE closed) |
+| Files | `estimate.md` · `demo-maps/estimate-*.md` · `public/demo/ai-vision/estimate.html` · `js/estimate-*.js` · `features/estimate-demo.html` (redirect) · `demoCatalog.ts` · hub |
+| BE align | OFF (demo Status ≠ Signed) · GAP-F-EST-03 documented · Step 4b when Signed |
+| Action work | Host list search work · open panel (create estimate) · line edit/delete · confirm modal · attach stub · leave-confirm · 13 actions paired · no dead Create/Edit |
+| Gaps open | **none** P0 (BE MISSING = DEFER · not Action-gap) |
 | Confirmed by | ai-autocode-autopilot |

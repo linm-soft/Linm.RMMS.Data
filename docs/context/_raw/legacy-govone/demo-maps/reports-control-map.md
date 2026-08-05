@@ -10,9 +10,17 @@
 
 ## Fields (legacy → Linm)
 
-| Legacy | type | zone | Control | Linm SSOT |
-|--------|------|------|---------|-----------|
-| (unnamed) | input | toolbar | Text | TextField · common-field-control |
+> Legacy capture root chỉ 1 input shallow · **product P1** (guide Web Báo cáo) bổ sung 6 filter Kind E.
+
+| Legacy / product | type | zone | Control | Linm SSOT |
+|------------------|------|------|---------|-----------|
+| (unnamed legacy) | input | toolbar | Text | TextField · common-field-control |
+| Loại báo cáo | select | filter | Select | SelectField · `reports.field.reportKind` |
+| Tuyến | select | filter | Select | SelectField · `reports.field.routeId` |
+| Kỳ báo cáo | select | filter | Select | SelectField · `reports.field.periodMode` |
+| Từ ngày | date | filter | Date | DateField · `reports.field.fromDate` |
+| Đến ngày | date | filter | Date | DateField · `reports.field.toDate` |
+| Tìm kiếm | search | filter | Text | TextField · `reports.field.qSearch` |
 
 
 ## Actions / buttons (legacy → toolbar MFE)
@@ -141,15 +149,25 @@
 | Giấy phép thi công | nav | content | Điều hướng | MemoryRouter / navigate · mfe-run-modes |
 
 
+## Product P1 screens (guide · Kind E)
+
+| Tab | Filters | Grid | Export |
+|-----|---------|------|--------|
+| BC Tài sản | loại · tuyến · kỳ · search | STT · tuyến · hạng mục · SL · ĐVT · TT · cập nhật | — |
+| BC Sự cố | loại · tuyến · từ/đến · search | STT · mã · tuyến · loại · mức · TT · thời gian | — |
+| BC Check-in | loại · tuyến · từ/đến · search | STT · cán bộ · tuyến · ngày · điểm · coverage · first→last | CSV mock (BOM UTF-8) |
+| Catalog 172 | — | action chips by zone | toast mock (không clone GOVOne skin) |
+
 ## Demo page rules (bắt buộc)
 
-1. **Layout** — list: LinPageLayout zones A–F · form: Pattern A/B/C theo Kind
-2. **Filter** — `LinErpListFilterBar` · Tìm trên filter · Làm mới toolbar
-3. **Grid** — STT · sort/filter · row action menu · không header `TT`
-4. **Form** — validation banner · không disabled xám View · toast mock
-5. **Labels** — `useFormOptions` pattern (hardcode VN chỉ trong demo HTML OK nếu gắn data-i18n key)
-6. **Datetime** — hiển thị local · lưu ISO offset (mock)
-7. Mọi **button** trong bảng Actions phải có trên demo (click → toast/modal mock)
+1. **Layout** — Kind E AnalyticsReportShell · sidebar inventory + main filter/grid
+2. **Filter** — `LinErpListFilterBar` pattern · Tìm trên filter · Làm mới toolbar
+3. **Grid** — STT · row «Xem» mock · không header `TT`
+4. **Report** — «Xem báo cáo» → fake rows · **cấm BE**
+5. **Labels** — hardcode VN demo OK nếu gắn `data-i18n` key
+6. **Datetime** — hiển thị local · lọc ISO date (mock)
+7. Mọi **button** trong Actions (172) — catalog chips + sidebar + footer → toast mock
+8. **Skip chrome GOVOne** — không logo govOne / bell / Ban.TK shell · theme Linm optional
 
 ## Refs
 

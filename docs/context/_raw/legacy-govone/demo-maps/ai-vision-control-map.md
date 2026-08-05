@@ -3,7 +3,7 @@
 > **Rule:** UI theo **`/erp-form-context`** (Linm shell).  
 > Demo HTML mock · **cấm** copy skin GOVOne · **cấm** BE.  
 > Nguồn: **product AI / synthetic docs** (`features/ai-vision.md` · `15-SCREEN-AI-MAP.md` · `14-P2` · `07`) — không có màn GOVOne riêng (`RECAPTURE-GAPS` wontfix).  
-> **sourceKind:** legacy packet · raw feature **product AI** (enrich từ docs).
+> **sourceKind:** synthetic · raw feature **product AI** (enrich từ docs · không GOVOne form).
 
 ## Kind hint
 

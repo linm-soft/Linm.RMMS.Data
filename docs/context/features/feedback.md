@@ -162,11 +162,11 @@ Gen demo: `/qlbd-analy-demo @feedback` — load control-map trên + `/erp-form-c
 
 | | |
 |--|--|
-| Task | `task_4c53dcbe` |
+| Task | `task_0b559cba` (prior `task_4c53dcbe`) |
 | Skill | `/qlbd-analy-demo @feedback` |
 | sourceKind | **synthetic** (capture labeled legacy-govone block nhưng **không** màn GOVOne vision — product docs + guide Mobile Góp ý) |
 | Files | `feedback.md` · `demo-maps/feedback-*.md` · `public/demo/integration/feedback.html` · `js/feedback-*.js` · `demoCatalog.ts` · features redirect |
 | Dev | `DEMO_FEATURES` · `/demo/p/feedback` · hub index · DOMAIN integration |
 | ACTION WORK GATE | 7/7 actions work · create host→slideout form pair · no dead Edit/View |
 | BE align | OFF (demo) · GAP-F-FB-02 documented · Step 4b khi Signed |
-| Confirmed by | ai-autocode-autopilot |
+| Confirmed by | ai-autocode-autopilot · task_0b559cba |
