@@ -32,14 +32,15 @@
 
 ## 3. API
 
-Base: `api/v1/rmms/org-units` (SA chốt DOMAIN-MAP)
+Base: `api/v1/integration/org-units` (SA DOMAIN-MAP · Integration · GAP-SA-ROUTE-01)
 
 | Method | Path | Mô tả |
 |--------|------|-------|
-| GET | `/rmms/org-units/tree` | Cây đầy đủ |
-| GET | `/rmms/org-units?search=` | List/search CI |
-| GET | `/rmms/org-units/{id}` | Chi tiết |
-| POST / PUT / DELETE | … | CRUD shared (permission approve) |
+| GET | `/integration/org-units/tree` | Cây đầy đủ |
+| GET | `/integration/org-units?search=` | List/search CI không dấu |
+| GET | `/integration/org-units/search` | SearchInput parent |
+| GET | `/integration/org-units/{id}` | Chi tiết |
+| POST / PUT / DELETE | … | CRUD shared Type A |
 
 ## 4. Fields (draft)
 

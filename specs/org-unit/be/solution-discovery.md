@@ -1,24 +1,25 @@
 # Solution discovery — org-unit
 
-> Status: **await_confirm** (`domain_map`+gates recorded · chờ `solution_confirm`)  
+> Status: **confirmed** (`solution_confirm=approve` · 2026-08-08)  
 > Standards: api-endpoint · bff-api-structure · company-field · database-migration · api-permission-gate · repo-path-guard · **no-parent-json-field** · **ssot-no-duplicate** · **sa-implement-gates** (TZ · XCO · SHARE) · **shared-master-catalog**  
 > SA detail: `sa-api-form-data.md` · `sa-repo-solution.md` · `sa-implement-gates.md` · `master-catalog-no-demo.md` · stack `qlbd-tech-stack.md`  
 > Requires: `ui/design.md` **confirmed** · prototype + reviewUrl · parentCode=**SearchInput**  
-> Version meta: rules `2026.08.08.14` · solution `2026.08.08.1`
+> Version meta: rules `2026.08.08.14` · solution `2026.08.08.1`  
+> **Tasks:** `specs/org-unit/task/org-unit.md` (TL) · phase → **dev** (board repo confirm)
 
 | Field | Value |
 |-------|-------|
 | feature | `org-unit` |
 | packKind | `master` (Kind B tree + Modal) |
-| status | `await_confirm` |
+| status | `confirmed` |
 | design_confirm | approve |
 | domain_map | **Integration** (`D1` · 2026-08-08) |
 | sa_tz_gate | **tz_na** |
 | sa_xco_gate | **xco_na** |
 | sa_shared_table | **share_a** (Type A · user `shared 3A`) |
-| solution_confirm | — |
+| solution_confirm | **approve** (2026-08-08) |
 | gapOrg01 | `keep_legacy` |
-| updatedAt | 2026-08-08T17:49:00.000Z |
+| updatedAt | 2026-08-08T17:51:00.000Z |
 
 ## 1. Ownership
 
