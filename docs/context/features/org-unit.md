@@ -1,10 +1,10 @@
 # Đơn vị tổ chức (cơ cấu DRVN) — Feature Context
 
 > **Slug:** `org-unit` · **Module:** Master · **Phase:** P1  
-> **Status:** Context  
+> **Status:** Context · **data-analy confirmed A** (2026-08-08)  
 > **Feature Kind:** **B** — Catalog tree list + form  
 > **packKind:** `master` — **không demo** · UI confirm ở Design  
-> **Sources:** [`../20-ORG-STRUCTURE-DRVN.md`](../20-ORG-STRUCTURE-DRVN.md) · [drvn.gov.vn](https://drvn.gov.vn/gioi-thieu/co-cau-to-chuc?categoryId=101875659) · data-import CUC 2  
+> **Sources:** [`../20-ORG-STRUCTURE-DRVN.md`](../20-ORG-STRUCTURE-DRVN.md) · [**seed JSON (60 nodes)**](../seed/org-unit-seed.json) · [drvn.gov.vn](https://drvn.gov.vn/gioi-thieu/co-cau-to-chuc?categoryId=101875659) · data-import CUC 2  
 > **Demo HTML:** **N/A**  
 > **MFE:** `Linm.Web.RMMS.Master` · `/master/org-unit`  
 > **Specs:** `Linm.RMMS.Data/specs/org-unit/`  
@@ -18,6 +18,7 @@
 | Persona | Admin hệ thống · Khu QLĐB |
 | App hiện có | — (mới) |
 | DoD ngắn | Tree load · SearchInput work · seed DRVN · map Chi cục II.x · View readonly |
+| **Seed Design** | [`../seed/org-unit-seed.json`](../seed/org-unit-seed.json) — **REQUIRED** load trước prototype |
 
 ## 2. Design / UI
 
@@ -26,6 +27,7 @@
 | List tree | Kind B + `LinTreeGridLayout` / `LinTreeNav` | A header · B toolbar · C tree+grid · D pagination (nếu flat search) |
 | Form | Modal hoặc Slideout (&lt;10 fields) | code · name · parent · kind · legacyAlias |
 
+**Seed → prototype:** render tree từ `org-unit-seed.json` (không hardcode vài node demo).  
 **Confirm:** Design prototype `specs/org-unit/ui/prototype/` + reviewUrl — AskQuestion `design_confirm`.
 
 ## 3. API

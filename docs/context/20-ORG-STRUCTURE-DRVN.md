@@ -3,7 +3,8 @@
 > **catalogKind:** `org-unit` · **MFE:** `Linm.Web.RMMS.Master` · `/master/org-unit`  
 > **Nguồn:** [drvn.gov.vn — Cơ cấu tổ chức](https://drvn.gov.vn/gioi-thieu/co-cau-to-chuc?categoryId=101875659) · sơ đồ DRVN  
 > **Workflow:** `/agent-qldb-workflow` · `packKind=master` · **không demo** · UI confirm Design (`master-catalog-no-demo.md`)  
-> **Feature context:** [`features/org-unit.md`](features/org-unit.md) · hub [`features/master.md`](features/master.md)
+> **Feature context:** [`features/org-unit.md`](features/org-unit.md) · hub [`features/master.md`](features/master.md)  
+> **Seed (machine — Design/SA/Dev):** [`seed/org-unit-seed.json`](seed/org-unit-seed.json) · **60** nodes · mirror `specs/_data-analy/shared-catalogs/org-unit-seed.json`
 
 ## 1. Mục đích
 
@@ -15,41 +16,33 @@ Danh mục **dùng chung** (platform shared) — tree đơn vị DRVN để:
 
 ## 2. Cây chuẩn (seed)
 
+**AI Design MUST load** [`seed/org-unit-seed.json`](seed/org-unit-seed.json) — mỗi node: `code` · `name` · `parentCode` · `kind` · `legacyAlias` · `isLegacyExtra`.
+
+| kind | Count | Ví dụ |
+|------|------:|-------|
+| ORG | 1 | `DRVN` |
+| HQ | 1 | `HQ` |
+| ADV | 1 | `ADV` |
+| REG | 5 | `REG-I`…`REG-IV` (+ nhóm) |
+| ROOM | 27 | Phòng Khu / tham mưu |
+| VP | 18 | `VP-I.1`…`VP-IV.4` · `VP-II.1`/`II.6` legacy |
+| SU | 7 | Ban QLDA · TT KT · CĐ |
+| **Total** | **60** | |
+
+Outline (đọc nhanh — **không** thay seed JSON):
+
 ```
 DRVN                          Cục Đường bộ Việt Nam
 ├── HQ                        Lãnh đạo Cục
 ├── ADV                       Cơ quan tham mưu
-│   ├── ADV-VP                Văn phòng
-│   ├── ADV-TCCB              Phòng Tổ chức cán bộ
-│   ├── ADV-KHCN              Phòng KHCN, MT & HTQT
-│   ├── ADV-KHTC              Phòng Kế hoạch - Tài chính
-│   ├── ADV-DTCT              Phòng Quản lý đầu tư công tư
-│   ├── ADV-QLGT              Phòng Quản lý, tổ chức giao thông
-│   ├── ADV-QLBT              Phòng Quản lý, bảo trì
-│   ├── ADV-QLVT              Phòng Quản lý vận tải
-│   ├── ADV-PCĐT              Phòng Pháp chế – Đấu thầu
-│   ├── ADV-TD                Phòng Thẩm định
-│   └── ADV-QLCL              Phòng Quản lý chất lượng
+│   ├── ADV-VP … ADV-QLCL     (11 phòng tham mưu)
 ├── REG                       Cơ quan quản lý khu vực
-│   ├── REG-I                 Khu Quản lý đường bộ I
-│   │   ├── REG-I-TCHC …      (4 phòng Khu)
-│   │   └── VP-I.1 … VP-I.4   Văn phòng Quản lý đường bộ I.1–I.4
-│   ├── REG-II                Khu Quản lý đường bộ II   ← RMMS CUC 2
-│   │   ├── (4 phòng Khu)
-│   │   └── VP-II.2 … VP-II.5 Văn phòng II.2–II.5 (SSOT DRVN)
-│   ├── REG-III               Khu III → VP-III.1…III.4
-│   └── REG-IV                Khu IV → VP-IV.1…IV.4
+│   ├── REG-I … REG-IV        (+ 4 phòng/Khu · VP-*.*)
 └── SU                        Đơn vị sự nghiệp
-    ├── SU-BQLDA-N            Ban QLDA miền Bắc
-    ├── SU-BQLDA-T            Ban QLDA miền Trung
-    ├── SU-BQLDA-S            Ban QLDA miền Nam
-    ├── SU-TTKT-N             TT KT&CN Đường bộ phía Bắc
-    ├── SU-TTKT-S             TT KT&CN Đường bộ phía Nam
-    └── SU-CĐ                 Trường CĐ GTVT đường bộ
+    └── SU-BQLDA-* · SU-TTKT-* · SU-CĐ
 ```
 
-Mỗi Khu (I–IV) có 4 phòng chức năng: Tổ chức – Hành chính · Kế hoạch – Tài chính · Quản lý, bảo trì · Quản lý, tổ chức giao thông.
-
+Mỗi Khu (I–IV) có 4 phòng chức năng: Tổ chức – Hành chính · Kế hoạch – Tài chính · Quản lý, bảo trì · Quản lý, tổ chức giao thông. **Chi tiết mã** → seed JSON.
 ## 3. Map data-import `RMMS CUC 2`
 
 | Import folder | orgCode đề xuất | Ghi chú |

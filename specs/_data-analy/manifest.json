@@ -1,17 +1,51 @@
 {
   "schemaVersion": "2026.08.08.1",
-  "rulesVersion": "2026.08.08.14",
+  "rulesVersion": "2026.08.08.15",
+  "dataRoot": "data-import/RMMS CUC 2",
+  "analyzedAt": "2026-08-08T17:25:00.000Z",
+  "confirmedAt": "2026-08-08T17:28:00.000Z",
+  "clusterConfirm": "A",
   "clusters": [],
   "sharedCatalogs": [
     {
       "id": "shared-org-structure",
       "catalogKind": "org-unit",
       "featureSlug": "org-unit",
-      "status": "draft",
+      "status": "done",
       "artifact": "specs/_data-analy/shared-catalogs/org-structure.md",
-      "contentHash": "pending-full-scan",
-      "analyzedAt": "2026-08-08T17:20:00.000Z",
-      "notes": "DRVN SSOT · packKind=master · no demo"
+      "contentHash": "folder+drvn-ssot",
+      "notes": "APPROVED A · DRVN + Chi cục II.x"
+    },
+    {
+      "id": "shared-road-route",
+      "catalogKind": "road-route",
+      "featureSlug": "road-route",
+      "status": "done",
+      "artifact": "specs/_data-analy/shared-catalogs/INVESTIGATE-CUC2.md#3",
+      "contentHash": "folder-routes-v1-approved",
+      "canonicalCount": 38,
+      "notes": "APPROVED A · QL.* + HCM + CT"
+    },
+    {
+      "id": "shared-asset-type",
+      "catalogKind": "asset-type",
+      "featureSlug": "asset-type",
+      "status": "done",
+      "artifact": "specs/_data-analy/shared-catalogs/INVESTIGATE-CUC2.md#4",
+      "contentHash": "folder-atypes-v1-approved",
+      "canonicalCount": 23,
+      "notes": "APPROVED A · CULVERT_X…LAND_ROW"
+    },
+    {
+      "id": "shared-partner-unit",
+      "catalogKind": "partner-unit",
+      "featureSlug": "partner-unit",
+      "status": "done",
+      "artifact": "specs/_data-analy/shared-catalogs/INVESTIGATE-CUC2.md#2",
+      "contentHash": "folder-partners-v1-approved",
+      "canonicalCount": 13,
+      "notes": "APPROVED A · 6 Sở + 7 BOT/DN"
     }
-  ]
+  ],
+  "investigate": "specs/_data-analy/shared-catalogs/INVESTIGATE-CUC2.md"
 }

@@ -1,73 +1,61 @@
 # Master catalogs — Feature hub
 
 > **Slug:** `master` · **Module:** Master · **Phase:** P1  
-> **Status:** Context  
-> **Feature Kind:** **B** — Catalog list/tree (erp-form-context)  
+> **Status:** Context · **data-analy confirmed A** (CUC 2 · 2026-08-08)  
+> **Feature Kind:** **B** — Catalog list/tree  
 > **packKind:** `master` — **không demo** · UI confirm Design  
 > **MFE:** `Linm.Web.RMMS.Master` · `/master`  
-> **BE:** `Linm.RMMS.WebService` · `api/v1/rmms/*` — **cấm** ERP.Master  
-> **Workflow:** `/agent-qldb-workflow` · Linm `example/master-catalog-no-demo.md`  
-> **SSOT org:** [`../20-ORG-STRUCTURE-DRVN.md`](../20-ORG-STRUCTURE-DRVN.md)
+> **Investigate:** [`../../specs/_data-analy/shared-catalogs/INVESTIGATE-CUC2.md`](../../specs/_data-analy/shared-catalogs/INVESTIGATE-CUC2.md)  
+> **SSOT org:** [`../20-ORG-STRUCTURE-DRVN.md`](../20-ORG-STRUCTURE-DRVN.md) · **seed:** [`../seed/org-unit-seed.json`](../seed/org-unit-seed.json) (60 nodes)
 
 ## 1. Tổng quan
 
 | | |
 |--|--|
-| Mục tiêu | Danh mục dùng chung cho toàn RMMS — implement **trước** page nghiệp vụ dùng SearchInput |
-| Persona | Admin Cục · Khu · Văn phòng QLĐB |
-| Demo HTML | **N/A** — không Signed demo; prototype tại Design |
-| DoD module | 4 catalog Kind B + shared seed + lookup API work |
+| Mục tiêu | 4 danh mục dùng chung — seed từ DRVN + folder `RMMS CUC 2` — implement **trước** Asset SearchInput |
+| Demo | **N/A** |
+| DoD | Context + seed map + API search + Kind B pages |
 
-## 2. Catalogs (pages)
+## 2. Catalogs (từ investigate)
 
-| # | Slug | catalogKind | UI | Priority |
-|---|------|-------------|-----|----------|
-| 1 | [`org-unit`](org-unit.md) | `org-unit` | Tree list + SearchInput | **P0** |
-| 2 | `road-route` | `road-route` | List mã+tên tuyến | P0 |
-| 3 | `asset-type` | `asset-type` | List loại TS (folder import) | P0 |
-| 4 | `partner-unit` | `partner-unit` | Sở / BOT / Cty | P1 |
+| # | Slug | catalogKind | Data signal (CUC 2) | Priority |
+|---|------|-------------|---------------------|----------|
+| 1 | [`org-unit`](org-unit.md) | org-unit | Chi cục II.1–II.6 ↔ VP DRVN | **P0** |
+| 2 | [`road-route`](road-route.md) | road-route | ~42 folder tuyến → ~25 canonical | **P0** |
+| 3 | [`asset-type`](asset-type.md) | asset-type | ~99 folder loại → ~23 canonical | **P0** |
+| 4 | [`partner-unit`](partner-unit.md) | partner-unit | 13 Sở/BOT/Cty | **P1** |
 
-## 3. Design / UI
+## 3. UI routes
 
-| Screen | Pattern | Zones |
-|--------|---------|-------|
-| `/master/org-unit` | Kind B + **tree** | LinPageLayout · toolbar · tree grid · modal/slideout form |
-| `/master/road-route` | Kind B list | CatalogListShell · search |
-| `/master/asset-type` | Kind B list | CatalogListShell |
-| `/master/partner-unit` | Kind B list | CatalogListShell |
+| Path | Feature |
+|------|---------|
+| `/master/org-unit` | tree + form |
+| `/master/road-route` | list + form |
+| `/master/asset-type` | list + form |
+| `/master/partner-unit` | list + form |
 
-**Confirm UI:** Design prototype + `reviewUrl` — **không** chờ demo HTML.
+## 4. API prefix
 
-## 4. API (outline — SA chốt per feature)
+`api/v1/rmms/org-units` · `road-routes` · `asset-types` · `partner-units` (+ `/search`)
 
-Base prefix: `api/v1/rmms/`
+## 5. Consumer fields (erp-form-context 2li) — controlHint từ data-analy
 
-| Catalog | Path |
-|---------|------|
-| org-units | `/rmms/org-units` · `/rmms/org-units/tree` · `/rmms/org-units/search` |
-| road-routes | `/rmms/road-routes` · search |
-| asset-types | `/rmms/asset-types` · search |
-| partner-units | `/rmms/partner-units` · search |
+| Catalog | Field trên Asset / import | **controlHint** (approved) |
+|---------|---------------------------|----------------------------|
+| org-unit | `orgUnitCode` | **SearchInput tree** |
+| road-route | `routeCode` | **SearchInput** |
+| asset-type | `assetTypeCode` | **SearchInput** (nhiều alias) |
+| partner-unit | `partnerUnitCode` | **SearchInput** |
+| Ghi chú / mô tả / số đo thô | — | **Text** / Number (free-style) |
+| Enum nhỏ ổn định (nếu xuất hiện trong sheet) | — | **Dropdown** |
 
-Auth: JWT · tenant `companyCode` / `X-Company-Id` · shared Scope theo rule RMMS.
+SSOT rule: Linm `example/data-analy-control-hint.md` — Design chốt control-map; SA chốt API lookup.
 
-## 5. data-import
+## 6. Pipeline
 
-| ID | Path | Dùng cho |
-|----|------|----------|
-| DI-ORG | DRVN SSOT + map CUC 2 Chi cục | org-unit seed |
-| DI-ROUTE | `RMMS CUC 2/**/{tuyến}/` folder names | road-route |
-| DI-ATYPE | folder loại TS dưới tuyến | asset-type |
-| DI-PARTNER | Sở / BOT / Cty top-level CUC 2 | partner-unit |
-
-## 6. Workflow tasks
-
-| Feature | STATUS | packKind | Gate |
-|---------|--------|----------|------|
-| `org-unit` | `specs/org-unit/STATUS.md` | `master` | no demo · design_confirm |
-| (tiếp) road-route / asset-type / partner-unit | specs/… | `master` | same |
-
-## 7. Out of scope
-
-- CRUD tài sản / GIS / AI → MFE Asset / Gis / AiVision  
-- Auth user package → Integration / Auth (khác org-unit tree)
+| Feature | STATUS |
+|---------|--------|
+| org-unit | `specs/org-unit/STATUS.md` |
+| road-route | `specs/road-route/STATUS.md` |
+| asset-type | `specs/asset-type/STATUS.md` |
+| partner-unit | `specs/partner-unit/STATUS.md` |

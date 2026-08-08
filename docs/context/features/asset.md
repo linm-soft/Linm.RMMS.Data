@@ -16,13 +16,13 @@
 | Persona | Tuần đường · Ban QLDA · Sở GTVT |
 | App hiện có | Mobile **Tài sản** (thu thập/cập nhật/bản đồ) · Web **Tài sản KCHT** (QL TS · import · tuyến · đoạn · lý trình · địa bàn · loại) · **Giám sát tài sản** — giữ UX |
 | DoD ngắn | API CRUD + nearby/bbox + media presign + QR + import + soft delete + tenant |
-| List pack DoD | Kind B shell · search work · row menu · View readonly · Create/Edit/Copy · BE `rmms/road-assets` |
+| List pack DoD | Kind B shell · search work · row menu · View readonly · Create/Edit/Copy · BE `api/v1/asset/road-assets` |
 
 ## 2. Design / UI
 
 | Screen | Pattern | Zones | Map guide |
 |--------|---------|-------|-----------|
-| **Danh mục TS (MFE list)** | **Catalog list (Kind B)** | LinPageLayout · toolbar · search/type · row menu · form full | — |
+| **Danh mục TS (MFE list)** | **Catalog list (Kind B)** | Zones A–D · LinPageLayout · toolbar · search/type · Slideout form Z1–Z3 | prototype `specs/asset/ui/prototype/` |
 | Thu thập / cập nhật Mobile | Full (giữ) | Loại TS · form · ảnh · GPS | Mobile a–b |
 | Bản đồ TS Mobile | Full | Tuyến · loại · pin | Mobile c |
 | QL tài sản KCHT (demo) | Full / Kind F | List · map · import wizard | Web a |
@@ -34,16 +34,18 @@
 
 ## 3. API
 
-**P1 list (implemented):** Base `api/v1/rmms/road-assets` · BFF `web-bff/api/v1/rmms/road-assets`  
-⚠️ **Không** dùng Finance `api/v1/assets` (TSCĐ FixedAsset).
+**P1 list (RMMS):** Base `api/v1/asset/road-assets` · BFF `web-bff/api/v1/asset/road-assets`  
+⚠️ **Không** dùng Finance `api/v1/assets` (TSCĐ) · **không** prefix `/rmms/` (GAP-SA-ROUTE-01 closed).
 
-| Method | Path | Mô tả |
-|--------|------|-------|
-| GET | `/rmms/road-assets?search=&type=&page=&pageSize=` | List + search |
-| GET | `/rmms/road-assets/{id}` | Chi tiết |
-| POST | `/rmms/road-assets` | Tạo |
-| PUT | `/rmms/road-assets/{id}` | Sửa |
-| DELETE | `/rmms/road-assets/{id}` | Soft delete (`IsActive=false`) |
+| Method | Path | Mô tả | Gates |
+|--------|------|-------|-------|
+| GET | `/asset/road-assets?search=&type=&page=&pageSize=` | List + search (pageSize 50/100/200/500) | TZ n/a |
+| GET | `/asset/road-assets/{id}` | Chi tiết · **XCO** AllowedCompanyIds | XCO required |
+| POST | `/asset/road-assets` | Tạo (+ Copy → POST) · IdCode `TS-yyyyMMdd-nnn` | tenant_keep |
+| PUT | `/asset/road-assets/{id}` | Sửa | |
+| DELETE | `/asset/road-assets/{id}` | Soft delete (`IsActive=false`) | |
+
+**Entity:** `RoadAssetEntity` · table `rmms_road_assets` · flat scalars · **SHARE=tenant_keep** · Migration `Schema_RmmsRoadAssets`.
 
 **Planned (context roadmap — not this pack):**
 

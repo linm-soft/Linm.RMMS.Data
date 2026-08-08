@@ -1,0 +1,630 @@
+{
+  "schemaVersion": "2026.08.08.1",
+  "catalogKind": "org-unit",
+  "featureSlug": "org-unit",
+  "gapOrg01": "keep_legacy",
+  "source": {
+    "ssot": "docs/context/20-ORG-STRUCTURE-DRVN.md",
+    "feature": "docs/context/features/org-unit.md",
+    "seedContext": "docs/context/seed/org-unit-seed.json",
+    "seedAnalyMirror": "specs/_data-analy/shared-catalogs/org-unit-seed.json",
+    "url": "https://drvn.gov.vn/gioi-thieu/co-cau-to-chuc?categoryId=101875659",
+    "dataImportMap": "data-import/RMMS CUC 2/Chi cục QLĐB II.x → VP-II.x"
+  },
+  "kinds": [
+    "ORG",
+    "HQ",
+    "ADV",
+    "REG",
+    "VP",
+    "SU",
+    "ROOM"
+  ],
+  "notes": [
+    "GAP-ORG-01 keep_legacy: VP-II.1 và VP-II.6 có isLegacyExtra=true (không trên trang DRVN Khu II chỉ II.2–II.5)",
+    "legacyAlias Chi cục = official Văn phòng QLĐB",
+    "Sở/BOT/Cty → partner-unit (OOS)"
+  ],
+  "items": [
+    {
+      "code": "DRVN",
+      "name": "Cục Đường bộ Việt Nam",
+      "parentCode": null,
+      "kind": "ORG",
+      "legacyAlias": null,
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 1
+    },
+    {
+      "code": "HQ",
+      "name": "Lãnh đạo Cục",
+      "parentCode": "DRVN",
+      "kind": "HQ",
+      "legacyAlias": null,
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 2
+    },
+    {
+      "code": "ADV",
+      "name": "Cơ quan tham mưu",
+      "parentCode": "DRVN",
+      "kind": "ADV",
+      "legacyAlias": null,
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 3
+    },
+    {
+      "code": "ADV-VP",
+      "name": "Văn phòng",
+      "parentCode": "ADV",
+      "kind": "ROOM",
+      "legacyAlias": null,
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 4
+    },
+    {
+      "code": "ADV-TCCB",
+      "name": "Phòng Tổ chức cán bộ",
+      "parentCode": "ADV",
+      "kind": "ROOM",
+      "legacyAlias": null,
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 5
+    },
+    {
+      "code": "ADV-KHCN",
+      "name": "Phòng KHCN, MT & HTQT",
+      "parentCode": "ADV",
+      "kind": "ROOM",
+      "legacyAlias": null,
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 6
+    },
+    {
+      "code": "ADV-KHTC",
+      "name": "Phòng Kế hoạch - Tài chính",
+      "parentCode": "ADV",
+      "kind": "ROOM",
+      "legacyAlias": null,
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 7
+    },
+    {
+      "code": "ADV-DTCT",
+      "name": "Phòng Quản lý đầu tư công tư",
+      "parentCode": "ADV",
+      "kind": "ROOM",
+      "legacyAlias": null,
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 8
+    },
+    {
+      "code": "ADV-QLGT",
+      "name": "Phòng Quản lý, tổ chức giao thông",
+      "parentCode": "ADV",
+      "kind": "ROOM",
+      "legacyAlias": null,
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 9
+    },
+    {
+      "code": "ADV-QLBT",
+      "name": "Phòng Quản lý, bảo trì",
+      "parentCode": "ADV",
+      "kind": "ROOM",
+      "legacyAlias": null,
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 10
+    },
+    {
+      "code": "ADV-QLVT",
+      "name": "Phòng Quản lý vận tải",
+      "parentCode": "ADV",
+      "kind": "ROOM",
+      "legacyAlias": null,
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 11
+    },
+    {
+      "code": "ADV-PCĐT",
+      "name": "Phòng Pháp chế – Đấu thầu",
+      "parentCode": "ADV",
+      "kind": "ROOM",
+      "legacyAlias": null,
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 12
+    },
+    {
+      "code": "ADV-TD",
+      "name": "Phòng Thẩm định",
+      "parentCode": "ADV",
+      "kind": "ROOM",
+      "legacyAlias": null,
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 13
+    },
+    {
+      "code": "ADV-QLCL",
+      "name": "Phòng Quản lý chất lượng",
+      "parentCode": "ADV",
+      "kind": "ROOM",
+      "legacyAlias": null,
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 14
+    },
+    {
+      "code": "REG",
+      "name": "Cơ quan quản lý khu vực",
+      "parentCode": "DRVN",
+      "kind": "REG",
+      "legacyAlias": null,
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 15
+    },
+    {
+      "code": "REG-I",
+      "name": "Khu Quản lý đường bộ I",
+      "parentCode": "REG",
+      "kind": "REG",
+      "legacyAlias": null,
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 16
+    },
+    {
+      "code": "REG-I-TCHC",
+      "name": "Phòng Tổ chức – Hành chính (Khu I)",
+      "parentCode": "REG-I",
+      "kind": "ROOM",
+      "legacyAlias": null,
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 17
+    },
+    {
+      "code": "REG-I-KHTC",
+      "name": "Phòng Kế hoạch – Tài chính (Khu I)",
+      "parentCode": "REG-I",
+      "kind": "ROOM",
+      "legacyAlias": null,
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 18
+    },
+    {
+      "code": "REG-I-QLBT",
+      "name": "Phòng Quản lý, bảo trì (Khu I)",
+      "parentCode": "REG-I",
+      "kind": "ROOM",
+      "legacyAlias": null,
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 19
+    },
+    {
+      "code": "REG-I-QLGT",
+      "name": "Phòng Quản lý, tổ chức giao thông (Khu I)",
+      "parentCode": "REG-I",
+      "kind": "ROOM",
+      "legacyAlias": null,
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 20
+    },
+    {
+      "code": "VP-I.1",
+      "name": "Văn phòng Quản lý đường bộ I.1",
+      "parentCode": "REG-I",
+      "kind": "VP",
+      "legacyAlias": null,
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 21
+    },
+    {
+      "code": "VP-I.2",
+      "name": "Văn phòng Quản lý đường bộ I.2",
+      "parentCode": "REG-I",
+      "kind": "VP",
+      "legacyAlias": null,
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 22
+    },
+    {
+      "code": "VP-I.3",
+      "name": "Văn phòng Quản lý đường bộ I.3",
+      "parentCode": "REG-I",
+      "kind": "VP",
+      "legacyAlias": null,
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 23
+    },
+    {
+      "code": "VP-I.4",
+      "name": "Văn phòng Quản lý đường bộ I.4",
+      "parentCode": "REG-I",
+      "kind": "VP",
+      "legacyAlias": null,
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 24
+    },
+    {
+      "code": "REG-II",
+      "name": "Khu Quản lý đường bộ II",
+      "parentCode": "REG",
+      "kind": "REG",
+      "legacyAlias": null,
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 25
+    },
+    {
+      "code": "REG-II-TCHC",
+      "name": "Phòng Tổ chức – Hành chính (Khu II)",
+      "parentCode": "REG-II",
+      "kind": "ROOM",
+      "legacyAlias": null,
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 26
+    },
+    {
+      "code": "REG-II-KHTC",
+      "name": "Phòng Kế hoạch – Tài chính (Khu II)",
+      "parentCode": "REG-II",
+      "kind": "ROOM",
+      "legacyAlias": null,
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 27
+    },
+    {
+      "code": "REG-II-QLBT",
+      "name": "Phòng Quản lý, bảo trì (Khu II)",
+      "parentCode": "REG-II",
+      "kind": "ROOM",
+      "legacyAlias": null,
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 28
+    },
+    {
+      "code": "REG-II-QLGT",
+      "name": "Phòng Quản lý, tổ chức giao thông (Khu II)",
+      "parentCode": "REG-II",
+      "kind": "ROOM",
+      "legacyAlias": null,
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 29
+    },
+    {
+      "code": "VP-II.1",
+      "name": "Văn phòng Quản lý đường bộ II.1",
+      "parentCode": "REG-II",
+      "kind": "VP",
+      "legacyAlias": "Chi cục QLĐB II.1",
+      "isActive": true,
+      "isLegacyExtra": true,
+      "sortOrder": 30
+    },
+    {
+      "code": "VP-II.2",
+      "name": "Văn phòng Quản lý đường bộ II.2",
+      "parentCode": "REG-II",
+      "kind": "VP",
+      "legacyAlias": "Chi cục QLĐB II.2",
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 31
+    },
+    {
+      "code": "VP-II.3",
+      "name": "Văn phòng Quản lý đường bộ II.3",
+      "parentCode": "REG-II",
+      "kind": "VP",
+      "legacyAlias": "Chi cục QLĐB II.3",
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 32
+    },
+    {
+      "code": "VP-II.4",
+      "name": "Văn phòng Quản lý đường bộ II.4",
+      "parentCode": "REG-II",
+      "kind": "VP",
+      "legacyAlias": "Chi cục QLĐB II.4",
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 33
+    },
+    {
+      "code": "VP-II.5",
+      "name": "Văn phòng Quản lý đường bộ II.5",
+      "parentCode": "REG-II",
+      "kind": "VP",
+      "legacyAlias": "Chi cục QLĐB II.5",
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 34
+    },
+    {
+      "code": "VP-II.6",
+      "name": "Văn phòng Quản lý đường bộ II.6",
+      "parentCode": "REG-II",
+      "kind": "VP",
+      "legacyAlias": "Chi cục QLĐB II.6",
+      "isActive": true,
+      "isLegacyExtra": true,
+      "sortOrder": 35
+    },
+    {
+      "code": "REG-III",
+      "name": "Khu Quản lý đường bộ III",
+      "parentCode": "REG",
+      "kind": "REG",
+      "legacyAlias": null,
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 36
+    },
+    {
+      "code": "REG-III-TCHC",
+      "name": "Phòng Tổ chức – Hành chính (Khu III)",
+      "parentCode": "REG-III",
+      "kind": "ROOM",
+      "legacyAlias": null,
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 37
+    },
+    {
+      "code": "REG-III-KHTC",
+      "name": "Phòng Kế hoạch – Tài chính (Khu III)",
+      "parentCode": "REG-III",
+      "kind": "ROOM",
+      "legacyAlias": null,
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 38
+    },
+    {
+      "code": "REG-III-QLBT",
+      "name": "Phòng Quản lý, bảo trì (Khu III)",
+      "parentCode": "REG-III",
+      "kind": "ROOM",
+      "legacyAlias": null,
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 39
+    },
+    {
+      "code": "REG-III-QLGT",
+      "name": "Phòng Quản lý, tổ chức giao thông (Khu III)",
+      "parentCode": "REG-III",
+      "kind": "ROOM",
+      "legacyAlias": null,
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 40
+    },
+    {
+      "code": "VP-III.1",
+      "name": "Văn phòng Quản lý đường bộ III.1",
+      "parentCode": "REG-III",
+      "kind": "VP",
+      "legacyAlias": null,
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 41
+    },
+    {
+      "code": "VP-III.2",
+      "name": "Văn phòng Quản lý đường bộ III.2",
+      "parentCode": "REG-III",
+      "kind": "VP",
+      "legacyAlias": null,
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 42
+    },
+    {
+      "code": "VP-III.3",
+      "name": "Văn phòng Quản lý đường bộ III.3",
+      "parentCode": "REG-III",
+      "kind": "VP",
+      "legacyAlias": null,
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 43
+    },
+    {
+      "code": "VP-III.4",
+      "name": "Văn phòng Quản lý đường bộ III.4",
+      "parentCode": "REG-III",
+      "kind": "VP",
+      "legacyAlias": null,
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 44
+    },
+    {
+      "code": "REG-IV",
+      "name": "Khu Quản lý đường bộ IV",
+      "parentCode": "REG",
+      "kind": "REG",
+      "legacyAlias": null,
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 45
+    },
+    {
+      "code": "REG-IV-TCHC",
+      "name": "Phòng Tổ chức – Hành chính (Khu IV)",
+      "parentCode": "REG-IV",
+      "kind": "ROOM",
+      "legacyAlias": null,
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 46
+    },
+    {
+      "code": "REG-IV-KHTC",
+      "name": "Phòng Kế hoạch – Tài chính (Khu IV)",
+      "parentCode": "REG-IV",
+      "kind": "ROOM",
+      "legacyAlias": null,
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 47
+    },
+    {
+      "code": "REG-IV-QLBT",
+      "name": "Phòng Quản lý, bảo trì (Khu IV)",
+      "parentCode": "REG-IV",
+      "kind": "ROOM",
+      "legacyAlias": null,
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 48
+    },
+    {
+      "code": "REG-IV-QLGT",
+      "name": "Phòng Quản lý, tổ chức giao thông (Khu IV)",
+      "parentCode": "REG-IV",
+      "kind": "ROOM",
+      "legacyAlias": null,
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 49
+    },
+    {
+      "code": "VP-IV.1",
+      "name": "Văn phòng Quản lý đường bộ IV.1",
+      "parentCode": "REG-IV",
+      "kind": "VP",
+      "legacyAlias": null,
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 50
+    },
+    {
+      "code": "VP-IV.2",
+      "name": "Văn phòng Quản lý đường bộ IV.2",
+      "parentCode": "REG-IV",
+      "kind": "VP",
+      "legacyAlias": null,
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 51
+    },
+    {
+      "code": "VP-IV.3",
+      "name": "Văn phòng Quản lý đường bộ IV.3",
+      "parentCode": "REG-IV",
+      "kind": "VP",
+      "legacyAlias": null,
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 52
+    },
+    {
+      "code": "VP-IV.4",
+      "name": "Văn phòng Quản lý đường bộ IV.4",
+      "parentCode": "REG-IV",
+      "kind": "VP",
+      "legacyAlias": null,
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 53
+    },
+    {
+      "code": "SU",
+      "name": "Đơn vị sự nghiệp",
+      "parentCode": "DRVN",
+      "kind": "SU",
+      "legacyAlias": null,
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 54
+    },
+    {
+      "code": "SU-BQLDA-N",
+      "name": "Ban QLDA miền Bắc",
+      "parentCode": "SU",
+      "kind": "SU",
+      "legacyAlias": null,
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 55
+    },
+    {
+      "code": "SU-BQLDA-T",
+      "name": "Ban QLDA miền Trung",
+      "parentCode": "SU",
+      "kind": "SU",
+      "legacyAlias": null,
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 56
+    },
+    {
+      "code": "SU-BQLDA-S",
+      "name": "Ban QLDA miền Nam",
+      "parentCode": "SU",
+      "kind": "SU",
+      "legacyAlias": null,
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 57
+    },
+    {
+      "code": "SU-TTKT-N",
+      "name": "TT KT&CN Đường bộ phía Bắc",
+      "parentCode": "SU",
+      "kind": "SU",
+      "legacyAlias": null,
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 58
+    },
+    {
+      "code": "SU-TTKT-S",
+      "name": "TT KT&CN Đường bộ phía Nam",
+      "parentCode": "SU",
+      "kind": "SU",
+      "legacyAlias": null,
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 59
+    },
+    {
+      "code": "SU-CĐ",
+      "name": "Trường CĐ GTVT đường bộ",
+      "parentCode": "SU",
+      "kind": "SU",
+      "legacyAlias": null,
+      "isActive": true,
+      "isLegacyExtra": false,
+      "sortOrder": 60
+    }
+  ]
+}

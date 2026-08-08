@@ -21,8 +21,11 @@
 | code | string | OrgUnit.code |
 | name | string | OrgUnit.name |
 | parentCode | string? | OrgUnit.parentCode |
-| kind | enum | HQ·ADV·REG·VP·SU·ROOM |
+| kind | enum | ORG·HQ·ADV·REG·VP·SU·ROOM |
 | legacyAlias | string? | Chi cục… |
+| isLegacyExtra | bool | GAP-ORG-01 VP-II.1 / II.6 |
+
+**Seed file:** [`org-unit-seed.json`](./org-unit-seed.json) — **60** items · `gapOrg01=keep_legacy` (2026-08-08)
 
 ## Varying dimensions
 

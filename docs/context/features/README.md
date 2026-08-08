@@ -19,8 +19,11 @@
 
 | # | Slug | Tên | Module | Phase | App hiện có (guide) | Status | Context |
 |---|------|-----|--------|-------|---------------------|--------|---------|
-| 0 | `master` | Danh mục Master (hub) | Master | P1 | — | Context | [master.md](master.md) · [../20-ORG…](../20-ORG-STRUCTURE-DRVN.md) |
+| 0 | `master` | Danh mục Master (hub) | Master | P1 | — | Context | [master.md](master.md) · [INVESTIGATE](../../specs/_data-analy/shared-catalogs/INVESTIGATE-CUC2.md) |
 | 0a | `org-unit` | Cơ cấu tổ chức DRVN | Master | P1 | — (**no demo**) | Context | [org-unit.md](org-unit.md) |
+| 0b | `road-route` | Tuyến đường | Master | P1 | folder CUC 2 | Context | [road-route.md](road-route.md) |
+| 0c | `asset-type` | Loại tài sản KCHT | Master | P1 | folder CUC 2 | Context | [asset-type.md](asset-type.md) |
+| 0d | `partner-unit` | Sở / BOT / Cty | Master | P1 | top-level CUC 2 | Context | [partner-unit.md](partner-unit.md) |
 | 1 | `asset` | Quản lý tài sản đường bộ | Asset | P1 | Mobile Tài sản · Web KCHT · Giám sát TS | Demo | [asset.md](asset.md) |
 | 1b | `csdl-so-sach` | CSDL 12 biểu + 8 sổ BDTX | Asset·Patrol·Maint | P1 | Hồ sơ chuẩn hóa sổ sách | Demo | [csdl-so-sach.md](csdl-so-sach.md) · [../11-…](../11-CSDL-SO-SACH-DATABASE-API.md) |
 | 1c | `pavement-section` | Phân loại mặt đường (Biểu 1) | Asset | P1 | Hồ sơ CSDL biểu 1 | Demo | [pavement-section.md](pavement-section.md) |
