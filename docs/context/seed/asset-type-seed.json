@@ -1,0 +1,232 @@
+[
+  {
+    "id": "c1d2e3f4-a5b6-4789-c012-000000000001",
+    "code": "CULVERT_X",
+    "name": "Cống thoát nước ngang",
+    "groupCode": "THOAT_NUOC",
+    "icon": null,
+    "legacyAliases": [],
+    "isActive": true,
+    "sortOrder": 1
+  },
+  {
+    "id": "c1d2e3f4-a5b6-4789-c012-000000000002",
+    "code": "INTERCHANGE",
+    "name": "Nút giao đường bộ",
+    "groupCode": "GIAO_THONG",
+    "icon": null,
+    "legacyAliases": [],
+    "isActive": true,
+    "sortOrder": 2
+  },
+  {
+    "id": "c1d2e3f4-a5b6-4789-c012-000000000003",
+    "code": "SLOPE_PROTECT",
+    "name": "Bảo vệ mái dốc",
+    "groupCode": "AN_TOAN",
+    "icon": null,
+    "legacyAliases": [],
+    "isActive": true,
+    "sortOrder": 3
+  },
+  {
+    "id": "c1d2e3f4-a5b6-4789-c012-000000000004",
+    "code": "LIGHTING",
+    "name": "Hệ thống chiếu sáng đường",
+    "groupCode": "GIAO_THONG",
+    "icon": null,
+    "legacyAliases": [],
+    "isActive": true,
+    "sortOrder": 4
+  },
+  {
+    "id": "c1d2e3f4-a5b6-4789-c012-000000000005",
+    "code": "GANTRY_SIGN",
+    "name": "Giá long môn – biển báo",
+    "groupCode": "GIAO_THONG",
+    "icon": null,
+    "legacyAliases": [],
+    "isActive": true,
+    "sortOrder": 5
+  },
+  {
+    "id": "c1d2e3f4-a5b6-4789-c012-000000000006",
+    "code": "GUARDRAIL",
+    "name": "Hộ lan – tôn sóng – hàng rào bảo vệ",
+    "groupCode": "AN_TOAN",
+    "icon": null,
+    "legacyAliases": [],
+    "isActive": true,
+    "sortOrder": 6
+  },
+  {
+    "id": "c1d2e3f4-a5b6-4789-c012-000000000007",
+    "code": "DELINEATOR",
+    "name": "Cọc tiêu / cọc H",
+    "groupCode": "AN_TOAN",
+    "icon": null,
+    "legacyAliases": [],
+    "isActive": true,
+    "sortOrder": 7
+  },
+  {
+    "id": "c1d2e3f4-a5b6-4789-c012-000000000008",
+    "code": "CULVERT_L",
+    "name": "Cống dọc – rảnh dọc – hào kỹ thuật dọc",
+    "groupCode": "THOAT_NUOC",
+    "icon": null,
+    "legacyAliases": [],
+    "isActive": true,
+    "sortOrder": 8
+  },
+  {
+    "id": "c1d2e3f4-a5b6-4789-c012-000000000009",
+    "code": "MEDIAN",
+    "name": "Dải phân cách giữa",
+    "groupCode": "AN_TOAN",
+    "icon": null,
+    "legacyAliases": [],
+    "isActive": true,
+    "sortOrder": 9
+  },
+  {
+    "id": "c1d2e3f4-a5b6-4789-c012-00000000000a",
+    "code": "ROW_UTIL",
+    "name": "Công trình HTKT trong hành lang đường bộ",
+    "groupCode": "KHAC",
+    "icon": null,
+    "legacyAliases": [],
+    "isActive": true,
+    "sortOrder": 10
+  },
+  {
+    "id": "c1d2e3f4-a5b6-4789-c012-00000000000b",
+    "code": "STATION_HOUSE",
+    "name": "Nhà hạt quản lý đường bộ",
+    "groupCode": "NHA_TRAM",
+    "icon": null,
+    "legacyAliases": [],
+    "isActive": true,
+    "sortOrder": 11
+  },
+  {
+    "id": "c1d2e3f4-a5b6-4789-c012-00000000000c",
+    "code": "RETAINING",
+    "name": "Kè / tường chắn",
+    "groupCode": "AN_TOAN",
+    "icon": null,
+    "legacyAliases": [],
+    "isActive": true,
+    "sortOrder": 12
+  },
+  {
+    "id": "c1d2e3f4-a5b6-4789-c012-00000000000d",
+    "code": "KM_POST",
+    "name": "Cột Km",
+    "groupCode": "GIAO_THONG",
+    "icon": null,
+    "legacyAliases": [],
+    "isActive": true,
+    "sortOrder": 13
+  },
+  {
+    "id": "c1d2e3f4-a5b6-4789-c012-00000000000e",
+    "code": "BUS_STATION",
+    "name": "Bến xe bus / xe khách",
+    "groupCode": "GIAO_THONG",
+    "icon": null,
+    "legacyAliases": [],
+    "isActive": true,
+    "sortOrder": 14
+  },
+  {
+    "id": "c1d2e3f4-a5b6-4789-c012-00000000000f",
+    "code": "UNDERPASS",
+    "name": "Cống chui dân sinh / hào kỹ thuật",
+    "groupCode": "THOAT_NUOC",
+    "icon": null,
+    "legacyAliases": [],
+    "isActive": true,
+    "sortOrder": 15
+  },
+  {
+    "id": "c1d2e3f4-a5b6-4789-c012-000000000010",
+    "code": "RAIL_CROSS",
+    "name": "Điểm giao bằng đường sắt",
+    "groupCode": "GIAO_THONG",
+    "icon": null,
+    "legacyAliases": [],
+    "isActive": true,
+    "sortOrder": 16
+  },
+  {
+    "id": "c1d2e3f4-a5b6-4789-c012-000000000011",
+    "code": "BUS_STOP",
+    "name": "Điểm đỗ/dừng xe bus",
+    "groupCode": "GIAO_THONG",
+    "icon": null,
+    "legacyAliases": [],
+    "isActive": true,
+    "sortOrder": 17
+  },
+  {
+    "id": "c1d2e3f4-a5b6-4789-c012-000000000012",
+    "code": "EMS_POST",
+    "name": "Trạm trực cấp cứu y tế",
+    "groupCode": "NHA_TRAM",
+    "icon": null,
+    "legacyAliases": [],
+    "isActive": true,
+    "sortOrder": 18
+  },
+  {
+    "id": "c1d2e3f4-a5b6-4789-c012-000000000013",
+    "code": "TOLL",
+    "name": "Trạm thu phí",
+    "groupCode": "GIAO_THONG",
+    "icon": null,
+    "legacyAliases": [],
+    "isActive": true,
+    "sortOrder": 19
+  },
+  {
+    "id": "c1d2e3f4-a5b6-4789-c012-000000000014",
+    "code": "TUNNEL",
+    "name": "Hầm",
+    "groupCode": "GIAO_THONG",
+    "icon": null,
+    "legacyAliases": [],
+    "isActive": true,
+    "sortOrder": 20
+  },
+  {
+    "id": "c1d2e3f4-a5b6-4789-c012-000000000015",
+    "code": "FERRY",
+    "name": "Bến phà và phà",
+    "groupCode": "GIAO_THONG",
+    "icon": null,
+    "legacyAliases": [],
+    "isActive": true,
+    "sortOrder": 21
+  },
+  {
+    "id": "c1d2e3f4-a5b6-4789-c012-000000000016",
+    "code": "REST_AREA",
+    "name": "Trạm dừng nghỉ / bãi đỗ xe",
+    "groupCode": "GIAO_THONG",
+    "icon": null,
+    "legacyAliases": [],
+    "isActive": true,
+    "sortOrder": 22
+  },
+  {
+    "id": "c1d2e3f4-a5b6-4789-c012-000000000017",
+    "code": "LAND_ROW",
+    "name": "Đất thuộc tài sản hạ tầng đường bộ",
+    "groupCode": "KHAC",
+    "icon": null,
+    "legacyAliases": [],
+    "isActive": true,
+    "sortOrder": 23
+  }
+]

@@ -150,11 +150,12 @@ Base (sau DOMAIN-MAP): `api/v1/integration/org-units` · BFF mirror `web-bff/api
 
 | | |
 |--|--|
-| Purpose | Full tree cho `LinTreeNav` |
+| Purpose | Tree nav **folders only** — không trả leaf (last item of tree) |
 | Permission | `master.org-units.read` |
 | Request | optional `rootCode?` · `includeInactive?` |
-| Response | nested `OrgUnitTreeNodeDto[]` (`code`, `name`, `kind`, `isLegacyExtra`, `children[]`) |
+| Response | nested `OrgUnitTreeNodeDto[]` (`code`, `name`, `kind`, `isLegacyExtra`, `childCount`, `descendantCount`, `children[]` non-leaf) |
 | Form surfaces | Zone C tree |
+| Note | Leaf load via list `?parentCode=` — không nằm trong `/tree` |
 | gates | tz n/a · xco n/a · shared A |
 | Context | SSOT tree §2 |
 | data-import / seed | SEED-01 60 nodes |

@@ -1,12 +1,12 @@
 # Quản lý tài sản đường bộ — Feature Context
 
 > **Slug:** `asset` · **Module:** `Asset` · **Phase:** P1  
-> **Status:** Aligned (list pack `task_c30a9a02` · 2026-08-08)  
-> **Feature Kind:** **B** — Catalog list + form (erp-form-context); demo HTML vẫn Kind F map+list  
+> **Status:** Completed (list pack `task_c30a9a02` · 2026-08-08)  
+> **Feature Kind:** **B** — Catalog list A–D + **Slideout** form Z1–Z3 (erp-form-context); demo HTML vẫn Kind F map+list  
 > **Sources:** guide Tài sản / Tài sản KCHT · `RMMS` §1 · `07` §1 · `09` · **`11-CSDL-SO-SACH`** · [`15-SCREEN-AI-MAP.md`](../15-SCREEN-AI-MAP.md)  
 > **Demo HTML:** `Linm.RMMS.Demo/src/demo/features/asset-demo.html` → `../asset/asset.html`  
-> **MFE:** `Linm.Web.RMMS.Asset` · `/asset` · `AssetListPage` / `AssetFormPage`  
-> **Specs:** `Linm.RMMS.Data/specs/asset/`
+> **MFE:** `Linm.Web.RMMS.Asset` · `/asset` · `AssetListPage` + `AssetFormSlideout` (deep-link via `AssetFormPage` → `?form=`)  
+> **Specs:** `Linm.RMMS.Data/specs/asset/` · STATUS `completed`
 
 ## 1. Tổng quan
 

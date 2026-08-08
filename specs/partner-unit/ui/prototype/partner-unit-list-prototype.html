@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Prototype — Đơn vị đối tác (partner-unit)</title>
+  <style>
+    :root { --bg:#eef2f5; --card:#fff; --line:#eceff1; --ink:#263238; --muted:#607d8b; --accent:#1565c0; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family: "Segoe UI", system-ui, sans-serif; background:var(--bg); color:var(--ink); }
+    .page { max-width: 1100px; margin: 24px auto; padding: 0 16px; }
+    .header { display:flex; align-items:center; gap:10px; margin-bottom:12px; }
+    .header h1 { font-size:20px; margin:0; }
+    .toolbar { display:flex; gap:8px; margin-bottom:12px; }
+    .btn { border:1px solid #cfd8dc; background:#fff; padding:6px 12px; border-radius:4px; cursor:pointer; font-size:13px; }
+    .btn.primary { background:var(--accent); color:#fff; border-color:var(--accent); }
+    .card { background:var(--card); border:1px solid var(--line); border-radius:6px; overflow:hidden; }
+    .filters { display:flex; gap:12px; padding:12px; border-bottom:1px solid var(--line); }
+    .filters input { flex:1; padding:8px 10px; border:1px solid #cfd8dc; border-radius:4px; }
+    table { width:100%; border-collapse:collapse; font-size:13px; }
+    th, td { padding:8px 10px; border-bottom:1px solid var(--line); text-align:left; }
+    th { background:#f5f7f8; }
+    .badge { display:inline-block; padding:2px 8px; border-radius:4px; font-size:11px; background:#e3f2fd; color:#0d47a1; }
+    .badge.off { background:#eceff1; color:#546e7a; }
+    .footer { display:flex; justify-content:space-between; padding:10px 12px; color:var(--muted); font-size:12px; }
+    .link { color:var(--accent); cursor:pointer; margin-right:8px; border:none; background:none; font-size:12px; }
+    .modal-backdrop { position:fixed; inset:0; background:rgba(0,0,0,.35); display:flex; align-items:center; justify-content:center; }
+    .modal { background:#fff; width:min(540px,92vw); border-radius:8px; padding:16px 18px 14px; box-shadow:0 12px 40px rgba(0,0,0,.2); }
+    .modal h2 { margin:0 0 12px; font-size:16px; }
+    .grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .field { display:flex; flex-direction:column; gap:4px; }
+    .field.wide { grid-column:1 / -1; }
+    label { font-size:12px; font-weight:600; color:#37474f; }
+    .field input, .field select { padding:7px 8px; border:1px solid #cfd8dc; border-radius:4px; }
+    .actions { display:flex; justify-content:flex-end; gap:8px; margin-top:14px; }
+    .hint { font-size:12px; color:var(--muted); margin:8px 0 0; }
+  </style>
+</head>
+<body>
+  <div class="page" data-zones="A B C D">
+    <div class="header" data-zone="A">
+      <span>▣</span>
+      <h1>Đơn vị đối tác</h1>
+    </div>
+    <div class="toolbar" data-zone="B">
+      <button class="btn primary" type="button" onclick="openModal()">＋ Tạo mới</button>
+      <button class="btn" type="button">↻ Làm mới</button>
+    </div>
+    <div class="card" data-zone="C">
+      <div class="filters">
+        <input placeholder="Tìm mã / tên đơn vị…" value="" />
+        <button class="btn primary" type="button">Tìm</button>
+      </div>
+      <table>
+        <thead>
+          <tr><th>STT</th><th>Mã ĐV</th><th>Tên đơn vị</th><th>Loại</th><th>Tỉnh</th><th>Trạng thái</th><th></th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td><code>SO-HATINH</code></td><td>Sở GTVT Hà Tĩnh</td><td>Sở GTVT</td><td>HT</td><td><span class="badge">Đang dùng</span></td><td><button class="link" type="button" onclick="openModal()">Xem</button><button class="link" type="button" onclick="openModal()">Sửa</button></td></tr>
+          <tr><td>2</td><td><code>BOT-TRUNGPHUONG</code></td><td>BOT Trùng Phương</td><td>BOT</td><td>—</td><td><span class="badge">Đang dùng</span></td><td><button class="link" type="button">Xem</button><button class="link" type="button">Sửa</button></td></tr>
+          <tr><td>3</td><td><code>DN-495</code></td><td>Cty 495</td><td>Doanh nghiệp</td><td>—</td><td><span class="badge">Đang dùng</span></td><td><button class="link" type="button">Xem</button><button class="link" type="button">Sửa</button></td></tr>
+          <tr><td>4</td><td><code>SO-NGHEAN</code></td><td>Sở GTVT Nghệ An</td><td>Sở GTVT</td><td>NA</td><td><span class="badge off">Ngừng</span></td><td><button class="link" type="button">Xem</button><button class="link" type="button">Sửa</button></td></tr>
+        </tbody>
+      </table>
+      <div class="footer" data-zone="D">
+        <span>Hiển thị 50 / trang · 13 đơn vị</span>
+        <span>Trang 1 / 1</span>
+      </div>
+    </div>
+    <p class="hint">Kind B · CatalogListShell · partnerUnitCode = SearchInput (Step 2li) · partnerKind = Dropdown · packKind=master · không demo</p>
+  </div>
+
+  <div class="modal-backdrop" id="modal" hidden>
+    <div class="modal" role="dialog" aria-label="Form đơn vị đối tác">
+      <h2>Tạo mới — Đơn vị đối tác</h2>
+      <div class="grid">
+        <div class="field"><label>Mã ĐV *</label><input value="SO-HATINH" /></div>
+        <div class="field"><label>Loại *</label>
+          <select>
+            <option selected>Sở GTVT</option>
+            <option>BOT</option>
+            <option>Doanh nghiệp</option>
+          </select>
+        </div>
+        <div class="field wide"><label>Tên đơn vị *</label><input value="Sở GTVT Hà Tĩnh" /></div>
+        <div class="field"><label>Mã tỉnh</label><input value="HT" placeholder="optional" /></div>
+        <div class="field"><label>Tên folder import</label><input value="Sở GTVT Hà Tĩnh" /></div>
+        <div class="field"><label><input type="checkbox" checked /> Đang dùng</label></div>
+      </div>
+      <div class="actions">
+        <button class="btn" type="button" onclick="closeModal()">Hủy</button>
+        <button class="btn primary" type="button" onclick="closeModal()">Lưu</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    function openModal(){ document.getElementById('modal').hidden = false; }
+    function closeModal(){ document.getElementById('modal').hidden = true; }
+  </script>
+</body>
+</html>

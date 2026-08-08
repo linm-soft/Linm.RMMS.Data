@@ -4,7 +4,7 @@
 |-------|-------|
 | feature | `gis` |
 | phase | `po` |
-| status | `draft` |
+| status | `blocked` |
 | changeScope | `edit_page` |
 | packKind | `map` |
 | demo | `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/gis-demo.html` |
@@ -12,8 +12,7 @@
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Gis` |
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/gis` (DOMAIN-MAP — **cấm ERP.Master**) |
 | taskId | `task_9ac9613a` |
-| updatedAt | 2026-08-08T08:59:49.877Z |
-
+| updatedAt | `2026-08-08T12:52:14.414Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -24,7 +23,7 @@
 
 | Step | Agent | Artifact | Status |
 |------|-------|----------|--------|
-| 1 | po | po/requirement.md | pending |
+| 1 | po | po/requirement.md | **blocked** (paused) |
 | 2.1 | design | ui/design.md + prototype + reviewUrl | pending |
 | 2.2 | sa | be/solution-discovery.md | pending |
 | 3 | team-lead | task/gis.md | pending |

@@ -28,7 +28,7 @@ Dev pack delivered Integration shared Type A org-unit (BE + BFF + Master FE Moda
 | Design parity (VN · Modal · tree · hệ cũ) | **pass** |
 | Solution share_a · Integration | **pass** |
 | ssot-no-duplicate (Lin* · apiClient) | **pass** |
-| Build | API/BFF PASS · FE typecheck PASS |
+| Build | API/BFF PASS · FE typecheck PASS · FE prod build PASS |
 
 ## Next
 

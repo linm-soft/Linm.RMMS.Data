@@ -37,10 +37,10 @@
 
 | Check | Result |
 |-------|--------|
-| `dotnet build` API | **PASS** |
-| `dotnet build` BFF | **PASS** |
+| `dotnet build` API | **PASS** (2026-08-08T18:28 · Release) |
+| `dotnet build` Integration.Bff + RMMS.Service.Bff | **PASS** |
 | `yarn typecheck` Master | **PASS** |
-| `VITE_API_URL=… yarn build` Master | (run) |
+| `VITE_API_URL=https://build-verify.example.com/api/v1 yarn build` Master | **PASS** |
 
 ## Permissions (stub)
 

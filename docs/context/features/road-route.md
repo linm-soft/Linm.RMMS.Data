@@ -26,7 +26,7 @@
 
 ## 3. API (outline)
 
-`api/v1/rmms/road-routes` · `GET ?search=` · search endpoint cho Form catalog lookup (Step **2li**).
+`api/v1/integration/road-routes` · `GET ?search=` · `/search` SearchInput (Step **2li**) · BFF `web-bff/api/v1/integration/road-routes`.
 
 ## 4. Fields
 

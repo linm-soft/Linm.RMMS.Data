@@ -1,0 +1,132 @@
+[
+  {
+    "id": "d1e2f3a4-b5c6-4789-d012-000000000001",
+    "code": "SO-HATINH",
+    "name": "Sở GTVT Hà Tĩnh",
+    "partnerKind": "SO_GTVT",
+    "provinceCode": "HT",
+    "legacyFolderName": "Sở GTVT Hà Tĩnh",
+    "isActive": true,
+    "sortOrder": 1
+  },
+  {
+    "id": "d1e2f3a4-b5c6-4789-d012-000000000002",
+    "code": "SO-NGHEAN",
+    "name": "Sở GTVT Nghệ An",
+    "partnerKind": "SO_GTVT",
+    "provinceCode": "NA",
+    "legacyFolderName": "Sở GTVT Nghệ An",
+    "isActive": true,
+    "sortOrder": 2
+  },
+  {
+    "id": "d1e2f3a4-b5c6-4789-d012-000000000003",
+    "code": "SO-QUANGBINH",
+    "name": "Sở GTVT Quảng Bình",
+    "partnerKind": "SO_GTVT",
+    "provinceCode": "QB",
+    "legacyFolderName": "Sở GTVT Quảng Bình",
+    "isActive": true,
+    "sortOrder": 3
+  },
+  {
+    "id": "d1e2f3a4-b5c6-4789-d012-000000000004",
+    "code": "SO-QUANGTRI",
+    "name": "Sở GTVT Quảng Trị",
+    "partnerKind": "SO_GTVT",
+    "provinceCode": "QT",
+    "legacyFolderName": "Sở GTVT Quảng Trị",
+    "isActive": true,
+    "sortOrder": 4
+  },
+  {
+    "id": "d1e2f3a4-b5c6-4789-d012-000000000005",
+    "code": "SO-THANHHOA",
+    "name": "Sở GTVT Thanh Hóa",
+    "partnerKind": "SO_GTVT",
+    "provinceCode": "TH",
+    "legacyFolderName": "Sở GTVT Thanh Hóa",
+    "isActive": true,
+    "sortOrder": 5
+  },
+  {
+    "id": "d1e2f3a4-b5c6-4789-d012-000000000006",
+    "code": "SO-THUATHIENHUE",
+    "name": "Sở GTVT Thừa Thiên Huế",
+    "partnerKind": "SO_GTVT",
+    "provinceCode": "TTH",
+    "legacyFolderName": "Sở GTVT Thừa Thiên Huế",
+    "isActive": true,
+    "sortOrder": 6
+  },
+  {
+    "id": "d1e2f3a4-b5c6-4789-d012-000000000007",
+    "code": "BOT-TRUNGPHUONG",
+    "name": "BOT Trùng Phương",
+    "partnerKind": "BOT",
+    "provinceCode": null,
+    "legacyFolderName": "BOT Trùng Phương",
+    "isActive": true,
+    "sortOrder": 7
+  },
+  {
+    "id": "d1e2f3a4-b5c6-4789-d012-000000000008",
+    "code": "BOT-PPP",
+    "name": "Công ty BOT PPP",
+    "partnerKind": "BOT",
+    "provinceCode": null,
+    "legacyFolderName": "Công ty BOT PPP",
+    "isActive": true,
+    "sortOrder": 8
+  },
+  {
+    "id": "d1e2f3a4-b5c6-4789-d012-000000000009",
+    "code": "BOT-QL1A-CIENCO4-TCT319",
+    "name": "CTy TNHH 2 TV BOT QL.1A Cienco4-TCT319",
+    "partnerKind": "BOT",
+    "provinceCode": null,
+    "legacyFolderName": "CTy TNHH 2 TV BOT QL.1A Cienco4-TCT319",
+    "isActive": true,
+    "sortOrder": 9
+  },
+  {
+    "id": "d1e2f3a4-b5c6-4789-d012-00000000000a",
+    "code": "BOT-TRANHVINH",
+    "name": "Tổng Cty XDCTGT4 — BOT tránh Vinh",
+    "partnerKind": "BOT",
+    "provinceCode": null,
+    "legacyFolderName": "BOT tránh Vinh (Cienco4)",
+    "isActive": true,
+    "sortOrder": 10
+  },
+  {
+    "id": "d1e2f3a4-b5c6-4789-d012-00000000000b",
+    "code": "DN-495",
+    "name": "Cty 495",
+    "partnerKind": "DOANH_NGHIEP",
+    "provinceCode": null,
+    "legacyFolderName": "Cty 495",
+    "isActive": true,
+    "sortOrder": 11
+  },
+  {
+    "id": "d1e2f3a4-b5c6-4789-d012-00000000000c",
+    "code": "DN-PHUOCTUONG-PHUGIA",
+    "name": "Cty Cp Phước Tượng-Phú Gia",
+    "partnerKind": "DOANH_NGHIEP",
+    "provinceCode": null,
+    "legacyFolderName": "Phước Tượng-Phú Gia",
+    "isActive": true,
+    "sortOrder": 12
+  },
+  {
+    "id": "d1e2f3a4-b5c6-4789-d012-00000000000d",
+    "code": "DN-TRUONGTHINH",
+    "name": "Công ty CP Tập đoàn Trường Thịnh",
+    "partnerKind": "DOANH_NGHIEP",
+    "provinceCode": null,
+    "legacyFolderName": "Tập đoàn Trường Thịnh",
+    "isActive": true,
+    "sortOrder": 13
+  }
+]

@@ -36,7 +36,7 @@
 
 ## 4. API prefix
 
-`api/v1/rmms/org-units` · `road-routes` · `asset-types` · `partner-units` (+ `/search`)
+`api/v1/integration/org-units` · `road-routes` · `asset-types` · `partner-units` (+ `/search`) — DOMAIN-MAP **Integration** · **cấm** `api/v1/rmms/*`
 
 ## 5. Consumer fields (erp-form-context 2li) — controlHint từ data-analy
 

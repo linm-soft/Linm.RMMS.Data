@@ -116,7 +116,7 @@ BFF: `web-bff/api/v1/asset/road-assets/**`. FE BASE: **`/asset/road-assets`**.
 **ssot:** design + solution + context Data/MFE · platform_ui/be (document only)  
 **skills:** `/erp-form-context`  
 **DoD:**
-- [ ] Context/control-map/readonly-lock khớp design+solution
+- [x] Context/control-map/readonly-lock khớp design+solution
 
 ### T-BE-01
 **layer:** api  
@@ -129,11 +129,11 @@ BFF: `web-bff/api/v1/asset/road-assets/**`. FE BASE: **`/asset/road-assets`**.
 **skills:** `/create-bff-api-feature` · `/new-endpoint` · `/review-query` · `/implement-view-cross-company`  
 **system_design:** SD-LIB-BE · SD-TENANT · SD-HEADER · SD-NO-JSON · SD-SEARCH · SD-XCO · SD-TZ=n/a · SD-SHARE=n/a  
 **DoD:**
-- [ ] Return **ApiResponse** / paged envelope CommonLib — cấm ad-hoc envelope
-- [ ] `[RequirePermission]` (hoặc TODO + codes documented nếu Auth stub)
-- [ ] **GetById (API-02):** `/implement-view-cross-company` — tenant first · IgnoreQueryFilters + AllowedCompanyIds · 403/404
-- [ ] Không parent JSON · không ERP path · không ProjectReference CommonLib · không shared-table registry
-- [ ] `dotnet build` API PASS
+- [x] Return **ApiResponse** / paged envelope CommonLib — cấm ad-hoc envelope
+- [x] `[RequirePermission]` (hoặc TODO + codes documented nếu Auth stub)
+- [x] **GetById (API-02):** `/implement-view-cross-company` — tenant first · IgnoreQueryFilters + AllowedCompanyIds · 403/404
+- [x] Không parent JSON · không ERP path · không ProjectReference CommonLib · không shared-table registry
+- [x] `dotnet build` API PASS
 
 ### T-BE-02
 **layer:** api (migration)  
@@ -141,7 +141,7 @@ BFF: `web-bff/api/v1/asset/road-assets/**`. FE BASE: **`/asset/road-assets`**.
 **skills:** `/database-migration` · `/new-migration`  
 **deps:** T-BE-01  
 **DoD:**
-- [ ] Pair `.cs` + `.Designer.cs` · build PASS
+- [x] Pair `.cs` + `.Designer.cs` · build PASS
 
 ### T-BFF-01
 **layer:** bff  
@@ -151,7 +151,7 @@ BFF: `web-bff/api/v1/asset/road-assets/**`. FE BASE: **`/asset/road-assets`**.
 **skills:** `/create-bff-api-feature`  
 **deps:** T-BE-01  
 **DoD:**
-- [ ] `web-bff/api/v1/asset/road-assets/**` · no business logic · no second ApiClient · build PASS
+- [x] `web-bff/api/v1/asset/road-assets/**` · no business logic · no second ApiClient · build PASS
 
 ### T-PERM-01
 **layer:** ui+api  
@@ -162,8 +162,8 @@ BFF: `web-bff/api/v1/asset/road-assets/**`. FE BASE: **`/asset/road-assets`**.
 **skills:** `/implement-erp-form-permissions` · `api-permission-gate`  
 **deps:** T-BE-01  
 **DoD:**
-- [ ] Codes khớp Auth registry (hoặc gap documented)
-- [ ] FE toolbar/form gated
+- [x] Codes khớp Auth registry (hoặc gap documented)
+- [x] FE toolbar/form gated
 
 ### T-UI-LIST-01
 **layer:** ui  
@@ -181,9 +181,9 @@ BFF: `web-bff/api/v1/asset/road-assets/**`. FE BASE: **`/asset/road-assets`**.
 **APIs:** API-01  
 **deps:** T-BE-01  
 **DoD:**
-- [ ] Chỉ Lin*/Erp* từ common-components — không local pager/toolbar/ApiClient/authSlice
-- [ ] A–D parity · BASE=`/asset/road-assets` · pageSize 50
-- [ ] Build PASS
+- [x] Chỉ Lin*/Erp* từ common-components — không local pager/toolbar/ApiClient/authSlice
+- [x] A–D parity · BASE=`/asset/road-assets` · pageSize 50
+- [x] Build PASS
 
 ### T-UI-FORM-01
 **layer:** ui  
@@ -196,14 +196,14 @@ BFF: `web-bff/api/v1/asset/road-assets/**`. FE BASE: **`/asset/road-assets`**.
 **skills:** `/erp-form-context` · `/implement-show-leave-confirm`  
 **deps:** T-UI-LIST-01  
 **DoD:**
-- [ ] FormMode Create/Edit/View/Copy work · Lin* controls — không fork form shell
-- [ ] Build PASS
+- [x] FormMode Create/Edit/View/Copy work · Lin* controls — không fork form shell
+- [x] Build PASS
 
 ### T-QA-01
 **layer:** qa  
 **deps:** T-UI-FORM-01 · T-BFF-01 · T-PERM-01  
 **DoD:**
-- [ ] `qa/scenarios.md` — A–D · CRUD · CommonLib envelope · route `/asset/road-assets` · no ERP
+- [x] `qa/scenarios.md` — A–D · CRUD · CommonLib envelope · route `/asset/road-assets` · no ERP
 
 ## Deps
 

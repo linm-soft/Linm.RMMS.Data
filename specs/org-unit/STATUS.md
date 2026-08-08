@@ -15,7 +15,7 @@
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/integration/org-units` |
 | domain | **Integration** |
 | prototype.reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/org-unit/ui/prototype/org-unit-list-prototype.html` |
-| updatedAt | 2026-08-08T18:15:00.000Z |
+| updatedAt | 2026-08-08T18:29:00.000Z |
 
 ## Lock
 

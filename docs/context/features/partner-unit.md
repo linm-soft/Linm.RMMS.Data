@@ -23,7 +23,7 @@ Kind B list — Mã · Tên · Loại · Tỉnh? · Active.
 
 ## 3. API
 
-`api/v1/rmms/partner-units` · search.
+`api/v1/integration/partner-units` · search · init-data (DOMAIN-MAP **Integration** · **cấm** `api/v1/rmms/*`).
 
 ## 4. Fields
 

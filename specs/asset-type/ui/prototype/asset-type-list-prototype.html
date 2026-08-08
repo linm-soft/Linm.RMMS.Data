@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Prototype — Loại tài sản (asset-type)</title>
+  <style>
+    :root { --bg:#eef2f5; --card:#fff; --line:#eceff1; --ink:#263238; --muted:#607d8b; --accent:#1565c0; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family: "Segoe UI", system-ui, sans-serif; background:var(--bg); color:var(--ink); }
+    .page { max-width: 1100px; margin: 24px auto; padding: 0 16px; }
+    .header { display:flex; align-items:center; gap:10px; margin-bottom:12px; }
+    .header h1 { font-size:20px; margin:0; }
+    .toolbar { display:flex; gap:8px; margin-bottom:12px; }
+    .btn { border:1px solid #cfd8dc; background:#fff; padding:6px 12px; border-radius:4px; cursor:pointer; font-size:13px; }
+    .btn.primary { background:var(--accent); color:#fff; border-color:var(--accent); }
+    .card { background:var(--card); border:1px solid var(--line); border-radius:6px; overflow:hidden; }
+    .filters { display:flex; gap:12px; padding:12px; border-bottom:1px solid var(--line); }
+    .filters input { flex:1; padding:8px 10px; border:1px solid #cfd8dc; border-radius:4px; }
+    table { width:100%; border-collapse:collapse; font-size:13px; }
+    th, td { padding:8px 10px; border-bottom:1px solid var(--line); text-align:left; }
+    th { background:#f5f7f8; }
+    .badge { display:inline-block; padding:2px 8px; border-radius:4px; font-size:11px; background:#e3f2fd; color:#0d47a1; }
+    .badge.off { background:#eceff1; color:#546e7a; }
+    .footer { display:flex; justify-content:space-between; padding:10px 12px; color:var(--muted); font-size:12px; }
+    .link { color:var(--accent); cursor:pointer; margin-right:8px; border:none; background:none; font-size:12px; }
+    .modal-backdrop { position:fixed; inset:0; background:rgba(0,0,0,.35); display:flex; align-items:center; justify-content:center; }
+    .modal { background:#fff; width:min(520px,92vw); border-radius:8px; padding:16px 18px 14px; box-shadow:0 12px 40px rgba(0,0,0,.2); }
+    .modal h2 { margin:0 0 12px; font-size:16px; }
+    .grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .field { display:flex; flex-direction:column; gap:4px; }
+    .field.wide { grid-column:1 / -1; }
+    label { font-size:12px; font-weight:600; color:#37474f; }
+    .field input, .field select { padding:7px 8px; border:1px solid #cfd8dc; border-radius:4px; }
+    .actions { display:flex; justify-content:flex-end; gap:8px; margin-top:14px; }
+    .hint { font-size:12px; color:var(--muted); margin:8px 0 0; }
+  </style>
+</head>
+<body>
+  <div class="page" data-zones="A B C D">
+    <div class="header" data-zone="A">
+      <span>▣</span>
+      <h1>Loại tài sản</h1>
+    </div>
+    <div class="toolbar" data-zone="B">
+      <button class="btn primary" type="button" onclick="openModal()">＋ Tạo mới</button>
+      <button class="btn" type="button">↻ Làm mới</button>
+    </div>
+    <div class="card" data-zone="C">
+      <div class="filters">
+        <input placeholder="Tìm mã / tên loại TS…" value="" />
+        <button class="btn primary" type="button">Tìm</button>
+      </div>
+      <table>
+        <thead>
+          <tr><th>STT</th><th>Mã loại</th><th>Tên loại</th><th>Nhóm</th><th>Số alias</th><th>Trạng thái</th><th></th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td><code>CULVERT_X</code></td><td>Cống thoát nước ngang</td><td>Thoát nước</td><td>0</td><td><span class="badge">Đang dùng</span></td><td><button class="link" type="button" onclick="openModal()">Xem</button><button class="link" type="button" onclick="openModal()">Sửa</button></td></tr>
+          <tr><td>2</td><td><code>GUARDRAIL</code></td><td>Hộ lan – tôn sóng – hàng rào bảo vệ</td><td>An toàn</td><td>2</td><td><span class="badge">Đang dùng</span></td><td><button class="link" type="button">Xem</button><button class="link" type="button">Sửa</button></td></tr>
+          <tr><td>3</td><td><code>KM_POST</code></td><td>Cột Km</td><td>Giao thông</td><td>1</td><td><span class="badge">Đang dùng</span></td><td><button class="link" type="button">Xem</button><button class="link" type="button">Sửa</button></td></tr>
+          <tr><td>4</td><td><code>LAND_ROW</code></td><td>Đất thuộc tài sản hạ tầng đường bộ</td><td>Khác</td><td>0</td><td><span class="badge off">Ngừng</span></td><td><button class="link" type="button">Xem</button><button class="link" type="button">Sửa</button></td></tr>
+        </tbody>
+      </table>
+      <div class="footer" data-zone="D">
+        <span>Hiển thị 50 / trang · 23 loại</span>
+        <span>Trang 1 / 1</span>
+      </div>
+    </div>
+    <p class="hint">Kind B · CatalogListShell · assetTypeCode = SearchInput (Step 2li) · groupCode = Dropdown · packKind=master · không demo</p>
+  </div>
+
+  <div class="modal-backdrop" id="modal" hidden>
+    <div class="modal" role="dialog" aria-label="Form loại tài sản">
+      <h2>Tạo mới — Loại tài sản</h2>
+      <div class="grid">
+        <div class="field"><label>Mã loại *</label><input value="CULVERT_X" /></div>
+        <div class="field"><label>Nhóm *</label>
+          <select>
+            <option selected>Thoát nước</option>
+            <option>An toàn</option>
+            <option>Giao thông</option>
+            <option>Nhà / trạm</option>
+            <option>Khác</option>
+          </select>
+        </div>
+        <div class="field wide"><label>Tên loại *</label><input value="Cống thoát nước ngang" /></div>
+        <div class="field wide"><label>Alias import</label><input placeholder="Tên folder cũ, cách nhau dấu phẩy…" /></div>
+        <div class="field"><label><input type="checkbox" checked /> Đang dùng</label></div>
+      </div>
+      <div class="actions">
+        <button class="btn" type="button" onclick="closeModal()">Hủy</button>
+        <button class="btn primary" type="button" onclick="closeModal()">Lưu</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    function openModal(){ document.getElementById('modal').hidden = false; }
+    function closeModal(){ document.getElementById('modal').hidden = true; }
+  </script>
+</body>
+</html>

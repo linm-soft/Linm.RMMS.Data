@@ -26,7 +26,8 @@
 
 ## 3. API
 
-`api/v1/rmms/asset-types` · search · (optional) `GET /alias-map` cho import job.
+`api/v1/integration/asset-types` (DOMAIN-MAP **Integration**) · search · (optional) `GET /alias-map` cho import job.  
+**Cấm** `api/v1/rmms/*` · **cấm** ERP.*.
 
 ## 4. Fields
 
