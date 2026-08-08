@@ -50,6 +50,7 @@
 | Mobile **Check-in** · Web **Giám sát hoạt động** | #4–5 Coverage KPI · geo-fence · bỏ sót tuyến | P1 | Rule + PostGIS | + Edge camera (sau) |
 | Web **Giám sát tài sản/sự cố** · Mobile bản đồ | #2 GIS overlay PCI heatmap · Twin 3D | P1 2D / P2 3D | MapLibre tiles | Cesium |
 | Web **Tài sản KCHT** | #1 QR · media · PostGIS · CSDL sổ sách 12 biểu | P1 | — | Twin enrich |
+| Camera **ANPR / cầu cân (WIM)** | **`its-anpr-overload`** — biển số+tốc độ → Cục Đăng kiểm (trục·GVW) → Confirm lỗi | **P2** (demo P1) | Mock seed | Registry API + rule (`18`) |
 | Nguồn mới (không có màn cũ) | #13 Drone · #14 TOC · #15 Cổng dân · #11–12 HĐ/VT | P2–P3 | — | Theo `09` OUT |
 
 ---
@@ -62,6 +63,8 @@
 | 2 | GIS và Digital Twin | Bản đồ trong TS/Vấn đề/Giám sát | Giám sát * · GIS nâng cấp | `gis` · `gis-draw-google` | P1–P2 |
 | 3 | AI kiểm định mặt đường | Vấn đề (+ upload) | Sự cố · list detection | `ai-vision` | P1 online / P2 local |
 | 3b | AI phát hiện TS/thiết bị mới | Camera tuần đường | Candidate → Asset Confirm | `ai-asset-detect` | P1 online / P2 local |
+| 3c | ITS object detect (biển báo · cọc) | — | Map · list | `its-traffic-detect` | P1 design / P2 edge |
+| **3d** | **ITS ANPR · Đăng kiểm · lỗi tải/tốc** | — | Feed + Confirm | **`its-anpr-overload`** | **P1 demo / P2 BE** (`18`) |
 | 4 | Tuần đường / tuần kiểm | Check-in · Giám sát | Giám sát hoạt động · BC checkin | `patrol` | P1 |
 | 5 | Chấm công và định vị | Check-in (rules) | BC checkin · báo cáo công | `attendance` | P1 |
 | 6 | Quản lý sự cố | Vấn đề · Lưu trữ | Sự cố · Giám sát sự cố | `incident` | P1 |
@@ -91,6 +94,9 @@ Check-in / GPS track (Mobile)
 Camera xe tuần đường (Patrol)
     → ai-asset-detect (P1 GPT-4o / P2 ONNX class TS)
     → asset.candidate → Confirm → Asset (tọa độ · loại · tuyến)
+Camera ANPR + WIM (cầu cân / fixed cam)
+    → its-anpr-overload (P1 demo / P2 `18`)
+    → registry Cục Đăng kiểm → rule SPEED/OVERLOAD → Confirm → Incident
 Incident / Vấn đề (Mobile+Web)
     → Assign · Comment · SLA stub
     → AI Estimate (P1 JSON) → Work Order (P2 Maintenance)

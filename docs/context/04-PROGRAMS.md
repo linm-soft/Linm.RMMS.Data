@@ -243,7 +243,8 @@ BFF Gateway, Auth/RBAC, Mobile PWA, Notification Service, Workflow Engine
 ### 5.3 Phase 2 — AI Expansion (Months 7–12)
 
 **Scope:** AI Predictive Maintenance, AI Repair Estimation, Maintenance Scheduling,
-Contract & Budget, Drone & Reality Capture, Report Service, Command Dashboard, AI Copilot (GPT-4o + RAG)
+Contract & Budget, Drone & Reality Capture, Report Service, Command Dashboard, AI Copilot (GPT-4o + RAG),
+**ITS ANPR overload** (plate + speed + WIM → Cục Đăng kiểm → Confirm violation — `18-ITS-ANPR-OVERLOAD-SPEC.md`)
 
 | Role | Headcount | Months | Rate | Subtotal |
 |------|-----------|--------|------|----------|
@@ -263,6 +264,7 @@ Contract & Budget, Drone & Reality Capture, Report Service, Command Dashboard, A
 - 3D Digital Twin (CesiumJS integration)
 - Executive KPI scorecard
 - SignalR real-time dashboard (command center)
+- **ITS ANPR overload (slug `its-anpr-overload`):** camera plate+speed+WIM ingest → Cục Đăng kiểm registry adapter → rule SPEED/OVERLOAD → HITL Confirm → Incident — SSOT **`docs/context/18-ITS-ANPR-OVERLOAD-SPEC.md`** (demo P1 already in `Linm.RMMS.Demo`)
 
 ### 5.4 Phase 3 — Full Scale (Months 13–18)
 

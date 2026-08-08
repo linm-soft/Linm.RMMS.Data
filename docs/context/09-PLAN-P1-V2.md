@@ -129,6 +129,7 @@ Ngoài host
 | Nhóm | Hạng mục | Việc |
 |------|----------|------|
 | AI local | 3, 8, 10, 16 | ONNX detector+SAM+PCI (`14`); XGBoost local; Copilot on-prem |
+| ITS ANPR | **3d** | Camera biển số+tốc độ+WIM → Cục Đăng kiểm → HITL Confirm lỗi — SSOT **`18-ITS-ANPR-OVERLOAD-SPEC.md`** · demo `its-anpr-overload` |
 | Đội ngũ | — | SV gán nhãn + AI lead |
 | Infra | — | GPU worker / Triton |
 | Điều hành | 7, 9, 17 | Maintenance full, Command, Dashboard KPI |
@@ -160,6 +161,7 @@ Thêm:
 | V2-A Dataset | 1–6 | Guideline + SV gán nhãn; ≥20k; mAP nội bộ (`14`) |
 | V2-B Model | 5–8 | Train P2-A/B; export ONNX; so sánh vs GPT-4o P1 |
 | V2-C Integrate | 7–12 | Worker GPU; `OnnxDetectorDiagnoser`; PCI; event → Incident |
+| V2-C2 ITS ANPR | 8–14 | Ingest ANPR+WIM · Registry Cục Đăng kiểm · rule SPEED/OVERLOAD · HITL → Incident (`18`) |
 | V2-D Product | 10–16 | Copilot MVP, Dashboard KPI, GIS heatmap; UAT tuyến pilot |
 
 ### 3.6 Definition of Done — V2
@@ -168,6 +170,7 @@ Thêm:
 - [ ] Inference không phụ thuộc GPT-4o cho **mọi** frame (API chỉ fallback)  
 - [ ] PCI/IRI trên đoạn pilot  
 - [ ] WorkOrder từ defect critical  
+- [ ] **ITS ANPR:** ingest + registry + Confirm → Incident (DoD `18` §10)  
 - [ ] Chi phí $/km hoặc $/ảnh production đo được và &lt; ngưỡng tài chính  
 
 ---
@@ -179,9 +182,12 @@ Thêm:
 | 1 | Asset | **Core** | Nâng cấp |
 | 2 | GIS | Điểm detection tối thiểu | Tiles + heatmap (+ 3D tuỳ chọn) |
 | 3 | AI kiểm định | **Vision API only** | **YOLO+SAM+PCI** |
+| 3b | AI TS mới | Demo / GPT-4o | ONNX class + dedupe |
+| 3c | ITS biển báo/cọc | Demo / design `16` | Edge+PostGIS (`16`) |
+| **3d** | **ITS ANPR / quá tải** | **Demo UI** `its-anpr-overload` | **Registry + rule + Incident** (`18`) |
 | 4 | Patrol | **Core** | KPI / coverage nâng cao |
 | 5 | Attendance | Gộp Patrol | Như P1 |
-| 6 | Incident | **Core** | Auto + SLA |
+| 6 | Incident | **Core** | Auto + SLA (+ nguồn ANPR Confirm) |
 | 7 | Maintenance | — | **Core V2** |
 | 8 | AI dự báo | — | V2 / V2.1 |
 | 9 | Chỉ đạo ĐH | List tối thiểu | Dashboard realtime |
@@ -193,7 +199,7 @@ Thêm:
 | 15 | Cổng dân | — | V2.1 |
 | 16 | Copilot | Hỏi thử nhẹ (optional) | **Core V2** |
 | 17 | Dashboard | List detection | **KPI full** |
-| 18 | Open API | **Baseline** | Adapters ERP/ITS |
+| 18 | Open API | **Baseline** | Adapters ERP/ITS (+ Registry) |
 
 ---
 
@@ -234,6 +240,8 @@ Chi tiết **model + $**: `08-AI-TOKEN-COST-IMAGE-DIAGNOSIS.md` §0 · HTML `chi
 | `07-TECHNICAL-IMPLEMENTATION.md` | Spec hạng mục |
 | `Linm.RMMS.Demo/docs/bao-gia/` | Báo giá P1 |
 | `10-YOLO-SERVER-REQUIREMENTS.md` | **Required HW YOLO P2** · phân tích DMS vs GPU host |
+| `16-ITS-TRAFFIC-OBJECT-DETECTION-DESIGN.md` | ITS biển báo / cọc tiêu |
+| **`18-ITS-ANPR-OVERLOAD-SPEC.md`** | **P2 ANPR · Cục Đăng kiểm · Confirm lỗi** · demo `its-anpr-overload` |
 
 ---
 

@@ -5,6 +5,7 @@
 > **Feature Kind:** F/custom map (GIS viewer) · Confirmed by: ai-autocode-autopilot 2026-08-01  
 > **Sources:** `07` §2 · `09` · legacy shell `geditor` view-mode  
 > **Demo HTML:** `Linm.RMMS.Demo/public/demo/gis/gis.html` (+ mirror `src/demo/gis/`)  
+> **3D Twin (CesiumJS · real Km):** [`gis-3d-twin.html`](../../../Linm.RMMS.Demo/public/demo/gis/gis-3d-twin.html) · seed `ql1-ii1/map-seed.json`  
 > **Sub-feature vẽ:** [`gis-draw-google.md`](gis-draw-google.md) · live [`gis-draw-live.html`](../../../Linm.RMMS.Demo/public/demo/gis/gis-draw-live.html)
 
 ## 1. Tổng quan
@@ -22,7 +23,7 @@
 |--------|---------|-------|
 | Map 2D | Full Kind F | Sidebar tabs · Toolbar · Leaflet · legend PCI · props panel |
 | Heatmap PCI | Full | Same map · toggle layer |
-| 3D Twin | Full | Cesium — **P2 only** · badge trên demo |
+| 3D Twin | Full | **CesiumJS** — demo [`gis-3d-twin.html`](../../../Linm.RMMS.Demo/public/demo/gis/gis-3d-twin.html) · Cột Km thật QL.1 II.1 |
 | Vẽ geometry | Nav | → `gis-draw-live` / `gis-draw-google` |
 
 **Mock data:** 5 đoạn đường (PCI) · 3 sự cố pin · bbox Nghệ An pilot.
@@ -52,7 +53,7 @@ PostGIS layers publish → Martin/pg_tileserv · Redis tile cache · SignalR `Gi
 
 | ID | Default |
 |----|---------|
-| GAP-F-GIS-01 3D Twin | DEFER P2 |
+| GAP-F-GIS-01 3D Twin | **DONE demo** CesiumJS + real seed · Ion terrain / 3D Tiles → DEFER prod |
 | GAP-F-GIS-02 Vẽ Point/Line/Polygon trên Google | Xem **`gis-draw-google`** (P1 parity) |
 | GAP-F-GIS-03 BE `/api/v1/gis/*` | MISSING → be_align khi Signed (demo only) |
 
@@ -60,7 +61,7 @@ PostGIS layers publish → Martin/pg_tileserv · Redis tile cache · SignalR `Gi
 
 - [x] Map 2D Leaflet live + legend PCI
 - [x] Layer toggle rõ (road / PCI / incidents)
-- [x] 3D gắn badge «P2»
+- [x] 3D CesiumJS · QL.1 II.1 cột Km thật (`gis-3d-twin.html`)
 - [x] Đủ field + 20 action từ `demo-maps/gis-control-map.md`
 - [x] Flow vẽ Google — link `gis-draw-live.html` / `gis-draw-google.html`
 - [x] Không gọi BE

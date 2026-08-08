@@ -13,6 +13,7 @@
 | [**features/README.md**](features/README.md) | **Feature backlog + context (design/API/DB)** — `/gen-tinh-nang-demo` | PM, Dev, khách chốt UI |
 | [**src/demo (std)**](../Linm.RMMS.Demo/src/demo/index.html) | **Hub demo chạy standalone** — `npm run start:std` · form + map JS | Dev, BA |
 | [**gis-draw-live.html**](../Linm.RMMS.Demo/src/demo/features/gis-draw-live.html) | **Bản đồ live** Leaflet — vẽ Point/Line/Polygon (cần mạng) | Dev, BA |
+| [**gis-3d-twin.html**](../Linm.RMMS.Demo/public/demo/gis/gis-3d-twin.html) | **Digital Twin 3D CesiumJS** — Cột Km thật QL.1 · Chi cục II.1 | Stakeholder, GIS, outsource |
 | [**pavement-section-list.html**](../Linm.RMMS.Demo/src/demo/features/pavement-section-list.html) | **ERP form demo** Biểu 1 mặt đường (Kind B list+form) | Dev, BA |
 | [**gis-draw-google-demo.html**](../Linm.RMMS.Demo/src/demo/features/gis-draw-google-demo.html) | **Vẽ tài sản trên Google Map** (parity GOVOne / `1-ban-do.png`) | Stakeholder, GIS |
 | [index.html](../Linm.RMMS.Demo/docs/index.html) | Pitch demo outsource (VI/EN) | PM, stakeholder |
@@ -31,7 +32,10 @@
 | [**10-YOLO-SERVER-REQUIREMENTS.md**](10-YOLO-SERVER-REQUIREMENTS.md) | Spec GPU worker (ONNX infer/train) | Infra |
 | [**17-GPU-VNSO-COST-STANDARD.md**](17-GPU-VNSO-COST-STANDARD.md) | **SSOT SKU GPU + chi phí VNSO** — Train A100 PAYG · Infer V100/L4/A40 tháng · plan P2/P2.1 | Infra, PM, CFO |
 | [**16-ITS-TRAFFIC-OBJECT-DETECTION-DESIGN.md**](16-ITS-TRAFFIC-OBJECT-DETECTION-DESIGN.md) | **System design ITS** — biển báo/cọc tiêu · edge AI · PostGIS 10 m · BFF/Auth · SignalR · OTA | Architect, BE, AI, Mobile |
+| [**18-ITS-ANPR-OVERLOAD-SPEC.md**](18-ITS-ANPR-OVERLOAD-SPEC.md) | **P2 Spec** — Camera ANPR+WIM → Cục Đăng kiểm → HITL xác nhận lỗi tốc độ/quá tải | Architect, BE, PM, BA |
 | [`features/its-traffic-detect.md`](features/its-traffic-detect.md) | Feature context ITS (map demo `ai-asset-detect`) | PM, Dev |
+| [`features/its-anpr-overload.md`](features/its-anpr-overload.md) | Feature context ANPR overload · demo `/demo/p/its-anpr-overload` | PM, Dev |
+| [**19-IP-REGISTRATION-MATRIX.md**](19-IP-REGISTRATION-MATRIX.md) | **Ma trận SHTT VN** — thành phần có thể đăng ký (QTG · NH · GPHI · BMKD) · gói G0–G6 | PM, legal, C-level |
 
 ## Demo standalone (std mode)
 

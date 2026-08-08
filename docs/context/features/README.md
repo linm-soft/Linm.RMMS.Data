@@ -27,6 +27,7 @@
 | 3 | `ai-vision` | AI kiểm định mặt đường | AiVision | P1 online / P2 local | Overlay **Vấn đề** / Sự cố | Demo | [ai-vision.md](ai-vision.md) |
 | 3b | `ai-asset-detect` | AI phát hiện TS/thiết bị mới (camera tuần đường) | AiVision×Asset×Patrol | P1 online / P2 local | Camera xe → loại TS · tọa độ · tuyến → bản ghi Asset | Demo | [ai-asset-detect.md](ai-asset-detect.md) |
 | 3c | `its-traffic-detect` | ITS object detect (biển báo · cọc tiêu · edge/dashcam/CCTV) | AiVision×Iot×Asset×Gis | P1 design / P2 local edge+PostGIS | Map realtime · dedupe 10 m · OTA model · triangulation | Context | [its-traffic-detect.md](its-traffic-detect.md) · [../16-…](../16-ITS-TRAFFIC-OBJECT-DETECTION-DESIGN.md) |
+| 3d | `its-anpr-overload` | ITS ANPR biển số · Cục Đăng kiểm · xác nhận lỗi tốc độ/quá tải | AiVision×Iot×Incident | **P2 core** (demo P1) | Camera+WIM → registry trục·GVW → HITL Confirm | Demo | [its-anpr-overload.md](its-anpr-overload.md) · [../18-…](../18-ITS-ANPR-OVERLOAD-SPEC.md) |
 | 4 | `patrol` | Tuần đường / tuần kiểm | Patrol | P1 | Check-in · Giám sát · Lưu trữ | Demo | [patrol.md](patrol.md) |
 | 5 | `attendance` | Chấm công và định vị | Patrol | P1 | Check-in · BC checkin | Context | [attendance.md](attendance.md) |
 | 6 | `incident` | Quản lý sự cố | Incident | P1 | Vấn đề · Sự cố · Giám sát SC | Demo | [incident.md](incident.md) |

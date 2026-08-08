@@ -525,6 +525,7 @@ Khi có code API thực, chạy theo skill:
 | **P1 (demo hiện tại)** | HTML seed · Haversine nearby 25 m · GPT-4o class mock · Leaflet | ONNX · PostGIS · SignalR thật · OTA |
 | **P1.5 design** (doc này) | SSOT class · API · DB · 10 m · architecture | Code production |
 | **P2 edge+server** | Mobile TFLite/CoreML · bulk · API dedupe PostGIS · OTA · map SignalR | Multi-country TOC |
+| **P2 ANPR / quá tải** | Camera plate+speed+WIM · Cục Đăng kiểm · HITL → Incident — SSOT **`18-ITS-ANPR-OVERLOAD-SPEC.md`** · demo `its-anpr-overload` | Full TOC VMS |
 | **P2.1 CCTV** | OpenCv worker GPU · fixed camera registry | Full TOC VMS |
 | **P3** | TOC ùn tắc · VMS (slug `toc`) | — |
 
