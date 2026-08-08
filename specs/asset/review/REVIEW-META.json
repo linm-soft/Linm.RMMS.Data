@@ -1,0 +1,16 @@
+{
+  "feature": "asset",
+  "reviewHash": "task_c30a9a02-asset-list-kindb-20260808",
+  "schemaVersion": 1,
+  "artifacts": [
+    "po/requirement.md",
+    "ui/design.md",
+    "ui/prototype/asset-list-prototype.html",
+    "be/solution-discovery.md",
+    "task/asset.md",
+    "implement/asset.md",
+    "qa/scenarios.md",
+    "review/findings.md"
+  ],
+  "updatedAt": "2026-08-08T08:32:00.000Z"
+}

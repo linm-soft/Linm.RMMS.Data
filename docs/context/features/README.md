@@ -19,6 +19,8 @@
 
 | # | Slug | Tên | Module | Phase | App hiện có (guide) | Status | Context |
 |---|------|-----|--------|-------|---------------------|--------|---------|
+| 0 | `master` | Danh mục Master (hub) | Master | P1 | — | Context | [master.md](master.md) · [../20-ORG…](../20-ORG-STRUCTURE-DRVN.md) |
+| 0a | `org-unit` | Cơ cấu tổ chức DRVN | Master | P1 | — (**no demo**) | Context | [org-unit.md](org-unit.md) |
 | 1 | `asset` | Quản lý tài sản đường bộ | Asset | P1 | Mobile Tài sản · Web KCHT · Giám sát TS | Demo | [asset.md](asset.md) |
 | 1b | `csdl-so-sach` | CSDL 12 biểu + 8 sổ BDTX | Asset·Patrol·Maint | P1 | Hồ sơ chuẩn hóa sổ sách | Demo | [csdl-so-sach.md](csdl-so-sach.md) · [../11-…](../11-CSDL-SO-SACH-DATABASE-API.md) |
 | 1c | `pavement-section` | Phân loại mặt đường (Biểu 1) | Asset | P1 | Hồ sơ CSDL biểu 1 | Demo | [pavement-section.md](pavement-section.md) |
@@ -54,6 +56,7 @@
 3. SSOT màn ↔ AI: [`15-SCREEN-AI-MAP.md`](../15-SCREEN-AI-MAP.md)  
 4. Demo HTML chỉ mock UI + tóm tắt API/DB — không thay production  
 5. **Analy + gen demo:** mọi feature có AI → badge/icon **AI support** + engine P1/P2 trên hub và page (`/qlbd-analy-demo`)
+6. **Master catalogs (`packKind=master`):** **không** gen demo HTML — context + Design prototype confirm — MFE `Linm.Web.RMMS.Master`
 
 ## Hub demo
 

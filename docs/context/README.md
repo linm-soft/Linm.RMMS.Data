@@ -11,6 +11,8 @@
 | [**15-SCREEN-AI-MAP.md**](15-SCREEN-AI-MAP.md) | **SSOT màn hình Web/Mobile (guide) ↔ 18 phân hệ + AI** — `/analy-requirement` + `/gen-tinh-nang-demo` | PM, BA, Dev |
 | [**11-CSDL-SO-SACH-DATABASE-API.md**](11-CSDL-SO-SACH-DATABASE-API.md) | **DB + API từ hồ sơ chuẩn hóa sổ sách** — 12 biểu CSDL · 8 mẫu sổ · endpoint | Dev, BA, outsource |
 | [**features/README.md**](features/README.md) | **Feature backlog + context (design/API/DB)** — `/gen-tinh-nang-demo` | PM, Dev, khách chốt UI |
+| [**20-ORG-STRUCTURE-DRVN.md**](20-ORG-STRUCTURE-DRVN.md) | **SSOT cơ cấu tổ chức Cục ĐB** — Master catalog `org-unit` · SearchInput | Admin, BA, Dev |
+| [**features/master.md**](features/master.md) | Hub Master MFE — org-unit · road-route · asset-type · partner-unit (**no demo**) | PM, Dev |
 | [**src/demo (std)**](../Linm.RMMS.Demo/src/demo/index.html) | **Hub demo chạy standalone** — `npm run start:std` · form + map JS | Dev, BA |
 | [**gis-draw-live.html**](../Linm.RMMS.Demo/src/demo/features/gis-draw-live.html) | **Bản đồ live** Leaflet — vẽ Point/Line/Polygon (cần mạng) | Dev, BA |
 | [**gis-3d-twin.html**](../Linm.RMMS.Demo/public/demo/gis/gis-3d-twin.html) | **Digital Twin 3D CesiumJS** — Cột Km thật QL.1 · Chi cục II.1 | Stakeholder, GIS, outsource |

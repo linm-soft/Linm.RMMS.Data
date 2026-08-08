@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "2026.08.08.1",
+  "rulesVersion": "2026.08.08.14",
+  "clusters": [],
+  "sharedCatalogs": [
+    {
+      "id": "shared-org-structure",
+      "catalogKind": "org-unit",
+      "featureSlug": "org-unit",
+      "status": "draft",
+      "artifact": "specs/_data-analy/shared-catalogs/org-structure.md",
+      "contentHash": "pending-full-scan",
+      "analyzedAt": "2026-08-08T17:20:00.000Z",
+      "notes": "DRVN SSOT · packKind=master · no demo"
+    }
+  ]
+}

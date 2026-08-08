@@ -1,0 +1,939 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Prototype — Sổ tài sản KCHT đường bộ (asset)</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    /* Visual SSOT: ERP catalog · form-field-select-css · erp-data-list-grid */
+    :root {
+      --bg: #f5f7fa;
+      --card: #ffffff;
+      --border: #BABCBE;
+      --border-soft: #e9ecef;
+      --txt: #1A1A1A;
+      --txt-secondary: #6c757d;
+      --muted: #6D6D6D;
+      --primary: #0d6efd;
+      --primary-hover: #0b5ed7;
+      --toolbar-bg: #f8fafc;
+      --ds-focus-shadow: 0px 0px 4px #BABCBE;
+      --ds-radius-md: 4px;
+      --ds-font-button: 12px;
+      --ds-font-body: 13px;
+      --ds-font-input: 13px;
+      --ds-font-title: 22px;
+      --ds-height-btn: 32px;
+      --col-no: 48px;
+      --col-check: 48px;
+      --check-size: 24px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--txt);
+      font-size: var(--ds-font-body);
+    }
+
+    /* ── Controls SSOT (form-field-select-css · GAP-P2-CSS-*) ── */
+    select,
+    input[type="text"],
+    input[type="search"],
+    input[type="number"],
+    input:not([type]),
+    textarea {
+      padding: 6px 10px;
+      border: 1px solid var(--border);
+      border-radius: var(--ds-radius-md);
+      font-size: var(--ds-font-input);
+      color: var(--txt);
+      background: #fff;
+      transition: border-color 0.15s, box-shadow 0.15s;
+      line-height: 1.4;
+      min-height: 32px;
+      width: 100%;
+    }
+    select:focus,
+    input[type="text"]:focus,
+    input[type="search"]:focus,
+    input[type="number"]:focus,
+    input:not([type]):focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: var(--ds-focus-shadow);
+    }
+    select:disabled,
+    input:disabled,
+    textarea:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      background: #F6F6F6;
+    }
+    select option { padding: 6px 10px; font-size: 13px; color: #1A1A1A; background: #fff; }
+    select option[value=""] { color: #6D6D6D; }
+    input::placeholder { color: #6D6D6D; }
+
+    input[type="checkbox"] {
+      width: var(--check-size);
+      height: var(--check-size);
+      min-width: var(--check-size);
+      min-height: var(--check-size);
+      margin: 0;
+      display: block;
+      accent-color: var(--primary);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    input[type="checkbox"]:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    /* listPage compact — LinPageLayout.listPage */
+    .page {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+
+    /* ── A Header — LinPageHeader parity (VatTu) ── */
+    .zone-a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0;
+      flex-shrink: 0;
+    }
+    .zone-a h1 {
+      margin: 0;
+      font-size: var(--ds-font-title);
+      font-weight: 700;
+      color: #212529;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      letter-spacing: 0;
+    }
+    .zone-a h1 i { color: var(--primary); font-size: 20px; }
+
+    /* ── B Toolbar — ErpListToolbarButton size=sm (12px / 32px) ── */
+    .zone-b {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 8px 0;
+      margin-bottom: 4px;
+      flex-wrap: wrap;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border-soft);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+    .zone-b-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .tb-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      border: none;
+      background: #EEEEEE;
+      color: #1A1A1A;
+      padding: 6px 8px;
+      border-radius: var(--ds-radius-md);
+      cursor: pointer;
+      font-size: var(--ds-font-button);
+      font-weight: 600;
+      line-height: 1.2;
+      white-space: nowrap;
+      height: var(--ds-height-btn);
+      box-sizing: border-box;
+    }
+    .tb-btn:hover:not(:disabled):not(.is-muted) {
+      background: #BABCBE;
+    }
+    .tb-btn:disabled,
+    .tb-btn.is-muted {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    .tb-btn i {
+      font-size: 12px;
+      width: 1em;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .tb-btn-primary {
+      background: var(--primary);
+      color: #fff;
+      font-weight: 600;
+    }
+    .tb-btn-primary:hover:not(:disabled) {
+      background: var(--primary-hover);
+    }
+
+    /* ── C Grid card (CatalogListShell / VatTu tableCard) ── */
+    .zone-c {
+      background: var(--card);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--ds-radius-md);
+      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      flex: 1;
+      overflow: hidden;
+    }
+    .grid-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 12px 16px 8px;
+      flex-wrap: wrap;
+    }
+    .grid-title {
+      margin: 0;
+      font-size: 15px;
+      font-weight: 700;
+      color: #212529;
+    }
+    .grid-help {
+      margin: 4px 0 0;
+      font-size: 12px;
+      color: var(--txt-secondary);
+      line-height: 1.4;
+    }
+    .grid-filters {
+      display: flex;
+      align-items: flex-end;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 160px;
+    }
+    .field label {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .req::after {
+      content: " *";
+      color: #dc2626;
+      font-weight: 700;
+    }
+    .search-wrap {
+      display: flex;
+      align-items: stretch;
+      border: 1px solid var(--border);
+      border-radius: var(--ds-radius-md);
+      overflow: hidden;
+      background: #fff;
+      min-width: 240px;
+      min-height: 32px;
+    }
+    .search-wrap:focus-within {
+      border-color: var(--primary);
+      box-shadow: var(--ds-focus-shadow);
+    }
+    .search-wrap input {
+      border: 0 !important;
+      outline: none !important;
+      box-shadow: none !important;
+      padding: 6px 10px;
+      font-size: 13px;
+      flex: 1;
+      min-width: 0;
+      min-height: 30px;
+      width: auto;
+    }
+    .search-wrap button {
+      border: 0;
+      border-left: 1px solid var(--border);
+      background: #f8fafc;
+      padding: 0 10px;
+      cursor: pointer;
+      color: var(--muted);
+      display: grid;
+      place-items: center;
+      min-width: 36px;
+    }
+    .search-wrap button:hover { background: #f1f5f9; color: var(--txt); }
+    .search-wrap button svg { width: 14px; height: 14px; }
+    .table-wrap {
+      overflow: auto;
+      flex: 1;
+      min-height: 240px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      table-layout: fixed;
+    }
+    col.col-stt { width: var(--col-no); }
+    col.col-check { width: var(--col-check); }
+    col.col-code { width: 120px; }
+    col.col-name { width: 22%; }
+    col.col-type { width: 120px; }
+    col.col-route { width: 88px; }
+    col.col-km { width: 108px; }
+    col.col-status { width: 120px; }
+    col.col-gps { width: 148px; }
+    col.col-act { width: 48px; }
+    th, td {
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border-soft);
+      text-align: left;
+      vertical-align: middle;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    th {
+      background: #f8fafc;
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 600;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+    th.col-stt,
+    td.col-stt,
+    th.col-check,
+    td.col-check {
+      text-align: center;
+      overflow: visible;
+      text-overflow: clip;
+      padding: 8px 12px;
+    }
+    td.col-check input[type="checkbox"] {
+      margin: 0 auto;
+    }
+    tbody tr:nth-child(even) { background: #fafbfc; }
+    tbody tr:hover { background: #f1f5f9; }
+    tbody tr.is-active { background: #eff6ff; }
+    .code {
+      color: var(--primary);
+      font-family: ui-monospace, Consolas, monospace;
+      cursor: pointer;
+      text-decoration: underline;
+      background: none;
+      border: 0;
+      padding: 0;
+      font-size: inherit;
+    }
+    .menu { position: relative; }
+    .menu summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 4px 8px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: #fff;
+      user-select: none;
+    }
+    .menu summary::-webkit-details-marker { display: none; }
+    .panel {
+      display: none;
+      position: absolute;
+      right: 0;
+      z-index: 3;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      min-width: 128px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
+    }
+    .menu[open] .panel { display: block; }
+    .panel button {
+      display: block;
+      width: 100%;
+      text-align: left;
+      border: 0;
+      background: transparent;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+    .panel button:hover { background: #f1f5f9; }
+
+    /* ── D Pagination — CatalogListPagination + CatalogPagerNav (VatTu) ── */
+    .zone-d {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 10px;
+      padding: 12px 16px;
+      border-top: 1px solid var(--border-soft);
+      background: #fff;
+      flex-shrink: 0;
+      flex-wrap: wrap;
+    }
+    .zone-d-total {
+      width: 100%;
+      text-align: center;
+      font-size: 13px;
+      color: var(--txt-secondary);
+    }
+    .zone-d-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      width: 100%;
+    }
+    .zone-d-pagesize {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .zone-d-pagesize label {
+      font-size: 13px;
+      color: var(--txt-secondary);
+      white-space: nowrap;
+      margin: 0;
+    }
+    .zone-d-pagesize select {
+      min-width: 72px;
+      width: auto;
+      font-size: 14px;
+      min-height: 32px;
+      padding: 4px 8px;
+    }
+    .pager-nav {
+      display: inline-flex;
+      align-items: center;
+      gap: 0;
+      flex-shrink: 0;
+    }
+    .pager-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 8px;
+      width: 32px;
+      height: 32px;
+      padding: 0;
+      border: 1px solid var(--border-soft);
+      border-radius: var(--ds-radius-md);
+      background: #fff;
+      color: var(--txt-secondary);
+      cursor: pointer;
+      box-sizing: border-box;
+      line-height: 1;
+      font-size: 12px;
+    }
+    .pager-btn:hover:not(:disabled) {
+      background: #f8f9fa;
+      color: #212529;
+    }
+    .pager-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+    .pager-indicator {
+      font-size: 12px;
+      color: var(--txt-secondary);
+      padding: 0 6px;
+      min-width: 52px;
+      text-align: center;
+      border: 0;
+      background: transparent;
+    }
+
+    /* Form — Slideout (≥10 controls · ui-pattern-decision) · Z1–Z3 + icon toolbar */
+    .slide-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.35);
+      z-index: 40;
+    }
+    .slide-backdrop.on { display: block; }
+    .slideout {
+      display: none;
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: min(600px, 100vw);
+      height: 100vh;
+      z-index: 50;
+      background: var(--card);
+      box-shadow: -8px 0 32px rgba(15, 23, 42, 0.18);
+      flex-direction: column;
+    }
+    .slideout.on { display: flex; }
+    .form-header-card {
+      flex-shrink: 0;
+      background: #fff;
+      border-bottom: 1px solid #e9ecef;
+    }
+    /* Z1 row1: Back + actions (icon+label) */
+    .z1-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 10px 16px;
+      border-bottom: 1px solid #e9ecef;
+      flex-wrap: wrap;
+    }
+    .z1-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .z1-title-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px 4px;
+    }
+    .z1-title-row strong { font-size: 1.05rem; flex: 1; }
+    .badge {
+      font-size: 11px;
+      font-weight: 700;
+      background: #dbeafe;
+      color: #1e40af;
+      padding: 2px 8px;
+      border-radius: 999px;
+    }
+    .z1h {
+      padding: 4px 16px 12px;
+      font-size: 12px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .z1h svg { width: 14px; height: 14px; flex-shrink: 0; }
+    .z2 {
+      padding: 16px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      overflow-y: auto;
+      flex: 1;
+      min-height: 0;
+      align-content: start;
+    }
+    .z2 .span2 { grid-column: span 2; }
+    .z2 .section-label {
+      grid-column: 1 / -1;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      margin: 4px 0 0;
+    }
+    .ro { background: #F6F6F6; }
+    .z3 {
+      flex-shrink: 0;
+      padding: 12px 16px;
+      border-top: 1px solid #e9ecef;
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+      background: #fff;
+    }
+    @media (max-width: 720px) {
+      .z2 { grid-template-columns: 1fr; }
+      .z2 .span2, .z2 .section-label { grid-column: span 1; }
+      .zone-d { gap: 8px; }
+      .slideout { width: 100vw; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="view-list" id="viewList" data-catalog-list-page data-zones="A-B-C-D">
+      <!-- A — LinPageHeader: title + titleIconClass (VatTu parity) -->
+      <header class="zone-a" data-zone="A">
+        <h1><i class="fas fa-road" aria-hidden="true"></i> Sổ tài sản kết cấu hạ tầng đường bộ</h1>
+      </header>
+
+      <!-- B — catalogToolbar: L1 left · + Thêm mới right -->
+      <div class="zone-b" data-zone="B">
+        <div class="zone-b-left">
+          <button class="tb-btn" type="button" id="btnRefresh" title="Làm mới" data-action="refresh">
+            <i class="fas fa-sync-alt" aria-hidden="true"></i> Làm mới
+          </button>
+          <button class="tb-btn" type="button" id="btnHistory" title="Lịch sử" data-action="history">
+            <i class="fas fa-history" aria-hidden="true"></i> Lịch sử
+          </button>
+          <button class="tb-btn" type="button" id="btnConfig" title="Sửa config" data-action="editConfig">
+            <i class="fas fa-cog" aria-hidden="true"></i> Sửa config
+          </button>
+          <button class="tb-btn" type="button" id="btnExcel" title="Xuất Excel" data-action="exportExcel">
+            <i class="fas fa-file-excel" aria-hidden="true"></i> Xuất Excel
+          </button>
+          <button class="tb-btn is-muted" type="button" disabled title="Shared master — N/A asset pack" data-action="propose">
+            <i class="fas fa-share-alt" aria-hidden="true"></i> Đề xuất
+          </button>
+          <button class="tb-btn is-muted" type="button" disabled title="Shared master — N/A asset pack" data-action="pendingApproval">
+            <i class="fas fa-inbox" aria-hidden="true"></i> Chờ duyệt
+          </button>
+        </div>
+        <button class="tb-btn tb-btn-primary" type="button" id="btnAdd" data-action="create">
+          <i class="fas fa-plus" aria-hidden="true"></i> Thêm mới
+        </button>
+      </div>
+
+      <!-- C — table card: title · help · search · grid -->
+      <section class="zone-c" data-zone="C">
+        <div class="grid-head">
+          <div>
+            <h2 class="grid-title">Danh sách tài sản KCHT</h2>
+            <p class="grid-help">Menu dòng: nhấn đúp · Ctrl + chuột phải · nhấn giữ dòng — Xem / Sửa / Sao chép</p>
+          </div>
+          <div class="grid-filters">
+            <div class="field">
+              <label for="search">Tìm kiếm</label>
+              <div class="search-wrap">
+                <input id="search" type="search" placeholder="Mã tài sản, tên, tuyến đường…" autocomplete="off" />
+                <button type="button" id="btnSearchIcon" aria-label="Tìm kiếm">
+                  <i class="fas fa-search" aria-hidden="true"></i>
+                </button>
+              </div>
+            </div>
+            <div class="field">
+              <label for="type">Loại tài sản</label>
+              <select id="type">
+                <option value="">Tất cả loại</option>
+                <option>Mặt đường</option>
+                <option>Cầu</option>
+                <option>Biển báo giao thông</option>
+                <option>Hộ lan an toàn</option>
+                <option>Cột Km</option>
+                <option>Cống thoát nước</option>
+                <option>Taluy / nền đường</option>
+                <option>Hệ thống chiếu sáng</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="table-wrap" data-lin-erp-data-grid-batch>
+          <table>
+            <colgroup>
+              <col class="col-stt" />
+              <col class="col-check" />
+              <col class="col-code" />
+              <col class="col-name" />
+              <col class="col-type" />
+              <col class="col-route" />
+              <col class="col-km" />
+              <col class="col-km" />
+              <col class="col-status" />
+              <col class="col-gps" />
+              <col class="col-act" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th class="col-stt" scope="col">STT</th>
+                <th class="col-check" scope="col" title="Chọn tất cả trang hiện tại">
+                  <input type="checkbox" id="chkAll" aria-label="Chọn tất cả" />
+                </th>
+                <th scope="col">Mã tài sản</th>
+                <th scope="col">Tên tài sản</th>
+                <th scope="col">Loại tài sản</th>
+                <th scope="col">Tuyến đường</th>
+                <th scope="col">Lý trình bắt đầu</th>
+                <th scope="col">Lý trình kết thúc</th>
+                <th scope="col">Tình trạng KT</th>
+                <th scope="col">Tọa độ GPS</th>
+                <th scope="col" aria-label="Thao tác"></th>
+              </tr>
+            </thead>
+            <tbody id="tbody"></tbody>
+          </table>
+        </div>
+
+        <!-- D Pagination — CatalogListPagination (VatTu) -->
+        <div class="zone-d" data-zone="D" data-testid="asset-list-pagination">
+          <span class="zone-d-total" id="pageMeta">Tổng: 0 · Trang 1/1</span>
+          <div class="zone-d-controls">
+            <div class="zone-d-pagesize" data-testid="asset-list-field-pageSize">
+              <label for="pageSize">Hiển thị</label>
+              <select id="pageSize" aria-label="Số dòng mỗi trang" data-testid="asset-list-page-size">
+                <option value="50" selected>50</option>
+                <option value="100">100</option>
+                <option value="200">200</option>
+                <option value="500">500</option>
+              </select>
+            </div>
+            <div class="pager-nav" role="navigation" aria-label="Phân trang">
+              <button class="pager-btn" type="button" id="btnFirst" aria-label="Trang đầu" title="Trang đầu">
+                <i class="fas fa-angle-double-left" aria-hidden="true"></i>
+              </button>
+              <button class="pager-btn" type="button" id="btnPrev" aria-label="Trang trước" title="Trang trước">
+                <i class="fas fa-angle-left" aria-hidden="true"></i>
+              </button>
+              <span class="pager-indicator" id="pageInd">1/1</span>
+              <button class="pager-btn" type="button" id="btnNext" aria-label="Trang sau" title="Trang sau">
+                <i class="fas fa-angle-right" aria-hidden="true"></i>
+              </button>
+              <button class="pager-btn" type="button" id="btnLast" aria-label="Trang cuối" title="Trang cuối">
+                <i class="fas fa-angle-double-right" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Form pair — Slideout (≥10 controls) · Z1 toolbar icons · Z1h · Z2 · Z3 -->
+    <div class="slide-backdrop" id="formBackdrop" aria-hidden="true"></div>
+    <aside class="slideout" id="viewForm" data-form-pattern="slideout" data-control-count="11" data-form-zones="Z1-Z3" aria-label="Form tài sản">
+      <div class="form-header-card">
+        <div class="z1-toolbar" data-zone="Z1">
+          <button class="tb-btn" type="button" id="btnBack" data-action="back">
+            <i class="fas fa-arrow-left" aria-hidden="true"></i> Quay lại
+          </button>
+          <div class="z1-actions">
+            <button class="tb-btn" type="button" id="btnFormCopy" style="display:none" data-action="copy">
+              <i class="fas fa-copy" aria-hidden="true"></i> Sao chép
+            </button>
+            <button class="tb-btn" type="button" id="btnFormEdit" style="display:none" data-action="edit">
+              <i class="fas fa-edit" aria-hidden="true"></i> Sửa
+            </button>
+            <button class="tb-btn" type="button" id="btnCancel" data-action="cancel">
+              <i class="fas fa-times" aria-hidden="true"></i> Hủy
+            </button>
+            <button class="tb-btn tb-btn-primary" type="button" id="btnSave" data-action="save">
+              <i class="fas fa-save" aria-hidden="true"></i> Lưu
+            </button>
+          </div>
+        </div>
+        <div class="z1-title-row">
+          <strong id="formTitle">Thêm mới tài sản KCHT</strong>
+          <span class="badge" id="modeBadge">create</span>
+          <span class="badge" title="ui-pattern-decision">Slideout · 11 controls</span>
+        </div>
+        <div class="z1h" data-zone="Z1h" id="formHint">
+          <i class="fas fa-info-circle" aria-hidden="true"></i>
+          <span id="formHintText">Đang tạo mới tài sản đường bộ — Lưu hoặc Hủy</span>
+        </div>
+      </div>
+      <div class="z2" data-zone="Z2">
+        <div class="section-label">Thông tin tài sản KCHT</div>
+        <div class="field"><label for="fCode">Mã tài sản</label><input id="fCode" class="ro" readonly /></div>
+        <div class="field"><label class="req" for="fStatus">Tình trạng kỹ thuật</label>
+          <select id="fStatus"><option>Tốt</option><option>Theo dõi</option><option>Cần bảo trì</option></select>
+        </div>
+        <div class="field span2"><label class="req" for="fName">Tên tài sản</label><input id="fName" /></div>
+        <div class="field"><label class="req" for="fType">Loại tài sản</label>
+          <select id="fType">
+            <option>Mặt đường</option><option>Cầu</option><option>Biển báo giao thông</option><option>Hộ lan an toàn</option>
+            <option>Cột Km</option><option>Cống thoát nước</option><option>Taluy / nền đường</option><option>Hệ thống chiếu sáng</option>
+          </select>
+        </div>
+        <div class="field"><label class="req" for="fRoute">Tuyến đường</label><input id="fRoute" placeholder="VD: QL.1, ĐT.379" /></div>
+        <div class="field"><label class="req" for="fKmFrom">Lý trình bắt đầu (Km+)</label><input id="fKmFrom" placeholder="VD: km12+000" /></div>
+        <div class="field"><label for="fKmTo">Lý trình kết thúc (Km+)</label><input id="fKmTo" placeholder="VD: km12+200" /></div>
+        <div class="section-label">Vị trí địa lý / phụ</div>
+        <div class="field"><label for="fLat">Vĩ độ (Lat)</label><input id="fLat" type="number" step="any" /></div>
+        <div class="field"><label for="fLng">Kinh độ (Lng)</label><input id="fLng" type="number" step="any" /></div>
+        <div class="field"><label for="fQr">Mã QR</label><input id="fQr" placeholder="Hiển thị mã QR tài sản" /></div>
+        <div class="field"><label for="fValue">Giá trị tài sản (VND)</label><input id="fValue" inputmode="numeric" /></div>
+        <div class="field span2"><label for="fNote">Ghi chú hiện trường</label><input id="fNote" /></div>
+      </div>
+      <div class="z3" data-zone="Z3" id="z3">
+        <button class="tb-btn" type="button" id="btnFooterCancel" data-action="cancel">
+          <i class="fas fa-times" aria-hidden="true"></i> Hủy
+        </button>
+        <button class="tb-btn tb-btn-primary" type="button" id="btnFooterSave" data-action="save">
+          <i class="fas fa-save" aria-hidden="true"></i> Lưu
+        </button>
+      </div>
+    </aside>
+  </div>
+
+  <script>
+    const SEED = [
+      { code: 'QL1-CN-001', name: 'Cống ngang · QL.1', type: 'Cống thoát nước', route: 'QL.1', kmFrom: 'km1+000', kmTo: 'km1+000', status: 'Tốt', lat: 19.8698, lng: 105.80373, qr: 'QR-CN-001', valueVnd: '', note: '' },
+      { code: 'QL1-HL-001', name: 'Hộ lan tôn sóng · QL.1', type: 'Hộ lan an toàn', route: 'QL.1', kmFrom: 'km2+000', kmTo: 'km2+050', status: 'Tốt', lat: 20.12857, lng: 105.85542, qr: 'QR-HL-001', valueVnd: '', note: '' },
+      { code: 'QL1-CS-001', name: 'Hệ thống chiếu sáng · QL.1', type: 'Hệ thống chiếu sáng', route: 'QL.1', kmFrom: 'km1+100', kmTo: 'km1+400', status: 'Tốt', lat: 20.12359, lng: 105.85045, qr: 'QR-CS-001', valueVnd: '', note: '' },
+      { code: 'TS-014', name: 'Cầu vượt Núi Thành', type: 'Cầu', route: 'QL.1', kmFrom: 'km12+000', kmTo: 'km12+200', status: 'Theo dõi', lat: 19.9, lng: 105.82, qr: 'QR-014', valueVnd: '', note: '' },
+      { code: 'TS-088', name: 'Biển báo giao cắt', type: 'Biển báo giao thông', route: 'QL.1', kmFrom: 'km45+000', kmTo: 'km45+000', status: 'Cần bảo trì', lat: 19.85, lng: 105.81, qr: 'QR-088', valueVnd: '', note: '' }
+    ];
+
+    let rows = SEED.map((r) => ({ ...r }));
+    let page = 1;
+    let mode = 'view';
+    let activeCode = null;
+
+    function filtered() {
+      const q = document.getElementById('search').value.trim().toLowerCase();
+      const t = document.getElementById('type').value;
+      return rows.filter((r) => {
+        if (t && r.type !== t) return false;
+        if (!q) return true;
+        return [r.code, r.name, r.type, r.route, r.kmFrom, r.status, r.qr].join(' ').toLowerCase().includes(q);
+      });
+    }
+
+    function render() {
+      const data = filtered();
+      const size = Number(document.getElementById('pageSize').value) || 50;
+      const totalPages = Math.max(1, Math.ceil(data.length / size) || 1);
+      if (page > totalPages) page = totalPages;
+      const start = (page - 1) * size;
+      const slice = data.slice(start, start + size);
+
+      document.getElementById('tbody').innerHTML = slice.map((r, i) => `
+        <tr class="${r.code === activeCode ? 'is-active' : ''}" data-code="${r.code}">
+          <td class="col-stt">${start + i + 1}</td>
+          <td class="col-check"><input type="checkbox" aria-label="Chọn ${r.code}" /></td>
+          <td title="${r.code}"><button type="button" class="code" data-code="${r.code}" data-act="view">${r.code}</button></td>
+          <td title="${r.name}">${r.name}</td>
+          <td title="${r.type}">${r.type}</td>
+          <td title="${r.route}">${r.route}</td>
+          <td title="${r.kmFrom}">${r.kmFrom}</td>
+          <td title="${r.kmTo}">${r.kmTo}</td>
+          <td title="${r.status}">${r.status}</td>
+          <td title="${Number(r.lat).toFixed(5)}, ${Number(r.lng).toFixed(5)}">${Number(r.lat).toFixed(4)}, ${Number(r.lng).toFixed(4)}</td>
+          <td>
+            <details class="menu">
+              <summary aria-label="Thao tác">⋯</summary>
+              <div class="panel">
+                <button type="button" data-code="${r.code}" data-act="view">Xem</button>
+                <button type="button" data-code="${r.code}" data-act="edit">Sửa</button>
+                <button type="button" data-code="${r.code}" data-act="copy">Sao chép</button>
+              </div>
+            </details>
+          </td>
+        </tr>
+      `).join('');
+
+      document.getElementById('pageMeta').textContent = `Tổng: ${data.length} · Trang ${page}/${totalPages}`;
+      document.getElementById('pageInd').textContent = `${page}/${totalPages}`;
+      btnFirst.disabled = btnPrev.disabled = page <= 1;
+      btnNext.disabled = btnLast.disabled = page >= totalPages;
+    }
+
+    function showList() {
+      viewForm.classList.remove('on');
+      formBackdrop.classList.remove('on');
+      render();
+    }
+
+    function setReadonly(ro) {
+      ['fName', 'fType', 'fRoute', 'fKmFrom', 'fKmTo', 'fStatus', 'fLat', 'fLng', 'fQr', 'fValue', 'fNote'].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el.tagName === 'SELECT') el.disabled = ro;
+        else el.readOnly = ro;
+        el.classList.toggle('ro', ro);
+      });
+      const editing = !ro;
+      btnSave.style.display = editing ? '' : 'none';
+      btnFooterSave.style.display = editing ? '' : 'none';
+      btnCancel.style.display = editing ? '' : 'none';
+      btnFooterCancel.style.display = editing ? '' : 'none';
+      btnFormCopy.style.display = ro ? '' : 'none';
+      btnFormEdit.style.display = ro ? '' : 'none';
+      document.getElementById('z3').style.display = editing ? '' : 'none';
+    }
+
+    function openForm(act, code) {
+      const row = rows.find((r) => r.code === code);
+      mode = act;
+      activeCode = code || null;
+      const titles = { view: 'Xem tài sản KCHT', edit: 'Sửa tài sản KCHT', copy: 'Sao chép tài sản KCHT', create: 'Thêm mới tài sản KCHT' };
+      formTitle.textContent = titles[act];
+      modeBadge.textContent = act;
+      formHintText.textContent = act === 'view'
+        ? 'Chế độ xem — nhấn Sửa để cập nhật hiện trường'
+        : act === 'create' || act === 'copy'
+          ? 'Đang tạo mới tài sản đường bộ — Lưu hoặc Hủy'
+          : 'Đang chỉnh sửa — Lưu hoặc Hủy';
+      setReadonly(act === 'view');
+      if (act === 'create') {
+        fCode.value = '(tự sinh)'; fName.value = ''; fType.value = 'Mặt đường'; fRoute.value = 'QL.1';
+        fKmFrom.value = ''; fKmTo.value = ''; fStatus.value = 'Tốt'; fLat.value = ''; fLng.value = '';
+        fQr.value = ''; fValue.value = ''; fNote.value = '';
+      } else if (row) {
+        fCode.value = act === 'copy' ? '(tự sinh)' : row.code;
+        fName.value = row.name; fType.value = row.type; fRoute.value = row.route;
+        fKmFrom.value = row.kmFrom; fKmTo.value = row.kmTo; fStatus.value = row.status;
+        fLat.value = row.lat; fLng.value = row.lng; fQr.value = row.qr || '';
+        fValue.value = row.valueVnd || ''; fNote.value = row.note || '';
+      }
+      formBackdrop.classList.add('on');
+      viewForm.classList.add('on');
+    }
+
+    tbody.addEventListener('click', (e) => {
+      const act = e.target.closest('[data-act]');
+      if (act) {
+        openForm(act.dataset.act, act.dataset.code);
+        return;
+      }
+      const tr = e.target.closest('tr[data-code]');
+      if (tr) {
+        activeCode = tr.dataset.code;
+        render();
+      }
+    });
+    tbody.addEventListener('dblclick', (e) => {
+      const tr = e.target.closest('tr[data-code]');
+      if (tr) openForm('view', tr.dataset.code);
+    });
+
+    function applySearch() { page = 1; render(); }
+    search.addEventListener('keydown', (e) => { if (e.key === 'Enter') applySearch(); });
+    btnSearchIcon.onclick = applySearch;
+    type.addEventListener('change', applySearch);
+    pageSize.addEventListener('change', () => { page = 1; render(); });
+    btnFirst.onclick = () => { page = 1; render(); };
+    btnPrev.onclick = () => { if (page > 1) { page -= 1; render(); } };
+    btnNext.onclick = () => { page += 1; render(); };
+    btnLast.onclick = () => {
+      const size = Number(pageSize.value) || 50;
+      page = Math.max(1, Math.ceil(filtered().length / size) || 1);
+      render();
+    };
+    btnRefresh.onclick = () => { search.value = ''; type.value = ''; page = 1; activeCode = null; render(); };
+    btnAdd.onclick = () => openForm('create');
+    btnBack.onclick = showList;
+    btnCancel.onclick = showList;
+    btnFooterCancel.onclick = showList;
+    formBackdrop.onclick = showList;
+    btnHistory.onclick = () => alert(activeCode ? `Lịch sử · ${activeCode}` : 'Chọn 1 dòng rồi mở Lịch sử');
+    btnConfig.onclick = () => alert('Prototype · LinCatalogUiSchemaEditorModal / LinListTableConfigModal');
+    btnExcel.onclick = () => alert('Prototype · Xuất Excel');
+    chkAll.onclick = () => {
+      tbody.querySelectorAll('input[type="checkbox"]').forEach((c) => { c.checked = chkAll.checked; });
+    };
+    btnFormCopy.onclick = () => openForm('copy', fCode.value.startsWith('(') ? activeCode : fCode.value);
+    btnFormEdit.onclick = () => openForm('edit', fCode.value.startsWith('(') ? activeCode : fCode.value);
+    function doSave() { alert('Prototype save → POST/PUT /rmms/road-assets'); showList(); }
+    btnSave.onclick = doSave;
+    btnFooterSave.onclick = doSave;
+
+    render();
+  </script>
+</body>
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Prototype — AI kiểm định mặt đường (ai-vision)</title>
+  <style>
+    :root { --bg:#f1f5f9; --card:#fff; --border:#e2e8f0; --txt:#0f172a; --muted:#64748b; --primary:#0f766e; --danger:#b91c1c; }
+    * { box-sizing:border-box; } body { margin:0; font-family:"Segoe UI",system-ui,sans-serif; background:var(--bg); color:var(--txt); }
+    .banner { background:#fef3c7; color:#92400e; padding:8px 16px; font-size:13px; border-bottom:1px solid #fcd34d; }
+    .page { max-width:1280px; margin:0 auto; padding:16px; }
+    .head { display:flex; align-items:center; gap:10px; margin-bottom:12px; flex-wrap:wrap; }
+    .head h1 { margin:0; font-size:1.25rem; }
+    .badge { font-size:11px; font-weight:700; background:#ccfbf1; color:#115e59; padding:2px 8px; border-radius:999px; }
+    .badge.ai { background:#ede9fe; color:#5b21b6; }
+    .shell { background:var(--card); border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+    .toolbar { display:flex; gap:8px; padding:10px 14px; border-bottom:1px solid var(--border); background:#f8fafc; flex-wrap:wrap; }
+    .btn { border:1px solid var(--border); background:#fff; padding:7px 12px; border-radius:6px; cursor:pointer; font-size:13px; }
+    .btn-primary { background:var(--primary); border-color:var(--primary); color:#fff; }
+    .filters { display:flex; gap:10px; padding:12px 14px; border-bottom:1px solid var(--border); flex-wrap:wrap; align-items:end; }
+    .field { display:flex; flex-direction:column; gap:4px; min-width:140px; }
+    .field label { font-size:12px; color:var(--muted); }
+    .field input, .field select { padding:7px 10px; border:1px solid var(--border); border-radius:6px; font-size:13px; }
+    .list-title { padding:10px 14px 0; font-weight:700; font-size:14px; }
+    .list-help { padding:2px 14px 8px; font-size:12px; color:var(--muted); }
+    table { width:100%; border-collapse:collapse; font-size:13px; }
+    th, td { padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; white-space:nowrap; }
+    th { background:#f8fafc; font-size:12px; color:var(--muted); }
+    .code { color:var(--primary); font-family:ui-monospace,monospace; cursor:pointer; text-decoration:underline; }
+    .sev-crit { color:var(--danger); font-weight:700; }
+    .menu { position:relative; }
+    .menu summary { list-style:none; cursor:pointer; padding:4px 8px; border:1px solid var(--border); border-radius:4px; background:#fff; }
+    .panel { display:none; position:absolute; right:0; z-index:2; background:#fff; border:1px solid var(--border); border-radius:6px; min-width:140px; box-shadow:0 8px 24px rgba(15,23,42,.12); }
+    .menu[open] .panel { display:block; }
+    .panel button { display:block; width:100%; text-align:left; border:0; background:transparent; padding:8px 12px; cursor:pointer; font-size:13px; }
+    .footer { display:flex; justify-content:flex-end; padding:10px 14px; color:var(--muted); font-size:12px; }
+    .modal-backdrop { display:none; position:fixed; inset:0; background:rgba(15,23,42,.35); align-items:center; justify-content:center; }
+    .modal-backdrop.on { display:flex; }
+    .modal { width:min(720px,94vw); background:#fff; border-radius:10px; border:1px solid var(--border); max-height:90vh; overflow:auto; }
+    .modal-h { display:flex; align-items:center; gap:8px; padding:12px 16px; border-bottom:1px solid var(--border); }
+    .modal-h strong { flex:1; }
+    .modal-b { padding:16px; display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .modal-b .span2 { grid-column:span 2; }
+    .ro { background:#f8fafc; }
+    .modal-f { padding:12px 16px; border-top:1px solid var(--border); display:flex; gap:8px; justify-content:flex-end; }
+  </style>
+</head>
+<body>
+  <div class="banner">Design prototype · feature <strong>ai-vision</strong> · Kind B catalog · reviewUrl gate · P1 online (khong hua mAP)</div>
+  <div class="page">
+    <div class="head">
+      <h1>AI kiem dinh mat duong</h1>
+      <span class="badge">Kind B</span>
+      <span class="badge ai">P1 online</span>
+    </div>
+    <div class="shell" data-catalog-list-page>
+      <div class="toolbar">
+        <button class="btn btn-primary" type="button" id="btnAdd">+ Tao moi</button>
+        <button class="btn" type="button" id="btnRefresh">Lam moi</button>
+      </div>
+      <div class="filters">
+        <div class="field"><label>Tim kiem</label><input id="search" placeholder="DET / class / section..." /></div>
+        <div class="field"><label>Class</label>
+          <select id="cls"><option value="">Tat ca</option><option>O ga</option><option>Nut mai rua</option><option>Va duong</option><option>Bong bat</option></select>
+        </div>
+        <div class="field"><label>Severity</label>
+          <select id="sev"><option value="">Tat ca</option><option>Critical</option><option>High</option><option>Medium</option><option>Low</option></select>
+        </div>
+        <div class="field"><label>Engine</label>
+          <select id="eng"><option value="">Tat ca</option><option>P1</option><option>P2</option></select>
+        </div>
+        <button class="btn btn-primary" type="button" id="btnSearch">Tim</button>
+      </div>
+      <div class="list-title">Danh sach phat hien</div>
+      <div class="list-help">Menu: Xem / Sua / Sao chep / Tao Van de (Critical)</div>
+      <table>
+        <thead>
+          <tr>
+            <th>STT</th><th>Ma</th><th>Class</th><th>Score</th><th>Severity</th>
+            <th>Section</th><th>Route</th><th>Status</th><th>Engine</th><th>Incident</th><th></th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+      <div class="footer" id="footer">-</div>
+    </div>
+  </div>
+  <div class="modal-backdrop" id="modal">
+    <div class="modal" role="dialog">
+      <div class="modal-h"><strong id="modalTitle">Xem detection</strong><span class="badge" id="modeBadge">view</span></div>
+      <div class="modal-b">
+        <div class="field"><label>Ma</label><input id="fCode" class="ro" readonly /></div>
+        <div class="field"><label>Status *</label><input id="fStatus" /></div>
+        <div class="field"><label>Class *</label><input id="fClass" /></div>
+        <div class="field"><label>Score *</label><input id="fScore" /></div>
+        <div class="field"><label>Severity *</label><input id="fSev" /></div>
+        <div class="field"><label>Engine *</label><input id="fEng" /></div>
+        <div class="field"><label>Section *</label><input id="fSec" /></div>
+        <div class="field"><label>Route</label><input id="fRoute" /></div>
+        <div class="field span2"><label>Note</label><input id="fNote" /></div>
+        <div class="field span2"><label>Incident</label><input id="fInc" class="ro" readonly /></div>
+      </div>
+      <div class="modal-f">
+        <button class="btn" type="button" id="btnClose">Dong</button>
+        <button class="btn btn-primary" type="button" id="btnSave">Luu</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    const ROWS = [
+      { code:'DET-901', defectClass:'O ga', score:0.91, severity:'Critical', sectionId:'SEC-QL1-286-316', routeLabel:'QL.1 · Km287', status:'Draft', engine:'P1', incidentCode:null },
+      { code:'DET-902', defectClass:'Nut mai rua', score:0.84, severity:'High', sectionId:'SEC-QL1-286-316', routeLabel:'QL.1 · Km297', status:'Draft', engine:'P1', incidentCode:null },
+      { code:'DET-903', defectClass:'Va duong', score:0.77, severity:'Medium', sectionId:'SEC-QL1-316-321', routeLabel:'QL.1 · Km316', status:'Draft', engine:'P1', incidentCode:null },
+      { code:'DET-904', defectClass:'Bong bat', score:0.88, severity:'High', sectionId:'SEC-QL1-321-368', routeLabel:'QL.1 · Km349', status:'Draft', engine:'P2', incidentCode:null },
+    ];
+    let view = ROWS.slice();
+    const tbody = document.getElementById('tbody');
+    const footer = document.getElementById('footer');
+    const modal = document.getElementById('modal');
+    function render() {
+      tbody.innerHTML = view.map((r, i) => '<tr>' +
+        '<td>' + (i + 1) + '</td>' +
+        '<td><span class="code" data-i="' + i + '">' + r.code + '</span></td>' +
+        '<td>' + r.defectClass + '</td><td>' + r.score.toFixed(2) + '</td>' +
+        '<td class="' + (r.severity === 'Critical' ? 'sev-crit' : '') + '">' + r.severity + '</td>' +
+        '<td>' + r.sectionId + '</td><td>' + r.routeLabel + '</td><td>' + r.status + '</td>' +
+        '<td><span class="badge ai">' + r.engine + '</span></td><td>' + (r.incidentCode || '—') + '</td>' +
+        '<td><details class="menu"><summary>...</summary><div class="panel">' +
+        '<button type="button" data-act="view" data-i="' + i + '">Xem</button>' +
+        '<button type="button" data-act="edit" data-i="' + i + '">Sua</button>' +
+        '<button type="button" data-act="copy" data-i="' + i + '">Sao chep</button>' +
+        (r.severity === 'Critical' && r.status === 'Draft' ? '<button type="button" data-act="inc" data-i="' + i + '">Tao Van de</button>' : '') +
+        '</div></details></td></tr>').join('');
+      footer.textContent = '1-' + view.length + ' / ' + view.length + ' ban ghi';
+    }
+    function openForm(m, row) {
+      document.getElementById('modeBadge').textContent = m;
+      document.getElementById('modalTitle').textContent = m + ' — ' + row.code;
+      const ro = m === 'view';
+      const set = (id, val, forceRo) => {
+        const el = document.getElementById(id);
+        el.value = val == null ? '' : val;
+        el.readOnly = !!(forceRo || ro);
+        el.classList.toggle('ro', !!(forceRo || ro));
+      };
+      set('fCode', (m === 'create' || m === 'copy') ? 'DET-NEW' : row.code, true);
+      set('fStatus', row.status); set('fClass', row.defectClass); set('fScore', row.score);
+      set('fSev', row.severity); set('fEng', row.engine); set('fSec', row.sectionId);
+      set('fRoute', row.routeLabel); set('fNote', ''); set('fInc', row.incidentCode || '', true);
+      document.getElementById('btnSave').style.display = ro ? 'none' : '';
+      modal.classList.add('on');
+    }
+    document.getElementById('btnSearch').onclick = function () {
+      var q = document.getElementById('search').value.trim().toLowerCase();
+      var cls = document.getElementById('cls').value;
+      var sev = document.getElementById('sev').value;
+      var eng = document.getElementById('eng').value;
+      view = ROWS.filter(function (r) {
+        if (cls && r.defectClass !== cls) return false;
+        if (sev && r.severity !== sev) return false;
+        if (eng && r.engine !== eng) return false;
+        if (!q) return true;
+        return [r.code, r.defectClass, r.sectionId, r.routeLabel, r.status, r.engine].join(' ').toLowerCase().indexOf(q) >= 0;
+      });
+      render();
+    };
+    document.getElementById('btnRefresh').onclick = function () { view = ROWS.slice(); render(); };
+    document.getElementById('btnAdd').onclick = function () {
+      openForm('create', { code:'DET-NEW', defectClass:'O ga', score:0.8, severity:'Critical', sectionId:'SEC-QL1-321-368', routeLabel:'QL.1', status:'Draft', engine:'P1', incidentCode:null });
+    };
+    document.getElementById('btnClose').onclick = function () { modal.classList.remove('on'); };
+    document.getElementById('btnSave').onclick = function () { modal.classList.remove('on'); };
+    tbody.addEventListener('click', function (e) {
+      var t = e.target;
+      if (t.classList.contains('code') || t.dataset.act === 'view') openForm('view', view[+t.dataset.i]);
+      if (t.dataset.act === 'edit') openForm('edit', view[+t.dataset.i]);
+      if (t.dataset.act === 'copy') openForm('copy', Object.assign({}, view[+t.dataset.i], { incidentCode:null }));
+      if (t.dataset.act === 'inc') {
+        var r = view[+t.dataset.i];
+        r.status = 'IncidentCreated';
+        r.incidentCode = 'VI-20260808-0001';
+        render();
+      }
+    });
+    render();
+  </script>
+</body>
+</html>

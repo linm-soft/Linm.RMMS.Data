@@ -1,9 +1,12 @@
 # Quản lý tài sản đường bộ — Feature Context
 
 > **Slug:** `asset` · **Module:** `Asset` · **Phase:** P1  
-> **Status:** Demo  
+> **Status:** Aligned (list pack `task_c30a9a02` · 2026-08-08)  
+> **Feature Kind:** **B** — Catalog list + form (erp-form-context); demo HTML vẫn Kind F map+list  
 > **Sources:** guide Tài sản / Tài sản KCHT · `RMMS` §1 · `07` §1 · `09` · **`11-CSDL-SO-SACH`** · [`15-SCREEN-AI-MAP.md`](../15-SCREEN-AI-MAP.md)  
-> **Demo HTML:** `Linm.RMMS.Demo/public/demo/asset/asset.html`
+> **Demo HTML:** `Linm.RMMS.Demo/src/demo/features/asset-demo.html` → `../asset/asset.html`  
+> **MFE:** `Linm.Web.RMMS.Asset` · `/asset` · `AssetListPage` / `AssetFormPage`  
+> **Specs:** `Linm.RMMS.Data/specs/asset/`
 
 ## 1. Tổng quan
 
@@ -13,27 +16,39 @@
 | Persona | Tuần đường · Ban QLDA · Sở GTVT |
 | App hiện có | Mobile **Tài sản** (thu thập/cập nhật/bản đồ) · Web **Tài sản KCHT** (QL TS · import · tuyến · đoạn · lý trình · địa bàn · loại) · **Giám sát tài sản** — giữ UX |
 | DoD ngắn | API CRUD + nearby/bbox + media presign + QR + import + soft delete + tenant |
+| List pack DoD | Kind B shell · search work · row menu · View readonly · Create/Edit/Copy · BE `rmms/road-assets` |
 
 ## 2. Design / UI
 
 | Screen | Pattern | Zones | Map guide |
 |--------|---------|-------|-----------|
+| **Danh mục TS (MFE list)** | **Catalog list (Kind B)** | LinPageLayout · toolbar · search/type · row menu · form full | — |
 | Thu thập / cập nhật Mobile | Full (giữ) | Loại TS · form · ảnh · GPS | Mobile a–b |
 | Bản đồ TS Mobile | Full | Tuyến · loại · pin | Mobile c |
-| QL tài sản KCHT | Full | List · import wizard | Web a |
+| QL tài sản KCHT (demo) | Full / Kind F | List · map · import wizard | Web a |
 | QL tuyến / đoạn / lý trình / địa bàn / loại | Full | CRUD master | Web b–f |
 | Giám sát tài sản Web | Full | Map · filter tuyến | Web Giám sát TS |
-| Chi tiết + media + QR | Slideout / Full | ≥10 field → Full | RMMS §1 |
+| Chi tiết + media + QR | Full page form | Create/Edit/View/Copy | RMMS §1 |
 
 **Mock data:** 5 tài sản (mặt đường, cầu, biển báo, hộ lan, cột Km).
 
 ## 3. API
 
-Base: `api/v1/assets`
+**P1 list (implemented):** Base `api/v1/rmms/road-assets` · BFF `web-bff/api/v1/rmms/road-assets`  
+⚠️ **Không** dùng Finance `api/v1/assets` (TSCĐ FixedAsset).
 
 | Method | Path | Mô tả |
 |--------|------|-------|
-| GET/POST/PUT/DELETE | `/assets/{type}` | CRUD theo loại |
+| GET | `/rmms/road-assets?search=&type=&page=&pageSize=` | List + search |
+| GET | `/rmms/road-assets/{id}` | Chi tiết |
+| POST | `/rmms/road-assets` | Tạo |
+| PUT | `/rmms/road-assets/{id}` | Sửa |
+| DELETE | `/rmms/road-assets/{id}` | Soft delete (`IsActive=false`) |
+
+**Planned (context roadmap — not this pack):**
+
+| Method | Path | Mô tả |
+|--------|------|-------|
 | GET | `/assets/nearby?lat=&lng=&radiusM=` | Gần vị trí |
 | GET | `/assets/within-bbox?...` | Trong khung bản đồ |
 | POST | `/assets/{id}/media` | Upload (presign) |
@@ -42,7 +57,7 @@ Base: `api/v1/assets`
 | POST | `/assets/import` | Import dữ liệu sẵn có |
 | GET | `/assets/export` | Export |
 
-Auth: JWT + tenant/`company_id`.
+Auth: JWT + tenant `companyCode` / `X-Company-Id`.
 
 ## 4. Database
 
