@@ -4,42 +4,43 @@
 |-------|-------|
 | feature | `asset-type` |
 | status | **done** |
+| changeScope | `edit_page` · gap=`crud_formtype` |
 | domain | Integration · `api/v1/integration/asset-types` |
 | mfe | `Linm.Web.RMMS.Master` · `/master/asset-type` |
 | mfeStdRoute | `/master/asset-type` |
 | mfeStdUrl | `http://localhost:9314/master/asset-type` |
-| verify | FE `yarn build` PASS (`LINM_RUN_DEV_LOCAL_BUNDLE=1`) · `yarn typecheck` PASS · BE API+BFF `dotnet build` PASS |
-| updatedAt | 2026-08-08T13:10:00.000Z |
-| task | task_caaa21b4 · retry from team_lead |
+| verify | FE `yarn typecheck` PASS · `yarn build` PASS (`LINM_RUN_DEV_LOCAL_BUNDLE=1`) · BE API+BFF `dotnet build` PASS |
+| updatedAt | `2026-08-10T15:35:00.000Z` |
+| task | `task_b7d98891` · form-type pack closeout |
 
 ## retry.ssot_rereview: **pass**
 
 ```
-checklist: tl-grid-ssot · list_parity · tree_master=N/A · form
-gaps (fixed this retry):
-  - GAP-P2-LAYOUT — removed nested CatalogListShell; 1× LinPageLayout
-  - GAP-P2-62 — footer CatalogListPagination (cấm footerPagination)
-  - pageSizeBar — removed from grid body
-  - GAP-P2-LAYOUT-06 — flex root + data-catalog-list-page + useServerPagedListLoading
-  - GAP-P2-87 — SearchTextInput only (removed nút Tìm)
-  - toolbar/config — refresh · history · LinListTableConfigModal fa-cog · row actions
-  - GAP-P2-94 — CatalogRowActionMenu
-  - GAP-P2-VIEW-DISABLED — View readOnly / Input display, không disabled xám
-  - T-PERM-01 — useAssetTypePermissions + toolbar/menu gate
-then: fix_all
+checklist: tl-design-grid-component-map · tl-grid-ssot · tl-grid-full-flow · list_parity · tree_master=N/A · form · tl-dropdown-from-backend · form-type-task-pack
+gaps (task_b7d98891):
+  - GAP-TL-FORMTYPE-01 CLOSED — stamped T-UI-ACT-01 · T-BE-CRUD-01 · T-BE-INIT-01 · T-QA-CRUD-01
+  - GAP-SA-FORMTYPE-01 CLOSED — FormMode↔API in solution-discovery
+  - GAP-P2-ACT-* none — toolbar/row menu all wired
+  (prior): 1× LinPageLayout · LinCatalogDataGrid · LinCatalogListPagination
+    · SearchTextInput · useServerPagedListLoading · CatalogRowActionMenu · View readOnly
+    · Dropdown groupCode ← init-data only (GAP-DEV-DROPDOWN-HARDCODE-01)
+then: verify_build PASS (typecheck · yarn build · API · BFF)
 ```
 
 ## Done checklist
 
 - [x] T-CTX-01 — context API path Integration · seed JSON 23
-- [x] T-BE-01 — Entity · DTOs · Service · Controller (+ alias-map)
+- [x] T-BE-CRUD-01 — Entity · DTOs · Service · Controller (+ alias-map) · list/search/C/U/D/getById
+- [x] T-BE-INIT-01 — GET `/init-data` groupCodes `{value,label}`
 - [x] T-BE-02 — `Schema_RmmsAssetTypes` (+ seed 23 in Up)
 - [x] T-SEED-01 — seed in schema migration · JSON SSOT
 - [x] T-BFF-01 — `AssetTypesBffController` proxy
 - [x] T-PERM-01 — `useAssetTypePermissions` · codes `master.asset-types.*` · local mode
-- [x] T-UI-LIST-01 — LinPageLayout · CatalogListPagination · list_parity · mfeStdUrl
-- [x] T-UI-FORM-01 — Modal · group Dropdown · legacyAliases · View readOnly
-- [x] T-QA-01 — scenarios.md
+- [x] T-UI-LIST-01 — LinPageLayout · LinCatalogDataGrid · LinCatalogListPagination · DES-GRID · list_parity · mfeStdUrl
+- [x] T-UI-FORM-01 — Modal · group Dropdown ← init-data only · legacyAliases · View readOnly
+- [x] T-UI-ACT-01 — action inventory → form/API (search/create/edit/view/copy/delete/history/config)
+- [x] T-QA-CRUD-01 — scenarios.md Create→Edit→View→Delete + row menu
+- [x] VERIFY — yarn typecheck · yarn build · dotnet API · dotnet BFF (task_b7d98891)
 
 ## Key paths
 
@@ -63,7 +64,7 @@ modes: Create|Edit|View|Copy
 wire: endpoint + unwrap OK
 lock: View readOnly (no grey disabled)
 validate: Pattern B (required code/name/group)
-lookup: groupCode Select ← init-data (static small enum)
+lookup: groupCode Select ← init-data only (cấm KIND_LABEL FE)
 leave: N/A Modal (dirty confirm DEFER)
 toast: BE error banner in modal · delete toast on list
 perm: toolbar + menu gated
@@ -72,17 +73,16 @@ perm: toolbar + menu gated
 ## Debt
 
 - RequirePermission attribute stub until CommonLib ≥1.4.0 (same org-unit)
-- DEBT-T-LIB promote CatalogListPagination → common-components (Master-wide)
-- History API DEFER (toolbar toast info)
+- History API DEFER (toolbar opens catalog history modal stub)
 
 ## Version meta (REQUIRED)
 
 | Field | Value |
 |-------|-------|
 | skillId | agent-dev |
-| skillVersion | 2026.08.08.25 |
+| skillVersion | 2026.08.09.02 |
 | schemaVersion | 1 |
-| workflowVersion | 2026.08.08.25 |
-| rulesVersion | 2026.08.08.20 |
-| generatedAt | 2026-08-08T13:10:00.000Z |
-| versionGate | ok |
+| workflowVersion | 2026.08.10.1 |
+| rulesVersion | 2026.08.10.2 |
+| generatedAt | 2026-08-10T15:35:00.000Z |
+| versionGate | rechecked |

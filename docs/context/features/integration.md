@@ -47,13 +47,17 @@
 
 | Method | Path | Mô tả | BE status |
 |--------|------|-------|-----------|
-| — | `/swagger` | OpenAPI UI | **MISSING** (Step 4b khi Signed) |
-| GET | `/api/v1/integrations/health` | Health adapters | **MISSING** |
-| POST | `/api/v1/assets/import` | Đồng bộ TS | **MISSING** |
-| POST | `/api/v1/sync/offline-batch` | Mobile Lưu trữ | **MISSING** |
-| POST | `/api/v1/integrations/webhooks/{partner}` | Inbound webhook | **MISSING** · P2+ |
+| GET | `/api/v1/integration/health` | Health adapters | **Signed** |
+| GET | `/api/v1/integration/endpoints` | Catalog OpenAPI | **Signed** |
+| GET | `/api/v1/integration/sync-jobs` | Sync jobs paged | **Signed** |
+| POST | `/api/v1/integration/sync-jobs/{id}/retry` | Retry job | **Signed** |
+| GET | `/api/v1/integration/partners` | Partner adapters | **Signed** |
+| POST | `/api/v1/integration/partners/{id}/toggle` | Bật/Tắt | **Signed** |
+| POST | `/api/v1/integration/assets/import` | Đồng bộ TS | **Signed** |
+| POST | `/api/v1/integration/sync/offline-batch` | Mobile Lưu trữ | **Signed** |
+| POST | `/api/v1/integration/webhooks/{partner}` | Inbound webhook | **MISSING** · P2+ |
 
-> Phase demo: **cấm** gọi BE · fake / localStorage only. Align BE khi Status Signed + be_align ON.
+> Domain **Integration** only · BFF `web-bff/api/v1/integration/*` · **cấm** ERP.*.
 
 ## 4. Database
 

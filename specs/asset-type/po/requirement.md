@@ -9,7 +9,8 @@
 | requestSource | run packet `task_495e5501` · `/agent-qldb-workflow` · Autopilot |
 | demo | **N/A** — no Signed demo · UI chốt Design |
 | status | `done` |
-| updatedAt | 2026-08-08T18:50:00.000Z |
+| updatedAt | 2026-08-08T18:28:30.000Z |
+| task | task_fdfb2127 |
 
 ## 1. Goal
 

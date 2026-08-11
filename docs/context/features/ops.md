@@ -1,11 +1,11 @@
 # Chỉ đạo điều hành — Feature Context
 
 > **Slug:** `ops` · **Module:** `Notification` · **Phase:** P2 (list/notify nhẹ P1)  
-> **Status:** Demo  
+> **Status:** Signed  
 > **Kind:** **B** (CatalogListShell inbox) + **D** (slideout compose/detail) — Confirmed by: ai-autocode-autopilot  
 > **Sources:** `RMMS` §9 · guide **Giám sát** notify · `07` §9 · `15-SCREEN-AI-MAP.md`  
-> **Demo HTML:** `Linm.RMMS.Demo/public/demo/ops/ops.html`  
-> **MFE (align):** `Linm.Web.RMMS.Notification` · route `/ops` · **cấm** sửa MFE ở phase demo  
+> **Demo HTML:** `Linm.RMMS.Demo/src/demo/ops/ops.html`  
+> **MFE (align):** `Linm.Web.RMMS.Notification` · route `/ops` · Kind B+D implemented (`task_9c3e9db0`)  
 > **≠** GOVOne Giám sát map (`patrol`) — realtime map → Patrol/Gis
 
 ## 1. Tổng quan
@@ -45,12 +45,18 @@
 
 | Method | Path | Mô tả | BE status |
 |--------|------|-------|-----------|
-| GET | `/api/v1/ops/overview` | KPI overview | **MISSING** (Step 4b khi Signed) |
-| GET | `/api/v1/notifications/inbox` | Inbox chỉ đạo | **MISSING** |
-| POST | `/api/v1/notifications/send` | Gửi chỉ đạo | **MISSING** |
-| SignalR | `OpsHub` | Realtime P2 | **MISSING** · DEFER |
+| GET | `/api/v1/notification/overview` | KPI overview | **Signed** · Notification domain |
+| GET | `/api/v1/notification/inbox` | Inbox chỉ đạo (paged) | **Signed** |
+| GET | `/api/v1/notification/inbox/{id}` | Chi tiết | **Signed** · XCO get_only |
+| POST | `/api/v1/notification/inbox` | Gửi / tạo chỉ đạo | **Signed** · IdCode `OPS-*` |
+| PUT | `/api/v1/notification/inbox/{id}` | Cập nhật | **Signed** |
+| DELETE | `/api/v1/notification/inbox/{id}` | Soft delete | **Signed** |
+| POST | `/api/v1/notification/inbox/{id}/mark-read` | Đánh dấu đã đọc | **Signed** |
+| POST | `/api/v1/notification/inbox/mark-all-read` | Đọc tất cả | **Signed** |
+| SignalR | `OpsHub` | Realtime P2 | **DEFER** |
 
-> Phase demo: **cấm** gọi BE · fake / localStorage only. Align BE khi Status Signed + be_align ON.
+> BE root: `Linm.RMMS.WebService` · BFF `web-bff/api/v1/notification/**` · **cấm** ERP.* · Domains/Master.  
+> MFE local fallback: `opsStore` khi API unreachable.
 
 ## 4. Database
 
@@ -70,7 +76,7 @@ Consume incident/patrol/workorder · publish push/SignalR (P2). Cross-nav demo �
 |----|----------|---------|
 | GAP-F-OPS-01 | Command UI full | P2 badge · modal stub demo |
 | GAP-F-OPS-02 | Theo dõi thiết bị/PT | P2–P3 Inventory |
-| GAP-F-OPS-03 | BE endpoints ops/notifications | MISSING · be_align khi Signed |
+| GAP-F-OPS-03 | BE endpoints ops/notifications | **Signed** · `api/v1/notification/inbox` + overview |
 | GAP-F-OPS-04 | Map realtime trong Notification MFE | **Cấm** — navigate Patrol/Gis |
 
 ## 7. Demo checklist (chốt khách)
@@ -85,8 +91,8 @@ Consume incident/patrol/workorder · publish push/SignalR (P2). Cross-nav demo �
 - [x] Không gọi BE
 
 **sourceKind:** `synthetic` (product docs · **không** open RECAPTURE-GAPS vì thiếu GOVOne shell)  
-**Demo path:** `Linm.RMMS.Demo/public/demo/ops/ops.html` · catalog domain `ops` · badge `run`  
-**Task:** `task_e954d58d` (prior `task_9ff02e5d`) · Autopilot ON · demo only · be_align OFF (Status ≠ Signed)
+**Demo path:** `Linm.RMMS.Demo/src/demo/ops/ops.html` · catalog domain `ops`  
+**Task:** `task_9c3e9db0` · Autopilot ON · full_pipeline · Status **Signed** · BE Notification align DONE
 
 <!-- LEGACY-GOVONE-CAPTURE:START -->
 ## Legacy GOVOne (auto-capture)

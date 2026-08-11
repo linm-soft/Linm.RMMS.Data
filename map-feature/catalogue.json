@@ -1,0 +1,447 @@
+{
+  "schemaVersion": 1,
+  "title": "RMMS — Bản đồ hạng mục hợp đồng ↔ feature",
+  "contractNo": "37001-08/2026-LIC/LINM-JNET",
+  "capexP1": "900tr (A450 + B300 + C150)",
+  "generatedAt": "2026-08-10",
+  "roots": {
+    "data": "D:/AI-QLBD/Linm.RMMS.Data",
+    "demo": "D:/AI-QLBD/Linm.RMMS.Demo/src/demo",
+    "mfe": "D:/AI-QLBD/MFE-Source",
+    "be": "D:/AI-QLBD/Linm.RMMS.WebService",
+    "contract": "D:/AI-QLBD/Linm.RMMS.Contract",
+    "bff": "http://localhost:5201/web-bff/api/v1",
+    "api": "http://localhost:5101/api/v1",
+    "demoStd": "http://localhost:5180"
+  },
+  "aliases": {
+    "camera-gtvt": "camera-connect"
+  },
+  "modules": [
+    {
+      "code": "01",
+      "name": "Quản lý tài sản đường bộ",
+      "phase": "p1",
+      "package": "A",
+      "client": ["web", "mobile"],
+      "slugs": [
+        {
+          "slug": "asset",
+          "formType": "list",
+          "context": "../docs/context/features/asset.md",
+          "demo": "../../Linm.RMMS.Demo/src/demo/features/asset-demo.html",
+          "demoUrl": "http://localhost:5180/features/asset-demo.html",
+          "mfe": "Linm.Web.RMMS.Asset",
+          "stdPort": 9301,
+          "route": "/asset",
+          "mfeStdUrl": "http://localhost:9301/dev",
+          "be": "api/v1/assets"
+        },
+        {
+          "slug": "pavement-section",
+          "formType": "list",
+          "context": "../docs/context/features/pavement-section.md",
+          "demo": "../../Linm.RMMS.Demo/src/demo/features/pavement-section-demo.html",
+          "demoUrl": "http://localhost:5180/features/pavement-section-demo.html",
+          "mfe": "Linm.Web.RMMS.Asset",
+          "stdPort": 9301,
+          "route": "/asset/pavement",
+          "mfeStdUrl": "http://localhost:9301/dev",
+          "be": "api/v1/pavement-sections"
+        },
+        {
+          "slug": "csdl-so-sach",
+          "formType": "list",
+          "context": "../docs/context/features/csdl-so-sach.md",
+          "demo": "../../Linm.RMMS.Demo/src/demo/features/csdl-so-sach-demo.html",
+          "demoUrl": "http://localhost:5180/features/csdl-so-sach-demo.html",
+          "mfe": "Linm.Web.RMMS.Asset",
+          "stdPort": 9301,
+          "route": "/asset/csdl",
+          "mfeStdUrl": "http://localhost:9301/dev",
+          "be": "api/v1/csdl-so-sach"
+        }
+      ]
+    },
+    {
+      "code": "02",
+      "name": "GIS — bản đồ số 2D",
+      "phase": "p1",
+      "package": "A",
+      "client": ["web", "mobile"],
+      "slugs": [
+        {
+          "slug": "gis",
+          "formType": "map",
+          "context": "../docs/context/features/gis.md",
+          "demo": "../../Linm.RMMS.Demo/src/demo/features/gis-demo.html",
+          "demoUrl": "http://localhost:5180/features/gis-demo.html",
+          "mfe": "Linm.Web.RMMS.Gis",
+          "stdPort": 9302,
+          "route": "/gis",
+          "mfeStdUrl": "http://localhost:9302/dev",
+          "be": "api/v1/gis"
+        },
+        {
+          "slug": "gis-draw-live",
+          "formType": "map",
+          "context": "../docs/context/features/gis-draw-live.md",
+          "demo": "../../Linm.RMMS.Demo/src/demo/gis/gis-draw-live.html",
+          "demoUrl": "http://localhost:5180/gis/gis-draw-live.html",
+          "mfe": "Linm.Web.RMMS.Gis",
+          "stdPort": 9302,
+          "route": "/gis/draw",
+          "mfeStdUrl": "http://localhost:9302/dev",
+          "be": "api/v1/gis/drawings"
+        },
+        {
+          "slug": "gis-draw-google",
+          "formType": "map",
+          "context": "../docs/context/features/gis-draw-google.md",
+          "demo": "../../Linm.RMMS.Demo/src/demo/gis/gis-draw-google.html",
+          "demoUrl": "http://localhost:5180/gis/gis-draw-google.html",
+          "mfe": "Linm.Web.RMMS.Gis",
+          "stdPort": 9302,
+          "route": "/gis/draw-google",
+          "mfeStdUrl": "http://localhost:9302/dev",
+          "be": "api/v1/gis/drawings"
+        }
+      ]
+    },
+    {
+      "code": "03",
+      "name": "AI kiểm định mặt đường (online)",
+      "phase": "p1",
+      "package": "A",
+      "client": ["web", "mobile"],
+      "slugs": [
+        {
+          "slug": "ai-vision",
+          "formType": "ai",
+          "context": "../docs/context/features/ai-vision.md",
+          "demo": "../../Linm.RMMS.Demo/src/demo/features/ai-vision-demo.html",
+          "demoUrl": "http://localhost:5180/features/ai-vision-demo.html",
+          "mfe": "Linm.Web.RMMS.AiVision",
+          "stdPort": 9303,
+          "route": "/ai-vision",
+          "mfeStdUrl": "http://localhost:9303/dev",
+          "be": "api/v1/ai-vision"
+        }
+      ]
+    },
+    {
+      "code": "03b",
+      "name": "AI phát hiện tài sản mới (online)",
+      "phase": "p1",
+      "package": "A",
+      "client": ["web", "mobile"],
+      "slugs": [
+        {
+          "slug": "ai-asset-detect",
+          "formType": "ai",
+          "context": "../docs/context/features/ai-asset-detect.md",
+          "demo": "../../Linm.RMMS.Demo/src/demo/features/ai-asset-detect-demo.html",
+          "demoUrl": "http://localhost:5180/features/ai-asset-detect-demo.html",
+          "mfe": "Linm.Web.RMMS.AiVision",
+          "stdPort": 9303,
+          "route": "/ai-vision/asset-detect",
+          "mfeStdUrl": "http://localhost:9303/dev",
+          "be": "api/v1/ai-asset-detect"
+        }
+      ]
+    },
+    {
+      "code": "03c",
+      "name": "Kết nối Camera GTVT",
+      "phase": "p1",
+      "package": "C",
+      "client": ["web", "mobile-view"],
+      "hdSlug": "camera-gtvt",
+      "slugs": [
+        {
+          "slug": "camera-connect",
+          "aliasOf": "camera-gtvt",
+          "formType": "list",
+          "context": "../docs/context/features/camera-connect.md",
+          "demo": "../../Linm.RMMS.Demo/src/demo/features/camera-connect-demo.html",
+          "demoUrl": "http://localhost:5180/features/camera-connect-demo.html",
+          "mfe": "Linm.Web.RMMS.Camera",
+          "stdPort": 9316,
+          "route": "/camera",
+          "mfeStdUrl": "http://localhost:9316/dev",
+          "be": "api/v1/cameras"
+        }
+      ]
+    },
+    {
+      "code": "04",
+      "name": "Tuần đường / tuần kiểm",
+      "phase": "p1",
+      "package": "A,B",
+      "client": ["web", "mobile"],
+      "slugs": [
+        {
+          "slug": "patrol",
+          "formType": "list",
+          "context": "../docs/context/features/patrol.md",
+          "demo": "../../Linm.RMMS.Demo/src/demo/features/patrol-demo.html",
+          "demoUrl": "http://localhost:5180/features/patrol-demo.html",
+          "mfe": "Linm.Web.RMMS.Patrol",
+          "stdPort": 9304,
+          "route": "/patrol",
+          "mfeStdUrl": "http://localhost:9304/dev",
+          "be": "api/v1/patrol"
+        }
+      ]
+    },
+    {
+      "code": "05",
+      "name": "Chấm công / định vị",
+      "phase": "p1",
+      "package": "A,B",
+      "client": ["web", "mobile"],
+      "slugs": [
+        {
+          "slug": "attendance",
+          "formType": "list",
+          "context": "../docs/context/features/attendance.md",
+          "demo": "../../Linm.RMMS.Demo/src/demo/features/attendance-demo.html",
+          "demoUrl": "http://localhost:5180/features/attendance-demo.html",
+          "mfe": "Linm.Web.RMMS.Patrol",
+          "stdPort": 9304,
+          "route": "/patrol/attendance",
+          "mfeStdUrl": "http://localhost:9304/dev",
+          "be": "api/v1/attendance"
+        }
+      ]
+    },
+    {
+      "code": "06",
+      "name": "Quản lý sự cố",
+      "phase": "p1",
+      "package": "A,B",
+      "client": ["web", "mobile"],
+      "slugs": [
+        {
+          "slug": "incident",
+          "formType": "list",
+          "context": "../docs/context/features/incident.md",
+          "demo": "../../Linm.RMMS.Demo/src/demo/features/incident-demo.html",
+          "demoUrl": "http://localhost:5180/features/incident-demo.html",
+          "mfe": "Linm.Web.RMMS.Incident",
+          "stdPort": 9305,
+          "route": "/incident",
+          "mfeStdUrl": "http://localhost:9305/dev",
+          "be": "api/v1/incidents"
+        }
+      ]
+    },
+    {
+      "code": "07",
+      "name": "Bảo trì — khung (sự cố → công việc)",
+      "phase": "p1",
+      "package": "A",
+      "client": ["web", "mobile"],
+      "slugs": [
+        {
+          "slug": "maintenance",
+          "formType": "list",
+          "context": "../docs/context/features/maintenance.md",
+          "demo": "../../Linm.RMMS.Demo/src/demo/features/maintenance-demo.html",
+          "demoUrl": "http://localhost:5180/features/maintenance-demo.html",
+          "mfe": "Linm.Web.RMMS.Maintenance",
+          "stdPort": 9306,
+          "route": "/maintenance",
+          "mfeStdUrl": "http://localhost:9306/dev",
+          "be": "api/v1/maintenance"
+        }
+      ]
+    },
+    {
+      "code": "08",
+      "name": "AI dự báo bảo trì (online thin)",
+      "phase": "p1",
+      "package": "A",
+      "client": ["web"],
+      "slugs": [
+        {
+          "slug": "predict",
+          "formType": "ai",
+          "context": "../docs/context/features/predict.md",
+          "demo": "../../Linm.RMMS.Demo/src/demo/features/predict-demo.html",
+          "demoUrl": "http://localhost:5180/features/predict-demo.html",
+          "mfe": "Linm.Web.RMMS.AiVision",
+          "stdPort": 9303,
+          "route": "/ai-vision/predict",
+          "mfeStdUrl": "http://localhost:9303/dev",
+          "be": "api/v1/predict"
+        }
+      ]
+    },
+    {
+      "code": "09",
+      "name": "Chỉ đạo điều hành — board mỏng",
+      "phase": "p1",
+      "package": "A",
+      "client": ["web", "mobile"],
+      "slugs": [
+        {
+          "slug": "ops",
+          "formType": "list",
+          "context": "../docs/context/features/ops.md",
+          "demo": "../../Linm.RMMS.Demo/src/demo/features/ops-demo.html",
+          "demoUrl": "http://localhost:5180/features/ops-demo.html",
+          "mfe": "Linm.Web.RMMS.Notification",
+          "stdPort": 9308,
+          "route": "/ops",
+          "mfeStdUrl": "http://localhost:9308/dev",
+          "be": "api/v1/ops"
+        }
+      ]
+    },
+    {
+      "code": "10",
+      "name": "AI ước lượng (online thin)",
+      "phase": "p1",
+      "package": "A",
+      "client": ["web", "mobile"],
+      "slugs": [
+        {
+          "slug": "estimate",
+          "formType": "ai",
+          "context": "../docs/context/features/estimate.md",
+          "demo": "../../Linm.RMMS.Demo/src/demo/features/estimate-demo.html",
+          "demoUrl": "http://localhost:5180/features/estimate-demo.html",
+          "mfe": "Linm.Web.RMMS.AiVision",
+          "stdPort": 9303,
+          "route": "/ai-vision/estimate",
+          "mfeStdUrl": "http://localhost:9303/dev",
+          "be": "api/v1/estimate"
+        }
+      ]
+    },
+    {
+      "code": "11",
+      "name": "Hợp đồng và ngân sách — CRUD mỏng",
+      "phase": "p1",
+      "package": "A",
+      "client": ["web"],
+      "slugs": [
+        {
+          "slug": "contract",
+          "formType": "list",
+          "context": "../docs/context/features/contract.md",
+          "demo": "../../Linm.RMMS.Demo/src/demo/features/contract-demo.html",
+          "demoUrl": "http://localhost:5180/features/contract-demo.html",
+          "mfe": "Linm.Web.RMMS.Contract",
+          "stdPort": 9312,
+          "route": "/contract",
+          "mfeStdUrl": "http://localhost:9312/dev",
+          "be": "api/v1/contracts"
+        }
+      ]
+    },
+    {
+      "code": "16",
+      "name": "AI Copilot (online thin)",
+      "phase": "p1",
+      "package": "A",
+      "client": ["web"],
+      "slugs": [
+        {
+          "slug": "copilot",
+          "formType": "ai",
+          "context": "../docs/context/features/copilot.md",
+          "demo": "../../Linm.RMMS.Demo/src/demo/features/copilot-demo.html",
+          "demoUrl": "http://localhost:5180/features/copilot-demo.html",
+          "mfe": "Linm.Web.RMMS.Copilot",
+          "stdPort": 9310,
+          "route": "/copilot",
+          "mfeStdUrl": "http://localhost:9310/dev",
+          "be": "api/v1/copilot"
+        }
+      ]
+    },
+    {
+      "code": "17",
+      "name": "Dashboard và báo cáo",
+      "phase": "p1",
+      "package": "A",
+      "client": ["web"],
+      "slugs": [
+        {
+          "slug": "dashboard",
+          "formType": "dashboard",
+          "context": "../docs/context/features/dashboard.md",
+          "demo": "../../Linm.RMMS.Demo/src/demo/features/dashboard-demo.html",
+          "demoUrl": "http://localhost:5180/features/dashboard-demo.html",
+          "mfe": "Linm.Web.RMMS.Report",
+          "stdPort": 9311,
+          "route": "/bao-cao/dashboard",
+          "mfeStdUrl": "http://localhost:9311/dev",
+          "be": "api/v1/reports/dashboard"
+        },
+        {
+          "slug": "reports",
+          "formType": "report",
+          "context": "../docs/context/features/reports.md",
+          "demo": "../../Linm.RMMS.Demo/src/demo/features/reports-demo.html",
+          "demoUrl": "http://localhost:5180/features/reports-demo.html",
+          "mfe": "Linm.Web.RMMS.Report",
+          "stdPort": 9311,
+          "route": "/bao-cao/reports",
+          "mfeStdUrl": "http://localhost:9311/dev",
+          "be": "api/v1/reports"
+        }
+      ]
+    },
+    {
+      "code": "18",
+      "name": "Open API và tích hợp — khung",
+      "phase": "p1",
+      "package": "A",
+      "client": ["api"],
+      "slugs": [
+        {
+          "slug": "integration",
+          "formType": "list",
+          "context": "../docs/context/features/integration.md",
+          "demo": "../../Linm.RMMS.Demo/src/demo/features/integration-demo.html",
+          "demoUrl": "http://localhost:5180/features/integration-demo.html",
+          "mfe": "Linm.Web.RMMS.Integration",
+          "stdPort": 9314,
+          "route": "/integration",
+          "mfeStdUrl": "http://localhost:9314/dev",
+          "be": "api/v1/integration"
+        }
+      ]
+    }
+  ],
+  "mobilePackageB": {
+    "capex": "300tr trong 900",
+    "platforms": ["iOS", "Android"],
+    "storeOwner": "Bên A (DN) · Bên B phát hành kỹ thuật",
+    "priorityScreens": [
+      "patrol",
+      "attendance",
+      "incident",
+      "asset",
+      "gis",
+      "ai-vision",
+      "ai-asset-detect",
+      "maintenance",
+      "ops",
+      "estimate",
+      "camera-connect"
+    ],
+    "brief": "./mobile-design-brief.md"
+  },
+  "outOfP1": [
+    { "code": "12", "slug": "inventory", "phase": "p3" },
+    { "code": "13-P2", "slug": "drone", "phase": "p2" },
+    { "code": "14", "slug": "toc", "phase": "p3" },
+    { "code": "15", "slug": "citizen", "phase": "p3" },
+    { "code": "02-P2", "slug": "gis", "note": "Digital Twin 3D", "phase": "p2" },
+    { "code": "ITS", "slug": "its-traffic-detect · its-anpr-overload", "note": "design P1 / implement PL04", "phase": "p2" }
+  ]
+}

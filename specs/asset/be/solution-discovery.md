@@ -13,9 +13,9 @@
 | feature        | `asset`                            |
 | packKind       | `list` (Kind B catalog + Slideout) |
 | status         | `confirmed`                        |
-| design_confirm | approve                            |
-| solution_confirm | approve                          |
-| updatedAt      | 2026-08-08T17:00:00.000Z           |
+| design_confirm | approve (autopilot task_79203f46)  |
+| solution_confirm | approve (autopilot task_79203f46)|
+| updatedAt      | 2026-08-09T14:10:00.000Z           |
 
 
 
@@ -325,7 +325,7 @@ Base: `api/v1/asset/road-assets` · BFF mirror `web-bff/api/v1/asset/road-assets
 
 ## Confirm
 
-`solution_confirm` = **approve** (2026-08-08) · route **`/api/v1/asset/road-assets`**.
+`solution_confirm` = **approve** (autopilot · task_79203f46 · 2026-08-09) · route **`/api/v1/asset/road-assets`**.
 
 ## Handoff → Team lead → Dev
 
@@ -339,7 +339,17 @@ Base: `api/v1/asset/road-assets` · BFF mirror `web-bff/api/v1/asset/road-assets
 | MFE                   | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Asset`                      |
 | APIs (ids)            | API-01 … API-05                                                  |
 | Tasks                 | T-CTX · T-BE-01/02 · T-BFF · T-PERM · T-UI-LIST · T-UI-FORM · T-QA |
-| Next                  | `/agent-dev` (T-BE-01 + T-CTX-01)                                |
+| Next                  | `/agent-dev` (verify + LAYOUT-06)                                |
 
+## Version meta (REQUIRED)
 
+| Field | Value |
+|-------|-------|
+| skillId | agent-sa |
+| skillVersion | 2026.08.08.17 |
+| schemaVersion | 1 |
+| workflowVersion | 2026.08.09.02 |
+| rulesVersion | 2026.08.09.3 |
+| generatedAt | 2026-08-09T14:10:00.000Z |
+| versionGate | rechecked |
 

@@ -38,6 +38,11 @@
 | [**18-ITS-ANPR-OVERLOAD-SPEC.md**](18-ITS-ANPR-OVERLOAD-SPEC.md) | **P2 Spec** — Camera ANPR+WIM → Cục Đăng kiểm → HITL xác nhận lỗi tốc độ/quá tải | Architect, BE, PM, BA |
 | [`features/its-traffic-detect.md`](features/its-traffic-detect.md) | Feature context ITS (map demo `ai-asset-detect`) | PM, Dev |
 | [`features/its-anpr-overload.md`](features/its-anpr-overload.md) | Feature context ANPR overload · demo `/demo/p/its-anpr-overload` | PM, Dev |
+| [`features/camera-connect.md`](features/camera-connect.md) | Kết nối camera ITS · model SDK-first TCM403 · `sdkPort`/`httpPort` · ISAPI · MFE `Linm.Web.RMMS.Camera` | PM, Dev, ITS |
+| [**21-CAMERA-HLS-WEBRTC-GATEWAY.md**](21-CAMERA-HLS-WEBRTC-GATEWAY.md) | **Plan P2** — RTSP → HLS/WebRTC gateway (MediaMTX · live session · MFE player) | Architect, BE, FE, Infra |
+| [**22-CAMERA-TCM403-SDK-RESEARCH.md**](22-CAMERA-TCM403-SDK-RESEARCH.md) | SDK vs ISAPI · port 8000/8100 · **P1.5 BE** `CameraModelCatalog` + `HikvisionSdkClient` | Architect, BE |
+| [**23-CAMERA-HOST-NOTIFY-CONFIG.md**](23-CAMERA-HOST-NOTIFY-CONFIG.md) | **Cấu hình cam → Host nhận event** · ví dụ `camera-event-api-rmms.vn` · đếm Events · skill `/agent-dev-camera-connect` | ITS ops, BE, Dev |
+| [**camera-model.md**](camera-model.md) | Catalog model Hikvision (TCM403-GIR + DeepinView…) | Architect, Dev |
 | [**19-IP-REGISTRATION-MATRIX.md**](19-IP-REGISTRATION-MATRIX.md) | **Ma trận SHTT VN** — thành phần có thể đăng ký (QTG · NH · GPHI · BMKD) · gói G0–G6 | PM, legal, C-level |
 
 ## Demo standalone (std mode)

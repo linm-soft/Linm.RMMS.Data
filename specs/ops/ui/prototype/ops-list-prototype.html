@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Prototype — Chỉ đạo điều hành (ops) · Kind B A–D</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
+  <style>
+    :root {
+      --bg: #f5f7fa; --card: #fff; --border: #BABCBE; --border-soft: #e9ecef;
+      --txt: #1A1A1A; --muted: #6c757d; --primary: #0d6efd; --toolbar-bg: #f8fafc;
+      --ds-radius-md: 4px; --ds-font-body: 13px; --ds-height-btn: 32px; --teal: #0f766e;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: "Segoe UI", system-ui, sans-serif; background: var(--bg); color: var(--txt); font-size: var(--ds-font-body); }
+    .page { max-width: 1200px; margin: 0 auto; padding: 16px; min-height: 100vh; display: flex; flex-direction: column; }
+    .zoneA { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
+    .zoneA h1 { margin: 0; font-size: 22px; font-weight: 700; }
+    .badge { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px; background: #e7f1ff; color: #0b5ed7; }
+    .badgeWarn { background: #fff3cd; color: #856404; }
+    .badgeP2 { background: #e0e7ff; color: #3730a3; }
+    .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 10px; }
+    @media (max-width: 800px) { .kpis { grid-template-columns: repeat(2, 1fr); } }
+    .kpi { background: var(--card); border: 1px solid var(--border-soft); border-radius: 8px; padding: 10px 12px; }
+    .kpi .lbl { font-size: 11px; color: var(--muted); font-weight: 600; }
+    .kpi .val { margin-top: 4px; font-size: 18px; font-weight: 800; color: var(--teal); }
+    .zoneB { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 10px 12px; background: var(--toolbar-bg); border: 1px solid var(--border-soft); border-radius: var(--ds-radius-md); margin-bottom: 10px; }
+    .btn { height: var(--ds-height-btn); padding: 0 12px; border: 1px solid var(--border); border-radius: var(--ds-radius-md); background: #fff; cursor: pointer; font-size: 12px; }
+    .btn.primary { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .filters { display: grid; grid-template-columns: 1fr 140px 140px 140px 120px; gap: 12px; margin-bottom: 10px; }
+    @media (max-width: 900px) { .filters { grid-template-columns: 1fr 1fr; } }
+    label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--muted); }
+    input, select, textarea { min-height: 32px; padding: 6px 10px; border: 1px solid var(--border); border-radius: var(--ds-radius-md); font-size: 13px; font-family: inherit; }
+    .zoneC { flex: 1; background: var(--card); border: 1px solid var(--border-soft); border-radius: var(--ds-radius-md); overflow: auto; min-height: 280px; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 8px 10px; border-bottom: 1px solid var(--border-soft); text-align: left; white-space: nowrap; }
+    th { background: #f8fafc; font-size: 12px; color: var(--muted); }
+    tr.unread td { background: #fff7ed; }
+    .code { color: var(--primary); font-family: ui-monospace, Menlo, Consolas, monospace; text-decoration: underline; cursor: pointer; }
+    .zoneD { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; margin-top: 8px; gap: 12px; flex-wrap: wrap; }
+    .pager { display: flex; gap: 6px; align-items: center; }
+    .hint { color: var(--muted); font-size: 12px; margin: 0 0 12px; }
+    .slide { position: fixed; top: 0; right: 0; width: min(560px, 100%); height: 100%; background: #fff; border-left: 1px solid var(--border); box-shadow: -8px 0 24px rgba(15,23,42,.12); display: none; flex-direction: column; z-index: 20; }
+    .slide.open { display: flex; }
+    .slide .z1 { display: flex; justify-content: space-between; gap: 8px; padding: 12px 16px; border-bottom: 1px solid var(--border-soft); }
+    .slide .body { padding: 16px; overflow: auto; flex: 1; }
+    .slide .z3 { display: flex; justify-content: flex-end; gap: 8px; padding: 12px 16px; border-top: 1px solid var(--border-soft); flex-wrap: wrap; }
+    .fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .span2 { grid-column: 1 / -1; }
+    textarea { min-height: 90px; resize: vertical; }
+  </style>
+</head>
+<body>
+  <div class="page" data-catalog-list-page data-testid="rmms-ops-list-prototype">
+    <header class="zoneA" data-zone="A">
+      <i class="fas fa-bullhorn" aria-hidden="true"></i>
+      <h1>Chỉ đạo điều hành</h1>
+      <span class="badge">Kind B list</span>
+      <span class="badge badgeWarn">≠ GOVOne giamsat</span>
+      <span class="badge badgeP2">P2 Command</span>
+    </header>
+    <p class="hint">Prototype content-only · zones A–D · Slideout Z1–Z3 · reviewUrl gate · no chrome/menu · map realtime DEFER (nav Patrol/Gis).</p>
+
+    <div class="kpis" aria-label="Overview">
+      <div class="kpi"><div class="lbl">Cán bộ online</div><div class="val">12</div></div>
+      <div class="kpi"><div class="lbl">Sự cố mở</div><div class="val">5</div></div>
+      <div class="kpi"><div class="lbl">WO đang SC</div><div class="val">3</div></div>
+      <div class="kpi"><div class="lbl">Chưa đọc</div><div class="val">2</div></div>
+    </div>
+
+    <div class="zoneB" data-zone="B" data-testid="ops-toolbar">
+      <button type="button" class="btn" title="Làm mới"><i class="fas fa-sync-alt"></i> Làm mới</button>
+      <button type="button" class="btn" title="Lịch sử"><i class="fas fa-history"></i> Lịch sử</button>
+      <button type="button" class="btn" title="Cấu hình"><i class="fas fa-cog"></i></button>
+      <button type="button" class="btn primary" id="btnCreate"><i class="fas fa-plus"></i> Tạo chỉ đạo</button>
+      <button type="button" class="btn">Đánh dấu tất cả đã đọc</button>
+      <button type="button" class="btn">Xuất</button>
+      <button type="button" class="btn">Giám sát</button>
+      <button type="button" class="btn">Bản đồ</button>
+      <button type="button" class="btn">Sự cố</button>
+      <button type="button" class="btn">Command <span class="badge badgeP2">P2</span></button>
+    </div>
+
+    <div class="filters" data-zone="C-filters">
+      <label>Tìm kiếm
+        <input type="search" placeholder="Mã · tiêu đề · đội…" />
+      </label>
+      <label>Trạng thái
+        <select>
+          <option value="">Tất cả</option>
+          <option>moi</option>
+          <option>dang-xu-ly</option>
+          <option>da-gui</option>
+          <option>nhap</option>
+        </select>
+      </label>
+      <label>Ưu tiên
+        <select>
+          <option value="">Tất cả</option>
+          <option>cao</option>
+          <option>trung-binh</option>
+          <option>thap</option>
+          <option>khan</option>
+        </select>
+      </label>
+      <label>Loại
+        <select>
+          <option value="">Tất cả</option>
+          <option>tuan-tra</option>
+          <option>su-co</option>
+          <option>sua-chua</option>
+          <option>khac</option>
+        </select>
+      </label>
+      <label>Chưa đọc
+        <select>
+          <option value="">Tất cả</option>
+          <option value="1">Chỉ chưa đọc</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="zoneC" data-zone="C">
+      <table>
+        <thead>
+          <tr>
+            <th>STT</th><th>□</th><th>Mã</th><th>Tiêu đề</th><th>Người gửi</th>
+            <th>Người nhận</th><th>Ưu tiên</th><th>Loại</th><th>TT</th><th>Thời gian</th><th>⋯</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="unread">
+            <td>1</td><td>□</td>
+            <td><span class="code" id="openView">OPS-20260810-0001</span></td>
+            <td>Điều phối tuần tra tuyến QL1A</td><td>Hạt trưởng A</td>
+            <td>Đội 1</td><td>cao</td><td>tuan-tra</td><td>moi</td><td>10/08/2026 08:00</td><td>⋯</td>
+          </tr>
+          <tr>
+            <td>2</td><td>□</td>
+            <td><span class="code">OPS-20260809-0012</span></td>
+            <td>Ưu tiên xử lý sự cố Km12</td><td>Điều phối B</td>
+            <td>Đội SC</td><td>khan</td><td>su-co</td><td>da-gui</td><td>09/08/2026 16:20</td><td>⋯</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="zoneD" data-zone="D">
+      <span>2 bản ghi · trang 1</span>
+      <div class="pager">
+        <button type="button" class="btn">«</button>
+        <button type="button" class="btn">1</button>
+        <button type="button" class="btn">»</button>
+        <select>
+          <option>50</option>
+          <option>100</option>
+          <option>200</option>
+          <option>500</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <aside class="slide" id="slide" aria-label="Form chỉ đạo">
+    <div class="z1" data-zone="Z1">
+      <button type="button" class="btn" id="btnClose">← Quay lại</button>
+      <div>
+        <button type="button" class="btn">Hủy</button>
+        <button type="button" class="btn primary">Gửi chỉ đạo</button>
+      </div>
+    </div>
+    <div class="body" data-zone="Z2">
+      <h2 style="margin:0 0 8px;font-size:16px">Tạo chỉ đạo</h2>
+      <p class="hint">Z1 toolbar · Z2 fields · Z3 footer · IdCode OPS-* · leave-confirm dirty</p>
+      <div class="fields">
+        <label>Mã<input value="(tự sinh)" readonly /></label>
+        <label>Người gửi<input value="Hạt trưởng A" /></label>
+        <label class="span2">Tiêu đề *<input placeholder="Điều phối tuần tra…" /></label>
+        <label class="span2">Nội dung *<textarea></textarea></label>
+        <label>Người nhận *
+          <select><option>Đội 1</option><option>Đội SC</option></select>
+        </label>
+        <label>Ưu tiên
+          <select><option>cao</option><option>trung-binh</option></select>
+        </label>
+        <label>Loại
+          <select><option>tuan-tra</option><option>su-co</option></select>
+        </label>
+        <label>Kênh
+          <select><option>inbox</option><option>push</option></select>
+        </label>
+        <label class="span2">Liên kết nguồn<input placeholder="INC-2026-0142" /></label>
+        <label class="span2">Phản hồi (P2)<textarea></textarea></label>
+      </div>
+    </div>
+    <div class="z3" data-zone="Z3">
+      <button type="button" class="btn primary">Gửi chỉ đạo</button>
+      <button type="button" class="btn">Lưu nháp</button>
+      <button type="button" class="btn">Giao việc P2</button>
+      <button type="button" class="btn">Xóa nội dung</button>
+      <button type="button" class="btn">Hủy</button>
+    </div>
+  </aside>
+
+  <script>
+    const slide = document.getElementById('slide');
+    document.getElementById('btnCreate').onclick = () => slide.classList.add('open');
+    document.getElementById('openView').onclick = () => slide.classList.add('open');
+    document.getElementById('btnClose').onclick = () => slide.classList.remove('open');
+  </script>
+</body>
+</html>

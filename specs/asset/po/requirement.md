@@ -5,9 +5,9 @@
 | feature | `asset` |
 | changeScope | `edit_page` |
 | packKind | `list` |
-| Feature Kind | **B** — Catalog list + form (full page) |
-| status | `confirmed` (autopilot) |
-| updatedAt | 2026-08-08T08:16:00.000Z |
+| Feature Kind | **B** — Catalog list + form (Slideout) |
+| status | `confirmed` (autopilot · task_79203f46) |
+| updatedAt | 2026-08-09T14:05:00.000Z |
 
 ## 1. Goal
 
@@ -18,22 +18,23 @@ Chỉnh trang **Sổ / danh mục tài sản KCHT** từ mock MFE → list catal
 | Layer | Current | New (delta) |
 |-------|---------|-------------|
 | Demo | Kind F map+list full (Signed) | Giữ SSOT UX; pack này ưu tiên **list + form** |
-| MFE list | Mock 5 rows, search substring | `LinPageLayout kind=catalog` · filter search/type · pagination · row menu |
-| MFE form | Stub | Create / Edit / View / Copy — fields demo |
-| API client | `/asset` + DTO `description` | `/rmms/road-assets` + DTO road fields |
-| BE | Không có RMMS; ERP `assets` = TSCĐ | Greenfield `api/v1/rmms/road-assets` + BFF |
+| MFE list | Kind B catalog (prior pack) | Giữ `LinPageLayout` · `LinCatalogDataGrid` · pager · **LAYOUT-06** definite height |
+| MFE form | Slideout Z1–Z3 | Create / Edit / View / Copy |
+| API client | `/asset/road-assets` | BFF → `api/v1/asset/road-assets` |
+| BE | `Linm.RMMS.WebService` · Asset | Giữ greenfield route (**cấm** `/rmms/` · ERP.*) |
 
 ## 3. Personas / DoD
 
 - Persona: Ban QLDA · Sở GTVT · Tuần đường (web)
 - DoD:
   1. List load + **search work** (mã/tên/tuyến/loại)
-  2. Toolbar: Tạo mới · Làm mới
-  3. Row menu: Xem · Sửa · Sao chép
+  2. Toolbar: Tạo mới · Làm mới · history · config `fa-cog`
+  3. Row menu: Xem · Sửa · Sao chép · Lịch sử
   4. View = `readOnly` (không disabled xám)
   5. Create/Edit/Copy form validate + save
-  6. FE `yarn build` + `typecheck` PASS
-  7. BE build PASS · route không đụng Finance FixedAsset
+  6. Live shell: title + toolbar + grid/empty **không** blank/title-clip (GAP-P2-LAYOUT-06)
+  7. FE `yarn build` + `typecheck` PASS
+  8. BE build PASS · route không đụng Finance FixedAsset
 
 ## 4. CTX / DEM inventory
 
@@ -65,7 +66,19 @@ Mặt đường · Cầu · Biển báo · Hộ lan · Cột Km · Cống · Tal
 
 ## 6. Handoff → Design
 
-- Kind B catalog list + form full page
-- Parity pilot pattern: `TscdListPage` / Master catalog shell (`LinPageLayout`)
-- Prototype + reviewUrl bắt buộc trước design_confirm
+- Kind B catalog list + Slideout form
+- Zones A–D · prototype + reviewUrl bắt buộc
 - Demo path for visual SSOT: `asset-demo.html` → `asset/asset.html`
+- controlHint: SearchTextInput (search) · Select/Dropdown (type/status)
+
+## Version meta (REQUIRED)
+
+| Field | Value |
+|-------|-------|
+| skillId | agent-po |
+| skillVersion | 2026.08.08.30 |
+| schemaVersion | 1 |
+| workflowVersion | 2026.08.09.02 |
+| rulesVersion | 2026.08.09.3 |
+| generatedAt | 2026-08-09T14:05:00.000Z |
+| versionGate | rechecked |

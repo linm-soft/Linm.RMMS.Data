@@ -1,12 +1,12 @@
 # Chấm công và định vị — Feature Context
 
 > **Slug:** `attendance` · **Module:** `Patrol` (Attendance) · **Phase:** P1  
-> **Status:** Demo  
-> **Kind:** **E** (report + Leaflet map) + **D** (zone slideout) — Confirmed by: ai-autocode-autopilot  
+> **Status:** Signed (list pack Kind B · task_b83eaaf1)  
+> **Kind:** **B** (catalog list + Slideout form) — demo giữ **E** (report + Leaflet) + **D** (zone)  
 > **sourceKind:** `synthetic` · suy luận product docs (không đợi GOVOne leaf)  
 > **Sources:** `Hướng dẫn…` Check-in · `RMMS` §5 · `07` § Hạng mục 5 · `15-SCREEN-AI-MAP.md` #4–5  
-> **Demo HTML:** `Linm.RMMS.Demo/src/demo/patrol/attendance.html`  
-> **MFE (align):** `Linm.Web.RMMS.Patrol` · route `/patrol/attendance` · **cấm** sửa MFE production ở phase demo
+> **Demo HTML:** `Linm.RMMS.Demo/src/demo/features/attendance-demo.html` → `patrol/attendance.html`  
+> **MFE (align):** `Linm.Web.RMMS.Patrol` · route `/patrol/attendance` · BE `Linm.RMMS.WebService` domain Patrol
 
 ## 1. Tổng quan
 
@@ -49,27 +49,32 @@ Hub/badge: `AI support · P1 online` · Spec modal rule + engine plan.
 
 ## 3. API
 
-Base: `api/v1/attendance` (hoặc nested Patrol)
+Base (list pack): **`api/v1/patrol/attendance-logs`** · BFF `web-bff/api/v1/patrol/attendance-logs`  
+BackendRoot: `D:/AI-QLBD/Linm.RMMS.WebService` · domain **Patrol** · **cấm** ERP.* / `api/v1/rmms/*`
 
 | Method | Path | Mô tả | BE status |
 |--------|------|-------|-----------|
-| GET | `/attendance/report?from=&to=&routeId=&userId=` | Báo cáo công | **MISSING** (align khi Signed) |
-| GET | `/attendance/summary?period=week\|month` | Tổng hợp | **MISSING** |
-| POST | `/attendance/validate-checkin` | Kiểm tra zone (server) | **MISSING** |
-| GET | `/attendance/zones?routeId=` | Geo-fence | **MISSING** |
+| GET | `/patrol/attendance-logs?search=&status=&page=&pageSize=` | Catalog list paged | **DONE** |
+| GET | `/patrol/attendance-logs/{id}` | GetById · XCO get_only | **DONE** |
+| POST | `/patrol/attendance-logs` | Create · IdCode `CC-yyyyMMdd-nnn` | **DONE** |
+| PUT | `/patrol/attendance-logs/{id}` | Update | **DONE** |
+| DELETE | `/patrol/attendance-logs/{id}` | Soft delete | **DONE** |
+| GET | `/attendance/report?from=&to=&routeId=&userId=` | Báo cáo công (Kind E) | **MISSING** (P2) |
+| GET | `/attendance/summary?period=week\|month` | Tổng hợp | **MISSING** (P2) |
+| POST | `/attendance/validate-checkin` | Kiểm tra zone (server) | **MISSING** (P2) |
+| GET | `/attendance/zones?routeId=` | Geo-fence | **MISSING** (P2) |
 
-Auth: JWT · tenant. Check-in write vẫn qua `/api/v1/patrols/.../check-ins`.
-
-> Phase demo: **cấm** gọi BE · fake / localStorage only. **be_align OFF** (Status ≠ Signed · `beAlignRequired=false`).
+Auth: JWT · tenant · perms `patrol.attendance-logs.read|create|update|delete` (BE `[RequirePermission]` stub P1).  
+MFE fallback demo store khi BFF down.
 
 ## 4. Database
 
 | Entity | Key columns | Notes |
 |--------|-------------|-------|
-| AttendanceLog | Id, UserId, CheckInId, RouteId, At, InZone | Derived / materialize |
-| GeoFence | Id, RouteId, Geom | PostGIS polygon / buffer |
+| AttendanceLog | Id, Code, UserName, Route, CheckInAt, KmPoint, Lat, Lng, InZone, Status, Note | Table `rmms_attendance_logs` · TenantEntity |
+| GeoFence | Id, RouteId, Geom | PostGIS polygon / buffer — P2 |
 
-Indexes: `(UserId, At)` · GIST `Geom`.
+Indexes: `(CompanyCode, Code)` unique · `(CompanyCode, CheckInAt)` · `(Status, IsActive)`.
 
 ## 5. Events / tích hợp
 

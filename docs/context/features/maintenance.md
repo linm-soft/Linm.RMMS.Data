@@ -1,11 +1,11 @@
 # Lập lịch sửa chữa / bảo trì — Feature Context
 
-> **Slug:** `maintenance` · **Module:** `Maintenance` · **Phase:** P2 (API khung P1)  
-> **Status:** Demo  
-> **Kind:** **E** (report Tổng hợp bảo trì) + WO list CatalogListShell + Kind **D** slideout — Confirmed by: ai-autocode-autopilot  
+> **Slug:** `maintenance` · **Module:** `Maintenance` · **Phase:** P1 Signed (list+form) · Kind E UI DEFER  
+> **Status:** Signed  
+> **Kind:** **B** Catalog list Công việc + Kind **D** slideout WO · Kind **E** KPI stub API only — Confirmed by: ai-autocode-autopilot  
 > **Sources:** `RMMS` §7 · guide **Công việc** · `07` §7 · `09` · `15-SCREEN-AI-MAP.md` · GOVOne vision 009/013/014/015  
-> **Demo HTML:** `Linm.RMMS.Demo/public/demo/maintenance/maintenance.html`  
-> **MFE (align):** `Linm.Web.RMMS.Maintenance` · **cấm** sửa MFE ở phase demo
+> **Demo HTML:** `Linm.RMMS.Demo/src/demo/features/maintenance-demo.html`  
+> **MFE (align):** `Linm.Web.RMMS.Maintenance` · **BE:** `Linm.RMMS.WebService` domain Maintenance (**cấm** ERP.*)
 
 ## 1. Tổng quan
 
@@ -22,7 +22,7 @@
 | Screen | Pattern | Zones | Ghi chú |
 |--------|---------|-------|---------|
 | Tổng hợp bảo trì | Kind E report | KPI 6 thẻ · Biểu đồ bảo trì · period filter | Vision 009/013 |
-| List Công việc | CatalogListShell | Filter tuyến · status · grid | Mobile + Web |
+| List Công việc | Kind B `LinPageLayout` catalog | Filter search · status · workType · grid A–D | MFE Signed |
 | Chi tiết + tiến độ | Kind D slideout | Timeline · ảnh · bình luận · leave-confirm | Guide |
 | Tạo CV từ sự cố | Kind D slideout | Đơn vị · cán bộ · loại · hạn | Guide Web |
 | Dự án bảo trì | List stub | Status · BH | Sidebar nav |
@@ -46,20 +46,21 @@
 
 | Method | Path | Mô tả | BE status |
 |--------|------|-------|-----------|
-| GET/POST | `/api/v1/work-orders` | List / create | **MISSING** (Step 4b khi Signed) |
-| GET/PUT | `/api/v1/work-orders/{id}` | Detail / update | **MISSING** |
-| POST | `/api/v1/work-orders/{id}/comments` | Trao đổi | **MISSING** |
-| POST | `/api/v1/work-orders/{id}/progress` | Tiến độ + ảnh | **MISSING** |
-| POST | `/api/v1/work-orders/{id}/complete` | Nghiệm thu P2 | **MISSING** |
-| GET | `/api/v1/maintenance/summary` | KPI + chart | **MISSING** |
+| GET/POST | `/api/v1/maintenance/work-orders` | List / create | **Signed** |
+| GET/PUT/DELETE | `/api/v1/maintenance/work-orders/{id}` | Detail / update / soft-delete | **Signed** |
+| POST | `/api/v1/maintenance/work-orders/{id}/progress` | Tiến độ | **Signed** |
+| POST | `/api/v1/maintenance/work-orders/{id}/complete` | Nghiệm thu stub P2 | **Signed** (stub) |
+| GET | `/api/v1/maintenance/summary` | KPI counts stub | **Signed** (stub) |
+| POST | `/api/v1/maintenance/work-orders/{id}/comments` | Trao đổi | **DEFER** |
 
-> Phase demo: **cấm** gọi BE · fake / localStorage only. Align BE khi Status Signed + be_align ON.
+> BFF: `web-bff/api/v1/maintenance/work-orders/**` · table `rmms_work_orders` · migration `Schema_RmmsWorkOrders`.  
+> Nested under Maintenance domain (DOMAIN-MAP) — không dùng flat `/api/v1/work-orders`.
 
 ## 4. Database
 
 | Entity | Key columns | Notes |
 |--------|-------------|-------|
-| WorkOrder | Id, Code, IncidentId?, RouteId, Status, DueAt, AssigneeId | |
+| WorkOrder (`rmms_work_orders`) | Id, Code, Title, RouteName, WorkType, Status, TeamName, AssigneeName, DueAt, ProgressPercent, SlaHours, IncidentId, Description, Note | **Signed** |
 | WorkOrderProgress | WOId, At, Note, MediaUrl | |
 | WorkOrderComment | WOId, UserId, Body, At | |
 | MaintenanceProject | Id, Code, Status, WarrantyUntil | KPI source |
@@ -79,7 +80,7 @@ Consume `estimate.created` (P2).
 |----|----------|---------|
 | GAP-F-MNT-01 | Đổi tên API `work-orders` vs giữ `jobs` legacy | `work-orders` + adapter legacy |
 | GAP-F-MNT-02 | Auto WO từ AI | Confirm user · P2 |
-| GAP-F-MNT-03 | BE endpoints work-orders / summary | MISSING · be_align khi Signed |
+| GAP-F-MNT-03 | BE endpoints work-orders / summary | **Signed** `api/v1/maintenance/work-orders` + summary stub |
 
 ## 7. Demo checklist (chốt khách)
 

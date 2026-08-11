@@ -1,7 +1,8 @@
 # Quản lý sự cố (Vấn đề) — Feature Context
 
 > **Slug:** `incident` · **Module:** `Incident` · **Phase:** P1  
-> **Status:** Demo (run) · sourceKind=`legacy` · task_63e1d95a · verified build 2026-08-02  
+> **Status:** Aligned (list pack) · sourceKind=`legacy` · task_ddc8f330 · verified build 2026-08-09  
+ 
 
 > **Sources:** guide Vấn đề/Sự cố · `RMMS` §6 · `07` §6 · [`15-SCREEN-AI-MAP.md`](../15-SCREEN-AI-MAP.md) · legacy-govone capture  
 > **Demo HTML:** `Linm.RMMS.Demo/public/demo/incident/incident.html` · redirect `features/incident-demo.html`  
@@ -40,17 +41,25 @@
 
 ## 3. API
 
+> **Signed (P1 list pack · task_ddc8f330):** domain **Incident** · BE `Linm.RMMS.WebService` · **cấm ERP.***  
+> Prefix SSOT DOMAIN-MAP: `api/v1/incident` · resource: **`/incidents`**.  
+> BFF: `web-bff/api/v1/incident/incidents`. MFE: `Linm.Web.RMMS.Incident` · `/incident`.
+
 | Method | Path |
 |--------|------|
-| POST | `/api/v1/incidents` |
-| GET | `/api/v1/incidents?status=&routeId=` |
-| POST | `/api/v1/incidents/{id}/comments` |
-| POST | `/api/v1/incidents/{id}/assign` |
-| POST | `/api/v1/incidents/{id}/close` |
+| GET | `/api/v1/incident/incidents?search=&status=&severity=&page=&pageSize=` |
+| GET | `/api/v1/incident/incidents/{id}` |
+| POST | `/api/v1/incident/incidents` |
+| PUT | `/api/v1/incident/incidents/{id}` |
+| DELETE | `/api/v1/incident/incidents/{id}` |
+| POST | `/api/v1/incident/incidents/{id}/assign` |
+| POST | `/api/v1/incident/incidents/{id}/close` |
+| POST | `/api/v1/incident/incidents/{id}/comments` | DEFER comment entity P2 |
 
 ## 4. Database
 
-Incident · IncidentComment · Assignment · SLA fields · link `detectionId` optional.
+`rmms_incidents` (`IncidentEntity`) · tenant `CompanyCode` · IdCode `VD-yyyyMMdd-nnnn` · `detectionId` optional.  
+IncidentComment · Assignment tables · SLA full — DEFER P2.
 
 ## 5. Events
 

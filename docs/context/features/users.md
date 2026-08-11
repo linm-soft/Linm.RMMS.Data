@@ -15,7 +15,8 @@
 | Persona | Admin hạt/công ty |
 | App hiện có | Web QL Cơ quan/Người dùng/Cấp · Mobile cập nhật TT |
 | DoD | Demo parity · giữ UX · API consumer khi migrate Auth |
-| Align MFE | `Linm.Web.RMMS.Integration` · `/integration/users` (Auth host sau — GAP-F-USR-01) |
+| Align MFE | `Linm.Web.RMMS.Integration` · `/integration/users` |
+| API | `api/v1/integration/users` (+ org-units tree reuse) · **cấm ERP.*** |
 
 ## 2. Design / UI
 
@@ -39,13 +40,13 @@
 
 | Method | Path |
 |--------|------|
-| CRUD | `/api/v1/orgs` · `/api/v1/users` · `/api/v1/roles` |
-| POST | `/api/v1/orgs/{id}/assign-routes` |
-| POST | `/api/v1/users/{id}/assign-routes` |
-| POST | `/api/v1/users/{id}/managed-users` |
-| PUT | `/api/v1/users/me` |
+| CRUD | `/api/v1/integration/users` |
+| POST | `/api/v1/integration/users/{id}/change-password` |
+| POST | `/api/v1/integration/users/{id}/assign-routes` |
+| POST | `/api/v1/integration/users/{id}/managed-users` |
+| Tree | `/api/v1/integration/org-units/tree` (reuse) |
 
-Auth: JWT admin scopes.
+Auth: JWT admin scopes (stub `integration.users.*`).
 
 ## 4. Database
 

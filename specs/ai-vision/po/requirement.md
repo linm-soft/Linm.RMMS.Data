@@ -5,74 +5,68 @@
 | feature | `ai-vision` |
 | changeScope | `edit_page` |
 | packKind | `ai` |
-| Feature Kind | **B** — Catalog list + form (full page); demo also Kind D slideout + Kind F map |
-| status | `confirmed` (autopilot) |
-| updatedAt | 2026-08-08T08:40:00.000Z |
+| Feature Kind | **B** — Catalog list + form (full page) |
+| status | `confirmed` (autopilot · task_bc9cfb1a) |
+| skillVersion | `2026.08.09.02` |
+| schemaVersion | `qldb-workflow-skill-v1` |
+| workflowVersion | `2026.08.09.02` |
+| versionGate | `ok` |
+| controlHint | `specs/_data-analy/features/ai-vision-control-hint.md` |
+| updatedAt | `2026-08-09T16:42:00.000Z` |
 
 ## 1. Goal
 
-Chỉnh MFE **AI kiểm định mặt đường** từ mock stub → catalog Kind B parity (Linm erp-form-context): shell · toolbar · search/filter work · row menu · View readonly · Create/Edit/Copy · P1/P2 engine badge · confirm Critical → mã VI-*. Align demo Signed → MFE `Linm.Web.RMMS.AiVision` + BE `api/v1/ai-vision/detections`.
+Align MFE **AI kiểm định mặt đường** Kind B catalog parity (erp-form-context): LinPageLayout · toolbar · search/filter · LinCatalogDataGrid · LinCatalogListPagination · row menu · View/Create/Edit/Copy · P1/P2 badge · Critical → VI-*. BE `Linm.RMMS.WebService` domain AiVision only.
 
 ## 2. Current → New (edit_page)
 
 | Layer | Current | New (delta) |
 |-------|---------|-------------|
-| Demo | Full interactive Kind B+D+F (Signed) | Giữ SSOT UX; pack ưu tiên **list + form** + engine badge |
-| MFE list | Static 3 rows mock · no LinPageLayout | `LinPageLayout kind=catalog` · filters · pagination · row menu |
-| MFE form | Scaffold stub | Create / Edit / View / Copy — fields demo |
-| API client | `/ai-vision` + DTO `description` | `/ai-vision/detections` + detection DTO |
-| BE | Không có | Greenfield `api/v1/ai-vision/detections` + BFF + detect stub |
+| Demo | Full interactive Kind B+D+F (Signed) | SSOT UX; pack = **list + form** |
+| MFE list | Prior footerPagination / HTML table | LinCatalogDataGrid + LinCatalogListPagination + pageSize |
+| MFE form | Full page C/E/V/Copy | Keep + validate |
+| API client | `/ai-vision/detections` + fallback | Keep |
+| BE | Detections API/BFF present | Named migration `Schema_RmmsAiVisionDetections` · verify build |
 
 ## 3. Personas / DoD
 
-- Persona: Tuần đường · BA · AI lead
-- DoD:
-  1. List load + **search work** (mã/class/section/route/severity/status/engine)
-  2. Filters: defectClass · severity · status · engine
-  3. Toolbar: Tạo mới · Làm mới · badge P1 online (không hứa mAP)
-  4. Row menu: Xem · Sửa · Sao chép · (Critical) Tạo Vấn đề → `incidentCode` VI-*
-  5. View = `readOnly` (không disabled xám)
-  6. Create/Edit/Copy validate + save (Draft)
-  7. FE `yarn build` + `typecheck` PASS
-  8. BE build PASS · BFF proxy `ai-vision`
+1. List load + **search work** (mã/class/section/route/severity/status/engine)
+2. Filters: defectClass · severity · status · engine (controlHint Dropdown)
+3. Toolbar: Tạo mới · Làm mới · history · config · badge P1 online
+4. Row menu: Xem · Sửa · Sao chép · (Critical) Tạo Vấn đề
+5. View = `readOnly`
+6. Create/Edit/Copy validate + save (Draft)
+7. FE `yarn build` + `typecheck` PASS
+8. BE API+BFF build PASS
 
 ## 4. CTX / DEM inventory
 
-| Source | Path | Notes |
-|--------|------|-------|
-| Context | `docs/context/features/ai-vision.md` | API · entities · P1/P2 · gaps |
-| SSOT P2 | `docs/context/14-P2-AI-VISION-STANDARD.md` | Taxonomy · adapter |
-| Demo | `Demo/.../ai-vision/ai-vision.html` + `ai-vision-data.js` | Columns · seed DET-901…904 |
-| MFE | `Linm.Web.RMMS.AiVision` | Ownership `/ai-vision` |
+| Source | Path |
+|--------|------|
+| Context | `docs/context/features/ai-vision.md` |
+| controlHint | `_data-analy/features/ai-vision-control-hint.md` |
+| Demo | `Demo/.../ai-vision/ai-vision.html` |
+| MFE | `Linm.Web.RMMS.AiVision` |
+| BE | `Linm.RMMS.WebService` · `api/v1/ai-vision` |
 
-### List columns (required)
+### List columns
 
-STT · Mã (DET) · Class · Score · Severity · Section · Route · Status · Engine · Incident · actions
+STT · Mã · Class · Score · Severity · Section · Route · Status · Engine · Incident · actions
 
-### Form fields (required *)
+### Form fields (*)
 
 code (readonly) · defectClass* · score* · severity* · status* · engine* · sectionId* · routeLabel · lat · lng · pciSnapshot · modelVersion · bbox · note · incidentCode
 
-### Taxonomy (defectClass)
+## 5. Out of scope
 
-Ổ gà · Nứt dọc · Nứt ngang · Nứt mai rùa · Bong bật · Lún vệt · Chảy nhựa · Vá đường · Sụt lề · Hư mép
-
-### Status / Engine
-
-- Status: `Draft` · `IncidentCreated` · `Dismissed`
-- Engine: `P1` (gpt-4o-vision) · `P2` (onnx-rmms-v1)
-
-## 5. Out of scope (this pack)
-
-- Full Leaflet map shell (Kind F) — keep demo; MFE map later
-- Real GPT-4o / ONNX GPU infer (P1 adapter online runtime · P2 train)
-- SAM segment endpoint runtime
-- ai-asset-detect (slug riêng)
-- Token budget alert wiring ($200)
+- Full Leaflet map (Kind F)
+- Real GPT-4o / ONNX / SAM runtime
+- ai-asset-detect
+- Token budget alert
 
 ## 6. Handoff → Design
 
-- Kind B catalog list + form full page
-- Badge P1 online vs P2 local visible
-- Prototype + reviewUrl bắt buộc trước design_confirm
-- Demo path: `ai-vision-demo.html` → `ai-vision/ai-vision.html`
+Kind B zones A–D · controlHint → controls · prototype + reviewUrl
+
+---
+<!-- Version meta: skillVersion=2026.08.09.02 · schemaVersion=qldb-workflow-skill-v1 · workflowVersion=2026.08.09.02 · versionGate=ok -->

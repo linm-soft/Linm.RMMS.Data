@@ -9,31 +9,33 @@
 | mfeStdRoute | `/master/road-route` |
 | mfeStdUrl | `http://localhost:9314/master/road-route` |
 | verify | FE `yarn build` PASS (`LINM_RUN_DEV_LOCAL_BUNDLE=1`) · `yarn typecheck` PASS · BE `dotnet build` PASS (API + BFF) |
-| updatedAt | 2026-08-08T13:05:00.000Z |
-| task | task_781e6158 · retry from team_lead |
+| updatedAt | `2026-08-09T01:40:00.000Z` |
+| task | `task_e6f6b6ee` |
 
 ## retry.ssot_rereview: **pass**
 
 ```
-checklist: tl-grid-ssot · list_parity · tree_master=N/A · form
-gaps (fixed this retry):
-  - GAP-P2-VIEW-DISABLED — View dùng readOnly / Input display, không disabled xám
-  - list_parity pulseSearch — SearchTextInput parity OrgUnit
+checklist: tl-grid-ssot · list_parity · tree_master=N/A · form · tl-dropdown-from-backend
+gaps (fixed this run):
+  - GAP-DEV-DROPDOWN-HARDCODE-01 — form routeKind bỏ hardcode VN fallback; chỉ BE init-data
 gaps (accepted debt — same Master surface as org-unit):
   - DEBT-T-LIB — CatalogListPagination / CatalogPagerNav still under MFE src/components/catalog (await promote common)
+  - DEBT-PERM — [RequirePermission] stub until CommonLib ≥1.4.0
 then: fix_all (surface gaps) · debt documented
 ```
 
 | # | Check | Result |
 |---|-------|--------|
 | 1 | 1× LinPageLayout — no nested CatalogListShell | **PASS** |
-| 2 | Footer CatalogListPagination — no footerPagination | **PASS** |
+| 2 | Footer LinCatalogListPagination — no footerPagination | **PASS** |
 | 3 | No pageSizeBar in grid body | **PASS** |
 | 4 | Flex root + useServerPagedListLoading skeleton | **PASS** |
 | 5 | Toolbar refresh · history · config fa-cog · +Thêm · row actions | **PASS** |
 | 6 | Filter SearchTextInput only + pulseSearch | **PASS** |
-| 7 | tree_master | **N/A** (flat) |
-| 8 | Form Create/Edit/View/Copy · View readOnly | **PASS** (fixed) |
+| 7 | LinCatalogDataGrid + resize default ON · dynamic cols / ui-schema bootstrap | **PASS** |
+| 8 | tree_master | **N/A** (flat) |
+| 9 | Form Create/Edit/View/Copy · View readOnly | **PASS** |
+| 10 | Dropdown routeKind **chỉ** từ BE `GET …/init-data` | **PASS** |
 
 ## Done checklist
 
@@ -43,8 +45,8 @@ then: fix_all (surface gaps) · debt documented
 - [x] T-SEED-01 — seed in schema migration · JSON SSOT
 - [x] T-BFF-01 — `RoadRoutesBffController` proxy
 - [x] T-PERM-01 — codes `master.road-routes.*` · FE `useRoadRoutePermissions` · BE TODO RequirePermission
-- [x] T-UI-LIST-01 — LinPageLayout · CatalogListPagination · CatalogRowActionMenu · pulseSearch · pagination
-- [x] T-UI-FORM-01 — Modal · SearchInput parent · View readOnly · init-data kinds
+- [x] T-UI-LIST-01 — LinPageLayout · LinCatalogDataGrid · LinCatalogListPagination · CatalogRowActionMenu · pulseSearch
+- [x] T-UI-FORM-01 — Modal · SearchInput parent · View readOnly · init-data kinds only
 
 ## Paths
 
@@ -59,7 +61,7 @@ then: fix_all (surface gaps) · debt documented
 ### FE (`Linm.Web.RMMS.Master`)
 - `services/roadRoute/*`
 - `hooks/useRoadRoutePermissions.ts`
-- `pages/RoadRouteListPage/*` (CatalogRowActionMenu · pulseSearch)
+- `pages/RoadRouteListPage/*`
 - `pages/RoadRouteFormPage/*` (deep-link → list modal)
 - routes in `src/index.tsx` · `devRoutes.ts`
 
@@ -76,9 +78,9 @@ then: fix_all (surface gaps) · debt documented
 | Field | Value |
 |-------|-------|
 | skillId | agent-dev |
-| skillVersion | 2026.08.08.25 |
+| skillVersion | 2026.08.08.29 |
 | schemaVersion | 1 |
-| workflowVersion | 2026.08.08.25 |
-| rulesVersion | 2026.08.08.20 |
-| generatedAt | 2026-08-08T13:05:00.000Z |
-| versionGate | ok |
+| workflowVersion | 2026.08.08.31 |
+| rulesVersion | 2026.08.08.25 |
+| generatedAt | 2026-08-09T01:40:00.000Z |
+| versionGate | rechecked |

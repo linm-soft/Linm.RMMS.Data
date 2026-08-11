@@ -3,62 +3,91 @@
 | Field | Value |
 |-------|-------|
 | feature | `ai-vision` |
-| phase | `po` |
-| status | `blocked` |
+| phase | `done` |
+| status | `done` |
 | changeScope | `edit_page` |
 | packKind | `ai` |
 | demo | `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/ai-vision-demo.html` |
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/ai-vision.md` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.AiVision` |
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/ai-vision` (DOMAIN-MAP — **cấm ERP.Master**) |
-| taskId | `task_a78276fa` |
-| skillVersion | `qldb-workflow@local` (SSOT file missing in workspace — keep_current) |
-| updatedAt | `2026-08-08T12:52:14.425Z` |
+| taskId | `task_bc9cfb1a` |
+| skillVersion | `2026.08.09.02` |
+| schemaVersion | `qldb-workflow-skill-v1` |
+| workflowVersion | `2026.08.09.02` |
+| versionGate | `ok` |
+| mfeStdRoute | `/ai-vision` |
+| mfeStdUrl | `http://localhost:9303/ai-vision` |
+| updatedAt | `2026-08-09T17:12:58.138Z` |
 ## Lock
 
 | agent | scope | id | at |
 |-------|-------|-----|-----|
-| autocode | feature | task_a78276fa | 2026-08-08T12:20:00.000Z |
+| — | — | — | — |
 
-## Confirms (packet HARD restart — Autopilot)
+## Confirms (packet HARD — board / Autopilot)
 
 | Key | Value | Notes |
 |-----|-------|-------|
-| beRepo | `Linm.RMMS.WebService` | HARD gate packet — **cấm** ERP.WebService / Domains/Master |
+| beRepo | `Linm.RMMS.WebService` | HARD — **cấm** ERP.WebService / Domains/Master |
 | uiRepo | `MFE-Source` | `Linm.Web.RMMS.AiVision` |
-| design_confirm | approve | prototype + reviewUrl shipped (autopilot) |
-| solution_confirm | approve | SA re-targeted RMMS WebService (discard ERP) |
+| design_confirm | approve | Autopilot · prototype + reviewUrl |
+| solution_confirm | approve | Autopilot · RMMS AiVision domain |
+| review_confirm | approve | Autopilot · findings.md |
 
 ## Pipeline
 
 | Step | Agent | Artifact | Status |
 |------|-------|----------|--------|
-| 1 | po | po/requirement.md | **blocked** (paused) |
-| 2.1 | design | ui/design.md + prototype + reviewUrl | done |
-| 2.2 | sa | be/solution-discovery.md | done (RMMS BE root) |
-| 3 | team-lead | task/ai-vision.md | done |
-| 4 | dev | implement/ai-vision.md | in_progress |
-| 5 | qa | qa/scenarios.md | pending |
-| 6 | review | review/findings.md | pending |
+| 0b | data-analy | `_data-analy/features/ai-vision-control-hint.md` | **done** |
+| 1 | po | po/requirement.md | **done** |
+| 2.1 | design | ui/design.md + prototype + reviewUrl | **done** |
+| 2.2 | sa | be/solution-discovery.md | **done** |
+| 3 | team-lead | task/ai-vision.md | **done** |
+| 4 | dev | implement/ai-vision.md | **done** |
+| 5 | qa | qa/scenarios.md | **done** |
+| 6 | review | review/findings.md | **done** |
 
 ## Tasks
 
 | id | page | role | deps | status | notes |
 |----|------|------|------|--------|-------|
-| T-BE-01 | detections | dev | — | in_progress | Entity+DTO+Service+Controller · RMMS only |
-| T-BE-02 | ai-vision | dev | T-BE-01 | pending | BFF proxy detections/detect/pci-history |
-| T-BE-03 | detections | dev | T-BE-01 | pending | Schema_RmmsAiVisionDetections |
-| T-FE-01 | /ai-vision | dev | — | done | LinPageLayout catalog exists |
-| T-FE-02 | /ai-vision/:id | dev | T-FE-01 | done | C/E/V/Copy + incident |
-| T-FE-03 | client | dev | T-BE-01 | done | `/ai-vision/detections` + localStorage fallback |
-| T-QA-01 | ai-vision | qa | T-FE-02,T-BE-02 | pending | scenarios.md |
-| T-RV-01 | ai-vision | review | T-QA-01 | pending | findings.md |
+| T-CTX-01 | ai-vision | team_lead | — | done | Context/demo/controlHint |
+| T-PERM-01 | ai-vision | team_lead | — | done | useAiVisionPermissions |
+| T-UI-LIST | /ai-vision | dev | T-CTX-01 | done | LinCatalogDataGrid + LinCatalogListPagination · LAYOUT-06 |
+| T-UI-FORM | /ai-vision/:id | dev | T-UI-LIST | done | C/E/V/Copy + incident |
+| T-BE-01 | detections | dev | — | done | Entity+DTO+Service+Controller |
+| T-BE-02 | ai-vision | dev | T-BE-01 | done | BFF proxy |
+| T-BE-03 | detections | dev | T-BE-01 | done | `rmms_ai_vision_detections` in `Schema_RmmsSystemSettings` + snapshot |
+| T-QA-01 | ai-vision | qa | T-UI-FORM,T-BE-02 | done | scenarios.md |
+| T-RV-01 | ai-vision | review | T-QA-01 | done | findings.md |
 
 ## Blockers / open questions
 
-- **RESTART applied:** discard ERP.Master path. Implement only `Linm.RMMS.WebService` domain `AiVision`.
-- Skill file `.cursor/skills/agent-qldb-workflow/SKILL.md` + `qldb-workflow-skill-version.json` **not present** in workspace — proceed with packet + DOMAIN-MAP SSOT (`keep_current`).
+- None. `task_bc9cfb1a` · STATUS PO drift cleared · packKind=`ai` · SSOT re-audit pass · VERIFY PASS · queue completed.
+- Follow-up: full catalog-ui-schema editor (F-01) · real detect runtime (F-02).
 
 ## Links
 
 - DOMAIN-MAP: `D:/AI-QLBD/Linm.RMMS.WebService/docs/DOMAIN-MAP.md`
+- controlHint: `specs/_data-analy/features/ai-vision-control-hint.md`
+- implement: `specs/ai-vision/implement/ai-vision.md`
+
+## Retry
+
+- from: `data_analy` · at: `2026-08-08T16:06:10.733Z` · completed: `2026-08-08T16:40:00.000Z` · task `task_046285d4`
+- resume: `task_65227a42` · LAYOUT-06 shell fix · completed: `2026-08-09T16:42:00.000Z`
+- resume: `task_b46e4425` · STATUS sync + verify re-run · completed: `2026-08-09T16:45:00.000Z`
+- resume: `task_bdc9d324` · STATUS drift fix (PO) + verify re-run · completed: `2026-08-09T17:10:00.000Z`
+- resume: `task_bc9cfb1a` · packKind=ai · SSOT re-audit + verify · completed: `2026-08-09T17:12:30.000Z`
+
+## Verify
+
+| Gate | Result |
+|------|--------|
+| FE typecheck | PASS |
+| FE build (`LINM_RUN_DEV_LOCAL_BUNDLE=1`) | PASS |
+| BE Release build | PASS |
+
+---
+<!-- Version meta: skillVersion=2026.08.09.02 · schemaVersion=qldb-workflow-skill-v1 · workflowVersion=2026.08.09.02 · versionGate=ok -->

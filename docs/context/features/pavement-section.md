@@ -5,7 +5,7 @@
 > **Kind:** **B (Catalog list)** + **Full page form** (≥10 field — không Modal)  
 > **Status:** Demo HTML · **run** · task_12c100cf  
 > **Sources:** `11-CSDL-SO-SACH-DATABASE-API.md` § Biểu 1 · `features/pavement-section.md` · hồ sơ chuẩn hóa sổ sách · guide/giaiphap  
-> **API:** `api/v1/infra/pavement-sections`  
+> **API:** `api/v1/asset/pavement-sections` (DOMAIN-MAP Asset · **không** dùng skeleton `/api/v1/infra`)  
 > **IdCode:** `MD-YYYYMMDD-NNNN` (vd. `MD-20260731-0001`)  
 > **Demo:** `Linm.RMMS.Demo/public/demo/asset/pavement-section.html` (+ mirror `src/demo/asset/`)  
 > **Control map:** [`pavement-section-control-map.md`](pavement-section-control-map.md)  
@@ -64,18 +64,18 @@
 
 | Action | Method | Path |
 |--------|--------|------|
-| List | GET | `/api/v1/infra/pavement-sections?search=&province=&road=&kmFrom=&kmTo=&status=&page=` |
-| Get | GET | `/api/v1/infra/pavement-sections/{id}` |
-| Create | POST | `/api/v1/infra/pavement-sections` |
-| Update | PUT | `/api/v1/infra/pavement-sections/{id}` |
-| Delete | DELETE | `/api/v1/infra/pavement-sections/{id}` |
-| Export | GET | `/api/v1/infra/pavement-sections/export` |
-| Import | POST | `/api/v1/infra/pavement-sections/import` |
-| Init | GET | `/api/v1/infra/pavement-sections/form-init-data` |
+| List | GET | `/api/v1/asset/pavement-sections?search=&province=&road=&kmFrom=&kmTo=&status=&page=` |
+| Get | GET | `/api/v1/asset/pavement-sections/{id}` |
+| Create | POST | `/api/v1/asset/pavement-sections` |
+| Update | PUT | `/api/v1/asset/pavement-sections/{id}` |
+| Delete | DELETE | `/api/v1/asset/pavement-sections/{id}` |
+| Export | GET | `/api/v1/asset/pavement-sections/export` (OUT pack stub) |
+| Import | POST | `/api/v1/asset/pavement-sections/import` (OUT pack stub) |
+| Init | GET | `/api/v1/asset/pavement-sections/form-init-data` (OUT pack stub) |
 
 Toast: success hardcode VI · error từ BE (form-api-error-handling).
 
-> **BE status (demo_scan / task_12c100cf):** endpoints **MISSING** trên `Linm.Web.ERP.WebService` → **GAP-F-PVT-01** · **be_align OFF** (Status Demo ≠ Signed · DEFER Step 4b · skill `/qlbd-analy-demo` · demo only · **cấm** gọi BE).
+> **BE status (task_94b861f5):** implemented trên `Linm.RMMS.WebService` Asset · `api/v1/asset/pavement-sections` (+ BFF) · migration `rmms_pavement_sections` · **GAP-F-PVT-01 closed** (cấm ERP.*).
 
 ## 4. Database
 
@@ -108,7 +108,9 @@ Index: `(CompanyCode, Code)` unique · `(RoadName, KmFrom, KmTo)` · GIST option
 | GAP-P1-CC | P1 | Demo HTML chưa wire `@linm-soft-org/linm-web-common-components` — parity visual only |
 | GAP-P2-LKP | P2 | Lookup tỉnh/đường khi có master catalog |
 | GAP-P2-DT | P1 | `UpdatedAt` UTC ↔ local khi implement MFE thật |
-| GAP-F-PVT-01 | P1 | BE `/api/v1/infra/pavement-sections/*` chưa có — be_align OFF (demo only) |
+| GAP-F-PVT-01 | — | **Closed** — BE `api/v1/asset/pavement-sections` (task_94b861f5) |
+| GAP-P2-ACT-DELETE | — | **Closed** — toolbar/row Delete → soft DELETE (task_d0fcb3d7) |
+| GAP-TL-FORMTYPE-01 | — | **Closed** — stamped T-UI-ACT-01 · T-BE-CRUD-01 · T-QA-CRUD-01 |
 
 ## 8. Demo checklist
 

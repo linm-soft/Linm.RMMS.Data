@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Prototype — Open API và tích hợp · Kind G + B A–D</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
+  <style>
+    :root {
+      --bg: #f5f7fa; --card: #fff; --border: #BABCBE; --border-soft: #e9ecef;
+      --txt: #1A1A1A; --muted: #6c757d; --primary: #0d6efd; --toolbar-bg: #f8fafc;
+      --ds-radius-md: 4px; --ds-font-body: 13px; --ds-height-btn: 32px;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: "Segoe UI", system-ui, sans-serif; background: var(--bg); color: var(--txt); font-size: var(--ds-font-body); }
+    .page { max-width: 1200px; margin: 0 auto; padding: 16px; min-height: 100vh; display: flex; flex-direction: column; }
+    .zoneA { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
+    .zoneA h1 { margin: 0; font-size: 22px; font-weight: 700; }
+    .badge { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px; background: #e7f1ff; color: #0b5ed7; }
+    .badgeWarn { background: #fff3cd; color: #856404; }
+    .zoneB { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 10px 12px; background: var(--toolbar-bg); border: 1px solid var(--border-soft); border-radius: var(--ds-radius-md); margin-bottom: 10px; }
+    .btn { height: var(--ds-height-btn); padding: 0 12px; border: 1px solid var(--border); border-radius: var(--ds-radius-md); background: #fff; cursor: pointer; font-size: 12px; }
+    .btn.primary { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .tabs { display: flex; gap: 0; margin-bottom: 10px; border-bottom: 1px solid var(--border-soft); }
+    .tabs button { padding: 8px 14px; border: 0; background: transparent; font-weight: 700; color: var(--muted); cursor: pointer; border-bottom: 2px solid transparent; }
+    .tabs button.on { color: var(--primary); border-bottom-color: var(--primary); }
+    .filters { display: grid; grid-template-columns: 1fr 160px 160px; gap: 12px; margin-bottom: 10px; }
+    label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--muted); }
+    input, select { min-height: 32px; padding: 6px 10px; border: 1px solid var(--border); border-radius: var(--ds-radius-md); font-size: 13px; }
+    .zoneC { flex: 1; background: var(--card); border: 1px solid var(--border-soft); border-radius: var(--ds-radius-md); overflow: auto; min-height: 280px; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 8px 10px; border-bottom: 1px solid var(--border-soft); text-align: left; white-space: nowrap; font-size: 12px; }
+    th { background: #f8fafc; color: var(--muted); }
+    .zoneD { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; margin-top: 8px; gap: 12px; flex-wrap: wrap; }
+    .hint { color: var(--muted); font-size: 12px; margin: 0 0 12px; }
+    .slide { position: fixed; top: 0; right: 0; width: min(560px, 100%); height: 100%; background: #fff; border-left: 1px solid var(--border); box-shadow: -8px 0 24px rgba(15,23,42,.12); display: none; flex-direction: column; z-index: 20; }
+    .slide.open { display: flex; }
+    .slide .z1 { display: flex; justify-content: space-between; gap: 8px; padding: 12px 16px; border-bottom: 1px solid var(--border-soft); }
+    .slide .body { padding: 16px; overflow: auto; flex: 1; }
+    .slide .z3 { display: flex; justify-content: flex-end; gap: 8px; padding: 12px 16px; border-top: 1px solid var(--border-soft); flex-wrap: wrap; }
+    .fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .span2 { grid-column: 1 / -1; }
+  </style>
+</head>
+<body>
+  <div class="page" data-catalog-list-page data-testid="rmms-integration-hub-prototype">
+    <header class="zoneA" data-zone="A">
+      <i class="fas fa-plug" aria-hidden="true"></i>
+      <h1>Open API và tích hợp</h1>
+      <span class="badge">Kind G hub</span>
+      <span class="badge badgeWarn">P1 baseline</span>
+    </header>
+    <p class="hint">Prototype content-only · A–D · Import Z1–Z3 · no chrome/menu · reviewUrl gate.</p>
+
+    <div class="zoneB" data-zone="B">
+      <button type="button" class="btn"><i class="fas fa-book"></i> Mở Swagger</button>
+      <button type="button" class="btn">Copy OpenAPI URL</button>
+      <button type="button" class="btn"><i class="fas fa-heartbeat"></i> Làm mới health</button>
+      <button type="button" class="btn">Xuất catalog</button>
+      <button type="button" class="btn"><i class="fas fa-sync-alt"></i> Làm mới</button>
+      <button type="button" class="btn">Offline-batch</button>
+      <button type="button" class="btn primary" id="btnImport"><i class="fas fa-file-import"></i> Import tài sản</button>
+    </div>
+
+    <nav class="tabs">
+      <button type="button">Endpoints</button>
+      <button type="button" class="on">Sync jobs</button>
+      <button type="button">Partners</button>
+      <button type="button">Import guide</button>
+    </nav>
+
+    <div class="filters" data-zone="C-filters">
+      <label>Tìm kiếm<input type="search" placeholder="Mã / partner…" /></label>
+      <label>Loại sync<select><option>Tất cả</option><option>import</option><option>offline-batch</option></select></label>
+      <label>Trạng thái<select><option>Tất cả</option><option>done</option><option>failed</option></select></label>
+    </div>
+
+    <div class="zoneC" data-zone="C">
+      <table>
+        <thead>
+          <tr>
+            <th>STT</th><th>Mã job</th><th>Loại</th><th>Partner</th><th>Trạng thái</th>
+            <th>Số bản ghi</th><th>Bắt đầu</th><th>Kết thúc</th><th>Lỗi</th><th>⋯</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td class="code">SYNC-20260728-0003</td><td>import</td><td>Asset KCHT Excel</td><td>done</td><td>120</td><td>28/07 08:10</td><td>28/07 08:14</td><td>—</td><td>⋯</td></tr>
+          <tr><td>2</td><td class="code">SYNC-20260801-0002</td><td>import</td><td>Asset KCHT Excel</td><td>failed</td><td>12</td><td>01/08 09:20</td><td>01/08 09:20</td><td>Đoạn không khớp</td><td>⋯</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="zoneD" data-zone="D">
+      <span>1–2 / 4 · pageSize 50</span>
+      <div class="pager">
+        <button type="button" class="btn" disabled>‹</button>
+        <button type="button" class="btn">1</button>
+        <button type="button" class="btn" disabled>›</button>
+        <select><option>50</option><option>100</option><option>200</option><option>500</option></select>
+      </div>
+    </div>
+  </div>
+
+  <aside class="slide" id="slide">
+    <div class="z1"><strong>Import tài sản KCHT</strong><button type="button" class="btn" id="btnClose">Đóng</button></div>
+    <div class="body">
+      <div class="fields">
+        <label>Mã job<input readonly value="SYNC-20260809-0001" /></label>
+        <label>Trạng thái<select><option>draft</option></select></label>
+        <label>Loại tài sản *<select><option>Mặt đường</option></select></label>
+        <label>Địa bàn *<select><option>Hà Nội</option></select></label>
+        <label>Tuyến *<select><option>QL1A</option></select></label>
+        <label>Đoạn<input placeholder="Km 12+000 – 14+500" /></label>
+        <label class="span2">File nguồn *<input type="file" /></label>
+        <label class="span2">Ghi chú<textarea rows="3"></textarea></label>
+      </div>
+    </div>
+    <div class="z3">
+      <button type="button" class="btn">Hủy</button>
+      <button type="button" class="btn primary">Chạy import</button>
+    </div>
+  </aside>
+  <script>
+    document.getElementById('btnImport').onclick = () => document.getElementById('slide').classList.add('open');
+    document.getElementById('btnClose').onclick = () => document.getElementById('slide').classList.remove('open');
+  </script>
+</body>
+</html>

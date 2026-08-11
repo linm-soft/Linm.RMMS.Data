@@ -5,7 +5,7 @@
 | feature | `asset-type` |
 | phase | `done` |
 | status | `done` |
-| changeScope | `new_page` |
+| changeScope | `edit_page` |
 | packKind | `master` |
 | runMode | `full_pipeline` |
 | demo | **N/A** |
@@ -17,7 +17,7 @@
 | prototype.reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/asset-type/ui/prototype/asset-type-list-prototype.html` |
 | mfeStdRoute | `/master/asset-type` |
 | mfeStdUrl | `http://localhost:9314/master/asset-type` |
-| updatedAt | `2026-08-08T13:07:21.958Z` |
+| updatedAt | `2026-08-10T15:34:11.047Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -49,21 +49,24 @@
 | solution_confirm | **approve** (Autopilot · run packet) |
 | be_repo_confirm | **approve** (run packet BE=`Linm.RMMS.WebService`) |
 | ui_repo_confirm | **approve** (run packet UI=`MFE-Source/Linm.Web.RMMS.Master`) |
-| review_confirm | **approve** (Autopilot · retry team_lead · task_caaa21b4) |
+| review_confirm | **approve** (Autopilot · task_b7d98891) |
+| version_mismatch_action | **recheck_new** (Autopilot · skill 2026.08.10.1 · rules 2026.08.10.2) |
 
 ## Tasks
 
 | id | page | role | deps | status |
 |----|------|------|------|--------|
 | T-CTX-01 | asset-type | dev | — | **done** |
-| T-BE-01 | asset-type | dev | T-CTX-01 | **done** |
-| T-BE-02 | asset-type | dev | T-BE-01 | **done** |
+| T-BE-CRUD-01 | asset-type | dev | T-CTX-01 | **done** |
+| T-BE-INIT-01 | asset-type | dev | T-BE-CRUD-01 | **done** |
+| T-BE-02 | asset-type | dev | T-BE-CRUD-01 | **done** |
 | T-SEED-01 | asset-type | dev | T-BE-02 | **done** |
-| T-BFF-01 | asset-type | dev | T-BE-01 | **done** |
-| T-PERM-01 | asset-type | dev | T-BE-01 | **done** |
+| T-BFF-01 | asset-type | dev | T-BE-CRUD-01 | **done** |
+| T-PERM-01 | asset-type | dev | T-BE-CRUD-01 | **done** |
 | T-UI-LIST-01 | asset-type | dev | T-BFF-01 | **done** |
 | T-UI-FORM-01 | asset-type | dev | T-UI-LIST-01 | **done** |
-| T-QA-01 | asset-type | qa | T-UI-FORM-01 | **done** |
+| T-UI-ACT-01 | asset-type | dev | T-UI-FORM-01 | **done** |
+| T-QA-CRUD-01 | asset-type | qa | T-UI-ACT-01 | **done** |
 
 ## Blockers
 
@@ -78,17 +81,17 @@
 
 ## Retry
 
-- from: `team_lead` · at: `2026-08-08T13:01:00.995Z` · completed: `2026-08-08T13:12:00.000Z`
-- ssot: `tl-retry-ssot-rereview` · result: **pass** (fix_all list+form gaps)
+- from: `team_lead` · at: `2026-08-10T15:15:24.858Z` · gap=`crud_formtype` · changeScope=`edit_page`
+- task: `task_b7d98891` · completed · FormType pack stamped · SSOT re-review pass · VERIFY PASS
 
 ## Version meta (REQUIRED)
 
 | Field | Value |
 |-------|-------|
 | skillId | orchestrator |
-| skillVersion | 2026.08.08.21 |
+| skillVersion | 2026.08.10.1 |
 | schemaVersion | 2 |
-| workflowVersion | 2026.08.08.25 |
-| rulesVersion | 2026.08.08.20 |
-| generatedAt | 2026-08-08T13:12:00.000Z |
-| versionGate | ok |
+| workflowVersion | 2026.08.10.1 |
+| rulesVersion | 2026.08.10.2 |
+| generatedAt | 2026-08-10T15:35:00.000Z |
+| versionGate | rechecked |

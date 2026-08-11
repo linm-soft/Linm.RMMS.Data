@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Prototype — CSDL 12 biểu + 8 sổ BDTX (content-only)</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
+  <style>
+    :root {
+      --bg: #f5f7fa; --card: #fff; --border: #BABCBE; --txt: #1A1A1A;
+      --muted: #6D6D6D; --primary: #0d6efd; --toolbar-bg: #f8fafc;
+      --ds-focus-shadow: 0px 0px 4px #BABCBE; --ds-radius-md: 4px;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: "Segoe UI", system-ui, sans-serif; background: var(--bg); color: var(--txt); font-size: 13px; }
+    .note { background: #fff8e6; border-bottom: 1px solid #f0e0a0; padding: 8px 16px; font-size: 12px; color: #7a5b00; }
+    .shell { max-width: 1200px; margin: 0 auto; padding: 16px; min-height: calc(100vh - 40px); display: flex; flex-direction: column; gap: 12px; }
+    .hub { background: var(--card); border: 1px solid var(--border); border-radius: var(--ds-radius-md); padding: 14px 16px; }
+    .hub h1 { margin: 0 0 8px; font-size: 22px; font-weight: 600; }
+    .tabs { display: flex; gap: 8px; margin: 10px 0; }
+    .tabs button { height: 32px; padding: 0 12px; border: 1px solid var(--border); background: #fff; border-radius: 4px; font-weight: 600; cursor: pointer; }
+    .tabs button.on { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 10px; }
+    .kpi { border: 1px solid var(--border); border-radius: 4px; padding: 10px; background: #f8fafc; }
+    .kpi .l { color: var(--muted); font-size: 11px; } .kpi .v { font-size: 18px; font-weight: 700; color: var(--primary); margin-top: 4px; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
+    .card { border: 1px solid var(--border); border-radius: 4px; padding: 12px; cursor: pointer; background: #fff; }
+    .card:hover { border-color: var(--primary); }
+    .card .no { font-size: 11px; font-weight: 700; color: var(--primary); }
+    .card .t { font-weight: 600; margin: 4px 0; } .card .m { color: var(--muted); font-size: 11px; }
+    .page { flex: 1; min-height: 420px; display: flex; flex-direction: column; background: var(--card); border: 1px solid var(--border); border-radius: var(--ds-radius-md); overflow: hidden; }
+    .zoneA { padding: 12px 16px; border-bottom: 1px solid #e9ecef; display: flex; align-items: center; gap: 10px; }
+    .zoneA h2 { margin: 0; font-size: 18px; font-weight: 600; flex: 1; }
+    .back { border: 0; background: transparent; color: var(--primary); font-weight: 600; cursor: pointer; }
+    .zoneB { display: flex; gap: 8px; align-items: center; padding: 8px 12px; background: var(--toolbar-bg); border-bottom: 1px solid #e9ecef; flex-wrap: wrap; }
+    .zoneB .spacer { flex: 1; }
+    .btn { height: 32px; padding: 0 12px; border: 1px solid var(--border); border-radius: 4px; background: #fff; font-size: 12px; font-weight: 600; cursor: pointer; }
+    .btn.primary { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .filters { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 10px; padding: 10px 12px; border-bottom: 1px solid #e9ecef; }
+    label { display: flex; flex-direction: column; gap: 4px; font-size: 11px; color: var(--muted); }
+    input, select { padding: 6px 10px; border: 1px solid var(--border); border-radius: 4px; min-height: 32px; font-size: 13px; }
+    input:focus, select:focus { outline: none; border-color: var(--primary); box-shadow: var(--ds-focus-shadow); }
+    .zoneC { flex: 1; min-height: 0; overflow: auto; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 8px 10px; border-bottom: 1px solid #e9ecef; text-align: left; font-size: 13px; }
+    th { background: #f8fafc; color: var(--muted); font-size: 11px; font-weight: 600; position: sticky; top: 0; }
+    .zoneD { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-top: 1px solid #e9ecef; color: var(--muted); font-size: 12px; }
+    .code { color: var(--primary); font-family: ui-monospace, Menlo, Consolas, monospace; text-decoration: underline; cursor: pointer; }
+    .hidden { display: none !important; }
+    @media (max-width: 800px) { .kpis, .filters { grid-template-columns: 1fr 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="note">Design gate prototype · content-only zones A–D + hub · <strong>reviewUrl</strong> mở file này · skip chrome/sidebar · pack <code>csdl-so-sach</code></div>
+  <div class="shell">
+    <section class="hub" id="hub">
+      <h1><i class="fas fa-database"></i> CSDL 12 biểu + 8 sổ BDTX</h1>
+      <div class="tabs">
+        <button type="button" class="on" id="tabCsdl">CSDL (12 biểu)</button>
+        <button type="button" id="tabSo">Sổ BDTX (8 mẫu)</button>
+      </div>
+      <div class="kpis">
+        <div class="kpi"><div class="l">Số biểu</div><div class="v">12</div></div>
+        <div class="kpi"><div class="l">Số sổ</div><div class="v">8</div></div>
+        <div class="kpi"><div class="l">Tổng bản ghi</div><div class="v">24</div></div>
+        <div class="kpi"><div class="l">Đã import (mock)</div><div class="v">0</div></div>
+      </div>
+      <div class="cards" id="cards"></div>
+    </section>
+
+    <section class="page hidden" id="list" data-catalog-list-page>
+      <!-- Zone A -->
+      <div class="zoneA">
+        <button type="button" class="back" id="btnBack">← Hub</button>
+        <h2 id="listTitle">Biểu 2 — Hiện trạng cầu</h2>
+      </div>
+      <!-- Zone B -->
+      <div class="zoneB">
+        <button type="button" class="btn" title="Làm mới"><i class="fas fa-sync-alt"></i> Làm mới</button>
+        <button type="button" class="btn" title="Lịch sử"><i class="fas fa-history"></i></button>
+        <button type="button" class="btn" title="Cấu hình"><i class="fas fa-cog"></i></button>
+        <span class="spacer"></span>
+        <button type="button" class="btn primary"><i class="fas fa-plus"></i> Thêm mới</button>
+      </div>
+      <div class="filters">
+        <label>Tìm kiếm<input type="search" placeholder="Mã / đường / tỉnh…" value="" /></label>
+        <label>Tỉnh<select><option value="">Tất cả tỉnh</option><option>Nghệ An</option><option>Hà Tĩnh</option></select></label>
+        <label>Trạng thái<select><option value="">Tất cả TT</option><option>Tốt</option><option>Trung bình</option></select></label>
+      </div>
+      <!-- Zone C -->
+      <div class="zoneC">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:48px">STT</th>
+              <th style="width:48px"><input type="checkbox" /></th>
+              <th>Mã</th><th>Đường</th><th>Tỉnh</th><th>Lý trình</th><th>TT</th><th>ĐV QL</th><th>Chi tiết</th><th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td><td><input type="checkbox" /></td>
+              <td><span class="code">BR-20260201-0001</span></td>
+              <td>QL1A</td><td>Hà Tĩnh</td><td>72.1 – 72.3</td><td>Tốt</td><td>Khu QLĐB II</td><td>Cầu Sông Cấm</td>
+              <td><button type="button" class="btn" title="Menu">⋯</button></td>
+            </tr>
+            <tr>
+              <td>2</td><td><input type="checkbox" /></td>
+              <td><span class="code">BR-20260315-0002</span></td>
+              <td>QL7</td><td>Nghệ An</td><td>4.0 – 4.2</td><td>Trung bình</td><td>Hạt QLĐB 1</td><td>Cầu Bản Vẽ</td>
+              <td><button type="button" class="btn" title="Menu">⋯</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- Zone D -->
+      <div class="zoneD">
+        <span>Tổng 2 · Trang 1/1</span>
+        <span class="spacer" style="flex:1"></span>
+        <label style="flex-direction:row;align-items:center;gap:6px">Hiển thị
+          <select><option>50</option><option>100</option><option>200</option><option>500</option></select>
+        </label>
+      </div>
+    </section>
+  </div>
+  <script>
+    var csdl = [
+      [1,'pavement-sections','Phân loại mặt đường'],[2,'bridges','Hiện trạng cầu'],[3,'road-tunnels','Hầm đường bộ'],
+      [4,'culverts','Cống các loại'],[5,'ditches','Rãnh các loại'],[6,'underpasses','Hầm chui dân sinh'],
+      [7,'traffic-safety','Hệ thống ATGT'],[8,'boundary-markers','Mốc lộ giới'],[9,'retaining-walls','Kè, tường chắn'],
+      [10,'shoulders-fences','Lề đường / hàng rào'],[11,'lighting-systems','Chiếu sáng'],[12,'green-assets','Cây xanh']
+    ];
+    var so = [
+      [1,'patrol-logs','Nhật ký tuần đường'],[2,'duty-logs','Trực BĐGT'],[3,'checkpoint-duties','Trực chốt'],
+      [4,'traffic-counts','Đếm xe'],[5,'bridge-inspections','Phiếu KT cầu'],[6,'row-violations','HL ATĐB'],
+      [7,'maintenance-work-logs','KQ BDTX'],[8,'inspection-logs','Tuần kiểm']
+    ];
+    var tab = 'csdl';
+    function render() {
+      var list = tab === 'csdl' ? csdl : so;
+      var el = document.getElementById('cards');
+      el.innerHTML = list.map(function (r) {
+        return '<div class="card" data-key="'+r[1]+'" data-title="'+r[2]+'"><div class="no">'+(tab==='csdl'?'Biểu ':'Mẫu ')+r[0]+'</div><div class="t">'+r[2]+'</div><div class="m">'+r[1]+' · 1 bản ghi</div></div>';
+      }).join('');
+      el.querySelectorAll('.card').forEach(function (c) {
+        c.onclick = function () {
+          document.getElementById('hub').classList.add('hidden');
+          document.getElementById('list').classList.remove('hidden');
+          document.getElementById('listTitle').textContent = c.getAttribute('data-title');
+        };
+      });
+    }
+    document.getElementById('tabCsdl').onclick = function () { tab='csdl'; this.classList.add('on'); document.getElementById('tabSo').classList.remove('on'); render(); };
+    document.getElementById('tabSo').onclick = function () { tab='so'; this.classList.add('on'); document.getElementById('tabCsdl').classList.remove('on'); render(); };
+    document.getElementById('btnBack').onclick = function () {
+      document.getElementById('list').classList.add('hidden');
+      document.getElementById('hub').classList.remove('hidden');
+    };
+    render();
+  </script>
+</body>
+</html>

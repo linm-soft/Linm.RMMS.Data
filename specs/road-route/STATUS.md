@@ -17,7 +17,9 @@
 | prototype.reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/road-route/ui/prototype/road-route-list-prototype.html` |
 | mfeStdRoute | `/master/road-route` |
 | mfeStdUrl | `http://localhost:9314/master/road-route` |
-| updatedAt | `2026-08-08T12:59:13.664Z` |
+| updatedAt | `2026-08-08T18:42:11.711Z` |
+| task | `task_e6f6b6ee` |
+
 ## Lock
 
 | agent | scope | id | at |
@@ -76,10 +78,21 @@
 - review → `review/findings.md`
 - **Final MFE:** `http://localhost:9314/master/road-route` (`yarn start:std` · `Linm.Web.RMMS.Master`)
 
+## Verify
+
+| Gate | Result |
+|------|--------|
+| BE API `dotnet build` | **PASS** |
+| BE BFF `dotnet build` | **PASS** |
+| FE `yarn typecheck` | **PASS** |
+| FE `yarn build` (`LINM_RUN_DEV_LOCAL_BUNDLE=1`) | **PASS** |
+
 ## Retry
 
 - from: `team_lead` · at: `2026-08-08T12:52:27.530Z` · board user Retry step · task_781e6158
-- ssot_rereview: **pass** (View readOnly + pulseSearch fixed · DEBT-T-LIB documented)
+- task: `task_e6f6b6ee` · Autopilot close-out
+- versionGate: **rechecked** (Autopilot · SSOT `2026.08.08.31` · `recheck_new`)
+- ssot_rereview: **pass** · fix GAP-DEV-DROPDOWN-HARDCODE-01 (routeKind options from init-data only)
 
 ## Version meta (REQUIRED)
 
@@ -88,7 +101,7 @@
 | skillId | orchestrator |
 | skillVersion | 2026.08.08.21 |
 | schemaVersion | 2 |
-| workflowVersion | 2026.08.08.25 |
-| rulesVersion | 2026.08.08.20 |
-| generatedAt | 2026-08-08T13:07:00.000Z |
-| versionGate | ok |
+| workflowVersion | 2026.08.08.31 |
+| rulesVersion | 2026.08.08.25 |
+| generatedAt | 2026-08-09T01:40:00.000Z |
+| versionGate | rechecked |

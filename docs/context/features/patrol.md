@@ -1,11 +1,13 @@
 # Tuần đường / tuần kiểm — Feature Context
 
 > **Slug:** `patrol` · **Module:** `Patrol` · **Phase:** P1  
-> **Status:** Demo  
+> **Status:** Signed (list pack Kind B) · Demo Kind E giữ  
 > **sourceKind:** legacy  
 > **Sources:** guide Check-in/Giám sát/Lưu trữ · `RMMS` §4 · `07` §4 · [`15-SCREEN-AI-MAP.md`](../15-SCREEN-AI-MAP.md) · GOVOne capture + demo-maps  
 > **Demo HTML:** `Linm.RMMS.Demo/src/demo/patrol/patrol.html` · catalog `slug=patrol` · `/demo/p/patrol`  
-> **Kind:** E (report + map) · confirmed by: ai-autocode-autopilot  
+> **Kind:** B (catalog list pack) + E demo (report + map) · confirmed by: task_760475f2  
+> **MFE:** `Linm.Web.RMMS.Patrol` · `/patrol`  
+> **BE:** `Linm.RMMS.WebService` · domain **Patrol** · `api/v1/patrol/sessions`  
 > **AI support:** không (AI camera xe tuần đường → `ai-asset-detect`; chấm công rule → `attendance`)
 
 ## 1. Tổng quan
@@ -32,21 +34,33 @@
 
 ## 3. API
 
+### List pack (Signed · DOMAIN-MAP `api/v1/patrol`)
+
+| Method | Path | Status |
+|--------|------|--------|
+| GET | `/api/v1/patrol/sessions` | **Live** — paged list |
+| GET | `/api/v1/patrol/sessions/{id}` | **Live** |
+| POST | `/api/v1/patrol/sessions` | **Live** |
+| PUT | `/api/v1/patrol/sessions/{id}` | **Live** |
+| DELETE | `/api/v1/patrol/sessions/{id}` | **Live** soft-delete |
+| BFF | `web-bff/api/v1/patrol/sessions` | **Live** proxy |
+
+### Kind E / map (P2 · out of list pack)
+
 | Method | Path |
 |--------|------|
-| POST | `/api/v1/patrols` |
-| POST | `/api/v1/patrols/{id}/check-ins` |
-| POST | `/api/v1/patrols/{id}/tracks` |
-| GET | `/api/v1/patrols/{id}/coverage` |
-| GET | `/api/v1/patrols/{id}/kpi` |
-| GET | `/api/v1/patrols?routeId=&from=&to=` |
+| POST | `/api/v1/patrol/sessions/{id}/check-ins` |
+| POST | `/api/v1/patrol/sessions/{id}/tracks` |
+| GET | `/api/v1/patrol/sessions/{id}/coverage` |
+| GET | `/api/v1/patrol/sessions/{id}/kpi` |
 
 ## 4. Database
 
 | | |
 |--|--|
-| `patrol.gps_tracks` | TimescaleDB hypertable |
-| Coverage | PostGIS `ST_Buffer` / `ST_Difference` |
+| `rmms_patrol_sessions` | **Live** — catalog entity (list pack) |
+| `patrol.gps_tracks` | TimescaleDB hypertable — P2 |
+| Coverage | PostGIS `ST_Buffer` / `ST_Difference` — P2 |
 
 ## 5. Events
 

@@ -78,6 +78,21 @@ Base: `api/v1/integration/asset-types`
 BFF: `web-bff/api/v1/integration/asset-types/**` proxy-only.  
 FE BASE: `/integration/asset-types`.
 
+### FormType pack (`master` / Kind B) — REQUIRED
+
+| Surface | FormMode | Endpoint |
+|---------|----------|----------|
+| List search/page | — | API-01 GET `/` |
+| SearchInput consumer | — | API-02 GET `/search` |
+| Dropdown groupCode | create/edit | API-03 GET `/init-data` |
+| View / Edit load | view/edit/copy | API-05 GET `/{id}` |
+| Create / Copy save | create/copy | API-06 POST `/` |
+| Edit save | edit | API-07 PUT `/{id}` |
+| Delete | — | API-08 DELETE `/{id}` |
+| History | — | DEFER (toolbar toast · CommonLib history stub) |
+
+**GAP-SA-FORMTYPE-01:** closed — FormMode↔API map above.
+
 ### API-02 SearchInput
 
 | | |
@@ -96,7 +111,7 @@ FE BASE: `/integration/asset-types`.
 
 ## Handoff → TL
 
-Tasks: T-CTX · T-BE · T-SEED · T-BFF · T-PERM · T-UI-LIST · T-UI-FORM · T-QA  
+Tasks (form-type-task-pack master): T-UI-LIST-01 · T-UI-FORM-01 · **T-UI-ACT-01** · **T-BE-CRUD-01** · **T-BE-INIT-01** · T-PERM-01 · **T-QA-CRUD-01** (+ T-CTX · T-SEED · T-BFF)  
 Source BE/UI = run packet paths (Autopilot confirms).
 
 ## Version meta (REQUIRED)
@@ -104,9 +119,9 @@ Source BE/UI = run packet paths (Autopilot confirms).
 | Field | Value |
 |-------|-------|
 | skillId | agent-sa |
-| skillVersion | 2026.08.08.17 |
+| skillVersion | 2026.08.10.1 |
 | schemaVersion | 1 |
-| workflowVersion | 2026.08.08.21 |
-| rulesVersion | 2026.08.08.19 |
-| generatedAt | 2026-08-08T19:00:00.000Z |
-| versionGate | ok |
+| workflowVersion | 2026.08.10.1 |
+| rulesVersion | 2026.08.10.2 |
+| generatedAt | 2026-08-10T15:35:00.000Z |
+| versionGate | rechecked |

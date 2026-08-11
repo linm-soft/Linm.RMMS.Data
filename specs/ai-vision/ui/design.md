@@ -5,7 +5,11 @@
 | feature | `ai-vision` |
 | Feature Kind | **B** — Catalog list + form |
 | status | `confirmed` (autopilot · design_confirm=approve) |
-| updatedAt | 2026-08-08T08:42:00.000Z |
+| skillVersion | `2026.08.08.31` |
+| schemaVersion | `qldb-workflow-skill-v1` |
+| workflowVersion | `2026.08.08.31` |
+| versionGate | `ok` |
+| updatedAt | `2026-08-08T16:33:00.000Z` |
 
 ## Prototype + reviewUrl (REQUIRED)
 
@@ -13,69 +17,30 @@
 |----------|------|
 | Prototype HTML | [`ui/prototype/ai-vision-list-prototype.html`](./prototype/ai-vision-list-prototype.html) |
 | **reviewUrl** | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/ai-vision/ui/prototype/ai-vision-list-prototype.html` |
-| Demo SSOT | `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/ai-vision-demo.html` → `../ai-vision/ai-vision.html` |
+| Demo SSOT | `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/ai-vision-demo.html` |
 
-> Autopilot: user/reviewUrl gate satisfied by shipping openable prototype; `design_confirm=approve`.
+> Autopilot: design_confirm=approve.
 
-## 1. Shell (Kind B · erp-form-context)
+## Zones A–D (list-shell-prototype · content-only)
 
-- Root: `data-catalog-list-page`
-- `LinPageLayout kind="catalog"`
-  - header title: **AI kiểm định mặt đường**
-  - badges: `P1 online` · `AI support` (không hứa mAP)
-  - `catalogToolbar`: Tạo mới · Làm mới
-  - filters: search + defectClass + severity + status + engine
-  - `listTitle`: Danh sách phát hiện
-  - `listRowMenuHelp={true}`
-  - `useCatalogTableBusy` · skeleton
-  - `footerPagination`
+| Zone | Content |
+|------|---------|
+| A Header | Title **AI kiểm định mặt đường** · badges P1 online · AI support |
+| B Filters | SearchTextInput + Dropdown defectClass/severity/status/engine |
+| C Grid | LinCatalogDataGrid · column resize default · row menu |
+| D Footer | **LinCatalogListPagination** (Tổng · pageSize · FA pager) — **cấm** footerPagination generic / pageSizeBar |
 
-## 2. List columns
+## Shell
 
-| Col | Field | Notes |
-|-----|-------|-------|
-| STT | — | index |
-| Mã | code | click → View |
-| Class | defectClass | filter |
-| Score | score | 0–1 |
-| Severity | severity | Critical/High/Medium/Low |
-| Section | sectionId | |
-| Route | routeLabel | |
-| Status | status | Draft / IncidentCreated / Dismissed |
-| Engine | engine | P1 / P2 badge |
-| Incident | incidentCode | VI-* or — |
-| ⋯ | row menu | Xem / Sửa / Sao chép / Tạo Vấn đề (Critical+Draft) |
+- Root `data-catalog-list-page`
+- **1** `LinPageLayout kind="catalog"` — cấm nested CatalogListShell
+- `catalogToolbar`: +Thêm · refresh · history · config fa-cog
+- `useServerPagedListLoading` · skeletonRows
+- Form full page Create/Edit/View/Copy (not modal this pack)
 
-## 3. Search (Step 2h-search)
+## Handoff → SA
 
-- Query: normalize trim · case-insensitive · strip accents
-- Match: code · defectClass · severity · status · engine · sectionId · routeLabel · incidentCode · note
-- Apply on Search / Enter · reset page=1
-- Filters AND with search
+API `api/v1/ai-vision/detections` + BFF · soft delete · tenant · search+filters+page/pageSize
 
-## 4. Form modes
-
-| Mode | Route | Fields |
-|------|-------|--------|
-| create | `/ai-vision/new` | code auto · editable required |
-| view | `/ai-vision/:id` | **readOnly** active |
-| edit | `/ai-vision/:id?mode=edit` | editable (Draft) |
-| copy | `/ai-vision/new?copyFrom=:id` | prefill · new code · clear incident |
-
-### Fields
-
-code (readonly) · defectClass* · score* · severity* · status* · engine* · sectionId* · routeLabel · lat · lng · pciSnapshot · modelVersion · bbox · note · incidentCode
-
-## 5. Visual notes
-
-- RMMS teal/navy tokens; AI accent purple only for engine badge (demo parity).
-- Critical severity: red chip; P2 badge distinct from P1.
-- List primary; map OUT this pack.
-
-## 6. Handoff → SA
-
-- API shape must match form/list fields above
-- Prefer `api/v1/ai-vision/detections` + BFF `web-bff/api/v1/ai-vision`
-- Soft delete · tenant `companyCode`
-- Search `?search=` + filters + page/pageSize
-- Optional stub: `POST /api/v1/ai-vision/detect` · `GET .../pci-history/{sectionId}`
+---
+<!-- Version meta: skillVersion=2026.08.08.31 · schemaVersion=qldb-workflow-skill-v1 · workflowVersion=2026.08.08.31 · versionGate=ok -->

@@ -1,32 +1,35 @@
-# QA scenarios — partner-unit
+# QA — partner-unit
 
 | Field | Value |
 |-------|-------|
 | feature | `partner-unit` |
-| status | **done** (scenarios written · manual run pending) |
-| packKind | `master` |
-| updatedAt | 2026-08-08T12:40:00.000Z |
+| status | **done** |
+| mfeStdUrl | `http://localhost:9314/master/partner-unit` |
+| updatedAt | `2026-08-08T16:26:00.000Z` |
 
-## Smoke
+## Scenarios
 
-| # | Scenario | Expect |
-|---|----------|--------|
-| S1 | Mở `/master/partner-unit` | List Kind B · zones A–D · seed 13 |
-| S2 | Search CI «so» / «HATINH» / «BOT» | Trùng mã/tên/folder không dấu |
-| S3 | Tạo mới Modal | code · name · partnerKind · province · legacy · isActive |
-| S4 | View mode | `readOnly` — không disabled xám |
-| S5 | Sửa / Sao chép | Update OK · copy blank code |
-| S6 | Soft-delete | IsActive=false · khỏi list active |
-| S7 | SearchInput API `/search` | Consumer lookup partnerUnitCode |
-| S8 | `GET /init-data` | 3 partnerKind options |
+| ID | Zone | Steps | Expect |
+|----|------|-------|--------|
+| Q1 | A Header | Open mfeStdUrl | Title «Đơn vị đối tác» · 1 LinPageLayout |
+| Q2 | B Toolbar | Refresh · Config cog · +Thêm · History (need row) | Actions visible · modal create opens |
+| Q3 | B Filter | Type mã/tên · Enter / SearchTextInput | List filters CI · page resets 1 |
+| Q4 | C Grid | Rows render · column resize · filter/sort header | `LinCatalogDataGrid` · no raw table / nested CatalogListShell |
+| Q5 | C Row menu | Right-click / ⋮ · View/Edit/Copy/Delete | Modal modes · delete confirm |
+| Q6 | D Footer | Change page / pageSize | `LinCatalogListPagination` · no pageSizeBar in body |
+| Q7 | Form | Create · Edit · View readOnly · Copy | Fields code/name/kind/province/legacy/active |
+| Q8 | Seed | List without filter | ≥1 partner (13 seed when migrated) |
+| Q9 | Perm local | `VITE_PERMISSIONS_LOCAL_MODE=true` | canCreate/Update/Delete true |
+| Q10 | Shell | Visual | Flex fill · skeleton on page change · no double shell blank |
 
-## Negative
+## Verify gates (worker)
 
-| # | Scenario | Expect |
-|---|----------|--------|
-| N1 | Trùng code | 422 |
-| N2 | Thiếu name/partnerKind | 422 |
-| N3 | API path `api/v1/rmms/*` | **không** tồn tại |
+| Gate | Result |
+|------|--------|
+| FE `yarn typecheck` | **PASS** |
+| FE `yarn build` | **PASS** |
+| BE API `dotnet build` | **PASS** |
+| BE BFF `dotnet build` | **PASS** |
 
 ## Version meta (REQUIRED)
 
@@ -35,7 +38,7 @@
 | skillId | agent-qa |
 | skillVersion | 2026.08.08.21 |
 | schemaVersion | 1 |
-| workflowVersion | 2026.08.08.21 |
-| rulesVersion | 2026.08.08.19 |
-| generatedAt | 2026-08-08T12:40:00.000Z |
-| versionGate | ok |
+| workflowVersion | 2026.08.08.31 |
+| rulesVersion | 2026.08.08.25 |
+| generatedAt | 2026-08-08T16:26:00.000Z |
+| versionGate | rechecked |

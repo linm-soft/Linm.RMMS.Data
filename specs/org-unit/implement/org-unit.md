@@ -7,7 +7,8 @@
 | changeScope | `new_page` |
 | packKind | `master` |
 | domain | **Integration** |
-| updatedAt | 2026-08-08T18:15:00.000Z |
+| updatedAt | 2026-08-09T01:32:00.000Z |
+| task | `task_9c375c48` |
 
 ## Tasks
 
@@ -20,7 +21,18 @@
 | T-BFF-01 | **done** | `OrgUnitsBffController` proxy `web-bff/api/v1/integration/org-units/**` |
 | T-PERM-01 | **done** | codes `master.org-units.*` documented · TODO RequirePermission until CommonLib |
 | T-UI-LIST-01 | **done** | Kind B A–D · LinTreeNav · badge «hệ cũ» · BASE `/integration/org-units` |
-| T-UI-FORM-01 | **done** | Modal · SearchInput parent · VN labels |
+| T-UI-FORM-01 | **done** | Modal · SearchInput parent · VN labels · kind from init-data only |
+
+## retry.ssot_rereview (close gate 2026-08-09)
+
+| Check | Result | Note |
+|-------|--------|------|
+| `implement.page_shell` 1× LinPageLayout | **pass** | no nested CatalogListShell |
+| `implement.grid` LinCatalogDataGrid | **pass** | ui-schema bootstrap · resize default ON |
+| footer LinCatalogListPagination | **pass** | no footerPagination / raw table |
+| tree_master LinTreeNav + LinTreeGridLayout | **pass** | Kind B |
+| dropdown init-data only | **pass** | removed FE KIND_LABEL fallback (**GAP-DEV-DROPDOWN-HARDCODE-01**) |
+| form SearchInput parent | **pass** | |
 
 ## Paths
 
@@ -37,10 +49,10 @@
 
 | Check | Result |
 |-------|--------|
-| `dotnet build` API | **PASS** (2026-08-08T18:28 · Release) |
-| `dotnet build` Integration.Bff + RMMS.Service.Bff | **PASS** |
+| `dotnet build` API | **PASS** (2026-08-09T01:31 · Release) |
+| `dotnet build` Integration.Bff + RMMS.Service.Bff | **PASS** (2026-08-09T01:31 · Release) |
 | `yarn typecheck` Master | **PASS** |
-| `VITE_API_URL=https://build-verify.example.com/api/v1 yarn build` Master | **PASS** |
+| `LINM_RUN_DEV_LOCAL_BUNDLE=1 yarn build` Master | **PASS** |
 
 ## Permissions (stub)
 

@@ -3,7 +3,7 @@
 | Field | Value |
 |-------|-------|
 | feature | `partner-unit` |
-| phase | `review` |
+| phase | `done` |
 | status | `done` |
 | changeScope | `new_page` |
 | packKind | `master` |
@@ -12,11 +12,12 @@
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/partner-unit.md` |
 | seed | `docs/context/seed/partner-unit-seed.json` (13) |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Master` |
+| mfeStdRoute | `/master/partner-unit` |
+| mfeStdUrl | `http://localhost:9314/master/partner-unit` |
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/integration/partner-units` |
 | domain | **Integration** |
 | prototype.reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/partner-unit/ui/prototype/partner-unit-list-prototype.html` |
-| updatedAt | 2026-08-08T12:50:00.000Z |
-
+| updatedAt | `2026-08-08T18:36:32.858Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -31,9 +32,9 @@
 | 1 | po | po/requirement.md | **done** |
 | 2.1 | design | ui/design.md + prototype | **confirmed** |
 | 2.2 | sa | be/solution-discovery.md | **confirmed** |
-| 3 | team-lead | task/partner-unit.md | **confirmed** |
+| 3 | team-lead | task/partner-unit.md | **done** |
 | 4 | dev | implement/partner-unit.md | **done** |
-| 5 | qa | qa/scenarios.md | **done** (scenarios · manual pending) |
+| 5 | qa | qa/scenarios.md | **done** |
 | 6 | review | review/findings.md | **done** |
 
 ## Confirms
@@ -83,6 +84,12 @@
 | FE `yarn typecheck` | **PASS** |
 | FE `yarn build` (`LINM_RUN_DEV_LOCAL_BUNDLE=1`) | **PASS** |
 
+## Retry
+
+- from: `team_lead` · at: `2026-08-08T16:04:36.230Z` · board user Retry step
+- versionGate: **rechecked** (Autopilot · SSOT `2026.08.08.31` · `recheck_new`)
+- ssot_rereview: **pass** · fix_all list shell + GAP-DEV-DROPDOWN-HARDCODE-01 (partnerKind options from init-data only)
+
 ## Version meta (REQUIRED)
 
 | Field | Value |
@@ -90,7 +97,7 @@
 | skillId | orchestrator |
 | skillVersion | 2026.08.08.21 |
 | schemaVersion | 2 |
-| workflowVersion | 2026.08.08.21 |
-| rulesVersion | 2026.08.08.19 |
-| generatedAt | 2026-08-08T12:50:00.000Z |
-| versionGate | ok |
+| workflowVersion | 2026.08.08.31 |
+| rulesVersion | 2026.08.08.25 |
+| generatedAt | 2026-08-08T18:45:00.000Z |
+| versionGate | rechecked |

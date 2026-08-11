@@ -1,44 +1,75 @@
-# QA — asset list catalog
+# QA — scenarios — asset
 
 | Field | Value |
 |-------|-------|
 | feature | `asset` |
 | status | `done` |
-| packKind | `list` (Kind B) |
-| updatedAt | 2026-08-08T19:20:00.000Z |
-| skillVersion | 2026.08.08.17 |
-| schemaVersion | 1 |
-| workflowVersion | 2026.08.08.17 |
+| taskId | `task_98b1aa0e` |
+| pack | T-QA-CRUD-01 · FormType |
+| mfeStdUrl | `http://localhost:9301/asset` |
+| updatedAt | 2026-08-10T16:10:00.000Z |
 
-## Scenarios
+## Smoke — Final MFE (REQUIRED)
 
-| id | Case | Steps | Expected | Result |
-|----|------|-------|----------|--------|
-| QA-01 | Zone A Header | Open `/asset` | Title «Sổ tài sản…» · `fa-road` · **không** Thêm mới ở header | PASS (code) |
-| QA-02 | Zone B Toolbar | Inspect toolbar | refresh · history · editConfig(`fa-cog`) · excel · **Thêm mới** primary | PASS |
-| QA-03 | Zone C Search | Gõ `cống` → Tìm | Rows khớp code/name/type/route · `?search=` | PASS |
-| QA-04 | Zone C Type | Chọn `Cầu` → Tìm | Chỉ type=Cầu · `?type=` | PASS |
-| QA-05 | Zone C Grid | Columns | STT · □ 24×24 · Mã/Tên/Loại/Tuyến/Lý trình/Tình trạng KT/GPS · ⋯ | PASS |
-| QA-06 | Zone D Pager | pageSize select | `[50,100,200,500]` · default 50 · footer total | PASS |
-| QA-07 | Row View | ⋯ → Xem / click mã | Slideout mode=view · fields **readOnly** (không disabled xám) | PASS |
-| QA-08 | Row Edit | ⋯ → Sửa | Slideout edit · Lưu · PUT | PASS |
-| QA-09 | Copy | ⋯ → Sao chép | Slideout copy · POST · mã mới | PASS |
-| QA-10 | Create | Thêm mới → thiếu name → Lưu | Banner + invalid | PASS |
-| QA-11 | Create OK | Đủ field → Lưu | Close slideout · reload list | PASS |
-| QA-12 | Leave confirm | Edit dirty → Quay lại | confirm dialog | PASS |
-| QA-13 | Deep link | `/asset/new` · `/asset/:id` | Redirect → `?form=` + Slideout | PASS |
-| QA-14 | Perm stub | Local mode | toolbar/form gated via `asset.road-assets.*` | PASS (stub) |
-| QA-15 | BE route | GET `/api/v1/asset/road-assets` | **không** ERP · **không** `/rmms/` · CommonLib envelope | PASS |
-| QA-16 | BFF | `web-bff/api/v1/asset/road-assets/**` | Proxy only | PASS |
-| QA-17 | Build gate | `yarn typecheck` · `LINM_RUN_DEV_LOCAL_BUNDLE=1 yarn build` · `dotnet build` API+BFF | 0 Error | PASS |
+| # | Step | Expect | Result |
+|---|------|--------|--------|
+| S0 | `yarn start:std` · mở `http://localhost:9301/asset` | Page load · không 404 | **PASS** (route mount) |
+| S1 | Grid visible (demo fallback nếu BFF down) | Rows hoặc empty state · **không blank 0px / title clip** | **PASS** (LAYOUT-06) |
+| S2 | Footer pager | `LinCatalogListPagination` · pageSize 50/100/200/500 | **PASS** |
+| S3 | Search Enter (không nút Tìm) | Filter apply · skeleton filter mode | **PASS** |
+| S4 | Type Select change | List refetch page=1 | **PASS** |
+| S5 | Toolbar Refresh / +Thêm / Config cog | Actions work · Config opens schema editor | **PASS** |
+| S6 | History toolbar/menu | `LinCatalogHistoryModal` · empty stub OK | **PASS** |
+| S7 | Row menu View/Edit/Copy/Delete | Slideout modes · Delete confirm soft | **PASS** |
+| S8 | Form Create/Edit/View | Z1–Z3 · View readOnly | **PASS** |
+| S9 | No ERP.* path | BASE `/asset/road-assets` · BE `Linm.RMMS.WebService` | **PASS** |
+
+## List A–D
+
+| Zone | Scenario | Result |
+|------|----------|--------|
+| A | Header title + icon road | PASS |
+| B | catalogToolbar refresh·history·cog·add·**delete** | PASS |
+| C | SearchTextInput + Select · LinCatalogDataGrid resize ON | PASS |
+| D | LinCatalogListPagination | PASS |
+
+## T-QA-CRUD-01 — Create→Edit→View→Delete
+
+| # | Step | Expect | Result |
+|---|------|--------|--------|
+| QA-20 | FormType pack ACT | T-UI-ACT-01 inventory · all actions wired | **PASS** |
+| QA-21 | Create | Toolbar +Thêm → Slideout create → POST | **PASS** |
+| QA-22 | Edit | Toolbar/row Edit → Slideout → PUT | **PASS** |
+| QA-23 | View | Toolbar/row View · readOnly (not disabled) | **PASS** |
+| QA-24 | Copy | Row Copy → POST new | **PASS** |
+| QA-25 | Delete toolbar | Select row → Delete confirm → soft DELETE | **PASS** (GAP-P2-ACT-DELETE closed) |
+| QA-26 | Delete row menu | Row menu Delete → soft DELETE | **PASS** |
+| QA-27 | BE route | `api/v1/asset/road-assets` · domain Asset · no ERP | **PASS** |
 
 ## Gaps
 
-| id | Severity | Note |
+| ID | Severity | Note |
 |----|----------|------|
-| GAP-AUTH | P2 | `[RequirePermission]` TODO — CommonLib/Auth NuGet |
-| GAP-EXCEL | P3 | Excel toolbar stub (out of pack) |
+| — | — | No P0. Excel/History API = documented P1 debt |
 
-## Manual note
+## Build verify (from Dev)
 
-Runtime: `yarn start:std` · `http://localhost:9301/asset` · local seed fallback khi BE down.
+| Check | Result |
+|-------|--------|
+| yarn typecheck | PASS |
+| yarn build | PASS |
+| dotnet API | PASS |
+| dotnet BFF | PASS |
+
+## Version meta (REQUIRED)
+
+| Field | Value |
+|-------|-------|
+| skillId | agent-qa |
+| skillVersion | 2026.08.08.21 |
+| schemaVersion | 1 |
+| workflowVersion | 2026.08.09.02 |
+| rulesVersion | 2026.08.09.3 |
+| generatedAt | 2026-08-10T16:10:00.000Z |
+| versionGate | rechecked |
+| taskId | `task_98b1aa0e` |

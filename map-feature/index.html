@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RMMS — Bản đồ hạng mục HĐ ↔ feature</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --panel: #1e293b;
+      --line: #334155;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --ok: #34d399;
+      --warn: #fbbf24;
+      --p1: #0ea5e9;
+      --pkg-a: #6366f1;
+      --pkg-b: #ec4899;
+      --pkg-c: #f59e0b;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: radial-gradient(1200px 600px at 10% -10%, #1e3a5f 0%, var(--bg) 55%);
+      color: var(--text);
+      min-height: 100vh;
+    }
+    header {
+      padding: 20px 24px 12px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 24px;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+    h1 { margin: 0; font-size: 1.35rem; letter-spacing: -0.02em; }
+    .meta { color: var(--muted); font-size: 0.85rem; line-height: 1.45; }
+    .meta a { color: var(--accent); }
+    .toolbar {
+      display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+      padding: 12px 24px; border-bottom: 1px solid var(--line); background: rgba(15,23,42,.65);
+    }
+    .toolbar input, .toolbar select {
+      background: var(--panel); color: var(--text); border: 1px solid var(--line);
+      border-radius: 8px; padding: 8px 10px; font-size: 0.85rem;
+    }
+    .toolbar input { min-width: 220px; }
+    .chip {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 0.72rem; font-weight: 700; padding: 3px 8px; border-radius: 999px;
+      background: #334155; color: #cbd5e1;
+    }
+    .chip.p1 { background: rgba(14,165,233,.2); color: #7dd3fc; }
+    .chip.a { background: rgba(99,102,241,.25); color: #c7d2fe; }
+    .chip.b { background: rgba(236,72,153,.22); color: #fbcfe8; }
+    .chip.c { background: rgba(245,158,11,.22); color: #fde68a; }
+    .chip.mobile { background: rgba(52,211,153,.18); color: #6ee7b7; }
+    main { padding: 16px 24px 40px; max-width: 1280px; margin: 0 auto; }
+    .mod {
+      background: var(--panel); border: 1px solid var(--line); border-radius: 14px;
+      margin-bottom: 14px; overflow: hidden;
+    }
+    .mod-h {
+      display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center;
+      padding: 12px 14px; border-bottom: 1px solid var(--line);
+      background: linear-gradient(90deg, rgba(56,189,248,.08), transparent);
+    }
+    .mod-h h2 { margin: 0; font-size: 1rem; flex: 1; min-width: 180px; }
+    .code { font-family: ui-monospace, Consolas, monospace; color: var(--accent); font-weight: 700; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+    th, td { padding: 10px 12px; border-top: 1px solid var(--line); text-align: left; vertical-align: top; }
+    th { color: var(--muted); font-weight: 600; font-size: 0.72rem; text-transform: uppercase; letter-spacing: .04em; }
+    td a { color: var(--accent); text-decoration: none; }
+    td a:hover { text-decoration: underline; }
+    .slug { font-family: ui-monospace, Consolas, monospace; font-weight: 700; }
+    .alias { color: var(--warn); font-size: 0.75rem; }
+    .links { display: flex; flex-wrap: wrap; gap: 6px; }
+    .links a {
+      display: inline-block; padding: 3px 8px; border-radius: 6px;
+      background: #0f172a; border: 1px solid var(--line); font-size: 0.75rem;
+    }
+    .hidden { display: none !important; }
+    footer {
+      padding: 16px 24px 28px; color: var(--muted); font-size: 0.8rem;
+      border-top: 1px solid var(--line);
+    }
+    .stat { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 6px; }
+    .stat span {
+      background: var(--panel); border: 1px solid var(--line);
+      border-radius: 8px; padding: 6px 10px; font-size: 0.78rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>Bản đồ hạng mục hợp đồng ↔ feature</h1>
+      <div class="meta" id="hdr-meta">Đang tải catalogue…</div>
+      <div class="stat" id="stats"></div>
+    </div>
+    <div class="meta">
+      <div><a href="./mobile-design-brief.md">Mobile design brief (gói B)</a></div>
+      <div><a href="../docs/context/features/README.md">Features README</a></div>
+      <div><a href="../../Linm.RMMS.Contract/docs/rmms/bao-gia/index.html">Báo giá · PL01</a></div>
+    </div>
+  </header>
+
+  <div class="toolbar">
+    <input id="q" type="search" placeholder="Tìm mã / tên / slug…" />
+    <select id="phase">
+      <option value="all">Phase: all</option>
+      <option value="p1" selected>P1 only</option>
+    </select>
+    <select id="client">
+      <option value="all">Client: all</option>
+      <option value="mobile">Có Mobile (gói B)</option>
+      <option value="web">Web only / API</option>
+    </select>
+    <label class="chip"><input type="checkbox" id="mobileOnly" /> Chỉ màn Mobile priority</label>
+  </div>
+
+  <main id="root"></main>
+  <footer>
+    SSOT data: <code>map-feature/catalogue.json</code> · HĐ
+    <code>37001-08/2026-LIC/LINM-JNET</code> · BFF
+    <code>http://localhost:5201/web-bff/api/v1</code> · Demo std
+    <code>http://localhost:5180</code> · MFE
+    <code>yarn start:std</code> → port trong bảng.
+  </footer>
+
+  <script>
+    const fileUrl = new URL("./catalogue.json", location.href).href;
+    const $ = (id) => document.getElementById(id);
+
+    function pkgChips(pkg) {
+      const parts = String(pkg || "").split(/[,+]/).map((s) => s.trim()).filter(Boolean);
+      return parts.map((p) => {
+        const k = p.toUpperCase();
+        const cls = k.includes("C") ? "c" : k.includes("B") ? "b" : "a";
+        return `<span class="chip ${cls}">${k}</span>`;
+      }).join(" ");
+    }
+
+    function render(data) {
+      $("hdr-meta").innerHTML =
+        `<strong>${data.contractNo}</strong> · CAPEX P1 ${data.capexP1}<br>` +
+        `Alias HĐ: <code>camera-gtvt</code> → <code>camera-connect</code> · ` +
+        `Demo std <a href="${data.roots.demoStd}" target="_blank">${data.roots.demoStd}</a>`;
+
+      const mobileSet = new Set(data.mobilePackageB?.priorityScreens || []);
+      let slugCount = 0;
+      let mobileCount = 0;
+      data.modules.forEach((m) => {
+        (m.slugs || []).forEach((s) => {
+          slugCount += 1;
+          if ((m.client || []).includes("mobile") || (m.client || []).includes("mobile-view")) mobileCount += 1;
+        });
+      });
+      $("stats").innerHTML =
+        `<span>Modules P1: <b>${data.modules.length}</b></span>` +
+        `<span>Feature slugs: <b>${slugCount}</b></span>` +
+        `<span>Có Mobile client: <b>${mobileCount}</b></span>` +
+        `<span>Mobile priority screens: <b>${mobileSet.size}</b></span>`;
+
+      const root = $("root");
+      root.innerHTML = "";
+
+      data.modules.forEach((m) => {
+        const mod = document.createElement("section");
+        mod.className = "mod";
+        mod.dataset.phase = m.phase || "p1";
+        mod.dataset.client = (m.client || []).join(",");
+        mod.dataset.search = [m.code, m.name, ...(m.slugs || []).map((s) => s.slug)].join(" ").toLowerCase();
+
+        const clients = (m.client || []).map((c) =>
+          c.startsWith("mobile")
+            ? `<span class="chip mobile">${c}</span>`
+            : `<span class="chip">${c}</span>`
+        ).join(" ");
+
+        const rows = (m.slugs || []).map((s) => {
+          const isMobilePri = mobileSet.has(s.slug);
+          return `<tr data-mobile-pri="${isMobilePri ? "1" : "0"}">
+            <td>
+              <div class="slug">${s.slug}</div>
+              ${s.aliasOf ? `<div class="alias">HĐ slug: ${s.aliasOf}</div>` : ""}
+              ${m.hdSlug && !s.aliasOf ? `<div class="alias">HĐ: ${m.hdSlug}</div>` : ""}
+              <div><span class="chip">${s.formType || "—"}</span>
+              ${isMobilePri ? `<span class="chip mobile">mobile★</span>` : ""}</div>
+            </td>
+            <td>
+              <div class="links">
+                <a href="${s.context}" target="_blank">context</a>
+                <a href="${s.demo}" target="_blank">demo file</a>
+                <a href="${s.demoUrl}" target="_blank">demo :5180</a>
+              </div>
+            </td>
+            <td>
+              <div><code>${s.mfe}</code></div>
+              <div class="links">
+                <a href="${s.mfeStdUrl}" target="_blank">std :${s.stdPort}</a>
+                <span class="chip">route ${s.route}</span>
+              </div>
+            </td>
+            <td>
+              <div><code>${s.be}</code></div>
+              <div class="meta">BFF ${data.roots.bff}</div>
+            </td>
+          </tr>`;
+        }).join("");
+
+        mod.innerHTML = `
+          <div class="mod-h">
+            <span class="code">${m.code}</span>
+            <h2>${m.name}</h2>
+            <span class="chip p1">${(m.phase || "p1").toUpperCase()}</span>
+            ${pkgChips(m.package)}
+            ${clients}
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Slug / formType</th>
+                <th>Context · Demo</th>
+                <th>MFE · start:std · route</th>
+                <th>BE</th>
+              </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>`;
+        root.appendChild(mod);
+      });
+
+      applyFilter(data);
+    }
+
+    function applyFilter(data) {
+      const q = ($("q").value || "").trim().toLowerCase();
+      const phase = $("phase").value;
+      const client = $("client").value;
+      const mobileOnly = $("mobileOnly").checked;
+      const mobileSet = new Set(data.mobilePackageB?.priorityScreens || []);
+
+      document.querySelectorAll(".mod").forEach((mod) => {
+        let show = true;
+        if (phase !== "all" && mod.dataset.phase !== phase) show = false;
+        if (client === "mobile" && !/mobile/.test(mod.dataset.client)) show = false;
+        if (client === "web" && /mobile/.test(mod.dataset.client) && !/web/.test(mod.dataset.client) && !/api/.test(mod.dataset.client)) {
+          /* keep */
+        }
+        if (client === "web" && mod.dataset.client === "mobile") show = false;
+        if (q && !mod.dataset.search.includes(q)) show = false;
+        mod.classList.toggle("hidden", !show);
+
+        mod.querySelectorAll("tbody tr").forEach((tr) => {
+          const slug = tr.querySelector(".slug")?.textContent || "";
+          let rowShow = true;
+          if (mobileOnly && !mobileSet.has(slug)) rowShow = false;
+          tr.classList.toggle("hidden", !rowShow);
+        });
+      });
+    }
+
+    fetch(fileUrl)
+      .then((r) => r.json())
+      .then((data) => {
+        window.__CAT = data;
+        render(data);
+        ["q", "phase", "client", "mobileOnly"].forEach((id) => {
+          $(id).addEventListener("input", () => applyFilter(data));
+          $(id).addEventListener("change", () => applyFilter(data));
+        });
+      })
+      .catch((err) => {
+        $("hdr-meta").textContent = "Không load được catalogue.json — mở bằng http server hoặc file:// cùng thư mục. " + err;
+      });
+  </script>
+</body>
+</html>

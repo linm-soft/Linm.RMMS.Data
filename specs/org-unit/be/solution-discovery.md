@@ -219,6 +219,22 @@ Base (sau DOMAIN-MAP): `api/v1/integration/org-units` · BFF mirror `web-bff/api
 | Path | `GET …/org-units/init-data` hoặc form-init shared |
 | Response | `{ kinds: [{ value, label }] }` |
 
+### FormType pack (`master` / Kind B) — REQUIRED
+
+| Surface | FormMode | Endpoint |
+|---------|----------|----------|
+| List search/page | — | API-01 GET `/` |
+| Tree nav | — | API-02 GET `/tree` |
+| SearchInput parent | create/edit/copy | API-03 GET `/search` |
+| Dropdown kind | create/edit | API-07 GET `/init-data` |
+| View / Edit load | view/edit/copy | API-04 GET `/{id}` |
+| Create / Copy save | create/copy | API-05 POST `/` |
+| Edit save | edit | API-06 PUT `/{id}` |
+| Delete | — | API-06 DELETE `/{id}` |
+| History | — | DEFER (toolbar · CommonLib history stub) |
+
+**GAP-SA-FORMTYPE-01:** closed — FormMode↔API map above (task_2250b015).
+
 ---
 
 ## 4. Entity / migration

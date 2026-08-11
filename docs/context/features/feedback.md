@@ -1,11 +1,11 @@
 # Góp ý phần mềm — Feature Context
 
 > **Slug:** `feedback` · **Module:** `Integration` (nhẹ) · **Phase:** P1  
-> **Status:** Demo  
-> **Kind:** **D** (slideout / modal form) — Confirmed by: ai-autocode-autopilot  
+> **Status:** Signed (pack list · task_d242eb29)  
+> **Kind:** **B** catalog list + **D** slideout form — Confirmed by: ai-autocode-autopilot  
 > **Sources:** guide Mobile **Góp ý** · `15-SCREEN-AI-MAP.md`  
 > **Demo HTML:** `Linm.RMMS.Demo/public/demo/integration/feedback.html`  
-> **MFE (align):** `Linm.Web.RMMS.Integration` · **cấm** sửa MFE ở phase demo  
+> **MFE (align):** `Linm.Web.RMMS.Integration` · `/integration/feedback`  
 > **≠** Cổng người dân (`citizen`)
 
 ## 1. Tổng quan
@@ -15,14 +15,14 @@
 | Mục tiêu | Tuần đường / quản lý / tuần kiểm gửi góp ý tính năng phần mềm |
 | Persona | Mọi role hiện trường |
 | App hiện có | Mobile **Góp ý** — giữ UX |
-| DoD | POST feedback · list admin (optional) |
+| DoD | CRUD feedbacks · list admin Kind B · slideout Kind D |
 
 ## 2. Design / UI
 
 | Screen | Pattern | Zones | Ghi chú |
 |--------|---------|-------|---------|
 | Gửi góp ý | Kind D Slideout / Modal | Z1 toolbar · Z2 fields · Z3 footer | Host: Integration stub |
-| Inbox admin | Full | Optional P1 | DEFER GAP-F-FB-01 |
+| Inbox admin | Full Kind B list | In scope this pack | `/integration/feedback` |
 | Host stub | Full mock | «Mở góp ý» → slideout | Demo only |
 
 **Kind D layout (erp-form-context):**
@@ -40,12 +40,17 @@
 
 ## 3. API
 
+Signed routes (SSOT) under `api/v1/integration/feedbacks` · BFF proxy `web-bff/api/v1/integration/feedbacks` · MFE BASE `/integration/feedbacks`.
+
 | Method | Path | Mô tả | BE status |
 |--------|------|-------|-----------|
-| POST | `/api/v1/feedback` | Gửi góp ý | **MISSING** (Step 4b khi Signed) |
-| GET | `/api/v1/feedback` | List admin | **MISSING** · DEFER UI |
+| GET | `api/v1/integration/feedbacks` | List admin (paged · search/status) | **Signed** · admin list **in scope** this pack |
+| GET | `api/v1/integration/feedbacks/{id}` | Get by id | **Signed** |
+| POST | `api/v1/integration/feedbacks` | Create góp ý | **Signed** |
+| PUT | `api/v1/integration/feedbacks/{id}` | Update | **Signed** |
+| DELETE | `api/v1/integration/feedbacks/{id}` | Soft delete | **Signed** |
 
-> Phase demo: **cấm** gọi BE · fake / localStorage only. Align BE khi Status Signed + be_align ON.
+Perms (Auth stub): `integration.feedbacks.read|create|update|delete`. Entity `AppFeedbackEntity` / `rmms_app_feedbacks` · IdCode `FB-YYYYMMDD-NNNN`.
 
 ## 4. Database
 
@@ -61,8 +66,8 @@ Optional email/notify đội kỹ thuật — DEFER P1 demo.
 
 | ID | Question | Default |
 |----|----------|---------|
-| GAP-F-FB-01 | Admin UI inbox | DEFER nếu ngoài scope AI HĐ |
-| GAP-F-FB-02 | BE endpoints `/api/v1/feedback` | MISSING · be_align khi Signed |
+| GAP-F-FB-01 | Admin UI inbox | Closed — list + Kind D slideout in Integration MFE |
+| GAP-F-FB-02 | BE endpoints `api/v1/integration/feedbacks` | Closed — Signed pack |
 | GAP-F-FB-03 | Phân biệt citizen | Luôn badge / copy ≠ cổng người dân |
 
 ## 7. Demo checklist (chốt khách)
@@ -162,11 +167,11 @@ Gen demo: `/qlbd-analy-demo @feedback` — load control-map trên + `/erp-form-c
 
 | | |
 |--|--|
-| Task | `task_0b559cba` (prior `task_4c53dcbe`) |
-| Skill | `/qlbd-analy-demo @feedback` |
+| Task | `task_d242eb29` (prior `task_0b559cba`) |
+| Skill | `/agent-qldb-workflow @feedback` |
 | sourceKind | **synthetic** (capture labeled legacy-govone block nhưng **không** màn GOVOne vision — product docs + guide Mobile Góp ý) |
-| Files | `feedback.md` · `demo-maps/feedback-*.md` · `public/demo/integration/feedback.html` · `js/feedback-*.js` · `demoCatalog.ts` · features redirect |
-| Dev | `DEMO_FEATURES` · `/demo/p/feedback` · hub index · DOMAIN integration |
-| ACTION WORK GATE | 7/7 actions work · create host→slideout form pair · no dead Edit/View |
-| BE align | OFF (demo) · GAP-F-FB-02 documented · Step 4b khi Signed |
-| Confirmed by | ai-autocode-autopilot · task_0b559cba |
+| Files | `feedback.md` · MFE `FeedbackListPage` · BE `AppFeedbacks*` · migration `rmms_app_feedbacks` · specs/feedback/* |
+| Dev | MFE `/integration/feedback` · API `api/v1/integration/feedbacks` · DOMAIN Integration |
+| ACTION WORK GATE | list A–D + slideout Create/Edit/View/Copy · local fallback |
+| BE align | **ON** · Signed · Step 4b done · cấm ERP.* |
+| Confirmed by | ai-autocode-autopilot · task_d242eb29 |

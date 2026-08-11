@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Prototype — Phân loại mặt đường (Biểu 1) · Kind B</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
+  <style>
+    :root {
+      --bg:#f5f7fa; --card:#fff; --border:#BABCBE; --soft:#e9ecef; --txt:#1A1A1A;
+      --muted:#6c757d; --primary:#0d6efd; --btn:#EEEEEE; --r:4px;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font:13px/1.4 "Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--txt)}
+    .page{max-width:1200px;margin:0 auto;padding:8px;display:flex;flex-direction:column;gap:8px;min-height:100vh}
+    .note{font-size:11px;color:var(--muted);padding:4px 0}
+    [data-des-id]::before{/* debug hook — keep attribute for TL map */}
+    .zone-a{display:flex;align-items:center;gap:10px}
+    .zone-a h1{margin:0;font-size:22px;font-weight:700;display:flex;align-items:center;gap:10px}
+    .zone-a h1 i{color:var(--primary);font-size:20px}
+    .zone-b{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:8px 0;position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--soft)}
+    .zone-b-left,.zone-b-right{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .tb{display:inline-flex;align-items:center;gap:4px;height:32px;padding:6px 8px;border:0;border-radius:var(--r);background:var(--btn);font-size:12px;font-weight:600;cursor:pointer}
+    .tb:hover{background:#BABCBE}
+    .tb.primary{background:var(--primary);color:#fff}
+    .tb.primary:hover{background:#0b5ed7}
+    .tb:disabled{opacity:.55;cursor:not-allowed}
+    .card{background:var(--card);border:1px solid var(--soft);border-radius:var(--r);flex:1;display:flex;flex-direction:column;min-height:0;overflow:hidden}
+    .grid-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 16px 8px}
+    .grid-title{margin:0;font-size:15px;font-weight:700}
+    .grid-help{margin:4px 0 0;font-size:12px;color:var(--muted)}
+    .search{display:flex;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;min-width:240px;height:32px;background:#fff}
+    .search input{border:0;outline:0;padding:6px 10px;flex:1;font-size:13px}
+    .search button{border:0;border-left:1px solid var(--border);background:#f8fafc;padding:0 10px;cursor:pointer;color:var(--muted)}
+    .table-wrap{overflow:auto;flex:1;min-height:200px;border-top:1px solid var(--soft)}
+    table{width:100%;border-collapse:collapse;table-layout:fixed}
+    th,td{padding:8px 12px;border-bottom:1px solid var(--soft);text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    th{background:#f8fafc;font-size:12px;color:var(--muted);position:sticky;top:0}
+    th.num,td.num{text-align:center;width:48px}
+    tbody tr:nth-child(even){background:#fafbfc}
+    tbody tr:hover,tbody tr.sel{background:#eff6ff}
+    .col-tools{display:inline-flex;gap:4px;margin-left:6px;vertical-align:middle}
+    .col-tools button{border:0;background:transparent;cursor:pointer;color:var(--muted);padding:0 2px;font-size:11px}
+    .col-tools button.on{color:var(--primary)}
+    .filter-pop{display:none;position:absolute;z-index:30;width:260px;background:#fff;border:1px solid var(--soft);border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.12);padding:10px}
+    .filter-pop.on{display:block}
+    .filter-pop input[type=text]{width:100%;margin-bottom:8px;padding:6px 8px;border:1px solid var(--border);border-radius:var(--r)}
+    .filter-field{display:flex;align-items:center;gap:8px;padding:6px 8px;border:1px solid var(--soft);border-radius:6px;margin-bottom:8px}
+    .filter-hint{font-size:12px;color:var(--muted);margin-bottom:8px}
+    .filter-list{max-height:140px;overflow:auto;display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
+    .filter-list label{display:flex;align-items:center;gap:8px;padding:4px 6px;border-radius:4px}
+    .filter-list label.on{background:#eff6ff}
+    .filter-acts{display:flex;justify-content:flex-end;gap:8px}
+    .zone-d{display:flex;flex-direction:column;align-items:center;gap:10px;padding:12px 16px;border-top:1px solid var(--soft)}
+    .zone-d-total{color:var(--muted)}
+    .zone-d-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center}
+    .pager-btn{width:32px;height:32px;border:1px solid var(--soft);border-radius:var(--r);background:#fff;color:var(--muted);cursor:pointer}
+    .menu{position:relative}
+    .menu summary{list-style:none;cursor:pointer;padding:4px 8px;border:1px solid var(--border);border-radius:var(--r);background:#fff}
+    .menu summary::-webkit-details-marker{display:none}
+    .menu-panel{display:none;position:absolute;right:0;z-index:5;background:#fff;border:1px solid var(--border);border-radius:6px;min-width:140px;box-shadow:0 8px 24px rgba(0,0,0,.12)}
+    .menu[open] .menu-panel{display:block}
+    .menu-panel button{display:block;width:100%;text-align:left;border:0;background:0;padding:8px 12px;cursor:pointer;font-size:13px}
+    .menu-panel button:hover{background:#f1f5f9}
+    .backdrop{display:none;position:fixed;inset:0;background:rgba(15,23,42,.35);z-index:40;align-items:center;justify-content:center}
+    .backdrop.on{display:flex}
+    .modal{width:min(420px,94vw);background:#fff;border-radius:8px;border:1px solid var(--soft)}
+    .modal-h{padding:12px 16px;border-bottom:1px solid var(--soft);font-weight:700}
+    .modal-b{padding:16px;font-size:13px;color:var(--muted)}
+    .modal-f{padding:12px 16px;border-top:1px solid var(--soft);display:flex;justify-content:flex-end;gap:8px}
+  </style>
+</head>
+<body>
+  <div class="page">
+    <p class="note">Design gate prototype · content-only A–D · <strong>reviewUrl</strong> · pack <code>pavement-section</code> · SSOT <code>shared-grid-example</code></p>
+
+    <header class="zone-a" data-des-id="DES-GRID-A">
+      <h1><i class="fas fa-road" aria-hidden="true"></i> Phân loại mặt đường (Biểu 1)</h1>
+    </header>
+
+    <div class="zone-b" data-des-id="DES-GRID-B">
+      <div class="zone-b-left">
+        <button type="button" class="tb" data-action="refresh"><i class="fas fa-sync-alt"></i> Làm mới</button>
+        <button type="button" class="tb" data-action="history"><i class="fas fa-history"></i> Lịch sử</button>
+        <button type="button" class="tb" data-action="config"><i class="fas fa-cog"></i> Sửa config</button>
+        <button type="button" class="tb" id="btn-view" disabled><i class="fas fa-eye"></i> Xem</button>
+        <button type="button" class="tb" id="btn-edit" disabled><i class="fas fa-pen"></i> Sửa</button>
+        <button type="button" class="tb" id="btn-del" disabled><i class="fas fa-trash"></i> Xóa</button>
+      </div>
+      <div class="zone-b-right">
+        <button type="button" class="tb primary" data-action="create"><i class="fas fa-plus"></i> Thêm mới</button>
+      </div>
+    </div>
+
+    <section class="card">
+      <div class="grid-head" data-des-id="DES-GRID-C0">
+        <div>
+          <h2 class="grid-title">Danh sách đoạn mặt đường</h2>
+          <p class="grid-help" data-des-id="DES-GRID-C3-help">Nhấn đúp · Ctrl + chuột phải · giữ chạm (mobile) để mở menu dòng</p>
+        </div>
+        <div class="search" data-des-id="DES-GRID-C1">
+          <input type="search" id="q" placeholder="Tìm mã / tên…" aria-label="Tìm kiếm" />
+          <button type="button" aria-label="Tìm"><i class="fas fa-search"></i></button>
+        </div>
+      </div>
+
+      <div class="table-wrap" data-des-id="DES-GRID-C2" style="position:relative">
+        <table>
+          <thead>
+            <tr>
+              <th class="num">STT</th>
+              <th class="num"><input type="checkbox" id="chk-all" aria-label="Chọn tất cả trang" /></th>
+              <th>
+                Mã
+                <span class="col-tools">
+                  <button type="button" class="on" title="Sắp xếp" data-sort="code"><i class="fas fa-sort-alpha-down"></i></button>
+                  <button type="button" title="Lọc" id="btn-filter-code"><i class="fas fa-filter"></i></button>
+                </span>
+              </th>
+              <th>Tên</th>
+              <th class="num"></th>
+            </tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+        <div class="filter-pop" id="filter-pop" data-des-id="DES-GRID-C2a" style="top:40px;left:180px">
+          <input type="text" id="filter-q" placeholder="Tìm trong danh sách…" />
+          <div class="filter-field">
+            <input type="checkbox" id="filter-select-all" />
+            <label for="filter-select-all" style="flex:1;cursor:pointer">Chọn tất cả</label>
+          </div>
+          <div class="filter-hint" id="filter-count">Đã chọn 0 mục</div>
+          <div class="filter-list" id="filter-list"></div>
+          <div class="filter-acts">
+            <button type="button" class="tb" id="filter-cancel">Hủy</button>
+            <button type="button" class="tb primary" id="filter-ok">Xác nhận</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="zone-d" data-des-id="DES-GRID-D">
+        <div class="zone-d-total">Tổng: <span id="total">3</span> · Trang <span id="page">1</span>/1</div>
+        <div class="zone-d-row">
+          <label>Hiển thị
+            <select id="pageSize"><option>50</option><option>100</option><option>200</option><option>500</option></select>
+          </label>
+          <button type="button" class="pager-btn" disabled><i class="fas fa-angle-double-left"></i></button>
+          <button type="button" class="pager-btn" disabled><i class="fas fa-angle-left"></i></button>
+          <span>1/1</span>
+          <button type="button" class="pager-btn" disabled><i class="fas fa-angle-right"></i></button>
+          <button type="button" class="pager-btn" disabled><i class="fas fa-angle-double-right"></i></button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="backdrop" id="modal-config" data-des-id="DES-GRID-F">
+    <div class="modal">
+      <div class="modal-h"><i class="fas fa-cog"></i> Sửa cấu hình lưới</div>
+      <div class="modal-b">Kéo cột: <strong>ON</strong> (default) · Zone F / ui-schema — mock Design.</div>
+      <div class="modal-f"><button type="button" class="tb" data-close="modal-config">Đóng</button></div>
+    </div>
+  </div>
+  <div class="backdrop" id="modal-history" data-des-id="DES-GRID-H">
+    <div class="modal">
+      <div class="modal-h"><i class="fas fa-history"></i> Lịch sử</div>
+      <div class="modal-b">Timeline mock theo dòng đã chọn.</div>
+      <div class="modal-f"><button type="button" class="tb" data-close="modal-history">Đóng</button></div>
+    </div>
+  </div>
+  <div class="backdrop" id="modal-form" data-des-id="DES-GRID-Z">
+    <div class="modal">
+      <div class="modal-h" id="form-title">Thêm mới</div>
+      <div class="modal-b">Form pair Modal (&lt;10 control) — Z1–Z3 mock.</div>
+      <div class="modal-f">
+        <button type="button" class="tb" data-close="modal-form">Hủy</button>
+        <button type="button" class="tb primary" data-close="modal-form">Lưu</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const rows = [
+      { code: 'DM.01', name: 'Mục mẫu 1' },
+      { code: 'DM.02', name: 'Mục mẫu 2' },
+      { code: 'DM.03', name: 'Mục mẫu 3' },
+    ];
+    let selected = null;
+    const tbody = document.getElementById('tbody');
+    const filterVals = ['DM.01', 'DM.02', 'DM.03'];
+    let filterChecked = new Set(filterVals);
+
+    function render() {
+      const q = (document.getElementById('q').value || '').trim().toLowerCase();
+      const list = rows.filter(r => !q || r.code.toLowerCase().includes(q) || r.name.toLowerCase().includes(q));
+      tbody.innerHTML = list.map((r, i) => `
+        <tr data-code="${r.code}" class="${selected===r.code?'sel':''}">
+          <td class="num">${i + 1}</td>
+          <td class="num"><input type="checkbox" class="row-chk" ${selected===r.code?'checked':''} /></td>
+          <td><button type="button" class="code-link" style="border:0;background:0;color:#0d6efd;text-decoration:underline;cursor:pointer;font:inherit">${r.code}</button></td>
+          <td>${r.name}</td>
+          <td class="num" data-des-id="DES-GRID-C3">
+            <details class="menu">
+              <summary>⋮</summary>
+              <div class="menu-panel">
+                <button type="button" data-menu="view">Xem</button>
+                <button type="button" data-menu="edit">Sửa</button>
+                <button type="button" data-menu="copy">Sao chép</button>
+                <button type="button" data-menu="history">Lịch sử</button>
+                <button type="button" data-menu="delete">Xóa</button>
+              </div>
+            </details>
+          </td>
+        </tr>`).join('');
+      document.getElementById('total').textContent = String(list.length);
+      syncSelBtns();
+    }
+
+    function syncSelBtns() {
+      const on = Boolean(selected);
+      ['btn-view','btn-edit','btn-del'].forEach(id => { document.getElementById(id).disabled = !on; });
+    }
+
+    function openModal(id) { document.getElementById(id).classList.add('on'); }
+    function closeModal(id) { document.getElementById(id).classList.remove('on'); }
+
+    tbody.addEventListener('click', (e) => {
+      const tr = e.target.closest('tr');
+      if (!tr) return;
+      const code = tr.getAttribute('data-code');
+      if (e.target.closest('[data-menu]')) {
+        const act = e.target.getAttribute('data-menu');
+        selected = code; syncSelBtns(); render();
+        if (act === 'history') openModal('modal-history');
+        else if (act === 'view' || act === 'edit' || act === 'copy') {
+          document.getElementById('form-title').textContent = act === 'view' ? 'Xem' : act === 'edit' ? 'Sửa' : 'Sao chép';
+          openModal('modal-form');
+        }
+        return;
+      }
+      if (e.target.classList.contains('code-link') || e.target.classList.contains('row-chk') || e.detail === 2) {
+        selected = code; syncSelBtns(); render();
+      }
+    });
+    tbody.addEventListener('dblclick', (e) => {
+      const tr = e.target.closest('tr');
+      if (!tr) return;
+      selected = tr.getAttribute('data-code'); syncSelBtns(); render();
+      document.getElementById('form-title').textContent = 'Sửa';
+      openModal('modal-form');
+    });
+
+    document.getElementById('q').addEventListener('input', render);
+    document.querySelector('[data-action="config"]').addEventListener('click', () => openModal('modal-config'));
+    document.querySelector('[data-action="history"]').addEventListener('click', () => openModal('modal-history'));
+    document.querySelector('[data-action="create"]').addEventListener('click', () => {
+      document.getElementById('form-title').textContent = 'Thêm mới';
+      openModal('modal-form');
+    });
+    document.querySelectorAll('[data-close]').forEach(btn => {
+      btn.addEventListener('click', () => closeModal(btn.getAttribute('data-close')));
+    });
+
+    function renderFilterList() {
+      const fq = (document.getElementById('filter-q').value || '').toLowerCase();
+      const visible = filterVals.filter(v => !fq || v.toLowerCase().includes(fq));
+      const box = document.getElementById('filter-list');
+      box.innerHTML = visible.map(v => `
+        <label class="${filterChecked.has(v)?'on':''}">
+          <input type="checkbox" data-fv="${v}" ${filterChecked.has(v)?'checked':''} /> ${v}
+        </label>`).join('');
+      const n = visible.filter(v => filterChecked.has(v)).length;
+      document.getElementById('filter-count').textContent = `Đã chọn ${n} mục`;
+      document.getElementById('filter-select-all').checked = visible.length > 0 && n === visible.length;
+    }
+    document.getElementById('btn-filter-code').addEventListener('click', (e) => {
+      e.stopPropagation();
+      document.getElementById('filter-pop').classList.toggle('on');
+      renderFilterList();
+    });
+    document.getElementById('filter-q').addEventListener('input', renderFilterList);
+    document.getElementById('filter-list').addEventListener('change', (e) => {
+      const t = e.target;
+      if (!t.matches('[data-fv]')) return;
+      if (t.checked) filterChecked.add(t.getAttribute('data-fv'));
+      else filterChecked.delete(t.getAttribute('data-fv'));
+      renderFilterList();
+    });
+    document.getElementById('filter-select-all').addEventListener('change', (e) => {
+      const fq = (document.getElementById('filter-q').value || '').toLowerCase();
+      const visible = filterVals.filter(v => !fq || v.toLowerCase().includes(fq));
+      if (e.target.checked) visible.forEach(v => filterChecked.add(v));
+      else visible.forEach(v => filterChecked.delete(v));
+      renderFilterList();
+    });
+    document.getElementById('filter-cancel').addEventListener('click', () => document.getElementById('filter-pop').classList.remove('on'));
+    document.getElementById('filter-ok').addEventListener('click', () => document.getElementById('filter-pop').classList.remove('on'));
+
+    render();
+  </script>
+</body>
+</html>

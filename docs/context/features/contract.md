@@ -50,12 +50,12 @@
 
 | Method | Path | Mô tả | BE status |
 |--------|------|-------|-----------|
-| GET/POST | `/api/v1/contracts` | CRUD HĐ | **MISSING** (Step 4b khi Signed) |
-| GET/PUT | `/api/v1/contracts/{id}` | Chi tiết | **MISSING** |
-| GET/POST | `/api/v1/budgets` | Ngân sách | **MISSING** |
-| GET | `/api/v1/contracts/{id}/kpi` | KPI nhà thầu | **MISSING** |
-| POST | `/api/v1/contracts/{id}/payments` | Ghi nhận TT | **MISSING** |
-| POST | `/api/v1/contracts/{id}/sign` | Ký HĐ | **MISSING** |
+| GET/POST | `/api/v1/contract/contracts` | List + Create HĐ | **READY** (Linm.RMMS.WebService) |
+| GET/PUT/DELETE | `/api/v1/contract/contracts/{id}` | Chi tiết / Update / Soft-delete | **READY** |
+| — | payments nested in body | Payment lines child table | **READY** (`rmms_contract_payments`) |
+| GET/POST | `/api/v1/budgets` | Ngân sách riêng | **DEFER** (fields on Contract) |
+| GET | `/api/v1/contracts/{id}/kpi` | KPI endpoint riêng | **DEFER** (kpiScore on Contract) |
+| POST | `/api/v1/contracts/{id}/sign` | Ký HĐ action API | **DEFER** (status update via PUT) |
 
 ```json
 {

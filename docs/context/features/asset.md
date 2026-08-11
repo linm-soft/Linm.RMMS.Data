@@ -1,11 +1,11 @@
 # Quản lý tài sản đường bộ — Feature Context
 
 > **Slug:** `asset` · **Module:** `Asset` · **Phase:** P1  
-> **Status:** Completed (list pack `task_c30a9a02` · 2026-08-08)  
+> **Status:** Completed (list pack `task_79203f46` · SSOT 2026.08.09.02 · LAYOUT-06 · 2026-08-09)  
 > **Feature Kind:** **B** — Catalog list A–D + **Slideout** form Z1–Z3 (erp-form-context); demo HTML vẫn Kind F map+list  
 > **Sources:** guide Tài sản / Tài sản KCHT · `RMMS` §1 · `07` §1 · `09` · **`11-CSDL-SO-SACH`** · [`15-SCREEN-AI-MAP.md`](../15-SCREEN-AI-MAP.md)  
 > **Demo HTML:** `Linm.RMMS.Demo/src/demo/features/asset-demo.html` → `../asset/asset.html`  
-> **MFE:** `Linm.Web.RMMS.Asset` · `/asset` · `AssetListPage` + `AssetFormSlideout` (deep-link via `AssetFormPage` → `?form=`)  
+> **MFE:** `Linm.Web.RMMS.Asset` · `/asset` · `LinPageLayout` + `LinCatalogDataGrid` + `AssetFormSlideout`  
 > **Specs:** `Linm.RMMS.Data/specs/asset/` · STATUS `completed`
 
 ## 1. Tổng quan
@@ -22,7 +22,7 @@
 
 | Screen | Pattern | Zones | Map guide |
 |--------|---------|-------|-----------|
-| **Danh mục TS (MFE list)** | **Catalog list (Kind B)** | Zones A–D · LinPageLayout · toolbar · search/type · Slideout form Z1–Z3 | prototype `specs/asset/ui/prototype/` |
+| **Danh mục TS (MFE list)** | **Catalog list (Kind B)** | Zones A–D · LinPageLayout · LinCatalogDataGrid · LinCatalogListPagination · Slideout Z1–Z3 | prototype `specs/asset/ui/prototype/` |
 | Thu thập / cập nhật Mobile | Full (giữ) | Loại TS · form · ảnh · GPS | Mobile a–b |
 | Bản đồ TS Mobile | Full | Tuyến · loại · pin | Mobile c |
 | QL tài sản KCHT (demo) | Full / Kind F | List · map · import wizard | Web a |

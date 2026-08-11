@@ -26,18 +26,25 @@
 | | |
 |--|--|
 | Feature Kind | **B** |
-| List pattern | `LinPageLayout` kind=catalog + **CatalogListShell** (flat grid) |
+| List pattern | **1×** `LinPageLayout` kind=catalog · **cấm** nested `CatalogListShell` · `LinCatalogDataGrid` |
 | Form pattern | **Modal** (5 controls &lt;10) |
 | Routes | List `/master/asset-type` · form overlay Modal |
 | Toolbar SSOT | `catalog-list-toolbar` + `erp-control-icon-map` |
 | Lookup consumer | **`SearchInput`** `assetTypeCode` — Step **2li** · **cấm** Text |
 | groupCode | Dropdown từ **init-data** |
 
-## 2. Screens / zones
+## 2. Screens (formType=master)
+
+| id | Surface | Pattern | Route / open | FormMode | Actions |
+|----|---------|---------|--------------|----------|---------|
+| S-LIST | List | Full page · 1× `LinPageLayout` | `/master/asset-type` | — | add, view, edit, copy, delete, history, config, refresh |
+| S-FORM | Form | Modal | toolbar + / row menu / `?form=` | C/E/V/Copy | save, cancel |
+
+### Zones
 
 | Screen | FormMode | Zones | Controls |
 |--------|----------|-------|----------|
-| Loại tài sản | list | **A Header · B Toolbar · C Grid · D Pagination** | SearchTextInput · table · row menu |
+| Loại tài sản | list | **A Header · B Toolbar · C Grid · D Pagination** | SearchTextInput · LinCatalogDataGrid · row menu |
 | Form loại TS | create/edit/view/copy | **Modal** | 5 controls · View `readOnly` |
 
 ## 3. Field inventory (tiếng Việt)
@@ -104,9 +111,9 @@ STT · **Mã loại** · **Tên loại** · **Nhóm** · **Số alias** · **Tr�
 | Field | Value |
 |-------|-------|
 | skillId | agent-design |
-| skillVersion | 2026.08.08.17 |
+| skillVersion | 2026.08.10.1 |
 | schemaVersion | 1 |
-| workflowVersion | 2026.08.08.21 |
-| rulesVersion | 2026.08.08.19 |
-| generatedAt | 2026-08-08T18:55:00.000Z |
-| versionGate | ok |
+| workflowVersion | 2026.08.10.1 |
+| rulesVersion | 2026.08.10.2 |
+| generatedAt | 2026-08-10T15:35:00.000Z |
+| versionGate | rechecked |

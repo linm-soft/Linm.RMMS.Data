@@ -6,6 +6,16 @@ Tất cả các thiết bị trong danh sách này đều hỗ trợ **Edge AI (
 
 ## 1. Danh sách Model theo Tuyến đường
 
+### 📡 Urban road / Radar-Assisted ANPR (ưu tiên ITS tốc độ + biển số)
+* **Model Đề xuất:** `iDS-TCM403-GIR`
+* **Loại thiết bị:** Bullet ANPR + radar mmWave 77 GHz (ITS Urban Road).
+* **Thông số lõi:** 4 MP (2688×1520) · 1/1.8" CMOS · ống kính motorized 8–32 mm · WDR 140 dB · IR ~50 m · IP67 / IK10 · PoE+.
+* **Tính năng chuyên dụng:**
+  * Radar đo tốc độ tới ~120 km/h (±2 km/h) · phủ tới 3 làn · khoảng cách ~50 m.
+  * Edge ANPR: biển số · loại/màu/hướng xe · xe không biển.
+  * Tích hợp RMMS: **ISAPI HTTP notify** + RTSP live + ONVIF — page kết nối `camera-connect` · MFE `Linm.Web.RMMS.Camera`.
+* **Product:** https://www.hikvision.com/en/products/ITS-Products/traffic-cameras/urban-road-anpr-cameras/ids-tcm403-gir/
+
 ### 🚗 Tuyến đường Quốc lộ (Vận tốc cao >80 km/h)
 * **Model Đề xuất:** `iDS-2CD7A46G0/Hz-IZHSY`
 * **Loại thiết bị:** Camera Thân (Bullet) dòng DeepinView Cao cấp.

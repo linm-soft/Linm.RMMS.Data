@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>GIS Kind F — Design prototype (content-only)</title>
+<style>
+:root{--bg:#f1f5f9;--card:#fff;--border:#e2e8f0;--txt:#0f172a;--muted:#64748b;--primary:#0f766e;--radius:10px}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;background:var(--bg);color:var(--txt)}
+.banner{background:#ecfdf5;color:#115e59;font-size:.72rem;font-weight:700;padding:8px 14px;border-bottom:1px solid #99f6e4}
+.app{display:grid;grid-template-columns:260px 1fr;min-height:calc(100vh - 36px)}
+@media(max-width:900px){.app{grid-template-columns:1fr}}
+.side{background:var(--card);border-right:1px solid var(--border);display:flex;flex-direction:column}
+.tabs{display:flex;border-bottom:1px solid var(--border)}
+.tabs button{flex:1;padding:10px 4px;font-size:.68rem;font-weight:700;border:0;background:transparent;color:var(--muted);border-bottom:2px solid transparent;cursor:pointer}
+.tabs button.on{color:var(--primary);border-bottom-color:var(--primary)}
+.side-body{padding:12px;font-size:.8rem}
+.layer{display:flex;gap:8px;align-items:center;padding:6px 0}
+.legend-row{display:flex;gap:8px;align-items:center;margin:6px 0;color:var(--muted);font-size:.78rem}
+.sw{width:14px;height:14px;border-radius:3px}.ok{background:#22c55e}.warn{background:#eab308}.bad{background:#ef4444}
+.main{display:flex;flex-direction:column;min-width:0;min-height:0}
+.head{padding:12px 16px;background:var(--card);border-bottom:1px solid var(--border)}
+.head h1{margin:0;font-size:1.05rem}.help{font-size:.75rem;color:var(--muted);margin-top:2px}
+.toolbar,.filter,.status{display:flex;gap:8px;flex-wrap:wrap;padding:10px 16px;border-bottom:1px solid var(--border);background:#f8fafc;align-items:center}
+.filter{background:#fff}.status{font-size:.72rem;color:var(--muted)}
+button,.btn{border:1px solid var(--border);background:#fff;border-radius:8px;padding:7px 10px;font-size:.78rem;cursor:pointer;font-weight:600}
+button.primary{background:var(--primary);color:#fff;border-color:var(--primary)}
+input,select{padding:7px 10px;border:1px solid var(--border);border-radius:6px;font-size:.8rem}
+.map-host{position:relative;flex:1;min-height:360px;background:linear-gradient(135deg,#cbd5e1,#94a3b8);display:flex;align-items:center;justify-content:center;color:#334155;font-weight:700}
+.map-host small{display:block;font-weight:500;color:#475569;margin-top:6px;text-align:center}
+.map-bar{display:flex;gap:8px;flex-wrap:wrap;padding:10px 12px;background:#f8fafc;border-bottom:1px solid var(--border);align-items:center}
+.badge{font-size:.65rem;background:#e0e7ff;color:#3730a3;padding:2px 8px;border-radius:999px;font-weight:800}
+.grid{overflow:auto;max-height:180px;background:#fff}
+table{width:100%;border-collapse:collapse;font-size:.78rem}
+th,td{padding:8px 10px;border-bottom:1px solid var(--border);text-align:left}
+th{background:#f8fafc;color:var(--muted);font-size:.7rem}
+.zone{font-size:.65rem;font-weight:800;color:var(--primary);letter-spacing:.04em}
+</style>
+</head>
+<body>
+<div class="banner">DESIGN PROTOTYPE · content-only Kind F · zones A–D · reviewUrl gate · không clone topnav demo</div>
+<div class="app">
+  <aside class="side">
+    <div class="zone" style="padding:8px 12px">ZONE A · Sidebar</div>
+    <div class="tabs">
+      <button class="on" type="button">Lớp</button>
+      <button type="button">Chú giải</button>
+      <button type="button">Thuộc tính</button>
+      <button type="button">Kết quả</button>
+    </div>
+    <div class="side-body">
+      <div class="layer"><input type="checkbox" checked disabled /> Đoạn đường</div>
+      <div class="layer"><input type="checkbox" checked disabled /> Heatmap PCI</div>
+      <div class="layer"><input type="checkbox" checked disabled /> Sự cố / kiểm tra</div>
+      <div class="layer"><input type="checkbox" disabled /> 3D Tiles <span class="badge">P2</span></div>
+      <hr style="border:none;border-top:1px solid var(--border);margin:12px 0" />
+      <strong style="font-size:.72rem">Chú giải PCI</strong>
+      <div class="legend-row"><span class="sw ok"></span> Tốt (≥70)</div>
+      <div class="legend-row"><span class="sw warn"></span> Trung bình (50–69)</div>
+      <div class="legend-row"><span class="sw bad"></span> Kém (&lt;50)</div>
+    </div>
+  </aside>
+  <main class="main">
+    <div class="head">
+      <h1>GIS bản đồ giám sát 2D</h1>
+      <div class="help">Prototype Design · MFE target <code>/gis</code> · Leaflet live ở Dev</div>
+    </div>
+    <div class="zone" style="padding:4px 16px">ZONE B · Toolbar / filter</div>
+    <div class="toolbar">
+      <button class="primary" type="button">Lấy dữ liệu</button>
+      <button type="button">Làm mới overlay</button>
+      <button type="button">Heatmap PCI</button>
+      <button type="button">Digital Twin 3D <span class="badge">P2</span></button>
+      <button type="button">Mở vẽ</button>
+    </div>
+    <div class="filter">
+      <input type="search" placeholder="Nhập thông tin đối tượng…" style="min-width:220px" />
+      <select><option>Tất cả lớp</option><option>Đoạn đường</option><option>Heatmap PCI</option><option>Sự cố</option></select>
+      <label>PCI từ <input type="number" value="0" style="width:64px" /></label>
+      <label>PCI đến <input type="number" value="100" style="width:64px" /></label>
+      <button type="button">Tìm kiếm</button>
+    </div>
+    <div class="status">bbox · EPSG:4326 · overlay idle</div>
+    <div class="zone" style="padding:4px 16px">ZONE C · Map chrome</div>
+    <div class="map-host">
+      MAP HOST (Leaflet live @ Dev)
+      <div><small>OMS: OSM default · Fit overview · full flex height</small></div>
+    </div>
+    <div class="map-bar">
+      <button type="button" title="OSM tiếng Việt">OSM</button>
+      <button type="button" title="Esri Streets">Esri</button>
+      <button type="button" title="Esri sat">Sat</button>
+      <button type="button" title="Fit overview">Fit</button>
+      <button type="button" title="Full / dock">Full</button>
+    </div>
+    <div class="zone" style="padding:4px 16px">ZONE D · Results</div>
+    <div class="grid">
+      <table>
+        <thead><tr><th>Mã</th><th>Tên</th><th>PCI</th><th>Trạng thái</th></tr></thead>
+        <tbody>
+          <tr><td>RS-QL1-01</td><td>QL.1 · đoạn 1</td><td>82</td><td>Tốt</td></tr>
+          <tr><td>RS-QL1-02</td><td>QL.1 · đoạn 2</td><td>68</td><td>TB</td></tr>
+          <tr><td>RS-QL1-03</td><td>QL.1 · đoạn 3</td><td>54</td><td>Kém</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>
+</body>
+</html>

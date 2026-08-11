@@ -1,57 +1,67 @@
-# Review — asset
+# Review — findings — asset
 
 | Field | Value |
 |-------|-------|
 | feature | `asset` |
-| status | `confirmed` (autopilot · review_confirm=approve) |
-| updatedAt | 2026-08-08T19:20:00.000Z |
-| skillVersion | 2026.08.08.17 |
-| schemaVersion | 1 |
-| workflowVersion | 2026.08.08.17 |
+| status | `done` |
+| taskId | `task_79203f46` |
+| review_confirm | **approve** (autopilot 2026-08-09) |
+| updatedAt | 2026-08-09T14:20:00.000Z |
 
-## Scope reviewed
+## REVIEW-META
 
-- FE Kind B catalog list A–D + Slideout form Z1–Z3 (`AssetListPage` / `AssetFormSlideout`)
-- BE `RoadAssetsController` · `RoadAssetEntity` · route `api/v1/asset/road-assets`
-- BFF `RoadAssetsBffController` proxy
-- **Cấm** ERP.* / `api/v1/rmms/*` / Domains/Master
+| Key | Value |
+|-----|-------|
+| scope | Kind B list `/asset` + API `road-assets` |
+| mfe | `Linm.Web.RMMS.Asset` |
+| be | `Linm.RMMS.WebService` · domain Asset |
+| recheck | full_pipeline · SSOT 2026.08.09.02 · LAYOUT-06 |
 
-## Query / data
+## Query / API
 
 | Check | Result |
 |-------|--------|
-| List filter search + type | OK |
-| Soft delete IsActive=false | OK |
-| XCO GetById AllowedCompanyIds | OK (prior T-BE-01) |
-| SHARE tenant_keep | OK |
-| No parent JSON | OK |
-| Collision Finance `/assets` | Avoided |
+| List search/type/page/pageSize | OK |
+| GetById XCO | OK (IgnoreQueryFilters + allowed_company_ids) |
+| Soft delete | OK |
+| BFF proxy only | OK |
+| No ERP.* / Domains/Master | OK |
+| `[RequirePermission]` | Debt P1 (stub) |
 
 ## Security
 
 | Check | Result |
 |-------|--------|
-| Tenant `CompanyCode` | OK |
-| Perm codes documented | OK · Auth stub |
-| No secrets in FE | OK |
+| Tenant filter list/CUD | OK |
+| Cross-company GetById deny → 403 | OK |
+| No parent JSON persist | OK |
+| P0 open | none |
 
-## UI / BE fn
+## UI / function
 
 | Check | Result |
 |-------|--------|
-| Zones A–D + pageSize 50/100/200/500 | OK |
-| Search UI → `?search=` + `?type=` | OK |
-| Slideout Create/Edit/View/Copy | OK |
-| View readOnly | OK |
-| FE BASE `/asset/road-assets` | OK |
-| Deep-link → Slideout | OK |
+| LinPageLayout single shell | OK |
+| LinCatalogDataGrid + resize ON | OK |
+| LinCatalogListPagination | OK |
+| Filter no Tìm (GAP-P2-87) | OK |
+| Zone F LinCatalogUiSchemaEditorModal | OK |
+| History LinCatalogHistoryModal | OK (stub client) |
+| Form slideout modes | OK |
+| **GAP-P2-LAYOUT-06** / REV-UI-LAYOUT-06 | **OK** — definite height chain; no blank/title clip |
 
-## Findings
+## Verdict
 
-| id | Severity | Finding | Action |
-|----|----------|---------|--------|
-| RV-01 | P3 | BE search chưa Unaccent | P2 backlog |
-| RV-02 | Info | Prod webpack cần non-localhost `VITE_API_URL` | Deploy env |
-| RV-03 | P2 | Auth `[RequirePermission]` stub | `/upgrade-common-lib` |
+**approve** — list pack ready under SSOT 2026.08.09.02; debt Auth/Excel/History API tracked in implement MD.
 
-**P0 security:** none
+## Version meta (REQUIRED)
+
+| Field | Value |
+|-------|-------|
+| skillId | agent-review |
+| skillVersion | 2026.08.09.02 |
+| schemaVersion | 1 |
+| workflowVersion | 2026.08.09.02 |
+| rulesVersion | 2026.08.09.3 |
+| generatedAt | 2026-08-09T14:20:00.000Z |
+| versionGate | rechecked |

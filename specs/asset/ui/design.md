@@ -8,8 +8,8 @@
 | changeScope | `edit_page` |
 | packKind | `list` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Asset` (`/asset`) |
-| updatedAt | 2026-08-08T16:50:00.000Z |
-| design_confirm | `approve` |
+| updatedAt | 2026-08-09T14:08:00.000Z |
+| design_confirm | `approve` (autopilot · task_79203f46) |
 
 ## 0. Context & Demo (from PO)
 
@@ -136,7 +136,7 @@ Mặt đường · Cầu · Biển báo giao thông · Hộ lan an toàn · Cộ
 
 ## Confirm
 
-`design_confirm` = **approve** (2026-08-08) · prototype + reviewUrl giữ nguyên.
+`design_confirm` = **approve** (autopilot · task_79203f46 · 2026-08-09) · prototype + reviewUrl giữ nguyên.
 
 ## Handoff → SA
 
@@ -146,5 +146,18 @@ Mặt đường · Cầu · Biển báo giao thông · Hộ lan an toàn · Cộ
 | Field inventory | §3 · nhãn GTVT |
 | Prototype · reviewUrl | § Prototype · FA icons `erp-control-icon-map` |
 | Context · Demo | CTX-ASSET · DEM-ASSET |
-| API prefer | `api/v1/rmms/road-assets` + BFF · **không** Finance `assets` |
+| API prefer | `api/v1/asset/road-assets` + BFF · **không** `/rmms/` · **không** Finance `assets` |
+| Shell height | AppLayout/StandaloneShell definite height — **GAP-P2-LAYOUT-06** |
 | Next | `/agent-sa` · `solution_confirm` |
+
+## Version meta (REQUIRED)
+
+| Field | Value |
+|-------|-------|
+| skillId | agent-design |
+| skillVersion | 2026.08.08.31 |
+| schemaVersion | 1 |
+| workflowVersion | 2026.08.09.02 |
+| rulesVersion | 2026.08.09.3 |
+| generatedAt | 2026-08-09T14:08:00.000Z |
+| versionGate | rechecked |

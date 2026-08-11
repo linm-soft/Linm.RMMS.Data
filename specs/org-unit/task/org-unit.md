@@ -3,15 +3,15 @@
 | Field | Value |
 |-------|-------|
 | feature | `org-unit` |
-| status | `confirmed` |
-| changeScope | `new_page` |
+| status | `done` |
+| changeScope | `edit_page` · gap=`crud_formtype` |
 | packKind | `master` (Kind B tree + Modal) |
 | solution_confirm | **approve** (2026-08-08) |
 | domain_map | **Integration** (`D1`) |
 | gates | TZ=`tz_na` · XCO=`xco_na` · SHARE=`share_a` |
-| updatedAt | 2026-08-08T17:51:00.000Z |
-| Version meta | rules `2026.08.08.14` · task `2026.08.08.1` |
-| TL SSOT | `tl-platform-ssot.md` · `ssot-no-duplicate.md` · `tl-ssot-permission-tasks.md` · `tl-implement-architecture.md` |
+| updatedAt | 2026-08-10T15:45:00.000Z |
+| task | `task_2250b015` |
+| TL SSOT | `tl-platform-ssot.md` · `ssot-no-duplicate.md` · `tl-ssot-permission-tasks.md` · `tl-implement-architecture.md` · **`form-type-task-pack.md`** |
 
 ## from design / solution (scope gate)
 
@@ -118,6 +118,57 @@ BFF: `web-bff/api/v1/integration/org-units/**`. FE BASE: **`/integration/org-uni
 | SD-SHARE | **required** | Type A |
 | SD-TREE | **required** | API-02 · LinTreeNav |
 | SD-LKP | **required** | parentCode SearchInput · API-03 |
+
+## FormType pack (canonical — `form-type-task-pack` master)
+
+| Task id | Role | Status | Maps to / notes |
+|---------|------|--------|-----------------|
+| T-UI-LIST-01 | Dev | **done** | `tl-grid-task-template` FULL · tree Kind B |
+| T-UI-FORM-01 | Dev | **done** | Modal C/E/V/Copy · parent SearchInput · View readOnly |
+| T-UI-ACT-01 | Dev | **done** | Action inventory → form/API (below) |
+| T-BE-CRUD-01 | Dev | **done** | list/search/tree + C/U/D + getById (= prior T-BE-01) |
+| T-BE-INIT-01 | Dev | **done** | GET `/init-data` kinds `{value,label}` |
+| T-PERM-01 | Dev | **done** | `master.org-units.*` |
+| T-QA-CRUD-01 | QA | **done** | Create→Edit→View→Delete + row menu (= prior T-QA-01) |
+| T-CTX-01 | Dev | **done** | context + DOMAIN-MAP |
+| T-SEED-01 | Dev | **done** | seed 60 keep_legacy |
+| T-BFF-01 | Dev | **done** | BFF proxy |
+| T-BE-02 | Dev | **done** | Schema migration |
+
+**GAP-TL-FORMTYPE-01:** closed — pack IDs stamped (task_2250b015).
+
+### T-UI-ACT-01 — action inventory
+
+| Action | Surface | Handler | API |
+|--------|---------|---------|-----|
+| Search | S-LIST filter | `SearchTextInput` → `commitSearch` | GET `/` |
+| Tree select | S-LIST sidebar | `LinTreeNav` → `handleNavSelect` | GET `/` · GET `/tree` |
+| Refresh | toolbar | `reloadAll` | GET `/` · GET `/tree` |
+| +Thêm | toolbar | `openCreate` → Modal create | POST `/` |
+| Edit (toolbar) | toolbar | `openRow(edit)` | GET `/{id}` · PUT |
+| View (toolbar) | toolbar | `openRow(view)` | GET `/{id}` |
+| Delete (toolbar) | toolbar | `deleteRow` | DELETE `/{id}` |
+| History (toolbar) | toolbar | `useCatalogHistoryModal` | DEFER stub |
+| Config `fa-cog` | toolbar | `LinCatalogUiSchemaEditorModal` | ui-schema |
+| Row View/Edit/Copy/Delete/History | row menu | `handleRowMenuSelect` | same as above |
+| Deep-link `?form=` | URL | create/edit/view/copy | GET `/{id}` when id |
+
+**GAP-P2-ACT-\*:** none — all toolbar/menu actions wired.
+
+## Retry SSOT (HARD — task_2250b015 · trước close)
+
+| # | Check | Live |
+|---|-------|------|
+| 1 | 1× LinPageLayout · cấm nested CatalogListShell | **PASS** |
+| 2 | LinCatalogListPagination footer | **PASS** |
+| 3 | Cấm pageSizeBar / footerPagination / raw `<table>` | **PASS** |
+| 4 | flex + useServerPagedListLoading | **PASS** |
+| 5 | Toolbar config fa-cog · history · row actions | **PASS** |
+| 6 | SearchTextInput only | **PASS** |
+| 7 | **LinCatalogDataGrid** · kéo cột ON · ui-schema bootstrap | **PASS** |
+| 8 | tree_master LinTreeNav + LinTreeGridLayout | **PASS** |
+| 9 | Form View readOnly · kind Dropdown ← init-data only | **PASS** |
+| 10 | FormType pack ACT/CRUD/INIT/QA | **PASS** (this task) |
 
 ## Task pack
 

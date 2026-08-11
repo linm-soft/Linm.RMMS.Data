@@ -55,7 +55,7 @@ PostGIS layers publish → Martin/pg_tileserv · Redis tile cache · SignalR `Gi
 |----|---------|
 | GAP-F-GIS-01 3D Twin | **DONE demo** CesiumJS + real seed · Ion terrain / 3D Tiles → DEFER prod |
 | GAP-F-GIS-02 Vẽ Point/Line/Polygon trên Google | Xem **`gis-draw-google`** (P1 parity) |
-| GAP-F-GIS-03 BE `/api/v1/gis/*` | MISSING → be_align khi Signed (demo only) |
+| GAP-F-GIS-03 BE `/api/v1/gis/*` | **DONE** RMMS.WebService Gis domain + BFF (`api/v1/gis` · `web-bff/api/v1/gis`) · seed layers/geojson/heatmap |
 
 ## 7. Demo checklist
 

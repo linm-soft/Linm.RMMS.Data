@@ -4,9 +4,9 @@
 |-------|-------|
 | feature | `road-route` |
 | status | **done** |
-| review_confirm | **approve** (Autopilot · retry team_lead · task_781e6158) |
-| updatedAt | 2026-08-08T13:07:00.000Z |
-| task | task_781e6158 |
+| review_confirm | **approve** (Autopilot · task_e6f6b6ee) |
+| updatedAt | 2026-08-09T01:40:00.000Z |
+| task | task_e6f6b6ee |
 
 ## Gates
 
@@ -18,7 +18,7 @@
 | SearchInput | **PASS** — parentCode + `/search` |
 | share_a | **PASS** — no tenant filter on entity |
 | no-parent-json | **PASS** — flat scalars + parent_code |
-| SSOT retry re-review | **PASS** — 1× LinPageLayout · CatalogListPagination · View readOnly |
+| SSOT retry re-review | **PASS** — 1× LinPageLayout · LinCatalogDataGrid · LinCatalogListPagination · dropdown init-data only · View readOnly |
 | Row menu + perms | **PASS** — CatalogRowActionMenu · `useRoadRoutePermissions` |
 | Build FE/BE | **PASS** |
 | Prototype + reviewUrl | **PASS** |
@@ -42,7 +42,7 @@
 | skillId | agent-review |
 | skillVersion | 2026.08.08.17 |
 | schemaVersion | 1 |
-| workflowVersion | 2026.08.08.25 |
-| rulesVersion | 2026.08.08.20 |
-| generatedAt | 2026-08-08T13:07:00.000Z |
-| versionGate | ok |
+| workflowVersion | 2026.08.08.31 |
+| rulesVersion | 2026.08.08.25 |
+| generatedAt | 2026-08-09T01:40:00.000Z |
+| versionGate | rechecked |

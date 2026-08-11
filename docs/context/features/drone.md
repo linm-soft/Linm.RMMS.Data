@@ -49,11 +49,11 @@
 
 | Method | Path | Mô tả | BE status |
 |--------|------|-------|-----------|
-| GET/POST | `/api/v1/drone/scans` | CRUD / list scan jobs | **MISSING** (Step 4b khi Signed) |
-| GET/PUT | `/api/v1/drone/scans/{id}` | Chi tiết | **MISSING** |
-| POST | `/api/v1/drone/scans/{id}/process` | Queue xử lý | **MISSING** |
-| GET | `/api/v1/drone/scans/{id}/artifacts` | Artifacts | **MISSING** |
-| POST | `/api/v1/drone/scans/{id}/upload` | Upload batch | **MISSING** |
+| GET/POST | `/api/v1/drone/scans` | CRUD / list scan jobs | **READY** (RMMS.WebService Drone) |
+| GET/PUT/DELETE | `/api/v1/drone/scans/{id}` | Chi tiết / cập nhật / soft-delete | **READY** |
+| POST | `/api/v1/drone/scans/{id}/process` | Queue xử lý (stub → processing) | **READY** |
+| GET | `/api/v1/drone/scans/{id}/artifacts` | Artifacts | **READY** |
+| POST | `/api/v1/drone/scans/{id}/upload` | Upload batch | **STUB** (FE toast P2) |
 
 ```json
 {
@@ -94,7 +94,7 @@ Payload gợi ý: `{scanId, pointCloudKey, orthophotoKey, areaKm2}` · nguồn s
 |----|----------|---------|
 | GAP-F-DRN-01 | OUT P1 | Giữ P2–P3 · badge hub |
 | GAP-F-DRN-02 | Kind | **B+D** + viewer stub · autopilot |
-| GAP-F-DRN-03 | BE endpoints drone/scans/* | MISSING · be_align khi Signed |
+| GAP-F-DRN-03 | BE endpoints drone/scans/* | **READY** · Schema_RmmsDroneScans · task_e4372bbe |
 | GAP-F-DRN-04 | Cesium 3D Tiles live | P2 modal stub · P3 live |
 | GAP-F-DRN-05 | Pipeline PDAL/WebODM | Worker ngoài · process mock demo |
 

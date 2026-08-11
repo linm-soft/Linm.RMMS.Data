@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Prototype — Quản lý người dùng (users) · Kind B A–D</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
+  <style>
+    :root {
+      --bg: #f5f7fa; --card: #fff; --border: #BABCBE; --border-soft: #e9ecef;
+      --txt: #1A1A1A; --muted: #6c757d; --primary: #0d6efd; --toolbar-bg: #f8fafc;
+      --ds-radius-md: 4px; --ds-font-body: 13px; --ds-height-btn: 32px;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: "Segoe UI", system-ui, sans-serif; background: var(--bg); color: var(--txt); font-size: var(--ds-font-body); }
+    .page { max-width: 1280px; margin: 0 auto; padding: 16px; min-height: 100vh; display: flex; flex-direction: column; }
+    .zoneA { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+    .zoneA h1 { margin: 0; font-size: 22px; font-weight: 700; }
+    .badge { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px; background: #e7f1ff; color: #0b5ed7; }
+    .badgeWarn { background: #fff3cd; color: #856404; }
+    .zoneB { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 10px 12px; background: var(--toolbar-bg); border: 1px solid var(--border-soft); border-radius: var(--ds-radius-md); margin-bottom: 10px; }
+    .btn { height: var(--ds-height-btn); padding: 0 12px; border: 1px solid var(--border); border-radius: var(--ds-radius-md); background: #fff; cursor: pointer; font-size: 12px; }
+    .btn.primary { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .filters { display: grid; grid-template-columns: 1fr 180px 180px; gap: 12px; margin-bottom: 10px; }
+    label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--muted); }
+    input, select { min-height: 32px; padding: 6px 10px; border: 1px solid var(--border); border-radius: var(--ds-radius-md); font-size: 13px; }
+    .split { display: grid; grid-template-columns: 240px 1fr; gap: 12px; flex: 1; min-height: 280px; }
+    .tree, .zoneC { background: var(--card); border: 1px solid var(--border-soft); border-radius: var(--ds-radius-md); overflow: auto; }
+    .tree { padding: 10px; }
+    .tree h3 { margin: 0 0 8px; font-size: 13px; }
+    .tree button { display: block; width: 100%; text-align: left; border: 0; background: transparent; padding: 6px 8px; border-radius: 4px; cursor: pointer; font-size: 13px; }
+    .tree button.active { background: #e7f1ff; color: #0b5ed7; font-weight: 600; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 8px 10px; border-bottom: 1px solid var(--border-soft); text-align: left; white-space: nowrap; }
+    th { background: #f8fafc; font-size: 12px; color: var(--muted); }
+    .code { color: var(--primary); font-family: ui-monospace, Menlo, Consolas, monospace; text-decoration: underline; cursor: pointer; }
+    .zoneD { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; margin-top: 8px; gap: 12px; flex-wrap: wrap; }
+    .pager { display: flex; gap: 6px; align-items: center; }
+    .hint { color: var(--muted); font-size: 12px; margin: 0 0 12px; }
+    .slide { position: fixed; top: 0; right: 0; width: min(640px, 100%); height: 100%; background: #fff; border-left: 1px solid var(--border); box-shadow: -8px 0 24px rgba(15,23,42,.12); display: none; flex-direction: column; z-index: 20; }
+    .slide.open { display: flex; }
+    .slide .z1 { display: flex; justify-content: space-between; gap: 8px; padding: 12px 16px; border-bottom: 1px solid var(--border-soft); }
+    .slide .body { padding: 16px; overflow: auto; flex: 1; }
+    .slide .z3 { display: flex; justify-content: flex-end; gap: 8px; padding: 12px 16px; border-top: 1px solid var(--border-soft); }
+    .fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .span2 { grid-column: 1 / -1; }
+    .modal { position: fixed; inset: 0; background: rgba(15,23,42,.35); display: none; align-items: center; justify-content: center; z-index: 30; }
+    .modal.open { display: flex; }
+    .modal-card { width: min(420px, 92vw); background: #fff; border-radius: 8px; padding: 16px; border: 1px solid var(--border-soft); }
+    .pwd-fields { display: flex; flex-direction: column; gap: 10px; margin: 12px 0; }
+  </style>
+</head>
+<body>
+  <div class="page" data-catalog-list-page data-testid="rmms-users-list-prototype">
+    <header class="zoneA" data-zone="A">
+      <i class="fas fa-user-shield" aria-hidden="true"></i>
+      <h1>Quản lý người dùng</h1>
+      <span class="badge">Kind B list</span>
+      <span class="badge badgeWarn">Auth tạm · Integration</span>
+    </header>
+    <p class="hint">Prototype content-only · zones A–D + org tree · Slideout Z1–Z3 · pwd modal · no chrome/menu.</p>
+
+    <div class="zoneB" data-zone="B" data-testid="users-toolbar">
+      <button type="button" class="btn" title="Làm mới"><i class="fas fa-sync-alt"></i> Làm mới</button>
+      <button type="button" class="btn" title="Lịch sử"><i class="fas fa-history"></i> Lịch sử</button>
+      <button type="button" class="btn" title="Cấu hình"><i class="fas fa-cog"></i></button>
+      <button type="button" class="btn" id="btnProfile"><i class="fas fa-id-card"></i> Hồ sơ</button>
+      <button type="button" class="btn" id="btnPwd"><i class="fas fa-key"></i> Đổi MK</button>
+      <button type="button" class="btn primary" id="btnCreate"><i class="fas fa-plus"></i> Tạo mới</button>
+    </div>
+
+    <div class="filters" data-zone="C-filters">
+      <label>Tìm đoạn đường / tuyến / người dùng
+        <input type="search" placeholder="Nhập đoạn đường · tuyến · tên · mã…" />
+      </label>
+      <label>Vai trò
+        <select><option value="">Tất cả</option><option>Admin</option><option>Ban.TK</option><option>Kỹ thuật</option></select>
+      </label>
+      <label>Trạng thái
+        <select><option value="">Tất cả</option><option>active</option><option>locked</option></select>
+      </label>
+    </div>
+
+    <div class="split" data-zone="C">
+      <aside class="tree" data-testid="users-org-tree">
+        <h3>Cây tổ chức</h3>
+        <button type="button" class="active">Tất cả tổ chức</button>
+        <button type="button">└ Cục QLĐB</button>
+        <button type="button">　└ Khu II</button>
+        <button type="button">　　└ VP-II.2</button>
+      </aside>
+      <div class="zoneC">
+        <table>
+          <thead>
+            <tr>
+              <th>STT</th><th>Mã</th><th>Họ tên</th><th>Tổ chức</th>
+              <th>Vai trò</th><th>Tuyến</th><th>Trạng thái</th><th>SĐT</th><th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td><span class="code" id="openView">USR-20260810-0001</span></td>
+              <td>Nguyễn Anh Phúc</td><td>VP-II.2</td><td>Ban.TK</td><td>QL.1</td><td>active</td><td>0912…</td><td>⋮</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td><span class="code">USR-20260809-0003</span></td>
+              <td>Trần Thị B</td><td>Khu II</td><td>Kỹ thuật</td><td>QL.14</td><td>active</td><td>0987…</td><td>⋮</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="zoneD" data-zone="D">
+      <span>Tổng 2 · trang 1/1</span>
+      <div class="pager">
+        <label>Số dòng / trang
+          <select><option>50</option><option>100</option><option>200</option></select>
+        </label>
+        <button type="button" class="btn" disabled>‹</button>
+        <button type="button" class="btn" disabled>›</button>
+      </div>
+    </div>
+  </div>
+
+  <aside class="slide" id="slide" aria-label="Form người dùng">
+    <div class="z1">
+      <div>
+        <button type="button" class="btn" id="btnClose">Đóng</button>
+      </div>
+      <strong id="formTitle">Thêm người dùng</strong>
+    </div>
+    <div class="body">
+      <div class="fields">
+        <label>Mã người dùng<input readonly value="(tự sinh USR-*)" /></label>
+        <label>Tên đăng nhập *<input placeholder="username" /></label>
+        <label class="span2">Họ và tên *<input placeholder="Nguyễn Văn A" /></label>
+        <label>Email *<input type="email" /></label>
+        <label>Số điện thoại<input /></label>
+        <label>Tổ chức *<select><option>VP-II.2</option></select></label>
+        <label>Vai trò<select><option>Ban.TK</option></select></label>
+        <label>Trạng thái<select><option>active</option><option>locked</option></select></label>
+        <label class="span2">Tuyến được phân<input placeholder="QL.1, QL.14" /></label>
+      </div>
+    </div>
+    <div class="z3">
+      <button type="button" class="btn" id="btnClose2">Đóng</button>
+      <button type="button" class="btn primary">Lưu</button>
+    </div>
+  </aside>
+
+  <div class="modal" id="pwdModal">
+    <div class="modal-card">
+      <h3>Đổi mật khẩu</h3>
+      <div class="pwd-fields">
+        <label>MẬT KHẨU CŨ<input type="password" /></label>
+        <label>MẬT KHẨU MỚI<input type="password" /></label>
+        <label>XÁC NHẬN MẬT KHẨU MỚI<input type="password" /></label>
+      </div>
+      <div style="display:flex;justify-content:flex-end;gap:8px">
+        <button type="button" class="btn" id="pwdClose">Đóng</button>
+        <button type="button" class="btn primary">Đổi mật khẩu</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const slide = document.getElementById('slide');
+    const pwd = document.getElementById('pwdModal');
+    document.getElementById('btnCreate').onclick = () => { document.getElementById('formTitle').textContent = 'Thêm người dùng'; slide.classList.add('open'); };
+    document.getElementById('openView').onclick = () => { document.getElementById('formTitle').textContent = 'Xem người dùng'; slide.classList.add('open'); };
+    document.getElementById('btnClose').onclick = () => slide.classList.remove('open');
+    document.getElementById('btnClose2').onclick = () => slide.classList.remove('open');
+    document.getElementById('btnPwd').onclick = () => pwd.classList.add('open');
+    document.getElementById('pwdClose').onclick = () => pwd.classList.remove('open');
+    document.getElementById('btnProfile').onclick = () => alert('Hồ sơ của tôi — modal stub');
+  </script>
+</body>
+</html>

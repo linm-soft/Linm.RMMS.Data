@@ -1,10 +1,11 @@
 # Prototype — gis
 
-Design gate: **prototype + reviewUrl** required before `design_confirm`.
+| Field | Value |
+|-------|-------|
+| reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/gis/ui/prototype/gis-map-prototype.html` |
+| file | `gis-map-prototype.html` |
+| kind | Kind F content-only (zones A–D) |
+| design_confirm | approve (autopilot) |
 
-- Demo SSOT: `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/gis-demo.html`
-- Title: Tính năng map
-- Pack kind: `map`
-- MFE: `Linm.Web.RMMS.Gis`
-
-Put HTML prototype / screenshot link here; update `ui/design.md` with a browser-openable **reviewUrl**.
+Demo SSOT: `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/gis-demo.html` → `../gis/gis.html`  
+MFE: `Linm.Web.RMMS.Gis` · `/gis`

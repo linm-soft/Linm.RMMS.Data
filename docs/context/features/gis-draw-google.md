@@ -5,7 +5,7 @@
 > **Feature Kind:** F/custom map (GIS shell) · Confirmed by: ai-autocode-autopilot 2026-08-02 · vision `002-ban-o-cong-trinh-giao-thong`  
 > **Sources:** GOVOne screenshot `1-ban-do.png` + vision `002`/`003` · `07` §1–§2 · `09` GIS 2D · **sourceKind=legacy**  
 > **Demo HTML (runtime):** `Linm.RMMS.Demo/public/demo/gis/gis-draw-google.html` — Leaflet live · basemap Google proxy (Carto) / Esri / OSM · Leaflet.draw  
-> **Alias live rút gọn:** `gis-draw-live.html`  
+> **Alias live rút gọn / HĐ PL01 slug:** [`gis-draw-live.md`](gis-draw-live.md) · demo `gis-draw-live.html` · MFE `/gis/draw`  
 > **Ảnh ref only:** `public/demo/gis/assets/1-ban-do.png` (không dùng làm map runtime)  
 > **MFE:** `Linm.Web.RMMS.Gis` · page `GisDrawGoogleDemoPage` (`/gis/draw-google`) · `GisDrawLivePage` (`/gis/draw`)  
 > **Parent:** [`gis.md`](gis.md) · liên quan [`asset.md`](asset.md) · [`pavement-section.md`](pavement-section.md)

@@ -1,7 +1,7 @@
 # Vật tư và thiết bị — Feature Context
 
 > **Slug:** `inventory` · **Module:** Inventory (trong `Contract` / Asset) · **Phase:** P3  
-> **Status:** Demo  
+> **Status:** Signed (task_27ba5c23 · MFE `/contract/inventory` · API `inventory-items`)  
 > **Kind:** **B** (CatalogListShell) + **D** (slideout form) — Confirmed by: ai-autocode-autopilot  
 > **Sources:** `RMMS` §12 · `07` Hạng mục 12 · `09` OUT P1 · `15-SCREEN-AI-MAP.md`  
 > **Demo HTML:** `Linm.RMMS.Demo/public/demo/contract/inventory.html`  
@@ -48,14 +48,17 @@
 
 ## 3. API
 
+> DOMAIN-MAP: `inventory` → **Contract** · prefix `api/v1/contract` (**cấm** ERP.*).  
+> Pack Signed: CRUD item + nested moves + KPI. Dedicated stock-moves / assign-wo / gps endpoints = DEFER.
+
 | Method | Path | Mô tả | BE status |
 |--------|------|-------|-----------|
-| GET/POST | `/api/v1/inventory/items` | CRUD vật tư/TB | **MISSING** (Step 4b khi Signed) |
-| GET/PUT | `/api/v1/inventory/items/{id}` | Chi tiết | **MISSING** |
-| GET/POST | `/api/v1/inventory/stock-moves` | Phiếu xuất/nhập | **MISSING** |
-| POST | `/api/v1/inventory/items/{id}/assign-wo` | Gán WorkOrder | **MISSING** |
-| GET | `/api/v1/inventory/items/{id}/gps` | GPS thiết bị | **MISSING** |
-| GET | `/api/v1/inventory/kpi` | KPI tồn / BD | **MISSING** |
+| GET/POST | `/api/v1/contract/inventory-items` | List / create VT/TB | **Signed** (`Linm.RMMS.WebService`) |
+| GET/PUT/DELETE | `/api/v1/contract/inventory-items/{id}` | Chi tiết / update / soft-delete · XCO GET | **Signed** |
+| GET | `/api/v1/contract/inventory-items/kpi` | KPI tồn / BD / GPS | **Signed** |
+| — | moves nested in item DTO | Phiếu xuất/nhập (`rmms_inventory_moves`) | **Signed** |
+| POST | assign-wo dedicated | Gán WorkOrder | **DEFER** (field `woRef` on item) |
+| GET | gps dedicated | GPS thiết bị | **DEFER** (fields gps* on item) |
 
 ```json
 {
@@ -75,7 +78,7 @@
 }
 ```
 
-> Phase demo: **cấm** gọi BE · fake / localStorage only. Align BE khi Status Signed + be_align ON.
+> MFE align: BFF `/contract/inventory-items` · demo vẫn localStorage fallback khi API down.
 
 ## 4. Database
 
@@ -103,7 +106,7 @@ Liên kết WorkOrder → xuất VT · Contract HĐ → cấp phát theo gói.
 |----|----------|---------|
 | GAP-F-INV-01 | OUT P1 · phase P3 | Giữ P3 · badge hub |
 | GAP-F-INV-02 | Host MFE Contract vs Asset | Contract sub-route `/contract/inventory` · autopilot |
-| GAP-F-INV-03 | BE endpoints inventory/* | MISSING · be_align khi Signed |
+| GAP-F-INV-03 | BE endpoints inventory/* | **Signed** `api/v1/contract/inventory-items` · dedicated assign-wo/gps DEFER |
 | GAP-F-INV-04 | GPS realtime Timescale | Leaflet OSM pins demo · Timescale DEFER P3+ |
 | GAP-F-INV-05 | Sync Asset registry | DEFER · GPS/TB có thể mirror Asset |
 

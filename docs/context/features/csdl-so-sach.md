@@ -65,16 +65,16 @@
 | Liên kết AI | Pin «AI new» / QR media thuộc slug `asset` · PCI thuộc `gis` / `ai-vision` |
 | Badge demo | Info «AI link» → asset candidates — **không** hứa auto-fill 12 biểu P1 |
 
-## 3. API (skeleton — **cấm** implement BE ở demo)
+## 3. API (P1 align — Asset domain · DOMAIN-MAP)
 
-### 3.1 CSDL 12 biểu — pattern CRUD
+> **Chốt SA (2026-08-09):** `api/v1/asset/csdl-records` (+ query `resource=`) — **không** dùng `/api/v1/infra/*` ngoài DOMAIN-MAP. BFF `web-bff/api/v1/asset/csdl-records`. MFE `/asset/csdl-so-sach`.
+
+### 3.1 Catalog CRUD (polymorphic)
 
 ```
-GET/POST    /api/v1/infra/{resource}
-GET/PUT/DEL /api/v1/infra/{resource}/{id}
-GET         /api/v1/infra/{resource}/export
-POST        /api/v1/infra/{resource}/import
-GET         /api/v1/reports/infra/form/{formNo}
+GET         /api/v1/asset/csdl-records/catalog
+GET/POST    /api/v1/asset/csdl-records?resource=
+GET/PUT/DEL /api/v1/asset/csdl-records/{id}
 ```
 
 | Resource | Biểu | Entity |
@@ -152,7 +152,7 @@ Platform events **DEFER** tới Signed + BE.
 | GAP-F-CSDL-03 | P2 | Import Excel full 12 sheet — demo toast/stub cột |
 | GAP-P2-KIND-RMMS | Info | Hub Kind G+B+D adapted (không voucher KT) |
 | GAP-P1-CC | P1 | Chưa wire common-components — visual parity only |
-| GAP-P2-ACT | — | Action work gate: **đã** search + Create/Edit/View/Copy form |
+| GAP-P2-ACT | — | Action work gate: search + Create/Edit/View/Copy + **Delete toolbar/row** + deep-link `?resource=&form=` (FormType task_9106e8fa) |
 
 **Synthetic:** **không** mở RECAPTURE-GAPS chỉ vì không có GOVOne.
 

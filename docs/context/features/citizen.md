@@ -44,12 +44,17 @@
 
 | Method | Path | Mô tả | BE status |
 |--------|------|-------|-----------|
-| POST | `/api/v1/public/incidents` | Báo sự cố (+ media meta) | **MISSING** (Step 4b khi Signed) |
-| GET | `/api/v1/public/incidents/{trackingCode}` | Theo dõi xử lý | **MISSING** |
-| POST | `/api/v1/citizen/incident` | Alias rate-limit doc | **MISSING** · đồng bộ schema khi align |
-| POST | `/api/v1/upload/presign` | Presign ảnh/video | **MISSING** · demo file mock only |
+| GET | `/api/v1/integration/citizen-incidents` | Inbox catalog list (paged) | **Signed** · Integration |
+| GET | `/api/v1/integration/citizen-incidents/{id}` | GetById · XCO | **Signed** |
+| POST | `/api/v1/integration/citizen-incidents` | Create · IdCode `CIT-*` | **Signed** |
+| PUT | `/api/v1/integration/citizen-incidents/{id}` | Update | **Signed** |
+| DELETE | `/api/v1/integration/citizen-incidents/{id}` | Soft delete | **Signed** |
+| POST | `/api/v1/public/incidents` | Báo sự cố public (+ media meta) | **Signed** |
+| GET | `/api/v1/public/incidents/{trackingCode}` | Theo dõi xử lý | **Signed** |
+| POST | `/api/v1/citizen/incident` | Alias rate-limit doc | **Signed** · cùng schema |
+| POST | `/api/v1/upload/presign` | Presign ảnh/video | **MISSING** · mediaMeta string stub P1 |
 
-> Phase demo: **cấm** gọi BE · fake / localStorage only. Align BE khi Status Signed + be_align ON.
+> MFE Kind B list `/integration/citizen` · BFF `web-bff/api/v1/integration/citizen-incidents` · localStorage fallback khi BFF down.
 
 ## 4. Database
 
