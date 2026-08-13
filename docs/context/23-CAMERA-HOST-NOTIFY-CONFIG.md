@@ -196,7 +196,7 @@ Nếu cam chỉ hỗ trợ IP:
 | Body | JSON hoặc XML ANPR / Traffic (plate · speed · type · color · direction · ảnh) |
 | Query | `host` = IP camera |
 
-RMMS: `CameraConnectService.IngestIsapi` → queue in-memory → MFE **Tải events**.
+RMMS: `CameraConnectService.IngestIsapiAsync` → **EF** `rmms_camera_events` → MFE **Tải events**.
 
 Response thành công (rút gọn):
 

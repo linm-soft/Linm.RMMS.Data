@@ -59,8 +59,8 @@ Base: `api/v1/cameras` · BFF `web-bff/api/v1/cameras` · domain **Camera** · *
 | POST | `/cameras/connect/test` | Model-aware: TCM403 **SDK-first** (`sdkPort`) · else ISAPI Digest | **DONE** |
 | POST | `/cameras/connect/snapshot` | JPEG **SDK CaptureJPEG** (ưu tiên) · fallback ISAPI nếu HTTP mở | **DONE** |
 | POST | `/cameras/{id}/live/start` | RTSP→gateway play URL | **P2** plan 21 |
-| POST | `/cameras/ingest/isapi` | Webhook Host notify | **DONE** |
-| GET | `/cameras/events` | In-memory event feed | **DONE** |
+| POST | `/cameras/ingest/isapi` | Webhook Host notify → **persist** `CameraEvent` | **DONE** |
+| GET | `/cameras/events` | Event feed from DB (`?host=` optional) | **DONE** |
 
 ### Connect request (real)
 
@@ -112,7 +112,7 @@ Config: `Camera:HikvisionSdk:NativePath` = `native/hikvision` (HiTools — khôn
 | Entity | Key columns | Notes |
 |--------|-------------|-------|
 | `CameraDevice` | Id, Code, Name, ModelCode, Host, HttpPort, RtspPort, SdkPort, Username, PasswordEnc, protocol flags, RoadRouteCode, KmMark, Online, IsActive | Tenant · table `rmms_camera_devices` · soft delete |
-| `CameraEvent` | Id, CameraId, Plate, SpeedKmh, … | Timescale optional · P2 persist |
+| `CameraEvent` | EventCode, CameraDeviceId?, CameraHost, Plate, SpeedKmh, … | **DONE** table `rmms_camera_events` · migration `20260812160439_Schema_RmmsCameraEvents` |
 
 ## 5. Events / tích hợp
 

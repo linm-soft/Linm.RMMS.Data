@@ -4,12 +4,12 @@
 |-------|-------|
 | feature | `camera-connect` |
 | phase | `dev` |
-| status | `pending` |
+| status | `done` |
 | changeScope | `edit_page` |
 | packKind | `list` |
-| gap | `crud_formtype` |
-| mode | `fix_gaps` |
-| taskId | `task_6baf42c3` |
+| gap | `camera_event_persist` |
+| mode | `enhance` |
+| taskId | `task_cam_event_persist_20260812` |
 | demo | `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/camera-connect-demo.html` |
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/camera-connect.md` |
 | planLive | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/21-CAMERA-HLS-WEBRTC-GATEWAY.md` |
@@ -22,7 +22,7 @@
 | versionGate | `rechecked` |
 | mfeStdRoute | `/camera` |
 | mfeStdUrl | `http://localhost:9316/camera` |
-| updatedAt | `2026-08-10T16:20:47.943Z` |
+| updatedAt | `2026-08-12T16:10:00.000Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -46,7 +46,7 @@
 | 2.1 | design | demo = prototype | **confirmed** |
 | 2.2 | sa | model + SDK/ISAPI | **done** |
 | 3 | team_lead | task/camera-connect.md formType pack | **done** (ACT+CRUD) |
-| 4 | dev | implement/camera-connect.md | **done** (T-UI-ACT-01 · T-BE-CRUD-01) |
+| 4 | dev | implement/camera-event-persist.md | **done** (T-BE-EVENT-01 EF persist) |
 | 5 | qa | qa/scenarios.md | **done** (CRUD smoke) |
 | 6 | next | P2-G0 live video gateway | **pending confirm** |
 
@@ -55,6 +55,7 @@
 | id | page | role | status | notes |
 |----|------|------|--------|-------|
 | T-BE-01 | cameras connect ISAPI | dev | **done** | test · ingest · events · Digest |
+| T-BE-EVENT-01 | CameraEvent persist | dev | **done** | EF `rmms_camera_events` · ingest SaveChanges · GET /events from DB |
 | T-BE-02 | model + SDK connect | dev | **done** | Catalog · Login_V40 · `/models` |
 | T-BE-03 | SDK CaptureJPEG | dev | **done** | `CaptureJPEGPicture_NEW` · snapshot `source=sdk` |
 | T-BFF-01 | cameras proxy | dev | **done** | forward raw JSON (no envelope) |
@@ -71,6 +72,14 @@
 | T-BE-SDK-LISTEN | ITS plate callback | — | **deferred** | `COMM_ITS_PLATE_RESULT` |
 | T-P2-G0 | MediaMTX POC | — | **next** | plan 21 · continuous live |
 | T-P2-G1 | live/start + player | — | pending | sau G0 + confirm §12 |
+
+## Verify (task_cam_event_persist_20260812)
+
+| Check | Result |
+|-------|--------|
+| dotnet build Release | **PASS** 0 Error(s) |
+| Migration `20260812160439_Schema_RmmsCameraEvents` | **applied** (docker API log → `__EFMigrationsHistory`) |
+| POST ingest + GET events | **PASS** plate=`TEST-PERSIST-001` persisted |
 
 ## Verify (task_6baf42c3)
 
