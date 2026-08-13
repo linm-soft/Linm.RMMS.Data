@@ -14,7 +14,7 @@
 | mfeRoot | `D:\AI-QLBD` |
 | beRoot | `—` |
 | reason | user_stop_all |
-| notes | slash=/agent-qldb-workflow · packKind=list · runMode=full_pipeline · via=scan-qlbd-form-type · productRoot=D:/AI-QLBD/Linm.RMMS.Data · docsRoot=D:/AI-QLBD/Linm.RMMS.Data/docs · demoRoot=D:/AI-QLBD/Linm.RMMS.Demo/src/demo · demo=D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/incident-demo.html · mfeSource=D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Incident · status=D:/AI-QLBD/Linm.RMMS.Data/specs/incident/ST |
+| notes | slash=/agent-qldb-workflow · packKind=list · runMode=full_pipeline · via=scan-qlbd-form-type · productRoot=D:/AI-QLBD/Linm.RMMS.Data · docsRoot=D:/AI-QLBD/Linm.RMMS.Data/docs · demoRoot=D:/AI-QLBD/Linm.RMMS.Demo/src/demo · demo=D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/incident-demo.html · mfeSource=D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Field · status=D:/AI-QLBD/Linm.RMMS.Data/specs/incident/ST |
 
 ## Done / next (heuristic from worker stream)
 
@@ -33,7 +33,7 @@
 | packKind | `list` |
 | demo | D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/incident-demo.html |
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/incident.md` |
-| mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Incident` |
+| mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Field` |
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · DOMAIN-MAP — **cấm ERP.*** |
 | updatedAt | 2026-08-08T18:20:04.238Z |
 

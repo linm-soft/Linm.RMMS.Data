@@ -38,15 +38,23 @@
 
 | Method | Path | Mô tả |
 |--------|------|-------|
-| POST | `/api/v1/ai-vision/detect-assets` | 1 frame / clip → candidates |
+| GET | `/api/v1/ai-vision/asset-candidates` | List paged + filters (search · route · class · status · dates) |
+| GET | `/api/v1/ai-vision/asset-candidates/init-data` | LOOKUP_STATIC assetClass/status/engine |
+| GET | `/api/v1/ai-vision/asset-candidates/{id}` | GetById (XCO) |
+| POST | `/api/v1/ai-vision/asset-candidates` | Create / Copy Draft |
+| PUT | `/api/v1/ai-vision/asset-candidates/{id}` | Update Draft |
+| DELETE | `/api/v1/ai-vision/asset-candidates/{id}` | Soft-delete Draft |
+| POST | `/api/v1/ai-vision/detect-assets` | 1 frame → candidates (**stub P1**) |
 | POST | `/api/v1/ai-vision/detect-assets/batch` | Batch theo chuyến tuần đường |
-| GET | `/api/v1/ai-vision/asset-candidates?routeId=&from=&to=` | List đề xuất |
-| POST | `/api/v1/ai-vision/asset-candidates/{id}/confirm` | Tạo Asset thật (draft→active) |
-| POST | `/api/v1/ai-vision/asset-candidates/{id}/dismiss` | Bỏ / false positive |
+| GET | `/api/v1/ai-vision/asset-candidates/nearby` | Haversine nearby (demo 25 m) |
+| POST | `/api/v1/ai-vision/asset-candidates/{id}/confirm` | Tạo Asset (`source=ai-asset-detect`) |
+| POST | `/api/v1/ai-vision/asset-candidates/{id}/dismiss` | False positive |
 
-Adapter: cùng `IDefectDiagnoser` pattern hoặc `IAssetDetector` → P1 `Gpt4oVisionAssetDetector` · P2 `OnnxAssetDetector`.
+Lookups (reuse): Integration `road-routes/search` · `asset-types/search` (gồm `ITS_CAMERA`) · Asset `road-assets` (map pins).
 
-**Payload tối thiểu (candidate):** `class` (loại TS) · `score` · `bbox` · `lat`/`lng` · `routeId`/`routeCode` · `sectionId?` · `imageUrl` · `patrolTripId` · `modelVersion`.
+Adapter: `IAssetDetector` → P1 stub / GPT · P2 `OnnxAssetDetector` (DEFER real model).
+
+**Payload tối thiểu (candidate):** `assetClass` · `score` · `bboxJson` · `lat`/`lng` · `routeId` · `routeLabel?` · `sectionId?` · `imageUrl` · `patrolTripId` · `modelVersion` · `engine`.
 
 ## 4. Database
 

@@ -13,7 +13,7 @@
 
 | Layer | Path | Confirm |
 |-------|------|---------|
-| UI | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Incident` | board uiRepo |
+| UI | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Field` | board uiRepo |
 | BE | `D:/AI-QLBD/Linm.RMMS.WebService` · domain **Incident** | board beRepo |
 | Routes | `mfeStdRoute=/incident` | giữ `/incident` |
 
@@ -132,7 +132,7 @@ T-UI-FORM-01 → T-UI-ACT-01 → T-QA-CRUD-01
 |-------|-------|
 | Next | Dev T-UI-ACT-01 · T-BE-CRUD-01 verify · QA-CRUD · Review autopilot |
 | Anti-dup | reuse `incidentService.delete` · BE controller sẵn |
-| UI SSOT | `MFE-Source/Linm.Web.RMMS.Incident` · `pages/IncidentListPage` |
+| UI SSOT | `MFE-Source/Linm.Web.RMMS.Field` · `pages/IncidentListPage` |
 | BE SSOT | `D:/AI-QLBD/Linm.RMMS.WebService` · Incident |
 | HARD | `tl-retry-ssot-rereview` · fix_all · no list rewrite |
 

@@ -73,4 +73,4 @@
 - `erp-list-page-shell.md` · `erp-common-controls-mandatory.md` · leave-confirm
 - Capture raw: `_raw/legacy-govone/features/ops.md`
 - Data context: `docs/context/features/ops.md`
-- MFE ownership: `Linm.Web.RMMS.Notification` · `/ops`
+- MFE ownership: `Linm.Web.RMMS.Field` · `/ops`

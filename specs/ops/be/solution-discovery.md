@@ -115,7 +115,7 @@ Proxy-only `NotificationInboxBffController` + `NotificationOverviewBffController
 - API-01…08 ids
 - FE route `/ops`
 - Perm codes `notification.inbox.*`
-- MFE `Linm.Web.RMMS.Notification`
+- MFE `Linm.Web.RMMS.Field`
 - SignalR OpsHub DEFER P2
 
 ## Version meta (REQUIRED)

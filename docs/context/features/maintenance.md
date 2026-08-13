@@ -5,7 +5,7 @@
 > **Kind:** **B** Catalog list Công việc + Kind **D** slideout WO · Kind **E** KPI stub API only — Confirmed by: ai-autocode-autopilot  
 > **Sources:** `RMMS` §7 · guide **Công việc** · `07` §7 · `09` · `15-SCREEN-AI-MAP.md` · GOVOne vision 009/013/014/015  
 > **Demo HTML:** `Linm.RMMS.Demo/src/demo/features/maintenance-demo.html`  
-> **MFE (align):** `Linm.Web.RMMS.Maintenance` · **BE:** `Linm.RMMS.WebService` domain Maintenance (**cấm** ERP.*)
+> **MFE (align):** `Linm.Web.RMMS.Field` · **BE:** `Linm.RMMS.WebService` domain Maintenance (**cấm** ERP.*)
 
 ## 1. Tổng quan
 

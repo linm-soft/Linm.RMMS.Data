@@ -7,7 +7,7 @@
 | status | `confirmed` (autopilot) |
 | changeScope | `edit_page` |
 | packKind | `list` |
-| mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Incident` (`/incident`) |
+| mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Field` (`/incident`) |
 | updatedAt | 2026-08-09T16:20:00.000Z |
 | design_confirm | `approve` (autopilot · task_ddc8f330) |
 
@@ -80,7 +80,7 @@ STT · □ · **Mã** · **Tiêu đề** · **Đoạn** · **Loại** · **Mức
 
 - API list/CRUD `api/v1/incident/incidents`
 - Optional assign/close endpoints
-- MFE `Linm.Web.RMMS.Incident` · `/incident`
+- MFE `Linm.Web.RMMS.Field` · `/incident`
 
 ## Version meta (REQUIRED)
 

@@ -45,6 +45,34 @@ Tất cả các thiết bị trong danh sách này đều hỗ trợ **Edge AI (
 
 ---
 
+## 1b. Độ chính xác Edge AI (theo datasheet Hikvision)
+
+> **Nguồn:** trang sản phẩm / datasheet chính thức · số đo **dưới điều kiện lắp đặt & ánh sáng khuyến nghị**.  
+> Thực địa VN (mưa, ngược sáng, biển bẩn, góc lệch) có thể thấp hơn — cần UAT tuyến.  
+> **Ngày tra:** 2026-08-12.
+
+| Model (catalog RMMS) | Bắt xe (capture) | Đọc biển (LPR) | Hướng xe | Tốc độ | Đếm / phân loại | Ghi chú |
+|----------------------|------------------|----------------|----------|--------|-----------------|---------|
+| **iDS-TCM403-GIR** | **> 99%** | **> 98%** | **> 98.5%** | Radar 77 GHz · tới **~120 km/h** · sai số tham chiếu dự án **±2 km/h** · phủ tới 3 làn | Traffic flow / đếm trên cam; loại xe: Car, Van, Bus, Truck, Light Truck, SUV, Pickup, Motorcycle, Tricycle · màu (ban ngày) | Mistaken capture **< 2%** · VN nằm vùng Asia-Pacific LPR · [product](https://www.hikvision.com/en/products/ITS-Products/traffic-cameras/urban-road-anpr-cameras/ids-tcm403-gir/) |
+| **iDS-2CD7A46G0/…** (QL tốc độ cao) | **≥ 99%** | **≥ 98%** | **≥ 98%** | Capture tới **120 km/h** (lắp trước) / **80 km/h** (lắp bên) — **không** radar tích hợp mặc định | Đếm xe + non-vehicle; loại/màu/hãng/hướng | Checkpoint scenario · DeepinView ANPR |
+| **iDS-2CD7A26G0/…** (liên tỉnh) | **≥ 99%** | **≥ 98%** | **≥ 98%** | Tới **120 / 80 km/h** (trước / bên) — như trên | Đếm xe + non-vehicle; loại/màu/hãng | 2 MP DarkFighter · tối ưu đêm |
+| **iDS-2CD7146G0-IZS** / **2CD7A46G0-IZHS** (đô thị hỗn hợp) | *Không công bố % LPR giống dòng ANPR checkpoint* | *Không công bố cùng bộ số ≥98%* | — | Không radar ANPR | Mixed-traffic / people+vehicle counting (Guanlan) — **không có % đếm công bố rõ trên datasheet** | Ưu tiên lọc false alarm (bóng cây, thú, thời tiết) hơn ANPR tốc độ cao |
+
+**Tóm tắt cho khách / BA:**
+
+| Chỉ tiêu | Band datasheet (cam Edge ANPR chính) |
+|----------|--------------------------------------|
+| Đọc biển số | **≥ / > 98%** |
+| Bắt được xe qua vạch (capture / gắn với đếm sự kiện) | **≥ / > 99%** |
+| Nhận hướng di chuyển | **≥ 98%** (TCM403: **> 98.5%**) |
+| Tốc độ (chỉ TCM403 có radar sẵn) | Tới **120 km/h** · sai số tham chiếu **±2 km/h** (docs RMMS) |
+| Phân loại loại xe | Có danh mục class — **Hikvision không công bố % riêng** trên datasheet các model trên |
+| Đếm xe đô thị hỗn hợp (7146) | Có chức năng — **chưa có % chính thức** trong tài liệu public đã tra |
+
+**Không** dùng các % trên làm SLA pháp lý tốc độ/phạt nguội nếu chưa hiệu chuẩn radar + UAT hiện trường.
+
+---
+
 ## 2. Thông số Kỹ thuật chung phục vụ Tích hợp C#
 
 ### Giao thức truyền dữ liệu về Server

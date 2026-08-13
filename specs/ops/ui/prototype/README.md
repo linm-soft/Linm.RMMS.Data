@@ -8,5 +8,5 @@ Design gate: **prototype + reviewUrl** — **approve** (autopilot · task_9c3e9d
 | Zones | A–D + Slideout Z1–Z3 · content-only |
 | **reviewUrl** | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/ops/ui/prototype/ops-list-prototype.html` |
 | Demo SSOT | `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/ops-demo.html` → `ops/ops.html` |
-| MFE | `Linm.Web.RMMS.Notification` · `/ops` |
+| MFE | `Linm.Web.RMMS.Field` · `/ops` |
 | BE | `Linm.RMMS.WebService` · Notification · **cấm ERP.*** |

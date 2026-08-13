@@ -8,7 +8,7 @@
 > **Demo HTML:** `Linm.RMMS.Demo/public/demo/incident/incident.html` · redirect `features/incident-demo.html`  
 > **Control-map:** [`_raw/legacy-govone/demo-maps/incident-control-map.md`](../_raw/legacy-govone/demo-maps/incident-control-map.md) · actions 47  
 > **Catalog:** `src/demoCatalog.ts` slug `incident` · badge `run` · aiSupport  
-> **MFE align (sau Signed):** `Linm.Web.RMMS.Incident` · `/incident`
+> **MFE align (sau Signed):** `Linm.Web.RMMS.Field` · `/incident`
 
 ## 1. Tổng quan
 
@@ -43,7 +43,7 @@
 
 > **Signed (P1 list pack · task_ddc8f330):** domain **Incident** · BE `Linm.RMMS.WebService` · **cấm ERP.***  
 > Prefix SSOT DOMAIN-MAP: `api/v1/incident` · resource: **`/incidents`**.  
-> BFF: `web-bff/api/v1/incident/incidents`. MFE: `Linm.Web.RMMS.Incident` · `/incident`.
+> BFF: `web-bff/api/v1/incident/incidents`. MFE: `Linm.Web.RMMS.Field` · `/incident`.
 
 | Method | Path |
 |--------|------|

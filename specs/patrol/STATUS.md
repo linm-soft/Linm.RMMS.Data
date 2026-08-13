@@ -10,7 +10,7 @@
 | runMode | `fix_gaps` · gap=`crud_formtype` |
 | demo | `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/patrol-demo.html` |
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/patrol.md` |
-| mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Patrol` |
+| mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Field` |
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · **`api/v1/patrol/sessions`** (**cấm ERP.***) |
 | domain | **Patrol** |
 | taskId | `task_e0173ab6` |
@@ -45,7 +45,7 @@
 | design_confirm | **approve** (autopilot) |
 | solution_confirm | **approve** (autopilot) |
 | be_repo_confirm | **approve** (packet default `Linm.RMMS.WebService`) |
-| ui_repo_confirm | **approve** (packet default `Linm.Web.RMMS.Patrol`) |
+| ui_repo_confirm | **approve** (packet default `Linm.Web.RMMS.Field`) |
 | version_mismatch_action | **recheck_new** |
 | review_confirm | **approve** (autopilot) |
 | autoApprove | **ON** |

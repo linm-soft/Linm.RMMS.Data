@@ -13,7 +13,7 @@
 
 | Layer | Path | Confirm |
 |-------|------|---------|
-| UI | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Patrol` | autopilot packet default |
+| UI | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Field` | autopilot packet default |
 | BE | `D:/AI-QLBD/Linm.RMMS.WebService` · domain **Patrol** | autopilot packet default |
 | Routes | `mfeStdRoute=/patrol` | `mfeStdUrl=http://localhost:9304/patrol` |
 
@@ -127,7 +127,7 @@ T-UI-FORM-01 → T-UI-ACT-01 → T-QA-CRUD-01
 |-------|-------|
 | Next | Dev T-UI-ACT-01 · T-BE-CRUD-01 verify · QA-CRUD · Review autopilot |
 | Anti-dup | reuse `patrolService.delete` · BE controller sẵn · **cấm** rewrite LIST/FORM |
-| UI SSOT | `MFE-Source/Linm.Web.RMMS.Patrol` · `pages/PatrolListPage` |
+| UI SSOT | `MFE-Source/Linm.Web.RMMS.Field` · `pages/PatrolListPage` |
 | BE SSOT | `D:/AI-QLBD/Linm.RMMS.WebService` · Patrol |
 | HARD | `tl-retry-ssot-rereview` · fix_all · no list rewrite |
 

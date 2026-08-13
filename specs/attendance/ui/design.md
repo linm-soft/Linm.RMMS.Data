@@ -7,7 +7,7 @@
 | status | `confirmed` (autopilot) |
 | changeScope | `edit_page` |
 | packKind | `list` |
-| mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Patrol` (`/patrol/attendance`) |
+| mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Field` (`/patrol/attendance`) |
 | updatedAt | 2026-08-09T01:56:00.000Z |
 | design_confirm | `approve` (autopilot · task_b83eaaf1) |
 

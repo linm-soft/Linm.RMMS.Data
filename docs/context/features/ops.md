@@ -5,7 +5,7 @@
 > **Kind:** **B** (CatalogListShell inbox) + **D** (slideout compose/detail) — Confirmed by: ai-autocode-autopilot  
 > **Sources:** `RMMS` §9 · guide **Giám sát** notify · `07` §9 · `15-SCREEN-AI-MAP.md`  
 > **Demo HTML:** `Linm.RMMS.Demo/src/demo/ops/ops.html`  
-> **MFE (align):** `Linm.Web.RMMS.Notification` · route `/ops` · Kind B+D implemented (`task_9c3e9db0`)  
+> **MFE (align):** `Linm.Web.RMMS.Field` · route `/ops` · Kind B+D implemented (`task_9c3e9db0`)  
 > **≠** GOVOne Giám sát map (`patrol`) — realtime map → Patrol/Gis
 
 ## 1. Tổng quan

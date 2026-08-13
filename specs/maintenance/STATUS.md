@@ -10,7 +10,7 @@
 | runMode | `fix_gaps` · gap=`crud_formtype` |
 | demo | D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/maintenance-demo.html |
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/maintenance.md` |
-| mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Maintenance` |
+| mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Field` |
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · **`api/v1/maintenance/work-orders`** (**cấm ERP.***) |
 | domain | **Maintenance** |
 | updatedAt | `2026-08-10T16:52:15.764Z` |

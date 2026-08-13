@@ -10,7 +10,7 @@
 | runMode | `fix_gaps` · gap=`crud_formtype` |
 | demo | `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/ops-demo.html` |
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/ops.md` |
-| mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Notification` |
+| mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Field` |
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · **`api/v1/notification/inbox`** (**cấm ERP.***) |
 | domain | **Notification** |
 | taskId | `task_02070244` |
@@ -45,7 +45,7 @@
 | design_confirm | **approve** (autopilot) |
 | solution_confirm | **approve** (autopilot) |
 | be_repo_confirm | **approve** (packet default `Linm.RMMS.WebService`) |
-| ui_repo_confirm | **approve** (packet default `Linm.Web.RMMS.Notification`) |
+| ui_repo_confirm | **approve** (packet default `Linm.Web.RMMS.Field`) |
 | version_mismatch_action | **recheck_new** |
 | review_confirm | **approve** (autopilot) |
 | autoApprove | **ON** |

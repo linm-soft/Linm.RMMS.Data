@@ -7,7 +7,7 @@
 | status | `confirmed` (autopilot) |
 | changeScope | `edit_page` |
 | packKind | `list` |
-| mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Patrol` (`/patrol`) |
+| mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Field` (`/patrol`) |
 | updatedAt | 2026-08-10T01:32:00.000Z |
 | design_confirm | `approve` (autopilot · task_760475f2) |
 

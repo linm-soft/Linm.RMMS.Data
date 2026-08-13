@@ -7,7 +7,7 @@
 | status | `confirmed` (autopilot) |
 | changeScope | `edit_page` |
 | packKind | `list` |
-| mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Notification` (`/ops`) |
+| mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Field` (`/ops`) |
 | updatedAt | 2026-08-10T02:12:00.000Z |
 | design_confirm | `approve` (autopilot · task_9c3e9db0) |
 
@@ -81,7 +81,7 @@ STT · □ · **Mã** · **Tiêu đề** · **Người gửi** · **Người nh�
 - API list/CRUD `api/v1/notification/inbox`
 - Overview `api/v1/notification/overview`
 - Mark-read / mark-all-read
-- MFE `Linm.Web.RMMS.Notification` · `/ops`
+- MFE `Linm.Web.RMMS.Field` · `/ops`
 
 ## Version meta (REQUIRED)
 

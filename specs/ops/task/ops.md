@@ -13,7 +13,7 @@
 
 | Layer | Path | Confirm |
 |-------|------|---------|
-| UI | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Notification` | autopilot packet default |
+| UI | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Field` | autopilot packet default |
 | BE | `D:/AI-QLBD/Linm.RMMS.WebService` · domain **Notification** | autopilot packet default |
 | Routes | `mfeStdRoute=/ops` | `mfeStdUrl=http://localhost:9308/ops` |
 
@@ -134,7 +134,7 @@ T-UI-FORM-01 → T-UI-ACT-01 → T-QA-CRUD-01
 |-------|-------|
 | Next | Dev T-UI-ACT-01 · T-BE-CRUD-01 verify · QA-CRUD · Review autopilot |
 | Anti-dup | reuse `notificationService.delete` · BE controller sẵn |
-| UI SSOT | `MFE-Source/Linm.Web.RMMS.Notification` · `pages/NotificationListPage` |
+| UI SSOT | `MFE-Source/Linm.Web.RMMS.Field` · `pages/NotificationListPage` |
 | BE SSOT | `D:/AI-QLBD/Linm.RMMS.WebService` · Notification |
 | HARD | `tl-retry-ssot-rereview` · fix_all · no list rewrite |
 

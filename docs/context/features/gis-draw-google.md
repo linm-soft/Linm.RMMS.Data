@@ -1,7 +1,7 @@
 # Vẽ tài sản trên Google Map — Feature Context
 
 > **Slug:** `gis-draw-google` · **Module:** `Gis` + `Asset` · **Phase:** P1  
-> **Status:** Demo  
+> **Status:** Implemented (`/gis/draw-google` · `api/v1/gis/drawings`)  
 > **Feature Kind:** F/custom map (GIS shell) · Confirmed by: ai-autocode-autopilot 2026-08-02 · vision `002-ban-o-cong-trinh-giao-thong`  
 > **Sources:** GOVOne screenshot `1-ban-do.png` + vision `002`/`003` · `07` §1–§2 · `09` GIS 2D · **sourceKind=legacy**  
 > **Demo HTML (runtime):** `Linm.RMMS.Demo/public/demo/gis/gis-draw-google.html` — Leaflet live · basemap Google proxy (Carto) / Esri / OSM · Leaflet.draw  

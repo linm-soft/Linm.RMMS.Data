@@ -6,7 +6,7 @@
 > **sourceKind:** `synthetic` · suy luận product docs (không đợi GOVOne leaf)  
 > **Sources:** `Hướng dẫn…` Check-in · `RMMS` §5 · `07` § Hạng mục 5 · `15-SCREEN-AI-MAP.md` #4–5  
 > **Demo HTML:** `Linm.RMMS.Demo/src/demo/features/attendance-demo.html` → `patrol/attendance.html`  
-> **MFE (align):** `Linm.Web.RMMS.Patrol` · route `/patrol/attendance` · BE `Linm.RMMS.WebService` domain Patrol
+> **MFE (align):** `Linm.Web.RMMS.Field` · route `/patrol/attendance` · BE `Linm.RMMS.WebService` domain Patrol
 
 ## 1. Tổng quan
 

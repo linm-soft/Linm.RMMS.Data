@@ -11,7 +11,7 @@
 
 ## 1. Goal
 
-Chỉnh **Chỉ đạo điều hành** từ demo mock → list catalog parity (erp-form-context Kind B) + form Slideout Kind D. Align demo → MFE `Linm.Web.RMMS.Notification` · BE `Linm.RMMS.WebService` domain **Notification**.
+Chỉnh **Chỉ đạo điều hành** từ demo mock → list catalog parity (erp-form-context Kind B) + form Slideout Kind D. Align demo → MFE `Linm.Web.RMMS.Field` · BE `Linm.RMMS.WebService` domain **Notification**.
 
 **≠** GOVOne Giám sát map (`patrol`) — realtime map **cấm** embed; nav sang Patrol/Gis.
 

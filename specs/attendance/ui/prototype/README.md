@@ -6,6 +6,6 @@ Repo confirm: user tick BE+UI trên `/qldb-workflow` Progress trước Dev (**kh
 - Demo SSOT: `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/attendance-demo.html`
 - Title: Chấm công và định vị
 - Pack kind: `list`
-- MFE: `Linm.Web.RMMS.Patrol`
+- MFE: `Linm.Web.RMMS.Field`
 
 Put HTML prototype / screenshot link here; update `ui/design.md` with a browser-openable **reviewUrl**.

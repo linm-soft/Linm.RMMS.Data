@@ -13,7 +13,7 @@
 
 | Layer | Path | Confirm |
 |-------|------|---------|
-| UI | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Maintenance` | autopilot packet default |
+| UI | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Field` | autopilot packet default |
 | BE | `D:/AI-QLBD/Linm.RMMS.WebService` · domain **Maintenance** | autopilot packet default |
 | Routes | `mfeStdRoute=/maintenance` | autopilot |
 
@@ -132,7 +132,7 @@ T-UI-FORM-01 → T-UI-ACT-01 → T-QA-CRUD-01
 |-------|-------|
 | Next | Dev T-UI-ACT-01 · T-BE-CRUD-01 verify · QA-CRUD · Review autopilot |
 | Anti-dup | reuse `maintenanceService.delete` · BE controller sẵn |
-| UI SSOT | `MFE-Source/Linm.Web.RMMS.Maintenance` · `pages/MaintenanceListPage` |
+| UI SSOT | `MFE-Source/Linm.Web.RMMS.Field` · `pages/MaintenanceListPage` |
 | BE SSOT | `D:/AI-QLBD/Linm.RMMS.WebService` · Maintenance |
 | HARD | `tl-retry-ssot-rereview` · fix_all · no list rewrite |
 

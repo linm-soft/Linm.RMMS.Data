@@ -7,7 +7,7 @@
 | status | `confirmed` (autopilot) |
 | changeScope | `edit_page` |
 | packKind | `list` |
-| mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Maintenance` (`/maintenance`) |
+| mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Field` (`/maintenance`) |
 | updatedAt | 2026-08-10T00:22:00.000Z |
 | design_confirm | `approve` (autopilot · task_e4d75335) |
 
@@ -81,7 +81,7 @@ STT · □ · **Mã** · **Tuyến** · **Loại** · **Đội** · **Cán bộ*
 
 - API list/CRUD `api/v1/maintenance/work-orders`
 - Optional progress / complete endpoints
-- MFE `Linm.Web.RMMS.Maintenance` · `/maintenance`
+- MFE `Linm.Web.RMMS.Field` · `/maintenance`
 
 ## Version meta (REQUIRED)
 

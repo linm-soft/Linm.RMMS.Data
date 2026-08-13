@@ -108,7 +108,7 @@ Proxy-only `IncidentsBffController` → API paths trên. Keep health `IncidentBf
 - API-01…07 ids
 - FE route `/incident`
 - Perm codes `incident.incidents.*`
-- MFE `Linm.Web.RMMS.Incident`
+- MFE `Linm.Web.RMMS.Field`
 
 ## Version meta (REQUIRED)
 

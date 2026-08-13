@@ -11,7 +11,7 @@
 | gap | `crud_formtype` |
 | demo | `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/attendance-demo.html` |
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/attendance.md` |
-| mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Patrol` |
+| mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Field` |
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · **`api/v1/patrol/attendance-logs`** (**cấm ERP.***) |
 | domain | **Patrol** |
 | taskId | `task_13e76e73` |
@@ -41,7 +41,7 @@
 | design_confirm | **approve** (prior · autopilot) |
 | solution_confirm | **approve** (prior · autopilot) |
 | be_repo_confirm | **approve** (packet `Linm.RMMS.WebService`) |
-| ui_repo_confirm | **approve** (packet `Linm.Web.RMMS.Patrol`) |
+| ui_repo_confirm | **approve** (packet `Linm.Web.RMMS.Field`) |
 | version_mismatch_action | **recheck_new** |
 | review_confirm | **approve** (autopilot) |
 

@@ -11,7 +11,7 @@
 
 ## 1. Goal
 
-Chỉnh **Lập lịch sửa chữa / bảo trì** từ demo mock → list catalog parity (erp-form-context Kind B) + form Slideout Kind D cho **Work Order**. Align demo → MFE `Linm.Web.RMMS.Maintenance` · BE `Linm.RMMS.WebService` domain **Maintenance**.
+Chỉnh **Lập lịch sửa chữa / bảo trì** từ demo mock → list catalog parity (erp-form-context Kind B) + form Slideout Kind D cho **Work Order**. Align demo → MFE `Linm.Web.RMMS.Field` · BE `Linm.RMMS.WebService` domain **Maintenance**.
 
 ## 2. Current → New (edit_page)
 

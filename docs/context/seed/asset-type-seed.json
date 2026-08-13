@@ -1,8 +1,8 @@
-[
+﻿[
   {
     "id": "c1d2e3f4-a5b6-4789-c012-000000000001",
     "code": "CULVERT_X",
-    "name": "Cống thoát nước ngang",
+    "name": "Cá»‘ng thoÃ¡t nÆ°á»›c ngang",
     "groupCode": "THOAT_NUOC",
     "icon": null,
     "legacyAliases": [],
@@ -12,7 +12,7 @@
   {
     "id": "c1d2e3f4-a5b6-4789-c012-000000000002",
     "code": "INTERCHANGE",
-    "name": "Nút giao đường bộ",
+    "name": "NÃºt giao Ä‘Æ°á»ng bá»™",
     "groupCode": "GIAO_THONG",
     "icon": null,
     "legacyAliases": [],
@@ -22,7 +22,7 @@
   {
     "id": "c1d2e3f4-a5b6-4789-c012-000000000003",
     "code": "SLOPE_PROTECT",
-    "name": "Bảo vệ mái dốc",
+    "name": "Báº£o vá»‡ mÃ¡i dá»‘c",
     "groupCode": "AN_TOAN",
     "icon": null,
     "legacyAliases": [],
@@ -32,7 +32,7 @@
   {
     "id": "c1d2e3f4-a5b6-4789-c012-000000000004",
     "code": "LIGHTING",
-    "name": "Hệ thống chiếu sáng đường",
+    "name": "Há»‡ thá»‘ng chiáº¿u sÃ¡ng Ä‘Æ°á»ng",
     "groupCode": "GIAO_THONG",
     "icon": null,
     "legacyAliases": [],
@@ -42,7 +42,7 @@
   {
     "id": "c1d2e3f4-a5b6-4789-c012-000000000005",
     "code": "GANTRY_SIGN",
-    "name": "Giá long môn – biển báo",
+    "name": "GiÃ¡ long mÃ´n â€“ biá»ƒn bÃ¡o",
     "groupCode": "GIAO_THONG",
     "icon": null,
     "legacyAliases": [],
@@ -52,7 +52,7 @@
   {
     "id": "c1d2e3f4-a5b6-4789-c012-000000000006",
     "code": "GUARDRAIL",
-    "name": "Hộ lan – tôn sóng – hàng rào bảo vệ",
+    "name": "Há»™ lan â€“ tÃ´n sÃ³ng â€“ hÃ ng rÃ o báº£o vá»‡",
     "groupCode": "AN_TOAN",
     "icon": null,
     "legacyAliases": [],
@@ -62,7 +62,7 @@
   {
     "id": "c1d2e3f4-a5b6-4789-c012-000000000007",
     "code": "DELINEATOR",
-    "name": "Cọc tiêu / cọc H",
+    "name": "Cá»c tiÃªu / cá»c H",
     "groupCode": "AN_TOAN",
     "icon": null,
     "legacyAliases": [],
@@ -72,7 +72,7 @@
   {
     "id": "c1d2e3f4-a5b6-4789-c012-000000000008",
     "code": "CULVERT_L",
-    "name": "Cống dọc – rảnh dọc – hào kỹ thuật dọc",
+    "name": "Cá»‘ng dá»c â€“ ráº£nh dá»c â€“ hÃ o ká»¹ thuáº­t dá»c",
     "groupCode": "THOAT_NUOC",
     "icon": null,
     "legacyAliases": [],
@@ -82,7 +82,7 @@
   {
     "id": "c1d2e3f4-a5b6-4789-c012-000000000009",
     "code": "MEDIAN",
-    "name": "Dải phân cách giữa",
+    "name": "Dáº£i phÃ¢n cÃ¡ch giá»¯a",
     "groupCode": "AN_TOAN",
     "icon": null,
     "legacyAliases": [],
@@ -92,7 +92,7 @@
   {
     "id": "c1d2e3f4-a5b6-4789-c012-00000000000a",
     "code": "ROW_UTIL",
-    "name": "Công trình HTKT trong hành lang đường bộ",
+    "name": "CÃ´ng trÃ¬nh HTKT trong hÃ nh lang Ä‘Æ°á»ng bá»™",
     "groupCode": "KHAC",
     "icon": null,
     "legacyAliases": [],
@@ -102,7 +102,7 @@
   {
     "id": "c1d2e3f4-a5b6-4789-c012-00000000000b",
     "code": "STATION_HOUSE",
-    "name": "Nhà hạt quản lý đường bộ",
+    "name": "NhÃ  háº¡t quáº£n lÃ½ Ä‘Æ°á»ng bá»™",
     "groupCode": "NHA_TRAM",
     "icon": null,
     "legacyAliases": [],
@@ -112,7 +112,7 @@
   {
     "id": "c1d2e3f4-a5b6-4789-c012-00000000000c",
     "code": "RETAINING",
-    "name": "Kè / tường chắn",
+    "name": "KÃ¨ / tÆ°á»ng cháº¯n",
     "groupCode": "AN_TOAN",
     "icon": null,
     "legacyAliases": [],
@@ -122,7 +122,7 @@
   {
     "id": "c1d2e3f4-a5b6-4789-c012-00000000000d",
     "code": "KM_POST",
-    "name": "Cột Km",
+    "name": "Cá»™t Km",
     "groupCode": "GIAO_THONG",
     "icon": null,
     "legacyAliases": [],
@@ -132,7 +132,7 @@
   {
     "id": "c1d2e3f4-a5b6-4789-c012-00000000000e",
     "code": "BUS_STATION",
-    "name": "Bến xe bus / xe khách",
+    "name": "Báº¿n xe bus / xe khÃ¡ch",
     "groupCode": "GIAO_THONG",
     "icon": null,
     "legacyAliases": [],
@@ -142,7 +142,7 @@
   {
     "id": "c1d2e3f4-a5b6-4789-c012-00000000000f",
     "code": "UNDERPASS",
-    "name": "Cống chui dân sinh / hào kỹ thuật",
+    "name": "Cá»‘ng chui dÃ¢n sinh / hÃ o ká»¹ thuáº­t",
     "groupCode": "THOAT_NUOC",
     "icon": null,
     "legacyAliases": [],
@@ -152,7 +152,7 @@
   {
     "id": "c1d2e3f4-a5b6-4789-c012-000000000010",
     "code": "RAIL_CROSS",
-    "name": "Điểm giao bằng đường sắt",
+    "name": "Äiá»ƒm giao báº±ng Ä‘Æ°á»ng sáº¯t",
     "groupCode": "GIAO_THONG",
     "icon": null,
     "legacyAliases": [],
@@ -162,7 +162,7 @@
   {
     "id": "c1d2e3f4-a5b6-4789-c012-000000000011",
     "code": "BUS_STOP",
-    "name": "Điểm đỗ/dừng xe bus",
+    "name": "Äiá»ƒm Ä‘á»—/dá»«ng xe bus",
     "groupCode": "GIAO_THONG",
     "icon": null,
     "legacyAliases": [],
@@ -172,7 +172,7 @@
   {
     "id": "c1d2e3f4-a5b6-4789-c012-000000000012",
     "code": "EMS_POST",
-    "name": "Trạm trực cấp cứu y tế",
+    "name": "Tráº¡m trá»±c cáº¥p cá»©u y táº¿",
     "groupCode": "NHA_TRAM",
     "icon": null,
     "legacyAliases": [],
@@ -182,7 +182,7 @@
   {
     "id": "c1d2e3f4-a5b6-4789-c012-000000000013",
     "code": "TOLL",
-    "name": "Trạm thu phí",
+    "name": "Tráº¡m thu phÃ­",
     "groupCode": "GIAO_THONG",
     "icon": null,
     "legacyAliases": [],
@@ -192,7 +192,7 @@
   {
     "id": "c1d2e3f4-a5b6-4789-c012-000000000014",
     "code": "TUNNEL",
-    "name": "Hầm",
+    "name": "Háº§m",
     "groupCode": "GIAO_THONG",
     "icon": null,
     "legacyAliases": [],
@@ -202,7 +202,7 @@
   {
     "id": "c1d2e3f4-a5b6-4789-c012-000000000015",
     "code": "FERRY",
-    "name": "Bến phà và phà",
+    "name": "Báº¿n phÃ  vÃ  phÃ ",
     "groupCode": "GIAO_THONG",
     "icon": null,
     "legacyAliases": [],
@@ -212,7 +212,7 @@
   {
     "id": "c1d2e3f4-a5b6-4789-c012-000000000016",
     "code": "REST_AREA",
-    "name": "Trạm dừng nghỉ / bãi đỗ xe",
+    "name": "Tráº¡m dá»«ng nghá»‰ / bÃ£i Ä‘á»— xe",
     "groupCode": "GIAO_THONG",
     "icon": null,
     "legacyAliases": [],
@@ -222,11 +222,22 @@
   {
     "id": "c1d2e3f4-a5b6-4789-c012-000000000017",
     "code": "LAND_ROW",
-    "name": "Đất thuộc tài sản hạ tầng đường bộ",
+    "name": "Äáº¥t thuá»™c tÃ i sáº£n háº¡ táº§ng Ä‘Æ°á»ng bá»™",
     "groupCode": "KHAC",
     "icon": null,
     "legacyAliases": [],
     "isActive": true,
     "sortOrder": 23
+  }
+,
+  {
+    "id": "c1d2e3f4-a5b6-4789-c012-000000000024",
+    "code": "ITS_CAMERA",
+    "name": "Camera ITS / camera giám sát giao thông",
+    "groupCode": "GIAO_THONG",
+    "icon": null,
+    "legacyAliases": [],
+    "isActive": true,
+    "sortOrder": 24
   }
 ]

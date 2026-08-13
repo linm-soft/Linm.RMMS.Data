@@ -35,12 +35,12 @@
 | 3c | `its-traffic-detect` | ITS object detect (biển báo · cọc tiêu · edge/dashcam/CCTV) | AiVision×Iot×Asset×Gis | P1 design / P2 local edge+PostGIS | Map realtime · dedupe 10 m · OTA model · triangulation | Context | [its-traffic-detect.md](its-traffic-detect.md) · [../16-…](../16-ITS-TRAFFIC-OBJECT-DETECTION-DESIGN.md) |
 | 3d | `its-anpr-overload` | ITS ANPR biển số · Cục Đăng kiểm · xác nhận lỗi tốc độ/quá tải | AiVision×Iot×Incident | **P2 core** (demo P1) | Camera+WIM → registry trục·GVW → HITL Confirm | Demo | [its-anpr-overload.md](its-anpr-overload.md) · [../18-…](../18-ITS-ANPR-OVERLOAD-SPEC.md) |
 | 3e | `camera-connect` | Kết nối camera ITS / **HĐ `camera-gtvt`** (PL01 03c · gói C) | **Camera** | P1 Demo / P2 BE | Seed **iDS-TCM403-GIR** · BE defer | Demo | [camera-connect.md](camera-connect.md) · [../camera-model.md](../camera-model.md) · alias HĐ=`camera-gtvt` |
-| 4 | `patrol` | Tuần đường / tuần kiểm | Patrol | P1 | Check-in · Giám sát · Lưu trữ | Demo | [patrol.md](patrol.md) |
-| 5 | `attendance` | Chấm công và định vị | Patrol | P1 | Check-in · BC checkin | Context | [attendance.md](attendance.md) |
-| 6 | `incident` | Quản lý sự cố | Incident | P1 | Vấn đề · Sự cố · Giám sát SC | Demo | [incident.md](incident.md) |
-| 7 | `maintenance` | Lập lịch SC / bảo trì | Maintenance | P2 (khung P1) | **Công việc** Mobile/Web | Context | [maintenance.md](maintenance.md) |
+| 4 | `patrol` | Tuần đường / tuần kiểm | Field | P1 | Check-in · Giám sát · Lưu trữ | Demo | [patrol.md](patrol.md) |
+| 5 | `attendance` | Chấm công và định vị | Field | P1 | Check-in · BC checkin | Context | [attendance.md](attendance.md) |
+| 6 | `incident` | Quản lý sự cố | Field | P1 | Vấn đề · Sự cố · Giám sát SC | Demo | [incident.md](incident.md) |
+| 7 | `maintenance` | Lập lịch SC / bảo trì | Field | P2 (khung P1) | **Công việc** Mobile/Web | Context | [maintenance.md](maintenance.md) |
 | 8 | `predict` | AI dự báo bảo trì | AiVision+ML | P1 online / P2 | Dashboard / Báo cáo | Demo | [predict.md](predict.md) |
-| 9 | `ops` | Chỉ đạo điều hành | Notification | P2 (nhẹ P1) | Giám sát · notify | Demo | [ops.md](ops.md) |
+| 9 | `ops` | Chỉ đạo điều hành | Field | P2 (nhẹ P1) | Giám sát · notify | Demo | [ops.md](ops.md) |
 | 10 | `estimate` | AI ước lượng sửa chữa | ML | P1 online / P2 | Panel trên Công việc / SC | Demo | [estimate.md](estimate.md) |
 | 11 | `contract` | Hợp đồng và ngân sách | Contract | P2–P3 | — | Demo | [contract.md](contract.md) |
 | 12 | `inventory` | Vật tư và thiết bị | Inventory | P3 | — | Demo | [inventory.md](inventory.md) |

@@ -116,7 +116,7 @@ Proxy-only `WorkOrdersBffController` → API paths trên. Keep health `Maintenan
 - API-01…08 ids
 - FE route `/maintenance`
 - Perm codes `maintenance.work-orders.*`
-- MFE `Linm.Web.RMMS.Maintenance`
+- MFE `Linm.Web.RMMS.Field`
 
 ## Version meta (REQUIRED)
 

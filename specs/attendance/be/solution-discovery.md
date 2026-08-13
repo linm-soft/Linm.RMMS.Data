@@ -107,7 +107,7 @@ Proxy-only `AttendanceLogsBffController` → API paths trên. No business logic.
 - API-01…05 ids
 - FE route `/patrol/attendance`
 - Perm codes `patrol.attendance-logs.*`
-- MFE `Linm.Web.RMMS.Patrol`
+- MFE `Linm.Web.RMMS.Field`
 
 ## Version meta (REQUIRED)
 

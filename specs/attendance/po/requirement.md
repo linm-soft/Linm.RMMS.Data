@@ -11,7 +11,7 @@
 
 ## 1. Goal
 
-Chỉnh trang **Chấm công và định vị** từ demo mock → list catalog parity (Linm erp-form-context Kind B): shell · toolbar · search work · row menu · View readonly · Create/Edit/Copy form work. Align demo → MFE `Linm.Web.RMMS.Patrol` · BE `Linm.RMMS.WebService` domain **Patrol**.
+Chỉnh trang **Chấm công và định vị** từ demo mock → list catalog parity (Linm erp-form-context Kind B): shell · toolbar · search work · row menu · View readonly · Create/Edit/Copy form work. Align demo → MFE `Linm.Web.RMMS.Field` · BE `Linm.RMMS.WebService` domain **Patrol**.
 
 ## 2. Current → New (edit_page)
 

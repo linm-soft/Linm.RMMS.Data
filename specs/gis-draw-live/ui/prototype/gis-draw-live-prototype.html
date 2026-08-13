@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prototype — Vẽ tài sản live (gis-draw-live)</title>
+  <style>
+    :root { --teal:#0d9488; --navy:#1e3a5f; --border:#c5d0dc; --muted:#64748b; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; font-family: system-ui, sans-serif; color: #0f172a; background: #f1f5f9; }
+    .page { display: flex; flex-direction: column; height: 100%; }
+    .note { background: #ecfdf5; color: #065f46; font-size: 12px; padding: 6px 12px; border-bottom: 1px solid #a7f3d0; }
+    .hdr { display: flex; align-items: center; gap: 10px; height: 48px; padding: 0 12px; background: linear-gradient(90deg, var(--navy), var(--teal)); color: #fff; }
+    .hdr h1 { font-size: 15px; font-weight: 700; flex: 1; }
+    .tag { background: #fef3c7; color: #92400e; font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 999px; }
+    .body { display: flex; flex: 1; min-height: 0; }
+    .side { width: 280px; background: #fff; border-right: 1px solid var(--border); padding: 10px 12px; overflow: auto; }
+    .side h3 { font-size: 11px; text-transform: uppercase; color: var(--muted); margin: 10px 0 6px; }
+    .main { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+    .tools { display: flex; gap: 6px; flex-wrap: wrap; padding: 8px 10px; background: #fff; border-bottom: 1px solid var(--border); font-size: 12px; }
+    .tools b { background: #f1f5f9; border: 1px solid var(--border); border-radius: 5px; padding: 4px 8px; font-weight: 600; }
+    .map-host { flex: 1; min-height: 0; background: #94a3b8; position: relative; }
+    .map-host em { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: #fff; font-style: normal; font-weight: 700; }
+    .map-bar { display: flex; gap: 8px; align-items: center; padding: 8px 12px; background: #f8fafc; border-top: 1px solid var(--border); font-size: 12px; }
+    .map-bar button { border: 1px solid #e2e8f0; background: #fff; border-radius: 6px; padding: 5px 10px; font-weight: 700; }
+    .map-bar button.on { background: var(--teal); color: #fff; border-color: var(--teal); }
+    .legend { padding: 8px 12px; background: #f8fafc; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); }
+    label { display: flex; gap: 6px; align-items: center; font-size: 13px; padding: 3px 0; }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="note">Content-only Kind F rút gọn · reviewUrl · không clone GOVOne · OMS: host → bar → legend · default OSM</div>
+    <header class="hdr">
+      <span>← GIS</span>
+      <h1>Bản đồ live — vẽ Point / Line / Polygon</h1>
+      <span class="tag">Leaflet + OSM/Esri · LIVE</span>
+    </header>
+    <div class="body">
+      <aside class="side">
+        <h3>Lớp nền</h3>
+        <label><input type="radio" checked /> OSM · tiếng Việt</label>
+        <label><input type="radio" /> Esri Streets</label>
+        <label><input type="radio" /> Esri sat</label>
+        <h3>Loại tài sản (target vẽ)</h3>
+        <label><input type="checkbox" checked /> <input type="radio" checked /> Cột km</label>
+        <label><input type="checkbox" checked /> <input type="radio" /> Biển báo</label>
+        <label><input type="checkbox" checked /> <input type="radio" /> Tuyến đường</label>
+        <h3>Thuộc tính draft</h3>
+        <p style="font-size:12px;color:var(--muted)">Vẽ xong → Mã/Tên · Lưu API (`POST /api/v1/gis/drawings`)</p>
+      </aside>
+      <div class="main">
+        <div class="tools">
+          <b>Fit QL.22</b><b>Nạp seed</b><b>Chuẩn hóa cột Km</b><b>Export</b><b>Xoá layer</b>
+        </div>
+        <div class="map-host"><em>Leaflet.draw · Point / Line / Polygon · live</em></div>
+        <div class="map-bar" role="toolbar" aria-label="Lớp nền bản đồ">
+          <button class="on" title="OSM = OpenStreetMap — nhãn tiếng Việt" aria-label="Basemap OSM tiếng Việt">OSM · tiếng Việt</button>
+          <button title="Esri Streets" aria-label="Basemap Esri Streets">Esri Streets</button>
+          <button title="Esri sat — ảnh vệ tinh" aria-label="Basemap Esri sat">Esri sat</button>
+          <button title="Fit = phóng vừa toàn bộ pin / tuyến" aria-label="Fit overview">Fit</button>
+          <button title="Phóng full map" aria-label="Phóng full map">Full</button>
+        </div>
+        <div class="legend">Chú giải · click lớp để isolate + Fit focus · corridor dưới track</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

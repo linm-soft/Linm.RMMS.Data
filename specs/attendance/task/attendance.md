@@ -15,7 +15,7 @@
 
 | Layer | Path | Confirm |
 |-------|------|---------|
-| UI | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Patrol` | board ui_repo_confirm |
+| UI | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Field` | board ui_repo_confirm |
 | BE | `D:/AI-QLBD/Linm.RMMS.WebService` · domain **Patrol** | board be_repo_confirm |
 | Routes | `mfeStdRoute=/patrol/attendance` | VN abbrev keep English slug SSOT context |
 

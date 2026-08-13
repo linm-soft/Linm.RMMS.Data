@@ -47,5 +47,20 @@
       "notes": "APPROVED A · 6 Sở + 7 BOT/DN"
     }
   ],
-  "investigate": "specs/_data-analy/shared-catalogs/INVESTIGATE-CUC2.md"
+  "investigate": "specs/_data-analy/shared-catalogs/INVESTIGATE-CUC2.md",
+  "featureHints": [
+    {
+      "id": "feature-ai-asset-detect-v1",
+      "featureSlug": "ai-asset-detect",
+      "catalogKind": "ai-candidate",
+      "status": "done",
+      "artifact": "specs/_data-analy/features/ai-asset-detect-control-hint.md",
+      "contentHash": "sha256:97450ff90d8d4576a8de82e118d463e705b49b21f212a76fd178527a8b38793e",
+      "skillVersion": "2026.08.08.20",
+      "workflowVersion": "2026.08.10.3",
+      "rulesVersion": "2026.08.10.4",
+      "analyzedAt": "2026-08-11T17:15:27.657Z",
+      "notes": "roleOnly data_analy · task_9224dc47 · Kind B + map · no Excel"
+    }
+  ]
 }

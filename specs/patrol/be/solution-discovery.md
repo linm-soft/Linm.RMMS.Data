@@ -113,7 +113,7 @@ Proxy-only `PatrolSessionsBffController` → API paths trên. No business logic.
 - API-01…05 ids
 - FE route `/patrol`
 - Perm codes `patrol.sessions.*`
-- MFE `Linm.Web.RMMS.Patrol`
+- MFE `Linm.Web.RMMS.Field`
 
 ## Version meta (REQUIRED)
 

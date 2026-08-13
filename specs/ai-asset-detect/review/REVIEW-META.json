@@ -1,0 +1,12 @@
+{
+  "schemaVersion": "1",
+  "reviewHash": "a7c4e91b2f08d6a1",
+  "rulesVersion": "2026.08.11.1",
+  "skillVersion": "2026.08.09.02",
+  "workflowVersion": "2026.08.10.3",
+  "status": "done",
+  "review_confirm": "approve",
+  "taskId": "task_b86293c4",
+  "feature": "ai-asset-detect",
+  "generatedAt": "2026-08-12T15:20:00.000Z"
+}

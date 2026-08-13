@@ -11,7 +11,7 @@
 
 ## 1. Goal
 
-Chỉnh **Quản lý sự cố (Vấn đề)** từ demo mock → list catalog parity (Linm erp-form-context Kind B) + form Slideout Kind D. Align demo → MFE `Linm.Web.RMMS.Incident` · BE `Linm.RMMS.WebService` domain **Incident**.
+Chỉnh **Quản lý sự cố (Vấn đề)** từ demo mock → list catalog parity (Linm erp-form-context Kind B) + form Slideout Kind D. Align demo → MFE `Linm.Web.RMMS.Field` · BE `Linm.RMMS.WebService` domain **Incident**.
 
 **≠** Cổng người dân (`citizen` / `citizen-incidents`) — badge/copy luôn phân biệt.
 
