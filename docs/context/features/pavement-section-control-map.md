@@ -8,10 +8,10 @@
 | Field | Control | Notes |
 |-------|---------|-------|
 | search | SearchTextInput | Mã / tên đường |
-| province | Select | Tỉnh/TP |
-| road | Text / Lookup | Tên đường |
+| province | SearchInput | Master tỉnh/TP |
+| road | Text | Tên đường |
 | kmFrom / kmTo | Number | Lý trình |
-| status | Select | Tình trạng |
+| status | SearchInput | Tình trạng |
 | Tìm | Button | Filter bar (không trùng Làm mới toolbar) |
 | Xóa điều kiện | Button | Clear filter |
 
@@ -21,21 +21,21 @@
 |-------|---------|----------|---------|
 | code | Text uppercase (IdCode) | Yes (BE gen) | Header |
 | roadName | Text | Yes | Header |
-| provinceName | Select / Text | Yes | Header |
+| provinceName | SearchInput master | Yes | Header |
 | kmFrom | Number | Yes | Header |
 | kmTo | Number | Yes | Header |
 | lengthKm | Number readonly? | No (tính hoặc nhập) | Header |
 | baseWidthM | Number | No | Kết cấu |
 | surfaceWidthM | Number | No | Kết cấu |
-| structureType | Select (BTN/BTXM/…) | Yes | Kết cấu |
+| structureType | SearchInput (BTN/BTXM/…) | Yes | Kết cấu |
 | surfaceThicknessCm | Number | No | Kết cấu |
-| roadClass | Select (I/II/III/…) | No | Kết cấu |
+| roadClass | SearchInput (I/II/III/…) | No | Kết cấu |
 | yearsInService | Text/Number | No | Khai thác |
 | handoverMaintenance | Checkbox | No | Khai thác |
 | handoverConstruction | Checkbox | No | Khai thác |
 | lastMajorRehabYear | Number year | No | Khai thác |
 | lastSurfaceRepairYear | Number year | No | Khai thác |
-| status | Select | Yes | Khai thác |
+| status | SearchInput | Yes | Khai thác |
 | constructionUnit | Text | No | Đơn vị |
 | manageUnit | Text | Yes | Đơn vị |
 | ownerUnit | Text | No | Đơn vị |

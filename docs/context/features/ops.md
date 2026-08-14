@@ -2,10 +2,10 @@
 
 > **Slug:** `ops` · **Module:** `Notification` · **Phase:** P2 (list/notify nhẹ P1)  
 > **Status:** Signed  
-> **Kind:** **B** (CatalogListShell inbox) + **D** (slideout compose/detail) — Confirmed by: ai-autocode-autopilot  
+> **Kind:** **B** (CatalogListShell inbox) + full-page form (không Kind D Slideout) — Confirmed by: ai-autocode-autopilot  
 > **Sources:** `RMMS` §9 · guide **Giám sát** notify · `07` §9 · `15-SCREEN-AI-MAP.md`  
 > **Demo HTML:** `Linm.RMMS.Demo/src/demo/ops/ops.html`  
-> **MFE (align):** `Linm.Web.RMMS.Field` · route `/ops` · Kind B+D implemented (`task_9c3e9db0`)  
+> **MFE (align):** `Linm.Web.RMMS.Field` · route `/ops` · Kind B + `NotificationFormPage` (`task_47576cf0`)  
 > **≠** GOVOne Giám sát map (`patrol`) — realtime map → Patrol/Gis
 
 ## 1. Tổng quan
@@ -23,11 +23,11 @@
 | Screen | Pattern | Zones | Ghi chú |
 |--------|---------|-------|---------|
 | Inbox chỉ đạo `/ops` | Kind **B** CatalogListShell | Overview KPI · toolbar · filter · grid | P1 |
-| Tạo / Chi tiết | Kind **D** Slideout | Z1 toolbar · Z2 fields · Z3 footer | `/ops/new` · `/ops/:id` |
+| Tạo / Chi tiết | Full-page form | Z1 toolbar · Z2 fields · Z3 footer · View `<dl>` | `/ops/new` · `/ops/:id` |
 | Bản đồ ĐH | Nav stub | Link → Gis/Patrol | P2 — **không** embed map CRUD |
 | Command center | Badge P2 | Modal stub | GAP-F-OPS-01 |
 
-**Kind B+D layout (erp-form-context):**
+**Kind B + full-page form (erp-form-context · list-form-quality-gates):**
 
 - **List** — title «Chỉ đạo điều hành» · toolbar (Làm mới · Tạo · Xuất · nav cross-MFE) · filter unread/priority/type · grid inbox  
 - **Z1** — Quay lại · Đóng · title · dirty badge · hint  

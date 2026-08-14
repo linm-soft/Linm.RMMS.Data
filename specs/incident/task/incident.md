@@ -6,8 +6,8 @@
 | status | `confirmed` |
 | packKind | `list` |
 | changeScope | `edit_page` · gap=`crud_formtype` |
-| taskId | `task_377c866b` |
-| updatedAt | 2026-08-10T16:50:00.000Z |
+| taskId | `task_28ef1042` |
+| updatedAt | 2026-08-14T12:15:00.000Z |
 
 ## Source assignment
 
@@ -39,7 +39,7 @@
 | T-UI-FORM-01 | ui | T-UI-LIST-01 | form checklist | Slideout Z1–Z3 Create/Edit/View/Copy · readOnly view · leave-confirm · ≠ citizen |
 | T-QA-01 | qa | T-UI-FORM-01 | qa | scenarios + mfeStdUrl |
 
-## FormType pack (canonical — `form-type-task-pack` · task_377c866b)
+## FormType pack (canonical — `form-type-task-pack` · task_28ef1042 · re-audit live · **không** rewrite T-UI-LIST)
 
 | Task id | Role | Status | Maps to / notes |
 |---------|------|--------|-----------------|
@@ -145,5 +145,5 @@ T-UI-FORM-01 → T-UI-ACT-01 → T-QA-CRUD-01
 | schemaVersion | 1 |
 | workflowVersion | 2026.08.09.02 |
 | rulesVersion | 2026.08.09.02 |
-| generatedAt | 2026-08-10T16:50:00.000Z |
+| generatedAt | 2026-08-14T12:15:00.000Z |
 | versionGate | rechecked |

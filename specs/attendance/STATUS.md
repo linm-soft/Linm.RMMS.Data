@@ -3,19 +3,21 @@
 | Field | Value |
 |-------|-------|
 | feature | `attendance` |
-| phase | `dev` |
-| status | `pending` |
+| phase | `qa` |
+| status | `blocked` |
 | changeScope | `edit_page` |
 | packKind | `list` |
 | runMode | `crud_gap` |
 | gap | `crud_formtype` |
 | demo | `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/attendance-demo.html` |
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/attendance.md` |
-| mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Field` |
+| mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Field` (packet Patrol MFE **không tồn tại** · board ui_repo = Field) |
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · **`api/v1/patrol/attendance-logs`** (**cấm ERP.***) |
 | domain | **Patrol** |
-| taskId | `task_13e76e73` |
-| updatedAt | `2026-08-10T16:05:19.494Z` |
+| taskId | `task_c33a0de3` |
+| mfeStdRoute | `/patrol/attendance` |
+| mfeStdUrl | `http://localhost:9304/patrol/attendance` |
+| updatedAt | `2026-08-14T14:47:32.624Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -30,9 +32,9 @@
 | 2.1 | design | ui/design.md + prototype + reviewUrl | **done** |
 | 2.2 | sa | be/solution-discovery.md | **done** |
 | 3 | team-lead | task/attendance.md | **done** (ACT+CRUD ids) |
-| 4 | dev | implement/attendance.md | **done** (T-UI-ACT-01 · T-BE-CRUD-01) |
-| 5 | qa | qa/scenarios.md | **done** (T-QA-CRUD-01) |
-| 6 | review | review/findings.md | **done** (approve · autopilot) |
+| 4 | dev | implement/attendance.md | **done** |
+| 5 | qa | qa/scenarios.md | **blocked** (paused) |
+| 6 | review | review/findings.md | pending |
 
 ## Confirms
 
@@ -80,5 +82,5 @@
 | schemaVersion | 2 |
 | workflowVersion | 2026.08.10.2 |
 | rulesVersion | 2026.08.10.3 |
-| generatedAt | 2026-08-10T16:25:00.000Z |
+| generatedAt | 2026-08-14T21:10:00.000Z |
 | versionGate | rechecked |

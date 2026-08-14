@@ -106,11 +106,13 @@ Index: `(CompanyCode, Code)` unique · `(RoadName, KmFrom, KmTo)` · GIST option
 |----|----------|------|
 | GAP-P2-KIND-RMMS | Info | Không phải voucher ERP KT — Kind B catalog adapted |
 | GAP-P1-CC | P1 | Demo HTML chưa wire `@linm-soft-org/linm-web-common-components` — parity visual only |
-| GAP-P2-LKP | P2 | Lookup tỉnh/đường khi có master catalog |
+| GAP-P2-LKP | — | **Closed** — SearchInput master tỉnh/kết cấu/cấp/tình trạng (task_e95b3b89) |
 | GAP-P2-DT | P1 | `UpdatedAt` UTC ↔ local khi implement MFE thật |
 | GAP-F-PVT-01 | — | **Closed** — BE `api/v1/asset/pavement-sections` (task_94b861f5) |
 | GAP-P2-ACT-DELETE | — | **Closed** — toolbar/row Delete → soft DELETE (task_d0fcb3d7) |
 | GAP-TL-FORMTYPE-01 | — | **Closed** — stamped T-UI-ACT-01 · T-BE-CRUD-01 · T-QA-CRUD-01 |
+| GAP-LKP-SELECT | — | **Closed** — native `<select>` / `Select` → SearchInput (task_e95b3b89) |
+| GAP-PROD-VIEW-RO | — | **Closed** — View = `<dl>` display · form page riêng (task_e95b3b89) |
 
 ## 8. Demo checklist
 

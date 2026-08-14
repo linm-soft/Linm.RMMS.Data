@@ -1,4 +1,4 @@
-# Implement — asset-type
+﻿# Implement — asset-type
 
 | Field | Value |
 |-------|-------|
@@ -8,7 +8,7 @@
 | domain | Integration · `api/v1/integration/asset-types` |
 | mfe | `Linm.Web.RMMS.Master` · `/master/asset-type` |
 | mfeStdRoute | `/master/asset-type` |
-| mfeStdUrl | `http://localhost:9314/master/asset-type` |
+| mfeStdUrl | `http://localhost:9318/master/asset-type` |
 | verify | FE `yarn typecheck` PASS · `yarn build` PASS (`LINM_RUN_DEV_LOCAL_BUNDLE=1`) · BE API+BFF `dotnet build` PASS |
 | updatedAt | `2026-08-10T15:35:00.000Z` |
 | task | `task_b7d98891` · form-type pack closeout |

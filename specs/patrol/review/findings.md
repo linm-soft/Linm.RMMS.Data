@@ -4,17 +4,17 @@
 |-------|-------|
 | feature | `patrol` |
 | status | `confirmed` (autopilot approve) |
-| review_confirm | `approve` (autopilot · task_e0173ab6) |
-| updatedAt | 2026-08-10T17:15:00.000Z |
+| review_confirm | `approve` (autopilot · task_1ede6934) |
+| updatedAt | 2026-08-14T20:40:00.000Z |
 
 ## REVIEW-META
 
 | Hash input | Notes |
 |------------|-------|
-| MFE | PatrolListPage + PatrolFormSlideout · `/patrol` |
+| MFE | PatrolListPage + PatrolFormPage · `/patrol` · `/patrol/new` · `/patrol/:id` |
 | BE | `api/v1/patrol/sessions` · `rmms_patrol_sessions` · BFF proxy |
 | skillVersion | 2026.08.09.02 |
-| gap | `crud_formtype` |
+| gap | `crud_formtype` + list-form-quality |
 
 ## Findings
 
@@ -28,6 +28,7 @@
 | R-06 | Scope | P2 | Kind E map/tracks/coverage DEFER documented | Accept |
 | R-07 | FormType ACT | — | Inventory → form/API · GAP-P2-ACT-DELETE **CLOSED** | OK |
 | R-08 | T-BE-CRUD-01 | — | API-01…05 verified · domain Patrol · no ERP | OK |
+| R-09 | LKP/PROD/UX | — | SearchInput master · full-page form · View `<dl>` · no filterMaxWidth | OK |
 
 ## Task gate
 
@@ -35,11 +36,15 @@
 |------|--------|
 | T-UI-ACT-01 | PASS |
 | T-BE-CRUD-01 | PASS (verify) |
+| T-UI-LKP-01 | PASS |
+| T-UI-FIELD-01 | PASS |
+| T-UI-PROD-01 | PASS |
+| T-UI-UX-01 | PASS |
 | T-QA-CRUD-01 | PASS |
 
 ## Verdict
 
-FormType CRUD gap closed: stamped T-UI-ACT-01 · T-BE-CRUD-01 · T-QA-CRUD-01; wired toolbar/row **Delete** → soft DELETE. Prior LIST/FORM SSOT unchanged. Verify gates PASS. **Approve**.
+CRUD + list-form-quality gap closed: full-page `PatrolFormPage`, SearchInput lookups, View display (không Slideout/readOnly). BE CRUD existing verified. Build gates PASS. **Approve**.
 
 ## Version meta (REQUIRED)
 
@@ -50,5 +55,5 @@ FormType CRUD gap closed: stamped T-UI-ACT-01 · T-BE-CRUD-01 · T-QA-CRUD-01; w
 | schemaVersion | 1 |
 | workflowVersion | 2026.08.09.02 |
 | rulesVersion | 2026.08.09.02 |
-| generatedAt | 2026-08-10T17:15:00.000Z |
+| generatedAt | 2026-08-14T20:40:00.000Z |
 | versionGate | rechecked |

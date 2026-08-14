@@ -5,10 +5,10 @@
 | feature | `incident` |
 | status | `done` |
 | pack | T-QA-CRUD-01 · FormType |
-| mfeStdUrl | `http://localhost:9305/incident` |
+| mfeStdUrl | `http://localhost:9304/incident` |
 | reviewUrl (design only) | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/incident/ui/prototype/incident-list-prototype.html` |
-| taskId | `task_377c866b` |
-| updatedAt | 2026-08-10T17:05:00.000Z |
+| taskId | `task_28ef1042` |
+| updatedAt | 2026-08-14T12:20:00.000Z |
 
 ## Smoke (mfeStdUrl)
 
@@ -48,6 +48,8 @@
 | GAP-P2-ACT-DELETE | **CLOSED** |
 | GAP-P2-ACT-ASSIGN-CLOSE | **CLOSED** |
 
+Re-smoke `task_28ef1042`: live `IncidentListPage` + `IncidentsController` + BFF proxy pair C/E/V/D + assign/close. No new gaps.
+
 ## Version meta (REQUIRED)
 
 | Field | Value |
@@ -57,5 +59,5 @@
 | schemaVersion | 1 |
 | workflowVersion | 2026.08.09.02 |
 | rulesVersion | 2026.08.09.02 |
-| generatedAt | 2026-08-10T17:05:00.000Z |
+| generatedAt | 2026-08-14T12:20:00.000Z |
 | versionGate | rechecked |

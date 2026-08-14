@@ -1,4 +1,4 @@
-# STATUS — org-unit
+﻿# STATUS — org-unit
 
 | Field | Value |
 |-------|-------|
@@ -16,7 +16,7 @@
 | domain | **Integration** |
 | prototype.reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/org-unit/ui/prototype/org-unit-list-prototype.html` |
 | mfeStdRoute | `/master/org-unit` |
-| mfeStdUrl | `http://localhost:9314/master/org-unit` |
+| mfeStdUrl | `http://localhost:9318/master/org-unit` |
 | updatedAt | `2026-08-10T15:45:00.000Z` |
 | task | `task_2250b015` |
 
@@ -76,11 +76,13 @@
 — none —
 
 ## Links
+- mfeStdUrl: `http://localhost:9318/master/org-unit`
+- mfeStdRoute: `/master/org-unit`
 
 - implement → `implement/org-unit.md`
 - qa → `qa/scenarios.md`
 - review → `review/findings.md`
-- mfeStdUrl → `http://localhost:9314/master/org-unit`
+- mfeStdUrl → `http://localhost:9318/master/org-unit`
 
 ## Retry
 

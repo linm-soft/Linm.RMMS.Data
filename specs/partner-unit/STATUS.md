@@ -1,4 +1,4 @@
-# STATUS — partner-unit
+﻿# STATUS — partner-unit
 
 | Field | Value |
 |-------|-------|
@@ -13,7 +13,7 @@
 | seed | `docs/context/seed/partner-unit-seed.json` (13) |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Master` |
 | mfeStdRoute | `/master/partner-unit` |
-| mfeStdUrl | `http://localhost:9314/master/partner-unit` |
+| mfeStdUrl | `http://localhost:9318/master/partner-unit` |
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/integration/partner-units` |
 | domain | **Integration** |
 | prototype.reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/partner-unit/ui/prototype/partner-unit-list-prototype.html` |
@@ -70,6 +70,8 @@
 — none —
 
 ## Links
+- mfeStdUrl: `http://localhost:9318/master/partner-unit`
+- mfeStdRoute: `/master/partner-unit`
 
 - implement → `implement/partner-unit.md`
 - qa → `qa/scenarios.md`

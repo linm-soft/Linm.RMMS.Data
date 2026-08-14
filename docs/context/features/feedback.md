@@ -1,7 +1,7 @@
 # Góp ý phần mềm — Feature Context
 
 > **Slug:** `feedback` · **Module:** `Integration` (nhẹ) · **Phase:** P1  
-> **Status:** Signed (pack list · task_d242eb29)  
+> **Status:** Signed (pack list · crud_formtype · task_4ff7bc4b)  
 > **Kind:** **B** catalog list + **D** slideout form — Confirmed by: ai-autocode-autopilot  
 > **Sources:** guide Mobile **Góp ý** · `15-SCREEN-AI-MAP.md`  
 > **Demo HTML:** `Linm.RMMS.Demo/public/demo/integration/feedback.html`  
@@ -167,11 +167,11 @@ Gen demo: `/qlbd-analy-demo @feedback` — load control-map trên + `/erp-form-c
 
 | | |
 |--|--|
-| Task | `task_d242eb29` (prior `task_0b559cba`) |
+| Task | `task_4ff7bc4b` (prior `task_d242eb29`) |
 | Skill | `/agent-qldb-workflow @feedback` |
 | sourceKind | **synthetic** (capture labeled legacy-govone block nhưng **không** màn GOVOne vision — product docs + guide Mobile Góp ý) |
 | Files | `feedback.md` · MFE `FeedbackListPage` · BE `AppFeedbacks*` · migration `rmms_app_feedbacks` · specs/feedback/* |
 | Dev | MFE `/integration/feedback` · API `api/v1/integration/feedbacks` · DOMAIN Integration |
-| ACTION WORK GATE | list A–D + slideout Create/Edit/View/Copy · local fallback |
+| ACTION WORK GATE | list A–D + slideout C/E/V/Copy · toolbar/row Delete · footer-only · local fallback |
 | BE align | **ON** · Signed · Step 4b done · cấm ERP.* |
-| Confirmed by | ai-autocode-autopilot · task_d242eb29 |
+| Confirmed by | ai-autocode-autopilot · task_4ff7bc4b |

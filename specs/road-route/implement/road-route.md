@@ -7,7 +7,7 @@
 | domain | Integration · `api/v1/integration/road-routes` |
 | mfe | `Linm.Web.RMMS.Master` · `/master/road-route` |
 | mfeStdRoute | `/master/road-route` |
-| mfeStdUrl | `http://localhost:9314/master/road-route` |
+| mfeStdUrl | `http://localhost:9318/master/road-route` |
 | verify | FE `yarn build` PASS (`LINM_RUN_DEV_LOCAL_BUNDLE=1`) · `yarn typecheck` PASS · BE `dotnet build` PASS (API + BFF) |
 | updatedAt | `2026-08-09T01:40:00.000Z` |
 | task | `task_e6f6b6ee` |

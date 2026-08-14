@@ -3,21 +3,25 @@
 | Field | Value |
 |-------|-------|
 | feature | `feedback` |
-| phase | `done` |
-| status | `done` |
+| phase | `dev` |
+| status | `blocked` |
 | changeScope | `edit_page` |
 | packKind | `list` |
+| gap | `crud_formtype` |
+| mode | `fix_gaps` |
 | runMode | `full_pipeline` |
 | demo | `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/feedback-demo.html` |
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/feedback.md` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Integration` |
+| mfeStdRoute | `/integration/feedback` |
+| mfeStdUrl | `http://localhost:9314/integration/feedback` |
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · **`api/v1/integration/feedbacks`** (**cấm ERP.***) |
 | domain | **Integration** |
-| taskId | `task_d242eb29` |
-| skillVersion | `2026.08.09.02` |
+| taskId | `task_4ff7bc4b` |
+| skillVersion | `2026.08.10.2` |
 | schemaVersion | `qldb-workflow-skill-v1` |
-| workflowVersion | `2026.08.09.02` |
-| updatedAt | `2026-08-09T16:04:20.000Z` |
+| workflowVersion | `2026.08.10.2` |
+| updatedAt | `2026-08-14T14:47:32.820Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -31,10 +35,10 @@
 | 1 | po | po/requirement.md | **done** |
 | 2.1 | design | ui/design.md + prototype + reviewUrl | **done** |
 | 2.2 | sa | be/solution-discovery.md | **done** |
-| 3 | team-lead | task/feedback.md | **done** |
-| 4 | dev | implement/feedback.md | **done** |
-| 5 | qa | qa/scenarios.md | **done** |
-| 6 | review | review/findings.md | **done** (approve · autopilot) |
+| 3 | team-lead | task/feedback.md | **done** (ACT+CRUD ids) |
+| 4 | dev | implement/feedback.md | **blocked** (paused) |
+| 5 | qa | qa/scenarios.md | pending |
+| 6 | review | review/findings.md | pending |
 
 ## Confirms
 
@@ -59,6 +63,10 @@
 | T-UI-LIST-01 | feedback | ui | T-BFF-01 | done | A–D · LAYOUT-06 · no Tìm |
 | T-UI-FORM-01 | feedback | ui | T-UI-LIST-01 | done | Slideout Z1–Z3 |
 | T-QA-01 | feedback | qa | T-UI-FORM-01 | done | scenarios |
+| T-UI-ACT-01 | feedback | ui | T-UI-FORM-01 | done | toolbar/row Delete · footer-only |
+| T-BE-CRUD-01 | feedback | api | T-BE-01 | done | verify list/C/U/D |
+| T-UI-MAP-FORM | feedback | — | — | n/a | packKind=list |
+| T-QA-CRUD-01 | feedback | qa | T-UI-ACT-01 | done | Create/Edit/View/Delete |
 
 ## Blockers / open questions
 
@@ -76,11 +84,11 @@
 | Field | Value |
 |-------|-------|
 | skillId | orchestrator |
-| skillVersion | 2026.08.09.02 |
+| skillVersion | 2026.08.10.2 |
 | schemaVersion | 2 |
-| workflowVersion | 2026.08.09.02 |
-| rulesVersion | 2026.08.09.02 |
-| generatedAt | 2026-08-09T16:13:00.000Z |
+| workflowVersion | 2026.08.10.2 |
+| rulesVersion | 2026.08.10.3 |
+| generatedAt | 2026-08-14T19:20:00.000Z |
 | versionGate | rechecked |
 
-<!-- Version meta: skillVersion=2026.08.09.02 · schemaVersion=qldb-workflow-skill-v1 · workflowVersion=2026.08.09.02 · versionGate=ok -->
+<!-- Version meta: skillVersion=2026.08.10.2 · schemaVersion=qldb-workflow-skill-v1 · workflowVersion=2026.08.10.2 · versionGate=ok -->

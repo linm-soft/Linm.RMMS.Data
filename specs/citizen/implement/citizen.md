@@ -5,40 +5,50 @@
 | feature | `citizen` |
 | status | `done` |
 | changeScope | `edit_page` |
-| taskId | `task_ae6e4e92` |
-| updatedAt | 2026-08-09T14:50:00.000Z |
+| gap | `crud_formtype` |
+| mode | `fix_gaps` |
+| taskId | `task_2eb59012` |
+| updatedAt | `2026-08-14T21:20:00.000Z` |
 | versionGate | rechecked |
 
 ## retry.ssot_rereview: **pass**
 
-checklist: `tl-grid-ssot` · `list_parity` · `tl-list-shell-height` · tree_master? n/a · form  
-gaps fixed this turn: **LAYOUT-06** (AppLayout + StandaloneShell) · common-components local tgz align Patrol  
+checklist: `tl-grid-ssot` · `list_parity` · `tl-list-shell-height` · tree_master? n/a · form · list-form-quality  
+gaps fixed this turn: **GAP-LKP-SELECT** · **GAP-PROD-SLIDEOUT** · **GAP-VIEW-READONLY** · **GAP-UX-WIDTH**  
 then: **fix_all**
 
 | Check | Result |
 |-------|--------|
-| 1× `LinPageLayout` (no nested `CatalogListShell`) | **PASS** |
-| `LinCatalogDataGrid` + column resize default ON | **PASS** (`DEFAULT_CATALOG_LIST_TABLE_CONFIG` + `resizable: true`) |
+| 1× `LinPageLayout` (no nested `CatalogListShell`) | **PASS** list |
+| `LinCatalogDataGrid` + column resize default ON | **PASS** |
 | Footer `LinCatalogListPagination` | **PASS** · sizes 50/100/200/500 |
-| flex + skeleton + **LAYOUT-06** | **PASS** — `AppLayout.module.css` height calc · `StandaloneShell` · `data-catalog-list-page` |
-| toolbar `catalogToolbar` | **PASS** · refresh · history · config · create |
-| filter SearchTextInput — no Tìm btn | **PASS** (Enter + status Select apply) |
-| list_parity Kind B | **PASS** |
+| flex + skeleton + **LAYOUT-06** | **PASS** |
+| toolbar `catalogToolbar` | **PASS** · refresh · history · config · create · delete |
+| filter SearchTextInput — no Tìm btn | **PASS** |
+| lookup SearchInput (cấm native Select) | **PASS** status + incidentType |
+| list_parity Kind B | **PASS** (không rewrite grid shell) |
 | tree_master? | n/a |
-| form checklist Z1–Z3 | **PASS** `CitizenFormSlideout` Create/Edit/View/Copy · view readOnly · leave-confirm |
-| ≠ feedback badge | **PASS** |
+| form full-page (cấm Slideout / Kind D / Resource) | **PASS** `CitizenFormPage` |
+| View display (cấm Input readOnly) | **PASS** `<dl>` |
+| IdCode `CIT-YYYYMMDD-NNNN` | **PASS** |
+| Action inventory → form/API | **PASS** · `/integration/citizen/new` · `/:id` · `?mode=edit` |
+| footer-only Save/Cancel/View actions | **PASS** · Z1 chỉ Quay lại |
+| no `filterMaxWidthPx` | **PASS** |
 
-## Done this turn (task_ae6e4e92 resume)
+## Done this turn (task_2eb59012 · list-form quality)
 
 | Task | Result |
 |------|--------|
-| PO→TL artifacts | Created + autopilot confirm |
-| T-CTX-01 | Updated `docs/context/features/citizen.md` API Signed |
-| T-BE-01 / T-BE-02 / T-BFF-01 | Integration domain · migration `rmms_citizen_incidents` · public + alias |
-| T-PERM-01 | FE `permissions.ts` · BE Auth stub TODO |
-| T-UI-LIST-01 | CitizenListPage A–D · LAYOUT-06 |
-| T-UI-FORM-01 | CitizenFormSlideout Z1–Z3 |
-| Verify | typecheck + webpack build + BE Release **PASS** |
+| T-UI-LIST-01 | Kept · SearchInput status filter · drop filterMaxWidthPx |
+| T-UI-FORM-01 | Full-page C/E/V/Copy |
+| T-UI-ACT-01 | Toolbar/row → form routes · Delete kept |
+| T-BE-CRUD-01 | Verified API list/get/create/update/soft-delete + BFF · no Write delta BE |
+| T-UI-MAP-FORM | n/a |
+| T-UI-LKP-01 | `services/citizen/lookups.ts` · SearchInput list+form |
+| T-UI-FIELD-01 | DTO/API map Create/UpdateCitizenIncidentRequest |
+| T-UI-PROD-01 | Removed `CitizenFormSlideout` |
+| T-UI-UX-01 | spacing 4/8/16 · no ad-hoc filterMaxWidth |
+| Anti-dup | **cấm** rewrite T-UI-LIST-01 shell |
 
 ## Paths (confirmed)
 
@@ -50,30 +60,28 @@ then: **fix_all**
 | Migration | `20260809143845_Schema_RmmsCitizenIncidents` |
 | BFF | `bff/domains/integration/LINM.RMMS.Integration.Bff/Controllers/CitizenIncidentsBffController.cs` |
 | MFE list | `pages/CitizenListPage/CitizenListPage.tsx` |
-| MFE form | `pages/CitizenListPage/CitizenFormSlideout.tsx` |
+| MFE form | `pages/CitizenFormPage/CitizenFormPage.tsx` |
 | Perm | `services/citizen/permissions.ts` |
 | Route prefix | `api/v1/integration/citizen-incidents` |
 | Public | `api/v1/public/incidents` · alias `api/v1/citizen/incident` |
 | mfeStdRoute | `/integration/citizen` |
 | mfeStdUrl | `http://localhost:9314/integration/citizen` |
 
-**Cấm** ERP.* — void.
+**Cấm** ERP.* — void. Step 4b: BE existing CRUD verified · no new endpoint/migration.
 
 ## LAYOUT-06 checklist
 
 | # | File | Result |
 |---|------|--------|
-| 1 | `AppLayout.module.css` `.mainStandalone` height calc | **PASS** |
-| 2 | `StandaloneShell.module.css` `.shell` height/max-height | **PASS** |
-| 3 | `.content:has([data-catalog-list-page])` flex fill | **PASS** |
+| 1–3 | AppLayout / StandaloneShell / content:has | **PASS** (prior) |
 | 4 | Page `data-catalog-list-page` + flex root | **PASS** |
 
-## Verify (2026-08-09 · task_ae6e4e92)
+## Build (REQUIRED)
 
 ```
 yarn typecheck → PASS
-LINM_RUN_DEV_LOCAL_BUNDLE=1 yarn build → PASS
-dotnet build Linm.RMMS.WebService.sln -c Release → PASS (0 Error(s))
+LINM_RUN_DEV_LOCAL_BUNDLE=1 yarn build → PASS (webpack 5.109.2, 3 size warnings only)
+dotnet build Linm.RMMS.WebService.sln -c Release → PASS (0 Error(s), 0 Warning(s))
 ```
 
 ## Debt
@@ -94,9 +102,10 @@ dotnet build Linm.RMMS.WebService.sln -c Release → PASS (0 Error(s))
 | Field | Value |
 |-------|-------|
 | skillId | agent-dev |
-| skillVersion | 2026.08.09.02 |
-| schemaVersion | 1 |
-| workflowVersion | 2026.08.08.31 |
-| rulesVersion | 2026.08.08.31 |
-| generatedAt | 2026-08-09T14:50:00.000Z |
+| skillVersion | 2026.08.10.2 |
+| schemaVersion | 2 |
+| workflowVersion | 2026.08.10.2 |
+| rulesVersion | 2026.08.10.3 |
+| generatedAt | 2026-08-14T21:20:00.000Z |
 | versionGate | rechecked |
+| taskId | `task_2eb59012` |

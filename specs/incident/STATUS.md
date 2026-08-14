@@ -4,7 +4,7 @@
 |-------|-------|
 | feature | `incident` |
 | phase | `dev` |
-| status | `pending` |
+| status | `blocked` |
 | changeScope | `edit_page` |
 | packKind | `list` |
 | runMode | `fix_gaps` · gap=`crud_formtype` |
@@ -13,13 +13,13 @@
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Field` |
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · **`api/v1/incident/incidents`** (**cấm ERP.***) |
 | domain | **Incident** |
-| taskId | `task_377c866b` |
+| taskId | `task_28ef1042` |
 | mfeStdRoute | `/incident` |
-| mfeStdUrl | `http://localhost:9305/incident` |
+| mfeStdUrl | `http://localhost:9304/incident` |
 | skillVersion | `2026.08.09.02` |
 | schemaVersion | `qldb-workflow-skill-v1` |
 | workflowVersion | `2026.08.09.02` |
-| updatedAt | `2026-08-10T16:46:45.463Z` |
+| updatedAt | `2026-08-14T14:47:32.793Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -33,10 +33,10 @@
 | 1 | po | po/requirement.md | **done** |
 | 2.1 | design | ui/design.md + prototype + reviewUrl | **done** |
 | 2.2 | sa | be/solution-discovery.md | **done** |
-| 3 | team-lead | task/incident.md | **done** (FormType ACT/CRUD stamped) |
-| 4 | dev | implement/incident.md | **done** (T-UI-ACT-01 · T-BE-CRUD-01) |
-| 5 | qa | qa/scenarios.md | **done** (T-QA-CRUD-01) |
-| 6 | review | review/findings.md | **done** (approve · autopilot FormType) |
+| 3 | team-lead | task/incident.md | **done** (FormType ACT/CRUD re-audit · no LIST rewrite) |
+| 4 | dev | implement/incident.md | **blocked** (paused) |
+| 5 | qa | qa/scenarios.md | pending |
+| 6 | review | review/findings.md | pending |
 
 ## Confirms
 
@@ -47,7 +47,7 @@
 | be_repo_confirm | **approve** (packet default `Linm.RMMS.WebService`) |
 | ui_repo_confirm | **approve** (packet default `Linm.Web.RMMS.Field`) |
 | version_mismatch_action | **recheck_new** |
-| review_confirm | **approve** (autopilot · task_377c866b · FormType) |
+| review_confirm | **approve** (autopilot · task_28ef1042 · FormType) |
 | autoApprove | **ON** |
 
 ## Tasks
@@ -75,13 +75,14 @@
 
 - po → ui → be → task → implement → qa → review
 - DOMAIN-MAP: `D:/AI-QLBD/Linm.RMMS.WebService/docs/DOMAIN-MAP.md`
-- mfeStdUrl: `http://localhost:9305/incident`
+- mfeStdUrl: `http://localhost:9304/incident`
 - reviewUrl: `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/incident/ui/prototype/incident-list-prototype.html`
 
 ## Resume / closeout
 
-- resume: `task_377c866b` · FormType CRUD gap · at: `2026-08-10T17:10:00.000Z`
+- resume: `task_28ef1042` · FormType CRUD gap · at: `2026-08-14T12:20:00.000Z`
 - GAP-P2-ACT-DELETE · GAP-P2-ACT-ASSIGN-CLOSE · GAP-TL-FORMTYPE-01 **CLOSED**
+- MFE SSOT: `Linm.Web.RMMS.Field` (`Linm.Web.RMMS.Incident` không tồn tại)
 
 ## Version meta (REQUIRED)
 
@@ -92,7 +93,7 @@
 | schemaVersion | 2 |
 | workflowVersion | 2026.08.09.02 |
 | rulesVersion | 2026.08.09.02 |
-| generatedAt | 2026-08-10T17:10:00.000Z |
+| generatedAt | 2026-08-14T12:20:00.000Z |
 | versionGate | rechecked |
 
 <!-- Version meta: skillVersion=2026.08.09.02 · schemaVersion=qldb-workflow-skill-v1 · workflowVersion=2026.08.09.02 · versionGate=ok -->

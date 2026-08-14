@@ -16,7 +16,7 @@
 | domain | **Integration** |
 | prototype.reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/road-route/ui/prototype/road-route-list-prototype.html` |
 | mfeStdRoute | `/master/road-route` |
-| mfeStdUrl | `http://localhost:9314/master/road-route` |
+| mfeStdUrl | `http://localhost:9318/master/road-route` |
 | updatedAt | `2026-08-08T18:42:11.711Z` |
 | task | `task_e6f6b6ee` |
 
@@ -72,11 +72,13 @@
 — none —
 
 ## Links
+- mfeStdUrl: `http://localhost:9318/master/road-route`
+- mfeStdRoute: `/master/road-route`
 
 - implement → `implement/road-route.md`
 - qa → `qa/scenarios.md`
 - review → `review/findings.md`
-- **Final MFE:** `http://localhost:9314/master/road-route` (`yarn start:std` · `Linm.Web.RMMS.Master`)
+- **Final MFE:** `http://localhost:9318/master/road-route` (`yarn start:std` · `Linm.Web.RMMS.Master`)
 
 ## Verify
 

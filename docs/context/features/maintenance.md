@@ -2,7 +2,7 @@
 
 > **Slug:** `maintenance` · **Module:** `Maintenance` · **Phase:** P1 Signed (list+form) · Kind E UI DEFER  
 > **Status:** Signed  
-> **Kind:** **B** Catalog list Công việc + Kind **D** slideout WO · Kind **E** KPI stub API only — Confirmed by: ai-autocode-autopilot  
+> **Kind:** **B** Catalog list Công việc + **full-page form** C/E/V/Copy · Kind **E** KPI stub API only — Confirmed by: ai-autocode-autopilot  
 > **Sources:** `RMMS` §7 · guide **Công việc** · `07` §7 · `09` · `15-SCREEN-AI-MAP.md` · GOVOne vision 009/013/014/015  
 > **Demo HTML:** `Linm.RMMS.Demo/src/demo/features/maintenance-demo.html`  
 > **MFE (align):** `Linm.Web.RMMS.Field` · **BE:** `Linm.RMMS.WebService` domain Maintenance (**cấm** ERP.*)
@@ -23,24 +23,24 @@
 |--------|---------|-------|---------|
 | Tổng hợp bảo trì | Kind E report | KPI 6 thẻ · Biểu đồ bảo trì · period filter | Vision 009/013 |
 | List Công việc | Kind B `LinPageLayout` catalog | Filter search · status · workType · grid A–D | MFE Signed |
-| Chi tiết + tiến độ | Kind D slideout | Timeline · ảnh · bình luận · leave-confirm | Guide |
-| Tạo CV từ sự cố | Kind D slideout | Đơn vị · cán bộ · loại · hạn | Guide Web |
+| Chi tiết + tiến độ | Full-page form | View = display (không Input readOnly) · Edit/Copy/Create | Guide |
+| Tạo CV từ sự cố | Full-page form | Đơn vị · cán bộ · loại · hạn | Guide Web |
 | Dự án bảo trì | List stub | Status · BH | Sidebar nav |
 | Bảng tổng hợp nhanh | Tab tiles | Tuần đường / tuần kiểm / công việc | Vision 014/015 |
 
-**Kind E + D layout (erp-form-context / erp-report-context):**
+**Kind E + form (erp-form-context / erp-report-context):**
 
 - **Report Z1** — title «Tổng hợp bảo trì» · KPI strip (6 metrics) · chart series Dự án  
 - **List Z2** — Công việc filter bar · STT grid · row Chi tiết / Tiến độ  
-- **Slideout** — Z1 Đóng · Z2 fields WO · Z3 Lưu nháp / Cập nhật tiến độ / Nghiệm thu (P2)  
+- **Form page** — `LinPageHeader` · Z1 actions · Z2 fields (`SearchInput` status/workType) · Z3 Lưu  
 
 **Mock:** 4 WO · 4 dự án · IdCode `WO-YYYYMMDD-NNNN` · localStorage · **69 actions** parity (control-map + Maximize).
 
-**2d readonly:** rule_defaults · Confirmed by: ai-autocode-autopilot  
+**2d view:** display grid (không Input `readOnly`) · Confirmed by: ai-autocode-autopilot  
 **2e IdCode:** `WO-YYYYMMDD-NNNN`  
 **2k:** leave-confirm khi WO dirty  
 **2fd:** period filter stub trên KPI  
-**2h:** CatalogListShell công việc + dự án
+**2h:** Catalog list công việc + form page (cấm Kind D Slideout)
 
 ## 3. API
 

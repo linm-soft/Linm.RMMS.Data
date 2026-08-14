@@ -4,20 +4,20 @@
 |-------|-------|
 | feature | `pavement-section` |
 | status | `done` |
-| pack | T-QA-CRUD-01 · FormType |
+| pack | T-QA-CRUD-01 · FormType · list-form-quality |
 | mfeStdUrl | `http://localhost:9301/asset/pavement-section` |
-| taskId | `task_d0fcb3d7` |
-| updatedAt | 2026-08-10T17:32:00.000Z |
+| taskId | `task_e95b3b89` |
+| updatedAt | 2026-08-14T13:46:00.000Z |
 
-## Smoke — Final MFE (prior giữ)
+## Smoke — Final MFE
 
 | # | Step | Expect | Result |
 |---|------|--------|--------|
 | 1 | Open mfeStdUrl (`yarn start:std`) | List shell A–D render | PASS (code review + build) |
 | 2 | Search mã/đường | Grid filter / reload | PASS |
-| 3 | Filter tỉnh / tình trạng | List updates | PASS |
-| 4 | Thêm mới → fill required → Lưu | Toast success · back list · IdCode MD-* (API) / demo fallback | PASS |
-| 5 | Row dbl-click / menu Xem | Full page readOnly | PASS |
+| 3 | Filter tỉnh / tình trạng SearchInput | List updates · no native select | PASS |
+| 4 | Thêm mới → fill required → Lưu | Toast · back list · POST | PASS |
+| 5 | Row dbl-click / menu Xem | Full page `<dl>` View | PASS |
 | 6 | Sửa → Lưu | Update OK | PASS |
 | 7 | Copy → Lưu | New code | PASS |
 | 8 | Config cột | Zone F modal | PASS |
@@ -29,21 +29,24 @@
 | Zone | Scenario | Result |
 |------|----------|--------|
 | A | Header title + icon route | PASS |
-| B | catalogToolbar refresh·history·cog·add·**delete** | PASS |
-| C | SearchTextInput + Select · LinCatalogDataGrid resize ON | PASS |
+| B | catalogToolbar refresh·history·cog·add·delete | PASS |
+| C | SearchTextInput + SearchInput · LinCatalogDataGrid resize ON | PASS |
 | D | LinCatalogListPagination | PASS |
 
 ## T-QA-CRUD-01 — Create→Edit→View→Delete
 
 | # | Scenario | Expect | Result |
 |---|----------|--------|--------|
-| QA-20 | FormType ACT | T-UI-ACT-01 inventory · all actions wired | Toolbar + row menu pair form/API | **PASS** |
-| QA-21 | Create | Toolbar +Tạo → form → Lưu | POST `/pavement-sections` | **PASS** |
-| QA-22 | Edit | Toolbar/row Edit → Lưu | GET + PUT | **PASS** |
-| QA-23 | View | Toolbar/row View · readOnly | GET | **PASS** |
-| QA-24 | Delete row menu | Row Delete confirm → soft DELETE | `showDelete` · `deleteRow` | **PASS** |
-| QA-25 | Delete toolbar | Select row → Delete confirm → soft DELETE | `canDelete`/`onDelete` | **PASS** (GAP-P2-ACT-DELETE closed) |
-| QA-26 | Delete form Edit | Form Xóa → soft DELETE · back list | shared `deleteRow` | **PASS** |
+| QA-20 | FormType ACT | T-UI-ACT-01 inventory | **PASS** |
+| QA-21 | Create | `/asset/pavement-section/new` → Lưu | POST | **PASS** |
+| QA-22 | Edit | `/:id?mode=edit` → Lưu | GET + PUT | **PASS** |
+| QA-23 | View | `/:id` · `<dl>` display · Sửa/Đóng | GET | **PASS** |
+| QA-24 | Delete row menu | confirm → soft DELETE | **PASS** |
+| QA-25 | Delete toolbar | select → Delete | **PASS** |
+| QA-26 | Delete form Edit | Form Xóa → list | **PASS** |
+| QA-27 | T-UI-LKP-01 | SearchInput master list+form | **PASS** |
+| QA-28 | T-UI-PROD-01 | no Resource/Slideout/View=readOnly | **PASS** |
+| QA-29 | T-UI-UX-01 | no filterMaxWidthPx · Lin* | **PASS** |
 
 ## Negative
 
@@ -59,11 +62,13 @@
 |----|----------|------|
 | GAP-P2-ACT-DELETE | — | **CLOSED** |
 | GAP-TL-FORMTYPE-01 | — | **CLOSED** |
+| GAP-P2-LKP | — | **CLOSED** |
+| GAP-PROD-VIEW-RO | — | **CLOSED** |
 
 ## Build gate
 
 - FE typecheck + build **PASS**
-- BE API + BFF Release **PASS**
+- BE API + BFF Release **PASS** (verify · no Write)
 
 ## Version meta (REQUIRED)
 
@@ -74,5 +79,5 @@
 | schemaVersion | 1 |
 | workflowVersion | 2026.08.09.02 |
 | rulesVersion | 2026.08.09.3 |
-| generatedAt | 2026-08-10T17:32:00.000Z |
+| generatedAt | 2026-08-14T13:46:00.000Z |
 | versionGate | rechecked |

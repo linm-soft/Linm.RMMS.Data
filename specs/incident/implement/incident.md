@@ -5,15 +5,15 @@
 | feature | `incident` |
 | status | `done` |
 | changeScope | `edit_page` · gap=`crud_formtype` |
-| taskId | `task_377c866b` |
-| updatedAt | 2026-08-10T17:00:00.000Z |
+| taskId | `task_28ef1042` |
+| updatedAt | 2026-08-14T12:20:00.000Z |
 | versionGate | rechecked |
 
 ## retry.ssot_rereview: **pass**
 
 checklist: `tl-grid-ssot` · `list_parity` · `tl-list-shell-height` · tree_master? n/a · form  
-gaps fixed this turn: **GAP-P2-ACT-DELETE** · **GAP-P2-ACT-ASSIGN-CLOSE** · **GAP-TL-FORMTYPE-01**  
-then: **fix_all**
+gaps this turn (`task_28ef1042` live re-audit): **none remaining** — prior GAP-P2-ACT-* already CLOSED  
+then: **fix_all** (no extra surface patch)
 
 | Check | Result |
 |-------|--------|
@@ -28,7 +28,7 @@ then: **fix_all**
 | form checklist Z1–Z3 | **PASS** `IncidentFormSlideout` Create/Edit/View/Copy · view readOnly · leave-confirm |
 | ≠ citizen badge | **PASS** |
 
-## Done this turn (task_377c866b · FormType CRUD gap)
+## Done this turn (task_28ef1042 · FormType CRUD gap · no LIST rewrite)
 
 | Task | Result |
 |------|--------|
@@ -51,16 +51,16 @@ then: **fix_all**
 | Perm | `services/incident/permissions.ts` |
 | Route prefix | `api/v1/incident/incidents` |
 | mfeStdRoute | `/incident` |
-| mfeStdUrl | `http://localhost:9305/incident` |
+| mfeStdUrl | `http://localhost:9304/incident` |
 
 **Cấm** ERP.* — void.
 
-## Verify (2026-08-10 · task_377c866b)
+## Verify (2026-08-14 · task_28ef1042)
 
 ```
 yarn typecheck → PASS
-LINM_RUN_DEV_LOCAL_BUNDLE=1 yarn build → PASS
-dotnet build Linm.RMMS.WebService.sln -c Release → PASS (0 Error(s))
+LINM_RUN_DEV_LOCAL_BUNDLE=1 yarn build → PASS (webpack 5.109.2, 0 errors)
+dotnet build Linm.RMMS.WebService.sln -c Release → PASS (0 Error(s), 0 Warning(s))
 ```
 
 ## Debt
@@ -83,5 +83,5 @@ dotnet build Linm.RMMS.WebService.sln -c Release → PASS (0 Error(s))
 | schemaVersion | 1 |
 | workflowVersion | 2026.08.09.02 |
 | rulesVersion | 2026.08.09.02 |
-| generatedAt | 2026-08-10T17:00:00.000Z |
+| generatedAt | 2026-08-14T12:20:00.000Z |
 | versionGate | rechecked |

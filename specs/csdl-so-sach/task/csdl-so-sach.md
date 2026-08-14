@@ -7,8 +7,8 @@
 | changeScope | `edit_page` |
 | packKind | `list` (G+B+D) |
 | solution_confirm | **approve** (autopilot · task_de8226e1) |
-| updatedAt | 2026-08-10T16:40:00.000Z |
-| taskId | `task_9106e8fa` |
+| updatedAt | 2026-08-14T19:05:00.000Z |
+| taskId | `task_45a05a05` |
 | TL SSOT | `tl-ssot-permission-tasks.md` · `tl-list-shell-height.md` · `tl-retry-ssot-rereview.md` · `form-type-task-pack.md` |
 
 ## Source assignment
@@ -148,6 +148,6 @@ Standalone shell definite height · page `data-catalog-list-page` · flex fill �
 | schemaVersion | 1 |
 | workflowVersion | 2026.08.09.02 |
 | rulesVersion | 2026.08.09.3 |
-| generatedAt | 2026-08-10T16:40:00.000Z |
+| generatedAt | 2026-08-14T19:05:00.000Z |
 | versionGate | rechecked |
-| formTypePack | task_9106e8fa · gap=crud_formtype |
+| formTypePack | task_45a05a05 · gap=crud_formtype |

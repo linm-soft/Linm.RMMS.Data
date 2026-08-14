@@ -10,7 +10,7 @@
 | updatedAt | 2026-08-10T16:00:00.000Z |
 | TL SSOT | `tl-platform-ssot.md` · `ssot-no-duplicate.md` · `tl-ssot-permission-tasks.md` · `tl-list-shell-height.md` · **`form-type-task-pack.md`** |
 | **Recheck** | full_pipeline · task_79203f46 · **`tl-retry-ssot-rereview` + LAYOUT-06 HARD** |
-| **CRUD gap** | `task_98b1aa0e` · `gap=crud_formtype` · mode=`fix_gaps` · **cấm** rewrite T-UI-LIST |
+| **CRUD gap** | `task_adea150b` (re-verify) · prior `task_98b1aa0e` · `gap=crud_formtype` · mode=`fix_gaps` · **cấm** rewrite T-UI-LIST |
 | **Supersedes** | task/implement cũ ERP · **rework RMMS** |
 
 ## from design / solution (scope gate)
@@ -206,7 +206,7 @@ Live page audit checklist (`tl-retry-ssot-rereview.md` + `tl-list-shell-height.m
 ### T-UI-FORM-01
 **layer:** ui  
 **status:** done (re-smoke)  
-**from_design:** Slideout Z1–Z3 · 11 fields · View readOnly  
+**from_design:** Full page Z1–Z3 · 11 fields · View `<dl>`  
 **skills:** `/erp-form-context` · `/implement-show-leave-confirm` · `dev-form-review-checklist`  
 **DoD:**
 - [x] FormMode Create/Edit/View/Copy · Lin* controls
@@ -214,21 +214,25 @@ Live page audit checklist (`tl-retry-ssot-rereview.md` + `tl-list-shell-height.m
 
 ### T-QA-01
 **layer:** qa  
-**status:** done  
+**status:** **done** (`task_cde0d5d3`)  
 **deps:** T-UI-LIST-01 · T-UI-FORM-01 · T-BFF-01 · T-PERM-01  
 **DoD:**
-- [x] `qa/scenarios.md` — A–D · CRUD · filter no Tìm · Zone F · mfeStdUrl · no ERP
+- [x] `qa/scenarios.md` — A–D · CRUD · SearchInput · full-page form · mfeStdUrl · no ERP
 
-## FormType pack (canonical — `form-type-task-pack` master · task_98b1aa0e)
+## FormType pack (canonical — `form-type-task-pack` master · task_71340357)
 
 | Task id | Role | Status | Maps to / notes |
 |---------|------|--------|-----------------|
 | T-UI-LIST-01 | Dev | **done** | A–D · **không** rewrite (already PASS) |
-| T-UI-FORM-01 | Dev | **done** | Slideout C/E/V/Copy · View readOnly |
+| T-UI-FORM-01 | Dev | **done** | Full page C/E/V/Copy · View `<dl>` |
 | T-UI-ACT-01 | Dev | **done** | Action inventory → form/API (below) |
 | T-BE-CRUD-01 | Dev | **done** | list/search + C/U/D + getById (= prior T-BE-01) |
 | T-UI-MAP-FORM | — | **n/a** | packKind=`list` — không map OMS |
-| T-QA-CRUD-01 | QA | **done** | Create→Edit→View→Delete + row menu |
+| T-UI-LKP-01 | Dev | **done** | SearchInput master type/status |
+| T-UI-FIELD-01 | Dev | **done** | control-map ↔ AssetDto / Create·Update |
+| T-UI-PROD-01 | Dev | **done** | cấm Resource / Slideout / View=readOnly |
+| T-UI-UX-01 | Dev | **done** | spacing 4/8/16 · Lin* · no filterMaxWidthPx |
+| T-QA-CRUD-01 | QA | **done** | Create→Edit→View→Delete + quality gates |
 | T-PERM-01 | Dev | **done** | `asset.road-assets.*` |
 | T-CTX-01 | Dev | **done** | context |
 | T-BFF-01 | Dev | **done** | BFF proxy |
@@ -267,11 +271,11 @@ Live page audit checklist (`tl-retry-ssot-rereview.md` + `tl-list-shell-height.m
 
 ### T-QA-CRUD-01
 **layer:** qa  
-**status:** **done**  
+**status:** **done** (`task_cde0d5d3`)  
 **deps:** T-UI-ACT-01 · T-BE-CRUD-01  
 **DoD:**
-- [x] Smoke Create→Edit→View→Delete + row menu Delete
-- [x] Update `qa/scenarios.md` QA-CRUD rows
+- [x] Smoke Create→Edit→View→Delete + row menu Delete · full-page form · SearchInput
+- [x] Update `qa/scenarios.md` QA-CRUD + LKP/PROD/UX rows
 
 ## Deps
 
@@ -303,6 +307,6 @@ T-UI-FORM-01 → T-UI-ACT-01 → T-QA-CRUD-01
 | schemaVersion | 1 |
 | workflowVersion | 2026.08.09.02 |
 | rulesVersion | 2026.08.09.3 |
-| generatedAt | 2026-08-10T16:00:00.000Z |
+| generatedAt | 2026-08-14T11:42:00.000Z |
 | versionGate | rechecked |
-| taskId | `task_98b1aa0e` |
+| taskId | `task_adea150b` |

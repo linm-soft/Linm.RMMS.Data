@@ -1,4 +1,4 @@
-# Team lead — tasks — partner-unit
+﻿# Team lead — tasks — partner-unit
 
 | Field | Value |
 |-------|-------|
@@ -24,7 +24,7 @@
 | `source.bff` | `bff/domains/integration/LINM.RMMS.Integration.Bff/` |
 | Seed | `docs/context/seed/partner-unit-seed.json` |
 | reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/partner-unit/ui/prototype/partner-unit-list-prototype.html` |
-| mfeStdUrl | `http://localhost:9314/master/partner-unit` |
+| mfeStdUrl | `http://localhost:9318/master/partner-unit` |
 
 ## Retry SSOT re-audit (pre-Write)
 

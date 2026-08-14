@@ -95,6 +95,7 @@ Payload gợi ý: `{scanId, pointCloudKey, orthophotoKey, areaKm2}` · nguồn s
 | GAP-F-DRN-01 | OUT P1 | Giữ P2–P3 · badge hub |
 | GAP-F-DRN-02 | Kind | **B+D** + viewer stub · autopilot |
 | GAP-F-DRN-03 | BE endpoints drone/scans/* | **READY** · Schema_RmmsDroneScans · task_e4372bbe |
+| GAP-P2-ACT-DELETE | Toolbar/row Delete | **Closed** — `deleteRow` + API DELETE (task_df075284) |
 | GAP-F-DRN-04 | Cesium 3D Tiles live | P2 modal stub · P3 live |
 | GAP-F-DRN-05 | Pipeline PDAL/WebODM | Worker ngoài · process mock demo |
 

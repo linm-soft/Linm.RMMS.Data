@@ -50,8 +50,12 @@
 | GET | `/api/v1/integration/health` | Health adapters | **Signed** |
 | GET | `/api/v1/integration/endpoints` | Catalog OpenAPI | **Signed** |
 | GET | `/api/v1/integration/sync-jobs` | Sync jobs paged | **Signed** |
+| GET | `/api/v1/integration/sync-jobs/{id}` | GetById | **Signed** |
+| PUT | `/api/v1/integration/sync-jobs/{id}` | Update job | **Signed** |
+| DELETE | `/api/v1/integration/sync-jobs/{id}` | Soft-delete | **Signed** |
 | POST | `/api/v1/integration/sync-jobs/{id}/retry` | Retry job | **Signed** |
 | GET | `/api/v1/integration/partners` | Partner adapters | **Signed** |
+| GET | `/api/v1/integration/partners/{id}` | Partner getById | **Signed** |
 | POST | `/api/v1/integration/partners/{id}/toggle` | Bật/Tắt | **Signed** |
 | POST | `/api/v1/integration/assets/import` | Đồng bộ TS | **Signed** |
 | POST | `/api/v1/integration/sync/offline-batch` | Mobile Lưu trữ | **Signed** |

@@ -4,9 +4,9 @@
 |-------|-------|
 | feature | `attendance` |
 | status | `done` |
-| taskId | `task_13e76e73` |
+| taskId | `task_7ab2529d` |
 | mfeStdUrl | `http://localhost:9304/patrol/attendance` |
-| updatedAt | 2026-08-10T16:22:00.000Z |
+| updatedAt | 2026-08-14T18:50:00.000Z |
 
 ## Smoke — Final MFE (REQUIRED)
 
@@ -23,7 +23,7 @@
 | S8 | Form Create/Edit/View/Copy | Footer-only Hủy/Lưu · View Đóng/Sửa/Sao chép · no Z1 top actions | **PASS** |
 | S9 | No ERP.* path | BASE `/patrol/attendance-logs` · BE `Linm.RMMS.WebService` | **PASS** |
 
-## QA-CRUD-01 (task_13e76e73)
+## QA-CRUD-01 (task_7ab2529d · re-smoke code path)
 
 | # | Step | Expect | Result |
 |---|------|--------|--------|
@@ -66,6 +66,6 @@
 | schemaVersion | 1 |
 | workflowVersion | 2026.08.10.2 |
 | rulesVersion | 2026.08.10.3 |
-| generatedAt | 2026-08-10T16:22:00.000Z |
+| generatedAt | 2026-08-14T18:50:00.000Z |
 | versionGate | rechecked |
-| taskId | `task_13e76e73` |
+| taskId | `task_7ab2529d` |

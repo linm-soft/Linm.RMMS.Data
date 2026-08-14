@@ -77,8 +77,8 @@ gap=crud_formtype
 runMode=crud_gap
 roleOnly=team_lead · chainRole → Dev
 mode=fix_gaps
-load=form-type-task-pack.md
-TL: chỉ PATCH task.md thêm T-UI-ACT / T-BE-CRUD — cấm full_pipeline PO/Design/SA
+load=form-type-task-pack.md · list-form-quality-gates.md
+TL: PATCH task.md thêm T-UI-ACT / T-BE-CRUD · **T-UI-LKP-01 · T-UI-FIELD-01 · T-UI-PROD-01 · T-UI-UX-01** — cấm full_pipeline PO/Design/SA
 ```
 
 ## CLI — đúng (CRUD gap)

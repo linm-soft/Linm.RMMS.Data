@@ -5,39 +5,45 @@
 | feature | `maintenance` |
 | status | `done` |
 | changeScope | `edit_page` · gap=`crud_formtype` |
-| taskId | `task_6d32b46f` |
-| updatedAt | 2026-08-10T17:00:00.000Z |
+| taskId | `task_d4dee8dc` |
+| updatedAt | 2026-08-14T20:20:00.000Z |
 | versionGate | rechecked |
 
 ## retry.ssot_rereview: **pass**
 
-checklist: `tl-grid-ssot` · `list_parity` · `tl-list-shell-height` · tree_master? n/a · form  
-gaps fixed this turn: **GAP-P2-ACT-DELETE** · **GAP-TL-FORMTYPE-01**  
+checklist: `tl-grid-ssot` · `list_parity` · `tl-list-shell-height` · tree_master? n/a · form · list-form-quality  
+gaps fixed this turn: **GAP-LKP-SELECT** · **GAP-PROD-SLIDEOUT** · **GAP-VIEW-READONLY** · **GAP-UX-WIDTH**  
 then: **fix_all**
 
 | Check | Result |
 |-------|--------|
-| 1× `LinPageLayout` (no nested `CatalogListShell`) | **PASS** (prior · giữ) |
+| 1× `LinPageLayout` (no nested `CatalogListShell`) | **PASS** list |
 | `LinCatalogDataGrid` + column resize default ON | **PASS** |
 | Footer `LinCatalogListPagination` | **PASS** · sizes 50/100/200/500 |
 | flex + skeleton + **LAYOUT-06** | **PASS** |
 | toolbar `catalogToolbar` | **PASS** · refresh · history · config · create · **delete** |
-| filter SearchTextInput — no Tìm btn | **PASS** · status + workType |
+| filter SearchTextInput — no Tìm btn | **PASS** |
+| lookup SearchInput (cấm native Select) | **PASS** status + workType |
 | list_parity Kind B | **PASS** |
 | tree_master? | n/a |
-| form checklist Z1–Z3 | **PASS** `MaintenanceFormSlideout` Create/Edit/View/Copy · view readOnly · leave-confirm |
+| form full-page (cấm Slideout / Kind D) | **PASS** `MaintenanceFormPage` |
+| View display (cấm Input readOnly) | **PASS** `<dl>` |
 | IdCode `WO-YYYYMMDD-NNNN` | **PASS** |
-| Action inventory → form/API | **PASS** · Delete wired · progress/complete dedicated API |
+| Action inventory → form/API | **PASS** · routes `/maintenance/new` · `/:id` · `?mode=edit` |
 
-## Done this turn (task_6d32b46f · FormType)
+## Done this turn (task_d4dee8dc · quality + FormType)
 
 | Task | Result |
 |------|--------|
-| T-UI-ACT-01 | Wired toolbar/row **Delete** → soft DELETE · action inventory closed |
-| T-BE-CRUD-01 | Verified API-01…07 · domain Maintenance · no Write delta BE |
-| T-UI-MAP-FORM | n/a (packKind=list) |
-| T-QA-CRUD-01 | scenarios Create→Edit→View→Delete + toolbar/row Delete · Progress/Complete |
-| Anti-dup | **cấm** rewrite T-UI-LIST-01 / T-UI-FORM-01 (already PASS) |
+| T-UI-ACT-01 | Toolbar/row Delete + C/E/V/Copy → form page |
+| T-BE-CRUD-01 | Verified API-01…07 · no Write delta BE |
+| T-UI-MAP-FORM | n/a |
+| T-UI-LKP-01 | SearchInput master lookups |
+| T-UI-FIELD-01 | DTO/API map |
+| T-UI-PROD-01 | Removed `MaintenanceFormSlideout` |
+| T-UI-UX-01 | 4/8/16 · dropped `filterMaxWidthPx` |
+| T-QA-CRUD-01 | Create→Edit→View→Delete + row menu |
+| Anti-dup | **cấm** rewrite T-UI-LIST-01 shell (patch filters/nav only) |
 
 ## Paths (confirmed)
 
@@ -49,20 +55,20 @@ then: **fix_all**
 | Migration | `20260810011933_Schema_RmmsWorkOrders` |
 | BFF | `bff/domains/maintenance/LINM.RMMS.Maintenance.Bff/Controllers/WorkOrdersBffController.cs` |
 | MFE list | `pages/MaintenanceListPage/MaintenanceListPage.tsx` |
-| MFE form | `pages/MaintenanceListPage/MaintenanceFormSlideout.tsx` |
+| MFE form | `pages/MaintenanceFormPage/MaintenanceFormPage.tsx` |
 | Perm | `services/maintenance/permissions.ts` |
 | Route prefix | `api/v1/maintenance/work-orders` |
 | mfeStdRoute | `/maintenance` |
-| mfeStdUrl | `http://localhost:9306/maintenance` |
+| mfeStdUrl | `http://localhost:9304/maintenance` |
 
-**Cấm** ERP.* — void.
+**Cấm** ERP.* — void. Step 4b: BE existing CRUD verified · no new endpoint/migration.
 
-## Verify (2026-08-10 · task_6d32b46f)
+## Build (REQUIRED)
 
 ```
 yarn typecheck → PASS
-LINM_RUN_DEV_LOCAL_BUNDLE=1 yarn build → PASS
-dotnet build Linm.RMMS.WebService.sln -c Release → PASS (0 Error(s))
+LINM_RUN_DEV_LOCAL_BUNDLE=1 yarn build → PASS (webpack 5.109.2, warnings size only)
+dotnet build Linm.RMMS.WebService.sln -c Release → PASS (0 Error(s), 0 Warning(s))
 ```
 
 ## Debt
@@ -86,5 +92,5 @@ dotnet build Linm.RMMS.WebService.sln -c Release → PASS (0 Error(s))
 | schemaVersion | 1 |
 | workflowVersion | 2026.08.09.02 |
 | rulesVersion | 2026.08.09.02 |
-| generatedAt | 2026-08-10T17:00:00.000Z |
+| generatedAt | 2026-08-14T20:20:00.000Z |
 | versionGate | rechecked |

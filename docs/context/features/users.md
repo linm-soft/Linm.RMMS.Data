@@ -24,7 +24,7 @@
 |--------|---------|-------|
 | QL Cơ quan (tree) | Kind B sidebar | Cây TC · chọn node lọc user · thêm TC |
 | QL Người dùng / Cấp | Kind B CatalogListShell | Filter (tìm đoạn đường/tuyến/user) · grid STT · row actions |
-| User form | Kind B modal / slideout | Mã · username · họ tên · email · SĐT · TC · vai trò · TT · tuyến |
+| User form | Kind B dedicated page | Z1 toolbar · Z2 fields SearchInput · View `<dl>` · `/integration/users/new` · `/:id` |
 | Đổi mật khẩu | Modal | MK cũ · MK mới · xác nhận · submit (legacy `doimatkhau`) |
 | Hồ sơ của tôi | Modal | Profile readonly + link đổi MK |
 | Phân tuyến / Cán bộ QL | Modal | Checkbox tuyến · checkbox user thuộc QL |
@@ -41,6 +41,7 @@
 | Method | Path |
 |--------|------|
 | CRUD | `/api/v1/integration/users` |
+| GET | `/api/v1/integration/users/init-data` |
 | POST | `/api/v1/integration/users/{id}/change-password` |
 | POST | `/api/v1/integration/users/{id}/assign-routes` |
 | POST | `/api/v1/integration/users/{id}/managed-users` |

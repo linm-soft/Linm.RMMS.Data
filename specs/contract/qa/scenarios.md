@@ -4,9 +4,9 @@
 |-------|-------|
 | feature | `contract` |
 | status | `done` |
-| taskId | `task_6b3f9c9c` |
+| taskId | `task_326682fd` |
 | pack | T-QA-CRUD-01 · FormType |
-| updatedAt | 2026-08-10T16:35:00.000Z |
+| updatedAt | 2026-08-14T18:58:00.000Z |
 
 ## Smoke / scenarios
 
@@ -53,6 +53,6 @@
 | skillVersion | 2026.08.09.02 |
 | schemaVersion | 1 |
 | workflowVersion | 2026.08.09.02 |
-| generatedAt | 2026-08-10T16:35:00.000Z |
+| generatedAt | 2026-08-14T18:58:00.000Z |
 | versionGate | rechecked |
-| taskId | `task_6b3f9c9c` |
+| taskId | `task_326682fd` |

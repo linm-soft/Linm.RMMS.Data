@@ -4,18 +4,18 @@
 |-------|-------|
 | feature | `feedback` |
 | status | `done` |
-| taskId | `task_d242eb29` |
-| review_confirm | **approve** (autopilot 2026-08-09) |
-| updatedAt | 2026-08-09T16:13:00.000Z |
+| taskId | `task_4ff7bc4b` |
+| review_confirm | **approve** (autopilot 2026-08-14) |
+| updatedAt | 2026-08-14T19:25:00.000Z |
 
 ## REVIEW-META
 
 | Key | Value |
 |-----|-------|
-| scope | Kind B list `/integration/feedback` + API `feedbacks` |
+| scope | Kind B list `/integration/feedback` + API `feedbacks` · crud_formtype ACT |
 | mfe | `Linm.Web.RMMS.Integration` |
 | be | `Linm.RMMS.WebService` · domain Integration |
-| recheck | full_pipeline · SSOT · LAYOUT-06 · ≠ citizen |
+| recheck | fix_gaps · SSOT · LAYOUT-06 · footer_only · ≠ citizen |
 
 ## Query / API
 
@@ -23,7 +23,7 @@
 |-------|--------|
 | List search/status/page/pageSize | OK |
 | GetById XCO | OK |
-| Soft delete | OK (API) |
+| Soft delete | OK (API + toolbar/row wired) |
 | BFF proxy only | OK |
 | No ERP.* / Domains/Master | OK |
 | `[RequirePermission]` | Debt P1 (stub) |
@@ -45,22 +45,25 @@
 | LinCatalogDataGrid + resize ON | OK |
 | LinCatalogListPagination | OK |
 | Filter no Tìm | OK |
-| Form slideout modes + leave-confirm | OK |
+| Form slideout footer-only + leave-confirm | OK |
+| Toolbar/row Delete | OK |
 | ≠ citizen badge | OK |
 | **GAP-P2-LAYOUT-06** | **OK** |
+| GAP-P2-ACT-DELETE / SLIDE-* | **CLOSED** |
 
 ## Verdict
 
-**approve** — list pack ready; debt Auth/notify tracked in implement MD.
+**approve** — crud_formtype ACT+CRUD closed; debt Auth/notify tracked in implement MD.
 
 ## Version meta (REQUIRED)
 
 | Field | Value |
 |-------|-------|
 | skillId | agent-review |
-| skillVersion | 2026.08.09.02 |
-| schemaVersion | 1 |
-| workflowVersion | 2026.08.09.02 |
-| rulesVersion | 2026.08.09.02 |
-| generatedAt | 2026-08-09T16:13:00.000Z |
+| skillVersion | 2026.08.10.2 |
+| schemaVersion | 2 |
+| workflowVersion | 2026.08.10.2 |
+| rulesVersion | 2026.08.10.3 |
+| generatedAt | 2026-08-14T19:25:00.000Z |
 | versionGate | rechecked |
+| taskId | `task_4ff7bc4b` |

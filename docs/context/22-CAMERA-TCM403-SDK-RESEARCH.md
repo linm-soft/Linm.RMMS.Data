@@ -142,7 +142,7 @@ Consumer nội bộ: `its-anpr-overload` · Incident HITL.
 | ID | Câu hỏi | Status |
 |----|---------|--------|
 | GAP-SDK-01 | Site chỉ mở **8100** | **Chốt B-lite:** BE SDK-first + TCP; full Login khi có DLL |
-| GAP-SDK-02 | OS Edge: Windows (DLL) vs Linux (.so)? | Windows first (`HCNetSDK.dll`) |
+| GAP-SDK-02 | OS Edge: Windows (DLL) vs Linux (.so)? | **Windows first** (`HCNetSDK.dll`). Linux `.so` **DEFERRED**. Docker Linux **must not** fail compose build (`REQUIRE_HIKVISION_SDK` default false). |
 | GAP-SDK-03 | ISUP có trong scope hợp đồng TPP không? | Mở |
 
 Version meta: research=`tcm403-sdk` · implement=`model-sdk-connect` · date=`2026-08-09`

@@ -3,11 +3,11 @@
 | Field | Value |
 |-------|-------|
 | feature | `contract` |
-| phase | `dev` |
-| status | `pending` |
+| phase | `qa` |
+| status | `blocked` |
 | changeScope | `edit_page` |
 | packKind | `list` |
-| gap | `crud_formtype` |
+| gap | `formtype_quality` |
 | demo | `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/contract-demo.html` |
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/contract.md` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Contract` |
@@ -16,8 +16,8 @@
 | prototype.reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/contract/ui/prototype/contract-list-prototype.html` |
 | mfeStdRoute | `/contract` |
 | mfeStdUrl | `http://localhost:9312/contract` |
-| taskId | `task_6b3f9c9c` |
-| updatedAt | `2026-08-10T16:27:05.504Z` |
+| taskId | `task_7573a7b2` |
+| updatedAt | `2026-08-14T21:45:00.000Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -32,9 +32,9 @@
 | 2.1 | design | ui/design.md + prototype + reviewUrl | **confirmed** |
 | 2.2 | sa | be/solution-discovery.md | **confirmed** |
 | 3 | team-lead | task/contract.md | **done** (FormType ACT+CRUD stamped) |
-| 4 | dev | implement/contract.md | **done** (T-UI-ACT-01 · T-BE-CRUD-01) |
-| 5 | qa | qa/scenarios.md | **done** (T-QA-CRUD-01) |
-| 6 | review | review/findings.md | **confirmed** (autopilot) |
+| 4 | dev | implement/contract.md | **done** |
+| 5 | qa | qa/scenarios.md | **blocked** (paused) |
+| 6 | review | review/findings.md | pending |
 
 ## Confirms
 
@@ -49,8 +49,8 @@
 | ui_repo_confirm | `Linm.Web.RMMS.Contract` |
 | version_mismatch_action | **recheck_new** · SSOT 2026.08.09.02 |
 | prototype.reviewUrl | giữ cho Dev/QA |
-| review_confirm | **approve** (autopilot · task_6b3f9c9c) |
-| autoApprove | **ON** |
+| review_confirm | — |
+| autoApprove | **OFF** |
 
 ## Tasks (summary)
 
@@ -65,9 +65,13 @@
 | T-UI-FORM-01 | ui | **done** |
 | T-UI-ACT-01 | ui | **done** |
 | T-BE-CRUD-01 | api | **done** (verify) |
+| T-UI-LKP-01 | ui | **done** |
+| T-UI-FIELD-01 | ui | **done** |
+| T-UI-PROD-01 | ui | **done** |
+| T-UI-UX-01 | ui | **done** (≤2 field/hàng · GAP-P2-FORM-GRID-01) |
 | T-UI-MAP-FORM | — | **n/a** |
-| T-QA-01 | qa | **done** |
-| T-QA-CRUD-01 | qa | **done** |
+| T-QA-01 | qa | pending |
+| T-QA-CRUD-01 | qa | pending |
 
 ## Blockers / open questions
 

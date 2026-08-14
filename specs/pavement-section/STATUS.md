@@ -4,7 +4,7 @@
 |-------|-------|
 | feature | `pavement-section` |
 | phase | `dev` |
-| status | `pending` |
+| status | `blocked` |
 | changeScope | `edit_page` |
 | packKind | `list` |
 | runMode | `fix_gaps` · gap=`crud_formtype` |
@@ -17,8 +17,8 @@
 | prototype.reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/pavement-section/ui/prototype/pavement-section-list-prototype.html` |
 | mfeStdRoute | `/asset/pavement-section` |
 | mfeStdUrl | `http://localhost:9301/asset/pavement-section` |
-| taskId | `task_d0fcb3d7` |
-| updatedAt | `2026-08-10T17:05:47.646Z` |
+| taskId | `task_e95b3b89` |
+| updatedAt | `2026-08-14T14:47:32.663Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -32,10 +32,10 @@
 | 1 | po | po/requirement.md | **done** |
 | 2.1 | design | ui/design.md + prototype + reviewUrl | **confirmed** |
 | 2.2 | sa | be/solution-discovery.md | **confirmed** |
-| 3 | team-lead | task/pavement-section.md | **done** (T-UI-ACT-01 · T-BE-CRUD-01 stamped) |
-| 4 | dev | implement/pavement-section.md | **done** (T-UI-ACT-01 · T-BE-CRUD-01) |
-| 5 | qa | qa/scenarios.md | **done** (T-QA-CRUD-01) |
-| 6 | review | review/findings.md | **done** (approve · autopilot) |
+| 3 | team-lead | task/pavement-section.md | **done** (LKP/FIELD/PROD/UX) |
+| 4 | dev | implement/pavement-section.md | **blocked** (paused) |
+| 5 | qa | qa/scenarios.md | pending |
+| 6 | review | review/findings.md | pending |
 
 ## Confirms
 
@@ -50,7 +50,7 @@
 | ui_repo_confirm | `Linm.Web.RMMS.Asset` (run packet) |
 | version_mismatch_action | **recheck_new** |
 | prototype.reviewUrl | giữ cho Dev/QA |
-| review_confirm | **approve** (autopilot · task_d0fcb3d7) |
+| review_confirm | **approve** (autopilot · task_e95b3b89) |
 | autoApprove | **ON** |
 
 ## Tasks (summary)
@@ -67,8 +67,12 @@
 | T-UI-ACT-01 | pavement-section | ui | T-UI-FORM-01 | done | Delete toolbar + row menu |
 | T-BE-CRUD-01 | pavement-section | api | T-BE-01 | done | verify API-01…05 |
 | T-UI-MAP-FORM | pavement-section | — | — | n/a | packKind=list |
+| T-UI-LKP-01 | pavement-section | ui | T-UI-FORM-01 | done | SearchInput master |
+| T-UI-FIELD-01 | pavement-section | ui | T-UI-LKP-01 | done | control-map ↔ DTO |
+| T-UI-PROD-01 | pavement-section | ui | T-UI-FORM-01 | done | no Resource/Slideout/View=readOnly |
+| T-UI-UX-01 | pavement-section | ui | T-UI-PROD-01 | done | spacing 4/8/16 · Lin* |
 | T-QA-01 | pavement-section | qa | T-UI-FORM-01 | done | scenarios |
-| T-QA-CRUD-01 | pavement-section | qa | T-UI-ACT-01 | done | C/E/V/D + row actions |
+| T-QA-CRUD-01 | pavement-section | qa | T-UI-ACT-01 | done | C/E/V/D + quality gates |
 
 ## Blockers / open questions
 
@@ -76,9 +80,11 @@
 - Excel import/export OUT pack
 - History API stub
 - **cấm ERP.*** · **cấm** invent `api/v1/infra`
-- GAP-P2-ACT-DELETE · GAP-TL-FORMTYPE-01 **CLOSED**
+- GAP-P2-ACT-DELETE · GAP-TL-FORMTYPE-01 · GAP-P2-LKP · GAP-PROD-VIEW-RO **CLOSED**
 
 ## Links
+- mfeStdUrl: `http://localhost:9301/asset/pavement-section`
+- mfeStdRoute: `/asset/pavement-section`
 
 - Design: `specs/pavement-section/ui/design.md`
 - Solution: `specs/pavement-section/be/solution-discovery.md`
@@ -90,8 +96,8 @@
 
 ## Resume / closeout
 
-- resume: `task_d0fcb3d7` · FormType CRUD gap · at: `2026-08-10T17:35:00.000Z`
-- notes: roleOnly=team_lead → chain Dev/QA/Review · VERIFY GATE · STATUS → done · queue → completed
+- resume: `task_e95b3b89` · list-form-quality · at: `2026-08-14T13:47:00.000Z`
+- notes: TL quality stamps → Dev → QA → Review · VERIFY GATE PASS · STATUS → done
 
 ## Version meta (REQUIRED)
 
@@ -102,5 +108,5 @@
 | schemaVersion | 2 |
 | workflowVersion | 2026.08.09.02 |
 | rulesVersion | 2026.08.09.3 |
-| generatedAt | 2026-08-10T17:35:00.000Z |
+| generatedAt | 2026-08-14T13:47:00.000Z |
 | versionGate | rechecked |

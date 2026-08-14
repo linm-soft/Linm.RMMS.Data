@@ -5,38 +5,44 @@
 | feature | `patrol` |
 | status | `done` |
 | changeScope | `edit_page` · gap=`crud_formtype` |
-| taskId | `task_e0173ab6` |
-| updatedAt | 2026-08-10T17:10:00.000Z |
+| taskId | `task_1ede6934` |
+| updatedAt | 2026-08-14T20:30:00.000Z |
 | versionGate | rechecked |
 
 ## retry.ssot_rereview: **pass**
 
 checklist: `tl-grid-ssot` · `list_parity` · `tl-list-shell-height` · tree_master? n/a · form  
-gaps fixed this turn: **GAP-P2-ACT-DELETE** · **GAP-TL-FORMTYPE-01**  
+gaps fixed this turn: **GAP-TL-LIST-QUALITY-01** (LKP·FIELD·PROD·UX) · Slideout/View=readOnly  
 then: **fix_all**
 
 | Check | Result |
 |-------|--------|
-| 1× `LinPageLayout` (no nested `CatalogListShell`) | **PASS** (prior · giữ) |
+| 1× `LinPageLayout` (no nested `CatalogListShell`) | **PASS** |
 | `LinCatalogDataGrid` + column resize default ON | **PASS** |
 | Footer `LinCatalogListPagination` | **PASS** · sizes 50/100/200/500 |
 | flex + skeleton + **LAYOUT-06** | **PASS** |
 | toolbar `catalogToolbar` | **PASS** · refresh · history · config · create · **delete** |
-| filter SearchTextInput — no Tìm btn | **PASS** (Enter + status Select apply) |
+| filter SearchTextInput — no Tìm btn | **PASS** (debounce + status SearchInput) |
 | list_parity Kind B | **PASS** |
 | tree_master? | n/a |
-| form checklist Z1–Z3 | **PASS** `PatrolFormSlideout` Create/Edit/View/Copy · view readOnly |
+| form checklist Z1–Z3 | **PASS** `PatrolFormPage` full-page · View `<dl>` |
 | Action inventory → form/API | **PASS** · Delete wired toolbar + row menu |
+| Lookup SearchInput master | **PASS** status / patrolType / offline |
+| No Resource / Slideout / View=readOnly | **PASS** |
+| UI-Ux spacing · no `filterMaxWidthPx` | **PASS** |
 
-## Done this turn (task_e0173ab6 · FormType)
+## Done this turn (task_1ede6934 · list-form-quality)
 
 | Task | Result |
 |------|--------|
-| T-UI-ACT-01 | Wired toolbar/row **Delete** → soft DELETE · action inventory closed |
+| T-UI-ACT-01 | Toolbar/row Delete + C/E/V/Copy → `/patrol/new` · `/:id` |
 | T-BE-CRUD-01 | Verified API-01…05 · domain Patrol · no Write delta BE |
 | T-UI-MAP-FORM | n/a (packKind=list) |
-| T-QA-CRUD-01 | scenarios Create→Edit→View→Delete + toolbar/row Delete |
-| Anti-dup | **cấm** rewrite T-UI-LIST-01 / T-UI-FORM-01 (already PASS) |
+| T-UI-LKP-01 | `src/services/patrol/lookups.ts` · SearchInput |
+| T-UI-FIELD-01 | Fields map PatrolDto / Create·Update |
+| T-UI-PROD-01 | Removed `PatrolFormSlideout` · View display |
+| T-UI-UX-01 | Removed `filterMaxWidthPx` · spacing 4/8/16 |
+| Anti-dup | **cấm** rewrite T-UI-LIST-01 grid shell (kept A–D) |
 
 ## Paths (confirmed)
 
@@ -48,7 +54,7 @@ then: **fix_all**
 | Migration | `20260810013053_Schema_RmmsPatrolSessions` |
 | BFF | `bff/domains/patrol/LINM.RMMS.Patrol.Bff/Controllers/PatrolSessionsBffController.cs` |
 | MFE list | `pages/PatrolListPage/PatrolListPage.tsx` |
-| MFE form | `pages/PatrolListPage/PatrolFormSlideout.tsx` |
+| MFE form | `pages/PatrolFormPage/PatrolFormPage.tsx` |
 | Perm | `services/patrol/permissions.ts` |
 | Route prefix | `api/v1/patrol/sessions` |
 | mfeStdRoute | `/patrol` |
@@ -56,11 +62,21 @@ then: **fix_all**
 
 **Cấm** ERP.* — void.
 
-## Code delta (FormType)
+## Code delta
 
-- `PatrolListPage.tsx` — `catalogToolbar.canDelete` / `onDelete` · row menu `showDelete` · shared `deleteRow` → `patrolService.delete` (GAP-P2-ACT-DELETE)
+- `lookups.ts` — STATUS / TYPE / OFFLINE master SearchInput
+- `PatrolListPage.tsx` — navigate full-page form · SearchInput status · no Slideout
+- `PatrolFormPage.tsx` — Z1–Z3 full page · View `<dl>`
+- deleted `PatrolFormSlideout.tsx` (+ css)
+- `devRoutes.ts` — `/patrol/new`
 
-## Verify (2026-08-10 · task_e0173ab6)
+## Step 4b BE ALIGN
+
+Existing Patrol domain already implements GET list/getById · POST · PUT · DELETE soft. No new migration/endpoint this turn.
+
+## Verify (2026-08-14 · task_1ede6934)
+
+## Build
 
 ```
 yarn typecheck → PASS
@@ -87,5 +103,5 @@ dotnet build Linm.RMMS.WebService.sln -c Release → PASS (0 Error(s))
 | schemaVersion | 1 |
 | workflowVersion | 2026.08.09.02 |
 | rulesVersion | 2026.08.09.02 |
-| generatedAt | 2026-08-10T17:10:00.000Z |
+| generatedAt | 2026-08-14T20:30:00.000Z |
 | versionGate | rechecked |

@@ -5,8 +5,8 @@
 > **sourceKind:** legacy  
 > **Sources:** guide Check-in/Giám sát/Lưu trữ · `RMMS` §4 · `07` §4 · [`15-SCREEN-AI-MAP.md`](../15-SCREEN-AI-MAP.md) · GOVOne capture + demo-maps  
 > **Demo HTML:** `Linm.RMMS.Demo/src/demo/patrol/patrol.html` · catalog `slug=patrol` · `/demo/p/patrol`  
-> **Kind:** B (catalog list pack) + E demo (report + map) · confirmed by: task_760475f2  
-> **MFE:** `Linm.Web.RMMS.Field` · `/patrol`  
+> **Kind:** B (catalog list pack) + E demo (report + map) · confirmed by: task_1ede6934  
+> **MFE:** `Linm.Web.RMMS.Field` · `/patrol` · form `/patrol/new` · `/patrol/:id`  
 > **BE:** `Linm.RMMS.WebService` · domain **Patrol** · `api/v1/patrol/sessions`  
 > **AI support:** không (AI camera xe tuần đường → `ai-asset-detect`; chấm công rule → `attendance`)
 

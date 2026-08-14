@@ -3,10 +3,12 @@
 | Field | Value |
 |-------|-------|
 | feature | `inventory` |
-| phase | `done` |
-| status | `done` |
+| phase | `dev` |
+| status | `blocked` |
 | changeScope | `edit_page` |
 | packKind | `list` |
+| gap | `crud_formtype` |
+| taskId | `task_c12be5c2` |
 | demo | `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/inventory-demo.html` |
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/inventory.md` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Contract` |
@@ -16,7 +18,7 @@
 | mfeStdRoute | `/contract/inventory` |
 | mfeStdUrl | `http://localhost:9312/contract/inventory` |
 | taskId | `task_27ba5c23` |
-| updatedAt | `2026-08-09T17:03:48.352Z` |
+| updatedAt | `2026-08-14T14:47:32.744Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -31,9 +33,9 @@
 | 2.1 | design | ui/design.md + prototype + reviewUrl | **confirmed** |
 | 2.2 | sa | be/solution-discovery.md | **confirmed** |
 | 3 | team-lead | task/inventory.md | **done** |
-| 4 | dev | implement/inventory.md | **done** |
-| 5 | qa | qa/scenarios.md | **done** |
-| 6 | review | review/findings.md | **confirmed** |
+| 4 | dev | implement/inventory.md | **blocked** (paused) |
+| 5 | qa | qa/scenarios.md | pending |
+| 6 | review | review/findings.md | pending |
 
 ## Confirms
 
@@ -72,6 +74,8 @@
 - **cấm ERP.*** · **cấm** parent JSON string
 
 ## Links
+- mfeStdUrl: `http://localhost:9312/contract/inventory`
+- mfeStdRoute: `/contract/inventory`
 
 - Design: `specs/inventory/ui/design.md`
 - Solution: `specs/inventory/be/solution-discovery.md`
@@ -80,3 +84,8 @@
 - Prototype: `specs/inventory/ui/prototype/inventory-list-prototype.html`
 - QA: `specs/inventory/qa/scenarios.md`
 - Review: `specs/inventory/review/findings.md`
+
+
+## Retry
+
+- from: `dev` · at: `2026-08-14T13:03:16.061Z` · board user Retry step

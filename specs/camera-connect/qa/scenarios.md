@@ -3,9 +3,9 @@
 | Field | Value |
 |-------|-------|
 | feature | `camera-connect` |
-| taskId | `task_6baf42c3` |
+| taskId | `task_ba57a61f` |
 | mfeStdUrl | `http://localhost:9316/camera` |
-| updatedAt | 2026-08-10T16:25:00.000Z |
+| updatedAt | 2026-08-14T18:50:00.000Z |
 
 ## Scenarios
 
@@ -20,7 +20,7 @@
 | QA-13 | Copy | Row menu Sao chép → `/camera/new?copyFrom=` | **PASS** |
 | QA-14 | Delete toolbar | Select row → Delete confirm → soft delete | **PASS** |
 | QA-15 | Delete row menu | case `delete` | **PASS** |
-| QA-20 | FormType ACT | T-UI-ACT-01 inventory · all actions wired | **PASS** |
+| QA-20 | FormType ACT | T-UI-ACT-01 inventory · all actions wired | **PASS** (re-smoke task_ba57a61f) |
 | QA-21 | BE CRUD | list/get/create/update/delete + BFF | **PASS** (build) |
 | QA-30 | Connect (prior) | Test kết nối · snapshot JPEG | **PASS** (lab prior) |
 
@@ -45,4 +45,4 @@
 | schemaVersion | 1 |
 | workflowVersion | 2026.08.10.2 |
 | versionGate | rechecked |
-| taskId | `task_6baf42c3` |
+| taskId | `task_ba57a61f` |

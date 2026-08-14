@@ -1,4 +1,4 @@
-# Team lead — tasks — asset-type
+﻿# Team lead — tasks — asset-type
 
 | Field | Value |
 |-------|-------|
@@ -26,7 +26,7 @@
 | Seed | `docs/context/seed/asset-type-seed.json` |
 | reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/asset-type/ui/prototype/asset-type-list-prototype.html` |
 | mfeStdRoute | `/master/asset-type` |
-| mfeStdUrl | `http://localhost:9314/master/asset-type` |
+| mfeStdUrl | `http://localhost:9318/master/asset-type` |
 
 ## Design zone map (tl-design-grid-component-map)
 

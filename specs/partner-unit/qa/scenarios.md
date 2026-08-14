@@ -1,10 +1,10 @@
-# QA — partner-unit
+﻿# QA — partner-unit
 
 | Field | Value |
 |-------|-------|
 | feature | `partner-unit` |
 | status | **done** |
-| mfeStdUrl | `http://localhost:9314/master/partner-unit` |
+| mfeStdUrl | `http://localhost:9318/master/partner-unit` |
 | updatedAt | `2026-08-08T16:26:00.000Z` |
 
 ## Scenarios

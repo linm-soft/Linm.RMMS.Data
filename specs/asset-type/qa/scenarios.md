@@ -1,4 +1,4 @@
-# QA scenarios — asset-type
+﻿# QA scenarios — asset-type
 
 | Field | Value |
 |-------|-------|
@@ -6,7 +6,7 @@
 | status | **pass** (static + build gates · Autopilot) |
 | updatedAt | `2026-08-10T15:35:00.000Z` |
 | task | `task_b7d98891` · T-QA-CRUD-01 |
-| mfeStdUrl | `http://localhost:9314/master/asset-type` |
+| mfeStdUrl | `http://localhost:9318/master/asset-type` |
 
 | ID | Scenario | Expect | Result |
 |----|----------|--------|--------|
@@ -27,7 +27,7 @@
 | QA-15 | No nested CatalogListShell / no pageSizeBar | SSOT shell | **PASS** |
 | QA-16 | LinCatalogDataGrid · no raw table | GAP-DEV-GRID-RESIZE-01 closed | **PASS** |
 | QA-17 | Build | FE yarn build + typecheck · BE API+BFF | **PASS** (task_b7d98891) |
-| QA-18 | mfeStdUrl | STATUS `http://localhost:9314/master/asset-type` | **PASS** |
+| QA-18 | mfeStdUrl | STATUS `http://localhost:9318/master/asset-type` | **PASS** |
 | QA-19 | Perm local mode | toolbar +Thêm gated via useAssetTypePermissions | **PASS** |
 | QA-20 | FormType pack ACT | T-UI-ACT-01 inventory · all actions wired | **PASS** |
 | QA-21 | CRUD cycle | Create→Edit→View→Delete + row menu (T-QA-CRUD-01) | **PASS** |

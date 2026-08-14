@@ -3,8 +3,8 @@
 | Field | Value |
 |-------|-------|
 | feature | `asset` |
-| phase | `dev` |
-| status | `pending` |
+| phase | `data_analy` |
+| status | `in_progress` |
 | changeScope | `edit_page` |
 | packKind | `list` |
 | demo | `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/asset-demo.html` |
@@ -15,8 +15,8 @@
 | prototype.reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/asset/ui/prototype/asset-list-prototype.html` |
 | mfeStdRoute | `/asset` |
 | mfeStdUrl | `http://localhost:9301/asset` |
-| taskId | `task_98b1aa0e` |
-| updatedAt | `2026-08-10T15:59:35.144Z` |
+| taskId | `task_cde0d5d3` |
+| updatedAt | `2026-08-14T14:47:52.552Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -27,13 +27,13 @@
 
 | Step | Agent | Artifact | Status |
 |------|-------|----------|--------|
-| 1 | po | po/requirement.md | **done** |
-| 2.1 | design | ui/design.md + prototype + reviewUrl | **confirmed** |
-| 2.2 | sa | be/solution-discovery.md | **confirmed** |
-| 3 | team-lead | task/asset.md | **done** (FormType ACT/CRUD stamped) |
-| 4 | dev | implement/asset.md | **done** (T-UI-ACT-01 · T-BE-CRUD-01) |
-| 5 | qa | qa/scenarios.md | **done** (T-QA-CRUD-01) |
-| 6 | review | review/findings.md | **confirmed** (autopilot) |
+| 1 | po | po/requirement.md | pending |
+| 2.1 | design | ui/design.md + prototype + reviewUrl | pending |
+| 2.2 | sa | be/solution-discovery.md | pending |
+| 3 | team-lead | task/asset.md | pending |
+| 4 | dev | implement/asset.md | pending |
+| 5 | qa | qa/scenarios.md | pending |
+| 6 | review | review/findings.md | pending |
 
 ## Confirms
 
@@ -48,8 +48,8 @@
 | ui_repo_confirm | `Linm.Web.RMMS.Asset` |
 | version_mismatch_action | **recheck_new** (kept from board · SSOT 2026.08.09.02) |
 | prototype.reviewUrl | giữ cho Dev/QA (xem Field table) |
-| review_confirm | **approve** (autopilot · task_98b1aa0e) |
-| autoApprove | **ON** |
+| review_confirm | — (QA/Review chưa tới) |
+| autoApprove | **OFF** (run packet task_cde0d5d3) |
 
 ## Tasks (summary)
 
@@ -61,9 +61,13 @@
 | T-BE-02 | migration | **done** |
 | T-BFF-01 | bff | **done** |
 | T-PERM-01 | ui+api | **done** |
-| T-UI-LIST-01 | ui | **done** (không rewrite) |
-| T-UI-FORM-01 | ui | **done** |
-| T-UI-ACT-01 | ui | **done** (GAP-P2-ACT-DELETE closed) |
+| T-UI-LIST-01 | ui | **done** (không rewrite shell) |
+| T-UI-FORM-01 | ui | **done** (full page) |
+| T-UI-ACT-01 | ui | **done** |
+| T-UI-LKP-01 | ui | **done** |
+| T-UI-FIELD-01 | ui | **done** |
+| T-UI-PROD-01 | ui | **done** |
+| T-UI-UX-01 | ui | **done** |
 | T-UI-MAP-FORM | — | **n/a** (list) |
 | T-QA-01 | qa | **done** |
 | T-QA-CRUD-01 | qa | **done** |
@@ -76,6 +80,8 @@
 - **cấm ERP.*** · **cấm** parent JSON string
 
 ## Links
+- mfeStdUrl: `http://localhost:9301/asset`
+- mfeStdRoute: `/asset`
 
 - Design: `specs/asset/ui/design.md`
 - Solution: `specs/asset/be/solution-discovery.md`
@@ -87,16 +93,21 @@
 
 ## Resume / closeout
 
-- closeout: `task_98b1aa0e` · gap=`crud_formtype` · ACT Delete wired · BE verify PASS · queue → completed · at: `2026-08-10T16:12:00.000Z`
+- closeout Dev: `task_71340357` · gap=`formtype_quality` · LKP/FIELD/PROD/UX · build PASS · queue → completed · at: `2026-08-14T13:54:00.000Z`
+- closeout QA: `task_cde0d5d3` · roleOnly=qa · T-QA-01 + T-QA-CRUD-01 · scenarios vs live full-page form · yarn typecheck+build PASS · Review **pending** (autoApprove OFF · không chạy Review) · at: `2026-08-14T14:50:00.000Z`
+
+## Retry
+
+- from: `data_analy` · at: `2026-08-14T14:47:43.172Z` · board user Retry step
 
 ## Version meta (REQUIRED)
 
 | Field | Value |
 |-------|-------|
 | skillId | orchestrator |
-| skillVersion | 2026.08.08.21 |
+| skillVersion | 2026.08.09.02 |
 | schemaVersion | 2 |
 | workflowVersion | 2026.08.09.02 |
 | rulesVersion | 2026.08.09.3 |
-| generatedAt | 2026-08-10T16:12:00.000Z |
+| generatedAt | 2026-08-14T14:50:00.000Z |
 | versionGate | rechecked |

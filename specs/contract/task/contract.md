@@ -104,12 +104,16 @@ FE BASE: **`/contract/contracts`**. BFF proxy `web-bff/api/v1/contract/contracts
 
 | Task id | Role | Status | Maps to / notes |
 |---------|------|--------|-----------------|
-| T-UI-LIST-01 | Dev | **done** | A–D · **không** rewrite (already PASS) |
-| T-UI-FORM-01 | Dev | **done** | Slideout C/E/V/Copy · View readOnly |
+| T-UI-LIST-01 | Dev | **done** | A–D · SearchInput filter · **không** rewrite shell |
+| T-UI-FORM-01 | Dev | **done** | Kind D Slideout C/E/V/Copy · footer only · `form-field-grid` |
 | T-UI-ACT-01 | Dev | **done** | Action inventory → form/API (below) |
 | T-BE-CRUD-01 | Dev | **done** | list/search + C/U/D + getById (= prior T-BE-01 verify) |
+| T-UI-LKP-01 | Dev | **done** | SearchInput type/status/contractor/org/pay |
+| T-UI-FIELD-01 | Dev | **done** | control-map ↔ ContractDto / Create·Update |
+| T-UI-PROD-01 | Dev | **done** | cấm Resource / chữ «Slideout» trên UI (giữ component) |
+| T-UI-UX-01 | Dev | **done** | ≤2 field/hàng · tên full · `helperText` mã · GAP-P2-FORM-GRID-01 closed |
 | T-UI-MAP-FORM | — | **n/a** | packKind=`list` — không map OMS |
-| T-QA-CRUD-01 | QA | **done** | Create→Edit→View→Delete + row menu |
+| T-QA-CRUD-01 | QA | pending | Create→Edit→View→Delete + row menu |
 | T-PERM-01 | Dev | **done** | `contract.contracts.*` |
 | T-CTX-01 | Dev | **done** | context |
 | T-BFF-01 | Dev | **done** | BFF proxy |
@@ -180,5 +184,5 @@ T-UI-FORM-01 → T-UI-ACT-01 → T-QA-CRUD-01
 | workflowVersion | 2026.08.09.02 |
 | generatedAt | 2026-08-10T16:25:00.000Z |
 | versionGate | rechecked |
-| taskId | `task_6b3f9c9c` |
+| taskId | `task_326682fd` (prior stamp `task_6b3f9c9c` — ids already present, no rewrite) |
 | gap | `crud_formtype` |

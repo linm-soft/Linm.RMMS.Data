@@ -4,8 +4,8 @@
 |-------|-------|
 | feature | `attendance` |
 | status | `approve` |
-| taskId | `task_13e76e73` |
-| updatedAt | 2026-08-10T16:25:00.000Z |
+| taskId | `task_7ab2529d` |
+| updatedAt | 2026-08-14T18:50:00.000Z |
 
 ## Findings
 
@@ -38,6 +38,6 @@
 | schemaVersion | 1 |
 | workflowVersion | 2026.08.10.2 |
 | rulesVersion | 2026.08.10.3 |
-| generatedAt | 2026-08-10T16:25:00.000Z |
+| generatedAt | 2026-08-14T18:50:00.000Z |
 | versionGate | rechecked |
-| taskId | `task_13e76e73` |
+| taskId | `task_7ab2529d` |

@@ -12,7 +12,7 @@
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/ai-asset-detect.md` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.AiVision` |
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/ai-vision` |
-| mfeStdRoute | `/ai-vision/ai-asset-detect` (**route_confirm=route_a** · locked) |
+| mfeStdRoute | `/ai-vision/ai-asset-detect` |
 | mfeStdUrl | `http://localhost:9303/ai-vision/ai-asset-detect` |
 | reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/ai-asset-detect/ui/prototype/ai-asset-detect-list-prototype.html` |
 | taskId | `task_b86293c4` |
@@ -76,10 +76,12 @@
 
 ## Blockers / open questions
 
-- None blocking. Follow-up: apply migration on DB · RequirePermission when CommonLib ready · real detect engine.
-- Live LAYOUT-06 re-smoke optional when `yarn start:std` (port 9303).
+- Follow-up: apply migration on DB · RequirePermission when CommonLib ready · **GPT-4o Vision via Linm.AiService** (workspace chưa có `Linm.AI.WebService` · user chọn `wait_aiservice`).
+- CR 2026-08-14: S-FEED UI (upload JPEG + bbox overlay + GPS QL.1 + nhãn VN) + `IAssetDetector` stub · 1 candidate/frame · **chưa** gọi Azure từ RMMS.Api.
 
 ## Links
+- mfeStdUrl: `http://localhost:9303/ai-vision/ai-asset-detect`
+- mfeStdRoute: `/ai-vision/ai-asset-detect`
 
 - Review: `specs/ai-asset-detect/review/findings.md`
 - QA: `specs/ai-asset-detect/qa/scenarios.md`

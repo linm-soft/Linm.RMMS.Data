@@ -4,7 +4,9 @@
 |-------|-------|
 | feature | `drone` |
 | mfeStdUrl | `http://localhost:9313/drone` |
+| pack | T-QA-CRUD-01 · FormType |
 | status | `done` |
+| taskId | `task_df075284` |
 
 ## Smoke (mfeStdUrl)
 
@@ -20,6 +22,19 @@
 | S8 | Form required name/flightType/road | Banner + invalid | pass |
 | S9 | Save / draft / leave dirty | Persist local or API | pass |
 | S10 | Artifact add/remove | Inline grid | pass |
+
+## T-QA-CRUD-01 — Create→Edit→View→Delete
+
+| # | Layer | Scenario | Expect | Result |
+|---|-------|----------|--------|--------|
+| QA-10 | FormType | Create `/drone/new` | Required name/flightType/road · Lưu → list | **PASS** (code) |
+| QA-11 | FormType | Edit `?mode=edit` | Fields writable · PUT | **PASS** |
+| QA-12 | FormType | View default `/:id` | readOnly · Sửa in footer | **PASS** |
+| QA-13 | FormType | Copy `?copyFrom=` | New code · POST | **PASS** |
+| QA-14 | FormType | Toolbar Delete | confirm · DELETE soft · row gone | **PASS** |
+| QA-15 | FormType | Row menu Delete | same `deleteRow` | **PASS** |
+| QA-16 | FormType | Form Hủy job | confirm · DELETE · back list | **PASS** |
+| QA-20 | FormType ACT | T-UI-ACT-01 inventory · actions wired | Toolbar + row pair form/API | **PASS** |
 
 ## API (when BE up)
 

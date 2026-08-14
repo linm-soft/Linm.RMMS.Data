@@ -68,6 +68,8 @@
 - None open. DEFER: PostGIS tiles · SignalR · Cesium embed.
 
 ## Links
+- mfeStdUrl: `http://localhost:9302/gis`
+- mfeStdRoute: `/gis`
 
 - DOMAIN-MAP: `D:/AI-QLBD/Linm.RMMS.WebService/docs/DOMAIN-MAP.md`
 - Prototype reviewUrl: `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/gis/ui/prototype/gis-map-prototype.html`

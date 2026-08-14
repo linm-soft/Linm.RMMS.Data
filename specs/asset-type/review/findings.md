@@ -1,4 +1,4 @@
-# Review — asset-type
+﻿# Review — asset-type
 
 | Field | Value |
 |-------|-------|
@@ -26,7 +26,7 @@
 | Build FE/BE | **PASS** — typecheck · yarn build · API · BFF |
 | GAP-DEV-DROPDOWN-HARDCODE-01 | **PASS** — group Select ← init-data only |
 | Prototype + reviewUrl | **PASS** |
-| mfeStdUrl | **PASS** — `http://localhost:9314/master/asset-type` |
+| mfeStdUrl | **PASS** — `http://localhost:9318/master/asset-type` |
 | Confirms BE+UI | **PASS** (run packet) |
 
 ## Accept TODOs

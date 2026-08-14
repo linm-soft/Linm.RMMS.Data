@@ -142,6 +142,7 @@ Site lab: `113.179.52.55:8100` = SDK TCP · không phải ISAPI.
 | GAP-CAM-03 | Lưu password | Encrypt at rest P2 · demo localStorage masked |
 | GAP-CAM-04 | Multi-model catalog | `GET /cameras/models` + `CameraModelCatalog` |
 | GAP-CAM-05 | HCNetSDK binary | Copy HiTools Win64 → `D:\AI-QLBD\Linm.RMMS.WebService\api\src\RMMS.Service.Api\native\hikvision` · không DLL vẫn `sdk_tcp` |
+| GAP-CAM-SDK-OS | Docker Linux vs Win64 DLL | **Chốt:** Linux image **không** fail build vì thiếu `libhcnetsdk.so` (DEFERRED). `sdkDllLoaded=false` trên Docker. CaptureJPEG = Win64 API `:5101` + BFF `RMMS_API_BASE=http://host.docker.internal:5101`. `REQUIRE_HIKVISION_SDK=true` chỉ khi có Linux `.so`. |
 
 ## 7. Demo checklist (chốt khách)
 

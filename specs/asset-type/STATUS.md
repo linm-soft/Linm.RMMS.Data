@@ -1,4 +1,4 @@
-# STATUS — asset-type
+﻿# STATUS — asset-type
 
 | Field | Value |
 |-------|-------|
@@ -16,7 +16,7 @@
 | domain | **Integration** |
 | prototype.reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/asset-type/ui/prototype/asset-type-list-prototype.html` |
 | mfeStdRoute | `/master/asset-type` |
-| mfeStdUrl | `http://localhost:9314/master/asset-type` |
+| mfeStdUrl | `http://localhost:9318/master/asset-type` |
 | updatedAt | `2026-08-10T15:34:11.047Z` |
 ## Lock
 
@@ -73,11 +73,13 @@
 — none —
 
 ## Links
+- mfeStdUrl: `http://localhost:9318/master/asset-type`
+- mfeStdRoute: `/master/asset-type`
 
 - implement → `implement/asset-type.md`
 - qa → `qa/scenarios.md`
 - review → `review/findings.md`
-- mfeStdUrl → `http://localhost:9314/master/asset-type`
+- mfeStdUrl → `http://localhost:9318/master/asset-type`
 
 ## Retry
 

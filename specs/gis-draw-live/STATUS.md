@@ -66,6 +66,8 @@
 - None open. DEFER: PostGIS persist · multi-user lock · commit → Asset.
 
 ## Links
+- mfeStdUrl: `http://localhost:9302/gis/draw`
+- mfeStdRoute: `/gis/draw`
 
 - DOMAIN-MAP: `D:/AI-QLBD/Linm.RMMS.WebService/docs/DOMAIN-MAP.md`
 - Prototype reviewUrl: `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/gis-draw-live/ui/prototype/gis-draw-live-prototype.html`

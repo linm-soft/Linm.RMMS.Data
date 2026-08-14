@@ -1,20 +1,20 @@
 # RESUME-CONTEXT — inventory
 
-> Compressed at stop · 2026-08-08T19:01:49.207Z
+> Compressed at stop · 2026-08-14T14:47:32.732Z
 
 ## Meta
 
 | Field | Value |
 |---|---|
-| taskId | `task_27ba5c23` |
+| taskId | `task_be742d66` |
 | alias | `inventory` |
-| title | Vật tư và thiết bị |
+| title | [Dev] Vật tư và thiết bị |
 | source | `qldb_implement` |
 | cursorAgentId | `—` |
-| mfeRoot | `D:\AI-QLBD` |
+| mfeRoot | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Contract` |
 | beRoot | `—` |
 | reason | user_stop_all |
-| notes | slash=/agent-qldb-workflow · packKind=list · runMode=full_pipeline · via=scan-qlbd-form-type · productRoot=D:/AI-QLBD/Linm.RMMS.Data · docsRoot=D:/AI-QLBD/Linm.RMMS.Data/docs · demoRoot=D:/AI-QLBD/Linm.RMMS.Demo/src/demo · demo=D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/inventory-demo.html · mfeSource=D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Contract · status=D:/AI-QLBD/Linm.RMMS.Data/specs/inventory/ |
+| notes | slash=/agent-qldb-workflow · roleOnly=dev · chainRole=1 · startFrom=dev · startSlash=/agent-dev · autoApprove=0 · retryFrom=dev · productRoot=D:/AI-QLBD/Linm.RMMS.Data · mfeSource=D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Contract · status=D:/AI-QLBD/Linm.RMMS.Data/specs/inventory/STATUS.md · demo=D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/inventory-demo.html · mfeStdUrl=http://localhost:9312/contract/ |
 
 ## Done / next (heuristic from worker stream)
 
@@ -28,15 +28,22 @@
 | Field | Value |
 |-------|-------|
 | feature | `inventory` |
-| phase | `po` |
-| status | `draft` |
+| phase | `dev` |
+| status | `pending` |
+| changeScope | `edit_page` |
 | packKind | `list` |
-| demo | D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/inventory-demo.html |
+| gap | `crud_formtype` |
+| taskId | `task_c12be5c2` |
+| demo | `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/inventory-demo.html` |
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/inventory.md` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Contract` |
-| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · DOMAIN-MAP — **cấm ERP.*** |
-| updatedAt | 2026-08-08T18:20:04.255Z |
-
+| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · **`api/v1/contract/inventory-items`** (**cấm ERP.***) |
+| prototype.artifact | `specs/inventory/ui/prototype/inventory-list-prototype.html` |
+| prototype.reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/inventory/ui/prototype/inventory-list-prototype.html` |
+| mfeStdRoute | `/contract/inventory` |
+| mfeStdUrl | `http://localhost:9312/contract/inventory` |
+| taskId | `task_27ba5c23` |
+| updatedAt | `2026-08-14T13:03:16.124Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -47,26 +54,66 @@
 
 | Step | Agent | Artifact | Status |
 |------|-------|----------|--------|
-| 1 | po | po/requirement.md | pending |
-| 2.1 | design | ui/design.md + prototype + reviewUrl | pending |
-| 2.2 | sa | be/solution-discovery.md | pending |
-| 3 | team-lead | task/inventory.md | pending |
+| 1 | po | po/requirement.md | **done** |
+| 2.1 | design | ui/design.md + prototype + reviewUrl | **confirmed** |
+| 2.2 | sa | be/solution-discovery.md | **confirmed** |
+| 3 | team-lead | task/inventory.md | **done** |
 | 4 | dev | implement/inventory.md | pending |
 | 5 | qa | qa/scenarios.md | pending |
 | 6 | review | review/findings.md | pending |
 
-## Tasks
+## Confirms
 
-| id | page | role | deps | status | notes |
-|----|------|------|------|--------|-------|
+| Gate | Value |
+|------|-------|
+| design_confirm | **approve** (autopilot) |
+| solution_confirm | **approve** (autopilot) — route `/api/v1/contract/inventory-items` |
+| sa_tz_gate | **tz_na** |
+| sa_xco_gate | **xco_get_only** (API-02) |
+| sa_shared_table | **share_tenant** (`InventoryItemEntity`) |
+| be_repo_confirm | `Linm.RMMS.WebService` |
+| ui_repo_confirm | `Linm.Web.RMMS.Contract` |
+| version_mismatch_action | **recheck_new** · SSOT 2026.08.09.02 |
+| prototype.reviewUrl | giữ cho Dev/QA |
+| review_confirm | **approve** (autopilot · task_27ba5c23) |
+| autoApprove | **ON** |
+
+## Tasks (summary)
+
+| id | layer | status |
+|----|-------|--------|
+| T-CTX-01 | docs | **done** |
+| T-BE-01 | api | **done** |
+| T-BE-02 | migration | **done** |
+| T-BFF-01 | bff | **done** |
+| T-PERM-01 | ui+api | **done** |
+| T-UI-LIST-01 | ui | **done** |
+| T-UI-FORM-01 | ui | **done** |
+| T-QA-01 | qa | **done** |
 
 ## Blockers / open questions
 
--
+- CommonLib / Auth NuGet — `[RequirePermission]` TODO BE
+- Leaflet GPS Kind F full / Excel / Timescale / Asset sync = out of pack
+- Catalog UI schema editor stub
+- **cấm ERP.*** · **cấm** parent JSON string
 
 ## Links
+- mfeStdUrl: `http://localhost:9312/contract/inventory`
+- mfeStdRoute: `/contract/inventory`
 
-- po → ui → be → task → implement → qa → review
+- Design: `specs/inventory/ui/design.md`
+- Solution: `specs/inventory/be/solution-discovery.md`
+- Task: `specs/inventory/task/inventory.md`
+- Implement: `specs/inventory/implement/inventory.md`
+- Prototype: `specs/inventory/ui/prototype/inventory-list-prototype.html`
+- QA: `specs/inventory/qa/scenarios.md`
+- Review: `specs/inventory/review/findings.md`
+
+
+## Retry
+
+- from: `dev` · at: `2026-08-14T13:03:16.061Z` · board user Retry step
 
 ```
 

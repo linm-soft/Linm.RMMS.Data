@@ -8,8 +8,8 @@
 | changeScope | `edit_page` |
 | gap | `crud_formtype` |
 | mode | `fix_gaps` |
-| taskId | `task_6baf42c3` |
-| updatedAt | 2026-08-10T16:20:00.000Z |
+| taskId | `task_ba57a61f` (prior `task_6baf42c3`) |
+| updatedAt | 2026-08-14T18:50:00.000Z |
 
 ## Source assignment
 
@@ -53,7 +53,9 @@
 | T-BFF-CRUD | Dev | **done** | BFF proxy CRUD on `/cameras` |
 | T-BE-02 | Dev | **done** | migration `rmms_camera_devices` |
 
-**GAP-TL-FORMTYPE-01:** closed this turn — prior STATUS thiếu ACT/CRUD ids · không có `task/`.
+**GAP-TL-FORMTYPE-01:** closed (task_6baf42c3). **task_ba57a61f TL:** live task MD đã có T-UI-ACT-01 · T-BE-CRUD-01 · T-UI-MAP-FORM=`n/a` · T-QA-CRUD-01 — **không thêm id mới** · không rewrite T-UI-LIST.
+
+**retry.ssot_rereview (TL before handoff Dev · 2026-08-14):** live `CameraListPage.tsx` — 1× `LinPageLayout` · `LinCatalogDataGrid` + `resizable: true` · footer `LinCatalogListPagination` · no `footerPagination`/`pageSizeBar`/`CatalogListShell` · `catalogToolbar` + row menu View/Edit/Copy/Delete/History · form footer Save/Cancel + View mode. **PASS** · GAP-P2-ACT-* remain CLOSED.
 
 ### T-UI-ACT-01 — action inventory
 
@@ -149,5 +151,5 @@ T-UI-FORM-01 → T-UI-ACT-01 → T-QA-CRUD-01
 | rulesVersion | 2026.08.10.3 |
 | generatedAt | 2026-08-10T16:20:00.000Z |
 | versionGate | rechecked |
-| taskId | `task_6baf42c3` |
+| taskId | `task_ba57a61f` |
 | priorVersion | STATUS 2026.08.09.04 → rechecked keep_current artifacts + stamp SSOT |

@@ -34,7 +34,7 @@
           "mfe": "Linm.Web.RMMS.Asset",
           "stdPort": 9301,
           "route": "/asset",
-          "mfeStdUrl": "http://localhost:9301/dev",
+          "mfeStdUrl": "http://localhost:9301/asset",
           "be": "api/v1/assets"
         },
         {
@@ -45,8 +45,8 @@
           "demoUrl": "http://localhost:5180/features/pavement-section-demo.html",
           "mfe": "Linm.Web.RMMS.Asset",
           "stdPort": 9301,
-          "route": "/asset/pavement",
-          "mfeStdUrl": "http://localhost:9301/dev",
+          "route": "/asset/pavement-section",
+          "mfeStdUrl": "http://localhost:9301/asset/pavement-section",
           "be": "api/v1/pavement-sections"
         },
         {
@@ -57,8 +57,8 @@
           "demoUrl": "http://localhost:5180/features/csdl-so-sach-demo.html",
           "mfe": "Linm.Web.RMMS.Asset",
           "stdPort": 9301,
-          "route": "/asset/csdl",
-          "mfeStdUrl": "http://localhost:9301/dev",
+          "route": "/asset/csdl-so-sach",
+          "mfeStdUrl": "http://localhost:9301/asset/csdl-so-sach",
           "be": "api/v1/csdl-so-sach"
         }
       ]
@@ -79,7 +79,7 @@
           "mfe": "Linm.Web.RMMS.Gis",
           "stdPort": 9302,
           "route": "/gis",
-          "mfeStdUrl": "http://localhost:9302/dev",
+          "mfeStdUrl": "http://localhost:9302/gis",
           "be": "api/v1/gis"
         },
         {
@@ -91,7 +91,7 @@
           "mfe": "Linm.Web.RMMS.Gis",
           "stdPort": 9302,
           "route": "/gis/draw",
-          "mfeStdUrl": "http://localhost:9302/dev",
+          "mfeStdUrl": "http://localhost:9302/gis/draw",
           "be": "api/v1/gis/drawings"
         },
         {
@@ -103,7 +103,7 @@
           "mfe": "Linm.Web.RMMS.Gis",
           "stdPort": 9302,
           "route": "/gis/draw-google",
-          "mfeStdUrl": "http://localhost:9302/dev",
+          "mfeStdUrl": "http://localhost:9302/gis/draw-google",
           "be": "api/v1/gis/drawings"
         }
       ]
@@ -124,7 +124,7 @@
           "mfe": "Linm.Web.RMMS.AiVision",
           "stdPort": 9303,
           "route": "/ai-vision",
-          "mfeStdUrl": "http://localhost:9303/dev",
+          "mfeStdUrl": "http://localhost:9303/ai-vision",
           "be": "api/v1/ai-vision"
         }
       ]
@@ -144,8 +144,8 @@
           "demoUrl": "http://localhost:5180/features/ai-asset-detect-demo.html",
           "mfe": "Linm.Web.RMMS.AiVision",
           "stdPort": 9303,
-          "route": "/ai-vision/asset-detect",
-          "mfeStdUrl": "http://localhost:9303/dev",
+          "route": "/ai-vision/ai-asset-detect",
+          "mfeStdUrl": "http://localhost:9303/ai-vision/ai-asset-detect",
           "be": "api/v1/ai-asset-detect"
         }
       ]
@@ -168,7 +168,7 @@
           "mfe": "Linm.Web.RMMS.Camera",
           "stdPort": 9316,
           "route": "/camera",
-          "mfeStdUrl": "http://localhost:9316/dev",
+          "mfeStdUrl": "http://localhost:9316/camera",
           "be": "api/v1/cameras"
         }
       ]
@@ -189,7 +189,7 @@
           "mfe": "Linm.Web.RMMS.Field",
           "stdPort": 9304,
           "route": "/patrol",
-          "mfeStdUrl": "http://localhost:9304/dev",
+          "mfeStdUrl": "http://localhost:9304/patrol",
           "be": "api/v1/patrol"
         }
       ]
@@ -210,7 +210,7 @@
           "mfe": "Linm.Web.RMMS.Field",
           "stdPort": 9304,
           "route": "/patrol/attendance",
-          "mfeStdUrl": "http://localhost:9304/dev",
+          "mfeStdUrl": "http://localhost:9304/patrol/attendance",
           "be": "api/v1/attendance"
         }
       ]
@@ -229,9 +229,9 @@
           "demo": "../../Linm.RMMS.Demo/src/demo/features/incident-demo.html",
           "demoUrl": "http://localhost:5180/features/incident-demo.html",
           "mfe": "Linm.Web.RMMS.Field",
-          "stdPort": 9305,
+          "stdPort": 9304,
           "route": "/incident",
-          "mfeStdUrl": "http://localhost:9305/dev",
+          "mfeStdUrl": "http://localhost:9304/incident",
           "be": "api/v1/incidents"
         }
       ]
@@ -250,9 +250,9 @@
           "demo": "../../Linm.RMMS.Demo/src/demo/features/maintenance-demo.html",
           "demoUrl": "http://localhost:5180/features/maintenance-demo.html",
           "mfe": "Linm.Web.RMMS.Field",
-          "stdPort": 9306,
+          "stdPort": 9304,
           "route": "/maintenance",
-          "mfeStdUrl": "http://localhost:9306/dev",
+          "mfeStdUrl": "http://localhost:9304/maintenance",
           "be": "api/v1/maintenance"
         }
       ]
@@ -273,7 +273,7 @@
           "mfe": "Linm.Web.RMMS.AiVision",
           "stdPort": 9303,
           "route": "/ai-vision/predict",
-          "mfeStdUrl": "http://localhost:9303/dev",
+          "mfeStdUrl": "http://localhost:9303/ai-vision/predict",
           "be": "api/v1/predict"
         }
       ]
@@ -292,9 +292,9 @@
           "demo": "../../Linm.RMMS.Demo/src/demo/features/ops-demo.html",
           "demoUrl": "http://localhost:5180/features/ops-demo.html",
           "mfe": "Linm.Web.RMMS.Field",
-          "stdPort": 9308,
+          "stdPort": 9304,
           "route": "/ops",
-          "mfeStdUrl": "http://localhost:9308/dev",
+          "mfeStdUrl": "http://localhost:9304/ops",
           "be": "api/v1/ops"
         }
       ]
@@ -315,7 +315,7 @@
           "mfe": "Linm.Web.RMMS.AiVision",
           "stdPort": 9303,
           "route": "/ai-vision/estimate",
-          "mfeStdUrl": "http://localhost:9303/dev",
+          "mfeStdUrl": "http://localhost:9303/ai-vision/estimate",
           "be": "api/v1/estimate"
         }
       ]
@@ -336,7 +336,7 @@
           "mfe": "Linm.Web.RMMS.Contract",
           "stdPort": 9312,
           "route": "/contract",
-          "mfeStdUrl": "http://localhost:9312/dev",
+          "mfeStdUrl": "http://localhost:9312/contract",
           "be": "api/v1/contracts"
         }
       ]
@@ -357,7 +357,7 @@
           "mfe": "Linm.Web.RMMS.Copilot",
           "stdPort": 9310,
           "route": "/copilot",
-          "mfeStdUrl": "http://localhost:9310/dev",
+          "mfeStdUrl": "http://localhost:9310/copilot",
           "be": "api/v1/copilot"
         }
       ]
@@ -378,7 +378,7 @@
           "mfe": "Linm.Web.RMMS.Report",
           "stdPort": 9311,
           "route": "/bao-cao/dashboard",
-          "mfeStdUrl": "http://localhost:9311/dev",
+          "mfeStdUrl": "http://localhost:9311/bao-cao",
           "be": "api/v1/reports/dashboard"
         },
         {
@@ -390,7 +390,7 @@
           "mfe": "Linm.Web.RMMS.Report",
           "stdPort": 9311,
           "route": "/bao-cao/reports",
-          "mfeStdUrl": "http://localhost:9311/dev",
+          "mfeStdUrl": "http://localhost:9311/bao-cao",
           "be": "api/v1/reports"
         }
       ]
@@ -411,7 +411,7 @@
           "mfe": "Linm.Web.RMMS.Integration",
           "stdPort": 9314,
           "route": "/integration",
-          "mfeStdUrl": "http://localhost:9314/dev",
+          "mfeStdUrl": "http://localhost:9314/integration",
           "be": "api/v1/integration"
         }
       ]

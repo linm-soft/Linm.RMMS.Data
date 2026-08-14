@@ -66,6 +66,8 @@
 - None open. DEFER: Google JS key · snap Roads API · multi-user lock · PostGIS persist.
 
 ## Links
+- mfeStdUrl: `http://localhost:9302/gis/draw-google`
+- mfeStdRoute: `/gis/draw-google`
 
 - DOMAIN-MAP: `D:/AI-QLBD/Linm.RMMS.WebService/docs/DOMAIN-MAP.md`
 - Prototype reviewUrl: `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/gis-draw-google/ui/prototype/gis-draw-google-prototype.html`

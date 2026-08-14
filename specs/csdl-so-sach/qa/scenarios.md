@@ -4,9 +4,9 @@
 |-------|-------|
 | feature | `csdl-so-sach` |
 | status | `done` |
-| taskId | `task_9106e8fa` |
+| taskId | `task_45a05a05` |
 | pack | T-QA-CRUD-01 · FormType |
-| updatedAt | 2026-08-10T16:45:00.000Z |
+| updatedAt | 2026-08-14T19:05:00.000Z |
 
 ## Scenarios
 
@@ -58,5 +58,5 @@
 | schemaVersion | 1 |
 | workflowVersion | 2026.08.09.02 |
 | rulesVersion | 2026.08.09.3 |
-| generatedAt | 2026-08-10T16:45:00.000Z |
+| generatedAt | 2026-08-14T19:05:00.000Z |
 | versionGate | rechecked |

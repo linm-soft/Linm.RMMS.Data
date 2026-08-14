@@ -8,8 +8,8 @@
 | changeScope | `edit_page` |
 | gap | `crud_formtype` |
 | mode | `fix_gaps` |
-| taskId | `task_13e76e73` |
-| updatedAt | 2026-08-10T16:05:00.000Z |
+| taskId | `task_7ab2529d` (prior `task_13e76e73` ACT+CRUD **kept**) |
+| updatedAt | 2026-08-14T18:45:00.000Z |
 
 ## Source assignment
 
@@ -145,6 +145,6 @@ T-UI-FORM-01 → T-UI-ACT-01 → T-QA-CRUD-01
 | schemaVersion | 2 |
 | workflowVersion | 2026.08.10.2 |
 | rulesVersion | 2026.08.10.3 |
-| generatedAt | 2026-08-10T16:05:00.000Z |
+| generatedAt | 2026-08-14T18:45:00.000Z |
 | versionGate | rechecked |
-| taskId | `task_13e76e73` |
+| taskId | `task_7ab2529d` |

@@ -68,6 +68,8 @@
 - Follow-up: full catalog-ui-schema editor (F-01) · real detect runtime (F-02).
 
 ## Links
+- mfeStdUrl: `http://localhost:9303/ai-vision`
+- mfeStdRoute: `/ai-vision`
 
 - DOMAIN-MAP: `D:/AI-QLBD/Linm.RMMS.WebService/docs/DOMAIN-MAP.md`
 - controlHint: `specs/_data-analy/features/ai-vision-control-hint.md`

@@ -1,10 +1,35 @@
+# RESUME-CONTEXT — camera-connect
+
+> Compressed at stop · 2026-08-14T14:47:32.586Z
+
+## Meta
+
+| Field | Value |
+|---|---|
+| taskId | `task_4878d58c` |
+| alias | `camera-connect` |
+| title | [QA] Kết nối camera ITS (Hikvision ANPR) |
+| source | `qldb_implement` |
+| cursorAgentId | `—` |
+| mfeRoot | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Camera` |
+| beRoot | `—` |
+| reason | user_stop_all |
+| notes | slash=/agent-qldb-workflow · roleOnly=qa · chainRole=1 · startFrom=qa · startSlash=/agent-qa · autoApprove=0 · productRoot=D:/AI-QLBD/Linm.RMMS.Data · mfeSource=D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Camera · status=D:/AI-QLBD/Linm.RMMS.Data/specs/camera-connect/STATUS.md · demo=D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/camera-connect-demo.html · mfeStdUrl=http://localhost:9316/camera |
+
+## Done / next (heuristic from worker stream)
+
+- (no live events — dùng STATUS + implement MD)
+
+## STATUS excerpt
+
+```markdown
 # STATUS — camera-connect
 
 | Field | Value |
 |-------|-------|
 | feature | `camera-connect` |
 | phase | `qa` |
-| status | `blocked` |
+| status | `pending` |
 | changeScope | `edit_page` |
 | packKind | `list` |
 | gap | `crud_formtype` |
@@ -22,7 +47,7 @@
 | versionGate | `rechecked` |
 | mfeStdRoute | `/camera` |
 | mfeStdUrl | `http://localhost:9316/camera` |
-| updatedAt | `2026-08-14T14:47:32.599Z` |
+| updatedAt | `2026-08-14T14:09:59.353Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -47,7 +72,7 @@
 | 2.2 | sa | model + SDK/ISAPI | **done** |
 | 3 | team_lead | task/camera-connect.md formType pack | **done** (task_ba57a61f re-audit · no new ACT/CRUD ids) |
 | 4 | dev | implement/camera-connect.md | **done** (`task_e98137ab`) |
-| 5 | qa | qa/scenarios.md | **blocked** (paused) |
+| 5 | qa | qa/scenarios.md | pending |
 | 6 | next | P2-G0 live video gateway | **pending confirm** |
 
 ## Tasks
@@ -121,18 +146,13 @@
 | Check | Result |
 |-------|--------|
 | yarn typecheck (Camera) | **PASS** |
-| yarn build (Camera) | **PASS** (size warnings only) |
-| dotnet build Release | **PASS** 0 Error(s) |
+| yarn build (Camera) | **PA
+```
 
-## Next step — xem live (video liên tục)
+## Resume instructions (for agent)
 
-Hiện tại Z3 = **poll JPEG** (SDK CaptureJPEG) — đủ “thấy ảnh”, **không** đủ FPS live.
-
-| # | Việc | Artifact |
-|---|------|----------|
-| **1** | Confirm gate plan 21 §12 (engine · WebRTC/HLS · deploy) | AskQuestion |
-| **2** | **P2-G0 POC** MediaMTX + RTSP TCM403 | Docker gateway |
-| **3** | Browser play HLS + WebRTC | đo latency/CPU |
-| **4** | **P2-G1** `live/start|stop` + playToken + MFE player | API + Z3 |
-
-SSOT: [`docs/context/21-CAMERA-HLS-WEBRTC-GATEWAY.md`](../../docs/context/21-CAMERA-HLS-WEBRTC-GATEWAY.md)
+1. Đọc file này + STATUS.md + implement/{alias}.md.
+2. **Không** làm lại bước đã confirmed/done trên STATUS.
+3. Tiếp tục đúng phase hiện tại → hoàn tất tới Review / verify gate.
+4. Cập nhật STATUS + implement MD khi xong từng phần.
+5. Giữ cursorAgentId continuity nếu Agent.resume khả dụng.

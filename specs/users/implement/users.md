@@ -6,55 +6,88 @@
 | status | `done` |
 | mfeStdUrl | `http://localhost:9314/integration/users` |
 | mfeStdRoute | `/integration/users` |
-| updatedAt | 2026-08-10T08:45:00.000Z |
+| taskId | `task_8b8a998f` |
+| updatedAt | `2026-08-14T21:20:00.000Z` |
 
-## Done tasks
+## Surface (T-UI-UX-01)
+
+Desktop/Tablet Web — **1 layout**. Mobile web stacks form 2-col → 1-col at **767px** (system breakpoint). Không native app.
+
+## retry.ssot_rereview
+
+Live list (`UsersListPage`) trước gap pack:
+
+| Check | Result |
+|-------|--------|
+| 1× LinPageLayout · cấm nested CatalogListShell | PASS |
+| LinCatalogDataGrid + kéo cột default ON | PASS |
+| footer LinCatalogListPagination | PASS |
+| flex + skeleton | PASS |
+| toolbar config | PASS (`LinListTableConfigModal`) |
+| list_parity / tree_master | PASS (tree API + local fallback) |
+| form checklist | PASS — full page Z2+Z3 · **footer actions only** · View `<dl>` |
+
+## UX review → align (2026-08-14 live `/integration/users/new`)
+
+| Gap | Live | Fix |
+|-----|------|-----|
+| **GAP-P2-SLIDE-TOP-ACT** / DUP-SAVE | Hủy/Lưu top + footer | Footer only · View: Đóng/Sao chép/Sửa |
+| **GAP-DEV-UX-01** P2–3 | Custom pwd/profile/config overlay | `Modal` · `LinListTableConfigModal` · `LeaveConfirmModal` |
+| **GAP-DEV-UX-01** P6 | Chỉ happy path | FormSkeleton · load error · 403 create · empty grid |
+| **GAP-DEV-UX-01** P7 | Emoji trên nút | Text + FA title icon · label trên Input |
+| Lookup `VP-II.2 — VP-II.2` | primary=secondary | `lookupDisplays` ẩn cặp trùng |
+| **GAP-DEV-DROPDOWN-HARDCODE-01** | Filter/grid `ROLE_LOOKUP` tĩnh | `getInitData` → SearchInput + cell label |
+| **GAP-DEV-DEMO-NOTE-01** | «Kind B» · «stub» · ALL CAPS GOVOne | Toast nghiệp vụ · «Mật khẩu cũ» |
+| **GAP-DEV-UX-01** P5 | `@media 900px` | `767px` |
+| P4 spacing | 4/8/16/24/32 | Giữ · sticky footer 12/16 |
+
+## Done tasks (gap)
 
 | id | status | notes |
 |----|--------|-------|
-| T-CTX-01 | done | context API Integration |
-| T-PERM-01 | done | `integration.users.*` FE gate · BE TODO RequirePermission |
-| T-BE-01 | done | AppUsersController + AppUserService CRUD · change-password · assign |
-| T-BE-02 | done | `Schema_RmmsUsers` · `rmms_users` · AppDbContext |
-| T-BFF-01 | done | AppUsersBffController proxy |
-| T-UI-LIST-01 | done | LinPageLayout A–D · org tree · LinCatalogDataGrid · pagination |
-| T-UI-FORM-01 | done | Slideout · pwd · profile modals |
+| T-BE-CRUD-01 | done | `GET api/v1/integration/users/init-data` · BFF proxy · CRUD/assign đã có |
+| T-UI-ACT-01 | done | route form · delete Modal · assign-routes · managed-users · pwd |
+| T-UI-MAP-FORM | done | Input/SearchInput ↔ DTO |
+| T-UI-LKP-01 | done | SearchInput + init-data + org-units/search |
+| T-UI-FIELD-01 | done | email/tel/csv/lookup codes |
+| T-UI-PROD-01 | done | bỏ Slideout · View `<dl>` · badge TẠO MỚI/SỬA/XEM |
+| T-UI-UX-01 | done | constitution P1–7 · footer only · Lin* Modal · **bỏ** toolbar Hồ sơ/Đổi MK (GAP-DEV-DEMO-CHROME-01) |
+| QA-CRUD | pending | smoke Create/Edit/View sau UX align |
 
-## Verify gate
+## review.form
+
+```
+pattern: Full page
+shell: footer_actions_only
+modes: Create|Edit|View|Copy
+wire: endpoint + unwrap OK
+lock: View <dl> (no grey disabled fields)
+validate: Pattern B + email
+lookup: SearchInput catalog · init-data
+leave: LeaveConfirmModal
+toast: success + BE error
+perm: create/update gated
+```
+
+## Build
 
 ```
 yarn typecheck → PASS
-LINM_RUN_DEV_LOCAL_BUNDLE=1 yarn build → PASS
-dotnet build RMMS.Service.Api → PASS
-dotnet build LINM.RMMS.Integration.Bff → PASS
+LINM_RUN_DEV_LOCAL_BUNDLE=1 yarn build → PASS (webpack 5.109.2, 3 size warnings)
+BE không đổi shape — không Schema migration
 ```
-
-## SSOT checklist (list)
-
-- [x] 1× LinPageLayout (no nested CatalogListShell)
-- [x] LinCatalogDataGrid + resizable ON
-- [x] LinCatalogListPagination footer
-- [x] flex + skeleton (useServerPagedListLoading)
-- [x] toolbar config fa-cog
-- [x] search work · row menu · org tree filter
 
 ## Files (key)
 
-### FE (`Linm.Web.RMMS.Integration`)
+### FE
 
-- `src/pages/UsersListPage/*`
-- `src/services/users/*`
-- `src/demo/usersStore.ts`
-- `src/index.tsx` · `src/dev/devRoutes.ts`
+- `src/pages/UsersListPage/UsersListPage.tsx` · `.module.css`
+- `src/pages/UsersFormPage/*`
+- `src/services/users/lookups.ts` (`lookupDisplays`)
 
 ### BE (`Linm.RMMS.WebService`)
 
-- `Entities/AppUserEntity.cs`
-- `DTOs/AppUserDtos.cs`
-- `Services/AppUserService.cs` · `IAppUserService.cs`
-- `Controllers/AppUsersController.cs`
-- `Bff/AppUsersBffController.cs`
-- `Migrations/20260810083600_Schema_RmmsUsers.cs`
+- không sửa trong lượt UX align
 
 ## Version meta (REQUIRED)
 
@@ -65,5 +98,5 @@ dotnet build LINM.RMMS.Integration.Bff → PASS
 | schemaVersion | 1 |
 | workflowVersion | 2026.08.09.02 |
 | rulesVersion | 2026.08.09.3 |
-| generatedAt | 2026-08-10T08:45:00.000Z |
+| generatedAt | 2026-08-14T14:20:00.000Z |
 | versionGate | rechecked |

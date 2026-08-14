@@ -4,7 +4,7 @@
 |-------|-------|
 | feature | `patrol` |
 | phase | `dev` |
-| status | `pending` |
+| status | `blocked` |
 | changeScope | `edit_page` |
 | packKind | `list` |
 | runMode | `fix_gaps` · gap=`crud_formtype` |
@@ -13,13 +13,13 @@
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Field` |
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · **`api/v1/patrol/sessions`** (**cấm ERP.***) |
 | domain | **Patrol** |
-| taskId | `task_e0173ab6` |
+| taskId | `task_1ede6934` |
 | mfeStdRoute | `/patrol` |
 | mfeStdUrl | `http://localhost:9304/patrol` |
 | skillVersion | `2026.08.09.02` |
 | schemaVersion | `qldb-workflow-skill-v1` |
 | workflowVersion | `2026.08.09.02` |
-| updatedAt | `2026-08-10T17:00:29.860Z` |
+| updatedAt | `2026-08-14T14:47:32.682Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -33,10 +33,10 @@
 | 1 | po | po/requirement.md | **done** |
 | 2.1 | design | ui/design.md + prototype + reviewUrl | **done** |
 | 2.2 | sa | be/solution-discovery.md | **done** |
-| 3 | team-lead | task/patrol.md | **done** (T-UI-ACT-01 · T-BE-CRUD-01 stamped) |
-| 4 | dev | implement/patrol.md | **done** (T-UI-ACT-01 · T-BE-CRUD-01) |
-| 5 | qa | qa/scenarios.md | **done** (T-QA-CRUD-01) |
-| 6 | review | review/findings.md | **done** (approve · autopilot) |
+| 3 | team-lead | task/patrol.md | **done** (LKP·FIELD·PROD·UX stamped) |
+| 4 | dev | implement/patrol.md | **blocked** (paused) |
+| 5 | qa | qa/scenarios.md | pending |
+| 6 | review | review/findings.md | pending |
 
 ## Confirms
 
@@ -60,16 +60,20 @@
 | T-BFF-01 | patrol | bff | T-BE-01 | done | proxy |
 | T-PERM-01 | patrol | ui+api | T-BE-01 | done | FE gate · BE stub |
 | T-UI-LIST-01 | patrol | ui | T-BFF-01 | done | A–D · LAYOUT-06 · no Tìm |
-| T-UI-FORM-01 | patrol | ui | T-UI-LIST-01 | done | Slideout Z1–Z3 |
+| T-UI-FORM-01 | patrol | ui | T-UI-LIST-01 | done | Full-page C/E/V/Copy · View `<dl>` |
 | T-UI-ACT-01 | patrol | ui | T-UI-FORM-01 | done | Delete toolbar + row menu |
 | T-BE-CRUD-01 | patrol | api | T-BE-01 | done | verify API-01…05 |
 | T-UI-MAP-FORM | patrol | — | — | n/a | packKind=list |
+| T-UI-LKP-01 | patrol | ui | T-UI-FORM-01 | done | SearchInput master |
+| T-UI-FIELD-01 | patrol | ui | T-UI-FORM-01 | done | control-map ↔ DTO |
+| T-UI-PROD-01 | patrol | ui | T-UI-FORM-01 | done | no Slideout / View=readOnly |
+| T-UI-UX-01 | patrol | ui | T-UI-LIST-01 | done | spacing 4/8/16 · no filterMaxWidth |
 | T-QA-01 | patrol | qa | T-UI-FORM-01 | done | scenarios |
 | T-QA-CRUD-01 | patrol | qa | T-UI-ACT-01 | done | C/E/V/D + row actions |
 
 ## Blockers / open questions
 
-- GAP-P2-ACT-DELETE · GAP-TL-FORMTYPE-01 **CLOSED**
+- GAP-P2-ACT-DELETE · GAP-TL-FORMTYPE-01 · GAP-TL-LIST-QUALITY-01 **CLOSED**
 
 ## Links
 
@@ -87,5 +91,5 @@
 | schemaVersion | 2 |
 | workflowVersion | 2026.08.09.02 |
 | rulesVersion | 2026.08.09.02 |
-| generatedAt | 2026-08-10T17:15:00.000Z |
+| generatedAt | 2026-08-14T20:30:00.000Z |
 | versionGate | rechecked |

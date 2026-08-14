@@ -1,4 +1,4 @@
-# Implement — partner-unit
+﻿# Implement — partner-unit
 
 | Field | Value |
 |-------|-------|
@@ -6,7 +6,7 @@
 | status | **done** |
 | domain | Integration · `api/v1/integration/partner-units` |
 | mfe | `Linm.Web.RMMS.Master` · `/master/partner-unit` |
-| mfeStdUrl | `http://localhost:9314/master/partner-unit` (`yarn start:std`) |
+| mfeStdUrl | `http://localhost:9318/master/partner-unit` (`yarn start:std`) |
 | verify | FE `yarn typecheck` + `yarn build` · BE API+BFF `dotnet build` **PASS** |
 | updatedAt | `2026-08-08T18:45:00.000Z` |
 

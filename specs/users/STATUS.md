@@ -3,8 +3,8 @@
 | Field | Value |
 |-------|-------|
 | feature | `users` |
-| phase | `done` |
-| status | `done` |
+| phase | `dev` |
+| status | `blocked` |
 | changeScope | `edit_page` |
 | packKind | `list` |
 | runMode | `full_pipeline` |
@@ -13,11 +13,11 @@
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Integration` |
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · **`api/v1/integration/users`** (**cấm ERP.***) |
 | domain | **Integration** |
-| taskId | `task_abbcb82f` |
+| taskId | `task_8b8a998f` |
 | mfeStdRoute | `/integration/users` |
 | mfeStdUrl | `http://localhost:9314/integration/users` |
 | prototype.reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/users/ui/prototype/users-list-prototype.html` |
-| updatedAt | `2026-08-10T01:44:19.881Z` |
+| updatedAt | `2026-08-14T14:47:32.643Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -31,10 +31,10 @@
 | 1 | po | po/requirement.md | **done** |
 | 2.1 | design | ui/design.md + prototype + reviewUrl | **confirmed** (autopilot) |
 | 2.2 | sa | be/solution-discovery.md | **confirmed** (autopilot) |
-| 3 | team-lead | task/users.md | **done** |
-| 4 | dev | implement/users.md | **done** |
-| 5 | qa | qa/scenarios.md | **done** |
-| 6 | review | review/findings.md | **done** (approve · autopilot) |
+| 3 | team-lead | task/users.md | **done** (gap pack) |
+| 4 | dev | implement/users.md | **blocked** (paused) |
+| 5 | qa | qa/scenarios.md | pending |
+| 6 | review | review/findings.md | pending |
 
 ## Confirms
 
@@ -57,9 +57,17 @@
 | T-BE-01 | users | api | T-CTX-01 | **done** | CRUD + pwd + assign |
 | T-BE-02 | users | migration | T-BE-01 | **done** | Schema_RmmsUsers |
 | T-BFF-01 | users | bff | T-BE-01 | **done** | proxy |
-| T-UI-LIST-01 | users | ui | T-BFF-01 | **done** | A–D · tree · grid |
-| T-UI-FORM-01 | users | ui | T-UI-LIST-01 | **done** | Slideout + modals |
+| T-UI-LIST-01 | users | ui | T-BFF-01 | **done** | A–D · tree · grid (giữ PASS) |
+| T-UI-FORM-01 | users | ui | T-UI-LIST-01 | **done** | form page (gap: bỏ Slideout) |
 | T-QA-01 | users | qa | T-UI-FORM-01 | **done** | scenarios |
+| T-UI-ACT-01 | users | ui | T-UI-LIST-01 | **done** | toolbar/row → form/API |
+| T-UI-MAP-FORM | users | ui | T-UI-FORM-01 | **done** | control-map ↔ DTO |
+| T-UI-LKP-01 | users | ui | T-BE-CRUD-01 | **done** | SearchInput / init-data |
+| T-UI-FIELD-01 | users | ui | T-UI-MAP-FORM | **done** | field type map |
+| T-UI-PROD-01 | users | ui | T-UI-FORM-01 | **done** | cấm Resource/Slideout/View=readOnly |
+| T-UI-UX-01 | users | ui | T-UI-LIST-01 | **done** | constitution P1–7 · footer only · Lin* Modal |
+| T-BE-CRUD-01 | users | api | T-BE-01 | **done** | init-data + CRUD pair |
+| QA-CRUD | users | qa | T-UI-ACT-01 | **done** | Create/Edit/View + row |
 
 ## Blockers / open questions
 
