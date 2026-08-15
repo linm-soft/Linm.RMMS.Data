@@ -3,84 +3,97 @@
 | Field | Value |
 |-------|-------|
 | feature | `attendance` |
+| this role | `dev` · `/agent-dev` |
 | status | `done` |
 | changeScope | `edit_page` |
 | gap | `crud_formtype` |
 | mode | `fix_gaps` |
-| taskId | `task_c33a0de3` |
-| updatedAt | 2026-08-14T21:10:00.000Z |
+| taskId | `task_47f14701` |
+| autoApprove | ON (run packet) |
+| updatedAt | `2026-08-14T17:00:00.000Z` |
 | versionGate | rechecked |
 
 ## retry.ssot_rereview: **pass**
 
-checklist: `tl-grid-ssot` · `list_parity` · `tl-list-shell-height` · tree_master? n/a · form (`slideout-form-layout` footer_only)  
-gaps fixed this turn: **T-UI-UX** (footer labels, no emoji) · **T-UI-FIELD** (View Select → `Input` readOnly, cấm disabled/raw input)  
-then: **fix_all**
+Live re-audit Field `AttendanceListPage` + `AttendanceFormSlideout` **trước Write**. Cùng surface đóng hết GAP-SA-ATT-* + GAP-TL-ATT-* (không patch 1 chỗ).
 
 | Check | Result |
 |-------|--------|
 | 1× `LinPageLayout` (no nested `CatalogListShell`) | **PASS** |
-| `LinCatalogDataGrid` + column resize default ON | **PASS** (`DEFAULT_CATALOG_LIST_TABLE_CONFIG` + `resizable: true`) |
-| Footer `LinCatalogListPagination` | **PASS** · sizes 50/100/200/500 |
-| flex + skeleton + **LAYOUT-06** | **PASS** |
-| toolbar `catalogToolbar` | **PASS** · refresh · history · config · create · **delete** |
-| filter SearchTextInput — no Tìm btn | **PASS** |
+| `LinCatalogDataGrid` + kéo cột default ON | **PASS** (`resizable: true`) |
+| Footer `LinCatalogListPagination` | **PASS** · 50/100/200/500 · **cấm** footerPagination / pageSizeBar |
+| flex + skeleton + LAYOUT-06 | **PASS** |
+| toolbar `catalogToolbar` | **PASS** |
+| filter: search + status + **route SearchInput** + **onlyOutZone Checkbox** · no Tìm btn | **PASS** |
+| `filterMaxWidthPx` | **removed** (GAP-TL-ATT-FILTER-MAX) |
+| header icon `fa-user-clock` | **PASS** (GAP-TL-ATT-ICON) |
 | list_parity Kind B | **PASS** |
 | tree_master? | n/a |
-| form checklist · `actions=footer_only` | **PASS** — no Z1 Quay lại/Hủy/Lưu; View Đóng/Sửa/Sao chép in footer |
-| T-UI-LKP lookup master | **n/a** — SA scalars `UserName`/`Route` (varchar) · no lookup API |
-| T-UI-FIELD field type/BE | **PASS** — DateTime → `datetime-local` · lat/lng number · status/inZone Select (edit) / Input readOnly (view) |
-| cấm Resource · View=disabled | **PASS** — no Resource · View=`readOnly` not disabled |
-| T-UI-UX constitution | **PASS** — footer labels text-only |
+| form Slideout footer_only · View `readOnly` · **cấm** Resource | **PASS** |
+| T-UI-LKP `GET /integration/road-routes/search` | **PASS** · persist `code` · fallback 38 CUC2 (có `QL.1`, không `QL.22`) |
+| T-UI-FIELD | **PASS** · UTC datetime-local · lat/lng number · InZone Trong/Ngoài |
+| SearchInput `dropdownPortal` | **PASS** |
 
-## Done this turn (task_c33a0de3 · /agent-dev · roleOnly)
+## Done this turn (`task_47f14701` · roleOnly=`dev`)
 
-Live page re-audit Field `AttendanceListPage` + `AttendanceFormSlideout`. LIST A–D **không rewrite**. BE Step 4b verify: API + BFF + migration already in `Linm.RMMS.WebService` domain **Patrol** — no new endpoint this turn.
+Delta trên CRUD shell đã PASS — **không rewrite** list/form/BFF.
 
-## Paths (confirmed)
+| Task | Layer | Result |
+|------|--------|--------|
+| T-BE-Q-01 | API | list `route` exact · `onlyOutZone` → `InZone==false` · search GPS `Lat`/`Lng` ToString Contains |
+| T-BE-VAL-01 | API | Route ∈ `rmms_road_routes` IsActive · cấm `QL.22` · status allow-list · 422 VN |
+| T-BFF-01 | BFF | `Request.QueryString` passthrough `route` + `onlyOutZone` · no Patrol road-routes proxy |
+| T-FE-API-01 | UI | `getList` params `route` · `onlyOutZone` |
+| T-UI-LKP-01 | UI | SearchInput form + Zone B |
+| T-UI-FIELD-01 | UI | control map |
+| T-UI-PROD-01 | UI | mock `QL.22`→`QL.1` (attendance + patrol store · storage v2) |
+| T-UI-LIST-01 extend | UI | Zone B route + onlyOutZone · KEEP A–D shell |
+| T-UI-FORM-01 extend | UI | `route` SearchInput · KEEP Slideout |
+| T-UI-UX-01 | UI | icon · bỏ filterMaxWidthPx · portal |
+
+**Cấm** ERP.* · `api/v1/rmms/*` · Resource · invent QL.22 · users LKP · Schema mới.
+
+## Paths
 
 | Layer | Path |
 |-------|------|
 | BackendRoot | `D:/AI-QLBD/Linm.RMMS.WebService` |
-| API | `api/src/RMMS.Service.Api/Domains/Patrol/` |
-| Entity | `api/shared/RMMS.Service.Persistence/Entities/AttendanceLogEntity.cs` |
-| Migration | `20260809063754_Schema_RmmsAttendanceLogs` |
+| API | `api/src/RMMS.Service.Api/Domains/Patrol/` · `api/v1/patrol/attendance-logs` |
 | BFF | `bff/domains/patrol/LINM.RMMS.Patrol.Bff/Controllers/AttendanceLogsBffController.cs` |
-| MFE list | `pages/AttendanceListPage/AttendanceListPage.tsx` |
-| MFE form | `pages/AttendanceListPage/AttendanceFormSlideout.tsx` |
-| Perm | `services/attendance/permissions.ts` |
-| Route prefix | `api/v1/patrol/attendance-logs` |
-| mfeStdRoute | `/patrol/attendance` |
+| Lookup | `api/v1/integration/road-routes/search` (không copy Patrol) |
+| MFE | `pages/AttendanceListPage/*` · `services/attendance/*` |
 | mfeStdUrl | `http://localhost:9304/patrol/attendance` |
 
-**Cấm** ERP.* — void.
-
-## Verify (task_c33a0de3 · 2026-08-14)
+## Build (HARD)
 
 ```
 yarn typecheck → PASS
 LINM_RUN_DEV_LOCAL_BUNDLE=1 yarn build → PASS (webpack 5.109.2, 0 errors, size warnings only)
-dotnet build Linm.RMMS.WebService.sln -c Release → PASS (0 Error(s), 0 Warning(s))
+dotnet build RMMS.Service.Api.csproj -c Release → PASS (0 Error(s), 0 Warning(s))
+dotnet build LINM.RMMS.Patrol.Bff.csproj -c Release → PASS (0 Error(s), 0 Warning(s))
 ```
 
-## Debt
+## Handoff → QA
 
-| ID | Note |
-|----|------|
-| SD-AUTH | `[RequirePermission]` TODO BE (CommonLib NuGet) |
-| History API | window.alert stub — wire khi Auth/event sẵn |
-| Schema editor | Config hint dialog P1 — full `LinCatalogUiSchemaEditorModal` later |
-| Kind E report/map APIs | `/attendance/report|summary|zones` — P2 out of list pack |
+| Field | Value |
+|-------|-------|
+| Next | `/agent-qa` · `qa/scenarios.md` · T-QA-01 / T-QA-CRUD-01 |
+| Verify | filter route + onlyOutZone · SearchInput 38 · seed QL.1 · 422 QL.22 · GPS search · mfeStdUrl · no ERP |
 
 ## Version meta (REQUIRED)
 
 | Field | Value |
 |-------|-------|
 | skillId | agent-dev |
-| skillVersion | 2026.08.10.2 |
-| schemaVersion | 1 |
-| workflowVersion | 2026.08.10.2 |
-| rulesVersion | 2026.08.10.3 |
-| generatedAt | 2026-08-14T21:10:00.000Z |
+| skillVersion | 2026.08.14.5 |
+| schemaVersion | 2 |
+| workflowVersion | 2026.08.14.5 |
+| rulesVersion | 2026.08.14.9 |
+| generatedAt | 2026-08-14T17:00:00.000Z |
 | versionGate | rechecked |
-| taskId | `task_c33a0de3` |
+| dataAnalySkillVersion | 2026.08.08.20 |
+| poSkillVersion | 2026.08.14.5 |
+| designSkillVersion | 2026.08.14.5 |
+| saSkillVersion | 2026.08.14.5 |
+| teamLeadSkillVersion | 2026.08.14.5 |
+| taskId | `task_47f14701` |

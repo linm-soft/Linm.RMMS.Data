@@ -2,7 +2,7 @@
 
 > **Slug:** `users` · **Module:** Auth / Admin (tạm host Integration) · **Phase:** P1 (giữ)  
 > **Status:** Demo · **sourceKind:** legacy  
-> **Kind confirmed:** **B** (CatalogListShell list + modal) — erp-form-context 2a-K  
+> **Kind confirmed:** **B** — `LinPageLayout` catalog A–D + tree master + **full-page** `UsersFormPage` · **cấm** nested CatalogListShell · **cấm** Slideout  
 > **Sources:** guide Web **Quản lý người dùng** · Mobile cập nhật profile · `15-SCREEN-AI-MAP.md` · legacy GOVOne capture  
 > **Demo:** `Linm.RMMS.Demo/public/demo/integration/users.html` · `src/demo/integration/users.html`  
 > **Catalog /dev:** `demoCatalog.ts` slug `users` · hub `index.html` · domain `integration`
@@ -22,13 +22,13 @@
 
 | Screen | Pattern | Zones |
 |--------|---------|-------|
-| QL Cơ quan (tree) | Kind B sidebar | Cây TC · chọn node lọc user · thêm TC |
-| QL Người dùng / Cấp | Kind B CatalogListShell | Filter (tìm đoạn đường/tuyến/user) · grid STT · row actions |
-| User form | Kind B dedicated page | Z1 toolbar · Z2 fields SearchInput · View `<dl>` · `/integration/users/new` · `/:id` |
+| QL Cơ quan (tree) | Zone C master | Cây TC · chọn node → `?orgCode=` · **không** CRUD org trên pack này |
+| QL Người dùng / Cấp | Kind B `LinPageLayout` A–D | Filter SearchText + SearchInput role/status/**route** · `LinCatalogDataGrid` · `LinCatalogListPagination` |
+| User form | Kind B dedicated page | Z1 header · Z2 fields SearchInput · View `<dl>` · `/integration/users/new` · `/:id` · **cấm** Slideout |
 | Đổi mật khẩu | Modal | MK cũ · MK mới · xác nhận · submit (legacy `doimatkhau`) |
 | Hồ sơ của tôi | Modal | Profile readonly + link đổi MK |
-| Phân tuyến / Cán bộ QL | Modal | Checkbox tuyến · checkbox user thuộc QL |
-| User menu | Toolbar avatar | Ban.TK… · Hồ sơ · Đổi MK · Đăng xuất · VỀ TRANG CHỦ |
+| Phân tuyến / Cán bộ QL | Modal | SearchInput multi `road-route` / `users` — **cấm** CSV thuần |
+| User menu chrome | — | **SKIP** P1 (Ban.TK · Hồ sơ · Đăng xuất · VỀ TRANG CHỦ) |
 
 ### Mock interactions (demo)
 
@@ -40,7 +40,7 @@
 
 | Method | Path |
 |--------|------|
-| CRUD | `/api/v1/integration/users` |
+| CRUD | `/api/v1/integration/users` · list query `search` · `status` · `role` · `orgCode` · **`route`** |
 | GET | `/api/v1/integration/users/init-data` |
 | POST | `/api/v1/integration/users/{id}/change-password` |
 | POST | `/api/v1/integration/users/{id}/assign-routes` |

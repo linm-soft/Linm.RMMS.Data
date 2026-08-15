@@ -1,7 +1,13 @@
 {
   "feature": "asset",
-  "reviewHash": "task_c30a9a02-asset-list-kindb-20260808",
+  "reviewHash": "task_bf4df098-asset-list-kindb-20260814",
   "schemaVersion": 1,
+  "rulesVersion": "2026.08.14.9",
+  "skillVersion": "2026.08.14.1",
+  "workflowVersion": "2026.08.14.5",
+  "status": "done",
+  "review_confirm": "approve",
+  "taskId": "task_bf4df098",
   "artifacts": [
     "po/requirement.md",
     "ui/design.md",
@@ -12,5 +18,5 @@
     "qa/scenarios.md",
     "review/findings.md"
   ],
-  "updatedAt": "2026-08-08T08:32:00.000Z"
+  "updatedAt": "2026-08-14T16:55:00.000Z"
 }

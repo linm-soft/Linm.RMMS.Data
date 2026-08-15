@@ -1,109 +1,142 @@
-# Team-lead — citizen
+# Team-lead — citizen (Cổng người dân)
 
 | Field | Value |
 |-------|-------|
 | feature | `citizen` |
-| status | `confirmed` |
+| this role | `team_lead` · `/agent-team-lead` |
+| status | `confirmed` (autoApprove=ON · agent self-confirm) |
 | packKind | `list` |
 | changeScope | `edit_page` |
 | gap | `crud_formtype` |
 | mode | `fix_gaps` |
-| taskId | `task_2eb59012` (prior `task_9722cb4b` ACT/CRUD **kept**) |
-| updatedAt | 2026-08-14T21:20:00.000Z |
+| runMode | `full_pipeline` |
+| taskId | `task_02c1095b` |
+| prior · sa | `confirmed` · `be/solution-discovery.md` · `task_de8336cd` |
+| prior · design | `confirmed` · `ui/design.md` + prototype · `task_5c19b559` |
+| prior · po | `done` · GAP-PO-CIT-01..10 · `task_a77e191e` |
+| prior · data_analy | `done` · hash `aed65b28a0…` · `task_067181fe` |
+| updatedAt | `2026-08-14T17:40:00.000Z` |
+| autoApprove | **ON** |
+
+> TL emit T-CTX · T-PERM · T-UI-LIST (A–D) · T-UI-FORM · T-UI-ACT · **T-UI-LKP · T-UI-FIELD · T-UI-PROD · T-UI-UX** · T-BE/BFF.  
+> **Cấm** rewrite Kind B shell đã PASS. **Cấm** Slideout/Resource. **Cấm** `ERP.*` · `api/v1/rmms/*`.  
+> **≠** Mobile **Góp ý** (`feedback`).
 
 ## Source assignment
 
 | Layer | Path | Confirm |
 |-------|------|---------|
-| UI | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Integration` | autopilot packet default |
-| BE | `D:/AI-QLBD/Linm.RMMS.WebService` · domain **Integration** | autopilot packet default |
-| Routes | `mfeStdRoute=/integration/citizen` | autopilot |
+| UI | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Integration` | `ui_repo_confirm=approve` |
+| BE | `D:/AI-QLBD/Linm.RMMS.WebService` · domain **Integration** | `be_repo_confirm=approve` |
+| Routes | `mfeStdRoute=/integration/citizen` · `mfeStdUrl=http://localhost:9314/integration/citizen` | packet |
+| API | `api/v1/integration/citizen-incidents` | SA locked |
+| BFF | `web-bff/api/v1/integration/citizen-incidents` | proxy-only |
+| Lookup | `api/v1/integration/road-routes/search` | LKP-01 |
+
+## Live SSOT re-review (HARD — trước Write)
+
+Audit `CitizenListPage` + `CitizenFormPage` + `citizenService`/`citizenEndpoint` + `CitizenIncidentsController`/`CitizenIncidentService` + BFF `BuildListPath` QueryString.
+
+| Gate | Live | Verdict |
+|------|------|---------|
+| 1× `LinPageLayout` kind=catalog | Có · **không** nested `CatalogListShell` | **PASS** — giữ |
+| `LinCatalogDataGrid` + kéo cột default ON | `tableConfig.resizable: true` | **PASS** — giữ |
+| Footer `LinCatalogListPagination` | Có · **không** footerPagination / pageSizeBar / raw table | **PASS** — giữ |
+| Flex + skeleton | `showTableLoading` · `skeletonRows={8}` | **PASS** — giữ |
+| Toolbar config | refresh · history · fa-cog · create · edit/view/delete | **PASS** — giữ |
+| list_parity Kind B A–D | Header + filters + grid + pager | **PASS** shell |
+| tree_master | n/a | **n/a** |
+| Form full-page | `CitizenFormPage` · routes `/new` · `/:id` · View `<dl>` · footer Lưu/Hủy · leave-confirm | **PASS** shell |
+| Zone B filter `road` SearchInput | Chỉ search + status · **không** tuyến | **GAP** |
+| Form `road` | `Input` Text · **không** SearchInput road-route | **GAP** |
+| FE `getList` param `road` | endpoint/service **không** có `road` | **GAP** |
+| BE `GET` query `road` | `GetList(search, status, page, pageSize)` only | **GAP-SA-CIT-Q01** |
+| BE Road ∈ catalog · enum allow-list | `ValidateRequired` only · **không** `DbSet<RoadRouteEntity>` | **GAP-SA-CIT-VAL** |
+| FE gọi `road-routes/search` | **0** usage trong Integration MFE | **GAP-SA-CIT-LKP** |
+| BFF query passthrough | `Request.QueryString` as-is | **PASS** verify — không controller mới |
+| Perm FE | `integration.citizen-incidents.*` | **PASS** — giữ |
+| Migration | `Schema_RmmsCitizenIncidents` đã có | **n/a** — **không** schema mới |
+| Seed display | `QL.1` demo | **PASS** nếu không invent mã lạ |
+
+`retry.ssot_rereview` = **done** this turn · **cấm** chỉ patch 1 chỗ nếu còn GAP cùng surface (list filter + form LKP + BE query + VAL + FE param = **cùng pack P1**).
 
 ## DES-GRID → Lin\*
 
 | Zone | Component | DoD |
 |------|-----------|-----|
-| A | `LinPageLayout` header | 1 shell · no nested CatalogListShell |
-| B | `catalogToolbar` | refresh · history · config · create |
-| C | `LinCatalogDataGrid` | resize default ON · row menu |
+| A | `LinPageLayout` header `fa-users` «Cổng người dân» | 1 shell · **cấm** Thêm mới trên A · badge ≠ feedback |
+| B | `catalogToolbar` + `ErpListHeaderFilters` | refresh · history stub · fa-cog · create · **SearchInput road** |
+| C | `LinCatalogDataGrid` | resize default ON · row menu Xem/Sửa/Copy/Xóa/Lịch sử |
 | D | `LinCatalogListPagination` | 50/100/200/500 · **cấm** footerPagination/pageSizeBar |
 
-## Tasks
+## Tasks (canonical — `form-type-task-pack` · `list-form-quality-gates`)
 
-| id | layer | deps | skills | DoD |
-|----|-------|------|--------|-----|
-| T-CTX-01 | docs | — | context | Update citizen.md API route + BE status |
-| T-BE-01 | api | T-CTX-01 | /new-endpoint | Entity · CRUD · public · ApiResponse · XCO GetById |
-| T-BE-02 | migration | T-BE-01 | /database-migration | `rmms_citizen_incidents` |
-| T-BFF-01 | bff | T-BE-01 | /create-bff-api-feature | Proxy CitizenIncidentsBffController |
-| T-PERM-01 | ui+api | T-BE-01 | perm | FE permissions.ts · BE TODO RequirePermission |
-| T-UI-LIST-01 | ui | T-BFF-01 · T-PERM-01 | /erp-form-context | Zones A–D · search · status filter · pageSize 50 · LAYOUT-06 |
-| T-UI-FORM-01 | ui | T-UI-LIST-01 | form checklist | Slideout Z1–Z3 Create/Edit/View/Copy · readOnly view · leave-confirm |
-| T-QA-01 | qa | T-UI-FORM-01 | qa | scenarios + mfeStdUrl | **pending** |
-
-## FormType pack (canonical — `form-type-task-pack` · task_9722cb4b)
-
-| Task id | Role | Status | Maps to / notes |
-|---------|------|--------|-----------------|
-| T-UI-LIST-01 | Dev | **done** | A–D · **không** rewrite (already PASS) |
-| T-UI-FORM-01 | Dev | **done** | Full-page C/E/V/Copy · View `<dl>` |
-| T-UI-ACT-01 | Dev | **done** | Action inventory → form/API (below) |
-| T-BE-CRUD-01 | Dev | **done** | list/search + C/U/D + getById (= prior T-BE-01 verify) |
-| T-UI-MAP-FORM | — | **n/a** | packKind=`list` — không map OMS |
-| T-QA-CRUD-01 | QA | **pending** | Create→Edit→View→Delete + row menu |
-| T-UI-LKP-01 | Dev | **done** | SearchInput status / incidentType |
-| T-UI-FIELD-01 | Dev | **done** | control-map ↔ DTO |
-| T-UI-PROD-01 | Dev | **done** | Removed Slideout · `CitizenFormPage` |
-| T-UI-UX-01 | Dev | **done** | 4/8/16 · no filterMaxWidthPx |
-| T-PERM-01 | Dev | **done** | `integration.citizen-incidents.*` |
-| T-CTX-01 | Dev | **done** | context |
-| T-BFF-01 | Dev | **done** | BFF proxy |
-| T-BE-02 | Dev | **done** | Schema migration |
-
-**GAP-TL-FORMTYPE-01:** closed this turn — prior task chỉ LIST+FORM thiếu ACT/CRUD ids.
+| id | layer | Role | Status | deps | DoD |
+|----|-------|------|--------|------|-----|
+| T-CTX-01 | docs | Dev | **done** (TL this turn) | — | `docs/context/features/citizen.md`: inbox Kind B · query `?road=` · LKP `road-routes/search` · persist `Road`=code · public Kind G **P2** · **cấm** ERP |
+| T-PERM-01 | ui+api | Dev | **done** (verify live) | — | FE `permissions.ts` `integration.citizen-incidents.*` · BE `[RequirePermission]` **TODO stub** giữ |
+| T-BE-02 | migration | — | **n/a** | — | `rmms_citizen_incidents` đã có · **không** `Schema_*` mới · index `(CompanyCode, Road)` **P2 OUT** |
+| T-BE-01 / T-BE-Q-01 | api | Dev | **pending** | T-CTX-01 | GAP-SA-CIT-Q01: `GET` + `ICitizenIncidentService.GetListAsync` + `road?` exact trim AND search · pageSize 50/100/200/500 · **cấm** ERP |
+| T-BE-VAL-01 | api | Dev | **pending** | T-BE-01 | GAP-SA-CIT-VAL: Road set → ∈ `rmms_road_routes.Code` **IsActive** · 422 unknown · Status ∈ 5 · IncidentType ∈ 6 · Source create **force** `citizen` · message VN |
+| T-BE-CRUD-01 | api | Dev | **pending** (delta Q+VAL) | T-BE-01 | Verify API-01…05 vẫn PASS + Q01 + VAL · XCO GetById · route Integration · `dotnet build` |
+| T-BFF-01 | bff | Dev | **pending** (verify) | T-BE-01 | Proxy-only · `QueryString` đã passthrough `road` · **không** controller mới · smoke `?road=` |
+| T-FE-API-01 | ui | Dev | **pending** | T-BFF-01 | `citizenEndpoint.getList` + `citizenService` + localStorage fallback nhận `road` exact |
+| T-UI-LIST-01 | ui | Dev | **pending** (delta Zone B) | T-FE-API-01 · T-PERM-01 | **Không** rewrite A–C–D shell. Thêm Zone B SearchInput `road` · filter đổi → `page=1` · search must work |
+| T-UI-FORM-01 | ui | Dev | **pending** (delta road) | T-UI-LIST-01 | Giữ full-page C/E/V/Copy · View `<dl>` · footer-only · leave-confirm · **cấm** Slideout/Resource · **cấm** Input `road` |
+| T-UI-LKP-01 | ui | Dev | **pending** | T-UI-FORM-01 | Form + Zone B `road` → `GET …/road-routes/search` · display `code — name` · persist **code** · fallback seed 38 **chỉ mã seed** · `incidentType`/`status` SearchInput static (form đã có) |
+| T-UI-FIELD-01 | ui | Dev | **pending** | T-UI-LKP-01 | controlHint ↔ DTO: Date UTC · decimal GPS · enum 5/6 · Road code · **cấm** parent JSON |
+| T-UI-PROD-01 | ui | Dev | **pending** | T-UI-FORM-01 | Seed `QL.1` · badge ≠ feedback · **cấm** invent tuyến ngoài seed |
+| T-UI-UX-01 | ui | Dev | **pending** | T-UI-PROD-01 | constitution · 1× LinPageLayout · LinCatalogDataGrid · LinCatalogListPagination · View `<dl>` · spacing 4/8/16 · **cấm** `filterMaxWidthPx` |
+| T-UI-ACT-01 | ui | Dev | **pending** (delta road filter) | T-UI-FORM-01 | Inventory dưới · wire filter `road` · **không** regress Delete đã có |
+| T-UI-MAP-FORM | — | — | **n/a** | — | packKind=`list` · Leaflet **P2 OUT** |
+| T-QA-01 | qa | QA | **pending** | T-UI-UX-01 | `qa/scenarios.md` + mfeStdUrl |
+| T-QA-CRUD-01 | qa | QA | **pending** | T-UI-ACT-01 · T-BE-CRUD-01 | Create→Edit→View→Delete + filter road + SearchInput tuyến |
 
 ### T-UI-ACT-01 — action inventory
 
 | Action | Surface | Handler | API |
 |--------|---------|---------|-----|
-| Search | S-LIST filter | `SearchTextInput` → `applyFilters` | GET `/` |
-| Status filter | S-LIST filter | `SearchInput` → debounce applyFilters | GET `?status=` |
+| Search | S-LIST filter | `SearchTextInput` → `applyFilters` | GET `?search=` |
+| Status filter | S-LIST filter | `SearchInput` static 5 | GET `?status=` |
+| **Road filter** | S-LIST filter | `SearchInput` LKP-01 | GET `?road=` **NEW** |
 | Refresh | toolbar | `reloadAll` | GET `/` |
-| +Thêm | toolbar | `openCreate` → `/integration/citizen/new` | POST `/` |
-| Edit (toolbar) | toolbar | `openRow(edit)` | GET `/{id}` · PUT |
-| View (toolbar) | toolbar | `openRow(view)` | GET `/{id}` |
-| Delete (toolbar) | toolbar | `deleteRow` | DELETE `/{id}` soft |
-| History (toolbar) | toolbar | `historyStub(activeRow)` | DEFER stub |
-| Config `fa-cog` | toolbar | config hint dialog | P1 schema later |
-| Row View/Edit/Copy/Delete/History | row menu | `handleRowMenuSelect` | same as above |
-| Deep-link `?form=` | URL | create/edit/view/copy | GET `/{id}` when id |
-| Form Save/Cancel/View actions | Form page footer only | `CitizenFormPage` Z3 | POST/PUT |
+| +Tạo mới | toolbar B only | `openCreate` → `/integration/citizen/new` | POST `/` |
+| Edit / View / Delete | toolbar | `openRow` / `deleteRow` | GET/PUT/DELETE `/{id}` |
+| History | toolbar | stub cần 1 dòng | DEFER |
+| Config `fa-cog` | toolbar | config hint | P1 schema later |
+| Row View/Edit/Copy/Delete/History | row menu | `handleRowMenuSelect` | same |
+| Deep-link `?form=` | URL | create/edit/view/copy | GET `/{id}` |
+| Form Save/Cancel | Form footer only | `CitizenFormPage` | POST/PUT |
+| Form Quay lại | header Z1 only | `goList` + leave-confirm | — |
 
-**GAP-P2-ACT-\*** (live audit `CitizenListPage` + `CitizenFormSlideout`):
+**GAP-P2-ACT-DELETE:** **CLOSED** live — `canDelete`/`onDelete` · `showDelete` · `case 'delete'`. **Cấm** regress.
 
-| ID | Gap | Fix |
-|----|-----|-----|
-| GAP-P2-ACT-DELETE | Toolbar/row menu **thiếu** Delete dù `canDelete` + `citizenService.delete` + API DELETE sẵn | Wire `canDelete`/`onDelete` · `showDelete` · `case 'delete'` |
-| GAP-P2-SLIDE-TOP-ACT | Z1 «Quay lại» + Hủy/Lưu/Sửa/Sao chép trên header form | footer-only |
-| GAP-P2-SLIDE-DUP-SAVE | Hai cụm Lưu (top + footer) | footer only · View Đóng/Sửa/Sao chép in footer |
+### T-UI-LKP-01 — lookup (SA chốt)
 
-### T-BE-CRUD-01
-**layer:** api  
-**status:** **done** (verify — = prior T-BE-01)  
-**DoD:**
-- [x] API-01 list/search · API-02 getById (XCO) · API-03 create · API-04 update · API-05 soft delete
-- [x] Route `api/v1/integration/citizen-incidents` · domain Integration · no ERP
-- [x] BFF proxy DELETE present
-- [x] `dotnet build` API + BFF PASS
+| catalogKind | Surface | API | Persist |
+|-------------|---------|-----|---------|
+| **road-route** | form `road` + Zone B filter | `GET /integration/road-routes/search?search=&page=&pageSize=` | `CitizenIncident.Road` = **code** (`QL.1`) |
+| incidentType static 6 | form | không API | `o-ga`…`khac` |
+| status static 5 | form + Zone B | không API | `draft`…`done` · filter trống = tất cả |
 
-### T-QA-CRUD-01
-**layer:** qa  
-**status:** **pending** (QA next)  
-**deps:** T-UI-ACT-01 · T-BE-CRUD-01  
-**DoD:**
-- [ ] Smoke Create→Edit→View→Delete + row menu Delete on full-page form
-- [ ] Update `qa/scenarios.md` QA-CRUD rows
-- [ ] Form footer-only actions (Z1 Quay lại only)
+**Cấm** free-text `road`. **Cấm** native `<select>`. **Cấm** map `incidentType` → `asset-type`. Fallback BFF down: subset 38 seed only.
+
+### T-UI-FIELD-01 — field map (Design → DTO)
+
+Giữ bảng SA «Field map». Dev **không** đổi controlHint. GPS `lat`/`lng` number. `reportedAt` datetime-local FE / UTC BE. `mediaMeta` string stub. `source` readonly `citizen`. `trackingCode` server `CIT-yyyyMMdd-nnnn`.
+
+## GAP register (Dev IN P1)
+
+| ID | Layer | Fix |
+|----|-------|-----|
+| GAP-SA-CIT-Q01 | API + FE | query `road` exact |
+| GAP-SA-CIT-LKP | FE | SearchInput road-route form + list |
+| GAP-SA-CIT-VAL | API | catalog Road + enum 5/6 + Source=`citizen` · 422 |
+| GAP-SA-CIT-SEED | FE mock | `QL.1` only from 38 |
+| GAP-PO-CIT-01..03 | UI | SearchInput road · Zone B filter · full-page (shell PASS) |
+| GAP-PO-CIT-04..08 | — | **OUT P1** (public/map/presign/OTP/adapter) |
+| GAP-PO-CIT-09 | all | **cấm** parent JSON · **cấm** ERP |
+| GAP-PO-CIT-10 | UI | badge ≠ feedback (list title đã có) |
 
 ## SD flags
 
@@ -112,46 +145,70 @@
 | SD-AUTH | stub `[RequirePermission]` TODO |
 | SD-BFF | proxy-only |
 | SD-JOB | n/a |
-| SD-TOKEN | Citizen temp token DEFER · public anonymous P1 |
+| SD-TOKEN | Citizen temp token DEFER · public anonymous P2 |
 | SD-PII | enc-at-rest DEFER |
 | SD-MEDIA | mediaMeta string stub · presign DEFER |
+| SD-MAP | Leaflet Kind F **OUT P1** |
 
 ## list_parity / form
 
-- list_parity Kind B — PASS required
-- form checklist Z1–Z3 · `implement.form_shell.actions=footer_only` — PASS required
+- list_parity Kind B shell — **PASS** · delta filter `road` **required**
+- form checklist full-page Z1–Z3 · `actions=footer_only` · View `<dl>` — **PASS** shell · delta LKP `road`
 - tree_master — n/a
-- tl-list-shell-height (LAYOUT-06) — PASS required
+- tl-list-shell-height (LAYOUT-06) — **PASS** required giữ
+- **cấm** nested CatalogListShell · Resource · Slideout · View=Input readOnly
 
 ## Deps
 
 ```
-T-CTX-01 → T-BE-01 → T-BE-02 → T-BFF-01
-                ↘ T-PERM-01
-T-BE-01 → T-UI-LIST-01 → T-UI-FORM-01 → T-QA-01
-T-BE-01 ≈ T-BE-CRUD-01
+T-CTX-01 **done** → T-BE-01 (Q01) → T-BE-VAL-01 → T-BE-CRUD-01
+                ↘ T-BFF-01 (verify) → T-FE-API-01
+T-PERM-01 done
+T-FE-API-01 → T-UI-LIST-01 (road filter) → T-UI-FORM-01 (cấm Text road)
+T-UI-FORM-01 → T-UI-LKP-01 → T-UI-FIELD-01
+T-UI-FORM-01 → T-UI-PROD-01 → T-UI-UX-01
 T-UI-FORM-01 → T-UI-ACT-01 → T-QA-CRUD-01
+T-UI-UX-01 → T-QA-01
+T-BE-02 n/a
+T-UI-MAP-FORM n/a
 ```
 
-## Handoff → QA
+## Anti-dup / HARD
+
+- Reuse `CitizenIncidentsController` · `CitizenIncidentService` · `CitizenIncidentsBffController` · `citizenService` · `CitizenListPage` · `CitizenFormPage`.
+- Lookup: gọi **Integration** `road-routes/search` đã có — **cấm** duplicate Search endpoint · **cấm** domain mới.
+- BE write **chỉ** `D:/AI-QLBD/Linm.RMMS.WebService` · `Domains/Integration`.
+- Dev: `yarn build` MFE PASS · `dotnet build` API+BFF PASS · ghi implement § Build — **cấm** `completed` nếu fail.
+- Skills Dev: `/new-endpoint` · `/create-bff-api-feature` · `/erp-form-context` · `dev-ui-ux-constitution` · **không** `/erp-feature` lifecycle.
+
+## Handoff → Dev
 
 | Field | Value |
 |-------|-------|
-| Next | `/agent-qa` — T-QA-01 · T-QA-CRUD-01 full-page form + SearchInput |
-| Anti-dup | reuse `citizenService` · BE controller sẵn |
-| UI SSOT | `MFE-COMMON/Linm.Web.Common.Components` |
-| BE SSOT | `D:/AI-QLBD/Linm.RMMS.WebService` · Integration |
-| HARD | form routes `/integration/citizen/new` · `/:id` · View `<dl>` |
+| Next | `/agent-dev` · implement `specs/citizen/implement/citizen.md` |
+| Scope | Q01 + VAL + FE `road` param + Zone B + form SearchInput LKP-01 · **không** rewrite list shell |
+| UI SSOT | `Linm.Web.RMMS.Integration` · `pages/CitizenListPage` · `pages/CitizenFormPage` |
+| BE SSOT | `Linm.RMMS.WebService` · Integration |
+| Form routes | `/integration/citizen/new` · `/integration/citizen/:id` · View `<dl>` |
+| Out | Kind G public · Leaflet · OTP · presign · Incident adapter |
+
+## Confirm
+
+`team_lead` = **confirmed** — autoApprove **ON** · agent self-confirm · chain Dev **pending** enqueue (`roleOnly` this task = TL only).
 
 ## Version meta (REQUIRED)
 
 | Field | Value |
 |-------|-------|
 | skillId | agent-team-lead |
-| skillVersion | 2026.08.10.2 |
+| skillVersion | 2026.08.14.5 |
 | schemaVersion | 2 |
-| workflowVersion | 2026.08.10.2 |
-| rulesVersion | 2026.08.10.3 |
-| generatedAt | 2026-08-14T18:55:00.000Z |
+| workflowVersion | 2026.08.14.5 |
+| rulesVersion | 2026.08.14.9 |
+| generatedAt | 2026-08-14T17:40:00.000Z |
 | versionGate | rechecked |
-| taskId | `task_2eb59012` |
+| taskId | `task_02c1095b` |
+| contentHashPriorSa | solution-discovery.md · task_de8336cd |
+| contentHashPriorDesign | design.md · task_5c19b559 |
+| contentHashPriorPo | sha256:po-requirement-task_a77e191e |
+| contentHashPriorDataAnaly | sha256:aed65b28a023535141cbe64a35d1089c5bfa537acd0d5191e64049f5f248e023 |

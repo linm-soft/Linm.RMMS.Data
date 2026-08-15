@@ -1,10 +1,9 @@
-﻿# Prototype — asset
+﻿# Prototype — asset (Design `task_52b245e2`)
 
 - HTML: `asset-list-prototype.html`
-- Visual ref: **VatTu** (`Linm.Web.ERP.Master` · `VatTuPage` + `CatalogListPagination`)
-- Icons SSOT: `web-app/rule/erp-control-icon-map.md` · FA 6.5 CDN
-- **Sửa config** = `fas fa-cog` (`editConfig`) — khớp `ErpListToolbarButton`
-- Typography: title **22px** · toolbar btn **12px / 32px / pad 6×8** · body **13px** · page `#f5f7fa` pad 8
-- Pagination: `Tổng: N · Trang x/y` · Hiển thị **[50,100,200,500]** · FA angle nav 32×32
-- List A–D · Form Slideout · nhãn GTVT
+- Kind B: zones **A–D** content-only (no chrome / map / menu demo)
+- Form: **full-page** `AssetFormPage` (không Slideout)
+- Filter: **SearchInput** `asset-type` (23) · `road-route` · org-unit — **cấm** Select 8 nhãn demo
+- Visual ref: VatTu pager · title 22px · btn 12px/32px
 - **reviewUrl:** `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/asset/ui/prototype/asset-list-prototype.html`
+- autoApprove **OFF** → `design_confirm=await_confirm`

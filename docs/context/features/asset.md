@@ -1,7 +1,7 @@
 # Quản lý tài sản đường bộ — Feature Context
 
 > **Slug:** `asset` · **Module:** `Asset` · **Phase:** P1  
-> **Status:** Completed (list pack `task_79203f46` · SSOT 2026.08.09.02 · LAYOUT-06 · 2026-08-09)  
+> **Status:** **done** (list pack Review `task_bf4df098` · SSOT 2026.08.14.5 · full-page form · SearchInput 23/38)  
 > **Feature Kind:** **B** — Catalog list A–D + **full-page** form (`AssetFormPage` · View `<dl>`); demo HTML vẫn Kind F map+list  
 > **Sources:** guide Tài sản / Tài sản KCHT · `RMMS` §1 · `07` §1 · `09` · **`11-CSDL-SO-SACH`** · [`15-SCREEN-AI-MAP.md`](../15-SCREEN-AI-MAP.md)  
 > **Demo HTML:** `Linm.RMMS.Demo/src/demo/features/asset-demo.html` → `../asset/asset.html`  
@@ -39,10 +39,11 @@
 
 | Method | Path | Mô tả | Gates |
 |--------|------|-------|-------|
-| GET | `/asset/road-assets?search=&type=&page=&pageSize=` | List + search (pageSize 50/100/200/500) | TZ n/a |
+| GET | `/asset/road-assets?search=&type=&route=&kmFrom=&kmTo=&orgUnit=&page=&pageSize=` | List + search (pageSize 50/100/200/500) | TZ n/a |
+| GET | `/asset/road-assets/init-data` | Dropdown status/source | |
 | GET | `/asset/road-assets/{id}` | Chi tiết · **XCO** AllowedCompanyIds | XCO required |
 | POST | `/asset/road-assets` | Tạo (+ Copy → POST) · IdCode `TS-yyyyMMdd-nnn` | tenant_keep |
-| PUT | `/asset/road-assets/{id}` | Sửa | |
+| PUT | `/asset/road-assets/{id}` | Sửa (+ `source`) | |
 | DELETE | `/asset/road-assets/{id}` | Soft delete (`IsActive=false`) | |
 
 **Entity:** `RoadAssetEntity` · table `rmms_road_assets` · flat scalars · **SHARE=tenant_keep** · Migration `Schema_RmmsRoadAssets`.

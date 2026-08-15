@@ -1,11 +1,33 @@
 {
-  "schemaVersion": "2026.08.08.1",
-  "rulesVersion": "2026.08.08.15",
+  "schemaVersion": "1",
+  "skillId": "agent-data-analy",
+  "skillVersion": "2026.08.08.20",
+  "workflowVersion": "2026.08.15.1",
+  "rulesVersion": "2026.08.15.2",
+  "versionGate": "rechecked",
   "dataRoot": "data-import/RMMS CUC 2",
-  "analyzedAt": "2026-08-08T17:25:00.000Z",
+  "analyzedAt": "2026-08-14T18:25:00.000Z",
   "confirmedAt": "2026-08-08T17:28:00.000Z",
   "clusterConfirm": "A",
-  "clusters": [],
+  "clusters": [
+    {
+      "id": "cluster-asset-header-v1",
+      "headerFingerprint": "sha256:e127da988394014b734c7277ce7e598b892525efcfefb53ecee2b034d1d7b051",
+      "contentHash": "sha256:b21de98e21ce800f30383fb452770f85aa87d5be969e4bf0ccd5387c2acd17af",
+      "featureSlug": "asset",
+      "files": [
+        "docs/context/features/asset.md",
+        "docs/context/_raw/legacy-govone/demo-maps/asset-control-map.md",
+        "Linm.RMMS.Demo/src/demo/asset/asset.html",
+        "Linm.RMMS.Demo/src/demo/asset/js/asset-data.js"
+      ],
+      "status": "done",
+      "artifact": "specs/_data-analy/clusters/cluster-asset-header-v1.md",
+      "skillVersion": "2026.08.08.20",
+      "analyzedAt": "2026-08-14T14:51:00.000Z",
+      "notes": "retry roleOnly data_analy · task_0d2866b0 · no Excel · Kind B"
+    }
+  ],
   "sharedCatalogs": [
     {
       "id": "shared-org-structure",
@@ -50,6 +72,71 @@
   "investigate": "specs/_data-analy/shared-catalogs/INVESTIGATE-CUC2.md",
   "featureHints": [
     {
+      "id": "feature-users-v1",
+      "featureSlug": "users",
+      "catalogKind": "app-user",
+      "status": "done",
+      "artifact": "specs/_data-analy/features/users-control-hint.md",
+      "contentHash": "sha256:0e46bf2c8b232a40f403e2777ef387f8cdea1b04edafa0c04edbca1bb07024b1",
+      "skillVersion": "2026.08.08.20",
+      "workflowVersion": "2026.08.15.1",
+      "rulesVersion": "2026.08.15.2",
+      "analyzedAt": "2026-08-15T08:27:00.000Z",
+      "notes": "retry roleOnly data_analy · task_67e5319a · Kind B · SearchInput org-unit + road-route · GAP-DA-USR-ROUTE · no Excel"
+    },
+    {
+      "id": "feature-asset-v1",
+      "featureSlug": "asset",
+      "catalogKind": "road-asset",
+      "status": "done",
+      "artifact": "specs/_data-analy/features/asset-control-hint.md",
+      "contentHash": "sha256:b21de98e21ce800f30383fb452770f85aa87d5be969e4bf0ccd5387c2acd17af",
+      "skillVersion": "2026.08.08.20",
+      "workflowVersion": "2026.08.14.5",
+      "rulesVersion": "2026.08.14.9",
+      "analyzedAt": "2026-08-14T14:51:00.000Z",
+      "notes": "retry roleOnly data_analy · task_0d2866b0 · SearchInput asset-type + road-route"
+    },
+    {
+      "id": "feature-patrol-v1",
+      "featureSlug": "patrol",
+      "catalogKind": "patrol-session",
+      "status": "done",
+      "artifact": "specs/_data-analy/features/patrol-control-hint.md",
+      "contentHash": "sha256:1d25897d8fbcaa2b7be1174adf71f0840253c187980d23b9618bb3251febbcd5",
+      "skillVersion": "2026.08.08.20",
+      "workflowVersion": "2026.08.14.5",
+      "rulesVersion": "2026.08.14.9",
+      "analyzedAt": "2026-08-14T17:50:00.000Z",
+      "notes": "retry roleOnly data_analy · task_36ea7fa2 · Kind B · SearchInput road-route · no Excel · GAP-DA-PAT-ROUTE"
+    },
+    {
+      "id": "feature-attendance-v1",
+      "featureSlug": "attendance",
+      "catalogKind": "attendance-log",
+      "status": "done",
+      "artifact": "specs/_data-analy/features/attendance-control-hint.md",
+      "contentHash": "sha256:1ec355a64b1bcdf471e211c98b74d77fbdca665bd23472f63456457aa538fba4",
+      "skillVersion": "2026.08.08.20",
+      "workflowVersion": "2026.08.14.5",
+      "rulesVersion": "2026.08.14.9",
+      "analyzedAt": "2026-08-14T16:40:00.000Z",
+      "notes": "retry roleOnly data_analy · task_66bae191 · Kind B · SearchInput road-route · no Excel"
+    },
+    {
+      "id": "feature-citizen-v1",
+      "featureSlug": "citizen",
+      "catalogKind": "citizen-incident",
+      "status": "done",
+      "artifact": "specs/_data-analy/features/citizen-control-hint.md",
+      "contentHash": "sha256:aed65b28a023535141cbe64a35d1089c5bfa537acd0d5191e64049f5f248e023",
+      "skillVersion": "2026.08.08.20",
+      "workflowVersion": "2026.08.14.5",
+      "rulesVersion": "2026.08.14.9",
+      "analyzedAt": "2026-08-14T16:45:00.000Z",
+      "notes": "retry roleOnly data_analy · task_067181fe · Kind B inbox · SearchInput road-route · no Excel"
+    },
+    {
       "id": "feature-ai-asset-detect-v1",
       "featureSlug": "ai-asset-detect",
       "catalogKind": "ai-candidate",
@@ -61,6 +148,19 @@
       "rulesVersion": "2026.08.10.4",
       "analyzedAt": "2026-08-11T17:15:27.657Z",
       "notes": "roleOnly data_analy · task_9224dc47 · Kind B + map · no Excel"
+    },
+    {
+      "id": "feature-inventory-v1",
+      "featureSlug": "inventory",
+      "catalogKind": "inventory-item",
+      "status": "done",
+      "artifact": "specs/_data-analy/features/inventory-control-hint.md",
+      "contentHash": "sha256:eb4b5dc996f936d3aae146e61eceff7dd5e3d640f6f3ae377cc66402b31dcac8",
+      "skillVersion": "2026.08.08.20",
+      "workflowVersion": "2026.08.15.1",
+      "rulesVersion": "2026.08.15.2",
+      "analyzedAt": "2026-08-14T18:25:00.000Z",
+      "notes": "retry roleOnly data_analy · task_efd934ec · Kind B · SearchInput enum+org-unit · cấm Slideout · no Excel"
     }
   ]
 }

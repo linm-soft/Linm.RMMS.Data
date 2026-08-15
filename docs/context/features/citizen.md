@@ -1,12 +1,13 @@
 # Cổng người dân — Feature Context
 
-> **Slug:** `citizen` · **Module:** `Integration` + FE public · **Phase:** P3  
-> **Status:** Demo (run)  
+> **Slug:** `citizen` · **Module:** `Integration` · **Phase:** P3 inbox pack  
+> **Status:** MFE Kind **B** inbox Signed · public Kind **G** demo **P2**  
 > **sourceKind:** `synthetic` (portal mới P3 · suy luận product docs · **không** màn GOVOne vision · **không** RECAPTURE-GAPS)  
-> **Kind:** **G** (public host) + **D** (slideout form báo sự cố) — Confirmed by: ai-autocode-autopilot  
+> **Kind:** **B** catalog list A–D + **full-page** `CitizenFormPage` (inbox) · demo HTML = **G** public host + **D** slideout + **F** map — **không** clone chrome/map/OTP vào MFE pack  
 > **Sources:** `RMMS` §15 · `07` Hạng mục 15 · `06` rate-limit/PII · `09` · `15-SCREEN-AI-MAP.md`  
 > **Demo HTML:** `Linm.RMMS.Demo/public/demo/integration/citizen.html` (+ `src/demo` mirror · features redirect)  
-> **MFE (align):** `Linm.Web.RMMS.Integration` · **cấm** sửa MFE ở phase demo  
+> **MFE (align):** `Linm.Web.RMMS.Integration` · `/integration/citizen`  
+> **BE:** `D:/AI-QLBD/Linm.RMMS.WebService` · **cấm** `ERP.*` · **cấm** `api/v1/rmms/*`  
 > **≠** Mobile **Góp ý** phần mềm (`feedback`) · AI map §15: **không** engine P1/P2 (OUT P3 adapter)
 
 ## 1. Tổng quan
@@ -22,9 +23,13 @@
 
 | Screen | Pattern | Zones | Ghi chú |
 |--------|---------|-------|---------|
-| Host portal | Kind G | Landing CTAs · recent mock · track | Public shell |
-| Báo sự cố | Kind D Slideout | Z1 toolbar · Z2 fields+map · Z3 footer | Leaflet pin |
-| Theo dõi xử lý | Panel / filter | Tra cứu mã · timeline readonly | Không admin inbox |
+| Inbox sự cố công dân (MFE P1) | Kind **B** | A Header · B Toolbar+filter · C Grid · D Pagination | `/integration/citizen` |
+| Form sự cố (MFE P1) | Full-page | C/E/V/Copy · View `<dl>` · footer-only | `/integration/citizen/new` · `/:id` · **cấm** Slideout/Resource |
+| Host portal | Kind G | Landing CTAs · recent mock · track | **P2** — demo only |
+| Báo sự cố (demo) | Kind D Slideout | Z1 toolbar · Z2 fields+map · Z3 footer | Leaflet pin **P2** |
+| Theo dõi xử lý | Panel / filter | Tra cứu mã · timeline readonly | **P2** public |
+
+**MFE inbox (SA/TL 2026-08-14):** Zone B SearchInput search · status (enum 5) · **road** (`road-route` 38, display `code — name`). Persist `Road` = master **code**. Filter đổi → page=1. Grid: STT · Mã · Họ tên · SĐT · Loại · Tuyến · Thời gian · Trạng thái · Nguồn · GPS. Pager 50/100/200/500.
 
 **Kind D layout (erp-form-context):**
 
@@ -44,7 +49,8 @@
 
 | Method | Path | Mô tả | BE status |
 |--------|------|-------|-----------|
-| GET | `/api/v1/integration/citizen-incidents` | Inbox catalog list (paged) | **Signed** · Integration |
+| GET | `/api/v1/integration/citizen-incidents` | Inbox catalog list (paged) · query `search` · `status` · **`road`** (exact code) · `page` · `pageSize` | **Signed** · Integration · GAP-SA-CIT-Q01 Dev |
+| GET | `/api/v1/integration/road-routes/search` | Lookup SearchInput tuyến | **Signed** · LKP-01 · persist code |
 | GET | `/api/v1/integration/citizen-incidents/{id}` | GetById · XCO | **Signed** |
 | POST | `/api/v1/integration/citizen-incidents` | Create · IdCode `CIT-*` | **Signed** |
 | PUT | `/api/v1/integration/citizen-incidents/{id}` | Update | **Signed** |

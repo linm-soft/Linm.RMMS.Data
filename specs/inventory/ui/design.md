@@ -3,107 +3,287 @@
 | Field | Value |
 |-------|-------|
 | feature | `inventory` |
-| Feature Kind | **B+D** — Catalog list + **Slideout** form |
-| status | `confirmed` |
+| Feature Kind | **B** — Catalog list A–D + **full-page** form (`InventoryFormPage`) · **cấm** Slideout |
+| status | `await_confirm` |
+| design_confirm | `pending` (`autoApprove=OFF` · user Approve board) |
 | changeScope | `edit_page` |
 | packKind | `list` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Contract` (`/contract/inventory`) |
-| updatedAt | 2026-08-09T16:52:00.000Z |
-| design_confirm | `approve` (autopilot · task_27ba5c23) |
+| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/contract/inventory-items` |
+| prior | PO `done` · `po/requirement.md` · GAP-PO-INV-01..12 · data-analy hash `eb4b5dc996…` |
+| autoApprove | **OFF** (`task_9a6113cf`) → **await_confirm** |
+| updatedAt | `2026-08-14T18:50:00.000Z` |
+| taskId | `task_9a6113cf` |
 
 ## 0. Context & Demo (from PO)
 
 | ID | Path | Notes |
 |----|------|-------|
-| CTX-INV | `docs/context/features/inventory.md` | API · entities · Kind B+D |
-| DEM-INV | `Linm.RMMS.Demo/.../inventory-demo.html` → `contract/inventory.html` | SSOT columns/fields · **không** clone chrome |
-| DI-INV | — | Excel **out of pack** |
+| CTX-01 | `docs/context/features/inventory.md` | Kind B list + form; **regen** khỏi B+D Slideout |
+| DEM-01 | `Linm.RMMS.Demo/.../inventory-demo.html` → `contract/inventory.html` | Visual SSOT — **skip** chrome / Leaflet / Excel |
+| DI-02 | `specs/_data-analy/features/inventory-control-hint.md` | controlHint SSOT |
+| DI-03 | `org-unit-seed.json` | **org-unit** CUC2 — **cấm** Select 3 hạt local |
+
+Persona: Kho · Hạt trưởng · Ban QLDA · Đội thi công. Pack **không** clone Kind F map / Excel / chrome demo.
 
 ## 1. Kind + UI pattern
 
 | | |
 |--|--|
-| Feature Kind | **B+D** |
-| List pattern | Catalog list — `LinPageLayout kind="catalog"` |
-| Form pattern | **Slideout** (≥10 controls) |
-| Routes | List `/contract/inventory` · form overlay · deep-link `/contract/inventory/new` · `/contract/inventory/:id` |
-| Toolbar SSOT | `catalog-list-toolbar` + `erp-control-icon-map` |
+| Feature Kind | **B** |
+| List pattern | **1×** `LinPageLayout` kind=catalog — **cấm** nested `CatalogListShell` |
+| Grid | `LinCatalogDataGrid` · kéo cột **default ON** |
+| Footer | `LinCatalogListPagination` — **cấm** footerPagination / pageSizeBar / raw table production |
+| Form pattern | **Full-page** `InventoryFormPage` C/E/V/Copy — **cấm** Resource · **cấm** Slideout (GAP-PO-INV-01) |
+| Routes | List `/contract/inventory` · Create `/contract/inventory/new` · Edit/View `/contract/inventory/:id` |
+| Toolbar SSOT | `catalog-list-toolbar` + `erp-control-icon-map` (`editConfig`=`fa-cog`) |
+| View | **`<dl>` / display** — **cấm** Input `readOnly` xám · **cấm** disabled xám toàn form (GAP-PO-INV-02) |
+| KPI | 4 ô **IN P1** · slot `beforeToolbar` (giữa A và B) — **không** nút trên A |
 
 ## 2. Screens / zones
 
 | Screen | FormMode | Zones | Controls |
 |--------|----------|-------|----------|
-| Vật tư & TB | list | **A Header · B Toolbar · C Grid · D Pagination** · KPI strip | SearchTextInput · category/status/warehouse Select · row menu |
-| Form VT/TB | create/edit/view/copy | **Slideout** Z1 · Z2a–d · Z3 | header + GPS/BD + move lines · readOnly view |
+| Vật tư và thiết bị | list | **A Header · KPI · B Toolbar+filter · C Grid · D Pagination** | SearchTextInput + SearchInput ×3 |
+| Form VT/TB | create/edit/view/copy | **Full-page** header + body + footer | fields P1 · moves `pattern_inline_grid` · footer-only Lưu/Hủy |
 
-## 3. Field inventory (cho SA)
+### Zone A — Header
 
-| uiField | Label VN | Control | Required | FormMode lock |
-|---------|----------|---------|----------|---------------|
-| code | Mã VT/TB | Text readonly | — | all RO · IdCode `INV-yyyyMMdd-nnnn` |
-| name | Tên | Text | * | view=RO |
-| category | Loại | Select | * | view=RO |
-| group | Nhóm | Select | | view=RO |
-| unit | ĐVT | Select | * | view=RO |
-| qtyOnHand | Tồn | Number | | view=RO |
-| minQty | Tồn min | Number | | view=RO |
-| unitPrice | Đơn giá | Money | | view=RO |
-| stockValue | Giá trị tồn | Money RO | | all RO |
-| warehouse | Kho | Select | * | view=RO |
-| status | Trạng thái | Select | * | view=RO |
-| receivedAt | Ngày nhập | Date | | view=RO |
-| orgUnit | Đơn vị QL | Text | | view=RO |
-| supplier | NCC | Text | | view=RO |
-| serial | Serial/biển số | Text | | view=RO |
-| model | Model | Text | | view=RO |
-| gpsLat / gpsLng / gpsAt | GPS | Number / DateTime | | view=RO |
-| woRef | Liên kết WO | Text | | view=RO |
-| contractRef | Liên kết HĐ | Text | | view=RO |
-| lastMaintAt / nextMaintAt | Bảo dưỡng | Date | | view=RO |
-| fuelLiters | Nhiên liệu (L) | Number | | view=RO |
-| note | Ghi chú | Textarea | | view=RO |
-| moves[].kind | Loại phiếu | Select | * | view=RO |
-| moves[].qty | SL | Number | * | view=RO |
-| moves[].movedAt | Ngày phiếu | Date | | view=RO |
-| moves[].woRef | WO phiếu | Text | | view=RO |
-| moves[].note | Ghi chú phiếu | Text | | view=RO |
+- Icon `fa-boxes-stacked` + title **Vật tư và thiết bị** (22px)
+- **Cấm** nút Thêm mới / Tạo mới trên A
 
-### List columns
+### KPI strip (`beforeToolbar` · IN P1)
 
-STT · □ · Mã · Tên · Loại · Kho · Tồn · Giá trị · TT · GPS · WO · ⋯
+| Card | Metric |
+|------|--------|
+| Giá trị tồn | sum `stockValue` |
+| Dưới mức min | count `qtyOnHand < minQty` |
+| Đang bảo dưỡng | count status=`bao-duong` |
+| GPS online | count có `gpsLat`/`gpsLng` |
 
-### KPI strip
+### Zone B — Toolbar + filter (PO DoD)
 
-Giá trị tồn · Dưới mức min · Đang bảo dưỡng · GPS online
+**Trái (filter + icon):**
 
-## 4. Control map / hooks
+| key | Label | Control (Design chốt) | catalogKind |
+|-----|-------|------------------------|-------------|
+| search | Tìm kiếm | `SearchTextInput` | text — mã · tên · serial · WO |
+| category | Loại | `SearchInput` | enum 5 + trống=tất cả — **cấm** native `<select>` |
+| status | Trạng thái | `SearchInput` | enum 5 + trống=tất cả |
+| warehouse | Kho | `SearchInput` | enum 3 P1 + trống=tất cả |
+| — | Làm mới | `fa-sync-alt` | reload · page=1 |
+| — | Lịch sử | `fa-history` | `LinCatalogHistoryModal` |
+| — | Sửa config | `fa-cog` | column config |
+| — | Xóa | `fa-trash` | khi có selection · **Lin confirm** — **cấm** `window.alert` / `window.confirm` |
 
-- Shell: `LinPageLayout` · `ErpListHeaderFilters` · `SearchTextInput` · `useServerPagedListLoading`
-- Grid: `LinCatalogDataGrid` · resize ON · `LinCatalogRowActionMenu`
-- Footer: `LinCatalogListPagination` 50/100/200/500
-- Form: slideout Z1–Z3 · leave-confirm · moves inline grid
+**Phải:** **Tạo mới** primary (`fa-plus`) — **chỉ trên B** → `/contract/inventory/new`.
 
-## 5. Prototype + reviewUrl
+**Cấm trên B (P1):** Xuất Excel · inbound/outbound toolbar · GPS map · assign-wo dedicated (GAP-PO-INV-10/11).
+
+Filter đổi → **page=1** (search must work).
+
+### Zone C — Grid
+
+- Card title: **Danh sách vật tư và thiết bị**
+- Help: nhấn đúp / menu dòng — Xem · Sửa · Sao chép · Xóa · Lịch sử
+- Flex + skeleton load — **cấm** blank body
+- Columns (kéo cột ON): STT · □ · **Mã** · **Tên** · **Loại** · **Kho** · **Tồn** · **Giá trị** · **TT** · **GPS** · **WO** · ⋯
+- Click mã → View **full-page** `<dl>`
+- Row menu: **Xem · Sửa · Sao chép · Xóa · Lịch sử**
+
+### Zone D — Pagination
+
+`LinCatalogListPagination`: `Tổng: N · Trang x/y` · Hiển thị **50 / 100 / 200 / 500** · FA pager 32×32.
+
+## 3. Field inventory (form) — Design chốt controlHint
+
+| uiField | Label VN | Control | Required | FormMode lock | Notes |
+|---------|----------|---------|----------|---------------|-------|
+| code | Mã VT/TB | `Text` readonly IdCode | auto | all readonly | `INV-yyyyMMdd-nnnn` · copy = mã mới |
+| name | Tên | `Text` | * | view=`<dl>` | |
+| category | Loại | `SearchInput` | * | view=`<dl>` | enum 5 — **cấm** native Select |
+| group | Nhóm | `SearchInput` | | view=`<dl>` | enum 6 |
+| unit | ĐVT | `SearchInput` | * | view=`<dl>` | tấn/kg/lít/cái/bộ/md |
+| qtyOnHand | Tồn | `Text` (number ≥0) | | view=`<dl>` | |
+| minQty | Tồn min | `Text` (number ≥0) | | view=`<dl>` | |
+| unitPrice | Đơn giá | `Money` | | view=`<dl>` | MoneyInput |
+| stockValue | Giá trị tồn | `Money` computed **display** | | all display | qty×price — **không** Input khóa |
+| warehouse | Kho | `SearchInput` | * | view=`<dl>` | enum 3 P1 |
+| status | Trạng thái | `SearchInput` | * | view=`<dl>` | enum 5 |
+| receivedAt | Ngày nhập | `Date` (`type=date`) | | view=`<dl>` | UTC store / local display |
+| orgUnit | Đơn vị QL | `SearchInput` | | view=`<dl>` | `catalogKind=org-unit` CUC2 — **cấm** Select 3 hạt local |
+| supplier | NCC | `Text` | | view=`<dl>` | P1 · partner-unit P2 |
+| serial | Serial/biển số | `Text` | | view=`<dl>` | |
+| model | Model | `Text` | | view=`<dl>` | |
+| gpsLat / gpsLng | GPS | `Text` (number) | | view=`<dl>` | nullable |
+| gpsAt | GPS lúc | `Date` datetime | | view=`<dl>` | display |
+| woRef | Liên kết WO | `Text` | | view=`<dl>` | P1 free code |
+| contractRef | Liên kết HĐ | `Text` | | view=`<dl>` | P1 free code |
+| lastMaintAt / nextMaintAt | BD | `Date` | | view=`<dl>` | |
+| fuelLiters | Nhiên liệu (L) | `Text` (number) | | view=`<dl>` | nullable |
+| note | Ghi chú | `Text` textarea | | view=`<dl>` | |
+| updatedAt | Cập nhật | `Date` | | View display | |
+| moves[].kind | Loại phiếu | `SearchInput` | * | view=`<dl>` | nhập/xuất/điều chỉnh |
+| moves[].qty | SL phiếu | `Text` (number ≥0) | * | view=`<dl>` | |
+| moves[].movedAt | Ngày phiếu | `Date` | | view=`<dl>` | |
+| moves[].woRef | WO phiếu | `Text` | | view=`<dl>` | P1 |
+| moves[].note | Ghi chú phiếu | `Text` | | view=`<dl>` | |
+
+### Enum values (P1) — Design chốt value + label
+
+**category**
+
+| value | Label |
+|-------|--------|
+| `vat-tu` | Vật tư |
+| `may-moc` | Máy móc |
+| `xe` | Xe chuyên dụng |
+| `nhien-lieu` | Nhiên liệu |
+| `thiet-bi` | Thiết bị |
+
+**status**
+
+| value | Label |
+|-------|--------|
+| `san-sang` | Sẵn sàng |
+| `dang-dung` | Đang dùng |
+| `bao-duong` | Bảo dưỡng |
+| `hong` | Hỏng |
+| `het` | Hết |
+
+**warehouse** — chốt **mã live MFE** (PO alias `kho-km299` / `kho-km367` / `kho-cc-ii-1` **map** sang đây — **cấm** invent mã thứ 4)
+
+| value (canonical P1) | Label |
+|----------------------|--------|
+| `kho-hat-km299` | Kho Hạt QLĐB QL.1 · Nhà hạt Km299 |
+| `kho-hat-km367` | Kho Hạt QLĐB QL.1 · Nhà hạt Km367 |
+| `kho-chi-cuc` | Kho Chi cục QLĐB II.1 · Km327 |
+
+**group**
+
+| value | Label |
+|-------|--------|
+| `mat-duong` | Vật liệu mặt đường |
+| `ho-lan` | Hộ lan · an toàn giao thông |
+| `chieu-sang` | Chiếu sáng · điện |
+| `co-gioi` | Cơ giới |
+| `gps` | Thiết bị GPS/IoT |
+| `khac` | Khác |
+
+**unit:** `tan` Tấn · `kg` Kg · `lit` Lít · `cai` Cái · `bo` Bộ · `md` Mét dài
+
+**moves.kind:** `nhap` Nhập · `xuat` Xuất · `dieu-chinh` Điều chỉnh
+
+**orgUnit:** SearchInput Master org-unit (CUC2). Prototype mock: `VP-II.1` · `HQ` · `DRVN`. **Cấm** persist `hat-km286-316` local-only nếu Master trả `code` khác.
+
+### CSS / layout gates
+
+| Rule | Gap |
+|------|-----|
+| Full-page form · **cấm** Slideout / Resource | GAP-PO-INV-01 · GAP-DA-INV-SLIDEOUT |
+| View `<dl>` — **cấm** Input `readOnly` xám | GAP-PO-INV-02 · GAP-DA-INV-VIEW-RO |
+| SearchInput enum — **cấm** native Select | GAP-PO-INV-03 · GAP-DA-INV-SELECT |
+| orgUnit SearchInput org-unit | GAP-PO-INV-04 · GAP-DA-INV-ORG |
+| Xóa: Lin confirm + toast — **cấm** native alert | GAP-PO-INV-06 |
+| Input pad 6×10 · min-height 32 · focus shadow | GAP-P2-CSS-* |
+| Spacing 4/8/16 · **cấm** `filterMaxWidth` | T-UI-UX |
+| Checkbox grid 24×24 · cột STT/□ 48px | GAP-P2-GRID-CHECK-01 |
+
+## 4. Form full-page wire
+
+```
+[Header] [← Quay lại]  Title «Vật tư / thiết bị» · badge Tạo mới|Sửa|Xem|Sao chép
+         [📋 Sao chép] [✏ Sửa] khi view — không Lưu/Hủy trên header (footer-only)
+[Hint] leave-confirm dirty
+[Body C/E/Copy] 2-col · SearchInput loại/nhóm/ĐVT/kho/TT/orgUnit · Money · computed stockValue display
+[Body] pattern_inline_grid phiếu · SearchInput kind
+[Body View] <dl> display — không Input xám
+[Footer] [Hủy] [Lưu] — ẩn khi view
+```
+
+- Copy → POST new · IdCode mới
+- Dirty leave-confirm khi Hủy / Quay lại
+- **Cấm** parent JSON string trên field/DTO
+- Leaflet / Excel / Timescale / Asset sync: **out of pack** (P2)
+
+## Prototype (REQUIRED)
 
 | | |
 |--|--|
-| Artifact | `specs/inventory/ui/prototype/inventory-list-prototype.html` |
-| reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/inventory/ui/prototype/inventory-list-prototype.html` |
-| Content | Zones **A–D** content-only · **skip** chrome/sidebar |
+| Artifact | `ui/prototype/inventory-list-prototype.html` |
+| Zones | **A–D** content-only + KPI `beforeToolbar` — skip note/sidebar/menu/chrome |
+| Form | **Full-page** (không Slideout) · View = `<dl>` · footer-only Lưu/Hủy |
+| Lookups | SearchInput combo mock category/status/warehouse/group/unit/org-unit/moves.kind |
+| SSOT | `list-shell-prototype.md` · `erp-control-icon-map` · VatTu pager |
+| **reviewUrl** | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/inventory/ui/prototype/inventory-list-prototype.html` |
 
-## 6. Out of scope (design)
+### List wire
 
-- Full Leaflet Kind F map chrome clone — DEFER (toast / stub modal OK)
-- Excel / Timescale GPS — DEFER
+```
+[A] fa-boxes-stacked + «Vật tư và thiết bị»
+[KPI] Giá trị tồn · Dưới min · Đang BD · GPS online
+[B] SearchTextInput · category · status · warehouse SearchInput · Làm mới · Lịch sử · fa-cog · Xóa | [+ Tạo mới]
+[C] «Danh sách vật tư và thiết bị» · LinCatalogDataGrid mock · ⋯ menu
+[D] Tổng · Hiển thị [50|100|200|500] · pager FA
+```
+
+## 5. Map / AI / report (out of pack)
+
+- Leaflet Kind F GPS map + Timescale: **P2** (GAP-PO-INV-10)
+- Excel / stock-report: **P2**
+- save-draft / approve-move / quick-issue / inbound-outbound toolbar: **P2** (GAP-PO-INV-11)
+- Warehouse master entity · partner-unit SearchInput: **P2** (GAP-PO-INV-05/08)
+- Events `inventory.*` bus: **out of pack**
+
+## 6. Open questions (PO closed — Design không re-open)
+
+GAP-PO-INV-01..12 giữ nguyên. SA map lookup org-unit Master + giữ `GET …/inventory-items?search=&category=&status=&warehouse=&page=&pageSize=` + kpi + nested moves. **Cấm ERP.*** · **cấm** `api/v1/rmms/*` · **cấm** parent JSON.
+
+## Confirm
+
+`design_confirm` = **pending** — autoApprove **OFF** · user Approve board → chain SA. Agent **không** tự confirm.
+
+## Handoff → SA
+
+| Field | Value |
+|-------|-------|
+| Kind / pattern | B · catalog A–D + **full-page** form |
+| Field inventory | §3 · SearchInput category/group/unit/warehouse/status/orgUnit/moves.kind · Text supplier/woRef/contractRef P1 |
+| Filters | search · category · status · warehouse → page=1 |
+| Prototype · reviewUrl | § Prototype |
+| API prefer | `GET/POST/PUT/DELETE api/v1/contract/inventory-items` + `GET …/kpi` + BFF `web-bff/api/v1/contract/inventory-items` |
+| Lookups (SA chốt) | Master org-unit · warehouse **enum 3 P1** (không entity mới) |
+| Entity | `InventoryItem` · `rmms_inventory_items` · `InventoryMove` · `rmms_inventory_moves` · SHARE=tenant_keep · **cấm** parent JSON |
+| Seed | warehouse 3 mã MFE · IdCode `INV-yyyyMMdd-nnnn` |
+| Next | SA **pending** đến khi user Approve Design |
+
+## DES-GRID map → Lin\*
+
+| Zone | DES-GRID | Component |
+|------|----------|-----------|
+| A | DES-GRID-A | `LinPageLayout` header |
+| KPI | beforeToolbar | 4 metric cards |
+| B | DES-GRID-B | `catalogToolbar` |
+| C | DES-GRID-C2 | `LinCatalogDataGrid` + resize ON |
+| D | DES-GRID-D | `LinCatalogListPagination` |
 
 ## Version meta (REQUIRED)
 
 | Field | Value |
 |-------|-------|
 | skillId | agent-design |
-| skillVersion | 2026.08.08.31 |
-| schemaVersion | 1 |
-| workflowVersion | 2026.08.09.02 |
-| rulesVersion | 2026.08.09.02 |
-| generatedAt | 2026-08-09T16:52:00.000Z |
+| skillVersion | 2026.08.15.1 |
+| schemaVersion | 2 |
+| workflowVersion | 2026.08.15.1 |
+| rulesVersion | 2026.08.15.2 |
+| generatedAt | 2026-08-14T18:50:00.000Z |
 | versionGate | rechecked |
+| version_mismatch_action | recheck_new (STATUS orchestrator `2026.08.15.1`) |
+| contentHashPriorPo | sha256:task_ca2e6bf3 |
+| contentHashPriorDataAnaly | sha256:eb4b5dc996f936d3aae146e61eceff7dd5e3d640f6f3ae377cc66402b31dcac8 |
+| orchestratorSkillVersion | 2026.08.15.1 |
+| orchestratorWorkflowVersion | 2026.08.15.1 |
+| orchestratorRulesVersion | 2026.08.15.2 |
+
+---
+<!-- Version meta: skillVersion=2026.08.15.1 · schemaVersion=2 · workflowVersion=2026.08.15.1 · rulesVersion=2026.08.15.2 · versionGate=rechecked -->

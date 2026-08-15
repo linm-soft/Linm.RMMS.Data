@@ -1,98 +1,89 @@
-# Implement — patrol
+# Implement — patrol (crud_formtype delta)
 
 | Field | Value |
 |-------|-------|
 | feature | `patrol` |
+| this role | `dev` · `/agent-dev` |
 | status | `done` |
 | changeScope | `edit_page` · gap=`crud_formtype` |
-| taskId | `task_1ede6934` |
-| updatedAt | 2026-08-14T20:30:00.000Z |
-| versionGate | rechecked |
+| packKind | `list` |
+| taskId | `task_4f8ea737` |
+| autoApprove | **ON** |
+| updatedAt | `2026-08-14T18:20:00.000Z` |
 
-## retry.ssot_rereview: **pass**
+## retry.ssot_rereview (Dev · trước Write)
 
-checklist: `tl-grid-ssot` · `list_parity` · `tl-list-shell-height` · tree_master? n/a · form  
-gaps fixed this turn: **GAP-TL-LIST-QUALITY-01** (LKP·FIELD·PROD·UX) · Slideout/View=readOnly  
-then: **fix_all**
+checklist: `tl-retry-ssot-rereview` · `list_parity` · form · cùng surface GAP  
+result: **gaps** then **fix_all** (không patch 1 chỗ)
 
-| Check | Result |
-|-------|--------|
-| 1× `LinPageLayout` (no nested `CatalogListShell`) | **PASS** |
-| `LinCatalogDataGrid` + column resize default ON | **PASS** |
-| Footer `LinCatalogListPagination` | **PASS** · sizes 50/100/200/500 |
-| flex + skeleton + **LAYOUT-06** | **PASS** |
-| toolbar `catalogToolbar` | **PASS** · refresh · history · config · create · **delete** |
-| filter SearchTextInput — no Tìm btn | **PASS** (debounce + status SearchInput) |
-| list_parity Kind B | **PASS** |
-| tree_master? | n/a |
-| form checklist Z1–Z3 | **PASS** `PatrolFormPage` full-page · View `<dl>` |
-| Action inventory → form/API | **PASS** · Delete wired toolbar + row menu |
-| Lookup SearchInput master | **PASS** status / patrolType / offline |
-| No Resource / Slideout / View=readOnly | **PASS** |
-| UI-Ux spacing · no `filterMaxWidthPx` | **PASS** |
+| Check | Live before | After |
+|-------|-------------|-------|
+| 1× `LinPageLayout` kind=catalog · no nested `CatalogListShell` | PASS | KEEP |
+| `LinCatalogDataGrid` `resizable: true` | PASS | KEEP |
+| Footer `LinCatalogListPagination` · cấm footerPagination / pageSizeBar | PASS | KEEP |
+| flex + skeleton `useServerPagedListLoading` 8 rows | PASS | KEEP |
+| toolbar refresh · history · `fa-cog` · create · delete | PASS | KEEP |
+| Zone B SearchTextInput + status + **route SearchInput** · `filterCols=3` | GAP route | **PASS** |
+| `filterMaxWidthPx` | không | KEEP |
+| listTitle `Sổ phiên tuần tra / check-in` | GAP | **PASS** |
+| form `route` SearchInput Integration | Input Text | **PASS** |
+| View `<dl>` · cấm Resource / Slideout / View=readOnly | PASS | KEEP |
+| footer-only Lưu/Hủy (gỡ Z1 `btn-save-top` / `btn-cancel-top`) | GAP | **PASS** |
+| seed ∈ 38 · bump STORAGE_KEY | ĐT.784 / QL.1A | **QL.1 / HCM** · `rows:v3` |
+| GET list `?route=` exact | GAP | **PASS** API+BFF+FE |
+| Create/Update catalog + enum VN | GAP | **PASS** 422 |
 
-## Done this turn (task_1ede6934 · list-form-quality)
+## Done this turn (`task_4f8ea737`)
 
 | Task | Result |
 |------|--------|
-| T-UI-ACT-01 | Toolbar/row Delete + C/E/V/Copy → `/patrol/new` · `/:id` |
-| T-BE-CRUD-01 | Verified API-01…05 · domain Patrol · no Write delta BE |
-| T-UI-MAP-FORM | n/a (packKind=list) |
-| T-UI-LKP-01 | `src/services/patrol/lookups.ts` · SearchInput |
-| T-UI-FIELD-01 | Fields map PatrolDto / Create·Update |
-| T-UI-PROD-01 | Removed `PatrolFormSlideout` · View display |
-| T-UI-UX-01 | Removed `filterMaxWidthPx` · spacing 4/8/16 |
-| Anti-dup | **cấm** rewrite T-UI-LIST-01 grid shell (kept A–D) |
+| T-BE-Q-01 | `GET api/v1/patrol/sessions` + `route?` exact trim · pageSize 50/100/200/500 |
+| T-BE-VAL-01 | Route ∈ `rmms_road_routes` IsActive · Status/PatrolType allow-list VN · 422 `ĐT.784`/`QL.1A` |
+| T-BFF-01 | `BuildListPath` `Request.QueryString` — **đã passthrough** `?route=` · no new controller |
+| T-FE-API-01 | `patrolEndpoint.getList` + `localList`/`filterRows` exact `route` |
+| T-UI-LKP-01 | Form + Zone B reuse `ROAD_ROUTE_LOOKUP_CONFIG` (`/integration/road-routes/search`) |
+| T-UI-FIELD-01 | controlHint ↔ DTO · persist **code** · enum **nhãn VN** |
+| T-UI-PROD-01 | seed `ĐT.784`→`QL.1` · `QL.1A`→`HCM` · STORAGE_KEY v3 · cấm Slideout |
+| T-UI-LIST-01 extend | KEEP A–D · filter tuyến · listTitle `/ check-in` |
+| T-UI-FORM-01 extend | SearchInput route · footer-only Lưu/Hủy |
+| T-UI-UX-01 | constitution · dropdownPortal ON (lookup) · GAP-TL-PAT-FOOTER-ACT đóng |
+| T-QA-* | **không** làm (QA role) |
 
-## Paths (confirmed)
+**Cấm** `ERP.*` · parent JSON · Resource · Slideout · invent mã ngoài 38 · users LKP P1.
+
+## Paths
 
 | Layer | Path |
 |-------|------|
 | BackendRoot | `D:/AI-QLBD/Linm.RMMS.WebService` |
-| API | `api/src/RMMS.Service.Api/Domains/Patrol/` |
-| Entity | `api/shared/RMMS.Service.Persistence/Entities/PatrolSessionEntity.cs` |
-| Migration | `20260810013053_Schema_RmmsPatrolSessions` |
+| API | `Domains/Patrol/Controllers/PatrolSessionsController.cs` · `PatrolSessionService.cs` |
 | BFF | `bff/domains/patrol/LINM.RMMS.Patrol.Bff/Controllers/PatrolSessionsBffController.cs` |
-| MFE list | `pages/PatrolListPage/PatrolListPage.tsx` |
-| MFE form | `pages/PatrolFormPage/PatrolFormPage.tsx` |
-| Perm | `services/patrol/permissions.ts` |
-| Route prefix | `api/v1/patrol/sessions` |
-| mfeStdRoute | `/patrol` |
+| Lookup | Integration `api/v1/integration/road-routes/search` — **không** copy Patrol |
+| MFE | `PatrolListPage.tsx` · `PatrolFormPage.tsx` · `endpoint.ts` · `patrolService.ts` · `lookups.ts` · `patrolStore.ts` |
+| Route | `api/v1/patrol/sessions` · FE `/patrol/sessions` |
 | mfeStdUrl | `http://localhost:9304/patrol` |
-
-**Cấm** ERP.* — void.
-
-## Code delta
-
-- `lookups.ts` — STATUS / TYPE / OFFLINE master SearchInput
-- `PatrolListPage.tsx` — navigate full-page form · SearchInput status · no Slideout
-- `PatrolFormPage.tsx` — Z1–Z3 full page · View `<dl>`
-- deleted `PatrolFormSlideout.tsx` (+ css)
-- `devRoutes.ts` — `/patrol/new`
 
 ## Step 4b BE ALIGN
 
-Existing Patrol domain already implements GET list/getById · POST · PUT · DELETE soft. No new migration/endpoint this turn.
-
-## Verify (2026-08-14 · task_1ede6934)
+- Edit existing GET list (`route` query) + Create/Update validate catalog — **không** Schema_* mới.
+- BFF proxy-only QueryString.
 
 ## Build
 
 ```
-yarn typecheck → PASS
-LINM_RUN_DEV_LOCAL_BUNDLE=1 yarn build → PASS (webpack compiled · size warnings only)
-dotnet build Linm.RMMS.WebService.sln -c Release → PASS (0 Error(s))
+yarn build (Linm.Web.RMMS.Field) → PASS (webpack compiled · size warnings only)
+dotnet build RMMS.Service.Api -c Release → PASS (0 Error(s))
+dotnet build LINM.RMMS.Patrol.Bff -c Release → PASS (0 Error(s))
 ```
 
 ## Debt
 
 | ID | Note |
 |----|------|
-| SD-AUTH | `[RequirePermission]` TODO BE (CommonLib NuGet) |
-| History API | window.alert stub |
-| Schema editor | Config hint dialog P1 |
-| Kind E map/tracks/coverage/kpi | P2 out of list pack |
+| SD-AUTH | `[RequirePermission]` TODO BE |
+| Kind E map/tracks/coverage/kpi | P2 out of pack |
 | GAP-F-PAT-01 | Offline conflict merge — flag only |
+| History API | stub |
 
 ## Version meta (REQUIRED)
 
@@ -100,8 +91,12 @@ dotnet build Linm.RMMS.WebService.sln -c Release → PASS (0 Error(s))
 |-------|-------|
 | skillId | agent-dev |
 | skillVersion | 2026.08.09.02 |
-| schemaVersion | 1 |
+| schemaVersion | 2 |
 | workflowVersion | 2026.08.09.02 |
 | rulesVersion | 2026.08.09.02 |
-| generatedAt | 2026-08-14T20:30:00.000Z |
+| generatedAt | 2026-08-14T18:20:00.000Z |
 | versionGate | rechecked |
+| version_mismatch_action | recheck_new |
+| tlSkillVersion | 2026.08.14.5 |
+| orchestratorSkillVersion | 2026.08.09.02 |
+| taskId | `task_4f8ea737` |

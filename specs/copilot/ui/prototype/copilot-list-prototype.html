@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>AI Copilot — prototype review</title>
+<style>
+:root{--bg:#f5f7fa;--card:#fff;--border:#e9ecef;--txt:#1a1a1a;--muted:#6c757d;--primary:#0f766e;--ai:#6d28d9}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;background:var(--bg);color:var(--txt)}
+.banner{background:#fef3c7;color:#92400e;font-size:12px;font-weight:700;padding:8px 14px;text-align:center}
+.page{padding:16px 20px;display:flex;flex-direction:column;min-height:100vh}
+.head{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+h1{font-size:18px;margin:0}
+.badge{font-size:11px;padding:2px 8px;border-radius:999px;background:#ede9fe;color:#5b21b6;font-weight:700}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+button{padding:6px 12px;border:1px solid var(--border);background:#fff;border-radius:6px;font-weight:600;cursor:pointer}
+.btn-p{background:var(--primary);color:#fff;border-color:var(--primary)}
+.filters{display:flex;gap:12px;margin-bottom:10px}
+input,select{padding:6px 8px;border:1px solid var(--border);border-radius:6px}
+table{width:100%;border-collapse:collapse;background:#fff;font-size:13px}
+th,td{padding:10px 12px;border-bottom:1px solid #f0f0f0;text-align:left}
+.foot{padding:10px;background:#fff;border-top:1px solid var(--border);font-size:12px;color:var(--muted)}
+.fab{position:fixed;right:24px;bottom:24px;width:52px;height:52px;border-radius:50%;background:#6d28d9;color:#fff;border:0;font-size:22px;cursor:pointer}
+.slide{position:fixed;top:0;right:0;bottom:0;width:min(720px,100vw);background:#fff;box-shadow:-8px 0 28px rgba(0,0,0,.18);display:flex;flex-direction:column;z-index:20}
+.z1{padding:10px 14px;border-bottom:1px solid var(--border)}
+.chips{display:flex;gap:6px;flex-wrap:wrap;padding:8px 12px;border-bottom:1px solid var(--border)}
+.chip{font-size:12px;padding:4px 10px;border-radius:999px;border:1px solid #c4b5fd;background:#f5f3ff;color:#5b21b6;cursor:pointer}
+.msgs{flex:1;overflow:auto;padding:12px;background:#f1f5f9}
+.msg{background:#fff;border:1px solid var(--border);border-radius:10px;padding:10px;margin-bottom:8px;max-width:96%}
+.msg.user{margin-left:auto;background:#f0fdfa}
+.z3{padding:10px 12px;border-top:1px solid var(--border)}
+textarea{width:100%;min-height:56px;border:1px solid var(--border);border-radius:8px;padding:8px}
+.disc{font-size:12px;color:#92400e;background:#fffbeb;border:1px solid #fde68a;border-radius:6px;padding:6px 8px;margin-top:8px}
+</style>
+</head>
+<body>
+<div class="banner">PROTOTYPE reviewUrl — Kind B list + Kind D drawer · P1 gpt-4o-mini · không hứa RAG local · LinCatalogDataGrid / LinCatalogListPagination trên MFE</div>
+<div class="page" data-catalog-list-page>
+  <div class="head">
+    <h1>AI Copilot</h1>
+    <span class="badge">AI support</span>
+    <span class="badge">P1 gpt-4o-mini</span>
+    <span class="badge">P2 RAG on-prem</span>
+    <span class="badge">Rate 10/min</span>
+  </div>
+  <div class="toolbar">
+    <button class="btn-p" type="button">+ Phiên mới</button>
+    <button type="button">Làm mới</button>
+    <button type="button">Lịch sử</button>
+    <button type="button">Cấu hình cột</button>
+    <button class="btn-p" type="button">Mở Copilot</button>
+  </div>
+  <div class="filters">
+    <input placeholder="Tìm mã / tiêu đề phiên">
+    <select><option>Tất cả trạng thái</option><option>active</option><option>archived</option></select>
+  </div>
+  <table>
+    <thead><tr><th>STT</th><th>Mã</th><th>Tiêu đề</th><th>Status</th><th>Tin</th><th>Last message</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>SES-20260801-0001</td><td>Tuyến xuống cấp · PCI</td><td>active</td><td>2</td><td>01/08/2026 10:00</td></tr>
+      <tr><td>2</td><td>SES-20260801-0002</td><td>Ổ gà mở · báo cáo</td><td>active</td><td>2</td><td>01/08/2026 11:00</td></tr>
+      <tr><td>3</td><td>SES-20260801-0003</td><td>Tài sản chú ý</td><td>active</td><td>2</td><td>01/08/2026 12:00</td></tr>
+    </tbody>
+  </table>
+  <div class="foot">Tổng 3 · pageSize 50 · trang 1 — MFE: LinCatalogListPagination</div>
+</div>
+<button class="fab" type="button" title="Mở Copilot">💬</button>
+<aside class="slide" aria-label="AI Copilot drawer">
+  <div class="z1">
+    <strong>AI Copilot</strong> · SES-20260801-0001 · gpt-4o-mini
+    <div style="float:right"><button type="button">Đóng</button></div>
+  </div>
+  <div class="chips">
+    <span class="chip">Tuyến nào xuống cấp nhanh nhất?</span>
+    <span class="chip">Có bao nhiêu ổ gà chưa xử lý?</span>
+    <span class="chip">Tài sản nào cần chú ý tuần này?</span>
+    <span class="chip">Tổng hợp PCI trung bình theo tuyến</span>
+    <span class="chip">Sinh biểu đồ sự cố mở theo mức độ</span>
+  </div>
+  <div class="msgs">
+    <div class="msg user"><div style="font-size:11px;color:var(--muted)">USER</div>Tuyến nào xuống cấp nhanh nhất?</div>
+    <div class="msg"><div style="font-size:11px;color:var(--ai)">ASSISTANT · gpt-4o-mini · 186 tok</div>Theo dữ liệu mock P1, <strong>QL.22</strong> giảm PCI nhanh nhất. <div style="margin-top:6px;font-size:11px">Predict PRD-884 · PCI history</div></div>
+  </div>
+  <div class="z3">
+    <textarea placeholder="Câu hỏi NL (Enter gửi)"></textarea>
+    <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn-p" type="button">Gửi</button>
+      <button type="button">Escalate GPT-4o</button>
+      <button type="button">Chuyển P2 RAG</button>
+    </div>
+    <div class="disc">AI hỗ trợ — kiểm tra nghiệp vụ. P1 online only · không hứa RAG / model local.</div>
+  </div>
+</aside>
+</body>
+</html>

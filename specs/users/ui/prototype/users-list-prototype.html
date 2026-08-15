@@ -3,179 +3,471 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Prototype — Quản lý người dùng (users) · Kind B A–D</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
+  <title>Prototype — Quản lý người dùng (users) · Kind B A–D + full-page</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
     :root {
       --bg: #f5f7fa; --card: #fff; --border: #BABCBE; --border-soft: #e9ecef;
-      --txt: #1A1A1A; --muted: #6c757d; --primary: #0d6efd; --toolbar-bg: #f8fafc;
-      --ds-radius-md: 4px; --ds-font-body: 13px; --ds-height-btn: 32px;
+      --txt: #1A1A1A; --txt-secondary: #6c757d; --muted: #6D6D6D;
+      --primary: #0d6efd; --toolbar-bg: #f8fafc;
+      --ds-focus-shadow: 0px 0px 4px #BABCBE; --ds-radius-md: 4px;
+      --ds-font-body: 13px; --ds-font-title: 22px; --ds-height-btn: 32px;
+      --col-no: 48px; --check-size: 24px;
     }
     * { box-sizing: border-box; }
     body { margin: 0; font-family: "Segoe UI", system-ui, sans-serif; background: var(--bg); color: var(--txt); font-size: var(--ds-font-body); }
-    .page { max-width: 1280px; margin: 0 auto; padding: 16px; min-height: 100vh; display: flex; flex-direction: column; }
-    .zoneA { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
-    .zoneA h1 { margin: 0; font-size: 22px; font-weight: 700; }
-    .badge { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px; background: #e7f1ff; color: #0b5ed7; }
-    .badgeWarn { background: #fff3cd; color: #856404; }
-    .zoneB { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 10px 12px; background: var(--toolbar-bg); border: 1px solid var(--border-soft); border-radius: var(--ds-radius-md); margin-bottom: 10px; }
+    input, textarea {
+      padding: 6px 10px; border: 1px solid var(--border); border-radius: var(--ds-radius-md);
+      font-size: 13px; min-height: 32px; width: 100%; background: #fff;
+    }
+    input:focus, textarea:focus { outline: none; border-color: var(--primary); box-shadow: var(--ds-focus-shadow); }
+    input[type="checkbox"] { width: var(--check-size); height: var(--check-size); min-width: var(--check-size); accent-color: var(--primary); }
+    .page { max-width: 1280px; margin: 0 auto; padding: 8px; display: flex; flex-direction: column; gap: 8px; min-height: 100vh; }
+    .zone-a { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .zone-a h1 { margin: 0; font-size: var(--ds-font-title); font-weight: 700; }
+    .badge { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: #dbeafe; color: #1e40af; }
+    .badge-warn { background: #fff3cd; color: #856404; }
+    .zone-b { display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; padding: 10px 12px; background: var(--toolbar-bg); border: 1px solid var(--border-soft); border-radius: var(--ds-radius-md); }
+    .zone-b-left, .zone-b-right { display: flex; flex-wrap: wrap; gap: 8px; align-items: flex-end; }
     .btn { height: var(--ds-height-btn); padding: 0 12px; border: 1px solid var(--border); border-radius: var(--ds-radius-md); background: #fff; cursor: pointer; font-size: 12px; }
     .btn.primary { background: var(--primary); color: #fff; border-color: var(--primary); }
-    .filters { display: grid; grid-template-columns: 1fr 180px 180px; gap: 12px; margin-bottom: 10px; }
-    label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--muted); }
-    input, select { min-height: 32px; padding: 6px 10px; border: 1px solid var(--border); border-radius: var(--ds-radius-md); font-size: 13px; }
-    .split { display: grid; grid-template-columns: 240px 1fr; gap: 12px; flex: 1; min-height: 280px; }
-    .tree, .zoneC { background: var(--card); border: 1px solid var(--border-soft); border-radius: var(--ds-radius-md); overflow: auto; }
-    .tree { padding: 10px; }
+    .field { display: flex; flex-direction: column; gap: 4px; min-width: 160px; }
+    .field label { font-size: 12px; color: var(--muted); font-weight: 500; }
+    .req::after { content: " *"; color: #dc2626; font-weight: 700; }
+    .search-wrap { display: flex; align-items: stretch; border: 1px solid var(--border); border-radius: var(--ds-radius-md); overflow: hidden; background: #fff; min-width: 176px; min-height: 32px; }
+    .search-wrap:focus-within { border-color: var(--primary); box-shadow: var(--ds-focus-shadow); }
+    .search-wrap input { border: 0 !important; outline: none !important; box-shadow: none !important; flex: 1; min-width: 0; min-height: 30px; width: auto; }
+    .search-wrap button { border: 0; border-left: 1px solid var(--border); background: #f8fafc; padding: 0 10px; cursor: pointer; color: var(--muted); min-width: 36px; }
+    .lkp { position: relative; }
+    .lkp-list { display: none; position: absolute; left: 0; right: 0; top: 100%; z-index: 30; background: #fff; border: 1px solid var(--border); border-radius: var(--ds-radius-md); max-height: 180px; overflow: auto; box-shadow: 0 8px 24px rgba(15,23,42,.12); }
+    .lkp.open .lkp-list { display: block; }
+    .lkp-list button { display: block; width: 100%; text-align: left; border: 0; background: #fff; padding: 8px 10px; font-size: 13px; cursor: pointer; }
+    .lkp-list button:hover { background: #f1f5f9; }
+    .split { display: grid; grid-template-columns: 240px 1fr; gap: 8px; flex: 1; min-height: 280px; }
+    .tree { background: var(--card); border: 1px solid var(--border-soft); border-radius: var(--ds-radius-md); padding: 10px; overflow: auto; }
     .tree h3 { margin: 0 0 8px; font-size: 13px; }
     .tree button { display: block; width: 100%; text-align: left; border: 0; background: transparent; padding: 6px 8px; border-radius: 4px; cursor: pointer; font-size: 13px; }
     .tree button.active { background: #e7f1ff; color: #0b5ed7; font-weight: 600; }
+    .zone-c { background: var(--card); border: 1px solid var(--border-soft); border-radius: var(--ds-radius-md); display: flex; flex-direction: column; min-height: 280px; overflow: hidden; }
+    .grid-head { padding: 12px 16px 8px; }
+    .grid-title { margin: 0; font-size: 15px; font-weight: 700; }
+    .grid-help { margin: 4px 0 0; font-size: 12px; color: var(--txt-secondary); }
+    .table-wrap { overflow: auto; flex: 1; }
     table { width: 100%; border-collapse: collapse; }
-    th, td { padding: 8px 10px; border-bottom: 1px solid var(--border-soft); text-align: left; white-space: nowrap; }
-    th { background: #f8fafc; font-size: 12px; color: var(--muted); }
-    .code { color: var(--primary); font-family: ui-monospace, Menlo, Consolas, monospace; text-decoration: underline; cursor: pointer; }
-    .zoneD { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; margin-top: 8px; gap: 12px; flex-wrap: wrap; }
-    .pager { display: flex; gap: 6px; align-items: center; }
-    .hint { color: var(--muted); font-size: 12px; margin: 0 0 12px; }
-    .slide { position: fixed; top: 0; right: 0; width: min(640px, 100%); height: 100%; background: #fff; border-left: 1px solid var(--border); box-shadow: -8px 0 24px rgba(15,23,42,.12); display: none; flex-direction: column; z-index: 20; }
-    .slide.open { display: flex; }
-    .slide .z1 { display: flex; justify-content: space-between; gap: 8px; padding: 12px 16px; border-bottom: 1px solid var(--border-soft); }
-    .slide .body { padding: 16px; overflow: auto; flex: 1; }
-    .slide .z3 { display: flex; justify-content: flex-end; gap: 8px; padding: 12px 16px; border-top: 1px solid var(--border-soft); }
-    .fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .span2 { grid-column: 1 / -1; }
-    .modal { position: fixed; inset: 0; background: rgba(15,23,42,.35); display: none; align-items: center; justify-content: center; z-index: 30; }
+    th, td { padding: 8px 12px; border-bottom: 1px solid var(--border-soft); text-align: left; white-space: nowrap; }
+    th { background: #f8fafc; font-size: 12px; color: var(--muted); position: sticky; top: 0; }
+    th.col-stt, td.col-stt, th.col-check, td.col-check { width: var(--col-no); text-align: center; }
+    tbody tr:hover { background: #f1f5f9; }
+    .code { color: var(--primary); font-family: ui-monospace, Consolas, monospace; cursor: pointer; text-decoration: underline; background: none; border: 0; padding: 0; font-size: inherit; }
+    .menu { position: relative; }
+    .menu summary { list-style: none; cursor: pointer; padding: 4px 8px; border: 1px solid var(--border); border-radius: 4px; background: #fff; }
+    .panel { display: none; position: absolute; right: 0; z-index: 3; background: #fff; border: 1px solid var(--border); border-radius: 6px; min-width: 160px; box-shadow: 0 8px 24px rgba(15,23,42,.12); }
+    .menu[open] .panel { display: block; }
+    .panel button { display: block; width: 100%; text-align: left; border: 0; background: transparent; padding: 8px 12px; cursor: pointer; }
+    .panel button:hover { background: #f1f5f9; }
+    .zone-d { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 12px 16px; border-top: 1px solid var(--border-soft); background: #fff; }
+    .zone-d-controls { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: center; }
+    .pager-btn { width: 32px; height: 32px; border: 1px solid var(--border-soft); border-radius: var(--ds-radius-md); background: #fff; cursor: pointer; }
+    .pager-btn:disabled { opacity: 0.4; }
+    .view-form { display: none; }
+    .page.mode-form .view-list { display: none; }
+    .page.mode-form .view-form { display: flex; flex-direction: column; gap: 8px; min-height: 90vh; }
+    .form-header { background: #fff; border: 1px solid var(--border-soft); border-radius: var(--ds-radius-md); }
+    .z1-toolbar { display: flex; justify-content: space-between; gap: 8px; padding: 10px 16px; border-bottom: 1px solid var(--border-soft); flex-wrap: wrap; }
+    .z1-title-row { display: flex; align-items: center; gap: 8px; padding: 10px 16px 4px; }
+    .z1h { padding: 4px 16px 12px; font-size: 12px; color: var(--muted); }
+    .z2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 16px; background: #fff; border: 1px solid var(--border-soft); border-radius: var(--ds-radius-md); flex: 1; }
+    .z2 .span2 { grid-column: span 2; }
+    .z3 { display: flex; justify-content: flex-end; gap: 8px; padding: 12px 16px; background: #fff; border: 1px solid var(--border-soft); border-radius: var(--ds-radius-md); }
+    .z3.hidden { display: none; }
+    dl.view-dl { display: grid; grid-template-columns: 180px 1fr; gap: 8px 16px; margin: 0; grid-column: 1 / -1; }
+    dl.view-dl dt { color: var(--muted); font-size: 12px; }
+    dl.view-dl dd { margin: 0; }
+    .chips { display: flex; flex-wrap: wrap; gap: 6px; min-height: 32px; align-items: center; }
+    .chip { background: #e7f1ff; color: #0b5ed7; border-radius: 999px; padding: 2px 8px; font-size: 12px; }
+    .hidden { display: none !important; }
+    .toast { position: fixed; right: 16px; bottom: 16px; background: #0f172a; color: #fff; padding: 10px 14px; border-radius: 6px; display: none; z-index: 50; }
+    .modal { display: none; position: fixed; inset: 0; background: rgba(15,23,42,.35); z-index: 40; align-items: center; justify-content: center; }
     .modal.open { display: flex; }
-    .modal-card { width: min(420px, 92vw); background: #fff; border-radius: 8px; padding: 16px; border: 1px solid var(--border-soft); }
+    .modal-card { background: #fff; padding: 16px; border-radius: 8px; min-width: 360px; max-width: 520px; width: 92vw; }
     .pwd-fields { display: flex; flex-direction: column; gap: 10px; margin: 12px 0; }
+    .hint { margin: 0; font-size: 12px; color: var(--muted); }
+    @media (max-width: 900px) { .split { grid-template-columns: 1fr; } .z2 { grid-template-columns: 1fr; } .z2 .span2 { grid-column: span 1; } }
   </style>
 </head>
 <body>
-  <div class="page" data-catalog-list-page data-testid="rmms-users-list-prototype">
-    <header class="zoneA" data-zone="A">
-      <i class="fas fa-user-shield" aria-hidden="true"></i>
-      <h1>Quản lý người dùng</h1>
-      <span class="badge">Kind B list</span>
-      <span class="badge badgeWarn">Auth tạm · Integration</span>
-    </header>
-    <p class="hint">Prototype content-only · zones A–D + org tree · Slideout Z1–Z3 · pwd modal · no chrome/menu.</p>
+  <div class="page" id="page">
+    <div class="view-list" id="viewList" data-catalog-list-page data-zones="A-B-C-D" data-testid="rmms-users-list-prototype">
+      <header class="zone-a" data-zone="A">
+        <h1><i class="fas fa-user-shield" aria-hidden="true"></i> Quản lý người dùng</h1>
+        <span class="badge">Kind B list</span>
+        <span class="badge badge-warn">Auth tạm · Integration</span>
+      </header>
+      <p class="hint">Prototype content-only · zones A–D + tree org · full-page form · SearchInput · không chrome/menu demo.</p>
 
-    <div class="zoneB" data-zone="B" data-testid="users-toolbar">
-      <button type="button" class="btn" title="Làm mới"><i class="fas fa-sync-alt"></i> Làm mới</button>
-      <button type="button" class="btn" title="Lịch sử"><i class="fas fa-history"></i> Lịch sử</button>
-      <button type="button" class="btn" title="Cấu hình"><i class="fas fa-cog"></i></button>
-      <button type="button" class="btn" id="btnProfile"><i class="fas fa-id-card"></i> Hồ sơ</button>
-      <button type="button" class="btn" id="btnPwd"><i class="fas fa-key"></i> Đổi MK</button>
-      <button type="button" class="btn primary" id="btnCreate"><i class="fas fa-plus"></i> Tạo mới</button>
-    </div>
+      <div class="zone-b" data-zone="B" data-testid="users-toolbar">
+        <div class="zone-b-left">
+          <div class="field">
+            <label for="search">Tìm đoạn đường / tuyến / người dùng</label>
+            <div class="search-wrap">
+              <input id="search" type="search" placeholder="Mã · họ tên · username · tuyến…" autocomplete="off" />
+              <button type="button" aria-label="Tìm kiếm"><i class="fas fa-search"></i></button>
+            </div>
+          </div>
+          <div class="field">
+            <label for="fltRole">Vai trò</label>
+            <div class="lkp" id="fltRoleLkp">
+              <div class="search-wrap">
+                <input id="fltRole" type="search" placeholder="SearchInput · tất cả" autocomplete="off" />
+                <button type="button" aria-label="Chọn vai trò"><i class="fas fa-search"></i></button>
+              </div>
+              <div class="lkp-list" id="fltRoleList"></div>
+            </div>
+          </div>
+          <div class="field">
+            <label for="fltStatus">Trạng thái</label>
+            <div class="lkp" id="fltStatusLkp">
+              <div class="search-wrap">
+                <input id="fltStatus" type="search" placeholder="SearchInput · tất cả" autocomplete="off" />
+                <button type="button" aria-label="Chọn trạng thái"><i class="fas fa-search"></i></button>
+              </div>
+              <div class="lkp-list" id="fltStatusList"></div>
+            </div>
+          </div>
+          <div class="field">
+            <label for="fltRoute">Tuyến / đoạn đường</label>
+            <div class="lkp" id="fltRouteLkp">
+              <div class="search-wrap">
+                <input id="fltRoute" type="search" placeholder="SearchInput · road-route" autocomplete="off" />
+                <button type="button" aria-label="Chọn tuyến"><i class="fas fa-search"></i></button>
+              </div>
+              <div class="lkp-list" id="fltRouteList"></div>
+            </div>
+          </div>
+          <button type="button" class="btn" title="Làm mới"><i class="fas fa-sync-alt"></i> Làm mới</button>
+          <button type="button" class="btn" title="Lịch sử"><i class="fas fa-history"></i> Lịch sử</button>
+          <button type="button" class="btn" title="Cấu hình"><i class="fas fa-cog"></i></button>
+          <button type="button" class="btn" id="btnDelete"><i class="fas fa-trash"></i> Xóa</button>
+        </div>
+        <div class="zone-b-right">
+          <button type="button" class="btn primary" id="btnCreate"><i class="fas fa-plus"></i> Tạo mới</button>
+        </div>
+      </div>
 
-    <div class="filters" data-zone="C-filters">
-      <label>Tìm đoạn đường / tuyến / người dùng
-        <input type="search" placeholder="Nhập đoạn đường · tuyến · tên · mã…" />
-      </label>
-      <label>Vai trò
-        <select><option value="">Tất cả</option><option>Admin</option><option>Ban.TK</option><option>Kỹ thuật</option></select>
-      </label>
-      <label>Trạng thái
-        <select><option value="">Tất cả</option><option>active</option><option>locked</option></select>
-      </label>
-    </div>
-
-    <div class="split" data-zone="C">
-      <aside class="tree" data-testid="users-org-tree">
-        <h3>Cây tổ chức</h3>
-        <button type="button" class="active">Tất cả tổ chức</button>
-        <button type="button">└ Cục QLĐB</button>
-        <button type="button">　└ Khu II</button>
-        <button type="button">　　└ VP-II.2</button>
-      </aside>
-      <div class="zoneC">
-        <table>
-          <thead>
-            <tr>
-              <th>STT</th><th>Mã</th><th>Họ tên</th><th>Tổ chức</th>
-              <th>Vai trò</th><th>Tuyến</th><th>Trạng thái</th><th>SĐT</th><th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td><span class="code" id="openView">USR-20260810-0001</span></td>
-              <td>Nguyễn Anh Phúc</td><td>VP-II.2</td><td>Ban.TK</td><td>QL.1</td><td>active</td><td>0912…</td><td>⋮</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td><span class="code">USR-20260809-0003</span></td>
-              <td>Trần Thị B</td><td>Khu II</td><td>Kỹ thuật</td><td>QL.14</td><td>active</td><td>0987…</td><td>⋮</td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="split" data-zone="C">
+        <aside class="tree" data-testid="users-org-tree">
+          <h3>Cây tổ chức</h3>
+          <button type="button" class="active" data-org="">Tất cả tổ chức</button>
+          <button type="button" data-org="DRVN">└ Cục QLĐB</button>
+          <button type="button" data-org="KHU-II">　└ Khu II</button>
+          <button type="button" data-org="VP-II.2">　　└ VP-II.2</button>
+        </aside>
+        <div class="zone-c">
+          <div class="grid-head">
+            <h2 class="grid-title">Danh sách người dùng</h2>
+            <p class="grid-help">Nhấn mã để xem · menu dòng: Xem · Sửa · Sao chép · Xóa · Đổi MK · Phân tuyến · Cán bộ QL</p>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th class="col-stt">STT</th>
+                  <th class="col-check"><input type="checkbox" aria-label="Chọn tất cả" /></th>
+                  <th>Mã</th><th>Họ tên</th><th>Tổ chức</th>
+                  <th>Vai trò / Cấp</th><th>Tuyến</th><th>Trạng thái</th><th>SĐT</th><th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="col-stt">1</td>
+                  <td class="col-check"><input type="checkbox" /></td>
+                  <td><button type="button" class="code" data-mode="view">USR-20260815-0001</button></td>
+                  <td>Nguyễn Anh Phúc</td><td>VP-II.2</td><td>Ban.TK</td><td>QL.1</td><td>Đang dùng</td><td>0912…</td>
+                  <td>
+                    <details class="menu">
+                      <summary>⋮</summary>
+                      <div class="panel">
+                        <button type="button" data-mode="view">Xem</button>
+                        <button type="button" data-mode="edit">Sửa</button>
+                        <button type="button" data-mode="copy">Sao chép</button>
+                        <button type="button" class="act-del">Xóa</button>
+                        <button type="button" class="act-pwd">Đổi MK</button>
+                        <button type="button" class="act-routes">Phân tuyến</button>
+                        <button type="button" class="act-mgr">Cán bộ QL</button>
+                      </div>
+                    </details>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="col-stt">2</td>
+                  <td class="col-check"><input type="checkbox" /></td>
+                  <td><button type="button" class="code" data-mode="view">USR-20260809-0003</button></td>
+                  <td>Trần Thị B</td><td>Khu II</td><td>Kỹ thuật</td><td>QL.14</td><td>Đang dùng</td><td>0987…</td>
+                  <td>
+                    <details class="menu">
+                      <summary>⋮</summary>
+                      <div class="panel">
+                        <button type="button" data-mode="view">Xem</button>
+                        <button type="button" data-mode="edit">Sửa</button>
+                        <button type="button" data-mode="copy">Sao chép</button>
+                        <button type="button" class="act-del">Xóa</button>
+                        <button type="button" class="act-pwd">Đổi MK</button>
+                        <button type="button" class="act-routes">Phân tuyến</button>
+                        <button type="button" class="act-mgr">Cán bộ QL</button>
+                      </div>
+                    </details>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="zone-d" data-zone="D">
+            <span>Tổng: 2 · Trang 1/1</span>
+            <div class="zone-d-controls">
+              <span>Hiển thị</span>
+              <div class="lkp" id="pageSizeLkp">
+                <div class="search-wrap" style="min-width:88px">
+                  <input id="pageSize" type="search" value="50" readonly />
+                  <button type="button" aria-label="pageSize"><i class="fas fa-chevron-down"></i></button>
+                </div>
+                <div class="lkp-list">
+                  <button type="button">50</button><button type="button">100</button>
+                  <button type="button">200</button><button type="button">500</button>
+                </div>
+              </div>
+              <button type="button" class="pager-btn" disabled aria-label="Trang trước"><i class="fas fa-chevron-left"></i></button>
+              <button type="button" class="pager-btn" disabled aria-label="Trang sau"><i class="fas fa-chevron-right"></i></button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="zoneD" data-zone="D">
-      <span>Tổng 2 · trang 1/1</span>
-      <div class="pager">
-        <label>Số dòng / trang
-          <select><option>50</option><option>100</option><option>200</option></select>
-        </label>
-        <button type="button" class="btn" disabled>‹</button>
-        <button type="button" class="btn" disabled>›</button>
+    <div class="view-form" id="viewForm" aria-label="Form người dùng full-page">
+      <header class="form-header">
+        <div class="z1-toolbar">
+          <button type="button" class="btn" id="btnBack"><i class="fas fa-arrow-left"></i> Quay lại</button>
+          <div>
+            <button type="button" class="btn hidden" id="btnCopyFromView"><i class="fas fa-copy"></i> Sao chép</button>
+            <button type="button" class="btn hidden" id="btnEditFromView"><i class="fas fa-pen"></i> Sửa</button>
+          </div>
+        </div>
+        <div class="z1-title-row">
+          <strong id="formTitle">Người dùng</strong>
+          <span class="badge" id="formBadge">Tạo mới</span>
+        </div>
+        <p class="z1h" id="formHint">leave-confirm dirty khi Hủy / Quay lại · footer-only Lưu/Hủy</p>
+      </header>
+      <div class="z2" id="formBody"></div>
+      <div class="z3" id="formFooter">
+        <button type="button" class="btn" id="btnCancel">Hủy</button>
+        <button type="button" class="btn primary" id="btnSave">Lưu</button>
       </div>
     </div>
   </div>
-
-  <aside class="slide" id="slide" aria-label="Form người dùng">
-    <div class="z1">
-      <div>
-        <button type="button" class="btn" id="btnClose">Đóng</button>
-      </div>
-      <strong id="formTitle">Thêm người dùng</strong>
-    </div>
-    <div class="body">
-      <div class="fields">
-        <label>Mã người dùng<input readonly value="(tự sinh USR-*)" /></label>
-        <label>Tên đăng nhập *<input placeholder="username" /></label>
-        <label class="span2">Họ và tên *<input placeholder="Nguyễn Văn A" /></label>
-        <label>Email *<input type="email" /></label>
-        <label>Số điện thoại<input /></label>
-        <label>Tổ chức *<select><option>VP-II.2</option></select></label>
-        <label>Vai trò<select><option>Ban.TK</option></select></label>
-        <label>Trạng thái<select><option>active</option><option>locked</option></select></label>
-        <label class="span2">Tuyến được phân<input placeholder="QL.1, QL.14" /></label>
-      </div>
-    </div>
-    <div class="z3">
-      <button type="button" class="btn" id="btnClose2">Đóng</button>
-      <button type="button" class="btn primary">Lưu</button>
-    </div>
-  </aside>
 
   <div class="modal" id="pwdModal">
     <div class="modal-card">
       <h3>Đổi mật khẩu</h3>
       <div class="pwd-fields">
-        <label>MẬT KHẨU CŨ<input type="password" /></label>
-        <label>MẬT KHẨU MỚI<input type="password" /></label>
-        <label>XÁC NHẬN MẬT KHẨU MỚI<input type="password" /></label>
+        <label class="field"><span class="req">Mật khẩu cũ</span><input type="password" autocomplete="current-password" /></label>
+        <label class="field"><span class="req">Mật khẩu mới</span><input type="password" autocomplete="new-password" /></label>
+        <label class="field"><span class="req">Xác nhận mật khẩu mới</span><input type="password" autocomplete="new-password" /></label>
       </div>
       <div style="display:flex;justify-content:flex-end;gap:8px">
-        <button type="button" class="btn" id="pwdClose">Đóng</button>
-        <button type="button" class="btn primary">Đổi mật khẩu</button>
+        <button type="button" class="btn" id="pwdClose">Hủy</button>
+        <button type="button" class="btn primary" id="pwdOk">Đổi mật khẩu</button>
       </div>
     </div>
   </div>
 
+  <div class="modal" id="routesModal">
+    <div class="modal-card">
+      <h3>Phân tuyến</h3>
+      <div class="field" style="margin:12px 0">
+        <label>Tuyến được phân</label>
+        <div class="lkp" id="assignRouteLkp">
+          <div class="search-wrap">
+            <input type="search" placeholder="SearchInput multi · road-route" autocomplete="off" />
+            <button type="button"><i class="fas fa-search"></i></button>
+          </div>
+          <div class="lkp-list" id="assignRouteList"></div>
+        </div>
+        <div class="chips" id="assignRouteChips"><span class="chip">QL.1</span></div>
+      </div>
+      <div style="display:flex;justify-content:flex-end;gap:8px">
+        <button type="button" class="btn" id="routesClose">Hủy</button>
+        <button type="button" class="btn primary" id="routesOk">Lưu</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="mgrModal">
+    <div class="modal-card">
+      <h3>Cán bộ thuộc quản lý</h3>
+      <div class="field" style="margin:12px 0">
+        <label>Người dùng</label>
+        <div class="lkp" id="assignUserLkp">
+          <div class="search-wrap">
+            <input type="search" placeholder="SearchInput multi · users" autocomplete="off" />
+            <button type="button"><i class="fas fa-search"></i></button>
+          </div>
+          <div class="lkp-list" id="assignUserList"></div>
+        </div>
+        <div class="chips" id="assignUserChips"><span class="chip">USR-20260809-0003 Trần Thị B</span></div>
+      </div>
+      <div style="display:flex;justify-content:flex-end;gap:8px">
+        <button type="button" class="btn" id="mgrClose">Hủy</button>
+        <button type="button" class="btn primary" id="mgrOk">Lưu</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="confirmModal">
+    <div class="modal-card">
+      <h3 id="confirmTitle">Xác nhận xóa</h3>
+      <p>Xóa người dùng đã chọn? (Lin confirm — không window.confirm)</p>
+      <div style="display:flex;justify-content:flex-end;gap:8px">
+        <button type="button" class="btn" id="confirmNo">Hủy</button>
+        <button type="button" class="btn primary" id="confirmYes">Xóa</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">Đã lưu (stub)</div>
+
   <script>
-    const slide = document.getElementById('slide');
+    const ROLES = [{v:'',l:'Tất cả'},{v:'admin',l:'Admin'},{v:'ban-tk',l:'Ban.TK'},{v:'ky-thuat',l:'Kỹ thuật'}];
+    const STATUSES = [{v:'',l:'Tất cả'},{v:'active',l:'Đang dùng'},{v:'locked',l:'Khóa'}];
+    const ROUTES = [{v:'',l:'Tất cả'},{v:'QL.1',l:'QL.1'},{v:'QL.14',l:'QL.14'},{v:'QL.1K',l:'QL.1K'}];
+    const ORGS = [{v:'VP-II.2',l:'VP-II.2 Văn phòng QLĐB II.2'},{v:'KHU-II',l:'KHU-II Khu quản lý đường bộ II'},{v:'DRVN',l:'DRVN Cục QLĐB'}];
+    const USERS = [{v:'USR-20260809-0003',l:'USR-20260809-0003 Trần Thị B'},{v:'USR-20260815-0001',l:'USR-20260815-0001 Nguyễn Anh Phúc'}];
+
+    function bindLkp(wrapId, listId, items, inputId) {
+      const wrap = document.getElementById(wrapId);
+      const list = document.getElementById(listId);
+      const input = document.getElementById(inputId) || wrap.querySelector('input');
+      function render(q) {
+        const qq = (q || '').toLowerCase();
+        list.innerHTML = items.filter(i => !qq || i.l.toLowerCase().includes(qq) || i.v.toLowerCase().includes(qq))
+          .map(i => `<button type="button" data-v="${i.v}">${i.l}</button>`).join('');
+      }
+      render('');
+      wrap.addEventListener('focusin', () => { wrap.classList.add('open'); render(input.value); });
+      wrap.addEventListener('click', (e) => {
+        const btn = e.target.closest('button[data-v]');
+        if (btn) { input.value = btn.textContent; wrap.classList.remove('open'); }
+        else if (e.target.closest('.search-wrap button')) { wrap.classList.toggle('open'); render(input.value); }
+      });
+      input.addEventListener('input', () => { wrap.classList.add('open'); render(input.value); });
+      document.addEventListener('click', (e) => { if (!wrap.contains(e.target)) wrap.classList.remove('open'); });
+    }
+    bindLkp('fltRoleLkp','fltRoleList',ROLES,'fltRole');
+    bindLkp('fltStatusLkp','fltStatusList',STATUSES,'fltStatus');
+    bindLkp('fltRouteLkp','fltRouteList',ROUTES,'fltRoute');
+    bindLkp('assignRouteLkp','assignRouteList',ROUTES.filter(r=>r.v));
+    bindLkp('assignUserLkp','assignUserList',USERS);
+
+    const pageSizeLkp = document.getElementById('pageSizeLkp');
+    pageSizeLkp.addEventListener('click', (e) => {
+      const btn = e.target.closest('.lkp-list button');
+      if (btn) { document.getElementById('pageSize').value = btn.textContent; pageSizeLkp.classList.remove('open'); }
+      else pageSizeLkp.classList.toggle('open');
+    });
+
+    document.querySelectorAll('.tree button').forEach(b => {
+      b.onclick = () => { document.querySelectorAll('.tree button').forEach(x => x.classList.remove('active')); b.classList.add('active'); };
+    });
+
+    const page = document.getElementById('page');
+    const toast = document.getElementById('toast');
+    function showToast(msg) { toast.textContent = msg; toast.style.display = 'block'; setTimeout(() => toast.style.display = 'none', 1600); }
+
+    function formFields(mode) {
+      const view = mode === 'view';
+      const create = mode === 'create' || mode === 'copy';
+      if (view) {
+        return `<dl class="view-dl span2">
+          <dt>Mã người dùng</dt><dd>USR-20260815-0001</dd>
+          <dt>Tên đăng nhập</dt><dd>naphuc</dd>
+          <dt>Họ và tên</dt><dd>Nguyễn Anh Phúc</dd>
+          <dt>Email</dt><dd>phuc@example.com</dd>
+          <dt>Số điện thoại</dt><dd>0912…</dd>
+          <dt>Tổ chức</dt><dd>VP-II.2</dd>
+          <dt>Vai trò / Cấp</dt><dd>Ban.TK</dd>
+          <dt>Trạng thái</dt><dd>Đang dùng</dd>
+          <dt>Tuyến được phân</dt><dd>QL.1</dd>
+          <dt>Cập nhật</dt><dd>15/08/2026 08:30</dd>
+        </dl>`;
+      }
+      return `
+        <div class="field"><label>Mã người dùng</label><input readonly value="${create ? '(tự sinh USR-YYYYMMDD-NNNN)' : 'USR-20260815-0001'}" /></div>
+        <div class="field"><label class="req">Tên đăng nhập</label><input value="${create && mode!=='copy' ? '' : 'naphuc'}" /></div>
+        <div class="field span2"><label class="req">Họ và tên</label><input value="${create && mode!=='copy' ? '' : 'Nguyễn Anh Phúc'}" /></div>
+        <div class="field"><label class="req">Email</label><input type="email" value="${create && mode!=='copy' ? '' : 'phuc@example.com'}" /></div>
+        <div class="field"><label>Số điện thoại</label><input type="tel" value="${create && mode!=='copy' ? '' : '0912'}" /></div>
+        <div class="field"><label class="req">Tổ chức</label>
+          <div class="lkp" id="frmOrgLkp"><div class="search-wrap"><input id="frmOrg" type="search" placeholder="SearchInput · org-unit" value="${create && mode!=='copy' ? '' : 'VP-II.2'}" /><button type="button"><i class="fas fa-search"></i></button></div><div class="lkp-list" id="frmOrgList"></div></div>
+        </div>
+        <div class="field"><label>Vai trò / Cấp</label>
+          <div class="lkp" id="frmRoleLkp"><div class="search-wrap"><input id="frmRole" type="search" placeholder="SearchInput" value="${create && mode!=='copy' ? '' : 'Ban.TK'}" /><button type="button"><i class="fas fa-search"></i></button></div><div class="lkp-list" id="frmRoleList"></div></div>
+        </div>
+        <div class="field"><label>Trạng thái</label>
+          <div class="lkp" id="frmStatusLkp"><div class="search-wrap"><input id="frmStatus" type="search" placeholder="SearchInput" value="${create && mode!=='copy' ? '' : 'Đang dùng'}" /><button type="button"><i class="fas fa-search"></i></button></div><div class="lkp-list" id="frmStatusList"></div></div>
+        </div>
+        <div class="field span2"><label>Tuyến được phân</label>
+          <div class="lkp" id="frmRouteLkp"><div class="search-wrap"><input id="frmRoute" type="search" placeholder="SearchInput multi · road-route" /><button type="button"><i class="fas fa-search"></i></button></div><div class="lkp-list" id="frmRouteList"></div></div>
+          <div class="chips"><span class="chip">QL.1</span></div>
+        </div>
+        ${create ? '<div class="field"><label class="req">Mật khẩu khởi tạo</label><input type="password" /></div>' : ''}
+      `;
+    }
+
+    function openForm(mode) {
+      const titles = { create: 'Tạo mới', edit: 'Sửa', view: 'Xem', copy: 'Sao chép' };
+      document.getElementById('formBadge').textContent = titles[mode];
+      document.getElementById('formTitle').textContent = 'Người dùng';
+      document.getElementById('formBody').innerHTML = formFields(mode);
+      document.getElementById('formFooter').classList.toggle('hidden', mode === 'view');
+      document.getElementById('btnCopyFromView').classList.toggle('hidden', mode !== 'view');
+      document.getElementById('btnEditFromView').classList.toggle('hidden', mode !== 'view');
+      page.classList.add('mode-form');
+      if (mode !== 'view') {
+        bindLkp('frmOrgLkp','frmOrgList',ORGS,'frmOrg');
+        bindLkp('frmRoleLkp','frmRoleList',ROLES.filter(r=>r.v),'frmRole');
+        bindLkp('frmStatusLkp','frmStatusList',STATUSES.filter(s=>s.v),'frmStatus');
+        bindLkp('frmRouteLkp','frmRouteList',ROUTES.filter(r=>r.v),'frmRoute');
+      }
+    }
+    function closeForm() { page.classList.remove('mode-form'); }
+
+    document.getElementById('btnCreate').onclick = () => openForm('create');
+    document.getElementById('btnBack').onclick = closeForm;
+    document.getElementById('btnCancel').onclick = closeForm;
+    document.getElementById('btnSave').onclick = () => { showToast('Đã lưu (stub)'); closeForm(); };
+    document.getElementById('btnCopyFromView').onclick = () => openForm('copy');
+    document.getElementById('btnEditFromView').onclick = () => openForm('edit');
+    document.querySelectorAll('[data-mode]').forEach(el => {
+      el.addEventListener('click', () => openForm(el.getAttribute('data-mode')));
+    });
+
     const pwd = document.getElementById('pwdModal');
-    document.getElementById('btnCreate').onclick = () => { document.getElementById('formTitle').textContent = 'Thêm người dùng'; slide.classList.add('open'); };
-    document.getElementById('openView').onclick = () => { document.getElementById('formTitle').textContent = 'Xem người dùng'; slide.classList.add('open'); };
-    document.getElementById('btnClose').onclick = () => slide.classList.remove('open');
-    document.getElementById('btnClose2').onclick = () => slide.classList.remove('open');
-    document.getElementById('btnPwd').onclick = () => pwd.classList.add('open');
+    const routes = document.getElementById('routesModal');
+    const mgr = document.getElementById('mgrModal');
+    const confirmM = document.getElementById('confirmModal');
+    document.querySelectorAll('.act-pwd').forEach(b => b.onclick = () => pwd.classList.add('open'));
+    document.querySelectorAll('.act-routes').forEach(b => b.onclick = () => routes.classList.add('open'));
+    document.querySelectorAll('.act-mgr').forEach(b => b.onclick = () => mgr.classList.add('open'));
+    document.querySelectorAll('.act-del').forEach(b => b.onclick = () => confirmM.classList.add('open'));
+    document.getElementById('btnDelete').onclick = () => confirmM.classList.add('open');
     document.getElementById('pwdClose').onclick = () => pwd.classList.remove('open');
-    document.getElementById('btnProfile').onclick = () => alert('Hồ sơ của tôi — modal stub');
+    document.getElementById('pwdOk').onclick = () => { pwd.classList.remove('open'); showToast('Đã đổi mật khẩu (stub)'); };
+    document.getElementById('routesClose').onclick = () => routes.classList.remove('open');
+    document.getElementById('routesOk').onclick = () => { routes.classList.remove('open'); showToast('Đã phân tuyến (stub)'); };
+    document.getElementById('mgrClose').onclick = () => mgr.classList.remove('open');
+    document.getElementById('mgrOk').onclick = () => { mgr.classList.remove('open'); showToast('Đã lưu cán bộ QL (stub)'); };
+    document.getElementById('confirmNo').onclick = () => confirmM.classList.remove('open');
+    document.getElementById('confirmYes').onclick = () => { confirmM.classList.remove('open'); showToast('Đã xóa (stub)'); };
   </script>
 </body>
 </html>

@@ -1,0 +1,22 @@
+{
+  "feature": "citizen",
+  "reviewHash": "task_5a7638a1-citizen-kindb-20260815",
+  "schemaVersion": 2,
+  "rulesVersion": "2026.08.14.9",
+  "skillVersion": "2026.08.14.5",
+  "workflowVersion": "2026.08.14.5",
+  "status": "done",
+  "review_confirm": "approve",
+  "taskId": "task_5a7638a1",
+  "artifacts": [
+    "po/requirement.md",
+    "ui/design.md",
+    "ui/prototype/citizen-list-prototype.html",
+    "be/solution-discovery.md",
+    "task/citizen.md",
+    "implement/citizen.md",
+    "qa/scenarios.md",
+    "review/findings.md"
+  ],
+  "updatedAt": "2026-08-15T00:55:00.000Z"
+}

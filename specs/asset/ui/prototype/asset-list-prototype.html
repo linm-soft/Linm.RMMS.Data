@@ -6,7 +6,6 @@
   <title>Prototype — Sổ tài sản KCHT đường bộ (asset)</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
-    /* Visual SSOT: ERP catalog · form-field-select-css · erp-data-list-grid */
     :root {
       --bg: #f5f7fa;
       --card: #ffffff;
@@ -17,7 +16,6 @@
       --muted: #6D6D6D;
       --primary: #0d6efd;
       --primary-hover: #0b5ed7;
-      --toolbar-bg: #f8fafc;
       --ds-focus-shadow: 0px 0px 4px #BABCBE;
       --ds-radius-md: 4px;
       --ds-font-button: 12px;
@@ -37,14 +35,7 @@
       color: var(--txt);
       font-size: var(--ds-font-body);
     }
-
-    /* ── Controls SSOT (form-field-select-css · GAP-P2-CSS-*) ── */
-    select,
-    input[type="text"],
-    input[type="search"],
-    input[type="number"],
-    input:not([type]),
-    textarea {
+    select, input[type="text"], input[type="search"], input[type="number"], input:not([type]), textarea {
       padding: 6px 10px;
       border: 1px solid var(--border);
       border-radius: var(--ds-radius-md);
@@ -56,628 +47,252 @@
       min-height: 32px;
       width: 100%;
     }
-    select:focus,
-    input[type="text"]:focus,
-    input[type="search"]:focus,
-    input[type="number"]:focus,
-    input:not([type]):focus,
-    textarea:focus {
+    select:focus, input:focus, textarea:focus {
       outline: none;
       border-color: var(--primary);
       box-shadow: var(--ds-focus-shadow);
     }
-    select:disabled,
-    input:disabled,
-    textarea:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-      background: #F6F6F6;
-    }
-    select option { padding: 6px 10px; font-size: 13px; color: #1A1A1A; background: #fff; }
-    select option[value=""] { color: #6D6D6D; }
     input::placeholder { color: #6D6D6D; }
-
     input[type="checkbox"] {
-      width: var(--check-size);
-      height: var(--check-size);
-      min-width: var(--check-size);
-      min-height: var(--check-size);
-      margin: 0;
-      display: block;
-      accent-color: var(--primary);
-      cursor: pointer;
-      flex-shrink: 0;
+      width: var(--check-size); height: var(--check-size);
+      min-width: var(--check-size); min-height: var(--check-size);
+      margin: 0; display: block; accent-color: var(--primary); cursor: pointer; flex-shrink: 0;
     }
-    input[type="checkbox"]:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-
-    /* listPage compact — LinPageLayout.listPage */
     .page {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 8px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      min-height: 100vh;
-      box-sizing: border-box;
+      max-width: 1280px; margin: 0 auto; padding: 8px;
+      display: flex; flex-direction: column; gap: 8px; min-height: 100vh;
     }
-
-    /* ── A Header — LinPageHeader parity (VatTu) ── */
-    .zone-a {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 0;
-      flex-shrink: 0;
-    }
+    .zone-a { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
     .zone-a h1 {
-      margin: 0;
-      font-size: var(--ds-font-title);
-      font-weight: 700;
-      color: #212529;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      letter-spacing: 0;
+      margin: 0; font-size: var(--ds-font-title); font-weight: 700; color: #212529;
+      display: flex; align-items: center; gap: 10px;
     }
     .zone-a h1 i { color: var(--primary); font-size: 20px; }
-
-    /* ── B Toolbar — ErpListToolbarButton size=sm (12px / 32px) ── */
     .zone-b {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      padding: 8px 0;
-      margin-bottom: 4px;
-      flex-wrap: wrap;
-      flex-shrink: 0;
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      background: var(--bg);
+      display: flex; align-items: flex-end; justify-content: space-between; gap: 8px;
+      padding: 8px 0; margin-bottom: 4px; flex-wrap: wrap; flex-shrink: 0;
+      position: sticky; top: 0; z-index: 20; background: var(--bg);
       border-bottom: 1px solid var(--border-soft);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
     }
-    .zone-b-left {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
+    .zone-b-left { display: flex; align-items: flex-end; gap: 8px; flex-wrap: wrap; flex: 1; }
     .tb-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-      border: none;
-      background: #EEEEEE;
-      color: #1A1A1A;
-      padding: 6px 8px;
-      border-radius: var(--ds-radius-md);
-      cursor: pointer;
-      font-size: var(--ds-font-button);
-      font-weight: 600;
-      line-height: 1.2;
-      white-space: nowrap;
-      height: var(--ds-height-btn);
-      box-sizing: border-box;
+      display: inline-flex; align-items: center; justify-content: center; gap: 4px;
+      border: none; background: #EEEEEE; color: #1A1A1A; padding: 6px 8px;
+      border-radius: var(--ds-radius-md); cursor: pointer;
+      font-size: var(--ds-font-button); font-weight: 600; height: var(--ds-height-btn); white-space: nowrap;
     }
-    .tb-btn:hover:not(:disabled):not(.is-muted) {
-      background: #BABCBE;
+    .tb-btn:hover:not(:disabled) { background: #BABCBE; }
+    .tb-btn i { font-size: 12px; }
+    .tb-btn-primary { background: var(--primary); color: #fff; }
+    .tb-btn-primary:hover:not(:disabled) { background: var(--primary-hover); }
+    .field { display: flex; flex-direction: column; gap: 4px; min-width: 148px; }
+    .field.narrow { min-width: 110px; max-width: 120px; }
+    .field.wide { min-width: 200px; }
+    .field label { font-size: 12px; color: var(--muted); font-weight: 500; }
+    .req::after { content: " *"; color: #dc2626; font-weight: 700; }
+    .search-wrap, .combo {
+      display: flex; align-items: stretch; border: 1px solid var(--border);
+      border-radius: var(--ds-radius-md); overflow: hidden; background: #fff; min-height: 32px; position: relative;
     }
-    .tb-btn:disabled,
-    .tb-btn.is-muted {
-      opacity: 0.6;
-      cursor: not-allowed;
+    .combo { overflow: visible; }
+    .search-wrap:focus-within, .combo:focus-within {
+      border-color: var(--primary); box-shadow: var(--ds-focus-shadow);
     }
-    .tb-btn i {
-      font-size: 12px;
-      width: 1em;
-      text-align: center;
-      flex-shrink: 0;
+    .search-wrap input, .combo input {
+      border: 0 !important; outline: none !important; box-shadow: none !important;
+      padding: 6px 10px; flex: 1; min-width: 0; min-height: 30px; width: auto;
     }
-    .tb-btn-primary {
-      background: var(--primary);
-      color: #fff;
-      font-weight: 600;
+    .search-wrap button, .combo > button.combo-ico {
+      border: 0; border-left: 1px solid var(--border); background: #f8fafc;
+      padding: 0 10px; cursor: pointer; color: var(--muted); min-width: 36px;
     }
-    .tb-btn-primary:hover:not(:disabled) {
-      background: var(--primary-hover);
+    .combo-list {
+      display: none; position: absolute; left: 0; right: 0; top: 100%; z-index: 30;
+      max-height: 220px; overflow: auto; background: #fff; border: 1px solid var(--border);
+      border-radius: 0 0 4px 4px; box-shadow: 0 8px 16px rgba(15,23,42,.12);
     }
-
-    /* ── C Grid card (CatalogListShell / VatTu tableCard) ── */
+    .combo.open .combo-list { display: block; }
+    .combo-list button {
+      display: block; width: 100%; text-align: left; border: 0; background: transparent;
+      padding: 8px 10px; cursor: pointer; font-size: 13px;
+    }
+    .combo-list button:hover, .combo-list button.is-on { background: #eff6ff; }
     .zone-c {
-      background: var(--card);
-      border: 1px solid var(--border-soft);
-      border-radius: var(--ds-radius-md);
-      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
-      display: flex;
-      flex-direction: column;
-      min-height: 0;
-      flex: 1;
-      overflow: hidden;
+      background: var(--card); border: 1px solid var(--border-soft); border-radius: var(--ds-radius-md);
+      display: flex; flex-direction: column; min-height: 0; flex: 1; overflow: hidden;
     }
-    .grid-head {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 12px 16px 8px;
-      flex-wrap: wrap;
-    }
-    .grid-title {
-      margin: 0;
-      font-size: 15px;
-      font-weight: 700;
-      color: #212529;
-    }
-    .grid-help {
-      margin: 4px 0 0;
-      font-size: 12px;
-      color: var(--txt-secondary);
-      line-height: 1.4;
-    }
-    .grid-filters {
-      display: flex;
-      align-items: flex-end;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-    .field {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      min-width: 160px;
-    }
-    .field label {
-      font-size: 12px;
-      color: var(--muted);
-      font-weight: 500;
-    }
-    .req::after {
-      content: " *";
-      color: #dc2626;
-      font-weight: 700;
-    }
-    .search-wrap {
-      display: flex;
-      align-items: stretch;
-      border: 1px solid var(--border);
-      border-radius: var(--ds-radius-md);
-      overflow: hidden;
-      background: #fff;
-      min-width: 240px;
-      min-height: 32px;
-    }
-    .search-wrap:focus-within {
-      border-color: var(--primary);
-      box-shadow: var(--ds-focus-shadow);
-    }
-    .search-wrap input {
-      border: 0 !important;
-      outline: none !important;
-      box-shadow: none !important;
-      padding: 6px 10px;
-      font-size: 13px;
-      flex: 1;
-      min-width: 0;
-      min-height: 30px;
-      width: auto;
-    }
-    .search-wrap button {
-      border: 0;
-      border-left: 1px solid var(--border);
-      background: #f8fafc;
-      padding: 0 10px;
-      cursor: pointer;
-      color: var(--muted);
-      display: grid;
-      place-items: center;
-      min-width: 36px;
-    }
-    .search-wrap button:hover { background: #f1f5f9; color: var(--txt); }
-    .search-wrap button svg { width: 14px; height: 14px; }
-    .table-wrap {
-      overflow: auto;
-      flex: 1;
-      min-height: 240px;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13px;
-      table-layout: fixed;
-    }
-    col.col-stt { width: var(--col-no); }
-    col.col-check { width: var(--col-check); }
-    col.col-code { width: 120px; }
-    col.col-name { width: 22%; }
-    col.col-type { width: 120px; }
-    col.col-route { width: 88px; }
-    col.col-km { width: 108px; }
-    col.col-status { width: 120px; }
-    col.col-gps { width: 148px; }
-    col.col-act { width: 48px; }
+    .grid-head { padding: 12px 16px 8px; }
+    .grid-title { margin: 0; font-size: 15px; font-weight: 700; color: #212529; }
+    .grid-help { margin: 4px 0 0; font-size: 12px; color: var(--txt-secondary); }
+    .table-wrap { overflow: auto; flex: 1; min-height: 240px; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; table-layout: fixed; }
+    col.col-stt, col.col-check { width: 48px; }
+    col.col-code { width: 140px; } col.col-name { width: 22%; } col.col-type { width: 160px; }
+    col.col-route { width: 88px; } col.col-km { width: 108px; } col.col-status { width: 120px; }
+    col.col-gps { width: 148px; } col.col-act { width: 48px; }
     th, td {
-      padding: 8px 12px;
-      border-bottom: 1px solid var(--border-soft);
-      text-align: left;
-      vertical-align: middle;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+      padding: 8px 12px; border-bottom: 1px solid var(--border-soft); text-align: left;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
     }
-    th {
-      background: #f8fafc;
-      font-size: 12px;
-      color: var(--muted);
-      font-weight: 600;
-      position: sticky;
-      top: 0;
-      z-index: 1;
-    }
-    th.col-stt,
-    td.col-stt,
-    th.col-check,
-    td.col-check {
-      text-align: center;
-      overflow: visible;
-      text-overflow: clip;
-      padding: 8px 12px;
-    }
-    td.col-check input[type="checkbox"] {
-      margin: 0 auto;
-    }
+    th { background: #f8fafc; font-size: 12px; color: var(--muted); font-weight: 600; position: sticky; top: 0; z-index: 1; }
+    th.col-stt, td.col-stt, th.col-check, td.col-check { text-align: center; overflow: visible; }
     tbody tr:nth-child(even) { background: #fafbfc; }
     tbody tr:hover { background: #f1f5f9; }
     tbody tr.is-active { background: #eff6ff; }
     .code {
-      color: var(--primary);
-      font-family: ui-monospace, Consolas, monospace;
-      cursor: pointer;
-      text-decoration: underline;
-      background: none;
-      border: 0;
-      padding: 0;
-      font-size: inherit;
+      color: var(--primary); font-family: ui-monospace, Consolas, monospace; cursor: pointer;
+      text-decoration: underline; background: none; border: 0; padding: 0; font-size: inherit;
     }
     .menu { position: relative; }
     .menu summary {
-      list-style: none;
-      cursor: pointer;
-      padding: 4px 8px;
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      background: #fff;
-      user-select: none;
+      list-style: none; cursor: pointer; padding: 4px 8px; border: 1px solid var(--border);
+      border-radius: 4px; background: #fff;
     }
     .menu summary::-webkit-details-marker { display: none; }
     .panel {
-      display: none;
-      position: absolute;
-      right: 0;
-      z-index: 3;
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      min-width: 128px;
-      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
+      display: none; position: absolute; right: 0; z-index: 3; background: #fff;
+      border: 1px solid var(--border); border-radius: 6px; min-width: 140px;
+      box-shadow: 0 8px 24px rgba(15,23,42,.12);
     }
     .menu[open] .panel { display: block; }
     .panel button {
-      display: block;
-      width: 100%;
-      text-align: left;
-      border: 0;
-      background: transparent;
-      padding: 8px 12px;
-      cursor: pointer;
-      font-size: 13px;
+      display: block; width: 100%; text-align: left; border: 0; background: transparent;
+      padding: 8px 12px; cursor: pointer; font-size: 13px;
     }
     .panel button:hover { background: #f1f5f9; }
-
-    /* ── D Pagination — CatalogListPagination + CatalogPagerNav (VatTu) ── */
     .zone-d {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      gap: 10px;
-      padding: 12px 16px;
-      border-top: 1px solid var(--border-soft);
-      background: #fff;
-      flex-shrink: 0;
-      flex-wrap: wrap;
+      display: flex; flex-direction: column; align-items: center; gap: 10px;
+      padding: 12px 16px; border-top: 1px solid var(--border-soft); background: #fff; flex-shrink: 0;
     }
-    .zone-d-total {
-      width: 100%;
-      text-align: center;
-      font-size: 13px;
-      color: var(--txt-secondary);
-    }
-    .zone-d-controls {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 12px;
-      width: 100%;
-    }
-    .zone-d-pagesize {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .zone-d-pagesize label {
-      font-size: 13px;
-      color: var(--txt-secondary);
-      white-space: nowrap;
-      margin: 0;
-    }
-    .zone-d-pagesize select {
-      min-width: 72px;
-      width: auto;
-      font-size: 14px;
-      min-height: 32px;
-      padding: 4px 8px;
-    }
-    .pager-nav {
-      display: inline-flex;
-      align-items: center;
-      gap: 0;
-      flex-shrink: 0;
-    }
+    .zone-d-total { width: 100%; text-align: center; font-size: 13px; color: var(--txt-secondary); }
+    .zone-d-controls { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 12px; }
+    .zone-d-pagesize { display: flex; align-items: center; gap: 8px; }
+    .zone-d-pagesize select { min-width: 72px; width: auto; }
+    .pager-nav { display: inline-flex; align-items: center; }
     .pager-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 8px;
-      width: 32px;
-      height: 32px;
-      padding: 0;
-      border: 1px solid var(--border-soft);
-      border-radius: var(--ds-radius-md);
-      background: #fff;
-      color: var(--txt-secondary);
-      cursor: pointer;
-      box-sizing: border-box;
-      line-height: 1;
-      font-size: 12px;
+      display: inline-flex; align-items: center; justify-content: center; margin: 0 8px;
+      width: 32px; height: 32px; border: 1px solid var(--border-soft); border-radius: 4px;
+      background: #fff; color: var(--txt-secondary); cursor: pointer;
     }
-    .pager-btn:hover:not(:disabled) {
-      background: #f8f9fa;
-      color: #212529;
-    }
-    .pager-btn:disabled {
-      opacity: 0.4;
-      cursor: not-allowed;
-    }
-    .pager-indicator {
-      font-size: 12px;
-      color: var(--txt-secondary);
-      padding: 0 6px;
-      min-width: 52px;
-      text-align: center;
-      border: 0;
-      background: transparent;
-    }
-
-    /* Form — Slideout (≥10 controls · ui-pattern-decision) · Z1–Z3 + icon toolbar */
-    .slide-backdrop {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(15, 23, 42, 0.35);
-      z-index: 40;
-    }
-    .slide-backdrop.on { display: block; }
-    .slideout {
-      display: none;
-      position: fixed;
-      top: 0;
-      right: 0;
-      width: min(600px, 100vw);
-      height: 100vh;
-      z-index: 50;
-      background: var(--card);
-      box-shadow: -8px 0 32px rgba(15, 23, 42, 0.18);
-      flex-direction: column;
-    }
-    .slideout.on { display: flex; }
-    .form-header-card {
-      flex-shrink: 0;
-      background: #fff;
-      border-bottom: 1px solid #e9ecef;
-    }
-    /* Z1 row1: Back + actions (icon+label) */
+    .pager-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .pager-indicator { font-size: 12px; color: var(--txt-secondary); padding: 0 6px; min-width: 52px; text-align: center; }
+    .view-form { display: none; flex-direction: column; flex: 1; min-height: 0; background: var(--card); border: 1px solid var(--border-soft); border-radius: 4px; }
+    .view-form.on { display: flex; }
+    .view-list.off { display: none; }
     .z1-toolbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      padding: 10px 16px;
-      border-bottom: 1px solid #e9ecef;
-      flex-wrap: wrap;
+      display: flex; align-items: center; justify-content: space-between; gap: 8px;
+      padding: 10px 16px; border-bottom: 1px solid #e9ecef; flex-wrap: wrap;
     }
     .z1-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-    .z1-title-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 16px 4px;
-    }
+    .z1-title-row { display: flex; align-items: center; gap: 8px; padding: 10px 16px 4px; }
     .z1-title-row strong { font-size: 1.05rem; flex: 1; }
-    .badge {
-      font-size: 11px;
-      font-weight: 700;
-      background: #dbeafe;
-      color: #1e40af;
-      padding: 2px 8px;
-      border-radius: 999px;
-    }
-    .z1h {
-      padding: 4px 16px 12px;
-      font-size: 12px;
-      color: var(--muted);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .z1h svg { width: 14px; height: 14px; flex-shrink: 0; }
-    .z2 {
-      padding: 16px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      overflow-y: auto;
-      flex: 1;
-      min-height: 0;
-      align-content: start;
-    }
+    .badge { font-size: 11px; font-weight: 700; background: #dbeafe; color: #1e40af; padding: 2px 8px; border-radius: 999px; }
+    .z1h { padding: 4px 16px 12px; font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 6px; }
+    .z2 { padding: 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; overflow-y: auto; flex: 1; align-content: start; }
     .z2 .span2 { grid-column: span 2; }
     .z2 .section-label {
-      grid-column: 1 / -1;
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--primary);
+      grid-column: 1 / -1; font-size: 12px; font-weight: 700; color: var(--primary);
       text-transform: uppercase;
-      letter-spacing: 0.02em;
-      margin: 4px 0 0;
     }
-    .ro { background: #F6F6F6; }
+    .is-ro { pointer-events: none; background: #fff; }
+    textarea { min-height: 72px; resize: vertical; }
     .z3 {
-      flex-shrink: 0;
-      padding: 12px 16px;
-      border-top: 1px solid #e9ecef;
-      display: flex;
-      gap: 8px;
-      justify-content: flex-end;
-      background: #fff;
+      flex-shrink: 0; padding: 12px 16px; border-top: 1px solid #e9ecef;
+      display: flex; gap: 8px; justify-content: flex-end; background: #fff;
     }
     @media (max-width: 720px) {
       .z2 { grid-template-columns: 1fr; }
       .z2 .span2, .z2 .section-label { grid-column: span 1; }
-      .zone-d { gap: 8px; }
-      .slideout { width: 100vw; }
     }
   </style>
 </head>
 <body>
-  <div class="page">
+  <div class="page" data-lin-page-layout="catalog">
     <div class="view-list" id="viewList" data-catalog-list-page data-zones="A-B-C-D">
-      <!-- A — LinPageHeader: title + titleIconClass (VatTu parity) -->
       <header class="zone-a" data-zone="A">
         <h1><i class="fas fa-road" aria-hidden="true"></i> Sổ tài sản kết cấu hạ tầng đường bộ</h1>
       </header>
 
-      <!-- B — catalogToolbar: L1 left · + Thêm mới right -->
       <div class="zone-b" data-zone="B">
         <div class="zone-b-left">
-          <button class="tb-btn" type="button" id="btnRefresh" title="Làm mới" data-action="refresh">
-            <i class="fas fa-sync-alt" aria-hidden="true"></i> Làm mới
-          </button>
-          <button class="tb-btn" type="button" id="btnHistory" title="Lịch sử" data-action="history">
-            <i class="fas fa-history" aria-hidden="true"></i> Lịch sử
-          </button>
-          <button class="tb-btn" type="button" id="btnConfig" title="Sửa config" data-action="editConfig">
-            <i class="fas fa-cog" aria-hidden="true"></i> Sửa config
-          </button>
-          <button class="tb-btn" type="button" id="btnExcel" title="Xuất Excel" data-action="exportExcel">
-            <i class="fas fa-file-excel" aria-hidden="true"></i> Xuất Excel
-          </button>
-          <button class="tb-btn is-muted" type="button" disabled title="Shared master — N/A asset pack" data-action="propose">
-            <i class="fas fa-share-alt" aria-hidden="true"></i> Đề xuất
-          </button>
-          <button class="tb-btn is-muted" type="button" disabled title="Shared master — N/A asset pack" data-action="pendingApproval">
-            <i class="fas fa-inbox" aria-hidden="true"></i> Chờ duyệt
-          </button>
+          <div class="field wide">
+            <label for="search">Tìm kiếm</label>
+            <div class="search-wrap" data-control="SearchInput">
+              <input id="search" type="search" placeholder="Mã, tên, QR, tuyến, loại…" autocomplete="off" />
+              <button type="button" id="btnSearchIcon" aria-label="Tìm kiếm"><i class="fas fa-search"></i></button>
+            </div>
+          </div>
+          <div class="field wide">
+            <label for="fTypeFilter">Loại tài sản</label>
+            <div class="combo" id="comboType" data-control="SearchInput" data-catalog="asset-type">
+              <input id="fTypeFilter" type="text" placeholder="23 loại · SearchInput" autocomplete="off" />
+              <button type="button" class="combo-ico" data-open="comboType"><i class="fas fa-search"></i></button>
+              <div class="combo-list" id="listType"></div>
+            </div>
+          </div>
+          <div class="field">
+            <label for="fRouteFilter">Tuyến đường</label>
+            <div class="combo" id="comboRoute" data-control="SearchInput" data-catalog="road-route">
+              <input id="fRouteFilter" type="text" placeholder="Master tuyến" autocomplete="off" />
+              <button type="button" class="combo-ico" data-open="comboRoute"><i class="fas fa-search"></i></button>
+              <div class="combo-list" id="listRoute"></div>
+            </div>
+          </div>
+          <div class="field narrow">
+            <label for="kmFrom">Lý trình từ</label>
+            <input id="kmFrom" type="text" placeholder="km+" data-control="Text" />
+          </div>
+          <div class="field narrow">
+            <label for="kmTo">Lý trình đến</label>
+            <input id="kmTo" type="text" placeholder="km+" data-control="Text" />
+          </div>
+          <div class="field">
+            <label for="fOrgFilter">Cây đơn vị</label>
+            <div class="combo" id="comboOrg" data-control="SearchInput" data-catalog="org-unit">
+              <input id="fOrgFilter" type="text" placeholder="org-unit tree" autocomplete="off" />
+              <button type="button" class="combo-ico" data-open="comboOrg"><i class="fas fa-sitemap"></i></button>
+              <div class="combo-list" id="listOrg"></div>
+            </div>
+          </div>
+          <button class="tb-btn" type="button" id="btnClear">Xóa điều kiện</button>
+          <button class="tb-btn" type="button" id="btnRefresh"><i class="fas fa-sync-alt"></i> Làm mới</button>
+          <button class="tb-btn" type="button" id="btnConfig"><i class="fas fa-cog"></i> Sửa config</button>
         </div>
         <button class="tb-btn tb-btn-primary" type="button" id="btnAdd" data-action="create">
-          <i class="fas fa-plus" aria-hidden="true"></i> Thêm mới
+          <i class="fas fa-plus"></i> Tạo mới
         </button>
       </div>
 
-      <!-- C — table card: title · help · search · grid -->
       <section class="zone-c" data-zone="C">
         <div class="grid-head">
-          <div>
-            <h2 class="grid-title">Danh sách tài sản KCHT</h2>
-            <p class="grid-help">Menu dòng: nhấn đúp · Ctrl + chuột phải · nhấn giữ dòng — Xem / Sửa / Sao chép</p>
-          </div>
-          <div class="grid-filters">
-            <div class="field">
-              <label for="search">Tìm kiếm</label>
-              <div class="search-wrap">
-                <input id="search" type="search" placeholder="Mã tài sản, tên, tuyến đường…" autocomplete="off" />
-                <button type="button" id="btnSearchIcon" aria-label="Tìm kiếm">
-                  <i class="fas fa-search" aria-hidden="true"></i>
-                </button>
-              </div>
-            </div>
-            <div class="field">
-              <label for="type">Loại tài sản</label>
-              <select id="type">
-                <option value="">Tất cả loại</option>
-                <option>Mặt đường</option>
-                <option>Cầu</option>
-                <option>Biển báo giao thông</option>
-                <option>Hộ lan an toàn</option>
-                <option>Cột Km</option>
-                <option>Cống thoát nước</option>
-                <option>Taluy / nền đường</option>
-                <option>Hệ thống chiếu sáng</option>
-              </select>
-            </div>
-          </div>
+          <h2 class="grid-title">Danh sách tài sản KCHT</h2>
+          <p class="grid-help">Menu dòng: Xem · Sửa · Sao chép · Lịch sử — 1× LinPageLayout · LinCatalogDataGrid (kéo cột ON)</p>
         </div>
-        <div class="table-wrap" data-lin-erp-data-grid-batch>
+        <div class="table-wrap" data-lin-catalog-data-grid>
           <table>
             <colgroup>
-              <col class="col-stt" />
-              <col class="col-check" />
-              <col class="col-code" />
-              <col class="col-name" />
-              <col class="col-type" />
-              <col class="col-route" />
-              <col class="col-km" />
-              <col class="col-km" />
-              <col class="col-status" />
-              <col class="col-gps" />
-              <col class="col-act" />
+              <col class="col-stt" /><col class="col-check" /><col class="col-code" /><col class="col-name" />
+              <col class="col-type" /><col class="col-route" /><col class="col-km" /><col class="col-km" />
+              <col class="col-status" /><col class="col-gps" /><col class="col-act" />
             </colgroup>
             <thead>
               <tr>
-                <th class="col-stt" scope="col">STT</th>
-                <th class="col-check" scope="col" title="Chọn tất cả trang hiện tại">
-                  <input type="checkbox" id="chkAll" aria-label="Chọn tất cả" />
-                </th>
-                <th scope="col">Mã tài sản</th>
-                <th scope="col">Tên tài sản</th>
-                <th scope="col">Loại tài sản</th>
-                <th scope="col">Tuyến đường</th>
-                <th scope="col">Lý trình bắt đầu</th>
-                <th scope="col">Lý trình kết thúc</th>
-                <th scope="col">Tình trạng KT</th>
-                <th scope="col">Tọa độ GPS</th>
-                <th scope="col" aria-label="Thao tác"></th>
+                <th class="col-stt">STT</th>
+                <th class="col-check"><input type="checkbox" id="chkAll" aria-label="Chọn tất cả" /></th>
+                <th>Mã tài sản</th><th>Tên tài sản</th><th>Loại tài sản</th><th>Tuyến đường</th>
+                <th>Lý trình từ</th><th>Lý trình đến</th><th>Tình trạng KT</th><th>Tọa độ GPS</th>
+                <th aria-label="Thao tác"></th>
               </tr>
             </thead>
             <tbody id="tbody"></tbody>
           </table>
         </div>
-
-        <!-- D Pagination — CatalogListPagination (VatTu) -->
-        <div class="zone-d" data-zone="D" data-testid="asset-list-pagination">
+        <div class="zone-d" data-zone="D" data-lin-catalog-list-pagination>
           <span class="zone-d-total" id="pageMeta">Tổng: 0 · Trang 1/1</span>
           <div class="zone-d-controls">
-            <div class="zone-d-pagesize" data-testid="asset-list-field-pageSize">
+            <div class="zone-d-pagesize">
               <label for="pageSize">Hiển thị</label>
-              <select id="pageSize" aria-label="Số dòng mỗi trang" data-testid="asset-list-page-size">
+              <select id="pageSize">
                 <option value="50" selected>50</option>
                 <option value="100">100</option>
                 <option value="200">200</option>
@@ -685,167 +300,256 @@
               </select>
             </div>
             <div class="pager-nav" role="navigation" aria-label="Phân trang">
-              <button class="pager-btn" type="button" id="btnFirst" aria-label="Trang đầu" title="Trang đầu">
-                <i class="fas fa-angle-double-left" aria-hidden="true"></i>
-              </button>
-              <button class="pager-btn" type="button" id="btnPrev" aria-label="Trang trước" title="Trang trước">
-                <i class="fas fa-angle-left" aria-hidden="true"></i>
-              </button>
+              <button class="pager-btn" type="button" id="btnFirst"><i class="fas fa-angle-double-left"></i></button>
+              <button class="pager-btn" type="button" id="btnPrev"><i class="fas fa-angle-left"></i></button>
               <span class="pager-indicator" id="pageInd">1/1</span>
-              <button class="pager-btn" type="button" id="btnNext" aria-label="Trang sau" title="Trang sau">
-                <i class="fas fa-angle-right" aria-hidden="true"></i>
-              </button>
-              <button class="pager-btn" type="button" id="btnLast" aria-label="Trang cuối" title="Trang cuối">
-                <i class="fas fa-angle-double-right" aria-hidden="true"></i>
-              </button>
+              <button class="pager-btn" type="button" id="btnNext"><i class="fas fa-angle-right"></i></button>
+              <button class="pager-btn" type="button" id="btnLast"><i class="fas fa-angle-double-right"></i></button>
             </div>
           </div>
         </div>
       </section>
     </div>
 
-    <!-- Form pair — Slideout (≥10 controls) · Z1 toolbar icons · Z1h · Z2 · Z3 -->
-    <div class="slide-backdrop" id="formBackdrop" aria-hidden="true"></div>
-    <aside class="slideout" id="viewForm" data-form-pattern="slideout" data-control-count="11" data-form-zones="Z1-Z3" aria-label="Form tài sản">
-      <div class="form-header-card">
-        <div class="z1-toolbar" data-zone="Z1">
-          <button class="tb-btn" type="button" id="btnBack" data-action="back">
-            <i class="fas fa-arrow-left" aria-hidden="true"></i> Quay lại
-          </button>
-          <div class="z1-actions">
-            <button class="tb-btn" type="button" id="btnFormCopy" style="display:none" data-action="copy">
-              <i class="fas fa-copy" aria-hidden="true"></i> Sao chép
-            </button>
-            <button class="tb-btn" type="button" id="btnFormEdit" style="display:none" data-action="edit">
-              <i class="fas fa-edit" aria-hidden="true"></i> Sửa
-            </button>
-            <button class="tb-btn" type="button" id="btnCancel" data-action="cancel">
-              <i class="fas fa-times" aria-hidden="true"></i> Hủy
-            </button>
-            <button class="tb-btn tb-btn-primary" type="button" id="btnSave" data-action="save">
-              <i class="fas fa-save" aria-hidden="true"></i> Lưu
-            </button>
-          </div>
-        </div>
-        <div class="z1-title-row">
-          <strong id="formTitle">Thêm mới tài sản KCHT</strong>
-          <span class="badge" id="modeBadge">create</span>
-          <span class="badge" title="ui-pattern-decision">Slideout · 11 controls</span>
-        </div>
-        <div class="z1h" data-zone="Z1h" id="formHint">
-          <i class="fas fa-info-circle" aria-hidden="true"></i>
-          <span id="formHintText">Đang tạo mới tài sản đường bộ — Lưu hoặc Hủy</span>
+    <div class="view-form" id="viewForm" data-form-pattern="full-page" data-control-count="15" aria-label="Form tài sản">
+      <div class="z1-toolbar" data-zone="Z1">
+        <button class="tb-btn" type="button" id="btnBack"><i class="fas fa-arrow-left"></i> Quay lại</button>
+        <div class="z1-actions">
+          <button class="tb-btn" type="button" id="btnFormCopy" style="display:none"><i class="fas fa-copy"></i> Sao chép</button>
+          <button class="tb-btn" type="button" id="btnFormEdit" style="display:none"><i class="fas fa-edit"></i> Sửa</button>
+          <button class="tb-btn" type="button" id="btnCancel"><i class="fas fa-times"></i> Hủy</button>
+          <button class="tb-btn tb-btn-primary" type="button" id="btnSave"><i class="fas fa-save"></i> Lưu</button>
         </div>
       </div>
+      <div class="z1-title-row">
+        <strong id="formTitle">Thêm mới tài sản KCHT</strong>
+        <span class="badge" id="modeBadge">create</span>
+        <span class="badge">Full-page · 15 fields</span>
+      </div>
+      <div class="z1h" data-zone="Z1h"><i class="fas fa-info-circle"></i><span id="formHintText">Đang tạo mới — Lưu hoặc Hủy (leave-confirm dirty)</span></div>
       <div class="z2" data-zone="Z2">
         <div class="section-label">Thông tin tài sản KCHT</div>
-        <div class="field"><label for="fCode">Mã tài sản</label><input id="fCode" class="ro" readonly /></div>
+        <div class="field"><label for="fCode">Mã tài sản</label><input id="fCode" readonly /></div>
         <div class="field"><label class="req" for="fStatus">Tình trạng kỹ thuật</label>
-          <select id="fStatus"><option>Tốt</option><option>Theo dõi</option><option>Cần bảo trì</option></select>
+          <select id="fStatus" data-control="Dropdown"><option>Tốt</option><option>Theo dõi</option><option>Cần bảo trì</option></select>
         </div>
-        <div class="field span2"><label class="req" for="fName">Tên tài sản</label><input id="fName" /></div>
-        <div class="field"><label class="req" for="fType">Loại tài sản</label>
-          <select id="fType">
-            <option>Mặt đường</option><option>Cầu</option><option>Biển báo giao thông</option><option>Hộ lan an toàn</option>
-            <option>Cột Km</option><option>Cống thoát nước</option><option>Taluy / nền đường</option><option>Hệ thống chiếu sáng</option>
-          </select>
+        <div class="field span2"><label class="req" for="fName">Tên tài sản</label><input id="fName" data-control="Text" /></div>
+        <div class="field">
+          <label class="req" for="fType">Loại tài sản</label>
+          <div class="combo" id="comboFormType" data-control="SearchInput" data-catalog="asset-type">
+            <input id="fType" type="text" placeholder="SearchInput · 23 loại" autocomplete="off" />
+            <button type="button" class="combo-ico" data-open="comboFormType"><i class="fas fa-search"></i></button>
+            <div class="combo-list" id="listFormType"></div>
+          </div>
         </div>
-        <div class="field"><label class="req" for="fRoute">Tuyến đường</label><input id="fRoute" placeholder="VD: QL.1, ĐT.379" /></div>
-        <div class="field"><label class="req" for="fKmFrom">Lý trình bắt đầu (Km+)</label><input id="fKmFrom" placeholder="VD: km12+000" /></div>
-        <div class="field"><label for="fKmTo">Lý trình kết thúc (Km+)</label><input id="fKmTo" placeholder="VD: km12+200" /></div>
-        <div class="section-label">Vị trí địa lý / phụ</div>
-        <div class="field"><label for="fLat">Vĩ độ (Lat)</label><input id="fLat" type="number" step="any" /></div>
-        <div class="field"><label for="fLng">Kinh độ (Lng)</label><input id="fLng" type="number" step="any" /></div>
-        <div class="field"><label for="fQr">Mã QR</label><input id="fQr" placeholder="Hiển thị mã QR tài sản" /></div>
-        <div class="field"><label for="fValue">Giá trị tài sản (VND)</label><input id="fValue" inputmode="numeric" /></div>
-        <div class="field span2"><label for="fNote">Ghi chú hiện trường</label><input id="fNote" /></div>
+        <div class="field">
+          <label class="req" for="fRoute">Tuyến đường</label>
+          <div class="combo" id="comboFormRoute" data-control="SearchInput" data-catalog="road-route">
+            <input id="fRoute" type="text" placeholder="SearchInput · master tuyến" autocomplete="off" />
+            <button type="button" class="combo-ico" data-open="comboFormRoute"><i class="fas fa-search"></i></button>
+            <div class="combo-list" id="listFormRoute"></div>
+          </div>
+        </div>
+        <div class="field"><label class="req" for="fKmFrom">Lý trình bắt đầu</label><input id="fKmFrom" placeholder="vd km12+300" /></div>
+        <div class="field"><label for="fKmTo">Lý trình kết thúc</label><input id="fKmTo" /></div>
+        <div class="field"><label for="fSource">Nguồn</label>
+          <select id="fSource" data-control="Dropdown"><option value="manual">manual</option><option value="ai">ai</option></select>
+        </div>
+        <div class="field"><label for="fUpdated">Cập nhật</label><input id="fUpdated" type="text" readonly data-control="Date" /></div>
+        <div class="section-label">Vị trí / phụ</div>
+        <div class="field"><label for="fLat">Vĩ độ</label><input id="fLat" type="number" step="any" /></div>
+        <div class="field"><label for="fLng">Kinh độ</label><input id="fLng" type="number" step="any" /></div>
+        <div class="field"><label for="fQr">Mã QR</label><input id="fQr" placeholder="display P1" /></div>
+        <div class="field"><label for="fPhotos">Ảnh</label><input id="fPhotos" placeholder="mock P1" /></div>
+        <div class="field"><label for="fValue">Giá trị (VND)</label><input id="fValue" inputmode="numeric" /></div>
+        <div class="field span2"><label for="fNote">Ghi chú</label><textarea id="fNote" data-control="Text"></textarea></div>
       </div>
       <div class="z3" data-zone="Z3" id="z3">
-        <button class="tb-btn" type="button" id="btnFooterCancel" data-action="cancel">
-          <i class="fas fa-times" aria-hidden="true"></i> Hủy
-        </button>
-        <button class="tb-btn tb-btn-primary" type="button" id="btnFooterSave" data-action="save">
-          <i class="fas fa-save" aria-hidden="true"></i> Lưu
-        </button>
+        <button class="tb-btn" type="button" id="btnFooterCancel"><i class="fas fa-times"></i> Hủy</button>
+        <button class="tb-btn tb-btn-primary" type="button" id="btnFooterSave"><i class="fas fa-save"></i> Lưu</button>
       </div>
-    </aside>
+    </div>
   </div>
 
   <script>
+    const ASSET_TYPES = [
+      { code: 'CULVERT_X', name: 'Cống thoát nước ngang' },
+      { code: 'INTERCHANGE', name: 'Nút giao đường bộ' },
+      { code: 'SLOPE_PROTECT', name: 'Bảo vệ mái dốc' },
+      { code: 'LIGHTING', name: 'Hệ thống chiếu sáng đường' },
+      { code: 'GANTRY_SIGN', name: 'Giá long môn – biển báo' },
+      { code: 'GUARDRAIL', name: 'Hộ lan – tôn sóng – hàng rào bảo vệ' },
+      { code: 'DELINEATOR', name: 'Cọc tiêu / cọc H' },
+      { code: 'CULVERT_L', name: 'Cống dọc – rảnh dọc' },
+      { code: 'MEDIAN', name: 'Dải phân cách giữa' },
+      { code: 'ROW_UTIL', name: 'Công trình HTKT trong hành lang' },
+      { code: 'STATION_HOUSE', name: 'Nhà hạt quản lý đường bộ' },
+      { code: 'RETAINING', name: 'Kè / tường chắn' },
+      { code: 'KM_POST', name: 'Cột Km' },
+      { code: 'BUS_STATION', name: 'Bến xe bus / xe khách' },
+      { code: 'UNDERPASS', name: 'Cống chui dân sinh' },
+      { code: 'RAIL_CROSS', name: 'Điểm giao bằng đường sắt' },
+      { code: 'BUS_STOP', name: 'Điểm đỗ/dừng xe bus' },
+      { code: 'EMS_POST', name: 'Trạm trực cấp cứu y tế' },
+      { code: 'TOLL', name: 'Trạm thu phí' },
+      { code: 'TUNNEL', name: 'Hầm' },
+      { code: 'FERRY', name: 'Bến phà và phà' },
+      { code: 'REST_AREA', name: 'Trạm dừng nghỉ / bãi đỗ xe' },
+      { code: 'LAND_ROW', name: 'Đất thuộc tài sản hạ tầng đường bộ' }
+    ];
+    const ROUTES = [
+      { code: 'QL.1', name: 'Quốc lộ 1' },
+      { code: 'HCM', name: 'Đường Hồ Chí Minh' },
+      { code: 'QL.7', name: 'Quốc lộ 7' },
+      { code: 'QL.7B', name: 'Quốc lộ 7B' }
+    ];
+    const ORGS = [
+      { code: 'BQLDA', name: 'Ban QLDA' },
+      { code: 'CCQLDB-I', name: 'Chi cục QLĐB I' },
+      { code: 'HQLDB-TH', name: 'Hạt QLĐB Thanh Hóa' }
+    ];
+    function typeLabel(code) {
+      const t = ASSET_TYPES.find((x) => x.code === code);
+      return t ? t.code + ' — ' + t.name : code;
+    }
     const SEED = [
-      { code: 'QL1-CN-001', name: 'Cống ngang · QL.1', type: 'Cống thoát nước', route: 'QL.1', kmFrom: 'km1+000', kmTo: 'km1+000', status: 'Tốt', lat: 19.8698, lng: 105.80373, qr: 'QR-CN-001', valueVnd: '', note: '' },
-      { code: 'QL1-HL-001', name: 'Hộ lan tôn sóng · QL.1', type: 'Hộ lan an toàn', route: 'QL.1', kmFrom: 'km2+000', kmTo: 'km2+050', status: 'Tốt', lat: 20.12857, lng: 105.85542, qr: 'QR-HL-001', valueVnd: '', note: '' },
-      { code: 'QL1-CS-001', name: 'Hệ thống chiếu sáng · QL.1', type: 'Hệ thống chiếu sáng', route: 'QL.1', kmFrom: 'km1+100', kmTo: 'km1+400', status: 'Tốt', lat: 20.12359, lng: 105.85045, qr: 'QR-CS-001', valueVnd: '', note: '' },
-      { code: 'TS-014', name: 'Cầu vượt Núi Thành', type: 'Cầu', route: 'QL.1', kmFrom: 'km12+000', kmTo: 'km12+200', status: 'Theo dõi', lat: 19.9, lng: 105.82, qr: 'QR-014', valueVnd: '', note: '' },
-      { code: 'TS-088', name: 'Biển báo giao cắt', type: 'Biển báo giao thông', route: 'QL.1', kmFrom: 'km45+000', kmTo: 'km45+000', status: 'Cần bảo trì', lat: 19.85, lng: 105.81, qr: 'QR-088', valueVnd: '', note: '' }
+      { code: 'QL1-CN-001', name: 'Cống ngang · QL.1', type: 'CULVERT_X', route: 'QL.1', kmFrom: 'km1+000', kmTo: 'km1+000', status: 'Tốt', source: 'manual', lat: 19.8698, lng: 105.80373, qr: 'QR-CN-001', photos: '', valueVnd: '', note: '', org: 'HQLDB-TH', updatedAt: '2026-08-14' },
+      { code: 'QL1-HL-001', name: 'Hộ lan tôn sóng · QL.1', type: 'GUARDRAIL', route: 'QL.1', kmFrom: 'km2+000', kmTo: 'km2+050', status: 'Tốt', source: 'manual', lat: 20.12857, lng: 105.85542, qr: 'QR-HL-001', photos: '', valueVnd: '', note: '', org: 'HQLDB-TH', updatedAt: '2026-08-14' },
+      { code: 'QL1-CS-001', name: 'Hệ thống chiếu sáng · QL.1', type: 'LIGHTING', route: 'QL.1', kmFrom: 'km1+100', kmTo: 'km1+400', status: 'Tốt', source: 'ai', lat: 20.12359, lng: 105.85045, qr: 'QR-CS-001', photos: '', valueVnd: '', note: '', org: 'CCQLDB-I', updatedAt: '2026-08-14' },
+      { code: 'TS-20260814-001', name: 'Giá long môn biển báo · QL.1', type: 'GANTRY_SIGN', route: 'QL.1', kmFrom: 'km45+000', kmTo: 'km45+000', status: 'Cần bảo trì', source: 'manual', lat: 19.85, lng: 105.81, qr: 'QR-088', photos: '', valueVnd: '', note: '', org: 'BQLDA', updatedAt: '2026-08-10' },
+      { code: 'TS-20260814-002', name: 'Cột Km · QL.1', type: 'KM_POST', route: 'QL.1', kmFrom: 'km12+000', kmTo: 'km12+000', status: 'Theo dõi', source: 'manual', lat: 19.9, lng: 105.82, qr: 'QR-KM-012', photos: '', valueVnd: '', note: '', org: 'HQLDB-TH', updatedAt: '2026-08-12' }
     ];
 
     let rows = SEED.map((r) => ({ ...r }));
     let page = 1;
     let mode = 'view';
     let activeCode = null;
+    let dirty = false;
+    let typeCode = '';
+    let routeCode = '';
+    let orgCode = '';
+    let formTypeCode = '';
+    let formRouteCode = '';
 
-    function filtered() {
-      const q = document.getElementById('search').value.trim().toLowerCase();
-      const t = document.getElementById('type').value;
-      return rows.filter((r) => {
-        if (t && r.type !== t) return false;
-        if (!q) return true;
-        return [r.code, r.name, r.type, r.route, r.kmFrom, r.status, r.qr].join(' ').toLowerCase().includes(q);
+    function fillCombo(listEl, items, q, onPick) {
+      const qq = (q || '').toLowerCase();
+      listEl.innerHTML = items.filter((x) => !qq || (x.code + ' ' + x.name).toLowerCase().includes(qq))
+        .map((x) => `<button type="button" data-code="${x.code}">${x.code} — ${x.name}</button>`).join('')
+        || '<button type="button" disabled>Không có kết quả</button>';
+      listEl.querySelectorAll('button[data-code]').forEach((b) => {
+        b.onclick = () => onPick(b.dataset.code, items.find((i) => i.code === b.dataset.code));
       });
     }
+    function bindCombo(comboId, inputId, listId, items, setter) {
+      const combo = document.getElementById(comboId);
+      const input = document.getElementById(inputId);
+      const list = document.getElementById(listId);
+      const open = () => { combo.classList.add('open'); fillCombo(list, items, input.value, (code, it) => {
+        setter(code, it); combo.classList.remove('open'); applySearch();
+      }); };
+      input.addEventListener('focus', open);
+      input.addEventListener('input', open);
+      combo.querySelector('.combo-ico').addEventListener('click', (e) => { e.preventDefault(); open(); });
+      document.addEventListener('click', (e) => { if (!combo.contains(e.target)) combo.classList.remove('open'); });
+    }
+    bindCombo('comboType', 'fTypeFilter', 'listType', ASSET_TYPES, (code, it) => {
+      typeCode = code; fTypeFilter.value = it.code + ' — ' + it.name;
+    });
+    bindCombo('comboRoute', 'fRouteFilter', 'listRoute', ROUTES, (code, it) => {
+      routeCode = code; fRouteFilter.value = it.code + ' — ' + it.name;
+    });
+    bindCombo('comboOrg', 'fOrgFilter', 'listOrg', ORGS, (code, it) => {
+      orgCode = code; fOrgFilter.value = it.code + ' — ' + it.name;
+    });
+    function bindFormCombo(comboId, inputId, listId, items, setter) {
+      const combo = document.getElementById(comboId);
+      const input = document.getElementById(inputId);
+      const list = document.getElementById(listId);
+      const open = () => { combo.classList.add('open'); fillCombo(list, items, input.value, (code, it) => {
+        setter(code, it); combo.classList.remove('open'); dirty = true;
+      }); };
+      input.addEventListener('focus', open);
+      input.addEventListener('input', () => { dirty = true; open(); });
+      combo.querySelector('.combo-ico').addEventListener('click', (e) => { e.preventDefault(); open(); });
+      document.addEventListener('click', (e) => { if (!combo.contains(e.target)) combo.classList.remove('open'); });
+    }
+    bindFormCombo('comboFormType', 'fType', 'listFormType', ASSET_TYPES, (code, it) => {
+      formTypeCode = code; fType.value = it.code + ' — ' + it.name;
+    });
+    bindFormCombo('comboFormRoute', 'fRoute', 'listFormRoute', ROUTES, (code, it) => {
+      formRouteCode = code; fRoute.value = it.code + ' — ' + it.name;
+    });
 
+    function parseKm(s) {
+      const m = String(s || '').match(/km\s*(\d+)/i);
+      return m ? Number(m[1]) : NaN;
+    }
+    function filtered() {
+      const q = search.value.trim().toLowerCase();
+      const kf = kmFrom.value.trim();
+      const kt = kmTo.value.trim();
+      return rows.filter((r) => {
+        if (typeCode && r.type !== typeCode) return false;
+        if (routeCode && r.route !== routeCode) return false;
+        if (orgCode && r.org !== orgCode) return false;
+        if (kf && parseKm(r.kmFrom) < parseKm(kf) && !String(r.kmFrom).includes(kf)) return false;
+        if (kt && parseKm(r.kmTo) > parseKm(kt) && kt && !String(r.kmTo).includes(kt) && !isNaN(parseKm(kt))) {
+          if (!isNaN(parseKm(r.kmTo)) && parseKm(r.kmTo) > parseKm(kt)) return false;
+        }
+        if (!q) return true;
+        return [r.code, r.name, typeLabel(r.type), r.route, r.kmFrom, r.status, r.qr].join(' ').toLowerCase().includes(q);
+      });
+    }
     function render() {
       const data = filtered();
-      const size = Number(document.getElementById('pageSize').value) || 50;
+      const size = Number(pageSize.value) || 50;
       const totalPages = Math.max(1, Math.ceil(data.length / size) || 1);
       if (page > totalPages) page = totalPages;
       const start = (page - 1) * size;
       const slice = data.slice(start, start + size);
-
-      document.getElementById('tbody').innerHTML = slice.map((r, i) => `
+      tbody.innerHTML = slice.map((r, i) => `
         <tr class="${r.code === activeCode ? 'is-active' : ''}" data-code="${r.code}">
           <td class="col-stt">${start + i + 1}</td>
           <td class="col-check"><input type="checkbox" aria-label="Chọn ${r.code}" /></td>
           <td title="${r.code}"><button type="button" class="code" data-code="${r.code}" data-act="view">${r.code}</button></td>
           <td title="${r.name}">${r.name}</td>
-          <td title="${r.type}">${r.type}</td>
+          <td title="${typeLabel(r.type)}">${typeLabel(r.type)}</td>
           <td title="${r.route}">${r.route}</td>
-          <td title="${r.kmFrom}">${r.kmFrom}</td>
-          <td title="${r.kmTo}">${r.kmTo}</td>
-          <td title="${r.status}">${r.status}</td>
-          <td title="${Number(r.lat).toFixed(5)}, ${Number(r.lng).toFixed(5)}">${Number(r.lat).toFixed(4)}, ${Number(r.lng).toFixed(4)}</td>
+          <td>${r.kmFrom}</td><td>${r.kmTo}</td><td>${r.status}</td>
+          <td>${Number(r.lat).toFixed(4)}, ${Number(r.lng).toFixed(4)}</td>
           <td>
             <details class="menu">
-              <summary aria-label="Thao tác">⋯</summary>
+              <summary>⋯</summary>
               <div class="panel">
                 <button type="button" data-code="${r.code}" data-act="view">Xem</button>
                 <button type="button" data-code="${r.code}" data-act="edit">Sửa</button>
                 <button type="button" data-code="${r.code}" data-act="copy">Sao chép</button>
+                <button type="button" data-code="${r.code}" data-act="history">Lịch sử</button>
               </div>
             </details>
           </td>
-        </tr>
-      `).join('');
-
-      document.getElementById('pageMeta').textContent = `Tổng: ${data.length} · Trang ${page}/${totalPages}`;
-      document.getElementById('pageInd').textContent = `${page}/${totalPages}`;
+        </tr>`).join('');
+      pageMeta.textContent = `Tổng: ${data.length} · Trang ${page}/${totalPages}`;
+      pageInd.textContent = `${page}/${totalPages}`;
       btnFirst.disabled = btnPrev.disabled = page <= 1;
       btnNext.disabled = btnLast.disabled = page >= totalPages;
     }
-
+    function confirmLeave() {
+      if (!dirty) return true;
+      return window.confirm('Dữ liệu chưa lưu. Rời form?');
+    }
     function showList() {
+      if (!confirmLeave()) return;
+      dirty = false;
       viewForm.classList.remove('on');
-      formBackdrop.classList.remove('on');
+      viewList.classList.remove('off');
       render();
     }
-
     function setReadonly(ro) {
-      ['fName', 'fType', 'fRoute', 'fKmFrom', 'fKmTo', 'fStatus', 'fLat', 'fLng', 'fQr', 'fValue', 'fNote'].forEach((id) => {
+      ['fName', 'fType', 'fRoute', 'fKmFrom', 'fKmTo', 'fStatus', 'fSource', 'fLat', 'fLng', 'fQr', 'fPhotos', 'fValue', 'fNote'].forEach((id) => {
         const el = document.getElementById(id);
-        if (el.tagName === 'SELECT') el.disabled = ro;
-        else el.readOnly = ro;
-        el.classList.toggle('ro', ro);
+        el.classList.toggle('is-ro', ro);
+        if (el.tagName !== 'SELECT') el.readOnly = ro;
       });
       const editing = !ro;
       btnSave.style.display = editing ? '' : 'none';
@@ -854,58 +558,66 @@
       btnFooterCancel.style.display = editing ? '' : 'none';
       btnFormCopy.style.display = ro ? '' : 'none';
       btnFormEdit.style.display = ro ? '' : 'none';
-      document.getElementById('z3').style.display = editing ? '' : 'none';
+      z3.style.display = editing ? '' : 'none';
     }
-
+    function nextId() {
+      const d = new Date();
+      const y = d.getFullYear();
+      const m = String(d.getMonth() + 1).padStart(2, '0');
+      const day = String(d.getDate()).padStart(2, '0');
+      return 'TS-' + y + m + day + '-' + String(rows.length + 1).padStart(3, '0');
+    }
     function openForm(act, code) {
+      if (act === 'history') {
+        alert('Lịch sử · stub P1 · ' + code);
+        return;
+      }
       const row = rows.find((r) => r.code === code);
       mode = act;
       activeCode = code || null;
+      dirty = false;
       const titles = { view: 'Xem tài sản KCHT', edit: 'Sửa tài sản KCHT', copy: 'Sao chép tài sản KCHT', create: 'Thêm mới tài sản KCHT' };
       formTitle.textContent = titles[act];
       modeBadge.textContent = act;
       formHintText.textContent = act === 'view'
-        ? 'Chế độ xem — nhấn Sửa để cập nhật hiện trường'
-        : act === 'create' || act === 'copy'
-          ? 'Đang tạo mới tài sản đường bộ — Lưu hoặc Hủy'
-          : 'Đang chỉnh sửa — Lưu hoặc Hủy';
+        ? 'Chế độ xem (readOnly, không disabled xám) — nhấn Sửa để cập nhật'
+        : 'Đang chỉnh — Lưu hoặc Hủy · leave-confirm dirty';
       setReadonly(act === 'view');
       if (act === 'create') {
-        fCode.value = '(tự sinh)'; fName.value = ''; fType.value = 'Mặt đường'; fRoute.value = 'QL.1';
-        fKmFrom.value = ''; fKmTo.value = ''; fStatus.value = 'Tốt'; fLat.value = ''; fLng.value = '';
-        fQr.value = ''; fValue.value = ''; fNote.value = '';
+        fCode.value = nextId();
+        fName.value = ''; formTypeCode = ''; fType.value = ''; formRouteCode = 'QL.1'; fRoute.value = 'QL.1 — Quốc lộ 1';
+        fKmFrom.value = ''; fKmTo.value = ''; fStatus.value = 'Tốt'; fSource.value = 'manual';
+        fLat.value = ''; fLng.value = ''; fQr.value = ''; fPhotos.value = ''; fValue.value = ''; fNote.value = '';
+        fUpdated.value = '';
       } else if (row) {
-        fCode.value = act === 'copy' ? '(tự sinh)' : row.code;
-        fName.value = row.name; fType.value = row.type; fRoute.value = row.route;
-        fKmFrom.value = row.kmFrom; fKmTo.value = row.kmTo; fStatus.value = row.status;
-        fLat.value = row.lat; fLng.value = row.lng; fQr.value = row.qr || '';
-        fValue.value = row.valueVnd || ''; fNote.value = row.note || '';
+        fCode.value = act === 'copy' ? nextId() : row.code;
+        fName.value = row.name;
+        formTypeCode = row.type; fType.value = typeLabel(row.type);
+        formRouteCode = row.route; fRoute.value = row.route + ' — ' + (ROUTES.find((x) => x.code === row.route) || { name: row.route }).name;
+        fKmFrom.value = row.kmFrom; fKmTo.value = row.kmTo; fStatus.value = row.status; fSource.value = row.source || 'manual';
+        fLat.value = row.lat; fLng.value = row.lng; fQr.value = row.qr || ''; fPhotos.value = row.photos || '';
+        fValue.value = row.valueVnd || ''; fNote.value = row.note || ''; fUpdated.value = row.updatedAt || '';
       }
-      formBackdrop.classList.add('on');
+      viewList.classList.add('off');
       viewForm.classList.add('on');
     }
 
     tbody.addEventListener('click', (e) => {
       const act = e.target.closest('[data-act]');
-      if (act) {
-        openForm(act.dataset.act, act.dataset.code);
-        return;
-      }
+      if (act) { openForm(act.dataset.act, act.dataset.code); return; }
       const tr = e.target.closest('tr[data-code]');
-      if (tr) {
-        activeCode = tr.dataset.code;
-        render();
-      }
+      if (tr) { activeCode = tr.dataset.code; render(); }
     });
     tbody.addEventListener('dblclick', (e) => {
       const tr = e.target.closest('tr[data-code]');
       if (tr) openForm('view', tr.dataset.code);
     });
-
+    viewForm.addEventListener('input', () => { if (mode !== 'view') dirty = true; });
     function applySearch() { page = 1; render(); }
     search.addEventListener('keydown', (e) => { if (e.key === 'Enter') applySearch(); });
     btnSearchIcon.onclick = applySearch;
-    type.addEventListener('change', applySearch);
+    kmFrom.addEventListener('change', applySearch);
+    kmTo.addEventListener('change', applySearch);
     pageSize.addEventListener('change', () => { page = 1; render(); });
     btnFirst.onclick = () => { page = 1; render(); };
     btnPrev.onclick = () => { if (page > 1) { page -= 1; render(); } };
@@ -915,24 +627,32 @@
       page = Math.max(1, Math.ceil(filtered().length / size) || 1);
       render();
     };
-    btnRefresh.onclick = () => { search.value = ''; type.value = ''; page = 1; activeCode = null; render(); };
+    function clearFilters() {
+      search.value = ''; typeCode = ''; routeCode = ''; orgCode = '';
+      fTypeFilter.value = ''; fRouteFilter.value = ''; fOrgFilter.value = '';
+      kmFrom.value = ''; kmTo.value = ''; page = 1; activeCode = null; render();
+    }
+    btnClear.onclick = clearFilters;
+    btnRefresh.onclick = () => { clearFilters(); };
+    btnConfig.onclick = () => alert('Prototype · LinCatalogUiSchemaEditorModal / kéo cột default ON');
     btnAdd.onclick = () => openForm('create');
     btnBack.onclick = showList;
     btnCancel.onclick = showList;
     btnFooterCancel.onclick = showList;
-    formBackdrop.onclick = showList;
-    btnHistory.onclick = () => alert(activeCode ? `Lịch sử · ${activeCode}` : 'Chọn 1 dòng rồi mở Lịch sử');
-    btnConfig.onclick = () => alert('Prototype · LinCatalogUiSchemaEditorModal / LinListTableConfigModal');
-    btnExcel.onclick = () => alert('Prototype · Xuất Excel');
-    chkAll.onclick = () => {
-      tbody.querySelectorAll('input[type="checkbox"]').forEach((c) => { c.checked = chkAll.checked; });
-    };
-    btnFormCopy.onclick = () => openForm('copy', fCode.value.startsWith('(') ? activeCode : fCode.value);
-    btnFormEdit.onclick = () => openForm('edit', fCode.value.startsWith('(') ? activeCode : fCode.value);
-    function doSave() { alert('Prototype save → POST/PUT /rmms/road-assets'); showList(); }
+    chkAll.onclick = () => { tbody.querySelectorAll('input[type="checkbox"]').forEach((c) => { c.checked = chkAll.checked; }); };
+    btnFormCopy.onclick = () => openForm('copy', activeCode);
+    btnFormEdit.onclick = () => openForm('edit', activeCode);
+    function doSave() {
+      if (!fName.value.trim() || !formTypeCode || !formRouteCode || !fKmFrom.value.trim()) {
+        alert('Thiếu bắt buộc: Tên · Loại · Tuyến · Lý trình bắt đầu');
+        return;
+      }
+      alert('Prototype save → POST/PUT api/v1/asset/road-assets (không /rmms/, không ERP.*)');
+      dirty = false;
+      showList();
+    }
     btnSave.onclick = doSave;
     btnFooterSave.onclick = doSave;
-
     render();
   </script>
 </body>
