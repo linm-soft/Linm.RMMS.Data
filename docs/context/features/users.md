@@ -51,7 +51,7 @@ Auth: JWT admin scopes (stub `integration.users.*`).
 
 ## 4. Database
 
-Org · User · Role · UserRoute · ManagerUser — schema Auth (có thể host riêng).
+**Identity:** `ApplicationUser` trên Auth. **Profile RMMS:** `AppUser` (`AuthUserId` · `OrgCode` · `ContractCode` · `AccountKind`) — **cấm** `PasswordHash`. Tuyến: `UserRoute` ⊆ `ContractRoute`. Chi tiết [`login.md`](login.md).
 
 ## 5. Events / tích hợp
 
@@ -61,8 +61,10 @@ Org · User · Role · UserRoute · ManagerUser — schema Auth (có thể host 
 
 | ID | Default |
 |----|---------|
-| GAP-F-USR-01 Auth service tách | Theo HĐ — có thể ngoài gói AI |
+| GAP-F-USR-01 Auth service tách | **Đóng hướng** — login = `Linm.Platform.Authentication` · xem [`login.md`](login.md) · SPEC `docs/plan/login-contract-lifecycle/` |
 | GAP-F-USR-02 Deep demo | Done demo Kind B (task_ab9fcdec) · Signed → align |
+| GAP-F-USR-03 PasswordHash local | **P0** xóa — đổi MK / login chỉ Auth |
+| GAP-F-USR-04 `contractCode` + tuyến ⊆ HĐ | P1.5 — child `UserRoute` · **cấm** `RoutesCsv` parent |
 
 ## 7. Demo checklist (chốt khách)
 

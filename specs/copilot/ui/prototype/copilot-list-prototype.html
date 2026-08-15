@@ -1,94 +1,426 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8">
-<title>AI Copilot — prototype review</title>
-<style>
-:root{--bg:#f5f7fa;--card:#fff;--border:#e9ecef;--txt:#1a1a1a;--muted:#6c757d;--primary:#0f766e;--ai:#6d28d9}
-*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;background:var(--bg);color:var(--txt)}
-.banner{background:#fef3c7;color:#92400e;font-size:12px;font-weight:700;padding:8px 14px;text-align:center}
-.page{padding:16px 20px;display:flex;flex-direction:column;min-height:100vh}
-.head{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px}
-h1{font-size:18px;margin:0}
-.badge{font-size:11px;padding:2px 8px;border-radius:999px;background:#ede9fe;color:#5b21b6;font-weight:700}
-.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
-button{padding:6px 12px;border:1px solid var(--border);background:#fff;border-radius:6px;font-weight:600;cursor:pointer}
-.btn-p{background:var(--primary);color:#fff;border-color:var(--primary)}
-.filters{display:flex;gap:12px;margin-bottom:10px}
-input,select{padding:6px 8px;border:1px solid var(--border);border-radius:6px}
-table{width:100%;border-collapse:collapse;background:#fff;font-size:13px}
-th,td{padding:10px 12px;border-bottom:1px solid #f0f0f0;text-align:left}
-.foot{padding:10px;background:#fff;border-top:1px solid var(--border);font-size:12px;color:var(--muted)}
-.fab{position:fixed;right:24px;bottom:24px;width:52px;height:52px;border-radius:50%;background:#6d28d9;color:#fff;border:0;font-size:22px;cursor:pointer}
-.slide{position:fixed;top:0;right:0;bottom:0;width:min(720px,100vw);background:#fff;box-shadow:-8px 0 28px rgba(0,0,0,.18);display:flex;flex-direction:column;z-index:20}
-.z1{padding:10px 14px;border-bottom:1px solid var(--border)}
-.chips{display:flex;gap:6px;flex-wrap:wrap;padding:8px 12px;border-bottom:1px solid var(--border)}
-.chip{font-size:12px;padding:4px 10px;border-radius:999px;border:1px solid #c4b5fd;background:#f5f3ff;color:#5b21b6;cursor:pointer}
-.msgs{flex:1;overflow:auto;padding:12px;background:#f1f5f9}
-.msg{background:#fff;border:1px solid var(--border);border-radius:10px;padding:10px;margin-bottom:8px;max-width:96%}
-.msg.user{margin-left:auto;background:#f0fdfa}
-.z3{padding:10px 12px;border-top:1px solid var(--border)}
-textarea{width:100%;min-height:56px;border:1px solid var(--border);border-radius:8px;padding:8px}
-.disc{font-size:12px;color:#92400e;background:#fffbeb;border:1px solid #fde68a;border-radius:6px;padding:6px 8px;margin-top:8px}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Prototype — AI Copilot (copilot) · Kind B A–D + Kind D drawer</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    :root {
+      --bg: #f5f7fa; --card: #fff; --border: #BABCBE; --border-soft: #e9ecef;
+      --txt: #1A1A1A; --txt-secondary: #6c757d; --muted: #6D6D6D;
+      --primary: #0f766e; --ai: #6d28d9; --toolbar-bg: #f8fafc;
+      --ds-focus-shadow: 0px 0px 4px #BABCBE; --ds-radius-md: 4px;
+      --ds-font-body: 13px; --ds-font-title: 22px; --ds-height-btn: 32px;
+      --col-no: 48px; --check-size: 24px;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: "Segoe UI", system-ui, sans-serif; background: var(--bg); color: var(--txt); font-size: var(--ds-font-body); }
+    input, textarea {
+      padding: 6px 10px; border: 1px solid var(--border); border-radius: var(--ds-radius-md);
+      font-size: 13px; min-height: 32px; width: 100%; background: #fff;
+    }
+    input:focus, textarea:focus { outline: none; border-color: var(--primary); box-shadow: var(--ds-focus-shadow); }
+    input[type="checkbox"] { width: var(--check-size); height: var(--check-size); min-width: var(--check-size); accent-color: var(--primary); }
+    .page { max-width: 1280px; margin: 0 auto; padding: 8px; display: flex; flex-direction: column; gap: 8px; min-height: 100vh; }
+    .zone-a { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; flex-shrink: 0; }
+    .zone-a h1 { margin: 0; font-size: var(--ds-font-title); font-weight: 700; }
+    .badge { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: #ede9fe; color: #5b21b6; }
+    .badge-ok { background: #ccfbf1; color: #115e59; }
+    .zone-b { display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; padding: 10px 12px; background: var(--toolbar-bg); border: 1px solid var(--border-soft); border-radius: var(--ds-radius-md); }
+    .zone-b-left, .zone-b-right { display: flex; flex-wrap: wrap; gap: 8px; align-items: flex-end; }
+    .btn { height: var(--ds-height-btn); padding: 0 12px; border: 1px solid var(--border); border-radius: var(--ds-radius-md); background: #fff; cursor: pointer; font-size: 12px; }
+    .btn.primary { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .btn.ai { background: var(--ai); color: #fff; border-color: var(--ai); }
+    .field { display: flex; flex-direction: column; gap: 4px; min-width: 176px; }
+    .field label { font-size: 12px; color: var(--muted); font-weight: 500; }
+    .search-wrap { display: flex; align-items: stretch; border: 1px solid var(--border); border-radius: var(--ds-radius-md); overflow: hidden; background: #fff; min-width: 176px; min-height: 32px; }
+    .search-wrap:focus-within { border-color: var(--primary); box-shadow: var(--ds-focus-shadow); }
+    .search-wrap input { border: 0 !important; outline: none !important; box-shadow: none !important; flex: 1; min-width: 0; min-height: 30px; width: auto; }
+    .search-wrap button { border: 0; border-left: 1px solid var(--border); background: #f8fafc; padding: 0 10px; cursor: pointer; color: var(--muted); min-width: 36px; }
+    .lkp { position: relative; }
+    .lkp-list { display: none; position: absolute; left: 0; right: 0; top: 100%; z-index: 30; background: #fff; border: 1px solid var(--border); border-radius: var(--ds-radius-md); max-height: 180px; overflow: auto; box-shadow: 0 8px 24px rgba(15,23,42,.12); }
+    .lkp.open .lkp-list { display: block; }
+    .lkp-list button { display: block; width: 100%; text-align: left; border: 0; background: #fff; padding: 8px 10px; font-size: 13px; cursor: pointer; }
+    .lkp-list button:hover { background: #f1f5f9; }
+    .zone-c { background: var(--card); border: 1px solid var(--border-soft); border-radius: var(--ds-radius-md); display: flex; flex-direction: column; min-height: 280px; overflow: hidden; flex: 1; }
+    .grid-head { padding: 12px 16px 8px; }
+    .grid-title { margin: 0; font-size: 15px; font-weight: 700; }
+    .grid-help { margin: 4px 0 0; font-size: 12px; color: var(--txt-secondary); }
+    .table-wrap { overflow: auto; flex: 1; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 8px 12px; border-bottom: 1px solid var(--border-soft); text-align: left; white-space: nowrap; }
+    th { background: #f8fafc; font-size: 12px; color: var(--muted); position: sticky; top: 0; }
+    th.col-stt, td.col-stt, th.col-check, td.col-check { width: var(--col-no); text-align: center; }
+    tbody tr:hover { background: #f1f5f9; }
+    tbody tr.sel { background: #ccfbf1; }
+    .code { color: var(--primary); font-family: ui-monospace, Consolas, monospace; cursor: pointer; text-decoration: underline; background: none; border: 0; padding: 0; font-size: inherit; }
+    .menu { position: relative; }
+    .menu summary { list-style: none; cursor: pointer; padding: 4px 8px; border: 1px solid var(--border); border-radius: 4px; background: #fff; }
+    .panel { display: none; position: absolute; right: 0; z-index: 3; background: #fff; border: 1px solid var(--border); border-radius: 6px; min-width: 180px; box-shadow: 0 8px 24px rgba(15,23,42,.12); }
+    .menu[open] .panel { display: block; }
+    .panel button { display: block; width: 100%; text-align: left; border: 0; background: transparent; padding: 8px 12px; cursor: pointer; }
+    .panel button:hover { background: #f1f5f9; }
+    .zone-d { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 12px 16px; border-top: 1px solid var(--border-soft); background: #fff; }
+    .zone-d-controls { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: center; }
+    .pager-btn { width: 32px; height: 32px; border: 1px solid var(--border-soft); border-radius: var(--ds-radius-md); background: #fff; cursor: pointer; }
+    .pager-btn:disabled { opacity: 0.4; }
+    .hint { margin: 0; font-size: 12px; color: var(--muted); }
+    .fab { position: fixed; right: 24px; bottom: 24px; width: 52px; height: 52px; border-radius: 50%; background: var(--ai); color: #fff; border: 0; font-size: 20px; cursor: pointer; z-index: 15; box-shadow: 0 8px 20px rgba(109,40,217,.35); }
+    .slide { display: none; position: fixed; top: 0; right: 0; bottom: 0; width: min(720px, 100vw); background: #fff; box-shadow: -8px 0 28px rgba(15,23,42,.18); z-index: 40; flex-direction: column; }
+    .slide.on { display: flex; }
+    .z1 { padding: 10px 14px; border-bottom: 1px solid var(--border-soft); display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .z1 input.title { min-width: 200px; flex: 1; }
+    .chips { display: flex; gap: 6px; flex-wrap: wrap; padding: 8px 12px; border-bottom: 1px solid var(--border-soft); }
+    .chip { font-size: 12px; padding: 4px 10px; border-radius: 999px; border: 1px solid #c4b5fd; background: #f5f3ff; color: #5b21b6; cursor: pointer; font-weight: 600; }
+    .msgs { flex: 1; overflow: auto; padding: 12px; background: #f1f5f9; }
+    .msg { background: #fff; border: 1px solid var(--border-soft); border-radius: 10px; padding: 10px; margin-bottom: 8px; max-width: 96%; }
+    .msg.user { margin-left: auto; background: #f0fdfa; }
+    .msg-head { font-size: 11px; color: var(--muted); margin-bottom: 4px; display: flex; gap: 8px; }
+    .cites { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+    .cite { font-size: 11px; padding: 3px 8px; border-radius: 999px; border: 1px solid var(--border); background: #f8fafc; cursor: pointer; color: var(--primary); font-weight: 600; }
+    .chart { margin-top: 8px; padding: 8px; border: 1px dashed #a78bfa; border-radius: 8px; background: #faf5ff; font-size: 12px; }
+    .bars { display: flex; align-items: flex-end; gap: 8px; height: 80px; margin-top: 6px; }
+    .bar { width: 28px; background: linear-gradient(180deg,#8b5cf6,#0f766e); border-radius: 4px 4px 0 0; }
+    .z3 { padding: 10px 12px; border-top: 1px solid var(--border-soft); }
+    .z3 textarea { width: 100%; min-height: 64px; resize: vertical; }
+    .composer-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; align-items: flex-end; }
+    .disc { font-size: 12px; color: #92400e; background: #fffbeb; border: 1px solid #fde68a; border-radius: 6px; padding: 6px 8px; margin-top: 8px; }
+    .toast { position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%); background: #0f172a; color: #e2e8f0; padding: 10px 16px; border-radius: 999px; font-size: 13px; display: none; z-index: 70; }
+    .toast.on { display: block; }
+    .modal { display: none; position: fixed; inset: 0; background: rgba(15,23,42,.35); z-index: 60; align-items: center; justify-content: center; }
+    .modal.open { display: flex; }
+    .modal-card { background: #fff; padding: 16px; border-radius: 8px; min-width: 360px; max-width: 480px; width: 92vw; }
+    .modal-card h3 { margin: 0 0 8px; font-size: 16px; }
+    .modal-acts { display: flex; justify-content: flex-end; gap: 8px; margin-top: 12px; }
+    .linkish { border: none; background: transparent; color: var(--primary); font-weight: 600; cursor: pointer; font-size: 12px; }
+  </style>
 </head>
 <body>
-<div class="banner">PROTOTYPE reviewUrl — Kind B list + Kind D drawer · P1 gpt-4o-mini · không hứa RAG local · LinCatalogDataGrid / LinCatalogListPagination trên MFE</div>
-<div class="page" data-catalog-list-page>
-  <div class="head">
-    <h1>AI Copilot</h1>
-    <span class="badge">AI support</span>
-    <span class="badge">P1 gpt-4o-mini</span>
-    <span class="badge">P2 RAG on-prem</span>
-    <span class="badge">Rate 10/min</span>
-  </div>
-  <div class="toolbar">
-    <button class="btn-p" type="button">+ Phiên mới</button>
-    <button type="button">Làm mới</button>
-    <button type="button">Lịch sử</button>
-    <button type="button">Cấu hình cột</button>
-    <button class="btn-p" type="button">Mở Copilot</button>
-  </div>
-  <div class="filters">
-    <input placeholder="Tìm mã / tiêu đề phiên">
-    <select><option>Tất cả trạng thái</option><option>active</option><option>archived</option></select>
-  </div>
-  <table>
-    <thead><tr><th>STT</th><th>Mã</th><th>Tiêu đề</th><th>Status</th><th>Tin</th><th>Last message</th></tr></thead>
-    <tbody>
-      <tr><td>1</td><td>SES-20260801-0001</td><td>Tuyến xuống cấp · PCI</td><td>active</td><td>2</td><td>01/08/2026 10:00</td></tr>
-      <tr><td>2</td><td>SES-20260801-0002</td><td>Ổ gà mở · báo cáo</td><td>active</td><td>2</td><td>01/08/2026 11:00</td></tr>
-      <tr><td>3</td><td>SES-20260801-0003</td><td>Tài sản chú ý</td><td>active</td><td>2</td><td>01/08/2026 12:00</td></tr>
-    </tbody>
-  </table>
-  <div class="foot">Tổng 3 · pageSize 50 · trang 1 — MFE: LinCatalogListPagination</div>
-</div>
-<button class="fab" type="button" title="Mở Copilot">💬</button>
-<aside class="slide" aria-label="AI Copilot drawer">
-  <div class="z1">
-    <strong>AI Copilot</strong> · SES-20260801-0001 · gpt-4o-mini
-    <div style="float:right"><button type="button">Đóng</button></div>
-  </div>
-  <div class="chips">
-    <span class="chip">Tuyến nào xuống cấp nhanh nhất?</span>
-    <span class="chip">Có bao nhiêu ổ gà chưa xử lý?</span>
-    <span class="chip">Tài sản nào cần chú ý tuần này?</span>
-    <span class="chip">Tổng hợp PCI trung bình theo tuyến</span>
-    <span class="chip">Sinh biểu đồ sự cố mở theo mức độ</span>
-  </div>
-  <div class="msgs">
-    <div class="msg user"><div style="font-size:11px;color:var(--muted)">USER</div>Tuyến nào xuống cấp nhanh nhất?</div>
-    <div class="msg"><div style="font-size:11px;color:var(--ai)">ASSISTANT · gpt-4o-mini · 186 tok</div>Theo dữ liệu mock P1, <strong>QL.22</strong> giảm PCI nhanh nhất. <div style="margin-top:6px;font-size:11px">Predict PRD-884 · PCI history</div></div>
-  </div>
-  <div class="z3">
-    <textarea placeholder="Câu hỏi NL (Enter gửi)"></textarea>
-    <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap">
-      <button class="btn-p" type="button">Gửi</button>
-      <button type="button">Escalate GPT-4o</button>
-      <button type="button">Chuyển P2 RAG</button>
+  <div class="page" data-catalog-list-page data-zones="A-B-C-D" data-testid="rmms-copilot-list-prototype">
+    <header class="zone-a" data-zone="A">
+      <h1><i class="fas fa-comments" aria-hidden="true"></i> AI Copilot</h1>
+      <span class="badge">AI support</span>
+      <span class="badge">P1 gpt-4o-mini</span>
+      <span class="badge">P2 RAG on-prem</span>
+      <span class="badge badge-ok" id="rateBadge">Rate 10/10</span>
+    </header>
+    <p class="hint">Prototype content-only · zones A–D + Kind D drawer · SearchInput · không chrome/menu demo · không hứa RAG local P1.</p>
+
+    <div class="zone-b" data-zone="B" data-testid="copilot-toolbar">
+      <div class="zone-b-left">
+        <div class="field">
+          <label for="search">Tìm kiếm</label>
+          <div class="search-wrap">
+            <input id="search" type="search" placeholder="Mã SES-* · tiêu đề…" autocomplete="off" />
+            <button type="button" aria-label="Tìm kiếm"><i class="fas fa-search"></i></button>
+          </div>
+        </div>
+        <div class="field">
+          <label for="fltStatus">Trạng thái</label>
+          <div class="lkp" id="fltStatusLkp">
+            <div class="search-wrap">
+              <input id="fltStatus" type="search" placeholder="Tất cả" autocomplete="off" readonly />
+              <button type="button" aria-label="Mở lookup"><i class="fas fa-search"></i></button>
+            </div>
+            <div class="lkp-list" role="listbox">
+              <button type="button" data-v="">Tất cả</button>
+              <button type="button" data-v="active">Đang dùng</button>
+              <button type="button" data-v="archived">Lưu trữ</button>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="btn" id="btnRefresh" title="Làm mới"><i class="fas fa-sync-alt"></i></button>
+        <button type="button" class="btn" id="btnHistory" title="Lịch sử"><i class="fas fa-history"></i></button>
+        <button type="button" class="btn" id="btnCog" title="Cấu hình cột"><i class="fas fa-cog"></i></button>
+        <button type="button" class="btn" id="btnView" title="Xem"><i class="fas fa-eye"></i></button>
+        <button type="button" class="btn" id="btnDel" title="Xóa"><i class="fas fa-trash"></i></button>
+      </div>
+      <div class="zone-b-right">
+        <button type="button" class="btn primary" id="btnNew"><i class="fas fa-plus"></i> Phiên mới</button>
+      </div>
     </div>
-    <div class="disc">AI hỗ trợ — kiểm tra nghiệp vụ. P1 online only · không hứa RAG / model local.</div>
+
+    <section class="zone-c" data-zone="C">
+      <div class="grid-head">
+        <h2 class="grid-title">Danh sách phiên hội thoại</h2>
+        <p class="grid-help">Nhấn đúp / menu dòng — Xem (mở chat) · Lịch sử · Lưu trữ · Xóa. MFE: LinCatalogDataGrid · kéo cột ON.</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th class="col-stt">STT</th>
+              <th class="col-check"><input type="checkbox" id="checkAll" aria-label="Chọn tất cả" /></th>
+              <th>Mã</th>
+              <th>Tiêu đề</th>
+              <th>Status</th>
+              <th>Số tin</th>
+              <th>Last message</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="gridBody"></tbody>
+        </table>
+      </div>
+      <div class="zone-d" data-zone="D">
+        <div class="zone-d-controls">
+          <span id="pageMeta">Tổng: 3 · Trang 1/1</span>
+          <span>Hiển thị</span>
+          <button type="button" class="btn" data-ps="50">50</button>
+          <button type="button" class="btn" data-ps="100">100</button>
+          <button type="button" class="btn" data-ps="200">200</button>
+          <button type="button" class="btn" data-ps="500">500</button>
+          <button type="button" class="pager-btn" disabled aria-label="Trang trước"><i class="fas fa-chevron-left"></i></button>
+          <button type="button" class="pager-btn" disabled aria-label="Trang sau"><i class="fas fa-chevron-right"></i></button>
+        </div>
+        <p class="hint">MFE: LinCatalogListPagination 50/100/200/500 — cấm footerPagination / pageSizeBar / raw table production.</p>
+      </div>
+    </section>
   </div>
-</aside>
+
+  <button type="button" class="fab" id="fab" title="Mở Copilot"><i class="fas fa-comment-dots"></i></button>
+
+  <aside class="slide" id="slide" aria-label="AI Copilot drawer">
+    <div class="z1">
+      <button type="button" class="btn" id="btnClose">Đóng</button>
+      <code id="sessCode">SES-20260801-0001</code>
+      <input class="title" id="sessTitle" value="Tuyến xuống cấp · PCI" aria-label="Tiêu đề phiên" />
+      <span class="badge" id="engBadge">gpt-4o-mini</span>
+      <span style="flex:1"></span>
+      <button type="button" class="btn" id="btnExport">Xuất</button>
+    </div>
+    <div class="chips" id="chips"></div>
+    <div class="msgs" id="msgs"></div>
+    <div class="z3">
+      <label class="hint" for="draft">Câu hỏi NL</label>
+      <textarea id="draft" placeholder="VD: Tuyến nào xuống cấp nhanh nhất? (Enter gửi · Shift+Enter xuống dòng)"></textarea>
+      <div class="composer-actions">
+        <div class="field" style="min-width:140px">
+          <label for="fltLocale">Locale</label>
+          <div class="lkp" id="fltLocaleLkp">
+            <div class="search-wrap">
+              <input id="fltLocale" type="search" value="Tiếng Việt" autocomplete="off" readonly />
+              <button type="button" aria-label="Mở lookup"><i class="fas fa-search"></i></button>
+            </div>
+            <div class="lkp-list" role="listbox">
+              <button type="button" data-v="vi">Tiếng Việt</button>
+              <button type="button" data-v="en">English</button>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="btn primary" id="btnSend">Gửi</button>
+        <button type="button" class="btn" id="btnEsc">Escalate GPT-4o</button>
+        <button type="button" class="btn" id="btnP2">P2 RAG</button>
+      </div>
+      <div class="disc">AI hỗ trợ — kiểm tra nghiệp vụ. P1 online only · không hứa RAG / model local.</div>
+    </div>
+  </aside>
+
+  <div class="modal" id="leaveModal" role="dialog" aria-labelledby="leaveH">
+    <div class="modal-card">
+      <h3 id="leaveH">Rời khỏi cuộc hội thoại?</h3>
+      <p class="hint">Nháp chưa gửi sẽ mất nếu không lưu. (LeaveConfirmModal — cấm window.confirm)</p>
+      <div class="modal-acts">
+        <button type="button" class="btn" id="leaveStay">Ở lại</button>
+        <button type="button" class="btn primary" id="leaveGo">Rời</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="alertModal" role="dialog" aria-labelledby="alertH">
+    <div class="modal-card">
+      <h3 id="alertH">Xóa phiên?</h3>
+      <p class="hint" id="alertBody">Không thể hoàn tác. (useAlert — cấm window.confirm)</p>
+      <div class="modal-acts">
+        <button type="button" class="btn" id="alertNo">Hủy</button>
+        <button type="button" class="btn primary" id="alertYes">Xóa</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="noteModal" role="dialog" aria-labelledby="noteH">
+    <div class="modal-card">
+      <h3 id="noteH">Ghi chú thumb down</h3>
+      <textarea id="noteText" placeholder="Vì sao trả lời chưa đúng?"></textarea>
+      <div class="modal-acts">
+        <button type="button" class="btn" id="noteCancel">Hủy</button>
+        <button type="button" class="btn primary" id="noteOk">Gửi feedback</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+
+  <script>
+    const PROMPTS = [
+      "Tuyến nào xuống cấp nhanh nhất?",
+      "Có bao nhiêu ổ gà chưa xử lý?",
+      "Tài sản nào cần chú ý tuần này?",
+      "Tổng hợp PCI trung bình theo tuyến",
+      "Sinh biểu đồ sự cố mở theo mức độ"
+    ];
+    const ROWS = [
+      { code: "SES-20260801-0001", title: "Tuyến xuống cấp · PCI", status: "active", n: 2, last: "01/08/2026 10:00" },
+      { code: "SES-20260801-0002", title: "Ổ gà mở · báo cáo", status: "active", n: 2, last: "01/08/2026 11:00" },
+      { code: "SES-20260801-0003", title: "Tài sản chú ý", status: "active", n: 2, last: "01/08/2026 12:00" }
+    ];
+    let selected = 0;
+    let pageSize = 50;
+    let rate = 10;
+    let engine = "gpt-4o-mini";
+    let dirty = false;
+    const toastEl = document.getElementById("toast");
+    function toast(msg) {
+      toastEl.textContent = msg;
+      toastEl.classList.add("on");
+      setTimeout(() => toastEl.classList.remove("on"), 1800);
+    }
+    function renderGrid() {
+      const q = document.getElementById("search").value.trim().toLowerCase();
+      const st = document.getElementById("fltStatus").dataset.v || "";
+      const rows = ROWS.filter((r) => {
+        const hit = !q || r.code.toLowerCase().includes(q) || r.title.toLowerCase().includes(q);
+        const ok = !st || r.status === st;
+        return hit && ok;
+      });
+      document.getElementById("gridBody").innerHTML = rows.map((r, i) => `
+        <tr data-i="${ROWS.indexOf(r)}" class="${ROWS.indexOf(r) === selected ? "sel" : ""}">
+          <td class="col-stt">${i + 1}</td>
+          <td class="col-check"><input type="checkbox" ${ROWS.indexOf(r) === selected ? "checked" : ""} /></td>
+          <td><button type="button" class="code" data-open="${ROWS.indexOf(r)}">${r.code}</button></td>
+          <td>${r.title}</td>
+          <td>${r.status}</td>
+          <td>${r.n}</td>
+          <td>${r.last}</td>
+          <td>
+            <details class="menu">
+              <summary>⋯</summary>
+              <div class="panel">
+                <button type="button" data-open="${ROWS.indexOf(r)}">Xem (mở chat)</button>
+                <button type="button" data-hist="1">Lịch sử</button>
+                <button type="button" data-arch="${ROWS.indexOf(r)}">Lưu trữ</button>
+                <button type="button" data-del="${ROWS.indexOf(r)}">Xóa</button>
+              </div>
+            </details>
+          </td>
+        </tr>`).join("");
+      document.getElementById("pageMeta").textContent = `Tổng: ${rows.length} · Trang 1/1 · pageSize ${pageSize}`;
+    }
+    function openDrawer(i) {
+      selected = i;
+      const r = ROWS[i];
+      document.getElementById("sessCode").textContent = r.code;
+      document.getElementById("sessTitle").value = r.title;
+      document.getElementById("slide").classList.add("on");
+      renderGrid();
+    }
+    function tryClose() {
+      if (dirty && document.getElementById("draft").value.trim()) {
+        document.getElementById("leaveModal").classList.add("open");
+        return;
+      }
+      document.getElementById("slide").classList.remove("on");
+    }
+    document.getElementById("chips").innerHTML = PROMPTS.map((p) => `<button type="button" class="chip">${p}</button>`).join("");
+    document.getElementById("msgs").innerHTML = `
+      <div class="msg user"><div class="msg-head"><span>USER</span></div>Tuyến nào xuống cấp nhanh nhất?</div>
+      <div class="msg">
+        <div class="msg-head"><span>ASSISTANT</span><span class="badge">gpt-4o-mini</span><span>186 tokens</span></div>
+        Theo dữ liệu mock P1, <strong>QL.22 đoạn Km12+000–Km18+500</strong> giảm PCI nhanh nhất.
+        <div class="cites"><span class="cite" data-cite="Predict PRD-884">Predict PRD-884</span><span class="cite" data-cite="PCI SEC-22-12">PCI SEC-22-12</span></div>
+        <div><button type="button" class="linkish" data-up>👍</button> <button type="button" class="linkish" data-down>👎</button> <button type="button" class="linkish" data-copy>Copy</button></div>
+      </div>
+      <div class="msg">
+        <div class="msg-head"><span>ASSISTANT</span><span>chart stub</span></div>
+        Đã sinh ECharts option stub.
+        <div class="chart">Sự cố mở theo mức độ<div class="bars"><div class="bar" style="height:30%"></div><div class="bar" style="height:70%"></div><div class="bar" style="height:95%"></div><div class="bar" style="height:40%"></div></div></div>
+      </div>`;
+    function bindLkp(rootId, inputId) {
+      const root = document.getElementById(rootId);
+      const input = document.getElementById(inputId);
+      root.querySelector(".search-wrap button").addEventListener("click", () => root.classList.toggle("open"));
+      input.addEventListener("click", () => root.classList.toggle("open"));
+      root.querySelectorAll(".lkp-list button").forEach((b) => {
+        b.addEventListener("click", () => {
+          input.value = b.textContent;
+          input.dataset.v = b.dataset.v;
+          root.classList.remove("open");
+          renderGrid();
+        });
+      });
+    }
+    bindLkp("fltStatusLkp", "fltStatus");
+    bindLkp("fltLocaleLkp", "fltLocale");
+    document.getElementById("search").addEventListener("input", renderGrid);
+    document.getElementById("btnRefresh").addEventListener("click", () => { toast("Làm mới"); renderGrid(); });
+    document.getElementById("btnHistory").addEventListener("click", () => toast("Lịch sử phiên (LinCatalogHistoryModal)"));
+    document.getElementById("btnCog").addEventListener("click", () => toast("Cấu hình cột"));
+    document.getElementById("btnView").addEventListener("click", () => openDrawer(selected));
+    document.getElementById("btnNew").addEventListener("click", () => {
+      ROWS.unshift({ code: "SES-20260815-0004", title: "Phiên mới", status: "active", n: 0, last: "—" });
+      selected = 0;
+      renderGrid();
+      openDrawer(0);
+    });
+    document.getElementById("btnDel").addEventListener("click", () => document.getElementById("alertModal").classList.add("open"));
+    document.getElementById("fab").addEventListener("click", () => openDrawer(selected));
+    document.getElementById("btnClose").addEventListener("click", tryClose);
+    document.getElementById("leaveStay").addEventListener("click", () => document.getElementById("leaveModal").classList.remove("open"));
+    document.getElementById("leaveGo").addEventListener("click", () => {
+      document.getElementById("leaveModal").classList.remove("open");
+      dirty = false;
+      document.getElementById("draft").value = "";
+      document.getElementById("slide").classList.remove("on");
+    });
+    document.getElementById("alertNo").addEventListener("click", () => document.getElementById("alertModal").classList.remove("open"));
+    document.getElementById("alertYes").addEventListener("click", () => {
+      document.getElementById("alertModal").classList.remove("open");
+      toast("Đã xóa phiên (mock)");
+    });
+    document.getElementById("draft").addEventListener("input", () => { dirty = true; });
+    document.getElementById("draft").addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); document.getElementById("btnSend").click(); }
+    });
+    document.getElementById("btnSend").addEventListener("click", () => {
+      if (rate <= 0) { toast("Rate limit 10/min"); return; }
+      rate -= 1;
+      document.getElementById("rateBadge").textContent = `Rate ${rate}/10`;
+      dirty = false;
+      toast("Gửi (canned P1)");
+    });
+    document.getElementById("btnEsc").addEventListener("click", () => {
+      engine = "gpt-4o";
+      document.getElementById("engBadge").textContent = engine;
+      toast("Escalate GPT-4o");
+    });
+    document.getElementById("btnP2").addEventListener("click", () => toast("P2 RAG on-prem — badge only · không runtime P1"));
+    document.getElementById("btnExport").addEventListener("click", () => toast("Xuất JSON stub"));
+    document.getElementById("sessTitle").addEventListener("change", () => toast("Đổi tiêu đề phiên"));
+    document.body.addEventListener("click", (e) => {
+      const t = e.target;
+      if (!(t instanceof HTMLElement)) return;
+      if (t.dataset.open != null) openDrawer(Number(t.dataset.open));
+      if (t.dataset.hist) toast("Lịch sử");
+      if (t.dataset.arch != null) { ROWS[Number(t.dataset.arch)].status = "archived"; renderGrid(); toast("Lưu trữ"); }
+      if (t.dataset.del != null) document.getElementById("alertModal").classList.add("open");
+      if (t.dataset.cite) toast("Citation: " + t.dataset.cite);
+      if (t.dataset.up != null) toast("Feedback up");
+      if (t.dataset.down != null) document.getElementById("noteModal").classList.add("open");
+      if (t.dataset.copy != null) toast("Đã copy clipboard");
+      if (t.classList.contains("chip")) {
+        document.getElementById("draft").value = t.textContent;
+        dirty = true;
+        document.getElementById("btnSend").click();
+      }
+      if (t.dataset.ps) { pageSize = Number(t.dataset.ps); renderGrid(); }
+    });
+    document.getElementById("noteCancel").addEventListener("click", () => document.getElementById("noteModal").classList.remove("open"));
+    document.getElementById("noteOk").addEventListener("click", () => {
+      document.getElementById("noteModal").classList.remove("open");
+      toast("POST feedback + note");
+    });
+    renderGrid();
+  </script>
 </body>
 </html>

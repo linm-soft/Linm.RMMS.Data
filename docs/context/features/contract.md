@@ -78,6 +78,8 @@
 | Entity | Key columns | Notes |
 |--------|-------------|-------|
 | Contract | Id, Code, ContractNo, Name, Type, ContractorId, Amount, SignedAt, EffectiveFrom, EffectiveTo, Status | P2 |
+| ContractRoute | ContractId, RouteCode, KmFrom, KmTo, LengthKm | **P1.5 login** — thay `RouteSegment` text · [`login.md`](login.md) |
+| ContractAccount | ContractId, AuthUserId, RoleCode, ManualHold | **P1.5** — 1 user = 1 HĐ · job Active/Inactive |
 | Budget | Id, ContractId, Year, Allocated, Disbursed | P2 |
 | Payment | Id, ContractId, Period, Amount, PaidAt, Status | P2 |
 | ContractorKpi | Id, ContractorId, ContractId, Score, SlaPct, At | P2 |
@@ -102,6 +104,7 @@ Liên kết WorkOrder → thanh toán (task team P2) · KPI từ SLA / nghiệm 
 | GAP-F-CTR-03 | BE endpoints contracts/budgets/kpi | MISSING · be_align khi Signed |
 | GAP-F-CTR-04 | Quyết toán UI full | P3 modal stub demo |
 | GAP-F-CTR-05 | Inventory trong Contract MFE | Sub-route `/contract/inventory` · slug riêng |
+| GAP-F-CTR-06 | Tài khoản + tuyến km trên form HĐ | **IN** P1.5 — tab child table · SPEC login-contract-lifecycle |
 
 ## 7. Demo checklist (chốt khách)
 

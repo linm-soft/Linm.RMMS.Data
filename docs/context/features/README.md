@@ -53,6 +53,7 @@
 | 18 | `integration` | Open API và tích hợp | Integration | P1–P3 | Import TS · offline sync | Demo | [integration.md](integration.md) |
 | — | `feedback` | Góp ý phần mềm | Integration | P1 | Mobile **Góp ý** | Demo | [feedback.md](feedback.md) |
 | — | `users` | QL người dùng / tổ chức | Auth / Integration | P1 | Web QL Cơ quan/User · profile | Demo | [users.md](users.md) |
+| — | `login` | Login platform + TK theo HĐ | Auth × Contract | P1 / P1.5 | — (platform login) | Context · await_approve | [login.md](login.md) · [SPEC](../../plan/login-contract-lifecycle/SPEC.md) |
 
 ## Nguyên tắc P1 (từ 09 + map)
 

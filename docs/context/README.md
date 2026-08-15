@@ -10,6 +10,10 @@
 |------|----------|-----------|
 | [**15-SCREEN-AI-MAP.md**](15-SCREEN-AI-MAP.md) | **SSOT màn hình Web/Mobile (guide) ↔ 18 phân hệ + AI** — `/analy-requirement` + `/gen-tinh-nang-demo` | PM, BA, Dev |
 | [**11-CSDL-SO-SACH-DATABASE-API.md**](11-CSDL-SO-SACH-DATABASE-API.md) | **DB + API từ hồ sơ chuẩn hóa sổ sách** — 12 biểu CSDL · 8 mẫu sổ · endpoint | Dev, BA, outsource |
+| [**plan/ai-asset-detect/azure-openai-register-use.md**](../plan/ai-asset-detect/azure-openai-register-use.md) | **Azure OpenAI** — đăng ký resource · deploy `gpt-4o` vision · User Secrets · curl · UI detect | Infra, Dev |
+| [**plan/ai-asset-detect/AZURE-OPENAI-CHECKLIST.md**](../plan/ai-asset-detect/AZURE-OPENAI-CHECKLIST.md) | Checklist tick đăng ký → verify → 1 frame thật | Infra, Dev |
+| [**features/login.md**](features/login.md) | **Login Platform.Authentication + TK theo HĐ + job Active/Inactive** | PM, BA, Dev, Security |
+| [**plan/login-contract-lifecycle/**](../plan/login-contract-lifecycle/SPEC.md) | Spec + plan vòng đời tài khoản theo hạn HĐ · tuyến km | PM, Architect — **approved** 2026-08-15 |
 | [**features/README.md**](features/README.md) | **Feature backlog + context (design/API/DB)** — `/gen-tinh-nang-demo` | PM, Dev, khách chốt UI |
 | [**20-ORG-STRUCTURE-DRVN.md**](20-ORG-STRUCTURE-DRVN.md) | **SSOT cơ cấu tổ chức Cục ĐB** — Master catalog `org-unit` · SearchInput | Admin, BA, Dev |
 | [**seed/org-unit-seed.json**](seed/org-unit-seed.json) | **Seed tree 60 nodes** (code/parent/kind) — AI Design/SA ref | Design, SA, Dev |

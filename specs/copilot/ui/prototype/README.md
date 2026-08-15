@@ -1,10 +1,14 @@
 # Prototype — copilot
 
-Design gate: prototype + **reviewUrl** — autopilot design_confirm=approve.
+Design gate: prototype + **reviewUrl**. `autoApprove=OFF` → user Approve board (`design_confirm` pending).
 
 - **reviewUrl:** `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/copilot/ui/prototype/copilot-list-prototype.html`
-- Demo SSOT: `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/copilot-demo.html`
+- Demo SSOT: `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/copilot-demo.html` → `copilot/copilot.html`
 - Title: AI Copilot
-- Pack kind: `ai`
-- MFE: `Linm.Web.RMMS.Copilot`
-- skillVersion: `2026.08.10.3` · schemaVersion: `qldb-workflow-skill-v1` · workflowVersion: `2026.08.10.3`
+- Kind: **B** A–D + **D** drawer Z1–Z3 · content-only · skip chrome
+- Controls: SearchTextInput · SearchInput status/locale · **cấm** native Select
+- MFE: `Linm.Web.RMMS.Copilot` · `/copilot`
+- skillVersion: `2026.08.15.5` · schemaVersion: `2` · workflowVersion: `2026.08.15.5` · rulesVersion: `2026.08.15.8`
+
+---
+<!-- Version meta: skillVersion=2026.08.15.5 · schemaVersion=2 · workflowVersion=2026.08.15.5 · rulesVersion=2026.08.15.8 · versionGate=rechecked -->

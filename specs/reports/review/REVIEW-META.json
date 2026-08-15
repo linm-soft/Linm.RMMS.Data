@@ -1,0 +1,13 @@
+{
+  "feature": "reports",
+  "review_confirm": "approve",
+  "taskId": "task_42801963",
+  "skillVersion": "2026.08.15.5",
+  "schemaVersion": "1",
+  "workflowVersion": "2026.08.15.5",
+  "rulesVersion": "2026.08.15.8",
+  "versionGate": "keep_current",
+  "mfeStdUrl": "http://localhost:9311/bao-cao",
+  "apiPrefix": "api/v1/report",
+  "updatedAt": "2026-08-15T08:40:00.000Z"
+}

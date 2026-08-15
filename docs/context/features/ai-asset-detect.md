@@ -4,6 +4,7 @@
 > **Phase:** P1 = GPT-4o Vision online · **P2 = ONNX detector** (class thiết bị TS)  
 > **Status:** Demo  
 > **SSOT:** [`15-SCREEN-AI-MAP.md`](../15-SCREEN-AI-MAP.md) · [`ai-vision.md`](ai-vision.md) · [`asset.md`](asset.md) · [`patrol.md`](patrol.md)  
+> **Azure OpenAI (đăng ký + checklist):** [`../../plan/ai-asset-detect/azure-openai-register-use.md`](../../plan/ai-asset-detect/azure-openai-register-use.md) · [`AZURE-OPENAI-CHECKLIST.md`](../../plan/ai-asset-detect/AZURE-OPENAI-CHECKLIST.md)  
 > **Demo:** `Linm.RMMS.Demo/public/demo/ai-vision/ai-asset-detect.html`  
 > **Khác `ai-vision`:** #3 = hư mặt đường → Vấn đề; **slug này** = nhận diện **TS/thiết bị mới** → bản ghi Asset
 

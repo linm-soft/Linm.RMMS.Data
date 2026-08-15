@@ -3,18 +3,12 @@
 | | |
 |---|---|
 | skill | `scan-qlbd-form-type` |
-| hash | `fc49d05754a43b62` |
-| filter | ai |
-| generated | 2026-08-15T06:00:44.095Z |
+| hash | `d3ee22c6babaacee` |
+| filter | report |
+| generated | 2026-08-15T07:42:24.292Z |
 
 | feature | formType | prior | conf | readme | domain | mfe | stdPort | mfeStdUrl | demo | downstream |
 |---------|----------|-------|------|--------|--------|-----|---------|-----------|------|------------|
-| `ai-asset-detect` | **ai** | done | high | Demo | ai-vision | `Linm.Web.RMMS.AiVision` | 9303 | http://localhost:9303/ai-vision/ai-asset-detect | features/ai-asset-detect-demo.html | /agent-qldb-workflow |
-| `ai-vision` | **ai** | done | high | Demo | ai-vision | `Linm.Web.RMMS.AiVision` | 9303 | http://localhost:9303/ai-vision | features/ai-vision-demo.html | /agent-qldb-workflow |
-| `copilot` | **ai** | new | high | Demo | copilot | `Linm.Web.RMMS.Copilot` | 9310 | http://localhost:9310/copilot | features/copilot-demo.html | /agent-qldb-workflow |
-| `estimate` | **ai** | new | high | Demo | ai-vision | `Linm.Web.RMMS.AiVision` | 9303 | http://localhost:9303/ai-vision/estimate | features/estimate-demo.html | /agent-qldb-workflow |
-| `its-anpr-overload` | **ai** | new | high | Demo | ai-vision | `Linm.Web.RMMS.AiVision` | 9303 | http://localhost:9303/its-anpr-overload | ai-vision/its-anpr-overload.html | /agent-qldb-workflow |
-| `its-traffic-detect` | **ai** | new | high | Context | ai-vision | `Linm.Web.RMMS.AiVision` | 9303 | http://localhost:9303/its-traffic-detect | ai-vision/its-traffic-detect.html | /agent-qldb-workflow |
-| `predict` | **ai** | new | high | Demo | ai-vision | `Linm.Web.RMMS.AiVision` | 9303 | http://localhost:9303/ai-vision/predict | features/predict-demo.html | /agent-qldb-workflow |
+| `reports` | **report** | new | high | Context | bao-cao | `Linm.Web.RMMS.Report` | 9311 | http://localhost:9311/bao-cao | features/reports-demo.html | /erp-report-context · /agent-qldb-workflow |
 
 <!-- Version meta: skillId=scan-qlbd-form-type schemaVersion=1 -->

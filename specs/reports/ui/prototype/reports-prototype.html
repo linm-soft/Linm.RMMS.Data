@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Prototype — Báo cáo Web (reports) · Kind E A–D</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    :root {
+      --bg: #f5f7fa; --card: #fff; --border: #BABCBE; --border-soft: #e9ecef;
+      --txt: #1A1A1A; --txt-secondary: #6c757d; --muted: #6D6D6D;
+      --primary: #0f766e; --toolbar-bg: #f8fafc;
+      --ds-focus-shadow: 0px 0px 4px #BABCBE; --ds-radius-md: 4px;
+      --ds-font-body: 13px; --ds-font-title: 22px; --ds-height-btn: 32px;
+      --col-no: 48px;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: "Segoe UI", system-ui, sans-serif; background: var(--bg); color: var(--txt); font-size: var(--ds-font-body); }
+    input[type="date"], input[type="search"], input[type="text"] {
+      padding: 6px 10px; border: 1px solid var(--border); border-radius: var(--ds-radius-md);
+      font-size: 13px; min-height: 32px; background: #fff;
+    }
+    input:focus { outline: none; border-color: var(--primary); box-shadow: var(--ds-focus-shadow); }
+    .page { max-width: 1280px; margin: 0 auto; padding: 8px; display: flex; flex-direction: column; gap: 8px; min-height: 100vh; }
+    .zone-a { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; flex-shrink: 0; }
+    .zone-a h1 { margin: 0; font-size: var(--ds-font-title); font-weight: 700; }
+    .badge { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: #ccfbf1; color: #115e59; }
+    .zone-b { display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; padding: 10px 12px; background: var(--toolbar-bg); border: 1px solid var(--border-soft); border-radius: var(--ds-radius-md); }
+    .zone-b-left, .zone-b-right { display: flex; flex-wrap: wrap; gap: 8px; align-items: flex-end; }
+    .btn { height: var(--ds-height-btn); padding: 0 12px; border: 1px solid var(--border); border-radius: var(--ds-radius-md); background: #fff; cursor: pointer; font-size: 12px; font-weight: 600; }
+    .btn.primary { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .field { display: flex; flex-direction: column; gap: 4px; min-width: 176px; }
+    .field label { font-size: 12px; color: var(--muted); font-weight: 500; }
+    .search-wrap { display: flex; align-items: stretch; border: 1px solid var(--border); border-radius: var(--ds-radius-md); overflow: hidden; background: #fff; min-width: 176px; min-height: 32px; }
+    .search-wrap:focus-within { border-color: var(--primary); box-shadow: var(--ds-focus-shadow); }
+    .search-wrap input { border: 0 !important; outline: none !important; box-shadow: none !important; flex: 1; min-width: 0; min-height: 30px; width: auto; }
+    .search-wrap button { border: 0; border-left: 1px solid var(--border); background: #f8fafc; padding: 0 10px; cursor: pointer; color: var(--muted); min-width: 36px; }
+    .lkp { position: relative; }
+    .lkp-list { display: none; position: absolute; left: 0; right: 0; top: 100%; z-index: 30; background: #fff; border: 1px solid var(--border); border-radius: var(--ds-radius-md); max-height: 180px; overflow: auto; box-shadow: 0 8px 24px rgba(15,23,42,.12); }
+    .lkp.open .lkp-list { display: block; }
+    .lkp-list button { display: block; width: 100%; text-align: left; border: 0; background: #fff; padding: 8px 10px; font-size: 13px; cursor: pointer; }
+    .lkp-list button:hover { background: #f1f5f9; }
+    .zone-c { background: var(--card); border: 1px solid var(--border-soft); border-radius: var(--ds-radius-md); display: flex; flex-direction: column; min-height: 320px; overflow: hidden; flex: 1; }
+    .grid-head { padding: 12px 16px 8px; }
+    .grid-title { margin: 0; font-size: 15px; font-weight: 700; }
+    .grid-help { margin: 4px 0 0; font-size: 12px; color: var(--txt-secondary); }
+    .table-wrap { overflow: auto; flex: 1; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 8px 12px; border-bottom: 1px solid var(--border-soft); text-align: left; white-space: nowrap; }
+    th { background: #f8fafc; font-size: 12px; color: var(--muted); position: sticky; top: 0; cursor: col-resize; }
+    th.col-stt, td.col-stt { width: var(--col-no); text-align: center; }
+    tbody tr:hover { background: #f0fdfa; }
+    .empty { text-align: center; color: #94a3b8; padding: 40px 16px; }
+    .st { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; }
+    .st-ok { background: #ecfdf5; color: #047857; }
+    .st-warn { background: #fffbeb; color: #b45309; }
+    .st-bad { background: #fef2f2; color: #b91c1c; }
+    .zone-d { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 12px 16px; border-top: 1px solid var(--border-soft); background: #fff; }
+    .zone-d-controls { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: center; }
+    .pager-btn { width: 32px; height: 32px; border: 1px solid var(--border-soft); border-radius: var(--ds-radius-md); background: #fff; cursor: pointer; }
+    .pager-btn:disabled { opacity: 0.4; }
+    .hint { margin: 0; font-size: 12px; color: var(--muted); }
+    .toast { position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%); background: #0f172a; color: #e2e8f0; padding: 10px 16px; border-radius: 999px; font-size: 13px; display: none; z-index: 70; }
+    .toast.on { display: block; }
+    .hidden { display: none !important; }
+    .size-bar { display: flex; gap: 4px; }
+    .size-bar button.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+  </style>
+</head>
+<body>
+  <div class="page" data-catalog-list-page data-zones="A-B-C-D" data-kind="report" data-testid="rmms-report-list-prototype">
+    <header class="zone-a" data-zone="A">
+      <h1><i class="fas fa-chart-bar" aria-hidden="true"></i> Báo cáo Web</h1>
+      <span class="badge">Kind E</span>
+      <span class="badge">P1 · 3 loại</span>
+    </header>
+    <p class="hint">Prototype content-only · A–D · SearchInput · không chrome / Catalog 172 / Thêm mới trên A.</p>
+
+    <div class="zone-b" data-zone="B" data-testid="rmms-report-list-filters">
+      <div class="zone-b-left">
+        <div class="field lkp" id="lkpFamily">
+          <label>Loại BC</label>
+          <div class="search-wrap">
+            <input id="inFamily" type="text" readonly value="BC Tài sản" />
+            <button type="button" aria-label="Mở lookup"><i class="fas fa-search"></i></button>
+          </div>
+          <div class="lkp-list" id="listFamily"></div>
+        </div>
+        <div class="field lkp" id="lkpKind">
+          <label>Loại báo cáo</label>
+          <div class="search-wrap">
+            <input id="inKind" type="text" readonly value="Tổng hợp chung" />
+            <button type="button" aria-label="Mở lookup"><i class="fas fa-search"></i></button>
+          </div>
+          <div class="lkp-list" id="listKind"></div>
+        </div>
+        <div class="field lkp" id="lkpRoute">
+          <label>Tuyến</label>
+          <div class="search-wrap">
+            <input id="inRoute" type="text" placeholder="Tất cả tuyến" value="" />
+            <button type="button" aria-label="Mở lookup"><i class="fas fa-search"></i></button>
+          </div>
+          <div class="lkp-list" id="listRoute"></div>
+        </div>
+        <div class="field lkp" id="lkpPeriod">
+          <label>Kỳ báo cáo</label>
+          <div class="search-wrap">
+            <input id="inPeriod" type="text" readonly value="Tháng" />
+            <button type="button" aria-label="Mở lookup"><i class="fas fa-search"></i></button>
+          </div>
+          <div class="lkp-list" id="listPeriod"></div>
+        </div>
+        <div class="field hidden" id="fldFrom">
+          <label for="inFrom">Từ ngày</label>
+          <input id="inFrom" type="date" />
+        </div>
+        <div class="field hidden" id="fldTo">
+          <label for="inTo">Đến ngày</label>
+          <input id="inTo" type="date" />
+        </div>
+        <div class="field">
+          <label for="inSearch">Tìm kiếm</label>
+          <div class="search-wrap">
+            <input id="inSearch" type="search" placeholder="Hạng mục · mã · cán bộ…" />
+            <button type="button" id="btnSearchIco" aria-label="Tìm"><i class="fas fa-search"></i></button>
+          </div>
+        </div>
+        <button type="button" class="btn primary" id="btnView">Xem</button>
+        <button type="button" class="btn hidden" id="btnExport">Xuất Excel</button>
+      </div>
+      <div class="zone-b-right" data-testid="report-toolbar">
+        <button type="button" class="btn" id="btnRefresh" title="Làm mới"><i class="fas fa-sync-alt"></i> Làm mới</button>
+        <button type="button" class="btn" id="btnChart"><i class="fas fa-chart-pie"></i> Biểu đồ</button>
+        <button type="button" class="btn" id="btnPrint"><i class="fas fa-print"></i> In</button>
+        <button type="button" class="btn" id="btnConfig"><i class="fas fa-cog"></i> Config</button>
+      </div>
+    </div>
+
+    <section class="zone-c" data-zone="C">
+      <div class="grid-head">
+        <h2 class="grid-title" id="gridTitle">Kết quả báo cáo tài sản</h2>
+        <p class="grid-help" id="gridHelp">Chưa xem — nhấn «Xem» để tải báo cáo.</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead id="gridHead"></thead>
+          <tbody id="gridBody"></tbody>
+        </table>
+        <div class="empty" id="emptyHint">Chưa xem — nhấn «Xem» để tải báo cáo.</div>
+      </div>
+      <footer class="zone-d" data-zone="D">
+        <p class="hint" id="pageMeta">Tổng: 0 · Trang 1/1</p>
+        <div class="zone-d-controls">
+          <button type="button" class="pager-btn" disabled aria-label="Trước"><i class="fas fa-chevron-left"></i></button>
+          <span>1</span>
+          <button type="button" class="pager-btn" disabled aria-label="Sau"><i class="fas fa-chevron-right"></i></button>
+          <span class="hint">Hiển thị</span>
+          <div class="size-bar">
+            <button type="button" class="btn active" data-ps="50">50</button>
+            <button type="button" class="btn" data-ps="100">100</button>
+            <button type="button" class="btn" data-ps="200">200</button>
+            <button type="button" class="btn" data-ps="500">500</button>
+          </div>
+        </div>
+      </footer>
+    </section>
+  </div>
+  <div class="toast" id="toast"></div>
+  <script>
+    const FAMILIES = [
+      { value: 'assets', label: 'BC Tài sản' },
+      { value: 'incidents', label: 'BC Sự cố' },
+      { value: 'checkins', label: 'BC Check-in' },
+    ];
+    const KINDS = {
+      assets: [
+        { value: 'summary', label: 'Tổng hợp chung' },
+        { value: 'by-route', label: 'Thống kê theo tuyến' },
+        { value: 'by-org', label: 'Thống kê theo doanh nghiệp' },
+        { value: 'by-item', label: 'Tổng hợp theo hạng mục' },
+      ],
+      incidents: [
+        { value: 'monthly', label: 'Thống kê TNGT hàng tháng' },
+        { value: 'half-year', label: 'Tổng hợp TNGT 6 tháng' },
+        { value: 'serious', label: 'Báo cáo TNGT nghiêm trọng' },
+        { value: 'compare', label: 'So sánh TNGT' },
+      ],
+      checkins: [
+        { value: 'daily', label: 'Nhật ký tuần đường' },
+        { value: 'patrol', label: 'Hoạt động tuần kiểm' },
+        { value: 'worklog', label: 'Nhật ký công việc' },
+        { value: 'coverage', label: 'Coverage check-in ≥3 điểm/ngày' },
+      ],
+    };
+    const PERIODS = [
+      { value: 'day', label: 'Ngày' },
+      { value: 'month', label: 'Tháng' },
+      { value: 'quarter', label: 'Quý' },
+      { value: 'year', label: 'Năm' },
+    ];
+    const ROUTES = [
+      { value: '', label: 'Tất cả' },
+      { value: 'QL.1', label: 'QL.1 — Quốc lộ 1' },
+      { value: 'QL.15', label: 'QL.15 — Quốc lộ 15' },
+      { value: 'QL.217', label: 'QL.217 — Quốc lộ 217' },
+      { value: 'CT.001', label: 'CT.001 — Cao tốc (CUC 2)' },
+    ];
+    const COLS = {
+      assets: ['STT','Tuyến','Hạng mục','SL','ĐVT','Tình trạng','Cập nhật'],
+      incidents: ['STT','Mã','Tuyến','Loại','Mức độ','Trạng thái','Thời điểm'],
+      checkins: ['STT','Cán bộ','Tuyến','Điểm','Coverage %','Ngày','Đầu','Cuối'],
+    };
+    const ROWS = {
+      assets: [
+        ['1','QL.1','Mặt đường','42.5','km','<span class="st st-ok">Tốt</span>','15/08/2026 08:00'],
+        ['2','QL.15','Cống','28','cái','<span class="st st-ok">Tốt</span>','14/08/2026 16:20'],
+        ['3','QL.217','Lan can','12','cái','<span class="st st-warn">TB</span>','13/08/2026 09:10'],
+      ],
+      incidents: [
+        ['1','INC-20260815-0001','QL.15','TNGT','Cao','Mở','15/08/2026 07:12'],
+        ['2','INC-20260814-0008','QL.1','Hư hỏng','TB','Đang xử lý','14/08/2026 18:40'],
+      ],
+      checkins: [
+        ['1','Nguyễn Văn A','QL.15','5','82','15/08/2026','06:02','16:40'],
+        ['2','Trần Thị B','QL.1','3','61','15/08/2026','06:18','15:55'],
+      ],
+    };
+    const TITLES = {
+      assets: 'Kết quả báo cáo tài sản',
+      incidents: 'Kết quả báo cáo sự cố',
+      checkins: 'Kết quả báo cáo check-in',
+    };
+
+    const state = { family: 'assets', kind: 'summary', route: '', period: 'month', viewed: false, pageSize: 50 };
+
+    function toast(msg) {
+      const el = document.getElementById('toast');
+      el.textContent = msg;
+      el.classList.add('on');
+      setTimeout(() => el.classList.remove('on'), 2200);
+    }
+
+    function fillList(listEl, items, onPick) {
+      listEl.innerHTML = items.map((i) => `<button type="button" data-v="${i.value}">${i.label}</button>`).join('');
+      listEl.querySelectorAll('button').forEach((b) => {
+        b.addEventListener('click', () => {
+          onPick(b.getAttribute('data-v'), b.textContent);
+          listEl.parentElement.classList.remove('open');
+        });
+      });
+    }
+
+    function bindLkp(wrapId, listId, items, onPick) {
+      const wrap = document.getElementById(wrapId);
+      const list = document.getElementById(listId);
+      wrap.querySelector('button').addEventListener('click', (e) => {
+        e.stopPropagation();
+        document.querySelectorAll('.lkp.open').forEach((n) => { if (n !== wrap) n.classList.remove('open'); });
+        wrap.classList.toggle('open');
+        fillList(list, items, onPick);
+      });
+    }
+
+    function syncDatesExcel() {
+      const showDates = state.family !== 'assets';
+      document.getElementById('fldFrom').classList.toggle('hidden', !showDates);
+      document.getElementById('fldTo').classList.toggle('hidden', !showDates);
+      document.getElementById('btnExport').classList.toggle('hidden', state.family !== 'checkins');
+    }
+
+    function renderHead() {
+      document.getElementById('gridHead').innerHTML =
+        '<tr>' + COLS[state.family].map((c, i) => `<th class="${i===0?'col-stt':''}">${c}</th>`).join('') + '</tr>';
+    }
+
+    function renderBody() {
+      const body = document.getElementById('gridBody');
+      const empty = document.getElementById('emptyHint');
+      document.getElementById('gridTitle').textContent = TITLES[state.family];
+      if (!state.viewed) {
+        body.innerHTML = '';
+        empty.classList.remove('hidden');
+        empty.textContent = 'Chưa xem — nhấn «Xem» để tải báo cáo.';
+        document.getElementById('gridHelp').textContent = empty.textContent;
+        document.getElementById('pageMeta').textContent = 'Tổng: 0 · Trang 1/1';
+        return;
+      }
+      let rows = ROWS[state.family];
+      const q = document.getElementById('inSearch').value.trim().toLowerCase();
+      if (q) rows = rows.filter((r) => r.join(' ').toLowerCase().includes(q));
+      if (state.route) {
+        const code = state.route === 'QL.1' ? 'QL.1' : state.route;
+        rows = rows.filter((r) => r.some((c) => String(c).startsWith(code) || (code === 'QL.1' && String(c).startsWith('QL.1'))));
+      }
+      if (!rows.length) {
+        body.innerHTML = '';
+        empty.classList.remove('hidden');
+        empty.textContent = 'Không có dòng phù hợp bộ lọc.';
+        document.getElementById('gridHelp').textContent = empty.textContent;
+        document.getElementById('pageMeta').textContent = 'Tổng: 0 · Trang 1/1';
+        return;
+      }
+      empty.classList.add('hidden');
+      document.getElementById('gridHelp').textContent = 'Kéo cột default ON · LinCatalogDataGrid (prototype table = visual only).';
+      body.innerHTML = rows.map((r) => '<tr>' + r.map((c, i) => `<td class="${i===0?'col-stt':''}">${c}</td>`).join('') + '</tr>').join('');
+      document.getElementById('pageMeta').textContent = 'Tổng: ' + rows.length + ' · Trang 1/1';
+    }
+
+    function setFamily(value, label) {
+      state.family = value;
+      state.viewed = false;
+      document.getElementById('inFamily').value = label;
+      const first = KINDS[value][0];
+      state.kind = first.value;
+      document.getElementById('inKind').value = first.label;
+      bindLkp('lkpKind', 'listKind', KINDS[value], (v, l) => { state.kind = v; document.getElementById('inKind').value = l; });
+      syncDatesExcel();
+      renderHead();
+      renderBody();
+    }
+
+    bindLkp('lkpFamily', 'listFamily', FAMILIES, (v, l) => setFamily(v, l));
+    bindLkp('lkpKind', 'listKind', KINDS.assets, (v, l) => { state.kind = v; document.getElementById('inKind').value = l; });
+    bindLkp('lkpRoute', 'listRoute', ROUTES, (v, l) => {
+      state.route = v;
+      document.getElementById('inRoute').value = v ? l : '';
+    });
+    bindLkp('lkpPeriod', 'listPeriod', PERIODS, (v, l) => { state.period = v; document.getElementById('inPeriod').value = l; });
+
+    document.addEventListener('click', () => document.querySelectorAll('.lkp.open').forEach((n) => n.classList.remove('open')));
+
+    document.getElementById('btnView').addEventListener('click', () => { state.viewed = true; renderBody(); });
+    document.getElementById('btnSearchIco').addEventListener('click', () => { state.viewed = true; renderBody(); });
+    document.getElementById('inSearch').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') { state.viewed = true; renderBody(); }
+    });
+    document.getElementById('btnRefresh').addEventListener('click', () => {
+      state.viewed = true;
+      renderBody();
+      toast('Đã làm mới');
+    });
+    document.getElementById('btnExport').addEventListener('click', () => {
+      const bom = '\uFEFF';
+      const csv = bom + 'staff,route,points,coverage,day\nNguyễn Văn A,QL.15,5,82,2026-08-15\n';
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'checkins.csv';
+      a.click();
+      toast('Đã xuất CSV check-in (UTF-8 BOM)');
+    });
+    document.getElementById('btnChart').addEventListener('click', () => toast('Biểu đồ — stub P1'));
+    document.getElementById('btnPrint').addEventListener('click', () => toast('In — stub P1'));
+    document.getElementById('btnConfig').addEventListener('click', () => toast('Cấu hình cột: kéo/đổi độ rộng mặc định ON'));
+
+    document.querySelectorAll('.size-bar button').forEach((b) => {
+      b.addEventListener('click', () => {
+        document.querySelectorAll('.size-bar button').forEach((x) => x.classList.remove('active'));
+        b.classList.add('active');
+        state.pageSize = Number(b.getAttribute('data-ps'));
+        toast('Page size ' + state.pageSize);
+      });
+    });
+
+    renderHead();
+    renderBody();
+    syncDatesExcel();
+  </script>
+</body>
+</html>

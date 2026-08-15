@@ -78,6 +78,7 @@
 
 - Follow-up: apply migration on DB · RequirePermission when CommonLib ready · **GPT-4o Vision via Linm.AiService** (workspace chưa có `Linm.AI.WebService` · user chọn `wait_aiservice`).
 - CR 2026-08-14: S-FEED UI (upload JPEG + bbox overlay + GPS QL.1 + nhãn VN) + `IAssetDetector` stub · 1 candidate/frame · **chưa** gọi Azure từ RMMS.Api.
+- Infer run: `/implement-ai-detect-run` · tracking `specs/ai-asset-detect/run/STATUS.md` (P1-0…P2-3 pending).
 
 ## Links
 - mfeStdUrl: `http://localhost:9303/ai-vision/ai-asset-detect`
@@ -86,6 +87,7 @@
 - Review: `specs/ai-asset-detect/review/findings.md`
 - QA: `specs/ai-asset-detect/qa/scenarios.md`
 - Implement: `specs/ai-asset-detect/implement/ai-asset-detect.md`
+- Infer run: `specs/ai-asset-detect/run/STATUS.md` · `/ai-asset-detect-run`
 - DOMAIN-MAP: `D:/AI-QLBD/Linm.RMMS.WebService/docs/DOMAIN-MAP.md`
 - TL tasks: `specs/ai-asset-detect/task/ai-asset-detect.md`
 
