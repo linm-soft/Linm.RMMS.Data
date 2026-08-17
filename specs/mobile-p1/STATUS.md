@@ -14,15 +14,16 @@
 | context | `specs/mobile-p1/mobile/context.md` · 12 slug P1 |
 | mfe / app | **TBD** — `ui_repo_confirm` (SwiftUI + Compose) |
 | backend | same BFF Web · `web-bff/api/v1/*` |
-| updatedAt | `2026-08-18T00:20:00.000Z` |
-| skill | `/agent-design` · IA v3 launcher + tab |
-| iaVersion | `3.1` (VNeID khung + 32 loại TS) |
+| updatedAt | `2026-08-18T01:25:00.000Z` |
+| skill | `/agent-design` · IA v3.3 form sự cố |
+| iaVersion | `3.3` (Thông tin tài sản · chọn TS → form sự cố) |
 
 ## Lock
 
 | agent | scope | id | at |
 |-------|-------|-----|-----|
-| agent-design | mobile-p1 IA v3 · Trang Chủ 6 ô + tab | design_mobile_p1_ia_v3 | 2026-08-18T00:45:00.000Z |
+| agent-design | mobile-p1 IA v3.3 · Thông tin tài sản + form sự cố | design_mobile_p1_ia_v33 | 2026-08-18T01:25:00.000Z |
+| agent-design | workflow-cam-patrol animation | design_wf_cam_patrol | 2026-08-18T01:35:00.000Z |
 
 ## Pipeline
 
@@ -30,7 +31,7 @@
 |------|-------|----------|--------|
 | 0 | gate | product_root · p1_pack · full · both | **done** |
 | 1–2 | analy | mobile/context.md | **done** |
-| 3–6 | design | ui/design.md + ios + android · IA v3 | **await_confirm** |
+| 3–6 | design | ui/design.md + ios + android · IA v3.3 | **await_confirm** |
 | 2.2+ | sa… | `/agent-qldb-workflow-mobile` | sau `design_confirm` |
 
 ## Prototype
@@ -47,11 +48,13 @@
 | **reviewUrl tổng quan** | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/mobile-p1/ui/prototype/index.html` |
 | **reviewUrl iOS** | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/mobile-p1/ui/prototype/ios/index.html` |
 | **reviewUrl Android** | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/mobile-p1/ui/prototype/android/index.html` |
-| serve | `npx --yes serve -p 5198 "D:/AI-QLBD/Linm.RMMS.Data/specs/mobile-p1/ui/prototype"` → `/` · `/ios/` · `/android/` |
+| **reviewUrl workflow** | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/mobile-p1/ui/prototype/workflow-cam-patrol/index.html` |
+| serve | `npx --yes serve -p 5198 "D:/AI-QLBD/Linm.RMMS.Data/specs/mobile-p1/ui/prototype"` → `/` · `/ios/` · `/android/` · `/workflow-cam-patrol/` |
 
 ## Confirms
 
 | Gate | Value |
 |------|-------|
-| design_confirm | pending IA v3 |
+| design_confirm | pending IA v3.3 (form sự cố) |
+| design_confirm_wf_anim | **approve** · workflow-cam-patrol |
 | ui_repo_confirm | pending (SwiftUI + Compose · cấm Flutter/KMP) |

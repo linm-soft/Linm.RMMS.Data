@@ -330,8 +330,9 @@ P2 (ITS §5.2): ≥2 tia + heading → giao điểm object (biển, cọc) — *
 
 ## 10. Handoff → Design
 
-IA **v3 (launcher + tab):** sau login → **Trang Chủ** 6 ô (Giám sát · Check In · Công việc · Vấn đề · Tài sản · Lưu trữ) + tab 5 (Trang Chủ · Check-in · Vấn đề · Công việc · Tôi).  
-Tài sản = ô launcher → hub (thủ công / camera AI / cập nhật-bớt / bản đồ). Bản đồ / Nhận diện **không** tab riêng.
+IA **v3.3 (VNeID + tab):** sau login → **Trang Chủ** header + 2 thẻ + lưới 3×2 (Giám sát · Tuần đường · Công việc · Vấn đề · Tài sản · Lưu trữ) + ví hồ sơ tài sản + tab 5. Ghi sự cố = chọn loại → **Thông tin tài sản** / **form sự cố**.  
+**Một** tính năng hiện trường (không 4 luồng IA): Check-in → phản ánh / camera tuần → Vấn đề → phân công EST+SLA; Tài sản → form 32 loại + checklist.  
+Tài sản = ô launcher → hub. Bản đồ / Nhận diện **không** tab riêng.
 
 Zones `DES-MOB-*` cùng id hai platform.  
 Next: `ui/design.md` + `ui/prototype/ios/index.html` + `ui/prototype/android/index.html`.

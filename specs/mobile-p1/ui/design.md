@@ -12,10 +12,10 @@
 | legacy | `docs/mobile-legacy/Hướng dẫn sử dụng phần mềm.docx` · `docs/context/15-SCREEN-AI-MAP.md` |
 | status | `await_confirm` |
 | design_confirm | pending (IA v3) |
-| iaVersion | **v3.1 — VNeID khung (header + 3×2 + ví TS) · 32 loại** |
+| iaVersion | **v3.3 — Thông tin tài sản · form sự cố sau chọn TS** |
 | layoutRef | `docs/mobile-legacy/layout/*.jpg` — khung VNeID · brand RMMS xanh |
 | catalog32 | `docs/context/features/asset-kcht-32.md` |
-| updatedAt | 2026-08-18T00:55:00.000Z |
+| updatedAt | 2026-08-18T01:25:00.000Z |
 
 ## 0. Context
 
@@ -68,7 +68,8 @@ Nguồn: mục **Trên điện thoại** trong `Hướng dẫn sử dụng phầ
 | Lãnh đạo / giám sát | Xem check-in list+map · thông báo | Ô Giám sát trên Trang Chủ |
 | Mọi vai | Tìm đúng hạng mục như app cũ | Launcher 6 ô = bản đồ tư duy đã học |
 
-Thuật ngữ formal: **tuyến · lý trình Km · điểm kế hoạch · sự cố / vấn đề · tài sản KCHT · độ phủ · giao việc · lưu trữ**. Lọc **theo tuyến** là bắt buộc (không lọc “ngày desktop”).
+Thuật ngữ formal (Cục Đường bộ / QLĐB): **tuần đường · tuần kiểm · chấm công · điểm tuần · lý trình Km · điểm kế hoạch · sự cố / vấn đề · tài sản KCHT · hồ sơ tài sản · độ phủ · giao việc xử lý · thời hạn xử lý · khối lượng · lưu trữ (mất sóng)**.  
+**Cấm** trên máy: SLA · GPS · Offline · Form · Check-in · hộ chiếu · xuất trình · tiện ích yêu thích.
 
 ## 1. IA + chrome (v3 — launcher + tab)
 
@@ -105,13 +106,13 @@ Nhận diện **không** tab — mặt đường ⊂ Vấn đề · TS ⊂ Tài 
 | Surface | SF Symbol | Material | Prototype |
 |---------|-----------|----------|-----------|
 | Tab Trang Chủ | `house` | `home` | `#i-home` |
-| Tab Check-in | `mappin.and.ellipse` | `location_on` | `#i-mappin` |
+| Tab Tuần đường | `mappin.and.ellipse` | `location_on` | `#i-mappin` |
 | Tab Vấn đề | `exclamationmark.triangle` | `warning` | `#i-warning` |
 | Tab Công việc | `wrench.and.screwdriver` | `handyman` | `#i-wrench` |
 | Tab Tôi | `person.crop.circle` | `account_circle` | `#i-person` |
 | Ô Tài sản | `cube` | `inventory_2` | `#i-cube` |
 | Thu thập thủ công | `plus` | `add` | `#i-plus` |
-| Camera AI | `camera` | `photo_camera` | `#i-camera` |
+| Thu thập bằng camera | `camera` | `photo_camera` | `#i-camera` |
 | Cập nhật / bớt | `minus` | `remove` | `#i-minus` |
 | Bản đồ TS | `scope` | `explore` | `#i-scope` |
 | Giám sát | `list.bullet` | `monitor` | `#i-list` |
@@ -135,8 +136,14 @@ Nhận diện **không** tab — mặt đường ⊂ Vấn đề · TS ⊂ Tài 
 | Trang Chủ | `DES-MOB-HOME` | Greeting + 6 ô | Same |
 | Greeting | `DES-MOB-HOME-HELLO` | Tên + chức vụ + đơn vị | Same |
 | Lưới 6 ô | `DES-MOB-HOME-GRID` | 3×2 (VNeID fav) | Same |
-| Ví hộ chiếu TS | `DES-MOB-ASSET-WALLET` | Thẻ tuyến + 32 loại | Same |
-| 32 loại | `DES-MOB-ASSET-32` · `DES-MOB-ASSET-TYPE` | Lưới + thông số/sự cố | Same |
+| Ví hồ sơ TS | `DES-MOB-ASSET-WALLET` · `DES-MOB-HOME-WALLET` | Thẻ tuyến + 32 loại | Same |
+| Phản ánh hiện trường | `DES-MOB-FIELD-REFLECT` · `DES-MOB-FIELD-KIND` | ⊂ Tuần đường | Same |
+| Camera tuần | `DES-MOB-CAM-PATROL` · `DES-MOB-CAM-FINDER` | ⊂ Tuần đường | Same |
+| Thông tin tài sản | `DES-MOB-ASSET-TYPE` | Nav **Thông tin tài sản** · CTA Ghi sự cố | Same |
+| Form sự cố | `DES-MOB-INC-FORM` · `DES-MOB-INC-KIND` | Sau chọn loại · checklist + ảnh + nhận diện + định vị + giao việc | Same |
+| Workflow animation | `DES-WF-ANIM-SCENE` · `STEPS` · `PHONE` · `LOG` | Xe máy + FOV · mất/gãy biển · Play/reset | Same HTML |
+| Form 32 loại | `DES-MOB-ASSET-FORM` | ⊂ Thông tin tài sản · sửa thông số | Same |
+| 32 loại | `DES-MOB-ASSET-32` | Lưới chọn loại | Same |
 | Check-in home | `DES-MOB-PAT-HOME` | Large title Check-in | Same |
 | Segment | `DES-MOB-PAT-SEG` | Tuần đường / Chấm công | FilterChips |
 | Giám sát | `DES-MOB-SUPERVISE` | List CI + lọc + lối map | Same |
@@ -177,10 +184,11 @@ Nhận diện **không** tab — mặt đường ⊂ Vấn đề · TS ⊂ Tài 
 
 | Meaning | iOS | Android (Material 3) |
 |---------|-----|----------------------|
-| Tint / primary | `#007AFF` | `#1B6EF3` primary |
-| Success | `#34C759` | `#1B8A4A` |
-| Warning offline | `#FF9500` | `#E67E00` |
-| Danger | `#FF3B30` | `#D32F2F` |
+| Tint / primary | `#0C84C0` (logo MMS) | `#0C84C0` |
+| Header / ví | `#086A9A` → `#0C84C0` | Same |
+| Success | `#3CB448` (logo lục) | `#3CB448` |
+| Warning | `#FCB43C` (logo vàng đường) | `#FCB43C` |
+| Danger | `#F03C30` (logo đỏ) | `#F03C30` |
 | Grouped / surface | `#F2F2F7` | `#F7F2FA` surface |
 | Card | `#FFF` r12 | surfaceContainer r16 |
 | Font | `-apple-system` | Roboto / system |
@@ -222,9 +230,24 @@ Nhận diện **không** tab — mặt đường ⊂ Vấn đề · TS ⊂ Tài 
 | Icons SF ↔ Material — **cấm** emoji | ✅ | ✅ | |
 | Map OMS live — **cấm** fake / `vh` cap | ✅ flex host | ✅ | |
 
+## 5b. Một tính năng hiện trường (không đổi IA)
+
+Bốn ý user = **một** tính năng trong app VNeID sẵn có — **cấm** tách 4 tab / 4 ô launcher.
+
+| Bước trong cùng tính năng | Vào từ | Zone | Lưu ý |
+|---------------------------|--------|------|--------|
+| 1. Chấm công tuần: chụp / ghi phản ánh hư · mất · hỏng + nhận diện | Check-in → Phản ánh hiện trường | `DES-MOB-FIELD-REFLECT` | Ảnh + GPS chốt · checklist loại TS · tạo vấn đề. **Cấm** badge P1/P2 trên header |
+| 2. Camera tuần tự detect theo tọa độ → tạo vấn đề | Check-in → Camera tuần | `DES-MOB-CAM-PATROL` | Hệ thống **tự `POST …/incidents`** (ảnh + tọa độ + video) · user **xác nhận lại sau** (Đúng / Không đúng) · **cấm** score chrome |
+| 3. Phân công sửa chữa theo ước lượng + SLA | Vấn đề chi tiết / Công việc | `DES-MOB-EST` | Giao cho · qty · đơn giá · SLA giờ · hạn · `WO-*` |
+| 4. Form 32 loại + checklist sự cố | Tài sản → Thông tin tài sản → Sửa thông số | `DES-MOB-ASSET-FORM` | PAVEMENT = cột Khu IV / Biểu 1 · sự cố = `rmms_incidents.assetId` |
+| 5. Tạo sự cố | Ghi sự cố → chọn loại → **form sự cố** | `DES-MOB-INC-FORM` | Hư/Mất/Hỏng · checklist loại · ảnh + nhận diện · định vị chốt · Tạo vấn đề · camera · giao việc |
+
+Home vẫn: header xanh RMMS · 2 thẻ Điểm tuần / Ghi sự cố · lưới 3×2 · ví hồ sơ tài sản · tab 5.
+
 ## 6. Out of scope P1
 
-Twin 3D · YOLO local · train offline · WO/SLA full · TOC · cổng dân · camera config HW.
+Twin 3D · YOLO local · train offline · TOC · cổng dân · camera config HW.  
+SLA **mobile** = giờ + hạn trên form phân công (P1) — escalation workflow = P2.
 
 ## 7. Gaps design (IA v3)
 
@@ -255,7 +278,8 @@ Twin 3D · YOLO local · train offline · WO/SLA full · TOC · cổng dân · c
 | **reviewUrl tổng quan** | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/mobile-p1/ui/prototype/index.html` |
 | **reviewUrl iOS** | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/mobile-p1/ui/prototype/ios/index.html` |
 | **reviewUrl Android** | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/mobile-p1/ui/prototype/android/index.html` |
-| Serve | `npx --yes serve -p 5198 ui/prototype` → `/` · `/ios/` · `/android/` |
+| **reviewUrl workflow animation** | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/mobile-p1/ui/prototype/workflow-cam-patrol/index.html` |
+| Serve | `npx --yes serve -p 5198 ui/prototype` → `/` · `/ios/` · `/android/` · `/workflow-cam-patrol/` |
 
 Mở **Trang Chủ** trước — 6 ô app cũ. Ô **Tài sản** → hub (thủ công + camera AI). Tab dưới = việc hàng ngày.
 
@@ -281,6 +305,6 @@ Mở **Trang Chủ** trước — 6 ô app cũ. Ô **Tài sản** → hub (thủ
 |-------|-------|
 | skillId | agent-design |
 | agentVersion | 2026.08.17.02 |
-| generatedAt | 2026-08-18T00:20:00.000Z |
+| generatedAt | 2026-08-18T01:25:00.000Z |
 | schemaVersion | 1 |
-| iaVersion | 3 |
+| iaVersion | 3.3 |
