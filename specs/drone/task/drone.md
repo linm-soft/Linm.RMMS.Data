@@ -38,7 +38,7 @@
 | T-BE-03 | scans | dev | T-BE-01 | MIG | `Schema_RmmsDroneScans` tables |
 | T-UI-LIST | /drone | dev | T-PERM-01,T-BE-01 | FE | Kind B list DoD |
 | T-UI-FORM | /drone/:id | dev | T-UI-LIST | FE | form + artifacts + process stub |
-| T-QA-01 | drone | qa | T-UI-FORM,T-BE-02 | QA | scenarios + mfeStdUrl |
+| T-QA-01 | drone | qa | T-UI-FORM,T-BE-02 | QA | scenarios + mfeStdUrl · **done** `task_d3584c9d` |
 | T-RV-01 | drone | review | T-QA-01 | RV | findings |
 
 ## FormType pack (canonical · task_df075284)

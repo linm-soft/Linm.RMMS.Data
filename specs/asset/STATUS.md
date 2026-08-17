@@ -3,8 +3,8 @@
 | Field | Value |
 |-------|-------|
 | feature | `asset` |
-| phase | `done` |
-| status | `done` |
+| phase | `team_lead` |
+| status | `blocked` |
 | changeScope | `edit_page` |
 | packKind | `list` |
 | demo | `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/asset-demo.html` |
@@ -25,7 +25,7 @@
 | qa.artifact | `specs/asset/qa/scenarios.md` |
 | review.artifact | `specs/asset/review/findings.md` |
 | taskId | `task_bf4df098` |
-| updatedAt | `2026-08-14T16:27:33.561Z` |
+| updatedAt | `2026-08-15T17:06:15.089Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -40,9 +40,9 @@
 | 1 | po | po/requirement.md | **done** |
 | 2.1 | design | ui/design.md + prototype + reviewUrl | **confirmed** |
 | 2.2 | sa | be/solution-discovery.md | **confirmed** |
-| 3 | team-lead | task/asset.md | **done** |
+| 3 | team-lead | task/asset.md | **blocked** (failed) |
 | 4 | dev | implement/asset.md | **confirmed** |
-| 5 | qa | qa/scenarios.md | **confirmed** |
+| 5 | qa | qa/scenarios.md | pending |
 | 6 | review | review/findings.md | **done** |
 ## Confirms
 
@@ -87,6 +87,7 @@
 ## Blockers / open questions
 
 - P0: none
+- **GAP-RPT-SRC-ASSET-01** — `rpt-tai-san` cần **Quantity (SL) + UnitCode (ĐVT)** trên `rmms_road_assets` / form — `specs/_form-type/REPORT-SOURCE-FIELD-GAPS.md`
 - GAP-SA-* + GAP-TL-* closed (Dev)
 - CommonLib / Auth NuGet chưa mount — `[RequirePermission]` TODO BE (nợ SD-AUTH P2)
 - Excel export / History API / Leaflet+AI = P1 out of scope list pack

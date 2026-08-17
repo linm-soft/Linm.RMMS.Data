@@ -3,126 +3,599 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Prototype — Open API và tích hợp · Kind G + B A–D</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
+  <title>Prototype — Open API và tích hợp · Kind G + B A–D + full-page</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
     :root {
       --bg: #f5f7fa; --card: #fff; --border: #BABCBE; --border-soft: #e9ecef;
-      --txt: #1A1A1A; --muted: #6c757d; --primary: #0d6efd; --toolbar-bg: #f8fafc;
-      --ds-radius-md: 4px; --ds-font-body: 13px; --ds-height-btn: 32px;
+      --txt: #1A1A1A; --txt-secondary: #6c757d; --muted: #6D6D6D;
+      --primary: #0d6efd; --toolbar-bg: #f8fafc;
+      --ds-focus-shadow: 0px 0px 4px #BABCBE; --ds-radius-md: 4px;
+      --ds-font-body: 13px; --ds-font-title: 22px; --ds-height-btn: 32px;
+      --col-no: 48px; --check-size: 24px;
     }
     * { box-sizing: border-box; }
     body { margin: 0; font-family: "Segoe UI", system-ui, sans-serif; background: var(--bg); color: var(--txt); font-size: var(--ds-font-body); }
-    .page { max-width: 1200px; margin: 0 auto; padding: 16px; min-height: 100vh; display: flex; flex-direction: column; }
-    .zoneA { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
-    .zoneA h1 { margin: 0; font-size: 22px; font-weight: 700; }
-    .badge { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px; background: #e7f1ff; color: #0b5ed7; }
+    input, textarea {
+      padding: 6px 10px; border: 1px solid var(--border); border-radius: var(--ds-radius-md);
+      font-size: 13px; min-height: 32px; width: 100%; background: #fff; font-family: inherit;
+    }
+    input:focus, textarea:focus { outline: none; border-color: var(--primary); box-shadow: var(--ds-focus-shadow); }
+    input[type="checkbox"] { width: var(--check-size); height: var(--check-size); min-width: var(--check-size); accent-color: var(--primary); }
+    textarea { min-height: 88px; resize: vertical; }
+    .page { max-width: 1280px; margin: 0 auto; padding: 8px; display: flex; flex-direction: column; gap: 8px; min-height: 100vh; }
+    .zone-a { display: flex; align-items: center; gap: 10px; flex-shrink: 0; flex-wrap: wrap; }
+    .zone-a h1 { margin: 0; font-size: var(--ds-font-title); font-weight: 700; }
+    .badge { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: #dbeafe; color: #1e40af; }
     .badgeWarn { background: #fff3cd; color: #856404; }
-    .zoneB { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 10px 12px; background: var(--toolbar-bg); border: 1px solid var(--border-soft); border-radius: var(--ds-radius-md); margin-bottom: 10px; }
+    .zone-b { display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; padding: 10px 12px; background: var(--toolbar-bg); border: 1px solid var(--border-soft); border-radius: var(--ds-radius-md); }
+    .zone-b-left, .zone-b-right { display: flex; flex-wrap: wrap; gap: 8px; align-items: flex-end; }
     .btn { height: var(--ds-height-btn); padding: 0 12px; border: 1px solid var(--border); border-radius: var(--ds-radius-md); background: #fff; cursor: pointer; font-size: 12px; }
     .btn.primary { background: var(--primary); color: #fff; border-color: var(--primary); }
-    .tabs { display: flex; gap: 0; margin-bottom: 10px; border-bottom: 1px solid var(--border-soft); }
+    .field { display: flex; flex-direction: column; gap: 4px; min-width: 160px; }
+    .field label { font-size: 12px; color: var(--muted); font-weight: 500; }
+    .req::after { content: " *"; color: #dc2626; font-weight: 700; }
+    .search-wrap { display: flex; align-items: stretch; border: 1px solid var(--border); border-radius: var(--ds-radius-md); overflow: hidden; background: #fff; min-width: 176px; min-height: 32px; }
+    .search-wrap:focus-within { border-color: var(--primary); box-shadow: var(--ds-focus-shadow); }
+    .search-wrap input { border: 0 !important; outline: none !important; box-shadow: none !important; flex: 1; min-width: 0; min-height: 30px; width: auto; }
+    .search-wrap button { border: 0; border-left: 1px solid var(--border); background: #f8fafc; padding: 0 10px; cursor: pointer; color: var(--muted); min-width: 36px; }
+    .lkp { position: relative; }
+    .lkp-list { display: none; position: absolute; left: 0; right: 0; top: 100%; z-index: 30; background: #fff; border: 1px solid var(--border); border-radius: var(--ds-radius-md); max-height: 180px; overflow: auto; box-shadow: 0 8px 24px rgba(15,23,42,.12); }
+    .lkp.open .lkp-list { display: block; }
+    .lkp-list button { display: block; width: 100%; text-align: left; border: 0; background: #fff; padding: 8px 10px; font-size: 13px; cursor: pointer; }
+    .lkp-list button:hover { background: #f1f5f9; }
+    .tabs { display: flex; gap: 0; border-bottom: 1px solid var(--border-soft); }
     .tabs button { padding: 8px 14px; border: 0; background: transparent; font-weight: 700; color: var(--muted); cursor: pointer; border-bottom: 2px solid transparent; }
     .tabs button.on { color: var(--primary); border-bottom-color: var(--primary); }
-    .filters { display: grid; grid-template-columns: 1fr 160px 160px; gap: 12px; margin-bottom: 10px; }
-    label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--muted); }
-    input, select { min-height: 32px; padding: 6px 10px; border: 1px solid var(--border); border-radius: var(--ds-radius-md); font-size: 13px; }
-    .zoneC { flex: 1; background: var(--card); border: 1px solid var(--border-soft); border-radius: var(--ds-radius-md); overflow: auto; min-height: 280px; }
+    .panel-tab { display: none; flex-direction: column; gap: 8px; flex: 1; }
+    .panel-tab.on { display: flex; }
+    .zone-c { flex: 1; background: var(--card); border: 1px solid var(--border-soft); border-radius: var(--ds-radius-md); display: flex; flex-direction: column; min-height: 260px; overflow: hidden; }
+    .grid-head { padding: 12px 16px 8px; }
+    .grid-title { margin: 0; font-size: 15px; font-weight: 700; }
+    .grid-help { margin: 4px 0 0; font-size: 12px; color: var(--txt-secondary); }
+    .table-wrap { overflow: auto; flex: 1; }
     table { width: 100%; border-collapse: collapse; }
-    th, td { padding: 8px 10px; border-bottom: 1px solid var(--border-soft); text-align: left; white-space: nowrap; font-size: 12px; }
-    th { background: #f8fafc; color: var(--muted); }
-    .zoneD { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; margin-top: 8px; gap: 12px; flex-wrap: wrap; }
-    .hint { color: var(--muted); font-size: 12px; margin: 0 0 12px; }
-    .slide { position: fixed; top: 0; right: 0; width: min(560px, 100%); height: 100%; background: #fff; border-left: 1px solid var(--border); box-shadow: -8px 0 24px rgba(15,23,42,.12); display: none; flex-direction: column; z-index: 20; }
-    .slide.open { display: flex; }
-    .slide .z1 { display: flex; justify-content: space-between; gap: 8px; padding: 12px 16px; border-bottom: 1px solid var(--border-soft); }
-    .slide .body { padding: 16px; overflow: auto; flex: 1; }
-    .slide .z3 { display: flex; justify-content: flex-end; gap: 8px; padding: 12px 16px; border-top: 1px solid var(--border-soft); flex-wrap: wrap; }
-    .fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .span2 { grid-column: 1 / -1; }
+    th, td { padding: 8px 12px; border-bottom: 1px solid var(--border-soft); text-align: left; white-space: nowrap; font-size: 12px; }
+    th { background: #f8fafc; color: var(--muted); position: sticky; top: 0; }
+    th.col-stt, td.col-stt, th.col-check, td.col-check { width: var(--col-no); text-align: center; }
+    tbody tr:hover { background: #f1f5f9; }
+    .code { color: var(--primary); font-family: ui-monospace, Consolas, monospace; cursor: pointer; text-decoration: underline; background: none; border: 0; padding: 0; font-size: inherit; }
+    .menu { position: relative; }
+    .menu summary { list-style: none; cursor: pointer; padding: 4px 8px; border: 1px solid var(--border); border-radius: 4px; background: #fff; }
+    .menu-panel { display: none; position: absolute; right: 0; z-index: 3; background: #fff; border: 1px solid var(--border); border-radius: 6px; min-width: 160px; box-shadow: 0 8px 24px rgba(15,23,42,.12); }
+    .menu[open] .menu-panel { display: block; }
+    .menu-panel button { display: block; width: 100%; text-align: left; border: 0; background: transparent; padding: 8px 12px; cursor: pointer; }
+    .menu-panel button:hover { background: #f1f5f9; }
+    .zone-d { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 12px 16px; border-top: 1px solid var(--border-soft); background: #fff; }
+    .zone-d-controls { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: center; }
+    .pager-btn { width: 32px; height: 32px; border: 1px solid var(--border-soft); border-radius: var(--ds-radius-md); background: #fff; cursor: pointer; }
+    .pager-btn:disabled { opacity: 0.4; }
+    .pageSize { display: flex; gap: 4px; }
+    .pageSize button.on { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .swagger { padding: 16px; font-family: ui-monospace, Consolas, monospace; font-size: 12px; background: #0f172a; color: #e2e8f0; min-height: 180px; }
+    .guide { padding: 16px; color: var(--muted); line-height: 1.5; }
+    .view-form, .view-partner, .view-job { display: none; }
+    .page.mode-import .view-list { display: none; }
+    .page.mode-import .view-form { display: flex; flex-direction: column; gap: 8px; min-height: 90vh; }
+    .page.mode-job .view-list { display: none; }
+    .page.mode-job .view-job { display: flex; flex-direction: column; gap: 8px; min-height: 90vh; }
+    .page.mode-partner .view-list { display: none; }
+    .page.mode-partner .view-partner { display: flex; flex-direction: column; gap: 8px; min-height: 90vh; }
+    .form-header { background: #fff; border: 1px solid var(--border-soft); border-radius: var(--ds-radius-md); }
+    .z1-toolbar { display: flex; justify-content: space-between; gap: 8px; padding: 10px 16px; border-bottom: 1px solid var(--border-soft); flex-wrap: wrap; }
+    .z1-title-row { display: flex; align-items: center; gap: 8px; padding: 10px 16px 4px; flex-wrap: wrap; }
+    .z2 { display: flex; flex-direction: column; gap: 16px; }
+    .section { padding: 16px; background: #fff; border: 1px solid var(--border-soft); border-radius: var(--ds-radius-md); }
+    .section-label { margin: 0 0 12px; font-size: 12px; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: .5px; padding-bottom: 8px; border-bottom: 1px solid var(--border-soft); }
+    .fields { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; }
+    .fields .span-full { grid-column: 1 / -1; }
+    .dl { display: grid; grid-template-columns: 180px 1fr; gap: 8px 16px; }
+    .dl dt { color: var(--muted); font-size: 12px; }
+    .dl dd { margin: 0; }
+    .z3 { display: flex; justify-content: flex-end; gap: 8px; flex-wrap: wrap; padding: 12px 16px; background: #fff; border: 1px solid var(--border-soft); border-radius: var(--ds-radius-md); }
+    .hidden { display: none !important; }
+    .modal { display: none; position: fixed; inset: 0; background: rgba(15,23,42,.45); z-index: 40; align-items: center; justify-content: center; padding: 16px; }
+    .modal.on { display: flex; }
+    .modal-card { background: #fff; border-radius: 8px; padding: 16px; max-width: 720px; width: 100%; border: 1px solid var(--border); max-height: 90vh; overflow: auto; }
+    .modal-card h3 { margin: 0 0 12px; font-size: 16px; }
+    .hint { color: var(--muted); font-size: 12px; margin: 0; }
+    @media (max-width: 1100px) { .fields { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+    @media (max-width: 720px) { .fields { grid-template-columns: 1fr 1fr; } }
   </style>
 </head>
 <body>
-  <div class="page" data-catalog-list-page data-testid="rmms-integration-hub-prototype">
-    <header class="zoneA" data-zone="A">
-      <i class="fas fa-plug" aria-hidden="true"></i>
-      <h1>Open API và tích hợp</h1>
-      <span class="badge">Kind G hub</span>
-      <span class="badge badgeWarn">P1 baseline</span>
-    </header>
-    <p class="hint">Prototype content-only · A–D · Import Z1–Z3 · no chrome/menu · reviewUrl gate.</p>
+  <div class="page" id="page">
+    <div class="view-list" id="viewList" data-catalog-list-page data-zones="A-B-C-D" data-testid="rmms-integration-hub-prototype">
+      <header class="zone-a" data-zone="A">
+        <h1><i class="fas fa-plug" aria-hidden="true"></i> Open API và tích hợp</h1>
+        <span class="badge">Kind G hub</span>
+        <span class="badge badgeWarn">P1 baseline</span>
+      </header>
+      <p class="hint">Prototype content-only · A–D · full-page Import/Job/Partner · SearchInput (cấm native Select) · không chrome/menu · không Slideout.</p>
 
-    <div class="zoneB" data-zone="B">
-      <button type="button" class="btn"><i class="fas fa-book"></i> Mở Swagger</button>
-      <button type="button" class="btn">Copy OpenAPI URL</button>
-      <button type="button" class="btn"><i class="fas fa-heartbeat"></i> Làm mới health</button>
-      <button type="button" class="btn">Xuất catalog</button>
-      <button type="button" class="btn"><i class="fas fa-sync-alt"></i> Làm mới</button>
-      <button type="button" class="btn">Offline-batch</button>
-      <button type="button" class="btn primary" id="btnImport"><i class="fas fa-file-import"></i> Import tài sản</button>
+      <div class="zone-b" data-zone="B">
+        <div class="zone-b-left">
+          <button type="button" class="btn"><i class="fas fa-book"></i> Mở Swagger</button>
+          <button type="button" class="btn">Copy OpenAPI URL</button>
+          <button type="button" class="btn"><i class="fas fa-heartbeat"></i> Làm mới health</button>
+          <button type="button" class="btn">Xuất catalog</button>
+          <button type="button" class="btn"><i class="fas fa-sync-alt"></i> Làm mới</button>
+          <button type="button" class="btn" id="btnOffline">Offline-batch</button>
+          <button type="button" class="btn" title="P2 stub" disabled>Đăng ký webhook</button>
+          <button type="button" class="btn" id="btnConfig" aria-label="Sửa config"><i class="fas fa-cog"></i></button>
+        </div>
+        <div class="zone-b-right">
+          <button type="button" class="btn primary" id="btnImport"><i class="fas fa-file-import"></i> Import tài sản</button>
+          <button type="button" class="btn" id="btnJobNew"><i class="fas fa-plus"></i> Thêm job</button>
+        </div>
+      </div>
+
+      <nav class="tabs" aria-label="Hub tabs">
+        <button type="button" data-tab="ep">Endpoints</button>
+        <button type="button" class="on" data-tab="sync">Sync jobs</button>
+        <button type="button" data-tab="partners">Partners</button>
+        <button type="button" data-tab="guide">Import guide</button>
+      </nav>
+
+      <section class="panel-tab" id="tab-ep" data-catalog-kind="integration-endpoints">
+        <div class="zone-b-left" style="padding:0 0 4px">
+          <div class="field">
+            <label for="epSearch">Lọc path / mô tả</label>
+            <div class="search-wrap">
+              <input id="epSearch" type="search" placeholder="method · path · mô tả…" autocomplete="off" />
+              <button type="button" aria-label="Tìm"><i class="fas fa-search"></i></button>
+            </div>
+          </div>
+          <div class="field">
+            <label for="epPhase">Phase</label>
+            <div class="lkp" data-lkp="phase">
+              <div class="search-wrap">
+                <input id="epPhase" type="search" placeholder="SearchInput · tất cả" autocomplete="off" />
+                <button type="button"><i class="fas fa-search"></i></button>
+              </div>
+              <div class="lkp-list"></div>
+            </div>
+          </div>
+        </div>
+        <div class="zone-c" data-zone="C">
+          <div class="grid-head">
+            <h2 class="grid-title">Catalog endpoint P1</h2>
+            <p class="grid-help">Kéo cột default ON · config schema integration-endpoints</p>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Method</th><th>Path</th><th>Mô tả</th><th>Phase</th><th>Auth</th><th>Trạng thái</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>GET</td><td>/api/v1/integration/health</td><td>Health adapters</td><td>P1</td><td>Bearer</td><td>Signed</td></tr>
+                <tr><td>GET</td><td>/api/v1/integration/sync-jobs</td><td>Sync jobs paged</td><td>P1</td><td>Bearer</td><td>Signed</td></tr>
+                <tr><td>POST</td><td>/api/v1/integration/assets/import</td><td>Import tài sản</td><td>P1</td><td>Bearer</td><td>Signed</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="swagger">GET /swagger/v1/swagger.json · stub panel (không host full Swagger UI)</div>
+      </section>
+
+      <section class="panel-tab on" id="tab-sync" data-catalog-kind="integration-sync-jobs">
+        <div class="zone-b-left" style="padding:0 0 4px">
+          <div class="field">
+            <label for="jobSearch">Tìm kiếm</label>
+            <div class="search-wrap">
+              <input id="jobSearch" type="search" placeholder="Mã / partner…" autocomplete="off" />
+              <button type="button"><i class="fas fa-search"></i></button>
+            </div>
+          </div>
+          <div class="field">
+            <label for="jobType">Loại sync</label>
+            <div class="lkp" data-lkp="syncType">
+              <div class="search-wrap">
+                <input id="jobType" type="search" placeholder="SearchInput · tất cả" autocomplete="off" />
+                <button type="button"><i class="fas fa-search"></i></button>
+              </div>
+              <div class="lkp-list"></div>
+            </div>
+          </div>
+          <div class="field">
+            <label for="jobStatus">Trạng thái</label>
+            <div class="lkp" data-lkp="jobStatus">
+              <div class="search-wrap">
+                <input id="jobStatus" type="search" placeholder="SearchInput · tất cả" autocomplete="off" />
+                <button type="button"><i class="fas fa-search"></i></button>
+              </div>
+              <div class="lkp-list"></div>
+            </div>
+          </div>
+        </div>
+        <div class="zone-c" data-zone="C">
+          <div class="grid-head">
+            <h2 class="grid-title">Danh sách sync jobs</h2>
+            <p class="grid-help">nhấn đúp / Ctrl+chuột phải · Xem · Sửa · Xem log · Retry · Lịch sử · Xóa</p>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th class="col-stt">STT</th><th class="col-check">□</th>
+                  <th>Mã job</th><th>Loại</th><th>Partner</th><th>Trạng thái</th>
+                  <th>Số bản ghi</th><th>Bắt đầu</th><th>Kết thúc</th><th>Lỗi</th><th>⋯</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="col-stt">1</td><td class="col-check"><input type="checkbox" /></td>
+                  <td><button type="button" class="code" id="openJobView">SYNC-20260728-0003</button></td>
+                  <td>import</td><td>Asset KCHT Excel</td><td>done</td><td>120</td><td>28/07 08:10</td><td>28/07 08:14</td><td>—</td>
+                  <td>
+                    <details class="menu">
+                      <summary>⋯</summary>
+                      <div class="menu-panel">
+                        <button type="button" id="openJobEdit">Sửa</button>
+                        <button type="button">Xem log</button>
+                        <button type="button">Retry</button>
+                        <button type="button">Lịch sử</button>
+                        <button type="button">Xóa</button>
+                      </div>
+                    </details>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="col-stt">2</td><td class="col-check"><input type="checkbox" /></td>
+                  <td><button type="button" class="code">SYNC-20260801-0002</button></td>
+                  <td>import</td><td>Asset KCHT Excel</td><td>failed</td><td>12</td><td>01/08 09:20</td><td>01/08 09:20</td><td>Đoạn không khớp</td>
+                  <td>
+                    <details class="menu">
+                      <summary>⋯</summary>
+                      <div class="menu-panel">
+                        <button type="button">Xem</button>
+                        <button type="button">Retry</button>
+                      </div>
+                    </details>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="zone-d" data-zone="D">
+            <span>Tổng: 4 · Trang 1/1</span>
+            <div class="zone-d-controls">
+              <span>Hiển thị</span>
+              <div class="pageSize">
+                <button type="button" class="btn on">50</button>
+                <button type="button" class="btn">100</button>
+                <button type="button" class="btn">200</button>
+                <button type="button" class="btn">500</button>
+              </div>
+              <button type="button" class="pager-btn" disabled>‹</button>
+              <button type="button" class="pager-btn">1</button>
+              <button type="button" class="pager-btn" disabled>›</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel-tab" id="tab-partners" data-catalog-kind="integration-partners">
+        <div class="zone-b-left" style="padding:0 0 4px">
+          <div class="field">
+            <label for="partnerSearch">Tìm partner</label>
+            <div class="search-wrap">
+              <input id="partnerSearch" type="search" placeholder="name · systemType…" autocomplete="off" />
+              <button type="button"><i class="fas fa-search"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="zone-c" data-zone="C">
+          <div class="grid-head">
+            <h2 class="grid-title">Partner adapters</h2>
+            <p class="grid-help">Row menu: Xem · Bật/Tắt · schema integration-partners</p>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th class="col-stt">STT</th><th>Partner</th><th>Loại hệ thống</th><th>Auth</th><th>Health</th><th>Phase</th><th>Enabled</th><th>⋯</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="col-stt">1</td>
+                  <td><button type="button" class="code" id="openPartner">ERP CMMS</button></td>
+                  <td>ERP</td><td>OAuth2</td><td>OK</td><td>P1</td><td>Bật</td>
+                  <td>
+                    <details class="menu">
+                      <summary>⋯</summary>
+                      <div class="menu-panel">
+                        <button type="button">Xem</button>
+                        <button type="button">Bật/Tắt</button>
+                      </div>
+                    </details>
+                  </td>
+                </tr>
+                <tr><td class="col-stt">2</td><td>GIS IoT</td><td>GIS</td><td>API key</td><td>Degraded</td><td>P2</td><td>Tắt</td><td>⋯</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="zone-d" data-zone="D">
+            <span>Tổng: 10 · Trang 1/1</span>
+            <div class="zone-d-controls">
+              <span>Hiển thị</span>
+              <div class="pageSize">
+                <button type="button" class="btn on">50</button>
+                <button type="button" class="btn">100</button>
+                <button type="button" class="btn">200</button>
+                <button type="button" class="btn">500</button>
+              </div>
+              <button type="button" class="pager-btn" disabled>‹</button>
+              <button type="button" class="pager-btn">1</button>
+              <button type="button" class="pager-btn" disabled>›</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel-tab" id="tab-guide">
+        <div class="guide">
+          Guide Import KCHT: Loại TS · Địa bàn · Tuyến · Đoạn · File Excel/CSV. Form Import là <strong>full-page</strong> <code>/integration/import</code> — không Slideout. Leave-confirm khi dirty.
+        </div>
+      </section>
     </div>
 
-    <nav class="tabs">
-      <button type="button">Endpoints</button>
-      <button type="button" class="on">Sync jobs</button>
-      <button type="button">Partners</button>
-      <button type="button">Import guide</button>
-    </nav>
-
-    <div class="filters" data-zone="C-filters">
-      <label>Tìm kiếm<input type="search" placeholder="Mã / partner…" /></label>
-      <label>Loại sync<select><option>Tất cả</option><option>import</option><option>offline-batch</option></select></label>
-      <label>Trạng thái<select><option>Tất cả</option><option>done</option><option>failed</option></select></label>
+    <div class="view-form" id="viewImport" data-form-cols="5" data-testid="rmms-integration-import-prototype">
+      <div class="form-header">
+        <div class="z1-toolbar">
+          <button type="button" class="btn" id="backFromImport"><i class="fas fa-arrow-left"></i> Quay lại</button>
+        </div>
+        <div class="z1-title-row">
+          <h1 style="margin:0;font-size:22px">Import tài sản KCHT</h1>
+          <span class="badge">Tạo mới</span>
+          <span class="badge">Full page</span>
+        </div>
+      </div>
+      <div class="z2">
+        <div class="section">
+          <p class="section-label">Thông tin batch</p>
+          <div class="fields" data-form-cols="5">
+            <div class="field"><label>Mã job</label><input readonly value="SYNC-20260816-0001" /></div>
+            <div class="field">
+              <label class="req">Loại tài sản</label>
+              <div class="lkp" data-lkp="assetType">
+                <div class="search-wrap">
+                  <input type="search" placeholder="SearchInput" autocomplete="off" />
+                  <button type="button"><i class="fas fa-search"></i></button>
+                </div>
+                <div class="lkp-list"></div>
+              </div>
+            </div>
+            <div class="field">
+              <label class="req">Địa bàn</label>
+              <div class="lkp" data-lkp="region">
+                <div class="search-wrap">
+                  <input type="search" placeholder="SearchInput" autocomplete="off" />
+                  <button type="button"><i class="fas fa-search"></i></button>
+                </div>
+                <div class="lkp-list"></div>
+              </div>
+            </div>
+            <div class="field">
+              <label class="req">Tuyến đường</label>
+              <div class="lkp" data-lkp="route">
+                <div class="search-wrap">
+                  <input type="search" placeholder="SearchInput" autocomplete="off" />
+                  <button type="button"><i class="fas fa-search"></i></button>
+                </div>
+                <div class="lkp-list"></div>
+              </div>
+            </div>
+            <div class="field"><label>Đoạn đường</label><input placeholder="Km 12+000 – 14+500" /></div>
+            <div class="field span-full"><label class="req">File nguồn</label><input type="file" accept=".xlsx,.xls,.csv" /></div>
+            <div class="field span-full"><label>Ghi chú</label><textarea rows="3"></textarea></div>
+          </div>
+        </div>
+      </div>
+      <div class="z3">
+        <button type="button" class="btn" id="cancelImport">Hủy thay đổi</button>
+        <button type="button" class="btn">Tải mẫu Excel</button>
+        <button type="button" class="btn primary">Chạy import</button>
+      </div>
     </div>
 
-    <div class="zoneC" data-zone="C">
-      <table>
-        <thead>
-          <tr>
-            <th>STT</th><th>Mã job</th><th>Loại</th><th>Partner</th><th>Trạng thái</th>
-            <th>Số bản ghi</th><th>Bắt đầu</th><th>Kết thúc</th><th>Lỗi</th><th>⋯</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>1</td><td class="code">SYNC-20260728-0003</td><td>import</td><td>Asset KCHT Excel</td><td>done</td><td>120</td><td>28/07 08:10</td><td>28/07 08:14</td><td>—</td><td>⋯</td></tr>
-          <tr><td>2</td><td class="code">SYNC-20260801-0002</td><td>import</td><td>Asset KCHT Excel</td><td>failed</td><td>12</td><td>01/08 09:20</td><td>01/08 09:20</td><td>Đoạn không khớp</td><td>⋯</td></tr>
-        </tbody>
-      </table>
+    <div class="view-job" id="viewJob">
+      <div class="form-header">
+        <div class="z1-toolbar">
+          <button type="button" class="btn" id="backFromJob"><i class="fas fa-arrow-left"></i> Quay lại</button>
+          <div>
+            <button type="button" class="btn hidden" id="btnEditJob"><i class="fas fa-pen"></i> Sửa</button>
+          </div>
+        </div>
+        <div class="z1-title-row">
+          <h1 style="margin:0;font-size:22px">Sync job</h1>
+          <span class="badge" id="jobModeBadge">Xem</span>
+        </div>
+      </div>
+      <div class="z2">
+        <div class="section" id="jobViewDl">
+          <p class="section-label">Chi tiết job (View = dl)</p>
+          <dl class="dl">
+            <dt>Mã job</dt><dd>SYNC-20260728-0003</dd>
+            <dt>Loại sync</dt><dd>import</dd>
+            <dt>Partner</dt><dd>Asset KCHT Excel</dd>
+            <dt>Trạng thái</dt><dd>done</dd>
+            <dt>Ghi chú</dt><dd>—</dd>
+            <dt>Log</dt><dd>120 bản ghi · 28/07 08:10–08:14</dd>
+          </dl>
+        </div>
+        <div class="section hidden" id="jobEditFields">
+          <p class="section-label">Sửa job</p>
+          <div class="fields" data-form-cols="5">
+            <div class="field"><label>Mã job</label><input readonly value="SYNC-20260728-0003" /></div>
+            <div class="field"><label>Loại sync</label><input value="import" /></div>
+            <div class="field"><label class="req">Partner</label><input value="Asset KCHT Excel" /></div>
+            <div class="field">
+              <label class="req">Trạng thái</label>
+              <div class="lkp" data-lkp="jobStatus">
+                <div class="search-wrap">
+                  <input type="search" value="done" autocomplete="off" />
+                  <button type="button"><i class="fas fa-search"></i></button>
+                </div>
+                <div class="lkp-list"></div>
+              </div>
+            </div>
+            <div class="field span-full"><label>Ghi chú</label><textarea></textarea></div>
+            <div class="field span-full"><label>Log</label><textarea readonly>120 bản ghi · OK</textarea></div>
+          </div>
+        </div>
+      </div>
+      <div class="z3">
+        <button type="button" class="btn" id="backFromJob2">Hủy</button>
+        <button type="button" class="btn">Retry</button>
+        <button type="button" class="btn primary hidden" id="saveJob">Lưu</button>
+      </div>
     </div>
 
-    <div class="zoneD" data-zone="D">
-      <span>1–2 / 4 · pageSize 50</span>
-      <div class="pager">
-        <button type="button" class="btn" disabled>‹</button>
-        <button type="button" class="btn">1</button>
-        <button type="button" class="btn" disabled>›</button>
-        <select><option>50</option><option>100</option><option>200</option><option>500</option></select>
+    <div class="view-partner" id="viewPartner">
+      <div class="form-header">
+        <div class="z1-toolbar">
+          <button type="button" class="btn" id="backFromPartner"><i class="fas fa-arrow-left"></i> Quay lại</button>
+        </div>
+        <div class="z1-title-row">
+          <h1 style="margin:0;font-size:22px">Partner adapter</h1>
+          <span class="badge">Xem</span>
+        </div>
+      </div>
+      <div class="z2">
+        <div class="section">
+          <p class="section-label">Chi tiết (View = dl)</p>
+          <dl class="dl">
+            <dt>Partner</dt><dd>ERP CMMS</dd>
+            <dt>Loại hệ thống</dt><dd>ERP</dd>
+            <dt>Auth</dt><dd>OAuth2</dd>
+            <dt>Health</dt><dd>OK</dd>
+            <dt>Phase</dt><dd>P1</dd>
+            <dt>Enabled</dt><dd>Bật</dd>
+          </dl>
+        </div>
+      </div>
+      <div class="z3">
+        <button type="button" class="btn" id="backFromPartner2">Đóng</button>
+        <button type="button" class="btn primary">Bật/Tắt</button>
       </div>
     </div>
   </div>
 
-  <aside class="slide" id="slide">
-    <div class="z1"><strong>Import tài sản KCHT</strong><button type="button" class="btn" id="btnClose">Đóng</button></div>
-    <div class="body">
-      <div class="fields">
-        <label>Mã job<input readonly value="SYNC-20260809-0001" /></label>
-        <label>Trạng thái<select><option>draft</option></select></label>
-        <label>Loại tài sản *<select><option>Mặt đường</option></select></label>
-        <label>Địa bàn *<select><option>Hà Nội</option></select></label>
-        <label>Tuyến *<select><option>QL1A</option></select></label>
-        <label>Đoạn<input placeholder="Km 12+000 – 14+500" /></label>
-        <label class="span2">File nguồn *<input type="file" /></label>
-        <label class="span2">Ghi chú<textarea rows="3"></textarea></label>
+  <div class="modal" id="modalConfig" role="dialog" aria-labelledby="cfgTitle">
+    <div class="modal-card">
+      <h3 id="cfgTitle">Cấu hình hiển thị danh mục</h3>
+      <p class="hint">LinCatalogUiSchemaEditorModal · catalogKind theo tab · List / width / filter / sort / Thêm cột · cấm LinListTableConfigModal · cấm configHint</p>
+      <table>
+        <thead><tr><th>List</th><th>Cột</th><th>Width</th><th>Filter</th><th>Sort</th></tr></thead>
+        <tbody>
+          <tr><td><input type="checkbox" checked /></td><td>Mã job</td><td>140</td><td>on</td><td>on</td></tr>
+          <tr><td><input type="checkbox" checked /></td><td>Loại</td><td>120</td><td>on</td><td>on</td></tr>
+          <tr><td><input type="checkbox" checked /></td><td>Partner</td><td>180</td><td>on</td><td>off</td></tr>
+        </tbody>
+      </table>
+      <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:12px">
+        <button type="button" class="btn">Thêm cột</button>
+        <button type="button" class="btn" id="closeConfig">Đóng</button>
+        <button type="button" class="btn primary" id="closeConfig2">Lưu</button>
       </div>
     </div>
-    <div class="z3">
-      <button type="button" class="btn">Hủy</button>
-      <button type="button" class="btn primary">Chạy import</button>
+  </div>
+
+  <div class="modal" id="modalOffline" role="dialog">
+    <div class="modal-card">
+      <h3>Offline-batch contract</h3>
+      <pre style="background:#0f172a;color:#e2e8f0;padding:12px;border-radius:4px;overflow:auto;font-size:12px">{ "kind": "offline-batch", "items": [] }</pre>
+      <button type="button" class="btn" id="closeOffline">Đóng</button>
     </div>
-  </aside>
+  </div>
+
+  <div class="modal" id="modalLeave" role="dialog">
+    <div class="modal-card">
+      <h3>Rời trang?</h3>
+      <p>Thay đổi chưa lưu sẽ mất. LeaveConfirmModal — cấm window.confirm.</p>
+      <div style="display:flex;justify-content:flex-end;gap:8px">
+        <button type="button" class="btn" id="stay">Ở lại</button>
+        <button type="button" class="btn primary" id="leave">Rời trang</button>
+      </div>
+    </div>
+  </div>
+
   <script>
-    document.getElementById('btnImport').onclick = () => document.getElementById('slide').classList.add('open');
-    document.getElementById('btnClose').onclick = () => document.getElementById('slide').classList.remove('open');
+    const OPTIONS = {
+      phase: [{ v: "", l: "Tất cả" }, { v: "p1", l: "P1" }, { v: "p2", l: "P2" }, { v: "p3", l: "P3" }],
+      syncType: [{ v: "", l: "Tất cả" }, { v: "import", l: "import" }, { v: "offline-batch", l: "offline-batch" }, { v: "webhook", l: "webhook" }],
+      jobStatus: [{ v: "", l: "Tất cả" }, { v: "draft", l: "draft" }, { v: "running", l: "running" }, { v: "done", l: "done" }, { v: "failed", l: "failed" }],
+      assetType: [{ v: "mat-duong", l: "Mặt đường" }, { v: "cau", l: "Cầu" }, { v: "cong", l: "Cống" }, { v: "bien-bao", l: "Biển báo" }, { v: "den", l: "Đèn" }],
+      region: [{ v: "hn", l: "Hà Nội" }, { v: "hcm", l: "TP.HCM" }, { v: "dn", l: "Đà Nẵng" }],
+      route: [{ v: "QL1A", l: "QL1A" }, { v: "QL18", l: "QL18" }, { v: "CT01", l: "CT01" }]
+    };
+    document.querySelectorAll(".lkp").forEach((lkp) => {
+      const kind = lkp.getAttribute("data-lkp");
+      const list = lkp.querySelector(".lkp-list");
+      const input = lkp.querySelector("input");
+      (OPTIONS[kind] || []).forEach((o) => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.textContent = o.l;
+        b.onclick = () => { input.value = o.l; lkp.classList.remove("open"); };
+        list.appendChild(b);
+      });
+      lkp.querySelector("button").onclick = () => lkp.classList.toggle("open");
+      input.addEventListener("focus", () => lkp.classList.add("open"));
+    });
+    document.querySelectorAll(".tabs button").forEach((btn) => {
+      btn.onclick = () => {
+        document.querySelectorAll(".tabs button").forEach((b) => b.classList.remove("on"));
+        btn.classList.add("on");
+        const id = btn.getAttribute("data-tab");
+        document.querySelectorAll(".panel-tab").forEach((p) => p.classList.remove("on"));
+        document.getElementById("tab-" + id).classList.add("on");
+      };
+    });
+    const page = document.getElementById("page");
+    function goList() { page.className = "page"; }
+    document.getElementById("btnImport").onclick = () => { page.className = "page mode-import"; };
+    document.getElementById("btnJobNew").onclick = () => {
+      page.className = "page mode-job";
+      document.getElementById("jobModeBadge").textContent = "Tạo mới";
+      document.getElementById("jobViewDl").classList.add("hidden");
+      document.getElementById("jobEditFields").classList.remove("hidden");
+      document.getElementById("saveJob").classList.remove("hidden");
+      document.getElementById("btnEditJob").classList.add("hidden");
+    };
+    document.getElementById("openJobView").onclick = () => {
+      page.className = "page mode-job";
+      document.getElementById("jobModeBadge").textContent = "Xem";
+      document.getElementById("jobViewDl").classList.remove("hidden");
+      document.getElementById("jobEditFields").classList.add("hidden");
+      document.getElementById("saveJob").classList.add("hidden");
+      document.getElementById("btnEditJob").classList.remove("hidden");
+    };
+    document.getElementById("openJobEdit").onclick = () => {
+      page.className = "page mode-job";
+      document.getElementById("jobModeBadge").textContent = "Sửa";
+      document.getElementById("jobViewDl").classList.add("hidden");
+      document.getElementById("jobEditFields").classList.remove("hidden");
+      document.getElementById("saveJob").classList.remove("hidden");
+      document.getElementById("btnEditJob").classList.add("hidden");
+    };
+    document.getElementById("btnEditJob").onclick = document.getElementById("openJobEdit").onclick;
+    document.getElementById("openPartner").onclick = () => { page.className = "page mode-partner"; };
+    ["backFromImport", "backFromJob", "backFromJob2", "backFromPartner", "backFromPartner2"].forEach((id) => {
+      document.getElementById(id).onclick = () => {
+        if (id.indexOf("Import") >= 0 || id.indexOf("Job") >= 0) {
+          document.getElementById("modalLeave").classList.add("on");
+        } else goList();
+      };
+    });
+    document.getElementById("cancelImport").onclick = () => document.getElementById("modalLeave").classList.add("on");
+    document.getElementById("stay").onclick = () => document.getElementById("modalLeave").classList.remove("on");
+    document.getElementById("leave").onclick = () => { document.getElementById("modalLeave").classList.remove("on"); goList(); };
+    document.getElementById("btnConfig").onclick = () => document.getElementById("modalConfig").classList.add("on");
+    document.getElementById("closeConfig").onclick = () => document.getElementById("modalConfig").classList.remove("on");
+    document.getElementById("closeConfig2").onclick = () => document.getElementById("modalConfig").classList.remove("on");
+    document.getElementById("btnOffline").onclick = () => document.getElementById("modalOffline").classList.add("on");
+    document.getElementById("closeOffline").onclick = () => document.getElementById("modalOffline").classList.remove("on");
   </script>
 </body>
 </html>

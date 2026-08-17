@@ -1,8 +1,8 @@
 # Góp ý phần mềm — Feature Context
 
 > **Slug:** `feedback` · **Module:** `Integration` (nhẹ) · **Phase:** P1  
-> **Status:** Signed (pack list · crud_formtype · task_4ff7bc4b)  
-> **Kind:** **B** catalog list + **D** slideout form — Confirmed by: ai-autocode-autopilot  
+> **Status:** Signed (pack list · crud_formtype · Dev `task_7442b627`)  
+> **Kind:** **B** catalog list + **full-page** form — Confirmed by: ai-autocode-autopilot (`task_7442b627`)  
 > **Sources:** guide Mobile **Góp ý** · `15-SCREEN-AI-MAP.md`  
 > **Demo HTML:** `Linm.RMMS.Demo/public/demo/integration/feedback.html`  
 > **MFE (align):** `Linm.Web.RMMS.Integration` · `/integration/feedback`  
@@ -15,28 +15,29 @@
 | Mục tiêu | Tuần đường / quản lý / tuần kiểm gửi góp ý tính năng phần mềm |
 | Persona | Mọi role hiện trường |
 | App hiện có | Mobile **Góp ý** — giữ UX |
-| DoD | CRUD feedbacks · list admin Kind B · slideout Kind D |
+| DoD | CRUD feedbacks · list admin Kind B · **full-page** form Kind B (cấm Slideout) |
 
 ## 2. Design / UI
 
 | Screen | Pattern | Zones | Ghi chú |
 |--------|---------|-------|---------|
-| Gửi góp ý | Kind D Slideout / Modal | Z1 toolbar · Z2 fields · Z3 footer | Host: Integration stub |
+| Gửi góp ý | Kind B **full-page** | Z1 Quay lại · Z2 fields/`<dl>` · Z3 footer | Host: Integration MFE |
 | Inbox admin | Full Kind B list | In scope this pack | `/integration/feedback` |
-| Host stub | Full mock | «Mở góp ý» → slideout | Demo only |
+| Host stub | Full mock | «Mở góp ý» → slideout | Demo only — **không** clone vào MFE |
 
-**Kind D layout (erp-form-context):**
+**Kind B form layout (erp-form-context · task_6cb63382):**
 
-- **Z1** — Quay lại · Đóng · title «Góp ý phần mềm» · hint · badge ≠ citizen  
-- **Z2a** — Validation banner (nội dung bắt buộc)  
-- **Z2b** — Mã · Người gửi · Vai trò · Thời gian · Loại · Nội dung · Trạng thái  
+- **Z1** — Quay lại · title «Góp ý phần mềm» · badge ≠ citizen · **cấm** Save trên header
+- **Z2a** — Validation banner (nội dung bắt buộc)
+- **Z2b** — Mã · Người gửi · Vai trò · Thời gian · Loại · Nội dung · Trạng thái · View=`<dl>`
 - **Z3** — Gửi góp ý của bạn · Lưu nháp · Xóa nội dung · Hủy thay đổi  
 
 **Mock:** 1 bản nháp localStorage · IdCode `FB-YYYYMMDD-NNNN` · toast gửi thành công (no BE).
 
-**2d readonly:** rule_defaults · Confirmed by: ai-autocode-autopilot  
+**2d readonly:** View=`<dl>` display · Confirmed by: ai-autocode-autopilot  
 **2e IdCode:** `FB-YYYYMMDD-NNNN`  
 **2k:** voucher_default · leave-confirm khi dirty  
+**2l:** Zone F `LinCatalogUiSchemaEditorModal` · catalogKind=`app-feedbacks`  
 
 ## 3. API
 
@@ -56,7 +57,7 @@ Perms (Auth stub): `integration.feedbacks.read|create|update|delete`. Entity `Ap
 
 | Entity | Key columns |
 |--------|-------------|
-| AppFeedback | Id, UserId, Body, Category, At, Status |
+| AppFeedback (`rmms_app_feedbacks`) | Id, CompanyCode, Code (`FB-YYYYMMDD-NNNN`), SenderName, Role, SubmittedAt (UTC), Category, Body, Status, UserId, IsActive |
 
 ## 5. Events / tích hợp
 
@@ -66,7 +67,7 @@ Optional email/notify đội kỹ thuật — DEFER P1 demo.
 
 | ID | Question | Default |
 |----|----------|---------|
-| GAP-F-FB-01 | Admin UI inbox | Closed — list + Kind D slideout in Integration MFE |
+| GAP-F-FB-01 | Admin UI inbox | Closed — list Kind B + **full-page** form in Integration MFE (cấm Slideout) |
 | GAP-F-FB-02 | BE endpoints `api/v1/integration/feedbacks` | Closed — Signed pack |
 | GAP-F-FB-03 | Phân biệt citizen | Luôn badge / copy ≠ cổng người dân |
 
@@ -158,7 +159,7 @@ Optional email/notify đội kỹ thuật — DEFER P1 demo.
 - Control-map: [`feedback-control-map.md`](../_raw/legacy-govone/demo-maps/feedback-control-map.md)
 - Actions: [`feedback-actions.md`](../_raw/legacy-govone/demo-maps/feedback-actions.md)
 - Fields mapped: 7 · Actions: 7
-- Kind hint: **D** (slideout / modal form) — erp-form-context Kind D · leave-confirm
+- Kind hint: **B** (catalog list + full-page form) — erp-form-context Kind B · leave-confirm · **cấm** Slideout
 
 Gen demo: `/qlbd-analy-demo @feedback` — load control-map trên + `/erp-form-context` rules (2a-K · 2g · common controls).
 <!-- DEMO-MFE-MODERN:END -->
@@ -167,11 +168,11 @@ Gen demo: `/qlbd-analy-demo @feedback` — load control-map trên + `/erp-form-c
 
 | | |
 |--|--|
-| Task | `task_4ff7bc4b` (prior `task_d242eb29`) |
+| Task | `task_7442b627` (Dev) · prior TL `task_d4ec3f5b` · SA `task_064242e5` |
 | Skill | `/agent-qldb-workflow @feedback` |
 | sourceKind | **synthetic** (capture labeled legacy-govone block nhưng **không** màn GOVOne vision — product docs + guide Mobile Góp ý) |
 | Files | `feedback.md` · MFE `FeedbackListPage` · BE `AppFeedbacks*` · migration `rmms_app_feedbacks` · specs/feedback/* |
 | Dev | MFE `/integration/feedback` · API `api/v1/integration/feedbacks` · DOMAIN Integration |
-| ACTION WORK GATE | list A–D + slideout C/E/V/Copy · toolbar/row Delete · footer-only · local fallback |
+| ACTION WORK GATE | list A–D + **full-page** form C/E/V/Copy · toolbar/row Delete · footer Gửi/Nháp · schema `app-feedbacks` |
 | BE align | **ON** · Signed · Step 4b done · cấm ERP.* |
-| Confirmed by | ai-autocode-autopilot · task_4ff7bc4b |
+| Confirmed by | ai-autocode-autopilot · task_7442b627 |

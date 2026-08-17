@@ -3,7 +3,7 @@
 | Field | Value |
 |-------|-------|
 | feature | `incident` |
-| phase | `dev` |
+| phase | `data_analy` |
 | status | `blocked` |
 | changeScope | `edit_page` |
 | packKind | `list` |
@@ -19,7 +19,7 @@
 | skillVersion | `2026.08.09.02` |
 | schemaVersion | `qldb-workflow-skill-v1` |
 | workflowVersion | `2026.08.09.02` |
-| updatedAt | `2026-08-14T14:47:32.793Z` |
+| updatedAt | `2026-08-15T17:07:22.976Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -34,7 +34,7 @@
 | 2.1 | design | ui/design.md + prototype + reviewUrl | **done** |
 | 2.2 | sa | be/solution-discovery.md | **done** |
 | 3 | team-lead | task/incident.md | **done** (FormType ACT/CRUD re-audit · no LIST rewrite) |
-| 4 | dev | implement/incident.md | **blocked** (paused) |
+| 4 | dev | implement/incident.md | pending |
 | 5 | qa | qa/scenarios.md | pending |
 | 6 | review | review/findings.md | pending |
 
@@ -69,7 +69,7 @@
 
 ## Blockers / open questions
 
--
+- **GAP-RPT-SRC-INC-*** — `rpt-thien-tai` DamageSummary · `rpt-thiet-hai` dòng KL/ĐVT · `rpt-un-tac` DurationMin · `rpt-tngt` type · `rpt-hang-muc-hu-hong` DefectItem — `specs/_form-type/REPORT-SOURCE-FIELD-GAPS.md`
 
 ## Links
 

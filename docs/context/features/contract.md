@@ -3,11 +3,12 @@
 > **Slug:** `contract` · **Module:** `Contract` · **Phase:** P2–P3  
 > **Status:** Demo  
 > **sourceKind:** **synthetic** (module mới P2–P3 · không màn GOVOne)  
-> **Kind:** **B** (CatalogListShell) + **D** (slideout form) — Confirmed by: ai-autocode-autopilot  
+> **Kind:** **B** catalog list A–D+F + **full-page** form (`ContractFormPage`) — **SUPERSEDED** Kind D Slideout (PO/Design/SA/TL 2026-08-16)  
 > **Sources:** `RMMS` §11 · `07` Hạng mục 11 · `09` OUT P1 · `15-SCREEN-AI-MAP.md`  
-> **Demo HTML:** `Linm.RMMS.Demo/src/demo/contract/contract.html` (+ `public/demo` copy)  
-> **MFE (align):** `Linm.Web.RMMS.Contract` · route `/contract` · **cấm** sửa MFE ở phase demo  
-> **≠** Inventory P3 (`inventory`) — vật tư nằm sub-route riêng khi align
+> **Demo HTML:** `Linm.RMMS.Demo/src/demo/features/contract-demo.html` (visual SSOT — **không** clone chrome)  
+> **MFE:** `Linm.Web.RMMS.Contract` · `/contract` · `http://localhost:9312/contract`  
+> **BE:** `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/contract/contracts` · **cấm ERP.***  
+> **≠** Inventory (`inventory`) — sub-route `/contract/inventory` **OUT this pack**
 
 ## 1. Tổng quan
 
@@ -23,22 +24,18 @@
 
 | Screen | Pattern | Zones | Ghi chú |
 |--------|---------|-------|---------|
-| List `/contract` | Kind **B** CatalogListShell | KPI · toolbar · filter · grid | P2 |
-| Tạo / Chi tiết | Kind **D** Slideout | Z1 toolbar · Z2 fields+lines · Z3 footer | `/contract/new` · `/contract/:id` |
-| Quyết toán | Modal stub | Badge P2–P3 | GAP-F-CTR-04 |
-| Inventory | Nav stub | `/contract/inventory` | OUT demo · slug `inventory` |
+| List `/contract` | Kind **B** `LinPageLayout` A–D+F | KPI · toolbar · filter · grid · pager · schema | **keep** · **cấm** nested CatalogListShell |
+| Tạo / Chi tiết | **Full-page** `ContractFormPage` | header · body · footer Lưu/Hủy | `/contract/new` · `/contract/:id` · View=`<dl>` |
+| Quyết toán | Modal stub | Badge P2–P3 | GAP-F-CTR-04 **OUT pack** |
+| Inventory | Nav stub | `/contract/inventory` | OUT pack · slug `inventory` |
 
-**Kind B+D layout (erp-form-context):**
+**Kind B + full-page (erp-form-context · Design 2026-08-16):**
 
-- **List** — title «Hợp đồng và ngân sách» · toolbar · filter · grid · KPI 4 ô  
-- **Z1** — Quay lại · Đóng · title · dirty badge · hint · badge P2–P3  
-- **Z2a** — Validation banner (số HĐ · tên · nhà thầu · giá trị)  
-- **Z2b** — Header fields control-map  
-- **Z2c** — Ngân sách / bảo hành / KPI meta  
-- **Z2d** — Payment lines `pattern_inline_grid`  
-- **Z3** — Lưu · Lưu nháp · Phê duyệt · Ghi nhận TT · Hủy  
+- **List** — title «Hợp đồng và ngân sách» · KPI 4 ô `beforeToolbar` · SearchInput type/status/**contractor** · `LinCatalogDataGrid` · `LinCatalogListPagination` · Zone F `LinCatalogUiSchemaEditorModal` kind=`contracts`  
+- **Form** — C/E/V/Copy full-page · payment `pattern_inline_grid` · footer-only Lưu/Hủy · **cấm** Resource / Slideout / View Input xám toàn form  
+- **API** — `GET/POST /api/v1/contract/contracts` · `GET/PUT/DELETE …/{id}` · XCO get-only · SHARE tenant · nested payments  
 
-**Mock:** fake HĐ + payment lines · IdCode `CTR-YYYYMMDD-NNNN` · localStorage · toast · **no BE**.
+**Cấm** parent JSON string. IdCode `CTR-yyyyMMdd-nnnn` server-gen.
 
 **2d readonly:** rule_defaults · Confirmed by: ai-autocode-autopilot  
 **2e IdCode:** `CTR-YYYYMMDD-NNNN`  
@@ -71,7 +68,7 @@
 }
 ```
 
-> Phase demo: **cấm** gọi BE · fake / localStorage only. Align BE khi Status Signed + be_align ON.
+> Align MFE+BE **IN** (STATUS Signed pipeline). Lookups P1 = in-memory enum SearchInput. Ui-schema seed `contracts` = **T-BE-SCHEMA-01**.
 
 ## 4. Database
 
@@ -100,8 +97,8 @@ Liên kết WorkOrder → thanh toán (task team P2) · KPI từ SLA / nghiệm 
 | ID | Question | Default |
 |----|----------|---------|
 | GAP-F-CTR-01 | OUT P1 | Giữ P2–P3 · badge hub |
-| GAP-F-CTR-02 | Kind plan fallback C | Override **B+D** (list+form+KPI) · autopilot |
-| GAP-F-CTR-03 | BE endpoints contracts/budgets/kpi | MISSING · be_align khi Signed |
+| GAP-F-CTR-02 | Kind plan fallback C | **CLOSED** — Kind **B** list + **full-page** form (không D Slideout) |
+| GAP-F-CTR-03 | BE endpoints contracts/budgets/kpi | **CLOSED** CRUD READY · dedicated budgets/kpi **DEFER** |
 | GAP-F-CTR-04 | Quyết toán UI full | P3 modal stub demo |
 | GAP-F-CTR-05 | Inventory trong Contract MFE | Sub-route `/contract/inventory` · slug riêng |
 | GAP-F-CTR-06 | Tài khoản + tuyến km trên form HĐ | **IN** P1.5 — tab child table · SPEC login-contract-lifecycle |

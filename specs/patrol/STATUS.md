@@ -3,8 +3,8 @@
 | Field | Value |
 |-------|-------|
 | feature | `patrol` |
-| phase | `done` |
-| status | `done` |
+| phase | `dev` |
+| status | `blocked` |
 | changeScope | `edit_page` |
 | packKind | `list` |
 | runMode | `fix_gaps` · gap=`crud_formtype` |
@@ -41,7 +41,7 @@
 | reviewSkillVersion | `2026.08.14.5` |
 | reviewWorkflowVersion | `2026.08.14.5` |
 | reviewRulesVersion | `2026.08.14.9` |
-| updatedAt | `2026-08-14T18:20:22.561Z` |
+| updatedAt | `2026-08-16T04:05:53.632Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -57,7 +57,7 @@
 | 2.1 | design | ui/design.md + prototype + reviewUrl | **done** (`task_5e7961be`) |
 | 2.2 | sa | be/solution-discovery.md | **done** (`task_91df2c14`) |
 | 3 | team-lead | task/patrol.md | **done** (`task_a4508318`) |
-| 4 | dev | implement/patrol.md | **done** (`task_4f8ea737`) |
+| 4 | dev | implement/patrol.md | **blocked** (paused) |
 | 5 | qa | qa/scenarios.md | **done** (`task_8178afb0`) |
 | 6 | review | review/findings.md | **done** (`task_d496cfeb`) |
 

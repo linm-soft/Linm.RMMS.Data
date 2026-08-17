@@ -17,6 +17,10 @@
 | DoD P1 | API map 1:1 Công việc (list · comment · status · tạo từ sự cố) |
 | DoD P2 | WO đầy đủ · SLA · nghiệm thu · link Estimate |
 
+## Delta Current vs New (`task_7dc4b841`)
+
+List Kind B **giữ** A–D + form full-page. **New:** Zone F `LinCatalogUiSchemaEditorModal` + BE seed `work-orders` (đóng GAP configHint). Quantity/UnitCode = report GAP ngoài pack này.
+
 ## 2. Design / UI
 
 | Screen | Pattern | Zones | Ghi chú |
@@ -27,6 +31,8 @@
 | Tạo CV từ sự cố | Full-page form | Đơn vị · cán bộ · loại · hạn | Guide Web |
 | Dự án bảo trì | List stub | Status · BH | Sidebar nav |
 | Bảng tổng hợp nhanh | Tab tiles | Tuần đường / tuần kiểm / công việc | Vision 014/015 |
+
+**Enum chốt (Design §3.3):** status `new` / `in_progress` / `done` / `cancelled` · workType `repair` / `inspect` / `emergency`. Form routes full-page `/maintenance/new` · `/:id` · `/:id/edit` · `/:id/copy` — **cấm** Slideout.
 
 **Kind E + form (erp-form-context / erp-report-context):**
 
@@ -51,6 +57,7 @@
 | POST | `/api/v1/maintenance/work-orders/{id}/progress` | Tiến độ | **Signed** |
 | POST | `/api/v1/maintenance/work-orders/{id}/complete` | Nghiệm thu stub P2 | **Signed** (stub) |
 | GET | `/api/v1/maintenance/summary` | KPI counts stub | **Signed** (stub) |
+| GET | `/api/v1/maintenance/work-orders/init-data` | Lookup status/workType Design §3.3 | **Signed** |
 | POST | `/api/v1/maintenance/work-orders/{id}/comments` | Trao đổi | **DEFER** |
 
 > BFF: `web-bff/api/v1/maintenance/work-orders/**` · table `rmms_work_orders` · migration `Schema_RmmsWorkOrders`.  

@@ -1,14 +1,14 @@
-# Implement — drone
+﻿# Implement — drone
 
 | Field | Value |
 |-------|-------|
 | feature | `drone` |
 | status | `done` |
-| taskId | `task_df075284` |
+| taskId | `task_12c629c0` |
 | mfeStdRoute | `/drone` |
 | mfeStdUrl | `http://localhost:9313/drone` |
-| updatedAt | 2026-08-14T19:20:00.000Z |
-| changeScope | `edit_page` · FormType ACT+CRUD |
+| updatedAt | 2026-08-16T02:40:00.000Z |
+| changeScope | `edit_page` · FormType ACT+CRUD + list schema |
 
 ## retry.ssot_rereview
 
@@ -17,34 +17,48 @@
 | 1× LinPageLayout | **pass** — list only, no nested CatalogListShell |
 | LinCatalogDataGrid + column drag default | **pass** |
 | Footer LinCatalogListPagination | **pass** — no footerPagination / pageSizeBar / raw table |
-| flex + skeleton | **pass** — `useServerPagedListLoading` |
-| toolbar config / search work / row menu | **pass** |
-| form C/E/V/Copy + artifacts | **pass** |
-| GAP-P2-LAYOUT-06 | **pass** — catalog shell |
-| T-UI-ACT-01 inventory wired | **pass** — Delete toolbar+row · Hủy job · row pair stubs |
-| T-BE-CRUD-01 list/get/create/update/soft-delete | **pass** (verify — no extra BE Write) |
+| flex + skeleton | **pass** — `useServerPagedListLoading` + `.gridWrap` |
+| toolbar config / search work / row menu | **pass** — `LinCatalogUiSchemaEditorModal` |
+| form C/E/V/Copy + artifacts | **pass** — view body · footer Sửa |
+| GAP-P2-CC-06 / GAP-DEV-CONFIG-PLACEHOLDER-01 | **pass** — removed `configHint` |
+| GAP-DEV-GRID-SCHEMA-BOOTSTRAP-01 | **pass** — `useCatalogUiSchema` + `buildDynamicGridColumns` |
+| T-UI-LKP / T-UI-FIELD | **pass** — form `SearchInput` · Input date/number |
+| T-UI-ACT-01 inventory wired | **pass** |
+| T-BE-CRUD-01 list/get/create/update/soft-delete | **pass** (verify) |
 
-Live re-audit before Write: Delete was the remaining surface gap (service+API already existed). Wired same surface extras (artifacts/incident/GIS/Excel/AiVision stubs) instead of patching only Delete.
+Live re-audit before Write: remaining surface was list config placeholder + broken filter identifiers after lookup extract. Closed schema+filter+lookup together.
 
-## FormType delta (task_df075284)
+## FormType delta (task_12c629c0)
 
 | Task | Notes |
 |------|-------|
-| T-UI-ACT-01 | `canDelete`/`onDelete` toolbar · `showDelete` row menu · `deleteRow` · form Hủy job · Sửa in footer (view) |
-| T-BE-CRUD-01 | Verified `DroneScansController` GET list/id · POST · PUT · DELETE soft · process · artifacts · BFF proxy · domain Drone |
-| T-UI-MAP-FORM | n/a (packKind=list) |
-| T-QA-CRUD-01 | Smoke Create/Edit/View/Delete + row actions |
+| T-UI-LIST | Kind B + schema editor `drone-scans` |
+| T-UI-FORM | C/E/V/Copy · view dedicated + footer Sửa |
+| T-UI-LKP | `src/services/drone/lookups.ts` + form SearchInput |
+| T-UI-FIELD | date / number / SearchInput |
+| T-UI-PROD / T-UI-UX | LinListFilterField · toast · skeleton |
+| T-UI-ACT-01 | Delete toolbar+row · Hủy job · row pair stubs |
+| T-BE-CRUD-01 | Verified scans CRUD (no extra Write) |
+| T-BE-SCHEMA | `CatalogUiSchemaRegistry.DroneScans` + seed |
 
 ## FE changes
 
 | Path | Notes |
 |------|-------|
-| `src/pages/DroneListPage/DroneListPage.tsx` | Delete + row action inventory pair |
-| `src/pages/DroneFormPage/DroneFormPage.tsx` | Hủy job · view Sửa footer-only |
+| `src/pages/DroneListPage/DroneListPage.tsx` | schema modal · dynamic columns · LinListFilterField/Select |
+| `src/pages/DroneFormPage/DroneFormPage.tsx` | SearchInput lookups · view footer Sửa |
+| `src/services/drone/lookups.ts` | master lookup configs |
+| `src/hooks/useCatalogUiSchema.ts` | GET schema |
+| `src/services/catalogUiSchema/` | BFF `/integration/catalogs/{kind}/ui-schema` |
+| `src/utils/bootstrapCatalogUiSchema.ts` | `buildDynamicGridColumns` |
 
 ## BE changes (Step 4b)
 
-No Write delta — CRUD already in `Linm.RMMS.WebService` domain Drone (`api/v1/drone/scans`). Verify-only this turn.
+| Path | Notes |
+|------|-------|
+| `CatalogUiSchemaRegistry.cs` | `drone-scans` |
+| `CatalogUiSchemaSeed.cs` | seed list columns |
+| BFF | existing Integration catalog ui-schema proxy |
 
 ## Verify
 

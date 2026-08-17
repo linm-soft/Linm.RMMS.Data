@@ -11,11 +11,12 @@
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/patrol/attendance-logs` |
 | bff | `web-bff/api/v1/patrol/attendance-logs` |
 | lookup | `GET /integration/road-routes/search` |
-| taskId | `task_35eccf28` |
+| taskId | `task_b9c436be` |
 | prior Dev | `task_47f14701` · implement `done` |
-| autoApprove | ON |
+| prior QA | `task_35eccf28` · re-audit live 2026-08-16 |
+| autoApprove | OFF (run packet) · QA không await_confirm |
 | method | static review live `AttendanceListPage` + `AttendanceFormSlideout` + `lookups.ts` + endpoint/service + Patrol API/BFF · `yarn typecheck` + `yarn build` PASS |
-| updatedAt | `2026-08-14T17:30:00.000Z` |
+| updatedAt | `2026-08-16T02:20:00.000Z` |
 
 ## Smoke — Final MFE (REQUIRED)
 
@@ -26,8 +27,8 @@
 | S2 | Footer pager | `LinCatalogListPagination` · pageSize 50/100/200/500 | **PASS** |
 | S3 | Search Enter (không nút Tìm) | `SearchTextInput` `onSearch` · `pulseSearch` · page=1 | **PASS** |
 | S4 | Status Select change | refetch page=1 | **PASS** (`handleStatusChange` → `applyFilters`) |
-| S5 | Toolbar Refresh / +Tạo mới / Config | catalogToolbar · Config hint · Tạo mới **chỉ Zone B** | **PASS** |
-| S6 | History toolbar/menu | alert stub | **PASS** |
+| S5 | Toolbar Refresh / +Tạo mới / Config | catalogToolbar · Tạo mới **chỉ Zone B** | **PASS** chức năng · Config = stub `configHint` (xem GAP-P2-CC-06) |
+| S6 | History toolbar/menu | `LinCatalogHistoryModal` | **PASS** |
 | S7 | Row menu View/Edit/Copy/Delete/History | Slideout modes · Delete confirm soft | **PASS** (`buildCatalogRowMenuItems`) |
 | S8 | Form Create/Edit/View/Copy | Footer-only Hủy/Lưu · View Đóng/Sửa/Sao chép · no Z1 top Save | **PASS** (`customFooter` · no `attendance-btn-save-top`) |
 | S9 | No ERP.* | FE BASE `/patrol/attendance-logs` · BE `Linm.RMMS.WebService` · **cấm** `api/v1/rmms/*` · **cấm** `/api/v1/attendance/*` | **PASS** |
@@ -50,7 +51,7 @@
 | QA-21 | Create | Toolbar +Thêm → Slideout create → footer Lưu → POST | **PASS** (API + demo fallback) |
 | QA-22 | Edit | Row/toolbar Edit → PUT | **PASS** |
 | QA-23 | View | Code link / menu → `readOnly` Input/Select · footer Đóng · Sửa · Sao chép · **không** disabled xám toàn form | **PASS** |
-| QA-24 | Copy | Copy → POST new · code tự sinh | **PASS** (`genCode` / API `CC-yyyyMMdd-nnn`) |
+| QA-24 | Copy | Copy → POST new · code tự sinh | **PASS** (`genCode` / API) |
 | QA-25 | Delete toolbar/row | confirm → soft delete · toast · refresh | **PASS** |
 | QA-26 | No duplicate Save on form top | `attendance-btn-save-top` absent | **PASS** |
 | QA-27 | Leave dirty | confirm trước đóng Slideout | **PASS** |
@@ -63,11 +64,11 @@
 | D1 | Filter `route` | Zone B SearchInput `ROAD_ROUTE_LOOKUP_CONFIG` · `getList` qs `route` · BE exact `AttendanceLog.Route` | **PASS** |
 | D2 | Filter `onlyOutZone` | Checkbox → qs `onlyOutZone=true` · BE `InZone==false` · demo `filterRows` | **PASS** |
 | D3 | GPS search | `search` Contains `Lat`/`Lng` ToString (API) + local store | **PASS** |
-| D4 | T-UI-LKP-01 | Form `route` SearchInput · persist **code** · `GET /integration/road-routes/search` · fallback seed 38 · **cấm** Text tuyến · **cấm** Patrol proxy lookup | **PASS** · `dropdownPortal: true` |
-| D5 | Seed 38 | `ROAD_ROUTE_SEED` length 38 · có `QL.1` · **không** `QL.22` · attendanceStore mock `QL.1` | **PASS** (GAP-PO-ATT-01 · GAP-SA-ATT-SEED) |
+| D4 | T-UI-LKP-01 | Form `route` SearchInput · persist **code** · `GET /integration/road-routes/search` · fallback seed 38 · **cấm** Text tuyến · **cấm** Patrol proxy lookup | **PASS** · `dropdownPortal: true` trên config |
+| D5 | Seed 38 | `ROAD_ROUTE_SEED` length 38 · có `QL.1` · **không** `QL.22` · attendanceStore mock `QL.1` | **PASS** |
 | D6 | T-BE-VAL-01 | Create/Update Route ∈ `rmms_road_routes` IsActive · FE `assertWritable` chặn `QL.22` · status allow-list 3 enum · 422/Error VN | **PASS** |
 | D7 | T-BFF-01 | `BuildListPath` = `Request.QueryString` passthrough · no business logic | **PASS** |
-| D8 | T-UI-FIELD-01 | userName Text P1 · datetime-local UTC ISO · lat/lng number · InZone Trong/Ngoài · status Dropdown 3 | **PASS** (GAP-PO-ATT-03 KEEP) |
+| D8 | T-UI-FIELD-01 | userName Text P1 · datetime-local UTC ISO · lat/lng number · InZone Trong/Ngoài · status Dropdown 3 | **PASS** |
 | D9 | T-UI-PROD-01 | Slideout KEEP · **cấm** Resource · **cấm** full-page | **PASS** |
 | D10 | T-UI-UX-01 | `fa-user-clock` · no `filterMaxWidthPx` · portal | **PASS** |
 
@@ -91,21 +92,21 @@
 | BFF-01 | * | `web-bff/api/v1/patrol/attendance-logs` + QS | **PASS** |
 | LKP-01 | GET | `/integration/road-routes/search` | **PASS** (FE client) |
 
-**Cấm** `ERP.*` · `Domains/Master` write · `api/v1/rmms/*` — **PASS** (không thấy path).
+**Cấm** `ERP.*` · `Domains/Master` write · `api/v1/rmms/*` — **PASS**.
 
 ## Gaps
 
 | ID | Severity | Note |
 |----|----------|------|
-| — | — | GAP-PO-ATT-* / GAP-SA-ATT-* / GAP-TL-ATT-* **CLOSED** (Dev + QA re-audit) |
-| GAP-P2-PERM-ATTR | P2 | Controller `TODO [RequirePermission]` khi CommonLib ≥1.4.0 — **không block** (T-PERM stub) |
+| GAP-P2-CC-06 / GAP-DEV-CONFIG-PLACEHOLDER-01 | P2 | Cog mở `configHint` dialog · **chưa** `LinCatalogUiSchemaEditorModal` + `useCatalogUiSchema` · **không block** (Review trước đã approve; Kind B cột tĩnh + resize ON) |
+| GAP-P2-PERM-ATTR | P2 | Controller `TODO [RequirePermission]` khi CommonLib ≥1.4.0 — **không block** |
 | Out of pack | P2 | Kind E / Leaflet / Face NFC / Excel / users LKP — **DEFER** |
 
 ## Verdict
 
-**PASS** · T-QA-01 · T-QA-CRUD-01 · handoff `/agent-review`.
+**PASS** · T-QA-01 · T-QA-CRUD-01 · P0 none · P2 config schema editor **không** chặn handoff Review.
 
-## Build gate (`task_35eccf28`)
+## Build gate (`task_b9c436be`)
 
 | Check | Result |
 |-------|--------|
@@ -119,8 +120,8 @@
 | Field | Value |
 |-------|-------|
 | Next | `/agent-review` · `review/findings.md` |
-| autoApprove | ON → enqueue review (roleOnly QA **không** chạy Review trong task này) |
-| Notes | Kind B Slideout · filter route + onlyOutZone · seed QL.1 · no ERP |
+| autoApprove | OFF → Review **pending** (roleOnly QA **không** chạy Review trong task này) |
+| Notes | Kind B Slideout · filter route + onlyOutZone · seed QL.1 · no ERP · P2 configHint |
 
 ## Version meta (REQUIRED)
 
@@ -131,9 +132,9 @@
 | schemaVersion | 2 |
 | workflowVersion | 2026.08.14.5 |
 | rulesVersion | 2026.08.14.9 |
-| generatedAt | 2026-08-14T17:30:00.000Z |
+| generatedAt | `2026-08-16T02:20:00.000Z` |
 | versionGate | rechecked (`recheck_new` · SSOT workflow **2026.08.14.5**) |
-| taskId | `task_35eccf28` |
+| taskId | `task_b9c436be` |
 | contentHashPriorDev | `task_47f14701` |
 | dataAnalySkillVersion | 2026.08.08.20 |
 | poSkillVersion | 2026.08.14.5 |

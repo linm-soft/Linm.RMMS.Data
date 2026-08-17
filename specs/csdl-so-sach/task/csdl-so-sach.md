@@ -48,7 +48,7 @@ FE BASE: `/asset/csdl-records`.
 | T-BFF-01 | bff | T-BE-01 | proxy-only controller |
 | T-UI-LIST-01 | ui | T-BFF-01 | Hub + LinPageLayout A–D · LinCatalogDataGrid · LinCatalogListPagination · LAYOUT-06 · toolbar · search work · row menu |
 | T-UI-FORM-01 | ui | T-UI-LIST-01 | Slideout Z1–Z3 · Create/Edit/View/Copy · book entries · leave-confirm dirty |
-| T-QA-01 | qa | T-UI-* · T-BE-* | scenarios hub/list/form/API |
+| T-QA-01 | qa | T-UI-* · T-BE-* | scenarios hub/list/form/API — **done** (`task_4a2be2fe`) |
 
 ## FormType pack (canonical — `form-type-task-pack` · task_9106e8fa)
 

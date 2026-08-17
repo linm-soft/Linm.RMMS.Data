@@ -1,4 +1,143 @@
+# Implement — camera-connect (Dev · `task_ba4221ae`)
+
+| Field | Value |
+|-------|-------|
+| feature | `camera-connect` |
+| this role | `dev` · `/agent-dev` |
+| status | `completed` |
+| changeScope | `edit_page` |
+| gap | `list_config_schema` + `GAP-DES-VIEW-DL` |
+| mode | `fix_gaps` |
+| taskId | `task_ba4221ae` |
+| skillVersion | `2026.08.15.19` |
+| schemaVersion | `qldb-workflow-skill-v1` |
+| workflowVersion | `2026.08.15.19` |
+| versionGate | `rechecked` |
+| updatedAt | `2026-08-16T03:55:00.000Z` |
+| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/cameras` · **no API write this turn** |
+
+## retry.ssot_rereview: **pass** (live **trước** Write · then **fix_all** 3 GAP cùng surface)
+
+Live: `CameraListPage.tsx` · `CameraFormPage.tsx`.
+
+| Check | Result |
+|-------|--------|
+| 1× `LinPageLayout` · cấm nested CatalogListShell | **PASS** |
+| `LinCatalogDataGrid` + kéo cột default ON | **PASS** |
+| Footer `LinCatalogListPagination` | **PASS** |
+| flex + skeleton | **PASS** |
+| toolbar config FULL · cấm `configHint` | **PASS** |
+| leftover `const columns` / `LinCatalogDataColumn` | **PASS** |
+| tree_master? | n/a |
+| form Kind C footer Save/Cancel | **PASS** |
+| View = `<dl>` · cấm Input readOnly xám | **FAIL then FIX** GAP-DES-VIEW-DL |
+| T-UI-LKP Lin Select (cấm native `<select>`) | **FAIL then FIX** GAP-TL-LKP-SELECT-01 |
+| T-UI-UX cấm `filterMaxWidthPx` | **FAIL then FIX** GAP-TL-UX-FILTER-MAX-01 |
+
+## Done this turn
+
+| Task | Result |
+|------|--------|
+| T-UI-FORM-01 | View Z1–Z2 = `<dl>` (`data-testid=rmms-camera-form-view-dl`) · Pass mask · Z3/Z4 keep · Tải events enabled |
+| T-UI-PROD-01 | **cấm** View=`readOnly` Input xám |
+| T-UI-LKP-01 | `Select` Model (`GET /cameras/models`) + Protocol enum · **cấm** native `<select>` |
+| T-UI-FIELD-01 | dl labels khớp Design §3.2 |
+| T-UI-UX-01 | bỏ `filterMaxWidthPx` trên `LinPageLayout` + `ErpListHeaderFilters` |
+| T-UI-LIST / CONFIG / BE / BFF | **verify / no-op** (PASS prior) |
+| BE Step 4b | **n/a write** — SA no new API · DOMAIN Camera keep |
+
+## Build
+
+| Check | Result |
+|-------|--------|
+| yarn typecheck (Camera) | **PASS** |
+| yarn build (Camera) | **PASS** (size warnings only) |
+| dotnet build | **n/a** (không đụng API) |
+
+Handoff QA: `qa/scenarios.md` QA-40/41 + View `<dl>` · roleOnly=`qa` · pending enqueue.
+
+---
+
+# Implement — camera-connect (TL rereview · `task_06474cab`)
+
+| Field | Value |
+|-------|-------|
+| feature | `camera-connect` |
+| this role | `team_lead` (audit only — **no FE/BE write**) |
+| status | `confirmed` |
+| taskId | `task_06474cab` |
+| skillVersion | `2026.08.15.19` |
+| schemaVersion | `qldb-workflow-skill-v1` |
+| workflowVersion | `2026.08.15.19` |
+| versionGate | `rechecked` |
+| updatedAt | `2026-08-16T03:50:00.000Z` |
+
+## retry.ssot_rereview: **partial** (live **trước** Dev Write)
+
+| Check | Result |
+|-------|--------|
+| 1× `LinPageLayout` · cấm nested CatalogListShell | **PASS** |
+| `LinCatalogDataGrid` + kéo cột default ON | **PASS** |
+| Footer `LinCatalogListPagination` | **PASS** |
+| flex + skeleton | **PASS** |
+| toolbar config FULL · cấm `configHint` | **PASS** |
+| leftover `const columns` / `LinCatalogDataColumn` | **PASS** (`uiColumns` + `buildDynamicGridColumns`) |
+| tree_master? | n/a |
+| form View `<dl>` | **FAIL** GAP-DES-VIEW-DL |
+| Lin Dropdown form lookups | **FAIL** GAP-TL-LKP-SELECT-01 |
+| cấm `filterMaxWidthPx` | **FAIL** GAP-TL-UX-FILTER-MAX-01 |
+
+Handoff Dev: pack `task/camera-connect.md`. Build this TL role: **n/a**.
+
+---
+
+# Implement — camera-connect (`task_fc29c24c` list schema)
+
+| Field | Value |
+|-------|-------|
+| feature | `camera-connect` |
+| status | `done` |
+| changeScope | `edit_page` |
+| gap | `list_config_schema` |
+| mode | `fix_gaps` |
+| taskId | `task_fc29c24c` |
+| skillVersion | `2026.08.15.19` |
+| schemaVersion | `qldb-workflow-skill-v1` |
+| workflowVersion | `2026.08.15.19` |
+| versionGate | `rechecked` |
+| updatedAt | 2026-08-16T03:20:00.000Z |
+
+## retry.ssot_rereview: **pass** (live `CameraListPage.tsx` · **trước Write**)
+
+| Check | Result |
+|-------|--------|
+| 1× `LinPageLayout` · cấm nested CatalogListShell | **PASS** |
+| `LinCatalogDataGrid` + kéo cột default ON | **PASS** (schema `resizableColumns`) |
+| Footer `LinCatalogListPagination` | **PASS** |
+| flex + skeleton | **PASS** |
+| toolbar config FULL | **GAP then FIX** — `configHint` → `LinCatalogUiSchemaEditorModal` |
+| leftover `const columns` | **GAP then FIX** → `uiColumns` + `buildDynamicGridColumns` |
+| tree_master? | n/a |
+| form Kind C | **KEEP** (no rewrite this turn) |
+
+## Done this turn
+
+- FE: `useCatalogUiSchema('camera-devices')` · schema editor modal · BFF `/integration/catalogs/.../ui-schema`
+- BE: `CatalogUiSchemaRegistry.CameraDevices` + seed columns
+- **cấm** `configHint` / `LinListTableConfigModal` as column editor
+
+## Build
+
+| Check | Result |
+|-------|--------|
+| yarn typecheck (Camera) | **PASS** |
+| yarn build (Camera) | **PASS** (size warnings only) |
+| dotnet build Release `RMMS.Service.Api` | **PASS** 0 Error(s) |
+
+---
+
 # Implement — camera-connect (CRUD formType · task_6baf42c3)
+
 
 | Field | Value |
 |-------|-------|

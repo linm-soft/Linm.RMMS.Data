@@ -1,171 +1,329 @@
-# Team-lead — ops
+# Team-lead — ops (Chỉ đạo điều hành / công văn)
 
 | Field | Value |
 |-------|-------|
 | feature | `ops` |
-| status | `confirmed` |
+| this role | `team_lead` · `/agent-team-lead` |
+| status | `confirmed` (autopilot) |
 | packKind | `list` |
-| changeScope | `edit_page` · gap=`crud_formtype` |
-| taskId | `task_47576cf0` |
-| updatedAt | 2026-08-14T20:20:00.000Z |
+| changeScope | `edit_page` · gap=`crud_formtype` · Kind **B** + full-page form |
+| Feature Kind | **B** catalog list A–D + **full-page** form — **cấm** Kind D Slideout |
+| autoApprove | **ON** |
+| chain | **ON** |
+| taskId | `task_a6769ee4` |
+| prior · data_analy | **confirmed** · `specs/_data-analy/features/ops-control-hint.md` · contentHash `sha256:ops-delta-official-doc-20260816` |
+| prior · po | **confirmed** · `po/requirement.md` |
+| prior · design | **confirmed** · `ui/design.md` + `ui/prototype/ops-list-prototype.html` |
+| prior · sa | **confirmed** · `be/solution-discovery.md` · solution_confirm **approve** |
+| productRoot | `D:/AI-QLBD/Linm.RMMS.Data` |
+| mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Field` · `/ops` |
+| mfeStdUrl | `http://localhost:9304/ops` |
+| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · **`api/v1/notification/inbox`** (**cấm ERP.***) |
+| domain | **Notification** |
+| updatedAt | `2026-08-16T03:00:00.000Z` |
+
+> TL **chốt** task pack. Dev **implement / verify**. **Cấm** assume — live audit 2026-08-16.  
+> **Supersedes** TL `task_47576cf0` (stamp `2026.08.09.02`) — pack này re-audit Design/SA 2026-08-16 + GAP-SA-OPS-SCHEMA.  
+> Live sau `task_31a9bbd8` **đã ship** OfficialDoc + schema editor + filter CV. Dev = **verify / no-op** trừ delta schema order.  
+> **Cấm** `ERP.Service.*` · `Domains/Master` · `api/v1/rmms/*` · **cấm** domain `Ops`.
 
 ## Source assignment
 
 | Layer | Path | Confirm |
 |-------|------|---------|
-| UI | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Field` | autopilot packet default |
-| BE | `D:/AI-QLBD/Linm.RMMS.WebService` · domain **Notification** | autopilot packet default |
+| UI | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Field` | STATUS `ui_repo_confirm=approve` |
+| BE | `D:/AI-QLBD/Linm.RMMS.WebService` · domain **Notification** | STATUS `be_repo_confirm=approve` |
+| API | `api/src/RMMS.Service.Api/Domains/Notification/` | **cấm** ERP.* |
+| BFF | `bff/domains/notification/LINM.RMMS.Notification.Bff/` | proxy-only |
+| Schema seed | Integration `CatalogUiSchemaRegistry.OpsInbox` = `ops-inbox` | **không** Notification folder |
 | Routes | `mfeStdRoute=/ops` | `mfeStdUrl=http://localhost:9304/ops` |
+| reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/ops/ui/prototype/ops-list-prototype.html` | Design confirmed |
 
-## DES-GRID → Lin\*
+## retry.ssot_rereview (HARD — live Field `/ops`)
+
+Audit **trước Write** Dev. Surface: `NotificationListPage` + `NotificationFormPage`. **Cấm** chỉ patch 1 chỗ nếu còn GAP cùng surface.
+
+| Check | Live | Verdict |
+|-------|------|---------|
+| 1× `LinPageLayout` — **cấm** nested CatalogListShell | `NotificationListPage.tsx` 1× `LinPageLayout` | **PASS** |
+| `LinCatalogDataGrid` + kéo cột default ON | `resizable: true` + `buildDynamicGridColumns` | **PASS** |
+| Footer `LinCatalogListPagination` — **cấm** footerPagination / pageSizeBar / raw table | `LinCatalogListPagination` in layout | **PASS** |
+| flex + skeleton | list loading skeleton (prior PASS) | **PASS** — Dev re-verify blank body |
+| toolbar config FULL | `LinCatalogUiSchemaEditorModal` title «Cấu hình hiển thị danh mục» · `useCatalogUiSchema` · kind=`ops-inbox` | **PASS** |
+| **cấm** `LinListTableConfigModal` editor cột | không import editor cột | **PASS** |
+| **cấm** leftover `const columns` / `LinCatalogDataColumn` product | `uiColumns` bootstrap + dynamic grid | **PASS** |
+| **cấm** `configHint` | không dùng | **PASS** (GAP-DEV-CONFIG-PLACEHOLDER-01 CLOSED) |
+| list_parity Kind B A–D | A header · B toolbar+filter · C grid · D pagination · F modal | **PASS** |
+| tree_master | n/a | **n/a** |
+| form checklist Z1–Z3 full-page | `NotificationFormPage` C/E/V/Copy · View `<dl>` | **PASS** — **cấm** Resource / Slideout / View=`readOnly` Input |
+| OfficialDoc columns on grid | `documentNumber` · `direction` · `summary` · `orgUnitName` present | **PASS keys** · **FAIL default order** → GAP-SA-OPS-SCHEMA |
+| Zone B filter direction / org-unit | SearchInput + query passthrough | **PASS** |
+
+### GAP-SA-OPS-SCHEMA (OPEN — TL verify)
+
+Design/PO bootstrap default list (STT = grid chrome, không seed):
+
+`code` · `documentNumber` · **`direction`** · **`summary`** · **`orgUnitName`** · **`title`** · `sender` · `recipient` · `priority` · `type` · `status` · `sentAt` · actions
+
+Live seed `CatalogUiSchemaSeed.OpsInbox()` `Field.List.Order` **và** FE `uiColumns` fallback:
+
+`code` · `documentNumber` · **`title`** · `direction` · `summary` · `orgUnitName` · `sender` · `recipient` · `priority` · `type` · `status` · `sentAt`
+
+**Delta Dev:** reorder `List.Order` + `uiColumns` array cho khớp Design. Fields set **đủ** — không thiếu cột. SearchFieldKeys seed thiếu `summary` (PO search trích yếu = BE Contains; optional add `summary` vào Lookup/List search keys).
+
+## T-CTX-01
+
+| | |
+|--|--|
+| layer | docs |
+| status | **pending** (Dev) |
+| deps | — |
+| DoD | Sync `docs/context/features/ops.md`: **LinPageLayout** (không CatalogListShell wording) · API **Signed** · OfficialDoc scalars · Zone F schema editor · **bỏ** «Mock no BE» nếu còn. STATUS `backend` = `D:/AI-QLBD/Linm.RMMS.WebService` + `api/v1/notification/inbox`. |
+
+## T-PERM-01
+
+| | |
+|--|--|
+| layer | ui+api |
+| status | **verify** (live done) |
+| codes | `notification.inbox.read` · `create` · `update` · `delete` |
+| DoD | FE `permissions.ts` · BE `[RequirePermission]` **TODO** CommonLib ≥1.4.0 — **không** block P1 (SA SD-AUTH). **Cấm** invent `ops.*` codes. |
+
+## T-UI-LIST-01 (A–D)
 
 | Zone | Component | DoD |
 |------|-----------|-----|
-| A | `LinPageLayout` header | 1 shell · no nested CatalogListShell |
-| B | `catalogToolbar` | refresh · history · config · create · delete · extras mark-all / nav / P2 |
-| C | `LinCatalogDataGrid` | resize default ON · row menu |
-| D | `LinCatalogListPagination` | 50/100/200/500 · **cấm** footerPagination/pageSizeBar |
+| A | `LinPageLayout` header | Title «Chỉ đạo điều hành» — **cấm** Thêm mới trên A · 1 shell |
+| B | `catalogToolbar` | Tạo mới **primary** · Làm mới · history stub · config `fa-cog` · Delete nếu `canDelete` · extras: mark-all-read · export stub · nav Patrol/Gis/Incident · Command P2 stub |
+| B-filter | SearchText + SearchInput | search · status · priority · type · **direction** · **orgUnitCode** · unread → page=1 |
+| C | `LinCatalogDataGrid` | resize default ON · unread emphasis · row menu Xem · Sửa · Sao chép · Mark-read · Giao việc P2 · **cấm** leftover static columns |
+| D | `LinCatalogListPagination` | 50/100/200/500 — **cấm** footerPagination / pageSizeBar |
+| F | `LinCatalogUiSchemaEditorModal` | title «Cấu hình hiển thị danh mục» · `useCatalogUiSchema` · `columns={buildDynamicGridColumns(schema, uiColumns)}` · **cấm** `LinListTableConfigModal` cột · **cấm** `configHint` |
+| KPI | overview strip | 4 ô `GET /api/v1/notification/overview` |
 
-## Tasks (prior — giữ)
+**status:** **verify** shell/config **PASS** live · **pending** column order (T-UI-LIST-02).
 
-| id | layer | deps | skills | DoD |
-|----|-------|------|--------|-----|
-| T-CTX-01 | docs | — | context | Update ops.md API routes + BE status Signed |
-| T-BE-01 | api | T-CTX-01 | /new-endpoint | Entity · inbox CRUD · mark-read · overview · ApiResponse · XCO GetById |
-| T-BE-02 | migration | T-BE-01 | /database-migration | `rmms_notifications` |
-| T-BFF-01 | bff | T-BE-01 | /create-bff-api-feature | Proxy inbox + overview BFF |
-| T-PERM-01 | ui+api | T-BE-01 | perm | FE permissions.ts · BE TODO RequirePermission |
-| T-UI-LIST-01 | ui | T-BFF-01 · T-PERM-01 | /erp-form-context | Zones A–D · search · filters · pageSize 50 · LAYOUT-06 · KPI |
-| T-UI-FORM-01 | ui | T-UI-LIST-01 | form checklist | Full-page `/ops/new` · `/ops/:id` · View `<dl>` · leave-confirm |
-| T-QA-01 | qa | T-UI-FORM-01 | qa | scenarios + mfeStdUrl |
+## T-UI-LIST-02 — default column order
 
-## FormType pack (canonical — `form-type-task-pack` · task_47576cf0 · quality gates)
+| | |
+|--|--|
+| layer | ui |
+| status | **pending** |
+| deps | T-BE-SCHEMA-01 (cùng order) |
+| DoD | `uiColumns` thứ tự = Design bootstrap (title **sau** direction/summary/orgUnitName). STT không thêm field schema. |
 
-| Task id | Role | Status | Maps to / notes |
-|---------|------|--------|-----------------|
-| T-UI-LIST-01 | Dev | **done** | A–D · **không** rewrite (already PASS) |
-| T-UI-FORM-01 | Dev | **done** | Full-page C/E/V/Copy · View display |
-| T-UI-ACT-01 | Dev | **done** | Action inventory → form/API (below) |
-| T-BE-CRUD-01 | Dev | **done** | list/search + C/U/D + getById + mark-read/mark-all (= prior T-BE-01 verify) |
-| T-UI-MAP-FORM | — | **n/a** | packKind=`list` — không map OMS |
-| T-UI-LKP-01 | Dev | **done** | SearchInput master status/priority/type/recipient/channel |
-| T-UI-FIELD-01 | Dev | **done** | control-map ↔ NotificationDto / Create·Update |
-| T-UI-PROD-01 | Dev | **done** | cấm Resource / Slideout / View=readOnly / Kind D |
-| T-UI-UX-01 | Dev | **done** | spacing 4/8/16 · Lin* · no filterMaxWidthPx |
-| T-QA-CRUD-01 | QA | **done** | Create→Edit→View→Delete + row menu |
-| T-PERM-01 | Dev | **done** | `notification.inbox.*` |
-| T-CTX-01 | Dev | **done** | context |
-| T-BFF-01 | Dev | **done** | BFF proxy |
-| T-BE-02 | Dev | **done** | Schema_RmmsNotifications |
+## T-UI-FORM-01
 
-**GAP-TL-FORMTYPE-01:** closed (stamped this turn) — prior task chỉ LIST+FORM thiếu ACT/CRUD ids.
+| | |
+|--|--|
+| layer | ui |
+| status | **verify** (live done) |
+| Routes | `/ops/new` · `/ops/:id` · `?mode=edit` · `?mode=copy` |
+| DoD | Full-page Z1–Z3 · C/E/V/Copy · View=`<dl>` · leave-confirm dirty · Copy → POST new · IdCode `OPS-*` readonly · **cấm** Slideout / Resource / Modal form. |
 
-### T-UI-ACT-01 — action inventory
+## T-UI-ACT-01 — action inventory
 
 | Action | Surface | Handler | API |
 |--------|---------|---------|-----|
-| Search | S-LIST filter | `SearchTextInput` → `applyFilters` | GET `/inbox` |
-| Status / Priority / Type filter | S-LIST filter | `Select` → apply | GET `?status=&priority=&type=` |
-| Unread toggle | extra bar | `handleUnreadChange` | GET `?unreadOnly=true` |
-| Refresh | toolbar | `reloadAll` | GET `/inbox` · GET `/overview` |
-| +Tạo | toolbar | `openCreate` → `/ops/new` | POST `/inbox` |
-| Edit (toolbar) | toolbar | `openRow(edit)` → `/:id?mode=edit` | GET `/{id}` · PUT |
-| View (toolbar) | toolbar | `openRow(view)` → `/:id` | GET `/{id}` (+ mark-read if unread) |
-| Delete (toolbar) | toolbar | `deleteRow` | DELETE `/{id}` soft |
-| History (toolbar) | toolbar | `historyStub(activeRow)` | DEFER stub |
-| Config `fa-cog` | toolbar | `editConfigStub` | ui-schema hint |
-| Mark all read | extra bar | `markAllRead` | POST `/inbox/mark-all-read` |
-| Xuất / Nav patrol·gis·incident / Command P2 | extra bar | alert stubs | DEFER / cross-MFE |
-| Row View/Edit/Copy/Delete | row menu | `handleRowMenuSelect` | same as above |
-| Row Mark-read | row menu | `markReadRow` | POST `/{id}/mark-read` |
-| Row Assign (P2) | row menu | alert stub | DEFER GAP-F-OPS-01 |
-| Deep-link `?form=` | URL | create/edit/view/copy | GET `/{id}` when id |
-| Form Send/Draft/Clear/Cancel/View actions | Form page footer + Z1 | `handleSave` | POST/PUT |
+| Search | S-LIST filter | SearchText → apply | GET `/inbox?search=` |
+| Status / Priority / Type | S-LIST | SearchInput | GET `?status=&priority=&type=` |
+| Direction / Org-unit | S-LIST | SearchInput | GET `?direction=&orgUnitCode=` |
+| Unread toggle | extra bar | | GET `?unreadOnly=true` |
+| Refresh | toolbar | reloadAll | GET `/inbox` · GET `/overview` |
+| +Tạo | toolbar | `/ops/new` | POST `/inbox` |
+| Edit / View / Delete | toolbar | `/:id` | GET/PUT/DELETE |
+| History | toolbar | stub | DEFER |
+| Config `fa-cog` | toolbar | schema modal | Integration catalogs |
+| Mark all read | extra bar | | POST `/inbox/mark-all-read` |
+| Xuất / Nav / Command P2 | extra bar | stub / cross-MFE | DEFER |
+| Row View/Edit/Copy/Delete | row menu | | same |
+| Row Mark-read | row menu | | POST `/{id}/mark-read` |
+| Row Assign P2 | row menu | stub | DEFER GAP-F-OPS-01 |
+| Form Gửi / Nháp / Clear / Hủy | Z3 | handleSave | POST/PUT |
 
-### T-UI-LKP-01
-**status:** **pending→done** (Dev this turn)  
-SearchInput init-data master `STATUS_LOOKUP` / `PRIORITY_LOOKUP` / `TYPE_LOOKUP` / `RECIPIENT_LOOKUP` / `CHANNEL_LOOKUP` trên list filter + form. Cấm native `<select>` / Text catalog.
+**status:** **verify** (live done) — không invent API mới.
 
-### T-UI-FIELD-01
-**status:** **pending→done** (Dev this turn)  
-Map: search · status · priority · type · unread · title · body · recipient · channel · sender · linkRef · reply · sentAt ↔ `NotificationDto` / Create·Update request · API query.
+## T-UI-LKP-01
 
-### T-UI-PROD-01
-**status:** **pending→done** (Dev this turn)  
-Cấm Resource · Slideout · View=`readOnly` Input · Kind D. Form = `NotificationFormPage`. View = `<dl>` display.
+| catalogKind | Source P1 | API P1 |
+|-------------|-----------|--------|
+| ops-status | FE `lookups.ts` `moi` · `dang-xu-ly` · `da-gui` · `nhap` | **không** |
+| ops-priority | `thap` · `trung-binh` · `cao` · `khan` | **không** |
+| ops-type | `tuan-tra` · `su-co` · `sua-chua` · `khac` | **không** |
+| ops-channel | `inbox` · `push` · `email` | **không** |
+| recipient | FE master đội | **không** |
+| cv-direction | `DIRECTION_LOOKUP` `di`/`den` | **không** |
+| org-unit | FE Chi cục II · persist **code + name** | **không** P1 · Integration **P2** |
 
-### T-UI-UX-01
-**status:** **pending→done** (Dev this turn)  
-Spacing 4/8/16 · `LinPageLayout` list · `LinPageHeader` form · `LinCatalogDataGrid` · `LinCatalogListPagination` · không `filterMaxWidthPx`.
+**status:** **verify** · **cấm** native `<select>` · **cấm** invent ERP catalog GET.
 
-**GAP-P2-ACT-\* (pre-Dev audit):**
+## T-UI-FIELD-01
 
-| ID | Gap | Fix |
-|----|-----|-----|
-| GAP-P2-ACT-DELETE | Toolbar **thiếu** Delete dù row menu `showDelete` + `notificationService.delete` + API soft-delete sẵn | **CLOSED** — `canDelete`/`onDelete` · shared `deleteRow` |
+Map controlHint ↔ DTO (SA lock). **cấm** Dev đổi SearchInput → select.
 
-### T-BE-CRUD-01
-**layer:** api  
-**status:** **done** (verify — = prior T-BE-01)  
-**DoD:**
-- [x] API-01 list/search · API-02 getById (XCO) · API-03 create · API-04 update · API-05 soft delete
-- [x] API-06 mark-read · API-07 mark-all-read · overview GET
-- [x] Route `api/v1/notification/inbox` · domain Notification · no ERP
-- [x] BFF proxy DELETE/mark-read/mark-all-read present
-- [x] `dotnet build` API + BFF PASS
+| uiField | Control | Required | BE |
+|---------|---------|----------|-----|
+| code | Text IdCode `OPS-*` readonly | auto | server IdCode · Create **không** nhận Code |
+| documentNumber | Text | | `DocumentNumber` varchar(64) |
+| direction | SearchInput cv-direction | | `Direction` `di`\|`den` |
+| summary | Text textarea | | `Summary` varchar(1024) |
+| orgUnitCode | SearchInput org-unit | | `OrgUnitCode` + `OrgUnitName` |
+| sender | Text | | `Sender` |
+| sentAt | Date datetime | | `SentAt` UTC · display `vi-VN` |
+| status | SearchInput ops-status | * | `Status` · Create draft `nhap` else `da-gui` |
+| title | Text | * | `Title` |
+| body | Text textarea | * | `Body` |
+| recipient | SearchInput | * | `Recipient` |
+| priority | SearchInput ops-priority | | `Priority` |
+| type | SearchInput ops-type | | `Type` |
+| channel | SearchInput ops-channel | | `Channel` |
+| linkRef | Text | | `LinkRef` |
+| reply | Text textarea | P2 | `Reply` |
 
-### T-QA-CRUD-01
-**layer:** qa  
-**status:** **done**  
-**deps:** T-UI-ACT-01 · T-BE-CRUD-01  
-**DoD:**
-- [x] Smoke Create→Edit→View→Delete + row menu Delete + toolbar Delete
-- [x] Mark-read / mark-all-read → dedicated API
-- [x] Update `qa/scenarios.md` QA-CRUD rows
+**status:** **verify** (live done) — không field mới.
 
-## Deps (FormType delta)
+## T-UI-PROD-01
+
+**status:** **verify**  
+**cấm** Resource · Slideout · View=`readOnly` Input xám · Kind D. Form = `NotificationFormPage`. View = `<dl>`.
+
+## T-UI-UX-01
+
+**status:** **verify**  
+Spacing 4/8/16 · `LinPageLayout` list · `LinPageHeader` form · `LinCatalogDataGrid` · `LinCatalogListPagination` · **cấm** `filterMaxWidthPx`. LAYOUT-06 list shell height **PASS** prior — Dev re-check.
+
+## T-BE-CRUD-01 (= T-BE-01)
+
+| | |
+|--|--|
+| layer | api |
+| status | **verify keep** (SA GAP-SA-OPS-* keep) |
+| prefix | `api/v1/notification/inbox` · overview `api/v1/notification/overview` |
+| DoD | API-01 list/search (search Contains Code/Title/Body/Recipient/Sender/Status/Type/Priority/DocumentNumber/Summary/OrgUnitName · query `direction`/`orgUnitCode` · pageSize 50/100/200/500) · API-02 GetById XCO · API-03 Create · API-04 Update · API-05 soft delete · API-06 mark-read · API-07 mark-all-read · API-08 overview. Envelope `ApiResponse`. **Cấm** parent JSON · **cấm** bảng OfficialDocument riêng · **cấm** `api/v1/ops`. |
+
+## T-BE-02
+
+**status:** **verify** — `Schema_RmmsNotifications` + `Schema_RmmsNotificationsOfficialDoc` live. **không** migration mới trừ schema seed order.
+
+## T-BE-SCHEMA-01
+
+| | |
+|--|--|
+| layer | Integration seed |
+| status | **pending** |
+| deps | — |
+| DoD | `CatalogUiSchemaSeed.OpsInbox()` `Field.List.Order` = Design bootstrap (title sau direction/summary/orgUnitName). kind=`ops-inbox` giữ. **Cấm** `configHint`. Optional: List/Lookup `SearchFieldKeys` gồm `summary`. **Cấm** sửa ERP.* |
+
+## T-BFF-01
+
+**status:** **verify keep**  
+Proxy-only `NotificationInboxBffController` · `NotificationOverviewBffController` · `BuildListPath` query passthrough · **cấm** BFF map/filter.
+
+## T-QA-CRUD-01
+
+**status:** **pending** (QA role sau Dev)  
+Smoke: list filters direction/org · default column order · Create→Edit→View `<dl>`→Delete · mark-read · schema modal · pageSize 50/100/200/500.
+
+## FormType pack (canonical)
+
+| Task id | Role | Status | Notes |
+|---------|------|--------|-------|
+| T-CTX-01 | Dev | **pending** | stale context wording |
+| T-PERM-01 | Dev | **verify** | `notification.inbox.*` |
+| T-UI-LIST-01 | Dev | **verify** | A–D + Zone F PASS |
+| T-UI-LIST-02 | Dev | **pending** | column order |
+| T-UI-FORM-01 | Dev | **verify** | full-page |
+| T-UI-ACT-01 | Dev | **verify** | inventory |
+| T-UI-LKP-01 | Dev | **verify** | FE constants |
+| T-UI-FIELD-01 | Dev | **verify** | control-map |
+| T-UI-PROD-01 | Dev | **verify** | cấm Resource/Slideout |
+| T-UI-UX-01 | Dev | **verify** | constitution |
+| T-BE-CRUD-01 | Dev | **verify** | keep contract |
+| T-BE-02 | Dev | **verify** | migrations exist |
+| T-BE-SCHEMA-01 | Dev | **pending** | GAP-SA-OPS-SCHEMA |
+| T-BFF-01 | Dev | **verify** | proxy |
+| T-UI-MAP-FORM | — | **n/a** | packKind=`list` |
+| T-QA-CRUD-01 | QA | **pending** | sau Dev |
+
+**GAP-TL-FORMTYPE-01:** closed this pack — ACT/CRUD/LKP/FIELD/PROD/UX stamped.
+
+## API contract (lock)
+
+| id | Method | Path |
+|----|--------|------|
+| API-01 | GET | `/api/v1/notification/inbox` |
+| API-02 | GET | `/api/v1/notification/inbox/{id}` |
+| API-03 | POST | `/api/v1/notification/inbox` |
+| API-04 | PUT | `/api/v1/notification/inbox/{id}` |
+| API-05 | DELETE | `/api/v1/notification/inbox/{id}` |
+| API-06 | POST | `/api/v1/notification/inbox/{id}/mark-read` |
+| API-07 | POST | `/api/v1/notification/inbox/mark-all-read` |
+| API-08 | GET | `/api/v1/notification/overview` |
+
+FE BASE: Field `/ops`. BFF: `web-bff/api/v1/notification/inbox` · `.../overview`.
+
+## Deps
 
 ```
-T-BE-01 ≈ T-BE-CRUD-01
-T-UI-FORM-01 → T-UI-ACT-01 → T-QA-CRUD-01
+T-BE-SCHEMA-01 → T-UI-LIST-02
+T-CTX-01 parallel
+T-BE-CRUD-01 / T-BFF-01 / T-PERM-01 / T-UI-* verify (no-op nếu parity)
+T-UI-LIST-02 + T-UI-FORM-01 → T-QA-CRUD-01
 ```
 
 ## SD flags
 
 | Flag | Value |
-|-------|-------|
+|------|-------|
 | SD-AUTH | stub `[RequirePermission]` TODO |
 | SD-BFF | proxy-only |
 | SD-JOB | n/a |
 | SD-MAP | realtime map **cấm** trong MFE · nav Patrol/Gis |
 | SD-SIGNALR | OpsHub DEFER P2 |
 | SD-COMMAND | Command center P2 stub |
+| SD-TZ | persist UTC · display local FE |
+| SD-XCO | GetById get_only |
+| SD-LOOKUP | share_na P1 FE constants |
 
 ## list_parity / form
 
-- list_parity Kind B — PASS (prior · giữ)
-- form checklist Z1–Z3 — PASS (full-page · không Slideout)
+- list_parity Kind B — **PASS** live (order GAP riêng)
+- form checklist Z1–Z3 — **PASS** full-page
 - tree_master — n/a
-- tl-list-shell-height (LAYOUT-06) — PASS (prior · giữ)
+- tl-list-shell-height (LAYOUT-06) — **PASS** prior
+- Zone F config FULL — **PASS** live
 
-## Handoff → Dev / Review
+## Build
+
+TL **không** sửa FE/BE code → `yarn build` / `dotnet build` **n/a** this role. Dev **HARD** PASS trước `completed` + handoff QA.
+
+## Handoff → Dev
 
 | Field | Value |
 |-------|-------|
-| Next | Dev T-UI-LKP/FIELD/PROD/UX · QA-CRUD smoke · Review autopilot |
-| Anti-dup | reuse inbox CRUD · BE không đổi |
-| UI SSOT | `MFE-Source/Linm.Web.RMMS.Field` · `NotificationListPage` · `NotificationFormPage` |
-| BE SSOT | `D:/AI-QLBD/Linm.RMMS.WebService` · Notification |
-| HARD | `tl-retry-ssot-rereview` · fix_all · no list rewrite |
+| Next | Dev `implement/ops.md` · **pending** đến lượt · chain enqueue (autoApprove ON) |
+| Write | T-BE-SCHEMA-01 + T-UI-LIST-02 + T-CTX-01 · còn lại **verify / no-op** |
+| Anti-dup | reuse inbox CRUD · **cấm** domain mới · **cấm** ERP.* |
+| UI SSOT | `NotificationListPage` · `NotificationFormPage` |
+| BE SSOT | `D:/AI-QLBD/Linm.RMMS.WebService` · Notification + Integration seed |
+| HARD | `tl-retry-ssot-rereview` · fix_all cùng surface · **cấm** `completed` nếu build fail |
+| Roles sau | qa · review = **pending** |
 
 ## Version meta (REQUIRED)
 
 | Field | Value |
 |-------|-------|
 | skillId | agent-team-lead |
-| skillVersion | 2026.08.09.02 |
+| skillVersion | 2026.08.15.5 |
 | schemaVersion | 1 |
-| workflowVersion | 2026.08.09.02 |
-| rulesVersion | 2026.08.09.02 |
-| generatedAt | 2026-08-14T20:20:00.000Z |
-| versionGate | rechecked |
+| workflowVersion | 2026.08.15.5 |
+| rulesVersion | 2026.08.15.8 |
+| generatedAt | 2026-08-16T03:00:00.000Z |
+| versionGate | recheck_new |
+| version_mismatch_action | recheck_new (STATUS) |
+| contentHashPriorDataAnaly | sha256:ops-delta-official-doc-20260816 |
+| orchestratorSkillVersion | 2026.08.15.5 |
+| orchestratorWorkflowVersion | 2026.08.15.5 |
+| orchestratorSchemaVersion | qldb-workflow-skill-v1 |
+
+<!-- Version meta: skillVersion=2026.08.15.5 · schemaVersion=1 · workflowVersion=2026.08.15.5 · rulesVersion=2026.08.15.8 · versionGate=recheck_new -->

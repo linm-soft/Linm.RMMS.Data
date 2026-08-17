@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Prototype — Chỉ đạo điều hành (ops) · Kind B A–D</title>
+  <title>Prototype — Chỉ đạo điều hành (ops) · Kind B A–D + full-page form</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
   <style>
     :root {
@@ -13,7 +13,7 @@
     }
     * { box-sizing: border-box; }
     body { margin: 0; font-family: "Segoe UI", system-ui, sans-serif; background: var(--bg); color: var(--txt); font-size: var(--ds-font-body); }
-    .page { max-width: 1200px; margin: 0 auto; padding: 16px; min-height: 100vh; display: flex; flex-direction: column; }
+    .page { max-width: 1280px; margin: 0 auto; padding: 16px; min-height: 100vh; display: flex; flex-direction: column; }
     .zoneA { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
     .zoneA h1 { margin: 0; font-size: 22px; font-weight: 700; }
     .badge { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px; background: #e7f1ff; color: #0b5ed7; }
@@ -27,10 +27,10 @@
     .zoneB { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 10px 12px; background: var(--toolbar-bg); border: 1px solid var(--border-soft); border-radius: var(--ds-radius-md); margin-bottom: 10px; }
     .btn { height: var(--ds-height-btn); padding: 0 12px; border: 1px solid var(--border); border-radius: var(--ds-radius-md); background: #fff; cursor: pointer; font-size: 12px; }
     .btn.primary { background: var(--primary); color: #fff; border-color: var(--primary); }
-    .filters { display: grid; grid-template-columns: 1fr 140px 140px 140px 120px; gap: 12px; margin-bottom: 10px; }
-    @media (max-width: 900px) { .filters { grid-template-columns: 1fr 1fr; } }
+    .filters { display: grid; grid-template-columns: 1.4fr repeat(5, minmax(110px, 1fr)) auto; gap: 10px; margin-bottom: 10px; align-items: end; }
+    @media (max-width: 1100px) { .filters { grid-template-columns: 1fr 1fr 1fr; } }
     label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--muted); }
-    input, select, textarea { min-height: 32px; padding: 6px 10px; border: 1px solid var(--border); border-radius: var(--ds-radius-md); font-size: 13px; font-family: inherit; }
+    input, textarea { min-height: 32px; padding: 6px 10px; border: 1px solid var(--border); border-radius: var(--ds-radius-md); font-size: 13px; font-family: inherit; }
     .zoneC { flex: 1; background: var(--card); border: 1px solid var(--border-soft); border-radius: var(--ds-radius-md); overflow: auto; min-height: 280px; }
     table { width: 100%; border-collapse: collapse; }
     th, td { padding: 8px 10px; border-bottom: 1px solid var(--border-soft); text-align: left; white-space: nowrap; }
@@ -40,18 +40,27 @@
     .zoneD { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; margin-top: 8px; gap: 12px; flex-wrap: wrap; }
     .pager { display: flex; gap: 6px; align-items: center; }
     .hint { color: var(--muted); font-size: 12px; margin: 0 0 12px; }
-    .slide { position: fixed; top: 0; right: 0; width: min(560px, 100%); height: 100%; background: #fff; border-left: 1px solid var(--border); box-shadow: -8px 0 24px rgba(15,23,42,.12); display: none; flex-direction: column; z-index: 20; }
-    .slide.open { display: flex; }
-    .slide .z1 { display: flex; justify-content: space-between; gap: 8px; padding: 12px 16px; border-bottom: 1px solid var(--border-soft); }
-    .slide .body { padding: 16px; overflow: auto; flex: 1; }
-    .slide .z3 { display: flex; justify-content: flex-end; gap: 8px; padding: 12px 16px; border-top: 1px solid var(--border-soft); flex-wrap: wrap; }
+    .fullpage { display: none; min-height: 100vh; background: var(--bg); }
+    .fullpage.open { display: block; }
+    .fullpage .z1 { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 12px 16px; background: var(--card); border-bottom: 1px solid var(--border-soft); flex-wrap: wrap; }
+    .fullpage .body { max-width: 960px; margin: 0 auto; padding: 16px; }
+    .fullpage .z3 { display: flex; justify-content: flex-end; gap: 8px; padding: 12px 16px; border-top: 1px solid var(--border-soft); background: var(--card); flex-wrap: wrap; }
     .fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .span2 { grid-column: 1 / -1; }
     textarea { min-height: 90px; resize: vertical; }
+    .modal { display: none; position: fixed; inset: 0; background: rgba(15,23,42,.35); z-index: 30; align-items: center; justify-content: center; padding: 16px; }
+    .modal.open { display: flex; }
+    .modal .box { background: #fff; border-radius: 8px; max-width: 720px; width: 100%; max-height: 80vh; overflow: auto; padding: 16px; }
+    .modal table { font-size: 12px; }
+    .view-dl { display: grid; grid-template-columns: 160px 1fr; gap: 8px 16px; }
+    .view-dl dt { color: var(--muted); font-weight: 600; }
+    .view-dl dd { margin: 0; }
+    .hidden { display: none !important; }
+    .dirty { font-size: 11px; color: #b45309; font-weight: 700; }
   </style>
 </head>
 <body>
-  <div class="page" data-catalog-list-page data-testid="rmms-ops-list-prototype">
+  <div class="page" id="listPage" data-catalog-list-page data-testid="rmms-ops-list-prototype">
     <header class="zoneA" data-zone="A">
       <i class="fas fa-bullhorn" aria-hidden="true"></i>
       <h1>Chỉ đạo điều hành</h1>
@@ -59,7 +68,7 @@
       <span class="badge badgeWarn">≠ GOVOne giamsat</span>
       <span class="badge badgeP2">P2 Command</span>
     </header>
-    <p class="hint">Prototype content-only · zones A–D · Slideout Z1–Z3 · reviewUrl gate · no chrome/menu · map realtime DEFER (nav Patrol/Gis).</p>
+    <p class="hint">Prototype content-only · A–D · cột CV · filter chiều/đơn vị · Zone F schema · form full-page Z1–Z3 · không chrome/menu/Slideout.</p>
 
     <div class="kpis" aria-label="Overview">
       <div class="kpi"><div class="lbl">Cán bộ online</div><div class="val">12</div></div>
@@ -69,10 +78,10 @@
     </div>
 
     <div class="zoneB" data-zone="B" data-testid="ops-toolbar">
+      <button type="button" class="btn primary" id="btnCreate"><i class="fas fa-plus"></i> Tạo chỉ đạo</button>
       <button type="button" class="btn" title="Làm mới"><i class="fas fa-sync-alt"></i> Làm mới</button>
       <button type="button" class="btn" title="Lịch sử"><i class="fas fa-history"></i> Lịch sử</button>
-      <button type="button" class="btn" title="Cấu hình"><i class="fas fa-cog"></i></button>
-      <button type="button" class="btn primary" id="btnCreate"><i class="fas fa-plus"></i> Tạo chỉ đạo</button>
+      <button type="button" class="btn" id="btnSchema" title="Cấu hình hiển thị danh mục"><i class="fas fa-cog"></i></button>
       <button type="button" class="btn">Đánh dấu tất cả đã đọc</button>
       <button type="button" class="btn">Xuất</button>
       <button type="button" class="btn">Giám sát</button>
@@ -81,42 +90,27 @@
       <button type="button" class="btn">Command <span class="badge badgeP2">P2</span></button>
     </div>
 
-    <div class="filters" data-zone="C-filters">
+    <div class="filters" data-zone="B-filters">
       <label>Tìm kiếm
-        <input type="search" placeholder="Mã · tiêu đề · đội…" />
+        <input type="search" placeholder="Mã · tiêu đề · số CV · trích yếu · đội…" list="none" />
       </label>
       <label>Trạng thái
-        <select>
-          <option value="">Tất cả</option>
-          <option>moi</option>
-          <option>dang-xu-ly</option>
-          <option>da-gui</option>
-          <option>nhap</option>
-        </select>
+        <input type="search" placeholder="Tất cả" list="ops-status" />
       </label>
       <label>Ưu tiên
-        <select>
-          <option value="">Tất cả</option>
-          <option>cao</option>
-          <option>trung-binh</option>
-          <option>thap</option>
-          <option>khan</option>
-        </select>
+        <input type="search" placeholder="Tất cả" list="ops-priority" />
       </label>
       <label>Loại
-        <select>
-          <option value="">Tất cả</option>
-          <option>tuan-tra</option>
-          <option>su-co</option>
-          <option>sua-chua</option>
-          <option>khac</option>
-        </select>
+        <input type="search" placeholder="Tất cả" list="ops-type" />
+      </label>
+      <label>Chiều
+        <input type="search" placeholder="Tất cả" list="cv-direction" />
+      </label>
+      <label>Đơn vị
+        <input type="search" placeholder="Chi cục II…" list="org-unit" />
       </label>
       <label>Chưa đọc
-        <select>
-          <option value="">Tất cả</option>
-          <option value="1">Chỉ chưa đọc</option>
-        </select>
+        <input type="search" placeholder="Tất cả" list="unread" />
       </label>
     </div>
 
@@ -124,22 +118,54 @@
       <table>
         <thead>
           <tr>
-            <th>STT</th><th>□</th><th>Mã</th><th>Tiêu đề</th><th>Người gửi</th>
-            <th>Người nhận</th><th>Ưu tiên</th><th>Loại</th><th>TT</th><th>Thời gian</th><th>⋯</th>
+            <th>STT</th>
+            <th>Mã</th>
+            <th>Số CV</th>
+            <th>Chiều</th>
+            <th>Trích yếu</th>
+            <th>Đơn vị</th>
+            <th>Tiêu đề</th>
+            <th>Người gửi</th>
+            <th>Người nhận</th>
+            <th>Ưu tiên</th>
+            <th>Loại</th>
+            <th>TT</th>
+            <th>Thời gian</th>
+            <th>⋯</th>
           </tr>
         </thead>
         <tbody>
           <tr class="unread">
-            <td>1</td><td>□</td>
-            <td><span class="code" id="openView">OPS-20260810-0001</span></td>
-            <td>Điều phối tuần tra tuyến QL1A</td><td>Hạt trưởng A</td>
-            <td>Đội 1</td><td>cao</td><td>tuan-tra</td><td>moi</td><td>10/08/2026 08:00</td><td>⋯</td>
+            <td>1</td>
+            <td><span class="code" id="openView">OPS-20260816-0001</span></td>
+            <td>CV-II-12/2026</td>
+            <td>Đi</td>
+            <td>Điều phối tuần tra QL1A</td>
+            <td>Chi cục II</td>
+            <td>Điều phối tuần tra tuyến QL1A</td>
+            <td>Hạt trưởng A</td>
+            <td>Đội 1</td>
+            <td>cao</td>
+            <td>tuan-tra</td>
+            <td>moi</td>
+            <td>16/08/2026 08:00</td>
+            <td>Xem · Sửa · Copy</td>
           </tr>
           <tr>
-            <td>2</td><td>□</td>
-            <td><span class="code">OPS-20260809-0012</span></td>
-            <td>Ưu tiên xử lý sự cố Km12</td><td>Điều phối B</td>
-            <td>Đội SC</td><td>khan</td><td>su-co</td><td>da-gui</td><td>09/08/2026 16:20</td><td>⋯</td>
+            <td>2</td>
+            <td><span class="code" id="openView2">OPS-20260815-0012</span></td>
+            <td>CV-II-11/2026</td>
+            <td>Đến</td>
+            <td>Ưu tiên sự cố Km12</td>
+            <td>Hạt QL1A</td>
+            <td>Ưu tiên xử lý sự cố Km12</td>
+            <td>Điều phối B</td>
+            <td>Đội SC</td>
+            <td>khan</td>
+            <td>su-co</td>
+            <td>da-gui</td>
+            <td>15/08/2026 16:20</td>
+            <td>Xem · Sửa · Copy</td>
           </tr>
         </tbody>
       </table>
@@ -151,62 +177,147 @@
         <button type="button" class="btn">«</button>
         <button type="button" class="btn">1</button>
         <button type="button" class="btn">»</button>
-        <select>
-          <option>50</option>
-          <option>100</option>
-          <option>200</option>
-          <option>500</option>
-        </select>
+        <input type="search" list="page-size" value="50" style="width:72px" aria-label="pageSize" />
       </div>
     </div>
   </div>
 
-  <aside class="slide" id="slide" aria-label="Form chỉ đạo">
+  <div class="fullpage" id="formPage" data-testid="rmms-ops-form-prototype">
     <div class="z1" data-zone="Z1">
-      <button type="button" class="btn" id="btnClose">← Quay lại</button>
+      <div style="display:flex;align-items:center;gap:8px">
+        <button type="button" class="btn" id="btnBack">← Quay lại</button>
+        <strong id="formTitle">Tạo chỉ đạo</strong>
+        <span class="dirty" id="dirtyBadge">● dirty</span>
+      </div>
       <div>
-        <button type="button" class="btn">Hủy</button>
-        <button type="button" class="btn primary">Gửi chỉ đạo</button>
+        <button type="button" class="btn" id="btnClose">Đóng</button>
       </div>
     </div>
     <div class="body" data-zone="Z2">
-      <h2 style="margin:0 0 8px;font-size:16px">Tạo chỉ đạo</h2>
-      <p class="hint">Z1 toolbar · Z2 fields · Z3 footer · IdCode OPS-* · leave-confirm dirty</p>
-      <div class="fields">
-        <label>Mã<input value="(tự sinh)" readonly /></label>
+      <p class="hint" id="formHint">Z1 toolbar · Z2 fields · Z3 footer · IdCode OPS-* · leave-confirm dirty · View = dl (không Input xám)</p>
+      <div class="fields" id="formEdit">
+        <label>Mã chỉ đạo<input value="OPS-20260816-0003" readonly /></label>
+        <label>Số công văn<input placeholder="CV-II-…/2026" /></label>
+        <label>Chiều<input type="search" list="cv-direction" placeholder="Đi / Đến" /></label>
+        <label>Đơn vị<input type="search" list="org-unit" placeholder="Chi cục II" /></label>
+        <label class="span2">Trích yếu<textarea placeholder="Trích yếu công văn…"></textarea></label>
         <label>Người gửi<input value="Hạt trưởng A" /></label>
+        <label>Thời gian gửi<input type="datetime-local" value="2026-08-16T08:00" /></label>
+        <label>Trạng thái *<input type="search" list="ops-status" value="moi" /></label>
+        <label>Người nhận *<input type="search" list="recipient" value="Đội 1" /></label>
         <label class="span2">Tiêu đề *<input placeholder="Điều phối tuần tra…" /></label>
         <label class="span2">Nội dung *<textarea></textarea></label>
-        <label>Người nhận *
-          <select><option>Đội 1</option><option>Đội SC</option></select>
-        </label>
-        <label>Ưu tiên
-          <select><option>cao</option><option>trung-binh</option></select>
-        </label>
-        <label>Loại
-          <select><option>tuan-tra</option><option>su-co</option></select>
-        </label>
-        <label>Kênh
-          <select><option>inbox</option><option>push</option></select>
-        </label>
-        <label class="span2">Liên kết nguồn<input placeholder="INC-2026-0142" /></label>
+        <label>Ưu tiên<input type="search" list="ops-priority" value="cao" /></label>
+        <label>Loại<input type="search" list="ops-type" value="tuan-tra" /></label>
+        <label>Kênh<input type="search" list="ops-channel" value="inbox" /></label>
+        <label>Liên kết nguồn<input placeholder="INC-2026-0142" /></label>
         <label class="span2">Phản hồi (P2)<textarea></textarea></label>
       </div>
+      <dl class="view-dl hidden" id="formView">
+        <dt>Mã chỉ đạo</dt><dd>OPS-20260816-0001</dd>
+        <dt>Số công văn</dt><dd>CV-II-12/2026</dd>
+        <dt>Chiều</dt><dd>Đi</dd>
+        <dt>Đơn vị</dt><dd>Chi cục II</dd>
+        <dt>Trích yếu</dt><dd>Điều phối tuần tra QL1A</dd>
+        <dt>Tiêu đề</dt><dd>Điều phối tuần tra tuyến QL1A</dd>
+        <dt>Nội dung</dt><dd>Tăng cường tuần tra đêm 16/08.</dd>
+        <dt>Người nhận</dt><dd>Đội 1</dd>
+        <dt>Ưu tiên</dt><dd>cao</dd>
+        <dt>Loại</dt><dd>tuan-tra</dd>
+        <dt>Trạng thái</dt><dd>moi</dd>
+        <dt>Thời gian gửi</dt><dd>16/08/2026 08:00</dd>
+        <dt>Người gửi</dt><dd>Hạt trưởng A</dd>
+        <dt>Kênh</dt><dd>inbox</dd>
+        <dt>Liên kết nguồn</dt><dd>—</dt>
+      </dl>
     </div>
     <div class="z3" data-zone="Z3">
       <button type="button" class="btn primary">Gửi chỉ đạo</button>
       <button type="button" class="btn">Lưu nháp</button>
       <button type="button" class="btn">Giao việc P2</button>
       <button type="button" class="btn">Xóa nội dung</button>
-      <button type="button" class="btn">Hủy</button>
+      <button type="button" class="btn" id="btnCancel">Hủy</button>
     </div>
-  </aside>
+  </div>
+
+  <div class="modal" id="schemaModal" data-zone="F" role="dialog" aria-labelledby="schemaTitle">
+    <div class="box">
+      <h2 id="schemaTitle" style="margin:0 0 12px;font-size:16px">Cấu hình hiển thị danh mục</h2>
+      <p class="hint">kind=`ops-inbox` · LinCatalogUiSchemaEditorModal · cấm LinListTableConfigModal / configHint</p>
+      <table>
+        <thead>
+          <tr><th>Cột</th><th>List</th><th>Width</th><th>Filter</th><th>Sort</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>code</td><td>ON</td><td>140</td><td>ON</td><td>ON</td></tr>
+          <tr><td>documentNumber</td><td>ON</td><td>120</td><td>ON</td><td>ON</td></tr>
+          <tr><td>direction</td><td>ON</td><td>80</td><td>ON</td><td>ON</td></tr>
+          <tr><td>summary</td><td>ON</td><td>200</td><td>ON</td><td></td></tr>
+          <tr><td>orgUnitName</td><td>ON</td><td>140</td><td>ON</td><td></td></tr>
+          <tr><td>title</td><td>ON</td><td>240</td><td>ON</td><td></td></tr>
+        </tbody>
+      </table>
+      <p><button type="button" class="btn">Thêm cột</button> <button type="button" class="btn primary" id="schemaClose">Đóng</button></p>
+    </div>
+  </div>
+
+  <datalist id="ops-status">
+    <option value="moi"></option><option value="dang-xu-ly"></option><option value="da-gui"></option><option value="nhap"></option>
+  </datalist>
+  <datalist id="ops-priority">
+    <option value="thap"></option><option value="trung-binh"></option><option value="cao"></option><option value="khan"></option>
+  </datalist>
+  <datalist id="ops-type">
+    <option value="tuan-tra"></option><option value="su-co"></option><option value="sua-chua"></option><option value="khac"></option>
+  </datalist>
+  <datalist id="ops-channel">
+    <option value="inbox"></option><option value="push"></option><option value="email"></option>
+  </datalist>
+  <datalist id="cv-direction">
+    <option value="di">Đi</option><option value="den">Đến</option>
+  </datalist>
+  <datalist id="org-unit">
+    <option value="CC2">Chi cục II</option><option value="HAT-QL1A">Hạt QL1A</option>
+  </datalist>
+  <datalist id="recipient">
+    <option value="Đội 1"></option><option value="Đội SC"></option>
+  </datalist>
+  <datalist id="unread">
+    <option value="Tất cả"></option><option value="Chỉ chưa đọc"></option>
+  </datalist>
+  <datalist id="page-size">
+    <option value="50"></option><option value="100"></option><option value="200"></option><option value="500"></option>
+  </datalist>
 
   <script>
-    const slide = document.getElementById('slide');
-    document.getElementById('btnCreate').onclick = () => slide.classList.add('open');
-    document.getElementById('openView').onclick = () => slide.classList.add('open');
-    document.getElementById('btnClose').onclick = () => slide.classList.remove('open');
+    const listPage = document.getElementById('listPage');
+    const formPage = document.getElementById('formPage');
+    const formEdit = document.getElementById('formEdit');
+    const formView = document.getElementById('formView');
+    const formTitle = document.getElementById('formTitle');
+    const dirtyBadge = document.getElementById('dirtyBadge');
+    function openForm(mode) {
+      listPage.classList.add('hidden');
+      formPage.classList.add('open');
+      const isView = mode === 'view';
+      formEdit.classList.toggle('hidden', isView);
+      formView.classList.toggle('hidden', !isView);
+      formTitle.textContent = isView ? 'Chi tiết chỉ đạo' : (mode === 'edit' ? 'Sửa chỉ đạo' : 'Tạo chỉ đạo');
+      dirtyBadge.style.display = isView ? 'none' : 'inline';
+    }
+    function closeForm() {
+      formPage.classList.remove('open');
+      listPage.classList.remove('hidden');
+    }
+    document.getElementById('btnCreate').onclick = () => openForm('create');
+    document.getElementById('openView').onclick = () => openForm('view');
+    document.getElementById('openView2').onclick = () => openForm('view');
+    document.getElementById('btnBack').onclick = closeForm;
+    document.getElementById('btnClose').onclick = closeForm;
+    document.getElementById('btnCancel').onclick = closeForm;
+    const schema = document.getElementById('schemaModal');
+    document.getElementById('btnSchema').onclick = () => schema.classList.add('open');
+    document.getElementById('schemaClose').onclick = () => schema.classList.remove('open');
   </script>
 </body>
 </html>

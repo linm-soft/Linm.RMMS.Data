@@ -3,8 +3,8 @@
 | Field | Value |
 |-------|-------|
 | feature | `inventory` |
-| phase | `design` |
-| status | `await_confirm` |
+| phase | `dev` |
+| status | `blocked` |
 | changeScope | `edit_page` |
 | packKind | `list` |
 | gap | `crud_formtype` |
@@ -25,7 +25,7 @@
 | dataAnalySkillVersion | `2026.08.08.20` |
 | dataAnalyWorkflowVersion | `2026.08.15.1` |
 | dataAnalyRulesVersion | `2026.08.15.2` |
-| updatedAt | `2026-08-14T18:32:38.633Z` |
+| updatedAt | `2026-08-16T04:04:59.715Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -38,18 +38,18 @@
 |------|-------|----------|--------|
 | 0 | data_analy | `_data-analy/features/inventory-control-hint.md` | **done** (`task_efd934ec`) |
 | 1 | po | po/requirement.md | **confirmed** |
-| 2.1 | design | ui/design.md + prototype + reviewUrl | **await_confirm** |
-| 2.2 | sa | be/solution-discovery.md | **pending** |
-| 3 | team-lead | task/inventory.md | **pending** |
-| 4 | dev | implement/inventory.md | **pending** |
+| 2.1 | design | ui/design.md + prototype + reviewUrl | **confirmed** |
+| 2.2 | sa | be/solution-discovery.md | **confirmed** |
+| 3 | team-lead | task/inventory.md | **done** |
+| 4 | dev | implement/inventory.md | **blocked** |
 | 5 | qa | qa/scenarios.md | **pending** |
 | 6 | review | review/findings.md | **pending** |
 ## Confirms
 
 | Gate | Value |
 |------|-------|
-| design_confirm | **pending** (`autoApprove=OFF` → user Approve board) |
-| solution_confirm | pending (`autoApprove=OFF` → await_confirm khi tới SA) |
+| design_confirm | **confirmed** (user Approve board) |
+| solution_confirm | **confirmed** (user Approve board) |
 | sa_tz_gate | — |
 | sa_xco_gate | — |
 | sa_shared_table | — |

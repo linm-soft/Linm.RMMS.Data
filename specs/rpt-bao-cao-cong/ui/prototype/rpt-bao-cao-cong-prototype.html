@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Prototype — Báo cáo công · Kind E A–D</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    :root {
+      --bg: #f5f7fa; --card: #fff; --border: #BABCBE; --border-soft: #e9ecef;
+      --txt: #1A1A1A; --txt-secondary: #6c757d; --muted: #6D6D6D;
+      --primary: #0f766e; --toolbar-bg: #f8fafc;
+      --ds-focus-shadow: 0px 0px 4px #BABCBE; --ds-radius-md: 4px;
+      --ds-font-body: 13px; --ds-font-title: 22px; --ds-height-btn: 32px;
+      --col-no: 48px;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: "Segoe UI", system-ui, sans-serif; background: var(--bg); color: var(--txt); font-size: var(--ds-font-body); }
+    input[type="date"], input[type="search"] {
+      padding: 6px 10px; border: 1px solid var(--border); border-radius: var(--ds-radius-md);
+      font-size: 13px; min-height: 32px; background: #fff;
+    }
+    input:focus { outline: none; border-color: var(--primary); box-shadow: var(--ds-focus-shadow); }
+    .page { max-width: 1280px; margin: 0 auto; padding: 8px; display: flex; flex-direction: column; gap: 8px; min-height: 100vh; }
+    .zone-a { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; flex-shrink: 0; }
+    .zone-a h1 { margin: 0; font-size: var(--ds-font-title); font-weight: 700; }
+    .badge { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: #ccfbf1; color: #115e59; }
+    .zone-b { display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; padding: 10px 12px; background: var(--toolbar-bg); border: 1px solid var(--border-soft); border-radius: var(--ds-radius-md); }
+    .zone-b-left, .zone-b-right { display: flex; flex-wrap: wrap; gap: 8px; align-items: flex-end; }
+    .btn { height: var(--ds-height-btn); padding: 0 12px; border: 1px solid var(--border); border-radius: var(--ds-radius-md); background: #fff; cursor: pointer; font-size: 12px; font-weight: 600; }
+    .btn.primary { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .field { display: flex; flex-direction: column; gap: 4px; min-width: 160px; }
+    .field label { font-size: 12px; color: var(--muted); font-weight: 500; }
+    .search-wrap { display: flex; align-items: stretch; border: 1px solid var(--border); border-radius: var(--ds-radius-md); overflow: hidden; background: #fff; min-width: 160px; min-height: 32px; }
+    .search-wrap:focus-within { border-color: var(--primary); box-shadow: var(--ds-focus-shadow); }
+    .search-wrap input { border: 0 !important; outline: none !important; box-shadow: none !important; flex: 1; min-width: 0; min-height: 30px; }
+    .search-wrap button { border: 0; border-left: 1px solid var(--border); background: #f8fafc; padding: 0 10px; cursor: pointer; color: var(--muted); min-width: 36px; }
+    .lkp { position: relative; }
+    .lkp-list { display: none; position: absolute; left: 0; right: 0; top: 100%; z-index: 30; background: #fff; border: 1px solid var(--border); border-radius: var(--ds-radius-md); max-height: 180px; overflow: auto; box-shadow: 0 8px 24px rgba(15,23,42,.12); }
+    .lkp.open .lkp-list { display: block; }
+    .lkp-list button { display: block; width: 100%; text-align: left; border: 0; background: #fff; padding: 8px 10px; font-size: 13px; cursor: pointer; }
+    .lkp-list button:hover { background: #f1f5f9; }
+    .zone-c { background: var(--card); border: 1px solid var(--border-soft); border-radius: var(--ds-radius-md); display: flex; flex-direction: column; min-height: 320px; overflow: hidden; flex: 1; }
+    .grid-head { padding: 12px 16px 8px; }
+    .grid-title { margin: 0; font-size: 15px; font-weight: 700; }
+    .grid-help { margin: 4px 0 0; font-size: 12px; color: var(--txt-secondary); }
+    .kpi { display: none; grid-template-columns: repeat(4, 1fr); gap: 8px; padding: 0 16px 8px; }
+    .kpi.on { display: grid; }
+    .kpi-card { border: 1px solid var(--border-soft); border-radius: var(--ds-radius-md); padding: 10px 12px; background: #f8fafc; }
+    .kpi-card span { display: block; font-size: 11px; color: var(--muted); }
+    .kpi-card b { font-size: 18px; }
+    .map { display: none; padding: 0 16px 8px; }
+    .map.on { display: block; }
+    .map svg { width: 100%; height: 140px; border: 1px solid var(--border-soft); border-radius: var(--ds-radius-md); background: #e8f0e4; }
+    .legend { font-size: 12px; color: var(--muted); margin-top: 4px; display: flex; gap: 12px; }
+    .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; }
+    .table-wrap { overflow: auto; flex: 1; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 8px 12px; border-bottom: 1px solid var(--border-soft); text-align: left; white-space: nowrap; }
+    th { background: #f8fafc; font-size: 12px; color: var(--muted); position: sticky; top: 0; }
+    th.col-stt, td.col-stt { width: var(--col-no); text-align: center; }
+    tbody tr:hover { background: #f0fdfa; }
+    .empty { text-align: center; color: #94a3b8; padding: 40px 16px; }
+    .st { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; }
+    .st-in { background: #ecfdf5; color: #047857; }
+    .st-out { background: #fef2f2; color: #b91c1c; }
+    .drill { border: 0; background: none; color: var(--primary); font-weight: 700; cursor: pointer; text-decoration: underline; }
+    .zone-d { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 12px 16px; border-top: 1px solid var(--border-soft); background: #fff; }
+    .zone-d-controls { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: center; }
+    .pager-btn { width: 32px; height: 32px; border: 1px solid var(--border-soft); border-radius: var(--ds-radius-md); background: #fff; cursor: pointer; }
+    .pager-btn:disabled { opacity: 0.4; }
+    .hint { margin: 0; font-size: 12px; color: var(--muted); }
+    .toast { position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%); background: #0f172a; color: #e2e8f0; padding: 10px 16px; border-radius: 999px; font-size: 13px; display: none; z-index: 70; }
+    .toast.on { display: block; }
+    .size-bar { display: flex; gap: 4px; }
+    .size-bar button.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+  </style>
+</head>
+<body>
+  <div class="page" data-catalog-list-page data-zones="A-B-C-D" data-kind="report" data-testid="rmms-worklog-report-prototype">
+    <header class="zone-a" data-zone="A">
+      <h1><i class="fas fa-user-clock" aria-hidden="true"></i> Báo cáo công</h1>
+      <span class="badge">Kind E</span>
+    </header>
+    <p class="hint">Prototype content-only · A–D + KPI + SVG map · SearchInput · không chrome / Thêm mới trên A.</p>
+
+    <div class="zone-b" data-zone="B" data-testid="rmms-worklog-report-filters">
+      <div class="zone-b-left">
+        <div class="field lkp" id="lkp-period">
+          <label>Kỳ</label>
+          <div class="search-wrap">
+            <input type="search" id="periodDisplay" value="Tháng" readonly />
+            <button type="button" aria-label="Mở kỳ" data-open="lkp-period"><i class="fas fa-search"></i></button>
+          </div>
+          <div class="lkp-list">
+            <button type="button" data-set="period" data-value="month" data-label="Tháng">Tháng</button>
+            <button type="button" data-set="period" data-value="week" data-label="Tuần">Tuần</button>
+          </div>
+        </div>
+        <div class="field lkp" id="lkp-route">
+          <label>Tuyến</label>
+          <div class="search-wrap">
+            <input type="search" id="routeDisplay" value="Tất cả tuyến" readonly />
+            <button type="button" aria-label="Mở tuyến" data-open="lkp-route"><i class="fas fa-search"></i></button>
+          </div>
+          <div class="lkp-list">
+            <button type="button" data-set="route" data-value="" data-label="Tất cả tuyến">Tất cả tuyến</button>
+            <button type="button" data-set="route" data-value="QL.1" data-label="QL.1">QL.1</button>
+            <button type="button" data-set="route" data-value="QL.15" data-label="QL.15">QL.15</button>
+            <button type="button" data-set="route" data-value="QL.217" data-label="QL.217">QL.217</button>
+          </div>
+        </div>
+        <div class="field lkp" id="lkp-staff">
+          <label>Nhân viên</label>
+          <div class="search-wrap">
+            <input type="search" id="staffDisplay" value="Tất cả NV" readonly />
+            <button type="button" aria-label="Mở NV" data-open="lkp-staff"><i class="fas fa-search"></i></button>
+          </div>
+          <div class="lkp-list">
+            <button type="button" data-set="staff" data-value="" data-label="Tất cả NV">Tất cả NV</button>
+            <button type="button" data-set="staff" data-value="nv-a" data-label="Nguyễn Văn A">Nguyễn Văn A</button>
+            <button type="button" data-set="staff" data-value="nv-b" data-label="Trần Thị B">Trần Thị B</button>
+          </div>
+        </div>
+        <div class="field lkp" id="lkp-zone">
+          <label>Zone</label>
+          <div class="search-wrap">
+            <input type="search" id="zoneDisplay" value="Tất cả" readonly />
+            <button type="button" aria-label="Mở zone" data-open="lkp-zone"><i class="fas fa-search"></i></button>
+          </div>
+          <div class="lkp-list">
+            <button type="button" data-set="zone" data-value="all" data-label="Tất cả">Tất cả</button>
+            <button type="button" data-set="zone" data-value="out" data-label="Chỉ lệch zone">Chỉ lệch zone</button>
+          </div>
+        </div>
+        <div class="field">
+          <label>Từ ngày</label>
+          <input type="date" id="fromDate" value="2026-08-01" />
+        </div>
+        <div class="field">
+          <label>Đến ngày</label>
+          <input type="date" id="toDate" value="2026-08-31" />
+        </div>
+        <button type="button" class="btn primary" id="btnView">Xem</button>
+        <button type="button" class="btn" id="btnExport">Xuất Excel</button>
+      </div>
+      <div class="zone-b-right" data-testid="report-toolbar">
+        <button type="button" class="btn" id="btnRefresh" title="Làm mới"><i class="fas fa-sync-alt"></i></button>
+        <button type="button" class="btn" id="btnChart" title="Biểu đồ"><i class="fas fa-chart-line"></i></button>
+        <button type="button" class="btn" id="btnPrint" title="In"><i class="fas fa-print"></i></button>
+        <button type="button" class="btn" id="btnConfig" title="Config"><i class="fas fa-cog"></i></button>
+      </div>
+    </div>
+
+    <section class="zone-c" data-zone="C">
+      <div class="grid-head">
+        <h2 class="grid-title">Kết quả báo cáo công</h2>
+        <p class="grid-help" id="gridHelp">Chưa xem — nhấn «Xem» để tải báo cáo công.</p>
+      </div>
+      <div class="kpi" id="kpiRow">
+        <div class="kpi-card"><span>Số ca</span><b id="kpiShift">0</b></div>
+        <div class="kpi-card"><span>InZone %</span><b id="kpiIn">0%</b></div>
+        <div class="kpi-card"><span>Lệch zone</span><b id="kpiOut">0</b></div>
+        <div class="kpi-card"><span>Điểm TB</span><b id="kpiAvg">0</b></div>
+      </div>
+      <div class="map" id="mapPanel">
+        <svg viewBox="0 0 100 56" role="img" aria-label="Bản đồ điểm">
+          <rect x="0" y="0" width="100" height="56" fill="#e8f0e4"></rect>
+          <path d="M0 28 Q 25 18 50 30 T 100 24" fill="none" stroke="#9db89a" stroke-width="1.2"></path>
+          <circle cx="18" cy="22" r="1.8" fill="#1677ff"><title>Nguyễn Văn A · QL.1</title></circle>
+          <circle cx="32" cy="28" r="1.8" fill="#1677ff"></circle>
+          <circle cx="44" cy="20" r="1.8" fill="#dc2626"></circle>
+          <circle cx="58" cy="30" r="1.8" fill="#1677ff"></circle>
+          <circle cx="70" cy="24" r="1.8" fill="#dc2626"></circle>
+          <circle cx="82" cy="32" r="1.8" fill="#1677ff"></circle>
+        </svg>
+        <div class="legend"><span><i class="dot" style="background:#1677ff"></i> Trong zone</span><span><i class="dot" style="background:#dc2626"></i> Lệch zone</span></div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th class="col-stt">STT</th>
+              <th>Cán bộ</th>
+              <th>Tuyến</th>
+              <th>Ngày</th>
+              <th>Điểm</th>
+              <th>InZone %</th>
+              <th>Zone</th>
+              <th>Đầu</th>
+              <th>Cuối</th>
+              <th>Nguồn</th>
+            </tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+        <div class="empty" id="empty">Chưa xem — nhấn «Xem» để tải báo cáo công.</div>
+      </div>
+      <footer class="zone-d" data-zone="D">
+        <div id="pagerMeta">Tổng: 0 · Trang 1/1</div>
+        <div class="zone-d-controls">
+          <button type="button" class="pager-btn" id="prev" disabled><i class="fas fa-chevron-left"></i></button>
+          <button type="button" class="pager-btn" id="next" disabled><i class="fas fa-chevron-right"></i></button>
+          <div class="size-bar" id="sizeBar">
+            <button type="button" class="btn active" data-size="50">50</button>
+            <button type="button" class="btn" data-size="100">100</button>
+            <button type="button" class="btn" data-size="200">200</button>
+            <button type="button" class="btn" data-size="500">500</button>
+          </div>
+        </div>
+      </footer>
+    </section>
+  </div>
+  <div class="toast" id="toast"></div>
+  <script>
+    const ALL = [
+      { staff: "Nguyễn Văn A", route: "QL.1", day: "2026-08-03", points: 4, inZonePct: 100, zone: "in", first: "07:12", last: "16:40", id: "att-01" },
+      { staff: "Nguyễn Văn A", route: "QL.1", day: "2026-08-04", points: 3, inZonePct: 67, zone: "out", first: "07:20", last: "16:10", id: "att-02" },
+      { staff: "Trần Thị B", route: "QL.15", day: "2026-08-03", points: 5, inZonePct: 100, zone: "in", first: "06:55", last: "17:02", id: "att-03" },
+      { staff: "Trần Thị B", route: "QL.15", day: "2026-08-05", points: 2, inZonePct: 50, zone: "out", first: "07:40", last: "15:18", id: "att-04" },
+      { staff: "Nguyễn Văn A", route: "QL.217", day: "2026-08-06", points: 4, inZonePct: 100, zone: "in", first: "07:05", last: "16:22", id: "att-05" },
+      { staff: "Lê Văn C", route: "QL.1", day: "2026-08-07", points: 3, inZonePct: 100, zone: "in", first: "07:18", last: "16:01", id: "att-06" },
+      { staff: "Trần Thị B", route: "QL.1", day: "2026-08-08", points: 4, inZonePct: 75, zone: "out", first: "07:11", last: "16:44", id: "att-07" },
+      { staff: "Nguyễn Văn A", route: "QL.15", day: "2026-08-10", points: 5, inZonePct: 100, zone: "in", first: "06:50", last: "17:10", id: "att-08" },
+      { staff: "Lê Văn C", route: "QL.217", day: "2026-08-11", points: 2, inZonePct: 50, zone: "out", first: "08:02", last: "14:55", id: "att-09" },
+      { staff: "Trần Thị B", route: "QL.217", day: "2026-08-12", points: 3, inZonePct: 100, zone: "in", first: "07:22", last: "16:08", id: "att-10" },
+      { staff: "Nguyễn Văn A", route: "QL.1", day: "2026-08-13", points: 4, inZonePct: 100, zone: "in", first: "07:09", last: "16:33", id: "att-11" },
+      { staff: "Lê Văn C", route: "QL.15", day: "2026-08-14", points: 3, inZonePct: 67, zone: "out", first: "07:30", last: "15:47", id: "att-12" }
+    ];
+    const state = { viewed: false, period: "month", route: "", staff: "", zone: "all", page: 1, pageSize: 50 };
+    const toastEl = document.getElementById("toast");
+    function toast(msg) {
+      toastEl.textContent = msg;
+      toastEl.classList.add("on");
+      window.setTimeout(() => toastEl.classList.remove("on"), 1800);
+    }
+    function filtered() {
+      return ALL.filter((r) => {
+        if (state.route && r.route !== state.route) return false;
+        if (state.staff === "nv-a" && r.staff !== "Nguyễn Văn A") return false;
+        if (state.staff === "nv-b" && r.staff !== "Trần Thị B") return false;
+        if (state.zone === "out" && r.zone !== "out") return false;
+        return true;
+      });
+    }
+    function render() {
+      const tbody = document.getElementById("tbody");
+      const empty = document.getElementById("empty");
+      const help = document.getElementById("gridHelp");
+      const kpi = document.getElementById("kpiRow");
+      const map = document.getElementById("mapPanel");
+      tbody.innerHTML = "";
+      if (!state.viewed) {
+        empty.style.display = "block";
+        empty.textContent = "Chưa xem — nhấn «Xem» để tải báo cáo công.";
+        help.textContent = empty.textContent;
+        kpi.classList.remove("on");
+        map.classList.remove("on");
+        document.getElementById("pagerMeta").textContent = "Tổng: 0 · Trang 1/1";
+        return;
+      }
+      const rows = filtered();
+      const start = (state.page - 1) * state.pageSize;
+      const pageRows = rows.slice(start, start + state.pageSize);
+      if (pageRows.length === 0) {
+        empty.style.display = "block";
+        empty.textContent = "Không có dòng phù hợp bộ lọc.";
+        help.textContent = empty.textContent;
+      } else {
+        empty.style.display = "none";
+        help.textContent = "Kéo cột ON (MFE) · drill «Mở chấm công» · first→last.";
+        pageRows.forEach((r, i) => {
+          const tr = document.createElement("tr");
+          const zoneCls = r.zone === "out" ? "st-out" : "st-in";
+          const zoneLb = r.zone === "out" ? "Lệch zone" : "Trong zone";
+          tr.innerHTML = `<td class="col-stt">${start + i + 1}</td><td>${r.staff}</td><td>${r.route}</td><td>${r.day}</td><td>${r.points}</td><td>${r.inZonePct}%</td><td><span class="st ${zoneCls}">${zoneLb}</span></td><td>${r.first}</td><td>${r.last}</td><td><button type="button" class="drill" data-id="${r.id}">Mở chấm công</button></td>`;
+          tbody.appendChild(tr);
+        });
+      }
+      const out = rows.filter((r) => r.zone === "out").length;
+      const avgIn = rows.length ? Math.round(rows.reduce((s, r) => s + r.inZonePct, 0) / rows.length) : 0;
+      const avgPt = rows.length ? (rows.reduce((s, r) => s + r.points, 0) / rows.length).toFixed(1) : "0";
+      document.getElementById("kpiShift").textContent = String(rows.length);
+      document.getElementById("kpiIn").textContent = avgIn + "%";
+      document.getElementById("kpiOut").textContent = String(out);
+      document.getElementById("kpiAvg").textContent = avgPt;
+      kpi.classList.add("on");
+      map.classList.toggle("on", pageRows.length > 0);
+      const pages = Math.max(1, Math.ceil(rows.length / state.pageSize));
+      document.getElementById("pagerMeta").textContent = `Tổng: ${rows.length} · Trang ${state.page}/${pages}`;
+      document.getElementById("prev").disabled = state.page <= 1;
+      document.getElementById("next").disabled = state.page >= pages;
+    }
+    document.querySelectorAll("[data-open]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".lkp").forEach((el) => el.classList.remove("open"));
+        document.getElementById(btn.getAttribute("data-open")).classList.add("open");
+      });
+    });
+    document.querySelectorAll("[data-set]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const key = btn.getAttribute("data-set");
+        const value = btn.getAttribute("data-value");
+        const label = btn.getAttribute("data-label");
+        state[key] = value;
+        document.getElementById(key + "Display").value = label;
+        btn.closest(".lkp").classList.remove("open");
+        if (key === "period") {
+          document.getElementById("fromDate").value = value === "week" ? "2026-08-10" : "2026-08-01";
+          document.getElementById("toDate").value = value === "week" ? "2026-08-16" : "2026-08-31";
+        }
+      });
+    });
+    document.addEventListener("click", (e) => {
+      if (!e.target.closest(".lkp")) document.querySelectorAll(".lkp").forEach((el) => el.classList.remove("open"));
+    });
+    function view() {
+      state.viewed = true;
+      state.page = 1;
+      render();
+    }
+    document.getElementById("btnView").addEventListener("click", view);
+    document.getElementById("btnRefresh").addEventListener("click", view);
+    document.getElementById("btnExport").addEventListener("click", () => toast("Xuất worklogs.csv UTF-8 BOM (MFE GET /api/v1/report/worklogs/export)"));
+    document.getElementById("btnChart").addEventListener("click", () => toast(state.viewed ? "Mở biểu đồ SoCai (InZone / tuyến / zone)" : "Nhấn Xem trước khi mở biểu đồ"));
+    document.getElementById("btnPrint").addEventListener("click", () => toast(state.viewed ? "Print-scope modal → window.print" : "Nhấn Xem trước khi in"));
+    document.getElementById("btnConfig").addEventListener("click", () => toast("Config FULL — cột + chart + print (không stub)"));
+    document.getElementById("tbody").addEventListener("click", (e) => {
+      const b = e.target.closest(".drill");
+      if (!b) return;
+      toast("Drill Field /patrol/attendance?id=" + b.getAttribute("data-id"));
+    });
+    document.getElementById("prev").addEventListener("click", () => { state.page -= 1; render(); });
+    document.getElementById("next").addEventListener("click", () => { state.page += 1; render(); });
+    document.getElementById("sizeBar").addEventListener("click", (e) => {
+      const b = e.target.closest("[data-size]");
+      if (!b) return;
+      state.pageSize = Number(b.getAttribute("data-size"));
+      state.page = 1;
+      document.querySelectorAll("#sizeBar .btn").forEach((x) => x.classList.toggle("active", x === b));
+      render();
+    });
+    render();
+  </script>
+</body>
+</html>

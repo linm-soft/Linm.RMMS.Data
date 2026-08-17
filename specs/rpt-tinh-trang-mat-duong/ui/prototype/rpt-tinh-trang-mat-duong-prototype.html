@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Prototype — Tình trạng mặt đường · Kind E A–D</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
+  <style>
+    :root { --bg:#f5f7fa; --border:#BABCBE; --txt:#1A1A1A; --muted:#6c757d; --primary:#0f766e; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family:"Segoe UI",system-ui,sans-serif; background:var(--bg); color:var(--txt); font-size:13px; }
+    .page { max-width:1280px; margin:0 auto; padding:8px; display:flex; flex-direction:column; gap:8px; min-height:100vh; }
+    h1 { margin:0; font-size:22px; }
+    .zone-a { display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+    .zone-b { display:flex; flex-wrap:wrap; gap:8px; align-items:flex-end; justify-content:space-between; padding:10px 12px; background:#f8fafc; border:1px solid #e9ecef; border-radius:4px; }
+    .zone-b .left { font-weight:700; align-self:center; }
+    .zone-b .right { display:flex; flex-wrap:wrap; gap:8px; align-items:flex-end; }
+    .btn { height:32px; padding:0 12px; border:1px solid var(--border); border-radius:4px; background:#fff; cursor:pointer; font-weight:600; }
+    .btn.primary { background:var(--primary); color:#fff; border-color:var(--primary); }
+    .btn:disabled { opacity:.45; cursor:not-allowed; }
+    .field { display:flex; flex-direction:column; gap:4px; min-width:132px; }
+    label { color:var(--muted); font-size:12px; }
+    input { padding:6px 10px; border:1px solid var(--border); border-radius:4px; min-height:32px; }
+    .zone-c { background:#fff; border:1px solid #e9ecef; border-radius:4px; flex:1; display:flex; flex-direction:column; min-height:320px; }
+    .grid-wrap { overflow:auto; flex:1; position:relative; }
+    table { width:100%; border-collapse:collapse; }
+    th, td { padding:8px 12px; border-bottom:1px solid #e9ecef; text-align:left; white-space:nowrap; }
+    th { background:#f8fafc; font-size:12px; color:var(--muted); cursor:col-resize; }
+    .empty { text-align:center; color:#94a3b8; padding:40px; }
+    .zone-d { display:flex; justify-content:center; gap:8px; padding:12px; border-top:1px solid #e9ecef; align-items:center; flex-wrap:wrap; }
+    .ps { height:28px; min-width:44px; }
+    .ps.on { background:var(--primary); color:#fff; border-color:var(--primary); }
+    .hidden { display:none !important; }
+    .toast { position:fixed; left:50%; bottom:18px; transform:translateX(-50%); background:#0f172a; color:#e2e8f0; padding:10px 16px; border-radius:999px; display:none; z-index:20; }
+    .toast.on { display:block; }
+    .drill { border:0; background:none; color:var(--primary); font-weight:700; cursor:pointer; text-decoration:underline; }
+    .overlay { position:fixed; inset:0; background:rgba(15,23,42,.45); display:flex; align-items:center; justify-content:center; z-index:10; }
+    .modal { background:#fff; border-radius:8px; padding:16px; width:min(720px,92vw); max-height:80vh; overflow:auto; }
+    .chart-row { display:flex; gap:10px; align-items:flex-end; height:120px; }
+    .bar-wrap { display:flex; flex-direction:column; align-items:center; gap:4px; }
+    .bar { background:var(--primary); width:28px; min-height:4px; border-radius:4px 4px 0 0; }
+    .cfg-row { display:grid; grid-template-columns:24px 1fr 72px 72px 72px; gap:8px; align-items:center; padding:6px 0; border-bottom:1px solid #e9ecef; }
+    .sk { height:36px; margin:8px 12px; background:linear-gradient(90deg,#f1f5f9,#e2e8f0,#f1f5f9); background-size:200% 100%; animation:sh 1s linear infinite; border-radius:4px; }
+    @keyframes sh { to { background-position:-200% 0; } }
+    .kpi { display:flex; gap:16px; margin-bottom:12px; flex-wrap:wrap; }
+    .kpi span { background:#f1f5f9; padding:6px 10px; border-radius:4px; }
+  </style>
+</head>
+<body>
+  <div class="page" data-kind="report" data-testid="rmms-pavement-condition-report-prototype">
+    <header class="zone-a"><h1><i class="fas fa-road"></i> Tình trạng mặt đường</h1></header>
+    <section class="zone-b">
+      <div class="left">Bộ lọc</div>
+      <div class="right">
+        <div class="field"><label>Tuyến</label>
+          <input id="route" list="routes" placeholder="Tất cả tuyến" autocomplete="off" />
+          <datalist id="routes">
+            <option value="QL.1"></option><option value="QL.15"></option><option value="QL.217"></option>
+            <option value="HCM"></option><option value="CT.001"></option><option value="QL.7"></option>
+          </datalist>
+        </div>
+        <div class="field"><label>PCI band</label>
+          <input id="band" list="bands" placeholder="Tất cả band" autocomplete="off" />
+          <datalist id="bands">
+            <option value="tot">Tốt (≥85)</option>
+            <option value="kha">Khá (70–84)</option>
+            <option value="tb">Trung bình (55–69)</option>
+            <option value="kem">Kém (40–54)</option>
+            <option value="rat-kem">Rất kém (&lt;40)</option>
+          </datalist>
+        </div>
+        <div class="field"><label>Từ</label><input type="date" id="from" value="2026-07-01" /></div>
+        <div class="field"><label>Đến</label><input type="date" id="to" value="2026-08-16" /></div>
+        <div class="field"><label>Tìm</label><input id="q" placeholder="mã · tuyến · lớp" autocomplete="off" /></div>
+        <button class="btn primary" id="btnView" type="button"><i class="fas fa-search"></i> Xem</button>
+        <button class="btn" id="btnRefresh" type="button"><i class="fas fa-sync-alt"></i> Làm mới</button>
+        <button class="btn" id="btnExcel" type="button" disabled><i class="fas fa-file-excel"></i> Xuất Excel</button>
+        <button class="btn" id="btnChart" type="button" disabled><i class="fas fa-chart-bar"></i> Biểu đồ</button>
+        <button class="btn" id="btnPrint" type="button" disabled><i class="fas fa-print"></i> In</button>
+        <button class="btn" id="btnCfg" type="button"><i class="fas fa-cog"></i> Config</button>
+      </div>
+    </section>
+    <section class="zone-c">
+      <div style="padding:12px 16px"><strong>Tình trạng mặt đường</strong>
+        <p id="help" style="margin:4px 0 0;color:#6c757d">Chưa xem — nhấn «Xem» để tải báo cáo tình trạng mặt đường.</p>
+      </div>
+      <div class="grid-wrap">
+        <div id="sk" class="hidden">
+          <div class="sk"></div><div class="sk"></div><div class="sk"></div><div class="sk"></div>
+          <div class="sk"></div><div class="sk"></div><div class="sk"></div><div class="sk"></div>
+        </div>
+        <table id="grid" class="hidden"><thead><tr id="thead"></tr></thead><tbody id="tbody"></tbody></table>
+        <div class="empty" id="empty">Chưa xem — nhấn «Xem» để tải báo cáo tình trạng mặt đường.</div>
+      </div>
+      <div class="zone-d">
+        <span>Trang 1</span>
+        <button type="button" class="btn ps on" data-ps="50">50</button>
+        <button type="button" class="btn ps" data-ps="100">100</button>
+        <button type="button" class="btn ps" data-ps="200">200</button>
+        <button type="button" class="btn ps" data-ps="500">500</button>
+        <span id="total">0 dòng</span>
+      </div>
+    </section>
+  </div>
+  <div class="overlay hidden" id="cfg">
+    <div class="modal">
+      <h3>Cấu hình hiển thị báo cáo</h3>
+      <p style="color:#6c757d;margin:0 0 8px">List · width · filter · sort · Thêm cột (analog LinReportTableConfigModal FULL — cấm LinListTableConfigModal / LinCatalogUiSchemaEditorModal)</p>
+      <div class="cfg-row" style="font-weight:700;color:#6c757d"><span></span><span>Cột</span><span>Rộng</span><span>Lọc</span><span>Sắp</span></div>
+      <div id="cfgBody"></div>
+      <p><button class="btn" type="button" id="btnAddCol">Thêm cột</button></p>
+      <button class="btn primary" type="button" id="btnCfgSave">Lưu</button>
+    </div>
+  </div>
+  <div class="overlay hidden" id="chart">
+    <div class="modal">
+      <h3>SoCai — số đoạn theo PCI band / tuyến</h3>
+      <div class="kpi" id="kpi"></div>
+      <div class="chart-row" id="bars"></div>
+      <button class="btn" type="button" id="btnChartClose">Đóng</button>
+    </div>
+  </div>
+  <div class="toast" id="toast"></div>
+  <script>
+    const COLS = [
+      { key:'code', label:'Đoạn', on:true, w:150 },
+      { key:'route', label:'Tuyến', on:true, w:90 },
+      { key:'kmFrom', label:'Từ Km', on:true, w:80 },
+      { key:'kmTo', label:'Đến Km', on:true, w:80 },
+      { key:'pci', label:'PCI', on:true, w:70 },
+      { key:'bandL', label:'Band', on:true, w:110 },
+      { key:'layer', label:'Lớp', on:true, w:110 },
+      { key:'day', label:'Ngày đo', on:true, w:110 },
+      { key:'drill', label:'Nguồn', on:true, w:120 }
+    ];
+    const ROWS = [
+      { id:'pc1', code:'MD-20260801-0001', route:'QL.1', kmFrom:'12,000', kmTo:'12,450', pci:91.2, band:'tot', bandL:'Tốt', layer:'mat-duong', day:'2026-08-01' },
+      { id:'pc2', code:'MD-20260728-0002', route:'QL.1', kmFrom:'18,100', kmTo:'18,800', pci:76.4, band:'kha', bandL:'Khá', layer:'mat-duong', day:'2026-07-28' },
+      { id:'pc3', code:'MD-20260722-0003', route:'QL.15', kmFrom:'8,050', kmTo:'8,400', pci:62, band:'tb', bandL:'Trung bình', layer:'mat-duong', day:'2026-07-22' },
+      { id:'pc4', code:'MD-20260718-0004', route:'QL.15', kmFrom:'45,200', kmTo:'45,280', pci:48.5, band:'kem', bandL:'Kém', layer:'mat-duong', day:'2026-07-18' },
+      { id:'pc5', code:'MD-20260715-0005', route:'QL.217', kmFrom:'4,100', kmTo:'4,250', pci:33.1, band:'rat-kem', bandL:'Rất kém', layer:'mat-duong', day:'2026-07-15' },
+      { id:'pc6', code:'MD-20260712-0006', route:'HCM', kmFrom:'3,000', kmTo:'3,180', pci:88, band:'tot', bandL:'Tốt', layer:'mat-duong', day:'2026-07-12' },
+      { id:'pc7', code:'MD-20260802-0007', route:'CT.001', kmFrom:'5,600', kmTo:'6,000', pci:71.8, band:'kha', bandL:'Khá', layer:'mat-duong', day:'2026-08-02' },
+      { id:'pc8', code:'MD-20260803-0008', route:'QL.7', kmFrom:'1,200', kmTo:'1,850', pci:58.2, band:'tb', bandL:'Trung bình', layer:'mat-duong', day:'2026-08-03' },
+      { id:'pc9', code:'MD-20260710-0009', route:'QL.217', kmFrom:'14,300', kmTo:'14,410', pci:41, band:'kem', bandL:'Kém', layer:'mat-duong', day:'2026-07-10' },
+      { id:'pc10', code:'MD-20260708-0010', route:'CT.001', kmFrom:'9,010', kmTo:'9,090', pci:29.4, band:'rat-kem', bandL:'Rất kém', layer:'mat-duong', day:'2026-07-08' },
+      { id:'pc11', code:'MD-20260725-0011', route:'QL.1', kmFrom:'2,400', kmTo:'2,900', pci:95, band:'tot', bandL:'Tốt', layer:'mat-duong', day:'2026-07-25' },
+      { id:'pc12', code:'MD-20260804-0012', route:'HCM', kmFrom:'22,000', kmTo:'22,150', pci:67.5, band:'tb', bandL:'Trung bình', layer:'mat-duong', day:'2026-08-04' }
+    ];
+    let viewed = false; let lastRows = []; let pageSize = 50;
+    function toast(m){ const t=document.getElementById('toast'); t.textContent=m; t.classList.add('on'); setTimeout(()=>t.classList.remove('on'),1800); }
+    function cell(r, key){
+      if (key==='drill') return `<button class="drill" type="button" onclick="toast('Drill /asset/pavement-section/${r.id}')">Mở Biểu 1</button>`;
+      if (key==='pci') return String(r.pci).replace('.', ',');
+      return r[key];
+    }
+    function renderHead(){ document.getElementById('thead').innerHTML = COLS.filter(c=>c.on).map(c=>`<th style="min-width:${c.w}px">${c.label}</th>`).join(''); }
+    function renderCfg(){
+      document.getElementById('cfgBody').innerHTML = COLS.map((c,i)=>`
+        <div class="cfg-row">
+          <input type="checkbox" ${c.on?'checked':''} data-i="${i}" class="cfg-on" />
+          <span>${c.label}</span>
+          <input type="number" value="${c.w}" data-i="${i}" class="cfg-w" style="width:64px" />
+          <input type="checkbox" disabled title="filter analog" />
+          <input type="checkbox" disabled title="sort analog" />
+        </div>`).join('');
+    }
+    function setExportChart(hasRows){
+      document.getElementById('btnExcel').disabled = !viewed;
+      document.getElementById('btnChart').disabled = !(viewed && hasRows);
+      document.getElementById('btnPrint').disabled = !(viewed && hasRows);
+    }
+    function apply(){
+      viewed = true;
+      document.getElementById('sk').classList.remove('hidden');
+      document.getElementById('grid').classList.add('hidden');
+      document.getElementById('empty').classList.add('hidden');
+      const route = document.getElementById('route').value.trim();
+      const band = document.getElementById('band').value.trim();
+      const from = document.getElementById('from').value;
+      const to = document.getElementById('to').value;
+      const q = document.getElementById('q').value.trim().toLowerCase();
+      window.setTimeout(() => {
+        const rows = ROWS.filter(r =>
+          (!route || r.route === route) && (!band || r.band === band) &&
+          r.day >= from && r.day <= to &&
+          (!q || (r.code + r.route + r.layer + r.bandL).toLowerCase().includes(q))
+        );
+        lastRows = rows;
+        document.getElementById('sk').classList.add('hidden');
+        renderHead();
+        document.getElementById('tbody').innerHTML = rows.map(r => `<tr>${COLS.filter(c=>c.on).map(c=>`<td>${cell(r,c.key)}</td>`).join('')}</tr>`).join('');
+        document.getElementById('grid').classList.toggle('hidden', rows.length===0);
+        document.getElementById('empty').classList.toggle('hidden', rows.length>0);
+        document.getElementById('empty').textContent = rows.length ? '' : 'Không có dòng phù hợp bộ lọc.';
+        document.getElementById('help').textContent = rows.length ? `${rows.length} dòng (P1 analog · CUC2 · cấm QL.22)` : 'Không có dòng phù hợp bộ lọc.';
+        document.getElementById('total').textContent = rows.length + ' dòng · pageSize ' + pageSize;
+        const by = {};
+        rows.forEach(r => { by[r.bandL]=(by[r.bandL]||0)+1; });
+        const max = Math.max(1, ...Object.values(by));
+        document.getElementById('bars').innerHTML = Object.entries(by).map(([k,v]) =>
+          `<div class="bar-wrap"><div title="${k}" class="bar" style="height:${Math.round(v/max*110)}px"></div><small>${k}</small></div>`).join('');
+        const avg = rows.length ? (rows.reduce((s,r)=>s+r.pci,0)/rows.length).toFixed(1) : '0';
+        document.getElementById('kpi').innerHTML = `<span>Đoạn ${rows.length}</span><span>Tuyến ${new Set(rows.map(r=>r.route)).size}</span><span>PCI TB ${avg}</span>`;
+        setExportChart(rows.length>0);
+      }, 280);
+    }
+    document.getElementById('btnView').onclick = apply;
+    document.getElementById('btnRefresh').onclick = () => { if(!viewed) toast('Chưa xem'); else apply(); };
+    document.getElementById('btnExcel').onclick = () => { if(!viewed) { toast('Nhấn «Xem» trước khi xuất Excel'); return; } toast('Xuất pavement-condition.csv UTF-8 BOM theo cột đang hiện'); };
+    document.getElementById('btnPrint').onclick = () => { if(!viewed || lastRows.length===0) { toast('Chưa xem'); return; } window.print(); };
+    document.getElementById('btnCfg').onclick = () => { renderCfg(); document.getElementById('cfg').classList.remove('hidden'); };
+    document.getElementById('btnAddCol').onclick = () => toast('Thêm cột — chọn từ danh sách ẩn (FULL)');
+    document.getElementById('btnCfgSave').onclick = () => {
+      document.querySelectorAll('.cfg-on').forEach(el => { COLS[+el.dataset.i].on = el.checked; });
+      document.querySelectorAll('.cfg-w').forEach(el => { COLS[+el.dataset.i].w = +el.value || 80; });
+      document.getElementById('cfg').classList.add('hidden');
+      if (viewed) apply();
+      toast('Đã lưu cấu hình cột');
+    };
+    document.getElementById('btnChart').onclick = () => { if(!viewed || lastRows.length===0) { toast('Chưa xem'); return; } document.getElementById('chart').classList.remove('hidden'); };
+    document.getElementById('btnChartClose').onclick = () => document.getElementById('chart').classList.add('hidden');
+    document.querySelectorAll('.ps').forEach(b => b.onclick = () => {
+      pageSize = +b.getAttribute('data-ps');
+      document.querySelectorAll('.ps').forEach(x => x.classList.toggle('on', x===b));
+      document.getElementById('total').textContent = (viewed ? lastRows.length : 0) + ' dòng · pageSize ' + pageSize;
+    });
+    renderHead();
+  </script>
+</body>
+</html>

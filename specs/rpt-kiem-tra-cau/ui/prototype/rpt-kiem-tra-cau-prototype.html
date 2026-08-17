@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Prototype — Kiểm tra cầu · Kind E A–D</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
+  <style>
+    :root { --bg:#f5f7fa; --card:#fff; --border:#BABCBE; --txt:#1A1A1A; --muted:#6c757d; --primary:#0f766e; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family:"Segoe UI",system-ui,sans-serif; background:var(--bg); color:var(--txt); font-size:13px; }
+    .page { max-width:1280px; margin:0 auto; padding:8px; display:flex; flex-direction:column; gap:8px; min-height:100vh; }
+    h1 { margin:0; font-size:22px; }
+    .zone-a { display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+    .zone-b { display:flex; flex-wrap:wrap; gap:8px; align-items:flex-end; justify-content:space-between; padding:10px 12px; background:#f8fafc; border:1px solid #e9ecef; border-radius:4px; }
+    .zone-b .left { font-weight:700; align-self:center; }
+    .zone-b .right { display:flex; flex-wrap:wrap; gap:8px; align-items:flex-end; }
+    .btn { height:32px; padding:0 12px; border:1px solid var(--border); border-radius:4px; background:#fff; cursor:pointer; font-weight:600; }
+    .btn.primary { background:var(--primary); color:#fff; border-color:var(--primary); }
+    .btn:disabled { opacity:.45; cursor:not-allowed; }
+    .field { display:flex; flex-direction:column; gap:4px; min-width:120px; }
+    label { color:var(--muted); font-size:12px; }
+    input { padding:6px 10px; border:1px solid var(--border); border-radius:4px; min-height:32px; }
+    .zone-c { background:#fff; border:1px solid #e9ecef; border-radius:4px; flex:1; display:flex; flex-direction:column; min-height:320px; }
+    .grid-wrap { overflow:auto; flex:1; position:relative; }
+    table { width:100%; border-collapse:collapse; }
+    th, td { padding:8px 12px; border-bottom:1px solid #e9ecef; text-align:left; white-space:nowrap; }
+    th { background:#f8fafc; font-size:12px; color:var(--muted); cursor:col-resize; }
+    .empty { text-align:center; color:#94a3b8; padding:40px; }
+    .zone-d { display:flex; justify-content:center; gap:8px; padding:12px; border-top:1px solid #e9ecef; align-items:center; flex-wrap:wrap; }
+    .ps { height:28px; min-width:44px; }
+    .ps.on { background:var(--primary); color:#fff; border-color:var(--primary); }
+    .hidden { display:none !important; }
+    .toast { position:fixed; left:50%; bottom:18px; transform:translateX(-50%); background:#0f172a; color:#e2e8f0; padding:10px 16px; border-radius:999px; display:none; z-index:20; }
+    .toast.on { display:block; }
+    .drill { border:0; background:none; color:var(--primary); font-weight:700; cursor:pointer; text-decoration:underline; }
+    .overlay { position:fixed; inset:0; background:rgba(15,23,42,.45); display:flex; align-items:center; justify-content:center; z-index:10; }
+    .modal { background:#fff; border-radius:8px; padding:16px; width:min(720px,92vw); max-height:80vh; overflow:auto; }
+    .chart-row { display:flex; gap:10px; align-items:flex-end; height:120px; }
+    .bar-wrap { display:flex; flex-direction:column; align-items:center; gap:4px; }
+    .bar { background:var(--primary); width:28px; min-height:4px; border-radius:4px 4px 0 0; }
+    .cfg-row { display:grid; grid-template-columns:24px 1fr 72px 72px 72px; gap:8px; align-items:center; padding:6px 0; border-bottom:1px solid #e9ecef; }
+    .sk { height:36px; margin:8px 12px; background:linear-gradient(90deg,#f1f5f9,#e2e8f0,#f1f5f9); background-size:200% 100%; animation:sh 1s linear infinite; border-radius:4px; }
+    @keyframes sh { to { background-position:-200% 0; } }
+    .kpi { display:flex; gap:16px; margin-bottom:12px; }
+    .kpi span { background:#f1f5f9; padding:6px 10px; border-radius:4px; }
+  </style>
+</head>
+<body>
+  <div class="page" data-kind="report" data-testid="rmms-bridge-inspection-report-prototype">
+    <header class="zone-a"><h1><i class="fas fa-archway"></i> Kiểm tra cầu</h1></header>
+    <section class="zone-b">
+      <div class="left">Kết quả báo cáo kiểm tra cầu</div>
+      <div class="right">
+        <div class="field"><label>Tab</label>
+          <input id="tab" list="tabs" value="Phiếu" autocomplete="off" />
+          <datalist id="tabs">
+            <option value="Phiếu"></option>
+            <option value="Kết quả"></option>
+            <option value="Tổng hợp"></option>
+          </datalist>
+        </div>
+        <div class="field"><label>Tuyến</label>
+          <input id="route" list="routes" placeholder="Tất cả tuyến" autocomplete="off" />
+          <datalist id="routes">
+            <option value="QL.1"></option><option value="QL.15"></option><option value="QL.217"></option>
+            <option value="HCM"></option><option value="QL.7"></option>
+            <option value="QL.8"></option><option value="QL.9"></option><option value="QL.10"></option>
+          </datalist>
+        </div>
+        <div class="field"><label>Cầu</label>
+          <input id="bridge" list="bridges" placeholder="Tất cả cầu" autocomplete="off" />
+          <datalist id="bridges">
+            <option value="Cầu Gianh"></option><option value="Cầu Bến Thủy"></option>
+            <option value="Cầu Hàm Rồng"></option><option value="Cầu La Hiên"></option>
+          </datalist>
+        </div>
+        <div class="field"><label>Loại phiếu</label>
+          <input id="kind" list="kinds" placeholder="Tất cả" autocomplete="off" />
+          <datalist id="kinds">
+            <option value="Định kỳ"></option>
+            <option value="Đột xuất"></option>
+            <option value="Trước mưa bão"></option>
+          </datalist>
+        </div>
+        <div class="field"><label>Từ ngày</label><input type="date" id="from" value="2026-07-01" /></div>
+        <div class="field"><label>Đến ngày</label><input type="date" id="to" value="2026-08-16" /></div>
+        <div class="field"><label>Tìm kiếm</label><input id="q" placeholder="Số phiếu · cầu · tuyến" /></div>
+        <button class="btn primary" id="btnView" type="button"><i class="fas fa-search"></i> Xem</button>
+        <button class="btn" id="btnRefresh" type="button"><i class="fas fa-sync-alt"></i> Làm mới</button>
+        <button class="btn" id="btnExcel" type="button"><i class="fas fa-file-excel"></i> Xuất Excel</button>
+        <button class="btn" id="btnChart" type="button" disabled><i class="fas fa-chart-bar"></i> Biểu đồ</button>
+        <button class="btn" id="btnPrint" type="button" disabled><i class="fas fa-print"></i> In</button>
+        <button class="btn" id="btnCfg" type="button"><i class="fas fa-cog"></i> Config</button>
+      </div>
+    </section>
+    <section class="zone-c">
+      <div style="padding:12px 16px"><strong>Kiểm tra cầu</strong>
+        <p id="help" style="margin:4px 0 0;color:#6c757d">Chưa xem — nhấn «Xem» để tải báo cáo kiểm tra cầu.</p>
+      </div>
+      <div class="grid-wrap">
+        <div id="sk" class="hidden">
+          <div class="sk"></div><div class="sk"></div><div class="sk"></div><div class="sk"></div>
+          <div class="sk"></div><div class="sk"></div><div class="sk"></div><div class="sk"></div>
+        </div>
+        <table id="grid" class="hidden">
+          <thead><tr id="thead"></tr></thead>
+          <tbody id="tbody"></tbody>
+        </table>
+        <div class="empty" id="empty">Chưa xem — nhấn «Xem» để tải báo cáo kiểm tra cầu.</div>
+      </div>
+      <div class="zone-d">
+        <span>Trang 1</span>
+        <button type="button" class="btn ps on" data-ps="50">50</button>
+        <button type="button" class="btn ps" data-ps="100">100</button>
+        <button type="button" class="btn ps" data-ps="200">200</button>
+        <button type="button" class="btn ps" data-ps="500">500</button>
+        <span id="total">0 dòng</span>
+      </div>
+    </section>
+  </div>
+  <div class="overlay hidden" id="cfg">
+    <div class="modal">
+      <h3>Cấu hình hiển thị báo cáo</h3>
+      <p style="color:#6c757d;margin:0 0 8px">List · width · filter · sort · Thêm cột (analog LinReportTableConfigModal FULL)</p>
+      <div class="cfg-row" style="font-weight:700;color:#6c757d"><span></span><span>Cột</span><span>Rộng</span><span>Lọc</span><span>Sắp</span></div>
+      <div id="cfgBody"></div>
+      <p><button class="btn" type="button" id="btnAddCol">Thêm cột</button></p>
+      <button class="btn primary" type="button" id="btnCfgSave">Lưu</button>
+    </div>
+  </div>
+  <div class="overlay hidden" id="chart">
+    <div class="modal">
+      <h3>SoCai — số phiếu theo loại</h3>
+      <div class="kpi" id="kpi"></div>
+      <div class="chart-row" id="bars"></div>
+      <button class="btn" type="button" id="btnChartClose">Đóng</button>
+    </div>
+  </div>
+  <div class="toast" id="toast"></div>
+  <script>
+    const TAB_MAP = { 'Phiếu':'ticket', 'Kết quả':'result', 'Tổng hợp':'summary' };
+    const COLS = {
+      ticket: [
+        { key:'ticketNo', label:'Số phiếu', on:true, w:120 },
+        { key:'day', label:'Ngày KT', on:true, w:110 },
+        { key:'route', label:'Tuyến', on:true, w:90 },
+        { key:'bridge', label:'Cầu', on:true, w:140 },
+        { key:'admin', label:'Địa bàn', on:true, w:120 },
+        { key:'kind', label:'Loại phiếu', on:true, w:130 },
+        { key:'drill', label:'Nguồn', on:true, w:130 }
+      ],
+      result: [
+        { key:'ticketNo', label:'Số phiếu', on:true, w:120 },
+        { key:'day', label:'Ngày KT', on:true, w:110 },
+        { key:'bridge', label:'Cầu', on:true, w:140 },
+        { key:'part', label:'Bộ phận', on:true, w:140 },
+        { key:'damage', label:'Hư hỏng', on:true, w:180 },
+        { key:'action', label:'Đề xuất', on:true, w:120 },
+        { key:'prio', label:'Ưu tiên', on:true, w:90 },
+        { key:'photos', label:'Ảnh', on:true, w:70 },
+        { key:'drill', label:'Nguồn', on:true, w:130 }
+      ],
+      summary: [
+        { key:'bridge', label:'Cầu', on:true, w:140 },
+        { key:'route', label:'Tuyến', on:true, w:90 },
+        { key:'ticketCount', label:'Số phiếu', on:true, w:90 },
+        { key:'lastDay', label:'Lần KT gần nhất', on:true, w:130 },
+        { key:'highPrio', label:'Ưu tiên cao', on:true, w:110 },
+        { key:'drill', label:'Nguồn', on:true, w:130 }
+      ]
+    };
+    const TICKETS = [
+      { id:'i1', ticketNo:'KT-2026-001', day:'2026-08-01', route:'QL.1', bridge:'Cầu Gianh', admin:'Quảng Bình', kind:'Định kỳ', part:'Lan can', damage:'Han rỉ lan can', action:'Sơn lại', prio:'Cao', photos:3 },
+      { id:'i2', ticketNo:'KT-2026-002', day:'2026-08-01', route:'QL.15', bridge:'Cầu Bến Thủy', admin:'Nghệ An', kind:'Đột xuất', part:'Mặt cầu', damage:'Nứt mặt bê tông', action:'Vá', prio:'Cao', photos:5 },
+      { id:'i3', ticketNo:'KT-2026-003', day:'2026-07-31', route:'QL.217', bridge:'Cầu Hàm Rồng', admin:'Thanh Hóa', kind:'Trước mưa bão', part:'Gối cầu', damage:'Gối lệch nhẹ', action:'Theo dõi', prio:'Trung bình', photos:2 },
+      { id:'i4', ticketNo:'KT-2026-004', day:'2026-07-31', route:'HCM', bridge:'Cầu La Hiên', admin:'Quảng Trị', kind:'Định kỳ', part:'Dầm', damage:'Nứt nhỏ dầm', action:'Khảo sát', prio:'Thấp', photos:1 },
+      { id:'i5', ticketNo:'KT-2026-005', day:'2026-07-30', route:'QL.1', bridge:'Cầu Nhật Lệ', admin:'Quảng Bình', kind:'Định kỳ', part:'Khe co giãn', damage:'Khe bẩn', action:'Vệ sinh', prio:'Thấp', photos:0 },
+      { id:'i6', ticketNo:'KT-2026-006', day:'2026-07-30', route:'QL.7', bridge:'Cầu Cửa Lò', admin:'Nghệ An', kind:'Đột xuất', part:'Mố', damage:'Xói mố', action:'Gia cố', prio:'Cao', photos:4 },
+      { id:'i7', ticketNo:'KT-2026-007', day:'2026-07-29', route:'QL.10', bridge:'Cầu Diễn Châu', admin:'Nghệ An', kind:'Định kỳ', part:'Lan can', damage:'Thiếu bulông', action:'Bổ sung', prio:'Trung bình', photos:2 },
+      { id:'i8', ticketNo:'KT-2026-008', day:'2026-07-29', route:'QL.8', bridge:'Cầu Nầm', admin:'Hà Tĩnh', kind:'Trước mưa bão', part:'Mặt cầu', damage:'Ổ gà nhỏ', action:'Vá', prio:'Trung bình', photos:1 },
+      { id:'i9', ticketNo:'KT-2026-009', day:'2026-07-28', route:'QL.9', bridge:'Cầu Đông Hà', admin:'Quảng Trị', kind:'Định kỳ', part:'Gối cầu', damage:'Không bất thường', action:'—', prio:'Thấp', photos:0 },
+      { id:'i10', ticketNo:'KT-2026-010', day:'2026-07-28', route:'QL.1', bridge:'Cầu Mỹ Trạch', admin:'Quảng Bình', kind:'Đột xuất', part:'Dầm', damage:'Vết nứt ngang', action:'Khảo sát', prio:'Cao', photos:6 },
+      { id:'i11', ticketNo:'KT-2026-011', day:'2026-07-27', route:'QL.15', bridge:'Cầu Khe Giao', admin:'Nghệ An', kind:'Định kỳ', part:'Khe co giãn', damage:'Khe hở lớn', action:'Thay khe', prio:'Cao', photos:3 },
+      { id:'i12', ticketNo:'KT-2026-012', day:'2026-07-27', route:'QL.217', bridge:'Cầu Bút Sơn', admin:'Thanh Hóa', kind:'Định kỳ', part:'Lan can', damage:'Sơn bong', action:'Sơn lại', prio:'Thấp', photos:1 }
+    ];
+    let viewed = false;
+    let lastRows = [];
+    let appliedTab = 'ticket';
+    let pageSize = 50;
+    function tabKey(){ return TAB_MAP[document.getElementById('tab').value.trim()] || 'ticket'; }
+    function cols(){ return COLS[appliedTab]; }
+    function toast(m){ const t=document.getElementById('toast'); t.textContent=m; t.classList.add('on'); setTimeout(()=>t.classList.remove('on'),1800); }
+    function cell(r, key){
+      if (key==='drill') return `<button class="drill" type="button" onclick="toast('Drill /asset/csdl-so-sach?kind=bridge-inspections&id=${r.id}')">Mở phiếu</button>`;
+      if (key==='photos') return String(r.photos);
+      return r[key];
+    }
+    function renderHead(){
+      document.getElementById('thead').innerHTML = cols().filter(c=>c.on).map(c=>`<th style="min-width:${c.w}px">${c.label}</th>`).join('');
+    }
+    function renderCfg(){
+      document.getElementById('cfgBody').innerHTML = cols().map((c,i)=>`
+        <div class="cfg-row">
+          <input type="checkbox" ${c.on?'checked':''} data-i="${i}" class="cfg-on" />
+          <span>${c.label}</span>
+          <input type="number" value="${c.w}" data-i="${i}" class="cfg-w" style="width:64px" />
+          <input type="checkbox" disabled title="filter analog" />
+          <input type="checkbox" disabled title="sort analog" />
+        </div>`).join('');
+    }
+    function setChartEnabled(on){
+      document.getElementById('btnChart').disabled = !on;
+      document.getElementById('btnPrint').disabled = !on;
+    }
+    function toSummary(rows){
+      const map = {};
+      rows.forEach(r => {
+        const k = r.bridge;
+        if (!map[k]) map[k] = { id:r.id, bridge:r.bridge, route:r.route, ticketCount:0, lastDay:r.day, highPrio:0 };
+        map[k].ticketCount += 1;
+        if (r.day > map[k].lastDay) { map[k].lastDay = r.day; map[k].id = r.id; }
+        if (r.prio === 'Cao') map[k].highPrio += 1;
+      });
+      return Object.values(map);
+    }
+    function apply(){
+      viewed = true;
+      appliedTab = tabKey();
+      document.getElementById('sk').classList.remove('hidden');
+      document.getElementById('grid').classList.add('hidden');
+      document.getElementById('empty').classList.add('hidden');
+      const route = document.getElementById('route').value.trim();
+      const bridge = document.getElementById('bridge').value.trim();
+      const kind = document.getElementById('kind').value.trim();
+      const from = document.getElementById('from').value;
+      const to = document.getElementById('to').value;
+      const q = document.getElementById('q').value.trim().toLowerCase();
+      window.setTimeout(() => {
+        let rows = TICKETS.filter(r =>
+          (!route || r.route===route) &&
+          (!bridge || r.bridge===bridge) &&
+          (!kind || r.kind===kind) &&
+          r.day >= from && r.day <= to &&
+          (!q || (r.ticketNo+' '+r.bridge+' '+r.route).toLowerCase().includes(q))
+        );
+        if (appliedTab === 'summary') rows = toSummary(rows);
+        lastRows = rows;
+        document.getElementById('sk').classList.add('hidden');
+        renderHead();
+        const tb = document.getElementById('tbody');
+        tb.innerHTML = rows.map(r => `<tr>${cols().filter(c=>c.on).map(c=>`<td>${cell(r,c.key)}</td>`).join('')}</tr>`).join('');
+        document.getElementById('grid').classList.toggle('hidden', rows.length===0);
+        document.getElementById('empty').classList.toggle('hidden', rows.length>0);
+        document.getElementById('empty').textContent = rows.length ? '' : 'Không có dòng phù hợp bộ lọc.';
+        document.getElementById('help').textContent = rows.length ? `${rows.length} dòng · tab ${appliedTab} (seed P1 CUC2)` : 'Không có dòng phù hợp bộ lọc.';
+        document.getElementById('total').textContent = rows.length + ' dòng · pageSize ' + pageSize;
+        const src = appliedTab==='summary' ? TICKETS.filter(r => lastRows.some(s => s.bridge===r.bridge)) : lastRows;
+        const by = {};
+        src.forEach(r => { if (r.kind) by[r.kind]=(by[r.kind]||0)+1; });
+        const max = Math.max(1, ...Object.values(by));
+        document.getElementById('bars').innerHTML = Object.entries(by).map(([k,v]) =>
+          `<div class="bar-wrap"><div title="${k}" class="bar" style="height:${Math.round(v/max*110)}px"></div><small>${k}</small></div>`).join('');
+        document.getElementById('kpi').innerHTML =
+          `<span>Dòng ${rows.length}</span><span>Tuyến ${new Set(src.map(r=>r.route)).size}</span><span>Ưu tiên cao ${src.filter(r=>r.prio==='Cao').length}</span>`;
+        setChartEnabled(rows.length>0);
+      }, 280);
+    }
+    document.getElementById('btnView').onclick = apply;
+    document.getElementById('btnRefresh').onclick = () => { if(!viewed) toast('Chưa xem'); else apply(); };
+    document.getElementById('btnExcel').onclick = () => {
+      if(!viewed) { toast('Chưa xem'); return; }
+      toast('Xuất bridge-inspections.csv UTF-8 BOM theo cột đang hiện');
+    };
+    document.getElementById('btnPrint').onclick = () => { if(!viewed || lastRows.length===0) { toast('Chưa xem'); return; } toast('In stub — scope trang hiện tại'); };
+    document.getElementById('btnCfg').onclick = () => { renderCfg(); document.getElementById('cfg').classList.remove('hidden'); };
+    document.getElementById('btnCfgSave').onclick = () => {
+      document.querySelectorAll('.cfg-on').forEach(el => { cols()[+el.dataset.i].on = el.checked; });
+      document.querySelectorAll('.cfg-w').forEach(el => { cols()[+el.dataset.i].w = +el.value || 80; });
+      document.getElementById('cfg').classList.add('hidden');
+      if (viewed) apply();
+      toast('Đã lưu cấu hình cột');
+    };
+    document.getElementById('btnAddCol').onclick = () => toast('Thêm cột — chọn từ danh sách ẩn (FULL)');
+    document.getElementById('btnChart').onclick = () => {
+      if(!viewed || lastRows.length===0) { toast('Chưa xem'); return; }
+      document.getElementById('chart').classList.remove('hidden');
+    };
+    document.getElementById('btnChartClose').onclick = () => document.getElementById('chart').classList.add('hidden');
+    document.querySelectorAll('.ps').forEach(b => b.onclick = () => {
+      pageSize = +b.getAttribute('data-ps');
+      document.querySelectorAll('.ps').forEach(x => x.classList.toggle('on', x===b));
+      document.getElementById('total').textContent = (viewed ? lastRows.length : 0) + ' dòng · pageSize ' + pageSize;
+    });
+    renderHead();
+  </script>
+</body>
+</html>

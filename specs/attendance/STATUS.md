@@ -14,7 +14,7 @@
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Field` (packet Patrol MFE **không tồn tại** · board ui_repo = Field) |
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · **`api/v1/patrol/attendance-logs`** (**cấm ERP.***) |
 | domain | **Patrol** |
-| taskId | `task_3b8b3994` |
+| taskId | `task_2e0cffe3` |
 | mfeStdRoute | `/patrol/attendance` |
 | mfeStdUrl | `http://localhost:9304/patrol/attendance` |
 | dataAnaly | `D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/attendance-control-hint.md` |
@@ -26,7 +26,7 @@
 | qa.artifact | `specs/attendance/qa/scenarios.md` |
 | review.artifact | `specs/attendance/review/findings.md` |
 | reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/attendance/ui/prototype/attendance-list-prototype.html` |
-| updatedAt | `2026-08-14T17:11:50.035Z` |
+| updatedAt | `2026-08-16T02:21:22.682Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -55,7 +55,7 @@
 | ui_repo_confirm | **approve** (packet `Linm.Web.RMMS.Field`) |
 | version_mismatch_action | **recheck_new** |
 | review_confirm | **confirmed** (user Approve board) |
-| autoApprove | **ON** (run packet `task_3b8b3994` · chain Review → pipeline complete) |
+| autoApprove | **ON** (run packet `task_2e0cffe3` · roleOnly=`review`) |
 
 ## Tasks
 
@@ -68,10 +68,10 @@
 | T-PERM-01 | attendance | ui+api | T-BE-01 | **done** | FE gate · BE stub |
 | T-UI-LIST-01 | attendance | ui | T-BFF-01 | **done** | A–D KEEP · Zone B route + onlyOutZone |
 | T-UI-FORM-01 | attendance | ui | T-UI-LIST-01 | **done** | Slideout KEEP · route SearchInput |
-| T-QA-01 | attendance | qa | T-UI-FORM-01 | **done** | `task_35eccf28` · smoke A–D + delta |
+| T-QA-01 | attendance | qa | T-UI-FORM-01 | **done** | `task_b9c436be` · re-smoke A–D + delta |
 | T-UI-ACT-01 | attendance | ui | T-UI-FORM-01 | **done** | Delete + footer-only |
 | T-BE-CRUD-01 | attendance | api | T-BE-01 | **done** | verify C/U/D |
-| T-QA-CRUD-01 | attendance | qa | T-UI-ACT-01 | **done** | C/E/V/Copy/Delete + LKP/VAL |
+| T-QA-CRUD-01 | attendance | qa | T-UI-ACT-01 | **done** | `task_b9c436be` · C/E/V/Copy/Delete + LKP/VAL |
 | T-UI-LKP-01 | attendance | ui | T-PERM-01 | **done** | LKP-01 `GET integration/road-routes/search` |
 | T-UI-FIELD-01 | attendance | ui | T-UI-LKP-01 | **done** | field type vs hint · UTC · decimal GPS |
 | T-UI-PROD-01 | attendance | ui | T-UI-LKP-01 | **done** | seed `QL.22`→`QL.1` |
@@ -84,8 +84,8 @@
 ## Blockers / open questions
 
 - P0: none
-- P2 `RequirePermission` attr DEFER (GAP-P2-PERM-ATTR) · Kind E / Face NFC / Excel DEFER
-- roleOnly=`review` **done** · pipeline **complete**
+- P2 `RequirePermission` attr DEFER (GAP-P2-PERM-ATTR) · configHint (GAP-P2-CC-06) · Kind E / Face NFC / Excel DEFER
+- roleOnly=`review` **done** (`task_2e0cffe3`) · pipeline complete
 
 ## Links
 
@@ -114,6 +114,8 @@
 - dev completed: `2026-08-14T17:00:00.000Z` · task_47f14701 · next=`qa`
 - qa completed: `2026-08-14T17:30:00.000Z` · task_35eccf28 · next=`review`
 - review completed: `2026-08-14T17:45:00.000Z` · task_3b8b3994 · pipeline complete
+- qa re-run completed: `2026-08-16T02:20:00.000Z` · task_b9c436be · next=`review`
+- review completed: `2026-08-16T02:30:00.000Z` · task_2e0cffe3 · pipeline complete
 
 ## Resume / closeout
 
@@ -125,6 +127,8 @@
 - closeout Dev: `task_47f14701` · roleOnly=`dev` · `/agent-dev` · at: `2026-08-14T17:00:00.000Z`
 - closeout QA: `task_35eccf28` · roleOnly=`qa` · `/agent-qa` · T-QA-01 / T-QA-CRUD-01 PASS · yarn typecheck+build PASS · next=`review` · at: `2026-08-14T17:30:00.000Z`
 - closeout Review: `task_3b8b3994` · roleOnly=`review` · `/agent-review` · **approve** autopilot · yarn typecheck+build PASS · pipeline complete · at: `2026-08-14T17:45:00.000Z`
+- closeout QA: `task_b9c436be` · roleOnly=`qa` · `/agent-qa` · T-QA-01 / T-QA-CRUD-01 PASS · yarn typecheck+build PASS · next=`review` · at: `2026-08-16T02:20:00.000Z`
+- closeout Review: `task_2e0cffe3` · roleOnly=`review` · `/agent-review` · **approve** autopilot · yarn typecheck+build PASS · pipeline complete · at: `2026-08-16T02:30:00.000Z`
 
 ## Version meta (REQUIRED)
 
@@ -135,7 +139,7 @@
 | schemaVersion | 2 |
 | workflowVersion | 2026.08.14.5 |
 | rulesVersion | 2026.08.14.9 |
-| generatedAt | 2026-08-14T17:45:00.000Z |
+| generatedAt | 2026-08-16T02:30:00.000Z |
 | versionGate | rechecked |
 | dataAnalySkillVersion | 2026.08.08.20 |
 | dataAnalyWorkflowVersion | 2026.08.14.5 |

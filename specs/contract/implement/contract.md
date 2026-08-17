@@ -3,120 +3,93 @@
 | Field | Value |
 |-------|-------|
 | feature | `contract` |
+| this role | `dev` · `/agent-dev` |
 | status | `done` |
 | changeScope | `edit_page` |
-| gap | `formtype_quality` (LKP/FIELD/PROD/UX) |
-| mode | `fix_gaps` |
+| gap | `formtype_quality` |
 | packKind | `list` |
-| taskId | `task_7573a7b2` |
+| taskId | `task_d7cdf08b` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Contract` |
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/contract/contracts` |
 | mfeStdRoute | `/contract` |
 | mfeStdUrl | `http://localhost:9312/contract` |
-| updatedAt | 2026-08-14T21:40:00.000Z |
+| updatedAt | 2026-08-16T04:50:00.000Z |
 | versionGate | rechecked |
+| autoApprove | ON |
 
-## Done this turn — form UX (GAP-DEV-UX-01)
+## Done this turn — Dev P1 (task_d7cdf08b)
 
-Live review `/contract/new` full-page stretched 2-col → restore **Kind D Slideout** on list (Design). **Không** rewrite list shell.
+TL `task_f8dd6827` chốt 2 GAP cùng surface — Dev sửa cả hai (cấm patch 1 chỗ).
 
-| Gap | Fix |
-|-----|-----|
-| GAP-P2-FORM-PATTERN | `ContractFormSlideout` trên list · `/contract/new` + `/:id` → `?form=` |
-| GAP-P2-SLIDE-TOP-ACT / DUP-SAVE | Header Slideout = title + ✕ · **Hủy/Lưu chỉ footer** |
-| GAP-DEV-UX-01 P3–P4 | `FormRowCol` cols=2 · Money/Number `max-width: 200px` · Hiệu lực từ/đến cùng hàng |
-| T-UI-FIELD | Select enum loại/TT · SearchInput nhà thầu/đơn vị · Integer/Number/TextArea |
-| T-UI-PROD | Hint nghiệp vụ · **không** chữ Slideout / Kind D trên UI |
-| View | `readOnly` cùng form · footer Đóng / Sao chép / Sửa |
+| Gap / Task | Fix |
+|------------|-----|
+| GAP-SA-SCHEMA-01 · T-BE-SCHEMA-01 | Integration `CatalogUiSchemaRegistry.Contracts = "contracts"` + `Supported` + `CatalogUiSchemaSeed.Contracts()` — Zone C: code · contractNo · name · type · contractor · amount · kpiScore · status · effectiveTo. GET/PUT `api/v1/integration/catalogs/contracts/ui-schema` không throw `No UI schema seed`. **Cấm** clone schema vào Contract BFF. |
+| GAP-TL-CONFIRM-01 · T-UI-ACT-01 · T-UI-UX-01 | List delete → `Modal` Lin. Form dirty leave → `useFormLeaveGuard` + `LeaveConfirmModal`. Form delete → `Modal`. **Cấm** `window.confirm` / `window.alert` trên Contract list/form. |
+| T-UI-CONFIG-01 | Runtime seed kind `contracts` — editor Zone F load/save không throw. FE editor giữ nguyên (`LinCatalogUiSchemaEditorModal`). |
 
-**Build:** `yarn typecheck` PASS · `yarn build` PASS (size warnings only)
+**Cấm** ERP.* · **cấm** rewrite list shell · **cấm** regen migration · **cấm** extra lookup API.
 
-`mfeStdUrl` list: `http://localhost:9312/contract` · Tạo mới mở overlay (deep-link `/contract/new` vẫn redirect).
+## retry.ssot_rereview: **pass** (live re-audit trước Write · 2026-08-16)
 
-## retry.ssot_rereview: **pass** (live re-audit task_7573a7b2 · trước Write)
-
-Live `ContractListPage` + `ContractFormPage` — quality gates vs `form-type-task-pack` / asset parity.
-
-checklist: `tl-grid-ssot` · `list_parity` · `tl-list-shell-height` · `form-type-task-pack` · tree_master? n/a · form  
-gaps closed this turn:
-- GAP-P2-PROD-SLIDEOUT — removed `ContractFormSlideout` · full-page `ContractFormPage` · View `<dl>`
-- GAP-P2-LKP-SELECT — type/status/contractor/org/payStatus `SearchInput` master (cấm native Select catalog)
-- GAP-P2-UX-FILTER-WIDTH — removed `filterMaxWidthPx` · spacing 4/8/16 · no emoji footer
-- GAP-P2-FIELD — MoneyInput amount/budget/payment · date Input · DTO Create/Update map
-then: **fix_all** same surface (list filter + form + routes)
+Live: `ContractListPage.tsx` · `ContractFormPage.tsx`.
 
 | # | Check | Result |
 |---|-------|--------|
-| 1 | 1× `LinPageLayout` — no nested CatalogListShell | **PASS** (`ContractListPage.tsx`) |
+| 1 | 1× `LinPageLayout` — cấm nested CatalogListShell | **PASS** |
 | 2 | Footer `LinCatalogListPagination` 50/100/200/500 | **PASS** |
-| 3 | Flex + `useServerPagedListLoading` + LAYOUT-06 | **PASS** |
-| 4 | Toolbar catalog refresh · history · config · add · delete | **PASS** |
-| 5 | Filter SearchTextInput + SearchInput type/status — no Tìm btn | **PASS** |
-| 6 | `LinCatalogDataGrid` + column resize via `tableConfig` | **PASS** |
-| 7 | Zone F schema editor | **PASS** |
+| 3 | Flex + skeleton + LAYOUT-06 | **PASS** |
+| 4 | Toolbar catalog: refresh · history · config · +Tạo | **PASS** |
+| 5 | Filter SearchTextInput + SearchInput type/status/contractor — cấm nút Tìm | **PASS** |
+| 6 | `LinCatalogDataGrid` + column resize ON | **PASS** |
+| 7 | Zone F `LinCatalogUiSchemaEditorModal` kind=`contracts` · cấm `configHint` | **PASS** (BE seed **CLOSED** this turn) |
 | 8 | History modal stub | **PASS** |
-| 9 | tree_master | n/a |
-| 10 | Form Create/Edit/View/Copy + payment lines | **PASS** (`ContractFormPage` · View `<dl>`) |
-| T-UI-LKP / FIELD / PROD / UX | **PASS** |
+| 9 | tree_master? | **n/a** |
+| 10 | Form C/E/V/Copy + payment lines · View=`<dl>` | **PASS** |
+| 11 | leftover `const columns` / `LinCatalogDataColumn[]` grid | **PASS** — `uiColumns` + `buildDynamicGridColumns` |
+| 12 | `filterMaxWidthPx` | **PASS** (không trên Contract list) |
+| 13 | native `<select>` catalog | **PASS** — SearchInput |
+| 14 | Lin confirm (cấm `window.confirm`) | **PASS** this turn (list + form) |
 
 `implement.list_parity.layout` = `flex-root + GAP-P2-LAYOUT-06 smoke`
 
-## Done this turn (task_7573a7b2 · formtype_quality)
+## Step 4b BE
 
-| Task | Result |
-|------|--------|
-| T-UI-LKP-01 | `services/contract/lookups.ts` · SearchInput type/status (list+form) · contractor/org/pay (form) |
-| T-UI-FIELD-01 | Fields map `ContractDto` / Create·Update · MoneyInput · date Input |
-| T-UI-PROD-01 | End-user labels · **cấm** chữ «Slideout» trên UI (vẫn dùng component `Slideout`) |
-| T-UI-UX-01 | spacing 4/8/12/16 · **form ≤2 field/hàng** (`form-field-grid.md`) · Lin* |
-| T-UI-FORM-01 | Kind D `ContractFormSlideout` · footer Hủy/Lưu · `FormRowCol` 1 hàng = 1–2 Item |
-| T-UI-ACT-01 | Navigate form page · Delete toolbar/row/form |
-| T-BE-CRUD-01 | Verified API-01…05 · no Write delta BE |
-| T-UI-LIST-01 | Filter SearchInput · **không** rewrite shell |
-| T-UI-MAP-FORM | n/a (packKind=list) |
-| Step 4b | BE aligned `api/v1/contract/contracts` · BFF `ContractsBffController` · DOMAIN-MAP Contract |
-| Verify | typecheck + webpack + API/BFF Release **PASS** |
+| Layer | Change |
+|-------|--------|
+| Integration API | `CatalogUiSchemaRegistry` + `CatalogUiSchemaSeed` kind `contracts` |
+| Contract API | **none** (CRUD `?contractor=` đã PASS) |
+| BFF | **none** (ui-schema không clone vào Contract BFF) |
+| Migration | **none** |
 
-## Paths (confirmed)
-
-| Layer | Path |
-|-------|------|
-| BackendRoot | `D:/AI-QLBD/Linm.RMMS.WebService` |
-| API | `api/src/RMMS.Service.Api/Domains/Contract/` |
-| Entity | `api/shared/RMMS.Service.Persistence/Entities/ContractEntity.cs` |
-| Migration | `20260809145758_Schema_RmmsContracts` |
-| BFF | `bff/domains/contract/LINM.RMMS.Contract.Bff/Controllers/ContractsBffController.cs` |
-| MFE list | `pages/ContractListPage/ContractListPage.tsx` |
-| MFE form | `pages/ContractFormPage/ContractFormPage.tsx` |
-| Lookups | `services/contract/lookups.ts` |
-| Perm | `services/contract/permissions.ts` |
-| Route prefix | `api/v1/contract/contracts` |
-
-**Cấm** ERP.* — void.
-
-## Verify (task_7573a7b2)
+## Build
 
 ```
 yarn typecheck → PASS
-LINM_RUN_DEV_LOCAL_BUNDLE=1 yarn build → PASS (size warnings only)
-dotnet build RMMS.Service.Api -c Release → PASS 0 err
-dotnet build RMMS.Service.Bff -c Release → PASS 0 err
+yarn build → PASS (webpack 5.109.2 compiled; size warnings only)
+dotnet build RMMS.Service.Api -c Release → PASS 0 err 0 warn
+dotnet build RMMS.Service.Bff -c Release → PASS 0 err 0 warn
 ```
 
-## Gaps / nợ
+## Gaps / nợ (out of pack)
 
 - `[RequirePermission]` chờ CommonLib NuGet
 - History API stub empty
-- Excel / quyết toán full / inventory CRUD / sign+kpi dedicated endpoints = out of pack
+- Excel / quyết toán / sign+kpi dedicated = out of pack
+- partner-unit / org-unit CUC2 / road-route SearchInput = P2 UNCLEAR
+- Inventory `window.confirm` = **không** trong pack contract list/form
 
 ## Version meta
 
 | Field | Value |
 |-------|-------|
 | skillId | agent-dev |
-| skillVersion | 2026.08.09.02 |
-| schemaVersion | 1 |
-| workflowVersion | 2026.08.09.02 |
-| generatedAt | 2026-08-14T14:30:00.000Z |
+| skillVersion | 2026.08.15.19 |
+| schemaVersion | qldb-workflow-skill-v1 |
+| workflowVersion | 2026.08.15.19 |
+| generatedAt | 2026-08-16T04:50:00.000Z |
 | versionGate | rechecked |
-| taskId | `task_7573a7b2` |
+| version_mismatch_action | recheck_new |
+| orchestratorSkillVersion | 2026.08.15.19 |
+
+---
+<!-- Version meta: skillVersion=2026.08.15.19 · schemaVersion=qldb-workflow-skill-v1 · workflowVersion=2026.08.15.19 · versionGate=rechecked -->

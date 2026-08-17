@@ -5,6 +5,7 @@
  * Modes: shallow | deep | full | rescan
  * Rescan: all left-rail menus + action forms · full-reload retry · pause/manual.
  * Flags: --rescan · --pause-on-fail · --master=maintenance,patrol · --all-menus
+ *        --input-forms (full default) · --include-reports
  */
 
 import {
@@ -103,6 +104,19 @@ function env(name, fallback = "") {
 function boolEnv(name, fallback) {
   const v = env(name, fallback ? "true" : "false").toLowerCase();
   return v === "1" || v === "true" || v === "yes";
+}
+
+/** KHAI THÁC BÁO CÁO / dashboard — skip khi --input-forms (voucher/form trước). */
+const REPORT_MENU_RE =
+  /khai\s*th[aá]c\s*b[aá]o\s*c[aá]o|dashboad|dashboard|bảng\s*tổng\s*hợp\s*nhanh/i;
+const REPORT_RAIL_RE = /^báo cáo\b|^bao cao\b/i;
+
+function isSkipReportMenu(text, slugRules) {
+  const t = String(text || "").replace(/\s+/g, " ").trim();
+  if (!t) return false;
+  if (REPORT_MENU_RE.test(t) || REPORT_RAIL_RE.test(t)) return true;
+  const slug = resolveMasterSlug(t, slugRules || []);
+  return slug === "reports" || slug === "dashboard";
 }
 
 function nowIso() {
@@ -507,6 +521,12 @@ async function main() {
     rescan
     || hasFlag("--all-menus", "--all-menu")
     || boolEnv("GOVONE_ALL_MENUS", false);
+  const inputFormsOnly =
+    !hasFlag("--include-reports")
+    && (
+      hasFlag("--input-forms", "--input-forms-only")
+      || boolEnv("GOVONE_INPUT_FORMS_ONLY", mode === "full")
+    );
   const masterFilter = parseMasterFilter();
   const pauseOnFail =
     hasFlag("--pause-on-fail", "--manual", "--pause")
@@ -535,11 +555,14 @@ async function main() {
   const maxInner = Number(
     env(
       "GOVONE_MAX_INNER",
-      allMenus ? "200" : mode === "full" ? "80" : "50",
+      allMenus || inputFormsOnly ? "200" : mode === "full" ? "80" : "50",
     ),
   ) || 50;
   const maxCreate = Number(
-    env("GOVONE_MAX_CREATE", rescan || allMenus ? "20" : "4"),
+    env(
+      "GOVONE_MAX_CREATE",
+      rescan || allMenus || inputFormsOnly ? "20" : "4",
+    ),
   ) || 4;
   // deep/full/rescan: mặc định HIỆN browser; pause bắt buộc headed
   const headlessEnv = env("GOVONE_HEADLESS");
@@ -558,7 +581,11 @@ async function main() {
     maxRetries: retryCount,
     pauseOnFail,
     fullReloadRetry: true,
-    allActionForms: rescan || allMenus || boolEnv("GOVONE_ALL_ACTION_FORMS", false),
+    allActionForms:
+      rescan
+      || allMenus
+      || inputFormsOnly
+      || boolEnv("GOVONE_ALL_ACTION_FORMS", false),
   };
 
   console.log(
@@ -568,6 +595,7 @@ async function main() {
       deep,
       rescan,
       allMenus,
+      inputFormsOnly,
       masterFilter: masterFilter || "all",
       pauseOnFail,
       maxRetries: retryCount,
@@ -646,6 +674,16 @@ async function main() {
         continue;
       }
     }
+    if (inputFormsOnly && isSkipReportMenu(t.text, slugRules)) {
+      console.log(
+        JSON.stringify({
+          event: "tile_skip_input_forms",
+          menuText: t.text,
+          reason: "report-or-dashboard",
+        }),
+      );
+      continue;
+    }
     queue.push(t);
   }
   for (const o of others) {
@@ -656,6 +694,7 @@ async function main() {
       );
       if (!hit) continue;
     }
+    if (inputFormsOnly && isSkipReportMenu(o.text, slugRules)) continue;
     queue.push(o);
   }
 
@@ -1031,6 +1070,17 @@ async function main() {
 
         for (const nav of rail) {
           if (pages.length >= maxPages) break;
+          if (inputFormsOnly && isSkipReportMenu(nav.text, slugRules)) {
+            console.log(
+              JSON.stringify({
+                event: "rail_skip_input_forms",
+                master: masterSlug,
+                menu: nav.text,
+                reason: "report-or-dashboard",
+              }),
+            );
+            continue;
+          }
           const ik = `rail|${masterSlug}|${nav.text}`;
           if (visited.has(ik)) continue;
           visited.add(ik);

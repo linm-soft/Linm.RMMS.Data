@@ -28,7 +28,7 @@
 
 | Screen | Pattern | Zones | Ghi chú |
 |--------|---------|-------|---------|
-| List `/camera` | Full page Kind B | Filter · Grid · Pager | Mã cam · model · IP · trạng thái Online · tuyến/Km |
+| List `/camera` | Full page Kind B | Filter · Grid · Pager · **schema editor `camera-devices`** | Mã cam · model · IP · trạng thái Online · tuyến/Km |
 | Connect `/camera/new` · `/camera/:id` | Full page Kind C | Z1 Config · Z2 Protocols · Z3 Live · Z4 Events | ≥10 inputs → full page |
 
 ### Zones form kết nối

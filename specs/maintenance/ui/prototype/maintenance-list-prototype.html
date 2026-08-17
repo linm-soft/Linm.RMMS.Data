@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Prototype — Lập lịch SC / bảo trì (maintenance) · Kind B A–D</title>
+  <title>Prototype — Lập lịch SC / bảo trì (maintenance) · Kind B A–D + F + full-page form</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
   <style>
     :root {
@@ -21,9 +21,12 @@
     .zoneB { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 10px 12px; background: var(--toolbar-bg); border: 1px solid var(--border-soft); border-radius: var(--ds-radius-md); margin-bottom: 10px; }
     .btn { height: var(--ds-height-btn); padding: 0 12px; border: 1px solid var(--border); border-radius: var(--ds-radius-md); background: #fff; cursor: pointer; font-size: 12px; }
     .btn.primary { background: var(--primary); color: #fff; border-color: var(--primary); }
-    .filters { display: grid; grid-template-columns: 1fr 180px 180px; gap: 12px; margin-bottom: 10px; }
+    .filters { display: grid; grid-template-columns: 1fr 200px 200px; gap: 12px; margin-bottom: 10px; }
     label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--muted); }
-    input, select, textarea { min-height: 32px; padding: 6px 10px; border: 1px solid var(--border); border-radius: var(--ds-radius-md); font-size: 13px; font-family: inherit; }
+    input, textarea { min-height: 32px; padding: 6px 10px; border: 1px solid var(--border); border-radius: var(--ds-radius-md); font-size: 13px; font-family: inherit; }
+    .si { position: relative; }
+    .si input { width: 100%; padding-right: 28px; }
+    .si i { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
     .zoneC { flex: 1; background: var(--card); border: 1px solid var(--border-soft); border-radius: var(--ds-radius-md); overflow: auto; min-height: 280px; }
     table { width: 100%; border-collapse: collapse; }
     th, td { padding: 8px 10px; border-bottom: 1px solid var(--border-soft); text-align: left; white-space: nowrap; }
@@ -32,55 +35,74 @@
     .zoneD { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; margin-top: 8px; gap: 12px; flex-wrap: wrap; }
     .pager { display: flex; gap: 6px; align-items: center; }
     .hint { color: var(--muted); font-size: 12px; margin: 0 0 12px; }
-    .slide { position: fixed; top: 0; right: 0; width: min(560px, 100%); height: 100%; background: #fff; border-left: 1px solid var(--border); box-shadow: -8px 0 24px rgba(15,23,42,.12); display: none; flex-direction: column; z-index: 20; }
-    .slide.open { display: flex; }
-    .slide .z1 { display: flex; justify-content: space-between; gap: 8px; padding: 12px 16px; border-bottom: 1px solid var(--border-soft); }
-    .slide .body { padding: 16px; overflow: auto; flex: 1; }
-    .slide .z3 { display: flex; justify-content: flex-end; gap: 8px; padding: 12px 16px; border-top: 1px solid var(--border-soft); flex-wrap: wrap; }
+    .row-menu { position: relative; display: inline-block; }
+    .row-menu ul { display: none; position: absolute; right: 0; top: 100%; background: #fff; border: 1px solid var(--border); border-radius: 4px; list-style: none; margin: 0; padding: 4px 0; min-width: 180px; z-index: 5; box-shadow: 0 8px 16px rgba(0,0,0,.08); }
+    .row-menu.open ul { display: block; }
+    .row-menu button.item { display: block; width: 100%; text-align: left; border: 0; background: none; padding: 8px 12px; cursor: pointer; font-size: 12px; }
+    .row-menu button.item:hover { background: #f1f5f9; }
+    .overlay { display: none; position: fixed; inset: 0; background: rgba(15,23,42,.35); z-index: 30; align-items: center; justify-content: center; padding: 16px; }
+    .overlay.open { display: flex; }
+    .modal { background: #fff; width: min(720px, 100%); max-height: 90vh; overflow: auto; border-radius: 6px; box-shadow: 0 16px 40px rgba(0,0,0,.18); }
+    .modal h2 { margin: 0; font-size: 16px; padding: 14px 16px; border-bottom: 1px solid var(--border-soft); }
+    .modal .body { padding: 12px 16px; }
+    .modal .foot { display: flex; justify-content: flex-end; gap: 8px; padding: 12px 16px; border-top: 1px solid var(--border-soft); }
+    .chk { width: 16px; }
+    .screen { display: none; }
+    .screen.active { display: flex; flex-direction: column; }
     .fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .span2 { grid-column: 1 / -1; }
-    textarea { min-height: 100px; resize: vertical; }
+    textarea { min-height: 88px; resize: vertical; }
+    .display { min-height: 32px; padding: 6px 0; color: var(--txt); font-size: 13px; border-bottom: 1px dashed var(--border-soft); }
+    .form-foot { display: flex; justify-content: flex-end; gap: 8px; padding: 16px 0; flex-wrap: wrap; }
+    .back { border: 0; background: none; color: var(--primary); cursor: pointer; font-size: 13px; padding: 0; }
   </style>
 </head>
 <body>
-  <div class="page" data-catalog-list-page data-testid="rmms-maintenance-list-prototype">
+  <!-- LIST A–D -->
+  <div id="screen-list" class="page screen active" data-catalog-list-page data-testid="rmms-maintenance-list-prototype">
     <header class="zoneA" data-zone="A">
       <i class="fas fa-wrench" aria-hidden="true"></i>
       <h1>Lập lịch sửa chữa / bảo trì</h1>
       <span class="badge">Kind B list</span>
       <span class="badge badgeWarn">WO · P2 nghiệm thu stub</span>
     </header>
-    <p class="hint">Prototype content-only · zones A–D · Slideout Z1–Z3 · reviewUrl gate · no chrome/menu · Kind E DEFER.</p>
+    <p class="hint">Prototype content-only · A–D + Zone F schema · form <strong>full-page</strong> (cấm Slideout) · SearchInput status/workType · no chrome/menu.</p>
 
     <div class="zoneB" data-zone="B" data-testid="maintenance-toolbar">
       <button type="button" class="btn" title="Làm mới"><i class="fas fa-sync-alt"></i> Làm mới</button>
       <button type="button" class="btn" title="Lịch sử"><i class="fas fa-history"></i> Lịch sử</button>
-      <button type="button" class="btn" title="Cấu hình"><i class="fas fa-cog"></i></button>
+      <button type="button" class="btn" id="btnConfig" title="Cấu hình hiển thị danh mục"><i class="fas fa-cog"></i></button>
       <button type="button" class="btn primary" id="btnCreate"><i class="fas fa-plus"></i> Tạo mới</button>
     </div>
 
-    <div class="filters" data-zone="C-filters">
+    <div class="filters" data-zone="B-filters">
       <label>Tìm kiếm
         <input type="search" placeholder="Mã / tuyến / đội / cán bộ…" />
       </label>
       <label>Trạng thái
-        <select>
-          <option value="">Tất cả trạng thái</option>
-          <option>new</option>
-          <option>in_progress</option>
-          <option>awaiting_accept</option>
-          <option>done</option>
-        </select>
+        <div class="si">
+          <input type="search" list="dl-status" placeholder="Tất cả trạng thái" aria-label="SearchInput work-order-status" />
+          <i class="fas fa-search"></i>
+        </div>
       </label>
       <label>Loại
-        <select>
-          <option value="">Tất cả loại</option>
-          <option>periodic</option>
-          <option>from-incident</option>
-          <option>bdtx</option>
-        </select>
+        <div class="si">
+          <input type="search" list="dl-type" placeholder="Tất cả loại" aria-label="SearchInput work-type" />
+          <i class="fas fa-search"></i>
+        </div>
       </label>
     </div>
+    <datalist id="dl-status">
+      <option value="new">Mới</option>
+      <option value="in_progress">Đang thực hiện</option>
+      <option value="done">Hoàn thành</option>
+      <option value="cancelled">Hủy</option>
+    </datalist>
+    <datalist id="dl-type">
+      <option value="repair">Sửa chữa</option>
+      <option value="inspect">Kiểm tra</option>
+      <option value="emergency">Khẩn cấp</option>
+    </datalist>
 
     <div class="zoneC" data-zone="C">
       <table>
@@ -93,15 +115,30 @@
         <tbody>
           <tr>
             <td>1</td><td>□</td>
-            <td><span class="code" id="openView">WO-20260801-0001</span></td>
-            <td>QL.1A</td><td>from-incident</td>
-            <td>Đội SC 1</td><td>Nguyễn Văn A</td><td>05/08/2026 17:00</td><td>in_progress</td><td>45%</td><td>⋯</td>
+            <td><span class="code" data-go="view">WO-20260801-0001</span></td>
+            <td>QL.1A</td><td>repair</td>
+            <td>Đội SC 1</td><td>Nguyễn Văn A</td><td>05/08/2026 17:00</td><td>in_progress</td><td>45%</td>
+            <td>
+              <div class="row-menu">
+                <button type="button" class="btn" data-menu>⋯</button>
+                <ul>
+                  <li><button type="button" class="item" data-go="view">Xem</button></li>
+                  <li><button type="button" class="item" data-go="edit">Sửa</button></li>
+                  <li><button type="button" class="item" data-go="copy">Sao chép</button></li>
+                  <li><button type="button" class="item">Xóa</button></li>
+                  <li><button type="button" class="item">Lịch sử</button></li>
+                  <li><button type="button" class="item">Cập nhật tiến độ</button></li>
+                  <li><button type="button" class="item">Nghiệm thu (stub P2)</button></li>
+                </ul>
+              </div>
+            </td>
           </tr>
           <tr>
             <td>2</td><td>□</td>
-            <td><span class="code">WO-20260725-0008</span></td>
-            <td>ĐT.538</td><td>periodic</td>
-            <td>Đội BDTX Hạt 3</td><td>Trần Thị B</td><td>10/08/2026 17:00</td><td>new</td><td>0%</td><td>⋯</td>
+            <td><span class="code" data-go="view">WO-20260725-0008</span></td>
+            <td>ĐT.538</td><td>inspect</td>
+            <td>Đội BDTX Hạt 3</td><td>Trần Thị B</td><td>10/08/2026 17:00</td><td>new</td><td>0%</td>
+            <td>⋯</td>
           </tr>
         </tbody>
       </table>
@@ -113,52 +150,149 @@
         <button type="button" class="btn" disabled>‹</button>
         <span>1 / 1</span>
         <button type="button" class="btn" disabled>›</button>
-        <select><option>50</option><option>100</option><option>200</option><option>500</option></select>
+        <select class="btn"><option>50</option><option>100</option><option>200</option><option>500</option></select>
       </div>
     </footer>
   </div>
 
-  <aside class="slide" id="slide" aria-label="Form công việc">
-    <div class="z1">
-      <div>
-        <strong>Chi tiết công việc</strong>
-        <div class="hint" style="margin:4px 0 0">Z1 · IdCode WO-* khi lưu</div>
+  <!-- ZONE F -->
+  <div class="overlay" id="zoneF" data-zone="F" aria-label="Cấu hình hiển thị danh mục">
+    <div class="modal">
+      <h2>Cấu hình hiển thị danh mục</h2>
+      <div class="body">
+        <p class="hint" style="margin-top:0">catalogKind = <code>work-orders</code> · LinCatalogUiSchemaEditorModal · cấm configHint / LinListTableConfigModal</p>
+        <table>
+          <thead>
+            <tr><th>Cột</th><th>List</th><th>Width</th><th>Filter</th><th>Sort</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>code / Mã</td><td><input class="chk" type="checkbox" checked /></td><td><input value="140" style="width:72px" /></td><td><input class="chk" type="checkbox" checked /></td><td><input class="chk" type="checkbox" checked /></td></tr>
+            <tr><td>routeName / Tuyến</td><td><input class="chk" type="checkbox" checked /></td><td><input value="120" style="width:72px" /></td><td><input class="chk" type="checkbox" checked /></td><td><input class="chk" type="checkbox" /></td></tr>
+            <tr><td>workType / Loại</td><td><input class="chk" type="checkbox" checked /></td><td><input value="110" style="width:72px" /></td><td><input class="chk" type="checkbox" checked /></td><td><input class="chk" type="checkbox" /></td></tr>
+            <tr><td>teamName / Đội</td><td><input class="chk" type="checkbox" checked /></td><td><input value="140" style="width:72px" /></td><td><input class="chk" type="checkbox" /></td><td><input class="chk" type="checkbox" /></td></tr>
+            <tr><td>assigneeName / Cán bộ</td><td><input class="chk" type="checkbox" checked /></td><td><input value="140" style="width:72px" /></td><td><input class="chk" type="checkbox" /></td><td><input class="chk" type="checkbox" /></td></tr>
+            <tr><td>dueAt / Hạn</td><td><input class="chk" type="checkbox" checked /></td><td><input value="160" style="width:72px" /></td><td><input class="chk" type="checkbox" /></td><td><input class="chk" type="checkbox" checked /></td></tr>
+            <tr><td>status / Trạng thái</td><td><input class="chk" type="checkbox" checked /></td><td><input value="130" style="width:72px" /></td><td><input class="chk" type="checkbox" checked /></td><td><input class="chk" type="checkbox" /></td></tr>
+            <tr><td>progressPercent / Tiến độ</td><td><input class="chk" type="checkbox" checked /></td><td><input value="90" style="width:72px" /></td><td><input class="chk" type="checkbox" /></td><td><input class="chk" type="checkbox" /></td></tr>
+          </tbody>
+        </table>
+        <p style="margin:12px 0 0"><button type="button" class="btn">+ Thêm cột</button></p>
       </div>
-      <div>
-        <button type="button" class="btn" id="btnClose">✕ Đóng</button>
+      <div class="foot">
+        <button type="button" class="btn" id="btnFClose">Hủy</button>
+        <button type="button" class="btn primary" id="btnFSave">Lưu</button>
       </div>
     </div>
-    <div class="body">
-      <div class="fields">
-        <label>Mã<input value="(tự sinh)" readonly /></label>
-        <label>Trạng thái *<select><option>new</option><option selected>in_progress</option><option>awaiting_accept</option><option>done</option></select></label>
-        <label class="span2">Tiêu đề<input placeholder="Vá mặt QL.1A…" /></label>
-        <label>Tuyến *<input value="QL.1A" /></label>
-        <label>Loại *<select><option>periodic</option><option selected>from-incident</option><option>bdtx</option></select></label>
-        <label>Đội<input value="Đội SC 1" /></label>
-        <label>Cán bộ<input value="Nguyễn Văn A" /></label>
-        <label>Hạn *<input type="datetime-local" value="2026-08-05T17:00" /></label>
-        <label>Tiến độ %<input type="number" value="45" min="0" max="100" /></label>
-        <label>Sự cố liên kết<input value="INC-20260801-0001" /></label>
-        <label class="span2">Ghi chú<textarea>Đã vá tạm lớp mặt</textarea></label>
-      </div>
+  </div>
+
+  <!-- FULL-PAGE FORM create/edit/copy -->
+  <div id="screen-form" class="page screen" data-testid="rmms-maintenance-form-prototype">
+    <header class="zoneA">
+      <button type="button" class="back" data-go="list">← Danh sách</button>
+      <h1 id="formTitle">Tạo công việc</h1>
+      <span class="badge">full-page · cấm Slideout</span>
+    </header>
+    <div class="fields">
+      <label>Mã<input id="f-code" value="" placeholder="(tự sinh WO-YYYYMMDD-NNNN khi lưu)" readonly /></label>
+      <label>Trạng thái *
+        <div class="si">
+          <input type="search" list="dl-status" value="new" required />
+          <i class="fas fa-search"></i>
+        </div>
+      </label>
+      <label class="span2">Tiêu đề<input placeholder="Vá mặt QL.1A…" /></label>
+      <label>Tuyến *<input value="" required /></label>
+      <label>Loại *
+        <div class="si">
+          <input type="search" list="dl-type" value="repair" required />
+          <i class="fas fa-search"></i>
+        </div>
+      </label>
+      <label>Đội<input /></label>
+      <label>Cán bộ<input /></label>
+      <label>Hạn *<input type="datetime-local" required /></label>
+      <label>Tiến độ %<input type="number" value="0" min="0" max="100" /></label>
+      <label>SLA (giờ)<input type="number" /></label>
+      <label>Sự cố<input placeholder="INC-…" /></label>
+      <label class="span2">Mô tả<textarea></textarea></label>
+      <label class="span2">Ghi chú<textarea></textarea></label>
     </div>
-    <div class="z3">
-      <button type="button" class="btn" id="btnCancel">Hủy thay đổi</button>
+    <div class="form-foot">
+      <button type="button" class="btn" data-go="list">Hủy thay đổi</button>
       <button type="button" class="btn">Cập nhật tiến độ</button>
-      <button type="button" class="btn">Nghiệm thu</button>
+      <button type="button" class="btn">Nghiệm thu (stub)</button>
       <button type="button" class="btn primary">Ghi lại</button>
     </div>
-  </aside>
+  </div>
+
+  <!-- FULL-PAGE VIEW display (not Input readOnly) -->
+  <div id="screen-view" class="page screen" data-testid="rmms-maintenance-view-prototype">
+    <header class="zoneA">
+      <button type="button" class="back" data-go="list">← Danh sách</button>
+      <h1>Xem công việc</h1>
+      <span class="badge">View = display</span>
+    </header>
+    <div class="fields">
+      <label>Mã<div class="display">WO-20260801-0001</div></label>
+      <label>Trạng thái<div class="display">Đang thực hiện (in_progress)</div></label>
+      <label class="span2">Tiêu đề<div class="display">Vá mặt QL.1A km 12+300</div></label>
+      <label>Tuyến<div class="display">QL.1A</div></label>
+      <label>Loại<div class="display">Sửa chữa (repair)</div></label>
+      <label>Đội<div class="display">Đội SC 1</div></label>
+      <label>Cán bộ<div class="display">Nguyễn Văn A</div></label>
+      <label>Hạn<div class="display">05/08/2026 17:00</div></label>
+      <label>Tiến độ<div class="display">45%</div></label>
+      <label>SLA (giờ)<div class="display">24</div></label>
+      <label>Sự cố<div class="display">INC-20260801-0001</div></label>
+      <label class="span2">Mô tả<div class="display">Vá ổ gà lớp mặt, kiểm tra thoát nước.</div></label>
+      <label class="span2">Ghi chú<div class="display">Đã vá tạm lớp mặt</div></label>
+    </div>
+    <div class="form-foot">
+      <button type="button" class="btn" data-go="list">Đóng</button>
+      <button type="button" class="btn" data-go="edit">Sửa</button>
+      <button type="button" class="btn" data-go="copy">Sao chép</button>
+    </div>
+  </div>
 
   <script>
-    const slide = document.getElementById('slide');
-    const open = () => slide.classList.add('open');
-    const close = () => slide.classList.remove('open');
-    document.getElementById('btnCreate').onclick = open;
-    document.getElementById('openView').onclick = open;
-    document.getElementById('btnClose').onclick = close;
-    document.getElementById('btnCancel').onclick = close;
+    function show(id) {
+      document.querySelectorAll('.screen').forEach((el) => el.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+    document.getElementById('btnCreate').onclick = () => {
+      document.getElementById('formTitle').textContent = 'Tạo công việc';
+      document.getElementById('f-code').value = '';
+      show('screen-form');
+    };
+    document.getElementById('btnConfig').onclick = () => document.getElementById('zoneF').classList.add('open');
+    document.getElementById('btnFClose').onclick = () => document.getElementById('zoneF').classList.remove('open');
+    document.getElementById('btnFSave').onclick = () => document.getElementById('zoneF').classList.remove('open');
+    document.querySelectorAll('[data-go]').forEach((el) => {
+      el.addEventListener('click', () => {
+        const g = el.getAttribute('data-go');
+        if (g === 'list') show('screen-list');
+        if (g === 'view') show('screen-view');
+        if (g === 'edit') {
+          document.getElementById('formTitle').textContent = 'Sửa công việc';
+          document.getElementById('f-code').value = 'WO-20260801-0001';
+          show('screen-form');
+        }
+        if (g === 'copy') {
+          document.getElementById('formTitle').textContent = 'Sao chép công việc';
+          document.getElementById('f-code').value = '';
+          show('screen-form');
+        }
+      });
+    });
+    document.querySelectorAll('[data-menu]').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        btn.parentElement.classList.toggle('open');
+      });
+    });
+    document.addEventListener('click', () => {
+      document.querySelectorAll('.row-menu.open').forEach((m) => m.classList.remove('open'));
+    });
   </script>
 </body>
 </html>

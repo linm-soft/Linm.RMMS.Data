@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Prototype — Nhật ký công việc · Kind E A–D</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    :root {
+      --bg: #f5f7fa; --card: #fff; --border: #BABCBE; --border-soft: #e9ecef;
+      --txt: #1A1A1A; --txt-secondary: #6c757d; --muted: #6D6D6D;
+      --primary: #0f766e; --toolbar-bg: #f8fafc;
+      --ds-focus-shadow: 0px 0px 4px #BABCBE; --ds-radius-md: 4px;
+      --ds-font-body: 13px; --ds-font-title: 22px; --ds-height-btn: 32px;
+      --col-no: 64px;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: "Segoe UI", system-ui, sans-serif; background: var(--bg); color: var(--txt); font-size: var(--ds-font-body); }
+    input[type="date"], input[type="search"], input[type="text"] {
+      padding: 6px 10px; border: 1px solid var(--border); border-radius: var(--ds-radius-md);
+      font-size: 13px; min-height: 32px; background: #fff;
+    }
+    input:focus { outline: none; border-color: var(--primary); box-shadow: var(--ds-focus-shadow); }
+    .page { max-width: 1280px; margin: 0 auto; padding: 8px; display: flex; flex-direction: column; gap: 8px; min-height: 100vh; }
+    .zone-a { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; flex-shrink: 0; }
+    .zone-a h1 { margin: 0; font-size: var(--ds-font-title); font-weight: 700; }
+    .badge { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: #ccfbf1; color: #115e59; }
+    .zone-b { display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; padding: 10px 12px; background: var(--toolbar-bg); border: 1px solid var(--border-soft); border-radius: var(--ds-radius-md); }
+    .zone-b-left, .zone-b-right { display: flex; flex-wrap: wrap; gap: 8px; align-items: flex-end; }
+    .btn { height: var(--ds-height-btn); padding: 0 12px; border: 1px solid var(--border); border-radius: var(--ds-radius-md); background: #fff; cursor: pointer; font-size: 12px; font-weight: 600; }
+    .btn.primary { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .field { display: flex; flex-direction: column; gap: 4px; min-width: 140px; }
+    .field label { font-size: 12px; color: var(--muted); font-weight: 500; }
+    .search-wrap { display: flex; align-items: stretch; border: 1px solid var(--border); border-radius: var(--ds-radius-md); overflow: hidden; background: #fff; min-width: 150px; min-height: 32px; }
+    .search-wrap:focus-within { border-color: var(--primary); box-shadow: var(--ds-focus-shadow); }
+    .search-wrap input { border: 0 !important; outline: none !important; box-shadow: none !important; flex: 1; min-width: 0; min-height: 30px; }
+    .search-wrap button { border: 0; border-left: 1px solid var(--border); background: #f8fafc; padding: 0 10px; cursor: pointer; color: var(--muted); min-width: 36px; }
+    .lkp { position: relative; }
+    .lkp-list { display: none; position: absolute; left: 0; right: 0; top: 100%; z-index: 30; background: #fff; border: 1px solid var(--border); border-radius: var(--ds-radius-md); max-height: 180px; overflow: auto; box-shadow: 0 8px 24px rgba(15,23,42,.12); }
+    .lkp.open .lkp-list { display: block; }
+    .lkp-list button { display: block; width: 100%; text-align: left; border: 0; background: #fff; padding: 8px 10px; font-size: 13px; cursor: pointer; }
+    .lkp-list button:hover { background: #f1f5f9; }
+    .zone-c { background: var(--card); border: 1px solid var(--border-soft); border-radius: var(--ds-radius-md); display: flex; flex-direction: column; min-height: 320px; overflow: hidden; flex: 1; }
+    .grid-head { padding: 12px 16px 8px; }
+    .grid-title { margin: 0; font-size: 15px; font-weight: 700; }
+    .grid-help { margin: 4px 0 0; font-size: 12px; color: var(--txt-secondary); }
+    .table-wrap { overflow: auto; flex: 1; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 8px 12px; border-bottom: 1px solid var(--border-soft); text-align: left; white-space: nowrap; }
+    th { background: #f8fafc; font-size: 12px; color: var(--muted); position: sticky; top: 0; }
+    th.col-stt, td.col-stt { width: var(--col-no); text-align: center; }
+    tbody tr:hover { background: #f0fdfa; }
+    .empty { text-align: center; color: #94a3b8; padding: 40px 16px; }
+    .st { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: #ecfdf5; color: #047857; }
+    .st-open { background: #eff6ff; color: #1d4ed8; }
+    .drill { border: 0; background: none; color: var(--primary); font-weight: 700; cursor: pointer; text-decoration: underline; }
+    .zone-d { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 12px 16px; border-top: 1px solid var(--border-soft); background: #fff; }
+    .zone-d-controls { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: center; }
+    .pager-btn { width: 32px; height: 32px; border: 1px solid var(--border-soft); border-radius: var(--ds-radius-md); background: #fff; cursor: pointer; }
+    .pager-btn:disabled { opacity: 0.4; }
+    .hint { margin: 0; font-size: 12px; color: var(--muted); }
+    .toast { position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%); background: #0f172a; color: #e2e8f0; padding: 10px 16px; border-radius: 999px; font-size: 13px; display: none; z-index: 70; }
+    .toast.on { display: block; }
+    .size-bar { display: flex; gap: 4px; }
+    .size-bar button.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .modal { display: none; position: fixed; inset: 0; background: rgba(15,23,42,.35); z-index: 60; align-items: center; justify-content: center; }
+    .modal.on { display: flex; }
+    .modal-card { background: #fff; border-radius: 8px; padding: 16px 20px; min-width: 360px; max-width: 520px; }
+    .modal-card h3 { margin: 0 0 8px; }
+    .bars { display: flex; flex-direction: column; gap: 6px; margin: 12px 0; }
+    .bar-row { display: grid; grid-template-columns: 90px 1fr 28px; gap: 8px; align-items: center; font-size: 12px; }
+    .bar { height: 10px; background: #ccfbf1; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <div class="page" data-catalog-list-page data-zones="A-B-C-D" data-kind="report" data-testid="rmms-maintenance-work-log-report-prototype">
+    <header class="zone-a" data-zone="A">
+      <h1><i class="fas fa-clipboard-list" aria-hidden="true"></i> Nhật ký công việc</h1>
+      <span class="badge">Kind E</span>
+    </header>
+    <p class="hint">Prototype content-only · A–D + SoCai · SearchInput · không chrome / Thêm mới trên A · không KPI/map.</p>
+
+    <div class="zone-b" data-zone="B" data-testid="rmms-maintenance-work-log-report-filters">
+      <div class="zone-b-left">
+        <div class="field lkp" id="lkp-route">
+          <label>Tuyến</label>
+          <div class="search-wrap">
+            <input type="search" id="routeDisplay" value="Tất cả tuyến" readonly />
+            <button type="button" aria-label="Mở tuyến" data-open="lkp-route"><i class="fas fa-search"></i></button>
+          </div>
+          <div class="lkp-list">
+            <button type="button" data-set="route" data-value="" data-label="Tất cả tuyến">Tất cả tuyến</button>
+            <button type="button" data-set="route" data-value="QL.1" data-label="QL.1">QL.1</button>
+            <button type="button" data-set="route" data-value="QL.15" data-label="QL.15">QL.15</button>
+            <button type="button" data-set="route" data-value="QL.217" data-label="QL.217">QL.217</button>
+            <button type="button" data-set="route" data-value="QL.7" data-label="QL.7">QL.7</button>
+            <button type="button" data-set="route" data-value="HCM" data-label="HCM">HCM</button>
+          </div>
+        </div>
+        <div class="field lkp" id="lkp-workType">
+          <label>Loại việc</label>
+          <div class="search-wrap">
+            <input type="search" id="workTypeDisplay" value="Tất cả loại việc" readonly />
+            <button type="button" aria-label="Mở loại việc" data-open="lkp-workType"><i class="fas fa-search"></i></button>
+          </div>
+          <div class="lkp-list">
+            <button type="button" data-set="workType" data-value="" data-label="Tất cả loại việc">Tất cả loại việc</button>
+            <button type="button" data-set="workType" data-value="repair" data-label="Sửa chữa">Sửa chữa</button>
+            <button type="button" data-set="workType" data-value="inspect" data-label="Kiểm tra">Kiểm tra</button>
+            <button type="button" data-set="workType" data-value="emergency" data-label="Khẩn cấp">Khẩn cấp</button>
+          </div>
+        </div>
+        <div class="field lkp" id="lkp-team">
+          <label>Đội</label>
+          <div class="search-wrap">
+            <input type="search" id="teamDisplay" value="Tất cả đội" readonly />
+            <button type="button" aria-label="Mở đội" data-open="lkp-team"><i class="fas fa-search"></i></button>
+          </div>
+          <div class="lkp-list">
+            <button type="button" data-set="team" data-value="" data-label="Tất cả đội">Tất cả đội</button>
+            <button type="button" data-set="team" data-value="TEAM-1" data-label="Đội 1">Đội 1</button>
+            <button type="button" data-set="team" data-value="TEAM-2" data-label="Đội 2">Đội 2</button>
+            <button type="button" data-set="team" data-value="TEAM-3" data-label="Đội 3">Đội 3</button>
+          </div>
+        </div>
+        <div class="field">
+          <label>Từ</label>
+          <input type="date" id="fromDate" value="2026-07-01" />
+        </div>
+        <div class="field">
+          <label>Đến</label>
+          <input type="date" id="toDate" value="2026-08-31" />
+        </div>
+        <div class="field" style="min-width:180px">
+          <label>Tìm kiếm</label>
+          <input type="text" id="qSearch" placeholder="WO · hạng mục · tuyến" />
+        </div>
+        <button type="button" class="btn primary" id="btnView">Xem</button>
+        <button type="button" class="btn" id="btnExport">Xuất Excel</button>
+      </div>
+      <div class="zone-b-right" data-testid="report-toolbar">
+        <button type="button" class="btn" id="btnRefresh" title="Làm mới"><i class="fas fa-sync-alt"></i></button>
+        <button type="button" class="btn" id="btnChart" title="Biểu đồ"><i class="fas fa-chart-line"></i></button>
+        <button type="button" class="btn" id="btnPrint" title="In"><i class="fas fa-print"></i></button>
+        <button type="button" class="btn" id="btnConfig" title="Config"><i class="fas fa-cog"></i></button>
+      </div>
+    </div>
+
+    <section class="zone-c" data-zone="C">
+      <div class="grid-head">
+        <h2 class="grid-title">Kết quả nhật ký công việc</h2>
+        <p class="grid-help" id="gridHelp">Chưa xem — nhấn «Xem» để tải nhật ký công việc.</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th class="col-stt">STT sổ</th>
+              <th>Ngày</th>
+              <th>WO</th>
+              <th>Hạng mục</th>
+              <th>Km</th>
+              <th>KL</th>
+              <th>ĐVT</th>
+              <th>Trạng thái</th>
+              <th>Tuyến</th>
+              <th>Loại việc</th>
+              <th>Đội</th>
+              <th>Nhà thầu</th>
+              <th>PP</th>
+              <th>Kết quả</th>
+              <th>Nguồn</th>
+            </tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+        <div class="empty" id="empty">Chưa xem — nhấn «Xem» để tải nhật ký công việc.</div>
+      </div>
+      <footer class="zone-d" data-zone="D">
+        <div id="pagerMeta">Tổng: 0 · Trang 1/1</div>
+        <div class="zone-d-controls">
+          <button type="button" class="pager-btn" id="prev" disabled><i class="fas fa-chevron-left"></i></button>
+          <button type="button" class="pager-btn" id="next" disabled><i class="fas fa-chevron-right"></i></button>
+          <div class="size-bar" id="sizeBar">
+            <button type="button" class="btn active" data-size="50">50</button>
+            <button type="button" class="btn" data-size="100">100</button>
+            <button type="button" class="btn" data-size="200">200</button>
+            <button type="button" class="btn" data-size="500">500</button>
+          </div>
+        </div>
+      </footer>
+    </section>
+  </div>
+  <div class="toast" id="toast"></div>
+  <div class="modal" id="chartModal" role="dialog" aria-labelledby="chartTitle">
+    <div class="modal-card">
+      <h3 id="chartTitle">Biểu đồ SoCai — Nhật ký công việc</h3>
+      <p class="hint">Số dòng theo tuyến (bar analog) · chỉ khi đã Xem + có dòng.</p>
+      <div class="bars" id="chartBars"></div>
+      <button type="button" class="btn primary" id="btnChartClose">Đóng</button>
+    </div>
+  </div>
+  <script>
+    const ALL = [
+      { seq: 1, day: "2026-08-01", wo: "WO-20260801-0001", workName: "Vá ổ gà Km12+200", km: "12+200", qty: 18.5, unit: "m2", status: "done", statusLabel: "Hoàn thành", route: "QL.1", workType: "repair", workTypeLabel: "Sửa chữa", team: "TEAM-1", teamName: "Đội 1", contractor: "CTY CP Cầu đường 1", method: "Vá nguội", result: "Ổ gà kín", woId: "wo-01" },
+      { seq: 2, day: "2026-08-01", wo: "WO-20260801-0002", workName: "Cắt cỏ taluy Km8", km: "8+000", qty: 1200, unit: "m2", status: "done", statusLabel: "Hoàn thành", route: "QL.1", workType: "repair", workTypeLabel: "Sửa chữa", team: "TEAM-1", teamName: "Đội 1", contractor: "CTY CP Cầu đường 1", method: "Cắt máy", result: "Taluy sạch", woId: "wo-02" },
+      { seq: 3, day: "2026-08-03", wo: "WO-20260803-0003", workName: "Kiểm tra khe co giãn cầu Km21", km: "21+050", qty: 1, unit: "cái", status: "open", statusLabel: "Đang mở", route: "QL.15", workType: "inspect", workTypeLabel: "Kiểm tra", team: "TEAM-2", teamName: "Đội 2", contractor: "CTY QLĐT Thanh Hóa", method: "Quan sát", result: "Khe ổn định", woId: "wo-03" },
+      { seq: 4, day: "2026-08-04", wo: "WO-20260804-0004", workName: "Xử lý sạt taluy Km4", km: "4+320", qty: 45, unit: "m3", status: "done", statusLabel: "Hoàn thành", route: "QL.217", workType: "emergency", workTypeLabel: "Khẩn cấp", team: "TEAM-3", teamName: "Đội 3", contractor: "CTY CP Cầu đường 3", method: "Gia cố đá hộc", result: "Taluy ổn", woId: "wo-04" },
+      { seq: 5, day: "2026-08-06", wo: "WO-20260806-0005", workName: "Sơn vạch Km0–Km2", km: "0+500", qty: 2000, unit: "m", status: "done", statusLabel: "Hoàn thành", route: "QL.7", workType: "repair", workTypeLabel: "Sửa chữa", team: "TEAM-2", teamName: "Đội 2", contractor: "CTY Sơn đường Bắc", method: "Sơn nguội", result: "Vạch rõ", woId: "wo-05" },
+      { seq: 6, day: "2026-08-07", wo: "WO-20260807-0006", workName: "Thay biển báo Km15", km: "15+100", qty: 4, unit: "cái", status: "done", statusLabel: "Hoàn thành", route: "HCM", workType: "repair", workTypeLabel: "Sửa chữa", team: "TEAM-1", teamName: "Đội 1", contractor: "CTY Biển báo 2", method: "Thay mới", result: "4 biển", woId: "wo-06" },
+      { seq: 7, day: "2026-08-08", wo: "WO-20260808-0007", workName: "Kiểm tra cống Km9", km: "9+800", qty: 2, unit: "cái", status: "open", statusLabel: "Đang mở", route: "QL.15", workType: "inspect", workTypeLabel: "Kiểm tra", team: "TEAM-3", teamName: "Đội 3", contractor: "CTY QLĐT Thanh Hóa", method: "Nội soi", result: "Cống thông", woId: "wo-07" },
+      { seq: 8, day: "2026-08-10", wo: "WO-20260810-0008", workName: "Vá ổ gà Km3+100", km: "3+100", qty: 12, unit: "m2", status: "done", statusLabel: "Hoàn thành", route: "QL.1", workType: "repair", workTypeLabel: "Sửa chữa", team: "TEAM-2", teamName: "Đội 2", contractor: "CTY CP Cầu đường 1", method: "Vá nóng", result: "Mặt phẳng", woId: "wo-08" },
+      { seq: 9, day: "2026-08-11", wo: "WO-20260811-0009", workName: "Khắc phục ngập Km18", km: "18+000", qty: 80, unit: "m", status: "done", statusLabel: "Hoàn thành", route: "QL.217", workType: "emergency", workTypeLabel: "Khẩn cấp", team: "TEAM-1", teamName: "Đội 1", contractor: "CTY CP Cầu đường 3", method: "Nạo vét rãnh", result: "Thoát nước", woId: "wo-09" },
+      { seq: 10, day: "2026-08-12", wo: "WO-20260812-0010", workName: "Cắt cỏ dải phân cách Km6", km: "6+200", qty: 800, unit: "m2", status: "done", statusLabel: "Hoàn thành", route: "QL.7", workType: "repair", workTypeLabel: "Sửa chữa", team: "TEAM-3", teamName: "Đội 3", contractor: "CTY CP Cầu đường 1", method: "Cắt máy", result: "Dải sạch", woId: "wo-10" },
+      { seq: 11, day: "2026-08-13", wo: "WO-20260813-0011", workName: "Kiểm tra lan can Km22", km: "22+010", qty: 120, unit: "m", status: "open", statusLabel: "Đang mở", route: "HCM", workType: "inspect", workTypeLabel: "Kiểm tra", team: "TEAM-2", teamName: "Đội 2", contractor: "CTY QLĐT", method: "Đo biến dạng", result: "Lan can OK", woId: "wo-11" },
+      { seq: 12, day: "2026-08-14", wo: "WO-20260814-0012", workName: "Vá ổ gà Km1+050", km: "1+050", qty: 9.5, unit: "m2", status: "done", statusLabel: "Hoàn thành", route: "QL.15", workType: "repair", workTypeLabel: "Sửa chữa", team: "TEAM-1", teamName: "Đội 1", contractor: "CTY CP Cầu đường 1", method: "Vá nguội", result: "Ổ gà kín", woId: "wo-12" }
+    ];
+    const state = { viewed: false, route: "", workType: "", team: "", q: "", page: 1, pageSize: 50 };
+    const toastEl = document.getElementById("toast");
+    function toast(msg) {
+      toastEl.textContent = msg;
+      toastEl.classList.add("on");
+      window.setTimeout(() => toastEl.classList.remove("on"), 1800);
+    }
+    function fmtDay(iso) {
+      const p = iso.split("-");
+      return p[2] + "/" + p[1] + "/" + p[0];
+    }
+    function filtered() {
+      const q = (document.getElementById("qSearch").value || "").trim().toLowerCase();
+      const from = document.getElementById("fromDate").value;
+      const to = document.getElementById("toDate").value;
+      return ALL.filter((r) => {
+        if (state.route && r.route !== state.route) return false;
+        if (state.workType && r.workType !== state.workType) return false;
+        if (state.team && r.team !== state.team) return false;
+        if (from && r.day < from) return false;
+        if (to && r.day > to) return false;
+        if (q) {
+          const hay = (r.wo + " " + r.workName + " " + r.route).toLowerCase();
+          if (!hay.includes(q)) return false;
+        }
+        return true;
+      });
+    }
+    function render() {
+      const tbody = document.getElementById("tbody");
+      const empty = document.getElementById("empty");
+      const help = document.getElementById("gridHelp");
+      tbody.innerHTML = "";
+      if (!state.viewed) {
+        empty.style.display = "block";
+        empty.textContent = "Chưa xem — nhấn «Xem» để tải nhật ký công việc.";
+        help.textContent = empty.textContent;
+        document.getElementById("pagerMeta").textContent = "Tổng: 0 · Trang 1/1";
+        document.getElementById("prev").disabled = true;
+        document.getElementById("next").disabled = true;
+        return;
+      }
+      const rows = filtered();
+      const start = (state.page - 1) * state.pageSize;
+      const pageRows = rows.slice(start, start + state.pageSize);
+      if (pageRows.length === 0) {
+        empty.style.display = "block";
+        empty.textContent = "Không có dòng phù hợp bộ lọc.";
+        help.textContent = empty.textContent;
+      } else {
+        empty.style.display = "none";
+        help.textContent = "Kéo cột ON (MFE) · drill «Mở WO» · analog LinCatalogDataGrid.";
+        pageRows.forEach((r) => {
+          const tr = document.createElement("tr");
+          const stCls = r.status === "open" ? "st-open" : "";
+          tr.innerHTML = `<td class="col-stt">${r.seq}</td><td>${fmtDay(r.day)}</td><td>${r.wo}</td><td>${r.workName}</td><td>${r.km}</td><td>${r.qty}</td><td>${r.unit}</td><td><span class="st ${stCls}">${r.statusLabel}</span></td><td>${r.route}</td><td>${r.workTypeLabel}</td><td>${r.teamName}</td><td>${r.contractor}</td><td>${r.method}</td><td>${r.result}</td><td><button type="button" class="drill" data-id="${r.woId}">Mở WO</button></td>`;
+          tbody.appendChild(tr);
+        });
+      }
+      const pages = Math.max(1, Math.ceil(rows.length / state.pageSize));
+      document.getElementById("pagerMeta").textContent = `Tổng: ${rows.length} · Trang ${state.page}/${pages}`;
+      document.getElementById("prev").disabled = state.page <= 1;
+      document.getElementById("next").disabled = state.page >= pages;
+    }
+    document.querySelectorAll("[data-open]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".lkp").forEach((el) => el.classList.remove("open"));
+        document.getElementById(btn.getAttribute("data-open")).classList.add("open");
+      });
+    });
+    document.querySelectorAll("[data-set]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const key = btn.getAttribute("data-set");
+        const value = btn.getAttribute("data-value");
+        const label = btn.getAttribute("data-label");
+        state[key] = value;
+        document.getElementById(key + "Display").value = label;
+        btn.closest(".lkp").classList.remove("open");
+      });
+    });
+    document.addEventListener("click", (e) => {
+      if (!e.target.closest(".lkp")) document.querySelectorAll(".lkp").forEach((el) => el.classList.remove("open"));
+    });
+    function view() {
+      state.viewed = true;
+      state.page = 1;
+      render();
+    }
+    document.getElementById("btnView").addEventListener("click", view);
+    document.getElementById("btnRefresh").addEventListener("click", () => {
+      if (!state.viewed) {
+        toast("Chưa xem — nhấn «Xem» để tải nhật ký công việc");
+        return;
+      }
+      render();
+    });
+    document.getElementById("btnExport").addEventListener("click", () => {
+      if (!state.viewed) { toast("Nhấn «Xem» trước khi xuất Excel"); return; }
+      toast("Xuất maintenance-work-logs.csv UTF-8 BOM (GET /api/v1/report/maintenance-work-logs/export)");
+    });
+    document.getElementById("btnChart").addEventListener("click", () => {
+      if (!state.viewed || filtered().length === 0) {
+        toast("Nhấn Xem và có ≥1 dòng trước khi mở biểu đồ");
+        return;
+      }
+      const byRoute = {};
+      filtered().forEach((r) => { byRoute[r.route] = (byRoute[r.route] || 0) + 1; });
+      const max = Math.max(...Object.values(byRoute));
+      const host = document.getElementById("chartBars");
+      host.innerHTML = "";
+      Object.keys(byRoute).sort().forEach((k) => {
+        const row = document.createElement("div");
+        row.className = "bar-row";
+        const w = Math.round((byRoute[k] / max) * 100);
+        row.innerHTML = `<span>${k}</span><div class="bar" style="width:${w}%"></div><span>${byRoute[k]}</span>`;
+        host.appendChild(row);
+      });
+      document.getElementById("chartModal").classList.add("on");
+    });
+    document.getElementById("btnChartClose").addEventListener("click", () => document.getElementById("chartModal").classList.remove("on"));
+    document.getElementById("btnPrint").addEventListener("click", () => {
+      if (!state.viewed || filtered().length === 0) { toast("Nhấn Xem trước khi in"); return; }
+      toast("Print-scope modal → window.print");
+    });
+    document.getElementById("btnConfig").addEventListener("click", () => toast("Config FULL — cột List/width/filter/sort + chart + print (ReportDisplayConfigModal)"));
+    document.getElementById("tbody").addEventListener("click", (e) => {
+      const b = e.target.closest(".drill");
+      if (!b) return;
+      toast("Drill /maintenance?id=" + b.getAttribute("data-id"));
+    });
+    document.getElementById("prev").addEventListener("click", () => { state.page -= 1; render(); });
+    document.getElementById("next").addEventListener("click", () => { state.page += 1; render(); });
+    document.getElementById("sizeBar").addEventListener("click", (e) => {
+      const b = e.target.closest("[data-size]");
+      if (!b) return;
+      state.pageSize = Number(b.getAttribute("data-size"));
+      state.page = 1;
+      document.querySelectorAll("#sizeBar .btn").forEach((x) => x.classList.toggle("active", x === b));
+      render();
+    });
+    render();
+  </script>
+</body>
+</html>

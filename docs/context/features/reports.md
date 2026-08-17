@@ -9,7 +9,7 @@
 
 | | |
 |--|--|
-| Mục tiêu | Giữ 3 báo cáo Web: Tài sản · Sự cố · Checkin (+ xuất Excel checkin) |
+| Mục tiêu | Hub `/bao-cao` — menu 3 loại P1 + deep-link leaf `rpt-*` |
 | Persona | Hạt trưởng · quản lý |
 | App hiện có | Web **Báo cáo *** — giữ UX |
 | DoD | API filter tuyến/thời gian · Xem · Excel checkin |
@@ -20,9 +20,10 @@
 
 | Screen | Pattern | Zones |
 |--------|---------|-------|
-| BC tài sản | Kind E Full | Loại BC · tuyến · kỳ · Xem · grid STT |
-| BC sự cố | Kind E Full | Loại · tuyến · từ/đến · Xem · grid |
-| BC check-in | Kind E Full | Loại · tuyến · từ/đến · Xem · Xuất Excel · grid |
+| Hub `/bao-cao` | Kind E index | Sidebar 3 loại P1 + catalog leaf `rpt-*` |
+| BC tài sản | Leaf | [`rpt-tai-san.md`](rpt-tai-san.md) · `/bao-cao/tai-san` |
+| BC sự cố | Leaf | [`rpt-su-co.md`](rpt-su-co.md) · `/bao-cao/su-co` |
+| BC check-in | Leaf | [`rpt-checkin.md`](rpt-checkin.md) · `/bao-cao/checkin` |
 
 **In-view nav (demo):** chỉ 3 loại trên · **cấm** dump full left-rail GOVOne · **cấm** lặp module đã có trên `/dev` (maintenance, patrol, asset, gis, users, ops…).
 
@@ -59,8 +60,9 @@ Không. Dashboard = KPI tổng (slug `dashboard`) — tách `reports`.
 | ID | Default |
 |----|---------|
 | GAP-F-RPT-01 Gộp vào `dashboard`? | Tách slug `reports` (parity guide) · Dashboard = KPI tổng |
+| GAP-F-RPT-LEAF-01 | 21 leaf `rpt-*` — scan formType=report · hub không implement lưới |
 | GAP-P2-REPORT-API-01 | Endpoints stub — align khi `/qlbd-align-mfe` |
-| Legacy GOVOne catalog rộng | P1 product = 3 loại Web · full inventory chỉ trong control-map (không UI dump) |
+| Legacy GOVOne catalog rộng | P1 = 3 leaf · Wave B–D = slug riêng (không dump 172 chrome) |
 
 ## 7. Demo checklist (chốt khách)
 

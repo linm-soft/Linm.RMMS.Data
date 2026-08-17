@@ -3,7 +3,7 @@
 | Field | Value |
 |-------|-------|
 | feature | `csdl-so-sach` |
-| phase | `qa` |
+| phase | `data_analy` |
 | status | `blocked` |
 | changeScope | `edit_page` |
 | packKind | `list` |
@@ -15,8 +15,8 @@
 | prototype.reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-so-sach/ui/prototype/csdl-so-sach-list-prototype.html` |
 | mfeStdRoute | `/asset/csdl-so-sach` |
 | mfeStdUrl | `http://localhost:9301/asset/csdl-so-sach` |
-| taskId | `task_8872584b` |
-| updatedAt | `2026-08-14T14:47:32.529Z` |
+| taskId | `task_f3691e8e` |
+| updatedAt | `2026-08-15T17:01:53.152Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -27,28 +27,28 @@
 
 | Step | Agent | Artifact | Status |
 |------|-------|----------|--------|
-| 1 | po | po/requirement.md | **done** |
-| 2.1 | design | ui/design.md + prototype + reviewUrl | **confirmed** |
-| 2.2 | sa | be/solution-discovery.md | **confirmed** |
-| 3 | team-lead | task/csdl-so-sach.md | **done** |
-| 4 | dev | implement/csdl-so-sach.md | **done** |
-| 5 | qa | qa/scenarios.md | **blocked** (paused) |
-| 6 | review | review/findings.md | pending |
-
+| 0 | data-analy | _data-analy/features/csdl-so-sach-control-hint.md | **blocked** (failed) |
+| 1 | po | po/requirement.md | **pending** |
+| 2.1 | design | ui/design.md + prototype + reviewUrl | **pending** |
+| 2.2 | sa | be/solution-discovery.md | **pending** |
+| 3 | team-lead | task/csdl-so-sach.md | **pending** |
+| 4 | dev | implement/csdl-so-sach.md | **pending** |
+| 5 | qa | qa/scenarios.md | **pending** |
+| 6 | review | review/findings.md | **pending** |
 ## Confirms
 
 | Gate | Value |
 |------|-------|
-| design_confirm | **approve** (autopilot) |
-| solution_confirm | **approve** (autopilot) — route `/api/v1/asset/csdl-records` |
-| sa_tz_gate | **tz_na** |
-| sa_xco_gate | **xco_get_only** (API-02) |
-| sa_shared_table | **share_tenant** (`CsdlCatalogRecordEntity`) |
+| design_confirm | **confirmed** (user Approve board) |
+| solution_confirm | **confirmed** (user Approve board) |
+| sa_tz_gate | `tz_na` |
+| sa_xco_gate | `xco_get_only` (API-02) |
+| sa_shared_table | `share_tenant` (`CsdlCatalogRecordEntity`) |
 | be_repo_confirm | `Linm.RMMS.WebService` |
 | ui_repo_confirm | `Linm.Web.RMMS.Asset` |
 | version_mismatch_action | **recheck_new** |
 | prototype.reviewUrl | giữ cho Dev/QA (xem Field table) |
-| review_confirm | pending (QA/Review chưa tới lượt) |
+| review_confirm | pending (edit restart · chờ analy xong) |
 | autoApprove | **OFF** (run packet) |
 
 ## Tasks (summary)
@@ -69,14 +69,16 @@
 | T-UI-UX-01 | ui | **done** |
 | T-BE-CRUD-01 | api | **done** |
 | T-UI-MAP-FORM | — | **n/a** |
-| T-QA-01 | qa | pending |
-| T-QA-CRUD-01 | qa | pending |
+| T-QA-01 | qa | **done** |
+| T-QA-CRUD-01 | qa | **done** |
 
 ## Blockers / open questions
 
+- **GAP-RPT-SRC-CSDL-01** — sổ report cần **field typed** (không Col1–Col3) — `specs/_form-type/REPORT-SOURCE-FIELD-GAPS.md`
 - CommonLib / Auth NuGet chưa mount — `[RequirePermission]` TODO BE
 - Excel import OUT pack
 - History API stub
+- **GAP-QA-HUB-SLUG** P2 — hub card hiện slug `c.key` (không fail T-QA)
 - **cấm ERP.*** · **cấm** parent JSON string
 
 ## Links
@@ -87,14 +89,16 @@
 - Solution: `specs/csdl-so-sach/be/solution-discovery.md`
 - Task: `specs/csdl-so-sach/task/csdl-so-sach.md`
 - Implement: `specs/csdl-so-sach/implement/csdl-so-sach.md`
+- QA: `specs/csdl-so-sach/qa/scenarios.md`
+- Review: `specs/csdl-so-sach/review/findings.md`
 - Prototype: `specs/csdl-so-sach/ui/prototype/csdl-so-sach-list-prototype.html`
 - **Final MFE:** `http://localhost:9301/asset/csdl-so-sach` (`yarn start:std`)
 - DOMAIN-MAP: `D:/AI-QLBD/Linm.RMMS.WebService/docs/DOMAIN-MAP.md`
 
 ## Resume / closeout
 
-- resume: `task_8872584b` · Dev · at: `2026-08-14T14:32:00.000Z`
-- notes: roleOnly=dev · autoApprove=OFF · retry.ssot_rereview pass · VERIFY GATE PASS · chain QA = pending (không enqueue vì autoApprove OFF / roleOnly)
+- resume: `task_f3691e8e` · Review · at: `2026-08-15T16:52:00.000Z`
+- notes: roleOnly=review · autoApprove=OFF · findings **PASS** · review_confirm **pending** · STATUS **await_confirm** · không auto-confirm · không enqueue (pipeline leaf) · VERIFY GATE MFE typecheck+build PASS
 
 ## Version meta (REQUIRED)
 
@@ -105,6 +109,6 @@
 | schemaVersion | 2 |
 | workflowVersion | 2026.08.09.02 |
 | rulesVersion | 2026.08.09.3 |
-| generatedAt | 2026-08-14T14:32:00.000Z |
+| generatedAt | 2026-08-15T16:52:00.000Z |
 | versionGate | rechecked |
-| formTypePack | task_8872584b |
+| formTypePack | task_4a2be2fe |

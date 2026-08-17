@@ -11,11 +11,12 @@
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/integration/citizen-incidents` |
 | bff | `web-bff/api/v1/integration/citizen-incidents` |
 | lookup | `GET /integration/road-routes/search` |
-| taskId | `task_b470f2da` |
+| taskId | `task_88a84739` |
 | prior Dev | `task_49b91f68` · implement `done` |
-| autoApprove | ON |
-| method | static review live `CitizenListPage` + `CitizenFormPage` + `lookups.ts` + endpoint/service + Integration API/BFF · `yarn typecheck` + `yarn build` PASS |
-| updatedAt | `2026-08-15T00:50:00.000Z` |
+| prior QA | `task_b470f2da` · re-smoke this turn (form 5-col + header chrome) |
+| autoApprove | OFF (board) · Autopilot ON · **roleOnly=qa** |
+| method | static review live `CitizenListPage` + `CitizenFormPage` + `lookups.ts` + endpoint/service + Integration API/BFF · `yarn typecheck` + `yarn build` |
+| updatedAt | `2026-08-16T02:30:00.000Z` |
 
 > Inbox Kind B · **cấm** Slideout/Resource · **cấm** `ERP.*` · **≠** Góp ý (`feedback`).  
 > P2 OUT: Kind G public · Leaflet · OTP · media presign · Incident adapter.
@@ -29,10 +30,10 @@
 | S2 | Footer pager | `LinCatalogListPagination` · pageSize 50/100/200/500 | **PASS** |
 | S3 | Search Enter (không nút Tìm) | `SearchTextInput` `onSearch` · `pulseSearch` · page=1 | **PASS** |
 | S4 | Status / tuyến SearchInput change | refetch page=1 (debounce 300ms) | **PASS** (`applyFilters`) |
-| S5 | Toolbar Refresh / +Tạo mới / Config | catalogToolbar · Config hint · Tạo mới **chỉ Zone B** → `/integration/citizen/new` | **PASS** |
+| S5 | Toolbar Refresh / +Tạo mới / Config | catalogToolbar · Tạo mới **chỉ Zone B** → `/integration/citizen/new` | **PASS** (Config = stub dialog — GAP-DEV-CONFIG-PLACEHOLDER-01 P2) |
 | S6 | History toolbar/menu | `LinCatalogHistoryModal` stub | **PASS** |
 | S7 | Row menu View/Edit/Copy/Delete/History | **full-page** form · **không** Slideout · Delete confirm soft | **PASS** (`formPath` · `buildCatalogRowMenuItems` `showDelete`) |
-| S8 | Form Create/Edit/View/Copy | Footer-only Hủy/Lưu · View Đóng/Sửa/Sao chép · Z1 chỉ «Quay lại» | **PASS** (`z3` · **không** `citizen-btn-save-top`) |
+| S8 | Form Create/Edit/View/Copy | Header chrome Quay lại · Hủy/Tạo mới\|Lưu · View Sao chép/Sửa · **không** footer Lưu · **không** `citizen-btn-save-top` | **PASS** (`z1` · `data-form-surface="full"`) |
 | S9 | No ERP.* | FE BASE `/integration/citizen-incidents` · BE `Linm.RMMS.WebService` · **cấm** `api/v1/rmms/*` | **PASS** |
 
 ## List A–D (T-QA-01)
@@ -50,27 +51,28 @@
 | # | Step | Expect | Result |
 |---|------|--------|--------|
 | QA-20 | FormType ACT | Toolbar + row menu + `?form=` deep-link rewrite full-page | **PASS** |
-| QA-21 | Create | Toolbar +Thêm → `/new` → footer Lưu → POST · Source=`citizen` | **PASS** (API + demo fallback) |
+| QA-21 | Create | Toolbar +Thêm → `/new` → header Lưu → POST · Source=`citizen` | **PASS** (API + demo fallback) |
 | QA-22 | Edit | Row/toolbar Edit → `/:id?mode=edit` → PUT | **PASS** |
-| QA-23 | View | Code link / dblclick / menu → `<dl>` display · footer Đóng · Sửa · Sao chép · **không** Input readOnly | **PASS** (`rmms-citizen-form-view`) |
+| QA-23 | View | Code link / dblclick / menu → **cùng fields locked** `.viewDisabled` · header Sao chép/Sửa · **không** `<dl>` · **không** Slideout 2 cột | **PASS** (`data-form-cols="5"`) |
 | QA-24 | Copy | Copy → `/new?copyFrom=` → POST · `CIT-*` mới | **PASS** (`genTrackingCode` / BE `NextTrackingCodeAsync`) |
 | QA-25 | Delete toolbar/row | confirm → soft delete · toast · refresh | **PASS** |
-| QA-26 | No duplicate Save on form top | `citizen-btn-save-top` absent | **PASS** |
-| QA-27 | Leave dirty | confirm trước `goList` | **PASS** |
+| QA-26 | No duplicate Save on form top extra | Save chỉ `rmms-citizen-form-btn-save` trong chrome | **PASS** |
+| QA-27 | Leave dirty | `LeaveConfirmModal` trước `goList` | **PASS** |
 | QA-28 | Perm | `integration.citizen-incidents.*` · local all true | **PASS** |
 
-## Delta Dev (`task_49b91f68`) — QA re-smoke (REQUIRED)
+## Delta Dev (`task_49b91f68`) + form 5-col — QA re-smoke (REQUIRED)
 
 | # | Step | Expect | Result |
 |---|------|--------|--------|
-| D1 | Filter `road` | Zone B SearchInput `ROAD_ROUTE_LOOKUP_CONFIG` · `getList` qs `road` · BE exact `CitizenIncident.Road` trim AND search · demo `filterRows` exact | **PASS** (GAP-SA-CIT-Q01) |
+| D1 | Filter `road` | Zone B SearchInput `ROAD_ROUTE_LOOKUP_CONFIG` · `getList` qs `road` · BE exact `CitizenIncident.Road` trim AND search | **PASS** (GAP-SA-CIT-Q01) |
 | D2 | T-UI-LKP-01 | Form `road` SearchInput · persist **code** · `GET /integration/road-routes/search` · display `code — name` · fallback seed 38 · **cấm** Input Text tuyến | **PASS** |
-| D3 | Seed 38 | `ROAD_SEED` length 38 · có `QL.1` · **không** `QL.22` · store mock `QL.1` | **PASS** |
+| D3 | Seed 38 | `ROAD_SEED` length 38 · có `QL.1` · **không** `QL.22` | **PASS** |
 | D4 | T-BE-VAL-01 | Create/Update Road ∈ `rmms_road_routes.Code` IsActive · Status 5 · Type 6 · Source force `citizen` · 422 VN unknown road | **PASS** (`ValidateCatalogAsync`) |
 | D5 | T-BFF-01 | `BuildListPath` = `Request.QueryString` passthrough · no business logic · **không** controller mới | **PASS** |
 | D6 | T-UI-FIELD-01 | Date UTC ISO · lat/lng number · enum 5/6 SearchInput · Road code · mediaMeta string stub | **PASS** |
 | D7 | T-UI-PROD-01 | **full-page** KEEP · **cấm** Resource · **cấm** Slideout | **PASS** |
-| D8 | T-UI-UX-01 | 1× LinPageLayout · LinCatalogDataGrid · LinCatalogListPagination · View `<dl>` · spacing · **không** `filterMaxWidthPx` | **PASS** |
+| D8 | T-UI-UX-01 | 1× LinPageLayout list · LinCatalogDataGrid · LinCatalogListPagination · form 5 cột header chrome · **không** `filterMaxWidthPx` | **PASS** |
+| D9 | GAP-P2-FORM-GRID-05 | `.fields` `data-form-cols="5"` · header Quay lại / Hủy / Tạo mới\|Lưu | **PASS** (closed 2026-08-15) |
 
 ## Negative
 
@@ -98,21 +100,21 @@
 
 | ID | Severity | Note |
 |----|----------|------|
-| — | — | GAP-SA-CIT-Q01 / LKP / VAL · GAP-PO-CIT-01..03 · GAP-P2-ACT-DELETE **CLOSED** |
+| GAP-DEV-CONFIG-PLACEHOLDER-01 | P2 | Toolbar cog → `configHint` dialog · **chưa** `LinCatalogUiSchemaEditorModal` / `useCatalogUiSchema` / `buildDynamicGridColumns` — **không block** P1 CRUD/`road` (Accept cùng Review trước) |
 | GAP-P2-PERM-ATTR | P2 | Controller `TODO [RequirePermission]` — **không block** (T-PERM stub) |
 | Out of pack | P2 | Kind G public · Leaflet · OTP · presign · Incident adapter — **DEFER** |
 
 ## Verdict
 
-**PASS** · T-QA-01 · T-QA-CRUD-01 · handoff `/agent-review`.
+**PASS** · T-QA-01 · T-QA-CRUD-01 · **không** P0. Handoff `/agent-review` (roleOnly QA **không** chạy Review trong task này).
 
-## Build gate (`task_b470f2da`)
+## Build gate (`task_88a84739`)
 
 | Check | Result |
 |-------|--------|
-| `yarn typecheck` (Integration MFE) | **PASS** (`tsc --noEmit` 0) |
-| `LINM_RUN_DEV_LOCAL_BUNDLE=1 yarn build` | **PASS** (webpack 5.109.2 · 0 errors · 3 size warnings) |
-| BE Write this role | **n/a** — QA không đụng API |
+| `yarn typecheck` (Integration MFE) | **PASS** (`tsc --noEmit` 0 · 2026-08-16) |
+| `yarn build` (Integration MFE) | **PASS** (webpack 5.109.2 · 0 errors · 3 size warnings) |
+| BE Write this role | **n/a** — QA không đụng API · Step 4b **n/a** |
 | Prior Dev `dotnet` sln Release | **PASS** (`task_49b91f68`) |
 
 ## Handoff → Review
@@ -120,8 +122,8 @@
 | Field | Value |
 |-------|-------|
 | Next | `/agent-review` · `review/findings.md` |
-| autoApprove | ON → enqueue review (roleOnly QA **không** chạy Review trong task này) |
-| Notes | Kind B full-page · filter `road` · SearchInput LKP · seed QL.1 · no ERP · no Slideout |
+| autoApprove | OFF → board Approve review khi tới lượt |
+| Notes | Kind B full-page 5-col · filter `road` · SearchInput LKP · seed QL.1 · no ERP · no Slideout · Config schema editor = P2 |
 
 ## Version meta (REQUIRED)
 
@@ -132,9 +134,9 @@
 | schemaVersion | 2 |
 | workflowVersion | 2026.08.14.5 |
 | rulesVersion | 2026.08.14.9 |
-| generatedAt | 2026-08-15T00:50:00.000Z |
-| versionGate | rechecked (`recheck_new` · SSOT workflow **2026.08.14.5**) |
-| taskId | `task_b470f2da` |
+| generatedAt | 2026-08-16T02:30:00.000Z |
+| versionGate | rechecked (`recheck_new` · SSOT workflow **2026.08.14.5** · STATUS lockstep) |
+| taskId | `task_88a84739` |
 | contentHashPriorDev | `task_49b91f68` |
 | dataAnalySkillVersion | 2026.08.08.20 |
 | poSkillVersion | 2026.08.14.5 |

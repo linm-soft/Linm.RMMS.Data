@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>RMMS Mobile P1 — Android 412×915 · Design review</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <link rel="stylesheet" href="../feature-guide.css" />
+  <style>
+    :root {
+      --md-primary: #1B6EF3;
+      --md-on-primary: #fff;
+      --md-success: #1B8A4A;
+      --md-warn: #E67E00;
+      --md-error: #D32F2F;
+      --md-surface: #F7F2FA;
+      --md-container: #FFFFFF;
+      --md-outline: #CAC4D0;
+      --md-label: #1C1B1F;
+      --md-muted: #49454F;
+      --safe-top: 28px;
+      --nav-h: 80px;
+      --font: Roboto, "Google Sans", system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      min-height: 100%; font-family: var(--font); background: #111318;
+      color: var(--md-label); -webkit-font-smoothing: antialiased;
+    }
+    .stage {
+      min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+      gap: 16px; padding: 24px 16px 40px;
+      background: radial-gradient(ellipse at 20% 0%, #1e2a3a 0%, transparent 50%), #0e1116;
+    }
+    .stage-meta { width: min(1180px, 100%); color: #e6e1e5; text-align: center; }
+    .stage-meta h1 { font-size: 16px; font-weight: 600; }
+    .stage-meta p { margin-top: 6px; font-size: 13px; color: rgba(230,225,229,.55); }
+    .chip-row { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-top: 12px; }
+    .chip {
+      font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 8px;
+      background: rgba(255,255,255,.08); color: rgba(230,225,229,.85);
+      border: 1px solid rgba(255,255,255,.08); cursor: pointer;
+    }
+    .chip.active { background: rgba(27,110,243,.35); border-color: var(--md-primary); color: #b3d0ff; }
+    .phone {
+      width: 412px; height: 915px; border-radius: 28px; background: #000; padding: 10px;
+      box-shadow: 0 0 0 2px #3a3a3c, 0 40px 80px rgba(0,0,0,.55); position: relative; flex-shrink: 0;
+    }
+    .phone-screen {
+      width: 100%; height: 100%; border-radius: 20px; overflow: hidden;
+      background: var(--md-surface); position: relative; display: flex; flex-direction: column; min-height: 0;
+    }
+    .ic { width: 1em; height: 1em; display: inline-block; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+    .ic.fill { fill: currentColor; stroke: none; }
+    .ic-sm { font-size: 15px; } .ic-md { font-size: 18px; } .ic-lg { font-size: 22px; } .ic-xl { font-size: 28px; }
+    .sprites { position: absolute; width: 0; height: 0; overflow: hidden; }
+    .status-bar {
+      height: var(--safe-top); padding: 6px 18px 0; display: flex; justify-content: space-between; align-items: center;
+      font-size: 12px; font-weight: 600; flex-shrink: 0;
+    }
+    .sb-signal { display: flex; gap: 1.5px; align-items: flex-end; height: 10px; }
+    .sb-signal i { display: block; width: 3px; background: currentColor; border-radius: 1px; }
+    .sb-signal i:nth-child(1){height:3px} .sb-signal i:nth-child(2){height:5px}
+    .sb-signal i:nth-child(3){height:7px} .sb-signal i:nth-child(4){height:10px}
+    .top-bar {
+      min-height: 56px; padding: 0 8px 0 4px; display: flex; align-items: center; gap: 4px; flex-shrink: 0;
+    }
+    .top-bar.solid { background: var(--md-surface); border-bottom: 1px solid rgba(0,0,0,.06); }
+    .icon-btn {
+      width: 40px; height: 40px; border: 0; background: transparent; border-radius: 20px;
+      display: grid; place-items: center; cursor: pointer; color: var(--md-label); font-family: inherit;
+    }
+    .nav-title { flex: 1; text-align: center; font-size: 18px; font-weight: 600; }
+    .large-title { padding: 4px 20px 12px; font-size: 32px; font-weight: 700; letter-spacing: -0.4px; flex-shrink: 0; }
+    .content { flex: 1; overflow-y: auto; padding-bottom: calc(var(--nav-h) + 12px); min-height: 0; }
+    .content.map-mode { padding-bottom: 0; overflow: hidden; display: flex; flex-direction: column; flex: 1; }
+    .content.no-tab { padding-bottom: 20px; }
+    .nav-bar {
+      position: absolute; left: 0; right: 0; bottom: 0; height: var(--nav-h);
+      background: #F3EDF7; border-top: 1px solid rgba(0,0,0,.06);
+      display: flex; padding: 8px 4px 20px; z-index: 45;
+    }
+    .nav-bar.hidden { display: none; }
+    .tab {
+      flex: 1; border: 0; background: transparent; font-family: inherit;
+      display: flex; flex-direction: column; align-items: center; gap: 2px;
+      cursor: pointer; color: var(--md-muted); font-size: 11px; font-weight: 500;
+    }
+    .tab.active { color: var(--md-primary); }
+    .tab .ti { width: 64px; height: 32px; display: grid; place-items: center; font-size: 22px; border-radius: 16px; }
+    .tab.active .ti { background: rgba(27,110,243,.14); }
+    .gesture {
+      position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
+      width: 108px; height: 4px; background: #1C1B1F; border-radius: 100px; z-index: 46; pointer-events: none;
+    }
+    .seg {
+      margin: 0 16px 12px; display: flex; gap: 8px; flex-shrink: 0;
+    }
+    .seg button {
+      border: 1px solid var(--md-outline); background: transparent; font-family: inherit; font-size: 13px; font-weight: 600;
+      padding: 8px 14px; border-radius: 8px; color: var(--md-label); cursor: pointer;
+    }
+    .seg button.on { background: var(--md-primary); color: #fff; border-color: var(--md-primary); }
+    .card-group { margin: 0 16px 16px; background: var(--md-container); border-radius: 16px; overflow: hidden; }
+    .row {
+      display: flex; align-items: center; gap: 12px; padding: 14px 16px; min-height: 56px;
+      cursor: pointer; background: var(--md-container);
+    }
+    .row + .row { border-top: 1px solid rgba(0,0,0,.06); }
+    .row-icon { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; color: #fff; flex-shrink: 0; }
+    .row-body { flex: 1; min-width: 0; }
+    .row-title { font-size: 16px; }
+    .row-sub { font-size: 13px; color: var(--md-muted); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .badge { font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 6px; background: #E7E0EC; color: var(--md-muted); }
+    .badge.green { background: #C8E6C9; color: #1B5E20; }
+    .badge.orange { background: #FFE0B2; color: #E65100; }
+    .badge.blue { background: #BBDEFB; color: #0D47A1; }
+    .badge.red { background: #FFCDD2; color: #B71C1C; }
+    .section-label { font-size: 12px; color: var(--md-muted); letter-spacing: .4px; padding: 8px 24px 6px; text-transform: uppercase; }
+    .kpi-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 0 16px 16px; }
+    .kpi { background: var(--md-container); border-radius: 16px; padding: 12px 10px; text-align: center; }
+    .kpi .v { font-size: 22px; font-weight: 700; }
+    .kpi .l { font-size: 11px; color: var(--md-muted); margin-top: 2px; }
+    .hero-card {
+      margin: 0 16px 16px; background: linear-gradient(145deg, #1B6EF3, #0B4DB8);
+      border-radius: 20px; padding: 18px; color: #fff;
+    }
+    .hero-eyebrow { font-size: 12px; font-weight: 700; opacity: .9; text-transform: uppercase; }
+    .hero-title { font-size: 22px; font-weight: 700; margin-top: 4px; }
+    .hero-meta { font-size: 14px; margin-top: 6px; opacity: .95; line-height: 1.4; }
+    .hero-actions { display: flex; gap: 8px; margin-top: 14px; }
+    .progress { height: 6px; border-radius: 3px; background: rgba(255,255,255,.28); margin-top: 12px; overflow: hidden; }
+    .progress > span { display: block; height: 100%; width: 67%; background: #fff; }
+    .btn {
+      border: 0; font-family: inherit; cursor: pointer; font-size: 14px; font-weight: 600;
+      padding: 10px 16px; border-radius: 20px; display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+    }
+    .btn-white { background: #fff; color: var(--md-primary); }
+    .btn-ghost { background: rgba(255,255,255,.2); color: #fff; }
+    .btn-primary { background: var(--md-primary); color: #fff; width: 100%; height: 48px; }
+    .btn-secondary { background: #E8DEF8; color: #1D192B; width: 100%; height: 48px; }
+    .search {
+      margin: 0 16px 12px; background: #E7E0EC; border-radius: 28px;
+      padding: 10px 16px; display: flex; align-items: center; gap: 8px; color: var(--md-muted); font-size: 16px;
+    }
+    .map-shell {
+      flex: 1; min-height: 0; display: flex; flex-direction: column; background: #94a3b8;
+      isolation: isolate; overflow: hidden; z-index: 0; position: relative;
+    }
+    .map-host { flex: 1; min-height: 0; position: relative; isolation: isolate; z-index: 0; overflow: hidden; }
+    .map-host .leaflet-container { width: 100%; height: 100%; font: 12px/1.4 var(--font); }
+    .map-bar {
+      flex-shrink: 0; display: flex; gap: 6px; flex-wrap: wrap; padding: 8px 10px;
+      background: #fff; border-top: 1px solid rgba(0,0,0,.06);
+    }
+    .map-bar .mb {
+      border: 0; font-family: inherit; font-size: 12px; font-weight: 600;
+      padding: 8px 12px; border-radius: 8px; cursor: pointer; background: #E7E0EC;
+    }
+    .map-bar .mb.on { background: var(--md-primary); color: #fff; }
+    .map-bar .mb-fit { margin-left: auto; color: var(--md-primary); background: #D3E3FD; }
+    .map-legend {
+      flex-shrink: 0; display: flex; gap: 4px; flex-wrap: wrap; padding: 8px 10px calc(var(--nav-h) + 6px);
+      background: #F3EDF7;
+    }
+    .map-legend .lg {
+      border: 0; font-family: inherit; font-size: 11px; font-weight: 600;
+      padding: 6px 8px; border-radius: 8px; cursor: pointer; background: transparent; color: var(--md-muted);
+      display: inline-flex; align-items: center; gap: 5px;
+    }
+    .map-legend .lg.on { background: #D3E3FD; color: var(--md-primary); }
+    .map-legend .dot { width: 8px; height: 8px; border-radius: 50%; }
+    .map-next-card { position: absolute; left: 10px; right: 10px; top: 10px; z-index: 500; }
+    .glass { background: #fff; border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,.14); padding: 12px 14px; }
+    .ci-pin {
+      width: 28px; height: 28px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg);
+      border: 2.5px solid #fff; box-shadow: 0 3px 8px rgba(0,0,0,.3); display: grid; place-items: center;
+    }
+    .ci-pin span { transform: rotate(45deg); font-size: 10px; font-weight: 700; color: #fff; }
+    .ci-pin.done { background: var(--md-success); }
+    .ci-pin.here { background: var(--md-primary); width: 32px; height: 32px; }
+    .ci-pin.next { background: var(--md-warn); }
+    .ci-pin.ts { background: #6750A4; }
+    .ci-pin.sc { background: var(--md-error); }
+    .fab {
+      position: absolute; right: 18px; bottom: calc(var(--nav-h) + 16px);
+      width: 56px; height: 56px; border-radius: 16px; background: #D0BCFF; color: #381E72;
+      border: 0; box-shadow: 0 6px 16px rgba(103,80,164,.35); cursor: pointer; z-index: 40; display: grid; place-items: center;
+    }
+    .sheet-backdrop {
+      position: absolute; inset: 0; background: rgba(0,0,0,.4); z-index: 30000;
+      opacity: 0; pointer-events: none; transition: opacity .2s;
+    }
+    .sheet-backdrop.open { opacity: 1; pointer-events: auto; }
+    .sheet {
+      position: absolute; left: 0; right: 0; bottom: 0; max-height: 88%;
+      background: var(--md-surface); border-radius: 28px 28px 0 0; z-index: 30010;
+      isolation: isolate;
+      transform: translateY(110%); transition: transform .28s ease; display: flex; flex-direction: column; padding-bottom: 16px;
+      box-shadow: 0 -8px 32px rgba(0,0,0,.18);
+    }
+    .sheet.open { transform: translateY(0); }
+    .sheet-handle { width: 32px; height: 4px; border-radius: 100px; background: #CAC4D0; margin: 12px auto 4px; }
+    .sheet-nav { display: flex; align-items: center; padding: 4px 8px 10px; }
+    .sheet-body { overflow-y: auto; flex: 1; }
+    .field {
+      background: var(--md-container); margin: 0 16px 12px; border-radius: 4px 4px 0 0;
+      padding: 8px 14px 10px; border-bottom: 2px solid var(--md-primary);
+    }
+    .field label { display: block; font-size: 12px; color: var(--md-primary); margin-bottom: 2px; }
+    .field input, .field textarea, .field select {
+      width: 100%; border: 0; outline: 0; font-family: inherit; font-size: 16px; background: transparent;
+    }
+    .field textarea { min-height: 72px; }
+    .photo-row { display: flex; gap: 10px; margin: 0 16px 12px; }
+    .photo-slot {
+      width: 88px; height: 88px; border-radius: 12px; background: var(--md-container);
+      border: 1.5px dashed var(--md-outline); display: grid; place-items: center; color: var(--md-primary); cursor: pointer;
+    }
+    .photo-slot.filled { border: 0; background: linear-gradient(135deg, #8AB4F8, #1B6EF3); color: #fff; font-weight: 600; font-size: 13px; }
+    .capture-overlay {
+      position: absolute; inset: 0; z-index: 30020; display: none; flex-direction: column; background: #000; color: #fff;
+    }
+    .capture-overlay.open { display: flex; }
+    .capture-finder { flex: 1; min-height: 0; position: relative; background: linear-gradient(180deg,#2c3a2e 0%,#1a221c 40%,#0d100e 100%); }
+    .capture-finder::after {
+      content: ''; position: absolute; left: 10%; right: 10%; top: 26%; bottom: 30%;
+      border: 1.5px solid rgba(255,255,255,.35); border-radius: 12px;
+    }
+    .capture-close {
+      position: absolute; top: 48px; left: 12px; z-index: 2; border: 0; background: rgba(0,0,0,.4);
+      color: #fff; font: 600 14px var(--font); padding: 8px 14px; border-radius: 20px; cursor: pointer;
+    }
+    .capture-live {
+      position: absolute; top: 48px; right: 12px; z-index: 2;
+      background: rgba(0,0,0,.45); font-size: 12px; font-weight: 600; padding: 8px 10px; border-radius: 20px;
+    }
+    .shutter {
+      position: absolute; left: 50%; bottom: 28px; transform: translateX(-50%);
+      width: 72px; height: 72px; border-radius: 50%; border: 4px solid #fff; background: #fff; cursor: pointer; z-index: 2;
+    }
+    .capture-preview { display: none; flex: 1; min-height: 0; flex-direction: column; background: var(--md-surface); color: var(--md-on); }
+    .capture-preview.on { display: flex; }
+    .capture-photo {
+      height: 220px; margin: 12px 16px 0; border-radius: 16px; position: relative; overflow: hidden;
+      background: linear-gradient(160deg,#4a5560,#2d3740 50%,#1a2026);
+    }
+    .gps-stamp {
+      position: absolute; left: 10px; bottom: 10px; background: rgba(0,0,0,.62); color: #fff;
+      font-size: 12px; font-weight: 600; padding: 6px 10px; border-radius: 8px;
+    }
+    .mini-pin {
+      height: 88px; margin: 0 16px 12px; border-radius: 16px; position: relative; overflow: hidden; background: #c5d4c8;
+    }
+    .mini-pin i {
+      position: absolute; left: 46%; top: 38%; width: 16px; height: 16px; border-radius: 50% 50% 50% 0;
+      transform: rotate(-45deg); background: var(--md-primary); border: 2px solid #fff; box-shadow: 0 2px 6px rgba(0,0,0,.3);
+    }
+    .capture-overlay.previewed .capture-finder { display: none; }
+    .capture-preview { overflow-y: auto; }
+    .sheet-footer { padding: 8px 16px 0; display: flex; flex-direction: column; gap: 8px; }
+    .toast {
+      position: absolute; left: 16px; right: 16px; bottom: calc(var(--nav-h) + 16px);
+      background: #313033; color: #F4EFF4; font-size: 14px; padding: 12px 16px; border-radius: 8px; z-index: 30100;
+      opacity: 0; pointer-events: none; transition: .2s;
+    }
+    .app-auth .toast { bottom: 24px; }
+    .toast.show { opacity: 1; }
+    .timeline { margin: 0 16px; padding-left: 14px; border-left: 2px solid #CAC4D0; }
+    .tl-item { position: relative; padding: 0 0 16px 16px; }
+    .tl-item::before {
+      content: ''; position: absolute; left: -19px; top: 4px; width: 10px; height: 10px;
+      border-radius: 50%; background: var(--md-primary); border: 2px solid #fff;
+    }
+    .tl-item.done::before { background: var(--md-success); }
+    .tl-t { font-size: 15px; font-weight: 600; }
+    .tl-s { font-size: 13px; color: var(--md-muted); margin-top: 2px; }
+    .offline-banner {
+      margin: 0 16px 12px; background: #FFE0B2; color: #E65100;
+      border-radius: 12px; padding: 10px 12px; font-size: 13px; font-weight: 500;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .screen {
+      display: none; height: 100%; flex-direction: column; min-height: 0; flex: 1;
+      position: relative; z-index: 0; isolation: isolate; overflow: hidden;
+    }
+    .screen.on { display: flex; }
+    .phone-screen.sheet-open .leaflet-control-container { visibility: hidden; }
+    .login {
+      flex: 1; display: flex; flex-direction: column;
+      background: linear-gradient(180deg, #D3E3FD 0%, var(--md-surface) 40%);
+      padding-bottom: 20px;
+    }
+    .login-brand { padding: 32px 28px 8px; text-align: center; }
+    .login-logo {
+      width: 72px; height: 72px; margin: 0 auto 14px; border-radius: 18px;
+      background: var(--md-primary); display: grid; place-items: center; color: #fff;
+    }
+    .login-brand h1 { font-size: 28px; font-weight: 700; }
+    .login-brand p { margin-top: 6px; font-size: 15px; color: var(--md-muted); }
+    .login-field {
+      margin: 0 20px 10px; background: var(--md-container); border-radius: 4px 4px 0 0;
+      padding: 0 14px; display: flex; align-items: center; gap: 10px; min-height: 56px;
+      border-bottom: 2px solid var(--md-primary);
+    }
+    .login-field input { flex: 1; border: 0; outline: 0; font-size: 16px; font-family: inherit; background: transparent; padding: 14px 0; }
+    .login-field .trail { border: 0; background: transparent; color: var(--md-primary); cursor: pointer; padding: 8px; }
+    .login-actions { padding: 16px 20px 0; display: flex; flex-direction: column; gap: 10px; }
+    .login-bio {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      color: var(--md-primary); font-size: 14px; font-weight: 600; padding: 8px;
+      border: 0; background: transparent; font-family: inherit; cursor: pointer;
+    }
+    .login-meta { margin-top: auto; padding: 16px 24px; text-align: center; font-size: 12px; color: var(--md-muted); }
+    .modal-backdrop {
+      position: absolute; inset: 0; background: rgba(0,0,0,.4); z-index: 30200;
+      display: none; align-items: center; justify-content: center; padding: 28px;
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal-card { width: 100%; background: #fff; border-radius: 28px; padding: 24px 20px 16px; }
+    .modal-card h3 { font-size: 22px; font-weight: 600; }
+    .modal-card p { margin-top: 10px; font-size: 14px; color: var(--md-muted); line-height: 1.4; }
+    .modal-actions { display: flex; flex-direction: column; gap: 8px; margin-top: 20px; }
+    @media (max-width: 440px) {
+      .stage { padding: 0; justify-content: flex-start; }
+      .stage-meta { display: none; }
+      .phone { width: 100vw; height: 100dvh; border-radius: 0; padding: 0; box-shadow: none; }
+      .phone-screen { border-radius: 0; }
+    }
+  </style>
+</head>
+<body>
+  <svg class="sprites" aria-hidden="true">
+    <symbol id="i-mappin" viewBox="0 0 24 24"><path d="M12 21s7-5.2 7-11a7 7 0 1 0-14 0c0 5.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.2"/></symbol>
+    <symbol id="i-warning" viewBox="0 0 24 24"><path d="M12 3.5 22 20H2L12 3.5z"/><path d="M12 10v5"/><path d="M12 17.5h.01"/></symbol>
+    <symbol id="i-scope" viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="2"/></symbol>
+    <symbol id="i-sparkles" viewBox="0 0 24 24"><path d="M12 3l1.2 4.2L17.5 8.5 13.2 9.8 12 14l-1.2-4.2L6.5 8.5l4.3-1.3L12 3z"/></symbol>
+    <symbol id="i-person" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 19.5c1.8-3.2 4.2-4.5 7-4.5s5.2 1.3 7 4.5"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 17h12l-1.2-1.2A6.5 6.5 0 0 1 15 11V9a3 3 0 1 0-6 0v2a6.5 6.5 0 0 1-1.8 4.8L6 17z"/></symbol>
+    <symbol id="i-tray-down" viewBox="0 0 24 24"><path d="M12 3v10"/><path d="M8 9l4 4 4-4"/><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></symbol>
+    <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+    <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l5 5L19 7"/></symbol>
+    <symbol id="i-map" viewBox="0 0 24 24"><path d="M9 4l6 2 5-2v16l-5 2-6-2-5 2V6l5-2z"/></symbol>
+    <symbol id="i-list" viewBox="0 0 24 24"><path d="M8 7h12M8 12h12M8 17h12"/></symbol>
+    <symbol id="i-walk" viewBox="0 0 24 24"><circle cx="13" cy="5" r="2"/><path d="M10 21l2-7 3 2 2 5"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16.5 16.5 21 21"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-camera" viewBox="0 0 24 24"><path d="M4 8h3l2-2h6l2 2h3v11H4V8z"/><circle cx="12" cy="13" r="3.5"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
+    <symbol id="i-building" viewBox="0 0 24 24"><path d="M4 20h16"/><path d="M6 20V6l6-2 6 2v14"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="2.5"/></symbol>
+    <symbol id="i-eye-off" viewBox="0 0 24 24"><path d="M3 3l18 18"/><path d="M10.6 10.6A2.5 2.5 0 0 0 13.4 13.4"/></symbol>
+    <symbol id="i-finger" viewBox="0 0 24 24"><path d="M12 11v6"/><path d="M8 12.5a4 4 0 1 1 8 0c0 3-2 5-4 7"/><path d="M6 11a6 6 0 0 1 12 0"/></symbol>
+    <symbol id="i-wifi-off" viewBox="0 0 24 24"><path d="M2 8.5A14 14 0 0 1 12 5"/><path d="M3 3l18 18"/></symbol>
+    <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.5 6.5a4 4 0 0 0-5.6 5.6L3 18v3h3l5.9-5.9a4 4 0 0 0 5.6-5.6l-2.5 2.5-2.5-2.5 2.5-2.5z"/></symbol>
+    <symbol id="i-video" viewBox="0 0 24 24"><rect x="3" y="7" width="12" height="10" rx="2"/><path d="M15 10.5 21 7v10l-6-3.5"/></symbol>
+    <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 3v2.2M12 18.8V21"/></symbol>
+    <symbol id="i-road" viewBox="0 0 24 24"><path d="M7 21 10 3h4l3 18"/><path d="M12 7v2M12 12v2"/></symbol>
+    <symbol id="i-cube" viewBox="0 0 24 24"><path d="M12 3 21 8v8l-9 5-9-5V8l9-5z"/></symbol>
+    <symbol id="i-sum" viewBox="0 0 24 24"><path d="M6 6h12L10 12l8 6H6"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  </svg>
+
+  <div class="stage">
+    <div class="stage-meta">
+      <h1>RMMS Mobile P1 · Android — Design review</h1>
+      <p>412×915 · Material 3 · cùng field iOS · OMS live</p>
+      <div class="chip-row" id="jumpChips">
+        <button class="chip active" data-jump="login">Login</button>
+        <button class="chip" data-jump="patrol-home">Patrol</button>
+        <button class="chip" data-jump="patrol-map">CI map</button>
+        <button class="chip" type="button" id="chipWrongPoint">Thử sai điểm</button>
+        <button class="chip" data-jump="checkin-detail">CI đã lưu</button>
+        <button class="chip" data-jump="attendance">Chấm công</button>
+        <button class="chip" data-jump="incident-list">Sự cố</button>
+        <button class="chip" data-jump="incident-detail">SC chi tiết</button>
+        <button class="chip" data-jump="gis-map">Bản đồ</button>
+        <button class="chip" data-jump="asset-list">Tài sản</button>
+        <button class="chip" data-jump="asset-detail">TS chi tiết</button>
+        <button class="chip" data-jump="ai-hub">AI</button>
+        <button class="chip" data-jump="vis-capture">Vision</button>
+        <button class="chip" type="button" id="chipPhotoGps">Chụp + GPS</button>
+        <button class="chip" data-jump="det-hitl">HITL</button>
+        <button class="chip" data-jump="estimate">Ước lượng</button>
+        <button class="chip" data-jump="cam-view">Camera</button>
+        <button class="chip" data-jump="mnt-list">Bảo trì</button>
+        <button class="chip" data-jump="ops">Ops</button>
+        <button class="chip" data-jump="me">Tôi</button>
+      </div>
+    </div>
+
+    <div class="review-row">
+    <aside class="doc-panel" id="featureDoc" data-des-id="DES-MOB-DOC-GUIDE" data-frame="android"></aside>
+    <div class="phone" data-des-id="DES-MOBILE-DEVICE">
+      <div class="phone-screen app-auth" id="app">
+        <div class="status-bar" id="statusBar">
+          <span>9:41</span>
+          <div style="display:flex;align-items:center;gap:6px">
+            <div class="sb-signal"><i></i><i></i><i></i><i></i></div>
+            <span>5G</span>
+          </div>
+        </div>
+
+        <div class="screen on" id="sc-login" data-des-id="DES-MOB-LOGIN" data-tab="auth">
+          <div class="login">
+            <div class="login-brand">
+              <div class="login-logo"><svg class="ic ic-xl" viewBox="0 0 24 24"><use href="#i-road"/></svg></div>
+              <h1>RMMS</h1>
+              <p>Quản lý bảo trì đường bộ<br/>Hiện trường · Android</p>
+            </div>
+            <div data-des-id="DES-MOB-LOGIN-FORM">
+              <div class="login-field">
+                <svg class="ic" viewBox="0 0 24 24"><use href="#i-building"/></svg>
+                <input id="f-company" type="text" placeholder="Mã đơn vị" value="HAT-QLDB-07" />
+              </div>
+              <div class="login-field">
+                <svg class="ic" viewBox="0 0 24 24"><use href="#i-person"/></svg>
+                <input id="f-user" type="text" placeholder="Tên đăng nhập" value="nguyenvana" />
+              </div>
+              <div class="login-field">
+                <svg class="ic" viewBox="0 0 24 24"><use href="#i-lock"/></svg>
+                <input id="f-pass" type="password" placeholder="Mật khẩu" value="••••••••" />
+                <button class="trail" type="button" onclick="togglePass()" aria-label="Hiện mật khẩu">
+                  <svg class="ic" viewBox="0 0 24 24"><use href="#i-eye" id="eyeUse"/></svg>
+                </button>
+              </div>
+            </div>
+            <div class="login-actions">
+              <button class="btn btn-primary" onclick="loginOk()">Đăng nhập</button>
+              <button class="login-bio" type="button" onclick="toast('BiometricPrompt · mock')">
+                <svg class="ic ic-md" viewBox="0 0 24 24"><use href="#i-finger"/></svg>
+                Đăng nhập bằng vân tay
+              </button>
+            </div>
+            <div class="login-meta">Mạng: Online · BFF auth · v1.0.0-p1</div>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-patrol-home" data-des-id="DES-MOB-PAT-HOME" data-tab="field">
+          <div class="top-bar">
+            <button class="icon-btn" onclick="go('patrol-offline')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-tray-down"/></svg></button>
+            <div class="nav-title"></div>
+            <button class="icon-btn" onclick="go('ops')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-bell"/></svg></button>
+          </div>
+          <div class="large-title">Hiện trường</div>
+          <div class="seg" data-des-id="DES-MOB-PAT-SEG">
+            <button class="on" type="button">Tuần đường</button>
+            <button type="button" onclick="go('attendance')">Chấm công</button>
+          </div>
+          <div class="content">
+            <div class="hero-card" data-des-id="DES-MOB-PAT-ACTIVE">
+              <div class="hero-eyebrow">Ca đang chạy · Online</div>
+              <div class="hero-title">QL.1 · Km 12+300</div>
+              <div class="hero-meta">PAT-20260810-0014 · Nguyễn Văn A<br/>Check-in 2/3 · Coverage 67%</div>
+              <div class="progress"><span></span></div>
+              <div class="hero-actions">
+                <button class="btn btn-white" onclick="go('patrol-map')">Tiếp tục map</button>
+                <button class="btn btn-ghost" onclick="openSheet('checkin')">Check-in</button>
+              </div>
+            </div>
+            <div class="kpi-strip" data-des-id="DES-MOB-PAT-KPI">
+              <div class="kpi"><div class="v" style="color:var(--md-success)">2</div><div class="l">Đã check-in</div></div>
+              <div class="kpi"><div class="v" style="color:var(--md-warn)">1</div><div class="l">Còn lại</div></div>
+              <div class="kpi"><div class="v">67%</div><div class="l">Coverage</div></div>
+            </div>
+            <div class="section-label">Hôm nay</div>
+            <div class="card-group">
+              <div class="row" onclick="go('patrol-detail')">
+                <div class="row-icon" style="background:var(--md-primary)"><svg class="ic" viewBox="0 0 24 24"><use href="#i-walk"/></svg></div>
+                <div class="row-body"><div class="row-title">PAT-20260810-0014</div><div class="row-sub">Tuần đường · QL.1 · 07:20</div></div>
+                <span class="badge blue">Đang tuần</span>
+              </div>
+              <div class="row" onclick="go('patrol-history')">
+                <div class="row-icon" style="background:var(--md-success)"><svg class="ic" viewBox="0 0 24 24"><use href="#i-check"/></svg></div>
+                <div class="row-body"><div class="row-title">PAT-20260810-0009</div><div class="row-sub">Tuần kiểm · ĐT.879</div></div>
+                <span class="badge green">Xong</span>
+              </div>
+            </div>
+            <div class="section-label">Thao tác</div>
+            <div class="card-group">
+              <div class="row" onclick="go('patrol-map')">
+                <div class="row-icon" style="background:#6750A4"><svg class="ic" viewBox="0 0 24 24"><use href="#i-map"/></svg></div>
+                <div class="row-body"><div class="row-title">Bản đồ ca</div><div class="row-sub">OSM · OSRM · Fit</div></div>
+              </div>
+              <div class="row" onclick="go('patrol-offline')">
+                <div class="row-icon" style="background:var(--md-warn)"><svg class="ic" viewBox="0 0 24 24"><use href="#i-tray-down"/></svg></div>
+                <div class="row-body"><div class="row-title">Hàng đợi offline</div><div class="row-sub">3 bản ghi</div></div>
+                <span class="badge orange">3</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-patrol-map" data-des-id="DES-MOB-PAT-MAP" data-tab="field">
+          <div class="top-bar solid">
+            <button class="icon-btn" onclick="go('patrol-home')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg></button>
+            <div class="nav-title">Ca đang chạy</div>
+            <button class="btn" style="background:transparent;color:var(--md-primary)" onclick="openSheet('checkin')">Check-in</button>
+          </div>
+          <div class="content map-mode">
+            <div class="map-shell" data-des-id="DES-MOB-OMS-PATROL">
+              <div class="map-host" id="map-patrol-host" role="application" aria-label="Bản đồ tuần tra OMS">
+                <div id="map-patrol" style="width:100%;height:100%"></div>
+                <div class="map-next-card">
+                  <div class="glass" style="display:flex;justify-content:space-between;align-items:center;gap:8px">
+                    <div>
+                      <div style="font-size:12px;color:var(--md-muted)">Điểm tiếp theo · OSRM</div>
+                      <div style="font-size:16px;font-weight:600">Km 12+450 · Cầu B</div>
+                    </div>
+                    <button class="btn btn-primary" style="width:auto;height:40px" onclick="openSheet('checkin')">Ghi nhận</button>
+                  </div>
+                </div>
+              </div>
+              <div class="map-bar" id="map-patrol-bar">
+                <button type="button" class="mb on" data-base="osm" title="OSM" aria-label="Basemap OSM">OSM</button>
+                <button type="button" class="mb" data-base="esri" title="Esri" aria-label="Basemap Esri">Esri</button>
+                <button type="button" class="mb" data-base="sat" title="Sat 17" aria-label="Basemap sat">Sat</button>
+                <button type="button" class="mb mb-fit" data-fit title="Fit overview" aria-label="Fit overview">Fit</button>
+              </div>
+              <div class="map-legend" id="map-patrol-legend">
+                <button type="button" class="lg on" data-iso="all"><span class="dot" style="background:#1B6EF3"></span>Tất cả</button>
+                <button type="button" class="lg" data-iso="track"><span class="dot" style="background:#1B6EF3"></span>Track</button>
+                <button type="button" class="lg" data-iso="ci-done"><span class="dot" style="background:#1B8A4A"></span>CI xong</button>
+                <button type="button" class="lg" data-iso="ci-next"><span class="dot" style="background:#E67E00"></span>CI tiếp</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-patrol-history" data-des-id="DES-MOB-PAT-LIST" data-tab="field">
+          <div class="top-bar solid">
+            <button class="icon-btn" onclick="go('patrol-home')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg></button>
+            <div class="nav-title">Lịch sử ca</div>
+          </div>
+          <div class="search"><svg class="ic" viewBox="0 0 24 24"><use href="#i-search"/></svg><span>Tìm mã phiên, tuyến…</span></div>
+          <div class="content" style="padding-top:0">
+            <div class="card-group">
+              <div class="row" onclick="go('patrol-detail')">
+                <div class="row-body"><div class="row-title">PAT-20260810-0014</div><div class="row-sub">QL.1 · 2/3 CI</div></div>
+                <span class="badge blue">Đang tuần</span>
+              </div>
+              <div class="row">
+                <div class="row-body"><div class="row-title">PAT-20260809-0021</div><div class="row-sub">Thiếu điểm CI</div></div>
+                <span class="badge red">Bỏ sót</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-patrol-detail" data-des-id="DES-MOB-PAT-DETAIL" data-tab="field">
+          <div class="top-bar solid">
+            <button class="icon-btn" onclick="go('patrol-history')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg></button>
+            <div class="nav-title">Chi tiết ca</div>
+          </div>
+          <div class="content">
+            <div style="padding:16px 20px 8px">
+              <div style="font-size:13px;color:var(--md-muted)">Mã phiên</div>
+              <div style="font-size:26px;font-weight:700">PAT-20260810-0014</div>
+            </div>
+            <div class="card-group">
+              <div class="row"><div class="row-body"><div class="row-sub">Nhân viên</div><div class="row-title">Nguyễn Văn A</div></div></div>
+              <div class="row"><div class="row-body"><div class="row-sub">Tuyến</div><div class="row-title">QL.1 · Km 12+000–13+200</div></div></div>
+              <div class="row"><div class="row-body"><div class="row-sub">Coverage</div><div class="row-title">67%</div></div></div>
+            </div>
+            <div class="section-label">Check-in</div>
+            <div class="timeline">
+              <div class="tl-item done"><div class="tl-t">Km 12+100</div><div class="tl-s">07:28 · GPS OK</div></div>
+              <div class="tl-item"><div class="tl-t">Km 12+450 · Cầu B</div><div class="tl-s">Đang tới</div></div>
+            </div>
+            <div style="padding:16px;display:flex;flex-direction:column;gap:8px">
+              <button class="btn btn-primary" onclick="go('patrol-map')">Mở bản đồ ca</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-patrol-offline" data-des-id="DES-MOB-PAT-OFFLINE" data-tab="field">
+          <div class="top-bar solid">
+            <button class="icon-btn" onclick="go('patrol-home')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg></button>
+            <div class="nav-title">Offline queue</div>
+            <button class="btn" style="background:transparent;color:var(--md-primary)" onclick="toast('Đã sync 3 bản ghi')">Sync</button>
+          </div>
+          <div class="content">
+            <div class="offline-banner"><svg class="ic" viewBox="0 0 24 24"><use href="#i-wifi-off"/></svg> Mạng yếu — đang chờ đồng bộ</div>
+            <div class="card-group">
+              <div class="row"><div class="row-body"><div class="row-title">Check-in Km 11+800</div><div class="row-sub">08:40 · 42 KB</div></div><span class="badge orange">Queued</span></div>
+              <div class="row"><div class="row-body"><div class="row-title">SC nháp</div><div class="row-sub">ảnh ×2</div></div><span class="badge orange">Queued</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-attendance" data-des-id="DES-MOB-ATT" data-tab="field">
+          <div class="large-title">Hiện trường</div>
+          <div class="seg">
+            <button type="button" onclick="go('patrol-home')">Tuần đường</button>
+            <button class="on" type="button">Chấm công</button>
+          </div>
+          <div class="content">
+            <div class="hero-card" style="background:linear-gradient(145deg,#1B8A4A,#0F5C30)">
+              <div class="hero-eyebrow">GPS check-in</div>
+              <div class="hero-title">Chưa chấm vào</div>
+              <div class="hero-meta">Hạt QLĐB 7 · auto-pin ±6 m<br/>QL.1 hành lang · inZone OK (12 m)</div>
+              <div class="hero-actions">
+                <button class="btn btn-white" onclick="openModal('gps')">Chấm vào</button>
+              </div>
+            </div>
+            <div class="section-label">7 ngày</div>
+            <div class="card-group">
+              <div class="row"><div class="row-body"><div class="row-title">T7 09/08</div><div class="row-sub">07:05 – 16:40</div></div><span class="badge green">Đủ công</span></div>
+              <div class="row"><div class="row-body"><div class="row-title">CN 10/08</div><div class="row-sub">—</div></div><span class="badge">Nghỉ</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-incident-list" data-des-id="DES-MOB-INC-LIST" data-tab="incident">
+          <div class="large-title">Sự cố</div>
+          <div class="search"><svg class="ic" viewBox="0 0 24 24"><use href="#i-search"/></svg><span>Tìm mã, đoạn, loại…</span></div>
+          <div class="content" style="padding-top:0">
+            <div class="kpi-strip">
+              <div class="kpi"><div class="v" style="color:var(--md-error)">2</div><div class="l">Critical</div></div>
+              <div class="kpi"><div class="v" style="color:var(--md-warn)">5</div><div class="l">Open</div></div>
+              <div class="kpi"><div class="v">1</div><div class="l">Offline</div></div>
+            </div>
+            <div class="card-group">
+              <div class="row" onclick="go('incident-detail')">
+                <div class="row-icon" style="background:var(--md-error)"><svg class="ic" viewBox="0 0 24 24"><use href="#i-warning"/></svg></div>
+                <div class="row-body"><div class="row-title">SC-2401 · Nứt mặt đường</div><div class="row-sub">QL.1 Km 12+420</div></div>
+                <span class="badge red">Mở</span>
+              </div>
+              <div class="row">
+                <div class="row-icon" style="background:var(--md-warn)"><svg class="ic" viewBox="0 0 24 24"><use href="#i-tray-down"/></svg></div>
+                <div class="row-body"><div class="row-title">Nháp offline</div><div class="row-sub">ảnh ×2</div></div>
+                <span class="badge orange">Queue</span>
+              </div>
+            </div>
+          </div>
+          <button class="fab" onclick="openSheet('incident')" title="Tạo sự cố" aria-label="Tạo sự cố">
+            <svg class="ic ic-lg" viewBox="0 0 24 24"><use href="#i-plus"/></svg>
+          </button>
+        </div>
+
+        <div class="screen" id="sc-gis-map" data-des-id="DES-MOB-GIS" data-tab="map">
+          <div class="top-bar solid">
+            <button class="icon-btn"><svg class="ic" viewBox="0 0 24 24"><use href="#i-menu"/></svg></button>
+            <div class="nav-title">Bản đồ</div>
+            <button class="btn" style="background:transparent;color:var(--md-primary)" onclick="go('asset-list')">TS</button>
+          </div>
+          <div class="content map-mode">
+            <div class="map-shell" data-des-id="DES-MOB-OMS-GIS">
+              <div class="map-host" id="map-gis-host" role="application" aria-label="Bản đồ GIS OMS">
+                <div id="map-gis" style="width:100%;height:100%"></div>
+              </div>
+              <div class="map-bar" id="map-gis-bar">
+                <button type="button" class="mb on" data-base="osm" aria-label="Basemap OSM">OSM</button>
+                <button type="button" class="mb" data-base="esri" aria-label="Basemap Esri">Esri</button>
+                <button type="button" class="mb" data-base="sat" aria-label="Basemap sat">Sat</button>
+                <button type="button" class="mb mb-fit" data-fit aria-label="Fit overview">Fit</button>
+              </div>
+              <div class="map-legend" id="map-gis-legend">
+                <button type="button" class="lg on" data-iso="all"><span class="dot" style="background:#1B6EF3"></span>Tất cả</button>
+                <button type="button" class="lg" data-iso="ts"><span class="dot" style="background:#6750A4"></span>Tài sản</button>
+                <button type="button" class="lg" data-iso="sc"><span class="dot" style="background:#D32F2F"></span>Sự cố</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-asset-list" data-des-id="DES-MOB-ASSET-LIST" data-tab="map">
+          <div class="top-bar solid">
+            <button class="icon-btn" onclick="go('gis-map')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg></button>
+            <div class="nav-title">Tài sản</div>
+          </div>
+          <div class="search"><svg class="ic" viewBox="0 0 24 24"><use href="#i-search"/></svg><span>Tìm mã TS…</span></div>
+          <div class="content" style="padding-top:0">
+            <div class="card-group">
+              <div class="row" onclick="go('asset-detail')">
+                <div class="row-icon" style="background:#6750A4"><svg class="ic" viewBox="0 0 24 24"><use href="#i-cube"/></svg></div>
+                <div class="row-body"><div class="row-title">TS-20260810-014 · Cống C</div><div class="row-sub">QL.1 · Km 12+300</div></div>
+                <span class="badge blue">Pin</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-ai-hub" data-des-id="DES-MOB-AI" data-tab="ai">
+          <div class="large-title">AI</div>
+          <div class="content">
+            <div class="card-group">
+              <div class="row" onclick="go('vis-capture')">
+                <div class="row-icon" style="background:#6750A4"><svg class="ic" viewBox="0 0 24 24"><use href="#i-camera"/></svg></div>
+                <div class="row-body"><div class="row-title">AI Vision</div><div class="row-sub">Chụp → class → SC</div></div>
+              </div>
+              <div class="row" onclick="go('det-hitl')">
+                <div class="row-icon" style="background:var(--md-primary)"><svg class="ic" viewBox="0 0 24 24"><use href="#i-cube"/></svg></div>
+                <div class="row-body"><div class="row-title">Phát hiện tài sản</div><div class="row-sub">HITL Confirm / Dismiss</div></div>
+              </div>
+              <div class="row" onclick="go('estimate')">
+                <div class="row-icon" style="background:var(--md-success)"><svg class="ic" viewBox="0 0 24 24"><use href="#i-sum"/></svg></div>
+                <div class="row-body"><div class="row-title">Ước lượng</div><div class="row-sub">Qty · đơn giá</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-vis-capture" data-des-id="DES-MOB-VIS-CAPTURE" data-tab="ai">
+          <div class="top-bar solid">
+            <button class="icon-btn" onclick="go('ai-hub')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg></button>
+            <div class="nav-title">AI Vision</div>
+          </div>
+          <div class="content">
+            <div class="photo-row">
+              <div class="photo-slot filled">IMG</div>
+              <div class="photo-slot" onclick="openCapture('vision')"><svg class="ic ic-lg" viewBox="0 0 24 24"><use href="#i-camera"/></svg></div>
+            </div>
+            <div class="card-group">
+              <div class="row"><div class="row-body"><div class="row-sub">Vị trí đã chốt</div><div class="row-title">QL.1 · Km 12+418</div></div></div>
+              <div class="row"><div class="row-body"><div class="row-sub">Sai số GPS</div><div class="row-title">±4 m</div></div></div>
+              <div class="row"><div class="row-body"><div class="row-sub">Class</div><div class="row-title">Nứt dọc</div></div></div>
+              <div class="row"><div class="row-body"><div class="row-sub">Mức</div><div class="row-title">High</div></div><span class="badge orange">High</span></div>
+            </div>
+            <div style="padding:16px"><button class="btn btn-primary" onclick="toast('Gắn SC')">Gắn sự cố</button></div>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-det-hitl" data-des-id="DES-MOB-DET-HITL" data-tab="ai">
+          <div class="top-bar solid">
+            <button class="icon-btn" onclick="go('ai-hub')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg></button>
+            <div class="nav-title">Phát hiện TS</div>
+          </div>
+          <div class="content">
+            <div class="hero-card" style="background:linear-gradient(145deg,#6750A4,#4F378B)">
+              <div class="hero-eyebrow">HITL · online</div>
+              <div class="hero-title">DET-88 · Cống</div>
+              <div class="hero-meta">QL.1 Km 12+300 · độ tin cậy 91%</div>
+            </div>
+            <div style="padding:0 16px;display:flex;flex-direction:column;gap:8px">
+              <button class="btn btn-primary" onclick="toast('Confirm → Asset')">Xác nhận</button>
+              <button class="btn btn-secondary" onclick="toast('Dismiss')">Bỏ qua</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-estimate" data-des-id="DES-MOB-EST" data-tab="ai">
+          <div class="top-bar solid">
+            <button class="icon-btn" onclick="go('ai-hub')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg></button>
+            <div class="nav-title">Ước lượng</div>
+          </div>
+          <div class="content">
+            <div class="field"><label>Khối lượng (qty)</label><input value="12.5" inputmode="decimal" /></div>
+            <div class="field"><label>Đơn giá</label><input value="850.000" inputmode="decimal" /></div>
+            <div class="field"><label>Thành tiền</label><input value="10.625.000" readonly /></div>
+            <div style="padding:8px 16px"><button class="btn btn-primary" onclick="toast('Confirm thủ công P1')">Xác nhận ước lượng</button></div>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-cam-view" data-des-id="DES-MOB-CAM-VIEW" data-tab="me">
+          <div class="top-bar solid">
+            <button class="icon-btn" onclick="go('me')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg></button>
+            <div class="nav-title">Camera xem</div>
+            <button class="btn" style="background:transparent;color:var(--md-primary)" onclick="toast('Refresh JPEG')">Làm mới</button>
+          </div>
+          <div class="content">
+            <div class="card-group" style="min-height:180px;display:grid;place-items:center;background:#1C1B1F;color:#fff">
+              <div style="text-align:center;padding:24px">
+                <svg class="ic ic-xl" viewBox="0 0 24 24"><use href="#i-video"/></svg>
+                <div style="margin-top:8px;font-weight:600">JPEG · iDS-TCM403</div>
+                <div style="font-size:13px;opacity:.7">Cập nhật 08:41</div>
+              </div>
+            </div>
+            <div class="section-label">Event</div>
+            <div class="card-group">
+              <div class="row"><div class="row-body"><div class="row-title">Tốc độ 72 km/h</div><div class="row-sub">08:41</div></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-mnt-list" data-des-id="DES-MOB-MNT-LIST" data-tab="me">
+          <div class="top-bar solid">
+            <button class="icon-btn" onclick="go('me')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg></button>
+            <div class="nav-title">Công việc</div>
+          </div>
+          <div class="content">
+            <div class="card-group">
+              <div class="row"><div class="row-body"><div class="row-title">WO-20260810-003</div><div class="row-sub">Từ SC-2401</div></div><span class="badge orange">Đang làm</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-ops" data-des-id="DES-MOB-OPS" data-tab="me">
+          <div class="top-bar solid">
+            <button class="icon-btn" onclick="go('me')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg></button>
+            <div class="nav-title">Thông báo</div>
+          </div>
+          <div class="content">
+            <div class="card-group">
+              <div class="row"><div class="row-body"><div class="row-title">Ưu tiên SC-2401</div><div class="row-sub">Hạt trưởng · 08:12</div></div><span class="badge blue">Mới</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-me" data-des-id="DES-MOB-ME" data-tab="me">
+          <div class="large-title">Tôi</div>
+          <div class="content">
+            <div class="card-group">
+              <div class="row">
+                <div class="row-icon" style="background:var(--md-primary);border-radius:20px"><svg class="ic" viewBox="0 0 24 24"><use href="#i-person"/></svg></div>
+                <div class="row-body"><div class="row-title">Nguyễn Văn A</div><div class="row-sub">Tuần đường · Hạt QLĐB 7</div></div>
+              </div>
+            </div>
+            <div class="section-label">Thêm</div>
+            <div class="card-group">
+              <div class="row" onclick="go('mnt-list')">
+                <div class="row-icon" style="background:#79747E"><svg class="ic" viewBox="0 0 24 24"><use href="#i-wrench"/></svg></div>
+                <div class="row-body"><div class="row-title">Bảo trì / công việc</div></div>
+              </div>
+              <div class="row" onclick="go('cam-view')">
+                <div class="row-icon" style="background:#6750A4"><svg class="ic" viewBox="0 0 24 24"><use href="#i-video"/></svg></div>
+                <div class="row-body"><div class="row-title">Camera xem</div></div>
+              </div>
+              <div class="row" onclick="go('ops')">
+                <div class="row-icon" style="background:var(--md-primary)"><svg class="ic" viewBox="0 0 24 24"><use href="#i-bell"/></svg></div>
+                <div class="row-body"><div class="row-title">Thông báo</div></div>
+                <span class="badge blue">2</span>
+              </div>
+              <div class="row" onclick="logout()">
+                <div class="row-body"><div class="row-title" style="color:var(--md-error)">Đăng xuất</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-incident-detail" data-des-id="DES-MOB-INC-DETAIL" data-tab="incident">
+          <div class="top-bar solid">
+            <button class="icon-btn" onclick="go('incident-list')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg></button>
+            <div class="nav-title">Chi tiết sự cố</div>
+          </div>
+          <div class="content">
+            <div style="padding:16px 20px 8px">
+              <div style="font-size:13px;color:var(--md-muted)">Mã</div>
+              <div style="font-size:24px;font-weight:700">SC-2401</div>
+              <div style="margin-top:8px"><span class="badge red">Critical · Mở</span></div>
+            </div>
+            <div class="card-group">
+              <div class="row"><div class="row-body"><div class="row-sub">Loại</div><div class="row-title">Nứt mặt đường</div></div></div>
+              <div class="row"><div class="row-body"><div class="row-sub">Vị trí (auto-pin, không sửa)</div><div class="row-title">QL.1 · Km 12+420</div></div></div>
+              <div class="row"><div class="row-body"><div class="row-sub">GPS</div><div class="row-title">10.9620, 106.8518 · ±5 m</div></div></div>
+              <div class="row"><div class="row-body"><div class="row-sub">Nguồn</div><div class="row-title">Tuần đường PAT-…0014</div></div></div>
+            </div>
+            <div style="padding:16px;display:flex;flex-direction:column;gap:8px">
+              <button class="btn btn-primary" onclick="go('gis-map')">Xem trên bản đồ</button>
+              <button class="btn btn-secondary" onclick="toast('Đã đóng sự cố')">Đóng sự cố</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-asset-detail" data-des-id="DES-MOB-ASSET-DETAIL" data-tab="map">
+          <div class="top-bar solid">
+            <button class="icon-btn" onclick="go('asset-list')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg></button>
+            <div class="nav-title">Chi tiết tài sản</div>
+          </div>
+          <div class="content">
+            <div style="padding:16px 20px 8px">
+              <div style="font-size:13px;color:var(--md-muted)">Mã TS</div>
+              <div style="font-size:24px;font-weight:700">TS-20260810-014</div>
+            </div>
+            <div class="card-group">
+              <div class="row"><div class="row-body"><div class="row-sub">Loại</div><div class="row-title">Cống</div></div></div>
+              <div class="row"><div class="row-body"><div class="row-sub">Tuyến · lý trình</div><div class="row-title">QL.1 · Km 12+300</div></div></div>
+              <div class="row"><div class="row-body"><div class="row-sub">Tọa độ</div><div class="row-title">10.9555, 106.8450</div></div></div>
+            </div>
+            <div style="padding:16px"><button class="btn btn-primary" onclick="go('gis-map')">Pin trên bản đồ</button></div>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-checkin-detail" data-des-id="DES-MOB-CI-DETAIL" data-tab="field">
+          <div class="top-bar solid">
+            <button class="icon-btn" onclick="go('patrol-detail')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg></button>
+            <div class="nav-title">Check-in đã lưu</div>
+          </div>
+          <div class="content">
+            <div class="offline-banner" style="background:#C8E6C9;color:#1B5E20">Đã lưu · 07:28</div>
+            <div class="card-group">
+              <div class="row"><div class="row-body"><div class="row-sub">Điểm KH</div><div class="row-title">Km 12+100 · Trạm A</div></div></div>
+              <div class="row"><div class="row-body"><div class="row-sub">GPS / sai số</div><div class="row-title">10.9540, 106.8438 · ±4 m</div></div></div>
+              <div class="row"><div class="row-body"><div class="row-sub">Cách điểm</div><div class="row-title">12 m · ok</div></div></div>
+            </div>
+          </div>
+        </div>
+
+        <nav class="nav-bar hidden" id="tabBar" data-des-id="DES-MOB-TABBAR">
+          <button class="tab active" data-tab="field" onclick="tab('field')"><div class="ti"><svg class="ic" viewBox="0 0 24 24"><use href="#i-mappin"/></svg></div>Hiện trường</button>
+          <button class="tab" data-tab="incident" onclick="tab('incident')"><div class="ti"><svg class="ic" viewBox="0 0 24 24"><use href="#i-warning"/></svg></div>Sự cố</button>
+          <button class="tab" data-tab="map" onclick="tab('map')"><div class="ti"><svg class="ic" viewBox="0 0 24 24"><use href="#i-scope"/></svg></div>Bản đồ</button>
+          <button class="tab" data-tab="ai" onclick="tab('ai')"><div class="ti"><svg class="ic" viewBox="0 0 24 24"><use href="#i-sparkles"/></svg></div>AI</button>
+          <button class="tab" data-tab="me" onclick="tab('me')"><div class="ti"><svg class="ic" viewBox="0 0 24 24"><use href="#i-person"/></svg></div>Tôi</button>
+        </nav>
+        <div class="gesture"></div>
+
+        <div class="sheet-backdrop" id="sheetBg" onclick="closeSheet()"></div>
+        <div class="sheet" id="sheet-checkin" data-des-id="DES-MOB-PAT-CHECKIN-SHEET">
+          <div class="sheet-handle"></div>
+          <div class="sheet-nav">
+            <button class="icon-btn" onclick="requestCloseSheet()" style="color:var(--md-primary);width:auto;padding:0 12px">Hủy</button>
+            <div class="nav-title">Check-in</div>
+            <button class="icon-btn" onclick="closeSheet();toast('Đã ghi check-in')" style="color:var(--md-primary);width:auto;padding:0 12px">Lưu</button>
+          </div>
+          <div class="sheet-body">
+            <div class="offline-banner" data-des-id="DES-MOB-LOC-MISMATCH" id="ci-match-banner" style="background:#C8E6C9;color:#1B5E20">
+              Đúng điểm · 18 m · GPS ±4 m · auto-pin
+            </div>
+            <div class="field"><label>Điểm kế hoạch *</label><input value="Km 12+450 · Cầu B" readonly /></div>
+            <div class="field"><label>Tuyến / lý trình *</label><input value="QL.1 · Km 12+450" readonly /></div>
+            <div class="field"><label>GPS auto-pin *</label><input value="10.9525, 106.8420 · ±4 m" readonly /></div>
+            <div class="field"><label>Cách điểm KH *</label><input value="18 m · Đúng điểm" readonly /></div>
+            <div class="field"><label>Nội dung</label><textarea>Mặt đường khô, lan can OK</textarea></div>
+            <div class="photo-row">
+              <div class="photo-slot filled">IMG</div>
+              <div class="photo-slot" onclick="openCapture('checkin')"><svg class="ic ic-lg" viewBox="0 0 24 24"><use href="#i-camera"/></svg></div>
+            </div>
+            <div class="sheet-footer">
+              <button class="btn btn-primary" id="ci-save-btn" onclick="saveCheckin()">Ghi nhận</button>
+              <button class="btn btn-secondary" onclick="closeSheet()">Hủy</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="sheet" id="sheet-incident" data-des-id="DES-MOB-INC-CREATE-SHEET">
+          <div class="sheet-handle"></div>
+          <div class="sheet-nav">
+            <button class="icon-btn" onclick="requestCloseSheet()" style="color:var(--md-primary);width:auto;padding:0 12px">Hủy</button>
+            <div class="nav-title">Tạo sự cố</div>
+            <button class="icon-btn" onclick="closeSheet();toast('SC nháp')" style="color:var(--md-primary);width:auto;padding:0 12px">Lưu</button>
+          </div>
+          <div class="sheet-body">
+            <div class="field"><label>Loại sự cố</label><select><option>Nứt / ổ gà</option><option>Cống</option></select></div>
+            <div class="field"><label>Mức độ</label><select><option>Critical</option><option selected>High</option></select></div>
+            <div class="field"><label>Vị trí auto-pin *</label><input value="QL.1 · Km 12+420 · GPS ±5 m" readonly /></div>
+            <div class="field"><label>Mô tả</label><textarea placeholder="Mô tả hiện trường…"></textarea></div>
+            <div class="photo-row">
+              <div class="photo-slot" onclick="openCapture('incident')"><svg class="ic ic-lg" viewBox="0 0 24 24"><use href="#i-camera"/></svg></div>
+            </div>
+            <div class="sheet-footer">
+              <button class="btn btn-primary" onclick="closeSheet();toast('SC đã tạo')">Gửi sự cố</button>
+              <button class="btn btn-secondary" onclick="closeSheet();toast('Nháp offline')">Lưu nháp offline</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-backdrop" id="modal-gps" data-des-id="DES-MOB-GPS-DENY">
+          <div class="modal-card">
+            <h3>GPS bị tắt</h3>
+            <p>Cần vị trí để chấm công. Mở Cài đặt → Quyền vị trí cho RMMS.</p>
+            <div class="modal-actions">
+              <button class="btn btn-primary" onclick="closeModal();toast('Đã copy hướng dẫn Settings')">Sao chép hướng dẫn</button>
+              <button class="btn btn-secondary" onclick="closeModal()">Để sau</button>
+            </div>
+          </div>
+        </div>
+        <div class="modal-backdrop" id="modal-leave" data-des-id="DES-MOB-LEAVE">
+          <div class="modal-card">
+            <h3>Bỏ thay đổi?</h3>
+            <p>Nội dung chưa lưu sẽ mất.</p>
+            <div class="modal-actions">
+              <button class="btn btn-primary" onclick="confirmLeave()">Bỏ thay đổi</button>
+              <button class="btn btn-secondary" onclick="closeModal()">Tiếp tục sửa</button>
+            </div>
+          </div>
+        </div>
+        <div class="capture-overlay" id="captureOverlay" data-des-id="DES-MOB-PHOTO-GPS">
+          <div class="capture-finder" id="captureFinder">
+            <button class="capture-close" type="button" onclick="closeCapture()">Đóng</button>
+            <div class="capture-live">GPS ±4 m</div>
+            <button class="shutter" type="button" onclick="takePhoto()" aria-label="Chụp"></button>
+          </div>
+          <div class="capture-preview" id="capturePreview" data-des-id="DES-MOB-GPS-PIN">
+            <div class="capture-photo">
+              <span class="gps-stamp">QL.1 · Km 12+418 · ±4 m</span>
+            </div>
+            <div class="mini-pin"><i></i></div>
+            <div class="card-group">
+              <div class="row"><div class="row-body"><div class="row-sub">Vị trí đã chốt</div><div class="row-title">QL.1 · Km 12+418</div></div></div>
+              <div class="row"><div class="row-body"><div class="row-sub">Sai số GPS</div><div class="row-title">±4 m</div></div></div>
+            </div>
+            <div style="padding:8px 16px 24px;display:flex;flex-direction:column;gap:8px">
+              <button class="btn btn-primary" onclick="usePhoto()">Dùng ảnh</button>
+              <button class="btn btn-secondary" onclick="retakePhoto()">Chụp lại</button>
+            </div>
+          </div>
+        </div>
+        <div class="toast" id="toast"></div>
+      </div>
+    </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="../map-oms.js"></script>
+  <script src="../feature-guide.js"></script>
+  <script>
+    const TAB_HOME = { field: 'patrol-home', incident: 'incident-list', map: 'gis-map', ai: 'ai-hub', me: 'me' };
+    function setAuthMode(isAuth) {
+      document.getElementById('app').classList.toggle('app-auth', isAuth);
+      document.getElementById('tabBar').classList.toggle('hidden', isAuth);
+    }
+    function go(id) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('on'));
+      const sc = document.getElementById('sc-' + id);
+      if (!sc) return;
+      sc.classList.add('on');
+      const t = sc.dataset.tab;
+      setAuthMode(t === 'auth');
+      document.querySelectorAll('.tab').forEach(el => el.classList.toggle('active', el.dataset.tab === t));
+      document.querySelectorAll('#jumpChips .chip').forEach(c => c.classList.toggle('active', c.dataset.jump === id));
+      closeSheet();
+      closeCapture();
+      if (window.MobileOmsMap) window.MobileOmsMap.onScreen(id);
+      if (window.FeatureGuide) window.FeatureGuide.set(id);
+    }
+    function tab(name) { go(TAB_HOME[name] || 'patrol-home'); }
+    function loginOk() { toast('Đăng nhập thành công'); setTimeout(() => go('patrol-home'), 350); }
+    function logout() { toast('Đã đăng xuất'); setTimeout(() => go('login'), 300); }
+    function togglePass() {
+      const input = document.getElementById('f-pass');
+      const use = document.getElementById('eyeUse');
+      const show = input.type === 'password';
+      input.type = show ? 'text' : 'password';
+      use.setAttribute('href', show ? '#i-eye-off' : '#i-eye');
+    }
+    let ciWrong = false;
+    function toggleWrongPoint() {
+      ciWrong = !ciWrong;
+      const b = document.getElementById('ci-match-banner');
+      const btn = document.getElementById('ci-save-btn');
+      if (!b) return;
+      if (ciWrong) {
+        b.style.background = '#FFCDD2';
+        b.style.color = '#B71C1C';
+        b.textContent = 'Sai điểm · 86 m · gần Km 12+300 (Cống C) — chặn Lưu';
+        if (btn) { btn.disabled = true; btn.style.opacity = '.45'; }
+        toast('LOC_WRONG_POINT · không Lưu');
+      } else {
+        b.style.background = '#C8E6C9';
+        b.style.color = '#1B5E20';
+        b.textContent = 'Đúng điểm · 18 m · GPS ±4 m · auto-pin';
+        if (btn) { btn.disabled = false; btn.style.opacity = '1'; }
+      }
+    }
+    function saveCheckin() {
+      if (ciWrong) { toast('Chặn — không đúng điểm KH'); return; }
+      closeSheet();
+      toast('Check-in Online · immutable');
+    }
+    function openSheet(name) {
+      document.getElementById('app').classList.add('sheet-open');
+      document.getElementById('sheetBg').classList.add('open');
+      document.querySelectorAll('.sheet').forEach(s => s.classList.remove('open'));
+      document.getElementById('sheet-' + name).classList.add('open');
+      if (window.FeatureGuide) window.FeatureGuide.set(name);
+    }
+    function closeSheet() {
+      document.getElementById('app').classList.remove('sheet-open');
+      document.getElementById('sheetBg').classList.remove('open');
+      document.querySelectorAll('.sheet').forEach(s => s.classList.remove('open'));
+    }
+    function requestCloseSheet() { openModal('leave'); }
+    function confirmLeave() { closeModal(); closeSheet(); toast('Đã hủy — không lưu'); }
+    function openModal(name) {
+      document.querySelectorAll('.modal-backdrop').forEach(m => m.classList.remove('open'));
+      const el = document.getElementById('modal-' + name);
+      if (el) el.classList.add('open');
+    }
+    function closeModal() { document.querySelectorAll('.modal-backdrop').forEach(m => m.classList.remove('open')); }
+    let captureTarget = 'vision';
+    function openCapture(target) {
+      captureTarget = target || 'vision';
+      const ov = document.getElementById('captureOverlay');
+      if (!ov) return;
+      document.getElementById('app').classList.add('sheet-open');
+      ov.classList.add('open');
+      ov.classList.remove('previewed');
+      if (window.FeatureGuide) window.FeatureGuide.set('photo-capture');
+    }
+    function takePhoto() {
+      document.getElementById('captureOverlay').classList.add('previewed');
+    }
+    function retakePhoto() {
+      document.getElementById('captureOverlay').classList.remove('previewed');
+    }
+    function usePhoto() {
+      const root = captureTarget === 'checkin'
+        ? document.querySelector('#sheet-checkin .photo-row')
+        : captureTarget === 'incident'
+          ? document.querySelector('#sheet-incident .photo-row')
+          : document.querySelector('#sc-vis-capture .photo-row');
+      const empty = root && root.querySelector('.photo-slot:not(.filled)');
+      if (empty) {
+        empty.classList.add('filled');
+        empty.textContent = 'IMG';
+      }
+      closeCapture();
+      toast('Đã gắn ảnh · vị trí đã chốt');
+    }
+    function closeCapture() {
+      const ov = document.getElementById('captureOverlay');
+      if (!ov) return;
+      ov.classList.remove('open', 'previewed');
+      if (!document.querySelector('.sheet.open')) document.getElementById('app').classList.remove('sheet-open');
+    }
+    let toastTimer;
+    function toast(msg) {
+      const el = document.getElementById('toast');
+      el.textContent = msg;
+      el.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => el.classList.remove('show'), 2200);
+    }
+    document.getElementById('jumpChips').addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-jump]');
+      if (btn) go(btn.dataset.jump);
+    });
+    document.getElementById('chipWrongPoint').addEventListener('click', () => {
+      go('patrol-map');
+      openSheet('checkin');
+      if (!ciWrong) toggleWrongPoint();
+    });
+    document.getElementById('chipPhotoGps').addEventListener('click', () => {
+      go('vis-capture');
+      openCapture('vision');
+    });
+    setAuthMode(true);
+    if (window.FeatureGuide) window.FeatureGuide.mount('android');
+  </script>
+</body>
+</html>

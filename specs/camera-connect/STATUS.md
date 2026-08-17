@@ -3,136 +3,117 @@
 | Field | Value |
 |-------|-------|
 | feature | `camera-connect` |
-| phase | `qa` |
-| status | `blocked` |
+| phase | `done` |
+| status | `done` |
 | changeScope | `edit_page` |
 | packKind | `list` |
-| gap | `crud_formtype` |
+| gap | `list_config_schema` + `GAP-DES-VIEW-DL` |
 | mode | `fix_gaps` |
-| taskId | `task_e98137ab` (prior `task_ba57a61f`) |
+| taskId | `task_de015f02` |
 | demo | `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/camera-connect-demo.html` |
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/camera-connect.md` |
-| planLive | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/21-CAMERA-HLS-WEBRTC-GATEWAY.md` |
-| researchSdk | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/22-CAMERA-TCM403-SDK-RESEARCH.md` |
+| controlHint | `D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/camera-connect-control-hint.md` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Camera` |
-| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/cameras` · BFF `web-bff/api/v1/cameras` |
-| skillVersion | `2026.08.10.2` |
+| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/cameras` · schema `api/v1/integration/catalogs/camera-devices/ui-schema` |
+| skillVersion | `2026.08.15.19` |
 | schemaVersion | `qldb-workflow-skill-v1` |
-| workflowVersion | `2026.08.10.2` |
+| workflowVersion | `2026.08.15.19` |
 | versionGate | `rechecked` |
 | mfeStdRoute | `/camera` |
 | mfeStdUrl | `http://localhost:9316/camera` |
-| updatedAt | `2026-08-14T14:47:32.599Z` |
+| updatedAt | `2026-08-15T21:12:19.726Z` |
 ## Lock
 
 | agent | scope | id | at |
 |-------|-------|-----|-----|
-| — | — | — | — |
+| — | — | — | released |
 
 ## Confirms (chat)
 
 | Key | Value | Notes |
 |-----|-------|-------|
-| design_confirm | **approve** | user 2026-08-09 · move implement real |
+| design_confirm | **approved** | autoApprove ON · agent · `task_2eab28c8` · reviewUrl proto + `http://localhost:9316/camera` |
 | be_repo_confirm | **approved** | `Linm.RMMS.WebService` |
 | ui_repo_confirm | **approved** | `Linm.Web.RMMS.Camera` |
-| solution_confirm | **approve** | model-standard: TCM403 **SDK-first** · ISAPI when HTTP · CRUD CameraDevice |
-| live_gateway_confirm | **pending** | AskQuestion plan 21 §12 trước code MediaMTX |
+| solution_confirm | **approved** | autoApprove ON · agent · `task_ae3b33f3` · seed `camera-devices` · CRUD keep · no new API |
+| sa_tz_gate | **tz_na** | no date filter/field this pack · audit UTC keep |
+| sa_xco_gate | **xco_get_only** | API-02 GET/{id} |
+| sa_shared_table | **share_tenant** | `CameraDeviceEntity` |
+| review_confirm | **approve** | autoApprove ON · `/agent-review` · `task_de015f02` |
+| live_gateway_confirm | **pending** | plan 21 · out of this edit |
 
 ## Pipeline
 
 | Step | Agent | Artifact | Status |
 |------|-------|----------|--------|
-| 2.1 | design | demo = prototype | **confirmed** |
-| 2.2 | sa | model + SDK/ISAPI | **done** |
-| 3 | team_lead | task/camera-connect.md formType pack | **done** (task_ba57a61f re-audit · no new ACT/CRUD ids) |
-| 4 | dev | implement/camera-connect.md | **done** (`task_e98137ab`) |
-| 5 | qa | qa/scenarios.md | **blocked** (paused) |
-| 6 | next | P2-G0 live video gateway | **pending confirm** |
-
+| 0 | data_analy | control-hint § Delta | **confirmed** |
+| 1 | po | po/requirement.md | **confirmed** |
+| 2.1 | design | reviewUrl | **confirmed** |
+| 2.2 | sa | be/solution-discovery.md | **confirmed** |
+| 3 | team_lead | task/camera-connect.md | **confirmed** |
+| 4 | dev | View `<dl>` · LKP Select · UX filterMax | **confirmed** |
+| 5 | qa | QA-40/41 + View dl · T-QA-CRUD-01 | **confirmed** |
+| 6 | review | review/findings.md | **done** |
 ## Tasks
 
 | id | page | role | status | notes |
 |----|------|------|--------|-------|
-| T-BE-01 | cameras connect ISAPI | dev | **done** | test · ingest · events · Digest |
-| T-BE-EVENT-01 | CameraEvent persist | dev | **done** | EF `rmms_camera_events` · ingest SaveChanges · GET /events from DB |
-| T-BE-02 | model + SDK connect | dev | **done** | Catalog · Login_V40 · `/models` |
-| T-BE-03 | SDK CaptureJPEG | dev | **done** | `CaptureJPEGPicture_NEW` · snapshot `source=sdk` |
-| T-BFF-01 | cameras proxy | dev | **done** | forward raw JSON (no envelope) |
-| T-UI-FORM | /camera/new | dev | **done** | Kind C · models API · RTSP · notify URL · footer Save · View mode |
-| T-UI-PARSE | cameraService unwrap | dev | **done** | BFF raw DTO · không dùng `unwrap` envelope |
-| T-UI-LIVE-JPEG | Z3 snapshot | dev | **done** | data-URI JPEG sau Test / Bật live |
-| T-UI-LIST-01 | /camera Kind B | dev | **done** | LinPageLayout · grid · pager (SSOT) |
-| T-UI-ACT-01 | list actions | dev | **done** | toolbar + row menu → form/API |
-| T-BE-CRUD-01 | CameraDevice CRUD | dev | **done** | list/get/create/update/soft-delete |
-| T-BE-EF | CameraDevice | dev | **done** | was deferred · closed this turn |
-| T-BFF-CRUD | cameras CRUD proxy | dev | **done** | GET/POST/PUT/DELETE |
-| T-PERM-01 | camera.devices.* | dev | **done** | FE permissions stub |
-| T-QA-CRUD-01 | CRUD smoke | qa | **done** | Create→Edit→View→Delete |
-| T-BE-SDK-LISTEN | ITS plate callback | — | **deferred** | `COMM_ITS_PLATE_RESULT` |
-| T-BE-SDK-OS | Docker Linux vs Win64 DLL | dev | **done** | GAP-CAM-SDK-OS · `REQUIRE_HIKVISION_SDK` default false · Linux `.so` DEFERRED |
-| T-P2-G0 | MediaMTX POC | — | **next** | plan 21 · continuous live |
-| T-P2-G1 | live/start + player | — | pending | sau G0 + confirm §12 |
+| T-CTX-01 | docs | review | **pass** | context keep |
+| T-PERM-01 | perm | review | **pass** | `camera.devices.*` FE · BE stub OUT |
+| T-UI-LIST-01 | list A–D | review | **pass** | cấm rewrite shell |
+| T-UI-CONFIG-01 | list schema | review | **pass** | `LinCatalogUiSchemaEditorModal` |
+| T-BE-SCHEMA-01 | camera-devices | review | **pass** | seed keep |
+| T-BE-CRUD-01 | cameras | review | **pass** | no new API |
+| T-BFF-01 | cameras bff | review | **pass** | proxy keep |
+| T-UI-FORM-01 | Kind C view | review | **pass** | **GAP-DES-VIEW-DL CLOSED** `<dl>` |
+| T-UI-LKP-01 | form lookup | review | **pass** | **GAP-TL-LKP-SELECT-01 CLOSED** Lin Select |
+| T-UI-FIELD-01 | field map | review | **pass** | + dl labels |
+| T-UI-PROD-01 | product | review | **pass** | cấm View=readOnly Input |
+| T-UI-UX-01 | ux | review | **pass** | **GAP-TL-UX-FILTER-MAX-01 CLOSED** |
+| T-UI-ACT-01 | actions | review | **pass** | list keep |
+| T-QA-CRUD-01 | qa | qa | **pass** | `task_03f79795` · yarn typecheck+build PASS |
 
-## Verify (task_e98137ab · /agent-dev)
+## Blockers / open questions
 
-| Check | Result |
-|-------|--------|
-| retry.ssot_rereview live list | **PASS** — 1× LinPageLayout · LinCatalogDataGrid resize ON · LinCatalogListPagination · catalogToolbar · no CatalogListShell |
-| Form Kind C | **PASS** — GET `/cameras/models` · RTSP port · ISAPI notify URL · footer Save/Cancel · View mode |
-| yarn typecheck (Camera) | **PASS** |
-| LINM_RUN_DEV_LOCAL_BUNDLE=1 yarn build | **PASS** (size warnings only) |
-| dotnet build Release | **PASS** 0 Error(s) |
-| BE Write | none — models/CRUD already `api/v1/cameras` · BFF `/models` |
+- Cluster `specs/camera-connect/specs/_data-analy/clusters/camera-connect.md` **không tồn tại** — SSOT = control-hint
+- GAP-P2-CC-06 / GAP-DEV-CONFIG-PLACEHOLDER-01 / GAP-DEV-GRID-SCHEMA-BOOTSTRAP-01 **CLOSED live**
+- GAP-DES-VIEW-DL **CLOSED** — View Z1–Z2 `<dl>` · Pass mask
+- GAP-TL-LKP-SELECT-01 **CLOSED** — Lin `Select` model/protocol
+- GAP-TL-UX-FILTER-MAX-01 **CLOSED** — removed `filterMaxWidthPx`
+- P2 live gateway **OUT pack**
+- Review `task_de015f02` **approve** · P0 none · pipeline **closed**
 
-## Verify (GAP-CAM-SDK-OS · 2026-08-14)
+## Links
 
-| Check | Result |
-|-------|--------|
-| Docker `compose` camera-host-sdk | **PASS** — Linux API `:5111` · BFF `ApiBase=host.docker.internal:5101` |
-| Win64 API `:5101` health | **PASS** `sdkDllLoaded=true` `sdkOs=windows` |
-| BFF `/cameras/health` | **PASS** proxies Win64 (`sdkDllLoaded=true`) |
-| POST `/connect/snapshot` via BFF | **PASS** `source=sdk` CaptureJPEG JPEG bytes |
-| Runtime Linux | `sdkDllLoaded=false` · `sdkOs=linux` · hint Win64 API `:5101` |
-| CaptureJPEG lab | Win64 host API + BFF `RMMS_API_BASE=http://host.docker.internal:5101` |
+- po: `D:/AI-QLBD/Linm.RMMS.Data/specs/camera-connect/po/requirement.md`
+- data-analy: `D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/camera-connect-control-hint.md`
+- design: `D:/AI-QLBD/Linm.RMMS.Data/specs/camera-connect/ui/design.md`
+- sa: `D:/AI-QLBD/Linm.RMMS.Data/specs/camera-connect/be/solution-discovery.md`
+- tl: `D:/AI-QLBD/Linm.RMMS.Data/specs/camera-connect/task/camera-connect.md`
+- implement: `D:/AI-QLBD/Linm.RMMS.Data/specs/camera-connect/implement/camera-connect.md`
+- qa: `D:/AI-QLBD/Linm.RMMS.Data/specs/camera-connect/qa/scenarios.md`
+- review: `D:/AI-QLBD/Linm.RMMS.Data/specs/camera-connect/review/findings.md`
+- prototype: `D:/AI-QLBD/Linm.RMMS.Data/specs/camera-connect/ui/prototype/camera-connect-list-prototype.html`
+- reviewUrl: `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/camera-connect/ui/prototype/camera-connect-list-prototype.html` · live `http://localhost:9316/camera`
+- DOMAIN-MAP: `D:/AI-QLBD/Linm.RMMS.WebService/docs/DOMAIN-MAP.md`
 
-## Verify (task_cam_event_persist_20260812)
+## Resume / closeout
 
-| Check | Result |
-|-------|--------|
-| dotnet build Release | **PASS** 0 Error(s) |
-| Migration `20260812160439_Schema_RmmsCameraEvents` | **applied** (docker API log → `__EFMigrationsHistory`) |
-| POST ingest + GET events | **PASS** plate=`TEST-PERSIST-001` persisted |
+- closeout Review: `task_de015f02` · roleOnly=`review` · `/agent-review` · autoApprove=ON · **approve** · yarn typecheck+build **PASS** · pipeline **closed** · at: `2026-08-16T04:10:00.000Z`
+- closeout QA: `task_03f79795` · roleOnly=`qa` · `/agent-qa` · autoApprove=ON · T-QA-CRUD-01 **pass** · yarn typecheck+build **PASS** · chain next=`review` **pending enqueue** · at: `2026-08-16T04:00:00.000Z`
+- closeout Dev: `task_ba4221ae` · roleOnly=`dev` · `/agent-dev` · autoApprove=ON · chain next=`qa` **pending enqueue** · FE write Camera form/list · BE no write · yarn typecheck+build **PASS** · at: `2026-08-16T03:55:00.000Z`
 
-## Verify (task_ba57a61f · crud_formtype)
+## Verify
 
-| Check | Result |
-|-------|--------|
-| TL re-audit ACT/CRUD ids | **PASS** — no new ids (already on task MD) |
-| retry.ssot_rereview live list/form | **PASS** |
-| yarn typecheck (Camera) | **PASS** |
-| LINM_RUN_DEV_LOCAL_BUNDLE=1 yarn build | **PASS** (size warnings only) |
-| dotnet build Release | **PASS** 0 Error(s) |
-| BE Write | none — DOMAIN Camera CRUD already at `api/v1/cameras` |
-| QA-CRUD smoke (code) | **PASS** Create/Edit/View/Copy/Delete + row menu |
+| Gate | Result |
+|------|--------|
+| Role | review · completed · review/findings.md |
+| FE/BE write this role | **none** (artifact STATUS + findings only) |
+| FE yarn typecheck | **PASS** |
+| FE yarn build | **PASS** (webpack 5.109.2 · 3 size warnings) |
+| BE dotnet build | n/a this role (no API delta · Dev PASS keep) |
+| ERP.* | **none** |
 
-## Verify (task_6baf42c3)
+## Version meta
 
-| Check | Result |
-|-------|--------|
-| yarn typecheck (Camera) | **PASS** |
-| yarn build (Camera) | **PASS** (size warnings only) |
-| dotnet build Release | **PASS** 0 Error(s) |
-
-## Next step — xem live (video liên tục)
-
-Hiện tại Z3 = **poll JPEG** (SDK CaptureJPEG) — đủ “thấy ảnh”, **không** đủ FPS live.
-
-| # | Việc | Artifact |
-|---|------|----------|
-| **1** | Confirm gate plan 21 §12 (engine · WebRTC/HLS · deploy) | AskQuestion |
-| **2** | **P2-G0 POC** MediaMTX + RTSP TCM403 | Docker gateway |
-| **3** | Browser play HLS + WebRTC | đo latency/CPU |
-| **4** | **P2-G1** `live/start|stop` + playToken + MFE player | API + Z3 |
-
-SSOT: [`docs/context/21-CAMERA-HLS-WEBRTC-GATEWAY.md`](../../docs/context/21-CAMERA-HLS-WEBRTC-GATEWAY.md)
+skillVersion=`2026.08.15.19` · schemaVersion=`qldb-workflow-skill-v1` · workflowVersion=`2026.08.15.19`

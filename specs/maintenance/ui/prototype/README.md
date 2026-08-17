@@ -1,11 +1,10 @@
 # Prototype — maintenance
 
-Design gate: **prototype + reviewUrl** — board Approve (**không auto**).
-Repo confirm: user tick BE+UI trên `/qldb-workflow` Progress trước Dev (**không auto** · cấm ERP.*).
+Design gate: **prototype + reviewUrl** — board Approve (`autoApprove=OFF` · **không auto**).
 
 - Demo SSOT: `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/maintenance-demo.html`
 - Title: Lập lịch sửa chữa / bảo trì
-- Pack kind: `list`
-- MFE: `Linm.Web.RMMS.Field`
+- Pack kind: `list` · Kind B A–D + Zone F + **full-page form** (cấm Slideout)
+- MFE: `Linm.Web.RMMS.Field` · `/maintenance`
 
-Put HTML prototype / screenshot link here; update `ui/design.md` with a browser-openable **reviewUrl**.
+**reviewUrl:** `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/maintenance/ui/prototype/maintenance-list-prototype.html`

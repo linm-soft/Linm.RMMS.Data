@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Prototype — Đếm xe · Kind E A–D</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
+  <style>
+    :root { --bg:#f5f7fa; --card:#fff; --border:#BABCBE; --txt:#1A1A1A; --muted:#6c757d; --primary:#0f766e; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family:"Segoe UI",system-ui,sans-serif; background:var(--bg); color:var(--txt); font-size:13px; }
+    .page { max-width:1280px; margin:0 auto; padding:8px; display:flex; flex-direction:column; gap:8px; min-height:100vh; }
+    h1 { margin:0; font-size:22px; }
+    .zone-a { display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+    .zone-b { display:flex; flex-wrap:wrap; gap:8px; align-items:flex-end; justify-content:space-between; padding:10px 12px; background:#f8fafc; border:1px solid #e9ecef; border-radius:4px; }
+    .zone-b .left { font-weight:700; align-self:center; }
+    .zone-b .right { display:flex; flex-wrap:wrap; gap:8px; align-items:flex-end; }
+    .btn { height:32px; padding:0 12px; border:1px solid var(--border); border-radius:4px; background:#fff; cursor:pointer; font-weight:600; }
+    .btn.primary { background:var(--primary); color:#fff; border-color:var(--primary); }
+    .field { display:flex; flex-direction:column; gap:4px; min-width:132px; }
+    label { color:var(--muted); font-size:12px; }
+    input { padding:6px 10px; border:1px solid var(--border); border-radius:4px; min-height:32px; }
+    .zone-c { background:#fff; border:1px solid #e9ecef; border-radius:4px; flex:1; display:flex; flex-direction:column; min-height:320px; }
+    .grid-wrap { overflow:auto; flex:1; }
+    table { width:100%; border-collapse:collapse; }
+    th, td { padding:8px 12px; border-bottom:1px solid #e9ecef; text-align:left; white-space:nowrap; }
+    th { background:#f8fafc; font-size:12px; color:var(--muted); cursor:col-resize; }
+    .empty { text-align:center; color:#94a3b8; padding:40px; }
+    .zone-d { display:flex; justify-content:center; gap:12px; padding:12px; border-top:1px solid #e9ecef; align-items:center; flex-wrap:wrap; }
+    .hidden { display:none !important; }
+    .toast { position:fixed; left:50%; bottom:18px; transform:translateX(-50%); background:#0f172a; color:#e2e8f0; padding:10px 16px; border-radius:999px; display:none; z-index:20; }
+    .toast.on { display:block; }
+    .drill { border:0; background:none; color:var(--primary); font-weight:700; cursor:pointer; text-decoration:underline; }
+    .overlay { position:fixed; inset:0; background:rgba(15,23,42,.45); display:flex; align-items:center; justify-content:center; z-index:10; }
+    .modal { background:#fff; border-radius:8px; padding:16px; width:min(640px,92vw); max-height:80vh; overflow:auto; }
+    .chart-row { display:flex; gap:6px; align-items:flex-end; height:120px; }
+    .bar { background:var(--primary); width:28px; min-height:4px; border-radius:4px 4px 0 0; }
+    .cfg-row { display:flex; gap:8px; align-items:center; padding:6px 0; border-bottom:1px solid #e9ecef; }
+  </style>
+</head>
+<body>
+  <div class="page" data-kind="report" data-testid="rmms-traffic-count-report-prototype">
+    <header class="zone-a"><h1><i class="fas fa-car"></i> Đếm xe</h1></header>
+    <section class="zone-b">
+      <div class="left">Bộ lọc</div>
+      <div class="right">
+        <div class="field"><label>Bảng</label>
+          <input id="tab" list="tabs" placeholder="KQ đếm xe" value="kq" />
+          <datalist id="tabs">
+            <option value="kq">KQ đếm xe</option>
+            <option value="b1">Bảng B.1</option>
+            <option value="b2">Tổng hợp B.2</option>
+          </datalist>
+        </div>
+        <div class="field"><label>Tuyến</label>
+          <input id="route" list="routes" placeholder="Tất cả tuyến" />
+          <datalist id="routes">
+            <option value="QL.1"></option><option value="QL.15"></option><option value="QL.217"></option>
+            <option value="HCM"></option><option value="CT.001"></option><option value="QL.7"></option>
+            <option value="QL.8"></option><option value="QL.9"></option><option value="QL.10"></option>
+          </datalist>
+        </div>
+        <div class="field"><label>Điểm đếm</label>
+          <input id="station" list="stations" placeholder="Tất cả điểm" />
+          <datalist id="stations"></datalist>
+        </div>
+        <div class="field"><label>Từ</label><input type="date" id="from" value="2026-07-01" /></div>
+        <div class="field"><label>Đến</label><input type="date" id="to" value="2026-08-15" /></div>
+        <div class="field"><label>Tìm</label><input id="q" placeholder="trạm · tuyến" /></div>
+        <button class="btn primary" id="btnView" type="button"><i class="fas fa-search"></i> Xem</button>
+        <button class="btn" id="btnRefresh" type="button"><i class="fas fa-sync-alt"></i> Làm mới</button>
+        <button class="btn" id="btnExcel" type="button"><i class="fas fa-file-excel"></i> Xuất Excel</button>
+        <button class="btn" id="btnChart" type="button"><i class="fas fa-chart-bar"></i> Biểu đồ</button>
+        <button class="btn" id="btnPrint" type="button"><i class="fas fa-print"></i> In</button>
+        <button class="btn" id="btnCfg" type="button"><i class="fas fa-cog"></i> Config</button>
+      </div>
+    </section>
+    <section class="zone-c">
+      <div style="padding:12px 16px"><strong id="listTitle">Kết quả đếm xe</strong>
+        <p id="help" style="margin:4px 0 0;color:#6c757d">Chưa xem — nhấn «Xem» để tải báo cáo đếm xe.</p>
+      </div>
+      <div id="empty" class="empty">Chưa xem — nhấn «Xem» để tải báo cáo đếm xe.</div>
+      <div class="grid-wrap">
+        <table id="grid" class="hidden">
+          <thead id="thead"></thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+      <div class="zone-d">
+        <span>Tổng: <span id="total">0</span> · Trang 1/1</span>
+        <span>Hiển thị 50 / 100 / 200 / 500</span>
+      </div>
+    </section>
+  </div>
+  <div class="overlay hidden" id="chartModal">
+    <div class="modal">
+      <h3>SoCai — tổng xe theo tuyến</h3>
+      <div class="chart-row" id="chartBars"></div>
+      <p id="chartHint" style="color:#6c757d"></p>
+      <button class="btn" type="button" id="btnCloseChart">Đóng</button>
+    </div>
+  </div>
+  <div class="overlay hidden" id="cfgModal">
+    <div class="modal">
+      <h3>Config cột FULL</h3>
+      <div id="cfgList"></div>
+      <button class="btn primary" type="button" id="btnCloseCfg">Lưu</button>
+    </div>
+  </div>
+  <div class="toast" id="toast"></div>
+  <script>
+    const ROWS = [
+      { id:'tc1', station:'Km12+000 QL.1', route:'QL.1', day:'2026-08-01', bike:12, moto:420, car:180, taxi:20, minibus:14, bus:24, light:50, heavy:40, container:8, other:6, total:714, peak:'07:00' },
+      { id:'tc2', station:'Km45+200 QL.15', route:'QL.15', day:'2026-08-01', bike:8, moto:310, car:95, taxi:10, minibus:8, bus:12, light:22, heavy:18, container:4, other:6, total:457, peak:'17:00' },
+      { id:'tc3', station:'Km8+100 QL.217', route:'QL.217', day:'2026-07-31', bike:6, moto:210, car:70, taxi:6, minibus:5, bus:8, light:30, heavy:25, container:3, other:4, total:343, peak:'07:30' },
+      { id:'tc4', station:'Km3+000 HCM', route:'HCM', day:'2026-07-31', bike:20, moto:500, car:220, taxi:30, minibus:18, bus:30, light:60, heavy:50, container:12, other:8, total:860, peak:'08:00' },
+      { id:'tc5', station:'Km2+400 CT.001', route:'CT.001', day:'2026-07-30', bike:2, moto:80, car:340, taxi:40, minibus:12, bus:18, light:90, heavy:110, container:28, other:6, total:638, peak:'16:30' },
+      { id:'tc6', station:'Km18+000 QL.1', route:'QL.1', day:'2026-07-30', bike:10, moto:390, car:160, taxi:18, minibus:12, bus:20, light:48, heavy:40, container:7, other:5, total:658, peak:'07:15' },
+      { id:'tc7', station:'Km22 QL.7', route:'QL.7', day:'2026-07-29', bike:7, moto:250, car:60, taxi:8, minibus:6, bus:6, light:16, heavy:14, container:2, other:4, total:346, peak:'07:00' },
+      { id:'tc8', station:'Km11 QL.8', route:'QL.8', day:'2026-07-29', bike:5, moto:180, car:50, taxi:5, minibus:4, bus:4, light:12, heavy:10, container:1, other:3, total:256, peak:'17:30' },
+      { id:'tc9', station:'Km5 QL.9', route:'QL.9', day:'2026-07-28', bike:4, moto:160, car:45, taxi:4, minibus:3, bus:5, light:10, heavy:8, container:1, other:3, total:228, peak:'07:45' },
+      { id:'tc10', station:'Km9 QL.10', route:'QL.10', day:'2026-07-28', bike:6, moto:200, car:70, taxi:7, minibus:5, bus:9, light:18, heavy:17, container:3, other:4, total:314, peak:'16:00' },
+      { id:'tc11', station:'Km30 QL.15', route:'QL.15', day:'2026-07-27', bike:9, moto:280, car:88, taxi:9, minibus:7, bus:10, light:24, heavy:18, container:3, other:5, total:420, peak:'07:20' },
+      { id:'tc12', station:'Km14 QL.217', route:'QL.217', day:'2026-07-27', bike:5, moto:190, car:62, taxi:6, minibus:4, bus:7, light:26, heavy:22, container:3, other:4, total:307, peak:'17:10' }
+    ];
+    const stationList = document.getElementById('stations');
+    [...new Set(ROWS.map(r => r.station))].forEach(s => { const o = document.createElement('option'); o.value = s; stationList.appendChild(o); });
+    let viewed = false;
+    const toast = (m) => { const t = document.getElementById('toast'); t.textContent = m; t.classList.add('on'); setTimeout(() => t.classList.remove('on'), 1800); };
+    function tabKey() {
+      const v = (document.getElementById('tab').value || 'kq').toLowerCase();
+      if (v.includes('b.1') || v === 'b1') return 'b1';
+      if (v.includes('b.2') || v === 'b2') return 'b2';
+      return 'kq';
+    }
+    function filtered() {
+      const route = document.getElementById('route').value.trim().toLowerCase();
+      const st = document.getElementById('station').value.trim().toLowerCase();
+      const q = document.getElementById('q').value.trim().toLowerCase();
+      const from = document.getElementById('from').value;
+      const to = document.getElementById('to').value;
+      return ROWS.filter(r =>
+        (!route || r.route.toLowerCase().includes(route)) &&
+        (!st || r.station.toLowerCase().includes(st)) &&
+        (!q || r.station.toLowerCase().includes(q) || r.route.toLowerCase().includes(q)) &&
+        r.day >= from && r.day <= to
+      );
+    }
+    function render() {
+      const tab = tabKey();
+      const help = document.getElementById('help');
+      const empty = document.getElementById('empty');
+      const grid = document.getElementById('grid');
+      const titles = { kq: 'Kết quả đếm xe', b1: 'Bảng B.1 — phân loại xe', b2: 'Tổng hợp B.2 theo tuyến' };
+      document.getElementById('listTitle').textContent = titles[tab];
+      if (!viewed) {
+        empty.classList.remove('hidden'); grid.classList.add('hidden');
+        empty.textContent = 'Chưa xem — nhấn «Xem» để tải báo cáo đếm xe.';
+        help.textContent = empty.textContent;
+        document.getElementById('total').textContent = '0';
+        return;
+      }
+      let rows = filtered();
+      if (!rows.length) {
+        empty.textContent = 'Không có dòng phù hợp bộ lọc.'; empty.classList.remove('hidden');
+        grid.classList.add('hidden'); document.getElementById('total').textContent = '0'; help.textContent = empty.textContent; return;
+      }
+      empty.classList.add('hidden'); grid.classList.remove('hidden'); help.textContent = '';
+      let thead, body;
+      if (tab === 'b2') {
+        const map = {};
+        rows.forEach(r => {
+          const g = map[r.route] || { route: r.route, moto:0, car:0, bus:0, light:0, heavy:0, container:0, total:0 };
+          g.moto += r.moto; g.car += r.car; g.bus += r.bus; g.light += r.light; g.heavy += r.heavy; g.container += r.container; g.total += r.total;
+          map[r.route] = g;
+        });
+        rows = Object.values(map);
+        thead = '<tr><th>STT</th><th>Tuyến</th><th>Xe máy</th><th>Xe con</th><th>Bus</th><th>Tải nhẹ</th><th>Tải nặng</th><th>Container</th><th>Tổng</th></tr>';
+        body = rows.map((r,i) => `<tr><td>${i+1}</td><td>${r.route}</td><td>${r.moto}</td><td>${r.car}</td><td>${r.bus}</td><td>${r.light}</td><td>${r.heavy}</td><td>${r.container}</td><td>${r.total}</td></tr>`).join('');
+      } else if (tab === 'b1') {
+        thead = '<tr><th>STT</th><th>Điểm đếm</th><th>Ngày</th><th>Xe đạp</th><th>Xe máy</th><th>Xe con</th><th>Taxi</th><th>Minibus</th><th>Bus</th><th>Tải nhẹ</th><th>Tải nặng</th><th>Container</th><th>Khác</th><th>Tổng</th></tr>';
+        body = rows.map((r,i) => `<tr><td>${i+1}</td><td>${r.station}</td><td>${r.day}</td><td>${r.bike}</td><td>${r.moto}</td><td>${r.car}</td><td>${r.taxi}</td><td>${r.minibus}</td><td>${r.bus}</td><td>${r.light}</td><td>${r.heavy}</td><td>${r.container}</td><td>${r.other}</td><td>${r.total}</td></tr>`).join('');
+      } else {
+        thead = '<tr><th>STT</th><th>Điểm đếm</th><th>Tuyến</th><th>Ngày</th><th>Tổng xe</th><th>Giờ cao điểm</th><th>Nguồn</th></tr>';
+        body = rows.map((r,i) => `<tr><td>${i+1}</td><td>${r.station}</td><td>${r.route}</td><td>${r.day}</td><td>${r.total}</td><td>${r.peak}</td><td><button class="drill" type="button" data-id="${r.id}">Mở sổ đếm xe</button></td></tr>`).join('');
+      }
+      document.getElementById('thead').innerHTML = thead;
+      document.getElementById('tbody').innerHTML = body;
+      document.getElementById('total').textContent = String(rows.length);
+    }
+    function applyView() { viewed = true; render(); }
+    document.getElementById('btnView').onclick = applyView;
+    document.getElementById('btnRefresh').onclick = applyView;
+    document.getElementById('tab').onchange = () => { if (viewed) render(); };
+    document.getElementById('btnExcel').onclick = () => {
+      if (!viewed) { toast('Chưa xem — nhấn «Xem» trước khi xuất'); return; }
+      const names = { kq: 'traffic-counts.csv', b1: 'traffic-counts-b1.csv', b2: 'traffic-counts-b2.csv' };
+      toast('Xuất CSV UTF-8 BOM · ' + names[tabKey()]);
+    };
+    document.getElementById('btnChart').onclick = () => {
+      if (!viewed || !filtered().length) { toast('SoCai chỉ khi đã Xem và có dòng'); return; }
+      const map = {};
+      filtered().forEach(r => { map[r.route] = (map[r.route] || 0) + r.total; });
+      const max = Math.max(...Object.values(map), 1);
+      document.getElementById('chartBars').innerHTML = Object.entries(map).map(([k,v]) =>
+        `<div title="${k}: ${v}" style="text-align:center"><div class="bar" style="height:${Math.round(v/max*110)}px"></div><div style="font-size:11px">${k}</div></div>`
+      ).join('');
+      document.getElementById('chartHint').textContent = 'Tổng xe theo tuyến (bar) · P1 prototype';
+      document.getElementById('chartModal').classList.remove('hidden');
+    };
+    document.getElementById('btnCloseChart').onclick = () => document.getElementById('chartModal').classList.add('hidden');
+    document.getElementById('btnPrint').onclick = () => { if (!viewed) { toast('Chưa xem'); return; } window.print(); };
+    document.getElementById('btnCfg').onclick = () => {
+      const cols = tabKey() === 'b1'
+        ? ['Điểm đếm','Ngày','Xe đạp','Xe máy','Xe con','Taxi','Minibus','Bus','Tải nhẹ','Tải nặng','Container','Khác','Tổng']
+        : tabKey() === 'b2'
+          ? ['Tuyến','Xe máy','Xe con','Bus','Tải nhẹ','Tải nặng','Container','Tổng']
+          : ['Điểm đếm','Tuyến','Ngày','Tổng xe','Giờ cao điểm','Nguồn'];
+      document.getElementById('cfgList').innerHTML = cols.map(c => `<label class="cfg-row"><input type="checkbox" checked /> ${c}</label>`).join('');
+      document.getElementById('cfgModal').classList.remove('hidden');
+    };
+    document.getElementById('btnCloseCfg').onclick = () => { document.getElementById('cfgModal').classList.add('hidden'); toast('Đã lưu config cột FULL'); };
+    document.getElementById('tbody').addEventListener('click', (e) => {
+      const b = e.target.closest('.drill');
+      if (!b) return;
+      toast('Drill /csdl-so-sach?kind=traffic-counts&id=' + b.getAttribute('data-id'));
+    });
+    render();
+  </script>
+</body>
+</html>

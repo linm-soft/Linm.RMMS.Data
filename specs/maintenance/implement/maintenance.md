@@ -3,65 +3,72 @@
 | Field | Value |
 |-------|-------|
 | feature | `maintenance` |
+| this role | `dev` · `/agent-dev` |
 | status | `done` |
-| changeScope | `edit_page` · gap=`crud_formtype` |
-| taskId | `task_d4dee8dc` |
-| updatedAt | 2026-08-14T20:20:00.000Z |
+| changeScope | `edit_page` |
+| packKind | `list` |
+| taskId | `task_c0e21b40` |
+| autoApprove | ON |
+| updatedAt | `2026-08-16T00:55:00.000Z` |
 | versionGate | rechecked |
 
-## retry.ssot_rereview: **pass**
+## retry.ssot_rereview (live after Write)
 
-checklist: `tl-grid-ssot` · `list_parity` · `tl-list-shell-height` · tree_master? n/a · form · list-form-quality  
-gaps fixed this turn: **GAP-LKP-SELECT** · **GAP-PROD-SLIDEOUT** · **GAP-VIEW-READONLY** · **GAP-UX-WIDTH**  
-then: **fix_all**
+| # | Check | Live | Verdict |
+|---|-------|------|---------|
+| 1 | 1× `LinPageLayout` kind=catalog — cấm nested `CatalogListShell` | `MaintenanceListPage` 1× `LinPageLayout` | **PASS** |
+| 2 | Footer `LinCatalogListPagination` | only | **PASS** |
+| 3 | Flex root + skeleton LAYOUT-06 | `.page` flex · `skeletonRows={8}` | **PASS** |
+| 4 | Toolbar catalog | refresh · history · config · +Tạo · delete | **PASS** |
+| 5 | Filter SearchTextInput + SearchInput API-09 | `useMaintenanceLookups` → init-data | **PASS** |
+| 6 | `LinCatalogDataGrid` resize ON | `buildDynamicGridColumns` | **PASS** |
+| 7 | Zone F `LinCatalogUiSchemaEditorModal` | kind=`work-orders` · seed dueAt+progressPercent+description | **PASS** |
+| 8 | History stub | present | **PASS** |
+| 9 | tree_master? | n/a | n/a |
+| 10 | Form full-page `/edit` `/copy` | `index.tsx` dedicated routes | **PASS** |
+| 11 | Lookup master API-09 | `lookups.ts` **không** import demo store | **PASS** |
+| 12 | Field map + description | form + seed field `description` | **PASS** |
+| 13 | View `<dl>` | display | **PASS** |
+| 14 | Copy code empty until POST | `fromDto` copy `code: ''` · UI `(tự sinh)` | **PASS** |
+| 15 | Dedicated `/edit` `/copy` | routes trước `:id` | **PASS** |
+| 16 | Toast SSOT list delete/progress | `dispatchAppToast` + confirm overlay — **cấm** `window.alert`/`confirm` list | **PASS** |
+| 17 | BE enum Design §3.3 | `new/in_progress/done/cancelled` · `repair/inspect/emergency` + 1-shot remap | **PASS** |
+| 18 | GET init-data + BFF | API + `WorkOrdersBffController` | **PASS** |
 
-| Check | Result |
-|-------|--------|
-| 1× `LinPageLayout` (no nested `CatalogListShell`) | **PASS** list |
-| `LinCatalogDataGrid` + column resize default ON | **PASS** |
-| Footer `LinCatalogListPagination` | **PASS** · sizes 50/100/200/500 |
-| flex + skeleton + **LAYOUT-06** | **PASS** |
-| toolbar `catalogToolbar` | **PASS** · refresh · history · config · create · **delete** |
-| filter SearchTextInput — no Tìm btn | **PASS** |
-| lookup SearchInput (cấm native Select) | **PASS** status + workType |
-| list_parity Kind B | **PASS** |
-| tree_master? | n/a |
-| form full-page (cấm Slideout / Kind D) | **PASS** `MaintenanceFormPage` |
-| View display (cấm Input readOnly) | **PASS** `<dl>` |
-| IdCode `WO-YYYYMMDD-NNNN` | **PASS** |
-| Action inventory → form/API | **PASS** · routes `/maintenance/new` · `/:id` · `?mode=edit` |
+**implement.list_parity.layout** = `flex-root + GAP-P2-LAYOUT-06 smoke`.
 
-## Done this turn (task_d4dee8dc · quality + FormType)
+## Done this turn (`task_c0e21b40`)
 
 | Task | Result |
 |------|--------|
-| T-UI-ACT-01 | Toolbar/row Delete + C/E/V/Copy → form page |
-| T-BE-CRUD-01 | Verified API-01…07 · no Write delta BE |
-| T-UI-MAP-FORM | n/a |
-| T-UI-LKP-01 | SearchInput master lookups |
-| T-UI-FIELD-01 | DTO/API map |
-| T-UI-PROD-01 | Removed `MaintenanceFormSlideout` |
-| T-UI-UX-01 | 4/8/16 · dropped `filterMaxWidthPx` |
-| T-QA-CRUD-01 | Create→Edit→View→Delete + row menu |
-| Anti-dup | **cấm** rewrite T-UI-LIST-01 shell (patch filters/nav only) |
+| T-CTX-01 | context enum §3.3 + API-09 Signed |
+| T-PERM-01 | FE codes giữ · BE `[RequirePermission]` stub |
+| T-UI-LIST-01 | A–D giữ · filter labels Design |
+| T-UI-LIST-CONFIG-01 | seed list keys Hạn+Tiến độ · labels VN |
+| T-UI-FORM-01 | `/edit` `/copy` · copy code empty |
+| T-UI-ACT-01 | action map + routes mới |
+| T-UI-LKP-01 | init-data · cấm demo enum SSOT |
+| T-UI-FIELD-01 | DTO map · dueAt UTC datetime-local · progress 0–100 |
+| T-UI-PROD-01 | cấm Resource/Slideout/readOnly |
+| T-UI-UX-01 | toast SSOT list |
+| T-BE-CRUD-01 | API-01…07 giữ |
+| T-BE-ENUM-01 | allow-list Design + remap 1-shot |
+| T-BE-INIT-01 | `GET …/init-data` trước `{id}` |
+| T-BE-UISCHEMA-01 | seed keys + description + hint «Cấu hình hiển thị danh mục» |
+| T-BFF-01 | proxy init-data |
 
-## Paths (confirmed)
+## Paths
 
 | Layer | Path |
-|-------|-------|
+|-------|------|
 | BackendRoot | `D:/AI-QLBD/Linm.RMMS.WebService` |
-| API | `api/src/RMMS.Service.Api/Domains/Maintenance/` |
-| Entity | `api/shared/RMMS.Service.Persistence/Entities/WorkOrderEntity.cs` |
-| Migration | `20260810011933_Schema_RmmsWorkOrders` |
-| BFF | `bff/domains/maintenance/LINM.RMMS.Maintenance.Bff/Controllers/WorkOrdersBffController.cs` |
-| MFE list | `pages/MaintenanceListPage/MaintenanceListPage.tsx` |
-| MFE form | `pages/MaintenanceFormPage/MaintenanceFormPage.tsx` |
-| Perm | `services/maintenance/permissions.ts` |
-| Route prefix | `api/v1/maintenance/work-orders` |
-| mfeStdRoute | `/maintenance` |
+| API | `api/v1/maintenance/work-orders` + `…/init-data` |
+| Schema | `api/v1/integration/catalogs/work-orders/ui-schema` |
+| BFF | `web-bff/api/v1/maintenance/work-orders/**` |
+| MFE | `pages/MaintenanceListPage` · `MaintenanceFormPage` |
 | mfeStdUrl | `http://localhost:9304/maintenance` |
 
-**Cấm** ERP.* — void. Step 4b: BE existing CRUD verified · no new endpoint/migration.
+**Cấm** ERP.* — void.
 
 ## Build (REQUIRED)
 
@@ -75,13 +82,17 @@ dotnet build Linm.RMMS.WebService.sln -c Release → PASS (0 Error(s), 0 Warning
 
 | ID | Note |
 |----|------|
-| SD-AUTH | `[RequirePermission]` TODO BE (CommonLib NuGet) |
-| SD-KPI | Kind E report UI DEFER — summary API stub only |
-| SD-COMMENT | comment entity DEFER |
-| SD-SLA | full escalation DEFER Workflow |
-| SD-ACCEPT | complete endpoint stub P2 UX |
-| History API | window.alert stub |
-| Schema editor | Config hint dialog P1 |
+| SD-AUTH | `[RequirePermission]` TODO CommonLib ≥1.4.0 |
+| SD-KPI | Kind E OUT |
+| GAP-RPT-SRC-WO-01 | Quantity + UnitCode OUT |
+
+## Handoff → QA (`/agent-qa`)
+
+| Field | Value |
+|-------|-------|
+| next role | `qa` · pending chain |
+| autoApprove | ON |
+| smoke | list A–D + Zone F + C/E/V/Copy + init-data labels + progress/complete |
 
 ## Version meta (REQUIRED)
 
@@ -92,5 +103,5 @@ dotnet build Linm.RMMS.WebService.sln -c Release → PASS (0 Error(s), 0 Warning
 | schemaVersion | 1 |
 | workflowVersion | 2026.08.09.02 |
 | rulesVersion | 2026.08.09.02 |
-| generatedAt | 2026-08-14T20:20:00.000Z |
+| generatedAt | 2026-08-16T00:55:00.000Z |
 | versionGate | rechecked |

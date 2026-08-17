@@ -49,7 +49,28 @@
 | 15 | `citizen` | Cổng người dân | Integration | P3 | — (≠ Góp ý nội bộ) | Demo | [citizen.md](citizen.md) |
 | 16 | `copilot` | AI Copilot | Copilot | P1 online / P2 RAG | Web drawer (mới) | Demo | [copilot.md](copilot.md) |
 | 17 | `dashboard` | Dashboard điều hành | Report | P1 KPI / P2 full | Giám sát + KPI | Context | [dashboard.md](dashboard.md) |
-| 17b | `reports` | Báo cáo Web (3 loại) | Report | P1 | BC tài sản · SC · checkin | Context | [reports.md](reports.md) |
+| 17b | `reports` | Báo cáo Web (hub) | Report | P1 | BC tài sản · SC · checkin | Context | [reports.md](reports.md) |
+| 17c | `rpt-tai-san` | BC Tài sản | Report | P1 | Web Báo cáo | Context | [rpt-tai-san.md](rpt-tai-san.md) |
+| 17d | `rpt-su-co` | BC Sự cố | Report | P1 | Web Báo cáo | Context | [rpt-su-co.md](rpt-su-co.md) |
+| 17e | `rpt-checkin` | BC Check-in | Report | P1 | Web BC checkin | Context | [rpt-checkin.md](rpt-checkin.md) |
+| 17f | `rpt-bao-cao-cong` | Báo cáo công | Report | P1.5 | attendance Kind E | Context | [rpt-bao-cao-cong.md](rpt-bao-cao-cong.md) |
+| 17g | `rpt-tuan-duong` | Báo cáo tuần đường | Report | P1.5 | patrol · GOVOne | Context | [rpt-tuan-duong.md](rpt-tuan-duong.md) |
+| 17h | `rpt-tuan-kiem` | Báo cáo tuần kiểm | Report | P1.5 | patrol · GOVOne | Context | [rpt-tuan-kiem.md](rpt-tuan-kiem.md) |
+| 17i | `rpt-tong-hop-bao-tri` | Tổng hợp bảo trì | Report | P2 | maintenance Kind E | Context | [rpt-tong-hop-bao-tri.md](rpt-tong-hop-bao-tri.md) |
+| 17j | `rpt-nhat-ky-tuan-duong` | Nhật ký tuần đường | Report | P2 | GOVOne BDTX | Context | [rpt-nhat-ky-tuan-duong.md](rpt-nhat-ky-tuan-duong.md) |
+| 17k | `rpt-nhat-ky-tuan-kiem` | Nhật ký tuần kiểm | Report | P2 | GOVOne BDTX | Context | [rpt-nhat-ky-tuan-kiem.md](rpt-nhat-ky-tuan-kiem.md) |
+| 17l | `rpt-nhat-ky-cong-viec` | Nhật ký công việc | Report | P2 | GOVOne BDTX | Context | [rpt-nhat-ky-cong-viec.md](rpt-nhat-ky-cong-viec.md) |
+| 17m | `rpt-thien-tai` | Thiên tai, bão lũ | Report | P2 | GOVOne Số liệu | Context | [rpt-thien-tai.md](rpt-thien-tai.md) |
+| 17n | `rpt-thiet-hai` | Khối lượng thiệt hại | Report | P2 | GOVOne Số liệu | Context | [rpt-thiet-hai.md](rpt-thiet-hai.md) |
+| 17o | `rpt-un-tac` | Ùn tắc / ngập úng | Report | P2 | GOVOne Số liệu | Context | [rpt-un-tac.md](rpt-un-tac.md) |
+| 17p | `rpt-hang-muc-hu-hong` | Hạng mục hư hỏng | Report | P2 | GOVOne | Context | [rpt-hang-muc-hu-hong.md](rpt-hang-muc-hu-hong.md) |
+| 17q | `rpt-tinh-trang-mat-duong` | Tình trạng mặt đường | Report | P2 | GOVOne · PCI | Context | [rpt-tinh-trang-mat-duong.md](rpt-tinh-trang-mat-duong.md) |
+| 17r | `rpt-kiem-tra-cau` | Kiểm tra cầu | Report | P2 | GOVOne 3 tab | Context | [rpt-kiem-tra-cau.md](rpt-kiem-tra-cau.md) |
+| 17s | `rpt-tngt` | Tai nạn giao thông | Report | P2 | GOVOne 6 tab | Context | [rpt-tngt.md](rpt-tngt.md) |
+| 17t | `rpt-vi-pham-hlatdb` | Vi phạm HLATĐB | Report | P2 | GOVOne | Context | [rpt-vi-pham-hlatdb.md](rpt-vi-pham-hlatdb.md) |
+| 17u | `rpt-dem-xe` | Đếm xe | Report | P2 | GOVOne B.1/B.2 | Context | [rpt-dem-xe.md](rpt-dem-xe.md) |
+| 17v | `rpt-giay-phep-thi-cong` | Giấy phép thi công | Report | P3 | GOVOne Tài liệu | Context | [rpt-giay-phep-thi-cong.md](rpt-giay-phep-thi-cong.md) |
+| 17w | `rpt-cong-van` | Công văn đi — đến | Report | P3 | GOVOne Tài liệu | Context | [rpt-cong-van.md](rpt-cong-van.md) |
 | 18 | `integration` | Open API và tích hợp | Integration | P1–P3 | Import TS · offline sync | Demo | [integration.md](integration.md) |
 | — | `feedback` | Góp ý phần mềm | Integration | P1 | Mobile **Góp ý** | Demo | [feedback.md](feedback.md) |
 | — | `users` | QL người dùng / tổ chức | Auth / Integration | P1 | Web QL Cơ quan/User · profile | Demo | [users.md](users.md) |

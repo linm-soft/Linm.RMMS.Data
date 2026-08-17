@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Prototype — Kết nối camera ITS · Kind B A–D + F + Kind C</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
+  <style>
+    :root {
+      --bg:#f5f7fa; --card:#fff; --border:#BABCBE; --soft:#e9ecef; --txt:#1A1A1A;
+      --muted:#6c757d; --primary:#0d6efd; --ok:#198754; --bad:#dc3545; --r:4px;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font:13px/1.4 "Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--txt)}
+    .page{max-width:1280px;margin:0 auto;padding:16px;min-height:100vh;display:flex;flex-direction:column}
+    .screen{display:none}
+    .screen.active{display:flex;flex-direction:column}
+    .zone-a{display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+    .zone-a h1{margin:0;font-size:22px;font-weight:700;display:flex;align-items:center;gap:10px}
+    .zone-a h1 i{color:var(--primary)}
+    .badge{font-size:11px;font-weight:700;padding:2px 8px;border-radius:4px;background:#e7f1ff;color:#0b5ed7}
+    .hint{font-size:12px;color:var(--muted);margin:0 0 10px}
+    .zone-b{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:8px 0;position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--soft)}
+    .zone-b-left,.zone-b-right{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .tb{display:inline-flex;align-items:center;gap:4px;height:32px;padding:6px 8px;border:1px solid var(--border);border-radius:var(--r);background:#EEEEEE;font-size:12px;font-weight:600;cursor:pointer}
+    .tb.primary{background:var(--primary);color:#fff;border-color:var(--primary)}
+    .tb:disabled{opacity:.55;cursor:not-allowed}
+    .filters{display:flex;flex-wrap:wrap;gap:8px;align-items:flex-end;padding:10px 0 12px}
+    .filters label{display:flex;flex-direction:column;gap:4px;font-size:11px;color:var(--muted)}
+    input,select{height:32px;padding:4px 8px;border:1px solid var(--border);border-radius:var(--r);font:inherit}
+    .si{position:relative}
+    .si input{padding-right:28px;min-width:220px}
+    .si i{position:absolute;right:8px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none}
+    .card{background:var(--card);border:1px solid var(--soft);border-radius:var(--r);flex:1;display:flex;flex-direction:column;min-height:0;overflow:hidden}
+    .grid-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 16px 8px}
+    .grid-title{margin:0;font-size:15px;font-weight:700}
+    .grid-help{margin:4px 0 0;font-size:12px;color:var(--muted)}
+    .table-wrap{overflow:auto;flex:1;min-height:200px;border-top:1px solid var(--soft)}
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:8px 10px;border-bottom:1px solid var(--soft);text-align:left;white-space:nowrap}
+    th{background:#f8fafc;font-size:12px;color:var(--muted);position:sticky;top:0}
+    tbody tr:hover,tbody tr.sel{background:#eff6ff}
+    .code{border:0;background:0;color:var(--primary);text-decoration:underline;cursor:pointer;font:inherit}
+    .pill{font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px}
+    .pill.ok{background:#d1e7dd;color:var(--ok)}
+    .pill.bad{background:#f8d7da;color:var(--bad)}
+    .zone-d{display:flex;flex-direction:column;align-items:center;gap:10px;padding:12px 16px;border-top:1px solid var(--soft)}
+    .zone-d-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center}
+    .pager-btn{width:32px;height:32px;border:1px solid var(--soft);border-radius:var(--r);background:#fff;color:var(--muted)}
+    .menu{position:relative}
+    .menu summary{list-style:none;cursor:pointer;padding:4px 8px;border:1px solid var(--border);border-radius:var(--r);background:#fff}
+    .menu summary::-webkit-details-marker{display:none}
+    .menu-panel{display:none;position:absolute;right:0;z-index:5;background:#fff;border:1px solid var(--border);border-radius:6px;min-width:140px;box-shadow:0 8px 24px rgba(0,0,0,.12)}
+    .menu[open] .menu-panel{display:block}
+    .menu-panel button{display:block;width:100%;text-align:left;border:0;background:0;padding:8px 12px;cursor:pointer;font-size:13px}
+    .backdrop{display:none;position:fixed;inset:0;background:rgba(15,23,42,.35);z-index:40;align-items:center;justify-content:center;padding:16px}
+    .backdrop.on{display:flex}
+    .modal{width:min(720px,96vw);max-height:90vh;overflow:auto;background:#fff;border-radius:8px;border:1px solid var(--soft)}
+    .modal-h{padding:12px 16px;border-bottom:1px solid var(--soft);font-weight:700}
+    .modal-b{padding:16px}
+    .modal-f{padding:12px 16px;border-top:1px solid var(--soft);display:flex;justify-content:flex-end;gap:8px}
+    .schema-tbl{width:100%;font-size:12px}
+    .schema-tbl th,.schema-tbl td{padding:6px}
+    .back{border:0;background:0;color:var(--primary);cursor:pointer;font-size:13px;padding:0}
+    .form-toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:8px 0 12px;border-bottom:1px solid var(--soft);margin-bottom:12px}
+    .form-toolbar strong{font-size:16px}
+    .spacer{flex:1}
+    .layout{display:grid;grid-template-columns:1.1fr .9fr;gap:12px}
+    @media (max-width:960px){.layout{grid-template-columns:1fr}}
+    .section{border:1px solid var(--soft);border-radius:6px;padding:14px;margin-bottom:12px;background:#fff}
+    .section h2{margin:0 0 12px;font-size:14px;color:var(--primary)}
+    .fields{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+    .field{display:flex;flex-direction:column;gap:4px}
+    .field label{font-size:11px;color:var(--muted)}
+    .field.full{grid-column:1/-1}
+    .checks{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+    .dl{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+    .dl div{border-bottom:1px dashed var(--soft);padding-bottom:6px}
+    .dl dt{font-size:11px;color:var(--muted)}
+    .dl dd{margin:2px 0 0;font-size:13px}
+    .req::after{content:" *";color:#b91c1c}
+    .live{min-height:160px;background:#111;color:#94a3b8;display:flex;align-items:center;justify-content:center;border-radius:4px;font-size:12px;text-align:center;padding:16px}
+    .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}
+    .kpi{border:1px solid var(--soft);border-radius:4px;padding:8px}
+    .kpi span{display:block;font-size:11px;color:var(--muted)}
+    .kpi b{font-size:14px}
+  </style>
+</head>
+<body>
+  <div id="screen-list" class="page screen active" data-testid="rmms-camera-list-prototype">
+    <p class="hint">Design gate · content-only A–D · Zone F schema kind=<code>camera-devices</code> · form Kind C full-page (cấm Modal / Slideout) · skip chrome/menu</p>
+    <header class="zone-a" data-des-id="DES-GRID-A">
+      <h1><i class="fas fa-video" aria-hidden="true"></i> Kết nối camera ITS</h1>
+      <span class="badge">Kind B</span>
+    </header>
+    <div class="zone-b" data-des-id="DES-GRID-B">
+      <div class="zone-b-left">
+        <button type="button" class="tb" data-action="refresh"><i class="fas fa-sync-alt"></i> Làm mới</button>
+        <button type="button" class="tb" data-action="history"><i class="fas fa-history"></i> Lịch sử</button>
+        <button type="button" class="tb" id="btn-config" title="Cấu hình hiển thị danh mục"><i class="fas fa-cog"></i></button>
+        <button type="button" class="tb" id="btn-view" disabled><i class="fas fa-eye"></i> Xem</button>
+        <button type="button" class="tb" id="btn-edit" disabled><i class="fas fa-pen"></i> Sửa</button>
+        <button type="button" class="tb" id="btn-del" disabled><i class="fas fa-trash"></i> Xóa</button>
+      </div>
+      <div class="zone-b-right">
+        <button type="button" class="tb primary" id="btn-create"><i class="fas fa-plus"></i> Thêm</button>
+      </div>
+    </div>
+    <div class="filters" data-des-id="DES-GRID-B-FILTER">
+      <label>Tìm kiếm
+        <span class="si"><input type="search" id="q" placeholder="Mã / tên / IP / model / tuyến…" /><i class="fas fa-search"></i></span>
+      </label>
+      <label>Trạng thái
+        <select id="fOnline" aria-label="Dropdown Online">
+          <option value="">Tất cả</option>
+          <option value="true">Online</option>
+          <option value="false">Offline</option>
+        </select>
+      </label>
+      <button type="button" class="tb primary" id="btn-search">Tìm</button>
+      <button type="button" class="tb" id="btn-clear">Xóa điều kiện</button>
+    </div>
+    <section class="card">
+      <div class="grid-head">
+        <div>
+          <h2 class="grid-title">Danh sách camera ANPR</h2>
+          <p class="grid-help">Nhấn đúp · menu ⋮ · kéo cột default ON · schema kind=<code>camera-devices</code></p>
+        </div>
+      </div>
+      <div class="table-wrap" data-des-id="DES-GRID-C2">
+        <table>
+          <thead>
+            <tr>
+              <th>STT</th><th>Mã camera</th><th>Tên</th><th>Model</th><th>IP / Host</th><th>SDK port</th><th>Tuyến / Km</th><th>Online</th><th></th>
+            </tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+      <div class="zone-d" data-des-id="DES-GRID-D">
+        <div>Tổng: <span id="total">0</span> · Trang <span id="page">1</span>/1</div>
+        <div class="zone-d-row">
+          <label>Hiển thị
+            <select id="pageSize"><option>50</option><option>100</option><option>200</option><option>500</option></select>
+          </label>
+          <button type="button" class="pager-btn" disabled><i class="fas fa-angle-double-left"></i></button>
+          <button type="button" class="pager-btn" disabled><i class="fas fa-angle-left"></i></button>
+          <span>1/1</span>
+          <button type="button" class="pager-btn" disabled><i class="fas fa-angle-right"></i></button>
+          <button type="button" class="pager-btn" disabled><i class="fas fa-angle-double-right"></i></button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div id="screen-form" class="page screen">
+    <div class="form-toolbar">
+      <button type="button" class="back" id="btn-back">← Danh sách</button>
+      <strong id="formTitle">Tạo mới</strong>
+      <span class="badge" id="formBadge">create</span>
+      <span class="spacer"></span>
+      <button type="button" class="tb" id="btn-test">Test kết nối</button>
+      <button type="button" class="tb primary" id="btn-save">Lưu</button>
+      <button type="button" class="tb" id="btn-cancel">Huỷ</button>
+      <button type="button" class="tb primary" id="btn-edit-view" hidden>Sửa</button>
+    </div>
+    <div class="layout">
+      <div>
+        <div class="section">
+          <h2>① Cấu hình</h2>
+          <div id="formEdit">
+            <div class="fields">
+              <div class="field"><label class="req">Model</label>
+                <select id="modelCode">
+                  <option value="iDS-TCM403-GIR">iDS-TCM403-GIR — 4 MP Radar-Assisted ANPR</option>
+                </select>
+              </div>
+              <div class="field"><label class="req">Mã camera</label><input id="code" value="CAM-QL1-12" /></div>
+              <div class="field full"><label>Tên</label><input id="name" value="Camera ANPR QL.1 · Km 12+350" /></div>
+              <div class="field"><label class="req">IP / Host</label><input id="host" value="113.179.52.55" /></div>
+              <div class="field"><label>HTTP port</label><input id="httpPort" type="number" value="80" /></div>
+              <div class="field"><label class="req">SDK port</label><input id="sdkPort" type="number" value="8100" /></div>
+              <div class="field"><label>RTSP port</label><input id="rtspPort" type="number" value="554" /></div>
+              <div class="field"><label>Protocol</label>
+                <select id="protocolMode">
+                  <option value="auto">auto (theo model)</option>
+                  <option value="sdk">sdk</option>
+                  <option value="isapi">isapi</option>
+                </select>
+              </div>
+              <div class="field"><label class="req">User</label><input id="username" value="admin" /></div>
+              <div class="field"><label class="req">Pass</label><input id="password" type="password" value="******" /></div>
+              <div class="field"><label>Tuyến</label><input id="roadRouteCode" value="QL.1" /></div>
+              <div class="field"><label>Km</label><input id="kmMark" value="12+350" /></div>
+            </div>
+          </div>
+          <div id="formView" class="dl" hidden>
+            <div><dt>Model</dt><dd>iDS-TCM403-GIR</dd></div>
+            <div><dt>Mã camera</dt><dd>CAM-QL1-12</dd></div>
+            <div><dt>Tên</dt><dd>Camera ANPR QL.1 · Km 12+350</dd></div>
+            <div><dt>IP / Host</dt><dd>113.179.52.55</dd></div>
+            <div><dt>HTTP port</dt><dd>80</dd></div>
+            <div><dt>SDK port</dt><dd>8100</dd></div>
+            <div><dt>RTSP port</dt><dd>554</dd></div>
+            <div><dt>User</dt><dd>admin</dd></div>
+            <div><dt>Pass</dt><dd>••••••</dd></div>
+            <div><dt>Tuyến / Km</dt><dd>QL.1 · 12+350</dd></div>
+          </div>
+        </div>
+        <div class="section">
+          <h2>② Protocols</h2>
+          <div class="checks" id="protoEdit">
+            <label><input type="checkbox" checked /> HTTPS</label>
+            <label><input type="checkbox" checked /> RTSP</label>
+            <label><input type="checkbox" checked /> ONVIF</label>
+            <label><input type="checkbox" checked /> ISAPI</label>
+          </div>
+          <div class="field full" style="margin-top:10px" id="notifyEdit">
+            <label>ISAPI Host notify URL</label>
+            <input value="http://camera-event-api-rmms.vn/api/v1/cameras/ingest/isapi" />
+          </div>
+          <div id="protoView" hidden>
+            <p>HTTPS · RTSP · ONVIF · ISAPI</p>
+            <p class="hint">Notify: http://camera-event-api-rmms.vn/api/v1/cameras/ingest/isapi</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="section">
+          <h2>③ Live snapshot (JPEG poll SDK)</h2>
+          <div class="live">Chưa có ảnh — Test kết nối (tự snapshot) hoặc Bật live.<br />Video RTSP liên tục = P2 MediaMTX (OUT pack).</div>
+          <div class="kpis">
+            <div class="kpi"><span>Trạng thái</span><b>Offline</b></div>
+            <div class="kpi"><span>Events</span><b>1</b></div>
+            <div class="kpi"><span>Tốc độ</span><b>72</b></div>
+            <div class="kpi"><span>Biển</span><b>29A-123.45</b></div>
+          </div>
+        </div>
+        <div class="section">
+          <h2>④ Events ISAPI</h2>
+          <table>
+            <thead><tr><th>Thời gian</th><th>Biển</th><th>Km/h</th><th>Loại</th></tr></thead>
+            <tbody>
+              <tr><td>12:04:11</td><td>29A-123.45</td><td>72</td><td>xe con</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="backdrop" id="schema-backdrop" data-des-id="DES-GRID-F">
+    <div class="modal" role="dialog" aria-labelledby="schema-title">
+      <div class="modal-h" id="schema-title">Cấu hình hiển thị danh mục</div>
+      <div class="modal-b">
+        <p class="hint">kind=<code>camera-devices</code> · List / width / filter / sort · Thêm cột · cấm configHint · cấm LinListTableConfigModal cột</p>
+        <table class="schema-tbl">
+          <thead><tr><th>List</th><th>Cột</th><th>Width</th><th>Filter</th><th>Sort</th></tr></thead>
+          <tbody>
+            <tr><td><input type="checkbox" checked /></td><td>code · Mã camera</td><td>9rem</td><td></td><td>✓</td></tr>
+            <tr><td><input type="checkbox" checked /></td><td>name · Tên</td><td>14rem</td><td></td><td>✓</td></tr>
+            <tr><td><input type="checkbox" checked /></td><td>modelCode · Model</td><td>10rem</td><td></td><td>✓</td></tr>
+            <tr><td><input type="checkbox" checked /></td><td>host · IP / Host</td><td>9rem</td><td></td><td>✓</td></tr>
+            <tr><td><input type="checkbox" checked /></td><td>sdkPort · SDK port</td><td>6rem</td><td></td><td></td></tr>
+            <tr><td><input type="checkbox" checked /></td><td>road · Tuyến / Km</td><td>8rem</td><td></td><td></td></tr>
+            <tr><td><input type="checkbox" checked /></td><td>online · Online</td><td>7rem</td><td>✓</td><td>✓</td></tr>
+          </tbody>
+        </table>
+        <button type="button" class="tb" style="margin-top:8px">Thêm cột</button>
+      </div>
+      <div class="modal-f">
+        <button type="button" class="tb" id="schema-close">Đóng</button>
+        <button type="button" class="tb primary" id="schema-save">Lưu</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    const ROWS = [
+      { code:'CAM-QL1-12', name:'Camera ANPR QL.1 · Km 12+350', model:'iDS-TCM403-GIR', host:'113.179.52.55', sdk:8100, road:'QL.1 · 12+350', online:true },
+      { code:'CAM-QL1-18', name:'Camera Km 18', model:'iDS-TCM403-GIR', host:'192.168.1.70', sdk:8000, road:'QL.1 · 18+000', online:false }
+    ];
+    let sel = -1;
+    let formMode = 'create';
+    const tbody = document.getElementById('tbody');
+    function render() {
+      const q = (document.getElementById('q').value || '').toLowerCase();
+      const on = document.getElementById('fOnline').value;
+      const rows = ROWS.filter(r => {
+        const hit = !q || [r.code,r.name,r.model,r.host,r.road].join(' ').toLowerCase().includes(q);
+        const st = !on || (on==='true'? r.online : !r.online);
+        return hit && st;
+      });
+      tbody.innerHTML = rows.map((r,i) => '<tr data-i="'+i+'"><td>'+(i+1)+'</td><td><button type="button" class="code" data-act="view">'+r.code+'</button></td><td>'+r.name+'</td><td>'+r.model+'</td><td>'+r.host+'</td><td>'+r.sdk+'</td><td>'+r.road+'</td><td><span class="pill '+(r.online?'ok':'bad')+'">'+(r.online?'Online':'Offline')+'</span></td><td><details class="menu"><summary>⋮</summary><div class="menu-panel"><button type="button" data-act="view">Xem</button><button type="button" data-act="edit">Sửa</button><button type="button" data-act="copy">Copy</button><button type="button" data-act="history">Lịch sử</button><button type="button" data-act="delete">Xóa</button></div></details></td></tr>').join('');
+      document.getElementById('total').textContent = String(rows.length);
+      tbody.querySelectorAll('tr').forEach((tr) => {
+        tr.addEventListener('click', () => {
+          tbody.querySelectorAll('tr').forEach(x => x.classList.remove('sel')); tr.classList.add('sel');
+          document.getElementById('btn-view').disabled = false;
+          document.getElementById('btn-edit').disabled = false;
+          document.getElementById('btn-del').disabled = false;
+        });
+        tr.addEventListener('dblclick', () => openForm('view'));
+      });
+      tbody.querySelectorAll('[data-act]').forEach(btn => {
+        btn.addEventListener('click', (e) => { e.stopPropagation(); openForm(btn.getAttribute('data-act')); });
+      });
+    }
+    function show(id) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+    function openForm(mode) {
+      if (mode === 'history') { alert('Lịch sử stub'); return; }
+      if (mode === 'delete') { if (confirm('Xóa camera?')) render(); return; }
+      formMode = mode === 'copy' ? 'copy' : mode;
+      document.getElementById('formTitle').textContent = ({create:'Tạo mới',edit:'Sửa',view:'Xem',copy:'Sao chép'})[formMode] || 'Form';
+      document.getElementById('formBadge').textContent = formMode;
+      const isView = formMode === 'view';
+      document.getElementById('formEdit').hidden = isView;
+      document.getElementById('formView').hidden = !isView;
+      document.getElementById('protoEdit').hidden = isView;
+      document.getElementById('notifyEdit').hidden = isView;
+      document.getElementById('protoView').hidden = !isView;
+      document.getElementById('btn-save').hidden = isView;
+      document.getElementById('btn-test').hidden = isView;
+      document.getElementById('btn-edit-view').hidden = !isView;
+      if (formMode === 'create') document.getElementById('code').value = '';
+      if (formMode === 'copy') document.getElementById('code').value = 'CAM-QL1-12-COPY';
+      show('screen-form');
+    }
+    document.getElementById('btn-create').onclick = () => openForm('create');
+    document.getElementById('btn-view').onclick = () => openForm('view');
+    document.getElementById('btn-edit').onclick = () => openForm('edit');
+    document.getElementById('btn-del').onclick = () => openForm('delete');
+    document.getElementById('btn-back').onclick = () => show('screen-list');
+    document.getElementById('btn-cancel').onclick = () => show('screen-list');
+    document.getElementById('btn-edit-view').onclick = () => openForm('edit');
+    document.getElementById('btn-save').onclick = () => { alert('Lưu (prototype)'); show('screen-list'); };
+    document.getElementById('btn-test').onclick = () => alert('POST /cameras/connect/test (prototype)');
+    document.getElementById('btn-search').onclick = render;
+    document.getElementById('btn-clear').onclick = () => { document.getElementById('q').value=''; document.getElementById('fOnline').value=''; render(); };
+    document.getElementById('fOnline').onchange = render;
+    document.getElementById('q').addEventListener('keydown', (e) => { if (e.key==='Enter') render(); });
+    const bd = document.getElementById('schema-backdrop');
+    document.getElementById('btn-config').onclick = () => bd.classList.add('on');
+    document.getElementById('schema-close').onclick = () => bd.classList.remove('on');
+    document.getElementById('schema-save').onclick = () => bd.classList.remove('on');
+    render();
+  </script>
+</body>
+</html>

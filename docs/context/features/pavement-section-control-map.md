@@ -41,6 +41,9 @@
 | ownerUnit | Text | No | Đơn vị |
 | notes | Textarea | No | Audit |
 | updatedAt / updatedBy | Readonly | — | Audit |
+| pci | Number 0–100 | No | Khai thác · nguồn báo cáo |
+| layerCode | SearchInput GIS layer | No | default `mat-duong` |
+| measuredAt | Date | No | Ngày đo PCI |
 
 ## Toolbar list
 

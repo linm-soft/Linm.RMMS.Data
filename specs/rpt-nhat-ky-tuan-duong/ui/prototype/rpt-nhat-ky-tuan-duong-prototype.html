@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Prototype — Nhật ký tuần đường · Kind E A–D</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    :root {
+      --bg: #f5f7fa; --card: #fff; --border: #BABCBE; --border-soft: #e9ecef;
+      --txt: #1A1A1A; --txt-secondary: #6c757d; --muted: #6D6D6D;
+      --primary: #0f766e; --toolbar-bg: #f8fafc;
+      --ds-focus-shadow: 0px 0px 4px #BABCBE; --ds-radius-md: 4px;
+      --ds-font-body: 13px; --ds-font-title: 22px; --ds-height-btn: 32px;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: "Segoe UI", system-ui, sans-serif; background: var(--bg); color: var(--txt); font-size: var(--ds-font-body); }
+    input[type="date"], input[type="search"], input[type="text"] {
+      padding: 6px 10px; border: 1px solid var(--border); border-radius: var(--ds-radius-md);
+      font-size: 13px; min-height: 32px; background: #fff;
+    }
+    input:focus { outline: none; border-color: var(--primary); box-shadow: var(--ds-focus-shadow); }
+    .page { max-width: 1280px; margin: 0 auto; padding: 8px; display: flex; flex-direction: column; gap: 8px; min-height: 100vh; }
+    .zone-a { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; flex-shrink: 0; }
+    .zone-a h1 { margin: 0; font-size: var(--ds-font-title); font-weight: 700; }
+    .badge { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: #ccfbf1; color: #115e59; }
+    .zone-b { display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; padding: 10px 12px; background: var(--toolbar-bg); border: 1px solid var(--border-soft); border-radius: var(--ds-radius-md); }
+    .zone-b-left, .zone-b-right { display: flex; flex-wrap: wrap; gap: 8px; align-items: flex-end; }
+    .btn { height: var(--ds-height-btn); padding: 0 12px; border: 1px solid var(--border); border-radius: var(--ds-radius-md); background: #fff; cursor: pointer; font-size: 12px; font-weight: 600; }
+    .btn.primary { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .field { display: flex; flex-direction: column; gap: 4px; min-width: 140px; }
+    .field label { font-size: 12px; color: var(--muted); font-weight: 500; }
+    .search-wrap { display: flex; align-items: stretch; border: 1px solid var(--border); border-radius: var(--ds-radius-md); overflow: hidden; background: #fff; min-width: 150px; min-height: 32px; }
+    .search-wrap:focus-within { border-color: var(--primary); box-shadow: var(--ds-focus-shadow); }
+    .search-wrap input { border: 0 !important; outline: none !important; box-shadow: none !important; flex: 1; min-width: 0; min-height: 30px; }
+    .search-wrap button { border: 0; border-left: 1px solid var(--border); background: #f8fafc; padding: 0 10px; cursor: pointer; color: var(--muted); min-width: 36px; }
+    .lkp { position: relative; }
+    .lkp-list { display: none; position: absolute; left: 0; right: 0; top: 100%; z-index: 30; background: #fff; border: 1px solid var(--border); border-radius: var(--ds-radius-md); max-height: 180px; overflow: auto; box-shadow: 0 8px 24px rgba(15,23,42,.12); }
+    .lkp.open .lkp-list { display: block; }
+    .lkp-list button { display: block; width: 100%; text-align: left; border: 0; background: #fff; padding: 8px 10px; font-size: 13px; cursor: pointer; }
+    .lkp-list button:hover { background: #f1f5f9; }
+    .zone-c { background: var(--card); border: 1px solid var(--border-soft); border-radius: var(--ds-radius-md); display: flex; flex-direction: column; min-height: 320px; overflow: hidden; flex: 1; }
+    .grid-head { padding: 12px 16px 8px; }
+    .grid-title { margin: 0; font-size: 15px; font-weight: 700; }
+    .grid-help { margin: 4px 0 0; font-size: 12px; color: var(--txt-secondary); }
+    .table-wrap { overflow: auto; flex: 1; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 8px 12px; border-bottom: 1px solid var(--border-soft); text-align: left; white-space: nowrap; }
+    th { background: #f8fafc; font-size: 12px; color: var(--muted); position: sticky; top: 0; }
+    tbody tr:hover { background: #f0fdfa; }
+    .empty { text-align: center; color: #94a3b8; padding: 40px 16px; }
+    .st { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: #ecfdf5; color: #047857; }
+    .st-pending { background: #fff7ed; color: #c2410c; }
+    .drill { border: 0; background: none; color: var(--primary); font-weight: 700; cursor: pointer; text-decoration: underline; }
+    .zone-d { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 12px 16px; border-top: 1px solid var(--border-soft); background: #fff; }
+    .zone-d-controls { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: center; }
+    .pager-btn { width: 32px; height: 32px; border: 1px solid var(--border-soft); border-radius: var(--ds-radius-md); background: #fff; cursor: pointer; }
+    .pager-btn:disabled { opacity: 0.4; }
+    .hint { margin: 0; font-size: 12px; color: var(--muted); }
+    .toast { position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%); background: #0f172a; color: #e2e8f0; padding: 10px 16px; border-radius: 999px; font-size: 13px; display: none; z-index: 70; }
+    .toast.on { display: block; }
+    .size-bar { display: flex; gap: 4px; }
+    .size-bar button.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .modal { display: none; position: fixed; inset: 0; background: rgba(15,23,42,.35); z-index: 60; align-items: center; justify-content: center; }
+    .modal.on { display: flex; }
+    .modal-card { background: #fff; border-radius: 8px; padding: 16px 20px; min-width: 360px; max-width: 560px; }
+    .modal-card h3 { margin: 0 0 8px; }
+    .bars { display: flex; flex-direction: column; gap: 6px; margin: 12px 0; }
+    .bar-row { display: grid; grid-template-columns: 90px 1fr 28px; gap: 8px; align-items: center; font-size: 12px; }
+    .bar { height: 10px; background: #ccfbf1; border-radius: 4px; }
+    .cfg-row { display: flex; align-items: center; gap: 8px; padding: 4px 0; font-size: 13px; }
+  </style>
+</head>
+<body>
+  <div class="page" data-catalog-list-page data-zones="A-B-C-D" data-kind="report" data-testid="rmms-patrol-log-road-report-prototype">
+    <header class="zone-a" data-zone="A">
+      <h1><i class="fas fa-road" aria-hidden="true"></i> Nhật ký tuần đường</h1>
+      <span class="badge">Kind E</span>
+    </header>
+    <p class="hint">Prototype content-only · A–D + SoCai · SearchInput · không chrome / Thêm mới trên A · không Mẫu 8 / check-in.</p>
+
+    <div class="zone-b" data-zone="B" data-testid="rmms-patrol-log-road-report-filters">
+      <div class="zone-b-left">
+        <div class="field lkp" id="lkp-route">
+          <label>Tuyến</label>
+          <div class="search-wrap">
+            <input type="search" id="routeDisplay" value="Tất cả tuyến" readonly />
+            <button type="button" aria-label="Mở tuyến" data-open="lkp-route"><i class="fas fa-search"></i></button>
+          </div>
+          <div class="lkp-list">
+            <button type="button" data-set="route" data-value="" data-label="Tất cả tuyến">Tất cả tuyến</button>
+            <button type="button" data-set="route" data-value="QL.1" data-label="QL.1">QL.1</button>
+            <button type="button" data-set="route" data-value="QL.15" data-label="QL.15">QL.15</button>
+            <button type="button" data-set="route" data-value="QL.217" data-label="QL.217">QL.217</button>
+            <button type="button" data-set="route" data-value="QL.7" data-label="QL.7">QL.7</button>
+            <button type="button" data-set="route" data-value="HCM" data-label="HCM">HCM</button>
+          </div>
+        </div>
+        <div class="field lkp" id="lkp-staff">
+          <label>Cán bộ</label>
+          <div class="search-wrap">
+            <input type="search" id="staffDisplay" value="Tất cả cán bộ" readonly />
+            <button type="button" aria-label="Mở cán bộ" data-open="lkp-staff"><i class="fas fa-search"></i></button>
+          </div>
+          <div class="lkp-list">
+            <button type="button" data-set="staff" data-value="" data-label="Tất cả cán bộ">Tất cả cán bộ</button>
+            <button type="button" data-set="staff" data-value="nva" data-label="Nguyễn Văn A">Nguyễn Văn A</button>
+            <button type="button" data-set="staff" data-value="ttb" data-label="Trần Thị B">Trần Thị B</button>
+            <button type="button" data-set="staff" data-value="lvc" data-label="Lê Văn C">Lê Văn C</button>
+            <button type="button" data-set="staff" data-value="pmd" data-label="Phạm Minh D">Phạm Minh D</button>
+          </div>
+        </div>
+        <div class="field">
+          <label>Từ</label>
+          <input type="date" id="fromDate" value="2026-07-01" />
+        </div>
+        <div class="field">
+          <label>Đến</label>
+          <input type="date" id="toDate" value="2026-08-31" />
+        </div>
+        <div class="field" style="min-width:180px">
+          <label>Tìm kiếm</label>
+          <input type="text" id="qSearch" placeholder="Nội dung · tuyến · cán bộ · số sổ" />
+        </div>
+        <button type="button" class="btn primary" id="btnView">Xem</button>
+        <button type="button" class="btn" id="btnExport">Xuất Excel</button>
+      </div>
+      <div class="zone-b-right" data-testid="report-toolbar">
+        <button type="button" class="btn" id="btnRefresh" title="Làm mới"><i class="fas fa-sync-alt"></i></button>
+        <button type="button" class="btn" id="btnChart" title="Biểu đồ"><i class="fas fa-chart-line"></i></button>
+        <button type="button" class="btn" id="btnPrint" title="In"><i class="fas fa-print"></i></button>
+        <button type="button" class="btn" id="btnConfig" title="Config"><i class="fas fa-cog"></i></button>
+      </div>
+    </div>
+
+    <section class="zone-c" data-zone="C">
+      <div class="grid-head">
+        <h2 class="grid-title">Kết quả nhật ký tuần đường</h2>
+        <p class="grid-help" id="gridHelp">Chưa xem — nhấn «Xem» để tải nhật ký tuần đường.</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Ngày</th>
+              <th>Tuyến</th>
+              <th>Cán bộ</th>
+              <th>Km</th>
+              <th>Nội dung nhật ký</th>
+              <th>Xử lý tại chỗ</th>
+              <th>Trạng thái</th>
+              <th>Số sổ</th>
+              <th>Vị trí</th>
+              <th>Nguồn</th>
+            </tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+        <div class="empty" id="empty">Chưa xem — nhấn «Xem» để tải nhật ký tuần đường.</div>
+      </div>
+      <footer class="zone-d" data-zone="D">
+        <div id="pagerMeta">Tổng: 0 · Trang 1/1</div>
+        <div class="zone-d-controls">
+          <button type="button" class="pager-btn" id="prev" disabled><i class="fas fa-chevron-left"></i></button>
+          <button type="button" class="pager-btn" id="next" disabled><i class="fas fa-chevron-right"></i></button>
+          <div class="size-bar" id="sizeBar">
+            <button type="button" class="btn active" data-size="50">50</button>
+            <button type="button" class="btn" data-size="100">100</button>
+            <button type="button" class="btn" data-size="200">200</button>
+            <button type="button" class="btn" data-size="500">500</button>
+          </div>
+        </div>
+      </footer>
+    </section>
+  </div>
+  <div class="toast" id="toast"></div>
+  <div class="modal" id="chartModal" role="dialog" aria-labelledby="chartTitle">
+    <div class="modal-card">
+      <h3 id="chartTitle">Biểu đồ SoCai — Nhật ký tuần đường</h3>
+      <p class="hint">Số dòng theo tuyến (bar analog) · chỉ khi đã Xem + có dòng.</p>
+      <div class="bars" id="chartBars"></div>
+      <button type="button" class="btn primary" id="btnChartClose">Đóng</button>
+    </div>
+  </div>
+  <div class="modal" id="configModal" role="dialog" aria-labelledby="configTitle">
+    <div class="modal-card">
+      <h3 id="configTitle">Cấu hình hiển thị báo cáo</h3>
+      <p class="hint">Analog ReportDisplayConfigModal — cột List / width / filter / sort · không height-only.</p>
+      <div id="cfgCols"></div>
+      <button type="button" class="btn primary" id="btnConfigClose">Đóng</button>
+    </div>
+  </div>
+  <script>
+    const ALL = [
+      { day: "2026-08-01", route: "QL.1", staff: "nva", staffName: "Nguyễn Văn A", km: "12+200", content: "Nắng · ổ gà nhỏ", action: "Đánh dấu", status: "signed", statusLabel: "Đã ký", book: "BK-TD-001", bookId: "book-001", loc: "Km12+200 P", id: "e1" },
+      { day: "2026-08-01", route: "QL.15", staff: "ttb", staffName: "Trần Thị B", km: "8+000", content: "Cây ngã tầm nhìn", action: "Cắt cành", status: "signed", statusLabel: "Đã ký", book: "BK-TD-002", bookId: "book-002", loc: "Km8 taluy T", id: "e2" },
+      { day: "2026-07-31", route: "QL.217", staff: "lvc", staffName: "Lê Văn C", km: "4+100", content: "Mưa trơn", action: "Biển cảnh báo", status: "signed", statusLabel: "Đã ký", book: "BK-TD-003", bookId: "book-003", loc: "Km4+100", id: "e3" },
+      { day: "2026-07-31", route: "HCM", staff: "pmd", staffName: "Phạm Minh D", km: "3+000", content: "Lấn chiếm HL", action: "Biên bản", status: "pending", statusLabel: "Chờ ký", book: "BK-TD-004", bookId: "book-004", loc: "Km3 hành lang", id: "e4" },
+      { day: "2026-07-30", route: "QL.7", staff: "nva", staffName: "Nguyễn Văn A", km: "22+000", content: "Tắc rãnh", action: "Khơi thông", status: "signed", statusLabel: "Đã ký", book: "BK-TD-005", bookId: "book-005", loc: "Km22 rãnh T", id: "e5" },
+      { day: "2026-07-29", route: "QL.1", staff: "pmd", staffName: "Phạm Minh D", km: "1+200", content: "Biển mờ", action: "Lau biển", status: "signed", statusLabel: "Đã ký", book: "BK-TD-001", bookId: "book-001", loc: "Km1+200", id: "e6" },
+      { day: "2026-07-28", route: "QL.7", staff: "ttb", staffName: "Trần Thị B", km: "11+000", content: "Sạt nhỏ", action: "Rào tạm", status: "signed", statusLabel: "Đã ký", book: "BK-TD-007", bookId: "book-007", loc: "Km11 taluy", id: "e7" },
+      { day: "2026-07-28", route: "QL.15", staff: "nva", staffName: "Nguyễn Văn A", km: "5+200", content: "Nứt dọc", action: "Đánh dấu", status: "pending", statusLabel: "Chờ ký", book: "BK-TD-008", bookId: "book-008", loc: "Km5+200 làn 1", id: "e8" },
+      { day: "2026-07-27", route: "QL.217", staff: "pmd", staffName: "Phạm Minh D", km: "14+300", content: "Nước đọng", action: "Bơm thoát", status: "signed", statusLabel: "Đã ký", book: "BK-TD-003", bookId: "book-003", loc: "Km14 cống", id: "e9" },
+      { day: "2026-07-30", route: "QL.15", staff: "ttb", staffName: "Trần Thị B", km: "45+200", content: "Khe bẩn", action: "Vệ sinh", status: "signed", statusLabel: "Đã ký", book: "BK-TD-002", bookId: "book-002", loc: "Cầu Km45", id: "e10" },
+      { day: "2026-07-29", route: "HCM", staff: "lvc", staffName: "Lê Văn C", km: "9+100", content: "Hộ lan móp", action: "Ghi nhận", status: "pending", statusLabel: "Chờ ký", book: "BK-TD-006", bookId: "book-006", loc: "Km9 hộ lan P", id: "e11" },
+      { day: "2026-08-01", route: "QL.1", staff: "nva", staffName: "Nguyễn Văn A", km: "18+050", content: "Bồi lắng cống", action: "Nạo vét", status: "pending", statusLabel: "Chờ ký", book: "BK-TD-001", bookId: "book-001", loc: "Km18 cống ngang", id: "e12" }
+    ];
+    const COLS = ["Ngày","Tuyến","Cán bộ","Km","Nội dung nhật ký","Xử lý tại chỗ","Trạng thái","Số sổ","Vị trí","Nguồn"];
+    const state = { viewed: false, route: "", staff: "", page: 1, pageSize: 50 };
+    const toastEl = document.getElementById("toast");
+    function toast(msg) {
+      toastEl.textContent = msg;
+      toastEl.classList.add("on");
+      window.setTimeout(() => toastEl.classList.remove("on"), 1800);
+    }
+    function fmtDay(iso) {
+      const p = iso.split("-");
+      return p[2] + "/" + p[1] + "/" + p[0];
+    }
+    function filtered() {
+      const q = (document.getElementById("qSearch").value || "").trim().toLowerCase();
+      const from = document.getElementById("fromDate").value;
+      const to = document.getElementById("toDate").value;
+      return ALL.filter((r) => {
+        if (state.route && r.route !== state.route) return false;
+        if (state.staff && r.staff !== state.staff) return false;
+        if (from && r.day < from) return false;
+        if (to && r.day > to) return false;
+        if (q) {
+          const hay = (r.content + " " + r.route + " " + r.staffName + " " + r.book).toLowerCase();
+          if (!hay.includes(q)) return false;
+        }
+        return true;
+      });
+    }
+    function render() {
+      const tbody = document.getElementById("tbody");
+      const empty = document.getElementById("empty");
+      const help = document.getElementById("gridHelp");
+      tbody.innerHTML = "";
+      if (!state.viewed) {
+        empty.style.display = "block";
+        empty.textContent = "Chưa xem — nhấn «Xem» để tải nhật ký tuần đường.";
+        help.textContent = empty.textContent;
+        document.getElementById("pagerMeta").textContent = "Tổng: 0 · Trang 1/1";
+        document.getElementById("prev").disabled = true;
+        document.getElementById("next").disabled = true;
+        return;
+      }
+      const rows = filtered();
+      const start = (state.page - 1) * state.pageSize;
+      const pageRows = rows.slice(start, start + state.pageSize);
+      if (pageRows.length === 0) {
+        empty.style.display = "block";
+        empty.textContent = "Không có dòng phù hợp bộ lọc.";
+        help.textContent = empty.textContent;
+      } else {
+        empty.style.display = "none";
+        help.textContent = "Kéo cột ON (MFE) · drill «Mở sổ» · analog LinCatalogDataGrid.";
+        pageRows.forEach((r) => {
+          const tr = document.createElement("tr");
+          const stCls = r.status === "pending" ? "st-pending" : "";
+          tr.innerHTML = `<td>${fmtDay(r.day)}</td><td>${r.route}</td><td>${r.staffName}</td><td>${r.km}</td><td>${r.content}</td><td>${r.action}</td><td><span class="st ${stCls}">${r.statusLabel}</span></td><td>${r.book}</td><td>${r.loc}</td><td><button type="button" class="drill" data-book="${r.bookId}" data-entry="${r.id}">Mở sổ</button></td>`;
+          tbody.appendChild(tr);
+        });
+      }
+      const pages = Math.max(1, Math.ceil(rows.length / state.pageSize));
+      document.getElementById("pagerMeta").textContent = `Tổng: ${rows.length} · Trang ${state.page}/${pages}`;
+      document.getElementById("prev").disabled = state.page <= 1;
+      document.getElementById("next").disabled = state.page >= pages;
+    }
+    document.querySelectorAll("[data-open]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".lkp").forEach((el) => el.classList.remove("open"));
+        document.getElementById(btn.getAttribute("data-open")).classList.add("open");
+      });
+    });
+    document.querySelectorAll("[data-set]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const key = btn.getAttribute("data-set");
+        const value = btn.getAttribute("data-value");
+        const label = btn.getAttribute("data-label");
+        state[key] = value;
+        document.getElementById(key + "Display").value = label;
+        btn.closest(".lkp").classList.remove("open");
+      });
+    });
+    document.addEventListener("click", (e) => {
+      if (!e.target.closest(".lkp")) document.querySelectorAll(".lkp").forEach((el) => el.classList.remove("open"));
+    });
+    function view() {
+      state.viewed = true;
+      state.page = 1;
+      render();
+    }
+    document.getElementById("btnView").addEventListener("click", view);
+    document.getElementById("qSearch").addEventListener("keydown", (e) => { if (e.key === "Enter") view(); });
+    document.getElementById("btnRefresh").addEventListener("click", () => {
+      if (!state.viewed) {
+        toast("Chưa xem — nhấn «Xem» để tải nhật ký tuần đường");
+        return;
+      }
+      render();
+    });
+    document.getElementById("btnExport").addEventListener("click", () => {
+      if (!state.viewed) { toast("Nhấn «Xem» trước khi xuất Excel"); return; }
+      toast("Xuất patrol-log-road.csv UTF-8 BOM (GET /api/v1/report/patrol-log-road/export)");
+    });
+    document.getElementById("btnChart").addEventListener("click", () => {
+      if (!state.viewed || filtered().length === 0) {
+        toast("Nhấn Xem và có ≥1 dòng trước khi mở biểu đồ");
+        return;
+      }
+      const byRoute = {};
+      filtered().forEach((r) => { byRoute[r.route] = (byRoute[r.route] || 0) + 1; });
+      const max = Math.max(...Object.values(byRoute));
+      const host = document.getElementById("chartBars");
+      host.innerHTML = "";
+      Object.keys(byRoute).sort().forEach((k) => {
+        const row = document.createElement("div");
+        row.className = "bar-row";
+        const w = Math.round((byRoute[k] / max) * 100);
+        row.innerHTML = `<span>${k}</span><div class="bar" style="width:${w}%"></div><span>${byRoute[k]}</span>`;
+        host.appendChild(row);
+      });
+      document.getElementById("chartModal").classList.add("on");
+    });
+    document.getElementById("btnChartClose").addEventListener("click", () => document.getElementById("chartModal").classList.remove("on"));
+    document.getElementById("btnPrint").addEventListener("click", () => {
+      if (!state.viewed || filtered().length === 0) { toast("Nhấn Xem trước khi in"); return; }
+      toast("Print-scope modal → window.print");
+    });
+    document.getElementById("btnConfig").addEventListener("click", () => {
+      const host = document.getElementById("cfgCols");
+      host.innerHTML = COLS.map((c) => `<label class="cfg-row"><input type="checkbox" checked /> ${c} · width · filter · sort</label>`).join("");
+      document.getElementById("configModal").classList.add("on");
+    });
+    document.getElementById("btnConfigClose").addEventListener("click", () => document.getElementById("configModal").classList.remove("on"));
+    document.getElementById("tbody").addEventListener("click", (e) => {
+      const b = e.target.closest(".drill");
+      if (!b) return;
+      toast("Drill /asset/csdl-so-sach?kind=patrol-logs&id=" + b.getAttribute("data-book") + "&entryId=" + b.getAttribute("data-entry"));
+    });
+    document.getElementById("prev").addEventListener("click", () => { state.page -= 1; render(); });
+    document.getElementById("next").addEventListener("click", () => { state.page += 1; render(); });
+    document.getElementById("sizeBar").addEventListener("click", (e) => {
+      const b = e.target.closest("[data-size]");
+      if (!b) return;
+      state.pageSize = Number(b.getAttribute("data-size"));
+      state.page = 1;
+      document.querySelectorAll("#sizeBar .btn").forEach((x) => x.classList.toggle("active", x === b));
+      render();
+    });
+    render();
+  </script>
+</body>
+</html>

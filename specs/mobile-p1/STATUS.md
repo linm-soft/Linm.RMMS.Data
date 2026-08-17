@@ -8,38 +8,45 @@
 | changeScope | `new_mobile_design` |
 | packKind | `mobile` |
 | runMode | `design_only` |
+| platforms | ios + android |
+| genMode | `full` |
 | brief | `D:/AI-QLBD/Linm.RMMS.Data/map-feature/mobile-design-brief.md` |
-| context | patrol + incident (+ attendance thin) |
-| mfe / app | **TBD** — `ui_repo_confirm` |
-| backend | same BFF Web · `api/v1/patrol` · `api/v1/incident` |
-| updatedAt | `2026-08-10T16:35:00.000Z` |
-| reviseNote | Login + SF Symbol icons |
+| context | `specs/mobile-p1/mobile/context.md` · 12 slug P1 |
+| mfe / app | **TBD** — `ui_repo_confirm` (SwiftUI + Compose) |
+| backend | same BFF Web · `web-bff/api/v1/*` |
+| updatedAt | `2026-08-16T01:20:00.000Z` |
+| skill | `/gen-mobile-design` |
 
 ## Lock
 
 | agent | scope | id | at |
 |-------|-------|-----|-----|
-| agent-design | mobile-p1 ui | design_mobile_p1 | 2026-08-10T16:20:00.000Z |
+| gen-mobile-design | mobile-p1 dual mock | design_mobile_p1_both | 2026-08-16T00:45:00.000Z |
 
 ## Pipeline
 
 | Step | Agent | Artifact | Status |
 |------|-------|----------|--------|
-| 0 | brief | map-feature/mobile-design-brief.md | **done** |
-| 2.1 | design | ui/design.md + prototype + reviewUrl | **await_confirm** |
-| 2.2+ | sa… | — | blocked until design_confirm |
+| 0 | gate | product_root · p1_pack · full · both | **done** |
+| 1–2 | analy | mobile/context.md | **done** |
+| 3–6 | design | ui/design.md + ios + android | **await_confirm** |
+| 2.2+ | sa… | `/agent-qldb-workflow-mobile` | blocked until design_confirm |
 
 ## Prototype
 
 | | |
 |--|--|
-| artifact | `specs/mobile-p1/ui/prototype/index.html` |
-| reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/mobile-p1/ui/prototype/index.html` |
-| serve | `http://localhost:5198` (optional) |
+| iOS | `specs/mobile-p1/ui/prototype/ios/index.html` |
+| Android | `specs/mobile-p1/ui/prototype/android/index.html` |
+| OMS | `specs/mobile-p1/ui/prototype/map-oms.js` |
+| Chụp + GPS | Overlay `DES-MOB-PHOTO-GPS` + pin `DES-MOB-GPS-PIN` · chip review **Chụp + GPS** |
+| **reviewUrl iOS** | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/mobile-p1/ui/prototype/ios/index.html` |
+| **reviewUrl Android** | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/mobile-p1/ui/prototype/android/index.html` |
+| serve | `npx --yes serve -p 5198 "D:/AI-QLBD/Linm.RMMS.Data/specs/mobile-p1/ui/prototype"` → `/ios/` · `/android/` |
 
 ## Confirms
 
 | Gate | Value |
 |------|-------|
 | design_confirm | pending |
-| ui_repo_confirm | pending (Swift / KMP / Flutter) |
+| ui_repo_confirm | pending (SwiftUI + Compose · cấm Flutter/KMP) |

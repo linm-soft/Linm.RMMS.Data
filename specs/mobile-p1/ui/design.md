@@ -1,233 +1,190 @@
-# Design — mobile-p1 (iOS Swift · Gói B)
+# Design — mobile-p1 (iOS + Android)
 
 | Field | Value |
 |-------|-------|
 | feature | `mobile-p1` |
-| pack | Mobile Gói B (300tr) · HĐ `37001-08/2026-LIC/LINM-JNET` |
-| Feature Kind | **Mobile shell** + pilot **patrol** (map/check-in) · incident create |
-| status | `await_confirm` |
-| changeScope | `new_mobile_design` |
-| packKind | `mobile` |
-| platforms | **iOS SwiftUI style** (primary prototype) · Android parity sau chốt |
-| mfe / app | **Chưa chốt repo** — `ui_repo_confirm` khi implement (Swift native / KMP / Flutter) |
+| pack | Mobile Gói B · HĐ `37001-08/2026-LIC/LINM-JNET` |
+| packKind | mobile |
+| platforms | **iOS 390×844** + **Android 412×915** |
+| stack P1 | SwiftUI style + Material 3 — **cấm** Flutter / KMP |
+| context | `../mobile/context.md` |
 | brief | `map-feature/mobile-design-brief.md` |
-| updatedAt | 2026-08-10T16:35:00.000Z |
+| status | `await_confirm` |
 | design_confirm | pending |
-| revise | Login + SF Symbol icons (2026-08-10) |
+| updatedAt | 2026-08-16T00:40:00.000Z |
 
-## 0. Context & Demo
+## 0. Context
 
-| ID | Path | Notes |
-|----|------|-------|
-| CTX-BRIEF | `map-feature/mobile-design-brief.md` | IA 5 tab · 11 màn P1 · KPI |
-| CTX-PAT | `docs/context/features/patrol.md` | Field inventory ca / check-in / offline |
-| CTX-INC | `docs/context/features/incident.md` | Tạo SC · severity · offline |
-| CTX-ATT | `docs/context/features/attendance.md` | GPS chấm công (seg Hiện trường) |
-| DEM | Web demo — **tham chiếu field**, không clone desktop | `patrol-demo` · `incident-demo` |
-| DI | N/A (mobile pack) | — |
+| ID | Path |
+|----|------|
+| CTX-MOB | `specs/mobile-p1/mobile/context.md` |
+| CTX-BRIEF | `map-feature/mobile-design-brief.md` |
+| CTX-* | `docs/context/features/{login,patrol,attendance,incident,asset,gis,ai-vision,ai-asset-detect,camera-connect,maintenance,ops,estimate}.md` |
 
-## 1. Kind + UI pattern
+Web demo = field reference — **cấm** clone `LinPageLayout` / GOVOne.
 
-| | |
-|--|--|
-| Shell | **UITabBarController** style — 5 tab |
-| Pilot deep | **patrol** — home · map live · history · detail · offline · check-in sheet |
-| Secondary | **incident** list + FAB create sheet · **gis** read overlay · **AI** hub · **Tôi** |
-| Device | iPhone **390×844** · safe area · home indicator |
-| Style | **SwiftUI / iOS HIG** — grouped list · large title · systemBlue · sheets · glass map chrome |
-| Parity Web | Khớp **field** CTX — **cấm** copy layout desktop 1:1 |
-
-### IA (chốt prototype)
+## 1. IA + chrome
 
 ```
-Login (auth) → Tab bar (5)
-├── Hiện trường → Patrol | Attendance (segmented)
-├── Sự cố → list + FAB create
-├── Bản đồ → GIS overlay (đọc)
-├── AI → Vision / Asset-detect / Estimate
-└── Tôi → Profile · sync · drawer · Đăng xuất
+Login (ẩn tab) → Tab 5
+├── Hiện trường → Patrol | Attendance (segment)
+├── Sự cố → list + create (iOS toolbar + · Android FAB)
+├── Bản đồ → GIS overlay đọc
+├── AI → Vision / Detect HITL / Estimate
+└── Tôi → Profile · sync · drawer
+Drawer: Bảo trì · Camera xem · Offline · Thông báo · Cài đặt
 ```
 
-## 1b. Icon SSOT (SF Symbol style)
+| Surface | iOS | Android |
+|---------|-----|---------|
+| Frame | 390×844 · notch · home indicator | 412×915 · status · gesture nav |
+| Nav | Large title / inline + chevron | LargeTopAppBar / small + Up |
+| Tabs | UITabBar 5 · SF | NavigationBar 5 · Material |
+| Sheet | `.sheet` detent | ModalBottomSheet |
+| Create SC | Nav `+` / sheet | **FAB** |
+| Scroll | Overlay · ẩn track | Edge-to-edge |
 
-Prototype: SVG sprite stroke 1.75 · implement native dùng **SF Symbols** (iOS) / Material tương đương (Android).
+## 1b. Icon SSOT (SF ↔ Material)
 
-| Surface | SF Symbol (iOS) | Prototype id |
-|---------|-----------------|--------------|
-| Tab Hiện trường | `mappin.and.ellipse` | `#i-mappin` |
-| Tab Sự cố | `exclamationmark.triangle` | `#i-warning` |
-| Tab Bản đồ | `scope` / `location.north` | `#i-scope` |
-| Tab AI | `sparkles` | `#i-sparkles` |
-| Tab Tôi | `person.crop.circle` | `#i-person` |
-| Offline queue | `tray.and.arrow.down` | `#i-tray-down` |
-| Notify | `bell` | `#i-bell` |
-| Patrol row | `figure.walk` | `#i-walk` |
-| Done | `checkmark` | `#i-check` |
-| Map | `map` | `#i-map` |
-| History list | `list.bullet` | `#i-list` |
-| Search | `magnifyingglass` | `#i-search` |
-| FAB / add | `plus` | `#i-plus` |
-| Camera | `camera` | `#i-camera` |
-| Login company | `building.2` | `#i-building` |
-| Login user | `person` | `#i-person` |
-| Login pass | `lock` | `#i-lock` |
-| Show pass | `eye` / `eye.slash` | `#i-eye` |
-| Face ID | `faceid` | `#i-faceid` |
-| Brand | `road.lanes` (approx) | `#i-road` |
-| Maintenance | `wrench.and.screwdriver` | `#i-wrench` |
-| Camera xem | `video` | `#i-video` |
-| Settings | `gearshape` | `#i-gear` |
-| Chevron | `chevron.left/right` | `#i-chevron-*` |
+| Surface | SF Symbol | Material | Prototype |
+|---------|-----------|----------|-----------|
+| Tab Hiện trường | `mappin.and.ellipse` | `location_on` | `#i-mappin` |
+| Tab Sự cố | `exclamationmark.triangle` | `warning` | `#i-warning` |
+| Tab Bản đồ | `scope` | `explore` | `#i-scope` |
+| Tab AI | `sparkles` | `auto_awesome` | `#i-sparkles` |
+| Tab Tôi | `person.crop.circle` | `account_circle` | `#i-person` |
+| Offline | `tray.and.arrow.down` | `download` | `#i-tray-down` |
+| Notify | `bell` | `notifications` | `#i-bell` |
+| Camera | `camera` | `photo_camera` | `#i-camera` |
+| Face ID / Bio | `faceid` | `fingerprint` | `#i-faceid` / `#i-finger` |
+| FAB / add | `plus` | `add` | `#i-plus` |
+| Maintenance | `wrench.and.screwdriver` | `handyman` | `#i-wrench` |
+| Camera xem | `video` | `videocam` | `#i-video` |
+| Asset | `cube` | `inventory_2` | `#i-cube` |
+| Estimate | `sum` | `calculate` | `#i-sum` |
 
-**Cấm** emoji / chữ thay icon (`bell`, `P`, `☺`) trên surface production.
+**Cấm** emoji / chữ `P` / `bell` text.
 
-## 2. Screens / zones
+## 2. Screens / zones (cùng `data-des-id`)
 
-| Screen id | `data-des-id` | Pattern | Notes |
-|-----------|---------------|---------|-------|
-| Login | `DES-MOB-LOGIN` | Brand + form + Face ID | Entry · ẩn tab bar |
-| Login form | `DES-MOB-LOGIN-FORM` | Grouped fields | company · user · pass |
-| Patrol home | `DES-MOB-PAT-HOME` | Large title + hero ca + KPI + rows | Active session CTA |
-| Segment | `DES-MOB-PAT-SEG` | `UISegmentedControl` | Tuần đường / Chấm công |
-| Active hero | `DES-MOB-PAT-ACTIVE` | Gradient card | Coverage progress |
-| KPI | `DES-MOB-PAT-KPI` | 3 metric cards | CI / còn / % |
-| Map ca | `DES-MOB-PAT-MAP` · `DES-MOB-OMS-PATROL` | **OMS live Leaflet** | host→bar→legend · OSRM · Fit |
-| Check-in sheet | `DES-MOB-PAT-CHECKIN-SHEET` | Modal sheet | Điểm · GPS · note · ảnh · Online/Offline |
-| Lịch sử | `DES-MOB-PAT-LIST` | Inset grouped list + search | Status badges |
-| Chi tiết ca | `DES-MOB-PAT-DETAIL` | Summary + timeline CI | Footer: map / kết thúc |
-| Offline | `DES-MOB-PAT-OFFLINE` | Queue list + Sync | Banner mạng yếu |
-| Attendance | `DES-MOB-ATT` | Hero GPS + 7-day rows | Cùng tab Hiện trường |
-| Incident list | `DES-MOB-INC-LIST` | Large title + KPI + FAB | Severity badges |
-| Incident create | `DES-MOB-INC-CREATE-SHEET` | Sheet | Loại · mức · pin · ảnh · offline |
-| GIS | `DES-MOB-GIS` · `DES-MOB-OMS-GIS` | **OMS live** read overlay | TS/SC pins · corridor · Fit |
-| AI hub | `DES-MOB-AI` | Grouped nav + HITL row | Confirm candidate |
-| Tôi | `DES-MOB-ME` | Profile + sync + more | Drawer entries |
-| Tab bar | `DES-MOB-TABBAR` | 5 tabs | Fixed |
-| Device | `DES-MOBILE-DEVICE` | Bezel frame | Review stage |
+| Screen | `data-des-id` | iOS | Android |
+|--------|---------------|-----|---------|
+| Review doc | `DES-MOB-DOC-GUIDE` | Trái quyền · phải ngành | Same |
+| Device | `DES-MOBILE-DEVICE` | Bezel 390×844 | Bezel 412×915 |
+| Login | `DES-MOB-LOGIN` | Brand + form | Same fields · Material field |
+| Login form | `DES-MOB-LOGIN-FORM` | Grouped | OutlinedTextField |
+| Tab bar | `DES-MOB-TABBAR` | 5 tabs | NavigationBar 5 |
+| Patrol home | `DES-MOB-PAT-HOME` | Large title + hero | LargeTopAppBar + hero |
+| Segment | `DES-MOB-PAT-SEG` | UISegmentedControl | FilterChips |
+| Active / KPI | `DES-MOB-PAT-ACTIVE` · `DES-MOB-PAT-KPI` | Cards | Cards |
+| Map ca | `DES-MOB-PAT-MAP` · `DES-MOB-OMS-PATROL` | OMS Leaflet | OMS Leaflet |
+| Check-in sheet | `DES-MOB-PAT-CHECKIN-SHEET` | Sheet + match badge | BottomSheet |
+| Location mismatch | `DES-MOB-LOC-MISMATCH` | Banner in-sheet | Same |
+| History / detail / offline | `DES-MOB-PAT-LIST` · `DES-MOB-PAT-DETAIL` · `DES-MOB-PAT-OFFLINE` | Grouped list | Cards |
+| Attendance | `DES-MOB-ATT` | Hero GPS + 7-day | Same |
+| Incident list | `DES-MOB-INC-LIST` | List + `+` | List + **FAB** |
+| Incident detail | `DES-MOB-INC-DETAIL` | View | View |
+| Asset detail | `DES-MOB-ASSET-DETAIL` | View | View |
+| Check-in saved | `DES-MOB-CI-DETAIL` | View immutable | Same |
+| Incident create | `DES-MOB-INC-CREATE-SHEET` | Sheet | BottomSheet |
+| GIS | `DES-MOB-GIS` · `DES-MOB-OMS-GIS` | OMS read | OMS read |
+| Asset list | `DES-MOB-ASSET-LIST` | Search + rows | SearchBar + rows |
+| AI hub | `DES-MOB-AI` | Grouped nav | List |
+| Vision capture | `DES-MOB-VIS-CAPTURE` | Ảnh + vị trí đã chốt + class | Same |
+| Camera shutter | `DES-MOB-PHOTO-GPS` | Viewfinder + shutter · GPS live | Same |
+| Ảnh đã chốt | `DES-MOB-GPS-PIN` | Stamp tuyến/Km/±m + pin map | Same |
+| Detect HITL | `DES-MOB-DET-HITL` | Confirm/Dismiss | Same |
+| Estimate | `DES-MOB-EST` | Qty · giá · confirm | Same |
+| Camera xem | `DES-MOB-CAM-VIEW` | JPEG + events | Same |
+| Maintenance | `DES-MOB-MNT-LIST` | Thin WO list | Same |
+| Ops inbox | `DES-MOB-OPS` | Notify list | Same |
+| Tôi | `DES-MOB-ME` | Profile + drawer | Same |
+| GPS deny | `DES-MOB-GPS-DENY` | In-app modal | Material dialog |
+| Leave dirty | `DES-MOB-LEAVE` | In-app modal | Material dialog |
 
-## 3. Field inventory (patrol pilot — khớp CTX)
+## 3. Tokens
 
-| uiField | Label VN | Control (mobile) | Required | Notes |
-|---------|----------|------------------|----------|-------|
-| code | Mã phiên | Text readonly | — | `PAT-YYYYMMDD-NNNN` |
-| userName | Nhân viên | Text | * | Profile / detail |
-| route | Tuyến đường | Text + map pin | * | QL.1 + Km |
-| patrolType | Loại tuần | Segment / Select | * | Tuần đường · Tuần kiểm |
-| plannedDate | Ngày KH | Date | * | Local TZ |
-| startedAt | Bắt đầu | DateTime | | Detail |
-| checkInCount | Số điểm CI | Number / KPI | * | ≥3/ngày/tuyến DoD |
-| coveragePercent | Coverage % | Progress + KPI | | Map + hero |
-| status | Trạng thái | Badge | * | Đang tuần · Hoàn thành · Bỏ sót · Offline |
-| offlineQueued | Hàng đợi | Badge + queue list | | Sync CTA |
-| note | Ghi chú CI | TextArea | | Sheet |
-| gps | GPS | Readonly + accuracy | * | Sheet · deny → toast/flow |
-| photo | Ảnh CI | Camera shutter slots | | Sheet |
+| Meaning | iOS | Android (Material 3) |
+|---------|-----|----------------------|
+| Tint / primary | `#007AFF` | `#1B6EF3` primary |
+| Success | `#34C759` | `#1B8A4A` |
+| Warning offline | `#FF9500` | `#E67E00` |
+| Danger | `#FF3B30` | `#D32F2F` |
+| Grouped / surface | `#F2F2F7` | `#F7F2FA` surface |
+| Card | `#FFF` r12 | surfaceContainer r16 |
+| Font | `-apple-system` | Roboto / system |
 
-### Incident create (secondary)
-
-| uiField | Control |
-|---------|---------|
-| type | Select |
-| severity | Select (Critical…Low) |
-| location | Pin / GPS text |
-| description | TextArea |
-| photos | Camera slots |
-| offlineDraft | Secondary button |
-
-## 4. Tokens (Swift system)
-
-| Token | Value | Dùng |
-|-------|-------|------|
-| Tint | `#007AFF` systemBlue | Tab · CTA · link |
-| Success | `#34C759` | Done / đủ công |
-| Warning | `#FF9500` | Offline queue |
-| Danger | `#FF3B30` | Critical SC · bỏ sót |
-| Grouped BG | `#F2F2F7` | Screen bg |
-| Card | `#FFFFFF` · radius 12 | Inset grouped |
-| Font | SF Pro / `-apple-system` | All |
-
-## 3b. Login fields
-
-| uiField | Label VN | Control | Required |
-|---------|----------|---------|----------|
-| companyCode | Mã đơn vị | Text + building icon | * |
-| username | Tên đăng nhập | Text + person | * |
-| password | Mật khẩu | SecureField + eye toggle | * |
-| biometric | Face ID | Button secondary | optional |
-| forgot | Quên mật khẩu | Link → Auth | |
-
-Auth → BFF cùng Web (`web-bff/api/v1/auth`) — **cấm** fork token.
-
-## 5. Flows (happy + edge)
+## 4. Flows
 
 | Flow | Steps |
 |------|-------|
-| Login | Brand → điền → Đăng nhập / Face ID → tab Hiện trường |
+| Login | Brand → điền → Đăng nhập / Bio → tab Hiện trường |
+| Happy patrol | Home → Map OMS → Sheet CI → Lưu → KPI +1 |
+| Offline | Sheet → Lưu offline → Queue → Sync |
+| GPS deny | CTA chấm/CI → `DES-MOB-GPS-DENY` · copy mở Settings · **cấm** Lưu |
+| Auto-pin | Mở sheet CI/SC → pin GPS hiện tại · pin cam = điểm KH · **cấm** gõ lat/lng |
+| Sai điểm | `distanceM` > 50 hoặc gần điểm KH khác → banner `DES-MOB-LOC-MISMATCH` · **chặn** Lưu |
+| GPS kém | `accuracyM` > 30 → banner · **chặn** |
+| Incident | Tab SC → +/FAB → Sheet (auto-pin + tuyến/Km *) → Gửi / nháp offline |
+| Leave dirty | Sheet đang sửa → Hủy → `DES-MOB-LEAVE` · **cấm** `alert` |
+| HITL | AI → Detect → Confirm → toast SC/TS |
+| Vision | AI → Shutter (`DES-MOB-PHOTO-GPS`) → Kalman+snap → pin (`DES-MOB-GPS-PIN`) → class → Gắn SC |
+| Chụp + GPS | Slot ảnh CI/SC/Vision → camera máy · chốt vị trí · **không** gõ tọa độ · **không** note thuật toán trên UI |
+| Camera xem | Tôi → Camera → JPEG refresh — **không** form HW |
 | Logout | Tôi → Đăng xuất → Login |
-| Happy patrol | Home → Map → Sheet check-in → Lưu → KPI +1 |
-| Offline | Sheet → Lưu offline → Queue → Sync khi online |
-| GPS deny | (prototype toast) — production: Settings deep-link copy |
-| Incident from field | Tab Sự cố → FAB → Sheet → Gửi / nháp offline |
-| HITL | AI tab → Confirm DET → toast SC |
 
-## 6. Out of scope P1 (brief)
+## 5. Device behavior checklist (`mobile-device-behavior.md`)
 
-Twin 3D · YOLO local · train offline · WO/SLA full · TOC · cổng dân · camera **config HW** trên mobile.
+| Behavior | iOS | Android | Gap |
+|----------|-----|---------|-----|
+| Safe area (notch / home / insets) | ✅ | ✅ | |
+| Keyboard avoid input / sheet | ✅ sheet grows | ✅ | |
+| Swipe-back / predictive back | ✅ chevron + note | ✅ Up + note | |
+| GPS deny in-app | ✅ `DES-MOB-GPS-DENY` | ✅ | |
+| Offline banner + queue + Sync | ✅ | ✅ | |
+| Biometric fallback password | ✅ | ✅ fingerprint | |
+| Permission in-context | ✅ | ✅ | |
+| Leave dirty modal — **cấm** `alert`/`confirm` | ✅ `DES-MOB-LEAVE` | ✅ | |
+| Icons SF ↔ Material — **cấm** emoji | ✅ | ✅ | |
+| Map OMS live — **cấm** fake / `vh` cap | ✅ flex host | ✅ | |
+
+Thiếu tick → **GAP-MOB-DEV-***. Pack này: không gap mở.
+
+## 6. Out of scope P1
+
+Twin 3D · YOLO local · train offline · WO/SLA full · TOC · cổng dân · camera config HW.
 
 ## Prototype (REQUIRED)
 
-| | |
-|--|--|
-| Artifact | `ui/prototype/index.html` + `map-oms.js` |
-| Zones | `DES-MOB-*` (bảng §2) · OMS `DES-MOB-OMS-PATROL` / `DES-MOB-OMS-GIS` |
-| Scope | iPhone + system chrome — **không** GOVOne web chrome |
-| Style | SwiftUI / iOS HIG · **scrollbar ẩn** (iOS overlay) |
-| Map gate | `/agent-dev-oms-map` — live OSM · Esri · Sat≤17 · OSRM · Fit overview≤13 · line levels · isolate |
-| SSOT brief | `map-feature/mobile-design-brief.md` |
-| **reviewUrl** | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/mobile-p1/ui/prototype/index.html` |
-| Alt serve | `http://localhost:5198` |
+| | Path |
+|--|------|
+| iOS | `ui/prototype/ios/index.html` |
+| Android | `ui/prototype/android/index.html` |
+| OMS helper | `ui/prototype/map-oms.js` |
+| **reviewUrl iOS** | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/mobile-p1/ui/prototype/ios/index.html` |
+| **reviewUrl Android** | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/mobile-p1/ui/prototype/android/index.html` |
+| Serve | `npx --yes serve -p 5198 ui/prototype` → `/ios/` · `/android/` |
 
-### Wire (patrol map — OMS)
-
-```
-[Nav]     ‹ Hiện trường     Ca đang chạy     Check-in
-[host]    Leaflet OSM live · corridor teal + track blue · CI pins
-[float]   Điểm tiếp theo · Ghi nhận
-[bar]     OSM | Esri | Sat | Fit
-[legend]  Tất cả · Track · CI xong · CI tiếp  → isolate+Fit
-[Tab]     …
-```
-
-## OMS checklist (mobile)
+### OMS (patrol + GIS)
 
 | # | Check | Status |
 |---|-------|--------|
 | R1 | Live Leaflet — không gradient fake | ✅ `map-oms.js` |
-| R2 | Default OSM VN + Esri + Sat | ✅ |
-| R3 | title/aria-label trên nút basemap/Fit | ✅ |
-| R4/R4b | Full flex fill trong phone (không vh cap) | ✅ `.map-host` flex |
+| R2 | OSM + Esri + Sat | ✅ |
+| R4 | Flex fill trong phone (không vh) | ✅ `.map-host` |
 | R4c | host → bar → legend | ✅ |
 | R5b | sat maxNativeZoom 17 | ✅ |
-| R7b | corridor pane + track pane | ✅ |
-| R7c | legend isolate + Fit | ✅ |
-| R8 | OSRM route | ✅ public router |
+| R8 | OSRM | ✅ |
 | R11 | Fit overview maxZoom ≤13 | ✅ |
 
-## Handoff (sau `design_confirm` approve)
+## Handoff (sau `design_confirm`)
 
-- **SA / Mobile lead:** chọn stack (`ui_repo_confirm`) · API BFF same Web (`5201/web-bff/api/v1`) — **cấm** fork API
-- Batch màn còn lại cùng pattern: list+map / AI capture / camera xem
-- Web list pack `patrol` đã confirmed riêng — mobile **không** thay DES-GRID web
+`/agent-qldb-workflow-mobile` · `ui_repo_confirm` (SwiftUI + Compose) · same BFF — **cấm** fork API.
 
-## Version meta (REQUIRED)
+## Version meta
 
 | Field | Value |
 |-------|-------|
-| skillId | agent-design |
-| skillVersion | 2026.08.08.31 |
+| skillId | gen-mobile-design |
+| generatedAt | 2026-08-16T00:40:00.000Z |
 | schemaVersion | 1 |
-| workflowVersion | 2026.08.08.31 |
-| rulesVersion | 2026.08.08.31 |
-| generatedAt | 2026-08-10T16:20:00.000Z |
-| versionGate | new artifact |
-| shared_grid_example | N/A (mobile — không DES-GRID-A…D web) |

@@ -176,6 +176,32 @@
       "notes": "roleOnly data_analy · task_51457ed6 · Kind E · SearchInput road-route + enums · no Excel cluster · GAP-DA-RPT-MFE"
     },
     {
+      "id": "feature-rpt-checkin-v1",
+      "featureSlug": "rpt-checkin",
+      "catalogKind": "web-report",
+      "status": "done",
+      "artifact": "specs/_data-analy/features/rpt-checkin-control-hint.md",
+      "contentHash": "sha256:rpt-checkin-context-20260815",
+      "skillVersion": "2026.08.15.5",
+      "workflowVersion": "2026.08.15.5",
+      "rulesVersion": "2026.08.15.8",
+      "analyzedAt": "2026-08-15T21:50:00.000Z",
+      "notes": "roleOnly data_analy · task_2a9cab80 · Kind E leaf check-in · no Excel"
+    },
+    {
+      "id": "feature-rpt-cong-van-v1",
+      "featureSlug": "rpt-cong-van",
+      "catalogKind": "web-report",
+      "status": "done",
+      "artifact": "specs/_data-analy/features/rpt-cong-van-control-hint.md",
+      "contentHash": "sha256:rpt-cong-van-context-20260815",
+      "skillVersion": "2026.08.15.5",
+      "workflowVersion": "2026.08.15.5",
+      "rulesVersion": "2026.08.15.8",
+      "analyzedAt": "2026-08-15T15:32:00.000Z",
+      "notes": "roleOnly data_analy · task_6f9f0ca2 · Kind E leaf công văn · no Excel"
+    },
+    {
       "id": "feature-inventory-v1",
       "featureSlug": "inventory",
       "catalogKind": "inventory-item",
@@ -187,6 +213,32 @@
       "rulesVersion": "2026.08.15.2",
       "analyzedAt": "2026-08-14T18:25:00.000Z",
       "notes": "retry roleOnly data_analy · task_efd934ec · Kind B · SearchInput enum+org-unit · cấm Slideout · no Excel"
+    },
+    {
+      "id": "feature-ops-v1",
+      "featureSlug": "ops",
+      "catalogKind": "ops-inbox",
+      "status": "done",
+      "artifact": "specs/_data-analy/features/ops-control-hint.md",
+      "contentHash": "sha256:ops-delta-official-doc-20260816",
+      "skillVersion": "2026.08.15.5",
+      "workflowVersion": "2026.08.15.5",
+      "rulesVersion": "2026.08.15.8",
+      "analyzedAt": "2026-08-16T00:40:00.000Z",
+      "notes": "roleOnly data_analy · task_31a9bbd8 · edit_page · GAP-RPT-SRC-OPS-01 OfficialDocument · schema editor · no Excel"
+    },
+    {
+      "id": "feature-pavement-section-v1",
+      "featureSlug": "pavement-section",
+      "catalogKind": "pavement-sections",
+      "status": "done",
+      "artifact": "specs/_data-analy/features/pavement-section-control-hint.md",
+      "contentHash": "sha256:pavement-section-delta-pci-20260816",
+      "skillVersion": "2026.08.15.5",
+      "workflowVersion": "2026.08.15.5",
+      "rulesVersion": "2026.08.15.8",
+      "analyzedAt": "2026-08-16T00:25:00.000Z",
+      "notes": "roleOnly data_analy · task_6a731526 · edit_page · GAP-RPT-SRC-PAV-01 Pci/LayerCode/MeasuredAt · no Excel"
     }
   ]
 }

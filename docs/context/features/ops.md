@@ -2,10 +2,10 @@
 
 > **Slug:** `ops` · **Module:** `Notification` · **Phase:** P2 (list/notify nhẹ P1)  
 > **Status:** Signed  
-> **Kind:** **B** (CatalogListShell inbox) + full-page form (không Kind D Slideout) — Confirmed by: ai-autocode-autopilot  
+> **Kind:** **B** (`LinPageLayout` catalog inbox) + full-page form (không Kind D Slideout) — Confirmed by: ai-autocode-autopilot  
 > **Sources:** `RMMS` §9 · guide **Giám sát** notify · `07` §9 · `15-SCREEN-AI-MAP.md`  
 > **Demo HTML:** `Linm.RMMS.Demo/src/demo/ops/ops.html`  
-> **MFE (align):** `Linm.Web.RMMS.Field` · route `/ops` · Kind B + `NotificationFormPage` (`task_47576cf0`)  
+> **MFE (align):** `Linm.Web.RMMS.Field` · route `/ops` · Kind B + `NotificationFormPage`  
 > **≠** GOVOne Giám sát map (`patrol`) — realtime map → Patrol/Gis
 
 ## 1. Tổng quan
@@ -22,20 +22,21 @@
 
 | Screen | Pattern | Zones | Ghi chú |
 |--------|---------|-------|---------|
-| Inbox chỉ đạo `/ops` | Kind **B** CatalogListShell | Overview KPI · toolbar · filter · grid | P1 |
+| Inbox chỉ đạo `/ops` | Kind **B** `LinPageLayout` | Overview KPI · toolbar · filter · grid · Zone F schema editor | P1 |
 | Tạo / Chi tiết | Full-page form | Z1 toolbar · Z2 fields · Z3 footer · View `<dl>` | `/ops/new` · `/ops/:id` |
 | Bản đồ ĐH | Nav stub | Link → Gis/Patrol | P2 — **không** embed map CRUD |
 | Command center | Badge P2 | Modal stub | GAP-F-OPS-01 |
 
 **Kind B + full-page form (erp-form-context · list-form-quality-gates):**
 
-- **List** — title «Chỉ đạo điều hành» · toolbar (Làm mới · Tạo · Xuất · nav cross-MFE) · filter unread/priority/type · grid inbox  
+- **List** — 1× `LinPageLayout` · title «Chỉ đạo điều hành» · `LinCatalogDataGrid` · footer `LinCatalogListPagination` · Zone F `LinCatalogUiSchemaEditorModal` («Cấu hình hiển thị danh mục») · kind `ops-inbox`  
+- **Default cột** — `code` · `documentNumber` · `direction` · `summary` · `orgUnitName` · `title` · `sender` · `recipient` · `priority` · `type` · `status` · `sentAt`  
 - **Z1** — Quay lại · Đóng · title · dirty badge · hint  
 - **Z2a** — Validation banner (tiêu đề · nội dung · người nhận)  
-- **Z2b** — 12 fields control-map  
+- **Z2b** — OfficialDoc scalars + control-map  
 - **Z3** — Gửi chỉ đạo · Lưu nháp · Xóa nội dung · Hủy · Giao việc (P2)  
 
-**Mock:** fake inbox + overview KPI · IdCode `OPS-YYYYMMDD-NNNN` · localStorage nháp · toast · **no BE**.
+**Runtime:** BE **Signed** `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/notification/inbox` + `api/v1/notification/overview`. MFE fallback `opsStore` khi API unreachable. IdCode `OPS-*` server. **Cấm** ERP.*
 
 **2d readonly:** rule_defaults · Confirmed by: ai-autocode-autopilot  
 **2e IdCode:** `OPS-YYYYMMDD-NNNN`  
@@ -62,7 +63,7 @@
 
 | Entity | Key columns |
 |--------|-------------|
-| Notification | Id, Code, Title, Body, Priority, Status, SentAt, Channel |
+| Notification (OfficialDocument P1) | Id, Code, Title, Body, Priority, Status, SentAt, Channel, **DocumentNumber, Direction, Summary, OrgUnitCode, OrgUnitName** |
 | DispatchOrder | Id, NotificationId, TeamId, LinkRef (P2) |
 | Device/Vehicle track | P2–P3 Inventory |
 
@@ -88,7 +89,7 @@ Consume incident/patrol/workorder · publish push/SignalR (P2). Cross-nav demo �
 - [x] Nav Giám sát / Bản đồ / Sự cố (không clone GOVOne map)
 - [x] Badge P2 Command center
 - [x] Leave-confirm khi dirty
-- [x] Không gọi BE
+- [x] BE Signed `api/v1/notification/inbox`
 
 **sourceKind:** `synthetic` (product docs · **không** open RECAPTURE-GAPS vì thiếu GOVOne shell)  
 **Demo path:** `Linm.RMMS.Demo/src/demo/ops/ops.html` · catalog domain `ops`  

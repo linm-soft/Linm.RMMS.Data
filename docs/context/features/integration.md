@@ -1,12 +1,14 @@
 # Open API và tích hợp — Feature Context
 
 > **Slug:** `integration` · **Module:** `Integration` · **Phase:** P1–P3  
-> **Status:** Demo  
-> **Kind:** **G** (system layout hub) + Import Kind **D** slideout — Confirmed by: ai-autocode-autopilot  
+> **Status:** Signed (hub API) · MFE align `edit_page`  
+> **Kind:** **G** hub + **B** catalogs Endpoints/Sync/Partners + **full-page** Import/Job/Partner — Confirmed by: ai-autocode-autopilot · TL `task_4d837bc9`  
 > **Sources:** `RMMS` §18 · `07` §18 · `09` · `15-SCREEN-AI-MAP.md` · guide Import tài sản  
 > **Demo HTML:** `Linm.RMMS.Demo/public/demo/integration/integration.html`  
-> **MFE (align):** `Linm.Web.RMMS.Integration` · **cấm** sửa MFE ở phase demo  
-> **Sibling:** `feedback` (Góp ý) — cùng domain folder, slug riêng
+> **MFE:** `Linm.Web.RMMS.Integration` · `/integration`  
+> **BE:** `Linm.RMMS.WebService` · `api/v1/integration/*` · **cấm ERP.***  
+> **Sibling:** `feedback` (Góp ý) · `citizen` — cùng MFE, slug riêng — **không** gộp  
+> **SUPERSEDE:** Kind D slideout Import — Design/SA 2026-08-16 full-page
 
 ## 1. Tổng quan
 
@@ -22,26 +24,28 @@
 
 | Screen | Pattern | Zones | Ghi chú |
 |--------|---------|-------|---------|
-| Open API hub | Kind G system | Tabs Endpoints · Sync · Partners | Swagger stub (no BE) |
-| Import tài sản | Kind D Slideout | Z1 toolbar · Z2 fields · Z3 footer | Guide Import KCHT |
-| Sync jobs list | CatalogListShell | Filter · grid · row actions | offline-batch / import |
-| Partners | CatalogListShell | Health · Bật/Tắt | Adapter catalog |
-| Offline-batch contract | Modal | JSON mock | 1 trang mô tả |
+| Open API hub | Kind G | A–B tabs · 1× `LinPageLayout` | `/integration` |
+| Endpoints / Sync / Partners | Kind B list A–D + F | SearchTextInput · SearchInput · schema editor | **cấm** nested CatalogListShell |
+| Import tài sản | Kind B **full-page** | Z1–Z3 · View=`<dl>` | `/integration/import` · **cấm** Slideout |
+| Sync job | Kind B **full-page** | C/E/V | `/integration/jobs/new` · `/:id` |
+| Partner | Kind B View | `<dl>` · Bật/Tắt | `/integration/partners/:id` |
+| Offline-batch | Modal | JSON mock | 1 trang mô tả |
 
-**Kind G + D layout (erp-form-context):**
+**Kind G + B layout (erp-form-context · task_4d837bc9):**
 
-- **Hub Z1** — Quay lại · title «Open API và tích hợp» · badge P1 baseline · toolbar OpenAPI  
-- **Tab Endpoints** — bảng Method/Path · filter · Swagger stub panel  
-- **Tab Sync** — jobs grid · Xem log · Retry  
-- **Tab Partners** — ERP…Cổng DVC · health · Bật/Tắt  
-- **Import slideout** — Z1 Đóng · Z2 Loại TS/Địa bàn/Tuyến/Đoạn/File · Z3 Chạy import  
+- **Hub A** — `fa-plug` · title «Open API và tích hợp» · badge Kind G + P1 · **cấm** Thêm/Import trên A  
+- **Hub B** — OpenAPI · cog schema · Import · Thêm job **chỉ B**  
+- **Tab Endpoints** — Method/Path · SearchTextInput · SearchInput phase · schema `integration-endpoints`  
+- **Tab Sync** — `LinCatalogDataGrid` · row Xem/Sửa/Retry/Log/Xóa · schema `integration-sync-jobs`  
+- **Tab Partners** — health · Bật/Tắt · schema `integration-partners`  
+- **Form full-page** — Import/Job/Partner · leave-confirm · **cấm** Resource/Slideout/View Input xám (trừ IdCode)  
 
-**Mock:** endpoint P1 table · 4 sync jobs · 10 partners · IdCode `SYNC-YYYYMMDD-NNNN` · localStorage checklist.
+**IdCode:** `SYNC-YYYYMMDD-NNNN` (server-gen · FE không gửi Code). Fallback local khi API down — **không** product UX localStorage-only.
 
 **2d readonly:** rule_defaults · Confirmed by: ai-autocode-autopilot  
 **2e IdCode:** `SYNC-YYYYMMDD-NNNN`  
 **2k:** leave-confirm khi import dirty  
-**2h:** CatalogListShell sync + partners
+**2h:** Kind B `LinCatalogDataGrid` + `LinCatalogListPagination` sync + partners
 
 ## 3. API
 
@@ -67,8 +71,8 @@
 
 | Entity | Key columns | Notes |
 |--------|-------------|-------|
-| SyncJob | Id, Code, Type, Partner, Status, RecordCount, StartedAt, FinishedAt, Error | optional `integration.sync_job` |
-| PartnerAdapter | Id, Name, SystemType, Auth, Health, Enabled, Phase | catalog |
+| SyncJob (`rmms_sync_jobs`) | Id, Code, SyncType, Partner, Status, RecordCount, StartedAt, FinishedAt, Error, FileName, Note, LogJson, AssetType, Region, Route, Section, CompanyCode, IsActive | unique `(CompanyCode, Code)` |
+| PartnerAdapter (`rmms_partner_adapters`) | Id, Name, SystemType, Auth, Health, Enabled, Phase, CompanyCode, IsActive | catalog |
 
 ## 5. Events / tích hợp
 
@@ -231,7 +235,7 @@
 - Control-map: [`integration-control-map.md`](../_raw/legacy-govone/demo-maps/integration-control-map.md)
 - Actions: [`integration-actions.md`](../_raw/legacy-govone/demo-maps/integration-actions.md)
 - Fields mapped: 28 · Actions: 19
-- Kind hint: **G** system hub + **D** import slideout — leave-confirm · CatalogListShell
+- Kind hint: **G** hub + **B** catalogs + **full-page** form — leave-confirm · **cấm** Slideout / CatalogListShell nested
 
 Gen demo: `/qlbd-analy-demo @integration` — load control-map trên + `/erp-form-context` rules (2a-K · 2g · common controls · list shell).
 <!-- DEMO-MFE-MODERN:END -->
@@ -240,7 +244,7 @@ Gen demo: `/qlbd-analy-demo @integration` — load control-map trên + `/erp-for
 
 | | |
 |--|--|
-| Task | `task_05705758` |
+| Task | `task_5aa247d6` (Dev) · pipeline integration · prior TL `task_4d837bc9` |
 | Skill | `/qlbd-analy-demo @integration` |
 | sourceKind | **synthetic** (suy luận từ product docs · không màn GOVOne vision · cấm RECAPTURE-GAPS open) |
 | Files | `integration.md` · `demo-maps/integration-*.md` · `src/demo/integration/integration.html` · `js/integration-*.js` · `demoCatalog.ts` · `features/integration-demo.html` |

@@ -60,6 +60,17 @@
 | Edit | Lưu · Huỷ · Xóa · Mở bản đồ live |
 | View | Sửa · Đóng · Mở bản đồ live |
 
+### MFE routes (SSOT)
+
+| Mode | Path |
+|------|------|
+| List | `/asset/pavement-section` |
+| Create | `/asset/pavement-section/new` |
+| View | `/asset/pavement-section/:id` |
+| Edit | `/asset/pavement-section/:id/edit` |
+| Copy | `/asset/pavement-section/:id/copy` |
+| Alias | `?mode=edit` · `?mode=copy` · `?copyFrom=` (deep-link cũ) |
+
 ## 3. API (Step §5)
 
 | Action | Method | Path |
@@ -108,11 +119,13 @@ Index: `(CompanyCode, Code)` unique · `(RoadName, KmFrom, KmTo)` · GIST option
 | GAP-P1-CC | P1 | Demo HTML chưa wire `@linm-soft-org/linm-web-common-components` — parity visual only |
 | GAP-P2-LKP | — | **Closed** — SearchInput master tỉnh/kết cấu/cấp/tình trạng (task_e95b3b89) |
 | GAP-P2-DT | P1 | `UpdatedAt` UTC ↔ local khi implement MFE thật |
+| GAP-RPT-SRC-PAV-01 | — | **Closed** — Pci · LayerCode · MeasuredAt (task_6a731526) |
 | GAP-F-PVT-01 | — | **Closed** — BE `api/v1/asset/pavement-sections` (task_94b861f5) |
 | GAP-P2-ACT-DELETE | — | **Closed** — toolbar/row Delete → soft DELETE (task_d0fcb3d7) |
 | GAP-TL-FORMTYPE-01 | — | **Closed** — stamped T-UI-ACT-01 · T-BE-CRUD-01 · T-QA-CRUD-01 |
 | GAP-LKP-SELECT | — | **Closed** — native `<select>` / `Select` → SearchInput (task_e95b3b89) |
 | GAP-PROD-VIEW-RO | — | **Closed** — View = `<dl>` display · form page riêng (task_e95b3b89) |
+| GAP-TL-ROUTE-01 | — | **Closed** — dedicated `/:id/edit` · `/:id/copy` (task_96b1864b) |
 
 ## 8. Demo checklist
 

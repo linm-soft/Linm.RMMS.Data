@@ -3,42 +3,56 @@
 | Field | Value |
 |-------|-------|
 | feature | `feedback` |
+| this role | `dev` · `/agent-dev` |
 | status | `done` |
 | changeScope | `edit_page` |
 | gap | `crud_formtype` |
 | mode | `fix_gaps` |
-| taskId | `task_4ff7bc4b` |
-| updatedAt | 2026-08-14T19:20:00.000Z |
+| autoApprove | **ON** (`task_7442b627`) |
+| taskId | `task_7442b627` |
+| prior · team_lead | `confirmed` · `task/feedback.md` · `task_d4ec3f5b` |
+| updatedAt | `2026-08-16T05:40:00.000Z` |
 | versionGate | rechecked |
 
-## retry.ssot_rereview: **pass**
+## retry.ssot_rereview (HARD — live after delta)
 
-checklist: `tl-grid-ssot` · `list_parity` · `tl-list-shell-height` · tree_master? n/a · form (`slideout-form-layout` footer_only)  
-gaps fixed this turn: **GAP-P2-ACT-DELETE** · **GAP-P2-SLIDE-TOP-ACT** · **GAP-P2-SLIDE-DUP-SAVE**  
-then: **fix_all**
+Checklist: `tl-grid-ssot` · `list_parity` · `tl-list-shell-height` · tree_master? n/a · form checklist.
 
-| Check | Result |
-|-------|--------|
-| 1× `LinPageLayout` (no nested `CatalogListShell`) | **PASS** |
-| `LinCatalogDataGrid` + column resize default ON | **PASS** (`DEFAULT_CATALOG_LIST_TABLE_CONFIG` + `resizable: true`) |
-| Footer `LinCatalogListPagination` | **PASS** · sizes 50/100/200/500 |
-| flex + skeleton + **LAYOUT-06** | **PASS** — `data-catalog-list-page` |
-| toolbar `catalogToolbar` | **PASS** · refresh · history · config · create · **delete** |
-| filter SearchTextInput — no Tìm btn | **PASS** |
-| list_parity Kind B | **PASS** |
-| tree_master? | n/a |
-| form checklist · `actions=footer_only` | **PASS** — no Z1 Quay lại/Hủy/Lưu; View Đóng/Sửa/Sao chép in footer |
+| Check | Live | Result |
+|-------|------|--------|
+| 1× `LinPageLayout` kind=catalog · **cấm** nested `CatalogListShell` | `FeedbackListPage` only | **PASS** |
+| `LinCatalogDataGrid` + kéo cột default ON | `catalogListTableConfigFromSchema` | **PASS** |
+| Footer `LinCatalogListPagination` · **cấm** footerPagination / pageSizeBar | sizes 50/100/200/500 | **PASS** |
+| flex + skeleton · `data-catalog-list-page` | `skeletonRows={8}` | **PASS** |
+| toolbar config FULL · `LinCatalogUiSchemaEditorModal` · `useCatalogUiSchema` · `columns={buildDynamicGridColumns(schema, uiColumns)}` | kind=`app-feedbacks` | **PASS** |
+| **cấm** `LinListTableConfigModal` · **cấm** `configHint` · **cấm** leftover grid `LinCatalogDataColumn` | none | **PASS** |
+| list_parity Kind B A–D + F | Zone C title Design · Zone A badges | **PASS** |
+| tree_master? | — | **n/a** |
+| Form full-page Z1–Z3 · View=`<dl>` · **cấm** Slideout | no `FeedbackFormSlideout` | **PASS** |
+| SearchInput list status + form role/category/status · **cấm** native `<select>` | SearchInput | **PASS** |
+| FE perm `integration.feedbacks.*` | `permissions.ts` | **PASS** |
+| Delete toolbar + row + Lin `Modal` · **cấm** `window.confirm` | wired | **PASS** |
+| Leave-confirm | `useFormLeaveGuard` | **PASS** |
 
-## Done this turn (task_4ff7bc4b · crud_formtype)
+**Cấm** chỉ patch 1 chỗ — `fix_all` GAP-TL-* cùng surface.
 
-Live page audit (Integration `FeedbackListPage` + `FeedbackFormSlideout`): **no LIST rewrite**.
+## Done this turn (`task_7442b627`)
 
 | Task | Result |
 |------|--------|
-| T-UI-ACT-01 | Wired Delete toolbar + row menu · action inventory closed |
-| T-BE-CRUD-01 | Verified API list/get/create/update/soft-delete + BFF DELETE · domain Integration |
-| Form polish | `FeedbackFormSlideout` footer-only (GAP-P2-SLIDE-*) |
-| Verify | typecheck + webpack build + BE Release **PASS** |
+| T-CTX-01 | context §4 = Code·SenderName·Role·SubmittedAt·Category·Body·Status·UserId · tracking `task_7442b627` |
+| T-BE-01 | **verify/no-op** — `AppFeedbacksController` CRUD + GetById · **cấm** ERP.* |
+| T-BE-02 | n/a — `Schema_RmmsAppFeedbacks` exists |
+| T-BE-SCHEMA-01 | **verify/no-op** — seed keys `code,senderName,role,category,body,submittedAt,status` |
+| T-BFF-01 | **verify/no-op** — `BuildListPath()` forwards `Request.QueryString` |
+| T-PERM-01 | FE gate keep · BE `[RequirePermission]` debt P1 |
+| T-UI-LIST-01 | Zone C **«Danh sách góp ý phần mềm»** · Zone A Kind B + ≠ Cổng người dân (header title node) |
+| T-UI-FORM-01 | keep full-page · **cấm** Slideout |
+| T-UI-LKP-01 | labels Design §3 Lỗi / Đề xuất / UX / Khác · role 3 · status draft/sent |
+| T-UI-FIELD-01 | keep §3 map · code readonly · body textarea |
+| T-UI-PROD-01 | form **không** `loadRows`/`genFeedbackCode` · copy/create code `(tự sinh)` · enums `services/feedback/lookups.ts` |
+| T-UI-UX-01 | bỏ `filterMaxWidthPx` list · form title **22px** |
+| T-UI-ACT-01 | verify Delete Modal + History stub · Tạo mới Zone B |
 
 ## Paths (confirmed)
 
@@ -47,32 +61,24 @@ Live page audit (Integration `FeedbackListPage` + `FeedbackFormSlideout`): **no 
 | BackendRoot | `D:/AI-QLBD/Linm.RMMS.WebService` |
 | API | `api/src/RMMS.Service.Api/Domains/Integration/` |
 | Entity | `api/shared/RMMS.Service.Persistence/Entities/AppFeedbackEntity.cs` |
-| Migration | `20260809160018_Schema_RmmsAppFeedbacks` |
 | BFF | `bff/domains/integration/LINM.RMMS.Integration.Bff/Controllers/AppFeedbacksBffController.cs` |
 | MFE list | `pages/FeedbackListPage/FeedbackListPage.tsx` |
-| MFE form | `pages/FeedbackListPage/FeedbackFormSlideout.tsx` |
+| MFE form | `pages/FeedbackFormPage/FeedbackFormPage.tsx` |
+| Lookups | `services/feedback/lookups.ts` |
 | Perm | `services/feedback/permissions.ts` |
 | Route prefix | `api/v1/integration/feedbacks` |
+| catalogKind | `app-feedbacks` |
 | mfeStdRoute | `/integration/feedback` |
 | mfeStdUrl | `http://localhost:9314/integration/feedback` |
 
-**Cấm** ERP.* — void.
+**Cấm** ERP.* — void. **No BE write** this turn.
 
-## LAYOUT-06 checklist
-
-| # | File | Result |
-|---|------|--------|
-| 1 | `AppLayout.module.css` `.mainStandalone` height calc | **PASS** (prior) |
-| 2 | `StandaloneShell.module.css` `.shell` height/max-height | **PASS** (prior) |
-| 3 | `.content:has([data-catalog-list-page])` flex fill | **PASS** (prior) |
-| 4 | Page `data-catalog-list-page` + flex root | **PASS** |
-
-## Verify (task_4ff7bc4b · 2026-08-14)
+## Build
 
 ```
 yarn typecheck → PASS
-LINM_RUN_DEV_LOCAL_BUNDLE=1 yarn build → PASS
-dotnet build Linm.RMMS.WebService.sln -c Release → PASS
+LINM_RUN_DEV_LOCAL_BUNDLE=1 yarn build → PASS (webpack 5.109.2 · 0 error · size warnings only)
+dotnet build → skipped (no API/schema write · T-BE-* verify/no-op)
 ```
 
 ## Debt
@@ -80,19 +86,32 @@ dotnet build Linm.RMMS.WebService.sln -c Release → PASS
 | ID | Note |
 |----|------|
 | SD-AUTH | `[RequirePermission]` TODO BE (CommonLib NuGet) |
-| SD-NOTIFY | email/notify DEFER |
-| History API | window.alert stub |
-| Schema editor | Config hint dialog P1 |
+| SD-NOTIFY | email/notify P2 |
+| SD-MEDIA | P2 |
+| History API | modal stub until IAM history |
+
+## Handoff → QA (`/agent-qa`)
+
+| Field | Value |
+|-------|-------|
+| Next | roleOnly=`qa` · chain ON · autoApprove ON |
+| Artifact | `qa/scenarios.md` |
+| Roles sau | review = **pending** |
 
 ## Version meta (REQUIRED)
 
 | Field | Value |
 |-------|-------|
 | skillId | agent-dev |
-| skillVersion | 2026.08.10.2 |
-| schemaVersion | 2 |
-| workflowVersion | 2026.08.10.2 |
-| rulesVersion | 2026.08.10.3 |
-| generatedAt | 2026-08-14T19:20:00.000Z |
+| skillVersion | 2026.08.15.5 |
+| schemaVersion | qldb-workflow-skill-v1 |
+| workflowVersion | 2026.08.15.5 |
+| rulesVersion | 2026.08.15.8 |
+| generatedAt | 2026-08-16T05:40:00.000Z |
 | versionGate | rechecked |
-| taskId | `task_4ff7bc4b` |
+| version_mismatch_action | recheck_new (STATUS) |
+| orchestratorSkillVersion | 2026.08.15.5 |
+| taskId | `task_7442b627` |
+
+---
+<!-- Version meta: skillVersion=2026.08.15.5 · schemaVersion=qldb-workflow-skill-v1 · workflowVersion=2026.08.15.5 · rulesVersion=2026.08.15.8 · versionGate=rechecked -->

@@ -3,8 +3,8 @@
 | Field | Value |
 |-------|-------|
 | feature | `users` |
-| phase | `done` |
-| status | `done` |
+| phase | `dev` |
+| status | `blocked` |
 | changeScope | `edit_page` |
 | packKind | `list` |
 | runMode | `full_pipeline` |
@@ -18,7 +18,7 @@
 | mfeStdUrl | `http://localhost:9314/integration/users` |
 | dataAnaly | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/../specs/_data-analy/features/users-control-hint.md` |
 | prototype.reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/users/ui/prototype/users-list-prototype.html` |
-| updatedAt | `2026-08-15T02:06:19.371Z` |
+| updatedAt | `2026-08-16T04:05:45.688Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -34,7 +34,7 @@
 | 2.1 | design | ui/design.md + prototype + reviewUrl | **confirmed** |
 | 2.2 | sa | be/solution-discovery.md | **confirmed** |
 | 3 | team-lead | task/users.md | **confirmed** |
-| 4 | dev | implement/users.md | **done** |
+| 4 | dev | implement/users.md | **blocked** (paused) |
 | 5 | qa | qa/scenarios.md | **confirmed** |
 | 6 | review | review/findings.md | **done** |
 ## Confirms
