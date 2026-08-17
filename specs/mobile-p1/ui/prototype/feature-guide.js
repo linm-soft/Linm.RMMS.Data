@@ -33,7 +33,7 @@
         'Một ca = một phiên trên một tuyến–đoạn km. Chỉ tiêu: số điểm tuần và độ phủ % hành lang.',
       ],
       std: 'Nghiệp vụ Chi cục QLĐB: nhật ký tuần đường / tuần kiểm · lý trình Km · ≥3 điểm/ngày/tuyến.',
-      bullets: ['Mã PAT-YYYYMMDD-NNNN', 'QL.1 / QL.46 + Km từ–đến (II.2 · Nghệ An)', 'Bỏ sót = thiếu điểm KH'],
+      bullets: ['Mã PAT-YYYYMMDD-NNNN', 'QL.1 / HCM + Km từ–đến (Khu IV · VP-IV.1)', 'Bỏ sót = thiếu điểm KH'],
     },
     'patrol-map': {
       title: 'Bản đồ ca + chấm điểm',

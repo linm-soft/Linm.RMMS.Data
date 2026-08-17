@@ -87,6 +87,7 @@
 
 - **P0 Review REJECT / QA FAIL:** `configHint` Zone F còn trên `EstimateListPage` — **GAP-P2-CC-06** / **GAP-DEV-CONFIG-PLACEHOLDER-01** / **GAP-SA-EST-03** · cần `LinCatalogUiSchemaEditorModal` + `useCatalogUiSchema` + `buildDynamicGridColumns` + BE seed `ai-estimates` (**GAP-SA-EST-02**)
 - **T-UI-FILTER-01 done (2026-08-17):** `LinErpListFilterBar` + `estimate-filter-bar.md` · query `sourceType`/`from`/`to` · **GAP-FILTER-BAR-01/03/06** CLOSED · **cấm** regress `ErpListHeaderFilters`
+- **T-QA-FILTER-01 pending:** QA live V1–V5 + fields 1:1 `estimate-filter-bar.md`
 - UnitPriceCatalog **DEFER P2**
 - Auto WO / `estimate.created` **DEFER P2**
 - `[RequirePermission]` when CommonLib ready

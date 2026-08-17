@@ -205,6 +205,7 @@ Live: `Linm.Web.RMMS.AiVision/src/pages/EstimateListPage/EstimateListPage.tsx` �
 | T-BE-AI-01 | — | **n/a** | generate stub = API-04/05 trong T-BE-CRUD |
 | T-UI-MAP-01 | — | **n/a** | no S-MAP |
 | T-QA-CRUD-01 | QA | **pending** | Create→Edit→View→Confirm→Delete + config FULL |
+| T-QA-FILTER-01 | QA | **pending** | V1–V5 + `estimate-filter-bar.md` · 🔍 work · **fail** `ErpListHeaderFilters` |
 | T-QA-LEAVE-01 | QA | **pending** | dirty leave Modal |
 | T-QA-AI-01 | QA | **pending** | from-incident/from-defects smoke · **0** AI badge · e2eQa ON |
 | T-LIB-01 | — | **n/a** | Lin* đã có |

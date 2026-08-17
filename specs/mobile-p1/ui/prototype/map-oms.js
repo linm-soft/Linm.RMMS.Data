@@ -6,25 +6,25 @@
   const OSRM = 'https://router.project-osrm.org/route/v1/driving';
   const OVERVIEW_FIT_MAX_ZOOM = 13;
 
-  /** QL.1 Chi cục II.2 — Nghệ An / Vinh (import QL 1 · Km436+800–Km457+899) */
+  /** QL.1 Khu IV · VP-IV.1 — Xuân Hải → Phước Dinh (Sau-sat-nhap · Km 1551+200–1561+134) */
   const PATROL_WAYPOINTS = [
-    [18.6525, 105.6720],
-    [18.6648, 105.6768],
-    [18.6790, 105.6810],
-    [18.6935, 105.6855],
+    [11.603, 109.016],
+    [11.555, 109.008],
+    [11.505, 108.999],
+    [11.456, 108.993],
   ];
 
   const CHECKINS = [
-    { id: 'ci1', latlng: [18.6580, 105.6745], status: 'done', label: '1' },
-    { id: 'ci2', latlng: [18.6710, 105.6788], status: 'done', label: '2' },
-    { id: 'ci3', latlng: [18.6825, 105.6822], status: 'here', label: '3' },
-    { id: 'ci4', latlng: [18.6900, 105.6845], status: 'next', label: '4' },
+    { id: 'ci1', latlng: [11.580, 109.012], status: 'done', label: '1' },
+    { id: 'ci2', latlng: [11.530, 109.004], status: 'done', label: '2' },
+    { id: 'ci3', latlng: [11.480, 108.996], status: 'here', label: '3' },
+    { id: 'ci4', latlng: [11.456, 108.993], status: 'next', label: '4' },
   ];
 
   const GIS_ASSETS = [
-    { id: 'ts1', latlng: [18.6710, 105.6788], kind: 'ts', label: 'TS' },
-    { id: 'ts2', latlng: [18.6860, 105.6835], kind: 'ts', label: 'TS' },
-    { id: 'sc1', latlng: [18.6760, 105.6800], kind: 'sc', label: 'SC' },
+    { id: 'ts1', latlng: [11.530, 109.004], kind: 'ts', label: 'TS' },
+    { id: 'ts2', latlng: [11.470, 108.995], kind: 'ts', label: 'TS' },
+    { id: 'sc1', latlng: [11.510, 109.001], kind: 'sc', label: 'SC' },
   ];
 
   const state = {
@@ -211,7 +211,7 @@
     const markers = {};
     CHECKINS.forEach((c) => {
       const m = L.marker(c.latlng, { icon: pinIcon(c.status, c.label) });
-      m.bindPopup(`Chấm điểm ${c.label} · QL.1 Nghệ An`);
+      m.bindPopup(`Chấm điểm ${c.label} · QL.1 Khu IV`);
       m.addTo(ciLayer);
       markers[c.id] = m;
     });
@@ -311,7 +311,7 @@
     const markers = {};
     GIS_ASSETS.forEach((a) => {
       const m = L.marker(a.latlng, { icon: pinIcon(a.kind, a.label) });
-      m.bindPopup(a.kind === 'ts' ? 'TS-20260810-014 · Cống ngang · QL.1 Km 450+300' : 'SC-2401 · Nứt mặt đường · QL.1 Km 450+420');
+      m.bindPopup(a.kind === 'ts' ? 'TS-20260810-014 · Cống ngang · QL.1 Km 1556+000' : 'SC-2401 · Nứt mặt đường · QL.1 Km 1556+080');
       if (a.kind === 'ts') m.addTo(tsLayer);
       else m.addTo(scLayer);
       markers[a.id] = m;

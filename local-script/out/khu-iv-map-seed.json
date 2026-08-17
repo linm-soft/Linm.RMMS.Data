@@ -1,0 +1,547 @@
+{
+  "generatedAt": "2026-08-17T16:11:25.005Z",
+  "source": {
+    "org": "Khu Quản lý đường bộ IV",
+    "orgCode": "REG-IV",
+    "vpCode": "VP-IV.1",
+    "routeCode": "QL.1",
+    "realDataRoot": "D:/AI-QLBD/Linm.RMMS.Data/data-import/Sau-sat-nhap/19. Khu Quản lý đường bộ IV.xlsx",
+    "geoNote": "Cột Tọa độ điểm đầu/cuối X-Y trong xlsx trống (ô bị ghi Cấp đường). Path = địa danh xã/phường trên hồ sơ, ghim OSM."
+  },
+  "route": {
+    "id": "ql1-khu-iv",
+    "label": "QL.1 · Khu QLĐB IV · Km 1525+000–1874+360",
+    "routeCode": "QL.1",
+    "kmFrom": "1525+000",
+    "kmTo": "1874+360",
+    "center": [
+      10.838,
+      107.627
+    ],
+    "path": [
+      [
+        11.773,
+        109.115
+      ],
+      [
+        11.603,
+        109.016
+      ],
+      [
+        11.456,
+        108.993
+      ],
+      [
+        11.342,
+        108.88
+      ],
+      [
+        11.326,
+        108.795
+      ],
+      [
+        11.198,
+        108.445
+      ],
+      [
+        10.968,
+        108.148
+      ],
+      [
+        10.689,
+        107.754
+      ],
+      [
+        10.838,
+        107.627
+      ],
+      [
+        10.864,
+        107.424
+      ],
+      [
+        10.932,
+        107.243
+      ],
+      [
+        10.953,
+        107.155
+      ],
+      [
+        10.937,
+        107.082
+      ],
+      [
+        10.954,
+        106.996
+      ],
+      [
+        10.891,
+        106.917
+      ],
+      [
+        10.95,
+        106.842
+      ],
+      [
+        10.822,
+        106.762
+      ]
+    ],
+    "kmPosts": [
+      {
+        "km": "1525+000",
+        "lat": 11.773,
+        "lng": 109.115,
+        "name": "xã Công Hải · 1525+000",
+        "sourceKind": "sau-sat-nhap-place"
+      },
+      {
+        "km": "1551+200",
+        "lat": 11.603,
+        "lng": 109.016,
+        "name": "xã Xuân Hải · 1551+200",
+        "sourceKind": "sau-sat-nhap-place"
+      },
+      {
+        "km": "1561+134",
+        "lat": 11.456,
+        "lng": 108.993,
+        "name": "xã Phước Dinh · 1561+134",
+        "sourceKind": "sau-sat-nhap-place"
+      },
+      {
+        "km": "1589+300",
+        "lat": 11.342,
+        "lng": 108.88,
+        "name": "Xã Cà Ná · 1589+300",
+        "sourceKind": "sau-sat-nhap-place"
+      },
+      {
+        "km": "1589+300",
+        "lat": 11.326,
+        "lng": 108.795,
+        "name": "Xã Vĩnh Hảo · 1589+300",
+        "sourceKind": "sau-sat-nhap-place"
+      },
+      {
+        "km": "1642+000",
+        "lat": 11.198,
+        "lng": 108.445,
+        "name": "Xã Hồng Thái · 1642+000",
+        "sourceKind": "sau-sat-nhap-place"
+      },
+      {
+        "km": "1692+000",
+        "lat": 10.968,
+        "lng": 108.148,
+        "name": "xã Hàm Thuận · 1692+000",
+        "sourceKind": "sau-sat-nhap-place"
+      },
+      {
+        "km": "1720+800",
+        "lat": 10.689,
+        "lng": 107.754,
+        "name": "xã Hàm Kiệm · 1720+800",
+        "sourceKind": "sau-sat-nhap-place"
+      },
+      {
+        "km": "1770+734",
+        "lat": 10.838,
+        "lng": 107.627,
+        "name": "xã Tân Minh · 1770+734",
+        "sourceKind": "sau-sat-nhap-place"
+      },
+      {
+        "km": "1770+734",
+        "lat": 10.864,
+        "lng": 107.424,
+        "name": "xã Xuân Hòa · 1770+734",
+        "sourceKind": "sau-sat-nhap-place"
+      },
+      {
+        "km": "1820+640",
+        "lat": 10.932,
+        "lng": 107.243,
+        "name": "phường Long Khánh · 1820+640",
+        "sourceKind": "sau-sat-nhap-place"
+      },
+      {
+        "km": "1829+000",
+        "lat": 10.953,
+        "lng": 107.155,
+        "name": "xã Dầu Giây · 1829+000",
+        "sourceKind": "sau-sat-nhap-place"
+      },
+      {
+        "km": "1841+000",
+        "lat": 10.937,
+        "lng": 107.082,
+        "name": "xã Hưng Thịnh · 1841+000",
+        "sourceKind": "sau-sat-nhap-place"
+      },
+      {
+        "km": "1851+714",
+        "lat": 10.954,
+        "lng": 106.996,
+        "name": "xã Bình Minh · 1851+714",
+        "sourceKind": "sau-sat-nhap-place"
+      },
+      {
+        "km": "1863+914",
+        "lat": 10.891,
+        "lng": 106.917,
+        "name": "phường Phước Tân · 1863+914",
+        "sourceKind": "sau-sat-nhap-place"
+      },
+      {
+        "km": "1871+150",
+        "lat": 10.95,
+        "lng": 106.842,
+        "name": "phường Trấn Biên · 1871+150",
+        "sourceKind": "sau-sat-nhap-place"
+      },
+      {
+        "km": "1874+360",
+        "lat": 10.822,
+        "lng": 106.762,
+        "name": "phường Đồng Hòa · 1874+360",
+        "sourceKind": "sau-sat-nhap-place"
+      }
+    ],
+    "simulatedCheckIn": {
+      "km": "1551+200",
+      "lat": 11.603,
+      "lng": 109.016,
+      "sourceKind": "sau-sat-nhap-place",
+      "note": "Điểm tuần mô phỏng tại địa danh hồ sơ — không phải GPS trip."
+    }
+  },
+  "segments": [
+    {
+      "unit": "Công ty TNHH MTV BOT Ninh Thuận",
+      "road": "Quốc lộ 1",
+      "longName": "Quốc lộ 1, tỉnh Khánh Hòa",
+      "kmFrom": "1525+000",
+      "kmTo": "1551+200",
+      "lengthM": 26200,
+      "provFrom": "tỉnh Khánh Hòa",
+      "townFrom": "xã Công Hải",
+      "provTo": "tỉnh Khánh Hòa",
+      "townTo": "xã Xuân Hải"
+    },
+    {
+      "unit": "Văn phòng Quản lý đường bộ IV.1",
+      "road": "Quốc lộ 1",
+      "longName": "Quốc lộ 1, tỉnh Khánh Hòa",
+      "kmFrom": "1551+200",
+      "kmTo": "1561+134",
+      "lengthM": 8390,
+      "provFrom": "tỉnh Khánh Hòa",
+      "townFrom": "xã Xuân Hải",
+      "provTo": "tỉnh Khánh Hòa",
+      "townTo": "xã Phước Dinh"
+    },
+    {
+      "unit": "Công ty TNHH MTV BOT Ninh Thuận",
+      "road": "Quốc lộ 1",
+      "longName": "Quốc lộ 1, tỉnh Khánh Hòa",
+      "kmFrom": "1561+134",
+      "kmTo": "1589+300",
+      "lengthM": 28166,
+      "provFrom": "tỉnh Khánh Hòa",
+      "townFrom": "xã Phước Dinh",
+      "provTo": "tỉnh Khánh Hòa",
+      "townTo": "Xã Cà Ná"
+    },
+    {
+      "unit": "Văn phòng Quản lý đường bộ IV.1",
+      "road": "Quốc lộ 1",
+      "longName": "Quốc lộ 1, tỉnh Lâm Đồng",
+      "kmFrom": "1589+300",
+      "kmTo": "1642+000",
+      "lengthM": 52700,
+      "provFrom": "Tỉnh Lâm Đồng",
+      "townFrom": "Xã Vĩnh Hảo",
+      "provTo": "Tỉnh Lâm Đồng",
+      "townTo": "Xã Hồng Thái"
+    },
+    {
+      "unit": "Công ty TNHH BOT QL1A Bình Thuận",
+      "road": "Quốc lộ 1",
+      "longName": "Quốc lộ 1, tỉnh Lâm Đồng",
+      "kmFrom": "1642+000",
+      "kmTo": "1692+000",
+      "lengthM": 50000,
+      "provFrom": "tỉnh Lâm Đồng",
+      "townFrom": "xã Hồng Thái",
+      "provTo": "tỉnh Lâm Đồng",
+      "townTo": "xã Hàm Thuận"
+    },
+    {
+      "unit": "Văn phòng Quản lý đường bộ IV.1",
+      "road": "Quốc lộ 1",
+      "longName": "Quốc lộ 1, tỉnh Lâm Đồng",
+      "kmFrom": "1692+000",
+      "kmTo": "1720+800",
+      "lengthM": 28800,
+      "provFrom": "tỉnh Lâm Đồng",
+      "townFrom": "xã Hàm Thuận",
+      "provTo": "tỉnh Lâm Đồng",
+      "townTo": "xã Hàm Kiệm"
+    },
+    {
+      "unit": "BOT Chi nhánh BOT 319 Sông Phan",
+      "road": "Quốc lộ 1",
+      "longName": "Quốc lộ 1, tỉnh Lâm Đồng",
+      "kmFrom": "1720+800",
+      "kmTo": "1770+734",
+      "lengthM": 49934,
+      "provFrom": "tỉnh Lâm Đồng",
+      "townFrom": "xã Hàm Kiệm",
+      "provTo": "tỉnh Lâm Đồng",
+      "townTo": "xã Tân Minh"
+    },
+    {
+      "unit": "Chi nhánh BOT 319 Sông Phan",
+      "road": "Quốc lộ 1",
+      "longName": "Quốc lộ 1, tỉnh Đồng Nai",
+      "kmFrom": "1770+734",
+      "kmTo": "1820+640",
+      "lengthM": 49906,
+      "provFrom": "tỉnh Đồng Nai",
+      "townFrom": "xã Xuân Hòa",
+      "provTo": "tỉnh Đồng Nai",
+      "townTo": "phường Long Khánh"
+    },
+    {
+      "unit": null,
+      "road": "Quốc lộ 1",
+      "longName": "Quốc lộ 1, tỉnh Đồng Nai",
+      "kmFrom": "1820+640",
+      "kmTo": "1821+580",
+      "lengthM": 940,
+      "provFrom": "tỉnh Đồng Nai",
+      "townFrom": "phường Long Khánh",
+      "provTo": "tỉnh Đồng Nai",
+      "townTo": "phường Long Khánh"
+    },
+    {
+      "unit": null,
+      "road": "Quốc lộ 1",
+      "longName": "Quốc lộ 1, tỉnh Đồng Nai",
+      "kmFrom": "1829+000",
+      "kmTo": "1830+500",
+      "lengthM": 1500,
+      "provFrom": "tỉnh Đồng Nai",
+      "townFrom": "xã Dầu Giây",
+      "provTo": "tỉnh Đồng Nai",
+      "townTo": "xã Dầu Giây"
+    },
+    {
+      "unit": null,
+      "road": "Quốc lộ 1",
+      "longName": "Quốc lộ 1, tỉnh Đồng Nai",
+      "kmFrom": "1830+500",
+      "kmTo": "1832+005",
+      "lengthM": 1505,
+      "provFrom": "tỉnh Đồng Nai",
+      "townFrom": "xã Dầu Giây",
+      "provTo": "tỉnh Đồng Nai",
+      "townTo": "xã Dầu Giây"
+    },
+    {
+      "unit": null,
+      "road": "Quốc lộ 1",
+      "longName": "Quốc lộ 1, tỉnh Đồng Nai",
+      "kmFrom": "1832+005",
+      "kmTo": "1833+020",
+      "lengthM": 1015,
+      "provFrom": "tỉnh Đồng Nai",
+      "townFrom": "xã Dầu Giây",
+      "provTo": "tỉnh Đồng Nai",
+      "townTo": "xã Dầu Giây"
+    },
+    {
+      "unit": null,
+      "road": "Quốc lộ 1",
+      "longName": "Quốc lộ 1, tỉnh Đồng Nai",
+      "kmFrom": "1833+020",
+      "kmTo": "1841+000",
+      "lengthM": 7980,
+      "provFrom": "tỉnh Đồng Nai",
+      "townFrom": "xã Dầu Giây",
+      "provTo": "tỉnh Đồng Nai",
+      "townTo": "xã Hưng Thịnh"
+    },
+    {
+      "unit": null,
+      "road": "Quốc lộ 1",
+      "longName": "Quốc lộ 1, tỉnh Đồng Nai",
+      "kmFrom": "1841+000",
+      "kmTo": "1851+714",
+      "lengthM": 10714,
+      "provFrom": "tỉnh Đồng Nai",
+      "townFrom": "xã Hưng Thịnh",
+      "provTo": "tỉnh Đồng Nai",
+      "townTo": "xã Bình Minh"
+    },
+    {
+      "unit": null,
+      "road": "Quốc lộ 1",
+      "longName": "Quốc lộ 1, tuyến tránh thành phố Biên Hòa, tỉnh Đồng Nai",
+      "kmFrom": "1851+714",
+      "kmTo": "1863+914",
+      "lengthM": 12200,
+      "provFrom": "tỉnh Đồng Nai",
+      "townFrom": "xã Bình Minh",
+      "provTo": "tỉnh Đồng Nai",
+      "townTo": "phường Phước Tân"
+    },
+    {
+      "unit": null,
+      "road": "Quốc lộ 1",
+      "longName": "Quốc lộ 1, tỉnh Đồng Nai",
+      "kmFrom": "1871+150",
+      "kmTo": "1874+360",
+      "lengthM": 3210,
+      "provFrom": "tỉnh Đồng Nai",
+      "townFrom": "phường Trấn Biên",
+      "provTo": "Tp. Hồ Chí Minh",
+      "townTo": "phường Đồng Hòa"
+    }
+  ],
+  "assetsSample": [
+    {
+      "category": "Đoạn tuyến đường chứa tài sản",
+      "countGeo": 17,
+      "points": [
+        {
+          "lat": 11.773,
+          "lng": 109.115,
+          "km": "1525+000",
+          "name": "xã Công Hải · 1525+000",
+          "sourceKind": "sau-sat-nhap-place"
+        },
+        {
+          "lat": 11.603,
+          "lng": 109.016,
+          "km": "1551+200",
+          "name": "xã Xuân Hải · 1551+200",
+          "sourceKind": "sau-sat-nhap-place"
+        },
+        {
+          "lat": 11.456,
+          "lng": 108.993,
+          "km": "1561+134",
+          "name": "xã Phước Dinh · 1561+134",
+          "sourceKind": "sau-sat-nhap-place"
+        },
+        {
+          "lat": 11.342,
+          "lng": 108.88,
+          "km": "1589+300",
+          "name": "Xã Cà Ná · 1589+300",
+          "sourceKind": "sau-sat-nhap-place"
+        },
+        {
+          "lat": 11.326,
+          "lng": 108.795,
+          "km": "1589+300",
+          "name": "Xã Vĩnh Hảo · 1589+300",
+          "sourceKind": "sau-sat-nhap-place"
+        },
+        {
+          "lat": 11.198,
+          "lng": 108.445,
+          "km": "1642+000",
+          "name": "Xã Hồng Thái · 1642+000",
+          "sourceKind": "sau-sat-nhap-place"
+        },
+        {
+          "lat": 10.968,
+          "lng": 108.148,
+          "km": "1692+000",
+          "name": "xã Hàm Thuận · 1692+000",
+          "sourceKind": "sau-sat-nhap-place"
+        },
+        {
+          "lat": 10.689,
+          "lng": 107.754,
+          "km": "1720+800",
+          "name": "xã Hàm Kiệm · 1720+800",
+          "sourceKind": "sau-sat-nhap-place"
+        },
+        {
+          "lat": 10.838,
+          "lng": 107.627,
+          "km": "1770+734",
+          "name": "xã Tân Minh · 1770+734",
+          "sourceKind": "sau-sat-nhap-place"
+        },
+        {
+          "lat": 10.864,
+          "lng": 107.424,
+          "km": "1770+734",
+          "name": "xã Xuân Hòa · 1770+734",
+          "sourceKind": "sau-sat-nhap-place"
+        },
+        {
+          "lat": 10.932,
+          "lng": 107.243,
+          "km": "1820+640",
+          "name": "phường Long Khánh · 1820+640",
+          "sourceKind": "sau-sat-nhap-place"
+        },
+        {
+          "lat": 10.953,
+          "lng": 107.155,
+          "km": "1829+000",
+          "name": "xã Dầu Giây · 1829+000",
+          "sourceKind": "sau-sat-nhap-place"
+        },
+        {
+          "lat": 10.937,
+          "lng": 107.082,
+          "km": "1841+000",
+          "name": "xã Hưng Thịnh · 1841+000",
+          "sourceKind": "sau-sat-nhap-place"
+        },
+        {
+          "lat": 10.954,
+          "lng": 106.996,
+          "km": "1851+714",
+          "name": "xã Bình Minh · 1851+714",
+          "sourceKind": "sau-sat-nhap-place"
+        },
+        {
+          "lat": 10.891,
+          "lng": 106.917,
+          "km": "1863+914",
+          "name": "phường Phước Tân · 1863+914",
+          "sourceKind": "sau-sat-nhap-place"
+        },
+        {
+          "lat": 10.95,
+          "lng": 106.842,
+          "km": "1871+150",
+          "name": "phường Trấn Biên · 1871+150",
+          "sourceKind": "sau-sat-nhap-place"
+        },
+        {
+          "lat": 10.822,
+          "lng": 106.762,
+          "km": "1874+360",
+          "name": "phường Đồng Hòa · 1874+360",
+          "sourceKind": "sau-sat-nhap-place"
+        }
+      ]
+    }
+  ],
+  "notes": [
+    "Nguồn: data-import/Sau-sat-nhap/19. Khu Quản lý đường bộ IV.xlsx · sheet Đoạn tuyến đường chứa tài sản (148 dòng).",
+    "QL.1 16 đoạn · lý trình mét → Km 1525+000–1874+360 (Khánh Hòa / Lâm Đồng / Đồng Nai / HCM).",
+    "Không dùng tọa độ X/Y trong file (trống / nhầm Cấp đường).",
+    "Cột KM II.1 (ql1-ii1) giữ làm fallback Thanh Hóa — không trộn vào path này."
+  ]
+}

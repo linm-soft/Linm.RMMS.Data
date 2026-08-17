@@ -23,7 +23,7 @@ KPI HĐ Gói B (300tr) — minh chứng trên thiết bị:
 Persona: Tuần đường · Hạt · vận hành ITS (xem).  
 DoD pack: 12 slug P1 (login + 11 màn) có field + API reuse + mock iOS **và** Android.
 
-**Mock Gói 1 (SSOT địa bàn):** Chi cục QLĐB II.2 = `VP-II.2` · Nghệ An. Nguồn `data-import/RMMS CUC 2/Chi cục QLĐB II.2` (QL.1 · QL.46 · QL.46B · QL.48C · QL.7 · HCM). Ca chính **QL.1 Km 448+000–452+200** (đoạn import Km436+800–Km457+899 · Vinh / Bến Thủy). Tuyến phụ **QL.46**. Tọa độ map ~`18.679, 105.681`. **Cấm** `HAT-QLDB-07` · `ĐT.879` · Biên Hòa.
+**Mock Gói 1 (SSOT địa bàn):** Khu QLĐB IV · `VP-IV.1`. Nguồn `data-import/Sau-sat-nhap/19. Khu Quản lý đường bộ IV.xlsx` (148 đoạn tuyến). Ca chính **QL.1 Km 1551+200–1561+134** (Xuân Hải → Phước Dinh · VP-IV.1). Tuyến phụ **HCM**. Seed map `Demo/_shared/real-data/khu-iv/map-seed.json` (QL.1 Km 1525+000–1874+360). Cột tọa độ X/Y trong xlsx trống — pin theo địa danh hồ sơ.
 
 ## 2. Persona + DoD
 
@@ -302,7 +302,7 @@ Shutter
 |------|-------------|----------------------------------------|
 | Kalman | Per ca / session · gap > 8 s → reset | Chip «Vị trí đã chốt · ±n m» |
 | Accuracy | `GPS_MAX_ACCURACY_M=30` | Không chốt ảnh nếu GPS kém |
-| Snap tuyến | Hành lang `ATT_CORRIDOR_M=80` (SC/Vision) · CI vẫn `CHECKIN_MAX_RADIUS_M=50` so với điểm KH | Hiện `QL.1 · Km 450+418` (Chi cục II.2 · Nghệ An) |
+| Snap tuyến | Hành lang `ATT_CORRIDOR_M=80` (SC/Vision) · CI vẫn `CHECKIN_MAX_RADIUS_M=50` so với điểm KH | Hiện `QL.1 · Km 1556+050` (Khu IV · VP-IV.1) |
 | Pin | Leaflet / native map | Pin xanh = vị trí ảnh · không cho kéo tay P1 |
 
 P2 (ITS §5.2): ≥2 tia + heading → giao điểm object (biển, cọc) — **DEFER** field photo.

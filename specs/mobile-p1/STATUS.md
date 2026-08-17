@@ -40,7 +40,7 @@
 | Android | `specs/mobile-p1/ui/prototype/android/index.html` |
 | Tổng quan | `specs/mobile-p1/ui/prototype/index.html` |
 | Logo | `logo/rmms.png` → `ui/prototype/assets/rmms.png` · đăng nhập |
-| Mock địa bàn | Chi cục QLĐB II.2 (`VP-II.2`) · Nghệ An · QL.1 Km 448–452 / QL.46 · map Vinh `18.679, 105.681` |
+| Mock địa bàn | Khu IV (`VP-IV.1`) · QL.1 Km 1551+200–1561+134 · Xuân Hải / Phước Dinh · seed `khu-iv/map-seed.json` |
 | Bản đồ | `specs/mobile-p1/ui/prototype/map-oms.js` |
 | Chụp + GPS | Overlay `DES-MOB-PHOTO-GPS` + pin `DES-MOB-GPS-PIN` · chip review **Chụp + GPS** |
 | **reviewUrl tổng quan** | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/mobile-p1/ui/prototype/index.html` |
