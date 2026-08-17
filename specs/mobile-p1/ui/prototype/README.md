@@ -5,6 +5,7 @@
 | iOS 390×844 | [`ios/index.html`](./ios/index.html) |
 | Android 412×915 | [`android/index.html`](./android/index.html) |
 | OMS | [`map-oms.js`](./map-oms.js) |
+| Logo | [`assets/rmms.png`](./assets/rmms.png) ← SSOT `logo/rmms.png` |
 | Feature doc | [`feature-guide.js`](./feature-guide.js) · trái quyền catalog · phải nghiệp vụ QLĐB |
 | Design | [`../design.md`](../design.md) |
 | Context | [`../../mobile/context.md`](../../mobile/context.md) |

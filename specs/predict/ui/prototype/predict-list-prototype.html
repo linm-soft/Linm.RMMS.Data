@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI dự báo bảo trì</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
+  <style>
+    :root{
+      --bg:#f5f7fa;--card:#fff;--border:#e2e8f0;--soft:#e9ecef;--txt:#0f172a;--muted:#64748b;
+      --primary:#0f766e;--primary-soft:#ccfbf1;--btn:#EEEEEE;--r:4px;
+      --ok:#047857;--warn:#b45309;--danger:#b91c1c;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font:13px/1.4 "Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--txt)}
+    .page{max-width:1280px;margin:0 auto;padding:8px;display:flex;flex-direction:column;gap:8px;min-height:100vh}
+    .zone-a{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+    .zone-a h1{margin:0;font-size:22px;font-weight:700;display:flex;align-items:center;gap:10px}
+    .zone-a h1 i{color:var(--primary);font-size:20px}
+    .zone-b{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:8px 0;position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--soft)}
+    .zone-b-left,.zone-b-right{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .tb{display:inline-flex;align-items:center;gap:4px;height:32px;padding:6px 8px;border:0;border-radius:var(--r);background:var(--btn);font-size:12px;font-weight:600;cursor:pointer}
+    .tb:hover{background:#BABCBE}.tb.primary{background:var(--primary);color:#fff}.tb:disabled{opacity:.55;cursor:not-allowed}
+    .filters{display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end;padding:10px 12px;background:var(--card);border:1px solid var(--soft);border-radius:var(--r)}
+    .filters .field{display:flex;flex-direction:column;gap:4px;min-width:120px}
+    .filters label{font-size:12px;color:var(--muted)}
+    .filters input,.filters select{height:32px;padding:6px 10px;border:1px solid var(--border);border-radius:var(--r);font-size:13px;background:#fff}
+    .kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+    .kpi{background:var(--card);border:1px solid var(--soft);border-radius:var(--r);padding:10px 12px}
+    .kpi .lbl{font-size:12px;color:var(--muted)}.kpi .val{font-size:1.25rem;font-weight:800;color:var(--primary);margin-top:2px}
+    .card{background:var(--card);border:1px solid var(--soft);border-radius:var(--r);display:flex;flex-direction:column;min-height:0;overflow:hidden}
+    .grid-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 16px 8px}
+    .grid-title{margin:0;font-size:15px;font-weight:700}.grid-help{margin:4px 0 0;font-size:12px;color:var(--muted)}
+    .table-wrap{overflow:auto;flex:1;min-height:220px;border-top:1px solid var(--soft)}
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:8px 10px;border-bottom:1px solid var(--soft);text-align:left;white-space:nowrap;font-size:13px}
+    th{background:#f8fafc;font-size:12px;color:var(--muted);position:sticky;top:0}
+    th.num,td.num{text-align:center;width:48px}
+    tbody tr:nth-child(even){background:#fafbfc}tbody tr:hover,tbody tr.sel{background:var(--primary-soft);cursor:pointer}
+    .score{font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px}
+    .sc-hi{background:#fef2f2;color:var(--danger)}.sc-mid{background:#fff7ed;color:var(--warn)}.sc-lo{background:#ecfdf5;color:var(--ok)}
+    .zone-d{display:flex;flex-direction:column;align-items:center;gap:10px;padding:12px 16px;border-top:1px solid var(--soft)}
+    .zone-d-total{color:var(--muted)}.zone-d-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center}
+    .pager-btn{width:32px;height:32px;border:1px solid var(--soft);border-radius:var(--r);background:#fff;color:var(--muted);cursor:pointer}
+    .menu{position:relative}.menu summary{list-style:none;cursor:pointer;padding:4px 8px;border:1px solid var(--border);border-radius:var(--r);background:#fff}
+    .menu summary::-webkit-details-marker{display:none}.menu-panel{display:none;position:absolute;right:0;z-index:5;background:#fff;border:1px solid var(--border);border-radius:6px;min-width:180px;box-shadow:0 8px 24px rgba(0,0,0,.12)}
+    .menu[open] .menu-panel{display:block}.menu-panel button{display:block;width:100%;text-align:left;border:0;background:0;padding:8px 12px;cursor:pointer;font-size:13px}
+    .menu-panel button:hover{background:#f1f5f9}
+    .col-tools{display:inline-flex;gap:4px;margin-left:6px;vertical-align:middle}
+    .col-tools button{border:0;background:transparent;cursor:pointer;color:var(--muted);padding:0 2px;font-size:11px}
+    .col-tools button.on{color:var(--primary)}
+    .toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%) translateY(12px);background:#0f172a;color:#e2e8f0;padding:10px 16px;border-radius:999px;font-size:12px;opacity:0;pointer-events:none;transition:.2s;z-index:80}.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+    .backdrop{display:none;position:fixed;inset:0;background:rgba(15,23,42,.35);z-index:40}.backdrop.on{display:block}
+    .backdrop.center{display:none;align-items:center;justify-content:center}.backdrop.center.on{display:flex}
+    .modal{width:min(420px,94vw);background:#fff;border-radius:8px;border:1px solid var(--soft)}
+    .modal.wide{width:min(720px,96vw)}
+    .modal-h{padding:12px 16px;border-bottom:1px solid var(--soft);font-weight:700}.modal-b{padding:16px;font-size:13px;color:var(--muted)}
+    .modal-f{padding:12px 16px;border-top:1px solid var(--soft);display:flex;justify-content:flex-end;gap:8px}
+    .schema-table{width:100%;border-collapse:collapse;font-size:12px;color:var(--txt)}
+    .schema-table th,.schema-table td{border:1px solid var(--soft);padding:6px 8px;text-align:left}
+    .schema-table th{background:#f8fafc;color:var(--muted)}
+    .schema-table input[type=number]{width:64px;height:28px;padding:2px 6px}
+    .hist-item{padding:8px 0;border-bottom:1px solid var(--soft)}.hist-item:last-child{border:0}
+    .slideout{display:none;position:fixed;top:0;right:0;bottom:0;width:min(720px,100vw);background:#fff;z-index:50;box-shadow:-8px 0 28px rgba(15,23,42,.18);flex-direction:column}.slideout.on{display:flex}
+    .z1{padding:12px 14px;border-bottom:1px solid var(--soft)}.z1h{padding:0 14px 10px;font-size:12px;color:var(--muted)}
+    .z1 .title{font-size:16px;font-weight:700;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+    .dirty{font-size:11px;background:#fff7ed;color:#c2410c;padding:2px 8px;border-radius:999px;font-weight:700}
+    .mode{font-size:11px;background:#ecfeff;color:var(--primary);padding:2px 8px;border-radius:999px;font-weight:700}
+    .z2{flex:1;overflow:auto;padding:14px;background:#f8fafc}
+    .section{background:#fff;border:1px solid var(--soft);border-radius:8px;padding:14px;margin-bottom:12px}
+    .section h3{margin:0 0 12px;font-size:13px;color:var(--primary)}
+    .fields{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+    .field{display:flex;flex-direction:column;gap:4px}.field label{font-size:12px;color:var(--muted)}
+    .field input,.field select,.field textarea{padding:6px 10px;border:1px solid var(--border);border-radius:var(--r);font-size:13px;min-height:32px;font-family:inherit}
+    .field input[readonly],.field select:disabled{background:#f8fafc}.field.full{grid-column:1/-1}
+    .drivers{display:flex;flex-wrap:wrap;gap:8px}
+    .chip{background:#f1f5f9;border:1px solid var(--soft);border-radius:999px;padding:4px 10px;font-size:12px;font-weight:600}
+    .chart{display:flex;align-items:flex-end;gap:8px;height:96px;padding-top:8px}
+    .bar{flex:1;background:linear-gradient(180deg,#5eead4,#0f766e);border-radius:4px 4px 0 0;min-width:18px;position:relative}
+    .bar span{position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);font-size:10px;color:var(--muted)}
+    .z3{flex-shrink:0;border-top:1px solid var(--soft);background:#fff;padding:12px 14px;display:flex;flex-direction:column;gap:10px}
+    .z3-acts{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+  </style>
+</head>
+<body>
+<div class="page" data-catalog-list-page>
+  <header class="zone-a" data-des-id="DES-GRID-A">
+    <h1><i class="fas fa-road" aria-hidden="true"></i> AI dự báo bảo trì</h1>
+  </header>
+
+  <div class="zone-b" data-des-id="DES-GRID-B">
+    <div class="zone-b-left">
+      <button type="button" class="tb" data-action="refresh"><i class="fas fa-sync-alt"></i> Làm mới</button>
+      <button type="button" class="tb primary" data-action="batch"><i class="fas fa-bolt"></i> Chạy dự báo hàng loạt</button>
+      <button type="button" class="tb" data-action="export"><i class="fas fa-file-excel"></i> Xuất Excel</button>
+      <button type="button" class="tb" data-action="dashboard"><i class="fas fa-chart-line"></i> Mở Dashboard</button>
+      <button type="button" class="tb" data-action="sort-score"><i class="fas fa-sort-amount-down"></i> Sort score</button>
+      <button type="button" class="tb" data-action="refresh-kpi"><i class="fas fa-tachometer-alt"></i> Refresh KPI</button>
+      <button type="button" class="tb" data-action="history"><i class="fas fa-history"></i> Lịch sử</button>
+      <button type="button" class="tb" data-action="config"><i class="fas fa-cog"></i> Sửa config</button>
+    </div>
+  </div>
+
+  <div class="filters" data-des-id="DES-GRID-FILTER">
+    <div class="field"><label>Tuyến</label>
+      <select id="f-route">
+        <option value="">ALL</option>
+        <option value="QL1A">QL1A</option>
+        <option value="QL22">QL22</option>
+        <option value="QL14">QL14</option>
+      </select>
+    </div>
+    <div class="field"><label>Horizon (tháng)</label><input type="number" id="f-horizon" value="12" min="1" max="60" /></div>
+    <div class="field"><label>Top N</label><input type="number" id="f-topn" value="8" min="1" max="50" /></div>
+    <div class="field"><label>Score tối thiểu</label><input type="number" id="f-scoremin" value="0" min="0" max="100" /></div>
+    <button type="button" class="tb primary" data-action="apply-filter">Áp dụng</button>
+    <button type="button" class="tb" data-action="clear-filter">Xóa lọc</button>
+  </div>
+
+  <div class="kpis" data-des-id="DES-GRID-KPI">
+    <div class="kpi"><div class="lbl">Đoạn</div><div class="val" id="kpi-count">0</div></div>
+    <div class="kpi"><div class="lbl">Score TB</div><div class="val" id="kpi-avg">0</div></div>
+    <div class="kpi"><div class="lbl">Ưu tiên đại tu</div><div class="val" id="kpi-major">0</div></div>
+    <div class="kpi"><div class="lbl">Horizon</div><div class="val" id="kpi-horizon">12</div></div>
+  </div>
+
+  <section class="card" data-des-id="DES-GRID-C">
+    <div class="grid-head">
+      <div data-des-id="DES-GRID-C0">
+        <h2 class="grid-title">Danh sách ưu tiên dự báo</h2>
+        <p class="grid-help">Nhấn đúp hoặc Ctrl+chuột phải để mở menu dòng</p>
+      </div>
+    </div>
+    <div class="table-wrap" data-des-id="DES-GRID-C2">
+      <table>
+        <thead>
+          <tr>
+            <th class="num">#</th>
+            <th>Mã đoạn
+              <span class="col-tools">
+                <button type="button" class="on" title="Sắp xếp"><i class="fas fa-sort-alpha-down"></i></button>
+                <button type="button" title="Lọc" data-des-id="DES-GRID-C2a"><i class="fas fa-filter"></i></button>
+              </span>
+            </th>
+            <th>Tên đoạn / Km</th>
+            <th>Score</th>
+            <th>Tuổi thọ</th>
+            <th>Khuyến nghị</th>
+            <th>Model</th>
+            <th>Dự báo lúc</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="grid-body"></tbody>
+      </table>
+    </div>
+    <div class="zone-d" data-des-id="DES-GRID-D">
+      <div class="zone-d-total">Tổng: <strong id="total-count">0</strong> bản ghi · Trang <strong>1</strong> / 1</div>
+      <div class="zone-d-row">
+        <label>Hiển thị
+          <select><option>50</option><option>100</option><option>200</option><option>500</option></select>
+        </label>
+        <button type="button" class="pager-btn" disabled title="Đầu"><i class="fas fa-angle-double-left"></i></button>
+        <button type="button" class="pager-btn" disabled title="Trước"><i class="fas fa-angle-left"></i></button>
+        <span>1 / 1</span>
+        <button type="button" class="pager-btn" disabled title="Sau"><i class="fas fa-angle-right"></i></button>
+        <button type="button" class="pager-btn" disabled title="Cuối"><i class="fas fa-angle-double-right"></i></button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="backdrop" id="backdrop"></div>
+<aside class="slideout" id="slideout" data-des-id="DES-GRID-Z" aria-label="Chi tiết dự báo đoạn">
+  <div class="z1">
+    <div class="title">Chi tiết dự báo đoạn <span class="mode" id="form-mode">Xem</span><span class="dirty" id="dirty-badge" hidden>Đã sửa</span></div>
+  </div>
+  <div class="z1h">Dự báo ưu tiên bảo trì từ PCI · lưu lượng · vật liệu · tuổi · lịch sử SC · model online (không GPU/train).</div>
+  <div class="z2">
+    <div class="section">
+      <h3>Thông tin đoạn</h3>
+      <div class="fields">
+        <div class="field"><label>Mã đoạn</label><input id="f-sectionId" readonly /></div>
+        <div class="field"><label>Tên đoạn / Km</label><input id="f-name" readonly /></div>
+        <div class="field"><label>Tuyến</label><input id="f-routeId" readonly /></div>
+        <div class="field"><label>Score (0–100)</label><input id="f-score" readonly /></div>
+        <div class="field"><label>Horizon (tháng)</label><input id="f-horizonForm" type="number" /></div>
+        <div class="field"><label>Tuổi thọ còn lại</label><input id="f-life" type="number" /></div>
+        <div class="field"><label>Khuyến nghị</label>
+          <select id="f-recommend">
+            <option value="major_rehab">Ưu tiên đại tu</option>
+            <option value="routine">Bảo trì định kỳ</option>
+            <option value="watch">Theo dõi</option>
+          </select>
+        </div>
+        <div class="field"><label>Model AI</label><input id="f-model" readonly value="gpt-4o-mini" /></div>
+        <div class="field"><label>PCI</label><input id="f-pci" type="number" /></div>
+        <div class="field"><label>Lưu lượng</label><input id="f-traffic" type="number" /></div>
+        <div class="field"><label>Vật liệu</label><input id="f-material" /></div>
+        <div class="field"><label>Tuổi công trình (năm)</label><input id="f-age" type="number" /></div>
+        <div class="field"><label>Thời tiết (agg)</label><input id="f-weather" /></div>
+        <div class="field"><label>Lịch sử SC</label><input id="f-repair" /></div>
+        <div class="field"><label>Dự báo lúc</label><input id="f-predictedAt" readonly /></div>
+        <div class="field full"><label>Ghi chú khuyến nghị</label><textarea id="f-note" rows="3" placeholder="Ghi chú kế hoạch bảo trì…"></textarea></div>
+      </div>
+    </div>
+    <div class="section">
+      <h3>Drivers</h3>
+      <div class="drivers" id="drivers"></div>
+    </div>
+    <div class="section">
+      <h3>PCI trend</h3>
+      <div class="chart" id="chart"></div>
+    </div>
+  </div>
+  <div class="z3">
+    <div class="z3-acts" id="z3-acts"></div>
+  </div>
+</aside>
+
+<div class="backdrop center" id="leave-modal" data-des-id="DES-MOD-LEAVE">
+  <div class="modal">
+    <div class="modal-h">Rời trang?</div>
+    <div class="modal-b">Bạn có thay đổi chưa lưu. Rời đi sẽ mất thay đổi.</div>
+    <div class="modal-f">
+      <button type="button" class="tb" data-action="leave-no">Ở lại</button>
+      <button type="button" class="tb primary" data-action="leave-yes">Rời đi</button>
+    </div>
+  </div>
+</div>
+
+<div class="backdrop center" id="config-modal" data-des-id="DES-GRID-F">
+  <div class="modal wide">
+    <div class="modal-h">Cấu hình hiển thị danh mục</div>
+    <div class="modal-b">
+      <p style="margin:0 0 10px">catalogKind=<code>ai-predict</code> · kéo cột mặc định bật · List / width / filter / sort</p>
+      <table class="schema-table">
+        <thead>
+          <tr><th>List</th><th>Cột</th><th>Width</th><th>Filter</th><th>Sort</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><input type="checkbox" checked /></td><td>Thứ hạng</td><td><input type="number" value="64" /></td><td><input type="checkbox" /></td><td><input type="checkbox" checked /></td></tr>
+          <tr><td><input type="checkbox" checked /></td><td>Mã đoạn</td><td><input type="number" value="100" /></td><td><input type="checkbox" checked /></td><td><input type="checkbox" checked /></td></tr>
+          <tr><td><input type="checkbox" checked /></td><td>Tên đoạn / Km</td><td><input type="number" value="220" /></td><td><input type="checkbox" checked /></td><td><input type="checkbox" /></td></tr>
+          <tr><td><input type="checkbox" checked /></td><td>Score</td><td><input type="number" value="90" /></td><td><input type="checkbox" checked /></td><td><input type="checkbox" checked /></td></tr>
+          <tr><td><input type="checkbox" checked /></td><td>Tuổi thọ còn lại</td><td><input type="number" value="110" /></td><td><input type="checkbox" /></td><td><input type="checkbox" checked /></td></tr>
+          <tr><td><input type="checkbox" checked /></td><td>Khuyến nghị</td><td><input type="number" value="140" /></td><td><input type="checkbox" checked /></td><td><input type="checkbox" /></td></tr>
+          <tr><td><input type="checkbox" checked /></td><td>Model</td><td><input type="number" value="110" /></td><td><input type="checkbox" /></td><td><input type="checkbox" /></td></tr>
+          <tr><td><input type="checkbox" /></td><td>PCI</td><td><input type="number" value="80" /></td><td><input type="checkbox" /></td><td><input type="checkbox" /></td></tr>
+          <tr><td><input type="checkbox" /></td><td>Lưu lượng</td><td><input type="number" value="100" /></td><td><input type="checkbox" /></td><td><input type="checkbox" /></td></tr>
+          <tr><td><input type="checkbox" checked /></td><td>Dự báo lúc</td><td><input type="number" value="140" /></td><td><input type="checkbox" /></td><td><input type="checkbox" checked /></td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top:10px"><button type="button" class="tb" data-action="add-col"><i class="fas fa-plus"></i> Thêm cột</button></div>
+    </div>
+    <div class="modal-f">
+      <button type="button" class="tb" data-action="config-no">Hủy</button>
+      <button type="button" class="tb primary" data-action="config-yes">Lưu</button>
+    </div>
+  </div>
+</div>
+
+<div class="backdrop center" id="history-modal" data-des-id="DES-GRID-H">
+  <div class="modal">
+    <div class="modal-h" id="hist-title">Lịch sử audit</div>
+    <div class="modal-b" id="hist-body">
+      <div class="hist-item"><strong>17/08/2026 10:00</strong> · Score 88 · model gpt-4o-mini</div>
+      <div class="hist-item"><strong>10/08/2026 09:30</strong> · Score 81 · model gpt-4o-mini</div>
+      <div class="hist-item"><strong>01/08/2026 14:12</strong> · Score 76 · batch predict</div>
+    </div>
+    <div class="modal-f">
+      <button type="button" class="tb primary" data-action="history-close">Đóng</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function () {
+  const recommendLabel = {
+    major_rehab: 'Ưu tiên đại tu',
+    routine: 'Bảo trì định kỳ',
+    watch: 'Theo dõi'
+  };
+  const rows = [
+    { id: 'SEC-001', routeId: 'QL1A', name: 'QL1A · Km12+000–Km12+500', score: 88, life: 8, recommend: 'major_rehab', model: 'gpt-4o-mini', pci: 42, traffic: 18500, material: 'BTN', age: 9, weather: 'mưa nhiều · nhiệt cao', repair: '2 SC / 24 tháng', predictedAt: '17/08/2026 10:00', note: '', drivers: [{k:'age',w:0.32},{k:'traffic',w:0.28},{k:'pci',w:0.40}], chart: [72,68,61,55,48,42] },
+    { id: 'SEC-002', routeId: 'QL1A', name: 'QL1A · Km8+050–Km8+400', score: 82, life: 12, recommend: 'major_rehab', model: 'gpt-4o-mini', pci: 48, traffic: 16200, material: 'BTN', age: 8, weather: 'mưa vừa', repair: '1 SC / 18 tháng', predictedAt: '17/08/2026 10:00', note: '', drivers: [{k:'pci',w:0.45},{k:'traffic',w:0.30},{k:'age',w:0.25}], chart: [78,74,70,64,55,48] },
+    { id: 'SEC-003', routeId: 'QL22', name: 'QL22 · Km3+100–Km3+600', score: 74, life: 18, recommend: 'major_rehab', model: 'gpt-4o-mini', pci: 55, traffic: 9800, material: 'BTM', age: 7, weather: 'nắng nóng', repair: '0 SC / 12 tháng', predictedAt: '17/08/2026 10:00', note: '', drivers: [{k:'weather',w:0.22},{k:'pci',w:0.48},{k:'age',w:0.30}], chart: [80,76,70,65,60,55] },
+    { id: 'SEC-004', routeId: 'QL1A', name: 'QL1A · Km21+200–Km21+700', score: 68, life: 22, recommend: 'routine', model: 'gpt-4o-mini', pci: 61, traffic: 14100, material: 'BTN', age: 6, weather: 'ổn định', repair: '1 SC / 36 tháng', predictedAt: '17/08/2026 10:00', note: '', drivers: [{k:'traffic',w:0.35},{k:'pci',w:0.40},{k:'age',w:0.25}], chart: [85,80,75,70,66,61] },
+    { id: 'SEC-005', routeId: 'QL14', name: 'QL14 · Km1+000–Km1+400', score: 63, life: 26, recommend: 'routine', model: 'gpt-4o-mini', pci: 64, traffic: 7200, material: 'BTN', age: 5, weather: 'mưa ít', repair: '0 SC / 24 tháng', predictedAt: '17/08/2026 10:00', note: '', drivers: [{k:'pci',w:0.50},{k:'age',w:0.25},{k:'traffic',w:0.25}], chart: [88,84,78,72,68,64] },
+    { id: 'SEC-006', routeId: 'QL22', name: 'QL22 · Km9+500–Km9+900', score: 58, life: 30, recommend: 'routine', model: 'gpt-4o-mini', pci: 68, traffic: 6100, material: 'BTM', age: 4, weather: 'ổn định', repair: '0 SC / 12 tháng', predictedAt: '17/08/2026 10:00', note: '', drivers: [{k:'pci',w:0.55},{k:'traffic',w:0.20},{k:'age',w:0.25}], chart: [90,86,82,76,72,68] },
+    { id: 'SEC-007', routeId: 'QL14', name: 'QL14 · Km5+200–Km5+650', score: 51, life: 36, recommend: 'watch', model: 'gpt-4o-mini', pci: 72, traffic: 5400, material: 'BTN', age: 3, weather: 'mát', repair: '0 SC / 12 tháng', predictedAt: '17/08/2026 10:00', note: '', drivers: [{k:'pci',w:0.60},{k:'age',w:0.20},{k:'traffic',w:0.20}], chart: [92,88,84,80,76,72] },
+    { id: 'SEC-008', routeId: 'QL1A', name: 'QL1A · Km30+000–Km30+450', score: 44, life: 42, recommend: 'watch', model: 'gpt-4o-mini', pci: 78, traffic: 11200, material: 'BTN', age: 2, weather: 'ổn định', repair: '0 SC / 6 tháng', predictedAt: '17/08/2026 10:00', note: '', drivers: [{k:'pci',w:0.65},{k:'traffic',w:0.20},{k:'age',w:0.15}], chart: [95,92,88,84,80,78] }
+  ];
+
+  let selected = null;
+  let dirty = false;
+  let mode = 'view';
+  let sortScoreDesc = true;
+  let filter = { routeId: '', horizon: 12, topN: 8, scoreMin: 0 };
+
+  const toast = (msg) => {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.classList.add('on');
+    setTimeout(() => el.classList.remove('on'), 1800);
+  };
+
+  const scoreClass = (s) => (s >= 75 ? 'sc-hi' : s >= 55 ? 'sc-mid' : 'sc-lo');
+
+  const setDirty = (v) => {
+    dirty = v;
+    document.getElementById('dirty-badge').hidden = !v;
+  };
+
+  const filteredRows = () => {
+    let list = rows.filter((r) => {
+      if (filter.routeId && r.routeId !== filter.routeId) return false;
+      if (r.score < filter.scoreMin) return false;
+      return true;
+    });
+    list = list.slice().sort((a, b) => sortScoreDesc ? b.score - a.score : a.score - b.score);
+    return list.slice(0, filter.topN);
+  };
+
+  const renderKpi = (list) => {
+    const avg = list.length ? Math.round(list.reduce((s, r) => s + r.score, 0) / list.length) : 0;
+    const major = list.filter((r) => r.recommend === 'major_rehab').length;
+    document.getElementById('kpi-count').textContent = String(list.length);
+    document.getElementById('kpi-avg').textContent = String(avg);
+    document.getElementById('kpi-major').textContent = String(major);
+    document.getElementById('kpi-horizon').textContent = String(filter.horizon);
+  };
+
+  const renderFooterActs = () => {
+    const el = document.getElementById('z3-acts');
+    if (mode === 'view') {
+      el.innerHTML = `
+        <button type="button" class="tb" data-action="cancel">Đóng</button>
+        <button type="button" class="tb" data-action="rerun"><i class="fas fa-redo"></i> Chạy lại</button>
+        <button type="button" class="tb primary" data-action="to-edit"><i class="fas fa-pen"></i> Sửa ghi chú</button>`;
+      return;
+    }
+    el.innerHTML = `
+      <button type="button" class="tb" data-action="cancel">Hủy</button>
+      <button type="button" class="tb" data-action="major">Ưu tiên đại tu</button>
+      <button type="button" class="tb" data-action="attach-plan">Gắn kế hoạch BT</button>
+      <button type="button" class="tb" data-action="rerun">Chạy lại</button>
+      <button type="button" class="tb primary" data-action="save-note">Lưu ghi chú</button>`;
+  };
+
+  const fillForm = (r) => {
+    document.getElementById('f-sectionId').value = r.id;
+    document.getElementById('f-name').value = r.name;
+    document.getElementById('f-routeId').value = r.routeId;
+    document.getElementById('f-score').value = r.score;
+    document.getElementById('f-horizonForm').value = filter.horizon;
+    document.getElementById('f-life').value = r.life;
+    document.getElementById('f-recommend').value = r.recommend;
+    document.getElementById('f-model').value = r.model;
+    document.getElementById('f-pci').value = r.pci;
+    document.getElementById('f-traffic').value = r.traffic;
+    document.getElementById('f-material').value = r.material;
+    document.getElementById('f-age').value = r.age;
+    document.getElementById('f-weather').value = r.weather;
+    document.getElementById('f-repair').value = r.repair;
+    document.getElementById('f-predictedAt').value = r.predictedAt;
+    document.getElementById('f-note').value = r.note || '';
+    document.getElementById('drivers').innerHTML = r.drivers.map((d) =>
+      `<span class="chip">${d.k}: ${Math.round(d.w * 100)}%</span>`).join('');
+    const max = Math.max(...r.chart);
+    document.getElementById('chart').innerHTML = r.chart.map((v, i) =>
+      `<div class="bar" style="height:${Math.round((v / max) * 80)}px"><span>T${i + 1}</span></div>`).join('');
+  };
+
+  const renderGrid = () => {
+    const list = filteredRows();
+    renderKpi(list);
+    document.getElementById('total-count').textContent = String(list.length);
+    document.getElementById('grid-body').innerHTML = list.map((r, i) => `
+      <tr data-id="${r.id}" class="${selected === r.id ? 'sel' : ''}">
+        <td class="num">${i + 1}</td>
+        <td>${r.id}</td>
+        <td>${r.name}</td>
+        <td><span class="score ${scoreClass(r.score)}">${r.score}</span></td>
+        <td>${r.life} tháng</td>
+        <td>${recommendLabel[r.recommend]}</td>
+        <td>${r.model}</td>
+        <td>${r.predictedAt}</td>
+        <td data-des-id="DES-GRID-C3">
+          <details class="menu"><summary>⋮</summary>
+            <div class="menu-panel">
+              <button type="button" data-row-act="view" data-id="${r.id}">Xem chi tiết</button>
+              <button type="button" data-row-act="rerun" data-id="${r.id}">Chạy dự báo đoạn</button>
+              <button type="button" data-row-act="major" data-id="${r.id}">Ưu tiên đại tu</button>
+              <button type="button" data-row-act="history" data-id="${r.id}">Lịch sử</button>
+            </div>
+          </details>
+        </td>
+      </tr>`).join('') || `<tr><td colspan="9" style="text-align:center;color:#94a3b8;padding:24px">Không có dữ liệu</td></tr>`;
+  };
+
+  const openForm = (m, id) => {
+    const r = rows.find((x) => x.id === id);
+    if (!r) return;
+    selected = id;
+    mode = m;
+    document.getElementById('form-mode').textContent = m === 'view' ? 'Xem' : 'Sửa ghi chú';
+    fillForm(r);
+    document.querySelectorAll('#slideout input, #slideout select, #slideout textarea').forEach((el) => {
+      if (el.id === 'f-sectionId' || el.id === 'f-name' || el.id === 'f-routeId' || el.id === 'f-score' || el.id === 'f-model' || el.id === 'f-predictedAt') {
+        el.readOnly = true;
+        return;
+      }
+      if (el.id === 'f-note') {
+        el.readOnly = m === 'view';
+        return;
+      }
+      el.readOnly = m === 'view';
+      if (el.tagName === 'SELECT') el.disabled = m === 'view';
+    });
+    document.getElementById('slideout').classList.add('on');
+    document.getElementById('backdrop').classList.add('on');
+    renderFooterActs();
+    renderGrid();
+  };
+
+  const tryClose = () => {
+    if (dirty) {
+      document.getElementById('leave-modal').classList.add('on');
+      return;
+    }
+    closeForm();
+  };
+
+  const closeForm = () => {
+    document.getElementById('slideout').classList.remove('on');
+    document.getElementById('backdrop').classList.remove('on');
+    document.getElementById('leave-modal').classList.remove('on');
+    setDirty(false);
+  };
+
+  const openHistory = (id) => {
+    const sid = id || selected || 'SEC-001';
+    document.getElementById('hist-title').textContent = 'Lịch sử audit — ' + sid;
+    document.getElementById('history-modal').classList.add('on');
+  };
+
+  document.getElementById('grid-body').addEventListener('click', (e) => {
+    const tr = e.target.closest('tr[data-id]');
+    const act = e.target.closest('[data-row-act]');
+    if (act) {
+      const id = act.getAttribute('data-id');
+      selected = id;
+      const a = act.getAttribute('data-row-act');
+      if (a === 'view') openForm('view', id);
+      else if (a === 'rerun') toast('Đã chạy dự báo đoạn ' + id);
+      else if (a === 'major') toast('Ưu tiên đại tu — stub (không tạo WO)');
+      else openHistory(id);
+      renderGrid();
+      e.preventDefault();
+      return;
+    }
+    if (tr) {
+      selected = tr.getAttribute('data-id');
+      renderGrid();
+    }
+  });
+
+  document.getElementById('grid-body').addEventListener('dblclick', (e) => {
+    const tr = e.target.closest('tr[data-id]');
+    if (!tr) return;
+    openForm('view', tr.getAttribute('data-id'));
+  });
+
+  document.body.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-action]');
+    if (!btn) return;
+    const a = btn.getAttribute('data-action');
+    if (a === 'refresh') { renderGrid(); toast('Đã làm mới'); }
+    else if (a === 'batch') { toast('Đã chạy dự báo hàng loạt (8 đoạn)'); renderGrid(); }
+    else if (a === 'export') toast('Xuất Excel đang phát triển');
+    else if (a === 'dashboard') toast('Mở Dashboard — stub P1');
+    else if (a === 'sort-score') { sortScoreDesc = !sortScoreDesc; renderGrid(); toast(sortScoreDesc ? 'Sort score ↓' : 'Sort score ↑'); }
+    else if (a === 'refresh-kpi') { renderKpi(filteredRows()); toast('Đã refresh KPI'); }
+    else if (a === 'history') openHistory(selected);
+    else if (a === 'history-close') document.getElementById('history-modal').classList.remove('on');
+    else if (a === 'config') document.getElementById('config-modal').classList.add('on');
+    else if (a === 'config-no') document.getElementById('config-modal').classList.remove('on');
+    else if (a === 'config-yes') { document.getElementById('config-modal').classList.remove('on'); toast('Đã lưu cấu hình hiển thị'); }
+    else if (a === 'add-col') toast('Thêm cột — chọn field schema');
+    else if (a === 'apply-filter') {
+      filter.routeId = document.getElementById('f-route').value;
+      filter.horizon = Number(document.getElementById('f-horizon').value) || 12;
+      filter.topN = Number(document.getElementById('f-topn').value) || 8;
+      filter.scoreMin = Number(document.getElementById('f-scoremin').value) || 0;
+      renderGrid();
+      toast('Đã áp dụng lọc');
+    }
+    else if (a === 'clear-filter') {
+      document.getElementById('f-route').value = '';
+      document.getElementById('f-horizon').value = '12';
+      document.getElementById('f-topn').value = '8';
+      document.getElementById('f-scoremin').value = '0';
+      filter = { routeId: '', horizon: 12, topN: 8, scoreMin: 0 };
+      renderGrid();
+    }
+    else if (a === 'to-edit') { openForm('edit', selected); }
+    else if (a === 'save-note') {
+      const r = rows.find((x) => x.id === selected);
+      if (r) r.note = document.getElementById('f-note').value;
+      setDirty(false);
+      toast('Đã lưu ghi chú');
+    }
+    else if (a === 'major') toast('Ưu tiên đại tu — stub (không tạo WO)');
+    else if (a === 'attach-plan') toast('Gắn kế hoạch BT — stub P1');
+    else if (a === 'rerun') toast('Đã chạy lại dự báo ' + (selected || ''));
+    else if (a === 'cancel') tryClose();
+    else if (a === 'leave-no') document.getElementById('leave-modal').classList.remove('on');
+    else if (a === 'leave-yes') closeForm();
+  });
+
+  document.getElementById('backdrop').addEventListener('click', tryClose);
+  document.getElementById('slideout').addEventListener('input', (e) => {
+    if (mode === 'view') return;
+    if (e.target && e.target.id === 'f-note') setDirty(true);
+  });
+
+  renderGrid();
+  renderFooterActs();
+})();
+</script>
+</body>
+</html>

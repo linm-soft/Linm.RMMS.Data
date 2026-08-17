@@ -3,8 +3,8 @@
 > **Slug:** `camera-connect` · **HĐ alias:** `camera-gtvt` (PL01 mã **03c** · gói **C**) · **Module:** `Camera` · **Phase:** P1.5 connect **DONE** · **CRUD list pack DONE** (task_6baf42c3) · next **P2 live gateway**  
 > **Status:** Kind B list + CameraDevice CRUD + connect Test/JPEG · continuous live = plan 21  
 > **Sources:** [Hikvision iDS-TCM403-GIR](https://www.hikvision.com/en/products/ITS-Products/traffic-cameras/urban-road-anpr-cameras/ids-tcm403-gir/) · `camera-model.md` · `22-CAMERA-TCM403-SDK-RESEARCH.md` · `21-CAMERA-HLS-WEBRTC-GATEWAY.md` · HĐ [`../../../../Linm.RMMS.Contract/out/camera-gtvt-dinh-nghia.md`](../../../../Linm.RMMS.Contract/out/camera-gtvt-dinh-nghia.md)  
-> **Demo HTML:** `Linm.RMMS.Demo/src/demo/features/camera-connect-demo.html`  
-> **MFE:** `Linm.Web.RMMS.Camera` · route `/camera` · ports **9216** / **9316** (`yarn start:std` → `http://localhost:9316/camera`)  
+> **Demo HTML:** `Linm.RMMS.Demo/src/demo/features/camera-connect-demo.html` · **pilot wall+map:** [`camera-ops-dashboard-demo.html`](../../../Linm.RMMS.Demo/src/demo/features/camera-ops-dashboard-demo.html)  
+> **MFE:** `Linm.Web.RMMS.Camera` · route `/camera` · **wall** `/camera/wall` · ports **9216** / **9316** (`yarn start:std` → `http://localhost:9316/camera`)  
 > **BE:** `api/v1/cameras` · CRUD `CameraDevice` · SDK-first TCM403 · CaptureJPEG · ISAPI Digest · ingest · `Linm.RMMS.WebService`  
 > **Specs:** `specs/camera-connect/STATUS.md` · `task/camera-connect.md` · `implement/camera-connect.md`  
 > **Host notify guide:** [`../23-CAMERA-HOST-NOTIFY-CONFIG.md`](../23-CAMERA-HOST-NOTIFY-CONFIG.md) · ví dụ `http://camera-event-api-rmms.vn`  
@@ -30,6 +30,7 @@
 |--------|---------|-------|---------|
 | List `/camera` | Full page Kind B | Filter · Grid · Pager · **schema editor `camera-devices`** | Mã cam · model · IP · trạng thái Online · tuyến/Km |
 | Connect `/camera/new` · `/camera/:id` | Full page Kind C | Z1 Config · Z2 Protocols · Z3 Live · Z4 Events | ≥10 inputs → full page |
+| **Wall `/camera/wall`** (pilot P1.6) | Full Kind F | Palette · lưới kéo-thả · preset 1 / 2×2 / 3×2 · tile live | Xem **nhiều cam cùng lúc** · sắp xếp · fullscreen tile · **cấm** `alert` |
 
 ### Zones form kết nối
 
@@ -40,8 +41,21 @@
 | **Z3 Live** | **P1.5:** poll JPEG SDK CaptureJPEG · **P2:** WebRTC/HLS player (plan 21) |
 | **Z4 Events** | Feed realtime mock: plate · speed · vehicleType · color · direction · timestamp · ảnh crop |
 
-**UI pattern:** Full page (workflow live + events).  
-**Mock:** 1 camera seed TCM403-GIR trên QL.1 · Km 12+350.
+**UI pattern:** Full page (workflow live + events). Wall = Kind F (kéo-thả · không form ≥10 field).  
+**Mock:** 1 camera seed TCM403-GIR trên QL.1 · Km 12+350.  
+**Pilot wall:** 6 cam QL.1 II.1 · layout localStorage `tn-demo:camera-wall:layout` · slideout live+tín hiệu+event (cùng GIS).
+
+### Wall — kéo thả (P1.6)
+
+| Hành vi | Rule |
+|---------|------|
+| Palette | List cam Online · kéo vào ô trống / thay tile |
+| **Mode thêm tự do** | Pool trái · kéo cam vào wall · **+ Ô trống** · Gỡ / kéo về pool |
+| Sắp xếp | HTML5 drag-drop trên lưới · persist thứ tự |
+| Preset | Mode lưới: 1 · 2×2 · 3×2 — đổi lưới không mất cam đã gán |
+| Tile | Mã TS · Online/Offline · JPEG mock · nút **Toàn màn hình** · **Gỡ** |
+| Fullscreen | Overlay stacked (không `window.alert`) · Esc / Đóng |
+| Map peer | GIS: 1-click cam → đếm xe + event · **Xem live** → slideout · **Ẩn / thu nhỏ / vừa / phóng to** + kéo splitter |
 
 ## 3. API (P1.5 — live)
 
@@ -61,6 +75,10 @@ Base: `api/v1/cameras` · BFF `web-bff/api/v1/cameras` · domain **Camera** · *
 | POST | `/cameras/{id}/live/start` | RTSP→gateway play URL | **P2** plan 21 |
 | POST | `/cameras/ingest/isapi` | Webhook Host notify → **persist** `CameraEvent` | **DONE** |
 | GET | `/cameras/events` | Event feed from DB (`?host=` optional) | **DONE** |
+| GET | `/cameras/wall/layout` | Layout wall (user × tenant) | **P1.6 demo** · BE P2 |
+| PUT | `/cameras/wall/layout` | Lưu thứ tự + preset | **P1.6 demo** · BE P2 |
+| GET | `/cameras/{id}/signal` | Heartbeat · bitrate · lastSeen | **P1.6 mock** |
+| GET | `/cameras/{id}/counts?from=&to=` | Đếm xe theo cam (support ANPR/count) | **P1.6 mock** · report `rpt-dem-xe` |
 
 ### Connect request (real)
 
@@ -143,6 +161,8 @@ Site lab: `113.179.52.55:8100` = SDK TCP · không phải ISAPI.
 | GAP-CAM-04 | Multi-model catalog | `GET /cameras/models` + `CameraModelCatalog` |
 | GAP-CAM-05 | HCNetSDK binary | Copy HiTools Win64 → `D:\AI-QLBD\Linm.RMMS.WebService\api\src\RMMS.Service.Api\native\hikvision` · không DLL vẫn `sdk_tcp` |
 | GAP-CAM-SDK-OS | Docker Linux vs Win64 DLL | **Chốt:** Linux image **không** fail build vì thiếu `libhcnetsdk.so` (DEFERRED). `sdkDllLoaded=false` trên Docker. CaptureJPEG = Win64 API `:5101` + BFF `RMMS_API_BASE=http://host.docker.internal:5101`. `REQUIRE_HIKVISION_SDK=true` chỉ khi có Linux `.so`. |
+| GAP-CAM-WALL-01 | Persist layout BE | Demo localStorage · BE `wall/layout` P2 |
+| GAP-CAM-WALL-02 | Live N cam cùng lúc | Demo JPEG mock · P2 gateway N session (plan 21) |
 
 ## 7. Demo checklist (chốt khách)
 
@@ -151,6 +171,8 @@ Site lab: `113.179.52.55:8100` = SDK TCP · không phải ISAPI.
 - [x] Live preview mock
 - [x] Event feed: tốc độ + detect (biển · loại · hướng)
 - [x] Seed model iDS-TCM403-GIR
+- [x] Wall kéo-thả · preset lưới · fullscreen tile (pilot)
+- [x] Slideout live + tín hiệu + event (cùng GIS)
 - [ ] Signed khách
 
 ## 8. Ownership
@@ -158,7 +180,7 @@ Site lab: `113.179.52.55:8100` = SDK TCP · không phải ISAPI.
 | Layer | Path |
 |-------|------|
 | Context | `docs/context/features/camera-connect.md` |
-| Demo | `Linm.RMMS.Demo/src/demo/features/camera-connect-demo.html` |
+| Demo | `Linm.RMMS.Demo/src/demo/features/camera-connect-demo.html` · **pilot** `camera-ops-dashboard-demo.html` |
 | MFE | `MFE-Source/Linm.Web.RMMS.Camera` |
 | Specs | `Linm.RMMS.Data/specs/camera-connect/` |
 | BE | `Linm.RMMS.WebService` · `Domains/Camera` · Models `LINM.RMMS.Camera.Models` |

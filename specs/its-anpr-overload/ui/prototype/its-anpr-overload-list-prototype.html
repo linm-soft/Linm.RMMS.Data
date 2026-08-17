@@ -1,0 +1,758 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ITS ANPR · Quá tải / tốc độ — Kind B+D prototype</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
+  <style>
+    :root {
+      --bg:#f5f7fa; --card:#fff; --border:#BABCBE; --soft:#e9ecef; --txt:#1A1A1A;
+      --muted:#6c757d; --primary:#0d6efd; --btn:#EEEEEE; --r:4px;
+      --ok:#047857; --warn:#b45309; --danger:#b91c1c; --teal:#0f766e;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font:13px/1.4 "Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--txt)}
+    .page{max-width:1280px;margin:0 auto;padding:8px;display:flex;flex-direction:column;gap:8px;min-height:100vh}
+    .note{font-size:11px;color:var(--muted);padding:4px 0}
+    .zone-a{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+    .zone-a h1{margin:0;font-size:22px;font-weight:700;display:flex;align-items:center;gap:10px}
+    .zone-a h1 i{color:var(--primary);font-size:20px}
+    .zone-b{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:8px 0;position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--soft)}
+    .zone-b-left,.zone-b-right{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .tb{display:inline-flex;align-items:center;gap:4px;height:32px;padding:6px 8px;border:0;border-radius:var(--r);background:var(--btn);font-size:12px;font-weight:600;cursor:pointer}
+    .tb:hover{background:#BABCBE}
+    .tb.primary{background:var(--primary);color:#fff}
+    .tb.primary:hover{background:#0b5ed7}
+    .tb.danger{background:#fef2f2;color:var(--danger)}
+    .tb:disabled{opacity:.55;cursor:not-allowed}
+    .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+    @media(max-width:800px){.kpis{grid-template-columns:repeat(2,1fr)}}
+    .kpi{background:var(--card);border:1px solid var(--soft);border-radius:var(--r);padding:10px 12px}
+    .kpi .lbl{font-size:11px;color:var(--muted);font-weight:600}
+    .kpi .val{font-size:1.25rem;font-weight:800;margin-top:2px;color:var(--teal)}
+    .filters{display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end;padding:10px 12px;background:var(--card);border:1px solid var(--soft);border-radius:var(--r)}
+    .filters .field{display:flex;flex-direction:column;gap:4px;min-width:140px}
+    .filters .field.search-right{margin-left:auto;min-width:220px;flex:0 1 260px}
+    .filters label{font-size:12px;color:var(--muted)}
+    .filters input,.filters select{height:32px;padding:6px 10px;border:1px solid var(--border);border-radius:var(--r);font-size:13px;background:#fff}
+    .layout{display:grid;grid-template-columns:1.15fr .85fr;gap:8px;min-height:0}
+    @media(max-width:1100px){.layout{grid-template-columns:1fr}}
+    .card{background:var(--card);border:1px solid var(--soft);border-radius:var(--r);display:flex;flex-direction:column;min-height:0;overflow:hidden}
+    .grid-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 16px 8px}
+    .grid-title{margin:0;font-size:15px;font-weight:700}
+    .grid-help{margin:4px 0 0;font-size:12px;color:var(--muted)}
+    .search{display:flex;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;min-width:220px;height:32px;background:#fff}
+    .search input{border:0;outline:0;padding:6px 10px;flex:1;font-size:13px}
+    .search button{border:0;border-left:1px solid var(--border);background:#f8fafc;padding:0 10px;cursor:pointer;color:var(--muted)}
+    .table-wrap{overflow:auto;flex:1;min-height:200px;border-top:1px solid var(--soft)}
+    table{width:100%;border-collapse:collapse;table-layout:fixed}
+    th,td{padding:8px 10px;border-bottom:1px solid var(--soft);text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:13px}
+    th{background:#f8fafc;font-size:12px;color:var(--muted);position:sticky;top:0}
+    th.num,td.num{text-align:center;width:44px}
+    tbody tr:nth-child(even){background:#fafbfc}
+    tbody tr:hover,tbody tr.sel{background:#eff6ff}
+    .plate{font-weight:800;font-family:ui-monospace,Consolas,monospace;letter-spacing:.02em}
+    .numish{font-variant-numeric:tabular-nums}
+    .st{font-size:11px;font-weight:700;padding:2px 6px;border-radius:999px}
+    .st-p{background:#fff7ed;color:#c2410c}
+    .st-ok{background:#ecfdf5;color:var(--ok)}
+    .st-x{background:#f1f5f9;color:#475569}
+    .sev-ok{color:var(--ok);font-weight:700}
+    .sev-warn{color:var(--warn);font-weight:700}
+    .sev-crit{color:var(--danger);font-weight:700}
+    .col-tools{display:inline-flex;gap:4px;margin-left:6px;vertical-align:middle}
+    .col-tools button{border:0;background:transparent;cursor:pointer;color:var(--muted);padding:0 2px;font-size:11px}
+    .col-tools button.on{color:var(--primary)}
+    .filter-pop{display:none;position:absolute;z-index:30;width:260px;background:#fff;border:1px solid var(--soft);border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.12);padding:10px}
+    .filter-pop.on{display:block}
+    .filter-pop input[type=text]{width:100%;margin-bottom:8px;padding:6px 8px;border:1px solid var(--border);border-radius:var(--r)}
+    .filter-field{display:flex;align-items:center;gap:8px;padding:6px 8px;border:1px solid var(--soft);border-radius:6px;margin-bottom:8px}
+    .filter-hint{font-size:12px;color:var(--muted);margin-bottom:8px}
+    .filter-list{max-height:140px;overflow:auto;display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
+    .filter-list label{display:flex;align-items:center;gap:8px;padding:4px 6px;border-radius:4px}
+    .filter-list label.on{background:#eff6ff}
+    .filter-acts{display:flex;justify-content:flex-end;gap:8px}
+    .zone-d{display:flex;flex-direction:column;align-items:center;gap:10px;padding:12px 16px;border-top:1px solid var(--soft)}
+    .zone-d-total{color:var(--muted)}
+    .zone-d-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center}
+    .pager-btn{width:32px;height:32px;border:1px solid var(--soft);border-radius:var(--r);background:#fff;color:var(--muted);cursor:pointer}
+    .menu{position:relative}
+    .menu summary{list-style:none;cursor:pointer;padding:4px 8px;border:1px solid var(--border);border-radius:var(--r);background:#fff}
+    .menu summary::-webkit-details-marker{display:none}
+    .menu-panel{display:none;position:absolute;right:0;z-index:5;background:#fff;border:1px solid var(--border);border-radius:6px;min-width:160px;box-shadow:0 8px 24px rgba(0,0,0,.12)}
+    .menu[open] .menu-panel{display:block}
+    .menu-panel button{display:block;width:100%;text-align:left;border:0;background:0;padding:8px 12px;cursor:pointer;font-size:13px}
+    .menu-panel button:hover{background:#f1f5f9}
+    .menu-panel button.danger{color:var(--danger)}
+    .detail-card h2{margin:0;padding:12px 14px;font-size:14px;border-bottom:1px solid var(--soft);display:flex;align-items:center;gap:8px}
+    .detail-card h2 .meta{margin-left:auto;font-size:12px;color:var(--muted);font-weight:500}
+    .detail-body{padding:14px;font-size:13px}
+    .detail-empty{padding:28px 16px;text-align:center;color:var(--muted)}
+    .pipe{border:1px solid var(--soft);border-radius:8px;padding:12px;background:#f8fafc;margin-bottom:10px}
+    .pipe h3{margin:0 0 8px;font-size:13px;color:var(--primary)}
+    .pipe .row{display:grid;grid-template-columns:110px 1fr;gap:4px 8px;margin:4px 0;font-size:13px}
+    .pipe .row span:first-child{color:var(--muted);font-size:12px}
+    .violations{margin:6px 0 0 16px;padding:0}
+    .violations li{margin:4px 0;font-size:13px}
+    .toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%) translateY(12px);background:#0f172a;color:#e2e8f0;padding:10px 16px;border-radius:999px;font-size:12px;opacity:0;pointer-events:none;transition:.2s;z-index:80}
+    .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+    .backdrop{display:none;position:fixed;inset:0;background:rgba(15,23,42,.35);z-index:40}
+    .backdrop.on{display:block}
+    .backdrop.center{display:none;align-items:center;justify-content:center}
+    .backdrop.center.on{display:flex}
+    .modal{width:min(640px,94vw);background:#fff;border-radius:8px;border:1px solid var(--soft);max-height:90vh;overflow:auto}
+    .modal.sm{width:min(420px,94vw)}
+    .modal-h{padding:12px 16px;border-bottom:1px solid var(--soft);font-weight:700}
+    .modal-b{padding:16px;font-size:13px;color:var(--muted)}
+    .modal-f{padding:12px 16px;border-top:1px solid var(--soft);display:flex;justify-content:flex-end;gap:8px}
+    .cfg-table{width:100%;border-collapse:collapse;font-size:12px}
+    .cfg-table th,.cfg-table td{border:1px solid var(--soft);padding:6px 8px;text-align:left;color:var(--txt)}
+    .cfg-table th{background:#f8fafc;color:var(--muted)}
+    .slideout{display:none;position:fixed;top:0;right:0;bottom:0;width:min(560px,100vw);background:#fff;z-index:50;box-shadow:-8px 0 28px rgba(15,23,42,.18);flex-direction:column}
+    .slideout.on{display:flex}
+    .z1{padding:12px 14px;border-bottom:1px solid var(--soft);display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+    .z1 .title{font-size:16px;font-weight:700;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+    .mode{font-size:11px;background:#eef2ff;color:#3730a3;padding:2px 8px;border-radius:999px;font-weight:700}
+    .dirty{font-size:11px;background:#fff7ed;color:#c2410c;padding:2px 8px;border-radius:999px;font-weight:700;display:none}
+    .dirty.on{display:inline-block}
+    .z1h{padding:0 14px 10px;font-size:12px;color:var(--muted)}
+    .z2{flex:1;overflow:auto;padding:14px;background:#f8fafc}
+    .section{background:#fff;border:1px solid var(--soft);border-radius:8px;padding:14px;margin-bottom:12px}
+    .section h3{margin:0 0 12px;font-size:13px;color:var(--primary)}
+    .fields{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .field{display:flex;flex-direction:column;gap:4px}
+    .field label{font-size:12px;color:var(--muted)}
+    .field input,.field select,.field textarea{padding:6px 10px;border:1px solid var(--border);border-radius:var(--r);font-size:13px;min-height:32px;font-family:inherit}
+    .field.full{grid-column:1/-1}
+    .field input:read-only,.field[data-ro] input{background:#f8fafc}
+    .z3{flex-shrink:0;border-top:1px solid var(--soft);background:#fff;padding:12px 14px;display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+  </style>
+</head>
+<body>
+<div class="page" data-catalog-list-page>
+  <p class="note">SSOT Design: <code>its-anpr-overload</code> · clone <code>shared-grid-example</code> · giữ <code>data-des-id</code> · content-only A–D + S-DETECT · Kind D slideout footer-only · <strong>cấm</strong> badge AI · <code>shared_grid_example: v1</code> · <code>real_view_parity: v1</code></p>
+
+  <header class="zone-a" data-des-id="DES-GRID-A">
+    <h1><i class="fas fa-car" aria-hidden="true"></i> ITS ANPR · Quá tải / tốc độ</h1>
+  </header>
+
+  <div class="zone-b" data-des-id="DES-GRID-B">
+    <div class="zone-b-left">
+      <button type="button" class="tb" data-action="simulate"><i class="fas fa-camera"></i> Mô phỏng</button>
+      <button type="button" class="tb" data-action="lookup" id="btn-lookup" disabled><i class="fas fa-search"></i> Tra cứu</button>
+      <button type="button" class="tb" data-action="confirm-sel" id="btn-confirm" disabled><i class="fas fa-check"></i> Xác nhận</button>
+      <button type="button" class="tb" data-action="refresh"><i class="fas fa-sync-alt"></i> Làm mới</button>
+      <button type="button" class="tb" data-action="history"><i class="fas fa-history"></i> Lịch sử</button>
+      <button type="button" class="tb" data-action="config"><i class="fas fa-cog"></i> Sửa config</button>
+      <button type="button" class="tb" id="btn-view" disabled><i class="fas fa-eye"></i> Xem</button>
+      <button type="button" class="tb" id="btn-edit" disabled><i class="fas fa-pen"></i> Sửa</button>
+    </div>
+    <div class="zone-b-right">
+      <button type="button" class="tb primary" data-action="create"><i class="fas fa-plus"></i> Tạo</button>
+    </div>
+  </div>
+
+  <div class="kpis" data-des-id="DES-KPI" aria-label="KPI">
+    <div class="kpi"><div class="lbl">Sự kiện</div><div class="val" id="kpiTotal">5</div></div>
+    <div class="kpi"><div class="lbl">Chờ xác nhận</div><div class="val" id="kpiPending">5</div></div>
+    <div class="kpi"><div class="lbl">Critical</div><div class="val" id="kpiCrit">2</div></div>
+    <div class="kpi"><div class="lbl">Confirmed</div><div class="val" id="kpiOk">0</div></div>
+  </div>
+
+  <div class="filters" data-des-id="DES-GRID-FILTER">
+    <div class="field">
+      <label for="fCam">Camera</label>
+      <select id="fCam">
+        <option value="all">Tất cả camera</option>
+        <option value="CAM-QL1-286">CAM QL.1 Km286</option>
+        <option value="CAM-QL1-312">CAM QL.1 Km312</option>
+        <option value="CAM-QL1-340">CAM QL.1 Km340</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="fStatus">Trạng thái</label>
+      <select id="fStatus">
+        <option value="all">Tất cả</option>
+        <option value="Pending">Pending</option>
+        <option value="Confirmed">Confirmed</option>
+        <option value="Dismissed">Dismissed</option>
+      </select>
+    </div>
+    <button type="button" class="tb" data-action="clear-filter">Xóa lọc</button>
+    <div class="field search-right">
+      <label for="fSearch">Tìm biển số (SearchInput)</label>
+      <input id="fSearch" type="search" placeholder="29C-… / ANPR-*" autocomplete="off" />
+    </div>
+  </div>
+
+  <div class="layout">
+    <section class="card">
+      <div class="grid-head" data-des-id="DES-GRID-C0">
+        <div>
+          <h2 class="grid-title">Feed sự kiện ANPR</h2>
+          <p class="grid-help" data-des-id="DES-GRID-C3-help">Nhấn đúp · Ctrl + chuột phải · giữ chạm (mobile) để mở menu dòng</p>
+        </div>
+        <div class="search" data-des-id="DES-GRID-C1">
+          <input type="search" id="q" placeholder="Mã · biển số…" aria-label="Tìm trong lưới" />
+          <button type="button" aria-label="Tìm"><i class="fas fa-search"></i></button>
+        </div>
+      </div>
+      <div class="table-wrap" data-des-id="DES-GRID-C2" style="position:relative">
+        <table>
+          <thead>
+            <tr>
+              <th class="num">STT</th>
+              <th class="num"><input type="checkbox" id="chk-all" aria-label="Chọn tất cả" /></th>
+              <th>Mã <span class="col-tools"><button type="button" class="on" data-sort="code"><i class="fas fa-sort-alpha-down"></i></button><button type="button" id="btn-filter-code"><i class="fas fa-filter"></i></button></span></th>
+              <th>Biển số</th>
+              <th>Tốc độ</th>
+              <th>WIM</th>
+              <th>Camera</th>
+              <th>Lúc</th>
+              <th>TT</th>
+              <th>Mức lỗi</th>
+              <th class="num"></th>
+            </tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+        <div class="filter-pop" id="filter-pop" data-des-id="DES-GRID-C2a" style="top:40px;left:120px">
+          <input type="text" id="filter-q" placeholder="Tìm trong danh sách…" />
+          <div class="filter-field"><input type="checkbox" id="filter-select-all" /><label for="filter-select-all" style="flex:1;cursor:pointer">Chọn tất cả</label></div>
+          <div class="filter-hint" id="filter-count">Đã chọn 0 mục</div>
+          <div class="filter-list" id="filter-list"></div>
+          <div class="filter-acts">
+            <button type="button" class="tb" id="filter-cancel">Hủy</button>
+            <button type="button" class="tb primary" id="filter-ok">Xác nhận</button>
+          </div>
+        </div>
+      </div>
+      <div class="zone-d" data-des-id="DES-GRID-D">
+        <div class="zone-d-total">Tổng: <span id="total">5</span> · Trang <span id="page">1</span>/1</div>
+        <div class="zone-d-row">
+          <label>Hiển thị
+            <select id="pageSize"><option>50</option><option>100</option><option>200</option><option>500</option></select>
+          </label>
+          <button type="button" class="pager-btn" disabled><i class="fas fa-angle-double-left"></i></button>
+          <button type="button" class="pager-btn" disabled><i class="fas fa-angle-left"></i></button>
+          <span>1/1</span>
+          <button type="button" class="pager-btn" disabled><i class="fas fa-angle-right"></i></button>
+          <button type="button" class="pager-btn" disabled><i class="fas fa-angle-double-right"></i></button>
+        </div>
+      </div>
+    </section>
+
+    <aside class="card detail-card" data-des-id="DES-DETECT">
+      <h2><i class="fas fa-clipboard-check"></i> Tra cứu &amp; lỗi <span class="meta" id="detailMeta">Chọn 1 sự kiện</span></h2>
+      <div class="detail-body" id="detailPanel">
+        <div class="detail-empty">Chọn dòng feed — ① Camera · ② Đăng kiểm · ③ Violations</div>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<!-- Config FULL — LinCatalogUiSchemaEditorModal mock -->
+<div class="backdrop center" id="modal-config" data-des-id="DES-GRID-F">
+  <div class="modal">
+    <div class="modal-h"><i class="fas fa-cog"></i> Cấu hình hiển thị danh mục</div>
+    <div class="modal-b">
+      <p style="margin:0 0 10px;color:var(--txt)">ui-schema · List / width / filter / sort · kéo cột default <strong>ON</strong> · catalogKind <code>its-anpr-overload</code></p>
+      <table class="cfg-table">
+        <thead><tr><th>Cột</th><th>List</th><th>Width</th><th>Filter</th><th>Sort</th></tr></thead>
+        <tbody>
+          <tr><td>code</td><td><input type="checkbox" checked disabled /></td><td>120</td><td><input type="checkbox" checked disabled /></td><td><input type="checkbox" checked disabled /></td></tr>
+          <tr><td>plate</td><td><input type="checkbox" checked disabled /></td><td>110</td><td><input type="checkbox" checked disabled /></td><td><input type="checkbox" checked disabled /></td></tr>
+          <tr><td>speedKmh</td><td><input type="checkbox" checked disabled /></td><td>90</td><td><input type="checkbox" disabled /></td><td><input type="checkbox" checked disabled /></td></tr>
+          <tr><td>wimKg</td><td><input type="checkbox" checked disabled /></td><td>90</td><td><input type="checkbox" disabled /></td><td><input type="checkbox" disabled /></td></tr>
+          <tr><td>cameraLabel</td><td><input type="checkbox" checked disabled /></td><td>120</td><td><input type="checkbox" checked disabled /></td><td><input type="checkbox" disabled /></td></tr>
+          <tr><td>capturedAt</td><td><input type="checkbox" checked disabled /></td><td>140</td><td><input type="checkbox" disabled /></td><td><input type="checkbox" checked disabled /></td></tr>
+          <tr><td>status</td><td><input type="checkbox" checked disabled /></td><td>100</td><td><input type="checkbox" checked disabled /></td><td><input type="checkbox" checked disabled /></td></tr>
+          <tr><td>severity</td><td><input type="checkbox" checked disabled /></td><td>100</td><td><input type="checkbox" checked disabled /></td><td><input type="checkbox" disabled /></td></tr>
+        </tbody>
+      </table>
+      <p style="margin:10px 0 0"><button type="button" class="tb" disabled><i class="fas fa-plus"></i> Thêm cột</button></p>
+    </div>
+    <div class="modal-f">
+      <button type="button" class="tb" data-close="modal-config">Hủy</button>
+      <button type="button" class="tb primary" data-close="modal-config">Lưu</button>
+    </div>
+  </div>
+</div>
+
+<div class="backdrop center" id="modal-history" data-des-id="DES-GRID-H">
+  <div class="modal sm">
+    <div class="modal-h"><i class="fas fa-history"></i> Lịch sử</div>
+    <div class="modal-b" id="historyBody">Timeline mock theo dòng đã chọn · <code>LinCatalogHistoryModal</code></div>
+    <div class="modal-f"><button type="button" class="tb" data-close="modal-history">Đóng</button></div>
+  </div>
+</div>
+
+<div class="backdrop center" id="modal-leave" data-des-id="DES-LEAVE">
+  <div class="modal sm">
+    <div class="modal-h">Rời form?</div>
+    <div class="modal-b">Bạn có thay đổi chưa lưu. Rời khỏi sẽ mất dữ liệu.</div>
+    <div class="modal-f">
+      <button type="button" class="tb" data-leave="stay">Ở lại</button>
+      <button type="button" class="tb danger" data-leave="discard">Rời đi</button>
+    </div>
+  </div>
+</div>
+
+<aside class="slideout" id="slideout" data-des-id="DES-GRID-Z" aria-hidden="true">
+  <div class="z1">
+    <div>
+      <div class="title"><span id="slideTitle">Sự kiện ANPR</span> <span class="mode" id="slideMode">View</span> <span class="dirty" id="dirtyBadge">Dirty</span></div>
+    </div>
+    <button type="button" class="tb" data-action="close-slide" aria-label="Đóng"><i class="fas fa-times"></i></button>
+  </div>
+  <p class="z1h" id="slideHint">HITL · footer actions only · LeaveConfirmModal khi dirty</p>
+  <div class="z2" id="slideBody"></div>
+  <div class="z3" id="slideFooter" data-des-id="DES-GRID-Z3"></div>
+</aside>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+  const CAMERAS = {
+    'CAM-QL1-286': { label: 'Km286+200', speedLimit: 80 },
+    'CAM-QL1-312': { label: 'Km312+050', speedLimit: 80 },
+    'CAM-QL1-340': { label: 'Km340+800', speedLimit: 60 },
+  };
+  const REGISTRY = {
+    '29C-123.45': { owner: 'Công ty TNHH Vận tải Bắc Trung', vehicleType: 'Xe tải thùng', axleCount: 3, axleConfig: '1+2 (6×4)', gvwMaxKg: 25000, payloadMaxKg: 15000, curbWeightKg: 10000, inspectExpire: '2026-11-30' },
+    '30H-456.78': { owner: 'Nguyễn Văn A', vehicleType: 'Xe đầu kéo + sơ mi', axleCount: 5, axleConfig: '1+2+2', gvwMaxKg: 40000, payloadMaxKg: 28000, curbWeightKg: 12000, inspectExpire: '2026-08-15' },
+    '37A-111.22': { owner: 'HTX Vận tải Thanh Hóa', vehicleType: 'Xe tải nhẹ', axleCount: 2, axleConfig: '1+1', gvwMaxKg: 7500, payloadMaxKg: 3500, curbWeightKg: 2800, inspectExpire: '2027-01-20' },
+    '51F-999.00': { owner: 'Công ty CP Logistics Sài Gòn', vehicleType: "Container 40'", axleCount: 6, axleConfig: '1+2+3', gvwMaxKg: 48000, payloadMaxKg: 32000, curbWeightKg: 14000, inspectExpire: '2026-09-01' },
+  };
+  const rows = [
+    { code: 'ANPR-2401', plate: '29C-123.45', speedKmh: 92, wimKg: 26800, cameraId: 'CAM-QL1-286', capturedAt: '2026-08-06 08:12', status: 'Pending', confidence: 0.96 },
+    { code: 'ANPR-2402', plate: '30H-456.78', speedKmh: 74, wimKg: 41200, cameraId: 'CAM-QL1-312', capturedAt: '2026-08-06 08:18', status: 'Pending', confidence: 0.91 },
+    { code: 'ANPR-2403', plate: '37A-111.22', speedKmh: 68, wimKg: 4200, cameraId: 'CAM-QL1-340', capturedAt: '2026-08-06 08:22', status: 'Pending', confidence: 0.88 },
+    { code: 'ANPR-2404', plate: '51F-999.00', speedKmh: 105, wimKg: 51000, cameraId: 'CAM-QL1-286', capturedAt: '2026-08-06 08:31', status: 'Pending', confidence: 0.94 },
+    { code: 'ANPR-2405', plate: '29C-888.00', speedKmh: 55, wimKg: 12000, cameraId: 'CAM-QL1-312', capturedAt: '2026-08-06 08:40', status: 'Pending', confidence: 0.72 },
+  ];
+  rows.forEach(r => { r.registry = null; r.note = ''; r.incidentId = ''; r.lookedUp = false; });
+
+  let selected = null;
+  let formMode = 'view';
+  let dirty = false;
+  let pendingClose = null;
+  const filterVals = rows.map(r => r.code);
+  let filterChecked = new Set(filterVals);
+
+  function cameraLabel(id) { return (CAMERAS[id] && CAMERAS[id].label) || id; }
+  function speedLimit(id) { return (CAMERAS[id] && CAMERAS[id].speedLimit) || 80; }
+
+  function evalViolations(r) {
+    const v = [];
+    const lim = speedLimit(r.cameraId);
+    if (r.speedKmh > lim) v.push({ code: 'SPEED', sev: r.speedKmh > lim + 20 ? 'critical' : 'warn', text: `SPEED · ${r.speedKmh} > ${lim} km/h` });
+    const reg = r.registry || REGISTRY[r.plate];
+    if (!reg) v.push({ code: 'NO_REGISTRY', sev: 'warn', text: 'NO_REGISTRY · chưa có đăng kiểm' });
+    else {
+      if (r.wimKg > reg.gvwMaxKg) v.push({ code: 'OVERLOAD_GVW', sev: 'critical', text: `OVERLOAD_GVW · WIM ${r.wimKg} > GVW ${reg.gvwMaxKg}` });
+      const payload = r.wimKg - (reg.curbWeightKg || 0);
+      if (payload > reg.payloadMaxKg) v.push({ code: 'OVERLOAD_PAYLOAD', sev: 'warn', text: `OVERLOAD_PAYLOAD · payload ${payload} > ${reg.payloadMaxKg}` });
+    }
+    return v;
+  }
+
+  function severityOf(r) {
+    const v = evalViolations(r);
+    if (!v.length) return 'ok';
+    if (v.some(x => x.sev === 'critical')) return 'critical';
+    return 'warn';
+  }
+
+  function statusClass(s) {
+    if (s === 'Confirmed') return 'st-ok';
+    if (s === 'Dismissed') return 'st-x';
+    return 'st-p';
+  }
+
+  function toast(msg) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.classList.add('on');
+    setTimeout(() => el.classList.remove('on'), 2200);
+  }
+
+  function filtered() {
+    const cam = document.getElementById('fCam').value;
+    const st = document.getElementById('fStatus').value;
+    const fs = (document.getElementById('fSearch').value || '').trim().toLowerCase();
+    const q = (document.getElementById('q').value || '').trim().toLowerCase();
+    return rows.filter(r => {
+      if (cam !== 'all' && r.cameraId !== cam) return false;
+      if (st !== 'all' && r.status !== st) return false;
+      if (!filterChecked.has(r.code)) return false;
+      const hay = `${r.code} ${r.plate}`.toLowerCase();
+      if (fs && !hay.includes(fs)) return false;
+      if (q && !hay.includes(q)) return false;
+      return true;
+    });
+  }
+
+  function syncKpi() {
+    document.getElementById('kpiTotal').textContent = String(rows.length);
+    document.getElementById('kpiPending').textContent = String(rows.filter(r => r.status === 'Pending').length);
+    document.getElementById('kpiCrit').textContent = String(rows.filter(r => severityOf(r) === 'critical').length);
+    document.getElementById('kpiOk').textContent = String(rows.filter(r => r.status === 'Confirmed').length);
+  }
+
+  function syncSelBtns() {
+    const on = Boolean(selected);
+    ['btn-view','btn-edit','btn-lookup','btn-confirm'].forEach(id => {
+      document.getElementById(id).disabled = !on;
+    });
+  }
+
+  function renderDetail() {
+    const panel = document.getElementById('detailPanel');
+    const meta = document.getElementById('detailMeta');
+    const r = rows.find(x => x.code === selected);
+    if (!r) {
+      meta.textContent = 'Chọn 1 sự kiện';
+      panel.innerHTML = '<div class="detail-empty">Chọn dòng feed — ① Camera · ② Đăng kiểm · ③ Violations</div>';
+      return;
+    }
+    meta.textContent = r.code;
+    const reg = r.registry || (r.lookedUp ? null : REGISTRY[r.plate]);
+    const viol = evalViolations(Object.assign({}, r, { registry: reg || r.registry }));
+    const sev = severityOf(Object.assign({}, r, { registry: reg || r.registry }));
+    panel.innerHTML = `
+      <div class="pipe" data-des-id="DES-DETECT-1">
+        <h3>① Camera</h3>
+        <div class="row"><span>Biển số</span><span class="plate">${r.plate}</span></div>
+        <div class="row"><span>Tốc độ</span><span class="numish">${r.speedKmh} km/h (limit ${speedLimit(r.cameraId)})</span></div>
+        <div class="row"><span>WIM</span><span class="numish">${r.wimKg.toLocaleString('vi-VN')} kg</span></div>
+        <div class="row"><span>Camera</span><span>${cameraLabel(r.cameraId)} · ${r.cameraId}</span></div>
+        <div class="row"><span>Confidence</span><span>${Math.round(r.confidence * 100)}%</span></div>
+      </div>
+      <div class="pipe" data-des-id="DES-DETECT-2">
+        <h3>② Đăng kiểm</h3>
+        ${reg ? `
+          <div class="row"><span>Chủ xe</span><span>${reg.owner}</span></div>
+          <div class="row"><span>Loại xe</span><span>${reg.vehicleType}</span></div>
+          <div class="row"><span>Trục</span><span>${reg.axleCount} · ${reg.axleConfig}</span></div>
+          <div class="row"><span>GVW max</span><span class="numish">${reg.gvwMaxKg.toLocaleString('vi-VN')} kg</span></div>
+          <div class="row"><span>Payload max</span><span class="numish">${reg.payloadMaxKg.toLocaleString('vi-VN')} kg</span></div>
+          <div class="row"><span>Hạn kiểm</span><span>${reg.inspectExpire}</span></div>
+        ` : `<div class="row"><span>Trạng thái</span><span class="sev-warn">${r.lookedUp ? 'Không tìm thấy đăng kiểm' : 'Chưa tra cứu — bấm Tra cứu'}</span></div>`}
+      </div>
+      <div class="pipe" data-des-id="DES-DETECT-3">
+        <h3>③ Violations · mức <span class="sev-${sev === 'ok' ? 'ok' : sev === 'critical' ? 'crit' : 'warn'}">${sev}</span></h3>
+        ${viol.length ? `<ul class="violations">${viol.map(v => `<li class="sev-${v.sev === 'critical' ? 'crit' : 'warn'}">${v.text}</li>`).join('')}</ul>` : '<p class="sev-ok">Không phát hiện lỗi</p>'}
+      </div>`;
+  }
+
+  function render() {
+    const list = filtered();
+    const tbody = document.getElementById('tbody');
+    tbody.innerHTML = list.map((r, i) => {
+      const sev = severityOf(r);
+      const sevCls = sev === 'ok' ? 'sev-ok' : sev === 'critical' ? 'sev-crit' : 'sev-warn';
+      return `<tr data-code="${r.code}" class="${selected === r.code ? 'sel' : ''}">
+        <td class="num">${i + 1}</td>
+        <td class="num"><input type="checkbox" class="row-chk" ${selected === r.code ? 'checked' : ''} /></td>
+        <td><button type="button" class="code-link" style="border:0;background:0;color:#0d6efd;text-decoration:underline;cursor:pointer;font:inherit">${r.code}</button></td>
+        <td class="plate">${r.plate}</td>
+        <td class="numish">${r.speedKmh}</td>
+        <td class="numish">${r.wimKg.toLocaleString('vi-VN')}</td>
+        <td>${cameraLabel(r.cameraId)}</td>
+        <td>${r.capturedAt}</td>
+        <td><span class="st ${statusClass(r.status)}">${r.status}</span></td>
+        <td class="${sevCls}">${sev}</td>
+        <td class="num" data-des-id="DES-GRID-C3">
+          <details class="menu">
+            <summary>⋮</summary>
+            <div class="menu-panel">
+              <button type="button" data-menu="view">Xem</button>
+              <button type="button" data-menu="edit">Sửa</button>
+              <button type="button" data-menu="copy">Sao chép</button>
+              <button type="button" data-menu="confirm">Confirm</button>
+              <button type="button" data-menu="dismiss">Dismiss</button>
+              <button type="button" data-menu="history">Lịch sử</button>
+              <button type="button" data-menu="delete" class="danger">Xóa</button>
+            </div>
+          </details>
+        </td>
+      </tr>`;
+    }).join('');
+    document.getElementById('total').textContent = String(list.length);
+    syncSelBtns();
+    syncKpi();
+    renderDetail();
+  }
+
+  function openModal(id) { document.getElementById(id).classList.add('on'); }
+  function closeModal(id) { document.getElementById(id).classList.remove('on'); }
+
+  function setDirty(v) {
+    dirty = v;
+    document.getElementById('dirtyBadge').classList.toggle('on', dirty);
+  }
+
+  function fillSlide(r, mode) {
+    formMode = mode;
+    document.getElementById('slideMode').textContent = mode === 'view' ? 'View' : mode === 'edit' ? 'Edit' : mode === 'create' ? 'Create' : 'Copy';
+    document.getElementById('slideTitle').textContent = r ? r.code : 'Sự kiện mới';
+    const ro = mode === 'view';
+    const reg = r && (r.registry || REGISTRY[r.plate]);
+    const viol = r ? evalViolations(Object.assign({}, r, { registry: reg || r.registry })) : [];
+    document.getElementById('slideBody').innerHTML = `
+      <div class="section">
+        <h3>Z1 · Sự kiện camera</h3>
+        <div class="fields">
+          <div class="field"><label>Mã sự kiện</label><input value="${r ? r.code : 'ANPR-NEW'}" readonly /></div>
+          <div class="field"><label>Biển số *</label><input id="fPlate" value="${r ? r.plate : ''}" ${ro ? 'readonly' : ''} /></div>
+          <div class="field"><label>Camera *</label>
+            <select id="fCamera" ${ro ? 'disabled' : ''}>
+              ${Object.keys(CAMERAS).map(id => `<option value="${id}" ${r && r.cameraId === id ? 'selected' : ''}>${id}</option>`).join('')}
+            </select>
+          </div>
+          <div class="field"><label>Tốc độ (km/h) *</label><input id="fSpeed" type="number" value="${r ? r.speedKmh : ''}" ${ro ? 'readonly' : ''} /></div>
+          <div class="field"><label>WIM (kg)</label><input id="fWim" type="number" value="${r ? r.wimKg : ''}" ${ro ? 'readonly' : ''} /></div>
+          <div class="field"><label>Confidence (%)</label><input value="${r ? Math.round(r.confidence * 100) : ''}" ${ro ? 'readonly' : ''} /></div>
+          <div class="field"><label>Thời điểm *</label><input value="${r ? r.capturedAt : ''}" ${ro ? 'readonly' : ''} /></div>
+          <div class="field"><label>Trạng thái *</label><input value="${r ? r.status : 'Pending'}" readonly /></div>
+        </div>
+      </div>
+      <div class="section">
+        <h3>Z2 · Cục Đăng kiểm</h3>
+        <div class="fields">
+          <div class="field full"><label>Chủ xe</label><input value="${reg ? reg.owner : ''}" readonly /></div>
+          <div class="field"><label>Loại xe</label><input value="${reg ? reg.vehicleType : ''}" readonly /></div>
+          <div class="field"><label>Số trục</label><input value="${reg ? reg.axleCount : ''}" readonly /></div>
+          <div class="field"><label>Cấu hình trục</label><input value="${reg ? reg.axleConfig : ''}" readonly /></div>
+          <div class="field"><label>GVW max</label><input value="${reg ? reg.gvwMaxKg : ''}" readonly /></div>
+          <div class="field"><label>Payload max</label><input value="${reg ? reg.payloadMaxKg : ''}" readonly /></div>
+          <div class="field"><label>Hạn kiểm</label><input value="${reg ? reg.inspectExpire : ''}" readonly /></div>
+          <div class="field"><label>Mã Vấn đề</label><input value="${r && r.incidentId ? r.incidentId : ''}" readonly /></div>
+        </div>
+      </div>
+      <div class="section">
+        <h3>Z3 · Lỗi đề xuất + ghi chú</h3>
+        ${viol.length ? `<ul class="violations">${viol.map(v => `<li>${v.text}</li>`).join('')}</ul>` : '<p>Không có lỗi / chưa đánh giá</p>'}
+        <div class="fields" style="margin-top:10px">
+          <div class="field full"><label>Ghi chú HITL</label><textarea id="fNote" rows="3" ${ro ? 'readonly' : ''}>${r ? (r.note || '') : ''}</textarea></div>
+        </div>
+      </div>`;
+    const foot = document.getElementById('slideFooter');
+    if (mode === 'view') {
+      foot.innerHTML = `
+        <button type="button" class="tb" data-action="close-slide">Đóng</button>
+        <button type="button" class="tb" data-action="to-edit"><i class="fas fa-pen"></i> Sửa</button>
+        <button type="button" class="tb danger" data-hitl="dismiss">Bỏ qua</button>
+        <button type="button" class="tb primary" data-hitl="confirm">Xác nhận lỗi</button>`;
+    } else {
+      foot.innerHTML = `
+        <button type="button" class="tb" data-action="close-slide">Hủy</button>
+        <button type="button" class="tb danger" data-hitl="dismiss">Bỏ qua</button>
+        <button type="button" class="tb primary" data-hitl="confirm">Xác nhận lỗi</button>
+        <button type="button" class="tb primary" data-action="save">Lưu</button>`;
+    }
+    setDirty(false);
+    const note = document.getElementById('fNote');
+    if (note && !ro) note.addEventListener('input', () => setDirty(true));
+    ['fPlate','fSpeed','fWim','fCamera'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el && !ro) el.addEventListener('input', () => setDirty(true));
+      if (el && !ro) el.addEventListener('change', () => setDirty(true));
+    });
+  }
+
+  function openSlide(code, mode) {
+    const r = rows.find(x => x.code === code) || null;
+    selected = code || selected;
+    fillSlide(r, mode);
+    document.getElementById('slideout').classList.add('on');
+    document.getElementById('slideout').setAttribute('aria-hidden', 'false');
+    render();
+  }
+
+  function closeSlide(force) {
+    if (dirty && !force) {
+      pendingClose = 'slide';
+      openModal('modal-leave');
+      return;
+    }
+    document.getElementById('slideout').classList.remove('on');
+    document.getElementById('slideout').setAttribute('aria-hidden', 'true');
+    setDirty(false);
+  }
+
+  function doLookup() {
+    const r = rows.find(x => x.code === selected);
+    if (!r) return;
+    r.lookedUp = true;
+    r.registry = REGISTRY[r.plate] || null;
+    toast(r.registry ? `Tra cứu OK · ${r.plate}` : `Không có đăng kiểm · ${r.plate}`);
+    render();
+  }
+
+  function doConfirm() {
+    const r = rows.find(x => x.code === selected);
+    if (!r) return;
+    if (!r.lookedUp && !r.registry) {
+      r.lookedUp = true;
+      r.registry = REGISTRY[r.plate] || null;
+    }
+    r.status = 'Confirmed';
+    r.incidentId = `VI-ANPR-${r.code.replace('ANPR-', '')}`;
+    r.note = (document.getElementById('fNote') && document.getElementById('fNote').value) || r.note;
+    setDirty(false);
+    toast(`Confirm → Incident stub ${r.incidentId}`);
+    closeSlide(true);
+    render();
+  }
+
+  function doDismiss() {
+    const r = rows.find(x => x.code === selected);
+    if (!r) return;
+    r.status = 'Dismissed';
+    r.note = (document.getElementById('fNote') && document.getElementById('fNote').value) || r.note;
+    setDirty(false);
+    toast(`Dismiss ${r.code}`);
+    closeSlide(true);
+    render();
+  }
+
+  document.getElementById('tbody').addEventListener('click', (e) => {
+    const tr = e.target.closest('tr');
+    if (!tr) return;
+    const code = tr.getAttribute('data-code');
+    const menuBtn = e.target.closest('[data-menu]');
+    if (menuBtn) {
+      const act = menuBtn.getAttribute('data-menu');
+      selected = code;
+      if (act === 'history') {
+        document.getElementById('historyBody').textContent = `Timeline · ${code} · Created → Lookup → Confirm/Dismiss`;
+        openModal('modal-history');
+      } else if (act === 'delete') {
+        toast(`Xóa (mock) ${code}`);
+      } else if (act === 'confirm') {
+        openSlide(code, 'view');
+        doConfirm();
+        return;
+      } else if (act === 'dismiss') {
+        openSlide(code, 'view');
+        doDismiss();
+        return;
+      } else if (act === 'view' || act === 'edit' || act === 'copy') {
+        openSlide(code, act === 'copy' ? 'copy' : act);
+      }
+      render();
+      return;
+    }
+    selected = code;
+    render();
+  });
+
+  document.getElementById('tbody').addEventListener('dblclick', (e) => {
+    const tr = e.target.closest('tr');
+    if (!tr) return;
+    openSlide(tr.getAttribute('data-code'), 'view');
+  });
+
+  document.querySelector('[data-action="config"]').addEventListener('click', () => openModal('modal-config'));
+  document.querySelector('[data-action="history"]').addEventListener('click', () => {
+    document.getElementById('historyBody').textContent = selected
+      ? `Timeline · ${selected} · LinCatalogHistoryModal`
+      : 'Chọn dòng để xem lịch sử · LinCatalogHistoryModal';
+    openModal('modal-history');
+  });
+  document.querySelector('[data-action="create"]').addEventListener('click', () => openSlide(null, 'create'));
+  document.querySelector('[data-action="refresh"]').addEventListener('click', () => { render(); toast('Đã làm mới'); });
+  document.querySelector('[data-action="simulate"]').addEventListener('click', () => {
+    const n = rows.length + 1;
+    const code = `ANPR-24${String(n).padStart(2, '0')}`;
+    rows.unshift({
+      code, plate: '29C-555.00', speedKmh: 88, wimKg: 30000, cameraId: 'CAM-QL1-286',
+      capturedAt: '2026-08-17 16:40', status: 'Pending', confidence: 0.9,
+      registry: null, note: '', incidentId: '', lookedUp: false,
+    });
+    filterChecked.add(code);
+    filterVals.unshift(code);
+    selected = code;
+    toast(`Mô phỏng bắt mới · ${code}`);
+    render();
+  });
+  document.querySelector('[data-action="lookup"]').addEventListener('click', doLookup);
+  document.querySelector('[data-action="confirm-sel"]').addEventListener('click', () => openSlide(selected, 'view'));
+  document.querySelector('[data-action="clear-filter"]').addEventListener('click', () => {
+    document.getElementById('fCam').value = 'all';
+    document.getElementById('fStatus').value = 'all';
+    document.getElementById('fSearch').value = '';
+    document.getElementById('q').value = '';
+    render();
+  });
+  document.getElementById('btn-view').addEventListener('click', () => openSlide(selected, 'view'));
+  document.getElementById('btn-edit').addEventListener('click', () => openSlide(selected, 'edit'));
+
+  document.getElementById('slideout').addEventListener('click', (e) => {
+    if (e.target.closest('[data-action="close-slide"]')) closeSlide(false);
+    if (e.target.closest('[data-action="to-edit"]')) openSlide(selected, 'edit');
+    if (e.target.closest('[data-action="save"]')) { setDirty(false); toast('Đã lưu (mock)'); closeSlide(true); }
+    if (e.target.closest('[data-hitl="confirm"]')) doConfirm();
+    if (e.target.closest('[data-hitl="dismiss"]')) doDismiss();
+  });
+
+  document.querySelectorAll('[data-close]').forEach(btn => {
+    btn.addEventListener('click', () => closeModal(btn.getAttribute('data-close')));
+  });
+  document.querySelector('[data-leave="stay"]').addEventListener('click', () => {
+    closeModal('modal-leave');
+    pendingClose = null;
+  });
+  document.querySelector('[data-leave="discard"]').addEventListener('click', () => {
+    closeModal('modal-leave');
+    if (pendingClose === 'slide') closeSlide(true);
+    pendingClose = null;
+  });
+
+  ['fCam','fStatus','fSearch','q'].forEach(id => {
+    document.getElementById(id).addEventListener('input', render);
+    document.getElementById(id).addEventListener('change', render);
+  });
+
+  function renderFilterList() {
+    const fq = (document.getElementById('filter-q').value || '').toLowerCase();
+    const visible = filterVals.filter(v => !fq || v.toLowerCase().includes(fq));
+    const box = document.getElementById('filter-list');
+    box.innerHTML = visible.map(v => `
+      <label class="${filterChecked.has(v) ? 'on' : ''}">
+        <input type="checkbox" data-fv="${v}" ${filterChecked.has(v) ? 'checked' : ''} /> ${v}
+      </label>`).join('');
+    const n = visible.filter(v => filterChecked.has(v)).length;
+    document.getElementById('filter-count').textContent = `Đã chọn ${n} mục`;
+    document.getElementById('filter-select-all').checked = visible.length > 0 && n === visible.length;
+  }
+  document.getElementById('btn-filter-code').addEventListener('click', (e) => {
+    e.stopPropagation();
+    document.getElementById('filter-pop').classList.toggle('on');
+    renderFilterList();
+  });
+  document.getElementById('filter-q').addEventListener('input', renderFilterList);
+  document.getElementById('filter-list').addEventListener('change', (e) => {
+    const t = e.target;
+    if (!t.matches('[data-fv]')) return;
+    if (t.checked) filterChecked.add(t.getAttribute('data-fv'));
+    else filterChecked.delete(t.getAttribute('data-fv'));
+    renderFilterList();
+  });
+  document.getElementById('filter-select-all').addEventListener('change', (e) => {
+    const fq = (document.getElementById('filter-q').value || '').toLowerCase();
+    const visible = filterVals.filter(v => !fq || v.toLowerCase().includes(fq));
+    if (e.target.checked) visible.forEach(v => filterChecked.add(v));
+    else visible.forEach(v => filterChecked.delete(v));
+    renderFilterList();
+  });
+  document.getElementById('filter-cancel').addEventListener('click', () => document.getElementById('filter-pop').classList.remove('on'));
+  document.getElementById('filter-ok').addEventListener('click', () => { document.getElementById('filter-pop').classList.remove('on'); render(); });
+
+  render();
+</script>
+</body>
+</html>

@@ -11,7 +11,7 @@
 | brief | `map-feature/mobile-design-brief.md` |
 | status | `await_confirm` |
 | design_confirm | pending |
-| updatedAt | 2026-08-16T00:40:00.000Z |
+| updatedAt | 2026-08-17T15:20:00.000Z |
 
 ## 0. Context
 
@@ -72,7 +72,9 @@ Drawer: Bảo trì · Camera xem · Offline · Thông báo · Cài đặt
 | Review doc | `DES-MOB-DOC-GUIDE` | Trái quyền · phải ngành | Same |
 | Device | `DES-MOBILE-DEVICE` | Bezel 390×844 | Bezel 412×915 |
 | Login | `DES-MOB-LOGIN` | Brand + form | Same fields · Material field |
+| Login brand | `DES-MOB-LOGIN-BRAND` | Logo `rmms.png` ngang · **cấm** icon road giả | Same wordmark |
 | Login form | `DES-MOB-LOGIN-FORM` | Grouped | OutlinedTextField |
+| Skip bio | `DES-MOB-LOGIN-SKIP-BIO` | Face ID · Touch ID · vào app | Vân tay · khuôn mặt |
 | Tab bar | `DES-MOB-TABBAR` | 5 tabs | NavigationBar 5 |
 | Patrol home | `DES-MOB-PAT-HOME` | Large title + hero | LargeTopAppBar + hero |
 | Segment | `DES-MOB-PAT-SEG` | UISegmentedControl | FilterChips |
@@ -118,7 +120,7 @@ Drawer: Bảo trì · Camera xem · Offline · Thông báo · Cài đặt
 
 | Flow | Steps |
 |------|-------|
-| Login | Brand → điền → Đăng nhập / Bio → tab Hiện trường |
+| Login | Logo RMMS → điền → Đăng nhập **hoặc** Bỏ qua xác thực Face ID / Touch ID → tab Hiện trường |
 | Happy patrol | Home → Map OMS → Sheet CI → Lưu → KPI +1 |
 | Offline | Sheet → Lưu offline → Queue → Sync |
 | GPS deny | CTA chấm/CI → `DES-MOB-GPS-DENY` · copy mở Settings · **cấm** Lưu |
@@ -142,7 +144,7 @@ Drawer: Bảo trì · Camera xem · Offline · Thông báo · Cài đặt
 | Swipe-back / predictive back | ✅ chevron + note | ✅ Up + note | |
 | GPS deny in-app | ✅ `DES-MOB-GPS-DENY` | ✅ | |
 | Offline banner + queue + Sync | ✅ | ✅ | |
-| Biometric fallback password | ✅ | ✅ fingerprint | |
+| Biometric fallback password | ✅ Face ID + Touch ID skip | ✅ vân tay + khuôn mặt skip | |
 | Permission in-context | ✅ | ✅ | |
 | Leave dirty modal — **cấm** `alert`/`confirm` | ✅ `DES-MOB-LEAVE` | ✅ | |
 | Icons SF ↔ Material — **cấm** emoji | ✅ | ✅ | |
@@ -161,6 +163,7 @@ Twin 3D · YOLO local · train offline · WO/SLA full · TOC · cổng dân · c
 | iOS | `ui/prototype/ios/index.html` |
 | Android | `ui/prototype/android/index.html` |
 | OMS helper | `ui/prototype/map-oms.js` |
+| Logo SSOT | `{ProductRoot}/logo/rmms.png` → copy `ui/prototype/assets/rmms.png` |
 | **reviewUrl iOS** | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/mobile-p1/ui/prototype/ios/index.html` |
 | **reviewUrl Android** | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/mobile-p1/ui/prototype/android/index.html` |
 | Serve | `npx --yes serve -p 5198 ui/prototype` → `/ios/` · `/android/` |
@@ -186,5 +189,5 @@ Twin 3D · YOLO local · train offline · WO/SLA full · TOC · cổng dân · c
 | Field | Value |
 |-------|-------|
 | skillId | gen-mobile-design |
-| generatedAt | 2026-08-16T00:40:00.000Z |
+| generatedAt | 2026-08-17T15:20:00.000Z |
 | schemaVersion | 1 |

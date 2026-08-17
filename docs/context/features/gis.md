@@ -4,7 +4,7 @@
 > **Status:** Demo  
 > **Feature Kind:** F/custom map (GIS viewer) · Confirmed by: ai-autocode-autopilot 2026-08-01  
 > **Sources:** `07` §2 · `09` · legacy shell `geditor` view-mode  
-> **Demo HTML:** `Linm.RMMS.Demo/public/demo/gis/gis.html` (+ mirror `src/demo/gis/`)  
+> **Demo HTML:** `Linm.RMMS.Demo/public/demo/gis/gis.html` (+ mirror `src/demo/gis/`) · **pilot camera:** [`camera-ops-dashboard-demo.html`](../../../Linm.RMMS.Demo/src/demo/features/camera-ops-dashboard-demo.html)  
 > **3D Twin (CesiumJS · real Km):** [`gis-3d-twin.html`](../../../Linm.RMMS.Demo/public/demo/gis/gis-3d-twin.html) · seed `ql1-ii1/map-seed.json`  
 > **Sub-feature vẽ:** [`gis-draw-google.md`](gis-draw-google.md) · live [`gis-draw-live.html`](../../../Linm.RMMS.Demo/public/demo/gis/gis-draw-live.html)
 
@@ -22,11 +22,25 @@
 | Screen | Pattern | Zones |
 |--------|---------|-------|
 | Map 2D | Full Kind F | Sidebar tabs · Toolbar · Leaflet · legend PCI · props panel |
+| **Camera overlay** (pilot P1.6) | Cùng map Kind F | Lớp **TS camera** · 1-click · slideout live | Chỉ pin `assetType=camera` / mã `CAM-*` |
 | Heatmap PCI | Full | Same map · toggle layer |
 | 3D Twin | Full | **CesiumJS** — demo [`gis-3d-twin.html`](../../../Linm.RMMS.Demo/public/demo/gis/gis-3d-twin.html) · Cột Km thật QL.1 II.1 |
 | Vẽ geometry | Nav | → `gis-draw-live` / `gis-draw-google` |
 
-**Mock data:** 5 đoạn đường (PCI) · 3 sự cố pin · bbox Nghệ An pilot.
+**Mock data:** 5 đoạn đường (PCI) · 3 sự cố pin · bbox Nghệ An / QL.1 II.1 pilot.  
+**Pilot camera (cùng Camera MFE):** pin mã TS camera · **1 click** = đếm xe (nếu cam support) + event gần nhất · nút **Xem live** → slideout (live · tín hiệu · event) · **Toàn màn hình**. **Cấm** `window.alert` / `confirm`.
+
+### Camera asset trên map (P1.6)
+
+| Hành vi | Rule |
+|---------|------|
+| Lớp | Toggle «Camera ITS» · icon cam · Online xanh / Offline xám |
+| 1 click pin | Popup/panel: mã TS · tuyến/Km · **đếm xe hôm nay** (nếu `supportsCount`) · 3 event mới |
+| Không support đếm | Hiện «Cam không đếm xe» — vẫn hiện event/tín hiệu |
+| **Xem live** | Slideout stacked (Camera MFE `/camera/wall` cùng payload) |
+| Fullscreen | Overlay live + event · Esc / Đóng |
+| Deep link | `?cam=CAM-QL1-12` mở slideout |
+| Kích thước pane | Pilot wall: Ẩn / thu nhỏ / vừa / phóng to · kéo mép map (`--map-w`) |
 
 **Control map:** [`gis-control-map.md`](../_raw/legacy-govone/demo-maps/gis-control-map.md)
 
@@ -38,6 +52,7 @@
 | GET | `/api/v1/gis/geojson/{layer}?bbox=` | GeoJSON |
 | GET | `/api/v1/gis/heatmap/pci` | Heatmap |
 | GET | `/api/v1/gis/3d-tiles/{assetId}` | P2 |
+| GET | `/api/v1/gis/geojson/cameras?bbox=` | Overlay pin camera (join Asset + CameraDevice) · **P1.6 mock** |
 
 > Demo: **cấm** gọi BE — fake GeoJSON trong `js/gis-data.js`.
 
@@ -47,7 +62,7 @@ PostGIS layers publish → Martin/pg_tileserv · Redis tile cache · SignalR `Gi
 
 ## 5. Events
 
-`asset.updated` · `defect.detected` → refresh overlay (mock «Làm mới overlay»).
+`asset.updated` · `defect.detected` · `camera.anpr.detected` · `camera.online` / `offline` → refresh overlay (mock «Làm mới overlay»).
 
 ## 6. Gaps
 
@@ -56,6 +71,8 @@ PostGIS layers publish → Martin/pg_tileserv · Redis tile cache · SignalR `Gi
 | GAP-F-GIS-01 3D Twin | **DONE demo** CesiumJS + real seed · Ion terrain / 3D Tiles → DEFER prod |
 | GAP-F-GIS-02 Vẽ Point/Line/Polygon trên Google | Xem **`gis-draw-google`** (P1 parity) |
 | GAP-F-GIS-03 BE `/api/v1/gis/*` | **DONE** RMMS.WebService Gis domain + BFF (`api/v1/gis` · `web-bff/api/v1/gis`) · seed layers/geojson/heatmap |
+| GAP-F-GIS-CAM-01 | Overlay camera = join Asset `CAM-*` + `CameraDevice` | Demo seed · BE P2 |
+| GAP-F-GIS-CAM-02 | 1-click đếm xe | Chỉ cam `supportsCount` · nguồn `rpt-dem-xe` / events |
 
 ## 7. Demo checklist
 
@@ -65,6 +82,7 @@ PostGIS layers publish → Martin/pg_tileserv · Redis tile cache · SignalR `Gi
 - [x] Đủ field + 20 action từ `demo-maps/gis-control-map.md`
 - [x] Flow vẽ Google — link `gis-draw-live.html` / `gis-draw-google.html`
 - [x] Không gọi BE
+- [x] Lớp camera · 1-click đếm xe/event · slideout live + fullscreen (pilot)
 
 <!-- LEGACY-GOVONE-CAPTURE:START -->
 ## Legacy GOVOne (auto-capture)

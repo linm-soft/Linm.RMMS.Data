@@ -288,16 +288,16 @@
     .phone-screen.sheet-open .leaflet-control-container { visibility: hidden; }
     .login {
       flex: 1; display: flex; flex-direction: column;
-      background: linear-gradient(180deg, #D3E3FD 0%, var(--md-surface) 40%);
+      background: linear-gradient(180deg, #fff 0%, var(--md-surface) 40%);
       padding-bottom: 20px;
     }
-    .login-brand { padding: 32px 28px 8px; text-align: center; }
+    .login-brand { padding: 40px 28px 4px; text-align: center; }
     .login-logo {
-      width: 72px; height: 72px; margin: 0 auto 14px; border-radius: 18px;
-      background: var(--md-primary); display: grid; place-items: center; color: #fff;
+      width: min(260px, 80%); margin: 0 auto 12px;
+      background: transparent; border-radius: 0;
     }
-    .login-brand h1 { font-size: 28px; font-weight: 700; }
-    .login-brand p { margin-top: 6px; font-size: 15px; color: var(--md-muted); }
+    .login-logo img { display: block; width: 100%; height: auto; }
+    .login-brand p { margin-top: 4px; font-size: 15px; color: var(--md-muted); }
     .login-field {
       margin: 0 20px 10px; background: var(--md-container); border-radius: 4px 4px 0 0;
       padding: 0 14px; display: flex; align-items: center; gap: 10px; min-height: 56px;
@@ -310,6 +310,15 @@
       display: flex; align-items: center; justify-content: center; gap: 8px;
       color: var(--md-primary); font-size: 14px; font-weight: 600; padding: 8px;
       border: 0; background: transparent; font-family: inherit; cursor: pointer;
+    }
+    .login-skip {
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      color: var(--md-muted); font-size: 13px; font-weight: 500; padding: 2px 8px 4px;
+      border: 0; background: transparent; font-family: inherit; cursor: pointer;
+    }
+    .login-skip-hint {
+      text-align: center; font-size: 12px; color: var(--md-muted); opacity: .75; line-height: 1.35;
+      padding: 0 20px;
     }
     .login-meta { margin-top: auto; padding: 16px 24px; text-align: center; font-size: 12px; color: var(--md-muted); }
     .modal-backdrop {
@@ -352,6 +361,7 @@
     <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="2.5"/></symbol>
     <symbol id="i-eye-off" viewBox="0 0 24 24"><path d="M3 3l18 18"/><path d="M10.6 10.6A2.5 2.5 0 0 0 13.4 13.4"/></symbol>
     <symbol id="i-finger" viewBox="0 0 24 24"><path d="M12 11v6"/><path d="M8 12.5a4 4 0 1 1 8 0c0 3-2 5-4 7"/><path d="M6 11a6 6 0 0 1 12 0"/></symbol>
+    <symbol id="i-faceid" viewBox="0 0 24 24"><path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2"/><path d="M9 10v1M15 10v1"/><path d="M9.5 15c.8.8 1.6 1.2 2.5 1.2s1.7-.4 2.5-1.2"/></symbol>
     <symbol id="i-wifi-off" viewBox="0 0 24 24"><path d="M2 8.5A14 14 0 0 1 12 5"/><path d="M3 3l18 18"/></symbol>
     <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.5 6.5a4 4 0 0 0-5.6 5.6L3 18v3h3l5.9-5.9a4 4 0 0 0 5.6-5.6l-2.5 2.5-2.5-2.5 2.5-2.5z"/></symbol>
     <symbol id="i-video" viewBox="0 0 24 24"><rect x="3" y="7" width="12" height="10" rx="2"/><path d="M15 10.5 21 7v10l-6-3.5"/></symbol>
@@ -404,9 +414,10 @@
 
         <div class="screen on" id="sc-login" data-des-id="DES-MOB-LOGIN" data-tab="auth">
           <div class="login">
-            <div class="login-brand">
-              <div class="login-logo"><svg class="ic ic-xl" viewBox="0 0 24 24"><use href="#i-road"/></svg></div>
-              <h1>RMMS</h1>
+            <div class="login-brand" data-des-id="DES-MOB-LOGIN-BRAND">
+              <div class="login-logo">
+                <img src="../assets/rmms.png" alt="RMMS" width="260" height="76" />
+              </div>
               <p>Quản lý bảo trì đường bộ<br/>Hiện trường · Android</p>
             </div>
             <div data-des-id="DES-MOB-LOGIN-FORM">
@@ -428,10 +439,15 @@
             </div>
             <div class="login-actions">
               <button class="btn btn-primary" onclick="loginOk()">Đăng nhập</button>
-              <button class="login-bio" type="button" onclick="toast('BiometricPrompt · mock')">
+              <button class="login-bio" type="button" data-des-id="DES-MOB-LOGIN-SKIP-BIO" onclick="skipAuthBio('touch')">
                 <svg class="ic ic-md" viewBox="0 0 24 24"><use href="#i-finger"/></svg>
-                Đăng nhập bằng vân tay
+                Bỏ qua xác thực · vân tay
               </button>
+              <button class="login-skip" type="button" onclick="skipAuthBio('face')">
+                <svg class="ic" viewBox="0 0 24 24"><use href="#i-faceid"/></svg>
+                hoặc khuôn mặt
+              </button>
+              <p class="login-skip-hint">Phiên đã lưu trên máy · không nhập mật khẩu</p>
             </div>
             <div class="login-meta">Mạng: Online · BFF auth · v1.0.0-p1</div>
           </div>
@@ -1018,6 +1034,10 @@
     }
     function tab(name) { go(TAB_HOME[name] || 'patrol-home'); }
     function loginOk() { toast('Đăng nhập thành công'); setTimeout(() => go('patrol-home'), 350); }
+    function skipAuthBio(kind) {
+      toast(kind === 'face' ? 'Bỏ qua xác thực · khuôn mặt' : 'Bỏ qua xác thực · vân tay');
+      setTimeout(() => go('patrol-home'), 350);
+    }
     function logout() { toast('Đã đăng xuất'); setTimeout(() => go('login'), 300); }
     function togglePass() {
       const input = document.getElementById('f-pass');

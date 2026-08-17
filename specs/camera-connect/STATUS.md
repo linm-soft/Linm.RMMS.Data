@@ -84,6 +84,8 @@
 - Review `task_de015f02` **approve** · P0 none · pipeline **closed**
 
 ## Links
+- mfeStdUrl: `http://localhost:9316/camera`
+- mfeStdRoute: `/camera`
 
 - po: `D:/AI-QLBD/Linm.RMMS.Data/specs/camera-connect/po/requirement.md`
 - data-analy: `D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/camera-connect-control-hint.md`

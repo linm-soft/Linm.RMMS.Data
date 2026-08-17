@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ITS phát hiện biển báo / cọc tiêu — Kind B+D+F prototype</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
+  <style>
+    :root{--bg:#f5f7fa;--card:#fff;--border:#BABCBE;--soft:#e9ecef;--txt:#1A1A1A;--muted:#6c757d;--primary:#0d6efd;--btn:#EEEEEE;--r:4px;--ok:#047857;--warn:#b45309;--teal:#0f766e;--danger:#b91c1c;--draft:#5b21b6}
+    *{box-sizing:border-box}body{margin:0;font:13px/1.4 "Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--txt)}
+    .page{max-width:1280px;margin:0 auto;padding:8px;display:flex;flex-direction:column;gap:8px;min-height:100vh}
+    .note{font-size:11px;color:var(--muted);padding:4px 0}
+    .zone-a{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+    .zone-a h1{margin:0;font-size:22px;font-weight:700;display:flex;align-items:center;gap:10px}
+    .zone-a h1 i{color:var(--teal);font-size:20px}
+    .zone-b{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:8px 0;position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--soft)}
+    .zone-b-left,.zone-b-right{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .tb{display:inline-flex;align-items:center;gap:4px;height:32px;padding:6px 8px;border:0;border-radius:var(--r);background:var(--btn);font-size:12px;font-weight:600;cursor:pointer}
+    .tb:hover{background:#BABCBE}.tb.primary{background:var(--primary);color:#fff}.tb:disabled{opacity:.55;cursor:not-allowed}
+    .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}@media(max-width:800px){.kpis{grid-template-columns:repeat(2,1fr)}}
+    .kpi{background:var(--card);border:1px solid var(--soft);border-radius:var(--r);padding:10px 12px}
+    .kpi .lbl{font-size:11px;color:var(--muted);font-weight:600}.kpi .val{font-size:1.25rem;font-weight:800;margin-top:2px;color:var(--teal)}
+    .filters{display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end;padding:10px 12px;background:var(--card);border:1px solid var(--soft);border-radius:var(--r)}
+    .filters .field{display:flex;flex-direction:column;gap:4px;min-width:130px}
+    .filters .field.search-right{margin-left:auto;min-width:220px;flex:0 1 260px}
+    .filters label{font-size:12px;color:var(--muted)}
+    .filters input,.filters select{height:32px;padding:6px 10px;border:1px solid var(--border);border-radius:var(--r);font-size:13px;background:#fff}
+    .layout{display:grid;grid-template-columns:1fr 320px;gap:8px;min-height:0}@media(max-width:1100px){.layout{grid-template-columns:1fr}}
+    .card{background:var(--card);border:1px solid var(--soft);border-radius:var(--r);display:flex;flex-direction:column;min-height:0;overflow:hidden}
+    .grid-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 16px 8px}
+    .grid-title{margin:0;font-size:15px;font-weight:700}.grid-help{margin:4px 0 0;font-size:12px;color:var(--muted)}
+    .search{display:flex;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;min-width:240px;height:32px;background:#fff}
+    .search input{border:0;outline:0;padding:6px 10px;flex:1;font-size:13px}
+    .search button{border:0;border-left:1px solid var(--border);background:#f8fafc;padding:0 10px;cursor:pointer;color:var(--muted)}
+    .table-wrap{overflow:auto;flex:1;min-height:200px;border-top:1px solid var(--soft)}
+    table{width:100%;border-collapse:collapse;table-layout:fixed}
+    th,td{padding:8px 10px;border-bottom:1px solid var(--soft);text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:13px}
+    th{background:#f8fafc;font-size:12px;color:var(--muted);position:sticky;top:0}
+    th.num,td.num{text-align:center;width:48px}
+    tbody tr:nth-child(even){background:#fafbfc}tbody tr:hover,tbody tr.sel{background:#eff6ff}
+    .st{font-size:11px;font-weight:700;padding:2px 6px;border-radius:999px}
+    .st-d{background:#ede9fe;color:var(--draft)}.st-ok{background:#ecfdf5;color:var(--ok)}.st-x{background:#f1f5f9;color:var(--muted)}
+    .near{font-size:11px;font-weight:700;color:var(--warn);background:#fffbeb;padding:1px 6px;border-radius:999px}
+    .low{font-size:11px;font-weight:700;color:#9a3412;background:#ffedd5;padding:1px 6px;border-radius:999px}
+    .col-tools{display:inline-flex;gap:4px;margin-left:6px}.col-tools button{border:0;background:transparent;cursor:pointer;color:var(--muted);padding:0 2px;font-size:11px}.col-tools button.on{color:var(--primary)}
+    .filter-pop{display:none;position:absolute;z-index:30;width:260px;background:#fff;border:1px solid var(--soft);border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.12);padding:10px}
+    .filter-pop.on{display:block}.filter-pop input[type=text]{width:100%;margin-bottom:8px;padding:6px 8px;border:1px solid var(--border);border-radius:var(--r)}
+    .filter-field{display:flex;align-items:center;gap:8px;padding:6px 8px;border:1px solid var(--soft);border-radius:6px;margin-bottom:8px}
+    .filter-hint{font-size:12px;color:var(--muted);margin-bottom:8px}.filter-list{max-height:140px;overflow:auto;display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
+    .filter-list label{display:flex;align-items:center;gap:8px;padding:4px 6px;border-radius:4px}.filter-list label.on{background:#eff6ff}.filter-acts{display:flex;justify-content:flex-end;gap:8px}
+    .zone-d{display:flex;flex-direction:column;align-items:center;gap:10px;padding:12px 16px;border-top:1px solid var(--soft)}
+    .zone-d-total{color:var(--muted)}.zone-d-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center}
+    .pager-btn{width:32px;height:32px;border:1px solid var(--soft);border-radius:var(--r);background:#fff;color:var(--muted);cursor:pointer}
+    .menu{position:relative}.menu summary{list-style:none;cursor:pointer;padding:4px 8px;border:1px solid var(--border);border-radius:var(--r);background:#fff}
+    .menu summary::-webkit-details-marker{display:none}.menu-panel{display:none;position:absolute;right:0;z-index:5;background:#fff;border:1px solid var(--border);border-radius:6px;min-width:160px;box-shadow:0 8px 24px rgba(0,0,0,.12)}
+    .menu[open] .menu-panel{display:block}.menu-panel button{display:block;width:100%;text-align:left;border:0;background:0;padding:8px 12px;cursor:pointer;font-size:13px}
+    .menu-panel button:hover{background:#f1f5f9}.menu-panel button.danger{color:var(--danger)}
+    .map-card h2{margin:0;padding:12px 14px;font-size:14px;border-bottom:1px solid var(--soft)}
+    .map-canvas{height:280px;background:linear-gradient(160deg,#ccfbf1,#99f6e4 40%,#e2e8f0);position:relative;overflow:hidden}
+    .pin{position:absolute;transform:translate(-50%,-100%);font-size:11px;font-weight:700;padding:4px 6px;border-radius:6px;color:#fff;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.2)}
+    .pin.draft{background:#7c3aed}.pin.exist{background:#64748b}.pin.ok{background:#059669}.pin.near{background:#d97706}
+    .map-bar{display:flex;gap:6px;flex-wrap:wrap;padding:8px 10px;border-top:1px solid var(--soft);align-items:center}.map-bar .meta{font-size:11px;color:var(--muted);flex:1}
+    .legend{font-size:11px;color:var(--muted);padding:8px 12px;border-top:1px solid var(--soft);line-height:1.6}
+    .toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%) translateY(12px);background:#0f172a;color:#e2e8f0;padding:10px 16px;border-radius:999px;font-size:12px;opacity:0;pointer-events:none;transition:.2s;z-index:80}.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+    .backdrop{display:none;position:fixed;inset:0;background:rgba(15,23,42,.35);z-index:40}.backdrop.on{display:block}
+    .backdrop.center{display:none;align-items:center;justify-content:center}.backdrop.center.on{display:flex}
+    .modal{width:min(520px,94vw);background:#fff;border-radius:8px;border:1px solid var(--soft);max-height:90vh;overflow:auto}
+    .modal.wide{width:min(720px,96vw)}
+    .modal-h{padding:12px 16px;border-bottom:1px solid var(--soft);font-weight:700}.modal-b{padding:16px;font-size:13px;color:var(--muted)}
+    .modal-b .field{display:flex;flex-direction:column;gap:4px;margin-bottom:10px}.modal-b label{font-size:12px;color:var(--muted)}
+    .modal-b input,.modal-b select{height:32px;padding:6px 10px;border:1px solid var(--border);border-radius:var(--r);font-size:13px}
+    .modal-f{padding:12px 16px;border-top:1px solid var(--soft);display:flex;justify-content:flex-end;gap:8px}
+    .cfg-table{width:100%;border-collapse:collapse;font-size:12px}.cfg-table th,.cfg-table td{border:1px solid var(--soft);padding:6px 8px;text-align:left}
+    .cfg-table th{background:#f8fafc;color:var(--muted)}
+    .slideout{display:none;position:fixed;top:0;right:0;bottom:0;width:min(680px,100vw);background:#fff;z-index:50;box-shadow:-8px 0 28px rgba(15,23,42,.18);flex-direction:column}.slideout.on{display:flex}
+    .z1{padding:12px 14px;border-bottom:1px solid var(--soft);display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+    .z1 .title{font-size:16px;font-weight:700;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+    .z1 .x{border:0;background:transparent;font-size:18px;cursor:pointer;color:var(--muted);line-height:1}
+    .mode{font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:#e0f2fe;color:#0369a1}
+    .dirty{font-size:11px;background:#fff7ed;color:#c2410c;padding:2px 8px;border-radius:999px;font-weight:700}
+    .z1h{padding:0 14px 10px;font-size:12px;color:var(--muted)}
+    .z2{flex:1;overflow:auto;padding:14px;background:#f8fafc}.section{background:#fff;border:1px solid var(--soft);border-radius:8px;padding:14px;margin-bottom:12px}
+    .section h3{margin:0 0 12px;font-size:13px;color:var(--teal)}.fields{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+    .field{display:flex;flex-direction:column;gap:4px}.field label{font-size:12px;color:var(--muted)}
+    .field input,.field select,.field textarea{padding:6px 10px;border:1px solid var(--border);border-radius:var(--r);font-size:13px;min-height:32px;font-family:inherit}
+    .field.full{grid-column:1/-1}.near-warn,.low-warn{font-size:12px;padding:8px 10px;border-radius:6px;margin-bottom:12px}
+    .near-warn{color:var(--warn);background:#fffbeb;border:1px solid #fcd34d}
+    .low-warn{color:#9a3412;background:#ffedd5;border:1px solid #fdba74}
+    .frame-mock{height:110px;background:linear-gradient(135deg,#0f172a,#134e4a);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#99f6e4;font-size:12px;margin-bottom:8px;position:relative}
+    .frame-mock .bbox{position:absolute;border:2px solid #5eead4;width:28%;height:42%;left:36%;top:28%}
+    .z3{flex-shrink:0;border-top:1px solid var(--soft);background:#fff;padding:12px 14px;display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+  </style>
+</head>
+<body>
+<div class="page" data-catalog-list-page>
+  <p class="note">SSOT Design: <code>its-traffic-detect</code> · content-only A–D + Kind F map · Kind D slideout footer-only · Config FULL · <strong>không</strong> badge AI header · dedupe 10 m · <code>shared_grid_example: v1</code></p>
+  <header class="zone-a" data-des-id="DES-GRID-A">
+    <h1><i class="fas fa-road" aria-hidden="true"></i> ITS phát hiện biển báo / cọc tiêu</h1>
+  </header>
+  <div class="zone-b" data-des-id="DES-GRID-B">
+    <div class="zone-b-left">
+      <button type="button" class="tb" data-action="refresh"><i class="fas fa-sync-alt"></i> Làm mới</button>
+      <button type="button" class="tb" data-action="history"><i class="fas fa-history"></i> Lịch sử</button>
+      <button type="button" class="tb" data-action="config"><i class="fas fa-cog"></i> Sửa config</button>
+      <button type="button" class="tb" id="btn-view" disabled><i class="fas fa-eye"></i> Xem</button>
+      <button type="button" class="tb" id="btn-edit" disabled><i class="fas fa-pen"></i> Sửa</button>
+      <button type="button" class="tb" data-action="sim-mobile"><i class="fas fa-mobile-alt"></i> Sim Mobile</button>
+      <button type="button" class="tb" data-action="sim-dashcam"><i class="fas fa-video"></i> Sim Dashcam</button>
+      <button type="button" class="tb" data-action="sim-cctv"><i class="fas fa-cctv fas fa-video"></i> Sim CCTV</button>
+      <button type="button" class="tb" data-action="nearby"><i class="fas fa-bullseye"></i> Nearby 10m</button>
+      <button type="button" class="tb" data-action="export"><i class="fas fa-file-excel"></i> Xuất Excel</button>
+      <button type="button" class="tb" data-action="reset-seed"><i class="fas fa-undo"></i> Reset seed</button>
+    </div>
+    <div class="zone-b-right">
+      <button type="button" class="tb primary" data-action="create"><i class="fas fa-plus"></i> Tạo</button>
+    </div>
+  </div>
+  <div class="kpis" data-des-id="DES-KPI">
+    <div class="kpi"><div class="lbl">Draft</div><div class="val" id="kpiDraft">0</div></div>
+    <div class="kpi"><div class="lbl">Confirmed</div><div class="val" id="kpiOk">0</div></div>
+    <div class="kpi"><div class="lbl">Nearby risk</div><div class="val" id="kpiNear">0</div></div>
+    <div class="kpi"><div class="lbl">Total</div><div class="val" id="kpiTotal">0</div></div>
+  </div>
+  <div class="filters" data-des-id="DES-GRID-FILTER">
+    <div class="field" style="min-width:180px"><label for="fRoute">Tuyến (SearchInput · road-route)</label><input id="fRoute" type="search" list="routeOpts" placeholder="QL.1…" value="QL.1" /><datalist id="routeOpts"><option value="ALL"><option value="QL.1"></datalist></div>
+    <div class="field"><label for="fClass">Loại</label><select id="fClass"><option value="">Tất cả</option><option value="bien_bao">Biển báo</option><option value="coc_tieu">Cọc tiêu</option></select></div>
+    <div class="field"><label for="fSource">Nguồn</label><select id="fSource"><option value="">Tất cả</option><option value="mobile">Mobile</option><option value="dashcam">Dashcam</option><option value="cctv">CCTV</option></select></div>
+    <div class="field"><label for="fStatus">Trạng thái</label><select id="fStatus"><option value="">Tất cả</option><option value="Draft">Draft</option><option value="Confirmed">Confirmed</option><option value="Dismissed">Dismissed</option></select></div>
+    <div class="field"><label for="fEngine">Engine</label><select id="fEngine"><option value="">Tất cả</option><option value="P1">P1</option><option value="P2">P2</option></select></div>
+    <div class="field"><label for="fFrom">Từ ngày</label><input id="fFrom" type="date" /></div>
+    <div class="field"><label for="fTo">Đến ngày</label><input id="fTo" type="date" /></div>
+    <button type="button" class="tb" data-action="clear-filter">Xóa lọc</button>
+    <div class="field search-right"><label for="fSearchFilter">Tìm kiếm</label><input id="fSearchFilter" type="search" placeholder="ID · loại · tuyến · device…" /></div>
+  </div>
+  <div class="layout">
+    <section class="card">
+      <div class="grid-head" data-des-id="DES-GRID-C0">
+        <div>
+          <h2 class="grid-title">Danh sách candidate biển báo / cọc tiêu</h2>
+          <p class="grid-help" data-des-id="DES-GRID-C3-help">Nhấn đúp · Ctrl + chuột phải · giữ chạm (mobile) để mở menu dòng</p>
+        </div>
+        <div class="search" data-des-id="DES-GRID-C1"><input type="search" id="q" placeholder="ID · loại · tuyến · device · note · model · assetCode…" aria-label="Tìm kiếm" /><button type="button" aria-label="Tìm"><i class="fas fa-search"></i></button></div>
+      </div>
+      <div class="table-wrap" data-des-id="DES-GRID-C2" style="position:relative">
+        <table><thead><tr>
+          <th class="num">STT</th><th class="num"><input type="checkbox" id="chk-all" aria-label="Chọn tất cả" /></th>
+          <th>ID <span class="col-tools"><button type="button" class="on" data-sort="id"><i class="fas fa-sort-alpha-down"></i></button><button type="button" id="btn-filter-code"><i class="fas fa-filter"></i></button></span></th>
+          <th>Loại</th><th>Score (%)</th><th>Tọa độ</th><th>Tuyến / lý trình</th><th>Nguồn</th><th>TT</th><th>Engine/Model</th><th>Nearby</th><th>Quan sát</th><th>Mã Asset</th><th class="num"></th>
+        </tr></thead><tbody id="tbody"></tbody></table>
+        <div class="filter-pop" id="filter-pop" data-des-id="DES-GRID-C2a" style="top:40px;left:180px">
+          <input type="text" id="filter-q" placeholder="Tìm trong danh sách…" />
+          <div class="filter-field"><input type="checkbox" id="filter-select-all" /><label for="filter-select-all" style="flex:1;cursor:pointer">Chọn tất cả</label></div>
+          <div class="filter-hint" id="filter-count">Đã chọn 0 mục</div>
+          <div class="filter-list" id="filter-list"></div>
+          <div class="filter-acts"><button type="button" class="tb" id="filter-cancel">Hủy</button><button type="button" class="tb primary" id="filter-ok">Xác nhận</button></div>
+        </div>
+      </div>
+      <div class="zone-d" data-des-id="DES-GRID-D">
+        <div class="zone-d-total">Tổng: <span id="total">4</span> · Trang <span id="page">1</span>/1</div>
+        <div class="zone-d-row">
+          <label>Hiển thị <select id="pageSize"><option>50</option><option>100</option><option>200</option><option>500</option></select></label>
+          <button type="button" class="pager-btn" disabled><i class="fas fa-angle-double-left"></i></button>
+          <button type="button" class="pager-btn" disabled><i class="fas fa-angle-left"></i></button>
+          <span>1/1</span>
+          <button type="button" class="pager-btn" disabled><i class="fas fa-angle-right"></i></button>
+          <button type="button" class="pager-btn" disabled><i class="fas fa-angle-double-right"></i></button>
+        </div>
+      </div>
+    </section>
+    <aside class="card map-card" data-des-id="DES-MAP-F">
+      <h2><i class="fas fa-map-marked-alt"></i> Bản đồ pin</h2>
+      <div class="map-canvas" id="mapCanvas"></div>
+      <div class="map-bar">
+        <button type="button" class="tb" data-basemap="osm">OSM</button>
+        <button type="button" class="tb" data-basemap="esri">Esri Streets</button>
+        <button type="button" class="tb" data-basemap="sat">Esri sat</button>
+        <button type="button" class="tb" data-action="fit"><i class="fas fa-expand"></i> Fit</button>
+        <span class="meta" id="mapMeta">Basemap: OSM · pin → View · dedupe 10 m</span>
+      </div>
+      <div class="legend">
+        <span style="color:#7c3aed;font-weight:700">● Draft</span>
+        <span style="color:#d97706;font-weight:700">● Nearby</span>
+        <span style="color:#64748b;font-weight:700">● Asset sẵn</span>
+        <span style="color:#059669;font-weight:700">● Confirmed</span><br />
+        Tracks: PATROL-II1-01 · DASHCAM-QL1-12
+      </div>
+    </aside>
+  </div>
+</div>
+
+<div class="backdrop center" id="modal-config" data-des-id="DES-GRID-F">
+  <div class="modal wide">
+    <div class="modal-h"><i class="fas fa-cog"></i> Cấu hình hiển thị danh mục</div>
+    <div class="modal-b">
+      <p style="margin:0 0 10px">FULL ui-schema · kéo cột default <strong>ON</strong> · Dev: <code>LinCatalogUiSchemaEditorModal</code> + <code>useCatalogUiSchema</code> · BE Seed <code>catalogKind=its-traffic-detect</code></p>
+      <table class="cfg-table">
+        <thead><tr><th>Cột</th><th>List</th><th>Width</th><th>Filter</th><th>Sort</th></tr></thead>
+        <tbody>
+          <tr><td>code</td><td><input type="checkbox" checked disabled /></td><td>140</td><td><input type="checkbox" checked disabled /></td><td><input type="checkbox" checked disabled /></td></tr>
+          <tr><td>objectClass</td><td><input type="checkbox" checked disabled /></td><td>110</td><td><input type="checkbox" checked disabled /></td><td><input type="checkbox" checked disabled /></td></tr>
+          <tr><td>score</td><td><input type="checkbox" checked disabled /></td><td>90</td><td><input type="checkbox" disabled /></td><td><input type="checkbox" disabled /></td></tr>
+          <tr><td>latLng</td><td><input type="checkbox" checked disabled /></td><td>160</td><td><input type="checkbox" disabled /></td><td><input type="checkbox" disabled /></td></tr>
+          <tr><td>routeLabel</td><td><input type="checkbox" checked disabled /></td><td>200</td><td><input type="checkbox" disabled /></td><td><input type="checkbox" disabled /></td></tr>
+          <tr><td>source</td><td><input type="checkbox" checked disabled /></td><td>100</td><td><input type="checkbox" checked disabled /></td><td><input type="checkbox" disabled /></td></tr>
+          <tr><td>status</td><td><input type="checkbox" checked disabled /></td><td>110</td><td><input type="checkbox" checked disabled /></td><td><input type="checkbox" checked disabled /></td></tr>
+          <tr><td>engine</td><td><input type="checkbox" checked disabled /></td><td>120</td><td><input type="checkbox" checked disabled /></td><td><input type="checkbox" disabled /></td></tr>
+          <tr><td>nearbyRisk</td><td><input type="checkbox" checked disabled /></td><td>100</td><td><input type="checkbox" disabled /></td><td><input type="checkbox" disabled /></td></tr>
+          <tr><td>observedAt</td><td><input type="checkbox" checked disabled /></td><td>150</td><td><input type="checkbox" disabled /></td><td><input type="checkbox" checked disabled /></td></tr>
+          <tr><td>assetCode</td><td><input type="checkbox" checked disabled /></td><td>140</td><td><input type="checkbox" disabled /></td><td><input type="checkbox" disabled /></td></tr>
+        </tbody>
+      </table>
+      <button type="button" class="tb" style="margin-top:10px" disabled><i class="fas fa-plus"></i> Thêm cột</button>
+    </div>
+    <div class="modal-f"><button type="button" class="tb" data-close="modal-config">Đóng</button><button type="button" class="tb primary" data-close="modal-config">Lưu</button></div>
+  </div>
+</div>
+<div class="backdrop center" id="modal-history" data-des-id="DES-GRID-H"><div class="modal"><div class="modal-h"><i class="fas fa-history"></i> Lịch sử</div><div class="modal-b" id="historyBody">Timeline stub — Dev: LinCatalogHistoryModal.</div><div class="modal-f"><button type="button" class="tb" data-close="modal-history">Đóng</button></div></div></div>
+<div class="backdrop center" id="modal-confirm" data-des-id="DES-MOD-CONFIRM"><div class="modal"><div class="modal-h">Confirm → Asset</div><div class="modal-b"><p id="confirmText">HITL Confirm bắt buộc · tạo Asset source=its-traffic-detect.</p><div class="field"><label for="confirmAssetType">Loại Asset * (SearchInput · asset-type)</label><input id="confirmAssetType" type="search" list="assetTypeOpts" /><datalist id="assetTypeOpts"><option value="GANTRY_SIGN"><option value="DELINEATOR"></datalist></div></div><div class="modal-f"><button type="button" class="tb" data-close="modal-confirm">Hủy</button><button type="button" class="tb primary" id="btnConfirmOk">Confirm</button></div></div></div>
+<div class="backdrop center" id="modal-dismiss" data-des-id="DES-MOD-DISMISS"><div class="modal"><div class="modal-h">Dismiss FP</div><div class="modal-b" id="dismissText">Đánh dấu Dismissed (false positive).</div><div class="modal-f"><button type="button" class="tb" data-close="modal-dismiss">Hủy</button><button type="button" class="tb primary" id="btnDismissOk">Dismiss</button></div></div></div>
+<div class="backdrop center" id="modal-leave" data-des-id="DES-LEAVE"><div class="modal"><div class="modal-h">Rời khỏi form?</div><div class="modal-b">Form đang có thay đổi chưa lưu. Rời khỏi sẽ mất dữ liệu đã sửa.</div><div class="modal-f"><button type="button" class="tb" id="leaveStay">Ở lại</button><button type="button" class="tb primary" id="leaveGo">Rời khỏi</button></div></div></div>
+
+<div class="backdrop" id="slide-backdrop"></div>
+<aside class="slideout" id="slideout" data-des-id="DES-GRID-Z">
+  <div class="z1">
+    <div class="title"><span id="formTitle">Candidate</span><span class="mode" id="modeBadge">view</span><span class="dirty" id="dirtyBadge" hidden>Dirty</span></div>
+    <button type="button" class="x" data-slide="close" aria-label="Đóng">×</button>
+  </div>
+  <div class="z1h" id="formHint">View = readOnly · footer actions only</div>
+  <div class="z2" id="formBody">
+    <div class="near-warn" id="nearWarn" hidden>Nearby risk &lt;10 m cùng class — không auto-create Asset.</div>
+    <div class="low-warn" id="lowWarn" hidden>Score thấp (P2) — cần review thủ công trước Confirm.</div>
+    <div class="section"><h3>Frame / bbox</h3><div class="frame-mock"><span class="bbox"></span>Frame mock</div></div>
+    <div class="section"><h3>Thông tin quan sát</h3><div class="fields">
+      <div class="field"><label>Mã</label><input id="fId" readonly /></div>
+      <div class="field"><label>Loại *</label><select id="fObjectClass"><option value="bien_bao">Biển báo</option><option value="coc_tieu">Cọc tiêu</option></select></div>
+      <div class="field"><label>Confidence *</label><input id="fScore" type="number" step="0.01" min="0" max="1" /></div>
+      <div class="field"><label>Trạng thái *</label><select id="fCandStatus"><option>Draft</option><option>Confirmed</option><option>Dismissed</option></select></div>
+      <div class="field"><label>Engine *</label><select id="fEngineForm"><option>P1</option><option>P2</option></select></div>
+      <div class="field"><label>Lat *</label><input id="fLat" type="number" step="0.00001" /></div>
+      <div class="field"><label>Lng *</label><input id="fLng" type="number" step="0.00001" /></div>
+      <div class="field"><label>Tuyến * (SearchInput)</label><input id="fRouteId" type="search" list="routeOpts" /></div>
+      <div class="field"><label>Nhãn tuyến / lý trình</label><input id="fRouteLabel" /></div>
+      <div class="field"><label>Nguồn *</label><select id="fSourceForm"><option value="mobile">Mobile</option><option value="dashcam">Dashcam</option><option value="cctv">CCTV</option></select></div>
+      <div class="field"><label>Thiết bị</label><input id="fDevice" /></div>
+      <div class="field"><label>Heading°</label><input id="fHeading" type="number" step="0.1" /></div>
+      <div class="field"><label>Alpha°</label><input id="fAlpha" type="number" step="0.1" /></div>
+      <div class="field"><label>BBox</label><input id="fBbox" /></div>
+      <div class="field"><label>Model</label><input id="fModel" readonly /></div>
+      <div class="field"><label>Nearby of</label><input id="fNearbyOf" readonly /></div>
+      <div class="field"><label>Mã Asset</label><input id="fAssetCode" readonly /></div>
+      <div class="field"><label>Quan sát</label><input id="fObserved" type="datetime-local" /></div>
+      <div class="field full"><label>Ghi chú</label><textarea id="fNote" rows="3"></textarea></div>
+    </div></div>
+  </div>
+  <div class="z3" id="formFooter"></div>
+</aside>
+<div class="toast" id="toast"></div>
+<script src="./its-traffic-detect-list-prototype.js"></script>
+</body>
+</html>

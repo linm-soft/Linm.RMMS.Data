@@ -14,9 +14,10 @@
       intro: [
         'Cán bộ Hạt / nhà thầu đăng nhập cùng BFF Web — không fork token.',
         'Tài khoản gắn hợp đồng bảo trì: hết hạn → Inactive (job), không vào hiện trường.',
+        'Logo RMMS trên login. Face ID / Touch ID = bỏ qua xác thực khi phiên đã lưu trên máy (fallback mật khẩu).',
       ],
       std: 'Cục Đường bộ VN · phân quyền theo đơn vị (Hạt QLĐB / Khu) và phạm vi tuyến–km trên HĐ.',
-      bullets: ['Mã đơn vị = org-unit', 'Face ID / vân tay tùy chọn'],
+      bullets: ['Logo RMMS (`logo/rmms.png`)', 'Mã đơn vị = org-unit', 'Bỏ qua xác thực · Face ID / Touch ID (phiên đã lưu)'],
     },
     'patrol-home': {
       title: 'Tuần đường / tuần kiểm',

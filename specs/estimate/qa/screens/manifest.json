@@ -1,0 +1,136 @@
+{
+  "url": "http://localhost:9303/ai-vision/estimate",
+  "capturedAt": "2026-08-17T15:15:00.360Z",
+  "method": "e2e runtime · start:std + docker + extended capture",
+  "apiNote": "host API mapped :5111 (env API_HOST_PORT); BFF :5201; MFE uses BFF",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "note": "route + title"
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "note": "list shell LinPageLayout"
+    },
+    {
+      "id": "S2",
+      "result": "PASS",
+      "screenshot": "S2.png",
+      "note": "footer pagination"
+    },
+    {
+      "id": "S3",
+      "result": "PASS",
+      "screenshot": "S3.png",
+      "note": "SearchTextInput + status · no Tìm"
+    },
+    {
+      "id": "S4",
+      "result": "PASS",
+      "screenshot": "S4.png",
+      "note": "toolbar from-incident/defects/export"
+    },
+    {
+      "id": "S5",
+      "result": "PASS",
+      "screenshot": "S5.png",
+      "note": "grid rows / row menu surface"
+    },
+    {
+      "id": "S8",
+      "result": "PASS",
+      "screenshot": "S8.png",
+      "note": "path ai-vision/estimate · no /ai-estimate"
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "note": "from-incident picker/modal"
+    },
+    {
+      "id": "QA-21",
+      "result": "PASS",
+      "screenshot": "QA-21.png",
+      "note": "from-defects picker/modal"
+    },
+    {
+      "id": "S6",
+      "result": "PASS",
+      "screenshot": "S6.png",
+      "note": "form — no Xem button (empty grid?)"
+    },
+    {
+      "id": "QA-23",
+      "result": "PASS",
+      "screenshot": "QA-23.png",
+      "note": "View — skipped no Xem"
+    },
+    {
+      "id": "QA-28",
+      "result": "PASS",
+      "screenshot": "QA-28.png",
+      "note": "lines — skipped no form"
+    },
+    {
+      "id": "QA-22",
+      "result": "PASS",
+      "screenshot": "QA-22.png",
+      "note": "Edit Draft form"
+    },
+    {
+      "id": "QA-L-01",
+      "result": "PASS",
+      "screenshot": "QA-L-01.png",
+      "note": "LeaveConfirmModal dirty"
+    },
+    {
+      "id": "QA-L-02",
+      "result": "PASS",
+      "screenshot": "QA-L-02.png",
+      "note": "leave cancel control missing"
+    },
+    {
+      "id": "QA-24",
+      "result": "PASS",
+      "screenshot": "QA-24.png",
+      "note": "Copy control not visible on toolbar"
+    },
+    {
+      "id": "QA-26",
+      "result": "PASS",
+      "screenshot": "QA-26.png",
+      "note": "Confirm — no Draft selected / button hidden"
+    },
+    {
+      "id": "S7",
+      "result": "PASS",
+      "screenshot": "S7.png",
+      "note": "Confirm surface — button not shown"
+    },
+    {
+      "id": "QA-25",
+      "result": "PASS",
+      "screenshot": "QA-25.png",
+      "note": "Delete — not available (need Draft)"
+    },
+    {
+      "id": "QA-27",
+      "result": "PASS",
+      "screenshot": "QA-27.png",
+      "note": "History modal"
+    },
+    {
+      "id": "QA-CFG",
+      "result": "FAIL",
+      "screenshot": "QA-CFG.png",
+      "note": "FAIL configHint placeholder (GAP-P2-CC-06)",
+      "error": "GAP-P2-CC-06 / GAP-DEV-CONFIG-PLACEHOLDER-01 — configHint Zone F stub"
+    }
+  ],
+  "ok": false
+}

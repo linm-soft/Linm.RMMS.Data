@@ -14,7 +14,7 @@
 | context | `specs/mobile-p1/mobile/context.md` · 12 slug P1 |
 | mfe / app | **TBD** — `ui_repo_confirm` (SwiftUI + Compose) |
 | backend | same BFF Web · `web-bff/api/v1/*` |
-| updatedAt | `2026-08-16T01:20:00.000Z` |
+| updatedAt | `2026-08-17T15:20:00.000Z` |
 | skill | `/gen-mobile-design` |
 
 ## Lock
@@ -38,6 +38,8 @@
 |--|--|
 | iOS | `specs/mobile-p1/ui/prototype/ios/index.html` |
 | Android | `specs/mobile-p1/ui/prototype/android/index.html` |
+| Logo | `logo/rmms.png` → `ui/prototype/assets/rmms.png` · login brand |
+| Skip bio | `DES-MOB-LOGIN-SKIP-BIO` · Face ID / Touch ID → vào app (không nhập MK) |
 | OMS | `specs/mobile-p1/ui/prototype/map-oms.js` |
 | Chụp + GPS | Overlay `DES-MOB-PHOTO-GPS` + pin `DES-MOB-GPS-PIN` · chip review **Chụp + GPS** |
 | **reviewUrl iOS** | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/mobile-p1/ui/prototype/ios/index.html` |

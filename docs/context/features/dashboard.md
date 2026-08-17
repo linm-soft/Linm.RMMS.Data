@@ -20,6 +20,7 @@
 | Screen | Pattern | Zones | Ghi chú |
 |--------|---------|-------|---------|
 | Dashboard home | Full | KPI cards · mini map · top incidents | 1 composition |
+| **Camera ops** (không thay KPI) | Peer Camera+GIS | Wall + map cam | Pilot [`camera-ops-dashboard-demo.html`](../../../Linm.RMMS.Demo/src/demo/features/camera-ops-dashboard-demo.html) — **không** gộp vào KPI home |
 | Drill KPI | Full / Slideout | List nguồn | → Incident/Patrol |
 | Báo cáo * (guide) | Full | Filter · Xem · Excel | Giữ UX báo cáo |
 

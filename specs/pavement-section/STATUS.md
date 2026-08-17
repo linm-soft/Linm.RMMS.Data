@@ -15,7 +15,7 @@
 | domain | **Asset** |
 | prototype.artifact | `specs/pavement-section/ui/prototype/pavement-section-list-prototype.html` |
 | prototype.reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/pavement-section/ui/prototype/pavement-section-list-prototype.html` |
-| mfeStdRoute | `/asset/pavement-section` · `/new` · `/:id` · `/:id/edit` · `/:id/copy` |
+| mfeStdRoute | `/asset/pavement-section` |
 | mfeStdUrl | `http://localhost:9301/asset/pavement-section` |
 | taskId | `task_1663841e` |
 | updatedAt | `2026-08-15T18:35:20.097Z` |

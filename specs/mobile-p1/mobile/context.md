@@ -42,7 +42,7 @@ Web demo = **tham chiếu field**, không clone layout desktop.
 | companyCode | Mã đơn vị | Text | * | `web-bff/api/v1/auth/login` |
 | username | Tên đăng nhập | Text | * | same |
 | password | Mật khẩu | Secure + eye | * | same |
-| biometric | Face ID / Biometric | Button optional | | Keychain / Encrypted store |
+| biometric | Bỏ qua xác thực · Face ID / Touch ID | Button optional (skip password) | | Keychain / Encrypted store |
 
 ### patrol
 
