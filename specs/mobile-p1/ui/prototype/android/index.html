@@ -297,9 +297,13 @@
     .login {
       flex: 1; display: flex; flex-direction: column;
       background: linear-gradient(180deg, #fff 0%, var(--md-surface) 40%);
-      padding-bottom: 20px;
+      padding-bottom: 20px; min-height: 0;
     }
-    .login-brand { padding: 40px 28px 4px; text-align: center; }
+    .login-main {
+      flex: 1; display: flex; flex-direction: column; justify-content: center;
+      min-height: 0;
+    }
+    .login-brand { padding: 0 28px 4px; text-align: center; }
     .login-logo {
       width: min(260px, 80%); margin: 0 auto 12px;
       background: transparent; border-radius: 0;
@@ -409,6 +413,7 @@
 
         <div class="screen on" id="sc-login" data-des-id="DES-MOB-LOGIN" data-tab="auth">
           <div class="login">
+            <div class="login-main">
             <div class="login-brand" data-des-id="DES-MOB-LOGIN-BRAND">
               <div class="login-logo">
                 <img src="../assets/rmms.png" alt="RMMS" width="260" height="76" />
@@ -417,12 +422,8 @@
             </div>
             <div data-des-id="DES-MOB-LOGIN-FORM">
               <div class="login-field">
-                <svg class="ic" viewBox="0 0 24 24"><use href="#i-building"/></svg>
-                <input id="f-company" type="text" placeholder="Mã đơn vị" value="VP-II.2" />
-              </div>
-              <div class="login-field">
                 <svg class="ic" viewBox="0 0 24 24"><use href="#i-person"/></svg>
-                <input id="f-user" type="text" placeholder="Tên đăng nhập" value="nguyenvana" />
+                <input id="f-user" type="text" placeholder="Tài khoản" value="nguyenvana" />
               </div>
               <div class="login-field">
                 <svg class="ic" viewBox="0 0 24 24"><use href="#i-lock"/></svg>
@@ -434,6 +435,7 @@
             </div>
             <div class="login-actions">
               <button class="btn btn-primary" onclick="loginOk()">Đăng nhập</button>
+            </div>
             </div>
             <div class="login-meta">Mạng: Có mạng · đồng bộ hệ thống · bản Gói 1</div>
           </div>

@@ -118,7 +118,7 @@ Drawer: Bảo trì · Camera xem · Offline · Thông báo · Cài đặt
 
 | Flow | Steps |
 |------|-------|
-| Login | Logo RMMS → điền mã đơn vị / tài khoản / mật khẩu → Đăng nhập → tab Hiện trường |
+| Login | Logo RMMS → tài khoản / mật khẩu → Đăng nhập → tab Hiện trường |
 | Happy patrol | Home → Map OMS → Sheet CI → Lưu → KPI +1 |
 | Offline | Sheet → Lưu offline → Queue → Sync |
 | GPS deny | CTA chấm/CI → `DES-MOB-GPS-DENY` · copy mở Settings · **cấm** Lưu |

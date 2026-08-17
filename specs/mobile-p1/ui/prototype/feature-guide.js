@@ -14,10 +14,10 @@
       intro: [
         'Cán bộ Hạt / nhà thầu đăng nhập cùng hệ thống Web — không tách phiên riêng.',
         'Tài khoản gắn hợp đồng bảo trì: hết hạn → Inactive (job), không vào hiện trường.',
-        'Logo RMMS trên đăng nhập. Đăng nhập bằng mã đơn vị, tài khoản và mật khẩu.',
+        'Logo RMMS trên đăng nhập. Đăng nhập bằng tài khoản và mật khẩu.',
       ],
       std: 'Cục Đường bộ VN · phân quyền theo đơn vị (Chi cục / Khu) và phạm vi tuyến–km trên HĐ.',
-      bullets: ['Logo RMMS', 'Mã đơn vị = VP-II.2 (Chi cục QLĐB II.2 · Nghệ An)', 'Đăng nhập mật khẩu — không khuôn mặt / vân tay'],
+      bullets: ['Logo RMMS', 'Tài khoản + mật khẩu', 'Đơn vị theo tài khoản — không nhập mã đơn vị'],
     },
     'patrol-home': {
       title: 'Tuần đường / tuần kiểm',

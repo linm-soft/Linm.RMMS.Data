@@ -501,10 +501,14 @@
     .login {
       flex: 1; display: flex; flex-direction: column;
       background: linear-gradient(180deg, #fff 0%, var(--ios-gray6) 38%, var(--ios-gray6) 100%);
-      padding-bottom: 28px;
+      padding-bottom: 28px; min-height: 0;
+    }
+    .login-main {
+      flex: 1; display: flex; flex-direction: column; justify-content: center;
+      min-height: 0;
     }
     .login-brand {
-      padding: 36px 28px 4px; text-align: center;
+      padding: 0 28px 4px; text-align: center;
     }
     .login-logo {
       width: min(248px, 78%); margin: 0 auto 12px;
@@ -633,6 +637,7 @@
         <!-- ===== LOGIN ===== -->
         <div class="screen on" id="sc-login" data-des-id="DES-MOB-LOGIN" data-tab="auth">
           <div class="login">
+            <div class="login-main">
             <div class="login-brand" data-des-id="DES-MOB-LOGIN-BRAND">
               <div class="login-logo">
                 <img src="../assets/rmms.png" alt="RMMS" width="248" height="72" />
@@ -641,12 +646,8 @@
             </div>
             <div class="login-form" data-des-id="DES-MOB-LOGIN-FORM">
               <div class="login-field">
-                <span class="lead"><svg class="ic" viewBox="0 0 24 24"><use href="#i-building"/></svg></span>
-                <input id="f-company" type="text" placeholder="Mã đơn vị" value="VP-II.2" autocomplete="organization" />
-              </div>
-              <div class="login-field">
                 <span class="lead"><svg class="ic" viewBox="0 0 24 24"><use href="#i-person"/></svg></span>
-                <input id="f-user" type="text" placeholder="Tên đăng nhập" value="nguyenvana" autocomplete="username" />
+                <input id="f-user" type="text" placeholder="Tài khoản" value="nguyenvana" autocomplete="username" />
               </div>
               <div class="login-field">
                 <span class="lead"><svg class="ic" viewBox="0 0 24 24"><use href="#i-lock"/></svg></span>
@@ -658,6 +659,7 @@
             </div>
             <div class="login-actions">
               <button class="btn btn-primary" onclick="loginOk()">Đăng nhập</button>
+            </div>
             </div>
             <div class="login-meta">
               Mạng: Có mạng · đồng bộ hệ thống<br/>

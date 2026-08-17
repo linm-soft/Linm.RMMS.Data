@@ -41,9 +41,9 @@ Web demo = **tham chiếu field**, không clone layout desktop.
 
 | uiField | Label VN | Control mobile | Required | API |
 |---------|----------|----------------|----------|-----|
-| companyCode | Mã đơn vị | Text | * | `web-bff/api/v1/auth/login` |
-| username | Tên đăng nhập | Text | * | same |
+| username | Tài khoản | Text | * | `web-bff/api/v1/auth/login` |
 | password | Mật khẩu | Secure + eye | * | same |
+| companyCode | Mã đơn vị | **Ẩn Gói 1** — không hiện trên đăng nhập (đơn vị theo tài khoản) | | — |
 | biometric | Khuôn mặt / vân tay | **Ẩn Gói 1** — không hiện trên đăng nhập | | — |
 
 ### patrol
