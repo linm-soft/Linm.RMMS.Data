@@ -14,7 +14,7 @@
 | context | `specs/mobile-p1/mobile/context.md` · 12 slug P1 |
 | mfe / app | **TBD** — `ui_repo_confirm` (SwiftUI + Compose) |
 | backend | same BFF Web · `web-bff/api/v1/*` |
-| updatedAt | `2026-08-17T15:30:00.000Z` |
+| updatedAt | `2026-08-17T15:35:00.000Z` |
 | skill | `/gen-mobile-design` |
 
 ## Lock
@@ -40,6 +40,7 @@
 | Android | `specs/mobile-p1/ui/prototype/android/index.html` |
 | Tổng quan | `specs/mobile-p1/ui/prototype/index.html` |
 | Logo | `logo/rmms.png` → `ui/prototype/assets/rmms.png` · đăng nhập |
+| Mock địa bàn | Chi cục QLĐB II.2 (`VP-II.2`) · Nghệ An · QL.1 Km 448–452 / QL.46 · map Vinh `18.679, 105.681` |
 | Bản đồ | `specs/mobile-p1/ui/prototype/map-oms.js` |
 | Chụp + GPS | Overlay `DES-MOB-PHOTO-GPS` + pin `DES-MOB-GPS-PIN` · chip review **Chụp + GPS** |
 | **reviewUrl tổng quan** | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/mobile-p1/ui/prototype/index.html` |

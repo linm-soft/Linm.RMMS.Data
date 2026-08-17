@@ -6,25 +6,25 @@
   const OSRM = 'https://router.project-osrm.org/route/v1/driving';
   const OVERVIEW_FIT_MAX_ZOOM = 13;
 
-  /** QL.1 demo corridor — Biên Hòa / QL.1A area */
+  /** QL.1 Chi cục II.2 — Nghệ An / Vinh (import QL 1 · Km436+800–Km457+899) */
   const PATROL_WAYPOINTS = [
-    [10.9525, 106.8420],
-    [10.9588, 106.8485],
-    [10.9652, 106.8550],
-    [10.9710, 106.8612],
+    [18.6525, 105.6720],
+    [18.6648, 105.6768],
+    [18.6790, 105.6810],
+    [18.6935, 105.6855],
   ];
 
   const CHECKINS = [
-    { id: 'ci1', latlng: [10.9540, 106.8438], status: 'done', label: '1' },
-    { id: 'ci2', latlng: [10.9605, 106.8502], status: 'done', label: '2' },
-    { id: 'ci3', latlng: [10.9668, 106.8565], status: 'here', label: '3' },
-    { id: 'ci4', latlng: [10.9702, 106.8600], status: 'next', label: '4' },
+    { id: 'ci1', latlng: [18.6580, 105.6745], status: 'done', label: '1' },
+    { id: 'ci2', latlng: [18.6710, 105.6788], status: 'done', label: '2' },
+    { id: 'ci3', latlng: [18.6825, 105.6822], status: 'here', label: '3' },
+    { id: 'ci4', latlng: [18.6900, 105.6845], status: 'next', label: '4' },
   ];
 
   const GIS_ASSETS = [
-    { id: 'ts1', latlng: [10.9555, 106.8450], kind: 'ts', label: 'TS' },
-    { id: 'ts2', latlng: [10.9680, 106.8578], kind: 'ts', label: 'TS' },
-    { id: 'sc1', latlng: [10.9620, 106.8518], kind: 'sc', label: 'SC' },
+    { id: 'ts1', latlng: [18.6710, 105.6788], kind: 'ts', label: 'TS' },
+    { id: 'ts2', latlng: [18.6860, 105.6835], kind: 'ts', label: 'TS' },
+    { id: 'sc1', latlng: [18.6760, 105.6800], kind: 'sc', label: 'SC' },
   ];
 
   const state = {
@@ -211,7 +211,7 @@
     const markers = {};
     CHECKINS.forEach((c) => {
       const m = L.marker(c.latlng, { icon: pinIcon(c.status, c.label) });
-      m.bindPopup(`Check-in ${c.label} · ${c.status}`);
+      m.bindPopup(`Chấm điểm ${c.label} · QL.1 Nghệ An`);
       m.addTo(ciLayer);
       markers[c.id] = m;
     });
@@ -311,7 +311,7 @@
     const markers = {};
     GIS_ASSETS.forEach((a) => {
       const m = L.marker(a.latlng, { icon: pinIcon(a.kind, a.label) });
-      m.bindPopup(a.kind === 'ts' ? 'TS-8812 · Biển báo' : 'SC-2401 · Nứt mặt đường');
+      m.bindPopup(a.kind === 'ts' ? 'TS-20260810-014 · Cống ngang · QL.1 Km 450+300' : 'SC-2401 · Nứt mặt đường · QL.1 Km 450+420');
       if (a.kind === 'ts') m.addTo(tsLayer);
       else m.addTo(scLayer);
       markers[a.id] = m;

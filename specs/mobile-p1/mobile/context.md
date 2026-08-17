@@ -23,6 +23,8 @@ KPI HĐ Gói B (300tr) — minh chứng trên thiết bị:
 Persona: Tuần đường · Hạt · vận hành ITS (xem).  
 DoD pack: 12 slug P1 (login + 11 màn) có field + API reuse + mock iOS **và** Android.
 
+**Mock Gói 1 (SSOT địa bàn):** Chi cục QLĐB II.2 = `VP-II.2` · Nghệ An. Nguồn `data-import/RMMS CUC 2/Chi cục QLĐB II.2` (QL.1 · QL.46 · QL.46B · QL.48C · QL.7 · HCM). Ca chính **QL.1 Km 448+000–452+200** (đoạn import Km436+800–Km457+899 · Vinh / Bến Thủy). Tuyến phụ **QL.46**. Tọa độ map ~`18.679, 105.681`. **Cấm** `HAT-QLDB-07` · `ĐT.879` · Biên Hòa.
+
 ## 2. Persona + DoD
 
 | Persona | Làm được trên máy | DoD |
@@ -300,7 +302,7 @@ Shutter
 |------|-------------|----------------------------------------|
 | Kalman | Per ca / session · gap > 8 s → reset | Chip «Vị trí đã chốt · ±n m» |
 | Accuracy | `GPS_MAX_ACCURACY_M=30` | Không chốt ảnh nếu GPS kém |
-| Snap tuyến | Hành lang `ATT_CORRIDOR_M=80` (SC/Vision) · CI vẫn `CHECKIN_MAX_RADIUS_M=50` so với điểm KH | Hiện `QL.1 · Km 12+418` |
+| Snap tuyến | Hành lang `ATT_CORRIDOR_M=80` (SC/Vision) · CI vẫn `CHECKIN_MAX_RADIUS_M=50` so với điểm KH | Hiện `QL.1 · Km 450+418` (Chi cục II.2 · Nghệ An) |
 | Pin | Leaflet / native map | Pin xanh = vị trí ảnh · không cho kéo tay P1 |
 
 P2 (ITS §5.2): ≥2 tia + heading → giao điểm object (biển, cọc) — **DEFER** field photo.

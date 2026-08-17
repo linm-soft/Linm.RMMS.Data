@@ -16,8 +16,8 @@
         'Tài khoản gắn hợp đồng bảo trì: hết hạn → Inactive (job), không vào hiện trường.',
         'Logo RMMS trên đăng nhập. Đăng nhập bằng mã đơn vị, tài khoản và mật khẩu.',
       ],
-      std: 'Cục Đường bộ VN · phân quyền theo đơn vị (Hạt QLĐB / Khu) và phạm vi tuyến–km trên HĐ.',
-      bullets: ['Logo RMMS', 'Mã đơn vị = đơn vị Hạt / nhà thầu', 'Đăng nhập mật khẩu — không khuôn mặt / vân tay'],
+      std: 'Cục Đường bộ VN · phân quyền theo đơn vị (Chi cục / Khu) và phạm vi tuyến–km trên HĐ.',
+      bullets: ['Logo RMMS', 'Mã đơn vị = VP-II.2 (Chi cục QLĐB II.2 · Nghệ An)', 'Đăng nhập mật khẩu — không khuôn mặt / vân tay'],
     },
     'patrol-home': {
       title: 'Tuần đường / tuần kiểm',
@@ -32,8 +32,8 @@
         'Tuần đường: đi tuyến theo lịch, ghi nhận hiện trạng KCHT. Tuần kiểm: kiểm tra chuyên sâu (cầu, cống, taluy).',
         'Một ca = một phiên trên một tuyến–đoạn km. Chỉ tiêu: số điểm tuần và độ phủ % hành lang.',
       ],
-      std: 'Nghiệp vụ Hạt QLĐB: nhật ký tuần đường / tuần kiểm · lý trình Km · ≥3 điểm/ngày/tuyến.',
-      bullets: ['Mã PAT-YYYYMMDD-NNNN', 'QL.1 / ĐT.* + Km từ–đến', 'Bỏ sót = thiếu điểm KH'],
+      std: 'Nghiệp vụ Chi cục QLĐB: nhật ký tuần đường / tuần kiểm · lý trình Km · ≥3 điểm/ngày/tuyến.',
+      bullets: ['Mã PAT-YYYYMMDD-NNNN', 'QL.1 / QL.46 + Km từ–đến (II.2 · Nghệ An)', 'Bỏ sót = thiếu điểm KH'],
     },
     'patrol-map': {
       title: 'Bản đồ ca + chấm điểm',
@@ -96,7 +96,7 @@
         'Chấm vào/ra theo định vị trên tuyến được giao. Vị trí lấy tự động từ máy.',
         'Ngoài hành lang 80 m → ngoài hành lang, chặn chấm (tránh chấm hộ / chấm sai hạt).',
       ],
-      std: 'Chấm công hiện trường Hạt QLĐB gắn ca tuần đường — không khuôn mặt / thẻ từ Gói 1.',
+      std: 'Chấm công hiện trường Chi cục QLĐB gắn ca tuần đường — không khuôn mặt / thẻ từ Gói 1.',
       bullets: ['Tọa độ / lý trình bắt buộc', '7 ngày gần đây = danh sách + xem'],
     },
     'incident-list': {
