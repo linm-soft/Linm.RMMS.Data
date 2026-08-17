@@ -11,9 +11,11 @@
 | brief | `map-feature/mobile-design-brief.md` |
 | legacy | `docs/mobile-legacy/Hướng dẫn sử dụng phần mềm.docx` · `docs/context/15-SCREEN-AI-MAP.md` |
 | status | `await_confirm` |
-| design_confirm | **approved** 2026-08-18 |
-| iaVersion | **v2 — legacy-follow** |
-| updatedAt | 2026-08-18T00:20:00.000Z |
+| design_confirm | pending (IA v3) |
+| iaVersion | **v3.1 — VNeID khung (header + 3×2 + ví TS) · 32 loại** |
+| layoutRef | `docs/mobile-legacy/layout/*.jpg` — khung VNeID · brand RMMS xanh |
+| catalog32 | `docs/context/features/asset-kcht-32.md` |
+| updatedAt | 2026-08-18T00:55:00.000Z |
 
 ## 0. Context
 
@@ -49,26 +51,44 @@ Nguồn: mục **Trên điện thoại** trong `Hướng dẫn sử dụng phầ
 3. **Camera AI** (hiện đại) bị tách tab Nhận diện, không gắn menu Tài sản — user không thấy «thu thập bằng camera».
 4. **Công việc** / **Giám sát** / **Góp ý** không còn là lối cấp 1 như launcher cũ.
 
-**Nguyên tắc v2:** giữ **động từ + thứ tự app cũ** · chrome hiện đại (tab 5 · grouped/card · sheet · SF/Material) · AI = **menu con** của Vấn đề / Tài sản — không tab riêng.
+**Nguyên tắc v3 (enterprise QLĐB / nhà nước VN):**
 
-## 1. IA + chrome (v2 — legacy-follow)
+1. **Cổng nghiệp vụ = Trang Chủ 6 ô** — đúng app cũ (ảnh hướng dẫn): Giám sát · Check In · Công việc · Vấn đề · Tài sản · Lưu trữ. Chào + chức vụ + chuông + hồ sơ.
+2. **Tab 5 giữ** — thao tác hàng ngày không phải về launcher: Trang Chủ · Check-in · Vấn đề · Công việc · Tôi. (HIG/Material: tối đa 5.)
+3. **Tài sản không tab** — vào từ ô launcher (app cũ) → hub: thủ công / Camera AI / danh sách / cập nhật-bớt / bản đồ.
+4. **Trong từng module** giữ cấu trúc trang cũ: **Danh sách | Bản đồ**, card dày (lý trình · đơn vị · người · giờ · ảnh · trạng thái), hàng thao tác (trao đổi / giao việc / xem / ghim), FAB +.
+5. Chrome hiện đại (SF / Material) — **không** clone skin JCNET/GOVOne.
+
+**Vì sao hybrid (không chỉ tab, không chỉ launcher):**
+
+| Người dùng | Việc hàng ngày | Pattern |
+|------------|----------------|---------|
+| Tổ tuần đường (hiện trường) | Check-in ≥3/ngày · ghi vấn đề · thu thập TS · mất sóng | Tab Check-in / Vấn đề + ô Lưu trữ |
+| Hạt / Chi cục (giao việc) | Danh sách công việc · lọc tuyến · cập nhật TT + ảnh/GPS | Tab Công việc + card giao việc |
+| Lãnh đạo / giám sát | Xem check-in list+map · thông báo | Ô Giám sát trên Trang Chủ |
+| Mọi vai | Tìm đúng hạng mục như app cũ | Launcher 6 ô = bản đồ tư duy đã học |
+
+Thuật ngữ formal: **tuyến · lý trình Km · điểm kế hoạch · sự cố / vấn đề · tài sản KCHT · độ phủ · giao việc · lưu trữ**. Lọc **theo tuyến** là bắt buộc (không lọc “ngày desktop”).
+
+## 1. IA + chrome (v3 — launcher + tab)
 
 ```
-Login (ẩn tab) → Tab 5  ← tên app cũ
-├── Check-in     Patrol | Chấm công | Giám sát (lối)
-├── Vấn đề       list + tạo + nhận diện mặt đường
-├── Tài sản      HUB menu con ★
-│   ├── Thu thập thủ công (thêm)
-│   ├── Camera AI (chụp → ứng viên → xác nhận / bỏ)
-│   ├── Danh sách / tra cứu
-│   ├── Cập nhật / bớt
-│   └── Bản đồ tài sản
-├── Công việc    list WO + ước lượng
-└── Tôi          Hồ sơ · Lưu trữ · Góp ý · Camera xem · Cài đặt
+Login (ẩn tab) → Tab 5
+├── Trang Chủ     greeting + 6 ô app cũ ★
+│   ├── Giám sát     list CI + Bản đồ
+│   ├── Check In     tuần đường | chấm công
+│   ├── Công việc    list giao việc + ước lượng
+│   ├── Vấn đề       Danh sách | Bản đồ + FAB
+│   ├── Tài sản      HUB (thủ công / AI / cập nhật / map)
+│   └── Lưu trữ      Check In Offline | Sự cố Offline
+├── Check-in      shortcut ngày
+├── Vấn đề        shortcut ngày
+├── Công việc     shortcut ngày
+└── Tôi           Hồ sơ · Lưu trữ · Góp ý · Camera xem · Cài đặt
 ```
 
-Bản đồ **không** tab riêng — mở từ Check-in (bản đồ ca) · Vấn đề (ghim SC) · Tài sản (bản đồ TS).  
-Nhận diện **không** tab riêng — mặt đường ⊂ Vấn đề · TS mới ⊂ Tài sản.
+Bản đồ **không** tab riêng — trong Giám sát / Check-in / Vấn đề / Tài sản.  
+Nhận diện **không** tab — mặt đường ⊂ Vấn đề · TS ⊂ Tài sản hub.
 
 | Surface | iOS | Android |
 |---------|-----|---------|
@@ -84,11 +104,12 @@ Nhận diện **không** tab riêng — mặt đường ⊂ Vấn đề · TS m�
 
 | Surface | SF Symbol | Material | Prototype |
 |---------|-----------|----------|-----------|
+| Tab Trang Chủ | `house` | `home` | `#i-home` |
 | Tab Check-in | `mappin.and.ellipse` | `location_on` | `#i-mappin` |
 | Tab Vấn đề | `exclamationmark.triangle` | `warning` | `#i-warning` |
-| Tab Tài sản | `cube` | `inventory_2` | `#i-cube` |
 | Tab Công việc | `wrench.and.screwdriver` | `handyman` | `#i-wrench` |
 | Tab Tôi | `person.crop.circle` | `account_circle` | `#i-person` |
+| Ô Tài sản | `cube` | `inventory_2` | `#i-cube` |
 | Thu thập thủ công | `plus` | `add` | `#i-plus` |
 | Camera AI | `camera` | `photo_camera` | `#i-camera` |
 | Cập nhật / bớt | `minus` | `remove` | `#i-minus` |
@@ -110,12 +131,18 @@ Nhận diện **không** tab riêng — mặt đường ⊂ Vấn đề · TS m�
 | Login | `DES-MOB-LOGIN` | Brand + form | Same fields · Material field |
 | Login brand | `DES-MOB-LOGIN-BRAND` | Logo `rmms.png` ngang | Same wordmark |
 | Login form | `DES-MOB-LOGIN-FORM` | Grouped | OutlinedTextField |
-| Tab bar | `DES-MOB-TABBAR` | 5: Check-in · Vấn đề · Tài sản · Công việc · Tôi | Same |
+| Tab bar | `DES-MOB-TABBAR` | 5: Trang Chủ · Check-in · Vấn đề · Công việc · Tôi | Same |
+| Trang Chủ | `DES-MOB-HOME` | Greeting + 6 ô | Same |
+| Greeting | `DES-MOB-HOME-HELLO` | Tên + chức vụ + đơn vị | Same |
+| Lưới 6 ô | `DES-MOB-HOME-GRID` | 3×2 (VNeID fav) | Same |
+| Ví hộ chiếu TS | `DES-MOB-ASSET-WALLET` | Thẻ tuyến + 32 loại | Same |
+| 32 loại | `DES-MOB-ASSET-32` · `DES-MOB-ASSET-TYPE` | Lưới + thông số/sự cố | Same |
 | Check-in home | `DES-MOB-PAT-HOME` | Large title Check-in | Same |
 | Segment | `DES-MOB-PAT-SEG` | Tuần đường / Chấm công | FilterChips |
 | Giám sát | `DES-MOB-SUPERVISE` | List CI + lọc + lối map | Same |
-| Active / KPI | `DES-MOB-PAT-ACTIVE` · `DES-MOB-PAT-KPI` | Cards | Cards |
-| Map ca | `DES-MOB-PAT-MAP` · `DES-MOB-OMS-PATROL` | OMS Leaflet | OMS Leaflet |
+| Active / KPI | `DES-MOB-PAT-ACTIVE` · `DES-MOB-PAT-KPI` | Cards · CTA **Check-in** | Cards · CTA **Check-in** |
+| Ghim vị trí hiện tại | `DES-MOB-CI-PIN-HERE` | Nút dưới hero + trên bản đồ | Same |
+| Map ca | `DES-MOB-PAT-MAP` · `DES-MOB-OMS-PATROL` | OMS Leaflet · header **Check-in** | Same |
 | Check-in sheet | `DES-MOB-PAT-CHECKIN-SHEET` | Sheet + match badge | BottomSheet |
 | Location mismatch | `DES-MOB-LOC-MISMATCH` | Banner in-sheet | Same |
 | History / detail / offline | `DES-MOB-PAT-LIST` · `DES-MOB-PAT-DETAIL` · `DES-MOB-PAT-OFFLINE` | Grouped | Cards |
@@ -162,7 +189,7 @@ Nhận diện **không** tab riêng — mặt đường ⊂ Vấn đề · TS m�
 
 | Flow | Steps |
 |------|-------|
-| Login | Logo RMMS → tài khoản / mật khẩu → Đăng nhập → tab **Check-in** |
+| Login | Logo RMMS → tài khoản / mật khẩu → Đăng nhập → **Trang Chủ** |
 | Happy patrol | Check-in → Map OMS → Sheet CI → Lưu → KPI +1 |
 | Offline | Sheet → Lưu offline → **Lưu trữ** → Sync |
 | GPS deny | CTA chấm/CI → `DES-MOB-GPS-DENY` · **cấm** Lưu |
@@ -199,7 +226,14 @@ Nhận diện **không** tab riêng — mặt đường ⊂ Vấn đề · TS m�
 
 Twin 3D · YOLO local · train offline · WO/SLA full · TOC · cổng dân · camera config HW.
 
-## 7. Gaps design (IA v2)
+## 7. Gaps design (IA v3)
+
+| ID | Gap | Action |
+|----|-----|--------|
+| GAP-DES-MOB-IA-05 | v2 mất launcher 6 ô | `DES-MOB-HOME` + 6 ô đúng ảnh hướng dẫn |
+| GAP-DES-MOB-IA-06 | Card Vấn đề / Công việc thiếu hàng thao tác cũ | Rich card + trao đổi / giao việc / xem / ghim |
+
+## 7b. Gaps design (IA v2 — đã xử lý)
 
 | ID | Gap | Action |
 |----|-----|--------|
@@ -223,7 +257,7 @@ Twin 3D · YOLO local · train offline · WO/SLA full · TOC · cổng dân · c
 | **reviewUrl Android** | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/mobile-p1/ui/prototype/android/index.html` |
 | Serve | `npx --yes serve -p 5198 ui/prototype` → `/` · `/ios/` · `/android/` |
 
-Mở **tab Tài sản** trước — hub menu con (thủ công + camera AI) là chốt v2.
+Mở **Trang Chủ** trước — 6 ô app cũ. Ô **Tài sản** → hub (thủ công + camera AI). Tab dưới = việc hàng ngày.
 
 ### OMS (patrol + GIS)
 
@@ -249,4 +283,4 @@ Mở **tab Tài sản** trước — hub menu con (thủ công + camera AI) là 
 | agentVersion | 2026.08.17.02 |
 | generatedAt | 2026-08-18T00:20:00.000Z |
 | schemaVersion | 1 |
-| iaVersion | 2 |
+| iaVersion | 3 |

@@ -211,7 +211,7 @@
     const markers = {};
     CHECKINS.forEach((c) => {
       const m = L.marker(c.latlng, { icon: pinIcon(c.status, c.label) });
-      m.bindPopup(`Chấm điểm ${c.label} · QL.1 Khu IV`);
+      m.bindPopup(`Check-in ${c.label} · QL.1 Khu IV`);
       m.addTo(ciLayer);
       markers[c.id] = m;
     });

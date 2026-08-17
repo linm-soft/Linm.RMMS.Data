@@ -14,7 +14,7 @@
 |--|--|
 | Mục tiêu | Danh mục loại TS KCHT — filter Asset list + import map folder → type |
 | Nguồn data | Folder cấp 3 dưới tuyến trong `RMMS CUC 2` |
-| Raw keys | ~99 · **canonical ~23** sau gộp alias (không dấu / underscore / typo) |
+| Raw keys | ~99 · **canonical 23** CUC 2 · **đề xuất 32** (`asset-kcht-32.md`) — chờ confirm GAP-AK32 |
 | DoD | CRUD · SearchInput · seed + alias map · gắn Asset.type |
 
 ## 2. Design / UI

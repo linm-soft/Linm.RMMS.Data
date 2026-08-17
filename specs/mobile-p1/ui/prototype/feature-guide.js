@@ -19,6 +19,22 @@
       std: 'Cục Đường bộ VN · phân quyền theo đơn vị (Chi cục / Khu) và phạm vi tuyến–km trên HĐ.',
       bullets: ['Logo RMMS', 'Tài khoản + mật khẩu', 'Đơn vị theo tài khoản — không nhập mã đơn vị'],
     },
+    home: {
+      title: 'Trang Chủ',
+      kicker: 'Cổng nghiệp vụ · launcher app cũ',
+      perms: [
+        { code: 'patrol.sessions.read', name: 'Vào Check-in / Giám sát', on: true },
+        { code: 'incident.incidents.read', name: 'Vào Vấn đề', on: true },
+        { code: 'asset.road-assets.read', name: 'Vào Tài sản', on: true },
+        { code: 'maintenance.work-orders.read', name: 'Vào Công việc', on: true },
+      ],
+      intro: [
+        'Cổng sau đăng nhập: chào theo chức vụ + 6 ô đúng app cũ (Giám sát, Check In, Công việc, Vấn đề, Tài sản, Lưu trữ).',
+        'Tab dưới = việc hàng ngày (Check-in · Vấn đề · Công việc) — không bỏ launcher.',
+      ],
+      std: 'App hiện trường Cục Đường bộ / Chi cục QLĐB: cổng hạng mục + tab thao tác nhanh. Lọc theo tuyến–km.',
+      bullets: ['6 ô app cũ', 'Chức vụ + đơn vị trên greeting', 'Tài sản vào từ ô → hub thủ công / AI'],
+    },
     'patrol-home': {
       title: 'Tuần đường / tuần kiểm',
       kicker: 'Hiện trường · ca',
@@ -36,7 +52,7 @@
       bullets: ['Mã PAT-YYYYMMDD-NNNN', 'QL.1 / HCM + Km từ–đến (Khu IV · VP-IV.1)', 'Bỏ sót = thiếu điểm KH'],
     },
     'patrol-map': {
-      title: 'Bản đồ ca + chấm điểm',
+      title: 'Bản đồ ca + check-in',
       kicker: 'Định vị · chống nhầm điểm',
       perms: [
         { code: 'patrol.sessions.read', name: 'Xem ca / điểm kế hoạch', on: true },
@@ -47,7 +63,7 @@
         'Mở bản đồ → ghim định vị (xanh). Ghim cam = điểm kế hoạch (lý trình).',
         'Chỉ Lưu khi đúng điểm: cách điểm kế hoạch ≤ 50 m và sai số định vị ≤ 30 m. Gần điểm khác → chặn (tránh chấm nhầm Km).',
       ],
-      std: 'Lý trình đường bộ VN (Km+m). Chấm điểm gắn đúng mốc trên tuyến được giao — không gõ tay tọa độ.',
+      std: 'Lý trình đường bộ VN (Km+m). Check-in gắn đúng mốc trên tuyến được giao — không gõ tay tọa độ.',
       bullets: ['Phải chọn điểm kế hoạch', 'Chỉ lưu khi đúng điểm', 'Điểm tuần đã lưu không đổi vị trí'],
     },
     'patrol-history': {
@@ -372,6 +388,7 @@
 
   const ALIAS = {
     login: 'login',
+    home: 'home',
     'patrol-home': 'patrol-home',
     'patrol-map': 'patrol-map',
     'patrol-history': 'patrol-history',

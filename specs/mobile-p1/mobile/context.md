@@ -330,8 +330,8 @@ P2 (ITS §5.2): ≥2 tia + heading → giao điểm object (biển, cọc) — *
 
 ## 10. Handoff → Design
 
-IA 5 tab **v2 (legacy-follow):** Check-in · Vấn đề · Tài sản (hub: thủ công / camera AI / cập nhật-bớt / bản đồ) · Công việc · Tôi (Lưu trữ · Góp ý · Camera xem).  
-Bản đồ / Nhận diện **không** tab riêng.
+IA **v3 (launcher + tab):** sau login → **Trang Chủ** 6 ô (Giám sát · Check In · Công việc · Vấn đề · Tài sản · Lưu trữ) + tab 5 (Trang Chủ · Check-in · Vấn đề · Công việc · Tôi).  
+Tài sản = ô launcher → hub (thủ công / camera AI / cập nhật-bớt / bản đồ). Bản đồ / Nhận diện **không** tab riêng.
 
 Zones `DES-MOB-*` cùng id hai platform.  
 Next: `ui/design.md` + `ui/prototype/ios/index.html` + `ui/prototype/android/index.html`.

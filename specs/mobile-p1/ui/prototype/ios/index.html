@@ -122,7 +122,7 @@
     .sb-battery span { display: block; margin: 1.5px; height: calc(100% - 3px); width: 72%; background: currentColor; border-radius: 1px; }
 
     .nav-bar {
-      min-height: 44px; padding: 0 16px 8px; display: flex; align-items: center; gap: 8px;
+      min-height: 44px; padding: 6px 20px 10px; display: flex; align-items: center; gap: 8px;
       flex-shrink: 0; background: transparent; position: relative; z-index: 30;
     }
     .nav-bar.solid {
@@ -146,6 +146,7 @@
     }
     .nav-title { flex: 1; text-align: center; font-size: 17px; font-weight: 600; letter-spacing: -0.4px; }
     .nav-spacer { min-width: 44px; }
+    .nav-spacer.wide { min-width: 80px; }
     .large-title {
       padding: 2px 20px 10px; font-size: 34px; font-weight: 700;
       letter-spacing: -0.8px; line-height: 1.1; flex-shrink: 0;
@@ -244,8 +245,45 @@
     .hub-tile .t { font-size: 15px; font-weight: 600; letter-spacing: -0.3px; }
     .hub-tile .s { font-size: 12px; color: var(--ios-secondary); margin-top: 3px; line-height: 1.3; }
 
+    .pin-here {
+      margin: 0 16px 16px; width: calc(100% - 32px);
+    }
+    .vn-hero {
+      margin: 0 0 14px; padding: 8px 16px 18px;
+      background: linear-gradient(165deg, #0B4DB8 0%, #1B6EF3 55%, #3D8BFF 100%);
+      color: #fff; border-radius: 0 0 22px 22px;
+    }
+    .vn-hero .who { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; margin: 8px 0 12px; }
+    .vn-hero .role {
+      display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700;
+      background: rgba(255,255,255,.18); border-radius: 999px; padding: 4px 10px;
+    }
+    .vn-quick { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .vn-quick button {
+      border: 0; border-radius: 14px; padding: 14px 12px; text-align: left; cursor: pointer;
+      background: linear-gradient(180deg, #fff8e8, #fff); color: #0B4DB8;
+      font-family: inherit; font-weight: 700; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,.12);
+    }
+    .vn-quick .s { display: block; font-size: 11px; font-weight: 500; color: #5a6a80; margin-top: 4px; }
+    .home-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin: 0 16px 8px; }
+    .ak32-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin: 0 16px 16px; }
+    .ak32-tile {
+      border: 0; background: var(--card); border-radius: 14px; min-height: 88px;
+      padding: 10px 8px; font-family: inherit; cursor: pointer; text-align: center; color: inherit;
+      box-shadow: 0 1px 4px rgba(0,0,0,.05);
+    }
+    .ak32-dot { display: block; width: 10px; height: 10px; border-radius: 50%; background: var(--ios-blue); margin: 0 auto 8px; }
+    .ak32-n { font-size: 12px; font-weight: 650; line-height: 1.25; display: block; }
+    .ak32-gap { display: block; font-size: 10px; color: var(--ios-orange); margin-top: 4px; }
+    .wallet-card {
+      margin: 0 16px 14px; border-radius: 16px; padding: 16px;
+      background: linear-gradient(135deg, #0B4DB8, #1B6EF3); color: #fff;
+    }
+    .wallet-card .k { font-size: 12px; opacity: .85; font-weight: 700; letter-spacing: .04em; }
+    .wallet-card .t { font-size: 20px; font-weight: 800; margin: 6px 0 4px; }
+    .wallet-card .m { font-size: 13px; opacity: .92; line-height: 1.35; }
     .home-hello {
-      margin: 0 16px 14px; background: var(--card); border-radius: 16px;
+      margin: 8px 16px 14px; background: var(--card); border-radius: 16px;
       padding: 14px 16px; display: flex; align-items: center; gap: 12px;
     }
     .home-hello .av {
@@ -255,11 +293,11 @@
     .home-hello .g { font-size: 13px; color: var(--ios-secondary); }
     .home-hello .n { font-size: 18px; font-weight: 700; letter-spacing: -0.4px; }
     .home-hello .r { font-size: 13px; color: var(--ios-secondary); margin-top: 2px; line-height: 1.3; }
-    .home-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 0 16px 8px; }
+    .home-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 0 16px 8px; }
     .home-tile {
-      background: var(--card); border-radius: 16px; min-height: 118px;
+      background: var(--card); border-radius: 16px; min-height: 96px;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
-      gap: 10px; border: 0; font-family: inherit; cursor: pointer; color: inherit;
+      gap: 8px; border: 0; font-family: inherit; cursor: pointer; color: inherit;
       box-shadow: 0 1px 4px rgba(0,0,0,.05);
     }
     .home-tile:active { background: var(--ios-gray5); }
@@ -413,9 +451,11 @@
     }
     .map-next-card {
       position: absolute; left: 10px; right: 10px; top: 10px; z-index: 500;
-      pointer-events: none;
+      pointer-events: none; display: flex; flex-direction: column; gap: 8px;
     }
-    .map-next-card .glass { pointer-events: auto; }
+    .map-next-card .glass,
+    .map-next-card .map-pin-here { pointer-events: auto; }
+    .map-pin-here { width: 100%; padding: 10px 12px; font-size: 14px; }
     .glass {
       background: rgba(255,255,255,.94); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
       border-radius: 14px; box-shadow: 0 8px 24px rgba(0,0,0,.12); padding: 12px 14px;
@@ -671,7 +711,7 @@
         <button class="chip" data-jump="patrol-home">Tuần đường</button>
         <button class="chip" data-jump="patrol-map">Bản đồ tuần</button>
         <button class="chip" type="button" id="chipWrongPoint">Thử sai điểm</button>
-        <button class="chip" data-jump="checkin-detail">Điểm đã chấm</button>
+        <button class="chip" data-jump="checkin-detail">Đã check-in</button>
         <button class="chip" data-jump="attendance">Chấm công</button>
         <button class="chip" data-jump="incident-list">Sự cố</button>
         <button class="chip" data-jump="incident-detail">Chi tiết sự cố</button>
@@ -745,26 +785,27 @@
 
         <!-- ===== TRANG CHỦ — launcher 6 ô (app cũ) + tab ===== -->
         <div class="screen" id="sc-home" data-des-id="DES-MOB-HOME" data-tab="home">
-          <div class="nav-bar">
-            <div class="nav-spacer"></div>
-            <div class="nav-title">Trang Chủ</div>
-            <button class="nav-btn icon" onclick="go('ops')" title="Thông báo">
+          <div class="nav-bar" style="background:transparent;position:absolute;left:0;right:0;z-index:4">
+            <button class="nav-btn icon" onclick="go('me')" title="Hồ sơ" style="background:rgba(255,255,255,.2);color:#fff">
+              <svg class="ic" viewBox="0 0 24 24"><use href="#i-person"/></svg>
+            </button>
+            <div class="nav-title"></div>
+            <button class="nav-btn icon" onclick="go('ops')" title="Thông báo" style="background:rgba(255,255,255,.2);color:#fff">
               <svg class="ic" viewBox="0 0 24 24"><use href="#i-bell"/></svg>
               <span class="dot"></span>
             </button>
-            <button class="nav-btn icon" onclick="go('me')" title="Hồ sơ">
-              <svg class="ic" viewBox="0 0 24 24"><use href="#i-person"/></svg>
-            </button>
           </div>
-          <div class="content ios-scroll">
-            <div class="home-hello" data-des-id="DES-MOB-HOME-HELLO">
-              <div class="av"><svg class="ic" viewBox="0 0 24 24"><use href="#i-person"/></svg></div>
-              <div>
-                <div class="g">Xin chào</div>
-                <div class="n">Nguyễn Văn A</div>
-                <div class="r">Tổ tuần đường · Văn phòng QLĐB IV.1</div>
+          <div class="content ios-scroll" style="padding-top:0">
+            <div class="vn-hero" data-des-id="DES-MOB-HOME-HELLO">
+              <div style="height:36px"></div>
+              <span class="role">Khu QLĐB IV · Có mạng</span>
+              <div class="who">Nguyễn Văn A</div>
+              <div class="vn-quick">
+                <button type="button" onclick="go('patrol-home')">Check-in<span class="s">Ghim vị trí · điểm tuần</span></button>
+                <button type="button" onclick="openSheet('incident')">Ghi sự cố<span class="s">Ảnh + lý trình + GPS</span></button>
               </div>
             </div>
+            <div class="section-label">Tiện ích yêu thích</div>
             <div class="home-grid" data-des-id="DES-MOB-HOME-GRID">
               <button type="button" class="home-tile" onclick="go('supervise')">
                 <div class="hi" style="background:#E6A817"><svg class="ic" viewBox="0 0 24 24"><use href="#i-list"/></svg></div>
@@ -817,7 +858,7 @@
               <div class="hero-body">
                 <div class="hero-eyebrow">Ca đang chạy · Có mạng</div>
                 <div class="hero-title">QL.1 · Km 1556+000</div>
-                <div class="hero-meta">PAT-20260810-0014 · Nguyễn Văn A<br/>Chấm điểm 2/3 · Độ phủ 67%</div>
+                <div class="hero-meta">PAT-20260810-0014 · Nguyễn Văn A<br/>Check-in 2/3 · Độ phủ 67%</div>
               </div>
               <div class="progress"><span></span></div>
               <div class="hero-actions">
@@ -827,13 +868,17 @@
                 </button>
                 <button class="btn btn-ghost" onclick="openSheet('checkin')">
                   <svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-plus"/></svg>
-                  Chấm điểm
+                  Check-in
                 </button>
               </div>
             </div>
+            <button type="button" class="btn btn-primary pin-here" data-des-id="DES-MOB-CI-PIN-HERE" onclick="pinHereCheckin()">
+              <svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-mappin"/></svg>
+              Ghim vị trí hiện tại để check-in
+            </button>
 
             <div class="kpi-strip" data-des-id="DES-MOB-PAT-KPI">
-              <div class="kpi"><div class="v" style="color:var(--ios-green)">2</div><div class="l">Đã chấm điểm</div></div>
+              <div class="kpi"><div class="v" style="color:var(--ios-green)">2</div><div class="l">Đã check-in</div></div>
               <div class="kpi"><div class="v" style="color:var(--ios-orange)">1</div><div class="l">Còn lại</div></div>
               <div class="kpi"><div class="v">67%</div><div class="l">Độ phủ</div></div>
             </div>
@@ -906,7 +951,7 @@
               <svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg> Check-in
             </button>
             <div class="nav-title">Ca đang chạy</div>
-            <button class="nav-btn" onclick="openSheet('checkin')">Chấm điểm</button>
+            <button class="nav-btn" onclick="openSheet('checkin')">Check-in</button>
           </div>
           <div class="content map-mode">
             <div class="map-shell" data-des-id="DES-MOB-OMS-PATROL">
@@ -918,8 +963,12 @@
                       <div style="font-size:13px;color:var(--ios-secondary)">Điểm tiếp theo · OSRM</div>
                       <div style="font-size:16px;font-weight:600">Km 1561+134 · Phước Dinh</div>
                     </div>
-                    <button class="btn btn-primary" style="width:auto;padding:8px 14px;pointer-events:auto" onclick="openSheet('checkin')">Ghi nhận</button>
+                    <button class="btn btn-primary" style="width:auto;padding:8px 14px;pointer-events:auto" onclick="openSheet('checkin')">Check-in</button>
                   </div>
+                  <button type="button" class="btn btn-primary map-pin-here" data-des-id="DES-MOB-CI-PIN-HERE" onclick="pinHereCheckin()">
+                    <svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-mappin"/></svg>
+                    Ghim vị trí hiện tại để check-in
+                  </button>
                 </div>
               </div>
               <div class="map-bar" id="map-patrol-bar">
@@ -931,7 +980,7 @@
               <div class="map-legend" id="map-patrol-legend">
                 <button type="button" class="lg on" data-iso="all"><span class="dot" style="background:#007AFF"></span>Tất cả</button>
                 <button type="button" class="lg" data-iso="track"><span class="dot" style="background:#0A84FF"></span>Hành trình</button>
-                <button type="button" class="lg" data-iso="ci-done"><span class="dot" style="background:#34C759"></span>Điểm đã chấm</button>
+                <button type="button" class="lg" data-iso="ci-done"><span class="dot" style="background:#34C759"></span>Đã check-in</button>
                 <button type="button" class="lg" data-iso="ci-next"><span class="dot" style="background:#FF9500"></span>Điểm kế tiếp</button>
               </div>
             </div>
@@ -1325,6 +1374,23 @@
             <div class="nav-spacer"></div>
           </div>
           <div class="content">
+            <div class="wallet-card" data-des-id="DES-MOB-ASSET-WALLET">
+              <div class="k">HỘ CHIẾU TÀI SẢN</div>
+              <div class="t">QL.1 · Khu IV</div>
+              <div class="m">36 loại KCHT · thông số + sự cố<br/>Cột Km 1556+000 · đang tuần</div>
+            </div>
+            <div class="hub-grid">
+              <button type="button" class="hub-tile" onclick="go('asset-types')">
+                <div class="hi" style="background:var(--ios-blue)"><svg class="ic" viewBox="0 0 24 24"><use href="#i-cube"/></svg></div>
+                <div class="t">36 loại tài sản</div>
+                <div class="s">Thông số kỹ thuật · sự cố</div>
+              </button>
+              <button type="button" class="hub-tile" onclick="go('gis-map')">
+                <div class="hi" style="background:var(--ios-teal)"><svg class="ic" viewBox="0 0 24 24"><use href="#i-scope"/></svg></div>
+                <div class="t">Xuất trình / bản đồ</div>
+                <div class="s">Ghim lý trình · lớp TS</div>
+              </button>
+            </div>
             <div class="section-label">Thu thập</div>
             <div class="hub-grid">
               <button type="button" class="hub-tile" onclick="go('asset-collect')">
@@ -1370,6 +1436,44 @@
                 </div>
                 <button class="btn btn-primary" style="width:auto;padding:8px 12px;font-size:13px" onclick="go('det-hitl')">Xác nhận</button>
               </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-asset-types" data-des-id="DES-MOB-ASSET-32" data-tab="home">
+          <div class="nav-bar solid">
+            <button class="nav-btn" onclick="go('asset-hub')">
+              <svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg> Tài sản
+            </button>
+            <div class="nav-title">36 loại</div>
+            <div class="nav-spacer"></div>
+          </div>
+          <div class="search"><svg class="ic" viewBox="0 0 24 24"><use href="#i-search"/></svg><span>Tìm loại tài sản…</span></div>
+          <div class="content" style="padding-top:0">
+            <div class="ak32-grid" id="ak32-grid-ios"></div>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-asset-type" data-des-id="DES-MOB-ASSET-TYPE" data-tab="home">
+          <div class="nav-bar solid">
+            <button class="nav-btn" onclick="go('asset-types')">
+              <svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg> 36 loại
+            </button>
+            <div class="nav-title">Hộ chiếu</div>
+            <div class="nav-spacer"></div>
+          </div>
+          <div class="content" id="ak32-detail-ios">
+            <div class="wallet-card">
+              <div class="k">THÔNG SỐ KỸ THUẬT</div>
+              <div class="t" data-ak32-title>Cột Km</div>
+              <div class="m" data-ak32-sub>KM_POST · ATGT</div>
+            </div>
+            <div class="section-label">Thông số</div>
+            <div class="card-group" data-ak32-specs></div>
+            <div class="section-label">Sự cố gắn loại</div>
+            <div class="card-group" data-ak32-inc></div>
+            <div style="padding:0 16px 20px">
+              <button class="btn btn-primary" onclick="openSheet('incident')">Ghi sự cố loại này</button>
             </div>
           </div>
         </div>
@@ -1645,7 +1749,7 @@
             <button class="nav-btn" onclick="go('patrol-detail')">
               <svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg> Ca
             </button>
-            <div class="nav-title">Chấm điểm</div>
+            <div class="nav-title">Check-in</div>
             <div class="nav-spacer"></div>
           </div>
           <div class="content">
@@ -1829,8 +1933,8 @@
           <div class="sheet-handle"></div>
           <div class="sheet-nav">
             <button class="nav-btn" onclick="requestCloseSheet()">Hủy</button>
-            <div class="nav-title">Chấm điểm</div>
-            <button class="nav-btn" style="font-weight:600" onclick="closeSheet();toast('Đã ghi điểm tuần thứ 3')">Lưu</button>
+            <div class="nav-title">Check-in</div>
+            <button class="nav-btn" style="font-weight:600" onclick="closeSheet();toast('Đã check-in · điểm tuần thứ 3')">Lưu</button>
           </div>
           <div class="sheet-body">
             <div class="offline-banner" data-des-id="DES-MOB-LOC-MISMATCH" id="ci-match-banner" style="background:rgba(52,199,89,.18);color:#248a3d">
@@ -1951,6 +2055,7 @@
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="../map-oms.js"></script>
+  <script src="../asset-kcht-32.js"></script>
   <script src="../feature-guide.js"></script>
   <script>
     const TAB_HOME = {
@@ -2028,7 +2133,11 @@
     function saveCheckin() {
       if (ciWrong) { toast('Chặn — không đúng điểm kế hoạch'); return; }
       closeSheet();
-      toast('Đã chấm điểm · có mạng · không đổi vị trí');
+      toast('Đã check-in · có mạng · không đổi vị trí');
+    }
+    function pinHereCheckin() {
+      toast('Đã ghim vị trí hiện tại · QL.1 · Km 1561+134 · ±4 m');
+      openSheet('checkin');
     }
     function openSheet(name) {
       document.getElementById('app').classList.add('sheet-open');
@@ -2124,6 +2233,16 @@
     });
 
     setAuthMode(true);
+    if (window.AssetKcht32) {
+      const grid = document.getElementById('ak32-grid-ios');
+      window.AssetKcht32.renderGrid(grid);
+      if (grid) grid.addEventListener('click', (e) => {
+        const btn = e.target.closest('[data-ak32]');
+        if (!btn) return;
+        window.AssetKcht32.fillDetail(document.getElementById('ak32-detail-ios'), btn.dataset.ak32);
+        go('asset-type');
+      });
+    }
     if (window.FeatureGuide) window.FeatureGuide.mount('ios');
   </script>
 </body>
