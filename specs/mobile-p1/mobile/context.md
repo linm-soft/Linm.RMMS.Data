@@ -94,8 +94,12 @@ Web demo = **tham chiếu field**, không clone layout desktop.
 | uiField | Label VN | Control | Required | API |
 |---------|----------|---------|----------|-----|
 | search | Tìm mã/tên | Search | | `GET api/v1/asset/road-assets` |
-| type / route | Loại · tuyến | Chip / filter | | query |
+| type / route | Loại · tuyến | Chip / filter / Select | * thu thập | query · POST |
+| name / kmMark | Tên · lý trình | Text + auto Km | * thu thập | POST |
+| photo | Ảnh TS | Camera slots | | media |
 | pin | Pin map | Map row | | nearby P2 |
+| collectMode | Thủ công / Camera AI | Hub tile | * | manual POST · `detect-assets` + HITL |
+| remove | Bớt TS | Confirm modal | | DELETE soft |
 
 ### gis
 
@@ -177,7 +181,7 @@ Mọi surface **nhập liệu** trên demo/mock phải có cặp CRUD thật (c�
 | `patrol` **check-in** | timeline trên detail | * sheet | * | **cấm** sửa GPS sau Lưu | cấm xóa P1 | `POST …/sessions/{id}/check-ins` |
 | `attendance` | 7 ngày | Chấm vào / ra | * | cấm | cấm | `api/v1/patrol/attendance-logs` |
 | `incident` | * | * sheet / FAB | * | nháp offline only | Close `…/close` · cấm hard-delete | `api/v1/incident/incidents` |
-| `asset` | search * | **Web** (mobile P1 = xem + pin) | * | cấm trên mobile P1 | cấm | `GET api/v1/asset/road-assets` |
+| `asset` | search * | **Thu thập thủ công** + **Camera AI** (HITL) | * | Cập nhật hiện trường | **Bớt** soft (`IsActive=false`) · cấm hard-delete | `api/v1/asset/road-assets` · confirm `…/asset-candidates/{id}/confirm` |
 | `gis` | overlay đọc | cấm | pin tap → View TS/SC | cấm | cấm | `GET api/v1/gis/geojson/{layer}` |
 | `ai-vision` | — | detect (ảnh+GPS) | result | — | — | `POST api/v1/ai-vision/detect` |
 | `ai-asset-detect` | candidates | — | * | Confirm / Dismiss | — | `…/asset-candidates/{id}/confirm\|dismiss` |
@@ -326,8 +330,8 @@ P2 (ITS §5.2): ≥2 tia + heading → giao điểm object (biển, cọc) — *
 
 ## 10. Handoff → Design
 
-IA 5 tab: Hiện trường (patrol\|attendance) · Sự cố · Bản đồ · AI · Tôi.  
-Drawer: maintenance · camera xem · offline · settings · ops.
+IA 5 tab **v2 (legacy-follow):** Check-in · Vấn đề · Tài sản (hub: thủ công / camera AI / cập nhật-bớt / bản đồ) · Công việc · Tôi (Lưu trữ · Góp ý · Camera xem).  
+Bản đồ / Nhận diện **không** tab riêng.
 
 Zones `DES-MOB-*` cùng id hai platform.  
 Next: `ui/design.md` + `ui/prototype/ios/index.html` + `ui/prototype/android/index.html`.

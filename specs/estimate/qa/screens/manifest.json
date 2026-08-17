@@ -1,6 +1,6 @@
 {
   "url": "http://localhost:9303/ai-vision/estimate",
-  "capturedAt": "2026-08-17T15:15:00.360Z",
+  "capturedAt": "2026-08-17T17:20:17.861Z",
   "method": "e2e runtime · start:std + docker + extended capture",
   "apiNote": "host API mapped :5111 (env API_HOST_PORT); BFF :5201; MFE uses BFF",
   "steps": [
@@ -26,7 +26,7 @@
       "id": "S3",
       "result": "PASS",
       "screenshot": "S3.png",
-      "note": "SearchTextInput + status · no Tìm"
+      "note": "SearchTextInput + status · LinErpListFilterBar (no text Tìm)"
     },
     {
       "id": "S4",
@@ -126,11 +126,10 @@
     },
     {
       "id": "QA-CFG",
-      "result": "FAIL",
+      "result": "PASS",
       "screenshot": "QA-CFG.png",
-      "note": "FAIL configHint placeholder (GAP-P2-CC-06)",
-      "error": "GAP-P2-CC-06 / GAP-DEV-CONFIG-PLACEHOLDER-01 — configHint Zone F stub"
+      "note": "LinCatalogUiSchemaEditorModal · Cấu hình hiển thị danh mục"
     }
   ],
-  "ok": false
+  "ok": true
 }

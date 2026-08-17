@@ -230,6 +230,73 @@
       font-size: 13px; color: var(--ios-secondary); text-transform: uppercase;
       letter-spacing: -0.08px; padding: 8px 32px 6px;
     }
+    .hub-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 0 16px 16px; }
+    .hub-tile {
+      background: var(--card); border-radius: 14px; padding: 16px 14px; min-height: 104px;
+      display: flex; flex-direction: column; align-items: flex-start;
+      border: 0; font-family: inherit; text-align: left; cursor: pointer; color: inherit;
+    }
+    .hub-tile:active { background: var(--ios-gray5); }
+    .hub-tile .hi {
+      width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center;
+      color: #fff; font-size: 18px; margin-bottom: 10px;
+    }
+    .hub-tile .t { font-size: 15px; font-weight: 600; letter-spacing: -0.3px; }
+    .hub-tile .s { font-size: 12px; color: var(--ios-secondary); margin-top: 3px; line-height: 1.3; }
+
+    .home-hello {
+      margin: 0 16px 14px; background: var(--card); border-radius: 16px;
+      padding: 14px 16px; display: flex; align-items: center; gap: 12px;
+    }
+    .home-hello .av {
+      width: 48px; height: 48px; border-radius: 50%; background: var(--ios-blue);
+      color: #fff; display: grid; place-items: center; font-size: 22px; flex-shrink: 0;
+    }
+    .home-hello .g { font-size: 13px; color: var(--ios-secondary); }
+    .home-hello .n { font-size: 18px; font-weight: 700; letter-spacing: -0.4px; }
+    .home-hello .r { font-size: 13px; color: var(--ios-secondary); margin-top: 2px; line-height: 1.3; }
+    .home-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 0 16px 8px; }
+    .home-tile {
+      background: var(--card); border-radius: 16px; min-height: 118px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 10px; border: 0; font-family: inherit; cursor: pointer; color: inherit;
+      box-shadow: 0 1px 4px rgba(0,0,0,.05);
+    }
+    .home-tile:active { background: var(--ios-gray5); }
+    .home-tile .hi {
+      width: 48px; height: 48px; border-radius: 14px; display: grid; place-items: center;
+      color: #fff; font-size: 24px;
+    }
+    .home-tile .t { font-size: 15px; font-weight: 650; letter-spacing: -0.3px; }
+    .home-foot {
+      text-align: center; padding: 18px 16px 8px; font-size: 12px; color: var(--ios-secondary); line-height: 1.45;
+    }
+    .rich-card {
+      background: var(--card); border-radius: 14px; margin: 0 16px 10px; overflow: hidden;
+    }
+    .rich-card .rc-main { display: flex; gap: 10px; padding: 12px 14px 10px; }
+    .rich-card .rc-body { flex: 1; min-width: 0; }
+    .rich-card .rc-title { font-size: 16px; font-weight: 650; letter-spacing: -0.3px; }
+    .rich-card .rc-line {
+      font-size: 13px; color: var(--ios-secondary); margin-top: 4px; line-height: 1.35;
+      display: flex; align-items: flex-start; gap: 6px;
+    }
+    .rich-card .rc-line .ic { margin-top: 1px; }
+    .rich-card .rc-thumb {
+      width: 64px; height: 64px; border-radius: 8px; flex-shrink: 0;
+      background: linear-gradient(145deg, #c7d2e0, #8fa3b8);
+    }
+    .rich-card .rc-status {
+      padding: 6px 14px 8px; font-size: 13px; font-weight: 600;
+    }
+    .rich-card .rc-actions {
+      display: flex; border-top: 0.5px solid var(--ios-sep); background: var(--ios-gray6);
+    }
+    .rich-card .rc-actions button {
+      flex: 1; border: 0; background: transparent; color: var(--ios-secondary);
+      padding: 10px 0; cursor: pointer; font-size: 16px; display: grid; place-items: center;
+    }
+    .rich-card .rc-actions button:active { background: var(--ios-gray5); }
 
     .kpi-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 0 16px 16px; }
     .kpi { background: var(--card); border-radius: 12px; padding: 12px 10px; text-align: center; }
@@ -589,6 +656,9 @@
     <symbol id="i-sum" viewBox="0 0 24 24"><path d="M6 6h12L10 12l8 6H6"/></symbol>
     <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
     <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11.5 12 4l8 7.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1v-8.5z"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M5 6h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H9l-4 3v-3H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"/></symbol>
+    <symbol id="i-briefcase" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M8 8V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></symbol>
   </svg>
 
   <div class="stage">
@@ -597,6 +667,7 @@
       <p><a href="../index.html" style="color:#64b5ff;text-decoration:none;font-weight:600">← Tổng quan Gói 1</a> · Khung iPhone · 12 màn · bản đồ tuyến</p>
       <div class="chip-row" id="jumpChips">
         <button class="chip active" data-jump="login">Đăng nhập</button>
+        <button class="chip" data-jump="home">Trang Chủ</button>
         <button class="chip" data-jump="patrol-home">Tuần đường</button>
         <button class="chip" data-jump="patrol-map">Bản đồ tuần</button>
         <button class="chip" type="button" id="chipWrongPoint">Thử sai điểm</button>
@@ -604,17 +675,20 @@
         <button class="chip" data-jump="attendance">Chấm công</button>
         <button class="chip" data-jump="incident-list">Sự cố</button>
         <button class="chip" data-jump="incident-detail">Chi tiết sự cố</button>
-        <button class="chip" data-jump="gis-map">Bản đồ</button>
-        <button class="chip" data-jump="asset-list">Tài sản</button>
-        <button class="chip" data-jump="asset-list">Tài sản</button>
-        <button class="chip" data-jump="asset-detail">Chi tiết tài sản</button>
-        <button class="chip" data-jump="ai-hub">Nhận diện</button>
-        <button class="chip" data-jump="vis-capture">Nhận diện</button>
+        <button class="chip" data-jump="supervise">Giám sát</button>
+        <button class="chip" data-jump="asset-hub">Tài sản</button>
+        <button class="chip" data-jump="asset-collect">Thu thập tay</button>
+        <button class="chip" data-jump="asset-ai">Camera AI</button>
+        <button class="chip" data-jump="asset-adjust">Cập nhật / bớt</button>
+        <button class="chip" data-jump="gis-map">Bản đồ TS</button>
+        <button class="chip" data-jump="asset-detail">Chi tiết TS</button>
+        <button class="chip" data-jump="vis-capture">AI mặt đường</button>
         <button class="chip" type="button" id="chipPhotoGps">Chụp + định vị</button>
-        <button class="chip" data-jump="det-hitl">Người xác nhận</button>
+        <button class="chip" data-jump="det-hitl">Xác nhận TS</button>
+        <button class="chip" data-jump="mnt-list">Công việc</button>
         <button class="chip" data-jump="estimate">Ước lượng</button>
+        <button class="chip" data-jump="feedback">Góp ý</button>
         <button class="chip" data-jump="cam-view">Camera tuyến</button>
-        <button class="chip" data-jump="mnt-list">Bảo trì</button>
         <button class="chip" data-jump="ops">Chỉ đạo</button>
         <button class="chip" data-jump="me">Tôi</button>
       </div>
@@ -669,6 +743,58 @@
           </div>
         </div>
 
+        <!-- ===== TRANG CHỦ — launcher 6 ô (app cũ) + tab ===== -->
+        <div class="screen" id="sc-home" data-des-id="DES-MOB-HOME" data-tab="home">
+          <div class="nav-bar">
+            <div class="nav-spacer"></div>
+            <div class="nav-title">Trang Chủ</div>
+            <button class="nav-btn icon" onclick="go('ops')" title="Thông báo">
+              <svg class="ic" viewBox="0 0 24 24"><use href="#i-bell"/></svg>
+              <span class="dot"></span>
+            </button>
+            <button class="nav-btn icon" onclick="go('me')" title="Hồ sơ">
+              <svg class="ic" viewBox="0 0 24 24"><use href="#i-person"/></svg>
+            </button>
+          </div>
+          <div class="content ios-scroll">
+            <div class="home-hello" data-des-id="DES-MOB-HOME-HELLO">
+              <div class="av"><svg class="ic" viewBox="0 0 24 24"><use href="#i-person"/></svg></div>
+              <div>
+                <div class="g">Xin chào</div>
+                <div class="n">Nguyễn Văn A</div>
+                <div class="r">Tổ tuần đường · Văn phòng QLĐB IV.1</div>
+              </div>
+            </div>
+            <div class="home-grid" data-des-id="DES-MOB-HOME-GRID">
+              <button type="button" class="home-tile" onclick="go('supervise')">
+                <div class="hi" style="background:#E6A817"><svg class="ic" viewBox="0 0 24 24"><use href="#i-list"/></svg></div>
+                <div class="t">Giám sát</div>
+              </button>
+              <button type="button" class="home-tile" onclick="go('patrol-home')">
+                <div class="hi" style="background:#E5484D"><svg class="ic" viewBox="0 0 24 24"><use href="#i-mappin"/></svg></div>
+                <div class="t">Check In</div>
+              </button>
+              <button type="button" class="home-tile" onclick="go('mnt-list')">
+                <div class="hi" style="background:#2E9B4F"><svg class="ic" viewBox="0 0 24 24"><use href="#i-wrench"/></svg></div>
+                <div class="t">Công việc</div>
+              </button>
+              <button type="button" class="home-tile" onclick="go('incident-list')">
+                <div class="hi" style="background:#F5A524"><svg class="ic" viewBox="0 0 24 24"><use href="#i-warning"/></svg></div>
+                <div class="t">Vấn đề</div>
+              </button>
+              <button type="button" class="home-tile" onclick="go('asset-hub')">
+                <div class="hi" style="background:#E5484D"><svg class="ic" viewBox="0 0 24 24"><use href="#i-cube"/></svg></div>
+                <div class="t">Tài sản</div>
+              </button>
+              <button type="button" class="home-tile" onclick="go('patrol-offline')">
+                <div class="hi" style="background:#1B6EF3"><svg class="ic" viewBox="0 0 24 24"><use href="#i-sync"/></svg></div>
+                <div class="t">Lưu trữ</div>
+              </button>
+            </div>
+            <div class="home-foot">Phiên bản Gói 1 · RMMS hiện trường<br/>Cục Đường bộ VN · Khu QLĐB IV</div>
+          </div>
+        </div>
+
         <!-- ===== PATROL HOME ===== -->
         <div class="screen" id="sc-patrol-home" data-des-id="DES-MOB-PAT-HOME" data-tab="field">
           <div class="nav-bar">
@@ -681,7 +807,7 @@
               <span class="dot"></span>
             </button>
           </div>
-          <div class="large-title">Hiện trường</div>
+          <div class="large-title">Check-in</div>
           <div class="seg" data-des-id="DES-MOB-PAT-SEG">
             <button class="on" type="button">Tuần đường</button>
             <button type="button" onclick="go('attendance')">Chấm công</button>
@@ -752,11 +878,19 @@
                 </div>
                 <span class="chev"><svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-chevron-right"/></svg></span>
               </div>
+              <div class="row" onclick="go('supervise')">
+                <div class="row-icon" style="background:var(--ios-teal)"><svg class="ic" viewBox="0 0 24 24"><use href="#i-list"/></svg></div>
+                <div class="row-body">
+                  <div class="row-title">Giám sát</div>
+                  <div class="row-sub">Lịch sử check-in · bản đồ · thông báo</div>
+                </div>
+                <span class="chev"><svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-chevron-right"/></svg></span>
+              </div>
               <div class="row" onclick="go('patrol-offline')">
                 <div class="row-icon" style="background:var(--ios-orange)"><svg class="ic" viewBox="0 0 24 24"><use href="#i-sync"/></svg></div>
                 <div class="row-body">
-                  <div class="row-title">Hàng đợi mất sóng</div>
-                  <div class="row-sub">3 bản ghi chờ sync</div>
+                  <div class="row-title">Lưu trữ</div>
+                  <div class="row-sub">3 bản ghi chờ đồng bộ</div>
                 </div>
                 <span class="badge orange">3</span>
                 <span class="chev"><svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-chevron-right"/></svg></span>
@@ -769,7 +903,7 @@
         <div class="screen" id="sc-patrol-map" data-des-id="DES-MOB-PAT-MAP" data-tab="field">
           <div class="nav-bar solid" style="background:rgba(255,255,255,.9)">
             <button class="nav-btn" onclick="go('patrol-home')">
-              <svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg> Hiện trường
+              <svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg> Check-in
             </button>
             <div class="nav-title">Ca đang chạy</div>
             <button class="nav-btn" onclick="openSheet('checkin')">Chấm điểm</button>
@@ -808,7 +942,7 @@
         <div class="screen" id="sc-patrol-history" data-des-id="DES-MOB-PAT-LIST" data-tab="field">
           <div class="nav-bar">
             <button class="nav-btn" onclick="go('patrol-home')">
-              <svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg> Hiện trường
+              <svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg> Check-in
             </button>
             <div class="nav-title"></div>
             <button class="nav-btn" onclick="toast('Lọc')">Lọc</button>
@@ -896,41 +1030,45 @@
         </div>
 
         <!-- Offline -->
-        <div class="screen" id="sc-patrol-offline" data-des-id="DES-MOB-PAT-OFFLINE" data-tab="field">
+        <div class="screen" id="sc-patrol-offline" data-des-id="DES-MOB-PAT-OFFLINE" data-tab="home">
           <div class="nav-bar solid">
-            <button class="nav-btn" onclick="go('patrol-home')">
-              <svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg> Hiện trường
+            <button class="nav-btn" onclick="go('home')">
+              <svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg> Trang Chủ
             </button>
-            <div class="nav-title">Hàng đợi mất sóng</div>
+            <div class="nav-title">Dữ liệu lưu trữ</div>
             <button class="nav-btn" onclick="toast('Đã đồng bộ 3 bản ghi')">Đồng bộ</button>
+          </div>
+          <div class="seg">
+            <button class="on" type="button">Check In Offline</button>
+            <button type="button" onclick="toast('Sự cố Offline · 1 bản ghi')">Sự cố Offline</button>
           </div>
           <div class="content">
             <div class="offline-banner">
               <svg class="ic" viewBox="0 0 24 24"><use href="#i-wifi-off"/></svg>
-              Mạng yếu — ghi cục bộ, sync khi online
+              Mạng yếu — ghi cục bộ, đồng bộ khi có mạng
             </div>
-            <div class="card-group">
-              <div class="row no-icon">
-                <div class="row-body">
-                  <div class="row-title">Chấm điểm Km 11+800</div>
-                  <div class="row-sub">08:40 · PAT-…0014 · 42 KB</div>
+            <div class="rich-card">
+              <div class="rc-main">
+                <div class="rc-thumb"></div>
+                <div class="rc-body">
+                  <div class="rc-title">Check-in · Km 1556+000</div>
+                  <div class="rc-line"><svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-mappin"/></svg> QL.1 · Xuân Hải</div>
+                  <div class="rc-line">Nội dung: mặt đường khô</div>
+                  <div class="rc-line">2026-08-10 08:40:12</div>
                 </div>
-                <span class="badge orange">Chờ gửi</span>
               </div>
-              <div class="row no-icon">
-                <div class="row-body">
-                  <div class="row-title">Ảnh sự cố Nháp sự cố</div>
-                  <div class="row-sub">08:51 · incident draft · 1.2 MB</div>
+              <div class="rc-status" style="color:#c93400">Chờ gửi · bấm Đồng bộ khi có mạng</div>
+            </div>
+            <div class="rich-card">
+              <div class="rc-main">
+                <div class="rc-thumb" style="background:linear-gradient(145deg,#f0c27a,#c77800)"></div>
+                <div class="rc-body">
+                  <div class="rc-title">Check-in · Km 1561+134</div>
+                  <div class="rc-line"><svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-mappin"/></svg> QL.1 · Phước Dinh</div>
+                  <div class="rc-line">2026-08-10 09:12:44</div>
                 </div>
-                <span class="badge orange">Chờ gửi</span>
               </div>
-              <div class="row no-icon">
-                <div class="row-body">
-                  <div class="row-title">Lô hành trình định vị</div>
-                  <div class="row-sub">07:20–08:50 · 128 pts</div>
-                </div>
-                <span class="badge gray">Gửi lại</span>
-              </div>
+              <div class="rc-status" style="color:#c93400">Chờ gửi</div>
             </div>
           </div>
         </div>
@@ -938,7 +1076,7 @@
         <!-- Attendance -->
         <div class="screen" id="sc-attendance" data-des-id="DES-MOB-ATT" data-tab="field">
           <div class="nav-bar"><div class="nav-spacer"></div><div class="nav-title"></div><div class="nav-spacer"></div></div>
-          <div class="large-title">Hiện trường</div>
+          <div class="large-title">Check-in</div>
           <div class="seg">
             <button type="button" onclick="go('patrol-home')">Tuần đường</button>
             <button class="on" type="button">Chấm công</button>
@@ -966,62 +1104,83 @@
 
         <!-- Incident -->
         <div class="screen" id="sc-incident-list" data-des-id="DES-MOB-INC-LIST" data-tab="incident">
-          <div class="nav-bar">
-            <div class="nav-spacer"></div>
-            <div class="nav-title"></div>
-            <button class="nav-btn" onclick="toast('Lọc mức độ')">Lọc</button>
+          <div class="nav-bar solid">
+            <button class="nav-btn" onclick="go('home')">
+              <svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg>
+            </button>
+            <div class="nav-title">Quản lý vấn đề</div>
+            <button class="nav-btn" onclick="toast('Lọc tuyến · loại · trạng thái')">Lọc</button>
           </div>
-          <div class="large-title">Sự cố</div>
+          <div class="seg">
+            <button class="on" type="button">Danh sách</button>
+            <button type="button" onclick="go('gis-map')">Bản đồ</button>
+          </div>
           <div class="search">
             <svg class="ic" viewBox="0 0 24 24"><use href="#i-search"/></svg>
-            <span>Tìm mã, đoạn, loại…</span>
+            <span>Tìm kiếm vấn đề…</span>
           </div>
           <div class="content" style="padding-top:0">
-            <div class="kpi-strip">
-              <div class="kpi"><div class="v" style="color:var(--ios-red)">2</div><div class="l">Nghiêm trọng</div></div>
-              <div class="kpi"><div class="v" style="color:var(--ios-orange)">5</div><div class="l">Đang mở</div></div>
-              <div class="kpi"><div class="v">1</div><div class="l">Mất sóng</div></div>
+            <div class="card-group" style="margin-bottom:10px">
+              <div class="row" onclick="go('vis-capture')">
+                <div class="row-icon" style="background:var(--ios-indigo)"><svg class="ic" viewBox="0 0 24 24"><use href="#i-camera"/></svg></div>
+                <div class="row-body">
+                  <div class="row-title">Nhận diện mặt đường</div>
+                  <div class="row-sub">Chụp + định vị → gắn sự cố</div>
+                </div>
+                <span class="chev"><svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-chevron-right"/></svg></span>
+              </div>
             </div>
-            <div class="card-group">
-              <div class="row" onclick="go('incident-detail')">
-                <div class="row-icon" style="background:var(--ios-red)"><svg class="ic" viewBox="0 0 24 24"><use href="#i-warning"/></svg></div>
-                <div class="row-body">
-                  <div class="row-title">SC-2401 · Nứt mặt đường</div>
-                  <div class="row-sub">QL.1 Km 1556+080 · Nghiêm trọng</div>
+            <div class="rich-card" onclick="go('incident-detail')">
+              <div class="rc-main">
+                <div class="rc-body">
+                  <div class="rc-title">Nứt mặt đường</div>
+                  <div class="rc-line"><svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-warning"/></svg> Sự cố nhanh · SC-2401</div>
+                  <div class="rc-line"><svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-mappin"/></svg> QL.1 Km 1556+080 · Xuân Hải</div>
+                  <div class="rc-line"><svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-person"/></svg> Nguyễn Văn A · Tổ tuần đường VP-IV.1</div>
+                  <div class="rc-line">2026-08-10 08:12:40</div>
                 </div>
-                <span class="badge red">Mở</span>
-                <span class="chev"><svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-chevron-right"/></svg></span>
+                <div class="rc-thumb"></div>
               </div>
-              <div class="row" onclick="toast('Chi tiết SC-2398')">
-                <div class="row-icon" style="background:var(--ios-orange)"><svg class="ic" viewBox="0 0 24 24"><use href="#i-warning"/></svg></div>
-                <div class="row-body">
-                  <div class="row-title">SC-2398 · Cống tắc</div>
-                  <div class="row-sub">HCM · Cao · nhận diện DET-88</div>
-                </div>
-                <span class="badge orange">Mở</span>
-                <span class="chev"><svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-chevron-right"/></svg></span>
+              <div class="rc-status" style="color:#c93400">Trạng thái: Đợi phân công giám sát</div>
+              <div class="rc-actions">
+                <button type="button" onclick="event.stopPropagation();toast('Trao đổi sự cố')" title="Trao đổi"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chat"/></svg></button>
+                <button type="button" onclick="event.stopPropagation();go('mnt-list')" title="Giao việc"><svg class="ic" viewBox="0 0 24 24"><use href="#i-briefcase"/></svg></button>
+                <button type="button" onclick="event.stopPropagation();go('incident-detail')" title="Chi tiết"><svg class="ic" viewBox="0 0 24 24"><use href="#i-list"/></svg></button>
+                <button type="button" onclick="event.stopPropagation();go('gis-map')" title="Bản đồ"><svg class="ic" viewBox="0 0 24 24"><use href="#i-mappin"/></svg></button>
               </div>
-              <div class="row">
-                <div class="row-icon" style="background:var(--ios-gray)"><svg class="ic" viewBox="0 0 24 24"><use href="#i-sync"/></svg></div>
-                <div class="row-body">
-                  <div class="row-title">Nháp mất sóng</div>
-                  <div class="row-sub">Chờ đồng bộ · ảnh ×2</div>
+            </div>
+            <div class="rich-card">
+              <div class="rc-main">
+                <div class="rc-body">
+                  <div class="rc-title">Cống tắc</div>
+                  <div class="rc-line"><svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-warning"/></svg> Hệ thống an toàn · SC-2398</div>
+                  <div class="rc-line"><svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-mappin"/></svg> HCM · Km 12+400</div>
+                  <div class="rc-line"><svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-person"/></svg> Trần Khánh · Chi cục II.2</div>
+                  <div class="rc-line">2026-08-09 14:40:13</div>
                 </div>
-                <span class="badge orange">Hàng đợi</span>
-                <span class="chev"><svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-chevron-right"/></svg></span>
+                <div class="rc-thumb" style="background:linear-gradient(145deg,#f0c27a,#c77800)"></div>
+              </div>
+              <div class="rc-status" style="color:#248a3d">Trạng thái: Đang được giám sát</div>
+              <div class="rc-actions">
+                <button type="button" onclick="toast('Trao đổi sự cố')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chat"/></svg></button>
+                <button type="button" onclick="go('mnt-list')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-briefcase"/></svg></button>
+                <button type="button" onclick="go('incident-detail')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-list"/></svg></button>
+                <button type="button" onclick="go('gis-map')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-mappin"/></svg></button>
               </div>
             </div>
           </div>
-          <button class="fab" onclick="openSheet('incident')" title="Tạo sự cố">
+          <button class="fab" onclick="openSheet('incident')" title="Thêm vấn đề">
             <svg class="ic ic-lg" viewBox="0 0 24 24"><use href="#i-plus"/></svg>
           </button>
         </div>
 
         <!-- GIS — OMS live Leaflet · read overlay -->
-        <div class="screen" id="sc-gis-map" data-des-id="DES-MOB-GIS" data-tab="map">
+        <div class="screen" id="sc-gis-map" data-des-id="DES-MOB-GIS" data-tab="home">
           <div class="nav-bar solid" style="background:rgba(255,255,255,.9)">
-            <button class="nav-btn icon"><svg class="ic" viewBox="0 0 24 24"><use href="#i-menu"/></svg></button>
-            <div class="nav-title">Bản đồ</div>
+            <button class="nav-btn" onclick="go('asset-hub')">
+              <svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg> Tài sản
+            </button>
+            <div class="nav-title">Bản đồ tài sản</div>
             <button class="nav-btn" type="button" id="gis-layer-hint" onclick="toast('Lớp tài sản / sự cố · chú giải')">Lớp</button>
           </div>
           <div class="content map-mode">
@@ -1054,7 +1213,7 @@
         </div>
 
         <!-- AI -->
-        <div class="screen" id="sc-ai-hub" data-des-id="DES-MOB-AI" data-tab="ai">
+        <div class="screen" id="sc-ai-hub" data-des-id="DES-MOB-AI" data-tab="home">
           <div class="nav-bar"><div class="nav-spacer"></div><div class="nav-title"></div><div class="nav-spacer"></div></div>
           <div class="large-title">Nhận diện</div>
           <div class="content">
@@ -1126,11 +1285,11 @@
                 <span class="badge green">Đạt</span>
               </div>
             </div>
-            <div class="section-label">Thêm</div>
+            <div class="section-label">Cập nhật thông tin</div>
             <div class="card-group">
-              <div class="row" onclick="go('mnt-list')">
-                <div class="row-icon" style="background:var(--ios-gray)"><svg class="ic" viewBox="0 0 24 24"><use href="#i-wrench"/></svg></div>
-                <div class="row-body"><div class="row-title">Bảo trì / công việc</div></div>
+              <div class="row" onclick="go('feedback')">
+                <div class="row-icon" style="background:var(--ios-teal)"><svg class="ic" viewBox="0 0 24 24"><use href="#i-info"/></svg></div>
+                <div class="row-body"><div class="row-title">Góp ý</div><div class="row-sub">Phản ánh tính năng phần mềm</div></div>
                 <span class="chev"><svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-chevron-right"/></svg></span>
               </div>
               <div class="row" onclick="go('cam-view')">
@@ -1157,12 +1316,70 @@
         </div>
 
         <!-- Asset -->
-        <div class="screen" id="sc-asset-list" data-des-id="DES-MOB-ASSET-LIST" data-tab="map">
+        <div class="screen" id="sc-asset-hub" data-des-id="DES-MOB-ASSET-HUB" data-tab="home">
           <div class="nav-bar solid">
-            <button class="nav-btn" onclick="go('gis-map')">
-              <svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg> Bản đồ
+            <button class="nav-btn" onclick="go('home')">
+              <svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg> Trang Chủ
             </button>
             <div class="nav-title">Tài sản</div>
+            <div class="nav-spacer"></div>
+          </div>
+          <div class="content">
+            <div class="section-label">Thu thập</div>
+            <div class="hub-grid">
+              <button type="button" class="hub-tile" onclick="go('asset-collect')">
+                <div class="hi" style="background:var(--ios-blue)"><svg class="ic" viewBox="0 0 24 24"><use href="#i-plus"/></svg></div>
+                <div class="t">Thủ công</div>
+                <div class="s">Thêm cột km, biển, cống…</div>
+              </button>
+              <button type="button" class="hub-tile" onclick="go('asset-ai')">
+                <div class="hi" style="background:var(--ios-indigo)"><svg class="ic" viewBox="0 0 24 24"><use href="#i-camera"/></svg></div>
+                <div class="t">Camera AI</div>
+                <div class="s">Chụp → xác nhận vào sổ</div>
+              </button>
+            </div>
+            <div class="section-label">Quản lý</div>
+            <div class="hub-grid">
+              <button type="button" class="hub-tile" onclick="go('asset-list')">
+                <div class="hi" style="background:var(--ios-gray)"><svg class="ic" viewBox="0 0 24 24"><use href="#i-cube"/></svg></div>
+                <div class="t">Danh sách</div>
+                <div class="s">Tra cứu mã · tuyến · loại</div>
+              </button>
+              <button type="button" class="hub-tile" onclick="go('asset-adjust')">
+                <div class="hi" style="background:var(--ios-orange)"><svg class="ic" viewBox="0 0 24 24"><use href="#i-minus"/></svg></div>
+                <div class="t">Cập nhật / bớt</div>
+                <div class="s">Sửa hiện trường · bớt khỏi sổ</div>
+              </button>
+            </div>
+            <div class="card-group">
+              <div class="row" onclick="go('gis-map')">
+                <div class="row-icon" style="background:var(--ios-teal)"><svg class="ic" viewBox="0 0 24 24"><use href="#i-scope"/></svg></div>
+                <div class="row-body">
+                  <div class="row-title">Bản đồ tài sản</div>
+                  <div class="row-sub">Ghim cột km · lớp tuyến</div>
+                </div>
+                <span class="chev"><svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-chevron-right"/></svg></span>
+              </div>
+            </div>
+            <div class="section-label">Chờ xác nhận AI</div>
+            <div class="card-group">
+              <div class="row no-icon">
+                <div class="row-body">
+                  <div class="row-title">DET-88 · Cống</div>
+                  <div class="row-sub">Độ tin cậy 91% · QL.1 Km 1556+000</div>
+                </div>
+                <button class="btn btn-primary" style="width:auto;padding:8px 12px;font-size:13px" onclick="go('det-hitl')">Xác nhận</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-asset-list" data-des-id="DES-MOB-ASSET-LIST" data-tab="home">
+          <div class="nav-bar solid">
+            <button class="nav-btn" onclick="go('asset-hub')">
+              <svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg> Tài sản
+            </button>
+            <div class="nav-title">Danh sách</div>
             <div class="nav-spacer"></div>
           </div>
           <div class="search">
@@ -1193,10 +1410,10 @@
         </div>
 
         <!-- Vision capture -->
-        <div class="screen" id="sc-vis-capture" data-des-id="DES-MOB-VIS-CAPTURE" data-tab="ai">
+        <div class="screen" id="sc-vis-capture" data-des-id="DES-MOB-VIS-CAPTURE" data-tab="incident">
           <div class="nav-bar solid">
-            <button class="nav-btn" onclick="go('ai-hub')">
-              <svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg> AI
+            <button class="nav-btn" onclick="go('incident-list')">
+              <svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg> Vấn đề
             </button>
             <div class="nav-title">Nhận diện mặt đường</div>
             <div class="nav-spacer"></div>
@@ -1215,16 +1432,16 @@
             </div>
             <div style="padding:8px 16px 24px;display:flex;flex-direction:column;gap:8px">
               <button class="btn btn-primary" onclick="toast('Đã gắn sự cố')">Gắn sự cố</button>
-              <button class="btn btn-secondary" onclick="go('ai-hub')">Bỏ qua</button>
+              <button class="btn btn-secondary" onclick="go('incident-list')">Bỏ qua</button>
             </div>
           </div>
         </div>
 
         <!-- Detect HITL -->
-        <div class="screen" id="sc-det-hitl" data-des-id="DES-MOB-DET-HITL" data-tab="ai">
+        <div class="screen" id="sc-det-hitl" data-des-id="DES-MOB-DET-HITL" data-tab="home">
           <div class="nav-bar solid">
-            <button class="nav-btn" onclick="go('ai-hub')">
-              <svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg> AI
+            <button class="nav-btn" onclick="go('asset-hub')">
+              <svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg> Tài sản
             </button>
             <div class="nav-title">Phát hiện TS</div>
             <div class="nav-spacer"></div>
@@ -1245,10 +1462,10 @@
         </div>
 
         <!-- Estimate -->
-        <div class="screen" id="sc-estimate" data-des-id="DES-MOB-EST" data-tab="ai">
+        <div class="screen" id="sc-estimate" data-des-id="DES-MOB-EST" data-tab="work">
           <div class="nav-bar solid">
-            <button class="nav-btn" onclick="go('ai-hub')">
-              <svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg> AI
+            <button class="nav-btn" onclick="go('mnt-list')">
+              <svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg> Công việc
             </button>
             <div class="nav-title">Ước lượng</div>
             <div class="nav-spacer"></div>
@@ -1289,29 +1506,59 @@
         </div>
 
         <!-- Maintenance thin -->
-        <div class="screen" id="sc-mnt-list" data-des-id="DES-MOB-MNT-LIST" data-tab="me">
+        <div class="screen" id="sc-mnt-list" data-des-id="DES-MOB-MNT-LIST" data-tab="work">
           <div class="nav-bar solid">
-            <button class="nav-btn" onclick="go('me')">
-              <svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg> Tôi
+            <button class="nav-btn" onclick="go('home')">
+              <svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg>
             </button>
-            <div class="nav-title">Công việc</div>
-            <div class="nav-spacer"></div>
+            <div class="nav-title">Danh sách công việc</div>
+            <button class="nav-btn" onclick="toast('Bộ lọc · tuyến đường')">Lọc</button>
           </div>
-          <div class="content">
-            <div class="card-group">
-              <div class="row no-icon">
+          <div class="search">
+            <svg class="ic" viewBox="0 0 24 24"><use href="#i-search"/></svg>
+            <span>Tìm kiếm công việc…</span>
+          </div>
+          <div class="content" style="padding-top:0">
+            <div class="card-group" style="margin-bottom:10px">
+              <div class="row" onclick="go('estimate')">
+                <div class="row-icon" style="background:var(--ios-green)"><svg class="ic" viewBox="0 0 24 24"><use href="#i-sum"/></svg></div>
                 <div class="row-body">
-                  <div class="row-title">Lệnh-20260810-003</div>
-                  <div class="row-sub">Từ sự cố SC-2401 · Vá mặt đường</div>
+                  <div class="row-title">Ước lượng sửa chữa</div>
+                  <div class="row-sub">Khối lượng · đơn giá · xác nhận</div>
                 </div>
-                <span class="badge orange">Đang làm</span>
+                <span class="chev"><svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-chevron-right"/></svg></span>
               </div>
-              <div class="row no-icon">
-                <div class="row-body">
-                  <div class="row-title">Lệnh-20260809-011</div>
-                  <div class="row-sub">Nạo cống · HCM</div>
+            </div>
+            <div class="rich-card">
+              <div class="rc-main">
+                <div class="rc-body">
+                  <div class="rc-title">Vá mặt đường</div>
+                  <div class="rc-line">Hạt trưởng VP-IV.1 giao việc cho Nguyễn Văn A · Tổ tuần đường</div>
+                  <div class="rc-line">2026-08-10 08:30 — 2026-08-12 17:00</div>
+                  <div class="rc-line">Từ sự cố SC-2401 · QL.1 Km 1556+080</div>
                 </div>
-                <span class="badge green">Xong</span>
+              </div>
+              <div class="rc-status" style="color:#c93400">Tình trạng xử lý: Chờ xử lý</div>
+              <div class="rc-actions">
+                <button type="button" onclick="toast('Trao đổi công việc')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chat"/></svg></button>
+                <button type="button" onclick="toast('Cập nhật trạng thái · ảnh + GPS')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-sync"/></svg></button>
+                <button type="button" onclick="go('estimate')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-sum"/></svg></button>
+              </div>
+            </div>
+            <div class="rich-card">
+              <div class="rc-main">
+                <div class="rc-body">
+                  <div class="rc-title">Nạo cống</div>
+                  <div class="rc-line">Hạt trưởng giao việc cho Trần Khánh · Chi cục II.2</div>
+                  <div class="rc-line">2026-08-09 07:00 — 2026-08-09 16:00</div>
+                  <div class="rc-line">Tuyến HCM</div>
+                </div>
+              </div>
+              <div class="rc-status" style="color:#248a3d">Tình trạng xử lý: Đã hoàn thành</div>
+              <div class="rc-actions">
+                <button type="button" onclick="toast('Trao đổi công việc')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chat"/></svg></button>
+                <button type="button" onclick="toast('Nhật ký xử lý')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-list"/></svg></button>
+                <button type="button" onclick="go('estimate')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-sum"/></svg></button>
               </div>
             </div>
           </div>
@@ -1349,7 +1596,7 @@
         <div class="screen" id="sc-incident-detail" data-des-id="DES-MOB-INC-DETAIL" data-tab="incident">
           <div class="nav-bar solid">
             <button class="nav-btn" onclick="go('incident-list')">
-              <svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg> Sự cố
+              <svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg> Vấn đề
             </button>
             <div class="nav-title">Chi tiết</div>
             <div class="nav-spacer"></div>
@@ -1372,7 +1619,7 @@
           </div>
         </div>
 
-        <div class="screen" id="sc-asset-detail" data-des-id="DES-MOB-ASSET-DETAIL" data-tab="map">
+        <div class="screen" id="sc-asset-detail" data-des-id="DES-MOB-ASSET-DETAIL" data-tab="home">
           <div class="nav-bar solid">
             <button class="nav-btn" onclick="go('asset-list')">
               <svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg> Tài sản
@@ -1410,19 +1657,165 @@
           </div>
         </div>
 
+        <div class="screen" id="sc-asset-collect" data-des-id="DES-MOB-ASSET-COLLECT" data-tab="home">
+          <div class="nav-bar solid">
+            <button class="nav-btn" onclick="go('asset-hub')">
+              <svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg> Tài sản
+            </button>
+            <div class="nav-title">Thu thập thủ công</div>
+            <div class="nav-spacer"></div>
+          </div>
+          <div class="content">
+            <div class="field">
+              <label>Loại tài sản *</label>
+              <select>
+                <option>Cột km</option>
+                <option>Biển báo</option>
+                <option>Cống</option>
+                <option>Hộ lan</option>
+                <option>Cầu</option>
+              </select>
+            </div>
+            <div class="field"><label>Tên / mô tả *</label><input value="Cột Km 1556" /></div>
+            <div class="field"><label>Tuyến / lý trình *</label><input value="QL.1 · Km 1556+000" readonly /></div>
+            <div class="field"><label>Định vị ghim tự động *</label><input value="11.5300, 109.0040 · ±5 m" readonly /></div>
+            <div class="field"><label>Tình trạng</label><input value="Tốt" /></div>
+            <div class="section-label" style="padding-left:20px">Ảnh</div>
+            <div class="photo-row">
+              <div class="photo-slot" onclick="openCapture('asset')"><svg class="ic ic-lg" viewBox="0 0 24 24"><use href="#i-camera"/></svg></div>
+            </div>
+            <div style="padding:8px 16px 24px">
+              <button class="btn btn-primary" onclick="toast('Đã thêm tài sản · TS-20260818-021')">Thêm tài sản</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-asset-adjust" data-des-id="DES-MOB-ASSET-ADJUST" data-tab="home">
+          <div class="nav-bar solid">
+            <button class="nav-btn" onclick="go('asset-hub')">
+              <svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg> Tài sản
+            </button>
+            <div class="nav-title">Cập nhật / bớt</div>
+            <div class="nav-spacer"></div>
+          </div>
+          <div class="search">
+            <svg class="ic" viewBox="0 0 24 24"><use href="#i-search"/></svg>
+            <span>Tìm mã TS cần sửa hoặc bớt…</span>
+          </div>
+          <div class="content" style="padding-top:0">
+            <div class="card-group">
+              <div class="row">
+                <div class="row-body">
+                  <div class="row-title">TS-20260810-014 · Cống ngang</div>
+                  <div class="row-sub">QL.1 · Km 1556+000</div>
+                </div>
+                <button class="btn btn-secondary" style="width:auto;padding:6px 10px;font-size:13px" onclick="go('asset-detail')">Sửa</button>
+                <button class="btn btn-primary" style="width:auto;padding:6px 10px;font-size:13px;background:var(--ios-red)" onclick="openModal('asset-remove')">Bớt</button>
+              </div>
+              <div class="row">
+                <div class="row-body">
+                  <div class="row-title">TS-20260809-088 · Biển P.127</div>
+                  <div class="row-sub">HCM · Biển báo</div>
+                </div>
+                <button class="btn btn-secondary" style="width:auto;padding:6px 10px;font-size:13px" onclick="go('asset-detail')">Sửa</button>
+                <button class="btn btn-primary" style="width:auto;padding:6px 10px;font-size:13px;background:var(--ios-red)" onclick="openModal('asset-remove')">Bớt</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-asset-ai" data-des-id="DES-MOB-ASSET-AI" data-tab="home">
+          <div class="nav-bar solid">
+            <button class="nav-btn" onclick="go('asset-hub')">
+              <svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg> Tài sản
+            </button>
+            <div class="nav-title">Camera AI</div>
+            <div class="nav-spacer"></div>
+          </div>
+          <div class="content">
+            <div class="section-label">Chụp tài sản / thiết bị mới</div>
+            <div class="photo-row">
+              <div class="photo-slot" onclick="openCapture('asset-ai')"><svg class="ic ic-lg" viewBox="0 0 24 24"><use href="#i-camera"/></svg></div>
+            </div>
+            <div class="card-group">
+              <div class="row no-icon"><div class="row-body"><div class="row-sub">Vị trí đã chốt</div><div class="row-title">QL.1 · Km 1556+000</div></div></div>
+              <div class="row no-icon"><div class="row-body"><div class="row-sub">Loại đề xuất</div><div class="row-title">Cống</div></div></div>
+              <div class="row no-icon"><div class="row-body"><div class="row-sub">Độ tin cậy</div><div class="row-title">91%</div></div></div>
+            </div>
+            <div style="padding:8px 16px 24px;display:flex;flex-direction:column;gap:8px">
+              <button class="btn btn-primary" onclick="go('det-hitl')">Gửi nhận diện</button>
+              <button class="btn btn-secondary" onclick="go('asset-hub')">Hủy</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-supervise" data-des-id="DES-MOB-SUPERVISE" data-tab="home">
+          <div class="nav-bar solid">
+            <button class="nav-btn" onclick="go('home')">
+              <svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg> Trang Chủ
+            </button>
+            <div class="nav-title">Giám sát tuần đường</div>
+            <button class="nav-btn" onclick="toast('Lọc tuyến · ngày')">Lọc</button>
+          </div>
+          <div class="seg">
+            <button class="on" type="button">Danh sách check in</button>
+            <button type="button" onclick="go('patrol-map')">Bản đồ</button>
+          </div>
+          <div class="content" style="padding-top:0">
+            <div class="rich-card" onclick="go('checkin-detail')">
+              <div class="rc-main">
+                <div class="rc-thumb"></div>
+                <div class="rc-body">
+                  <div class="rc-title">Nguyễn Văn A</div>
+                  <div class="rc-line"><svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-building"/></svg> Tổ tuần đường · VP-IV.1</div>
+                  <div class="rc-line"><svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-mappin"/></svg> QL.1 Km 1556+000 · Xuân Hải</div>
+                  <div class="rc-line" style="color:#248a3d">2026-08-10 08:40:12</div>
+                </div>
+              </div>
+            </div>
+            <div class="rich-card" onclick="go('checkin-detail')">
+              <div class="rc-main">
+                <div class="rc-thumb" style="background:linear-gradient(145deg,#94a3b8,#64748b)"></div>
+                <div class="rc-body">
+                  <div class="rc-title">Trần Khánh</div>
+                  <div class="rc-line"><svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-building"/></svg> Chi cục II.2</div>
+                  <div class="rc-line"><svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-mappin"/></svg> QL.1 Km 1561+134 · Phước Dinh</div>
+                  <div class="rc-line" style="color:#248a3d">2026-08-10 09:12:44</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-feedback" data-des-id="DES-MOB-FEEDBACK" data-tab="me">
+          <div class="nav-bar solid">
+            <button class="nav-btn" onclick="go('me')">
+              <svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg> Tôi
+            </button>
+            <div class="nav-title">Góp ý</div>
+            <div class="nav-spacer"></div>
+          </div>
+          <div class="content">
+            <div class="field"><label>Nội dung góp ý</label><textarea placeholder="Mô tả tính năng cần sửa / bổ sung…"></textarea></div>
+            <div style="padding:8px 16px 24px">
+              <button class="btn btn-primary" onclick="toast('Đã gửi góp ý')">Gửi góp ý</button>
+            </div>
+          </div>
+        </div>
+
         <!-- Tab bar -->
         <nav class="tab-bar hidden" id="tabBar" data-des-id="DES-MOB-TABBAR">
-          <button class="tab active" data-tab="field" onclick="tab('field')">
-            <div class="ti"><svg class="ic" viewBox="0 0 24 24"><use href="#i-mappin"/></svg></div>Hiện trường
+          <button class="tab active" data-tab="home" onclick="tab('home')">
+            <div class="ti"><svg class="ic" viewBox="0 0 24 24"><use href="#i-home"/></svg></div>Trang Chủ
+          </button>
+          <button class="tab" data-tab="field" onclick="tab('field')">
+            <div class="ti"><svg class="ic" viewBox="0 0 24 24"><use href="#i-mappin"/></svg></div>Check-in
           </button>
           <button class="tab" data-tab="incident" onclick="tab('incident')">
-            <div class="ti"><svg class="ic" viewBox="0 0 24 24"><use href="#i-warning"/></svg></div>Sự cố
+            <div class="ti"><svg class="ic" viewBox="0 0 24 24"><use href="#i-warning"/></svg></div>Vấn đề
           </button>
-          <button class="tab" data-tab="map" onclick="tab('map')">
-            <div class="ti"><svg class="ic" viewBox="0 0 24 24"><use href="#i-scope"/></svg></div>Bản đồ
-          </button>
-          <button class="tab" data-tab="ai" onclick="tab('ai')">
-            <div class="ti"><svg class="ic" viewBox="0 0 24 24"><use href="#i-sparkles"/></svg></div>Nhận diện
+          <button class="tab" data-tab="work" onclick="tab('work')">
+            <div class="ti"><svg class="ic" viewBox="0 0 24 24"><use href="#i-wrench"/></svg></div>Công việc
           </button>
           <button class="tab" data-tab="me" onclick="tab('me')">
             <div class="ti"><svg class="ic" viewBox="0 0 24 24"><use href="#i-person"/></svg></div>Tôi
@@ -1519,6 +1912,16 @@
             </div>
           </div>
         </div>
+        <div class="modal-backdrop" id="modal-asset-remove" data-des-id="DES-MOB-ASSET-REMOVE">
+          <div class="modal-card">
+            <h3>Bớt tài sản khỏi sổ?</h3>
+            <p>Ẩn khỏi danh sách hiện trường (không xóa hẳn). Có thể khôi phục trên Web.</p>
+            <div class="modal-actions">
+              <button class="btn btn-primary" onclick="closeModal();toast('Đã bớt tài sản · TS-20260810-014')">Bớt khỏi sổ</button>
+              <button class="btn btn-secondary" onclick="closeModal()">Giữ lại</button>
+            </div>
+          </div>
+        </div>
         <div class="capture-overlay" id="captureOverlay" data-des-id="DES-MOB-PHOTO-GPS">
           <div class="capture-finder" id="captureFinder">
             <button class="capture-close" type="button" onclick="closeCapture()">Đóng</button>
@@ -1551,10 +1954,10 @@
   <script src="../feature-guide.js"></script>
   <script>
     const TAB_HOME = {
+      home: 'home',
       field: 'patrol-home',
       incident: 'incident-list',
-      map: 'gis-map',
-      ai: 'ai-hub',
+      work: 'mnt-list',
       me: 'me'
     };
 
@@ -1584,11 +1987,11 @@
       if (window.FeatureGuide) window.FeatureGuide.set(id);
     }
 
-    function tab(name) { go(TAB_HOME[name] || 'patrol-home'); }
+    function tab(name) { go(TAB_HOME[name] || 'home'); }
 
     function loginOk() {
       toast('Đăng nhập thành công');
-      setTimeout(() => go('patrol-home'), 350);
+      setTimeout(() => go('home'), 350);
     }
     function logout() {
       toast('Đã đăng xuất');
@@ -1671,7 +2074,11 @@
         ? document.querySelector('#sheet-checkin .photo-row')
         : captureTarget === 'incident'
           ? document.querySelector('#sheet-incident .photo-row')
-          : document.querySelector('#sc-vis-capture .photo-row');
+          : captureTarget === 'asset'
+            ? document.querySelector('#sc-asset-collect .photo-row')
+            : captureTarget === 'asset-ai'
+              ? document.querySelector('#sc-asset-ai .photo-row')
+              : document.querySelector('#sc-vis-capture .photo-row');
       const empty = root && root.querySelector('.photo-slot:not(.filled)');
       if (empty) {
         empty.classList.add('filled');

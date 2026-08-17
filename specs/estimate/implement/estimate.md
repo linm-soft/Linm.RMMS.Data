@@ -5,21 +5,21 @@
 | feature | `estimate` |
 | status | `done` |
 | role | `dev` · `/agent-dev` |
-| taskId | `task_674bb928` |
+| taskId | `task_5554ab03` (qa fix implement) · prior `task_674bb928` · plan `task_552b72f8` |
 | changeScope | `new_page` |
 | packKind | `ai` · Kind B+D |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.AiVision` |
-| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · AiVision · `api/v1/ai-vision/estimates` |
+| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · AiVision · `api/v1/ai-vision/estimates` · ui-schema `ai-estimates` |
 | mfeStdRoute | `/ai-vision/estimate` |
 | mfeStdUrl | `http://localhost:9303/ai-vision/estimate` |
-| skillVersion | `2026.08.16.01` |
+| skillVersion | `2026.08.17.03` |
 | schemaVersion | `1` |
-| workflowVersion | `2026.08.16.02` |
+| workflowVersion | `2026.08.17.05` |
 | rulesVersion | `2026.08.15.25` |
 | versionGate | `ok` |
-| updatedAt | `2026-08-17T09:04:00.000Z` |
+| updatedAt | `2026-08-17T16:51:40.000Z` |
 
-## retry.ssot_rereview (HARD · trước Write)
+## retry.ssot_rereview (HARD · trước Write · qaFix implement)
 
 | # | Check | Result |
 |---|-------|--------|
@@ -27,16 +27,18 @@
 | 2 | Footer `LinCatalogListPagination` only | **PASS** |
 | 3 | Flex root + `useServerPagedListLoading` · LAYOUT-06 | **PASS** |
 | 4 | Toolbar from-incident / from-defects / export · **no AI badge** | **PASS** |
-| 5 | Filter **`LinErpListFilterBar`** + `estimate-filter-bar.md` · status · sourceType · from/to — **cấm** `ErpListHeaderFilters` / nút Tìm | **PASS** (T-UI-FILTER-01) |
+| 5 | Filter **`LinErpListFilterBar`** · status · sourceType · from/to — **cấm** `ErpListHeaderFilters` | **PASS** (T-UI-FILTER-01) |
 | 6 | `LinCatalogDataGrid` kéo cột default ON | **PASS** |
-| 7 | Zone F config stub | **PASS** |
+| 7 | Config FULL · `LinCatalogUiSchemaEditorModal` + `useCatalogUiSchema` + `buildDynamicGridColumns` · **no** `configHint` / Zone F | **PASS** (qa fix) |
 | 8 | History `useCatalogHistoryModal` | **PASS** |
 | 9 | tree_master? | **n/a** |
 | 10 | Form slideout footer-only + lines + confirm Modal | **PASS** |
 | 11 | Dropdown từ init-data only | **PASS** |
 | 12 | leave-confirm dirty | **PASS** |
+| 13 | BE Registry+Seed `ai-estimates` · **cấm ERP.*** | **PASS** |
 
-`implement.list_parity.layout` = `flex-root + GAP-P2-LAYOUT-06 smoke` **PASS**
+`implement.list_parity.layout` = `flex-root + GAP-P2-LAYOUT-06 smoke` **PASS**  
+`implement.config_full` = `LinCatalogUiSchemaEditorModal` + catalogKind `ai-estimates` **PASS**
 
 ## Tasks checklist
 
@@ -53,14 +55,32 @@
 | T-UI-ACT-01 | **done** | from-incident/defects · confirm · draft · attach stub · export |
 | T-UI-LEAVE-01 | **done** | LeaveConfirmModal |
 | T-UI-UX-01 | **done** | View readOnly · money vi-VN |
+| T-UI-CONFIG-01 | **done** | Config FULL · `ai-estimates` · GAP-P2-CC-06 CLOSED |
+
+## QA fix implement (`task_5554ab03`)
+
+| Gap | Fix |
+|-----|-----|
+| GAP-P2-CC-06 / GAP-DEV-CONFIG-PLACEHOLDER-01 | Removed `configHint` · wired `LinCatalogUiSchemaEditorModal` |
+| R-CFG-02 | `uiColumns` + `buildDynamicGridColumns(schema, uiColumns)` |
+| GAP-SA-EST-02/03 | BE `CatalogUiSchemaRegistry.AiEstimates` + `CatalogUiSchemaSeed.AiEstimates()` |
+
+### FE paths added
+- `src/hooks/useCatalogUiSchema.ts`
+- `src/services/catalogUiSchema/catalogUiSchemaService.ts`
+- `src/utils/bootstrapCatalogUiSchema.ts`
+- `src/utils/catalogUiSchemaGrid.ts`
+
+### BE paths touched
+- `CatalogUiSchemaRegistry.cs` · const + Supported
+- `CatalogUiSchemaSeed.cs` · `AiEstimates()` seed 8 cột
 
 ## Build
 
 | Gate | Command | Result |
 |------|---------|--------|
-| BE API | `dotnet build …/RMMS.Service.Api.csproj` | **PASS** 0 err |
-| BE BFF | `dotnet build …/LINM.RMMS.AiVision.Bff.csproj` | **PASS** 0 err |
-| MFE typecheck | `yarn typecheck` | **PASS** (2026-08-17 filter-bar) |
+| BE API | `dotnet build …/RMMS.Service.Api.csproj` | **PASS** 0 err (2026-08-17 qa-fix) |
+| MFE typecheck | `yarn typecheck` | **PASS** |
 | MFE build | `LINM_RUN_DEV_LOCAL_BUNDLE=1 yarn build` | **PASS** (size warnings only) |
 
 ## Key paths
@@ -74,10 +94,11 @@
 - Migration: `20260817100000_Schema_RmmsAiVisionEstimates.cs`
 - DI: `AiVisionDomainRegistration.cs`
 - DbContext: `AppDbContext` DbSets + fluent
+- Ui-schema: `CatalogUiSchemaRegistry` / `CatalogUiSchemaSeed` · kind `ai-estimates`
 
 ### FE
 - Page: `src/pages/EstimateListPage/`
-- Services: `src/services/estimate/`
+- Services: `src/services/estimate/` · `src/services/catalogUiSchema/`
 - Demo store: `src/demo/estimateStore.ts`
 - Route: `/ai-vision/estimate` (before `:id`)
 - Dev nav: `devRoutes.ts`
@@ -92,19 +113,18 @@
 
 | Field | Value |
 |-------|-------|
-| next | `/agent-qa` · static (e2eQa OFF) |
+| next | `/agent-qa` · e2eQa **ON** · start:std + docker + screens |
 | mfeStdUrl | `http://localhost:9303/ai-vision/estimate` |
+| must | **QA-CFG PASS** · modal schema · no `configHint` |
 | Build | FE+BE **PASS** |
 
-## QA verdict (`task_482fbe3a` · e2eQa ON)
+## Prior QA verdict (`task_482fbe3a` · e2eQa ON) — superseded by fix
 
 | Field | Value |
 |-------|-------|
-| verdict | **FAIL** |
-| method | e2e runtime · start:std + docker + screens |
-| P0 | **GAP-P2-CC-06** / **GAP-DEV-CONFIG-PLACEHOLDER-01** — still `configHint` Zone F · need Config FULL (`LinCatalogUiSchemaEditorModal` + seed `ai-estimates`) |
-| evidence | `specs/estimate/qa/screens/QA-CFG.png` · `qa/scenarios.md` |
-| next | `/agent-dev` retry Config FULL · Review **blocked** |
+| verdict | **FAIL** (prior) |
+| P0 | GAP-P2-CC-06 — **fixed** in `task_5554ab03` |
+| evidence | `specs/estimate/qa/screens/QA-CFG.png` · re-capture required |
 
 ---
-<!-- Version meta: skillVersion=2026.08.16.01 · schemaVersion=1 · workflowVersion=2026.08.16.02 · versionGate=ok -->
+<!-- Version meta: skillVersion=2026.08.17.03 · schemaVersion=1 · workflowVersion=2026.08.17.05 · versionGate=ok · skillId=agent-dev -->

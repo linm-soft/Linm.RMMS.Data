@@ -4,7 +4,7 @@
 |-------|-------|
 | feature | `mobile-p1` |
 | phase | `design` |
-| status | `await_confirm` |
+| status | `design_approved` |
 | changeScope | `new_mobile_design` |
 | packKind | `mobile` |
 | runMode | `design_only` |
@@ -14,14 +14,15 @@
 | context | `specs/mobile-p1/mobile/context.md` · 12 slug P1 |
 | mfe / app | **TBD** — `ui_repo_confirm` (SwiftUI + Compose) |
 | backend | same BFF Web · `web-bff/api/v1/*` |
-| updatedAt | `2026-08-17T15:35:00.000Z` |
-| skill | `/gen-mobile-design` |
+| updatedAt | `2026-08-18T00:20:00.000Z` |
+| skill | `/agent-design` · IA v2 legacy-follow |
+| iaVersion | `2` |
 
 ## Lock
 
 | agent | scope | id | at |
 |-------|-------|-----|-----|
-| gen-mobile-design | mobile-p1 dual mock | design_mobile_p1_both | 2026-08-16T00:45:00.000Z |
+| agent-design | mobile-p1 IA v2 · Tài sản hub | design_mobile_p1_ia_v2 | 2026-08-18T00:20:00.000Z |
 
 ## Pipeline
 
@@ -29,8 +30,8 @@
 |------|-------|----------|--------|
 | 0 | gate | product_root · p1_pack · full · both | **done** |
 | 1–2 | analy | mobile/context.md | **done** |
-| 3–6 | design | ui/design.md + ios + android | **await_confirm** |
-| 2.2+ | sa… | `/agent-qldb-workflow-mobile` | blocked until design_confirm |
+| 3–6 | design | ui/design.md + ios + android · IA v2 | **approved** |
+| 2.2+ | sa… | `/agent-qldb-workflow-mobile` | **ready** — `ui_repo_confirm` next |
 
 ## Prototype
 
@@ -52,5 +53,5 @@
 
 | Gate | Value |
 |------|-------|
-| design_confirm | pending |
+| design_confirm | **approved** 2026-08-18 |
 | ui_repo_confirm | pending (SwiftUI + Compose · cấm Flutter/KMP) |

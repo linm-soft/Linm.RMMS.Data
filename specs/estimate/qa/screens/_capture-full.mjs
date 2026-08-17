@@ -83,13 +83,13 @@ try {
     await failShot(page, "S2", e);
   }
 
-  // S3 — search + status filter
+  // S3 — search + status filter (LinErpListFilterBar icon apply OK; cấm text button «Tìm»/«Tìm kiếm»)
   try {
     await page.waitForSelector('[data-testid="rmms-estimate-list-field-search"]', { timeout: 10000 });
     await page.waitForSelector('[data-testid="rmms-estimate-list-field-status"]', { timeout: 10000 });
-    const findBtn = page.getByRole("button", { name: /^Tìm$/ });
-    if (await findBtn.count()) throw new Error("nút Tìm còn trên filter");
-    await shot(page, "S3", "SearchTextInput + status · no Tìm");
+    const textFind = page.locator("button").filter({ hasText: /^Tìm( kiếm)?$/ });
+    if (await textFind.count()) throw new Error("nút text Tìm/Tìm kiếm còn trên filter");
+    await shot(page, "S3", "SearchTextInput + status · LinErpListFilterBar (no text Tìm)");
   } catch (e) {
     await failShot(page, "S3", e);
   }
@@ -311,44 +311,74 @@ try {
     await failShot(page, "QA-27", e);
   }
 
-  // Config FULL check — open config (expect LinCatalogUiSchemaEditorModal; fail if configHint)
+  // Config FULL — showSchemaConfig toolbar → LinCatalogUiSchemaEditorModal (cấm configHint)
   try {
-    const cfgBtn = page
-      .getByRole("button", { name: /Cấu hình|config|fa-cog/i })
-      .or(page.locator('[data-testid*="config"], [aria-label*="Cấu hình"], button:has(i.fa-cog), button:has(svg)'))
-      .first();
-    // try common catalog toolbar config
-    const cog = page.locator('button[title*="Cấu hình"], button[aria-label*="Cấu hình"], [data-testid*="edit-config"], [data-testid*="schema-config"]').first();
-    if (await cog.count()) {
-      await cog.click({ timeout: 8000 });
-    } else if (await cfgBtn.count()) {
-      await cfgBtn.click({ timeout: 8000 });
-    } else {
-      // fallback: any toolbar icon near refresh
-      const icons = page.locator('[data-testid^="rmms-estimate-list"] button');
+    const selectors = [
+      '[data-testid="rmms-estimate-list-schema-config"]',
+      '[data-testid="rmms-estimate-list-edit-config"]',
+      '[data-testid*="schema-config"]',
+      '[data-testid*="edit-config"]',
+      'button[title*="Cấu hình"]',
+      'button[aria-label*="Cấu hình"]',
+      'button[title*="cấu hình"]',
+      'button[aria-label*="hiển thị"]',
+    ];
+    let opened = false;
+    for (const sel of selectors) {
+      const loc = page.locator(sel).first();
+      if (await loc.count()) {
+        await loc.click({ timeout: 8000 });
+        opened = true;
+        break;
+      }
+    }
+    if (!opened) {
+      const byText = page.getByRole("button", { name: /Cấu hình/i }).first();
+      if (await byText.count()) {
+        await byText.click({ timeout: 8000 });
+        opened = true;
+      }
+    }
+    if (!opened) {
+      // scan toolbar buttons by title/aria
+      const icons = page.locator("button");
       const n = await icons.count();
-      for (let i = 0; i < n; i++) {
-        const t = ((await icons.nth(i).getAttribute("title")) || "") + ((await icons.nth(i).getAttribute("aria-label")) || "");
+      for (let i = 0; i < Math.min(n, 80); i++) {
+        const el = icons.nth(i);
+        const t =
+          ((await el.getAttribute("title")) || "") +
+          ((await el.getAttribute("aria-label")) || "") +
+          ((await el.getAttribute("data-testid")) || "");
         if (/cấu hình|config|schema/i.test(t)) {
-          await icons.nth(i).click({ timeout: 5000 });
+          await el.click({ timeout: 5000 });
+          opened = true;
           break;
         }
       }
     }
-    await page.waitForTimeout(1000);
+    await page.waitForTimeout(1200);
+    const bodyText = await page.locator("body").innerText();
     const hint = page.locator(".configHint, [class*='configHint']");
     const schemaModal = page.getByText("Cấu hình hiển thị danh mục");
-    if (await hint.count()) {
+    if (await hint.count() || /Zone F|configHint|chưa có cấu hình cột/i.test(bodyText)) {
       await shot(page, "QA-CFG", "FAIL configHint placeholder (GAP-P2-CC-06)");
       results[results.length - 1].result = "FAIL";
-      results[results.length - 1].error = "GAP-P2-CC-06 / GAP-DEV-CONFIG-PLACEHOLDER-01 — configHint Zone F stub";
+      results[results.length - 1].error =
+        "GAP-P2-CC-06 / GAP-DEV-CONFIG-PLACEHOLDER-01 — configHint Zone F stub";
     } else if (await schemaModal.count()) {
-      await shot(page, "QA-CFG", "LinCatalogUiSchemaEditorModal");
+      await shot(page, "QA-CFG", "LinCatalogUiSchemaEditorModal · Cấu hình hiển thị danh mục");
+    } else if (!opened) {
+      await failShot(page, "QA-CFG", new Error("Config toolbar button not found"));
     } else {
-      await shot(page, "QA-CFG", "config surface opened — verify manually");
+      await shot(page, "QA-CFG", "config opened but modal title missing");
+      results[results.length - 1].result = "FAIL";
+      results[results.length - 1].error =
+        "Opened config control but missing title «Cấu hình hiển thị danh mục»";
     }
     await page.keyboard.press("Escape");
-    const closeCfg = page.getByTestId("rmms-estimate-list-config-close");
+    const closeCfg = page
+      .getByTestId("rmms-estimate-list-config-close")
+      .or(page.getByRole("button", { name: /Đóng|Hủy/i }).first());
     if (await closeCfg.count()) await closeCfg.click({ timeout: 5000 }).catch(() => {});
     await page.waitForTimeout(400);
   } catch (e) {
