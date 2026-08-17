@@ -3,8 +3,8 @@
 | Field | Value |
 |-------|-------|
 | feature | `estimate` |
-| phase | `review` |
-| status | `blocked` |
+| phase | `done` |
+| status | `done` |
 | changeScope | `new_page` |
 | packKind | `ai` |
 | featureClass | `ai` (Kind B list + Kind D slideout) |
@@ -29,7 +29,7 @@
 | rulesVersion | `2026.08.15.25` |
 | skillVersions | data-analy=`2026.08.15.19` · po=`2026.08.15.17` · design=`2026.08.15.16` · sa=`2026.08.15.15` · team-lead=`2026.08.15.17` · dev=`2026.08.16.01` · qa=`2026.08.16.02` · review=`2026.08.15.17` · orchestrator=`2026.08.16.02` |
 | versionGate | `ok` |
-| updatedAt | `2026-08-17T15:22:21.214Z` |
+| updatedAt | `2026-08-17T15:23:01.411Z` |
 ## Lock
 
 | agent | scope | id | at |

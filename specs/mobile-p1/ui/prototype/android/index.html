@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-  <title>RMMS Mobile P1 — Android 412×915 · Design review</title>
+  <title>RMMS hiện trường — Android · xem thiết kế</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
   <link rel="stylesheet" href="../feature-guide.css" />
   <style>
@@ -69,6 +69,14 @@
     .icon-btn {
       width: 40px; height: 40px; border: 0; background: transparent; border-radius: 20px;
       display: grid; place-items: center; cursor: pointer; color: var(--md-label); font-family: inherit;
+    }
+    .top-bar:not(.solid) .icon-btn {
+      width: 32px; height: 32px; margin: 0 8px; border-radius: 50%;
+      background: rgba(120,120,128,.16); position: relative;
+    }
+    .top-bar:not(.solid) .icon-btn .dot {
+      position: absolute; top: 4px; right: 5px; width: 8px; height: 8px;
+      background: #D32F2F; border-radius: 50%; border: 1.5px solid var(--md-surface);
     }
     .nav-title { flex: 1; text-align: center; font-size: 18px; font-weight: 600; }
     .large-title { padding: 4px 20px 12px; font-size: 32px; font-weight: 700; letter-spacing: -0.4px; flex-shrink: 0; }
@@ -306,20 +314,6 @@
     .login-field input { flex: 1; border: 0; outline: 0; font-size: 16px; font-family: inherit; background: transparent; padding: 14px 0; }
     .login-field .trail { border: 0; background: transparent; color: var(--md-primary); cursor: pointer; padding: 8px; }
     .login-actions { padding: 16px 20px 0; display: flex; flex-direction: column; gap: 10px; }
-    .login-bio {
-      display: flex; align-items: center; justify-content: center; gap: 8px;
-      color: var(--md-primary); font-size: 14px; font-weight: 600; padding: 8px;
-      border: 0; background: transparent; font-family: inherit; cursor: pointer;
-    }
-    .login-skip {
-      display: flex; align-items: center; justify-content: center; gap: 6px;
-      color: var(--md-muted); font-size: 13px; font-weight: 500; padding: 2px 8px 4px;
-      border: 0; background: transparent; font-family: inherit; cursor: pointer;
-    }
-    .login-skip-hint {
-      text-align: center; font-size: 12px; color: var(--md-muted); opacity: .75; line-height: 1.35;
-      padding: 0 20px;
-    }
     .login-meta { margin-top: auto; padding: 16px 24px; text-align: center; font-size: 12px; color: var(--md-muted); }
     .modal-backdrop {
       position: absolute; inset: 0; background: rgba(0,0,0,.4); z-index: 30200;
@@ -345,7 +339,8 @@
     <symbol id="i-scope" viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="2"/></symbol>
     <symbol id="i-sparkles" viewBox="0 0 24 24"><path d="M12 3l1.2 4.2L17.5 8.5 13.2 9.8 12 14l-1.2-4.2L6.5 8.5l4.3-1.3L12 3z"/></symbol>
     <symbol id="i-person" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 19.5c1.8-3.2 4.2-4.5 7-4.5s5.2 1.3 7 4.5"/></symbol>
-    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 17h12l-1.2-1.2A6.5 6.5 0 0 1 15 11V9a3 3 0 1 0-6 0v2a6.5 6.5 0 0 1-1.8 4.8L6 17z"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 17h12l-1.2-1.2A6.5 6.5 0 0 1 15 11V9a3 3 0 1 0-6 0v2a6.5 6.5 0 0 1-1.8 4.8L6 17z"/><path d="M10 17a2 2 0 0 0 4 0"/></symbol>
+    <symbol id="i-sync" viewBox="0 0 24 24"><path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0 1 15.5-6.4L21 8"/><path d="M3 22v-6h6"/><path d="M21 12a9 9 0 0 1-15.5 6.4L3 16"/></symbol>
     <symbol id="i-tray-down" viewBox="0 0 24 24"><path d="M12 3v10"/><path d="M8 9l4 4 4-4"/><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></symbol>
     <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
     <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol>
@@ -374,28 +369,28 @@
 
   <div class="stage">
     <div class="stage-meta">
-      <h1>RMMS Mobile P1 · Android — Design review</h1>
-      <p>412×915 · Material 3 · cùng field iOS · OMS live</p>
+      <h1>RMMS hiện trường · Android</h1>
+      <p><a href="../index.html" style="color:#8ab4f8;text-decoration:none;font-weight:600">← Tổng quan Gói 1</a> · cùng nghiệp vụ iPhone · bản đồ tuyến</p>
       <div class="chip-row" id="jumpChips">
-        <button class="chip active" data-jump="login">Login</button>
-        <button class="chip" data-jump="patrol-home">Patrol</button>
-        <button class="chip" data-jump="patrol-map">CI map</button>
+        <button class="chip active" data-jump="login">Đăng nhập</button>
+        <button class="chip" data-jump="patrol-home">Tuần đường</button>
+        <button class="chip" data-jump="patrol-map">Bản đồ tuần</button>
         <button class="chip" type="button" id="chipWrongPoint">Thử sai điểm</button>
-        <button class="chip" data-jump="checkin-detail">CI đã lưu</button>
+        <button class="chip" data-jump="checkin-detail">Điểm đã chấm</button>
         <button class="chip" data-jump="attendance">Chấm công</button>
         <button class="chip" data-jump="incident-list">Sự cố</button>
-        <button class="chip" data-jump="incident-detail">SC chi tiết</button>
+        <button class="chip" data-jump="incident-detail">Chi tiết sự cố</button>
         <button class="chip" data-jump="gis-map">Bản đồ</button>
         <button class="chip" data-jump="asset-list">Tài sản</button>
-        <button class="chip" data-jump="asset-detail">TS chi tiết</button>
-        <button class="chip" data-jump="ai-hub">AI</button>
-        <button class="chip" data-jump="vis-capture">Vision</button>
-        <button class="chip" type="button" id="chipPhotoGps">Chụp + GPS</button>
-        <button class="chip" data-jump="det-hitl">HITL</button>
+        <button class="chip" data-jump="asset-detail">Chi tiết tài sản</button>
+        <button class="chip" data-jump="ai-hub">Nhận diện</button>
+        <button class="chip" data-jump="vis-capture">Nhận diện</button>
+        <button class="chip" type="button" id="chipPhotoGps">Chụp + định vị</button>
+        <button class="chip" data-jump="det-hitl">Người xác nhận</button>
         <button class="chip" data-jump="estimate">Ước lượng</button>
-        <button class="chip" data-jump="cam-view">Camera</button>
+        <button class="chip" data-jump="cam-view">Camera tuyến</button>
         <button class="chip" data-jump="mnt-list">Bảo trì</button>
-        <button class="chip" data-jump="ops">Ops</button>
+        <button class="chip" data-jump="ops">Chỉ đạo</button>
         <button class="chip" data-jump="me">Tôi</button>
       </div>
     </div>
@@ -439,25 +434,16 @@
             </div>
             <div class="login-actions">
               <button class="btn btn-primary" onclick="loginOk()">Đăng nhập</button>
-              <button class="login-bio" type="button" data-des-id="DES-MOB-LOGIN-SKIP-BIO" onclick="skipAuthBio('touch')">
-                <svg class="ic ic-md" viewBox="0 0 24 24"><use href="#i-finger"/></svg>
-                Bỏ qua xác thực · vân tay
-              </button>
-              <button class="login-skip" type="button" onclick="skipAuthBio('face')">
-                <svg class="ic" viewBox="0 0 24 24"><use href="#i-faceid"/></svg>
-                hoặc khuôn mặt
-              </button>
-              <p class="login-skip-hint">Phiên đã lưu trên máy · không nhập mật khẩu</p>
             </div>
-            <div class="login-meta">Mạng: Online · BFF auth · v1.0.0-p1</div>
+            <div class="login-meta">Mạng: Có mạng · đồng bộ hệ thống · bản Gói 1</div>
           </div>
         </div>
 
         <div class="screen" id="sc-patrol-home" data-des-id="DES-MOB-PAT-HOME" data-tab="field">
           <div class="top-bar">
-            <button class="icon-btn" onclick="go('patrol-offline')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-tray-down"/></svg></button>
+            <button class="icon-btn" title="Đồng bộ" onclick="go('patrol-offline')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-sync"/></svg></button>
             <div class="nav-title"></div>
-            <button class="icon-btn" onclick="go('ops')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-bell"/></svg></button>
+            <button class="icon-btn" title="Thông báo" onclick="go('ops')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-bell"/></svg><span class="dot"></span></button>
           </div>
           <div class="large-title">Hiện trường</div>
           <div class="seg" data-des-id="DES-MOB-PAT-SEG">
@@ -466,19 +452,19 @@
           </div>
           <div class="content">
             <div class="hero-card" data-des-id="DES-MOB-PAT-ACTIVE">
-              <div class="hero-eyebrow">Ca đang chạy · Online</div>
+              <div class="hero-eyebrow">Ca đang chạy · Có mạng</div>
               <div class="hero-title">QL.1 · Km 12+300</div>
-              <div class="hero-meta">PAT-20260810-0014 · Nguyễn Văn A<br/>Check-in 2/3 · Coverage 67%</div>
+              <div class="hero-meta">PAT-20260810-0014 · Nguyễn Văn A<br/>Chấm điểm 2/3 · Độ phủ 67%</div>
               <div class="progress"><span></span></div>
               <div class="hero-actions">
-                <button class="btn btn-white" onclick="go('patrol-map')">Tiếp tục map</button>
-                <button class="btn btn-ghost" onclick="openSheet('checkin')">Check-in</button>
+                <button class="btn btn-white" onclick="go('patrol-map')">Tiếp tục bản đồ</button>
+                <button class="btn btn-ghost" onclick="openSheet('checkin')">Chấm điểm</button>
               </div>
             </div>
             <div class="kpi-strip" data-des-id="DES-MOB-PAT-KPI">
-              <div class="kpi"><div class="v" style="color:var(--md-success)">2</div><div class="l">Đã check-in</div></div>
+              <div class="kpi"><div class="v" style="color:var(--md-success)">2</div><div class="l">Đã chấm điểm</div></div>
               <div class="kpi"><div class="v" style="color:var(--md-warn)">1</div><div class="l">Còn lại</div></div>
-              <div class="kpi"><div class="v">67%</div><div class="l">Coverage</div></div>
+              <div class="kpi"><div class="v">67%</div><div class="l">Độ phủ</div></div>
             </div>
             <div class="section-label">Hôm nay</div>
             <div class="card-group">
@@ -497,11 +483,11 @@
             <div class="card-group">
               <div class="row" onclick="go('patrol-map')">
                 <div class="row-icon" style="background:#6750A4"><svg class="ic" viewBox="0 0 24 24"><use href="#i-map"/></svg></div>
-                <div class="row-body"><div class="row-title">Bản đồ ca</div><div class="row-sub">OSM · OSRM · Fit</div></div>
+                <div class="row-body"><div class="row-title">Bản đồ ca</div><div class="row-sub">Nền đường · vừa toàn tuyến</div></div>
               </div>
               <div class="row" onclick="go('patrol-offline')">
-                <div class="row-icon" style="background:var(--md-warn)"><svg class="ic" viewBox="0 0 24 24"><use href="#i-tray-down"/></svg></div>
-                <div class="row-body"><div class="row-title">Hàng đợi offline</div><div class="row-sub">3 bản ghi</div></div>
+                <div class="row-icon" style="background:var(--md-warn)"><svg class="ic" viewBox="0 0 24 24"><use href="#i-sync"/></svg></div>
+                <div class="row-body"><div class="row-title">Hàng đợi mất sóng</div><div class="row-sub">3 bản ghi</div></div>
                 <span class="badge orange">3</span>
               </div>
             </div>
@@ -512,7 +498,7 @@
           <div class="top-bar solid">
             <button class="icon-btn" onclick="go('patrol-home')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg></button>
             <div class="nav-title">Ca đang chạy</div>
-            <button class="btn" style="background:transparent;color:var(--md-primary)" onclick="openSheet('checkin')">Check-in</button>
+            <button class="btn" style="background:transparent;color:var(--md-primary)" onclick="openSheet('checkin')">Chấm điểm</button>
           </div>
           <div class="content map-mode">
             <div class="map-shell" data-des-id="DES-MOB-OMS-PATROL">
@@ -529,16 +515,16 @@
                 </div>
               </div>
               <div class="map-bar" id="map-patrol-bar">
-                <button type="button" class="mb on" data-base="osm" title="OSM" aria-label="Basemap OSM">OSM</button>
-                <button type="button" class="mb" data-base="esri" title="Esri" aria-label="Basemap Esri">Esri</button>
-                <button type="button" class="mb" data-base="sat" title="Sat 17" aria-label="Basemap sat">Sat</button>
-                <button type="button" class="mb mb-fit" data-fit title="Fit overview" aria-label="Fit overview">Fit</button>
+                <button type="button" class="mb on" data-base="osm" title="Nền đường phố" aria-label="Nền đường phố">Đường</button>
+                <button type="button" class="mb" data-base="esri" title="Nền phố Esri" aria-label="Nền phố Esri">Phố</button>
+                <button type="button" class="mb" data-base="sat" title="Ảnh vệ tinh" aria-label="Nền ảnh vệ tinh">Vệ tinh</button>
+                <button type="button" class="mb mb-fit" data-fit title="Vừa toàn tuyến" aria-label="Vừa toàn tuyến">Toàn tuyến</button>
               </div>
               <div class="map-legend" id="map-patrol-legend">
                 <button type="button" class="lg on" data-iso="all"><span class="dot" style="background:#1B6EF3"></span>Tất cả</button>
-                <button type="button" class="lg" data-iso="track"><span class="dot" style="background:#1B6EF3"></span>Track</button>
-                <button type="button" class="lg" data-iso="ci-done"><span class="dot" style="background:#1B8A4A"></span>CI xong</button>
-                <button type="button" class="lg" data-iso="ci-next"><span class="dot" style="background:#E67E00"></span>CI tiếp</button>
+                <button type="button" class="lg" data-iso="track"><span class="dot" style="background:#1B6EF3"></span>Hành trình</button>
+                <button type="button" class="lg" data-iso="ci-done"><span class="dot" style="background:#1B8A4A"></span>Điểm đã chấm</button>
+                <button type="button" class="lg" data-iso="ci-next"><span class="dot" style="background:#E67E00"></span>Điểm kế tiếp</button>
               </div>
             </div>
           </div>
@@ -553,11 +539,11 @@
           <div class="content" style="padding-top:0">
             <div class="card-group">
               <div class="row" onclick="go('patrol-detail')">
-                <div class="row-body"><div class="row-title">PAT-20260810-0014</div><div class="row-sub">QL.1 · 2/3 CI</div></div>
+                <div class="row-body"><div class="row-title">PAT-20260810-0014</div><div class="row-sub">QL.1 · 2/3 điểm</div></div>
                 <span class="badge blue">Đang tuần</span>
               </div>
               <div class="row">
-                <div class="row-body"><div class="row-title">PAT-20260809-0021</div><div class="row-sub">Thiếu điểm CI</div></div>
+                <div class="row-body"><div class="row-title">PAT-20260809-0021</div><div class="row-sub">Thiếu điểm tuần</div></div>
                 <span class="badge red">Bỏ sót</span>
               </div>
             </div>
@@ -577,11 +563,11 @@
             <div class="card-group">
               <div class="row"><div class="row-body"><div class="row-sub">Nhân viên</div><div class="row-title">Nguyễn Văn A</div></div></div>
               <div class="row"><div class="row-body"><div class="row-sub">Tuyến</div><div class="row-title">QL.1 · Km 12+000–13+200</div></div></div>
-              <div class="row"><div class="row-body"><div class="row-sub">Coverage</div><div class="row-title">67%</div></div></div>
+              <div class="row"><div class="row-body"><div class="row-sub">Độ phủ</div><div class="row-title">67%</div></div></div>
             </div>
-            <div class="section-label">Check-in</div>
+            <div class="section-label">Điểm tuần</div>
             <div class="timeline">
-              <div class="tl-item done"><div class="tl-t">Km 12+100</div><div class="tl-s">07:28 · GPS OK</div></div>
+              <div class="tl-item done"><div class="tl-t">Km 12+100</div><div class="tl-s">07:28 · định vị đạt</div></div>
               <div class="tl-item"><div class="tl-t">Km 12+450 · Cầu B</div><div class="tl-s">Đang tới</div></div>
             </div>
             <div style="padding:16px;display:flex;flex-direction:column;gap:8px">
@@ -593,14 +579,14 @@
         <div class="screen" id="sc-patrol-offline" data-des-id="DES-MOB-PAT-OFFLINE" data-tab="field">
           <div class="top-bar solid">
             <button class="icon-btn" onclick="go('patrol-home')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg></button>
-            <div class="nav-title">Offline queue</div>
-            <button class="btn" style="background:transparent;color:var(--md-primary)" onclick="toast('Đã sync 3 bản ghi')">Sync</button>
+            <div class="nav-title">Hàng đợi mất sóng</div>
+            <button class="btn" style="background:transparent;color:var(--md-primary)" onclick="toast('Đã đồng bộ 3 bản ghi')">Đồng bộ</button>
           </div>
           <div class="content">
             <div class="offline-banner"><svg class="ic" viewBox="0 0 24 24"><use href="#i-wifi-off"/></svg> Mạng yếu — đang chờ đồng bộ</div>
             <div class="card-group">
-              <div class="row"><div class="row-body"><div class="row-title">Check-in Km 11+800</div><div class="row-sub">08:40 · 42 KB</div></div><span class="badge orange">Queued</span></div>
-              <div class="row"><div class="row-body"><div class="row-title">SC nháp</div><div class="row-sub">ảnh ×2</div></div><span class="badge orange">Queued</span></div>
+              <div class="row"><div class="row-body"><div class="row-title">Chấm điểm Km 11+800</div><div class="row-sub">08:40 · 42 KB</div></div><span class="badge orange">Chờ gửi</span></div>
+              <div class="row"><div class="row-body"><div class="row-title">Nháp sự cố</div><div class="row-sub">ảnh ×2</div></div><span class="badge orange">Chờ gửi</span></div>
             </div>
           </div>
         </div>
@@ -613,9 +599,9 @@
           </div>
           <div class="content">
             <div class="hero-card" style="background:linear-gradient(145deg,#1B8A4A,#0F5C30)">
-              <div class="hero-eyebrow">GPS check-in</div>
+              <div class="hero-eyebrow">Chấm điểm theo định vị</div>
               <div class="hero-title">Chưa chấm vào</div>
-              <div class="hero-meta">Hạt QLĐB 7 · auto-pin ±6 m<br/>QL.1 hành lang · inZone OK (12 m)</div>
+              <div class="hero-meta">Hạt QLĐB 7 · ghim tự động ±6 m<br/>QL.1 hành lang · trong hành lang (12 m)</div>
               <div class="hero-actions">
                 <button class="btn btn-white" onclick="openModal('gps')">Chấm vào</button>
               </div>
@@ -633,9 +619,9 @@
           <div class="search"><svg class="ic" viewBox="0 0 24 24"><use href="#i-search"/></svg><span>Tìm mã, đoạn, loại…</span></div>
           <div class="content" style="padding-top:0">
             <div class="kpi-strip">
-              <div class="kpi"><div class="v" style="color:var(--md-error)">2</div><div class="l">Critical</div></div>
-              <div class="kpi"><div class="v" style="color:var(--md-warn)">5</div><div class="l">Open</div></div>
-              <div class="kpi"><div class="v">1</div><div class="l">Offline</div></div>
+              <div class="kpi"><div class="v" style="color:var(--md-error)">2</div><div class="l">Nghiêm trọng</div></div>
+              <div class="kpi"><div class="v" style="color:var(--md-warn)">5</div><div class="l">Đang mở</div></div>
+              <div class="kpi"><div class="v">1</div><div class="l">Mất sóng</div></div>
             </div>
             <div class="card-group">
               <div class="row" onclick="go('incident-detail')">
@@ -644,9 +630,9 @@
                 <span class="badge red">Mở</span>
               </div>
               <div class="row">
-                <div class="row-icon" style="background:var(--md-warn)"><svg class="ic" viewBox="0 0 24 24"><use href="#i-tray-down"/></svg></div>
-                <div class="row-body"><div class="row-title">Nháp offline</div><div class="row-sub">ảnh ×2</div></div>
-                <span class="badge orange">Queue</span>
+                <div class="row-icon" style="background:var(--md-warn)"><svg class="ic" viewBox="0 0 24 24"><use href="#i-sync"/></svg></div>
+                <div class="row-body"><div class="row-title">Nháp mất sóng</div><div class="row-sub">ảnh ×2</div></div>
+                <span class="badge orange">Hàng đợi</span>
               </div>
             </div>
           </div>
@@ -659,7 +645,7 @@
           <div class="top-bar solid">
             <button class="icon-btn"><svg class="ic" viewBox="0 0 24 24"><use href="#i-menu"/></svg></button>
             <div class="nav-title">Bản đồ</div>
-            <button class="btn" style="background:transparent;color:var(--md-primary)" onclick="go('asset-list')">TS</button>
+            <button class="btn" style="background:transparent;color:var(--md-primary)" onclick="go('asset-list')">Tài sản</button>
           </div>
           <div class="content map-mode">
             <div class="map-shell" data-des-id="DES-MOB-OMS-GIS">
@@ -667,10 +653,10 @@
                 <div id="map-gis" style="width:100%;height:100%"></div>
               </div>
               <div class="map-bar" id="map-gis-bar">
-                <button type="button" class="mb on" data-base="osm" aria-label="Basemap OSM">OSM</button>
-                <button type="button" class="mb" data-base="esri" aria-label="Basemap Esri">Esri</button>
-                <button type="button" class="mb" data-base="sat" aria-label="Basemap sat">Sat</button>
-                <button type="button" class="mb mb-fit" data-fit aria-label="Fit overview">Fit</button>
+                <button type="button" class="mb on" data-base="osm" aria-label="Nền đường phố">Đường</button>
+                <button type="button" class="mb" data-base="esri" aria-label="Nền phố Esri">Phố</button>
+                <button type="button" class="mb" data-base="sat" aria-label="Nền ảnh vệ tinh">Vệ tinh</button>
+                <button type="button" class="mb mb-fit" data-fit aria-label="Vừa toàn tuyến">Toàn tuyến</button>
               </div>
               <div class="map-legend" id="map-gis-legend">
                 <button type="button" class="lg on" data-iso="all"><span class="dot" style="background:#1B6EF3"></span>Tất cả</button>
@@ -692,27 +678,27 @@
               <div class="row" onclick="go('asset-detail')">
                 <div class="row-icon" style="background:#6750A4"><svg class="ic" viewBox="0 0 24 24"><use href="#i-cube"/></svg></div>
                 <div class="row-body"><div class="row-title">TS-20260810-014 · Cống C</div><div class="row-sub">QL.1 · Km 12+300</div></div>
-                <span class="badge blue">Pin</span>
+                <span class="badge blue">Ghim</span>
               </div>
             </div>
           </div>
         </div>
 
         <div class="screen" id="sc-ai-hub" data-des-id="DES-MOB-AI" data-tab="ai">
-          <div class="large-title">AI</div>
+          <div class="large-title">Nhận diện</div>
           <div class="content">
             <div class="card-group">
               <div class="row" onclick="go('vis-capture')">
                 <div class="row-icon" style="background:#6750A4"><svg class="ic" viewBox="0 0 24 24"><use href="#i-camera"/></svg></div>
-                <div class="row-body"><div class="row-title">AI Vision</div><div class="row-sub">Chụp → class → SC</div></div>
+                <div class="row-body"><div class="row-title">Nhận diện mặt đường</div><div class="row-sub">Chụp → phân loại → sự cố</div></div>
               </div>
               <div class="row" onclick="go('det-hitl')">
                 <div class="row-icon" style="background:var(--md-primary)"><svg class="ic" viewBox="0 0 24 24"><use href="#i-cube"/></svg></div>
-                <div class="row-body"><div class="row-title">Phát hiện tài sản</div><div class="row-sub">HITL Confirm / Dismiss</div></div>
+                <div class="row-body"><div class="row-title">Phát hiện tài sản</div><div class="row-sub">Người xác nhận · Xác nhận / Bỏ qua</div></div>
               </div>
               <div class="row" onclick="go('estimate')">
                 <div class="row-icon" style="background:var(--md-success)"><svg class="ic" viewBox="0 0 24 24"><use href="#i-sum"/></svg></div>
-                <div class="row-body"><div class="row-title">Ước lượng</div><div class="row-sub">Qty · đơn giá</div></div>
+                <div class="row-body"><div class="row-title">Ước lượng</div><div class="row-sub">Khối lượng · đơn giá</div></div>
               </div>
             </div>
           </div>
@@ -721,20 +707,20 @@
         <div class="screen" id="sc-vis-capture" data-des-id="DES-MOB-VIS-CAPTURE" data-tab="ai">
           <div class="top-bar solid">
             <button class="icon-btn" onclick="go('ai-hub')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg></button>
-            <div class="nav-title">AI Vision</div>
+            <div class="nav-title">Nhận diện mặt đường</div>
           </div>
           <div class="content">
             <div class="photo-row">
-              <div class="photo-slot filled">IMG</div>
+              <div class="photo-slot filled">Ảnh</div>
               <div class="photo-slot" onclick="openCapture('vision')"><svg class="ic ic-lg" viewBox="0 0 24 24"><use href="#i-camera"/></svg></div>
             </div>
             <div class="card-group">
               <div class="row"><div class="row-body"><div class="row-sub">Vị trí đã chốt</div><div class="row-title">QL.1 · Km 12+418</div></div></div>
-              <div class="row"><div class="row-body"><div class="row-sub">Sai số GPS</div><div class="row-title">±4 m</div></div></div>
-              <div class="row"><div class="row-body"><div class="row-sub">Class</div><div class="row-title">Nứt dọc</div></div></div>
-              <div class="row"><div class="row-body"><div class="row-sub">Mức</div><div class="row-title">High</div></div><span class="badge orange">High</span></div>
+              <div class="row"><div class="row-body"><div class="row-sub">Sai số định vị</div><div class="row-title">±4 m</div></div></div>
+              <div class="row"><div class="row-body"><div class="row-sub">Phân loại</div><div class="row-title">Nứt dọc</div></div></div>
+              <div class="row"><div class="row-body"><div class="row-sub">Mức</div><div class="row-title">Cao</div></div><span class="badge orange">Cao</span></div>
             </div>
-            <div style="padding:16px"><button class="btn btn-primary" onclick="toast('Gắn SC')">Gắn sự cố</button></div>
+            <div style="padding:16px"><button class="btn btn-primary" onclick="toast('Đã gắn sự cố')">Gắn sự cố</button></div>
           </div>
         </div>
 
@@ -745,13 +731,13 @@
           </div>
           <div class="content">
             <div class="hero-card" style="background:linear-gradient(145deg,#6750A4,#4F378B)">
-              <div class="hero-eyebrow">HITL · online</div>
+              <div class="hero-eyebrow">Người xác nhận · có mạng</div>
               <div class="hero-title">DET-88 · Cống</div>
               <div class="hero-meta">QL.1 Km 12+300 · độ tin cậy 91%</div>
             </div>
             <div style="padding:0 16px;display:flex;flex-direction:column;gap:8px">
-              <button class="btn btn-primary" onclick="toast('Confirm → Asset')">Xác nhận</button>
-              <button class="btn btn-secondary" onclick="toast('Dismiss')">Bỏ qua</button>
+              <button class="btn btn-primary" onclick="toast('Đã xác nhận · vào sổ tài sản')">Xác nhận</button>
+              <button class="btn btn-secondary" onclick="toast('Đã bỏ qua')">Bỏ qua</button>
             </div>
           </div>
         </div>
@@ -762,10 +748,10 @@
             <div class="nav-title">Ước lượng</div>
           </div>
           <div class="content">
-            <div class="field"><label>Khối lượng (qty)</label><input value="12.5" inputmode="decimal" /></div>
+            <div class="field"><label>Khối lượng</label><input value="12.5" inputmode="decimal" /></div>
             <div class="field"><label>Đơn giá</label><input value="850.000" inputmode="decimal" /></div>
             <div class="field"><label>Thành tiền</label><input value="10.625.000" readonly /></div>
-            <div style="padding:8px 16px"><button class="btn btn-primary" onclick="toast('Confirm thủ công P1')">Xác nhận ước lượng</button></div>
+            <div style="padding:8px 16px"><button class="btn btn-primary" onclick="toast('Đã xác nhận ước lượng')">Xác nhận ước lượng</button></div>
           </div>
         </div>
 
@@ -773,17 +759,17 @@
           <div class="top-bar solid">
             <button class="icon-btn" onclick="go('me')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg></button>
             <div class="nav-title">Camera xem</div>
-            <button class="btn" style="background:transparent;color:var(--md-primary)" onclick="toast('Refresh JPEG')">Làm mới</button>
+            <button class="btn" style="background:transparent;color:var(--md-primary)" onclick="toast('Đã làm mới ảnh')">Làm mới</button>
           </div>
           <div class="content">
             <div class="card-group" style="min-height:180px;display:grid;place-items:center;background:#1C1B1F;color:#fff">
               <div style="text-align:center;padding:24px">
                 <svg class="ic ic-xl" viewBox="0 0 24 24"><use href="#i-video"/></svg>
-                <div style="margin-top:8px;font-weight:600">JPEG · iDS-TCM403</div>
+                <div style="margin-top:8px;font-weight:600">Ảnh JPEG · iDS-TCM403</div>
                 <div style="font-size:13px;opacity:.7">Cập nhật 08:41</div>
               </div>
             </div>
-            <div class="section-label">Event</div>
+            <div class="section-label">Sự kiện</div>
             <div class="card-group">
               <div class="row"><div class="row-body"><div class="row-title">Tốc độ 72 km/h</div><div class="row-sub">08:41</div></div></div>
             </div>
@@ -797,7 +783,7 @@
           </div>
           <div class="content">
             <div class="card-group">
-              <div class="row"><div class="row-body"><div class="row-title">WO-20260810-003</div><div class="row-sub">Từ SC-2401</div></div><span class="badge orange">Đang làm</span></div>
+              <div class="row"><div class="row-body"><div class="row-title">Lệnh-20260810-003</div><div class="row-sub">Từ sự cố SC-2401</div></div><span class="badge orange">Đang làm</span></div>
             </div>
           </div>
         </div>
@@ -854,12 +840,12 @@
             <div style="padding:16px 20px 8px">
               <div style="font-size:13px;color:var(--md-muted)">Mã</div>
               <div style="font-size:24px;font-weight:700">SC-2401</div>
-              <div style="margin-top:8px"><span class="badge red">Critical · Mở</span></div>
+              <div style="margin-top:8px"><span class="badge red">Nghiêm trọng · Đang mở</span></div>
             </div>
             <div class="card-group">
               <div class="row"><div class="row-body"><div class="row-sub">Loại</div><div class="row-title">Nứt mặt đường</div></div></div>
-              <div class="row"><div class="row-body"><div class="row-sub">Vị trí (auto-pin, không sửa)</div><div class="row-title">QL.1 · Km 12+420</div></div></div>
-              <div class="row"><div class="row-body"><div class="row-sub">GPS</div><div class="row-title">10.9620, 106.8518 · ±5 m</div></div></div>
+              <div class="row"><div class="row-body"><div class="row-sub">Vị trí (ghim tự động, không sửa)</div><div class="row-title">QL.1 · Km 12+420</div></div></div>
+              <div class="row"><div class="row-body"><div class="row-sub">Định vị</div><div class="row-title">10.9620, 106.8518 · ±5 m</div></div></div>
               <div class="row"><div class="row-body"><div class="row-sub">Nguồn</div><div class="row-title">Tuần đường PAT-…0014</div></div></div>
             </div>
             <div style="padding:16px;display:flex;flex-direction:column;gap:8px">
@@ -884,21 +870,21 @@
               <div class="row"><div class="row-body"><div class="row-sub">Tuyến · lý trình</div><div class="row-title">QL.1 · Km 12+300</div></div></div>
               <div class="row"><div class="row-body"><div class="row-sub">Tọa độ</div><div class="row-title">10.9555, 106.8450</div></div></div>
             </div>
-            <div style="padding:16px"><button class="btn btn-primary" onclick="go('gis-map')">Pin trên bản đồ</button></div>
+            <div style="padding:16px"><button class="btn btn-primary" onclick="go('gis-map')">Ghim trên bản đồ</button></div>
           </div>
         </div>
 
         <div class="screen" id="sc-checkin-detail" data-des-id="DES-MOB-CI-DETAIL" data-tab="field">
           <div class="top-bar solid">
             <button class="icon-btn" onclick="go('patrol-detail')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg></button>
-            <div class="nav-title">Check-in đã lưu</div>
+            <div class="nav-title">Điểm tuần đã lưu</div>
           </div>
           <div class="content">
             <div class="offline-banner" style="background:#C8E6C9;color:#1B5E20">Đã lưu · 07:28</div>
             <div class="card-group">
               <div class="row"><div class="row-body"><div class="row-sub">Điểm KH</div><div class="row-title">Km 12+100 · Trạm A</div></div></div>
-              <div class="row"><div class="row-body"><div class="row-sub">GPS / sai số</div><div class="row-title">10.9540, 106.8438 · ±4 m</div></div></div>
-              <div class="row"><div class="row-body"><div class="row-sub">Cách điểm</div><div class="row-title">12 m · ok</div></div></div>
+              <div class="row"><div class="row-body"><div class="row-sub">Định vị / sai số</div><div class="row-title">10.9540, 106.8438 · ±4 m</div></div></div>
+              <div class="row"><div class="row-body"><div class="row-sub">Cách điểm</div><div class="row-title">12 m · đạt</div></div></div>
             </div>
           </div>
         </div>
@@ -907,7 +893,7 @@
           <button class="tab active" data-tab="field" onclick="tab('field')"><div class="ti"><svg class="ic" viewBox="0 0 24 24"><use href="#i-mappin"/></svg></div>Hiện trường</button>
           <button class="tab" data-tab="incident" onclick="tab('incident')"><div class="ti"><svg class="ic" viewBox="0 0 24 24"><use href="#i-warning"/></svg></div>Sự cố</button>
           <button class="tab" data-tab="map" onclick="tab('map')"><div class="ti"><svg class="ic" viewBox="0 0 24 24"><use href="#i-scope"/></svg></div>Bản đồ</button>
-          <button class="tab" data-tab="ai" onclick="tab('ai')"><div class="ti"><svg class="ic" viewBox="0 0 24 24"><use href="#i-sparkles"/></svg></div>AI</button>
+          <button class="tab" data-tab="ai" onclick="tab('ai')"><div class="ti"><svg class="ic" viewBox="0 0 24 24"><use href="#i-sparkles"/></svg></div>Nhận diện</button>
           <button class="tab" data-tab="me" onclick="tab('me')"><div class="ti"><svg class="ic" viewBox="0 0 24 24"><use href="#i-person"/></svg></div>Tôi</button>
         </nav>
         <div class="gesture"></div>
@@ -917,20 +903,20 @@
           <div class="sheet-handle"></div>
           <div class="sheet-nav">
             <button class="icon-btn" onclick="requestCloseSheet()" style="color:var(--md-primary);width:auto;padding:0 12px">Hủy</button>
-            <div class="nav-title">Check-in</div>
-            <button class="icon-btn" onclick="closeSheet();toast('Đã ghi check-in')" style="color:var(--md-primary);width:auto;padding:0 12px">Lưu</button>
+            <div class="nav-title">Chấm điểm</div>
+            <button class="icon-btn" onclick="closeSheet();toast('Đã ghi điểm tuần')" style="color:var(--md-primary);width:auto;padding:0 12px">Lưu</button>
           </div>
           <div class="sheet-body">
             <div class="offline-banner" data-des-id="DES-MOB-LOC-MISMATCH" id="ci-match-banner" style="background:#C8E6C9;color:#1B5E20">
-              Đúng điểm · 18 m · GPS ±4 m · auto-pin
+              Đúng điểm · 18 m · định vị ±4 m · ghim tự động
             </div>
             <div class="field"><label>Điểm kế hoạch *</label><input value="Km 12+450 · Cầu B" readonly /></div>
             <div class="field"><label>Tuyến / lý trình *</label><input value="QL.1 · Km 12+450" readonly /></div>
-            <div class="field"><label>GPS auto-pin *</label><input value="10.9525, 106.8420 · ±4 m" readonly /></div>
+            <div class="field"><label>Định vị ghim tự động *</label><input value="10.9525, 106.8420 · ±4 m" readonly /></div>
             <div class="field"><label>Cách điểm KH *</label><input value="18 m · Đúng điểm" readonly /></div>
-            <div class="field"><label>Nội dung</label><textarea>Mặt đường khô, lan can OK</textarea></div>
+            <div class="field"><label>Nội dung</label><textarea>Mặt đường khô, lan can đạt</textarea></div>
             <div class="photo-row">
-              <div class="photo-slot filled">IMG</div>
+              <div class="photo-slot filled">Ảnh</div>
               <div class="photo-slot" onclick="openCapture('checkin')"><svg class="ic ic-lg" viewBox="0 0 24 24"><use href="#i-camera"/></svg></div>
             </div>
             <div class="sheet-footer">
@@ -945,29 +931,29 @@
           <div class="sheet-nav">
             <button class="icon-btn" onclick="requestCloseSheet()" style="color:var(--md-primary);width:auto;padding:0 12px">Hủy</button>
             <div class="nav-title">Tạo sự cố</div>
-            <button class="icon-btn" onclick="closeSheet();toast('SC nháp')" style="color:var(--md-primary);width:auto;padding:0 12px">Lưu</button>
+            <button class="icon-btn" onclick="closeSheet();toast('Nháp sự cố')" style="color:var(--md-primary);width:auto;padding:0 12px">Lưu</button>
           </div>
           <div class="sheet-body">
             <div class="field"><label>Loại sự cố</label><select><option>Nứt / ổ gà</option><option>Cống</option></select></div>
-            <div class="field"><label>Mức độ</label><select><option>Critical</option><option selected>High</option></select></div>
-            <div class="field"><label>Vị trí auto-pin *</label><input value="QL.1 · Km 12+420 · GPS ±5 m" readonly /></div>
+            <div class="field"><label>Mức độ</label><select><option>Nghiêm trọng</option><option selected>Cao</option></select></div>
+            <div class="field"><label>Vị trí ghim tự động *</label><input value="QL.1 · Km 12+420 · định vị ±5 m" readonly /></div>
             <div class="field"><label>Mô tả</label><textarea placeholder="Mô tả hiện trường…"></textarea></div>
             <div class="photo-row">
               <div class="photo-slot" onclick="openCapture('incident')"><svg class="ic ic-lg" viewBox="0 0 24 24"><use href="#i-camera"/></svg></div>
             </div>
             <div class="sheet-footer">
-              <button class="btn btn-primary" onclick="closeSheet();toast('SC đã tạo')">Gửi sự cố</button>
-              <button class="btn btn-secondary" onclick="closeSheet();toast('Nháp offline')">Lưu nháp offline</button>
+              <button class="btn btn-primary" onclick="closeSheet();toast('Đã tạo sự cố')">Gửi sự cố</button>
+              <button class="btn btn-secondary" onclick="closeSheet();toast('Nháp mất sóng')">Lưu nháp mất sóng</button>
             </div>
           </div>
         </div>
 
         <div class="modal-backdrop" id="modal-gps" data-des-id="DES-MOB-GPS-DENY">
           <div class="modal-card">
-            <h3>GPS bị tắt</h3>
+            <h3>Định vị bị tắt</h3>
             <p>Cần vị trí để chấm công. Mở Cài đặt → Quyền vị trí cho RMMS.</p>
             <div class="modal-actions">
-              <button class="btn btn-primary" onclick="closeModal();toast('Đã copy hướng dẫn Settings')">Sao chép hướng dẫn</button>
+              <button class="btn btn-primary" onclick="closeModal();toast('Đã sao chép hướng dẫn Cài đặt')">Sao chép hướng dẫn</button>
               <button class="btn btn-secondary" onclick="closeModal()">Để sau</button>
             </div>
           </div>
@@ -985,7 +971,7 @@
         <div class="capture-overlay" id="captureOverlay" data-des-id="DES-MOB-PHOTO-GPS">
           <div class="capture-finder" id="captureFinder">
             <button class="capture-close" type="button" onclick="closeCapture()">Đóng</button>
-            <div class="capture-live">GPS ±4 m</div>
+            <div class="capture-live">Định vị ±4 m</div>
             <button class="shutter" type="button" onclick="takePhoto()" aria-label="Chụp"></button>
           </div>
           <div class="capture-preview" id="capturePreview" data-des-id="DES-MOB-GPS-PIN">
@@ -995,7 +981,7 @@
             <div class="mini-pin"><i></i></div>
             <div class="card-group">
               <div class="row"><div class="row-body"><div class="row-sub">Vị trí đã chốt</div><div class="row-title">QL.1 · Km 12+418</div></div></div>
-              <div class="row"><div class="row-body"><div class="row-sub">Sai số GPS</div><div class="row-title">±4 m</div></div></div>
+              <div class="row"><div class="row-body"><div class="row-sub">Sai số định vị</div><div class="row-title">±4 m</div></div></div>
             </div>
             <div style="padding:8px 16px 24px;display:flex;flex-direction:column;gap:8px">
               <button class="btn btn-primary" onclick="usePhoto()">Dùng ảnh</button>
@@ -1034,10 +1020,6 @@
     }
     function tab(name) { go(TAB_HOME[name] || 'patrol-home'); }
     function loginOk() { toast('Đăng nhập thành công'); setTimeout(() => go('patrol-home'), 350); }
-    function skipAuthBio(kind) {
-      toast(kind === 'face' ? 'Bỏ qua xác thực · khuôn mặt' : 'Bỏ qua xác thực · vân tay');
-      setTimeout(() => go('patrol-home'), 350);
-    }
     function logout() { toast('Đã đăng xuất'); setTimeout(() => go('login'), 300); }
     function togglePass() {
       const input = document.getElementById('f-pass');
@@ -1057,18 +1039,18 @@
         b.style.color = '#B71C1C';
         b.textContent = 'Sai điểm · 86 m · gần Km 12+300 (Cống C) — chặn Lưu';
         if (btn) { btn.disabled = true; btn.style.opacity = '.45'; }
-        toast('LOC_WRONG_POINT · không Lưu');
+        toast('Sai điểm kế hoạch · không lưu');
       } else {
         b.style.background = '#C8E6C9';
         b.style.color = '#1B5E20';
-        b.textContent = 'Đúng điểm · 18 m · GPS ±4 m · auto-pin';
+        b.textContent = 'Đúng điểm · 18 m · định vị ±4 m · ghim tự động';
         if (btn) { btn.disabled = false; btn.style.opacity = '1'; }
       }
     }
     function saveCheckin() {
-      if (ciWrong) { toast('Chặn — không đúng điểm KH'); return; }
+      if (ciWrong) { toast('Chặn — không đúng điểm kế hoạch'); return; }
       closeSheet();
-      toast('Check-in Online · immutable');
+      toast('Đã chấm điểm · có mạng · không đổi vị trí');
     }
     function openSheet(name) {
       document.getElementById('app').classList.add('sheet-open');
@@ -1115,7 +1097,7 @@
       const empty = root && root.querySelector('.photo-slot:not(.filled)');
       if (empty) {
         empty.classList.add('filled');
-        empty.textContent = 'IMG';
+        empty.textContent = 'Ảnh';
       }
       closeCapture();
       toast('Đã gắn ảnh · vị trí đã chốt');

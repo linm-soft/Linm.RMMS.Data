@@ -14,7 +14,7 @@
 | context | `specs/mobile-p1/mobile/context.md` · 12 slug P1 |
 | mfe / app | **TBD** — `ui_repo_confirm` (SwiftUI + Compose) |
 | backend | same BFF Web · `web-bff/api/v1/*` |
-| updatedAt | `2026-08-17T15:20:00.000Z` |
+| updatedAt | `2026-08-17T15:30:00.000Z` |
 | skill | `/gen-mobile-design` |
 
 ## Lock
@@ -38,13 +38,14 @@
 |--|--|
 | iOS | `specs/mobile-p1/ui/prototype/ios/index.html` |
 | Android | `specs/mobile-p1/ui/prototype/android/index.html` |
-| Logo | `logo/rmms.png` → `ui/prototype/assets/rmms.png` · login brand |
-| Skip bio | `DES-MOB-LOGIN-SKIP-BIO` · Face ID / Touch ID → vào app (không nhập MK) |
-| OMS | `specs/mobile-p1/ui/prototype/map-oms.js` |
+| Tổng quan | `specs/mobile-p1/ui/prototype/index.html` |
+| Logo | `logo/rmms.png` → `ui/prototype/assets/rmms.png` · đăng nhập |
+| Bản đồ | `specs/mobile-p1/ui/prototype/map-oms.js` |
 | Chụp + GPS | Overlay `DES-MOB-PHOTO-GPS` + pin `DES-MOB-GPS-PIN` · chip review **Chụp + GPS** |
+| **reviewUrl tổng quan** | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/mobile-p1/ui/prototype/index.html` |
 | **reviewUrl iOS** | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/mobile-p1/ui/prototype/ios/index.html` |
 | **reviewUrl Android** | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/mobile-p1/ui/prototype/android/index.html` |
-| serve | `npx --yes serve -p 5198 "D:/AI-QLBD/Linm.RMMS.Data/specs/mobile-p1/ui/prototype"` → `/ios/` · `/android/` |
+| serve | `npx --yes serve -p 5198 "D:/AI-QLBD/Linm.RMMS.Data/specs/mobile-p1/ui/prototype"` → `/` · `/ios/` · `/android/` |
 
 ## Confirms
 

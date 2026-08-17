@@ -42,7 +42,7 @@ Web demo = **tham chiếu field**, không clone layout desktop.
 | companyCode | Mã đơn vị | Text | * | `web-bff/api/v1/auth/login` |
 | username | Tên đăng nhập | Text | * | same |
 | password | Mật khẩu | Secure + eye | * | same |
-| biometric | Bỏ qua xác thực · Face ID / Touch ID | Button optional (skip password) | | Keychain / Encrypted store |
+| biometric | Khuôn mặt / vân tay | **Ẩn Gói 1** — không hiện trên đăng nhập | | — |
 
 ### patrol
 
@@ -156,7 +156,7 @@ Web demo = **tham chiếu field**, không clone layout desktop.
 | Camera | **Yes** CI · SC · Vision | AVFoundation + CoreLocation cùng lúc chụp | CameraX + Fused | Ảnh **bắt buộc** GPS tại shutter · §11 |
 | Offline | **Yes** CI + SC draft | queue (Core Data / file) | Room | Same DTO Web · Sync CTA |
 | Map | **Yes** patrol · gis · asset pin | WKWebView Leaflet OMS | WebView Leaflet OMS | **cấm** fake · `/agent-dev-oms-map` |
-| Biometric | Optional login | Face ID | BiometricPrompt | Fallback password |
+| Biometric | **Ẩn Gói 1** | — | — | Không hiện trên đăng nhập |
 | Push | Thin ops | APNs | FCM | `targetUrl` → inbox / SC |
 | Auth | **Yes** | Keychain | Encrypted store | Same BFF `web-bff/api/v1/auth` — **cấm** fork token |
 

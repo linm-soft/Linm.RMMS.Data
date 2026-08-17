@@ -2,10 +2,157 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="refresh" content="0; url=./ios/index.html" />
-  <title>RMMS Mobile P1 — redirect iOS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RMMS hiện trường — Tổng quan Gói 1</title>
+  <style>
+    :root {
+      --ink: #122033;
+      --muted: #5a6b7d;
+      --line: #d7e0ea;
+      --paper: #f6f8fb;
+      --card: #fff;
+      --blue: #1a5fb4;
+      --blue-soft: #e8f1fb;
+      --green: #2e7d32;
+      --orange: #c77800;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Segoe UI", "Noto Sans", system-ui, sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      line-height: 1.5;
+    }
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 28px 20px 64px; }
+    header { text-align: center; padding: 12px 0 28px; }
+    .logo { width: min(280px, 72%); height: auto; display: block; margin: 0 auto 16px; }
+    header h1 { font-size: 26px; font-weight: 750; letter-spacing: -.4px; }
+    header .lead { margin-top: 8px; color: var(--muted); font-size: 16px; max-width: 640px; margin-left: auto; margin-right: auto; }
+    .kicker {
+      display: inline-block; margin-bottom: 10px; font-size: 12px; font-weight: 700;
+      letter-spacing: .06em; text-transform: uppercase; color: var(--blue);
+      background: var(--blue-soft); padding: 4px 10px; border-radius: 999px;
+    }
+    .devices {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 8px 0 28px;
+    }
+    .device-card {
+      display: block; text-decoration: none; color: inherit;
+      background: var(--card); border: 1px solid var(--line); border-radius: 16px;
+      padding: 22px 20px; box-shadow: 0 8px 24px rgba(18,32,51,.06);
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+    .device-card:hover { transform: translateY(-2px); box-shadow: 0 14px 32px rgba(18,32,51,.1); }
+    .device-card .os { font-size: 12px; font-weight: 700; color: var(--blue); text-transform: uppercase; letter-spacing: .04em; }
+    .device-card h2 { font-size: 20px; margin: 4px 0 6px; }
+    .device-card p { color: var(--muted); font-size: 14px; }
+    .device-card .go { margin-top: 14px; font-weight: 700; color: var(--blue); font-size: 14px; }
+    section { margin-bottom: 28px; }
+    section h3 { font-size: 18px; margin-bottom: 10px; }
+    .kpi {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 18px;
+    }
+    .kpi article {
+      background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px 12px;
+    }
+    .kpi .n { font-size: 22px; font-weight: 750; color: var(--blue); }
+    .kpi .l { font-size: 13px; color: var(--muted); margin-top: 2px; }
+    .screens {
+      width: 100%; border-collapse: collapse; background: var(--card);
+      border: 1px solid var(--line); border-radius: 12px; overflow: hidden; font-size: 14px;
+    }
+    .screens th, .screens td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+    .screens th { background: #eef3f8; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+    .screens tr:last-child td { border-bottom: 0; }
+    .note {
+      background: #fff8e6; border: 1px solid #f0d48a; color: #6a4b00;
+      border-radius: 10px; padding: 12px 14px; font-size: 14px;
+    }
+    .tabs { color: var(--muted); font-size: 14px; margin-bottom: 12px; }
+    footer { color: var(--muted); font-size: 13px; }
+    @media (max-width: 760px) {
+      .devices, .kpi { grid-template-columns: 1fr; }
+      header h1 { font-size: 22px; }
+    }
+  </style>
 </head>
 <body>
-  <p>Pack P1: <a href="./ios/index.html">iOS 390×844</a> · <a href="./android/index.html">Android 412×915</a></p>
+  <div class="wrap">
+    <header>
+      <img class="logo" src="./assets/rmms.png" alt="RMMS" width="280" height="83" />
+      <div class="kicker">Gói 1 · Hiện trường</div>
+      <h1>Tổng quan ứng dụng tuần đường</h1>
+      <p class="lead">
+        Máy hiện trường cho cán bộ Hạt quản lý đường bộ và nhà thầu:
+        tuần đường / tuần kiểm, chấm điểm theo lý trình, ghi sự cố KCHT,
+        xem bản đồ tuyến, nhận diện mặt đường có người xác nhận.
+      </p>
+    </header>
+
+    <div class="devices">
+      <a class="device-card" href="./ios/index.html">
+        <div class="os">iPhone</div>
+        <h2>Xem bản iPhone</h2>
+        <p>Khung 390×844 · thanh tab 5 mục · phiếu trượt · định vị và chấm điểm trên tuyến.</p>
+        <div class="go">Mở bản iPhone →</div>
+      </a>
+      <a class="device-card" href="./android/index.html">
+        <div class="os">Android</div>
+        <h2>Xem bản Android</h2>
+        <p>Khung 412×915 · thanh điều hướng 5 mục · nút tạo sự cố · cùng nghiệp vụ với iPhone.</p>
+        <div class="go">Mở bản Android →</div>
+      </a>
+    </div>
+
+    <section>
+      <h3>Chỉ tiêu Gói 1</h3>
+      <div class="kpi">
+        <article><div class="n">≥ 3</div><div class="l">Điểm tuần / ngày / tuyến</div></article>
+        <article><div class="n">5</div><div class="l">Tab: Hiện trường · Sự cố · Bản đồ · Nhận diện · Tôi</div></article>
+        <article><div class="n">12</div><div class="l">Màn nghiệp vụ trên máy</div></article>
+        <article><div class="n">50 m</div><div class="l">Bán kính đúng điểm kế hoạch</div></article>
+      </div>
+      <p class="tabs">
+        Cùng hệ thống Web. Không cấu hình camera tuyến trên điện thoại.
+        Mất sóng: lưu nhật ký / sự cố rồi đồng bộ khi có mạng.
+      </p>
+    </section>
+
+    <section>
+      <h3>Danh mục màn hình</h3>
+      <table class="screens">
+        <thead>
+          <tr><th>Màn</th><th>Việc trên máy</th><th>Người dùng</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Đăng nhập</td><td>Mã đơn vị · tài khoản · mật khẩu</td><td>Cán bộ Hạt / nhà thầu</td></tr>
+          <tr><td>Tuần đường</td><td>Ca đang chạy · độ phủ · bản đồ tuyến · chấm điểm</td><td>Tổ tuần đường</td></tr>
+          <tr><td>Chấm công</td><td>Chấm vào / ra theo định vị · đúng hành lang tuyến</td><td>Tổ tuần đường</td></tr>
+          <tr><td>Sự cố</td><td>Ghi hư hỏng KCHT kèm ảnh + lý trình · nháp khi mất sóng</td><td>Tổ tuần / Hạt</td></tr>
+          <tr><td>Bản đồ</td><td>Lớp tài sản · sự cố · hành lang — chỉ xem</td><td>Hạt / vận hành</td></tr>
+          <tr><td>Tài sản</td><td>Tra cứu cầu, cống, biển, hộ lan theo tuyến–km</td><td>Hạt / vận hành</td></tr>
+          <tr><td>Nhận diện mặt đường</td><td>Chụp + định vị → phân loại hư hỏng → gắn sự cố</td><td>Tổ tuần đường</td></tr>
+          <tr><td>Người xác nhận tài sản</td><td>Xác nhận hoặc bỏ qua ứng viên do máy đề xuất</td><td>Tổ tuần đường</td></tr>
+          <tr><td>Ước lượng</td><td>Khối lượng · đơn giá · xác nhận trước lệnh sửa chữa</td><td>Hạt</td></tr>
+          <tr><td>Camera tuyến</td><td>Xem ảnh JPEG và sự kiện — không chỉnh thiết bị</td><td>Vận hành ITS</td></tr>
+          <tr><td>Lệnh bảo trì</td><td>Xem tiến độ lệnh từ sự cố (mỏng)</td><td>Hạt</td></tr>
+          <tr><td>Chỉ đạo</td><td>Hộp thư hạt trưởng / hệ thống</td><td>Tổ tuần / Hạt</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <div class="note">
+        Thuật ngữ trên máy theo nghiệp vụ Cục Đường bộ VN / Hạt QLĐB:
+        <strong>tuần đường · tuần kiểm · lý trình Km · điểm kế hoạch · sự cố · tài sản KCHT · hành lang tuyến · độ phủ</strong>.
+        Giao diện máy không dùng từ tiếng Anh kỹ thuật.
+      </div>
+    </section>
+
+    <footer>
+      Hợp đồng Gói B · máy hiện trường · cùng API Web.
+      Mở bằng <code>npx --yes serve -p 5198</code> thư mục prototype → trang này là cửa vào.
+    </footer>
+  </div>
 </body>
 </html>

@@ -154,7 +154,7 @@
     if (fitBtn) {
       fitBtn.addEventListener('click', () => {
         fitOverview(ctx.map, ctx.overviewLayer || ctx.bounds);
-        if (typeof global.toast === 'function') global.toast('Fit overview');
+        if (typeof global.toast === 'function') global.toast('Đã phóng vừa toàn tuyến');
       });
     }
   }
