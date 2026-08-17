@@ -27,7 +27,7 @@
 | 2 | Footer `LinCatalogListPagination` only | **PASS** |
 | 3 | Flex root + `useServerPagedListLoading` · LAYOUT-06 | **PASS** |
 | 4 | Toolbar from-incident / from-defects / export · **no AI badge** | **PASS** |
-| 5 | Filter SearchTextInput + status — **cấm nút Tìm** | **PASS** |
+| 5 | Filter **`LinErpListFilterBar`** + `estimate-filter-bar.md` · status · sourceType · from/to — **cấm** `ErpListHeaderFilters` / nút Tìm | **PASS** (T-UI-FILTER-01) |
 | 6 | `LinCatalogDataGrid` kéo cột default ON | **PASS** |
 | 7 | Zone F config stub | **PASS** |
 | 8 | History `useCatalogHistoryModal` | **PASS** |
@@ -48,6 +48,7 @@
 | T-BE-CRUD-01 | **done** | API-01…09 · EstimateAudit + EstimateLine · **no** `*LinesJson` |
 | T-BFF-01 | **done** | `AiVisionEstimatesBffController` proxy-only |
 | T-UI-LIST-01 | **done** | A–D · no AI badge |
+| T-UI-FILTER-01 | **done** | `LinErpListFilterBar` · context `estimate-filter-bar.md` · sourceType + dates |
 | T-UI-FORM-01 | **done** | Kind D · lines · footer only |
 | T-UI-ACT-01 | **done** | from-incident/defects · confirm · draft · attach stub · export |
 | T-UI-LEAVE-01 | **done** | LeaveConfirmModal |
@@ -59,7 +60,7 @@
 |------|---------|--------|
 | BE API | `dotnet build …/RMMS.Service.Api.csproj` | **PASS** 0 err |
 | BE BFF | `dotnet build …/LINM.RMMS.AiVision.Bff.csproj` | **PASS** 0 err |
-| MFE typecheck | `yarn typecheck` | **PASS** |
+| MFE typecheck | `yarn typecheck` | **PASS** (2026-08-17 filter-bar) |
 | MFE build | `LINM_RUN_DEV_LOCAL_BUNDLE=1 yarn build` | **PASS** (size warnings only) |
 
 ## Key paths

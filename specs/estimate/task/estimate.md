@@ -22,7 +22,7 @@
 | rulesVersion | `2026.08.15.25` |
 | versionGate | `ok` |
 | contentHash (data-analy) | `sha256:f49800a01d06c3df4ab4058c5b2b6ecde131fe8362a040481a88daa4897e8983` |
-| TL SSOT | `tl-platform-ssot.md` · `ssot-no-duplicate.md` · `form-type-task-pack.md` · `tl-grid-task-template.md` · `tl-design-grid-component-map.md` · `tl-grid-full-flow.md` · `tl-list-shell-height.md` · `tl-catalog-list-parity.md` · `tl-retry-ssot-rereview.md` · `slideout-form-layout.md` · `list-form-quality-gates.md` · `agent-dev-assign.md` · `rmms-form-agent-map.md` |
+| TL SSOT | `tl-platform-ssot.md` · `ssot-no-duplicate.md` · `form-type-task-pack.md` · `tl-grid-task-template.md` · **`tl-filter-bar-task.md`** · `tl-design-grid-component-map.md` · `tl-grid-full-flow.md` · `tl-list-shell-height.md` · `tl-catalog-list-parity.md` · `tl-retry-ssot-rereview.md` · `slideout-form-layout.md` · `list-form-quality-gates.md` · `agent-dev-assign.md` · `rmms-form-agent-map.md` |
 | **devSlash** | **`/agent-dev`** — **cấm** `/agent-dev-ai-detect` (Design + `rmms-form-agent-map` · `estimate`) |
 
 ## from design / solution (scope gate)
@@ -74,7 +74,7 @@
 | `source.migrations` | `api/shared/RMMS.Service.Migrations/` |
 | `source.uiSchema` | Integration `CatalogUiSchemaRegistry` + Seed · kind **`ai-estimates`** |
 | Demo | `Linm.RMMS.Demo/src/demo/ai-vision/estimate.html` |
-| Context | `Linm.RMMS.Data/docs/context/features/estimate.md` |
+| Context | `Linm.RMMS.Data/docs/context/features/estimate.md` · **filter-bar** `docs/context/features/estimate-filter-bar.md` |
 | reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/estimate/ui/prototype/estimate-list-prototype.html` |
 | `mfeStdRoute` | `/ai-vision/estimate` (**locked**) |
 | `mfeStdUrl` | `http://localhost:9303/ai-vision/estimate` |
@@ -146,7 +146,7 @@ Live: `Linm.Web.RMMS.AiVision/src/pages/EstimateListPage/EstimateListPage.tsx` �
 | 3 | Footer `LinCatalogListPagination` · cấm footerPagination / pageSizeBar | **PASS** |
 | 4 | flex + skeleton / LAYOUT-06 | **PASS** (`useServerPagedListLoading` · title+toolbar+grid) |
 | 5 | Toolbar config FULL · `LinCatalogUiSchemaEditorModal` | **FAIL** — `configHint` placeholder (**GAP-SA-EST-03** / GAP-P2-CC-06) |
-| 6 | Filter Zone B: status · **sourceType** · from/to Date | **FAIL** — thiếu sourceType + Date (**GAP-SA-EST-04** UI) |
+| 6 | Filter Zone B: **`LinErpListFilterBar`** + status · **sourceType** · from/to · context `estimate-filter-bar.md` | **FAIL** — `ErpListHeaderFilters` · thiếu sourceType + Date (**GAP-SA-EST-04** / **GAP-TL-FILTER-01**) |
 | 7 | List API `sourceType` query | **FAIL** — controller/service thiếu (**GAP-SA-EST-01**) |
 | 8 | BE ui-schema seed `ai-estimates` | **FAIL** — registry/seed missing (**GAP-SA-EST-02**) |
 | 9 | list_parity Kind B A–D+F | **FAIL** — F missing · filter incomplete |
@@ -164,10 +164,11 @@ Live: `Linm.Web.RMMS.AiVision/src/pages/EstimateListPage/EstimateListPage.tsx` �
 
 | ID | Gap | Task | Status |
 |----|-----|------|--------|
-| **GAP-SA-EST-01** | List API thiếu `sourceType` | **T-BE-CRUD-01** | **OPEN P0** |
+| **GAP-SA-EST-01** | List API thiếu `sourceType` | **T-BE-CRUD-01** | **CLOSED** |
 | **GAP-SA-EST-02** | CatalogUiSchema `ai-estimates` missing | **T-BE-UISCHEMA-01** | **OPEN P0** |
 | **GAP-SA-EST-03** | MFE `configHint` placeholder | **T-UI-CFG-01** · **T-UI-LIST-01** | **OPEN P0** |
-| **GAP-SA-EST-04** | FE list thiếu `sourceType` (+ Date from/to Design) | **T-UI-LIST-01** · endpoint | **OPEN P0** |
+| **GAP-SA-EST-04** | FE list thiếu `sourceType` (+ Date from/to Design) | **T-UI-FILTER-01** · **T-UI-LIST-01** | **CLOSED** |
+| **GAP-TL-FILTER-01** | Filter chưa `LinErpListFilterBar` / chưa load `estimate-filter-bar.md` | **T-UI-FILTER-01** | **CLOSED** |
 | GAP-TL-GRID-BOOTSTRAP-01 | leftover `const columns` | **T-UI-LIST-01** · **T-UI-CFG-01** | **OPEN P0** |
 | GAP-DES-VIEW-DL | View Input readOnly xám | **T-UI-FORM-01** · **T-UI-PROD-01** | **OPEN P0** |
 | GAP-TL-UX-FILTER-MAX-01 | `filterMaxWidthPx={720}` | **T-UI-UX-01** | **OPEN P1** |
@@ -183,12 +184,13 @@ Live: `Linm.Web.RMMS.AiVision/src/pages/EstimateListPage/EstimateListPage.tsx` �
 |---------|------|--------|-----------------|
 | T-CTX-01 | TL/Dev | **done** (TL) | Context + ownership · DOMAIN-MAP path |
 | T-PERM-01 | Dev | **pending** | `ai-vision.estimates.*` |
-| T-BE-CRUD-01 | Dev | **pending** | API-01…09 · **+ sourceType filter** (GAP-SA-EST-01) |
+| T-BE-CRUD-01 | Dev | **partial** | API-01…09 · **sourceType query CLOSED** (GAP-SA-EST-01) |
 | T-BE-INIT-01 | Dev | **pending** | API-02 init-data verify |
 | T-BE-UISCHEMA-01 | Dev | **pending** | Registry + Seed **`ai-estimates`** (GAP-SA-EST-02) |
 | T-MIG-01 | Dev | **verify / no-op** | `Schema_RmmsAiVisionEstimates` exists · **cấm** regen trừ delta seed |
 | T-BFF-01 | Dev | **verify / extend** | proxy estimates · forward `sourceType` query |
-| T-UI-LIST-01 | Dev | **pending** | A–D+F · sourceType+Date · no AI badge · **cấm** leftover columns |
+| T-UI-LIST-01 | Dev | **pending** | A–D+F · no AI badge · **cấm** leftover columns |
+| T-UI-FILTER-01 | Dev | **done** | `/filter-bar-context` · `estimate-filter-bar.md` · `LinErpListFilterBar` V1–V5 · sourceType+Date |
 | T-UI-CFG-01 | Dev | **pending** | `LinCatalogUiSchemaEditorModal` · **cấm** `configHint` |
 | T-UI-FORM-01 | Dev | **pending** | Kind D slideout · lines grid · footer only · View `<dl>` |
 | T-UI-ACT-01 | Dev | **pending** | Action inventory → form/API |
@@ -244,7 +246,7 @@ Live: `Linm.Web.RMMS.AiVision/src/pages/EstimateListPage/EstimateListPage.tsx` �
 **gates:** TZ · XCO get_only · SHARE tenant  
 **DoD:**
 - [ ] ApiResponse / paged · search must work · pageSize ∈{50,100,200,500}
-- [ ] **IN:** API-01 query **`sourceType`** (GAP-SA-EST-01)
+- [x] **IN:** API-01 query **`sourceType`** (GAP-SA-EST-01)
 - [ ] from-incident / from-defects stub generate · draft/confirm/delete
 - [ ] Lines child table — **cấm** `*LinesJson`
 - [ ] Confirm **không** tạo WO
@@ -299,7 +301,7 @@ Live: `Linm.Web.RMMS.AiVision/src/pages/EstimateListPage/EstimateListPage.tsx` �
 **ssot.reuse:**
   design_zones: DES-GRID-A,B,FILTER,C0,C1,C2,C2a,C3,D,F,H,Z
   ui_page: LinPageLayout (kind=catalog) · flex root (GAP-P2-LAYOUT-06)
-  ui_filter: SearchTextInput + status + **sourceType** + Date from/to — cấm nút Tìm
+  ui_filter: **T-UI-FILTER-01** · `estimate-filter-bar.md` · LinErpListFilterBar + status + **sourceType** + Date from/to — cấm ErpListHeaderFilters / nút Tìm
   ui_toolbar: catalogToolbar FULL + from-incident/from-defects/export · **no AI badge**
   ui_grid: LinCatalogDataGrid · `columns={buildDynamicGridColumns(schema, uiColumns)}` · resizable ON
   ui_footer: LinCatalogListPagination ONLY
@@ -311,10 +313,37 @@ Live: `Linm.Web.RMMS.AiVision/src/pages/EstimateListPage/EstimateListPage.tsx` �
 
 **DoD:**
 - [ ] A–D+F parity · search work · **không** AI badge header
-- [ ] **IN:** filter `sourceType` + from/to · FE param (GAP-SA-EST-04)
+- [ ] Filter = **T-UI-FILTER-01** (không wire lệch context)
 - [ ] **IN:** remove leftover `const columns` / static `LinCatalogDataColumn[]`
 - [ ] BASE list = `/ai-vision/estimates`
 - [ ] `yarn build` PASS (MFE AiVision)
+
+### T-UI-FILTER-01 — List filter bar
+
+**status:** **done**  
+**devSlash:** `/agent-dev`  
+**skills (REQUIRED load trước Write):**
+  - `/filter-bar-context` · `/erp-filter-form` · `filter-bar-layout-hard`
+  - context: `Linm.RMMS.Data/docs/context/features/estimate-filter-bar.md`
+
+**ssot.reuse:**
+  ui_filter: LinErpListFilterBar · fragment leading · `data-lin-list-layout="erp-filter-bar"`
+  ui_layout: title trái · mọi input + 🔍 cụm phải
+  init_data: statuses + sourceTypes từ GET `…/estimates/init-data`
+  http: `search` · `status` · `sourceType` · `from` · `to`
+
+**implement.filter:**
+  bar: LinErpListFilterBar · onSearch trên bar
+  leading: Search + Status + Nguồn — **cấm** wrapper `.filterRow`
+  date: from/to empty = tất cả (cấm default Hôm nay)
+  cấm: ErpListHeaderFilters · LinListFilterField · filterMaxWidthPx · export trên bar
+
+**deps:** T-BE-CRUD-01 (`sourceType` query) · T-BE-INIT-01  
+**DoD:**
+- [x] Context fields 1:1 · V1–V5 PASS
+- [x] Search + status + sourceType + from/to work
+- [x] `rg` 0 `ErpListHeaderFilters` / `LinListFilterField` trên EstimateListPage
+- [x] `yarn build` PASS
 
 ### T-UI-CFG-01
 **layer:** ui  
@@ -470,7 +499,7 @@ T-CTX-01 (done)
   → T-BE-CRUD-01 (+ sourceType)
   → T-BFF-01
   → T-PERM-01
-  → T-UI-CFG-01 → T-UI-LIST-01
+  → T-UI-CFG-01 → T-UI-LIST-01 · **T-UI-FILTER-01**
   → T-UI-FORM-01 → T-UI-LKP-01 → T-UI-FIELD-01 → T-UI-PROD-01
   → T-UI-ACT-01 · T-UI-LEAVE-01 · T-UI-HIST-01 · T-UI-UX-01
   → verify: MFE yarn build PASS · BE dotnet build PASS
@@ -501,7 +530,7 @@ T-CTX-01 (done)
 |-------|-------|
 | Next | `/agent-dev` · implement `specs/estimate/implement/estimate.md` |
 | Gate trước Dev | board tick **beRepo && uiRepo** (**không auto**) |
-| Priority | T-BE-UISCHEMA + T-BE-CRUD(sourceType) + T-UI-CFG → T-UI-LIST/FORM/ACT/LEAVE/LKP/FIELD/PROD/UX |
+| Priority | T-BE-UISCHEMA + T-BE-CRUD(sourceType) + T-UI-CFG → **T-UI-FILTER-01** (`estimate-filter-bar.md`) → T-UI-LIST/FORM/ACT/LEAVE/LKP/FIELD/PROD/UX |
 | Anti-dup | reuse AiVision list/form patterns · **tách** estimate tables · **cấm** rewrite migration nếu PASS |
 | HARD | `tl-retry-ssot-rereview` · fix **all** GAP cùng surface · build PASS trước completed |
 | Must-fix | GAP-SA-EST-01…04 · leftover columns · View dl · filterMaxWidthPx |
