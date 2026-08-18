@@ -6,6 +6,7 @@
   <title>RMMS hiện trường — Android · xem thiết kế</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
   <link rel="stylesheet" href="../feature-guide.css" />
+  <link rel="stylesheet" href="../net-signal.css" />
   <style>
     :root {
       --rmms-blue: #0C84C0;
@@ -152,10 +153,6 @@
       color: #fff; border-radius: 0 0 24px 24px;
     }
     .vn-hero .who { font-size: 22px; font-weight: 800; margin: 8px 0 12px; }
-    .vn-hero .role {
-      display: inline-flex; font-size: 12px; font-weight: 700;
-      background: rgba(255,255,255,.18); border-radius: 999px; padding: 4px 10px;
-    }
     .vn-quick { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; min-width: 0; }
     .vn-quick button {
       border: 0; border-radius: 14px; padding: 14px 12px; text-align: left; cursor: pointer;
@@ -168,6 +165,8 @@
       padding: 10px 8px; font-family: inherit; cursor: pointer; text-align: center; color: inherit;
     }
     .ak32-dot { display: block; width: 10px; height: 10px; border-radius: 50%; background: var(--md-primary); margin: 0 auto 8px; }
+    .ak32-ico { display: block; width: 28px; height: 34px; margin: 0 auto 6px; }
+    .ak32-ico svg { display: block; width: 28px; height: 34px; }
     .ak32-n {
       font-size: 12px; font-weight: 650; line-height: 1.25; display: -webkit-box;
       -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
@@ -286,7 +285,7 @@
       margin: 0 16px 16px; background: linear-gradient(145deg, #0C84C0, #086A9A);
       border-radius: 20px; padding: 18px; color: #fff; min-width: 0;
     }
-    .hero-eyebrow { font-size: 12px; font-weight: 700; opacity: .9; text-transform: uppercase; }
+    .hero-eyebrow { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; font-size: 12px; font-weight: 700; opacity: .9; text-transform: uppercase; }
     .hero-title { font-size: 22px; font-weight: 700; margin-top: 4px; word-break: break-word; }
     .hero-meta { font-size: 14px; margin-top: 6px; opacity: .95; line-height: 1.4; }
     .hero-actions { display: flex; gap: 8px; margin-top: 14px; min-width: 0; }
@@ -523,6 +522,7 @@
     <symbol id="i-eye-off" viewBox="0 0 24 24"><path d="M3 3l18 18"/><path d="M10.6 10.6A2.5 2.5 0 0 0 13.4 13.4"/></symbol>
     <symbol id="i-finger" viewBox="0 0 24 24"><path d="M12 11v6"/><path d="M8 12.5a4 4 0 1 1 8 0c0 3-2 5-4 7"/><path d="M6 11a6 6 0 0 1 12 0"/></symbol>
     <symbol id="i-faceid" viewBox="0 0 24 24"><path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2"/><path d="M9 10v1M15 10v1"/><path d="M9.5 15c.8.8 1.6 1.2 2.5 1.2s1.7-.4 2.5-1.2"/></symbol>
+    <symbol id="i-wifi" viewBox="0 0 24 24"><path d="M2.6 8.6A16 16 0 0 1 12 5c3.4 0 6.6 1 9.4 3.6"/><path d="M5.4 12.5A10.2 10.2 0 0 1 12 10c2.4 0 4.6.8 6.6 2.5"/><path d="M8.8 16.2A5 5 0 0 1 12 15c1.2 0 2.3.4 3.2 1.2"/><circle cx="12" cy="19.4" r="1.35" class="fill"/></symbol>
     <symbol id="i-wifi-off" viewBox="0 0 24 24"><path d="M2 8.5A14 14 0 0 1 12 5"/><path d="M3 3l18 18"/></symbol>
     <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.5 6.5a4 4 0 0 0-5.6 5.6L3 18v3h3l5.9-5.9a4 4 0 0 0 5.6-5.6l-2.5 2.5-2.5-2.5 2.5-2.5z"/></symbol>
     <symbol id="i-video" viewBox="0 0 24 24"><rect x="3" y="7" width="12" height="10" rx="2"/><path d="M15 10.5 21 7v10l-6-3.5"/></symbol>
@@ -614,18 +614,23 @@
               <button class="btn btn-primary" onclick="loginOk()">Đăng nhập</button>
             </div>
             </div>
-            <div class="login-meta">Mạng: Có mạng · đồng bộ hệ thống · bản Gói 1</div>
+            <div class="login-meta">Tín hiệu <span data-net-signal="light"></span> · đồng bộ hệ thống · bản Gói 1</div>
           </div>
         </div>
 
         <div class="screen" id="sc-home" data-des-id="DES-MOB-HOME" data-tab="home">
           <div class="content" style="padding-top:0">
             <div class="vn-hero" data-des-id="DES-MOB-HOME-HELLO">
-              <div style="display:flex;justify-content:space-between;align-items:center">
-                <button class="icon-btn" onclick="go('me')" style="color:#fff"><svg class="ic" viewBox="0 0 24 24"><use href="#i-person"/></svg></button>
-                <button class="icon-btn" onclick="go('ops')" style="color:#fff;position:relative"><svg class="ic" viewBox="0 0 24 24"><use href="#i-bell"/></svg><span class="dot"></span></button>
+              <div class="vn-hero-tools">
+                <button class="hero-ico" type="button" onclick="go('me')" title="Hồ sơ">
+                  <svg class="ic" viewBox="0 0 24 24"><use href="#i-person"/></svg>
+                </button>
+                <button class="hero-ico" type="button" onclick="go('ops')" title="Thông báo">
+                  <svg class="ic" viewBox="0 0 24 24"><use href="#i-bell"/></svg>
+                  <span class="dot"></span>
+                </button>
               </div>
-              <span class="role">Khu QLĐB IV · Có mạng</span>
+              <span class="role">Khu QLĐB IV<span class="net-sep"></span><span data-net-signal></span></span>
               <div class="who">Nguyễn Văn A</div>
               <div class="vn-quick">
                 <button type="button" onclick="go('patrol-home')">Điểm tuần<span class="s">Ghim định vị · lý trình</span></button>
@@ -681,7 +686,7 @@
           </div>
           <div class="content">
             <div class="hero-card" data-des-id="DES-MOB-PAT-ACTIVE">
-              <div class="hero-eyebrow">Ca đang chạy · Có mạng</div>
+              <div class="hero-eyebrow">Ca đang chạy · <span data-net-signal></span></div>
               <div class="hero-title">QL.1 · Km 1556+000</div>
               <div class="hero-meta">PAT-20260810-0014 · Nguyễn Văn A<br/>Điểm tuần 2/3 · Độ phủ 67%</div>
               <div class="progress"><span></span></div>
@@ -836,7 +841,7 @@
             <button type="button" onclick="toast('Sự cố mất sóng')">Sự cố mất sóng</button>
           </div>
           <div class="content">
-            <div class="offline-banner"><svg class="ic" viewBox="0 0 24 24"><use href="#i-wifi-off"/></svg> Mạng yếu — ghi cục bộ, đồng bộ khi có mạng</div>
+            <div class="offline-banner"><svg class="ic" viewBox="0 0 24 24"><use href="#i-wifi-off"/></svg> Tín hiệu yếu — ghi cục bộ, đồng bộ khi tín hiệu tốt</div>
             <div class="rich-card">
               <div class="rc-main">
                 <div class="rc-thumb"></div>
@@ -1177,7 +1182,7 @@
           </div>
           <div class="content">
             <div class="hero-card" style="background:linear-gradient(145deg,#6750A4,#4F378B)">
-              <div class="hero-eyebrow">Người xác nhận · có mạng</div>
+              <div class="hero-eyebrow">Người xác nhận · <span data-net-signal></span></div>
               <div class="hero-title">Ứng viên TS-88 · Cống</div>
               <div class="hero-meta">QL.1 Km 1556+000 · độ tin cậy 91%</div>
             </div>
@@ -1284,6 +1289,18 @@
               <div class="row">
                 <div class="row-icon" style="background:var(--md-primary);border-radius:20px"><svg class="ic" viewBox="0 0 24 24"><use href="#i-person"/></svg></div>
                 <div class="row-body"><div class="row-title">Nguyễn Văn A</div><div class="row-sub">Tuần đường · Văn phòng QLĐB IV.1</div></div>
+              </div>
+            </div>
+            <div class="section-label">Đồng bộ</div>
+            <div class="card-group">
+              <div class="row" onclick="go('patrol-offline')">
+                <div class="row-icon" style="background:#E65100"><svg class="ic" viewBox="0 0 24 24"><use href="#i-sync"/></svg></div>
+                <div class="row-body"><div class="row-title">Hàng đợi mất sóng</div><div class="row-sub">3 chờ đồng bộ</div></div>
+                <span class="badge orange">3</span>
+              </div>
+              <div class="row">
+                <div class="row-icon" style="background:#1B8A4A"><svg class="ic" viewBox="0 0 24 24"><use href="#i-wifi"/></svg></div>
+                <div class="row-body"><div class="row-title">Tín hiệu</div><div class="row-sub"><span data-net-signal="light"></span></div></div>
               </div>
             </div>
             <div class="section-label">Cập nhật thông tin</div>
@@ -1641,8 +1658,10 @@
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="../map-oms.js"></script>
+  <script src="../asset-kcht-icons.js"></script>
   <script src="../asset-kcht-32.js"></script>
   <script src="../feature-guide.js"></script>
+  <script src="../net-signal.js"></script>
   <script>
     const TAB_HOME = { home: 'home', field: 'patrol-home', incident: 'incident-list', work: 'mnt-list', me: 'me' };
     function setAuthMode(isAuth) {
@@ -1695,7 +1714,7 @@
     function saveCheckin() {
       if (ciWrong) { toast('Chặn — không đúng điểm kế hoạch'); return; }
       closeSheet();
-      toast('Đã ghi điểm tuần · có mạng · không đổi vị trí');
+      toast('Đã ghi điểm tuần · không đổi vị trí');
     }
     function pinHereCheckin() {
       toast('Đã ghim vị trí hiện tại · QL.1 · Km 1561+134 · ±4 m');
@@ -1848,6 +1867,7 @@
         b.classList.add('on');
       });
     });
+    if (window.NetSignal) window.NetSignal.mount();
     if (window.FeatureGuide) window.FeatureGuide.mount('android');
   </script>
 </body>

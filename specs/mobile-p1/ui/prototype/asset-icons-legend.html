@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RMMS — Confirm 36 icon tài sản</title>
+  <style>
+    :root { --ink:#122033; --muted:#5a6b7d; --line:#d7e0ea; --paper:#f6f8fb; --blue:#0C84C0; --orange:#C2410C; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: "Segoe UI", "Noto Sans", system-ui, sans-serif; background: var(--paper); color: var(--ink); }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 24px 16px 64px; }
+    h1 { font-size: 22px; margin: 8px 0 6px; }
+    .lead { color: var(--muted); font-size: 14px; line-height: 1.5; margin-bottom: 14px; }
+    .lead a { color: var(--blue); font-weight: 700; }
+    .note { background: #fff8e6; border: 1px solid #f0d48a; color: #6a4b00; border-radius: 10px; padding: 12px 14px; font-size: 13px; margin-bottom: 16px; }
+    .nav { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+    .nav a { font-size: 13px; padding: 6px 10px; border: 1px solid var(--line); border-radius: 8px; background: #fff; text-decoration: none; color: var(--blue); font-weight: 700; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+    .card { background: #fff; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+    .card.wait { outline: 2px solid #FCB43C; }
+    .stage { display: flex; align-items: center; justify-content: center; min-height: 80px; background: repeating-conic-gradient(#e2e8f0 0% 25%, #fff 0% 50%) 50% / 12px 12px; }
+    .meta { padding: 8px 10px; font-size: 12px; border-top: 1px solid var(--line); }
+    .meta code { font-weight: 800; font-size: 11px; }
+    .wait-tag { display: inline-block; margin-top: 4px; font-size: 10px; font-weight: 700; color: var(--orange); }
+    footer { margin-top: 18px; font-size: 12px; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>36 mã tài sản — confirm pictogram</h1>
+    <p class="lead">
+      Copy từ web map (32 mã ngắn) + thiết kế thêm theo QCVN 41 / mô tả catalog.
+      Đã chốt <strong>keep_all</strong> — gửi ảnh sau vẫn có thể chỉnh từng mã.
+      Peer: <a href="./index.html">tổng quan</a> · <a href="./ios/index.html">iPhone</a> · <a href="./android/index.html">Android</a>
+    </p>
+    <nav class="nav">
+      <a href="./index.html">← Tổng quan</a>
+      <a href="./ios/index.html">Lưới Tài sản iPhone</a>
+      <a href="./android/index.html">Lưới Tài sản Android</a>
+    </nav>
+    <div class="note">
+      Không ghi MFE. Demo map: <code>Linm.RMMS.Demo/src/demo/p/js/rmms-map-asset-icons.js</code> (alias catalog 36, giữ 32 mã GIS).
+      Tấm chống chói VN: lá HDPE xanh <em>hoặc</em> lưới mạ kẽm (TCVN 12586) — chờ ảnh tuyến thật.
+      Thùng giảm chấn: HDPE vàng + dải đỏ/trắng (một số tuyến cam đỏ).
+    </div>
+    <div class="grid" id="grid"></div>
+    <footer id="foot"></footer>
+  </div>
+  <script src="./asset-kcht-icons.js"></script>
+  <script>
+    const I = window.Ak32Icons;
+    const el = document.getElementById('grid');
+    el.innerHTML = I.ORDER.map((code) => {
+      const m = I.meta(code);
+      return '<article class="card' + (m.needPhoto ? ' wait' : '') + '">' +
+        '<div class="stage">' + I.svg(code) + '</div>' +
+        '<div class="meta"><code>' + code + '</code><br/>' + m.label +
+        '<br/><span style="color:#5a6b7d">' + m.src + ' · ' + m.pict + '</span>' +
+        (m.needPhoto ? '<span class="wait-tag">Chờ ảnh</span>' : '') +
+        '</div></article>';
+    }).join('');
+    const wait = I.ORDER.filter((c) => I.meta(c).needPhoto);
+    document.getElementById('foot').textContent =
+      I.ORDER.length + ' mã · chờ ảnh: ' + wait.join(', ');
+  </script>
+</body>
+</html>

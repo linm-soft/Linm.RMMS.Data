@@ -93,7 +93,11 @@
     { code: 'BUS_STATION', name: 'Bến xe', group: 'Công trình', specs: [['Tên', 'Bến Phước Dinh'], ['Vị trí', '4']], incidents: [] },
     { code: 'BUS_STOP', name: 'Điểm đỗ xe', group: 'ATGT', specs: [['Nhà chờ', 'Có'], ['Cột', '1']], incidents: [] },
     { code: 'RAIL_CROSS', name: 'Giao đường sắt', group: 'Giao thông', specs: [['Barrier', 'Có'], ['Tín hiệu', 'Có']], incidents: [] },
-    { code: 'LAND_ROW', name: 'Đất HTĐB', group: 'Hành lang', specs: [['Diện tích', '—'], ['Mục đích', 'Hành lang']], incidents: [] }
+    { code: 'LAND_ROW', name: 'Đất HTĐB', group: 'Hành lang', specs: [['Diện tích', '—'], ['Mục đích', 'Hành lang']], incidents: [] },
+    { code: 'EMS_POST', name: 'Trạm cấp cứu', group: 'Công trình', specs: [['Trực 24h', 'Có'], ['ĐT', '—']], incidents: [] },
+    { code: 'TOLL', name: 'Trạm thu phí', group: 'Công trình', specs: [['Làn', '4'], ['Năm', '—']], incidents: [] },
+    { code: 'FERRY', name: 'Bến phà', group: 'Công trình', specs: [['Tên', '—'], ['Giờ', '—']], incidents: [] },
+    { code: 'REST_AREA', name: 'Trạm dừng nghỉ', group: 'Công trình', specs: [['Chỗ đỗ', '—'], ['Dịch vụ', '—']], incidents: [] }
   ];
 
   function byCode(code) {
@@ -114,9 +118,10 @@
     if (!el) return;
     el.innerHTML = TYPES.map((t) => (
       '<button type="button" class="ak32-tile" data-ak32="' + t.code + '">' +
-        '<span class="ak32-dot"></span>' +
+        (g.Ak32Icons ? g.Ak32Icons.html(t.code) : '<span class="ak32-dot"></span>') +
         '<span class="ak32-n">' + t.name + '</span>' +
         (t.gap ? '<span class="ak32-gap">Thiếu mẫu</span>' : '') +
+        (g.Ak32Icons && g.Ak32Icons.meta(t.code).needPhoto ? '<span class="ak32-gap">Chờ ảnh</span>' : '') +
       '</button>'
     )).join('');
   }
