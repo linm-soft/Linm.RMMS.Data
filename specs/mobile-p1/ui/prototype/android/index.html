@@ -82,8 +82,10 @@
       background: rgba(120,120,128,.16); position: relative;
     }
     .top-bar:not(.solid) .icon-btn .dot {
-      position: absolute; top: 4px; right: 5px; width: 8px; height: 8px;
-      background: #D32F2F; border-radius: 50%; border: 1.5px solid var(--md-surface);
+      position: absolute; top: -4px; right: -4px;
+      min-width: 22px; height: 22px; padding: 0 5px; box-sizing: border-box;
+      background: #F03C30; color: #fff; border-radius: 999px; border: 1.5px solid #fff;
+      font-size: 11px; font-weight: 700; line-height: 19px; text-align: center;
     }
     .nav-title {
       flex: 1; min-width: 0; text-align: center; font-size: 18px; font-weight: 600;
@@ -464,10 +466,11 @@
     }
     .login-brand { padding: 0 28px 4px; text-align: center; }
     .login-logo {
-      width: min(260px, 80%); margin: 0 auto 12px;
-      background: transparent; border-radius: 0;
+      width: 96px; height: 96px; margin: 0 auto 12px;
+      background: #000; border-radius: 20px; overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0,0,0,.16);
     }
-    .login-logo img { display: block; width: 100%; height: auto; max-width: 100%; }
+    .login-logo img { display: block; width: 100%; height: 100%; object-fit: cover; }
     .login-brand p { margin-top: 4px; font-size: 15px; color: var(--md-muted); }
     .login-field {
       margin: 0 20px 10px; background: var(--md-container); border-radius: 4px 4px 0 0;
@@ -477,7 +480,8 @@
     .login-field input { flex: 1; border: 0; outline: 0; font-size: 16px; font-family: inherit; background: transparent; padding: 14px 0; }
     .login-field .trail { border: 0; background: transparent; color: var(--md-primary); cursor: pointer; padding: 8px; }
     .login-actions { padding: 16px 20px 0; display: flex; flex-direction: column; gap: 10px; }
-    .login-meta { margin-top: auto; padding: 16px 24px; text-align: center; font-size: 12px; color: var(--md-muted); }
+    .login-meta { margin-top: auto; padding: 16px 24px; text-align: center; font-size: 12px; color: var(--md-muted); line-height: 1.45; }
+    .login-meta a { color: var(--md-primary); text-decoration: none; font-weight: 500; }
     .modal-backdrop {
       position: absolute; inset: 0; background: rgba(0,0,0,.4); z-index: 30200;
       display: none; align-items: center; justify-content: center; padding: 28px;
@@ -593,7 +597,7 @@
             <div class="login-main">
             <div class="login-brand" data-des-id="DES-MOB-LOGIN-BRAND">
               <div class="login-logo">
-                <img src="../assets/rmms.png" alt="RMMS" width="260" height="76" />
+                <img src="../assets/app-logo.png" alt="RMMS" width="96" height="96" />
               </div>
               <p>Quản lý bảo trì đường bộ<br/>Hiện trường · Android</p>
             </div>
@@ -614,7 +618,10 @@
               <button class="btn btn-primary" onclick="loginOk()">Đăng nhập</button>
             </div>
             </div>
-            <div class="login-meta">Tín hiệu <span data-net-signal="light"></span> · đồng bộ hệ thống · bản Gói 1</div>
+            <div class="login-meta">Tín hiệu <span data-net-signal="light"></span> · đồng bộ hệ thống<br/>
+              <a href="#" onclick="toast('Quên mật khẩu → hệ thống xác thực');return false">Quên mật khẩu?</a>
+              · bản Gói 1
+            </div>
           </div>
         </div>
 
@@ -627,7 +634,7 @@
                 </button>
                 <button class="hero-ico" type="button" onclick="go('ops')" title="Thông báo">
                   <svg class="ic" viewBox="0 0 24 24"><use href="#i-bell"/></svg>
-                  <span class="dot"></span>
+                  <span class="dot">3</span>
                 </button>
               </div>
               <span class="role">Khu QLĐB IV<span class="net-sep"></span><span data-net-signal></span></span>
@@ -677,7 +684,7 @@
           <div class="top-bar">
             <button class="icon-btn" title="Đồng bộ" onclick="go('patrol-offline')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-sync"/></svg></button>
             <div class="nav-title"></div>
-            <button class="icon-btn" title="Thông báo" onclick="go('ops')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-bell"/></svg><span class="dot"></span></button>
+            <button class="icon-btn" title="Thông báo" onclick="go('ops')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-bell"/></svg><span class="dot">3</span></button>
           </div>
           <div class="large-title">Tuần đường</div>
           <div class="seg" data-des-id="DES-MOB-PAT-SEG">

@@ -149,8 +149,10 @@
       background: var(--ios-fill); justify-content: center; color: var(--ios-label); font-size: 16px; position: relative;
     }
     .nav-btn.icon .dot {
-      position: absolute; top: 5px; right: 6px; width: 8px; height: 8px;
-      background: var(--ios-red); border-radius: 50%; border: 1.5px solid var(--ios-gray6);
+      position: absolute; top: -4px; right: -4px;
+      min-width: 22px; height: 22px; padding: 0 5px; box-sizing: border-box;
+      background: #F03C30; color: #fff; border-radius: 999px; border: 1.5px solid #fff;
+      font-size: 11px; font-weight: 700; line-height: 19px; text-align: center;
     }
     .nav-title {
       flex: 1; min-width: 0; text-align: center; font-size: 17px; font-weight: 600; letter-spacing: -0.4px;
@@ -695,11 +697,12 @@
       padding: 0 28px 4px; text-align: center;
     }
     .login-logo {
-      width: min(248px, 78%); margin: 0 auto 12px;
-      background: transparent; box-shadow: none; border-radius: 0;
+      width: 96px; height: 96px; margin: 0 auto 12px;
+      background: #000; box-shadow: 0 8px 20px rgba(0,0,0,.14);
+      border-radius: 22px; overflow: hidden;
     }
     .login-logo img {
-      display: block; width: 100%; height: auto; max-width: 100%;
+      display: block; width: 100%; height: 100%; object-fit: cover;
     }
     .login-brand p {
       margin-top: 4px; font-size: 15px; color: var(--ios-secondary); line-height: 1.35;
@@ -838,7 +841,7 @@
             <div class="login-main">
             <div class="login-brand" data-des-id="DES-MOB-LOGIN-BRAND">
               <div class="login-logo">
-                <img src="../assets/rmms.png" alt="RMMS" width="248" height="72" />
+                <img src="../assets/app-logo.png" alt="RMMS" width="96" height="96" />
               </div>
               <p>Quản lý bảo trì đường bộ<br/>Hiện trường · iPhone</p>
             </div>
@@ -877,7 +880,7 @@
                 </button>
                 <button class="hero-ico" type="button" onclick="go('ops')" title="Thông báo">
                   <svg class="ic" viewBox="0 0 24 24"><use href="#i-bell"/></svg>
-                  <span class="dot"></span>
+                  <span class="dot">3</span>
                 </button>
               </div>
               <span class="role">Khu QLĐB IV<span class="net-sep"></span><span data-net-signal></span></span>
@@ -932,7 +935,7 @@
             <div class="nav-title"></div>
             <button class="nav-btn icon" onclick="toast('Thông báo · 2 mới')">
               <svg class="ic" viewBox="0 0 24 24"><use href="#i-bell"/></svg>
-              <span class="dot"></span>
+              <span class="dot">3</span>
             </button>
           </div>
           <div class="large-title">Tuần đường</div>

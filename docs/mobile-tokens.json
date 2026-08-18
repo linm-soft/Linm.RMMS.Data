@@ -1,0 +1,53 @@
+{
+  "name": "linm-mobile-tokens",
+  "source": "kit visual parity · agent-design-mobile 2026-08-18",
+  "version": "0.3.3",
+  "color": {
+    "primary": "#0C84C0",
+    "headerStart": "#086A9A",
+    "headerEnd": "#0C84C0",
+    "success": "#3CB448",
+    "warning": "#FCB43C",
+    "danger": "#F03C30",
+    "surface": "#F2F2F7",
+    "card": "#FFFFFF",
+    "onPrimary": "#FFFFFF",
+    "onSurface": "#1C1C1E",
+    "border": "#C7C7CC"
+  },
+  "radius": {
+    "card": 16,
+    "control": 12,
+    "badge": 6,
+    "sheet": 24
+  },
+  "size": {
+    "controlHeight": 44,
+    "buttonHeight": 44,
+    "fab": 56,
+    "topBarHeight": 56,
+    "iconTap": 44,
+    "iconGlyph": 22,
+    "iconHubBox": 36,
+    "iconHomeTile": 48,
+    "iconCircle": 36,
+    "iconHeroGlyph": 18,
+    "statusCapsuleHeight": 28,
+    "notifyBadge": 22,
+    "notifyBadgeFont": 11,
+    "notifyBadgeRing": 1.5,
+    "signalWifi": 14,
+    "sheetCompactFraction": 0.4,
+    "sheetMediumFraction": 0.55,
+    "sheetLargeFraction": 0.9,
+    "sheetHandleWidth": 36,
+    "sheetHandleHeight": 4,
+    "progressHeight": 6,
+    "largeTitle": 34,
+    "quickRadius": 14,
+    "kindPillRadius": 10
+  },
+  "extraColor": {
+    "quickStart": "#FFF8E8"
+  }
+}

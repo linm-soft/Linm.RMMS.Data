@@ -10,8 +10,10 @@
 }
 .hero-ico .ic { width: 18px; height: 18px; font-size: 18px; }
 .hero-ico .dot {
-  position: absolute; top: 3px; right: 3px; width: 8px; height: 8px;
-  background: #F03C30; border-radius: 50%; border: 1.5px solid #0C84C0;
+  position: absolute; top: -4px; right: -4px;
+  min-width: 22px; height: 22px; padding: 0 5px; box-sizing: border-box;
+  background: #F03C30; color: #fff; border-radius: 999px; border: 1.5px solid #fff;
+  font-size: 11px; font-weight: 700; line-height: 19px; text-align: center;
 }
 .vn-hero .role {
   display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700;

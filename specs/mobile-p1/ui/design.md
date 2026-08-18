@@ -15,7 +15,7 @@
 | iaVersion | **v3.3 — Thông tin tài sản · form sự cố sau chọn TS** |
 | layoutRef | `docs/mobile-legacy/layout/*.jpg` — khung VNeID · brand RMMS xanh |
 | catalog32 | `docs/context/features/asset-kcht-32.md` |
-| updatedAt | 2026-08-18T01:25:00.000Z |
+| updatedAt | 2026-08-18T16:05:00.000Z |
 
 ## 0. Context
 
@@ -130,7 +130,7 @@ Nhận diện **không** tab — mặt đường ⊂ Vấn đề · TS ⊂ Tài 
 | Review doc | `DES-MOB-DOC-GUIDE` | Trái quyền · phải ngành | Same |
 | Device | `DES-MOBILE-DEVICE` | Bezel 390×844 | Bezel 412×915 |
 | Login | `DES-MOB-LOGIN` | Brand + form | Same fields · Material field |
-| Login brand | `DES-MOB-LOGIN-BRAND` | Logo `rmms.png` ngang | Same wordmark |
+| Login brand | `DES-MOB-LOGIN-BRAND` | App logo `app-logo.png` (AppIcon 1024) | Same square mark |
 | Login form | `DES-MOB-LOGIN-FORM` | Grouped | OutlinedTextField |
 | Tab bar | `DES-MOB-TABBAR` | 5: Trang Chủ · Check-in · Vấn đề · Công việc · Tôi | Same |
 | Trang Chủ | `DES-MOB-HOME` | Greeting + 6 ô | Same |
@@ -192,6 +192,7 @@ Nhận diện **không** tab — mặt đường ⊂ Vấn đề · TS ⊂ Tài 
 | Grouped / surface | `#F2F2F7` | `#F7F2FA` surface |
 | Card | `#FFF` r12 | surfaceContainer r16 |
 | Font | `-apple-system` | Roboto / system |
+| Notify count (`DES-MOB-NOTIFY`) | Badge **22** · chữ **11** · ring **1.5** · `#F03C30` · trong tap 44 · `0` ẩn | Same |
 
 ## 4. Flows
 
@@ -274,7 +275,7 @@ SLA **mobile** = giờ + hạn trên form phân công (P1) — escalation workfl
 | iOS | `ui/prototype/ios/index.html` |
 | Android | `ui/prototype/android/index.html` |
 | OMS helper | `ui/prototype/map-oms.js` |
-| Logo SSOT | `{ProductRoot}/logo/rmms.png` → copy `ui/prototype/assets/rmms.png` |
+| Logo SSOT | `{ProductRoot}/logo/mobile` AppIcon 1024 → `ui/prototype/assets/app-logo.png` (login) |
 | **reviewUrl tổng quan** | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/mobile-p1/ui/prototype/index.html` |
 | **reviewUrl iOS** | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/mobile-p1/ui/prototype/ios/index.html` |
 | **reviewUrl Android** | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/mobile-p1/ui/prototype/android/index.html` |
@@ -305,6 +306,6 @@ Mở **Trang Chủ** trước — 6 ô app cũ. Ô **Tài sản** → hub (thủ
 |-------|-------|
 | skillId | agent-design |
 | agentVersion | 2026.08.17.02 |
-| generatedAt | 2026-08-18T01:25:00.000Z |
+| generatedAt | 2026-08-18T16:05:00.000Z |
 | schemaVersion | 1 |
 | iaVersion | 3.3 |
