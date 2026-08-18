@@ -48,8 +48,8 @@ Map **ý nghĩa**. Cấm clone `px` / `class`. Cấm 1 binary UI 2 OS.
 | HTML | Ý nghĩa | SwiftUI | Compose |
 |------|---------|---------|---------|
 | `button` primary | Action chính | `LinmPrimaryButton` | `LinmPrimaryButton` |
-| `input type=text` | Text | `LinmTextField` | `LinmTextField` |
-| `input type=password` + `.trail` eye (`#i-eye` / `#i-eye-off`) | SecureText · hiện/ẩn MK | `LinmSecureTextField` · `LinmEyeGlyph` / `LinmEyeOffGlyph` | `LinmSecureTextField` · same |
+| `input type=text` | Text · cùng `formFieldHeight` 52 · lead khi demo có | `LinmTextField` (+ `leading`) | same |
+| `input type=password` + `.trail` eye (`#i-eye` / `#i-eye-off`) | SecureText · hiện/ẩn MK · **giữ IME** | `LinmSecureTextField` (`UITextField` + `isSecureTextEntry`) · `LinmEyeGlyph` / `LinmEyeOffGlyph` | `LinmSecureTextField` · VisualTransformation · eye `canFocus=false` |
 | `input type=search` / `.search` / `#i-search` | Tìm · vòng + cán · **cấm** `⌕` / SF-M3 lệch nét | `LinmSearchField` · `LinmSearchGlyph` | same |
 | `input type=checkbox` | On/off | `LinmToggle` | `LinmToggle` |
 
@@ -61,6 +61,7 @@ Map **ý nghĩa**. Cấm clone `px` / `class`. Cấm 1 binary UI 2 OS.
 | card radius | `16` cả 2 OS | `LinmTokens.cardRadius` |
 | sheet radius / detent | `24` · `0.40` / `0.55` / `0.90` | `sheetRadius` · `sheetCompactFraction` · `sheetMediumFraction` · `sheetLargeFraction` |
 | control / button | `44` | `controlHeight` / `buttonHeight` |
+| form field row | `52` | `formFieldHeight` |
 | hero circle / capsule / badge / wifi | `36` / `28` / `22` / `11` / `1.5` / `14` | `iconCircle` / `statusCapsuleHeight` / `notifyBadge` / `notifyBadgeFont` / `notifyBadgeRing` / `signalWifi` |
 | home tile / progress / large title / quick | `48` / `6` / `34` / `14` / `#FFF8E8` | `iconHomeTile` / `progressHeight` / `largeTitle` / `quickRadius` / `quickStart` |
 | header | `#086A9A` → `#0C84C0` | `headerStart` / `headerEnd` |

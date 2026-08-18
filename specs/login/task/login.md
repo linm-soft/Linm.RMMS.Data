@@ -73,11 +73,11 @@ IA lock (ux-analy §1): `(auth) Login → toast → Home`. **Cấm** swipe-back 
 | id | layer | deps | status | skills | DoD |
 |----|-------|------|--------|--------|-----|
 | T-KIT-SECURE | kit | — | **done** | `/install-mobile-kit-local` (Design) | `LinmSecureTextField` iOS SPM + Android AAR · map row password · gallery Form — **không** giao lại Dev kit |
-| **T-IOS-LOGIN** | ios | T-KIT-SECURE · SA | **pending** | `/agent-dev-ios` · `/ios-new-screen` · `/dev-ios-swiftui` · `/mobile-ui-ux-analy` packet · `/mobile-app-architecture` (MVVM layer) | Full-page `#sc-login` parity · API-01+03 · token dual · toast · IA · `xcodegen` + `xcodebuild` dest **iPhone 17 Pro** PASS · ghi `implement/ios.md` |
-| **T-AND-LOGIN** | android | T-KIT-SECURE · SA | **pending** | `/agent-dev-android` · `/android-new-screen` · `/dev-android-compose` · `/android-new-api-call` · cùng ux packet | Same field/API/DoD dual · `./gradlew :app:assembleDebug` PASS · ghi `implement/android.md` |
+| **T-IOS-LOGIN** | ios | T-KIT-SECURE · SA | **done** | `/agent-dev-ios` · `/ios-new-screen` · `/dev-ios-swiftui` · `/mobile-ui-ux-analy` packet · `/mobile-app-architecture` (MVVM layer) | Full-page `#sc-login` parity · API-01+03 · token dual · toast · IA · `xcodegen` + `xcodebuild` dest **iPhone 17 Pro Max** + **iPad Pro 13-inch (M5)** PASS · ghi `implement/ios.md` |
+| **T-AND-LOGIN** | android | T-KIT-SECURE · SA | **done** | `/agent-dev-android` · `/android-new-screen` · `/dev-android-compose` · `/android-new-api-call` · cùng ux packet | Same field/API/DoD dual · `./gradlew :app:assembleDebug` PASS · ghi `implement/android.md` |
 | **T-BE-API** | be | — | **n/a** | — | **không** `/new-endpoint` — Auth + session-window **live** |
 | **T-BE-MIG** | be | — | **n/a** | — | **không** `/database-migration` — Schema_ContractAccountLifecycle **DONE** |
-| **T-BE-MW** | bff | T-IOS/AND optional | **optional** | copy Web middleware · **cấm** invent path | Attach `ContractWindowDefenseMiddleware` vào Mobile.Bff (`UseAuthentication` → MW → `MapControllers`) · same skip `/auth/` + `session-window` · same `CONTRACT_WINDOW_CLOSED` · `dotnet build` PASS · **không** block P1 login |
+| **T-BE-MW** | bff | T-IOS/AND optional | **done** | copy Web middleware · **cấm** invent path | Attach `ContractWindowDefenseMiddleware` vào Mobile.Bff (`UseAuthentication` → MW → `MapControllers`) · same skip `/auth/` + `session-window` · same `CONTRACT_WINDOW_CLOSED` · `dotnet build` PASS |
 | T-QA-LOGIN | qa | T-IOS · T-AND | pending | `/agent-qa-mobile` | AC slug `login` only · live capture sim/adb · **cấm** sibling forgot/logout in-scope |
 
 **1 action = 1 feature.** **Cấm** gộp `login-forgot` / `login-logout` vào task file này như in-scope implement.
@@ -96,13 +96,13 @@ IA lock (ux-analy §1): `(auth) Login → toast → Home`. **Cấm** swipe-back 
 
 | Field | Kit | Notes |
 |-------|-----|-------|
-| brand | AppIcon / asset | **cấm** `rmms.png` |
-| tagline | Text | «Quản lý bảo trì đường bộ» · «Hiện trường · iPhone» |
-| userName | `LinmTextField` | autocomplete username · **cấm** mã đơn vị |
+| brand | AppIcon / asset | **alpha** trên surface · **cấm** tile `#000`/`#fff` · **cấm** `rmms.png` |
+| tagline | Text | `/agent-design` 22/700/uppercase · logo **192 tĩnh** · **cấm** band 1/3 · **cấm** «Hiện trường · iPhone» |
+| userName | `LinmTextField` + `LinmPersonGlyph` | cùng `formFieldHeight` 52 · autocomplete username · **cấm** mã đơn vị |
 | password | **`LinmSecureTextField`** | eye chrome · **cấm** raw `SecureField` |
 | submit | `LinmPrimaryButton` | **Đăng nhập** |
 | forgot | Text/Button link | toast **Quên mật khẩu → hệ thống xác thực** · **không** BFF |
-| signal | `LinmNetSignalMark` | Tốt / Trung bình / Yếu |
+| signal | `LinmNetSignalMark` | Display Tốt / TB / Yếu · bind NWPath · **cấm** tap cycle |
 | toast | `LinmToast` | success / lỗi / offline / forceLogout |
 | buildMeta | — | demo «bản Gói 1» = chrome prototype — **cấm** watermark process lên UI production nếu demo-to-real cấm (`GAP-DEV-MOB-PLACEHOLDER-01`) · Dev theo `demo-to-real-mobile.md` |
 
@@ -145,7 +145,7 @@ Fail → `build_fail_confirm` · **cấm** mark Dev done.
 
 ### UI / API
 
-Cùng bảng field + API-01/02/03 như T-IOS. Kit: `LinmTextField` · **`LinmSecureTextField`** · `LinmPrimaryButton` · `LinmToast` · `LinmNetSignalMark` / signal button. Tagline dòng 2: «Hiện trường · Android».
+Cùng bảng field + API-01/02/03 như T-IOS. Kit: `LinmTextField` + lead · **`LinmSecureTextField`** · `LinmPrimaryButton` · `LinmToast` · `LinmNetSignalMark` display (bind NetworkCapabilities · **cấm** signal button / tap cycle). Tagline: «Quản lý bảo trì đường bộ» only · **cấm** «Hiện trường · Android».
 
 `TokenStore`: thêm encrypted key refresh · clear cả access+refresh. `ApiService`: Retrofit POST login · POST refresh-token · GET session-window — **cấm** OkHttp trong Composable. Nav: chưa token → Login · sau allowed → Home.
 

@@ -63,10 +63,10 @@
 
 | Field | VN | controlHint | Required | Kit dual | Notes |
 |-------|----|-------------|----------|----------|-------|
-| brand | Logo | Image | * | AppIcon / mipmap | `DES-MOB-LOGIN-BRAND` |
-| tagline | Quản lý bảo trì đường bộ | Static | | Text | Dòng 2: `Hiện trường · iPhone` / `Hiện trường · Android` |
-| userName | Tài khoản | Text | * | `LinmTextField` | username hoặc SĐT · **cấm** mã đơn vị |
-| password | Mật khẩu | SecureText | * | **`LinmSecureTextField`** | eye chrome · **cấm** raw SecureField |
+| brand | Logo | Image | * | AppIcon / mipmap | **Tĩnh** top · logo **192** · **alpha** trên surface · **cấm** tile `#000`/`#fff` · **cấm** clip+shadow card · gap title **24** · **cấm** band 1/3 · **cấm** animation / compact IME · **cấm** ×3 |
+| tagline | QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ | Static | | Text | `/agent-design` DES-GRID-A: **22px · 700 · uppercase · onSurface** · title only · **cấm** «Hiện trường · iPhone» / «· Android» |
+| userName | Tài khoản | Text | * | `LinmTextField` + lead | username hoặc SĐT · **cùng** `formFieldHeight` 52 · **cấm** mã đơn vị |
+| password | Mật khẩu | SecureText | * | **`LinmSecureTextField`** | eye + lead lock · cùng chrome user · **cấm** raw SecureField |
 | submit | Đăng nhập | Button primary | * | `LinmPrimaryButton` | 1 action = `login` |
 | forgot | Quên mật khẩu? | Text link | | chrome Text | child `login-forgot` · toast only P1 |
 | signal | Tín hiệu | SignalQuality | | `LinmNetSignalMark` | Tốt / TB / Yếu |
@@ -107,8 +107,9 @@ Toast success/error → `LinmToast`. **Cấm** `UIAlert` / `AlertDialog` / `wind
 | Sai MK / Inactive / HĐ | `LinmToast` in-app |
 | Offline | **không** submit · toast/banner |
 | Forgot tap | toast **Quên mật khẩu → hệ thống xác thực** · **không** BFF |
-| Eye | toggle reveal · chrome · không slug |
-| Signal tap | cycle Tốt ↔ Trung bình ↔ Yếu |
+| Eye | toggle `isSecureTextEntry` / VisualTransformation · **giữ IME** · **cấm** swap SecureField↔TextField · không slug |
+| Signal | Display `LinmNetSignalMark` · bind OS path · **cấm** tap cycle |
+| Brand motion | **Tĩnh** top stack · logo **192** · **alpha** trên surface · **cấm** tile đen/trắng · **cấm** band 1/3 · **cấm** animation / compact IME · mắt giữ IME |
 
 ## 7. reviewUrl (dual — REQUIRED)
 

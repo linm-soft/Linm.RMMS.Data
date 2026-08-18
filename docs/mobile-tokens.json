@@ -23,6 +23,7 @@
   },
   "size": {
     "controlHeight": 44,
+    "formFieldHeight": 52,
     "buttonHeight": 44,
     "fab": 56,
     "topBarHeight": 56,

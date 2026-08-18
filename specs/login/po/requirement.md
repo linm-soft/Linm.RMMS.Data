@@ -30,7 +30,7 @@ Native chưa có màn Login (không file `*Login*` trên iOS/Android). Không b�
 
 ## 3. DoD (đo được)
 
-1. iOS **và** Android cùng field `#sc-login`: logo AppIcon · tagline · Tài khoản · Mật khẩu + eye chrome · CTA **Đăng nhập** · meta tín hiệu + link quên MK + «bản Gói 1».
+1. iOS **và** Android cùng field `#sc-login`: logo AppIcon · tagline title only · Tài khoản + lead · Mật khẩu + eye · CTA **Đăng nhập** · meta tín hiệu display + link quên MK · **cấm** «bản Gói 1» trên UI production.
 2. Submit online → `POST mobile-bff/api/v1/auth/login` · body username (hoặc SĐT) + password · **cấm** ô mã đơn vị · **cấm** app biết `:5001` / `:5101`.
 3. Thành công → `LinmToast` copy demo **Đăng nhập thành công** → Home (`go('home')` / tab IA lock) trong ~350 ms như proto.
 4. Sai MK / Inactive / hết hạn HĐ → toast in-app — **cấm** `UIAlert` / `AlertDialog` / `window.alert`.
@@ -75,14 +75,14 @@ Nguồn `#sc-login` dual + DA-01. UNCLEAR field = **none**.
 
 | Field | VN | controlHint | Required | Kit (iOS+Android cùng turn) | Notes |
 |-------|----|-------------|----------|------------------------------|-------|
-| brand | Logo app | Image (AppIcon) | * | logo pack — không kit form | `DES-MOB-LOGIN-BRAND` · **cấm** `rmms.png` |
-| tagline | Quản lý bảo trì đường bộ | Static text | | — | Dòng 2 chrome OS: `Hiện trường · iPhone` / `Hiện trường · Android` |
-| userName | Tài khoản | Text | * | `LinmTextField` | Username **hoặc** SĐT · iOS `autocomplete=username` · **cấm** ô mã đơn vị |
-| password | Mật khẩu | SecureText | * | **thiếu map** eye → Design `kit_missing_confirm` | Toggle hiện/ẩn = chrome · iOS `autocomplete=current-password` · **cấm** Dev `SecureField` / `OutlinedTextField` raw |
+| brand | Logo app | Image (AppIcon) | * | logo pack — không kit form | `DES-MOB-LOGIN-BRAND` · **alpha** trên surface · **cấm** tile `#000`/`#fff` · **cấm** `rmms.png` |
+| tagline | QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ | Static text | | — | `/agent-design` 22/700/uppercase · logo **192 tĩnh** · **cấm** band 1/3 · **cấm** «Hiện trường · iPhone» / «· Android» |
+| userName | Tài khoản | Text | * | `LinmTextField` + lead person | Username **hoặc** SĐT · cùng `formFieldHeight` 52 · iOS `autocomplete=username` · **cấm** ô mã đơn vị |
+| password | Mật khẩu | SecureText | * | **`LinmSecureTextField`** | Eye + lead lock · cùng chrome user · **cấm** Dev `SecureField` / `OutlinedTextField` raw |
 | submit | Đăng nhập | Button primary | * | `LinmPrimaryButton` | **1 action = `login`** · `loginOk()` |
 | forgot | Quên mật khẩu? | Text link | | chrome / text | Child **`login-forgot`** · tap toast only P1 |
-| signal | Tín hiệu | SignalQuality | | `LinmNetSignalMark` / `LinmSignalIcon` | Hạng Tốt / Trung bình / Yếu · chrome · không slug |
-| buildMeta | bản Gói 1 | Static text | | — | Chrome `.login-meta` |
+| signal | Tín hiệu | SignalQuality | | `LinmNetSignalMark` | Display Tốt / TB / Yếu · bind OS path · **cấm** tap cycle |
+| buildMeta | bản Gói 1 | **Ẩn production** | | — | Chrome prototype — **cấm** ship |
 | companyCode | Mã đơn vị | **Ẩn Gói 1** | | — | Đơn vị theo JWT `company_id` |
 | biometric | Khuôn mặt / vân tay | **Ẩn Gói 1** | | — | Demo không nút · **cấm** invent |
 
@@ -125,7 +125,7 @@ UNCLEAR field = **none** — không AskQuestion field.
 
 **Không** trên pack này: tab 5 · Home 6 ô · `#sc-me` Đăng xuất / Góp ý / Camera / Thông báo / Cài đặt / Hàng đợi · child form/sheet trên login.
 
-Forgot link + eye + tín hiệu + «bản Gói 1» = chrome / child backlog — Design vẽ parity demo; Dev **không** ship BFF forgot.
+Forgot link + eye + tín hiệu display = chrome / child backlog — Design skip proto OS label; Dev **không** ship BFF forgot · **cấm** «bản Gói 1».
 
 Frame: iOS 390×844 · Android 412×915 · safe area · keyboard không đè input.
 

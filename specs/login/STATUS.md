@@ -3,7 +3,7 @@
 | Field | Value |
 |-------|-------|
 | feature | `login` |
-| phase | `dev` |
+| phase | `qa` |
 | status | `in_progress` |
 | changeScope | `new_page` |
 | packKind | `shell` (**PO confirm**) |
@@ -26,16 +26,16 @@
 | reviewUrlIos | `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/login/ui/prototype/ios/index.html#sc-login` |
 | reviewUrlAndroid | `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/login/ui/prototype/android/index.html#sc-login` |
 | backup | `specs/login/_backup/20260818T173515Z` · PO `20260818T181819Z` · Design `20260818T182200Z` · SA `20260818T183223Z` |
-| taskId | `task_5618e40d` |
-| skillVersion | `2026.08.19.03` (agent-tl-mobile) |
+| taskId | `task_1e440396` |
+| skillVersion | `2026.08.19.10` (agent-dev-ios + agent-dev-android) |
 | schemaVersion | `1` |
-| workflowVersion | `2026.08.19.07` |
-| rulesVersion | `2026.08.19.08` |
+| workflowVersion | `2026.08.19.10` |
+| rulesVersion | `2026.08.19.11` |
 | versionGate | `rechecked` |
 | contentHash | `sha256:2b627cdf80eca92c1f91cc999b6b516ca09d534ad0ffff887800699c4a02c3ef` |
 | bffContentHash | `sha256:de9bc7143374ca6a38aad393b3ce928ad00462ade2254adf9bcdfd97ac7eb017` |
-| verifyGate | iOS `xcodegen` **PASS** · Android `assembleDebug` **PASS** · BFF `dotnet build` **PASS** |
-| updatedAt | `2026-08-18T18:41:39.114Z` |
+| verifyGate | iOS `xcodegen` + `xcodebuild` **iPhone 17 Pro Max** **PASS** · **iPad Pro 13-inch (M5)** **PASS** (M4 không có trên lab) · Android `assembleDebug` **PASS** · BFF `dotnet build` **PASS** |
+| updatedAt | `2026-08-18T19:48:06.946Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -51,8 +51,8 @@
 | 2.1 | design | ui/design.md · ui/ux-analy.md · prototype/ios+android | **confirmed** |
 | 2.2 | sa | be/solution-discovery.md | **confirmed** |
 | 3 | team-lead | task/login.md | **confirmed** |
-| 4 | dev | implement/ios.md · implement/android.md | **in_progress** |
-| 5 | qa | qa/scenarios.md · qa/store/login/CAPTURE.md | pending |
+| 4 | dev | implement/ios.md · implement/android.md · implement/bff.md · ui/review/login.md | **confirmed** |
+| 5 | qa | qa/scenarios.md · qa/store/login/CAPTURE.md | **in_progress** |
 | 6 | review | review/findings.md | pending |
 ## Confirms
 
@@ -84,6 +84,7 @@
 | task_71bfea96 | login | sa | design | **superseded** | queue chain stub · SA chạy `task_3be7da84` |
 | task_3be7da84 | login | sa | design | **completed** | roleOnly · `/agent-sa-mobile` · autoApprove=ON · solution_confirm approve · VERIFY GATE PASS · **không** chain TL |
 | task_5618e40d | login | team_lead | sa | **completed** | roleOnly · `/agent-tl-mobile` · autoApprove=ON · route_confirm route_a · T-IOS-LOGIN · T-AND-LOGIN · T-BE-MW optional · VERIFY GATE PASS · **không** chain Dev |
+| task_1e440396 | login | dev | team_lead | **completed** | roleOnly · `/agent-dev-ios` + `/agent-dev-android` · T-IOS-LOGIN · T-AND-LOGIN · T-BE-MW · VERIFY GATE PASS · **không** chain QA |
 
 ## Blockers / open questions
 
@@ -95,26 +96,23 @@
 - **GAP-SA-LOGIN-ID** — UI `userName` → body Auth **`id`** (`LoginRequestDto`)
 - Native: user mở Xcode + Android Studio và test thủ công · **cấm** cite `mfeStdUrl` / localhost MFE · BFF `mobile-bff/api/v1`
 
-## Handoff → Dev
+## Handoff → QA
 
 | Field | Value |
 |-------|-------|
 | feature / packKind | `login` / **`shell`** (confirmed) |
-| phase_from / phase_to | team-lead **done** → dev **pending** |
+| phase_from / phase_to | dev **done** → qa **pending** |
 | STATUS | `specs/login/STATUS.md` |
-| task pack | `specs/login/task/login.md` |
-| Context / Demo / DI | CTX + SPEC §7.1 · dual `#sc-login` · `ui/design.md` · `ui/ux-analy.md` · `be/solution-discovery.md` |
+| implement | `implement/ios.md` · `implement/android.md` · `implement/bff.md` |
+| ui-review | `ui/review/login.md` · iOS live `ui/review/review-login-ios-390.png` |
 | route_confirm | **route_a** — Login auth root → Home |
-| Screens / Pattern / devSlash | Full page `#sc-login` · `/agent-dev-ios` + `/agent-dev-android` |
-| Kit | `LinmSecureTextField` shipped dual · **cấm** raw |
-| Dev tasks | **T-IOS-LOGIN** · **T-AND-LOGIN** · T-BE-API/MIG **n/a** · **T-BE-MW** optional |
-| BFF | `auth/login` · `auth/refresh-token` · `contract-accounts/session-window` · prefix `mobile-bff/api/v1` |
-| BE | **không** endpoint mới · **không** `Schema_*` · MW optional không block P1 |
-| Open questions | forgot/logout backlog · T-BE-MW không block P1 |
-| Next AskQuestion | — (Dev build_fail_confirm nếu fail) |
-| Next slash | `/agent-dev-ios` rồi `/agent-dev-android` |
-| Chain this turn | **không** (roleOnly=team_lead) |
-| e2eQa | ON khi QA · Simulator / emulator · **cấm** yarn start:std |
+| Kit | `LinmSecureTextField` dual — **cấm** raw |
+| BFF | `auth/login` · `auth/refresh-token` · `contract-accounts/session-window` · MW `CONTRACT_WINDOW_CLOSED` attached |
+| BE | **không** endpoint mới · **không** `Schema_*` · T-BE-MW **done** |
+| Open questions | forgot/logout backlog · Android live screencap khi emu `device` |
+| Next slash | `/agent-qa-mobile` |
+| Chain this turn | **không** (roleOnly=dev) |
+| e2eQa | ON · user Xcode Simulator + Android Studio emulator · **cấm** yarn start:std |
 
 ## Links
 
@@ -123,6 +121,8 @@
 - ux-analy → `specs/login/ui/ux-analy.md`
 - solution → `specs/login/be/solution-discovery.md`
 - task → `specs/login/task/login.md`
+- implement → `specs/login/implement/ios.md` · `implement/android.md` · `implement/bff.md`
+- ui-review → `specs/login/ui/review/login.md`
 - BFF: `mobile-bff/api/v1/auth/login` · `auth/refresh-token` · `contract-accounts/session-window`
 - requirement → `specs/login/po/requirement.md`
 
@@ -138,3 +138,8 @@
 ## Closeout TL
 
 - closeout TL: `task_5618e40d` · roleOnly=`team_lead` · `/agent-tl-mobile` · `route_confirm=route_a` · tasks `T-IOS-LOGIN` · `T-AND-LOGIN` · `T-BE-MW` optional · T-BE-API/MIG **n/a** · enqueue **dev** pending · autoApprove **ON** · VERIFY GATE PASS · **không** chain Dev · at: `2026-08-18T18:39:00.000Z`
+
+## Closeout Dev
+
+- closeout Dev: `task_1e440396` · roleOnly=`dev` · `/agent-dev-ios` + `/agent-dev-android` · T-IOS-LOGIN · T-AND-LOGIN · T-BE-MW · T-BE-API/MIG **n/a** · VERIFY GATE PASS · enqueue **qa** pending · autoApprove **ON** · **không** chain QA · at: `2026-08-18T19:05:00.000Z`
+
