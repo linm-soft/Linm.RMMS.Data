@@ -26,7 +26,7 @@ Home 6 ô = kind `hub` → ngoài scan `shell`.
 | feature | parent | action | demoRel | kind | prior | notes |
 |---------|--------|--------|---------|------|-------|-------|
 | `login` | — | Đăng nhập | `ios`/`android` `#sc-login` · `DES-MOB-LOGIN` | shell | **new** · **PILOT** | Brand = app logo `assets/app-logo.png` ← `logo/mobile` AppIcon 1024 · **cấm** `rmms.png` |
-| `login-forgot` | `login` | Quên mật khẩu? | `#sc-login` `.login-meta a` | shell | new | Platform Auth · **cấm** clone RMMS local · BFF path chưa có trong CTX → analy |
+| `login-forgot` | `login` | Quên mật khẩu? | `#sc-login` `.login-meta a` | shell | **pending_confirm** | Hyperlink · route/màn mới · **không** submit · sibling_assign |
 | `login-logout` | `login` | Đăng xuất | `#sc-me` row Đăng xuất | shell | new | `POST …/auth/logout` |
 | `shell-tabs` | — | Tab 5 | `DES-MOB-TABBAR` | shell | skip | Nav chrome · child = home / patrol / incident / maintenance / me |
 

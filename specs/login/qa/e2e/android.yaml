@@ -1,0 +1,20 @@
+appId: org.linmsoft.rmms
+---
+# Login e2e — Auth docker seed (SeedDefaults) · fill #f-user / #f-pass
+- launchApp
+- takeScreenshot: A11-LAUNCH
+- tapOn:
+    id: "f-user"
+- inputText: "linm-soft"
+- tapOn:
+    id: "f-pass"
+- inputText: "Linm@2026"
+- tapOn:
+    id: "btn-login"
+- takeScreenshot: A9-LOGIN
+- takeScreenshot: A3-CORE
+- takeScreenshot: P6-CORE
+- tapOn:
+    text: "Kit"
+    optional: true
+- takeScreenshot: P6-CORE-2

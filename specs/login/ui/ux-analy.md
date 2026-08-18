@@ -8,12 +8,16 @@
 ```
 (auth) Login shell (#sc-login)
   → toast «Đăng nhập thành công»
-  → Home (tab IA · ngoài pack login)
+  → Home demo (kit gallery · DES-MOB-HOME-DEMO)
+  → chrome **Đăng xuất** (`#btn-logout`)
+  → toast «Đã đăng xuất» · clear session
+  → Login `#sc-login`
 ```
 
 - Login **không** nằm trong TabView / NavigationBar 5.
 - **Cấm** invent tab · **cấm** swipe-back ra Home khi chưa phiên.
-- Child backlog (không vẽ form): `login-forgot` (link) · `login-logout` (`#sc-me`).
+- Child backlog (không vẽ form `#sc-me`): `login-forgot` (link) · `login-logout` BFF.  
+- Demo Home **Đăng xuất** = chrome test login · local clear · **không** POST `auth/logout`.
 
 ## 2. Màn
 
@@ -22,6 +26,7 @@
 | DES-MOB-LOGIN `#sc-login` | Đăng nhập | Full page · no nav · no tab | Full page · no TopAppBar · no nav bar | **Đăng nhập** |
 | DES-MOB-LOGIN-BRAND | Brand | Logo 192 tĩnh top · **cấm** band 1/3 | Same | — |
 | DES-MOB-LOGIN-FORM | Form | Dưới title · field 52 | Same | — |
+| DES-MOB-HOME-DEMO | Home demo | Kit gallery + `LinmSecondaryButton` đáy | Same | **Đăng xuất** |
 
 ## 3. Zone
 
@@ -34,7 +39,16 @@
 | Body pass | placeholder **Mật khẩu** · lead lock · eye trail | B `input type=password` + `.trail` eye | **`LinmSecureTextField`** | **`LinmSecureTextField`** |
 | CTA | **Đăng nhập** full width | A `.btn-ok` / B `button` primary | `LinmPrimaryButton` | `LinmPrimaryButton` |
 | Meta | «Tín hiệu» + hạng · link **Quên mật khẩu?** | A `data-net-signal` · B `a` | `LinmNetSignalMark` display + OS path · **cấm** tap cycle · **cấm** «bản Gói 1» | same |
-| Toast | success / lỗi / forgot | A toast / banner | `LinmToast` | `LinmToast` |
+| Toast | success / lỗi / forgot / đã đăng xuất | A toast / banner | `LinmToast` | `LinmToast` |
+
+### DES-MOB-HOME-DEMO (Placeholder Home · kit gallery)
+
+| Zone | Demo (user thấy) | Map row | SwiftUI | Compose |
+|------|------------------|---------|---------|---------|
+| Gallery | catalog kit local | A kit gallery | `LinmKitGallery` | `LinmKitGallery` |
+| Logout | **Đăng xuất** đáy · e2e `btn-logout` | A `.btn-skip` | `LinmSecondaryButton` · `LogoutUseCase` | same |
+
+**States:** tap → toast **Đã đăng xuất** · clear access+refresh · `isLoggedIn=false` → `#sc-login`. **Cấm** `#sc-me` · **cấm** `AlertDialog`.
 
 **States:**
 
@@ -42,7 +56,7 @@
 |-------|---------|
 | default | form sẵn · demo prefill |
 | empty | field trống · CTA vẫn bấm (validate Dev) |
-| loading | disable CTA · Progress in-kit / overlay — **cấm** block system alert |
+| loading | `LinmBusyOverlay` full page · blur nền `busyBlur` 12 · spinner giữa · CTA giữ title — **cấm** spinner trong nút + overlay cùng lúc · **cấm** block system alert |
 | error | `LinmToast` sai MK / Inactive / HĐ |
 | offline | **không** submit · toast/banner · **cấm** queue login |
 | permission | N/A (không GPS/camera) |
@@ -58,6 +72,7 @@ Nhãn lấy từ HTML — không invent.
 | Tài khoản · Mật khẩu · Đăng nhập | Username / Password EN |
 | Quên mật khẩu? | Forgot password |
 | Đăng nhập thành công | Login OK |
+| Đăng xuất · Đã đăng xuất | Logout / Signed out |
 | Quên mật khẩu → hệ thống xác thực | invent BFF copy |
 | Tốt / Trung bình / Yếu | «Có mạng» / «Không mạng» |
 | Quản lý bảo trì đường bộ | Hiện trường · iPhone / · Android (chrome prototype) · bản Gói 1 |
@@ -105,6 +120,7 @@ Success: toast → navigate Home ~350 ms (parity `loginOk`).
 | GAP-MOB-UX-07 | design stub vs HTML | **closed** — design.md khớp `#sc-login` |
 | company / biometric | ẩn Gói 1 | **không** vẽ |
 | GAP-MOB-EDIT-LOGO-BG | logo nền đen/trắng (AppIcon plate + elevation) | **closed** — punch plate → alpha · Fit · **cấm** tile |
+| GAP-MOB-EDIT-DEMO-LOGOUT | sau login không về được `#sc-login` | **closed** — demo Home `btn-logout` local clear · **không** slug `login-logout` |
 
 ## Version meta (REQUIRED)
 

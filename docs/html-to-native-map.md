@@ -12,7 +12,7 @@ Map **ý nghĩa**. Cấm clone `px` / `class`. Cấm 1 binary UI 2 OS.
 |------|---------|---------------------------|------------------------------------|
 | `.tabbar` | 5 tab IA | `TabView` + SF | `NavigationBar` + Material |
 | top bar | Cao 56 · title giữa · 2 bên 44 | `LinmTopBar` | `LinmTopBar` |
-| `.btn-ok` | CTA chính | `LinmPrimaryButton` | `LinmPrimaryButton` |
+| `.btn-ok` | CTA chính · loading `isBusy` spinner giữa nút (ẩn title) | `LinmPrimaryButton` `isBusy` | `LinmPrimaryButton` `isBusy` |
 | `.btn-skip` | Phụ | `LinmSecondaryButton` | `LinmSecondaryButton` |
 | `.list` / `.rich-card` | Hàng | `LinmListRow` | `LinmListRow` |
 | `.card` / form card | Thẻ | `LinmCard` | `LinmCard` |
@@ -20,6 +20,7 @@ Map **ý nghĩa**. Cấm clone `px` / `class`. Cấm 1 binary UI 2 OS.
 | `.sheet` | Overlay · size compact/medium/large · chrome Huỷ/Lưu · footer `LinmSheetButton` main/second · fullWidth \| inline | `.linmSheet` + `LinmSheet` · `LinmSheetSize` · `LinmSheetChrome` · `LinmSheetButton` | `LinmSheet` cùng props |
 | toast / banner | Thông báo | `LinmToast` / `LinmBanner` | `LinmToast` / `LinmBanner` |
 | leave modal | Dirty **popup** giữa màn | `LinmLeaveConfirm` / `.linmLeaveConfirm` | `LinmLeaveConfirm` (`Dialog`) |
+| loading full page | Spinner giữa · blur nền `busyBlur` 12 | `LinmBusyOverlay` / `.linmBusyOverlay` | `LinmBusyOverlay` |
 | `.chip` | Filter chip | `LinmChip` | `LinmChip` |
 | `.seg` · DES-MOB-PAT-SEG | Segment | `LinmSegment` | `LinmSegment` |
 | `.badge` | Status pill · cấm P1/P2 | `LinmBadge` | `LinmBadge` |
@@ -28,6 +29,7 @@ Map **ý nghĩa**. Cấm clone `px` / `class`. Cấm 1 binary UI 2 OS.
 | `.home-grid` · DES-MOB-HOME-GRID | 3-col | `LinmHomeGrid` | `LinmHomeGrid` |
 | `.fab` | Primary overlay | `LinmFab` (HIG: toolbar + ưu tiên) | `LinmFab` (FAB) |
 | kit gallery | Local catalog (test) | `LinmKitGallery` | `LinmKitGallery` |
+| Home demo **Đăng xuất** | Chrome retest login · e2e `btn-logout` · **không** `#sc-me` | `LinmSecondaryButton` (app `LogoutUseCase`) | same |
 | `.hero-ico` hồ sơ | Nút tròn profile · tap 44 · vòng 36 | `LinmProfileButton` | `LinmProfileButton` |
 | `.hero-ico` + badge số | Notify + count (`0` ẩn) · badge **22** · chữ **11** · ring 1.5 · trong tap 44 · **cấm** M3 `Badge` | `LinmNotifyButton` · `LinmNotifyCountBadge` | same |
 | `.vn-hero-tools` | Profile trái · notify phải | `LinmHeroTools` | `LinmHeroTools` |
@@ -47,7 +49,7 @@ Map **ý nghĩa**. Cấm clone `px` / `class`. Cấm 1 binary UI 2 OS.
 
 | HTML | Ý nghĩa | SwiftUI | Compose |
 |------|---------|---------|---------|
-| `button` primary | Action chính | `LinmPrimaryButton` | `LinmPrimaryButton` |
+| `button` primary | Action chính · busy = spinner giữa · **cấm** overlay màn | `LinmPrimaryButton` `isBusy` | `LinmPrimaryButton` `isBusy` |
 | `input type=text` | Text · cùng `formFieldHeight` 52 · lead khi demo có | `LinmTextField` (+ `leading`) | same |
 | `input type=password` + `.trail` eye (`#i-eye` / `#i-eye-off`) | SecureText · hiện/ẩn MK · **giữ IME** | `LinmSecureTextField` (`UITextField` + `isSecureTextEntry`) · `LinmEyeGlyph` / `LinmEyeOffGlyph` | `LinmSecureTextField` · VisualTransformation · eye `canFocus=false` |
 | `input type=search` / `.search` / `#i-search` | Tìm · vòng + cán · **cấm** `⌕` / SF-M3 lệch nét | `LinmSearchField` · `LinmSearchGlyph` | same |
@@ -61,6 +63,7 @@ Map **ý nghĩa**. Cấm clone `px` / `class`. Cấm 1 binary UI 2 OS.
 | card radius | `16` cả 2 OS | `LinmTokens.cardRadius` |
 | sheet radius / detent | `24` · `0.40` / `0.55` / `0.90` | `sheetRadius` · `sheetCompactFraction` · `sheetMediumFraction` · `sheetLargeFraction` |
 | control / button | `44` | `controlHeight` / `buttonHeight` |
+| busy overlay blur | `12` | `busyBlur` |
 | form field row | `52` | `formFieldHeight` |
 | hero circle / capsule / badge / wifi | `36` / `28` / `22` / `11` / `1.5` / `14` | `iconCircle` / `statusCapsuleHeight` / `notifyBadge` / `notifyBadgeFont` / `notifyBadgeRing` / `signalWifi` |
 | home tile / progress / large title / quick | `48` / `6` / `34` / `14` / `#FFF8E8` | `iconHomeTile` / `progressHeight` / `largeTitle` / `quickRadius` / `quickStart` |

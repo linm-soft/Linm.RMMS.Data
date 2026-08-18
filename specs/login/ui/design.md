@@ -50,14 +50,17 @@
 | `DES-MOB-LOGIN` `#sc-login` | Đăng nhập | Brand · Form · Actions · Meta | **Đăng nhập** |
 | `DES-MOB-LOGIN-BRAND` | Brand | Logo AppIcon 96 · tagline | — |
 | `DES-MOB-LOGIN-FORM` | Form | Tài khoản · Mật khẩu+eye | — |
+| `DES-MOB-HOME-DEMO` | Home demo (kit gallery) | Gallery + chrome **Đăng xuất** đáy | **Đăng xuất** · e2e `btn-logout` · **không** `#sc-me` |
 
 ### IA lock
 
 ```
-(auth) Login shell  →  success toast  →  Home (tab IA · ngoài pack)
+(auth) Login shell  →  success toast  →  Home demo (kit gallery)
+Home demo **Đăng xuất**  →  clear local session  →  Login `#sc-login`
 ```
 
-**Cấm** invent tab · swipe-back ra Home khi chưa login · toolbar Hồ sơ / Đổi MK trên login.
+**Cấm** invent tab · swipe-back ra Home khi chưa login · toolbar Hồ sơ / Đổi MK trên login.  
+Demo Home: `LinmSecondaryButton` **Đăng xuất** · clear Keychain/Encrypted store · **không** POST `auth/logout` · **không** `#sc-me` (slug `login-logout` backlog).
 
 ## 3. Field inventory (Design chốt kit)
 
@@ -104,6 +107,7 @@ Toast success/error → `LinmToast`. **Cấm** `UIAlert` / `AlertDialog` / `wind
 | Case | UI |
 |------|-----|
 | Submit online OK | `LinmToast` **Đăng nhập thành công** → Home ~350 ms |
+| Demo Home **Đăng xuất** | `LinmToast` **Đã đăng xuất** · clear token · về `#sc-login` · **cấm** BFF logout |
 | Sai MK / Inactive / HĐ | `LinmToast` in-app |
 | Offline | **không** submit · toast/banner |
 | Forgot tap | toast **Quên mật khẩu → hệ thống xác thực** · **không** BFF |

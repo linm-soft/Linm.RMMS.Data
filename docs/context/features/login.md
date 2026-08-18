@@ -48,6 +48,8 @@
 
 Auth: JWT `company_id` · `[RequirePermission]`.
 
+**E2E / docker seed:** Auth `SeedDefaults` khi `docker compose up` — username `linm-soft` · password `Linm@2026`. Maestro fill `#f-user` / `#f-pass` / `#btn-login` (`qa/e2e/{ios,android}.yaml`). Override `QLBD_DEMO_USER` / `QLBD_DEMO_PASS`. **Cấm** tap `Email`.
+
 ## 4. Database
 
 | Entity | Key columns | Host |

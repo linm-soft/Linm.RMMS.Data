@@ -13,7 +13,7 @@ Pilot: `login` (new · high)
 | feature | parent | prior | conf | ctx | demo | logo | downstream |
 |---------|--------|-------|------|-----|------|------|------------|
 | `login` | — | **new** · **PILOT** | high | `docs/context/features/login.md` | `mobile-p1` `#sc-login` | AppIcon `app-logo.png` | `/agent-qldb-workflow-mobile` `roleOnly=data_analy` |
-| `login-forgot` | `login` | new | med | login §2 quên MK platform | `.login-meta a` | — | sau pilot |
+| `login-forgot` | `login` | **pending_confirm** | med | login §2 quên MK platform | `.login-meta a` | — | sibling_assign · chờ Approve |
 | `login-logout` | `login` | new | high | `POST …/auth/logout` | `#sc-me` Đăng xuất | — | sau pilot |
 | `shell-tabs` | — | skip | high | IA tab 5 | `DES-MOB-TABBAR` | — | không enqueue |
 

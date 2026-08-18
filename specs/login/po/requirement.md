@@ -43,7 +43,8 @@ Native chưa có màn Login (không file `*Login*` trên iOS/Android). Không b�
 11. Logo = `logo/mobile` AppIcon 1024 → `assets/app-logo.png` · **cấm** `rmms.png` wordmark.
 12. Login **không** tab 5 · **không** toolbar Hồ sơ / Đổi MK.
 13. Dev (role sau): iOS `xcodegen` + `xcodebuild` PASS · Android `assembleDebug` PASS · Mobile.Bff `dotnet build` PASS — **cấm** `yarn start:std`.
-14. QA (role sau): AC slug `login` only · live capture sim/adb · **cấm** test sibling `login-forgot` / `login-logout` như in-scope.
+14. QA (role sau): AC slug `login` only · live capture sim/adb · **cấm** test sibling `login-forgot` / `login-logout` (`#sc-me`) như in-scope.
+15. Demo Home (kit gallery): chrome **Đăng xuất** `btn-logout` · clear local session → `#sc-login` · toast **Đã đăng xuất** · **cấm** POST `auth/logout` · **cấm** coi đây là slug `login-logout`.
 
 ## 4. CTX / DEM / DI inventory
 
@@ -112,7 +113,7 @@ Không thuộc slug: `auth/switch-company` · `users/me/change-password` · prof
 | Kit password/eye | Không hàng `type=password` / eye trên map | Design **`kit_missing_confirm`** (`implement_kit` dual) **trước** Dev Write. **Cấm** `kit_skip` im lặng · **cấm** Dev raw. |
 | company / biometric | Field CTX ẩn Gói 1 | **Ẩn.** **Cấm** hiện trên shell. |
 | packKind | data-analy đề xuất `shell` | **Confirm `shell`.** **Cấm** Grid AC / Report AC / Lin* list. |
-| `login-logout` | POST logout đã có | **Backlog.** QA **cấm** coi Đăng xuất in-scope pack này. |
+| `login-logout` | POST logout đã có | **Backlog `#sc-me` + POST `auth/logout`.** Demo Home `btn-logout` = chrome retest login (local clear) — **không** mở slug. |
 | Cluster web path | `specs/login/specs/_data-analy/clusters/login.md` | **N/A.** Dùng `_data-analy/login-*.md`. |
 
 UNCLEAR field = **none** — không AskQuestion field.

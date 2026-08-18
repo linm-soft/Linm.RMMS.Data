@@ -5,6 +5,7 @@
 | feature | `login` |
 | phase | `qa` |
 | status | `in_progress` |
+| taskIdQa | `task_4d1e2f3a` |
 | changeScope | `new_page` |
 | packKind | `shell` (**PO confirm**) |
 | stack | `native_dual` |
@@ -35,12 +36,12 @@
 | contentHash | `sha256:2b627cdf80eca92c1f91cc999b6b516ca09d534ad0ffff887800699c4a02c3ef` |
 | bffContentHash | `sha256:de9bc7143374ca6a38aad393b3ce928ad00462ade2254adf9bcdfd97ac7eb017` |
 | verifyGate | iOS `xcodegen` + `xcodebuild` **iPhone 17 Pro Max** **PASS** · **iPad Pro 13-inch (M5)** **PASS** (M4 không có trên lab) · Android `assembleDebug` **PASS** · BFF `dotnet build` **PASS** |
-| updatedAt | `2026-08-18T19:48:06.946Z` |
+| updatedAt | `2026-08-18T20:38:47.867Z` |
 ## Lock
 
 | agent | scope | id | at |
 |-------|-------|-----|-----|
-| — | — | — | released |
+| qa | feature | task_4d1e2f3a | 2026-08-18T19:57:00.000Z |
 
 ## Pipeline
 
@@ -88,13 +89,14 @@
 
 ## Blockers / open questions
 
-- `login-forgot` — **GAP-MOB-BFF-01** **đóng** (PO+SA): link + toast demo · **cấm** invent path · backlog
+- `login-forgot` — hyperlink Quên MK · **`task_20426736` `pending_confirm`** (sibling_assign) · chờ Approve board · **cấm** start tự động · **cấm** invent `auth/forgot` trước analy
 - **GAP-MOB-BFF-02** **đóng** — app `POST auth/refresh-token` · **cấm** `auth/refresh`
 - **GAP-MOB-BFF-MW** **đóng (P1)** — app GET `session-window` sau login · DTO `allowed`/`reason` · forceLogout copy Web middleware · T-BE-MW attach middleware Mobile.Bff **optional** (parity Web · **không** path mới)
 - Password/eye kit — **closed** Design · `LinmSecureTextField` · Dev **cấm** raw
 - **GAP-MOB-ACT-02** none — `#sc-login` không child form/sheet
 - **GAP-SA-LOGIN-ID** — UI `userName` → body Auth **`id`** (`LoginRequestDto`)
 - Native: user mở Xcode + Android Studio và test thủ công · **cấm** cite `mfeStdUrl` / localhost MFE · BFF `mobile-bff/api/v1`
+- `/edit-mobile-feature` 2026-08-19: demo Home **Đăng xuất** (`btn-logout`) local clear → retest `#sc-login` · **không** slug `login-logout` · context lock design/ux/map/task/po/implement
 
 ## Handoff → QA
 
@@ -109,10 +111,10 @@
 | Kit | `LinmSecureTextField` dual — **cấm** raw |
 | BFF | `auth/login` · `auth/refresh-token` · `contract-accounts/session-window` · MW `CONTRACT_WINDOW_CLOSED` attached |
 | BE | **không** endpoint mới · **không** `Schema_*` · T-BE-MW **done** |
-| Open questions | forgot/logout backlog · Android live screencap khi emu `device` |
+| Open questions | `login-forgot` chờ Approve · `login-logout` backlog · Android live screencap khi emu `device` |
 | Next slash | `/agent-qa-mobile` |
 | Chain this turn | **không** (roleOnly=dev) |
-| e2eQa | ON · user Xcode Simulator + Android Studio emulator · **cấm** yarn start:std |
+| e2eQa | ON · Maestro `#f-user`/`#f-pass`/`#btn-login` · Auth docker seed `linm-soft` / `Linm@2026` · **cấm** yarn start:std |
 
 ## Links
 

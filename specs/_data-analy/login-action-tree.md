@@ -6,14 +6,14 @@ Recheck `2026.08.19.01`: child-form tree (`GAP-MOB-ACT-02`).
 
 ```
 login                         ← kind=shell · màn Đăng nhập · PILOT · **this turn**
-├── login-forgot              ← link Quên mật khẩu? · backlog
+├── login-forgot              ← link Quên mật khẩu? · pending_confirm
 └── login-logout              ← hàng Đăng xuất trên Tôi · backlog
 ```
 
 | feature | parent | action | demo | kind | enqueue |
 |---------|--------|--------|------|------|---------|
 | `login` | — | Đăng nhập | `#sc-login` `button.btn-primary` `loginOk()` · `DES-MOB-LOGIN` | shell | **this turn** `pilot_one` · `task_3b190d5a` |
-| `login-forgot` | `login` | Quên mật khẩu? | `#sc-login` `.login-meta a` (iOS + Android) · toast `Quên mật khẩu → hệ thống xác thực` | shell | backlog · `GAP-MOB-BFF-01` |
+| `login-forgot` | `login` | Quên mật khẩu? | `#sc-login` `.login-meta a` (iOS + Android) | shell | **pending_confirm** · sibling_assign · hyperlink ≠ submit |
 | `login-logout` | `login` | Đăng xuất | `#sc-me` row `logout()` · iOS nhóm «Cập nhật thông tin» · Android cùng nhóm (không hàng Cài đặt) | shell | backlog · `POST auth/logout` |
 
 ## Chrome (không enqueue — khớp scan)
