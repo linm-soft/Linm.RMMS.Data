@@ -4,7 +4,7 @@
 |-------|-------|
 | feature | `login` |
 | phase | `data_analy` |
-| status | `handoff_po` |
+| status | `draft` |
 | packKind | `mobile` (pilot shell) · web list giữ mfeStd* dưới đây |
 | demo | `specs/mobile-p1/ui/prototype/{ios,android}/index.html` `#sc-login` |
 | context | `docs/context/features/login.md` |
@@ -16,8 +16,7 @@
 | android | `Linm.RMMS.Mobile.Android` |
 | bff | `Linm.RMMS.Mobile.Bff` · `mobile-bff/api/v1/auth/*` |
 | backend | `Linm.RMMS.WebService` · DOMAIN-MAP — **cấm ERP.*** |
-| updatedAt | `2026-08-18T16:48:00.000Z` |
-
+| updatedAt | `2026-08-18T17:04:04.414Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -29,14 +28,13 @@
 | Step | Agent | Artifact | Status |
 |------|-------|----------|--------|
 | 0 | data-analy-mobile | `_data-analy/login-control-hint.md` · `login-bff-endpoints.md` · `login-action-tree.md` | **done** |
-| 1 | po | po/requirement.md | pending |
-| 2.1 | design | ui/design.md + prototype + reviewUrl | pending |
-| 2.2 | sa | be/solution-discovery.md | pending |
-| 3 | team-lead | task/login.md | pending |
-| 4 | dev | implement/login.md | pending |
-| 5 | qa | qa/scenarios.md | pending |
-| 6 | review | review/findings.md | pending |
-
+| 1 | po | po/requirement.md | **pending** |
+| 2.1 | design | ui/design.md + prototype + reviewUrl | **pending** |
+| 2.2 | sa | be/solution-discovery.md | **pending** |
+| 3 | team-lead | task/login.md | **pending** |
+| 4 | dev | implement/login.md | **pending** |
+| 5 | qa | qa/scenarios.md | **pending** |
+| 6 | review | review/findings.md | **pending** |
 ## Tasks
 
 | id | page | role | deps | status | notes |

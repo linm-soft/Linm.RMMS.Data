@@ -3,8 +3,8 @@
 | Field | Value |
 |-------|-------|
 | feature | `asset` |
-| phase | `team_lead` |
-| status | `blocked` |
+| phase | `data_analy` |
+| status | `draft` |
 | changeScope | `edit_page` |
 | packKind | `list` |
 | demo | `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/asset-demo.html` |
@@ -25,7 +25,7 @@
 | qa.artifact | `specs/asset/qa/scenarios.md` |
 | review.artifact | `specs/asset/review/findings.md` |
 | taskId | `task_bf4df098` |
-| updatedAt | `2026-08-15T17:06:15.089Z` |
+| updatedAt | `2026-08-18T17:04:39.427Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -36,14 +36,14 @@
 
 | Step | Agent | Artifact | Status |
 |------|-------|----------|--------|
-| 0 | data-analy | `_data-analy/clusters/cluster-asset-header-v1.md` + `features/asset-control-hint.md` | **done** |
-| 1 | po | po/requirement.md | **done** |
-| 2.1 | design | ui/design.md + prototype + reviewUrl | **confirmed** |
-| 2.2 | sa | be/solution-discovery.md | **confirmed** |
-| 3 | team-lead | task/asset.md | **blocked** (failed) |
-| 4 | dev | implement/asset.md | **confirmed** |
-| 5 | qa | qa/scenarios.md | pending |
-| 6 | review | review/findings.md | **done** |
+| 0 | data-analy | `_data-analy/clusters/cluster-asset-header-v1.md` + `features/asset-control-hint.md` | **pending** |
+| 1 | po | po/requirement.md | **pending** |
+| 2.1 | design | ui/design.md + prototype + reviewUrl | **pending** |
+| 2.2 | sa | be/solution-discovery.md | **pending** |
+| 3 | team-lead | task/asset.md | **pending** |
+| 4 | dev | implement/asset.md | **pending** |
+| 5 | qa | qa/scenarios.md | **pending** |
+| 6 | review | review/findings.md | **pending** |
 ## Confirms
 
 | Gate | Value |
