@@ -1,74 +1,10 @@
-# RESUME-CONTEXT — login
-
-> Compressed at stop · 2026-08-18T17:27:27.257Z
-
-## Meta
-
-| Field | Value |
-|---|---|
-| taskId | `task_bf9355f7` |
-| alias | `login` |
-| title | [Data-analy] [Mobile] Đăng nhập |
-| source | `qldb_mobile_implement` |
-| cursorAgentId | `agent-9267b4ed-55e2-4cd4-ac1f-eea8c6407fb3` |
-| mfeRoot | `D:/AI-QLBD/MFE-Source` |
-| beRoot | `—` |
-| reason | user_stop_all |
-| notes | slash=/agent-qldb-workflow-mobile · roleOnly=data_analy · chainRole=1 · enqueueReason=start · startFrom=data_analy · startSlash=/agent-data-analy-mobile · autoApprove=1 · e2eQa=1 · productRoot=/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data · mfeSource=D:/AI-QLBD/MFE-Source · status=/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/login/STATUS.md · demo=specs/mobile-p1/ui/prototype/{ios,android}/index. |
-
-## Done / next (heuristic from worker stream)
-
-- [17:27:23] thinking: reasoning…
-- [17:27:23] thinking: reasoning…
-- [17:27:23] thinking: reasoning…
-- [17:27:23] thinking: reasoning…
-- [17:27:23] thinking: reasoning…
-- [17:27:23] thinking: reasoning…
-- [17:27:23] thinking: reasoning…
-- [17:27:23] thinking: reasoning…
-- [17:27:23] thinking: reasoning…
-- [17:27:23] thinking: reasoning…
-- [17:27:23] thinking: reasoning…
-- [17:27:23] thinking: reasoning…
-- [17:27:23] thinking: reasoning…
-- [17:27:23] thinking: reasoning…
-- [17:27:23] thinking: reasoning…
-- [17:27:23] thinking: reasoning…
-- [17:27:23] thinking: reasoning…
-- [17:27:23] thinking: reasoning…
-- [17:27:23] thinking: reasoning…
-- [17:27:23] thinking: reasoning…
-- [17:27:23] thinking: reasoning…
-- [17:27:23] thinking: reasoning…
-- [17:27:23] thinking: reasoning…
-- [17:27:23] thinking: reasoning…
-- [17:27:23] thinking: reasoning…
-- [17:27:23] thinking: reasoning…
-- [17:27:23] thinking: reasoning…
-- [17:27:23] thinking: reasoning…
-- [17:27:23] thinking: reasoning…
-- [17:27:23] thinking: reasoning…
-- [17:27:23] thinking: reasoning…
-- [17:27:23] tool: tool
-- [17:27:23] tool: tool
-- [17:27:23] tool: tool
-- [17:27:23] tool: tool
-- [17:27:23] tool: tool
-- [17:27:24] tool: tool
-- [17:27:24] tool: tool
-- [17:27:24] tool: tool
-- [17:27:24] tool: tool
-
-## STATUS excerpt
-
-```markdown
 # STATUS — login
 
 | Field | Value |
 |-------|-------|
 | feature | `login` |
-| phase | `po` |
-| status | `blocked` |
+| phase | `data_analy` |
+| status | `in_progress` (lock) |
 | changeScope | `new_page` |
 | packKind | `shell` (mobile P1 · đề xuất data-analy · PO confirm) · web list giữ mfeStd* dưới đây |
 | stack | `native_dual` |
@@ -90,19 +26,19 @@
 | rulesVersion | `2026.08.18.26` |
 | versionGate | `ok` |
 | contentHash | `sha256:2b627cdf80eca92c1f91cc999b6b516ca09d534ad0ffff887800699c4a02c3ef` |
-| updatedAt | `2026-08-18T17:27:27.256Z` |
+| updatedAt | `2026-08-18T17:32:50.381Z` |
 ## Lock
 
 | agent | scope | id | at |
 |-------|-------|-----|-----|
-| — | — | — | released |
+| agent-data-analy-mobile | page | task_3b190d5a | 2026-08-18T17:33:00.000Z |
 
 ## Pipeline
 
 | Step | Agent | Artifact | Status |
 |------|-------|----------|--------|
-| 0 | data-analy-mobile | `_data-analy/login-control-hint.md` · `login-bff-endpoints.md` · `login-action-tree.md` | **done** (`task_bf9355f7`) |
-| 1 | po | po/requirement.md | **blocked** (paused) |
+| 0 | data-analy-mobile | `_data-analy/login-control-hint.md` · `login-bff-endpoints.md` · `login-action-tree.md` | **in_progress** |
+| 1 | po | po/requirement.md | pending |
 | 2.1 | design | ui/design.md + prototype + reviewUrl | pending |
 | 2.2 | sa | be/solution-discovery.md | pending |
 | 3 | team-lead | task/login.md | pending |
@@ -141,12 +77,7 @@
 - data-analy-mobile → po-mobile → design-mobile → sa-mobile
 - BFF: `mobile-bff/api/v1/auth/login` · `auth/refresh-token` · `auth/logout`
 
-```
 
-## Resume instructions (for agent)
+## Retry
 
-1. Đọc file này + STATUS.md + implement/{alias}.md.
-2. **Không** làm lại bước đã confirmed/done trên STATUS.
-3. Tiếp tục đúng phase hiện tại → hoàn tất tới Review / verify gate.
-4. Cập nhật STATUS + implement MD khi xong từng phần.
-5. Giữ cursorAgentId continuity nếu Agent.resume khả dụng.
+- from: `data_analy` · at: `2026-08-18T17:32:49.987Z` · board user Retry step

@@ -25,7 +25,7 @@
 | qa.artifact | `specs/asset/qa/scenarios.md` |
 | review.artifact | `specs/asset/review/findings.md` |
 | taskId | `task_bf4df098` |
-| updatedAt | `2026-08-18T17:04:39.427Z` |
+| updatedAt | `2026-08-18T17:17:25.200Z` |
 ## Lock
 
 | agent | scope | id | at |

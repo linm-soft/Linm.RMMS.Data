@@ -239,6 +239,27 @@
       "rulesVersion": "2026.08.15.8",
       "analyzedAt": "2026-08-16T00:25:00.000Z",
       "notes": "roleOnly data_analy · task_6a731526 · edit_page · GAP-RPT-SRC-PAV-01 Pci/LayerCode/MeasuredAt · no Excel"
+    },
+    {
+      "id": "feature-login-mobile-v1",
+      "featureSlug": "login",
+      "catalogKind": "auth-session",
+      "status": "done",
+      "artifact": "specs/_data-analy/login-control-hint.md",
+      "peers": [
+        "specs/_data-analy/login-bff-endpoints.md",
+        "specs/_data-analy/login-action-tree.md"
+      ],
+      "contentHash": "sha256:2b627cdf80eca92c1f91cc999b6b516ca09d534ad0ffff887800699c4a02c3ef",
+      "bffContentHash": "sha256:de9bc7143374ca6a38aad393b3ce928ad00462ade2254adf9bcdfd97ac7eb017",
+      "skillId": "agent-data-analy-mobile",
+      "skillVersion": "2026.08.19.01",
+      "workflowVersion": "2026.08.19.01",
+      "rulesVersion": "2026.08.19.01",
+      "versionGate": "rechecked",
+      "analyzedAt": "2026-08-18T17:35:15.000Z",
+      "backup": "specs/login/_backup/20260818T173515Z",
+      "notes": "retry roleOnly data_analy · task_3b190d5a · recheck 2026.08.19.01 · GAP-MOB-BFF-01 forgot · GAP-MOB-BFF-02 refresh-token · GAP-MOB-ACT-02 none · kit_missing password/eye · no Excel"
     }
   ]
 }

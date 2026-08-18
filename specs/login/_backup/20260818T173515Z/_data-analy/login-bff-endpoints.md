@@ -11,21 +11,8 @@
 | domainApi | `ApiBase` → `RMMS.Service.Api` (`http://localhost:5101`) |
 | source | CTX `login.md` §3 · `docs/init-bff-auth.md` (Data + Mobile.Bff + WebService) · `docs/bff-route-map.md` · DLL 1.26.0 |
 | **cấm** | invent path · clone AuthController · app gọi `:500x` / `:5101` |
-| recheck | `recheck_new` · DLL `~/.nuget/packages/linm.platform.authentication.bff/1.26.0` · strings `login` · `refresh-token` · `logout` · `switch-company` · `change-password` · **không** `forgot` |
 
 App `ApiClient.base` = `{BffBase}/mobile-bff/api/v1`. Path dưới đây **không** lặp prefix.
-
-## Như thế nào (skill step 6 — CTX + service, cấm invent)
-
-| Tầng | Repo / package | App có biết? |
-|------|----------------|--------------|
-| UI | `Linm.RMMS.Mobile.iOS` · `Linm.RMMS.Mobile.Android` | Có — chỉ `{BffPrefix}` |
-| BFF host | `Linm.RMMS.Mobile.Bff` | Có — một host |
-| Auth package | `Linm.Platform.Authentication.Bff` 1.26.0 | Không — rewrite nội bộ |
-| Auth service | `ServiceEndpoints:AuthenticationService` (`:5001` trong appsettings BFF) | **Không** |
-| RMMS API | `ApiBase` → `RMMS.Service.Api` (`:5101`) — chỉ resource **không** auth | **Không** (proxy `contract-accounts/…`) |
-
-Nguồn thứ tự: CTX `login.md` §3 → `{BffRoot}` `Program.cs` / `appsettings` → DLL 1.26.0 → `{BackendRoot}` controller. **Cấm** bịa `auth/forgot` / `auth/refresh`.
 
 ## Table
 
@@ -41,8 +28,8 @@ Nguồn thứ tự: CTX `login.md` §3 → `{BffRoot}` `Program.cs` / `appsettin
 
 | Method | Package path (sau rewrite) | Ghi |
 |--------|----------------------------|-----|
-| — | `auth/switch-company` | Web shell (ITS doc) · demo login **không** có · DLL `SwitchCompany` |
-| — | `users/me/change-password` | Pack `users` · CTX cấm toolbar Đổi MK trên chrome login · DLL `ChangePassword` |
+| — | `auth/switch-company` | Web shell (ITS doc) · demo login **không** có |
+| — | `users/me/change-password` | Pack `users` · CTX cấm toolbar Đổi MK trên chrome login |
 | — | `GetProfile` / `UpdateProfile` | Không surface `#sc-login` |
 
 ## Verify live (không invent)
@@ -53,7 +40,6 @@ Nguồn thứ tự: CTX `login.md` §3 → `{BffRoot}` `Program.cs` / `appsettin
 | `MobileApiProxyController` | Bỏ qua `auth` / `auth/*` (để package xử lý) · còn lại forward `api/v1/{path}` |
 | Proxy `contract-accounts/*` | `docs/bff-route-map.md` đã map session-window |
 | Forgot trên DLL 1.26.0 | **không** `forgot` / `reset-password` / `ForgotPassword` |
-| `Program.cs` Mobile.Bff | `AddLinmAuthenticationBff` · **không** `UseMiddleware<ContractWindowDefenseMiddleware>` (Web BFF có) |
 
 ## Cấm
 
@@ -67,14 +53,14 @@ Nguồn thứ tự: CTX `login.md` §3 → `{BffRoot}` `Program.cs` / `appsettin
 | Field | Value |
 |-------|-------|
 | skillId | agent-data-analy-mobile |
-| skillVersion | 2026.08.19.01 |
+| skillVersion | 2026.08.18.10 |
 | schemaVersion | 1 |
-| workflowVersion | 2026.08.19.01 |
-| rulesVersion | 2026.08.19.01 |
-| generatedAt | 2026-08-18T17:35:15.000Z |
-| versionGate | rechecked |
+| workflowVersion | 2026.08.18.11 |
+| rulesVersion | 2026.08.18.26 |
+| generatedAt | 2026-08-18T17:24:22.000Z |
+| versionGate | ok |
 | contentHash | sha256:2b627cdf80eca92c1f91cc999b6b516ca09d534ad0ffff887800699c4a02c3ef |
-| bffContentHash | sha256:de9bc7143374ca6a38aad393b3ce928ad00462ade2254adf9bcdfd97ac7eb017 |
+| bffContentHash | sha256:f360acfdda7595550f109031b58c84ed1eb4a3a40f55fd7e24090ea446d10c31 |
 
 ---
-<!-- Version meta: skillId=agent-data-analy-mobile skillVersion=2026.08.19.01 schemaVersion=1 workflowVersion=2026.08.19.01 rulesVersion=2026.08.19.01 versionGate=rechecked -->
+<!-- Version meta: skillId=agent-data-analy-mobile skillVersion=2026.08.18.10 schemaVersion=1 workflowVersion=2026.08.18.11 rulesVersion=2026.08.18.26 versionGate=ok -->

@@ -1,38 +1,12 @@
-# Control hint — login (mobile)
+# Control hint — login — **không phải** file mobile
 
-| | |
-|---|---|
-| feature | `login` |
-| kind | shell |
-| demo | `specs/mobile-p1/ui/prototype/{ios,android}/index.html` `#sc-login` |
-| ctx | `docs/context/features/login.md` |
-| agent | `agent-data-analy-mobile` |
-| at | 2026-08-18T16:48:00.000Z |
+Đây là **pointer web**. Packet `/agent-data-analy-mobile` = 3 file **cùng thư mục cha**:
 
-## Fields
+- [`../login-control-hint.md`](../login-control-hint.md) — UI `controlHint` + kit + **BFF flow**
+- [`../login-bff-endpoints.md`](../login-bff-endpoints.md) — service / BFF path (cấm invent)
+- [`../login-action-tree.md`](../login-action-tree.md) — 1 nút = 1 feature
 
-| Field | VN | controlHint | Source | Notes |
-|-------|----|-------------|--------|-------|
-| brand | Logo app | Image (AppIcon) | `DES-MOB-LOGIN-BRAND` | SSOT `logo/mobile` AppIcon 1024 → `assets/app-logo.png` · **cấm** `rmms.png` wordmark |
-| userName | Tài khoản | Text | CTX login shell | Username / SĐT · autocomplete username |
-| password | Mật khẩu | SecureText | CTX | Toggle hiện/ẩn = chrome · không slug |
-| submit | Đăng nhập | Button primary | demo `loginOk()` | 1 action = `login` |
-| forgot | Quên mật khẩu? | Text link | demo + CTX §2 | Child `login-forgot` |
-| signal | Tín hiệu | SignalQuality | demo meta | Tốt / TB / Yếu · **cấm** «Có mạng» |
+Board `/qldb-workflow-mobile` phải mở 3 file trên — **không** file này.
 
-## Tech factors
-
-| Factor | Login form | Note |
-|--------|------------|------|
-| GPS | no | — |
-| camera | no | — |
-| offline | no submit | Queue sau login · **cấm** local `PasswordHash` |
-| map | no | — |
-| biometric | defer | Demo không có nút · không invent slug |
-| push | no | — |
-
-## Cấm
-
-- Clone `AuthController` / mật khẩu local `rmms_users`
-- `window.alert` / `confirm`
-- Toolbar Hồ sơ / Đổi MK trên chrome login
+---
+<!-- Version meta: skillId=agent-data-analy-mobile skillVersion=2026.08.19.01 schemaVersion=1 workflowVersion=2026.08.19.01 rulesVersion=2026.08.19.01 versionGate=rechecked -->
