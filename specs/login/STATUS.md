@@ -3,8 +3,8 @@
 | Field | Value |
 |-------|-------|
 | feature | `login` |
-| phase | `data_analy` |
-| status | `in_progress` |
+| phase | `po` |
+| status | `pending` |
 | changeScope | `new_page` |
 | packKind | `shell` (mobile P1 · native dual · **cấm** mfeStdUrl) |
 | stack | `native_dual` |
@@ -28,7 +28,7 @@
 | versionGate | `rechecked` |
 | contentHash | `sha256:2b627cdf80eca92c1f91cc999b6b516ca09d534ad0ffff887800699c4a02c3ef` |
 | bffContentHash | `sha256:de9bc7143374ca6a38aad393b3ce928ad00462ade2254adf9bcdfd97ac7eb017` |
-| updatedAt | `2026-08-18T17:45:44.106Z` |
+| updatedAt | `2026-08-18T17:51:33.567Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -39,7 +39,7 @@
 
 | Step | Agent | Artifact | Status |
 |------|-------|----------|--------|
-| 0 | data-analy-mobile | `_data-analy/login-control-hint.md` · `login-bff-endpoints.md` · `login-action-tree.md` | **in_progress** |
+| 0 | data-analy-mobile | `_data-analy/login-control-hint.md` · `login-bff-endpoints.md` · `login-action-tree.md` | **done** · confirmed |
 | 1 | po | po/requirement.md | pending |
 | 2.1 | design | ui/design.md · ui/ux-analy.md · prototype/ios+android | pending |
 | 2.2 | sa | be/solution-discovery.md | pending |
