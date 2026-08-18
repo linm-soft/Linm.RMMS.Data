@@ -1,11 +1,19 @@
-# Prototype — login
+# Prototype — login (mobile shell)
 
-Design gate: **prototype + reviewUrl** — board Approve (**không auto**).
-Repo confirm: user tick BE+UI trên `/qldb-workflow` Progress trước Dev (**không auto** · cấm ERP.*).
+Design gate: dual HTML + reviewUrl · autoApprove=ON (`task_47ebc1c0`).
 
-- Demo SSOT: `N/A (packKind=master)`
-- Title: Đăng nhập + vòng đời tài khoản theo HĐ
-- Pack kind: `list`
-- MFE: `Linm.Web.RMMS.Contract`
+| | |
+|--|--|
+| packKind | **shell** |
+| feature | `login` |
+| SSOT feature | `ios/index.html` · `android/index.html` `#sc-login` |
+| Peer pack | `specs/mobile-p1/ui/prototype/{ios,android}/index.html#sc-login` |
+| Assets | `../assets` → mobile-p1 `app-logo.png` |
+| Signal | `../net-signal.js` + `.css` |
 
-Put HTML prototype / screenshot link here; update `ui/design.md` with a browser-openable **reviewUrl**.
+## reviewUrl
+
+- iOS: `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/login/ui/prototype/ios/index.html#sc-login`
+- Android: `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/login/ui/prototype/android/index.html#sc-login`
+
+**Cấm** `mfeStdUrl` / `yarn start:std`.

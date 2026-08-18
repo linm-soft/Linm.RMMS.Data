@@ -49,6 +49,7 @@ Map **ý nghĩa**. Cấm clone `px` / `class`. Cấm 1 binary UI 2 OS.
 |------|---------|---------|---------|
 | `button` primary | Action chính | `LinmPrimaryButton` | `LinmPrimaryButton` |
 | `input type=text` | Text | `LinmTextField` | `LinmTextField` |
+| `input type=password` + `.trail` eye (`#i-eye` / `#i-eye-off`) | SecureText · hiện/ẩn MK | `LinmSecureTextField` · `LinmEyeGlyph` / `LinmEyeOffGlyph` | `LinmSecureTextField` · same |
 | `input type=search` / `.search` / `#i-search` | Tìm · vòng + cán · **cấm** `⌕` / SF-M3 lệch nét | `LinmSearchField` · `LinmSearchGlyph` | same |
 | `input type=checkbox` | On/off | `LinmToggle` | `LinmToggle` |
 

@@ -3,7 +3,7 @@
 | Field | Value |
 |-------|-------|
 | feature | `login` |
-| phase | `dev` |
+| phase | `sa` |
 | status | `in_progress` |
 | changeScope | `new_page` |
 | packKind | `shell` (**PO confirm**) |
@@ -21,21 +21,19 @@
 | dataAnaly | `specs/_data-analy/login-control-hint.md` · `login-bff-endpoints.md` · `login-action-tree.md` |
 | po | `specs/login/po/requirement.md` |
 | design | `specs/login/ui/design.md` · `ui/ux-analy.md` · `ui/html-to-native-map.md` · prototype dual |
-| sa | `specs/login/be/solution-discovery.md` |
-| tl | `specs/login/task/login.md` |
 | reviewUrlIos | `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/login/ui/prototype/ios/index.html#sc-login` |
 | reviewUrlAndroid | `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/login/ui/prototype/android/index.html#sc-login` |
-| backup | `specs/login/_backup/20260818T173515Z` · PO `20260818T181819Z` · Design `20260818T182200Z` · SA `20260818T183223Z` |
-| taskId | `task_5618e40d` |
-| skillVersion | `2026.08.19.03` (agent-tl-mobile) |
+| backup | `specs/login/_backup/20260818T173515Z` · PO `20260818T181819Z` · Design `20260818T182200Z` |
+| taskId | `task_47ebc1c0` |
+| skillVersion | `2026.08.19.01` (agent-design-mobile) |
 | schemaVersion | `1` |
-| workflowVersion | `2026.08.19.07` |
-| rulesVersion | `2026.08.19.08` |
+| workflowVersion | `2026.08.19.03` |
+| rulesVersion | `2026.08.19.04` |
 | versionGate | `rechecked` |
 | contentHash | `sha256:2b627cdf80eca92c1f91cc999b6b516ca09d534ad0ffff887800699c4a02c3ef` |
 | bffContentHash | `sha256:de9bc7143374ca6a38aad393b3ce928ad00462ade2254adf9bcdfd97ac7eb017` |
-| verifyGate | iOS `xcodegen` **PASS** · Android `assembleDebug` **PASS** · BFF `dotnet build` **PASS** |
-| updatedAt | `2026-08-18T18:41:39.114Z` |
+| verifyGate | iOS `xcodegen`+`xcodebuild` **PASS** · Android `assembleDebug` **PASS** · BFF `dotnet build` **PASS** |
+| updatedAt | `2026-08-18T18:28:59.101Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -49,9 +47,9 @@
 | 0 | data-analy-mobile | `_data-analy/login-control-hint.md` · `login-bff-endpoints.md` · `login-action-tree.md` | **done** · confirmed |
 | 1 | po | po/requirement.md | **confirmed** |
 | 2.1 | design | ui/design.md · ui/ux-analy.md · prototype/ios+android | **confirmed** |
-| 2.2 | sa | be/solution-discovery.md | **confirmed** |
-| 3 | team-lead | task/login.md | **confirmed** |
-| 4 | dev | implement/ios.md · implement/android.md | **in_progress** |
+| 2.2 | sa | be/solution-discovery.md | **in_progress** |
+| 3 | team-lead | task/login.md | pending |
+| 4 | dev | implement/ios.md · implement/android.md | pending |
 | 5 | qa | qa/scenarios.md · qa/store/login/CAPTURE.md | pending |
 | 6 | review | review/findings.md | pending |
 ## Confirms
@@ -64,15 +62,12 @@
 | be_repo_confirm | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.WebService` |
 | ios_repo_confirm | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS` |
 | android_repo_confirm | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android` |
-| version_mismatch_action | **recheck_new** (SA stub no Version meta · backup `20260818T183223Z`) |
+| version_mismatch_action | **recheck_new** (PO draft no Version meta · backup `20260818T181819Z`) |
 | autoApprove | **ON** |
 | kit_missing_confirm | **implement_kit** · `LinmSecureTextField` dual · map + gallery · `/install-mobile-kit-local` done |
 | design_confirm | **confirmed** (user Approve board) |
-| sa_tz_gate | **tz_na** |
-| sa_xco_gate | **xco_na** |
-| sa_shared_table | **tenant_keep** |
-| solution_confirm | **confirmed** (user Approve board) |
-| route_confirm | **route_a** (autoApprove=ON · TL) — auth `#sc-login` → Home |
+| solution_confirm | pending (SA turn) |
+
 ## Tasks
 
 | id | page | role | deps | status | notes |
@@ -81,39 +76,33 @@
 | task_3b190d5a | login | data_analy | — | **completed** | retry · `/agent-data-analy-mobile` · recheck `2026.08.19.01` · autoApprove=ON · roleOnly · **không** chain PO |
 | task_e19d880c | login | po | data_analy | **completed** | roleOnly · `/agent-po-mobile` · autoApprove=ON · packKind `shell` · **không** chain Design |
 | task_47ebc1c0 | login | design | po | **completed** | roleOnly · `/agent-design-mobile` · autoApprove=ON · kit `LinmSecureTextField` · VERIFY GATE PASS |
-| task_71bfea96 | login | sa | design | **superseded** | queue chain stub · SA chạy `task_3be7da84` |
-| task_3be7da84 | login | sa | design | **completed** | roleOnly · `/agent-sa-mobile` · autoApprove=ON · solution_confirm approve · VERIFY GATE PASS · **không** chain TL |
-| task_5618e40d | login | team_lead | sa | **completed** | roleOnly · `/agent-tl-mobile` · autoApprove=ON · route_confirm route_a · T-IOS-LOGIN · T-AND-LOGIN · T-BE-MW optional · VERIFY GATE PASS · **không** chain Dev |
+| task_71bfea96 | login | sa | design | **in_progress** | queue chain sau design complete · **không** chạy trong turn Design |
 
 ## Blockers / open questions
 
-- `login-forgot` — **GAP-MOB-BFF-01** **đóng** (PO+SA): link + toast demo · **cấm** invent path · backlog
-- **GAP-MOB-BFF-02** **đóng** — app `POST auth/refresh-token` · **cấm** `auth/refresh`
-- **GAP-MOB-BFF-MW** **đóng (P1)** — app GET `session-window` sau login · DTO `allowed`/`reason` · forceLogout copy Web middleware · T-BE-MW attach middleware Mobile.Bff **optional** (parity Web · **không** path mới)
+- `login-forgot` — **GAP-MOB-BFF-01** PO chốt: link + toast demo · **cấm** invent path · backlog
+- **GAP-MOB-BFF-02** — PO chốt: app `POST auth/refresh-token` (package 1.26.0) · **cấm** `auth/refresh`
+- Mobile.Bff chưa `ContractWindowDefenseMiddleware` — P1 app GET `session-window` sau login · **SA chốt** middleware / DTO
 - Password/eye kit — **closed** Design · `LinmSecureTextField` · Dev **cấm** raw
 - **GAP-MOB-ACT-02** none — `#sc-login` không child form/sheet
-- **GAP-SA-LOGIN-ID** — UI `userName` → body Auth **`id`** (`LoginRequestDto`)
 - Native: user mở Xcode + Android Studio và test thủ công · **cấm** cite `mfeStdUrl` / localhost MFE · BFF `mobile-bff/api/v1`
 
-## Handoff → Dev
+## Handoff → SA
 
 | Field | Value |
 |-------|-------|
 | feature / packKind | `login` / **`shell`** (confirmed) |
-| phase_from / phase_to | team-lead **done** → dev **pending** |
+| phase_from / phase_to | design **confirmed** → sa pending |
 | STATUS | `specs/login/STATUS.md` |
-| task pack | `specs/login/task/login.md` |
-| Context / Demo / DI | CTX + SPEC §7.1 · dual `#sc-login` · `ui/design.md` · `ui/ux-analy.md` · `be/solution-discovery.md` |
-| route_confirm | **route_a** — Login auth root → Home |
+| Context / Demo / DI | CTX + SPEC §7.1 · dual `#sc-login` · `ui/design.md` · `ui/ux-analy.md` |
+| controlHint / UNCLEAR | PO §5 · none |
 | Screens / Pattern / devSlash | Full page `#sc-login` · `/agent-dev-ios` + `/agent-dev-android` |
-| Kit | `LinmSecureTextField` shipped dual · **cấm** raw |
-| Dev tasks | **T-IOS-LOGIN** · **T-AND-LOGIN** · T-BE-API/MIG **n/a** · **T-BE-MW** optional |
-| BFF | `auth/login` · `auth/refresh-token` · `contract-accounts/session-window` · prefix `mobile-bff/api/v1` |
-| BE | **không** endpoint mới · **không** `Schema_*` · MW optional không block P1 |
-| Open questions | forgot/logout backlog · T-BE-MW không block P1 |
-| Next AskQuestion | — (Dev build_fail_confirm nếu fail) |
-| Next slash | `/agent-dev-ios` rồi `/agent-dev-android` |
-| Chain this turn | **không** (roleOnly=team_lead) |
+| Kit | `LinmSecureTextField` shipped dual · map updated |
+| BFF | `login-bff-endpoints.md` · prefix `mobile-bff/api/v1` · auth/login · refresh-token · session-window |
+| Open questions | GAP-MOB-BFF-01/02 chốt PO · SA chốt session-window DTO / middleware |
+| Next AskQuestion | autoApprove=ON — `solution_confirm` khi SA xong |
+| Next slash | `/agent-sa-mobile` |
+| Chain this turn | **không** (roleOnly=design) |
 | e2eQa | ON khi QA · Simulator / emulator · **cấm** yarn start:std |
 
 ## Links
@@ -121,20 +110,10 @@
 - scan → `specs/_form-type-mobile/ACTION-TREE.md`
 - design → `specs/login/ui/design.md`
 - ux-analy → `specs/login/ui/ux-analy.md`
-- solution → `specs/login/be/solution-discovery.md`
-- task → `specs/login/task/login.md`
-- BFF: `mobile-bff/api/v1/auth/login` · `auth/refresh-token` · `contract-accounts/session-window`
+- BFF: `mobile-bff/api/v1/auth/login` · `auth/refresh-token` · `auth/logout`
 - requirement → `specs/login/po/requirement.md`
 
 ## Retry
 
 - from: `data_analy` · at: `2026-08-18T17:32:49.987Z` · board user Retry step
-- recheck: `recheck_new` · skill `2026.08.19.01` → workflow `2026.08.19.04` · backup SA `20260818T183223Z`
-
-## Closeout SA
-
-- closeout SA: `task_3be7da84` · roleOnly=`sa` · `/agent-sa-mobile` · `solution_confirm=approve` · live Auth + session-window **giữ** · **không** endpoint/migration mới P1 · enqueue **team-lead** pending · autoApprove **ON** · VERIFY GATE PASS · at: `2026-08-18T18:32:23.000Z`
-
-## Closeout TL
-
-- closeout TL: `task_5618e40d` · roleOnly=`team_lead` · `/agent-tl-mobile` · `route_confirm=route_a` · tasks `T-IOS-LOGIN` · `T-AND-LOGIN` · `T-BE-MW` optional · T-BE-API/MIG **n/a** · enqueue **dev** pending · autoApprove **ON** · VERIFY GATE PASS · **không** chain Dev · at: `2026-08-18T18:39:00.000Z`
+- recheck: `recheck_new` · skill `2026.08.19.01` → workflow `2026.08.19.03` · backup Design `20260818T182200Z`
