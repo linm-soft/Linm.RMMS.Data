@@ -1,0 +1,75 @@
+appId: org.linmsoft.rmms
+---
+# supervise · store A11/A9/A3 · login Auth seed → tile Giám sát → #sc-supervise
+# iOS LinmTopBar trailing id không expose XCUITest (kit a11y) — tap text Lọc / Trang Chủ
+# cấm shot login-only cho A3 · cấm mfeStdUrl / start:std
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible: "Đăng nhập"
+    timeout: 15000
+- takeScreenshot: A11-LAUNCH
+- tapOn:
+    id: "f-user"
+    optional: true
+- tapOn:
+    text: "Tài khoản"
+    optional: true
+- inputText: "linm-soft"
+- tapOn:
+    text: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
+    optional: true
+- tapOn:
+    text: "RMMS"
+    optional: true
+- tapOn:
+    id: "f-pass"
+    optional: true
+- tapOn:
+    text: "Mật khẩu"
+    optional: true
+- inputText: "Linm@2026"
+- tapOn:
+    text: "Not Now"
+    optional: true
+- takeScreenshot: A9-LOGIN
+- tapOn:
+    id: "btn-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
+- tapOn:
+    text: "Not Now"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 30000
+- tapOn:
+    id: "tile-supervise"
+- extendedWaitUntil:
+    visible:
+      id: "sc-supervise"
+    timeout: 20000
+- assertVisible: "Giám sát tuần đường"
+- assertVisible: "Danh sách check in"
+- assertVisible: "Nguyễn Văn A"
+- assertVisible: "Trần Khánh"
+- takeScreenshot: A3-CORE
+- tapOn:
+    id: "btn-sup-filter"
+    optional: true
+- tapOn:
+    text: "Lọc"
+- extendedWaitUntil:
+    visible: "Lọc tuyến · ngày"
+    timeout: 8000
+- tapOn:
+    text: "Bản đồ"
+- tapOn:
+    text: "Nguyễn Văn A"
+- tapOn:
+    id: "btn-sup-back"
+    optional: true

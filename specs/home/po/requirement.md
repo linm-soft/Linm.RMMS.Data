@@ -94,7 +94,7 @@ Nguồn `#sc-home` dual + DA-01. UNCLEAR field = **none**.
 | Field | VN | controlHint | Required | Kit (iOS+Android cùng turn) | Notes |
 |-------|----|-------------|----------|------------------------------|-------|
 | profileBtn | Hồ sơ | ProfileButton | * | `LinmProfileButton` trong `LinmHeroTools` | `reuse=me` · tap → tab Tôi |
-| notifyBtn | Thông báo | NotifyButton | * | `LinmNotifyButton` · `LinmNotifyCountBadge` | `reuse=ops` · toast · badge 0 ẩn |
+| notifyBtn | Thông báo | NotifyButton | * | `LinmNotifyButton` · `LinmNotifyCountBadge` | toast **Thông báo** + `includeNotification` trên `#sc-home` · badge 0 ẩn · **cấm** push inbox |
 | roleLine | Khu QLĐB IV | Text display | | `LinmStatusCapsule` `area` | **ẩn live** · không invent org |
 | signal | Tín hiệu | SignalQuality | * | `LinmStatusCapsule` / `LinmNetSignalMark` | `shared_kit` `me-signal` · OS path · **cấm** cycle |
 | who | (live FullName) | Text display | * | typography hero | GET `auth/profile` · fallback `lastUserName` |
@@ -137,7 +137,7 @@ App `ApiClient.base` = `{BffBase}/mobile-bff/api/v1`. Path **không** lặp pref
 | ID | Question | Decision (PO) |
 |----|----------|----------------|
 | GAP-F-HOME-01 | Role «Khu QLĐB IV» / wallet «QL.1 · Khu IV» không API | **Không invent.** Role **ẩn live**. Wallet **static demo copy** (3 dòng HTML) đến khi `asset-hub`. Không block DoD hub. |
-| GAP-F-HOME-02 | Badge count inbox | Owner `ops`. Hub `notifyCount=0` (ẩn) · tap toast **Thông báo** · **cấm** gọi inbox turn `home`. |
+| GAP-F-HOME-02 | Badge count inbox | Owner `ops`. Hub `notifyCount=0` (ẩn) · tap toast **Thông báo** + `includeNotification` trên `#sc-home` · **cấm** gọi inbox / push `#sc-ops` turn `home`. |
 | GAP-F-HOME-03 | Foot Gói 1 | **Cấm** ship. Design skip zone. |
 | Tap sibling vs nav stub | data-analy để PO chốt | **Hồ sơ** → tab Tôi (reuse shipped). Còn lại **toast nhãn** đến khi sibling Approve + implement. TL **không** nav stub giả màn. |
 | packKind | data-analy `hub` | **Confirm `hub`.** **≠** web `dashboard`. **Cấm** Grid/Report AC. |

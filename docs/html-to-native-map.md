@@ -14,11 +14,11 @@ Map **ý nghĩa**. Cấm clone `px` / `class`. Cấm 1 binary UI 2 OS.
 | top bar | Cao 56 · title giữa · 2 bên tap 44 · glyph **vector 22** (SF `square.grid.2x2` / `ellipsis.circle` ≡ GridView / MoreHoriz) · **cấm** chữ `▦`/`⋯` | `LinmTopBar` | `LinmTopBar` |
 | `.btn-ok` | CTA chính · loading `isBusy` spinner giữa nút (ẩn title) | `LinmPrimaryButton` `isBusy` | `LinmPrimaryButton` `isBusy` |
 | `.btn-skip` | Phụ | `LinmSecondaryButton` | `LinmSecondaryButton` |
-| `.list` / `.rich-card` / `.row` | Hàng · leading slot **`listLeading` 30** căn giữa (title cùng cột khi thiếu icon) · chevron / badge / `onTap` | `LinmListRow` | `LinmListRow` |
+| `.list` / `.rich-card` / `.row` | Hàng · leading `.row-icon` → `LinmRowIcon` + `LinmStrokeGlyph` `#i-*` cùng `d=` (`/convert-web-icon-to-mobile`) · iOS 36 rounded-rect · Android 40 circle · không icon thì **không** chừa slot trống · chevron / badge / `onTap` | `LinmListRow` `leading:` | `LinmListRow` `leading` |
 | `.card` / form card | Thẻ | `LinmCard` | `LinmCard` |
 | overflow / `⋯` | Menu | `LinmMenu` (HIG `Menu`) | `LinmMenu` — host `DropdownMenu` + **token skin** (cấm M3 tím) |
 | `.sheet` | Overlay · size compact/medium/large · chrome Huỷ/Lưu · footer `LinmSheetButton` main/second · fullWidth \| inline | `.linmSheet` + `LinmSheet` · `LinmSheetSize` · `LinmSheetChrome` · `LinmSheetButton` | `LinmSheet` cùng props |
-| toast / banner | Thông báo · đóng phải `#i-x` · auto `toastAutoDismissMs` 5000 · giữ text (không đóng) · `includeNotification` → app `onNotify` · **cấm** `alert` | `LinmToast` / `LinmToastHost` / `LinmBanner` | same |
+| toast / banner | Thông báo · đóng phải `#i-x` · auto `toastAutoDismissMs` 5000 · giữ text (không đóng) · `bottomBarHeight` app đo footer/`LinmTabBar` → toast **trên** tab · gap `toastBottomGap` 20 · `includeNotification` → app `onNotify` · **cấm** `alert` | `LinmToast` / `LinmToastHost` / `LinmBanner` | same |
 | leave modal | Dirty **popup** giữa màn | `LinmLeaveConfirm` / `.linmLeaveConfirm` | `LinmLeaveConfirm` (`Dialog`) |
 | loading full page | Spinner giữa · blur nền `busyBlur` 12 | `LinmBusyOverlay` / `.linmBusyOverlay` | `LinmBusyOverlay` |
 | `.chip` | Filter chip | `LinmChip` | `LinmChip` |
@@ -68,7 +68,7 @@ Map **ý nghĩa**. Cấm clone `px` / `class`. Cấm 1 binary UI 2 OS.
 | form field row | `52` | `formFieldHeight` |
 | IME focus gap | `12` | `imeFocusGap` · `LinmKeyboardAwareScroll` |
 | tab slot / label / field | `64` × `32` tap · **cấm pill nền** · label **13** · field **16** | `tabIndicatorWidth` · `tabIndicatorHeight` · `tabLabel` · `label` · `fieldText` |
-| hero circle / capsule / badge / wifi / toast | `36` / `28` / `22` / `11` / `1.5` / `14` / `5000` | `iconCircle` / `statusCapsuleHeight` / `notifyBadge` / `notifyBadgeFont` / `notifyBadgeRing` / `signalWifi` / `toastAutoDismissMs` |
+| hero circle / capsule / badge / wifi / toast | `36` / `28` / `22` / `11` / `1.5` / `14` / `5000` / `20` / `64` | `iconCircle` / `statusCapsuleHeight` / `notifyBadge` / `notifyBadgeFont` / `notifyBadgeRing` / `signalWifi` / `toastAutoDismissMs` / `toastBottomGap` / `tabBarContentHeight` |
 | home tile / progress / large title / quick | `48` / `6` / `34` / `14` / `#FFF8E8` | `iconHomeTile` / `progressHeight` / `largeTitle` / `quickRadius` / `quickStart` |
 | header | `#086A9A` → `#0C84C0` | `headerStart` / `headerEnd` |
 | success | `#3CB448` | `LinmTokens.success` |

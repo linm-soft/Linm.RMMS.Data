@@ -1,0 +1,54 @@
+appId: org.linmsoft.rmms
+---
+# patrol-home · store P6 ×2 · login Auth seed → tab field → #sc-patrol-home (Pixel 1080×1920)
+# cấm hideKeyboard (BACK có thể về launcher) — tap title + Enter như patrol-offline
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible: "Đăng nhập"
+    timeout: 15000
+- tapOn:
+    id: "f-user"
+- inputText: "linm-soft"
+- tapOn: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
+- tapOn:
+    id: "f-pass"
+- inputText: "Linm@2026"
+- pressKey: Enter
+- waitForAnimationToEnd:
+    timeout: 4000
+- tapOn:
+    id: "btn-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
+- extendedWaitUntil:
+    visible: "Trang Chủ"
+    timeout: 45000
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 15000
+- tapOn:
+    id: "tab-field"
+- extendedWaitUntil:
+    visible:
+      id: "sc-patrol-home"
+    timeout: 20000
+- assertVisible:
+    id: "patrol-hero"
+- assertVisible:
+    id: "btn-pin-here"
+- assertVisible: "Ghim vị trí hiện tại"
+- takeScreenshot: P6-CORE
+- scrollUntilVisible:
+    element:
+      id: "row-quick-patrol-offline"
+    direction: DOWN
+    timeout: 15000
+- assertVisible: "Thao tác nhanh"
+- takeScreenshot: P6-CORE-2
+- assertVisible:
+    id: "sc-patrol-home"

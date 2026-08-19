@@ -26,3 +26,4 @@ Parity iOS: 2 steps cùng `#sc-forgot` · API-01/02 · toast PO reset · **cấm
 - System back + `#btn-back` → cùng `LoginForgotIntent.Back`.
 - Step 2 dirty → `LinmLeaveConfirm` · testTags `btn-leave-cancel` · `btn-leave-ok`.
 - testTags: `btn-back` · `f-phone` · `btn-forgot-send` · `f-otp` · `f-new-pass` · `f-confirm-pass` · `btn-forgot-reset`.
+- `/edit-mobile-feature` 2026-08-19: **GAP-MOB-THEME-01** / **GAP-MOB-COPY-01** — `LinmCopy.t` · toast BFF `message` giữ.

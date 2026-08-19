@@ -98,6 +98,10 @@
 | task_246a6ce0 | incident-list | data_analy | home | pending_confirm | sibling_assign |
 | task_56d16d11 | asset-hub | data_analy | home | pending_confirm | sibling_assign |
 
+## Notes
+
+`/edit-mobile-feature` 2026-08-19: notify stay `#sc-home` · toast **Thông báo** + `includeNotification` · iOS tap UN → tab Trang Chủ + replay · **cấm** push `#sc-ops`.
+
 ## Blockers / open questions
 
 - GAP-F-HOME-01 — SA/TL/Dev/QA/Review: role **ẩn live** · wallet **static demo** · **verified**

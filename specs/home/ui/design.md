@@ -63,7 +63,7 @@
 | Field | VN | Kit dual | SF ↔ Material | Notes |
 |-------|----|----------|---------------|-------|
 | profileBtn | Hồ sơ | `LinmProfileButton` trong `LinmHeroTools` | `person` ↔ `Person` / `AccountCircle` | tap → tab **Tôi** |
-| notifyBtn | Thông báo | `LinmNotifyButton` · `LinmNotifyCountBadge` | `bell` ↔ `Notifications` | toast · badge **0 ẩn** · **cấm** GET inbox |
+| notifyBtn | Thông báo | `LinmNotifyButton` · `LinmNotifyCountBadge` | `bell` ↔ `Notifications` | toast **Thông báo** + `includeNotification` (ở `#sc-home`) · tap banner iOS → tab Trang Chủ + replay toast · badge **0 ẩn** · **cấm** GET inbox · **cấm** push `#sc-ops` |
 | roleLine | Khu QLĐB IV | `LinmStatusCapsule` `area` | — | **ẩn live** (GAP-F-HOME-01) · demo SSOT only |
 | signal | Tín hiệu | `LinmStatusCapsule` / `LinmNetSignalMark` | bars only | Tốt/TB/Yếu · OS path · tap toast **Đã làm mới** · **cấm** cycle |
 | who | (live FullName) | typography hero | — | GET `auth/profile` · fallback `lastUserName` · **cấm** hardcode production |

@@ -40,7 +40,7 @@
 | [**17-GPU-VNSO-COST-STANDARD.md**](17-GPU-VNSO-COST-STANDARD.md) | **SSOT SKU GPU + chi phí VNSO** — Train A100 PAYG · Infer V100/L4/A40 tháng · plan P2/P2.1 | Infra, PM, CFO |
 | [**16-ITS-TRAFFIC-OBJECT-DETECTION-DESIGN.md**](16-ITS-TRAFFIC-OBJECT-DETECTION-DESIGN.md) | **System design ITS** — biển báo/cọc tiêu · edge AI · PostGIS 10 m · BFF/Auth · SignalR · OTA | Architect, BE, AI, Mobile |
 | [**18-ITS-ANPR-OVERLOAD-SPEC.md**](18-ITS-ANPR-OVERLOAD-SPEC.md) | **P2 Spec** — Camera ANPR+WIM → Cục Đăng kiểm → HITL xác nhận lỗi tốc độ/quá tải | Architect, BE, PM, BA |
-| [`features/its-traffic-detect.md`](features/its-traffic-detect.md) | Feature context ITS (map demo `ai-asset-detect`) | PM, Dev |
+| [`features/its-traffic-detect.md`](features/its-traffic-detect.md) | Feature ITS — biển báo/cọc · **P2-A train** · cam IP · user/auto gim · sự cố mất (reconcile) · §8–§12 | PM, Dev, AI |
 | [`features/its-anpr-overload.md`](features/its-anpr-overload.md) | Feature context ANPR overload · demo `/demo/p/its-anpr-overload` | PM, Dev |
 | [`features/camera-connect.md`](features/camera-connect.md) | Kết nối camera ITS · model SDK-first TCM403 · `sdkPort`/`httpPort` · ISAPI · MFE `Linm.Web.RMMS.Camera` · **pilot wall+map** | PM, Dev, ITS |
 | [**camera-ops-dashboard-demo.html**](../Linm.RMMS.Demo/src/demo/features/camera-ops-dashboard-demo.html) | **Pilot** wall kéo-thả nhiều cam + GIS 1-click đếm xe/event + slideout live | Stakeholder, Camera, GIS |

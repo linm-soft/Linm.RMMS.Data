@@ -1,0 +1,42 @@
+appId: org.linmsoft.rmms
+---
+# patrol-map · Android
+- launchApp:
+    clearState: true
+- extendedWaitUntil:
+    visible: "Đăng nhập"
+    timeout: 15000
+- tapOn:
+    text: "Tài khoản"
+    optional: true
+- inputText: "linm-soft"
+- tapOn:
+    text: "Mật khẩu"
+    optional: true
+- inputText: "Linm@2026"
+- tapOn:
+    text: "Đăng nhập"
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 30000
+- tapOn:
+    id: "tab-field"
+    optional: true
+- tapOn:
+    text: "Tuần đường"
+- extendedWaitUntil:
+    visible:
+      id: "sc-patrol-home"
+    timeout: 20000
+- tapOn:
+    text: "Bản đồ ca"
+- extendedWaitUntil:
+    visible:
+      id: "sc-patrol-map"
+    timeout: 20000
+- assertVisible:
+    id: "map-patrol-host"
+- assertVisible:
+    id: "btn-pin-here"
+- takeScreenshot: A3-CORE-MAP

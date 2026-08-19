@@ -98,7 +98,7 @@ IA lock (design §2): `(auth) Login (ngoài tab) → Tab 5 · Trang Chủ = this
 | Field | Kit | Notes |
 |-------|-----|-------|
 | profileBtn | `LinmProfileButton` trong `LinmHeroTools` | tap → tab **Tôi** · e2e id theo ux-analy |
-| notifyBtn | `LinmNotifyButton` · `LinmNotifyCountBadge` | toast **Thông báo** · badge **0 ẩn** · **cấm** GET inbox · **cấm** hardcode `3` |
+| notifyBtn | `LinmNotifyButton` · `LinmNotifyCountBadge` | toast **Thông báo** + `includeNotification` trên `#sc-home` · tap banner iOS → tab Trang Chủ · badge **0 ẩn** · **cấm** GET inbox · **cấm** hardcode `3` · **cấm** push `#sc-ops` |
 | roleLine | `LinmStatusCapsule` `area` | **ẩn live** (`GAP-F-HOME-01`) |
 | signal | `LinmStatusCapsule` / `LinmNetSignalMark` | OS `NWPathMonitor` · Tốt/TB/Yếu · tap toast **Đã làm mới** + refresh · **cấm** cycle · **cấm** «Có mạng» |
 | who | typography hero | `fullName` trim từ profile · fail → `lastUserName` · **cấm** hardcode production |

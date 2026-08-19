@@ -33,7 +33,7 @@ Login (ngoài tab) → Tab 5
 | Profile | Tên + phụ + (iOS chevron) | A `.list` / `.row` | `LinmListRow` | same |
 | Đồng bộ | Hàng đợi · Tín hiệu | A `.section-label` + `.row` | `LinmSectionLabel` + `LinmListRow` slot 30 + sync | same |
 | Signal | cột sóng + hạng | A `data-net-signal` | `LinmNetSignalMark` căn giữa slot 30 | same |
-| Info | Góp ý · Camera · Thông báo · Cài đặt · Đăng xuất | A `.row` | `LinmListRow` slot 30 (logout trống) | same · **Cài đặt** dual |
+| Info | Góp ý · Camera · Thông báo · Cài đặt · Đăng xuất | A `.row` | `LinmListRow` slot 30 · logout icon cửa+mũi tên danger | same · **Cài đặt** dual |
 | Tab | 5 tab | A `.tabbar` | `LinmTabBar` glyph 22 · **không** pill nền | same |
 
 **States:** default = live name · empty name = «Tài khoản» · loading = `LinmBusyOverlay` · error/offline = fallback lastUserName · permission N/A · leave N/A
@@ -54,7 +54,7 @@ Primary `#0C84C0` · deep `#086A9A` · success `#3CB448` · warn `#FCB43C` · da
 
 ## 7. Pictogram
 
-Tab: house / mappin / warning / wrench / person — **outline** (`Linm*Glyph` Android · SF iOS). **Cấm** Material Filled. Rows: person · sync dual · cột sóng slot 30 · info · video · bell · gear dual.
+Tab: house / mappin / warning / wrench / person — **outline** (`Linm*Glyph` Android · SF iOS). **Cấm** Material Filled. Rows: person · sync dual · cột sóng slot 30 · info · video · bell · gear dual · logout cửa+mũi tên (`rectangle.portrait.and.arrow.right` ↔ `Logout`) nền danger.
 
 ## 8. Motion
 
@@ -76,6 +76,7 @@ Không `/wf-anim`.
 | GAP-MOB-ALIGN-01f | Tab selected = pill nền icon (M3-like) | **PASS** bỏ Capsule/`primary` 12% · chỉ tint icon+label |
 | GAP-MOB-ALIGN-01g | Android `Icons.Filled` (nhà/cảnh báo/người đặc · `Build` chéo) ≠ iOS SF outline | **PASS** `Linm*Glyph` outline dual motif · **cấm** Filled tab |
 | GAP-MOB-ICON-03 | Android wrench U-jaw/Build ≠ demo `#i-wrench` / iOS `wrench` | **PASS** `LinmDemoSvg.WRENCH` cùng `d=` stroke 1.75 · `/convert-web-icon-to-mobile` |
+| GAP-MOB-EDIT-LOGOUT | Logout slot trống | **PASS** leading 30 · cửa+mũi tên danger dual |
 
 ## Version meta
 

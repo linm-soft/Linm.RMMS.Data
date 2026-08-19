@@ -12,4 +12,4 @@ Cite SSOT `docs/html-to-native-map.md`. Feature deltas:
 | `.tabbar` | `LinmTabBar` dual | `shell-tabs` · glyph 22 slot 64×32 · **cấm pill nền** · `#i-*` `LinmDemoSvg` cùng `d=` · **cấm** `Icons.Filled` / `Build` · `tabLabel` **13** |
 | top bar (Home kit) | `LinmTopBar` dual | glyph vector 22 · tap 44 · **cấm** chữ `▦`/`⋯` |
 | toast | `LinmToast` | sibling + logout |
-| Đăng xuất đỏ | `LinmListRow` `titleColor` danger | **không** `LinmSecondaryButton` trên `#sc-me` |
+| Đăng xuất đỏ | `LinmListRow` `titleColor` danger + leading 30 | icon cửa+mũi tên · `rectangle.portrait.and.arrow.right` ↔ `Logout` · nền `danger` · **không** `LinmSecondaryButton` trên `#sc-me` |

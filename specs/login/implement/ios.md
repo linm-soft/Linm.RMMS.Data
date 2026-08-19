@@ -41,3 +41,4 @@
 - `/edit-mobile-feature` 2026-08-19: **GAP-MOB-EDIT-FOOTER-01** footer pin `.bottom` giữa · ẩn khi IME · `xcodebuild` dest **iPhone 17 Pro Max** **PASS**.
 - `/edit-mobile-feature` 2026-08-19: **GAP-MOB-EDIT-PASS** submit reset `#f-pass` · giữ last user · `xcodebuild` dest **iPhone 17 Pro Max** **PASS**.
 - `/edit-mobile-feature` 2026-08-19: **GAP-MOB-EDIT-IME-ENTER** `#f-user` Enter + MK có giá trị → login · Enter + MK rỗng → focus `#f-pass` · `#f-pass` Enter → login · kit `onSubmit` · `xcodebuild` dest **iPhone 17 Pro Max** **PASS** · **iPad Pro 13-inch (M5)** **PASS**.
+- `/edit-mobile-feature` 2026-08-19: **GAP-MOB-THEME-01** / **GAP-MOB-COPY-01** — `LinmTokens` + `LinmCopy.t` · **cấm** hex/VN literal · API `userMessage` giữ.

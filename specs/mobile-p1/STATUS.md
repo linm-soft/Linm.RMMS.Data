@@ -35,6 +35,7 @@
 | scan-and-implement-kit-control | kit_scan all_ab · analy only · **cấm** design_confirm | kit_scan_p1 | 2026-08-18T23:20:00.000Z |
 | build-mobile-kit-to-app | local_both · iOS BUILD SUCCEEDED · Android assembleDebug | kit_scan_patched | 2026-08-18T23:20:00.000Z |
 | review-demo-design-mobile | dual proto UI · Must đóng · PAD/COPY/ICON/TYPE aligned | demo_parity_p1 | 2026-08-19T11:20:00.000Z |
+| hey-linm | P2 OTA modelVersion SSOT its-traffic-detect §14 · P1 vẫn YOLO local DEFER | mobile_ota_p2_doc | 2026-08-19T21:33:00.000Z |
 
 ## Pipeline
 

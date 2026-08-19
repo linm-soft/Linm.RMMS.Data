@@ -34,3 +34,5 @@
 ## E2E ids
 
 `sc-ops` · `nav-back` · `row-ops-*` · `row-ops` (Me)
+
+`/edit-mobile-feature` 2026-08-19: **GAP-MOB-COPY-01** — title/badge chrome `LinmCopy` · inbox `title`/`subtitle` giữ.

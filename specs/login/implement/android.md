@@ -39,3 +39,4 @@ Demo Home **Đăng xuất** (`btn-logout`) → `LogoutUseCase` clear Encrypted s
 - Pack kit local `ui:0.1.0` trước assemble (leading + height 52).
 - Emulator Pixel_9a `adb` **offline** lúc capture `/dev-ui-review` (qemu 100% CPU) — QA live `adb` khi emulator sẵn.
 - Cleartext `10.0.2.2` / localhost cho BFF Debug.
+- `/edit-mobile-feature` 2026-08-19: **GAP-MOB-THEME-01** / **GAP-MOB-COPY-01** — `LinmTokens` + `LinmCopy.t` · **cấm** hex/VN literal · API `userMessage` giữ.

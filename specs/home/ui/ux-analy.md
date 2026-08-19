@@ -12,7 +12,8 @@ Login (ngoài tab) → Tab 5
 - Tôi: #sc-me (reuse=me · đã ship)
 #sc-home
   → Hồ sơ = chuyển tab Tôi (không push)
-  → Thông báo / quick / tile / wallet (chưa ship) = LinmToast nhãn
+  → Thông báo = toast **Thông báo** + lưu local notify (ở `#sc-home`) · tap banner iOS → Trang Chủ
+  → quick / tile / wallet (chưa ship) = LinmToast nhãn
   → Tín hiệu = toast «Đã làm mới» + refresh profile (OS path)
   → không child form / sheet
 ```
@@ -103,6 +104,7 @@ Không `/wf-anim` trên hub `home`.
 |----|----------------|------------|
 | GAP-F-HOME-01 | Role + wallet không API | Role **ẩn live** · wallet **static demo** 3 dòng · **cấm** invent |
 | GAP-F-HOME-02 | Badge `3` trên mobile-p1 | Hub `notifyCount=0` **ẩn** · **cấm** GET inbox · owner `ops` |
+| GAP-MOB-EDIT-NOTIFY | iOS notify push Ops · không lưu banner | **PASS** toast + `includeNotification` trên `#sc-home` · tap UN → tab Trang Chủ + replay · **cấm** push inbox |
 | GAP-F-HOME-03 | `.home-foot` Gói | **Cấm** ship · skip zone |
 | GAP-MOB-SIGNAL-01/02 | Proto tap-cycle | OS path + toast **Đã làm mới** · **cấm** cycle |
 | GAP-MOB-ACT-05 | Kit home đã map | reuse · **cấm** raw grid / TabView |

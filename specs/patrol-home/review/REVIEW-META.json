@@ -1,0 +1,23 @@
+{
+  "feature": "patrol-home",
+  "status": "done",
+  "review_confirm": "approve",
+  "taskId": "task_929e803f",
+  "skillId": "agent-review-mobile",
+  "skillVersion": "2026.08.19.29",
+  "workflowVersion": "2026.08.19.29",
+  "rulesVersion": "2026.08.19.34",
+  "schemaVersion": "1",
+  "versionGate": "rechecked",
+  "autoApprove": true,
+  "post_review": "skip",
+  "alignMustOpen": 0,
+  "verifyGate": {
+    "ios": "PASS",
+    "android": "PASS",
+    "bff": "PASS",
+    "step4b": "N/A",
+    "e2ePriorQa": "PASS"
+  },
+  "updatedAt": "2026-08-19T15:00:00.000Z"
+}

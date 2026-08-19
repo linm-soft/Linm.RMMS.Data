@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RMMS · Giám sát tuần đường</title>
+  <style>
+    :root {
+      --primary: #0C84C0; --success: #3CB448; --warn: #FCB43C;
+      --surface: #FFFBFE; --card: #fff; --label: #1C1B1F; --muted: #79747E;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Roboto", "Google Sans", system-ui, sans-serif;
+      background: #121212; color: var(--label);
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    }
+    .phone {
+      width: 412px; height: 915px; background: var(--surface);
+      border-radius: 28px; overflow: hidden; position: relative;
+      box-shadow: 0 20px 60px rgba(0,0,0,.45);
+      display: flex; flex-direction: column;
+    }
+    .top-bar {
+      display: flex; align-items: center; min-height: 56px;
+      padding: 36px 4px 8px; background: var(--card);
+      box-shadow: 0 1px 3px rgba(0,0,0,.12);
+    }
+    .nav-btn {
+      border: 0; background: transparent; color: var(--primary);
+      min-height: 48px; padding: 0 8px; cursor: pointer; font-family: inherit;
+      font-size: 15px; font-weight: 600; display: inline-flex; align-items: center; gap: 4px;
+    }
+    .nav-title {
+      flex: 1; text-align: center; font-size: 17px; font-weight: 600; color: var(--label);
+    }
+    .seg {
+      display: flex; margin: 0 16px 12px; padding: 0;
+      background: transparent; border-bottom: 1px solid #E7E0EC;
+    }
+    .seg button {
+      flex: 1; border: 0; border-radius: 0; padding: 12px 6px;
+      font-size: 13px; font-weight: 500; background: transparent;
+      color: var(--muted); cursor: pointer; font-family: inherit;
+      border-bottom: 2px solid transparent;
+    }
+    .seg button.on {
+      color: var(--primary); font-weight: 600;
+      border-bottom-color: var(--primary);
+    }
+    .content { flex: 1; overflow: auto; padding: 12px 0 28px; }
+    .rich-card {
+      background: var(--card); border-radius: 14px; margin: 0 16px 12px;
+      overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,.10); cursor: pointer;
+    }
+    .rc-main { display: flex; align-items: flex-start; gap: 12px; padding: 14px; }
+    .rc-body { flex: 1; min-width: 0; }
+    .rc-title { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+    .rc-line {
+      font-size: 13px; color: var(--muted); margin-bottom: 4px; line-height: 1.35;
+      display: flex; align-items: flex-start; gap: 8px;
+    }
+    .rc-line .ic { margin-top: 1px; flex-shrink: 0; }
+    .rc-time { font-size: 13px; color: #9aa0a6; margin-top: 8px; }
+    .rc-thumb {
+      width: 56px; height: 56px; border-radius: 8px; flex-shrink: 0;
+      background: linear-gradient(145deg, #cbd5e1, #94a3b8);
+    }
+    .rc-thumb.alt { background: linear-gradient(145deg, #94a3b8, #64748b); }
+    .rc-status {
+      padding: 10px 14px; font-size: 13px; font-weight: 650;
+      color: #1B5E20; border-top: 1px solid rgba(0,0,0,.08);
+    }
+    .ic {
+      width: 1em; height: 1em; display: inline-block; vertical-align: -0.125em;
+      fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round;
+    }
+    .ic-sm { font-size: 15px; }
+    .sprites { position: absolute; width: 0; height: 0; overflow: hidden; }
+    .toast {
+      position: absolute; left: 50%; bottom: 36px; transform: translateX(-50%) translateY(16px);
+      background: rgba(30,30,30,.92); color: #fff; font-size: 14px; font-weight: 500;
+      padding: 10px 16px; border-radius: 8px; z-index: 40; opacity: 0; pointer-events: none;
+      max-width: calc(100% - 32px); text-align: center; transition: .25s ease;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .gesture {
+      position: absolute; left: 50%; bottom: 10px; transform: translateX(-50%);
+      width: 108px; height: 4px; background: #1C1B1F; border-radius: 2px; opacity: .28;
+    }
+  </style>
+</head>
+<body>
+  <svg class="sprites" aria-hidden="true">
+    <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+    <symbol id="i-building" viewBox="0 0 24 24"><path d="M4 20h16"/><path d="M6 20V6l6-2 6 2v14"/><path d="M10 10h.01M14 10h.01M10 14h.01M14 14h.01"/></symbol>
+    <symbol id="i-mappin" viewBox="0 0 24 24"><path d="M12 21s7-5.2 7-11a7 7 0 1 0-14 0c0 5.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.2"/></symbol>
+  </svg>
+  <div class="phone" id="sc-supervise" data-des-id="DES-MOB-SUPERVISE">
+    <div class="top-bar" data-des-id="DES-MOB-SUP-NAV">
+      <button class="nav-btn" type="button" id="btn-sup-back">
+        <svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg> Trang Chủ
+      </button>
+      <div class="nav-title">Giám sát tuần đường</div>
+      <button class="nav-btn" type="button" id="btn-sup-filter" onclick="toast('Lọc tuyến · ngày')">Lọc</button>
+    </div>
+    <div class="seg" id="sup-segment" data-des-id="DES-MOB-SUP-SEG">
+      <button class="on" type="button" id="seg-list">Danh sách check in</button>
+      <button type="button" id="seg-map" onclick="onMap()">Bản đồ</button>
+    </div>
+    <div class="content" data-des-id="DES-MOB-SUP-LIST">
+      <div class="rich-card" id="sup-card-demo-1" data-des-id="DES-MOB-SUP-CARD" onclick="toast('Chi tiết check-in')">
+        <div class="rc-main">
+          <div class="rc-body">
+            <div class="rc-title">Nguyễn Văn A</div>
+            <div class="rc-line"><svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-building"/></svg> Tổ tuần đường · VP-IV.1</div>
+            <div class="rc-line"><svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-mappin"/></svg> QL.1 Km 1556+000 · Xuân Hải</div>
+            <div class="rc-time">2026-08-10 08:40:12</div>
+          </div>
+          <div class="rc-thumb"></div>
+        </div>
+        <div class="rc-status">Trạng thái: Đã ghi điểm tuần</div>
+      </div>
+      <div class="rich-card" id="sup-card-demo-2" data-des-id="DES-MOB-SUP-CARD" onclick="toast('Chi tiết check-in')">
+        <div class="rc-main">
+          <div class="rc-body">
+            <div class="rc-title">Trần Khánh</div>
+            <div class="rc-line"><svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-building"/></svg> Chi cục II.2</div>
+            <div class="rc-line"><svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-mappin"/></svg> QL.1 Km 1561+134 · Phước Dinh</div>
+            <div class="rc-time">2026-08-10 09:12:44</div>
+          </div>
+          <div class="rc-thumb alt"></div>
+        </div>
+        <div class="rc-status">Trạng thái: Đã ghi điểm tuần</div>
+      </div>
+    </div>
+    <div class="toast" id="toast" role="status"></div>
+    <div class="gesture"></div>
+  </div>
+  <script>
+    function toast(msg) {
+      var el = document.getElementById('toast');
+      el.textContent = msg;
+      el.classList.add('show');
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(function () { el.classList.remove('show'); }, 2200);
+    }
+    function onMap() {
+      toast('Bản đồ');
+      document.getElementById('seg-list').classList.add('on');
+      document.getElementById('seg-map').classList.remove('on');
+    }
+  </script>
+</body>
+</html>

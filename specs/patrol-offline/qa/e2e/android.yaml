@@ -1,0 +1,53 @@
+appId: org.linmsoft.rmms
+---
+# patrol-offline · store P6 · login Auth seed → tab Tôi → #row-offline → #sc-patrol-offline (Pixel 1080×1920)
+# cấm hideKeyboard (BACK có thể về launcher) — tap title + Enter như login/android.yaml
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible: "Đăng nhập"
+    timeout: 15000
+- tapOn:
+    id: "f-user"
+- inputText: "linm-soft"
+- tapOn: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
+- tapOn:
+    id: "f-pass"
+- inputText: "Linm@2026"
+- pressKey: Enter
+- waitForAnimationToEnd:
+    timeout: 4000
+- tapOn:
+    id: "btn-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
+- extendedWaitUntil:
+    visible: "Trang Chủ"
+    timeout: 45000
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 15000
+- tapOn:
+    id: "tab-me"
+- extendedWaitUntil:
+    visible:
+      id: "row-offline"
+    timeout: 15000
+- tapOn:
+    id: "row-offline"
+- extendedWaitUntil:
+    visible:
+      id: "sc-patrol-offline"
+    timeout: 20000
+- assertVisible: "Dữ liệu lưu trữ"
+- assertVisible: "Điểm tuần · Km 1556+000"
+- takeScreenshot: P6-CORE
+- assertVisible: "Chờ gửi"
+- assertVisible: "Điểm tuần · Km 1561+134"
+- takeScreenshot: P6-CORE-2
+- assertVisible:
+    id: "sc-patrol-offline"

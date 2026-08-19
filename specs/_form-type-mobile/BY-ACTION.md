@@ -18,6 +18,11 @@ Pilot: `home` (new · high) — tab Trang Chủ trên `DES-MOB-TABBAR`.
 | `ops` | `home` | skip | shared_action | `ops` | `LinmNotifyButton` | home · me | high | `docs/context/features/ops.md` | `#sc-ops` | **không** enqueue (reuse) |
 | `me-signal` | `home` | skip | shared_kit | — | `LinmStatusCapsule` | home · me | high | — | `data-net-signal` | **không** enqueue |
 | `patrol-home` | `home` | new | shared_action | — (owner) | `LinmQuickItem` · `LinmHomeTile` `#i-mappin` | home quick · tile | high | `docs/context/features/patrol.md` | `#sc-patrol-home` · `DES-MOB-PAT-HOME` | analy sibling · skip scan `pilot_one` |
+| `attendance` | `patrol-home` | new | unique | — | `LinmSegment` | patrol segment | high | chấm công | `#sc-patrol-home` `.seg` | sibling `pending_confirm` |
+| `patrol-map` | `patrol-home` | new | unique | — | `LinmListRow` `#i-map` | quick | high | bản đồ ca | `#row-map` | sibling `pending_confirm` |
+| `field-reflect` | `patrol-home` | new | unique | — | `LinmListRow` `#i-camera` | quick | high | hư hỏng | `#row-reflect` | sibling `pending_confirm` |
+| `cam-patrol` | `patrol-home` | new | unique | — | `LinmListRow` `#i-video` | quick | high | camera tuần | `#row-cam` | sibling `pending_confirm` |
+| `patrol-history` | `patrol-home` | new | unique | — | `LinmListRow` `#i-list` | quick | high | lịch sử | `#row-history` | sibling `pending_confirm` |
 | `incident-create` | `home` | new | shared_action | — (owner) | `LinmQuickItem` | home quick · incident FAB | high | `docs/context/features/incident.md` | `startIncidentPick()` · `#sc-inc-form` | analy sibling |
 | `supervise` | `home` | new | unique | — | `LinmHomeTile` `#i-list` | home tile | high | patrol Giám sát | `#sc-supervise` · `DES-MOB-SUPERVISE` | analy sibling |
 | `mnt-list` | `home` | new | unique | — | `LinmHomeTile` `#i-wrench` | home tile · tab Công việc | high | `docs/context/features/maintenance.md` | `#sc-mnt-list` | analy sibling |

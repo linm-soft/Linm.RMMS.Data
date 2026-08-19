@@ -1,0 +1,74 @@
+appId: org.linmsoft.rmms
+---
+# supervise · store P6 ×2 · login Auth seed → tile Giám sát → #sc-supervise (Pixel 1080×1920)
+# cấm hideKeyboard (BACK có thể về launcher) — tap title + Enter như patrol-home
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible: "Đăng nhập"
+    timeout: 15000
+- tapOn:
+    id: "f-user"
+- inputText: "linm-soft"
+- tapOn: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
+- tapOn:
+    id: "f-pass"
+- inputText: "Linm@2026"
+- pressKey: Enter
+- waitForAnimationToEnd:
+    timeout: 4000
+- tapOn:
+    id: "btn-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
+- extendedWaitUntil:
+    visible: "Trang Chủ"
+    timeout: 45000
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 15000
+- tapOn:
+    id: "tile-supervise"
+- extendedWaitUntil:
+    visible:
+      id: "sc-supervise"
+    timeout: 20000
+- assertVisible: "Giám sát tuần đường"
+- assertVisible: "Danh sách check in"
+- assertVisible: "Nguyễn Văn A"
+- takeScreenshot: P6-CORE
+- tapOn:
+    id: "btn-sup-filter"
+    optional: true
+- tapOn:
+    text: "Lọc"
+    optional: true
+- extendedWaitUntil:
+    visible: "Lọc tuyến · ngày"
+    timeout: 8000
+- assertVisible: "Trần Khánh"
+- takeScreenshot: P6-CORE-2
+- tapOn:
+    text: "Bản đồ"
+- extendedWaitUntil:
+    visible: "Bản đồ"
+    timeout: 8000
+- tapOn:
+    id: "sup-card-demo-1"
+    optional: true
+- tapOn:
+    text: "Nguyễn Văn A"
+    optional: true
+- extendedWaitUntil:
+    visible: "Chi tiết check-in"
+    timeout: 8000
+- tapOn:
+    id: "btn-sup-back"
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 15000

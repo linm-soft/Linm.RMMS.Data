@@ -1,7 +1,7 @@
 {
   "name": "linm-mobile-tokens",
   "source": "kit visual parity · agent-design-mobile 2026-08-18",
-  "version": "0.3.8",
+  "version": "0.3.10",
   "color": {
     "primary": "#0C84C0",
     "headerStart": "#086A9A",
@@ -53,12 +53,32 @@
     "tabIndicatorHeight": 32,
     "tabLabel": 13,
     "tabLabelHeight": 16,
+    "tabBarContentHeight": 64,
+    "toastBottomGap": 20,
     "listLeading": 30,
     "label": 13,
     "fieldText": 16,
-    "toastAutoDismissMs": 5000
+    "toastAutoDismissMs": 5000,
+    "brandTitle": 22,
+    "brandLogo": 192,
+    "brandLogoSm": 96,
+    "metaFont": 12,
+    "heroWho": 28,
+    "navTitle": 17
   },
   "extraColor": {
-    "quickStart": "#FFF8E8"
+    "quickStart": "#FFF8E8",
+    "muted": "#8E8E93",
+    "accentSync": "#E65100",
+    "accentCam": "#5856D6",
+    "accentTeal": "#1B8A4A",
+    "accentHubOrange": "#FF9500",
+    "accentHubGray": "#8E8E93",
+    "signalTotHero": "#BBF7D0",
+    "signalMidHero": "#FDE68A",
+    "signalYeuHero": "#FECACA",
+    "signalTot": "#15803D",
+    "signalMid": "#B45309",
+    "signalYeu": "#B91C1C"
   }
 }

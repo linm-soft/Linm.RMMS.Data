@@ -31,7 +31,7 @@ Native chưa có `MeView` / `MeScreen`. SSOT = dual `#sc-me`.
 4. GET `mobile-bff/api/v1/auth/profile` · fail → `lastUserName` · **cấm** invent org/role API · **cấm** hardcode «Nguyễn Văn A».
 5. Tap sibling (queue / góp ý / camera / thông báo) → toast tên hàng · **không** implement màn sibling.
 6. iOS tín hiệu tap → toast **Đã làm mới** · bind OS path · **cấm** «Có mạng».
-7. Đăng xuất row → `LogoutUseCase` local · toast **Đã đăng xuất** → `#sc-login` · **cấm** POST `auth/logout`.
+7. Đăng xuất row → leading icon cửa+mũi tên nền danger · `LogoutUseCase` local · toast **Đã đăng xuất** → `#sc-login` · **cấm** POST `auth/logout`.
 8. Badge 0 ẩn.
 9. Kit `LinmLargeTitle` · `LinmSectionLabel` · `LinmListRow` · `LinmNetSignalMark` · `LinmToast` · **`LinmTabBar`** · **cấm** raw list · **cấm** `TabView` / M3 `NavigationBar`.
 10. VERIFY GATE: iOS `xcodegen` + `xcodebuild` dest **iPhone 17 Pro** · Android `assembleDebug` · BFF `dotnet build`.

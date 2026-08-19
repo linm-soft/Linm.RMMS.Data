@@ -31,3 +31,4 @@
 - Busy = overlay only · **cấm** spinner nút + overlay.
 - E2E: `btn-back` · `f-phone` · `btn-forgot-send` · `f-otp` · `f-new-pass` · `f-confirm-pass` · `btn-forgot-reset`.
 - **Cấm** watermark · `UIAlert` · invent `auth/forgot` · `mfeStdUrl`.
+- `/edit-mobile-feature` 2026-08-19: **GAP-MOB-THEME-01** / **GAP-MOB-COPY-01** — `LinmCopy.t` · toast BFF `message` giữ.

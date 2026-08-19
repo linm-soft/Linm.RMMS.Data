@@ -81,7 +81,7 @@ Dedupe: `nearby` cùng class trong bán kính cấu hình (demo JS **25 m** Have
 |----|---------|
 | GAP-F-AAD-01 Taxonomy class thiết bị vs 10 class mặt đường | Taxonomy **riêng** (biển báo, hộ lan, cột Km/H, đèn, camera ITS, …) — không trộn class ổ gà |
 | GAP-F-AAD-02 Auto-create vs bắt buộc Confirm | P1 = **Confirm bắt buộc** · P2 xem xét auto khi score ≥ ngưỡng + không nearby |
-| GAP-F-AAD-03 Dataset thiết bị TS | OUT P1 train · dùng GPT; P2 dataset riêng |
+| GAP-F-AAD-03 Dataset thiết bị TS | OUT P1 train · dùng GPT; P2 dataset riêng — **SSOT train/gim/mất + license P2-A:** [`its-traffic-detect.md`](its-traffic-detect.md) §8–§12 |
 
 ## 7. Demo checklist
 

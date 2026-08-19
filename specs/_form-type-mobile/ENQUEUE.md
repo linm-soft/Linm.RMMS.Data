@@ -16,5 +16,5 @@ Pilot enqueue **1** slug: `login` (submit **Đăng nhập** — không tách).
 Hub `me` (`task_84e8e0e2`) — sibling `pending_confirm` (chờ Approve · **cấm** auto start): `patrol-offline` · `feedback` · `cam-view` · `ops`.  
 **Không** enqueue: `me-profile` (thiếu route) · `me-signal` (`shared_kit`) · `me-settings` (thiếu màn) · `login-logout` (`reuse`).
 
-Hub `home` (`task_46fb294c`) — sibling `pending_confirm` (chờ Approve · **cấm** auto start): `patrol-home` · `incident-create` · `supervise` · `mnt-list` · `incident-list` · `asset-hub`.  
-**Không** enqueue: `me` (`reuse`) · `ops` (`reuse`) · `me-signal` (`shared_kit`) · `patrol-offline` (`reuse`) · `.home-foot` watermark.
+Hub `patrol-home` (Tuần đường) — sibling `pending_confirm` (chờ Approve · **cấm** auto start): `attendance` · `patrol-map` · `field-reflect` · `cam-patrol` · `patrol-history` · **`patrol-pin`** · **`patrol-checkin`**.  
+Title: `[Mobile] [Tuần đường] -> {nhãn}`. **Không** enqueue: `supervise` (`reuse`) · `patrol-offline` (`reuse`) · today row tap · Tab 5. P1 toast **không** skip pin / ghi điểm.

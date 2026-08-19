@@ -1,11 +1,13 @@
 # Prototype — patrol-home
 
-Design gate: **prototype + reviewUrl** — board Approve (**không auto**).
-Repo confirm: user tick BE+UI trên `/qldb-workflow` Progress trước Dev (**không auto** · cấm ERP.*).
+| | |
+|--|--|
+| Board iOS | `ios/index.html#sc-patrol-home` · 390×844 |
+| Board Android | `android/index.html#sc-patrol-home` · 412×915 |
+| DES | `DES-MOB-PAT-HOME` |
+| reviewUrlIos | `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/patrol-home/ui/prototype/ios/index.html#sc-patrol-home` |
+| reviewUrlAndroid | `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/patrol-home/ui/prototype/android/index.html#sc-patrol-home` |
 
-- Demo SSOT: `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/mobile-p1/ui/prototype/ios/index.html`
-- Title: Tuần đường
-- Pack kind: `hub`
-- MFE: `Linm.RMMS.Mobile.iOS`
+PO delta vs mobile-p1: toast siblings · **cấm** sheet check-in · badge notify/offline **0 ẩn** · Android bell = toast (không `go('ops')`).
 
-Put HTML prototype / screenshot link here; update `ui/design.md` with a browser-openable **reviewUrl**.
+**Cấm** `mfeStdUrl` / `yarn start:std`.

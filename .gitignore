@@ -29,3 +29,5 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 data-import/
+local-script/its-public-pilot/data/
+local-script/its-public-pilot/out/

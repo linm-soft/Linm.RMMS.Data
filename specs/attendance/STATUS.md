@@ -3,8 +3,8 @@
 | Field | Value |
 |-------|-------|
 | feature | `attendance` |
-| phase | `done` |
-| status | `done` |
+| phase | `data_analy` |
+| status | `draft` |
 | changeScope | `edit_page` |
 | packKind | `list` |
 | runMode | `crud_gap` |
@@ -26,7 +26,7 @@
 | qa.artifact | `specs/attendance/qa/scenarios.md` |
 | review.artifact | `specs/attendance/review/findings.md` |
 | reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/attendance/ui/prototype/attendance-list-prototype.html` |
-| updatedAt | `2026-08-16T02:21:22.682Z` |
+| updatedAt | `2026-08-19T18:27:25.101Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -38,13 +38,13 @@
 | Step | Agent | Artifact | Status |
 |------|-------|----------|--------|
 | 0 | data_analy | `_data-analy/features/attendance-control-hint.md` | **done** |
-| 1 | po | po/requirement.md | **done** |
-| 2.1 | design | ui/design.md + prototype + reviewUrl | **done** |
-| 2.2 | sa | be/solution-discovery.md | **done** |
-| 3 | team-lead | task/attendance.md | **done** |
-| 4 | dev | implement/attendance.md | **done** |
-| 5 | qa | qa/scenarios.md | **confirmed** |
-| 6 | review | review/findings.md | **done** |
+| 1 | po | po/requirement.md | **pending** |
+| 2.1 | design | ui/design.md + prototype + reviewUrl | **pending** |
+| 2.2 | sa | be/solution-discovery.md | **pending** |
+| 3 | team-lead | task/attendance.md | **pending** |
+| 4 | dev | implement/attendance.md | **pending** |
+| 5 | qa | qa/scenarios.md | **pending** |
+| 6 | review | review/findings.md | **pending** |
 ## Confirms
 
 | Gate | Value |

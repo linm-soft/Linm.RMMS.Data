@@ -34,3 +34,7 @@
 `/edit-mobile-feature` 2026-08-19: **GAP-MOB-ALIGN-01g** tab outline `LinmHouseGlyph`/`Warning`/`Wrench`/`Person` · **cấm** `Icons.Filled` / `Build`. `assembleDebug`.
 
 `/edit-mobile-feature` 2026-08-19: **GAP-MOB-ICON-03** `LinmDemoSvg` `#i-home/warning/wrench` `d=` stroke 1.75. `assembleDebug`.
+
+`/edit-mobile-feature` 2026-08-19: **GAP-MOB-THEME-01** / **GAP-MOB-COPY-01** — `LinmTokens` + `LinmCopy.t` · `displayName` / `displaySub` / `signal.label` giữ.
+
+`/edit-mobile-feature` 2026-08-19: logout `row-logout` leading `Icons.AutoMirrored.Filled.Logout` nền `danger` · `assembleDebug`.

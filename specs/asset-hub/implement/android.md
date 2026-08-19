@@ -33,3 +33,5 @@
 ## Notes
 
 Step 4b / T-BE **N/A**. Dual parity iOS. BFF `dotnet build` **PASS**.
+
+`/edit-mobile-feature` 2026-08-19: **GAP-MOB-THEME-01** / **GAP-MOB-COPY-01** — `LinmCopy.t` chrome · `walletTitle` / AI candidate giữ.

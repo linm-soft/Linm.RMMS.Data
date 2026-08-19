@@ -26,8 +26,8 @@ Cold start không token → Login. Có phiên → Tab 5 chọn Trang Chủ. Tab 
 | id | layer | status | DoD |
 |----|-------|--------|-----|
 | **T-KIT-LISTROW** | kit | **done** | `LinmListRow` tap/leading/chevron/badge iOS+Android + gallery |
-| **T-IOS-ME** | ios | **done** | `Presentation/Features/Me` · **`LinmTabBar`** glyph 22 căn giữa · `listLeading` 30 · GET `auth/profile` · dest **iPhone 17 Pro Max** |
-| **T-AND-ME** | android | **done** | `presentation/feature/me` · **`LinmTabBar`** không pill · `row-settings` Cài đặt · `listLeading` 30 · same API · `assembleDebug` |
+| **T-IOS-ME** | ios | **done** | `Presentation/Features/Me` · **`LinmTabBar`** glyph 22 căn giữa · `listLeading` 30 · logout icon cửa+mũi tên · GET `auth/profile` · dest **iPhone 17 Pro Max** |
+| **T-AND-ME** | android | **done** | `presentation/feature/me` · **`LinmTabBar`** không pill · `row-settings` Cài đặt · `listLeading` 30 · logout `Logout` danger · same API · `assembleDebug` |
 | **T-BE-API** | be | **n/a** | Auth profile live |
 | **T-BE-MIG** | be | **n/a** | |
 

@@ -170,6 +170,8 @@ Web demo = **tham chiếu field**, không clone layout desktop.
 
 Twin 3D · YOLO local · train offline · WO/SLA full · TOC · cổng dân · camera **config HW** · Face/NFC chấm công · Flutter/KMP UI.
 
+**P2 (không làm Gói 1):** OTA `modelVersion` — SSOT [`docs/context/features/its-traffic-detect.md`](../../../docs/context/features/its-traffic-detect.md) **§14** · API `16` §6.3 (`GET /api/v1/ml-models/current`). P1 giữ chụp → detect **online** + HITL.
+
 ## 7. CRUD — màn nhập liệu (REQUIRED implement)
 
 Mọi surface **nhập liệu** trên demo/mock phải có cặp CRUD thật (cùng DTO Web). Map chỉ xem (`gis`) không invent write API.

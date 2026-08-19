@@ -1,0 +1,66 @@
+appId: org.linmsoft.rmms
+---
+# patrol-offline · login → tab Tôi → #row-offline → #sc-patrol-offline
+# iOS LinmTopBar title «Dữ liệu lưu trữ» có thể không expose a11y — assert id sc-patrol-offline + card copy
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible: "Đăng nhập"
+    timeout: 15000
+- takeScreenshot: A11-LAUNCH
+- tapOn:
+    id: "f-user"
+    optional: true
+- tapOn:
+    text: "Tài khoản"
+    optional: true
+- inputText: "linm-soft"
+- tapOn:
+    text: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
+    optional: true
+- tapOn:
+    text: "RMMS"
+    optional: true
+- tapOn:
+    id: "f-pass"
+    optional: true
+- tapOn:
+    text: "Mật khẩu"
+    optional: true
+- inputText: "Linm@2026"
+- tapOn:
+    text: "Not Now"
+    optional: true
+- takeScreenshot: A9-LOGIN
+- tapOn:
+    id: "btn-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
+- tapOn:
+    text: "Not Now"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 30000
+- tapOn:
+    id: "tab-me"
+    optional: true
+- tapOn:
+    text: "Tôi"
+- extendedWaitUntil:
+    visible: "Hàng đợi mất sóng"
+    timeout: 15000
+- tapOn:
+    id: "row-offline"
+- extendedWaitUntil:
+    visible:
+      id: "sc-patrol-offline"
+    timeout: 20000
+- assertVisible: "Điểm tuần · Km 1556+000"
+- assertVisible: "Chờ gửi"
+- assertVisible: "Điểm tuần · Km 1561+134"
+- takeScreenshot: A3-CORE

@@ -107,6 +107,10 @@
 
 `/edit-mobile-feature` 2026-08-19: **GAP-MOB-ICON-03** tab `#i-home/warning/wrench` cùng `d=` demo (`LinmDemoSvg`) · lệch nét OK · **cấm** `Build`.
 
+`/edit-mobile-feature` 2026-08-19: **GAP-MOB-THEME-01** / **GAP-MOB-COPY-01** — central `mobile-tokens.json` + `mobile-strings.json` · `LinmCopy.t` · API profile/signal giữ.
+
+`/edit-mobile-feature` 2026-08-19: logout leading cửa+mũi tên danger dual · context lock.
+
 ## Blockers / open questions
 
 - Sibling chờ Approve board · **cấm** start tự động (`GAP-MOB-ACT-06`)
