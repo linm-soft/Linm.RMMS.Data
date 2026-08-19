@@ -45,7 +45,7 @@
 | `DES-MOB-HOME-QUICK` | Quick 2 | Điểm tuần · Ghi sự cố |
 | `DES-MOB-HOME-GRID` | Lưới 6 | Giám sát · Tuần đường · Công việc · Vấn đề · Tài sản · Lưu trữ |
 | `DES-MOB-HOME-WALLET` | Ví tuyến | static demo → sibling `asset-hub` |
-| `DES-MOB-TABBAR` | Tab 5 | chrome `shell-tabs` · `LinmTabBar` dual · label **`tabLabel` 10** · Tuần đường **`location.fill` ≡ Place** · **cấm** `TabView` / M3 `NavigationBar` / proto 11 / `mappin` kim dài |
+| `DES-MOB-TABBAR` | Tab 5 | chrome `shell-tabs` · `LinmTabBar` dual · label **`tabLabel` 13** · Tuần đường **`LinmMapPinGlyph`** `#i-mappin` · **cấm** `TabView` / fill Place / `location.fill` |
 
 ### IA lock
 
@@ -78,8 +78,8 @@
 | tileOffline | Lưu trữ | `LinmHomeTile` bg `#086A9A` | `arrow.triangle.2.circlepath` ↔ `Sync` | toast |
 | wallet | HỒ SƠ TÀI SẢN | `LinmWalletCard` | — | static: **QL.1 · Khu IV** · **32 loại KCHT · thông số + checklist sự cố** |
 | foot | Phiên bản Gói… | — | — | **cấm ship** (GAP-F-HOME-03) |
-| tabHome | Trang Chủ | `LinmTabBar` | `house` ↔ `Home` | selected · label **10** |
-| tabField | Tuần đường | `LinmTabBar` | **`location.fill` ↔ `Place`** | **cấm** SF `mappin` |
+| tabHome | Trang Chủ | `LinmTabBar` | `house` ↔ `Home` | selected · label **13** |
+| tabField | Tuần đường | `LinmTabBar` | **`LinmMapPinGlyph`** `#i-mappin` | outline + vòng trong · **cấm** fill |
 
 Toast / banner → `LinmToast`. **Cấm** raw `LazyVGrid` / `LazyVerticalGrid` / `TabView` / M3 `NavigationBar`.
 

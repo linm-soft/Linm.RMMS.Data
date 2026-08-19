@@ -1,0 +1,42 @@
+appId: org.linmsoft.rmms
+---
+# home · store P6 ×2 · login Auth seed → hub #sc-home (Pixel 1080×1920)
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible: "Đăng nhập"
+    timeout: 15000
+- takeScreenshot: A11-LAUNCH
+- tapOn:
+    id: "f-user"
+- eraseText
+- inputText: "linm-soft"
+- tapOn:
+    id: "f-pass"
+- eraseText
+- inputText: "Linm@2026"
+- hideKeyboard
+- takeScreenshot: A9-LOGIN
+- tapOn:
+    id: "btn-login"
+- extendedWaitUntil:
+    visible: "Trang Chủ"
+    timeout: 45000
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 15000
+- assertVisible:
+    id: "home-who"
+- assertVisible:
+    id: "home-quick"
+- takeScreenshot: P6-CORE
+- scrollUntilVisible:
+    element:
+      id: "wallet-card"
+    direction: DOWN
+    timeout: 10000
+- assertVisible:
+    id: "wallet-card"
+- takeScreenshot: P6-CORE-2

@@ -35,6 +35,7 @@ Demo Home **Đăng xuất** (`btn-logout`) → `LogoutUseCase` clear Encrypted s
 - `/edit-mobile-feature` 2026-08-19: IME pin `LinmKeyboardAwareScroll` · demo Home **Đăng xuất** overlay đáy trên `LinmKitGallery` (`btn-logout`) · `./gradlew :app:assembleDebug` **PASS**.
 - `/edit-mobile-feature` 2026-08-19: **GAP-MOB-EDIT-FOOTER-01** footer pin `BottomCenter` · ẩn khi IME · `./gradlew :app:assembleDebug` **PASS**.
 - `/edit-mobile-feature` 2026-08-19: **GAP-MOB-EDIT-PASS** submit reset `#f-pass` · giữ last user · `./gradlew :app:assembleDebug` **PASS**.
+- `/edit-mobile-feature` 2026-08-19: **GAP-MOB-EDIT-IME-ENTER** `#f-user` Enter + MK có giá trị → login · Enter + MK rỗng → focus `#f-pass` · `#f-pass` Enter → login · kit `onSubmit` `ImeAction.Next`/`Go` · `./gradlew :app:assembleDebug` **PASS**.
 - Pack kit local `ui:0.1.0` trước assemble (leading + height 52).
 - Emulator Pixel_9a `adb` **offline** lúc capture `/dev-ui-review` (qemu 100% CPU) — QA live `adb` khi emulator sẵn.
 - Cleartext `10.0.2.2` / localhost cho BFF Debug.

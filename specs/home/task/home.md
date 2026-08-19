@@ -62,7 +62,7 @@ IA lock (design §2): `(auth) Login (ngoài tab) → Tab 5 · Trang Chủ = this
 | Role «Khu QLĐB IV» | **không** org field trên profile | **ẩn live** (`GAP-F-HOME-01`) |
 | Wallet | **không** home/wallet API | **static demo** 3 dòng |
 | Notify badge / inbox | proxy live `ops` | **không gọi** trên `home` · `notifyCount=0` ẩn (`GAP-F-HOME-02`) |
-| Tab 5 / `LinmTabBar` | shell shipped · `tabLabel` **10** · Tuần đường `location.fill` ≡ `Place` | **giữ** · **cấm** revert `mappin` / proto 11 |
+| Tab 5 / `LinmTabBar` | shell shipped · `tabLabel` **13** · `LinmMapPinGlyph` | **giữ** · **cấm** revert 10 / fill Place |
 | `#sc-me` | shipped | tap Hồ sơ → tab Tôi · **cấm** reimplement |
 | New BE endpoint / Schema_* | **không** | **T-BE-API** / **T-BE-MIG** = **n/a** |
 | Kit home | dual shipped + gallery | Dev **cấm** raw grid · **cấm** `T-KIT-*` |
@@ -75,8 +75,8 @@ IA lock (design §2): `(auth) Login (ngoài tab) → Tab 5 · Trang Chủ = this
 | id | layer | deps | status | skills | DoD |
 |----|-------|------|--------|--------|-----|
 | T-KIT-HOME | kit | — | **n/a** | — | Kit home **đã map dual** · Design `kit_missing_confirm` **N/A** — **không** giao Dev kit |
-| **T-IOS-HOME** | ios | SA · route_a | **pending** | `/agent-dev-ios` · `/ios-new-screen` · `/dev-ios-swiftui` · `/mobile-ui-ux-analy` packet · MVVM layer | Replace `PlaceholderHome*` → `Presentation/Features/Home/*` · hub kit parity · GET `auth/profile` · offline fallback · toast nav · **gỡ** gallery / `btn-logout` trên home · `xcodegen` + `xcodebuild` dest **iPhone 17 Pro** PASS · ghi `implement/ios.md` |
-| **T-AND-HOME** | android | SA · route_a | **pending** | `/agent-dev-android` · `/android-new-screen` · `/dev-android-compose` · `/android-new-api-call` · cùng ux packet | Same field/API/DoD dual · `presentation/feature/home/*` · `./gradlew :app:assembleDebug` PASS · ghi `implement/android.md` |
+| **T-IOS-HOME** | ios | SA · route_a | **done** | `/agent-dev-ios` · `/ios-new-screen` · `/dev-ios-swiftui` · `/mobile-ui-ux-analy` packet · MVVM layer | Replace `PlaceholderHome*` → `Presentation/Features/Home/*` · hub kit parity · GET `auth/profile` · offline fallback · toast nav · **gỡ** gallery / `btn-logout` trên home · `xcodegen` + `xcodebuild` dest **iPhone 17 Pro** PASS · ghi `implement/ios.md` |
+| **T-AND-HOME** | android | SA · route_a | **done** | `/agent-dev-android` · `/android-new-screen` · `/dev-android-compose` · `/android-new-api-call` · cùng ux packet | Same field/API/DoD dual · `presentation/feature/home/*` · `./gradlew :app:assembleDebug` PASS · ghi `implement/android.md` |
 | **T-BE-API** | be | — | **n/a** | — | **không** `/new-endpoint` — Auth profile **live** · Step 4b **N/A** |
 | **T-BE-MIG** | be | — | **n/a** | — | **không** `/database-migration` |
 | T-QA-HOME | qa | T-IOS · T-AND | pending | `/agent-qa-mobile` | AC slug `home` only · `yarn e2e-qa-mobile` · live sim 6.9" + emulator · store PNG `qa/store/home` · **cấm** sibling screens in-scope · **cấm** `yarn e2e-qa` web |
@@ -113,7 +113,7 @@ IA lock (design §2): `(auth) Login (ngoài tab) → Tab 5 · Trang Chủ = this
 | tileOffline | `LinmHomeTile` bg `#086A9A` | **Lưu trữ** · `#i-sync` · toast |
 | wallet | `LinmWalletCard` | eyebrow **HỒ SƠ TÀI SẢN** · title **QL.1 · Khu IV** · subtitle **32 loại KCHT · thông số + checklist sự cố** · tap toast **Tài sản** |
 | foot | — | **cấm ship** (`GAP-F-HOME-03`) |
-| tabHome | `LinmTabBar` | selected **Trang Chủ** · label **10** · tabField `location.fill` ≡ `Place` |
+| tabHome | `LinmTabBar` | selected **Trang Chủ** · label **13** · tabField `LinmMapPinGlyph` |
 | toast | `LinmToast` | sibling nhãn · signal · offline |
 
 **Cấm** `LinmKitGallery` trên tab Trang Chủ production · **cấm** `btn-logout` trên `#sc-home` (Đăng xuất = `#sc-me`).

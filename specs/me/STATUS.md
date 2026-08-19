@@ -97,6 +97,14 @@
 
 `/edit-mobile-feature` 2026-08-19: **GAP-MOB-ALIGN-01c** `tabLabel` **10** · iOS tab Tuần đường **`location.fill`** ≡ Android **`Place`**.
 
+`/edit-mobile-feature` 2026-08-19: **GAP-MOB-ALIGN-01d** `tabLabel` **13** (web mobile label) · `fieldText` **16** · `LinmMapPinGlyph` `#i-mappin` outline.
+
+`/edit-mobile-feature` 2026-08-19: **GAP-MOB-ALIGN-01e** tab glyph 22 căn giữa · hàng Tôi `listLeading` 30 (signal giữa · logout slot · iOS sync).
+
+`/edit-mobile-feature` 2026-08-19: **GAP-MOB-UX-04** Android `row-settings` Cài đặt · **GAP-MOB-ALIGN-01f** `LinmTabBar` dual **cấm** pill nền icon.
+
+`/edit-mobile-feature` 2026-08-19: **GAP-MOB-ALIGN-01g** Android tab **outline** (không Filled fill nền · wrench ≠ Build).
+
 ## Blockers / open questions
 
 - Sibling chờ Approve board · **cấm** start tự động (`GAP-MOB-ACT-06`)

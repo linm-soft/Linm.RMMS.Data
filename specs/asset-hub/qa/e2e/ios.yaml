@@ -1,0 +1,63 @@
+appId: org.linmsoft.rmms
+---
+# asset-hub · store A11/A9/A3 · login Auth seed → home #tile-asset → hub #sc-asset-hub
+# cấm shot login-only cho A3 · cấm assert nav-back (kit TopBar không expose id Maestro)
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible: "Đăng nhập"
+    timeout: 15000
+- takeScreenshot: A11-LAUNCH
+- tapOn:
+    id: "f-user"
+    optional: true
+- tapOn:
+    text: "Tài khoản"
+    optional: true
+- inputText: "linm-soft"
+- tapOn:
+    id: "f-pass"
+    optional: true
+- tapOn:
+    text: "Mật khẩu"
+    optional: true
+- inputText: "Linm@2026"
+- tapOn:
+    text: "RMMS"
+    optional: true
+- takeScreenshot: A9-LOGIN
+- tapOn:
+    id: "btn-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
+- tapOn:
+    text: "Not Now"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 30000
+- scrollUntilVisible:
+    element:
+      id: "tile-asset"
+    direction: DOWN
+    timeout: 12000
+- tapOn:
+    id: "tile-asset"
+- extendedWaitUntil:
+    visible:
+      id: "sc-asset-hub"
+    timeout: 20000
+- assertVisible:
+    id: "wallet-asset"
+- assertVisible:
+    id: "tile-types"
+- takeScreenshot: A3-CORE
+- tapOn:
+    id: "tile-types"
+    optional: true
+- assertVisible:
+    id: "sc-asset-hub"

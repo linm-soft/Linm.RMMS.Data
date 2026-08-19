@@ -27,7 +27,7 @@ Native chưa có `MeView` / `MeScreen`. SSOT = dual `#sc-me`.
 
 1. Tab 5 IA lock: Trang Chủ · Tuần đường · Vấn đề · Công việc · **Tôi**. Login **ngoài** tab. Home kit gallery giữ `btn-logout`.
 2. `#sc-me`: title **Tôi** · hàng tên live · section **Đồng bộ** + **Cập nhật thông tin** · copy VN demo.
-3. Android **không** hàng Cài đặt. iOS Cài đặt = toast.
+3. Dual hàng **Cài đặt** (`row-settings`) = toast · **cấm** thiếu Android.
 4. GET `mobile-bff/api/v1/auth/profile` · fail → `lastUserName` · **cấm** invent org/role API · **cấm** hardcode «Nguyễn Văn A».
 5. Tap sibling (queue / góp ý / camera / thông báo) → toast tên hàng · **không** implement màn sibling.
 6. iOS tín hiệu tap → toast **Đã làm mới** · bind OS path · **cấm** «Có mạng».

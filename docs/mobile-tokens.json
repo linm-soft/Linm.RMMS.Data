@@ -1,7 +1,7 @@
 {
   "name": "linm-mobile-tokens",
   "source": "kit visual parity · agent-design-mobile 2026-08-18",
-  "version": "0.3.6",
+  "version": "0.3.8",
   "color": {
     "primary": "#0C84C0",
     "headerStart": "#086A9A",
@@ -51,7 +51,11 @@
     "imeFocusGap": 12,
     "tabIndicatorWidth": 64,
     "tabIndicatorHeight": 32,
-    "tabLabel": 10,
+    "tabLabel": 13,
+    "tabLabelHeight": 16,
+    "listLeading": 30,
+    "label": 13,
+    "fieldText": 16,
     "toastAutoDismissMs": 5000
   },
   "extraColor": {

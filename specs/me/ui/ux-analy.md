@@ -31,10 +31,10 @@ Login (ngoài tab) → Tab 5
 |------|------------------|---------|---------|---------|
 | Header | Tôi | A `.large-title` | `LinmLargeTitle` | same |
 | Profile | Tên + phụ + (iOS chevron) | A `.list` / `.row` | `LinmListRow` | same |
-| Đồng bộ | Hàng đợi · Tín hiệu | A `.section-label` + `.row` | `LinmSectionLabel` + `LinmListRow` | same |
-| Signal | cột sóng + hạng | A `data-net-signal` | `LinmNetSignalMark` | same |
-| Info | Góp ý · Camera · Thông báo · (iOS Cài đặt) · Đăng xuất | A `.row` | `LinmListRow` | same · **không** Cài đặt |
-| Tab | 5 tab | A `.tabbar` | `LinmTabBar` | `LinmTabBar` |
+| Đồng bộ | Hàng đợi · Tín hiệu | A `.section-label` + `.row` | `LinmSectionLabel` + `LinmListRow` slot 30 + sync | same |
+| Signal | cột sóng + hạng | A `data-net-signal` | `LinmNetSignalMark` căn giữa slot 30 | same |
+| Info | Góp ý · Camera · Thông báo · Cài đặt · Đăng xuất | A `.row` | `LinmListRow` slot 30 (logout trống) | same · **Cài đặt** dual |
+| Tab | 5 tab | A `.tabbar` | `LinmTabBar` glyph 22 · **không** pill nền | same |
 
 **States:** default = live name · empty name = «Tài khoản» · loading = `LinmBusyOverlay` · error/offline = fallback lastUserName · permission N/A · leave N/A
 
@@ -54,7 +54,7 @@ Primary `#0C84C0` · deep `#086A9A` · success `#3CB448` · warn `#FCB43C` · da
 
 ## 7. Pictogram
 
-Tab: house / mappin / warning / wrench / person. Rows: person · sync (Android) · cột sóng · info · video · bell · gear (iOS). SF ↔ Material cùng ý.
+Tab: house / mappin / warning / wrench / person — **outline** (`Linm*Glyph` Android · SF iOS). **Cấm** Material Filled. Rows: person · sync dual · cột sóng slot 30 · info · video · bell · gear dual.
 
 ## 8. Motion
 
@@ -64,13 +64,17 @@ Không `/wf-anim`.
 
 | ID | Demo vs native | Quyết định |
 |----|----------------|------------|
-| GAP-MOB-UX-04 | iOS Cài đặt · Android thiếu | Giữ platform · không invent Android settings |
+| GAP-MOB-UX-04 | iOS Cài đặt · Android thiếu | **PASS** dual `row-settings` toast |
 | GAP-MOB-UX-04b | iOS chevron profile · Android không | Chrome platform |
 | GAP-F-ME-01 | Mock «Nguyễn Văn A» | Live `fullName` · subtitle ẩn |
 | kit | `LinmListRow` thiếu tap | implement_kit dual |
 | GAP-MOB-ALIGN-01 | iOS `TabView` floating ≠ Android `NavigationBar` | **PASS** `LinmTabBar` dual · token 64×32 · label 10 · flush + safe area |
 | GAP-MOB-ALIGN-01b | `LinmTopBar` Android chữ ▦/⋯ + icon dính đỉnh ≠ iOS SF | **PASS** vector 22 / tap 44 căn giữa dual |
-| GAP-MOB-ALIGN-01c | Tab label iOS scale 0.8 + proto Android 11 ≠ token **10** · iOS `mappin` ≠ Place | **PASS** `tabLabel` 10 dual · SF `location.fill` ≡ Place |
+| GAP-MOB-ALIGN-01c | Tab label iOS scale 0.8 + proto Android 11 ≠ token **10** · iOS `mappin` ≠ Place | superseded 01d |
+| GAP-MOB-ALIGN-01d | Tab label 10 ≠ web mobile **13** · icon fill ≠ `#i-mappin` | **PASS** `tabLabel` 13 · `LinmMapPinGlyph` dual |
+| GAP-MOB-ALIGN-01e | Tab glyph lệch pill · hàng Tôi lệch cột (signal top / logout không slot) | **PASS** glyph 22 căn giữa 64×32 · `listLeading` 30 dual |
+| GAP-MOB-ALIGN-01f | Tab selected = pill nền icon (M3-like) | **PASS** bỏ Capsule/`primary` 12% · chỉ tint icon+label |
+| GAP-MOB-ALIGN-01g | Android `Icons.Filled` (nhà/cảnh báo/người đặc · `Build` chéo) ≠ iOS SF outline | **PASS** `Linm*Glyph` outline dual motif · **cấm** Filled tab |
 
 ## Version meta
 

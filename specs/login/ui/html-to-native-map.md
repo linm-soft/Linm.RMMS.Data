@@ -23,8 +23,8 @@ Mọi field packet `ui/ux-analy.md` §3 **cite** 1 hàng dưới hoặc parent m
 | HTML | Ý nghĩa | iOS | Android |
 |------|---------|-----|---------|
 | `img.app-logo` / `.login-logo img` | Brand AppIcon | Asset catalog | mipmap / drawable |
-| `input#f-user` `type=text` | Tài khoản + lead person · e2e id `f-user` · seed `linm-soft` | `LinmTextField` + `LinmPersonGlyph` + `accessibilityIdentifier("f-user")` | `testTag("f-user")` |
-| `input#f-pass` `type=password` + `.trail` eye | Mật khẩu + hiện/ẩn · **reset khi login** · **cấm** persist · e2e id `f-pass` | **`LinmSecureTextField`** + `accessibilityIdentifier("f-pass")` | `testTag("f-pass")` · eye `canFocus=false` |
+| `input#f-user` `type=text` | Tài khoản + lead person · e2e id `f-user` · seed `linm-soft` · Enter + MK có giá trị → login · Enter + MK rỗng → focus pass | `LinmTextField` + `LinmPersonGlyph` + `onSubmit` + `focused` + `accessibilityIdentifier("f-user")` | `testTag("f-user")` · `onSubmit` `ImeAction.Next`/`Go` |
+| `input#f-pass` `type=password` + `.trail` eye | Mật khẩu + hiện/ẩn · Enter → login · **reset khi login** · **cấm** persist · e2e id `f-pass` | **`LinmSecureTextField`** + `onSubmit` + `accessibilityIdentifier("f-pass")` | `testTag("f-pass")` · `onSubmit` `ImeAction.Go` · eye `canFocus=false` |
 | `button.btn-primary` `loginOk()` | Đăng nhập · e2e id `btn-login` · loading spinner giữa | `LinmPrimaryButton` `isBusy` + `accessibilityIdentifier("btn-login")` | `testTag("btn-login")` `isBusy` |
 | Home demo button **Đăng xuất** | Clear local session → `#sc-login` · e2e `btn-logout` | `LinmSecondaryButton` + `accessibilityIdentifier("btn-logout")` | `testTag("btn-logout")` |
 | `a` Quên mật khẩu? | child backlog toast | `Button`/`Text` + toast | same |

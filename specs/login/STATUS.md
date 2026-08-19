@@ -105,6 +105,7 @@
 - `/edit-mobile-feature` 2026-08-19: **GAP-MOB-EDIT-IME** — kit `LinmKeyboardAwareScroll` dual · focus field pin trên IME · logo 192 tĩnh · context lock
 - `/edit-mobile-feature` 2026-08-19: **GAP-MOB-EDIT-PASS** — submit reset `#f-pass` · giữ last `#f-user` · **cấm** persist MK · context lock
 - `/edit-mobile-feature` 2026-08-19: **GAP-MOB-EDIT-FOOTER-01** — `.login-meta` pin đáy giữa (Android `BottomCenter` · iOS `.bottom`) · ẩn khi IME · context lock dual
+- `/edit-mobile-feature` 2026-08-19: **GAP-MOB-EDIT-IME-ENTER** — `#f-user` Enter + MK có giá trị → login · Enter + MK rỗng → focus `#f-pass` · `#f-pass` Enter → login · kit `onSubmit` dual · context lock
 - Review R-LOGIN-03 — BE `session-window` bind JWT `sub` ↔ `authUserId` (backlog · không block)
 - Review R-LOGIN-08 — `PrivacyInfo.xcprivacy` + landing HTTPS · **cấm** READY_TO_SUBMIT
 

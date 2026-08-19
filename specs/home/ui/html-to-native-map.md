@@ -15,7 +15,7 @@ Cite SSOT `docs/html-to-native-map.md`. Feature deltas (`#sc-home`):
 | `.home-tile` | `LinmHomeTile` | icon + `iconColor`/`background` hex · nhãn VN |
 | `.wallet-card` · DES-MOB-HOME-WALLET | `LinmWalletCard` | static demo copy · sibling `asset-hub` |
 | `.home-foot` | — | **skip** · watermark Gói · **cấm** ship |
-| `.tabbar` · DES-MOB-TABBAR | `LinmTabBar` | `shell-tabs` · `tabLabel` **10** · Tuần đường `location.fill` ≡ `Place` · **cấm** `TabView` / M3 `NavigationBar` / proto 11 |
+| `.tabbar` · DES-MOB-TABBAR | `LinmTabBar` | `shell-tabs` · `tabLabel` **13** · Tuần đường `LinmMapPinGlyph` · **cấm** fill Place / `location.fill` |
 | toast | `LinmToast` | sibling nhãn · signal **Đã làm mới** |
 
 **Verify dual kit:** `Linm.Mobile.Kit.iOS` + `Linm.Mobile.Kit.Android` — `kit_missing_confirm` **N/A**.

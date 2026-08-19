@@ -35,8 +35,8 @@
 | Zone | Demo (user thấy) | Map row (html-to-native-map) | SwiftUI | Compose |
 |------|------------------|------------------------------|---------|---------|
 | Brand | `app-logo.png` · «Quản lý bảo trì đường bộ» | B `img` · A static text | Logo 192 tĩnh top · **alpha** trên surface · **cấm** tile `#000`/`#fff` · **cấm** band 1/3 | same |
-| Body user | placeholder **Tài khoản** · lead person · value mẫu | B `input type=text` | `LinmTextField` (+ lead slot) | `LinmTextField` (+ lead) |
-| Body pass | placeholder **Mật khẩu** · lead lock · eye trail | B `input type=password` + `.trail` eye | **`LinmSecureTextField`** | **`LinmSecureTextField`** |
+| Body user | placeholder **Tài khoản** · lead person · value mẫu · Enter nếu MK có giá trị → login | B `input type=text` | `LinmTextField` (+ lead · `onSubmit`) | `LinmTextField` (+ lead · `onSubmit` `ImeAction.Go`) |
+| Body pass | placeholder **Mật khẩu** · lead lock · eye trail · Enter → login | B `input type=password` + `.trail` eye | **`LinmSecureTextField`** `onSubmit` | **`LinmSecureTextField`** `onSubmit` `ImeAction.Go` |
 | CTA | **Đăng nhập** full width | A `.btn-ok` / B `button` primary | `LinmPrimaryButton` | `LinmPrimaryButton` |
 | Meta | «Tín hiệu» + hạng · link **Quên mật khẩu?** · **đáy giữa** (`.login-meta` `margin-top: auto`) | A `data-net-signal` · B `a` | `LinmNetSignalMark` overlay `alignment: .bottom` · ẩn khi IME · **cấm** tap cycle · **cấm** «bản Gói 1» | `Box` `Alignment.BottomCenter` · ẩn khi `WindowInsets.ime` |
 | Toast | success / lỗi / forgot / đã đăng xuất | A toast / banner | `LinmToast` | `LinmToast` |
@@ -110,6 +110,7 @@ Không lưới loại TS trên màn login.
 Không `/wf-anim` trên pack này.  
 Brand **tĩnh** top: logo **192** **alpha** trên surface + title + user/pass + CTA. **Cấm** tile `#000`/`#fff` · **cấm** band 1/3 · **cấm** animation / 2 layout IME. Footer `.login-meta` **pin đáy giữa** khi IME ẩn (signal + Quên mật khẩu?). IME hiện → ẩn footer. Mắt giữ IME. **cấm** ×3. (`GAP-MOB-EDIT-LOGO-BG` · `GAP-MOB-EDIT-FOOTER-01`)  
 IME: `LinmKeyboardAwareScroll` — field focus **pin** trên bàn phím (`imeFocusGap` 12). **Cấm** `ignoresSafeArea(.keyboard)` / che `#f-user` `#f-pass`. (`GAP-MOB-EDIT-IME`)  
+IME Enter (`GAP-MOB-EDIT-IME-ENTER`): `#f-user` Enter/`Go` **chỉ login khi `#f-pass` có giá trị** · `#f-pass` Enter/`Go` **luôn login** (cùng CTA / validate). `#f-user` Enter + MK rỗng → **focus `#f-pass`** · **không** toast / **không** POST.  
 Success: toast → navigate Home ~350 ms (parity `loginOk`).
 
 ## 9. GAP
@@ -126,6 +127,7 @@ Success: toast → navigate Home ~350 ms (parity `loginOk`).
 | GAP-MOB-EDIT-IME | Android IME che `#f-user` / pass / CTA (`ADJUST_NOTHING` không scroll) | **closed** — kit `LinmKeyboardAwareScroll` dual · focus pin trên IME · logo 192 tĩnh |
 | GAP-MOB-EDIT-PASS | sau login / logout `#f-pass` còn nhớ | **closed** — submit reset MK · giữ last `#f-user` · **cấm** persist MK |
 | GAP-MOB-EDIT-FOOTER-01 | Footer `.login-meta` dính dưới CTA · trống đáy (Android) | **closed** — pin `BottomCenter` / `.bottom` · giữa ngang · ẩn khi IME |
+| GAP-MOB-EDIT-IME-ENTER | Enter `#f-user` / `#f-pass` không login | **closed** — kit `onSubmit` dual · user Enter + MK có giá trị → login · user Enter + MK rỗng → focus pass · pass Enter → login |
 
 ## Version meta (REQUIRED)
 

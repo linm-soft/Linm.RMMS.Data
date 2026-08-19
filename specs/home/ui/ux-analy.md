@@ -44,7 +44,7 @@ Login (ngoài tab) → Tab 5
 | Grid | 6 ô màu + pict | A `.home-grid` / `.home-tile` | `LinmHomeGrid` · `LinmHomeTile` | same |
 | Wallet | HỒ SƠ TÀI SẢN · QL.1 · Khu IV · 32 loại… | A `.wallet-card` | `LinmWalletCard` | same |
 | Foot | Phiên bản Gói… | — | **skip** · **cấm** Text | **skip** |
-| Tab | 5 tab · label **10** · Tuần đường pin Place | A `.tabbar` | `LinmTabBar` `location.fill` | `LinmTabBar` `Place` |
+| Tab | 5 tab · label **13** · Tuần đường `#i-mappin` | A `.tabbar` | `LinmTabBar` `LinmMapPinGlyph` | same |
 | Feedback | toast nhãn | toast | `LinmToast` | `LinmToast` |
 
 **States:**
@@ -52,7 +52,7 @@ Login (ngoài tab) → Tab 5
 | State | Hành vi |
 |-------|---------|
 | default | GET profile · `.who` = `fullName` trim · badge ẩn · wallet static |
-| empty name | fallback `lastUserName` / «Tài khoản» · hub vẫn mở |
+| empty name | fallback login `user.fullName` / JWT `full_name` / `lastUserName` / «Tài khoản» · hub vẫn mở |
 | loading | refresh profile nhẹ · **cấm** full-screen block hub |
 | error / offline | toast in-app · `.who` = `lastUserName` · **cấm** block tab |
 | permission | GPS/camera **N/A** trên hub |
@@ -107,7 +107,7 @@ Không `/wf-anim` trên hub `home`.
 | GAP-MOB-SIGNAL-01/02 | Proto tap-cycle | OS path + toast **Đã làm mới** · **cấm** cycle |
 | GAP-MOB-ACT-05 | Kit home đã map | reuse · **cấm** raw grid / TabView |
 | GAP-MOB-ALIGN-01 | Dual chrome | Cùng copy + 6 tile + 2 quick + wallet · `LinmTabBar` dual |
-| GAP-MOB-ALIGN-01c | Tab chữ + icon Tuần đường | `tabLabel` **10** · iOS `location.fill` ≡ Android `Place` · proto Android **cấm** 11 |
+| GAP-MOB-ALIGN-01d | Tab chữ + icon Tuần đường | `tabLabel` **13** · `LinmMapPinGlyph` `#i-mappin` · **cấm** fill |
 | GAP-MOB-UX-07 | design ↔ HTML | Pack proto **không** foot · **không** badge 3 · khớp design.md |
 | Placeholder gallery | iOS/Android hiện gallery | Dev **thay** bằng hub · **cấm** `btn-logout` trên home |
 

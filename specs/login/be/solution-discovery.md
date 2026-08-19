@@ -205,7 +205,7 @@ Errors: 401 generic (sai MK / Inactive — SPEC P0) · 403 cửa sổ HĐ · **c
 | `token` | string | access JWT |
 | `refreshToken` | string | refresh |
 | `expiresAt` | DateTime | UTC |
-| `user` | `UserInfoDto` | `user.id` = `authUserId` |
+| `user` | `UserInfoDto` | `user.id` = `authUserId` · **`user.fullName`** = hero/me `.who` (fallback JWT `full_name` · `userName` · `lastUserName` · «Tài khoản») |
 
 **Errors:** 401 → `LinmToast` in-app (dùng `message` body nếu có · **cấm** lộ Inactive vs sai MK nếu Auth generic). Offline → **không** gọi · toast/banner · **cấm** queue.
 

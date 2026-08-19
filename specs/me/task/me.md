@@ -7,7 +7,7 @@
 | route_confirm | **route_a** — Login ngoài tab → Tab 5 · tab Tôi = `#sc-me` |
 | thisAction | Hub `#sc-me` only |
 | taskId | `task_84e8e0e2` |
-| updatedAt | `2026-08-19T02:20:00.000Z` |
+| updatedAt | `2026-08-19T08:05:00.000Z` |
 
 ## Source lock
 
@@ -26,8 +26,8 @@ Cold start không token → Login. Có phiên → Tab 5 chọn Trang Chủ. Tab 
 | id | layer | status | DoD |
 |----|-------|--------|-----|
 | **T-KIT-LISTROW** | kit | **done** | `LinmListRow` tap/leading/chevron/badge iOS+Android + gallery |
-| **T-IOS-ME** | ios | **done** | `Presentation/Features/Me` · **`LinmTabBar`** 5 · `tabLabel` **10** · Tuần đường `location.fill` · GET `auth/profile` · `xcodebuild` dest **iPhone 17 Pro** |
-| **T-AND-ME** | android | **done** | `presentation/feature/me` · **`LinmTabBar`** 5 · `tabLabel` **10** · `Place` · same API · `assembleDebug` |
+| **T-IOS-ME** | ios | **done** | `Presentation/Features/Me` · **`LinmTabBar`** glyph 22 căn giữa · `listLeading` 30 · GET `auth/profile` · dest **iPhone 17 Pro Max** |
+| **T-AND-ME** | android | **done** | `presentation/feature/me` · **`LinmTabBar`** không pill · `row-settings` Cài đặt · `listLeading` 30 · same API · `assembleDebug` |
 | **T-BE-API** | be | **n/a** | Auth profile live |
 | **T-BE-MIG** | be | **n/a** | |
 

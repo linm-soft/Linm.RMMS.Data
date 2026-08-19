@@ -28,4 +28,8 @@
 
 ## Notes
 
-`/edit-mobile-feature` 2026-08-19: **GAP-MOB-ALIGN-01c** `tabLabel` **10** (cấm `minimumScaleFactor`) · tab Tuần đường **`location.fill`**.
+`/edit-mobile-feature` 2026-08-19: **GAP-MOB-ALIGN-01d** `tabLabel` **13** · tab Tuần đường **`LinmMapPinGlyph`**.
+
+`/edit-mobile-feature` 2026-08-19: **GAP-MOB-ALIGN-01e** `LinmTabBar` glyph 22 căn giữa pill · `LinmListRow` `listLeading` 30 · Hàng đợi sync · logout slot trống. dest **iPhone 17 Pro Max** + **iPad Pro 13-inch (M5)**.
+
+`/edit-mobile-feature` 2026-08-19: **GAP-MOB-ALIGN-01f** `LinmTabBar` **không** pill nền (chỉ tint). Dual Cài đặt toast.

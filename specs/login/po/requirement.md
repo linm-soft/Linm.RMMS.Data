@@ -47,6 +47,7 @@ Native chưa có màn Login (không file `*Login*` trên iOS/Android). Không b�
 15. Demo Home (kit gallery): chrome **Đăng xuất** `btn-logout` · clear local session → `#sc-login` · toast **Đã đăng xuất** · **cấm** POST `auth/logout` · **cấm** coi đây là slug `login-logout`.
 16. IME: focus `#f-user` / `#f-pass` **luôn trên** bàn phím (iOS + Android) · kit `LinmKeyboardAwareScroll` · logo **192 tĩnh** · **cấm** che input · **cấm** compact logo.
 17. Submit login → **reset `#f-pass`** · **giữ `#f-user`** (last id, kể cả sau Đăng xuất) · **cấm** persist mật khẩu.
+18. IME Enter: `#f-user` Enter/`Go` **nếu `#f-pass` có giá trị → cùng CTA login** · `#f-pass` Enter/`Go` → **login** · `#f-user` Enter + MK rỗng → **focus `#f-pass`** · **không** toast / **không** POST.
 
 ## 4. CTX / DEM / DI inventory
 
@@ -140,7 +141,7 @@ Frame: iOS 390×844 · Android 412×915 · safe area · keyboard không đè inp
 | AC-D-02 | GPS deny | **N/A** — login không GPS |
 | AC-D-03 | Leave dirty | **N/A** — SPEC §7.1 không dirty nghiệp vụ |
 | AC-D-04 | Native alert | **Cấm** system alert/confirm. Lỗi + success = `LinmToast` / in-app modal |
-| AC-D-05 | Keyboard | Tránh overlap `#f-user` / `#f-pass` · iOS content-type username / password |
+| AC-D-05 | Keyboard | Tránh overlap `#f-user` / `#f-pass` · iOS content-type username / password · Enter user + MK có giá trị → login · Enter pass → login |
 | AC-D-06 | Safe area | Brand + form + meta không đè notch / home indicator / gesture inset |
 | AC-D-07 | Biometric | **Ẩn Gói 1** — không Face ID / BiometricPrompt trên màn này |
 | AC-D-08 | Signal | Copy **Tốt / Trung bình / Yếu** · **cấm** «Có mạng» |

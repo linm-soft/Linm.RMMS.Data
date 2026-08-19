@@ -25,10 +25,10 @@
 | Large title | Tôi | `LinmLargeTitle` |
 | Hàng hồ sơ | Tên + phụ (chức danh · đơn vị) | Display · iOS chevron · **không** `go()` → slug `me-profile` gap **không** enqueue |
 | Đồng bộ | Hàng đợi mất sóng · Tín hiệu | Queue → `patrol-offline` · tín hiệu chrome `shared_kit` |
-| Cập nhật thông tin | Góp ý · Camera xem · Thông báo · Cài đặt (iOS) · Đăng xuất | Sibling route / reuse logout |
+| Cập nhật thông tin | Góp ý · Camera xem · Thông báo · Cài đặt · Đăng xuất | Sibling route / reuse logout |
 | Tab | Tôi | `DES-MOB-TABBAR` chrome · **không** enqueue |
 
-Android **không** hàng Cài đặt (demo SSOT). iOS Cài đặt = toast · **không** màn → **không** enqueue `me-settings`.
+Dual hàng **Cài đặt** = toast · **không** màn → **không** enqueue `me-settings`. **Cấm** thiếu Android.
 
 ## 3. API (cấm invent)
 

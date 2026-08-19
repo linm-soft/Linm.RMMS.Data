@@ -1,11 +1,14 @@
 # Prototype — asset-hub
 
-Design gate: **prototype + reviewUrl** — board Approve (**không auto**).
-Repo confirm: user tick BE+UI trên `/qldb-workflow` Progress trước Dev (**không auto** · cấm ERP.*).
+Design gate: **confirmed** (autoApprove=ON · `task_c98a6c21`).
 
-- Demo SSOT: `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/mobile-p1/ui/prototype/ios/index.html`
-- Title: Tài sản
+| Platform | Path | Frame |
+|----------|------|-------|
+| iOS | `ui/prototype/ios/index.html#sc-asset-hub` | 390×844 |
+| Android | `ui/prototype/android/index.html#sc-asset-hub` | 412×915 |
+
+- Demo SSOT: `specs/mobile-p1/ui/prototype/{ios,android}/index.html` `#sc-asset-hub`
 - Pack kind: `hub`
-- MFE: `Linm.RMMS.Mobile.iOS`
-
-Put HTML prototype / screenshot link here; update `ui/design.md` with a browser-openable **reviewUrl**.
+- Title: **Tài sản**
+- reviewUrlIos / reviewUrlAndroid: xem `ui/design.md`
+- **Cấm** `mfeStdUrl` / `yarn start:std`

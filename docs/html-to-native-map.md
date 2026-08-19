@@ -10,11 +10,11 @@ Map **ý nghĩa**. Cấm clone `px` / `class`. Cấm 1 binary UI 2 OS.
 
 | Demo | Ý nghĩa | SwiftUI (`LinmMobileKit`) | Compose (`org.linmsoft.mobile:ui`) |
 |------|---------|---------------------------|------------------------------------|
-| `.tabbar` | 5 tab IA · full-width flush · indicator 64×32 · label **`tabLabel` 10** (cấm scale <10 · cấm proto 11) · tab Tuần đường SF **`location.fill`** ≡ Material **`Place`** (**cấm** `mappin` kim dài) | `LinmTabBar` | `LinmTabBar` |
+| `.tabbar` | 5 tab IA · full-width flush · slot 64×32 · glyph **22** outline · **cấm pill nền** · **cấm** `Icons.Filled` (trông fill nền) · **cấm** Material `Build` · house/warning/wrench/person/`LinmMapPinGlyph` · label **`tabLabel` 13** / height **16** · **cấm** tab 10 | `LinmTabBar` | `LinmTabBar` |
 | top bar | Cao 56 · title giữa · 2 bên tap 44 · glyph **vector 22** (SF `square.grid.2x2` / `ellipsis.circle` ≡ GridView / MoreHoriz) · **cấm** chữ `▦`/`⋯` | `LinmTopBar` | `LinmTopBar` |
 | `.btn-ok` | CTA chính · loading `isBusy` spinner giữa nút (ẩn title) | `LinmPrimaryButton` `isBusy` | `LinmPrimaryButton` `isBusy` |
 | `.btn-skip` | Phụ | `LinmSecondaryButton` | `LinmSecondaryButton` |
-| `.list` / `.rich-card` / `.row` | Hàng · optional leading / chevron / badge / `onTap` | `LinmListRow` | `LinmListRow` |
+| `.list` / `.rich-card` / `.row` | Hàng · leading slot **`listLeading` 30** căn giữa (title cùng cột khi thiếu icon) · chevron / badge / `onTap` | `LinmListRow` | `LinmListRow` |
 | `.card` / form card | Thẻ | `LinmCard` | `LinmCard` |
 | overflow / `⋯` | Menu | `LinmMenu` (HIG `Menu`) | `LinmMenu` — host `DropdownMenu` + **token skin** (cấm M3 tím) |
 | `.sheet` | Overlay · size compact/medium/large · chrome Huỷ/Lưu · footer `LinmSheetButton` main/second · fullWidth \| inline | `.linmSheet` + `LinmSheet` · `LinmSheetSize` · `LinmSheetChrome` · `LinmSheetButton` | `LinmSheet` cùng props |
@@ -51,8 +51,8 @@ Map **ý nghĩa**. Cấm clone `px` / `class`. Cấm 1 binary UI 2 OS.
 | HTML | Ý nghĩa | SwiftUI | Compose |
 |------|---------|---------|---------|
 | `button` primary | Action chính · busy = spinner giữa · **cấm** overlay màn | `LinmPrimaryButton` `isBusy` | `LinmPrimaryButton` `isBusy` |
-| `input type=text` | Text · cùng `formFieldHeight` 52 · lead khi demo có · IME pin | `LinmTextField` (+ `leading`) trong `LinmKeyboardAwareScroll` | same |
-| `input type=password` + `.trail` eye (`#i-eye` / `#i-eye-off`) | SecureText · hiện/ẩn MK · **giữ IME** | `LinmSecureTextField` (`UITextField` + `isSecureTextEntry`) · `LinmEyeGlyph` / `LinmEyeOffGlyph` | `LinmSecureTextField` · VisualTransformation · eye `canFocus=false` |
+| `input type=text` | Text · cùng `formFieldHeight` 52 · lead khi demo có · IME pin · optional Enter/`Go` | `LinmTextField` (+ `leading` · `onSubmit`) trong `LinmKeyboardAwareScroll` | same · `ImeAction.Go` khi `onSubmit` |
+| `input type=password` + `.trail` eye (`#i-eye` / `#i-eye-off`) | SecureText · hiện/ẩn MK · **giữ IME** · optional Enter/`Go` | `LinmSecureTextField` (`UITextField` + `isSecureTextEntry` · `onSubmit`) · `LinmEyeGlyph` / `LinmEyeOffGlyph` | `LinmSecureTextField` · VisualTransformation · `onSubmit` · eye `canFocus=false` |
 | `input type=search` / `.search` / `#i-search` | Tìm · vòng + cán · **cấm** `⌕` / SF-M3 lệch nét | `LinmSearchField` · `LinmSearchGlyph` | same |
 | `input type=checkbox` | On/off | `LinmToggle` | `LinmToggle` |
 
@@ -67,7 +67,7 @@ Map **ý nghĩa**. Cấm clone `px` / `class`. Cấm 1 binary UI 2 OS.
 | busy overlay blur | `12` | `busyBlur` |
 | form field row | `52` | `formFieldHeight` |
 | IME focus gap | `12` | `imeFocusGap` · `LinmKeyboardAwareScroll` |
-| tab indicator / label | `64` × `32` · `10` | `tabIndicatorWidth` · `tabIndicatorHeight` · `tabLabel` |
+| tab slot / label / field | `64` × `32` tap · **cấm pill nền** · label **13** · field **16** | `tabIndicatorWidth` · `tabIndicatorHeight` · `tabLabel` · `label` · `fieldText` |
 | hero circle / capsule / badge / wifi / toast | `36` / `28` / `22` / `11` / `1.5` / `14` / `5000` | `iconCircle` / `statusCapsuleHeight` / `notifyBadge` / `notifyBadgeFont` / `notifyBadgeRing` / `signalWifi` / `toastAutoDismissMs` |
 | home tile / progress / large title / quick | `48` / `6` / `34` / `14` / `#FFF8E8` | `iconHomeTile` / `progressHeight` / `largeTitle` / `quickRadius` / `quickStart` |
 | header | `#086A9A` → `#0C84C0` | `headerStart` / `headerEnd` |
