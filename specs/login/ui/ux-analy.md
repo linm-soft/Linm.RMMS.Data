@@ -23,7 +23,7 @@
 
 | DES / sc-* | Tên VN | iOS chrome | Android chrome | CTA |
 |------------|--------|------------|----------------|-----|
-| DES-MOB-LOGIN `#sc-login` | Đăng nhập | Full page · no nav · no tab | Full page · no TopAppBar · no nav bar | **Đăng nhập** |
+| DES-MOB-LOGIN `#sc-login` | Đăng nhập | Full page · `LinmKeyboardAwareScroll` · no tab | Full page · `LinmKeyboardAwareScroll` · no TopAppBar | **Đăng nhập** |
 | DES-MOB-LOGIN-BRAND | Brand | Logo 192 tĩnh top · **cấm** band 1/3 | Same | — |
 | DES-MOB-LOGIN-FORM | Form | Dưới title · field 52 | Same | — |
 | DES-MOB-HOME-DEMO | Home demo | Kit gallery + `LinmSecondaryButton` đáy | Same | **Đăng xuất** |
@@ -38,7 +38,7 @@
 | Body user | placeholder **Tài khoản** · lead person · value mẫu | B `input type=text` | `LinmTextField` (+ lead slot) | `LinmTextField` (+ lead) |
 | Body pass | placeholder **Mật khẩu** · lead lock · eye trail | B `input type=password` + `.trail` eye | **`LinmSecureTextField`** | **`LinmSecureTextField`** |
 | CTA | **Đăng nhập** full width | A `.btn-ok` / B `button` primary | `LinmPrimaryButton` | `LinmPrimaryButton` |
-| Meta | «Tín hiệu» + hạng · link **Quên mật khẩu?** | A `data-net-signal` · B `a` | `LinmNetSignalMark` display + OS path · **cấm** tap cycle · **cấm** «bản Gói 1» | same |
+| Meta | «Tín hiệu» + hạng · link **Quên mật khẩu?** · **đáy giữa** (`.login-meta` `margin-top: auto`) | A `data-net-signal` · B `a` | `LinmNetSignalMark` overlay `alignment: .bottom` · ẩn khi IME · **cấm** tap cycle · **cấm** «bản Gói 1» | `Box` `Alignment.BottomCenter` · ẩn khi `WindowInsets.ime` |
 | Toast | success / lỗi / forgot / đã đăng xuất | A toast / banner | `LinmToast` | `LinmToast` |
 
 ### DES-MOB-HOME-DEMO (Placeholder Home · kit gallery)
@@ -54,7 +54,8 @@
 
 | State | Hành vi |
 |-------|---------|
-| default | form sẵn · demo prefill |
+| default | `#f-user` last id (nếu đã login) · `#f-pass` **rỗng** · **cấm** prefill MK native |
+| after submit | password **reset** · username giữ |
 | empty | field trống · CTA vẫn bấm (validate Dev) |
 | loading | `LinmBusyOverlay` full page · blur nền `busyBlur` 12 · spinner giữa · CTA giữ title — **cấm** spinner trong nút + overlay cùng lúc · **cấm** block system alert |
 | error | `LinmToast` sai MK / Inactive / HĐ |
@@ -107,7 +108,8 @@ Không lưới loại TS trên màn login.
 ## 8. Motion
 
 Không `/wf-anim` trên pack này.  
-Brand **tĩnh** top: logo **192** **alpha** trên surface + title + user/pass + CTA. **Cấm** tile `#000`/`#fff` · **cấm** band 1/3 · **cấm** animation / 2 layout IME. Footer bottom. Mắt giữ IME. **cấm** ×3. (`GAP-MOB-EDIT-LOGO-BG`)  
+Brand **tĩnh** top: logo **192** **alpha** trên surface + title + user/pass + CTA. **Cấm** tile `#000`/`#fff` · **cấm** band 1/3 · **cấm** animation / 2 layout IME. Footer `.login-meta` **pin đáy giữa** khi IME ẩn (signal + Quên mật khẩu?). IME hiện → ẩn footer. Mắt giữ IME. **cấm** ×3. (`GAP-MOB-EDIT-LOGO-BG` · `GAP-MOB-EDIT-FOOTER-01`)  
+IME: `LinmKeyboardAwareScroll` — field focus **pin** trên bàn phím (`imeFocusGap` 12). **Cấm** `ignoresSafeArea(.keyboard)` / che `#f-user` `#f-pass`. (`GAP-MOB-EDIT-IME`)  
 Success: toast → navigate Home ~350 ms (parity `loginOk`).
 
 ## 9. GAP
@@ -121,6 +123,9 @@ Success: toast → navigate Home ~350 ms (parity `loginOk`).
 | company / biometric | ẩn Gói 1 | **không** vẽ |
 | GAP-MOB-EDIT-LOGO-BG | logo nền đen/trắng (AppIcon plate + elevation) | **closed** — punch plate → alpha · Fit · **cấm** tile |
 | GAP-MOB-EDIT-DEMO-LOGOUT | sau login không về được `#sc-login` | **closed** — demo Home `btn-logout` local clear · **không** slug `login-logout` |
+| GAP-MOB-EDIT-IME | Android IME che `#f-user` / pass / CTA (`ADJUST_NOTHING` không scroll) | **closed** — kit `LinmKeyboardAwareScroll` dual · focus pin trên IME · logo 192 tĩnh |
+| GAP-MOB-EDIT-PASS | sau login / logout `#f-pass` còn nhớ | **closed** — submit reset MK · giữ last `#f-user` · **cấm** persist MK |
+| GAP-MOB-EDIT-FOOTER-01 | Footer `.login-meta` dính dưới CTA · trống đáy (Android) | **closed** — pin `BottomCenter` / `.bottom` · giữa ngang · ẩn khi IME |
 
 ## Version meta (REQUIRED)
 

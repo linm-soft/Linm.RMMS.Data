@@ -9,12 +9,12 @@ Mọi field packet `ui/ux-analy.md` §3 **cite** 1 hàng dưới hoặc parent m
 
 | Demo | Ý nghĩa | iOS | Android |
 |------|---------|-----|---------|
-| `.login` full page | Auth shell · không tab | `NavigationStack` root auth | Nav host auth |
+| `.login` full page | Auth shell · không tab · IME không che field | `LinmKeyboardAwareScroll` · **cấm** `ignoresSafeArea(.keyboard)` | `LinmKeyboardAwareScroll` · ADJUST_NOTHING in kit |
 | `.login-brand` / `DES-MOB-LOGIN-BRAND` | Logo 192 tĩnh · **alpha** trên surface · title 22/700/uppercase · **cấm** tile `#000`/`#fff` · **cấm** band 1/3 | `Image` `scaledToFit` | `Image` `ContentScale.Fit` |
-| `.login-field` | Field row card | `formFieldHeight` 52 · cùng lead | same |
+| `.login-field` | Field row card · IME pin trên bàn phím | `formFieldHeight` 52 · `LinmKeyboardAwareScroll` | same |
 | `.login-actions` `.btn-primary` | CTA Đăng nhập · `isBusy` spinner giữa nút | `LinmPrimaryButton` `isBusy` | `LinmPrimaryButton` `isBusy` |
 | Home demo `.btn-skip` **Đăng xuất** | Chrome test login · e2e `btn-logout` · **không** `#sc-me` | `LinmSecondaryButton` + `LogoutUseCase` | same |
-| `.login-meta` | tín hiệu · forgot · bản Gói 1 | `LinmNetSignalMark` + Text | same |
+| `.login-meta` | tín hiệu · forgot · **pin đáy giữa** (`margin-top: auto`) · ẩn khi IME | overlay `alignment: .bottom` · `LinmNetSignalMark` + Text | `Box` `Alignment.BottomCenter` · same |
 | toast JS | thông báo | `LinmToast` | `LinmToast` |
 | loading | Full-page spinner + blur nền | `.linmBusyOverlay` | `LinmBusyOverlay` |
 
@@ -24,7 +24,7 @@ Mọi field packet `ui/ux-analy.md` §3 **cite** 1 hàng dưới hoặc parent m
 |------|---------|-----|---------|
 | `img.app-logo` / `.login-logo img` | Brand AppIcon | Asset catalog | mipmap / drawable |
 | `input#f-user` `type=text` | Tài khoản + lead person · e2e id `f-user` · seed `linm-soft` | `LinmTextField` + `LinmPersonGlyph` + `accessibilityIdentifier("f-user")` | `testTag("f-user")` |
-| `input#f-pass` `type=password` + `.trail` eye | Mật khẩu + hiện/ẩn · **giữ IME** · e2e id `f-pass` | **`LinmSecureTextField`** + `accessibilityIdentifier("f-pass")` | `testTag("f-pass")` · eye `canFocus=false` |
+| `input#f-pass` `type=password` + `.trail` eye | Mật khẩu + hiện/ẩn · **reset khi login** · **cấm** persist · e2e id `f-pass` | **`LinmSecureTextField`** + `accessibilityIdentifier("f-pass")` | `testTag("f-pass")` · eye `canFocus=false` |
 | `button.btn-primary` `loginOk()` | Đăng nhập · e2e id `btn-login` · loading spinner giữa | `LinmPrimaryButton` `isBusy` + `accessibilityIdentifier("btn-login")` | `testTag("btn-login")` `isBusy` |
 | Home demo button **Đăng xuất** | Clear local session → `#sc-login` · e2e `btn-logout` | `LinmSecondaryButton` + `accessibilityIdentifier("btn-logout")` | `testTag("btn-logout")` |
 | `a` Quên mật khẩu? | child backlog toast | `Button`/`Text` + toast | same |
@@ -38,6 +38,7 @@ Mọi field packet `ui/ux-analy.md` §3 **cite** 1 hàng dưới hoặc parent m
 - «Có mạng» / «Không mạng»
 - Invent companyCode / biometric trên shell
 - «Hiện trường · iPhone» / «· Android» / tap cycle tín hiệu
+- `ignoresSafeArea(.keyboard)` trên `#sc-login` · IME che `#f-user` / `#f-pass`
 
 ## Version meta
 

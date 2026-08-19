@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RMMS · Quên mật khẩu · Android</title>
+  <style>
+    :root {
+      --md-primary: #0C84C0;
+      --md-on: #1C1B1F;
+      --md-secondary: #49454F;
+      --md-surface: #FFFBFE;
+      --md-card: #FFF;
+      --outline: #79747E;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; font-family: Roboto, "Noto Sans", sans-serif;
+      background: #121212; color: var(--md-on);
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    }
+    .phone {
+      width: 412px; height: 915px; background: var(--md-surface);
+      border-radius: 28px; overflow: hidden; position: relative;
+      box-shadow: 0 20px 60px rgba(0,0,0,.5);
+    }
+    .forgot { height: 100%; display: flex; flex-direction: column; padding: 36px 0 24px; }
+    .top {
+      display: flex; align-items: center; gap: 4px; padding: 4px 8px; min-height: 56px;
+    }
+    .top button {
+      border: 0; background: transparent; color: var(--md-primary); font-size: 15px; cursor: pointer;
+      padding: 12px 10px; font-weight: 500;
+    }
+    .top h1 { flex: 1; margin: 0; text-align: center; font-size: 18px; font-weight: 500; padding-right: 56px; }
+    .brand { padding: 12px 28px 8px; text-align: center; }
+    .logo {
+      width: 96px; height: 96px; margin: 0 auto 12px; border-radius: 22px; overflow: hidden;
+    }
+    .logo img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    .brand p {
+      margin: 0; font-size: 22px; font-weight: 700; text-transform: uppercase; line-height: 1.25;
+    }
+    .field {
+      margin: 0 20px 12px; background: var(--md-card); border-radius: 4px;
+      border: 1px solid var(--outline); padding: 0 14px; min-height: 52px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    
+    .field .lead .ic, .field .trail .ic { width: 20px; height: 20px; display: block; }
+
+    .field .lead {
+      width: 22px; height: 22px; color: var(--md-secondary); flex-shrink: 0;
+      display: inline-flex; align-items: center; justify-content: center; font-size: 16px;
+    }
+    .field input {
+      flex: 1; border: 0; outline: 0; font-size: 16px; font-family: inherit;
+      background: transparent; padding: 14px 0; color: var(--md-on);
+    }
+    .field .trail {
+      border: 0; background: transparent; color: var(--md-primary); cursor: pointer;
+      padding: 8px; font-size: 15px; min-width: 44px; min-height: 44px;
+    }
+    .actions { padding: 8px 20px 0; }
+    .btn-primary {
+      background: var(--md-primary); color: #fff; width: 100%; border: 0;
+      border-radius: 20px; min-height: 48px; font-size: 16px; font-weight: 500; cursor: pointer;
+    }
+    .hint {
+      margin: 12px 24px 0; font-size: 13px; color: var(--md-secondary); text-align: center; line-height: 1.4;
+    }
+    .toast {
+      position: absolute; left: 16px; right: 16px; bottom: 40px; z-index: 20;
+      background: #313033; color: #fff; border-radius: 8px;
+      padding: 14px 16px; font-size: 14px; display: none; text-align: center;
+    }
+    .toast.on { display: block; }
+    .modal-scrim {
+      position: absolute; inset: 0; background: rgba(0,0,0,.4); z-index: 30;
+      display: none; align-items: center; justify-content: center; padding: 24px;
+    }
+    .modal-scrim.on { display: flex; }
+    .modal {
+      background: #fff; border-radius: 28px; width: 100%; max-width: 312px;
+      padding: 24px 20px 16px; text-align: center;
+    }
+    .modal p { margin: 0 0 20px; font-size: 16px; line-height: 1.35; }
+    .modal .row { display: flex; gap: 8px; justify-content: flex-end; }
+    .modal .row button {
+      border: 0; border-radius: 20px; min-height: 40px; padding: 0 16px;
+      font-size: 14px; font-weight: 500; cursor: pointer;
+    }
+    .modal .cancel { background: transparent; color: var(--md-primary); }
+    .modal .ok { background: var(--md-primary); color: #fff; }
+    .note { position: absolute; top: 12px; left: 0; right: 0; text-align: center; color: #888; font-size: 11px; }
+  </style>
+</head>
+<body>
+
+    <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+      <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
+      <symbol id="i-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="2.5"/></symbol>
+      <symbol id="i-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3l18 18"/><path d="M10.6 10.6A2.5 2.5 0 0 0 13.4 13.4"/><path d="M9.9 5.1A10.5 10.5 0 0 1 12 5c6 0 10 7 10 7a17.6 17.6 0 0 1-3.2 3.9"/><path d="M6.1 6.1C3.9 7.8 2 12 2 12s4 7 10 7c1.3 0 2.5-.3 3.6-.7"/></symbol>
+    </svg>
+
+  <div class="note">DES-MOB-FORGOT · Android 412×915 · feature login-forgot</div>
+  <div class="phone">
+    <div class="forgot" id="sc-forgot" data-des-id="DES-MOB-FORGOT" data-step="request">
+      <div class="top">
+        <button type="button" id="btn-back" onclick="onBack()">← Quay lại</button>
+        <h1>Quên mật khẩu</h1>
+      </div>
+      <div class="brand" data-des-id="DES-MOB-FORGOT-BRAND">
+        <div class="logo"><img src="../assets/app-logo.png" alt="RMMS" width="96" height="96" /></div>
+        <p>Quản lý bảo trì đường bộ</p>
+      </div>
+      <div id="step-request" data-des-id="DES-MOB-FORGOT-REQUEST">
+        <div class="field">
+          <input id="f-phone" type="tel" placeholder="Số điện thoại" autocomplete="tel" />
+        </div>
+        <div class="actions">
+          <button class="btn-primary" type="button" id="btn-forgot-send" onclick="sendCode()">Gửi mã</button>
+        </div>
+        <p class="hint">Nhập số điện thoại đã đăng ký. Nếu tồn tại, mã xác thực sẽ được gửi đến bạn.</p>
+      </div>
+      <div id="step-reset" data-des-id="DES-MOB-FORGOT-RESET" style="display:none">
+        <div class="field">
+          <input id="f-otp" type="text" placeholder="Mã xác thực" autocomplete="one-time-code" />
+        </div>
+        <div class="field">
+          <span class="lead" id="i-lock" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24"><use href="#i-lock"/></svg></span>
+          <input id="f-new-pass" type="password" placeholder="Mật khẩu mới" autocomplete="new-password" />
+          <button type="button" class="trail" id="i-eye-new" onclick="toggleEye('f-new-pass', this)" aria-label="Hiện mật khẩu"><svg class="ic" viewBox="0 0 24 24"><use href="#i-eye" class="eyeUse"/></svg></button>
+        </div>
+        <div class="field">
+          <span class="lead" id="i-lock-confirm" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24"><use href="#i-lock"/></svg></span>
+          <input id="f-confirm-pass" type="password" placeholder="Xác nhận mật khẩu" autocomplete="new-password" />
+          <button type="button" class="trail" id="i-eye-confirm" onclick="toggleEye('f-confirm-pass', this)" aria-label="Hiện mật khẩu"><svg class="ic" viewBox="0 0 24 24"><use href="#i-eye" class="eyeUse"/></svg></button>
+        </div>
+        <div class="actions">
+          <button class="btn-primary" type="button" id="btn-forgot-reset" onclick="resetPass()">Đặt lại mật khẩu</button>
+        </div>
+      </div>
+    </div>
+    <div class="toast" id="toast"></div>
+    <div class="modal-scrim" id="leave-modal" role="dialog" aria-modal="true">
+      <div class="modal">
+        <p>Bạn có thay đổi chưa lưu. Rời khỏi màn hình?</p>
+        <div class="row">
+          <button type="button" class="cancel" id="btn-leave-cancel" onclick="closeLeave()">Hủy</button>
+          <button type="button" class="ok" id="btn-leave-ok" onclick="confirmLeave()">Đồng ý</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    function toast(msg) {
+      const el = document.getElementById('toast');
+      el.textContent = msg;
+      el.classList.add('on');
+      clearTimeout(toast._t);
+      toast._t = setTimeout(() => el.classList.remove('on'), 2000);
+    }
+    function isDirtyReset() {
+      const step = document.getElementById('sc-forgot').dataset.step;
+      if (step !== 'reset') return false;
+      const otp = document.getElementById('f-otp').value.trim();
+      const a = document.getElementById('f-new-pass').value;
+      const b = document.getElementById('f-confirm-pass').value;
+      return !!(otp || a || b);
+    }
+    function onBack() {
+      if (isDirtyReset()) {
+        document.getElementById('leave-modal').classList.add('on');
+        return;
+      }
+      toast('→ Login');
+    }
+    function closeLeave() {
+      document.getElementById('leave-modal').classList.remove('on');
+    }
+    function confirmLeave() {
+      closeLeave();
+      toast('→ Login');
+    }
+    function toggleEye(inputId, btn) {
+      const input = document.getElementById(inputId);
+      const use = btn.querySelector('.eyeUse');
+      const show = input.type === 'password';
+      input.type = show ? 'text' : 'password';
+      if (use) use.setAttribute('href', show ? '#i-eye-off' : '#i-eye');
+      btn.setAttribute('aria-label', show ? 'Ẩn mật khẩu' : 'Hiện mật khẩu');
+    }
+    function sendCode() {
+      const phone = document.getElementById('f-phone').value.trim();
+      if (!phone) { toast('Nhập số điện thoại'); return; }
+      toast('Nếu số điện thoại tồn tại, mã xác thực sẽ được gửi đến bạn.');
+      document.getElementById('step-request').style.display = 'none';
+      document.getElementById('step-reset').style.display = 'block';
+      document.getElementById('sc-forgot').dataset.step = 'reset';
+    }
+    function resetPass() {
+      const otp = document.getElementById('f-otp').value.trim();
+      const a = document.getElementById('f-new-pass').value;
+      const b = document.getElementById('f-confirm-pass').value;
+      if (!otp || !a) { toast('Nhập mã và mật khẩu mới'); return; }
+      if (a !== b) { toast('Mật khẩu xác nhận không khớp'); return; }
+      if (a.length < 6) { toast('Mật khẩu tối thiểu 6 ký tự'); return; }
+      toast('Đặt lại mật khẩu thành công');
+      setTimeout(() => toast('→ Login'), 400);
+    }
+  </script>
+</body>
+</html>

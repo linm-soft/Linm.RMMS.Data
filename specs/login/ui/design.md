@@ -41,7 +41,7 @@
 | FormMode | session login |
 | Action this slug | **Đăng nhập** only (`loginOk`) |
 | `devSlash` | `/agent-dev-ios` + `/agent-dev-android` |
-| Frame | iOS 390×844 · Android 412×915 · safe area · keyboard không đè field |
+| Frame | iOS 390×844 · Android 412×915 · safe area · **`LinmKeyboardAwareScroll`** — focus field pin trên IME (`imeFocusGap` 12) · logo **192 tĩnh** · **cấm** compact IME |
 
 ## 2. Screens / DES-MOB-*
 
@@ -68,8 +68,8 @@ Demo Home: `LinmSecondaryButton` **Đăng xuất** · clear Keychain/Encrypted s
 |-------|----|-------------|----------|----------|-------|
 | brand | Logo | Image | * | AppIcon / mipmap | **Tĩnh** top · logo **192** · **alpha** trên surface · **cấm** tile `#000`/`#fff` · **cấm** clip+shadow card · gap title **24** · **cấm** band 1/3 · **cấm** animation / compact IME · **cấm** ×3 |
 | tagline | QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ | Static | | Text | `/agent-design` DES-GRID-A: **22px · 700 · uppercase · onSurface** · title only · **cấm** «Hiện trường · iPhone» / «· Android» |
-| userName | Tài khoản | Text | * | `LinmTextField` + lead | username hoặc SĐT · **cùng** `formFieldHeight` 52 · **cấm** mã đơn vị |
-| password | Mật khẩu | SecureText | * | **`LinmSecureTextField`** | eye + lead lock · cùng chrome user · **cấm** raw SecureField |
+| userName | Tài khoản | Text | * | `LinmTextField` + lead | username hoặc SĐT · **cùng** `formFieldHeight` 52 · **giữ** last id sau login · **cấm** mã đơn vị |
+| password | Mật khẩu | SecureText | * | **`LinmSecureTextField`** | eye + lead lock · **reset rỗng** khi submit login · **cấm** persist · **cấm** raw SecureField |
 | submit | Đăng nhập | Button primary | * | `LinmPrimaryButton` | 1 action = `login` |
 | forgot | Quên mật khẩu? | Text link | | chrome Text | child `login-forgot` · toast only P1 |
 | signal | Tín hiệu | SignalQuality | | `LinmNetSignalMark` | Tốt / TB / Yếu |
@@ -106,7 +106,8 @@ Toast success/error → `LinmToast`. **Cấm** `UIAlert` / `AlertDialog` / `wind
 
 | Case | UI |
 |------|-----|
-| Submit online OK | `LinmToast` **Đăng nhập thành công** → Home ~350 ms |
+| Submit online OK | `LinmToast` **Đăng nhập thành công** → Home ~350 ms · `#f-pass` **reset** · giữ `#f-user` |
+| Về `#sc-login` (logout / lỗi) | Tài khoản = last id · Mật khẩu **rỗng** · **cấm** nhớ MK |
 | Demo Home **Đăng xuất** | `LinmToast` **Đã đăng xuất** · clear token · về `#sc-login` · **cấm** BFF logout |
 | Sai MK / Inactive / HĐ | `LinmToast` in-app |
 | Offline | **không** submit · toast/banner |
@@ -114,6 +115,7 @@ Toast success/error → `LinmToast`. **Cấm** `UIAlert` / `AlertDialog` / `wind
 | Eye | toggle `isSecureTextEntry` / VisualTransformation · **giữ IME** · **cấm** swap SecureField↔TextField · không slug |
 | Signal | Display `LinmNetSignalMark` · bind OS path · **cấm** tap cycle |
 | Brand motion | **Tĩnh** top stack · logo **192** · **alpha** trên surface · **cấm** tile đen/trắng · **cấm** band 1/3 · **cấm** animation / compact IME · mắt giữ IME |
+| IME focus | Focus `#f-user` / `#f-pass` **pin** ngay trên bàn phím · kit `LinmKeyboardAwareScroll` · **cấm** che input · footer meta **pin đáy giữa** khi IME ẩn · IME hiện thì ẩn footer |
 
 ## 7. reviewUrl (dual — REQUIRED)
 

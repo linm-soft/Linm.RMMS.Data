@@ -33,8 +33,10 @@
 ## Notes
 
 - Rebuild local XCFramework sau kit `formFieldHeight` 52 + `LinmTextField(leading:)`.
-- Layout **tĩnh** top: logo **192** **alpha** (`scaledToFit` · **cấm** `Color.black` tile) + title + form + CTA · footer bottom · **cấm** band 1/3 · **cấm** animation / compact IME. `ignoresSafeArea(.keyboard)`. Mắt giữ IME. **cấm** ×3.
+- Layout **tĩnh** top: logo **192** **alpha** (`scaledToFit` · **cấm** `Color.black` tile) + title + form + CTA · footer `.login-meta` **pin `.bottom` giữa** khi IME ẩn (`GAP-MOB-EDIT-FOOTER-01`) · IME hiện thì ẩn footer · `LinmKeyboardAwareScroll` · **cấm** `ignoresSafeArea(.keyboard)` · focus field pin trên IME. **cấm** band 1/3 · **cấm** animation / compact IME. Mắt giữ IME. **cấm** ×3.
 - Signal: bind `NWPath` · **cấm** tap cycle (GAP-MOB-SIGNAL-01/02).
-- Field: user + pass cùng 52 + lead (GAP-MOB-FIELD-CHROME-01).
+- Field: user + pass cùng 52 + lead (GAP-MOB-FIELD-CHROME-01). Submit **reset `#f-pass`** · giữ last `userName` (Keychain `lastUserName` · **không** xóa khi logout) · **cấm** persist MK.
 - E2E: `accessibilityIdentifier` `f-user` / `f-pass` / `btn-login` · demo Home `btn-logout` · Maestro `qa/e2e/ios.yaml` · Auth docker seed `linm-soft` / `Linm@2026`.
-- `/edit-mobile-feature` 2026-08-19: demo logout chrome trên PlaceholderHome · dest rebuild Notes.
+- `/edit-mobile-feature` 2026-08-19: IME pin `LinmKeyboardAwareScroll` · **cấm** `ignoresSafeArea(.keyboard)` · `xcodegen` + `xcodebuild` dest **iPhone 17 Pro Max** **PASS**.
+- `/edit-mobile-feature` 2026-08-19: **GAP-MOB-EDIT-FOOTER-01** footer pin `.bottom` giữa · ẩn khi IME · `xcodebuild` dest **iPhone 17 Pro Max** **PASS**.
+- `/edit-mobile-feature` 2026-08-19: **GAP-MOB-EDIT-PASS** submit reset `#f-pass` · giữ last user · `xcodebuild` dest **iPhone 17 Pro Max** **PASS**.

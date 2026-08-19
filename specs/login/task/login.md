@@ -98,11 +98,11 @@ IA lock (ux-analy §1): `(auth) Login → toast → Home`. **Cấm** swipe-back 
 |-------|-----|-------|
 | brand | AppIcon / asset | **alpha** trên surface · **cấm** tile `#000`/`#fff` · **cấm** `rmms.png` |
 | tagline | Text | `/agent-design` 22/700/uppercase · logo **192 tĩnh** · **cấm** band 1/3 · **cấm** «Hiện trường · iPhone» |
-| userName | `LinmTextField` + `LinmPersonGlyph` | cùng `formFieldHeight` 52 · autocomplete username · e2e id `f-user` · Auth seed `linm-soft` · **cấm** mã đơn vị |
-| password | **`LinmSecureTextField`** | eye chrome · e2e id `f-pass` · Auth seed `Linm@2026` · **cấm** raw `SecureField` |
+| userName | `LinmTextField` + `LinmPersonGlyph` | cùng `formFieldHeight` 52 · IME pin `LinmKeyboardAwareScroll` · e2e id `f-user` · Auth seed `linm-soft` · **cấm** mã đơn vị · **cấm** `ignoresSafeArea(.keyboard)` |
+| password | **`LinmSecureTextField`** | eye chrome · e2e id `f-pass` · **reset rỗng khi submit** · giữ `userName` · **cấm** persist MK · Auth seed `Linm@2026` · **cấm** raw `SecureField` |
 | submit | `LinmPrimaryButton` | **Đăng nhập** · e2e id `btn-login` |
-| forgot | Text/Button link | toast **Quên mật khẩu → hệ thống xác thực** · **không** BFF |
-| signal | `LinmNetSignalMark` | Display Tốt / TB / Yếu · bind NWPath · **cấm** tap cycle |
+| forgot | Text/Button link | toast **Quên mật khẩu → hệ thống xác thực** · **không** BFF · `.login-meta` **pin đáy giữa** khi IME ẩn (`GAP-MOB-EDIT-FOOTER-01`) |
+| signal | `LinmNetSignalMark` | Display Tốt / TB / Yếu · bind NWPath · **cấm** tap cycle · cùng footer đáy giữa |
 | toast | `LinmToast` | success / lỗi / offline / forceLogout |
 | buildMeta | — | demo «bản Gói 1» = chrome prototype — **cấm** watermark process lên UI production nếu demo-to-real cấm (`GAP-DEV-MOB-PLACEHOLDER-01`) · Dev theo `demo-to-real-mobile.md` |
 
@@ -146,7 +146,7 @@ Fail → `build_fail_confirm` · **cấm** mark Dev done.
 
 ### UI / API
 
-Cùng bảng field + API-01/02/03 như T-IOS. Kit: `LinmTextField` + lead · **`LinmSecureTextField`** · `LinmPrimaryButton` · `LinmToast` · `LinmNetSignalMark` display (bind NetworkCapabilities · **cấm** signal button / tap cycle). Tagline: «Quản lý bảo trì đường bộ» only · **cấm** «Hiện trường · Android».
+Cùng bảng field + API-01/02/03 như T-IOS. Kit: `LinmTextField` + lead · **`LinmSecureTextField`** · `LinmKeyboardAwareScroll` (IME pin · **cấm** che field) · `LinmPrimaryButton` · `LinmToast` · `LinmNetSignalMark` display (bind NetworkCapabilities · **cấm** signal button / tap cycle). Footer `.login-meta` **pin `Alignment.BottomCenter`** khi IME ẩn (`GAP-MOB-EDIT-FOOTER-01`). Submit **reset `#f-pass`** · giữ last `userName`. Tagline: «Quản lý bảo trì đường bộ» only · **cấm** «Hiện trường · Android».
 
 `TokenStore`: thêm encrypted key refresh · clear cả access+refresh. `ApiService`: Retrofit POST login · POST refresh-token · GET session-window — **cấm** OkHttp trong Composable. Nav: chưa token → Login · sau allowed → Home.  
 Demo Home: `LinmSecondaryButton` **Đăng xuất** (`btn-logout`) → `LogoutUseCase` clear Encrypted store → `SessionState.setLoggedIn(false)` → Login. **Cấm** POST `auth/logout`.

@@ -1,0 +1,29 @@
+{
+  "feature": "login",
+  "status": "done",
+  "review_confirm": "approve",
+  "taskId": "task_67ecabfa",
+  "skillId": "agent-review-mobile",
+  "skillVersion": "2026.08.19.10",
+  "workflowVersion": "2026.08.19.19",
+  "rulesVersion": "2026.08.19.22",
+  "schemaVersion": "1",
+  "versionGate": "rechecked",
+  "p0Open": false,
+  "readyToSubmit": false,
+  "gaps": [
+    "GAP-SUBMIT PrivacyInfo.xcprivacy missing",
+    "GAP-SUBMIT landing HTTPS privacy/support URL missing",
+    "R-LOGIN-03 session-window IDOR bind JWT backlog BE",
+    "R-LOGIN-10 Keychain kSecAttrAccessible harden"
+  ],
+  "verifyGate": {
+    "iosXcodegen": "PASS",
+    "iosXcodebuild": "PASS iPhone 17 Pro Max",
+    "androidAssembleDebug": "PASS",
+    "bffDotnetBuild": "PASS",
+    "e2eQaPrior": "PASS task_4d1e2f3a"
+  },
+  "updatedAt": "2026-08-19T01:43:18.000Z",
+  "autoCreated": false
+}

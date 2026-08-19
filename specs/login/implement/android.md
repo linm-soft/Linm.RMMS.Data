@@ -28,11 +28,13 @@ Demo Home **Đăng xuất** (`btn-logout`) → `LogoutUseCase` clear Encrypted s
 
 ## Notes
 
-- Layout **tĩnh** top: logo **192** **alpha** (`ContentScale.Fit` · **cấm** `Color.Black` tile / Material elevation) + title + form + CTA · footer `Box` bottom · login `SOFT_INPUT_ADJUST_NOTHING` (restore khi rời) · **cấm** band 1/3 · **cấm** animation / compact IME. Eye `canFocus=false`. **cấm** ×3 · **cấm** «Hiện trường · Android».
+- Layout **tĩnh** top: logo **192** **alpha** (`ContentScale.Fit` · **cấm** `Color.Black` tile / Material elevation) + title + form + CTA · footer `.login-meta` **pin `Alignment.BottomCenter`** khi IME ẩn (`GAP-MOB-EDIT-FOOTER-01`) · IME hiện thì ẩn footer · kit `ADJUST_NOTHING` + `imePadding` · focus field pin trên IME (`imeFocusGap` 12). **cấm** band 1/3 · **cấm** animation / compact IME. Eye `canFocus=false`. **cấm** ×3 · **cấm** «Hiện trường · Android».
 - Signal: bind `NetworkCapabilities` · **cấm** tap cycle.
-- Field: user + pass cùng `formFieldHeight` 52 + lead person/lock.
+- Field: user + pass cùng `formFieldHeight` 52 + lead person/lock. Submit **reset `#f-pass`** · giữ last `userName` (`TokenStore.lastUserName` · **không** xóa khi logout) · **cấm** persist MK.
 - E2E: `testTag` `f-user` / `f-pass` / `btn-login` · demo Home `btn-logout` · `testTagsAsResourceId` trên `RmmsTheme` · Maestro `qa/e2e/android.yaml` · Auth docker seed `linm-soft` / `Linm@2026`.
-- `/edit-mobile-feature` 2026-08-19: demo logout chrome trên PlaceholderHome · `assembleDebug` Notes.
+- `/edit-mobile-feature` 2026-08-19: IME pin `LinmKeyboardAwareScroll` · demo Home **Đăng xuất** overlay đáy trên `LinmKitGallery` (`btn-logout`) · `./gradlew :app:assembleDebug` **PASS**.
+- `/edit-mobile-feature` 2026-08-19: **GAP-MOB-EDIT-FOOTER-01** footer pin `BottomCenter` · ẩn khi IME · `./gradlew :app:assembleDebug` **PASS**.
+- `/edit-mobile-feature` 2026-08-19: **GAP-MOB-EDIT-PASS** submit reset `#f-pass` · giữ last user · `./gradlew :app:assembleDebug` **PASS**.
 - Pack kit local `ui:0.1.0` trước assemble (leading + height 52).
 - Emulator Pixel_9a `adb` **offline** lúc capture `/dev-ui-review` (qemu 100% CPU) — QA live `adb` khi emulator sẵn.
 - Cleartext `10.0.2.2` / localhost cho BFF Debug.

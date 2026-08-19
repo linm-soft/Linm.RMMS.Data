@@ -1,64 +1,45 @@
 {
   "feature": "login",
-  "capturedAt": "2026-08-18T20:12:13.870Z",
+  "capturedAt": "2026-08-19T01:38:22.000Z",
   "iosDevice": "iPhone 17 Pro Max",
+  "androidDevice": "Pixel_2",
   "method": "e2e-qa-mobile",
+  "ok": true,
   "steps": [
     {
       "id": "A10-BFF",
-      "result": "FAIL",
-      "store": [
-        "A10",
-        "P11"
-      ],
-      "error": "BFF :5202 down · --skip-start",
-      "gap": "GAP-QA-STORE-02"
+      "result": "PASS",
+      "store": ["A10", "P11"]
     },
     {
       "id": "A11-LAUNCH",
       "result": "PASS",
       "screenshot": "A11-LAUNCH.png",
-      "store": [
-        "A11"
-      ]
+      "store": ["A11"]
     },
     {
       "id": "A9-LOGIN",
       "result": "PASS",
       "screenshot": "A9-LOGIN.png",
-      "store": [
-        "A9",
-        "P10"
-      ]
+      "store": ["A9", "P10"]
     },
     {
       "id": "A3-CORE",
-      "result": "FAIL",
+      "result": "PASS",
       "screenshot": "A3-CORE.png",
-      "store": [
-        "A3",
-        "A11"
-      ],
-      "error": "GAP-SUBMIT-IMG-03",
-      "gap": "GAP-SUBMIT-IMG-03"
+      "store": ["A3", "A11"]
     },
     {
       "id": "P6-CORE",
       "result": "PASS",
       "screenshot": "P6-CORE.png",
-      "store": [
-        "P6",
-        "P11"
-      ]
+      "store": ["P6", "P11"]
     },
     {
       "id": "P6-CORE-2",
       "result": "PASS",
       "screenshot": "P6-CORE-2.png",
-      "store": [
-        "P6"
-      ]
+      "store": ["P6"]
     }
-  ],
-  "ok": false
+  ]
 }

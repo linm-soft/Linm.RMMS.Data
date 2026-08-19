@@ -1,6 +1,6 @@
 # RESUME-CONTEXT — login
 
-> Compressed at stop · 2026-08-18T20:13:43.923Z
+> Compressed at stop · 2026-08-18T20:58:35.718Z
 
 ## Meta
 
@@ -10,7 +10,7 @@
 | alias | `login` |
 | title | [QA] [Mobile] Đăng nhập |
 | source | `qldb_mobile_implement` |
-| cursorAgentId | `agent-5a5dc2f5-b4e3-4fd9-b19a-df0a065cfeef` |
+| cursorAgentId | `agent-cc3a36d3-a345-4816-baba-d6394a7adeb3` |
 | mfeRoot | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS` |
 | beRoot | `—` |
 | reason | user_stop |
@@ -18,46 +18,46 @@
 
 ## Done / next (heuristic from worker stream)
 
-- [20:12:38] assistant: alpha
-- [20:12:38] assistant: .
-- [20:12:38] assistant: Kh
-- [20:12:38] assistant: ởi
-- [20:12:38] assistant: động
-- [20:12:38] assistant: lại
-- [20:12:38] assistant: B
-- [20:12:38] assistant: FF
-- [20:12:38] assistant: ổn
-- [20:12:38] assistant: định
-- [20:12:38] assistant: rồi
-- [20:12:38] assistant: chạy
-- [20:12:38] assistant: E
-- [20:12:38] assistant: 2
-- [20:12:38] assistant: E
-- [20:12:38] assistant: lần
-- [20:12:38] assistant: cuối
-- [20:12:38] assistant: +
-- [20:12:38] assistant: flatten
-- [20:12:38] assistant: .
-- [20:12:42] tool: tool
-- [20:12:42] tool: tool
-- [20:12:42] tool: tool
-- [20:12:42] tool: tool
-- [20:12:42] tool: tool
-- [20:12:44] thinking: reasoning…
-- [20:12:44] thinking: reasoning…
-- [20:12:44] thinking: reasoning…
-- [20:12:51] thinking: reasoning…
-- [20:12:51] thinking: reasoning…
-- [20:12:51] thinking: reasoning…
-- [20:12:51] thinking: reasoning…
-- [20:12:51] tool: tool
-- [20:13:22] tool: tool
-- [20:13:27] thinking: reasoning…
-- [20:13:27] thinking: reasoning…
-- [20:13:27] thinking: reasoning…
-- [20:13:27] thinking: reasoning…
-- [20:13:43] agent: stop requested — cancelling run
-- [20:13:43] agent: paused · context=/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/login/implement/RESUME-CONTEXT.md
+- [20:57:04] assistant: login
+- [20:57:04] assistant: ).
+- [20:57:04] assistant: S
+- [20:57:04] assistant: ửa
+- [20:57:04] assistant: flow
+- [20:57:04] assistant: :
+- [20:57:04] assistant: `
+- [20:57:04] assistant: clear
+- [20:57:04] assistant: State
+- [20:57:04] assistant: `
+- [20:57:04] assistant: +
+- [20:57:04] assistant: selector
+- [20:57:04] assistant: theo
+- [20:57:04] assistant: text
+- [20:57:04] assistant: /
+- [20:57:04] assistant: hint
+- [20:57:04] assistant: .
+- [20:57:07] tool: tool
+- [20:57:38] tool: tool
+- [20:57:41] thinking: reasoning…
+- [20:57:41] thinking: reasoning…
+- [20:57:41] thinking: reasoning…
+- [20:57:55] thinking: reasoning…
+- [20:57:55] thinking: reasoning…
+- [20:57:55] tool: tool
+- [20:57:55] tool: tool
+- [20:58:01] thinking: reasoning…
+- [20:58:01] thinking: reasoning…
+- [20:58:01] thinking: reasoning…
+- [20:58:01] thinking: reasoning…
+- [20:58:01] thinking: reasoning…
+- [20:58:01] thinking: reasoning…
+- [20:58:01] thinking: reasoning…
+- [20:58:01] thinking: reasoning…
+- [20:58:01] thinking: reasoning…
+- [20:58:01] thinking: reasoning…
+- [20:58:02] tool: tool
+- [20:58:02] tool: tool
+- [20:58:35] agent: stop requested — cancelling run
+- [20:58:35] agent: paused · context=/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/login/implement/RESUME-CONTEXT.md
 
 ## STATUS excerpt
 
@@ -100,7 +100,7 @@
 | contentHash | `sha256:2b627cdf80eca92c1f91cc999b6b516ca09d534ad0ffff887800699c4a02c3ef` |
 | bffContentHash | `sha256:de9bc7143374ca6a38aad393b3ce928ad00462ade2254adf9bcdfd97ac7eb017` |
 | verifyGate | iOS `xcodegen` + `xcodebuild` **iPhone 17 Pro Max** **PASS** · **iPad Pro 13-inch (M5)** **PASS** (M4 không có trên lab) · Android `assembleDebug` **PASS** · BFF `dotnet build` **PASS** |
-| updatedAt | `2026-08-18T20:13:43.916Z` |
+| updatedAt | `2026-08-18T20:58:35.712Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -153,11 +153,10 @@
 
 ## Blockers / open questions
 
-- `login-forgot` — **GAP-MOB-BFF-01** **đóng** (PO+SA): link + toast demo · **cấm** invent path · backlog
+- `login-forgot` — hyperlink Quên MK · **`task_20426736` `pending_confirm`** (sibling_assign) · chờ Approve board · **cấm** start tự động · **cấm** invent `auth/forgot` trước analy
 - **GAP-MOB-BFF-02** **đóng** — app `POST auth/refresh-token` · **cấm** `auth/refresh`
 - **GAP-MOB-BFF-MW** **đóng (P1)** — app GET `session-window` sau login · DTO `allowed`/`reason` · forceLogout copy Web middleware · T-BE-MW attach middleware Mobile.Bff **optional** (parity Web · **không** path mới)
-- Password/eye kit — **closed** Design · `LinmSecureTextField` · Dev **cấm** raw
-- **GAP-MOB-ACT-02** none — `#sc-login` không chi
+- Password/eye kit — **closed** Design · `LinmSecureTex
 ```
 
 ## Resume instructions (for agent)

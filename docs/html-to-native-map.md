@@ -50,7 +50,7 @@ Map **ý nghĩa**. Cấm clone `px` / `class`. Cấm 1 binary UI 2 OS.
 | HTML | Ý nghĩa | SwiftUI | Compose |
 |------|---------|---------|---------|
 | `button` primary | Action chính · busy = spinner giữa · **cấm** overlay màn | `LinmPrimaryButton` `isBusy` | `LinmPrimaryButton` `isBusy` |
-| `input type=text` | Text · cùng `formFieldHeight` 52 · lead khi demo có | `LinmTextField` (+ `leading`) | same |
+| `input type=text` | Text · cùng `formFieldHeight` 52 · lead khi demo có · IME pin | `LinmTextField` (+ `leading`) trong `LinmKeyboardAwareScroll` | same |
 | `input type=password` + `.trail` eye (`#i-eye` / `#i-eye-off`) | SecureText · hiện/ẩn MK · **giữ IME** | `LinmSecureTextField` (`UITextField` + `isSecureTextEntry`) · `LinmEyeGlyph` / `LinmEyeOffGlyph` | `LinmSecureTextField` · VisualTransformation · eye `canFocus=false` |
 | `input type=search` / `.search` / `#i-search` | Tìm · vòng + cán · **cấm** `⌕` / SF-M3 lệch nét | `LinmSearchField` · `LinmSearchGlyph` | same |
 | `input type=checkbox` | On/off | `LinmToggle` | `LinmToggle` |
@@ -65,6 +65,7 @@ Map **ý nghĩa**. Cấm clone `px` / `class`. Cấm 1 binary UI 2 OS.
 | control / button | `44` | `controlHeight` / `buttonHeight` |
 | busy overlay blur | `12` | `busyBlur` |
 | form field row | `52` | `formFieldHeight` |
+| IME focus gap | `12` | `imeFocusGap` · `LinmKeyboardAwareScroll` |
 | hero circle / capsule / badge / wifi | `36` / `28` / `22` / `11` / `1.5` / `14` | `iconCircle` / `statusCapsuleHeight` / `notifyBadge` / `notifyBadgeFont` / `notifyBadgeRing` / `signalWifi` |
 | home tile / progress / large title / quick | `48` / `6` / `34` / `14` / `#FFF8E8` | `iconHomeTile` / `progressHeight` / `largeTitle` / `quickRadius` / `quickStart` |
 | header | `#086A9A` → `#0C84C0` | `headerStart` / `headerEnd` |

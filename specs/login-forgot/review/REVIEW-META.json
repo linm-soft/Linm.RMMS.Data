@@ -1,0 +1,33 @@
+{
+  "feature": "login-forgot",
+  "reviewHash": "sha256:login-forgot-review-task_e3916a45-20260818",
+  "schemaVersion": 1,
+  "rulesVersion": "2026.08.19.22",
+  "skillVersion": "2026.08.19.10",
+  "workflowVersion": "2026.08.19.19",
+  "status": "done",
+  "review_confirm": "done",
+  "taskId": "task_e3916a45",
+  "autoApprove": true,
+  "verifyGate": {
+    "ios_xcodegen": "PASS",
+    "ios_xcodebuild": "PASS",
+    "android_assembleDebug": "PASS",
+    "bff_dotnet_build": "PASS",
+    "destination": "iPhone 17 Pro"
+  },
+  "artifacts": [
+    "po/requirement.md",
+    "ui/design.md",
+    "be/solution-discovery.md",
+    "task/login-forgot.md",
+    "implement/ios.md",
+    "implement/android.md",
+    "implement/bff.md",
+    "qa/scenarios.md",
+    "qa/store/login-forgot/CAPTURE.md",
+    "review/findings.md"
+  ],
+  "p0Open": false,
+  "updatedAt": "2026-08-18T22:10:00.000Z"
+}

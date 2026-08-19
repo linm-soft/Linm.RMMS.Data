@@ -1,19 +1,32 @@
 appId: org.linmsoft.rmms
 ---
-# Login e2e — Auth docker seed (SeedDefaults) · fill #f-user / #f-pass
-- launchApp
+# Login e2e — Android testTag · title đóng IME trước pass · Enter/Done trước CTA
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible: "Đăng nhập"
+    timeout: 15000
 - takeScreenshot: A11-LAUNCH
+- takeScreenshot: A3-CORE
+- takeScreenshot: P6-CORE
 - tapOn:
     id: "f-user"
 - inputText: "linm-soft"
+- tapOn: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
 - tapOn:
     id: "f-pass"
 - inputText: "Linm@2026"
+- pressKey: Enter
+- waitForAnimationToEnd:
+    timeout: 4000
 - tapOn:
     id: "btn-login"
+- extendedWaitUntil:
+    visible:
+      id: "btn-logout"
+    timeout: 25000
 - takeScreenshot: A9-LOGIN
-- takeScreenshot: A3-CORE
-- takeScreenshot: P6-CORE
 - tapOn:
     text: "Kit"
     optional: true

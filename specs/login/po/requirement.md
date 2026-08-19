@@ -45,6 +45,8 @@ Native chưa có màn Login (không file `*Login*` trên iOS/Android). Không b�
 13. Dev (role sau): iOS `xcodegen` + `xcodebuild` PASS · Android `assembleDebug` PASS · Mobile.Bff `dotnet build` PASS — **cấm** `yarn start:std`.
 14. QA (role sau): AC slug `login` only · live capture sim/adb · **cấm** test sibling `login-forgot` / `login-logout` (`#sc-me`) như in-scope.
 15. Demo Home (kit gallery): chrome **Đăng xuất** `btn-logout` · clear local session → `#sc-login` · toast **Đã đăng xuất** · **cấm** POST `auth/logout` · **cấm** coi đây là slug `login-logout`.
+16. IME: focus `#f-user` / `#f-pass` **luôn trên** bàn phím (iOS + Android) · kit `LinmKeyboardAwareScroll` · logo **192 tĩnh** · **cấm** che input · **cấm** compact logo.
+17. Submit login → **reset `#f-pass`** · **giữ `#f-user`** (last id, kể cả sau Đăng xuất) · **cấm** persist mật khẩu.
 
 ## 4. CTX / DEM / DI inventory
 
@@ -81,7 +83,7 @@ Nguồn `#sc-login` dual + DA-01. UNCLEAR field = **none**.
 | userName | Tài khoản | Text | * | `LinmTextField` + lead person | Username **hoặc** SĐT · cùng `formFieldHeight` 52 · iOS `autocomplete=username` · **cấm** ô mã đơn vị |
 | password | Mật khẩu | SecureText | * | **`LinmSecureTextField`** | Eye + lead lock · cùng chrome user · **cấm** Dev `SecureField` / `OutlinedTextField` raw |
 | submit | Đăng nhập | Button primary | * | `LinmPrimaryButton` | **1 action = `login`** · `loginOk()` |
-| forgot | Quên mật khẩu? | Text link | | chrome / text | Child **`login-forgot`** · tap toast only P1 |
+| forgot | Quên mật khẩu? | Text link | | chrome / text | Child **`login-forgot`** · tap toast only P1 · `.login-meta` pin **đáy giữa** khi IME ẩn |
 | signal | Tín hiệu | SignalQuality | | `LinmNetSignalMark` | Display Tốt / TB / Yếu · bind OS path · **cấm** tap cycle |
 | buildMeta | bản Gói 1 | **Ẩn production** | | — | Chrome prototype — **cấm** ship |
 | companyCode | Mã đơn vị | **Ẩn Gói 1** | | — | Đơn vị theo JWT `company_id` |
