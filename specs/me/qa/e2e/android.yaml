@@ -1,0 +1,37 @@
+appId: org.linmsoft.rmms
+---
+# me hub — Android: title đóng IME · Enter trước CTA · tab Tôi
+- launchApp:
+    clearState: true
+- extendedWaitUntil:
+    visible: "Đăng nhập"
+    timeout: 15000
+- takeScreenshot: A11-LAUNCH
+- tapOn:
+    id: "f-user"
+- inputText: "linm-soft"
+- tapOn: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
+- tapOn:
+    id: "f-pass"
+- inputText: "Linm@2026"
+- pressKey: Enter
+- waitForAnimationToEnd:
+    timeout: 4000
+- tapOn:
+    id: "btn-login"
+- extendedWaitUntil:
+    visible:
+      id: "btn-logout"
+    timeout: 25000
+- takeScreenshot: A9-LOGIN
+- tapOn:
+    id: "tab-me"
+    optional: true
+- tapOn:
+    text: "Tôi"
+- extendedWaitUntil:
+    visible: "Hàng đợi mất sóng"
+    timeout: 15000
+- takeScreenshot: A3-CORE
+- takeScreenshot: P6-CORE
+- takeScreenshot: P6-CORE-2

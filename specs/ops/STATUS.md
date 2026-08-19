@@ -3,8 +3,8 @@
 | Field | Value |
 |-------|-------|
 | feature | `ops` |
-| phase | `done` |
-| status | `done` |
+| phase | `data_analy` |
+| status | `draft` |
 | changeScope | `edit_page` |
 | packKind | `list` |
 | runMode | `full_pipeline` |
@@ -19,7 +19,7 @@
 | skillVersion | `2026.08.15.5` |
 | schemaVersion | `qldb-workflow-skill-v1` |
 | workflowVersion | `2026.08.15.5` |
-| updatedAt | `2026-08-15T20:07:51.262Z` |
+| updatedAt | `2026-08-19T02:06:23.220Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -30,14 +30,14 @@
 
 | Step | Agent | Artifact | Status |
 |------|-------|----------|--------|
-| 0 | data-analy | `_data-analy/features/ops-control-hint.md` | **confirmed** |
-| 1 | po | po/requirement.md | **confirmed** |
-| 2.1 | design | ui/design.md + prototype + reviewUrl | **confirmed** |
-| 2.2 | sa | be/solution-discovery.md | **confirmed** |
-| 3 | team-lead | task/ops.md | **confirmed** |
-| 4 | dev | implement/ops.md | **confirmed** |
-| 5 | qa | qa/scenarios.md | **confirmed** |
-| 6 | review | review/findings.md | **done** |
+| 0 | data-analy | `_data-analy/features/ops-control-hint.md` | **pending** |
+| 1 | po | po/requirement.md | **pending** |
+| 2.1 | design | ui/design.md + prototype + reviewUrl | **pending** |
+| 2.2 | sa | be/solution-discovery.md | **pending** |
+| 3 | team-lead | task/ops.md | **pending** |
+| 4 | dev | implement/ops.md | **pending** |
+| 5 | qa | qa/scenarios.md | **pending** |
+| 6 | review | review/findings.md | **pending** |
 ## Confirms
 
 | Gate | Value |

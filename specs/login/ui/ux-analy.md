@@ -92,7 +92,7 @@ Nhãn lấy từ HTML — không invent.
 
 ## 6. Signal
 
-Wifi glyph + 4 cột + nhãn **Tốt / Trung bình / Yếu** (`LinmNetSignalMark`). Bind OS path (NWPath / NetworkCapabilities).  
+4 cột + nhãn **Tốt / Trung bình / Yếu** (`LinmNetSignalMark`). **Cấm** wifi glyph trên mark. Bind OS path (NWPath / NetworkCapabilities).  
 `net-signal.js` click-cycle = **designer helper** — **cấm** tap trên native. Tone light trên nền surface. **Cấm** boolean «Có mạng».
 
 ## 7. Pictogram

@@ -1,11 +1,9 @@
 # Prototype — me
 
-Design gate: **prototype + reviewUrl** — board Approve (**không auto**).
-Repo confirm: user tick BE+UI trên `/qldb-workflow` Progress trước Dev (**không auto** · cấm ERP.*).
+Design gate: **prototype + reviewUrl**.
 
-- Demo SSOT: `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/mobile-p1/ui/prototype/ios/index.html`
-- Title: Tôi / Hồ sơ
-- Pack kind: `hub`
-- MFE: `Linm.RMMS.Mobile.iOS`
-
-Put HTML prototype / screenshot link here; update `ui/design.md` with a browser-openable **reviewUrl**.
+- iOS: `ui/prototype/ios/index.html` `#sc-me`
+- Android: `ui/prototype/android/index.html` `#sc-me`
+- SSOT peer: `specs/mobile-p1/ui/prototype/{ios,android}/index.html` `#sc-me`
+- reviewUrlIos: `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/me/ui/prototype/ios/index.html`
+- reviewUrlAndroid: `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/me/ui/prototype/android/index.html`

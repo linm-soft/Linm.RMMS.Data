@@ -10,15 +10,15 @@ Map **ý nghĩa**. Cấm clone `px` / `class`. Cấm 1 binary UI 2 OS.
 
 | Demo | Ý nghĩa | SwiftUI (`LinmMobileKit`) | Compose (`org.linmsoft.mobile:ui`) |
 |------|---------|---------------------------|------------------------------------|
-| `.tabbar` | 5 tab IA | `TabView` + SF | `NavigationBar` + Material |
-| top bar | Cao 56 · title giữa · 2 bên 44 | `LinmTopBar` | `LinmTopBar` |
+| `.tabbar` | 5 tab IA · full-width flush · indicator 64×32 · label **`tabLabel` 10** (cấm scale <10 · cấm proto 11) · tab Tuần đường SF **`location.fill`** ≡ Material **`Place`** (**cấm** `mappin` kim dài) | `LinmTabBar` | `LinmTabBar` |
+| top bar | Cao 56 · title giữa · 2 bên tap 44 · glyph **vector 22** (SF `square.grid.2x2` / `ellipsis.circle` ≡ GridView / MoreHoriz) · **cấm** chữ `▦`/`⋯` | `LinmTopBar` | `LinmTopBar` |
 | `.btn-ok` | CTA chính · loading `isBusy` spinner giữa nút (ẩn title) | `LinmPrimaryButton` `isBusy` | `LinmPrimaryButton` `isBusy` |
 | `.btn-skip` | Phụ | `LinmSecondaryButton` | `LinmSecondaryButton` |
-| `.list` / `.rich-card` | Hàng | `LinmListRow` | `LinmListRow` |
+| `.list` / `.rich-card` / `.row` | Hàng · optional leading / chevron / badge / `onTap` | `LinmListRow` | `LinmListRow` |
 | `.card` / form card | Thẻ | `LinmCard` | `LinmCard` |
 | overflow / `⋯` | Menu | `LinmMenu` (HIG `Menu`) | `LinmMenu` — host `DropdownMenu` + **token skin** (cấm M3 tím) |
 | `.sheet` | Overlay · size compact/medium/large · chrome Huỷ/Lưu · footer `LinmSheetButton` main/second · fullWidth \| inline | `.linmSheet` + `LinmSheet` · `LinmSheetSize` · `LinmSheetChrome` · `LinmSheetButton` | `LinmSheet` cùng props |
-| toast / banner | Thông báo | `LinmToast` / `LinmBanner` | `LinmToast` / `LinmBanner` |
+| toast / banner | Thông báo · đóng phải `#i-x` · auto `toastAutoDismissMs` 5000 · giữ text (không đóng) · `includeNotification` → app `onNotify` · **cấm** `alert` | `LinmToast` / `LinmToastHost` / `LinmBanner` | same |
 | leave modal | Dirty **popup** giữa màn | `LinmLeaveConfirm` / `.linmLeaveConfirm` | `LinmLeaveConfirm` (`Dialog`) |
 | loading full page | Spinner giữa · blur nền `busyBlur` 12 | `LinmBusyOverlay` / `.linmBusyOverlay` | `LinmBusyOverlay` |
 | `.chip` | Filter chip | `LinmChip` | `LinmChip` |
@@ -33,9 +33,10 @@ Map **ý nghĩa**. Cấm clone `px` / `class`. Cấm 1 binary UI 2 OS.
 | `.hero-ico` hồ sơ | Nút tròn profile · tap 44 · vòng 36 | `LinmProfileButton` | `LinmProfileButton` |
 | `.hero-ico` + badge số | Notify + count (`0` ẩn) · badge **22** · chữ **11** · ring 1.5 · trong tap 44 · **cấm** M3 `Badge` | `LinmNotifyButton` · `LinmNotifyCountBadge` | same |
 | `.vn-hero-tools` | Profile trái · notify phải | `LinmHeroTools` | `LinmHeroTools` |
-| `.role` + `data-net-signal` | Khu + wifi + cột sóng + Tốt/TB/Yếu · **cấm** «Có mạng» | `LinmStatusCapsule` | `LinmStatusCapsule` |
+| `.role` + `data-net-signal` | Khu + cột sóng + Tốt/TB/Yếu · **cấm** wifi glyph · **cấm** «Có mạng» | `LinmStatusCapsule` | `LinmStatusCapsule` |
 | `#i-mappin` / GPS on·off | Pin vị trí · **cấm** kit đọc GPS | `LinmGpsIcon` · `LinmGpsMark` · `LinmGpsButton` | same |
-| `#i-wifi` + bars | Tín hiệu Tốt/TB/Yếu · **cùng vẽ** 3-cung + chấm (cấm SF/M3 wifi nhỏ) + 4 cột 4/6/8/11 | `LinmWifiGlyph` · `LinmSignalIcon` · `LinmNetSignalMark` · `LinmSignalButton` | same |
+| `#i-wifi` | Glyph 3-cung nút tròn (không dùng trên hàng Tín hiệu) | `LinmWifiGlyph` · `LinmSignalButton` | same |
+| 4 cột 4/6/8/11 | Tín hiệu Tốt/TB/Yếu · **chỉ** cột sóng · **cấm** wifi glyph trên mark · **cấm** «Có mạng» | `LinmSignalIcon` · `LinmNetSignalMark` | same |
 | `.vn-quick` | 2 ô hero title + phụ | `LinmQuickActions` · `LinmQuickItem` | same |
 | `.wallet-card` · DES-MOB-HOME-WALLET | Ví tuyến gradient | `LinmWalletCard` | same |
 | `.section-label` | Nhãn nhóm | `LinmSectionLabel` | same |
@@ -66,7 +67,8 @@ Map **ý nghĩa**. Cấm clone `px` / `class`. Cấm 1 binary UI 2 OS.
 | busy overlay blur | `12` | `busyBlur` |
 | form field row | `52` | `formFieldHeight` |
 | IME focus gap | `12` | `imeFocusGap` · `LinmKeyboardAwareScroll` |
-| hero circle / capsule / badge / wifi | `36` / `28` / `22` / `11` / `1.5` / `14` | `iconCircle` / `statusCapsuleHeight` / `notifyBadge` / `notifyBadgeFont` / `notifyBadgeRing` / `signalWifi` |
+| tab indicator / label | `64` × `32` · `10` | `tabIndicatorWidth` · `tabIndicatorHeight` · `tabLabel` |
+| hero circle / capsule / badge / wifi / toast | `36` / `28` / `22` / `11` / `1.5` / `14` / `5000` | `iconCircle` / `statusCapsuleHeight` / `notifyBadge` / `notifyBadgeFont` / `notifyBadgeRing` / `signalWifi` / `toastAutoDismissMs` |
 | home tile / progress / large title / quick | `48` / `6` / `34` / `14` / `#FFF8E8` | `iconHomeTile` / `progressHeight` / `largeTitle` / `quickRadius` / `quickStart` |
 | header | `#086A9A` → `#0C84C0` | `headerStart` / `headerEnd` |
 | success | `#3CB448` | `LinmTokens.success` |

@@ -86,7 +86,7 @@ Toast success/error → `LinmToast`. **Cấm** `UIAlert` / `AlertDialog` / `wind
 | `#i-person` | lead Tài khoản | SF `person` / app slot | Material `Person` / app slot |
 | `#i-lock` | lead Mật khẩu | SF `lock` / app slot | Material `Lock` / app slot |
 | `#i-eye` / `#i-eye-off` | hiện/ẩn MK | **`LinmEyeGlyph` / `LinmEyeOffGlyph`** | same kit |
-| wifi + bars | tín hiệu | `LinmNetSignalMark` | same |
+| cột sóng | tín hiệu | `LinmNetSignalMark` | same |
 
 ## 5. Brand tokens
 

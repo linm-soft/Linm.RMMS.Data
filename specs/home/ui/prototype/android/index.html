@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RMMS · Trang Chủ · Android</title>
+  <style>
+    :root {
+      --blue: #0C84C0; --deep: #086A9A; --sky: #2A9AD4;
+      --success: #3CB448; --warn: #FCB43C; --danger: #F03C30;
+      --surface: #F2F2F7; --card: #fff; --muted: #8E8E93; --label: #1C1C1E;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; font-family: Roboto, sans-serif;
+      background: #1c1c1e; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    }
+    .phone {
+      width: 412px; height: 915px; background: var(--surface); border-radius: 28px;
+      overflow: hidden; position: relative; display: flex; flex-direction: column;
+    }
+    .content { flex: 1; overflow: auto; padding: 0 0 88px; }
+    .vn-hero {
+      margin: 0 0 14px; padding: 28px 16px 18px;
+      background: linear-gradient(165deg, #086A9A 0%, #0C84C0 55%, #2A9AD4 100%);
+      color: #fff; border-radius: 0 0 22px 22px;
+    }
+    .vn-hero-tools { display: flex; justify-content: space-between; margin-bottom: 10px; }
+    .hero-ico {
+      width: 44px; height: 44px; border: 0; border-radius: 22px; cursor: pointer;
+      background: rgba(255,255,255,.18); color: #fff; display: grid; place-items: center;
+      position: relative; font-size: 18px;
+    }
+    .role {
+      display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600;
+      background: rgba(0,0,0,.18); border-radius: 999px; padding: 4px 10px;
+    }
+    .bars { display: inline-flex; align-items: flex-end; gap: 2px; height: 12px; }
+    .bars i { display: block; width: 3px; background: #fff; border-radius: 1px; opacity: .95; }
+    .bars i:nth-child(1) { height: 4px; } .bars i:nth-child(2) { height: 7px; }
+    .bars i:nth-child(3) { height: 10px; } .bars i:nth-child(4) { height: 12px; }
+    .who { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; margin: 8px 0 12px; }
+    .vn-quick { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .vn-quick button {
+      border: 0; border-radius: 14px; padding: 14px 12px; text-align: left; cursor: pointer;
+      background: linear-gradient(180deg, #fff8e8, #fff); color: #086A9A;
+      font-family: inherit; font-weight: 700; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,.12);
+    }
+    .vn-quick .s { display: block; font-size: 11px; font-weight: 500; color: #5a6a80; margin-top: 4px; }
+    .section-label {
+      font-size: 13px; font-weight: 600; color: var(--muted); margin: 4px 16px 10px;
+    }
+    .home-grid {
+      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin: 0 16px 12px;
+    }
+    .home-tile {
+      border: 0; background: var(--card); border-radius: 16px; min-height: 96px;
+      padding: 12px 8px; font-family: inherit; cursor: pointer; color: var(--label);
+      box-shadow: 0 1px 4px rgba(0,0,0,.05); display: flex; flex-direction: column; align-items: center; gap: 8px;
+    }
+    .home-tile .hi {
+      width: 44px; height: 44px; border-radius: 12px; color: #fff;
+      display: grid; place-items: center; font-size: 18px; font-weight: 700;
+    }
+    .home-tile .t { font-size: 15px; font-weight: 650; letter-spacing: -0.3px; text-align: center; }
+    .wallet-card {
+      margin: 0 16px 16px; border-radius: 18px; padding: 16px;
+      background: linear-gradient(135deg, #086A9A, #0C84C0); color: #fff; cursor: pointer;
+    }
+    .wallet-card .k { font-size: 12px; opacity: .85; font-weight: 700; letter-spacing: .04em; }
+    .wallet-card .t { font-size: 20px; font-weight: 800; margin: 6px 0 4px; }
+    .wallet-card .m { font-size: 13px; opacity: .92; line-height: 1.35; }
+    .tab {
+      position: absolute; left: 0; right: 0; bottom: 0; height: 80px;
+      background: #fff; border-top: 1px solid #E5E5EA;
+      display: flex; padding: 8px 4px 16px;
+    }
+    .tab b { flex: 1; text-align: center; font-size: 10px; font-weight: 500; color: var(--muted); }
+    .tab b.on { color: var(--blue); }
+    .toast {
+      position: absolute; left: 50%; bottom: 96px; transform: translateX(-50%);
+      background: rgba(28,28,30,.92); color: #fff; padding: 10px 16px; border-radius: 12px;
+      font-size: 14px; opacity: 0; pointer-events: none; transition: opacity .2s; white-space: nowrap; z-index: 5;
+    }
+    .toast.on { opacity: 1; }
+  </style>
+</head>
+<body>
+  <div class="phone" id="sc-home" data-des-id="DES-MOB-HOME" data-tab="home">
+    <div class="content">
+      <div class="vn-hero" data-des-id="DES-MOB-HOME-HELLO">
+        <div class="vn-hero-tools">
+          <button class="hero-ico" type="button" title="Hồ sơ" onclick="toast('Hồ sơ → tab Tôi')">👤</button>
+          <button class="hero-ico" type="button" title="Thông báo" onclick="toast('Thông báo')">🔔</button>
+        </div>
+        <!-- Demo SSOT: role+signal. Live: role ẩn · signal OS path · badge notifyCount=0 ẩn -->
+        <span class="role" onclick="toast('Đã làm mới')">
+          Khu QLĐB IV
+          <span class="bars" aria-label="Tín hiệu Tốt"><i></i><i></i><i></i><i></i></span>
+          Tốt
+        </span>
+        <div class="who">Nguyễn Văn A</div>
+        <div class="vn-quick" data-des-id="DES-MOB-HOME-QUICK">
+          <button type="button" onclick="toast('Điểm tuần')">Điểm tuần<span class="s">Ghim định vị · lý trình</span></button>
+          <button type="button" onclick="toast('Ghi sự cố')">Ghi sự cố<span class="s">Chọn tài sản · mẫu sự cố</span></button>
+        </div>
+      </div>
+      <div class="section-label">Nghiệp vụ thường dùng</div>
+      <div class="home-grid" data-des-id="DES-MOB-HOME-GRID">
+        <button type="button" class="home-tile" onclick="toast('Giám sát')"><div class="hi" style="background:#FCB43C">☰</div><div class="t">Giám sát</div></button>
+        <button type="button" class="home-tile" onclick="toast('Tuần đường')"><div class="hi" style="background:#F03C30">📍</div><div class="t">Tuần đường</div></button>
+        <button type="button" class="home-tile" onclick="toast('Công việc')"><div class="hi" style="background:#3CB448">🔧</div><div class="t">Công việc</div></button>
+        <button type="button" class="home-tile" onclick="toast('Vấn đề')"><div class="hi" style="background:#FCB43C">⚠</div><div class="t">Vấn đề</div></button>
+        <button type="button" class="home-tile" onclick="toast('Tài sản')"><div class="hi" style="background:#0C84C0">▣</div><div class="t">Tài sản</div></button>
+        <button type="button" class="home-tile" onclick="toast('Lưu trữ')"><div class="hi" style="background:#086A9A">↻</div><div class="t">Lưu trữ</div></button>
+      </div>
+      <div class="wallet-card" data-des-id="DES-MOB-HOME-WALLET" onclick="toast('Tài sản')">
+        <div class="k">HỒ SƠ TÀI SẢN</div>
+        <div class="t">QL.1 · Khu IV</div>
+        <div class="m">32 loại KCHT · thông số + checklist sự cố</div>
+      </div>
+      <!-- GAP-F-HOME-03: .home-foot Gói — cấm ship · không vẽ -->
+    </div>
+    <nav class="tab" data-des-id="DES-MOB-TABBAR">
+      <b class="on">Trang Chủ</b><b>Tuần đường</b><b>Vấn đề</b><b>Công việc</b><b>Tôi</b>
+    </nav>
+    <div class="toast" id="toast"></div>
+  </div>
+  <script>
+    let t;
+    function toast(msg) {
+      const el = document.getElementById('toast');
+      el.textContent = msg;
+      el.classList.add('on');
+      clearTimeout(t);
+      t = setTimeout(() => el.classList.remove('on'), 1400);
+    }
+  </script>
+</body>
+</html>

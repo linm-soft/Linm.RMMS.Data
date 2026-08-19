@@ -111,7 +111,7 @@ Không lưới loại TS trên màn forgot.
 ## 8. Motion
 
 Không `/wf-anim` trên pack này.  
-Toast ~2s. Busy khi POST. Success → pop Login ~350–400 ms sau toast.  
+Toast auto 5000ms · đóng phải · giữ text. Busy khi POST. Success → pop Login ~350–400 ms sau toast.  
 Brand **tĩnh**. Eye **giữ IME**. **Cấm** brand animation / watermark motion.
 
 ## 9. GAP

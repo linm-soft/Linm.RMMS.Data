@@ -1,0 +1,15 @@
+{
+  "feature": "me",
+  "taskId": "task_84e8e0e2",
+  "review_confirm": "approve",
+  "skillVersion": "2026.08.19.10",
+  "workflowVersion": "2026.08.19.19",
+  "verifyGate": {
+    "ios_xcodegen": "PASS",
+    "ios_xcodebuild_iPhone17Pro": "PASS",
+    "android_assembleDebug": "PASS",
+    "bff_dotnet_build": "PASS"
+  },
+  "p0": [],
+  "ready_to_submit": false
+}

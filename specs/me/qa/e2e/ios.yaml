@@ -1,0 +1,52 @@
+appId: org.linmsoft.rmms
+---
+# me hub — login (parity login yaml) → tab Tôi
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible: "Đăng nhập"
+    timeout: 15000
+- takeScreenshot: A11-LAUNCH
+- tapOn:
+    id: "f-user"
+    optional: true
+- tapOn:
+    text: "Tài khoản"
+    optional: true
+- inputText: "linm-soft"
+- tapOn:
+    text: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
+    optional: true
+- tapOn:
+    text: "RMMS"
+    optional: true
+- tapOn:
+    id: "f-pass"
+    optional: true
+- tapOn:
+    text: "Mật khẩu"
+    optional: true
+- inputText: "Linm@2026"
+- tapOn:
+    text: "Not Now"
+    optional: true
+- tapOn:
+    id: "btn-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "btn-logout"
+    timeout: 25000
+- takeScreenshot: A9-LOGIN
+- tapOn:
+    text: "Tôi"
+- extendedWaitUntil:
+    visible: "Hàng đợi mất sóng"
+    timeout: 15000
+- takeScreenshot: A3-CORE
+- takeScreenshot: P6-CORE
+- takeScreenshot: P6-CORE-2
