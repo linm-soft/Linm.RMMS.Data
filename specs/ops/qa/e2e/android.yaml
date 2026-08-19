@@ -1,0 +1,56 @@
+appId: org.linmsoft.rmms
+---
+# ops · store P6 · login Auth seed → tab Tôi → #row-ops → #sc-ops (Pixel 1080×1920)
+# cấm hideKeyboard (BACK có thể về launcher) — tap title + Enter như login/android.yaml
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible: "Đăng nhập"
+    timeout: 15000
+- tapOn:
+    id: "f-user"
+- inputText: "linm-soft"
+- tapOn: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
+- tapOn:
+    id: "f-pass"
+- inputText: "Linm@2026"
+- pressKey: Enter
+- waitForAnimationToEnd:
+    timeout: 4000
+- tapOn:
+    id: "btn-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
+- extendedWaitUntil:
+    visible: "Trang Chủ"
+    timeout: 45000
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 15000
+- tapOn:
+    id: "tab-me"
+- extendedWaitUntil:
+    visible:
+      id: "row-ops"
+    timeout: 15000
+- tapOn:
+    id: "row-ops"
+- extendedWaitUntil:
+    visible:
+      id: "sc-ops"
+    timeout: 20000
+- assertVisible: "Thông báo"
+- assertVisible: "Ưu tiên SC-2401"
+- takeScreenshot: P6-CORE
+- assertVisible: "Ca PAT-…0014 độ phủ 67%"
+- takeScreenshot: P6-CORE-2
+- tapOn: "Ưu tiên SC-2401"
+- extendedWaitUntil:
+    visible: "Đã đọc chỉ đạo"
+    timeout: 10000
+- assertVisible:
+    id: "sc-ops"

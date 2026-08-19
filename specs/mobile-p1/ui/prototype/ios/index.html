@@ -686,7 +686,7 @@
     /* —— Login —— */
     .login {
       flex: 1; display: flex; flex-direction: column;
-      background: linear-gradient(180deg, #fff 0%, var(--ios-gray6) 38%, var(--ios-gray6) 100%);
+      background: #F2F2F7;
       padding-bottom: 28px; min-height: 0;
     }
     .login-main {
@@ -694,31 +694,31 @@
       min-height: 0;
     }
     .login-brand {
-      padding: 0 28px 4px; text-align: center;
+      padding: 24px 28px 0; text-align: center;
     }
     .login-logo {
-      width: 96px; height: 96px; margin: 0 auto 12px;
-      background: #000; box-shadow: 0 8px 20px rgba(0,0,0,.14);
-      border-radius: 22px; overflow: hidden;
+      width: 192px; height: 192px; margin: 0 auto;
+      background: transparent;
     }
     .login-logo img {
-      display: block; width: 100%; height: 100%; object-fit: cover;
+      display: block; width: 100%; height: 100%; object-fit: contain;
     }
     .login-brand p {
-      margin-top: 4px; font-size: 15px; color: var(--ios-secondary); line-height: 1.35;
+      margin: 24px 0 0; font-size: 22px; font-weight: 700; line-height: 1.25;
+      color: #1C1C1E; text-transform: uppercase; letter-spacing: 0.01em;
     }
-    .login-form { margin-top: 20px; }
+    .login-form { margin-top: 24px; }
     .login-field {
       margin: 0 20px 10px; background: var(--card); border-radius: 12px;
       padding: 0 14px; display: flex; align-items: center; gap: 10px; min-height: 52px;
     }
-    .login-field .lead { color: var(--ios-gray); font-size: 18px; width: 22px; display: grid; place-items: center; }
+    .login-field .lead { color: rgba(28, 28, 30, 0.45); font-size: 18px; width: 22px; display: grid; place-items: center; }
     .login-field input {
       flex: 1; border: 0; outline: 0; font-size: 17px; font-family: inherit;
       background: transparent; padding: 14px 0; color: var(--ios-label);
     }
     .login-field .trail {
-      border: 0; background: transparent; color: var(--ios-blue); cursor: pointer;
+      border: 0; background: transparent; color: var(--rmms-blue); cursor: pointer;
       font-size: 18px; padding: 8px; display: grid; place-items: center;
     }
     .login-actions { padding: 12px 20px 0; display: flex; flex-direction: column; gap: 10px; }
@@ -841,9 +841,9 @@
             <div class="login-main">
             <div class="login-brand" data-des-id="DES-MOB-LOGIN-BRAND">
               <div class="login-logo">
-                <img src="../assets/app-logo.png" alt="RMMS" width="96" height="96" />
+                <img src="../assets/app-logo.png" alt="RMMS" width="192" height="192" />
               </div>
-              <p>Quản lý bảo trì đường bộ<br/>Hiện trường · iPhone</p>
+              <p>Quản lý bảo trì đường bộ</p>
             </div>
             <div class="login-form" data-des-id="DES-MOB-LOGIN-FORM">
               <div class="login-field">
@@ -1840,7 +1840,7 @@
         <!-- Ops -->
         <div class="screen" id="sc-ops" data-des-id="DES-MOB-OPS" data-tab="me">
           <div class="nav-bar solid">
-            <button class="nav-btn" onclick="go('me')">
+            <button class="nav-btn" id="nav-back" onclick="go('me')">
               <svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg> Tôi
             </button>
             <div class="nav-title">Thông báo</div>
@@ -1848,14 +1848,14 @@
           </div>
           <div class="content">
             <div class="card-group">
-              <div class="row no-icon" onclick="toast('Đã đọc chỉ đạo')">
+              <div class="row no-icon" id="row-ops-1" onclick="toast('Đã đọc chỉ đạo')">
                 <div class="row-body">
                   <div class="row-title">Ưu tiên SC-2401</div>
                   <div class="row-sub">Hạt trưởng · 08:12</div>
                 </div>
                 <span class="badge blue">Mới</span>
               </div>
-              <div class="row no-icon">
+              <div class="row no-icon" id="row-ops-2">
                 <div class="row-body">
                   <div class="row-title">Ca PAT-…0014 độ phủ 67%</div>
                   <div class="row-sub">Hệ thống · 07:50</div>

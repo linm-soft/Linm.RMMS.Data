@@ -1,148 +1,97 @@
-# QA scenarios — ops
+# QA — Scenarios — ops (mobile list · Thông báo)
 
 | Field | Value |
 |-------|-------|
 | feature | `ops` |
-| this role | `qa` · `/agent-qa` |
-| status | **pass** (static + build gates · Autopilot) |
-| pack | T-QA-CRUD-01 · FormType · list-form-quality · GAP-SA-OPS-SCHEMA |
-| mfeStdUrl | `http://localhost:9304/ops` |
-| reviewUrl (design only) | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/ops/ui/prototype/ops-list-prototype.html` |
-| taskId | `task_e125476d` |
-| prior · dev | `confirmed` · `implement/ops.md` |
-| autoApprove | ON |
-| updatedAt | `2026-08-16T02:28:00.000Z` |
-| method | code audit live Field `/ops` + `yarn typecheck` + `yarn build` · runtime browser smoke **optional** (start:std not required for gate) |
+| this role | `qa` · `/agent-qa-mobile` |
+| status | **confirmed** |
+| packKind | **`list`** |
+| taskId | `task_6be285ee` |
+| e2eQa | **ON** · `yarn e2e-qa-mobile` · `ios_test_phase=phase1_iphone` · **A4-IPAD DEFER** |
+| store_qa | **run_store** |
+| e2e result | **ok:true** · `2026-08-19T12:59:36.360Z` · dest **iPhone 17 Pro Max** · AVD **Pixel_2** 1080×1920 |
+| method | e2e runtime · yarn e2e-qa-mobile · Maestro + simctl/adb · **cấm** GenerateImage · **cấm** yarn start:std / mfeStdUrl |
+| align | `ui/review/align-ux.md` · **Aligned** · Must 0 |
+| updatedAt | `2026-08-19T13:05:00.000Z` |
 
-## Delta this turn (Dev GAP-SA-OPS-SCHEMA)
+**Scope:** slug `ops` list `#sc-ops` only. **Cấm** AC sibling / form create / Kind B web.
 
-| # | Scenario | Expect | Result |
-|---|----------|--------|--------|
-| S-14 | Form Số CV · Chiều · Trích yếu · Đơn vị | SearchInput chiều/đơn vị · Text số CV · textarea trích yếu | **PASS** (code) |
-| S-15 | Default list order | `code` · `documentNumber` · `direction` · `summary` · `orgUnitName` · `title` · `sender` · `recipient` · `priority` · `type` · `status` · `sentAt` | **PASS** FE `uiColumns` + BE `Field.List.Order` |
-| S-16 | Filter chiều / đơn vị | SearchInput → GET `?direction=&orgUnitCode=` · page=1 | **PASS** |
-| S-17 | Config toolbar | `LinCatalogUiSchemaEditorModal` kind=`ops-inbox` · **cấm** `configHint` · **cấm** `LinListTableConfigModal` | **PASS** |
-| S-18 | yarn typecheck + yarn build | 0 errors | **PASS** `2026-08-16T02:28:00.000Z` |
+## VERIFY GATE
 
-## Smoke — Final MFE
+| Gate | Result |
+|------|--------|
+| iOS `xcodegen` | **PASS** |
+| iOS `xcodebuild` dest **iPhone 17 Pro** | **PASS** |
+| Android `./gradlew :app:assembleDebug` | **PASS** |
+| Mobile.Bff `dotnet build` | **PASS** (0 warning · 0 error) |
+| Maestro iOS + Android | **PASS** · Me `row-ops` → `#sc-ops` |
+| API :5101 + BFF :5202 | **PASS** (docker) |
 
-| # | Step | Expect | Result |
-|---|------|--------|--------|
-| S-01 | Open `/ops` | 1× `LinPageLayout` kind=catalog · title «Chỉ đạo điều hành» · A–D · **cấm** nested CatalogListShell · **cấm** Thêm mới trên A | **PASS** (code) |
-| S-02 | Search text apply | `SearchTextInput` → GET `search` · page=1 | **PASS** (code) |
-| S-03 | Status / priority / type | `SearchInput` · **cấm** native `<select>` | **PASS** (code) |
-| S-04 | Unread toggle | extra bar → `unreadOnly` | **PASS** (code) |
-| S-05 | Pagination | `LinCatalogListPagination` footer · 50/100/200/500 · **cấm** footerPagination / pageSizeBar | **PASS** (code) |
-| S-06 | Row menu View/Edit/Copy/MarkRead/Assign P2 | `/ops/:id` · `?mode=edit` · copy `/ops/new?copyFrom=` · POST mark-read · assign stub | **PASS** (code) |
-| S-07 | Create send / draft | `/ops/new` · POST `/inbox` · IdCode `OPS-*` | **PASS** (code) |
-| S-08 | View display | `<dl data-testid=rmms-ops-form-view>` · **cấm** Input readOnly xám | **PASS** (code) |
-| S-09 | Dirty leave-confirm | `window.confirm` | **PASS** (code) |
-| S-10 | KPI overview | 4 ô `GET /overview` | **PASS** (code) |
-| S-11 | Command / nav stubs | alert · **cấm** embed map | **PASS** (code) |
-| S-12 | History stub | `LinCatalogHistoryModal` · OUT API | **PASS** (code · OUT) |
-| S-13 | No Slideout / Kind D / Resource | `NotificationFormPage` full-page only | **PASS** (code) |
+## Device AC
 
-## List A–D + F
+| ID | Expect | Result |
+|----|--------|--------|
+| AC-D-01 | Offline · list mở · demo 2 rows | **PASS** (code + live demo fallback rows) |
+| AC-D-02 | GPS deny | **N/A** |
+| AC-D-03 | Leave dirty | **N/A** |
+| AC-D-04 | Cấm native alert · toast only | **PASS** (Maestro mark-read toast) |
+| AC-D-05 | Keyboard | **N/A** |
+| AC-D-06 | Safe area TopBar + list | **PASS** (shots A3/P6) |
+| AC-D-07 | Biometric | **N/A** |
+| AC-D-08 | Signal on ops | **N/A** |
+| AC-D-09 | Bearer BFF prefix | **PASS** (BFF :5202) |
+| AC-D-10 | tabs none trên ops | **PASS** (shell tab only) |
+| AC-D-11 | Camera / push | **N/A** |
+| AC-D-12 | Type 13 / ≥16 | **PASS** (visual + demo-parity) |
+| AC-D-13 | Dual copy VN | **PASS** |
+| AC-D-14 | Cấm watermark / device label | **PASS** |
+| AC-F-01 | GET inbox · fail → demo | **PASS** (demo rows live) |
+| AC-F-02 | Me `row-ops` → `#sc-ops` | **PASS** (Maestro iOS+Android) |
+| AC-F-03 | Home `btn-notify` → `#sc-ops` | **PASS** (code · route_a · ids shipped) |
+| AC-F-04 | Mark-read toast | **PASS** (Maestro «Đã đọc chỉ đạo») |
+| AC-F-05 | POST fail toast | **PASS** (code) |
+| AC-F-06 | A11y Maestro ids | **PASS** · yaml fix: assert `sc-ops`+row copy · **cấm** assert title text iOS |
+| AC-F-07 | Cấm watermark Gói | **PASS** |
 
-| Zone | Scenario | Result |
-|------|----------|--------|
-| A | Title «Chỉ đạo điều hành» · **cấm** Thêm mới trên A | **PASS** |
-| B | catalogToolbar refresh · history · schema config · create · delete (perm) · extra: unread · mark-all-read · export stub · nav Patrol/Gis/Incident · Command P2 | **PASS** |
-| B-filter | search · status · priority · type · direction · orgUnitCode | **PASS** |
-| C | `LinCatalogDataGrid` · `columns={buildDynamicGridColumns}` · `resizable: true` · unread title class | **PASS** |
-| D | `LinCatalogListPagination` | **PASS** |
-| F | `LinCatalogUiSchemaEditorModal` · kind=`ops-inbox` · HintText «Cấu hình hiển thị danh mục» · **cấm** leftover `const columns` / `LinCatalogDataColumn` | **PASS** |
-| KPI | overview strip 4 ô | **PASS** |
+## Store Must
 
-## T-QA-CRUD-01
+| Case | Store | Evidence | Result |
+|------|-------|----------|--------|
+| A11-LAUNCH | A11 | ![A11-LAUNCH](screens/A11-LAUNCH.png) | **PASS** |
+| A10-BFF | A10 · P11 | — | **PASS** |
+| A9-LOGIN | A9 · P10 | ![A9-LOGIN](screens/A9-LOGIN.png) | **PASS** |
+| A3-CORE | A3 · A11 | ![A3-CORE](screens/A3-CORE.png) | **PASS** |
+| P6-CORE | P6 · P11 | ![P6-CORE](screens/P6-CORE.png) | **PASS** |
+| P6-CORE-2 | P6 | ![P6-CORE-2](screens/P6-CORE-2.png) | **PASS** |
+| A4-IPAD | A4 | **DEFER** Phase 1 · family `1` | DEFER |
 
-| ID | Scenario | Expect | Result |
-|----|----------|--------|--------|
-| QA-20 | FormType ACT | T-UI-ACT-01 inventory wired | **PASS** |
-| QA-21 | Create | Toolbar +Tạo → `/ops/new` → POST `/inbox` | **PASS** |
-| QA-22 | Edit | `/:id?mode=edit` → GET + PUT | **PASS** |
-| QA-23 | View | `/:id` · `<dl>` · Sửa → edit · Copy → `/new?copyFrom=` | **PASS** |
-| QA-24 | Delete row menu | confirm → soft DELETE | **PASS** |
-| QA-25 | Delete toolbar | `canDelete`/`onDelete` activeRow | **PASS** |
-| QA-26 | Mark-read | row → POST `/{id}/mark-read` | **PASS** |
-| QA-27 | Mark-all-read | extra bar → POST `/inbox/mark-all-read` | **PASS** |
-| QA-28 | T-UI-LKP-01 | SearchInput FE lookups · **cấm** ERP catalog GET | **PASS** |
-| QA-29 | T-UI-FIELD-01 | controlHint ↔ DTO OfficialDoc scalars | **PASS** |
-| QA-30 | T-UI-PROD-01 | no Resource/Slideout/View=readOnly Input | **PASS** |
-| QA-31 | T-UI-UX-01 | Lin* · spacing · **cấm** `filterMaxWidthPx` | **PASS** |
-| QA-32 | T-UI-LIST-02 | default column order = Design bootstrap | **PASS** |
-| QA-33 | T-PERM-01 | FE `notification.inbox.*` · BE `[RequirePermission]` OUT CommonLib | **PASS** (FE) |
-| QA-34 | Route BASE | `/ops` · BFF `api/v1/notification/inbox` · **cấm** `/rmms/` · **cấm ERP.*** · **cấm** domain `Ops` | **PASS** |
-| QA-35 | Build | FE `yarn typecheck` + `yarn build` webpack 5.109.2 | **PASS** |
+## Maestro
 
-## Negative
+| Flow | Path | Result |
+|------|------|--------|
+| iOS | `qa/e2e/ios.yaml` | **PASS** · Me `tab-me` → `row-ops` → `#sc-ops` |
+| Android | `qa/e2e/android.yaml` | **PASS** |
 
-| # | Case | Expect | Result |
-|---|------|--------|--------|
-| N1 | Save thiếu title/body/recipient | Banner + field invalid | **PASS** (validate) |
-| N2 | Delete không perm | alert / button ẩn | **PASS** (gate) |
-| N3 | API unreachable | `opsStore` fallback (Dev keep) | **PASS** (prior) |
+## Gaps
 
-## SSOT re-audit (QA)
+| ID | Note | Block complete? |
+|----|------|-----------------|
+| GAP-QA-OPS-IOS-01 | **CLOSED** — yaml assert `sc-ops`+row · không assert «Thông báo» (TopBar title không expose a11y iOS) | **No** |
+| GAP-MOB-UX-COMP-OPS-01 | Android TopBar trailing default · Should DEFER | **No** |
 
-| # | Check | Verdict |
-|---|-------|---------|
-| 1 | 1× LinPageLayout catalog — **cấm** nested CatalogListShell | **PASS** |
-| 2 | LinCatalogDataGrid + resize ON | **PASS** |
-| 3 | Footer LinCatalogListPagination | **PASS** |
-| 4 | Flex + skeleton 8 | **PASS** |
-| 5 | Grid schema-driven · leftover static columns | **PASS** (none) |
-| 6 | View `<dl>` | **PASS** |
-| 7 | GAP-SA-OPS-SCHEMA title sau direction/summary/orgUnitName | **PASS** |
+## E2E screenshots
 
-## Gaps / debt (không block QA)
+Viewer: `/api/qldb/artifact?id=&rel=qa/scenarios.md` rewrite `screens/{caseId}.png`.
 
-| ID | Severity | Note |
-|----|----------|------|
-| SD-AUTH | OUT pack | `[RequirePermission]` CommonLib chưa mount |
-| GAP-F-OPS-01 | P2 | Command center stub |
-| History API | OUT | client stub |
-| Export / cross-MFE nav | P1 stub | alert |
-| GAP-SA-OPS-SCHEMA | — | **CLOSED** Dev this chain |
-| GAP-DEV-CONFIG-PLACEHOLDER-01 | — | **CLOSED** |
-| GAP-DEV-GRID-SCHEMA-BOOTSTRAP-01 | — | **CLOSED** |
+| Case | Store | Result | Evidence |
+|------|-------|--------|----------|
+| A10-BFF | A10 · P11 | **PASS** | — |
+| A11-LAUNCH | A11 | **PASS** | ![A11-LAUNCH](screens/A11-LAUNCH.png) |
+| A9-LOGIN | A9 · P10 | **PASS** | ![A9-LOGIN](screens/A9-LOGIN.png) |
+| A3-CORE | A3 · A11 | **PASS** | ![A3-CORE](screens/A3-CORE.png) |
+| P6-CORE | P6 · P11 | **PASS** | ![P6-CORE](screens/P6-CORE.png) |
+| P6-CORE-2 | P6 | **PASS** | ![P6-CORE-2](screens/P6-CORE-2.png) |
 
-## Build gate
+## Version meta
 
-```
-yarn typecheck (Linm.Web.RMMS.Field) → PASS (tsc --noEmit)
-yarn build (Linm.Web.RMMS.Field) → PASS (webpack 5.109.2 compiled with 3 size warnings)
-BE this role: no API write → dotnet n/a (Dev Release PASS keep)
-ERP.* → none
-```
-
-## Handoff → Review (`/agent-review`)
-
-| Field | Value |
-|-------|-------|
-| Next | Review **pending** chain · autoApprove ON · roleOnly=`review` |
-| Verdict | **pass** · T-QA-CRUD-01 · GAP-SA-OPS-SCHEMA closed |
-| Artifact | `specs/ops/qa/scenarios.md` |
-
-## Version meta (REQUIRED)
-
-| Field | Value |
-|-------|-------|
-| skillId | agent-qa |
-| skillVersion | 2026.08.15.5 |
-| schemaVersion | qldb-workflow-skill-v1 |
-| workflowVersion | 2026.08.15.5 |
-| rulesVersion | 2026.08.15.5 |
-| generatedAt | 2026-08-16T02:28:00.000Z |
-| versionGate | rechecked |
-| version_mismatch_action | recheck_new |
-| orchestratorSkillVersion | 2026.08.15.5 |
-| devSkillVersion | 2026.08.15.5 |
-| teamLeadSkillVersion | 2026.08.15.5 |
-| saSkillVersion | 2026.08.15.5 |
-| designSkillVersion | 2026.08.15.5 |
-| poSkillVersion | 2026.08.15.5 |
-| dataAnalySkillVersion | 2026.08.15.5 |
-
----
-<!-- Version meta: skillVersion=2026.08.15.5 · schemaVersion=qldb-workflow-skill-v1 · workflowVersion=2026.08.15.5 · rulesVersion=2026.08.15.5 · versionGate=rechecked · skillId=agent-qa -->
+skillId=agent-qa-mobile · skillVersion=2026.08.19.28 · workflowVersion=2026.08.19.27 · generatedAt=2026-08-19T13:05:00.000Z · taskId=task_6be285ee

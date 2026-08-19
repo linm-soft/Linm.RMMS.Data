@@ -64,7 +64,7 @@
 | logout | Đăng xuất | `LinmListRow` danger | local · slot leading 30 (không icon) |
 | tab | Tôi | `LinmTabBar` · `tabLabel` **13** | glyph 22 căn giữa · parity web mobile label 13 · **cấm** 10 |
 
-SF ↔ Android outline: `house`/`LinmHouseGlyph` · `LinmMapPinGlyph` · `exclamationmark.triangle`/`LinmWarningGlyph` · `wrench`/`LinmWrenchGlyph` (2 giờ) · `person`/`LinmPersonGlyph`. **Cấm** `Icons.Filled` tab · **cấm** Material `Build` · **cấm** fill Place / `location.fill`.
+SF ↔ Android: `#i-*` cùng `d=` (`/convert-web-icon-to-mobile`) · `house`/`LinmHouseGlyph` · `LinmMapPinGlyph` · `exclamationmark.triangle`/`LinmWarningGlyph` · `wrench`/`LinmWrenchGlyph` (1 mỏ lết ~2 giờ · **cấm** `Build` chéo) · `person`/`LinmPersonGlyph`. Lệch nét OK · **cấm** đổi metaphor · **cấm** `Icons.Filled` tab · **cấm** fill Place.
 
 ## 4. Cấm
 

@@ -1,0 +1,74 @@
+appId: org.linmsoft.rmms
+---
+# ops · login → tab Tôi → #row-ops → #sc-ops
+# iOS LinmTopBar title không expose text "Thông báo" (a11y = leading «Tôi») — assert id sc-ops + row copy
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible: "Đăng nhập"
+    timeout: 15000
+- takeScreenshot: A11-LAUNCH
+- tapOn:
+    id: "f-user"
+    optional: true
+- tapOn:
+    text: "Tài khoản"
+    optional: true
+- inputText: "linm-soft"
+- tapOn:
+    text: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
+    optional: true
+- tapOn:
+    text: "RMMS"
+    optional: true
+- tapOn:
+    id: "f-pass"
+    optional: true
+- tapOn:
+    text: "Mật khẩu"
+    optional: true
+- inputText: "Linm@2026"
+- tapOn:
+    text: "Not Now"
+    optional: true
+- takeScreenshot: A9-LOGIN
+- tapOn:
+    id: "btn-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
+- tapOn:
+    text: "Not Now"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 30000
+- tapOn:
+    id: "tab-me"
+    optional: true
+- tapOn:
+    text: "Tôi"
+- extendedWaitUntil:
+    visible: "Hàng đợi mất sóng"
+    timeout: 15000
+- scrollUntilVisible:
+    element:
+      id: "row-ops"
+    direction: DOWN
+    timeout: 12000
+- tapOn:
+    id: "row-ops"
+- extendedWaitUntil:
+    visible:
+      id: "sc-ops"
+    timeout: 20000
+- assertVisible: "Ưu tiên SC-2401"
+- assertVisible: "Ca PAT-…0014 độ phủ 67%"
+- takeScreenshot: A3-CORE
+- tapOn: "Ưu tiên SC-2401"
+- extendedWaitUntil:
+    visible: "Đã đọc chỉ đạo"
+    timeout: 10000

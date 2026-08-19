@@ -10,7 +10,7 @@ Map **ý nghĩa**. Cấm clone `px` / `class`. Cấm 1 binary UI 2 OS.
 
 | Demo | Ý nghĩa | SwiftUI (`LinmMobileKit`) | Compose (`org.linmsoft.mobile:ui`) |
 |------|---------|---------------------------|------------------------------------|
-| `.tabbar` | 5 tab IA · full-width flush · slot 64×32 · glyph **22** outline · **cấm pill nền** · **cấm** `Icons.Filled` (trông fill nền) · **cấm** Material `Build` · house/warning/wrench/person/`LinmMapPinGlyph` · label **`tabLabel` 13** / height **16** · **cấm** tab 10 | `LinmTabBar` | `LinmTabBar` |
+| `.tabbar` | 5 tab IA · full-width flush · slot 64×32 · glyph **22** outline · **cấm pill nền** · **cấm** `Icons.Filled` · **cấm** Material `Build` · `#i-home/mappin/warning/wrench/person` → `Linm*Glyph` **cùng `d=`** (`/convert-web-icon-to-mobile`) · iOS SF cùng motif (`house`/`wrench`/…) · lệch nét OK · **cấm** đổi metaphor · label **`tabLabel` 13** / height **16** | `LinmTabBar` | `LinmTabBar` |
 | top bar | Cao 56 · title giữa · 2 bên tap 44 · glyph **vector 22** (SF `square.grid.2x2` / `ellipsis.circle` ≡ GridView / MoreHoriz) · **cấm** chữ `▦`/`⋯` | `LinmTopBar` | `LinmTopBar` |
 | `.btn-ok` | CTA chính · loading `isBusy` spinner giữa nút (ẩn title) | `LinmPrimaryButton` `isBusy` | `LinmPrimaryButton` `isBusy` |
 | `.btn-skip` | Phụ | `LinmSecondaryButton` | `LinmSecondaryButton` |

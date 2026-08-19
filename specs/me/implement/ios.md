@@ -33,3 +33,5 @@
 `/edit-mobile-feature` 2026-08-19: **GAP-MOB-ALIGN-01e** `LinmTabBar` glyph 22 căn giữa pill · `LinmListRow` `listLeading` 30 · Hàng đợi sync · logout slot trống. dest **iPhone 17 Pro Max** + **iPad Pro 13-inch (M5)**.
 
 `/edit-mobile-feature` 2026-08-19: **GAP-MOB-ALIGN-01f** `LinmTabBar` **không** pill nền (chỉ tint). Dual Cài đặt toast.
+
+`/edit-mobile-feature` 2026-08-19: **GAP-MOB-ICON-03** tab SF `house`/`wrench`/`exclamationmark.triangle`/`person` ≡ demo `#i-*` (cùng motif · lệch nét OK).

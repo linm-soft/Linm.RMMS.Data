@@ -1,0 +1,23 @@
+{
+  "feature": "ops",
+  "status": "done",
+  "review_confirm": "approve",
+  "taskId": "task_a85d01a0",
+  "skillId": "agent-review-mobile",
+  "skillVersion": "2026.08.19.26",
+  "workflowVersion": "2026.08.19.27",
+  "rulesVersion": "2026.08.19.32",
+  "schemaVersion": "1",
+  "versionGate": "rechecked",
+  "autoApprove": true,
+  "post_review": "skip",
+  "alignMustOpen": 0,
+  "verifyGate": {
+    "ios": "PASS",
+    "android": "PASS",
+    "bff": "PASS",
+    "step4b": "N/A",
+    "e2ePriorQa": "PASS"
+  },
+  "updatedAt": "2026-08-19T13:09:24.000Z"
+}

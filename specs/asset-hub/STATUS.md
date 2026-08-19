@@ -3,8 +3,8 @@
 | Field | Value |
 |-------|-------|
 | feature | `asset-hub` |
-| phase | `review` |
-| status | `in_progress` |
+| phase | `done` |
+| status | `done` |
 | changeScope | `new_page` |
 | packKind | `hub` (**PO + Design + SA confirm**) |
 | stack | `native_dual` |
@@ -26,27 +26,30 @@
 | tl | `specs/asset-hub/task/asset-hub.md` |
 | implement | `specs/asset-hub/implement/ios.md` · `implement/android.md` |
 | qa | `specs/asset-hub/qa/scenarios.md` · `qa/store/asset-hub/CAPTURE.md` · `qa/e2e/{ios,android}.yaml` |
-| taskId | `task_3e29163a` |
-| skillVersion | `2026.08.19.22` (agent-qa-mobile) |
+| review | `specs/asset-hub/review/findings.md` · `REVIEW-META.json` |
+| taskId | `task_0cf68cc3` |
+| skillVersion | `2026.08.19.22` (agent-review-mobile) |
 | schemaVersion | `1` |
-| workflowVersion | `2026.08.19.22` |
-| rulesVersion | `2026.08.19.24` |
+| workflowVersion | `2026.08.19.23` |
+| rulesVersion | `2026.08.19.28` |
 | versionGate | `rechecked` |
 | contentHash | `sha256:c4be71e3e31309204f5a43ff4fd1aed611bcc7ab643bcdb054e0170334628bf2` |
 | bffContentHash | `sha256:6c32dc678168a7923cbd7c06a412ac5c3628d112a6d44ea22c4086128f9bf2a0` |
 | autoApprove | **ON** |
-| e2eQa | **ON** |
+| e2eQa | **ON** · runtime PASS (prior QA) |
 | solution_confirm | **approve** (autoApprove=ON · prior `task_d250d60c`) |
 | route_confirm | **route_a** (autoApprove=ON · TL `task_c7512c97`) |
-| verifyGate | iOS `xcodegen` + `xcodebuild` dest **iPhone 17 Pro** **PASS** · Android `assembleDebug` **PASS** · BFF `dotnet build` **PASS** · QA `yarn e2e-qa-mobile` **PASS** · Step 4b **N/A** · **cấm** mfeStdUrl |
+| review_confirm | **approve** (autoApprove=ON · `task_0cf68cc3`) |
+| post_review | **skip** |
+| verifyGate | iOS `xcodegen` + `xcodebuild` dest **iPhone 17 Pro** **PASS** · Android `assembleDebug` **PASS** · BFF `dotnet build` **PASS** · prior QA `yarn e2e-qa-mobile` **PASS** · roleOnly=`review` · Step 4b **N/A** · **cấm** mfeStdUrl |
 | ios_test_phase | `phase1_iphone` (autoApprove=ON) · **A4-IPAD DEFER** |
 | e2e_toolchain | `ok` |
-| updatedAt | `2026-08-19T10:02:56.968Z` |
+| updatedAt | `2026-08-19T10:11:35.171Z` |
 ## Lock
 
 | agent | scope | id | at |
 |-------|-------|-----|-----|
-| — | — | — | released after QA `task_3e29163a` |
+| — | — | — | released after Review `task_0cf68cc3` |
 
 ## Pipeline
 
@@ -59,7 +62,7 @@
 | 3 | team-lead | task/asset-hub.md | **confirmed** |
 | 4 | dev | implement/ios.md · implement/android.md | **confirmed** |
 | 5 | qa | qa/scenarios.md · qa/store/asset-hub/CAPTURE.md | **confirmed** |
-| 6 | review | review/findings.md | **in_progress** |
+| 6 | review | review/findings.md | **done** |
 ## Confirms
 
 | Gate | Value |
@@ -73,9 +76,12 @@
 | kit_missing_confirm | **N/A** — reuse map hub kit dual |
 | route_confirm | **route_a** (autoApprove=ON · TL) |
 | autoApprove | **ON** |
-| e2eQa | **ON** |
+| e2eQa | **ON** · runtime PASS (prior QA) |
+| ios_test_phase | **phase1_iphone** (autoApprove) · A4-IPAD DEFER |
 | design_confirm | **confirmed** (user Approve board) |
 | solution_confirm | **confirmed** (user Approve board) |
+| review_confirm | **confirmed** (user Approve board) |
+| post_review | **skip** |
 | sibling_assign | 8 × `pending_confirm` (chờ Approve · **cấm** auto start) |
 
 ## Tasks
@@ -89,29 +95,36 @@
 | task_c7512c97 | asset-hub | team_lead | sa | **completed** | `/agent-tl-mobile` · roleOnly · route_a · T-IOS-ASSET-HUB · T-AND-ASSET-HUB · T-BE n/a · T-KIT n/a |
 | task_746238de | asset-hub | dev | team_lead | **completed** | `/agent-dev-ios` + `/agent-dev-android` · VERIFY GATE PASS · Step 4b N/A |
 | task_3e29163a | asset-hub | qa | dev | **completed** | `/agent-qa-mobile` · e2e-qa-mobile PASS · store PNG live · roleOnly · ios_test_phase=phase1_iphone |
+| task_0cf68cc3 | asset-hub | review | qa | **completed** | `/agent-review-mobile` · review_confirm approve · verifyGate PASS · roleOnly · post_review skip |
 
 ## Blockers / open questions
 
-- GAP-F-AHUB-01 — **QA verified:** optional `road-routes/search` · iOS live · Android demo · hub **không** block
-- GAP-F-AHUB-02 — **QA verified:** tile «32 loại tài sản» · subtitle count live/demo
-- GAP-F-AHUB-03 — **QA verified:** AI pending empty → ẩn section
+- GAP-F-AHUB-01 — **Review verified:** optional `road-routes/search` · iOS live · Android demo · hub **không** block
+- GAP-F-AHUB-02 — **Review verified:** tile «32 loại tài sản» · subtitle count live/demo
+- GAP-F-AHUB-03 — **Review verified:** AI pending empty → ẩn section
+- R-07 P2 — thiếu `PrivacyInfo.xcprivacy` / Play Data safety / landing HTTPS → **Accept** đến `post_review`/`app_submit` (**không** chặn hub done)
 - Sibling **không** start đến khi board Approve (`GAP-MOB-ACT-06`)
 - Step 4b / T-BE-* — **N/A** (không endpoint mới)
 
-## Handoff → Review
+## Handoff → Done
 
 | Field | Value |
 |-------|-------|
-| phase_from / phase_to | qa **confirmed** → `review` |
-| Next slash | `/agent-review-mobile` |
-| store | `qa/store/asset-hub/` |
-| Chain this turn | **không** (roleOnly=`qa`) |
+| feature / packKind | `asset-hub` / **`hub`** (confirmed) |
+| phase_from / phase_to | review **confirmed** → **done** |
+| STATUS | `specs/asset-hub/STATUS.md` |
+| review | `review/findings.md` · `review_confirm=approve` |
+| Open Must align | **0** |
+| post_review | **skip** |
+| Next | sibling `pending_confirm` chờ board — **cấm** auto chain |
+| Chain this turn | **không** (roleOnly=`review`) |
+| e2eQa | prior QA **PASS** · **cấm** mfeStdUrl / yarn start:std |
 
 ## Links
 
-- data-analy → po → ui → be → task → implement → qa → review
+- data-analy → po → ui → be → task → implement → qa → review → **done**
 - native: e2eQa ON → `yarn e2e-qa-mobile` (sim + emulator + Maestro) — **cấm** mfeStdUrl
-- Next slash: `/agent-review-mobile`
+- Visual sau done → `/edit-mobile-feature` — **cấm** re-run full pipeline
 
 ## Retry
 
@@ -123,3 +136,4 @@
 - completed: `team_lead` · at: `2026-08-19T09:29:00.000Z` · task `task_c7512c97`
 - completed: `dev` · at: `2026-08-19T09:40:00.000Z` · task `task_746238de`
 - completed: `qa` · at: `2026-08-19T10:00:00.000Z` · task `task_3e29163a`
+- completed: `review` · at: `2026-08-19T10:09:09.000Z` · task `task_0cf68cc3`

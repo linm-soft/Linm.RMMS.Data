@@ -17,8 +17,9 @@
     const lv = LEVELS[idx];
     const bars = [1, 2, 3, 4].map((n) => '<i class="' + (n <= lv.bars ? 'on' : '') + '"></i>').join('');
     const extra = tone === 'light' ? ' on-light' : '';
+    const glyph = tone === 'light' ? '' : WIFI;
     return '<span class="net-sig net-sig--' + lv.id + extra + '" title="Tín hiệu ' + lv.label + ' · bấm đổi hạng">' +
-      WIFI + '<span class="net-bars">' + bars + '</span><span class="net-lab">' + lv.label + '</span></span>';
+      glyph + '<span class="net-bars">' + bars + '</span><span class="net-lab">' + lv.label + '</span></span>';
   }
 
   function paint() {

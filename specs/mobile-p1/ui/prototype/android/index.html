@@ -107,8 +107,7 @@
       cursor: pointer; color: var(--md-muted); font-size: 13px; font-weight: 500;
     }
     .tab.active { color: var(--md-primary); }
-    .tab .ti { width: 64px; height: 32px; display: grid; place-items: center; font-size: 22px; border-radius: 16px; }
-    .tab.active .ti { background: rgba(27,110,243,.14); }
+    .tab .ti { width: 28px; height: 28px; display: grid; place-items: center; font-size: 22px; }
     .gesture {
       position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
       width: 108px; height: 4px; background: #1C1B1F; border-radius: 100px; z-index: 46; pointer-events: none;
@@ -136,7 +135,7 @@
     .badge.orange { background: #FFE0B2; color: #E65100; }
     .badge.blue { background: #BBDEFB; color: #0D47A1; }
     .badge.red { background: #FFCDD2; color: #B71C1C; }
-    .section-label { font-size: 12px; color: var(--md-muted); letter-spacing: .4px; padding: 8px 24px 6px; text-transform: uppercase; }
+    .section-label { font-size: 13px; color: var(--md-muted); letter-spacing: .4px; padding: 8px 24px 6px; text-transform: uppercase; }
     .hub-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 0 16px 16px; }
     .hub-tile {
       background: var(--md-container); border-radius: 16px; padding: 16px 14px; min-height: 108px;
@@ -219,7 +218,7 @@
       width: 48px; height: 48px; border-radius: 50%; background: var(--md-primary);
       color: #fff; display: grid; place-items: center; font-size: 22px; flex-shrink: 0;
     }
-    .home-hello .g { font-size: 12px; color: var(--md-muted); }
+    .home-hello .g { font-size: 13px; color: var(--md-muted); }
     .home-hello .n { font-size: 18px; font-weight: 700; }
     .home-hello .r { font-size: 13px; color: var(--md-muted); margin-top: 2px; }
     .home-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin: 0 16px 8px; min-width: 0; }
@@ -376,7 +375,7 @@
       background: var(--md-container); margin: 0 16px 12px; border-radius: 4px 4px 0 0;
       padding: 8px 14px 10px; border-bottom: 2px solid var(--md-primary);
     }
-    .field label { display: block; font-size: 12px; color: var(--md-primary); margin-bottom: 2px; }
+    .field label { display: block; font-size: 13px; color: var(--md-primary); margin-bottom: 2px; }
     .field input, .field textarea, .field select {
       width: 100%; border: 0; outline: 0; font-family: inherit; font-size: 16px; background: transparent;
     }
@@ -457,28 +456,32 @@
     .phone-screen.sheet-open .leaflet-control-container { visibility: hidden; }
     .login {
       flex: 1; display: flex; flex-direction: column;
-      background: linear-gradient(180deg, #fff 0%, var(--md-surface) 40%);
+      background: #F2F2F7;
       padding-bottom: 20px; min-height: 0;
     }
     .login-main {
       flex: 1; display: flex; flex-direction: column; justify-content: center;
       min-height: 0;
     }
-    .login-brand { padding: 0 28px 4px; text-align: center; }
+    .login-brand { padding: 24px 28px 0; text-align: center; }
     .login-logo {
-      width: 96px; height: 96px; margin: 0 auto 12px;
-      background: #000; border-radius: 20px; overflow: hidden;
-      box-shadow: 0 8px 20px rgba(0,0,0,.16);
+      width: 192px; height: 192px; margin: 0 auto;
+      background: transparent;
     }
-    .login-logo img { display: block; width: 100%; height: 100%; object-fit: cover; }
-    .login-brand p { margin-top: 4px; font-size: 15px; color: var(--md-muted); }
+    .login-logo img { display: block; width: 100%; height: 100%; object-fit: contain; }
+    .login-brand p {
+      margin: 24px 0 0; font-size: 22px; font-weight: 700; line-height: 1.25;
+      color: #1C1C1E; text-transform: uppercase; letter-spacing: 0.01em;
+    }
+    .login-form { margin-top: 24px; }
     .login-field {
       margin: 0 20px 10px; background: var(--md-container); border-radius: 4px 4px 0 0;
       padding: 0 14px; display: flex; align-items: center; gap: 10px; min-height: 56px;
       border-bottom: 2px solid var(--md-primary);
     }
+    .login-field .lead { color: rgba(28, 28, 30, 0.45); font-size: 18px; width: 22px; display: grid; place-items: center; }
     .login-field input { flex: 1; border: 0; outline: 0; font-size: 16px; font-family: inherit; background: transparent; padding: 14px 0; }
-    .login-field .trail { border: 0; background: transparent; color: var(--md-primary); cursor: pointer; padding: 8px; }
+    .login-field .trail { border: 0; background: transparent; color: var(--md-primary); cursor: pointer; padding: 8px; display: grid; place-items: center; }
     .login-actions { padding: 16px 20px 0; display: flex; flex-direction: column; gap: 10px; }
     .login-meta { margin-top: auto; padding: 16px 24px; text-align: center; font-size: 12px; color: var(--md-muted); line-height: 1.45; }
     .login-meta a { color: var(--md-primary); text-decoration: none; font-weight: 500; }
@@ -504,7 +507,7 @@
     <symbol id="i-mappin" viewBox="0 0 24 24"><path d="M12 21s7-5.2 7-11a7 7 0 1 0-14 0c0 5.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.2"/></symbol>
     <symbol id="i-warning" viewBox="0 0 24 24"><path d="M12 3.5 22 20H2L12 3.5z"/><path d="M12 10v5"/><path d="M12 17.5h.01"/></symbol>
     <symbol id="i-scope" viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="2"/></symbol>
-    <symbol id="i-sparkles" viewBox="0 0 24 24"><path d="M12 3l1.2 4.2L17.5 8.5 13.2 9.8 12 14l-1.2-4.2L6.5 8.5l4.3-1.3L12 3z"/></symbol>
+    <symbol id="i-sparkles" viewBox="0 0 24 24"><path d="M12 3l1.2 4.2L17.5 8.5 13.2 9.8 12 14l-1.2-4.2L6.5 8.5l4.3-1.3L12 3z"/><path d="M18.5 14l.7 2.3 2.3.7-2.3.7-.7 2.3-.7-2.3-2.3-.7 2.3-.7.7-2.3z"/><path d="M6 15l.5 1.6L8 17.2l-1.5.5L6 19.2l-.5-1.5L4 17.2l1.5-.6L6 15z"/></symbol>
     <symbol id="i-person" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 19.5c1.8-3.2 4.2-4.5 7-4.5s5.2 1.3 7 4.5"/></symbol>
     <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 17h12l-1.2-1.2A6.5 6.5 0 0 1 15 11V9a3 3 0 1 0-6 0v2a6.5 6.5 0 0 1-1.8 4.8L6 17z"/><path d="M10 17a2 2 0 0 0 4 0"/></symbol>
     <symbol id="i-sync" viewBox="0 0 24 24"><path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0 1 15.5-6.4L21 8"/><path d="M3 22v-6h6"/><path d="M21 12a9 9 0 0 1-15.5 6.4L3 16"/></symbol>
@@ -512,33 +515,35 @@
     <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
     <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol>
     <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l5 5L19 7"/></symbol>
-    <symbol id="i-map" viewBox="0 0 24 24"><path d="M9 4l6 2 5-2v16l-5 2-6-2-5 2V6l5-2z"/></symbol>
-    <symbol id="i-list" viewBox="0 0 24 24"><path d="M8 7h12M8 12h12M8 17h12"/></symbol>
-    <symbol id="i-walk" viewBox="0 0 24 24"><circle cx="13" cy="5" r="2"/><path d="M10 21l2-7 3 2 2 5"/></symbol>
+    <symbol id="i-map" viewBox="0 0 24 24"><path d="M9 4l6 2 5-2v16l-5 2-6-2-5 2V6l5-2z"/><path d="M9 4v16M15 6v16"/></symbol>
+    <symbol id="i-list" viewBox="0 0 24 24"><path d="M8 7h12M8 12h12M8 17h12"/><path d="M4 7h.01M4 12h.01M4 17h.01"/></symbol>
+    <symbol id="i-walk" viewBox="0 0 24 24"><circle cx="13" cy="5" r="2"/><path d="M10 21l2-7 3 2 2 5"/><path d="M8 12l4 2 3-5 3 1"/></symbol>
     <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16.5 16.5 21 21"/></symbol>
     <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
     <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
     <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 10v6"/><path d="M12 7.5h.01"/></symbol>
     <symbol id="i-camera" viewBox="0 0 24 24"><path d="M4 8h3l2-2h6l2 2h3v11H4V8z"/><circle cx="12" cy="13" r="3.5"/></symbol>
     <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
-    <symbol id="i-building" viewBox="0 0 24 24"><path d="M4 20h16"/><path d="M6 20V6l6-2 6 2v14"/></symbol>
+    <symbol id="i-building" viewBox="0 0 24 24"><path d="M4 20h16"/><path d="M6 20V6l6-2 6 2v14"/><path d="M10 10h.01M14 10h.01M10 14h.01M14 14h.01"/></symbol>
     <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="2.5"/></symbol>
-    <symbol id="i-eye-off" viewBox="0 0 24 24"><path d="M3 3l18 18"/><path d="M10.6 10.6A2.5 2.5 0 0 0 13.4 13.4"/></symbol>
+    <symbol id="i-eye-off" viewBox="0 0 24 24"><path d="M3 3l18 18"/><path d="M10.6 10.6A2.5 2.5 0 0 0 13.4 13.4"/><path d="M9.9 5.1A10.5 10.5 0 0 1 12 5c6 0 10 7 10 7a17.6 17.6 0 0 1-3.2 3.9"/><path d="M6.1 6.1C3.9 7.8 2 12 2 12s4 7 10 7c1.3 0 2.5-.3 3.6-.7"/></symbol>
     <symbol id="i-finger" viewBox="0 0 24 24"><path d="M12 11v6"/><path d="M8 12.5a4 4 0 1 1 8 0c0 3-2 5-4 7"/><path d="M6 11a6 6 0 0 1 12 0"/></symbol>
     <symbol id="i-faceid" viewBox="0 0 24 24"><path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2"/><path d="M9 10v1M15 10v1"/><path d="M9.5 15c.8.8 1.6 1.2 2.5 1.2s1.7-.4 2.5-1.2"/></symbol>
     <symbol id="i-wifi" viewBox="0 0 24 24"><path d="M2.6 8.6A16 16 0 0 1 12 5c3.4 0 6.6 1 9.4 3.6"/><path d="M5.4 12.5A10.2 10.2 0 0 1 12 10c2.4 0 4.6.8 6.6 2.5"/><path d="M8.8 16.2A5 5 0 0 1 12 15c1.2 0 2.3.4 3.2 1.2"/><circle cx="12" cy="19.4" r="1.35" class="fill"/></symbol>
-    <symbol id="i-wifi-off" viewBox="0 0 24 24"><path d="M2 8.5A14 14 0 0 1 12 5"/><path d="M3 3l18 18"/></symbol>
+    <symbol id="i-wifi-off" viewBox="0 0 24 24"><path d="M2 8.5A14 14 0 0 1 12 5c1.4 0 2.7.2 4 .6"/><path d="M5.5 12a9.5 9.5 0 0 1 5.2-1.8"/><path d="M9 15.5a5 5 0 0 1 2-.4"/><circle cx="12" cy="19" r="1.2" class="fill"/><path d="M3 3l18 18"/></symbol>
     <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.5 6.5a4 4 0 0 0-5.6 5.6L3 18v3h3l5.9-5.9a4 4 0 0 0 5.6-5.6l-2.5 2.5-2.5-2.5 2.5-2.5z"/></symbol>
     <symbol id="i-video" viewBox="0 0 24 24"><rect x="3" y="7" width="12" height="10" rx="2"/><path d="M15 10.5 21 7v10l-6-3.5"/></symbol>
-    <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 3v2.2M12 18.8V21"/></symbol>
-    <symbol id="i-road" viewBox="0 0 24 24"><path d="M7 21 10 3h4l3 18"/><path d="M12 7v2M12 12v2"/></symbol>
-    <symbol id="i-cube" viewBox="0 0 24 24"><path d="M12 3 21 8v8l-9 5-9-5V8l9-5z"/></symbol>
+    <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 3v2.2M12 18.8V21M4.9 6.5l1.6 1.6M17.5 17.9l1.6 1.6M3 12h2.2M18.8 12H21M4.9 17.5l1.6-1.6M17.5 6.1l1.6-1.6"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 12l9 5 9-5"/><path d="M3 16l9 5 9-5"/></symbol>
+    <symbol id="i-arrow-down" viewBox="0 0 24 24"><path d="M12 4v14"/><path d="M6 14l6 6 6-6"/></symbol>
+    <symbol id="i-ellipsis" viewBox="0 0 24 24"><circle cx="6" cy="12" r="1.4" class="fill"/><circle cx="12" cy="12" r="1.4" class="fill"/><circle cx="18" cy="12" r="1.4" class="fill"/></symbol>
+    <symbol id="i-road" viewBox="0 0 24 24"><path d="M7 21 10 3h4l3 18"/><path d="M12 7v2M12 12v2M12 17v2"/></symbol>
+    <symbol id="i-cube" viewBox="0 0 24 24"><path d="M12 3 21 8v8l-9 5-9-5V8l9-5z"/><path d="M12 13V22M12 13 3 8M12 13l9-5"/></symbol>
     <symbol id="i-sum" viewBox="0 0 24 24"><path d="M6 6h12L10 12l8 6H6"/></symbol>
     <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
     <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11.5 12 4l8 7.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1v-8.5z"/></symbol>
     <symbol id="i-chat" viewBox="0 0 24 24"><path d="M5 6h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H9l-4 3v-3H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"/></symbol>
     <symbol id="i-briefcase" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M8 8V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></symbol>
-    <symbol id="i-building" viewBox="0 0 24 24"><path d="M4 20h16"/><path d="M6 20V6l6-2 6 2v14"/><path d="M10 10h.01M14 10h.01M10 14h.01M14 14h.01"/></symbol>
   </svg>
 
   <div class="stage">
@@ -597,17 +602,17 @@
             <div class="login-main">
             <div class="login-brand" data-des-id="DES-MOB-LOGIN-BRAND">
               <div class="login-logo">
-                <img src="../assets/app-logo.png" alt="RMMS" width="96" height="96" />
+                <img src="../assets/app-logo.png" alt="RMMS" width="192" height="192" />
               </div>
-              <p>Quản lý bảo trì đường bộ<br/>Hiện trường · Android</p>
+              <p>Quản lý bảo trì đường bộ</p>
             </div>
-            <div data-des-id="DES-MOB-LOGIN-FORM">
+            <div class="login-form" data-des-id="DES-MOB-LOGIN-FORM">
               <div class="login-field">
-                <svg class="ic" viewBox="0 0 24 24"><use href="#i-person"/></svg>
+                <span class="lead"><svg class="ic" viewBox="0 0 24 24"><use href="#i-person"/></svg></span>
                 <input id="f-user" type="text" placeholder="Tài khoản" value="nguyenvana" />
               </div>
               <div class="login-field">
-                <svg class="ic" viewBox="0 0 24 24"><use href="#i-lock"/></svg>
+                <span class="lead"><svg class="ic" viewBox="0 0 24 24"><use href="#i-lock"/></svg></span>
                 <input id="f-pass" type="password" placeholder="Mật khẩu" value="••••••••" />
                 <button class="trail" type="button" onclick="togglePass()" aria-label="Hiện mật khẩu">
                   <svg class="ic" viewBox="0 0 24 24"><use href="#i-eye" id="eyeUse"/></svg>
@@ -720,11 +725,11 @@
               </div>
               <div class="row" onclick="go('patrol-history')">
                 <div class="row-icon" style="background:var(--md-success)"><svg class="ic" viewBox="0 0 24 24"><use href="#i-check"/></svg></div>
-                <div class="row-body"><div class="row-title">PAT-20260810-0009</div><div class="row-sub">Tuần kiểm · HCM</div></div>
+                <div class="row-body"><div class="row-title">PAT-20260810-0009</div><div class="row-sub">Tuần kiểm · HCM · Hoàn thành</div></div>
                 <span class="badge green">Xong</span>
               </div>
             </div>
-            <div class="section-label">Thao tác</div>
+            <div class="section-label">Thao tác nhanh</div>
             <div class="card-group">
               <div class="row" onclick="go('field-reflect')">
                 <div class="row-icon" style="background:var(--md-error)"><svg class="ic" viewBox="0 0 24 24"><use href="#i-camera"/></svg></div>
@@ -736,7 +741,11 @@
               </div>
               <div class="row" onclick="go('patrol-map')">
                 <div class="row-icon" style="background:#6750A4"><svg class="ic" viewBox="0 0 24 24"><use href="#i-map"/></svg></div>
-                <div class="row-body"><div class="row-title">Bản đồ ca</div><div class="row-sub">Nền đường · vừa toàn tuyến</div></div>
+                <div class="row-body"><div class="row-title">Bản đồ ca</div><div class="row-sub">Ghim điểm tuần · hành trình</div></div>
+              </div>
+              <div class="row" onclick="go('patrol-history')">
+                <div class="row-icon" style="background:#79747E"><svg class="ic" viewBox="0 0 24 24"><use href="#i-list"/></svg></div>
+                <div class="row-body"><div class="row-title">Lịch sử phiên</div><div class="row-sub">Lọc tuyến · trạng thái</div></div>
               </div>
               <div class="row" onclick="go('supervise')">
                 <div class="row-icon" style="background:#6750A4"><svg class="ic" viewBox="0 0 24 24"><use href="#i-list"/></svg></div>
@@ -807,6 +816,10 @@
                 <div class="row-body"><div class="row-title">PAT-20260809-0021</div><div class="row-sub">Thiếu điểm tuần</div></div>
                 <span class="badge red">Bỏ sót</span>
               </div>
+              <div class="row">
+                <div class="row-body"><div class="row-title">PAT-20260809-0015</div><div class="row-sub">QL.1 · Hoàn thành</div></div>
+                <span class="badge green">Xong</span>
+              </div>
             </div>
           </div>
         </div>
@@ -815,24 +828,32 @@
           <div class="top-bar solid">
             <button class="icon-btn" onclick="go('patrol-history')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg></button>
             <div class="nav-title">Chi tiết ca</div>
+            <button class="icon-btn" onclick="toast('Chia sẻ')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-ellipsis"/></svg></button>
           </div>
           <div class="content">
             <div style="padding:16px 20px 8px">
               <div style="font-size:13px;color:var(--md-muted)">Mã phiên</div>
               <div style="font-size:26px;font-weight:700">PAT-20260810-0014</div>
+              <div style="margin-top:8px"><span class="badge blue">Đang tuần</span></div>
             </div>
+            <div class="section-label">Thông tin</div>
             <div class="card-group">
               <div class="row"><div class="row-body"><div class="row-sub">Nhân viên</div><div class="row-title">Nguyễn Văn A</div></div></div>
               <div class="row"><div class="row-body"><div class="row-sub">Tuyến</div><div class="row-title">QL.1 · Km 1551+200–1561+134</div></div></div>
+              <div class="row"><div class="row-body"><div class="row-sub">Loại tuần</div><div class="row-title">Tuần đường</div></div></div>
+              <div class="row"><div class="row-body"><div class="row-sub">Ngày KH</div><div class="row-title">10/08/2026</div></div></div>
+              <div class="row"><div class="row-body"><div class="row-sub">Bắt đầu</div><div class="row-title">07:20 (UTC+7)</div></div></div>
               <div class="row"><div class="row-body"><div class="row-sub">Độ phủ</div><div class="row-title">67%</div></div></div>
             </div>
             <div class="section-label">Điểm tuần</div>
             <div class="timeline">
-              <div class="tl-item done"><div class="tl-t">Km 1551+200</div><div class="tl-s">07:28 · định vị đạt</div></div>
-              <div class="tl-item"><div class="tl-t">Km 1561+134 · Phước Dinh</div><div class="tl-s">Đang tới</div></div>
+              <div class="tl-item done" onclick="go('checkin-detail')" style="cursor:pointer"><div class="tl-t">Km 1551+200 · Xuân Hải</div><div class="tl-s">07:28 · định vị đạt · Ảnh ×1 · Xem</div></div>
+              <div class="tl-item done"><div class="tl-t">Km 1556+000 · Cống ngang</div><div class="tl-s">08:05 · định vị đạt</div></div>
+              <div class="tl-item"><div class="tl-t">Km 1561+134 · Phước Dinh</div><div class="tl-s">Đang tới · ~180 m</div></div>
             </div>
             <div style="padding:16px;display:flex;flex-direction:column;gap:8px">
               <button class="btn btn-primary" onclick="go('patrol-map')">Mở bản đồ ca</button>
+              <button class="btn btn-secondary" onclick="toast('Kết thúc ca — xác nhận sau')">Kết thúc ca</button>
             </div>
           </div>
         </div>
@@ -845,7 +866,7 @@
           </div>
           <div class="seg">
             <button class="on" type="button">Điểm tuần mất sóng</button>
-            <button type="button" onclick="toast('Sự cố mất sóng')">Sự cố mất sóng</button>
+            <button type="button" onclick="toast('Sự cố mất sóng · 1 bản ghi')">Sự cố mất sóng</button>
           </div>
           <div class="content">
             <div class="offline-banner"><svg class="ic" viewBox="0 0 24 24"><use href="#i-wifi-off"/></svg> Tín hiệu yếu — ghi cục bộ, đồng bộ khi tín hiệu tốt</div>
@@ -876,12 +897,14 @@
               <div class="hero-meta">Văn phòng QLĐB IV.1 · Khu IV · ghim tự động ±6 m<br/>QL.1 hành lang · trong hành lang (12 m)</div>
               <div class="hero-actions">
                 <button class="btn btn-white" onclick="openModal('gps')">Chấm vào</button>
+                <button class="btn btn-ghost" onclick="toast('Báo cáo công')">Báo cáo</button>
               </div>
             </div>
-            <div class="section-label">7 ngày</div>
+            <div class="section-label">7 ngày gần đây</div>
             <div class="card-group">
-              <div class="row"><div class="row-body"><div class="row-title">T7 09/08</div><div class="row-sub">07:05 – 16:40</div></div><span class="badge green">Đủ công</span></div>
               <div class="row"><div class="row-body"><div class="row-title">CN 10/08</div><div class="row-sub">—</div></div><span class="badge">Nghỉ</span></div>
+              <div class="row"><div class="row-body"><div class="row-title">T7 09/08</div><div class="row-sub">07:05 – 16:40</div></div><span class="badge green">Đủ công</span></div>
+              <div class="row"><div class="row-body"><div class="row-title">T6 08/08</div><div class="row-sub">07:12 – 16:55</div></div><span class="badge green">Đủ công</span></div>
             </div>
           </div>
         </div>
@@ -890,7 +913,7 @@
           <div class="top-bar solid">
             <button class="icon-btn" onclick="go('home')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg></button>
             <div class="nav-title">Quản lý vấn đề</div>
-            <button class="icon-btn" onclick="toast('Lọc tuyến · loại')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-list"/></svg></button>
+            <button class="icon-btn" onclick="toast('Lọc tuyến · loại · trạng thái')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-list"/></svg></button>
           </div>
           <div class="seg">
             <button class="on" type="button">Danh sách</button>
@@ -919,7 +942,7 @@
               </div>
               <div class="rc-status warn">Trạng thái: Đợi phân công giám sát</div>
               <div class="rc-actions">
-                <button type="button" onclick="event.stopPropagation();toast('Trao đổi')" title="Trao đổi"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chat"/></svg></button>
+                <button type="button" onclick="event.stopPropagation();toast('Trao đổi sự cố')" title="Trao đổi"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chat"/></svg></button>
                 <button type="button" onclick="event.stopPropagation();go('mnt-list')" title="Giao việc"><svg class="ic" viewBox="0 0 24 24"><use href="#i-briefcase"/></svg></button>
                 <button type="button" onclick="event.stopPropagation();go('incident-detail')" title="Chi tiết"><svg class="ic" viewBox="0 0 24 24"><use href="#i-list"/></svg></button>
                 <button type="button" onclick="event.stopPropagation();go('gis-map')" title="Bản đồ"><svg class="ic" viewBox="0 0 24 24"><use href="#i-mappin"/></svg></button>
@@ -938,7 +961,7 @@
               </div>
               <div class="rc-status ok">Trạng thái: Đang được giám sát</div>
               <div class="rc-actions">
-                <button type="button" onclick="event.stopPropagation();toast('Trao đổi')" title="Trao đổi"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chat"/></svg></button>
+                <button type="button" onclick="event.stopPropagation();toast('Trao đổi sự cố')" title="Trao đổi"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chat"/></svg></button>
                 <button type="button" onclick="event.stopPropagation();go('mnt-list')" title="Giao việc"><svg class="ic" viewBox="0 0 24 24"><use href="#i-briefcase"/></svg></button>
                 <button type="button" onclick="event.stopPropagation();go('incident-detail')" title="Chi tiết"><svg class="ic" viewBox="0 0 24 24"><use href="#i-list"/></svg></button>
                 <button type="button" onclick="event.stopPropagation();go('gis-map')" title="Bản đồ"><svg class="ic" viewBox="0 0 24 24"><use href="#i-mappin"/></svg></button>
@@ -1156,7 +1179,14 @@
               </div>
               <div class="row" onclick="go('estimate')">
                 <div class="row-icon" style="background:var(--md-success)"><svg class="ic" viewBox="0 0 24 24"><use href="#i-sum"/></svg></div>
-                <div class="row-body"><div class="row-title">Ước lượng</div><div class="row-sub">Khối lượng · đơn giá</div></div>
+                <div class="row-body"><div class="row-title">Ước lượng</div><div class="row-sub">Khối lượng · đơn giá · xác nhận</div></div>
+              </div>
+            </div>
+            <div class="section-label">Chờ người xác nhận</div>
+            <div class="card-group">
+              <div class="row" onclick="go('det-hitl')">
+                <div class="row-body"><div class="row-title">Ứng viên TS-88 · Cống</div><div class="row-sub">Độ tin cậy 91% · chờ xác nhận</div></div>
+                <button class="btn btn-primary" style="width:auto;height:36px;padding:0 12px" onclick="event.stopPropagation();go('det-hitl')">Xác nhận</button>
               </div>
             </div>
           </div>
@@ -1195,7 +1225,7 @@
             </div>
             <div style="padding:0 16px;display:flex;flex-direction:column;gap:8px">
               <button class="btn btn-primary" onclick="toast('Đã xác nhận · vào sổ tài sản')">Xác nhận</button>
-              <button class="btn btn-secondary" onclick="toast('Đã bỏ qua')">Bỏ qua</button>
+              <button class="btn btn-secondary" onclick="toast('Đã bỏ qua · nhận nhầm')">Bỏ qua</button>
             </div>
           </div>
         </div>
@@ -1269,8 +1299,8 @@
               </div>
               <div class="rc-status warn">Tình trạng xử lý: Chờ xử lý</div>
               <div class="rc-actions">
-                <button type="button" onclick="toast('Trao đổi')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chat"/></svg></button>
-                <button type="button" onclick="toast('Cập nhật trạng thái')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-sync"/></svg></button>
+                <button type="button" onclick="toast('Trao đổi công việc')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chat"/></svg></button>
+                <button type="button" onclick="toast('Cập nhật trạng thái · ảnh + định vị')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-sync"/></svg></button>
                 <button type="button" onclick="go('estimate')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-sum"/></svg></button>
               </div>
             </div>
@@ -1279,12 +1309,13 @@
 
         <div class="screen" id="sc-ops" data-des-id="DES-MOB-OPS" data-tab="me">
           <div class="top-bar solid">
-            <button class="icon-btn" onclick="go('me')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg></button>
+            <button class="icon-btn" id="nav-back" onclick="go('me')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg></button>
             <div class="nav-title">Thông báo</div>
           </div>
           <div class="content">
             <div class="card-group">
-              <div class="row"><div class="row-body"><div class="row-title">Ưu tiên SC-2401</div><div class="row-sub">Hạt trưởng · 08:12</div></div><span class="badge blue">Mới</span></div>
+              <div class="row" id="row-ops-1" onclick="toast('Đã đọc chỉ đạo')"><div class="row-body"><div class="row-title">Ưu tiên SC-2401</div><div class="row-sub">Hạt trưởng · 08:12</div></div><span class="badge blue">Mới</span></div>
+              <div class="row" id="row-ops-2"><div class="row-body"><div class="row-title">Ca PAT-…0014 độ phủ 67%</div><div class="row-sub">Hệ thống · 07:50</div></div><span class="badge gray">Đã đọc</span></div>
             </div>
           </div>
         </div>
@@ -1325,6 +1356,10 @@
                 <div class="row-body"><div class="row-title">Thông báo</div></div>
                 <span class="badge blue">2</span>
               </div>
+              <div class="row" onclick="toast('Cài đặt')">
+                <div class="row-icon" style="background:#79747E"><svg class="ic" viewBox="0 0 24 24"><use href="#i-gear"/></svg></div>
+                <div class="row-body"><div class="row-title">Cài đặt</div></div>
+              </div>
               <div class="row" onclick="logout()">
                 <div class="row-body"><div class="row-title" style="color:var(--md-error)">Đăng xuất</div></div>
               </div>
@@ -1345,7 +1380,7 @@
             </div>
             <div class="card-group">
               <div class="row"><div class="row-body"><div class="row-sub">Loại</div><div class="row-title">Nứt mặt đường</div></div></div>
-              <div class="row"><div class="row-body"><div class="row-sub">Vị trí (ghim tự động, không sửa)</div><div class="row-title">QL.1 · Km 1556+080</div></div></div>
+              <div class="row"><div class="row-body"><div class="row-sub">Vị trí ghim tự động</div><div class="row-title">QL.1 · Km 1556+080</div></div></div>
               <div class="row"><div class="row-body"><div class="row-sub">Định vị</div><div class="row-title">10.9620, 106.8518 · ±5 m</div></div></div>
               <div class="row"><div class="row-body"><div class="row-sub">Nguồn</div><div class="row-title">Tuần đường PAT-…0014</div></div></div>
             </div>
@@ -1417,7 +1452,7 @@
           <div class="content" style="padding-top:0">
             <div class="card-group">
               <div class="row">
-                <div class="row-body"><div class="row-title">TS-20260810-014 · Cống</div><div class="row-sub">QL.1 · Km 1556+000</div></div>
+                <div class="row-body"><div class="row-title">TS-20260810-014 · Cống ngang</div><div class="row-sub">QL.1 · Km 1556+000</div></div>
                 <button class="btn" style="background:transparent;color:var(--md-primary);width:auto;padding:0 8px" onclick="go('asset-detail')">Sửa</button>
                 <button class="btn" style="background:transparent;color:var(--md-error);width:auto;padding:0 8px" onclick="openModal('asset-remove')">Bớt</button>
               </div>
@@ -1431,14 +1466,19 @@
             <div class="nav-title">Camera AI</div>
           </div>
           <div class="content">
+            <div class="section-label">Chụp tài sản / thiết bị mới</div>
             <div class="photo-row">
               <div class="photo-slot" onclick="openCapture('asset-ai')"><svg class="ic ic-lg" viewBox="0 0 24 24"><use href="#i-camera"/></svg></div>
             </div>
             <div class="card-group">
               <div class="row"><div class="row-body"><div class="row-sub">Vị trí đã chốt</div><div class="row-title">QL.1 · Km 1556+000</div></div></div>
-              <div class="row"><div class="row-body"><div class="row-sub">Loại đề xuất</div><div class="row-title">Cống · 91%</div></div></div>
+              <div class="row"><div class="row-body"><div class="row-sub">Loại đề xuất</div><div class="row-title">Cống</div></div></div>
+              <div class="row"><div class="row-body"><div class="row-sub">Độ tin cậy</div><div class="row-title">91%</div></div></div>
             </div>
-            <div style="padding:16px"><button class="btn btn-primary" onclick="go('det-hitl')">Gửi nhận diện</button></div>
+            <div style="padding:16px;display:flex;flex-direction:column;gap:8px">
+              <button class="btn btn-primary" onclick="go('det-hitl')">Gửi nhận diện</button>
+              <button class="btn btn-secondary" onclick="go('asset-hub')">Hủy</button>
+            </div>
           </div>
         </div>
 
@@ -1562,7 +1602,7 @@
           <div class="sheet-nav">
             <button class="icon-btn" onclick="requestCloseSheet()" style="color:var(--md-primary);width:auto;padding:0 12px">Hủy</button>
             <div class="nav-title">Ghi điểm tuần</div>
-            <button class="icon-btn" onclick="closeSheet();toast('Đã ghi điểm tuần')" style="color:var(--md-primary);width:auto;padding:0 12px">Lưu</button>
+            <button class="icon-btn" onclick="closeSheet();toast('Đã ghi điểm tuần · điểm tuần thứ 3')" style="color:var(--md-primary);width:auto;padding:0 12px">Lưu</button>
           </div>
           <div class="sheet-body">
             <div class="offline-banner" data-des-id="DES-MOB-LOC-MISMATCH" id="ci-match-banner" style="background:#C8E6C9;color:#1B5E20">
@@ -1578,7 +1618,7 @@
               <div class="photo-slot" onclick="openCapture('checkin')"><svg class="ic ic-lg" viewBox="0 0 24 24"><use href="#i-camera"/></svg></div>
             </div>
             <div class="sheet-footer">
-              <button class="btn btn-primary" id="ci-save-btn" onclick="saveCheckin()">Ghi nhận</button>
+              <button class="btn btn-primary" id="ci-save-btn" onclick="saveCheckin()">Ghi nhận điểm tuần</button>
               <button class="btn btn-secondary" onclick="closeSheet()">Hủy</button>
             </div>
           </div>
@@ -1589,7 +1629,7 @@
           <div class="sheet-nav">
             <button class="icon-btn" onclick="requestCloseSheet()" style="color:var(--md-primary);width:auto;padding:0 12px">Hủy</button>
             <div class="nav-title">Tạo sự cố</div>
-            <button class="icon-btn" onclick="closeSheet();toast('Nháp sự cố')" style="color:var(--md-primary);width:auto;padding:0 12px">Lưu</button>
+            <button class="icon-btn" onclick="closeSheet();toast('Đã tạo Nháp sự cố')" style="color:var(--md-primary);width:auto;padding:0 12px">Lưu</button>
           </div>
           <div class="sheet-body">
             <div class="field"><label>Loại sự cố</label><select><option>Nứt / ổ gà</option><option>Cống</option></select></div>
@@ -1600,7 +1640,7 @@
               <div class="photo-slot" onclick="openCapture('incident')"><svg class="ic ic-lg" viewBox="0 0 24 24"><use href="#i-camera"/></svg></div>
             </div>
             <div class="sheet-footer">
-              <button class="btn btn-primary" onclick="closeSheet();toast('Đã tạo sự cố')">Gửi sự cố</button>
+              <button class="btn btn-primary" onclick="closeSheet();toast('Đã tạo sự cố · gắn ca PAT-…0014')">Gửi sự cố</button>
               <button class="btn btn-secondary" onclick="closeSheet();toast('Nháp mất sóng')">Lưu nháp mất sóng</button>
             </div>
           </div>
@@ -1611,7 +1651,7 @@
             <h3>Định vị bị tắt</h3>
             <p>Cần vị trí để chấm công. Mở Cài đặt → Quyền vị trí cho RMMS.</p>
             <div class="modal-actions">
-              <button class="btn btn-primary" onclick="closeModal();toast('Đã sao chép hướng dẫn Cài đặt')">Sao chép hướng dẫn</button>
+              <button class="btn btn-primary" onclick="closeModal();toast('Đã sao chép: Cài đặt → Quyền vị trí')">Sao chép hướng dẫn</button>
               <button class="btn btn-secondary" onclick="closeModal()">Để sau</button>
             </div>
           </div>
@@ -1721,7 +1761,7 @@
     function saveCheckin() {
       if (ciWrong) { toast('Chặn — không đúng điểm kế hoạch'); return; }
       closeSheet();
-      toast('Đã ghi điểm tuần · không đổi vị trí');
+      toast('Đã ghi điểm tuần · điểm tuần thứ 3');
     }
     function pinHereCheckin() {
       toast('Đã ghim vị trí hiện tại · QL.1 · Km 1561+134 · ±4 m');

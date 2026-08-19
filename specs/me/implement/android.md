@@ -32,3 +32,5 @@
 `/edit-mobile-feature` 2026-08-19: **GAP-MOB-UX-04** `row-settings` Cài đặt toast · **GAP-MOB-ALIGN-01f** `LinmTabBar` **không** pill nền (chỉ tint). `assembleDebug`.
 
 `/edit-mobile-feature` 2026-08-19: **GAP-MOB-ALIGN-01g** tab outline `LinmHouseGlyph`/`Warning`/`Wrench`/`Person` · **cấm** `Icons.Filled` / `Build`. `assembleDebug`.
+
+`/edit-mobile-feature` 2026-08-19: **GAP-MOB-ICON-03** `LinmDemoSvg` `#i-home/warning/wrench` `d=` stroke 1.75. `assembleDebug`.

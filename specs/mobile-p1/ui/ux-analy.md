@@ -74,7 +74,7 @@ Tín hiệu: **Tốt / Trung bình / Yếu**.
 
 | Surface | Asset | Note |
 |---------|-------|------|
-| Login `DES-MOB-LOGIN-BRAND` | `assets/app-logo.png` | App logo = `logo/mobile` AppIcon 1024 · **cấm** `rmms.png` wordmark |
+| Login `DES-MOB-LOGIN-BRAND` | `assets/app-logo.png` | App `AppLogo` 192 · nền transparent · title uppercase `#1C1C1E` · **cấm** ô đen / `rmms.png` |
 
 | Token | Hex | Chỗ dùng |
 |-------|-----|----------|

@@ -130,7 +130,7 @@ Nhận diện **không** tab — mặt đường ⊂ Vấn đề · TS ⊂ Tài 
 | Review doc | `DES-MOB-DOC-GUIDE` | Trái quyền · phải ngành | Same |
 | Device | `DES-MOBILE-DEVICE` | Bezel 390×844 | Bezel 412×915 |
 | Login | `DES-MOB-LOGIN` | Brand + form | Same fields · Material field |
-| Login brand | `DES-MOB-LOGIN-BRAND` | App logo `app-logo.png` (AppIcon 1024) | Same square mark |
+| Login brand | `DES-MOB-LOGIN-BRAND` | AppLogo 192 · title **QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ** · nền `#F2F2F7` · **cấm** ô đen / «Hiện trường · …» | Same |
 | Login form | `DES-MOB-LOGIN-FORM` | Grouped | OutlinedTextField |
 | Tab bar | `DES-MOB-TABBAR` | 5: Trang Chủ · Check-in · Vấn đề · Công việc · Tôi | Same |
 | Trang Chủ | `DES-MOB-HOME` | Greeting + 6 ô | Same |
@@ -275,7 +275,7 @@ SLA **mobile** = giờ + hạn trên form phân công (P1) — escalation workfl
 | iOS | `ui/prototype/ios/index.html` |
 | Android | `ui/prototype/android/index.html` |
 | OMS helper | `ui/prototype/map-oms.js` |
-| Logo SSOT | `{ProductRoot}/logo/mobile` AppIcon 1024 → `ui/prototype/assets/app-logo.png` (login) |
+| Logo SSOT | app `AppLogo` → `ui/prototype/assets/app-logo.png` (login 192 · không ô đen) |
 | **reviewUrl tổng quan** | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/mobile-p1/ui/prototype/index.html` |
 | **reviewUrl iOS** | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/mobile-p1/ui/prototype/ios/index.html` |
 | **reviewUrl Android** | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/mobile-p1/ui/prototype/android/index.html` |

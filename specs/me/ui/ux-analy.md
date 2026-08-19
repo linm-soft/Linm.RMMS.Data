@@ -75,6 +75,7 @@ Không `/wf-anim`.
 | GAP-MOB-ALIGN-01e | Tab glyph lệch pill · hàng Tôi lệch cột (signal top / logout không slot) | **PASS** glyph 22 căn giữa 64×32 · `listLeading` 30 dual |
 | GAP-MOB-ALIGN-01f | Tab selected = pill nền icon (M3-like) | **PASS** bỏ Capsule/`primary` 12% · chỉ tint icon+label |
 | GAP-MOB-ALIGN-01g | Android `Icons.Filled` (nhà/cảnh báo/người đặc · `Build` chéo) ≠ iOS SF outline | **PASS** `Linm*Glyph` outline dual motif · **cấm** Filled tab |
+| GAP-MOB-ICON-03 | Android wrench U-jaw/Build ≠ demo `#i-wrench` / iOS `wrench` | **PASS** `LinmDemoSvg.WRENCH` cùng `d=` stroke 1.75 · `/convert-web-icon-to-mobile` |
 
 ## Version meta
 

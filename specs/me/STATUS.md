@@ -105,6 +105,8 @@
 
 `/edit-mobile-feature` 2026-08-19: **GAP-MOB-ALIGN-01g** Android tab **outline** (không Filled fill nền · wrench ≠ Build).
 
+`/edit-mobile-feature` 2026-08-19: **GAP-MOB-ICON-03** tab `#i-home/warning/wrench` cùng `d=` demo (`LinmDemoSvg`) · lệch nét OK · **cấm** `Build`.
+
 ## Blockers / open questions
 
 - Sibling chờ Approve board · **cấm** start tự động (`GAP-MOB-ACT-06`)

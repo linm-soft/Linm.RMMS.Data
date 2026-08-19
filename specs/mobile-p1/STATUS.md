@@ -14,7 +14,7 @@
 | context | `specs/mobile-p1/mobile/context.md` · 12 slug P1 |
 | mfe / app | **TBD** — `ui_repo_confirm` (SwiftUI + Compose) |
 | backend | same BFF Web · `web-bff/api/v1/*` |
-| updatedAt | `2026-08-18T23:20:00.000Z` |
+| updatedAt | `2026-08-19T11:20:00.000Z` |
 | skill | `/scan-and-implement-kit-control` · kit_scan all_ab |
 | iaVersion | `3.3` (Thông tin tài sản · chọn TS → form sự cố) |
 
@@ -34,6 +34,7 @@
 | agent-design | Notify count badge 16→22 · font 11 · proto iOS+Android + kit dual | design_notify_badge_22 | 2026-08-18 |
 | scan-and-implement-kit-control | kit_scan all_ab · analy only · **cấm** design_confirm | kit_scan_p1 | 2026-08-18T23:20:00.000Z |
 | build-mobile-kit-to-app | local_both · iOS BUILD SUCCEEDED · Android assembleDebug | kit_scan_patched | 2026-08-18T23:20:00.000Z |
+| review-demo-design-mobile | dual proto UI · Must đóng · PAD/COPY/ICON/TYPE aligned | demo_parity_p1 | 2026-08-19T11:20:00.000Z |
 
 ## Pipeline
 
@@ -42,6 +43,7 @@
 | 0 | gate | product_root · p1_pack · full · both | **done** |
 | 1–2 | analy | mobile/context.md | **done** |
 | 3–6 | design | ui/design.md + ios + android · IA v3.3 | **await_confirm** |
+| 6d | review-demo-design-mobile | `ui/review/demo-parity.md` | **Must đóng** |
 | kit_scan | scan-and-implement-kit-control | ui/kit-scan.md · ux-analy.md · 8 kit_new | **kit_scan** |
 | 2.2+ | sa… | `/agent-qldb-workflow-mobile` | sau `design_confirm` |
 
@@ -52,7 +54,7 @@
 | iOS | `specs/mobile-p1/ui/prototype/ios/index.html` |
 | Android | `specs/mobile-p1/ui/prototype/android/index.html` |
 | Tổng quan | `specs/mobile-p1/ui/prototype/index.html` |
-| Logo | `logo/mobile` AppIcon 1024 → `ui/prototype/assets/app-logo.png` · đăng nhập |
+| Logo | app `AppLogo` → `ui/prototype/assets/app-logo.png` · login 192 · nền `#F2F2F7` · title uppercase |
 | Mock địa bàn | Khu IV (`VP-IV.1`) · QL.1 Km 1551+200–1561+134 · Xuân Hải / Phước Dinh · seed `khu-iv/map-seed.json` |
 | Bản đồ | `specs/mobile-p1/ui/prototype/map-oms.js` |
 | Chụp + GPS | Overlay `DES-MOB-PHOTO-GPS` + pin `DES-MOB-GPS-PIN` · chip review **Chụp + GPS** |
