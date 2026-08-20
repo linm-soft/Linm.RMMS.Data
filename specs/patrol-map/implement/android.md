@@ -25,7 +25,8 @@ Same DoD as iOS.
 - Pin-here: runtime FINE permission · loc live · pin `Here` · zoom **16.5** `animateTo` · toast
 - Deny / timeout toast · **cấm** fake lat/lng
 - Manifest `ACCESS_FINE_LOCATION` + `ACCESS_COARSE_LOCATION`
+- **Appear** → `fetchSessions()` · `PatrolDtoMapper.active` → `routeKm` non-empty else `PatrolMapOverlay.nextDemoTitle` (`T-AND-PAT-MAP` delta · `task_8f38a9c6`)
 
 ## Build (VERIFY GATE)
 
-`./gradlew :app:assembleDebug` — see closeout this turn.
+**PASS** — `./gradlew :app:assembleDebug` (`task_8f38a9c6` · `2026-08-20`).

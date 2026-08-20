@@ -1,42 +1,57 @@
 appId: org.linmsoft.rmms
 ---
-# patrol-map · Android
+# patrol-map · Android · login Auth seed → tab field → hub → #sc-patrol-map
 - launchApp:
     clearState: true
+    clearKeychain: true
 - extendedWaitUntil:
     visible: "Đăng nhập"
     timeout: 15000
 - tapOn:
-    text: "Tài khoản"
-    optional: true
+    id: "f-user"
 - inputText: "linm-soft"
+- tapOn: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
 - tapOn:
-    text: "Mật khẩu"
-    optional: true
+    id: "f-pass"
 - inputText: "Linm@2026"
+- pressKey: Enter
+- waitForAnimationToEnd:
+    timeout: 4000
+- tapOn:
+    id: "btn-login"
+    optional: true
 - tapOn:
     text: "Đăng nhập"
+    optional: true
+- extendedWaitUntil:
+    visible: "Trang Chủ"
+    timeout: 45000
 - extendedWaitUntil:
     visible:
       id: "sc-home"
-    timeout: 30000
+    timeout: 15000
 - tapOn:
     id: "tab-field"
-    optional: true
-- tapOn:
-    text: "Tuần đường"
 - extendedWaitUntil:
     visible:
       id: "sc-patrol-home"
     timeout: 20000
+- scrollUntilVisible:
+    element:
+      id: "row-quick-patrol-map"
+    direction: DOWN
+    timeout: 15000
 - tapOn:
-    text: "Bản đồ ca"
+    id: "row-quick-patrol-map"
+- waitForAnimationToEnd:
+    timeout: 8000
+- extendedWaitUntil:
+    visible: "Ca đang chạy"
+    timeout: 45000
 - extendedWaitUntil:
     visible:
       id: "sc-patrol-map"
     timeout: 20000
-- assertVisible:
-    id: "map-patrol-host"
-- assertVisible:
-    id: "btn-pin-here"
+- assertVisible: "Ghim vị trí hiện tại"
+- assertVisible: "Điểm tiếp theo · OSRM"
 - takeScreenshot: A3-CORE-MAP

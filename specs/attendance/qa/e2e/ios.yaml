@@ -1,0 +1,75 @@
+appId: org.linmsoft.rmms
+---
+# attendance · store A11/A9/A3 · login Auth seed → tab field → seg Chấm công → #sc-attendance
+# cấm shot login-only cho A3 · cấm mfeStdUrl / start:std
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible: "Đăng nhập"
+    timeout: 15000
+- takeScreenshot: A11-LAUNCH
+- tapOn:
+    id: "f-user"
+    optional: true
+- tapOn:
+    text: "Tài khoản"
+    optional: true
+- inputText: "linm-soft"
+- tapOn:
+    text: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
+    optional: true
+- tapOn:
+    text: "RMMS"
+    optional: true
+- tapOn:
+    id: "f-pass"
+    optional: true
+- tapOn:
+    text: "Mật khẩu"
+    optional: true
+- inputText: "Linm@2026"
+- tapOn:
+    text: "Not Now"
+    optional: true
+- takeScreenshot: A9-LOGIN
+- tapOn:
+    id: "btn-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
+- tapOn:
+    text: "Not Now"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 30000
+- tapOn:
+    id: "tab-field"
+    optional: true
+- tapOn:
+    text: "Tuần đường"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-patrol-home"
+    timeout: 20000
+- tapOn:
+    text: "Chấm công"
+- extendedWaitUntil:
+    visible:
+      id: "sc-attendance"
+    timeout: 20000
+- assertVisible: "Chấm công"
+- assertVisible: "Chấm vào"
+- assertVisible: "7 ngày gần đây"
+- takeScreenshot: A3-CORE
+- tapOn:
+    text: "Báo cáo"
+    optional: true
+- extendedWaitUntil:
+    visible: "Báo cáo công"
+    timeout: 8000
+    optional: true

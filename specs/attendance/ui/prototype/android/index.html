@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RMMS · Chấm công</title>
+  <style>
+    :root {
+      --primary: #0C84C0; --surface: #FFFBFE; --card: #fff;
+      --label: #1C1B1F; --muted: #79747E;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Roboto", "Google Sans", system-ui, sans-serif;
+      background: #121212; color: var(--label);
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    }
+    .phone {
+      width: 412px; height: 915px; background: var(--surface);
+      border-radius: 28px; overflow: hidden; position: relative;
+      box-shadow: 0 20px 60px rgba(0,0,0,.45);
+      display: flex; flex-direction: column;
+    }
+    .large-title {
+      font-size: 28px; font-weight: 700;
+      padding: 48px 16px 8px; color: var(--label);
+    }
+    .seg {
+      display: flex; margin: 0 16px 12px; padding: 0;
+      background: transparent; border-bottom: 1px solid #E7E0EC;
+    }
+    .seg button {
+      flex: 1; border: 0; border-radius: 0; padding: 12px 6px;
+      font-size: 13px; font-weight: 500; background: transparent;
+      color: var(--muted); cursor: pointer; font-family: inherit;
+      border-bottom: 2px solid transparent;
+    }
+    .seg button.on {
+      color: var(--primary); font-weight: 600;
+      border-bottom-color: var(--primary);
+    }
+    .content { flex: 1; overflow: auto; padding: 0 16px 28px; }
+    .hero-card {
+      border-radius: 16px; padding: 16px;
+      background: linear-gradient(145deg, #1B8A4A, #0F5C30); color: #fff;
+      margin-bottom: 16px;
+    }
+    .hero-eyebrow { font-size: 13px; opacity: .9; margin-bottom: 6px; }
+    .hero-title { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+    .hero-meta { font-size: 13px; line-height: 1.4; opacity: .92; margin-bottom: 14px; }
+    .hero-actions { display: flex; gap: 8px; }
+    .btn {
+      flex: 1; border: 0; border-radius: 12px; min-height: 48px;
+      font-size: 16px; font-weight: 600; cursor: pointer; font-family: inherit;
+    }
+    .btn-white { background: #fff; color: #0F5C30; }
+    .btn-ghost {
+      background: transparent; color: #fff;
+      border: 1.5px solid rgba(255,255,255,.55);
+    }
+    .section-label {
+      font-size: 13px; font-weight: 600; color: var(--muted);
+      text-transform: uppercase; letter-spacing: .02em; margin: 8px 0 8px 4px;
+    }
+    .card-group {
+      background: var(--card); border-radius: 12px; overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,.08);
+    }
+    .row {
+      display: flex; align-items: center; gap: 12px;
+      padding: 14px; border-bottom: 1px solid rgba(0,0,0,.08);
+      cursor: pointer;
+    }
+    .row:last-child { border-bottom: 0; }
+    .row-body { flex: 1; min-width: 0; }
+    .row-title { font-size: 16px; font-weight: 600; }
+    .row-sub { font-size: 13px; color: var(--muted); margin-top: 2px; }
+    .badge {
+      font-size: 12px; font-weight: 650; padding: 4px 8px; border-radius: 8px;
+      background: rgba(121,116,126,.16); color: #49454F;
+    }
+    .badge.green { background: rgba(60,180,72,.18); color: #1B5E20; }
+    .toast {
+      position: absolute; left: 50%; bottom: 36px; transform: translateX(-50%) translateY(16px);
+      background: #313033; color: #fff; font-size: 14px; font-weight: 500;
+      padding: 12px 16px; border-radius: 8px; z-index: 40; opacity: 0; pointer-events: none;
+      max-width: calc(100% - 32px); text-align: center; transition: .25s ease;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  </style>
+</head>
+<body>
+  <div class="phone" id="sc-attendance" data-des-id="DES-MOB-ATT">
+    <div class="large-title">Chấm công</div>
+    <div class="seg" id="att-segment">
+      <button type="button" id="seg-patrol" onclick="toast('Tuần đường')">Tuần đường</button>
+      <button class="on" type="button" id="seg-att">Chấm công</button>
+    </div>
+    <div class="content">
+      <div class="hero-card" id="att-hero">
+        <div class="hero-eyebrow">Chấm công theo định vị</div>
+        <div class="hero-title">Chưa chấm vào</div>
+        <div class="hero-meta">Vị trí: Văn phòng QLĐB IV.1 · Khu IV · ±6 m<br/>Ca sáng · 10/08/2026</div>
+        <div class="hero-actions">
+          <button class="btn btn-white" type="button" onclick="toast('Đã chấm vào')">Chấm vào</button>
+          <button class="btn btn-ghost" type="button" onclick="toast('Báo cáo công')">Báo cáo</button>
+        </div>
+      </div>
+      <div class="section-label">7 ngày gần đây</div>
+      <div class="card-group">
+        <div class="row" id="att-day-1" onclick="toast('Chi tiết ngày công')">
+          <div class="row-body"><div class="row-title">CN 10/08</div><div class="row-sub">—</div></div>
+          <span class="badge">Nghỉ</span>
+        </div>
+        <div class="row" id="att-day-2" onclick="toast('Chi tiết ngày công')">
+          <div class="row-body"><div class="row-title">T7 09/08</div><div class="row-sub">07:05 – 16:40</div></div>
+          <span class="badge green">Đủ công</span>
+        </div>
+        <div class="row" id="att-day-3" onclick="toast('Chi tiết ngày công')">
+          <div class="row-body"><div class="row-title">T6 08/08</div><div class="row-sub">07:12 – 16:55</div></div>
+          <span class="badge green">Đủ công</span>
+        </div>
+      </div>
+    </div>
+    <div class="toast" id="toast" role="status"></div>
+  </div>
+  <script>
+    function toast(msg) {
+      var el = document.getElementById('toast');
+      el.textContent = msg;
+      el.classList.add('show');
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(function () { el.classList.remove('show'); }, 2200);
+    }
+  </script>
+</body>
+</html>

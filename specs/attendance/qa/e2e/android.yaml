@@ -1,0 +1,65 @@
+appId: org.linmsoft.rmms
+---
+# attendance · store P6 ×2 · login Auth seed → tab field → seg Chấm công → #sc-attendance (Pixel 1080×1920)
+# cấm hideKeyboard (BACK có thể về launcher) — tap title + Enter như patrol-home
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible: "Đăng nhập"
+    timeout: 15000
+- tapOn:
+    id: "f-user"
+- inputText: "linm-soft"
+- tapOn: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
+- tapOn:
+    id: "f-pass"
+- inputText: "Linm@2026"
+- pressKey: Enter
+- waitForAnimationToEnd:
+    timeout: 4000
+- tapOn:
+    id: "btn-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
+- extendedWaitUntil:
+    visible: "Trang Chủ"
+    timeout: 45000
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 15000
+- takeScreenshot: P6-CORE
+- tapOn:
+    id: "tab-field"
+- extendedWaitUntil:
+    visible:
+      id: "sc-patrol-home"
+    timeout: 20000
+- tapOn:
+    text: "Chấm công"
+- extendedWaitUntil:
+    visible:
+      id: "sc-attendance"
+    timeout: 20000
+- assertVisible: "Chấm công"
+- assertVisible: "Chấm vào"
+- assertVisible: "7 ngày gần đây"
+- takeScreenshot: P6-CORE-2
+- tapOn:
+    text: "Báo cáo"
+    optional: true
+- extendedWaitUntil:
+    visible: "Báo cáo công"
+    timeout: 8000
+    optional: true
+- tapOn:
+    text: "Tuần đường"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-patrol-home"
+    timeout: 15000
+    optional: true

@@ -25,7 +25,8 @@
 - **Ghim vị trí hiện tại** → `GetCurrentLocationUseCase` · pin `.here` primary · camera follow span `0.006` · toast success
 - Deny → `patrol.map.locDeny` · timeout → `patrol.map.locTimeout` · **cấm** fake lat/lng
 - `NSLocationWhenInUseUsageDescription` · **cấm** chữ «GPS» trên máy
+- **Appear** → `FetchPatrolSessionsUseCase` · `PatrolDtoMapper.active(from:)` → `routeKm` non-empty else `PatrolMapOverlay.nextDemoTitle` (`T-IOS-PAT-MAP` delta · `task_8f38a9c6`)
 
 ## Build (VERIFY GATE)
 
-`xcodegen` + `xcodebuild` dest **iPhone 17 Pro** — see closeout this turn.
+**PASS** — `xcodegen` + `xcodebuild` dest **iPhone 17 Pro** (`task_8f38a9c6` · `2026-08-20`).

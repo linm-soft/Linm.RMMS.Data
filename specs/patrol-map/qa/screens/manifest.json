@@ -1,6 +1,6 @@
 {
   "feature": "patrol-map",
-  "capturedAt": "2026-08-19T18:51:19.236Z",
+  "capturedAt": "2026-08-19T19:29:13.744Z",
   "iosDevice": "iPhone 17 Pro Max",
   "method": "e2e-qa-mobile",
   "steps": [
@@ -20,7 +20,7 @@
         "A9",
         "A11"
       ],
-      "error": "Running on iPhone 17 Pro Max - iOS 26.2 - 518BFF77-0941-448B-8D37-67678F4506C7\n > Flow ios\nLaunch app \"org.linmsoft.rmms\" with clear state and clear keychain... COMPLETED\nAssert that \"Đăng nhập\" is visible... COMPLETED\nTap on (Optional) id: f-user... COMPLETED\nTap on (Optional) \"Tài khoản\"... COMPLETED\nInput text linm-soft... COMPLETED\nTap on (Optional) \"Mật khẩu\"... COMPLETED\nInput text Linm@2026... COMPLETED\nTap on (Optional) id: btn-login... COMPLETED\nTap on (Optional) \"Đăng nhập\"... WARNED\nA",
+      "error": "Running on iPhone 17 Pro Max - iOS 26.2 - 518BFF77-0941-448B-8D37-67678F4506C7\n > Flow ios\nLaunch app \"org.linmsoft.rmms\" with clear state and clear keychain... COMPLETED\nAssert that \"Đăng nhập\" is visible... COMPLETED\nTap on (Optional) id: f-user... COMPLETED\nTap on (Optional) \"Tài khoản\"... COMPLETED\nInput text linm-soft... COMPLETED\nTap on (Optional) \"QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ\"... COMPLETED\nTap on (Optional) id: f-pass... COMPLETED\nTap on (Optional) \"Mật khẩu\"... COMPLETED\nInput text Linm@2026",
       "gap": "GAP-QA-STORE-01"
     },
     {
@@ -29,7 +29,7 @@
       "store": [
         "P6"
       ],
-      "error": "Running on Pixel_2\n > Flow android\nLaunch app \"org.linmsoft.rmms\" with clear state... COMPLETED\nAssert that \"Đăng nhập\" is visible... COMPLETED\nTap on (Optional) \"Tài khoản\"... WARNED\n\n\n Warning: Element not found: Text matching regex: Tài khoản\nInput text linm-soft... COMPLETED\nTap on (Optional) \"Mật khẩu\"... WARNED\n\n\n Warning: Element not found: Text matching regex: Mật khẩu\nInput text Linm@2026... COMPLETED\nTap on \"Đăng nhập\"... COMPLETED\nAssert that id: sc-home is visible... FAILED\n\nAssertio",
+      "error": "Running on Pixel_2\n > Flow android\nLaunch app \"org.linmsoft.rmms\" with clear state and clear keychain... COMPLETED\nAssert that \"Đăng nhập\" is visible... COMPLETED\nTap on id: f-user... COMPLETED\nInput text linm-soft... COMPLETED\nTap on \"QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ\"... COMPLETED\nTap on id: f-pass... COMPLETED\nInput text Linm@2026... COMPLETED\nPress Enter key... COMPLETED\nWait for animation to end within 4000 ms... COMPLETED\nTap on (Optional) id: btn-login... WARNED\n\n\n Warning: Element not found: Id m",
       "gap": "GAP-QA-STORE-03"
     },
     {

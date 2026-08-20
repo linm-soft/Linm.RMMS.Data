@@ -1,236 +1,187 @@
-# SA — solution-discovery — attendance (crud_gap)
+# SA — Solution — attendance (mobile list · Chấm công)
 
 | Field | Value |
 |-------|-------|
 | feature | `attendance` |
-| this role | `sa` · `/agent-sa` |
-| status | `await_confirm` (autoApprove=OFF · user Approve board) |
+| title | [Mobile] Chấm công |
+| this role | `sa` · `/agent-sa-mobile` |
+| status | `confirmed` |
+| solution_confirm | **approve** (`autoApprove=ON` · `task_58acefd1`) |
 | changeScope | `edit_page` |
-| packKind | `list` |
-| runMode | `crud_gap` |
-| gap | `crud_formtype` |
-| domain | **Patrol** (DOMAIN-MAP slug `attendance` → Patrol) |
-| BackendRoot | `D:/AI-QLBD/Linm.RMMS.WebService` |
-| MFE | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Field` · `/patrol/attendance` |
-| solution_confirm | `pending` (autoApprove=OFF · **không** auto-confirm) |
-| prior · design | `await_confirm` → board Approve → SA · `ui/design.md` + prototype |
-| prior · po | `done` · GAP-PO-ATT-01..07 |
-| prior · data_analy | `done` · hash `1ec355a64b…` |
-| taskId | `task_9869676e` |
-| updatedAt | `2026-08-14T16:55:00.000Z` |
+| packKind | **`list`** (PO + Design confirm · UI hub DES-MOB-ATT) |
+| stack | `native_dual` |
+| Feature Kind | **hub/list** push `#sc-attendance` · **cấm** Kind A–G web / Lin* grid / Report |
+| domain | **Patrol** attendance-logs GET+POST · **cấm** invent `api/v1/attendance/*` |
+| BackendRoot | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.WebService` · **cấm ERP.*** |
+| ios | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS` |
+| android | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android` |
+| bff | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Bff` · prefix `mobile-bff/api/v1` |
+| prior · design | **confirmed** · `ui/design.md` · `ui/ux-analy.md` · `ui/review/demo-parity.md` · dual `#sc-attendance` |
+| prior · po | **confirmed** · `po/requirement.md` |
+| prior · data_analy | **confirmed** · `_data-analy/attendance-*.md` · contentHash `sha256:attendance-mobile-hub-20260819` · bffContentHash `sha256:attendance-mobile-bff-20260819` |
+| autoApprove | **ON** |
+| e2eQa | ON khi QA · `yarn e2e-qa-mobile` · **cấm** `mfeStdUrl` |
+| versionGate | `rechecked` |
+| requestSource | run packet `task_58acefd1` · `/agent-qldb-workflow-mobile` · roleOnly=`sa` · `/agent-sa-mobile` |
+| taskId | `task_58acefd1` |
+| updatedAt | `2026-08-19T20:45:22.000Z` |
+| thisAction | **Chấm công hub** `#sc-attendance` only · GET+POST attendance-logs · toast report/day · **cấm** gộp sibling |
 
-> SA **chốt** lookup API + list query delta. Design **chốt** control-map. **Cấm** Dev đoán Text vs SearchInput.  
-> **Cấm** `ERP.Service.*` · `Domains/Master` · `api/v1/rmms/*` · prefix `/api/v1/attendance/*` (GAP-F-ATT-04 / GAP-PO-ATT-07).
+**Cấm:** invent report/zones endpoints · clone controller trên Mobile.Bff · app `:5101` · gộp sibling · filter invent · ERP.* · `mfeStdUrl` · native alert · start sibling `pending_confirm`.
 
-## Gates
+---
 
-| Gate | Value |
-|------|-------|
-| sa_tz_gate | **tz_na** — store `CheckInAt` / `CreatedAt` / `UpdatedAt` **UTC** (`timestamptz` / `ToUniversalTime`) · display local FE |
-| sa_xco_gate | **xco_get_only** — GetById may IgnoreQueryFilters + `allowed_company_ids` · deny → 403 (existing `AttendanceForbiddenException`) |
-| sa_shared_table | **share_tenant** (`AttendanceLogEntity` : `TenantEntity` · filter `CompanyCode`) |
-| lookup_share | road-route catalog = **share_a** (Integration Type A) — **read-only** từ Patrol FE |
-| parent_json | **cấm** — persist flat scalars only |
-| design_confirm | board (user) — SA assumes Design inventory §3 locked after Approve |
-| repo | `be_repo_confirm=approve` · `ui_repo_confirm=approve` (board) — TL/Dev sau SA confirm |
+## Architecture
 
-## Paths (LOCKED — no new domain)
+| Layer | Choice |
+|-------|--------|
+| BackendRoot | `Linm.RMMS.WebService` · `be_repo_confirm` |
+| Domain | Patrol `AttendanceLogsController` |
+| API downstream | GET/POST `api/v1/patrol/attendance-logs` |
+| BFF mobile | `MobileApiProxyController` catch-all → `ApiBase` |
+| App | iOS `AttendanceRepositoryImpl` · Android same + `ApiService` · base `{BffBase}/mobile-bff/api/v1` |
+| Persist BE | **không** bảng mới · **không** `/database-migration` · **không** `/new-endpoint` |
+| Out of pack | report live · day detail · invent zones |
 
-| Layer | Path |
-|-------|------|
-| API domain | `api/src/RMMS.Service.Api/Domains/Patrol/` |
-| Models | `api/domains/patrol/LINM.RMMS.Patrol.Models/DTOs/AttendanceLogDtos.cs` |
-| Entity | `api/shared/RMMS.Service.Persistence/Entities/AttendanceLogEntity.cs` |
-| Table | `rmms_attendance_logs` · migration `Schema_RmmsAttendanceLogs` **đã có** |
-| BFF | `bff/domains/patrol/LINM.RMMS.Patrol.Bff/Controllers/AttendanceLogsBffController.cs` |
-| Route prefix | **`api/v1/patrol/attendance-logs`** |
-| BFF prefix | **`web-bff/api/v1/patrol/attendance-logs`** |
-| FE BASE | `/patrol/attendance-logs` (relative `VITE_API_URL`) |
-| Lookup API | **`api/v1/integration/road-routes`** (domain Integration — **không** copy vào Patrol) |
-| Lookup BFF | **`web-bff/api/v1/integration/road-routes`** |
-| Lookup FE | `/integration/road-routes` (Field MFE SearchInput) |
+### Route decision
 
-**Cấm** tạo folder domain mới · **cấm** `ERP.*`.
+| | Choice |
+|--|--------|
+| Slug | `attendance` → hub `#sc-attendance` |
+| App path | `GET` + `POST` `patrol/attendance-logs` (Bearer) |
+| Step 4b | **N/A** — endpoints live · **cấm** `/new-endpoint` |
+| Rationale | Live Patrol attendance-logs đủ history + check-in P1 |
 
-## Live BE vs this pack (delta)
+---
 
-CRUD API-01…05 **đã implement**. Pack `crud_formtype` **không** rewrite entity. SA chốt **GAP** Dev phải đụng API:
+## BFF / API contract
 
-| ID | Live today | Required this pack | Layer |
-|----|------------|--------------------|-------|
-| GAP-SA-ATT-Q01 | `GET` query `search` · `status` · `page` · `pageSize` only | + **`route`** (exact code) · + **`onlyOutZone`** (bool) | API + BFF query-string forward + FE `getList` |
-| GAP-SA-ATT-Q02 | `search` matches Code/UserName/Route/Status/KmPoint | + GPS: `Lat`/`Lng` `ToString` Contains (PO DoD-1) | `AttendanceLogService.GetListAsync` |
-| GAP-SA-ATT-LKP | FE `route` Text · mock `QL.22` | SearchInput → **LKP-01** `GET …/road-routes/search` · persist **code** `QL.1` | FE + Integration read · **không** users P1 |
-| GAP-SA-ATT-VAL | Create/Update trim Route, no catalog check | Validate `Route` ∈ `rmms_road_routes.Code` **IsActive** · 422 nếu unknown / `QL.22` | Patrol service → Integration DbSet **read** |
-| GAP-SA-ATT-ENUM | Status free string | Allow-list **Đúng tuyến · Lệch zone · Thiếu điểm** · 422 else | Create/Update |
-| GAP-SA-ATT-SEED | MFE `attendanceStore` / `patrolStore` `QL.22` | Alias **`QL.22` → `QL.1`** — **cấm** invent QL.22 vào 38 | FE mock only (no CUC2 seed write) |
+| Action | App path | Downstream | Live |
+|--------|----------|------------|------|
+| History 7d | `GET patrol/attendance-logs` | GetList | **PASS** |
+| Chấm vào | `POST patrol/attendance-logs` | CreateAsync | **PASS** |
+| Báo cáo | — | toast | **N/A** API P1 |
+| Day detail | — | toast | **N/A** P1 |
 
-**Không** migration schema mới (cột `Route` varchar đã đủ filter). Index optional P2 `(CompanyCode, Route)` — **out** nếu list nhỏ.
+### POST body P1
 
-**P2 / out of pack (không API mới):** report · summary · validate-checkin · zones · Face/NFC · Excel · `GET /api/v1/attendance/*`.
+`userName` · `route`=`QL.1` · `checkInAt` · `lat`/`lng` · `inZone`=`true` · `status`=`Đúng tuyến`
 
-## API catalog (attendance-logs)
+DTO: `AttendanceLogDto` — `Id` · `Code` · `UserName` · `Route` · `CheckInAt` · `KmPoint` · `Lat` · `Lng` · `InZone` · `Status` · `Note`
 
-### API-01 — List (DELTA query)
+---
 
-| | |
-|--|--|
-| Method / Path | `GET /api/v1/patrol/attendance-logs` |
-| BFF | `GET /web-bff/api/v1/patrol/attendance-logs` (proxy query as-is) |
-| Purpose | Paged Kind B catalog — search must work · filter đổi → FE `page=1` |
-| Permission | `patrol.attendance-logs.read` (BE `[RequirePermission]` stub P1) |
-| Query | `search?` · `status?` · **`route?`** · **`onlyOutZone?`** (`true`/`1`) · `page` default 1 · `pageSize` **50/100/200/500** (else 50) |
-| Filter semantics | `status` exact · `route` exact trim = `AttendanceLog.Route` (master **code**) · `onlyOutZone=true` → `InZone == false` (Checkbox Zone B; **không** bắt buộc `status=Lệch zone`) · `search` AND với các filter |
-| Response | `ApiResponse<AttendanceLogPagedResult>` |
-| Sort | `CheckInAt` DESC · `IsActive=true` only |
+## Implement gates
 
-### API-02 — GetById
+| Gate | Decision |
+|------|----------|
+| TZ | **tz_na** — display local from `CheckInAt` |
+| XCO | **xco_na** — current-company logs |
+| SHARE | **n/a** — read/write existing `rmms_attendance_logs` |
+| Offline | demo fallback · screen **mở** |
+| GPS | **yes** — Chấm vào · deny → toast · no POST |
+| Camera | **n/a** |
+| Step 4b | **N/A** |
 
-| | |
-|--|--|
-| Method / Path | `GET /api/v1/patrol/attendance-logs/{id}` |
-| Purpose | Slideout View/Edit hydrate · XCO get_only |
-| Permission | `patrol.attendance-logs.read` |
-| Errors | 404 · 403 cross-company |
+AskQuestion (autoApprove=ON): `solution_confirm=approve` · `2026-08-19T20:45:22.000Z`.
 
-### API-03 — Create
+---
 
-| | |
-|--|--|
-| Method / Path | `POST /api/v1/patrol/attendance-logs` |
-| Purpose | Manual / Copy → POST new · IdCode **`CC-yyyyMMdd-nnn`** server-generated (body **không** gửi `code`) |
-| Permission | `patrol.attendance-logs.create` |
-| Body | `CreateAttendanceLogRequest` — UserName · Route (**code**) · CheckInAt · KmPoint? · Lat · Lng · InZone · Status · Note? |
-| Validate | required UserName/Route/Status · Route ∈ road-routes active · Status enum · Lat/Lng required (decimal) |
-| Errors | 422 message VN |
+## VERIFY GATE (`task_58acefd1`)
 
-### API-04 — Update
+| Check | Result |
+|-------|--------|
+| iOS xcodegen | **PASS** |
+| iOS xcodebuild iPhone 17 Pro | **BUILD SUCCEEDED** |
+| Android assembleDebug | **BUILD SUCCESSFUL** |
+| Mobile.Bff dotnet build | **Build succeeded** |
+| Step 4b | **N/A** — reuse GET+POST `patrol/attendance-logs` |
+| Native cite | iOS `AttendanceRepositoryImpl` · Android `AttendanceRepositoryImpl` · `patrol/attendance-logs` |
+
+---
+
+## Persist gate
 
 | | |
 |--|--|
-| Method / Path | `PUT /api/v1/patrol/attendance-logs/{id}` |
-| Permission | `patrol.attendance-logs.update` |
-| Body | `UpdateAttendanceLogRequest` (cùng field + `IsActive?`) · **không** đổi `Code` |
-| Validate | như Create |
+| Child tables | **n/a** — existing `AttendanceLogEntity` |
+| Migration | **không** |
+| T-BE-API / T-BE-MIG | **n/a** |
 
-### API-05 — Soft delete
+---
 
-| | |
-|--|--|
-| Method / Path | `DELETE /api/v1/patrol/attendance-logs/{id}` |
-| Permission | `patrol.attendance-logs.delete` |
-| Behavior | `IsActive=false` · 404 nếu không còn |
+## Live vs delta
 
-## Lookup (SA chốt — T-UI-LKP)
+| Surface | Live | SA chốt P1 |
+|---------|------|------------|
+| GET+POST attendance-logs | BE + BFF proxy live | **Giữ** |
+| Native `#sc-attendance` | **shipped** dual (AttendanceView / AttendanceScreen) | **VERIFY** · cite implement |
+| Patrol seg → push | wired | **Giữ** |
+| Report / day detail | toast | **cấm** push sibling |
+| Invent report API | **không** | **Cấm** |
 
-### LKP-01 — SearchInput `road-route` (form + Zone B filter)
+---
 
-| | |
-|--|--|
-| catalogKind | **road-route** |
-| Method / Path | `GET /api/v1/integration/road-routes/search` |
-| BFF | `GET /web-bff/api/v1/integration/road-routes/search` |
-| Query | `search?` · `page` · `pageSize` · `excludeCode?` |
-| Item | `RoadRouteSearchItemDto`: `code` · `name` · `routeKind` · `isSelectable` |
-| Display | `code — name` (Design) |
-| Value persisted on log | **`code`** string (`QL.1`) trên `AttendanceLog.Route` — **không** FK Guid · **không** JSON |
-| Permission | `master.road-routes.read` (stub) |
-| Seed | 38 CUC2 · **có `QL.1`** · **không `QL.22`** |
-| Fallback | BFF down → FE demo subset 38 **chỉ mã có trong seed** (QL.1…) |
+## Field map
 
-**Cấm** LKP users P1 (GAP-PO-ATT-03). **Cấm** free-text `route`. **Cấm** duplicate Search endpoint trong Patrol.
+| uiField | Label VN | dtoField | Wire |
+|---------|----------|----------|------|
+| largeTitle | Chấm công | — | fixed |
+| segPatrol / segAtt | Tuần đường / Chấm công | — | pop / owner |
+| heroTitle | Chưa / Đã chấm | derived | GET today / POST |
+| heroMeta | Vị trí · Ca | Lat/Lng + demo | GPS |
+| checkIn | Chấm vào | POST body | GPS+POST |
+| report | Báo cáo | — | toast |
+| days | 7 ngày gần đây | CheckInAt aggregate | GET |
 
-Optional hydrate: `GET /api/v1/integration/road-routes?search=` (API-list) — SearchInput **ưu tiên `/search`**.
+---
 
-## Field map (Design uiField → DTO → DB)
+## Navigation
 
-| uiField | controlHint | dtoField | dbColumn | notes |
-|---------|-------------|----------|----------|-------|
-| code | Text readonly IdCode | `Code` | `code` | server `CC-yyyyMMdd-nnn` · UK (CompanyCode, Code) |
-| userName | Text * | `UserName` | `user_name` | P1 no users LKP |
-| route | SearchInput road-route * | `Route` | `route` | master **code** |
-| checkInAt | Date datetime-local * | `CheckInAt` | `check_in_at` | UTC store |
-| kmPoint | Text | `KmPoint` | `km_point` | |
-| lat | Text number * | `Lat` | `lat` decimal(12,8) | |
-| lng | Text number * | `Lng` | `lng` decimal(12,8) | |
-| inZone | Dropdown Trong/Ngoài | `InZone` | `in_zone` bool | FE map true/false |
-| status | Dropdown 3 enum * | `Status` | `status` | exact VN labels |
-| note | Text multiline | `Note` | `note` | |
-| updatedAt | Date readonly | `UpdatedAt` | `updated_at` | |
-| (filter) onlyOutZone | Checkbox | query `onlyOutZone` | filter `in_zone = false` | **không** cột mới |
-| (grid GPS) | display | `Lat`,`Lng` | | FE format |
+| Control | Behavior P1 |
+|---------|-------------|
+| Patrol seg Chấm công | push `#sc-attendance` |
+| Seg Tuần đường | pop `#sc-patrol-home` |
+| Chấm vào | GPS → POST |
+| Báo cáo | toast **Báo cáo công** |
+| Tap day | toast **Chi tiết ngày công** |
 
-**Cấm** parent JSON string trên DTO/entity.
+---
 
-## Status enum (LOCKED)
+## Client architecture
 
-`Đúng tuyến` · `Lệch zone` · `Thiếu điểm`
+| Layer | iOS | Android |
+|-------|-----|---------|
+| Feature | `Presentation/Features/Attendance/*` | `presentation/feature/attendance/*` |
+| Use case | `FetchAttendanceHistoryUseCase` · `CreateAttendanceCheckInUseCase` | same |
+| Repo | `AttendanceRepositoryImpl` | same |
+| Shell | `AppRouter` `showAttendanceFromField` | `MainTabScreen` route `attendance` |
+| Demo | `AttendanceCopy.demoDays` / `demoHero` | same |
 
-InZone Dropdown labels: `Trong zone` → `true` · `Ngoài zone` → `false`. Server **không** auto-sync Status từ InZone P1 (form độc lập; PostGIS validate-checkin = P2).
-
-## Entity — AttendanceLogEntity (unchanged schema)
-
-| Column | Type | Notes |
-|--------|------|-------|
-| Id | uuid PK | |
-| CompanyCode | varchar(64) | tenant |
-| Code | varchar(64) | unique per company |
-| UserName | varchar(128) | |
-| Route | varchar(64) | **road-route.code** |
-| CheckInAt | timestamptz | UTC |
-| KmPoint | varchar(32)? | |
-| Lat / Lng | decimal(12,8) | |
-| InZone | bool | |
-| Status | varchar(64) | enum VN |
-| Note | varchar(2000)? | |
-| IsActive | bool | soft delete |
-| CreatedAt / UpdatedAt | timestamptz | |
-
-## BFF
-
-`AttendanceLogsBffController` **proxy-only** — forward GET list **kèm** `route` + `onlyOutZone` (query string passthrough đã có `Request.QueryString`). **Không** business logic. **Không** proxy road-routes từ Patrol BFF — FE gọi Integration BFF trực tiếp.
-
-## Migration
-
-**Không** `Schema_*` mới pack này. Validate Route đọc `DbSet<RoadRouteEntity>` đã có. Seed master **không** thêm QL.22.
-
-## Perm (FE + BE stub)
-
-`patrol.attendance-logs.read|create|update|delete`  
-Lookup: `master.road-routes.read`
+---
 
 ## Handoff → TL
 
-Emit **T-CTX · T-PERM · T-UI-LIST (A–D) · T-UI-FORM · T-UI-ACT · T-UI-LKP · T-UI-FIELD · T-UI-PROD · T-UI-UX · T-BE/BFF**.
-
-| Task hint | Scope |
-|-----------|--------|
-| T-UI-LKP-01 | SearchInput route form + Zone B → LKP-01 · display `code — name` |
-| T-UI-FIELD-01 | controlHint vs BE types (Date UTC · decimal GPS · bool InZone · enum status) |
-| T-UI-PROD-01 | mock `QL.22` → `QL.1` |
-| T-UI-UX-01 | constitution · 1× LinPageLayout · LinCatalogDataGrid · LinCatalogListPagination · View readOnly · footer-only · **cấm** Resource |
-| T-BE-Q-01 | API-01 query `route` + `onlyOutZone` + GPS search |
-| T-BE-VAL-01 | Route ∈ road-routes · status allow-list · 422 |
-| T-BFF-01 | verify query passthrough (no new controller) |
-| T-FE-API-01 | `attendanceEndpoint.getList` params `route` · `onlyOutZone` |
-
-Next: team-lead **pending** đến `solution_confirm=approve` (board). Dev **pending** `confirms.beRepo && uiRepo` (đã approve).
-
-## Confirm
-
-`solution_confirm` = **pending** — autoApprove **OFF** · user Approve trên `/qldb-workflow` · **không** auto-confirm.
+| Field | Value |
+|-------|-------|
+| Tasks | `T-IOS-ATTENDANCE` · `T-AND-ATTENDANCE` · `T-BE` **n/a** |
+| Step 4b | **N/A** |
+| Next slash | `/agent-tl-mobile` |
+| Chain | **không** |
 
 ## Version meta (REQUIRED)
 
 | Field | Value |
 |-------|-------|
-| skillId | agent-sa |
-| skillVersion | 2026.08.14.5 |
-| schemaVersion | 2 |
-| workflowVersion | 2026.08.14.5 |
-| rulesVersion | 2026.08.14.9 |
-| generatedAt | 2026-08-14T16:55:00.000Z |
+| skillId | agent-sa-mobile |
+| skillVersion | 2026.08.19.22 |
+| schemaVersion | 1 |
+| workflowVersion | 2026.08.19.29 |
+| rulesVersion | 2026.08.19.34 |
+| generatedAt | 2026-08-19T20:45:22.000Z |
 | versionGate | rechecked |
-| contentHashPriorDesign | design.md · task_dcdef46b · 2026-08-14T16:50:00.000Z |
-| contentHashPriorPo | sha256:po-requirement-task_be41b753 |
-| contentHashPriorDataAnaly | sha256:1ec355a64b1bcdf471e211c98b74d77fbdca665bd23472f63456457aa538fba4 |
+| contentHash | sha256:attendance-mobile-hub-20260819 |
+| bffContentHash | sha256:attendance-mobile-bff-20260819 |
+
+---
+<!-- Version meta: skillId=agent-sa-mobile skillVersion=2026.08.19.22 schemaVersion=1 workflowVersion=2026.08.19.29 rulesVersion=2026.08.19.34 versionGate=rechecked -->

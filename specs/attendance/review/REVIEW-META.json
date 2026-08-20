@@ -1,22 +1,26 @@
 {
   "feature": "attendance",
-  "reviewHash": "task_3b8b3994-attendance-kindb-20260814",
-  "schemaVersion": 2,
-  "rulesVersion": "2026.08.14.9",
-  "skillVersion": "2026.08.14.5",
-  "workflowVersion": "2026.08.14.5",
   "status": "done",
   "review_confirm": "approve",
-  "taskId": "task_3b8b3994",
-  "artifacts": [
-    "po/requirement.md",
-    "ui/design.md",
-    "ui/prototype/attendance-list-prototype.html",
-    "be/solution-discovery.md",
-    "task/attendance.md",
-    "implement/attendance.md",
-    "qa/scenarios.md",
-    "review/findings.md"
-  ],
-  "updatedAt": "2026-08-14T17:45:00.000Z"
+  "align_confirm": "approve",
+  "taskId": "task_f617b718",
+  "skillId": "agent-review-mobile",
+  "skillVersion": "2026.08.19.29",
+  "workflowVersion": "2026.08.19.29",
+  "rulesVersion": "2026.08.19.34",
+  "schemaVersion": "1",
+  "versionGate": "rechecked",
+  "autoApprove": true,
+  "post_review": "skip",
+  "alignMustOpen": 0,
+  "verifyGate": {
+    "ios": "PASS",
+    "android": "PASS",
+    "bff": "PASS",
+    "step4b": "N/A",
+    "e2eQa": "PASS"
+  },
+  "contentHash": "sha256:attendance-mobile-hub-20260819",
+  "bffContentHash": "sha256:attendance-mobile-bff-20260819",
+  "updatedAt": "2026-08-19T20:56:00.000Z"
 }

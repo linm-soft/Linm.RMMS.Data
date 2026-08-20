@@ -1,144 +1,110 @@
-# QA — scenarios — attendance
+# QA — Scenarios — attendance (mobile list · Chấm công)
 
 | Field | Value |
 |-------|-------|
 | feature | `attendance` |
-| this role | `qa` · `/agent-qa` |
-| status | `done` |
-| pack | T-QA-01 · T-QA-CRUD-01 · FormType (LKP/FIELD/PROD/UX) · delta route/`onlyOutZone` |
-| mfeStdUrl | `http://localhost:9304/patrol/attendance` |
-| mfeStdRoute | `/patrol/attendance` |
-| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/patrol/attendance-logs` |
-| bff | `web-bff/api/v1/patrol/attendance-logs` |
-| lookup | `GET /integration/road-routes/search` |
-| taskId | `task_b9c436be` |
-| prior Dev | `task_47f14701` · implement `done` |
-| prior QA | `task_35eccf28` · re-audit live 2026-08-16 |
-| autoApprove | OFF (run packet) · QA không await_confirm |
-| method | static review live `AttendanceListPage` + `AttendanceFormSlideout` + `lookups.ts` + endpoint/service + Patrol API/BFF · `yarn typecheck` + `yarn build` PASS |
-| updatedAt | `2026-08-16T02:20:00.000Z` |
+| this role | `qa` · `/agent-qa-mobile` |
+| status | **confirmed** |
+| packKind | **`list`** (UI hub DES-MOB-ATT) |
+| taskId | `task_e1ae0770` |
+| e2eQa | **ON** · `yarn e2e-qa-mobile` · `ios_test_phase=phase1_iphone` · **A4-IPAD DEFER** |
+| store_qa | **run_store** (autoApprove=ON) |
+| e2e result | **ok:true** · `2026-08-19T20:52:23.954Z` · dest **iPhone 17 Pro Max** 1320×2868 RGB · AVD **1080×1920** |
+| method | e2e runtime · yarn e2e-qa-mobile · Maestro + simctl/adb · **cấm** GenerateImage · **cấm** yarn start:std / mfeStdUrl |
+| align | dual proto `#sc-attendance` · Must **0** |
+| updatedAt | `2026-08-19T20:52:23.954Z` |
 
-## Smoke — Final MFE (REQUIRED)
+**Scope:** slug `attendance` hub `#sc-attendance` only. **Cấm** AC sibling (`attendance-report` · `attendance-day-detail`).
 
-| # | Step | Expect | Result |
-|---|------|--------|--------|
-| S0 | `yarn start:std` · mở `http://localhost:9304/patrol/attendance` | Route mount · không 404 | **PASS** (`index.tsx` `patrol/attendance`) |
-| S1 | List shell | 1× `LinPageLayout` kind=catalog · grid/empty · **không** nested `CatalogListShell` · **không** blank 0px / title clip | **PASS** (LAYOUT-06 · `.page` + skeletonRows=8) |
-| S2 | Footer pager | `LinCatalogListPagination` · pageSize 50/100/200/500 | **PASS** |
-| S3 | Search Enter (không nút Tìm) | `SearchTextInput` `onSearch` · `pulseSearch` · page=1 | **PASS** |
-| S4 | Status Select change | refetch page=1 | **PASS** (`handleStatusChange` → `applyFilters`) |
-| S5 | Toolbar Refresh / +Tạo mới / Config | catalogToolbar · Tạo mới **chỉ Zone B** | **PASS** chức năng · Config = stub `configHint` (xem GAP-P2-CC-06) |
-| S6 | History toolbar/menu | `LinCatalogHistoryModal` | **PASS** |
-| S7 | Row menu View/Edit/Copy/Delete/History | Slideout modes · Delete confirm soft | **PASS** (`buildCatalogRowMenuItems`) |
-| S8 | Form Create/Edit/View/Copy | Footer-only Hủy/Lưu · View Đóng/Sửa/Sao chép · no Z1 top Save | **PASS** (`customFooter` · no `attendance-btn-save-top`) |
-| S9 | No ERP.* | FE BASE `/patrol/attendance-logs` · BE `Linm.RMMS.WebService` · **cấm** `api/v1/rmms/*` · **cấm** `/api/v1/attendance/*` | **PASS** |
+## VERIFY GATE
 
-## List A–D (T-QA-01)
+| Gate | Result |
+|------|--------|
+| iOS `xcodegen` | **PASS** |
+| iOS `xcodebuild` dest **iPhone 17 Pro** | **PASS** (`BUILD SUCCEEDED`) |
+| Android `./gradlew :app:assembleDebug` | **PASS** (`BUILD SUCCESSFUL`) |
+| Mobile.Bff `dotnet build` | **PASS** (0 warning · 0 error) |
+| Maestro iOS + Android | **PASS** · login → `tab-field` → seg **Chấm công** → `#sc-attendance` |
+| API :5101 + BFF :5202 | **PASS** (docker) |
+| `yarn e2e-qa-mobile` | **PASS** · `ok:true` |
 
-| Zone | Scenario | Result |
-|------|----------|--------|
-| A | Title «Chấm công và định vị» · `fas fa-user-clock` · **cấm** Thêm mới trên A | **PASS** (GAP-TL-ATT-ICON) |
-| B | SearchTextInput + status Select + **SearchInput tuyến** + **Checkbox Chỉ lệch zone** · refresh · history · cog · add · delete · **không** `filterMaxWidthPx` · **không** nút Tìm | **PASS** (GAP-PO-ATT-04 · GAP-TL-ATT-FILTER-MAX) |
-| C | `LinCatalogDataGrid` `resizable: true` · STT/□/Mã/NV/Tuyến/Thời điểm/Lý trình/InZone/Trạng thái/GPS · click mã → View · **không** `QL.22` trên mock | **PASS** |
-| D | `LinCatalogListPagination` only · **cấm** footerPagination / pageSizeBar / raw table | **PASS** |
-| Layout | `data-catalog-list-page` · `useServerPagedListLoading` · filter đổi → page=1 | **PASS** |
+## Device AC
 
-## T-QA-CRUD-01 — Create→Edit→View→Copy→Delete
+| ID | Expect | Result |
+|----|--------|--------|
+| AC-D-01 | Offline · demo days · screen mở | **PASS** (code fallback) |
+| AC-D-02 | GPS deny → toast · no POST | **PASS** (code path) |
+| AC-D-03 | Leave dirty | **N/A** |
+| AC-D-04 | Cấm native alert · toast only | **PASS** |
+| AC-D-05 | Keyboard | **N/A** |
+| AC-D-06 | Safe area | **PASS** |
+| AC-D-07 | Biometric | **N/A** |
+| AC-D-08 | Signal «Có mạng» | **PASS** — không ship |
+| AC-D-09 | Bearer GET/POST attendance-logs | **PASS** |
+| AC-D-10 | Segment 0/1 lock | **PASS** |
+| AC-D-11 | Camera | **N/A** |
+| AC-D-12 | Type 13 / ≥16 | **PASS** |
+| AC-F-01 | Login → tab field → seg Chấm công → `#sc-attendance` | **PASS** (Maestro) |
+| AC-F-02 | Title **Chấm công** · hero · 7 ngày gần đây | **PASS** |
+| AC-F-03 | Báo cáo → toast **Báo cáo công** | **PASS** (flow optional) |
+| AC-F-04 | Dual copy VN | **PASS** |
+| AC-F-05 | Cấm watermark Gói | **PASS** |
 
-| # | Step | Expect | Result |
-|---|------|--------|--------|
-| QA-20 | FormType ACT | Toolbar + row menu + `?form=` deep-link | **PASS** |
-| QA-21 | Create | Toolbar +Thêm → Slideout create → footer Lưu → POST | **PASS** (API + demo fallback) |
-| QA-22 | Edit | Row/toolbar Edit → PUT | **PASS** |
-| QA-23 | View | Code link / menu → `readOnly` Input/Select · footer Đóng · Sửa · Sao chép · **không** disabled xám toàn form | **PASS** |
-| QA-24 | Copy | Copy → POST new · code tự sinh | **PASS** (`genCode` / API) |
-| QA-25 | Delete toolbar/row | confirm → soft delete · toast · refresh | **PASS** |
-| QA-26 | No duplicate Save on form top | `attendance-btn-save-top` absent | **PASS** |
-| QA-27 | Leave dirty | confirm trước đóng Slideout | **PASS** |
-| QA-28 | Perm | `patrol.attendance-logs.*` · local all true | **PASS** |
+## Store Must
 
-## Delta Dev (`task_47f14701`) — QA re-smoke (REQUIRED)
+| Case | Store | Evidence | Result |
+|------|-------|----------|--------|
+| A11-LAUNCH | A11 | ![A11-LAUNCH](screens/A11-LAUNCH.png) | **PASS** |
+| A10-BFF | A10 · P11 | — | **PASS** |
+| A9-LOGIN | A9 · P10 | ![A9-LOGIN](screens/A9-LOGIN.png) | **PASS** |
+| A3-CORE | A3 · A11 | ![A3-CORE](screens/A3-CORE.png) | **PASS** |
+| P6-CORE | P6 · P11 | ![P6-CORE](screens/P6-CORE.png) | **PASS** |
+| P6-CORE-2 | P6 | ![P6-CORE-2](screens/P6-CORE-2.png) | **PASS** |
+| A4-IPAD | A4 | **DEFER** Phase 1 · family `1` | DEFER |
 
-| # | Step | Expect | Result |
-|---|------|--------|--------|
-| D1 | Filter `route` | Zone B SearchInput `ROAD_ROUTE_LOOKUP_CONFIG` · `getList` qs `route` · BE exact `AttendanceLog.Route` | **PASS** |
-| D2 | Filter `onlyOutZone` | Checkbox → qs `onlyOutZone=true` · BE `InZone==false` · demo `filterRows` | **PASS** |
-| D3 | GPS search | `search` Contains `Lat`/`Lng` ToString (API) + local store | **PASS** |
-| D4 | T-UI-LKP-01 | Form `route` SearchInput · persist **code** · `GET /integration/road-routes/search` · fallback seed 38 · **cấm** Text tuyến · **cấm** Patrol proxy lookup | **PASS** · `dropdownPortal: true` trên config |
-| D5 | Seed 38 | `ROAD_ROUTE_SEED` length 38 · có `QL.1` · **không** `QL.22` · attendanceStore mock `QL.1` | **PASS** |
-| D6 | T-BE-VAL-01 | Create/Update Route ∈ `rmms_road_routes` IsActive · FE `assertWritable` chặn `QL.22` · status allow-list 3 enum · 422/Error VN | **PASS** |
-| D7 | T-BFF-01 | `BuildListPath` = `Request.QueryString` passthrough · no business logic | **PASS** |
-| D8 | T-UI-FIELD-01 | userName Text P1 · datetime-local UTC ISO · lat/lng number · InZone Trong/Ngoài · status Dropdown 3 | **PASS** |
-| D9 | T-UI-PROD-01 | Slideout KEEP · **cấm** Resource · **cấm** full-page | **PASS** |
-| D10 | T-UI-UX-01 | `fa-user-clock` · no `filterMaxWidthPx` · portal | **PASS** |
+## Maestro
 
-## Negative
-
-| # | Case | Expect | Result |
-|---|------|--------|--------|
-| N1 | Lưu thiếu required | Banner + `fieldInvalid` | **PASS** |
-| N2 | Persist `QL.22` | FE throw VN · BE `ArgumentException` QL.22 | **PASS** |
-| N3 | Status ngoài allow-list | Error VN 3 enum | **PASS** |
-| N4 | API/BFF down | `attendanceService` fallback `attendanceStore` | **PASS** (dev · không P0) |
-| N5 | Lookup API empty/fail | `filterSeed` 38 | **PASS** |
-
-## API contract smoke (code)
-
-| API | Method | Path | Result |
-|-----|--------|------|--------|
-| API-01 | GET | `/api/v1/patrol/attendance-logs?search&status&route&onlyOutZone&page&pageSize` | **PASS** |
-| API-02 | GET | `/api/v1/patrol/attendance-logs/{id}` | **PASS** |
-| API-03 | POST/PUT/DELETE | same prefix · validate route/status | **PASS** |
-| BFF-01 | * | `web-bff/api/v1/patrol/attendance-logs` + QS | **PASS** |
-| LKP-01 | GET | `/integration/road-routes/search` | **PASS** (FE client) |
-
-**Cấm** `ERP.*` · `Domains/Master` write · `api/v1/rmms/*` — **PASS**.
+| Flow | Path | Result |
+|------|------|--------|
+| iOS | `qa/e2e/ios.yaml` | **PASS** · login → `tab-field` → **Chấm công** → `#sc-attendance` · A11/A9/A3 |
+| Android | `qa/e2e/android.yaml` | **PASS** · same · P6 / P6-2 |
 
 ## Gaps
 
-| ID | Severity | Note |
-|----|----------|------|
-| GAP-P2-CC-06 / GAP-DEV-CONFIG-PLACEHOLDER-01 | P2 | Cog mở `configHint` dialog · **chưa** `LinCatalogUiSchemaEditorModal` + `useCatalogUiSchema` · **không block** (Review trước đã approve; Kind B cột tĩnh + resize ON) |
-| GAP-P2-PERM-ATTR | P2 | Controller `TODO [RequirePermission]` khi CommonLib ≥1.4.0 — **không block** |
-| Out of pack | P2 | Kind E / Leaflet / Face NFC / Excel / users LKP — **DEFER** |
+| ID | Note | Block complete? |
+|----|------|-----------------|
+| — | none Must | **No** |
 
-## Verdict
+## E2E screenshots
 
-**PASS** · T-QA-01 · T-QA-CRUD-01 · P0 none · P2 config schema editor **không** chặn handoff Review.
+Viewer: `/api/qldb/artifact?id=&rel=qa/scenarios.md` rewrite `screens/{caseId}.png`.
 
-## Build gate (`task_b9c436be`)
+CLI **PASS** = Maestro + PNG + store px only — **not** visual vs demo. QA **Read** A3-CORE + P6-CORE vs prototype (`/review-align-ux-ios-android`). Demo `.row-icon`/`#i-*` missing on live → Must **GAP-MOB-UX-COMP-03** · log `qa/bugs/`. Skip vision → **GAP-MOB-E2E-VIS-01**.
 
-| Check | Result |
-|-------|--------|
-| `yarn typecheck` (Field MFE) | **PASS** (`tsc --noEmit` 0) |
-| `LINM_RUN_DEV_LOCAL_BUNDLE=1 yarn build` | **PASS** (webpack 5.109.2 · 0 errors · size warnings only) |
-| BE Write this role | **n/a** — QA không đụng API |
-| Prior Dev `dotnet` API + Patrol BFF Release | **PASS** (`task_47f14701`) |
+| Case | Store | Result | Evidence |
+|------|-------|--------|----------|
+| A10-BFF | A10 · P11 | **PASS** | — |
+| A11-LAUNCH | A11 | **PASS** | ![A11-LAUNCH](screens/A11-LAUNCH.png) |
+| A9-LOGIN | A9 · P10 | **PASS** | ![A9-LOGIN](screens/A9-LOGIN.png) |
+| A3-CORE | A3 · A11 | **PASS** | ![A3-CORE](screens/A3-CORE.png) |
+| P6-CORE | P6 · P11 | **PASS** | ![P6-CORE](screens/P6-CORE.png) |
+| P6-CORE-2 | P6 | **PASS** | ![P6-CORE-2](screens/P6-CORE-2.png) |
+
+## Notes
+
+- Entry: **không** Home tile — dùng tab field + patrol-home segment **Chấm công**.
+- px: iOS A3 **1320×2868** RGB · Play P6 **1080×1920** RGB.
+- **Cấm** `mfeStdUrl` / `yarn start:std`.
 
 ## Handoff → Review
 
 | Field | Value |
 |-------|-------|
-| Next | `/agent-review` · `review/findings.md` |
-| autoApprove | OFF → Review **pending** (roleOnly QA **không** chạy Review trong task này) |
-| Notes | Kind B Slideout · filter route + onlyOutZone · seed QL.1 · no ERP · P2 configHint |
+| phase_to | `review` |
+| Next slash | `/agent-review-mobile` |
+| store | `qa/store/attendance/` · CAPTURE.md |
+| Chain this turn | **không** (roleOnly=`qa`) |
 
-## Version meta (REQUIRED)
+## Version meta
 
-| Field | Value |
-|-------|-------|
-| skillId | agent-qa |
-| skillVersion | 2026.08.14.5 |
-| schemaVersion | 2 |
-| workflowVersion | 2026.08.14.5 |
-| rulesVersion | 2026.08.14.9 |
-| generatedAt | `2026-08-16T02:20:00.000Z` |
-| versionGate | rechecked (`recheck_new` · SSOT workflow **2026.08.14.5**) |
-| taskId | `task_b9c436be` |
-| contentHashPriorDev | `task_47f14701` |
-| dataAnalySkillVersion | 2026.08.08.20 |
-| poSkillVersion | 2026.08.14.5 |
-| designSkillVersion | 2026.08.14.5 |
-| saSkillVersion | 2026.08.14.5 |
-| teamLeadSkillVersion | 2026.08.14.5 |
-| devSkillVersion | 2026.08.14.5 |
+skillId=agent-qa-mobile · skillVersion=2026.08.19.28 · workflowVersion=2026.08.19.29 · generatedAt=2026-08-19T20:52:23.954Z · taskId=task_e1ae0770

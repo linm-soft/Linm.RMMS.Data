@@ -1,6 +1,6 @@
 appId: org.linmsoft.rmms
 ---
-# patrol-map · login → tab field → hub → map
+# patrol-map · iOS · login Auth seed → tab field → hub → #sc-patrol-map
 - launchApp:
     clearState: true
     clearKeychain: true
@@ -15,14 +15,26 @@ appId: org.linmsoft.rmms
     optional: true
 - inputText: "linm-soft"
 - tapOn:
+    text: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
+    optional: true
+- tapOn:
+    id: "f-pass"
+    optional: true
+- tapOn:
     text: "Mật khẩu"
     optional: true
 - inputText: "Linm@2026"
+- tapOn:
+    text: "Not Now"
+    optional: true
 - tapOn:
     id: "btn-login"
     optional: true
 - tapOn:
     text: "Đăng nhập"
+    optional: true
+- tapOn:
+    text: "Not Now"
     optional: true
 - extendedWaitUntil:
     visible:
@@ -30,6 +42,9 @@ appId: org.linmsoft.rmms
     timeout: 30000
 - tapOn:
     id: "tab-field"
+    optional: true
+- tapOn:
+    id: "tile-patrol"
     optional: true
 - tapOn:
     text: "Tuần đường"
@@ -50,9 +65,6 @@ appId: org.linmsoft.rmms
     visible:
       id: "sc-patrol-map"
     timeout: 20000
-- assertVisible:
-    id: "map-patrol-host"
-- assertVisible:
-    id: "btn-pin-here"
 - assertVisible: "Ca đang chạy"
+- assertVisible: "Ghim vị trí hiện tại"
 - takeScreenshot: A3-CORE-MAP

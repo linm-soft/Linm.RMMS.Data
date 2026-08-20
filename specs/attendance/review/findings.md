@@ -1,115 +1,139 @@
-# Review — attendance
+# Review — Findings — attendance (mobile list · Chấm công)
 
 | Field | Value |
 |-------|-------|
 | feature | `attendance` |
-| this role | `review` · `/agent-review` |
+| title | [Mobile] [Tuần đường] → Chấm công |
+| this role | `review` · `/agent-review-mobile` |
 | status | **done** |
-| review_confirm | **approve** (autopilot · `task_2e0cffe3` · autoApprove=ON) |
-| prior QA | `task_b9c436be` · `qa/scenarios.md` · **confirmed** |
-| mfeStdUrl | `http://localhost:9304/patrol/attendance` |
-| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/patrol/attendance-logs` |
-| bff | `web-bff/api/v1/patrol/attendance-logs` |
-| lookup | `GET /integration/road-routes/search` |
-| autoApprove | ON |
-| updatedAt | `2026-08-16T02:30:00.000Z` |
+| review_confirm | **approve** (autopilot · `task_f617b718` · autoApprove=ON) |
+| packKind | **`list`** (UI hub DES-MOB-ATT) |
+| lane | `mobile` · **cấm** mfeStdUrl / yarn start:std |
+| prior · qa | `qa/scenarios.md` · **confirmed** · e2eQa ON · `ok:true` |
+| prior · dev | `implement/{ios,android}.md` · **confirmed** · builds PASS |
+| prior · sa | `be/solution-discovery.md` · **confirmed** · Step 4b **N/A** |
+| ios | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS` |
+| android | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android` |
+| bff | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Bff` · proxy GET+POST `patrol/attendance-logs` |
+| backend | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.WebService` · **cấm ERP.*** |
+| autoApprove | **ON** |
+| e2eQa | **ON** |
+| updatedAt | `2026-08-19T20:56:00.000Z` |
 
 ## REVIEW-META
 
 | Hash input | Notes |
 |------------|-------|
-| MFE | `AttendanceListPage` + `AttendanceFormSlideout` · `/patrol/attendance` |
-| BE | `api/v1/patrol/attendance-logs` · Patrol BFF QueryString passthrough |
-| skillVersion | 2026.08.14.5 |
-| gap | `crud_formtype` + Kind B list-form-quality |
-| live re-audit | 2026-08-16 after QA `task_b9c436be` |
+| iOS | `AttendanceView` · `AttendanceViewModel` · `AttendanceRepositoryImpl` · `FetchAttendanceHistoryUseCase` · `CreateAttendanceCheckInUseCase` · Keychain |
+| Android | `AttendanceScreen` · `AttendanceViewModel` · `AttendanceRepositoryImpl` · EncryptedSharedPreferences |
+| BFF | catch-all proxy → GET+POST `patrol/attendance-logs` |
+| API | GET history · POST check-in · demo fallback SSOT |
+| QA store | `qa/store/attendance/` A11/A9/A3/P6/P6-2 live PNG |
+| skillVersion | agent-review-mobile **2026.08.19.29** |
 
-## Live re-audit (Field + Patrol API)
+## Security + permission
 
 | Check | Result |
 |-------|--------|
-| 1× `LinPageLayout` kind=catalog · **không** nested `CatalogListShell` | **PASS** |
-| `LinCatalogDataGrid` `resizable: true` | **PASS** |
-| Footer `LinCatalogListPagination` · **cấm** footerPagination / pageSizeBar | **PASS** |
-| flex + skeletonRows=8 · `data-catalog-list-page` | **PASS** |
-| Zone A `fa-user-clock` · title «Chấm công và định vị» · **cấm** Thêm mới trên A | **PASS** |
-| Zone B search + status + SearchInput tuyến + Checkbox `onlyOutZone` · **không** `filterMaxWidthPx` · **không** nút Tìm | **PASS** |
-| Form Slideout `customFooter` · View `readOnly` · **cấm** Resource / full-page · **không** `attendance-btn-save-top` | **PASS** |
-| T-UI-LKP persist `code` · seed 38 có `QL.1` · **cấm** invent `QL.22` trên seed | **PASS** |
-| FE BASE `/patrol/attendance-logs` · **cấm** `ERP.*` · **cấm** `api/v1/rmms/*` | **PASS** |
-| BFF QueryString passthrough · no business logic | **PASS** |
-| DOMAIN-MAP `attendance` → Patrol | **PASS** |
-| Route `index.tsx` `patrol/attendance` | **PASS** |
+| Token store iOS Keychain · Android EncryptedSharedPreferences | **PASS** |
+| Interceptor Bearer + `X-Company-Id` | **PASS** (`ApiClient` / `AuthInterceptor`) |
+| GPS Info.plist `NSLocationWhenInUseUsageDescription` · Manifest FINE/COARSE | **PASS** (deny → toast · no POST) |
+| `alert` / `UIAlert` / `AlertDialog` trên Attendance | **PASS** — toast only |
+| Invent report/zones / `mfeStdUrl` / watermark | **PASS** — không ship |
+| IDOR `{id}` | **N/A** — list hub · no detail by id |
+
+## DTO parity (iOS = Android = BFF)
+
+| Field | Disposition |
+|-------|-------------|
+| GET `patrol/attendance-logs` → day aggregate | **OK** |
+| POST body `userName` · `route` QL.1 · lat/lng · `inZone` · `status` | **OK** dual |
+| Demo fallback `AttendanceCopy.demoDays` / hero | **OK** — CN/T7/T6 SSOT |
+| Hero checked-in after POST | **OK** |
+
+## UI align (vision · `/review-align-ux-ios-android`)
+
+| Zone | Result |
+|------|--------|
+| A3-CORE vs demo `#sc-attendance` | **PASS** — title · seg · hero · 7d · badges · tab field active |
+| P6-CORE-2 vs demo | **PASS** — same zones dual |
+| P6-CORE | Home entry context (route_a) · feature CORE = P6-CORE-2 — **OK** store pack |
+| Copy **Chấm công** · **Chấm vào** · **Báo cáo** · day badges | **PASS** |
+| Hero gradient | live = TokenFile `headerStart`/`headerEnd` blue · dual same · HTML green = prototype chrome — **Accept** (TokenFile SSOT) |
+| Toast Báo cáo / day detail · cấm push sibling | **PASS** |
+| Must align / demo-parity / COLOR / COMP | **0** open |
+
+## Store gate
+
+| Check | Result |
+|-------|--------|
+| Store PNG A11/A9/A3 1320×2868 RGB · P6/P6-2 1080×1920 RGB | **PASS** |
+| `PrivacyInfo.xcprivacy` | **Accept** P2 → `/review-app-submit` |
+| A4-IPAD | **DEFER** family `1` · `GAP-SUBMIT-IMG-08` N/A Phase 1 |
+
+AskQuestion (autoApprove=ON): `review_confirm=approve` · `align_confirm=approve` · `post_review=skip`.
 
 ## Findings
 
 | ID | Area | Sev | Finding | Disposition |
 |----|------|-----|---------|-------------|
-| R-01 | UI SSOT | — | 1× LinPageLayout · grid resize · LinCatalogListPagination | **OK** |
-| R-02 | Security | P2 | `[RequirePermission]` stub CommonLib ≥1.4.0 — cùng pattern Patrol | **Accept** (GAP-P2-PERM-ATTR) |
-| R-03 | Query | — | `route` · `onlyOutZone` · GPS search | **OK** |
-| R-04 | Path | — | Domain Patrol only · no ERP.* | **OK** |
-| R-05 | Persist | — | Flat scalars · route code · UTC check-in | **OK** |
-| R-06 | Scope | P2 | Kind E map / Face NFC / Excel / users LKP **DEFER** | **Accept** |
-| R-07 | FormType ACT | — | C/E/V/Copy/Delete + footer-only | **OK** |
-| R-08 | T-BE-CRUD-01 | — | GET/POST/PUT/DELETE + VAL route/status | **OK** |
-| R-09 | LKP/PROD/UX | — | SearchInput master · seed QL.1 · no filterMaxWidth | **OK** |
-| R-10 | QA | — | T-QA-01 · T-QA-CRUD-01 **PASS** (`task_b9c436be`) | **OK** |
-| R-11 | Config | P2 | Cog = `configHint` · chưa `LinCatalogUiSchemaEditorModal` | **Accept** (GAP-P2-CC-06 / GAP-DEV-CONFIG-PLACEHOLDER-01) — QA không block Review |
+| R-01 | Security | — | Keychain / Encrypted · Bearer · GPS gate | **OK** |
+| R-02 | API | — | Chỉ GET+POST attendance-logs · Step 4b N/A · **cấm ERP.*** | **OK** |
+| R-03 | DTO | — | Dual parity · demo SSOT | **OK** |
+| R-04 | UX | P2 | Report / day-detail toast-only P1 | **Accept** |
+| R-05 | Align | — | A3 + P6-2 vs demo zone parity · Must **0** | **OK** |
+| R-06 | Color | P2 | HTML hero green vs kit/TokenFile blue | **Accept** (TokenFile) |
+| R-07 | QA | — | e2eQa ON · Maestro · store live | **OK** |
+| R-08 | Store | P2 | PrivacyInfo / Data safety | **Accept** |
+| R-09 | Scope | — | sibling report/day **pending_confirm** | **Defer** |
+| R-10 | Step 4b | — | T-BE **N/A** | **OK** |
 
 ## Task gate
 
 | Task | Result |
 |------|--------|
-| T-UI-LIST-01 | PASS |
-| T-UI-FORM-01 | PASS |
-| T-UI-ACT-01 | PASS |
-| T-BE-CRUD-01 | PASS |
-| T-UI-LKP-01 | PASS |
-| T-UI-FIELD-01 | PASS |
-| T-UI-PROD-01 | PASS |
-| T-UI-UX-01 | PASS |
-| T-BE-Q-01 | PASS |
-| T-BE-VAL-01 | PASS |
-| T-BFF-01 | PASS |
-| T-FE-API-01 | PASS |
-| T-QA-01 | PASS |
-| T-QA-CRUD-01 | PASS |
+| T-IOS-ATTENDANCE | PASS |
+| T-AND-ATTENDANCE | PASS |
+| T-BE-* | **n/a** |
+| T-QA | PASS (`ok:true`) |
+| T-REVIEW-SEC / DTO / ALIGN | PASS · Must align = **0** |
 
-## Build gate (`task_2e0cffe3`)
+## VERIFY GATE (`task_f617b718`)
 
-| Check | Result |
-|-------|--------|
-| `yarn typecheck` (Field MFE) | **PASS** (`tsc --noEmit` 0) |
-| `LINM_RUN_DEV_LOCAL_BUNDLE=1 yarn build` | **PASS** (webpack 5.109.2 · 0 errors · size warnings only) |
-| BE write this role | **n/a** — Review không đụng API/DTO/migration |
-| Prior Dev `dotnet` API + Patrol BFF | **PASS** (`task_47f14701`) |
+| Gate | Result |
+|------|--------|
+| iOS `xcodegen` + `xcodebuild` scheme **LinmRmms** dest **iPhone 17 Pro** | **PASS** · BUILD SUCCEEDED |
+| Android `./gradlew :app:assembleDebug` | **PASS** · BUILD SUCCESSFUL |
+| Mobile.Bff `dotnet build` | **PASS** · 0 Warning · 0 Error |
+| yarn e2e-qa-mobile | **PASS** (prior QA `task_e1ae0770` · `ok:true`) |
+| Step 4b BE align | **N/A** — reuse GET+POST |
 
 ## Verdict
 
-CRUD + Kind B list-form-quality gap closed trên live Field + Patrol API/BFF. P2 configHint và RequirePermission **không** chặn closeout. Build gates PASS. **Approve** (autopilot).
+Chấm công hub dual-native: security + DTO + UI align Must **0** · VERIFY GATE iOS/Android/BFF PASS · Step 4b N/A · sibling toast-only Accept. **Approve** (autopilot). Pipeline **complete**.
 
 ## Handoff
 
-Pipeline **complete** · không role sau Review · STATUS `completed`.
+| Field | Value |
+|-------|--------|
+| phase_to | `done` |
+| post_review | **skip** |
+| Next | `/edit-mobile-feature` — **cấm** re-run full pipeline |
+| Sibling | `attendance-report` · `attendance-day-detail` · **pending_confirm** |
 
 ## Version meta (REQUIRED)
 
 | Field | Value |
 |-------|-------|
-| skillId | agent-review |
-| skillVersion | 2026.08.14.5 |
-| schemaVersion | 2 |
-| workflowVersion | 2026.08.14.5 |
-| rulesVersion | 2026.08.14.9 |
-| generatedAt | 2026-08-16T02:30:00.000Z |
-| versionGate | rechecked (`recheck_new` · SSOT workflow **2026.08.14.5**) |
-| taskId | `task_2e0cffe3` |
-| contentHashPriorQa | `task_b9c436be` |
-| dataAnalySkillVersion | 2026.08.08.20 |
-| poSkillVersion | 2026.08.14.5 |
-| designSkillVersion | 2026.08.14.5 |
-| saSkillVersion | 2026.08.14.5 |
-| teamLeadSkillVersion | 2026.08.14.5 |
-| devSkillVersion | 2026.08.14.5 |
-| qaSkillVersion | 2026.08.14.5 |
+| skillId | agent-review-mobile |
+| skillVersion | 2026.08.19.29 |
+| schemaVersion | 1 |
+| workflowVersion | 2026.08.19.29 |
+| rulesVersion | 2026.08.19.34 |
+| generatedAt | 2026-08-19T20:56:00.000Z |
+| versionGate | rechecked |
+| taskId | `task_f617b718` |
+| contentHash | sha256:attendance-mobile-hub-20260819 |
+| bffContentHash | sha256:attendance-mobile-bff-20260819 |
+
+<!-- Version meta: skillId=agent-review-mobile skillVersion=2026.08.19.29 schemaVersion=1 workflowVersion=2026.08.19.29 rulesVersion=2026.08.19.34 versionGate=rechecked -->

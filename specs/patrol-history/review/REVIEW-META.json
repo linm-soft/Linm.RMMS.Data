@@ -1,0 +1,26 @@
+{
+  "feature": "patrol-history",
+  "status": "done",
+  "review_confirm": "approve",
+  "align_confirm": "approve",
+  "taskId": "task_f42bd832",
+  "skillId": "agent-review-mobile",
+  "skillVersion": "2026.08.19.29",
+  "workflowVersion": "2026.08.19.29",
+  "rulesVersion": "2026.08.19.34",
+  "schemaVersion": "1",
+  "versionGate": "rechecked",
+  "autoApprove": true,
+  "post_review": "skip",
+  "alignMustOpen": 0,
+  "verifyGate": {
+    "ios": "PASS",
+    "android": "PASS",
+    "bff": "PASS",
+    "step4b": "N/A",
+    "e2eQa": "PASS"
+  },
+  "contentHash": "sha256:patrol-history-control-hint-20260820",
+  "bffContentHash": "sha256:patrol-history-mobile-bff-20260820",
+  "updatedAt": "2026-08-20T05:52:00.000Z"
+}

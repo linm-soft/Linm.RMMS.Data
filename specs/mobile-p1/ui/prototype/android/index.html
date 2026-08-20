@@ -802,23 +802,29 @@
 
         <div class="screen" id="sc-patrol-history" data-des-id="DES-MOB-PAT-LIST" data-tab="field">
           <div class="top-bar solid">
-            <button class="icon-btn" onclick="go('patrol-home')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg></button>
-            <div class="nav-title">Lịch sử ca</div>
+            <button class="icon-btn" style="width:auto;padding:0 8px;font-size:15px;font-weight:600;color:var(--md-primary);gap:4px" onclick="go('patrol-home')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg> Tuần đường</button>
+            <div class="nav-title"></div>
+            <button class="icon-btn" style="width:auto;padding:0 12px;font-size:15px;font-weight:600;color:var(--md-primary)" onclick="toast('Lọc')">Lọc</button>
           </div>
+          <div class="large-title" style="font-size:28px;font-weight:700;padding:8px 16px">Lịch sử ca</div>
           <div class="search"><svg class="ic" viewBox="0 0 24 24"><use href="#i-search"/></svg><span>Tìm mã phiên, tuyến…</span></div>
           <div class="content" style="padding-top:0">
             <div class="card-group">
-              <div class="row" onclick="go('patrol-detail')">
-                <div class="row-body"><div class="row-title">PAT-20260810-0014</div><div class="row-sub">QL.1 · 2/3 điểm</div></div>
+              <div class="row no-icon" onclick="toast('Chi tiết phiên')">
+                <div class="row-body"><div class="row-title">PAT-20260810-0014</div><div class="row-sub">QL.1 · Tuần đường · 2/3 điểm</div></div>
                 <span class="badge blue">Đang tuần</span>
               </div>
-              <div class="row">
-                <div class="row-body"><div class="row-title">PAT-20260809-0021</div><div class="row-sub">Thiếu điểm tuần</div></div>
+              <div class="row no-icon" onclick="toast('Chi tiết phiên')">
+                <div class="row-body"><div class="row-title">PAT-20260810-0009</div><div class="row-sub">HCM · Tuần kiểm · 100%</div></div>
+                <span class="badge green">Hoàn thành</span>
+              </div>
+              <div class="row no-icon" onclick="toast('Chi tiết phiên')">
+                <div class="row-body"><div class="row-title">PAT-20260809-0021</div><div class="row-sub">QL.1 · Thiếu điểm tuần</div></div>
                 <span class="badge red">Bỏ sót</span>
               </div>
-              <div class="row">
-                <div class="row-body"><div class="row-title">PAT-20260809-0015</div><div class="row-sub">QL.1 · Hoàn thành</div></div>
-                <span class="badge green">Xong</span>
+              <div class="row no-icon" onclick="toast('Chi tiết phiên')">
+                <div class="row-body"><div class="row-title">PAT-20260809-0015</div><div class="row-sub">Chờ đồng bộ · 1 điểm tuần</div></div>
+                <span class="badge orange">Mất sóng</span>
               </div>
             </div>
           </div>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RMMS · Lịch sử ca · Android</title>
+  <style>
+    :root {
+      --primary: #0C84C0; --green: #3CB448; --red: #B3261E; --orange: #E65100;
+      --surface: #FFFBFE; --card: #fff; --label: #1C1B1F; --muted: #79747E;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Roboto", "Google Sans", system-ui, sans-serif;
+      background: #121212; color: var(--label);
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    }
+    .phone {
+      width: 412px; height: 915px; background: var(--surface);
+      border-radius: 28px; overflow: hidden; position: relative;
+      box-shadow: 0 20px 60px rgba(0,0,0,.45);
+      display: flex; flex-direction: column;
+    }
+    .top-bar {
+      display: flex; align-items: center; min-height: 56px;
+      padding: 36px 4px 0; background: var(--surface);
+    }
+    .nav-btn {
+      border: 0; background: transparent; color: var(--primary);
+      min-height: 48px; padding: 0 8px; cursor: pointer; font-family: inherit;
+      font-size: 15px; font-weight: 600; display: inline-flex; align-items: center; gap: 4px;
+    }
+    .nav-spacer { flex: 1; }
+    .large-title {
+      font-size: 28px; font-weight: 700;
+      padding: 8px 16px 8px; color: var(--label);
+    }
+    .search {
+      margin: 0 16px 12px; background: rgba(121,116,126,.12); border-radius: 28px;
+      padding: 12px 16px; display: flex; align-items: center; gap: 8px;
+      color: var(--muted); font-size: 16px;
+    }
+    .search span { color: #938F99; flex: 1; }
+    .content { flex: 1; overflow: auto; padding: 0 0 88px; }
+    .card-group {
+      margin: 0 16px 16px; background: var(--card); border-radius: 12px; overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,.08);
+    }
+    .row {
+      display: flex; align-items: center; gap: 12px; padding: 14px;
+      border-bottom: 1px solid rgba(0,0,0,.08); cursor: pointer; min-height: 56px;
+    }
+    .row:last-child { border-bottom: 0; }
+    .row-body { flex: 1; min-width: 0; }
+    .row-title { font-size: 16px; font-weight: 600; }
+    .row-sub { font-size: 13px; color: var(--muted); margin-top: 2px; }
+    .badge {
+      font-size: 12px; font-weight: 650; padding: 4px 8px; border-radius: 8px; flex-shrink: 0;
+    }
+    .badge.blue { background: rgba(12,132,192,.15); color: var(--primary); }
+    .badge.green { background: rgba(60,180,72,.18); color: #1B5E20; }
+    .badge.red { background: rgba(179,38,30,.12); color: var(--red); }
+    .badge.orange { background: rgba(230,81,0,.12); color: var(--orange); }
+    .ic {
+      width: 1em; height: 1em; display: inline-block; vertical-align: -0.125em;
+      fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round;
+    }
+    .ic-md { font-size: 20px; }
+    .ic-sm { font-size: 16px; }
+    .sprites { position: absolute; width: 0; height: 0; overflow: hidden; }
+    .tab {
+      position: absolute; left: 0; right: 0; bottom: 0; height: 80px;
+      background: var(--card); border-top: 1px solid #E7E0EC;
+      display: flex; padding: 8px 0 20px;
+    }
+    .tab b {
+      flex: 1; text-align: center; font-size: 13px; font-weight: 500;
+      color: var(--muted); display: flex; flex-direction: column; align-items: center; gap: 4px;
+    }
+    .tab b.on { color: var(--primary); }
+    .tab .tg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+    .toast {
+      position: absolute; left: 50%; bottom: 96px; transform: translateX(-50%) translateY(16px);
+      background: #313033; color: #fff; font-size: 14px; font-weight: 500;
+      padding: 12px 16px; border-radius: 8px; z-index: 40; opacity: 0; pointer-events: none;
+      max-width: calc(100% - 32px); text-align: center; transition: .25s ease;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .gesture {
+      position: absolute; left: 50%; bottom: 8px; transform: translateX(-50%);
+      width: 108px; height: 4px; background: #1C1B1F; border-radius: 2px; opacity: .28;
+    }
+    .note {
+      position: absolute; top: 10px; left: 0; right: 0; text-align: center;
+      color: #888; font-size: 11px; pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <svg class="sprites" aria-hidden="true">
+    <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16.5 16.5 21 21"/></symbol>
+    <symbol id="i-house" viewBox="0 0 24 24"><path d="M4 10.5L12 4l8 6.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1v-9.5z"/></symbol>
+    <symbol id="i-mappin" viewBox="0 0 24 24"><path d="M12 21s7-5.2 7-11a7 7 0 1 0-14 0c0 5.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.2"/></symbol>
+    <symbol id="i-warning" viewBox="0 0 24 24"><path d="M12 3l9 16H3L12 3z"/><path d="M12 10v4M12 17h.01"/></symbol>
+    <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.5 6.5a4 4 0 0 0-5.6 5.6L4 17v3h3l4.9-4.9a4 4 0 0 0 5.6-5.6L15 12l-2.5-2.5 2-3z"/></symbol>
+    <symbol id="i-person" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c1.5-3.5 4-5 7-5s5.5 1.5 7 5"/></symbol>
+  </svg>
+
+  <div class="note">DES-MOB-PAT-LIST · Android 412×915 · patrol-history</div>
+  <div class="phone">
+    <div id="sc-patrol-history" data-des-id="DES-MOB-PAT-LIST" data-tab="field">
+      <div class="top-bar" data-des-id="DES-MOB-PAT-LIST-NAV">
+        <button class="nav-btn" type="button" id="btn-hist-back" onclick="toast('Quay Tuần đường')">
+          <svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg> Tuần đường
+        </button>
+        <div class="nav-spacer"></div>
+        <button class="nav-btn" type="button" id="btn-hist-filter" onclick="toast('Lọc')">Lọc</button>
+      </div>
+      <div class="large-title" id="hist-large-title">Lịch sử ca</div>
+      <div class="search" id="hist-search" data-des-id="DES-MOB-PAT-LIST-SEARCH">
+        <svg class="ic ic-md" viewBox="0 0 24 24"><use href="#i-search"/></svg>
+        <span>Tìm mã phiên, tuyến…</span>
+      </div>
+      <div class="content" data-des-id="DES-MOB-PAT-LIST-ROWS">
+        <div class="card-group">
+          <div class="row no-icon" id="row-hist-1" onclick="toast('Chi tiết phiên')">
+            <div class="row-body">
+              <div class="row-title">PAT-20260810-0014</div>
+              <div class="row-sub">QL.1 · Tuần đường · 2/3 điểm</div>
+            </div>
+            <span class="badge blue">Đang tuần</span>
+          </div>
+          <div class="row no-icon" id="row-hist-2" onclick="toast('Chi tiết phiên')">
+            <div class="row-body">
+              <div class="row-title">PAT-20260810-0009</div>
+              <div class="row-sub">HCM · Tuần kiểm · 100%</div>
+            </div>
+            <span class="badge green">Hoàn thành</span>
+          </div>
+          <div class="row no-icon" id="row-hist-3" onclick="toast('Chi tiết phiên')">
+            <div class="row-body">
+              <div class="row-title">PAT-20260809-0021</div>
+              <div class="row-sub">QL.1 · Thiếu điểm tuần</div>
+            </div>
+            <span class="badge red">Bỏ sót</span>
+          </div>
+          <div class="row no-icon" id="row-hist-4" onclick="toast('Chi tiết phiên')">
+            <div class="row-body">
+              <div class="row-title">PAT-20260809-0015</div>
+              <div class="row-sub">Chờ đồng bộ · 1 điểm tuần</div>
+            </div>
+            <span class="badge orange">Mất sóng</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tab" data-des-id="DES-MOB-TABBAR" aria-label="Tab 5">
+      <b><svg class="tg" viewBox="0 0 24 24"><use href="#i-house"/></svg>Trang Chủ</b>
+      <b class="on"><svg class="tg" viewBox="0 0 24 24"><use href="#i-mappin"/></svg>Tuần đường</b>
+      <b><svg class="tg" viewBox="0 0 24 24"><use href="#i-warning"/></svg>Vấn đề</b>
+      <b><svg class="tg" viewBox="0 0 24 24"><use href="#i-wrench"/></svg>Công việc</b>
+      <b><svg class="tg" viewBox="0 0 24 24"><use href="#i-person"/></svg>Tôi</b>
+    </div>
+    <div class="toast" id="toast" role="status"></div>
+    <div class="gesture"></div>
+  </div>
+  <script>
+    function toast(msg) {
+      var el = document.getElementById('toast');
+      el.textContent = msg;
+      el.classList.add('show');
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(function () { el.classList.remove('show'); }, 2200);
+    }
+  </script>
+</body>
+</html>
