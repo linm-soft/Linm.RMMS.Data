@@ -115,7 +115,7 @@ IA lock (design §2 / ux-analy §1): `(auth) Login → Tab 5 · Tuần đường
 | Active | `PatrolDtoMapper.active(from:)` filter «Đang tuần» |
 | nextTitle | `active?.routeKm` non-empty else `PatrolMapOverlay.nextDemoTitle` |
 | Fail / offline | demo overlay SSOT · map **vẫn mở** · **cấm** block · **cấm** native alert |
-| Overlay geometry | `PatrolMapOverlay` client demo · **cấm** tracks API P1 |
+| Overlay geometry | Waypoints `PatrolMapOverlay` · **paint OSRM** `routeAlongStreets` · pin `projectToPath` / `snapPointToStreet` · **cấm** polyline thẳng · **cấm** tracks API P1 |
 
 ### Router / shell
 
@@ -194,7 +194,7 @@ Query: `search` · `status` · `route` · `page` (default 1) · `pageSize` (defa
 | Back **Tuần đường** | pop `patrol-home` |
 | Appear | GET sessions · bind next · overlay demo |
 | Ghi điểm tuần (nav + card) | toast **Ghi điểm tuần** · **cấm** sheet |
-| Ghim vị trí hiện tại | loc live + zoom + pin here · toast ok · deny `patrol.map.locDeny` · timeout `patrol.map.locTimeout` |
+| Ghim vị trí hiện tại | loc live + **snap tim đường** + zoom + pin here tip neo đáy · toast ok · deny `patrol.map.locDeny` · timeout `patrol.map.locTimeout` |
 | Basemap chips | switch tile/style · cùng slug |
 | Toàn tuyến | fit overlay bounds |
 | Legend chips | isolate filter client-side |
@@ -205,7 +205,8 @@ Query: `search` · `status` · `route` · `page` (default 1) · `pageSize` (defa
 ## Out of scope (this pack)
 
 - Check-in sheet / GPS form (`GAP-MOB-ACT-02`)
-- POST tracks · GET coverage · GIS assets · OSRM live network
+- POST tracks · GET coverage · GIS assets · invent `GET patrol-map`
+- Polyline thẳng seed / pin raw lệch đường (**GAP-MAP-OSRM-ROUTE** / **GAP-MAP-OSRM-SNAP**)
 - Invent `GET patrol-map` / `PatrolMapController` / Kind E endpoints P1
 - WebView HTML Leaflet · fake lat/lng pin · revert pin toast-only
 - Start sibling check-in `pending_confirm`

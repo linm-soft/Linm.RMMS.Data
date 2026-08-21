@@ -3,8 +3,8 @@
 | Field | Value |
 |-------|-------|
 | feature | `patrol-map` |
-| phase | `qa` |
-| status | `await_confirm` |
+| phase | `dev` |
+| status | `pending` |
 | packKind | `map` (**PO confirm**) |
 | changeScope | `new_page` |
 | stack | `native_dual` |
@@ -19,11 +19,11 @@
 | po | `specs/patrol-map/po/requirement.md` |
 | design | `specs/patrol-map/ui/design.md` · `ui/ux-analy.md` · `ui/review/demo-parity.md` |
 | sa | `specs/patrol-map/be/solution-discovery.md` |
-| taskId | `task_8f38a9c6` |
+| taskId | `task_237ed22a` |
 | contentHash | `sha256:patrol-map-control-hint-20260820` |
 | bffContentHash | `sha256:patrol-map-mobile-bff-20260820` |
-| verifyGate | iOS `xcodegen` + `xcodebuild` dest **iPhone 17 Pro** **PASS** ✓ · Android `assembleDebug` **PASS** ✓ · BFF `dotnet build` **PASS** ✓ · Step 4b **N/A** · Dev `task_8f38a9c6` |
-| updatedAt | `2026-08-19T20:21:40.981Z` |
+| verifyGate | iOS `xcodegen` + `xcodebuild` dest **iPhone 17 Pro** **PASS** ✓ · Android `assembleDebug` **PASS** ✓ · OMS pin+tim đường `/edit-mobile-feature` `2026-08-21` |
+| updatedAt | `2026-08-21T10:40:00.000Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -39,9 +39,9 @@
 | 2.1 | design | ui/design.md · ui/ux-analy.md · prototype dual · ui/review/demo-parity.md | **confirmed** |
 | 2.2 | sa | be/solution-discovery.md | **confirmed** |
 | 3 | team-lead | task/patrol-map.md | **confirmed** |
-| 4 | dev | implement/ios.md · implement/android.md | **confirmed** |
-| 5 | qa | qa/scenarios.md · qa/e2e/*.yaml | **blocked** |
-| 6 | review | review/findings.md | **pending** |
+| 4 | dev | implement/ios.md · implement/android.md | pending |
+| 5 | qa | qa/scenarios.md · qa/e2e/*.yaml | pending |
+| 6 | review | review/findings.md | pending |
 ## Confirms
 
 | Gate | Value |
@@ -70,13 +70,14 @@
 | task_d5dd35ef | patrol-map | sa | design | **completed** | `/agent-sa-mobile` · roleOnly · autoApprove=ON · solution_confirm approve · VERIFY GATE PASS |
 | task_39458a9b | patrol-map | team_lead | sa | **completed** | `/agent-tl-mobile` · roleOnly · autoApprove=ON · route_a · VERIFY GATE PASS |
 | task_8f38a9c6 | patrol-map | dev | team_lead | **completed** | `/agent-dev-ios` + `/agent-dev-android` · bind nextTitle active Route · VERIFY GATE PASS |
+| task_237ed22a | patrol-map | dev | task_fec2a2a5 | **pending** | qaFailFix=1 · qaFixPhase=plan · `patrol-map-qa-fix-plan.md` · from task_fec2a2a5 |
 
 ## Blockers / open questions
 
 - Sibling check-in sheet — **pending_confirm** · P1 toast only trên map
 - Kind E tracks/coverage — **P2** · overlay demo SSOT P1
 - Step 4b — **N/A**
-- **EDIT LOCK** pin-here = loc + zoom + pin here · chips wrap · **cấm** revert toast-only (`GAP-MOB-EDIT-01`)
+- **EDIT LOCK** pin-here = loc + **snap tim đường** + zoom + pin tip neo đáy · OSRM corridor/track · chips wrap · **cấm** revert polyline thẳng / pin raw (`GAP-MOB-EDIT-01` · `GAP-MAP-OSRM-ROUTE` · `GAP-MAP-OSRM-SNAP`)
 
 ## Links
 

@@ -87,3 +87,10 @@ Auth: JWT `company_id` · `[RequirePermission]`.
 - [ ] User form: HĐ + tuyến ⊆ HĐ
 - [ ] Job: hết hạn → Inactive + revoke token
 - [ ] Gia hạn HĐ → Active lại (trừ ManualHold)
+
+## Implement tracking
+
+| lane | phase | status | updatedAt |
+|------|-------|--------|-----------|
+| web | — | — | — |
+| mobile | `done` | `done` | `2026-08-21T03:28:00.000Z` |

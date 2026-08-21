@@ -14,7 +14,8 @@ Tuần đường (selected) → #sc-patrol-home
   push → #sc-patrol-map DES-MOB-PAT-MAP   ← this pack
     ← back → pop patrol-home
     → Ghi điểm tuần = toast P1 · cấm sheet (GAP-MOB-ACT-02)
-    → Ghim = loc live + zoom + pin here · toast · deny copy · cấm fake lat/lng
+    → Ghim = loc live + **snap tim đường** + zoom + pin here tip neo đáy · toast · deny copy · cấm fake lat/lng
+    → Hành trình = OSRM `routeAlongStreets` (corridor + track) · **cấm** nối thẳng waypoint
     → basemap ×4 · legend ×4 wrap (flex-wrap) = filter cùng slug
 ```
 
@@ -34,9 +35,9 @@ Tuần đường (selected) → #sc-patrol-home
 | Zone | Demo | Map | SwiftUI | Compose |
 |------|------|-----|---------|---------|
 | Nav | Ca đang chạy · Ghi điểm tuần | A `.nav-bar` / `.top-bar` | `LinmTopBar` | same |
-| Map | Leaflet live demo | A `#map-patrol-host` / `#map-patrol` | MapKit `Map` | osmdroid `MapView` |
+| Map | Leaflet live + OSRM | A `#map-patrol-host` / `#map-patrol` | MapKit `Map` + OSRM path | osmdroid `MapView` + OSRM path |
 | Next | Điểm tiếp theo · OSRM · Km… | A `.map-next-card` | overlay + `LinmPrimaryButton` | same |
-| Pin | Ghim vị trí hiện tại | A `#btn-pin-here` `#i-mappin` | `LinmPrimaryButton` + `LinmMapPinGlyph` | same · **live loc** zoom + pin `.here` |
+| Pin | Ghim vị trí hiện tại | A `#btn-pin-here` `#i-mappin` | `LinmPrimaryButton` + `LinmMapPinGlyph` | same · **live loc** → snap/project · pin `.here` tip neo đáy |
 | Bar | Đường Phố Vệ tinh Toàn tuyến | A `#mb-osm`…`#mb-fit` wrap | `ChipWrap` + `LinmChip` | `FlowRow` + `LinmChip` |
 | Legend | 4 isolate | A `#lg-all`…`#lg-next` wrap | `ChipWrap` + `LinmChip` | `FlowRow` + `LinmChip` |
 | Tab | Tab 5 field | shell | `LinmTabBar` | same |
@@ -68,7 +69,7 @@ Pict: `#i-mappin` pin · `#i-chevron-left` back — **cấm** invent.
 
 ## 8. Dual parity
 
-Cùng copy zones · cùng `#i-mappin` · cùng 4 basemap + 4 legend wrap · cùng pin-here loc+zoom. **Cấm** worker revert toast-only (**GAP-MOB-EDIT-01**).  
+Cùng copy zones · cùng `#i-mappin` · cùng 4 basemap + 4 legend wrap · cùng pin-here loc+**snap**+zoom · cùng OSRM tim đường. **Cấm** worker revert polyline thẳng / pin raw (**GAP-MOB-EDIT-01** · **GAP-MAP-OSRM-ROUTE** · **GAP-MAP-OSRM-SNAP**).  
 DEFER platform-OK: iOS MapKit vs Android OSM · iOS back text vs Android icon · pin done/next hex platform tint.
 
 Must: `/review-demo-design-mobile` → `ui/review/demo-parity.md`.

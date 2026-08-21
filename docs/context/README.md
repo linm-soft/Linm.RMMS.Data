@@ -15,6 +15,7 @@
 | [**features/login.md**](features/login.md) | **Login Platform.Authentication + TK theo HĐ + job Active/Inactive** | PM, BA, Dev, Security |
 | [**plan/login-contract-lifecycle/**](../plan/login-contract-lifecycle/SPEC.md) | Spec + plan vòng đời tài khoản theo hạn HĐ · tuyến km | PM, Architect — **approved** 2026-08-15 |
 | [**features/README.md**](features/README.md) | **Feature backlog + context (design/API/DB)** — `/gen-tinh-nang-demo` | PM, Dev, khách chốt UI |
+| [**implement-status.json**](implement-status.json) | **Pipeline implement theo feature+lane** (git) — scan/enqueue skip cùng status khi đổi máy | AutoCode scan · Dev |
 | [**20-ORG-STRUCTURE-DRVN.md**](20-ORG-STRUCTURE-DRVN.md) | **SSOT cơ cấu tổ chức Cục ĐB** — Master catalog `org-unit` · SearchInput | Admin, BA, Dev |
 | [**seed/org-unit-seed.json**](seed/org-unit-seed.json) | **Seed tree 60 nodes** (code/parent/kind) — AI Design/SA ref | Design, SA, Dev |
 | [**features/master.md**](features/master.md) | Hub Master MFE — org-unit · road-route · asset-type · partner-unit (**no demo**) | PM, Dev |

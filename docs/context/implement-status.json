@@ -1,0 +1,510 @@
+{
+  "version": 1,
+  "updatedAt": "2026-08-21T04:00:55.288Z",
+  "features": {
+    "ai-asset-detect": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-21T03:31:41.240Z",
+        "statusRel": "specs/ai-asset-detect/STATUS.md"
+      }
+    },
+    "ai-vision": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-21T03:31:41.240Z",
+        "statusRel": "specs/ai-vision/STATUS.md"
+      }
+    },
+    "asset-hub": {
+      "mobile": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-21T03:31:41.241Z",
+        "statusRel": "specs/asset-hub/STATUS.md"
+      }
+    },
+    "asset-kcht-32": {
+      "web": {
+        "phase": "design",
+        "status": "await_confirm",
+        "updatedAt": "2026-08-21T03:31:41.241Z",
+        "statusRel": "specs/asset-kcht-32/STATUS.md"
+      }
+    },
+    "asset-type": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-21T03:31:41.241Z",
+        "statusRel": "specs/asset-type/STATUS.md"
+      }
+    },
+    "attendance": {
+      "mobile": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-21T03:31:41.242Z",
+        "statusRel": "specs/attendance/STATUS.md"
+      }
+    },
+    "camera-connect": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-21T03:31:41.242Z",
+        "statusRel": "specs/camera-connect/STATUS.md"
+      }
+    },
+    "citizen": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-21T03:31:41.242Z",
+        "statusRel": "specs/citizen/STATUS.md"
+      }
+    },
+    "contract": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-21T03:31:41.243Z",
+        "statusRel": "specs/contract/STATUS.md"
+      }
+    },
+    "copilot": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-21T03:31:41.243Z",
+        "statusRel": "specs/copilot/STATUS.md"
+      }
+    },
+    "csdl-so-sach": {
+      "web": {
+        "phase": "data_analy",
+        "status": "blocked",
+        "updatedAt": "2026-08-21T03:31:41.243Z",
+        "statusRel": "specs/csdl-so-sach/STATUS.md"
+      }
+    },
+    "drone": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-21T03:31:41.243Z",
+        "statusRel": "specs/drone/STATUS.md"
+      }
+    },
+    "estimate": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-21T03:31:41.244Z",
+        "statusRel": "specs/estimate/STATUS.md"
+      }
+    },
+    "gis": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-21T03:31:41.244Z",
+        "statusRel": "specs/gis/STATUS.md"
+      }
+    },
+    "gis-draw-google": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-21T03:31:41.245Z",
+        "statusRel": "specs/gis-draw-google/STATUS.md"
+      }
+    },
+    "gis-draw-live": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-21T03:31:41.245Z",
+        "statusRel": "specs/gis-draw-live/STATUS.md"
+      }
+    },
+    "home": {
+      "mobile": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-21T03:31:41.246Z",
+        "statusRel": "specs/home/STATUS.md"
+      }
+    },
+    "incident": {
+      "web": {
+        "phase": "data_analy",
+        "status": "blocked",
+        "updatedAt": "2026-08-21T03:31:41.246Z",
+        "statusRel": "specs/incident/STATUS.md"
+      }
+    },
+    "integration": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-21T03:31:41.247Z",
+        "statusRel": "specs/integration/STATUS.md"
+      }
+    },
+    "inventory": {
+      "web": {
+        "phase": "dev",
+        "status": "blocked",
+        "updatedAt": "2026-08-21T03:31:41.247Z",
+        "statusRel": "specs/inventory/STATUS.md"
+      }
+    },
+    "its-anpr-overload": {
+      "web": {
+        "phase": "design",
+        "status": "await_confirm",
+        "updatedAt": "2026-08-21T03:31:41.248Z",
+        "statusRel": "specs/its-anpr-overload/STATUS.md"
+      }
+    },
+    "its-traffic-detect": {
+      "web": {
+        "phase": "design",
+        "status": "await_confirm",
+        "updatedAt": "2026-08-21T03:31:41.248Z",
+        "statusRel": "specs/its-traffic-detect/STATUS.md"
+      }
+    },
+    "login": {
+      "mobile": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-21T03:31:41.248Z",
+        "statusRel": "specs/login/STATUS.md"
+      }
+    },
+    "login-forgot": {
+      "mobile": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-21T03:31:41.249Z",
+        "statusRel": "specs/login-forgot/STATUS.md"
+      }
+    },
+    "maintenance": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-21T03:31:41.249Z",
+        "statusRel": "specs/maintenance/STATUS.md"
+      }
+    },
+    "me": {
+      "mobile": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-21T03:31:41.250Z",
+        "statusRel": "specs/me/STATUS.md"
+      }
+    },
+    "mobile-p1": {
+      "web": {
+        "phase": "design",
+        "status": "await_confirm",
+        "updatedAt": "2026-08-21T03:31:41.250Z",
+        "statusRel": "specs/mobile-p1/STATUS.md"
+      }
+    },
+    "ops": {
+      "mobile": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-21T03:31:41.250Z",
+        "statusRel": "specs/ops/STATUS.md"
+      }
+    },
+    "org-unit": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-21T03:31:41.251Z",
+        "statusRel": "specs/org-unit/STATUS.md"
+      }
+    },
+    "partner-unit": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-21T03:31:41.251Z",
+        "statusRel": "specs/partner-unit/STATUS.md"
+      }
+    },
+    "patrol": {
+      "web": {
+        "phase": "dev",
+        "status": "blocked",
+        "updatedAt": "2026-08-21T03:31:41.251Z",
+        "statusRel": "specs/patrol/STATUS.md"
+      }
+    },
+    "patrol-history": {
+      "mobile": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-21T03:31:41.252Z",
+        "statusRel": "specs/patrol-history/STATUS.md"
+      }
+    },
+    "patrol-home": {
+      "mobile": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-21T03:31:41.252Z",
+        "statusRel": "specs/patrol-home/STATUS.md"
+      }
+    },
+    "patrol-map": {
+      "mobile": {
+        "phase": "dev",
+        "status": "pending",
+        "updatedAt": "2026-08-21T03:31:41.253Z",
+        "statusRel": "specs/patrol-map/STATUS.md"
+      }
+    },
+    "patrol-offline": {
+      "mobile": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-21T03:31:41.253Z",
+        "statusRel": "specs/patrol-offline/STATUS.md"
+      }
+    },
+    "patrol-pin": {
+      "mobile": {
+        "phase": "review",
+        "status": "pending",
+        "updatedAt": "2026-08-21T04:00:55.288Z",
+        "statusRel": "specs/patrol-pin/STATUS.md"
+      }
+    },
+    "pavement-section": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-21T03:31:41.254Z",
+        "statusRel": "specs/pavement-section/STATUS.md"
+      }
+    },
+    "predict": {
+      "web": {
+        "phase": "design",
+        "status": "await_confirm",
+        "updatedAt": "2026-08-21T03:31:41.254Z",
+        "statusRel": "specs/predict/STATUS.md"
+      }
+    },
+    "reports": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-21T03:31:41.254Z",
+        "statusRel": "specs/reports/STATUS.md"
+      }
+    },
+    "road-route": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-21T03:31:41.254Z",
+        "statusRel": "specs/road-route/STATUS.md"
+      }
+    },
+    "rpt-bao-cao-cong": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-21T03:31:41.255Z",
+        "statusRel": "specs/rpt-bao-cao-cong/STATUS.md"
+      }
+    },
+    "rpt-checkin": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-21T03:31:41.255Z",
+        "statusRel": "specs/rpt-checkin/STATUS.md"
+      }
+    },
+    "rpt-cong-van": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-21T03:31:41.255Z",
+        "statusRel": "specs/rpt-cong-van/STATUS.md"
+      }
+    },
+    "rpt-dem-xe": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-21T03:31:41.256Z",
+        "statusRel": "specs/rpt-dem-xe/STATUS.md"
+      }
+    },
+    "rpt-giay-phep-thi-cong": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-21T03:31:41.256Z",
+        "statusRel": "specs/rpt-giay-phep-thi-cong/STATUS.md"
+      }
+    },
+    "rpt-hang-muc-hu-hong": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-21T03:31:41.257Z",
+        "statusRel": "specs/rpt-hang-muc-hu-hong/STATUS.md"
+      }
+    },
+    "rpt-kiem-tra-cau": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-21T03:31:41.257Z",
+        "statusRel": "specs/rpt-kiem-tra-cau/STATUS.md"
+      }
+    },
+    "rpt-nhat-ky-cong-viec": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-21T03:31:41.257Z",
+        "statusRel": "specs/rpt-nhat-ky-cong-viec/STATUS.md"
+      }
+    },
+    "rpt-nhat-ky-tuan-duong": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-21T03:31:41.258Z",
+        "statusRel": "specs/rpt-nhat-ky-tuan-duong/STATUS.md"
+      }
+    },
+    "rpt-nhat-ky-tuan-kiem": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-21T03:31:41.258Z",
+        "statusRel": "specs/rpt-nhat-ky-tuan-kiem/STATUS.md"
+      }
+    },
+    "rpt-su-co": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-21T03:31:41.259Z",
+        "statusRel": "specs/rpt-su-co/STATUS.md"
+      }
+    },
+    "rpt-tai-san": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-21T03:31:41.259Z",
+        "statusRel": "specs/rpt-tai-san/STATUS.md"
+      }
+    },
+    "rpt-thien-tai": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-21T03:31:41.259Z",
+        "statusRel": "specs/rpt-thien-tai/STATUS.md"
+      }
+    },
+    "rpt-thiet-hai": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-21T03:31:41.260Z",
+        "statusRel": "specs/rpt-thiet-hai/STATUS.md"
+      }
+    },
+    "rpt-tinh-trang-mat-duong": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-21T03:31:41.260Z",
+        "statusRel": "specs/rpt-tinh-trang-mat-duong/STATUS.md"
+      }
+    },
+    "rpt-tngt": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-21T03:31:41.260Z",
+        "statusRel": "specs/rpt-tngt/STATUS.md"
+      }
+    },
+    "rpt-tong-hop-bao-tri": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-21T03:31:41.261Z",
+        "statusRel": "specs/rpt-tong-hop-bao-tri/STATUS.md"
+      }
+    },
+    "rpt-tuan-duong": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-21T03:31:41.261Z",
+        "statusRel": "specs/rpt-tuan-duong/STATUS.md"
+      }
+    },
+    "rpt-tuan-kiem": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-21T03:31:41.262Z",
+        "statusRel": "specs/rpt-tuan-kiem/STATUS.md"
+      }
+    },
+    "rpt-un-tac": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-21T03:31:41.262Z",
+        "statusRel": "specs/rpt-un-tac/STATUS.md"
+      }
+    },
+    "rpt-vi-pham-hlatdb": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-21T03:31:41.262Z",
+        "statusRel": "specs/rpt-vi-pham-hlatdb/STATUS.md"
+      }
+    },
+    "supervise": {
+      "mobile": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-21T03:31:41.263Z",
+        "statusRel": "specs/supervise/STATUS.md"
+      }
+    },
+    "users": {
+      "web": {
+        "phase": "dev",
+        "status": "blocked",
+        "updatedAt": "2026-08-21T03:31:41.263Z",
+        "statusRel": "specs/users/STATUS.md"
+      }
+    }
+  }
+}

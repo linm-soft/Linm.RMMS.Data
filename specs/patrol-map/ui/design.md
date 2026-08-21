@@ -78,7 +78,7 @@
 | navBack | Tuần đường | IconButton / text+chevron | * | `LinmTopBar` leading | iOS text · Android icon · pop hub |
 | title | Ca đang chạy | NavTitle | * | `LinmTopBar` | fixed |
 | navCheckin | Ghi điểm tuần | TextButton | * | `LinmTopBar` trailing | toast **Ghi điểm tuần** · **cấm** sheet |
-| mapHost | Bản đồ tuần tra OMS | Map | * | feature MapKit / OSM | **cấm** WebView HTML |
+| mapHost | Bản đồ tuần tra OMS | Map | * | feature MapKit / OSM | **OSRM** `routeAlongStreets` + corridor/track · pin `projectToPath` / `snapPointToStreet` · tip neo đáy · **cấm** polyline thẳng seed · **cấm** WebView HTML |
 | nextEyebrow | Điểm tiếp theo · OSRM | Text | * | overlay card | label **13** |
 | nextTitle | Km 1561+134 · Phước Dinh | Text | * | overlay card | field **16** · bind route P1 fallback demo |
 | nextCheckin | Ghi điểm tuần | PrimaryButton | * | `LinmPrimaryButton` | toast P1 |
@@ -134,19 +134,20 @@ Safe area: nav + map + overlay + tab không đè notch / home indicator.
 | isolate track/done/next | legend filter client |
 | GET sessions fail / offline | map **mở** · demo overlay · optional toast · **cấm** full-screen block |
 | check-in tap | `LinmToast` **Ghi điểm tuần** · **cấm** sheet / alert |
-| pin-here ok | loc live · camera follow zoom · pin `.here` primary · toast **Ghim vị trí hiện tại** |
+| pin-here ok | loc live · **snap tim đường** (`snapPointToStreet` else `projectToPath`) · camera follow zoom · pin `.here` primary **tip neo đáy** · toast **Ghim vị trí hiện tại** |
 | pin-here deny / timeout | toast `patrol.map.locDeny` / `patrol.map.locTimeout` · **cấm** fake pin |
 | back | pop hub · không confirm |
 
 ## 9. BFF (Design cite — SA map)
 
-App `{BffBase}/mobile-bff/api/v1` · **chỉ** `GET patrol/sessions` P1 (+ detail P2). Overlay geometry = demo `map-oms.js`. **Cấm** invent `patrol-map` API · Kind E tracks/coverage P1.
+App `{BffBase}/mobile-bff/api/v1` · **chỉ** `GET patrol/sessions` P1 (+ detail P2). Overlay waypoints = `PatrolMapOverlay` · **paint** = public OSRM `routeAlongStreets` (corridor + track) · pin = `projectToPath` / `snapPointToStreet`. Fail OSRM → nét đứt tạm + toast `patrol.map.osrmFallback`. **Cấm** invent `patrol-map` API · Kind E tracks/coverage P1.
 
 ## 10. Out of scope (board)
 
 - Check-in sheet / GPS form (`GAP-MOB-ACT-02`)
-- POST tracks · GET coverage · OSRM live network
+- POST tracks · GET coverage · invent `GET patrol-map`
 - Fake lat/lng khi deny/timeout · chữ «GPS» trên máy
+- Polyline thẳng seed / pin raw lệch đường (**GAP-MAP-OSRM-ROUTE** / **GAP-MAP-OSRM-SNAP**)
 - WebView Leaflet-as-app · `LinmMap` kit · invent tab
 - Start sibling check-in `pending_confirm`
 

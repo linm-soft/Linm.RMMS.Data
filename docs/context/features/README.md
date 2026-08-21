@@ -15,6 +15,8 @@
 | Demo | Đã có HTML mock |
 | Signed | Khách chốt checklist trên demo |
 
+**Implement pipeline (web/mobile, đổi máy):** [`implement-status.json`](../implement-status.json) — scan khớp `phase`/`status` theo lane. Feature md có `## Implement tracking` khi agent ghi STATUS.
+
 ## Backlog — app hiện có + AI + nền tảng
 
 | # | Slug | Tên | Module | Phase | App hiện có (guide) | Status | Context |

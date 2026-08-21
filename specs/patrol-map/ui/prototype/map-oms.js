@@ -6,25 +6,27 @@
   const OSRM = 'https://router.project-osrm.org/route/v1/driving';
   const OVERVIEW_FIT_MAX_ZOOM = 13;
 
-  /** QL.1 Khu IV · VP-IV.1 — Xuân Hải → Phước Dinh (Sau-sat-nhap · Km 1551+200–1561+134) */
+  /** QL.1 Nghệ An · Hạt QLĐB 1 — Bến Thủy → Vinh (Km 461+000–468+200) */
   const PATROL_WAYPOINTS = [
-    [11.603, 109.016],
-    [11.555, 109.008],
-    [11.505, 108.999],
-    [11.456, 108.993],
+    [18.678, 105.682],
+    [18.685, 105.690],
+    [18.699, 105.706],
+    [18.713, 105.722],
+    [18.727, 105.738],
+    [18.741, 105.754],
   ];
 
   const CHECKINS = [
-    { id: 'ci1', latlng: [11.580, 109.012], status: 'done', label: '1' },
-    { id: 'ci2', latlng: [11.530, 109.004], status: 'done', label: '2' },
-    { id: 'ci3', latlng: [11.480, 108.996], status: 'here', label: '3' },
-    { id: 'ci4', latlng: [11.456, 108.993], status: 'next', label: '4' },
+    { id: 'ci1', latlng: [18.685, 105.690], status: 'done', label: '1' },
+    { id: 'ci2', latlng: [18.699, 105.706], status: 'done', label: '2' },
+    { id: 'ci3', latlng: [18.713, 105.722], status: 'here', label: '3' },
+    { id: 'ci4', latlng: [18.741, 105.754], status: 'next', label: '4' },
   ];
 
   const GIS_ASSETS = [
-    { id: 'ts1', latlng: [11.530, 109.004], kind: 'ts', label: 'TS' },
-    { id: 'ts2', latlng: [11.470, 108.995], kind: 'ts', label: 'TS' },
-    { id: 'sc1', latlng: [11.510, 109.001], kind: 'sc', label: 'SC' },
+    { id: 'ts1', latlng: [18.699, 105.706], kind: 'ts', label: 'TS' },
+    { id: 'ts2', latlng: [18.727, 105.738], kind: 'ts', label: 'TS' },
+    { id: 'sc1', latlng: [18.713, 105.722], kind: 'sc', label: 'SC' },
   ];
 
   const state = {

@@ -20,9 +20,9 @@
 | Zone | Pattern | Notes |
 |------|---------|-------|
 | Nav | Back + title **Ca đang chạy** + **Ghi điểm tuần** | iOS leading text Tuần đường · Android icon back |
-| Map | Full-page OMS | polyline hành trình · pin đã ghi / kế tiếp |
-| Next card | Overlay | **Điểm tiếp theo · OSRM** · Km 1561+134 · Phước Dinh |
-| Pin | Primary | **Ghim vị trí hiện tại** · loc live · zoom follow · pin `.here` · deny/timeout toast · **cấm** fake lat/lng |
+| Map | Full-page OMS | polyline **OSRM tim đường** (corridor + track) · pin đã ghi / kế tiếp `projectToPath` |
+| Next card | Overlay | **Điểm tiếp theo · OSRM** · Km 468+200 · Vinh |
+| Pin | Primary | **Ghim vị trí hiện tại** · loc live · **snap tim đường** · zoom follow · pin `.here` tip neo đáy · deny/timeout toast · **cấm** fake lat/lng |
 | Map bar | Chips wrap | Đường · Phố · Vệ tinh · Toàn tuyến |
 | Legend | Chips wrap | Tất cả · Hành trình · Đã ghi điểm tuần · Điểm kế tiếp |
 
@@ -35,7 +35,7 @@
 | POST | `patrol/sessions/{id}/tracks` | **P2** CTX Kind E — **cấm invent P1** |
 | GET | `patrol/sessions/{id}/coverage` | **P2** — **cấm invent P1** |
 
-P1 geometry = demo SSOT `map-oms.js` (QL.1 Xuân Hải → Phước Dinh) khi tracks API chưa live.
+P1 geometry = demo SSOT `map-oms.js` (QL.1 Bến Thủy → Vinh · Nghệ An) khi tracks API chưa live. Mock DB: `local-script/seed-nghe-an-mock.sql` (`rmms_patrol_sessions` + pavement + assets).
 
 **Cấm invent:** `api/v1/patrol-map` · ERP.* · app `:5101` trực tiếp.
 
