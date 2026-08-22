@@ -1,0 +1,137 @@
+{
+  "schemaVersion": "1",
+  "skillId": "gen-feature-harness",
+  "alias": "asset",
+  "title": "Quản lý tài sản đường bộ",
+  "lane": "web",
+  "formType": "list",
+  "domain": "Asset",
+  "packKind": "list",
+  "notes": [
+    "Lane web-only (STATUS). Native = missing.",
+    "L3 real-data packet missing: specs/_data-analy/features/asset-real-data.md",
+    "STATUS header phase/status still data_analy/draft while Tasks + Review closeout = done (GAP-HARNESS-02 soft).",
+    "Sibling MFE routes pavement-section / csdl-so-sach = other aliases — not in integrate[].",
+    "R0 metadata only — no embeddings."
+  ],
+  "layers": {
+    "L1_context": {
+      "exist": true,
+      "path": "D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/asset.md"
+    },
+    "L2_demo": {
+      "exist": true,
+      "path": "D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/asset-demo.html"
+    },
+    "L3_specs": {
+      "exist": true,
+      "path": "D:/AI-QLBD/Linm.RMMS.Data/specs/asset",
+      "statusHeader": "draft",
+      "statusCloseout": "done",
+      "controlHint": "D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/asset-control-hint.md",
+      "cluster": "D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/clusters/cluster-asset-header-v1.md",
+      "realData": null,
+      "prototype": "D:/AI-QLBD/Linm.RMMS.Data/specs/asset/ui/prototype/asset-list-prototype.html"
+    },
+    "L4_app": {
+      "exist": true,
+      "mfe": "D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Asset",
+      "routes": [
+        "/asset",
+        "/asset/new",
+        "/asset/:id",
+        "/asset/:id/edit",
+        "/asset/:id/copy"
+      ],
+      "pages": [
+        "src/pages/AssetListPage/AssetListPage.tsx",
+        "src/pages/AssetFormPage/AssetFormPage.tsx"
+      ],
+      "services": [
+        "src/services/asset/endpoint.ts",
+        "src/services/asset/lookups.ts",
+        "src/services/catalogUiSchema/catalogUiSchemaService.ts"
+      ],
+      "ios": null,
+      "android": null
+    },
+    "L5_state": {
+      "exist": true,
+      "statusMd": "D:/AI-QLBD/Linm.RMMS.Data/specs/asset/STATUS.md",
+      "store": "D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Asset/src/demo/roadAssetStore.ts",
+      "pipeline": "review closeout done (header phase stale)"
+    },
+    "L6_api": {
+      "exist": true,
+      "backend": "D:/AI-QLBD/Linm.RMMS.WebService",
+      "prefix": "api/v1/",
+      "controllers": [
+        "api/src/RMMS.Service.Api/Domains/Asset/Controllers/RoadAssetsController.cs"
+      ]
+    }
+  },
+  "urls": {
+    "mfeStdRoute": "/asset",
+    "mfeStdUrl": "http://localhost:9301/asset",
+    "reviewUrl": "file:///D:/AI-QLBD/Linm.RMMS.Data/specs/asset/ui/prototype/asset-list-prototype.html"
+  },
+  "integrate": [
+    {
+      "uiCallSite": "assetEndpoint.getList",
+      "apiRoute": "api/v1/asset/road-assets",
+      "method": "GET"
+    },
+    {
+      "uiCallSite": "assetEndpoint.getById",
+      "apiRoute": "api/v1/asset/road-assets/{id}",
+      "method": "GET"
+    },
+    {
+      "uiCallSite": "assetEndpoint.create",
+      "apiRoute": "api/v1/asset/road-assets",
+      "method": "POST"
+    },
+    {
+      "uiCallSite": "assetEndpoint.update",
+      "apiRoute": "api/v1/asset/road-assets/{id}",
+      "method": "PUT"
+    },
+    {
+      "uiCallSite": "assetEndpoint.delete",
+      "apiRoute": "api/v1/asset/road-assets/{id}",
+      "method": "DELETE"
+    },
+    {
+      "uiCallSite": "assetEndpoint.getInitData / getRoadAssetInitData",
+      "apiRoute": "api/v1/asset/road-assets/init-data",
+      "method": "GET"
+    },
+    {
+      "uiCallSite": "TYPE_LOOKUP_CONFIG",
+      "apiRoute": "api/v1/integration/asset-types/search",
+      "method": "GET"
+    },
+    {
+      "uiCallSite": "ROUTE_LOOKUP_CONFIG",
+      "apiRoute": "api/v1/integration/road-routes/search",
+      "method": "GET"
+    },
+    {
+      "uiCallSite": "ORG_LOOKUP_CONFIG",
+      "apiRoute": "api/v1/integration/org-units/tree",
+      "method": "GET"
+    },
+    {
+      "uiCallSite": "catalogUiSchemaService.get",
+      "apiRoute": "api/v1/integration/catalogs/{catalogKind}/ui-schema",
+      "method": "GET"
+    },
+    {
+      "uiCallSite": "catalogUiSchemaService.save",
+      "apiRoute": "api/v1/integration/catalogs/{catalogKind}/ui-schema",
+      "method": "PUT"
+    }
+  ],
+  "skillVersion": "2026.08.21.10",
+  "updatedAt": "2026-08-21T09:04:00.000Z"
+}

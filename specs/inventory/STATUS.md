@@ -4,7 +4,7 @@
 |-------|-------|
 | feature | `inventory` |
 | phase | `dev` |
-| status | `blocked` |
+| status | `pending` |
 | changeScope | `edit_page` |
 | packKind | `list` |
 | gap | `crud_formtype` |
@@ -25,7 +25,7 @@
 | dataAnalySkillVersion | `2026.08.08.20` |
 | dataAnalyWorkflowVersion | `2026.08.15.1` |
 | dataAnalyRulesVersion | `2026.08.15.2` |
-| updatedAt | `2026-08-16T04:04:59.715Z` |
+| updatedAt | `2026-08-21T05:30:32.148Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -41,7 +41,7 @@
 | 2.1 | design | ui/design.md + prototype + reviewUrl | **confirmed** |
 | 2.2 | sa | be/solution-discovery.md | **confirmed** |
 | 3 | team-lead | task/inventory.md | **done** |
-| 4 | dev | implement/inventory.md | **blocked** |
+| 4 | dev | implement/inventory.md | **pending** |
 | 5 | qa | qa/scenarios.md | **pending** |
 | 6 | review | review/findings.md | **pending** |
 ## Confirms

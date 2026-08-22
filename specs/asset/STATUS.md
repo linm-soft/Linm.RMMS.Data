@@ -4,7 +4,7 @@
 |-------|-------|
 | feature | `asset` |
 | phase | `data_analy` |
-| status | `draft` |
+| status | `blocked` |
 | changeScope | `edit_page` |
 | packKind | `list` |
 | demo | `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/asset-demo.html` |
@@ -25,7 +25,7 @@
 | qa.artifact | `specs/asset/qa/scenarios.md` |
 | review.artifact | `specs/asset/review/findings.md` |
 | taskId | `task_bf4df098` |
-| updatedAt | `2026-08-18T17:17:25.200Z` |
+| updatedAt | `2026-08-21T09:45:59.330Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -36,7 +36,7 @@
 
 | Step | Agent | Artifact | Status |
 |------|-------|----------|--------|
-| 0 | data-analy | `_data-analy/clusters/cluster-asset-header-v1.md` + `features/asset-control-hint.md` | **pending** |
+| 0 | data-analy | `_data-analy/clusters/cluster-asset-header-v1.md` + `features/asset-control-hint.md` | **blocked** (failed) |
 | 1 | po | po/requirement.md | **pending** |
 | 2.1 | design | ui/design.md + prototype + reviewUrl | **pending** |
 | 2.2 | sa | be/solution-discovery.md | **pending** |
@@ -95,6 +95,7 @@
 - Form = **full-page** (không Slideout)
 
 ## Links
+- harness (R0): `specs/asset/HARNESS.md` · `HARNESS.json`
 - mfeStdUrl: `http://localhost:9301/asset`
 - mfeStdRoute: `/asset`
 - Data-analy cluster: `specs/_data-analy/clusters/cluster-asset-header-v1.md`

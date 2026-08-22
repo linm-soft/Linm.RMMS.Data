@@ -3,8 +3,8 @@
 | Field | Value |
 |-------|-------|
 | feature | `its-anpr-overload` |
-| phase | `design` |
-| status | `await_confirm` |
+| phase | `sa` |
+| status | `blocked` |
 | changeScope | `new_page` |
 | packKind | `ai` |
 | featureClass | `ai` (Kind B list + Kind D HITL · S-LIST / S-DETECT · S-MAP DEFER) |
@@ -28,7 +28,7 @@
 | rulesVersion | `2026.08.16.05` |
 | skillVersions | data-analy=`2026.08.15.19` · po=`2026.08.15.17` · design=`2026.08.15.16` · sa=`2026.08.15.15` · team-lead=`2026.08.15.17` · dev=`2026.08.16.01` · qa=`2026.08.16.02` · review=`2026.08.15.17` · orchestrator=`2026.08.16.02` |
 | versionGate | `ok` |
-| updatedAt | `2026-08-17T09:50:37.560Z` |
+| updatedAt | `2026-08-21T09:45:47.792Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -54,7 +54,7 @@
 | 0 | data-analy | `_data-analy/features/its-anpr-overload-control-hint.md` | **confirmed** | 2026.08.15.19 | ok |
 | 1 | po | po/requirement.md | **done** | 2026.08.15.17 | ok |
 | 2.1 | design | ui/design.md + prototype + reviewUrl | **await_confirm** | 2026.08.15.16 | ok |
-| 2.2 | sa | be/solution-discovery.md | **pending** | 2026.08.15.15 | ok |
+| 2.2 | sa | be/solution-discovery.md | **blocked** (failed) | 2026.08.15.15 | ok |
 | 3 | team-lead | task/its-anpr-overload.md | pending | 2026.08.15.17 | ok |
 | 4 | dev | implement/its-anpr-overload.md | pending | 2026.08.16.01 | ok |
 | 5 | qa | qa/scenarios.md | pending | 2026.08.16.02 | ok |

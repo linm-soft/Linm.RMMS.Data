@@ -4,7 +4,7 @@
 |-------|-------|
 | feature | `patrol` |
 | phase | `dev` |
-| status | `blocked` |
+| status | `in_progress` |
 | changeScope | `edit_page` |
 | packKind | `list` |
 | runMode | `fix_gaps` · gap=`crud_formtype` |
@@ -41,7 +41,7 @@
 | reviewSkillVersion | `2026.08.14.5` |
 | reviewWorkflowVersion | `2026.08.14.5` |
 | reviewRulesVersion | `2026.08.14.9` |
-| updatedAt | `2026-08-16T04:05:53.632Z` |
+| updatedAt | `2026-08-21T05:30:32.183Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -53,24 +53,23 @@
 | Step | Agent | Artifact | Status |
 |------|-------|----------|--------|
 | 0 | data_analy | `_data-analy/features/patrol-control-hint.md` | **done** (`task_36ea7fa2`) |
-| 1 | po | po/requirement.md | **done** (`task_af761fcc`) |
-| 2.1 | design | ui/design.md + prototype + reviewUrl | **done** (`task_5e7961be`) |
-| 2.2 | sa | be/solution-discovery.md | **done** (`task_91df2c14`) |
-| 3 | team-lead | task/patrol.md | **done** (`task_a4508318`) |
-| 4 | dev | implement/patrol.md | **blocked** (paused) |
-| 5 | qa | qa/scenarios.md | **done** (`task_8178afb0`) |
-| 6 | review | review/findings.md | **done** (`task_d496cfeb`) |
-
+| 1 | po | po/requirement.md | **done** |
+| 2.1 | design | ui/design.md + prototype + reviewUrl | **done** |
+| 2.2 | sa | be/solution-discovery.md | **done** |
+| 3 | team-lead | task/patrol.md | **done** |
+| 4 | dev | implement/patrol.md | **in_progress** |
+| 5 | qa | qa/scenarios.md | **done** |
+| 6 | review | review/findings.md | **done** |
 ## Confirms
 
 | Gate | Value |
 |------|-------|
-| design_confirm | **approve** (`autoApprove=ON` · agent self-confirm `task_5e7961be`) |
-| solution_confirm | **approve** (`autoApprove=ON` · agent self-confirm `task_91df2c14`) |
+| design_confirm | **confirmed** (user Approve board) |
+| solution_confirm | **confirmed** (user Approve board) |
 | be_repo_confirm | **approve** (packet default `Linm.RMMS.WebService`) |
 | ui_repo_confirm | **approve** (packet default `Linm.Web.RMMS.Field`) |
 | version_mismatch_action | **recheck_new** |
-| review_confirm | **approve** (`autoApprove=ON` · agent self-confirm `task_d496cfeb`) |
+| review_confirm | **confirmed** (user Approve board) |
 | autoApprove | **ON** |
 
 ## Tasks

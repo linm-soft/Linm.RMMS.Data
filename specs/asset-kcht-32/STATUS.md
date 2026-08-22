@@ -10,8 +10,7 @@
 | context | `docs/context/features/asset-kcht-32.md` |
 | controlHint | `specs/_data-analy/features/asset-kcht-32-control-hint.md` |
 | peer | `asset` · `asset-type` · `mobile-p1` · `incident` |
-| updatedAt | `2026-08-18T00:50:00.000Z` |
-
+| updatedAt | `2026-08-21T05:30:32.814Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -25,8 +24,7 @@
 |------|-------|----------|--------|
 | 0b | data-analy | context + control-hint | **done** |
 | 2.1 | design | mobile-p1 proto + 32 loại | **await_confirm** |
-| 1 | po | requirement (gaps) | chờ GAP confirm |
-
+| 1 | po | requirement (gaps) | **done** |
 ## Prototype
 
 | | |

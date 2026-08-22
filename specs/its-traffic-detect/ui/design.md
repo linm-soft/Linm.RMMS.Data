@@ -7,8 +7,8 @@
 | changeScope | `edit_page` |
 | packKind | `ai` |
 | featureClass | `ai` (Kind B+D+F · **≠** `ai-vision` ổ gà · **≠** `ai-asset-detect` taxonomy rộng 25 m) |
-| status | `await_confirm` |
-| design_confirm | **pending** (Autopilot · autoApprove=**OFF** · user Approve board) |
+| status | `confirmed` |
+| design_confirm | **approve** (Autopilot · autoApprove=**ON** · task_6dd0470a · 2026-08-21) |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.AiVision` · route `/its-traffic-detect` · alias `/ai-vision/its-traffic-detect` |
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/ai-vision/its` · **cấm ERP.*** |
 | shared_grid_example | `v1` |
@@ -249,8 +249,8 @@ View = `readOnly` (không disabled xám).
 
 ## Confirm
 
-`design_confirm` = **pending** · autoApprove=**OFF** · task_e74a8045 · 2026-08-17.  
-Prototype + **reviewUrl** sẵn → user Approve board `/qldb-workflow` → STATUS `confirmed` → enqueue `/agent-sa`.
+`design_confirm` = **approve** · autoApprove=**ON** · task_6dd0470a · 2026-08-21.  
+Prototype + **reviewUrl** sẵn · Autopilot tự confirm → STATUS `confirmed` · SA done cùng chain roleOnly.
 
 ## Handoff → SA
 
@@ -266,7 +266,7 @@ Prototype + **reviewUrl** sẵn → user Approve board `/qldb-workflow` → STAT
 | Config FULL | CatalogUiSchemaRegistry + Seed `{catalogKind=its-traffic-detect}` |
 | Dedupe | **10 m** |
 | Confirm map | `bien_bao`→`GANTRY_SIGN` · `coc_tieu`→`DELINEATOR` |
-| Next | `/agent-sa` **sau** user Approve `design_confirm` |
+| Next | `/agent-sa` · **confirmed** → TL pending |
 
 ## Version meta (REQUIRED)
 

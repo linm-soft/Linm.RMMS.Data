@@ -8,9 +8,9 @@
 | changeScope | `new_page` |
 | packKind | `ai` |
 | featureClass | `ai` (Kind B list + Kind D slideout) |
-| status | `await_confirm` |
-| design_confirm | `pending` (`autoApprove=OFF` · user Approve board) |
-| autoApprove | **OFF** (`task_e95e3780`) → **await_confirm** |
+| status | `confirmed` |
+| design_confirm | **approve** (`autoApprove=ON` · task_fe23f841 · chain SA) |
+| autoApprove | **ON** (`task_fe23f841`) → agent confirm · chain SA |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.AiVision` · route `/ai-vision/predict` |
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/ai-vision/predict` · **cấm ERP.*** |
 | domain | **AiVision** |
@@ -218,9 +218,7 @@ Entity: `SectionFeatures` + `PredictionAudit` · migration `Schema_RmmsAiVisionP
 
 ## Confirm
 
-`design_confirm` = **pending** · `autoApprove=OFF` · STATUS **`await_confirm`** · user Approve board `/qldb-workflow` sau khi mở **reviewUrl**.
-
-**Cấm** agent tự approve.
+`design_confirm` = **approve** · `autoApprove=ON` · STATUS design **confirmed** · SA **done** (`task_fe23f841`).
 
 ## Handoff → SA
 
@@ -234,7 +232,7 @@ Entity: `SectionFeatures` + `PredictionAudit` · migration `Schema_RmmsAiVisionP
 | Domain | **AiVision** · BE `Linm.RMMS.WebService` · **cấm ERP.*** |
 | Entity | `SectionFeatures` + `PredictionAudit` |
 | catalogKind | `ai-predict` (ui-schema seed) |
-| Next | `/agent-sa` **sau** user Approve `design_confirm` · SA cũng `await_confirm` (autoApprove=OFF) |
+| Next | `/agent-sa` **done** · `solution_confirm=approve` · chain `/agent-team-lead` |
 
 ## Version meta (REQUIRED)
 

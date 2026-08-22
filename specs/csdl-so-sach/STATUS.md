@@ -4,7 +4,7 @@
 |-------|-------|
 | feature | `csdl-so-sach` |
 | phase | `data_analy` |
-| status | `blocked` |
+| status | `pending` |
 | changeScope | `edit_page` |
 | packKind | `list` |
 | demo | D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/csdl-so-sach-demo.html |
@@ -16,7 +16,7 @@
 | mfeStdRoute | `/asset/csdl-so-sach` |
 | mfeStdUrl | `http://localhost:9301/asset/csdl-so-sach` |
 | taskId | `task_f3691e8e` |
-| updatedAt | `2026-08-15T17:01:53.152Z` |
+| updatedAt | `2026-08-21T05:30:32.884Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -27,7 +27,7 @@
 
 | Step | Agent | Artifact | Status |
 |------|-------|----------|--------|
-| 0 | data-analy | _data-analy/features/csdl-so-sach-control-hint.md | **blocked** (failed) |
+| 0 | data-analy | _data-analy/features/csdl-so-sach-control-hint.md | **pending** |
 | 1 | po | po/requirement.md | **pending** |
 | 2.1 | design | ui/design.md + prototype + reviewUrl | **pending** |
 | 2.2 | sa | be/solution-discovery.md | **pending** |

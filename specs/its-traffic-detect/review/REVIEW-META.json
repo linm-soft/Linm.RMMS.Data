@@ -1,0 +1,26 @@
+{
+  "feature": "its-traffic-detect",
+  "skillId": "agent-review",
+  "taskId": "task_37daa097",
+  "status": "done",
+  "review_confirm": "approve",
+  "verdict": "PASS",
+  "autoApprove": true,
+  "p0Count": 0,
+  "mfeStdUrl": "http://localhost:9303/its-traffic-detect",
+  "backend": "D:/AI-QLBD/Linm.RMMS.WebService",
+  "apiBase": "api/v1/ai-vision/its",
+  "domain": "AiVision",
+  "priorQaTaskId": "task_ef244cfe",
+  "build": {
+    "typecheck": "PASS",
+    "yarnBuild": "PASS",
+    "dotnetThisRole": "n/a"
+  },
+  "skillVersion": "2026.08.19.04",
+  "schemaVersion": "4",
+  "workflowVersion": "2026.08.20.01",
+  "rulesVersion": "2026.08.20.8",
+  "versionGate": "ok",
+  "generatedAt": "2026-08-21T07:05:00.000Z"
+}

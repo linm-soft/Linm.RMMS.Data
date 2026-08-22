@@ -1,0 +1,41 @@
+node_modules/
+.npm/
+.pnpm-store/
+vendor/
+dist/
+build/
+coverage/
+.cache/
+.git/
+bin/
+obj/
+*.user
+*.log
+.env
+.env.*
+!.env.example
+!.env.template
+
+# Demo / capture dumps
+**/screenshots/
+**/playwright-report/
+**/test-results/
+.e2e-playwright/
+e2e-playwright-runtime/
+
+# Media default
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.webp
+*.mp4
+*.zip
+*.pdf
+
+# Exception: img-log
+!*/img-log/
+!*/img-log/**
+
+# Local Pages Index output — root-only (cấm **/ — skill SSOT)
+/local-deploy-page/

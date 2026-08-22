@@ -1,0 +1,159 @@
+{
+  "schemaVersion": "1",
+  "skillId": "gen-feature-harness",
+  "alias": "its-traffic-detect",
+  "title": "ITS phát hiện biển báo / cọc tiêu",
+  "lane": "web",
+  "formType": "ai",
+  "domain": "AiVision",
+  "packKind": "ai",
+  "notes": [
+    "Lane web-only (STATUS). Native iOS/Android = missing (not invented).",
+    "L3 real-data packet missing: specs/_data-analy/features/its-traffic-detect-real-data.md",
+    "R0 metadata only — no embeddings."
+  ],
+  "layers": {
+    "L1_context": {
+      "exist": true,
+      "path": "D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/its-traffic-detect.md"
+    },
+    "L2_demo": {
+      "exist": true,
+      "path": "D:/AI-QLBD/Linm.RMMS.Demo/src/demo/ai-vision/its-traffic-detect.html"
+    },
+    "L3_specs": {
+      "exist": true,
+      "path": "D:/AI-QLBD/Linm.RMMS.Data/specs/its-traffic-detect",
+      "status": "done",
+      "controlHint": "D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/its-traffic-detect-control-hint.md",
+      "realData": null,
+      "prototype": "D:/AI-QLBD/Linm.RMMS.Data/specs/its-traffic-detect/ui/prototype/its-traffic-detect-list-prototype.html"
+    },
+    "L4_app": {
+      "exist": true,
+      "mfe": "D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.AiVision",
+      "routes": ["/its-traffic-detect", "/ai-vision/its-traffic-detect"],
+      "pages": [
+        "src/pages/ItsTrafficDetectListPage/ItsTrafficDetectListPage.tsx",
+        "src/pages/ItsTrafficDetectListPage/ItsTrafficDetectFormSlideout.tsx"
+      ],
+      "services": [
+        "src/services/itsTrafficDetect/itsTrafficDetectService.ts",
+        "src/services/itsTrafficDetect/endpoint.ts"
+      ],
+      "ios": null,
+      "android": null
+    },
+    "L5_state": {
+      "exist": true,
+      "statusMd": "D:/AI-QLBD/Linm.RMMS.Data/specs/its-traffic-detect/STATUS.md",
+      "store": "D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.AiVision/src/demo/itsTrafficDetectStore.ts",
+      "pipeline": "complete"
+    },
+    "L6_api": {
+      "exist": true,
+      "backend": "D:/AI-QLBD/Linm.RMMS.WebService",
+      "prefix": "api/v1/",
+      "controllers": [
+        "api/src/RMMS.Service.Api/Domains/AiVision/Controllers/AiVisionItsTrafficObjectsController.cs",
+        "api/src/RMMS.Service.Api/Domains/AiVision/Controllers/AiVisionItsDetectController.cs"
+      ]
+    }
+  },
+  "urls": {
+    "mfeStdRoute": "/its-traffic-detect",
+    "mfeStdUrl": "http://localhost:9303/its-traffic-detect",
+    "reviewUrl": "file:///D:/AI-QLBD/Linm.RMMS.Data/specs/its-traffic-detect/ui/prototype/its-traffic-detect-list-prototype.html",
+    "peerStdUrl": "http://localhost:9303/ai-vision/ai-asset-detect"
+  },
+  "integrate": [
+    {
+      "uiCallSite": "itsTrafficDetectEndpoint.getList",
+      "apiRoute": "api/v1/ai-vision/its/objects",
+      "method": "GET"
+    },
+    {
+      "uiCallSite": "itsTrafficDetectEndpoint.getInitData",
+      "apiRoute": "api/v1/ai-vision/its/objects/init-data",
+      "method": "GET"
+    },
+    {
+      "uiCallSite": "itsTrafficDetectEndpoint.getById",
+      "apiRoute": "api/v1/ai-vision/its/objects/{id}",
+      "method": "GET"
+    },
+    {
+      "uiCallSite": "itsTrafficDetectEndpoint.create",
+      "apiRoute": "api/v1/ai-vision/its/objects",
+      "method": "POST"
+    },
+    {
+      "uiCallSite": "itsTrafficDetectEndpoint.update",
+      "apiRoute": "api/v1/ai-vision/its/objects/{id}",
+      "method": "PUT"
+    },
+    {
+      "uiCallSite": "itsTrafficDetectEndpoint.delete",
+      "apiRoute": "api/v1/ai-vision/its/objects/{id}",
+      "method": "DELETE"
+    },
+    {
+      "uiCallSite": "itsTrafficDetectEndpoint.nearby",
+      "apiRoute": "api/v1/ai-vision/its/objects/nearby",
+      "method": "GET"
+    },
+    {
+      "uiCallSite": "itsTrafficDetectEndpoint.detectTraffic",
+      "apiRoute": "api/v1/ai-vision/its/detect",
+      "method": "POST"
+    },
+    {
+      "uiCallSite": "itsTrafficDetectEndpoint.confirm",
+      "apiRoute": "api/v1/ai-vision/its/objects/{id}/confirm",
+      "method": "POST"
+    },
+    {
+      "uiCallSite": "itsTrafficDetectEndpoint.dismiss",
+      "apiRoute": "api/v1/ai-vision/its/objects/{id}/dismiss",
+      "method": "POST"
+    },
+    {
+      "uiCallSite": "itsTrafficDetectEndpoint.searchAssetTypes",
+      "apiRoute": "api/v1/integration/asset-types/search",
+      "method": "GET"
+    },
+    {
+      "uiCallSite": "itsTrafficDetectEndpoint.searchRoadRoutes",
+      "apiRoute": "api/v1/integration/road-routes/search",
+      "method": "GET"
+    },
+    {
+      "uiCallSite": "itsTrafficDetectEndpoint.listRoadAssets",
+      "apiRoute": "api/v1/asset/road-assets",
+      "method": "GET"
+    },
+    {
+      "uiCallSite": "cameraService list",
+      "apiRoute": "api/v1/cameras",
+      "method": "GET"
+    },
+    {
+      "uiCallSite": "cameraService snapshot",
+      "apiRoute": "api/v1/cameras/{id}/snapshot",
+      "method": "POST"
+    },
+    {
+      "uiCallSite": "uploadFrameDirect init",
+      "apiRoute": "api/v1/ai-vision/uploads/init",
+      "method": "POST"
+    },
+    {
+      "uiCallSite": "uploadFrameDirect complete",
+      "apiRoute": "api/v1/ai-vision/uploads/complete",
+      "method": "POST"
+    }
+  ],
+  "skillVersion": "2026.08.21.10",
+  "schemaStatus": "4",
+  "updatedAt": "2026-08-21T08:50:00.000Z"
+}

@@ -4,7 +4,7 @@
 |-------|-------|
 | feature | `incident` |
 | phase | `data_analy` |
-| status | `blocked` |
+| status | `pending` |
 | changeScope | `edit_page` |
 | packKind | `list` |
 | runMode | `fix_gaps` · gap=`crud_formtype` |
@@ -19,7 +19,7 @@
 | skillVersion | `2026.08.09.02` |
 | schemaVersion | `qldb-workflow-skill-v1` |
 | workflowVersion | `2026.08.09.02` |
-| updatedAt | `2026-08-15T17:07:22.976Z` |
+| updatedAt | `2026-08-21T05:30:32.945Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -33,17 +33,16 @@
 | 1 | po | po/requirement.md | **done** |
 | 2.1 | design | ui/design.md + prototype + reviewUrl | **done** |
 | 2.2 | sa | be/solution-discovery.md | **done** |
-| 3 | team-lead | task/incident.md | **done** (FormType ACT/CRUD re-audit · no LIST rewrite) |
-| 4 | dev | implement/incident.md | pending |
-| 5 | qa | qa/scenarios.md | pending |
-| 6 | review | review/findings.md | pending |
-
+| 3 | team-lead | task/incident.md | **done** |
+| 4 | dev | implement/incident.md | **pending** |
+| 5 | qa | qa/scenarios.md | **pending** |
+| 6 | review | review/findings.md | **pending** |
 ## Confirms
 
 | Gate | Value |
 |------|-------|
-| design_confirm | **approve** (autopilot) |
-| solution_confirm | **approve** (autopilot) |
+| design_confirm | **confirmed** (user Approve board) |
+| solution_confirm | **confirmed** (user Approve board) |
 | be_repo_confirm | **approve** (packet default `Linm.RMMS.WebService`) |
 | ui_repo_confirm | **approve** (packet default `Linm.Web.RMMS.Field`) |
 | version_mismatch_action | **recheck_new** |
