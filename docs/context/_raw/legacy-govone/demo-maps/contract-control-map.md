@@ -6,7 +6,7 @@
 
 ## Kind hint
 
-- **B** CatalogListShell (`/contract`) + **D** slideout form (`/contract/new` · `/contract/:id`)
+- **B** CatalogListShell (`/hd-ns`) + **D** slideout form (`/hd-ns/tao-moi` · `/hd-ns/:id`)
 - Confirmed by: ai-autocode-autopilot (override plan fallback Kind C — product: Full list + form + KPI)
 - Step 2a-K · 2d readonly · 2g control-map · 2g common controls mandatory · 2k voucher_default · leave-confirm
 - KPI strip nhà thầu / ngân sách · payment lines `pattern_inline_grid` · badge **P2–P3**
@@ -60,7 +60,7 @@
 | Xuất báo cáo ngân sách | export | toolbar | Xuất báo cáo ngân sách | Export stub · toast |
 | Mở quyết toán | nav | toolbar | Mở quyết toán | Modal P2–P3 stub |
 | Gia hạn bảo hành | action | grid | Gia hạn bảo hành | +6 tháng mock |
-| Liên kết WorkOrder | nav | toolbar | Liên kết WorkOrder | Nav `/maintenance` demo |
+| Liên kết WorkOrder | nav | toolbar | Liên kết WorkOrder | Nav `/sc-bt` demo |
 | User menu | nav | header | User menu | Avatar dropdown |
 | Lưu | create | footer | Lưu | FormActions Save · toast · **cấm** BE |
 | Lưu nháp | action | footer | Lưu nháp | localStorage draft |
@@ -88,4 +88,4 @@
 - `erp-list-page-shell.md` · `erp-common-controls-mandatory.md` · leave-confirm
 - Capture raw: `_raw/legacy-govone/features/contract.md`
 - Data context: `docs/context/features/contract.md`
-- MFE ownership: `Linm.Web.RMMS.Contract` · `/contract`
+- MFE ownership: `Linm.Web.RMMS.Contract` · `/hd-ns`

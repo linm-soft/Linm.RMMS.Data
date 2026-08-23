@@ -12,13 +12,13 @@
 | demo | `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/inventory-demo.html` |
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/inventory.md` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Contract` |
-| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · **`api/v1/contract/inventory-items`** (**cấm ERP.***) |
+| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · **`api/v1/hd-ns/vttb-items`** (**cấm ERP.***) |
 | domain | **Contract** |
 | dataAnaly | `D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/inventory-control-hint.md` |
 | prototype.artifact | `specs/inventory/ui/prototype/inventory-list-prototype.html` |
 | prototype.reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/inventory/ui/prototype/inventory-list-prototype.html` |
-| mfeStdRoute | `/contract/inventory` |
-| mfeStdUrl | `http://localhost:9312/contract/inventory` |
+| mfeStdRoute | `/hd-ns/vttb` |
+| mfeStdUrl | `http://localhost:9312/hd-ns/vttb` |
 | skillVersion | `2026.08.15.1` |
 | schemaVersion | `qldb-workflow-skill-v1` |
 | workflowVersion | `2026.08.15.1` |
@@ -85,8 +85,8 @@
 - **cấm ERP.*** · **cấm** parent JSON
 
 ## Links
-- mfeStdUrl: `http://localhost:9312/contract/inventory`
-- mfeStdRoute: `/contract/inventory`
+- mfeStdUrl: `http://localhost:9312/hd-ns/vttb`
+- mfeStdRoute: `/hd-ns/vttb`
 - data-analy: `specs/_data-analy/features/inventory-control-hint.md`
 - PO: `specs/inventory/po/requirement.md`
 - Design: `specs/inventory/ui/design.md`

@@ -13,9 +13,9 @@
 | demo | `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/citizen-demo.html` |
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/citizen.md` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Integration` |
-| mfeStdRoute | `/integration/citizen` |
-| mfeStdUrl | `http://localhost:9314/integration/citizen` |
-| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · **`api/v1/integration/citizen-incidents`** (**cấm ERP.***) |
+| mfeStdRoute | `/nhan-dan` |
+| mfeStdUrl | `http://localhost:9314/nhan-dan` |
+| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · **`api/v1/nhan-dan-incidents`** (**cấm ERP.***) |
 | domain | **Integration** |
 | po.requirement | `specs/citizen/po/requirement.md` |
 | dataAnaly.controlHint | `specs/_data-analy/features/citizen-control-hint.md` |
@@ -98,7 +98,7 @@
 - Review: `D:/AI-QLBD/Linm.RMMS.Data/specs/citizen/review/findings.md`
 - qa: `D:/AI-QLBD/Linm.RMMS.Data/specs/citizen/qa/scenarios.md`
 - DOMAIN-MAP: `D:/AI-QLBD/Linm.RMMS.WebService/docs/DOMAIN-MAP.md`
-- mfeStdUrl: `http://localhost:9314/integration/citizen`
+- mfeStdUrl: `http://localhost:9314/nhan-dan`
 
 ## Retry
 

@@ -32,7 +32,7 @@ List Kind B **giữ** A–D + form full-page. **New:** Zone F `LinCatalogUiSchem
 | Dự án bảo trì | List stub | Status · BH | Sidebar nav |
 | Bảng tổng hợp nhanh | Tab tiles | Tuần đường / tuần kiểm / công việc | Vision 014/015 |
 
-**Enum chốt (Design §3.3):** status `new` / `in_progress` / `done` / `cancelled` · workType `repair` / `inspect` / `emergency`. Form routes full-page `/maintenance/new` · `/:id` · `/:id/edit` · `/:id/copy` — **cấm** Slideout.
+**Enum chốt (Design §3.3):** status `new` / `in_progress` / `done` / `cancelled` · workType `repair` / `inspect` / `emergency`. Form routes full-page `/sc-bt/tao-moi` · `/:id` · `/:id/edit` · `/:id/copy` — **cấm** Slideout.
 
 **Kind E + form (erp-form-context / erp-report-context):**
 
@@ -87,7 +87,7 @@ Consume `estimate.created` (P2).
 |----|----------|---------|
 | GAP-F-MNT-01 | Đổi tên API `work-orders` vs giữ `jobs` legacy | `work-orders` + adapter legacy |
 | GAP-F-MNT-02 | Auto WO từ AI | Confirm user · P2 |
-| GAP-F-MNT-03 | BE endpoints work-orders / summary | **Signed** `api/v1/maintenance/work-orders` + summary stub |
+| GAP-F-MNT-03 | BE endpoints work-orders / summary | **Signed** `api/v1/sc-bt/work-orders` + summary stub |
 
 ## 7. Demo checklist (chốt khách)
 

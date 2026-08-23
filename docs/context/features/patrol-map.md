@@ -3,7 +3,7 @@
 > **Slug:** `patrol-map` · **Module:** `Patrol` · **Phase:** P1  
 > **Status:** Signed · mobile field push từ hub Tuần đường  
 > **Demo HTML:** `specs/mobile-p1/ui/prototype/{ios,android}/index.html` `#sc-patrol-map` · `DES-MOB-PAT-MAP` · `DES-MOB-OMS-PATROL`  
-> **BE:** `Linm.RMMS.WebService` · domain **Patrol** · `api/v1/patrol/sessions`  
+> **BE:** `Linm.RMMS.WebService` · domain **Patrol** · `api/v1/td-tk/sessions`  
 > **BFF:** `Linm.RMMS.Mobile.Bff` · `mobile-bff/api/v1/patrol/sessions` (proxy)
 
 ## 1. Tổng quan

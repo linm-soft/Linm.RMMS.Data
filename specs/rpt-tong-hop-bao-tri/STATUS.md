@@ -10,8 +10,8 @@
 | demo | **N/A** |
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/rpt-tong-hop-bao-tri.md` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Report` |
-| mfeStdRoute | `/bao-cao/tong-hop-bao-tri` |
-| mfeStdUrl | `http://localhost:9311/bao-cao/tong-hop-bao-tri` |
+| mfeStdRoute | `/th/bao-tri` |
+| mfeStdUrl | `http://localhost:9311/th/bao-tri` |
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · **`api/v1/report/maintenance-summary`** — **cấm ERP.*** |
 | domain | **Report** |
 | prototype.reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/rpt-tong-hop-bao-tri/ui/prototype/rpt-tong-hop-bao-tri-prototype.html` |
@@ -67,7 +67,7 @@
 | T-UI-FIELD-01 | tong-hop-bao-tri | tl→dev | LIST | **done** | default `2026-07-25` → cuối tháng hiện tại · empty = no date filter |
 | T-BE-01 | maintenance-summary | sa→dev | PO | **SA/TL keep** · Dev không path mới | GET + kpis filtered set + export · P2 EF |
 | T-QA-01 | tong-hop-bao-tri | qa | Dev | **done** | `task_92c720c1` · P0 none · GAP-TL-THBT-01 verified |
-| task_5f0086f0 | `/bao-cao/tong-hop-bao-tri` | review | QA confirmed | **completed** | roleOnly=review · `/agent-review` · review_confirm **approve** · P0 none · yarn typecheck+build PASS · pipeline closed |
+| task_5f0086f0 | `/th/bao-tri` | review | QA confirmed | **completed** | roleOnly=review · `/agent-review` · review_confirm **approve** · P0 none · yarn typecheck+build PASS · pipeline closed |
 
 ## Blockers / open questions
 
@@ -78,8 +78,8 @@
 ## Links
 
 - data-analy → po → ui → be → task → implement → qa → review
-- mfeStdUrl: `http://localhost:9311/bao-cao/tong-hop-bao-tri`
-- mfeStdRoute: `/bao-cao/tong-hop-bao-tri`
+- mfeStdUrl: `http://localhost:9311/th/bao-tri`
+- mfeStdRoute: `/th/bao-tri`
 - API: `GET /api/v1/report/maintenance-summary` · export `/maintenance-summary/export`
 - reviewUrl: `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/rpt-tong-hop-bao-tri/ui/prototype/rpt-tong-hop-bao-tri-prototype.html`
 - solution: `specs/rpt-tong-hop-bao-tri/be/solution-discovery.md`

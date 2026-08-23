@@ -10,8 +10,8 @@
 | demo | **N/A** (Design prototype content-only) |
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/rpt-bao-cao-cong.md` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Report` |
-| mfeStdRoute | `/bao-cao/bao-cao-cong` |
-| mfeStdUrl | `http://localhost:9311/bao-cao/bao-cao-cong` |
+| mfeStdRoute | `/bao-cao/cham-cong` |
+| mfeStdUrl | `http://localhost:9311/bao-cao/cham-cong` |
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/report` · DOMAIN-MAP — **cấm ERP.*** |
 | skillVersion | `2026.08.15.5` |
 | schemaVersion | `1` |
@@ -56,14 +56,14 @@
 
 | id | page | role | deps | status | notes |
 |----|------|------|------|--------|-------|
-| task_36d8f152 | `/bao-cao/bao-cao-cong` | chain | — | completed | |
-| task_85aae5bd | `/bao-cao/bao-cao-cong` | po | data-analy | completed | |
-| task_28b5b565 | `/bao-cao/bao-cao-cong` | design | po | completed | |
-| task_05cde6c5 | `/bao-cao/bao-cao-cong` | sa | design | completed | |
-| task_822673c1 | `/bao-cao/bao-cao-cong` | team_lead | sa | completed | |
-| task_d4e13f04 | `/bao-cao/bao-cao-cong` | dev | team_lead | completed | GAP footer + resize · build PASS |
-| task_38b714a9 | `/bao-cao/bao-cao-cong` | qa | dev | completed | scenarios PASS · typecheck/build PASS |
-| task_b1a3124f | `/bao-cao/bao-cao-cong` | review | qa | completed | findings PASS · review_confirm approve · yarn build PASS |
+| task_36d8f152 | `/bao-cao/cham-cong` | chain | — | completed | |
+| task_85aae5bd | `/bao-cao/cham-cong` | po | data-analy | completed | |
+| task_28b5b565 | `/bao-cao/cham-cong` | design | po | completed | |
+| task_05cde6c5 | `/bao-cao/cham-cong` | sa | design | completed | |
+| task_822673c1 | `/bao-cao/cham-cong` | team_lead | sa | completed | |
+| task_d4e13f04 | `/bao-cao/cham-cong` | dev | team_lead | completed | GAP footer + resize · build PASS |
+| task_38b714a9 | `/bao-cao/cham-cong` | qa | dev | completed | scenarios PASS · typecheck/build PASS |
+| task_b1a3124f | `/bao-cao/cham-cong` | review | qa | completed | findings PASS · review_confirm approve · yarn build PASS |
 
 ## Blockers / open questions
 
@@ -74,7 +74,7 @@
 ## Links
 
 - reviewUrl: `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/rpt-bao-cao-cong/ui/prototype/rpt-bao-cao-cong-prototype.html`
-- mfeStdUrl: `http://localhost:9311/bao-cao/bao-cao-cong`
+- mfeStdUrl: `http://localhost:9311/bao-cao/cham-cong`
 - API: `GET /api/v1/report/worklogs` · export `/worklogs/export`
 - Implement: `specs/rpt-bao-cao-cong/implement/rpt-bao-cao-cong.md`
 - QA: `specs/rpt-bao-cao-cong/qa/scenarios.md`

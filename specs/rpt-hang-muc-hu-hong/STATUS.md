@@ -10,8 +10,8 @@
 | demo | **N/A** |
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/rpt-hang-muc-hu-hong.md` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Report` |
-| mfeStdRoute | `/bao-cao/hang-muc-hu-hong` |
-| mfeStdUrl | `http://localhost:9311/bao-cao/hang-muc-hu-hong` |
+| mfeStdRoute | `/bao-cao/hu-hong` |
+| mfeStdUrl | `http://localhost:9311/bao-cao/hu-hong` |
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/report` · DOMAIN-MAP — **cấm ERP.*** |
 | prototype.artifact | `specs/rpt-hang-muc-hu-hong/ui/prototype/rpt-hang-muc-hu-hong-prototype.html` |
 | prototype.reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/rpt-hang-muc-hu-hong/ui/prototype/rpt-hang-muc-hu-hong-prototype.html` |
@@ -58,14 +58,14 @@
 
 | id | page | role | deps | status | notes |
 |----|------|------|------|--------|-------|
-| task_39d5fcb1 | `/bao-cao/hang-muc-hu-hong` | chain | — | completed | full_pipeline autoApprove ON |
-| task_f3810d11 | `/bao-cao/hang-muc-hu-hong` | po | data_analy | **completed** | roleOnly · `/agent-po` |
-| task_35da77de | `/bao-cao/hang-muc-hu-hong` | design | po | **completed** | roleOnly · `/agent-design` |
-| task_ae7bf814 | `/bao-cao/hang-muc-hu-hong` | sa | design | **completed** | roleOnly · `/agent-sa` |
-| task_986c322d | `/bao-cao/hang-muc-hu-hong` | team_lead | sa | **completed** | roleOnly · `/agent-team-lead` |
-| task_af0d0e56 | `/bao-cao/hang-muc-hu-hong` | dev | team_lead | **completed** | roleOnly · `/agent-dev` · DES-HH-01/02 + formatDayVi · MFE build PASS |
-| task_a74b1c81 | `/bao-cao/hang-muc-hu-hong` | qa | dev | **completed** | roleOnly · `/agent-qa` · T-QA-01 PASS · P0 none · yarn typecheck+build PASS |
-| task_ad4820fe | `/bao-cao/hang-muc-hu-hong` | review | qa | **completed** | roleOnly · `/agent-review` · findings PASS · review_confirm **approve** · yarn build PASS · pipeline done |
+| task_39d5fcb1 | `/bao-cao/hu-hong` | chain | — | completed | full_pipeline autoApprove ON |
+| task_f3810d11 | `/bao-cao/hu-hong` | po | data_analy | **completed** | roleOnly · `/agent-po` |
+| task_35da77de | `/bao-cao/hu-hong` | design | po | **completed** | roleOnly · `/agent-design` |
+| task_ae7bf814 | `/bao-cao/hu-hong` | sa | design | **completed** | roleOnly · `/agent-sa` |
+| task_986c322d | `/bao-cao/hu-hong` | team_lead | sa | **completed** | roleOnly · `/agent-team-lead` |
+| task_af0d0e56 | `/bao-cao/hu-hong` | dev | team_lead | **completed** | roleOnly · `/agent-dev` · DES-HH-01/02 + formatDayVi · MFE build PASS |
+| task_a74b1c81 | `/bao-cao/hu-hong` | qa | dev | **completed** | roleOnly · `/agent-qa` · T-QA-01 PASS · P0 none · yarn typecheck+build PASS |
+| task_ad4820fe | `/bao-cao/hu-hong` | review | qa | **completed** | roleOnly · `/agent-review` · findings PASS · review_confirm **approve** · yarn build PASS · pipeline done |
 
 ## Blockers / open questions
 
@@ -74,8 +74,8 @@
 ## Links
 
 - data-analy → po → ui → be → task → implement → qa → review
-- mfeStdUrl: `http://localhost:9311/bao-cao/hang-muc-hu-hong`
-- mfeStdRoute: `/bao-cao/hang-muc-hu-hong`
+- mfeStdUrl: `http://localhost:9311/bao-cao/hu-hong`
+- mfeStdRoute: `/bao-cao/hu-hong`
 - API: `GET /api/v1/report/defects` · export `/defects/export`
 - reviewUrl: `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/rpt-hang-muc-hu-hong/ui/prototype/rpt-hang-muc-hu-hong-prototype.html`
 - closeout Design: `task_35da77de` · roleOnly=`design` · `/agent-design` · design_confirm **approve** · at: `2026-08-16T05:40:00.000Z`

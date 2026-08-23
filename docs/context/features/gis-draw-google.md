@@ -1,13 +1,13 @@
 # Vẽ tài sản trên Google Map — Feature Context
 
 > **Slug:** `gis-draw-google` · **Module:** `Gis` + `Asset` · **Phase:** P1  
-> **Status:** Implemented (`/gis/draw-google` · `api/v1/gis/drawings`)  
+> **Status:** Implemented (`/gis/ha-tang` · `api/v1/gis/liveings`)  
 > **Feature Kind:** F/custom map (GIS shell) · Confirmed by: ai-autocode-autopilot 2026-08-02 · vision `002-ban-o-cong-trinh-giao-thong`  
 > **Sources:** GOVOne screenshot `1-ban-do.png` + vision `002`/`003` · `07` §1–§2 · `09` GIS 2D · **sourceKind=legacy**  
 > **Demo HTML (runtime):** `Linm.RMMS.Demo/public/demo/gis/gis-draw-google.html` — Leaflet live · basemap Google proxy (Carto) / Esri / OSM · Leaflet.draw  
-> **Alias live rút gọn / HĐ PL01 slug:** [`gis-draw-live.md`](gis-draw-live.md) · demo `gis-draw-live.html` · MFE `/gis/draw`  
+> **Alias live rút gọn / HĐ PL01 slug:** [`gis-draw-live.md`](gis-draw-live.md) · demo `gis-draw-live.html` · MFE `/gis/live`  
 > **Ảnh ref only:** `public/demo/gis/assets/1-ban-do.png` (không dùng làm map runtime)  
-> **MFE:** `Linm.Web.RMMS.Gis` · page `GisDrawGoogleDemoPage` (`/gis/draw-google`) · `GisDrawLivePage` (`/gis/draw`)  
+> **MFE:** `Linm.Web.RMMS.Gis` · page `GisDrawGoogleDemoPage` (`/gis/ha-tang`) · `GisDrawLivePage` (`/gis/live`)  
 > **Parent:** [`gis.md`](gis.md) · liên quan [`asset.md`](asset.md) · [`pavement-section.md`](pavement-section.md)
 
 ## 1. Tổng quan
@@ -121,7 +121,7 @@ Indexes: GIST(`Geom`) · `(LayerCode, Status)` · bbox query.
 - [x] Undo / xóa draft rõ (Leaflet.draw edit + Huỷ draft · Hủy biên tập)
 - [x] Tuyến hiện có (seed) vẫn thấy khi bật lớp
 - [x] Không đổi UX tìm kiếm đối tượng trên header
-- [x] Dev menu MFE `/gis/draw-google` · catalog Demo `gis-draw-google`
+- [x] Dev menu MFE `/gis/ha-tang` · catalog Demo `gis-draw-google`
 - [x] AI badge P1 Leaflet · P2 Google JS
 - [x] sourceKind=legacy · Linm shell (không clone GOVOne)
 
@@ -348,7 +348,7 @@ Indexes: GIST(`Geom`) · `(LayerCode, Status)` · bbox query.
 
 - [x] Design demo parity legacy zones (Linm shell · sidebar lớp + toolbar + map)
 - [x] Control-map fields từ Labels/Inputs/Vision (`gis-draw-google-control-map.md` · demo-maps)
-- [x] Status Demo · catalog + MFE `/gis/draw-google` · be_align OFF (demo only · mock drawings API)
+- [x] Status Demo · catalog + MFE `/gis/ha-tang` · be_align OFF (demo only · mock drawings API)
 <!-- LEGACY-GOVONE-CAPTURE:END -->
 
 <!-- DEMO-MFE-MODERN:START -->

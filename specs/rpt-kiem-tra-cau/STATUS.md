@@ -9,8 +9,8 @@
 | demo | **N/A** |
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/rpt-kiem-tra-cau.md` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Report` |
-| mfeStdRoute | `/bao-cao/kiem-tra-cau` |
-| mfeStdUrl | `http://localhost:9311/bao-cao/kiem-tra-cau` |
+| mfeStdRoute | `/bao-cao/ktra-cau` |
+| mfeStdUrl | `http://localhost:9311/bao-cao/ktra-cau` |
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · **`api/v1/report/bridge-inspections`** — **cấm ERP.*** |
 | prototype.artifact | `specs/rpt-kiem-tra-cau/ui/prototype/rpt-kiem-tra-cau-prototype.html` |
 | prototype.reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/rpt-kiem-tra-cau/ui/prototype/rpt-kiem-tra-cau-prototype.html` |
@@ -68,8 +68,8 @@
 ## Links
 
 - data-analy → po → ui → be → task → implement → qa → review
-- mfeStdUrl: `http://localhost:9311/bao-cao/kiem-tra-cau`
-- mfeStdRoute: `/bao-cao/kiem-tra-cau`
+- mfeStdUrl: `http://localhost:9311/bao-cao/ktra-cau`
+- mfeStdRoute: `/bao-cao/ktra-cau`
 - reviewUrl: `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/rpt-kiem-tra-cau/ui/prototype/rpt-kiem-tra-cau-prototype.html`
 - closeout Review: `task_ac0dba4f` · roleOnly=`review` · `/agent-review` · findings PASS · review_confirm **approve** · yarn build PASS · pipeline **done** · autoApprove **ON** · at: `2026-08-16T07:30:00.000Z`
 

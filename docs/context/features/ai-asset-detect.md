@@ -5,7 +5,7 @@
 > **Status:** Demo  
 > **SSOT:** [`15-SCREEN-AI-MAP.md`](../15-SCREEN-AI-MAP.md) · [`ai-vision.md`](ai-vision.md) · [`asset.md`](asset.md) · [`patrol.md`](patrol.md)  
 > **Azure OpenAI (đăng ký + checklist):** [`../../plan/ai-asset-detect/azure-openai-register-use.md`](../../plan/ai-asset-detect/azure-openai-register-use.md) · [`AZURE-OPENAI-CHECKLIST.md`](../../plan/ai-asset-detect/AZURE-OPENAI-CHECKLIST.md)  
-> **Demo:** `Linm.RMMS.Demo/public/demo/ai-vision/ai-asset-detect.html`  
+> **Demo:** `Linm.RMMS.Demo/public/demo/ai-kd/phat-hien-ts.html`  
 > **Khác `ai-vision`:** #3 = hư mặt đường → Vấn đề; **slug này** = nhận diện **TS/thiết bị mới** → bản ghi Asset
 
 ## 1. Tổng quan
@@ -95,7 +95,7 @@ Dedupe: `nearby` cùng class trong bán kính cấu hình (demo JS **25 m** Have
 - [x] Leaflet map pin «AI new» vs TS đã có
 - [x] Dev catalog `/dev` · `demoCatalog` · badge run
 
-**Demo path:** `Linm.RMMS.Demo/public/demo/ai-vision/ai-asset-detect.html`  
+**Demo path:** `Linm.RMMS.Demo/public/demo/ai-kd/phat-hien-ts.html`  
 **Control-map:** `_raw/legacy-govone/demo-maps/ai-asset-detect-control-map.md`  
 **Actions:** `_raw/legacy-govone/demo-maps/ai-asset-detect-actions.md`  
 **sourceKind:** synthetic (docs + feature SSOT; không clone chrome GOVOne; suy luận UI từ product docs)

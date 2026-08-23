@@ -10,7 +10,7 @@
 ### GÓP Ý PHẦN MỀM (form gửi)
 
 - **id:** `feedback-send-form`
-- **url:** (planned) `/integration/feedback`
+- **url:** (planned) `/nhan-dan/gop-y`
 - **title:** Góp ý phần mềm
 - **headings:** Thông tin người gửi · Nội dung góp ý · Gửi
 

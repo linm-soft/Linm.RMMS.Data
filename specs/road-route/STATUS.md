@@ -12,11 +12,11 @@
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/road-route.md` |
 | seed | `docs/context/seed/road-route-seed.json` (38) |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Master` |
-| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/integration/road-routes` |
+| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/open-api/road-routes` |
 | domain | **Integration** |
 | prototype.reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/road-route/ui/prototype/road-route-list-prototype.html` |
-| mfeStdRoute | `/master/road-route` |
-| mfeStdUrl | `http://localhost:9318/master/road-route` |
+| mfeStdRoute | `/mas/tuyen-duong` |
+| mfeStdUrl | `http://localhost:9318/mas/tuyen-duong` |
 | updatedAt | `2026-08-08T18:42:11.711Z` |
 | task | `task_e6f6b6ee` |
 
@@ -72,13 +72,13 @@
 — none —
 
 ## Links
-- mfeStdUrl: `http://localhost:9318/master/road-route`
-- mfeStdRoute: `/master/road-route`
+- mfeStdUrl: `http://localhost:9318/mas/tuyen-duong`
+- mfeStdRoute: `/mas/tuyen-duong`
 
 - implement → `implement/road-route.md`
 - qa → `qa/scenarios.md`
 - review → `review/findings.md`
-- **Final MFE:** `http://localhost:9318/master/road-route` (`yarn start:std` · `Linm.Web.RMMS.Master`)
+- **Final MFE:** `http://localhost:9318/mas/tuyen-duong` (`yarn start:std` · `Linm.Web.RMMS.Master`)
 
 ## Verify
 

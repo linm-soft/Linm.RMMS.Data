@@ -32,7 +32,7 @@
 **Filter layout:** title trái · input + tìm cụm phải — GAP-FILTER-BAR-*.  
 **Mock:** 8–15 dòng mẫu từ domain PatrolSession loại tuần đường.
 
-Kind E + tree. List `/patrol` giữ CRUD session.
+Kind E + tree. List `/td-tk` giữ CRUD session.
 
 ## 3. API
 

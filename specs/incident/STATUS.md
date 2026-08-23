@@ -11,11 +11,11 @@
 | demo | `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/incident-demo.html` |
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/incident.md` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Field` |
-| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · **`api/v1/incident/incidents`** (**cấm ERP.***) |
+| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · **`api/v1/su-co/incidents`** (**cấm ERP.***) |
 | domain | **Incident** |
 | taskId | `task_28ef1042` |
-| mfeStdRoute | `/incident` |
-| mfeStdUrl | `http://localhost:9304/incident` |
+| mfeStdRoute | `/su-co` |
+| mfeStdUrl | `http://localhost:9304/su-co` |
 | skillVersion | `2026.08.09.02` |
 | schemaVersion | `qldb-workflow-skill-v1` |
 | workflowVersion | `2026.08.09.02` |
@@ -74,7 +74,7 @@
 
 - po → ui → be → task → implement → qa → review
 - DOMAIN-MAP: `D:/AI-QLBD/Linm.RMMS.WebService/docs/DOMAIN-MAP.md`
-- mfeStdUrl: `http://localhost:9304/incident`
+- mfeStdUrl: `http://localhost:9304/su-co`
 - reviewUrl: `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/incident/ui/prototype/incident-list-prototype.html`
 
 ## Resume / closeout

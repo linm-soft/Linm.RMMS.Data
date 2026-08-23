@@ -9,7 +9,7 @@
 
 - **B** CatalogListShell (list detections) + **D** slideout detail/Confirm + **F** map pin defect
 - Step 2a-K · 2g control-map · 2t catalog toolbar · leave-confirm dirty
-- Host: Mobile **Vấn đề** (upload) · Web **Sự cố** · Dashboard PCI · route MFE `/ai-vision`
+- Host: Mobile **Vấn đề** (upload) · Web **Sự cố** · Dashboard PCI · route MFE `/ai-kd`
 
 ## Fields
 

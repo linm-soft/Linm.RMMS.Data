@@ -10,11 +10,11 @@
 | demo | D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/csdl-so-sach-demo.html |
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/csdl-so-sach.md` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Asset` |
-| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · **`api/v1/asset/csdl-records`** (**cấm ERP.***) |
+| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · **`api/v1/so-ts/csdl-records`** (**cấm ERP.***) |
 | prototype.artifact | `specs/csdl-so-sach/ui/prototype/csdl-so-sach-list-prototype.html` |
 | prototype.reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-so-sach/ui/prototype/csdl-so-sach-list-prototype.html` |
-| mfeStdRoute | `/asset/csdl-so-sach` |
-| mfeStdUrl | `http://localhost:9301/asset/csdl-so-sach` |
+| mfeStdRoute | `/so-ts/csdl-so-sach` |
+| mfeStdUrl | `http://localhost:9301/so-ts/csdl-so-sach` |
 | taskId | `task_f3691e8e` |
 | updatedAt | `2026-08-21T05:30:32.884Z` |
 ## Lock
@@ -82,8 +82,8 @@
 - **cấm ERP.*** · **cấm** parent JSON string
 
 ## Links
-- mfeStdUrl: `http://localhost:9301/asset/csdl-so-sach`
-- mfeStdRoute: `/asset/csdl-so-sach`
+- mfeStdUrl: `http://localhost:9301/so-ts/csdl-so-sach`
+- mfeStdRoute: `/so-ts/csdl-so-sach`
 
 - Design: `specs/csdl-so-sach/ui/design.md`
 - Solution: `specs/csdl-so-sach/be/solution-discovery.md`
@@ -92,7 +92,7 @@
 - QA: `specs/csdl-so-sach/qa/scenarios.md`
 - Review: `specs/csdl-so-sach/review/findings.md`
 - Prototype: `specs/csdl-so-sach/ui/prototype/csdl-so-sach-list-prototype.html`
-- **Final MFE:** `http://localhost:9301/asset/csdl-so-sach` (`yarn start:std`)
+- **Final MFE:** `http://localhost:9301/so-ts/csdl-so-sach` (`yarn start:std`)
 - DOMAIN-MAP: `D:/AI-QLBD/Linm.RMMS.WebService/docs/DOMAIN-MAP.md`
 
 ## Resume / closeout

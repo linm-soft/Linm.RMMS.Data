@@ -1,6 +1,6 @@
 # Actions — `ai-asset-detect`
 
-> Demo: `Linm.RMMS.Demo/public/demo/ai-vision/ai-asset-detect.html`  
+> Demo: `Linm.RMMS.Demo/public/demo/ai-kd/phat-hien-ts.html`  
 > Module: AiVision × Asset × Patrol · no BE
 
 | # | Action | Zone | Behavior (demo) |

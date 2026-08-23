@@ -9,17 +9,17 @@
 | packKind | `ai` (PO confirm · packet list → ai Kind B+D+F) |
 | featureClass | `ai` (Kind B list + Kind D HITL + Kind F map) |
 | runMode | `full_pipeline` · Autopilot ON · autoApprove **ON** · roleOnly=`review` **done** · pipeline **complete** |
-| demo | `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/ai-vision/its-traffic-detect.html` |
-| context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/its-traffic-detect.md` |
+| demo | `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/ai-its/bb-ct.html` |
+| context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/ai-its/bb-ct.md` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.AiVision` |
-| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/ai-vision/its` · DOMAIN-MAP AiVision — **cấm ERP.*** |
+| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/ai-kd/its` · DOMAIN-MAP AiVision — **cấm ERP.*** |
 | domain | **AiVision** |
-| prototype.artifact | `specs/its-traffic-detect/ui/prototype/its-traffic-detect-list-prototype.html` |
-| prototype.reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/its-traffic-detect/ui/prototype/its-traffic-detect-list-prototype.html` |
-| reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/its-traffic-detect/ui/prototype/its-traffic-detect-list-prototype.html` |
-| mfeStdRoute | `/its-traffic-detect` |
-| mfeStdUrl | `http://localhost:9303/its-traffic-detect` |
-| peerStdUrl | `http://localhost:9303/ai-vision/ai-asset-detect` |
+| prototype.artifact | `specs/ai-its/bb-ct/ui/prototype/ai-its/bb-ct-list-prototype.html` |
+| prototype.reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/ai-its/bb-ct/ui/prototype/ai-its/bb-ct-list-prototype.html` |
+| reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/ai-its/bb-ct/ui/prototype/ai-its/bb-ct-list-prototype.html` |
+| mfeStdRoute | `/ai-its/bb-ct` |
+| mfeStdUrl | `http://localhost:9303/ai-its/bb-ct` |
+| peerStdUrl | `http://localhost:9303/ai-kd/phat-hien-ts` |
 | taskId | `task_37daa097` |
 | contentHash | `sha256:E91426CE28303135A824CCDD5012AE64466FE2DB50A6C05FBC5F2A0E8F458526` |
 | skillVersion | `2026.08.20.01` |
@@ -44,7 +44,7 @@
 | autoApprove | **ON** | design/sa/review → agent tu confirm · chain role ke |
 | design_confirm | **approve** | Design gate · autoApprove=ON · reviewUrl · task_6dd0470a · `2026-08-21T05:35:00.000Z` |
 | solution_confirm | **approve** | SA gate · autoApprove=ON · `be/solution-discovery.md` · `2026-08-21T05:35:00.000Z` |
-| route_confirm | **route_a** | `/its-traffic-detect` · alias `/ai-vision/its-traffic-detect` |
+| route_confirm | **route_a** | `/ai-its/bb-ct` · alias `/ai-its/bb-ct` |
 | review_confirm | **approve** | Review gate · autoApprove=ON · `review/findings.md` PASS · task_37daa097 · `2026-08-21T07:05:00.000Z` |
 | e2eQa | **ON** | QA **PASS** · start:std + docker + screenshot · `2026-08-21T06:45:00.000Z` |
 
@@ -52,12 +52,12 @@
 
 | Step | Agent | Artifact | Status | skillVer | versionGate |
 |------|-------|----------|--------|----------|-------------|
-| 0 | data-analy | `_data-analy/features/its-traffic-detect-control-hint.md` | **confirmed** | 2026.08.19.05 | ok |
+| 0 | data-analy | `_data-analy/features/ai-its/bb-ct-control-hint.md` | **confirmed** | 2026.08.19.05 | ok |
 | 1 | po | po/requirement.md | **done** | 2026.08.19.04 | ok |
 | 2.1 | design | ui/design.md + prototype + reviewUrl | **confirmed** | 2026.08.19.04 | ok |
 | 2.2 | sa | be/solution-discovery.md | **confirmed** | 2026.08.19.04 | ok |
-| 3 | team-lead | task/its-traffic-detect.md | **done** | 2026.08.19.04 | ok |
-| 4 | dev | implement/its-traffic-detect.md | **done** | 2026.08.19.04 | ok |
+| 3 | team-lead | task/ai-its/bb-ct.md | **done** | 2026.08.19.04 | ok |
+| 4 | dev | implement/ai-its/bb-ct.md | **done** | 2026.08.19.04 | ok |
 | 5 | qa | qa/scenarios.md | **pass** | 2026.08.20.01 | ok |
 | 6 | review | review/findings.md | **done** | 2026.08.19.04 | ok |
 
@@ -82,9 +82,9 @@
 
 ## Links
 
-- harness (R0): `specs/its-traffic-detect/HARNESS.md` · `HARNESS.json`
-- review: `specs/its-traffic-detect/review/findings.md`
-- mfeStdUrl: `http://localhost:9303/its-traffic-detect`
+- harness (R0): `specs/ai-its/bb-ct/HARNESS.md` · `HARNESS.json`
+- review: `specs/ai-its/bb-ct/review/findings.md`
+- mfeStdUrl: `http://localhost:9303/ai-its/bb-ct`
 - DOMAIN-MAP: `D:/AI-QLBD/Linm.RMMS.WebService/docs/DOMAIN-MAP.md`
 
 ## Closeout Review

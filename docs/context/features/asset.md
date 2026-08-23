@@ -5,7 +5,7 @@
 > **Feature Kind:** **B** — Catalog list A–D + **full-page** form (`AssetFormPage` · View `<dl>`); demo HTML vẫn Kind F map+list  
 > **Sources:** guide Tài sản / Tài sản KCHT · `RMMS` §1 · `07` §1 · `09` · **`11-CSDL-SO-SACH`** · [`15-SCREEN-AI-MAP.md`](../15-SCREEN-AI-MAP.md)  
 > **Demo HTML:** `Linm.RMMS.Demo/src/demo/features/asset-demo.html` → `../asset/asset.html`  
-> **MFE:** `Linm.Web.RMMS.Asset` · `/asset` · `LinPageLayout` + `LinCatalogDataGrid` + `AssetFormPage`  
+> **MFE:** `Linm.Web.RMMS.Asset` · `/so-ts` · `LinPageLayout` + `LinCatalogDataGrid` + `AssetFormPage`  
 > **Specs:** `Linm.RMMS.Data/specs/asset/` · STATUS `completed`
 
 ## 1. Tổng quan
@@ -16,7 +16,7 @@
 | Persona | Tuần đường · Ban QLDA · Sở GTVT |
 | App hiện có | Mobile **Tài sản** (thu thập/cập nhật/bản đồ) · Web **Tài sản KCHT** (QL TS · import · tuyến · đoạn · lý trình · địa bàn · loại) · **Giám sát tài sản** — giữ UX |
 | DoD ngắn | API CRUD + nearby/bbox + media presign + QR + import + soft delete + tenant |
-| List pack DoD | Kind B shell · search work · row menu · View readonly · Create/Edit/Copy · BE `api/v1/asset/road-assets` |
+| List pack DoD | Kind B shell · search work · row menu · View readonly · Create/Edit/Copy · BE `api/v1/so-ts/road-assets` |
 
 ## 2. Design / UI
 
@@ -34,17 +34,17 @@
 
 ## 3. API
 
-**P1 list (RMMS):** Base `api/v1/asset/road-assets` · BFF `web-bff/api/v1/asset/road-assets`  
+**P1 list (RMMS):** Base `api/v1/so-ts/road-assets` · BFF `web-bff/api/v1/asset/road-assets`  
 ⚠️ **Không** dùng Finance `api/v1/assets` (TSCĐ) · **không** prefix `/rmms/` (GAP-SA-ROUTE-01 closed).
 
 | Method | Path | Mô tả | Gates |
 |--------|------|-------|-------|
-| GET | `/asset/road-assets?search=&type=&route=&kmFrom=&kmTo=&orgUnit=&page=&pageSize=` | List + search (pageSize 50/100/200/500) | TZ n/a |
-| GET | `/asset/road-assets/init-data` | Dropdown status/source | |
-| GET | `/asset/road-assets/{id}` | Chi tiết · **XCO** AllowedCompanyIds | XCO required |
-| POST | `/asset/road-assets` | Tạo (+ Copy → POST) · IdCode `TS-yyyyMMdd-nnn` | tenant_keep |
-| PUT | `/asset/road-assets/{id}` | Sửa (+ `source`) | |
-| DELETE | `/asset/road-assets/{id}` | Soft delete (`IsActive=false`) | |
+| GET | `/so-ts/road-assets?search=&type=&route=&kmFrom=&kmTo=&orgUnit=&page=&pageSize=` | List + search (pageSize 50/100/200/500) | TZ n/a |
+| GET | `/so-ts/road-assets/init-data` | Dropdown status/source | |
+| GET | `/so-ts/road-assets/{id}` | Chi tiết · **XCO** AllowedCompanyIds | XCO required |
+| POST | `/so-ts/road-assets` | Tạo (+ Copy → POST) · IdCode `TS-yyyyMMdd-nnn` | tenant_keep |
+| PUT | `/so-ts/road-assets/{id}` | Sửa (+ `source`) | |
+| DELETE | `/so-ts/road-assets/{id}` | Soft delete (`IsActive=false`) | |
 
 **Entity:** `RoadAssetEntity` · table `rmms_road_assets` · flat scalars · **SHARE=tenant_keep** · Migration `Schema_RmmsRoadAssets`.
 

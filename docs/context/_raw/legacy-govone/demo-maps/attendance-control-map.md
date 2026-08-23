@@ -3,7 +3,7 @@
 > **sourceKind:** `synthetic` · suy luận từ product docs (Check-in + BC checkin + geo-fence + 07 §5 + 15 #4–5).  
 > **Không** đợi GOVOne leaf · **cấm** RECAPTURE-GAPS open chỉ vì thiếu capture.  
 > **Rule:** UI **`/erp-form-context`** Kind E+D · **cấm** clone skin GOVOne · **cấm** BE.  
-> Demo: `Linm.RMMS.Demo/src/demo/patrol/attendance.html`
+> Demo: `Linm.RMMS.Demo/src/demo/td-tk/cham-cong.html`
 
 ## Kind hint
 

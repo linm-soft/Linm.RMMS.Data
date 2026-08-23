@@ -29,7 +29,7 @@ Capture tiles đã mở: **BẢN ĐỒ** · **DASHBOAD** · **GIÁM SÁT** · **
 | QUẢN LÝ GIÁM SÁT › list nhân viên + filter tuyến | filter | `patrol` | demo filter full (company·route·type·date·search·export flags) · control-map 37 fields | same | P1 | closed | 2026-08-02 |
 | QUẢN LÝ VẤN ĐỀ › Edit / Xem chi tiết row | edit · view | `incident` | có create khá đủ · **thiếu** open row View/Edit không Thêm · workflow trạng thái | `incident/incident.html` (badge **mock** — demo mỏng) | P0 | open | 2026-08-02 |
 | QUẢN LÝ VẤN ĐỀ › tab còn lại (sau Thông tin) | tab-* | `incident` | chỉ tab «Thông tin vấn đề» trong summary | same | P1 | open | 2026-08-02 |
-| BẢN ĐỒ CÔNG TRÌNH GT › toolbars vẽ/edit | draw tools | `gis-draw-google` | **demo filled:** Leaflet.draw Point/Line/Polygon · attr form · save local · toolbar GIS tools (vision 014+ mock) · GOVOne form-sample leaf optional polish | `gis/gis-draw-google.html` · MFE `/gis/draw-google` | P0 | closed | 2026-08-02 |
+| BẢN ĐỒ CÔNG TRÌNH GT › toolbars vẽ/edit | draw tools | `gis-draw-google` | **demo filled:** Leaflet.draw Point/Line/Polygon · attr form · save local · toolbar GIS tools (vision 014+ mock) · GOVOne form-sample leaf optional polish | `gis/gis-draw-google.html` · MFE `/gis/ha-tang` | P0 | closed | 2026-08-02 |
 | BẢN ĐỒ › tab Lớp / Chú giải / Thuộc tính (GIS viewer) | tab | `gis` | raw **SYN** · demo `gis.html` parity control-map (Leaflet live · 20 actions · Twin P2) — leaf GOVOne tùy chọn | `gis/gis.html` | P1 | closed | 2026-08-02 |
 
 ---

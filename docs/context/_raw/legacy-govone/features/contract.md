@@ -8,7 +8,7 @@
 ### DANH SÁCH HỢP ĐỒNG / NGÂN SÁCH
 
 - **id:** `contract-list`
-- **url:** (planned) `/contract`
+- **url:** (planned) `/hd-ns`
 - **title:** Hợp đồng và ngân sách
 
 #### Labels / field captions (list + KPI)
@@ -39,7 +39,7 @@
 ### CHI TIẾT / TẠO HỢP ĐỒNG
 
 - **id:** `contract-form`
-- **url:** (planned) `/contract/new` · `/contract/:id`
+- **url:** (planned) `/hd-ns/tao-moi` · `/hd-ns/:id`
 - **title:** Chi tiết hợp đồng
 
 #### Labels / field captions (form + payment lines)

@@ -6,7 +6,7 @@
 
 ## Kind hint
 
-- **B** CatalogListShell (`/contract/inventory`) + **D** slideout form (`/contract/inventory/new` · `/:id`)
+- **B** CatalogListShell (`/hd-ns/vttb`) + **D** slideout form (`/hd-ns/vttb/tao-moi` · `/:id`)
 - Confirmed by: ai-autocode-autopilot
 - Step 2a-K · 2d readonly · 2g control-map · 2g common controls mandatory · 2k voucher_default · leave-confirm
 - KPI strip tồn kho / bảo dưỡng / GPS · stock lines `pattern_inline_grid` · badge **P3**
@@ -63,7 +63,7 @@
 | Xuất Excel | export | toolbar | Xuất Excel | export-excel stub |
 | Xuất báo cáo tồn | export | toolbar | Xuất báo cáo tồn | Export stub · toast |
 | Bản đồ GPS | nav | toolbar | Bản đồ GPS | Modal Leaflet OSM pins · Timescale DEFER |
-| Gán WorkOrder | nav | toolbar | Gán WorkOrder | Nav `/maintenance` demo |
+| Gán WorkOrder | nav | toolbar | Gán WorkOrder | Nav `/sc-bt` demo |
 | Nhập kho | create | toolbar | Nhập kho | Open form + dòng nhập |
 | Xuất kho | action | toolbar | Xuất kho | Open form + dòng xuất |
 | User menu | nav | header | User menu | Avatar dropdown |
@@ -93,4 +93,4 @@
 - `erp-list-page-shell.md` · `erp-common-controls-mandatory.md` · leave-confirm
 - Capture raw: `_raw/legacy-govone/features/inventory.md`
 - Data context: `docs/context/features/inventory.md`
-- MFE ownership: `Linm.Web.RMMS.Contract` · `/contract/inventory`
+- MFE ownership: `Linm.Web.RMMS.Contract` · `/hd-ns/vttb`

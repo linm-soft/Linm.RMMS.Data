@@ -9,17 +9,17 @@
 | packKind | `ai` |
 | featureClass | `ai` (Kind B list + Kind D HITL · S-LIST / S-DETECT · S-MAP DEFER) |
 | runMode | `full_pipeline` · Autopilot ON · autoApprove **OFF** · roleOnly=`design` done → await user Approve |
-| demo | `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/ai-vision/its-anpr-overload.html` |
-| context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/its-anpr-overload.md` |
+| demo | `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/ai-its/toc-do-qt.html` |
+| context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/ai-its/toc-do-qt.md` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.AiVision` |
-| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/ai-vision/anpr/events` · **cấm ERP.*** |
+| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/ai-kd/anpr/events` · **cấm ERP.*** |
 | domain | **AiVision** |
-| prototype.artifact | `specs/its-anpr-overload/ui/prototype/its-anpr-overload-list-prototype.html` |
-| prototype.reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/its-anpr-overload/ui/prototype/its-anpr-overload-list-prototype.html` |
-| reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/its-anpr-overload/ui/prototype/its-anpr-overload-list-prototype.html` |
-| peerStdUrl | `http://localhost:9303/ai-vision/ai-asset-detect` |
-| mfeStdRoute | `/its-anpr-overload` |
-| mfeStdUrl | `http://localhost:9303/its-anpr-overload` |
+| prototype.artifact | `specs/ai-its/toc-do-qt/ui/prototype/ai-its/toc-do-qt-list-prototype.html` |
+| prototype.reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/ai-its/toc-do-qt/ui/prototype/ai-its/toc-do-qt-list-prototype.html` |
+| reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/ai-its/toc-do-qt/ui/prototype/ai-its/toc-do-qt-list-prototype.html` |
+| peerStdUrl | `http://localhost:9303/ai-kd/phat-hien-ts` |
+| mfeStdRoute | `/ai-its/toc-do-qt` |
+| mfeStdUrl | `http://localhost:9303/ai-its/toc-do-qt` |
 | taskId | `task_ca4352e6` |
 | contentHash | `sha256:1f4dd23743c5d0f6817c81618c062bb6a82efc9f7a665f73150e101a200b1865` |
 | skillVersion | `2026.08.16.02` |
@@ -44,19 +44,19 @@
 | autoApprove | **OFF** | design/sa/review → `await_confirm` · user Approve board |
 | design_confirm | **pending** | Design gate · OFF → **await user** · reviewUrl sẵn |
 | solution_confirm | **pending** | SA gate · OFF → await user |
-| route_confirm | **route_a** | `/its-anpr-overload` |
+| route_confirm | **route_a** | `/ai-its/toc-do-qt` |
 | review_confirm | **pending** | Review gate · OFF → await user |
 
 ## Pipeline
 
 | Step | Agent | Artifact | Status | skillVer | versionGate |
 |------|-------|----------|--------|----------|-------------|
-| 0 | data-analy | `_data-analy/features/its-anpr-overload-control-hint.md` | **confirmed** | 2026.08.15.19 | ok |
+| 0 | data-analy | `_data-analy/features/ai-its/toc-do-qt-control-hint.md` | **confirmed** | 2026.08.15.19 | ok |
 | 1 | po | po/requirement.md | **done** | 2026.08.15.17 | ok |
 | 2.1 | design | ui/design.md + prototype + reviewUrl | **await_confirm** | 2026.08.15.16 | ok |
 | 2.2 | sa | be/solution-discovery.md | **blocked** (failed) | 2026.08.15.15 | ok |
-| 3 | team-lead | task/its-anpr-overload.md | pending | 2026.08.15.17 | ok |
-| 4 | dev | implement/its-anpr-overload.md | pending | 2026.08.16.01 | ok |
+| 3 | team-lead | task/ai-its/toc-do-qt.md | pending | 2026.08.15.17 | ok |
+| 4 | dev | implement/ai-its/toc-do-qt.md | pending | 2026.08.16.01 | ok |
 | 5 | qa | qa/scenarios.md | pending | 2026.08.16.02 | ok |
 | 6 | review | review/findings.md | pending | 2026.08.15.17 | ok |
 
@@ -78,10 +78,10 @@
 
 ## Links
 
-- mfeStdUrl: `http://localhost:9303/its-anpr-overload`
-- mfeStdRoute: `/its-anpr-overload`
-- peerStdUrl: `http://localhost:9303/ai-vision/ai-asset-detect`
-- reviewUrl: `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/its-anpr-overload/ui/prototype/its-anpr-overload-list-prototype.html`
-- design: `specs/its-anpr-overload/ui/design.md`
+- mfeStdUrl: `http://localhost:9303/ai-its/toc-do-qt`
+- mfeStdRoute: `/ai-its/toc-do-qt`
+- peerStdUrl: `http://localhost:9303/ai-kd/phat-hien-ts`
+- reviewUrl: `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/ai-its/toc-do-qt/ui/prototype/ai-its/toc-do-qt-list-prototype.html`
+- design: `specs/ai-its/toc-do-qt/ui/design.md`
 - DOMAIN-MAP: `D:/AI-QLBD/Linm.RMMS.WebService/docs/DOMAIN-MAP.md`
-- controlHint: `specs/_data-analy/features/its-anpr-overload-control-hint.md`
+- controlHint: `specs/_data-analy/features/ai-its/toc-do-qt-control-hint.md`

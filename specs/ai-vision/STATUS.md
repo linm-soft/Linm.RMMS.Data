@@ -10,14 +10,14 @@
 | demo | `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/ai-vision-demo.html` |
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/ai-vision.md` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.AiVision` |
-| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/ai-vision` (DOMAIN-MAP — **cấm ERP.Master**) |
+| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/ai-kd` (DOMAIN-MAP — **cấm ERP.Master**) |
 | taskId | `task_bc9cfb1a` |
 | skillVersion | `2026.08.09.02` |
 | schemaVersion | `qldb-workflow-skill-v1` |
 | workflowVersion | `2026.08.09.02` |
 | versionGate | `ok` |
-| mfeStdRoute | `/ai-vision` |
-| mfeStdUrl | `http://localhost:9303/ai-vision` |
+| mfeStdRoute | `/ai-kd` |
+| mfeStdUrl | `http://localhost:9303/ai-kd` |
 | updatedAt | `2026-08-21T09:46:54.329Z` |
 ## Lock
 
@@ -53,8 +53,8 @@
 |----|------|------|------|--------|-------|
 | T-CTX-01 | ai-vision | team_lead | — | done | Context/demo/controlHint |
 | T-PERM-01 | ai-vision | team_lead | — | done | useAiVisionPermissions |
-| T-UI-LIST | /ai-vision | dev | T-CTX-01 | done | LinCatalogDataGrid + LinCatalogListPagination · LAYOUT-06 |
-| T-UI-FORM | /ai-vision/:id | dev | T-UI-LIST | done | C/E/V/Copy + incident |
+| T-UI-LIST | /ai-kd | dev | T-CTX-01 | done | LinCatalogDataGrid + LinCatalogListPagination · LAYOUT-06 |
+| T-UI-FORM | /ai-kd/:id | dev | T-UI-LIST | done | C/E/V/Copy + incident |
 | T-BE-01 | detections | dev | — | done | Entity+DTO+Service+Controller |
 | T-BE-02 | ai-vision | dev | T-BE-01 | done | BFF proxy |
 | T-BE-03 | detections | dev | T-BE-01 | done | `rmms_ai_vision_detections` in `Schema_RmmsSystemSettings` + snapshot |
@@ -67,8 +67,8 @@
 - Follow-up: full catalog-ui-schema editor (F-01) · real detect runtime (F-02).
 
 ## Links
-- mfeStdUrl: `http://localhost:9303/ai-vision`
-- mfeStdRoute: `/ai-vision`
+- mfeStdUrl: `http://localhost:9303/ai-kd`
+- mfeStdRoute: `/ai-kd`
 
 - DOMAIN-MAP: `D:/AI-QLBD/Linm.RMMS.WebService/docs/DOMAIN-MAP.md`
 - controlHint: `specs/_data-analy/features/ai-vision-control-hint.md`

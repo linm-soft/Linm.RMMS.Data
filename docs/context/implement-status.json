@@ -167,7 +167,7 @@
         "phase": "design",
         "status": "await_confirm",
         "updatedAt": "2026-08-21T03:31:41.248Z",
-        "statusRel": "specs/its-anpr-overload/STATUS.md"
+        "statusRel": "specs/ai-its/toc-do-qt/STATUS.md"
       }
     },
     "its-traffic-detect": {
@@ -175,7 +175,7 @@
         "phase": "design",
         "status": "await_confirm",
         "updatedAt": "2026-08-21T03:31:41.248Z",
-        "statusRel": "specs/its-traffic-detect/STATUS.md"
+        "statusRel": "specs/ai-its/bb-ct/STATUS.md"
       }
     },
     "login": {

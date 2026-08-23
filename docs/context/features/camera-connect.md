@@ -29,7 +29,7 @@
 | Screen | Pattern | Zones | Ghi chú |
 |--------|---------|-------|---------|
 | List `/camera` | Full page Kind B | Filter · Grid · Pager · **schema editor `camera-devices`** | Mã cam · model · IP · trạng thái Online · tuyến/Km |
-| Connect `/camera/new` · `/camera/:id` | Full page Kind C | Z1 Config · Z2 Protocols · Z3 Live · Z4 Events | ≥10 inputs → full page |
+| Connect `/camera/tao-moi` · `/camera/:id` | Full page Kind C | Z1 Config · Z2 Protocols · Z3 Live · Z4 Events | ≥10 inputs → full page |
 | **Wall `/camera/wall`** (pilot P1.6) | Full Kind F | Palette · lưới kéo-thả · preset 1 / 2×2 / 3×2 · tile live | Xem **nhiều cam cùng lúc** · sắp xếp · fullscreen tile · **cấm** `alert` |
 
 ### Zones form kết nối

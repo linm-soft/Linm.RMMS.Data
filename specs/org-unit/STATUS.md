@@ -12,11 +12,11 @@
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/org-unit.md` |
 | seed | `docs/context/seed/org-unit-seed.json` (60 · keep_legacy) |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Master` |
-| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/integration/org-units` |
+| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/open-api/org-units` |
 | domain | **Integration** |
 | prototype.reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/org-unit/ui/prototype/org-unit-list-prototype.html` |
-| mfeStdRoute | `/master/org-unit` |
-| mfeStdUrl | `http://localhost:9318/master/org-unit` |
+| mfeStdRoute | `/mas/co-cau-tc` |
+| mfeStdUrl | `http://localhost:9318/mas/co-cau-tc` |
 | updatedAt | `2026-08-10T15:45:00.000Z` |
 | task | `task_2250b015` |
 
@@ -76,13 +76,13 @@
 — none —
 
 ## Links
-- mfeStdUrl: `http://localhost:9318/master/org-unit`
-- mfeStdRoute: `/master/org-unit`
+- mfeStdUrl: `http://localhost:9318/mas/co-cau-tc`
+- mfeStdRoute: `/mas/co-cau-tc`
 
 - implement → `implement/org-unit.md`
 - qa → `qa/scenarios.md`
 - review → `review/findings.md`
-- mfeStdUrl → `http://localhost:9318/master/org-unit`
+- mfeStdUrl → `http://localhost:9318/mas/co-cau-tc`
 
 ## Retry
 

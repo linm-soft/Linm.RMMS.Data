@@ -7,7 +7,7 @@
 
 ## Kind hint
 
-- **B** CatalogListShell (inbox list `/ops`) + **D** slideout compose/detail (`/ops/new` · `/ops/:id`)
+- **B** CatalogListShell (inbox list `/chi-dao`) + **D** slideout compose/detail (`/chi-dao/tao-moi` · `/chi-dao/:id`)
 - Confirmed by: ai-autocode-autopilot (route ownership Notification MFE)
 - Step 2a-K · 2d readonly · 2g control-map · 2g common controls mandatory · 2k voucher_default · leave-confirm
 - Overview KPI strip P1 · **Command center** badge **P2** (không full hub P1)
@@ -43,9 +43,9 @@
 | Xem chi tiết | view | grid | Xem chi tiết | Open Kind D detail |
 | Giao việc | action | grid/footer | Giao việc | P2 badge · toast stub |
 | Xuất inbox | export | toolbar | Xuất inbox | Export stub · toast |
-| Mở Giám sát | nav | toolbar | Mở Giám sát | Navigate `/patrol` demo |
+| Mở Giám sát | nav | toolbar | Mở Giám sát | Navigate `/td-tk` demo |
 | Mở Bản đồ | nav | toolbar | Mở Bản đồ | Navigate `/gis` demo |
-| Mở Sự cố | nav | toolbar | Mở Sự cố | Navigate `/incident` demo |
+| Mở Sự cố | nav | toolbar | Mở Sự cố | Navigate `/su-co` demo |
 | Command center | nav | toolbar | Command center | P2 badge · modal stub |
 | Thông báo | nav | header | Thông báo | Notification badge · dropdown |
 | User menu | nav | header | User menu | Avatar dropdown · profile / logout |
@@ -73,4 +73,4 @@
 - `erp-list-page-shell.md` · `erp-common-controls-mandatory.md` · leave-confirm
 - Capture raw: `_raw/legacy-govone/features/ops.md`
 - Data context: `docs/context/features/ops.md`
-- MFE ownership: `Linm.Web.RMMS.Field` · `/ops`
+- MFE ownership: `Linm.Web.RMMS.Field` · `/chi-dao`

@@ -2,7 +2,7 @@
 
 > **Không có màn GOVOne vision** riêng cho «Chỉ đạo điều hành».  
 > GOVOne **QUẢN LÝ GIÁM SÁT** (`dbv3giamsat.aspx`) đã map slug **`patrol`** — không dùng làm skin/SSOT của `ops`.  
-> Capture synthetized từ `features/ops.md` · Mobile/Web Giám sát notify · Notification MFE routes `/ops` · `15-SCREEN-AI-MAP.md`.  
+> Capture synthetized từ `features/ops.md` · Mobile/Web Giám sát notify · Notification MFE routes `/chi-dao` · `15-SCREEN-AI-MAP.md`.  
 > Source: product docs — **không** password · **không** clone skin GOVOne.
 
 ## Pages (3)
@@ -10,7 +10,7 @@
 ### INBOX CHỈ ĐẠO / THÔNG BÁO (list)
 
 - **id:** `ops-inbox-list`
-- **url:** (planned) `/ops`
+- **url:** (planned) `/chi-dao`
 - **title:** Chỉ đạo điều hành — Inbox
 - **headings:** Overview · Bộ lọc · Danh sách chỉ đạo · Liên kết giám sát
 
@@ -63,7 +63,7 @@
 ### TẠO / CHI TIẾT CHỈ ĐẠO (Kind D slideout)
 
 - **id:** `ops-compose-detail`
-- **url:** (planned) `/ops/new` · `/ops/:id`
+- **url:** (planned) `/chi-dao/tao-moi` · `/chi-dao/:id`
 - **title:** Tạo / Chi tiết chỉ đạo
 
 #### Inputs
@@ -98,7 +98,7 @@
 ### OVERVIEW ĐIỀU HÀNH (P1 strip · P2 hub badge)
 
 - **id:** `ops-overview`
-- **url:** (planned) `/ops` (zone overview)
+- **url:** (planned) `/chi-dao` (zone overview)
 - **title:** Overview điều hành
 
 #### Labels

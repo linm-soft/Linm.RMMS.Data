@@ -1,7 +1,7 @@
 # Ước lượng sửa chữa — filter bar context
 
 **Page:** `EstimateListPage` · **kind:** catalog (AI S-LIST)  
-**Route:** `/ai-vision/estimate` · **testIdPrefix:** `rmms-estimate-list`  
+**Route:** `/ai-kd/uoc-luong-sc` · **testIdPrefix:** `rmms-estimate-list`  
 **Package:** `LinErpListFilterBar` · `data-lin-list-layout="erp-filter-bar"`  
 **Context review version:** `2026.08.18.1`  
 **Skills:** `/filter-bar-context` · `/erp-filter-form` · `filter-bar-layout-hard`  
@@ -21,7 +21,7 @@
 
 **Cấm:** date / 🔍 trong `leading` · nút Tìm trùng · export/print/config trên bar · `ErpListHeaderFilters` · `LinListFilterField` · wrapper bọc cả `leading` · `filterMaxWidthPx`.
 
-**Dropdown:** chỉ `GET /ai-vision/estimates/init-data` — **cấm** hardcode enum.
+**Dropdown:** chỉ `GET /ai-kd/uoc-luong-scs/init-data` — **cấm** hardcode enum.
 
 ---
 

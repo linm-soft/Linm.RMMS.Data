@@ -9,7 +9,7 @@
 ### PRIORITY LIST — AI DỰ BÁO BẢO TRÌ
 
 - **id:** `predict-priority-list`
-- **url:** (planned) `/ai-vision/predict`
+- **url:** (planned) `/ai-kd/du-bao-bt`
 - **title:** AI dự báo bảo trì — Danh sách ưu tiên
 - **headings:** Bộ lọc · KPI · Priority list · Model badge
 
@@ -76,7 +76,7 @@
 ### SECTION DETAIL — SLIDEOUT
 
 - **id:** `predict-section-detail`
-- **url:** (planned) `/ai-vision/predict` · slideout
+- **url:** (planned) `/ai-kd/du-bao-bt` · slideout
 - **title:** Chi tiết dự báo đoạn
 - **headings:** Thông tin đoạn · Drivers · Biểu đồ stub · Khuyến nghị · Lịch sử audit
 

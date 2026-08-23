@@ -10,7 +10,7 @@
 ### OPEN API HUB (system)
 
 - **id:** `integration-openapi-hub`
-- **url:** (planned) `/integration`
+- **url:** (planned) `/open-api`
 - **title:** Open API và tích hợp
 - **headings:** Endpoint P1 · Swagger stub · Health partner · Sync jobs
 
@@ -43,7 +43,7 @@
 ### IMPORT TÀI SẢN (wizard)
 
 - **id:** `integration-asset-import`
-- **url:** (planned) `/integration/import`
+- **url:** (planned) `/open-api/import`
 - **title:** Import tài sản KCHT
 - **headings:** Chọn nguồn · Mapping · Chạy import
 
@@ -79,7 +79,7 @@
 ### SYNC JOBS + PARTNERS (list)
 
 - **id:** `integration-sync-partners`
-- **url:** (planned) `/integration/sync`
+- **url:** (planned) `/open-api/sync`
 - **title:** Sync jobs & adapters
 - **headings:** Jobs · Partners ERP/CMMS/… · Log
 

@@ -6,7 +6,7 @@
 > **Không** thay list pack `asset` đã done · **mở rộng** seed `asset-type` (23 → **36**)  
 > **Sources:** `11-CSDL-SO-SACH-DATABASE-API.md` (12 biểu + ATGT con) · `INVESTIGATE-CUC2.md` §4 · `docs/Mẫu import/*.xlsx` (18 file) · `asset.md` · `incident.md`  
 > **Layout mock:** `docs/mobile-legacy/layout/` (VNeID — **khung** header + 3×2 + ví giấy tờ + FAB; **cấm** clone CCCD/đỏ Bộ CA)  
-> **MFE:** `Linm.Web.RMMS.Asset` · `/asset` + Master `/master/asset-type`  
+> **MFE:** `Linm.Web.RMMS.Asset` · `/so-ts` + Master `/mas/loai-ts`  
 > **Mobile proto:** `specs/mobile-p1/ui/prototype/`  
 > **Control-hint:** `specs/_data-analy/features/asset-kcht-32-control-hint.md`
 
@@ -161,9 +161,9 @@ Layout ref: `docs/mobile-legacy/layout/*.jpg` — header band + tên + 2 card + 
 
 ## 7. API (đề xuất SA — chưa chốt)
 
-Giữ `api/v1/asset/road-assets` + `type=` 32 mã.  
+Giữ `api/v1/so-ts/road-assets` + `type=` 32 mã.  
 Thông số: cột phẳng theo type **hoặc** `specsJson` — **cấm** parent `*LinesJson` cho dòng sự cố (sự cố = `rmms_incidents.assetId`).  
-Master: `api/v1/integration/asset-types` seed **36**.  
+Master: `api/v1/open-api/asset-types` seed **36**.  
 **Cấm** `api/v1/infra/*` ngoài DOMAIN-MAP (đã chốt csdl-so-sach → `asset/csdl-records`).
 
 ## 8. Gaps — cần user confirm

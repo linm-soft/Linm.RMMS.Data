@@ -6,7 +6,7 @@
 
 ## Kind hint
 
-- **B** CatalogListShell (`/drone`) + **D** slideout form (`/drone/new` · `/drone/:id`) + **viewer stub** modal
+- **B** CatalogListShell (`/fly`) + **D** slideout form (`/fly/tao-moi` · `/fly/:id`) + **viewer stub** modal
 - Confirmed by: ai-autocode-autopilot
 - Step 2a-K · 2d readonly · 2g control-map · 2g common controls mandatory · 2k voucher_default · leave-confirm
 - KPI strip scan jobs · artifact lines `pattern_inline_grid` · badge **P2–P3**
@@ -62,7 +62,7 @@
 | Mở GIS Twin | nav | toolbar | Mở GIS Twin | Nav `/gis` demo |
 | Xuất Excel | export | toolbar | Xuất Excel | export-excel stub |
 | Gửi sự cố | action | grid | Gửi sự cố | Create INC stub · toast |
-| Liên kết AiVision | nav | toolbar | Liên kết AiVision | Nav `/ai-vision` demo |
+| Liên kết AiVision | nav | toolbar | Liên kết AiVision | Nav `/ai-kd` demo |
 | User menu | nav | header | User menu | Avatar dropdown |
 | Lưu | create | footer | Lưu | FormActions Save · toast · **cấm** BE |
 | Lưu nháp | action | footer | Lưu nháp | localStorage draft |
@@ -90,4 +90,4 @@
 - `erp-list-page-shell.md` · `erp-common-controls-mandatory.md` · leave-confirm
 - Capture raw: `_raw/legacy-govone/features/drone.md`
 - Data context: `docs/context/features/drone.md`
-- MFE ownership: `Linm.Web.RMMS.Drone` · `/drone`
+- MFE ownership: `Linm.Web.RMMS.Drone` · `/fly`

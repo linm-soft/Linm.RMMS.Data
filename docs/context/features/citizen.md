@@ -5,8 +5,8 @@
 > **sourceKind:** `synthetic` (portal mới P3 · suy luận product docs · **không** màn GOVOne vision · **không** RECAPTURE-GAPS)  
 > **Kind:** **B** catalog list A–D + **full-page** `CitizenFormPage` (inbox) · demo HTML = **G** public host + **D** slideout + **F** map — **không** clone chrome/map/OTP vào MFE pack  
 > **Sources:** `RMMS` §15 · `07` Hạng mục 15 · `06` rate-limit/PII · `09` · `15-SCREEN-AI-MAP.md`  
-> **Demo HTML:** `Linm.RMMS.Demo/public/demo/integration/citizen.html` (+ `src/demo` mirror · features redirect)  
-> **MFE (align):** `Linm.Web.RMMS.Integration` · `/integration/citizen`  
+> **Demo HTML:** `Linm.RMMS.Demo/public/demo/nhan-dan.html` (+ `src/demo` mirror · features redirect)  
+> **MFE (align):** `Linm.Web.RMMS.Integration` · `/nhan-dan`  
 > **BE:** `D:/AI-QLBD/Linm.RMMS.WebService` · **cấm** `ERP.*` · **cấm** `api/v1/rmms/*`  
 > **≠** Mobile **Góp ý** phần mềm (`feedback`) · AI map §15: **không** engine P1/P2 (OUT P3 adapter)
 
@@ -23,8 +23,8 @@
 
 | Screen | Pattern | Zones | Ghi chú |
 |--------|---------|-------|---------|
-| Inbox sự cố công dân (MFE P1) | Kind **B** | A Header · B Toolbar+filter · C Grid · D Pagination | `/integration/citizen` |
-| Form sự cố (MFE P1) | Full-page | C/E/V/Copy · View `<dl>` · footer-only | `/integration/citizen/new` · `/:id` · **cấm** Slideout/Resource |
+| Inbox sự cố công dân (MFE P1) | Kind **B** | A Header · B Toolbar+filter · C Grid · D Pagination | `/nhan-dan` |
+| Form sự cố (MFE P1) | Full-page | C/E/V/Copy · View `<dl>` · footer-only | `/nhan-dan/tao-moi` · `/:id` · **cấm** Slideout/Resource |
 | Host portal | Kind G | Landing CTAs · recent mock · track | **P2** — demo only |
 | Báo sự cố (demo) | Kind D Slideout | Z1 toolbar · Z2 fields+map · Z3 footer | Leaflet pin **P2** |
 | Theo dõi xử lý | Panel / filter | Tra cứu mã · timeline readonly | **P2** public |
@@ -60,7 +60,7 @@
 | POST | `/api/v1/citizen/incident` | Alias rate-limit doc | **Signed** · cùng schema |
 | POST | `/api/v1/upload/presign` | Presign ảnh/video | **MISSING** · mediaMeta string stub P1 |
 
-> MFE Kind B list `/integration/citizen` · BFF `web-bff/api/v1/integration/citizen-incidents` · localStorage fallback khi BFF down.
+> MFE Kind B list `/nhan-dan` · BFF `web-bff/api/v1/integration/citizen-incidents` · localStorage fallback khi BFF down.
 
 ## 4. Database
 
@@ -118,7 +118,7 @@
 ### 1) BÁO SỰ CỐ / PHẢN ÁNH HIỆN TRƯỜNG (form public)
 
 - **id:** `citizen-report-form`
-- **url:** (planned) `/citizen` · `/integration/citizen`
+- **url:** (planned) `/citizen` · `/nhan-dan`
 - **title:** Cổng người dân — Báo sự cố
 - **headings:** Thông tin người báo · Vị trí hiện trường · Ảnh/Video · Gửi
 
@@ -237,7 +237,7 @@ Gen demo: `/qlbd-analy-demo @citizen` — load control-map trên + `/erp-form-co
 | Task | `task_aa784e41` |
 | Skill | `/qlbd-analy-demo @citizen` |
 | sourceKind | **synthetic** (portal mới · product docs §15/07/06 · không GOVOne leaf) |
-| Files | `citizen.md` · `demo-maps/citizen-*.md` · `public/demo/integration/citizen.html` · `js/citizen-*.js` · `demoCatalog.ts` · hub index · features redirect |
+| Files | `citizen.md` · `demo-maps/citizen-*.md` · `public/demo/nhan-dan.html` · `js/citizen-*.js` · `demoCatalog.ts` · hub index · features redirect |
 | Dev | `DEMO_FEATURES` · `/demo/p/citizen` · hub · DOMAIN integration |
 | ACTION WORK GATE | 17/17 actions · host report/track · slideout footer/media/OTP/GPS · leave-confirm |
 | Map | Leaflet OSM pin (live tiles · not screenshot) |

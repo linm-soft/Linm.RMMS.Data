@@ -12,12 +12,12 @@
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/contract.md` |
 | controlHint | `D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/contract-control-hint.md` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Contract` |
-| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · **`api/v1/contract/contracts`** (**cấm ERP.***) |
+| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · **`api/v1/hd-ns/contracts`** (**cấm ERP.***) |
 | domain | **Contract** |
 | prototype.artifact | `specs/contract/ui/prototype/contract-list-prototype.html` |
 | prototype.reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/contract/ui/prototype/contract-list-prototype.html` |
-| mfeStdRoute | `/contract` |
-| mfeStdUrl | `http://localhost:9312/contract` |
+| mfeStdRoute | `/hd-ns` |
+| mfeStdUrl | `http://localhost:9312/hd-ns` |
 | taskId | `task_ff113d98` |
 | skillVersion | `2026.08.15.19` |
 | schemaVersion | `qldb-workflow-skill-v1` |
@@ -97,8 +97,8 @@
 ## Links
 - po: `D:/AI-QLBD/Linm.RMMS.Data/specs/contract/po/requirement.md`
 - data-analy: `D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/contract-control-hint.md`
-- mfeStdUrl: `http://localhost:9312/contract`
-- mfeStdRoute: `/contract`
+- mfeStdUrl: `http://localhost:9312/hd-ns`
+- mfeStdRoute: `/hd-ns`
 - Design: `specs/contract/ui/design.md`
 - Solution: `specs/contract/be/solution-discovery.md`
 - Task: `specs/contract/task/contract.md`

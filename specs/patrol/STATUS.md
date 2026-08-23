@@ -11,11 +11,11 @@
 | demo | `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/patrol-demo.html` |
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/patrol.md` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Field` |
-| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · **`api/v1/patrol/sessions`** (**cấm ERP.***) |
+| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · **`api/v1/td-tk/sessions`** (**cấm ERP.***) |
 | domain | **Patrol** |
 | taskId | `task_d496cfeb` |
-| mfeStdRoute | `/patrol` |
-| mfeStdUrl | `http://localhost:9304/patrol` |
+| mfeStdRoute | `/td-tk` |
+| mfeStdUrl | `http://localhost:9304/td-tk` |
 | dataAnaly | `D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/patrol-control-hint.md` |
 | po.requirement | `specs/patrol/po/requirement.md` |
 | design.artifact | `specs/patrol/ui/design.md` |
@@ -108,7 +108,7 @@
 
 - data-analy → po → ui → be → task → implement → qa → review
 - DOMAIN-MAP: `D:/AI-QLBD/Linm.RMMS.WebService/docs/DOMAIN-MAP.md`
-- mfeStdUrl: `http://localhost:9304/patrol`
+- mfeStdUrl: `http://localhost:9304/td-tk`
 - reviewUrl: `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/patrol/ui/prototype/patrol-list-prototype.html`
 - solution: `specs/patrol/be/solution-discovery.md`
 - task: `specs/patrol/task/patrol.md`

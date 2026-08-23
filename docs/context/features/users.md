@@ -4,7 +4,7 @@
 > **Status:** Demo · **sourceKind:** legacy  
 > **Kind confirmed:** **B** — `LinPageLayout` catalog A–D + tree master + **full-page** `UsersFormPage` · **cấm** nested CatalogListShell · **cấm** Slideout  
 > **Sources:** guide Web **Quản lý người dùng** · Mobile cập nhật profile · `15-SCREEN-AI-MAP.md` · legacy GOVOne capture  
-> **Demo:** `Linm.RMMS.Demo/public/demo/integration/users.html` · `src/demo/integration/users.html`  
+> **Demo:** `Linm.RMMS.Demo/public/demo/admin/user.html` · `src/demo/admin/user.html`  
 > **Catalog /dev:** `demoCatalog.ts` slug `users` · hub `index.html` · domain `integration`
 
 ## 1. Tổng quan
@@ -15,8 +15,8 @@
 | Persona | Admin hạt/công ty |
 | App hiện có | Web QL Cơ quan/Người dùng/Cấp · Mobile cập nhật TT |
 | DoD | Demo parity · giữ UX · API consumer khi migrate Auth |
-| Align MFE | `Linm.Web.RMMS.Integration` · `/integration/users` |
-| API | `api/v1/integration/users` (+ org-units tree reuse) · **cấm ERP.*** |
+| Align MFE | `Linm.Web.RMMS.Integration` · `/admin/user` |
+| API | `api/v1/admin/user` (+ org-units tree reuse) · **cấm ERP.*** |
 
 ## 2. Design / UI
 
@@ -24,7 +24,7 @@
 |--------|---------|-------|
 | QL Cơ quan (tree) | Zone C master | Cây TC · chọn node → `?orgCode=` · **không** CRUD org trên pack này |
 | QL Người dùng / Cấp | Kind B `LinPageLayout` A–D | Filter SearchText + SearchInput role/status/**route** · `LinCatalogDataGrid` · `LinCatalogListPagination` |
-| User form | Kind B dedicated page | Z1 header · Z2 fields SearchInput · View `<dl>` · `/integration/users/new` · `/:id` · **cấm** Slideout |
+| User form | Kind B dedicated page | Z1 header · Z2 fields SearchInput · View `<dl>` · `/admin/user/tao-moi` · `/:id` · **cấm** Slideout |
 | Đổi mật khẩu | Modal | MK cũ · MK mới · xác nhận · submit (legacy `doimatkhau`) |
 | Hồ sơ của tôi | Modal | Profile readonly + link đổi MK |
 | Phân tuyến / Cán bộ QL | Modal | SearchInput multi `road-route` / `users` — **cấm** CSV thuần |

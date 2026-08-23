@@ -10,14 +10,14 @@
 | demo | `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/drone-demo.html` |
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/drone.md` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Drone` |
-| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/drone` (DOMAIN-MAP — **cấm ERP.***) |
+| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/fly` (DOMAIN-MAP — **cấm ERP.***) |
 | taskId | `task_3009fa90` |
 | skillVersion | `2026.08.09.02` |
 | schemaVersion | `qldb-workflow-skill-v1` |
 | workflowVersion | `2026.08.09.02` |
 | versionGate | `ok` |
-| mfeStdRoute | `/drone` |
-| mfeStdUrl | `http://localhost:9313/drone` |
+| mfeStdRoute | `/fly` |
+| mfeStdUrl | `http://localhost:9313/fly` |
 | updatedAt | `2026-08-16T02:44:40.804Z` |
 ## Lock
 
@@ -53,19 +53,19 @@
 |----|------|------|------|--------|-------|
 | T-CTX-01 | drone | team_lead | — | done | Context/demo/controlHint |
 | T-PERM-01 | drone | dev | — | done | useDronePermissions |
-| T-UI-LIST | /drone | dev | T-PERM-01 | done | LinCatalogDataGrid + schema editor |
-| T-UI-FORM | /drone/:id | dev | T-UI-LIST | done | C/E/V/Copy + artifacts |
-| T-UI-LKP | /drone/:id | dev | T-UI-FORM | done | SearchInput master lookups |
-| T-UI-FIELD | /drone/:id | dev | T-UI-LKP | done | date/number/select vs BE |
-| T-UI-PROD | /drone | dev | T-UI-LIST | done | LinListFilterField · toast |
-| T-UI-UX | /drone | dev | T-UI-LIST | done | 1× LinPageLayout · skeleton |
+| T-UI-LIST | /fly | dev | T-PERM-01 | done | LinCatalogDataGrid + schema editor |
+| T-UI-FORM | /fly/:id | dev | T-UI-LIST | done | C/E/V/Copy + artifacts |
+| T-UI-LKP | /fly/:id | dev | T-UI-FORM | done | SearchInput master lookups |
+| T-UI-FIELD | /fly/:id | dev | T-UI-LKP | done | date/number/select vs BE |
+| T-UI-PROD | /fly | dev | T-UI-LIST | done | LinListFilterField · toast |
+| T-UI-UX | /fly | dev | T-UI-LIST | done | 1× LinPageLayout · skeleton |
 | T-BE-01 | scans | dev | — | done | Entity+DTO+Service+Controller |
 | T-BE-02 | scans | dev | T-BE-01 | done | BFF proxy |
 | T-BE-03 | scans | dev | T-BE-01 | done | Schema_RmmsDroneScans |
 | T-BE-SCHEMA | drone-scans | dev | T-UI-LIST | done | CatalogUiSchemaRegistry seed |
 | T-QA-01 | drone | qa | T-UI-FORM,T-BE-02 | **done** | scenarios.md (roleOnly=qa · task_d3584c9d) |
 | T-RV-01 | drone | review | T-QA-01 | **done** | findings.md · task_3009fa90 · approve |
-| T-UI-ACT-01 | /drone | dev | T-UI-FORM | done | toolbar/row → form/API |
+| T-UI-ACT-01 | /fly | dev | T-UI-FORM | done | toolbar/row → form/API |
 | T-BE-CRUD-01 | scans | dev | T-BE-01 | done | verify list/C/U/D |
 | T-UI-MAP-FORM | — | — | — | n/a | packKind=list |
 | T-QA-CRUD-01 | drone | qa | T-UI-ACT-01 | **done** | Create/Edit/View/Delete |
@@ -75,8 +75,8 @@
 - None P0. Follow-up: Cesium live (F-01) · real upload/worker (F-02) · IAM (F-03). QA P2: code `disabled` · extra «Tìm» · `filterMaxWidthPx`. History stub.
 
 ## Links
-- mfeStdUrl: `http://localhost:9313/drone`
-- mfeStdRoute: `/drone`
+- mfeStdUrl: `http://localhost:9313/fly`
+- mfeStdRoute: `/fly`
 
 - DOMAIN-MAP: `D:/AI-QLBD/Linm.RMMS.WebService/docs/DOMAIN-MAP.md`
 - controlHint: `specs/_data-analy/features/drone-control-hint.md`

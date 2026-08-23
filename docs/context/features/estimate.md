@@ -5,8 +5,8 @@
 > **Kind:** **D** (slideout form) — Confirmed by: ai-autocode-autopilot  
 > **sourceKind:** **synthetic** · product docs (không màn GOVOne)  
 > **Sources:** `RMMS` §10 · `07` §10 · `08` · `09` · `15-SCREEN-AI-MAP.md`  
-> **Gắn màn:** Mobile/Web **Công việc** · chi tiết **Sự cố** · route MFE `/ai-vision/estimate`  
-> **Demo HTML:** `Linm.RMMS.Demo/public/demo/ai-vision/estimate.html`  
+> **Gắn màn:** Mobile/Web **Công việc** · chi tiết **Sự cố** · route MFE `/ai-kd/uoc-luong-sc`  
+> **Demo HTML:** `Linm.RMMS.Demo/public/demo/ai-kd/uoc-luong-sc.html`  
 > **MFE (align):** `Linm.Web.RMMS.AiVision` · **cấm** sửa MFE ở phase demo
 
 ## 1. Tổng quan
@@ -119,7 +119,7 @@
 ### AI ƯỚC LƯỢNG SỬA CHỮA (panel trên Công việc / Sự cố)
 
 - **id:** `estimate-panel-ai`
-- **url:** (planned) `/ai-vision/estimate` · host panel Công việc / chi tiết Sự cố
+- **url:** (planned) `/ai-kd/uoc-luong-sc` · host panel Công việc / chi tiết Sự cố
 - **title:** AI ước lượng sửa chữa
 - **headings:** Nguồn · Thông tin ước lượng · Bảng khối lượng · Nhân công & thiết bị · Tổng chi phí
 
@@ -219,7 +219,7 @@ Gen demo: `/qlbd-analy-demo @estimate` — load control-map trên + `/erp-form-c
 | Task | `task_31764117` (prev `task_ff8a59ee` · `task_42d3c388`) |
 | Skill | `/qlbd-analy-demo @estimate` |
 | sourceKind | **synthetic** (product docs · no GOVOne screen · RECAPTURE closed) |
-| Files | `estimate.md` · `demo-maps/estimate-*.md` · `public/demo/ai-vision/estimate.html` · `js/estimate-*.js` · `features/estimate-demo.html` (redirect) · `demoCatalog.ts` · hub |
+| Files | `estimate.md` · `demo-maps/estimate-*.md` · `public/demo/ai-kd/uoc-luong-sc.html` · `js/estimate-*.js` · `features/estimate-demo.html` (redirect) · `demoCatalog.ts` · hub |
 | BE align | OFF (demo Status ≠ Signed) · GAP-F-EST-03 documented · Step 4b when Signed |
 | Action work | Host list search work · open panel (create estimate) · line edit/delete · confirm modal · attach stub · leave-confirm · 13 actions paired · no dead Create/Edit |
 | Gaps open | **none** P0 (BE MISSING = DEFER · not Action-gap) |

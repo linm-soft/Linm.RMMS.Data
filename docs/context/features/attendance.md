@@ -6,7 +6,7 @@
 > **sourceKind:** `synthetic` · suy luận product docs (không đợi GOVOne leaf)  
 > **Sources:** `Hướng dẫn…` Check-in · `RMMS` §5 · `07` § Hạng mục 5 · `15-SCREEN-AI-MAP.md` #4–5  
 > **Demo HTML:** `Linm.RMMS.Demo/src/demo/features/attendance-demo.html` → `patrol/attendance.html`  
-> **MFE (align):** `Linm.Web.RMMS.Field` · route `/patrol/attendance` · BE `Linm.RMMS.WebService` domain Patrol
+> **MFE (align):** `Linm.Web.RMMS.Field` · route `/td-tk/cham-cong` · BE `Linm.RMMS.WebService` domain Patrol
 
 ## 1. Tổng quan
 
@@ -49,16 +49,16 @@ Hub/badge: `AI support · P1 online` · Spec modal rule + engine plan.
 
 ## 3. API
 
-Base (list pack): **`api/v1/patrol/attendance-logs`** · BFF `web-bff/api/v1/patrol/attendance-logs`  
+Base (list pack): **`api/v1/td-tk/cham-cong-logs`** · BFF `web-bff/api/v1/patrol/attendance-logs`  
 BackendRoot: `D:/AI-QLBD/Linm.RMMS.WebService` · domain **Patrol** · **cấm** ERP.* / `api/v1/rmms/*`
 
 | Method | Path | Mô tả | BE status |
 |--------|------|-------|-----------|
-| GET | `/patrol/attendance-logs?search=&status=&page=&pageSize=` | Catalog list paged | **DONE** |
-| GET | `/patrol/attendance-logs/{id}` | GetById · XCO get_only | **DONE** |
-| POST | `/patrol/attendance-logs` | Create · IdCode `CC-yyyyMMdd-nnn` | **DONE** |
-| PUT | `/patrol/attendance-logs/{id}` | Update | **DONE** |
-| DELETE | `/patrol/attendance-logs/{id}` | Soft delete | **DONE** |
+| GET | `/td-tk/cham-cong-logs?search=&status=&page=&pageSize=` | Catalog list paged | **DONE** |
+| GET | `/td-tk/cham-cong-logs/{id}` | GetById · XCO get_only | **DONE** |
+| POST | `/td-tk/cham-cong-logs` | Create · IdCode `CC-yyyyMMdd-nnn` | **DONE** |
+| PUT | `/td-tk/cham-cong-logs/{id}` | Update | **DONE** |
+| DELETE | `/td-tk/cham-cong-logs/{id}` | Soft delete | **DONE** |
 | GET | `/attendance/report?from=&to=&routeId=&userId=` | Báo cáo công (Kind E) | **MISSING** (P2) |
 | GET | `/attendance/summary?period=week\|month` | Tổng hợp | **MISSING** (P2) |
 | POST | `/attendance/validate-checkin` | Kiểm tra zone (server) | **MISSING** (P2) |
@@ -107,7 +107,7 @@ Cross-nav demo: Patrol Check-in · Report BC checkin.
 
 **sourceKind:** `synthetic`  
 **Control-map:** `_raw/legacy-govone/demo-maps/attendance-control-map.md` (26 fields · 26 actions)  
-**Demo path:** `Linm.RMMS.Demo/src/demo/patrol/attendance.html` · catalog domain `patrol` · badge `run` · `aiSupport`  
+**Demo path:** `Linm.RMMS.Demo/src/demo/td-tk/cham-cong.html` · catalog domain `patrol` · badge `run` · `aiSupport`  
 **Task:** `task_824e9f40` · Autopilot ON · demo only · be_align OFF (Status ≠ Signed)
 
 <!-- SYNTHETIC-PRODUCT-DOCS:START -->

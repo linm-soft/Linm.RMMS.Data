@@ -15,20 +15,20 @@ SSOT machine: [`HARNESS.json`](./HARNESS.json)
 
 | Layer | Exist | Path |
 |-------|-------|------|
-| L1 Context | yes | `Linm.RMMS.Data/docs/context/features/its-traffic-detect.md` |
-| L2 Demo | yes | `Linm.RMMS.Demo/src/demo/ai-vision/its-traffic-detect.html` |
-| L3 Specs | yes | `specs/its-traffic-detect/` · hint `_data-analy/...-control-hint.md` · prototype `ui/prototype/its-traffic-detect-list-prototype.html` |
+| L1 Context | yes | `Linm.RMMS.Data/docs/context/features/ai-its/bb-ct.md` |
+| L2 Demo | yes | `Linm.RMMS.Demo/src/demo/ai-its/bb-ct.html` |
+| L3 Specs | yes | `specs/ai-its/bb-ct/` · hint `_data-analy/...-control-hint.md` · prototype `ui/prototype/ai-its/bb-ct-list-prototype.html` |
 | L3 real-data | **no** | `*-real-data.md` missing |
-| L4 App | yes | MFE `Linm.Web.RMMS.AiVision` · `ItsTrafficDetectListPage` · routes `/its-traffic-detect` + alias |
+| L4 App | yes | MFE `Linm.Web.RMMS.AiVision` · `ItsTrafficDetectListPage` · routes `/ai-its/bb-ct` + alias |
 | L4 native | **no** | iOS/Android not in STATUS |
 | L5 State | yes | `STATUS.md` · demo store `src/demo/itsTrafficDetectStore.ts` |
-| L6 API | yes | `api/v1/ai-vision/its/objects` + `…/detect` |
+| L6 API | yes | `api/v1/ai-kd/its/objects` + `…/detect` |
 
 ## URLs (from STATUS — not invented)
 
-- mfeStdUrl: `http://localhost:9303/its-traffic-detect`
+- mfeStdUrl: `http://localhost:9303/ai-its/bb-ct`
 - reviewUrl: prototype HTML (file:// in STATUS)
-- peer: `http://localhost:9303/ai-vision/ai-asset-detect`
+- peer: `http://localhost:9303/ai-kd/phat-hien-ts`
 
 ## Integrate (FE → API)
 

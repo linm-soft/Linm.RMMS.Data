@@ -6,7 +6,7 @@
 > **Sources:** guide Check-in/Giám sát · `patrol.md` §2 · mobile-p1 `#sc-supervise`  
 > **Demo HTML:** `specs/mobile-p1/ui/prototype/{ios,android}/index.html` `#sc-supervise` · `DES-MOB-SUPERVISE`  
 > **Kind:** list (check-in history) · **cấm** hub / Kind A–G web  
-> **BE:** `Linm.RMMS.WebService` · domain **Patrol** · `api/v1/patrol/attendance-logs`  
+> **BE:** `Linm.RMMS.WebService` · domain **Patrol** · `api/v1/td-tk/cham-cong-logs`  
 > **BFF:** `Linm.RMMS.Mobile.Bff` · `mobile-bff/api/v1/patrol/attendance-logs`
 
 ## 1. Tổng quan

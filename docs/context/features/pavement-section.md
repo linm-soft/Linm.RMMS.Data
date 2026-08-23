@@ -5,9 +5,9 @@
 > **Kind:** **B (Catalog list)** + **Full page form** (≥10 field — không Modal)  
 > **Status:** Demo HTML · **run** · task_12c100cf  
 > **Sources:** `11-CSDL-SO-SACH-DATABASE-API.md` § Biểu 1 · `features/pavement-section.md` · hồ sơ chuẩn hóa sổ sách · guide/giaiphap  
-> **API:** `api/v1/asset/pavement-sections` (DOMAIN-MAP Asset · **không** dùng skeleton `/api/v1/infra`)  
+> **API:** `api/v1/so-ts/pl-mat-duongs` (DOMAIN-MAP Asset · **không** dùng skeleton `/api/v1/infra`)  
 > **IdCode:** `MD-YYYYMMDD-NNNN` (vd. `MD-20260731-0001`)  
-> **Demo:** `Linm.RMMS.Demo/public/demo/asset/pavement-section.html` (+ mirror `src/demo/asset/`)  
+> **Demo:** `Linm.RMMS.Demo/public/demo/so-ts/pl-mat-duong.html` (+ mirror `src/demo/asset/`)  
 > **Control map:** [`pavement-section-control-map.md`](pavement-section-control-map.md)  
 > **Readonly lock:** [`pavement-section-readonly-lock.md`](pavement-section-readonly-lock.md)  
 > **Demo-maps:** `_raw/legacy-govone/demo-maps/pavement-section-control-map.md` · `-actions.md`  
@@ -64,11 +64,11 @@
 
 | Mode | Path |
 |------|------|
-| List | `/asset/pavement-section` |
-| Create | `/asset/pavement-section/new` |
-| View | `/asset/pavement-section/:id` |
-| Edit | `/asset/pavement-section/:id/edit` |
-| Copy | `/asset/pavement-section/:id/copy` |
+| List | `/so-ts/pl-mat-duong` |
+| Create | `/so-ts/pl-mat-duong/tao-moi` |
+| View | `/so-ts/pl-mat-duong/:id` |
+| Edit | `/so-ts/pl-mat-duong/:id/edit` |
+| Copy | `/so-ts/pl-mat-duong/:id/copy` |
 | Alias | `?mode=edit` · `?mode=copy` · `?copyFrom=` (deep-link cũ) |
 
 ## 3. API (Step §5)
@@ -86,7 +86,7 @@
 
 Toast: success hardcode VI · error từ BE (form-api-error-handling).
 
-> **BE status (task_94b861f5):** implemented trên `Linm.RMMS.WebService` Asset · `api/v1/asset/pavement-sections` (+ BFF) · migration `rmms_pavement_sections` · **GAP-F-PVT-01 closed** (cấm ERP.*).
+> **BE status (task_94b861f5):** implemented trên `Linm.RMMS.WebService` Asset · `api/v1/so-ts/pl-mat-duongs` (+ BFF) · migration `rmms_pavement_sections` · **GAP-F-PVT-01 closed** (cấm ERP.*).
 
 ## 4. Database
 
@@ -120,7 +120,7 @@ Index: `(CompanyCode, Code)` unique · `(RoadName, KmFrom, KmTo)` · GIST option
 | GAP-P2-LKP | — | **Closed** — SearchInput master tỉnh/kết cấu/cấp/tình trạng (task_e95b3b89) |
 | GAP-P2-DT | P1 | `UpdatedAt` UTC ↔ local khi implement MFE thật |
 | GAP-RPT-SRC-PAV-01 | — | **Closed** — Pci · LayerCode · MeasuredAt (task_6a731526) |
-| GAP-F-PVT-01 | — | **Closed** — BE `api/v1/asset/pavement-sections` (task_94b861f5) |
+| GAP-F-PVT-01 | — | **Closed** — BE `api/v1/so-ts/pl-mat-duongs` (task_94b861f5) |
 | GAP-P2-ACT-DELETE | — | **Closed** — toolbar/row Delete → soft DELETE (task_d0fcb3d7) |
 | GAP-TL-FORMTYPE-01 | — | **Closed** — stamped T-UI-ACT-01 · T-BE-CRUD-01 · T-QA-CRUD-01 |
 | GAP-LKP-SELECT | — | **Closed** — native `<select>` / `Select` → SearchInput (task_e95b3b89) |
@@ -162,7 +162,7 @@ Index: `(CompanyCode, Code)` unique · `(RoadName, KmFrom, KmTo)` · GIST option
 ### DANH SÁCH PHÂN LOẠI MẶT ĐƯỜNG (list)
 
 - **id:** `pavement-section-list`
-- **url:** (planned) `/asset/pavement-sections`
+- **url:** (planned) `/so-ts/pl-mat-duongs`
 - **title:** Phân loại mặt đường (Biểu 1)
 - **headings:** Tiêu đề · Toolbar · Bộ lọc · Lưới dữ liệu · Phân trang
 
@@ -212,7 +212,7 @@ Index: `(CompanyCode, Code)` unique · `(RoadName, KmFrom, KmTo)` · GIST option
 ### FORM ĐOẠN MẶT ĐƯỜNG (Kind B full page)
 
 - **id:** `pavement-section-form`
-- **url:** (planned) `/asset/pavement-sections/new` · `/asset/pavement-sections/:id`
+- **url:** (planned) `/so-ts/pl-mat-duongs/new` · `/so-ts/pl-mat-duongs/:id`
 - **title:** Tạo / Sửa / Xem — Phân loại mặt đường
 
 #### Inputs

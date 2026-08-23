@@ -4,7 +4,7 @@
 |-------|-------|
 | skill | implement-ai-detect-run |
 | slug | ai-asset-detect |
-| route | /ai-vision/ai-asset-detect |
+| route | /ai-kd/phat-hien-ts |
 | phase | p1 |
 | mode | from-start |
 | lastStep | P1-5 |

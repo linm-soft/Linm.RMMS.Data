@@ -6,7 +6,7 @@
 > **packKind:** `master` — **không demo** · UI confirm ở Design  
 > **Sources:** [`../20-ORG-STRUCTURE-DRVN.md`](../20-ORG-STRUCTURE-DRVN.md) · [**seed JSON (60 nodes)**](../seed/org-unit-seed.json) · [drvn.gov.vn](https://drvn.gov.vn/gioi-thieu/co-cau-to-chuc?categoryId=101875659) · data-import CUC 2  
 > **Demo HTML:** **N/A**  
-> **MFE:** `Linm.Web.RMMS.Master` · `/master/org-unit`  
+> **MFE:** `Linm.Web.RMMS.Master` · `/mas/co-cau-tc`  
 > **Specs:** `Linm.RMMS.Data/specs/org-unit/`  
 > **Hub:** [`master.md`](master.md)
 
@@ -32,14 +32,14 @@
 
 ## 3. API
 
-Base: `api/v1/integration/org-units` (SA DOMAIN-MAP · Integration · GAP-SA-ROUTE-01)
+Base: `api/v1/open-api/org-units` (SA DOMAIN-MAP · Integration · GAP-SA-ROUTE-01)
 
 | Method | Path | Mô tả |
 |--------|------|-------|
-| GET | `/integration/org-units/tree` | Cây đầy đủ |
-| GET | `/integration/org-units?search=` | List/search CI không dấu |
-| GET | `/integration/org-units/search` | SearchInput parent |
-| GET | `/integration/org-units/{id}` | Chi tiết |
+| GET | `/open-api/org-units/tree` | Cây đầy đủ |
+| GET | `/open-api/org-units?search=` | List/search CI không dấu |
+| GET | `/open-api/org-units/search` | SearchInput parent |
+| GET | `/open-api/org-units/{id}` | Chi tiết |
 | POST / PUT / DELETE | … | CRUD shared Type A |
 
 ## 4. Fields (draft)

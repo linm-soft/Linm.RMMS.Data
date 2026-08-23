@@ -5,7 +5,7 @@
 > **Feature Kind:** **B** — Catalog list + form  
 > **packKind:** `master` — **không demo** · UI confirm Design  
 > **Data-analy:** [`../../specs/_data-analy/shared-catalogs/INVESTIGATE-CUC2.md`](../../specs/_data-analy/shared-catalogs/INVESTIGATE-CUC2.md) §3  
-> **MFE:** `Linm.Web.RMMS.Master` · `/master/road-route`  
+> **MFE:** `Linm.Web.RMMS.Master` · `/mas/tuyen-duong`  
 > **Hub:** [`master.md`](master.md)
 
 ## 1. Tổng quan
@@ -26,7 +26,7 @@
 
 ## 3. API (outline)
 
-`api/v1/integration/road-routes` · `GET ?search=` · `/search` SearchInput (Step **2li**) · BFF `web-bff/api/v1/integration/road-routes`.
+`api/v1/open-api/road-routes` · `GET ?search=` · `/search` SearchInput (Step **2li**) · BFF `web-bff/api/v1/integration/road-routes`.
 
 ## 4. Fields
 

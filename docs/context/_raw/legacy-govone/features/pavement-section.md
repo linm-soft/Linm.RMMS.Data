@@ -10,7 +10,7 @@
 ### DANH SÁCH PHÂN LOẠI MẶT ĐƯỜNG (list)
 
 - **id:** `pavement-section-list`
-- **url:** (planned) `/asset/pavement-sections`
+- **url:** (planned) `/so-ts/pl-mat-duongs`
 - **title:** Phân loại mặt đường (Biểu 1)
 - **headings:** Tiêu đề · Toolbar · Bộ lọc · Lưới dữ liệu · Phân trang
 
@@ -60,7 +60,7 @@
 ### FORM ĐOẠN MẶT ĐƯỜNG (Kind B full page)
 
 - **id:** `pavement-section-form`
-- **url:** (planned) `/asset/pavement-sections/new` · `/asset/pavement-sections/:id`
+- **url:** (planned) `/so-ts/pl-mat-duongs/new` · `/so-ts/pl-mat-duongs/:id`
 - **title:** Tạo / Sửa / Xem — Phân loại mặt đường
 
 #### Inputs

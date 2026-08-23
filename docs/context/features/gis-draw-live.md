@@ -6,8 +6,8 @@
 > **Feature Kind:** F/custom map · sibling [`gis-draw-google.md`](gis-draw-google.md)  
 > **Demo HTML (SSOT):** `Linm.RMMS.Demo/src/demo/gis/gis-draw-live.html`  
 > **Prototype ref:** `Linm.RMMS.Demo/src/demo/p/gis-draw-live.html`  
-> **MFE:** `Linm.Web.RMMS.Gis` · page `GisDrawLivePage` · route **`/gis/draw`**  
-> **`yarn start:std`:** `http://localhost:9302/gis/draw`  
+> **MFE:** `Linm.Web.RMMS.Gis` · page `GisDrawLivePage` · route **`/gis/live`**  
+> **`yarn start:std`:** `http://localhost:9302/gis/live`  
 > **BE:** `api/v1/gis` · `basemap-config?purpose=live` · `layers?purpose=live` · drawings GeoJSON · BFF `http://localhost:5201/web-bff/api/v1`  
 > **Parent:** [`gis.md`](gis.md) · full shell Google-proxy: [`gis-draw-google.md`](gis-draw-google.md)
 
@@ -49,7 +49,7 @@ Live-specific:
 |------|------|
 | Context | `docs/context/features/gis-draw-live.md` |
 | Demo | `Linm.RMMS.Demo/src/demo/gis/gis-draw-live.html` |
-| MFE std | `http://localhost:9302/dev` · route `/gis/draw` |
+| MFE std | `http://localhost:9302/dev` · route `/gis/live` |
 | BE | `Linm.RMMS.WebService` · domain Gis |
 | HĐ | PL01 mã 02 · `Linm.RMMS.Contract/docs/rmms/hop-dong/` |
 

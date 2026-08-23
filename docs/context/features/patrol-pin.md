@@ -3,7 +3,7 @@
 > **Slug:** `patrol-pin` · **Module:** `Patrol` · **Phase:** P1  
 > **Status:** Signed · mobile field CTA từ hub Tuần đường (+ reuse trên bản đồ ca)  
 > **Demo HTML:** `specs/mobile-p1/ui/prototype/{ios,android}/index.html` · `DES-MOB-CI-PIN-HERE` · `pinHereCheckin()` · `#sc-patrol-home` / `#sc-patrol-map`  
-> **BE:** `Linm.RMMS.WebService` · domain **Patrol** · `api/v1/patrol/sessions` (đọc Route cho toast)  
+> **BE:** `Linm.RMMS.WebService` · domain **Patrol** · `api/v1/td-tk/sessions` (đọc Route cho toast)  
 > **BFF:** `Linm.RMMS.Mobile.Bff` · `mobile-bff/api/v1/patrol/sessions` (proxy) · **không** endpoint pin riêng
 
 ## 1. Tổng quan

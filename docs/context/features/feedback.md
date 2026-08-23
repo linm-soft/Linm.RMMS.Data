@@ -4,8 +4,8 @@
 > **Status:** Signed (pack list · crud_formtype · Dev `task_7442b627`)  
 > **Kind:** **B** catalog list + **full-page** form — Confirmed by: ai-autocode-autopilot (`task_7442b627`)  
 > **Sources:** guide Mobile **Góp ý** · `15-SCREEN-AI-MAP.md`  
-> **Demo HTML:** `Linm.RMMS.Demo/public/demo/integration/feedback.html`  
-> **MFE (align):** `Linm.Web.RMMS.Integration` · `/integration/feedback`  
+> **Demo HTML:** `Linm.RMMS.Demo/public/demo/nhan-dan/gop-y.html`  
+> **MFE (align):** `Linm.Web.RMMS.Integration` · `/nhan-dan/gop-y`  
 > **≠** Cổng người dân (`citizen`)
 
 ## 1. Tổng quan
@@ -22,7 +22,7 @@
 | Screen | Pattern | Zones | Ghi chú |
 |--------|---------|-------|---------|
 | Gửi góp ý | Kind B **full-page** | Z1 Quay lại · Z2 fields/`<dl>` · Z3 footer | Host: Integration MFE |
-| Inbox admin | Full Kind B list | In scope this pack | `/integration/feedback` |
+| Inbox admin | Full Kind B list | In scope this pack | `/nhan-dan/gop-y` |
 | Host stub | Full mock | «Mở góp ý» → slideout | Demo only — **không** clone vào MFE |
 
 **Kind B form layout (erp-form-context · task_6cb63382):**
@@ -41,15 +41,15 @@
 
 ## 3. API
 
-Signed routes (SSOT) under `api/v1/integration/feedbacks` · BFF proxy `web-bff/api/v1/integration/feedbacks` · MFE BASE `/integration/feedbacks`.
+Signed routes (SSOT) under `api/v1/nhan-dan/gop-ys` · BFF proxy `web-bff/api/v1/integration/feedbacks` · MFE BASE `/nhan-dan/gop-ys`.
 
 | Method | Path | Mô tả | BE status |
 |--------|------|-------|-----------|
-| GET | `api/v1/integration/feedbacks` | List admin (paged · search/status) | **Signed** · admin list **in scope** this pack |
-| GET | `api/v1/integration/feedbacks/{id}` | Get by id | **Signed** |
-| POST | `api/v1/integration/feedbacks` | Create góp ý | **Signed** |
-| PUT | `api/v1/integration/feedbacks/{id}` | Update | **Signed** |
-| DELETE | `api/v1/integration/feedbacks/{id}` | Soft delete | **Signed** |
+| GET | `api/v1/nhan-dan/gop-ys` | List admin (paged · search/status) | **Signed** · admin list **in scope** this pack |
+| GET | `api/v1/nhan-dan/gop-ys/{id}` | Get by id | **Signed** |
+| POST | `api/v1/nhan-dan/gop-ys` | Create góp ý | **Signed** |
+| PUT | `api/v1/nhan-dan/gop-ys/{id}` | Update | **Signed** |
+| DELETE | `api/v1/nhan-dan/gop-ys/{id}` | Soft delete | **Signed** |
 
 Perms (Auth stub): `integration.feedbacks.read|create|update|delete`. Entity `AppFeedbackEntity` / `rmms_app_feedbacks` · IdCode `FB-YYYYMMDD-NNNN`.
 
@@ -68,7 +68,7 @@ Optional email/notify đội kỹ thuật — DEFER P1 demo.
 | ID | Question | Default |
 |----|----------|---------|
 | GAP-F-FB-01 | Admin UI inbox | Closed — list Kind B + **full-page** form in Integration MFE (cấm Slideout) |
-| GAP-F-FB-02 | BE endpoints `api/v1/integration/feedbacks` | Closed — Signed pack |
+| GAP-F-FB-02 | BE endpoints `api/v1/nhan-dan/gop-ys` | Closed — Signed pack |
 | GAP-F-FB-03 | Phân biệt citizen | Luôn badge / copy ≠ cổng người dân |
 
 ## 7. Demo checklist (chốt khách)
@@ -103,7 +103,7 @@ Optional email/notify đội kỹ thuật — DEFER P1 demo.
 ### GÓP Ý PHẦN MỀM (form gửi)
 
 - **id:** `feedback-send-form`
-- **url:** (planned) `/integration/feedback`
+- **url:** (planned) `/nhan-dan/gop-y`
 - **title:** Góp ý phần mềm
 - **headings:** Thông tin người gửi · Nội dung góp ý · Gửi
 
@@ -172,7 +172,7 @@ Gen demo: `/qlbd-analy-demo @feedback` — load control-map trên + `/erp-form-c
 | Skill | `/agent-qldb-workflow @feedback` |
 | sourceKind | **synthetic** (capture labeled legacy-govone block nhưng **không** màn GOVOne vision — product docs + guide Mobile Góp ý) |
 | Files | `feedback.md` · MFE `FeedbackListPage` · BE `AppFeedbacks*` · migration `rmms_app_feedbacks` · specs/feedback/* |
-| Dev | MFE `/integration/feedback` · API `api/v1/integration/feedbacks` · DOMAIN Integration |
+| Dev | MFE `/nhan-dan/gop-y` · API `api/v1/nhan-dan/gop-ys` · DOMAIN Integration |
 | ACTION WORK GATE | list A–D + **full-page** form C/E/V/Copy · toolbar/row Delete · footer Gửi/Nháp · schema `app-feedbacks` |
 | BE align | **ON** · Signed · Step 4b done · cấm ERP.* |
 | Confirmed by | ai-autocode-autopilot · task_7442b627 |

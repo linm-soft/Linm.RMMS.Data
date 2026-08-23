@@ -4,7 +4,7 @@
 > **Phase:** P1 **Demo UI** · **P2 BE+MFE** (SSOT **[`../18-ITS-ANPR-OVERLOAD-SPEC.md`](../18-ITS-ANPR-OVERLOAD-SPEC.md)**)  
 > **Status:** Demo · backlog **V2-C2** trong [`../09-PLAN-P1-V2.md`](../09-PLAN-P1-V2.md)  
 > **Kind:** **B** list feed + **D** slideout Confirm  
-> **Demo:** `Linm.RMMS.Demo/.../ai-vision/its-anpr-overload.html` · `/demo/p/its-anpr-overload`  
+> **Demo:** `Linm.RMMS.Demo/.../ai-its/toc-do-qt.html` · `/demo/p/ai-its/toc-do-qt`  
 > **≠** `its-traffic-detect` (biển báo/cọc) · `toc` (ùn tắc) · `incident` (Vấn đề chung)
 
 ## 1. Tổng quan

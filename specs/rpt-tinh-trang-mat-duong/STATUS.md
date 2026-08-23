@@ -10,8 +10,8 @@
 | demo | **N/A** |
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/rpt-tinh-trang-mat-duong.md` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Report` |
-| mfeStdRoute | `/bao-cao/tinh-trang-mat-duong` |
-| mfeStdUrl | `http://localhost:9311/bao-cao/tinh-trang-mat-duong` |
+| mfeStdRoute | `/bao-cao/tinh-trang/mat-duong` |
+| mfeStdUrl | `http://localhost:9311/bao-cao/tinh-trang/mat-duong` |
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/report` · DOMAIN-MAP — **cấm ERP.*** |
 | prototype.artifact | `specs/rpt-tinh-trang-mat-duong/ui/prototype/rpt-tinh-trang-mat-duong-prototype.html` |
 | prototype.reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/rpt-tinh-trang-mat-duong/ui/prototype/rpt-tinh-trang-mat-duong-prototype.html` |
@@ -60,14 +60,14 @@
 
 | id | page | role | deps | status | notes |
 |----|------|------|------|--------|-------|
-| task_8ea2e70d | `/bao-cao/tinh-trang-mat-duong` | chain | — | completed | full pipeline trước · Kind E · yarn typecheck+build PASS · API compile PASS |
-| task_ed6460e0 | `/bao-cao/tinh-trang-mat-duong` | po | data-analy confirmed | **completed** | roleOnly=po · `/agent-po` · enqueue **design** |
-| task_91737fc7 | `/bao-cao/tinh-trang-mat-duong` | design | po confirmed | **completed** | roleOnly=design · `/agent-design` · design_confirm **approve** · enqueue **sa** |
-| task_8d173080 | `/bao-cao/tinh-trang-mat-duong` | sa | design confirmed | **completed** | roleOnly=sa · `/agent-sa` · solution_confirm **approve** · enqueue **team-lead** |
-| task_4a477dab | `/bao-cao/tinh-trang-mat-duong` | team_lead | sa confirmed | **completed** | roleOnly=team_lead · `/agent-team-lead` · pack report Kind E · enqueue **dev** |
-| task_0e7f1bed | `/bao-cao/tinh-trang-mat-duong` | dev | team_lead confirmed | **completed** | roleOnly=dev · `/agent-dev` · Kind E · yarn typecheck+build PASS · API+BFF PASS · enqueue **qa** |
-| task_75bc7bb4 | `/bao-cao/tinh-trang-mat-duong` | qa | dev confirmed | **completed** | roleOnly=qa · `/agent-qa` · T-QA-RPT-01 PASS · P0 none · enqueue **review** |
-| task_116f4f9a | `/bao-cao/tinh-trang-mat-duong` | review | qa confirmed | **completed** | roleOnly=review · `/agent-review` · review_confirm **approve** · pipeline closed |
+| task_8ea2e70d | `/bao-cao/tinh-trang/mat-duong` | chain | — | completed | full pipeline trước · Kind E · yarn typecheck+build PASS · API compile PASS |
+| task_ed6460e0 | `/bao-cao/tinh-trang/mat-duong` | po | data-analy confirmed | **completed** | roleOnly=po · `/agent-po` · enqueue **design** |
+| task_91737fc7 | `/bao-cao/tinh-trang/mat-duong` | design | po confirmed | **completed** | roleOnly=design · `/agent-design` · design_confirm **approve** · enqueue **sa** |
+| task_8d173080 | `/bao-cao/tinh-trang/mat-duong` | sa | design confirmed | **completed** | roleOnly=sa · `/agent-sa` · solution_confirm **approve** · enqueue **team-lead** |
+| task_4a477dab | `/bao-cao/tinh-trang/mat-duong` | team_lead | sa confirmed | **completed** | roleOnly=team_lead · `/agent-team-lead` · pack report Kind E · enqueue **dev** |
+| task_0e7f1bed | `/bao-cao/tinh-trang/mat-duong` | dev | team_lead confirmed | **completed** | roleOnly=dev · `/agent-dev` · Kind E · yarn typecheck+build PASS · API+BFF PASS · enqueue **qa** |
+| task_75bc7bb4 | `/bao-cao/tinh-trang/mat-duong` | qa | dev confirmed | **completed** | roleOnly=qa · `/agent-qa` · T-QA-RPT-01 PASS · P0 none · enqueue **review** |
+| task_116f4f9a | `/bao-cao/tinh-trang/mat-duong` | review | qa confirmed | **completed** | roleOnly=review · `/agent-review` · review_confirm **approve** · pipeline closed |
 
 ## Blockers / open questions
 
@@ -76,8 +76,8 @@
 ## Links
 
 - data-analy → po → ui → be → task → implement → qa → review
-- mfeStdUrl: `http://localhost:9311/bao-cao/tinh-trang-mat-duong`
-- mfeStdRoute: `/bao-cao/tinh-trang-mat-duong`
+- mfeStdUrl: `http://localhost:9311/bao-cao/tinh-trang/mat-duong`
+- mfeStdRoute: `/bao-cao/tinh-trang/mat-duong`
 - control-hint: `specs/_data-analy/features/rpt-tinh-trang-mat-duong-control-hint.md`
 - PO: `specs/rpt-tinh-trang-mat-duong/po/requirement.md`
 - Design: `specs/rpt-tinh-trang-mat-duong/ui/design.md`

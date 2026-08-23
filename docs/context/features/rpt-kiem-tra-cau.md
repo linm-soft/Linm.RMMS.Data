@@ -5,7 +5,7 @@
 > **Kind:** **E** (report) — `/erp-report-context` · AnalyticsReportShell  
 > **Sources:** GOVOne › Kiểm tra cầu (3 leaf) · csdl sổ 5 · hub [reports.md](reports.md) · [15-SCREEN-AI-MAP.md](../15-SCREEN-AI-MAP.md)  
 > **Parent / list pack:** `csdl-so-sach` — **cấm** copy CRUD vào trang này  
-> **MFE:** `Linm.Web.RMMS.Report` · route `/bao-cao/kiem-tra-cau` · mfeStdUrl `http://localhost:9311/bao-cao/kiem-tra-cau`  
+> **MFE:** `Linm.Web.RMMS.Report` · route `/bao-cao/ktra-cau` · mfeStdUrl `http://localhost:9311/bao-cao/ktra-cau`  
 > **Demo HTML:** chưa (hub demo `bao-cao/reports.html` · leaf khi Design)  
 > **Chrome:** skip GOVOne logo/bell/Hồ sơ/Đổi MK · **cấm** `window.alert`/`confirm`
 
@@ -17,7 +17,7 @@
 | Persona | Hạt trưởng · Khu QLĐB · lãnh đạo |
 | App hiện có | GOVOne KHAI THÁC BÁO CÁO / guide Web Báo cáo — tách leaf khỏi hub `reports` |
 | DoD | Filter work · Xem ra lưới · drill đúng MFE nguồn · Excel theo cột · không CRUD |
-| Align MFE | http://localhost:9311/bao-cao/kiem-tra-cau |
+| Align MFE | http://localhost:9311/bao-cao/ktra-cau |
 
 ## 2. Design / UI
 
@@ -59,7 +59,7 @@ Không publish. Subscribe tùy domain nguồn (P2 push). Dashboard KPI không g�
 
 | ID | Default |
 |----|---------|
-| GAP-F-RPT-LEAF-01 Tách khỏi hub `reports` | Leaf slug + route /bao-cao/kiem-tra-cau |
+| GAP-F-RPT-LEAF-01 Tách khỏi hub `reports` | Leaf slug + route /bao-cao/ktra-cau |
 | GAP-P2-REPORT-API-01 | Endpoint stub tới Dev BE |
 | GAP-FILTER-BAR | LinErpListFilterBar 1 hàng wrap |
 | Demo HTML leaf | Design prototype — không bắt demo trước data-analy |

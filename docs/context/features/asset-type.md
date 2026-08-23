@@ -5,7 +5,7 @@
 > **Feature Kind:** **B** — Catalog list + form  
 > **packKind:** `master` — **không demo** · UI confirm Design  
 > **Data-analy:** [`../../specs/_data-analy/shared-catalogs/INVESTIGATE-CUC2.md`](../../specs/_data-analy/shared-catalogs/INVESTIGATE-CUC2.md) §4  
-> **MFE:** `Linm.Web.RMMS.Master` · `/master/asset-type`  
+> **MFE:** `Linm.Web.RMMS.Master` · `/mas/loai-ts`  
 > **Hub:** [`master.md`](master.md) · consumer [`asset.md`](asset.md)
 
 ## 1. Tổng quan
@@ -26,7 +26,7 @@
 
 ## 3. API
 
-`api/v1/integration/asset-types` (DOMAIN-MAP **Integration**) · search · (optional) `GET /alias-map` cho import job.  
+`api/v1/open-api/asset-types` (DOMAIN-MAP **Integration**) · search · (optional) `GET /alias-map` cho import job.  
 **Cấm** `api/v1/rmms/*` · **cấm** ERP.*.
 
 ## 4. Fields

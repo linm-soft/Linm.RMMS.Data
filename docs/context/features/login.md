@@ -39,10 +39,10 @@
 |--------|------|------|
 | POST | `web-bff/api/v1/auth/login` · `refresh` · `logout` | **BFF Auth NuGet** — **cấm** clone |
 | POST | `api/v1/admin/users/{id}/activate` · `deactivate` | Platform Auth (job + admin) |
-| GET/PUT | `api/v1/contract/contracts/{id}` | RMMS Contract — + `routes[]` + `accounts[]` |
-| PUT | `api/v1/contract/contracts/{id}/routes` | Child table — **cấm** `RouteSegment` CSV |
-| PUT | `api/v1/contract/contracts/{id}/accounts` | Gán Auth user + role |
-| PUT | `api/v1/integration/users/{id}/assign-routes` | Tuyến ⊆ HĐ — **cấm** CSV thuần |
+| GET/PUT | `api/v1/hd-ns/contracts/{id}` | RMMS Contract — + `routes[]` + `accounts[]` |
+| PUT | `api/v1/hd-ns/contracts/{id}/routes` | Child table — **cấm** `RouteSegment` CSV |
+| PUT | `api/v1/hd-ns/contracts/{id}/accounts` | Gán Auth user + role |
+| PUT | `api/v1/admin/user/{id}/assign-routes` | Tuyến ⊆ HĐ — **cấm** CSV thuần |
 | POST | `api/v1/jobs/rmms-contract-account-lifecycle/run` | Job trigger (Admin) |
 | GET | `api/v1/contract-accounts/session-window?authUserId=` | Defense hết hạn → 403 (L5) |
 

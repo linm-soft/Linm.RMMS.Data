@@ -37,11 +37,11 @@
       "exist": true,
       "mfe": "D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Asset",
       "routes": [
-        "/asset",
-        "/asset/new",
-        "/asset/:id",
-        "/asset/:id/edit",
-        "/asset/:id/copy"
+        "/so-ts",
+        "/so-ts/tao-moi",
+        "/so-ts/:id",
+        "/so-ts/:id/edit",
+        "/so-ts/:id/copy"
       ],
       "pages": [
         "src/pages/AssetListPage/AssetListPage.tsx",
@@ -71,64 +71,64 @@
     }
   },
   "urls": {
-    "mfeStdRoute": "/asset",
-    "mfeStdUrl": "http://localhost:9301/asset",
+    "mfeStdRoute": "/so-ts",
+    "mfeStdUrl": "http://localhost:9301/so-ts",
     "reviewUrl": "file:///D:/AI-QLBD/Linm.RMMS.Data/specs/asset/ui/prototype/asset-list-prototype.html"
   },
   "integrate": [
     {
       "uiCallSite": "assetEndpoint.getList",
-      "apiRoute": "api/v1/asset/road-assets",
+      "apiRoute": "api/v1/so-ts/road-assets",
       "method": "GET"
     },
     {
       "uiCallSite": "assetEndpoint.getById",
-      "apiRoute": "api/v1/asset/road-assets/{id}",
+      "apiRoute": "api/v1/so-ts/road-assets/{id}",
       "method": "GET"
     },
     {
       "uiCallSite": "assetEndpoint.create",
-      "apiRoute": "api/v1/asset/road-assets",
+      "apiRoute": "api/v1/so-ts/road-assets",
       "method": "POST"
     },
     {
       "uiCallSite": "assetEndpoint.update",
-      "apiRoute": "api/v1/asset/road-assets/{id}",
+      "apiRoute": "api/v1/so-ts/road-assets/{id}",
       "method": "PUT"
     },
     {
       "uiCallSite": "assetEndpoint.delete",
-      "apiRoute": "api/v1/asset/road-assets/{id}",
+      "apiRoute": "api/v1/so-ts/road-assets/{id}",
       "method": "DELETE"
     },
     {
       "uiCallSite": "assetEndpoint.getInitData / getRoadAssetInitData",
-      "apiRoute": "api/v1/asset/road-assets/init-data",
+      "apiRoute": "api/v1/so-ts/road-assets/init-data",
       "method": "GET"
     },
     {
       "uiCallSite": "TYPE_LOOKUP_CONFIG",
-      "apiRoute": "api/v1/integration/asset-types/search",
+      "apiRoute": "api/v1/open-api/asset-types/search",
       "method": "GET"
     },
     {
       "uiCallSite": "ROUTE_LOOKUP_CONFIG",
-      "apiRoute": "api/v1/integration/road-routes/search",
+      "apiRoute": "api/v1/open-api/road-routes/search",
       "method": "GET"
     },
     {
       "uiCallSite": "ORG_LOOKUP_CONFIG",
-      "apiRoute": "api/v1/integration/org-units/tree",
+      "apiRoute": "api/v1/open-api/org-units/tree",
       "method": "GET"
     },
     {
       "uiCallSite": "catalogUiSchemaService.get",
-      "apiRoute": "api/v1/integration/catalogs/{catalogKind}/ui-schema",
+      "apiRoute": "api/v1/open-api/catalogs/{catalogKind}/ui-schema",
       "method": "GET"
     },
     {
       "uiCallSite": "catalogUiSchemaService.save",
-      "apiRoute": "api/v1/integration/catalogs/{catalogKind}/ui-schema",
+      "apiRoute": "api/v1/open-api/catalogs/{catalogKind}/ui-schema",
       "method": "PUT"
     }
   ],

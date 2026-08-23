@@ -8,7 +8,7 @@
 
 - **B** CatalogListShell (list candidate AI) + **D** slideout form Create/Edit/View/Copy + **F** map pin «AI new»
 - Step 2a-K · 2g control-map · 2t catalog toolbar · leave-confirm (form dirty)
-- Host: Patrol monitor + Asset giám sát TS · route MFE `/ai-vision/ai-asset-detect` (align AiVision)
+- Host: Patrol monitor + Asset giám sát TS · route MFE `/ai-kd/phat-hien-ts` (align AiVision)
 
 ## Fields
 

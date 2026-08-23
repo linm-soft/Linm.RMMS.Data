@@ -2,7 +2,7 @@
 
 > **Slug:** `csdl-so-sach` · **sourceKind:** synthetic  
 > **Kind:** G hub + B list + D slideout  
-> **Demo:** `public/demo/asset/csdl-so-sach.html`  
+> **Demo:** `public/demo/so-ts/csdl-so-sach.html`  
 > **Mirror:** `_raw/legacy-govone/demo-maps/csdl-so-sach-control-map.md`
 
 ## Fields (≥18)

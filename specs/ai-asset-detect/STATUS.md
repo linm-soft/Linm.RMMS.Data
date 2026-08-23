@@ -8,12 +8,12 @@
 | changeScope | `edit_page` |
 | packKind | `list` |
 | featureClass | `ai` (Kind B list+form + Kind F map pin · **không** trộn `ai-vision` ổ gà) |
-| demo | `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/ai-vision/ai-asset-detect.html` |
+| demo | `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/ai-kd/phat-hien-ts.html` |
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/ai-asset-detect.md` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.AiVision` |
-| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/ai-vision` |
-| mfeStdRoute | `/ai-vision/ai-asset-detect` |
-| mfeStdUrl | `http://localhost:9303/ai-vision/ai-asset-detect` |
+| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/ai-kd` |
+| mfeStdRoute | `/ai-kd/phat-hien-ts` |
+| mfeStdUrl | `http://localhost:9303/ai-kd/phat-hien-ts` |
 | reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/ai-asset-detect/ui/prototype/ai-asset-detect-list-prototype.html` |
 | taskId | `task_b86293c4` |
 | skillVersion | `2026.08.10.3` |
@@ -39,7 +39,7 @@
 | autoApprove | ON | design/sa/review → agent tự confirm |
 | design_confirm | **approve** | autopilot |
 | solution_confirm | **approve** | autopilot |
-| route_confirm | **route_a** | `/ai-vision/ai-asset-detect` |
+| route_confirm | **route_a** | `/ai-kd/phat-hien-ts` |
 | review_confirm | **approve** | autopilot · `review/findings.md` · GAP-QA-ACT-DELETE-01 closed |
 
 ### SA implement gates (autopilot)
@@ -81,8 +81,8 @@
 - Infer run: `/implement-ai-detect-run` · tracking `specs/ai-asset-detect/run/STATUS.md` (P1-0…P2-3 pending).
 
 ## Links
-- mfeStdUrl: `http://localhost:9303/ai-vision/ai-asset-detect`
-- mfeStdRoute: `/ai-vision/ai-asset-detect`
+- mfeStdUrl: `http://localhost:9303/ai-kd/phat-hien-ts`
+- mfeStdRoute: `/ai-kd/phat-hien-ts`
 
 - Review: `specs/ai-asset-detect/review/findings.md`
 - QA: `specs/ai-asset-detect/qa/scenarios.md`
@@ -103,8 +103,8 @@
 | this role | `review` · **done** · approve |
 | next role | — (pipeline complete) |
 | review | `specs/ai-asset-detect/review/findings.md` |
-| mfeStdRoute | `/ai-vision/ai-asset-detect` |
-| mfeStdUrl | `http://localhost:9303/ai-vision/ai-asset-detect` |
+| mfeStdRoute | `/ai-kd/phat-hien-ts` |
+| mfeStdUrl | `http://localhost:9303/ai-kd/phat-hien-ts` |
 | BE | `Linm.RMMS.WebService` · AiVision |
 | MFE | `Linm.Web.RMMS.AiVision` |
 | Build | API+BFF+MFE **PASS** |

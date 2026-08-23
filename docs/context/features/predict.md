@@ -4,8 +4,8 @@
 > **Status:** Demo  
 > **Kind:** **B** (CatalogListShell) + **D** (section slideout) — Confirmed by: ai-autocode-autopilot  
 > **Sources:** `RMMS` §8 · `07` §8 · `08` · `09` · `15-SCREEN-AI-MAP.md`  
-> **Gắn màn:** Web **Báo cáo** / **Dashboard** · route MFE `/ai-vision/predict`  
-> **Demo HTML:** `Linm.RMMS.Demo/public/demo/ai-vision/predict.html`  
+> **Gắn màn:** Web **Báo cáo** / **Dashboard** · route MFE `/ai-kd/du-bao-bt`  
+> **Demo HTML:** `Linm.RMMS.Demo/public/demo/ai-kd/du-bao-bt.html`  
 > **MFE (align):** `Linm.Web.RMMS.AiVision` · **cấm** sửa MFE ở phase demo
 
 ## 1. Tổng quan
@@ -110,7 +110,7 @@
 ### PRIORITY LIST — AI DỰ BÁO BẢO TRÌ
 
 - **id:** `predict-priority-list`
-- **url:** (planned) `/ai-vision/predict`
+- **url:** (planned) `/ai-kd/du-bao-bt`
 - **title:** AI dự báo bảo trì — Danh sách ưu tiên
 - **headings:** Bộ lọc · KPI · Priority list · Model badge
 
@@ -177,7 +177,7 @@
 ### SECTION DETAIL — SLIDEOUT
 
 - **id:** `predict-section-detail`
-- **url:** (planned) `/ai-vision/predict` · slideout
+- **url:** (planned) `/ai-kd/du-bao-bt` · slideout
 - **title:** Chi tiết dự báo đoạn
 - **headings:** Thông tin đoạn · Drivers · Biểu đồ stub · Khuyến nghị · Lịch sử audit
 
@@ -251,7 +251,7 @@ Gen demo: `/qlbd-analy-demo @predict` — load control-map trên + `/erp-form-co
 | Alias | `predict` |
 | Skill | `/qlbd-analy-demo @predict` |
 | sourceKind | legacy (doc-synth — không màn GOVOne; capture từ 07/15 + synthetic labels) |
-| Files | `predict.md` · `demo-maps/predict-*.md` · `src/demo/ai-vision/predict.html` · `js/predict-*.js` · `demoCatalog.ts` · hub link `ai-vision.html` |
+| Files | `predict.md` · `demo-maps/predict-*.md` · `src/demo/ai-kd/du-bao-bt.html` · `js/predict-*.js` · `demoCatalog.ts` · hub link `ai-vision.html` |
 | BE align | OFF (demo) · GAP-F-PRD-03 `/api/v1/ai-predict/*` MISSING · be_align khi Signed |
 | Gap open | none (P0 legacy form thiếu — N/A; module mới) |
 | Confirmed by | ai-autocode-autopilot |

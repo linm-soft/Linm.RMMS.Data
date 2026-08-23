@@ -3,7 +3,7 @@
 > **Shell:** `/erp-form-context` Kind **B** list + **D** slideout + **F** map  
 > **AI layer:** `/ai-form-context` · design wire · pilot ITS sample  
 > **SSOT design:** `docs/context/16-ITS-TRAFFIC-OBJECT-DETECTION-DESIGN.md`  
-> Demo: `Linm.RMMS.Demo/public/demo/ai-vision/its-traffic-detect.html` · **cấm BE** · **cấm GOVOne chrome**
+> Demo: `Linm.RMMS.Demo/public/demo/ai-its/bb-ct.html` · **cấm BE** · **cấm GOVOne chrome**
 
 ## Kind
 

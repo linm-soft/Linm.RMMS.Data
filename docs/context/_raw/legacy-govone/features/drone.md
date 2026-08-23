@@ -8,7 +8,7 @@
 ### DANH SÁCH SCAN / JOB BAY
 
 - **id:** `drone-list`
-- **url:** (planned) `/drone`
+- **url:** (planned) `/fly`
 - **title:** Drone / Reality Capture
 
 #### Labels / field captions (list + KPI)
@@ -39,7 +39,7 @@
 ### CHI TIẾT / TẠO SCAN
 
 - **id:** `drone-form`
-- **url:** (planned) `/drone/new` · `/drone/:id`
+- **url:** (planned) `/fly/tao-moi` · `/fly/:id`
 - **title:** Chi tiết scan drone
 
 #### Labels / field captions (form + artifact lines)

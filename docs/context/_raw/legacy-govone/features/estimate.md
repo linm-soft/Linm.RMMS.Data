@@ -9,7 +9,7 @@
 ### AI ƯỚC LƯỢNG SỬA CHỮA (panel trên Công việc / Sự cố)
 
 - **id:** `estimate-panel-ai`
-- **url:** (planned) `/ai-vision/estimate` · host panel Công việc / chi tiết Sự cố
+- **url:** (planned) `/ai-kd/uoc-luong-sc` · host panel Công việc / chi tiết Sự cố
 - **title:** AI ước lượng sửa chữa
 - **headings:** Nguồn · Thông tin ước lượng · Bảng khối lượng · Nhân công & thiết bị · Tổng chi phí
 

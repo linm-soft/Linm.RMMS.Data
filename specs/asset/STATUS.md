@@ -10,11 +10,11 @@
 | demo | `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/asset-demo.html` |
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/asset.md` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Asset` |
-| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · **`api/v1/asset/road-assets`** (**cấm ERP.***) |
+| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · **`api/v1/so-ts/road-assets`** (**cấm ERP.***) |
 | prototype.artifact | `specs/asset/ui/prototype/asset-list-prototype.html` |
 | prototype.reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/asset/ui/prototype/asset-list-prototype.html` |
-| mfeStdRoute | `/asset` |
-| mfeStdUrl | `http://localhost:9301/asset` |
+| mfeStdRoute | `/so-ts` |
+| mfeStdUrl | `http://localhost:9301/so-ts` |
 | dataAnaly.cluster | `specs/_data-analy/clusters/cluster-asset-header-v1.md` |
 | dataAnaly.controlHint | `specs/_data-analy/features/asset-control-hint.md` |
 | po.requirement | `specs/asset/po/requirement.md` |
@@ -96,8 +96,8 @@
 
 ## Links
 - harness (R0): `specs/asset/HARNESS.md` · `HARNESS.json`
-- mfeStdUrl: `http://localhost:9301/asset`
-- mfeStdRoute: `/asset`
+- mfeStdUrl: `http://localhost:9301/so-ts`
+- mfeStdRoute: `/so-ts`
 - Data-analy cluster: `specs/_data-analy/clusters/cluster-asset-header-v1.md`
 - controlHint: `specs/_data-analy/features/asset-control-hint.md`
 - PO: `specs/asset/po/requirement.md`

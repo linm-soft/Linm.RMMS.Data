@@ -10,8 +10,8 @@
 | demo | **N/A** |
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/rpt-nhat-ky-tuan-duong.md` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Report` |
-| mfeStdRoute | `/bao-cao/nhat-ky-tuan-duong` |
-| mfeStdUrl | `http://localhost:9311/bao-cao/nhat-ky-tuan-duong` |
+| mfeStdRoute | `/bao-cao/nk-td` |
+| mfeStdUrl | `http://localhost:9311/bao-cao/nk-td` |
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · **`api/v1/report/patrol-log-road`** — **cấm ERP.*** |
 | prototype.artifact | `specs/rpt-nhat-ky-tuan-duong/ui/prototype/rpt-nhat-ky-tuan-duong-prototype.html` |
 | prototype.reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/rpt-nhat-ky-tuan-duong/ui/prototype/rpt-nhat-ky-tuan-duong-prototype.html` |
@@ -70,14 +70,14 @@
 
 | id | page | role | deps | status | notes |
 |----|------|------|------|--------|-------|
-| task_0e294d3d | `/bao-cao/nhat-ky-tuan-duong` | chain | — | completed | prior full pipeline autoApprove ON |
-| task_072cb5c8 | `/bao-cao/nhat-ky-tuan-duong` | po | data_analy | **completed** | roleOnly · `/agent-po` · packKind **report** Kind E |
-| task_a78a8a06 | `/bao-cao/nhat-ky-tuan-duong` | design | po | **completed** | roleOnly · `/agent-design` |
-| task_b2d605ba | `/bao-cao/nhat-ky-tuan-duong` | sa | design | **completed** | roleOnly · `/agent-sa` |
-| task_646fa977 | `/bao-cao/nhat-ky-tuan-duong` | team_lead | sa | **completed** | roleOnly · `/agent-team-lead` · Kind E PASS live |
-| task_416ac86e | `/bao-cao/nhat-ky-tuan-duong` | dev | team_lead | **completed** | roleOnly · `/agent-dev` · SSOT re-review PASS · yarn typecheck+build PASS |
-| task_46ade61e | `/bao-cao/nhat-ky-tuan-duong` | qa | dev | **completed** | roleOnly · `/agent-qa` · scenarios PASS · typecheck+build PASS · P0 none · enqueue **review** |
-| task_d4fe63b9 | `/bao-cao/nhat-ky-tuan-duong` | review | qa | **completed** | roleOnly · `/agent-review` · autoApprove ON · review_confirm **approve** · feature **done** |
+| task_0e294d3d | `/bao-cao/nk-td` | chain | — | completed | prior full pipeline autoApprove ON |
+| task_072cb5c8 | `/bao-cao/nk-td` | po | data_analy | **completed** | roleOnly · `/agent-po` · packKind **report** Kind E |
+| task_a78a8a06 | `/bao-cao/nk-td` | design | po | **completed** | roleOnly · `/agent-design` |
+| task_b2d605ba | `/bao-cao/nk-td` | sa | design | **completed** | roleOnly · `/agent-sa` |
+| task_646fa977 | `/bao-cao/nk-td` | team_lead | sa | **completed** | roleOnly · `/agent-team-lead` · Kind E PASS live |
+| task_416ac86e | `/bao-cao/nk-td` | dev | team_lead | **completed** | roleOnly · `/agent-dev` · SSOT re-review PASS · yarn typecheck+build PASS |
+| task_46ade61e | `/bao-cao/nk-td` | qa | dev | **completed** | roleOnly · `/agent-qa` · scenarios PASS · typecheck+build PASS · P0 none · enqueue **review** |
+| task_d4fe63b9 | `/bao-cao/nk-td` | review | qa | **completed** | roleOnly · `/agent-review` · autoApprove ON · review_confirm **approve** · feature **done** |
 
 ## Blockers / open questions
 
@@ -89,8 +89,8 @@
 ## Links
 
 - data-analy → po → ui → be → task → implement → qa → review
-- mfeStdUrl: `http://localhost:9311/bao-cao/nhat-ky-tuan-duong`
-- mfeStdRoute: `/bao-cao/nhat-ky-tuan-duong`
+- mfeStdUrl: `http://localhost:9311/bao-cao/nk/tuan-duong`
+- mfeStdRoute: `/bao-cao/nk-td`
 - reviewUrl: `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/rpt-nhat-ky-tuan-duong/ui/prototype/rpt-nhat-ky-tuan-duong-prototype.html`
 - closeout QA: `task_46ade61e` · roleOnly=`qa` · `/agent-qa` · build PASS · enqueue **review** · at: `2026-08-16T08:52:00.000Z`
 - closeout Review: `task_d4fe63b9` · roleOnly=`review` · `/agent-review` · findings PASS · review_confirm **approve** · yarn typecheck+build PASS · pipeline **done** · autoApprove **ON** · at: `2026-08-16T08:50:00.000Z`

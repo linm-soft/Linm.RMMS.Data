@@ -37,10 +37,10 @@ App `{BffPrefix}` = `mobile-bff/api/v1`. **Cấm** invent `api/v1/asset-hub`.
 
 | Hub zone | Method | `{BffPrefix}` path | Downstream | Ghi |
 |----------|--------|--------------------|------------|-----|
-| Wallet title tuyến | GET | `integration/road-routes/search` | `api/v1/integration/road-routes` | filter theo hợp đồng/tuyến giao · **UNCLEAR** live org |
-| Wallet số loại | GET | `integration/asset-types` | `api/v1/integration/asset-types` | count catalog (target 36 · demo «32») |
+| Wallet title tuyến | GET | `integration/road-routes/search` | `api/v1/open-api/road-routes` | filter theo hợp đồng/tuyến giao · **UNCLEAR** live org |
+| Wallet số loại | GET | `integration/asset-types` | `api/v1/open-api/asset-types` | count catalog (target 36 · demo «32») |
 | Wallet ghi chú patrol | — | — | — | demo copy · sibling `patrol-home` |
-| AI pending list | GET | `ai-vision/asset-candidates` | `api/v1/ai-vision/asset-candidates` | filter status=Draft |
+| AI pending list | GET | `ai-vision/asset-candidates` | `api/v1/ai-kd/asset-candidates` | filter status=Draft |
 | AI pending (nearby) | GET | `ai-vision/asset-candidates/nearby` | optional | hub demo 1 row |
 
 Sibling screens gọi CRUD riêng — xem `asset-hub-bff-endpoints.md`.

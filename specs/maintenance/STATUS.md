@@ -11,13 +11,13 @@
 | demo | D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/maintenance-demo.html |
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/maintenance.md` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Field` |
-| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · **`api/v1/maintenance/work-orders`** + **`api/v1/maintenance/work-orders/init-data`** + **`api/v1/integration/catalogs/work-orders/ui-schema`** (**cấm ERP.***) |
+| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · **`api/v1/sc-bt/work-orders`** + **`api/v1/sc-bt/work-orders/init-data`** + **`api/v1/open-api/catalogs/work-orders/ui-schema`** (**cấm ERP.***) |
 | domain | **Maintenance** (+ Integration ui-schema) |
 | updatedAt | `2026-08-15T18:05:23.432Z` |
 | taskId | `task_1d66d0dc` |
 | autoApprove | `ON` |
-| mfeStdRoute | `/maintenance` |
-| mfeStdUrl | `http://localhost:9304/maintenance` |
+| mfeStdRoute | `/sc-bt` |
+| mfeStdUrl | `http://localhost:9304/sc-bt` |
 | skillVersion | `2026.08.09.02` |
 | schemaVersion | `qldb-workflow-skill-v1` |
 | workflowVersion | `2026.08.09.02` |
@@ -100,7 +100,7 @@
 - QA: `D:/AI-QLBD/Linm.RMMS.Data/specs/maintenance/qa/scenarios.md`
 - Review: `D:/AI-QLBD/Linm.RMMS.Data/specs/maintenance/review/findings.md`
 - DOMAIN-MAP: `D:/AI-QLBD/Linm.RMMS.WebService/docs/DOMAIN-MAP.md`
-- mfeStdUrl: `http://localhost:9304/maintenance`
+- mfeStdUrl: `http://localhost:9304/sc-bt`
 - reviewUrl: `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/maintenance/ui/prototype/maintenance-list-prototype.html`
 
 ## Closeout

@@ -6,8 +6,8 @@
 > **sourceKind:** **synthetic** (hồ sơ chuẩn hóa + `11-CSDL-SO-SACH-DATABASE-API.md` · **không** màn GOVOne)  
 > **Kind:** **G** (catalog hub) + **B** (list theo resource) + **D** (slideout form) — Confirmed by: ai-autocode-autopilot  
 > **Sources:** `11-CSDL-SO-SACH-DATABASE-API.md` · hồ sơ `4.1` 12 biểu · `3. Mẫu sổ` 8 sổ · TT 41 · TCVN 14182 · `07` · `09` · `15-SCREEN-AI-MAP.md`  
-> **Demo HTML:** `Linm.RMMS.Demo/public/demo/asset/csdl-so-sach.html` (+ `src/demo/asset/`)  
-> **MFE (align):** `Linm.Web.RMMS.Asset` · route `/asset/csdl-so-sach` · **cấm** sửa MFE production ở phase demo  
+> **Demo HTML:** `Linm.RMMS.Demo/public/demo/so-ts/csdl-so-sach.html` (+ `src/demo/asset/`)  
+> **MFE (align):** `Linm.Web.RMMS.Asset` · route `/so-ts/csdl-so-sach` · **cấm** sửa MFE production ở phase demo  
 > **Control-map:** [`csdl-so-sach-control-map.md`](csdl-so-sach-control-map.md) · `_raw/legacy-govone/demo-maps/`  
 > **≠** `pavement-section` (Biểu 1 deep form) · `asset` (SỔ TÀI SẢN GOVOne) — hub này là **catalog chuẩn hóa** 12+8
 
@@ -67,7 +67,7 @@
 
 ## 3. API (P1 align — Asset domain · DOMAIN-MAP)
 
-> **Chốt SA (2026-08-09):** `api/v1/asset/csdl-records` (+ query `resource=`) — **không** dùng `/api/v1/infra/*` ngoài DOMAIN-MAP. BFF `web-bff/api/v1/asset/csdl-records`. MFE `/asset/csdl-so-sach`.
+> **Chốt SA (2026-08-09):** `api/v1/so-ts/csdl-records` (+ query `resource=`) — **không** dùng `/api/v1/infra/*` ngoài DOMAIN-MAP. BFF `web-bff/api/v1/asset/csdl-records`. MFE `/so-ts/csdl-so-sach`.
 
 ### 3.1 Catalog CRUD (polymorphic)
 

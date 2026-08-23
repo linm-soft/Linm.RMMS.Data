@@ -10,9 +10,9 @@
 | demo | D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/copilot-demo.html |
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/copilot.md` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Copilot` |
-| mfeStdRoute | `/copilot` |
-| mfeStdUrl | `http://localhost:9310/copilot` |
-| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/copilot` |
+| mfeStdRoute | `/ai` |
+| mfeStdUrl | `http://localhost:9310/ai` |
+| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/ai` |
 | reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/copilot/ui/prototype/copilot-list-prototype.html` |
 | taskId | `task_cc36263e` |
 | skillVersion | `2026.08.15.5` |
@@ -36,7 +36,7 @@
 | autoApprove | **ON** | packet Review `task_cc36263e` · agent tự confirm |
 | design_confirm | **approve** | user APPROVE→CHAIN · `task_76a85b90` |
 | solution_confirm | **approve** | user APPROVE→CHAIN · `task_f47ca8e1` → TL |
-| route_confirm | **route_a** | `/copilot` |
+| route_confirm | **route_a** | `/ai` |
 | review_confirm | **approve** | autoApprove=ON · ACCEPT · pipeline đóng |
 
 ### SA implement gates (hold until SA turn)
@@ -90,8 +90,8 @@
 - Dev: `specs/copilot/implement/copilot.md`
 - QA: `specs/copilot/qa/scenarios.md`
 - Review: `specs/copilot/review/findings.md`
-- mfeStdUrl: `http://localhost:9310/copilot`
-- mfeStdRoute: `/copilot`
+- mfeStdUrl: `http://localhost:9310/ai`
+- mfeStdRoute: `/ai`
 - DOMAIN-MAP: `D:/AI-QLBD/Linm.RMMS.WebService/docs/DOMAIN-MAP.md`
 
 ## Verify

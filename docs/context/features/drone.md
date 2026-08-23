@@ -5,7 +5,7 @@
 > **Kind:** **B** (CatalogListShell) + **D** (slideout form) + viewer stub — Confirmed by: ai-autocode-autopilot  
 > **Sources:** `RMMS` §13 · `07` Hạng mục 13 · `09` OUT P1 · `15-SCREEN-AI-MAP.md` · extract Phân hệ 13  
 > **Demo HTML:** `Linm.RMMS.Demo/public/demo/drone/drone.html`  
-> **MFE (align):** `Linm.Web.RMMS.Drone` · route `/drone` · **cấm** sửa MFE ở phase demo  
+> **MFE (align):** `Linm.Web.RMMS.Drone` · route `/fly` · **cấm** sửa MFE ở phase demo  
 > **≠** GIS draw (`gis` / `gis-draw-google`) — Twin/viewer GIS riêng · drone publish artifacts → Gis / AiVision
 
 ## 1. Tổng quan
@@ -22,8 +22,8 @@
 
 | Screen | Pattern | Zones | Ghi chú |
 |--------|---------|-------|---------|
-| List `/drone` | Kind **B** CatalogListShell | KPI · toolbar · filter · grid | P2 |
-| Tạo / Chi tiết | Kind **D** Slideout | Z1 toolbar · Z2 fields+artifacts · Z3 footer | `/drone/new` · `/drone/:id` |
+| List `/fly` | Kind **B** CatalogListShell | KPI · toolbar · filter · grid | P2 |
+| Tạo / Chi tiết | Kind **D** Slideout | Z1 toolbar · Z2 fields+artifacts · Z3 footer | `/fly/tao-moi` · `/fly/:id` |
 | Viewer | Modal stub | Cesium / 3D Tiles placeholder | GAP-F-DRN-04 |
 | GIS Twin | Nav | `/gis` demo | Event consumer |
 
@@ -133,7 +133,7 @@ Payload gợi ý: `{scanId, pointCloudKey, orthophotoKey, areaKm2}` · nguồn s
 ### DANH SÁCH SCAN / JOB BAY
 
 - **id:** `drone-list`
-- **url:** (planned) `/drone`
+- **url:** (planned) `/fly`
 - **title:** Drone / Reality Capture
 
 #### Labels / field captions (list + KPI)
@@ -164,7 +164,7 @@ Payload gợi ý: `{scanId, pointCloudKey, orthophotoKey, areaKm2}` · nguồn s
 ### CHI TIẾT / TẠO SCAN
 
 - **id:** `drone-form`
-- **url:** (planned) `/drone/new` · `/drone/:id`
+- **url:** (planned) `/fly/tao-moi` · `/fly/:id`
 - **title:** Chi tiết scan drone
 
 #### Labels / field captions (form + artifact lines)

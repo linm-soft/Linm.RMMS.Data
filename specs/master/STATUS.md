@@ -9,8 +9,8 @@
 | demo | **N/A** |
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/master.md` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Master` |
-| mfeStdRoute | `/master/org-unit` |
-| mfeStdUrl | `http://localhost:9318/master/org-unit` |
+| mfeStdRoute | `/mas/co-cau-tc` |
+| mfeStdUrl | `http://localhost:9318/mas/co-cau-tc` |
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` |
 | childFeatures | `org-unit` (P0) · `road-route` · `asset-type` · `partner-unit` |
 | updatedAt | 2026-08-08T17:20:00.000Z |

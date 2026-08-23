@@ -12,9 +12,9 @@
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/partner-unit.md` |
 | seed | `docs/context/seed/partner-unit-seed.json` (13) |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Master` |
-| mfeStdRoute | `/master/partner-unit` |
-| mfeStdUrl | `http://localhost:9318/master/partner-unit` |
-| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/integration/partner-units` |
+| mfeStdRoute | `/mas/doi-tac` |
+| mfeStdUrl | `http://localhost:9318/mas/doi-tac` |
+| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/open-api/partner-units` |
 | domain | **Integration** |
 | prototype.reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/partner-unit/ui/prototype/partner-unit-list-prototype.html` |
 | updatedAt | `2026-08-08T18:36:32.858Z` |
@@ -70,8 +70,8 @@
 — none —
 
 ## Links
-- mfeStdUrl: `http://localhost:9318/master/partner-unit`
-- mfeStdRoute: `/master/partner-unit`
+- mfeStdUrl: `http://localhost:9318/mas/doi-tac`
+- mfeStdRoute: `/mas/doi-tac`
 
 - implement → `implement/partner-unit.md`
 - qa → `qa/scenarios.md`

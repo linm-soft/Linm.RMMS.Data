@@ -5,7 +5,7 @@
 > **Kind:** **B** (`LinPageLayout` catalog inbox) + full-page form (không Kind D Slideout) — Confirmed by: ai-autocode-autopilot  
 > **Sources:** `RMMS` §9 · guide **Giám sát** notify · `07` §9 · `15-SCREEN-AI-MAP.md`  
 > **Demo HTML:** `Linm.RMMS.Demo/src/demo/ops/ops.html`  
-> **MFE (align):** `Linm.Web.RMMS.Field` · route `/ops` · Kind B + `NotificationFormPage`  
+> **MFE (align):** `Linm.Web.RMMS.Field` · route `/chi-dao` · Kind B + `NotificationFormPage`  
 > **≠** GOVOne Giám sát map (`patrol`) — realtime map → Patrol/Gis
 
 ## 1. Tổng quan
@@ -22,8 +22,8 @@
 
 | Screen | Pattern | Zones | Ghi chú |
 |--------|---------|-------|---------|
-| Inbox chỉ đạo `/ops` | Kind **B** `LinPageLayout` | Overview KPI · toolbar · filter · grid · Zone F schema editor | P1 |
-| Tạo / Chi tiết | Full-page form | Z1 toolbar · Z2 fields · Z3 footer · View `<dl>` | `/ops/new` · `/ops/:id` |
+| Inbox chỉ đạo `/chi-dao` | Kind **B** `LinPageLayout` | Overview KPI · toolbar · filter · grid · Zone F schema editor | P1 |
+| Tạo / Chi tiết | Full-page form | Z1 toolbar · Z2 fields · Z3 footer · View `<dl>` | `/chi-dao/tao-moi` · `/chi-dao/:id` |
 | Bản đồ ĐH | Nav stub | Link → Gis/Patrol | P2 — **không** embed map CRUD |
 | Command center | Badge P2 | Modal stub | GAP-F-OPS-01 |
 
@@ -110,7 +110,7 @@ Consume incident/patrol/workorder · publish push/SignalR (P2). Cross-nav demo �
 
 > **Không có màn GOVOne vision** riêng cho «Chỉ đạo điều hành».  
 > GOVOne **QUẢN LÝ GIÁM SÁT** (`dbv3giamsat.aspx`) đã map slug **`patrol`** — không dùng làm skin/SSOT của `ops`.  
-> Capture synthetized từ `features/ops.md` · Mobile/Web Giám sát notify · Notification MFE routes `/ops` · `15-SCREEN-AI-MAP.md`.  
+> Capture synthetized từ `features/ops.md` · Mobile/Web Giám sát notify · Notification MFE routes `/chi-dao` · `15-SCREEN-AI-MAP.md`.  
 > Source: product docs — **không** password · **không** clone skin GOVOne.
 
 ## Pages (3)
@@ -118,7 +118,7 @@ Consume incident/patrol/workorder · publish push/SignalR (P2). Cross-nav demo �
 ### INBOX CHỈ ĐẠO / THÔNG BÁO (list)
 
 - **id:** `ops-inbox-list`
-- **url:** (planned) `/ops`
+- **url:** (planned) `/chi-dao`
 - **title:** Chỉ đạo điều hành — Inbox
 - **headings:** Overview · Bộ lọc · Danh sách chỉ đạo · Liên kết giám sát
 
@@ -171,7 +171,7 @@ Consume incident/patrol/workorder · publish push/SignalR (P2). Cross-nav demo �
 ### TẠO / CHI TIẾT CHỈ ĐẠO (Kind D slideout)
 
 - **id:** `ops-compose-detail`
-- **url:** (planned) `/ops/new` · `/ops/:id`
+- **url:** (planned) `/chi-dao/tao-moi` · `/chi-dao/:id`
 - **title:** Tạo / Chi tiết chỉ đạo
 
 #### Inputs
@@ -206,7 +206,7 @@ Consume incident/patrol/workorder · publish push/SignalR (P2). Cross-nav demo �
 ### OVERVIEW ĐIỀU HÀNH (P1 strip · P2 hub badge)
 
 - **id:** `ops-overview`
-- **url:** (planned) `/ops` (zone overview)
+- **url:** (planned) `/chi-dao` (zone overview)
 - **title:** Overview điều hành
 
 #### Labels

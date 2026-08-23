@@ -37,7 +37,7 @@ Dual hàng **Cài đặt** = toast · **không** màn → **không** enqueue `me
 | GET | `auth/profile` | Auth NuGet `GetProfile` → `users/me` | **`me`** (display tên) |
 | POST | `auth/logout` | Auth NuGet | **`login-logout`** — **cấm** gọi turn `me` |
 | GET | `contract-accounts/session-window` | RMMS Contract | `login` (đã có) |
-| — | `api/v1/integration/users/{id}` | RMMS admin | pack `users` — **không** current-user |
+| — | `api/v1/admin/user/{id}` | RMMS admin | pack `users` — **không** current-user |
 | — | `ops/*` · `feedback/*` bare | **không** controller | sibling `ops` / `feedback` |
 
 DTO profile (Auth Models): `UserProfileResponseDto` — `Id` · `PhoneNumber` · `FullName` · `CitizenId` · `DateOfBirth?`.  

@@ -11,11 +11,11 @@
 | demo | `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/users-demo.html` → `integration/users.html` |
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/users.md` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Integration` |
-| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · **`api/v1/integration/users`** (**cấm ERP.***) |
+| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · **`api/v1/admin/user`** (**cấm ERP.***) |
 | domain | **Integration** |
 | taskId | `task_d7246ce9` |
-| mfeStdRoute | `/integration/users` |
-| mfeStdUrl | `http://localhost:9314/integration/users` |
+| mfeStdRoute | `/admin/user` |
+| mfeStdUrl | `http://localhost:9314/admin/user` |
 | dataAnaly | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/../specs/_data-analy/features/users-control-hint.md` |
 | prototype.reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/users/ui/prototype/users-list-prototype.html` |
 | updatedAt | `2026-08-21T05:30:32.221Z` |
@@ -81,7 +81,7 @@
 
 - data_analy → po → ui → be → task → implement → qa → review
 - DOMAIN-MAP: `users` → Integration
-- mfeStdUrl: `http://localhost:9314/integration/users`
+- mfeStdUrl: `http://localhost:9314/admin/user`
 - PO: `specs/users/po/requirement.md`
 - Design: `specs/users/ui/design.md`
 - SA: `specs/users/be/solution-discovery.md`

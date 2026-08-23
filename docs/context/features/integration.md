@@ -5,8 +5,8 @@
 > **Kind:** **G** hub + **B** catalogs Endpoints/Sync/Partners + **full-page** Import/Job/Partner — Confirmed by: ai-autocode-autopilot · TL `task_4d837bc9`  
 > **Sources:** `RMMS` §18 · `07` §18 · `09` · `15-SCREEN-AI-MAP.md` · guide Import tài sản  
 > **Demo HTML:** `Linm.RMMS.Demo/public/demo/integration/integration.html`  
-> **MFE:** `Linm.Web.RMMS.Integration` · `/integration`  
-> **BE:** `Linm.RMMS.WebService` · `api/v1/integration/*` · **cấm ERP.***  
+> **MFE:** `Linm.Web.RMMS.Integration` · `/open-api`  
+> **BE:** `Linm.RMMS.WebService` · `api/v1/open-api/*` · **cấm ERP.***  
 > **Sibling:** `feedback` (Góp ý) · `citizen` — cùng MFE, slug riêng — **không** gộp  
 > **SUPERSEDE:** Kind D slideout Import — Design/SA 2026-08-16 full-page
 
@@ -24,11 +24,11 @@
 
 | Screen | Pattern | Zones | Ghi chú |
 |--------|---------|-------|---------|
-| Open API hub | Kind G | A–B tabs · 1× `LinPageLayout` | `/integration` |
+| Open API hub | Kind G | A–B tabs · 1× `LinPageLayout` | `/open-api` |
 | Endpoints / Sync / Partners | Kind B list A–D + F | SearchTextInput · SearchInput · schema editor | **cấm** nested CatalogListShell |
-| Import tài sản | Kind B **full-page** | Z1–Z3 · View=`<dl>` | `/integration/import` · **cấm** Slideout |
-| Sync job | Kind B **full-page** | C/E/V | `/integration/jobs/new` · `/:id` |
-| Partner | Kind B View | `<dl>` · Bật/Tắt | `/integration/partners/:id` |
+| Import tài sản | Kind B **full-page** | Z1–Z3 · View=`<dl>` | `/open-api/import` · **cấm** Slideout |
+| Sync job | Kind B **full-page** | C/E/V | `/open-api/jobs/tao-moi` · `/:id` |
+| Partner | Kind B View | `<dl>` · Bật/Tắt | `/open-api/doi-tac/:id` |
 | Offline-batch | Modal | JSON mock | 1 trang mô tả |
 
 **Kind G + B layout (erp-form-context · task_4d837bc9):**
@@ -124,7 +124,7 @@
 ### OPEN API HUB (system)
 
 - **id:** `integration-openapi-hub`
-- **url:** (planned) `/integration`
+- **url:** (planned) `/open-api`
 - **title:** Open API và tích hợp
 - **headings:** Endpoint P1 · Swagger stub · Health partner · Sync jobs
 
@@ -157,7 +157,7 @@
 ### IMPORT TÀI SẢN (wizard)
 
 - **id:** `integration-asset-import`
-- **url:** (planned) `/integration/import`
+- **url:** (planned) `/open-api/import`
 - **title:** Import tài sản KCHT
 - **headings:** Chọn nguồn · Mapping · Chạy import
 
@@ -193,7 +193,7 @@
 ### SYNC JOBS + PARTNERS (list)
 
 - **id:** `integration-sync-partners`
-- **url:** (planned) `/integration/sync`
+- **url:** (planned) `/open-api/sync`
 - **title:** Sync jobs & adapters
 - **headings:** Jobs · Partners ERP/CMMS/… · Log
 

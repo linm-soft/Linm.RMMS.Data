@@ -10,18 +10,18 @@
 | featureClass | `ai` (Kind B list + Kind D slideout) |
 | runMode | Autopilot ON · autoApprove **ON** · roleOnly=`review` · e2eQa **ON** · taskId=`task_f699faf1` · **closed** |
 | qaFixPhase | **closed** · re-QA **PASS** |
-| demo | `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/ai-vision/estimate.html` |
+| demo | `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/ai-kd/uoc-luong-sc.html` |
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/estimate.md` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.AiVision` |
-| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/ai-vision/estimates` · ui-schema `api/v1/integration/catalogs/ai-estimates/ui-schema` · **cấm ERP.*** |
+| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/ai-kd/uoc-luong-scs` · ui-schema `api/v1/open-api/catalogs/ai-estimates/ui-schema` · **cấm ERP.*** |
 | domain | **AiVision** (+ Integration CatalogUiSchema) |
 | prototype.artifact | `specs/estimate/ui/prototype/estimate-list-prototype.html` |
 | prototype.reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/estimate/ui/prototype/estimate-list-prototype.html` |
 | reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/estimate/ui/prototype/estimate-list-prototype.html` |
-| peerStdUrl | `http://localhost:9303/ai-vision/ai-asset-detect` |
+| peerStdUrl | `http://localhost:9303/ai-kd/phat-hien-ts` |
 | real_view_parity | `v1` |
-| mfeStdRoute | `/ai-vision/estimate` |
-| mfeStdUrl | `http://localhost:9303/ai-vision/estimate` |
+| mfeStdRoute | `/ai-kd/uoc-luong-sc` |
+| mfeStdUrl | `http://localhost:9303/ai-kd/uoc-luong-sc` |
 | taskId | `task_f699faf1` |
 | contentHash | `sha256:f49800a01d06c3df4ab4058c5b2b6ecde131fe8362a040481a88daa4897e8983` |
 | skillVersion | `2026.08.18.02` |
@@ -46,7 +46,7 @@
 | autoApprove | **ON** | design/sa/review only · **không** skip qa_fix_plan |
 | design_confirm | **approve** | prior board |
 | solution_confirm | **approve** | autoApprove=ON |
-| route_confirm | **route_a** | `/ai-vision/estimate` (locked) |
+| route_confirm | **route_a** | `/ai-kd/uoc-luong-sc` (locked) |
 | review_confirm | **approve** | `/agent-review` · `task_f699faf1` · Config FULL + QA PASS |
 | qa_fail_rollback | **approved** | prior · Config fix done |
 | qa_fix_plan | **approved** | implemented + re-QA PASS |
@@ -114,9 +114,9 @@
 - QA screens: `specs/estimate/qa/screens/`
 - Review: `specs/estimate/review/findings.md`
 - DOMAIN-MAP: `D:/AI-QLBD/Linm.RMMS.WebService/docs/DOMAIN-MAP.md`
-- peerStdUrl: `http://localhost:9303/ai-vision/ai-asset-detect`
-- mfeStdUrl: `http://localhost:9303/ai-vision/estimate`
-- mfeStdRoute: `/ai-vision/estimate`
+- peerStdUrl: `http://localhost:9303/ai-kd/phat-hien-ts`
+- mfeStdUrl: `http://localhost:9303/ai-kd/uoc-luong-sc`
+- mfeStdRoute: `/ai-kd/uoc-luong-sc`
 
 ## Handoff → closed (`task_f699faf1` done)
 

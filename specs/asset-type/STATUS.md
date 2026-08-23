@@ -12,11 +12,11 @@
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/asset-type.md` |
 | seed | `docs/context/seed/asset-type-seed.json` (23) |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Master` |
-| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/integration/asset-types` |
+| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/open-api/asset-types` |
 | domain | **Integration** |
 | prototype.reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/asset-type/ui/prototype/asset-type-list-prototype.html` |
-| mfeStdRoute | `/master/asset-type` |
-| mfeStdUrl | `http://localhost:9318/master/asset-type` |
+| mfeStdRoute | `/mas/loai-ts` |
+| mfeStdUrl | `http://localhost:9318/mas/loai-ts` |
 | updatedAt | `2026-08-10T15:34:11.047Z` |
 ## Lock
 
@@ -73,13 +73,13 @@
 — none —
 
 ## Links
-- mfeStdUrl: `http://localhost:9318/master/asset-type`
-- mfeStdRoute: `/master/asset-type`
+- mfeStdUrl: `http://localhost:9318/mas/loai-ts`
+- mfeStdRoute: `/mas/loai-ts`
 
 - implement → `implement/asset-type.md`
 - qa → `qa/scenarios.md`
 - review → `review/findings.md`
-- mfeStdUrl → `http://localhost:9318/master/asset-type`
+- mfeStdUrl → `http://localhost:9318/mas/loai-ts`
 
 ## Retry
 

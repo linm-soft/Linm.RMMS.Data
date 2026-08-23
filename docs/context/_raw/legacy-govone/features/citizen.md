@@ -10,7 +10,7 @@
 ### 1) BÁO SỰ CỐ / PHẢN ÁNH HIỆN TRƯỜNG (form public)
 
 - **id:** `citizen-report-form`
-- **url:** (planned) `/citizen` · `/integration/citizen`
+- **url:** (planned) `/citizen` · `/nhan-dan`
 - **title:** Cổng người dân — Báo sự cố
 - **headings:** Thông tin người báo · Vị trí hiện trường · Ảnh/Video · Gửi
 

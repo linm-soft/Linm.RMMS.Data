@@ -23,11 +23,11 @@ SSOT: [`HARNESS.json`](./HARNESS.json)
 | L4 App | yes | `Linm.Web.RMMS.Asset` · `AssetListPage` + `AssetFormPage` (full-page) |
 | L4 native | **no** | — |
 | L5 State | yes | `STATUS.md` · `src/demo/roadAssetStore.ts` |
-| L6 API | yes | `api/v1/asset/road-assets` |
+| L6 API | yes | `api/v1/so-ts/road-assets` |
 
 ## URLs (STATUS)
 
-- mfeStdUrl: `http://localhost:9301/asset`
+- mfeStdUrl: `http://localhost:9301/so-ts`
 - reviewUrl: prototype file:// (STATUS)
 
 ## Integrate (FE → API)
@@ -40,7 +40,7 @@ SSOT: [`HARNESS.json`](./HARNESS.json)
 | ORG_LOOKUP | GET | `integration/org-units/tree` |
 | catalog UI schema | GET/PUT | `integration/catalogs/{kind}/ui-schema` |
 
-**Out of this harness:** MFE siblings `/asset/pavement-section`, `/asset/csdl-so-sach` (aliases riêng).
+**Out of this harness:** MFE siblings `/so-ts/pl-mat-duong`, `/so-ts/csdl-so-sach` (aliases riêng).
 
 ## GAP
 

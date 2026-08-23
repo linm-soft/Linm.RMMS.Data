@@ -18,4 +18,4 @@ Xem `demo-maps/inventory-actions.md` (25).
 ## Notes
 
 - ≠ GIS «Danh sách thiết bị» (`gis-draw-google`) — đó là draw toolbar, không phải kho VT.
-- Host align: `Linm.Web.RMMS.Contract` · `/contract/inventory`.
+- Host align: `Linm.Web.RMMS.Contract` · `/hd-ns/vttb`.

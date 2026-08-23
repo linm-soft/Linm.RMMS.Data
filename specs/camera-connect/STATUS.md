@@ -14,7 +14,7 @@
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/camera-connect.md` |
 | controlHint | `D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/camera-connect-control-hint.md` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Camera` |
-| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/cameras` · schema `api/v1/integration/catalogs/camera-devices/ui-schema` |
+| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/cameras` · schema `api/v1/open-api/catalogs/camera-devices/ui-schema` |
 | skillVersion | `2026.08.15.19` |
 | schemaVersion | `qldb-workflow-skill-v1` |
 | workflowVersion | `2026.08.15.19` |

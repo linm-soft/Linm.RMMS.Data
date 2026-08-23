@@ -8,7 +8,7 @@
 
 - **B** (CatalogListShell priority list) + **D** (section detail slideout)
 - Step 2a-K · 2d readonly · 2g control-map · 2g common controls mandatory · 2t catalog toolbar · leave-confirm (detail note dirty)
-- Host: Dashboard / Báo cáo · route MFE `/ai-vision/predict`
+- Host: Dashboard / Báo cáo · route MFE `/ai-kd/du-bao-bt`
 
 ## Fields (legacy → Linm)
 

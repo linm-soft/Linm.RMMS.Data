@@ -7,7 +7,7 @@
 
 ## Kind hint
 
-- **B** CatalogListShell (list `/asset/pavement-sections`) + **Full page form** (≥10 field — không Modal / không Slideout)
+- **B** CatalogListShell (list `/so-ts/pl-mat-duongs`) + **Full page form** (≥10 field — không Modal / không Slideout)
 - Confirmed by: ai-autocode-autopilot (docs hồ sơ Biểu 1 · context Kind B)
 - Step 2a-K · 2d readonly · 2e IdCode `MD-*` · 2g control-map · 2g common controls · 2h list shell · 2t catalog toolbar
 
@@ -79,4 +79,4 @@
 - `erp-list-page-shell.md` · `erp-common-controls-mandatory.md` · leave-confirm · catalog-list-toolbar
 - Capture raw: `_raw/legacy-govone/features/pavement-section.md`
 - Data context: `docs/context/features/pavement-section.md`
-- MFE ownership: `Linm.Web.RMMS.Asset` · `/asset`
+- MFE ownership: `Linm.Web.RMMS.Asset` · `/so-ts`

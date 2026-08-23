@@ -4,7 +4,7 @@
 > **Status:** Context · **data-analy confirmed A** (CUC 2 · 2026-08-08)  
 > **Feature Kind:** **B** — Catalog list/tree  
 > **packKind:** `master` — **không demo** · UI confirm Design  
-> **MFE:** `Linm.Web.RMMS.Master` · `/master`  
+> **MFE:** `Linm.Web.RMMS.Master` · `/mas`  
 > **Investigate:** [`../../specs/_data-analy/shared-catalogs/INVESTIGATE-CUC2.md`](../../specs/_data-analy/shared-catalogs/INVESTIGATE-CUC2.md)  
 > **SSOT org:** [`../20-ORG-STRUCTURE-DRVN.md`](../20-ORG-STRUCTURE-DRVN.md) · **seed:** [`../seed/org-unit-seed.json`](../seed/org-unit-seed.json) (60 nodes)
 
@@ -29,14 +29,14 @@
 
 | Path | Feature |
 |------|---------|
-| `/master/org-unit` | tree + form |
-| `/master/road-route` | list + form |
-| `/master/asset-type` | list + form |
-| `/master/partner-unit` | list + form |
+| `/mas/co-cau-tc` | tree + form |
+| `/mas/tuyen-duong` | list + form |
+| `/mas/loai-ts` | list + form |
+| `/mas/doi-tac` | list + form |
 
 ## 4. API prefix
 
-`api/v1/integration/org-units` · `road-routes` · `asset-types` · `partner-units` (+ `/search`) — DOMAIN-MAP **Integration** · **cấm** `api/v1/rmms/*`
+`api/v1/open-api/org-units` · `road-routes` · `asset-types` · `partner-units` (+ `/search`) — DOMAIN-MAP **Integration** · **cấm** `api/v1/rmms/*`
 
 ## 5. Consumer fields (erp-form-context 2li) — controlHint từ data-analy
 

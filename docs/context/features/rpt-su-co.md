@@ -32,7 +32,7 @@
 **Filter layout:** title trái · input + tìm cụm phải — GAP-FILTER-BAR-*.  
 **Mock:** 8–15 dòng mẫu từ domain Incident.
 
-Drill dòng → MFE Field `/incident/:id`. Không CRUD sự cố trên trang này.
+Drill dòng → MFE Field `/su-co/:id`. Không CRUD sự cố trên trang này.
 
 ## 3. API
 

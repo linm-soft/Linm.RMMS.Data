@@ -9,8 +9,8 @@
 > **Train + export (arch):** [`../../tinh-nang/Tai_lieu_Nhan_dien_Bien_bao_Giao_thong.md`](../../tinh-nang/Tai_lieu_Nhan_dien_Bien_bao_Giao_thong.md)  
 > **Peer:** [`ai-asset-detect.md`](ai-asset-detect.md) (candidate rộng) · [`camera-connect.md`](camera-connect.md) (IP · JPEG) · [`incident.md`](incident.md) (sự cố mất) · [`ai-vision.md`](ai-vision.md) (10 class mặt đường — **cấm trộn**)  
 
-> **Control-map:** [`../_raw/legacy-govone/demo-maps/its-traffic-detect-control-map.md`](../_raw/legacy-govone/demo-maps/its-traffic-detect-control-map.md)  
-> **Demo:** `Linm.RMMS.Demo/public/demo/ai-vision/its-traffic-detect.html`  
+> **Control-map:** [`../_raw/legacy-govone/demo-maps/ai-its/bb-ct-control-map.md`](../_raw/legacy-govone/demo-maps/ai-its/bb-ct-control-map.md)  
+> **Demo:** `Linm.RMMS.Demo/public/demo/ai-its/bb-ct.html`  
 > **Skill:** `/ai-form-context` · design wire + pilot sample  
 > **≠** `ai-vision` (mặt đường) · `ai-asset-detect` (dedupe demo 25 m · taxonomy rộng) · `toc` (ùn tắc P3)
 
@@ -84,8 +84,8 @@
 - [x] Catalog hub + `demoCatalog.ts`
 - [ ] Khách ký Signed → `/qlbd-align-mfe`
 
-**Open:** `yarn start:static` → http://localhost:5180/ai-vision/its-traffic-detect.html  
-hoặc path đầy đủ `/demo/ai-vision/its-traffic-detect.html` khi webpack.
+**Open:** `yarn start:static` → http://localhost:5180/ai-its/bb-ct.html  
+hoặc path đầy đủ `/demo/ai-its/bb-ct.html` khi webpack.
 
 ## 8. Hai đầu ra (cấm gộp 1 model)
 

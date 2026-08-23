@@ -5,7 +5,7 @@
 > **Feature Kind:** **B** — Catalog list + form  
 > **packKind:** `master` — **không demo** · UI confirm Design  
 > **Data-analy:** [`../../specs/_data-analy/shared-catalogs/INVESTIGATE-CUC2.md`](../../specs/_data-analy/shared-catalogs/INVESTIGATE-CUC2.md) §2  
-> **MFE:** `Linm.Web.RMMS.Master` · `/master/partner-unit`  
+> **MFE:** `Linm.Web.RMMS.Master` · `/mas/doi-tac`  
 > **Hub:** [`master.md`](master.md) · khác [`org-unit.md`](org-unit.md) (cây DRVN)
 
 ## 1. Tổng quan
@@ -23,7 +23,7 @@ Kind B list — Mã · Tên · Loại · Tỉnh? · Active.
 
 ## 3. API
 
-`api/v1/integration/partner-units` · search · init-data (DOMAIN-MAP **Integration** · **cấm** `api/v1/rmms/*`).
+`api/v1/open-api/partner-units` · search · init-data (DOMAIN-MAP **Integration** · **cấm** `api/v1/rmms/*`).
 
 ## 4. Fields
 

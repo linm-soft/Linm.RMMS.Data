@@ -1,11 +1,11 @@
 # Vật tư và thiết bị — Feature Context
 
 > **Slug:** `inventory` · **Module:** Inventory (trong `Contract` / Asset) · **Phase:** P3  
-> **Status:** Signed (task_27ba5c23 · MFE `/contract/inventory` · API `inventory-items`)  
+> **Status:** Signed (task_27ba5c23 · MFE `/hd-ns/vttb` · API `inventory-items`)  
 > **Kind:** **B** (CatalogListShell) + **D** (slideout form) — Confirmed by: ai-autocode-autopilot  
 > **Sources:** `RMMS` §12 · `07` Hạng mục 12 · `09` OUT P1 · `15-SCREEN-AI-MAP.md`  
-> **Demo HTML:** `Linm.RMMS.Demo/public/demo/contract/inventory.html`  
-> **MFE (align):** `Linm.Web.RMMS.Contract` · route `/contract/inventory` · **cấm** sửa MFE ở phase demo  
+> **Demo HTML:** `Linm.RMMS.Demo/public/demo/hd-ns/vttb.html`  
+> **MFE (align):** `Linm.Web.RMMS.Contract` · route `/hd-ns/vttb` · **cấm** sửa MFE ở phase demo  
 > **≠** Contract HĐ (`contract`) — inventory là sub-route riêng cùng MFE Contract  
 > **sourceKind:** synthetic · **Task:** `task_537e1ec7`
 
@@ -23,8 +23,8 @@
 
 | Screen | Pattern | Zones | Ghi chú |
 |--------|---------|-------|---------|
-| List `/contract/inventory` | Kind **B** CatalogListShell | KPI · toolbar · filter · grid | P3 |
-| Tạo / Chi tiết | Kind **D** Slideout | Z1 toolbar · Z2 fields+lines · Z3 footer | `/contract/inventory/new` · `/:id` |
+| List `/hd-ns/vttb` | Kind **B** CatalogListShell | KPI · toolbar · filter · grid | P3 |
+| Tạo / Chi tiết | Kind **D** Slideout | Z1 toolbar · Z2 fields+lines · Z3 footer | `/hd-ns/vttb/tao-moi` · `/:id` |
 | Bản đồ GPS | Modal **Leaflet live** | OSM pins fake seed | GAP-F-INV-04 Timescale DEFER |
 | Phiếu xuất/nhập nhanh | Modal / focus lines | pattern_inline_grid | |
 
@@ -48,7 +48,7 @@
 
 ## 3. API
 
-> DOMAIN-MAP: `inventory` → **Contract** · prefix `api/v1/contract` (**cấm** ERP.*).  
+> DOMAIN-MAP: `inventory` → **Contract** · prefix `api/v1/hd-ns` (**cấm** ERP.*).  
 > Pack Signed: CRUD item + nested moves + KPI. Dedicated stock-moves / assign-wo / gps endpoints = DEFER.
 
 | Method | Path | Mô tả | BE status |
@@ -78,7 +78,7 @@
 }
 ```
 
-> MFE align: BFF `/contract/inventory-items` · demo vẫn localStorage fallback khi API down.
+> MFE align: BFF `/hd-ns/vttb-items` · demo vẫn localStorage fallback khi API down.
 
 ## 4. Database
 
@@ -105,8 +105,8 @@ Liên kết WorkOrder → xuất VT · Contract HĐ → cấp phát theo gói.
 | ID | Question | Default |
 |----|----------|---------|
 | GAP-F-INV-01 | OUT P1 · phase P3 | Giữ P3 · badge hub |
-| GAP-F-INV-02 | Host MFE Contract vs Asset | Contract sub-route `/contract/inventory` · autopilot |
-| GAP-F-INV-03 | BE endpoints inventory/* | **Signed** `api/v1/contract/inventory-items` · dedicated assign-wo/gps DEFER |
+| GAP-F-INV-02 | Host MFE Contract vs Asset | Contract sub-route `/hd-ns/vttb` · autopilot |
+| GAP-F-INV-03 | BE endpoints inventory/* | **Signed** `api/v1/hd-ns/vttb-items` · dedicated assign-wo/gps DEFER |
 | GAP-F-INV-04 | GPS realtime Timescale | Leaflet OSM pins demo · Timescale DEFER P3+ |
 | GAP-F-INV-05 | Sync Asset registry | DEFER · GPS/TB có thể mirror Asset |
 
@@ -153,7 +153,7 @@ Xem `demo-maps/inventory-actions.md` (25).
 ## Notes
 
 - ≠ GIS «Danh sách thiết bị» (`gis-draw-google`) — đó là draw toolbar, không phải kho VT.
-- Host align: `Linm.Web.RMMS.Contract` · `/contract/inventory`.
+- Host align: `Linm.Web.RMMS.Contract` · `/hd-ns/vttb`.
 
 ### Step context checklist
 
@@ -182,6 +182,6 @@ Gen demo: `/qlbd-analy-demo @inventory` — load control-map trên + `/erp-form-
 | Task | `task_537e1ec7` |
 | Skill | `/qlbd-analy-demo @inventory` |
 | sourceKind | **synthetic** |
-| Files | `inventory.md` · `demo-maps/inventory-*.md` · `public/demo/contract/inventory.html` · `js/inventory-*.js` · `demoCatalog.ts` |
+| Files | `inventory.md` · `demo-maps/inventory-*.md` · `public/demo/hd-ns/vttb.html` · `js/inventory-*.js` · `demoCatalog.ts` |
 | BE align | OFF (demo) · GAP-F-INV-03 documented · Step 4b khi Signed |
 | Confirmed by | ai-autocode-autopilot |

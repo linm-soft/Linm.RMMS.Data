@@ -12,11 +12,11 @@
 | demo | `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/predict-demo.html` |
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/predict.md` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.AiVision` |
-| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/ai-vision/predict` · DOMAIN-MAP AiVision — **cấm ERP.*** |
+| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/ai-kd/du-bao-bt` · DOMAIN-MAP AiVision — **cấm ERP.*** |
 | domain | **AiVision** |
-| mfeStdRoute | `/ai-vision/predict` |
-| mfeStdUrl | `http://localhost:9303/ai-vision/predict` |
-| peerStdUrl | `http://localhost:9303/ai-vision/estimate` |
+| mfeStdRoute | `/ai-kd/du-bao-bt` |
+| mfeStdUrl | `http://localhost:9303/ai-kd/du-bao-bt` |
+| peerStdUrl | `http://localhost:9303/ai-kd/uoc-luong-sc` |
 | taskId | `task_fe23f841` |
 | contentHash | `sha256:predict-ctx-demo-20260817` |
 | skillVersion | `2026.08.16.02` |
@@ -41,7 +41,7 @@
 | autoApprove | **ON** | design/sa/review → agent tự confirm · chain role kế |
 | design_confirm | **approve** | autoApprove=ON · reviewUrl · task_fe23f841 |
 | solution_confirm | **approve** | SA gate · autoApprove=ON · solution-discovery.md |
-| route_confirm | **route_a** | `/ai-vision/predict` |
+| route_confirm | **route_a** | `/ai-kd/du-bao-bt` |
 | review_confirm | **pending** | Review gate · tới lượt |
 
 ## Pipeline
@@ -81,7 +81,7 @@
 - design: `specs/predict/ui/design.md`
 - **reviewUrl**: `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/predict/ui/prototype/predict-list-prototype.html`
 - sa: `specs/predict/be/solution-discovery.md`
-- mfeStdUrl: `http://localhost:9303/ai-vision/predict`
+- mfeStdUrl: `http://localhost:9303/ai-kd/du-bao-bt`
 - DOMAIN-MAP: `D:/AI-QLBD/Linm.RMMS.WebService/docs/DOMAIN-MAP.md`
 
 ## Verify

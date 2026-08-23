@@ -10,8 +10,8 @@
 | demo | **N/A** (Design prototype content-only) |
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/rpt-giay-phep-thi-cong.md` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Report` |
-| mfeStdRoute | `/bao-cao/giay-phep-thi-cong` |
-| mfeStdUrl | `http://localhost:9311/bao-cao/giay-phep-thi-cong` |
+| mfeStdRoute | `/bao-cao/giay-phep/thi-cong` |
+| mfeStdUrl | `http://localhost:9311/bao-cao/giay-phep/thi-cong` |
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/report` · DOMAIN-MAP — **cấm ERP.*** |
 | prototype.artifact | `specs/rpt-giay-phep-thi-cong/ui/prototype/rpt-giay-phep-thi-cong-prototype.html` |
 | prototype.reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/rpt-giay-phep-thi-cong/ui/prototype/rpt-giay-phep-thi-cong-prototype.html` |
@@ -60,14 +60,14 @@
 
 | id | page | role | deps | status | notes |
 |----|------|------|------|--------|-------|
-| task_63e7d1ee | `/bao-cao/giay-phep-thi-cong` | chain | — | completed | full_pipeline resume |
-| task_9678d5da | `/bao-cao/giay-phep-thi-cong` | po | data-analy | **completed** | roleOnly=po · autoApprove ON |
-| task_52e640a2 | `/bao-cao/giay-phep-thi-cong` | design | po | **completed** | roleOnly=design · autoApprove ON · tự confirm |
-| task_10635f9c | `/bao-cao/giay-phep-thi-cong` | sa | design | **completed** | roleOnly=sa · autoApprove ON · tự confirm solution |
-| task_a1db737d | `/bao-cao/giay-phep-thi-cong` | team_lead | sa | **completed** | roleOnly=team_lead · autoApprove ON · enqueue dev |
-| task_797ce368 | `/bao-cao/giay-phep-thi-cong` | dev | team_lead | **completed** | roleOnly=dev · autoApprove ON · GAP FilterRoute/drill/cột ẩn/CSV/ExtendedAt · build PASS |
-| task_e2f60a2f | `/bao-cao/giay-phep-thi-cong` | qa | dev | **completed** | roleOnly=qa · `/agent-qa` · T-QA-01 PASS · P0 none · yarn typecheck+build PASS · chain Review |
-| task_e037e3dc | `/bao-cao/giay-phep-thi-cong` | review | qa | **completed** | roleOnly=review · `/agent-review` · PASS · review_confirm approve · pipeline done |
+| task_63e7d1ee | `/bao-cao/giay-phep/thi-cong` | chain | — | completed | full_pipeline resume |
+| task_9678d5da | `/bao-cao/giay-phep/thi-cong` | po | data-analy | **completed** | roleOnly=po · autoApprove ON |
+| task_52e640a2 | `/bao-cao/giay-phep/thi-cong` | design | po | **completed** | roleOnly=design · autoApprove ON · tự confirm |
+| task_10635f9c | `/bao-cao/giay-phep/thi-cong` | sa | design | **completed** | roleOnly=sa · autoApprove ON · tự confirm solution |
+| task_a1db737d | `/bao-cao/giay-phep/thi-cong` | team_lead | sa | **completed** | roleOnly=team_lead · autoApprove ON · enqueue dev |
+| task_797ce368 | `/bao-cao/giay-phep/thi-cong` | dev | team_lead | **completed** | roleOnly=dev · autoApprove ON · GAP FilterRoute/drill/cột ẩn/CSV/ExtendedAt · build PASS |
+| task_e2f60a2f | `/bao-cao/giay-phep/thi-cong` | qa | dev | **completed** | roleOnly=qa · `/agent-qa` · T-QA-01 PASS · P0 none · yarn typecheck+build PASS · chain Review |
+| task_e037e3dc | `/bao-cao/giay-phep/thi-cong` | review | qa | **completed** | roleOnly=review · `/agent-review` · PASS · review_confirm approve · pipeline done |
 
 ## Blockers / open questions
 
@@ -85,7 +85,7 @@
 - QA: `specs/rpt-giay-phep-thi-cong/qa/scenarios.md`
 - Review: `specs/rpt-giay-phep-thi-cong/review/findings.md`
 - reviewUrl: `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/rpt-giay-phep-thi-cong/ui/prototype/rpt-giay-phep-thi-cong-prototype.html`
-- mfeStdUrl: `http://localhost:9311/bao-cao/giay-phep-thi-cong`
+- mfeStdUrl: `http://localhost:9311/bao-cao/giay-phep/thi-cong`
 - API: `GET /api/v1/report/construction-permits` · export `/construction-permits/export`
 
 <!-- Version meta: skillVersion=2026.08.15.5 · schemaVersion=1 · workflowVersion=2026.08.15.5 · rulesVersion=2026.08.15.8 · versionGate=keep_current -->

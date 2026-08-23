@@ -33,8 +33,8 @@
           "demoUrl": "http://localhost:5180/features/asset-demo.html",
           "mfe": "Linm.Web.RMMS.Asset",
           "stdPort": 9301,
-          "route": "/asset",
-          "mfeStdUrl": "http://localhost:9301/asset",
+          "route": "/so-ts",
+          "mfeStdUrl": "http://localhost:9301/so-ts",
           "be": "api/v1/assets"
         },
         {
@@ -45,8 +45,8 @@
           "demoUrl": "http://localhost:5180/features/pavement-section-demo.html",
           "mfe": "Linm.Web.RMMS.Asset",
           "stdPort": 9301,
-          "route": "/asset/pavement-section",
-          "mfeStdUrl": "http://localhost:9301/asset/pavement-section",
+          "route": "/so-ts/pl-mat-duong",
+          "mfeStdUrl": "http://localhost:9301/so-ts/pl-mat-duong",
           "be": "api/v1/pavement-sections"
         },
         {
@@ -57,8 +57,8 @@
           "demoUrl": "http://localhost:5180/features/csdl-so-sach-demo.html",
           "mfe": "Linm.Web.RMMS.Asset",
           "stdPort": 9301,
-          "route": "/asset/csdl-so-sach",
-          "mfeStdUrl": "http://localhost:9301/asset/csdl-so-sach",
+          "route": "/so-ts/csdl-so-sach",
+          "mfeStdUrl": "http://localhost:9301/so-ts/csdl-so-sach",
           "be": "api/v1/csdl-so-sach"
         }
       ]
@@ -90,9 +90,9 @@
           "demoUrl": "http://localhost:5180/gis/gis-draw-live.html",
           "mfe": "Linm.Web.RMMS.Gis",
           "stdPort": 9302,
-          "route": "/gis/draw",
-          "mfeStdUrl": "http://localhost:9302/gis/draw",
-          "be": "api/v1/gis/drawings"
+          "route": "/gis/live",
+          "mfeStdUrl": "http://localhost:9302/gis/live",
+          "be": "api/v1/gis/liveings"
         },
         {
           "slug": "gis-draw-google",
@@ -102,9 +102,9 @@
           "demoUrl": "http://localhost:5180/gis/gis-draw-google.html",
           "mfe": "Linm.Web.RMMS.Gis",
           "stdPort": 9302,
-          "route": "/gis/draw-google",
-          "mfeStdUrl": "http://localhost:9302/gis/draw-google",
-          "be": "api/v1/gis/drawings"
+          "route": "/gis/ha-tang",
+          "mfeStdUrl": "http://localhost:9302/gis/ha-tang",
+          "be": "api/v1/gis/liveings"
         }
       ]
     },
@@ -123,9 +123,9 @@
           "demoUrl": "http://localhost:5180/features/ai-vision-demo.html",
           "mfe": "Linm.Web.RMMS.AiVision",
           "stdPort": 9303,
-          "route": "/ai-vision",
-          "mfeStdUrl": "http://localhost:9303/ai-vision",
-          "be": "api/v1/ai-vision"
+          "route": "/ai-kd",
+          "mfeStdUrl": "http://localhost:9303/ai-kd",
+          "be": "api/v1/ai-kd"
         }
       ]
     },
@@ -144,8 +144,8 @@
           "demoUrl": "http://localhost:5180/features/ai-asset-detect-demo.html",
           "mfe": "Linm.Web.RMMS.AiVision",
           "stdPort": 9303,
-          "route": "/ai-vision/ai-asset-detect",
-          "mfeStdUrl": "http://localhost:9303/ai-vision/ai-asset-detect",
+          "route": "/ai-kd/phat-hien-ts",
+          "mfeStdUrl": "http://localhost:9303/ai-kd/phat-hien-ts",
           "be": "api/v1/ai-asset-detect"
         }
       ]
@@ -188,9 +188,9 @@
           "demoUrl": "http://localhost:5180/features/patrol-demo.html",
           "mfe": "Linm.Web.RMMS.Field",
           "stdPort": 9304,
-          "route": "/patrol",
-          "mfeStdUrl": "http://localhost:9304/patrol",
-          "be": "api/v1/patrol"
+          "route": "/td-tk",
+          "mfeStdUrl": "http://localhost:9304/td-tk",
+          "be": "api/v1/td-tk"
         }
       ]
     },
@@ -209,8 +209,8 @@
           "demoUrl": "http://localhost:5180/features/attendance-demo.html",
           "mfe": "Linm.Web.RMMS.Field",
           "stdPort": 9304,
-          "route": "/patrol/attendance",
-          "mfeStdUrl": "http://localhost:9304/patrol/attendance",
+          "route": "/td-tk/cham-cong",
+          "mfeStdUrl": "http://localhost:9304/td-tk/cham-cong",
           "be": "api/v1/attendance"
         }
       ]
@@ -230,8 +230,8 @@
           "demoUrl": "http://localhost:5180/features/incident-demo.html",
           "mfe": "Linm.Web.RMMS.Field",
           "stdPort": 9304,
-          "route": "/incident",
-          "mfeStdUrl": "http://localhost:9304/incident",
+          "route": "/su-co",
+          "mfeStdUrl": "http://localhost:9304/su-co",
           "be": "api/v1/incidents"
         }
       ]
@@ -251,9 +251,9 @@
           "demoUrl": "http://localhost:5180/features/maintenance-demo.html",
           "mfe": "Linm.Web.RMMS.Field",
           "stdPort": 9304,
-          "route": "/maintenance",
-          "mfeStdUrl": "http://localhost:9304/maintenance",
-          "be": "api/v1/maintenance"
+          "route": "/sc-bt",
+          "mfeStdUrl": "http://localhost:9304/sc-bt",
+          "be": "api/v1/sc-bt"
         }
       ]
     },
@@ -272,8 +272,8 @@
           "demoUrl": "http://localhost:5180/features/predict-demo.html",
           "mfe": "Linm.Web.RMMS.AiVision",
           "stdPort": 9303,
-          "route": "/ai-vision/predict",
-          "mfeStdUrl": "http://localhost:9303/ai-vision/predict",
+          "route": "/ai-kd/du-bao-bt",
+          "mfeStdUrl": "http://localhost:9303/ai-kd/du-bao-bt",
           "be": "api/v1/predict"
         }
       ]
@@ -293,9 +293,9 @@
           "demoUrl": "http://localhost:5180/features/ops-demo.html",
           "mfe": "Linm.Web.RMMS.Field",
           "stdPort": 9304,
-          "route": "/ops",
-          "mfeStdUrl": "http://localhost:9304/ops",
-          "be": "api/v1/ops"
+          "route": "/chi-dao",
+          "mfeStdUrl": "http://localhost:9304/chi-dao",
+          "be": "api/v1/chi-dao"
         }
       ]
     },
@@ -314,8 +314,8 @@
           "demoUrl": "http://localhost:5180/features/estimate-demo.html",
           "mfe": "Linm.Web.RMMS.AiVision",
           "stdPort": 9303,
-          "route": "/ai-vision/estimate",
-          "mfeStdUrl": "http://localhost:9303/ai-vision/estimate",
+          "route": "/ai-kd/uoc-luong-sc",
+          "mfeStdUrl": "http://localhost:9303/ai-kd/uoc-luong-sc",
           "be": "api/v1/estimate"
         }
       ]
@@ -335,8 +335,8 @@
           "demoUrl": "http://localhost:5180/features/contract-demo.html",
           "mfe": "Linm.Web.RMMS.Contract",
           "stdPort": 9312,
-          "route": "/contract",
-          "mfeStdUrl": "http://localhost:9312/contract",
+          "route": "/hd-ns",
+          "mfeStdUrl": "http://localhost:9312/hd-ns",
           "be": "api/v1/contracts"
         }
       ]
@@ -356,9 +356,9 @@
           "demoUrl": "http://localhost:5180/features/copilot-demo.html",
           "mfe": "Linm.Web.RMMS.Copilot",
           "stdPort": 9310,
-          "route": "/copilot",
-          "mfeStdUrl": "http://localhost:9310/copilot",
-          "be": "api/v1/copilot"
+          "route": "/ai",
+          "mfeStdUrl": "http://localhost:9310/ai",
+          "be": "api/v1/ai"
         }
       ]
     },
@@ -410,9 +410,9 @@
           "demoUrl": "http://localhost:5180/features/integration-demo.html",
           "mfe": "Linm.Web.RMMS.Integration",
           "stdPort": 9314,
-          "route": "/integration",
-          "mfeStdUrl": "http://localhost:9314/integration",
-          "be": "api/v1/integration"
+          "route": "/open-api",
+          "mfeStdUrl": "http://localhost:9314/open-api",
+          "be": "api/v1/open-api"
         }
       ]
     }

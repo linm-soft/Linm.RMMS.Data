@@ -10,8 +10,8 @@
 | demo | **N/A** |
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/rpt-nhat-ky-tuan-kiem.md` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Report` |
-| mfeStdRoute | `/bao-cao/nhat-ky-tuan-kiem` |
-| mfeStdUrl | `http://localhost:9311/bao-cao/nhat-ky-tuan-kiem` |
+| mfeStdRoute | `/bao-cao/nk/tuan-kiem` |
+| mfeStdUrl | `http://localhost:9311/bao-cao/nk/tuan-kiem` |
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · **`api/v1/report/patrol-log-inspect`** — **cấm ERP.*** |
 | prototype.artifact | `specs/rpt-nhat-ky-tuan-kiem/ui/prototype/rpt-nhat-ky-tuan-kiem-prototype.html` |
 | prototype.reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/rpt-nhat-ky-tuan-kiem/ui/prototype/rpt-nhat-ky-tuan-kiem-prototype.html` |
@@ -70,14 +70,14 @@
 
 | id | page | role | deps | status | notes |
 |----|------|------|------|--------|-------|
-| task_b344ef1b | `/bao-cao/nhat-ky-tuan-kiem` | chain | — | completed | pipeline trước |
-| task_085844af | `/bao-cao/nhat-ky-tuan-kiem` | po | data-analy confirmed | completed | `/agent-po` · requirement.md · Kind E Mẫu 8 |
-| task_ee539f5e | `/bao-cao/nhat-ky-tuan-kiem` | design | po confirmed | **completed** | `/agent-design` · design.md + prototype A–D · GAP-DS-NKTK-01 đóng copy Mẫu 1 |
-| task_c109bd27 | `/bao-cao/nhat-ky-tuan-kiem` | sa | design confirmed | **completed** | `/agent-sa` · solution-discovery · autoApprove solution_confirm |
-| task_3b0b3f04 | `/bao-cao/nhat-ky-tuan-kiem` | team_lead | sa confirmed | **completed** | `/agent-team-lead` · T-pack + ssot_rereview live PASS |
-| task_09634320 | `/bao-cao/nhat-ky-tuan-kiem` | dev | TL confirmed | **completed** | `/agent-dev` · ssot_rereview PASS · keep Kind E · yarn typecheck+build PASS |
-| task_4d9a21fe | `/bao-cao/nhat-ky-tuan-kiem` | qa | Dev confirmed | **completed** | `/agent-qa` · T-QA-01 PASS · typecheck+build PASS · không P0/P1 |
-| task_ae5ef0e0 | `/bao-cao/nhat-ky-tuan-kiem` | review | QA confirmed | **completed** | `/agent-review` · findings.md · autoApprove review_confirm · yarn build PASS · **không** P0/P1 |
+| task_b344ef1b | `/bao-cao/nk/tuan-kiem` | chain | — | completed | pipeline trước |
+| task_085844af | `/bao-cao/nk/tuan-kiem` | po | data-analy confirmed | completed | `/agent-po` · requirement.md · Kind E Mẫu 8 |
+| task_ee539f5e | `/bao-cao/nk/tuan-kiem` | design | po confirmed | **completed** | `/agent-design` · design.md + prototype A–D · GAP-DS-NKTK-01 đóng copy Mẫu 1 |
+| task_c109bd27 | `/bao-cao/nk/tuan-kiem` | sa | design confirmed | **completed** | `/agent-sa` · solution-discovery · autoApprove solution_confirm |
+| task_3b0b3f04 | `/bao-cao/nk/tuan-kiem` | team_lead | sa confirmed | **completed** | `/agent-team-lead` · T-pack + ssot_rereview live PASS |
+| task_09634320 | `/bao-cao/nk/tuan-kiem` | dev | TL confirmed | **completed** | `/agent-dev` · ssot_rereview PASS · keep Kind E · yarn typecheck+build PASS |
+| task_4d9a21fe | `/bao-cao/nk/tuan-kiem` | qa | Dev confirmed | **completed** | `/agent-qa` · T-QA-01 PASS · typecheck+build PASS · không P0/P1 |
+| task_ae5ef0e0 | `/bao-cao/nk/tuan-kiem` | review | QA confirmed | **completed** | `/agent-review` · findings.md · autoApprove review_confirm · yarn build PASS · **không** P0/P1 |
 
 ## Blockers / open questions
 
@@ -87,8 +87,8 @@
 ## Links
 
 - data-analy → po → ui → be → task → implement → qa → review
-- mfeStdUrl: `http://localhost:9311/bao-cao/nhat-ky-tuan-kiem`
-- mfeStdRoute: `/bao-cao/nhat-ky-tuan-kiem`
+- mfeStdUrl: `http://localhost:9311/bao-cao/nk/tuan-kiem`
+- mfeStdRoute: `/bao-cao/nk/tuan-kiem`
 - reviewUrl: `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/rpt-nhat-ky-tuan-kiem/ui/prototype/rpt-nhat-ky-tuan-kiem-prototype.html`
 
 ---
