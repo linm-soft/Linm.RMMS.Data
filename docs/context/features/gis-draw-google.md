@@ -120,6 +120,7 @@ Indexes: GIST(`Geom`) · `(LayerCode, Status)` · bbox query.
 - [x] Panel thuộc tính sau vẽ + Lưu (mock localStorage)
 - [x] Undo / xóa draft rõ (Leaflet.draw edit + Huỷ draft · Hủy biên tập)
 - [x] Tuyến hiện có (seed) vẫn thấy khi bật lớp
+- [ ] Overlay DB import **gov-vn** (`GET /gis/geojson/drawings`) — nationwide; corridor Khu II = **plan C** [`gov-vn-nationwide`](../../plan/gov-vn-nationwide/PLAN.md)
 - [x] Không đổi UX tìm kiếm đối tượng trên header
 - [x] Dev menu MFE `/gis/ha-tang` · catalog Demo `gis-draw-google`
 - [x] AI badge P1 Leaflet · P2 Google JS

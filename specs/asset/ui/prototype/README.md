@@ -1,9 +1,12 @@
-﻿# Prototype — asset (Design `task_52b245e2`)
+﻿# Prototype — asset (mobile list)
 
-- HTML: `asset-list-prototype.html`
-- Kind B: zones **A–D** content-only (no chrome / map / menu demo)
-- Form: **full-page** `AssetFormPage` (không Slideout)
-- Filter: **SearchInput** `asset-type` (23) · `road-route` · org-unit — **cấm** Select 8 nhãn demo
-- Visual ref: VatTu pager · title 22px · btn 12px/32px
-- **reviewUrl:** `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/asset/ui/prototype/asset-list-prototype.html`
-- autoApprove **OFF** → `design_confirm=await_confirm`
+| Surface | Path | Anchor |
+|---------|------|--------|
+| iOS | `ios/index.html` | `#sc-asset-list` · `DES-MOB-ASSET-LIST` |
+| Android | `android/index.html` | `#sc-asset-list` · `DES-MOB-ASSET-LIST` |
+
+Board dual · PO toast · 2 demo rows · **cấm** tab bar · **cấm** Ghim P1.
+
+Review:
+- iOS: `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/asset/ui/prototype/ios/index.html#sc-asset-list`
+- Android: `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/asset/ui/prototype/android/index.html#sc-asset-list`

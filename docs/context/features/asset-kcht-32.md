@@ -1,10 +1,11 @@
 # Catalog 36 loại tài sản KCHT — Feature Context
 
 > **Slug:** `asset-kcht-32` (giữ slug) · **Module:** Asset × Incident · **Phase:** P1  
-> **Status:** Context · **catalog_36 confirmed** (2026-08-18) · **packKind:** `master` + mobile hub  
+> **Status:** Context · **catalog_36 confirmed** · data real set **`gov-vn`** 2026-08-24  
+> **packKind:** `master` + mobile hub  
 > **Kind:** **B** list loại · **D** hộ chiếu TS (thông số + sự cố) · Mobile wallet (layout VNeID)  
 > **Không** thay list pack `asset` đã done · **mở rộng** seed `asset-type` (23 → **36**)  
-> **Sources:** `11-CSDL-SO-SACH-DATABASE-API.md` (12 biểu + ATGT con) · `INVESTIGATE-CUC2.md` §4 · `docs/Mẫu import/*.xlsx` (18 file) · `asset.md` · `incident.md`  
+> **Sources:** `11-CSDL-SO-SACH-DATABASE-API.md` (12 biểu + ATGT con) · CSV [`import-gov-ssot.md`](import-gov-ssot.md) · `asset.md` · `incident.md`. `docs/Mẫu import/*.xlsx` và `INVESTIGATE-CUC2` = **demo / archive**.  
 > **Layout mock:** `docs/mobile-legacy/layout/` (VNeID — **khung** header + 3×2 + ví giấy tờ + FAB; **cấm** clone CCCD/đỏ Bộ CA)  
 > **MFE:** `Linm.Web.RMMS.Asset` · `/so-ts` + Master `/mas/loai-ts`  
 > **Mobile proto:** `specs/mobile-p1/ui/prototype/`  
@@ -181,20 +182,19 @@ Master: `api/v1/open-api/asset-types` seed **36**.
 | GAP-AK32-09 | Excel chưa parse máy | Giữ — rescan khi có Python |
 | GAP-AK32-10 | Catalog 36 **chưa** = data real `Sau-sat-nhap` + hồ sơ 12 biểu | Xem §10 |
 
-## 10. Đối chiếu nguồn thật (2026-08-18) — **chưa khớp 1:1**
+## 10. Đối chiếu nguồn thật (2026-08-24)
 
 | Nguồn | Thực tế | Catalog 36 |
 |--------|---------|------------|
 | `docs/Hồ sơ…/4.1. In_Mẫu biểu_Cơ sở dữ liệu.xlsx` | **12 biểu** (6 sheet: 1+2 … 10+11+12). Biểu 7 ATGT = **1 form nhiều nhóm cột** (biển · cọc/Km · phân cách · chống chói · đảo · …) | Đã **tách** ATGT thành nhiều `code` — đúng nghiệp vụ CUC 2, **sai hình hồ sơ in** |
 | `3. Mẫu sổ.docx` | **8 sổ BDTX** (tuần đường · trực · cầu · HLATĐB · …) | Không phải loại TS — lớp vận hành (`csdl-so-sach`) |
-| `data-import/Sau-sat-nhap/19. Khu QLĐB IV.xlsx` | 1 sheet chính **«Đoạn tuyến đường chưa tài sản»** · ~85 cột GIS/mặt đường/lề/vỉa hè/FWD/CBR + `lichsudungkhaithac-sucoxayra` · `nguyennhan` | **Không** có 36 loại. Đây là **Biểu 1 + đoạn tuyến** (gần `pavement-section` / `road-route`) |
-| `Sau-sat-nhap/Sổ chi tiết… giải ngân.xlsx` | Vốn **SCĐK · SCTX · BC giải ngân** | Ngoài catalog TS |
-| `data-import/RMMS CUC 2` | Folder loại ~23 (+ alias) | Khớp phần CUC 2; **không** có Cầu / Mặt đường / 7 ATGT con |
+| `data-import/Sau-sat-nhap/gov` | Dump moc 23/08 + set `gov-vn` (**429** tuyến · **642.193** KCHT · **2.920** đoạn) | SSOT — [`import-gov-ssot.md`](import-gov-ssot.md) § Thông tin data dự án · `/data-gov-integration` |
+| `data-import/RMMS CUC 2` | Folder demo ~23 loại (+ alias) | **Archive / demo** — không import production |
 | `Hướng dẫn sử dụng phần mềm.docx` | Mobile **Tài sản**: chọn loại → thu thập (vd. **cột km**) → cập nhật → bản đồ. *«Danh mục TS thu thập khác nhau theo đợt / đơn vị»*. Vấn đề: chọn **loại sự cố** riêng app | Không liệt kê 36 loại. IA đúng: chọn loại + form theo loại — **không** cứng 36 trên launcher |
 
 **Cột real Khu IV (đoạn tuyến) chưa có trên hộ chiếu PAVEMENT proto:** làn xe cơ giới / thô sơ / khẩn · lề trái/phải (gia cố / không) · vỉa hè · `design_speed` · FWD · CBR · `paint_line_area` · `nail_reflective` · `guide_reflective` · lịch sử khai thác **sự cố + nguyên nhân** trên **cùng hàng đoạn**.
 
-**Kết luận:** Context 36 = **hợp** hồ sơ 12 biểu (tách ATGT) + folder CUC 2. **Chưa** map 1:1 file `Sau-sat-nhap`. P1 real Khu IV = **đoạn tuyến (Biểu 1)** trước; 36 loại = master thu thập / import CUC 2.
+**Kết luận:** Context 36 = hồ sơ 12 biểu (tách ATGT) làm **master loại**. Data real import = set **`gov-vn`** (`Sau-sat-nhap/gov`). `RMMS CUC 2` / `docs/Mẫu import` = demo. **Không** set `khu-4-gov` / `khu-2-gov`. Hub 40 ô bind live DRVN (`PONTOON` / `SPILLWAY` / `RESCUE_VEHICLE`) — catalog `BRIDGE`/`TUNNEL` không gắn ô. Snapshot: [`import-gov-ssot.md`](import-gov-ssot.md) § Thông tin data dự án.
 
 ## 9. Demo / prototype
 

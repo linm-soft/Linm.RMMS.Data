@@ -6,6 +6,7 @@
 > **Sources:** `07` §2 · `09` · legacy shell `geditor` view-mode  
 > **Demo HTML:** `Linm.RMMS.Demo/public/demo/gis/gis.html` (+ mirror `src/demo/gis/`) · **pilot camera:** [`camera-ops-dashboard-demo.html`](../../../Linm.RMMS.Demo/src/demo/features/camera-ops-dashboard-demo.html)  
 > **3D Twin (CesiumJS · real Km):** [`gis-3d-twin.html`](../../../Linm.RMMS.Demo/public/demo/gis/gis-3d-twin.html) · seed `ql1-ii1/map-seed.json`  
+> **Prod basemap (clip OSM + gis.vn):** [`gis-osm-clip.md`](gis-osm-clip.md) · data [`map-service.md`](map-service.md) · law [`legal-tech-corridor.md`](legal-tech-corridor.md)  
 > **Sub-feature vẽ:** [`gis-draw-google.md`](gis-draw-google.md) · live [`gis-draw-live.html`](../../../Linm.RMMS.Demo/public/demo/gis/gis-draw-live.html)
 
 ## 1. Tổng quan

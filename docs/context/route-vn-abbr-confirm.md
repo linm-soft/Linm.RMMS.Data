@@ -127,6 +127,7 @@ Mount thêm (khi apply): `chi-dao` · `ai-its` · `th` · `nhan-dan` · `admin`.
 | Sao chép — Phân loại mặt đường      | `/asset/pavement-section/:id/copy` | `/so-ts/pl-mat-duong/tao-moi?id={id}`    |
 | Xem — Phân loại mặt đường           | `/asset/pavement-section/:id`      | `/so-ts/pl-mat-duong/:id`                |
 | CSDL 12 biểu + 8 sổ BDTX            | `/asset/csdl-so-sach`              | `/so-ts/csdl-so-sach` *(leaf chưa chốt)* |
+| Hạng mục kết cấu hạ tầng (hub count) | —                                  | `/so-ts/hang-muc` *(planned · `asset-kcht-dashboard`)* · embed shell `/dashboard` (`@linm/dashboard` · **không** `/bao-cao/dashboard`) |
 
 
 ### 3. Gis — `:9302`
@@ -238,7 +239,8 @@ Mount thêm (khi apply): `chi-dao` · `ai-its` · `th` · `nhan-dan` · `admin`.
 | Báo cáo tuần kiểm                             | `/bao-cao/tuan-kiem`            | `/bao-cao/tuan-kiem`            |
 | Nhật ký tuần đường                            | `/bao-cao/nhat-ky-tuan-duong`   | `/bao-cao/nk/tuan-duong`        |
 | Nhật ký tuần kiểm                             | `/bao-cao/nhat-ky-tuan-kiem`    | `/bao-cao/nk/tuan-kiem`         |
-| Dashboard điều hành *(README, chưa có Route)* | `/bao-cao/dashboard`            | `/bao-cao/dashboard`            |
+| Dashboard điều hành *(README, chưa có Route)* | `/bao-cao/dashboard`            | `/bao-cao/dashboard` *(KPI Report · slug `dashboard` — **không** 40 ô KCHT)* |
+| Bảng điều khiển shell (platform) | — | `/dashboard` *(`@linm/dashboard` · widget KCHT `asset-kcht-dashboard`)* |
 
 
 Rule: mọi title/path **Tổng hợp** → prefix `/th/` (hiện chỉ 1: Tổng hợp bảo trì).

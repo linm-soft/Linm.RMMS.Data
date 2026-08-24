@@ -21,16 +21,21 @@
 
 | # | Slug | Tên | Module | Phase | App hiện có (guide) | Status | Context |
 |---|------|-----|--------|-------|---------------------|--------|---------|
-| 0 | `master` | Danh mục Master (hub) | Master | P1 | — | Context | [master.md](master.md) · [INVESTIGATE](../../specs/_data-analy/shared-catalogs/INVESTIGATE-CUC2.md) |
+| 0 | `master` | Danh mục Master (hub) | Master | P1 | — | Context | [master.md](master.md) · [import SSOT](import-gov-ssot.md) |
 | 0a | `org-unit` | Cơ cấu tổ chức DRVN | Master | P1 | — (**no demo**) | Context | [org-unit.md](org-unit.md) |
-| 0b | `road-route` | Tuyến đường | Master | P1 | folder CUC 2 | Context | [road-route.md](road-route.md) |
-| 0c | `asset-type` | Loại tài sản KCHT | Master | P1 | folder CUC 2 | Context | [asset-type.md](asset-type.md) |
-| 0d | `partner-unit` | Sở / BOT / Cty | Master | P1 | top-level CUC 2 | Context | [partner-unit.md](partner-unit.md) |
+| 0b | `road-route` | Tuyến đường | Master | P1 | `Sau-sat-nhap/gov` raw tuyến | Context | [road-route.md](road-route.md) |
+| 0c | `asset-type` | Loại tài sản KCHT | Master | P1 | `Sau-sat-nhap/gov` (catalog) | Context | [asset-type.md](asset-type.md) |
+| 0d | `partner-unit` | Sở / BOT / Cty | Master | P1 | DRVN seed · CUC 2 = demo | Context | [partner-unit.md](partner-unit.md) |
 | 1 | `asset` | Quản lý tài sản đường bộ | Asset | P1 | Mobile Tài sản · Web KCHT · Giám sát TS | Demo | [asset.md](asset.md) |
-| 1a | `asset-kcht-32` | 36 loại TS (thông số + sự cố) | Asset×Incident | P1 | CSDL 12 biểu · CUC 2 · Mẫu import | Context | [asset-kcht-32.md](asset-kcht-32.md) |
+| 1a | `asset-kcht-32` | 36 loại TS (thông số + sự cố) | Asset×Incident | P1 | CSDL 12 biểu · `Sau-sat-nhap/gov` | Context | [asset-kcht-32.md](asset-kcht-32.md) |
 | 1b | `csdl-so-sach` | CSDL 12 biểu + 8 sổ BDTX | Asset·Patrol·Maint | P1 | Hồ sơ chuẩn hóa sổ sách | Demo | [csdl-so-sach.md](csdl-so-sach.md) · [../11-…](../11-CSDL-SO-SACH-DATABASE-API.md) |
 | 1c | `pavement-section` | Phân loại mặt đường (Biểu 1) | Asset | P1 | Hồ sơ CSDL biểu 1 | Demo | [pavement-section.md](pavement-section.md) |
+| 1d | `asset-kcht-dashboard` | Hub Hạng mục KCHT (40 ô) · widget `@linm/dashboard` | Asset | P1 | GOVOne lưới hạng mục | Context | [asset-kcht-dashboard.md](asset-kcht-dashboard.md) |
 | 2 | `gis` | GIS và Digital Twin | Gis | P1–P2 | Bản đồ Giám sát / TS / SC | Demo | [gis.md](gis.md) · **pilot camera overlay** [camera-ops-dashboard-demo.html](../../../Linm.RMMS.Demo/src/demo/features/camera-ops-dashboard-demo.html) |
+| 2s | `map-service` | MapService — gis.vn + clip OSM | Gis/Platform | P1 | — (chưa repo) | Context | [map-service.md](map-service.md) · skill `/implement-map-service` |
+| 2t | `gis-osm-clip` | GIS prod: OSM clip + overlay MapService | Gis | P1 | MFE OSM.org/Google (**lệch**) | Context | [gis-osm-clip.md](gis-osm-clip.md) · `/implement-gis-map` |
+| 2u | `legal-tech-corridor` | Luật VN + Store (GPS/vẽ TS/guest) | Compliance | P1 | — | Context | [legal-tech-corridor.md](legal-tech-corridor.md) · `/review-app-vn-map-law` |
+| 2v | `directions` | Chỉ đường / HD điện tử guest | Integration | P1 | — (chưa OSRM Signed) | Context | [directions.md](directions.md) · `/implement-directions-app` |
 | 2a | `gis-draw-google` | Vẽ tài sản trên Google Map | Gis+Asset | P1 | GOVOne `1-ban-do.png` | Demo | [gis-draw-google.md](gis-draw-google.md) |
 | 2b | `gis-draw-live` | Vẽ tài sản live (Leaflet rút gọn) | Gis+Asset | P1 | HĐ PL01 mã 02 | Demo | [gis-draw-live.md](gis-draw-live.md) |
 | 3 | `ai-vision` | AI kiểm định mặt đường | AiVision | P1 online / P2 local | Overlay **Vấn đề** / Sự cố | Demo | [ai-vision.md](ai-vision.md) |
@@ -86,7 +91,8 @@
 3. SSOT màn ↔ AI: [`15-SCREEN-AI-MAP.md`](../15-SCREEN-AI-MAP.md)  
 4. Demo HTML chỉ mock UI + tóm tắt API/DB — không thay production  
 5. **Analy + gen demo:** mọi feature có AI → badge/icon **AI support** + engine P1/P2 trên hub và page (`/qlbd-analy-demo`)
-6. **Master catalogs (`packKind=master`):** **không** gen demo HTML — context + Design prototype confirm — MFE `Linm.Web.RMMS.Master`
+6. **Master catalogs (`packKind=master`):** **không** gen demo HTML — context + Design prototype confirm — MFE `Linm.Web.RMMS.Master`  
+7. **Import CSV:** SSOT [`import-gov-ssot.md`](import-gov-ssot.md) § **Thông tin data dự án** — set `gov-vn` (429 tuyến · 642.193 KCHT · 2.920 đoạn). `docs/Mẫu import` và `RMMS CUC 2` = **demo / archive**. **Cấm** seed bù ô KCHT.
 
 ## Hub demo
 

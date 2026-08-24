@@ -38,7 +38,7 @@
 | T-PERM | gis | perm | dev | — | — | Local mode note |
 | T-BE-01 | map | api | dev | — | create-bff-api-feature | layers+geojson+heatmap · build PASS |
 | T-BE-02 | map | bff | dev | T-BE-01 | create-bff-api-feature | BFF proxy · build PASS |
-| T-UI-MAP | /gis | ui-map | dev | — | agent-dev-oms-map · shared/map REF | Kind F zones A–D · MapPointConfig icons · no P1/P2 · build PASS |
+| T-UI-MAP | /gis | ui-map | dev | — | agent-dev-oms-map · shared/map REF | Kind F A–D · legend đủ loại TS/đoạn trên map · table dock không max-height · build PASS |
 | T-FE-CLIENT | client | ui-api | dev | T-BE-01,T-UI-MAP | — | wire geojson/heatmap + seed fallback |
 | T-UI-FORM | /gis/new | ui-form | — | — | — | **skip** P1 (scaffold kept) |
 | T-QA-01 | gis | qa | qa | T-UI-MAP,T-BE-02 | — | scenarios.md |

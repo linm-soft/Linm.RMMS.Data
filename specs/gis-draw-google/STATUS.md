@@ -3,8 +3,8 @@
 | Field | Value |
 |-------|-------|
 | feature | `gis-draw-google` |
-| phase | `done` |
-| status | `done` |
+| phase | `data_analy` |
+| status | `in_progress` |
 | changeScope | `edit_page` |
 | packKind | `map` |
 | demo | `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/gis/gis-draw-google.html` |
@@ -18,7 +18,7 @@
 | schemaVersion | `qldb-workflow-skill-v1` |
 | workflowVersion | `2026.08.10.3` |
 | versionGate | `ok` |
-| updatedAt | `2026-08-11T15:12:53.418Z` |
+| updatedAt | `2026-08-23T16:57:19.849Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -40,14 +40,13 @@
 
 | Step | Agent | Artifact | Status |
 |------|-------|----------|--------|
-| 1 | po | po/requirement.md | **done** |
-| 2.1 | design | ui/design.md + prototype + reviewUrl | **done** |
-| 2.2 | sa | be/solution-discovery.md | **done** |
-| 3 | team-lead | task/gis-draw-google.md | **done** |
-| 4 | dev | implement/gis-draw-google.md | **done** |
-| 5 | qa | qa/scenarios.md | **done** |
-| 6 | review | review/findings.md | **done** |
-
+| 1 | po | po/requirement.md | **pending** |
+| 2.1 | design | ui/design.md + prototype + reviewUrl | **pending** |
+| 2.2 | sa | be/solution-discovery.md | **pending** |
+| 3 | team-lead | task/gis-draw-google.md | **pending** |
+| 4 | dev | implement/gis-draw-google.md | **pending** |
+| 5 | qa | qa/scenarios.md | **pending** |
+| 6 | review | review/findings.md | **pending** |
 ## Tasks
 
 | id | page | role | deps | status | notes |
@@ -75,6 +74,11 @@
 ## Close (`task_e8a0c8a8`)
 
 - edit_page: mock localStorage → `api/v1/gis/liveings` + OMS R1–R11
+- **2026-08-23 `/edit-web-feature`:** overlay DB **khu-2-gov** (`rmms_road_assets` → geojson) · skip `16,110` · Fit tổng quan
+- **2026-08-23 import:** `RoadAssetCatalogHandler` upsert same-batch duplicate `code` + round/swap lat/lng (`decimal(12,8)`)
+- **2026-08-23 verify:** geojson drawings **69** pin DB (65 cầu · 4 hầm) · `/gis/ha-tang` :9302 HTTP 200
+- **2026-08-24 `/agent-dev-oms-map` R6/R6b:** pin QCVN pictogram = chú giải · bỏ vòng trắng · badge `status` DB
+- **2026-08-24 `/edit-web-feature`:** click pin = inspect + tab Thuộc tính · không isolate (vẫn show all)
 - BE only `Linm.RMMS.WebService` domain Gis
 - Verify gate 2026-08-11: FE typecheck/build + BE Release **PASS**
 

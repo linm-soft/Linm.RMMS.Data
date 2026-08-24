@@ -12,7 +12,7 @@ Danh mục **dùng chung** (platform shared) — tree đơn vị DRVN để:
 
 - Filter / tenant scope theo Khu · Văn phòng QLĐB  
 - **SearchInput** trên form Asset / Patrol / … (`erp-form-context` Step **2li** · **2s**)  
-- Map folder `data-import/RMMS CUC 2/Chi cục QLĐB II.x` → mã org-unit
+- Org tree seed DRVN. Folder `data-import/RMMS CUC 2` = **demo / archive** — **không** SSOT import. Import CSV hiện tại: [`features/import-gov-ssot.md`](features/import-gov-ssot.md) (`Sau-sat-nhap/gov`).
 
 ## 2. Cây chuẩn (seed)
 
@@ -43,10 +43,12 @@ DRVN                          Cục Đường bộ Việt Nam
 ```
 
 Mỗi Khu (I–IV) có 4 phòng chức năng: Tổ chức – Hành chính · Kế hoạch – Tài chính · Quản lý, bảo trì · Quản lý, tổ chức giao thông. **Chi tiết mã** → seed JSON.
-## 3. Map data-import `RMMS CUC 2`
+## 3. Alias demo (archive `RMMS CUC 2`) — không import production
 
-| Import folder | orgCode đề xuất | Ghi chú |
-|---------------|-----------------|---------|
+Bảng dưới **chỉ** map tên folder demo cũ → `orgCode`. Import chạy từ `Sau-sat-nhap/gov`.
+
+| Folder demo (archive) | orgCode đề xuất | Ghi chú |
+|-----------------------|-----------------|---------|
 | `Chi cục QLĐB II.2` … `II.5` | `VP-II.2` … `VP-II.5` | Legacy **Chi cục** = official **Văn phòng QLĐB** |
 | `Chi cục QLĐB II.1`, `II.6` | `VP-II.1` / `VP-II.6` | **GAP-ORG-01** — không trên trang DRVN (Khu II chỉ II.2–II.5) · giữ `legacyAlias` |
 | Sở GTVT / BOT / Cty… | — | Catalog **`partner-unit`** (không thuộc cây DRVN) |

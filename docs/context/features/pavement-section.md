@@ -4,7 +4,7 @@
 > **sourceKind:** **synthetic** (product docs Biểu 1 · CSDL BDTX · **không** GOVOne vision packet · **cấm** RECAPTURE vì thiếu GOVOne)  
 > **Kind:** **B (Catalog list)** + **Full page form** (≥10 field — không Modal)  
 > **Status:** Demo HTML · **run** · task_12c100cf  
-> **Sources:** `11-CSDL-SO-SACH-DATABASE-API.md` § Biểu 1 · `features/pavement-section.md` · hồ sơ chuẩn hóa sổ sách · guide/giaiphap  
+> **Sources:** `11-CSDL-SO-SACH-DATABASE-API.md` § Biểu 1 · set **`gov-vn`** `pavement_sections.csv` **2.920** (live DRVN 3.189) · [`import-gov-ssot.md`](import-gov-ssot.md) · hồ sơ chuẩn hóa sổ sách  
 > **API:** `api/v1/so-ts/pl-mat-duongs` (DOMAIN-MAP Asset · **không** dùng skeleton `/api/v1/infra`)  
 > **IdCode:** `MD-YYYYMMDD-NNNN` (vd. `MD-20260731-0001`)  
 > **Demo:** `Linm.RMMS.Demo/public/demo/so-ts/pl-mat-duong.html` (+ mirror `src/demo/asset/`)  

@@ -23,10 +23,10 @@ Chỉnh MFE **Vẽ tài sản** `/gis/draw-google` từ mock localStorage → **
 | Layer | Current | New (delta) |
 |-------|---------|-------------|
 | Demo | Full Kind F live (`gis-draw-google.html`) | Giữ SSOT UX |
-| MFE `/gis/draw-google` | Leaflet.draw + localStorage mock | + BFF drawings · OMS chrome · Fit/isolate |
-| API client | CRUD `/gis` stub + map geojson | + `basemap-config` · `layers?purpose=draw` · `drawings` |
-| BE | layers/geojson/heatmap only | + basemap-config · draw layers · drawings in-memory |
-| Persist | localStorage only | API store + local fallback |
+| MFE `/gis/ha-tang` | Leaflet.draw + localStorage mock | + BFF drawings · **DB khu-2-gov overlay** · OMS chrome · Fit/isolate |
+| API client | CRUD `/gis` stub + map geojson | + `basemap-config` · `layers?purpose=draw` · `drawings` · `geojson/drawings` |
+| BE | layers/geojson/heatmap only | + basemap-config · draw layers · drawings + **road_assets inventory** |
+| Persist | localStorage only | API store + GeoJSON DB + local fallback |
 
 ## 3. Personas / DoD
 
@@ -38,7 +38,8 @@ Chỉnh MFE **Vẽ tài sản** `/gis/draw-google` từ mock localStorage → **
   4. Fit overview on load (`overviewFitMaxZoom` ≤13) — R11
   5. Chọn loại tài sản trước khi vẽ · Point / Line / Polygon
   6. Panel thuộc tính · Lưu draft → `POST /api/v1/gis/drawings` (fallback local)
-  7. Layer toggle + isolate legend/line + Fit focus — R7/R7b/R7c
+  6b. Overlay mặc định = **tất cả** tài sản set **khu-2-gov** trên **tim đường Khu II Nghệ An** (không plot Vidagis Quảng Ninh) · tuyến OSRM R8 — không Cot_km trừ API trống
+  7. Layer toggle + isolate **chú giải** + Fit focus — R7/R7c · **click pin = tab Thuộc tính, không isolate**
   8. Search header «Nhập thông tin đối tượng»
   9. LineString corridor/track panes · OSRM khi vẽ/hiện tuyến — R7b/R8
   10. FE `yarn typecheck` + `yarn build` PASS · BE `dotnet build` PASS

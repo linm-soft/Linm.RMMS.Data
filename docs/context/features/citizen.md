@@ -8,7 +8,8 @@
 > **Demo HTML:** `Linm.RMMS.Demo/public/demo/nhan-dan.html` (+ `src/demo` mirror · features redirect)  
 > **MFE (align):** `Linm.Web.RMMS.Integration` · `/nhan-dan`  
 > **BE:** `D:/AI-QLBD/Linm.RMMS.WebService` · **cấm** `ERP.*` · **cấm** `api/v1/rmms/*`  
-> **≠** Mobile **Góp ý** phần mềm (`feedback`) · AI map §15: **không** engine P1/P2 (OUT P3 adapter)
+> **≠** Mobile **Góp ý** phần mềm (`feedback`) · AI map §15: **không** engine P1/P2 (OUT P3 adapter)  
+> **Guest map / chỉ đường:** [`directions.md`](directions.md) · luật [`legal-tech-corridor.md`](legal-tech-corridor.md) — **cấm** GIS inventory không JWT
 
 ## 1. Tổng quan
 

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Prototype — Hạng Mục KCHT</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #f5f6f8; color: #1a1a1a; }
+    .page { max-width: 1280px; margin: 0 auto; padding: 24px; }
+    .variant-tabs { display: flex; gap: 8px; margin-bottom: 20px; }
+    .variant-tabs button { padding: 8px 16px; border: 1px solid #d9d9d9; background: #fff; border-radius: 6px; cursor: pointer; font-size: 13px; }
+    .variant-tabs button.active { border-color: #1677ff; color: #1677ff; background: #e6f4ff; }
+    h1 { font-size: 22px; margin: 0 0 20px; display: flex; align-items: center; gap: 10px; }
+    .chrome { width: 22px; height: 22px; border-radius: 4px; background: #1677ff; color: #fff; font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; }
+    .host-sim { font-size: 16px; font-weight: 600; padding: 12px 16px; margin-bottom: 16px; border: 2px dashed #bfbfbf; border-radius: 8px; background: #fafafa; color: #595959; }
+    .host-sim small { display: block; font-weight: 400; font-size: 11px; color: #8c8c8c; margin-top: 4px; }
+    .note { font-size: 12px; color: #8c8c8c; margin: 0 0 12px; }
+    .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .card { display: flex; align-items: center; gap: 12px; padding: 12px 14px; background: #fff; border: 1px solid #e8e8e8; border-radius: 8px; cursor: pointer; min-height: 64px; }
+    .card:hover { border-color: #1677ff; box-shadow: 0 2px 8px rgba(22,119,255,.12); }
+    .icon { width: 40px; height: 40px; border-radius: 50%; background: #e6f4ff; display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden; }
+    .icon svg { width: 28px; height: 34px; display: block; }
+    .icon .code-fb { font-size: 9px; font-weight: 700; color: #1677ff; }
+    .label { flex: 1; font-size: 13px; font-weight: 500; line-height: 1.35; }
+    .count { font-size: 16px; font-weight: 700; min-width: 48px; text-align: right; }
+    .hidden { display: none; }
+    @media (max-width: 900px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="variant-tabs">
+      <button type="button" id="tab-standalone" class="active">Standalone (Zone A + Grid)</button>
+      <button type="button" id="tab-widget">Widget body only</button>
+    </div>
+    <p class="note">Pict tile = <code>assetIconBareHtml(iconCode)</code> · GIS SSOT · không Font Awesome trên ô tài sản. Mở qua HTTP nếu module CORS (file://).</p>
+
+    <div id="variant-standalone">
+      <h1><span class="chrome" aria-hidden="true">⊞</span> Hạng Mục Kết Cấu Hạ Tầng</h1>
+      <div class="grid" id="grid-standalone"></div>
+    </div>
+
+    <div id="variant-widget" class="hidden">
+      <div class="host-sim">
+        Hạng Mục Kết Cấu Hạ Tầng
+        <small>WIDGET_REGISTRY title — host Dashboard · không render trong widget body</small>
+      </div>
+      <div class="grid" id="grid-widget"></div>
+    </div>
+  </div>
+  <script type="module">
+    const TILES = [
+      ['Thông tin tuyến', 'TD', '1.234'],
+      ['Thông tin đoạn tuyến', 'DD', '856'],
+      ['Bến phà và phà', 'CAU', '12'],
+      ['Bến xe ô tô', 'BX', '8'],
+      ['Cầu phao', 'CAU', '2'],
+      ['Cống chui dân sinh, hào kỹ thuật', 'CC', '45'],
+      ['Cống thoát nước ngang', 'CN', '220'],
+      ['Công trình HTKT trong phạm vi GPMB', 'HT', '3'],
+      ['Cột km', 'KM', '1.890'],
+      ['Cống dọc, rãnh dọc, hào kỹ thuật dọc', 'CD', '67'],
+      ['Dải phân cách giữa', 'GPC', '34'],
+      ['Bảo vệ mái dốc (gia cố mái ta luy)', 'MD', '28'],
+      ['Điểm dừng đỗ xe bus, xe khách', 'BUS', '156'],
+      ['Cọc tiêu, cọc h', 'CT', '4.521'],
+      ['Điểm giao bằng với đường sắt', 'NG', '9'],
+      ['Đường tràn, cầu tràn, bến tràn, ngầm', 'CN', '128'],
+      ['Hộ lan, tôn sóng, hàng rào', 'HL', '890'],
+      ['Hệ thống chiếu sáng đường', 'CS', '2.340'],
+      ['Hệ thống giao thông thông minh', 'CAM', '0'],
+      ['Kè, tường chắn', 'KE', '112'],
+      ['Kho bãi vật tư dự phòng', 'NH', '0'],
+      ['Nhà hạt QLĐB, trụ sở chi cục', 'NH', '24'],
+      ['Nút giao đường bộ', 'NG', '18'],
+      ['Trạm phương tiện cứu hộ cứu nạn', 'NH', '8'],
+      ['Rào chắn ồn', 'HL', '0'],
+      ['Trạm dừng nghỉ', 'BX', '42'],
+      ['Trạm kiểm soát trọng tải xe', 'NH', '0'],
+      ['Trạm thu phí', 'NH', '6'],
+      ['Trạm trực cấp cứu', 'NH', '15'],
+      ['Trạm đếm', 'CAM', '0'],
+      ['Giá long môn, cột cần vượt, gương cầu', 'BB', '78'],
+      ['Biển báo', 'BB', '12.450'],
+      ['Đất thuộc TS hạ tầng đường bộ', 'NL', '5'],
+      ['Đường nhánh', 'TD', '0'],
+      ['Đường tránh', 'TD', '0'],
+      ['Đường gom song hành', 'TD', '0'],
+      ['Bãi đỗ xe', 'BX', '0'],
+      ['Thống kê tai nạn giao thông', 'BB', '0'],
+      ['Điểm đen, điểm tiềm ẩn TNGT', 'BB', '0'],
+      ['Biện pháp xử lý khắc phục', 'HT', '0'],
+    ];
+
+    const DEMO_ICONS = '../../../../../Linm.RMMS.Demo/src/demo/p/js/rmms-map-asset-icons.js';
+
+    function cardHtml(label, iconCode, count, svgHtml) {
+      const glyph = svgHtml || `<span class="code-fb">${iconCode}</span>`;
+      return `<button type="button" class="card" data-icon-code="${iconCode}" aria-label="${label}: ${count}"><span class="icon" aria-hidden="true">${glyph}</span><span class="label">${label}</span><span class="count">${count}</span></button>`;
+    }
+
+    function paint(bareHtml) {
+      const html = TILES.map(([label, iconCode, count]) =>
+        cardHtml(label, iconCode, count, bareHtml ? bareHtml(iconCode) : '')
+      ).join('');
+      document.getElementById('grid-standalone').innerHTML = html;
+      document.getElementById('grid-widget').innerHTML = html;
+    }
+
+    try {
+      const mod = await import(DEMO_ICONS);
+      paint(mod.assetIconBareHtml);
+    } catch (e) {
+      document.querySelector('.note').textContent +=
+        ' · Fallback mã (serve HTTP để load SVG GIS).';
+      paint(null);
+    }
+
+    document.getElementById('tab-standalone').onclick = () => {
+      document.getElementById('tab-standalone').classList.add('active');
+      document.getElementById('tab-widget').classList.remove('active');
+      document.getElementById('variant-standalone').classList.remove('hidden');
+      document.getElementById('variant-widget').classList.add('hidden');
+    };
+    document.getElementById('tab-widget').onclick = () => {
+      document.getElementById('tab-widget').classList.add('active');
+      document.getElementById('tab-standalone').classList.remove('active');
+      document.getElementById('variant-widget').classList.remove('hidden');
+      document.getElementById('variant-standalone').classList.add('hidden');
+    };
+  </script>
+</body>
+</html>

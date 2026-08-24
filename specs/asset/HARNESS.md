@@ -9,8 +9,8 @@ SSOT: [`HARNESS.json`](./HARNESS.json)
 | title | Quản lý tài sản đường bộ |
 | lane | **web** |
 | formType / domain | `list` / **Asset** |
-| STATUS header | `phase=data_analy` · `status=draft` |
-| closeout | Review `task_bf4df098` **done** (header stale → GAP-HARNESS-02 soft) |
+| STATUS header | `phase=done` · `status=done` |
+| closeout | Review `task_67ce475b` edit_page **done** |
 
 ## L1–L6
 
@@ -19,7 +19,7 @@ SSOT: [`HARNESS.json`](./HARNESS.json)
 | L1 Context | yes | `docs/context/features/asset.md` |
 | L2 Demo | yes | `Demo/.../features/asset-demo.html` |
 | L3 Specs | yes | `specs/asset/` · hint + cluster · prototype `asset-list-prototype.html` |
-| L3 real-data | **no** | `asset-real-data.md` missing |
+| L3 real-data | yes | `specs/_data-analy/features/asset-real-data.md` |
 | L4 App | yes | `Linm.Web.RMMS.Asset` · `AssetListPage` + `AssetFormPage` (full-page) |
 | L4 native | **no** | — |
 | L5 State | yes | `STATUS.md` · `src/demo/roadAssetStore.ts` |
@@ -44,9 +44,7 @@ SSOT: [`HARNESS.json`](./HARNESS.json)
 
 ## GAP
 
-- **GAP-HARNESS-02** (soft): STATUS header `draft` vs Tasks/Review done
-- missing `asset-real-data.md`
-- open product: **GAP-RPT-SRC-ASSET-01** (Quantity/UnitCode — STATUS Blockers)
+- **GAP-HARNESS-02** — **CLOSED** `task_67ce475b`
 
 ## RAG R0
 

@@ -7,8 +7,8 @@
 | changeScope | `new_page` |
 | packKind | `ai` |
 | featureClass | `ai` (Kind B+D · **≠** `ai-vision` ổ gà · **≠** `ai-asset-detect` Asset · **≠** `its-traffic-detect`) |
-| status | `await_confirm` |
-| design_confirm | **pending** (Autopilot · autoApprove=**OFF** · user Approve board) |
+| status | `confirmed` |
+| design_confirm | **approve** (Autopilot · autoApprove=**ON** · task_864dfd9e) |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.AiVision` · route `/its-anpr-overload` |
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/ai-vision/anpr/events` · **cấm ERP.*** |
 | shared_grid_example | `v1` |
@@ -228,8 +228,8 @@ View = `readOnly` (không disabled xám).
 
 ## Confirm
 
-`design_confirm` = **pending** · autoApprove=**OFF** · task_ca4352e6 · 2026-08-17.  
-Prototype + **reviewUrl** sẵn → user Approve board `/qldb-workflow` → STATUS `confirmed` → enqueue `/agent-sa`.
+`design_confirm` = **approve** · autoApprove=**ON** · task_864dfd9e · 2026-08-24.  
+Prototype + **reviewUrl** confirmed → enqueue `/agent-team-lead`.
 
 ## Handoff → SA
 

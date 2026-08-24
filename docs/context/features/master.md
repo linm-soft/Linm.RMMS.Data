@@ -1,7 +1,7 @@
 # Master catalogs — Feature hub
 
 > **Slug:** `master` · **Module:** Master · **Phase:** P1  
-> **Status:** Context · **data-analy confirmed A** (CUC 2 · 2026-08-08)  
+> **Status:** Context · **data-analy** (catalog seed DRVN · import set **`gov-vn`** — [`import-gov-ssot.md`](import-gov-ssot.md))  
 > **Feature Kind:** **B** — Catalog list/tree  
 > **packKind:** `master` — **không demo** · UI confirm Design  
 > **MFE:** `Linm.Web.RMMS.Master` · `/mas`  
@@ -12,17 +12,17 @@
 
 | | |
 |--|--|
-| Mục tiêu | 4 danh mục dùng chung — seed từ DRVN + folder `RMMS CUC 2` — implement **trước** Asset SearchInput |
+| Mục tiêu | 4 danh mục dùng chung — seed DRVN + CSV set **`gov-vn`**. `RMMS CUC 2` = demo. |
 | Demo | **N/A** |
 | DoD | Context + seed map + API search + Kind B pages |
 
 ## 2. Catalogs (từ investigate)
 
-| # | Slug | catalogKind | Data signal (CUC 2) | Priority |
-|---|------|-------------|---------------------|----------|
-| 1 | [`org-unit`](org-unit.md) | org-unit | Chi cục II.1–II.6 ↔ VP DRVN | **P0** |
-| 2 | [`road-route`](road-route.md) | road-route | ~42 folder tuyến → ~25 canonical | **P0** |
-| 3 | [`asset-type`](asset-type.md) | asset-type | ~99 folder loại → ~23 canonical | **P0** |
+| # | Slug | catalogKind | Data signal (hiện tại) | Priority |
+|---|------|-------------|------------------------|----------|
+| 1 | [`org-unit`](org-unit.md) | org-unit | Seed DRVN · CUC 2 folder = demo | **P0** |
+| 2 | [`road-route`](road-route.md) | road-route | `gov/raw` tuyến Khu 2 | **P0** |
+| 3 | [`asset-type`](asset-type.md) | asset-type | `gov/raw` cầu/hầm + catalog | **P0** |
 | 4 | [`partner-unit`](partner-unit.md) | partner-unit | 13 Sở/BOT/Cty | **P1** |
 
 ## 3. UI routes

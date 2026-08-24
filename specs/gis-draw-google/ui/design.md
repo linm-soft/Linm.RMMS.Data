@@ -51,16 +51,21 @@
 
 - Primary teal `#0f766e` (demo parity)
 - Live Leaflet only — cấm fake gradient map
+- Pin map = QCVN `mapAssetIcons` pictogram **trùng chú giải** (L.icon data-URI) — **cấm** vòng trắng bọc glyph · **cấm** `demo/mapIcons.ts` per-page
+- Badge trạng thái `ok` / `broken` từ `status` DB (`tot` → ok · `can_bao_tri` → broken)
 - Default basemap **Google proxy** (feature SSOT) · OSM VN available
 - Default Fit overview zoom ≤13
+- Overlay default = **toàn bộ tài sản plottable** set **`khu-2-gov`** (`rmms_road_assets` ∪ LineString tuyến) — **không** Cot_km QL.22 trừ khi API trống
+- Skip placeholder `16,110` **và** lat/lng ngoài bbox Nghệ An (Quảng Ninh / Quảng Trị). Thiếu / lệch → `khu2-corridor` theo km-rank trên tim đường Khu II
+- Tuyến `tuyen-duong` = vertices corridor Khu II · FE **OSRM R8** (`routeAlongStreets`) · pin **projectToPath** trên track
 - sat `maxNativeZoom: 17`
 - Corridor underlay + track pane for LineString
-- Isolate → Fit focus ≤15
+- Isolate → Fit focus ≤15 **chỉ** từ chú giải lớp / list Kết quả — **cấm** isolate khi click pin (inspect → tab Thuộc tính, vẫn show all)
 
 ## 6. Handoff → SA
 
-- APIs: basemap-config · layers?purpose=draw · drawings CRUD · geojson overlay
-- In-memory store P1 · PostGIS DEFER
+- APIs: basemap-config · layers?purpose=draw · drawings CRUD · geojson overlay **từ DB road_assets (khu-2-gov)**
+- Drawings in-memory P1 · PostGIS DEFER
 - Domain Gis only
 
 ---

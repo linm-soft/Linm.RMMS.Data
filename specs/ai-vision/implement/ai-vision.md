@@ -4,14 +4,23 @@
 |-------|-------|
 | feature | `ai-vision` |
 | status | `done` |
-| taskId | `task_bc9cfb1a` |
+| taskId | `task_d52ac8ac` |
 | skillVersion | `2026.08.09.02` |
 | schemaVersion | `qldb-workflow-skill-v1` |
 | workflowVersion | `2026.08.09.02` |
 | versionGate | `ok` |
 | mfeStdRoute | `/ai-vision` |
 | mfeStdUrl | `http://localhost:9303/ai-vision` |
-| updatedAt | `2026-08-09T17:12:30.000Z` |
+| updatedAt | `2026-08-23T16:52:00.000Z` |
+
+## Edit delta (`task_d52ac8ac`)
+
+| gap | fix |
+|-----|-----|
+| GAP-L3-REAL-DATA | `specs/_data-analy/features/ai-vision-real-data.md` |
+| GAP-FILTER-SECTION | `AiVisionListPage` Dropdown `sectionId` + query param |
+| GAP-TOOLBAR-DETECT | `beforeToolbar` P1/P2 stub → `aiVisionService.detect` |
+| GAP-STATUS-LABEL | `statusLabel()` in grid column |
 
 ## retry.ssot_rereview: **pass**
 
@@ -62,6 +71,7 @@ resume `task_bc9cfb1a`: live re-audit — **no new gaps** · packKind→`ai` · 
 | id | status |
 |----|--------|
 | T-UI-LIST | done |
+| T-UI-LIST-02 | done |
 | T-UI-FORM | done |
 | T-BE-01 | done |
 | T-BE-02 | done |

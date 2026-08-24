@@ -4,7 +4,7 @@
 |-------|-------|
 | feature | `gis` |
 | phase | `data_analy` |
-| status | `blocked` |
+| status | `in_progress` |
 | changeScope | `edit_page` |
 | packKind | `map` |
 | demo | `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/gis-demo.html` |
@@ -19,7 +19,7 @@
 | workflowVersion | `2026.08.08.31` |
 | versionGate | `ok` |
 | versionMismatchAction | `keep_current` (Autopilot · SSOT file=`2026.08.09.02`) |
-| updatedAt | `2026-08-21T09:47:20.852Z` |
+| updatedAt | `2026-08-24T15:38:11.296Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -41,7 +41,7 @@
 
 | Step | Agent | Artifact | Status |
 |------|-------|----------|--------|
-| 0b | data-analy | `_data-analy/features/gis-control-hint.md` | **blocked** (failed) |
+| 0b | data-analy | `_data-analy/features/gis-control-hint.md` | **paused** |
 | 1 | po | po/requirement.md | **pending** |
 | 2.1 | design | ui/design.md + prototype + reviewUrl | **pending** |
 | 2.2 | sa | be/solution-discovery.md | **pending** |

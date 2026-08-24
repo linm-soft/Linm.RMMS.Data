@@ -41,20 +41,20 @@
 | T-BE-01 | done | basemap-config · layers?purpose=draw · drawings CRUD |
 | T-BE-02 | done | BFF proxy GET/POST/PUT/DELETE |
 | T-UI-MAP | done | Kind F `/gis/draw-google` · OMS R1–R11 |
-| T-FE-CLIENT | done | BFF + local-seed fallback |
+| T-FE-CLIENT | done | BFF + **geojson DB khu-2-gov** + local-seed fallback |
 
 ## Paths
 
 ### FE (`Linm.Web.RMMS.Gis`)
 
-- `src/pages/GisDrawGoogleDemoPage/GisDrawGoogleDemoPage.tsx` — Kind F draw + OMS chrome
+- `src/pages/GisDrawGoogleDemoPage/GisDrawGoogleDemoPage.tsx` — Kind F draw + OMS chrome + **DB inventory**
 - `src/pages/GisDrawGoogleDemoPage/gisDrawHelpers.ts`
 - `src/services/gis/endpoint.ts` · `gisService.ts` · `mapModels.ts`
 
 ### BE (`Linm.RMMS.WebService`)
 
 - `api/domains/gis/.../DTOs/GisDrawingDtos.cs` · extend `GisMapDtos.cs`
-- `Domains/Gis/Services/GisDrawingStore.cs` · `GisService.cs` · `IGisService.cs`
+- `Domains/Gis/Services/GisDrawingStore.cs` · `GisInventoryMapper.cs` · `GisService.cs` · `IGisService.cs`
 - `Domains/Gis/Controllers/GisMapController.cs`
 - `bff/domains/gis/.../GisBffController.cs`
 
@@ -65,6 +65,27 @@
 | FE `yarn typecheck` | PASS |
 | FE `yarn build` (`LINM_RUN_DEV_LOCAL_BUNDLE=1`) | PASS |
 | BE `dotnet build Linm.RMMS.WebService.sln -c Release` | PASS (0 errors) |
+
+## Notes (`/edit-web-feature` · 2026-08-23)
+
+- Overlay `/gis/ha-tang` đọc `GET /gis/geojson/drawings` = drawings ∪ **khu-2-gov** trên corridor Khu II ∪ LineString `tuyen-duong` (`coordSource=khu2-corridor`).
+- Load **mọi** asset Active. Skip `16,110` **và** lat/lng ngoài bbox Nghệ An (Quảng Ninh ~21,107). Fill: `khu2-corridor` theo km-rank trên QL.1 / QL.48B / CT / QL.HCM.
+- Pavement CSV không geom → **không** vẽ mặt đường.
+- Pin click = inspect (tab Thuộc tính) · **không** isolate map. Isolate chỉ chú giải lớp / list Kết quả.
+- Leaflet.Draw CDN: **chờ `window.L`** rồi mới nạp `leaflet.draw.js` (cấm `L is not defined` · StrictMode/HMR).
+- Import `road_assets`: CSV trùng `code` (vidagis Trái/Phải / nhiều cầu 1 id) → upsert in-memory + suffix `#n` — **cấm** `IX_CompanyCode_Code` 23505.
+- Import round lat/lng `decimal(12,8)` + swap cột Vidagis (lat~107) — **cấm** `22003` numeric overflow.
+
+## Verify (`/edit-web-feature` · 2026-08-23)
+
+| Check | Result |
+|-------|--------|
+| GIS MFE `yarn typecheck` | PASS (turn trước) |
+| Docker `dotnet build` API | PASS (0 Error) sau csproj forward-slash Content |
+| DB `rmms_road_assets` RMMS | BRIDGE 127 / TUNNEL 7 · **plottable 93 pin** (69 import + 10 km-copy + 14 km-lerp) + 9 tuyến km-chain |
+| `GET :5101/api/v1/gis/geojson/drawings` | **102** Feature `sourceKind=db` · `cau` 89 · `ham` 4 · `tuyen-duong` 9 · không `16,110` |
+| BFF `:5201/web-bff/api/v1/gis/geojson/drawings` | HTTP 200 |
+| MFE `http://localhost:9302/gis/ha-tang` | webpack compiled · HTTP 200 (live click Fit: cần browser) |
 
 ## Debt
 

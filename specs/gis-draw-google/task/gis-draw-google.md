@@ -38,8 +38,8 @@
 | T-PERM | gis-draw-google | perm | dev | — | — | Local mode note |
 | T-BE-01 | map | api | dev | — | new-endpoint | basemap + layers?purpose=draw + drawings CRUD · build PASS |
 | T-BE-02 | map | bff | dev | T-BE-01 | create-bff-api-feature | BFF proxy · build PASS |
-| T-UI-MAP | /gis/draw-google | ui-map | dev | — | agent-dev-oms-map | Kind F A–D · OMS R1–R11 · build PASS |
-| T-FE-CLIENT | client | ui-api | dev | T-BE-01,T-UI-MAP | — | wire drawings + local fallback |
+| T-UI-MAP | /gis/draw-google | ui-map | dev | — | agent-dev-oms-map | Kind F A–D · OMS R1–R11 · pin QCVN = legend (cấm vòng trắng) · build PASS |
+| T-FE-CLIENT | client | ui-api | dev | T-BE-01,T-UI-MAP | — | wire drawings + **geojson khu-2-gov trên corridor Nghệ An** + **OSRM R8** tuyến + pin `projectToPath` |
 | T-QA-01 | gis-draw-google | qa | qa | T-UI-MAP,T-BE-02 | — | scenarios.md |
 | T-RV-01 | gis-draw-google | review | review | T-QA-01 | review-query | findings.md |
 

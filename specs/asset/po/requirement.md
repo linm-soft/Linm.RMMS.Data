@@ -26,6 +26,7 @@ Persona: Ban QLDA · Sở GTVT · Tuần đường (web).
 | Demo | Kind F map+list (`asset-demo.html` → `asset/asset.html`) | Giữ visual SSOT map; **pack này không clone chrome/map** — list+form Kind B |
 | MFE list | Kind B (prior pack) | 1× `LinPageLayout` · Zone A–D · `LinCatalogDataGrid` kéo cột default ON · footer `LinCatalogListPagination` — **cấm** nested CatalogListShell · footerPagination · pageSizeBar · raw table |
 | MFE form | Slideout / mixed (stale PO) | **Full-page** `AssetFormPage` C/E/V/Copy · **cấm** Resource/Slideout · View = `readOnly` **không** disabled xám |
+| SL/ĐVT | **Thiếu** trên list/entity (GAP-RPT-SRC-ASSET-01) | `Quantity` + `UnitCode` entity/DTO/form/list · init-data `units` · schema seed — **CLOSED** `task_67ce475b` |
 | Filter type/route | Select 8 nhãn demo / Text (stale Design) | **SearchInput** master `asset-type` (23) · `road-route` (38) — **cấm** Dropdown 8 nhãn làm SSOT |
 | API | `api/v1/asset/road-assets` | Giữ · BFF `web-bff/api/v1/asset/road-assets` |
 | BE | `Linm.RMMS.WebService` · Asset | `RoadAssetEntity` · `rmms_road_assets` · SHARE=`tenant_keep` · **cấm** parent JSON string |

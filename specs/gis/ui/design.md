@@ -27,7 +27,7 @@
 | A | Sidebar | Tabs: Lớp · Chú giải · Thuộc tính · Kết quả |
 | B | Toolbar + filter | Fetch · overlay · heatmap · fit · twin · draw · search · PCI min/max · **toolbar FA+perm** (parity list) |
 | C | Map chrome | `map-host` (Leaflet) → `map-bar` (OSM/Esri/sat · Fit · full/dock) → legend PCI |
-| D | Results + props | Section table · **MapPointDetail** (detailHtml / React slot) |
+| D | Results + props | Section + pin + camera **full table** (cấm `max-height` cắt hàng) · **MapPointDetail** · legend **đủ** loại TS / đoạn đang vẽ (cấm cap 16) |
 
 ## 2b. Shared map REF (promote Common sau)
 

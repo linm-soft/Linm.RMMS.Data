@@ -1,7 +1,7 @@
 # Quản lý tài sản đường bộ — Feature Context
 
 > **Slug:** `asset` · **Module:** `Asset` · **Phase:** P1  
-> **Status:** **done** (list pack Review `task_bf4df098` · SSOT 2026.08.14.5 · full-page form · SearchInput 23/38)  
+> **Status:** **done** (edit_page `task_67ce475b` · real-data + GAP-RPT-SRC-ASSET-01 closed · SSOT 2026.08.14.5)  
 > **Feature Kind:** **B** — Catalog list A–D + **full-page** form (`AssetFormPage` · View `<dl>`); demo HTML vẫn Kind F map+list  
 > **Sources:** guide Tài sản / Tài sản KCHT · `RMMS` §1 · `07` §1 · `09` · **`11-CSDL-SO-SACH`** · [`15-SCREEN-AI-MAP.md`](../15-SCREEN-AI-MAP.md)  
 > **Demo HTML:** `Linm.RMMS.Demo/src/demo/features/asset-demo.html` → `../asset/asset.html`  

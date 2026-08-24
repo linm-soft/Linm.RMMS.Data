@@ -6,8 +6,9 @@
 | packKind | `list` |
 | mode | `cluster_import` feature-scoped (retry `roleOnly=data_analy` · **no Excel** in ProductRoot · demo + context + CUC2 catalogs) |
 | status | `done` |
+| changeScope | `edit_page` |
 | skillId | `agent-data-analy` |
-| skillVersion | `2026.08.08.20` |
+| skillVersion | `2026.08.15.19` |
 | schemaVersion | `1` |
 | workflowVersion | `2026.08.14.5` |
 | rulesVersion | `2026.08.14.9` |
@@ -16,7 +17,20 @@
 | headerFingerprint | `sha256:e127da988394014b734c7277ce7e598b892525efcfefb53ecee2b034d1d7b051` |
 | analyzedAt | `2026-08-14T14:51:00.000Z` |
 | cluster | `specs/_data-analy/clusters/cluster-asset-header-v1.md` |
-| taskId | `task_0d2866b0` |
+| taskId | `task_67ce475b` |
+| realData | `specs/_data-analy/features/asset-real-data.md` |
+
+## § Delta Current vs New (`edit_page` · `task_67ce475b`)
+
+Giữ PO/Design/SA/TL artifacts đã confirmed. Delta **bắt buộc** pack edit:
+
+| ID | Current (prior Review `task_bf4df098`) | New (SSOT) | Surface |
+|----|----------------------------------------|------------|---------|
+| GAP-L3-REAL-DATA | **Thiếu** `asset-real-data.md` | §A+§B bind list/form/lookup/init-data/schema | data-analy |
+| GAP-RPT-SRC-ASSET-01 | Entity/DTO/list **không** SL/ĐVT · `rpt-tai-san` blocked | `Quantity` + `UnitCode` trên `rmms_road_assets` + DTO + form + lưới + init-data `units` + schema seed | form + list + BE |
+| GAP-HARNESS-02 | HARNESS header stale `draft` vs Review done | STATUS + HARNESS sync `task_67ce475b` | docs |
+
+**Không** đổi: Kind B A–D · full-page form · SearchInput type/route 23/38 · LinPageLayout · `LinCatalogUiSchemaEditorModal` · API `api/v1/asset/road-assets` · route MFE `/so-ts`.
 
 > Data-analy **đề xuất** controlHint. Design **chốt** control-map. SA **chốt** lookup API.  
 > **Cấm** Dev đoán Text vs SearchInput khi đã có bảng này.
@@ -72,6 +86,8 @@
 | qr | Mã QR | `Text` | | display P1 |
 | photos | Ảnh | `Text` | | mock P1 |
 | valueVnd | Giá trị (VND) | `Text` (Money) | | |
+| quantity | Số lượng (SL) | `Text` (number) | | GAP-RPT-SRC-ASSET-01 · `decimal?` |
+| unitCode | Đơn vị tính (ĐVT) | `Dropdown` | | init-data `units` |
 | note | Ghi chú | `Text` | | multiline |
 | updatedAt | Cập nhật | `Date` | | readonly display |
 
@@ -126,7 +142,7 @@ Entity: `RoadAssetEntity` · `rmms_road_assets` · SHARE=tenant_keep.
 | Field | Value |
 |-------|-------|
 | skillId | agent-data-analy |
-| skillVersion | 2026.08.08.20 |
+| skillVersion | 2026.08.15.19 |
 | schemaVersion | 1 |
 | workflowVersion | 2026.08.14.5 |
 | rulesVersion | 2026.08.14.9 |

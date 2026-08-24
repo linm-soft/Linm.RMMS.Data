@@ -11,8 +11,8 @@
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/gis-draw-live.md` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Gis` |
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/gis` (DOMAIN-MAP — **cấm ERP.***) |
-| mfeStdRoute | `/gis/live` |
-| mfeStdUrl | `http://localhost:9302/gis/live` |
+| mfeStdRoute | `/gis/draw` |
+| mfeStdUrl | `http://localhost:9302/gis/draw` |
 | taskId | `task_6e79dde5` |
 | skillVersion | `2026.08.10.3` |
 | schemaVersion | `qldb-workflow-skill-v1` |
@@ -66,8 +66,8 @@
 - None open. DEFER: PostGIS persist · multi-user lock · commit → Asset.
 
 ## Links
-- mfeStdUrl: `http://localhost:9302/gis/live`
-- mfeStdRoute: `/gis/live`
+- mfeStdUrl: `http://localhost:9302/gis/draw`
+- mfeStdRoute: `/gis/draw`
 
 - DOMAIN-MAP: `D:/AI-QLBD/Linm.RMMS.WebService/docs/DOMAIN-MAP.md`
 - Prototype reviewUrl: `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/gis-draw-live/ui/prototype/gis-draw-live-prototype.html`

@@ -6,8 +6,8 @@
 | status | `done` |
 | changeScope | `edit_page` |
 | packKind | `list` |
-| taskId | `task_d31bfbd3` |
-| updatedAt | `2026-08-14T16:30:00.000Z` |
+| taskId | `task_67ce475b` |
+| updatedAt | `2026-08-23T16:35:00.000Z` |
 | versionGate | rechecked |
 
 ## retry.ssot_rereview (task_d31bfbd3 · live re-audit trước + sau Write)
@@ -33,6 +33,14 @@ Live: `AssetListPage.tsx` + `AssetFormPage.tsx` + `lookups.ts` + `index.tsx`.
 | 15 | Dedicated `/edit` `/copy` | yes | **PASS** |
 
 **implement.list_parity.layout** = `flex-root + GAP-P2-LAYOUT-06 smoke`.
+
+## Done this turn (task_67ce475b · edit_page · Dev verify)
+
+| Task | Result |
+|------|--------|
+| GAP-L3-REAL-DATA | `specs/_data-analy/features/asset-real-data.md` §A+§B |
+| GAP-RPT-SRC-ASSET-01 | `Quantity` + `UnitCode` verified live: entity · DTO · list cols · form · init-data `units` · `CatalogUiSchemaSeed.RoadAssets` |
+| GAP-HARNESS-02 | STATUS + HARNESS sync |
 
 ## Done this turn (task_d31bfbd3 · Dev)
 
@@ -66,14 +74,14 @@ Live: `AssetListPage.tsx` + `AssetFormPage.tsx` + `lookups.ts` + `index.tsx`.
 
 **Cấm** ERP.* — void.
 
-## Build (REQUIRED)
-
 ```
-yarn typecheck → PASS
+yarn typecheck → PASS (task_67ce475b)
 LINM_RUN_DEV_LOCAL_BUNDLE=1 yarn build → PASS (webpack 0 errors · size warnings only)
 dotnet build RMMS.Service.Api -c Release → PASS (0 Error(s))
-dotnet build RMMS.Service.Bff -c Release → PASS (0 Error(s))
 ```
+
+## Build (REQUIRED · task_67ce475b verify)
+
 
 ## Debt
 

@@ -3,14 +3,35 @@
 | Field | Value |
 |-------|-------|
 | feature | `ai-vision` |
-| packKind | `list` |
-| mode | `scan_workflow` (no Excel import · synthetic AI) |
-| status | `confirmed` (autopilot) |
-| skillVersion | `2026.08.08.31` |
+| packKind | `ai` |
+| mode | `feature_context` (`edit_page` · NEW task `task_d52ac8ac`) |
+| status | `done` |
+| changeScope | `edit_page` |
+| skillId | `agent-data-analy` |
+| skillVersion | `2026.08.09.02` |
 | schemaVersion | `qldb-workflow-skill-v1` |
-| workflowVersion | `2026.08.08.31` |
+| workflowVersion | `2026.08.09.02` |
 | versionGate | `ok` |
-| updatedAt | `2026-08-08T16:30:00.000Z` |
+| taskId | `task_d52ac8ac` |
+| realData | `specs/_data-analy/features/ai-vision-real-data.md` |
+| updatedAt | `2026-08-23T16:50:00.000Z` |
+
+## § Delta Current vs New (`edit_page` · `task_d52ac8ac`)
+
+Giữ PO/Design/SA/TL artifacts đã confirmed. Delta **bắt buộc** pack edit:
+
+| ID | Current (prior Review `task_bc9cfb1a`) | New (SSOT) | Surface |
+|----|----------------------------------------|------------|---------|
+| GAP-L3-REAL-DATA | **Thiếu** `ai-vision-real-data.md` | §A+§B bind list/form/detect/incident/schema | data-analy |
+| GAP-FILTER-SECTION | BE `sectionId` query · demo filter · **MFE thiếu** Dropdown đoạn | Zone B `sectionId` Dropdown + wire `getList` | list |
+| GAP-TOOLBAR-DETECT | Demo Upload/batch · service `detect()` có · **MFE thiếu** toolbar stub | `beforeToolbar` «Giả lập detect» → `POST /ai-vision/detect` | list |
+| GAP-STATUS-LABEL | Grid hiện raw `Draft`/`IncidentCreated` | Nhãn VI demo: Nháp (AI) · Đã tạo Vấn đề · Đã bỏ (FP) | list |
+| GAP-HARNESS-02 | STATUS `task_bc9cfb1a` · data_analy pending vs Review done | Sync `task_d52ac8ac` + real-data gate | docs |
+
+**Không** đổi: Kind B A–D shell · LinPageLayout · LinCatalogDataGrid · LinCatalogListPagination · form C/E/V/Copy · API `api/v1/ai-vision/detections` · **cấm** AI chrome header (`ai-chrome-skip.md`) · Kind F map OUT.
+
+> Data-analy **đề xuất** controlHint. Design **chốt** control-map. SA **chốt** lookup API.  
+> **Cấm** Dev đoán Text vs SearchInput khi đã có bảng này.
 
 ## Sources
 
@@ -71,4 +92,4 @@
 → SA: AiVision domain APIs above · BFF proxy · migration `Schema_RmmsAiVisionDetections`
 
 ---
-<!-- Version meta: skillVersion=2026.08.08.31 · schemaVersion=qldb-workflow-skill-v1 · workflowVersion=2026.08.08.31 · versionGate=ok -->
+<!-- Version meta: skillId=agent-data-analy skillVersion=2026.08.09.02 schemaVersion=qldb-workflow-skill-v1 workflowVersion=2026.08.09.02 versionGate=ok -->

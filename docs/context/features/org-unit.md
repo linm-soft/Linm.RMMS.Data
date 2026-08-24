@@ -4,7 +4,7 @@
 > **Status:** Context · **data-analy confirmed A** (2026-08-08)  
 > **Feature Kind:** **B** — Catalog tree list + form  
 > **packKind:** `master` — **không demo** · UI confirm ở Design  
-> **Sources:** [`../20-ORG-STRUCTURE-DRVN.md`](../20-ORG-STRUCTURE-DRVN.md) · [**seed JSON (60 nodes)**](../seed/org-unit-seed.json) · [drvn.gov.vn](https://drvn.gov.vn/gioi-thieu/co-cau-to-chuc?categoryId=101875659) · data-import CUC 2  
+> **Sources:** [`../20-ORG-STRUCTURE-DRVN.md`](../20-ORG-STRUCTURE-DRVN.md) · [**seed JSON (60 nodes)**](../seed/org-unit-seed.json) · [drvn.gov.vn](https://drvn.gov.vn/gioi-thieu/co-cau-to-chuc?categoryId=101875659) · import CSV [`import-gov-ssot.md`](import-gov-ssot.md) (`Sau-sat-nhap/gov`). CUC 2 folder = demo.  
 > **Demo HTML:** **N/A**  
 > **MFE:** `Linm.Web.RMMS.Master` · `/mas/co-cau-tc`  
 > **Specs:** `Linm.RMMS.Data/specs/org-unit/`  

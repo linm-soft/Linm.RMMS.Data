@@ -9,8 +9,8 @@
   "packKind": "list",
   "notes": [
     "Lane web-only (STATUS). Native = missing.",
-    "L3 real-data packet missing: specs/_data-analy/features/asset-real-data.md",
-    "STATUS header phase/status still data_analy/draft while Tasks + Review closeout = done (GAP-HARNESS-02 soft).",
+    "L3 real-data packet: specs/_data-analy/features/asset-real-data.md",
+    "STATUS + Review closeout task_67ce475b edit_page done.",
     "Sibling MFE routes pavement-section / csdl-so-sach = other aliases — not in integrate[].",
     "R0 metadata only — no embeddings."
   ],
@@ -26,17 +26,18 @@
     "L3_specs": {
       "exist": true,
       "path": "D:/AI-QLBD/Linm.RMMS.Data/specs/asset",
-      "statusHeader": "draft",
+      "statusHeader": "done",
       "statusCloseout": "done",
       "controlHint": "D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/asset-control-hint.md",
       "cluster": "D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/clusters/cluster-asset-header-v1.md",
-      "realData": null,
+      "realData": "D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/asset-real-data.md",
       "prototype": "D:/AI-QLBD/Linm.RMMS.Data/specs/asset/ui/prototype/asset-list-prototype.html"
     },
     "L4_app": {
       "exist": true,
       "mfe": "D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Asset",
       "routes": [
+        "/asset",
         "/so-ts",
         "/so-ts/tao-moi",
         "/so-ts/:id",
@@ -71,8 +72,8 @@
     }
   },
   "urls": {
-    "mfeStdRoute": "/so-ts",
-    "mfeStdUrl": "http://localhost:9301/so-ts",
+    "mfeStdRoute": "/asset",
+    "mfeStdUrl": "http://localhost:9301/asset",
     "reviewUrl": "file:///D:/AI-QLBD/Linm.RMMS.Data/specs/asset/ui/prototype/asset-list-prototype.html"
   },
   "integrate": [

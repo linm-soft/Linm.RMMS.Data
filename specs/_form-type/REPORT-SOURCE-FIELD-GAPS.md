@@ -5,7 +5,7 @@ SSOT đối chiếu `docs/context/features/rpt-*.md` **Grid** ↔ entity `Linm.R
 
 | Report | sourceFeature | Table | Cột report | Form/entity | Gap |
 |--------|---------------|-------|------------|-------------|-----|
-| `rpt-tai-san` | `asset` **done** | `rmms_road_assets` | tuyến · hạng mục · **SL** · **ĐVT** · TT · cập nhật | Route · Type · Status · UpdatedAt | **Quantity · UnitCode** |
+| `rpt-tai-san` | `asset` **done** | `rmms_road_assets` | tuyến · hạng mục · **SL** · **ĐVT** · TT · cập nhật | Route · Type · **Quantity** · **UnitCode** · Status · UpdatedAt | **CLOSED** `task_67ce475b` |
 | `rpt-su-co` | `incident` paused Dev | `rmms_incidents` | mã · tuyến · loại · mức · TT · thời gian | Code · RouteName · IncidentType · Severity · Status · RequestedAt | đủ P1 |
 | `rpt-thien-tai` | `incident` **list done** | `rmms_incidents` | ngày · tuyến · loại · km · mức · thiệt hại tóm tắt | RequestedAt · RouteName · IncidentType · KmStart/KmEnd · Severity · **Description** | **CLOSED P1** `task_b580eac0` map Description (typed DamageSummary cột riêng = P2) |
 | `rpt-thiet-hai` | `incident` | — | tuyến · hạng mục · **KL** · **ĐVT** · ước giá | không line | **bảng dòng thiệt hại** |
@@ -28,4 +28,4 @@ SSOT đối chiếu `docs/context/features/rpt-*.md` **Grid** ↔ entity `Linm.R
 3. `pavement-section` — Dev resume + PCI · lớp · ngày đo  
 4. `csdl-so-sach` — QA resume + typed sổ fields  
 5. `ops` — OfficialDocument scalars **CLOSED** task_31a9bbd8  
-6. `asset` — crud_gap **Quantity + UnitCode** (form done nhưng report thiếu SL/ĐVT)
+6. `asset` — crud_gap **Quantity + UnitCode** — **CLOSED** `task_67ce475b`

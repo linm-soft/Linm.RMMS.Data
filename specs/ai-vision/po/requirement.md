@@ -6,13 +6,13 @@
 | changeScope | `edit_page` |
 | packKind | `ai` |
 | Feature Kind | **B** — Catalog list + form (full page) |
-| status | `confirmed` (autopilot · task_bc9cfb1a) |
+| status | `confirmed` (autopilot · `task_d52ac8ac` edit delta) |
 | skillVersion | `2026.08.09.02` |
 | schemaVersion | `qldb-workflow-skill-v1` |
 | workflowVersion | `2026.08.09.02` |
 | versionGate | `ok` |
 | controlHint | `specs/_data-analy/features/ai-vision-control-hint.md` |
-| updatedAt | `2026-08-09T16:42:00.000Z` |
+| updatedAt | `2026-08-23T16:50:00.000Z` |
 
 ## 1. Goal
 
@@ -28,11 +28,20 @@ Align MFE **AI kiểm định mặt đường** Kind B catalog parity (erp-form-
 | API client | `/ai-vision/detections` + fallback | Keep |
 | BE | Detections API/BFF present | Named migration `Schema_RmmsAiVisionDetections` · verify build |
 
+## 2b. Edit delta (`task_d52ac8ac`)
+
+| ID | Delta |
+|----|-------|
+| GAP-L3-REAL-DATA | `ai-vision-real-data.md` bind §A–§F |
+| GAP-FILTER-SECTION | Dropdown `sectionId` Zone B → `GET …/detections?sectionId=` |
+| GAP-TOOLBAR-DETECT | `beforeToolbar` giả lập detect P1/P2 → `POST /ai-vision/detect` |
+| GAP-STATUS-LABEL | Grid status nhãn VI (Nháp · Đã tạo Vấn đề · Đã bỏ) |
+
 ## 3. Personas / DoD
 
 1. List load + **search work** (mã/class/section/route/severity/status/engine)
-2. Filters: defectClass · severity · status · engine (controlHint Dropdown)
-3. Toolbar: Tạo mới · Làm mới · history · config · badge P1 online
+2. Filters: defectClass · severity · status · engine · **sectionId** (controlHint Dropdown)
+3. Toolbar: Tạo mới · Làm mới · history · config · **giả lập detect P1/P2** (cấm AI chrome header)
 4. Row menu: Xem · Sửa · Sao chép · (Critical) Tạo Vấn đề
 5. View = `readOnly`
 6. Create/Edit/Copy validate + save (Draft)

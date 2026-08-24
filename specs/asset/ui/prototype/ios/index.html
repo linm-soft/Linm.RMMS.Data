@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RMMS · Danh sách TS · iOS</title>
+  <style>
+    :root {
+      --blue: #0C84C0; --indigo: #5856D6; --gray: #8E8E93;
+      --surface: #F2F2F7; --card: #fff; --label: #1C1C1E; --muted: #8E8E93;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+      background: #1c1c1e; color: var(--label);
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    }
+    .phone {
+      width: 390px; height: 844px; background: var(--surface);
+      border-radius: 44px; overflow: hidden; position: relative;
+      box-shadow: 0 20px 60px rgba(0,0,0,.45);
+      display: flex; flex-direction: column;
+    }
+    .nav-bar {
+      display: flex; align-items: center; min-height: 44px;
+      padding: 54px 8px 4px; background: rgba(255,255,255,.92);
+      border-bottom: 0.5px solid #C7C7CC;
+    }
+    .nav-btn {
+      border: 0; background: transparent; color: var(--blue);
+      min-height: 44px; padding: 0 8px; cursor: pointer; font-family: inherit;
+      font-size: 17px; font-weight: 400; display: inline-flex; align-items: center; gap: 2px;
+    }
+    .nav-title {
+      flex: 1; text-align: center; font-size: 17px; font-weight: 650;
+      letter-spacing: -0.3px;
+    }
+    .nav-spacer { min-width: 88px; }
+    .search {
+      margin: 8px 16px 12px; background: rgba(118,118,128,.12); border-radius: 10px;
+      padding: 9px 12px; display: flex; align-items: center; gap: 8px;
+      color: var(--muted); font-size: 13px;
+    }
+    .search span { color: rgba(60,60,67,.3); flex: 1; }
+    .content { flex: 1; overflow: auto; padding: 0 0 28px; }
+    .card-group {
+      margin: 0 16px 16px; background: var(--card); border-radius: 12px; overflow: hidden;
+    }
+    .row {
+      display: flex; align-items: center; gap: 12px; padding: 12px;
+      border-bottom: 0.5px solid rgba(60,60,67,.12); cursor: pointer; min-height: 56px;
+    }
+    .row:last-child { border-bottom: 0; }
+    .row-icon {
+      width: 36px; height: 36px; border-radius: 10px; color: #fff;
+      display: grid; place-items: center; flex-shrink: 0;
+    }
+    .row-body { flex: 1; min-width: 0; }
+    .row-title { font-size: 16px; font-weight: 600; }
+    .row-sub { font-size: 13px; color: var(--muted); margin-top: 2px; }
+    .chev { color: var(--muted); display: grid; place-items: center; flex-shrink: 0; }
+    .ic { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+    .ic-sm { width: 16px; height: 16px; }
+    .sprites { position: absolute; width: 0; height: 0; overflow: hidden; }
+    .toast {
+      position: absolute; left: 16px; right: 16px; bottom: 40px; z-index: 20;
+      background: rgba(28,28,30,.92); color: #fff; border-radius: 12px;
+      padding: 12px 14px; font-size: 14px; text-align: center;
+      opacity: 0; pointer-events: none; transition: opacity .2s;
+    }
+    .toast.on { opacity: 1; }
+    .note {
+      position: absolute; top: 10px; left: 0; right: 0; text-align: center;
+      color: #888; font-size: 11px; pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <svg class="sprites" aria-hidden="true">
+    <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+    <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16.5 16.5 21 21"/></symbol>
+    <symbol id="i-cube" viewBox="0 0 24 24"><path d="M12 3 3 8.5v7L12 21l9-5.5v-7L12 3z"/><path d="M3 8.5 12 14l9-5.5M12 14v7"/></symbol>
+  </svg>
+
+  <div class="note">DES-MOB-ASSET-LIST · iOS 390×844 · asset</div>
+  <div class="phone">
+    <div id="sc-asset-list" data-des-id="DES-MOB-ASSET-LIST">
+      <div class="nav-bar" data-des-id="DES-MOB-ASSET-LIST-NAV">
+        <button class="nav-btn" type="button" id="nav-back" onclick="toast('Quay Tài sản')">
+          <svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg> Tài sản
+        </button>
+        <div class="nav-title" id="nav-title">Danh sách</div>
+        <div class="nav-spacer"></div>
+      </div>
+      <div class="search" id="search-asset" data-des-id="DES-MOB-ASSET-LIST-SEARCH">
+        <svg class="ic" viewBox="0 0 24 24"><use href="#i-search"/></svg>
+        <span>Tìm mã TS, tuyến, loại…</span>
+      </div>
+      <div class="content" data-des-id="DES-MOB-ASSET-LIST-ROWS">
+        <div class="card-group">
+          <div class="row" id="row-asset-TS-20260810-014" onclick="toast('Chi tiết tài sản')">
+            <div class="row-icon" style="background:var(--indigo)">
+              <svg class="ic" viewBox="0 0 24 24"><use href="#i-cube"/></svg>
+            </div>
+            <div class="row-body">
+              <div class="row-title">TS-20260810-014 · Cống ngang</div>
+              <div class="row-sub">QL.1 · Km 1556+000 · Cống</div>
+            </div>
+            <span class="chev"><svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-chevron-right"/></svg></span>
+          </div>
+          <div class="row" id="row-asset-TS-20260809-088" onclick="toast('Chi tiết tài sản')">
+            <div class="row-icon" style="background:var(--gray)">
+              <svg class="ic" viewBox="0 0 24 24"><use href="#i-cube"/></svg>
+            </div>
+            <div class="row-body">
+              <div class="row-title">TS-20260809-088 · Biển P.127</div>
+              <div class="row-sub">HCM · Biển báo</div>
+            </div>
+            <span class="chev"><svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-chevron-right"/></svg></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="toast" id="toast" role="status"></div>
+  </div>
+  <script>
+    let t;
+    function toast(msg) {
+      const el = document.getElementById('toast');
+      el.textContent = msg;
+      el.classList.add('on');
+      clearTimeout(t);
+      t = setTimeout(function () { el.classList.remove('on'); }, 1600);
+    }
+  </script>
+</body>
+</html>

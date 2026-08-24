@@ -3,18 +3,14 @@
 | | |
 |---|---|
 | skill | `scan-qlbd-form-type` |
-| hash | `fc49d05754a43b62` |
-| filter | ai |
-| generated | 2026-08-17T08:37:38.239Z |
+| hash | `7ccdefe63c12b34e` |
+| filter | map |
+| generated | 2026-08-23T16:13:04.265Z |
 
 | feature | formType | prior | conf | readme | domain | mfe | stdPort | mfeStdUrl | demo | downstream |
 |---------|----------|-------|------|--------|--------|-----|---------|-----------|------|------------|
-| `ai-asset-detect` | **ai** | done | high | Demo | ai-vision | `Linm.Web.RMMS.AiVision` | 9303 | http://localhost:9303/ai-vision/ai-asset-detect | features/ai-asset-detect-demo.html | /agent-qldb-workflow |
-| `ai-vision` | **ai** | done | high | Demo | ai-vision | `Linm.Web.RMMS.AiVision` | 9303 | http://localhost:9303/ai-vision | features/ai-vision-demo.html | /agent-qldb-workflow |
-| `copilot` | **ai** | done | high | Demo | copilot | `Linm.Web.RMMS.Copilot` | 9310 | http://localhost:9310/copilot | features/copilot-demo.html | /agent-qldb-workflow |
-| `estimate` | **ai** | new | high | Demo | ai-vision | `Linm.Web.RMMS.AiVision` | 9303 | http://localhost:9303/ai-vision/estimate | features/estimate-demo.html | /agent-qldb-workflow |
-| `its-anpr-overload` | **ai** | new | high | Demo | ai-vision | `Linm.Web.RMMS.AiVision` | 9303 | http://localhost:9303/its-anpr-overload | ai-vision/its-anpr-overload.html | /agent-qldb-workflow |
-| `its-traffic-detect` | **ai** | new | high | Context | ai-vision | `Linm.Web.RMMS.AiVision` | 9303 | http://localhost:9303/its-traffic-detect | ai-vision/its-traffic-detect.html | /agent-qldb-workflow |
-| `predict` | **ai** | new | high | Demo | ai-vision | `Linm.Web.RMMS.AiVision` | 9303 | http://localhost:9303/ai-vision/predict | features/predict-demo.html | /agent-qldb-workflow |
+| `gis` | **map** | busy | high | Demo | gis | `Linm.Web.RMMS.Gis` | 9302 | http://localhost:9302/gis | features/gis-demo.html | /agent-dev-oms-map · /agent-qldb-workflow |
+| `gis-draw-google` | **map** | done | high | Demo | gis | `Linm.Web.RMMS.Gis` | 9302 | http://localhost:9302/gis/ha-tang | gis/gis-draw-google.html | /agent-dev-oms-map · /agent-qldb-workflow |
+| `gis-draw-live` | **map** | done | high | Demo | gis | `Linm.Web.RMMS.Gis` | 9302 | http://localhost:9302/gis/draw | gis/gis-draw-live.html | /agent-dev-oms-map · /agent-qldb-workflow |
 
 <!-- Version meta: skillId=scan-qlbd-form-type schemaVersion=1 -->

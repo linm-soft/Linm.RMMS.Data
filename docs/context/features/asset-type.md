@@ -13,8 +13,8 @@
 | | |
 |--|--|
 | Mục tiêu | Danh mục loại TS KCHT — filter Asset list + import map folder → type |
-| Nguồn data | Folder cấp 3 dưới tuyến trong `RMMS CUC 2` |
-| Raw keys | ~99 · **canonical 23** CUC 2 · **đề xuất 32** (`asset-kcht-32.md`) — chờ confirm GAP-AK32 |
+| Nguồn data | Catalog 36 [`asset-kcht-32.md`](asset-kcht-32.md) + type dump ngoài 36 (`PONTOON` · `SPILLWAY` · `PARKING` · …) từ set `gov-vn`. `RMMS CUC 2` = **demo / archive**. SSOT import: [`import-gov-ssot.md`](import-gov-ssot.md) |
+| Raw keys | Catalog **36** [`asset-kcht-32.md`](asset-kcht-32.md) + type dump (`PONTOON` · `SPILLWAY` · `PARKING` · `RESCUE_VEHICLE` · …). Seed CUC 2 23 = **archive**. |
 | DoD | CRUD · SearchInput · seed + alias map · gắn Asset.type |
 
 ## 2. Design / UI

@@ -13,8 +13,8 @@
 | | |
 |--|--|
 | Mục tiêu | Đơn vị **ngoài** cơ cấu Cục — Sở GTVT · BOT · DN bảo trì — filter/import ownership |
-| Nguồn | Top-level folder `RMMS CUC 2` (không phải Chi cục) |
-| Count | **13** partners trong CUC 2 |
+| Nguồn | Seed DRVN / partner catalog. Top-level `RMMS CUC 2` = **demo / archive** — không import production. |
+| Count | **13** partners (tên demo archive — không import) |
 | DoD | CRUD · SearchInput · kind SO_GTVT/BOT/DOANH_NGHIEP · map folder name |
 
 ## 2. Design / UI
@@ -36,7 +36,9 @@ Kind B list — Mã · Tên · Loại · Tỉnh? · Active.
 | legacyFolderName | Text | path import |
 | isActive | Switch | |
 
-## 5. Seed từ CUC 2
+## 5. Seed (tên demo CUC 2 — archive)
+
+Danh sách tên dưới đây **không** phải nguồn import hiện tại. Import: [`import-gov-ssot.md`](import-gov-ssot.md).
 
 **Sở GTVT (6):** Hà Tĩnh · Nghệ An · Quảng Bình · Quảng Trị · Thanh Hóa · Thừa Thiên Huế  
 

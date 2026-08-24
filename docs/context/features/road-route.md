@@ -13,7 +13,7 @@
 | | |
 |--|--|
 | Mục tiêu | Danh mục tuyến / đoạn đường — SearchInput trên Asset, map, import |
-| Nguồn data | Folder cấp 2 dưới đơn vị trong `RMMS CUC 2` |
+| Nguồn data | SSOT [`import-gov-ssot.md`](import-gov-ssot.md) · set `gov-vn` `road_routes.csv` **429** (live DRVN 604). `RMMS CUC 2` = demo / archive. |
 | Raw keys | ~42 · **canonical ~25** sau gộp alias |
 | DoD | CRUD list · search CI · seed từ import · `legacyFolderName[]` |
 
@@ -39,7 +39,9 @@
 | legacyAliases | tags/json | folder names import |
 | isActive | Switch | |
 
-## 5. Seed ưu tiên (từ CUC 2)
+## 5. Seed ưu tiên (từ `gov/raw` tuyến)
+
+QL.1 · HCM và các mã **có trong** `Sau-sat-nhap/gov/raw`. Không seed từ folder CUC 2.
 
 QL.1 · HCM · QL.7 · QL.8 · QL.9 · QL.10 · QL.12A/C · QL.15* · QL.16 · QL.45 · QL.46* · QL.47* · QL.48* · QL.49* · QL.217* · CT.NS-HCM · Cao tốc (TBD)
 

@@ -30,6 +30,7 @@
 | OMS R5b sat maxNativeZoom 17 | PASS |
 | OMS R7b corridor + track panes | **FIXED** `mapLineLevels.ts` · corridorStyle + trackLineStyle |
 | OMS R7c isolate + Fit focus | **FIXED** legend/line/table · `fitIsolateSelection` |
+| Dock table + legend | **FIXED** `gridWrap` no max-height · `flex-shrink: 0` · legendPins no cap 16 · rows = đoạn + pin + cam |
 | OMS R8/R9 OSRM route + snap | PASS |
 | OMS R11 Fit overview ≤13 | PASS |
 
@@ -77,6 +78,7 @@
 - Unit tests — pending
 - Cesium Twin embed — link/badge only
 - JWT Authorize — TODO when platform auth lands
+- GIS map query: GeoJSON **take=100** · `IX_rmms_road_assets_GisMapBbox` / `GisMapTypeRoute` (`Schema_GisMapQueryIndex`)
 
 ## Permissions
 
