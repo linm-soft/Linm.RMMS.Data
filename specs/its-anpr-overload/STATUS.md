@@ -3,8 +3,8 @@
 | Field | Value |
 |-------|-------|
 | feature | `its-anpr-overload` |
-| phase | `qa` |
-| status | `in_progress` |
+| phase | `done` |
+| status | `done` |
 | qaFixPhase | `implement` **done** |
 | mfeServe | `localRoot` |
 | mfeLocalRootUrl | `http://localhost:9100/its-anpr-overload` |
@@ -13,8 +13,8 @@
 | changeScope | `new_page` |
 | packKind | `ai` |
 | featureClass | `ai` (Kind B list + Kind D HITL · S-LIST / S-DETECT · S-MAP DEFER) |
-| runMode | `full_pipeline` · Autopilot ON · autoApprove **ON** · qa_fail rollback → Dev plan |
-| taskId | `task_524f0c3e` |
+| runMode | `full_pipeline` · Autopilot ON · autoApprove **ON** · roleOnly=`review` (task_0c438b3f) · **closed** |
+| taskId | `task_0c438b3f` |
 | demo | `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/ai-vision/its-anpr-overload.html` |
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/its-anpr-overload.md` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.AiVision` |
@@ -33,7 +33,7 @@
 | rulesVersion | `2026.08.16.05` |
 | skillVersions | data-analy=`2026.08.15.19` · po=`2026.08.15.17` · design=`2026.08.15.16` · sa=`2026.08.15.15` · team-lead=`2026.08.15.17` · dev=`2026.08.24.01` · qa=`2026.08.24.01` · review=`2026.08.19.04` · orchestrator=`2026.08.24.01` |
 | versionGate | `ok` |
-| updatedAt | `2026-08-25T01:45:00.000Z` |
+| updatedAt | `2026-08-24T19:08:12.336Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -50,10 +50,10 @@
 | design_confirm | **approve** | Design gate · autoApprove=ON · reviewUrl confirmed |
 | solution_confirm | **approve** | SA gate · autoApprove=ON · task_864dfd9e |
 | route_confirm | **route_a** | `/its-anpr-overload` |
-| review_confirm | **pending** | Review gate · await role review |
+| review_confirm | **approve** | `/agent-review` · `task_0c438b3f` · findings PASS · P0 none |
 | qa_fail_rollback | **approved** | QA `task_62331d3c` FAIL → Dev plan |
 | qa_fix_plan | **approved** | `implement/its-anpr-overload-qa-fix-plan.md` · task_524f0c3e implement |
-| e2eQa | **ON** | std + docker + screenshot · re-QA after implement |
+| e2eQa | **ON** | std + docker + screenshot · re-QA PASS `task_654f39e7` |
 
 ## Pipeline
 
@@ -66,8 +66,8 @@
 | 3 | team-lead | task/its-anpr-overload.md | **confirmed** | 2026.08.15.17 | ok |
 | 4 | dev | implement/its-anpr-overload.md | **done** | 2026.08.24.01 | ok |
 | 4b | dev | implement/its-anpr-overload-qa-fix-plan.md | **done** | 2026.08.24.01 | ok |
-| 5 | qa | qa/scenarios.md | **pending** | 2026.08.24.01 | ok |
-| 6 | review | review/findings.md | pending | 2026.08.19.04 | ok |
+| 5 | qa | qa/scenarios.md + qa/screens/ | **done** | 2026.08.24.01 | ok |
+| 6 | review | review/findings.md | **done** · **approve** | 2026.08.19.04 | ok |
 
 ## Tasks
 
@@ -82,11 +82,12 @@
 | task_62331d3c | its-anpr-overload | qa | dev | **failed** | e2eQa=ON · GAP-QA-E2E-01 · GAP-QA-PAGES-01 · no screens |
 | task_36ebe928 | its-anpr-overload | dev | task_62331d3c | **completed** | qaFailFix=1 · qaFixPhase=plan · `its-anpr-overload-qa-fix-plan.md` |
 | task_524f0c3e | its-anpr-overload | dev | task_36ebe928 | **completed** | qaFailFix=1 · qaFixPhase=implement · filter+modal+CSS+deploy · build PASS |
-| task_qa_rechain | its-anpr-overload | qa | task_524f0c3e | **pending** | e2eQa=ON · re-QA after QA-fix implement |
+| task_654f39e7 | its-anpr-overload | qa | task_524f0c3e | **completed** | roleOnly=qa · e2eQa=ON · S0/S1/QA-20 PNG · manifest ok:true · verdict PASS |
+| task_qa_rechain | its-anpr-overload | qa | task_524f0c3e | **completed** | superseded by task_654f39e7 |
+| task_0c438b3f | its-anpr-overload | review | qa | **completed** | roleOnly=review · `/agent-review` · review_confirm **approve** · P0 none · yarn typecheck+build PASS · pipeline **done** |
 
 ## Blockers / open questions
 
-- **P0 re-QA:** await `/agent-qa` e2eQa ON · localRoot :9100 + docker + `yarn e2e-qa` · PNG S0/S1/QA-20
 - Apply migration on DB before live API UAT
 - Real Cục Đăng kiểm adapter · Confirm → Incident domain full (stub VI-ANPR OK P1)
 - S-MAP DEFER
@@ -101,20 +102,29 @@
 - design: `specs/its-anpr-overload/ui/design.md`
 - solution: `specs/its-anpr-overload/be/solution-discovery.md`
 - **QA fix plan:** `specs/its-anpr-overload/implement/its-anpr-overload-qa-fix-plan.md`
+- **review:** `specs/its-anpr-overload/review/findings.md`
 - DOMAIN-MAP: `D:/AI-QLBD/Linm.RMMS.WebService/docs/DOMAIN-MAP.md`
 - controlHint: `specs/_data-analy/features/its-anpr-overload-control-hint.md`
 
-## Handoff → `/agent-qa` re-QA
+## Verify
 
-| Field | Value |
-|-------|-------|
-| feature | `its-anpr-overload` |
-| this role | `dev` · `/agent-dev` · qaFixPhase=implement · **completed** (`task_524f0c3e`) |
-| next | `/agent-qa` · e2eQa=ON · std + docker + screenshot |
-| fixes | GAP-QA-FILTER-01 · GAP-QA-DEMO-01 · GAP-DEV-CONFIG-LEFTOVER-01 · local-deploy `1.2.0-dev.39` |
-| build | MFE `yarn typecheck` + `yarn build` **PASS** |
+| Gate | Result |
+|------|--------|
+| Dev artifact | PASS · implement FULL · QA-fix · retry.ssot_rereview · GAP P0 closed |
+| FE build | PASS · yarn typecheck + yarn build |
+| BE build | PASS · dotnet build Release |
+| QA e2e | PASS · S0/S1/QA-20 · docker :5101/:5201 · start:std :9303 · manifest ok:true |
+| Review | PASS · live SSOT re-review · P0 none · review_confirm **approve** |
+
+## Closeout
+
+- closeout Review: `task_0c438b3f` · roleOnly=`review` · `/agent-review` · findings PASS · review_confirm **approve** · yarn typecheck+build PASS · dotnet build PASS · pipeline **done** · autoApprove **ON** · at: `2026-08-25T02:00:00.000Z`
 
 ## Retry
 
 - from: `qa` · at: `2026-08-24T16:47:48.920Z` · board user Retry step
 - qa_fail_rollback approved → Dev plan `task_36ebe928` completed
+- re-QA `task_654f39e7` **PASS** at `2026-08-25T01:54:24Z`
+
+---
+<!-- Version meta: skillVersion=2026.08.24.01 · schemaVersion=4 · workflowVersion=2026.08.24.01 · versionGate=ok -->

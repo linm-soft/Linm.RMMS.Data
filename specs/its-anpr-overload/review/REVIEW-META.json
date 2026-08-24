@@ -1,0 +1,14 @@
+{
+  "feature": "its-anpr-overload",
+  "status": "done",
+  "taskId": "task_0c438b3f",
+  "review_confirm": "approve",
+  "verdict": "APPROVE",
+  "p0Open": 0,
+  "reviewedAt": "2026-08-25T02:00:00.000Z",
+  "reviewHash": "sha256:anpr-rev-task_0c438b3f-20260825",
+  "skillVersion": "2026.08.19.04",
+  "schemaVersion": "4",
+  "workflowVersion": "2026.08.24.01",
+  "versionGate": "ok"
+}
