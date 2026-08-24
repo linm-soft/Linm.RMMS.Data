@@ -1,0 +1,23 @@
+{
+  "url": "http://localhost:9303/ai-kd/du-bao-bt",
+  "capturedAt": "2026-08-24T18:01:13.066Z",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png"
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png"
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png"
+    }
+  ],
+  "ok": true,
+  "method": "e2e runtime · start:std + docker + playwright (local browser)"
+}

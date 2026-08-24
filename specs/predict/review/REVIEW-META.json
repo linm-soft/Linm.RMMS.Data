@@ -1,0 +1,13 @@
+{
+  "feature": "predict",
+  "status": "done",
+  "taskId": "task_25e2c960",
+  "review_confirm": "approve",
+  "verdict": "PASS",
+  "p0Open": 0,
+  "reviewedAt": "2026-08-25T01:10:00.000Z",
+  "skillVersion": "2026.08.15.17",
+  "schemaVersion": "4",
+  "workflowVersion": "2026.08.16.02",
+  "versionGate": "ok"
+}
