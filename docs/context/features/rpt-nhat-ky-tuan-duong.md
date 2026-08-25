@@ -3,7 +3,7 @@
 > **Slug:** `rpt-nhat-ky-tuan-duong` · **Module:** `Report` · **Phase:** P2 · **Wave:** C  
 > **Status:** Context  
 > **Kind:** **E** (report) — `/erp-report-context` · AnalyticsReportShell  
-> **Sources:** GOVOne › Nhật ký tuần đường · csdl sổ 1 · hub [reports.md](reports.md) · [15-SCREEN-AI-MAP.md](../15-SCREEN-AI-MAP.md)  
+> **Sources:** GOVOne › Nhật ký tuần đường · csdl sổ 1 · hub [reports.md](reports.md) · [15-SCREEN-AI-MAP.md](../15-SCREEN-AI-MAP.md) · đề cương [`../24-TUAN-DUONG-DUONG-BO.md`](../24-TUAN-DUONG-DUONG-BO.md) · [`11-CSDL-SO-SACH-DATABASE-API.md`](../11-CSDL-SO-SACH-DATABASE-API.md) §3.1  
 > **Parent / list pack:** `csdl-so-sach` — **cấm** copy CRUD vào trang này  
 > **MFE:** `Linm.Web.RMMS.Report` · route `/bao-cao/nk-td` · mfeStdUrl `http://localhost:9311/bao-cao/nk-td`  
 > **Demo HTML:** chưa (hub demo `bao-cao/reports.html` · leaf khi Design)  

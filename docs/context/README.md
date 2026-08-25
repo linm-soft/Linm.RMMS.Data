@@ -22,6 +22,9 @@
 | [**features/directions.md**](features/directions.md) | Chỉ đường / HD điện tử guest | Product, Mobile |
 | [**features/import-gov-ssot.md**](features/import-gov-ssot.md) | **SSOT data dự án** — set `gov-vn` (429 tuyến · 642k KCHT · 2.920 đoạn) · hub 40 ô vs live DRVN · recapture dump. `Mẫu import` / `RMMS CUC 2` = demo | PM, Dev, Data |
 | [**implement-status.json**](implement-status.json) | **Pipeline implement theo feature+lane** (git) — scan/enqueue skip cùng status khi đổi máy | AutoCode scan · Dev |
+| [**24-TUAN-DUONG-DUONG-BO.md**](24-TUAN-DUONG-DUONG-BO.md) | **SSOT đề cương Web-App tuần đường × đường bộ** — TT 04 · 4 nhóm · 3 trụ cột · map slug `patrol` / `road-route` | PM, BA, Dev |
+| [**25-PLATFORM-TASK.md**](25-PLATFORM-TASK.md) | **SSOT Platform.TaskService** — extract Medical QLCV · SLA/SignalR · apply RMMS sau ca · [PLAN](../plan/platform-task/PLAN.md) · [RMMS tuần đường](../plan/platform-task/RMMS-TUAN-DUONG.md) | PM, Architect, Dev |
+| [**26-MESSAGE-PARCEL.md**](26-MESSAGE-PARCEL.md) | **SSOT chat** — `@linm/message` parcels · send `fa-paper-plane` · expand TabSlideout + ↗ | PM, Architect, FE |
 | [**20-ORG-STRUCTURE-DRVN.md**](20-ORG-STRUCTURE-DRVN.md) | **SSOT cơ cấu tổ chức Cục ĐB** — Master catalog `org-unit` · SearchInput | Admin, BA, Dev |
 | [**seed/org-unit-seed.json**](seed/org-unit-seed.json) | **Seed tree 60 nodes** (code/parent/kind) — AI Design/SA ref | Design, SA, Dev |
 | [**features/master.md**](features/master.md) | Hub Master MFE — org-unit · road-route · asset-type · partner-unit (**no demo**) | PM, Dev |

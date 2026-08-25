@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-21T04:00:55.288Z",
+  "updatedAt": "2026-08-25T15:20:00.000Z",
   "features": {
     "ai-asset-detect": {
       "web": {
@@ -298,6 +298,22 @@
         "statusRel": "specs/pavement-section/STATUS.md"
       }
     },
+    "platform-message": {
+      "web": {
+        "phase": "po",
+        "status": "pending",
+        "updatedAt": "2026-08-25T15:20:00.000Z",
+        "statusRel": "specs/platform-message/STATUS.md"
+      }
+    },
+    "platform-task": {
+      "web": {
+        "phase": "data_analy",
+        "status": "pending",
+        "updatedAt": "2026-08-25T14:32:00.000Z",
+        "statusRel": "specs/platform-task/STATUS.md"
+      }
+    },
     "predict": {
       "web": {
         "phase": "design",
@@ -312,6 +328,14 @@
         "status": "done",
         "updatedAt": "2026-08-21T03:31:41.254Z",
         "statusRel": "specs/reports/STATUS.md"
+      }
+    },
+    "rmms-task-integrate": {
+      "web": {
+        "phase": "data_analy",
+        "status": "blocked",
+        "updatedAt": "2026-08-25T14:32:00.000Z",
+        "statusRel": "specs/rmms-task-integrate/STATUS.md"
       }
     },
     "road-route": {

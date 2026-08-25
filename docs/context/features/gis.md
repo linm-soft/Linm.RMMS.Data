@@ -3,7 +3,7 @@
 > **Slug:** `gis` · **Module:** `Gis` · **Phase:** P1 (2D) / P2 (3D Twin)  
 > **Status:** Demo  
 > **Feature Kind:** F/custom map (GIS viewer) · Confirmed by: ai-autocode-autopilot 2026-08-01  
-> **Sources:** `07` §2 · `09` · legacy shell `geditor` view-mode  
+> **Sources:** `07` §2 · `09` · legacy shell `geditor` view-mode · heatmap tuần đường [`../24-TUAN-DUONG-DUONG-BO.md`](../24-TUAN-DUONG-DUONG-BO.md) §6–7  
 > **Demo HTML:** `Linm.RMMS.Demo/public/demo/gis/gis.html` (+ mirror `src/demo/gis/`) · **pilot camera:** [`camera-ops-dashboard-demo.html`](../../../Linm.RMMS.Demo/src/demo/features/camera-ops-dashboard-demo.html)  
 > **3D Twin (CesiumJS · real Km):** [`gis-3d-twin.html`](../../../Linm.RMMS.Demo/public/demo/gis/gis-3d-twin.html) · seed `ql1-ii1/map-seed.json`  
 > **Prod basemap (clip OSM + gis.vn):** [`gis-osm-clip.md`](gis-osm-clip.md) · data [`map-service.md`](map-service.md) · law [`legal-tech-corridor.md`](legal-tech-corridor.md)  

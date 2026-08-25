@@ -3,7 +3,7 @@
 > **Slug:** `rpt-tuan-duong` · **Module:** `Report` · **Phase:** P1.5 · **Wave:** B  
 > **Status:** Context  
 > **Kind:** **E** (report) — `/erp-report-context` · AnalyticsReportShell  
-> **Sources:** patrol.md · GOVOne 021/024-khai-thac-bao-cao-tuan-uong · hub [reports.md](reports.md) · [15-SCREEN-AI-MAP.md](../15-SCREEN-AI-MAP.md)  
+> **Sources:** patrol.md · GOVOne 021/024-khai-thac-bao-cao-tuan-uong · hub [reports.md](reports.md) · [15-SCREEN-AI-MAP.md](../15-SCREEN-AI-MAP.md) · trụ C đề cương [`../24-TUAN-DUONG-DUONG-BO.md`](../24-TUAN-DUONG-DUONG-BO.md)  
 > **Parent / list pack:** `patrol` — **cấm** copy CRUD vào trang này  
 > **MFE:** `Linm.Web.RMMS.Report` · route `/bao-cao/tuan-duong` · mfeStdUrl `http://localhost:9311/bao-cao/tuan-duong`  
 > **Demo HTML:** chưa (hub demo `bao-cao/reports.html` · leaf khi Design)  

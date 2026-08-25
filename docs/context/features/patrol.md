@@ -3,7 +3,7 @@
 > **Slug:** `patrol` · **Module:** `Patrol` · **Phase:** P1  
 > **Status:** Signed (list pack Kind B) · Demo Kind E giữ  
 > **sourceKind:** legacy  
-> **Sources:** guide Check-in/Giám sát/Lưu trữ · `RMMS` §4 · `07` §4 · [`15-SCREEN-AI-MAP.md`](../15-SCREEN-AI-MAP.md) · GOVOne capture + demo-maps  
+> **Sources:** guide Check-in/Giám sát/Lưu trữ · `RMMS` §4 · `07` §4 · [`15-SCREEN-AI-MAP.md`](../15-SCREEN-AI-MAP.md) · GOVOne capture + demo-maps · **đề cương Web-App** [`../24-TUAN-DUONG-DUONG-BO.md`](../24-TUAN-DUONG-DUONG-BO.md) (TT 04/2019 · 4 nhóm nhiệm vụ · 3 trụ cột)  
 > **Demo HTML:** `Linm.RMMS.Demo/src/demo/patrol/patrol.html` · catalog `slug=patrol` · `/demo/p/patrol`  
 > **Kind:** B (catalog list pack) + E demo (report + map) · confirmed by: task_1ede6934  
 > **MFE:** `Linm.Web.RMMS.Field` · `/td-tk` · form `/td-tk/tao-moi` · `/td-tk/:id`  
@@ -14,10 +14,11 @@
 
 | | |
 |--|--|
-| Mục tiêu | Kế hoạch/tuyến tuần tra · Check-in ≥3 điểm/ngày/tuyến · GPS track · coverage · KPI · phát hiện bỏ sót |
-| Persona | Tuần đường · Hạt trưởng giám sát |
+| Mục tiêu | Ca tuần đường theo TT 04: ghi hiện trường (KCHT · HLATĐB · ATGT) · GPS/ảnh · nhật ký · duyệt sau ca · coverage/KPI. Nền tuyến = `road-route` (không CRUD tuyến trên slug này). |
+| Persona | Nhân viên tuần đường · lãnh đạo BDTX · cán bộ tuần kiểm · VP/Khu/Cục |
 | App hiện có | Mobile **Check-in** · **Giám sát** · **Lưu trữ** · Web **Giám sát hoạt động** · **BC checkin** — giữ UX |
-| DoD | Check-in API · offline-batch · coverage · list+map giám sát |
+| DoD list pack | CRUD session `/td-tk` · search · form pair |
+| DoD đề cương (P2) | Kết ca → báo cáo PL01 · phân loại Cấp bách/Kế hoạch năm · LRS GPS→Km+m — [`../24-TUAN-DUONG-DUONG-BO.md`](../24-TUAN-DUONG-DUONG-BO.md) |
 
 ## 2. Design / UI
 
@@ -72,6 +73,11 @@
 |----|---------|--------|
 | GAP-F-PAT-01 Offline conflict merge | Last-write + server review | Open (align) |
 | GAP-REC-PAT capture shell shallow | Demo filled check-in/map/queue | Closed 2026-08-02 |
+| GAP-TD-CHANNEL-01 Web-App vs native | Đề cương cấm store app; Linm native Signed — dual channel | Open · hub 24 |
+| GAP-TD-LRS-01 GPS → Km+m | P2 GIS/LRS · P1 toast `patrol-pin` | Open |
+| GAP-TD-SHIFT-REPORT-01 Kết ca + duyệt online | P2 — ngoài list pack CRUD | Open |
+| GAP-TD-PRIORITY-01 Cấp bách / kế hoạch năm | Bind incident severity hoặc field SA | Open |
+| GAP-TD-WEATHER-01 Thời tiết / thủy văn ca | Lookup — chưa list pack | Open |
 
 ## 7. Demo checklist
 
@@ -82,6 +88,23 @@
 - [x] Demo HTML: `src/demo/patrol/patrol.html` · redirect `features/patrol-demo.html`
 - [x] Catalog `DEMO_FEATURES` · hub · `/dev` → `/demo/p/patrol`
 - [x] sourceKind=legacy · no BE
+
+## 8. Sibling + đề cương (không gộp slug)
+
+| Slug | Vai trò |
+|------|---------|
+| `road-route` · `org-unit` | Nền **đường bộ** (tuyến · cây Cục/Khu/VP) |
+| `patrol-home` · `patrol-map` · `patrol-pin` | Mobile hiện trường |
+| `supervise` | Giám sát check-in |
+| `incident` | Hư hỏng / vi phạm / TNGT ghi từ ca |
+| `rpt-tuan-duong` · `rpt-nhat-ky-tuan-duong` | Kind E — **cấm** CRUD session |
+| `rpt-tuan-kiem` | Tuần kiểm — sibling |
+| `csdl-so-sach` | Sổ BDTX mẫu 1 — outline `api/v1/patrol-logs/*` (`11-CSDL`) **không** invent path mới |
+| `platform-task` | Giao việc / SLA / chat / comment — **cấm** implement trong Field MFE |
+
+Quy trình 4 nhóm + 3 trụ cột + field ca: [`../24-TUAN-DUONG-DUONG-BO.md`](../24-TUAN-DUONG-DUONG-BO.md). **Cấm invent** `api/v1/patrol-home` / `api/v1/tuan-duong-*`.
+
+**Demo đề cương (2026-08-25):** `/demo/patrol/tuan-duong-web.html` · `/demo/patrol/tuan-duong-mobile.html` · handoff `/demo/task/task.html` ([`platform-task.md`](platform-task.md)).
 
 <!-- LEGACY-GOVONE-CAPTURE:START -->
 ## Legacy GOVOne (auto-capture)

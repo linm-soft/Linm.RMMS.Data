@@ -3,7 +3,7 @@
 | Field | Value |
 |-------|-------|
 | feature | `gis-draw-google` |
-| phase | `data_analy` |
+| phase | `done` |
 | status | `in_progress` |
 | changeScope | `edit_page` |
 | packKind | `map` |
@@ -18,7 +18,7 @@
 | schemaVersion | `qldb-workflow-skill-v1` |
 | workflowVersion | `2026.08.10.3` |
 | versionGate | `ok` |
-| updatedAt | `2026-08-23T16:57:19.849Z` |
+| updatedAt | `2026-08-25T15:21:56.029Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -40,13 +40,13 @@
 
 | Step | Agent | Artifact | Status |
 |------|-------|----------|--------|
-| 1 | po | po/requirement.md | **pending** |
-| 2.1 | design | ui/design.md + prototype + reviewUrl | **pending** |
-| 2.2 | sa | be/solution-discovery.md | **pending** |
-| 3 | team-lead | task/gis-draw-google.md | **pending** |
-| 4 | dev | implement/gis-draw-google.md | **pending** |
-| 5 | qa | qa/scenarios.md | **pending** |
-| 6 | review | review/findings.md | **pending** |
+| 1 | po | po/requirement.md | **done** |
+| 2.1 | design | ui/design.md + prototype + reviewUrl | **confirmed** |
+| 2.2 | sa | be/solution-discovery.md | **confirmed** |
+| 3 | team-lead | task/gis-draw-google.md | **done** |
+| 4 | dev | implement/gis-draw-google.md | **done** |
+| 5 | qa | qa/scenarios.md | **done** |
+| 6 | review | review/findings.md | **confirmed** |
 ## Tasks
 
 | id | page | role | deps | status | notes |

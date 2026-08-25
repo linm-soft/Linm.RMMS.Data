@@ -23,7 +23,7 @@
 |---|------|-----|--------|-------|---------------------|--------|---------|
 | 0 | `master` | Danh mục Master (hub) | Master | P1 | — | Context | [master.md](master.md) · [import SSOT](import-gov-ssot.md) |
 | 0a | `org-unit` | Cơ cấu tổ chức DRVN | Master | P1 | — (**no demo**) | Context | [org-unit.md](org-unit.md) |
-| 0b | `road-route` | Tuyến đường | Master | P1 | `Sau-sat-nhap/gov` raw tuyến | Context | [road-route.md](road-route.md) |
+| 0b | `road-route` | Tuyến đường | Master | P1 | `Sau-sat-nhap/gov` raw tuyến | Context | [road-route.md](road-route.md) · [đề cương LRS](../24-TUAN-DUONG-DUONG-BO.md) |
 | 0c | `asset-type` | Loại tài sản KCHT | Master | P1 | `Sau-sat-nhap/gov` (catalog) | Context | [asset-type.md](asset-type.md) |
 | 0d | `partner-unit` | Sở / BOT / Cty | Master | P1 | DRVN seed · CUC 2 = demo | Context | [partner-unit.md](partner-unit.md) |
 | 1 | `asset` | Quản lý tài sản đường bộ | Asset | P1 | Mobile Tài sản · Web KCHT · Giám sát TS | Demo | [asset.md](asset.md) |
@@ -43,7 +43,10 @@
 | 3c | `its-traffic-detect` | ITS object detect (biển báo · cọc tiêu · cam IP · gim · sự cố mất · **OTA mobile**) | AiVision×Iot×Asset×Gis×Camera×Incident | P1 design / P2-A train+ONNX · P2 OTA TFLite/CoreML · P2.1 CCTV 1 FPS | Dedupe 10 m · user/auto gim · mất = reconcile · mobile `modelVersion` §14 | Context | [its-traffic-detect.md](its-traffic-detect.md) · [../16-…](../16-ITS-TRAFFIC-OBJECT-DETECTION-DESIGN.md) · §8–§14 |
 | 3d | `its-anpr-overload` | ITS ANPR biển số · Cục Đăng kiểm · xác nhận lỗi tốc độ/quá tải | AiVision×Iot×Incident | **P2 core** (demo P1) | Camera+WIM → registry trục·GVW → HITL Confirm | Demo | [its-anpr-overload.md](its-anpr-overload.md) · [../18-…](../18-ITS-ANPR-OVERLOAD-SPEC.md) |
 | 3e | `camera-connect` | Kết nối camera ITS / **HĐ `camera-gtvt`** (PL01 03c · gói C) | **Camera** | P1 Demo / P2 BE | Seed **iDS-TCM403-GIR** · BE defer | Demo | [camera-connect.md](camera-connect.md) · [../camera-model.md](../camera-model.md) · alias HĐ=`camera-gtvt` · **pilot wall+map** [camera-ops-dashboard-demo.html](../../../Linm.RMMS.Demo/src/demo/features/camera-ops-dashboard-demo.html) |
-| 4 | `patrol` | Tuần đường / tuần kiểm | Field | P1 | Check-in · Giám sát · Lưu trữ | Demo | [patrol.md](patrol.md) |
+| 4 | `patrol` | Tuần đường / tuần kiểm | Field | P1 | Check-in · Giám sát · Lưu trữ | Demo | [patrol.md](patrol.md) · [đề cương 24](../24-TUAN-DUONG-DUONG-BO.md) · demo web/mobile mới |
+| 4t | `platform-task` | Công việc (platform) | Platform | P1 demo | Medical QLCV | Demo · **queue pending** | [platform-task.md](platform-task.md) · [25](../25-PLATFORM-TASK.md) · [PLAN](../../plan/platform-task/PLAN.md) · [RMMS](../../plan/platform-task/RMMS-TUAN-DUONG.md) |
+| 4m | `platform-message` | Chat / inbox parcel | Platform | P1 SSOT | `@linm/message` | Context · **queue pending first** | [platform-message.md](platform-message.md) · [26](../26-MESSAGE-PARCEL.md) |
+| 4r | `rmms-task-integrate` | Gắn Task vào tuần đường/sự cố | Platform×Field | P2 later | — | **blocked** | [RMMS-TUAN-DUONG.md](../../plan/platform-task/RMMS-TUAN-DUONG.md) |
 | 5 | `attendance` | Chấm công và định vị | Field | P1 | Check-in · BC checkin | Context | [attendance.md](attendance.md) |
 | 6 | `incident` | Quản lý sự cố | Field | P1 | Vấn đề · Sự cố · Giám sát SC | Demo | [incident.md](incident.md) |
 | 7 | `maintenance` | Lập lịch SC / bảo trì | Field | P2 (khung P1) | **Công việc** Mobile/Web | Context | [maintenance.md](maintenance.md) |

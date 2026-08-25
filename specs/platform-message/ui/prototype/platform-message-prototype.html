@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>platform-message — Design prototype (DES-MSG-*)</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    :root {
+      --color-primary: #2563eb;
+      --color-primary-50: #eff6ff;
+      --color-surface: #ffffff;
+      --color-bg: #f3f4f6;
+      --color-border: #e5e7eb;
+      --color-text: #111827;
+      --color-muted: #6b7280;
+      --color-danger: #ef4444;
+      --radius: 10px;
+      --label: 13px;
+      --input: 14px;
+      --font: "Segoe UI", system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: var(--font);
+      background: linear-gradient(160deg, #eef2ff 0%, #f8fafc 40%, #ecfeff 100%);
+      color: var(--color-text);
+      min-height: 100vh;
+    }
+    .page {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 20px 16px 48px;
+    }
+    .proto-meta {
+      font-size: 12px;
+      color: var(--color-muted);
+      margin-bottom: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 16px;
+    }
+    .proto-meta strong { color: var(--color-text); }
+    h1.section-title {
+      font-size: 15px;
+      font-weight: 700;
+      margin: 28px 0 10px;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+    }
+    /* ── Topbar parcel ── */
+    .topbar-mock {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      box-shadow: 0 1px 2px rgba(0,0,0,.04);
+      position: relative;
+    }
+    .msg-btn {
+      position: relative;
+      border: none;
+      background: transparent;
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      cursor: pointer;
+      color: var(--color-muted);
+      font-size: 18px;
+    }
+    .msg-btn:hover, .msg-btn[aria-expanded="true"] {
+      background: var(--color-primary-50);
+      color: var(--color-primary);
+    }
+    .badge {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      min-width: 18px;
+      height: 18px;
+      padding: 0 5px;
+      border-radius: 999px;
+      background: var(--color-danger);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .dropdown {
+      position: absolute;
+      top: calc(100% + 6px);
+      right: 14px;
+      width: 360px;
+      max-height: 420px;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      box-shadow: 0 12px 32px rgba(15,23,42,.12);
+      z-index: 20;
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .dropdown.open { display: flex; }
+    .dropdown-head {
+      padding: 12px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .conv-row {
+      display: flex;
+      gap: 10px;
+      padding: 10px 14px;
+      border: none;
+      background: transparent;
+      width: 100%;
+      text-align: left;
+      cursor: pointer;
+      border-bottom: 1px solid var(--color-border);
+      align-items: flex-start;
+    }
+    .conv-row:hover { background: #f9fafb; }
+    .ent-ico {
+      width: 34px; height: 34px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; flex-shrink: 0;
+    }
+    .ent-task { background: #d1fae5; color: #059669; }
+    .ent-ticket { background: #dbeafe; color: #2563eb; }
+    .ent-incident { background: #fef3c7; color: #d97706; }
+    .conv-body { flex: 1; min-width: 0; }
+    .conv-top { display: flex; justify-content: space-between; gap: 8px; }
+    .id-code { font-size: 11px; font-weight: 600; color: var(--color-muted); font-family: ui-monospace, monospace; }
+    .time { font-size: 11px; color: #9ca3af; }
+    .title { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .preview { font-size: 12px; color: var(--color-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .row-actions { display: flex; flex-direction: column; gap: 4px; align-items: flex-end; }
+    .ext-btn {
+      border: none; background: transparent; color: var(--color-primary);
+      cursor: pointer; font-size: 12px; padding: 2px;
+    }
+    .dropdown-foot {
+      padding: 10px 14px;
+      border-top: 1px solid var(--color-border);
+      text-align: center;
+    }
+    .dropdown-foot a {
+      color: var(--color-primary);
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    /* ── Inbox split ── */
+    .inbox {
+      display: flex;
+      height: 480px;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 1px 2px rgba(0,0,0,.04);
+    }
+    .inbox-l {
+      width: 320px;
+      border-right: 1px solid var(--color-border);
+      display: flex;
+      flex-direction: column;
+      background: var(--color-surface);
+    }
+    .inbox-l-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .inbox-l-head h2 {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 700;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .inbox-l-head h2 i { color: var(--color-primary); }
+    .icon-btn {
+      border: none; background: transparent; color: var(--color-muted);
+      cursor: pointer; padding: 6px; border-radius: 6px; font-size: 14px;
+    }
+    .icon-btn:hover { background: #f3f4f6; color: var(--color-primary); }
+    .filter-row {
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .filter-row label {
+      display: block;
+      font-size: var(--label);
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: var(--color-muted);
+    }
+    .filter-row select {
+      width: 100%;
+      font-size: var(--input);
+      padding: 8px 10px;
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      background: #fff;
+    }
+    .inbox-list { flex: 1; overflow-y: auto; }
+    .inbox-r {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      background: var(--color-bg);
+    }
+    .chat-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      background: var(--color-surface);
+      border-bottom: 1px solid var(--color-border);
+    }
+    .chat-head .meta { flex: 1; min-width: 0; }
+    .chat-head .meta .title { font-size: 14px; }
+    .status-chip {
+      display: inline-block;
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: #f3f4f6;
+      color: var(--color-muted);
+      font-weight: 600;
+      margin-top: 2px;
+    }
+    .detail-btn {
+      border: 1px solid var(--color-border);
+      background: #fff;
+      color: var(--color-primary);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 7px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: inline-flex;
+      gap: 6px;
+      align-items: center;
+    }
+    .detail-btn:hover { background: var(--color-primary-50); }
+    .thread {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .bubble {
+      max-width: 72%;
+      padding: 10px 12px;
+      border-radius: 12px;
+      font-size: 14px;
+      line-height: 1.4;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+    }
+    .bubble.mine {
+      align-self: flex-end;
+      background: var(--color-primary-50);
+      border-color: #bfdbfe;
+    }
+    .bubble .who { font-size: 12px; font-weight: 600; color: var(--color-muted); margin-bottom: 4px; }
+    .composer {
+      display: flex;
+      gap: 8px;
+      padding: 12px 16px;
+      background: var(--color-surface);
+      border-top: 1px solid var(--color-border);
+      align-items: center;
+    }
+    .composer label {
+      position: absolute;
+      width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0);
+    }
+    .composer input, .composer textarea {
+      flex: 1;
+      font-size: var(--input);
+      padding: 10px 12px;
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      resize: none;
+      font-family: inherit;
+    }
+    .send-btn {
+      border: none;
+      background: var(--color-primary);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 10px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: inline-flex;
+      gap: 6px;
+      align-items: center;
+      white-space: nowrap;
+    }
+    .send-btn:hover { filter: brightness(1.05); }
+    .empty-pane {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: #9ca3af;
+      font-size: 14px;
+    }
+    .empty-pane i { font-size: 40px; opacity: .35; }
+
+    /* ── Chat section parcel ── */
+    .section-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 1px 2px rgba(0,0,0,.04);
+      min-height: 420px;
+      display: flex;
+      flex-direction: column;
+    }
+    .sec-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--color-border);
+      background: #fafafa;
+    }
+    .tabs {
+      display: flex;
+      gap: 0;
+      flex: 1;
+    }
+    .tab {
+      border: none;
+      background: transparent;
+      padding: 10px 16px;
+      font-size: var(--label);
+      font-weight: 600;
+      color: var(--color-muted);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+    }
+    .tab.active {
+      color: var(--color-primary);
+      border-bottom-color: var(--color-primary);
+    }
+    .sec-panel { display: none; flex: 1; flex-direction: column; min-height: 0; }
+    .sec-panel.active { display: flex; }
+    .comment {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .comment .who { font-size: 13px; font-weight: 700; }
+    .comment .body { font-size: 14px; margin-top: 4px; }
+    .comment .reply {
+      margin: 8px 0 0 16px;
+      padding: 8px 10px;
+      background: #f9fafb;
+      border-radius: 8px;
+      border-left: 3px solid #bfdbfe;
+      font-size: 13px;
+    }
+
+    /* Leave modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15,23,42,.45);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal {
+      width: min(400px, 92vw);
+      background: #fff;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 20px 50px rgba(0,0,0,.2);
+    }
+    .modal h3 { margin: 0 0 8px; font-size: 16px; }
+    .modal p { margin: 0 0 16px; font-size: 14px; color: var(--color-muted); }
+    .modal-actions { display: flex; justify-content: flex-end; gap: 8px; }
+    .btn-ghost {
+      border: 1px solid var(--color-border);
+      background: #fff;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+    .btn-danger {
+      border: none;
+      background: var(--color-danger);
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .slideout {
+      position: fixed;
+      top: 0; right: 0;
+      width: min(420px, 100vw);
+      height: 100vh;
+      background: var(--color-surface);
+      border-left: 1px solid var(--color-border);
+      box-shadow: -8px 0 32px rgba(0,0,0,.12);
+      z-index: 40;
+      display: none;
+      flex-direction: column;
+    }
+    .slideout.open { display: flex; }
+    .slideout .chat-head { flex-shrink: 0; }
+    .slideout .thread { flex: 1; }
+    .slideout .composer { flex-shrink: 0; }
+
+    @media (max-width: 720px) {
+      .inbox { flex-direction: column; height: auto; min-height: 520px; }
+      .inbox-l { width: 100%; max-height: 220px; border-right: none; border-bottom: 1px solid var(--color-border); }
+      .dropdown { width: calc(100vw - 32px); right: 8px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="proto-meta">
+      <span><strong>feature</strong> platform-message</span>
+      <span><strong>packKind</strong> platform · no DES-GRID</span>
+      <span><strong>peerStdUrl</strong> http://localhost:9301/platform-message</span>
+      <span><strong>real_view_parity</strong> v1</span>
+      <span><strong>scope</strong> content-only · skip GOVOne / demo chrome</span>
+    </div>
+
+    <!-- S-TOPBAR -->
+    <h1 class="section-title">S-TOPBAR · MessageCenterParcel</h1>
+    <div class="topbar-mock" data-des-id="DES-MSG-TOP">
+      <button type="button" class="msg-btn" id="topMsgBtn" aria-expanded="false" aria-label="Tin nhắn" title="Tin nhắn">
+        <i class="fas fa-comments"></i>
+        <span class="badge" id="unreadBadge" title="Unread">3</span>
+      </button>
+      <div class="dropdown" id="topDropdown" role="menu">
+        <div class="dropdown-head">Tin nhắn gần đây</div>
+        <button type="button" class="conv-row" data-open-slideout>
+          <span class="ent-ico ent-task"><i class="fas fa-tasks"></i></span>
+          <span class="conv-body">
+            <span class="conv-top"><span class="id-code">CV-1024</span><span class="time">12 phút</span></span>
+            <span class="title">Kiểm tra mặt đường QL1</span>
+            <span class="preview"><strong>An:</strong> Đã chụp ảnh hiện trường</span>
+          </span>
+          <span class="row-actions">
+            <button type="button" class="ext-btn" title="Chi tiết / routeMap" aria-label="Chi tiết"><i class="fas fa-external-link-alt"></i></button>
+            <span class="badge" style="position:static">1</span>
+          </span>
+        </button>
+        <button type="button" class="conv-row" data-open-slideout>
+          <span class="ent-ico ent-incident"><i class="fas fa-exclamation-triangle"></i></span>
+          <span class="conv-body">
+            <span class="conv-top"><span class="id-code">SC-88</span><span class="time">1 giờ</span></span>
+            <span class="title">Sụt lún vai đường</span>
+            <span class="preview"><strong>Bình:</strong> Cần hỗ trợ thêm người</span>
+          </span>
+          <span class="row-actions">
+            <button type="button" class="ext-btn" title="Chi tiết"><i class="fas fa-external-link-alt"></i></button>
+            <span class="badge" style="position:static">2</span>
+          </span>
+        </button>
+        <div class="dropdown-foot"><a href="#inbox">Xem tất cả → /messages</a></div>
+      </div>
+    </div>
+
+    <!-- S-INBOX -->
+    <h1 class="section-title" id="inbox">S-INBOX · MessagesInboxParcel · /messages</h1>
+    <div class="inbox">
+      <aside class="inbox-l" data-des-id="DES-MSG-INBOX-L">
+        <div class="inbox-l-head">
+          <h2><i class="fas fa-comments"></i> Tin nhắn</h2>
+          <button type="button" class="icon-btn" title="Tải lại"><i class="fas fa-sync-alt"></i></button>
+        </div>
+        <div class="filter-row">
+          <label for="entityTypeFilter">Loại hội thoại</label>
+          <select id="entityTypeFilter">
+            <option value="">Tất cả</option>
+            <option value="task">Công việc (task)</option>
+            <option value="ticket">Ticket</option>
+            <option value="incident">Sự cố (incident)</option>
+          </select>
+        </div>
+        <div class="inbox-list">
+          <button type="button" class="conv-row" style="border-left:3px solid var(--color-primary);background:var(--color-primary-50)">
+            <span class="ent-ico ent-task"><i class="fas fa-tasks"></i></span>
+            <span class="conv-body">
+              <span class="conv-top"><span class="id-code">CV-1024</span><span class="time">12 phút</span></span>
+              <span class="title">Kiểm tra mặt đường QL1</span>
+              <span class="preview"><strong>An:</strong> Đã chụp ảnh hiện trường</span>
+              <span class="status-chip">Đang xử lý</span>
+            </span>
+          </button>
+          <button type="button" class="conv-row">
+            <span class="ent-ico ent-ticket"><i class="fas fa-ticket-alt"></i></span>
+            <span class="conv-body">
+              <span class="conv-top"><span class="id-code">TK-551</span><span class="time">Hôm qua</span></span>
+              <span class="title">Yêu cầu bảo trì biển báo</span>
+              <span class="preview"><strong>Lan:</strong> Đã tiếp nhận</span>
+              <span class="status-chip">Mới</span>
+            </span>
+          </button>
+          <button type="button" class="conv-row">
+            <span class="ent-ico ent-incident"><i class="fas fa-exclamation-triangle"></i></span>
+            <span class="conv-body">
+              <span class="conv-top"><span class="id-code">SC-88</span><span class="time">1 giờ</span></span>
+              <span class="title">Sụt lún vai đường</span>
+              <span class="preview"><strong>Bình:</strong> Cần hỗ trợ thêm người</span>
+              <span class="status-chip">Ưu tiên</span>
+            </span>
+          </button>
+        </div>
+      </aside>
+      <main class="inbox-r" data-des-id="DES-MSG-INBOX-R">
+        <div class="chat-head">
+          <span class="ent-ico ent-task"><i class="fas fa-tasks"></i></span>
+          <div class="meta">
+            <div class="id-code">CV-1024</div>
+            <div class="title">Kiểm tra mặt đường QL1</div>
+            <span class="status-chip">Đang xử lý</span>
+          </div>
+          <button type="button" class="detail-btn" title="routeMap → /cv/:id"><i class="fas fa-external-link-alt"></i> Chi tiết</button>
+        </div>
+        <div class="thread">
+          <div class="bubble"><div class="who">An · 09:12</div>Đã chụp ảnh hiện trường đoạn Km 12+300.</div>
+          <div class="bubble mine"><div class="who">Bạn · 09:18</div>OK, bổ sung mô tả mức độ hư hỏng.</div>
+          <div class="bubble"><div class="who">An · 09:22</div>Mức độ trung bình — chưa gây tắc.</div>
+        </div>
+        <form class="composer" id="inboxComposer" onsubmit="return onSend(event)">
+          <label for="messageBody">Nhắn tin</label>
+          <input id="messageBody" name="messageBody" type="text" placeholder="Nhắn tin…" autocomplete="off" />
+          <button type="submit" class="send-btn"><i class="fas fa-paper-plane"></i> Gửi</button>
+        </form>
+      </main>
+    </div>
+
+    <!-- S-CHAT-SECTION -->
+    <h1 class="section-title">S-CHAT-SECTION · ChatSectionParcel (entity)</h1>
+    <div class="section-card">
+      <div class="sec-toolbar" data-des-id="DES-MSG-SEC-TAB">
+        <div class="tabs" role="tablist">
+          <button type="button" class="tab active" role="tab" data-tab="chat" aria-selected="true">Trao đổi</button>
+          <button type="button" class="tab" role="tab" data-tab="comments" aria-selected="false">Bình luận</button>
+        </div>
+        <button type="button" class="icon-btn" id="muteBtn" title="Thông báo"><i class="fas fa-bell"></i></button>
+        <button type="button" class="icon-btn" id="expandBtn" title="Mở rộng TabSlideout"><i class="fas fa-expand"></i></button>
+      </div>
+
+      <div class="sec-panel active" id="panel-chat" data-des-id="DES-MSG-SEC-CHAT" role="tabpanel">
+        <div class="thread">
+          <div class="bubble"><div class="who">Điều phối · hôm qua</div>Giao việc kiểm tra cho đội A.</div>
+          <div class="bubble mine"><div class="who">Bạn · hôm nay</div>Đã nhận — bắt đầu trong 30 phút.</div>
+        </div>
+        <form class="composer" onsubmit="return onSend(event)">
+          <label for="messageBodySec">Nhắn tin</label>
+          <input id="messageBodySec" name="messageBody" type="text" placeholder="Nhắn tin…" />
+          <button type="submit" class="send-btn"><i class="fas fa-paper-plane"></i> Gửi</button>
+        </form>
+      </div>
+
+      <div class="sec-panel" id="panel-comments" data-des-id="DES-MSG-SEC-CMT" role="tabpanel">
+        <div class="thread" style="padding:0">
+          <div class="comment">
+            <div class="who">Lan</div>
+            <div class="body">Cần xác nhận ảnh đính kèm trước khi đóng.</div>
+            <div class="reply"><strong>Bạn:</strong> Đã upload thêm 2 ảnh.</div>
+          </div>
+          <div class="comment">
+            <div class="who">Bình</div>
+            <div class="body">Incident liên quan SC-88 — đồng bộ trạng thái.</div>
+          </div>
+        </div>
+        <form class="composer" onsubmit="return onSend(event)">
+          <label for="commentBody">Bình luận</label>
+          <textarea id="commentBody" name="commentBody" rows="2" placeholder="Viết bình luận…"></textarea>
+          <button type="submit" class="send-btn"><i class="fas fa-paper-plane"></i> Gửi Comment</button>
+        </form>
+      </div>
+    </div>
+
+    <p class="proto-meta" style="margin-top:20px">
+      Empty state sample (AC-P-08): khi không chọn hội thoại → «Chọn một cuộc hội thoại để bắt đầu» · list trống → «Chưa có cuộc hội thoại nào» · <strong>cấm</strong> fake SSOT demo row.
+      · Field tuần đường: <strong>S-SKIP</strong> — không chat form.
+    </p>
+  </div>
+
+  <!-- Slideout ChatPanel from topbar -->
+  <aside class="slideout" id="slideout" aria-label="ChatPanel slideout">
+    <div class="chat-head">
+      <span class="ent-ico ent-incident"><i class="fas fa-exclamation-triangle"></i></span>
+      <div class="meta">
+        <div class="id-code">SC-88</div>
+        <div class="title">Sụt lún vai đường</div>
+        <span class="status-chip">Ưu tiên · incident</span>
+      </div>
+      <button type="button" class="detail-btn"><i class="fas fa-external-link-alt"></i> Chi tiết</button>
+      <button type="button" class="icon-btn" id="closeSlideout" title="Đóng"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="thread">
+      <div class="bubble"><div class="who">Bình</div>Cần hỗ trợ thêm người.</div>
+      <div class="bubble mine"><div class="who">Bạn</div>Đã điều thêm 1 kỹ thuật viên.</div>
+    </div>
+    <form class="composer" onsubmit="return onSend(event)">
+      <label for="slideMsg">Nhắn tin</label>
+      <input id="slideMsg" type="text" placeholder="Nhắn tin…" />
+      <button type="submit" class="send-btn"><i class="fas fa-paper-plane"></i> Gửi</button>
+    </form>
+  </aside>
+
+  <!-- LeaveConfirmModal -->
+  <div class="modal-backdrop" id="leaveModal" data-des-id="DES-MSG-LEAVE">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="leaveTitle">
+      <h3 id="leaveTitle">Rời khỏi?</h3>
+      <p>Bạn có nội dung chưa gửi. Thoát sẽ mất bản nháp.</p>
+      <div class="modal-actions">
+        <button type="button" class="btn-ghost" id="leaveStay">Ở lại</button>
+        <button type="button" class="btn-danger" id="leaveDiscard">Thoát</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const topBtn = document.getElementById('topMsgBtn');
+    const dropdown = document.getElementById('topDropdown');
+    const slideout = document.getElementById('slideout');
+    const leaveModal = document.getElementById('leaveModal');
+    let leaveResolve = null;
+
+    topBtn.addEventListener('click', () => {
+      const open = dropdown.classList.toggle('open');
+      topBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+
+    document.querySelectorAll('[data-open-slideout]').forEach((el) => {
+      el.addEventListener('click', () => {
+        dropdown.classList.remove('open');
+        topBtn.setAttribute('aria-expanded', 'false');
+        slideout.classList.add('open');
+      });
+    });
+
+    document.getElementById('closeSlideout').addEventListener('click', async () => {
+      const dirty = !!document.getElementById('slideMsg').value.trim();
+      if (dirty) {
+        const ok = await confirmLeave();
+        if (!ok) return;
+      }
+      slideout.classList.remove('open');
+    });
+
+    document.querySelectorAll('.tab').forEach((tab) => {
+      tab.addEventListener('click', async () => {
+        const dirty =
+          !!document.getElementById('messageBodySec')?.value.trim() ||
+          !!document.getElementById('commentBody')?.value.trim();
+        if (dirty && !tab.classList.contains('active')) {
+          const ok = await confirmLeave();
+          if (!ok) return;
+        }
+        document.querySelectorAll('.tab').forEach((t) => {
+          t.classList.remove('active');
+          t.setAttribute('aria-selected', 'false');
+        });
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+        document.querySelectorAll('.sec-panel').forEach((p) => p.classList.remove('active'));
+        document.getElementById('panel-' + tab.dataset.tab).classList.add('active');
+      });
+    });
+
+    document.getElementById('muteBtn').addEventListener('click', () => {
+      const i = document.getElementById('muteBtn').querySelector('i');
+      i.classList.toggle('fa-bell');
+      i.classList.toggle('fa-bell-slash');
+    });
+
+    document.getElementById('expandBtn').addEventListener('click', () => {
+      const i = document.getElementById('expandBtn').querySelector('i');
+      i.classList.toggle('fa-expand');
+      i.classList.toggle('fa-compress');
+    });
+
+    function confirmLeave() {
+      return new Promise((resolve) => {
+        leaveResolve = resolve;
+        leaveModal.classList.add('open');
+      });
+    }
+    document.getElementById('leaveStay').onclick = () => {
+      leaveModal.classList.remove('open');
+      if (leaveResolve) leaveResolve(false);
+    };
+    document.getElementById('leaveDiscard').onclick = () => {
+      leaveModal.classList.remove('open');
+      if (leaveResolve) leaveResolve(true);
+    };
+
+    function onSend(e) {
+      e.preventDefault();
+      const form = e.target;
+      const input = form.querySelector('input, textarea');
+      if (!input || !input.value.trim()) return false;
+      input.value = '';
+      return false;
+    }
+  </script>
+</body>
+</html>
