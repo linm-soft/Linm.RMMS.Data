@@ -1,7 +1,7 @@
 # Import data — SSOT `Sau-sat-nhap/gov`
 
 > **Slug:** `import-gov-ssot` · **Module:** Data · **Phase:** P1  
-> **Status:** Context · **2026-08-24** — set **`gov-vn`** từ dump `moc_dbvn` **hiện tại**  
+> **Status:** Context · **2026-08-25** — rebuild skip banner Excel · `vidagis_id` + tên công trình · set **`gov-vn`** từ dump `moc_dbvn` **hiện tại**  
 > **Review skill:** `/data-gov-integration` — đối chiếu 36 mã + ô KCHT vs CSV import (cấm seed riêng)
 
 ## SSOT
@@ -12,8 +12,8 @@
 |---------------|------|
 | `gov/*.xlsx` | Dump hiện tại (35 file `moc_dbvn.*`) |
 | `gov/table-type-map.json` | Bảng → `route` / `asset` / `pavement` + `type` catalog |
-| `gov/raw/*.csv` | Convert 1:1, mọi dòng (bỏ dòng tiêu đề Excel lúc rebuild) |
-| `gov/sets/gov-vn/` | Runtime: **429** tuyến unique · **642.193** KCHT · **2.920** đoạn mặt đường |
+| `gov/raw/*.csv` | Convert 1:1, mọi dòng (rebuild bỏ banner/header Excel) |
+| `gov/sets/gov-vn/` | Runtime: **420** tuyến unique · **651.869** KCHT · **2.920** đoạn mặt đường |
 
 Mirror: `Linm.RMMS.WebService/api/src/RMMS.Service.Api/data/import/sets/gov-vn/`.
 
@@ -24,7 +24,13 @@ Chạy:
 1. `convert-xlsx-raw.ps1` → `gov/raw/*.csv`
 2. `rebuild-gov-vn.ps1` (C# stream → Data + WebService mirror)
 
-Rebuild CSV **không** ghi DB. Import (`ReImportSeed`) mới upsert.
+Rebuild CSV **không** ghi DB. Import (`ReImportSeed` + **`ReInitData`**) mới upsert — bật ReInit để gỡ mã rác cũ (`PN-Tên tài sản…`).
+
+Đọc dump (mọi bảng):
+
+1. Bỏ dòng banner/header Excel (`Tên tài sản:` · `Đơn vị cung cấp dữ liệu:` · `Thời gian cung cấp dữ liệu:` · `parentid` lặp · `(1)`).
+2. Mã tài sản = prefix + **`vidagis_id`** — không `parentid`, không sinh mã từ số thứ tự.
+3. Tên chính thức = cột loại (`name_pontoon_bridge`, `name_work`, `station_name`, …) — không lấy tên đoạn tuyến/`QL.*` khi có tên công trình.
 
 Type ngoài catalog 36 seed trong `EnsureTypes`. Runtime lớn → [PLAN](../../plan/gov-vn-nationwide/PLAN.md) A.2 (RAM) · B.2 (paging) · C (GIS toàn quốc).
 
@@ -34,15 +40,15 @@ Type ngoài catalog 36 seed trong `EnsureTypes`. Runtime lớn → [PLAN](../../
 - Count UI / GIS / ô KCHT = **DB sau import**, không `HasData` / JSON demo / INSERT tay.
 - `EnsureTypes` chỉ **đăng ký mã** (kể cả type CSV ngoài catalog 36). **Không** sinh hàng tài sản giả.
 
-## Thông tin data dự án (2026-08-24)
+## Thông tin data dự án (2026-08-25)
 
 Count UI = DB sau import set **`gov-vn`**. Dump `moc_dbvn` **23/08** — nhỏ hơn live `kcht.drvn.gov.vn` ở vài ô. **Cấm** seed bù số.
 
 | Catalog | CSV `gov-vn` | Live DRVN (dashboard) |
 |---------|--------------|------------------------|
-| `road_routes` | **429** (NHANH 222 · TRANH 38 · GOM 18) | 604 · 251 · 41 · 19 |
+| `road_routes` | **420** (NHANH 226 · TRANH 40 · GOM 18 · unique 420) | 604 · 251 · 41 · 19 |
 | `pavement_sections` | **2.920** (`tbl_rmd`) | 3.189 |
-| `road_assets` | **642.193** | — (ô theo type) |
+| `road_assets` | **651.869** | — (ô theo type) |
 
 **Hub 40 ô** = live DRVN nhãn, không = catalog 36:
 
