@@ -15,7 +15,7 @@
 | Demo | Đã có HTML mock |
 | Signed | Khách chốt checklist trên demo |
 
-**Implement pipeline (web/mobile, đổi máy):** [`implement-status.json`](../implement-status.json) — scan khớp `phase`/`status` theo lane. Feature md có `## Implement tracking` khi agent ghi STATUS.
+**Implement + demo + STATUS + release slice:** [`FEATURE-TRACKING.md`](../FEATURE-TRACKING.md) — **SSOT theo dõi.** Implement đủ phase; khách nhận từng đợt (P2 trong demo/STATUS **không** conflict). Scan JSON: [`implement-status.json`](../implement-status.json) (có thể lệch STATUS.md).
 
 ## Backlog — app hiện có + AI + nền tảng
 
@@ -54,6 +54,7 @@
 | 9 | `ops` | Chỉ đạo điều hành | Field | P2 (nhẹ P1) | Giám sát · notify | Demo | [ops.md](ops.md) |
 | 10 | `estimate` | AI ước lượng sửa chữa | ML | P1 online / P2 | Panel trên Công việc / SC | Demo | [estimate.md](estimate.md) |
 | 11 | `contract` | Hợp đồng và ngân sách | Contract | P2–P3 | — | Demo | [contract.md](contract.md) |
+| 11k | `kcht-cong-trinh` | Công trình KCHT (Khu QLĐB IV) | Contract×QLDA | CR-Khu-IV | Công văn 08/2026 · 5 phân hệ | Context | [kcht-cong-trinh.md](kcht-cong-trinh.md) · [PLAN](../../plan/kcht-cong-trinh/PLAN.md) |
 | 12 | `inventory` | Vật tư và thiết bị | Inventory | P3 | — | Demo | [inventory.md](inventory.md) |
 | 13 | `drone` | Drone / Reality Capture | Drone | P2–P3 | — | Demo | [drone.md](drone.md) |
 | 14 | `toc` | Trung tâm ĐH GT | Traffic | P3 | — | Demo | [toc.md](toc.md) |
