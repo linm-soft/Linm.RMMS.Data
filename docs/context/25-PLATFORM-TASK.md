@@ -8,7 +8,7 @@
 > **Pattern repo:** `Linm.Platform.FileService` (api + BFF NuGet) · analog `/implement-file-service`  
 > **Apply RMMS:** tuần đường ghi ca → **CreateTask** `source=patrol` · MFE tương lai `Linm.Web.Task`  
 > **Demo (no BE):** [`../../Linm.RMMS.Demo/src/demo/patrol/tuan-duong-web.html`](../../Linm.RMMS.Demo/src/demo/patrol/tuan-duong-web.html) · [`…/task/task.html`](../../Linm.RMMS.Demo/src/demo/task/task.html) · [`…/patrol/tuan-duong-mobile.html`](../../Linm.RMMS.Demo/src/demo/patrol/tuan-duong-mobile.html)  
-> **Cấm invent API live.** Path dưới = **outline** copy từ Medical; **TaskService chưa repo**.
+> **Cấm invent API live.** Path dưới = Medical extract. **TaskService repo:** `D:/API-CORE/Linm.Platform.TaskService` (2026-08-27).
 
 ---
 
@@ -128,7 +128,7 @@ Mobile: capture ở `patrol-*` · danh sách việc / chat = màn sibling **Task
 
 | ID | |
 |----|--|
-| GAP-PT-REPO-01 | Chưa repo `Linm.Platform.TaskService` / `Linm.Web.Task` |
+| GAP-PT-REPO-01 | ~~Chưa repo TaskService~~ — `API-CORE/Linm.Platform.TaskService` scaffolded · `Linm.Web.Task` còn |
 | GAP-PT-SKILL-01 | ~~Chưa slash~~ — `/implement-task-service` · `/integrate-task-service` · `/review-task-service` |
 | GAP-PT-COMMON-01 | `CommentsTab` thiếu `incident` (ChatTab đã có) |
 | GAP-PT-SOURCE-01 | SA: `source` + `sourceEntityId` cho patrol/incident |
@@ -147,4 +147,4 @@ Mobile: capture ở `patrol-*` · danh sách việc / chat = màn sibling **Task
 - [x] Platform.Task demo: list · pool · SLA · chat · comment thread · toast (cấm `alert`)
 - [x] Mobile frame: ghi điểm lớn · offline · việc + SLA + chat
 - [ ] Align MFE `Linm.Web.Task` + `ChatSectionParcel` sau Signed
-- [ ] Scaffold `Linm.Platform.TaskService` — PLAN Phase 2 · skill mới / `/hey-linm` scaffold
+- [x] Scaffold `Linm.Platform.TaskService` — PLAN Phase 2 · `/implement-task-service` 2026-08-27

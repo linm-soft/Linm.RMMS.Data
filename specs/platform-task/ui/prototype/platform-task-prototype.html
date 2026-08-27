@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>platform-task — Design prototype (DES-PT-*)</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    :root {
+      --color-primary: #2563eb;
+      --color-primary-50: #eff6ff;
+      --color-surface: #ffffff;
+      --color-bg: #f3f4f6;
+      --color-border: #e5e7eb;
+      --color-text: #111827;
+      --color-muted: #6b7280;
+      --sla-warning: #f59e0b;
+      --sla-danger: #ef4444;
+      --sla-safe: #10b981;
+      --radius: 10px;
+      --label: 13px;
+      --input: 14px;
+      --font: "Segoe UI", system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: var(--font);
+      background: linear-gradient(160deg, #eef2ff 0%, #f8fafc 40%, #ecfeff 100%);
+      color: var(--color-text);
+      min-height: 100vh;
+    }
+    .page { max-width: 1180px; margin: 0 auto; padding: 20px 16px 48px; }
+    .proto-meta {
+      font-size: 12px; color: var(--color-muted); margin-bottom: 16px;
+      display: flex; flex-wrap: wrap; gap: 8px 16px;
+    }
+    .proto-meta strong { color: var(--color-text); }
+    h1.section-title {
+      font-size: 15px; font-weight: 700; margin: 28px 0 10px;
+      letter-spacing: 0.02em; text-transform: uppercase; color: var(--color-muted);
+    }
+    .card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      box-shadow: 0 1px 2px rgba(0,0,0,.04);
+    }
+    /* KPI strip */
+    .kpi-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    @media (max-width: 768px) { .kpi-row { grid-template-columns: repeat(2, 1fr); } }
+    .kpi-card {
+      padding: 14px 16px;
+      border-left: 4px solid var(--color-primary);
+    }
+    .kpi-card.warn { border-left-color: var(--sla-warning); }
+    .kpi-card.danger { border-left-color: var(--sla-danger); }
+    .kpi-label { font-size: var(--label); color: var(--color-muted); margin-bottom: 4px; }
+    .kpi-value { font-size: 22px; font-weight: 700; }
+    /* Tabs */
+    .tabs {
+      display: flex; gap: 0; border-bottom: 2px solid var(--color-border);
+      margin-bottom: 16px;
+    }
+    .tab {
+      padding: 10px 18px; font-size: var(--label); font-weight: 600;
+      color: var(--color-muted); cursor: pointer; border-bottom: 2px solid transparent;
+      margin-bottom: -2px; background: none; border-top: none; border-left: none; border-right: none;
+    }
+    .tab.active { color: var(--color-primary); border-bottom-color: var(--color-primary); }
+    /* Filters */
+    .filter-bar {
+      display: flex; flex-wrap: wrap; gap: 10px; padding: 14px; margin-bottom: 12px;
+    }
+    .field { display: flex; flex-direction: column; gap: 4px; min-width: 140px; flex: 1; }
+    .field label { font-size: var(--label); color: var(--color-muted); }
+    .field input, .field select {
+      font-size: var(--input); padding: 8px 10px;
+      border: 1px solid var(--color-border); border-radius: 6px;
+    }
+    /* List */
+    .task-row {
+      display: grid;
+      grid-template-columns: 90px 1fr 80px 100px 90px 70px 80px auto;
+      gap: 8px; align-items: center;
+      padding: 12px 14px; border-bottom: 1px solid var(--color-border);
+      font-size: var(--label); cursor: pointer;
+    }
+    .task-row:hover { background: var(--color-primary-50); }
+    .task-row:last-child { border-bottom: none; }
+    .chip {
+      display: inline-block; padding: 2px 8px; border-radius: 999px;
+      font-size: 11px; font-weight: 600;
+    }
+    .chip.status { background: #dbeafe; color: #1d4ed8; }
+    .chip.priority-high { background: #fef3c7; color: #b45309; }
+    .chip.sla-warn { background: #fef3c7; color: #b45309; }
+    .chip.sla-crit { background: #fee2e2; color: #b91c1c; }
+    .chip.source { background: #f3f4f6; color: var(--color-muted); }
+    .btn {
+      border: none; border-radius: 6px; padding: 6px 12px;
+      font-size: var(--label); font-weight: 600; cursor: pointer;
+    }
+    .btn-primary { background: var(--color-primary); color: #fff; }
+    .btn-warn { background: var(--sla-warning); color: #fff; }
+    .btn-danger { background: var(--sla-danger); color: #fff; }
+    .btn-ghost { background: var(--color-bg); color: var(--color-text); }
+    /* Detail */
+    .detail-layout { display: grid; grid-template-columns: 1fr 280px; gap: 16px; }
+    @media (max-width: 900px) { .detail-layout { grid-template-columns: 1fr; } }
+    .detail-hdr {
+      display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between;
+      gap: 12px; padding: 16px;
+    }
+    .detail-hdr h2 { margin: 0 0 6px; font-size: 18px; }
+    .detail-hdr .meta { font-size: var(--label); color: var(--color-muted); }
+    .action-bar { display: flex; flex-wrap: wrap; gap: 8px; padding: 12px 16px; border-top: 1px solid var(--color-border); }
+    .handoff-banner {
+      padding: 10px 14px; background: #fffbeb; border: 1px solid #fcd34d;
+      border-radius: var(--radius); font-size: var(--label); margin-bottom: 12px;
+    }
+    /* Chat parcel */
+    .parcel-toolbar {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0 12px; border-bottom: 1px solid var(--color-border);
+    }
+    .parcel-tabs { display: flex; }
+    .parcel-tab {
+      padding: 10px 14px; font-size: var(--label); font-weight: 600;
+      color: var(--color-muted); cursor: pointer; background: none; border: none;
+      border-bottom: 2px solid transparent;
+    }
+    .parcel-tab.active { color: var(--color-primary); border-bottom-color: var(--color-primary); }
+    .chat-body { padding: 14px; min-height: 200px; }
+    .bubble {
+      max-width: 75%; padding: 10px 12px; border-radius: 12px;
+      font-size: var(--input); margin-bottom: 8px;
+    }
+    .bubble.me { background: var(--color-primary); color: #fff; margin-left: auto; border-bottom-right-radius: 4px; }
+    .bubble.them { background: var(--color-bg); border-bottom-left-radius: 4px; }
+    .composer {
+      display: flex; gap: 8px; padding: 12px; border-top: 1px solid var(--color-border);
+    }
+    .composer textarea {
+      flex: 1; font-size: var(--input); padding: 10px;
+      border: 1px solid var(--color-border); border-radius: 8px; resize: none; min-height: 44px;
+    }
+    .send-btn {
+      width: 44px; height: 44px; border-radius: 8px; border: none;
+      background: var(--color-primary); color: #fff; font-size: 16px; cursor: pointer;
+    }
+    .sidebar-card { padding: 14px; margin-bottom: 12px; }
+    .sidebar-card h4 { margin: 0 0 8px; font-size: var(--label); color: var(--color-muted); }
+    .zone-tag {
+      font-size: 10px; color: var(--color-muted); background: var(--color-bg);
+      padding: 2px 6px; border-radius: 4px; margin-left: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="proto-meta">
+      <span><strong>feature:</strong> platform-task</span>
+      <span><strong>packKind:</strong> platform</span>
+      <span><strong>peerStdUrl:</strong> http://localhost:9301/platform-task</span>
+      <span><strong>real_view_parity:</strong> v1</span>
+      <span><strong>cấm</strong> DES-GRID A–D · demo SSOT</span>
+    </div>
+
+    <h1 class="section-title">S-LIST — Công việc <span class="zone-tag">/cv draft</span></h1>
+
+    <!-- DES-PT-KPI -->
+    <div class="kpi-row card" data-des-id="DES-PT-KPI" style="padding:12px;margin-bottom:16px;">
+      <div class="kpi-card">
+        <div class="kpi-label">Đã gán</div>
+        <div class="kpi-value">12</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Pool</div>
+        <div class="kpi-value">5</div>
+      </div>
+      <div class="kpi-card warn">
+        <div class="kpi-label">SLA &lt; 24h</div>
+        <div class="kpi-value">3</div>
+      </div>
+      <div class="kpi-card danger">
+        <div class="kpi-label">SLA quá hạn</div>
+        <div class="kpi-value">1</div>
+      </div>
+    </div>
+
+    <!-- DES-PT-LIST-TAB -->
+    <div data-des-id="DES-PT-LIST-TAB" class="tabs card" style="padding:0 12px;border-bottom:none;">
+      <button class="tab active" type="button">Của tôi</button>
+      <button class="tab" type="button">Pool chờ nhận</button>
+      <button class="tab" type="button">Cảnh báo SLA</button>
+    </div>
+
+    <!-- DES-PT-FILTER -->
+    <div data-des-id="DES-PT-FILTER" class="card filter-bar" style="margin-top:12px;">
+      <div class="field" style="min-width:200px;">
+        <label>Tìm kiếm</label>
+        <input type="search" placeholder="Tiêu đề, mã…" />
+      </div>
+      <div class="field">
+        <label>Trạng thái</label>
+        <select><option>Tất cả</option><option>Đang xử lý</option></select>
+      </div>
+      <div class="field">
+        <label>Ưu tiên</label>
+        <select><option>Tất cả</option><option>Cao</option></select>
+      </div>
+      <div class="field">
+        <label>Nguồn</label>
+        <select><option>Tôi tạo</option><option>Từ pool</option></select>
+      </div>
+      <div class="field">
+        <label>Chiến lược gán</label>
+        <select><option>Tất cả</option><option>Pool</option></select>
+      </div>
+    </div>
+
+    <!-- DES-PT-LIST -->
+    <div data-des-id="DES-PT-LIST" class="card" style="margin-top:12px;">
+      <div class="task-row">
+        <span><strong>CV-0042</strong></span>
+        <span>Kiểm tra hư hỏng mặt đường QL1A</span>
+        <span class="chip source">Pool</span>
+        <span class="chip status">Đang xử lý</span>
+        <span>Nguyễn A</span>
+        <span class="chip sla-warn">SLA</span>
+        <span class="chip priority-high">Cao</span>
+        <span></span>
+      </div>
+      <div class="task-row">
+        <span><strong>CV-0038</strong></span>
+        <span>Bổ sung biển báo km 42+500</span>
+        <span class="chip source">Tôi tạo</span>
+        <span class="chip status">Chờ nhận</span>
+        <span class="chip" style="color:var(--color-muted);">chưa gán</span>
+        <span class="chip sla-crit">Quá hạn</span>
+        <span class="chip">TB</span>
+        <button class="btn btn-primary" type="button" onclick="event.stopPropagation()">Nhận việc</button>
+      </div>
+      <div class="task-row" style="color:var(--color-muted);justify-content:center;cursor:default;">
+        <span style="grid-column:1/-1;text-align:center;padding:24px;">Danh sách trống — không fake demo row</span>
+      </div>
+    </div>
+
+    <h1 class="section-title">S-DETAIL — Chi tiết công việc <span class="zone-tag">/cv/:id</span></h1>
+
+    <!-- DES-PT-HANDOFF -->
+    <div data-des-id="DES-PT-HANDOFF" class="handoff-banner">
+      <i class="fas fa-link"></i>
+      Liên kết từ tuần đường · session <code>PT-2026-0812</code> — chỉ đọc · <strong>cấm</strong> CRUD session
+    </div>
+
+    <div class="detail-layout">
+      <div>
+        <!-- DES-PT-DETAIL-HDR -->
+        <div data-des-id="DES-PT-DETAIL-HDR" class="card detail-hdr">
+          <div>
+            <div class="meta"><i class="fas fa-arrow-left"></i> Quay lại · <strong>CV-0042</strong></div>
+            <h2>Kiểm tra hư hỏng mặt đường QL1A</h2>
+            <span class="chip status">Đang xử lý</span>
+            <span class="chip priority-high">Ưu tiên cao</span>
+          </div>
+        </div>
+
+        <!-- DES-PT-DETAIL-INFO -->
+        <div data-des-id="DES-PT-DETAIL-INFO" class="card" style="margin-top:12px;padding:16px;">
+          <div class="field" style="margin-bottom:12px;">
+            <label>Mô tả</label>
+            <textarea rows="2" style="width:100%;font-size:var(--input);padding:8px;border:1px solid var(--color-border);border-radius:6px;">Phát hiện ổ gà tại km 42+300, cần khảo sát và báo cáo.</textarea>
+          </div>
+          <div style="display:flex;gap:16px;font-size:var(--label);">
+            <span><strong>Hạn:</strong> 28/08/2026</span>
+            <span><strong>Người nhận:</strong> Nguyễn Văn A</span>
+            <span class="chip sla-warn">SLA &lt; 24h</span>
+          </div>
+        </div>
+
+        <!-- DES-PT-DETAIL-ACT -->
+        <div data-des-id="DES-PT-DETAIL-ACT" class="card action-bar" style="margin-top:12px;">
+          <button class="btn btn-primary" type="button"><i class="fas fa-play"></i> Bắt đầu</button>
+          <button class="btn btn-ghost" type="button"><i class="fas fa-paper-plane"></i> Gửi duyệt</button>
+          <button class="btn btn-ghost" type="button"><i class="fas fa-check"></i> Hoàn thành</button>
+          <button class="btn btn-warn" type="button"><i class="fas fa-arrow-up"></i> Leo thang SLA</button>
+          <button class="btn btn-ghost" type="button"><i class="fas fa-ban"></i> Chặn</button>
+          <button class="btn btn-danger" type="button"><i class="fas fa-times"></i> Hủy</button>
+        </div>
+
+        <!-- ChatSectionParcel — DES-MSG-SEC-* -->
+        <div class="card" style="margin-top:12px;" data-des-id="DES-MSG-SEC-TAB">
+          <div class="parcel-toolbar">
+            <div class="parcel-tabs">
+              <button class="parcel-tab active" type="button"><i class="fas fa-comments"></i> Trao đổi</button>
+              <button class="parcel-tab" type="button"><i class="fas fa-comment-dots"></i> Bình luận</button>
+            </div>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <button class="btn btn-ghost" type="button" title="Thông báo"><i class="fas fa-bell"></i></button>
+              <button class="btn btn-ghost" type="button" title="Mở rộng"><i class="fas fa-expand"></i></button>
+              <button class="btn btn-ghost" type="button" title="Chi tiết ↗"><i class="fas fa-external-link-alt"></i></button>
+            </div>
+          </div>
+          <div data-des-id="DES-MSG-SEC-CHAT" class="chat-body">
+            <div class="bubble them">Đã khảo sát xong, đang chuẩn bị báo cáo.</div>
+            <div class="bubble me">OK, gửi ảnh hiện trường kèm theo nhé.</div>
+          </div>
+          <div class="composer">
+            <textarea placeholder="Nhắn tin…" aria-label="Nhắn tin"></textarea>
+            <button class="send-btn" type="button" title="Gửi"><i class="fas fa-paper-plane"></i></button>
+          </div>
+        </div>
+        <div data-des-id="DES-MSG-SEC-CMT" style="display:none;font-size:12px;color:var(--color-muted);margin-top:4px;padding:0 4px;">
+          CommentsTab thread — tab index 1 (ẩn trong mock tab 0 active)
+        </div>
+      </div>
+
+      <div>
+        <div class="card sidebar-card">
+          <h4>SLA</h4>
+          <span class="chip sla-warn">Còn 18 giờ</span>
+        </div>
+        <div class="card sidebar-card">
+          <h4>Tiến độ</h4>
+          <div style="height:8px;background:var(--color-bg);border-radius:4px;">
+            <div style="width:45%;height:100%;background:var(--color-primary);border-radius:4px;"></div>
+          </div>
+          <div style="font-size:var(--label);margin-top:4px;">45% — P2 UI</div>
+        </div>
+      </div>
+    </div>
+
+    <div data-des-id="DES-MSG-LEAVE" style="margin-top:24px;padding:12px;background:#fef2f2;border:1px dashed #fca5a5;border-radius:8px;font-size:var(--label);">
+      <strong>DES-MSG-LEAVE</strong> — LeaveConfirmModal khi composer dirty (parcel) · <strong>cấm</strong> window.confirm
+    </div>
+  </div>
+</body>
+</html>

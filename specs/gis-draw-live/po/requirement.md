@@ -44,6 +44,8 @@ Khác sibling `gis-draw-google`: Live = shell nhẹ / nhanh thử vẽ; Google =
   8. LineString corridor/track panes · OSRM khi vẽ/hiện tuyến — R7b/R8
   9. Chuẩn hóa cột Km (vision-014)
   10. FE `yarn typecheck` + `yarn build` PASS · BE `dotnet build` PASS
+  11. **Lớp lazy:** checkbox default off · count `summary-by-type` · tick mới fetch · **cấm** load 394k lúc vào trang
+  12. Zoom z≥14 / click cụm → `setView` ≥14 · pin snap đúng `props.route` · **cấm** `{OsrmNearest}` inventory / `fitBounds` ô cụm 0.5°
 
 ## 4. CTX / DEM inventory
 

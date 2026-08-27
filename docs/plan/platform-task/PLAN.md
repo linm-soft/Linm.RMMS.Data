@@ -1,6 +1,6 @@
 # PLAN — Chuẩn hóa Task cho mọi domain (`Linm.Platform.TaskService`)
 
-> **Status:** Draft (context+plan — **chưa** scaffold repo).  
+> **Status:** Phase 2 scaffolded 2026-08-27 — `API-CORE/Linm.Platform.TaskService` · API 5019 · PG 5459 · `Schema_TaskCore` pair. Medical `ITaskService` **còn** (cutover Phase 3).  
 > **Slash khi implement:** `/implement-task-service` · `/integrate-task-service` · `/review-task-service` · chat `/implement-message-service` **trước**.  
 > **RMMS:** [`RMMS-TUAN-DUONG.md`](RMMS-TUAN-DUONG.md) · **later** `rmms-task-integrate`.  
 > **SSOT:** [`../../context/25-PLATFORM-TASK.md`](../../context/25-PLATFORM-TASK.md) · chat [`../../context/26-MESSAGE-PARCEL.md`](../../context/26-MESSAGE-PARCEL.md)  

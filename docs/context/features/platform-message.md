@@ -49,11 +49,11 @@ Xem [`../26-MESSAGE-PARCEL.md`](../26-MESSAGE-PARCEL.md) §6.
 ## 7. Demo checklist
 
 - [x] Demo Task HTML chat/comment (`task/task.html`) — mock, không parcel
-- [ ] Align MFE `@linm/message` ChatSectionParcel sau Signed
+- [x] Align MFE `@linm/message` ChatSectionParcel (Dev task_992a4353)
 - [ ] Genericize ↗ routes khỏi Medical
 
 ## Implement tracking
 
 | lane | phase | status | updatedAt |
 |------|-------|--------|-----------|
-| web | `po` | `pending` | `2026-08-25T15:20:00.000Z` |
+| web | `qa` | `blocked` · e2e FAIL | `2026-08-25T17:56:00.000Z` |

@@ -79,6 +79,16 @@ Live page `/gis/draw` audit before Write:
 - Unit tests — pending
 - Demo seed QL.1 vs MFE Cot_km QL.22 — seed file remains QL.22 (existing MFE seed)
 
+## Notes (2026-08-26 · lazy Lớp + zoom snap)
+
+Reopen `docs/defect/gis-live-lop-lazy-load-zoom-snap.md`:
+
+- Lớp checkbox default **off**; boot chỉ `getSummaryByType` (count); tick mới fetch + spinner
+- `loadViewport`: clusters trước, corridor 1-shot `take=400` sau; `getGisClusters({ layer })` bắt buộc
+- Paint raw `overlayPane` trước `linePaintSigRef`; z≥9 OSRM `setLatLngs`; abort giữ nét
+- Click cụm `setView` ≥14; `hasMore !== false`; `routeSavedLines` fail **không** `byRoute.set`
+- Isolate chưa tick → auto-tick; **Tất cả** không tick hết; tab Lớp ≠ `{OsrmNearest}`
+
 ## Permissions
 
 Local mode OK · Authorize TODO when platform auth lands.

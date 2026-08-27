@@ -27,7 +27,7 @@
 | Zone | Nội dung |
 |------|----------|
 | Header | Tiêu đề · link GIS hub · tag live |
-| Sidebar | Lớp nền · tree lớp tài sản (checkbox) |
+| Sidebar | Lớp tài sản (checkbox default off + count) · isolate · thuộc tính |
 | Toolbar | Select · Pan · Point · Line · Polygon · Save |
 | Map | Leaflet full-page · OSRM optional |
 | Props | Mã · tên · loại · lưu draft |

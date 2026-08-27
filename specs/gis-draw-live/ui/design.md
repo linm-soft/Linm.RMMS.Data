@@ -23,7 +23,7 @@
 
 | Zone | Name | Content |
 |------|------|---------|
-| A | Sidebar | Lớp nền · tree lớp tài sản (checkbox + radio target) · chú giải isolate · thuộc tính · list đã lưu |
+| A | Sidebar | Lớp nền · tree lớp tài sản (checkbox **default off** + count + spinner) · chú giải isolate · thuộc tính · list đã lưu |
 | B | Toolbar | Fit · seed · chuẩn hóa Km · export · xoá layer |
 | C | Map chrome | `map-host` (Leaflet.draw) → `map-bar` (OSM / Esri / sat · Fit · full/dock) → legend |
 | D | Props + results | Form mã/tên sau vẽ · list session · click → Fit focus |
@@ -52,9 +52,10 @@
 - Live Leaflet only — cấm fake gradient map
 - Default basemap **OSM** · Esri Streets · sat `maxNativeZoom: 17`
 - Default Fit overview zoom ≤13
-- Corridor underlay + track pane for LineString
-- Isolate → Fit focus ≤15
+- Corridor underlay + track trên **overlayPane** (GIS live — Linm `svg max-width` ẩn custom pane)
+- Isolate → Fit focus ≤15; isolate pill chưa tick → auto-tick, **Tất cả** không tick hết
 - Tag: `Leaflet + OSM/Esri · LIVE`
+- Click cụm → `setView` ≥ DETAIL_ZOOM (cấm `fitBounds` ô 0.5°)
 
 ## 6. Handoff → SA
 

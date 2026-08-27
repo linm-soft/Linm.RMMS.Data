@@ -23,6 +23,10 @@
 
 **Cấm:** `Linm.Web.ERP.WebService` · `Domains/Master` · `api/v1/rmms/*` ERP.
 
+## UI notes (2026-08-26)
+
+Lớp lazy default off + count. Paint nét overlayPane raw trước OSRM. Click cụm `setView` ≥ DETAIL_ZOOM. Snap `projectToPath` đúng `props.route` — cấm nearest inventory.
+
 ## Platform SSOT / permissions
 
 | id | DoD |
