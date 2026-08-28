@@ -1,5 +1,15 @@
 {
   "feature": "patrol-pin",
-  "status": "draft",
-  "autoCreated": true
+  "status": "done",
+  "review_confirm": "approve",
+  "taskId": "task_ff84d158",
+  "autoApprove": true,
+  "updatedAt": "2026-08-21T04:02:45.000Z",
+  "verify": {
+    "ios": "PASS",
+    "android": "PASS",
+    "bff": "PASS",
+    "step4b": "N/A"
+  },
+  "mustAlign": 0
 }
