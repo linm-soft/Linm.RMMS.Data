@@ -3,8 +3,8 @@
 | Field | Value |
 |-------|-------|
 | feature | `login` |
-| phase | `done` |
-| status | `done` |
+| phase | `data_analy` |
+| status | `paused` |
 | taskIdQa | `task_4d1e2f3a` |
 | taskIdReview | `task_67ecabfa` |
 | changeScope | `new_page` |
@@ -38,7 +38,7 @@
 | contentHash | `sha256:2b627cdf80eca92c1f91cc999b6b516ca09d534ad0ffff887800699c4a02c3ef` |
 | bffContentHash | `sha256:de9bc7143374ca6a38aad393b3ce928ad00462ade2254adf9bcdfd97ac7eb017` |
 | verifyGate | iOS `xcodegen` + `xcodebuild` **iPhone 17 Pro Max** **PASS** · Android `assembleDebug` **PASS** · BFF `dotnet build` **PASS** · E2E prior QA **PASS** · Review **approve** · **cấm** READY_TO_SUBMIT |
-| updatedAt | `2026-08-19T01:44:40.690Z` |
+| updatedAt | `2026-08-28T18:30:36.237Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -49,14 +49,14 @@
 
 | Step | Agent | Artifact | Status |
 |------|-------|----------|--------|
-| 0 | data-analy-mobile | `_data-analy/login-control-hint.md` · `login-bff-endpoints.md` · `login-action-tree.md` | **done** · confirmed |
-| 1 | po | po/requirement.md | **confirmed** |
-| 2.1 | design | ui/design.md · ui/ux-analy.md · prototype/ios+android | **confirmed** |
-| 2.2 | sa | be/solution-discovery.md | **confirmed** |
-| 3 | team-lead | task/login.md | **confirmed** |
-| 4 | dev | implement/ios.md · implement/android.md · implement/bff.md · ui/review/login.md | **confirmed** |
-| 5 | qa | qa/scenarios.md · qa/store/login/CAPTURE.md | **confirmed** |
-| 6 | review | review/findings.md | **done** |
+| 0 | data-analy-mobile | `_data-analy/login-control-hint.md` · `login-bff-endpoints.md` · `login-action-tree.md` | **paused** |
+| 1 | po | po/requirement.md | **pending** |
+| 2.1 | design | ui/design.md · ui/ux-analy.md · prototype/ios+android | **pending** |
+| 2.2 | sa | be/solution-discovery.md | **pending** |
+| 3 | team-lead | task/login.md | **pending** |
+| 4 | dev | implement/ios.md · implement/android.md · implement/bff.md · ui/review/login.md | **pending** |
+| 5 | qa | qa/scenarios.md · qa/store/login/CAPTURE.md | **pending** |
+| 6 | review | review/findings.md | **pending** |
 ## Confirms
 
 | Gate | Value |

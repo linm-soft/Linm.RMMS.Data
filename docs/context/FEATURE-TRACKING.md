@@ -85,7 +85,7 @@
 | `integration` | Open API | 18 / 18-P2 | P1-900 khung · P2-CR | done | catalog | [ctx](features/integration.md) | [ST](../../specs/integration/STATUS.md) |
 | `feedback` | Góp ý nội bộ | — | support P1 | data_analy draft | catalog | [ctx](features/feedback.md) | [ST](../../specs/feedback/STATUS.md) |
 | `users` | QL user / TC | — | support P1 | Dev in_progress | catalog | [ctx](features/users.md) | [ST](../../specs/users/STATUS.md) |
-| `login` | Login + HĐ TK | — | P1 / P1.5 | done · run L0–L6 done | none | [ctx](features/login.md) | [ST](../../specs/login/STATUS.md) |
+| `login` | Login + HĐ TK | — | P1 / P1.5 | `data_analy` / `paused` | none | [ctx](features/login.md) | [ST](../../specs/login/STATUS.md) |
 | `login-forgot` | Quên MK | — | P1-900 | done | none | [ctx](features/login-forgot.md) | [ST](../../specs/login-forgot/STATUS.md) |
 | `home` | Home mobile | B | P1-900 | done | none | [ctx](features/home.md) | [ST](../../specs/home/STATUS.md) |
 | `me` | Profile mobile | B | P1-900 | done | none | [ctx](features/me.md) | [ST](../../specs/me/STATUS.md) |
@@ -98,6 +98,7 @@
 | `patrol-pin` | GPS pin sheet | 04 | P1-900 | Review in_progress | proto | [ctx](features/patrol-pin.md) | [ST](../../specs/patrol-pin/STATUS.md) |
 | `patrol-checkin` | Check-in | 05 | P1-900 | data_analy draft | none | — | [ST](../../specs/patrol-checkin/STATUS.md) |
 
+| `mnt-list` | [Mobile] Công việc | — | support | `data_analy` / `in_progress` | none | [ctx](features/mnt-list.md) | [ST](../../specs/mnt-list/STATUS.md) |
 **Báo cáo `rpt-*`:** xem [§ Reports](#17--dashboard--báo-cáo). Pipeline STATUS **done** hết (release: P1 / P1.5 / P2 / P3 theo từng slug).
 
 **Draft mobile (chưa context đầy):** `incident-list` · `incident-create` · `mnt-list` · `field-reflect` · `cam-view` · `cam-patrol` — [STATUS](../../specs/) tương ứng `data_analy` / `draft`.

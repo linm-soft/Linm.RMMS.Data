@@ -1,63 +1,63 @@
 # RESUME-CONTEXT — login
 
-> Compressed at stop · 2026-08-18T20:58:35.718Z
+> Compressed at stop · 2026-08-28T18:30:36.227Z
 
 ## Meta
 
 | Field | Value |
 |---|---|
-| taskId | `task_4d1e2f3a` |
+| taskId | `task_6d1685e7` |
 | alias | `login` |
-| title | [QA] [Mobile] Đăng nhập |
+| title | [Edit] [Mobile] Đăng nhập |
 | source | `qldb_mobile_implement` |
-| cursorAgentId | `agent-cc3a36d3-a345-4816-baba-d6394a7adeb3` |
+| cursorAgentId | `agent-878eeb96-57b3-4876-929f-61408e2c17a1` |
 | mfeRoot | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS` |
 | beRoot | `—` |
-| reason | user_stop |
-| notes | slash=/agent-qldb-workflow-mobile · roleOnly=qa · chainRole=1 · enqueueReason=chain · startFrom=qa · startSlash=/agent-qa-mobile · autoApprove=1 · e2eQa=1 · lane=mobile · productRoot=/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data · iosAndroid=/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS · iosRoot=/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS · androidRoot=/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.M |
+| reason | user_stop_all |
+| notes | slash=/agent-qldb-workflow-mobile · packKind=shell · runMode=full_pipeline · via=run-implement-mobile · pack=main3 · load=form-type-task-pack.md · gap=none · roleOnly=data_analy · chainRole=1 · autoApprove=1 · e2eQa=1 · mfeServe=std · startFrom=data_analy · startSlash=/agent-data-analy-mobile · dataAnalyMode=feature_context · changeScope=edit_page · editTask=1 · hasAnaly=0 · productRoot=/Users/mac |
 
 ## Done / next (heuristic from worker stream)
 
-- [20:57:04] assistant: login
-- [20:57:04] assistant: ).
-- [20:57:04] assistant: S
-- [20:57:04] assistant: ửa
-- [20:57:04] assistant: flow
-- [20:57:04] assistant: :
-- [20:57:04] assistant: `
-- [20:57:04] assistant: clear
-- [20:57:04] assistant: State
-- [20:57:04] assistant: `
-- [20:57:04] assistant: +
-- [20:57:04] assistant: selector
-- [20:57:04] assistant: theo
-- [20:57:04] assistant: text
-- [20:57:04] assistant: /
-- [20:57:04] assistant: hint
-- [20:57:04] assistant: .
-- [20:57:07] tool: tool
-- [20:57:38] tool: tool
-- [20:57:41] thinking: reasoning…
-- [20:57:41] thinking: reasoning…
-- [20:57:41] thinking: reasoning…
-- [20:57:55] thinking: reasoning…
-- [20:57:55] thinking: reasoning…
-- [20:57:55] tool: tool
-- [20:57:55] tool: tool
-- [20:58:01] thinking: reasoning…
-- [20:58:01] thinking: reasoning…
-- [20:58:01] thinking: reasoning…
-- [20:58:01] thinking: reasoning…
-- [20:58:01] thinking: reasoning…
-- [20:58:01] thinking: reasoning…
-- [20:58:01] thinking: reasoning…
-- [20:58:01] thinking: reasoning…
-- [20:58:01] thinking: reasoning…
-- [20:58:01] thinking: reasoning…
-- [20:58:02] tool: tool
-- [20:58:02] tool: tool
-- [20:58:35] agent: stop requested — cancelling run
-- [20:58:35] agent: paused · context=/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/login/implement/RESUME-CONTEXT.md
+- [18:30:27] assistant: version
+- [18:30:27] assistant: SS
+- [18:30:27] assistant: OT
+- [18:30:27] assistant: ,
+- [18:30:27] assistant: và
+- [18:30:27] assistant: qu
+- [18:30:27] assistant: ét
+- [18:30:27] assistant: demo
+- [18:30:27] assistant: /
+- [18:30:27] assistant: code
+- [18:30:27] assistant: hiện
+- [18:30:27] assistant: tại
+- [18:30:27] assistant: cho
+- [18:30:27] assistant: §
+- [18:30:27] assistant: Delta
+- [18:30:27] assistant: .
+- [18:30:28] tool: tool
+- [18:30:28] tool: tool
+- [18:30:29] tool: tool
+- [18:30:29] tool: tool
+- [18:30:29] tool: tool
+- [18:30:30] tool: tool
+- [18:30:30] tool: tool
+- [18:30:30] tool: tool
+- [18:30:30] tool: tool
+- [18:30:31] tool: tool
+- [18:30:31] tool: tool
+- [18:30:31] tool: tool
+- [18:30:32] thinking: reasoning…
+- [18:30:32] thinking: reasoning…
+- [18:30:32] thinking: reasoning…
+- [18:30:32] thinking: reasoning…
+- [18:30:35] thinking: reasoning…
+- [18:30:35] thinking: reasoning…
+- [18:30:35] thinking: reasoning…
+- [18:30:35] thinking: reasoning…
+- [18:30:35] thinking: reasoning…
+- [18:30:36] thinking: reasoning…
+- [18:30:36] agent: stop requested — cancelling run
+- [18:30:36] agent: paused · context=/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/login/implement/RESUME-CONTEXT.md
 
 ## STATUS excerpt
 
@@ -67,9 +67,10 @@
 | Field | Value |
 |-------|-------|
 | feature | `login` |
-| phase | `qa` |
-| status | `in_progress` |
+| phase | `data_analy` |
+| status | `paused` |
 | taskIdQa | `task_4d1e2f3a` |
+| taskIdReview | `task_67ecabfa` |
 | changeScope | `new_page` |
 | packKind | `shell` (**PO confirm**) |
 | stack | `native_dual` |
@@ -88,37 +89,38 @@
 | design | `specs/login/ui/design.md` · `ui/ux-analy.md` · `ui/html-to-native-map.md` · prototype dual |
 | sa | `specs/login/be/solution-discovery.md` |
 | tl | `specs/login/task/login.md` |
+| review | `specs/login/review/findings.md` · `REVIEW-META.json` |
 | reviewUrlIos | `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/login/ui/prototype/ios/index.html#sc-login` |
 | reviewUrlAndroid | `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/login/ui/prototype/android/index.html#sc-login` |
 | backup | `specs/login/_backup/20260818T173515Z` · PO `20260818T181819Z` · Design `20260818T182200Z` · SA `20260818T183223Z` |
-| taskId | `task_1e440396` |
-| skillVersion | `2026.08.19.10` (agent-dev-ios + agent-dev-android) |
+| taskId | `task_67ecabfa` |
+| skillVersion | `2026.08.19.10` (agent-review-mobile) |
 | schemaVersion | `1` |
-| workflowVersion | `2026.08.19.10` |
-| rulesVersion | `2026.08.19.11` |
+| workflowVersion | `2026.08.19.19` |
+| rulesVersion | `2026.08.19.22` |
 | versionGate | `rechecked` |
 | contentHash | `sha256:2b627cdf80eca92c1f91cc999b6b516ca09d534ad0ffff887800699c4a02c3ef` |
 | bffContentHash | `sha256:de9bc7143374ca6a38aad393b3ce928ad00462ade2254adf9bcdfd97ac7eb017` |
-| verifyGate | iOS `xcodegen` + `xcodebuild` **iPhone 17 Pro Max** **PASS** · **iPad Pro 13-inch (M5)** **PASS** (M4 không có trên lab) · Android `assembleDebug` **PASS** · BFF `dotnet build` **PASS** |
-| updatedAt | `2026-08-18T20:58:35.712Z` |
+| verifyGate | iOS `xcodegen` + `xcodebuild` **iPhone 17 Pro Max** **PASS** · Android `assembleDebug` **PASS** · BFF `dotnet build` **PASS** · E2E prior QA **PASS** · Review **approve** · **cấm** READY_TO_SUBMIT |
+| updatedAt | `2026-08-28T18:30:36.218Z` |
 ## Lock
 
 | agent | scope | id | at |
 |-------|-------|-----|-----|
-| qa | feature | task_4d1e2f3a | 2026-08-18T19:57:00.000Z |
+| — | — | — | released after Review `task_67ecabfa` |
 
 ## Pipeline
 
 | Step | Agent | Artifact | Status |
 |------|-------|----------|--------|
-| 0 | data-analy-mobile | `_data-analy/login-control-hint.md` · `login-bff-endpoints.md` · `login-action-tree.md` | **done** · confirmed |
-| 1 | po | po/requirement.md | **confirmed** |
-| 2.1 | design | ui/design.md · ui/ux-analy.md · prototype/ios+android | **confirmed** |
-| 2.2 | sa | be/solution-discovery.md | **confirmed** |
-| 3 | team-lead | task/login.md | **confirmed** |
-| 4 | dev | implement/ios.md · implement/android.md · implement/bff.md · ui/review/login.md | **confirmed** |
-| 5 | qa | qa/scenarios.md · qa/store/login/CAPTURE.md | **paused** |
-| 6 | review | review/findings.md | pending |
+| 0 | data-analy-mobile | `_data-analy/login-control-hint.md` · `login-bff-endpoints.md` · `login-action-tree.md` | **paused** |
+| 1 | po | po/requirement.md | **pending** |
+| 2.1 | design | ui/design.md · ui/ux-analy.md · prototype/ios+android | **pending** |
+| 2.2 | sa | be/solution-discovery.md | **pending** |
+| 3 | team-lead | task/login.md | **pending** |
+| 4 | dev | implement/ios.md · implement/android.md · implement/bff.md · ui/review/login.md | **pending** |
+| 5 | qa | qa/scenarios.md · qa/store/login/CAPTURE.md | **pending** |
+| 6 | review | review/findings.md | **pending** |
 ## Confirms
 
 | Gate | Value |
@@ -129,7 +131,7 @@
 | be_repo_confirm | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.WebService` |
 | ios_repo_confirm | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS` |
 | android_repo_confirm | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android` |
-| version_mismatch_action | **recheck_new** (SA stub no Version meta · backup `20260818T183223Z`) |
+| version_mismatch_action | **recheck_new** (Review recheck orchestrator `2026.08.19.19`) |
 | autoApprove | **ON** |
 | kit_missing_confirm | **implement_kit** · `LinmSecureTextField` dual · map + gallery · `/install-mobile-kit-local` done |
 | design_confirm | **confirmed** (user Approve board) |
@@ -138,6 +140,7 @@
 | sa_shared_table | **tenant_keep** |
 | solution_confirm | **confirmed** (user Approve board) |
 | route_confirm | **route_a** (autoApprove=ON · TL) — auth `#sc-login` → Home |
+| review_confirm | **confirmed** (user Approve board) |
 ## Tasks
 
 | id | page | role | deps | status | notes |
@@ -150,13 +153,12 @@
 | task_3be7da84 | login | sa | design | **completed** | roleOnly · `/agent-sa-mobile` · autoApprove=ON · solution_confirm approve · VERIFY GATE PASS · **không** chain TL |
 | task_5618e40d | login | team_lead | sa | **completed** | roleOnly · `/agent-tl-mobile` · autoApprove=ON · route_confirm route_a · T-IOS-LOGIN · T-AND-LOGIN · T-BE-MW optional · VERIFY GATE PASS · **không** chain Dev |
 | task_1e440396 | login | dev | team_lead | **completed** | roleOnly · `/agent-dev-ios` + `/agent-dev-android` · T-IOS-LOGIN · T-AND-LOGIN · T-BE-MW · VERIFY GATE PASS · **không** chain QA |
+| task_4d1e2f3a | login | qa | dev | **completed** | roleOnly · `/agent-qa-mobile` · e2eQa ON · Maestro iOS+Android PASS · Pixel_2 1080×1920 · A4 DEFER · VERIFY GATE PASS · **không** chain Review |
+| task_67ecabfa | login | review | qa | **completed** | roleOnly · `/agent-review-mobile` · autoApprove=ON · review_confirm approve · VERIFY GATE PASS · **cấm** READY_TO_SUBMIT · pipeline complete |
 
 ## Blockers / open questions
 
-- `login-forgot` — hyperlink Quên MK · **`task_20426736` `pending_confirm`** (sibling_assign) · chờ Approve board · **cấm** start tự động · **cấm** invent `auth/forgot` trước analy
-- **GAP-MOB-BFF-02** **đóng** — app `POST auth/refresh-token` · **cấm** `auth/refresh`
-- **GAP-MOB-BFF-MW** **đóng (P1)** — app GET `session-window` sau login · DTO `allowed`/`reason` · forceLogout copy Web middleware · T-BE-MW attach middleware Mobile.Bff **optional** (parity Web · **không** path mới)
-- Password/eye kit — **closed** Design · `LinmSecureTex
+- `login-forgo
 ```
 
 ## Resume instructions (for agent)

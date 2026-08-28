@@ -4,7 +4,7 @@
 |-------|-------|
 | feature | `mnt-list` |
 | phase | `data_analy` |
-| status | `draft` |
+| status | `in_progress` |
 | packKind | `list` |
 | demo | /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/mobile-p1/ui/prototype/ios/index.html |
 | context | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/docs/context/features/mnt-list.md` |
@@ -15,7 +15,7 @@
 | android | `Linm.RMMS.Mobile.Android` · e2e-qa-mobile emulator |
 | bff | `Linm.RMMS.Mobile.Bff` |
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · DOMAIN-MAP — **cấm ERP.*** |
-| updatedAt | `2026-08-19T05:23:39.655Z` |
+| updatedAt | `2026-08-28T18:30:56.301Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -26,7 +26,7 @@
 
 | Step | Agent | Artifact | Status |
 |------|-------|----------|--------|
-| 0 | data-analy | _data-analy/mnt-list-control-hint.md · mnt-list-bff-endpoints.md · mnt-list-action-tree.md | **pending** |
+| 0 | data-analy | _data-analy/mnt-list-control-hint.md · mnt-list-bff-endpoints.md · mnt-list-action-tree.md | **in_progress** |
 | 1 | po | po/requirement.md | **pending** |
 | 2.1 | design | ui/design.md · ui/ux-analy.md · prototype/ios/index.html · prototype/android/index.html | **pending** |
 | 2.2 | sa | be/solution-discovery.md | **pending** |
