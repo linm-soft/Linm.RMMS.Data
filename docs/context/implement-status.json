@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-21T04:00:55.288Z",
+  "updatedAt": "2026-08-21T04:03:52.268Z",
   "features": {
     "ai-asset-detect": {
       "web": {
@@ -284,9 +284,9 @@
     },
     "patrol-pin": {
       "mobile": {
-        "phase": "review",
-        "status": "pending",
-        "updatedAt": "2026-08-21T04:00:55.288Z",
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-21T04:03:52.268Z",
         "statusRel": "specs/patrol-pin/STATUS.md"
       }
     },

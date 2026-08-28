@@ -4,7 +4,7 @@
 |-------|-------|
 | feature | `patrol-map` |
 | phase | `dev` |
-| status | `pending` |
+| status | `blocked` |
 | packKind | `map` (**PO confirm**) |
 | changeScope | `new_page` |
 | stack | `native_dual` |
@@ -23,7 +23,7 @@
 | contentHash | `sha256:patrol-map-control-hint-20260820` |
 | bffContentHash | `sha256:patrol-map-mobile-bff-20260820` |
 | verifyGate | iOS `xcodegen` + `xcodebuild` dest **iPhone 17 Pro** **PASS** ✓ · Android `assembleDebug` **PASS** ✓ · OMS pin+tim đường `/edit-mobile-feature` `2026-08-21` |
-| updatedAt | `2026-08-21T10:40:00.000Z` |
+| updatedAt | `2026-08-21T04:04:41.897Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -39,7 +39,7 @@
 | 2.1 | design | ui/design.md · ui/ux-analy.md · prototype dual · ui/review/demo-parity.md | **confirmed** |
 | 2.2 | sa | be/solution-discovery.md | **confirmed** |
 | 3 | team-lead | task/patrol-map.md | **confirmed** |
-| 4 | dev | implement/ios.md · implement/android.md | pending |
+| 4 | dev | implement/ios.md · implement/android.md | **blocked** (failed) |
 | 5 | qa | qa/scenarios.md · qa/e2e/*.yaml | pending |
 | 6 | review | review/findings.md | pending |
 ## Confirms

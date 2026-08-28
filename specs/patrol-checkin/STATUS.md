@@ -4,7 +4,7 @@
 |-------|-------|
 | feature | `patrol-checkin` |
 | phase | `data_analy` |
-| status | `draft` |
+| status | `blocked` |
 | packKind | `sheet` |
 | demo | /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/mobile-p1/ui/prototype/ios/index.html |
 | context | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/docs/context/features/patrol-checkin.md` |
@@ -15,7 +15,7 @@
 | android | `Linm.RMMS.Mobile.Android` · e2e-qa-mobile emulator |
 | bff | `Linm.RMMS.Mobile.Bff` |
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · DOMAIN-MAP — **cấm ERP.*** |
-| updatedAt | `2026-08-19T18:43:01.291Z` |
+| updatedAt | `2026-08-21T04:05:19.846Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -26,7 +26,7 @@
 
 | Step | Agent | Artifact | Status |
 |------|-------|----------|--------|
-| 0 | data-analy | _data-analy/patrol-checkin-control-hint.md · patrol-checkin-bff-endpoints.md · patrol-checkin-real-data.md · patrol-checkin-action-tree.md | **pending** |
+| 0 | data-analy | _data-analy/patrol-checkin-control-hint.md · patrol-checkin-bff-endpoints.md · patrol-checkin-real-data.md · patrol-checkin-action-tree.md | **blocked** (failed) |
 | 1 | po | po/requirement.md | **pending** |
 | 2.1 | design | ui/design.md · ui/ux-analy.md · prototype/ios/index.html · prototype/android/index.html | **pending** |
 | 2.2 | sa | be/solution-discovery.md | **pending** |
