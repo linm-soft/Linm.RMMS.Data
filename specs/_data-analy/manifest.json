@@ -72,6 +72,22 @@
   "investigate": "specs/_data-analy/shared-catalogs/INVESTIGATE-CUC2.md",
   "featureHints": [
     {
+      "id": "feature-rmms-task-integrate-v1",
+      "featureSlug": "rmms-task-integrate",
+      "catalogKind": "task-integration",
+      "packKind": "platform",
+      "status": "done",
+      "artifact": "specs/_data-analy/features/rmms-task-integrate-control-hint.md",
+      "realData": "specs/_data-analy/features/rmms-task-integrate-real-data.md",
+      "contentHash": "sha256:49011e5dfcb8bbbb15adc781a60d62ba44446985c9dbf397806ba69dda786c54",
+      "skillVersion": "2026.08.25.01",
+      "workflowVersion": "2026.08.25.01",
+      "rulesVersion": "2026.08.25.4",
+      "versionGate": "rechecked",
+      "analyzedAt": "2026-08-27T05:15:00.000Z",
+      "notes": "roleOnly data_analy · task_adc7f208 · edit_page · integration patrol/incident→Task · no Excel · cấm Field chat · prereq platform-task/message"
+    },
+    {
       "id": "feature-platform-message-v1",
       "featureSlug": "platform-message",
       "catalogKind": "message-conversation",

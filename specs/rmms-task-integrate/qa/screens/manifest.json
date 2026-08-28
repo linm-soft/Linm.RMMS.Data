@@ -1,0 +1,23 @@
+{
+  "url": "http://localhost:9304/rmms-task-integrate",
+  "capturedAt": "2026-08-27T06:24:17.301Z",
+  "method": "e2e runtime · Field yarn start:std :9304 + docker + Playwright",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png"
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png"
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png"
+    }
+  ],
+  "ok": true
+}

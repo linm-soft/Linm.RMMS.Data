@@ -1,0 +1,22 @@
+{
+  "url": "http://localhost:9312/kcht-cong-trinh",
+  "capturedAt": "2026-08-27T01:35:32.560Z",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png"
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png"
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png"
+    }
+  ],
+  "ok": true
+}

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>rmms-task-integrate — Design prototype (DES-RTI-*)</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    :root {
+      --color-primary: #2563eb;
+      --color-primary-50: #eff6ff;
+      --color-surface: #ffffff;
+      --color-bg: #f3f4f6;
+      --color-border: #e5e7eb;
+      --color-text: #111827;
+      --color-muted: #6b7280;
+      --sla-warning: #f59e0b;
+      --sla-danger: #ef4444;
+      --radius: 10px;
+      --label: 13px;
+      --input: 14px;
+      --font: "Segoe UI", system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: var(--font);
+      background: linear-gradient(160deg, #eef2ff 0%, #f8fafc 40%, #ecfeff 100%);
+      color: var(--color-text);
+      min-height: 100vh;
+    }
+    .page { max-width: 960px; margin: 0 auto; padding: 20px 16px 48px; }
+    .proto-meta {
+      font-size: 12px; color: var(--color-muted); margin-bottom: 16px;
+      display: flex; flex-wrap: wrap; gap: 8px 16px;
+    }
+    .proto-meta strong { color: var(--color-text); }
+    h1.section-title {
+      font-size: 15px; font-weight: 700; margin: 28px 0 10px;
+      letter-spacing: 0.02em; text-transform: uppercase; color: var(--color-muted);
+    }
+    .card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      box-shadow: 0 1px 2px rgba(0,0,0,.04);
+    }
+    .zone-tag {
+      font-size: 10px; color: var(--color-muted); background: var(--color-bg);
+      padding: 2px 6px; border-radius: 4px; margin-left: 6px;
+    }
+    .field { display: flex; flex-direction: column; gap: 4px; }
+    .field label { font-size: var(--label); color: var(--color-muted); }
+    .field input, .field select, .field textarea {
+      font-size: var(--input); padding: 8px 10px;
+      border: 1px solid var(--color-border); border-radius: 6px;
+    }
+    .btn {
+      border: none; border-radius: 6px; padding: 8px 16px;
+      font-size: var(--label); font-weight: 600; cursor: pointer;
+    }
+    .btn-primary { background: var(--color-primary); color: #fff; }
+    .btn-secondary { background: var(--color-bg); color: var(--color-text); border: 1px solid var(--color-border); }
+    .btn-ghost { background: var(--color-bg); color: var(--color-text); }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .chip {
+      display: inline-block; padding: 2px 8px; border-radius: 999px;
+      font-size: 11px; font-weight: 600;
+    }
+    .chip.severity-high { background: #fee2e2; color: #b91c1c; }
+    .chip.severity-med { background: #fef3c7; color: #b45309; }
+    .chip.priority { background: #dbeafe; color: #1d4ed8; }
+    .context-strip {
+      padding: 12px 16px; background: var(--color-primary-50);
+      border-bottom: 1px solid var(--color-border);
+      font-size: var(--label); display: flex; gap: 16px; flex-wrap: wrap;
+    }
+    .footer-actions {
+      display: flex; gap: 10px; justify-content: flex-end;
+      padding: 14px 16px; border-top: 1px solid var(--color-border);
+    }
+    .modal-overlay {
+      position: relative; margin-top: 12px;
+      background: rgba(0,0,0,.04); border-radius: var(--radius);
+      padding: 24px; display: flex; justify-content: center;
+    }
+    .modal-card {
+      width: 100%; max-width: 520px; background: var(--color-surface);
+      border: 1px solid var(--color-border); border-radius: var(--radius);
+      box-shadow: 0 8px 24px rgba(0,0,0,.08);
+    }
+    .modal-hdr {
+      padding: 16px; border-bottom: 1px solid var(--color-border);
+      font-weight: 700; font-size: 16px;
+    }
+    .modal-body { padding: 16px; display: grid; gap: 12px; }
+    .modal-body .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media (max-width: 600px) { .modal-body .row-2 { grid-template-columns: 1fr; } }
+    .modal-ftr {
+      display: flex; justify-content: flex-end; gap: 10px;
+      padding: 14px 16px; border-top: 1px solid var(--color-border);
+    }
+    .handoff-banner {
+      padding: 10px 14px; background: #fffbeb; border: 1px solid #fcd34d;
+      border-radius: var(--radius); font-size: var(--label); margin-bottom: 12px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .nav-note {
+      padding: 10px 14px; background: #ecfdf5; border: 1px solid #6ee7b7;
+      border-radius: var(--radius); font-size: var(--label); margin: 12px 0;
+    }
+    .prereq-note {
+      padding: 10px 14px; background: #f3f4f6; border: 1px dashed var(--color-border);
+      border-radius: var(--radius); font-size: var(--label); margin-top: 8px;
+      color: var(--color-muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="proto-meta">
+      <span><strong>feature:</strong> rmms-task-integrate</span>
+      <span><strong>packKind:</strong> platform (integration)</span>
+      <span><strong>peerStdUrl:</strong> http://localhost:9301/rmms-task-integrate</span>
+      <span><strong>real_view_parity:</strong> v1</span>
+      <span><strong>cấm</strong> DES-GRID A–D · demo SSOT · Field chat</span>
+    </div>
+
+    <h1 class="section-title">S-PATROL-FOOTER — Phiên tuần tra <span class="zone-tag">/td-tk/:id</span></h1>
+
+    <div class="card" data-des-id="DES-RTI-PATROL-FOOTER">
+      <div class="context-strip">
+        <span><strong>Mã ca:</strong> PT-2026-0812</span>
+        <span><strong>Tuyến:</strong> QL.1 km 10–15</span>
+        <span><strong>Trạng thái:</strong> Đang tuần tra</span>
+      </div>
+      <div style="padding:16px;font-size:var(--label);color:var(--color-muted);">
+        Form CRUD phiên tuần (giữ nguyên) — integration chỉ thêm footer actions.
+      </div>
+      <div class="footer-actions">
+        <button class="btn btn-primary" type="button"><i class="fas fa-flag-checkered"></i> Kết ca</button>
+        <button class="btn btn-secondary" type="button"><i class="fas fa-tasks"></i> Giao việc</button>
+      </div>
+    </div>
+
+    <div data-des-id="DES-RTI-PREREQ" class="prereq-note">
+      <i class="fas fa-lock"></i> <strong>Prereq gate (P1):</strong> «Giao việc» disabled + tooltip «Đang triển khai Platform Task» khi <code>platform-task</code> / <code>platform-message</code> chưa QA green.
+      <div style="margin-top:8px;">
+        <button class="btn btn-secondary" type="button" disabled title="Đang triển khai Platform Task">
+          <i class="fas fa-tasks"></i> Giao việc (disabled)
+        </button>
+      </div>
+    </div>
+
+    <h1 class="section-title">S-INCIDENT-ACTION — Sự cố <span class="zone-tag">/su-co</span></h1>
+
+    <div class="card" data-des-id="DES-RTI-INC-ACTION" style="padding:14px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;font-size:var(--label);">
+        <div>
+          <strong>VD-20260827-0001</strong> — Ổ gà km 42+300
+          <span class="chip severity-high" style="margin-left:8px;">Nghiêm trọng</span>
+        </div>
+        <button class="btn btn-secondary" type="button"><i class="fas fa-user-plus"></i> Giao việc</button>
+      </div>
+      <div style="font-size:12px;color:var(--color-muted);margin-top:8px;">
+        Thay mock overlay «Người xử lý» (assignName) bằng shared modal Zone B → POST task thật.
+      </div>
+    </div>
+
+    <h1 class="section-title">S-GIAO-VIEC-MODAL — Zone B (patrol + incident shared)</h1>
+
+    <div class="modal-overlay">
+      <div class="modal-card" data-des-id="DES-RTI-MODAL" role="dialog" aria-modal="true">
+        <div class="modal-hdr">Giao việc — Xử lý từ tuần tra</div>
+        <div class="modal-body">
+          <div class="field">
+            <label>Tiêu đề *</label>
+            <input type="text" value="Xử lý điểm Cấp bách — QL.1 km 12" />
+          </div>
+          <div class="field">
+            <label>Ghi chú</label>
+            <textarea rows="2" placeholder="Ghi chú từ ca / sự cố…">Từ kết ca tuần đường</textarea>
+          </div>
+          <div class="row-2">
+            <div class="field">
+              <label>Ưu tiên *</label>
+              <select>
+                <option selected>Cao (high)</option>
+                <option>Khẩn cấp (critical)</option>
+                <option>Trung bình (medium)</option>
+                <option>Thấp (low)</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Cách gán *</label>
+              <select>
+                <option selected>Pool (patrol Cấp bách)</option>
+                <option>Trực tiếp (direct)</option>
+                <option>Team</option>
+              </select>
+            </div>
+          </div>
+          <div class="row-2">
+            <div class="field">
+              <label>Hạn xử lý *</label>
+              <input type="datetime-local" value="2026-08-28T10:00" />
+            </div>
+            <div class="field">
+              <label>Người nhận (khi direct)</label>
+              <input type="search" placeholder="Tìm người dùng…" disabled />
+            </div>
+          </div>
+          <div style="font-size:11px;color:var(--color-muted);">
+            Hidden: domainSource=patrol · sourceEntityType=patrol_session · sourceEntityId={guid}
+          </div>
+        </div>
+        <div class="modal-ftr">
+          <button class="btn btn-secondary" type="button">Hủy</button>
+          <button class="btn btn-primary" type="button"><i class="fas fa-check"></i> Tạo công việc</button>
+        </div>
+      </div>
+    </div>
+
+    <div data-des-id="DES-RTI-NAV" class="nav-note">
+      <i class="fas fa-check-circle" style="color:#059669;"></i>
+      <strong>Post-create (Zone C):</strong> toast «Đã tạo công việc» → navigate
+      <code>/platform-task/cv/{taskId}?from=patrol&amp;sourceId={sessionId}</code>
+      · incident: <code>?from=incident&amp;sourceId={incidentId}</code>
+    </div>
+
+    <h1 class="section-title">S-TASK-HANDOFF + S-CHAT-SECTION — Task detail <span class="zone-tag">/cv/:id</span></h1>
+
+  </div>
+
+  <div class="page" style="max-width:1180px;">
+    <div data-des-id="DES-RTI-SOURCE-BANNER" class="handoff-banner">
+      <i class="fas fa-route"></i>
+      <div>
+        <strong>Chuyển từ tuần tra</strong> — Công việc được tạo từ phiên <code>PT-2026-0812</code>
+        <a href="#" style="margin-left:8px;font-size:var(--label);"><i class="fas fa-external-link-alt"></i> Xem phiên ↗</a>
+      </div>
+    </div>
+    <div class="handoff-banner" style="background:#fef2f2;border-color:#fca5a5;margin-bottom:12px;">
+      <i class="fas fa-exclamation-triangle" style="color:#b91c1c;"></i>
+      <div>
+        <strong>Chuyển từ sự cố</strong> — <code>VD-20260827-0001</code>
+        <a href="#" style="margin-left:8px;font-size:var(--label);"><i class="fas fa-external-link-alt"></i> Xem sự cố ↗</a>
+        <span style="font-size:11px;color:var(--color-muted);margin-left:8px;">(extend HandoffBanner — patrol + incident)</span>
+      </div>
+    </div>
+
+    <div class="card" style="padding:16px;margin-bottom:12px;">
+      <div style="font-size:var(--label);color:var(--color-muted);margin-bottom:4px;">CV-0042 · Đang xử lý · <span class="chip priority">Ưu tiên cao</span></div>
+      <h2 style="margin:0 0 12px;font-size:18px;">Xử lý điểm Cấp bách — QL.1 km 12</h2>
+    </div>
+
+    <div class="card" data-des-id="DES-MSG-SEC-TAB">
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:0 12px;border-bottom:1px solid var(--color-border);">
+        <div style="display:flex;">
+          <button type="button" style="padding:10px 14px;font-size:var(--label);font-weight:600;color:var(--color-primary);background:none;border:none;border-bottom:2px solid var(--color-primary);">
+            <i class="fas fa-comments"></i> Trao đổi
+          </button>
+          <button type="button" style="padding:10px 14px;font-size:var(--label);font-weight:600;color:var(--color-muted);background:none;border:none;border-bottom:2px solid transparent;">
+            <i class="fas fa-comment-dots"></i> Bình luận
+          </button>
+        </div>
+        <div style="display:flex;gap:8px;padding:8px 0;">
+          <button class="btn btn-ghost" type="button" title="Thông báo"><i class="fas fa-bell"></i></button>
+          <button class="btn btn-ghost" type="button" title="Mở rộng"><i class="fas fa-expand"></i></button>
+          <button class="btn btn-ghost" type="button" title="Chi tiết ↗"><i class="fas fa-external-link-alt"></i></button>
+        </div>
+      </div>
+      <div data-des-id="DES-MSG-SEC-CHAT" style="padding:14px;min-height:160px;">
+        <div style="max-width:75%;padding:10px 12px;background:var(--color-bg);border-radius:12px 12px 12px 4px;font-size:var(--input);margin-bottom:8px;">
+          Đã khảo sát xong, cần báo cáo trong 24h.
+        </div>
+        <div style="max-width:75%;padding:10px 12px;background:var(--color-primary);color:#fff;border-radius:12px 12px 4px 12px;font-size:var(--input);margin-left:auto;margin-bottom:8px;">
+          OK, gửi ảnh hiện trường kèm theo.
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;padding:12px;border-top:1px solid var(--color-border);">
+        <textarea placeholder="Nhắn tin…" aria-label="Nhắn tin" style="flex:1;font-size:var(--input);padding:10px;border:1px solid var(--color-border);border-radius:8px;resize:none;min-height:44px;"></textarea>
+        <button type="button" style="width:44px;height:44px;border-radius:8px;border:none;background:var(--color-primary);color:#fff;font-size:16px;cursor:pointer;" title="Gửi">
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </div>
+    </div>
+    <div data-des-id="DES-MSG-SEC-CMT" style="display:none;font-size:12px;color:var(--color-muted);margin-top:4px;padding:0 4px;">
+      CommentsTab thread — tab index 1 (ẩn khi tab 0 active)
+    </div>
+
+    <div data-des-id="DES-MSG-LEAVE" style="margin-top:24px;padding:12px;background:#fef2f2;border:1px dashed #fca5a5;border-radius:8px;font-size:var(--label);">
+      <strong>DES-MSG-LEAVE</strong> — LeaveConfirmModal khi composer dirty (parcel) · modal dirty discard · <strong>cấm</strong> window.confirm / window.alert
+    </div>
+  </div>
+</body>
+</html>

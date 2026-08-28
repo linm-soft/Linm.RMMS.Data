@@ -126,11 +126,22 @@ T-UI-FORM-01 → T-UI-ACT-01 → T-QA-CRUD-01
 - tree_master — n/a
 - tl-list-shell-height (LAYOUT-06) — PASS (prior · giữ)
 
+### T-PILOT-01 — e2e + HDSD + guide (`/su-co`)
+
+| Field | Value |
+|-------|-------|
+| layer | qa+docs |
+| status | **pending** |
+| deps | T-QA-CRUD-01 |
+| artifact | `task/pilot-su-co.md` |
+
+**DoD:** E2E PNG `qa/screens/{caseId}.png` · `/gen-doc-hdsd` · `/gen-guide-document incident`. Không rewrite LIST/FORM.
+
 ## Handoff → Dev / Review
 
 | Field | Value |
 |-------|-------|
-| Next | Dev T-UI-ACT-01 · T-BE-CRUD-01 verify · QA-CRUD · Review autopilot |
+| Next | **T-PILOT-01** (`task/pilot-su-co.md`) · Dev leftover · Review |
 | Anti-dup | reuse `incidentService.delete` · BE controller sẵn |
 | UI SSOT | `MFE-Source/Linm.Web.RMMS.Field` · `pages/IncidentListPage` |
 | BE SSOT | `D:/AI-QLBD/Linm.RMMS.WebService` · Incident |

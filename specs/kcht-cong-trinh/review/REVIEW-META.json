@@ -1,0 +1,13 @@
+{
+  "feature": "kcht-cong-trinh",
+  "status": "done",
+  "review_confirm": "approve",
+  "taskId": "task_10be583d",
+  "reviewedAt": "2026-08-27T01:45:00.000Z",
+  "p0Open": 0,
+  "autoApprove": true,
+  "skillId": "agent-review",
+  "skillVersion": "2026.08.21.01",
+  "schemaVersion": "qldb-workflow-skill-v1",
+  "versionGate": "ok"
+}

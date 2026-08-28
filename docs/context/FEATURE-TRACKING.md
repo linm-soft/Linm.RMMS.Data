@@ -3,8 +3,8 @@
 > **SSOT theo dõi.** Backlog mô tả: [`features/README.md`](features/README.md). Pipeline scan: [`implement-status.json`](implement-status.json) (có thể lệch — **ưu tiên** `specs/{slug}/STATUS.md`).  
 > **HĐ:** `37001-08/2026-LIC/LINM-JNET` · PL01 P1 CAPEX 900tr (A 450 + B 300 + C 150). Spec: [`Linm.RMMS.Contract/analy/PROMPT-SPEC-P1-P2-PHU-LUC-RELEASE.md`](../../../Linm.RMMS.Contract/analy/PROMPT-SPEC-P1-P2-PHU-LUC-RELEASE.md).  
 > **Demo hub:** `Linm.RMMS.Demo` · `npm run start:std` → http://localhost:5180 · catalog [`demoCatalog.ts`](../../../Linm.RMMS.Demo/src/demoCatalog.ts).  
-> **Cập nhật:** 2026-08-27 · skill **`/gen-feature-tracking`** — thêm feature / implement (queue + chat) **phải** upsert file này. Nguồn STATUS đọc cùng ngày.  
-> **Changelog:** 27/08/2026 — upsert `kcht-cong-trinh` (công văn KQLĐB IV · 5 phân hệ CT KCHT · ngoài PL01 900tr) · `/hey-linm` + plan.
+> **Cập nhật:** 2026-08-28 · skill **`/gen-feature-tracking`** — thêm feature / implement (queue + chat) **phải** upsert file này. Nguồn STATUS đọc cùng ngày.  
+> **Changelog:** 28/08/2026 — `incident` (`/su-co`) upsert Pipeline `data_analy` / `pending` + task **T-PILOT-01** (e2e + HDSD + guide). · 27/08/2026 — upsert `kcht-cong-trinh` (công văn KQLĐB IV · 5 phân hệ CT KCHT · ngoài PL01 900tr) · `/hey-linm` + plan.
 
 ## Chính sách (chốt user 2026-08-26)
 
@@ -66,15 +66,15 @@
 | `tuan-duong-mobile` | TT 04 mobile demo | 04 | P1-900 | (gắn mobile-p1) | catalog | [24](24-TUAN-DUONG-DUONG-BO.md) | [mobile-p1](../../specs/mobile-p1/STATUS.md) |
 | `platform-task` | Platform QLCV | — | support P1 | `qa` / `paused` | catalog | [ctx](features/platform-task.md) | [ST](../../specs/platform-task/STATUS.md) |
 | `platform-message` | Chat parcel | — | support P1 | `qa` / `await_confirm` | none | [ctx](features/platform-message.md) | [ST](../../specs/platform-message/STATUS.md) |
-| `rmms-task-integrate` | Task × tuần đường | — | P2 later | blocked | none | [plan](../plan/platform-task/RMMS-TUAN-DUONG.md) | [ST](../../specs/rmms-task-integrate/STATUS.md) |
+| `rmms-task-integrate` | Task × tuần đường | — | P2 later | `done` / `done` | none | [plan](../plan/platform-task/RMMS-TUAN-DUONG.md) | [ST](../../specs/rmms-task-integrate/STATUS.md) |
 | `attendance` | Chấm công GPS | 05 | P1-900 | done | catalog | [ctx](features/attendance.md) | [ST](../../specs/attendance/STATUS.md) |
-| `incident` | Quản lý sự cố | 06 | P1-900 | Dev pending | catalog | [ctx](features/incident.md) | [ST](../../specs/incident/STATUS.md) |
+| `incident` | Quản lý sự cố | 06 | P1-900 | `data_analy` / `pending` | catalog | [ctx](features/incident.md) | [ST](../../specs/incident/STATUS.md) |
 | `maintenance` | Bảo trì khung + WO P2 | 07 / 07-P2 | P1-900 khung · P2-CR full | done | catalog | [ctx](features/maintenance.md) | [ST](../../specs/maintenance/STATUS.md) |
 | `predict` | AI dự báo | 08 / 08-P2 | P1-900 · P2-CR | done | catalog | [ctx](features/predict.md) | [ST](../../specs/predict/STATUS.md) |
 | `ops` | Điều hành | 09 / 09-P2 | P1-900 board · P2-CR full | done | catalog | [ctx](features/ops.md) | [ST](../../specs/ops/STATUS.md) |
 | `estimate` | AI ước lượng | 10 / 10-P2 | P1-900 · P2-CR | done | catalog | [ctx](features/estimate.md) | [ST](../../specs/estimate/STATUS.md) |
 | `contract` | HĐ & ngân sách | 11 / 11-P2 | P1-900 thin · P2-CR | done | catalog | [ctx](features/contract.md) | [ST](../../specs/contract/STATUS.md) |
-| `kcht-cong-trinh` | Công trình KCHT (Khu IV) | — | CR-Khu-IV | `design` / `in_progress` | none | [ctx](features/kcht-cong-trinh.md) | [ST](../../specs/kcht-cong-trinh/STATUS.md) |
+| `kcht-cong-trinh` | Công trình KCHT (Khu IV) | — | CR-Khu-IV | `done` / `done` | none | [ctx](features/kcht-cong-trinh.md) | [ST](../../specs/kcht-cong-trinh/STATUS.md) |
 | `inventory` | Vật tư | 12 | P3-CR | Dev pending | catalog | [ctx](features/inventory.md) | [ST](../../specs/inventory/STATUS.md) |
 | `drone` | Drone RC | 13-P2 | P2-CR | done | catalog | [ctx](features/drone.md) | [ST](../../specs/drone/STATUS.md) |
 | `toc` | TOC / VMS | 14 | P3-CR | no STATUS | catalog | [ctx](features/toc.md) | — |
@@ -114,7 +114,7 @@
 | P1-900 | `csdl-so-sach` | pipeline 0→6 |
 | P1-900 | `ai-vision` | Dev · analy paused · QA/Review |
 | P1-900 | `patrol` | Dev leftover `crud_formtype` |
-| P1-900 | `incident` | Dev → QA → Review |
+| P1-900 | `incident` | **T-PILOT-01** e2e+HDSD+guide · Dev → QA → Review |
 | P1-900 | `users` | Dev (Review đã done) |
 | P1-900 | `asset-kcht-dashboard` | QA paused → Review |
 | P1-900 | `asset-kcht-32` | design_confirm |
@@ -329,8 +329,8 @@ Demo đề cương TT 04 — catalog [`tuan-duong-web.html`](../../../Linm.RMMS.
 | Contract | 06 · E2E + offline queue |
 | Demo | [`incident.html`](../../../Linm.RMMS.Demo/src/demo/incident/incident.html) · std `/su-co` :9304 |
 | API | `api/v1/su-co/incidents` |
-| Pipeline | PO–TL **done** · **Dev pending** · QA/Review pending |
-| Next | Dev implement |
+| Pipeline | `data_analy` / `pending` · PO–TL **done** · Dev/QA/Review pending |
+| Next | **T-PILOT-01** e2e + HDSD + guide (`task/pilot-su-co.md`) · rồi Dev implement |
 | Draft tách | `incident-list` · `incident-create` — STATUS draft |
 
 ---

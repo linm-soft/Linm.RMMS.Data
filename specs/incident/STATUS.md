@@ -65,6 +65,7 @@
 | T-UI-MAP-FORM | — | — | — | n/a | packKind=list |
 | T-QA-01 | incident | qa | T-UI-FORM-01 | done | scenarios |
 | T-QA-CRUD-01 | incident | qa | T-UI-ACT-01 | done | C/E/V/D + row actions |
+| T-PILOT-01 | `/su-co` | qa+docs | T-QA-CRUD-01 | pending | pilot=1 · e2eQa=1 · HDSD + guide · `task/pilot-su-co.md` |
 
 ## Blockers / open questions
 
@@ -79,6 +80,7 @@
 
 ## Resume / closeout
 
+- next: **T-PILOT-01** · `task/pilot-su-co.md` · e2e + HDSD + guide `/su-co` · 2026-08-28
 - resume: `task_28ef1042` · FormType CRUD gap · at: `2026-08-14T12:20:00.000Z`
 - GAP-P2-ACT-DELETE · GAP-P2-ACT-ASSIGN-CLOSE · GAP-TL-FORMTYPE-01 **CLOSED**
 - MFE SSOT: `Linm.Web.RMMS.Field` (`Linm.Web.RMMS.Incident` không tồn tại)
