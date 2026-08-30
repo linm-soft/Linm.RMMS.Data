@@ -26,6 +26,7 @@
 | 0b | `road-route` | Tuyến đường | Master | P1 | `Sau-sat-nhap/gov` raw tuyến | Context | [road-route.md](road-route.md) · [đề cương LRS](../24-TUAN-DUONG-DUONG-BO.md) |
 | 0c | `asset-type` | Loại tài sản KCHT | Master | P1 | `Sau-sat-nhap/gov` (catalog) | Context | [asset-type.md](asset-type.md) |
 | 0d | `partner-unit` | Sở / BOT / Cty | Master | P1 | DRVN seed · CUC 2 = demo | Context | [partner-unit.md](partner-unit.md) |
+| 0e | `org-route-scope` | Zone km Khu ↔ tuyến / đoạn | Master | P1 | Cây DRVN + LRS · **không** dump gán | Context | [org-route-scope.md](org-route-scope.md) |
 | 1 | `asset` | Quản lý tài sản đường bộ | Asset | P1 | Mobile Tài sản · Web KCHT · Giám sát TS | Demo | [asset.md](asset.md) |
 | 1a | `asset-kcht-32` | 36 loại TS (thông số + sự cố) | Asset×Incident | P1 | CSDL 12 biểu · `Sau-sat-nhap/gov` | Context | [asset-kcht-32.md](asset-kcht-32.md) |
 | 1b | `csdl-so-sach` | CSDL 12 biểu + 8 sổ BDTX | Asset·Patrol·Maint | P1 | Hồ sơ chuẩn hóa sổ sách | Demo | [csdl-so-sach.md](csdl-so-sach.md) · [../11-…](../11-CSDL-SO-SACH-DATABASE-API.md) |

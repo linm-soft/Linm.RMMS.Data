@@ -3,9 +3,9 @@
 > **SSOT theo dõi.** Backlog mô tả: [`features/README.md`](features/README.md). Pipeline scan: [`implement-status.json`](implement-status.json) (có thể lệch — **ưu tiên** `specs/{slug}/STATUS.md`).  
 > **HĐ:** `37001-08/2026-LIC/LINM-JNET` · PL01 P1 CAPEX 900tr (A 450 + B 300 + C 150). Spec: [`Linm.RMMS.Contract/analy/PROMPT-SPEC-P1-P2-PHU-LUC-RELEASE.md`](../../../Linm.RMMS.Contract/analy/PROMPT-SPEC-P1-P2-PHU-LUC-RELEASE.md).  
 > **Demo hub:** `Linm.RMMS.Demo` · `npm run start:std` → http://localhost:5180 · catalog [`demoCatalog.ts`](../../../Linm.RMMS.Demo/src/demoCatalog.ts).  
-> **Cập nhật:** 2026-08-29 · skill **`/gen-feature-tracking`** — thêm feature / implement (queue + chat) **phải** upsert file này. Nguồn STATUS đọc cùng ngày.  
+> **Cập nhật:** 2026-08-30 · skill **`/gen-feature-tracking`** — thêm feature / implement (queue + chat) **phải** upsert file này. Nguồn STATUS đọc cùng ngày.  
 > **Tài liệu khách (đã/chưa phân tích) — SSOT duy nhất:** [`docs/data/SOURCE-TRACKING.md`](../data/SOURCE-TRACKING.md) · extract [`docs/data/analyzed/`](../data/analyzed/). **Cấm** đọc lại xlsx/docx/pdf khi dòng = `analyzed`.  
-> **Changelog:** 29/08/2026 — enqueue `kcht-cong-trinh` `task_399151e1` edit_page PH2–PH4 · extract wave + SRC-KCT-GN03. · 28/08/2026 — `incident` (`/su-co`) upsert Pipeline `data_analy` / `pending` + task **T-PILOT-01** (e2e + HDSD + guide). · 27/08/2026 — upsert `kcht-cong-trinh` (công văn KQLĐB IV · 5 phân hệ CT KCHT · ngoài PL01 900tr) · `/hey-linm` + plan.
+> **Changelog:** 30/08/2026 — upsert `org-route-scope` (tách zone REG-I…IV config km–km tuyến/đoạn · SU + nhà thầu · `/data-gov-integration`) · enqueue `task_fe83a3c0` `roleOnly=data_analy`. · 29/08/2026 — enqueue `kcht-cong-trinh` `task_399151e1` edit_page PH2–PH4 · extract wave + SRC-KCT-GN03. · 28/08/2026 — `incident` (`/su-co`) upsert Pipeline `data_analy` / `pending` + task **T-PILOT-01** (e2e + HDSD + guide). · 27/08/2026 — upsert `kcht-cong-trinh` (công văn KQLĐB IV · 5 phân hệ CT KCHT · ngoài PL01 900tr) · `/hey-linm` + plan.
 
 ## Chính sách (chốt user 2026-08-26)
 
@@ -43,6 +43,7 @@
 | `road-route` | Tuyến đường | — | support | done | none | [ctx](features/road-route.md) | [ST](../../specs/road-route/STATUS.md) |
 | `asset-type` | Loại TS KCHT | — | support | done | none | [ctx](features/asset-type.md) | [ST](../../specs/asset-type/STATUS.md) |
 | `partner-unit` | Sở / BOT / Cty | — | support | done | none | [ctx](features/partner-unit.md) | [ST](../../specs/partner-unit/STATUS.md) |
+| `org-route-scope` | Zone km Khu↔tuyến/đoạn | — | support | `data_analy` / `draft` | none | [ctx](features/org-route-scope.md) | [ST](../../specs/org-route-scope/STATUS.md) |
 | `asset` | QL tài sản ĐB | 01 | P1-900 | `data_analy` / `draft` | catalog | [ctx](features/asset.md) | [ST](../../specs/asset/STATUS.md) |
 | `asset-kcht-32` | 36 loại TS | 01 | P1-900 | `qa` / `await_confirm` | proto mobile-p1 | [ctx](features/asset-kcht-32.md) | [ST](../../specs/asset-kcht-32/STATUS.md) |
 | `csdl-so-sach` | 12 biểu + 8 sổ | 01 | P1-900 | `done` / `done` | catalog | [ctx](features/csdl-so-sach.md) | [ST](../../specs/csdl-so-sach/STATUS.md) |
@@ -127,6 +128,7 @@
 | Gói B | `asset` mobile | TL · iOS/Android/BFF **BLOCKED** |
 | P3-CR | `inventory` | Dev · be/ui repo confirm |
 | CR-Khu-IV | `kcht-cong-trinh` | Wave 1 done · **edit_page PH2–PH4** queue data_analy · PH5 park |
+| Now | `org-route-scope` | data_analy — tách zone REG config km–km |
 | support | `feedback` · `master` hub · `patrol-checkin` | draft |
 | support | `map-service` · `gis-osm-clip` · `directions` · `legal-tech-corridor` · `toc` | chưa STATUS |
 
@@ -155,6 +157,15 @@ Rule: `packKind=master` **không** gen demo — context + Design prototype.
 | Pipeline | **done** |
 | Seed | [`seed/org-unit-seed.json`](seed/org-unit-seed.json) · import [`features/import-gov-ssot.md`](features/import-gov-ssot.md) |
 | Ref | [`20-ORG-STRUCTURE-DRVN.md`](20-ORG-STRUCTURE-DRVN.md) · [`24-TUAN-DUONG-DUONG-BO.md`](24-TUAN-DUONG-DUONG-BO.md) (LRS) |
+
+#### `org-route-scope`
+
+| | |
+|--|--|
+| Release / implement | support P1 · tách zone REG-I…IV config km–km theo tuyến/đoạn |
+| Demo | none (`packKind=master`) |
+| Pipeline | `data_analy` / `draft` |
+| Next | `/agent-data-analy` `feature_context` · control-hint · SA bảng gán — **cấm** seed dump |
 
 ---
 

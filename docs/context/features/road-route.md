@@ -57,3 +57,4 @@ QL.1 · HCM · QL.7 · QL.8 · QL.9 · QL.10 · QL.12A/C · QL.15* · QL.16 · Q
 | GAP-ROUTE-03 | Noise `Đã Import Xong` — exclude seed |
 | GAP-TD-LRS-01 | Snap GPS WGS-84 → lý trình Km+m trên `code` tuyến. Runtime map SRID 4326 ([`map-service.md`](map-service.md)); VN-2000 chỉ khi nộp hồ sơ. **Cấm** invent `api/v1/lrs-*` trước SA. |
 | GAP-ROUTE-04 | Unique ID đoạn HĐ (RADS đề cương) vs `code` tuyến — SA: attribute HĐ hay child route |
+| GAP-ROUTE-05 | Dropdown BC dùng tên `Km 0+000…` (NHANH/TRANH/GOM) như tuyến mẹ — peer [`org-route-scope.md`](org-route-scope.md) GAP-ORS-05 |

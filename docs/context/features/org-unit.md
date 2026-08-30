@@ -60,6 +60,7 @@ Base: `api/v1/integration/org-units` (DOMAIN-MAP **Integration** · live · **c�
 |----|-------|
 | GAP-ORG-01 | Import có Chi cục II.1 / II.6 — không trên DRVN SSOT → keep legacy + flag |
 | GAP-ORG-02 | Tên legacy Chi cục vs Văn phòng — alias map |
+| GAP-ORG-03 | SearchInput «Đơn vị quản lý» trộn Sở vào cây Cục — peer [`org-route-scope.md`](org-route-scope.md) **GAP-ORS-UI-01** · km zone **không** gắn lên node org |
 
 ## 6. Consumer pages (SearchInput)
 
