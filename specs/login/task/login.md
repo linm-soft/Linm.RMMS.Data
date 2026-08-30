@@ -10,7 +10,7 @@
 | packKind | **`shell`** (PO confirm) |
 | stack | `native_dual` |
 | Feature Kind | **shell** auth full-page `#sc-login` · **cấm** Kind A–G web / Lin* list / Slideout / tab 5 |
-| route_confirm | **route_a** (autoApprove=ON) — auth root `#sc-login` / `DES-MOB-LOGIN` khi chưa phiên → toast success → **Home** (tab IA ngoài pack) · **cấm** deep-link web / `mfeStdUrl` |
+| route_confirm | **route_a** — cold start `#sc-home` guest · overlay `#sc-login` từ `btn-home-login` → toast success → Home staff · back `btn-login-back` · **cấm** deep-link web / `mfeStdUrl` |
 | autoApprove | **ON** |
 | e2eQa | ON khi QA · Xcode Simulator + Android emulator · **cấm** `yarn start:std` / `mfeStdUrl` |
 | prior · data_analy | **confirmed** · `_data-analy/login-*.md` · contentHash `sha256:2b627cdf80eca92c1f91cc999b6b516ca09d534ad0ffff887800699c4a02c3ef` · bffContentHash `sha256:de9bc7143374ca6a38aad393b3ce928ad00462ade2254adf9bcdfd97ac7eb017` |

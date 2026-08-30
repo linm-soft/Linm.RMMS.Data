@@ -102,7 +102,7 @@ IA lock (design §2 / ux-analy §1): `home → push asset-hub → pop home`. **C
 | walletT | `LinmWalletCard` title | live optional route · fail → **QL.1 · Khu IV** |
 | walletM | `LinmWalletCard` subtitle | `{N} loại KCHT · thông số + checklist sự cố` · fail → «32 loại…» |
 | walletPatrol | `LinmWalletCard` line 3 | demo **Cột Km 1556+000 · đang tuần** · **không** API |
-| tileTypes | `LinmHubTile` bg `#0C84C0` · `#i-cube` | title **32 loại tài sản** · toast **32 loại tài sản** |
+| tileTypes | `LinmHubTile` bg `#0C84C0` · `#i-cube` | title **32 loại tài sản** · toast **32 loại tài sản** · **cùng height** sibling trong hàng (`GAP-MOB-AHUB-ALIGN-01`) |
 | tileMap | `LinmHubTile` bg `#1B8A4A` | **Xem trên bản đồ** · toast cùng nhãn |
 | secCollect | `LinmSectionLabel` | **Thu thập** |
 | tileCollect | `LinmHubTile` | **Thủ công** · toast |
@@ -117,6 +117,8 @@ IA lock (design §2 / ux-analy §1): `home → push asset-hub → pop home`. **C
 | toast | `LinmToast` | sibling · offline optional · **cấm** `UIAlert` |
 
 **Cấm** WebView HTML · watermark Gói · raw `LazyVGrid`.
+
+**UI notes T-IOS / T-AND (`/edit-mobile-feature`):** hàng hub 2 cột stretch cùng height · `LinmHubTile` subtitle slot 2 dòng · iOS `hubRow` `maxHeight: .infinity` · Android `LinmHomeGrid` `IntrinsicSize.Min` + `fillMaxHeight` · **cấm** revert card height-auto (`GAP-MOB-AHUB-ALIGN-01`).
 
 ### API / store
 

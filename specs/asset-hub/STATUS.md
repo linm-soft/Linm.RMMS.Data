@@ -102,6 +102,7 @@
 - GAP-F-AHUB-01 — **Review verified:** optional `road-routes/search` · iOS live · Android demo · hub **không** block
 - GAP-F-AHUB-02 — **Review verified:** tile «32 loại tài sản» · subtitle count live/demo
 - GAP-F-AHUB-03 — **Review verified:** AI pending empty → ẩn section
+- GAP-MOB-AHUB-ALIGN-01 — **`/edit-mobile-feature` 2026-08-29:** hub tile hàng 2 cột stretch cùng height · subtitle 2 dòng · lock design/ux/map/task/implement — **cấm** revert
 - R-07 P2 — thiếu `PrivacyInfo.xcprivacy` / Play Data safety / landing HTTPS → **Accept** đến `post_review`/`app_submit` (**không** chặn hub done)
 - Sibling **không** start đến khi board Approve (`GAP-MOB-ACT-06`)
 - Step 4b / T-BE-* — **N/A** (không endpoint mới)

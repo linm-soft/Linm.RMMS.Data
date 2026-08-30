@@ -1,0 +1,77 @@
+appId: org.linmsoft.rmms
+---
+# asset · store P6 ×2 · cold start guest #sc-home → login → #tile-asset → hub → #tile-list → #sc-asset-list (Pixel 1080×1920)
+# cấm hideKeyboard (BACK có thể về launcher) — tap title + Enter như mnt-list/incident-list
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 20000
+- tapOn:
+    id: "btn-home-login"
+- extendedWaitUntil:
+    visible:
+      id: "f-user"
+    timeout: 15000
+- tapOn:
+    id: "f-user"
+- eraseText
+- inputText: "linm-soft"
+- tapOn: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
+- tapOn:
+    id: "f-pass"
+- eraseText
+- inputText: "Linm@2026"
+- pressKey: Enter
+- waitForAnimationToEnd:
+    timeout: 4000
+- tapOn:
+    id: "btn-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
+- extendedWaitUntil:
+    visible: "Trang Chủ"
+    timeout: 45000
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 15000
+- scrollUntilVisible:
+    element:
+      id: "tile-asset"
+    direction: DOWN
+    timeout: 15000
+- tapOn:
+    id: "tile-asset"
+- extendedWaitUntil:
+    visible:
+      id: "sc-asset-hub"
+    timeout: 20000
+- tapOn:
+    id: "tile-list"
+- extendedWaitUntil:
+    visible:
+      id: "sc-asset-list"
+    timeout: 25000
+- assertVisible:
+    id: "asset-list-search"
+- assertVisible:
+    id: "row-asset-0"
+- assertVisible: "Danh sách"
+- takeScreenshot: P6-CORE
+- scrollUntilVisible:
+    element:
+      id: "row-asset-1"
+    direction: DOWN
+    timeout: 10000
+    optional: true
+- assertVisible:
+    id: "row-asset-1"
+    optional: true
+- takeScreenshot: P6-CORE-2
+- assertVisible:
+    id: "sc-asset-list"

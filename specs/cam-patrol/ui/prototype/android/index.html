@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RMMS · Thu thập bằng camera · Android</title>
+  <style>
+    :root {
+      --blue: #0C84C0; --green: #34C759; --orange: #FF9500; --danger: #E53935;
+      --surface: #F2F2F7; --card: #fff; --label: #1C1C1E; --muted: #8E8E93;
+      --sep: rgba(60,60,67,.29); --fov: #5AC8FA;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      font-family: "Roboto", "Noto Sans", sans-serif;
+      background: #1c1c1e; color: var(--label);
+    }
+    .phone {
+      width: 412px; height: 915px; background: var(--surface); border-radius: 28px;
+      overflow: hidden; position: relative; box-shadow: 0 20px 60px rgba(0,0,0,.45);
+      display: flex; flex-direction: column;
+    }
+    .status-bar { height: 36px; flex-shrink: 0; }
+    .top-bar {
+      display: flex; align-items: center; gap: 4px; padding: 8px 8px 12px;
+      background: var(--card); border-bottom: 1px solid var(--sep);
+    }
+    .icon-btn {
+      width: 40px; height: 40px; border: 0; background: none; border-radius: 20px;
+      display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--label);
+    }
+    .icon-btn svg { width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .nav-title { flex: 1; font-size: 20px; font-weight: 600; }
+    .content { flex: 1; overflow: auto; padding-bottom: 96px; }
+    .finder {
+      margin: 12px 16px; height: 240px; border-radius: 16px;
+      background: linear-gradient(160deg, #1a2332, #3a4a5c);
+      position: relative; overflow: hidden; color: #fff;
+    }
+    .finder .box {
+      position: absolute; left: 18%; top: 28%; width: 64%; height: 36%;
+      border: 2px solid var(--fov); border-radius: 8px;
+    }
+    .finder .stamp {
+      position: absolute; left: 12px; right: 12px; bottom: 12px;
+      font-size: 13px; font-weight: 650; line-height: 1.35;
+    }
+    .card-group {
+      margin: 0 16px 8px; background: var(--card); border-radius: 16px; overflow: hidden;
+    }
+    .row { padding: 12px 16px; border-bottom: 1px solid var(--sep); }
+    .row:last-child { border-bottom: 0; }
+    .row-sub { font-size: 13px; color: var(--muted); }
+    .row-title { font-size: 16px; font-weight: 600; margin-top: 2px; }
+    .cta-col { padding: 8px 16px 24px; display: flex; flex-direction: column; gap: 8px; }
+    .btn {
+      width: 100%; border: 0; border-radius: 24px; padding: 14px 16px;
+      font-size: 16px; font-weight: 600; cursor: pointer;
+    }
+    .btn-primary { background: var(--blue); color: #fff; }
+    .btn-primary:disabled { opacity: .45; cursor: not-allowed; }
+    .btn-secondary { background: var(--card); color: var(--label); }
+    .toast {
+      position: absolute; left: 24px; right: 24px; bottom: 120px; z-index: 20;
+      background: #323232; color: #fff; font-size: 14px;
+      padding: 14px 16px; border-radius: 8px; opacity: 0; transition: opacity .2s;
+      pointer-events: none; text-align: center;
+    }
+    .toast.show { opacity: 1; }
+    .backdrop {
+      position: absolute; inset: 0; background: rgba(0,0,0,.45); display: none;
+      align-items: center; justify-content: center; padding: 28px; z-index: 30;
+    }
+    .backdrop.open { display: flex; }
+    .modal {
+      background: var(--card); border-radius: 28px; padding: 24px 20px 16px; width: 100%;
+    }
+    .modal h3 { font-size: 17px; margin: 0 0 8px; font-weight: 600; }
+    .modal p { font-size: 13px; color: var(--muted); margin: 0 0 16px; line-height: 1.4; }
+    .modal .btn { margin: 0 0 8px; }
+    .nav {
+      position: absolute; left: 0; right: 0; bottom: 0; height: 80px;
+      background: var(--card); border-top: 1px solid var(--sep);
+      display: flex; padding: 8px 0 16px; z-index: 10;
+    }
+    .nav button {
+      flex: 1; display: flex; flex-direction: column; align-items: center; gap: 2px;
+      font-size: 11px; color: var(--muted); background: none; border: 0; cursor: pointer;
+    }
+    .nav button.on { color: var(--blue); }
+    .nav svg { width: 24px; height: 24px; fill: currentColor; stroke: none; }
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+  <div class="phone">
+    <div class="status-bar" aria-hidden="true"></div>
+
+    <!-- #sc-cam-patrol · DES-MOB-CAM-PATROL · data-tab=field · SSOT mobile-p1 · parity copy -->
+    <div class="screen active" id="sc-cam-patrol" data-des-id="DES-MOB-CAM-PATROL" data-tab="field">
+      <div class="top-bar solid">
+        <button type="button" class="icon-btn" onclick="goBack()" aria-label="Quay lại">
+          <svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg>
+        </button>
+        <div class="nav-title">Thu thập bằng camera</div>
+      </div>
+      <div class="content">
+        <div class="finder" data-des-id="DES-MOB-CAM-FINDER" id="finder">
+          <div class="box" aria-hidden="true"></div>
+          <div class="stamp" id="stamp">
+            <span id="stamp-route">QL.1 · Km 1556+040</span><br/>
+            <span id="stamp-gps">11.5308, 109.0082 · ±4 m · đã chốt</span>
+          </div>
+        </div>
+        <div class="card-group" id="detect-card">
+          <div class="row">
+            <div class="row-body">
+              <div class="row-sub">Phát hiện</div>
+              <div class="row-title">Ổ gà · Mặt đường</div>
+            </div>
+          </div>
+          <!-- Demo only · ship ẩn row (GAP-MOB-CAM-SCORE-01) · ?ship=1 ẩn -->
+          <div class="row" id="row-score">
+            <div class="row-body">
+              <div class="row-sub">Độ tin cậy</div>
+              <div class="row-title">91%</div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="row-body">
+              <div class="row-sub">Hành động</div>
+              <div class="row-title">Tạo vấn đề sau xác nhận</div>
+            </div>
+          </div>
+        </div>
+        <div class="cta-col">
+          <button type="button" class="btn btn-primary" id="btn-confirm" onclick="onConfirm()">Xác nhận · tạo vấn đề</button>
+          <button type="button" class="btn btn-secondary" id="btn-skip" onclick="onSkip()">Bỏ qua</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast" role="status"></div>
+
+    <div class="backdrop" id="modal-gps" data-des-id="DES-MOB-GPS-DENY">
+      <div class="modal">
+        <h3>Định vị bị tắt</h3>
+        <p>Cần vị trí để chấm công / chấm điểm tuần. Mở Cài đặt → Quyền vị trí cho RMMS.</p>
+        <button type="button" class="btn btn-primary" onclick="copyGuide()">Sao chép hướng dẫn</button>
+        <button type="button" class="btn btn-secondary" onclick="closeModal()">Để sau</button>
+      </div>
+    </div>
+
+    <nav class="nav" id="tabBar" data-des-id="DES-MOB-TABBAR" aria-label="Shell Tab 5">
+      <button type="button" data-tab="home"><svg viewBox="0 0 24 24"><use href="#i-home"/></svg>Trang Chủ</button>
+      <button type="button" class="on" data-tab="field"><svg viewBox="0 0 24 24"><use href="#i-mappin"/></svg>Tuần đường</button>
+      <button type="button" data-tab="incident"><svg viewBox="0 0 24 24"><use href="#i-warning"/></svg>Vấn đề</button>
+      <button type="button" data-tab="work"><svg viewBox="0 0 24 24"><use href="#i-wrench"/></svg>Công việc</button>
+      <button type="button" data-tab="me"><svg viewBox="0 0 24 24"><use href="#i-person"/></svg>Tôi</button>
+    </nav>
+  </div>
+
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+    <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+    <symbol id="i-mappin" viewBox="0 0 24 24"><path d="M12 21s7-5.2 7-11a7 7 0 1 0-14 0c0 5.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.2"/></symbol>
+    <symbol id="i-warning" viewBox="0 0 24 24"><path d="M12 3.5 22 20H2L12 3.5z"/><path d="M12 10v5"/><path d="M12 17.5h.01"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11.5 12 4l8 7.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1v-8.5z"/></symbol>
+    <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.5 6.5a4 4 0 0 0-5.6 5.6L3 18v3h3l5.9-5.9a4 4 0 0 0 5.6-5.6l-2.5 2.5-2.5-2.5 2.5-2.5z"/></symbol>
+    <symbol id="i-person" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 19.5c1.8-3.2 4.2-4.5 7-4.5s5.2 1.3 7 4.5"/></symbol>
+    <symbol id="i-video" viewBox="0 0 24 24"><rect x="3" y="7" width="12" height="10" rx="2"/><path d="M15 10.5 21 7v10l-6-3.5"/></symbol>
+  </svg>
+
+  <script>
+    /** Demo: ?deny=1 → GPS deny · ?ship=1 → ẩn score (GAP-MOB-CAM-SCORE-01) */
+    let gpsOk = !location.search.includes('deny=1');
+    const shipMode = location.search.includes('ship=1');
+
+    if (shipMode) {
+      const score = document.getElementById('row-score');
+      if (score) score.classList.add('hidden');
+    }
+    if (!gpsOk) {
+      document.getElementById('stamp-gps').textContent = '— · chưa chốt';
+      document.getElementById('btn-confirm').disabled = true;
+      document.getElementById('modal-gps').classList.add('open');
+    }
+
+    function toast(msg) {
+      const el = document.getElementById('toast');
+      el.textContent = msg;
+      el.classList.add('show');
+      setTimeout(() => el.classList.remove('show'), 2400);
+    }
+
+    function onConfirm() {
+      if (!gpsOk) {
+        document.getElementById('modal-gps').classList.add('open');
+        return;
+      }
+      toast('Đã tạo vấn đề SC-2409 · định vị đã chốt');
+    }
+
+    function onSkip() {
+      document.getElementById('detect-card').classList.add('hidden');
+      toast('Đã bỏ · nhận nhầm');
+    }
+
+    function copyGuide() {
+      closeModal();
+      toast('Đã sao chép: Cài đặt → Quyền vị trí');
+    }
+
+    function closeModal() {
+      document.getElementById('modal-gps').classList.remove('open');
+    }
+
+    function goBack() {
+      toast('← Tuần đường (patrol-home)');
+    }
+  </script>
+</body>
+</html>

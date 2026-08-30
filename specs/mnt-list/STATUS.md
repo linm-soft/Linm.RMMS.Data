@@ -3,47 +3,122 @@
 | Field | Value |
 |-------|-------|
 | feature | `mnt-list` |
-| phase | `data_analy` |
-| status | `in_progress` |
-| packKind | `list` |
-| demo | /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/mobile-p1/ui/prototype/ios/index.html |
+| phase | `done` |
+| status | `done` |
+| taskId | `task_6eafecab` |
+| packKind | `list` (**PO confirm**) |
+| changeScope | `new_page` |
+| stack | `native_dual` (**Design confirm**) |
+| demo | /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/mnt-list/ui/prototype/{ios,android}/index.html `#sc-mnt-list` · `DES-MOB-MNT-LIST` |
 | context | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/docs/context/features/mnt-list.md` |
 | mfe | — (native · **cấm** mfeStdUrl) |
 | mfeStdRoute | — |
 | mfeStdUrl | — |
 | ios | `Linm.RMMS.Mobile.iOS` · e2e-qa-mobile sim 6.9" |
 | android | `Linm.RMMS.Mobile.Android` · e2e-qa-mobile emulator |
-| bff | `Linm.RMMS.Mobile.Bff` |
-| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · DOMAIN-MAP — **cấm ERP.*** |
-| updatedAt | `2026-08-28T18:30:56.301Z` |
+| bff | `Linm.RMMS.Mobile.Bff` · `mobile-bff/api/v1/maintenance/work-orders` |
+| backend | `Linm.RMMS.WebService` · DOMAIN-MAP Maintenance — **cấm ERP.*** |
+| dataAnaly | `specs/_data-analy/mnt-list-control-hint.md` · `mnt-list-bff-endpoints.md` · `mnt-list-action-tree.md` · `mnt-list-real-data.md` |
+| po | `specs/mnt-list/po/requirement.md` |
+| design | `specs/mnt-list/ui/design.md` · `ux-analy.md` · `html-to-native-map.md` · `review/demo-parity.md` |
+| sa | `specs/mnt-list/be/solution-discovery.md` |
+| task | `specs/mnt-list/task/mnt-list.md` |
+| implement | `specs/mnt-list/implement/ios.md` · `implement/android.md` |
+| qa | `specs/mnt-list/qa/scenarios.md` · `qa/store/mnt-list/CAPTURE.md` · `ui/review/align-ux.md` |
+| review | `specs/mnt-list/review/findings.md` · `REVIEW-META.json` |
+| skillVersion | `2026.08.20.01` (agent-review-mobile) |
+| schemaVersion | `1` |
+| workflowVersion | `2026.08.25.01` |
+| rulesVersion | `2026.08.25.2` |
+| versionGate | `rechecked` |
+| contentHash | `sha256:mnt-list-mobile-list-20260828` |
+| bffContentHash | `sha256:mnt-list-mobile-bff-20260828` |
+| updatedAt | `2026-08-28T19:49:37.821Z` |
 ## Lock
 
 | agent | scope | id | at |
 |-------|-------|-----|-----|
-| — | — | — | — |
+| — | — | — | released after review `task_6eafecab` |
 
 ## Pipeline
 
 | Step | Agent | Artifact | Status |
 |------|-------|----------|--------|
-| 0 | data-analy | _data-analy/mnt-list-control-hint.md · mnt-list-bff-endpoints.md · mnt-list-action-tree.md | **in_progress** |
-| 1 | po | po/requirement.md | **pending** |
-| 2.1 | design | ui/design.md · ui/ux-analy.md · prototype/ios/index.html · prototype/android/index.html | **pending** |
-| 2.2 | sa | be/solution-discovery.md | **pending** |
-| 3 | team-lead | task/mnt-list.md | **pending** |
-| 4 | dev | implement/ios.md · implement/android.md | **pending** |
-| 5 | qa | qa/scenarios.md · qa/store/mnt-list/CAPTURE.md | **pending** |
-| 6 | review | review/findings.md | **pending** |
+| 0 | data-analy | _data-analy/mnt-list-control-hint.md · mnt-list-bff-endpoints.md · mnt-list-action-tree.md · mnt-list-real-data.md | **confirmed** |
+| 1 | po | po/requirement.md | **confirmed** |
+| 2.1 | design | ui/design.md · ui/ux-analy.md · ui/html-to-native-map.md · prototype/ios/index.html · prototype/android/index.html · ui/review/demo-parity.md | **confirmed** |
+| 2.2 | sa | be/solution-discovery.md | **confirmed** |
+| 3 | team-lead | task/mnt-list.md | **confirmed** |
+| 4 | dev | implement/ios.md · implement/android.md | **confirmed** |
+| 5 | qa | qa/scenarios.md · qa/store/mnt-list/CAPTURE.md · ui/review/align-ux.md | **confirmed** |
+| 6 | review | review/findings.md · REVIEW-META.json | **done** |
+## Confirms
+
+| Gate | Value |
+|------|-------|
+| change_scope | `new_page` |
+| packKind | **`list`** (PO confirm) |
+| stack_confirm | `native_dual` (**Design confirm**) |
+| be_repo_confirm | `Linm.RMMS.WebService` · Maintenance |
+| ios_repo_confirm | `Linm.RMMS.Mobile.iOS` |
+| android_repo_confirm | `Linm.RMMS.Mobile.Android` |
+| kit_missing_confirm | **N/A** — reuse map list kit dual |
+| design_confirm | **confirmed** (user Approve board) |
+| solution_confirm | **confirmed** (user Approve board) |
+| route_confirm | **route_a** (TL autoApprove=ON) |
+| sa_tz_gate | `tz_na` |
+| sa_xco_gate | `xco_na` |
+| sa_shared_table | `share_na` |
+| autoApprove | **ON** |
+| e2eQa | **ON** · `yarn e2e-qa-mobile` **PASS** · align **Aligned** Must 0 |
+| review_confirm | **confirmed** (user Approve board) |
+| align_confirm | **approve** (Must 0) |
+| Step 4b | **N/A** — reuse `GET maintenance/work-orders` |
+| sibling_assign | `estimate` · `mnt-chat` · `mnt-progress` · `mnt-log` · **pending_confirm** (**cấm** auto start) |
+
 ## Tasks
 
 | id | page | role | deps | status | notes |
 |----|------|------|------|--------|-------|
+| task_659bf5c2 | mnt-list | data_analy | home | **completed** | `/agent-data-analy-mobile` · roleOnly · VERIFY GATE PASS · sibling_assign |
+| task_18c2cf15 | mnt-list | po | data_analy | **completed** | `/agent-po-mobile` · roleOnly · autoApprove=ON · packKind `list` · VERIFY GATE PASS · hash skip · **cấm** re-scan |
+| task_9df501b1 | mnt-list | design | po | **completed** | `/agent-design-mobile` · roleOnly · dual proto · ux-analy · demo-parity · GAP-MOB-MNT-DEMO-01 closed · hash skip · **cấm** re-scan / e2e |
+| task_bd81eda6 | mnt-list | sa | design | **completed** | `/agent-sa-mobile` · roleOnly · solution_confirm approve · Step 4b N/A · **cấm** build/e2e/native Write |
+| task_1ca78155 | mnt-list | sa | design | **superseded** | replaced by `task_bd81eda6` |
+| task_3e9686a0 | mnt-list | team_lead | sa | **completed** | `/agent-tl-mobile` · roleOnly · task/mnt-list.md · route_a · T-IOS/T-AND · T-BE n/a · VERIFY GATE PASS · **cấm** e2e/build/native Write |
+| task_tl_pending | mnt-list | team_lead | sa | **superseded** | replaced by `task_3e9686a0` |
+| task_e238765c | mnt-list | dev | team_lead | **completed** | `/agent-dev-ios` + `/agent-dev-android` · T-IOS/T-AND PASS · xcodegen+xcodebuild iPhone 17 Pro · assembleDebug · BFF dotnet build · Step 4b N/A · **cấm** e2e |
+| task_dev_pending | mnt-list | dev | team_lead | **superseded** | replaced by `task_e238765c` |
+| task_63e3aa7d | mnt-list | qa | dev | **completed** | `/agent-qa-mobile` · e2eQa=ON · yarn e2e-qa-mobile ok:true · align Aligned Must 0 · store PNG · VERIFY GATE PASS · **cấm** start:std |
+| task_6eafecab | mnt-list | review | qa | **completed** | `/agent-review-mobile` · review_confirm=done · Must align 0 · SECURITY+DTO PASS · **cấm** build/e2e · VERIFY GATE PASS |
+| task_b0b56370 | estimate | data_analy | mnt-list | pending_confirm | sibling_assign · DES-MOB-EST |
+| task_36585641 | mnt-chat | data_analy | mnt-list | pending_confirm | sibling_assign |
+| task_1867f892 | mnt-progress | data_analy | mnt-list | pending_confirm | sibling_assign |
+| task_60cc0721 | mnt-log | data_analy | mnt-list | pending_confirm | sibling_assign |
 
 ## Blockers / open questions
 
--
+- Sibling `estimate` · `mnt-chat` · `mnt-progress` · `mnt-log` — **pending_confirm** (**cấm** auto start)
+- GAP-MOB-MNT-DEMO-01 — **closed** (Design dual 2 cards + mobile-p1 Android parity)
+- GAP-F-MNT-MOB-01 — AssignerName thiếu trên DTO — bind TeamName+AssigneeName (PO/Design/SA/TL/Dev chốt)
+- GAP-MOB-COPY-SEARCH-01 — Should · kit search **Tìm** vs demo **Tìm kiếm công việc…** (**non-block**)
+- `/edit-mobile-feature` 2026-08-29: **GAP-MOB-EDIT-STATUS-01** (status 1 dòng · cấm badge trùng) · **GAP-MOB-EDIT-ACT-01** (nút flex:1 dàn đều) — same card lock `incident-list` · design/ux/map/task/po/implement dual
+
+## VERIFY GATE (roleOnly=`review`)
+
+| Check | Result |
+|-------|--------|
+| review/findings.md · REVIEW-META.json | **PASS** · confirmed · review_confirm=done |
+| Security Keychain/Encrypted · Bearer · X-Company-Id | **PASS** |
+| DTO iOS=Android · no AssignerName · no forked API | **PASS** |
+| UI align Read CORE PNG vs demo · Must open | **PASS** · **0** · Aligned |
+| prior QA e2e / Dev builds (evidence) | **PASS** · **cấm** re-run yarn build/e2e/start:std |
+| Step 4b / migration | **SKIP** · N/A |
+| Chain other role | **SKIP** · GAP-PKT-ROLE-01 |
 
 ## Links
 
-- data-analy → po → ui → be → task → implement → qa → review
+- data-analy **confirmed** → po **confirmed** → design **confirmed** → sa **confirmed** → tl **confirmed** → dev **confirmed** → qa **confirmed** → review **confirmed** · phase=`done`
+- Parent: `home` tile Công việc · tab `work`
 - native: e2eQa ON → `yarn e2e-qa-mobile` (sim + emulator + Maestro) — **cấm** mfeStdUrl
+- closeout review: `task_6eafecab` · `/agent-review-mobile` · roleOnly=`review` · at: `2026-08-28T19:47:18.000Z`

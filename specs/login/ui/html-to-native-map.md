@@ -13,7 +13,8 @@ Mọi field packet `ui/ux-analy.md` §3 **cite** 1 hàng dưới hoặc parent m
 | `.login-brand` / `DES-MOB-LOGIN-BRAND` | Logo 192 tĩnh · **alpha** trên surface · title 22/700/uppercase · **cấm** tile `#000`/`#fff` · **cấm** band 1/3 | `Image` `scaledToFit` | `Image` `ContentScale.Fit` |
 | `.login-field` | Field row card · IME pin trên bàn phím | `formFieldHeight` 52 · `LinmKeyboardAwareScroll` | same |
 | `.login-actions` `.btn-primary` | CTA Đăng nhập · `isBusy` spinner giữa nút | `LinmPrimaryButton` `isBusy` | `LinmPrimaryButton` `isBusy` |
-| Home demo `.btn-skip` **Đăng xuất** | Chrome test login · e2e `btn-logout` · **không** `#sc-me` | `LinmSecondaryButton` + `LogoutUseCase` | same |
+| Home `.btn-home-login` | CTA tách guest · e2e `btn-home-login` | Button card trên hero | same |
+| `#btn-login-back` | Về Trang Chủ | Text button `login.backHome` | `TextButton` `testTag("btn-login-back")` |
 | `.login-meta` | tín hiệu · forgot · **pin đáy giữa** (`margin-top: auto`) · ẩn khi IME | overlay `alignment: .bottom` · `LinmNetSignalMark` + Text | `Box` `Alignment.BottomCenter` · same |
 | toast JS | thông báo | `LinmToast` | `LinmToast` |
 | loading | Full-page spinner + blur nền | `.linmBusyOverlay` | `LinmBusyOverlay` |

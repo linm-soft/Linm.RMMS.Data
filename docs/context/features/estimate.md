@@ -224,3 +224,10 @@ Gen demo: `/qlbd-analy-demo @estimate` — load control-map trên + `/erp-form-c
 | Action work | Host list search work · open panel (create estimate) · line edit/delete · confirm modal · attach stub · leave-confirm · 13 actions paired · no dead Create/Edit |
 | Gaps open | **none** P0 (BE MISSING = DEFER · not Action-gap) |
 | Confirmed by | ai-autocode-autopilot |
+
+## Implement tracking
+
+| lane | phase | status | updatedAt |
+|------|-------|--------|-----------|
+| web | `done` | `done` | `2026-08-21T03:31:41.244Z` |
+| mobile | `dev` | `await_confirm` | `2026-08-29T18:34:28.210Z` |

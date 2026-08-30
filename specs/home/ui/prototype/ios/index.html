@@ -40,6 +40,12 @@
     .bars i:nth-child(1) { height: 4px; } .bars i:nth-child(2) { height: 7px; }
     .bars i:nth-child(3) { height: 10px; } .bars i:nth-child(4) { height: 12px; }
     .who { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; margin: 8px 0 12px; }
+    .btn-home-login {
+      display: block; width: 100%; border: 0; border-radius: 14px; padding: 12px 14px;
+      text-align: left; cursor: pointer; background: #fff; color: #086A9A;
+      font: 700 15px/1.25 inherit; box-shadow: 0 4px 12px rgba(0,0,0,.12); margin-bottom: 12px;
+    }
+    .btn-home-login .s { display: block; font-size: 13px; font-weight: 500; color: #5a6a80; margin-top: 4px; }
     .vn-quick { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
     .vn-quick button {
       border: 0; border-radius: 14px; padding: 14px 12px; text-align: left; cursor: pointer;
@@ -83,6 +89,44 @@
       font-size: 14px; opacity: 0; pointer-events: none; transition: opacity .2s; white-space: nowrap; z-index: 5;
     }
     .toast.on { opacity: 1; }
+    .guest-row {
+      display: flex; align-items: flex-start; justify-content: space-between; gap: 10px;
+      margin: 0 16px 10px; padding: 14px; border: 0; width: calc(100% - 32px);
+      background: var(--card); border-radius: 16px; text-align: left; cursor: pointer;
+      font-family: inherit; color: var(--label); box-shadow: 0 1px 4px rgba(0,0,0,.05);
+    }
+    .guest-row .t { font-size: 15px; font-weight: 650; }
+    .guest-row .s { display: block; font-size: 13px; font-weight: 500; color: var(--muted); margin-top: 2px; }
+    .guest-row .ch { color: var(--muted); font-size: 16px; }
+    .privacy-link {
+      display: block; width: 100%; border: 0; background: none; cursor: pointer;
+      color: var(--blue); font: 500 13px inherit; text-decoration: underline; padding: 8px 16px 20px;
+    }
+    .overlay {
+      position: absolute; inset: 0; background: var(--surface); z-index: 8;
+      display: none; flex-direction: column;
+    }
+    .overlay.on { display: flex; }
+    .ov-bar { display: flex; align-items: center; padding: 16px 16px 8px; }
+    .ov-bar button { border: 0; background: none; color: var(--blue); font: 500 13px inherit; cursor: pointer; }
+    .ov-bar h1 { flex: 1; text-align: center; font-size: 15px; margin: 0; }
+    .chips { display: flex; gap: 8px; overflow-x: auto; padding: 0 16px 12px; }
+    .chips button {
+      border: 0; border-radius: 999px; padding: 8px 14px; cursor: pointer;
+      background: var(--card); color: var(--label); font: 600 13px inherit; white-space: nowrap;
+    }
+    .chips button.on { background: var(--blue); color: #fff; }
+    .faq-search {
+      margin: 0 16px 8px; height: 44px; border-radius: 999px; background: var(--card);
+      display: flex; align-items: center; padding: 0 14px;
+    }
+    .faq-search input { flex: 1; border: 0; outline: none; font: 15px inherit; background: transparent; }
+    .faq-list { flex: 1; overflow: auto; background: var(--card); }
+    .faq-row { width: 100%; border: 0; border-bottom: 1px solid var(--surface); background: none; text-align: left; padding: 14px 16px; cursor: pointer; font-family: inherit; }
+    .faq-row .q { font-size: 15px; font-weight: 650; color: var(--label); }
+    .faq-row .a { display: none; font-size: 13px; color: var(--muted); margin-top: 8px; }
+    .faq-row.open .a { display: block; }
+    .privacy-body { padding: 16px; font-size: 15px; line-height: 1.45; color: var(--label); overflow: auto; }
   </style>
 </head>
 <body>
@@ -99,27 +143,42 @@
           <span class="bars" aria-label="Tín hiệu Tốt"><i></i><i></i><i></i><i></i></span>
           Tốt
         </span>
-        <div class="who">Nguyễn Văn A</div>
-        <div class="vn-quick" data-des-id="DES-MOB-HOME-QUICK">
-          <button type="button" onclick="toast('Điểm tuần')">Điểm tuần<span class="s">Ghim định vị · lý trình</span></button>
-          <button type="button" onclick="toast('Ghi sự cố')">Ghi sự cố<span class="s">Chọn tài sản · mẫu sự cố</span></button>
-        </div>
+        <div class="who" id="home-who">Khách</div>
+        <button class="btn-home-login" id="btn-home-login" type="button" onclick="toast('Đăng nhập')">
+          Đăng nhập<span class="s">Dành cho cán bộ</span>
+        </button>
       </div>
-      <div class="section-label">Nghiệp vụ thường dùng</div>
-      <div class="home-grid" data-des-id="DES-MOB-HOME-GRID">
-        <button type="button" class="home-tile" onclick="toast('Giám sát')"><div class="hi" style="background:#FCB43C">☰</div><div class="t">Giám sát</div></button>
-        <button type="button" class="home-tile" onclick="toast('Tuần đường')"><div class="hi" style="background:#F03C30">📍</div><div class="t">Tuần đường</div></button>
-        <button type="button" class="home-tile" onclick="toast('Công việc')"><div class="hi" style="background:#3CB448">🔧</div><div class="t">Công việc</div></button>
-        <button type="button" class="home-tile" onclick="toast('Vấn đề')"><div class="hi" style="background:#FCB43C">⚠</div><div class="t">Vấn đề</div></button>
-        <button type="button" class="home-tile" onclick="toast('Tài sản')"><div class="hi" style="background:#0C84C0">▣</div><div class="t">Tài sản</div></button>
-        <button type="button" class="home-tile" onclick="toast('Lưu trữ')"><div class="hi" style="background:#086A9A">↻</div><div class="t">Lưu trữ</div></button>
-      </div>
-      <div class="wallet-card" data-des-id="DES-MOB-HOME-WALLET" onclick="toast('Tài sản')">
-        <div class="k">HỒ SƠ TÀI SẢN</div>
-        <div class="t">QL.1 · Khu IV</div>
-        <div class="m">32 loại KCHT · thông số + checklist sự cố</div>
-      </div>
+      <div class="section-label" id="section-guest">Hỗ trợ người dân</div>
+      <button class="guest-row" id="btn-home-faq" type="button" onclick="openOv('sc-faq')">
+        <span><span class="t">Câu hỏi thường gặp</span><span class="s">Tài liệu · thủ tục · cấp phép</span></span>
+        <span class="ch">›</span>
+      </button>
+      <button class="privacy-link" id="btn-home-privacy" type="button" onclick="openOv('sc-privacy')">Chính sách quyền riêng tư</button>
       <!-- GAP-F-HOME-03: .home-foot Gói — cấm ship · không vẽ -->
+    </div>
+    <div class="overlay" id="sc-faq" data-des-id="DES-MOB-HOME-FAQ">
+      <div class="ov-bar">
+        <button type="button" id="btn-faq-back" onclick="closeOv()">Về Trang Chủ</button>
+        <h1>Câu hỏi thường gặp</h1>
+      </div>
+      <div class="chips">
+        <button type="button" class="on" id="chip-faq-docs">Tài liệu</button>
+        <button type="button" id="chip-faq-proc">Thủ tục</button>
+        <button type="button" id="chip-faq-permit">Cấp phép</button>
+        <button type="button" id="chip-faq-app">Ứng dụng</button>
+      </div>
+      <div class="faq-search"><input id="f-faq-search" placeholder="Tìm kiếm câu hỏi" /></div>
+      <div class="faq-list">
+        <button class="faq-row" type="button" onclick="this.classList.toggle('open')"><div class="q">Open data Bộ GTVT là gì?</div><div class="a">Bộ tài liệu công khai về cấp phép và thủ tục hành chính đường bộ. Người dân xem và tải miễn phí, không cần đăng nhập.</div></button>
+        <button class="faq-row" type="button" onclick="this.classList.toggle('open')"><div class="q">Tài liệu thủ tục có mất phí không?</div><div class="a">Không. Tài liệu open data trong danh mục này dùng miễn phí.</div></button>
+      </div>
+    </div>
+    <div class="overlay" id="sc-privacy" data-des-id="DES-MOB-HOME-PRIVACY">
+      <div class="ov-bar">
+        <button type="button" id="btn-privacy-back" onclick="closeOv()">Về Trang Chủ</button>
+        <h1>Chính sách quyền riêng tư</h1>
+      </div>
+      <div class="privacy-body" id="privacy-body">Khi bạn là Khách, ứng dụng chỉ hiển thị thông tin công khai (FAQ, tài liệu thủ tục). Không gửi hồ sơ cán bộ, không lấy vị trí lúc mở app.</div>
     </div>
     <nav class="tab" data-des-id="DES-MOB-TABBAR">
       <b class="on">Trang Chủ</b><b>Tuần đường</b><b>Vấn đề</b><b>Công việc</b><b>Tôi</b>
@@ -134,6 +193,11 @@
       el.classList.add('on');
       clearTimeout(t);
       t = setTimeout(() => el.classList.remove('on'), 1400);
+    }
+    function openOv(id) { document.getElementById(id).classList.add('on'); }
+    function closeOv() {
+      document.getElementById('sc-faq').classList.remove('on');
+      document.getElementById('sc-privacy').classList.remove('on');
     }
   </script>
 </body>

@@ -67,7 +67,7 @@ home (tab Trang Chủ)
 | walletT | QL.1 · Khu IV | `LinmWalletCard` title | — | optional route search · fail → demo |
 | walletM | 32 loại KCHT… | `LinmWalletCard` subtitle | — | live count `asset-types` · fail → «32» |
 | walletPatrol | Cột Km… đang tuần | `LinmWalletCard` line 3 | — | **iOS demo P1** · Android optional |
-| tileTypes | 32 loại tài sản | `LinmHubTile` | `cube` ↔ `ViewInAr` | bg `#0C84C0` · toast |
+| tileTypes | 32 loại tài sản | `LinmHubTile` | `cube` ↔ `ViewInAr` | bg `#0C84C0` · toast · **cùng height hàng** |
 | tileMap | Xem trên bản đồ | `LinmHubTile` | `scope` / binoculars ↔ `MyLocation`/`TravelExplore` | bg teal `#1B8A4A` · toast |
 | secCollect | Thu thập | `LinmSectionLabel` | — | không route |
 | tileCollect | Thủ công | `LinmHubTile` | `plus` ↔ `Add` | bg `#0C84C0` · toast |
@@ -82,6 +82,8 @@ home (tab Trang Chủ)
 | aiConfirm | Xác nhận | `LinmPrimaryButton` compact | — | toast **Xác nhận AI** |
 
 Toast / banner → `LinmToast`. **Cấm** raw `LazyVGrid` / `LazyVerticalGrid` khi kit đã map.
+
+**Hub tile align (GAP-MOB-AHUB-ALIGN-01):** mỗi hàng 2 cột **cùng height** — stretch theo ô cao nhất (CSS `align-items: stretch`) · subtitle slot **2 dòng** (`min-height` 32 / `2.6em`) · content `topLeading` · **cấm** card thấp hơn sibling vì wrap 1 dòng.
 
 ### Toast sibling (P1 — chưa ship)
 

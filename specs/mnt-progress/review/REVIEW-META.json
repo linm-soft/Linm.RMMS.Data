@@ -1,0 +1,32 @@
+{
+  "feature": "mnt-progress",
+  "status": "done",
+  "review_confirm": "approve",
+  "align_confirm": "approve",
+  "post_review": "skip",
+  "taskId": "task_cfc08301",
+  "skillId": "agent-review-mobile",
+  "skillVersion": "2026.08.20.01",
+  "workflowVersion": "2026.08.29.1",
+  "rulesVersion": "2026.08.29.5",
+  "schemaVersion": "1",
+  "versionGate": "rechecked",
+  "autoApprove": true,
+  "alignMustOpen": 0,
+  "verifyGate": {
+    "artifact": "PASS",
+    "ios": "cite_prior_PASS",
+    "android": "cite_prior_PASS",
+    "bff": "cite_prior_PASS",
+    "step4b": "N/A",
+    "e2eQa": "cite_prior_PASS",
+    "roleOnly": "review"
+  },
+  "contentHash": "sha256:mnt-progress-mobile-control-hint-20260829",
+  "realDataHash": "sha256:mnt-progress-mobile-real-data-20260829",
+  "bffContentHash": "sha256:mnt-progress-mobile-bff-20260829",
+  "actionTreeHash": "sha256:mnt-progress-mobile-action-tree-20260829",
+  "ctxContentHash": "sha256:7575cc93a9fc1e4c2ac0bdbdc219fdb28db7c6177f83457b747529646244ccec",
+  "demoContentHash": "sha256:394ab44597648f04b25e6d58476378c16141feb53d3b58d39923b3defcff8328",
+  "updatedAt": "2026-08-29T07:08:50.000Z"
+}

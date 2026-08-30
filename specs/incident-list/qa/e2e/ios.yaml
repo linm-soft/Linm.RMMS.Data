@@ -1,0 +1,86 @@
+appId: org.linmsoft.rmms
+---
+# incident-list · store A11/A9/A3 · cold start guest #sc-home → login → tile-incident / tab-incident → #sc-incident-list
+# cấm A3 trước login · cấm mfeStdUrl / start:std · cấm sibling create/detail/map/chat as in-scope
+# FAB: LinmFab a11yLabel «Thêm» · id fab-inc-create optional (kit Button không inherit id wrapper)
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 20000
+- takeScreenshot: A11-LAUNCH
+- tapOn:
+    id: "btn-home-login"
+- extendedWaitUntil:
+    visible:
+      id: "f-user"
+    timeout: 15000
+- tapOn:
+    id: "f-user"
+- eraseText
+- inputText: "linm-soft"
+- tapOn:
+    text: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
+    optional: true
+- tapOn:
+    id: "f-pass"
+- eraseText
+- inputText: "Linm@2026"
+- tapOn:
+    text: "Not Now"
+    optional: true
+- takeScreenshot: A9-LOGIN
+- tapOn:
+    id: "btn-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
+- tapOn:
+    text: "Not Now"
+    optional: true
+- pressKey: Enter
+- waitForAnimationToEnd:
+    timeout: 4000
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 45000
+- scrollUntilVisible:
+    element:
+      id: "tile-incident"
+    direction: DOWN
+    timeout: 15000
+    optional: true
+- tapOn:
+    id: "tile-incident"
+    optional: true
+- tapOn:
+    id: "tab-incident"
+    optional: true
+- tapOn:
+    text: "Vấn đề"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-incident-list"
+    timeout: 25000
+- assertVisible: "Quản lý vấn đề"
+- assertVisible: "Danh sách"
+- assertVisible: "Bản đồ"
+- assertVisible: "Nhận diện mặt đường"
+- assertVisible:
+    id: "inc-list-search"
+- assertVisible:
+    id: "row-inc-banner-vis"
+- assertVisible: "Nứt mặt đường"
+- assertVisible: "Cống tắc"
+- assertVisible:
+    id: "fab-inc-create"
+    optional: true
+- assertVisible:
+    text: "Thêm"
+    optional: true
+- takeScreenshot: A3-CORE

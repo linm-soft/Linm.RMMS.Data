@@ -1,11 +1,12 @@
 # Prototype — field-reflect
 
-Design gate: **prototype + reviewUrl** — board Approve (**không auto**).
-Repo confirm: user tick BE+UI trên `/qldb-workflow` Progress trước Dev (**không auto** · cấm ERP.*).
+Design gate: dual **`ios/`** + **`android/`** · reviewUrl file:// · autoApprove=ON → `design_confirm` **approve**.
 
-- Demo SSOT: `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Demo/src/demo/ios/index.html`
-- Title: Ghi nhận hư hỏng
-- Pack kind: `sheet`
-- MFE: `Linm.RMMS.Mobile.iOS`
+| Platform | Path | Frame |
+|----------|------|-------|
+| iOS | `prototype/ios/index.html` | 390×844 |
+| Android | `prototype/android/index.html` | 412×915 |
 
-Put HTML prototype / screenshot link here; update `ui/design.md` with a browser-openable **reviewUrl**.
+**Owner:** `#sc-field-reflect` · `DES-MOB-FIELD-REFLECT` · kind `DES-MOB-FIELD-KIND`  
+**Query:** `?deny=1` GPS deny · `?empty=1` no session banner  
+**Cấm:** `mfeStdUrl` · `yarn start:std` · watermark Gói · sheet chrome · invent `api/v1/field-reflect`

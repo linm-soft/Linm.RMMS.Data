@@ -5,9 +5,16 @@ appId: org.linmsoft.rmms
     clearState: true
     clearKeychain: true
 - extendedWaitUntil:
-    visible: "Đăng nhập"
+    visible:
+      id: "sc-home"
     timeout: 15000
 - takeScreenshot: A11-LAUNCH
+- tapOn:
+    id: "btn-home-login"
+- extendedWaitUntil:
+    visible:
+      id: "f-user"
+    timeout: 15000
 - tapOn:
     id: "f-user"
 - eraseText

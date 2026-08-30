@@ -154,23 +154,35 @@
       color: #fff; border-radius: 0 0 24px 24px;
     }
     .vn-hero .who { font-size: 22px; font-weight: 800; margin: 8px 0 12px; }
+    .btn-home-login {
+      display: block; width: 100%; border: 0; border-radius: 14px; padding: 12px 14px;
+      text-align: left; cursor: pointer; background: #fff; color: #086A9A;
+      font: 700 15px/1.25 inherit; box-shadow: 0 4px 12px rgba(0,0,0,.12); margin-bottom: 12px;
+    }
+    .btn-home-login .s { display: block; font-size: 13px; font-weight: 500; color: #5a6a80; margin-top: 4px; }
+    .login-back {
+      position: absolute; top: 48px; left: 16px; z-index: 20; border: 0; background: transparent;
+      color: #0C84C0; font: 500 12px/1.2 inherit; cursor: pointer; padding: 8px 0;
+    }
     .vn-quick { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; min-width: 0; }
     .vn-quick button {
       border: 0; border-radius: 14px; padding: 14px 12px; text-align: left; cursor: pointer;
       background: #fff; color: #086A9A; font-family: inherit; font-weight: 700; font-size: 14px;
     }
     .vn-quick .s { display: block; font-size: 13px; font-weight: 500; color: #5a6a80; margin-top: 4px; }
-    .ak32-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin: 0 16px 16px; min-width: 0; }
+    .ak32-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin: 0 16px 16px; min-width: 0; align-items: stretch; }
     .ak32-tile {
-      border: 0; background: var(--md-container); border-radius: 14px; min-height: 88px;
+      border: 0; background: var(--md-container); border-radius: 14px; min-height: 108px;
       padding: 10px 8px; font-family: inherit; cursor: pointer; text-align: center; color: inherit;
+      height: 100%; display: flex; flex-direction: column; align-items: center;
     }
     .ak32-dot { display: block; width: 10px; height: 10px; border-radius: 50%; background: var(--md-primary); margin: 0 auto 8px; }
     .ak32-ico { display: block; width: 28px; height: 34px; margin: 0 auto 6px; }
     .ak32-ico svg { display: block; width: 28px; height: 34px; }
     .ak32-n {
       font-size: 12px; font-weight: 650; line-height: 1.25; display: -webkit-box;
-      -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+      -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+      min-height: 3.75em;
     }
     .ak32-gap { display: block; font-size: 10px; color: var(--md-warn); margin-top: 4px; }
     .chk-row {
@@ -551,8 +563,8 @@
       <h1>RMMS hiện trường · Android</h1>
       <p><a href="../index.html" style="color:#8ab4f8;text-decoration:none;font-weight:600">← Tổng quan Gói 1</a> · cùng nghiệp vụ iPhone · bản đồ tuyến</p>
       <div class="chip-row" id="jumpChips">
-        <button class="chip active" data-jump="login">Đăng nhập</button>
-        <button class="chip" data-jump="home">Trang Chủ</button>
+        <button class="chip" data-jump="login">Đăng nhập</button>
+        <button class="chip active" data-jump="home">Trang Chủ</button>
         <button class="chip" data-jump="patrol-home">Tuần đường</button>
         <button class="chip" data-jump="patrol-map">Bản đồ tuần</button>
         <button class="chip" type="button" id="chipWrongPoint">Thử sai điểm</button>
@@ -588,7 +600,7 @@
     <div class="review-row">
     <aside class="doc-panel" id="featureDoc" data-des-id="DES-MOB-DOC-GUIDE" data-frame="android"></aside>
     <div class="phone" data-des-id="DES-MOBILE-DEVICE">
-      <div class="phone-screen app-auth" id="app">
+      <div class="phone-screen" id="app">
         <div class="status-bar" id="statusBar">
           <span>9:41</span>
           <div style="display:flex;align-items:center;gap:6px">
@@ -597,7 +609,8 @@
           </div>
         </div>
 
-        <div class="screen on" id="sc-login" data-des-id="DES-MOB-LOGIN" data-tab="auth">
+        <div class="screen" id="sc-login" data-des-id="DES-MOB-LOGIN" data-tab="auth">
+          <button class="login-back" id="btn-login-back" type="button" onclick="go('home')">Về Trang Chủ</button>
           <div class="login">
             <div class="login-main">
             <div class="login-brand" data-des-id="DES-MOB-LOGIN-BRAND">
@@ -630,7 +643,7 @@
           </div>
         </div>
 
-        <div class="screen" id="sc-home" data-des-id="DES-MOB-HOME" data-tab="home">
+        <div class="screen on" id="sc-home" data-des-id="DES-MOB-HOME" data-tab="home">
           <div class="content" style="padding-top:0">
             <div class="vn-hero" data-des-id="DES-MOB-HOME-HELLO">
               <div class="vn-hero-tools">
@@ -643,12 +656,23 @@
                 </button>
               </div>
               <span class="role">Khu QLĐB IV<span class="net-sep"></span><span data-net-signal></span></span>
-              <div class="who">Nguyễn Văn A</div>
-              <div class="vn-quick">
+              <div class="who" id="home-who">Khách</div>
+              <button class="btn-home-login" id="btn-home-login" type="button" onclick="go('login')">
+                Đăng nhập<span class="s">Dành cho cán bộ</span>
+              </button>
+              <div class="vn-quick" id="home-quick">
                 <button type="button" onclick="go('patrol-home')">Điểm tuần<span class="s">Ghim định vị · lý trình</span></button>
                 <button type="button" onclick="startIncidentPick()">Ghi sự cố<span class="s">Chọn tài sản · mẫu sự cố</span></button>
               </div>
             </div>
+            <div id="home-guest">
+              <div class="section-label" id="section-guest">Hỗ trợ người dân</div>
+              <button type="button" id="btn-home-faq" onclick="go('faq')" style="margin:0 16px 8px;width:calc(100% - 32px);border:0;border-radius:16px;background:#fff;padding:14px;text-align:left;font:650 15px inherit">
+                Câu hỏi thường gặp<div style="font:500 13px inherit;color:#8E8E93;margin-top:2px">Tài liệu · thủ tục · cấp phép</div>
+              </button>
+              <button type="button" id="btn-home-privacy" onclick="go('privacy')" style="display:block;width:100%;border:0;background:none;color:#0C84C0;text-decoration:underline;font:500 13px inherit;padding:8px 16px 16px">Chính sách quyền riêng tư</button>
+            </div>
+            <div id="home-staff">
             <div class="section-label">Nghiệp vụ thường dùng</div>
             <div class="home-grid" data-des-id="DES-MOB-HOME-GRID">
               <button type="button" class="home-tile" onclick="go('supervise')">
@@ -682,6 +706,37 @@
               <div class="m">32 loại KCHT · thông số + checklist sự cố</div>
             </div>
             <div class="home-foot">Phiên bản Gói 1 · RMMS hiện trường<br/>Cục Đường bộ VN · Khu QLĐB IV</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-faq" data-des-id="DES-MOB-HOME-FAQ" data-tab="home">
+          <div class="top-bar">
+            <button class="icon-btn" type="button" id="btn-faq-back" onclick="go('home')">Về Trang Chủ</button>
+            <div class="nav-title">Câu hỏi thường gặp</div>
+            <span></span>
+          </div>
+          <div class="content">
+            <div class="seg" style="margin:8px 16px">
+              <button class="on" type="button" id="chip-faq-docs">Tài liệu</button>
+              <button type="button" id="chip-faq-proc">Thủ tục</button>
+              <button type="button" id="chip-faq-permit">Cấp phép</button>
+              <button type="button" id="chip-faq-app">Ứng dụng</button>
+            </div>
+            <input id="f-faq-search" placeholder="Tìm kiếm câu hỏi" style="margin:0 16px 8px;height:44px;border-radius:999px;border:0;padding:0 14px;width:calc(100% - 32px)" />
+            <button type="button" style="width:100%;border:0;background:#fff;text-align:left;padding:14px 16px">Open data Bộ GTVT là gì?</button>
+            <button type="button" style="width:100%;border:0;background:#fff;text-align:left;padding:14px 16px">Tài liệu thủ tục có mất phí không?</button>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-privacy" data-des-id="DES-MOB-HOME-PRIVACY" data-tab="home">
+          <div class="top-bar">
+            <button class="icon-btn" type="button" id="btn-privacy-back" onclick="go('home')">Về Trang Chủ</button>
+            <div class="nav-title">Chính sách quyền riêng tư</div>
+            <span></span>
+          </div>
+          <div class="content" id="privacy-body" style="padding:16px;font-size:15px;line-height:1.45">
+            Khi bạn là Khách, ứng dụng chỉ hiển thị thông tin công khai (FAQ, tài liệu thủ tục). Không gửi hồ sơ cán bộ, không lấy vị trí lúc mở app.
           </div>
         </div>
 
@@ -1298,7 +1353,7 @@
               <div class="rc-main">
                 <div class="rc-body">
                   <div class="rc-title">Vá mặt đường</div>
-                  <div class="rc-line">Hạt trưởng VP-IV.1 giao việc cho Nguyễn Văn A</div>
+                  <div class="rc-line">Hạt trưởng VP-IV.1 giao việc cho Nguyễn Văn A · Tổ tuần đường</div>
                   <div class="rc-line">2026-08-10 08:30 — 2026-08-12 17:00</div>
                   <div class="rc-line">Từ sự cố SC-2401 · QL.1 Km 1556+080</div>
                 </div>
@@ -1307,6 +1362,22 @@
               <div class="rc-actions">
                 <button type="button" onclick="toast('Trao đổi công việc')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chat"/></svg></button>
                 <button type="button" onclick="toast('Cập nhật trạng thái · ảnh + định vị')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-sync"/></svg></button>
+                <button type="button" onclick="go('estimate')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-sum"/></svg></button>
+              </div>
+            </div>
+            <div class="rich-card">
+              <div class="rc-main">
+                <div class="rc-body">
+                  <div class="rc-title">Nạo cống</div>
+                  <div class="rc-line">Hạt trưởng giao việc cho Trần Khánh · Chi cục II.2</div>
+                  <div class="rc-line">2026-08-09 07:00 — 2026-08-09 16:00</div>
+                  <div class="rc-line">Tuyến HCM</div>
+                </div>
+              </div>
+              <div class="rc-status ok">Tình trạng xử lý: Đã hoàn thành</div>
+              <div class="rc-actions">
+                <button type="button" onclick="toast('Trao đổi công việc')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chat"/></svg></button>
+                <button type="button" onclick="toast('Nhật ký xử lý')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-list"/></svg></button>
                 <button type="button" onclick="go('estimate')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-sum"/></svg></button>
               </div>
             </div>
@@ -1593,7 +1664,7 @@
           </div>
         </div>
 
-        <nav class="nav-bar hidden" id="tabBar" data-des-id="DES-MOB-TABBAR">
+        <nav class="nav-bar" id="tabBar" data-des-id="DES-MOB-TABBAR">
           <button class="tab active" data-tab="home" onclick="tab('home')"><div class="ti"><svg class="ic" viewBox="0 0 24 24"><use href="#i-home"/></svg></div>Trang Chủ</button>
           <button class="tab" data-tab="field" onclick="tab('field')"><div class="ti"><svg class="ic" viewBox="0 0 24 24"><use href="#i-mappin"/></svg></div>Tuần đường</button>
           <button class="tab" data-tab="incident" onclick="tab('incident')"><div class="ti"><svg class="ic" viewBox="0 0 24 24"><use href="#i-warning"/></svg></div>Vấn đề</button>
@@ -1721,7 +1792,30 @@
       document.getElementById('app').classList.toggle('app-auth', isAuth);
       document.getElementById('tabBar').classList.toggle('hidden', isAuth);
     }
-    function go(id) {
+    let isGuest = true;
+    const STAFF = new Set([
+      'patrol-home', 'patrol-map', 'checkin-detail', 'attendance', 'incident-list', 'incident-detail',
+      'supervise', 'asset-hub', 'asset-collect', 'asset-ai', 'asset-adjust', 'gis-map', 'asset-detail',
+      'field-reflect', 'cam-patrol', 'vis-capture', 'det-hitl', 'asset-types', 'asset-type', 'inc-form',
+      'asset-form', 'mnt-list', 'estimate', 'me', 'ops', 'feedback', 'cam-view'
+    ]);
+    function applyHomeSession() {
+      const who = document.getElementById('home-who');
+      const btn = document.getElementById('btn-home-login');
+      if (who) who.textContent = isGuest ? 'Khách' : 'Nguyễn Văn A';
+      if (btn) btn.hidden = !isGuest;
+      const quick = document.getElementById('home-quick');
+      const guest = document.getElementById('home-guest');
+      const staff = document.getElementById('home-staff');
+      if (quick) quick.hidden = isGuest;
+      if (guest) guest.hidden = !isGuest;
+      if (staff) staff.hidden = isGuest;
+    }
+    function go(id, force) {
+      if (!force && isGuest && STAFF.has(id)) {
+        toast('Đăng nhập để dùng nghiệp vụ');
+        id = 'login';
+      }
       document.querySelectorAll('.screen').forEach(s => s.classList.remove('on'));
       const sc = document.getElementById('sc-' + id);
       if (!sc) return;
@@ -1736,8 +1830,18 @@
       if (window.FeatureGuide) window.FeatureGuide.set(id);
     }
     function tab(name) { go(TAB_HOME[name] || 'home'); }
-    function loginOk() { toast('Đăng nhập thành công'); setTimeout(() => go('home'), 350); }
-    function logout() { toast('Đã đăng xuất'); setTimeout(() => go('login'), 300); }
+    function loginOk() {
+      isGuest = false;
+      applyHomeSession();
+      toast('Đăng nhập thành công');
+      setTimeout(() => go('home'), 350);
+    }
+    function logout() {
+      isGuest = true;
+      applyHomeSession();
+      toast('Đã đăng xuất');
+      setTimeout(() => go('home'), 300);
+    }
     function togglePass() {
       const input = document.getElementById('f-pass');
       const use = document.getElementById('eyeUse');
@@ -1854,7 +1958,7 @@
     }
     document.getElementById('jumpChips').addEventListener('click', (e) => {
       const btn = e.target.closest('[data-jump]');
-      if (btn) go(btn.dataset.jump);
+      if (btn) go(btn.dataset.jump, true);
     });
     document.getElementById('chipWrongPoint').addEventListener('click', () => {
       go('patrol-map');
@@ -1865,7 +1969,8 @@
       go('vis-capture');
       openCapture('vision');
     });
-    setAuthMode(true);
+    setAuthMode(false);
+    applyHomeSession();
     function openAssetForm(code) {
       const root = document.getElementById('sc-asset-form');
       const from = document.getElementById('ak32-detail-and');

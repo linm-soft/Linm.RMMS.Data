@@ -6,16 +6,15 @@
 ## 1. IA
 
 ```
-Login (ngoài tab) → Tab 5
-- Trang Chủ: #sc-home DES-MOB-HOME          ← this pack
-- Tuần đường / Vấn đề / Công việc: sibling / placeholder
-- Tôi: #sc-me (reuse=me · đã ship)
-#sc-home
-  → Hồ sơ = chuyển tab Tôi (không push)
-  → Thông báo = toast **Thông báo** + lưu local notify (ở `#sc-home`) · tap banner iOS → Trang Chủ
-  → quick / tile / wallet (chưa ship) = LinmToast nhãn
-  → Tín hiệu = toast «Đã làm mới» + refresh profile (OS path)
-  → không child form / sheet
+Cold start → Tab 5 #sc-home guest
+- .who = Khách · btn-home-login (Đăng nhập / Dành cho cán bộ)
+- Guest: Hỗ trợ người dân · FAQ + privacy (ref layout FAQ pills/search + footer)
+- Overlay #sc-faq / #sc-privacy · **Về Trang Chủ** dismiss về guest Home
+- Overlay login · back về guest Home
+- Staff: .who live · ẩn login/FAQ/privacy · hiện quick + grid + wallet
+- Tile / tab staff khi guest → toast needLogin + overlay
+- Hồ sơ guest → overlay login · staff → tab Tôi
+- Thông báo / tín hiệu = toast (signal guest không GET profile)
 ```
 
 **Cấm** invent tab. Số tab = 5 · thứ tự: Trang Chủ · Tuần đường · Vấn đề · Công việc · Tôi.

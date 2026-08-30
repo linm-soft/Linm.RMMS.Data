@@ -1,555 +1,259 @@
-# Team lead — tasks — estimate
+# TL — Tasks — estimate (mobile sheet → screen · Giao việc xử lý)
 
 | Field | Value |
 |-------|-------|
 | feature | `estimate` |
-| this role | `team_lead` · `/agent-team-lead` |
-| status | `confirmed` |
-| changeScope | `new_page` |
-| packKind | `ai` · Kind **B+D** (S-LIST required · **no** S-DETECT capture) |
-| featureClass | `ai` |
-| solution_confirm | **approve** (autoApprove=ON · packet `task_a88111e4`) |
-| design_confirm | **approve** (prior board) |
-| route_confirm | **route_a** (locked · `/ai-vision/estimate`) |
+| title | [Mobile] [Công việc] -> Giao việc xử lý |
+| this role | `team_lead` · `/agent-tl-mobile` |
+| status | **confirmed** |
+| changeScope | `edit_page` |
+| packKind | **`sheet`** (PO + Design + SA confirm · GAP-MOB-EST-PACK-01 **closed** · surface = **full screen** `#sc-estimate` · **cấm** bottom-sheet) |
+| stack | `native_dual` |
+| thisAction | **Giao việc xử lý** `#sc-estimate` `DES-MOB-EST` only · entry mnt-list hub/card `#i-sum` + incident-create/detail CTA · **cấm** gộp `mnt-chat` / `mnt-progress` / `mnt-log` / web Kind B+D (`GAP-MOB-ACT-01/02`) |
+| route_confirm | **route_a** (autoApprove=ON) · push `#sc-estimate` · pack `tabs: none` · shell Tab 5 **giữ** · tab **`work`** khi entry mnt-list |
+| ios_repo_confirm | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS` · **reuse** (scaffold live · **không** `/mobile-app-architecture`) |
+| android_repo_confirm | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android` · **reuse** |
+| bff | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Bff` · prefix `mobile-bff/api/v1` · catch-all proxy · **cấm** `EstimateController` local |
+| backend | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.WebService` · AiVision + Maintenance + Incident · **cấm ERP.*** |
+| prior · sa | **confirmed** · `be/solution-discovery.md` · `task_9f669577` · solution_confirm=approve · WorkType=`repair` · Step 4b **N/A** |
+| prior · design | **confirmed** · `ui/design.md` · `ui/ux-analy.md` · `ui/html-to-native-map.md` · dual `#sc-estimate` · `ui/review/demo-parity.md` · `task_c0fb308d` · design_confirm=approve |
+| prior · po | **confirmed** · `po/requirement.md` · `task_5338c2be` |
+| prior · data_analy | **confirmed** · `_data-analy/estimate-*.md` · contentHash `sha256:estimate-mobile-control-hint-20260829` · realDataHash `sha256:estimate-mobile-real-data-20260829` · bffContentHash `sha256:estimate-mobile-bff-20260829` · actionTreeHash `sha256:estimate-mobile-action-tree-20260829` |
+| priorWeb | **giữ** · `task/estimate-web.md` (+ `po|ui|be|implement|qa|review` *-web*) · Kind B+D — **OUT** mobile P1 |
 | autoApprove | **ON** |
-| be_repo_confirm | **pending** (board tick · **không auto**) |
-| ui_repo_confirm | **pending** (board tick · **không auto**) |
-| taskId | `task_a88111e4` |
-| updatedAt | `2026-08-17T14:50:00.000Z` |
-| skillVersion | `2026.08.15.17` |
-| schemaVersion | `2` |
-| workflowVersion | `2026.08.16.02` |
-| rulesVersion | `2026.08.15.25` |
-| versionGate | `ok` |
-| contentHash (data-analy) | `sha256:f49800a01d06c3df4ab4058c5b2b6ecde131fe8362a040481a88daa4897e8983` |
-| TL SSOT | `tl-platform-ssot.md` · `ssot-no-duplicate.md` · `form-type-task-pack.md` · `tl-grid-task-template.md` · **`tl-filter-bar-task.md`** · `tl-design-grid-component-map.md` · `tl-grid-full-flow.md` · `tl-list-shell-height.md` · `tl-catalog-list-parity.md` · `tl-retry-ssot-rereview.md` · `slideout-form-layout.md` · `list-form-quality-gates.md` · `agent-dev-assign.md` · `rmms-form-agent-map.md` |
-| **devSlash** | **`/agent-dev`** — **cấm** `/agent-dev-ai-detect` (Design + `rmms-form-agent-map` · `estimate`) |
+| e2eQa | ON khi QA · `yarn e2e-qa-mobile` · sim 6.9" + emulator + Maestro · PNG `qa/store/estimate` · **cấm** `yarn start:std` / `mfeStdUrl` / e2e ở role TL |
+| taskId | `task_cc28db20` |
+| updatedAt | `2026-08-29T04:42:00.000Z` |
 
-## from design / solution (scope gate)
+**Cấm:** gộp sibling (`GAP-MOB-ACT-01/02`) · invent `api/v1/estimate` / `ai-estimate/*` · invent `EstimateController` trên Mobile.Bff · invent staff / SLA policy API · ERP.* · WebView HTML · `mfeStdUrl` · system `UIAlert`/`AlertDialog` · watermark Gói · device label · badge P1/P2 header · fake CV / fake 200 khi POST fail · WorkType ngoài live `repair|inspect|emergency` · enqueue Giao việc / Lưu nháp / fields (`GAP-MOB-ACT-07`) · start sibling `pending_confirm` (`GAP-MOB-ACT-06`) · gộp iOS+Android 1 task id · chạy Step 4b / migration / e2e / yarn build ở role TL · implement native code ở role TL.
 
-| Source | Path | Task dùng |
-|--------|------|-----------|
-| Design | `specs/estimate/ui/design.md` + reviewUrl | T-UI-LIST · T-UI-CFG · T-UI-FORM · T-UI-ACT · T-UI-LEAVE · T-UI-LKP · T-UI-FIELD · T-UI-PROD · T-UI-UX · T-UI-HIST · T-CTX |
-| Solution | `specs/estimate/be/solution-discovery.md` · **confirmed** | T-BE-CRUD · T-BE-INIT · T-BE-UISCHEMA · T-MIG · T-BFF · T-PERM · gates TZ/XCO/SHARE |
-| Prototype | `ui/prototype/estimate-list-prototype.html` | UI DoD parity |
-| controlHint | `specs/_data-analy/features/estimate-control-hint.md` | T-UI-LKP · T-UI-FIELD · lines grid |
-| PO | `specs/estimate/po/requirement.md` | Config FULL · Leave · no AI badge · no auto WO |
+---
 
-**SA chốt:** live CRUD/BFF/migration **đã có** · Must-fix P0 **GAP-SA-EST-01…04** · catalogKind=`ai-estimates` · **cấm ERP.*** · **cấm** `*LinesJson` · **cấm** `/ai-estimate`.
+## AskQuestion gates (autoApprove=ON)
 
-## Platform SSOT (REQUIRED)
+| Gate | Decision |
+|------|----------|
+| `ios_repo_confirm` | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS` · reuse |
+| `android_repo_confirm` | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android` · reuse |
+| `route_confirm` | **route_a** — screen owner `estimate` · entry mnt-list hub/card + incident CTA → push `#sc-estimate` · không tab mới · không deep link P1 |
+| `kit_missing_confirm` | **N/A** — TopBar / ListRow / TextField / Primary / Secondary / Toast **đã map** · **cấm** `T-KIT-*` |
+| `T-BE-*` | **n/a** — SA Signed live endpoints · **không** `/new-endpoint` / `/database-migration` |
+| `T-BFF-*` | **n/a** — Mobile.Bff catch-all đủ path |
 
-| Layer | Package / repo | Consume |
-|-------|----------------|---------|
-| **UI** | `MFE-COMMON/Linm.Web.Common.Components` | npm `@linm-soft-org/linm-web-common-components` |
-| **BE** | `API-LIB/Linm.Platform.CommonLib` | NuGet · ApiResponse · `[RequirePermission]` stub OK |
-| **Auth** | `API-CORE/Linm.Platform.Authentication` | `ai-vision.estimates.*` |
+### route_confirm (autoApprove=ON)
 
-### ssot.reuse (REQUIRED mọi T-UI / T-BE)
+| Option | Decision |
+|--------|----------|
+| **route_a** (chọn) | Tab 5 · tab **`work`** (entry mnt-list) · hub **Giao việc xử lý** + card `#i-sum` → **push** `#sc-estimate` `DES-MOB-EST` (thay toast stub · **GAP-MOB-EST-NAV-01**). Incident-create / incident-detail CTA «Giao việc xử lý» → cùng screen + `incidentId` (shared_action · reuse owner · **cấm** enqueue). Back → `go('mnt-list')` / pop parent (iOS label **Công việc** + chevron · Android icon-only OK). Fields / Lưu nháp / Giao việc = **cùng slug**. Pack `tabs: none` · shell Tab 5 **giữ**. Siblings mnt-chat/progress/log = **không** ship / start. |
+| route_b / route_c | — không dùng |
 
-| Concern | Reuse | Cấm (→ GAP-TL-DUP-*) |
-|---------|-------|----------------------|
-| UI | common-components `Lin*` / `Erp*` | local Button/Input/Modal/Table/Pager |
-| HTTP | `apiClient` re-export | `class ApiClient` · local `apiErrorNavigation` |
-| State | page-hooks + common reducers | local `authSlice` / `uiSlice` / toast fork |
-| BE | CommonLib ApiResponse | ad-hoc envelope DTO |
-| Auth | `[RequirePermission]` + Auth codes | custom perm attribute |
-| Persist | flat entity + **EstimateLineEntity** | parent `*LinesJson` |
-| BFF | proxy only | business logic in BFF |
-| Dropdown | GET `…/estimates/init-data` | hardcode enum FE |
-| Config | `LinCatalogUiSchemaEditorModal` + `useCatalogUiSchema` | `configHint` · `LinListTableConfigModal` cột |
-| Path | `api/v1/ai-vision/estimates` | legacy `/ai-estimate` · **ERP.*** |
+AskQuestion: `route_confirm=route_a` · `ios_repo_confirm` · `android_repo_confirm` · `kit_missing_confirm=N/A` · `2026-08-29T04:42:00.000Z`.
 
-## Source assignment
+---
+
+## Live gap (TL audit 2026-08-29)
+
+| Surface | Live | TL task |
+|---------|------|---------|
+| iOS `#sc-estimate` | **DELTA** — `MntListViewModel` Hub/Estimate → toast · `AppRouter` incident create/detail `setOpenEstimate` → toast | **T-IOS-EST** |
+| Android `#sc-estimate` | **DELTA** — `MntListViewModel` Hub/Estimate → toast · `MainTabScreen` onOpenEstimate → toast | **T-AND-EST** |
+| `POST ai-vision/estimates/from-incident/{id}` · GET/PUT/draft/confirm | BE live · app **chưa** EstimateRepository / ApiService | **NEW** repo + use cases (app) |
+| `POST maintenance/work-orders` | BE live · app chỉ `GET` via `MaintenanceRepository.fetchWorkOrders` | **expand** create WO |
+| `POST incident/incidents/{id}/assign` | BE live · app `IncidentRepository` **chưa** assign | **expand** assign (optional P1 sync) |
+| `GET incident/incidents/{id}` | live `fetchById` | **reuse** prefill header |
+| Mobile.Bff proxy | catch-all live | **reuse** · **cấm** EstimateController |
+| Kit TopBar/ListRow/TextField/Primary/Secondary/Toast/Tab | dual map | **reuse** · **cấm** `T-KIT-*` |
+| T-BE / Step 4b | schema + endpoints Signed | **n/a** |
+| Web Kind B+D | prior closed | **OUT** · `estimate-web.md` **giữ** |
+
+---
+
+## Tasks (1 action = 1 feature)
+
+| id | platform | deps | skills | summary |
+|----|----------|------|--------|---------|
+| `T-IOS-EST` | iOS | SA confirmed · kit N/A · Design dual · route_a | `/agent-dev-ios` · `/dev-ios-swiftui` · `/ios-new-screen` | Ship `#sc-estimate` · entry wire thay toast · seed/Lines[0]/draft/WO(`repair`)/assign · toast real Code |
+| `T-AND-EST` | Android | SA confirmed · kit N/A · serial after iOS preferred | `/agent-dev-android` · `/dev-android-compose` · `/android-new-screen` · `/android-new-api-call` | Compose parity dual · same BFF bind · entry wire |
+| `T-BE-*` | — | — | — | **N/A** · live Signed · **cấm** invent endpoint / migration |
+| `T-BFF-*` | — | — | — | **N/A** · proxy catch-all |
+| `T-KIT-*` | — | — | — | **N/A** · kit reuse |
+| `T-QA-TAB-01` | QA cite | Dev dual PASS | `/agent-qa-mobile` | Shell Tab 5 **giữ** · pack `tabs: none` · tab **work** when entry mnt-list · **cấm** invent (`GAP-TAB-01`) · cite `tab-index-analy-review.md` |
+| `T-QA-EST` | QA | T-IOS · T-AND | `/agent-qa-mobile` | Maestro slug `estimate` · `yarn e2e-qa-mobile` · store PNG `qa/store/estimate` · **chỉ** `/agent-qa*` |
+
+**Serial Dev:** `/agent-dev-ios` (`T-IOS-EST`) → `/agent-dev-android` (`T-AND-EST`) · **cấm** 1 file task gộp hai nền · **cấm** enqueue sibling · **cấm** TL chạy build/e2e.
+
+---
+
+## Source map (cite live paths)
+
+### T-IOS-EST
+
+| Area | Path |
+|------|------|
+| repo | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS` |
+| Feature UI (NEW) | `Presentation/Features/Estimate/*` — `EstimateView` · `EstimateViewModel` · `EstimateUiState` · `EstimateCopy` · ListRow header · TextField assignee/qty/price/total/sla/due · Primary Giao việc · Secondary Lưu nháp · banner missing · toast · **cấm** WebView HTML |
+| Entry wire | `Presentation/Features/MntList/MntListViewModel.swift` — `.hub` / `.estimate` **thay toast** → push Estimate (+ incidentId nếu có) · `App/AppRouter.swift` — `incidentCreateViewModel.setOpenEstimate` · `incidentDetailViewModel.setOnOpenEstimate` **thay toast** → push Estimate + id · **cấm** reimplement mnt-list / incident chrome |
+| Router | `App/AppRouter.swift` · work tab dưới screen |
+| Use cases (NEW/expand) | seed `from-incident` · get/update/draft estimate · create WO · optional confirm · optional assign · optional get incident |
+| Repo | **NEW** `EstimateRepository` (+ Impl/DTO) · **expand** `MaintenanceRepository` + `createWorkOrder` · **expand** `IncidentRepository` + `assign` · **reuse** `fetchById` |
+| Copy | VN SSOT Design · toast `Đã giao việc · {Code} · thời hạn {SlaHours} giờ` · draft · err · **cấm** fake CV |
+| DI | `App/AppContainer.swift` |
+| ssot.zones | `DES-MOB-EST` · `#sc-estimate` |
+| kit | `LinmTopBar` · `LinmListRow` · `LinmTextField` · `LinmPrimaryButton` · `LinmSecondaryButton` · `LinmToast` · Tab shell · typography `LinmTokens` label **13** · value/button **≥16** (`GAP-TYP-01`) · cite `ui/html-to-native-map.md` |
+| BFF | paths dưới · base `{BffBase}/mobile-bff/api/v1` · **cấm** invent `estimate` / `ai-estimate` path · **cấm** fake 200/CV |
+| WorkType P1 | **`repair`** (SA live enum) · Status=`new` · **không** `sua-chua` |
+
+### T-AND-EST
+
+| Area | Path |
+|------|------|
+| repo | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android` |
+| Feature UI (NEW) | `presentation/feature/estimate/*` — screen + VM + UiState + Copy · parity dual |
+| Entry wire | `presentation/feature/mntlist/MntListViewModel.kt` Hub/Estimate thay toast · `presentation/navigation/MainTabScreen.kt` `onOpenEstimate` thay toast → navigate Estimate + incidentId |
+| Use cases / repo | same dual · NEW EstimateRepository · expand Maintenance create · expand Incident assign · ApiService paths |
+| Copy | parity VN (`GAP-MOB-ALIGN-01`) · Android back icon-only OK |
+| DI | Hilt |
+| ssot.zones | same `DES-MOB-EST` |
+| kit | same kit map · Material chrome shell only |
+| BFF | same paths · no offline queue P1 |
+
+### T-BE-* / T-BFF-*
+
+| | |
+|--|--|
+| Status | **N/A (LIVE Signed)** — `AiVisionEstimatesController` · `WorkOrdersController.Create` · `IncidentsController.Assign` · Mobile.Bff catch-all |
+| TL turn | **không** pack T-BE · **cấm** Step 4b / migration |
+| App P1 | wire existing paths only · **cấm** invent controller/path |
+
+---
+
+## DoD per task
+
+### Shared AC (both native · cite PO §3 + SA + Design)
+
+1. Screen **Giao việc xử lý** full (`DES-MOB-EST` `#sc-estimate`): nav back → mnt-list / incident parent · title fixed · card Từ sự cố + Loại TS · fields · CTA Giao việc + Lưu nháp · toast · **cấm** bottom-sheet · **cấm** badge P1/P2 header.
+2. Entry: mnt-list hub/card `#i-sum` + incident CTA → **push** `#sc-estimate` (thay toast · **GAP-MOB-EST-NAV-01**) · **cấm** reimplement parent chrome · **cấm** enqueue.
+3. Prefill header: Code · defect · route/Km (+ Loại TS) từ nav và/hoặc `GET incident/incidents/{id}` · thiếu incidentId → banner · **chặn** Giao việc (`?missing=1`).
+4. Seed: có incidentId → `POST ai-vision/estimates/from-incident/{id}` (hoặc resume GET) · prefill qty/giá từ `Lines[0]` · fail → form + demo fallback rows · **cấm** invent path · **cấm** fake toast CV.
+5. **Giao cho *** required free text · empty → disable primary hoặc toast validate · **cấm** invent staff API (`GAP-MOB-EST-ASSIGNEE-01`).
+6. Qty decimal · Đơn giá VND · Thành tiền = qty × unitPrice · write `Lines[0].Qty` / `UnitPrice` (`GAP-MOB-EST-SIMP-01`).
+7. SLA hours readonly default **24** · DueAt = now + sla · wire UTC · display VN · bind WO `SlaHours`/`DueAt` · **cấm** invent SLA API (`GAP-MOB-EST-SLA-01`).
+8. Primary **Giao việc**: optional PUT lines / confirm · **`POST maintenance/work-orders`** (`WorkType=repair` · `Status=new` · RouteName · DueAt · AssigneeName · IncidentId…) · optional `POST …/assign` · busy · toast **Đã giao việc · {Code} · thời hạn {SlaHours} giờ** · back mnt-list · **cấm** fake CV · **chặn** !assignee / !incidentId (`GAP-MOB-EST-WO-01`).
+9. Secondary **Lưu nháp**: `POST …/estimates/{id}/draft` · toast **Đã lưu nháp ước lượng** · offline queue **DEFER** · **cấm** fake 200.
+10. Kit reuse map · **cấm** system alert · **cấm** watermark Gói / device label.
+11. Dual copy parity · Android back icon-only OK (`GAP-MOB-ALIGN-01`).
+12. Tab 5 shell giữ · pack `tabs: none` · tab **work** khi entry mnt-list (`T-QA-TAB-01` · `GAP-TAB-01`).
+13. App chỉ `{BffPrefix}` · token Keychain / Encrypted · **cấm** `:5101` · **cấm** ERP.*.
+14. **Cấm** ship siblings mnt-chat / progress / log / web Kind B+D trên pack này.
+
+### Field / kit parity (cite `ui/html-to-native-map.md`)
+
+| Field | Kit / surface | Notes |
+|-------|---------------|-------|
+| navBack / title | `LinmTopBar` | iOS back **Công việc** · Android icon-only |
+| fromIncident / assetType | `LinmListRow` | readonly · label 13 · value ≥16 |
+| assignee | `LinmTextField` | * required free text |
+| qty / unitPrice | `LinmTextField` | decimal / money → Lines[0] |
+| totalAmount / slaHours / dueAt | `LinmTextField` readonly | derived |
+| btnAssign | `LinmPrimaryButton` | POST WO · busy |
+| btnDraft | `LinmSecondaryButton` | draft |
+| toastOk / toastDraft / toastErr | `LinmToast` | **cấm** alert · **cấm** fake CV |
+| bannerMissing | banner | thiếu incidentId |
+| typography | `LinmTokens` | `GAP-TYP-01` |
+
+### Build gate (Dev — HARD trước Dev done · **cấm** TL chạy)
+
+| Platform | Command | Dest |
+|----------|---------|------|
+| iOS | `xcodegen generate` + `xcodebuild -scheme LinmRmms -destination 'platform=iOS Simulator,name=iPhone 17 Pro' build` | **iPhone 17 Pro** (iPad DEFER Phase 2) |
+| Android | `./gradlew :app:assembleDebug` | debug APK |
+| BFF | `dotnet build` `RMMS.Mobile.Bff.csproj` nếu Dev đụng BFF | PASS · else reuse |
+| BE | — | **n/a** T-BE |
+
+**Cấm** `yarn start:std` / `mfeStdUrl` / `yarn e2e-qa-mobile` / `yarn build` ở TL · mark Dev done khi build fail.
+
+### API contract (from SA — cite only)
+
+| Action | App path | Notes |
+|--------|----------|-------|
+| Prefill SC | `GET incident/incidents/{id}` | optional nếu nav đủ |
+| Seed | `POST ai-vision/estimates/from-incident/{incidentId}` | open |
+| Resume | `GET ai-vision/estimates/{id}` | |
+| Update lines | `PUT ai-vision/estimates/{id}` | `Lines[0]` |
+| Draft | `POST ai-vision/estimates/{id}/draft` | secondary |
+| Confirm (opt) | `POST ai-vision/estimates/{id}/confirm` | optional chain |
+| Giao việc | `POST maintenance/work-orders` | **primary** · WorkType=`repair` · Status=`new` |
+| Assign (opt) | `POST incident/incidents/{id}/assign` | AssigneeName sync |
+| Init (opt) | `GET …/estimates/init-data` · `GET …/work-orders/init-data` | optional P1 |
+
+**Cấm** invent `api/v1/estimate` · `ai-estimate/*`.
+
+---
+
+## Out of pack (cấm giao Dev trên slug này)
+
+| Item | Owner |
+|------|-------|
+| mnt-chat / mnt-progress / mnt-log | siblings · toast giữ / pending_confirm · **cấm** start |
+| Web Kind B list / Kind D multi-line / Config | prior web · `estimate-web.md` **giữ** · OUT |
+| Auto WO event `estimate.created` | web DEFER · mobile dùng explicit POST |
+| Staff lookup / SLA policy API | **cấm** invent |
+| Invent EstimateController / bare `estimate` path | **cấm** |
+| Offline draft queue | **DEFER** |
+| New kit package | **cấm** `T-KIT-*` |
+| Step 4b / migration / e2e | **không** ở TL · Dev/QA khi tới lượt |
+| Watermark Gói / device label / proto-click | **cấm** |
+
+---
+
+## Handoff → Dev / QA
 
 | Field | Value |
 |-------|-------|
-| `source.mfe` | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.AiVision` |
-| `source.routes` | `/ai-vision/estimate` · Slideout `?form=` · **route_confirm=route_a** |
-| `source.backend` | `D:/AI-QLBD/Linm.RMMS.WebService` |
-| `source.domain` | **AiVision** (`ai-vision`) |
-| `source.api` | `api/src/RMMS.Service.Api/Domains/AiVision/` |
-| `source.bff` | `bff/domains/ai-vision/` · proxy `web-bff/api/v1/ai-vision/estimates/**` |
-| `source.persistence` | `api/shared/RMMS.Service.Persistence/` |
-| `source.migrations` | `api/shared/RMMS.Service.Migrations/` |
-| `source.uiSchema` | Integration `CatalogUiSchemaRegistry` + Seed · kind **`ai-estimates`** |
-| Demo | `Linm.RMMS.Demo/src/demo/ai-vision/estimate.html` |
-| Context | `Linm.RMMS.Data/docs/context/features/estimate.md` · **filter-bar** `docs/context/features/estimate-filter-bar.md` |
-| reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/estimate/ui/prototype/estimate-list-prototype.html` |
-| `mfeStdRoute` | `/ai-vision/estimate` (**locked**) |
-| `mfeStdUrl` | `http://localhost:9303/ai-vision/estimate` |
-| peerStdUrl | `http://localhost:9303/ai-vision/ai-asset-detect` |
-| beRepo / uiRepo | **pending board** trước Dev |
-
-### route_confirm (autoApprove=ON · keep prior lock)
-
-| Option | Path | Note |
-|--------|------|------|
-| **A (locked)** | `/ai-vision/estimate` | PO+Design+SA · MFE AiVision |
-| B | `/ai-vision/uoc-luong` | **không chọn** |
-| C custom | — | n/a |
-
-## API contract (from solution)
-
-Base BE: `api/v1/ai-vision/estimates` · BFF: `web-bff/api/v1/ai-vision/estimates` · FE BASE: **`/ai-vision/estimates`**.
-
-| id | Method | Path |
-|----|--------|------|
-| API-01 | GET | `/api/v1/ai-vision/estimates` |
-| API-02 | GET | `/api/v1/ai-vision/estimates/init-data` |
-| API-03 | GET | `/api/v1/ai-vision/estimates/{id}` |
-| API-04 | POST | `/api/v1/ai-vision/estimates/from-incident/{incidentId}` |
-| API-05 | POST | `/api/v1/ai-vision/estimates/from-defects` |
-| API-06 | PUT | `/api/v1/ai-vision/estimates/{id}` |
-| API-07 | POST | `/api/v1/ai-vision/estimates/{id}/draft` |
-| API-08 | POST | `/api/v1/ai-vision/estimates/{id}/confirm` |
-| API-09 | DELETE | `/api/v1/ai-vision/estimates/{id}` |
-| L-01 | init-data `hostIncidents` (P1) · Incident search reuse | SearchInput `incidentId` |
-| UI-S | GET/PUT | `/api/v1/integration/catalogs/ai-estimates/ui-schema` |
-
-## Implement gates
-
-| Gate | Decision | Apply |
-|------|----------|-------|
-| TZ | **tz_required** | API-01 from/to · timestamps · mutate |
-| XCO | **xco_get_only** | API-03 GET/{id} (+ confirm/draft load) |
-| SHARE | **share_tenant** | EstimateAudit + EstimateLine |
-
-## DES-GRID → Lin* (HARD)
-
-| Zone | Design | Component |
-|------|--------|-----------|
-| A | DES-GRID-A | `LinPageLayout` / header · titleIcon `fa-calculator` · **no AI badge** |
-| B | DES-GRID-B | `catalogToolbar` FULL · config=`fa-cog` |
-| FILTER | DES-GRID-FILTER | Search + Dropdown status/**sourceType** · Date from/to · clear |
-| C0 | DES-GRID-C0 | listTitle · row-menu help |
-| C1 | DES-GRID-C1 | `SearchTextInput` — **cấm** nút Tìm |
-| C2 | DES-GRID-C2 | `LinCatalogDataGrid` · `buildDynamicGridColumns` · kéo cột default ON |
-| C2a | DES-GRID-C2a | `useLinCatalogColumnFilterSort` |
-| C3 | DES-GRID-C3 | `LinCatalogRowActionMenu` |
-| D | DES-GRID-D | **`LinCatalogListPagination`** |
-| F | DES-GRID-F | **`LinCatalogUiSchemaEditorModal`** · kind=`ai-estimates` |
-| H | DES-GRID-H | `LinCatalogHistoryModal` |
-| Z | DES-GRID-Z | Kind D slideout · **footer actions only** |
-| — | shell | **1×** `LinPageLayout` — **cấm** nested CatalogListShell |
+| Next | `/agent-dev-ios` (`T-IOS-EST`) rồi `/agent-dev-android` (`T-AND-EST`) |
+| Chain this turn | **không** (roleOnly=`team_lead` · GAP-PKT-ROLE-01) |
+| implement stubs | Dev ghi `implement/ios.md` · `implement/android.md` khi tới lượt |
+| reviewUrl | dual `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/estimate/ui/prototype/{ios,android}/index.html` · missing `?missing=1` |
+| QA sau Dev | `yarn e2e-qa-mobile` · Maestro slug `estimate` · store PNG `qa/store/estimate` · **chỉ** `/agent-qa*` |
+| Step 4b | **N/A** · T-BE n/a · **cấm** TL chạy |
+| WorkType | **`repair`** (SA) — không `sua-chua` |
+| priorWeb | `task/estimate-web.md` **giữ** |
 
 ---
 
-## retry.ssot_rereview (TL **trước** handoff Dev · live 2026-08-17 · `task_a88111e4`)
+## VERIFY GATE (roleOnly=`team_lead`)
 
-Live: `Linm.Web.RMMS.AiVision/src/pages/EstimateListPage/EstimateListPage.tsx` · `EstimateFormSlideout.tsx` · BE `AiVisionEstimatesController`.
-
-| # | Check | Result |
-|---|-------|--------|
-| 1 | 1× `LinPageLayout` · cấm nested `CatalogListShell` | **PASS** |
-| 2 | `LinCatalogDataGrid` + kéo cột default ON | **PARTIAL** — grid present · **FAIL leftover** `const columns` / `LinCatalogDataColumn[]` (chưa `buildDynamicGridColumns`) |
-| 3 | Footer `LinCatalogListPagination` · cấm footerPagination / pageSizeBar | **PASS** |
-| 4 | flex + skeleton / LAYOUT-06 | **PASS** (`useServerPagedListLoading` · title+toolbar+grid) |
-| 5 | Toolbar config FULL · `LinCatalogUiSchemaEditorModal` | **FAIL** — `configHint` placeholder (**GAP-SA-EST-03** / GAP-P2-CC-06) |
-| 6 | Filter Zone B: **`LinErpListFilterBar`** + status · **sourceType** · from/to · context `estimate-filter-bar.md` | **FAIL** — `ErpListHeaderFilters` · thiếu sourceType + Date (**GAP-SA-EST-04** / **GAP-TL-FILTER-01**) |
-| 7 | List API `sourceType` query | **FAIL** — controller/service thiếu (**GAP-SA-EST-01**) |
-| 8 | BE ui-schema seed `ai-estimates` | **FAIL** — registry/seed missing (**GAP-SA-EST-02**) |
-| 9 | list_parity Kind B A–D+F | **FAIL** — F missing · filter incomplete |
-| 10 | tree_master? | **n/a** |
-| 11 | Form Kind D footer-only + LeaveConfirmModal | **PASS** (footer + `useLeaveConfirm`) |
-| 12 | View display (cấm Input readOnly xám toàn form) | **FAIL** — `readOnly={mode==='view'}` trên Input (**T-UI-PROD** / GAP-DES-VIEW-DL style) |
-| 13 | Dropdown từ init-data only | **PASS** form Select · list status từ init |
-| 14 | T-UI-UX cấm `filterMaxWidthPx` | **FAIL** — `filterMaxWidthPx={720}` (**T-UI-UX-01**) |
-| 15 | no AI badge header | **PASS** |
-| 16 | Confirm **không** auto WO | **PASS** (live confirm status only) |
-
-**Cấm** Dev chỉ patch 1 chỗ nếu còn GAP cùng surface list/form. Ghi `retry.ssot_rereview` trên implement MD.
-
-### Gaps (this pack — Must-fix trước QA)
-
-| ID | Gap | Task | Status |
-|----|-----|------|--------|
-| **GAP-SA-EST-01** | List API thiếu `sourceType` | **T-BE-CRUD-01** | **CLOSED** |
-| **GAP-SA-EST-02** | CatalogUiSchema `ai-estimates` missing | **T-BE-UISCHEMA-01** | **OPEN P0** |
-| **GAP-SA-EST-03** | MFE `configHint` placeholder | **T-UI-CFG-01** · **T-UI-LIST-01** | **OPEN P0** |
-| **GAP-SA-EST-04** | FE list thiếu `sourceType` (+ Date from/to Design) | **T-UI-FILTER-01** · **T-UI-LIST-01** | **CLOSED** |
-| **GAP-TL-FILTER-01** | Filter chưa `LinErpListFilterBar` / chưa load `estimate-filter-bar.md` | **T-UI-FILTER-01** | **CLOSED** |
-| GAP-TL-GRID-BOOTSTRAP-01 | leftover `const columns` | **T-UI-LIST-01** · **T-UI-CFG-01** | **OPEN P0** |
-| GAP-DES-VIEW-DL | View Input readOnly xám | **T-UI-FORM-01** · **T-UI-PROD-01** | **OPEN P0** |
-| GAP-TL-UX-FILTER-MAX-01 | `filterMaxWidthPx={720}` | **T-UI-UX-01** | **OPEN P1** |
-| GAP-F-EST-01 / EVT / UnitPrice | Auto WO · event · catalog UI | — | **DEFER P2** |
+| Check | Result |
+|-------|--------|
+| task/estimate.md | **PASS** · T-IOS-EST · T-AND-EST · T-BE **n/a** · T-BFF **n/a** · route_a · source lock |
+| Prior SA + Design + PO + data-analy | **PASS** · read abs · hashes khớp · **cấm** invent API / control |
+| ios_repo + android_repo + route_confirm | **PASS** · repos có · autoApprove route_a |
+| Kit | **PASS** · reuse map · T-KIT **n/a** |
+| prior web task | **PASS** · moved → `task/estimate-web.md` |
+| Step 4b / migration / e2e | **SKIP** (cấm role TL) |
+| yarn build / start:std / implement native Write | **SKIP** (cấm role TL) |
+| Chain other role | **SKIP** · GAP-PKT-ROLE-01 |
 
 ---
-
-## FormType pack (canonical — `form-type-task-pack` §2a list + §2c ai · S-LIST)
-
-`packKind=ai` + S-LIST → **list pack ids REQUIRED** · detect capture ids **n/a** (estimate generate = toolbar API-04/05 · **devSlash=/agent-dev**).
-
-| Task id | Role | Status | Maps to / notes |
-|---------|------|--------|-----------------|
-| T-CTX-01 | TL/Dev | **done** (TL) | Context + ownership · DOMAIN-MAP path |
-| T-PERM-01 | Dev | **pending** | `ai-vision.estimates.*` |
-| T-BE-CRUD-01 | Dev | **partial** | API-01…09 · **sourceType query CLOSED** (GAP-SA-EST-01) |
-| T-BE-INIT-01 | Dev | **pending** | API-02 init-data verify |
-| T-BE-UISCHEMA-01 | Dev | **pending** | Registry + Seed **`ai-estimates`** (GAP-SA-EST-02) |
-| T-MIG-01 | Dev | **verify / no-op** | `Schema_RmmsAiVisionEstimates` exists · **cấm** regen trừ delta seed |
-| T-BFF-01 | Dev | **verify / extend** | proxy estimates · forward `sourceType` query |
-| T-UI-LIST-01 | Dev | **pending** | A–D+F · no AI badge · **cấm** leftover columns |
-| T-UI-FILTER-01 | Dev | **done** | `/filter-bar-context` · `estimate-filter-bar.md` · `LinErpListFilterBar` V1–V5 · sourceType+Date |
-| T-UI-CFG-01 | Dev | **pending** | `LinCatalogUiSchemaEditorModal` · **cấm** `configHint` |
-| T-UI-FORM-01 | Dev | **pending** | Kind D slideout · lines grid · footer only · View `<dl>` |
-| T-UI-ACT-01 | Dev | **pending** | Action inventory → form/API |
-| T-UI-LEAVE-01 | Dev | **verify / harden** | LeaveConfirmModal already · cover all dirty paths |
-| T-UI-LKP-01 | Dev | **pending** | incident SearchInput · Dropdowns init-data |
-| T-UI-FIELD-01 | Dev | **pending** | control-map ↔ DTO/API · lines amount |
-| T-UI-PROD-01 | Dev | **pending** | end-user · cấm Dev note · View ≠ Input xám |
-| T-UI-UX-01 | Dev | **pending** | spacing · **bỏ filterMaxWidthPx** · slideout 2-col |
-| T-UI-HIST-01 | Dev | **pending** | `LinCatalogHistoryModal` stub OK · cấm native alert |
-| T-UI-AI-01 | — | **n/a** | no S-DETECT capture · **cấm** ai-detect slash |
-| T-UI-AI-FORM-01 | — | **n/a** | HITL = confirm modal trên form list (T-UI-ACT) |
-| T-BE-AI-01 | — | **n/a** | generate stub = API-04/05 trong T-BE-CRUD |
-| T-UI-MAP-01 | — | **n/a** | no S-MAP |
-| T-QA-CRUD-01 | QA | **pending** | Create→Edit→View→Confirm→Delete + config FULL |
-| T-QA-FILTER-01 | QA | **pending** | V1–V5 + `estimate-filter-bar.md` · 🔍 work · **fail** `ErpListHeaderFilters` |
-| T-QA-LEAVE-01 | QA | **pending** | dirty leave Modal |
-| T-QA-AI-01 | QA | **pending** | from-incident/from-defects smoke · **0** AI badge · e2eQa ON |
-| T-LIB-01 | — | **n/a** | Lin* đã có |
-
-**GAP-TL-FORMTYPE-01:** closed — đủ list + ai(S-LIST) ids · LKP/FIELD/PROD/CFG/UISCHEMA.  
-**GAP-TL-DEV-ASSIGN-01:** closed — `devSlash=/agent-dev`.
-
----
-
-## Task pack (detail)
-
-### T-CTX-01
-**layer:** docs  
-**status:** **done** (TL)  
-**ssot.reuse:** DOMAIN-MAP · design · solution · controlHint  
-**DoD:**
-- [x] Context + control-map khớp design+solution
-- [x] Path canonical `api/v1/ai-vision/estimates` (not `/ai-estimate`)
-- [x] route locked `/ai-vision/estimate`
-- [x] MFE ownership `Linm.Web.RMMS.AiVision` documented
-
-### T-PERM-01
-**layer:** ui+api  
-**status:** pending  
-**codes:** `ai-vision.estimates.read|create|update|delete|confirm`  
-**devSlash:** `/agent-dev`  
-**ssot.reuse:** `Linm.Platform.Authentication` · catalog-list-permissions  
-**DoD:**
-- [ ] FE toolbar/form/row menu gated · local mode OK
-- [ ] BE `[RequirePermission]` stub comments
-- [ ] Confirm perm riêng
-
-### T-BE-CRUD-01
-**layer:** api  
-**status:** pending  
-**from_solution:** API-01…09 · `EstimateAuditEntity` · `EstimateLineEntity`  
-**source:** backend=`Linm.RMMS.WebService` · domain=`AiVision` · **cấm ERP.***  
-**skills:** `/new-endpoint` · `/review-query` · `/implement-view-cross-company` · `/review-timezone-implement` · `/implement-shared-table`  
-**gates:** TZ · XCO get_only · SHARE tenant  
-**DoD:**
-- [ ] ApiResponse / paged · search must work · pageSize ∈{50,100,200,500}
-- [x] **IN:** API-01 query **`sourceType`** (GAP-SA-EST-01)
-- [ ] from-incident / from-defects stub generate · draft/confirm/delete
-- [ ] Lines child table — **cấm** `*LinesJson`
-- [ ] Confirm **không** tạo WO
-- [ ] `dotnet build` API PASS · **no ERP.***
-
-### T-BE-INIT-01
-**layer:** api  
-**status:** pending  
-**from_solution:** API-02  
-**skills:** `tl-dropdown-from-backend`  
-**DoD:**
-- [ ] `{ statuses[], sourceTypes[], defectTypes[], severities[], unitCatalog[], hostIncidents[] }`
-- [ ] FE Dropdown **chỉ** từ init-data — **cấm** hardcode enum
-- [ ] Status values **Draft** / **Confirmed**
-
-### T-BE-UISCHEMA-01
-**layer:** api Integration  
-**status:** pending  
-**from_solution:** GAP-SA-EST-02 · catalogKind=`ai-estimates`  
-**skills:** CatalogUiSchemaRegistry · Seed  
-**DoD:**
-- [ ] `CatalogUiSchemaRegistry` + Seed columns (code · incident · source · route · defect · total · status · model · createdAt)
-- [ ] GET/PUT `/api/v1/integration/catalogs/ai-estimates/ui-schema`
-- [ ] **cấm** `configHint`
-
-### T-MIG-01
-**layer:** migration  
-**status:** **verify / no-op** (exists)  
-**ssot.reuse:** `/database-migration`  
-**DoD:**
-- [x] Named migration **`Schema_RmmsAiVisionEstimates`** (audits + lines) — live present
-- [ ] Only delta if UISCHEMA seed needs migration companion
-- [ ] **cấm** parent JSON · **cấm** regen full table without need
-- [ ] `dotnet build` PASS
-
-### T-BFF-01
-**layer:** bff  
-**status:** pending (verify + forward sourceType)  
-**ssot.reuse:** `/create-bff-api-feature` · proxy-only  
-**DoD:**
-- [ ] Proxy-only `web-bff/api/v1/ai-vision/estimates/**`
-- [ ] Forward `Authorization` · `X-Company-Id` · list query incl. **`sourceType`**
-- [ ] Ui-schema **không** clone vào AiVision BFF (Integration)
-- [ ] `dotnet build` BFF PASS · **no business logic**
-
-### T-UI-LIST-01 — List page + grid (Kind B)
-
-**status:** pending  
-**page:** `/ai-vision/estimate`  
-**devSlash:** `/agent-dev`  
-**from_design:** zones A,B,FILTER,C0–C3,D,F,H · reviewUrl  
-**ssot.reuse:**
-  design_zones: DES-GRID-A,B,FILTER,C0,C1,C2,C2a,C3,D,F,H,Z
-  ui_page: LinPageLayout (kind=catalog) · flex root (GAP-P2-LAYOUT-06)
-  ui_filter: **T-UI-FILTER-01** · `estimate-filter-bar.md` · LinErpListFilterBar + status + **sourceType** + Date from/to — cấm ErpListHeaderFilters / nút Tìm
-  ui_toolbar: catalogToolbar FULL + from-incident/from-defects/export · **no AI badge**
-  ui_grid: LinCatalogDataGrid · `columns={buildDynamicGridColumns(schema, uiColumns)}` · resizable ON
-  ui_footer: LinCatalogListPagination ONLY
-  http: apiClient · unwrap — cấm clone ApiClient
-  init_data: GET …/estimates/init-data only
-
-**APIs:** API-01 · API-02  
-**deps:** T-BE-CRUD-01 · T-BE-UISCHEMA-01 · T-PERM-01 · T-UI-CFG-01  
-
-**DoD:**
-- [ ] A–D+F parity · search work · **không** AI badge header
-- [ ] Filter = **T-UI-FILTER-01** (không wire lệch context)
-- [ ] **IN:** remove leftover `const columns` / static `LinCatalogDataColumn[]`
-- [ ] BASE list = `/ai-vision/estimates`
-- [ ] `yarn build` PASS (MFE AiVision)
-
-### T-UI-FILTER-01 — List filter bar
-
-**status:** **done**  
-**devSlash:** `/agent-dev`  
-**skills (REQUIRED load trước Write):**
-  - `/filter-bar-context` · `/erp-filter-form` · `filter-bar-layout-hard`
-  - context: `Linm.RMMS.Data/docs/context/features/estimate-filter-bar.md`
-
-**ssot.reuse:**
-  ui_filter: LinErpListFilterBar · fragment leading · `data-lin-list-layout="erp-filter-bar"`
-  ui_layout: title trái · mọi input + 🔍 cụm phải
-  init_data: statuses + sourceTypes từ GET `…/estimates/init-data`
-  http: `search` · `status` · `sourceType` · `from` · `to`
-
-**implement.filter:**
-  bar: LinErpListFilterBar · onSearch trên bar
-  leading: Search + Status + Nguồn — **cấm** wrapper `.filterRow`
-  date: from/to empty = tất cả (cấm default Hôm nay)
-  cấm: ErpListHeaderFilters · LinListFilterField · filterMaxWidthPx · export trên bar
-
-**deps:** T-BE-CRUD-01 (`sourceType` query) · T-BE-INIT-01  
-**DoD:**
-- [x] Context fields 1:1 · V1–V5 PASS
-- [x] Search + status + sourceType + from/to work
-- [x] `rg` 0 `ErpListHeaderFilters` / `LinListFilterField` trên EstimateListPage
-- [x] `yarn build` PASS
-
-### T-UI-CFG-01
-**layer:** ui  
-**status:** pending  
-**devSlash:** `/agent-dev`  
-**deps:** T-BE-UISCHEMA-01  
-**DoD:**
-- [ ] `LinCatalogUiSchemaEditorModal` title «Cấu hình hiển thị danh mục» · kind=`ai-estimates`
-- [ ] `useCatalogUiSchema` · bảng cột List/width/filter/sort/Thêm cột
-- [ ] **cấm** `configHint` · **cấm** `LinListTableConfigModal` editor cột (GAP-SA-EST-03 / GAP-P2-CC-06)
-- [ ] `yarn build` PASS
-
-### T-UI-FORM-01
-**layer:** ui  
-**status:** pending  
-**devSlash:** `/agent-dev`  
-**from_design:** Kind D Slideout Z1–Z3 · footer_actions_only · lines `pattern_inline_grid`  
-**ssot.reuse:** `/erp-form-context` · `slideout-form-layout` · `dev-form-review-checklist`  
-**APIs:** API-03 · API-04 · API-05 · API-06 · API-07 · API-08 · API-09  
-**deps:** T-UI-LIST-01  
-**DoD:**
-- [ ] FormMode Create/Edit/View · **View = `<dl>` / display** — **cấm** Input `readOnly` xám toàn form
-- [ ] Footer only: Hủy / Lưu nháp / Xác nhận / Gắn CV — **cấm** top actions Z1
-- [ ] Lines Thêm/Sửa/Xóa · total computed
-- [ ] Dropdown từ init-data only
-- [ ] `yarn build` PASS
-
-### T-UI-ACT-01 — action inventory
-**layer:** ui  
-**status:** pending  
-**deps:** T-UI-LIST-01 · T-UI-FORM-01  
-**ssot.reuse:** design action map · apiClient  
-
-| Action | Surface | Handler | API |
-|--------|---------|---------|-----|
-| Search | S-LIST C1 | SearchTextInput | GET `?search=` |
-| Filters | FILTER | Dropdown/Date | GET `status` · **`sourceType`** · `from` · `to` |
-| Clear filter | FILTER | reset | GET |
-| Refresh | toolbar | reloadAll | GET |
-| + Tạo | toolbar | openCreate | — / POST from-* |
-| Từ sự cố | toolbar | from-incident | POST `/from-incident/{id}` |
-| Từ detections | toolbar | from-defects | POST `/from-defects` |
-| Export | toolbar | stub toast | — |
-| Config | toolbar | ui-schema modal | GET/PUT `ai-estimates` |
-| History | toolbar/row | LinCatalogHistoryModal | stub |
-| Row View/Edit | row menu | openRow | GET · PUT |
-| Row Confirm | row/form | confirm modal | POST `/{id}/confirm` |
-| Row Delete | row | soft-delete draft | DELETE |
-| Lưu nháp | footer | draft | POST `/{id}/draft` |
-| Gắn CV | footer | stub toast | — **no auto WO** |
-
-**DoD:**
-- [ ] Inventory đủ · search work · no dead Create/Edit
-- [ ] `yarn build` PASS
-
-### T-UI-LEAVE-01
-**layer:** ui  
-**status:** pending (verify/harden)  
-**ssot.reuse:** `/implement-show-leave-confirm`  
-**deps:** T-UI-FORM-01  
-**DoD:**
-- [ ] leave-confirm khi dirty (Đóng / backdrop / route leave)
-- [ ] snapshot restore on Hủy
-- [ ] **cấm** `window.confirm` / `alert`
-- [ ] `yarn build` PASS
-
-### T-UI-LKP-01
-**layer:** ui  
-**status:** pending  
-**deps:** T-UI-FORM-01 · T-BE-INIT-01  
-**DoD:**
-- [ ] List/form Dropdown status · sourceType · defectType · severity = Lin `Select` từ init-data — **cấm** native `<select>` · **cấm** hardcode
-- [ ] `incidentId` = SearchInput / hostIncidents P1 (Text OK nếu stub) — **cấm** free invent API
-- [ ] UnitPriceCatalog lookup **DEFER P2**
-
-### T-UI-FIELD-01
-**layer:** ui  
-**status:** pending  
-**deps:** T-UI-FORM-01 · T-BE-CRUD-01  
-**DoD:**
-- [ ] control-map §5 ↔ EstimateDto / UpdateEstimateRequest / lines DTO
-- [ ] List query keys: `search` · `status` · `sourceType` · `from` · `to` · `page` · `pageSize`
-- [ ] lineAmount = qty × unitPrice · totalAmount computed
-- [ ] Date TZ → UTC bounds
-
-### T-UI-PROD-01
-**layer:** ui  
-**status:** pending  
-**deps:** T-UI-FORM-01 · T-UI-LIST-01  
-**DoD:**
-- [ ] End-user copy · **cấm** note Dev / demo chrome trên production surface
-- [ ] **cấm** Resource shell · **cấm** View=`readOnly` Input xám — CLOSED cùng T-UI-FORM
-- [ ] Form = Kind D Slideout (Design) — **không** đổi Full-page
-
-### T-UI-UX-01
-**layer:** ui  
-**status:** pending  
-**ssot.reuse:** `dev-ui-ux-constitution` · spacing 4/8/16 · slideout 2-col  
-**deps:** T-UI-FORM-01 · T-UI-LIST-01  
-**DoD:**
-- [ ] **IN:** bỏ `filterMaxWidthPx={720}` trên `LinPageLayout` / `ErpListHeaderFilters`
-- [ ] Spacing / typography parity catalog
-- [ ] View mode display · footer View actions
-- [ ] `yarn build` PASS
-
-### T-UI-HIST-01
-**layer:** ui  
-**status:** pending  
-**ssot.reuse:** `dev-history-alert-overlay`  
-**DoD:**
-- [ ] `LinCatalogHistoryModal` stub OK P1
-- [ ] Delete/confirm = `Modal` / `useAlert` — **cấm** native dialog
-- [ ] Overlay `stacked` với form/confirm
-
-### T-QA-CRUD-01
-**layer:** qa  
-**status:** pending  
-**deps:** T-UI-ACT-01 · T-BE-CRUD-01 · T-UI-FORM-01 · T-UI-CFG-01  
-**DoD:**
-- [ ] Smoke Create→Edit→View→Confirm→Delete draft + row menu
-- [ ] Search/filter(sourceType/dates)/pagination · lines edit · no auto WO
-- [ ] Config FULL editor (không Zone F-only / configHint)
-- [ ] Update `qa/scenarios.md`
-
-### T-QA-LEAVE-01
-**layer:** qa  
-**status:** pending  
-**deps:** T-UI-LEAVE-01  
-**DoD:**
-- [ ] Dirty leave-confirm paths covered (Modal · không native)
-- [ ] Update `qa/scenarios.md`
-
-### T-QA-AI-01
-**layer:** qa  
-**status:** pending  
-**deps:** T-UI-ACT-01 · T-BE-CRUD-01  
-**e2eQa:** **ON** — `yarn start:std` + docker + `yarn e2e-qa` + screenshot  
-**DoD:**
-- [ ] from-incident / from-defects smoke
-- [ ] **0** AI badge header
-- [ ] mfeStdUrl `http://localhost:9303/ai-vision/estimate`
-- [ ] Update `qa/scenarios.md`
-
----
-
-## Deps order
-
-```
-T-CTX-01 (done)
-  → T-MIG-01 (verify)
-  → T-BE-INIT-01
-  → T-BE-UISCHEMA-01
-  → T-BE-CRUD-01 (+ sourceType)
-  → T-BFF-01
-  → T-PERM-01
-  → T-UI-CFG-01 → T-UI-LIST-01 · **T-UI-FILTER-01**
-  → T-UI-FORM-01 → T-UI-LKP-01 → T-UI-FIELD-01 → T-UI-PROD-01
-  → T-UI-ACT-01 · T-UI-LEAVE-01 · T-UI-HIST-01 · T-UI-UX-01
-  → verify: MFE yarn build PASS · BE dotnet build PASS
-  → T-QA-CRUD-01 · T-QA-LEAVE-01 · T-QA-AI-01 → Review
-```
-
-## System design flags
-
-| ID | Flag | Note |
-|----|------|------|
-| SD-LIB-UI | required | common-components only |
-| SD-LIB-BE | required | CommonLib ApiResponse |
-| SD-AUTH | stub | RequirePermission when CommonLib ready |
-| SD-BFF | required | Proxy only |
-| SD-HEADER | required | `X-Company-Id` |
-| SD-TENANT | required | share_tenant |
-| SD-NO-JSON | required | child lines table |
-| SD-SEARCH | required | search must work |
-| SD-TZ | required | tz_required |
-| SD-XCO | required | xco_get_only |
-| SD-SHARE | required | share_tenant |
-| SD-INIT | required | Dropdown từ init-data |
-| SD-CONFIG | required | ui-schema `ai-estimates` FULL |
-
-## Handoff → Dev
-
-| Field | Value |
-|-------|-------|
-| Next | `/agent-dev` · implement `specs/estimate/implement/estimate.md` |
-| Gate trước Dev | board tick **beRepo && uiRepo** (**không auto**) |
-| Priority | T-BE-UISCHEMA + T-BE-CRUD(sourceType) + T-UI-CFG → **T-UI-FILTER-01** (`estimate-filter-bar.md`) → T-UI-LIST/FORM/ACT/LEAVE/LKP/FIELD/PROD/UX |
-| Anti-dup | reuse AiVision list/form patterns · **tách** estimate tables · **cấm** rewrite migration nếu PASS |
-| HARD | `tl-retry-ssot-rereview` · fix **all** GAP cùng surface · build PASS trước completed |
-| Must-fix | GAP-SA-EST-01…04 · leftover columns · View dl · filterMaxWidthPx |
-| Cấm | ERP.* · `*LinesJson` · `/ai-estimate` · AI badge header · auto WO · nested CatalogListShell · `configHint` · `/agent-dev-ai-detect` |
 
 ## Version meta (REQUIRED)
 
 | Field | Value |
 |-------|-------|
-| skillId | agent-team-lead |
-| skillVersion | 2026.08.15.17 |
-| schemaVersion | 2 |
-| workflowVersion | 2026.08.16.02 |
-| rulesVersion | 2026.08.15.25 |
-| generatedAt | 2026-08-17T14:50:00.000Z |
-| versionGate | ok |
-| taskId | `task_a88111e4` |
-| contentHash (data-analy) | `sha256:f49800a01d06c3df4ab4058c5b2b6ecde131fe8362a040481a88daa4897e8983` |
+| skillId | agent-tl-mobile |
+| skillVersion | 2026.08.29.1 |
+| schemaVersion | 1 |
+| workflowVersion | 2026.08.29.1 |
+| rulesVersion | 2026.08.29.5 |
+| generatedAt | `2026-08-29T04:42:00.000Z` |
+| versionGate | rechecked |
+| contentHash | sha256:estimate-mobile-control-hint-20260829 |
+| realDataHash | sha256:estimate-mobile-real-data-20260829 |
+| bffContentHash | sha256:estimate-mobile-bff-20260829 |
+| actionTreeHash | sha256:estimate-mobile-action-tree-20260829 |
+| ctxContentHash | sha256:58cb5c3279c3df7360e1f3f29adccc79fada11ce219853dfce035217e25b7f3d |
+| demoContentHash | sha256:394ab44597648f04b25e6d58476378c16141feb53d3b58d39923b3defcff8328 |
+| taskId | `task_cc28db20` |
 
 ---
-<!-- Version meta: skillVersion=2026.08.15.17 · schemaVersion=2 · workflowVersion=2026.08.16.02 · versionGate=ok -->
+<!-- Version meta: skillId=agent-tl-mobile skillVersion=2026.08.29.1 schemaVersion=1 workflowVersion=2026.08.29.1 rulesVersion=2026.08.29.5 versionGate=rechecked -->

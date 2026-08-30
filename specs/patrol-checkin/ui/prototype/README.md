@@ -1,11 +1,15 @@
 # Prototype — patrol-checkin
 
-Design gate: **prototype + reviewUrl** — board Approve (**không auto**).
-Repo confirm: user tick BE+UI trên `/qldb-workflow` Progress trước Dev (**không auto** · cấm ERP.*).
+Design gate: dual `ios/` + `android/` · `design_confirm` autoApprove=ON · `task_34eb58bb`.
 
-- Demo SSOT: `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/mobile-p1/ui/prototype/ios/index.html`
-- Title: Ghi điểm tuần
-- Pack kind: `sheet`
-- MFE: `Linm.RMMS.Mobile.iOS`
+| | |
+|--|--|
+| Title | Ghi điểm tuần |
+| Pack kind | `sheet` |
+| Frame | iOS 390×844 · Android 412×915 |
+| reviewUrl iOS | `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/patrol-checkin/ui/prototype/ios/index.html` |
+| reviewUrl Android | `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/patrol-checkin/ui/prototype/android/index.html` |
+| Demo states | `?mismatch=1` · `?deny=1` · `?surface=detail` |
+| SSOT source | control-hint + real-data (hash skip) · copy từ mobile-p1 `#sheet-checkin` |
 
-Put HTML prototype / screenshot link here; update `ui/design.md` with a browser-openable **reviewUrl**.
+**Cấm** `mfeStdUrl` / `yarn start:std` / watermark Gói.

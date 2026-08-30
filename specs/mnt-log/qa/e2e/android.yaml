@@ -1,0 +1,96 @@
+appId: org.linmsoft.rmms
+---
+# mnt-log · store P6 ×2 · guest → login → tile-mnt → #sc-mnt-list → #btn-mnt-log-demo-wo-2 → #sc-mnt-log
+# cấm scroll text "Đã hoàn thành" (NFC/NFD) · dùng card/btn id
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 20000
+- tapOn:
+    id: "btn-home-login"
+- extendedWaitUntil:
+    visible:
+      id: "f-user"
+    timeout: 15000
+- tapOn:
+    id: "f-user"
+- eraseText
+- inputText: "linm-soft"
+- tapOn: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
+- tapOn:
+    id: "f-pass"
+- eraseText
+- inputText: "Linm@2026"
+- pressKey: Enter
+- waitForAnimationToEnd:
+    timeout: 4000
+- tapOn:
+    id: "btn-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
+- extendedWaitUntil:
+    visible: "Trang Chủ"
+    timeout: 45000
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 15000
+- scrollUntilVisible:
+    element:
+      id: "tile-mnt"
+    direction: DOWN
+    timeout: 15000
+    optional: true
+- tapOn:
+    id: "tile-mnt"
+    optional: true
+- tapOn:
+    id: "tab-work"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-mnt-list"
+    timeout: 25000
+- assertVisible: "Danh sách công việc"
+- assertVisible:
+    id: "row-mnt-hub"
+- scrollUntilVisible:
+    element:
+      id: "card-mnt-demo-wo-2"
+    direction: DOWN
+    timeout: 15000
+- assertVisible: "Nạo cống"
+- assertVisible:
+    id: "card-mnt-demo-wo-2"
+# card có thể chỉ lộ title — scroll tiếp tới nút log (dưới fold tab)
+- scrollUntilVisible:
+    element:
+      id: "btn-mnt-log-demo-wo-2"
+    direction: DOWN
+    timeout: 15000
+    centerElement: true
+- tapOn:
+    id: "btn-mnt-log-demo-wo-2"
+- extendedWaitUntil:
+    visible:
+      id: "sc-mnt-log"
+    timeout: 25000
+- assertVisible: "Nhật ký xử lý"
+- assertVisible:
+    id: "wo-title"
+- assertVisible:
+    id: "wo-code"
+- assertVisible:
+    id: "wo-status"
+- assertVisible:
+    id: "section-log"
+- takeScreenshot: P6-CORE
+- scroll
+- assertVisible:
+    id: "sc-mnt-log"
+- takeScreenshot: P6-CORE-2

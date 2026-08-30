@@ -1,0 +1,20 @@
+{
+  "name": "linm-mobile-release-flags",
+  "wave": 0,
+  "waveName": "w0_store",
+  "updated": "2026-08-29",
+  "note": "Hand-sync → iOS/Android ReleaseFlags. Do not invent REST. Do not delete feature code when false.",
+  "flags": {
+    "guest.home": true,
+    "guest.faq": true,
+    "guest.privacy": true,
+    "guest.login": true,
+    "guest.directions": false,
+    "staff.lists": true,
+    "staff.patrolMap": false,
+    "staff.attendanceGps": false,
+    "staff.camera": false,
+    "net.osrmPublic": false,
+    "net.osmCdn": false
+  }
+}

@@ -319,3 +319,10 @@ Indexes: trigram/`code`+`name` · spatial GIST trên `Geom`.
 
 Gen demo: `/qlbd-analy-demo @asset` — load control-map trên + `/erp-form-context` rules (2a-K · 2g · common controls).
 <!-- DEMO-MFE-MODERN:END -->
+
+## Implement tracking
+
+| lane | phase | status | updatedAt |
+|------|-------|--------|-----------|
+| web | — | — | — |
+| mobile | `done` | `done` | `2026-08-29T17:23:47.902Z` |

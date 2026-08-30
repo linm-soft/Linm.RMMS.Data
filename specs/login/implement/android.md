@@ -23,8 +23,8 @@
 
 Cùng iOS: body `{ id, password }` · GET session-window · forceLogout copy · offline no-queue · forgot toast only · **cấm** `auth/refresh` · **cấm** `AlertDialog` · **cấm** `bản Gói 1`.
 
-Nav: `AppNavHost` — chưa token → `LoginScreen` · allowed → `PlaceholderHomeScreen`. **Không** NavigationBar 5 trên login.
-Demo Home **Đăng xuất** (`btn-logout`) → `LogoutUseCase` clear Encrypted store → toast **Đã đăng xuất** → Login. **Cấm** POST `auth/logout`.
+Nav: `AppNavHost` — cold start `MainTabScreen` guest · `showLogin` → `LoginScreen` overlay · `btn-login-back` `dismissLogin()`. **Không** NavigationBar 5 trên overlay.
+Logout `#sc-me` → guest Home · **cấm** POST `auth/logout`.
 
 ## Notes
 
@@ -36,6 +36,8 @@ Demo Home **Đăng xuất** (`btn-logout`) → `LogoutUseCase` clear Encrypted s
 - `/edit-mobile-feature` 2026-08-19: **GAP-MOB-EDIT-FOOTER-01** footer pin `BottomCenter` · ẩn khi IME · `./gradlew :app:assembleDebug` **PASS**.
 - `/edit-mobile-feature` 2026-08-19: **GAP-MOB-EDIT-PASS** submit reset `#f-pass` · giữ last user · `./gradlew :app:assembleDebug` **PASS**.
 - `/edit-mobile-feature` 2026-08-19: **GAP-MOB-EDIT-IME-ENTER** `#f-user` Enter + MK có giá trị → login · Enter + MK rỗng → focus `#f-pass` · `#f-pass` Enter → login · kit `onSubmit` `ImeAction.Next`/`Go` · `./gradlew :app:assembleDebug` **PASS**.
+- `/edit-mobile-feature` 2026-08-29: guest Home + overlay login · `btn-home-login` / `btn-login-back` · **cấm** required login lúc launch · `./gradlew :app:assembleDebug` **PASS**.
+- `/edit-mobile-feature` 2026-08-29: **GAP-MOB-EDIT-BACK** `btn-login-back` pin **trên** scroll · `dismissLogin()` về guest Home.
 - Pack kit local `ui:0.1.0` trước assemble (leading + height 52).
 - Emulator Pixel_9a `adb` **offline** lúc capture `/dev-ui-review` (qemu 100% CPU) — QA live `adb` khi emulator sẵn.
 - Cleartext `10.0.2.2` / localhost cho BFF Debug.

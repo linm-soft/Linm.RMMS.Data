@@ -41,17 +41,24 @@
 
 ## 3. API
 
-Signed routes (SSOT) under `api/v1/nhan-dan/gop-ys` · BFF proxy `web-bff/api/v1/integration/feedbacks` · MFE BASE `/nhan-dan/gop-ys`.
+**Live (mobile + BFF):** `api/v1/integration/feedbacks` · `AppFeedbacksController` · DOMAIN-MAP **Integration**.  
+Mobile app path: `POST integration/feedbacks` via `{BffBase}/mobile-bff/api/v1` · **cấm** invent `api/v1/feedback`.
 
 | Method | Path | Mô tả | BE status |
 |--------|------|-------|-----------|
-| GET | `api/v1/nhan-dan/gop-ys` | List admin (paged · search/status) | **Signed** · admin list **in scope** this pack |
-| GET | `api/v1/nhan-dan/gop-ys/{id}` | Get by id | **Signed** |
-| POST | `api/v1/nhan-dan/gop-ys` | Create góp ý | **Signed** |
-| PUT | `api/v1/nhan-dan/gop-ys/{id}` | Update | **Signed** |
-| DELETE | `api/v1/nhan-dan/gop-ys/{id}` | Soft delete | **Signed** |
+| GET | `api/v1/integration/feedbacks` | List admin (paged · search/status) | **live** · web Kind B UI |
+| GET | `api/v1/integration/feedbacks/{id}` | Get by id | **live** |
+| POST | `api/v1/integration/feedbacks` | Create góp ý | **live** · mobile P1 bind |
+| PUT | `api/v1/integration/feedbacks/{id}` | Update | **live** · OUT mobile P1 UI |
+| DELETE | `api/v1/integration/feedbacks/{id}` | Soft delete | **live** · OUT mobile P1 UI |
+
+**Stale alias (cấm app bind):** `api/v1/nhan-dan/gop-ys` — docs cũ / MFE BASE alias · **không** live controller path cho mobile. Web BFF proxy vẫn có thể mirror `web-bff/api/v1/integration/feedbacks`.
+
+**Mobile P1 surface:** sheet→screen Me `#row-feedback` → push `#sc-feedback` · **≠** web Kind B list/full-page 7-field (giữ artifacts `*-web.md`).
 
 Perms (Auth stub): `integration.feedbacks.read|create|update|delete`. Entity `AppFeedbackEntity` / `rmms_app_feedbacks` · IdCode `FB-YYYYMMDD-NNNN`.
+
+<!-- T-CTX-01 2026-08-28 · Dev align live integration/feedbacks · mark nhan-dan/gop-ys stale -->
 
 ## 4. Database
 
@@ -176,3 +183,10 @@ Gen demo: `/qlbd-analy-demo @feedback` — load control-map trên + `/erp-form-c
 | ACTION WORK GATE | list A–D + **full-page** form C/E/V/Copy · toolbar/row Delete · footer Gửi/Nháp · schema `app-feedbacks` |
 | BE align | **ON** · Signed · Step 4b done · cấm ERP.* |
 | Confirmed by | ai-autocode-autopilot · task_7442b627 |
+
+## Implement tracking
+
+| lane | phase | status | updatedAt |
+|------|-------|--------|-----------|
+| web | — | — | — |
+| mobile | `done` | `done` | `2026-08-29T00:25:18.030Z` |

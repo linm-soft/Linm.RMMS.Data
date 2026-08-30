@@ -22,7 +22,7 @@
 
 ## 1. Goal
 
-Tab **Trang Chủ** native dual (iOS SwiftUI + Android Compose): hero chào tên phiên · quick 2 ô · lưới 6 nghiệp vụ · ví tuyến. Persona: Tuần đường · Hạt · hiện trường. App **chỉ** `{BffBase}/mobile-bff/api/v1/…`. **Cấm** ERP.* · clone controller · WebView bọc HTML demo · `mfeStdUrl`.
+Tab **Trang Chủ** native dual: **không required login**. Cold start = guest (`.who` **Khách** + nút **Đăng nhập** / **Dành cho cán bộ** `btn-home-login`). Guest body = **Câu hỏi thường gặp** + **Chính sách quyền riêng tư** (ref `docs/mobile-legacy/layout/` FAQ list + footer). Staff sau login mới GET profile + lưới nghiệp vụ. Tile/tab nghiệp vụ khi guest → toast **Đăng nhập để dùng nghiệp vụ** + overlay login. Persona: Khách Store · Tuần đường · Hạt. App **chỉ** `{BffBase}/mobile-bff/api/v1/…`. **Cấm** ERP.* · clone controller · WebView · `mfeStdUrl`. **Cấm** invent FAQ/privacy API.
 
 **1 action = 1 feature.** Slug `home` = màn hub `#sc-home` `DES-MOB-HOME`. **Cấm** gộp Giám sát / Tuần đường / Công việc / Vấn đề / Tài sản / Lưu trữ / Ghi sự cố / Hồ sơ / Thông báo (`GAP-MOB-ACT-01`). `#sc-home` **không** child form/sheet (`GAP-MOB-ACT-02` = none). **Không** enqueue submit (`GAP-MOB-ACT-07`).
 
@@ -34,8 +34,8 @@ Pack này **thay** placeholder gallery bằng hub kit. **Cấm** ship `LinmKitGa
 
 ## 3. DoD (đo được)
 
-1. Dual native: iOS SwiftUI + Android Compose — **cùng** zone `#sc-home`: hero tools · status+tín hiệu · `.who` · quick 2 · section **Nghiệp vụ thường dùng** · grid 3×2 · wallet. Frame proto iOS 390×844 · Android 412×915. Tab 5 IA lock: **Trang Chủ** · Tuần đường · Vấn đề · Công việc · Tôi. Login **ngoài** tab.
-2. `.who` live = `fullName` trim từ `GET mobile-bff/api/v1/auth/profile` (reuse `FetchProfileUseCase`) · **cấm** hardcode «Nguyễn Văn A» production.
+1. Dual native: **cùng** zone `#sc-home` + guest CTA `btn-home-login`. Guest: `btn-home-faq` → `#sc-faq` · `btn-home-privacy` → `#sc-privacy`. Tab 5: **Trang Chủ** luôn mở (guest). Login = overlay · **không** cổng bắt buộc.
+2. Guest `.who` = copy `home.guest.who` **Khách** · **cấm** GET `auth/profile` khi chưa phiên. Staff `.who` = `fullName` từ `GET auth/profile` · **cấm** hardcode «Nguyễn Văn A» production.
 3. Profile fail / offline: `.who` = `lastUserName` · hub **vẫn mở** · toast in-app **không** chặn màn / tab · **cấm** block Trang Chủ.
 4. Role «Khu QLĐB IV»: **ẩn live** (không field org trên profile DTO) · **cấm** invent org-unit API (`GAP-F-HOME-01`). Tín hiệu **vẫn** hiện (`LinmStatusCapsule` / mark) bind OS path · hạng **Tốt / Trung bình / Yếu** · **cấm** «Có mạng».
 5. Wallet chrome **static demo** (không API): eyebrow **HỒ SƠ TÀI SẢN** · title **QL.1 · Khu IV** · subtitle **32 loại KCHT · thông số + checklist sự cố** · **cấm** invent wallet / `api/v1/home` (`GAP-F-HOME-01`). Live số liệu = sibling `asset-hub`.
@@ -97,7 +97,8 @@ Nguồn `#sc-home` dual + DA-01. UNCLEAR field = **none**.
 | notifyBtn | Thông báo | NotifyButton | * | `LinmNotifyButton` · `LinmNotifyCountBadge` | toast **Thông báo** + `includeNotification` trên `#sc-home` · badge 0 ẩn · **cấm** push inbox |
 | roleLine | Khu QLĐB IV | Text display | | `LinmStatusCapsule` `area` | **ẩn live** · không invent org |
 | signal | Tín hiệu | SignalQuality | * | `LinmStatusCapsule` / `LinmNetSignalMark` | `shared_kit` `me-signal` · OS path · **cấm** cycle |
-| who | (live FullName) | Text display | * | typography hero | GET `auth/profile` · fallback `lastUserName` |
+| who | Khách / FullName | Text display | * | typography hero | guest `home.guest.who` · staff GET `auth/profile` |
+| loginBtn | Đăng nhập | Button | guest | card trên hero | `btn-home-login` · phụ **Dành cho cán bộ** · ẩn khi staff |
 | quickPatrol | Điểm tuần | QuickItem | * | `LinmQuickItem` trong `LinmQuickActions` | phụ **Ghim định vị · lý trình** · sibling `patrol-home` |
 | quickIncident | Ghi sự cố | QuickItem | * | `LinmQuickItem` | phụ **Chọn tài sản · mẫu sự cố** · sibling `incident-create` |
 | sectionBiz | Nghiệp vụ thường dùng | SectionLabel | * | `LinmSectionLabel` | không route |

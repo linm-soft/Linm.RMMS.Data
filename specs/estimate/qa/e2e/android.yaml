@@ -1,0 +1,116 @@
+appId: org.linmsoft.rmms
+---
+# estimate · store P6 ×2 · guest → login → tile-mnt → hub/card → #sc-estimate (Pixel 1080×1920)
+# cấm hideKeyboard (BACK có thể về launcher) — tap title + Enter như mnt-list
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 20000
+- tapOn:
+    id: "btn-home-login"
+- extendedWaitUntil:
+    visible:
+      id: "f-user"
+    timeout: 15000
+- tapOn:
+    id: "f-user"
+- eraseText
+- inputText: "linm-soft"
+- tapOn: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
+- tapOn:
+    id: "f-pass"
+- eraseText
+- inputText: "Linm@2026"
+- pressKey: Enter
+- waitForAnimationToEnd:
+    timeout: 4000
+- tapOn:
+    id: "btn-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
+- extendedWaitUntil:
+    visible: "Trang Chủ"
+    timeout: 45000
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 15000
+- scrollUntilVisible:
+    element:
+      id: "tile-mnt"
+    direction: DOWN
+    timeout: 15000
+    optional: true
+- tapOn:
+    id: "tile-mnt"
+    optional: true
+- tapOn:
+    id: "tab-work"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-mnt-list"
+    timeout: 25000
+- assertVisible: "Danh sách công việc"
+- assertVisible:
+    id: "row-mnt-hub"
+- tapOn:
+    id: "btn-mnt-sum-demo-wo-1"
+    optional: true
+- tapOn:
+    id: "row-mnt-hub"
+    optional: true
+- tapOn:
+    text: "Giao việc xử lý"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-estimate"
+    timeout: 25000
+- assertVisible: "Giao việc xử lý"
+- assertVisible:
+    id: "row-from-incident"
+- assertVisible:
+    id: "input-assignee"
+- assertVisible:
+    id: "btn-assign"
+- assertVisible:
+    id: "btn-draft"
+- tapOn:
+    id: "input-assignee"
+- eraseText
+- inputText: "Nguyễn Văn A · Tổ tuần đường"
+- tapOn:
+    text: "Giao việc xử lý"
+    optional: true
+- tapOn:
+    id: "input-qty"
+- eraseText
+- inputText: "12.5"
+- tapOn:
+    text: "Giao việc xử lý"
+    optional: true
+- tapOn:
+    id: "input-unit-price"
+- eraseText
+- inputText: "850000"
+- pressKey: Enter
+- waitForAnimationToEnd:
+    timeout: 2000
+- assertVisible:
+    id: "sc-estimate"
+- takeScreenshot: P6-CORE
+- scroll
+- scroll
+- assertVisible:
+    id: "btn-draft"
+- assertVisible:
+    id: "btn-assign"
+- takeScreenshot: P6-CORE-2
+- assertVisible:
+    id: "sc-estimate"

@@ -1,0 +1,22 @@
+{
+  "feature": "mnt-log",
+  "status": "done",
+  "review_confirm": "approve",
+  "align_confirm": "approve",
+  "post_review": "skip",
+  "mustAlignOpen": 0,
+  "taskId": "task_0d2f0ee6",
+  "skillId": "agent-review-mobile",
+  "skillVersion": "2026.08.20.01",
+  "schemaVersion": "1",
+  "workflowVersion": "2026.08.25.01",
+  "rulesVersion": "2026.08.25.2",
+  "versionGate": "rechecked",
+  "contentHash": "sha256:mnt-log-mobile-control-hint-20260829",
+  "realDataHash": "sha256:mnt-log-mobile-real-data-20260829",
+  "bffContentHash": "sha256:mnt-log-mobile-bff-20260829",
+  "actionTreeHash": "sha256:mnt-log-mobile-action-tree-20260829",
+  "ctxContentHash": "sha256:87761a7752a493d6ad176d96d76ccaf6116ea407ec5ec5513b6e12372a58d701",
+  "demoContentHash": "sha256:394ab44597648f04b25e6d58476378c16141feb53d3b58d39923b3defcff8328",
+  "updatedAt": "2026-08-29T08:25:39.000Z"
+}

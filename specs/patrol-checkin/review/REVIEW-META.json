@@ -1,0 +1,17 @@
+{
+  "feature": "patrol-checkin",
+  "status": "done",
+  "review_confirm": "done",
+  "align_confirm": "approve",
+  "post_review": "skip",
+  "taskId": "task_84636908",
+  "packKind": "sheet",
+  "mustAlignOpen": 0,
+  "contentHash": "sha256:patrol-checkin-control-hint-20260828",
+  "bffContentHash": "sha256:patrol-checkin-mobile-bff-20260828",
+  "skillId": "agent-review-mobile",
+  "skillVersion": "2026.08.20.01",
+  "workflowVersion": "2026.08.25.01",
+  "rulesVersion": "2026.08.29.4",
+  "updatedAt": "2026-08-28T20:56:00.000Z"
+}

@@ -22,8 +22,9 @@
 
 ## IA / API
 
-- Cold start không access token → `LoginView` ngoài `TabView`. Có token → Home placeholder (kit gallery).
-- Demo Home **Đăng xuất** (`btn-logout`) → `LogoutUseCase` clear Keychain + company → toast **Đã đăng xuất** → `#sc-login`. **Cấm** POST `auth/logout` · **cấm** `#sc-me`.
+- Cold start **không** token → tab 5 `#sc-home` guest. Overlay `LoginView` khi `showLogin` (`btn-home-login` / tile staff). Có token → Home staff.
+- `btn-login-back` → `dismissLogin()` · **cấm** cổng bắt buộc.
+- `#sc-me` Đăng xuất → guest Home · **cấm** POST `auth/logout`.
 - POST `auth/login` body `{ id, password }` — **omit** `activeCompanyId`. Root `token`/`refreshToken`/`user.id`.
 - GET `contract-accounts/session-window?authUserId=` sau login · `allowed=false` / 403 `CONTRACT_WINDOW_CLOSED` → clear token · toast Web copy · ở lại Login.
 - Offline: **không** POST · toast **Không có mạng**.
@@ -42,3 +43,5 @@
 - `/edit-mobile-feature` 2026-08-19: **GAP-MOB-EDIT-PASS** submit reset `#f-pass` · giữ last user · `xcodebuild` dest **iPhone 17 Pro Max** **PASS**.
 - `/edit-mobile-feature` 2026-08-19: **GAP-MOB-EDIT-IME-ENTER** `#f-user` Enter + MK có giá trị → login · Enter + MK rỗng → focus `#f-pass` · `#f-pass` Enter → login · kit `onSubmit` · `xcodebuild` dest **iPhone 17 Pro Max** **PASS** · **iPad Pro 13-inch (M5)** **PASS**.
 - `/edit-mobile-feature` 2026-08-19: **GAP-MOB-THEME-01** / **GAP-MOB-COPY-01** — `LinmTokens` + `LinmCopy.t` · **cấm** hex/VN literal · API `userMessage` giữ.
+- `/edit-mobile-feature` 2026-08-29: guest Home + overlay login · `btn-home-login` / `btn-login-back` · copy `home.guest.who` · **cấm** required login lúc launch · `xcodegen` + `xcodebuild` scheme **LinmRmms** dest **iPhone 17 Pro Max** **PASS**.
+- `/edit-mobile-feature` 2026-08-29: **GAP-MOB-EDIT-BACK** `btn-login-back` pin **trên** `LinmKeyboardAwareScroll` · tap 44 · dismiss về guest Home.

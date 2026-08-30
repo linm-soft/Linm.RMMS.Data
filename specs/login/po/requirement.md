@@ -18,7 +18,7 @@
 
 ## 1. Goal
 
-Màn **Đăng nhập** native dual (iOS SwiftUI + Android Compose) cho hiện trường Gói 1: username/SĐT + mật khẩu → `POST {BffPrefix}/auth/login` (platform Auth qua Mobile.Bff) → toast in-app → **Trang Chủ**. Persona: Tuần đường · Hạt · vận hành ITS.
+Màn **Đăng nhập** native dual (iOS SwiftUI + Android Compose): username/SĐT + mật khẩu → `POST {BffPrefix}/auth/login` → toast → **Trang Chủ staff**. **Không** cổng bắt buộc: cold start = `#sc-home` guest. Nút **Đăng nhập** / **Dành cho cán bộ** tách trên Home (`btn-home-login`). Back **Về Trang Chủ** = dismiss overlay. Persona: Tuần đường · Hạt · vận hành ITS · **Khách Store**.
 
 **1 action = 1 feature.** Slug `login` = nút primary **Đăng nhập** trên `#sc-login`. **Cấm** gộp quên mật khẩu / đăng xuất (`GAP-MOB-ACT-01`). `#sc-login` không child form/sheet (`GAP-MOB-ACT-02` = none).
 
@@ -32,7 +32,7 @@ Native chưa có màn Login (không file `*Login*` trên iOS/Android). Không b�
 
 1. iOS **và** Android cùng field `#sc-login`: logo AppIcon · tagline title only · Tài khoản + lead · Mật khẩu + eye · CTA **Đăng nhập** · meta tín hiệu display + link quên MK · **cấm** «bản Gói 1» trên UI production.
 2. Submit online → `POST mobile-bff/api/v1/auth/login` · body username (hoặc SĐT) + password · **cấm** ô mã đơn vị · **cấm** app biết `:5001` / `:5101`.
-3. Thành công → `LinmToast` copy demo **Đăng nhập thành công** → Home (`go('home')` / tab IA lock) trong ~350 ms như proto.
+3. Thành công → `LinmToast` **Đăng nhập thành công** → Home staff ~350 ms. Cold start **không** bắt `#sc-login`. Overlay từ `btn-home-login`. **Về Trang Chủ** (`btn-login-back`) dismiss · **cấm** chặn guest Home.
 4. Sai MK / Inactive / hết hạn HĐ → toast in-app — **cấm** `UIAlert` / `AlertDialog` / `window.alert`.
 5. Offline → **không** submit · toast/banner in-app · **cấm** queue login · **cấm** hash local.
 6. Token access/refresh → Keychain (iOS) / Encrypted store (Android) · **cấm** plaintext UserDefaults / SharedPreferences.
@@ -146,7 +146,7 @@ Frame: iOS 390×844 · Android 412×915 · safe area · keyboard không đè inp
 | AC-D-07 | Biometric | **Ẩn Gói 1** — không Face ID / BiometricPrompt trên màn này |
 | AC-D-08 | Signal | Copy **Tốt / Trung bình / Yếu** · **cấm** «Có mạng» |
 | AC-D-09 | Token | Keychain / Encrypted store · app chỉ `{BffPrefix}` |
-| AC-D-10 | Tab / swipe | Màn auth **không** UITabBar / NavigationBar 5 · không swipe-back ra Home khi chưa login |
+| AC-D-10 | Tab / swipe | Overlay login **không** tab 5. Guest **được** về Home (`btn-login-back`). **Cấm** cổng login bắt buộc lúc launch |
 | AC-D-11 | Camera / push | **N/A** |
 
 ## 10. Leave / alert (REQUIRED)
@@ -156,7 +156,8 @@ Frame: iOS 390×844 · Android 412×915 · safe area · keyboard không đè inp
 | Dirty leave | **Không áp dụng** (SPEC §7.1) |
 | Sai MK / Inactive / HĐ đóng | `LinmToast` — **cấm** native alert (`GAP-PO-LEAVE-01` / mobile-device-behavior) |
 | Forgot tap | Toast in-app (demo copy) |
-| Success | Toast rồi Home |
+| Success | Toast rồi Home staff · ẩn `btn-home-login` |
+| Back guest | `btn-login-back` → `#sc-home` guest · **không** POST |
 
 ## 11. Out of scope (this pack)
 

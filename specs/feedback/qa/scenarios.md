@@ -1,116 +1,100 @@
-# QA — scenarios — feedback
+# QA — Scenarios — feedback (mobile)
 
 | Field | Value |
 |-------|-------|
 | feature | `feedback` |
-| this role | `qa` · `/agent-qa` |
-| status | `done` |
+| title | [Mobile] Góp ý |
+| this role | `qa` · `/agent-qa-mobile` |
+| status | **confirmed** |
 | changeScope | `edit_page` |
-| gap | `crud_formtype` |
-| packKind | `list` (Kind **B** catalog A–D+F + **full-page** form) |
-| taskId | `task_c14e28a4` |
-| prior | Dev `task_7442b627` · implement **done** |
-| mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Integration` |
-| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/integration/feedbacks` |
-| mfeStdRoute | `/integration/feedback` |
-| mfeStdUrl | `http://localhost:9314/integration/feedback` |
-| method | code review live MFE + BE seed/BFF · **không** browser E2E |
-| updatedAt | `2026-08-16T05:45:00.000Z` |
+| packKind | **`sheet`** (surface full screen `#sc-feedback`) |
+| taskId | `task_bee5e97e` |
 | autoApprove | ON |
+| e2eQa | ON · `yarn e2e-qa-mobile` · Maestro ON |
+| ios_test_phase | `phase1_iphone` · dest **iPhone 17 Pro Max** · **A4-IPAD DEFER** |
+| store_qa | **run_store** |
+| method | e2e runtime · yarn e2e-qa-mobile · **cấm** GenerateImage · **cấm** yarn start:std / mfeStdUrl |
+| visual | `/review-align-ux-ios-android` · **Aligned** · Must **0** |
+| e2e result | **ok:true** · `2026-08-29T00:08:11.988Z`+rerun P6-on-form |
+| updatedAt | `2026-08-29T00:20:00.000Z` |
 
-## Scope
+**Scope:** slug `feedback` · Me → `#sc-feedback` · POST create. **Cấm** AC web Kind B list. Prior web QA `scenarios` Kind B **giữ lịch sử** · **không** dùng làm PASS mobile.
 
-Inbox list `/integration/feedback` + form `/integration/feedback/new` · `/:id?mode=` · `?copyFrom=`.  
-**≠** Cổng người dân (`citizen`).
-
-**SUPERSEDED:** QA `task_6cb63382` (PASS trước Dev GAP-TL-*) — **không** dùng PASS cũ cho Zone A/C title, lookup labels, form demo store.
-
-## T-QA-01 — List Kind B (A–D+F)
-
-| ID | Scenario | Expect | Result | Evidence |
-|----|----------|--------|--------|----------|
-| QA-01 | Open `/integration/feedback` | Title «Góp ý phần mềm» · 1× `LinPageLayout` kind=catalog · grid/empty · LAYOUT-06 skeleton | **PASS** | `FeedbackListPage.tsx` header + `showTableLoading` · `skeletonRows={8}` · `data-catalog-list-page` |
-| QA-02 | Zone A badges | Kind B + ≠ Cổng người dân trên **header** · **cấm** Thêm mới trên A | **PASS** | `headerBadges` · Create chỉ `catalogToolbar.onAdd` |
-| QA-03 | Zone C title | `listTitle="Danh sách góp ý phần mềm"` (GAP-TL-LIST-TITLE) | **PASS** | `listTitle` |
-| QA-04 | Filter | SearchTextInput + SearchInput status · debounce page=1 · **cấm** nút Tìm · **cấm** `filterMaxWidthPx` | **PASS** | `ErpListHeaderFilters` · `applyFilters` · no `filterMaxWidthPx` |
-| QA-05 | Pagination | `LinCatalogListPagination` only · 50/100/200/500 | **PASS** | footer slot · **cấm** footerPagination / pageSizeBar |
-| QA-06 | Grid | `LinCatalogDataGrid` · `columns={buildDynamicGridColumns}` · resize via schema | **PASS** | `uiColumns` + `gridColumns` · no leftover `const columns` / `LinCatalogDataColumn[]` |
-| QA-07 | Toolbar | refresh · history stub · cog schema · +Tạo mới **chỉ B** · view/edit/delete khi chọn dòng | **PASS** | `catalogToolbar` |
-| QA-08 | Zone F | `LinCatalogUiSchemaEditorModal` kind=`app-feedbacks` · **cấm** `configHint` · **cấm** `LinListTableConfigModal` | **PASS** | list page only |
-| QA-09 | Row menu | Xem / Sửa / Sao chép / Lịch sử / Xóa | **PASS** | `buildCatalogRowMenuItems` + `case 'delete'` |
-| QA-10 | Nested shell | **cấm** nested `CatalogListShell` | **PASS** | 1× `LinPageLayout` |
-| QA-11 | Native select catalog | **cấm** `<select>` Zone B | **PASS** | SearchInput only |
-| QA-12 | Code click / dblclick | View full-page | **PASS** | `codeLink` + `onRowDoubleClick` → `mode=view` |
-
-## T-QA-CRUD-01 — Create→Edit→View→Copy→Delete
-
-| ID | Scenario | Expect | Result | Evidence |
-|----|----------|--------|--------|----------|
-| QA-20 | Create | Toolbar +Tạo → `/integration/feedback/new` full-page → POST `/integration/feedbacks` **không** gửi `code` | **PASS** | `openCreate` · `CreateFeedbackRequest` · `feedbackEndpoint.create` |
-| QA-21 | Edit | `/integration/feedback/:id?mode=edit` → PUT | **PASS** | `openRow(..., 'edit')` · `feedbackService.update` |
-| QA-22 | View | `/:id?mode=view` · body **`<dl>`** · **cấm** View=`readOnly` Input xám toàn form | **PASS** | `isView` → `viewBody` · IdCode `readOnly` chỉ edit/create |
-| QA-23 | Copy | `/new?copyFrom=` · POST new · code `(tự sinh)` | **PASS** | `fromDto(..., asCopy)` · `EMPTY_FORM.code` |
-| QA-24 | Lookups Design §3 | role 3 · category **Lỗi / Đề xuất / UX / Khác** · status Nháp/Đã gửi | **PASS** | `services/feedback/lookups.ts` (GAP-TL-LKP-LABEL) |
-| QA-25 | Form fields | senderName* Text · submittedAt datetime-local · body* TextArea · SearchInput role/category/status | **PASS** | `FeedbackFormPage` Z2 |
-| QA-26 | Prod vs demo | Form **không** import `loadRows`/`genFeedbackCode` | **PASS** | form imports `lookups.ts` only (GAP-TL-PROD-DEMO) |
-| QA-27 | Delete list | Lin `Modal` · **cấm** `window.confirm` · soft DELETE | **PASS** | `deleteTarget` Modal |
-| QA-28 | Dirty leave | `useFormLeaveGuard` + `LeaveConfirmModal` · **cấm** `window.confirm` | **PASS** | form page |
-| QA-29 | Required | senderName · role · submittedAt · category · body · status | **PASS** | `REQUIRED[]` |
-| QA-30 | Footer | View: Đóng · Sửa · Sao chép · Edit/Create: Xóa nội dung · Hủy · Lưu nháp · Gửi · **cấm** Save Z1 | **PASS** | Z1 back only · Z3 |
-| QA-31 | Title 22px | form `.title` 22px | **PASS** | `FeedbackFormPage.module.css` (GAP-TL-FORM-TITLEPX) |
-| QA-32 | **cấm** Slideout / Resource | no `FeedbackFormSlideout` · routes full-page | **PASS** | `index.tsx` routes |
-| QA-33 | BE list filter | GET `?search=&status=&page=&pageSize=` | **PASS** | FE qs + BFF `BuildListPath()` `Request.QueryString` |
-| QA-34 | Ui-schema seed | kind `app-feedbacks` keys `code,senderName,role,category,body,submittedAt,status` | **PASS** | `CatalogUiSchemaSeed.AppFeedbacks()` |
-| QA-35 | **cấm ERP.*** | MFE BASE `/integration/feedbacks` · domain Integration | **PASS** | no `ERP.` / `api/v1/rmms` on feedback pages |
-| QA-36 | Perm FE | `integration.feedbacks.read\|create\|update\|delete` | **PASS** | `permissions.ts` · BE `[RequirePermission]` **out pack P1** |
-
-## Build
-
-```
-yarn typecheck → PASS
-LINM_RUN_DEV_LOCAL_BUNDLE=1 yarn build → PASS (webpack 5.109.2 · 3 size warnings only)
-BE this role → none (docs only) · prior Dev `task_7442b627` no API write
-```
-
-## Verdict
+## VERIFY GATE
 
 | Gate | Result |
 |------|--------|
-| T-QA-01 | **PASS** |
-| T-QA-CRUD-01 | **PASS** |
-| GAP-TL-LIST-TITLE / LIST-BADGE / UX-FILTERMAX / LKP-LABEL / PROD-DEMO / FORM-TITLEPX | **CLOSED** (verify live after Dev) |
-| QA overall | **PASS** · handoff Review |
+| iOS `xcodegen` + `xcodebuild` dest **iPhone 17 Pro Max** | **PASS** |
+| Android `./gradlew :app:assembleDebug` | **PASS** |
+| Mobile.Bff `dotnet build` | **PASS** (0 warning · 0 error) |
+| API docker + Mobile.Bff `:5202` | **PASS** (host API `:5111` · proxy/`--skip-start` OK) |
+| Maestro iOS + Android | **PASS** · `#sc-feedback` |
 
-## Out of pack (skip / known)
+## Device AC
 
-- `feedbackService` localStorage fallback khi BFF down (`demo/feedbackStore`) — không trên form surface
-- History API stub empty
-- Email/notify + media P2
-- BE `[RequirePermission]` chờ CommonLib
-- Lookup.SearchFieldKeys seed không gồm role/category — P2 TL
+| # | Scenario | Expected | Result | Evidence |
+|---|----------|----------|--------|----------|
+| 1 | Cold start guest home | `#sc-home` · CTA Đăng nhập | **PASS** | A11-LAUNCH |
+| 2 | Login Auth seed | `linm-soft` / `Linm@2026` → `#sc-home` | **PASS** | A9-LOGIN |
+| 3 | BFF reachable | Mobile.Bff `:5202` healthy | **PASS** | A10-BFF |
+| 4 | Entry Me → feedback | `#row-feedback` → `#sc-feedback` | **PASS** | Maestro · A3 / P6 |
+| 5 | TopBar | title **Góp ý** · iOS back **Tôi** · Android icon-only | **PASS** | A3 / P6 |
+| 6 | Body field | FieldLabel **Nội dung góp ý** · multiline ≥16 · filled | **PASS** | A3 / P6 |
+| 7 | Primary send | **Gửi góp ý** · no UIAlert | **PASS** | A3 / P6 |
+| 8 | No category pills P1 | default `de-xuat` · **cấm** invent pills | **PASS** | CORE Read |
+| 9 | Dual OS | iOS 6.9" (1320×2868) + Android Pixel 1080×1920 | **PASS** | A3 + P6 + P6-2 |
+| 10 | Watermark / placeholder | none «Gói N» / «gen realapp» | **PASS** | CORE Read |
+| 11 | Sibling AC | only `feedback` · no Me hub as CORE | **PASS** | P6 = `#sc-feedback` |
+| 12 | Form body | fill ≥16 before shot · send after P6 | **PASS** | flows |
 
-## Handoff → Review (`/agent-review`)
+## Store × feature
+
+| AC | Apple | Play | Result | Evidence |
+|----|-------|------|--------|----------|
+| Core UX | A3 · A11 | P6 · P11 | **PASS** | A3-CORE · P6-CORE |
+| Login + BFF | A9 · A10 | P10 · P11 | **PASS** | A9-LOGIN · A10-BFF |
+| ≥2 phone core | — | P6 | **PASS** | P6-CORE · P6-CORE-2 |
+| Privacy URL | A5 | P8 | ghi thiếu OK · **không** fake | — |
+| READY_TO_SUBMIT | — | — | **không** (Review) | — |
+
+## E2E screenshots
+
+Viewer: `/api/qldb/artifact?id=&rel=qa/scenarios.md` rewrite `screens/{caseId}.png`.
+
+CLI **PASS** = Maestro + PNG + store px only — **not** visual vs demo. QA **Read** A3-CORE + P6-CORE vs prototype (`/review-align-ux-ios-android`).
+
+| Case | Store | Result | Evidence |
+|------|-------|--------|----------|
+| A10-BFF | A10 · P11 | **PASS** | — |
+| A11-LAUNCH | A11 | **PASS** | ![A11-LAUNCH](screens/A11-LAUNCH.png) |
+| A9-LOGIN | A9 · P10 | **PASS** | ![A9-LOGIN](screens/A9-LOGIN.png) |
+| A3-CORE | A3 · A11 | **PASS** | ![A3-CORE](screens/A3-CORE.png) |
+| P6-CORE | P6 · P11 | **PASS** | ![P6-CORE](screens/P6-CORE.png) |
+| P6-CORE-2 | P6 | **PASS** | ![P6-CORE-2](screens/P6-CORE-2.png) |
+| A4-IPAD | A4 | **DEFER** Phase 1 · family `1` | DEFER |
+
+## Align UX
 
 | Field | Value |
 |-------|-------|
-| Next | roleOnly=`review` · chain ON · autoApprove ON |
-| Artifact | `review/findings.md` |
-| Roles sau | — pipeline end |
+| verdict | **Aligned** |
+| Must open | **0** |
+| file | `ui/review/align-ux.md` |
+| bugs | `qa/bugs/feedback.md` · CLOSED |
 
-## Version meta (REQUIRED)
+## Version meta
 
 | Field | Value |
 |-------|-------|
-| skillId | agent-qa |
-| skillVersion | 2026.08.15.5 |
-| schemaVersion | qldb-workflow-skill-v1 |
-| workflowVersion | 2026.08.15.5 |
-| rulesVersion | 2026.08.15.8 |
-| generatedAt | 2026-08-16T05:45:00.000Z |
+| skillId | agent-qa-mobile |
+| skillVersion | 2026.08.20.03 |
+| schemaVersion | 1 |
+| workflowVersion | 2026.08.25.01 |
+| rulesVersion | 2026.08.25.2 |
+| generatedAt | `2026-08-29T00:20:00.000Z` |
 | versionGate | rechecked |
-| version_mismatch_action | recheck_new (STATUS) |
-| orchestratorSkillVersion | 2026.08.15.5 |
-| taskId | `task_c14e28a4` |
+| contentHash | sha256:feedback-mobile-qa-scenarios-20260829 |
+| priorDevHash | sha256:feedback-mobile-ios-implement-20260829 |
 
 ---
-<!-- Version meta: skillVersion=2026.08.15.5 · schemaVersion=qldb-workflow-skill-v1 · workflowVersion=2026.08.15.5 · rulesVersion=2026.08.15.8 · versionGate=rechecked -->
+<!-- Version meta: skillId=agent-qa-mobile skillVersion=2026.08.20.03 schemaVersion=1 workflowVersion=2026.08.25.01 rulesVersion=2026.08.25.2 versionGate=rechecked -->

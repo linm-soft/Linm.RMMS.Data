@@ -37,3 +37,5 @@
 Step 4b / T-BE **N/A** — reuse live Integration + AiVision. Dual parity Android.
 
 `/edit-mobile-feature` 2026-08-19: **GAP-MOB-THEME-01** / **GAP-MOB-COPY-01** — `LinmCopy.t` chrome · `walletTitle` / AI candidate giữ.
+
+`/edit-mobile-feature` 2026-08-29: **GAP-MOB-AHUB-ALIGN-01** — `LinmHubTile` stretch `maxHeight` + subtitle slot 2 dòng · `hubRow` cùng height hàng · kit local **không** bump · dest **iPhone 17 Pro Max** `xcodebuild` **PASS**.

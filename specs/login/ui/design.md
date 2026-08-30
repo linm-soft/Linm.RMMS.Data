@@ -50,17 +50,21 @@
 | `DES-MOB-LOGIN` `#sc-login` | Đăng nhập | Brand · Form · Actions · Meta | **Đăng nhập** |
 | `DES-MOB-LOGIN-BRAND` | Brand | Logo AppIcon 96 · tagline | — |
 | `DES-MOB-LOGIN-FORM` | Form | Tài khoản · Mật khẩu+eye | — |
-| `DES-MOB-HOME-DEMO` | Home demo (kit gallery) | Gallery + chrome **Đăng xuất** đáy | **Đăng xuất** · e2e `btn-logout` · **không** `#sc-me` |
+| `DES-MOB-HOME-HELLO` | Home guest | `.who` **Khách** + `btn-home-login` | **Đăng nhập** tách · e2e `btn-home-login` |
+| `DES-MOB-LOGIN-BACK` | Back overlay | `btn-login-back` **Về Trang Chủ** | pin **trên** scroll · tap 44 · dismiss · **không** submit |
 
 ### IA lock
 
 ```
-(auth) Login shell  →  success toast  →  Home demo (kit gallery)
-Home demo **Đăng xuất**  →  clear local session  →  Login `#sc-login`
+Cold start → #sc-home guest (Khách + btn-home-login)
+btn-home-login / Dành cho cán bộ → overlay #sc-login
+btn-login-back → #sc-home guest
+success toast → #sc-home staff (ẩn nút login)
+#sc-me Đăng xuất → #sc-home guest (không ép #sc-login)
 ```
 
-**Cấm** invent tab · swipe-back ra Home khi chưa login · toolbar Hồ sơ / Đổi MK trên login.  
-Demo Home: `LinmSecondaryButton` **Đăng xuất** · clear Keychain/Encrypted store · **không** POST `auth/logout` · **không** `#sc-me` (slug `login-logout` backlog).
+**Cấm** invent tab · **cấm** cổng login bắt buộc lúc launch · toolbar Hồ sơ / Đổi MK trên login.  
+Logout production = `#sc-me` · **không** POST `auth/logout` P1 · **không** kit gallery `btn-logout` trên Home.
 
 ## 3. Field inventory (Design chốt kit)
 

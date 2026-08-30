@@ -1,0 +1,17 @@
+{
+  "feature": "cam-patrol",
+  "status": "done",
+  "review_confirm": "done",
+  "taskId": "task_e487ff4f",
+  "skillId": "agent-review-mobile",
+  "skillVersion": "2026.08.20.01",
+  "schemaVersion": 1,
+  "workflowVersion": "2026.08.25.01",
+  "rulesVersion": "2026.08.29.4",
+  "versionGate": "rechecked",
+  "contentHash": "sha256:cam-patrol-control-hint-20260828",
+  "realDataHash": "sha256:cam-patrol-real-data-20260828",
+  "bffContentHash": "sha256:cam-patrol-mobile-bff-20260828",
+  "alignMustOpen": 0,
+  "generatedAt": "2026-08-28T22:03:40.000Z"
+}

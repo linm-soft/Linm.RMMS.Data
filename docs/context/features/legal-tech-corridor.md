@@ -53,6 +53,8 @@ N/A.
 
 ## 7. Khách chuẩn bị (Store 1.0)
 
+Wave + toggle (không xóa code): [`docs/plan/release-mobile/PLAN.md`](../../plan/release-mobile/PLAN.md) · `/plan-release-mobile` · Submit = `/review-app-submit`.
+
 1. Tài khoản Organization Apple+Play  
 2. Landing Privacy/Support HTTPS  
 3. File gis.vn 34 tỉnh  

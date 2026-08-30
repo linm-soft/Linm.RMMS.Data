@@ -20,13 +20,21 @@ Pilot: `home` (new · high) — tab Trang Chủ trên `DES-MOB-TABBAR`.
 | `patrol-home` | `home` | new | shared_action | — (owner) | `LinmQuickItem` · `LinmHomeTile` `#i-mappin` | home quick · tile | high | `docs/context/features/patrol.md` | `#sc-patrol-home` · `DES-MOB-PAT-HOME` | analy sibling · skip scan `pilot_one` |
 | `attendance` | `patrol-home` | new | unique | — | `LinmSegment` | patrol segment | high | chấm công | `#sc-patrol-home` `.seg` | sibling `pending_confirm` |
 | `patrol-map` | `patrol-home` | new | unique | — | `LinmListRow` `#i-map` | quick | high | bản đồ ca | `#row-map` | sibling `pending_confirm` |
-| `field-reflect` | `patrol-home` | new | unique | — | `LinmListRow` `#i-camera` | quick | high | hư hỏng | `#row-reflect` | sibling `pending_confirm` |
+| `field-reflect` | `patrol-home` | new | unique | — | `LinmListRow` `#i-camera` | quick | high | hư hỏng | `#row-reflect` | **analy done** `task_d7dd64c8` · handoff PO |
 | `cam-patrol` | `patrol-home` | new | unique | — | `LinmListRow` `#i-video` | quick | high | camera tuần | `#row-cam` | sibling `pending_confirm` |
 | `patrol-history` | `patrol-home` | new | unique | — | `LinmListRow` `#i-list` | quick | high | lịch sử | `#row-history` | sibling `pending_confirm` |
-| `incident-create` | `home` | new | shared_action | — (owner) | `LinmQuickItem` | home quick · incident FAB | high | `docs/context/features/incident.md` | `startIncidentPick()` · `#sc-inc-form` | analy sibling |
+| `incident-create` | `home` | new | shared_action | — (owner) | `LinmQuickItem` | home quick · incident FAB | high | `docs/context/features/incident-create.md` | `startIncidentPick()` · `#sc-inc-form` | **analy done** `task_5f9013dd` · handoff PO |
 | `supervise` | `home` | new | unique | — | `LinmHomeTile` `#i-list` | home tile | high | patrol Giám sát | `#sc-supervise` · `DES-MOB-SUPERVISE` | analy sibling |
-| `mnt-list` | `home` | new | unique | — | `LinmHomeTile` `#i-wrench` | home tile · tab Công việc | high | `docs/context/features/maintenance.md` | `#sc-mnt-list` | analy sibling |
-| `incident-list` | `home` | new | unique | — | `LinmHomeTile` `#i-warning` | home tile · tab Vấn đề | high | `docs/context/features/incident.md` | `#sc-incident-list` | analy sibling |
+| `mnt-list` | `home` | new | unique | — | `LinmHomeTile` `#i-wrench` | home tile · tab Công việc | high | `docs/context/features/mnt-list.md` | `#sc-mnt-list` | analy confirmed |
+| `estimate` | `mnt-list` | new | unique | — | `LinmListRow` `#i-sum` | hub + card sum | high | `docs/context/features/estimate.md` | `#sc-estimate` | pending_confirm |
+| `mnt-chat` | `mnt-list` | new | unique | — | `LinmIconButton` `#i-chat` | card action | med | comments DEFER | toast | pending_confirm |
+| `mnt-progress` | `mnt-list` | new | unique | — | `LinmIconButton` `#i-sync` | card action | med | progress API | toast | pending_confirm |
+| `mnt-log` | `mnt-list` | new | unique | — | `LinmIconButton` `#i-list` | done card | low | `docs/context/features/mnt-log.md` | toast | **analy done** `task_60cc0721` · handoff PO |
+| `incident-list` | `home` | new | unique | — | `LinmHomeTile` `#i-warning` | home tile · tab Vấn đề | high | `docs/context/features/incident-list.md` | `#sc-incident-list` | **analy done** `task_246a6ce0` · handoff PO |
+| `vis-capture` | `incident-list` | new | unique | — | banner `#i-camera` | list banner | high | ai-vision / pavement | `#sc-vis-capture` | pending_confirm |
+| `incident-detail` | `incident-list` | new | unique | — | rich-card · `#i-list` | card | high | `docs/context/features/incident.md` | `#sc-incident-detail` | pending_confirm |
+| `incident-chat` | `incident-list` | new | unique | — | `LinmIconButton` `#i-chat` | card action | med | comments DEFER | toast | pending_confirm |
+| `gis-map` | `incident-list` | new | shared_action | owner (asset-hub) | `LinmSegment` · `#i-mappin` | seg · card | high | `docs/context/features/gis.md` | `#sc-gis-map` | pending_confirm / reuse |
 | `asset-hub` | `home` | new | shared_action | — (owner) | `LinmHomeTile` `#i-cube` · `LinmWalletCard` | home tile · wallet | high | `docs/context/features/asset.md` | `#sc-asset-hub` | analy sibling |
 | `patrol-offline` | `home` | skip | shared_action | `patrol-offline` | `LinmHomeTile` `#i-sync` | home · patrol · me | high | patrol Lưu trữ | `#sc-patrol-offline` | **không** enqueue (reuse) |
 | `me` | — | new | unique | — | `LinmLargeTitle` | tab + home hero | high | (analy ghi `me.md`) | `mobile-p1` `#sc-me` | đã enqueue (scan trước) |

@@ -26,7 +26,7 @@
 
 | Screen | Pattern | Zones |
 |--------|---------|-------|
-| Login shell | Kind G — page hệ thống | Username/SĐT · MK · quên MK (platform) · **cấm** form login local RMMS |
+| Login shell | Kind G — overlay từ Home | Username/SĐT · MK · quên MK · **Về Trang Chủ** · **cấm** cổng bắt buộc lúc launch · **cấm** form login local RMMS |
 | User form | Kind B full-page (pack `users`) | + `contractCode` SearchInput · + tuyến ⊆ HĐ (SearchInput multi + km) |
 | Form HĐ | Kind D Slideout — **tab mới** | Tab «Tuyến theo km» · Tab «Tài khoản theo HĐ» |
 | Job Admin | Platform job UI | Run · Stop · Retry · search budget · last sync |

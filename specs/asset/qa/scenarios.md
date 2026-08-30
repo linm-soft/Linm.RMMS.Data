@@ -1,122 +1,111 @@
-# QA — scenarios — asset
+# QA — Scenarios — asset
 
-| Field | Value |
-|-------|-------|
-| feature | `asset` |
-| status | `done` |
-| this role | `qa` · `/agent-qa` |
-| pack | T-QA-01 · T-QA-CRUD-01 · FormType quality (LKP/FIELD/PROD/UX) |
-| mfeStdUrl | `http://localhost:9301/asset` |
-| mfeStdRoute | `/asset` |
-| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/asset/road-assets` |
-| taskId | `task_d460f577` |
-| prior Dev | `task_d31bfbd3` · implement `done` |
-| updatedAt | `2026-08-14T16:45:00.000Z` |
-| method | static review live `AssetListPage` + `AssetFormPage` + `lookups.ts` + endpoint/BFF/API · typecheck/build PASS |
+> Status: **done** · `/agent-qa-mobile` · e2eQa=ON · task `task_edfc2374`  
+> method: `e2e runtime · yarn e2e-qa-mobile` · Maestro · sim **iPhone 17 Pro Max** + emulator **Pixel 2** · **cấm** `yarn e2e-qa` / `start:std` / GenerateImage
 
-## Smoke — Final MFE (REQUIRED)
+| | |
+|--|--|
+| Feature | `asset` |
+| Title | [Mobile] List danh mục tài sản |
+| Role | `qa` |
+| packKind | `list` · `#sc-asset-list` · `DES-MOB-ASSET-LIST` |
+| iosPhase | `phase1_iphone` · **A4-IPAD DEFER** |
+| demo | `linm-soft` / Auth docker seed |
+| API / BFF | WebService docker host **:5111** · Mobile.Bff **:5202** · `--skip-start` |
+| prior Dev | `task_bee51c9e` · implement **confirmed** |
 
-| # | Step | Expect | Result |
-|---|------|--------|--------|
-| S0 | `yarn start:std` · mở `http://localhost:9301/asset` | Route mount · không 404 | **PASS** (`index.tsx` `/asset`) |
-| S1 | List shell | 1× `LinPageLayout` kind=catalog · grid hoặc empty · **không** nested `CatalogListShell` | **PASS** |
-| S2 | Footer pager | `LinCatalogListPagination` · pageSize default 50 · sizes 50/100/200/500 (common) | **PASS** |
-| S3 | Search | `SearchTextInput` debounce 300ms + Enter · **không** nút Tìm | **PASS** |
-| S4 | Type / route | `SearchInput` Integration 23/38 · **không** native Select 8 nhãn | **PASS** |
-| S5 | Toolbar B | refresh · history · cog · +Tạo mới trên B · view/edit/delete khi `activeRow` | **PASS** |
-| S6 | History | `LinCatalogHistoryModal` + stub client empty | **PASS** (debt P1) |
-| S7 | Row menu | View / Sửa / Sao chép / Lịch sử / Delete · `buildCatalogRowMenuItems` | **PASS** |
-| S8 | Form | Full page `/asset/new` · `/:id` · `/:id/edit` · `/:id/copy` · View `<dl>` | **PASS** (cấm Slideout) |
-| S9 | No ERP.* | FE BASE `/asset/road-assets` · BE `Linm.RMMS.WebService` | **PASS** |
+## Device AC (slug `asset` only)
 
-## List A–D (T-QA-01)
+| AC | Expect | Result | Evidence |
+|----|--------|--------|----------|
+| Launch | Cold start guest `#sc-home` · 0 crash | **PASS** | ![A11-LAUNCH](screens/A11-LAUNCH.png) |
+| BFF | Mobile.Bff listen `:5202` | **PASS** | A10-BFF |
+| Login demo | `#btn-home-login` → fill `#f-user`/`#f-pass` · seed Auth | **PASS** | ![A9-LOGIN](screens/A9-LOGIN.png) |
+| List `#sc-asset-list` iOS | Nav **Danh sách** · search · `LinmListRow` + cube leading · **cấm** detail push / watermark | **PASS** | ![A3-CORE](screens/A3-CORE.png) |
+| List `#sc-asset-list` Android | Cùng zone · Pixel **1080×1920** | **PASS** | ![P6-CORE](screens/P6-CORE.png) |
+| List fold 2 Android | Row 2 visible (`#row-asset-1`) | **PASS** | ![P6-CORE-2](screens/P6-CORE-2.png) |
+| Entry path | Home `#tile-asset` → hub → `#tile-list` → list | **PASS** | Maestro assert `#sc-asset-list` |
+| API / demo | GET `asset/road-assets` · empty/fail → demo 2 rows | **PASS** | iOS live 3 rows · Android demo SSOT 2 rows |
+| GAP-DEV-MOB-PLACEHOLDER-01 | **Cấm** watermark «Phiên bản Gói» | **PASS** | A3 / P6 |
+| Dual align | Chrome kit cùng zone iOS↔Android · cube leading | **PASS** | A3 ↔ P6 · **không** GAP-MOB-UX-COMP-03 Must |
 
-| Zone | Scenario | Result |
-|------|----------|--------|
-| A | Header «Sổ tài sản kết cấu hạ tầng đường bộ» · `fas fa-road` · **cấm** Thêm mới trên A | **PASS** |
-| B | Filters: search · type · route · org · kmFrom · kmTo · **Xóa điều kiện** · Tạo mới chỉ trên B | **PASS** |
-| C | `LinCatalogDataGrid` + `tableConfig` resize · STT/□/Mã/Tên/Loại/Tuyến/km/status/GPS · click mã → View · loại/tuyến `formatMasterDisplay` | **PASS** |
-| D | `LinCatalogListPagination` only · **cấm** footerPagination / pageSizeBar / raw table | **PASS** |
-| F | `LinCatalogUiSchemaEditorModal` catalogKind=`road-assets` | **PASS** |
-| Layout | `.page` flex column height 100% · skeletonRows=8 · `data-catalog-list-page` | **PASS** |
+## Store Must × feature
 
-## T-QA-CRUD-01 — Create→Edit→View→Copy→(Delete)
+| Case | Store | Result | Evidence |
+|------|-------|--------|----------|
+| A10-BFF | A10 · P11 | **PASS** | — |
+| A11-LAUNCH | A11 | **PASS** | ![A11-LAUNCH](screens/A11-LAUNCH.png) |
+| A9-LOGIN | A9 · P10 | **PASS** | ![A9-LOGIN](screens/A9-LOGIN.png) |
+| A3-CORE | A3 · A11 | **PASS** | ![A3-CORE](screens/A3-CORE.png) |
+| P6-CORE | P6 · P11 | **PASS** | ![P6-CORE](screens/P6-CORE.png) |
+| P6-CORE-2 | P6 | **PASS** | ![P6-CORE-2](screens/P6-CORE-2.png) |
 
-| # | Step | Expect | Result |
-|---|------|--------|--------|
-| QA-20 | FormType ACT | Toolbar + row menu + deep-link `?form=` → `/new` / `/:id` / `/edit` / `/copy` | **PASS** |
-| QA-21 | Create | Toolbar +Tạo mới → `/asset/new` → POST `/asset/road-assets` · **không** gửi `code` | **PASS** |
-| QA-22 | Edit | `/asset/:id/edit` → PUT (+ `source`) | **PASS** |
-| QA-23 | View | `/asset/:id` · `<dl data-testid=rmms-asset-view>` · Sửa/Sao chép/Đóng · **không** Input disabled xám | **PASS** |
-| QA-24 | Copy | `/asset/:id/copy` → POST mới · code placeholder tự sinh | **PASS** |
-| QA-25 | Delete toolbar | `activeRow` + confirm → DELETE soft | **PASS** |
-| QA-26 | Delete row menu | `case 'delete'` → soft DELETE | **PASS** |
-| QA-27 | Delete form Edit | nút Xóa trên form → list | **PASS** |
-| QA-28 | T-UI-LKP-01 | List+form type/route SearchInput Integration · org tree flatten `/integration/org-units/tree` · **cấm** `ASSET_TYPES` production | **PASS** |
-| QA-29 | T-UI-FIELD-01 | Required name/type/route/kmFrom/status · Select status/source từ `init-data` · MoneyInput · TextArea note · photos mock không persist | **PASS** |
-| QA-30 | T-UI-PROD-01 | no Resource / Slideout trên `/asset*` form · View `<dl>` | **PASS** |
-| QA-31 | T-UI-UX-01 | list flex 100% · code `readOnly` không `disabled` · SearchInput `dropdownPortal: true` · no `filterMaxWidthPx` | **PASS** |
-| QA-32 | BE route | `api/v1/asset/road-assets` · BFF `web-bff/api/v1/asset/road-assets` + `init-data` · domain Asset · **cấm ERP.*** | **PASS** |
-| QA-33 | Leave dirty | confirm trước về list (Hủy / Quay lại) | **PASS** |
-| QA-34 | Perm | codes `asset.road-assets.*` · local mode all true | **PASS** |
-| QA-35 | Filter QS | GET list `search,type,route,kmFrom,kmTo,orgUnit,page,pageSize` | **PASS** (FE endpoint + BE controller) |
-| QA-36 | Init-data | `GET …/road-assets/init-data` statuses tot/theo_doi/can_bao_tri · sources manual/ai | **PASS** (client + BFF + API) |
+## E2E screenshots
 
-## Negative
+Viewer: `/api/qldb/artifact?id=&rel=qa/scenarios.md` rewrite `screens/{caseId}.png`.
 
-| # | Case | Expect | Result |
-|---|------|--------|--------|
-| N1 | Lưu thiếu required | Banner + `fieldInvalid` | **PASS** (code) |
-| N2 | GetById fail | Toast + navigate list | **PASS** (code) |
-| N3 | Delete không perm | toast warning / nút ẩn | **PASS** (local mode all true) |
-| N4 | History không chọn dòng | toast «Chọn một dòng…» | **PASS** |
-| N5 | API down | `assetService` fallback local store / empty init | **PASS** (dev fallback — không P0) |
+| Case | Store | Result | Evidence |
+|------|-------|--------|----------|
+| A10-BFF | A10 · P11 | **PASS** | — |
+| A11-LAUNCH | A11 | **PASS** | ![A11-LAUNCH](screens/A11-LAUNCH.png) |
+| A9-LOGIN | A9 · P10 | **PASS** | ![A9-LOGIN](screens/A9-LOGIN.png) |
+| A3-CORE | A3 · A11 | **PASS** | ![A3-CORE](screens/A3-CORE.png) |
+| P6-CORE | P6 · P11 | **PASS** | ![P6-CORE](screens/P6-CORE.png) |
+| P6-CORE-2 | P6 | **PASS** | ![P6-CORE-2](screens/P6-CORE-2.png) |
 
-## API contract smoke (code)
-
-| API | Method | Path | Result |
-|-----|--------|------|--------|
-| API-01 | GET | `/api/v1/asset/road-assets?search=&type=&route=&kmFrom=&kmTo=&orgUnit=&page=&pageSize=` | **PASS** |
-| API-02 | GET | `/api/v1/asset/road-assets/{id}` XCO | **PASS** (controller) |
-| API-03 | POST | `/api/v1/asset/road-assets` | **PASS** |
-| API-04 | PUT | `/api/v1/asset/road-assets/{id}` (+ source) | **PASS** |
-| API-05 | DELETE | `/api/v1/asset/road-assets/{id}` soft | **PASS** |
-| API-06 | GET | `/api/v1/asset/road-assets/init-data` | **PASS** |
-| API-LKP-01 | GET | `/api/v1/integration/asset-types/search` | **PASS** (FE lookups) |
-| API-LKP-02 | GET | `/api/v1/integration/road-routes/search` | **PASS** (FE lookups) |
-| API-LKP-03 | GET | `/api/v1/integration/org-units/tree` | **PASS** (FE lookups) |
-
-## Gaps / debt (không P0)
-
-| ID | Severity | Note |
-|----|----------|------|
-| SD-AUTH | P2 | `[RequirePermission]` TODO CommonLib NuGet |
-| History API | P1 | stub empty `/document-history` |
-| Excel | P1 | out of list pack |
-| Leaflet / AI | P1 | out of pack |
-| Org tree UX | P2 | SearchInput flatten tree (không widget cây visual) — khớp TL «org tree = filter SearchInput» |
-
-**P0:** none — **cấm** handoff blocked.
-
-## Build gate (`task_d460f577`)
+## Live vs demo (`/review-align-ux-ios-android`)
 
 | Check | Result |
 |-------|--------|
-| `yarn typecheck` (MFE Asset) | **PASS** |
-| `LINM_RUN_DEV_LOCAL_BUNDLE=1 yarn build` | **PASS** (webpack 0 errors · size warnings only) |
-| BE Write this role | **n/a** — QA không đụng API |
-| Prior Dev `dotnet` API+BFF | **PASS** (`task_d31bfbd3`) |
+| Read `A3-CORE` + `P6-CORE` vs `#sc-asset-list` | **PASS** |
+| Demo `.row-icon` / `#i-cube` → live cube leading ô màu | **Aligned** · iOS + Android |
+| CLI PASS ≠ visual | Vision done · **không** GAP-MOB-E2E-VIS-01 |
+| Must mở | **0** · detail `ui/review/align-ux.md` |
+
+## VERIFY GATE (recheck QA)
+
+| Gate | Result |
+|------|--------|
+| iOS `xcodegen` | **PASS** |
+| Android `assembleDebug` | **PASS** |
+| BFF `dotnet build` | **PASS** |
+| `yarn e2e-qa-mobile` · cases A11,A10,A9,A3,P6,P6-2 · `ios-phase=phase1_iphone` · `--skip-start` | **PASS** · `ok: true` |
+
+## Notes
+
+- Maestro flows: `qa/e2e/ios.yaml` · `qa/e2e/android.yaml` — guest home → login → `#tile-asset` → `#tile-list` → assert `#sc-asset-list` trước shot A3/P6.
+- Android: **cấm** `hideKeyboard` — tap title + Enter.
+- Host API compose = **:5111** (Linux) · packet `:5101` = Win64 camera; BFF `:5202` healthy → `--skip-start`.
+- px: iOS A3 **1320×2868** RGB · Play P6 **1080×1920** RGB.
+- **Cấm** READY_TO_SUBMIT ở QA — next `/agent-review-mobile`.
+- Sibling AC (`asset-detail` / collect / adjust): **out of scope**.
+- A4-IPAD **DEFER** Phase 1.
+- Should (không block): demo badge «Ghim» row1 · search placeholder kit «Tìm» vs demo dài · Android overflow `…` TopBar.
+
+## Handoff → Review
+
+| Field | Value |
+|-------|-------|
+| phase_to | `review` |
+| Next slash | `/agent-review-mobile` |
+| store | `qa/store/asset/` · CAPTURE.md |
+| Chain this turn | **không** (roleOnly=`qa`) |
 
 ## Version meta (REQUIRED)
 
 | Field | Value |
 |-------|-------|
-| skillId | agent-qa |
-| skillVersion | 2026.08.14.5 |
-| schemaVersion | 2 |
-| workflowVersion | 2026.08.14.5 |
-| rulesVersion | 2026.08.14.9 |
-| generatedAt | 2026-08-14T16:45:00.000Z |
-| versionGate | rechecked (`recheck_new` · SSOT workflow **2026.08.14.5**) |
-| taskId | `task_d460f577` |
-| contentHashPriorDev | `task_d31bfbd3` |
+| skillId | agent-qa-mobile |
+| skillVersion | 2026.08.29.1 |
+| schemaVersion | 1 |
+| workflowVersion | 2026.08.29.1 |
+| rulesVersion | 2026.08.29.5 |
+| generatedAt | 2026-08-29T17:15:00.000Z |
+| versionGate | rechecked |
+| contentHash | sha256:asset-mobile-edit-list-20260823 |
+| bffContentHash | sha256:asset-mobile-list-road-assets-proxy-20260823 |
+| taskId | task_edfc2374 |
+| contentHashPriorDev | task_bee51c9e |
+
+---
+<!-- Version meta: skillId=agent-qa-mobile skillVersion=2026.08.29.1 schemaVersion=1 workflowVersion=2026.08.29.1 rulesVersion=2026.08.29.5 versionGate=rechecked -->

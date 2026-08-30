@@ -36,7 +36,7 @@ Pack này **thêm** hub kit sau login tab flow · parent `home` cập nhật nav
 
 ## 3. DoD (đo được)
 
-1. Dual native: iOS SwiftUI + Android Compose — **cùng** zone `#sc-asset-hub`: nav · wallet · hub-grid ×3 section · list row bản đồ · AI pending. Frame proto iOS 390×844 · Android 412×915.
+1. Dual native: iOS SwiftUI + Android Compose — **cùng** zone `#sc-asset-hub`: nav · wallet · hub-grid ×3 section · list row bản đồ · AI pending. Frame proto iOS 390×844 · Android 412×915. Mỗi hàng 2 `LinmHubTile` **cùng height** (stretch + subtitle 2 dòng) — **cấm** ô thấp hơn sibling vì wrap (`GAP-MOB-AHUB-ALIGN-01`).
 2. Nav back «Trang Chủ» → pop `home` · title bar **Tài sản**.
 3. Wallet `LinmWalletCard` **display only** trên hub — tap **không** nav (đã ở hub) · khác `home` wallet (reuse copy · owner nav = entry từ home).
 4. Wallet live (P1):

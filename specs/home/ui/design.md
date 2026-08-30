@@ -41,7 +41,9 @@
 | DES / sc-* | Tên VN | CTA / hành vi |
 |------------|--------|---------------|
 | `DES-MOB-HOME` `#sc-home` | Trang Chủ | hero · quick · grid · wallet |
-| `DES-MOB-HOME-HELLO` | Hero chào | tools + signal + who + quick |
+| `DES-MOB-HOME-HELLO` | Hero chào | tools + signal + who + login guest / quick staff |
+| `DES-MOB-HOME-FAQ` `#sc-faq` | Câu hỏi thường gặp | back · pills · search · list chevron · expand answer · static |
+| `DES-MOB-HOME-PRIVACY` `#sc-privacy` | Chính sách quyền riêng tư | back · body static |
 | `DES-MOB-HOME-QUICK` | Quick 2 | Điểm tuần · Ghi sự cố |
 | `DES-MOB-HOME-GRID` | Lưới 6 | Giám sát · Tuần đường · Công việc · Vấn đề · Tài sản · Lưu trữ |
 | `DES-MOB-HOME-WALLET` | Ví tuyến | static demo → sibling `asset-hub` |
@@ -50,10 +52,13 @@
 ### IA lock
 
 ```
-(auth) Login (ngoài tab) → Tab 5
-  Trang Chủ → #sc-home DES-MOB-HOME   ← this pack
-  Tuần đường / Vấn đề / Công việc     ← sibling / placeholder
-  Tôi → #sc-me (reuse=me · đã ship)
+Cold start → Tab 5 #sc-home guest (Khách + btn-home-login)
+  Guest body: FAQ + privacy (ref legacy FAQ list + footer)
+  btn-home-faq → #sc-faq · btn-home-privacy → #sc-privacy · back về guest Home
+  Đăng nhập tách → overlay login (slug login)
+  Staff → .who live · ẩn login/FAQ/privacy · hiện quick + grid + wallet
+  Tile / tab khác khi guest → toast needLogin + overlay
+  Tôi / Tuần đường / … ← sibling · staff only
 ```
 
 **Cấm** invent tab · «Có mạng» · watermark Gói · device label «iPhone»/«Android» trên title · badge hardcode `3`.
@@ -66,7 +71,10 @@
 | notifyBtn | Thông báo | `LinmNotifyButton` · `LinmNotifyCountBadge` | `bell` ↔ `Notifications` | toast **Thông báo** + `includeNotification` (ở `#sc-home`) · tap banner iOS → tab Trang Chủ + replay toast · badge **0 ẩn** · **cấm** GET inbox · **cấm** push `#sc-ops` |
 | roleLine | Khu QLĐB IV | `LinmStatusCapsule` `area` | — | **ẩn live** (GAP-F-HOME-01) · demo SSOT only |
 | signal | Tín hiệu | `LinmStatusCapsule` / `LinmNetSignalMark` | bars only | Tốt/TB/Yếu · OS path · tap toast **Đã làm mới** · **cấm** cycle |
-| who | (live FullName) | typography hero | — | GET `auth/profile` · fallback `lastUserName` · **cấm** hardcode production |
+| who | Khách / FullName | typography hero | — | guest copy · staff GET profile · **cấm** hardcode production |
+| loginBtn | Đăng nhập | Button card | — | `btn-home-login` · phụ Dành cho cán bộ · ẩn staff |
+| guestFaq | Câu hỏi thường gặp | row card | chevron | `btn-home-faq` · guest only · overlay `#sc-faq` |
+| guestPrivacy | Chính sách quyền riêng tư | underline link | — | `btn-home-privacy` · guest only · overlay `#sc-privacy` |
 | quickPatrol | Điểm tuần | `LinmQuickItem` | `mappin` ↔ `Place` | phụ **Ghim định vị · lý trình** · toast |
 | quickIncident | Ghi sự cố | `LinmQuickItem` | `exclamationmark.triangle` ↔ `Warning` | phụ **Chọn tài sản · mẫu sự cố** · toast |
 | sectionBiz | Nghiệp vụ thường dùng | `LinmSectionLabel` | — | không route |

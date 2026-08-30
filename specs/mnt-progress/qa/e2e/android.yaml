@@ -1,0 +1,117 @@
+appId: org.linmsoft.rmms
+---
+# mnt-progress · store P6 ×2 · guest → login → tile-mnt → #sc-mnt-list → #btn-mnt-sync → #sc-mnt-progress (Pixel 1080×1920)
+# cấm hideKeyboard (BACK có thể về launcher) — tap title + Enter như estimate
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 20000
+- tapOn:
+    id: "btn-home-login"
+- extendedWaitUntil:
+    visible:
+      id: "f-user"
+    timeout: 15000
+- tapOn:
+    id: "f-user"
+- eraseText
+- inputText: "linm-soft"
+- tapOn: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
+- tapOn:
+    id: "f-pass"
+- eraseText
+- inputText: "Linm@2026"
+- pressKey: Enter
+- waitForAnimationToEnd:
+    timeout: 4000
+- tapOn:
+    id: "btn-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
+- extendedWaitUntil:
+    visible: "Trang Chủ"
+    timeout: 45000
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 15000
+- scrollUntilVisible:
+    element:
+      id: "tile-mnt"
+    direction: DOWN
+    timeout: 15000
+    optional: true
+- tapOn:
+    id: "tile-mnt"
+    optional: true
+- tapOn:
+    id: "tab-work"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-mnt-list"
+    timeout: 25000
+- assertVisible: "Danh sách công việc"
+- assertVisible:
+    id: "row-mnt-hub"
+- tapOn:
+    id: "btn-mnt-sync-demo-wo-1"
+- extendedWaitUntil:
+    visible:
+      id: "sc-mnt-progress"
+    timeout: 25000
+- assertVisible: "Cập nhật trạng thái"
+- assertVisible:
+    id: "wo-title"
+- assertVisible:
+    id: "progress-pct"
+- assertVisible:
+    id: "note"
+- tapOn:
+    id: "progress-pct"
+- eraseText
+- inputText: "45"
+- tapOn:
+    text: "Cập nhật trạng thái"
+    optional: true
+- tapOn:
+    id: "note"
+- inputText: "E2E QA mobile cập nhật tiến độ hiện trường vá mặt đường"
+- pressKey: Enter
+- waitForAnimationToEnd:
+    timeout: 2000
+- scrollUntilVisible:
+    element:
+      id: "photo-row"
+    direction: DOWN
+    timeout: 10000
+- scrollUntilVisible:
+    element:
+      id: "i-camera"
+    direction: DOWN
+    timeout: 10000
+- scrollUntilVisible:
+    element:
+      id: "location-row"
+    direction: DOWN
+    timeout: 10000
+- scrollUntilVisible:
+    element:
+      id: "btn-update"
+    direction: DOWN
+    timeout: 10000
+- assertVisible:
+    id: "sc-mnt-progress"
+- takeScreenshot: P6-CORE
+- scroll
+- scroll
+- assertVisible:
+    id: "btn-update"
+- takeScreenshot: P6-CORE-2
+- assertVisible:
+    id: "sc-mnt-progress"

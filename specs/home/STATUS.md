@@ -102,6 +102,10 @@
 
 `/edit-mobile-feature` 2026-08-19: notify stay `#sc-home` · toast **Thông báo** + `includeNotification` · iOS tap UN → tab Trang Chủ + replay · **cấm** push `#sc-ops`.
 
+`/edit-mobile-feature` 2026-08-29: Home **không required login** · guest **Khách** + `btn-home-login` · overlay slug `login` · context lock dual.
+
+`/edit-mobile-feature` 2026-08-29: guest FAQ `#sc-faq` + privacy `#sc-privacy` · ref legacy layout · static catalog · **cấm** invent API.
+
 ## Blockers / open questions
 
 - GAP-F-HOME-01 — SA/TL/Dev/QA/Review: role **ẩn live** · wallet **static demo** · **verified**

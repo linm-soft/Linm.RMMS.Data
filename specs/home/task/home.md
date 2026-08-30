@@ -10,7 +10,7 @@
 | packKind | **`hub`** (PO + Design + SA confirm) |
 | stack | `native_dual` |
 | Feature Kind | **hub** tab Trang Chủ `#sc-home` · **cấm** Kind A–G web / Lin* list / web `dashboard` |
-| route_confirm | **route_a** (autoApprove=ON) — Tab 5 · selected **Trang Chủ** = `#sc-home` / `DES-MOB-HOME` · Login **ngoài** tab · Hồ sơ → tab **Tôi** `#sc-me` · sibling → toast nhãn · **cấm** deep-link web / `mfeStdUrl` |
+| route_confirm | **route_a** — Tab 5 `#sc-home` **không required login** · guest FAQ `#sc-faq` + privacy `#sc-privacy` · `btn-home-login` overlay slug `login` · guest tile/tab → toast needLogin · staff Hồ sơ → tab Tôi · **cấm** `mfeStdUrl` · **cấm** invent FAQ API |
 | autoApprove | **ON** |
 | e2eQa | ON khi QA · `yarn e2e-qa-mobile` · sim 6.9" + emulator + Maestro · PNG `qa/screens` + `qa/store/home` · **cấm** `yarn start:std` / `mfeStdUrl` |
 | prior · data_analy | **confirmed** · `_data-analy/home-control-hint.md` · `home-bff-endpoints.md` · `home-action-tree.md` · contentHash `sha256:9f38399aa040cb3e106e719f47c76f67dd252503ca69eaed1d806bad164012ed` · bffContentHash `sha256:ca96af7dda63e5e34998ce57d51d7e76fd2391c0ffbdb39d7fca7abbf39ca581` |

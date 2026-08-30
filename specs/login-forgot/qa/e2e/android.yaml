@@ -5,6 +5,12 @@ appId: org.linmsoft.rmms
     clearState: true
 - extendedWaitUntil:
     visible:
+      id: "btn-home-login"
+    timeout: 15000
+- tapOn:
+    id: "btn-home-login"
+- extendedWaitUntil:
+    visible:
       id: "btn-forgot"
     timeout: 15000
 - takeScreenshot: A11-LAUNCH

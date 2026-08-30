@@ -67,6 +67,30 @@
     }
     .toast.on { display: block; }
     .note { position: absolute; top: 12px; left: 0; right: 0; text-align: center; color: #9ca3af; font-size: 12px; }
+    .login-back {
+      position: absolute; top: 48px; left: 16px; z-index: 20; border: 0; background: transparent;
+      color: var(--primary); font: 500 12px/1.2 inherit; cursor: pointer; padding: 8px 0;
+    }
+    .vn-hero {
+      margin: 0 0 14px; padding: 48px 16px 18px;
+      background: linear-gradient(165deg, #086A9A 0%, #0C84C0 55%, #2A9AD4 100%);
+      color: #fff; border-radius: 0 0 22px 22px;
+    }
+    .who { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; margin: 8px 0 12px; }
+    .btn-home-login {
+      display: block; width: 100%; border: 0; border-radius: 14px; padding: 12px 14px;
+      text-align: left; cursor: pointer; background: #fff; color: #086A9A;
+      font: 700 15px/1.25 inherit; box-shadow: 0 4px 12px rgba(0,0,0,.12);
+    }
+    .btn-home-login .s { display: block; font-size: 13px; font-weight: 500; color: #5a6a80; margin-top: 4px; }
+    .home-hint { margin: 16px; font-size: 13px; color: var(--secondary); line-height: 1.4; }
+    .tab {
+      position: absolute; left: 0; right: 0; bottom: 0; height: 80px;
+      background: #fff; border-top: 1px solid #E5E7EB;
+      display: flex; padding: 8px 4px 20px;
+    }
+    .tab b { flex: 1; text-align: center; font-size: 13px; font-weight: 500; color: var(--secondary); }
+    .tab b.on { color: var(--primary); }
   </style>
 </head>
 <body>
@@ -78,7 +102,18 @@
       <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="2.5"/></symbol>
       <symbol id="i-eye-off" viewBox="0 0 24 24"><path d="M3 3l18 18"/><path d="M10.6 10.6A2.5 2.5 0 0 0 13.4 13.4"/><path d="M9.9 5.1A10.5 10.5 0 0 1 12 5c6 0 10 7 10 7a17.6 17.6 0 0 1-3.2 3.9"/><path d="M6.1 6.1C3.9 7.8 2 12 2 12s4 7 10 7c1.3 0 2.5-.3 3.6-.7"/></symbol>
     </svg>
-    <div class="screen on" id="sc-login" data-des-id="DES-MOB-LOGIN" data-tab="auth">
+    <div class="screen on" id="sc-home" data-des-id="DES-MOB-HOME" data-tab="home">
+      <div class="vn-hero" data-des-id="DES-MOB-HOME-HELLO">
+        <div class="who" id="home-who">Khách</div>
+        <button class="btn-home-login" id="btn-home-login" type="button" onclick="openLogin()">
+          Đăng nhập<span class="s">Dành cho cán bộ</span>
+        </button>
+      </div>
+      <p class="home-hint">Mở app = Trang Chủ guest. Nút Đăng nhập tách riêng — không chặn hub.</p>
+      <nav class="tab"><b class="on">Trang Chủ</b><b>Tuần đường</b><b>Vấn đề</b><b>Công việc</b><b>Tôi</b></nav>
+    </div>
+    <div class="screen" id="sc-login" data-des-id="DES-MOB-LOGIN" data-tab="auth">
+      <button class="login-back" id="btn-login-back" type="button" onclick="backHome()">Về Trang Chủ</button>
       <div class="login">
         <div class="login-main">
           <div class="login-brand" data-des-id="DES-MOB-LOGIN-BRAND">
@@ -122,9 +157,20 @@
       clearTimeout(toast._t);
       toast._t = setTimeout(() => el.classList.remove('on'), 2000);
     }
+    function show(id) {
+      document.querySelectorAll('.screen').forEach(function (s) { s.classList.remove('on'); });
+      var sc = document.getElementById(id);
+      if (sc) sc.classList.add('on');
+    }
+    function openLogin() { show('sc-login'); }
+    function backHome() { show('sc-home'); }
     function loginOk() {
       toast('Đăng nhập thành công');
-      setTimeout(() => toast('→ Home (IA lock · ngoài pack)'), 350);
+      var who = document.getElementById('home-who');
+      var btn = document.getElementById('btn-home-login');
+      if (who) who.textContent = 'Nguyễn Văn A';
+      if (btn) btn.hidden = true;
+      setTimeout(function () { show('sc-home'); }, 350);
     }
     document.getElementById('f-user').addEventListener('keydown', function (e) {
       if (e.key !== 'Enter') return;

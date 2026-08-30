@@ -1,0 +1,91 @@
+appId: org.linmsoft.rmms
+---
+# vis-capture · store P6 ×2 · guest → login → tile-incident → banner → #sc-vis-capture
+# dual parity · section Ảnh hiện trường + CTA Bỏ qua · cấm sibling · cấm mfeStdUrl
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 20000
+- tapOn:
+    id: "btn-home-login"
+- extendedWaitUntil:
+    visible:
+      id: "f-user"
+    timeout: 15000
+- tapOn:
+    id: "f-user"
+- eraseText
+- inputText: "linm-soft"
+- tapOn: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
+- tapOn:
+    id: "f-pass"
+- eraseText
+- inputText: "Linm@2026"
+- pressKey: Enter
+- waitForAnimationToEnd:
+    timeout: 4000
+- tapOn:
+    id: "btn-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
+- extendedWaitUntil:
+    visible: "Trang Chủ"
+    timeout: 45000
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 15000
+- scrollUntilVisible:
+    element:
+      id: "tile-incident"
+    direction: DOWN
+    timeout: 15000
+    optional: true
+- tapOn:
+    id: "tile-incident"
+    optional: true
+- tapOn:
+    id: "tab-incident"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-incident-list"
+    timeout: 25000
+- assertVisible: "Nhận diện mặt đường"
+- assertVisible:
+    id: "row-inc-banner-vis"
+- tapOn:
+    id: "row-inc-banner-vis"
+- extendedWaitUntil:
+    visible:
+      id: "sc-vis-capture"
+    timeout: 25000
+- assertVisible: "Nhận diện mặt đường"
+- assertVisible: "Ảnh hiện trường"
+- assertVisible:
+    id: "row-loc"
+- assertVisible:
+    id: "row-acc"
+- assertVisible:
+    id: "row-class"
+- assertVisible:
+    id: "row-sev"
+- assertVisible:
+    id: "btn-attach"
+- assertVisible:
+    id: "btn-skip"
+- assertVisible: "Gắn sự cố"
+- assertVisible: "Bỏ qua"
+# NFC/NFD a11y: cấm assert «đã chốt»/«±» — chờ animation sau GPS bootstrap
+- waitForAnimationToEnd:
+    timeout: 12000
+- takeScreenshot: P6-CORE
+- scroll
+- assertVisible:
+    id: "sc-vis-capture"
+- takeScreenshot: P6-CORE-2

@@ -25,7 +25,8 @@ Map **ý nghĩa**. Cấm clone `px` / `class`. Cấm 1 binary UI 2 OS.
 | `.seg` · DES-MOB-PAT-SEG | Segment | `LinmSegment` | `LinmSegment` |
 | `.badge` | Status pill · cấm P1/P2 | `LinmBadge` | `LinmBadge` |
 | `.kpi` / `.kpi-strip` · DES-MOB-PAT-KPI | KPI | `LinmKpi` / `LinmKpiStrip` | same |
-| `.hub-tile` | Hub card · app truyền `icon` + `iconColor` + `background` | `LinmHubTile` | `LinmHubTile` |
+| `.hub-tile` | Hub card · app truyền `icon` + `iconColor` + `background` · hàng 2 cột **stretch cùng height** · subtitle slot 2 dòng | `LinmHubTile` | `LinmHubTile` |
+| `.ak32-tile` / `.ak32-ico` | Ô chọn loại TS · pict 36 QCVN `code`→`LinmAssetKchtPict` · 3 cột stretch · label 3 dòng | `LinmAssetKchtPict` | `LinmAssetKchtPict` |
 | `.home-grid` · DES-MOB-HOME-GRID | 3-col | `LinmHomeGrid` | `LinmHomeGrid` |
 | `.fab` | Primary overlay | `LinmFab` (HIG: toolbar + ưu tiên) | `LinmFab` (FAB) |
 | kit gallery | Local catalog (test) | `LinmKitGallery` | `LinmKitGallery` |

@@ -1,0 +1,73 @@
+appId: org.linmsoft.rmms
+---
+# incident-list · store P6 ×2 · cold start guest #sc-home → login → tile-incident / tab-incident → #sc-incident-list (Pixel 1080×1920)
+# cấm hideKeyboard (BACK có thể về launcher) — tap title + Enter như home/mnt-list
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 20000
+- tapOn:
+    id: "btn-home-login"
+- extendedWaitUntil:
+    visible:
+      id: "f-user"
+    timeout: 15000
+- tapOn:
+    id: "f-user"
+- eraseText
+- inputText: "linm-soft"
+- tapOn: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
+- tapOn:
+    id: "f-pass"
+- eraseText
+- inputText: "Linm@2026"
+- pressKey: Enter
+- waitForAnimationToEnd:
+    timeout: 4000
+- tapOn:
+    id: "btn-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
+- extendedWaitUntil:
+    visible: "Trang Chủ"
+    timeout: 45000
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 15000
+- scrollUntilVisible:
+    element:
+      id: "tile-incident"
+    direction: DOWN
+    timeout: 15000
+    optional: true
+- tapOn:
+    id: "tile-incident"
+    optional: true
+- tapOn:
+    id: "tab-incident"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-incident-list"
+    timeout: 25000
+- assertVisible: "Quản lý vấn đề"
+- assertVisible: "Danh sách"
+- assertVisible: "Bản đồ"
+- assertVisible: "Nhận diện mặt đường"
+- assertVisible:
+    id: "inc-list-search"
+- assertVisible:
+    id: "row-inc-banner-vis"
+- assertVisible:
+    id: "fab-inc-create"
+- takeScreenshot: P6-CORE
+- scroll
+- assertVisible:
+    id: "sc-incident-list"
+- takeScreenshot: P6-CORE-2

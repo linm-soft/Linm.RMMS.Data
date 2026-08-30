@@ -33,6 +33,7 @@ e2e-playwright-runtime/
 *.zip
 *.pdf
 
+!*/docs/**
 # Exception: img-log
 !*/img-log/
 !*/img-log/**

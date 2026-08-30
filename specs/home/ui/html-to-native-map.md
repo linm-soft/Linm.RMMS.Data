@@ -8,7 +8,10 @@ Cite SSOT `docs/html-to-native-map.md`. Feature deltas (`#sc-home`):
 | `.hero-ico` person | `LinmProfileButton` | `reuse=me` · tab Tôi |
 | `.hero-ico` bell | `LinmNotifyButton` · `LinmNotifyCountBadge` | toast `home.toast.notify` + `includeNotification` · ở `#sc-home` · badge **0 ẩn** · **cấm** hardcode `3` · **cấm** GET inbox |
 | `.role` + `data-net-signal` | `LinmStatusCapsule` · `LinmNetSignalMark` | role **ẩn live** · 4 cột · Tốt/TB/Yếu · **cấm** wifi glyph · **cấm** «Có mạng» |
-| `.who` | typography hero | GET `auth/profile` `fullName` |
+| `.who` | typography hero | guest `home.guest.who` · staff GET profile |
+| `#btn-home-login` | Button card hero | `home.login` + `home.login.sub` · ẩn staff · e2e `btn-home-login` |
+| `#btn-home-faq` / `#sc-faq` | overlay FAQ | pills `chip-faq-*` · `f-faq-search` · `row-faq-*` · static `LinmCopy` · **cấm** invent API |
+| `#btn-home-privacy` / `#sc-privacy` | overlay privacy | `privacy-body` · static `home.privacy.body` |
 | `.vn-quick` / quick buttons | `LinmQuickActions` · `LinmQuickItem` | 2 ô title + phụ |
 | `.section-label` | `LinmSectionLabel` | Nghiệp vụ thường dùng |
 | `.home-grid` · DES-MOB-HOME-GRID | `LinmHomeGrid` | 3 cột · **cấm** raw `LazyVGrid` / `LazyVerticalGrid` |

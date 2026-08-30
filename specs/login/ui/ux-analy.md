@@ -6,16 +6,15 @@
 ## 1. IA
 
 ```
-(auth) Login shell (#sc-login)
-  → toast «Đăng nhập thành công»
-  → Home demo (kit gallery · DES-MOB-HOME-DEMO)
-  → chrome **Đăng xuất** (`#btn-logout`)
-  → toast «Đã đăng xuất» · clear session
-  → Login `#sc-login`
+Cold start → #sc-home guest (Khách + Đăng nhập tách)
+  → btn-home-login → overlay #sc-login
+  → btn-login-back → #sc-home guest
+  → toast «Đăng nhập thành công» → #sc-home staff
+  → #sc-me Đăng xuất → #sc-home guest
 ```
 
-- Login **không** nằm trong TabView / NavigationBar 5.
-- **Cấm** invent tab · **cấm** swipe-back ra Home khi chưa phiên.
+- Login = overlay · **không** cổng bắt buộc.
+- **Cấm** invent tab · guest **được** về Home.
 - Child backlog (không vẽ form `#sc-me`): `login-forgot` (link) · `login-logout` BFF.  
 - Demo Home **Đăng xuất** = chrome test login · local clear · **không** POST `auth/logout`.
 

@@ -1,196 +1,325 @@
-# Solution discovery — feedback (Góp ý phần mềm)
-
-> Status: **confirmed** (`solution_confirm=approve` · autopilot `task_064242e5` · `/agent-sa`)  
-> Standards: api-endpoint · bff-api-structure · database-migration · api-permission-gate · repo-path-guard · **no-parent-json-field** · **ssot-no-duplicate** · **sa-implement-gates**  
-> **Cấm** ERP.WebService · `ERP.Service.*` · Domains/Master · `api/v1/rmms/*`
+# SA — Solution — feedback (mobile · Góp ý)
 
 | Field | Value |
 |-------|-------|
 | feature | `feedback` |
-| this role | `sa` · `/agent-sa` |
-| packKind | `list` (Kind **B** catalog A–D + Zone F schema + **full-page** form) |
+| title | [Mobile] Góp ý |
+| this role | `sa` · `/agent-sa-mobile` |
 | status | `confirmed` |
-| design_confirm | approve (`task_de49ebf9`) |
-| solution_confirm | **approve** (`autoApprove=ON` · `task_064242e5`) |
+| solution_confirm | **approve** (`autoApprove=ON` · `task_69588f17`) |
 | changeScope | `edit_page` |
-| prior · design | `confirmed` · `ui/design.md` + prototype · `2026-08-16T05:15:00.000Z` |
-| prior · po | `confirmed` · `po/requirement.md` · GAP-PO-FB-01..13 |
-| prior · data_analy | `confirmed` · `specs/_data-analy/features/feedback-control-hint.md` · hash `sha256:feedback-delta-fullpage-schema-20260816` |
-| updatedAt | `2026-08-16T05:20:00.000Z` |
-| taskId | `task_064242e5` |
-| BackendRoot | `D:/AI-QLBD/Linm.RMMS.WebService` |
-| MFE | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Integration` · `/integration/feedback` |
-| domain | **Integration** |
+| packKind | **`sheet`** (PO + Design chốt · form send · surface **full screen** `#sc-feedback` · **cấm** bottom-sheet chrome · GAP-MOB-FB-PACK-01 **closed**) |
+| stack | `native_dual` |
+| Feature Kind | **sheet→screen** · `DES-MOB-FEEDBACK` · **cấm** web Kind B list/schema · Slideout · invent tab |
+| thisAction | **Góp ý** only · entry reuse `me` `#row-feedback` · **cấm** gộp web Kind B · `citizen` · media attach (`GAP-MOB-ACT-01/02`) |
+| domain | **Integration** · `AppFeedbacksController` · **cấm** invent `api/v1/feedback` / `nhan-dan/gop-ys` trên app · **cấm** ERP.* |
+| BackendRoot | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.WebService` · `be_repo_confirm` **approve** |
+| ios | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS` · `ios_repo_confirm` **approve** |
+| android | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android` · `android_repo_confirm` **approve** |
+| bff | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Bff` · prefix `mobile-bff/api/v1` |
+| prior · design | **confirmed** · `ui/design.md` · `ui/ux-analy.md` · `ui/html-to-native-map.md` · dual proto · `ui/review/demo-parity.md` · `task_fc39397c` |
+| prior · po | **confirmed** · `po/requirement.md` · `task_fddeb2c5` |
+| prior · data_analy | **confirmed** · `_data-analy/feedback-control-hint.md` · `feedback-bff-endpoints.md` · `feedback-action-tree.md` · `feedback-real-data.md` · contentHash `sha256:feedback-mobile-control-hint-20260829` · realDataHash `sha256:feedback-mobile-real-data-20260829` · bffContentHash `sha256:feedback-mobile-bff-20260829` · actionTreeHash `sha256:feedback-mobile-action-tree-20260829` |
+| priorWeb | **giữ** · `be/solution-discovery-web.md` (Kind B list/full-page · `/agent-sa` · `task_064242e5`) · **OUT** mobile P1 UI |
+| autoApprove | **ON** |
+| e2eQa | ON — queued QA (sau Dev) · **cấm** `yarn e2e*` / `yarn start:std` / `mfeStdUrl` ở role SA |
+| versionGate | `rechecked` (`version_mismatch_action=recheck_new`) |
+| taskId | `task_69588f17` |
+| confirmedBy | agent autoApprove · `task_69588f17` |
+| updatedAt | `2026-08-28T23:12:00.000Z` |
 
-**SUPERSEDED:** solution 2026-08-09 (skill `2026.08.08.17`). **Keep** CRUD + table + schema seed ownership; **re-lock** Kind B **full-page** (cấm Slideout) + lookup **static FE** + CatalogUiSchema `app-feedbacks`.
+**Cấm:** invent `api/v1/feedback` · invent `api/v1/nhan-dan/gop-ys` trên app · invent `FeedbackController` trên Mobile.Bff · fork DTO · assume bảng mới · app `:5101` · ERP.* · `mfeStdUrl` / `yarn start:std` · system `UIAlert` / `AlertDialog` · watermark Gói · device label · badge P1/P2 header · fake toast «Đã gửi góp ý» khi POST fail · Write MFE/native ở role SA · chạy Step 4b / migration / e2e ở role này · gộp sibling (`GAP-MOB-ACT-01/02/07`) · re-scan demo (`hash skip` · `GAP-DES-DEMO-RESCAN-01`).
 
-## 1. Ownership
+Standards: api-endpoint · bff-api-structure · company-field · no-parent-json-field · sa-implement-gates · ios networking · android api-client · offline-sync · PrivacyInfo / Play Data safety (`GAP-SA-STORE-01`).
 
-| Layer | Repo / module |
-|-------|---------------|
-| MFE | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Integration` (`/integration/feedback` · form `/new` · `/:id`) |
-| **BackendRoot** | `D:/AI-QLBD/Linm.RMMS.WebService` |
-| API domain | `api/src/RMMS.Service.Api/Domains/Integration/` · `AppFeedbacksController` · `AppFeedbackService` |
-| Models / DTO | `api/domains/integration/LINM.RMMS.Integration.Models/DTOs/AppFeedbackDtos.cs` |
-| Persistence | `api/shared/RMMS.Service.Persistence/Entities/AppFeedbackEntity.cs` · table `rmms_app_feedbacks` |
-| Migrations | **n/a this pack** — `20260809160018_Schema_RmmsAppFeedbacks` exists |
-| BFF | `bff/domains/integration/LINM.RMMS.Integration.Bff/Controllers/AppFeedbacksBffController.cs` |
-| UI schema | `CatalogUiSchemaRegistry.AppFeedbacks` = `app-feedbacks` · `GET/PUT api/v1/integration/catalogs/{kind}/ui-schema` |
-| Docs | DOMAIN-MAP `feedback` → Integration · `docs/context/features/feedback.md` |
+---
 
-### Architecture
+## Architecture (repo SSOT)
 
 | Layer | Choice |
 |-------|--------|
-| Domain | Integration / `integration` · DOMAIN-MAP |
-| API host | `Domains/Integration/` |
-| BFF | proxy only = **yes** (`Request.QueryString` forward) |
-| Response | `ApiResponse<AppFeedbackPagedResult>` / `ApiResponse<AppFeedbackDto>` |
-| Auth perm | `integration.feedbacks.read\|create\|update\|delete` — `[RequirePermission]` **TODO** CommonLib (debt P1 · FE gate ON · BE stub OK) |
-| Persist | flat scalars on `AppFeedbackEntity` — **cấm** parent JSON blob |
-| Out of pack | email/notify (GAP-PO-FB-09 P2) · media attach (GAP-PO-FB-10 P2) · chrome demo / localStorage-only · CUC2 master · **citizen** |
+| BackendRoot | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.WebService` · **cấm ERP.*** |
+| Domain | Integration · `AppFeedbacksController` · `AppFeedbackService` |
+| API downstream | `POST api/v1/integration/feedbacks` **live** · Create `CreateAppFeedbackRequest` → `AppFeedbackDto` |
+| Models / DTO | `api/domains/integration/LINM.RMMS.Integration.Models/DTOs/AppFeedbackDtos.cs` |
+| Persistence | `AppFeedbackEntity` · table `rmms_app_feedbacks` · migration **đã có** (`Schema_RmmsAppFeedbacks`) |
+| BFF mobile | `Linm.RMMS.Mobile.Bff` · `MobileApiProxyController` catch-all → `ApiBase` · **không** dedicated Feedback controller |
+| Web BFF (cite only) | `web-bff/api/v1/integration/feedbacks` · **OUT** mobile app path |
+| App | iOS SwiftUI + Android Compose · base `{BffBase}/mobile-bff/api/v1` · **cấm** URLSession/OkHttp trong View |
+| Entry | Me `#row-feedback` `#i-info` → push `#sc-feedback` (thay toast-only stub) |
+| GPS | **n/a** — không trên `#sc-feedback` |
+| Camera / media | **n/a P1** — attach = P2 |
+| Offline | POST fail → toast lỗi · **cấm** fake 200 · draft offline **DEFER** (demo không «Lưu nháp») |
+| Push | **n/a** |
+| Sibling | entry `me` · **cấm** re-own hub · **cấm** `citizen` |
+| Out of pack | web Kind B list A–D · schema `app-feedbacks` · full-page 7-field · GET list/detail UI · Delete/Copy/View · email/notify · media · category pills UI · `citizen` |
 
-## Route decision
+### Route decision
 
 | | Choice |
 |--|--------|
-| Domain prefix | `api/v1/integration` · BFF `web-bff/api/v1/integration` |
-| Resource | `/feedbacks` → **`api/v1/integration/feedbacks`** |
-| FE BASE | `/integration/feedbacks` (via BFF) |
-| List UI | `/integration/feedback` |
-| Form UI | `/integration/feedback/new` · `/integration/feedback/:id` |
-| UI schema | `api/v1/integration/catalogs/app-feedbacks/ui-schema` |
+| Slug | `feedback` → **sheet→screen** · owner `DES-MOB-FEEDBACK` |
+| App prefix | `mobile-bff/api/v1` |
+| App path P1 write | `POST integration/feedbacks` |
+| Downstream | `POST api/v1/integration/feedbacks` · `AppFeedbacksController.Create` |
+| GET list / detail | **OUT** mobile P1 UI (live có — chỉ web Kind B) |
+| CTX alias | `api/v1/nhan-dan/gop-ys` = **stale** · app **chỉ** cite `integration/feedbacks` · **GAP-MOB-FB-CTX-PATH-01 CLOSED** (SA cite live · T-CTX align docs) |
+| Dedicated Mobile.Bff controller | **không** · catch-all đủ |
+| Step 4b / migration | **n/a** — schema Signed · **cấm** SA chạy `/database-migration` |
+| Rationale | Reuse live Integration Create · session bind hidden fields · body textarea only UI · **cấm** invent path |
 
-## Implement gates (SA chốt)
+---
 
-| Gate | Decision | Note |
-|------|----------|------|
-| **TZ** | **n/a** (`tz_na`) | Store `SubmittedAt` / `CreatedAt` / `UpdatedAt` **UTC** on write (`ToUniversalTime` / `DateTime.UtcNow`). Display local FE (`DateTime` control). List filter **không** date P1. |
-| **XCO** | **required** (`xco_get_only`) | `GET …/feedbacks/{id}` — `IgnoreQueryFilters` + claim `allowed_company_ids` · 403 `AppFeedbackForbiddenException`. **Không** XCO trên list/POST/PUT/DELETE. |
-| **SHARE** | **tenant_keep** (`share_tenant`) | `AppFeedbackEntity.CompanyCode` · `ICompanyContext`. Unique `(CompanyCode, Code)`. |
+## SSOT / anti-duplicate
 
-## Live verify (this SA role — read BE, no write)
+| Concern | Package / rule | Note |
+|---------|----------------|------|
+| BFF HTTP | `MobileApiProxyController` catch-all | **cấm** `FeedbackController` local trên BFF |
+| BE HTTP | `AppFeedbacksController` · Route `api/v1/integration/feedbacks` | live verified this SA |
+| Response | `ApiResponse<AppFeedbackDto>` | `Id` · `Code` (`FB-YYYYMMDD-NNNN`) · scalars |
+| Request | `CreateAppFeedbackRequest` | flat scalars — **cấm** parent JSON · **cấm** fork app-only DTO |
+| Web solution | `be/solution-discovery-web.md` | Kind B CRUD **giữ** · mobile **không** ship list/schema |
+| HTTP app | new `CreateAppFeedbackUseCase` / repository via `ApiClient` | **cấm** raw HTTP trong View/VM |
+| Token | Keychain / EncryptedSharedPreferences | Bearer + `X-Company-Id` + `X-Timezone` |
+| Kit | `LinmTopBar` · FieldLabel · `LinmTextArea` · `LinmPrimaryButton` · `LinmToast` · Me `LinmListRow` | `kit_missing_confirm` **N/A** |
+| Tabs | Shell Tab 5 **giữ** · pack `tabs: none` · tab **`me`** active | **cấm** invent (`GAP-TAB-01`) |
+| Store | user content `Body` · no GPS/camera claim mới cho pack này | **cấm** `localhost` / LAN IP · family `1` **cấm** iPad listing claim |
 
-| Check | Result |
-|-------|--------|
-| API-01 list query | **PASS** — `search` · `status` · `page` · `pageSize` |
-| Search fields | **PASS** — Code · SenderName · Role · Category · Status · Body (`ToLower().Contains`) |
-| PageSize | **PASS** — allow 50 / 100 / 200 / 500 (else 50) |
-| API-02 XCO | **PASS** — `GetByIdAsync` + 403 |
-| IdCode | **PASS** — server `FB-yyyyMMdd-nnnn` · Create **không** nhận Code từ client |
-| Body required | **PASS** — `ArgumentException` → 422 |
-| Soft delete | **PASS** — `IsActive=false` |
-| Parent JSON | **PASS** — DTO/entity flat scalars only |
-| BFF querystring | **PASS** — `BuildListPath()` forwards `Request.QueryString` |
-| CatalogUiSchema `app-feedbacks` | **PASS** — `CatalogUiSchemaRegistry.AppFeedbacks` + `CatalogUiSchemaSeed.AppFeedbacks()` list keys `code,senderName,role,category,body,submittedAt,status` |
-| `[RequirePermission]` | **TODO** CommonLib — không block P1 CRUD |
-| History API | stub FE — keep |
-| Enum lookup APIs | **none** — static FE (SA chốt) |
-| New migration | **n/a** |
+---
 
-## 2. Form data → entity
+## BFF / API contract (live audit 2026-08-28 · `task_69588f17`)
 
-| Screen | Fields | Entity |
-|--------|--------|--------|
-| List filter | search, status, page, pageSize | — |
-| List grid | code, senderName, role, category, body (preview), submittedAt, status | `AppFeedbackEntity` |
-| Form Z2 | Design §3 inventory | `AppFeedbackEntity` |
+| Action | App path | BFF | Downstream | Live |
+|--------|----------|-----|------------|------|
+| Gửi góp ý | `POST integration/feedbacks` | proxy catch-all | `AppFeedbacksController.Create` | **PASS** |
+| Nav back / textarea / toast | — | — | local UI | **N/A** API |
+| GET list / detail | `integration/feedbacks` · `…/{id}` | proxy | live CRUD | **OUT** mobile P1 UI |
+| Invent `feedback` / `nhan-dan/gop-ys` | — | — | — | **cấm invent** |
+| Dedicated BFF FeedbackController | — | — | — | **không** · **cấm invent** |
 
-### Field map (ui → dto → db)
+### Create request — `CreateAppFeedbackRequest` (khớp real-data §B)
 
-| uiField | dtoField | dbColumn / property | Notes |
-|---------|----------|---------------------|-------|
-| code | Code | `Code` varchar(64) | IdCode server-gen `FB-YYYYMMDD-NNNN` · all modes readonly · copy = mã mới (POST) |
-| senderName | SenderName | `SenderName` varchar(128) | * required · **lock live 128** (không widen 256 this pack) |
-| role | Role | `Role` varchar(64) | * enum static `tuan-duong` / `quan-ly` / `tuan-kiem` |
-| submittedAt | SubmittedAt | `SubmittedAt` timestamptz | * UTC store |
-| category | Category | `Category` varchar(64) | * enum `loi` / `de-xuat` / `ux` / `khac` |
-| body | Body | `Body` varchar(4000) | * textarea |
-| status | Status | `Status` varchar(32) | * `draft` / `sent` · list filter trống = tất cả |
-| userId | UserId | `UserId` varchar(128)? | optional · không hiện Zone B |
+| Field | Required | Mobile P1 bind |
+|-------|----------|----------------|
+| `SenderName` | yes | Me / auth profile display name (`fullName` trim · fallback lastUserName) |
+| `Role` | yes | session role map → `tuan-duong` \| `quan-ly` \| `tuan-kiem` (static FE · **không** UI select P1) |
+| `SubmittedAt` | yes (BE default UTC nếu `default`) | device `DateTime.UtcNow` / ISO UTC |
+| `Category` | yes | default **`de-xuat`** · **không** pill UI P1 · **GAP-MOB-FB-CAT-01** |
+| `Body` | yes | textarea «Nội dung góp ý» · trim · empty → validation toast · **cấm** POST trống |
+| `Status` | yes | `sent` on submit |
+| `UserId` | optional | auth subject |
 
-**Cấm** parent JSON string trên field/DTO.
+### Response — `AppFeedbackDto`
 
-## 3. API catalog (CRUD — keep · no new endpoints)
+`Id` · `Code` (`FB-YYYYMMDD-NNNN` server NextCode) · `SenderName` · `Role` · `SubmittedAt` · `Category` · `Body` · `Status` · `UserId` · …
 
-| id | Method | Path | Perm | Notes |
-|----|--------|------|------|-------|
-| API-01 | GET | `/api/v1/integration/feedbacks` | read | query `search` `status` `page` `pageSize` |
-| API-02 | GET | `/api/v1/integration/feedbacks/{id}` | read · **XCO** | hydrate View/Edit |
-| API-03 | POST | `/api/v1/integration/feedbacks` | create | `CreateAppFeedbackRequest` · no Code |
-| API-04 | PUT | `/api/v1/integration/feedbacks/{id}` | update | `UpdateAppFeedbackRequest` |
-| API-05 | DELETE | `/api/v1/integration/feedbacks/{id}` | delete | soft `IsActive=false` |
+Toast OK = copy «Đã gửi góp ý» (demo SSOT) · `Code` show **P2 optional** (demo không).
 
-BFF: `web-bff/api/v1/integration/feedbacks/**` proxy only — **không** strip query · **không** business logic.
+BE validate: `ValidateRequired` trên SenderName/Role/Category/Body/Status → 422 · soft-delete `IsActive` · CompanyCode từ `ICompanyContext` (server) · **cấm** client gửi parent JSON.
 
-## 4. Lookup APIs (SA chốt — Design SearchInput)
+### Permissions
 
-> Data-analy **đề xuất**. Design **chốt control**. SA **chốt API**. Dev **cấm** đoán Text vs SearchInput. **Cấm** native `<select>`.
+| Permission | Scope | Pack này |
+|------------|-------|----------|
+| `integration.feedbacks.create` | POST create | FE gate · BE `[RequirePermission]` **TODO** CommonLib (debt P1 · stub OK) |
+| `integration.feedbacks.read\|update\|delete` | list/CRUD | **OUT** mobile P1 UI |
 
-| Lookup | controlHint consumer | API P1 | Decision |
-|--------|----------------------|--------|----------|
-| feedback-status | Zone B filter + form | **none** | static FE: `` Tất cả (list only) · `draft` Nháp · `sent` Đã gửi · filter via API-01 `?status=` |
-| feedback-role | form | **none** | static FE 3 values |
-| feedback-category | form | **none** | static FE 4 values |
-| app-feedbacks schema | Zone F | **existing** `GET/PUT /api/v1/integration/catalogs/app-feedbacks/ui-schema` | **IN P1** · seed **đã có** · **cấm** clone CatalogUiSchema BFF · **cấm** `configHint` |
-| CUC2 / Excel master | — | — | **OUT** — không invent |
+**Cấm** thêm controller/permission trên Mobile.Bff · **cấm** invent permission slug mới.
 
-Seed `Fields[].Control` = `SELECT` / `DATE` / `TEXTAREA` là **metadata schema editor** — **không** = native Select trên UI. Form/list filter production = `SearchInput` static.
+---
 
-P2 (không block TL): `Lookup.SearchFieldKeys` hiện `code,senderName,body` — list search BE đã gồm role/category; có thể align keys nếu Dev đụng seed.
+## Implement gates (confirm)
 
-## 5. Tables
+| Gate | Decision | Endpoints / surfaces | Note |
+|------|----------|----------------------|------|
+| TZ | **tz_na** | `SubmittedAt` store UTC · display local nếu show P2 | không form date edit P1 |
+| XCO | **xco_na** (mobile Create) | XCO chỉ GET by id (web) · **không** XCO trên POST | reuse web SA |
+| SHARE | **share_tenant** / **share_na** mobile | tenant `CompanyCode` server · **không** bảng mới · **cấm** invent `rmms_feedback_mobile_*` | reuse `rmms_app_feedbacks` |
+| Offline | **toast err · no draft P1** | POST fail → toast «Không gửi được · kiểm tra mạng» · giữ form · **cấm** fake 200 · draft **DEFER** | offline-sync |
+| GPS | **n/a** | — | |
+| Camera | **n/a** | media P2 | |
+| Push | **n/a** | — | |
+| Store | **user-generated content** | PrivacyInfo / Play · claim user feedback text nếu store listing đụng · **cấm** localhost/LAN · family `1` **cấm** iPad | `GAP-SA-STORE-01` |
+| Step 4b | **n/a** | schema Signed · CTX alias doc only | **cấm** SA chạy migration |
 
-- `rmms_app_feedbacks` — tenant · `IsActive` soft-delete · unique `(CompanyCode, Code)` · index `(CompanyCode, SubmittedAt)`
-- **T-BE-02** = **n/a** (migration đã apply)
+AskQuestion (autoApprove=ON · không chờ board): `be_repo_confirm`=`/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.WebService` · `ios_repo_confirm` approve · `android_repo_confirm` approve · `sa_tz_gate=tz_na` · `sa_xco_gate=xco_na` · `sa_shared_table=share_tenant` (reuse) · `kit_missing_confirm=N/A` · `solution_confirm=approve` · `2026-08-28T23:12:00.000Z`.
 
-## 6. Tasks for TL (emit pack)
+---
+
+## Persist gate (no-parent-json-field)
+
+| | |
+|--|--|
+| Parent JSON string inventory (BE) | **none** — flat scalars on `AppFeedbackEntity` |
+| Child tables this pack (BE) | **reuse** `rmms_app_feedbacks` — **không** invent bảng |
+| Client store | screen state (body dirty) · session profile for hidden bind · **không** offline draft queue P1 |
+| Migration | **n/a** this pack |
+| T-BE-API | **n/a** — Create live PASS · **không** endpoint mới |
+| T-BE-MIG | **n/a** |
+
+---
+
+## Live vs delta (audit 2026-08-28 / `task_69588f17`)
+
+| Surface | Live | SA chốt P1 |
+|---------|------|------------|
+| `POST …/integration/feedbacks` | BE + Mobile.Bff proxy live | **Giữ** · Create bind §B |
+| `GET …/integration/feedbacks` | live | **OUT** mobile UI |
+| `api/v1/nhan-dan/gop-ys` | **không** live controller | **Cấm** app bind · CTX alias → T-CTX |
+| `api/v1/feedback` / FeedbackController BFF | **không** | **Cấm invent** |
+| Screen `#sc-feedback` | Me toast stub only (iOS `MeViewModel.feedback`) | **Ship** dual Design kit · push từ Me |
+| Category pills | web form Select | default `de-xuat` · **không** UI P1 |
+| Tab 5 shell | dưới Me | **Giữ** · `tabs: none` pack · tab `me` active |
+
+---
+
+## Form data analysis (REQUIRED)
+
+| Screen / FormMode | Fields (UI) | Source type | Entity |
+|-------------------|-------------|-------------|--------|
+| Screen `#sc-feedback` | body textarea + primary send | session + POST create | `AppFeedbackEntity` |
+| Leave dirty (optional) | modal | local UI | — |
+| Me entry | list row | local nav | — |
+
+### Field map (ui → dto → store) — khớp real-data §B + controlHint
+
+| uiField | Label VN | dtoField | Wire | Notes |
+|---------|----------|----------|------|-------|
+| navBack | Tôi | — | local | `go('me')` · Android icon-only OK |
+| title | Góp ý | — | local | `LinmTopBar` 17 · **cấm** badge P1/P2 |
+| bodyLabel | Nội dung góp ý | — | local | FieldLabel **13** |
+| body | (textarea) | `Body` | POST | `LinmTextArea` · placeholder SSOT · value ≥16 · required |
+| btnSend | Gửi góp ý | CreateAppFeedbackRequest | POST | `LinmPrimaryButton` · `isBusy` · cùng slug |
+| toastOk | Đã gửi góp ý | — | after 200 | `LinmToast` · **cấm** fake |
+| toastEmpty | Nhập nội dung góp ý | — | local validate | trước POST |
+| toastErr | Không gửi được · kiểm tra mạng | — | fail / 422 / mạng | giữ form |
+| leave* | Rời màn? … | — | local optional | in-app modal · **cấm** system alert |
+| meRowTitle | Góp ý | — | local nav | reuse Me · `#i-info` |
+| meRowSub | Phản ánh tính năng phần mềm | — | local | ≠ citizen |
+| (hidden) senderName | — | `SenderName` | session | required |
+| (hidden) role | — | `Role` | session map | static enum |
+| (hidden) category | — | `Category` | default `de-xuat` | **GAP-MOB-FB-CAT-01** |
+| (hidden) status | — | `Status` | `sent` | on submit |
+| (hidden) submittedAt | — | `SubmittedAt` | device UTC | |
+| (hidden) userId | — | `UserId` | auth optional | |
+| code | — | response `Code` | server | P2 optional show |
+
+**Demo fallback SSOT** (không fake POST 200): Title/Label/Placeholder/CTA/Toast = DA §F · Me row copy giữ.
+
+---
+
+## Navigation / action (this pack)
+
+| Control | Behavior P1 | Owner slug |
+|---------|-------------|------------|
+| Me **Góp ý** `#row-feedback` `#i-info` | push `#sc-feedback` (thay toast) | **owner** `feedback` (entry reuse `me`) |
+| Body textarea | local input · dirty | owner · **cấm** enqueue |
+| Gửi góp ý | validate → POST · busy · toast | owner · **cấm** enqueue (`GAP-MOB-ACT-07`) |
+| Toast ok / err | feedback UI | owner |
+| Back «Tôi» / chevron | `go('me')` · leave-confirm nếu dirty | chrome |
+| Tab 5 | shell giữ · `me` active | **cấm** invent |
+| web list / citizen / media | **không** ship | siblings / P2 |
+
+**Cấm** start sibling `pending_confirm` (`GAP-MOB-ACT-06`) · **cấm** enqueue Gửi/body/toast.
+
+---
+
+## GAP chốt (SA)
+
+| ID | Decision |
+|----|----------|
+| GAP-MOB-FB-NAV-01 | **CLOSED** · Me push `#sc-feedback` |
+| GAP-MOB-FB-SCR-01 | **CLOSED** · ship screen dual |
+| GAP-MOB-FB-BODY-01 | **CLOSED** · textarea bind SSOT |
+| GAP-MOB-FB-SEND-01 | **CLOSED** · POST create + toast |
+| GAP-MOB-FB-DATA-01 | **CLOSED** · BFF `integration/feedbacks` |
+| GAP-MOB-FB-PACK-01 | **CLOSED** · packKind `sheet` · surface screen |
+| GAP-MOB-FB-CAT-01 | **CLOSED (P1)** · default `de-xuat` · không pill · P2 optional |
+| GAP-MOB-FB-CTX-PATH-01 | **CLOSED** · app cite live `integration/feedbacks` · CTX `nhan-dan/gop-ys` alias stale → **T-CTX-01** align docs · **cấm** app bind alias |
+| GAP-MOB-BFF-01 | **Không** — proxy catch-all đủ |
+| GAP-MOB-REAL-01 | §B = BFF table only |
+| GAP-TAB-01 | Tab 5 shell **giữ** · pack `tabs: none` |
+| GAP-MOB-ACT-01/02/05/06/07 | 1 slug · không gộp · kit mapped · không enqueue |
+| GAP-MOB-ALIGN-01 | iOS + Android cùng copy · Android back icon-only OK |
+| GAP-DES-DEMO-RESCAN-01 | **CLOSED** · SA **cấm** re-scan |
+| GAP-SA-STORE-01 | **cấm** localhost/LAN trong solution · family `1` **cấm** iPad claim |
+
+---
+
+## Tasks for TL (emit pack)
 
 | id | layer | SA verdict |
 |----|-------|------------|
-| T-CTX-01 | docs | pending — re-lock context vs Design full-page nếu còn copy slideout |
-| T-BE-01 | api | **verified PASS** CRUD — TL keep verify/no-op unless regression |
+| T-CTX-01 | docs | pending — align `docs/context/features/feedback.md` path → live `api/v1/integration/feedbacks` (alias stale) |
+| T-BE-01 | api | **verified PASS** Create live — **no-op** unless regression |
 | T-BE-02 | migration | **n/a** |
-| T-BE-SCHEMA-01 | api Integration | **verified PASS** kind `app-feedbacks` — no new seed unless column GAP |
-| T-BFF-01 | bff | **verified PASS** querystring forward |
-| T-PERM-01 | ui+api | pending — codes documented; attribute TODO NuGet (debt P1) |
-| T-UI-LIST-01 | ui | pending TL — A–D · 1× LinPageLayout · LinCatalogDataGrid · LinCatalogListPagination · schema editor FULL |
-| T-UI-FORM-01 | ui | pending TL — **full-page** `FeedbackFormPage` · View=`<dl>` · **cấm** Slideout/Resource |
-| T-UI-LKP-01 | ui | pending — SearchInput static enums |
-| T-UI-FIELD-01 | ui | pending — Design §3 map |
-| T-UI-PROD-01 | ui | pending |
-| T-UI-UX-01 | ui | pending |
-| T-UI-ACT-01 | ui | pending — toolbar/row Delete · Lin confirm |
-| T-QA-* | qa | pending |
+| T-BFF-01 | mobile-bff | **verified PASS** catch-all proxy — **no-op** · **cấm** dedicated FeedbackController |
+| T-PERM-01 | ui | pending — FE gate `integration.feedbacks.create` · BE attribute debt OK P1 |
+| T-IOS-FB-01 | ios | pending — screen `#sc-feedback` · kit map · Me push · Create use case |
+| T-AND-FB-01 | android | pending — cùng §B · parity copy |
+| T-IOS-ME-01 | ios | pending — `MeViewModel.feedback` toast → navigate push |
+| T-AND-ME-01 | android | pending — cùng entry |
+| T-KIT-01 | kit | **reuse** TopBar/TextArea/Primary/Toast/ListRow — **cấm** invent |
+| T-QA-* | qa | pending — Maestro slug `feedback` only · **cấm** web e2e |
 
-## 7. Confirm
+---
 
-`solution_confirm` = **approve** — `autoApprove=ON` · agent tự confirm. Roles sau = **pending** đến lượt. Chain **team-lead**.
+## Confirm
 
-Repo: `be_repo_confirm` = `Linm.RMMS.WebService` · `ui_repo_confirm` = `Linm.Web.RMMS.Integration` (board ticks prior — SA **không** auto-tick mới).
+`solution_confirm` = **approve** — `autoApprove=ON` · agent tự confirm · `task_69588f17`.
 
-**This SA role: no FE/BE source write.** Verify MFE `yarn build` PASS (gate packet). Dev must `yarn build` + `dotnet build` nếu đụng API/schema.
+Roles sau = **pending** đến lượt. Chain **`/agent-tl-mobile`** (không start trong task SA này · GAP-PKT-ROLE-01).
+
+**This SA role: no FE/BE/native source write · no Step 4b · no e2e · no yarn build/start:std.**
+
+Repo: `be_repo_confirm` = `Linm.RMMS.WebService` · `ios_repo_confirm` / `android_repo_confirm` = approve (STATUS ticks).
+
+---
+
+## Handoff → TL
+
+| Field | Value |
+|-------|-------|
+| feature | `feedback` |
+| lane | `mobile` |
+| from | `sa` · PASS · `task_69588f17` |
+| phase | `team-lead` |
+| Next | `/agent-tl-mobile` · `task/feedback.md` |
+| changeScope | `edit_page` |
+| packKind | **`sheet`** (surface screen) |
+| solution | `be/solution-discovery.md` **confirmed** |
+| priorWeb | `be/solution-discovery-web.md` **giữ** |
+| BFF P1 | `POST integration/feedbacks` |
+| autoApprove | ON |
+| e2eQa | ON — queued QA (sau Dev) |
+
+---
 
 ## Version meta (REQUIRED)
 
 | Field | Value |
 |-------|-------|
-| skillId | agent-sa |
-| skillVersion | 2026.08.15.5 |
-| schemaVersion | qldb-workflow-skill-v1 |
-| workflowVersion | 2026.08.15.5 |
-| rulesVersion | 2026.08.15.8 |
-| generatedAt | 2026-08-16T05:20:00.000Z |
+| skillId | agent-sa-mobile |
+| skillVersion | 2026.08.20.03 |
+| schemaVersion | 1 |
+| workflowVersion | 2026.08.25.01 |
+| rulesVersion | 2026.08.25.2 |
+| generatedAt | 2026-08-29T06:12:00.000Z |
 | versionGate | rechecked |
 | version_mismatch_action | recheck_new (STATUS) |
-| orchestratorSkillVersion | 2026.08.15.5 |
-| orchestratorWorkflowVersion | 2026.08.15.5 |
-| orchestratorSchemaVersion | qldb-workflow-skill-v1 |
-| dataAnalySkillVersion | 2026.08.15.5 |
-| poSkillVersion | 2026.08.15.5 |
-| designSkillVersion | 2026.08.15.5 |
-| contentHashPriorDataAnaly | sha256:feedback-delta-fullpage-schema-20260816 |
-| taskId | `task_064242e5` |
+| orchestratorSkillVersion | 2026.08.25.01 |
+| orchestratorWorkflowVersion | 2026.08.25.01 |
+| orchestratorSchemaVersion | qldb-mobile-workflow-skill-v1 |
+| dataAnalySkillVersion | 2026.08.25.01 |
+| poSkillVersion | 2026.08.25.01 |
+| designSkillVersion | 2026.08.25.01 |
+| contentHashPriorDataAnaly | sha256:feedback-mobile-control-hint-20260829 |
+| priorRealDataHash | sha256:feedback-mobile-real-data-20260829 |
+| priorBffHash | sha256:feedback-mobile-bff-20260829 |
+| priorPoHash | sha256:feedback-mobile-po-requirement-20260829 |
+| priorDesignHash | sha256:feedback-mobile-design-20260829 |
+| contentHash | sha256:feedback-mobile-sa-solution-20260829 |
+| taskId | `task_69588f17` |
 
 ---
-<!-- Version meta: skillVersion=2026.08.15.5 · schemaVersion=qldb-workflow-skill-v1 · workflowVersion=2026.08.15.5 · rulesVersion=2026.08.15.8 · versionGate=rechecked -->
+<!-- Version meta: skillId=agent-sa-mobile skillVersion=2026.08.20.03 schemaVersion=1 workflowVersion=2026.08.25.01 rulesVersion=2026.08.25.2 versionGate=rechecked -->

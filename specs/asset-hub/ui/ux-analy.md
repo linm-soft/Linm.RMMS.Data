@@ -36,7 +36,7 @@ Login → Tab 5 (Trang Chủ selected)
 |------|------------------|----------------------------------------|---------|---------|
 | Nav | Back Trang Chủ · title **Tài sản** | top bar / `.nav-bar` · `.top-bar` | `LinmTopBar` | `LinmTopBar` |
 | Wallet | HỒ SƠ TÀI SẢN · QL.1 · Khu IV · 32 loại… (+ iOS patrol) | A `.wallet-card` · DES-MOB-ASSET-WALLET | `LinmWalletCard` | same |
-| Grid primary | 32 loại · Xem trên bản đồ | A `.hub-grid` / `.hub-tile` | `LinmHubTile` ×2 | same |
+| Grid primary | 32 loại · Xem trên bản đồ · **cùng height hàng** | A `.hub-grid` / `.hub-tile` | `LinmHubTile` ×2 stretch | same |
 | Sec Thu thập | Thu thập | A `.section-label` | `LinmSectionLabel` | same |
 | Grid collect | Thủ công · Camera AI | A `.hub-tile` | `LinmHubTile` ×2 | same |
 | Sec Quản lý | Quản lý | A `.section-label` | `LinmSectionLabel` | same |
@@ -103,6 +103,7 @@ Không `/wf-anim` trên hub `asset-hub`.
 | GAP-MOB-ALIGN-01 | Dual chrome | Cùng tiles/sections/wallet core · patrol iOS-only OK |
 | GAP-MOB-UX-07 | design ↔ HTML | Pack proto khớp design.md · toast labels PO |
 | GAP-MOB-DES-PFX-01 | Board prefix | `ios/index.html` · `android/index.html` |
+| GAP-MOB-AHUB-ALIGN-01 | Card 32 loại cao hơn «Xem trên bản đồ» vì subtitle wrap | Hàng 2 cột **stretch cùng height** · subtitle slot 2 dòng · **cấm** height theo content từng ô · lock `/edit-mobile-feature` |
 
 ## Version meta (REQUIRED)
 

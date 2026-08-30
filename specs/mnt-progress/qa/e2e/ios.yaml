@@ -1,0 +1,130 @@
+appId: org.linmsoft.rmms
+---
+# mnt-progress · store A11/A9/A3 · guest → login → tile-mnt → #sc-mnt-list → #btn-mnt-sync → #sc-mnt-progress
+# packKind sheet→screen · cấm A3 trước login · cấm mfeStdUrl / start:std · cấm sibling chat/estimate/log
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 20000
+- takeScreenshot: A11-LAUNCH
+- tapOn:
+    id: "btn-home-login"
+- extendedWaitUntil:
+    visible:
+      id: "f-user"
+    timeout: 15000
+- tapOn:
+    id: "f-user"
+- eraseText
+- inputText: "linm-soft"
+- tapOn:
+    text: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
+    optional: true
+- tapOn:
+    id: "f-pass"
+- eraseText
+- inputText: "Linm@2026"
+- tapOn:
+    text: "Not Now"
+    optional: true
+- takeScreenshot: A9-LOGIN
+- tapOn:
+    id: "btn-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
+- tapOn:
+    text: "Not Now"
+    optional: true
+- pressKey: Enter
+- waitForAnimationToEnd:
+    timeout: 4000
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 45000
+- scrollUntilVisible:
+    element:
+      id: "tile-mnt"
+    direction: DOWN
+    timeout: 15000
+    optional: true
+- tapOn:
+    id: "tile-mnt"
+    optional: true
+- tapOn:
+    id: "tab-work"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-mnt-list"
+    timeout: 25000
+- assertVisible: "Danh sách công việc"
+- assertVisible:
+    id: "row-mnt-hub"
+- assertVisible:
+    id: "card-mnt-demo-wo-1"
+- assertVisible: "Vá mặt đường"
+# iOS LinmStrokeGlyph sync chưa expose resource-id (GAP-MOB-A11Y-01) — tap middle action = sync trên card demo-wo-1
+- tapOn:
+    id: "btn-mnt-sync-demo-wo-1"
+    optional: true
+- tapOn:
+    point: "50%,48%"
+- extendedWaitUntil:
+    visible:
+      id: "sc-mnt-progress"
+    timeout: 25000
+- assertVisible: "Cập nhật trạng thái"
+- assertVisible:
+    id: "wo-title"
+- assertVisible:
+    id: "wo-code"
+- assertVisible:
+    id: "wo-status"
+- assertVisible:
+    id: "progress-pct"
+- assertVisible:
+    id: "note"
+- tapOn:
+    id: "progress-pct"
+- eraseText
+- inputText: "45"
+- tapOn:
+    text: "Cập nhật trạng thái"
+    optional: true
+- tapOn:
+    id: "note"
+- inputText: "E2E QA mobile cập nhật tiến độ hiện trường vá mặt đường"
+- tapOn:
+    text: "Cập nhật trạng thái"
+    optional: true
+- scrollUntilVisible:
+    element:
+      id: "i-camera"
+    direction: DOWN
+    timeout: 10000
+- scrollUntilVisible:
+    element:
+      id: "location-row"
+    direction: DOWN
+    timeout: 10000
+- scrollUntilVisible:
+    element:
+      id: "btn-update"
+    direction: DOWN
+    timeout: 10000
+- assertVisible:
+    id: "sc-mnt-progress"
+- takeScreenshot: A3-CORE
+- scroll
+- assertVisible:
+    id: "btn-update"
+- assertVisible:
+    id: "i-camera"
+- takeScreenshot: P6-CORE
+- takeScreenshot: P6-CORE-2

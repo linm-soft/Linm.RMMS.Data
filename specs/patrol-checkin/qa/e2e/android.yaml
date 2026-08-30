@@ -1,0 +1,74 @@
+appId: org.linmsoft.rmms
+---
+# patrol-checkin · store P6 ×2 · guest → login → sheet · fill Nội dung · scroll fold 2
+# ModalBottomSheet: assert text · GPS mock Phước Dinh · form-field-e2e fill trước CORE
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 20000
+- tapOn:
+    id: "btn-home-login"
+- extendedWaitUntil:
+    visible:
+      id: "f-user"
+    timeout: 15000
+- tapOn:
+    id: "f-user"
+- eraseText
+- inputText: "linm-soft"
+- tapOn: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
+- tapOn:
+    id: "f-pass"
+- eraseText
+- inputText: "Linm@2026"
+- pressKey: Enter
+- waitForAnimationToEnd:
+    timeout: 4000
+- tapOn:
+    id: "btn-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
+- extendedWaitUntil:
+    visible: "Trang Chủ"
+    timeout: 45000
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 15000
+- tapOn:
+    id: "tab-field"
+- extendedWaitUntil:
+    visible:
+      id: "sc-patrol-home"
+    timeout: 20000
+- assertVisible:
+    id: "patrol-hero"
+- tapOn:
+    text: "Ghi điểm tuần"
+- extendedWaitUntil:
+    visible: "Điểm kế hoạch"
+    timeout: 20000
+- extendedWaitUntil:
+    visible: "Đúng điểm"
+    timeout: 25000
+    optional: true
+- tapOn: "Nội dung"
+- inputText: "Mặt đường khô, lan can đạt"
+- assertVisible: "Km 1561+134 · Phước Dinh"
+- takeScreenshot: P6-CORE
+- scroll
+- assertVisible: "Ảnh"
+- assertVisible: "Ghi nhận điểm tuần"
+- takeScreenshot: P6-CORE-2
+- tapOn:
+    text: "Ghi nhận điểm tuần"
+    optional: true
+- extendedWaitUntil:
+    visible: "Đã lưu"
+    timeout: 12000
+    optional: true

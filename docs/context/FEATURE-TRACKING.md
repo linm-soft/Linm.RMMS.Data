@@ -42,7 +42,7 @@
 | `road-route` | Tuyến đường | — | support | done | none | [ctx](features/road-route.md) | [ST](../../specs/road-route/STATUS.md) |
 | `asset-type` | Loại TS KCHT | — | support | done | none | [ctx](features/asset-type.md) | [ST](../../specs/asset-type/STATUS.md) |
 | `partner-unit` | Sở / BOT / Cty | — | support | done | none | [ctx](features/partner-unit.md) | [ST](../../specs/partner-unit/STATUS.md) |
-| `asset` | QL tài sản ĐB | 01 | P1-900 | `data_analy` / `draft` | catalog | [ctx](features/asset.md) | [ST](../../specs/asset/STATUS.md) |
+| `asset` | QL tài sản ĐB | 01 | P1-900 | `done` / `done` | catalog | [ctx](features/asset.md) | [ST](../../specs/asset/STATUS.md) |
 | `asset-kcht-32` | 36 loại TS | 01 | P1-900 | design await_confirm | proto mobile-p1 | [ctx](features/asset-kcht-32.md) | [ST](../../specs/asset-kcht-32/STATUS.md) |
 | `csdl-so-sach` | 12 biểu + 8 sổ | 01 | P1-900 | data_analy pending | catalog | [ctx](features/csdl-so-sach.md) | [ST](../../specs/csdl-so-sach/STATUS.md) |
 | `pavement-section` | Biểu 1 mặt đường | 01 | P1-900 | done | catalog | [ctx](features/pavement-section.md) | [ST](../../specs/pavement-section/STATUS.md) |
@@ -72,7 +72,7 @@
 | `maintenance` | Bảo trì khung + WO P2 | 07 / 07-P2 | P1-900 khung · P2-CR full | done | catalog | [ctx](features/maintenance.md) | [ST](../../specs/maintenance/STATUS.md) |
 | `predict` | AI dự báo | 08 / 08-P2 | P1-900 · P2-CR | done | catalog | [ctx](features/predict.md) | [ST](../../specs/predict/STATUS.md) |
 | `ops` | Điều hành | 09 / 09-P2 | P1-900 board · P2-CR full | done | catalog | [ctx](features/ops.md) | [ST](../../specs/ops/STATUS.md) |
-| `estimate` | AI ước lượng | 10 / 10-P2 | P1-900 · P2-CR | done | catalog | [ctx](features/estimate.md) | [ST](../../specs/estimate/STATUS.md) |
+| `estimate` | AI ước lượng | 10 / 10-P2 | P1-900 · P2-CR | `dev` / `await_confirm` | catalog | [ctx](features/estimate.md) | [ST](../../specs/estimate/STATUS.md) |
 | `contract` | HĐ & ngân sách | 11 / 11-P2 | P1-900 thin · P2-CR | done | catalog | [ctx](features/contract.md) | [ST](../../specs/contract/STATUS.md) |
 | `kcht-cong-trinh` | Công trình KCHT (Khu IV) | — | CR-Khu-IV | `done` / `done` | none | [ctx](features/kcht-cong-trinh.md) | [ST](../../specs/kcht-cong-trinh/STATUS.md) |
 | `inventory` | Vật tư | 12 | P3-CR | Dev pending | catalog | [ctx](features/inventory.md) | [ST](../../specs/inventory/STATUS.md) |
@@ -83,9 +83,9 @@
 | `dashboard` | Dashboard KPI | 17 / 17-P2 | P1-900 · P2-CR | **no STATUS** | catalog | [ctx](features/dashboard.md) | — |
 | `reports` | Hub báo cáo | 17 | P1-900 | done | catalog | [ctx](features/reports.md) | [ST](../../specs/reports/STATUS.md) |
 | `integration` | Open API | 18 / 18-P2 | P1-900 khung · P2-CR | done | catalog | [ctx](features/integration.md) | [ST](../../specs/integration/STATUS.md) |
-| `feedback` | Góp ý nội bộ | — | support P1 | data_analy draft | catalog | [ctx](features/feedback.md) | [ST](../../specs/feedback/STATUS.md) |
+| `feedback` | Góp ý nội bộ | — | support P1 | `done` / `done` | catalog | [ctx](features/feedback.md) | [ST](../../specs/feedback/STATUS.md) |
 | `users` | QL user / TC | — | support P1 | Dev in_progress | catalog | [ctx](features/users.md) | [ST](../../specs/users/STATUS.md) |
-| `login` | Login + HĐ TK | — | P1 / P1.5 | `data_analy` / `paused` | none | [ctx](features/login.md) | [ST](../../specs/login/STATUS.md) |
+| `login` | Login + HĐ TK | — | P1 / P1.5 | `data_analy` / `draft` | none | [ctx](features/login.md) | [ST](../../specs/login/STATUS.md) |
 | `login-forgot` | Quên MK | — | P1-900 | done | none | [ctx](features/login-forgot.md) | [ST](../../specs/login-forgot/STATUS.md) |
 | `home` | Home mobile | B | P1-900 | done | none | [ctx](features/home.md) | [ST](../../specs/home/STATUS.md) |
 | `me` | Profile mobile | B | P1-900 | done | none | [ctx](features/me.md) | [ST](../../specs/me/STATUS.md) |
@@ -96,12 +96,23 @@
 | `patrol-offline` | Offline tuần | 04 | P1-900 | done | proto | [ctx](features/patrol-offline.md) | [ST](../../specs/patrol-offline/STATUS.md) |
 | `patrol-map` | Bản đồ tuần | 04 | P1-900 | Dev pending | proto | [ctx](features/patrol-map.md) | [ST](../../specs/patrol-map/STATUS.md) |
 | `patrol-pin` | GPS pin sheet | 04 | P1-900 | Review in_progress | proto | [ctx](features/patrol-pin.md) | [ST](../../specs/patrol-pin/STATUS.md) |
-| `patrol-checkin` | Check-in | 05 | P1-900 | data_analy draft | none | — | [ST](../../specs/patrol-checkin/STATUS.md) |
+| `patrol-checkin` | Check-in | 05 | P1-900 | `done` / `done` | none | — | [ST](../../specs/patrol-checkin/STATUS.md) |
 
-| `mnt-list` | [Mobile] Công việc | — | support | `data_analy` / `in_progress` | none | [ctx](features/mnt-list.md) | [ST](../../specs/mnt-list/STATUS.md) |
+| `mnt-list` | [Mobile] Công việc | — | support | `done` / `done` | none | [ctx](features/mnt-list.md) | [ST](../../specs/mnt-list/STATUS.md) |
+| `cam-view` | [Mobile] Camera xem | — | support | `done` / `done` | data_analy PASS · handoff PO | [ctx](features/cam-view.md) | [ST](../../specs/cam-view/STATUS.md) |
+| `cam-patrol` | [Mobile] [Tuần đường] -> Thu thập camera | — | support | `done` / `done` | none | [ctx](features/cam-patrol.md) | [ST](../../specs/cam-patrol/STATUS.md) |
+| `field-reflect` | [Mobile] [Tuần đường] -> Ghi nhận hư hỏng | — | support | `done` / `done` | none | [ctx](features/field-reflect.md) | [ST](../../specs/field-reflect/STATUS.md) |
+| `mnt-chat` | Trao đổi công việc | — | support | `dev` / `await_confirm` | none | [ctx](features/mnt-chat.md) | [ST](../../specs/mnt-chat/STATUS.md) |
+| `mnt-progress` | Cập nhật trạng thái | — | support | `done` / `done` | none | [ctx](features/mnt-progress.md) | [ST](../../specs/mnt-progress/STATUS.md) |
+| `mnt-log` | Nhật ký xử lý | — | support | `done` / `done` | none | [ctx](features/mnt-log.md) | [ST](../../specs/mnt-log/STATUS.md) |
+| `incident-create` | [Mobile] Ghi sự cố | — | support | `done` / `done` | none | [ctx](features/incident-create.md) | [ST](../../specs/incident-create/STATUS.md) |
+| `incident-list` | [Mobile] Vấn đề | — | support | `done` / `done` | none | [ctx](features/incident-list.md) | [ST](../../specs/incident-list/STATUS.md) |
+| `incident-chat` | Trao đổi sự cố | — | support | `dev` / `implemented` | none | [ctx](features/incident-chat.md) | [ST](../../specs/incident-chat/STATUS.md) |
+| `vis-capture` | Nhận diện mặt đường | — | support | `done` / `done` | data_analy PASS · dual/pack GAP | [ctx](features/vis-capture.md) | [ST](../../specs/vis-capture/STATUS.md) |
+| `incident-detail` | Chi tiết | — | support | `done` / `done` | none | [ctx](features/incident-detail.md) | [ST](../../specs/incident-detail/STATUS.md) |
 **Báo cáo `rpt-*`:** xem [§ Reports](#17--dashboard--báo-cáo). Pipeline STATUS **done** hết (release: P1 / P1.5 / P2 / P3 theo từng slug).
 
-**Draft mobile (chưa context đầy):** `incident-list` · `incident-create` · `mnt-list` · `field-reflect` · `cam-view` · `cam-patrol` — [STATUS](../../specs/) tương ứng `data_analy` / `draft`.
+**Draft mobile (CTX/analy):** `incident-list` — [STATUS](../../specs/). `cam-view` data_analy **PASS** → PO pending. `incident-create` · `field-reflect` · `cam-patrol` · `mnt-list` đã có CTX + data_analy (hoặc done).
 
 ---
 
@@ -332,7 +343,7 @@ Demo đề cương TT 04 — catalog [`tuan-duong-web.html`](../../../Linm.RMMS.
 | API | `api/v1/su-co/incidents` |
 | Pipeline | `data_analy` / `pending` · PO–TL **done** · Dev/QA/Review pending |
 | Next | **T-PILOT-01** e2e + HDSD + guide (`task/pilot-su-co.md`) · rồi Dev implement |
-| Draft tách | `incident-list` · `incident-create` — STATUS draft |
+| Draft tách | `incident-list` — STATUS draft · `incident-create` data_analy **confirmed** → po |
 
 ---
 

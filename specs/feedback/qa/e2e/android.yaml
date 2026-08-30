@@ -1,0 +1,87 @@
+appId: org.linmsoft.rmms
+---
+# feedback · Android · guest → login → tab Tôi → row-feedback → #sc-feedback → fill≥16
+# P6 shots **trước** send (send Success → resetAndPop về Me · cấm P6 = Me hub)
+# pattern: mnt-list · cấm hideKeyboard · cấm mfeStdUrl
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 20000
+- takeScreenshot: A11-LAUNCH
+- tapOn:
+    id: "btn-home-login"
+- extendedWaitUntil:
+    visible:
+      id: "f-user"
+    timeout: 15000
+- tapOn:
+    id: "f-user"
+- eraseText
+- inputText: "linm-soft"
+- tapOn: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
+- tapOn:
+    id: "f-pass"
+- eraseText
+- inputText: "Linm@2026"
+- pressKey: Enter
+- waitForAnimationToEnd:
+    timeout: 4000
+- takeScreenshot: A9-LOGIN
+- tapOn:
+    id: "btn-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 45000
+- tapOn:
+    id: "tab-me"
+    optional: true
+- tapOn:
+    text: "Tôi"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "row-feedback"
+    timeout: 20000
+- tapOn:
+    id: "row-feedback"
+- extendedWaitUntil:
+    visible:
+      id: "sc-feedback"
+    timeout: 20000
+- assertVisible: "Góp ý"
+- assertVisible:
+    id: "label-body"
+- assertVisible:
+    id: "input-body"
+- assertVisible:
+    id: "btn-send"
+- tapOn:
+    id: "input-body"
+- inputText: "E2E QA mobile góp ý kiểm thử màn hình feedback đủ dài"
+- pressKey: Enter
+- waitForAnimationToEnd:
+    timeout: 2000
+- assertVisible:
+    id: "sc-feedback"
+- takeScreenshot: A3-CORE
+- takeScreenshot: P6-CORE
+- scroll
+- takeScreenshot: P6-CORE-2
+- tapOn:
+    id: "btn-send"
+    optional: true
+- tapOn:
+    text: "Gửi góp ý"
+    optional: true
+- extendedWaitUntil:
+    visible: "Đã gửi góp ý"
+    timeout: 25000
+    optional: true

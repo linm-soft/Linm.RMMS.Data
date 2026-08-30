@@ -13,7 +13,7 @@
 |--|--|
 | Mục tiêu | Hub **Trang Chủ**: chào tên phiên · quick actions · lưới nghiệp vụ · ví tuyến → sibling packs |
 | Persona | Tuần đường · Hạt · hiện trường |
-| App hiện có | Tab 5 chrome (`shell-tabs`) · Auth login live · **chưa** màn `#sc-home` (placeholder) |
+| App hiện có | Tab 5 · **guest Home** (không required login) · overlay login từ `btn-home-login` · guest FAQ + privacy |
 | DoD | Dual SwiftUI + Compose · kit `LinmHeroTools` / `LinmQuickActions` / `LinmHomeGrid` / `LinmWalletCard` · GET `auth/profile` · **không** gộp màn sibling |
 | Align | Native only · **cấm** `mfeStdUrl` |
 | API | `GET auth/profile` (Auth NuGet) · badge/notify/queue API = sibling `ops` / `patrol-offline` |
@@ -24,8 +24,11 @@
 |------|---------|-----|
 | Hero tools | Hồ sơ · Thông báo (+ badge) | `LinmHeroTools` · `go('me')` · `go('ops')` |
 | Role + tín hiệu | Khu QLĐB IV · `data-net-signal` | Role demo mock · tín hiệu `shared_kit` · **cấm** «Có mạng» |
-| Who | Tên người dùng | Live `fullName` từ `auth/profile` · demo «Nguyễn Văn A» |
-| Quick | Điểm tuần · Ghi sự cố | `LinmQuickActions` → `patrol-home` · `incident-create` |
+| Who | Khách / tên phiên | Guest copy **Khách** · staff `fullName` `auth/profile` |
+| Login CTA | Đăng nhập · Dành cho cán bộ | `btn-home-login` · overlay slug `login` · ẩn khi staff |
+| Guest FAQ | Câu hỏi thường gặp | `btn-home-faq` → `#sc-faq` · pills + search + list · static `LinmCopy` · **cấm** invent API |
+| Guest privacy | Chính sách quyền riêng tư | `btn-home-privacy` → `#sc-privacy` · static body |
+| Quick | Điểm tuần · Ghi sự cố | **staff only** · `LinmQuickActions` → `patrol-home` · `incident-create` |
 | Section | Nghiệp vụ thường dùng | `LinmSectionLabel` · không route |
 | Grid 6 ô | Giám sát · Tuần đường · Công việc · Vấn đề · Tài sản · Lưu trữ | `LinmHomeGrid` / `LinmHomeTile` |
 | Wallet | HỒ SƠ TÀI SẢN · QL.1 · Khu IV | `LinmWalletCard` → `asset-hub` · copy demo **không** invent wallet API |

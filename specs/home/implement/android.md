@@ -15,12 +15,15 @@
 
 ## IA / API
 
-- Tab **Trang Chủ** = `#sc-home` hub. **Gỡ** `PlaceholderHome*` / `LinmKitGallery` / `btn-logout`.
-- GET `auth/profile` · `.who` = `fullName` trim · fallback `lastUserName` · hub không block.
+- Tab **Trang Chủ** = `#sc-home` hub · **không required login**. Guest **Khách** + `btn-home-login`.
+- Staff GET `auth/profile` · **cấm** GET profile khi guest.
 - Role **ẩn live** · wallet static · badge 0 ẩn · **cấm** GET inbox.
 - Hồ sơ → tab **Tôi**. Notify → toast **Thông báo** + `includeNotification` trên `#sc-home` · **cấm** push inbox. Sibling / signal / wallet = toast nhãn.
 - Grid 3×2 = 2× `LinmHomeGrid` (kit Row). Foot Gói **cấm ship**.
-- E2E: `sc-home` · `home-who` · `btn-signal` · `tile-*` · `wallet-card` · `tab-home`.
+- E2E: `sc-home` · `home-who` · `btn-home-login` · `btn-signal` · `tile-*` · `wallet-card` · `tab-home`.
+- `/edit-mobile-feature` 2026-08-29: guest Home + overlay login · `./gradlew :app:assembleDebug` **PASS**.
+- `/edit-mobile-feature` 2026-08-29: guest FAQ + privacy overlays · `btn-home-faq` / `btn-home-privacy`.
+- `/edit-mobile-feature` 2026-08-29: FAQ/privacy back = `login.backHome` **Về Trang Chủ**.
 
 ## VERIFY GATE
 

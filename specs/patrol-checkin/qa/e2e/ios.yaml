@@ -1,0 +1,95 @@
+appId: org.linmsoft.rmms
+---
+# patrol-checkin · store A11/A9/A3 · guest → login → hub → #sheet-checkin · fill Nội dung
+# form-field-e2e: fill content trước CORE shot · save khi matchOk (GPS mock) · cấm mfeStdUrl
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 20000
+- takeScreenshot: A11-LAUNCH
+- tapOn:
+    id: "btn-home-login"
+- extendedWaitUntil:
+    visible:
+      id: "f-user"
+    timeout: 15000
+- tapOn:
+    id: "f-user"
+    optional: true
+- tapOn:
+    text: "Tài khoản"
+    optional: true
+- inputText: "linm-soft"
+- tapOn:
+    id: "f-pass"
+    optional: true
+- tapOn:
+    text: "Mật khẩu"
+    optional: true
+- inputText: "Linm@2026"
+- tapOn:
+    text: "RMMS"
+    optional: true
+- takeScreenshot: A9-LOGIN
+- tapOn:
+    id: "btn-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
+- tapOn:
+    text: "Not Now"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 30000
+- tapOn:
+    id: "tab-field"
+    optional: true
+- tapOn:
+    id: "tile-patrol"
+    optional: true
+- tapOn:
+    text: "Tuần đường"
+- extendedWaitUntil:
+    visible:
+      id: "sc-patrol-home"
+    timeout: 20000
+- assertVisible:
+    id: "patrol-hero"
+- tapOn:
+    text: "Ghi điểm tuần"
+- extendedWaitUntil:
+    visible:
+      id: "sheet-checkin"
+    timeout: 20000
+- assertVisible:
+    id: "ci-match-banner"
+- assertVisible:
+    id: "ci-btn-save"
+- extendedWaitUntil:
+    visible: "Đúng điểm"
+    timeout: 25000
+    optional: true
+- tapOn:
+    id: "ci-content"
+- inputText: "Mặt đường khô, lan can đạt"
+- tapOn:
+    text: "Ghi điểm tuần"
+    optional: true
+- takeScreenshot: A3-CORE
+- tapOn:
+    id: "ci-btn-save"
+    optional: true
+- tapOn:
+    text: "Ghi nhận điểm tuần"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-checkin-detail"
+    timeout: 12000
+    optional: true

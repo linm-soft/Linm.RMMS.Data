@@ -1,11 +1,15 @@
 # Prototype — mnt-list
 
-Design gate: **prototype + reviewUrl** — board Approve (**không auto**).
-Repo confirm: user tick BE+UI trên `/qldb-workflow` Progress trước Dev (**không auto** · cấm ERP.*).
+Design gate: dual `ios/` + `android/` · `/review-demo-design-mobile` · `design_confirm` **approve** (autoApprove=ON · `task_9df501b1`).
 
-- Demo SSOT: `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/mobile-p1/ui/prototype/ios/index.html`
-- Title: Công việc
-- Pack kind: `list`
-- MFE: `Linm.RMMS.Mobile.iOS`
+| | |
+|--|--|
+| Pack | `list` · `#sc-mnt-list` · `DES-MOB-MNT-LIST` |
+| iOS | `ui/prototype/ios/index.html` · 390×844 |
+| Android | `ui/prototype/android/index.html` · 412×915 |
+| reviewUrlIos | `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/mnt-list/ui/prototype/ios/index.html#sc-mnt-list` |
+| reviewUrlAndroid | `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/mnt-list/ui/prototype/android/index.html#sc-mnt-list` |
+| SSOT parent | `specs/mobile-p1/ui/prototype/{ios,android}/index.html` `#sc-mnt-list` (Android parity fixed) |
+| P1 CTA | toast sibling · **cấm** estimate form trên slug |
 
-Put HTML prototype / screenshot link here; update `ui/design.md` with a browser-openable **reviewUrl**.
+**Cấm** `mfeStdUrl` · watermark Gói · device label.

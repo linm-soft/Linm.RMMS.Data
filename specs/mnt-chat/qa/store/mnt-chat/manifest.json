@@ -1,0 +1,72 @@
+{
+  "feature": "mnt-chat",
+  "capturedAt": "2026-08-29T05:56:30.000Z",
+  "iosDevice": "iPhone 17 Pro Max",
+  "androidDevice": "Pixel 2",
+  "method": "blocked-before-e2e",
+  "verdict": "FAIL",
+  "dorGate": "FAIL",
+  "taskId": "task_81d1652d",
+  "steps": [
+    {
+      "id": "A10-BFF",
+      "result": "BLOCKED",
+      "store": [
+        "A10",
+        "P11"
+      ]
+    },
+    {
+      "id": "A11-LAUNCH",
+      "result": "BLOCKED",
+      "store": [
+        "A11"
+      ]
+    },
+    {
+      "id": "A9-LOGIN",
+      "result": "BLOCKED",
+      "store": [
+        "A9",
+        "P10"
+      ]
+    },
+    {
+      "id": "A3-CORE",
+      "result": "FAIL",
+      "store": [
+        "A3",
+        "A11"
+      ],
+      "reason": "no mnt-chat screen implement"
+    },
+    {
+      "id": "P6-CORE",
+      "result": "FAIL",
+      "store": [
+        "P6",
+        "P11"
+      ],
+      "reason": "no mnt-chat screen implement"
+    },
+    {
+      "id": "P6-CORE-2",
+      "result": "FAIL",
+      "store": [
+        "P6"
+      ],
+      "reason": "no mnt-chat screen implement"
+    }
+  ],
+  "gaps": [
+    "GAP-QA-PRIOR-BLOCKED-01",
+    "GAP-QA-NO-IMPLEMENT-01",
+    "GAP-QA-E2E-SKIP-UPSTREAM-01",
+    "GAP-QA-STORE-01",
+    "GAP-QA-STORE-03",
+    "GAP-MOB-UX-01",
+    "GAP-SA-ANALY-EMPTY-01",
+    "GAP-SA-BFF-MISS-01",
+    "GAP-SA-CTX-01"
+  ]
+}

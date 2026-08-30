@@ -1,0 +1,96 @@
+appId: org.linmsoft.rmms
+---
+# field-reflect · store P6 ×2 · guest → login → tab field → #sc-field-reflect (Pixel 1080×1920)
+# pattern: cam-patrol android · cấm mfeStdUrl / start:std
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 20000
+- takeScreenshot: A11-LAUNCH
+- tapOn:
+    id: "btn-home-login"
+- extendedWaitUntil:
+    visible:
+      id: "f-user"
+    timeout: 15000
+- tapOn:
+    id: "f-user"
+- eraseText
+- inputText: "linm-soft"
+- tapOn: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
+- tapOn:
+    id: "f-pass"
+- eraseText
+- inputText: "Linm@2026"
+- takeScreenshot: A9-LOGIN
+- pressKey: Enter
+- waitForAnimationToEnd:
+    timeout: 4000
+- tapOn:
+    id: "btn-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
+- extendedWaitUntil:
+    visible: "Trang Chủ"
+    timeout: 45000
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 15000
+- tapOn:
+    id: "tab-field"
+- extendedWaitUntil:
+    visible:
+      id: "sc-patrol-home"
+    timeout: 20000
+- assertVisible:
+    id: "patrol-hero"
+- scroll
+- scroll
+- scroll
+- extendedWaitUntil:
+    visible:
+      id: "row-quick-field-reflect"
+    timeout: 15000
+- tapOn:
+    id: "row-quick-field-reflect"
+- tapOn:
+    text: "Ghi nhận hư hỏng"
+    optional: true
+- tapOn:
+    text: "While using the app"
+    optional: true
+- tapOn:
+    text: "Allow"
+    optional: true
+- tapOn:
+    text: "ONLY THIS TIME"
+    optional: true
+- tapOn:
+    text: "While using the app"
+    optional: true
+- tapOn:
+    text: "Allow"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-field-reflect"
+    timeout: 25000
+- assertVisible: "Ghi nhận hư hỏng"
+- assertVisible:
+    id: "kind-pills"
+    optional: true
+- takeScreenshot: P6-CORE
+- scroll
+- assertVisible:
+    id: "btn-create"
+    optional: true
+- assertVisible:
+    id: "btn-draft"
+    optional: true
+- takeScreenshot: P6-CORE-2

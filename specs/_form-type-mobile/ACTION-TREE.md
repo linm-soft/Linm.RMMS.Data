@@ -13,17 +13,31 @@
 ## Tree — home / Trang Chủ (pilot hub)
 
 ```
-home                          ← kind=hub · tab Trang Chủ · DES-MOB-HOME · PILOT
-├── me                        ← .hero-ico Hồ sơ · go('me') · reuse=me
+home                          ← kind=hub · tab Trang Chủ · DES-MOB-HOME · PILOT · **không required login**
+├── login                     ← btn-home-login Đăng nhập / Dành cho cán bộ · overlay · reuse=login
+├── home-faq                  ← guest btn-home-faq · overlay #sc-faq · static catalog · **cấm** invent API
+├── home-privacy              ← guest btn-home-privacy · overlay #sc-privacy · static copy
+├── me                        ← .hero-ico Hồ sơ · guest → login · staff go('me') · reuse=me
 ├── ops                       ← .hero-ico Thông báo · go('ops') · reuse=ops
 ├── me-signal                 ← .role + data-net-signal · chrome kit · skip
-├── patrol-home               ← quick Điểm tuần + tile Tuần đường · go('patrol-home')
-├── incident-create           ← quick Ghi sự cố · startIncidentPick() → inc-form
-├── supervise                 ← tile Giám sát · go('supervise')
-├── mnt-list                  ← tile Công việc · go('mnt-list')
-├── incident-list             ← tile Vấn đề · go('incident-list')
-├── asset-hub                 ← tile Tài sản + wallet · go('asset-hub')
-└── patrol-offline            ← tile Lưu trữ · go('patrol-offline') · reuse=patrol-offline
+├── patrol-home               ← quick Điểm tuần + tile Tuần đường · guest needLogin
+├── incident-create           ← quick Ghi sự cố · guest needLogin
+├── supervise                 ← tile Giám sát · guest needLogin
+├── mnt-list                  ← tile Công việc · guest needLogin
+├── incident-list             ← tile Vấn đề · guest needLogin
+├── asset-hub                 ← tile Tài sản + wallet · guest needLogin
+└── patrol-offline            ← tile Lưu trữ · guest needLogin
+```
+
+## Tree — mnt-list / Công việc (list · analy `task_659bf5c2`)
+
+```
+mnt-list                      ← kind=list · DES-MOB-MNT-LIST · home tile + tab work
+├── home                      ← back · reuse
+├── estimate                  ← Giao việc xử lý · go('estimate') · DES-MOB-EST
+├── mnt-chat                  ← Trao đổi · toast #i-chat
+├── mnt-progress              ← Cập nhật trạng thái · toast #i-sync
+└── mnt-log                   ← Nhật ký xử lý · toast #i-list
 ```
 
 Tab 5 (`DES-MOB-TABBAR`) = chrome shell → **không** enqueue.  
@@ -46,9 +60,10 @@ me                            ← kind=hub · tab Tôi · DES-MOB-ME
 ## Tree — login (shell · đã scan)
 
 ```
-login                         ← kind=shell · màn Đăng nhập
+login                         ← kind=shell · overlay từ Home · **không** cổng launch
+├── home                      ← btn-login-back Về Trang Chủ · reuse=home
 ├── login-forgot              ← link Quên mật khẩu?
-└── login-logout              ← hàng Đăng xuất trên Tôi
+└── login-logout              ← hàng Đăng xuất trên Tôi · về Home guest
 ```
 
 ## Tree — patrol-home / Tuần đường (hub field)
@@ -95,7 +110,15 @@ Title: `[Mobile] [Tuần đường] -> {nhãn nút}`. **Cấm** GAP-MOB-ACT-07 c
 | `incident-create` | `home` | Ghi sự cố | `startIncidentPick()` → `#sc-asset-types` → `#sc-inc-form` · `DES-MOB-INC-FORM` | sheet | new | shared_action | — (owner) | `.vn-quick` · `LinmQuickItem` | home quick · incident-list FAB |
 | `supervise` | `home` | Giám sát | `#sc-supervise` · `DES-MOB-SUPERVISE` | list | new | unique | — | `.home-tile` · `LinmHomeTile` `#i-list` | home tile |
 | `mnt-list` | `home` | Công việc | `#sc-mnt-list` · `DES-MOB-MNT-LIST` | list | new | unique | — | `.home-tile` · `LinmHomeTile` `#i-wrench` | home tile |
+| `estimate` | `mnt-list` | Giao việc xử lý | `#sc-estimate` · `DES-MOB-EST` · hub + `#i-sum` | sheet | new | unique | — | `LinmListRow` `#i-sum` | mnt-list hub · card |
+| `mnt-chat` | `mnt-list` | Trao đổi công việc | toast `#i-chat` | sheet | new | unique | — | `LinmIconButton` `#i-chat` | mnt-list card |
+| `mnt-progress` | `mnt-list` | Cập nhật trạng thái | toast `#i-sync` | sheet | new | unique | — | `LinmIconButton` `#i-sync` | mnt-list card |
+| `mnt-log` | `mnt-list` | Nhật ký xử lý | toast `#i-list` | sheet | new | unique | — | `LinmIconButton` `#i-list` | mnt-list done card |
 | `incident-list` | `home` | Vấn đề | `#sc-incident-list` · `DES-MOB-INC-LIST` | list | new | unique | — | `.home-tile` · `LinmHomeTile` `#i-warning` | home tile · tab Vấn đề |
+| `vis-capture` | `incident-list` | Nhận diện mặt đường | `.vn-banner` `go('vis-capture')` · `DES-MOB-VIS-CAPTURE` | screen | new | unique | — | banner `#i-camera` | incident-list banner |
+| `incident-detail` | `incident-list` | Chi tiết vấn đề | `#sc-incident-detail` · `DES-MOB-INC-DETAIL` | screen | new | unique | — | rich-card · `#i-list` | incident-list card |
+| `incident-chat` | `incident-list` | Trao đổi sự cố | toast `#i-chat` | sheet | new | unique | — | `LinmIconButton` `#i-chat` | incident-list card |
+| `gis-map` | `incident-list` | Bản đồ | seg + `#i-mappin` `#sc-gis-map` · `DES-MOB-GIS` | map | new | shared_action | owner (asset-hub) | `LinmSegment` · `#i-mappin` | incident-list seg · card |
 | `asset-hub` | `home` | Tài sản / ví | `#sc-asset-hub` · `DES-MOB-ASSET-HUB` · wallet `DES-MOB-HOME-WALLET` | hub | new | shared_action | — (owner) | `.home-tile` · `.wallet-card` · `LinmHomeTile` `#i-cube` · `LinmWalletCard` | home tile · home wallet |
 | `patrol-offline` | `home` | Lưu trữ | `#sc-patrol-offline` · `DES-MOB-PAT-OFFLINE` | list | skip | shared_action | `patrol-offline` | `.home-tile` · `LinmHomeTile` `#i-sync` | home tile · patrol nav · me |
 
