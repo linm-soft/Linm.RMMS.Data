@@ -5,7 +5,7 @@
 > **Demo hub:** `Linm.RMMS.Demo` · `npm run start:std` → http://localhost:5180 · catalog [`demoCatalog.ts`](../../../Linm.RMMS.Demo/src/demoCatalog.ts).  
 > **Cập nhật:** 2026-08-30 · skill **`/gen-feature-tracking`** — thêm feature / implement (queue + chat) **phải** upsert file này. Nguồn STATUS đọc cùng ngày.  
 > **Tài liệu khách (đã/chưa phân tích) — SSOT duy nhất:** [`docs/data/SOURCE-TRACKING.md`](../data/SOURCE-TRACKING.md) · extract [`docs/data/analyzed/`](../data/analyzed/). **Cấm** đọc lại xlsx/docx/pdf khi dòng = `analyzed`.  
-> **Changelog:** 30/08/2026 — upsert `org-route-scope` (tách zone REG-I…IV config km–km tuyến/đoạn · SU + nhà thầu · `/data-gov-integration`) · enqueue `task_fe83a3c0` `roleOnly=data_analy`. · 29/08/2026 — enqueue `kcht-cong-trinh` `task_399151e1` edit_page PH2–PH4 · extract wave + SRC-KCT-GN03. · 28/08/2026 — `incident` (`/su-co`) upsert Pipeline `data_analy` / `pending` + task **T-PILOT-01** (e2e + HDSD + guide). · 27/08/2026 — upsert `kcht-cong-trinh` (công văn KQLĐB IV · 5 phân hệ CT KCHT · ngoài PL01 900tr) · `/hey-linm` + plan.
+> **Changelog:** 30/08/2026 — `org-route-scope` doc 6 cấp Cục→Khu→VP→Đơn vị→tuyến→đoạn · GAP-ORS-CASCADE-01. · 30/08/2026 — `org-route-scope` edit: `vpOrgCode` + cascade · Schema_OrgRouteScopeVpOrgCode. · 30/08/2026 — `reports-filter-bar` `task_a5f134b0` `pending_confirm` (edit `/bao-cao` filter · hold đến `org-route-scope` done + user confirm) · hủy `task_aede4d75`. · 29/08/2026 — enqueue `kcht-cong-trinh` `task_399151e1` edit_page PH2–PH4 · extract wave + SRC-KCT-GN03. · 28/08/2026 — `incident` (`/su-co`) upsert Pipeline `data_analy` / `pending` + task **T-PILOT-01** (e2e + HDSD + guide). · 27/08/2026 — upsert `kcht-cong-trinh` (công văn KQLĐB IV · 5 phân hệ CT KCHT · ngoài PL01 900tr) · `/hey-linm` + plan.
 
 ## Chính sách (chốt user 2026-08-26)
 
@@ -43,7 +43,7 @@
 | `road-route` | Tuyến đường | — | support | done | none | [ctx](features/road-route.md) | [ST](../../specs/road-route/STATUS.md) |
 | `asset-type` | Loại TS KCHT | — | support | done | none | [ctx](features/asset-type.md) | [ST](../../specs/asset-type/STATUS.md) |
 | `partner-unit` | Sở / BOT / Cty | — | support | done | none | [ctx](features/partner-unit.md) | [ST](../../specs/partner-unit/STATUS.md) |
-| `org-route-scope` | Zone km Khu↔tuyến/đoạn | — | support | `data_analy` / `draft` | none | [ctx](features/org-route-scope.md) | [ST](../../specs/org-route-scope/STATUS.md) |
+| `org-route-scope` | Zone km Khu↔tuyến/đoạn | — | support | `done` / `done` | none | [ctx](features/org-route-scope.md) | [ST](../../specs/org-route-scope/STATUS.md) |
 | `asset` | QL tài sản ĐB | 01 | P1-900 | `data_analy` / `draft` | catalog | [ctx](features/asset.md) | [ST](../../specs/asset/STATUS.md) |
 | `asset-kcht-32` | 36 loại TS | 01 | P1-900 | `qa` / `await_confirm` | proto mobile-p1 | [ctx](features/asset-kcht-32.md) | [ST](../../specs/asset-kcht-32/STATUS.md) |
 | `csdl-so-sach` | 12 biểu + 8 sổ | 01 | P1-900 | `done` / `done` | catalog | [ctx](features/csdl-so-sach.md) | [ST](../../specs/csdl-so-sach/STATUS.md) |
@@ -84,6 +84,7 @@
 | `copilot` | AI Copilot | 16 / 16-P2 | P1-900 · RAG P2-CR | done | catalog | [ctx](features/copilot.md) | [ST](../../specs/copilot/STATUS.md) |
 | `dashboard` | Dashboard KPI | 17 / 17-P2 | P1-900 · P2-CR | **no STATUS** | catalog | [ctx](features/dashboard.md) | — |
 | `reports` | Hub báo cáo | 17 | P1-900 | done | catalog | [ctx](features/reports.md) | [ST](../../specs/reports/STATUS.md) |
+| `reports-filter-bar` | Edit filter `/bao-cao` | 17 | P1-900 | `done` / `done` | catalog | [ctx](features/reports-filter-bar.md) | [ST](../../specs/reports-filter-bar/STATUS.md) |
 | `integration` | Open API | 18 / 18-P2 | P1-900 khung · P2-CR | done | catalog | [ctx](features/integration.md) | [ST](../../specs/integration/STATUS.md) |
 | `feedback` | Góp ý nội bộ | — | support P1 | data_analy draft | catalog | [ctx](features/feedback.md) | [ST](../../specs/feedback/STATUS.md) |
 | `users` | QL user / TC | — | support P1 | Dev in_progress | catalog | [ctx](features/users.md) | [ST](../../specs/users/STATUS.md) |
@@ -100,6 +101,7 @@
 | `patrol-pin` | GPS pin sheet | 04 | P1-900 | Review in_progress | proto | [ctx](features/patrol-pin.md) | [ST](../../specs/patrol-pin/STATUS.md) |
 | `patrol-checkin` | Check-in | 05 | P1-900 | data_analy draft | none | — | [ST](../../specs/patrol-checkin/STATUS.md) |
 
+| `reports-filter-bar` | Edit /bao-cao filter bar | — | support | `data_analy` / `draft` | none | [ctx](features/reports-filter-bar.md) | [ST](../../specs/reports-filter-bar/STATUS.md) |
 **Báo cáo `rpt-*`:** xem [§ Reports](#17--dashboard--báo-cáo). Pipeline STATUS **done** hết (release: P1 / P1.5 / P2 / P3 theo từng slug).
 
 **Draft mobile (chưa context đầy):** `incident-list` · `incident-create` · `mnt-list` · `field-reflect` · `cam-view` · `cam-patrol` — [STATUS](../../specs/) tương ứng `data_analy` / `draft`.
@@ -129,8 +131,9 @@
 | P3-CR | `inventory` | Dev · be/ui repo confirm |
 | CR-Khu-IV | `kcht-cong-trinh` | Wave 1 done · **edit_page PH2–PH4** queue data_analy · PH5 park |
 | Now | `org-route-scope` | data_analy — tách zone REG config km–km |
+| Hold | `reports-filter-bar` | edit `/bao-cao` filter · `pending_confirm` sau `org-route-scope` done |
 | support | `feedback` · `master` hub · `patrol-checkin` | draft |
-| support | `map-service` · `gis-osm-clip` · `directions` · `legal-tech-corridor` · `toc` | chưa STATUS |
+| support | `map-service` · `gis-osm-clip` · `directions` · `legal-tech-corridor` · `toc` | chưa STATUS · gis.vn 34 **file landed** (`docs/gis-vn-map/`) · clip/ingest vẫn GAP |
 
 ---
 
@@ -164,8 +167,8 @@ Rule: `packKind=master` **không** gen demo — context + Design prototype.
 |--|--|
 | Release / implement | support P1 · tách zone REG-I…IV config km–km theo tuyến/đoạn |
 | Demo | none (`packKind=master`) |
-| Pipeline | `data_analy` / `draft` |
-| Next | `/agent-data-analy` `feature_context` · control-hint · SA bảng gán — **cấm** seed dump |
+| Pipeline | **done** / **done** |
+| Next | Config tay `/mas/phan-khu` · `vpOrgCode` bắt buộc trên đoạn · **cấm** seed dump |
 
 ---
 
@@ -261,6 +264,10 @@ Rule: `packKind=master` **không** gen demo — context + Design prototype.
 #### GIS platform (chưa STATUS)
 
 `map-service` · `gis-osm-clip` · `legal-tech-corridor` · `directions` — context only · skill `/implement-map-service` · `/implement-gis-map` · `/review-app-vn-map-law` · `/implement-directions-app`.
+
+gis.vn pack **landed** `docs/gis-vn-map/Việt Nam (tỉnh thành) - 34.geojson` (34 MultiPolygon · HS trong Đà Nẵng · TS trong Khánh Hòa · union bbox 102.144–117.393 / 6.931–23.393). maxBounds camera **6.8–23.5** — cấm Lat min 8.0. Ingest/Osmium/tile clip = `GAP-MAP-SVC-01`. **Không** STATUS.
+
+Plan slash BE→BFF→UI: [`../plan/map-service/README.md`](../plan/map-service/README.md) · entry `/implement-map-stack`.
 
 Ref demo: `asset-icons-legend` · `gis-draw-live-ref` · `patrol-centerline-ref` — [`/demo/p/`](../../../Linm.RMMS.Demo/src/demo/p/README.md).
 
@@ -404,6 +411,16 @@ Cùng feature vừa release P1 vừa implement P2 trong demo/STATUS — **đúng
 | Demo | [`reports.html`](../../../Linm.RMMS.Demo/src/demo/bao-cao/reports.html) |
 | Pipeline | **done** |
 | Hub | [reports.md](features/reports.md) |
+| Filter sibling | [`reports-filter-bar`](features/reports-filter-bar.md) · `task_a5f134b0` `pending_confirm` |
+
+#### `reports-filter-bar`
+
+| | |
+|--|--|
+| Release / implement | P1-900 · edit hub filter `/bao-cao` |
+| Demo | hub reports |
+| Pipeline | `data_analy` / `await_confirm` |
+| Next | Sau `org-route-scope` done → user confirm mới Start implement |
 
 #### `rpt-*` (STATUS done hết)
 

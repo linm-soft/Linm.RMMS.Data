@@ -74,7 +74,8 @@
 
 ## Blockers
 
-— none —
+- GAP-P2-LKP-DISPLAY-01 — SearchInput Đơn vị chủ quản chỉ mã / thiếu tên — **closed** 2026-08-30 (dual-box mã+tên)
+- Thuật ngữ — **Đơn vị cha** → **Đơn vị chủ quản** (label/placeholder/BE message) — **locked** 2026-08-30
 
 ## Links
 - mfeStdUrl: `http://localhost:9318/mas/co-cau-tc`

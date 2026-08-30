@@ -45,7 +45,7 @@ N/A.
 | ID | Ý |
 |----|---|
 | GAP-LAW-MOT-01 | Chưa văn bản GTVT — **cấm** GPS hiện trường hàng loạt |
-| GAP-LAW-GISVN-01 | Chưa file gis.vn |
+| GAP-LAW-GISVN-01 | **CLOSED file** — `docs/gis-vn-map/Việt Nam (tỉnh thành) - 34.geojson` · ingest/clip vẫn `GAP-MAP-SVC-01` |
 | GAP-LAW-OSM-CDN-01 | MFE/mobile CDN |
 | GAP-LAW-GUEST-COORD-01 | Form citizen demo còn lat/lng — public GET phải strip |
 | GAP-LAW-BG-LOC-01 | Always P1 **cấm** |
@@ -55,7 +55,7 @@ N/A.
 
 1. Tài khoản Organization Apple+Play  
 2. Landing Privacy/Support HTTPS  
-3. File gis.vn 34 tỉnh  
+3. File gis.vn 34 tỉnh — **đã giao** `docs/gis-vn-map/`  
 4. Demo Inspector (notes Store — không chat)  
 5. Văn bản logo/tên Bộ (nếu listing)  
 6. **Không** yêu cầu chặn IP reviewer  

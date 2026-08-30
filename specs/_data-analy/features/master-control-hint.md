@@ -104,7 +104,7 @@ Pack **master** = 4 × Kind **B** catalog trên MFE Master host `:9318`. **Khôn
 |-----------|-------|-------------|-------------|-------|
 | search | Tìm kiếm | `SearchTextInput` | text | mã · tên · alias CI không dấu |
 | kind | Loại đơn vị | `Dropdown` | org-kind | HQ · ADV · REG · VP · SU · ROOM · init-data |
-| parentCode | Đơn vị cha (filter) | `SearchInput` tree | **org-unit** | optional |
+| parentCode | Đơn vị chủ quản (filter) | `SearchInput` tree | **org-unit** | optional |
 
 ### Form fields
 
@@ -113,7 +113,7 @@ Pack **master** = 4 × Kind **B** catalog trên MFE Master host `:9318`. **Khôn
 | code | Mã | `Text` code | * | vd `VP-II.2` |
 | name | Tên | `Text` | * | |
 | kind | Loại | `Dropdown` | * | init-data kinds |
-| parentCode | Đơn vị cha | `SearchInput` tree | | catalogKind=org-unit · exclude self |
+| parentCode | Đơn vị chủ quản | `SearchInput` tree | | catalogKind=org-unit · exclude self |
 | legacyAlias | Tên legacy | `Text` | | Chi cục II.x · GAP-ORG-01/02 |
 | isActive | Hiệu lực | `Switch` | | |
 
@@ -133,7 +133,7 @@ Pack **master** = 4 × Kind **B** catalog trên MFE Master host `:9318`. **Khôn
 | code | Mã tuyến | `Text` code | * | `QL.1` · `HCM` |
 | name | Tên | `Text` | * | |
 | routeKind | Loại | `Dropdown` | * | init-data |
-| parentCode | Tuyến mẹ | `SearchInput` | | catalogKind=road-route · đoạn/tránh |
+| parentCode | Tuyến chính | `SearchInput` | | catalogKind=road-route · đoạn/tránh |
 | notes | Ghi chú | `Text` | | |
 | legacyAliases | Alias folder | `Text` / tags | | import map |
 | isActive | Hiệu lực | `Switch` | | |

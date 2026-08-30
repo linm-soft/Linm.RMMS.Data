@@ -15,6 +15,7 @@
 | DoD | API filter tuyến/thời gian · Xem · Excel checkin |
 | Kind | **E** (report) — `/erp-report-context` · AnalyticsReportShell |
 | Align MFE | `Linm.Web.RMMS.Report` · `/bao-cao` |
+| Filter bar | [`reports-filter-bar.md`](reports-filter-bar.md) · pilot T-UI-FILTER-01 · peer [`org-route-scope.md`](org-route-scope.md) |
 
 ## 2. Design / UI
 
@@ -261,3 +262,10 @@ Không. Dashboard = KPI tổng (slug `dashboard`) — tách `reports`.
 
 Gen demo: `/qlbd-analy-demo @reports` — load control-map trên + `/erp-form-context` rules (2a-K · 2g · common controls).
 <!-- DEMO-MFE-MODERN:END -->
+
+## Implement tracking
+
+| lane | phase | status | updatedAt |
+|------|-------|--------|-----------|
+| web | `done` | `pending` | `2026-08-30T10:39:25.979Z` |
+| mobile | — | — | — |

@@ -28,7 +28,7 @@ Hình 2. View trên mobile device(<= 375px)
 |---------------|---|-----------|
 | Tìm kiếm |  | Được để trống |
 | Loại đơn vị |  | Được để trống |
-| Đơn vị cha |  | Được để trống |
+| Đơn vị chủ quản |  | Được để trống |
 
 
 ## Tạo mới
@@ -53,11 +53,11 @@ Hình 4. View trên mobile device(<= 375px)
 |---------------|---|-----------|
 | Tìm kiếm |  | Được để trống |
 | Loại đơn vị |  | Được để trống |
-| Đơn vị cha |  | Được để trống |
+| Đơn vị chủ quản |  | Được để trống |
 | Mã đơn vị | * | Điền / chọn trước khi Lưu |
 | Loại đơn vị | * | Điền / chọn trước khi Lưu |
 | Tên đơn vị | * | Điền / chọn trước khi Lưu |
-| Đơn vị cha |  | Được để trống |
+| Đơn vị chủ quản |  | Được để trống |
 | Tên gọi cũ |  | Được để trống |
 | Đang dùng |  | Được để trống |
 

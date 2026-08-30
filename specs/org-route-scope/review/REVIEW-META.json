@@ -1,0 +1,13 @@
+{
+  "feature": "org-route-scope",
+  "status": "done",
+  "schemaVersion": 1,
+  "reviewHash": "sha256:81b3c9a520472625cc78375571d1d94ae34a6badc62a7a7bf21f0a2eac7894dc",
+  "rulesVersion": "2026.08.29.32",
+  "skillVersion": "2026.08.29.04",
+  "workflowVersion": "2026.08.29.04",
+  "review_confirm": "approve",
+  "taskId": "task_badbc48d",
+  "generatedAt": "2026-08-30T12:30:00.000Z",
+  "versionGate": "rechecked"
+}

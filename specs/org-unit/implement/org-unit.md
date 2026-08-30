@@ -60,6 +60,8 @@
 
 ## Notes
 
+- **GAP-P2-LKP-DISPLAY-01** — SearchInput Đơn vị chủ quản (form + filter): `primaryDisplay=code` · `secondaryDisplay=name` · `codeNameDisplay` + `getDetail` (`2026-08-30`)
+- Thuật ngữ — label **Đơn vị chủ quản** (không «Đơn vị cha») `2026-08-30`
 - Shared Type A: **no** `TenantEntity` / **no** `HasQueryFilter`
 - Cấm parent `*Json` — flat `ParentCode`
 - FE deep-link `/master/org-unit/new` → Modal via query redirect

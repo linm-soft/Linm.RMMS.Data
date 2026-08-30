@@ -128,7 +128,7 @@
         "required": true
       },
       {
-        "label": "Tuyến mẹ",
+        "label": "Tuyến chính",
         "required": false
       },
       {

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-30T07:30:55.331Z",
+  "updatedAt": "2026-08-30T16:39:35.567Z",
   "features": {
     "ai-asset-detect": {
       "web": {
@@ -325,8 +325,8 @@
     "reports": {
       "web": {
         "phase": "done",
-        "status": "done",
-        "updatedAt": "2026-08-21T03:31:41.254Z",
+        "status": "pending",
+        "updatedAt": "2026-08-30T10:39:25.979Z",
         "statusRel": "specs/reports/STATUS.md"
       }
     },
@@ -334,7 +334,7 @@
       "web": {
         "phase": "done",
         "status": "done",
-        "updatedAt": "2026-08-30T07:19:46.003Z",
+        "updatedAt": "2026-08-30T16:26:49.927Z",
         "statusRel": "specs/rmms-task-integrate/STATUS.md"
       }
     },
@@ -560,6 +560,22 @@
         "status": "done",
         "updatedAt": "2026-08-29T07:38:26.087Z",
         "statusRel": "specs/master/STATUS.md"
+      }
+    },
+    "org-route-scope": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-30T12:32:04.988Z",
+        "statusRel": "specs/org-route-scope/STATUS.md"
+      }
+    },
+    "reports-filter-bar": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-30T16:39:35.567Z",
+        "statusRel": "specs/reports-filter-bar/STATUS.md"
       }
     }
   }

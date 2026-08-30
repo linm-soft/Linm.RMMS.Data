@@ -106,6 +106,23 @@
                              "notes":  "roleOnly data_analy · task_ecc53315 · edit_page hub · Kind B ×4 · DEM N/A · live integration/* · GAP-MAS-API-01 · GAP-MAS-ROUTE-01 · cấm ERP"
                          },
                          {
+                             "id":  "feature-org-route-scope-v1",
+                             "featureSlug":  "org-route-scope",
+                             "catalogKind":  "org-route-scope",
+                             "packKind":  "master",
+                             "status":  "done",
+                             "artifact":  "specs/_data-analy/features/org-route-scope-control-hint.md",
+                             "realData":  "specs/_data-analy/features/org-route-scope-real-data.md",
+                             "contentHash":  "sha256:81b3c9a520472625cc78375571d1d94ae34a6badc62a7a7bf21f0a2eac7894dc",
+                             "headerFingerprint":  "sha256:72758524d03f6b4b62ccf4262873b39bdd01601654b368e153678ecc84d1865d",
+                             "skillVersion":  "2026.08.25.01",
+                             "workflowVersion":  "2026.08.29.04",
+                             "rulesVersion":  "2026.08.30.5",
+                             "versionGate":  "rechecked",
+                             "analyzedAt":  "2026-08-30T10:43:51.475Z",
+                             "notes":  "roleOnly data_analy · task_8a74dc46 · new_page · Kind B zone km · DEM N/A · peers integration live · zone API GAP SA · cấm invent-seed · cấm ERP"
+                         },
+                         {
                              "id":  "feature-kcht-cong-trinh-v1",
                              "featureSlug":  "kcht-cong-trinh",
                              "catalogKind":  "kcht-projects",
@@ -291,6 +308,22 @@
                              "rulesVersion":  "2026.08.15.8",
                              "analyzedAt":  "2026-08-15T07:50:00.000Z",
                              "notes":  "roleOnly data_analy · task_51457ed6 · Kind E · SearchInput road-route + enums · no Excel cluster · GAP-DA-RPT-MFE"
+                         },
+                         {
+                             "id":  "feature-reports-filter-bar-v1",
+                             "featureSlug":  "reports-filter-bar",
+                             "catalogKind":  "web-report-filter",
+                             "packKind":  "report",
+                             "status":  "done",
+                             "artifact":  "specs/_data-analy/features/reports-filter-bar-control-hint.md",
+                             "realData":  "specs/_data-analy/features/reports-filter-bar-real-data.md",
+                             "contentHash":  "sha256:9c8f48aa63c0db817e348a729489019ecdb814928fedc007d79770d3724fcd4a",
+                             "headerFingerprint":  "sha256:e5226ff0b146ffd2e67210f7ebc5ebbf68ab3612f5416314988acc7c1b5442a9",
+                             "skillVersion":  "2026.08.25.01",
+                             "workflowVersion":  "2026.08.30.01",
+                             "rulesVersion":  "2026.08.30.6",
+                             "analyzedAt":  "2026-08-30T15:18:09.965Z",
+                             "notes":  "roleOnly data_analy · task_853659c0 · edit_page hub filter · sourceFormReady=yes · GAP-RPT-FIL-01/02"
                          },
                          {
                              "id":  "feature-rpt-checkin-v1",

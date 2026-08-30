@@ -264,7 +264,7 @@ BFF: `web-bff/api/v1/integration/org-units/**`. FE BASE: **`/integration/org-uni
 **APIs:** API-03 · API-04 · API-05 · API-06 · API-07  
 **deps:** T-UI-LIST-01  
 **DoD:**
-- [ ] FormMode Create/Edit/View/Copy · SearchInput đơn vị cha work · nhãn VN §3
+- [ ] FormMode Create/Edit/View/Copy · SearchInput đơn vị chủ quản work · nhãn VN §3
 - [ ] Build PASS
 
 ### T-QA-01

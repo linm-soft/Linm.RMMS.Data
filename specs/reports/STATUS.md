@@ -4,7 +4,7 @@
 |-------|-------|
 | feature | `reports` |
 | phase | `done` |
-| status | `done` |
+| status | `pending` |
 | packKind | `report` |
 | changeScope | `edit_page` |
 | demo | D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/reports-demo.html |
@@ -22,7 +22,7 @@
 | autoApprove | `ON` |
 | chain | `ON` |
 | taskId | `task_42801963` |
-| updatedAt | `2026-08-15T08:34:18.493Z` |
+| updatedAt | `2026-08-30T10:39:25.977Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -45,14 +45,13 @@
 | Step | Agent | Artifact | Status |
 |------|-------|----------|--------|
 | 0 | data-analy | `_data-analy/features/reports-control-hint.md` | **done** |
-| 1 | po | po/requirement.md | **confirmed** |
+| 1 | po | po/requirement.md | **done** |
 | 2.1 | design | ui/design.md + prototype + reviewUrl | **confirmed** |
 | 2.2 | sa | be/solution-discovery.md | **confirmed** |
-| 3 | team-lead | task/reports.md | **confirmed** |
+| 3 | team-lead | task/reports.md | **done** |
 | 4 | dev | implement/reports.md | **done** |
 | 5 | qa | qa/scenarios.md | **done** |
-| 6 | review | review/findings.md | **done** · **approve** |
-
+| 6 | review | review/findings.md | **confirmed** |
 ## Tasks
 
 | id | page | role | deps | status | notes |
@@ -65,6 +64,7 @@
 | task_cc67808f | reports | dev | team_lead | **completed** | T-UI-FIELD-01 Date SSOT · T-UI-FIELD-02 Dropdown display · yarn build PASS · API alt-out PASS |
 | task_44115473 | reports | qa | dev | **completed** | T-QA-01 PASS · Date ẩn assets · dropdown VN · typecheck+build PASS · chain **review** |
 | task_42801963 | reports | review | qa | **completed** | live re-audit PASS · FIELD-01/02 OK · P0 none · review_confirm **approve** |
+| T-UI-FILTER-01 | `/bao-cao` | team_lead → dev | — | **pending** | queue `task_aede4d75` · `reports-filter-bar.md` · 2026-08-30 |
 
 ## Blockers / open questions
 

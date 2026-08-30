@@ -20,7 +20,7 @@
 | QA-01 | Tree load | Open list | LinTreeNav shows DRVN → HQ/ADV/REG… |
 | QA-02 | List search CI | Type `van phong` (no dấu) → Tìm | Matches «Văn phòng…» |
 | QA-03 | Badge hệ cũ | Find `VP-II.1` / `VP-II.6` | Badge **hệ cũ** visible |
-| QA-04 | Parent SearchInput | Tạo mới → Đơn vị cha → gõ mã | Dropdown `code — name` · **không** Text thuần |
+| QA-04 | Parent SearchInput | Tạo mới → Đơn vị chủ quản → gõ mã | Dropdown `code — name` · **không** Text thuần |
 | QA-05 | CRUD create | Create `TEST-OU` under REG-II | List + tree refresh · unique code |
 | QA-06 | Edit / View | Sửa name · Xem | Edit saves · View readOnly (no grey disabled) |
 | QA-07 | Copy | Sao chép row | Modal mode Sao chép · code empty · POST |

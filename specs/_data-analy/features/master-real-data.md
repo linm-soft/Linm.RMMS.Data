@@ -86,7 +86,7 @@ FE: `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Master/src/services/orgUnit/endpoint.ts
 | routeKind | Loại | Dropdown | route-kind | `?routeKind=` · init-data | `routeKind` | yes |
 | code | Mã | Text code | — | detail | `code` | yes |
 | name | Tên | Text | — | detail | `name` | yes |
-| parentCode | Tuyến mẹ | SearchInput | road-route | `…/search` | `parentCode` | yes |
+| parentCode | Tuyến chính | SearchInput | road-route | `…/search` | `parentCode` | yes |
 | notes | Ghi chú | Text | — | detail | `notes` | yes |
 | legacyAliases | Alias | Text/tags | — | detail | `legacyAliases` | yes |
 | isActive | Hiệu lực | Switch | — | detail | `isActive` | yes |

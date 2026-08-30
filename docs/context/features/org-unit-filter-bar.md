@@ -3,7 +3,7 @@
 **Page:** org-unit list/tree · **kind:** catalog (Kind B · tree)  
 **Route live:** `/mas/co-cau-tc` · **testIdPrefix:** `rmms-org-unit-list`  
 **Package:** `LinErpListFilterBar` · `data-lin-list-layout="erp-filter-bar"`  
-**Context review version:** `2026.08.29.1`  
+**Context review version:** `2026.08.30.2`  
 **Skills:** `/filter-bar-context` · `/erp-filter-form` · `filter-bar-layout-hard`  
 **Dev:** `/agent-dev` · task **T-UI-FILTER-01** — load file này **trước Write**  
 **SA query keys:** `specs/master/be/solution-discovery.md` §2b · OU-01
@@ -16,7 +16,7 @@
 |---|----------|---------|------|-------------|
 | 1 | Tìm kiếm | `SearchTextInput` (không nút Tìm riêng) | `leading` | `search` — mã · tên · alias CI không dấu |
 | 2 | Loại đơn vị | `Select` / Dropdown · options `init-data.kinds` + «Tất cả» | `leading` | `kind` · HQ · ADV · REG · VP · SU · ROOM |
-| 3 | Đơn vị cha | **`SearchInput`** tree `catalogKind=org-unit` | `leading` | `parentCode` optional |
+| 3 | Đơn vị chủ quản | **`SearchInput`** org-unit | `leading` | `parentCode` — **chỉ** node đã là parent trên chi tiết **hoặc** master cùng cấp (`parentCode`+`kind`) · **cấm** ROOM/VP/SU-leaf |
 | 4 | Tìm | bar `onSearch` 🔍 | search | apply draft → GET list · filter đổi → **page=1** |
 
 **Cấm:** date trên bar · nút Tìm trùng · export/print/config trên bar · `ErpListHeaderFilters` · `LinListFilterField` · wrapper bọc cả `leading` · `filterMaxWidthPx` · free-text `parentCode`.

@@ -47,6 +47,8 @@ then: fix_all (surface gaps) · debt documented
 - [x] T-PERM-01 — codes `master.road-routes.*` · FE `useRoadRoutePermissions` · BE TODO RequirePermission
 - [x] T-UI-LIST-01 — LinPageLayout · LinCatalogDataGrid · LinCatalogListPagination · CatalogRowActionMenu · pulseSearch
 - [x] T-UI-FORM-01 — Modal · SearchInput parent · View readOnly · init-data kinds only
+- [x] GAP-P2-LKP-DISPLAY-01 — Tuyến chính dual-box mã+tên (`primaryDisplay=code` · `secondaryDisplay=name` · `getDetail`) `2026-08-30`
+- [x] Thuật ngữ — label **Tuyến chính** (không «Tuyến mẹ») `2026-08-30`
 
 ## Paths
 

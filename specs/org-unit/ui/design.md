@@ -50,7 +50,7 @@
 | code | **Mã đơn vị** | Text code | * | create editable · edit/view readonly | uppercase · VD `VP-II.2` |
 | kind | **Loại đơn vị** | LOOKUP_STATIC | * | view=readOnly | nhãn VN bên dưới |
 | name | **Tên đơn vị** | Text | * | view=readOnly | tên chính theo Cục Đường bộ |
-| parentCode | **Đơn vị cha** | **SearchInput** (catalog `org-unit`) | | view=readOnly | **cấm** Text · gõ mã/tên · dropdown mã+tên |
+| parentCode | **Đơn vị chủ quản** | **SearchInput** (catalog `org-unit`) | | view=readOnly | **cấm** Text · gõ mã/tên · dual-box **mã + tên** sau chọn (**GAP-P2-LKP-DISPLAY-01**) |
 | legacyAlias | **Tên gọi cũ** | Text | | view=readOnly | VD `Chi cục QLĐB II.2` · **không** hiện chữ «Alias/legacy» trên UI |
 | isActive | **Đang dùng** | Switch / checkbox | | view=readOnly | |
 | isLegacyExtra | — | flag BE | | **ẩn** form · badge list «hệ cũ» | GAP-ORG-01 |
@@ -90,8 +90,8 @@ STT · □ · **Mã đơn vị** · **Tên đơn vị** · **Loại** · **Tên 
 
 | ❌ | ✅ |
 |----|-----|
-| Label `parentCode` / `Alias legacy` / badge `create`/`legacy` | **Đơn vị cha** · **Tên gọi cũ** · **Tạo mới** · **hệ cũ** |
-| Text thuần cho đơn vị cha | **SearchInput** lookup |
+| Label `parentCode` / `Alias legacy` / badge `create`/`legacy` | **Đơn vị chủ quản** · **Tên gọi cũ** · **Tạo mới** · **hệ cũ** |
+| Text thuần cho đơn vị chủ quản | **SearchInput** lookup |
 
 ## 4. Control map / hooks
 
@@ -110,7 +110,7 @@ STT · □ · **Mã đơn vị** · **Tên đơn vị** · **Loại** · **Tên 
 |--|--|
 | Artifact | `ui/prototype/org-unit-list-prototype.html` |
 | Zones | **A · B · C (tree+grid) · D** |
-| Form | Modal · **Đơn vị cha = SearchInput** (dropdown mã+tên) |
+| Form | Modal · **Đơn vị chủ quản = SearchInput** (dropdown mã+tên) |
 | Scope | content-only |
 | SSOT | `list-shell-prototype` · `erp-control-icon-map` · `search-input` · `form-catalog-lookup-input` |
 | **reviewUrl** | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/org-unit/ui/prototype/org-unit-list-prototype.html` |
@@ -121,7 +121,7 @@ STT · □ · **Mã đơn vị** · **Tên đơn vị** · **Loại** · **Tên 
 [title] Thêm/Sửa/Xem đơn vị · badge Tạo mới|Sửa|Xem|Sao chép
 [Mã đơn vị*] [Loại đơn vị*]
 [Tên đơn vị*]
-[Đơn vị cha] ← SearchInput (gõ → dropdown mã + tên + tên gọi cũ)
+[Đơn vị chủ quản] ← SearchInput (gõ → dropdown mã + tên + tên gọi cũ)
 [Tên gọi cũ]
 [Đang dùng]
 [footer] Hủy · Lưu

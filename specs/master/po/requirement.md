@@ -113,11 +113,11 @@ Persona: Admin hệ thống · Khu QLĐB · Văn phòng QLĐB · Import ops · c
 |-----------|-------|-------------|----------|-------|
 | search | Tìm kiếm | `SearchTextInput` | | mã · tên · alias CI không dấu |
 | kind (filter) | Loại đơn vị | `Dropdown` | | HQ · ADV · REG · VP · SU · ROOM · init-data |
-| parentCode (filter) | Đơn vị cha | `SearchInput` tree | | catalogKind=org-unit |
+| parentCode (filter) | Đơn vị chủ quản | `SearchInput` tree | | catalogKind=org-unit |
 | code | Mã | `Text` code | * | vd `VP-II.2` |
 | name | Tên | `Text` | * | |
 | kind | Loại | `Dropdown` | * | init-data |
-| parentCode | Đơn vị cha | `SearchInput` tree | | exclude self |
+| parentCode | Đơn vị chủ quản | `SearchInput` tree | | exclude self |
 | legacyAlias | Tên legacy | `Text` | | Chi cục II.x · GAP-ORG-01/02 |
 | isActive | Hiệu lực | `Switch` | | |
 
@@ -130,7 +130,7 @@ Persona: Admin hệ thống · Khu QLĐB · Văn phòng QLĐB · Import ops · c
 | code | Mã tuyến | `Text` code | * | `QL.1` · `HCM` |
 | name | Tên | `Text` | * | |
 | routeKind | Loại | `Dropdown` | * | |
-| parentCode | Tuyến mẹ | `SearchInput` | | catalogKind=road-route |
+| parentCode | Tuyến chính | `SearchInput` | | catalogKind=road-route |
 | notes | Ghi chú | `Text` | | |
 | legacyAliases | Alias folder | `Text` / tags | | |
 | isActive | Hiệu lực | `Switch` | | |

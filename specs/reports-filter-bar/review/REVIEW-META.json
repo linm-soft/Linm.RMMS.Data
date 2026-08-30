@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "feature": "reports-filter-bar",
+  "status": "done",
+  "reviewHash": "sha256:9c8f48aa63c0db817e348a729489019ecdb814928fedc007d79770d3724fcd4a",
+  "contentHash": "sha256:9c8f48aa63c0db817e348a729489019ecdb814928fedc007d79770d3724fcd4a",
+  "headerFingerprint": "sha256:e5226ff0b146ffd2e67210f7ebc5ebbf68ab3612f5416314988acc7c1b5442a9",
+  "rulesVersion": "2026.08.30.6",
+  "workflowVersion": "2026.08.30.01",
+  "skillVersion": "2026.08.30.01",
+  "skillId": "agent-review",
+  "versionGate": "rechecked",
+  "review_confirm": "approve",
+  "taskId": "task_004a1fdd",
+  "updatedAt": "2026-08-30T16:36:26.991Z"
+}

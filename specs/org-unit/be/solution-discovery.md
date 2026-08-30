@@ -109,7 +109,7 @@ AskQuestion recorded: `domain_map=D1` · `sa_tz_gate=tz_na` · `sa_xco_gate=xco_
 |---------|----------|----------|----------|-------|
 | code | Mã đơn vị | Code | `code` | UK · uppercase · business key |
 | name | Tên đơn vị | Name | `name` | required |
-| parentCode | Đơn vị cha | ParentCode | `parent_code` | nullable FK self · SearchInput |
+| parentCode | Đơn vị chủ quản | ParentCode | `parent_code` | nullable FK self · SearchInput |
 | kind | Loại đơn vị | Kind | `kind` | ORG\|HQ\|ADV\|REG\|VP\|SU\|ROOM |
 | legacyAlias | Tên gọi cũ | LegacyAlias | `legacy_alias` | optional |
 | isActive | Đang dùng | IsActive | `is_active` | default true |
@@ -165,7 +165,7 @@ Base (sau DOMAIN-MAP): `api/v1/integration/org-units` · BFF mirror `web-bff/api
 
 | | |
 |--|--|
-| Purpose | **SearchInput** Đơn vị cha + consumer Asset `orgUnitCode` |
+| Purpose | **SearchInput** Đơn vị chủ quản + consumer Asset `orgUnitCode` |
 | Permission | `master.org-units.read` |
 | Request | `q` (CI · không dấu) · `take` (default 20) · `excludeCode?` |
 | Response | `{ items: [{ code, name, kind, legacyAlias, isSelectable }] }` |

@@ -47,7 +47,7 @@
 | code | **Mã tuyến** | Text code | * | create editable · edit/view readonly |
 | name | **Tên tuyến** | Text | * | |
 | routeKind | **Loại tuyến** | LOOKUP / Select | * | init-data |
-| parentCode | **Tuyến mẹ** | **SearchInput** | | cấm Text |
+| parentCode | **Tuyến chính** | **SearchInput** | | cấm Text · dual-box **mã + tên** sau chọn (**GAP-P2-LKP-DISPLAY-01**) |
 | notes | **Ghi chú** | Text | | |
 | isActive | **Đang dùng** | Switch | | |
 
@@ -88,7 +88,7 @@ STT · **Mã tuyến** · **Tên tuyến** · **Loại** · **Trạng thái** ·
 |--|--|
 | Artifact | `ui/prototype/road-route-list-prototype.html` |
 | Zones | **A · B · C · D** |
-| Form | Modal · **Tuyến mẹ = SearchInput** |
+| Form | Modal · **Tuyến chính = SearchInput** |
 | **reviewUrl** | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/road-route/ui/prototype/road-route-list-prototype.html` |
 
 ## Handoff → SA

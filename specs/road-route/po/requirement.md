@@ -53,7 +53,7 @@ Implement **danh mục dùng chung** tuyến / đoạn đường (canonical từ
 | code | Text code | `QL.1`, `HCM`, `QL.46B` |
 | name | Text | |
 | routeKind | LOOKUP_STATIC / Dropdown | `QUOC_LO` · `HCM` · `CAO_TOC` · `KHAC` — init-data |
-| parentCode | **SearchInput** road-route | optional tuyến mẹ |
+| parentCode | **SearchInput** road-route | optional tuyến chính |
 | notes | Text | optional |
 | legacyAliases | tags (BE json text) | import folder names · form optional text |
 | isActive | Switch | |

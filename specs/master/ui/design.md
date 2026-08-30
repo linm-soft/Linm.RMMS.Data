@@ -129,10 +129,10 @@
 |---------|----------|---------|----------|---------|
 | search | Tìm kiếm | SearchTextInput | | filter C1 (cụm phải) |
 | kind | Loại đơn vị | Dropdown | | filter · form * |
-| parentCode (filter) | Đơn vị cha | SearchInput tree | | filter optional |
+| parentCode (filter) | Đơn vị chủ quản | SearchInput tree | | filter optional |
 | code | Mã đơn vị | Text code | * | form · edit/view readonly |
 | name | Tên đơn vị | Text | * | form |
-| parentCode | Đơn vị cha | **SearchInput** tree | | form · exclude self · **cấm** Text |
+| parentCode | Đơn vị chủ quản | **SearchInput** tree | | form · exclude self · **cấm** Text |
 | legacyAlias | Tên gọi cũ | Text | | form · GAP-ORG-02 secondary |
 | isActive | Đang dùng | Switch | | form |
 
@@ -146,7 +146,7 @@
 | routeKind | Loại tuyến | Dropdown | * | filter · form |
 | code | Mã tuyến | Text code | * | form |
 | name | Tên tuyến | Text | * | form |
-| parentCode | Tuyến mẹ | **SearchInput** | | form · catalogKind=road-route |
+| parentCode | Tuyến chính | **SearchInput** | | form · catalogKind=road-route |
 | notes | Ghi chú | Text | | form |
 | legacyAliases | Alias folder | Text / tags | | form |
 | isActive | Đang dùng | Switch | | form |
@@ -223,7 +223,7 @@ Empty/fail: empty copy VN · toast — **cấm** mock seed che API · **cấm** 
 [fields data-form-cols="2"]
   [Mã đơn vị*] [Loại đơn vị*]
   [Tên đơn vị* span2]
-  [Đơn vị cha SearchInput span2]
+  [Đơn vị chủ quản SearchInput span2]
   [Tên gọi cũ] [Đang dùng Switch]
 [footer] Hủy · Lưu
 [LeaveConfirmModal] Chưa lưu · Ở lại / Rời đi

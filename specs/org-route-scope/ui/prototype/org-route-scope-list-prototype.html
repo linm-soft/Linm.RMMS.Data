@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Prototype — Phân khu lý trình (org-route-scope)</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
+  <style>
+    :root{--bg:#f5f7fa;--card:#fff;--border:#BABCBE;--soft:#e9ecef;--txt:#1A1A1A;--muted:#6c757d;--primary:#0d6efd;--btn:#EEEEEE;--r:4px;--ds-focus:0 0 4px #BABCBE}
+    *{box-sizing:border-box}
+    body{margin:0;font:13px/1.4 "Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--txt)}
+    .page{max-width:1280px;margin:0 auto;padding:8px;display:flex;flex-direction:column;gap:8px;min-height:100vh}
+    .note{font-size:11px;color:var(--muted)}.note a{color:var(--primary)}
+    .filter-bar{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:flex-end;gap:8px;min-width:min(100%,720px)}
+    .filter-break{flex:1 1 100%;height:0;margin:0;padding:0}
+    .zone-a{display:flex;align-items:center;gap:10px}
+    .zone-a h1{margin:0;font-size:22px;font-weight:700;display:flex;align-items:center;gap:10px}
+    .zone-a h1 i{color:var(--primary);font-size:20px}
+    .zone-b{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:8px 0;position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--soft)}
+    .zone-b-left,.zone-b-right{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .tb{display:inline-flex;align-items:center;gap:4px;height:32px;padding:6px 8px;border:0;border-radius:var(--r);background:var(--btn);font-size:12px;font-weight:600;cursor:pointer}
+    .tb:hover{background:#BABCBE}.tb.primary{background:var(--primary);color:#fff}.tb.primary:hover{background:#0b5ed7}.tb:disabled{opacity:.55;cursor:not-allowed}
+    .card{background:var(--card);border:1px solid var(--soft);border-radius:var(--r);flex:1;display:flex;flex-direction:column;min-height:0;overflow:hidden}
+    .grid-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 16px 8px;align-items:flex-start}
+    .grid-title{margin:0;font-size:15px;font-weight:700}.grid-help{margin:4px 0 0;font-size:12px;color:var(--muted)}
+    .flt-field{display:flex;flex-direction:column;gap:4px;min-width:160px}
+    .flt-field span{font-size:12px;color:var(--muted)}
+    .filter-bar select{height:32px;border:1px solid var(--border);border-radius:var(--r);padding:0 8px;font-size:13px;background:#fff}
+    .search,.si{display:flex;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;min-width:180px;height:32px;background:#fff}
+    .search{min-width:200px}
+    .search input,.si input{border:0;outline:0;padding:6px 10px;flex:1;font-size:13px}
+    .search button,.si span{border:0;border-left:1px solid var(--border);background:#f8fafc;padding:0 10px;cursor:pointer;color:var(--muted);display:flex;align-items:center}
+    .table-wrap{overflow:auto;flex:1;min-height:220px;border-top:1px solid var(--soft);position:relative}
+    table{width:100%;border-collapse:collapse;table-layout:fixed}
+    th,td{padding:8px 12px;border-bottom:1px solid var(--soft);text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    th{background:#f8fafc;font-size:12px;color:var(--muted);position:sticky;top:0}
+    th.num,td.num{text-align:center;width:48px}
+    tbody tr:nth-child(even){background:#fafbfc}tbody tr:hover,tbody tr.sel{background:#eff6ff}
+    .code{color:var(--primary);text-decoration:underline;cursor:pointer;border:0;background:0;font:inherit}
+    .badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;background:#e3f2fd;color:#0d47a1}
+    .badge.off{background:#eceff1;color:#546e7a}
+    .col-tools{display:inline-flex;gap:4px;margin-left:6px}.col-tools button{border:0;background:0;cursor:pointer;color:var(--muted);padding:0 2px;font-size:11px}.col-tools button.on{color:var(--primary)}
+    .filter-pop{display:none;position:absolute;z-index:30;width:260px;background:#fff;border:1px solid var(--soft);border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.12);padding:10px;top:40px;left:160px}
+    .filter-pop.on{display:block}
+    .filter-pop input[type=text]{width:100%;margin-bottom:8px;padding:6px 8px;border:1px solid var(--border);border-radius:var(--r)}
+    .filter-field{display:flex;align-items:center;gap:8px;padding:6px 8px;border:1px solid var(--soft);border-radius:6px;margin-bottom:8px}
+    .filter-hint{font-size:12px;color:var(--muted);margin-bottom:8px}
+    .filter-list{max-height:140px;overflow:auto;display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
+    .filter-list label{display:flex;align-items:center;gap:8px;padding:4px 6px;border-radius:4px}.filter-list label.on{background:#eff6ff}
+    .filter-acts{display:flex;justify-content:flex-end;gap:8px}
+    .zone-d{display:flex;flex-direction:column;align-items:center;gap:10px;padding:12px 16px;border-top:1px solid var(--soft)}
+    .zone-d-total{color:var(--muted)}.zone-d-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center}
+    .pager-btn{width:32px;height:32px;border:1px solid var(--soft);border-radius:var(--r);background:#fff;color:var(--muted);cursor:pointer}
+    .menu{position:relative}.menu summary{list-style:none;cursor:pointer;padding:4px 8px;border:1px solid var(--border);border-radius:var(--r);background:#fff}
+    .menu summary::-webkit-details-marker{display:none}
+    .menu-panel{display:none;position:absolute;right:0;z-index:5;background:#fff;border:1px solid var(--border);border-radius:6px;min-width:140px;box-shadow:0 8px 24px rgba(0,0,0,.12)}
+    .menu[open] .menu-panel{display:block}
+    .menu-panel button{display:block;width:100%;text-align:left;border:0;background:0;padding:8px 12px;cursor:pointer;font-size:13px}
+    .menu-panel button:hover{background:#f1f5f9}
+    .backdrop{display:none;position:fixed;inset:0;background:rgba(15,23,42,.35);z-index:40;align-items:center;justify-content:center}
+    .backdrop.on{display:flex}
+    .modal{width:min(640px,94vw);background:#fff;border-radius:8px;border:1px solid var(--soft);max-height:92vh;overflow:auto}
+    .modal.sm{width:min(420px,94vw)}
+    .modal-h{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid var(--soft);font-weight:700}
+    .modal-h .badge-mode{font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:#eef2ff;color:#3730a3}
+    .modal-h .x{margin-left:auto;border:0;background:0;cursor:pointer;font-size:16px;color:var(--muted)}
+    .modal-b{padding:16px}
+    .form-tabs{display:flex;gap:6px;margin-bottom:12px}
+    .form-tabs button{height:28px;padding:0 10px;border:1px solid var(--soft);border-radius:var(--r);background:#fff;font-size:12px;font-weight:600;cursor:pointer}
+    .form-tabs button.on{background:var(--primary);color:#fff;border-color:var(--primary)}
+    .fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .fields[data-form-cols="2"]{grid-template-columns:1fr 1fr}
+    .fields .span2{grid-column:span 2}
+    .field{display:flex;flex-direction:column;gap:4px}
+    .field label{font-size:13px;color:var(--muted);font-weight:500}
+    .req::after{content:" *";color:#dc2626;font-weight:700}
+    .field input,.field select{height:32px;padding:6px 10px;border:1px solid var(--border);border-radius:var(--r);font-size:14px}
+    .field input:focus,.field select:focus{outline:none;border-color:var(--primary);box-shadow:var(--ds-focus)}
+    .field.ro input,.field.ro select{background:#f8fafc}
+    .lkp{position:relative}
+    .lkp-wrap{display:flex;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;height:32px;background:#fff}
+    .lkp-wrap input{border:0;outline:0;padding:6px 10px;font-size:14px}
+    .lkp-code{width:7rem;flex:0 0 7rem;border-right:1px solid var(--border)}
+    .lkp-name{flex:1;background:#f8fafc;color:#334155}
+    .lkp-wrap button{border:0;border-left:1px solid var(--border);background:#f8fafc;padding:0 10px;cursor:pointer;color:var(--muted)}
+    .lkp-drop{display:none;position:absolute;left:0;right:0;top:calc(100% + 4px);z-index:50;max-height:180px;overflow:auto;background:#fff;border:1px solid var(--border);border-radius:var(--r);box-shadow:0 8px 24px rgba(0,0,0,.12)}
+    .lkp-drop.on{display:block}
+    .lkp-opt{display:block;width:100%;text-align:left;border:0;background:#fff;padding:8px 10px;cursor:pointer;font-size:13px}
+    .lkp-opt:hover{background:#eff6ff}
+    .modal-f{padding:12px 16px;border-top:1px solid var(--soft);display:flex;justify-content:flex-end;gap:8px}
+    .switch{display:inline-flex;align-items:center;gap:8px;height:32px}
+    .seg-table{width:100%;border:1px solid var(--soft);border-radius:var(--r);overflow:hidden;margin-top:8px}
+    .seg-table th,.seg-table td{font-size:12px;padding:6px 8px}
+    .hidden{display:none!important}
+    .empty{padding:24px;text-align:center;color:var(--muted)}
+    @media (max-width:800px){.fields[data-form-cols="2"]{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="page">
+    <p class="note">SSOT Design · <code>shared_grid_example v1</code> · <code>real_view_parity v1</code> · peer <code>http://localhost:9318/mas/co-cau-tc</code> · mfeStdUrl <code>/mas/phan-khu</code> · DEM N/A · mock rows = prototype structure only · <strong>cấm</strong> invent-seed dump · zone API = GAP SA</p>
+    <header class="zone-a" data-des-id="DES-GRID-A">
+      <h1><i class="fas fa-road" aria-hidden="true"></i> Phân khu lý trình</h1>
+    </header>
+    <div class="zone-b" data-des-id="DES-GRID-B">
+      <div class="zone-b-left">
+        <button type="button" class="tb" data-action="refresh" title="Làm mới" aria-label="Làm mới"><i class="fas fa-sync-alt"></i> Làm mới</button>
+        <button type="button" class="tb" data-action="history" title="Lịch sử" aria-label="Lịch sử"><i class="fas fa-history"></i> Lịch sử</button>
+        <button type="button" class="tb" data-action="editConfig" title="Sửa config" aria-label="Sửa config"><i class="fas fa-cog"></i> Sửa config</button>
+        <button type="button" class="tb" id="btn-view" disabled title="Xem" aria-label="Xem"><i class="fas fa-eye"></i> Xem</button>
+        <button type="button" class="tb" id="btn-edit" disabled title="Sửa" aria-label="Sửa"><i class="fas fa-edit"></i> Sửa</button>
+        <button type="button" class="tb" id="btn-del" disabled title="Xóa" aria-label="Xóa"><i class="fas fa-trash"></i> Xóa</button>
+      </div>
+      <div class="zone-b-right">
+        <button type="button" class="tb primary" data-action="create" title="Tạo dòng gán" aria-label="Tạo dòng gán"><i class="fas fa-plus"></i> Tạo dòng gán</button>
+      </div>
+    </div>
+    <section class="card">
+      <div class="grid-head" data-des-id="DES-GRID-C0">
+        <div>
+          <h2 class="grid-title">Danh sách gán zone × tuyến</h2>
+          <p class="grid-help" data-des-id="DES-GRID-C3-help">Nhấn đúp · Ctrl + chuột phải · giữ chạm (mobile) để mở menu dòng</p>
+        </div>
+        <div class="filter-bar" data-des-id="DES-GRID-C1" data-filter="LinErpListFilterBar" data-org-cascade="2-line">
+          <div class="flt-field">
+            <span>Tìm kiếm</span>
+            <div class="search">
+              <input type="search" id="q" placeholder="Tìm mã tuyến / zone…" aria-label="Tìm kiếm" />
+            </div>
+          </div>
+          <div class="flt-field" title="Khu SearchInput REG leaf">
+            <span>Khu</span>
+            <div class="si"><input type="search" id="flt-zone" placeholder="Khu QLĐB…" aria-label="Khu" autocomplete="off" /></div>
+          </div>
+          <div class="flt-field" title="Văn phòng SearchInput">
+            <span>Văn phòng</span>
+            <div class="si"><input type="search" id="flt-vp" placeholder="Văn phòng…" aria-label="Văn phòng" autocomplete="off" /></div>
+          </div>
+          <div class="flt-field" title="Đơn vị SU / đối tác">
+            <span>Đơn vị</span>
+            <div class="si"><input type="search" id="flt-unit" placeholder="Đơn vị…" aria-label="Đơn vị" autocomplete="off" /></div>
+          </div>
+          <div class="filter-break" aria-hidden></div>
+          <div class="flt-field" title="Tuyến chính (SearchInput road-route)">
+            <span>Tuyến chính</span>
+            <div class="si"><input type="search" id="flt-route" placeholder="Tuyến chính…" aria-label="Tuyến" autocomplete="off" /></div>
+          </div>
+          <div class="flt-field">
+            <span>Hiệu lực</span>
+            <select id="flt-active" aria-label="Hiệu lực" title="Hiệu lực">
+              <option value="">Tất cả</option>
+              <option value="1">Đang hiệu lực</option>
+              <option value="0">Ngừng</option>
+            </select>
+          </div>
+          <button type="button" class="tb primary" aria-label="Tìm" title="Tìm"><i class="fas fa-search"></i></button>
+        </div>
+      </div>
+      <div class="table-wrap" data-des-id="DES-GRID-C2">
+        <table>
+          <thead>
+            <tr>
+              <th class="num">STT</th>
+              <th class="num"><input type="checkbox" id="chk-all" aria-label="Chọn tất cả trang" /></th>
+              <th>Khu<span class="col-tools"><button type="button" class="on" title="Sắp xếp"><i class="fas fa-sort-alpha-down"></i></button><button type="button" title="Lọc" id="btn-filter-zone"><i class="fas fa-filter"></i></button></span></th>
+              <th>Tuyến</th>
+              <th>Km từ</th>
+              <th>Km đến</th>
+              <th>HL từ</th>
+              <th>HL đến</th>
+              <th>Trạng thái</th>
+              <th class="num"></th>
+            </tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+        <div class="filter-pop" id="filter-pop" data-des-id="DES-GRID-C2a">
+          <input type="text" id="filter-q" placeholder="Tìm trong danh sách…" />
+          <div class="filter-field"><input type="checkbox" id="filter-select-all" /><label for="filter-select-all" style="flex:1;cursor:pointer">Chọn tất cả</label></div>
+          <div class="filter-hint" id="filter-count">Đã chọn 0 mục</div>
+          <div class="filter-list" id="filter-list"></div>
+          <div class="filter-acts">
+            <button type="button" class="tb" id="filter-cancel" title="Hủy">Hủy</button>
+            <button type="button" class="tb primary" id="filter-ok" title="Xác nhận">Xác nhận</button>
+          </div>
+        </div>
+        <div class="empty hidden" id="empty">Chưa có dòng gán · Zone API chưa cấu hình (GAP SA) · <strong>cấm</strong> mock seed che API</div>
+      </div>
+      <div class="zone-d" data-des-id="DES-GRID-D">
+        <div class="zone-d-total">Tổng: <span id="total">0</span> · Trang <span id="page">1</span>/1</div>
+        <div class="zone-d-row">
+          <label>Hiển thị <select id="pageSize"><option>50</option><option>100</option><option>200</option><option>500</option></select></label>
+          <button type="button" class="pager-btn" disabled title="Đầu"><i class="fas fa-angle-double-left"></i></button>
+          <button type="button" class="pager-btn" disabled title="Trước"><i class="fas fa-angle-left"></i></button>
+          <span>1/1</span>
+          <button type="button" class="pager-btn" disabled title="Sau"><i class="fas fa-angle-right"></i></button>
+          <button type="button" class="pager-btn" disabled title="Cuối"><i class="fas fa-angle-double-right"></i></button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="backdrop" id="modal-config" data-des-id="DES-GRID-F"><div class="modal sm"><div class="modal-h"><i class="fas fa-cog"></i> Sửa cấu hình lưới</div><div class="modal-b">LinCatalogUiSchemaEditorModal mock · Kéo cột: <strong>ON</strong>.</div><div class="modal-f"><button type="button" class="tb" data-close="modal-config" title="Đóng">Đóng</button></div></div></div>
+  <div class="backdrop" id="modal-history" data-des-id="DES-GRID-H"><div class="modal sm"><div class="modal-h"><i class="fas fa-history"></i> Lịch sử</div><div class="modal-b">LinCatalogHistoryModal mock · stub OK nếu API chưa có · <strong>cấm</strong> invent History path.</div><div class="modal-f"><button type="button" class="tb" data-close="modal-history" title="Đóng">Đóng</button></div></div></div>
+  <div class="backdrop" id="modal-alert" data-des-id="DES-ALERT"><div class="modal sm"><div class="modal-h">Xác nhận xóa</div><div class="modal-b">Soft delete / ngừng hiệu lực dòng gán đã chọn?</div><div class="modal-f"><button type="button" class="tb" data-close="modal-alert" title="Hủy">Hủy</button><button type="button" class="tb primary" id="alert-ok" title="Xóa">Xóa</button></div></div></div>
+
+  <div class="backdrop" id="modal-form" data-des-id="DES-GRID-Z">
+    <div class="modal">
+      <div class="modal-h">
+        <strong id="form-title">Tạo dòng gán</strong>
+        <span class="badge-mode" id="form-badge">Tạo mới</span>
+        <button type="button" class="x" id="form-x" title="Đóng" aria-label="Đóng">✕</button>
+      </div>
+      <div class="modal-b">
+        <div class="form-tabs" role="tablist">
+          <button type="button" class="on" id="tab-assign" data-tab="assign">Dòng gán</button>
+          <button type="button" id="tab-seg" data-tab="seg">Đoạn con</button>
+        </div>
+        <div id="panel-assign">
+          <div class="fields" data-form-cols="2" data-form-surface="modal">
+            <div class="field span2">
+              <label class="req">Khu QLĐB</label>
+              <div class="lkp"><div class="lkp-wrap"><input type="search" class="lkp-code" id="f-zone" placeholder="Mã…" autocomplete="off" /><input type="text" class="lkp-name" id="f-zone-name" placeholder="Tên" readonly tabindex="-1" /><button type="button" class="lkp-clear" title="Xóa"><i class="fas fa-times"></i></button></div><div class="lkp-drop" id="drop-zone"></div></div>
+            </div>
+            <div class="field span2">
+              <label class="req">Tuyến chính</label>
+              <div class="lkp"><div class="lkp-wrap"><input type="search" class="lkp-code" id="f-route" placeholder="Mã…" autocomplete="off" /><input type="text" class="lkp-name" id="f-route-name" placeholder="Tên" readonly tabindex="-1" /><button type="button" class="lkp-clear" title="Xóa"><i class="fas fa-times"></i></button></div><div class="lkp-drop" id="drop-route"></div></div>
+            </div>
+            <div class="field"><label class="req">Km từ</label><input type="number" id="f-kmFrom" min="0" step="0.001" value="0" /></div>
+            <div class="field"><label class="req">Km đến</label><input type="number" id="f-kmTo" min="0" step="0.001" value="10" /></div>
+            <div class="field"><label class="req">Hiệu lực từ</label><input type="date" id="f-efFrom" value="2026-01-01" /></div>
+            <div class="field"><label class="req">Hiệu lực đến</label><input type="date" id="f-efTo" value="2027-12-31" /></div>
+            <div class="field"><label>Hiệu lực</label><label class="switch"><input type="checkbox" id="f-active" checked /> Bật</label></div>
+          </div>
+        </div>
+        <div id="panel-seg" class="hidden">
+          <p class="grid-help" style="margin:0 0 8px">Đoạn ⊆ km zone · assignee VP/SU (org-unit) hoặc PARTNER (partner-unit) — <strong>cấm</strong> mix Sở vào org tree</p>
+          <div class="fields" data-form-cols="2">
+            <div class="field"><label class="req">Km đoạn từ</label><input type="number" id="s-kmFrom" min="0" step="0.001" value="0" /></div>
+            <div class="field"><label class="req">Km đoạn đến</label><input type="number" id="s-kmTo" min="0" step="0.001" value="5" /></div>
+            <div class="field"><label class="req">Loại đơn vị</label>
+              <select id="s-kind"><option value="VP">Văn phòng (VP)</option><option value="SU">Sự nghiệp (SU)</option><option value="PARTNER">Đối tác (PARTNER)</option></select>
+            </div>
+            <div class="field span2">
+              <label class="req">Đơn vị</label>
+              <div class="lkp"><div class="lkp-wrap"><input type="search" class="lkp-code" id="s-assignee" placeholder="Mã…" autocomplete="off" /><input type="text" class="lkp-name" id="s-assignee-name" placeholder="Tên" readonly tabindex="-1" /><button type="button" class="lkp-clear" title="Xóa"><i class="fas fa-times"></i></button></div><div class="lkp-drop" id="drop-assignee"></div></div>
+            </div>
+          </div>
+          <table class="seg-table">
+            <thead><tr><th>Km</th><th>Loại</th><th>Đơn vị</th></tr></thead>
+            <tbody>
+              <tr><td>0 – 5</td><td>VP</td><td>VP-I.1 — Văn phòng QLĐB I.1</td></tr>
+              <tr><td>5 – 10</td><td>PARTNER</td><td>DN-495 — Cty 495 (partner-unit)</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="modal-f">
+        <button type="button" class="tb" id="form-cancel" title="Hủy" aria-label="Hủy">Hủy</button>
+        <button type="button" class="tb primary" id="form-save" title="Lưu" aria-label="Lưu">Lưu</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="backdrop" id="modal-leave" data-des-id="DES-LEAVE">
+    <div class="modal sm">
+      <div class="modal-h">Chưa lưu</div>
+      <div class="modal-b">Bạn có thay đổi chưa lưu. Ở lại trang hay rời đi?</div>
+      <div class="modal-f">
+        <button type="button" class="tb" id="leave-stay" title="Ở lại">Ở lại</button>
+        <button type="button" class="tb primary" id="leave-go" title="Rời đi">Rời đi</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  const ZONES=[{code:"REG-I",name:"Khu QLĐB I"},{code:"REG-II",name:"Khu QLĐB II"},{code:"REG-III",name:"Khu QLĐB III"},{code:"REG-IV",name:"Khu QLĐB IV"}];
+  const ROUTES=[{code:"QL.1",name:"Quốc lộ 1"},{code:"HCM",name:"Đường Hồ Chí Minh"},{code:"CT.01",name:"Cao tốc mẫu"}];
+  const ORG_VP=[{code:"VP-I.1",name:"Văn phòng QLĐB I.1"},{code:"VP-II.2",name:"Văn phòng QLĐB II.2"}];
+  const ORG_SU=[{code:"SU-BQLDA-1",name:"Ban QLDA 1"}];
+  const PARTNERS=[{code:"DN-495",name:"Cty 495"},{code:"SO-HATINH",name:"Sở GTVT Hà Tĩnh"}];
+  const ROWS=[
+    {id:"A1",zoneOrgCode:"REG-I",zoneName:"Khu QLĐB I",routeCode:"QL.1",routeName:"Quốc lộ 1",kmFrom:0,kmTo:120,effectiveFrom:"2026-01-01",effectiveTo:"2027-12-31",isActive:true},
+    {id:"A2",zoneOrgCode:"REG-II",zoneName:"Khu QLĐB II",routeCode:"QL.1",routeName:"Quốc lộ 1",kmFrom:120,kmTo:280,effectiveFrom:"2026-01-01",effectiveTo:"2027-12-31",isActive:true},
+    {id:"A3",zoneOrgCode:"REG-I",zoneName:"Khu QLĐB I",routeCode:"HCM",routeName:"Đường Hồ Chí Minh",kmFrom:0,kmTo:80,effectiveFrom:"2026-01-01",effectiveTo:"2026-12-31",isActive:false}
+  ];
+  let selected=null,formDirty=false,formMode="create",leaveAction=null,filterChecked=new Set(ROWS.map(r=>r.id));
+  const tbody=document.getElementById("tbody");
+  const openModal=id=>document.getElementById(id).classList.add("on");
+  const closeModal=id=>document.getElementById(id).classList.remove("on");
+  function syncSel(){const on=!!selected;["btn-view","btn-edit","btn-del"].forEach(id=>document.getElementById(id).disabled=!on)}
+  function filtered(){
+    const q=(document.getElementById("q").value||"").trim().toLowerCase();
+    const act=document.getElementById("flt-active").value;
+    const route=(document.getElementById("flt-route").value||"").trim().toLowerCase();
+    const zone=(document.getElementById("flt-zone").value||"").trim().toUpperCase();
+    return ROWS.filter(r=>{
+      if(zone&&r.zoneOrgCode!==zone)return false;
+      if(act==="1"&&!r.isActive)return false;
+      if(act==="0"&&r.isActive)return false;
+      if(route&&!(r.routeCode+" "+r.routeName).toLowerCase().includes(route))return false;
+      if(!q)return true;
+      return Object.values(r).some(v=>String(v||"").toLowerCase().includes(q));
+    });
+  }
+  function render(){
+    const list=filtered();
+    document.getElementById("empty").classList.toggle("hidden",list.length>0);
+    tbody.innerHTML=list.map((r,i)=>`<tr data-id="${r.id}" class="${selected===r.id?"sel":""}">
+      <td class="num">${i+1}</td>
+      <td class="num"><input type="checkbox" class="row-chk" ${selected===r.id?"checked":""} /></td>
+      <td><button type="button" class="code">${r.zoneOrgCode}</button></td>
+      <td>${r.routeCode} — ${r.routeName}</td>
+      <td>${r.kmFrom}</td><td>${r.kmTo}</td>
+      <td>${r.effectiveFrom}</td><td>${r.effectiveTo}</td>
+      <td><span class="badge ${r.isActive?"":"off"}">${r.isActive?"Đang hiệu lực":"Ngừng"}</span></td>
+      <td class="num" data-des-id="DES-GRID-C3"><details class="menu"><summary>⋮</summary><div class="menu-panel">
+        <button type="button" data-menu="view">Xem</button>
+        <button type="button" data-menu="edit">Sửa</button>
+        <button type="button" data-menu="copy">Sao chép</button>
+        <button type="button" data-menu="history">Lịch sử</button>
+        <button type="button" data-menu="delete">Xóa</button>
+      </div></details></td>
+    </tr>`).join("");
+    document.getElementById("total").textContent=String(list.length);
+    syncSel();
+  }
+  function renderFilterList(){
+    const fq=(document.getElementById("filter-q").value||"").toLowerCase();
+    const visible=ROWS.filter(r=>!fq||r.zoneOrgCode.toLowerCase().includes(fq)||r.routeCode.toLowerCase().includes(fq));
+    document.getElementById("filter-list").innerHTML=visible.map(r=>`<label class="${filterChecked.has(r.id)?"on":""}"><input type="checkbox" data-fv="${r.id}" ${filterChecked.has(r.id)?"checked":""} /> ${r.zoneOrgCode} · ${r.routeCode}</label>`).join("");
+    const n=visible.filter(r=>filterChecked.has(r.id)).length;
+    document.getElementById("filter-count").textContent=`Đã chọn ${n} mục`;
+    document.getElementById("filter-select-all").checked=visible.length>0&&n===visible.length;
+  }
+  function setTab(name){
+    document.getElementById("panel-assign").classList.toggle("hidden",name!=="assign");
+    document.getElementById("panel-seg").classList.toggle("hidden",name!=="seg");
+    document.getElementById("tab-assign").classList.toggle("on",name==="assign");
+    document.getElementById("tab-seg").classList.toggle("on",name==="seg");
+  }
+  function bindLkp(inputId,dropId,opts){
+    const input=document.getElementById(inputId),drop=document.getElementById(dropId);
+    function show(){
+      if(formMode==="view")return;
+      const q=(input.value||"").toLowerCase();
+      const list=opts().filter(o=>!q||o.code.toLowerCase().includes(q)||o.name.toLowerCase().includes(q));
+      drop.innerHTML=list.map(o=>`<button type="button" class="lkp-opt" data-code="${o.code}" data-name="${o.name}"><span style="color:#0d6efd;font-weight:600">${o.code}</span> — ${o.name}</button>`).join("")||`<div style="padding:8px;color:#6c757d">Không có kết quả</div>`;
+      drop.classList.add("on");
+    }
+    input.onfocus=show;input.oninput=()=>{formDirty=true;show()};
+    drop.onclick=e=>{const opt=e.target.closest(".lkp-opt");if(!opt)return;input.value=opt.getAttribute("data-code")||"";const nameEl=document.getElementById(inputId+"-name");if(nameEl)nameEl.value=opt.getAttribute("data-name")||"";drop.classList.remove("on");formDirty=true};
+  }
+  function buildForm(mode,row){
+    formMode=mode;formDirty=false;setTab("assign");
+    const badges={create:"Tạo mới",edit:"Sửa",view:"Xem",copy:"Sao chép"};
+    const titles={create:"Tạo dòng gán",edit:"Sửa dòng gán",view:"Xem dòng gán",copy:"Sao chép dòng gán"};
+    document.getElementById("form-badge").textContent=badges[mode];
+    document.getElementById("form-title").textContent=titles[mode];
+    document.getElementById("form-save").style.display=mode==="view"?"none":"";
+    const ro=mode==="view";
+    document.getElementById("f-zone").value=row?row.zoneOrgCode:"";
+    document.getElementById("f-zone-name").value=row?row.zoneName:"";
+    document.getElementById("f-route").value=row?row.routeCode:"";
+    document.getElementById("f-route-name").value=row?row.routeName:"";
+    document.getElementById("f-kmFrom").value=row?row.kmFrom:0;
+    document.getElementById("f-kmTo").value=row?row.kmTo:10;
+    document.getElementById("f-efFrom").value=row?row.effectiveFrom:"2026-01-01";
+    document.getElementById("f-efTo").value=row?row.effectiveTo:"2027-12-31";
+    document.getElementById("f-active").checked=row?!!row.isActive:true;
+    ["f-zone","f-route","f-kmFrom","f-kmTo","f-efFrom","f-efTo","f-active","s-kmFrom","s-kmTo","s-kind","s-assignee"].forEach(id=>{
+      const el=document.getElementById(id);
+      if(el.tagName==="INPUT"&&el.type!=="checkbox")el.readOnly=ro;
+      else if(el.tagName==="SELECT"||el.type==="checkbox")el.disabled=ro;
+    });
+    bindLkp("f-zone","drop-zone",()=>ZONES);
+    bindLkp("f-route","drop-route",()=>ROUTES);
+    bindLkp("s-assignee","drop-assignee",()=>{
+      const k=document.getElementById("s-kind").value;
+      if(k==="VP")return ORG_VP;if(k==="SU")return ORG_SU;return PARTNERS;
+    });
+    openModal("modal-form");
+  }
+  function requestCloseForm(){if(formDirty&&formMode!=="view"){leaveAction=()=>closeModal("modal-form");openModal("modal-leave");return}closeModal("modal-form")}
+  function openFormFor(mode){const row=ROWS.find(r=>r.id===selected)||null;if((mode==="edit"||mode==="view"||mode==="copy")&&!row)return;buildForm(mode==="copy"?"copy":mode,mode==="copy"&&row?{...row,id:""}:row)}
+  document.getElementById("q").addEventListener("input",render);
+  document.getElementById("flt-active").addEventListener("change",render);
+  document.getElementById("flt-route").addEventListener("input",render);
+  document.getElementById("flt-zone").addEventListener("input",render);
+  tbody.addEventListener("click",e=>{
+    const tr=e.target.closest("tr");if(!tr)return;
+    const id=tr.getAttribute("data-id");
+    if(e.target.closest("[data-menu]")){
+      const act=e.target.closest("[data-menu]").getAttribute("data-menu");
+      selected=id;syncSel();render();
+      if(act==="history")openModal("modal-history");
+      else if(act==="delete")openModal("modal-alert");
+      else openFormFor(act);
+      return;
+    }
+    if(e.target.classList.contains("code")||e.target.classList.contains("row-chk")){selected=id;syncSel();render()}
+  });
+  tbody.addEventListener("dblclick",e=>{const tr=e.target.closest("tr");if(!tr)return;selected=tr.getAttribute("data-id");syncSel();render();openFormFor("edit")});
+  document.querySelector('[data-action="editConfig"]').addEventListener("click",()=>openModal("modal-config"));
+  document.querySelector('[data-action="history"]').addEventListener("click",()=>openModal("modal-history"));
+  document.querySelector('[data-action="refresh"]').addEventListener("click",render);
+  document.querySelector('[data-action="create"]').addEventListener("click",()=>buildForm("create",null));
+  document.getElementById("btn-view").addEventListener("click",()=>openFormFor("view"));
+  document.getElementById("btn-edit").addEventListener("click",()=>openFormFor("edit"));
+  document.getElementById("btn-del").addEventListener("click",()=>openModal("modal-alert"));
+  document.getElementById("form-x").addEventListener("click",requestCloseForm);
+  document.getElementById("form-cancel").addEventListener("click",requestCloseForm);
+  document.getElementById("form-save").addEventListener("click",()=>{formDirty=false;closeModal("modal-form")});
+  document.getElementById("leave-stay").addEventListener("click",()=>{leaveAction=null;closeModal("modal-leave")});
+  document.getElementById("leave-go").addEventListener("click",()=>{closeModal("modal-leave");formDirty=false;if(typeof leaveAction==="function")leaveAction();leaveAction=null});
+  document.getElementById("alert-ok").addEventListener("click",()=>closeModal("modal-alert"));
+  document.querySelectorAll("[data-close]").forEach(btn=>btn.addEventListener("click",()=>closeModal(btn.getAttribute("data-close"))));
+  document.getElementById("tab-assign").addEventListener("click",()=>setTab("assign"));
+  document.getElementById("tab-seg").addEventListener("click",()=>setTab("seg"));
+  document.querySelectorAll("#modal-form input,#modal-form select").forEach(el=>{el.addEventListener("input",()=>{formDirty=true});el.addEventListener("change",()=>{formDirty=true})});
+  document.getElementById("btn-filter-zone").addEventListener("click",e=>{e.stopPropagation();document.getElementById("filter-pop").classList.toggle("on");renderFilterList()});
+  document.getElementById("filter-q").addEventListener("input",renderFilterList);
+  document.getElementById("filter-list").addEventListener("change",e=>{const t=e.target;if(!t.matches("[data-fv]"))return;if(t.checked)filterChecked.add(t.getAttribute("data-fv"));else filterChecked.delete(t.getAttribute("data-fv"));renderFilterList()});
+  document.getElementById("filter-select-all").addEventListener("change",e=>{
+    const fq=(document.getElementById("filter-q").value||"").toLowerCase();
+    const visible=ROWS.filter(r=>!fq||r.zoneOrgCode.toLowerCase().includes(fq)||r.routeCode.toLowerCase().includes(fq));
+    if(e.target.checked)visible.forEach(r=>filterChecked.add(r.id));else visible.forEach(r=>filterChecked.delete(r.id));
+    renderFilterList();
+  });
+  document.getElementById("filter-cancel").addEventListener("click",()=>document.getElementById("filter-pop").classList.remove("on"));
+  document.getElementById("filter-ok").addEventListener("click",()=>document.getElementById("filter-pop").classList.remove("on"));
+  document.getElementById("s-kind").addEventListener("change",()=>{document.getElementById("s-assignee").value="";formDirty=true});
+  render();
+  </script>
+</body>
+</html>

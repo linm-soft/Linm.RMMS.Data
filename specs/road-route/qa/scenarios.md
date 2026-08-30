@@ -18,7 +18,7 @@
 | QA-06 | Sửa | code readonly · name/kind editable | **PASS** |
 | QA-07 | Xem | readOnly · no Save · **không** disabled xám | **PASS** (retry) |
 | QA-08 | Sao chép | code empty · name/kind copy | **PASS** |
-| QA-09 | Tuyến mẹ SearchInput | API-02 · **không** Text | **PASS** |
+| QA-09 | Tuyến chính SearchInput | API-02 · **không** Text | **PASS** |
 | QA-10 | Duplicate code | 422 message | **PASS** (EnsureUniqueCodeAsync) |
 | QA-11 | Soft delete có child | 422 | **PASS** (SoftDeleteAsync) |
 | QA-12 | Route BASE | FE `/integration/road-routes` · **cấm** `/rmms/` | **PASS** |

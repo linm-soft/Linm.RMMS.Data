@@ -33,7 +33,7 @@
 | 1c | `pavement-section` | Phân loại mặt đường (Biểu 1) | Asset | P1 | Hồ sơ CSDL biểu 1 | Demo | [pavement-section.md](pavement-section.md) |
 | 1d | `asset-kcht-dashboard` | Hub Hạng mục KCHT (40 ô) · widget `@linm/dashboard` | Asset | P1 | GOVOne lưới hạng mục | Context | [asset-kcht-dashboard.md](asset-kcht-dashboard.md) |
 | 2 | `gis` | GIS và Digital Twin | Gis | P1–P2 | Bản đồ Giám sát / TS / SC | Demo | [gis.md](gis.md) · **pilot camera overlay** [camera-ops-dashboard-demo.html](../../../Linm.RMMS.Demo/src/demo/features/camera-ops-dashboard-demo.html) |
-| 2s | `map-service` | MapService — gis.vn + clip OSM | Gis/Platform | P1 | — (chưa repo) | Context | [map-service.md](map-service.md) · skill `/implement-map-service` |
+| 2s | `map-service` | MapService — gis.vn + clip OSM | Gis/Platform | P1 | File 34 **đã giao** `docs/gis-vn-map/` · chưa ingest | Context | [map-service.md](map-service.md) · skill `/implement-map-service` |
 | 2t | `gis-osm-clip` | GIS prod: OSM clip + overlay MapService | Gis | P1 | MFE OSM.org/Google (**lệch**) | Context | [gis-osm-clip.md](gis-osm-clip.md) · `/implement-gis-map` |
 | 2u | `legal-tech-corridor` | Luật VN + Store (GPS/vẽ TS/guest) | Compliance | P1 | — | Context | [legal-tech-corridor.md](legal-tech-corridor.md) · `/review-app-vn-map-law` |
 | 2v | `directions` | Chỉ đường / HD điện tử guest | Integration | P1 | — (chưa OSRM Signed) | Context | [directions.md](directions.md) · `/implement-directions-app` |

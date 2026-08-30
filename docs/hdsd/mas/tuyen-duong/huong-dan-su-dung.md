@@ -55,7 +55,7 @@ Hình 4. View trên mobile device(<= 375px)
 | Mã tuyến | * | Điền / chọn trước khi Lưu |
 | Loại tuyến | * | Điền / chọn trước khi Lưu |
 | Tên tuyến | * | Điền / chọn trước khi Lưu |
-| Tuyến mẹ |  | Được để trống |
+| Tuyến chính |  | Được để trống |
 | Ghi chú |  | Được để trống |
 | Đang dùng |  | Được để trống |
 

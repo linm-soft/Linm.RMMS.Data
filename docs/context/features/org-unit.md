@@ -49,7 +49,7 @@ Base: `api/v1/integration/org-units` (DOMAIN-MAP **Integration** · live · **c�
 |-------|---------|-------|
 | code | Text code | `VP-II.2` |
 | name | Text | |
-| parentCode | SearchInput org-unit | tree parent |
+| parentCode | SearchInput org-unit | chỉ node đã dùng làm chủ quản **hoặc** master cùng cấp · **cấm** ROOM/VP/SU-leaf |
 | kind | LOOKUP_STATIC | HQ · ADV · REG · VP · SU · ROOM |
 | legacyAlias | Text optional | `Chi cục QLĐB II.2` |
 | isActive | Switch | |

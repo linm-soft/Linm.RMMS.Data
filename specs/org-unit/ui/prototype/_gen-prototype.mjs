@@ -94,7 +94,7 @@ const html = `<!DOCTYPE html>
     .viewDisabled .section { pointer-events: none; }
     .modal-f { padding: 12px 16px; border-top: 1px solid var(--border-soft); display: flex; gap: 8px; justify-content: flex-end; }
     .kind-pill { display: inline-block; font-size: 11px; font-weight: 700; padding: 1px 6px; border-radius: 999px; background: #eef2ff; color: #3730a3; }
-    /* SearchInput — Đơn vị cha (form-catalog-lookup) */
+    /* SearchInput — Đơn vị chủ quản (form-catalog-lookup) */
     .lkp { position: relative; }
     .lkp-input-wrap {
       display: flex; align-items: stretch; border: 1px solid var(--border); border-radius: var(--ds-radius-md);
@@ -223,11 +223,11 @@ const html = `<!DOCTYPE html>
         </div>
         <div class="field span2"><label class="req" for="fName">Tên đơn vị</label><input id="fName" placeholder="Nhập tên đơn vị" autocomplete="off" /></div>
         <div class="field span2">
-          <label for="fParentQ">Đơn vị cha</label>
+          <label for="fParentQ">Đơn vị chủ quản</label>
           <div class="lkp" id="parentLkp">
             <input type="hidden" id="fParent" value="" />
             <div class="lkp-input-wrap" id="fParentWrap">
-              <input id="fParentQ" type="search" placeholder="Gõ mã hoặc tên để chọn đơn vị cha…" autocomplete="off" />
+              <input id="fParentQ" type="search" placeholder="Gõ mã hoặc tên để chọn đơn vị chủ quản…" autocomplete="off" />
               <button type="button" class="lkp-clear" id="fParentClear" title="Xóa chọn" aria-label="Xóa"><i class="fas fa-times"></i></button>
             </div>
             <div class="lkp-drop" id="fParentDrop" role="listbox"></div>

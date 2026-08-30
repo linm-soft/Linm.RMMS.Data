@@ -1,0 +1,178 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Prototype — reports-filter-bar · DES-RPT-C</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    :root {
+      --bg: #f5f7fa; --card: #fff; --border: #BABCBE; --border-soft: #e9ecef;
+      --txt: #1A1A1A; --txt-secondary: #6c757d; --muted: #6D6D6D;
+      --primary: #0f766e; --toolbar-bg: #f8fafc;
+      --ds-focus-shadow: 0px 0px 4px #BABCBE; --ds-radius-md: 4px;
+      --ds-font-label: 13px; --ds-font-input: 14px; --ds-font-title: 22px;
+      --ds-height-btn: 32px; --field-w: 180px;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: "Segoe UI", system-ui, sans-serif; background: var(--bg); color: var(--txt); font-size: var(--ds-font-label); }
+    .page { max-width: 1440px; margin: 0 auto; padding: 8px; display: flex; flex-direction: column; gap: 8px; min-height: 100vh; }
+    .zone-a { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; flex-shrink: 0; }
+    .zone-a h1 { margin: 0; font-size: var(--ds-font-title); font-weight: 700; }
+    .badge { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: #ccfbf1; color: #115e59; }
+    .badge-out { background: #f1f5f9; color: #475569; }
+    .zone-toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 8px 12px; background: var(--toolbar-bg); border: 1px solid var(--border-soft); border-radius: var(--ds-radius-md); }
+    .zone-toolbar[data-des-id="DES-RPT-A"]::before { content: "DES-RPT-A (OUT · giữ parent)"; font-size: 10px; font-weight: 700; color: var(--muted); margin-right: 8px; }
+    .filter-header { display: grid; grid-template-columns: 1fr auto; gap: 8px 12px; align-items: start; padding: 10px 12px; background: var(--card); border: 1px solid var(--border-soft); border-radius: var(--ds-radius-md); }
+    @media (max-width: 1399px) { .filter-header { grid-template-columns: 1fr; } .filter-bar { justify-self: end; } }
+    .filter-title { font-size: 15px; font-weight: 700; padding-top: 6px; }
+    .filter-title small { display: block; font-size: 10px; font-weight: 700; color: var(--primary); margin-top: 2px; }
+    .filter-bar { display: flex; flex-wrap: wrap; justify-content: flex-end; align-items: flex-end; gap: 8px; max-width: 100%; }
+    .leading-frag { display: contents; }
+    .field { display: flex; flex-direction: column; gap: 4px; width: var(--field-w); min-width: var(--field-w); flex: 0 0 var(--field-w); }
+    .field.wide { width: 200px; min-width: 200px; flex-basis: 200px; }
+    .field label { font-size: var(--ds-font-label); color: var(--muted); font-weight: 500; }
+    .field-help { font-size: 11px; color: #b45309; margin: 0; line-height: 1.3; max-width: var(--field-w); }
+    .search-wrap { display: flex; align-items: stretch; border: 1px solid var(--border); border-radius: var(--ds-radius-md); overflow: hidden; background: #fff; min-height: 32px; }
+    .search-wrap:focus-within { border-color: var(--primary); box-shadow: var(--ds-focus-shadow); }
+    .search-wrap input { border: 0 !important; outline: none !important; box-shadow: none !important; flex: 1; min-width: 0; min-height: 30px; padding: 4px 8px; font-size: var(--ds-font-input); }
+    .search-wrap button { border: 0; border-left: 1px solid var(--border); background: #f8fafc; padding: 0 10px; cursor: pointer; color: var(--muted); min-width: 36px; }
+    .lkp { position: relative; }
+    .lkp-list { display: none; position: absolute; left: 0; right: 0; top: 100%; z-index: 40; background: #fff; border: 1px solid var(--border); border-radius: var(--ds-radius-md); max-height: 200px; overflow: auto; box-shadow: 0 8px 24px rgba(15,23,42,.12); }
+    .lkp.open .lkp-list { display: block; }
+    .lkp-list button { display: block; width: 100%; text-align: left; border: 0; background: #fff; padding: 8px 10px; font-size: 13px; cursor: pointer; }
+    .lkp-list button:hover { background: #f0fdfa; }
+    .lkp-list button .sub { display: block; font-size: 11px; color: var(--muted); }
+    .btn { height: var(--ds-height-btn); padding: 0 12px; border: 1px solid var(--border); border-radius: var(--ds-radius-md); background: #fff; cursor: pointer; font-size: 12px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
+    .btn-search { width: 32px; height: 32px; padding: 0; justify-content: center; background: var(--primary); color: #fff; border: 1px solid var(--primary); border-radius: var(--ds-radius-md); cursor: pointer; flex: 0 0 32px; display: inline-flex; align-items: center; }
+    .date-cluster { display: flex; flex-wrap: wrap; gap: 8px; align-items: flex-end; margin-left: 0; }
+    input[type="date"], input[type="text"], input[type="search"] { padding: 6px 10px; border: 1px solid var(--border); border-radius: var(--ds-radius-md); font-size: var(--ds-font-input); min-height: 32px; background: #fff; width: 100%; }
+    input:focus { outline: none; border-color: var(--primary); box-shadow: var(--ds-focus-shadow); }
+    .hidden { display: none !important; }
+    .zone-c { background: var(--card); border: 1px dashed var(--border); border-radius: var(--ds-radius-md); padding: 24px; text-align: center; color: var(--txt-secondary); flex: 1; }
+    .zone-c h2 { margin: 0 0 6px; font-size: 14px; color: var(--muted); }
+    .toast { position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%); background: #0f172a; color: #e2e8f0; padding: 10px 16px; border-radius: 999px; font-size: 13px; display: none; z-index: 70; }
+    .toast.on { display: block; }
+    .hint { margin: 0; font-size: 12px; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <div class="page" data-catalog-list-page data-kind="report" data-testid="rmms-reports-hub-prototype">
+    <header class="zone-a" data-zone="A" data-des-id="DES-RPT-HEADER">
+      <h1><i class="fas fa-chart-bar" aria-hidden="true"></i> Báo cáo Web</h1>
+      <span class="badge">Kind E · edit filter</span>
+      <span class="badge">DES-RPT-C</span>
+      <span class="badge badge-out">A/F/Grid OUT</span>
+    </header>
+    <p class="hint">Prototype content-only · filter-bar-layout-hard V1–V5 · SearchInput · cascade Tuyến→Khu→Đoạn · không chrome / native Select / action trên filter.</p>
+
+    <div class="zone-toolbar" data-des-id="DES-RPT-A" data-testid="rmms-reports-hub-report-toolbar">
+      <button type="button" class="btn" id="btnRefresh" title="Làm mới"><i class="fas fa-sync-alt" aria-hidden="true"></i> Làm mới</button>
+      <button type="button" class="btn" id="btnPrint" title="In"><i class="fas fa-print" aria-hidden="true"></i> In</button>
+      <button type="button" class="btn" id="btnConfig" title="Sửa config"><i class="fas fa-cog" aria-hidden="true"></i> Sửa config</button>
+      <button type="button" class="btn hidden" id="btnExport" title="Xuất Excel"><i class="fas fa-file-excel" aria-hidden="true"></i> Xuất Excel</button>
+    </div>
+
+    <div class="filter-header" data-des-id="DES-RPT-C">
+      <div class="filter-title">Danh sách<small>DES-RPT-C · LinErpListFilterBar</small></div>
+      <div class="filter-bar" data-lin-list-layout="erp-filter-bar" data-testid="rmms-reports-hub-filters">
+        <div class="leading-frag">
+          <div class="field lkp" id="lkpFamily" data-testid="rmms-reports-hub-field-family">
+            <label>Loại BC</label>
+            <div class="search-wrap"><input id="inFamily" type="text" readonly value="BC Tài sản" /><button type="button" aria-label="Mở lookup Loại BC"><i class="fas fa-search"></i></button></div>
+            <div class="lkp-list" id="listFamily"></div>
+          </div>
+          <div class="field lkp" id="lkpKind" data-testid="rmms-reports-hub-field-kind">
+            <label>Loại báo cáo</label>
+            <div class="search-wrap"><input id="inKind" type="text" readonly value="Tổng hợp chung" /><button type="button" aria-label="Mở lookup Loại báo cáo"><i class="fas fa-search"></i></button></div>
+            <div class="lkp-list" id="listKind"></div>
+          </div>
+          <div class="field lkp" id="lkpRoute" data-testid="rmms-reports-hub-field-route">
+            <label>Tuyến</label>
+            <div class="search-wrap"><input id="inRoute" type="text" placeholder="Tất cả tuyến" value="" /><button type="button" aria-label="Mở lookup Tuyến"><i class="fas fa-search"></i></button></div>
+            <div class="lkp-list" id="listRoute"></div>
+          </div>
+          <div class="field lkp" id="lkpZone" data-testid="rmms-reports-hub-field-zone">
+            <label>Khu</label>
+            <div class="search-wrap"><input id="inZone" type="text" placeholder="Tất cả khu" value="" /><button type="button" aria-label="Mở lookup Khu"><i class="fas fa-search"></i></button></div>
+            <div class="lkp-list" id="listZone"></div>
+          </div>
+          <div class="field lkp wide" id="lkpSegment" data-testid="rmms-reports-hub-field-segment">
+            <label>Đoạn</label>
+            <div class="search-wrap"><input id="inSegment" type="text" placeholder="Tất cả đoạn" value="" /><button type="button" aria-label="Mở lookup Đoạn"><i class="fas fa-search"></i></button></div>
+            <div class="lkp-list" id="listSegment"></div>
+            <p class="field-help" id="segHelp">Đoạn dump (Km…) — chưa có gán khu trên tuyến</p>
+          </div>
+          <div class="field wide" data-testid="rmms-reports-hub-field-search">
+            <label for="inSearch">Tìm kiếm</label>
+            <input id="inSearch" type="search" placeholder="Hạng mục · mã · cán bộ…" data-testid="rmms-reports-hub-search-text" />
+          </div>
+        </div>
+        <div class="date-cluster" data-testid="rmms-reports-hub-date-cluster">
+          <div class="field lkp" id="lkpPeriod" data-testid="rmms-reports-hub-field-viewMode">
+            <label>Kỳ báo cáo</label>
+            <div class="search-wrap"><input id="inPeriod" type="text" readonly value="Tháng" /><button type="button" aria-label="Mở lookup Kỳ"><i class="fas fa-search"></i></button></div>
+            <div class="lkp-list" id="listPeriod"></div>
+          </div>
+          <div class="field hidden" id="fldFrom"><label for="inFrom">Từ ngày</label><input id="inFrom" type="date" /></div>
+          <div class="field hidden" id="fldTo"><label for="inTo">Đến ngày</label><input id="inTo" type="date" /></div>
+        </div>
+        <button type="button" class="btn-search" id="btnView" aria-label="Xem báo cáo" title="Xem báo cáo"><i class="fas fa-search" aria-hidden="true"></i></button>
+      </div>
+    </div>
+
+    <section class="zone-c" data-zone="C" data-des-id="DES-RPT-GRID-OUT">
+      <h2>Zone C/D · Config · Chart — OUT this pack</h2>
+      <p class="hint" id="gridHelp">Chưa xem — nhấn 🔍 «Xem» để áp dụng bộ lọc (grid giữ parent reports).</p>
+      <p class="hint" id="applied"></p>
+    </section>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+  <script>
+    const FAMILIES = [{ value: 'assets', label: 'BC Tài sản' }, { value: 'incidents', label: 'BC Sự cố' }, { value: 'checkins', label: 'BC Check-in' }];
+    const KINDS = {
+      assets: [{ value: 'summary', label: 'Tổng hợp chung' }, { value: 'by-route', label: 'Thống kê theo tuyến' }, { value: 'by-org', label: 'Thống kê theo doanh nghiệp' }, { value: 'by-item', label: 'Tổng hợp theo hạng mục' }],
+      incidents: [{ value: 'monthly', label: 'Thống kê TNGT hàng tháng' }, { value: 'half-year', label: 'Tổng hợp TNGT 6 tháng' }, { value: 'serious', label: 'Báo cáo TNGT nghiêm trọng' }, { value: 'compare', label: 'So sánh TNGT' }],
+      checkins: [{ value: 'daily', label: 'Nhật ký tuần đường' }, { value: 'patrol', label: 'Hoạt động tuần kiểm' }, { value: 'worklog', label: 'Nhật ký công việc' }, { value: 'coverage', label: 'Coverage check-in ≥3 điểm/ngày' }],
+    };
+    const PERIODS = [{ value: 'day', label: 'Ngày' }, { value: 'month', label: 'Tháng' }, { value: 'quarter', label: 'Quý' }, { value: 'year', label: 'Năm' }];
+    const ROUTES = [{ value: '', label: 'Tất cả tuyến' }, { value: 'QL.1', label: 'QL.1', sub: 'Quốc lộ 1' }, { value: 'QL.15', label: 'QL.15', sub: 'Quốc lộ 15' }, { value: 'QL.217', label: 'QL.217', sub: 'Quốc lộ 217' }, { value: 'CT.001', label: 'CT.001', sub: 'Cao tốc (CUC 2)' }, { value: 'HCM', label: 'HCM', sub: 'Đường Hồ Chí Minh' }];
+    const ZONES = [{ value: '', label: 'Tất cả khu' }, { value: 'REG-I', label: 'REG-I', sub: 'Khu QLĐB I' }, { value: 'REG-II', label: 'REG-II', sub: 'Khu QLĐB II' }, { value: 'REG-III', label: 'REG-III', sub: 'Khu QLĐB III' }, { value: 'REG-IV', label: 'REG-IV', sub: 'Khu QLĐB IV' }];
+    const SEGMENTS_DUMP = [{ value: '', label: 'Tất cả đoạn' }, { value: 'KM0+000-QL.1', label: 'Km 0+000 – 12+500', sub: 'dump NHANH · QL.1' }, { value: 'KM12+500-QL.1', label: 'Km 12+500 – 28+000', sub: 'dump NHANH · QL.1' }, { value: 'KM0+000-QL.15', label: 'Km 0+000 – 8+200', sub: 'dump NHANH · QL.15' }];
+    const state = { family: 'assets', kind: 'summary', route: '', zone: '', segment: '', period: 'month', viewed: false, hasZoneAssign: false };
+    function toast(msg) { const el = document.getElementById('toast'); el.textContent = msg; el.classList.add('on'); setTimeout(() => el.classList.remove('on'), 2200); }
+    function fillList(listEl, items, onPick) {
+      listEl.innerHTML = items.map((i) => { const sub = i.sub ? '<span class="sub">' + i.sub + '</span>' : ''; return '<button type="button" data-v="' + i.value + '">' + i.label + sub + '</button>'; }).join('');
+      listEl.querySelectorAll('button').forEach((b) => { b.addEventListener('click', () => { onPick(b.getAttribute('data-v') || '', b.childNodes[0].textContent.trim()); listEl.parentElement.classList.remove('open'); }); });
+    }
+    function bindLkp(wrapId, listId, getItems, onPick) {
+      const wrap = document.getElementById(wrapId); const list = document.getElementById(listId);
+      wrap.querySelector('.search-wrap button').addEventListener('click', (e) => { e.stopPropagation(); document.querySelectorAll('.lkp.open').forEach((n) => { if (n !== wrap) n.classList.remove('open'); }); wrap.classList.toggle('open'); fillList(list, getItems(), onPick); });
+    }
+    function syncDatesExcel() { const showDates = state.family !== 'assets'; document.getElementById('fldFrom').classList.toggle('hidden', !showDates); document.getElementById('fldTo').classList.toggle('hidden', !showDates); document.getElementById('btnExport').classList.toggle('hidden', state.family !== 'checkins'); }
+    function clearZoneSegment() { state.zone = ''; state.segment = ''; document.getElementById('inZone').value = ''; document.getElementById('inSegment').value = ''; }
+    function clearSegment() { state.segment = ''; document.getElementById('inSegment').value = ''; }
+    function applyView() {
+      state.viewed = true;
+      const parts = ['family=' + state.family, 'kind=' + state.kind, state.route ? 'route=' + state.route : 'route=*', state.zone ? 'zone=' + state.zone : 'zone=*', state.segment ? 'segment=' + state.segment : 'segment=*', 'period=' + state.period, 'q=' + (document.getElementById('inSearch').value || '—')];
+      document.getElementById('gridHelp').textContent = 'Đã xem (mock) — grid OUT · giữ parent reports.';
+      document.getElementById('applied').textContent = parts.join(' · ');
+      toast('Đã áp dụng bộ lọc (prototype)');
+    }
+    bindLkp('lkpFamily', 'listFamily', () => FAMILIES, (v, label) => { state.family = v || 'assets'; document.getElementById('inFamily').value = label; const kinds = KINDS[state.family]; state.kind = kinds[0].value; document.getElementById('inKind').value = kinds[0].label; state.viewed = false; syncDatesExcel(); });
+    bindLkp('lkpKind', 'listKind', () => KINDS[state.family], (v, label) => { state.kind = v; document.getElementById('inKind').value = label; });
+    bindLkp('lkpRoute', 'listRoute', () => ROUTES, (v, label) => { state.route = v; document.getElementById('inRoute').value = v ? label : ''; clearZoneSegment(); state.viewed = false; });
+    bindLkp('lkpZone', 'listZone', () => ZONES, (v, label) => { state.zone = v; document.getElementById('inZone').value = v ? label : ''; clearSegment(); state.viewed = false; });
+    bindLkp('lkpSegment', 'listSegment', () => SEGMENTS_DUMP, (v, label) => { state.segment = v; document.getElementById('inSegment').value = v ? label : ''; });
+    bindLkp('lkpPeriod', 'listPeriod', () => PERIODS, (v, label) => { state.period = v; document.getElementById('inPeriod').value = label; });
+    document.getElementById('btnView').addEventListener('click', applyView);
+    document.getElementById('inSearch').addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); applyView(); } });
+    document.getElementById('btnRefresh').addEventListener('click', () => toast('Làm mới (toolbar · OUT filter)'));
+    document.getElementById('btnPrint').addEventListener('click', () => toast('In (toolbar · OUT filter)'));
+    document.getElementById('btnConfig').addEventListener('click', () => toast('Sửa config FULL — giữ parent (OUT this pack)'));
+    document.getElementById('btnExport').addEventListener('click', () => toast('Xuất Excel check-in (toolbar)'));
+    document.addEventListener('click', () => { document.querySelectorAll('.lkp.open').forEach((n) => n.classList.remove('open')); });
+    syncDatesExcel();
+  </script>
+</body>
+</html>

@@ -262,5 +262,32 @@ Warehouse · join live Asset/Incident/Patrol EF · GOVOne 172 · dashboard KPI �
 
 Roles sau TL = **pending** đến lượt. Chain ON → enqueue **dev** cùng feature `reports`.
 
+### T-UI-FILTER-01 — Hub `/bao-cao` search toolbar (pilot 2026-08-30)
+
+**status:** pending  
+**devSlash:** `/agent-dev`  
+**skills (REQUIRED load trước Write):**
+  - /filter-bar-context · /erp-filter-form · filter-bar-layout-hard · /filter-dates-context
+  - context: `docs/context/features/reports-filter-bar.md`
+  - peer: `docs/context/features/org-route-scope.md` — **cấm** invent API gán km
+
+**ssot.reuse:**
+  ui_filter: LinErpListFilterBar · fragment leading · data-lin-list-layout="erp-filter-bar"
+  ui_layout: title trái · mọi input + 🔍 cụm phải · wrap từng field
+  http: Tuyến `road-routes/search` + `routeKind` ≠ NHANH/TRANH/GOM · Khu `org-units/search?kind=REG` · Đoạn nhãn riêng (dump KM* tạm)
+
+**implement.filter:**
+  page: **chỉ** `ReportListPage` / `ReportFilterBar.tsx` · **cấm** batch mọi leaf FilterBar
+  leading: family · kind · **tuyến chính** · **khu REG** · **đoạn** · search
+  cascade: tuyến → khu → đoạn · clear child khi đổi parent
+  cấm: đưa `Km 0+000…` vào dropdown Tuyến · mix Sở vào Khu
+
+**DoD:**
+- [ ] Context fields 1:1 §1 trên `/bao-cao`
+- [ ] Dropdown Tuyến chỉ QL/HCM/CT — không `KM0+*`
+- [ ] Có field Khu + Đoạn · 🔍 Xem work
+- [ ] V1–V5 `filter-bar-layout-hard` PASS
+- [ ] `yarn build` PASS · **cấm** Schema/seed dump
+
 ---
 <!-- Version meta: skillVersion=2026.08.15.5 · schemaVersion=1 · workflowVersion=2026.08.15.5 · rulesVersion=2026.08.15.8 · versionGate=keep_current · skillId=agent-team-lead -->
