@@ -7,7 +7,7 @@
 > **packKind:** `master` — **không demo** · UI confirm Design  
 > **changeScope:** `new_page` (lớp gán mới — **không** reopen CRUD `org-unit` / `road-route` đã `done`)  
 > **MFE:** `Linm.Web.RMMS.Master` · đề xuất `/mas/phan-khu` (SA chốt path)  
-> **Peers:** [`org-unit.md`](org-unit.md) · [`road-route.md`](road-route.md) · [`partner-unit.md`](partner-unit.md) · [`pavement-section.md`](pavement-section.md) · [`users.md`](users.md) · [`login.md`](login.md) · [`import-gov-ssot.md`](import-gov-ssot.md)  
+> **Peers:** [`org-unit.md`](org-unit.md) · [`road-route.md`](road-route.md) · [`partner-unit.md`](partner-unit.md) · [`pavement-section.md`](pavement-section.md) · [`users.md`](users.md) · [`login.md`](login.md) · [`import-gov-ssot.md`](import-gov-ssot.md) · form org [`org-route-scope-form-org.md`](org-route-scope-form-org.md)  
 > **SSOT org:** [`../20-ORG-STRUCTURE-DRVN.md`](../20-ORG-STRUCTURE-DRVN.md) · seed 60 [`../seed/org-unit-seed.json`](../seed/org-unit-seed.json)  
 > **LRS:** [`../24-TUAN-DUONG-DUONG-BO.md`](../24-TUAN-DUONG-DUONG-BO.md) §6  
 > **Review data:** `/data-gov-integration` 2026-08-30 — **không** có dump gán Khu↔tuyến km (**GOV-IMP-03**)
@@ -62,7 +62,7 @@ Filter cascade (1→nhiều) **đủ case:** **Cục → Khu → Văn phòng →
 | Cục | `org-unit` `DRVN` | **không ô** — implicit Cục QLĐB | **cấm** hiện filter |
 | Khu | `REG-I`…`IV` | SearchInput trong bar | Ô trong bar · cascade |
 | Văn phòng | `VP-*` | SearchInput `vpOrgCode` · form * | Giữ · lookup ⊆ Khu |
-| Đơn vị | SU / partner | SearchInput ⊆ VP (org-unit + đoạn neo) | Lookup ⊆ VP đã chọn |
+| Đơn vị | SU + **`partner-unit` `/mas/doi-tac`** | SearchInput theo phân công Khu/VP/Tuyến trên form đối tác · **cấm** nhét node VP | Lookup ⊆ phân công · list phân khu BE union đoạn gán + zone/route/VP đối tác |
 | Tuyến | `road-route` mẹ | SearchInput `routeCode` | Lookup ⊆ cấp trên đã gán |
 | Đoạn | segment km | **Tab form** — **không** ô filter / không lưới đoạn | SearchInput + list/filter theo đoạn |
 
@@ -196,7 +196,7 @@ User `CONTRACT`: giữ rule login — `UserRoute` ⊆ `ContractRoute`.
 | GAP-ROUTE-01 | — | Mở — segment code vs route (đã có trên `road-route`) |
 | GAP-ORS-LKP-DISPLAY-01 | P0 | SearchInput form/filter — sau chọn fill **mã + tên** (dual-box) — **closed** `/edit-web-feature` 2026-08-30 |
 | GAP-ORS-VP-01 | P0 | Đoạn thiếu `vpOrgCode` — VP không suy đơn vị con — **closed** Schema + form 2026-08-30 |
-| GAP-ORS-CASCADE-01 | P0 | Cây đủ **Cục → Khu → VP → Đơn vị → tuyến → đoạn** — Cục ẩn · Khu+VP+Đơn vị⊆VP **closed** 2026-08-30 · còn thiếu filter/list đoạn; lookup tuyến chưa ⊆ cấp trên |
+| GAP-ORS-CASCADE-01 | P0 | Cây đủ **Cục → Khu → VP → Đơn vị → tuyến → đoạn** — Cục ẩn · Khu+VP+Đơn vị⊆VP **closed** 2026-08-30 · form Create/Edit thứ tự SearchInput **closed** `/rmms-form-input-org-tree` 2026-08-31 · còn thiếu filter/list đoạn; lookup tuyến chưa ⊆ cấp trên |
 
 ## 10. Pipeline
 

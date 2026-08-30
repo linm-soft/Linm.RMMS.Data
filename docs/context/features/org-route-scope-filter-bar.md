@@ -19,7 +19,7 @@
 | 2 | Khu | **`SearchInput`** REG-I…IV | `leading` L1 | `zoneOrgCode` | **trong bar** · URL `?zoneOrgCode=` · **cấm** tabs ngoài bar |
 | 3 | Văn phòng | **`SearchInput`** kind=`VP` · `parentCode`=Khu | `leading` L1 | `vpOrgCode` | có · lookup ⊆ Khu |
 | — | *(break)* | flex `leadBreak` 100% | — | — | **3–3** |
-| 4 | Đơn vị | **`SearchInput`** SU + partner | `leading` L2 | `assigneeCode` | ⊆ VP đã chọn (org-unit + đoạn) · trống VP = mọi con |
+| 4 | Đơn vị | **`SearchInput`** SU + **`/mas/doi-tac`** | `leading` L2 | `assigneeCode` | theo phân công Khu/VP/Tuyến trên đối tác · **cấm** trùng node VP |
 | 5 | Tuyến chính | **`SearchInput`** tuyến mẹ | `leading` L2 | `routeCode` | có · lookup chưa ⊆ cấp trên |
 | 6 | Đoạn | **`SearchInput`** segment ⊆ tuyến | `leading` | `segmentId` | **GAP-ORS-CASCADE-01** — chỉ tab form · **cấm** invent query |
 | 7 | Hiệu lực | `Select` init-data + «Tất cả» | `leading` L2 | `isActive` | có |

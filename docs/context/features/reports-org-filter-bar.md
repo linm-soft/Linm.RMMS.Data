@@ -2,7 +2,8 @@
 
 **MFE:** `Linm.Web.RMMS.Report` · **scope:** `one_mfe` · **km_range:** `km_skip`  
 **Confirm:** `/rmms-filter-org` 2026-08-31  
-**Shared FE:** `src/filters/RmmsOrgFilterFields.tsx` · `src/filters/rmmsOrgFilter.ts` · `src/services/report/orgFilterLookups.ts`  
+**Shared FE:** `src/filters/RmmsOrgFilterFields.tsx` · `src/filters/rmmsOrgFilter.ts` · `src/filters/RmmsReportFilterBar.tsx` · `src/services/report/orgFilterLookups.ts`  
+**Layout:** desktop 2 hàng · L1 Tìm kiếm + field prefix + Khu · L2 Văn phòng · Đơn vị · Tuyến · `km_skip` · compact = package dropdown  
 **Form persist:** [`reports-form-org.md`](reports-form-org.md) · `/rmms-form-input-org-tree`  
 **Pilot list:** `/mas/phan-khu` · [`org-route-scope-filter-bar.md`](org-route-scope-filter-bar.md)  
 **Hub:** [`reports-filter-bar.md`](reports-filter-bar.md)  

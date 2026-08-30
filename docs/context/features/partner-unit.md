@@ -6,7 +6,7 @@
 > **packKind:** `master` — **không demo** · UI confirm Design  
 > **Data-analy:** [`../../specs/_data-analy/shared-catalogs/INVESTIGATE-CUC2.md`](../../specs/_data-analy/shared-catalogs/INVESTIGATE-CUC2.md) §2  
 > **MFE:** `Linm.Web.RMMS.Master` · `/mas/doi-tac`  
-> **Hub:** [`master.md`](master.md) · khác [`org-unit.md`](org-unit.md) (cây DRVN)
+> **Hub:** [`master.md`](master.md) · khác [`org-unit.md`](org-unit.md) (cây DRVN) · form org [`partner-unit-form-org.md`](partner-unit-form-org.md)
 
 ## 1. Tổng quan
 
@@ -49,4 +49,4 @@ Danh sách tên dưới đây **không** phải nguồn import hiện tại. Imp
 | ID | |
 |----|--|
 | GAP-PARTNER-01 | Code scheme Ask SA (slug vs IdCode) |
-| GAP-PARTNER-02 | Quan hệ partner ↔ org-unit (đoạn giao) — optional later |
+| GAP-PARTNER-02 | Quan hệ partner ↔ org — form gắn Khu/VP/Tuyến **closed** `/rmms-form-input-org-tree` 2026-08-31 · đoạn giao still later |

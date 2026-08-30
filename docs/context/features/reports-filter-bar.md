@@ -4,7 +4,7 @@
 **Route live:** `/bao-cao` · **mfeStdUrl:** `http://localhost:9311/bao-cao`  
 **testIdPrefix:** `rmms-reports-hub`  
 **Package:** `LinErpListFilterBar` · `data-lin-list-layout="erp-filter-bar"`  
-**Context review version:** `2026.08.30.1`  
+**Context review version:** `2026.08.31.2`  
 **Skills:** `/rmms-filter-org` · `/filter-bar-context` · `/erp-filter-form` · `filter-bar-layout-hard` · `/filter-dates-context`  
 **Dev:** `/agent-dev` · task **T-UI-FILTER-01** — load file này **trước Write**  
 **Peer org:** [`reports-org-filter-bar.md`](reports-org-filter-bar.md) · [`org-route-scope-filter-bar.md`](org-route-scope-filter-bar.md)  
@@ -16,16 +16,16 @@
 
 | # | Label VN | Control | Slot | API / query |
 |---|----------|---------|------|-------------|
-| 1 | Loại BC | `SearchInput` family | `leading` | `family` — assets / incidents / checkins (init FE + SSOT hiện có) |
-| 2 | Loại báo cáo | `SearchInput` kind theo family | `leading` | `kind` |
-| 3 | Khu | `SearchInput` REG leaf | `leading` | `zoneOrgCode` — `REG-I`…`REG-IV` · **cấm** ô Cục |
-| 4 | Văn phòng | `SearchInput` kind=`VP` · `parentCode`=Khu | `leading` | `vpOrgCode` |
-| 5 | Đơn vị | `SearchInput` SU + partner | `leading` | `assigneeCode` |
-| 6 | Tuyến | `SearchInput` `road-route` **tuyến chính** | `leading` | `routeId` / `routeCode` — **chỉ** tuyến mẹ · **cấm** NHANH/TRANH/GOM · **cấm** mã `KM0+*` |
+| 1 | Tìm kiếm | `Input` (không nút Tìm riêng) | `leading` **đầu line 1** | `search` — hạng mục · mã · cán bộ |
+| 2 | Nhóm báo cáo | `SearchInput` family | `leading` L1 | `family` — BC Tài sản / Sự cố / Check-in |
+| 3 | Loại báo cáo | `SearchInput` kind theo family | `leading` L1 | `kind` — nhãn lookup đầy đủ (Tổng hợp chung · theo tuyến…) |
+| 4 | Khu | `SearchInput` REG leaf | `leading` L1 | `zoneOrgCode` — `REG-I`…`REG-IV` · **cấm** ô Cục |
+| 5 | Văn phòng | `SearchInput` kind=`VP` · `parentCode`=Khu | `leading` L2 | `vpOrgCode` |
+| 6 | Đơn vị | `SearchInput` SU + partner | `leading` L2 | `assigneeCode` |
+| 7 | Tuyến | `SearchInput` `road-route` **tuyến chính** | `leading` L2 | `routeId` / `routeCode` — **chỉ** tuyến mẹ · **cấm** NHANH/TRANH/GOM · **cấm** mã `KM0+*` |
 | — | Đoạn | **không ô** | — | **GAP-ORS-CASCADE-01** — tab form phân khu · **cấm** invent `segmentId` |
-| 7 | Tìm kiếm | `SearchTextInput` / `Input` (không nút Tìm riêng) | `leading` | `search` — hạng mục · mã · cán bộ |
-| 8 | Kỳ | `LinReportPeriodSelectorFields` | `dateLeading` | `viewMode` · month · year · quarter |
-| 9 | Từ ngày / Đến ngày | bar date | date | ẩn khi family=`assets` (giữ hành vi hiện tại) |
+| 8 | Kỳ báo cáo | `LinReportPeriodSelectorFields` | `dateLeading` | `viewMode` · month · year · quarter — hug 9.5 / 7.5 / 6.5rem |
+| 9 | Từ ngày / Đến ngày | `LinExpandableDateRangeField` | date | **chỉ khi** `viewMode=day` · from→to · ẩn tháng/quý/năm |
 | 10 | Xem | bar `onSearch` 🔍 | search | apply → load báo cáo · **không** nút Tìm trùng |
 
 **Cấm:** export/print/config trên bar (đã ở toolbar Zone B: Làm mới · In · Sửa config) · `ErpListHeaderFilters` · `LinListFilterField` · wrapper cả `leading` · `filterMaxWidthPx` · native `<select>`.
@@ -47,7 +47,9 @@
 
 ## 2. Layout
 
-- Title trái («Báo cáo Web» / «Danh sách») · mọi input + 🔍 cụm phải · wrap `flex-end`.
+- Desktop: L1 Tìm kiếm · Nhóm báo cáo · Loại báo cáo · Khu (`1fr` ×4) · L2 Văn phòng · Đơn vị · Tuyến · L3 **Kỳ + Tháng/Năm** (hoặc **from→to** khi Ngày) + 🔍 cụm phải, hug SSOT.
+- Hộp tên SearchInput **giữ** (mã + tên).
+- Compact (touch / small): package dropdown — **cấm** grid desktop.
 - Toolbar Zone B: Làm mới · In · Sửa config — **không** trên filter.
 - V1–V5 `filter-bar-layout-hard` PASS trên `http://localhost:9311/bao-cao`.
 
@@ -63,10 +65,10 @@
     searchAriaLabel="Xem báo cáo"
     leading={(
       <>
+        <div data-testid={`${TEST_ID}-field-search`}>…</div>
         <div data-testid={`${TEST_ID}-field-family`}>…</div>
         <div data-testid={`${TEST_ID}-field-kind`}>…</div>
         <RmmsOrgFilterFields /> {/* zoneOrgCode · vpOrgCode · assigneeCode · routeCode */}
-        <div data-testid={`${TEST_ID}-field-search`}>…</div>
       </>
     )}
     dateLeading={<LinReportPeriodSelectorFields … />}
@@ -95,10 +97,11 @@ Family mặc định `assets` · kind `summary` — giữ.
 | GAP-RPT-FIL-04 | Đoạn dump ≠ đoạn quản lý zone — document trên UI (placeholder / helper) |
 | GAP-TL-FILTER-01 | Thiếu load file này trước Write |
 | GAP-FILTER-BAR-01/07 · WRAP-01 | Layout V1–V5 |
+| GAP-FILTER-PERIOD-09 | Kỳ/Tháng/Năm hug trên L3 — không nhét 1 cột L2 |
 
 ## Implement tracking
 
 | lane | phase | status | updatedAt |
 |------|-------|--------|-----------|
-| web | `done` | `done` | `2026-08-30T16:39:35.567Z` |
+| web | `done` | `done` | `2026-08-31T00:50:00.000Z` |
 | mobile | — | — | — |

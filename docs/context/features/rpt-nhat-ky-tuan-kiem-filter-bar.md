@@ -15,12 +15,12 @@
 | # | Label VN | Control | Slot | API / query |
 |---|----------|---------|------|-------------|
 | — | Cục | **không ô** | — | implicit `DRVN` |
-| 1 | Khu | `SearchInput` REG leaf | `leading` | `zoneOrgCode` |
-| 2 | Văn phòng | `SearchInput` kind=`VP` · `parentCode`=Khu | `leading` | `vpOrgCode` |
-| 3 | Đơn vị | `SearchInput` SU + partner | `leading` | `assigneeCode` |
-| 4 | Tuyến | `SearchInput` tuyến mẹ | `leading` | `routeId` / `routeCode` |
-| 5 | Cán bộ | `SearchInput` staff | `leading` | `staffId` |
-| 6 | Tìm kiếm | `Input` | `leading` | `q` |
+| 1 | Tìm kiếm | `Input` | `leading` **đầu line 1** | `q` |
+| 2 | Khu | `SearchInput` REG leaf | `leading` | `zoneOrgCode` |
+| 3 | Văn phòng | `SearchInput` kind=`VP` · `parentCode`=Khu | `leading` | `vpOrgCode` |
+| 4 | Đơn vị | `SearchInput` SU + partner | `leading` | `assigneeCode` |
+| 5 | Tuyến | `SearchInput` tuyến mẹ | `leading` | `routeId` / `routeCode` |
+| 6 | Cán bộ | `SearchInput` staff | `leading` | `staffId` |
 | 7 | Từ ngày / Đến ngày | bar date | date | `from` · `to` |
 | 8 | Xem | bar `onSearch` 🔍 | search | apply · **page=1** |
 
@@ -32,7 +32,7 @@
 
 ## 2. Layout
 
-- Title trái · input + 🔍 cụm phải · wrap `flex-end`.
+- Desktop 2 hàng grid (`RmmsReportFilterBar`) · Tìm kiếm đầu line 1 · kỳ/ngày + 🔍 cụm phải.
 - Sau chọn = **mã + tên** · portal `dropdownMatch: row` · `dropdownMinWidth: 32rem`.
 - Toolbar Zone B: Làm mới · In · Config — **không** trên filter.
 
