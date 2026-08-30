@@ -70,6 +70,7 @@
 | T-UI-FORM-01 | org-unit | dev | T-UI-LIST-01 | **done** | Modal + SearchInput · init-data kinds |
 | T-UI-ACT-01 | org-unit | dev | T-UI-FORM-01 | **done** | action inventory → form/API |
 | T-QA-CRUD-01 | org-unit | qa | T-UI-ACT-01 | **done** | scenarios.md Create→Edit→View→Delete |
+| T-UD-BUG-01 | /mas/co-cau-tc/tao-moi | qa | T-UI-FORM-01 | **done** | confirmed `/run-user-doc` 2026-08-30 · HDSD-P0-08/11 · capture=03-mas-co-cau-tc-tao-moi.png |
 
 ## Blockers
 

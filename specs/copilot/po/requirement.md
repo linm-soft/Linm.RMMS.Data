@@ -44,7 +44,7 @@ Chat Kind D Slideout **là** surface sản phẩm — **không** ép Resource / 
 5. Zone D: `LinCatalogListPagination` pageSize **50 / 100 / 200 / 500**.
 6. FAB «Mở Copilot» mở drawer phiên chọn / tạo mới.
 7. Drawer Z1: Đóng · mã SES-* readonly · tiêu đề **Text rename** · Xuất JSON stub · engine badge.
-8. Drawer Z2: prompt chips **×5** · bubbles role/content/tokens · citations chip toast · chart stub.
+8. Drawer Z2: prompt chips **×5** từ **BE** `GET /copilot/prompts` (không hardcode FE) · bubbles UTF-8 VN (không mojibake / không chữ `(P1 stub)`) · citations chip toast · chart stub.
 9. Drawer Z3: TextArea draft · SearchInput locale vi/en · Gửi (Enter; Shift+Enter newline) · Escalate 4o · P2 RAG toggle **badge only** · disclaimer «AI hỗ trợ — kiểm tra nghiệp vụ».
 10. Thumb up/down · down + **note modal** · copy clipboard toast.
 11. Dirty composer: leave-confirm Lin SSOT — **cấm** `window.confirm`. Xóa phiên: `useAlert` / confirm modal — **cấm** `window.confirm`.

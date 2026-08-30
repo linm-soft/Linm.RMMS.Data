@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hướng dẫn sử dụng — Đăng nhập</title>
+  <style>
+    :root { font-family: "Segoe UI", system-ui, sans-serif; color: #1a1a1a; }
+    body { margin: 0; background: #fafafa; }
+    .wrap { max-width: 960px; margin: 0 auto; padding: 24px; background: #fff; }
+    h1 { font-size: 1.35rem; margin-top: 0; }
+    h2 { font-size: 1.15rem; }
+    table { border-collapse: collapse; width: 100%; font-size: 0.9rem; }
+    th, td { border: 1px solid #d0d0d0; padding: 0.4rem 0.55rem; text-align: left; }
+    th { background: #f4f4f4; }
+    figure { margin: 0 0 1rem; }
+    figure img { width: 100%; height: auto; border: 1px solid #ddd; }
+    figcaption { font-size: 0.85rem; color: #444; margin-top: 0.35rem; }
+    @page {
+      size: A4 portrait;
+      margin: 14mm 12mm 16mm 12mm;
+      @top-left { content: "Hướng dẫn sử dụng — Đăng nhập"; font-size: 9pt; color: #555; }
+      @bottom-right { content: counter(page) "/" counter(pages); font-size: 9pt; color: #555; }
+    }
+    @media print {
+      html, body { width: 100%; margin: 0; padding: 0; background: #fff; }
+      .wrap { max-width: none !important; width: 100% !important; margin: 0; padding: 0; }
+      a { color: inherit; text-decoration: none; }
+      .no-print { display: none !important; }
+      figure { break-inside: avoid; }
+      figure img { width: 100%; max-height: 145mm; object-fit: contain; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Hướng dẫn sử dụng — Đăng nhập</h1>
+    <p class="no-print">Bản in: tắt «Tiêu đề và chân trang» của trình duyệt. Page dùng chung — không gen lại theo từng tính năng.</p>
+
+    <section class="screen text-only">
+      <h2>Phạm vi</h2>
+      <p>Xác thực tài khoản để vào phần mềm. Áp dụng mọi phân hệ sau khi đăng nhập.</p>
+    </section>
+
+    <section class="screen has-fig">
+      <h2 id="form-login">Đăng nhập</h2>
+      <p><strong>Mục đích:</strong> xác thực tài khoản để sử dụng phần mềm.</p>
+      <p><strong>Cách thực hiện:</strong></p>
+      <ol>
+        <li>Mở địa chỉ phần mềm.</li>
+        <li>Điền tên đăng nhập.</li>
+        <li>Điền mật khẩu.</li>
+        <li>Nhấn <strong>Đăng nhập</strong>.</li>
+      </ol>
+      <figure>
+        <img src="captures/01-login.png" alt="Đăng nhập" />
+        <figcaption>Hình 1. Đăng nhập</figcaption>
+      </figure>
+      <table>
+        <thead><tr><th>Nhãn trên màn</th><th>*</th><th>Cách điền</th></tr></thead>
+        <tbody>
+          <tr><td>Tên đăng nhập</td><td>*</td><td>Tài khoản / số điện thoại đã được cấp</td></tr>
+          <tr><td>Mật khẩu</td><td>*</td><td>Mật khẩu tài khoản — không chụp khi đã gõ</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+</body>
+</html>

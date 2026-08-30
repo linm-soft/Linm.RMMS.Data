@@ -108,12 +108,13 @@ Fixed «Mở Copilot»: nếu có dòng chọn → mở session đó; không →
 
 ### Drawer Z2 — Messages
 
-- Prompt chips **×5** (inject + send):
+- Prompt chips **×5** — **SSOT BE** `GET /api/v1/copilot/prompts` (`CopilotMockCatalog`, UTF-8). FE **cấm** hardcode chips / canned reply. Cùng catalog match `POST /chat`.
   1. Tuyến nào xuống cấp nhanh nhất?
   2. Có bao nhiêu ổ gà chưa xử lý?
   3. Tài sản nào cần chú ý tuần này?
   4. Tổng hợp PCI trung bình theo tuyến
   5. Sinh biểu đồ sự cố mở theo mức độ
+- Reply content UTF-8 VN — **cấm** mojibake / `(P1 stub)` trên bubble
 - Bubbles: role badge · content markdown · tokens
 - Citations chip → toast stub Incident/Asset/Report
 - Chart card: ECharts JSON stub (không lib bắt buộc P1)

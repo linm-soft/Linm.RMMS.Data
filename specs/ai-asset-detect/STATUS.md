@@ -73,6 +73,8 @@
 | task_c4b4decb | ai-asset-detect | dev | team_lead | **completed** | BE+FE build PASS · roleOnly |
 | task_c86da81c | ai-asset-detect | qa | dev | **completed** | T-QA-CRUD/AI · GAP-QA-ACT-DELETE-01 → closed in review |
 | task_b86293c4 | ai-asset-detect | review | qa | **completed** | approve · delete UI wired · builds PASS |
+| T-UD-BUG-15 | /ai-kd/phat-hien-ts | docs | — | **pending** | title + header &lt; 22px · UD-P0-21 · shared `docs/hdsd/ai-kd/bugs.md` |
+| T-UD-BUG-16 | /ai-kd/phat-hien-ts | docs | — | **pending** | filter align · dropdown clip · 🔍 · UD-P0-22 · cùng bugs.md |
 
 ## Blockers / open questions
 

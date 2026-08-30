@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-25T15:20:00.000Z",
+  "updatedAt": "2026-08-30T07:30:55.331Z",
   "features": {
     "ai-asset-detect": {
       "web": {
@@ -12,9 +12,9 @@
     },
     "ai-vision": {
       "web": {
-        "phase": "done",
-        "status": "done",
-        "updatedAt": "2026-08-21T03:31:41.240Z",
+        "phase": "data_analy",
+        "status": "in_progress",
+        "updatedAt": "2026-08-29T02:12:27.217Z",
         "statusRel": "specs/ai-vision/STATUS.md"
       }
     },
@@ -28,9 +28,9 @@
     },
     "asset-kcht-32": {
       "web": {
-        "phase": "design",
+        "phase": "qa",
         "status": "await_confirm",
-        "updatedAt": "2026-08-21T03:31:41.241Z",
+        "updatedAt": "2026-08-29T13:37:40.928Z",
         "statusRel": "specs/asset-kcht-32/STATUS.md"
       }
     },
@@ -84,9 +84,9 @@
     },
     "csdl-so-sach": {
       "web": {
-        "phase": "data_analy",
-        "status": "blocked",
-        "updatedAt": "2026-08-21T03:31:41.243Z",
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-29T12:29:10.846Z",
         "statusRel": "specs/csdl-so-sach/STATUS.md"
       }
     },
@@ -117,8 +117,8 @@
     "gis-draw-google": {
       "web": {
         "phase": "done",
-        "status": "done",
-        "updatedAt": "2026-08-21T03:31:41.245Z",
+        "status": "in_progress",
+        "updatedAt": "2026-08-29T02:12:27.229Z",
         "statusRel": "specs/gis-draw-google/STATUS.md"
       }
     },
@@ -140,9 +140,9 @@
     },
     "incident": {
       "web": {
-        "phase": "data_analy",
-        "status": "blocked",
-        "updatedAt": "2026-08-21T03:31:41.246Z",
+        "phase": "dev",
+        "status": "pending",
+        "updatedAt": "2026-08-29T05:03:52.838Z",
         "statusRel": "specs/incident/STATUS.md"
       }
     },
@@ -157,25 +157,25 @@
     "inventory": {
       "web": {
         "phase": "dev",
-        "status": "blocked",
-        "updatedAt": "2026-08-21T03:31:41.247Z",
+        "status": "pending",
+        "updatedAt": "2026-08-29T02:12:27.233Z",
         "statusRel": "specs/inventory/STATUS.md"
       }
     },
     "its-anpr-overload": {
       "web": {
-        "phase": "design",
-        "status": "await_confirm",
-        "updatedAt": "2026-08-21T03:31:41.248Z",
-        "statusRel": "specs/ai-its/toc-do-qt/STATUS.md"
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-29T02:12:27.235Z",
+        "statusRel": "specs/its-anpr-overload/STATUS.md"
       }
     },
     "its-traffic-detect": {
       "web": {
-        "phase": "design",
-        "status": "await_confirm",
-        "updatedAt": "2026-08-21T03:31:41.248Z",
-        "statusRel": "specs/ai-its/bb-ct/STATUS.md"
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-29T02:12:27.236Z",
+        "statusRel": "specs/its-traffic-detect/STATUS.md"
       }
     },
     "login": {
@@ -245,8 +245,8 @@
     "patrol": {
       "web": {
         "phase": "dev",
-        "status": "blocked",
-        "updatedAt": "2026-08-21T03:31:41.251Z",
+        "status": "in_progress",
+        "updatedAt": "2026-08-29T02:12:27.243Z",
         "statusRel": "specs/patrol/STATUS.md"
       }
     },
@@ -285,8 +285,8 @@
     "patrol-pin": {
       "mobile": {
         "phase": "review",
-        "status": "pending",
-        "updatedAt": "2026-08-21T04:00:55.288Z",
+        "status": "in_progress",
+        "updatedAt": "2026-08-29T02:12:27.246Z",
         "statusRel": "specs/patrol-pin/STATUS.md"
       }
     },
@@ -300,25 +300,25 @@
     },
     "platform-message": {
       "web": {
-        "phase": "po",
-        "status": "pending",
-        "updatedAt": "2026-08-25T15:20:00.000Z",
+        "phase": "dev",
+        "status": "await_confirm",
+        "updatedAt": "2026-08-30T07:30:55.331Z",
         "statusRel": "specs/platform-message/STATUS.md"
       }
     },
     "platform-task": {
       "web": {
-        "phase": "data_analy",
-        "status": "pending",
-        "updatedAt": "2026-08-25T14:32:00.000Z",
+        "phase": "qa",
+        "status": "paused",
+        "updatedAt": "2026-08-29T02:12:27.249Z",
         "statusRel": "specs/platform-task/STATUS.md"
       }
     },
     "predict": {
       "web": {
-        "phase": "design",
-        "status": "await_confirm",
-        "updatedAt": "2026-08-21T03:31:41.254Z",
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-29T02:12:27.250Z",
         "statusRel": "specs/predict/STATUS.md"
       }
     },
@@ -332,9 +332,9 @@
     },
     "rmms-task-integrate": {
       "web": {
-        "phase": "data_analy",
-        "status": "blocked",
-        "updatedAt": "2026-08-25T14:32:00.000Z",
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-30T07:19:46.003Z",
         "statusRel": "specs/rmms-task-integrate/STATUS.md"
       }
     },
@@ -525,9 +525,41 @@
     "users": {
       "web": {
         "phase": "dev",
-        "status": "blocked",
-        "updatedAt": "2026-08-21T03:31:41.263Z",
+        "status": "in_progress",
+        "updatedAt": "2026-08-29T02:12:27.267Z",
         "statusRel": "specs/users/STATUS.md"
+      }
+    },
+    "asset": {
+      "mobile": {
+        "phase": "team_lead",
+        "status": "pending",
+        "updatedAt": "2026-08-29T02:12:27.219Z",
+        "statusRel": "specs/asset/STATUS.md"
+      }
+    },
+    "asset-kcht-dashboard": {
+      "web": {
+        "phase": "qa",
+        "status": "in_progress",
+        "updatedAt": "2026-08-29T02:12:27.222Z",
+        "statusRel": "specs/asset-kcht-dashboard/STATUS.md"
+      }
+    },
+    "kcht-cong-trinh": {
+      "web": {
+        "phase": "qa",
+        "status": "await_confirm",
+        "updatedAt": "2026-08-29T05:30:55.677Z",
+        "statusRel": "specs/kcht-cong-trinh/STATUS.md"
+      }
+    },
+    "master": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-29T07:38:26.087Z",
+        "statusRel": "specs/master/STATUS.md"
       }
     }
   }

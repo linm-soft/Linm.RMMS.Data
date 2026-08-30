@@ -1,0 +1,342 @@
+{
+  "at": "2026-08-29T03:54:50.949Z",
+  "typed": {
+    "title": "UD re-run o ga Km12",
+    "routeName": "QL1",
+    "incidentType": "o-ga",
+    "status": "new",
+    "severity": "high",
+    "reporterName": "Tuan duong A",
+    "assigneeName": "Hat XL",
+    "handleDirection": "Va vet",
+    "readStatus": "Da doc",
+    "reportStatus": "Chua BC",
+    "assetLabel": "Mat duong",
+    "kmStart": "12",
+    "kmEnd": "12.2",
+    "weather": "Nang",
+    "detectionId": "DET-UD-01",
+    "description": "O ga sau mua — user-doc re-run",
+    "causesCongestion": true,
+    "hasGps": true
+  },
+  "requestCount": 0,
+  "bodies": [],
+  "results": [
+    {
+      "id": "ACT-LOGIN",
+      "surface": "shell",
+      "action": "Đăng nhập",
+      "expect": "Vào shell",
+      "actual": "http://localhost:9100/dashboard",
+      "ok": true,
+      "gap": ""
+    },
+    {
+      "id": "ACT-LIST",
+      "surface": "list",
+      "action": "Mở /su-co",
+      "expect": "Trang Sự cố / Vấn đề",
+      "actual": 2,
+      "ok": true,
+      "gap": ""
+    },
+    {
+      "id": "CHROME-LIST-HDR",
+      "surface": "list header",
+      "action": "Note nội bộ",
+      "expect": "Không ≠ Cổng người dân",
+      "actual": "hidden",
+      "ok": true,
+      "gap": ""
+    },
+    {
+      "id": "ACT-TB-REFRESH",
+      "surface": "toolbar",
+      "action": "Làm mới",
+      "expect": "Nút hiện",
+      "actual": "visible",
+      "ok": true,
+      "gap": ""
+    },
+    {
+      "id": "ACT-TB-CREATE",
+      "surface": "toolbar",
+      "action": "+ Tạo mới",
+      "expect": "Nút hiện",
+      "actual": "visible",
+      "ok": true,
+      "gap": ""
+    },
+    {
+      "id": "ACT-TB-VIEW",
+      "surface": "toolbar",
+      "action": "Xem toolbar (sau chọn dòng)",
+      "expect": "Nút toolbar hoặc row-menu",
+      "actual": "row-menu only",
+      "ok": true,
+      "gap": ""
+    },
+    {
+      "id": "ACT-TB-EDIT",
+      "surface": "toolbar",
+      "action": "Sửa toolbar (sau chọn dòng)",
+      "expect": "Nút toolbar hoặc row-menu",
+      "actual": "row-menu only",
+      "ok": true,
+      "gap": ""
+    },
+    {
+      "id": "ACT-TB-DELETE",
+      "surface": "toolbar",
+      "action": "Xóa toolbar (sau chọn dòng)",
+      "expect": "Nút toolbar hoặc row-menu",
+      "actual": "row-menu only",
+      "ok": true,
+      "gap": ""
+    },
+    {
+      "id": "ACT-SEARCH",
+      "surface": "filter",
+      "action": "Tìm kiếm",
+      "expect": "Không crash",
+      "actual": "filled VD",
+      "ok": true,
+      "gap": ""
+    },
+    {
+      "id": "ACT-FILTER-ST",
+      "surface": "filter",
+      "action": "Trạng thái",
+      "expect": "Select hiện",
+      "actual": true,
+      "ok": true,
+      "gap": ""
+    },
+    {
+      "id": "ACT-FILTER-SV",
+      "surface": "filter",
+      "action": "Mức độ",
+      "expect": "Select hiện",
+      "actual": true,
+      "ok": true,
+      "gap": ""
+    },
+    {
+      "id": "ACT-OPEN-CREATE",
+      "surface": "form",
+      "action": "+ Tạo mới",
+      "expect": "Slideout create",
+      "actual": "open",
+      "ok": true,
+      "gap": ""
+    },
+    {
+      "id": "T-UD-BUG-01",
+      "surface": "form create header",
+      "action": "Badge mode",
+      "expect": "Thêm (VN)",
+      "actual": "Thêm",
+      "ok": true,
+      "gap": ""
+    },
+    {
+      "id": "T-UD-BUG-02",
+      "surface": "form create header",
+      "action": "Badge so sánh hệ",
+      "expect": "Không hiện note nội bộ",
+      "actual": "hidden",
+      "ok": true,
+      "gap": ""
+    },
+    {
+      "id": "T-UD-BUG-03",
+      "surface": "form create toolbar",
+      "action": "Hủy / Lưu",
+      "expect": "Header ✕ · footer sticky",
+      "actual": "z3 footer",
+      "ok": true,
+      "gap": ""
+    },
+    {
+      "id": "FIELD-REQ-EMPTY",
+      "surface": "form create",
+      "action": "Tiêu đề/Đoạn * trống → Lưu",
+      "expect": "Block + banner",
+      "actual": "banner=1 newPost=0",
+      "ok": true,
+      "gap": ""
+    },
+    {
+      "id": "FIELD-title",
+      "surface": "form",
+      "action": "Tiêu đề *",
+      "expect": "Giữ UI",
+      "actual": "UD re-run o ga Km12",
+      "ok": true,
+      "gap": ""
+    },
+    {
+      "id": "FIELD-routeName",
+      "surface": "form",
+      "action": "Đoạn đường *",
+      "expect": "Giữ UI",
+      "actual": "QL1",
+      "ok": true,
+      "gap": ""
+    },
+    {
+      "id": "FIELD-incident-field-handleDirection",
+      "surface": "form",
+      "action": "incident-field-handleDirection",
+      "expect": "Fill",
+      "actual": "locator.fill: Error: Element is not an <input>, <textarea> or [contenteditable] element\nCall log:\n  - waiting for getByTestId('incident-field-handleDirection')\n    - locator resolved to <select id=\":r12:\" class=\"select___NGFEV medium___xEwAI   \" data-testid=\"incident-field-handleDirection\">…</select>\n    - fill(\"Va vet\")\n  - attempting fill action\n    - waiting for element to be visible, enabled and editable\n",
+      "ok": false,
+      "gap": "GAP-QA-FORM-FIELD-01"
+    },
+    {
+      "id": "FIELD-incident-field-readStatus",
+      "surface": "form",
+      "action": "incident-field-readStatus",
+      "expect": "Fill",
+      "actual": "locator.fill: Error: Element is not an <input>, <textarea> or [contenteditable] element\nCall log:\n  - waiting for getByTestId('incident-field-readStatus')\n    - locator resolved to <select id=\":r13:\" data-testid=\"incident-field-readStatus\" class=\"select___NGFEV medium___xEwAI   \">…</select>\n    - fill(\"Da doc\")\n  - attempting fill action\n    - waiting for element to be visible, enabled and editable\n",
+      "ok": false,
+      "gap": "GAP-QA-FORM-FIELD-01"
+    },
+    {
+      "id": "FIELD-incident-field-reportStatus",
+      "surface": "form",
+      "action": "incident-field-reportStatus",
+      "expect": "Fill",
+      "actual": "locator.fill: Error: Element is not an <input>, <textarea> or [contenteditable] element\nCall log:\n  - waiting for getByTestId('incident-field-reportStatus')\n    - locator resolved to <select id=\":r14:\" class=\"select___NGFEV medium___xEwAI   \" data-testid=\"incident-field-reportStatus\">…</select>\n    - fill(\"Chua BC\")\n  - attempting fill action\n    - waiting for element to be visible, enabled and editable\n",
+      "ok": false,
+      "gap": "GAP-QA-FORM-FIELD-01"
+    },
+    {
+      "id": "FIELD-optionals",
+      "surface": "form",
+      "action": "Hiện trường & xử lý",
+      "expect": "Fill xong",
+      "actual": "ok",
+      "ok": true,
+      "gap": ""
+    },
+    {
+      "id": "SUBMIT-CREATE",
+      "surface": "form",
+      "action": "Lưu create",
+      "expect": "POST body = UI",
+      "actual": "no POST",
+      "ok": false,
+      "gap": "GAP-QA-FORM-BODY-01"
+    },
+    {
+      "id": "ACT-CANCEL",
+      "surface": "form",
+      "action": "Hủy",
+      "expect": "Đóng hoặc leave-confirm",
+      "actual": "clicked",
+      "ok": true,
+      "gap": ""
+    },
+    {
+      "id": "ACT-LEAVE",
+      "surface": "form",
+      "action": "Leave confirm",
+      "expect": "Modal",
+      "actual": "seen",
+      "ok": true,
+      "gap": ""
+    },
+    {
+      "id": "ACT-ROW-MENU",
+      "surface": "row",
+      "action": "Mở menu dòng",
+      "expect": "Menu hiện",
+      "actual": "open",
+      "ok": true,
+      "gap": ""
+    },
+    {
+      "id": "ACT-ROW-VIEW",
+      "surface": "row",
+      "action": "Xem",
+      "expect": "Đúng AC · không crash",
+      "actual": "slideout view",
+      "ok": true,
+      "gap": ""
+    },
+    {
+      "id": "ACT-ROW-EDIT",
+      "surface": "row",
+      "action": "Sửa",
+      "expect": "Đúng AC · không crash",
+      "actual": "slideout edit",
+      "ok": true,
+      "gap": ""
+    },
+    {
+      "id": "ACT-ROW-COPY",
+      "surface": "row",
+      "action": "Sao chép",
+      "expect": "Đúng AC · không crash",
+      "actual": "slideout copy",
+      "ok": true,
+      "gap": ""
+    },
+    {
+      "id": "ACT-ROW-HIST",
+      "surface": "row",
+      "action": "Lịch sử",
+      "expect": "Đúng AC · không crash",
+      "actual": "clicked (stub OK)",
+      "ok": true,
+      "gap": ""
+    },
+    {
+      "id": "ACT-ROW-ASSIGN",
+      "surface": "row",
+      "action": "Giao việc",
+      "expect": "Đúng AC · không crash",
+      "actual": "modal/toast",
+      "ok": true,
+      "gap": ""
+    },
+    {
+      "id": "T-UD-BUG-04",
+      "surface": "row Đóng",
+      "action": "Confirm đóng",
+      "expect": "Esc đóng overlay",
+      "actual": "dismissed",
+      "ok": true,
+      "gap": ""
+    },
+    {
+      "id": "ACT-ROW-CLOSE",
+      "surface": "row",
+      "action": "Đóng",
+      "expect": "Đúng AC · không crash",
+      "actual": "confirm-close",
+      "ok": true,
+      "gap": ""
+    },
+    {
+      "id": "ACT-ROW-DELETE",
+      "surface": "row",
+      "action": "Xóa",
+      "expect": "Đúng AC · không crash",
+      "actual": "confirm-delete",
+      "ok": true,
+      "gap": ""
+    },
+    {
+      "id": "ACT-REFRESH-CLICK",
+      "surface": "toolbar",
+      "action": "Làm mới click",
+      "expect": "Không crash",
+      "actual": "clicked",
+      "ok": true,
+      "gap": ""
+    }
+  ]
+}

@@ -181,6 +181,17 @@ CRUD sessions + chat canned + feedback + stats + health **đã có**. Pack **kh�
 
 `GET /api/v1/copilot/health` — existing.
 
+### API-12 — Prompts catalog (P1 canned SSOT)
+
+| | |
+|--|--|
+| Method / Path | `GET /api/v1/copilot/prompts` |
+| BFF | `GET /web-bff/api/v1/copilot/prompts` |
+| Purpose | Chip ×5 + match `POST /chat` — **một** `CopilotMockCatalog` UTF-8 |
+| Response | `{ prompts: string[] }` |
+| Permission | `copilot.sessions.read` (stub P1) |
+| Note | **Cấm** FE duplicate prompt/reply mock. Fold VN (bỏ dấu) khi match. |
+
 ## Lookup (SA chốt — T-UI-LKP)
 
 **Không** SearchInput master (road-route / asset-type) P1.

@@ -43,10 +43,13 @@
     .fullpage { display: none; min-height: 100vh; background: var(--bg); }
     .fullpage.open { display: block; }
     .fullpage .z1 { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 12px 16px; background: var(--card); border-bottom: 1px solid var(--border-soft); flex-wrap: wrap; }
-    .fullpage .body { max-width: 960px; margin: 0 auto; padding: 16px; }
+    .fullpage .body { max-width: none; margin: 0 auto; padding: 16px; }
     .fullpage .z3 { display: flex; justify-content: flex-end; gap: 8px; padding: 12px 16px; border-top: 1px solid var(--border-soft); background: var(--card); flex-wrap: wrap; }
-    .fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .span2 { grid-column: 1 / -1; }
+    .fields { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; align-items: start; }
+    .span2 { grid-column: span 2; }
+    .span-full { grid-column: 1 / -1; }
+    @media (max-width: 1200px) { .fields { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+    @media (max-width: 720px) { .fields { grid-template-columns: 1fr 1fr; } .span2 { grid-column: 1 / -1; } }
     textarea { min-height: 90px; resize: vertical; }
     .modal { display: none; position: fixed; inset: 0; background: rgba(15,23,42,.35); z-index: 30; align-items: center; justify-content: center; padding: 16px; }
     .modal.open { display: flex; }
@@ -194,24 +197,24 @@
       </div>
     </div>
     <div class="body" data-zone="Z2">
-      <p class="hint" id="formHint">Z1 toolbar · Z2 fields · Z3 footer · IdCode OPS-* · leave-confirm dirty · View = dl (không Input xám)</p>
-      <div class="fields" id="formEdit">
+      <p class="hint" id="formHint">Z1 toolbar · Z2 fields · 5 cột <code>data-form-cols="5"</code> · medium 3 · small 2 · Z3 footer · IdCode OPS-* · leave-confirm dirty · View = dl (không Input xám)</p>
+      <div class="fields" id="formEdit" data-form-cols="5">
         <label>Mã chỉ đạo<input value="OPS-20260816-0003" readonly /></label>
         <label>Số công văn<input placeholder="CV-II-…/2026" /></label>
         <label>Chiều<input type="search" list="cv-direction" placeholder="Đi / Đến" /></label>
         <label>Đơn vị<input type="search" list="org-unit" placeholder="Chi cục II" /></label>
-        <label class="span2">Trích yếu<textarea placeholder="Trích yếu công văn…"></textarea></label>
+        <label>Trạng thái *<input type="search" list="ops-status" value="moi" /></label>
+        <label class="span-full">Trích yếu<textarea placeholder="Trích yếu công văn…"></textarea></label>
         <label>Người gửi<input value="Hạt trưởng A" /></label>
         <label>Thời gian gửi<input type="datetime-local" value="2026-08-16T08:00" /></label>
-        <label>Trạng thái *<input type="search" list="ops-status" value="moi" /></label>
         <label>Người nhận *<input type="search" list="recipient" value="Đội 1" /></label>
-        <label class="span2">Tiêu đề *<input placeholder="Điều phối tuần tra…" /></label>
-        <label class="span2">Nội dung *<textarea></textarea></label>
         <label>Ưu tiên<input type="search" list="ops-priority" value="cao" /></label>
         <label>Loại<input type="search" list="ops-type" value="tuan-tra" /></label>
+        <label class="span-full">Tiêu đề *<input placeholder="Điều phối tuần tra…" /></label>
+        <label class="span-full">Nội dung *<textarea></textarea></label>
         <label>Kênh<input type="search" list="ops-channel" value="inbox" /></label>
-        <label>Liên kết nguồn<input placeholder="INC-2026-0142" /></label>
-        <label class="span2">Phản hồi (P2)<textarea></textarea></label>
+        <label class="span2">Liên kết nguồn<input placeholder="INC-2026-0142" /></label>
+        <label class="span-full">Phản hồi (P2)<textarea></textarea></label>
       </div>
       <dl class="view-dl hidden" id="formView">
         <dt>Mã chỉ đạo</dt><dd>OPS-20260816-0001</dd>

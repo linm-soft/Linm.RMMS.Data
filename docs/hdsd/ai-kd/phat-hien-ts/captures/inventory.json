@@ -1,0 +1,166 @@
+{
+  "list": {
+    "title": "Phát hiện tài sản / thiết bị mới",
+    "buttons": [
+      "Phát hiện",
+      "Bản đồ",
+      "Kiểm tra trùng vị trí",
+      "Xuất Excel",
+      "Làm mới",
+      "Tạo mới",
+      "RMMS",
+      "QL đường bộ",
+      "01. QL tài sản đường bộ",
+      "02. GIS bản đồ số 2D",
+      "03. AI kiểm định mặt đường",
+      "AI kiểm định mặt đường",
+      "03b. AI phát hiện TS mới",
+      "Phát hiện tài sản / thiết bị mới",
+      "03c. Kết nối Camera GTVT",
+      "04. Tuần đường / tuần kiểm",
+      "05. Chấm công / định vị",
+      "06. Quản lý sự cố",
+      "07. Bảo trì",
+      "08. AI dự báo bảo trì",
+      "09. Chỉ đạo điều hành",
+      "10. AI ước lượng",
+      "11. HĐ & ngân sách",
+      "16. AI Copilot",
+      "17. Dashboard & BC",
+      "18. Open API & tích hợp",
+      "Trang chủ",
+      "Bảng điều khiển",
+      "Đăng xuất",
+      "Đơn vị cơ sở: RMMS"
+    ],
+    "headers": [],
+    "labels": [
+      {
+        "label": "Tìm kiếm",
+        "required": false
+      },
+      {
+        "label": "Tuyến",
+        "required": false
+      },
+      {
+        "label": "Loại TS",
+        "required": false
+      },
+      {
+        "label": "Trạng thái",
+        "required": false
+      }
+    ],
+    "formCols": "",
+    "footerCrud": false
+  },
+  "form": {
+    "title": "Phát hiện tài sản / thiết bị mới",
+    "buttons": [
+      "Phát hiện",
+      "Bản đồ",
+      "Kiểm tra trùng vị trí",
+      "Xuất Excel",
+      "Làm mới",
+      "Tạo mới",
+      "RMMS",
+      "QL đường bộ",
+      "01. QL tài sản đường bộ",
+      "02. GIS bản đồ số 2D",
+      "03. AI kiểm định mặt đường",
+      "AI kiểm định mặt đường",
+      "03b. AI phát hiện TS mới",
+      "Phát hiện tài sản / thiết bị mới",
+      "03c. Kết nối Camera GTVT",
+      "04. Tuần đường / tuần kiểm",
+      "05. Chấm công / định vị",
+      "06. Quản lý sự cố",
+      "07. Bảo trì",
+      "08. AI dự báo bảo trì",
+      "09. Chỉ đạo điều hành",
+      "10. AI ước lượng",
+      "11. HĐ & ngân sách",
+      "16. AI Copilot",
+      "17. Dashboard & BC",
+      "18. Open API & tích hợp",
+      "Trang chủ",
+      "Bảng điều khiển",
+      "Đăng xuất",
+      "Đơn vị cơ sở: RMMS",
+      "Chọn ảnh khung hình",
+      "Hủy",
+      "Chạy phát hiện",
+      "Lưu"
+    ],
+    "headers": [],
+    "labels": [
+      {
+        "label": "Tìm kiếm",
+        "required": false
+      },
+      {
+        "label": "Tuyến",
+        "required": false
+      },
+      {
+        "label": "Loại TS",
+        "required": false
+      },
+      {
+        "label": "Trạng thái",
+        "required": false
+      },
+      {
+        "label": "Mã",
+        "required": false
+      },
+      {
+        "label": "Trạng thái",
+        "required": false
+      },
+      {
+        "label": "Loại TS",
+        "required": true
+      },
+      {
+        "label": "Độ tin cậy (0–1)",
+        "required": true
+      },
+      {
+        "label": "Nguồn",
+        "required": true
+      },
+      {
+        "label": "Vĩ độ",
+        "required": true
+      },
+      {
+        "label": "Kinh độ",
+        "required": true
+      },
+      {
+        "label": "Tuyến đường",
+        "required": true
+      },
+      {
+        "label": "Đoạn",
+        "required": false
+      },
+      {
+        "label": "Chuyến tuần đường",
+        "required": false
+      },
+      {
+        "label": "Bbox [x1, y1, x2, y2]",
+        "required": false
+      },
+      {
+        "label": "Ghi chú",
+        "required": false
+      }
+    ],
+    "formCols": "",
+    "footerCrud": false
+  }
+}

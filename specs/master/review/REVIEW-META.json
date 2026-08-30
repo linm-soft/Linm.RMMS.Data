@@ -1,0 +1,20 @@
+{
+  "feature": "master",
+  "status": "done",
+  "mode": "review_only",
+  "review_confirm": "accept",
+  "skillId": "agent-review",
+  "skillVersion": "2026.08.29.03",
+  "schemaVersion": "1",
+  "workflowVersion": "2026.08.29.03",
+  "rulesVersion": "2026.08.29.28",
+  "reviewHash": "sha256:e751560e3c67066dc30f3cd3ce20cfe4d40fa9ae4906eb2c4ab32b6aeea126c1",
+  "contentHash": "sha256:2e7c4a265a296e1f7bb4cce472f58a1041fdf4ef1b63d088f80cde5012cb8128",
+  "headerFingerprint": "sha256:72758524d03f6b4b62ccf4262873b39bdd01601654b368e153678ecc84d1865d",
+  "versionGate": "rechecked",
+  "taskId": "task_1ae64007",
+  "generatedAt": "2026-08-29T07:35:05.623Z",
+  "autoApprove": true,
+  "p0": 0,
+  "p1": 0
+}

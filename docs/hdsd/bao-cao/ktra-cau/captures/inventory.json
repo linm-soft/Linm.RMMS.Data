@@ -1,0 +1,69 @@
+{
+  "list": {
+    "title": "Kiểm tra cầu",
+    "buttons": [
+      "Làm mới",
+      "In",
+      "Sửa config",
+      "Xoá lựa chọn",
+      "RMMS",
+      "QL đường bộ",
+      "01. QL tài sản đường bộ",
+      "02. GIS bản đồ số 2D",
+      "AI kiểm định mặt đường",
+      "Phát hiện tài sản / thiết bị mới",
+      "03c. Kết nối Camera GTVT",
+      "04. Tuần đường / tuần kiểm",
+      "Chấm công và định vị",
+      "Sự cố / Vấn đề",
+      "Lập lịch sửa chữa / bảo trì",
+      "AI dự báo bảo trì",
+      "09. Chỉ đạo điều hành",
+      "Ước lượng sửa chữa",
+      "11. HĐ & ngân sách",
+      "AI Copilot",
+      "17. Dashboard & BC",
+      "Báo cáo Web",
+      "Báo cáo công",
+      "BC Check-in",
+      "Công văn đi — đến",
+      "Đếm xe",
+      "Hạng mục hư hỏng",
+      "BC Sự cố",
+      "Ùn tắc / ngập úng",
+      "Tai nạn giao thông",
+      "Thiên tai, bão lũ",
+      "Khối lượng thiệt hại",
+      "BC Tài sản",
+      "Tình trạng mặt đường",
+      "Giấy phép thi công",
+      "Vi phạm HLATĐB"
+    ],
+    "headers": [],
+    "labels": [
+      {
+        "label": "Tab",
+        "required": false
+      },
+      {
+        "label": "Tuyến",
+        "required": false
+      },
+      {
+        "label": "Cầu",
+        "required": false
+      },
+      {
+        "label": "Loại phiếu",
+        "required": false
+      },
+      {
+        "label": "Tìm kiếm",
+        "required": false
+      }
+    ],
+    "formCols": "",
+    "footerCrud": false
+  },
+  "form": null
+}

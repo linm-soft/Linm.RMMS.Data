@@ -1,0 +1,154 @@
+{
+  "list": {
+    "title": "AI dự báo bảo trì",
+    "buttons": [
+      "Thêm đoạn",
+      "Chạy dự báo hàng loạt",
+      "Xuất Excel",
+      "Mở Dashboard",
+      "Sắp xếp điểm giảm",
+      "Làm mới",
+      "Xóa lọc",
+      "SEC-001",
+      "SEC-002",
+      "SEC-003",
+      "SEC-004",
+      "SEC-005",
+      "SEC-006",
+      "SEC-007",
+      "SEC-008",
+      "Đầu",
+      "Trước",
+      "Sau",
+      "Cuối",
+      "RMMS",
+      "QL đường bộ",
+      "01. QL tài sản đường bộ",
+      "02. GIS bản đồ số 2D",
+      "03. AI kiểm định mặt đường",
+      "AI kiểm định mặt đường",
+      "03b. AI phát hiện TS mới",
+      "03c. Kết nối Camera GTVT",
+      "04. Tuần đường / tuần kiểm",
+      "05. Chấm công / định vị",
+      "06. Quản lý sự cố",
+      "07. Bảo trì",
+      "08. AI dự báo bảo trì",
+      "AI dự báo bảo trì",
+      "09. Chỉ đạo điều hành",
+      "10. AI ước lượng",
+      "11. HĐ & ngân sách"
+    ],
+    "headers": [
+      "STT",
+      "Thứ hạng",
+      "Mã đoạn",
+      "Tên đoạn / Km",
+      "Điểm",
+      "Tuổi thọ còn lại",
+      "Khuyến nghị",
+      "Mô hình",
+      "Dự báo lúc"
+    ],
+    "labels": [
+      {
+        "label": "Tuyến",
+        "required": false
+      },
+      {
+        "label": "Kỳ hạn (tháng)",
+        "required": false
+      },
+      {
+        "label": "Số đoạn ưu tiên",
+        "required": false
+      },
+      {
+        "label": "Điểm tối thiểu",
+        "required": false
+      }
+    ],
+    "formCols": "",
+    "footerCrud": false
+  },
+  "form": {
+    "title": "AI dự báo bảo trì",
+    "buttons": [
+      "Thêm đoạn",
+      "Chạy dự báo hàng loạt",
+      "Xuất Excel",
+      "Mở Dashboard",
+      "Sắp xếp điểm giảm",
+      "Làm mới",
+      "Xóa lọc",
+      "SEC-001",
+      "SEC-002",
+      "SEC-003",
+      "SEC-004",
+      "SEC-005",
+      "SEC-006",
+      "SEC-007",
+      "SEC-008",
+      "Đầu",
+      "Trước",
+      "Sau",
+      "Cuối",
+      "RMMS",
+      "QL đường bộ",
+      "01. QL tài sản đường bộ",
+      "02. GIS bản đồ số 2D",
+      "03. AI kiểm định mặt đường",
+      "AI kiểm định mặt đường",
+      "03b. AI phát hiện TS mới",
+      "03c. Kết nối Camera GTVT",
+      "04. Tuần đường / tuần kiểm",
+      "05. Chấm công / định vị",
+      "06. Quản lý sự cố",
+      "07. Bảo trì",
+      "08. AI dự báo bảo trì",
+      "AI dự báo bảo trì",
+      "09. Chỉ đạo điều hành",
+      "10. AI ước lượng",
+      "11. HĐ & ngân sách"
+    ],
+    "headers": [
+      "STT",
+      "Thứ hạng",
+      "Mã đoạn",
+      "Tên đoạn / Km",
+      "Điểm",
+      "Tuổi thọ còn lại",
+      "Khuyến nghị",
+      "Mô hình",
+      "Dự báo lúc"
+    ],
+    "labels": [
+      {
+        "label": "Tuyến",
+        "required": false
+      },
+      {
+        "label": "Kỳ hạn (tháng)",
+        "required": false
+      },
+      {
+        "label": "Số đoạn ưu tiên",
+        "required": false
+      },
+      {
+        "label": "Điểm tối thiểu",
+        "required": false
+      },
+      {
+        "label": "Tuyến",
+        "required": false
+      },
+      {
+        "label": "Tên đoạn / Km",
+        "required": false
+      }
+    ],
+    "formCols": "",
+    "footerCrud": false
+  }
+}

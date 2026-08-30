@@ -46,8 +46,15 @@ Webpack chỉ có performance warnings (bundle size) — **không** compile erro
 - `RoadAssetsBffController` — BFF proxy `summary-by-type`
 
 ### Host (`Linm.Web.Dashboard`)
-- `WidgetArea.tsx` — `rmms-kcht-hang-muc` · `@linm/rmms-asset-kcht-widget` · `cols: 3`
+- `dashboardWidgets.ts` — Authen `menuType=widget` · size `defaultUrl` · parcel `redirectTo`
+- `WidgetArea.tsx` — **Tổng quan tài sản** · `@linm/rmms-asset-kcht-widget` · `cols: 3`
+- `DashboardPage.tsx` — Lối tắt nhanh gated `dashboard:widget:quick-links:read`
 - `DashboardPage.module.css` — `.widgetBodyStretch`
+
+### Authen (`Linm.Platform.Authentication`)
+- set `dashboard` v2 — `dashboard:widget:quick-links:read` (mọi product)
+- set `rmms-dashboard` — `dashboard:widget:rmms-asset:read` (chỉ ImportSets `rmms-*`)
+- menu `dashboard-widget-*` · `menuType=widget` (ẩn sidebar) · gói RMMS + `MANAGER-RMMS` app `dashboard`
 
 ## Task completion (Dev P1)
 
@@ -80,6 +87,13 @@ Live audit `KchtHangMucPage` + `KchtHangMucDashboard` + widget entry + `WidgetAr
 | Cấm demo `withFallback` asset/pavement/csdl | **PASS** `/edit-web-feature` 2026-08-24 — live BFF only |
 | t05 `BRIDGE` · t16 `TUNNEL` count DB | **PASS** `/edit-web-feature` 2026-08-24 |
 | cấm `window.alert` | **PASS** toast only |
+
+## Notes (`/edit-web-feature` · 2026-08-30)
+
+- Host `/dashboard`: Lối tắt nhanh + **Tổng quan tài sản** (cùng lưới KCHT `embedMode`).
+- Size + parcel SSOT Authen: `menuType=widget` · `defaultUrl` = cols · `redirectTo` = parcel · set `rmms-dashboard` chỉ RMMS.
+- Cấm hardcode ERP placeholder trên host RMMS.
+- Nav L0 **Bảng điều khiển**: flatten group path `#` → leaf `/dashboard` (`buildSectionsFromDB`) · `forceShellNavigate` bỏ `#` / `@linm/…` (tránh `#` → `/` → `/so-ts`).
 
 ## Handoff → QA
 

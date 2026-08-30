@@ -1,0 +1,53 @@
+{
+  "list": {
+    "title": "Ước lượng sửa chữa",
+    "buttons": [
+      "Tạo từ sự cố",
+      "Tạo từ phát hiện",
+      "Xuất Excel",
+      "Làm mới",
+      "RMMS",
+      "QL đường bộ",
+      "01. QL tài sản đường bộ",
+      "02. GIS bản đồ số 2D",
+      "03. AI kiểm định mặt đường",
+      "AI kiểm định mặt đường",
+      "03b. AI phát hiện TS mới",
+      "03c. Kết nối Camera GTVT",
+      "04. Tuần đường / tuần kiểm",
+      "05. Chấm công / định vị",
+      "06. Quản lý sự cố",
+      "07. Bảo trì",
+      "08. AI dự báo bảo trì",
+      "09. Chỉ đạo điều hành",
+      "10. AI ước lượng",
+      "Ước lượng sửa chữa",
+      "11. HĐ & ngân sách",
+      "16. AI Copilot",
+      "17. Dashboard & BC",
+      "18. Open API & tích hợp",
+      "Trang chủ",
+      "Bảng điều khiển",
+      "Đăng xuất",
+      "Đơn vị cơ sở: RMMS"
+    ],
+    "headers": [],
+    "labels": [
+      {
+        "label": "Tìm kiếm",
+        "required": false
+      },
+      {
+        "label": "Trạng thái",
+        "required": false
+      },
+      {
+        "label": "Nguồn",
+        "required": false
+      }
+    ],
+    "formCols": "",
+    "footerCrud": false
+  },
+  "form": null
+}

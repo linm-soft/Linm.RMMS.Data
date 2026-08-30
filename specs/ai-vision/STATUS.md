@@ -61,6 +61,24 @@
 | T-BE-03 | detections | dev | T-BE-01 | done | `rmms_ai_vision_detections` |
 | T-QA-01 | ai-vision | qa | T-UI-LIST-02,T-BE-02 | pending | scenarios.md |
 | T-RV-01 | ai-vision | review | T-QA-01 | pending | findings.md |
+| T-UD-BUG-01 | /ai-kd/tao-moi | docs | — | **done** | confirmed `/run-user-doc` · UD-P0-08/09 · capture=08-ai-kd-tao-moi.png |
+| T-UD-BUG-02 | /ai-kd/tao-moi | docs | — | **done** | confirmed `/run-user-doc` · UD-P0-09 · capture=08-ai-kd-tao-moi.png |
+| T-UD-BUG-03 | /ai-kd/tao-moi | docs | — | **done** | confirmed `/run-user-doc` · HDSD-P0-08 · capture=08-ai-kd-tao-moi.png |
+| T-UD-BUG-04 | /ai-kd/tao-moi | docs | — | **done** | confirmed `/run-user-doc` · GAP-P2-BTN-SSOT-01 · capture=08-ai-kd-tao-moi.png |
+| T-UD-BUG-05 | /ai-kd | docs | — | **done** | confirmed `/run-user-doc` · UD-P0-09 · capture=02-ai-kd.png |
+| T-UD-BUG-06 | /ai-kd | docs | — | **done** | confirmed `/run-user-doc` · PLAT-TB-04 · capture=02-ai-kd.png |
+| T-UD-BUG-07 | /ai-kd/du-bao-bt | docs | — | **done** | confirmed `/run-user-doc` · UD-P0-09 · capture=05-ai-kd-du-bao-bt.png |
+| T-UD-BUG-08 | /ai-kd/du-bao-bt | docs | — | **done** | confirmed `/run-user-doc` · UD-P0-09 · capture=05-ai-kd-du-bao-bt.png |
+| T-UD-BUG-09 | /ai-its/bb-ct | docs | — | **done** | confirmed `/run-user-doc` · UD-P0-09 · capture=06-ai-its-bb-ct.png |
+| T-UD-BUG-10 | /ai-its/bb-ct | docs | — | **done** | confirmed `/run-user-doc` · UD-P0-09 · capture=14-bb-ct-form-create.png |
+| T-UD-BUG-11 | /its-anpr-overload | docs | — | **done** | confirmed `/run-user-doc` · GAP-P2-BTN-SSOT-01 · capture=07-its-anpr-overload.png |
+| T-UD-BUG-12 | /its-anpr-overload | docs | — | **done** | confirmed `/run-user-doc` · UD-P0-09 · capture=07-its-anpr-overload.png |
+| T-UD-BUG-13 | /its-anpr-overload | docs | — | **done** | confirmed `/run-user-doc` · UD-P0-11 · capture=16-anpr-form-create.png |
+| T-UD-BUG-14 | /ai-kd/uoc-luong-sc | docs | — | **done** | confirmed `/run-user-doc` · UD-P0-09 · capture=04-ai-kd-uoc-luong-sc.png |
+| T-UD-BUG-15 | /ai-kd · /ai-kd/phat-hien-ts | docs | — | **done** | confirmed `/run-user-doc` · UD-P0-21 · capture=02-ai-kd.png · 03-ai-kd-phat-hien-ts.png |
+| T-UD-BUG-16 | /ai-kd · /ai-kd/phat-hien-ts | docs | — | **done** | confirmed `/run-user-doc` · UD-P0-22 · capture=02-ai-kd.png · 03-ai-kd-phat-hien-ts.png |
+| T-UD-BUG-17 | /ai-kd | docs | — | **done** | confirmed `/run-user-doc` · UD-P0-09 · capture=02-ai-kd.png |
+| T-UD-BUG-18 | /ai-kd/du-bao-bt | docs | — | **done** | confirmed `/run-user-doc` · GAP-FILTER-BAR-01 · capture=05-ai-kd-du-bao-bt.png |
 
 ## Blockers / open questions
 

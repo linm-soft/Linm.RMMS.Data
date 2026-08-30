@@ -1,0 +1,7 @@
+# QA bugs — user-doc (`partner-unit`)
+
+**Peer:** `{DocsRoot}/hdsd/mas/doi-tac/bugs.md`
+
+| id | surface | action / field | expect | actual | gap | status | notes |
+|----|---------|----------------|--------|--------|-----|--------|-------|
+| T-UD-BUG-01 | live | chrome | chuẩn toolbar / 5 cột | data-form-cols=5 | HDSD-P0-08/11 | closed | capture=03-mas-doi-tac-tao-moi.png · confirmed 2026-08-30 Pages master 1.1.0-dev.152 |

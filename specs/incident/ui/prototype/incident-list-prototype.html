@@ -3,162 +3,636 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Prototype — Quản lý sự cố / Vấn đề (incident) · Kind B A–D</title>
+  <title>Prototype — Sự cố / Vấn đề (incident) · Kind B A–D + Slideout</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
   <style>
     :root {
-      --bg: #f5f7fa; --card: #fff; --border: #BABCBE; --border-soft: #e9ecef;
-      --txt: #1A1A1A; --muted: #6c757d; --primary: #0d6efd; --toolbar-bg: #f8fafc;
-      --ds-radius-md: 4px; --ds-font-body: 13px; --ds-height-btn: 32px;
+      --bg:#f5f7fa; --card:#fff; --border:#BABCBE; --soft:#e9ecef; --txt:#1A1A1A;
+      --muted:#6c757d; --primary:#0d6efd; --btn:#EEEEEE; --r:4px;
+      --danger:#b91c1c; --warn:#b45309;
     }
-    * { box-sizing: border-box; }
-    body { margin: 0; font-family: "Segoe UI", system-ui, sans-serif; background: var(--bg); color: var(--txt); font-size: var(--ds-font-body); }
-    .page { max-width: 1200px; margin: 0 auto; padding: 16px; min-height: 100vh; display: flex; flex-direction: column; }
-    .zoneA { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
-    .zoneA h1 { margin: 0; font-size: 22px; font-weight: 700; }
-    .badge { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px; background: #e7f1ff; color: #0b5ed7; }
-    .badgeWarn { background: #fff3cd; color: #856404; }
-    .badgeAi { background: #ede9fe; color: #5b21b6; }
-    .zoneB { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 10px 12px; background: var(--toolbar-bg); border: 1px solid var(--border-soft); border-radius: var(--ds-radius-md); margin-bottom: 10px; }
-    .btn { height: var(--ds-height-btn); padding: 0 12px; border: 1px solid var(--border); border-radius: var(--ds-radius-md); background: #fff; cursor: pointer; font-size: 12px; }
-    .btn.primary { background: var(--primary); color: #fff; border-color: var(--primary); }
-    .filters { display: grid; grid-template-columns: 1fr 180px 180px; gap: 12px; margin-bottom: 10px; }
-    label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--muted); }
-    input, select, textarea { min-height: 32px; padding: 6px 10px; border: 1px solid var(--border); border-radius: var(--ds-radius-md); font-size: 13px; font-family: inherit; }
-    .zoneC { flex: 1; background: var(--card); border: 1px solid var(--border-soft); border-radius: var(--ds-radius-md); overflow: auto; min-height: 280px; }
-    table { width: 100%; border-collapse: collapse; }
-    th, td { padding: 8px 10px; border-bottom: 1px solid var(--border-soft); text-align: left; white-space: nowrap; }
-    th { background: #f8fafc; font-size: 12px; color: var(--muted); }
-    .code { color: var(--primary); font-family: ui-monospace, Menlo, Consolas, monospace; text-decoration: underline; cursor: pointer; }
-    .zoneD { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; margin-top: 8px; gap: 12px; flex-wrap: wrap; }
-    .pager { display: flex; gap: 6px; align-items: center; }
-    .hint { color: var(--muted); font-size: 12px; margin: 0 0 12px; }
-    .slide { position: fixed; top: 0; right: 0; width: min(560px, 100%); height: 100%; background: #fff; border-left: 1px solid var(--border); box-shadow: -8px 0 24px rgba(15,23,42,.12); display: none; flex-direction: column; z-index: 20; }
-    .slide.open { display: flex; }
-    .slide .z1 { display: flex; justify-content: space-between; gap: 8px; padding: 12px 16px; border-bottom: 1px solid var(--border-soft); }
-    .slide .body { padding: 16px; overflow: auto; flex: 1; }
-    .slide .z3 { display: flex; justify-content: flex-end; gap: 8px; padding: 12px 16px; border-top: 1px solid var(--border-soft); flex-wrap: wrap; }
-    .fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .span2 { grid-column: 1 / -1; }
-    textarea { min-height: 100px; resize: vertical; }
+    *{box-sizing:border-box}
+    body{margin:0;font:13px/1.4 "Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--txt)}
+    .page{max-width:1280px;margin:0 auto;padding:8px;display:flex;flex-direction:column;gap:8px;min-height:100vh}
+    .note{font-size:11px;color:var(--muted);padding:4px 0}
+    .zone-a{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+    .zone-a h1{margin:0;font-size:22px;font-weight:700;display:flex;align-items:center;gap:10px}
+    .zone-a h1 i{color:var(--primary);font-size:20px}
+    .badge{font-size:11px;font-weight:700;padding:2px 8px;border-radius:4px;background:#e7f1ff;color:#0b5ed7}
+    .badgeWarn{background:#fff3cd;color:#856404}
+    .zone-b{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:8px 0;position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--soft)}
+    .zone-b-left,.zone-b-right{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .tb{display:inline-flex;align-items:center;gap:4px;height:32px;padding:6px 8px;border:0;border-radius:var(--r);background:var(--btn);font-size:12px;font-weight:600;cursor:pointer}
+    .tb:hover{background:#BABCBE}.tb.primary{background:var(--primary);color:#fff}.tb.primary:hover{background:#0b5ed7}
+    .tb:disabled{opacity:.55;cursor:not-allowed}.tb.danger{color:var(--danger)}
+    .filter-bar{display:flex;justify-content:flex-end;align-items:flex-end;gap:8px;flex-wrap:wrap;padding:10px 12px;background:var(--card);border:1px solid var(--soft);border-radius:var(--r)}
+    .filter-bar .field{display:flex;flex-direction:column;gap:4px;min-width:140px}
+    .filter-bar label{font-size:12px;color:var(--muted)}
+    .filter-bar input,.filter-bar select{height:32px;padding:6px 10px;border:1px solid var(--border);border-radius:var(--r);font-size:13px;background:#fff;min-width:140px}
+    .search-combo{display:flex;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;height:32px;background:#fff;min-width:180px}
+    .search-combo input{border:0;outline:0;padding:6px 10px;flex:1;font-size:13px;min-width:120px}
+    .search-combo button{border:0;border-left:1px solid var(--border);background:#f8fafc;padding:0 10px;cursor:pointer;color:var(--muted)}
+    .si-mock{position:relative}
+    .si-mock input{width:100%}
+    .si-drop{display:none;position:absolute;z-index:15;left:0;right:0;top:100%;background:#fff;border:1px solid var(--soft);border-radius:6px;box-shadow:0 8px 24px rgba(0,0,0,.12);max-height:160px;overflow:auto}
+    .si-drop.on{display:block}
+    .si-drop button{display:block;width:100%;text-align:left;border:0;background:0;padding:8px 10px;cursor:pointer;font-size:13px}
+    .si-drop button:hover{background:#eff6ff}
+    .card{background:var(--card);border:1px solid var(--soft);border-radius:var(--r);flex:1;display:flex;flex-direction:column;min-height:0;overflow:hidden}
+    .grid-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 16px 8px}
+    .grid-title{margin:0;font-size:15px;font-weight:700}
+    .grid-help{margin:4px 0 0;font-size:12px;color:var(--muted)}
+    .table-wrap{overflow:auto;flex:1;min-height:220px;border-top:1px solid var(--soft)}
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:8px 10px;border-bottom:1px solid var(--soft);text-align:left;white-space:nowrap;font-size:13px}
+    th{background:#f8fafc;font-size:12px;color:var(--muted);position:sticky;top:0}
+    th.num,td.num{text-align:center;width:48px}
+    tbody tr:nth-child(even){background:#fafbfc}tbody tr:hover,tbody tr.sel{background:#eff6ff}
+    .code{color:var(--primary);text-decoration:underline;cursor:pointer;background:0;border:0;font:inherit}
+    .col-tools{display:inline-flex;gap:4px;margin-left:6px;vertical-align:middle}
+    .col-tools button{border:0;background:transparent;cursor:pointer;color:var(--muted);padding:0 2px;font-size:11px}
+    .col-tools button.on{color:var(--primary)}
+    .filter-pop{display:none;position:absolute;z-index:30;width:260px;background:#fff;border:1px solid var(--soft);border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.12);padding:10px}
+    .filter-pop.on{display:block}
+    .zone-d{display:flex;flex-direction:column;align-items:center;gap:10px;padding:12px 16px;border-top:1px solid var(--soft)}
+    .zone-d-total{color:var(--muted)}
+    .zone-d-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center}
+    .pager-btn{width:32px;height:32px;border:1px solid var(--soft);border-radius:var(--r);background:#fff;color:var(--muted);cursor:pointer}
+    .menu{position:relative}
+    .menu summary{list-style:none;cursor:pointer;padding:4px 8px;border:1px solid var(--border);border-radius:var(--r);background:#fff}
+    .menu summary::-webkit-details-marker{display:none}
+    .menu-panel{display:none;position:absolute;right:0;z-index:5;background:#fff;border:1px solid var(--border);border-radius:6px;min-width:160px;box-shadow:0 8px 24px rgba(0,0,0,.12)}
+    .menu[open] .menu-panel{display:block}
+    .menu-panel button{display:block;width:100%;text-align:left;border:0;background:0;padding:8px 12px;cursor:pointer;font-size:13px}
+    .menu-panel button:hover{background:#f1f5f9}
+    .menu-panel button.danger{color:var(--danger)}
+    .backdrop{display:none;position:fixed;inset:0;background:rgba(15,23,42,.35);z-index:40;align-items:center;justify-content:center}
+    .backdrop.on{display:flex}
+    .modal{width:min(480px,94vw);background:#fff;border-radius:8px;border:1px solid var(--soft)}
+    .modal.wide{width:min(720px,96vw)}
+    .modal-h{padding:12px 16px;border-bottom:1px solid var(--soft);font-weight:700}
+    .modal-b{padding:16px;font-size:13px;color:var(--muted)}
+    .modal-f{padding:12px 16px;border-top:1px solid var(--soft);display:flex;justify-content:flex-end;gap:8px}
+    .slideout{display:none;position:fixed;top:0;right:0;bottom:0;width:min(640px,100vw);background:#fff;z-index:50;box-shadow:-8px 0 28px rgba(15,23,42,.18);flex-direction:column}
+    .slideout.on{display:flex}
+    .z1{padding:12px 14px;border-bottom:1px solid var(--soft);display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+    .z1 .title{font-size:16px;font-weight:700;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+    .mode{font-size:11px;background:#ecfeff;color:var(--primary);padding:2px 8px;border-radius:999px;font-weight:700}
+    .dirty{font-size:11px;background:#fff7ed;color:#c2410c;padding:2px 8px;border-radius:999px;font-weight:700}
+    .z2{flex:1;overflow:auto;padding:14px;background:#f8fafc}
+    .banner{display:none;margin-bottom:12px;padding:10px 12px;background:#fef2f2;border:1px solid #fecaca;border-radius:8px;color:#991b1b;font-size:12px}
+    .banner.on{display:block}
+    .section{background:#fff;border:1px solid var(--soft);border-radius:8px;padding:14px}
+    .fields{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .field{display:flex;flex-direction:column;gap:4px}
+    .field label{font-size:13px;color:var(--muted);font-weight:600}
+    .field input,.field select,.field textarea{padding:6px 10px;border:1px solid var(--border);border-radius:var(--r);font-size:14px;min-height:32px;font-family:inherit;width:100%}
+    .field input[readonly]{background:#f8fafc}
+    .field.full{grid-column:1/-1}
+    .z3{flex-shrink:0;border-top:1px solid var(--soft);background:#fff;padding:12px 14px;display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap}
+    .toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%) translateY(12px);background:#0f172a;color:#e2e8f0;padding:10px 16px;border-radius:999px;font-size:12px;opacity:0;pointer-events:none;transition:.2s;z-index:80}
+    .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+    .hist-item{padding:8px 0;border-bottom:1px solid var(--soft)}.hist-item:last-child{border:0}
+    .schema-table{width:100%;border-collapse:collapse;font-size:12px;color:var(--txt)}
+    .schema-table th,.schema-table td{border:1px solid var(--soft);padding:6px 8px;text-align:left}
+    .schema-table th{background:#f8fafc;color:var(--muted)}
   </style>
 </head>
 <body>
-  <div class="page" data-catalog-list-page data-testid="rmms-incident-list-prototype">
-    <header class="zoneA" data-zone="A">
-      <i class="fas fa-exclamation-triangle" aria-hidden="true"></i>
-      <h1>Quản lý sự cố / Vấn đề</h1>
+  <div class="page" data-catalog-list-page data-lin-list-layout="erp-filter-bar" data-testid="rmms-incident-list-prototype">
+    <p class="note">SSOT Design · shared-grid-example · <code>data-des-id</code> · filter-bar-layout-hard · slideout footer-only · hash-skip · no Kind F · reviewUrl gate</p>
+
+    <header class="zone-a" data-des-id="DES-GRID-A">
+      <h1><i class="fas fa-exclamation-triangle" aria-hidden="true"></i> Sự cố / Vấn đề</h1>
       <span class="badge">Kind B list</span>
       <span class="badge badgeWarn">≠ Cổng người dân</span>
-      <span class="badge badgeAi">AI DET</span>
     </header>
-    <p class="hint">Prototype content-only · zones A–D · Slideout Z1–Z3 · reviewUrl gate · no chrome/menu · map Kind F DEFER.</p>
 
-    <div class="zoneB" data-zone="B" data-testid="incident-toolbar">
-      <button type="button" class="btn" title="Làm mới"><i class="fas fa-sync-alt"></i> Làm mới</button>
-      <button type="button" class="btn" title="Lịch sử"><i class="fas fa-history"></i> Lịch sử</button>
-      <button type="button" class="btn" title="Cấu hình"><i class="fas fa-cog"></i></button>
-      <button type="button" class="btn primary" id="btnCreate"><i class="fas fa-plus"></i> Tạo mới</button>
-    </div>
-
-    <div class="filters" data-zone="C-filters">
-      <label>Tìm kiếm
-        <input type="search" placeholder="Mã / tiêu đề / đoạn / loại / DET…" />
-      </label>
-      <label>Trạng thái
-        <select>
-          <option value="">Tất cả trạng thái</option>
-          <option>new</option>
-          <option>in_progress</option>
-          <option>closed</option>
-        </select>
-      </label>
-      <label>Mức độ
-        <select>
-          <option value="">Tất cả mức độ</option>
-          <option>low</option>
-          <option>medium</option>
-          <option>high</option>
-          <option>critical</option>
-        </select>
-      </label>
-    </div>
-
-    <div class="zoneC" data-zone="C">
-      <table>
-        <thead>
-          <tr>
-            <th>STT</th><th>□</th><th>Mã</th><th>Tiêu đề</th><th>Đoạn</th>
-            <th>Loại</th><th>Mức độ</th><th>Trạng thái</th><th>Ngày YC</th><th>AI</th><th>⋯</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td><td>□</td>
-            <td><span class="code" id="openView">VD-20260809-0441</span></td>
-            <td>Ổ gà Km12 — từ AI</td><td>QL.1</td><td>Ổ gà</td>
-            <td>critical</td><td>new</td><td>09/08/2026 10:00</td><td>DET-901</td><td>⋯</td>
-          </tr>
-          <tr>
-            <td>2</td><td>□</td>
-            <td><span class="code">VD-20260808-0438</span></td>
-            <td>Sạt taluy đoạn dốc</td><td>QL.1</td><td>Sạt taluy</td>
-            <td>high</td><td>in_progress</td><td>08/08/2026 14:20</td><td>—</td><td>⋯</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <footer class="zoneD" data-zone="D">
-      <span>Tổng 2 · pageSize 50/100/200/500 · LinCatalogListPagination</span>
-      <div class="pager">
-        <button type="button" class="btn" disabled>‹</button>
-        <span>1 / 1</span>
-        <button type="button" class="btn" disabled>›</button>
-        <select><option>50</option><option>100</option><option>200</option><option>500</option></select>
+    <div class="zone-b" data-des-id="DES-GRID-B">
+      <div class="zone-b-left">
+        <button type="button" class="tb" data-action="refresh"><i class="fas fa-sync-alt"></i> Làm mới</button>
+        <button type="button" class="tb" data-action="history"><i class="fas fa-history"></i> Lịch sử</button>
+        <button type="button" class="tb" data-action="config"><i class="fas fa-cog"></i> Sửa config</button>
+        <button type="button" class="tb" id="btn-view" disabled><i class="fas fa-eye"></i> Xem</button>
+        <button type="button" class="tb" id="btn-edit" disabled><i class="fas fa-pen"></i> Sửa</button>
+        <button type="button" class="tb danger" id="btn-del" disabled><i class="fas fa-trash"></i> Xóa</button>
       </div>
-    </footer>
+      <div class="zone-b-right">
+        <button type="button" class="tb primary" data-action="create"><i class="fas fa-plus"></i> Tạo mới</button>
+      </div>
+    </div>
+
+    <div class="filter-bar" data-des-id="DES-GRID-FILTER" data-testid="incident-filter-bar">
+      <div class="field" data-testid="incident-field-search">
+        <label>Tìm kiếm</label>
+        <div class="search-combo" data-des-id="DES-GRID-C1">
+          <input type="search" id="q" placeholder="Mã / tiêu đề / đoạn / DET…" aria-label="Tìm kiếm" />
+          <button type="button" aria-label="Tìm"><i class="fas fa-search"></i></button>
+        </div>
+      </div>
+      <div class="field" data-testid="incident-field-status">
+        <label>Trạng thái</label>
+        <select id="f-status">
+          <option value="">Tất cả trạng thái</option>
+          <option value="new">Mới</option>
+          <option value="in_progress">Đang XL</option>
+          <option value="closed">Đã đóng</option>
+        </select>
+      </div>
+      <div class="field" data-testid="incident-field-severity">
+        <label>Mức độ</label>
+        <select id="f-severity">
+          <option value="">Tất cả mức độ</option>
+          <option value="low">Thấp</option>
+          <option value="medium">Trung bình</option>
+          <option value="high">Cao</option>
+          <option value="critical">Critical</option>
+        </select>
+      </div>
+      <div class="field si-mock" data-testid="incident-field-routeName">
+        <label>Đoạn đường</label>
+        <input type="search" id="f-route" placeholder="SearchInput road-route…" autocomplete="off" />
+        <div class="si-drop" id="route-drop">
+          <button type="button" data-route="QL.1">QL.1 — Quốc lộ 1</button>
+          <button type="button" data-route="QL.15">QL.15 — Quốc lộ 15</button>
+          <button type="button" data-route="HCM">HCM — Đường Hồ Chí Minh</button>
+        </div>
+      </div>
+      <div class="field" data-testid="incident-field-incidentType">
+        <label>Loại sự cố</label>
+        <select id="f-type">
+          <option value="">Tất cả loại</option>
+          <option value="o-ga">Ổ gà</option>
+          <option value="sat-taluy">Sạt taluy</option>
+          <option value="bien-bao">Biển báo</option>
+          <option value="ngap-ung">Ngập úng</option>
+          <option value="un-tac">Ùn tắc</option>
+          <option value="khac">Khác</option>
+        </select>
+      </div>
+    </div>
+
+    <section class="card">
+      <div class="grid-head" data-des-id="DES-GRID-C0">
+        <div>
+          <h2 class="grid-title">Danh sách sự cố</h2>
+          <p class="grid-help" data-des-id="DES-GRID-C3-help">Nhấn đúp · Ctrl + chuột phải · menu ⋮ — Xem / Sửa / Copy / Xóa / Giao việc / Đóng / Lịch sử</p>
+        </div>
+      </div>
+
+      <div class="table-wrap" data-des-id="DES-GRID-C2" style="position:relative">
+        <table>
+          <thead>
+            <tr>
+              <th class="num">STT</th>
+              <th class="num"><input type="checkbox" id="chk-all" aria-label="Chọn tất cả trang" /></th>
+              <th>
+                Mã
+                <span class="col-tools">
+                  <button type="button" class="on" title="Sắp xếp"><i class="fas fa-sort-alpha-down"></i></button>
+                  <button type="button" title="Lọc" id="btn-filter-code"><i class="fas fa-filter"></i></button>
+                </span>
+              </th>
+              <th>Tiêu đề</th>
+              <th>Đoạn</th>
+              <th>Loại</th>
+              <th>Mức độ</th>
+              <th>Trạng thái</th>
+              <th>Ngày YC</th>
+              <th>AI</th>
+              <th class="num"></th>
+            </tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+        <div class="filter-pop" id="filter-pop" data-des-id="DES-GRID-C2a" style="top:40px;left:160px">
+          <input type="text" id="filter-q" placeholder="Tìm trong danh sách…" />
+          <div style="font-size:12px;color:var(--muted);margin:8px 0">Đã chọn <span id="filter-count">0</span> mục</div>
+          <div id="filter-list" style="max-height:140px;overflow:auto"></div>
+          <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:8px">
+            <button type="button" class="tb" id="filter-cancel">Hủy</button>
+            <button type="button" class="tb primary" id="filter-ok">Xác nhận</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="zone-d" data-des-id="DES-GRID-D">
+        <div class="zone-d-total">Tổng: <span id="total">0</span> · Trang <span id="page">1</span>/1 · LinCatalogListPagination</div>
+        <div class="zone-d-row">
+          <label>Hiển thị
+            <select id="pageSize"><option>50</option><option>100</option><option>200</option><option>500</option></select>
+          </label>
+          <button type="button" class="pager-btn" disabled><i class="fas fa-angle-double-left"></i></button>
+          <button type="button" class="pager-btn" disabled><i class="fas fa-angle-left"></i></button>
+          <span>1/1</span>
+          <button type="button" class="pager-btn" disabled><i class="fas fa-angle-right"></i></button>
+          <button type="button" class="pager-btn" disabled><i class="fas fa-angle-double-right"></i></button>
+        </div>
+      </div>
+    </section>
   </div>
 
-  <aside class="slide" id="slide" aria-label="Form vấn đề">
+  <!-- DES-GRID-Z Slideout footer-only -->
+  <aside class="slideout" id="slide" data-des-id="DES-GRID-Z" data-form-cols="2" aria-label="Form sự cố">
     <div class="z1">
-      <div>
-        <strong>Chi tiết vấn đề</strong>
-        <div class="hint" style="margin:4px 0 0">Z1 · ≠ citizen · IdCode VD-* khi lưu</div>
+      <div class="title">
+        <span id="form-title">Chi tiết sự cố</span>
+        <span class="mode" id="form-mode">Tạo mới</span>
+        <span class="dirty" id="form-dirty" hidden>Đã sửa</span>
       </div>
-      <div>
-        <button type="button" class="btn" id="btnClose">✕ Đóng</button>
+      <button type="button" class="tb" id="btn-x" title="Đóng"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="z2">
+      <div class="banner" id="form-banner">Thiếu trường bắt buộc: tiêu đề · đoạn đường · loại · trạng thái · ngày YC</div>
+      <div class="section">
+        <div class="fields">
+          <div class="field"><label>Mã sự cố</label><input id="f-code" value="(tự sinh VD-*)" readonly /></div>
+          <div class="field"><label>Trạng thái *</label>
+            <select id="f-st"><option value="new">Mới</option><option value="in_progress">Đang XL</option><option value="closed">Đã đóng</option></select>
+          </div>
+          <div class="field full"><label>Tiêu đề *</label><input id="f-title" placeholder="Ổ gà Km12…" /></div>
+          <div class="field si-mock"><label>Đoạn đường * (SearchInput road-route)</label>
+            <input type="search" id="f-route-form" placeholder="Chọn tuyến…" autocomplete="off" />
+            <div class="si-drop" id="route-drop-form">
+              <button type="button" data-route="QL.1">QL.1 — Quốc lộ 1</button>
+              <button type="button" data-route="QL.15">QL.15 — Quốc lộ 15</button>
+              <button type="button" data-route="HCM">HCM — Đường Hồ Chí Minh</button>
+            </div>
+          </div>
+          <div class="field"><label>Loại sự cố *</label>
+            <select id="f-type-form">
+              <option value="o-ga">Ổ gà</option>
+              <option value="sat-taluy">Sạt taluy</option>
+              <option value="bien-bao">Biển báo</option>
+              <option value="ngap-ung">Ngập úng</option>
+              <option value="un-tac">Ùn tắc</option>
+              <option value="khac">Khác</option>
+            </select>
+          </div>
+          <div class="field"><label>Mức độ</label>
+            <select id="f-sev"><option value="low">Thấp</option><option value="medium">Trung bình</option><option value="high">Cao</option><option value="critical" selected>Critical</option></select>
+          </div>
+          <div class="field"><label>Ngày yêu cầu *</label><input type="datetime-local" id="f-req" value="2026-08-29T10:00" /></div>
+          <div class="field"><label>detectionId (AI)</label><input id="f-det" placeholder="DET-…" /></div>
+          <div class="field"><label>Người báo</label><input id="f-reporter" /></div>
+          <div class="field"><label>Người xử lý</label><input id="f-assignee" /></div>
+          <div class="field"><label>Hướng xử lý</label>
+            <select id="f-dir"><option value="theo-doi">Theo dõi</option><option value="sua-chua-ngay">Sửa chữa ngay</option><option value="lap-kh-bt">Lập KH BT</option><option value="giao-cv">Giao CV</option></select>
+          </div>
+          <div class="field"><label>Gây ùn tắc</label>
+            <select id="f-cong"><option value="false">Không</option><option value="true">Có</option></select>
+          </div>
+          <div class="field full"><label>Mô tả</label><textarea id="f-desc" rows="3" placeholder="Mô tả chi tiết…"></textarea></div>
+        </div>
       </div>
     </div>
-    <div class="body">
-      <div class="fields">
-        <label>Mã<input value="(tự sinh)" readonly /></label>
-        <label>Trạng thái *<select><option selected>new</option><option>in_progress</option><option>closed</option></select></label>
-        <label class="span2">Tiêu đề *<input placeholder="Ổ gà Km12…" /></label>
-        <label>Đoạn đường *<select><option>QL.1</option><option>CT.01</option></select></label>
-        <label>Loại vấn đề *<select><option>o-ga</option><option>sat-taluy</option><option>bien-bao</option><option>khac</option></select></label>
-        <label>Mức độ<select><option>low</option><option>medium</option><option>high</option><option selected>critical</option></select></label>
-        <label>Ngày yêu cầu *<input type="datetime-local" value="2026-08-09T10:00" /></label>
-        <label>detectionId (AI)<input placeholder="DET-…" value="DET-901" /></label>
-        <label class="span2">Mô tả<textarea placeholder="Mô tả chi tiết…"></textarea></label>
-      </div>
-    </div>
-    <div class="z3">
-      <button type="button" class="btn" id="btnCancel">Hủy thay đổi</button>
-      <button type="button" class="btn">Giao việc</button>
-      <button type="button" class="btn">Đóng vấn đề</button>
-      <button type="button" class="btn primary">Ghi lại</button>
+    <div class="z3" id="z3-acts">
+      <!-- filled by JS per mode — footer only -->
     </div>
   </aside>
 
+  <div class="backdrop" id="modal-config" data-des-id="DES-GRID-F">
+    <div class="modal wide">
+      <div class="modal-h"><i class="fas fa-cog"></i> Cấu hình hiển thị danh mục</div>
+      <div class="modal-b">
+        <p>LinCatalogUiSchemaEditorModal · catalogKind=<code>incidents</code> · kéo cột default ON · <strong>cấm</strong> configHint</p>
+        <table class="schema-table">
+          <thead><tr><th>List</th><th>Cột</th><th>Width</th><th>Filter</th><th>Sort</th></tr></thead>
+          <tbody>
+            <tr><td>□</td><td>code</td><td>120</td><td>✓</td><td>✓</td></tr>
+            <tr><td>□</td><td>title</td><td>220</td><td>✓</td><td>✓</td></tr>
+            <tr><td>□</td><td>routeName</td><td>100</td><td>✓</td><td></td></tr>
+            <tr><td>□</td><td>incidentType</td><td>110</td><td>✓</td><td></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-f"><button type="button" class="tb" data-close="modal-config">Đóng</button><button type="button" class="tb primary" data-close="modal-config">Lưu</button></div>
+    </div>
+  </div>
+
+  <div class="backdrop" id="modal-history" data-des-id="DES-GRID-H">
+    <div class="modal">
+      <div class="modal-h"><i class="fas fa-history"></i> Lịch sử</div>
+      <div class="modal-b">
+        <p>LinCatalogHistoryModal — <strong>cấm</strong> window.alert (GAP-INC-HIST-01)</p>
+        <div class="hist-item"><strong>VD-20260829-0001</strong> · Tạo mới · 29/08/2026 10:00</div>
+        <div class="hist-item"><strong>VD-20260829-0001</strong> · Giao việc · 29/08/2026 11:20</div>
+      </div>
+      <div class="modal-f"><button type="button" class="tb" data-close="modal-history">Đóng</button></div>
+    </div>
+  </div>
+
+  <div class="backdrop" id="modal-confirm" data-des-id="DES-MOD-CONFIRM">
+    <div class="modal">
+      <div class="modal-h" id="confirm-title">Xác nhận</div>
+      <div class="modal-b" id="confirm-body">Bạn có chắc?</div>
+      <div class="modal-f">
+        <button type="button" class="tb" data-close="modal-confirm">Hủy</button>
+        <button type="button" class="tb primary" id="confirm-ok">Xác nhận</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="backdrop" id="modal-leave" data-des-id="DES-MOD-LEAVE">
+    <div class="modal">
+      <div class="modal-h">Rời form chưa lưu?</div>
+      <div class="modal-b">LeaveConfirmModal — thay đổi chưa lưu sẽ mất. <strong>Cấm</strong> native confirm.</div>
+      <div class="modal-f">
+        <button type="button" class="tb" data-close="modal-leave">Ở lại</button>
+        <button type="button" class="tb primary" id="leave-ok">Rời đi</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
   <script>
+    const TYPE_LABEL = { 'o-ga':'Ổ gà','sat-taluy':'Sạt taluy','bien-bao':'Biển báo','ngap-ung':'Ngập úng','un-tac':'Ùn tắc','khac':'Khác' };
+    const ST_LABEL = { new:'Mới', in_progress:'Đang XL', closed:'Đã đóng' };
+    const SEV_LABEL = { low:'Thấp', medium:'Trung bình', high:'Cao', critical:'Critical' };
+    const rows = [
+      { code:'VD-20260829-0001', title:'Ổ gà Km12 — từ AI', route:'QL.1', type:'o-ga', sev:'critical', status:'new', req:'29/08/2026 10:00', ai:'DET-901' },
+      { code:'VD-20260828-0002', title:'Sạt taluy đoạn dốc', route:'QL.1', type:'sat-taluy', sev:'high', status:'in_progress', req:'28/08/2026 14:20', ai:'—' },
+      { code:'VD-20260827-0003', title:'Ngập úng Km4', route:'QL.217', type:'ngap-ung', sev:'medium', status:'closed', req:'27/08/2026 17:30', ai:'—' },
+      { code:'VD-20260826-0004', title:'Ùn tắc Km12+050', route:'QL.1', type:'un-tac', sev:'high', status:'new', req:'26/08/2026 08:20', ai:'—' },
+    ];
+    let selected = null;
+    let formMode = 'create';
+    let dirty = false;
+    let pendingLeave = null;
+    let confirmAction = null;
+    const tbody = document.getElementById('tbody');
     const slide = document.getElementById('slide');
-    const open = () => slide.classList.add('open');
-    const close = () => slide.classList.remove('open');
-    document.getElementById('btnCreate').onclick = open;
-    document.getElementById('openView').onclick = open;
-    document.getElementById('btnClose').onclick = close;
-    document.getElementById('btnCancel').onclick = close;
+
+    function toast(msg) {
+      const el = document.getElementById('toast');
+      el.textContent = msg;
+      el.classList.add('on');
+      setTimeout(() => el.classList.remove('on'), 2200);
+    }
+    function openModal(id) { document.getElementById(id).classList.add('on'); }
+    function closeModal(id) { document.getElementById(id).classList.remove('on'); }
+
+    function syncSelBtns() {
+      const on = Boolean(selected);
+      ['btn-view','btn-edit','btn-del'].forEach(id => { document.getElementById(id).disabled = !on; });
+    }
+
+    function filtered() {
+      const q = (document.getElementById('q').value || '').trim().toLowerCase();
+      const st = document.getElementById('f-status').value;
+      const sev = document.getElementById('f-severity').value;
+      const route = (document.getElementById('f-route').value || '').trim().toLowerCase();
+      const typ = document.getElementById('f-type').value;
+      return rows.filter(r => {
+        if (st && r.status !== st) return false;
+        if (sev && r.sev !== sev) return false;
+        if (typ && r.type !== typ) return false;
+        if (route && !r.route.toLowerCase().includes(route)) return false;
+        if (!q) return true;
+        const blob = [r.code, r.title, r.route, TYPE_LABEL[r.type], r.ai].join(' ').toLowerCase();
+        return blob.includes(q);
+      });
+    }
+
+    function render() {
+      const list = filtered();
+      if (!list.length) {
+        tbody.innerHTML = `<tr><td colspan="11" style="text-align:center;color:var(--muted);padding:28px">Không có dữ liệu sự cố / Không có sự cố phù hợp bộ lọc</td></tr>`;
+      } else {
+        tbody.innerHTML = list.map((r, i) => `
+          <tr data-code="${r.code}" class="${selected===r.code?'sel':''}">
+            <td class="num">${i+1}</td>
+            <td class="num"><input type="checkbox" class="row-chk" ${selected===r.code?'checked':''} /></td>
+            <td><button type="button" class="code">${r.code}</button></td>
+            <td>${r.title}</td>
+            <td>${r.route}</td>
+            <td>${TYPE_LABEL[r.type]||r.type}</td>
+            <td>${SEV_LABEL[r.sev]||r.sev}</td>
+            <td>${ST_LABEL[r.status]||r.status}</td>
+            <td>${r.req}</td>
+            <td>${r.ai}</td>
+            <td class="num" data-des-id="DES-GRID-C3">
+              <details class="menu">
+                <summary>⋮</summary>
+                <div class="menu-panel">
+                  <button type="button" data-menu="view">Xem</button>
+                  <button type="button" data-menu="edit">Sửa</button>
+                  <button type="button" data-menu="copy">Sao chép</button>
+                  <button type="button" data-menu="assign">Giao việc</button>
+                  <button type="button" data-menu="close">Đóng vấn đề</button>
+                  <button type="button" data-menu="history">Lịch sử</button>
+                  <button type="button" class="danger" data-menu="delete">Xóa</button>
+                </div>
+              </details>
+            </td>
+          </tr>`).join('');
+      }
+      document.getElementById('total').textContent = String(list.length);
+      syncSelBtns();
+    }
+
+    function fillZ3() {
+      const box = document.getElementById('z3-acts');
+      if (formMode === 'view') {
+        box.innerHTML = `
+          <button type="button" class="tb" id="act-close-slide">Đóng</button>
+          <button type="button" class="tb" id="act-copy">Sao chép</button>
+          <button type="button" class="tb" id="act-edit">Sửa</button>
+          <button type="button" class="tb" id="act-assign">Giao việc</button>
+          <button type="button" class="tb" id="act-close-inc">Đóng vấn đề</button>`;
+      } else {
+        box.innerHTML = `
+          <button type="button" class="tb" id="act-cancel">Hủy</button>
+          ${formMode === 'edit' ? '<button type="button" class="tb" id="act-assign">Giao việc</button><button type="button" class="tb" id="act-close-inc">Đóng vấn đề</button>' : ''}
+          <button type="button" class="tb primary" id="act-save">Lưu</button>`;
+      }
+      box.querySelector('#act-close-slide')?.addEventListener('click', requestCloseSlide);
+      box.querySelector('#act-cancel')?.addEventListener('click', requestCloseSlide);
+      box.querySelector('#act-save')?.addEventListener('click', () => {
+        dirty = false; document.getElementById('form-dirty').hidden = true;
+        toast('Đã lưu (mock)'); closeSlide(true);
+      });
+      box.querySelector('#act-edit')?.addEventListener('click', () => openForm('edit', selected));
+      box.querySelector('#act-copy')?.addEventListener('click', () => openForm('copy', selected));
+      box.querySelector('#act-assign')?.addEventListener('click', () => {
+        confirmAction = 'assign';
+        document.getElementById('confirm-title').textContent = 'Giao việc';
+        document.getElementById('confirm-body').textContent = 'Mở Platform Task (rmms-task-integrate) · domainSource=incident · cấm CV mock SSOT.';
+        openModal('modal-confirm');
+      });
+      box.querySelector('#act-close-inc')?.addEventListener('click', () => {
+        confirmAction = 'close';
+        document.getElementById('confirm-title').textContent = 'Đóng vấn đề';
+        document.getElementById('confirm-body').textContent = 'POST …/incidents/{id}/close · status → closed.';
+        openModal('modal-confirm');
+      });
+    }
+
+    function setReadonly(ro) {
+      ['f-title','f-route-form','f-type-form','f-st','f-sev','f-req','f-det','f-reporter','f-assignee','f-dir','f-cong','f-desc'].forEach(id => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        if (ro) { el.setAttribute('readonly','readonly'); if (el.tagName==='SELECT') el.style.pointerEvents='none'; }
+        else { el.removeAttribute('readonly'); if (el.tagName==='SELECT') el.style.pointerEvents=''; }
+      });
+    }
+
+    function openForm(mode, code) {
+      formMode = mode;
+      dirty = false;
+      document.getElementById('form-dirty').hidden = true;
+      document.getElementById('form-banner').classList.remove('on');
+      const labels = { create:'Tạo mới', edit:'Sửa', view:'Xem', copy:'Sao chép' };
+      document.getElementById('form-mode').textContent = labels[mode] || mode;
+      document.getElementById('form-title').textContent = 'Chi tiết sự cố';
+      const row = rows.find(r => r.code === code);
+      if (mode === 'create') {
+        document.getElementById('f-code').value = '(tự sinh VD-*)';
+        document.getElementById('f-title').value = '';
+        document.getElementById('f-route-form').value = '';
+        document.getElementById('f-det').value = '';
+      } else if (row) {
+        document.getElementById('f-code').value = mode === 'copy' ? '(mã mới khi lưu)' : row.code;
+        document.getElementById('f-title').value = row.title;
+        document.getElementById('f-route-form').value = row.route;
+        document.getElementById('f-type-form').value = row.type;
+        document.getElementById('f-st').value = row.status;
+        document.getElementById('f-sev').value = row.sev;
+        document.getElementById('f-det').value = row.ai === '—' ? '' : row.ai;
+      }
+      setReadonly(mode === 'view');
+      fillZ3();
+      slide.classList.add('on');
+    }
+
+    function closeSlide(force) {
+      if (!force && dirty) {
+        pendingLeave = () => { dirty = false; slide.classList.remove('on'); };
+        openModal('modal-leave');
+        return;
+      }
+      slide.classList.remove('on');
+    }
+    function requestCloseSlide() { closeSlide(false); }
+
+    function markDirty() {
+      if (formMode === 'view') return;
+      dirty = true;
+      document.getElementById('form-dirty').hidden = false;
+    }
+
+    tbody.addEventListener('click', (e) => {
+      const tr = e.target.closest('tr');
+      if (!tr || !tr.getAttribute('data-code')) return;
+      const code = tr.getAttribute('data-code');
+      if (e.target.closest('[data-menu]')) {
+        const act = e.target.getAttribute('data-menu');
+        selected = code; syncSelBtns(); render();
+        if (act === 'history') openModal('modal-history');
+        else if (act === 'view') openForm('view', code);
+        else if (act === 'edit') openForm('edit', code);
+        else if (act === 'copy') openForm('copy', code);
+        else if (act === 'delete') {
+          confirmAction = 'delete';
+          document.getElementById('confirm-title').textContent = 'Xóa sự cố';
+          document.getElementById('confirm-body').textContent = `Soft delete ${code} · Confirm modal · cấm native confirm.`;
+          openModal('modal-confirm');
+        } else if (act === 'assign') {
+          confirmAction = 'assign';
+          document.getElementById('confirm-title').textContent = 'Giao việc';
+          document.getElementById('confirm-body').textContent = 'Platform Task integrate · domainSource=incident.';
+          openModal('modal-confirm');
+        } else if (act === 'close') {
+          confirmAction = 'close';
+          document.getElementById('confirm-title').textContent = 'Đóng vấn đề';
+          document.getElementById('confirm-body').textContent = `POST …/close · ${code}`;
+          openModal('modal-confirm');
+        }
+        return;
+      }
+      if (e.target.classList.contains('code') || e.target.classList.contains('row-chk')) {
+        selected = code; syncSelBtns(); render();
+        if (e.target.classList.contains('code')) openForm('view', code);
+      }
+    });
+    tbody.addEventListener('dblclick', (e) => {
+      const tr = e.target.closest('tr');
+      if (!tr || !tr.getAttribute('data-code')) return;
+      selected = tr.getAttribute('data-code'); syncSelBtns(); render();
+      openForm('edit', selected);
+    });
+
+    ['q','f-status','f-severity','f-route','f-type'].forEach(id => {
+      document.getElementById(id).addEventListener('input', render);
+      document.getElementById(id).addEventListener('change', render);
+    });
+
+    document.querySelector('[data-action="config"]').addEventListener('click', () => openModal('modal-config'));
+    document.querySelector('[data-action="history"]').addEventListener('click', () => openModal('modal-history'));
+    document.querySelector('[data-action="refresh"]').addEventListener('click', () => { render(); toast('Đã làm mới'); });
+    document.querySelector('[data-action="create"]').addEventListener('click', () => openForm('create'));
+    document.getElementById('btn-view').addEventListener('click', () => selected && openForm('view', selected));
+    document.getElementById('btn-edit').addEventListener('click', () => selected && openForm('edit', selected));
+    document.getElementById('btn-del').addEventListener('click', () => {
+      if (!selected) return;
+      confirmAction = 'delete';
+      document.getElementById('confirm-title').textContent = 'Xóa sự cố';
+      document.getElementById('confirm-body').textContent = `Soft delete ${selected}`;
+      openModal('modal-confirm');
+    });
+    document.getElementById('btn-x').addEventListener('click', requestCloseSlide);
+
+    document.querySelectorAll('[data-close]').forEach(btn => {
+      btn.addEventListener('click', () => closeModal(btn.getAttribute('data-close')));
+    });
+    document.getElementById('leave-ok').addEventListener('click', () => {
+      closeModal('modal-leave');
+      if (pendingLeave) { pendingLeave(); pendingLeave = null; }
+    });
+    document.getElementById('confirm-ok').addEventListener('click', () => {
+      closeModal('modal-confirm');
+      toast(confirmAction === 'delete' ? 'Đã xóa (soft)' : confirmAction === 'close' ? 'Đã đóng vấn đề' : 'Mở giao việc (Task)');
+      confirmAction = null;
+    });
+
+    slide.querySelectorAll('input,select,textarea').forEach(el => {
+      el.addEventListener('input', markDirty);
+      el.addEventListener('change', markDirty);
+    });
+
+    function wireRouteSi(inputId, dropId) {
+      const input = document.getElementById(inputId);
+      const drop = document.getElementById(dropId);
+      input.addEventListener('focus', () => drop.classList.add('on'));
+      input.addEventListener('input', () => drop.classList.add('on'));
+      drop.addEventListener('click', (e) => {
+        const btn = e.target.closest('[data-route]');
+        if (!btn) return;
+        input.value = btn.getAttribute('data-route');
+        drop.classList.remove('on');
+        if (inputId === 'f-route') render();
+        else markDirty();
+      });
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest('.si-mock')) drop.classList.remove('on');
+      });
+    }
+    wireRouteSi('f-route', 'route-drop');
+    wireRouteSi('f-route-form', 'route-drop-form');
+
+    document.getElementById('btn-filter-code').addEventListener('click', (e) => {
+      e.stopPropagation();
+      document.getElementById('filter-pop').classList.toggle('on');
+      document.getElementById('filter-list').innerHTML = rows.map(r =>
+        `<label style="display:flex;gap:8px;padding:4px"><input type="checkbox" checked /> ${r.code}</label>`
+      ).join('');
+      document.getElementById('filter-count').textContent = String(rows.length);
+    });
+    document.getElementById('filter-cancel').addEventListener('click', () => document.getElementById('filter-pop').classList.remove('on'));
+    document.getElementById('filter-ok').addEventListener('click', () => document.getElementById('filter-pop').classList.remove('on'));
+
+    render();
   </script>
 </body>
 </html>

@@ -66,6 +66,7 @@
 | T-UI-LIST-01 | road-route | dev | T-BFF-01 | **done** |
 | T-UI-FORM-01 | road-route | dev | T-UI-LIST-01 | **done** |
 | T-QA-01 | road-route | qa | T-UI-FORM-01 | **done** |
+| T-UD-BUG-01 | /mas/tuyen-duong/tao-moi | qa | T-UI-FORM-01 | **done** | confirmed `/run-user-doc` 2026-08-30 · HDSD-P0-08/11 · capture=03-mas-tuyen-duong-tao-moi.png |
 
 ## Blockers
 

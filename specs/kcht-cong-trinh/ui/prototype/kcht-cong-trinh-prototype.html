@@ -3,682 +3,325 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Prototype — Công trình KCHT (kcht-cong-trinh) · Kind B A–D + full-page 4 tab</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <title>Prototype — Công trình KCHT · PH1+PH2–PH4 · Kind B</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
   <style>
-    :root {
-      --bg: #f5f7fa; --card: #fff; --border: #BABCBE; --border-soft: #e9ecef;
-      --txt: #1A1A1A; --txt-secondary: #6c757d; --muted: #6D6D6D;
-      --primary: #0d6efd; --toolbar-bg: #f8fafc;
-      --ds-focus-shadow: 0px 0px 4px #BABCBE; --ds-radius-md: 4px;
-      --ds-font-body: 13px; --ds-font-title: 22px; --ds-height-btn: 32px;
-      --col-no: 48px; --col-check: 48px; --check-size: 24px;
-    }
-    * { box-sizing: border-box; }
-    body { margin: 0; font-family: "Segoe UI", system-ui, sans-serif; background: var(--bg); color: var(--txt); font-size: var(--ds-font-body); }
-    input, select, textarea {
-      padding: 6px 10px; border: 1px solid var(--border); border-radius: var(--ds-radius-md);
-      font-size: 13px; min-height: 32px; width: 100%; background: #fff;
-    }
-    input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary); box-shadow: var(--ds-focus-shadow); }
-    input[type="checkbox"] { width: var(--check-size); height: var(--check-size); min-width: var(--check-size); accent-color: var(--primary); }
-    textarea { min-height: 64px; }
-    .page { max-width: 1280px; margin: 0 auto; padding: 8px; display: flex; flex-direction: column; gap: 8px; min-height: 100vh; }
-    .zone-a { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
-    .zone-a h1 { margin: 0; font-size: var(--ds-font-title); font-weight: 700; }
-    .zone-a h1 i { color: var(--primary); }
-    .badge { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: #dbeafe; color: #1e40af; }
-    .zone-b { display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; padding: 10px 12px; background: var(--toolbar-bg); border: 1px solid var(--border-soft); border-radius: var(--ds-radius-md); }
-    .zone-b-left, .zone-b-right { display: flex; flex-wrap: wrap; gap: 8px; align-items: flex-end; }
-    .btn { height: var(--ds-height-btn); padding: 0 12px; border: 1px solid var(--border); border-radius: var(--ds-radius-md); background: #fff; cursor: pointer; font-size: 12px; }
-    .btn.primary { background: var(--primary); color: #fff; border-color: var(--primary); }
-    .btn.danger { color: #dc2626; border-color: #fecaca; }
-    .field { display: flex; flex-direction: column; gap: 4px; min-width: 140px; }
-    .field label { font-size: 12px; color: var(--muted); font-weight: 500; }
-    .req::after { content: " *"; color: #dc2626; font-weight: 700; }
-    .search-wrap { display: flex; align-items: stretch; border: 1px solid var(--border); border-radius: var(--ds-radius-md); overflow: hidden; background: #fff; min-width: 160px; min-height: 32px; }
-    .search-wrap:focus-within { border-color: var(--primary); box-shadow: var(--ds-focus-shadow); }
-    .search-wrap input { border: 0 !important; outline: none !important; box-shadow: none !important; flex: 1; min-width: 0; min-height: 30px; width: auto; }
-    .search-wrap button { border: 0; border-left: 1px solid var(--border); background: #f8fafc; padding: 0 10px; cursor: pointer; color: var(--muted); min-width: 36px; }
-    .lkp { position: relative; }
-    .lkp-list { display: none; position: absolute; left: 0; right: 0; top: 100%; z-index: 30; background: #fff; border: 1px solid var(--border); border-radius: var(--ds-radius-md); max-height: 180px; overflow: auto; box-shadow: 0 8px 24px rgba(15,23,42,.12); }
-    .lkp.open .lkp-list { display: block; }
-    .lkp-list button { display: block; width: 100%; text-align: left; border: 0; background: #fff; padding: 8px 10px; font-size: 13px; cursor: pointer; }
-    .lkp-list button:hover { background: #f1f5f9; }
-    .zone-c { flex: 1; background: var(--card); border: 1px solid var(--border-soft); border-radius: var(--ds-radius-md); display: flex; flex-direction: column; min-height: 280px; overflow: hidden; }
-    .grid-head { padding: 12px 16px 8px; }
-    .grid-title { margin: 0; font-size: 15px; font-weight: 700; }
-    .grid-help { margin: 4px 0 0; font-size: 12px; color: var(--txt-secondary); }
-    .table-wrap { overflow: auto; flex: 1; }
-    table { width: 100%; border-collapse: collapse; }
-    th, td { padding: 8px 12px; border-bottom: 1px solid var(--border-soft); text-align: left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    th { background: #f8fafc; font-size: 12px; color: var(--muted); position: sticky; top: 0; }
-    th.col-stt, td.col-stt, th.col-check, td.col-check { width: var(--col-no); text-align: center; }
-    tbody tr:hover { background: #f1f5f9; }
-    .code { color: var(--primary); font-family: ui-monospace, Consolas, monospace; cursor: pointer; text-decoration: underline; background: none; border: 0; padding: 0; font-size: inherit; }
-    .menu { position: relative; }
-    .menu summary { list-style: none; cursor: pointer; padding: 4px 8px; border: 1px solid var(--border); border-radius: 4px; background: #fff; }
-    .panel { display: none; position: absolute; right: 0; z-index: 3; background: #fff; border: 1px solid var(--border); border-radius: 6px; min-width: 140px; box-shadow: 0 8px 24px rgba(15,23,42,.12); }
-    .menu[open] .panel { display: block; }
-    .panel button { display: block; width: 100%; text-align: left; border: 0; background: transparent; padding: 8px 12px; cursor: pointer; }
-    .panel button:hover { background: #f1f5f9; }
-    .zone-d { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 12px 16px; border-top: 1px solid var(--border-soft); background: #fff; }
-    .zone-d-controls { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: center; }
-    .pager-btn { width: 32px; height: 32px; border: 1px solid var(--border-soft); border-radius: var(--ds-radius-md); background: #fff; cursor: pointer; }
-    .pager-btn:disabled { opacity: 0.4; }
-    .view-form { display: none; }
-    .page.mode-form .view-list { display: none; }
-    .page.mode-form .view-form { display: flex; flex-direction: column; gap: 8px; min-height: 90vh; }
-    .form-header { background: #fff; border: 1px solid var(--border-soft); border-radius: var(--ds-radius-md); }
-    .z1-toolbar { display: flex; justify-content: space-between; gap: 8px; padding: 10px 16px; border-bottom: 1px solid var(--border-soft); flex-wrap: wrap; }
-    .z1-title-row { display: flex; align-items: center; gap: 8px; padding: 10px 16px 4px; }
-    .z1h { padding: 4px 16px 12px; font-size: 12px; color: var(--muted); }
-    .tabs { display: flex; gap: 4px; padding: 0 16px 12px; border-bottom: 1px solid var(--border-soft); flex-wrap: wrap; }
-    .tab-btn { border: 1px solid var(--border-soft); background: #f8fafc; padding: 8px 14px; border-radius: var(--ds-radius-md); cursor: pointer; font-size: 13px; }
-    .tab-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
-    .tab-panel { display: none; }
-    .tab-panel.active { display: block; }
-    .z2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 16px; background: #fff; border: 1px solid var(--border-soft); border-radius: var(--ds-radius-md); flex: 1; }
-    .z2 .span2 { grid-column: span 2; }
-    .z2 .section-label { grid-column: 1 / -1; font-size: 12px; font-weight: 700; color: var(--primary); text-transform: uppercase; }
-    .child-tbl { width: 100%; }
-    .child-tbl th, .child-tbl td { font-size: 12px; }
-    .z3 { display: flex; justify-content: flex-end; gap: 8px; padding: 12px 16px; background: #fff; border: 1px solid var(--border-soft); border-radius: var(--ds-radius-md); }
-    .z3.hidden { display: none; }
-    dl.view-dl { display: grid; grid-template-columns: 180px 1fr; gap: 8px 16px; margin: 0; }
-    dl.view-dl dt { color: var(--muted); font-size: 12px; }
-    dl.view-dl dd { margin: 0; }
-    .hidden { display: none !important; }
-    .toast { position: fixed; right: 16px; bottom: 16px; background: #0f172a; color: #fff; padding: 10px 14px; border-radius: 6px; display: none; z-index: 50; }
-    .modal { display: none; position: fixed; inset: 0; background: rgba(15,23,42,.35); z-index: 40; align-items: center; justify-content: center; }
-    .modal.open { display: flex; }
-    .modal-card { background: #fff; padding: 16px; border-radius: 8px; min-width: 420px; max-width: 720px; }
-    .schema-tbl { width: 100%; margin-top: 8px; }
-    .file-row { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid var(--border-soft); }
-    @media (max-width: 720px) { .z2 { grid-template-columns: 1fr; } .z2 .span2, .z2 .section-label { grid-column: span 1; } }
+    :root { --bg:#f5f7fa; --card:#fff; --border:#BABCBE; --soft:#e9ecef; --txt:#1A1A1A; --muted:#6D6D6D; --primary:#0d6efd; --tb:#f8fafc; }
+    *{box-sizing:border-box} body{margin:0;font-family:Segoe UI,system-ui,sans-serif;background:var(--bg);color:var(--txt);font-size:13px}
+    input,select,textarea{padding:6px 10px;border:1px solid var(--border);border-radius:4px;font-size:13px;min-height:32px;width:100%;background:#fff}
+    input:focus,select:focus,textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 4px #BABCBE}
+    textarea{min-height:64px}
+    .shell{max-width:1360px;margin:0 auto;padding:8px;display:flex;flex-direction:column;gap:8px;min-height:100vh}
+    .surf-nav{display:flex;flex-wrap:wrap;gap:6px;padding:8px;background:#fff;border:1px solid var(--soft);border-radius:4px}
+    .surf-nav button{height:28px;padding:0 10px;border:1px solid var(--border);border-radius:4px;background:#fff;cursor:pointer;font-size:12px}
+    .surf-nav button.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+    .view{display:none;flex-direction:column;gap:8px}.view.active{display:flex}
+    .zone-a{display:flex;align-items:center;gap:10px}.zone-a h1{margin:0;font-size:22px;font-weight:700}.zone-a h1 i{color:var(--primary)}
+    .badge{font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:#dbeafe;color:#1e40af}
+    .badge.warn{background:#fef3c7;color:#92400e}.badge.danger{background:#fee2e2;color:#991b1b}.badge.ok{background:#dcfce7;color:#166534}
+    .badge.rag-y{background:#fef3c7;color:#92400e}
+    .zone-b{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:10px 12px;background:var(--tb);border:1px solid var(--soft);border-radius:4px}
+    .zone-b-left,.zone-b-right{display:flex;flex-wrap:wrap;gap:8px;align-items:flex-end}
+    .btn{height:32px;padding:0 12px;border:1px solid var(--border);border-radius:4px;background:#fff;cursor:pointer;font-size:12px}
+    .btn.primary{background:var(--primary);color:#fff;border-color:var(--primary)}.btn.danger{color:#dc2626;border-color:#fecaca}
+    .field{display:flex;flex-direction:column;gap:4px;min-width:130px}.field label{font-size:12px;color:var(--muted);font-weight:500}
+    .req::after{content:" *";color:#dc2626;font-weight:700}
+    .sw{display:flex;border:1px solid var(--border);border-radius:4px;overflow:hidden;background:#fff;min-width:140px;min-height:32px}
+    .sw input{border:0!important;outline:none!important;box-shadow:none!important;flex:1;min-width:0;min-height:30px;width:auto}
+    .sw button{border:0;border-left:1px solid var(--border);background:#f8fafc;padding:0 10px;cursor:pointer;color:var(--muted)}
+    .zone-c{flex:1;background:var(--card);border:1px solid var(--soft);border-radius:4px;display:flex;flex-direction:column;min-height:220px;overflow:hidden}
+    .grid-head{padding:12px 16px 8px}.grid-title{margin:0;font-size:15px;font-weight:700}.grid-help{margin:4px 0 0;font-size:12px;color:var(--muted)}
+    .table-wrap{overflow:auto;flex:1} table{width:100%;border-collapse:collapse}
+    th,td{padding:8px 10px;border-bottom:1px solid var(--soft);text-align:left;white-space:nowrap;font-size:12px}
+    th{background:#f8fafc;color:var(--muted);position:sticky;top:0} tbody tr:hover{background:#f1f5f9}
+    .code{color:var(--primary);font-family:ui-monospace,Consolas,monospace;cursor:pointer;text-decoration:underline;background:none;border:0;padding:0;font-size:inherit}
+    .zone-d{display:flex;flex-direction:column;align-items:center;gap:8px;padding:12px 16px;border-top:1px solid var(--soft)}
+    .form-chrome{background:#fff;border:1px solid var(--soft);border-radius:4px}
+    .form-toolbar{display:flex;justify-content:space-between;gap:8px;padding:10px 16px;border-bottom:1px solid var(--soft);flex-wrap:wrap}
+    .form-title{padding:10px 16px 4px;display:flex;align-items:center;gap:8px}.form-title h2{margin:0;font-size:18px}
+    .form-hint{padding:4px 16px 12px;font-size:12px;color:var(--muted)}
+    .tabs{display:flex;gap:4px;padding:0 16px 12px;border-bottom:1px solid var(--soft);flex-wrap:wrap}
+    .tab-btn{border:1px solid var(--soft);background:#f8fafc;padding:8px 14px;border-radius:4px;cursor:pointer;font-size:13px}
+    .tab-btn.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+    .tab-panel{display:none;padding:16px}.tab-panel.active{display:block}
+    .fields-5{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px}
+    .fields-5 .span2{grid-column:span 2}.fields-5 .span-full{grid-column:1/-1}
+    .section{padding:16px;background:#fff;border:1px solid var(--soft);border-radius:4px;margin-top:8px}
+    .section h3{margin:0 0 12px;font-size:13px;font-weight:700;color:var(--primary);text-transform:uppercase;border-bottom:1px solid var(--soft);padding-bottom:8px}
+    .readonly input{background:#f8fafc;color:var(--muted)}
+    .form-footer{display:flex;justify-content:flex-end;gap:8px;padding:12px 16px;background:#fff;border:1px solid var(--soft);border-radius:4px;margin-top:8px}
+    .sub-links{display:flex;gap:8px;flex-wrap:wrap;padding:0 16px 12px}.sub-links a{font-size:12px;color:var(--primary);cursor:pointer;text-decoration:underline}
+    .header-so{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;padding:12px 16px;background:#fff;border:1px solid var(--soft);border-radius:4px}
+    .kbn-grid th,.kbn-grid td{text-align:right}.kbn-grid th:first-child,.kbn-grid td:first-child{text-align:left}
+    .toast{position:fixed;right:16px;bottom:16px;background:#0f172a;color:#fff;padding:10px 14px;border-radius:6px;display:none;z-index:50}
+    .modal{display:none;position:fixed;inset:0;background:rgba(15,23,42,.35);z-index:40;align-items:center;justify-content:center}
+    .modal.open{display:flex}.modal-card{background:#fff;padding:16px;border-radius:8px;min-width:360px;max-width:560px}
+    .modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:12px}
+    @media(max-width:1100px){.fields-5,.header-so{grid-template-columns:repeat(3,minmax(0,1fr))}}
+    @media(max-width:720px){.fields-5,.header-so{grid-template-columns:1fr 1fr}.fields-5 .span2{grid-column:1/-1}}
   </style>
 </head>
 <body>
-  <div class="page" id="page">
-    <div class="view-list" id="viewList" data-catalog-list-page data-zones="A-B-C-D" data-testid="kcht-cong-trinh-list-prototype">
-      <header class="zone-a" data-zone="A">
-        <h1><i class="fas fa-road" aria-hidden="true"></i> Công trình KCHT</h1>
-        <span class="badge">Kind B list · PH1</span>
-      </header>
+<div class="shell" data-shared-grid="v1" data-real-view-parity="v1">
+  <nav class="surf-nav" aria-label="Surfaces">
+    <button type="button" class="active" data-surf="list">S-LIST CT</button>
+    <button type="button" data-surf="form">S-FORM-CT</button>
+    <button type="button" data-surf="seg">S-SEG</button>
+    <button type="button" data-surf="segForm">S-SEG-FORM 5col</button>
+    <button type="button" data-surf="week">S-WEEK</button>
+    <button type="button" data-surf="weekForm">S-WEEK-FORM 5col</button>
+    <button type="button" data-surf="disb">S-DISB sổ</button>
+  </nav>
 
-      <div class="zone-b" data-zone="B" data-testid="kcht-toolbar">
-        <div class="zone-b-left">
-          <div class="field">
-            <label for="search">Tìm kiếm</label>
-            <div class="search-wrap">
-              <input id="search" type="search" placeholder="Mã CT · tên · số QĐ · số HĐ…" autocomplete="off" />
-              <button type="button" aria-label="Tìm kiếm"><i class="fas fa-search"></i></button>
-            </div>
-          </div>
-          <div class="field">
-            <label for="fltType">Loại CT</label>
-            <div class="lkp" id="fltTypeLkp">
-              <div class="search-wrap">
-                <input id="fltType" type="search" placeholder="SearchInput" autocomplete="off" />
-                <button type="button"><i class="fas fa-search"></i></button>
-              </div>
-              <div class="lkp-list" id="fltTypeList"></div>
-            </div>
-          </div>
-          <div class="field">
-            <label for="fltRoute">Quốc lộ / tuyến</label>
-            <div class="lkp" id="fltRouteLkp">
-              <div class="search-wrap">
-                <input id="fltRoute" type="search" placeholder="road-route" autocomplete="off" />
-                <button type="button"><i class="fas fa-search"></i></button>
-              </div>
-              <div class="lkp-list" id="fltRouteList"></div>
-            </div>
-          </div>
-          <div class="field">
-            <label for="fltProv">Tỉnh / TP</label>
-            <div class="lkp" id="fltProvLkp">
-              <div class="search-wrap">
-                <input id="fltProv" type="search" placeholder="province UNCLEAR" autocomplete="off" />
-                <button type="button"><i class="fas fa-search"></i></button>
-              </div>
-              <div class="lkp-list" id="fltProvList"></div>
-            </div>
-          </div>
-          <div class="field">
-            <label for="fltOrg">ĐV QL</label>
-            <div class="lkp" id="fltOrgLkp">
-              <div class="search-wrap">
-                <input id="fltOrg" type="search" placeholder="org-unit" autocomplete="off" />
-                <button type="button"><i class="fas fa-search"></i></button>
-              </div>
-              <div class="lkp-list" id="fltOrgList"></div>
-            </div>
-          </div>
-          <div class="field">
-            <label for="fltBql">Ban QLDA</label>
-            <div class="lkp" id="fltBqlLkp">
-              <div class="search-wrap">
-                <input id="fltBql" type="search" placeholder="SU-BQLDA-S" autocomplete="off" />
-                <button type="button"><i class="fas fa-search"></i></button>
-              </div>
-              <div class="lkp-list" id="fltBqlList"></div>
-            </div>
-          </div>
-          <div class="field">
-            <label for="fltOwner">Người PT</label>
-            <div class="lkp" id="fltOwnerLkp">
-              <div class="search-wrap">
-                <input id="fltOwner" type="search" placeholder="users P2" autocomplete="off" />
-                <button type="button"><i class="fas fa-search"></i></button>
-              </div>
-              <div class="lkp-list" id="fltOwnerList"></div>
-            </div>
-          </div>
-          <div class="field">
-            <label for="fltNt">Nhà thầu</label>
-            <div class="lkp" id="fltNtLkp">
-              <div class="search-wrap">
-                <input id="fltNt" type="search" placeholder="partner-unit" autocomplete="off" />
-                <button type="button"><i class="fas fa-search"></i></button>
-              </div>
-              <div class="lkp-list" id="fltNtList"></div>
-            </div>
-          </div>
-          <div class="field">
-            <label for="fltStatus">Trạng thái</label>
-            <div class="lkp" id="fltStatusLkp">
-              <div class="search-wrap">
-                <input id="fltStatus" type="search" placeholder="SearchInput" autocomplete="off" />
-                <button type="button"><i class="fas fa-search"></i></button>
-              </div>
-              <div class="lkp-list" id="fltStatusList"></div>
-            </div>
-          </div>
-          <button type="button" class="btn" title="Làm mới"><i class="fas fa-sync-alt"></i> Làm mới</button>
-          <button type="button" class="btn" title="Lịch sử"><i class="fas fa-history"></i> Lịch sử</button>
-          <button type="button" class="btn" id="btnConfig" title="Cấu hình"><i class="fas fa-cog"></i></button>
-          <button type="button" class="btn" id="btnDelete" title="Xóa"><i class="fas fa-trash"></i> Xóa</button>
-        </div>
-        <div class="zone-b-right">
-          <button type="button" class="btn primary" id="btnCreate"><i class="fas fa-plus"></i> Tạo mới</button>
-        </div>
+  <section class="view active" id="view-list">
+    <header class="zone-a" data-des-id="DES-GRID-A"><h1><i class="fas fa-road"></i> Công trình KCHT</h1><span class="badge">Kind B · PH1 giữ</span></header>
+    <div class="zone-b" data-des-id="DES-GRID-B" data-filter-bar="LinErpListFilterBar">
+      <div class="zone-b-left">
+        <div class="field"><label>Tìm kiếm</label><div class="sw"><input type="search" placeholder="Ma · ten · QD · HD" /><button type="button"><i class="fas fa-search"></i></button></div></div>
+        <div class="field"><label>Loại CT</label><div class="sw"><input type="search" placeholder="SearchInput" /><button type="button"><i class="fas fa-search"></i></button></div></div>
+        <div class="field"><label>Quốc lộ</label><div class="sw"><input type="search" placeholder="road-route" /><button type="button"><i class="fas fa-search"></i></button></div></div>
+        <div class="field"><label>Tỉnh</label><div class="sw"><input type="search" placeholder="province UNCLEAR" /><button type="button"><i class="fas fa-search"></i></button></div></div>
+        <div class="field"><label>ĐV QL</label><div class="sw"><input type="search" placeholder="org-unit" /><button type="button"><i class="fas fa-search"></i></button></div></div>
+        <div class="field"><label>Ban QLDA</label><div class="sw"><input type="search" placeholder="SU-BQLDA-S" /><button type="button"><i class="fas fa-search"></i></button></div></div>
+        <div class="field"><label>Nhà thầu</label><div class="sw"><input type="search" placeholder="partner-unit" /><button type="button"><i class="fas fa-search"></i></button></div></div>
+        <div class="field"><label>Trạng thái</label><div class="sw"><input type="search" placeholder="status" /><button type="button"><i class="fas fa-search"></i></button></div></div>
+        <button type="button" class="btn"><i class="fas fa-sync-alt"></i></button>
+        <button type="button" class="btn" data-open-modal="hist"><i class="fas fa-history"></i></button>
+        <button type="button" class="btn" data-open-modal="cfg"><i class="fas fa-cog"></i></button>
+        <button type="button" class="btn"><i class="fas fa-trash"></i></button>
       </div>
-
-      <div class="zone-c" data-zone="C">
-        <div class="grid-head">
-          <h2 class="grid-title">Danh sách công trình</h2>
-          <p class="grid-help">LinCatalogDataGrid · kéo cột ON · menu Xem/Sửa/Xóa/Lịch sử · cấm Slideout · cấm KPI strip wave 1</p>
-        </div>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th class="col-stt">STT</th>
-                <th class="col-check"><input type="checkbox" aria-label="Chọn tất cả" /></th>
-                <th>Mã CT</th>
-                <th>Tên</th>
-                <th>Loại</th>
-                <th>Tuyến</th>
-                <th>Tỉnh</th>
-                <th>ĐV QL</th>
-                <th>Ban QLDA</th>
-                <th>Nhà thầu chính</th>
-                <th>KH vốn</th>
-                <th>TT</th>
-                <th>⋯</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="col-stt">1</td>
-                <td class="col-check"><input type="checkbox" /></td>
-                <td><button type="button" class="code" data-open="view">CT-20260801-0001</button></td>
-                <td>Sửa chữa định kỳ QL1A Km12–Km48</td>
-                <td>SCĐK</td>
-                <td>QL.1</td>
-                <td>Hà Tĩnh</td>
-                <td>VP IV.1</td>
-                <td>Ban QLDA miền Nam</td>
-                <td>Cty CP Cầu đường Miền Trung</td>
-                <td>15 tỷ</td>
-                <td>Đang TH</td>
-                <td>
-                  <details class="menu">
-                    <summary>⋯</summary>
-                    <div class="panel">
-                      <button type="button" data-open="view">Xem</button>
-                      <button type="button" data-open="edit">Sửa</button>
-                      <button type="button" class="row-del">Xóa</button>
-                      <button type="button">Lịch sử</button>
-                    </div>
-                  </details>
-                </td>
-              </tr>
-              <tr>
-                <td class="col-stt">2</td>
-                <td class="col-check"><input type="checkbox" /></td>
-                <td><button type="button" class="code" data-open="view">CT-20260801-0002</button></td>
-                <td>Khắc phục thiên tai QL8 đoạn Km299</td>
-                <td>KPTT</td>
-                <td>QL.8</td>
-                <td>Nghệ An</td>
-                <td>VP IV.2</td>
-                <td>Ban QLDA miền Nam</td>
-                <td>Tổng Cty XDĐB 5</td>
-                <td>9 tỷ</td>
-                <td>Nháp</td>
-                <td>
-                  <details class="menu">
-                    <summary>⋯</summary>
-                    <div class="panel">
-                      <button type="button" data-open="view">Xem</button>
-                      <button type="button" data-open="edit">Sửa</button>
-                      <button type="button" class="row-del">Xóa</button>
-                      <button type="button">Lịch sử</button>
-                    </div>
-                  </details>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <footer class="zone-d" data-zone="D">
-          <div class="zone-d-total">Tổng: 2 · Trang 1/1 · LinCatalogListPagination</div>
-          <div class="zone-d-controls">
-            <label>Hiển thị
-              <select aria-label="pageSize">
-                <option selected>50</option><option>100</option><option>200</option><option>500</option>
-              </select>
-            </label>
-            <button type="button" class="pager-btn" disabled><i class="fas fa-chevron-left"></i></button>
-            <span>1 / 1</span>
-            <button type="button" class="pager-btn" disabled><i class="fas fa-chevron-right"></i></button>
-          </div>
-        </footer>
-      </div>
+      <div class="zone-b-right"><button type="button" class="btn primary" data-go="form"><i class="fas fa-plus"></i> Tạo mới</button></div>
     </div>
-
-    <div class="view-form" id="viewForm" data-testid="kcht-form-prototype" data-form-pattern="full-page-4-tab">
-      <div class="form-header">
-        <div class="z1-toolbar">
-          <button type="button" class="btn" id="btnBack"><i class="fas fa-arrow-left"></i> Quay lại</button>
-          <div>
-            <button type="button" class="btn" id="btnEditHdr" data-open="edit"><i class="fas fa-pen"></i> Sửa</button>
-          </div>
-        </div>
-        <div class="z1-title-row">
-          <strong id="formTitle">Công trình KCHT</strong>
-          <span class="badge" id="formBadge">Tạo mới</span>
-          <span class="badge">Full-page 4 tab · cấm Slideout</span>
-        </div>
-        <div class="z1h" id="formHint">Tab 0 Chung · 1 Quyết định · 2 Hợp đồng · 3 Hồ sơ file · GAP-TAB-01 cấm reorder</div>
-        <nav class="tabs" aria-label="Form tabs">
-          <button type="button" class="tab-btn active" data-tab="0">0 · Thông tin chung</button>
-          <button type="button" class="tab-btn" data-tab="1">1 · Quyết định</button>
-          <button type="button" class="tab-btn" data-tab="2">2 · Hợp đồng</button>
-          <button type="button" class="tab-btn" data-tab="3">3 · Hồ sơ file</button>
-        </nav>
+    <div class="zone-c" data-des-id="DES-GRID-C0">
+      <div class="grid-head"><h2 class="grid-title">Danh sách công trình</h2><p class="grid-help" data-des-id="DES-GRID-C3">LinCatalogDataGrid · peer :9312</p></div>
+      <div class="table-wrap" data-des-id="DES-GRID-C2">
+        <table><thead><tr><th>STT</th><th>□</th><th>Mã CT</th><th>Tên</th><th>Loại</th><th>Tuyến</th><th>Tỉnh</th><th>ĐV QL</th><th>Ban QLDA</th><th>NT</th><th>KH vốn</th><th>TT</th><th>…</th></tr></thead>
+        <tbody><tr>
+          <td>1</td><td><input type="checkbox" /></td>
+          <td><button type="button" class="code" data-go="form">CT-20260801-0001</button></td>
+          <td>SCDK QL1A Km12-Km48</td><td>SCDK</td><td>QL.1</td><td>Ha Tỉnh</td><td>VP IV.1</td><td>Ban QLDA MN</td><td>Cty CP CD</td><td>15 ty</td><td>Dang TH</td>
+          <td><button type="button" class="btn" data-go="seg">Doan</button> <button type="button" class="btn" data-go="week">Tuần</button> <button type="button" class="btn" data-go="disb">So</button></td>
+        </tr></tbody></table>
       </div>
-
-      <div class="z2" id="formEdit">
-        <div class="tab-panel active" id="tab0">
-          <div class="section-label">Tab 0 — Thông tin chung</div>
-          <div class="field"><label>Mã CT</label><input value="(tự sinh CT-yyyyMMdd-nnnn)" readonly /></div>
-          <div class="field"><label class="req">Tên CT</label><input value="Sửa chữa định kỳ QL1A Km12–Km48" /></div>
-          <div class="field">
-            <label class="req">Loại CT</label>
-            <div class="lkp" id="fTypeLkp">
-              <div class="search-wrap"><input id="fType" type="search" value="SCĐK" /><button type="button"><i class="fas fa-search"></i></button></div>
-              <div class="lkp-list" id="fTypeList"></div>
-            </div>
-          </div>
-          <div class="field">
-            <label>Mới / chuyển tiếp</label>
-            <div class="lkp" id="fContLkp">
-              <div class="search-wrap"><input id="fCont" type="search" value="Mới" /><button type="button"><i class="fas fa-search"></i></button></div>
-              <div class="lkp-list" id="fContList"></div>
-            </div>
-          </div>
-          <div class="field"><label>Năm KH</label><input type="number" value="2026" /></div>
-          <div class="field">
-            <label class="req">Tuyến QL</label>
-            <div class="lkp" id="fRouteLkp">
-              <div class="search-wrap"><input id="fRoute" type="search" value="QL.1 — Quốc lộ 1" /><button type="button"><i class="fas fa-search"></i></button></div>
-              <div class="lkp-list" id="fRouteList"></div>
-            </div>
-          </div>
-          <div class="field">
-            <label class="req">Tỉnh / TP</label>
-            <div class="lkp" id="fProvLkp">
-              <div class="search-wrap"><input id="fProv" type="search" value="Hà Tĩnh" /><button type="button"><i class="fas fa-search"></i></button></div>
-              <div class="lkp-list" id="fProvList"></div>
-            </div>
-          </div>
-          <div class="field"><label>Đoạn tuyến (Km)</label><input value="Km12–Km48" /></div>
-          <div class="field"><label>Chiều dài (m)</label><input type="number" value="36000" /></div>
-          <div class="field"><label>Nguồn vốn</label>
-            <div class="lkp" id="fCapLkp">
-              <div class="search-wrap"><input id="fCap" type="search" value="NSNN" /><button type="button"><i class="fas fa-search"></i></button></div>
-              <div class="lkp-list" id="fCapList"></div>
-            </div>
-          </div>
-          <div class="field"><label>KH vốn</label><input type="text" value="15.000.000.000" style="max-width:200px" /></div>
-          <div class="field">
-            <label class="req">ĐV QL</label>
-            <div class="lkp" id="fOrgLkp">
-              <div class="search-wrap"><input id="fOrg" type="search" value="VP IV.1" /><button type="button"><i class="fas fa-search"></i></button></div>
-              <div class="lkp-list" id="fOrgList"></div>
-            </div>
-          </div>
-          <div class="field">
-            <label>Ban QLDA</label>
-            <div class="lkp" id="fBqlLkp">
-              <div class="search-wrap"><input id="fBql" type="search" value="Ban QLDA miền Nam" /><button type="button"><i class="fas fa-search"></i></button></div>
-              <div class="lkp-list" id="fBqlList"></div>
-            </div>
-          </div>
-          <div class="field">
-            <label class="req">Trạng thái</label>
-            <div class="lkp" id="fStatusLkp">
-              <div class="search-wrap"><input id="fStatus" type="search" value="Đang thực hiện" /><button type="button"><i class="fas fa-search"></i></button></div>
-              <div class="lkp-list" id="fStatusList"></div>
-            </div>
-          </div>
-          <div class="field span2"><label>Ghi chú</label><textarea>PH1 · SearchInput lookup · label 13px · input D14/M16</textarea></div>
-        </div>
-
-        <div class="tab-panel" id="tab1">
-          <div class="section-label">Tab 1 — Quyết định (inline grid)</div>
-          <div class="span2">
-            <table class="child-tbl">
-              <thead>
-                <tr>
-                  <th>Loại QĐ *</th>
-                  <th>Số QĐ *</th>
-                  <th>Ngày QĐ *</th>
-                  <th>Cơ quan BH</th>
-                  <th>TMDT</th>
-                  <th>Dự toán</th>
-                  <th>TMĐT sau ĐC</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><input value="Phê duyệt DA" /></td>
-                  <td><input value="QĐ-1234/BQLĐB" /></td>
-                  <td><input type="date" value="2026-02-15" /></td>
-                  <td><input value="BQLĐB IV" /></td>
-                  <td><input value="15.000.000.000" /></td>
-                  <td><input value="14.500.000.000" /></td>
-                  <td><input value="15.000.000.000" /></td>
-                  <td><button type="button" class="btn danger btn-sm">Xóa</button></td>
-                </tr>
-              </tbody>
-            </table>
-            <button type="button" class="btn" style="margin-top:8px"><i class="fas fa-plus"></i> Thêm QĐ</button>
-          </div>
-        </div>
-
-        <div class="tab-panel" id="tab2">
-          <div class="section-label">Tab 2 — Hợp đồng (1 CT : n HĐ)</div>
-          <div class="span2" style="display:flex;gap:8px;margin-bottom:8px">
-            <button type="button" class="btn"><i class="fas fa-link"></i> Liên kết HĐ có sẵn</button>
-            <button type="button" class="btn primary"><i class="fas fa-plus"></i> Thêm HĐ mới</button>
-          </div>
-          <div class="span2">
-            <table class="child-tbl">
-              <thead>
-                <tr>
-                  <th>Mã HĐ</th>
-                  <th>Số HĐ</th>
-                  <th>Loại</th>
-                  <th>Nhà thầu</th>
-                  <th>Giá trị</th>
-                  <th>TT</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>CTR-20260801-0001</td>
-                  <td>HĐ-XL-2026-014</td>
-                  <td>Xây lắp</td>
-                  <td>Cty CP Cầu đường Miền Trung</td>
-                  <td>12,5 tỷ</td>
-                  <td>Đang TH</td>
-                  <td><button type="button" class="btn btn-sm"><i class="fas fa-external-link-alt"></i> Mở HĐ</button></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <p class="span2" style="font-size:12px;color:var(--muted)">Handoff read-only: /hd-ns/:id?from=kcht&projectId={id}</p>
-        </div>
-
-        <div class="tab-panel" id="tab3">
-          <div class="section-label">Tab 3 — Hồ sơ file (FileService presign)</div>
-          <div class="span2">
-            <button type="button" class="btn primary"><i class="fas fa-upload"></i> Tải lên</button>
-          </div>
-          <div class="span2 file-row">
-            <i class="fas fa-file-pdf" style="color:#dc2626"></i>
-            <span>QD-phe-duyet-1234.pdf</span>
-            <span style="color:var(--muted);font-size:12px">QĐ · 15/02/2026</span>
-            <button type="button" class="btn btn-sm"><i class="fas fa-download"></i></button>
-            <button type="button" class="btn btn-sm danger"><i class="fas fa-trash"></i></button>
-          </div>
-          <div class="span2 file-row">
-            <i class="fas fa-file-word" style="color:#2563eb"></i>
-            <span>HD-xay-lap-014.docx</span>
-            <span style="color:var(--muted);font-size:12px">HĐ · 01/03/2026</span>
-            <button type="button" class="btn btn-sm"><i class="fas fa-download"></i></button>
-            <button type="button" class="btn btn-sm danger"><i class="fas fa-trash"></i></button>
-          </div>
-        </div>
-      </div>
-
-      <div class="z2 hidden" id="formView">
-        <div class="section-label">Xem — &lt;dl&gt; display · cấm Input xám</div>
-        <dl class="view-dl">
-          <dt>Mã CT</dt><dd>CT-20260801-0001</dd>
-          <dt>Tên CT</dt><dd>Sửa chữa định kỳ QL1A Km12–Km48</dd>
-          <dt>Loại</dt><dd>SCĐK</dd>
-          <dt>Tuyến</dt><dd>QL.1 · Hà Tĩnh · Km12–Km48</dd>
-          <dt>ĐV QL</dt><dd>VP IV.1 · Ban QLDA miền Nam</dd>
-          <dt>KH vốn</dt><dd>15.000.000.000</dd>
-          <dt>Trạng thái</dt><dd>Đang thực hiện</dd>
-          <dt>Quyết định</dt><dd>QĐ-1234/BQLĐB · Phê duyệt DA · 15/02/2026</dd>
-          <dt>Hợp đồng</dt><dd>HĐ-XL-2026-014 · Xây lắp · 12,5 tỷ</dd>
-          <dt>Hồ sơ</dt><dd>2 file (QĐ · HĐ)</dd>
-        </dl>
-      </div>
-
-      <div class="z3" id="formFooter">
-        <button type="button" class="btn" id="btnCancel">Hủy</button>
-        <button type="button" class="btn primary">Lưu</button>
-      </div>
+      <footer class="zone-d" data-des-id="DES-GRID-D">Tổng: 1 · Hiển thị <select><option>50</option><option>100</option><option>200</option><option>500</option></select></footer>
     </div>
-  </div>
+  </section>
 
-  <div class="modal" id="delModal" role="dialog">
-    <div class="modal-card">
-      <p><strong>Xóa công trình?</strong></p>
-      <p>Lin confirm · cấm window.alert / window.confirm</p>
-      <div style="display:flex;gap:8px;justify-content:flex-end">
-        <button type="button" class="btn" id="delNo">Hủy</button>
-        <button type="button" class="btn primary" id="delYes">Xóa</button>
+  <section class="view" id="view-form" data-des-id="DES-GRID-Z" data-form-surface="full">
+    <div class="form-chrome">
+      <div class="form-toolbar"><button type="button" class="btn" data-go="list"><i class="fas fa-arrow-left"></i> Quay lại</button><button type="button" class="btn" data-leave>Hủy</button></div>
+      <div class="form-title"><h2>Công trình KCHT</h2><span class="badge">Sửa</span></div>
+      <div class="form-hint">4 tab PH1 giữ · GAP-TAB-01 · PH2-PH4 = routes</div>
+      <div class="sub-links"><a data-go="seg">Đoạn tuyến / BH</a><a data-go="week">Tiến độ tuần</a><a data-go="disb">Sổ giải ngân</a></div>
+      <div class="tabs">
+        <button type="button" class="tab-btn active" data-tab="g0">0. Chung</button>
+        <button type="button" class="tab-btn" data-tab="g1">1. Quyết định</button>
+        <button type="button" class="tab-btn" data-tab="g2">2. Hợp đồng</button>
+        <button type="button" class="tab-btn" data-tab="g3">3. Hồ sơ file</button>
       </div>
+      <div class="tab-panel active" id="g0"><div class="fields-5" data-form-cols="5">
+        <div class="field"><label>Mã CT</label><input value="CT-20260801-0001" readonly /></div>
+        <div class="field span2"><label class="req">Tên</label><input value="SCDK QL1A Km12-Km48" /></div>
+        <div class="field"><label class="req">Loại</label><input value="SCDK" /></div>
+        <div class="field"><label>Năm KH</label><input type="number" value="2026" /></div>
+        <div class="field"><label class="req">Tuyến</label><input value="QL.1" /></div>
+        <div class="field"><label class="req">Tỉnh</label><input value="Ha Tỉnh" /></div>
+        <div class="field span2"><label>Đoạn (derived PH2)</label><input value="Km12-Km48 · 2 doan" readonly /></div>
+        <div class="field"><label>KH vốn P1</label><input value="15,000,000,000" /></div>
+        <div class="field"><label>ĐV QL</label><input value="VP IV.1" /></div>
+        <div class="field"><label>Ban QLDA</label><input value="SU-BQLDA-S" /></div>
+        <div class="field"><label class="req">TT</label><input value="Đang thực hiện" /></div>
+      </div></div>
+      <div class="tab-panel" id="g1"><p class="grid-help">Inline grid QD — Wave 1 giữ</p></div>
+      <div class="tab-panel" id="g2"><p class="grid-help">Child HD · handoff /hd-ns/:id?from=kcht</p></div>
+      <div class="tab-panel" id="g3"><p class="grid-help">FileService · harden dong GD PH4</p></div>
     </div>
-  </div>
-  <div class="modal" id="schemaModal" role="dialog" data-zone="F">
-    <div class="modal-card">
-      <p><strong>Cấu hình hiển thị danh mục</strong></p>
-      <p>LinCatalogUiSchemaEditorModal · catalogKind=kcht-projects · cấm configHint</p>
-      <table class="schema-tbl">
-        <thead><tr><th>Cột</th><th>List</th><th>Width</th><th>Filter</th><th>Sort</th></tr></thead>
+    <div class="form-footer"><button type="button" class="btn" data-leave>Hủy</button><button type="button" class="btn primary" data-toast="Đã lưu (mock)">Lưu</button></div>
+  </section>
+
+  <section class="view" id="view-seg">
+    <header class="zone-a" data-des-id="DES-GRID-A"><h1><i class="fas fa-route"></i> Đoạn tuyến / bảo hành</h1><span class="badge">PH2</span></header>
+    <div class="zone-b" data-des-id="DES-GRID-B">
+      <div class="zone-b-left">
+        <div class="field"><label>Tim</label><div class="sw"><input type="search" /><button type="button"><i class="fas fa-search"></i></button></div></div>
+        <div class="field"><label>TT đoạn</label><div class="sw"><input type="search" placeholder="kcht-segment-status" /><button type="button"><i class="fas fa-search"></i></button></div></div>
+        <button type="button" class="btn"><i class="fas fa-sync-alt"></i></button>
+        <button type="button" class="btn" data-open-modal="cfg"><i class="fas fa-cog"></i></button>
+      </div>
+      <div class="zone-b-right"><button type="button" class="btn" data-go="form">CT</button><button type="button" class="btn primary" data-go="segForm"><i class="fas fa-plus"></i> Thêm đoạn</button></div>
+    </div>
+    <div class="zone-c" data-des-id="DES-GRID-C0">
+      <div class="grid-head"><h2 class="grid-title">Danh sách đoạn</h2><p class="grid-help">Badge BH 90/60/30</p></div>
+      <div class="table-wrap" data-des-id="DES-GRID-C2"><table>
+        <thead><tr><th>STT</th><th>□</th><th>QL</th><th>Km</th><th>Dai</th><th>Hạng mục</th><th>HD</th><th>NT</th><th>TT</th><th>Hết BH</th><th>Cảnh báo</th><th>…</th></tr></thead>
         <tbody>
-          <tr><td>Mã CT</td><td>□</td><td>140</td><td>□</td><td>□</td></tr>
-          <tr><td>Tên</td><td>□</td><td>240</td><td>□</td><td>□</td></tr>
-          <tr><td>Loại</td><td>□</td><td>100</td><td>□</td><td>□</td></tr>
-          <tr><td>Tuyến</td><td>□</td><td>80</td><td>□</td><td>□</td></tr>
+          <tr><td>1</td><td><input type="checkbox" /></td><td>QL.1</td><td>12+000-28+500</td><td>16500</td><td>Mặt đường</td><td>HD-XL-01</td><td>Cty CP CD</td><td>Đang BH</td><td>2026-11-15</td><td><span class="badge warn">60 ngày</span></td><td><button type="button" class="btn" data-go="segForm">Sửa</button></td></tr>
+          <tr><td>2</td><td><input type="checkbox" /></td><td>QL.1</td><td>28+500-48+000</td><td>19500</td><td>Cong</td><td>HD-XL-01</td><td>Cty CP CD</td><td>Đang TC</td><td>—</td><td>—</td><td><button type="button" class="btn" data-go="segForm">Sửa</button></td></tr>
+        </tbody>
+      </table></div>
+      <footer class="zone-d" data-des-id="DES-GRID-D">Tổng: 2 · 50/100/200/500</footer>
+    </div>
+  </section>
+
+  <section class="view" id="view-segForm" data-des-id="DES-GRID-Z" data-form-surface="full">
+    <div class="form-chrome">
+      <div class="form-toolbar"><button type="button" class="btn" data-go="seg"><i class="fas fa-arrow-left"></i> Quay lại</button>
+        <div><button type="button" class="btn" data-leave>Hủy</button><button type="button" class="btn primary" data-toast="Đã lưu doan">Lưu</button></div></div>
+      <div class="form-title"><h2>Đoạn tuyến / bảo hành</h2><span class="badge">Tạo mới</span><span class="badge warn">BH 60</span></div>
+      <div class="form-hint">Full-page · data-form-cols=5 · LeaveConfirmModal · GAP-DES-FORM-SURFACE-01</div>
+    </div>
+    <div class="section"><h3>LRS · HD · BH</h3>
+      <div class="fields-5" data-form-cols="5">
+        <div class="field"><label class="req">Quốc lộ</label><input placeholder="SearchInput road-route" /></div>
+        <div class="field"><label class="req">Tỉnh</label><input placeholder="province" /></div>
+        <div class="field"><label class="req">Km tu</label><input type="number" step="0.001" /></div>
+        <div class="field"><label class="req">Km den</label><input type="number" step="0.001" /></div>
+        <div class="field"><label>Dai (m)</label><input type="number" /></div>
+        <div class="field span2"><label>Hạng mục SC</label><input /></div>
+        <div class="field"><label>Cau/cong</label><input placeholder="asset ref" /></div>
+        <div class="field"><label>Hợp đồng</label><input placeholder="contracts" /></div>
+        <div class="field"><label>Nhà thầu</label><input placeholder="partner-unit" /></div>
+        <div class="field"><label>Ngay KC</label><input type="date" /></div>
+        <div class="field"><label>Ngay HT</label><input type="date" /></div>
+        <div class="field"><label>Ngay NT</label><input type="date" /></div>
+        <div class="field"><label>Ban giao</label><input type="date" /></div>
+        <div class="field"><label>BH (thang)</label><input type="number" /></div>
+        <div class="field"><label>BH bat dau</label><input type="date" /></div>
+        <div class="field"><label>Hết BH</label><input type="date" /></div>
+        <div class="field"><label class="req">TT đoạn</label><input placeholder="kcht-segment-status" /></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="view" id="view-week">
+    <header class="zone-a" data-des-id="DES-GRID-A"><h1><i class="fas fa-calendar-week"></i> Tiến độ tuần</h1><span class="badge">PH3</span></header>
+    <div class="zone-b" data-des-id="DES-GRID-B">
+      <div class="zone-b-left">
+        <div class="field"><label>Tuần</label><input type="week" /></div>
+        <div class="field"><label>RAG</label><div class="sw"><input type="search" placeholder="kcht-rag" /><button type="button"><i class="fas fa-search"></i></button></div></div>
+        <button type="button" class="btn"><i class="fas fa-sync-alt"></i></button>
+      </div>
+      <div class="zone-b-right"><button type="button" class="btn" data-go="form">CT</button><button type="button" class="btn primary" data-go="weekForm"><i class="fas fa-plus"></i> Cập nhật tuần</button></div>
+    </div>
+    <div class="zone-c" data-des-id="DES-GRID-C0">
+      <div class="grid-head"><h2 class="grid-title">Báo cáo tuần</h2></div>
+      <div class="table-wrap" data-des-id="DES-GRID-C2"><table>
+        <thead><tr><th>STT</th><th>□</th><th>Tuần</th><th>%KH</th><th>%TT</th><th>D</th><th>GT tuần</th><th>RAG</th><th>Alerts</th><th>…</th></tr></thead>
+        <tbody><tr><td>1</td><td><input type="checkbox" /></td><td>2026-W34</td><td>72</td><td>68</td><td>+2</td><td>1.2 ty</td><td><span class="badge rag-y">Vàng</span></td><td><span class="badge warn">Tien do</span> <span class="badge">BH</span></td><td><button type="button" class="btn" data-go="weekForm">Sửa</button></td></tr></tbody>
+      </table></div>
+      <footer class="zone-d" data-des-id="DES-GRID-D">Tổng: 1</footer>
+    </div>
+  </section>
+
+  <section class="view" id="view-weekForm" data-des-id="DES-GRID-Z" data-form-surface="full">
+    <div class="form-chrome">
+      <div class="form-toolbar"><button type="button" class="btn" data-go="week"><i class="fas fa-arrow-left"></i> Quay lại</button>
+        <div><button type="button" class="btn" data-leave>Hủy</button><button type="button" class="btn primary" data-toast="Đã lưu tuan">Lưu</button></div></div>
+      <div class="form-title"><h2>Tiến độ tuần</h2><span class="badge rag-y">RAG Vàng</span></div>
+      <div class="form-hint">Header readonly auto · body user · data-form-cols=5</div>
+    </div>
+    <div class="section readonly"><h3>Header (auto)</h3>
+      <div class="fields-5" data-form-cols="5">
+        <div class="field"><label>Mã CT</label><input value="CT-20260801-0001" readonly /></div>
+        <div class="field span2"><label>Tên</label><input value="SCDK QL1A Km12-Km48" readonly /></div>
+        <div class="field"><label>Tuyến</label><input value="QL.1" readonly /></div>
+        <div class="field"><label>Doan</label><input value="Km12-Km48" readonly /></div>
+        <div class="field"><label>TMĐT</label><input value="45 ty" readonly /></div>
+        <div class="field"><label>GT HĐ</label><input value="38 ty" readonly /></div>
+        <div class="field"><label>DT năm</label><input value="15 ty" readonly /></div>
+        <div class="field"><label>NT</label><input value="Cty CP CD" readonly /></div>
+        <div class="field"><label>Ban QLDA</label><input value="Ban QLDA MN" readonly /></div>
+      </div>
+    </div>
+    <div class="section"><h3>Body (user)</h3>
+      <div class="fields-5" data-form-cols="5">
+        <div class="field"><label class="req">Tuần</label><input type="week" value="2026-W34" /></div>
+        <div class="field"><label class="req">% KH</label><input type="number" value="72" /></div>
+        <div class="field"><label class="req">% TT</label><input type="number" value="68" /></div>
+        <div class="field"><label>% tuần trước</label><input value="66" readonly /></div>
+        <div class="field"><label>Δ tuần</label><input value="2" readonly /></div>
+        <div class="field"><label>GT lũy kế</label><input /></div>
+        <div class="field"><label>GT tuần</label><input /></div>
+        <div class="field"><label>Nguyên nhân chậm</label><input placeholder="kcht-delay-cause" /></div>
+        <div class="field"><label>RAG</label><input value="vang" /></div>
+        <div class="field span-full"><label>Tỉnh hinh TC</label><textarea></textarea></div>
+        <div class="field span2"><label>CV tuần tới</label><textarea></textarea></div>
+        <div class="field span2"><label>Tồn tại</label><textarea></textarea></div>
+        <div class="field span-full"><label>Giải pháp</label><textarea></textarea></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="view" id="view-disb">
+    <header class="zone-a" data-des-id="DES-GRID-A"><h1><i class="fas fa-file-invoice-dollar"></i> Sổ giải ngân</h1><span class="badge">PH4 · SCĐK</span><span class="badge ok">1 URL /giai-ngan</span></header>
+    <div class="header-so">
+      <div class="field"><label>Cong trinh</label><input value="CT-20260801-0001" readonly /></div>
+      <div class="field"><label>Tên DA</label><input value="SCDK QL1A" readonly /></div>
+      <div class="field"><label>TMĐT</label><input value="45 ty" readonly /></div>
+      <div class="field"><label>DT dau nam</label><input value="12 ty" /></div>
+      <div class="field"><label>KH vốn</label><input value="15 ty" /></div>
+    </div>
+    <div class="zone-b" data-des-id="DES-GRID-B">
+      <div class="zone-b-left">
+        <div class="field"><label>Nhóm CP</label><div class="sw"><input type="search" placeholder="kcht-cost-group" /><button type="button"><i class="fas fa-search"></i></button></div></div>
+        <div class="field"><label>Đơn vị</label><div class="sw"><input type="search" placeholder="party" /><button type="button"><i class="fas fa-search"></i></button></div></div>
+        <div class="field"><label>Chứng từ</label><div class="sw"><input type="search" placeholder="voucherKind" /><button type="button"><i class="fas fa-search"></i></button></div></div>
+        <button type="button" class="btn"><i class="fas fa-sync-alt"></i></button>
+        <button type="button" class="btn" data-open-modal="cfg"><i class="fas fa-cog"></i></button>
+      </div>
+      <div class="zone-b-right"><button type="button" class="btn" data-go="form">CT</button><button type="button" class="btn primary"><i class="fas fa-plus"></i> Thêm giao dịch</button></div>
+    </div>
+    <div class="zone-c" data-des-id="DES-GRID-C0">
+      <div class="grid-head"><h2 class="grid-title">Dòng GD (1 TT = 1 GD)</h2></div>
+      <div class="table-wrap" data-des-id="DES-GRID-C2"><table>
+        <thead><tr><th>STT</th><th>□</th><th>Nhom</th><th>Nội dung</th><th>GT TT</th><th>Đã GN</th><th>Còn nợ</th><th>DV</th><th>Chứng từ</th><th>File</th><th>…</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td><input type="checkbox" /></td><td>Xây lắp</td><td>Tạm ứng đợt 1</td><td>2 ty</td><td>2 ty</td><td>0</td><td>NT chính</td><td>UNC-001</td><td><i class="fas fa-paperclip"></i> 2</td><td><button type="button" class="btn">Sửa</button></td></tr>
+          <tr><td>2</td><td><input type="checkbox" /></td><td>GS</td><td>TT quý 2</td><td>0.3 ty</td><td>0.2 ty</td><td>0.1 ty</td><td>TVGS</td><td>Giấy rút-12</td><td><i class="fas fa-paperclip"></i> 1</td><td><button type="button" class="btn">Sửa</button></td></tr>
+        </tbody>
+      </table></div>
+      <footer class="zone-d" data-des-id="DES-GRID-D">Tổng: 2</footer>
+    </div>
+    <div class="section"><h3>Đối chiếu KBNN (3 cột · cấm API KBNN)</h3>
+      <table class="kbn-grid"><thead><tr><th>Nội dung</th><th>PM</th><th>KBNN</th><th>Chênh</th></tr></thead>
+        <tbody>
+          <tr><td>UNC-001</td><td>2,000,000,000</td><td><input value="2000000000" /></td><td>0</td></tr>
+          <tr><td>Giấy rút-12</td><td>200,000,000</td><td><input value="180000000" /></td><td><span class="badge danger">-20,000,000</span></td></tr>
         </tbody>
       </table>
-      <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:12px">
-        <button type="button" class="btn" id="schemaClose">Đóng</button>
-      </div>
+      <div style="margin-top:8px"><button type="button" class="btn">Import Excel</button> <button type="button" class="btn primary" data-toast="Đã lưu doi chieu">Lưu doi chieu</button></div>
     </div>
-  </div>
-  <div class="toast" id="toast">Toast · cấm native alert</div>
+  </section>
+</div>
 
-  <script>
-    const PROJECT_TYPES = [
-      { value: "", label: "Tất cả loại" },
-      { value: "sua-chua-dinh-ky", label: "SCĐK" },
-      { value: "sua-chua-dot-xuat", label: "SCĐX" },
-      { value: "khac-phuc-thien-tai", label: "KPTT" },
-      { value: "diem-den-atgt", label: "Điểm đen ATGT" },
-      { value: "khac", label: "Khác" }
-    ];
-    const STATUSES = [
-      { value: "", label: "Tất cả TT" },
-      { value: "nhap", label: "Nháp" },
-      { value: "dang-thuc-hien", label: "Đang thực hiện" },
-      { value: "hoan-thanh", label: "Hoàn thành" },
-      { value: "dong", label: "Đóng" }
-    ];
-    const ROUTES = [
-      { value: "", label: "Tất cả tuyến" },
-      { value: "QL1", label: "QL.1 — Quốc lộ 1" },
-      { value: "QL8", label: "QL.8 — Quốc lộ 8" }
-    ];
-    const PROVS = [
-      { value: "", label: "Tất cả tỉnh" },
-      { value: "HT", label: "Hà Tĩnh" },
-      { value: "NA", label: "Nghệ An" }
-    ];
-    const ORGS = [
-      { value: "", label: "Tất cả ĐV" },
-      { value: "VP-IV1", label: "VP IV.1" },
-      { value: "VP-IV2", label: "VP IV.2" }
-    ];
-    const BQLS = [
-      { value: "", label: "Tất cả Ban" },
-      { value: "SU-BQLDA-S", label: "Ban QLDA miền Nam" }
-    ];
-    const NTS = [
-      { value: "", label: "Tất cả NT" },
-      { value: "nt-01", label: "Cty CP Cầu đường Miền Trung" },
-      { value: "nt-02", label: "Tổng Cty XDĐB 5" }
-    ];
-    const OWNERS = [
-      { value: "", label: "Tất cả" },
-      { value: "u1", label: "Nguyễn Văn A" }
-    ];
-    const CONT = [
-      { value: "moi", label: "Mới" },
-      { value: "chuyen-tiep", label: "Chuyển tiếp" }
-    ];
-    const CAP = [
-      { value: "nsnn", label: "NSNN" },
-      { value: "oda", label: "ODA" }
-    ];
+<div class="toast" id="toast"></div>
+<div class="modal" id="modalLeave" data-des-id="LeaveConfirmModal"><div class="modal-card">
+  <strong>Rời trang?</strong><p>LeaveConfirmModal — cấm native confirm.</p>
+  <div class="modal-actions"><button type="button" class="btn" data-close>Ở lại</button><button type="button" class="btn danger" id="leaveOk">Rời đi</button></div>
+</div></div>
+<div class="modal" id="modalCfg" data-des-id="DES-GRID-F"><div class="modal-card">
+  <strong>Cấu hình hiển thị danh mục</strong><p>LinCatalogUiSchemaEditorModal · cấm configHint</p>
+  <div class="modal-actions"><button type="button" class="btn" data-close>Đóng</button></div>
+</div></div>
+<div class="modal" id="modalHist" data-des-id="DES-GRID-H"><div class="modal-card">
+  <strong>Lịch sử</strong><p>LinCatalogHistoryModal</p>
+  <div class="modal-actions"><button type="button" class="btn" data-close>Đóng</button></div>
+</div></div>
 
-    function bindLkp(wrapId, listId, inputId, items, mapItem) {
-      const wrap = document.getElementById(wrapId);
-      const list = document.getElementById(listId);
-      const input = document.getElementById(inputId);
-      if (!wrap || !list || !input) return;
-      const render = (q) => {
-        const qq = (q || "").toLowerCase();
-        list.innerHTML = items
-          .filter((it) => mapItem(it).toLowerCase().includes(qq))
-          .map((it) => `<button type="button" data-v="${mapItem(it)}">${mapItem(it)}</button>`)
-          .join("");
-      };
-      const open = () => { wrap.classList.add("open"); render(input.value); };
-      input.addEventListener("focus", open);
-      input.addEventListener("input", () => render(input.value));
-      wrap.querySelector("button").addEventListener("click", open);
-      list.addEventListener("click", (e) => {
-        const b = e.target.closest("button");
-        if (!b) return;
-        input.value = b.dataset.v;
-        wrap.classList.remove("open");
-      });
-      document.addEventListener("click", (e) => {
-        if (!wrap.contains(e.target)) wrap.classList.remove("open");
-      });
-    }
-
-    bindLkp("fltTypeLkp", "fltTypeList", "fltType", PROJECT_TYPES, (x) => x.label);
-    bindLkp("fltStatusLkp", "fltStatusList", "fltStatus", STATUSES, (x) => x.label);
-    bindLkp("fltRouteLkp", "fltRouteList", "fltRoute", ROUTES, (x) => x.label);
-    bindLkp("fltProvLkp", "fltProvList", "fltProv", PROVS, (x) => x.label);
-    bindLkp("fltOrgLkp", "fltOrgList", "fltOrg", ORGS, (x) => x.label);
-    bindLkp("fltBqlLkp", "fltBqlList", "fltBql", BQLS, (x) => x.label);
-    bindLkp("fltOwnerLkp", "fltOwnerList", "fltOwner", OWNERS, (x) => x.label);
-    bindLkp("fltNtLkp", "fltNtList", "fltNt", NTS, (x) => x.label);
-    bindLkp("fTypeLkp", "fTypeList", "fType", PROJECT_TYPES.filter((s) => s.value), (x) => x.label);
-    bindLkp("fContLkp", "fContList", "fCont", CONT, (x) => x.label);
-    bindLkp("fRouteLkp", "fRouteList", "fRoute", ROUTES.filter((s) => s.value), (x) => x.label);
-    bindLkp("fProvLkp", "fProvList", "fProv", PROVS.filter((s) => s.value), (x) => x.label);
-    bindLkp("fCapLkp", "fCapList", "fCap", CAP, (x) => x.label);
-    bindLkp("fOrgLkp", "fOrgList", "fOrg", ORGS.filter((s) => s.value), (x) => x.label);
-    bindLkp("fBqlLkp", "fBqlList", "fBql", BQLS.filter((s) => s.value), (x) => x.label);
-    bindLkp("fStatusLkp", "fStatusList", "fStatus", STATUSES.filter((s) => s.value), (x) => x.label);
-
-    const page = document.getElementById("page");
-    const formEdit = document.getElementById("formEdit");
-    const formView = document.getElementById("formView");
-    const formFooter = document.getElementById("formFooter");
-    const formBadge = document.getElementById("formBadge");
-    const formHint = document.getElementById("formHint");
-    const delModal = document.getElementById("delModal");
-    const schemaModal = document.getElementById("schemaModal");
-    const toast = document.getElementById("toast");
-
-    document.querySelectorAll(".tab-btn").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        document.querySelectorAll(".tab-btn").forEach((b) => b.classList.remove("active"));
-        btn.classList.add("active");
-        const idx = btn.dataset.tab;
-        document.querySelectorAll(".tab-panel").forEach((p) => p.classList.remove("active"));
-        document.getElementById("tab" + idx).classList.add("active");
-      });
-    });
-
-    function openForm(mode) {
-      page.classList.add("mode-form");
-      const isView = mode === "view";
-      formEdit.classList.toggle("hidden", isView);
-      formView.classList.toggle("hidden", !isView);
-      formFooter.classList.toggle("hidden", isView);
-      formBadge.textContent = { create: "Tạo mới", edit: "Sửa", view: "Xem" }[mode];
-      formHint.textContent = isView
-        ? "View = <dl> · full-page 4 tab read-only · cấm Slideout"
-        : "Tab 0–3 · footer Lưu/Hủy · leave-confirm · IdCode CT-yyyyMMdd-nnnn";
-    }
-    function closeForm() { page.classList.remove("mode-form"); }
-
-    document.getElementById("btnCreate").addEventListener("click", () => openForm("create"));
-    document.getElementById("btnBack").addEventListener("click", closeForm);
-    document.getElementById("btnCancel").addEventListener("click", closeForm);
-    document.querySelectorAll("[data-open]").forEach((el) => {
-      el.addEventListener("click", () => openForm(el.getAttribute("data-open")));
-    });
-    document.getElementById("btnConfig").addEventListener("click", () => schemaModal.classList.add("open"));
-    document.getElementById("schemaClose").addEventListener("click", () => schemaModal.classList.remove("open"));
-
-    function openDel() { delModal.classList.add("open"); }
-    document.getElementById("btnDelete").addEventListener("click", openDel);
-    document.querySelectorAll(".row-del").forEach((b) => b.addEventListener("click", openDel));
-    document.getElementById("delNo").addEventListener("click", () => delModal.classList.remove("open"));
-    document.getElementById("delYes").addEventListener("click", () => {
-      delModal.classList.remove("open");
-      toast.style.display = "block";
-      setTimeout(() => { toast.style.display = "none"; }, 2200);
-    });
-  </script>
+<script>
+const views=["list","form","seg","segForm","week","weekForm","disb"];
+let pending=null;
+function show(id){views.forEach(v=>{const el=document.getElementById("view-"+v);if(el)el.classList.toggle("active",v===id);});
+document.querySelectorAll(".surf-nav [data-surf]").forEach(b=>b.classList.toggle("active",b.getAttribute("data-surf")===id));}
+document.querySelectorAll("[data-surf]").forEach(b=>b.addEventListener("click",()=>show(b.getAttribute("data-surf"))));
+document.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",()=>show(b.getAttribute("data-go"))));
+document.querySelectorAll(".tab-btn").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll(".tab-btn").forEach(x=>x.classList.remove("active"));document.querySelectorAll(".tab-panel").forEach(x=>x.classList.remove("active"));b.classList.add("active");document.getElementById(b.getAttribute("data-tab")).classList.add("active");}));
+function toast(m){const t=document.getElementById("toast");t.textContent=m;t.style.display="block";setTimeout(()=>t.style.display="none",2200);}
+document.querySelectorAll("[data-toast]").forEach(b=>b.addEventListener("click",()=>toast(b.getAttribute("data-toast"))));
+document.querySelectorAll("[data-leave]").forEach(b=>b.addEventListener("click",()=>{pending="list";document.getElementById("modalLeave").classList.add("open");}));
+document.getElementById("leaveOk").addEventListener("click",()=>{document.getElementById("modalLeave").classList.remove("open");if(pending)show(pending);pending=null;});
+document.querySelectorAll("[data-close]").forEach(b=>b.addEventListener("click",()=>b.closest(".modal").classList.remove("open")));
+document.querySelectorAll("[data-open-modal]").forEach(b=>b.addEventListener("click",()=>{const id=b.getAttribute("data-open-modal")==="cfg"?"modalCfg":"modalHist";document.getElementById(id).classList.add("open");}));
+</script>
 </body>
 </html>

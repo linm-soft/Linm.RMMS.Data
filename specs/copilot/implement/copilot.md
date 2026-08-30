@@ -63,11 +63,18 @@ Live MFE `CopilotListPage` + `CopilotChatDrawer` + BE Copilot (2026-08-15) — *
 
 | Gate | Result |
 |------|--------|
-| FE yarn typecheck | **PASS** |
+| FE yarn typecheck | **PASS** (2026-08-30) |
 | FE yarn build | **PASS** (`LINM_RUN_DEV_LOCAL_BUNDLE=1`) |
-| BE API `dotnet build` | **PASS** (output `%TEMP%\rmms-api-copilot-build`) |
-| BE BFF `dotnet build` | **PASS** (output `%TEMP%\rmms-bff-copilot-build`) |
+| BE API `dotnet build` | **PASS** (output `%TEMP%\rmms-api-copilot-unicode` · 2026-08-30) |
+| BE BFF `dotnet build` | **PASS** (output `%TEMP%\rmms-bff-copilot-unicode` · 2026-08-30) |
 | ERP.* | **none** |
+
+## Notes — `/edit-web-feature` 2026-08-30
+
+- **GAP-WEB-EDIT unicode + mock:** canned reply nằm trong `CopilotService.ResolveReply` bị mojibake (`nh?n`, `xu?ng c?p`) → match fail → mọi chip rơi default «P1 stub».
+- **Fix:** SSOT `Domains/Copilot/Services/CopilotMockCatalog.cs` (UTF-8 prompts + replies + fold VN). `GET /api/v1/copilot/prompts` + BFF. FE `CopilotChatDrawer` load chips — **xóa** `PROMPTS` hardcode.
+- Chat `CopilotMockCatalog.Resolve` — **cấm** `(P1 stub)` trên bubble. Title default «Phiên mới» qua `IsDefaultSessionTitle` (fold).
+- Không đổi schema / không ERP.*.
 
 ## Handoff → QA
 

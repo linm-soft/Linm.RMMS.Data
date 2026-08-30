@@ -1,0 +1,86 @@
+{
+  "list": {
+    "title": "GIS bản đồ giám sát 2D",
+    "buttons": [
+      "Lớp",
+      "Chú giải",
+      "Thuộc tính",
+      "Kết quả",
+      "Lấy dữ liệu",
+      "Làm mới overlay",
+      "Heatmap PCI",
+      "Digital Twin 3D",
+      "Mở vẽ",
+      "Tìm kiếm",
+      "HL-QL1-001 · HL",
+      "BB-QL1-012 · BB",
+      "Km290+00 · KM",
+      "CAU-QL1-01 · CAU",
+      "GT-QL1-03 · GT",
+      "DN-QL1-02 · DN",
+      "NG-QL1-01 · NG",
+      "CT-QL1-08 · CT",
+      "MLG-QL1-04 · MLG",
+      "CAM-QL1-12 · Online",
+      "CAM-QL1-286 · Online",
+      "CAM-QL1-312 · Online",
+      "CAM-QL1-340 · Offline",
+      "CAM-QL1-18 · Online",
+      "CAM-QL1-22 · Online",
+      "Zoom in",
+      "Zoom out",
+      "OSM = OpenStreetMap — nhãn tiếng Việt",
+      "Esri Streets",
+      "Esri sat — ảnh vệ tinh",
+      "Fit = phóng vừa toàn bộ pin / tuyến",
+      "Phóng full map",
+      "Tất cả",
+      "QL.1 · đoạn 1 · PCI 82",
+      "QL.1 · đoạn 2 · PCI 68",
+      "QL.1 · đoạn 3 · PCI 54"
+    ],
+    "headers": [
+      "Mã",
+      "Tên",
+      "PCI",
+      "Trạng thái"
+    ],
+    "labels": [
+      {
+        "label": "Đoạn đường",
+        "required": false
+      },
+      {
+        "label": "Heatmap PCI",
+        "required": false
+      },
+      {
+        "label": "Sự cố / kiểm tra",
+        "required": false
+      },
+      {
+        "label": "Camera ITS",
+        "required": false
+      },
+      {
+        "label": "Tìm kiếm",
+        "required": false
+      },
+      {
+        "label": "Lớp dữ liệu Tất cả lớp Đoạn đường Heatmap PCI Sự cố Camera ITS",
+        "required": false
+      },
+      {
+        "label": "PCI từ",
+        "required": false
+      },
+      {
+        "label": "PCI đến",
+        "required": false
+      }
+    ],
+    "formCols": "",
+    "footerCrud": false
+  },
+  "form": null
+}

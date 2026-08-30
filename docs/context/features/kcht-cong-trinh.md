@@ -2,13 +2,13 @@
 
 > **Slug:** `kcht-cong-trinh` · **Module:** Contract × Master × Report  
 > **Phase:** CR ngoài PL01 P1-900 (công văn KQLĐB IV 08/2026)  
-> **Status:** Context · **pipeline** `data_analy` / `draft`  
+> **Status:** Context · Wave 1 `done` · **wave PH2–PH4** edit_page · PH5 park · [wave SSOT](../../data/analyzed/kcht-wave-ph2-ph4.md)  
 > **sourceKind:** **synthetic** — công văn khách, không màn GOVOne  
-> **Sources:** [`docs/tinh-nang/Cung-cap-thong-tin-phan-mem.md`](../../tinh-nang/Cung-cap-thong-tin-phan-mem.md) · `.doc` gốc cùng thư mục  
+> **Sources:** [`docs/tinh-nang/Cung-cap-thong-tin-phan-mem.md`](../../tinh-nang/Cung-cap-thong-tin-phan-mem.md) · `.doc` gốc cùng thư mục · **PH4/PH5 form nguồn** [`docs/data/analyzed/kcht-giai-ngan-03-sheet.md`](../../data/analyzed/kcht-giai-ngan-03-sheet.md) (SRC-KCT-GN03) · index [`docs/data/SOURCE-TRACKING.md`](../../data/SOURCE-TRACKING.md)  
 > **Plan:** [`../../plan/kcht-cong-trinh/PLAN.md`](../../plan/kcht-cong-trinh/PLAN.md)  
 > **≠** `asset` / `csdl-so-sach` (danh mục TS hiện trạng) · `maintenance` (WO BDTX) · `feedback` (góp ý PM)  
 > **Reuse:** `contract` · `road-route` · `org-unit` · `partner-unit` · `users` · `dashboard` / `reports` · FileService  
-> **API / route:** **chưa chốt** — SA `/agent-sa` · **cấm** coi path dưới đây là SSOT runtime
+> **API / route:** PH1 live `api/v1/kcht-ct/projects` · PH2–PH4 path = **GAP** đến SA · **cấm** invent runtime
 
 ## 1. Tổng quan
 
@@ -112,3 +112,10 @@ File bytes: FileService Hub/Cloud — **không** lưu trên DB nghiệp vụ.
 - [ ] Dashboard 10 KPI khi login
 - [ ] RBAC 5 nhóm · seed 111 slot (không bắt buộc đủ user thật)
 - [ ] `sourceKind=synthetic` · không chrome GOVOne
+
+## Implement tracking
+
+| lane | phase | status | updatedAt |
+|------|-------|--------|-----------|
+| web | `qa` | `await_confirm` | `2026-08-29T05:30:55.677Z` |
+| mobile | — | — | — |

@@ -1,0 +1,152 @@
+{
+  "list": {
+    "title": "Cổng người dân",
+    "buttons": [
+      "Làm mới",
+      "Tạo mới",
+      "RMMS",
+      "QL đường bộ",
+      "01. QL tài sản đường bộ",
+      "02. GIS bản đồ số 2D",
+      "AI kiểm định mặt đường",
+      "Phát hiện tài sản / thiết bị mới",
+      "03c. Kết nối Camera GTVT",
+      "04. Tuần đường / tuần kiểm",
+      "Chấm công và định vị",
+      "Sự cố / Vấn đề",
+      "Lập lịch sửa chữa / bảo trì",
+      "AI dự báo bảo trì",
+      "09. Chỉ đạo điều hành",
+      "Ước lượng sửa chữa",
+      "11. HĐ & ngân sách",
+      "AI Copilot",
+      "17. Dashboard & BC",
+      "18. Open API & tích hợp",
+      "Open API và tích hợp",
+      "Import tài sản",
+      "Cổng người dân",
+      "Góp ý phần mềm",
+      "Trang chủ",
+      "Bảng điều khiển",
+      "Đăng xuất",
+      "Đơn vị cơ sở: RMMS"
+    ],
+    "headers": [],
+    "labels": [
+      {
+        "label": "Tìm kiếm",
+        "required": false
+      },
+      {
+        "label": "Trạng thái xử lý",
+        "required": false
+      },
+      {
+        "label": "Tuyến đường",
+        "required": false
+      }
+    ],
+    "formCols": "",
+    "footerCrud": false
+  },
+  "form": {
+    "title": "Báo sự cố mới",
+    "buttons": [
+      "Quay lại",
+      "Hủy",
+      "Tạo mới",
+      "Xoá lựa chọn",
+      "RMMS",
+      "QL đường bộ",
+      "01. QL tài sản đường bộ",
+      "02. GIS bản đồ số 2D",
+      "AI kiểm định mặt đường",
+      "Phát hiện tài sản / thiết bị mới",
+      "03c. Kết nối Camera GTVT",
+      "04. Tuần đường / tuần kiểm",
+      "Chấm công và định vị",
+      "Sự cố / Vấn đề",
+      "Lập lịch sửa chữa / bảo trì",
+      "AI dự báo bảo trì",
+      "09. Chỉ đạo điều hành",
+      "Ước lượng sửa chữa",
+      "11. HĐ & ngân sách",
+      "AI Copilot",
+      "17. Dashboard & BC",
+      "18. Open API & tích hợp",
+      "Open API và tích hợp",
+      "Import tài sản",
+      "Cổng người dân",
+      "Góp ý phần mềm",
+      "Trang chủ",
+      "Bảng điều khiển",
+      "Đăng xuất",
+      "Đơn vị cơ sở: RMMS"
+    ],
+    "headers": [],
+    "labels": [
+      {
+        "label": "Mã theo dõi",
+        "required": false
+      },
+      {
+        "label": "Trạng thái xử lý",
+        "required": true
+      },
+      {
+        "label": "Họ tên",
+        "required": true
+      },
+      {
+        "label": "Số điện thoại",
+        "required": true
+      },
+      {
+        "label": "Email",
+        "required": false
+      },
+      {
+        "label": "Loại sự cố",
+        "required": true
+      },
+      {
+        "label": "Thời gian báo cáo",
+        "required": true
+      },
+      {
+        "label": "Nguồn",
+        "required": false
+      },
+      {
+        "label": "Ảnh/Video (meta)",
+        "required": false
+      },
+      {
+        "label": "Mô tả / phản ánh hiện trường",
+        "required": true
+      },
+      {
+        "label": "Địa chỉ vị trí",
+        "required": false
+      },
+      {
+        "label": "Vĩ độ (Lat)",
+        "required": true
+      },
+      {
+        "label": "Kinh độ (Lng)",
+        "required": true
+      },
+      {
+        "label": "Tuyến đường",
+        "required": false
+      },
+      {
+        "label": "Lý trình (Km)",
+        "required": false
+      }
+    ],
+    "formCols": "5",
+    "footerCrud": false
+  }
+}

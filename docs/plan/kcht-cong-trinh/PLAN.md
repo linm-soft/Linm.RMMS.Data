@@ -126,6 +126,7 @@ Schema: `/database-migration` cùng PR Dev.
 
 ## Next
 
-1. Board `/qldb-workflow` — enqueue `kcht-cong-trinh` `roleOnly=data_analy`  
-2. PO confirm D1–D8 + GAP-KCT-01…09  
-3. Báo giá CR-Khu-IV (ngoài 900tr) khi khách chốt wave
+1. Queue **`task_399151e1`** `roleOnly=data_analy` · `edit_page` PH2–PH4 — worker `yarn run-implement` (đã chạy) sẽ pick sau lock hiện tại.  
+2. PO AC sổ SCĐK + SCTX + đoạn + tuần · Design Kind B · SA `Schema_KchtCongTrinhDisburse*` pair.  
+3. PH5 PHỤ LỤC 03 **park** đến PH4 STATUS `done`.  
+4. Báo giá CR-Khu-IV (ngoài 900tr) khi khách chốt wave.

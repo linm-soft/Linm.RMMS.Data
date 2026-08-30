@@ -1,0 +1,154 @@
+{
+  "list": {
+    "title": "Cơ cấu tổ chức",
+    "buttons": [
+      "Làm mới",
+      "Tạo mới",
+      "Tất cả 60",
+      "DRVN Cục Đường bộ Việt Nam 59",
+      "Đầu",
+      "Trước",
+      "Sau",
+      "Cuối",
+      "RMMS",
+      "QL đường bộ",
+      "01. QL tài sản đường bộ",
+      "Cơ cấu tổ chức",
+      "Tuyến đường",
+      "Loại tài sản",
+      "Đơn vị đối tác",
+      "Sổ tài sản KCHT",
+      "Phân loại mặt đường",
+      "CSDL 12 biểu + 8 sổ BDTX",
+      "Hạng Mục Kết Cấu Hạ Tầng",
+      "Danh sách IoT",
+      "Drone / Reality Capture",
+      "02. GIS bản đồ số 2D",
+      "03. AI kiểm định mặt đường",
+      "03b. AI phát hiện TS mới",
+      "03c. Kết nối Camera GTVT",
+      "04. Tuần đường / tuần kiểm",
+      "05. Chấm công / định vị",
+      "06. Quản lý sự cố",
+      "07. Bảo trì",
+      "08. AI dự báo bảo trì",
+      "09. Chỉ đạo điều hành",
+      "10. AI ước lượng",
+      "11. HĐ & ngân sách",
+      "16. AI Copilot",
+      "17. Dashboard & BC",
+      "18. Open API & tích hợp"
+    ],
+    "headers": [
+      "STT",
+      "Mã đơn vị",
+      "Tên đơn vị",
+      "Loại",
+      "Tên gọi cũ"
+    ],
+    "labels": [
+      {
+        "label": "Tìm kiếm",
+        "required": false
+      },
+      {
+        "label": "Loại đơn vị",
+        "required": false
+      },
+      {
+        "label": "Đơn vị cha",
+        "required": false
+      }
+    ],
+    "formCols": "",
+    "footerCrud": false
+  },
+  "form": {
+    "title": "Cơ cấu tổ chức",
+    "buttons": [
+      "Làm mới",
+      "Tạo mới",
+      "Tất cả 60",
+      "DRVN Cục Đường bộ Việt Nam 59",
+      "Đầu",
+      "Trước",
+      "Sau",
+      "Cuối",
+      "RMMS",
+      "QL đường bộ",
+      "01. QL tài sản đường bộ",
+      "Cơ cấu tổ chức",
+      "Tuyến đường",
+      "Loại tài sản",
+      "Đơn vị đối tác",
+      "Sổ tài sản KCHT",
+      "Phân loại mặt đường",
+      "CSDL 12 biểu + 8 sổ BDTX",
+      "Hạng Mục Kết Cấu Hạ Tầng",
+      "Danh sách IoT",
+      "Drone / Reality Capture",
+      "02. GIS bản đồ số 2D",
+      "03. AI kiểm định mặt đường",
+      "03b. AI phát hiện TS mới",
+      "03c. Kết nối Camera GTVT",
+      "04. Tuần đường / tuần kiểm",
+      "05. Chấm công / định vị",
+      "06. Quản lý sự cố",
+      "07. Bảo trì",
+      "08. AI dự báo bảo trì",
+      "09. Chỉ đạo điều hành",
+      "10. AI ước lượng",
+      "11. HĐ & ngân sách",
+      "16. AI Copilot",
+      "17. Dashboard & BC",
+      "18. Open API & tích hợp"
+    ],
+    "headers": [
+      "STT",
+      "Mã đơn vị",
+      "Tên đơn vị",
+      "Loại",
+      "Tên gọi cũ"
+    ],
+    "labels": [
+      {
+        "label": "Tìm kiếm",
+        "required": false
+      },
+      {
+        "label": "Loại đơn vị",
+        "required": false
+      },
+      {
+        "label": "Đơn vị cha",
+        "required": false
+      },
+      {
+        "label": "Mã đơn vị",
+        "required": true
+      },
+      {
+        "label": "Loại đơn vị",
+        "required": true
+      },
+      {
+        "label": "Tên đơn vị",
+        "required": true
+      },
+      {
+        "label": "Đơn vị cha",
+        "required": false
+      },
+      {
+        "label": "Tên gọi cũ",
+        "required": false
+      },
+      {
+        "label": "Đang dùng",
+        "required": false
+      }
+    ],
+    "formCols": "2",
+    "footerCrud": false
+  }
+}

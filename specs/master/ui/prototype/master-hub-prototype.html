@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Prototype — Master catalogs hub (Kind B ×4)</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
+  <style>
+    :root{--bg:#f5f7fa;--card:#fff;--border:#BABCBE;--soft:#e9ecef;--txt:#1A1A1A;--muted:#6c757d;--primary:#0d6efd;--btn:#EEEEEE;--r:4px}
+    *{box-sizing:border-box}
+    body{margin:0;font:13px/1.4 "Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--txt)}
+    .page{max-width:1280px;margin:0 auto;padding:8px;display:flex;flex-direction:column;gap:8px;min-height:100vh}
+    .note{font-size:11px;color:var(--muted)}.note a{color:var(--primary)}
+    .hub-tabs{display:flex;gap:6px;flex-wrap:wrap}
+    .hub-tab{height:32px;padding:0 12px;border:1px solid var(--soft);border-radius:var(--r);background:#fff;font-size:12px;font-weight:600;cursor:pointer}
+    .hub-tab.on{background:var(--primary);color:#fff;border-color:var(--primary)}
+    .zone-a{display:flex;align-items:center;gap:10px}
+    .zone-a h1{margin:0;font-size:22px;font-weight:700;display:flex;align-items:center;gap:10px}
+    .zone-a h1 i{color:var(--primary);font-size:20px}
+    .zone-b{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:8px 0;position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--soft)}
+    .zone-b-left,.zone-b-right{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .tb{display:inline-flex;align-items:center;gap:4px;height:32px;padding:6px 8px;border:0;border-radius:var(--r);background:var(--btn);font-size:12px;font-weight:600;cursor:pointer}
+    .tb:hover{background:#BABCBE}.tb.primary{background:var(--primary);color:#fff}.tb.primary:hover{background:#0b5ed7}.tb:disabled{opacity:.55;cursor:not-allowed}
+    .card{background:var(--card);border:1px solid var(--soft);border-radius:var(--r);flex:1;display:flex;flex-direction:column;min-height:0;overflow:hidden}
+    .grid-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 16px 8px;align-items:flex-start}
+    .grid-title{margin:0;font-size:15px;font-weight:700}.grid-help{margin:4px 0 0;font-size:12px;color:var(--muted)}
+    .filter-bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:8px;min-width:min(100%,420px)}
+    .filter-bar select{height:32px;border:1px solid var(--border);border-radius:var(--r);padding:0 8px;font-size:13px;background:#fff}
+    .search{display:flex;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;min-width:220px;height:32px;background:#fff}
+    .search input{border:0;outline:0;padding:6px 10px;flex:1;font-size:13px}
+    .search button{border:0;border-left:1px solid var(--border);background:#f8fafc;padding:0 10px;cursor:pointer;color:var(--muted)}
+    .split{display:flex;min-height:360px;border-top:1px solid var(--soft)}
+    .tree{width:240px;flex-shrink:0;border-right:1px solid var(--soft);overflow:auto;background:#fafbfc;padding:8px}
+    .tree.hidden{display:none}.tree-item{padding:4px 6px;border-radius:4px;cursor:pointer;font-size:12px}
+    .tree-item:hover{background:#eef2f7}.tree-item.on{background:#eff6ff;color:var(--primary);font-weight:600}
+    .table-wrap{overflow:auto;flex:1;min-height:200px;position:relative}
+    table{width:100%;border-collapse:collapse;table-layout:fixed}
+    th,td{padding:8px 12px;border-bottom:1px solid var(--soft);text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    th{background:#f8fafc;font-size:12px;color:var(--muted);position:sticky;top:0}
+    th.num,td.num{text-align:center;width:48px}
+    tbody tr:nth-child(even){background:#fafbfc}tbody tr:hover,tbody tr.sel{background:#eff6ff}
+    .col-tools{display:inline-flex;gap:4px;margin-left:6px}.col-tools button{border:0;background:0;cursor:pointer;color:var(--muted);padding:0 2px;font-size:11px}.col-tools button.on{color:var(--primary)}
+    .filter-pop{display:none;position:absolute;z-index:30;width:260px;background:#fff;border:1px solid var(--soft);border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.12);padding:10px;top:40px;left:160px}
+    .filter-pop.on{display:block}
+    .filter-pop input[type=text]{width:100%;margin-bottom:8px;padding:6px 8px;border:1px solid var(--border);border-radius:var(--r)}
+    .filter-field{display:flex;align-items:center;gap:8px;padding:6px 8px;border:1px solid var(--soft);border-radius:6px;margin-bottom:8px}
+    .filter-hint{font-size:12px;color:var(--muted);margin-bottom:8px}
+    .filter-list{max-height:140px;overflow:auto;display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
+    .filter-list label{display:flex;align-items:center;gap:8px;padding:4px 6px;border-radius:4px}.filter-list label.on{background:#eff6ff}
+    .filter-acts{display:flex;justify-content:flex-end;gap:8px}
+    .zone-d{display:flex;flex-direction:column;align-items:center;gap:10px;padding:12px 16px;border-top:1px solid var(--soft)}
+    .zone-d-total{color:var(--muted)}.zone-d-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center}
+    .pager-btn{width:32px;height:32px;border:1px solid var(--soft);border-radius:var(--r);background:#fff;color:var(--muted);cursor:pointer}
+    .menu{position:relative}.menu summary{list-style:none;cursor:pointer;padding:4px 8px;border:1px solid var(--border);border-radius:var(--r);background:#fff}
+    .menu summary::-webkit-details-marker{display:none}
+    .menu-panel{display:none;position:absolute;right:0;z-index:5;background:#fff;border:1px solid var(--border);border-radius:6px;min-width:140px;box-shadow:0 8px 24px rgba(0,0,0,.12)}
+    .menu[open] .menu-panel{display:block}
+    .menu-panel button{display:block;width:100%;text-align:left;border:0;background:0;padding:8px 12px;cursor:pointer;font-size:13px}
+    .menu-panel button:hover{background:#f1f5f9}
+    .backdrop{display:none;position:fixed;inset:0;background:rgba(15,23,42,.35);z-index:40;align-items:center;justify-content:center}
+    .backdrop.on{display:flex}
+    .modal{width:min(560px,94vw);background:#fff;border-radius:8px;border:1px solid var(--soft);max-height:90vh;overflow:auto}
+    .modal.sm{width:min(420px,94vw)}
+    .modal-h{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid var(--soft);font-weight:700}
+    .modal-h .badge{font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:#eef2ff;color:#3730a3}
+    .modal-h .x{margin-left:auto;border:0;background:0;cursor:pointer;font-size:16px;color:var(--muted)}
+    .modal-b{padding:16px}.fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}.fields .span2{grid-column:span 2}
+    .field{display:flex;flex-direction:column;gap:4px}.field label{font-size:13px;color:var(--muted);font-weight:500}
+    .req::after{content:" *";color:#dc2626;font-weight:700}
+    .field input,.field select{height:32px;padding:6px 10px;border:1px solid var(--border);border-radius:var(--r);font-size:13px}
+    .field input:focus,.field select:focus{outline:none;border-color:var(--primary);box-shadow:0 0 4px #BABCBE}
+    .field.ro input,.field.ro select{background:#f8fafc}
+    .lkp{position:relative}.lkp-wrap{display:flex;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;height:32px;background:#fff}
+    .lkp-wrap input{border:0;outline:0;flex:1;padding:6px 10px;font-size:13px}
+    .lkp-wrap button{border:0;border-left:1px solid var(--border);background:#f8fafc;padding:0 10px;cursor:pointer;color:var(--muted)}
+    .lkp-drop{display:none;position:absolute;left:0;right:0;top:calc(100% + 4px);z-index:50;max-height:180px;overflow:auto;background:#fff;border:1px solid var(--border);border-radius:var(--r);box-shadow:0 8px 24px rgba(0,0,0,.12)}
+    .lkp-drop.on{display:block}
+    .lkp-opt{display:block;width:100%;text-align:left;border:0;background:#fff;padding:8px 10px;cursor:pointer;font-size:13px}
+    .lkp-opt:hover{background:#eff6ff}
+    .modal-f{padding:12px 16px;border-top:1px solid var(--soft);display:flex;justify-content:flex-end;gap:8px}
+    .switch{display:inline-flex;align-items:center;gap:8px;height:32px}
+  </style>
+</head>
+<body>
+  <div class="page">
+    <p class="note">SSOT Design hub · <code>shared-grid-example v1</code> · <code>real_view_parity v1</code> · peer <code>http://localhost:9318/mas/co-cau-tc</code> · DEM N/A ·
+      <a href="../../org-unit/ui/prototype/org-unit-list-prototype.html">org-unit</a> ·
+      <a href="../../road-route/ui/prototype/road-route-list-prototype.html">road-route</a> ·
+      <a href="../../asset-type/ui/prototype/asset-type-list-prototype.html">asset-type</a> ·
+      <a href="../../partner-unit/ui/prototype/partner-unit-list-prototype.html">partner-unit</a>
+    </p>
+    <nav class="hub-tabs" aria-label="Master catalogs">
+      <button type="button" class="hub-tab on" data-cat="org-unit">Cơ cấu tổ chức</button>
+      <button type="button" class="hub-tab" data-cat="road-route">Tuyến đường</button>
+      <button type="button" class="hub-tab" data-cat="asset-type">Loại tài sản</button>
+      <button type="button" class="hub-tab" data-cat="partner-unit">Đối tác</button>
+    </nav>
+    <header class="zone-a" data-des-id="DES-GRID-A">
+      <h1><i class="fas fa-sitemap" id="page-icon" aria-hidden="true"></i> <span id="page-title">Cơ cấu tổ chức</span></h1>
+    </header>
+    <div class="zone-b" data-des-id="DES-GRID-B">
+      <div class="zone-b-left">
+        <button type="button" class="tb" data-action="refresh" title="Làm mới" aria-label="Làm mới"><i class="fas fa-sync-alt"></i> Làm mới</button>
+        <button type="button" class="tb" data-action="history" title="Lịch sử" aria-label="Lịch sử"><i class="fas fa-history"></i> Lịch sử</button>
+        <button type="button" class="tb" data-action="editConfig" title="Sửa config" aria-label="Sửa config"><i class="fas fa-cog"></i> Sửa config</button>
+        <button type="button" class="tb" id="btn-view" disabled title="Xem" aria-label="Xem"><i class="fas fa-eye"></i> Xem</button>
+        <button type="button" class="tb" id="btn-edit" disabled title="Sửa" aria-label="Sửa"><i class="fas fa-edit"></i> Sửa</button>
+        <button type="button" class="tb" id="btn-del" disabled title="Xóa" aria-label="Xóa"><i class="fas fa-trash"></i> Xóa</button>
+      </div>
+      <div class="zone-b-right">
+        <button type="button" class="tb primary" data-action="create" title="Thêm mới" aria-label="Thêm mới"><i class="fas fa-plus"></i> Thêm mới</button>
+      </div>
+    </div>
+    <section class="card">
+      <div class="grid-head" data-des-id="DES-GRID-C0">
+        <div>
+          <h2 class="grid-title" id="list-title">Danh sách đơn vị</h2>
+          <p class="grid-help" data-des-id="DES-GRID-C3-help">Nhấn đúp · Ctrl + chuột phải · giữ chạm (mobile) để mở menu dòng</p>
+        </div>
+        <div class="filter-bar" data-des-id="DES-GRID-C1" data-filter="LinErpListFilterBar">
+          <select id="enum-filter" aria-label="Bộ lọc enum" title="Bộ lọc"></select>
+          <div class="search">
+            <input type="search" id="q" placeholder="Tìm mã / tên…" aria-label="Tìm kiếm" />
+            <button type="button" aria-label="Tìm" title="Tìm"><i class="fas fa-search"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="split">
+        <aside class="tree" id="tree" data-des-id="DES-GRID-T" aria-label="Cây đơn vị"></aside>
+        <div class="table-wrap" data-des-id="DES-GRID-C2">
+          <table><thead><tr id="thead-row"></tr></thead><tbody id="tbody"></tbody></table>
+          <div class="filter-pop" id="filter-pop" data-des-id="DES-GRID-C2a">
+            <input type="text" id="filter-q" placeholder="Tìm trong danh sách…" />
+            <div class="filter-field"><input type="checkbox" id="filter-select-all" /><label for="filter-select-all" style="flex:1;cursor:pointer">Chọn tất cả</label></div>
+            <div class="filter-hint" id="filter-count">Đã chọn 0 mục</div>
+            <div class="filter-list" id="filter-list"></div>
+            <div class="filter-acts">
+              <button type="button" class="tb" id="filter-cancel" title="Hủy">Hủy</button>
+              <button type="button" class="tb primary" id="filter-ok" title="Xác nhận">Xác nhận</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="zone-d" data-des-id="DES-GRID-D">
+        <div class="zone-d-total">Tổng: <span id="total">0</span> · Trang <span id="page">1</span>/1</div>
+        <div class="zone-d-row">
+          <label>Hiển thị <select id="pageSize"><option>50</option><option>100</option><option>200</option><option>500</option></select></label>
+          <button type="button" class="pager-btn" disabled title="Đầu"><i class="fas fa-angle-double-left"></i></button>
+          <button type="button" class="pager-btn" disabled title="Trước"><i class="fas fa-angle-left"></i></button>
+          <span>1/1</span>
+          <button type="button" class="pager-btn" disabled title="Sau"><i class="fas fa-angle-right"></i></button>
+          <button type="button" class="pager-btn" disabled title="Cuối"><i class="fas fa-angle-double-right"></i></button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="backdrop" id="modal-config" data-des-id="DES-GRID-F"><div class="modal sm"><div class="modal-h"><i class="fas fa-cog"></i> Sửa cấu hình lưới</div><div class="modal-b">LinCatalogUiSchemaEditorModal mock · Kéo cột: <strong>ON</strong>.</div><div class="modal-f"><button type="button" class="tb" data-close="modal-config" title="Đóng">Đóng</button></div></div></div>
+  <div class="backdrop" id="modal-history" data-des-id="DES-GRID-H"><div class="modal sm"><div class="modal-h"><i class="fas fa-history"></i> Lịch sử</div><div class="modal-b">LinCatalogHistoryModal mock.</div><div class="modal-f"><button type="button" class="tb" data-close="modal-history" title="Đóng">Đóng</button></div></div></div>
+  <div class="backdrop" id="modal-alert" data-des-id="DES-ALERT"><div class="modal sm"><div class="modal-h">Xác nhận xóa</div><div class="modal-b">Bạn có chắc muốn xóa mục đã chọn?</div><div class="modal-f"><button type="button" class="tb" data-close="modal-alert" title="Hủy">Hủy</button><button type="button" class="tb primary" id="alert-ok" title="Xóa">Xóa</button></div></div></div>
+  <div class="backdrop" id="modal-form" data-des-id="DES-GRID-Z"><div class="modal"><div class="modal-h"><strong id="form-title">Thêm mới</strong><span class="badge" id="form-badge">Tạo mới</span><button type="button" class="x" id="form-x" title="Đóng" aria-label="Đóng">✕</button></div><div class="modal-b"><div class="fields" id="form-fields" data-form-cols="2" data-form-surface="modal"></div></div><div class="modal-f"><button type="button" class="tb" id="form-cancel" title="Hủy" aria-label="Hủy">Hủy</button><button type="button" class="tb primary" id="form-save" title="Lưu" aria-label="Lưu">Lưu</button></div></div></div>
+  <div class="backdrop" id="modal-leave" data-des-id="DES-LEAVE"><div class="modal sm"><div class="modal-h">Chưa lưu</div><div class="modal-b">Bạn có thay đổi chưa lưu. Ở lại trang hay rời đi?</div><div class="modal-f"><button type="button" class="tb" id="leave-stay" title="Ở lại">Ở lại</button><button type="button" class="tb primary" id="leave-go" title="Rời đi">Rời đi</button></div></div></div>
+
+  <script>
+  const CATALOGS={
+    "org-unit":{title:"Cơ cấu tổ chức",icon:"fa-sitemap",listTitle:"Danh sách đơn vị",enumLabel:"Loại đơn vị",enumKey:"kind",
+      enums:[["","Tất cả loại"],["HQ","Lãnh đạo Cục"],["ADV","Tham mưu"],["REG","Khu QLĐB"],["VP","Văn phòng"],["SU","Sự nghiệp"],["ROOM","Phòng"]],
+      cols:[["code","Mã đơn vị"],["name","Tên đơn vị"],["kind","Loại"],["legacyAlias","Tên gọi cũ"]],tree:true,
+      rows:[{code:"CDBVN",name:"Cục Đường bộ Việt Nam",kind:"ORG",legacyAlias:"",parent:"",parentName:""},{code:"HQ",name:"Lãnh đạo Cục",kind:"HQ",legacyAlias:"",parent:"CDBVN",parentName:"Cục Đường bộ Việt Nam"},{code:"VP-II.2",name:"Văn phòng QLĐB II.2",kind:"VP",legacyAlias:"Chi cục QLĐB II.2",parent:"REG-II",parentName:"Khu QLĐB II"},{code:"VP-II.1",name:"Văn phòng QLĐB II.1",kind:"VP",legacyAlias:"Chi cục QLĐB II.1",parent:"REG-II",parentName:"Khu QLĐB II"}],
+      form:[{key:"code",label:"Mã đơn vị",type:"text",req:true},{key:"kind",label:"Loại đơn vị",type:"select",req:true,opts:[["HQ","Lãnh đạo Cục"],["ADV","Tham mưu"],["REG","Khu QLĐB"],["VP","Văn phòng"],["SU","Sự nghiệp"],["ROOM","Phòng"]]},{key:"name",label:"Tên đơn vị",type:"text",req:true,span2:true},{key:"parentCode",label:"Đơn vị cha",type:"search",span2:true},{key:"legacyAlias",label:"Tên gọi cũ",type:"text"},{key:"isActive",label:"Đang dùng",type:"switch"}]},
+    "road-route":{title:"Tuyến đường",icon:"fa-road",listTitle:"Danh sách tuyến",enumLabel:"Loại tuyến",enumKey:"routeKind",
+      enums:[["","Tất cả loại"],["QUOC_LO","Quốc lộ"],["HCM","Đường Hồ Chí Minh"],["CAO_TOC","Cao tốc"],["KHAC","Khác"]],
+      cols:[["code","Mã tuyến"],["name","Tên tuyến"],["routeKind","Loại"],["isActive","Trạng thái"]],tree:false,
+      rows:[{code:"QL.1",name:"Quốc lộ 1",routeKind:"QUOC_LO",isActive:"Đang dùng",parentCode:"",parentName:""},{code:"HCM",name:"Đường Hồ Chí Minh",routeKind:"HCM",isActive:"Đang dùng",parentCode:"",parentName:""},{code:"CT.01",name:"Cao tốc mẫu",routeKind:"CAO_TOC",isActive:"Đang dùng",parentCode:"",parentName:""}],
+      form:[{key:"code",label:"Mã tuyến",type:"text",req:true},{key:"routeKind",label:"Loại tuyến",type:"select",req:true,opts:[["QUOC_LO","Quốc lộ"],["HCM","Đường Hồ Chí Minh"],["CAO_TOC","Cao tốc"],["KHAC","Khác"]]},{key:"name",label:"Tên tuyến",type:"text",req:true,span2:true},{key:"parentCode",label:"Tuyến mẹ",type:"search",span2:true},{key:"notes",label:"Ghi chú",type:"text",span2:true},{key:"isActive",label:"Đang dùng",type:"switch"}]},
+    "asset-type":{title:"Loại tài sản",icon:"fa-tags",listTitle:"Danh sách loại tài sản",enumLabel:"Nhóm",enumKey:"groupCode",
+      enums:[["","Tất cả nhóm"],["THOAT_NUOC","Thoát nước"],["AN_TOAN","An toàn"],["MAT_DUONG","Mặt đường"]],
+      cols:[["code","Mã loại"],["name","Tên VN"],["groupCode","Nhóm"],["isActive","Trạng thái"]],tree:false,
+      rows:[{code:"CULVERT_X",name:"Cống ngang",groupCode:"THOAT_NUOC",isActive:"Đang dùng"},{code:"GUARD_RAIL",name:"Hộ lan",groupCode:"AN_TOAN",isActive:"Đang dùng"},{code:"PAVEMENT",name:"Mặt đường",groupCode:"MAT_DUONG",isActive:"Đang dùng"}],
+      form:[{key:"code",label:"Mã loại",type:"text",req:true},{key:"groupCode",label:"Nhóm",type:"select",req:true,opts:[["THOAT_NUOC","Thoát nước"],["AN_TOAN","An toàn"],["MAT_DUONG","Mặt đường"]]},{key:"name",label:"Tên VN",type:"text",req:true,span2:true},{key:"legacyAliases",label:"Alias import",type:"text",span2:true},{key:"isActive",label:"Đang dùng",type:"switch"}]},
+    "partner-unit":{title:"Đơn vị đối tác",icon:"fa-handshake",listTitle:"Danh sách đối tác",enumLabel:"Loại ĐV",enumKey:"partnerKind",
+      enums:[["","Tất cả loại"],["SO_GTVT","Sở GTVT"],["BOT","BOT"],["DOANH_NGHIEP","Doanh nghiệp"]],
+      cols:[["code","Mã"],["name","Tên"],["partnerKind","Loại"],["provinceCode","Tỉnh/TP"]],tree:false,
+      rows:[{code:"SO-HN",name:"Sở GTVT Hà Nội",partnerKind:"SO_GTVT",provinceCode:"01"},{code:"BOT-01",name:"BOT mẫu",partnerKind:"BOT",provinceCode:"79"},{code:"DN-01",name:"Doanh nghiệp mẫu",partnerKind:"DOANH_NGHIEP",provinceCode:""}],
+      form:[{key:"code",label:"Mã",type:"text",req:true},{key:"partnerKind",label:"Loại ĐV",type:"select",req:true,opts:[["SO_GTVT","Sở GTVT"],["BOT","BOT"],["DOANH_NGHIEP","Doanh nghiệp"]]},{key:"name",label:"Tên",type:"text",req:true,span2:true},{key:"provinceCode",label:"Tỉnh / TP",type:"text"},{key:"legacyFolderName",label:"Folder import",type:"text"},{key:"isActive",label:"Đang dùng",type:"switch"}]}
+  };
+
+  let cat="org-unit",selected=null,formDirty=false,formMode="create",leaveAction=null,filterChecked=new Set();
+  const tbody=document.getElementById("tbody"),theadRow=document.getElementById("thead-row"),treeEl=document.getElementById("tree"),enumFilter=document.getElementById("enum-filter");
+  const openModal=id=>document.getElementById(id).classList.add("on");
+  const closeModal=id=>document.getElementById(id).classList.remove("on");
+  function syncSelBtns(){const on=!!selected;["btn-view","btn-edit","btn-del"].forEach(id=>document.getElementById(id).disabled=!on)}
+  function setCatalog(id){
+    cat=id;selected=null;formDirty=false;
+    document.querySelectorAll(".hub-tab").forEach(b=>b.classList.toggle("on",b.getAttribute("data-cat")===id));
+    const c=CATALOGS[id];
+    document.getElementById("page-title").textContent=c.title;
+    document.getElementById("page-icon").className="fas "+c.icon;
+    document.getElementById("list-title").textContent=c.listTitle;
+    enumFilter.innerHTML=c.enums.map(([v,l])=>`<option value="${v}">${l}</option>`).join("");
+    enumFilter.setAttribute("aria-label",c.enumLabel);
+    treeEl.classList.toggle("hidden",!c.tree);
+    if(c.tree){treeEl.innerHTML=`<div class="tree-item on" data-node="ALL">Tất cả</div>`+c.rows.map(r=>`<div class="tree-item" data-node="${r.code}">${r.code} — ${r.name}</div>`).join("")}
+    filterChecked=new Set(c.rows.map(r=>r.code));renderHead();render();syncSelBtns();
+  }
+  function renderHead(){
+    const c=CATALOGS[cat];
+    theadRow.innerHTML=`<th class="num">STT</th><th class="num"><input type="checkbox" id="chk-all" aria-label="Chọn tất cả trang" /></th>`+
+      c.cols.map((col,i)=>{const tools=i===0?`<span class="col-tools"><button type="button" class="on" title="Sắp xếp"><i class="fas fa-sort-alpha-down"></i></button><button type="button" title="Lọc" id="btn-filter-code"><i class="fas fa-filter"></i></button></span>`:"";return `<th>${col[1]}${tools}</th>`}).join("")+`<th class="num"></th>`;
+    const btn=document.getElementById("btn-filter-code");
+    if(btn)btn.addEventListener("click",e=>{e.stopPropagation();document.getElementById("filter-pop").classList.toggle("on");renderFilterList()});
+  }
+  function filteredRows(){
+    const c=CATALOGS[cat],q=(document.getElementById("q").value||"").trim().toLowerCase(),ev=enumFilter.value;
+    return c.rows.filter(r=>{if(ev&&String(r[c.enumKey]||"")!==ev)return false;if(!q)return true;return Object.values(r).some(v=>String(v||"").toLowerCase().includes(q))});
+  }
+  function render(){
+    const c=CATALOGS[cat],list=filteredRows();
+    tbody.innerHTML=list.map((r,i)=>`<tr data-code="${r.code}" class="${selected===r.code?"sel":""}"><td class="num">${i+1}</td><td class="num"><input type="checkbox" class="row-chk" ${selected===r.code?"checked":""} /></td>${c.cols.map((col,idx)=>idx===0?`<td><button type="button" class="code-link" style="border:0;background:0;color:#0d6efd;text-decoration:underline;cursor:pointer;font:inherit">${r[col[0]]||""}</button></td>`:`<td>${r[col[0]]||""}</td>`).join("")}<td class="num" data-des-id="DES-GRID-C3"><details class="menu"><summary>⋮</summary><div class="menu-panel"><button type="button" data-menu="view">Xem</button><button type="button" data-menu="edit">Sửa</button><button type="button" data-menu="copy">Sao chép</button><button type="button" data-menu="history">Lịch sử</button><button type="button" data-menu="delete">Xóa</button></div></details></td></tr>`).join("");
+    document.getElementById("total").textContent=String(list.length);syncSelBtns();
+  }
+  function renderFilterList(){
+    const codes=CATALOGS[cat].rows.map(r=>r.code),fq=(document.getElementById("filter-q").value||"").toLowerCase();
+    const visible=codes.filter(v=>!fq||v.toLowerCase().includes(fq));
+    document.getElementById("filter-list").innerHTML=visible.map(v=>`<label class="${filterChecked.has(v)?"on":""}"><input type="checkbox" data-fv="${v}" ${filterChecked.has(v)?"checked":""} /> ${v}</label>`).join("");
+    const n=visible.filter(v=>filterChecked.has(v)).length;
+    document.getElementById("filter-count").textContent=`Đã chọn ${n} mục`;
+    document.getElementById("filter-select-all").checked=visible.length>0&&n===visible.length;
+  }
+  function lookupOptions(){return CATALOGS[cat].rows.map(r=>({code:r.code,name:r.name,alias:r.legacyAlias||""}))}
+  function buildForm(mode,row){
+    formMode=mode;formDirty=false;const c=CATALOGS[cat];
+    const badges={create:"Tạo mới",edit:"Sửa",view:"Xem",copy:"Sao chép"},titles={create:"Thêm mới",edit:"Sửa",view:"Xem",copy:"Sao chép"};
+    document.getElementById("form-badge").textContent=badges[mode];
+    document.getElementById("form-title").textContent=titles[mode]+" — "+c.title;
+    document.getElementById("form-save").style.display=mode==="view"?"none":"";
+    const box=document.getElementById("form-fields");
+    box.innerHTML=c.form.map(f=>{
+      const span=f.span2?" span2":"",req=f.req?" req":"",ro=mode==="view"||(mode==="edit"&&f.key==="code")?" ro":"";
+      const val=row?(row[f.key]??(f.key==="parentCode"?(row.parent||row.parentCode||""):"")):(f.type==="switch"?true:"");
+      if(f.type==="select"){const opts=(f.opts||[]).map(([v,l])=>`<option value="${v}" ${String(val)===v?"selected":""}>${l}</option>`).join("");return `<div class="field${span}${ro}"><label class="${req}">${f.label}</label><select data-fk="${f.key}" ${mode==="view"?"disabled":""}>${opts}</select></div>`}
+      if(f.type==="switch")return `<div class="field${span}"><label>${f.label}</label><label class="switch"><input type="checkbox" data-fk="${f.key}" ${mode==="view"?"disabled":""} ${val!==false?"checked":""}/> Bật</label></div>`;
+      if(f.type==="search"){const display=row&&(row.parentName||row.parentCode||row.parent)?`${row.parentCode||row.parent||""} — ${row.parentName||""}`:"";return `<div class="field${span}${ro}"><label>${f.label}</label><div class="lkp" data-search="${f.key}"><div class="lkp-wrap"><input type="search" data-fk="${f.key}" placeholder="Gõ mã / tên…" value="${display}" ${mode==="view"?"readonly":""} autocomplete="off" /><button type="button" class="lkp-clear" title="Xóa" ${mode==="view"?"disabled":""}><i class="fas fa-times"></i></button></div><div class="lkp-drop"></div></div></div>`}
+      return `<div class="field${span}${ro}"><label class="${req}">${f.label}</label><input type="text" data-fk="${f.key}" value="${val||""}" ${mode==="view"||(mode==="edit"&&f.key==="code")?"readonly":""} /></div>`;
+    }).join("");
+    box.querySelectorAll("input,select").forEach(el=>{el.addEventListener("input",()=>{formDirty=true});el.addEventListener("change",()=>{formDirty=true})});
+    box.querySelectorAll(".lkp").forEach(lkp=>{
+      const input=lkp.querySelector("input"),drop=lkp.querySelector(".lkp-drop"),clear=lkp.querySelector(".lkp-clear");
+      function showDrop(){if(mode==="view")return;const q=(input.value||"").toLowerCase();const opts=lookupOptions().filter(o=>!q||o.code.toLowerCase().includes(q)||o.name.toLowerCase().includes(q)||(o.alias||"").toLowerCase().includes(q));drop.innerHTML=opts.map(o=>`<button type="button" class="lkp-opt" data-code="${o.code}" data-name="${o.name}"><span style="color:#0d6efd;font-weight:600">${o.code}</span> — ${o.name}${o.alias?` <span style="color:#6c757d;font-size:12px">(${o.alias})</span>`:""}</button>`).join("")||`<div style="padding:8px;color:#6c757d">Không có kết quả</div>`;drop.classList.add("on")}
+      input.addEventListener("focus",showDrop);input.addEventListener("input",showDrop);
+      drop.addEventListener("click",e=>{const opt=e.target.closest(".lkp-opt");if(!opt)return;input.value=`${opt.getAttribute("data-code")} — ${opt.getAttribute("data-name")}`;drop.classList.remove("on");formDirty=true});
+      clear.addEventListener("click",()=>{input.value="";formDirty=true;drop.classList.remove("on")});
+    });
+    openModal("modal-form");
+  }
+  function requestCloseForm(){if(formDirty&&formMode!=="view"){leaveAction=()=>closeModal("modal-form");openModal("modal-leave");return}closeModal("modal-form")}
+  function openFormFor(mode){const row=CATALOGS[cat].rows.find(r=>r.code===selected)||null;if((mode==="edit"||mode==="view"||mode==="copy")&&!row)return;const data=mode==="copy"&&row?{...row,code:""}:row;buildForm(mode==="copy"?"copy":mode,data)}
+  document.querySelectorAll(".hub-tab").forEach(b=>b.addEventListener("click",()=>setCatalog(b.getAttribute("data-cat"))));
+  document.getElementById("q").addEventListener("input",render);enumFilter.addEventListener("change",render);
+  tbody.addEventListener("click",e=>{const tr=e.target.closest("tr");if(!tr)return;const code=tr.getAttribute("data-code");if(e.target.closest("[data-menu]")){const act=e.target.closest("[data-menu]").getAttribute("data-menu");selected=code;syncSelBtns();render();if(act==="history")openModal("modal-history");else if(act==="delete")openModal("modal-alert");else if(act==="view"||act==="edit"||act==="copy")openFormFor(act);return}if(e.target.classList.contains("code-link")||e.target.classList.contains("row-chk")){selected=code;syncSelBtns();render()}});
+  tbody.addEventListener("dblclick",e=>{const tr=e.target.closest("tr");if(!tr)return;selected=tr.getAttribute("data-code");syncSelBtns();render();openFormFor("edit")});
+  treeEl.addEventListener("click",e=>{const item=e.target.closest(".tree-item");if(!item)return;treeEl.querySelectorAll(".tree-item").forEach(n=>n.classList.remove("on"));item.classList.add("on");const node=item.getAttribute("data-node");document.getElementById("q").value=node==="ALL"?"":node;render()});
+  document.querySelector('[data-action="editConfig"]').addEventListener("click",()=>openModal("modal-config"));
+  document.querySelector('[data-action="history"]').addEventListener("click",()=>openModal("modal-history"));
+  document.querySelector('[data-action="refresh"]').addEventListener("click",render);
+  document.querySelector('[data-action="create"]').addEventListener("click",()=>buildForm("create",null));
+  document.getElementById("btn-view").addEventListener("click",()=>openFormFor("view"));
+  document.getElementById("btn-edit").addEventListener("click",()=>openFormFor("edit"));
+  document.getElementById("btn-del").addEventListener("click",()=>openModal("modal-alert"));
+  document.getElementById("form-x").addEventListener("click",requestCloseForm);
+  document.getElementById("form-cancel").addEventListener("click",requestCloseForm);
+  document.getElementById("form-save").addEventListener("click",()=>{formDirty=false;closeModal("modal-form")});
+  document.getElementById("leave-stay").addEventListener("click",()=>{leaveAction=null;closeModal("modal-leave")});
+  document.getElementById("leave-go").addEventListener("click",()=>{closeModal("modal-leave");formDirty=false;if(typeof leaveAction==="function")leaveAction();leaveAction=null});
+  document.getElementById("alert-ok").addEventListener("click",()=>closeModal("modal-alert"));
+  document.querySelectorAll("[data-close]").forEach(btn=>btn.addEventListener("click",()=>closeModal(btn.getAttribute("data-close"))));
+  document.getElementById("filter-q").addEventListener("input",renderFilterList);
+  document.getElementById("filter-list").addEventListener("change",e=>{const t=e.target;if(!t.matches("[data-fv]"))return;if(t.checked)filterChecked.add(t.getAttribute("data-fv"));else filterChecked.delete(t.getAttribute("data-fv"));renderFilterList()});
+  document.getElementById("filter-select-all").addEventListener("change",e=>{const codes=CATALOGS[cat].rows.map(r=>r.code),fq=(document.getElementById("filter-q").value||"").toLowerCase(),visible=codes.filter(v=>!fq||v.toLowerCase().includes(fq));if(e.target.checked)visible.forEach(v=>filterChecked.add(v));else visible.forEach(v=>filterChecked.delete(v));renderFilterList()});
+  document.getElementById("filter-cancel").addEventListener("click",()=>document.getElementById("filter-pop").classList.remove("on"));
+  document.getElementById("filter-ok").addEventListener("click",()=>document.getElementById("filter-pop").classList.remove("on"));
+  setCatalog("org-unit");
+  </script>
+</body>
+</html>

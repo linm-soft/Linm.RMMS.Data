@@ -1,0 +1,169 @@
+{
+  "list": {
+    "title": "Bản đồ live — vẽ Point / Line / Polygon",
+    "buttons": [
+      "Lớp",
+      "Chú giải",
+      "Thuộc tính",
+      "Kết quả",
+      "Fit tổng quan",
+      "Nạp seed Excel",
+      "Chuẩn hóa cột Km",
+      "Export GeoJSON",
+      "Xoá hết layer",
+      "Zoom in",
+      "Zoom out",
+      "OSM = OpenStreetMap — nhãn tiếng Việt",
+      "Esri Streets",
+      "Esri sat — ảnh vệ tinh",
+      "Fit = phóng vừa toàn bộ pin / tuyến",
+      "Phóng full map",
+      "Tất cả",
+      "Tuyến đường",
+      "Biển báo",
+      "Gương cầu",
+      "Rãnh / cống dọc",
+      "Hộ lan / tôn sóng",
+      "Cọc tiêu / cọc H",
+      "Cột Km",
+      "CT HTKT trong HLATĐB",
+      "Kè / tường chắn",
+      "Nút giao đường bộ",
+      "Dải phân cách giữa",
+      "Điểm đỗ / dừng xe",
+      "Chiếu sáng đường",
+      "Hầm chui dân sinh",
+      "Bến xe buýt / khách",
+      "Nhà hạt QLĐB",
+      "Trạm trực cấp cứu",
+      "Tràn",
+      "Trạm thu phí"
+    ],
+    "headers": [],
+    "labels": [
+      {
+        "label": "✓ Tuyến đường (LineString)",
+        "required": false
+      },
+      {
+        "label": "! ✓ Biển báo (Point) 108k",
+        "required": false
+      },
+      {
+        "label": "✓ Gương cầu (Point) 88k",
+        "required": false
+      },
+      {
+        "label": "✓ Rãnh / cống dọc (LineString) 60k",
+        "required": false
+      },
+      {
+        "label": "✓ Hộ lan / tôn sóng (LineString) 51k",
+        "required": false
+      },
+      {
+        "label": "✓ Cọc tiêu / cọc H (Point) 35k",
+        "required": false
+      },
+      {
+        "label": "Km ✓ Cột Km (Point) 22k",
+        "required": false
+      },
+      {
+        "label": "✓ CT HTKT trong HLATĐB (Point) 13k",
+        "required": false
+      },
+      {
+        "label": "✓ Kè / tường chắn (Polygon) 9.8k",
+        "required": false
+      },
+      {
+        "label": "✓ Nút giao đường bộ (Point) 7.2k",
+        "required": false
+      },
+      {
+        "label": "✓ Dải phân cách giữa (LineString) 7k",
+        "required": false
+      },
+      {
+        "label": "✓ Điểm đỗ / dừng xe (Point) 5.4k",
+        "required": false
+      },
+      {
+        "label": "✓ Chiếu sáng đường (Point) 5k",
+        "required": false
+      },
+      {
+        "label": "✓ Hầm chui dân sinh (Point) 805",
+        "required": false
+      },
+      {
+        "label": "✓ Bến xe buýt / khách (Polygon) 385",
+        "required": false
+      },
+      {
+        "label": "✓ Nhà hạt QLĐB (Polygon) 362",
+        "required": false
+      },
+      {
+        "label": "TS ✓ Trạm trực cấp cứu (Point) 228",
+        "required": false
+      },
+      {
+        "label": "✓ Tràn (Point) 127",
+        "required": false
+      },
+      {
+        "label": "✓ Trạm thu phí (Point) 94",
+        "required": false
+      },
+      {
+        "label": "✓ Giao bằng đường sắt (Point) 67",
+        "required": false
+      },
+      {
+        "label": "✓ Trạm dừng nghỉ (Polygon) 53",
+        "required": false
+      },
+      {
+        "label": "✓ Trạm cân (Point) 30",
+        "required": false
+      },
+      {
+        "label": "✓ Tường chống ồn (Polygon) 23",
+        "required": false
+      },
+      {
+        "label": "✓ Bãi đỗ xe (Polygon) 23",
+        "required": false
+      },
+      {
+        "label": "TS ✓ Trạm cứu nạn (Point) 16",
+        "required": false
+      },
+      {
+        "label": "✓ Bến phà (Point) 14",
+        "required": false
+      },
+      {
+        "label": "✓ Đất thuộc TS hạ tầng (Point) 11",
+        "required": false
+      },
+      {
+        "label": "TS ✓ Camera ITS (Point) 10",
+        "required": false
+      },
+      {
+        "label": "TS ✓ Xe cứu hộ (Point) 7",
+        "required": false
+      },
+      {
+        "label": "✓ Cầu phao (Polygon) 2",
+        "required": false
+      }
+    ],
+    "formCols": "",
+    "footerCrud": false
+  },
+  "form": null
+}

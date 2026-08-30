@@ -1,78 +1,83 @@
-# Real-data bind — kcht-cong-trinh (Công trình KCHT · PH1 wave)
+# Real-data bind — kcht-cong-trinh (Công trình KCHT · edit_page PH2–PH4)
 
 | | |
 |---|---|
 | feature | `kcht-cong-trinh` |
 | packKind | `list` |
-| changeScope | `new_page` |
-| taskId | `task_e3745f39` |
-| prefix | **đề xuất** `api/v1/kcht-ct` (SA confirm) · BFF `web-bff/api/v1/kcht-ct` · **cấm** invent runtime path đã live |
+| changeScope | `edit_page` (PH2–PH4) · PH1 **giữ** |
+| status | `done` |
+| taskId | `task_399151e1` |
+| prefix | **live** `api/v1/kcht-ct` · BFF `web-bff/api/v1/kcht-ct` · PH2–PH4 nested paths = **GAP** đến SA |
 | beRepo | `D:/AI-QLBD/Linm.RMMS.WebService` · **cấm ERP.*** |
-| uiRepo | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Contract` |
-| map | `none` (PH1) · PH2 route segment map **DEFER** |
+| uiRepo | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Contract` · `ui_repo_confirm` locked |
+| mfeStdUrl | `http://localhost:9312/kcht-cong-trinh` |
+| map | `none` (list/form) · PH2 LRS child = wave này (SA) · **cấm** invent map canvas |
+| contentHash | `sha256:4652f6331035f6521fe50b83cf35ad19d594ca0b4de1fbb40a44f17d52a337dd` |
+| headerFingerprint | `sha256:b42f332386243b15594ca97c71e26d37f16a62eb27badbe7df51aabbe4554167` |
 
-## § Delta Current vs New (`new_page` · `task_e3745f39`)
+## § Delta Current vs New (`edit_page` · `task_399151e1`)
 
-| ID | Current | New |
-|----|---------|-----|
-| GAP-DA-REAL | Stub draft only | §A–§F cite Contract MFE + BE integration + công văn field map |
-| BE project API | **none** | `KchtProject` CRUD + decisions + contract links — SA scaffold |
-| MFE route | `/hd-ns` contract only | `/kcht-cong-trinh` list + form 4 tab |
-| Child HĐ | `GET /contract/contracts` flat | junction `projectId` + reuse `ContractEntity` |
-| Lookups | contract demo seed | Integration `road-route` · `org-unit` · `partner-unit` |
-| File tab | **none** | FileService presign bind `attachmentId` |
-| Demo | **N/A** synthetic | **cấm** demo-json SSOT (**GAP-DA-REAL-03**) |
+| ID | Current live (Wave 1) | New (PH2–PH4) |
+|----|----------------------|---------------|
+| BE project | `KchtProjectsController` · `rmms_kcht_projects` · decisions/contracts/attachments | **giữ** |
+| MFE | `/kcht-cong-trinh` Kind B + form 4 tab | + `/:id/doan-tuyen` · `/:id/tien-do` · `/:id/giai-ngan` **GAP** |
+| Đoạn / BH | `routeSegmentSummary` text · Contract warranty mỏng | `KchtRouteSegment` **GAP** · 6 TT · 90/60/30 |
+| Tuần | **none** | `KchtWeeklyProgress` **GAP** · RAG · alerts |
+| KH vốn | `KchtProject.CapitalPlanAmount` 1 cột | `KchtCapitalPlan` **GAP** |
+| Thanh toán | `ContractPaymentEntity` Period/Amount/PaidAt | `KchtDisbursement` **GAP** · voucher · KBNN file |
+| Excel/form nguồn | — | extract `kcht-giai-ngan-03-sheet.md` — **cấm** demo-json · **cấm** Read xlsx lại |
+| PH5 | — | `sourceFormReady=no` · park PHỤ LỤC 03 |
 
 ## §A — Nguồn
 
 | sourceKind | sourceCite | empty | error |
 |------------|------------|-------|-------|
-| `context` | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/kcht-cong-trinh.md` | — | version mismatch → gate |
-| `context` | `D:/AI-QLBD/Linm.RMMS.Data/docs/tinh-nang/Cung-cap-thong-tin-phan-mem.md` | — | công văn UTF-8 |
-| `api` · list (target) | **GAP** — SA scaffold `KchtProjectsController` | list trống | 4xx → toast · **cấm** `window.alert` |
-| `api` · list (cite pattern) | `D:/AI-QLBD/Linm.RMMS.WebService/api/src/RMMS.Service.Api/Domains/Contract/Controllers/ContractsController.cs` `GET /contracts` | empty copy | toast |
-| `api` · detail (target) | **GAP** `GET /kcht-ct/projects/{id}` | — | 404 → toast · redirect list |
-| `api` · CRUD (target) | **GAP** POST/PUT/DELETE projects | — | validation toast |
-| `api` · decisions (target) | **GAP** nested `…/decisions` | grid trống | toast |
-| `api` · contracts link (target) | **GAP** `…/contracts` + existing `ContractsController` | no child | toast |
-| `api` · contract cite | `ContractsController` · `ContractDtos.cs` | — | reuse DTO widen |
-| `api` · road-route | `RoadRoutesController` `GET /integration/road-routes/search` | no match | toast |
-| `api` · org-unit | `OrgUnitsController` `GET /integration/org-units/search` | no match | toast |
-| `api` · partner-unit | `PartnerUnitsController` `GET /integration/partner-units/search` | no match | toast |
-| `api` · file | FileService `/integrate-file-upload-web` presign | tab empty | upload error toast |
-| `mfe` · list pattern | `ContractListPage.tsx` · `contractService.getList` | — | cite only until kcht service |
-| `mfe` · form pattern | `ContractFormPage.tsx` | — | shell cite · add tabs |
-| `mfe` · integration lookup | `inventory/lookups.ts` `orgLookupConfig()` | — | wire for kcht |
-| `derived` | IdCode `CT-yyyyMMdd-nnnn` | — | `IIdCodeService` SA |
+| `context` | `docs/context/features/kcht-cong-trinh.md` | — | version mismatch → gate |
+| `context` | `docs/data/analyzed/kcht-wave-ph2-ph4.md` | — | wave SSOT |
+| `context` | `docs/data/analyzed/kcht-giai-ngan-03-sheet.md` | — | SRC-KCT-GN03 · **cấm** xlsx |
+| `context` | `docs/tinh-nang/Cung-cap-thong-tin-phan-mem.md` | — | PH2–PH4 công văn |
+| `api` · list **live** | `KchtProjectsController` `GET /kcht-ct/projects` | empty copy | toast · **cấm** alert |
+| `api` · detail **live** | `GET /kcht-ct/projects/{id}` | — | 404 → toast · list |
+| `api` · CRUD **live** | POST/PUT/DELETE projects + decisions/contracts/attachments | — | validation toast |
+| `api` · segments | **GAP** `…/projects/{id}/segments` | grid trống | toast |
+| `api` · weekly | **GAP** `…/projects/{id}/weekly-progress` | list trống | toast |
+| `api` · capital-plans | **GAP** `…/projects/{id}/capital-plans` | — | toast |
+| `api` · disbursements | **GAP** `…/projects/{id}/disbursements` | sổ trống | toast |
+| `api` · payment cite (mỏng) | `ContractPaymentEntity` / contract payments | — | **không** đủ PH4 |
+| `api` · road-route | `GET /integration/road-routes/search` | no match | toast |
+| `api` · org-unit | `GET /integration/org-units/search` | no match | toast |
+| `api` · partner-unit | `GET /integration/partner-units/search` | no match | toast |
+| `api` · file | FileService `/integrate-file-upload-web` | empty | upload toast |
+| `mfe` · list | `KchtProjectListPage.tsx` | — | live |
+| `mfe` · form | `KchtProjectFormPage.tsx` | — | 4 tab live · PH2–PH4 **chưa** |
+| `mfe` · service | `services/kchtProject/endpoint.ts` `BASE=/kcht-ct/projects` | — | live |
+| `derived` | IdCode `CT-yyyyMMdd-nnnn` | — | live IdCode pattern |
+| `derived` | warrantyAlert 90/60/30 · RAG · alerts[] | — | job / rules SA |
 
-`sourceCite` = file **có trong repo**. Inventory = Contract domain live + integration masters READY; **KchtProject** = net-new PH1.
+`sourceCite` = file **có trong repo**. PH2–PH4 API = **GAP** đến SA `Schema_KchtCongTrinhDisburse*`.
 
-## §B — Bind field (HARD · PH1)
+## §B — Bind field (HARD · PH1 live · giữ)
 
-| uiField | Label | controlHint | catalogKind | GET | write field | sameMfe | sameMobile |
-|---------|-------|-------------|-------------|-----|-------------|---------|------------|
-| search | Tìm | SearchTextInput | — | `GET …/projects?search=` **GAP** | — | **gap** | n/a |
-| projectType | Loại CT | SearchInput | kcht-project-type | `?projectType=` | `projectType` | **gap** | n/a |
-| roadRouteCode | Quốc lộ | SearchInput | road-route | `?roadRouteCode=` | `roadRouteCode` | **gap** | n/a |
-| provinceCode | Tỉnh | SearchInput | province | `?provinceCode=` | `provinceCode` | **gap** | n/a |
-| orgUnitCode | ĐV QL | SearchInput | org-unit | `?orgUnitCode=` | `orgUnitCode` | **gap** | n/a |
-| bqlOrgUnitCode | Ban QLDA | SearchInput | org-unit | `?bqlOrgUnitCode=` | `bqlOrgUnitCode` | **gap** | n/a |
-| ownerUserId | Người PT | SearchInput | users | `?ownerUserId=` | `ownerUserId` | **gap** P2 | n/a |
-| contractorCode | Nhà thầu | SearchInput | partner-unit | `?contractorCode=` | filter only | **gap** | n/a |
-| status | Trạng thái | SearchInput | kcht-project-status | `?status=` | `status` | **gap** | n/a |
-| code | Mã CT | Text readonly | — | detail `code` | auto | **gap** | n/a |
-| name | Tên CT | Text | — | detail | `name` | **gap** | n/a |
-| continuityKind | Mới/CT | SearchInput | kcht-continuity-kind | detail | `continuityKind` | **gap** | n/a |
-| planYear | Năm KH | Integer | — | detail | `planYear` | **gap** | n/a |
-| routeSegmentSummary | Đoạn tuyến | Text | — | detail | `routeSegmentSummary` | **gap** | n/a |
-| lengthM | Chiều dài | Number | — | detail | `lengthM` | **gap** | n/a |
-| capitalSourceKind | Nguồn vốn | SearchInput | enum | detail | `capitalSourceKind` | **gap** | n/a |
-| capitalPlanAmount | KH vốn | Money | — | detail | `capitalPlanAmount` | **gap** | n/a |
-| decisions[] | Quyết định | inline grid | kcht-decision-kind | `GET …/decisions` | nested POST/PUT | **gap** | n/a |
-| contracts[] | Hợp đồng | child list | kcht-contract-type | `GET …/contracts` + `GET /contract/contracts/{id}` | link/create | partial cite | n/a |
-| attachments[] | Hồ sơ | file list | — | `GET …/attachments` | presign POST | **gap** | n/a |
+| uiField | Label | controlHint | catalogKind | GET | write field | sameMfe |
+|---------|-------|-------------|-------------|-----|-------------|---------|
+| search | Tìm | SearchTextInput | — | `GET …/projects?search=` **live** | — | yes |
+| projectType | Loại CT | SearchInput | kcht-project-type | `?projectType=` | `projectType` | yes |
+| roadRouteCode | Quốc lộ | SearchInput | road-route | `?roadRouteCode=` | `roadRouteCode` | yes |
+| provinceCode | Tỉnh | SearchInput | province | `?provinceCode=` | `provinceCode` | yes · UNCLEAR master |
+| orgUnitCode | ĐV QL | SearchInput | org-unit | `?orgUnitCode=` | `orgUnitCode` | yes |
+| bqlOrgUnitCode | Ban QLDA | SearchInput | org-unit | `?bqlOrgUnitCode=` | `bqlOrgUnitCode` | yes |
+| ownerUserId | Người PT | SearchInput | users | `?ownerUserId=` | `ownerUserId` | partial P2 |
+| contractorCode | Nhà thầu | SearchInput | partner-unit | `?contractorCode=` | filter | yes |
+| status | Trạng thái | SearchInput | kcht-project-status | `?status=` | `status` | yes |
+| code | Mã CT | Text readonly | — | detail `code` | auto | yes |
+| name | Tên CT | Text | — | detail | `name` | yes |
+| routeSegmentSummary | Đoạn (text) | Text | — | detail | `routeSegmentSummary` | yes · **PH2 supersede** |
+| capitalPlanAmount | KH vốn 1 số | Money | — | detail | `capitalPlanAmount` | yes · **PH4 supersede** |
+| decisions[] | Quyết định | inline grid | kcht-decision-kind | nested | nested | yes |
+| contracts[] | Hợp đồng | child list | — | `…/contracts` | link/unlink | yes |
+| attachments[] | Hồ sơ | file list | — | `…/attachments` | stub+presign | partial · harden PH4 |
 
-**Prefix map** (đề xuất SA — **chưa live**):
+**Prefix map PH1 (live):**
 
 | Operation | Path |
 |-----------|------|
@@ -81,107 +86,156 @@
 | Create | `POST /web-bff/api/v1/kcht-ct/projects` |
 | Update | `PUT /web-bff/api/v1/kcht-ct/projects/{id}` |
 | Delete | `DELETE /web-bff/api/v1/kcht-ct/projects/{id}` |
-| Decisions | `GET/POST/PUT/DELETE …/projects/{id}/decisions` |
+| Decisions | nested trong body PUT/POST (Wave 1) |
 | Contract links | `GET/POST/DELETE …/projects/{id}/contracts` |
 | Attachments | `GET/POST/DELETE …/projects/{id}/attachments` |
 
-**Contract child cite** (live today):
+FE cite: `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Contract/src/services/kchtProject/endpoint.ts`.
 
-| Operation | Path |
-|-----------|------|
-| List HĐ | `GET /web-bff/api/v1/contract/contracts` |
-| Detail HĐ | `GET /web-bff/api/v1/contract/contracts/{id}` |
-| Create HĐ | `POST /web-bff/api/v1/contract/contracts` |
-| Update HĐ | `PUT /web-bff/api/v1/contract/contracts/{id}` |
+## §B2 — Bind PH2 đoạn tuyến (HARD · **GAP**)
 
-FE cite: `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Contract/src/services/contract/endpoint.ts` (relative `/contract/contracts`).
+| uiField | controlHint | GET (đề xuất SA) | write | sameMfe |
+|---------|-------------|------------------|-------|---------|
+| segments[].roadRouteCode | SearchInput | `GET …/segments` **GAP** | `roadRouteCode` | **gap** |
+| segments[].kmFrom · kmTo | Number | same | kmFrom/kmTo | **gap** |
+| segments[].lengthM | Number | same | `lengthM` | **gap** |
+| segments[].workItem | Text | same | `workItem` | **gap** |
+| segments[].contractId | SearchInput | child contracts **live** | `contractId` | cite picker |
+| segments[].contractorCode | SearchInput | partner-unit **live** | `contractorCode` | cite |
+| segments[].startAt · finishAt · acceptAt · handoverAt | Date | same | UTC | **gap** |
+| segments[].warrantyMonths · warrantyStart · warrantyEnd | Integer/Date | same | | **gap** |
+| segments[].status | SearchInput | same | `status` | **gap** |
+| warrantyAlert | derived | job | — | **gap** |
 
-**Integration lookup cite** (live):
+**Entity đề xuất:** `KchtRouteSegment` NEW **hoặc** widen `ContractRoute` — SA. Table đề xuất `rmms_kcht_route_segments`.
 
-| Catalog | Path |
-|---------|------|
-| road-route | `GET /web-bff/api/v1/integration/road-routes/search` |
-| org-unit | `GET /web-bff/api/v1/integration/org-units/search` |
-| partner-unit | `GET /web-bff/api/v1/integration/partner-units/search` |
+## §B3 — Bind PH3 tiến độ tuần (HARD · **GAP**)
 
-**Cấm** invent `api/v1/rmms/kcht/*` · **cấm** embed vào ERP.*
+| uiField | controlHint | GET (đề xuất SA) | write | sameMfe |
+|---------|-------------|------------------|-------|---------|
+| weekOf | Date/week | `GET …/weekly-progress` **GAP** | `weekOf` | **gap** |
+| planPctToWeek · actualPctToWeek | Number | same | % | **gap** |
+| prevWeekPct · weekDeltaPct | Number | derived | | **gap** |
+| valueCum · valueWeek | Money | same | | **gap** |
+| situation · nextWeekWork · issues · solution | Text | same | | **gap** |
+| delayCause | SearchInput | same | enum | **gap** |
+| rag | SearchInput/derived | same | rule công văn | **gap** |
+| alerts[] | derived chips | job + rules | — | **gap** |
+| header.* | readonly | project + segments + contracts **live** | — | cite |
 
-**Entity cite (target SA):**
+**Entity đề xuất:** `KchtWeeklyProgress` · table `rmms_kcht_weekly_progress` · unique (projectId, weekOf, tenant).
 
-| Entity | Path |
-|--------|------|
-| KchtProject | **GAP** — propose `D:/AI-QLBD/Linm.RMMS.WebService/api/shared/RMMS.Service.Persistence/Entities/KchtProjectEntity.cs` |
-| KchtProjectDecision | **GAP** |
-| Contract (widen) | `ContractEntity.cs` — add optional `ProjectId` or junction table |
-| Contract payment | `ContractPaymentEntity.cs` — reuse on child HĐ |
+## §B4 — Bind PH4 sổ giải ngân (HARD · form nguồn · **GAP**)
+
+| uiField | controlHint | GET (đề xuất SA) | write | sameMfe |
+|---------|-------------|------------------|-------|---------|
+| yearEstimate · yearEstimateFinal | Money | `GET …/capital-plans?year=` **GAP** | | **gap** |
+| savingDeducted · capitalPlan | Money | same | | **gap** |
+| lines[].costGroup | SearchInput | `GET …/disbursements` **GAP** | `costGroup` | **gap** |
+| lines[].content | Text | same | `content` | **gap** |
+| lines[].contractValue | Money | same | optional SCĐK | **gap** |
+| lines[].paymentValue | Money | same | `paymentValue` | **gap** |
+| lines[].disbursedValue | Money | same | `disbursedValue` | **gap** |
+| lines[].outstandingValue | Money | same | computed/nhập | **gap** |
+| lines[].partyCode | SearchInput | partner-unit / org-unit **live** | `partyCode` | cite |
+| lines[].partyKind | SearchInput | enum | `partyKind` | **gap** |
+| lines[].voucherKind · voucherNo · voucherDate | SearchInput+Text+Date | same | | **gap** |
+| lines[].attachments | file | FileService | `attachmentId` | **gap** · harden |
+
+**Entity đề xuất:** `KchtCapitalPlan` · `KchtDisbursement` (+ optional FK `ContractPayment`) · Schema `Schema_KchtCongTrinhDisburse`.
+
+**sourceTables PH5 (park):** `rmms_kcht_disbursements` · `rmms_kcht_capital_plans` — **chưa có** · `sourceFormReady=no`.
+
+### Cite Wave 1 (không invent DONE)
+
+| Live | Path |
+|------|------|
+| API | `…/Domains/Contract/Controllers/KchtProjectsController.cs` |
+| Service | `…/Services/KchtProjectsService.cs` |
+| BFF | `…/KchtProjectsBffController.cs` |
+| Entity | `…/Entities/KchtProjectEntity.cs` `rmms_kcht_projects` |
+| Decision | `KchtProjectDecisionEntity` |
+| Junction | `KchtProjectContractEntity` |
+| Attachment | `KchtProjectAttachmentEntity` |
+| Payment mỏng | `ContractPaymentEntity.cs` `rmms_contract_payments` |
+| Catalog UI | `CatalogUiSchemaRegistry.KchtProjects` = `kcht-projects` |
+| MFE endpoint | `src/services/kchtProject/endpoint.ts` |
+| MFE list/form | `KchtProjectListPage.tsx` · `KchtProjectFormPage.tsx` |
+
+**Cấm** invent `api/v1/rmms/kcht/*` · **cấm** embed ERP.* · **cấm** mark PH2–PH4 path là live.
 
 ## §C — Catalog
 
 | catalogKind | search/list API | seed/import cite | Cấm |
 |-------------|-----------------|------------------|------|
-| kcht-project-type | closed enum công văn | CTX §1.1 | invent label VN hardcode |
-| kcht-project-status | closed enum đề xuất | SA PH1 | demo status |
-| kcht-continuity-kind | closed | `moi` · `chuyen-tiep` | — |
-| kcht-decision-kind | closed | chủ trương · phê duyệt · điều chỉnh | — |
-| kcht-contract-type | closed | TVTK · TVGS · XL · QLDA · khác | nhầm `contract.type` bảo trì |
-| road-route | `GET /integration/road-routes/search` | `RoadRouteEntity` | plain text only |
-| org-unit | `GET /integration/org-units/search` | `org-unit-seed.json` `REG-IV*` | demo `ORG_UNITS` local |
-| partner-unit | `GET /integration/partner-units/search` | `PartnerUnitEntity` | demo `CONTRACTORS` |
-| province | **UNCLEAR** | FormsService P1 | invent province list |
-| users | users API | JWT `company_id` | — |
+| kcht-project-type | closed · live FE lookups | CTX §1.1 | hardcode ngoài useFormOptions |
+| kcht-project-status | closed · live | SA PH1 | demo status |
+| kcht-segment-status | closed **NEW** | công văn 6 TT | — |
+| kcht-delay-cause | closed **NEW** | công văn PH3 | — |
+| kcht-rag | closed **NEW** | xanh/vàng/đỏ | — |
+| kcht-cost-group | closed **NEW** | SRC-KCT-GN03 TT1–8 | — |
+| kcht-voucher-kind | closed **NEW** | giay-rut · pg · unc | — |
+| kcht-party-kind | closed **NEW** | contractor · khu · bql · cuc | — |
+| road-route | `GET /integration/road-routes/search` | live | plain text only |
+| org-unit | `GET /integration/org-units/search` | `REG-IV*` | demo local |
+| partner-unit | `GET /integration/partner-units/search` | live | demo CONTRACTORS |
+| province | **UNCLEAR** | FormsService P1 | invent list |
+| users | users API | JWT company | — |
 
 ## §D — Map / vẽ
 
-`map: none` — PH1 list/form **không** map canvas. PH2 đoạn tuyến LRS = separate wave.
+`map: none` — list/form/sổ **không** map canvas. Đoạn tuyến = LRS fields (kmFrom/kmTo) + SearchInput `road-route`, không Kind F.
 
-Handoff deep-link: `/hd-ns/:contractId?from=kcht&projectId={id}` read-only when opening child HĐ.
+Handoff HĐ: `/hd-ns/:contractId?from=kcht&projectId={id}` **live**.
 
-## §E — Progress / vòng đời (PH1 scope)
+## §E — Progress / vòng đời
 
 | stateField | Nguồn | Ai đổi | API | UI |
 |------------|-------|--------|-----|-----|
-| project.status | `KchtProject.status` **GAP** | phòng chuyên môn · Ban QLDA | PUT project | header chip |
-| decision rows | child table | phòng KHTC/QLBT | nested CRUD | tab Quyết định |
-| contract.status | `ContractEntity.Status` | reuse contract lifecycle | `PUT /contract/contracts/{id}` | tab Hợp đồng |
-| attachment | FileService metadata | uploader RBAC | presign + bind | tab Hồ sơ |
-
-PH3 RAG · PH2 warranty 6-state · PH4 disbursement — **DEFER** waves 2–4.
+| project.status | `KchtProject.status` **live** | QLBT / Ban QLDA | PUT project | header chip |
+| segment.status | `KchtRouteSegment` **GAP** | Ban QLDA | nested segments | PH2 |
+| warrantyAlert | derived job | system | job | badge 90/60/30 |
+| weekly.rag | rule + user | Ban QLDA / phòng | weekly-progress **GAP** | PH3 |
+| weekly.alerts | derived | system | job | chips 3 nhóm |
+| capitalPlan | `KchtCapitalPlan` **GAP** | KHTC | capital-plans | sổ header |
+| disbursement | `KchtDisbursement` **GAP** | KHTC / Ban | disbursements | sổ dòng |
+| kbnCompare | read-model **GAP** | KHTC | import/Excel P1 | grid 3 cột |
 
 ## §F — Handoff
 
 | Role | Dùng packet |
 |------|-------------|
-| PO | DoD wave 1 PH1 · AC filter công văn · 1 CT : n HĐ · **cấm** BC trước form nguồn |
-| Design | control-map khớp §B · Kind B + full-page 4 tab · **cấm** Slideout · reviewUrl |
-| SA | Entity `KchtProject*` · route `api/v1/kcht-ct` · widen Contract FK · **cấm ERP.*** |
-| TL | `ui_repo_confirm` · task pack list+form · perm 5 nhóm công văn |
-| Dev | scaffold MFE route + service · **không** trong `roleOnly=data_analy` |
-| QA | queued `/agent-qa*` — CRUD PH1 · no alert · E2E `mfeStdUrl` |
+| PO | AC PH2 đoạn/BH · PH3 tuần+RAG · PH4 sổ SCĐK+SCTX+voucher+file · **cấm** PH5 |
+| Design | Kind B sổ/đoạn/tuần · control-map khớp §B2–B4 · **cấm** Slideout hồ sơ CT · reviewUrl |
+| SA | Entity segment/weekly/capital/disburse · Schema pair · route nested · DOMAIN-MAP slug · **cấm ERP.*** |
+| TL | task pack · route_confirm mở rộng · FileService bind dòng GD |
+| Dev | **không** trong `roleOnly=data_analy` |
+| QA | queued sau Dev — **cấm** e2e ở role này |
 
 ## § Empty / fail
 
 | Case | Behavior |
 |------|----------|
-| list empty | empty copy «Chưa có công trình» · **cấm** fake row |
-| detail 404 | toast · navigate `/kcht-cong-trinh` |
-| decisions empty | tab grid empty state |
-| contracts empty | «Chưa liên kết hợp đồng» + CTA thêm |
-| attachments empty | FileService empty · CTA upload |
+| list empty | «Chưa có công trình» · **cấm** fake row |
+| detail 404 | toast · `/kcht-cong-trinh` |
+| segments empty | empty + CTA thêm đoạn |
+| weekly empty | empty + CTA cập nhật tuần |
+| sổ empty | empty + CTA thêm giao dịch |
 | lookup no match | SearchInput empty · **cấm** free text substitute master |
-| 4xx validation | toast business message |
-| 5xx list | toast error · **cấm** silent empty |
+| 4xx / 5xx | toast · **cấm** `window.alert` · **cấm** silent empty |
 
 ## § Cấm
 
 | ❌ | ✅ |
 |----|-----|
-| Demo-json / GOVOne làm SSOT | Công văn + CTX + live Contract/integration cite |
-| Nhồi CT vào `contract` without parent | `KchtProject` entity NEW |
-| `api/v1/rmms/*` · ERP.* | `api/v1/kcht-ct` SA confirm |
-| Slideout form CT | full-page 4 tab |
-| PH2–PH5 API trong wave 1 | DEFER per PLAN waves |
-| `window.alert` | `useAppToast` / `useAlert` |
-| Invent live kcht path as DONE | mark **GAP** until SA scaffold |
+| Demo-json / GOVOne SSOT | Công văn + CTX + wave SSOT + SRC-KCT-GN03 + live cite |
+| Invent PH2–PH4 path as DONE | mark **GAP** đến SA scaffold |
+| `api/v1/rmms/*` · ERP.* | `api/v1/kcht-ct` live + nested GAP |
+| Slideout form CT | full-page · Kind B child surfaces |
+| PH5 / Kind E trước form nguồn | `sourceFormReady=no` |
+| Nhồi CT vào contract parent-less | giữ `KchtProject` |
+| `window.alert` | `dispatchAppToast` / `useAppToast` |
+| Read lại xlsx SRC-KCT-GN03 | dùng extract md |
 
 ## Version meta (REQUIRED)
 
@@ -192,10 +246,11 @@ PH3 RAG · PH2 warranty 6-state · PH4 disbursement — **DEFER** waves 2–4.
 | schemaVersion | 2 |
 | workflowVersion | 2026.08.21.01 |
 | rulesVersion | 2026.08.25.4 |
-| generatedAt | 2026-08-26T23:50:00.000Z |
+| generatedAt | 2026-08-29T04:15:00.000Z |
 | versionGate | rechecked |
-| contentHash | sha256:77c91b35d170a15297c00fd9219f11fbe1f9e51bcab589c0c9b1d7283c702bbe |
-| taskId | `task_e3745f39` |
+| contentHash | sha256:4652f6331035f6521fe50b83cf35ad19d594ca0b4de1fbb40a44f17d52a337dd |
+| headerFingerprint | sha256:b42f332386243b15594ca97c71e26d37f16a62eb27badbe7df51aabbe4554167 |
+| taskId | `task_399151e1` |
 
 ---
-<!-- Version meta: skillId=agent-data-analy skillVersion=2026.08.21.01 schemaVersion=2 workflowVersion=2026.08.21.01 rulesVersion=2026.08.25.4 versionGate=rechecked contentHash=sha256:77c91b35d170a15297c00fd9219f11fbe1f9e51bcab589c0c9b1d7283c702bbe taskId=task_e3745f39 -->
+<!-- Version meta: skillId=agent-data-analy skillVersion=2026.08.21.01 schemaVersion=2 workflowVersion=2026.08.21.01 rulesVersion=2026.08.25.4 versionGate=rechecked contentHash=sha256:4652f6331035f6521fe50b83cf35ad19d594ca0b4de1fbb40a44f17d52a337dd headerFingerprint=sha256:b42f332386243b15594ca97c71e26d37f16a62eb27badbe7df51aabbe4554167 taskId=task_399151e1 -->

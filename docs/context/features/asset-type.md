@@ -26,8 +26,8 @@
 
 ## 3. API
 
-`api/v1/open-api/asset-types` (DOMAIN-MAP **Integration**) · search · (optional) `GET /alias-map` cho import job.  
-**Cấm** `api/v1/rmms/*` · **cấm** ERP.*.
+`api/v1/integration/asset-types` (DOMAIN-MAP **Integration**) · `GET ?search=&groupCode=` · `/search` · `/init-data` · (optional) `GET /alias-map` cho import job · BFF `web-bff/api/v1/integration/asset-types`.  
+**Cấm** `open-api` SSOT · **cấm** `api/v1/rmms/*` · **cấm** ERP.*.
 
 ## 4. Fields
 

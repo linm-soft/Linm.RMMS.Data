@@ -1,0 +1,197 @@
+{
+  "list": {
+    "title": "Sổ tài sản kết cấu hạ tầng đường bộ",
+    "buttons": [
+      "Làm mới",
+      "Tạo mới",
+      "TR-spill_way_664222",
+      "NH-road_admin_office_772041",
+      "TR-spill_way_759307",
+      "TR-spill_way_665973",
+      "TR-spill_way_242867",
+      "NH-road_admin_office_457533",
+      "TR-spill_way_580261",
+      "NH-road_admin_office_771646",
+      "TR-spill_way_118770",
+      "NH-road_admin_office_772020",
+      "TR-spill_way_312260",
+      "TR-spill_way_405667",
+      "NH-road_admin_office_772234",
+      "TR-spill_way_378374",
+      "TR-spill_way_580263",
+      "NH-road_admin_office_155002",
+      "NH-road_admin_office_589256",
+      "NH-road_admin_office_734067",
+      "TR-spill_way_309929",
+      "NH-road_admin_office_779723",
+      "NH-road_admin_office_726196",
+      "NH-road_admin_office_307864",
+      "NH-road_admin_office_734068",
+      "TR-spill_way_665466",
+      "TR-spill_way_378372",
+      "NH-road_admin_office_77914",
+      "NH-road_admin_office_772244",
+      "TR-spill_way_347925",
+      "NH-road_admin_office_320178",
+      "NH-road_admin_office_307863",
+      "NH-road_admin_office_444801",
+      "TR-spill_way_729585",
+      "NH-road_admin_office_445207",
+      "TR-spill_way_299174"
+    ],
+    "headers": [
+      "STT",
+      "Mã tài sản",
+      "Tên tài sản",
+      "Loại tài sản",
+      "Tuyến đường",
+      "Lý trình bắt đầu",
+      "Lý trình kết thúc",
+      "Số lượng (SL)",
+      "ĐVT",
+      "Tình trạng KT",
+      "Tọa độ GPS"
+    ],
+    "labels": [
+      {
+        "label": "Tìm kiếm",
+        "required": false
+      },
+      {
+        "label": "Loại tài sản",
+        "required": false
+      },
+      {
+        "label": "Tuyến đường",
+        "required": false
+      },
+      {
+        "label": "Đơn vị",
+        "required": false
+      },
+      {
+        "label": "Lý trình từ",
+        "required": false
+      },
+      {
+        "label": "Lý trình đến",
+        "required": false
+      }
+    ],
+    "formCols": "",
+    "footerCrud": false
+  },
+  "form": {
+    "title": "Tạo tài sản",
+    "buttons": [
+      "Quay lại",
+      "Hủy thay đổi",
+      "Tạo mới",
+      "RMMS",
+      "QL đường bộ",
+      "01. QL tài sản đường bộ",
+      "Cơ cấu tổ chức",
+      "Tuyến đường",
+      "Loại tài sản",
+      "Đơn vị đối tác",
+      "Sổ tài sản KCHT",
+      "Phân loại mặt đường",
+      "CSDL 12 biểu + 8 sổ BDTX",
+      "Hạng Mục Kết Cấu Hạ Tầng",
+      "Danh sách IoT",
+      "Drone / Reality Capture",
+      "02. GIS bản đồ số 2D",
+      "03. AI kiểm định mặt đường",
+      "03b. AI phát hiện TS mới",
+      "03c. Kết nối Camera GTVT",
+      "04. Tuần đường / tuần kiểm",
+      "05. Chấm công / định vị",
+      "06. Quản lý sự cố",
+      "07. Bảo trì",
+      "08. AI dự báo bảo trì",
+      "09. Chỉ đạo điều hành",
+      "10. AI ước lượng",
+      "11. HĐ & ngân sách",
+      "16. AI Copilot",
+      "17. Dashboard & BC",
+      "18. Open API & tích hợp",
+      "Trang chủ",
+      "Bảng điều khiển",
+      "Đăng xuất",
+      "Đơn vị cơ sở: RMMS"
+    ],
+    "headers": [],
+    "labels": [
+      {
+        "label": "Mã tài sản",
+        "required": false
+      },
+      {
+        "label": "Tình trạng kỹ thuật",
+        "required": true
+      },
+      {
+        "label": "Loại tài sản",
+        "required": true
+      },
+      {
+        "label": "Tuyến đường",
+        "required": true
+      },
+      {
+        "label": "Nguồn",
+        "required": false
+      },
+      {
+        "label": "Tên tài sản",
+        "required": true
+      },
+      {
+        "label": "Lý trình bắt đầu (Km+)",
+        "required": true
+      },
+      {
+        "label": "Lý trình kết thúc (Km+)",
+        "required": false
+      },
+      {
+        "label": "Ảnh hiện trường",
+        "required": false
+      },
+      {
+        "label": "Vĩ độ",
+        "required": false
+      },
+      {
+        "label": "Kinh độ",
+        "required": false
+      },
+      {
+        "label": "Mã QR",
+        "required": false
+      },
+      {
+        "label": "Giá trị tài sản (VND)",
+        "required": false
+      },
+      {
+        "label": "Số lượng (SL)",
+        "required": false
+      },
+      {
+        "label": "Đơn vị tính (ĐVT)",
+        "required": false
+      },
+      {
+        "label": "Ngày cập nhật",
+        "required": false
+      },
+      {
+        "label": "Ghi chú hiện trường",
+        "required": false
+      }
+    ],
+    "formCols": "5",
+    "footerCrud": false
+  }
+}

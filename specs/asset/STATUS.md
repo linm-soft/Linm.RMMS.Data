@@ -97,6 +97,7 @@
 | T-IOS-LIST-01 | ios | pending |
 | T-AND-LIST-01 | android | pending |
 | T-QA-01 | qa | pending (mobile) |
+| T-UD-BUG-01 | ui | **done** | confirmed `/run-user-doc` 2026-08-29 · UD-P0-09 Lat/Lng |
 | T-REVIEW-01 | review | pending (mobile) |
 
 ## Blockers / open questions

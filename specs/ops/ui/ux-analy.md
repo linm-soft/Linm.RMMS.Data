@@ -1,3 +1,24 @@
+# UX analy — ops
+
+## Web form (full page · `/chi-dao/tao-moi` · `/chi-dao/:id`)
+
+**Surface:** Full page — **không** Kind D Slideout.  
+**Grid SSOT:** `form-field-grid.md` · wire `form-field-grid-full-page.md` · peer Asset `AssetFormPage`.
+
+| Size | Cột | Marker |
+|------|-----|--------|
+| large (desktop) | **5** `repeat(5, minmax(0,1fr))` | `data-form-cols="5"` |
+| medium (`max-width: 1200px`) | **3** | cùng `.fields` |
+| small (`max-width: 720px`) | **2** | `.span2` → full hàng |
+
+**Zone Z2b:** hàng 1 = Mã · Số CV · Chiều · Đơn vị · Trạng thái · Trích yếu / Tiêu đề / Nội dung / Phản hồi = `span-full` · ô lẻ không kéo lệch. Input width = 100% cột.
+
+**GAP-WEB-EDIT-01 (this turn):** live từng 2 cột (`1fr 1fr`) vì proto clone Slideout + Design không lock 5 cột → **closed** `/edit-web-feature`. Worker **cấm** revert 2-cột.
+
+**Copy web:** Tạo chỉ đạo · Thông tin chỉ đạo · Gửi chỉ đạo. Label **13**.
+
+---
+
 # UX analy — ops (mobile list · Thông báo)
 
 **Sources:** prototype/ios · prototype/android · ui/design-mobile.md · mobile-p1 `#sc-ops`  

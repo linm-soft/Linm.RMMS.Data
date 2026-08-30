@@ -1,0 +1,191 @@
+{
+  "list": {
+    "title": "Chỉ đạo điều hành",
+    "buttons": [
+      "Lọc chưa đọc",
+      "Đánh dấu tất cả đã đọc",
+      "Xuất",
+      "Giám sát",
+      "Bản đồ",
+      "Sự cố",
+      "Command P2",
+      "Làm mới",
+      "Tạo mới",
+      "OPS-20260810-0001",
+      "OPS-20260809-0012",
+      "OPS-20260808-0007",
+      "Đầu",
+      "Trước",
+      "Sau",
+      "Cuối",
+      "RMMS",
+      "QL đường bộ",
+      "01. QL tài sản đường bộ",
+      "02. GIS bản đồ số 2D",
+      "03. AI kiểm định mặt đường",
+      "03b. AI phát hiện TS mới",
+      "03c. Kết nối Camera GTVT",
+      "04. Tuần đường / tuần kiểm",
+      "05. Chấm công / định vị",
+      "06. Quản lý sự cố",
+      "07. Bảo trì",
+      "08. AI dự báo bảo trì",
+      "09. Chỉ đạo điều hành",
+      "Chỉ đạo điều hành",
+      "Danh sách phê duyệt",
+      "10. AI ước lượng",
+      "11. HĐ & ngân sách",
+      "16. AI Copilot",
+      "17. Dashboard & BC",
+      "18. Open API & tích hợp"
+    ],
+    "headers": [
+      "STT",
+      "Mã",
+      "Số CV",
+      "Chiều",
+      "Trích yếu",
+      "Đơn vị",
+      "Tiêu đề",
+      "Người gửi",
+      "Người nhận",
+      "Ưu tiên",
+      "Loại",
+      "TT",
+      "Thời gian"
+    ],
+    "labels": [
+      {
+        "label": "Tìm kiếm",
+        "required": false
+      },
+      {
+        "label": "Trạng thái",
+        "required": false
+      },
+      {
+        "label": "Ưu tiên",
+        "required": false
+      },
+      {
+        "label": "Loại",
+        "required": false
+      },
+      {
+        "label": "Chiều",
+        "required": false
+      },
+      {
+        "label": "Đơn vị",
+        "required": false
+      }
+    ],
+    "formCols": "",
+    "footerCrud": false
+  },
+  "form": {
+    "title": "Tạo chỉ đạo",
+    "buttons": [
+      "Quay lại",
+      "Hủy",
+      "Xóa nội dung",
+      "Giao việc P2",
+      "Lưu nháp",
+      "Gửi chỉ đạo",
+      "Xoá lựa chọn",
+      "RMMS",
+      "QL đường bộ",
+      "01. QL tài sản đường bộ",
+      "02. GIS bản đồ số 2D",
+      "03. AI kiểm định mặt đường",
+      "03b. AI phát hiện TS mới",
+      "03c. Kết nối Camera GTVT",
+      "04. Tuần đường / tuần kiểm",
+      "05. Chấm công / định vị",
+      "06. Quản lý sự cố",
+      "07. Bảo trì",
+      "08. AI dự báo bảo trì",
+      "09. Chỉ đạo điều hành",
+      "Chỉ đạo điều hành",
+      "Danh sách phê duyệt",
+      "10. AI ước lượng",
+      "11. HĐ & ngân sách",
+      "16. AI Copilot",
+      "17. Dashboard & BC",
+      "18. Open API & tích hợp",
+      "Trang chủ",
+      "Bảng điều khiển",
+      "Đăng xuất",
+      "Đơn vị cơ sở: RMMS"
+    ],
+    "headers": [],
+    "labels": [
+      {
+        "label": "Mã chỉ đạo",
+        "required": false
+      },
+      {
+        "label": "Số công văn",
+        "required": false
+      },
+      {
+        "label": "Chiều",
+        "required": false
+      },
+      {
+        "label": "Đơn vị",
+        "required": false
+      },
+      {
+        "label": "Trạng thái",
+        "required": false
+      },
+      {
+        "label": "Trích yếu",
+        "required": false
+      },
+      {
+        "label": "Người gửi",
+        "required": false
+      },
+      {
+        "label": "Thời gian gửi",
+        "required": false
+      },
+      {
+        "label": "Người nhận / đội",
+        "required": true
+      },
+      {
+        "label": "Độ ưu tiên",
+        "required": false
+      },
+      {
+        "label": "Loại chỉ đạo",
+        "required": false
+      },
+      {
+        "label": "Tiêu đề",
+        "required": true
+      },
+      {
+        "label": "Nội dung",
+        "required": true
+      },
+      {
+        "label": "Kênh gửi",
+        "required": false
+      },
+      {
+        "label": "Liên kết nguồn (INC/WO/PAT)",
+        "required": false
+      },
+      {
+        "label": "Phản hồi thread (P2)",
+        "required": false
+      }
+    ],
+    "formCols": "5",
+    "footerCrud": false
+  }
+}

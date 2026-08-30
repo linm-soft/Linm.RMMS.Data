@@ -347,3 +347,10 @@ Consume `defect.detected` · publish `incident.created` / `incident.closed` → 
 
 Gen demo: `/qlbd-analy-demo @incident` — load control-map trên + `/erp-form-context` rules (2a-K · 2g · common controls).
 <!-- DEMO-MFE-MODERN:END -->
+
+## Implement tracking
+
+| lane | phase | status | updatedAt |
+|------|-------|--------|-----------|
+| web | `dev` | `pending` | `2026-08-29T05:03:52.838Z` |
+| mobile | — | — | — |

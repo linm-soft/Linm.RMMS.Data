@@ -23,7 +23,7 @@
 | rulesVersion | `2026.08.16.05` |
 | versionGate | `keep_current` |
 | taskId | `task_ac761cee` |
-| updatedAt | `2026-08-23T21:55:00.000Z` |
+| updatedAt | `2026-08-30T01:31:00.000Z` |
 | editSlash | `/edit-web-feature` · role **design** + **team-lead** only |
 | iconSsot | `/gen-icon-img` · `{MapIconModule}` `assetIconBareHtml(iconCode)` · **cấm** fork SVG |
 
@@ -60,7 +60,7 @@ Persona: Hạt · Khu QLĐB · lãnh đạo. Pack **không** clone chrome GOVOne
 | id | Surface | Pattern | Route / mount | Zones | Actions |
 |----|---------|---------|---------------|-------|---------|
 | S-STANDALONE | Hub KCHT full page | Kind E A + body | `/so-ts/hang-muc` | A · GRID | display counts · click drill |
-| S-WIDGET | Dashboard widget slot | Kind E body only | `@linm/rmms-asset-kcht-widget` · `cols:3` | GRID | same drill · host title from registry |
+| S-WIDGET | Dashboard widget slot | Kind E body only | `@linm/rmms-asset-kcht-widget` · size `3` · Authen `dashboard-widget-rmms-asset` | GRID | same drill · host title **Tổng quan tài sản** |
 
 **devSlash:** `/agent-dev` · peer list `asset` · **cấm** Kind B list parity gates.
 
@@ -89,7 +89,7 @@ Persona: Hạt · Khu QLĐB · lãnh đạo. Pack **không** clone chrome GOVOne
 ### Wire (widget — body only)
 
 ```
-[HOST-SIM] dashed box «Hạng Mục Kết Cấu Hạ Tầng» (registry title — **không** implement trong widget)
+[HOST-SIM] dashed box «Tổng quan tài sản» (Authen widget title — **không** implement trong widget)
 [GRID] same 40 cards · **cấm** H1 trong widget body
 ```
 

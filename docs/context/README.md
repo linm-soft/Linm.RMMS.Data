@@ -16,6 +16,7 @@
 | [**features/login.md**](features/login.md) | **Login Platform.Authentication + TK theo HĐ + job Active/Inactive** | PM, BA, Dev, Security |
 | [**plan/login-contract-lifecycle/**](../plan/login-contract-lifecycle/SPEC.md) | Spec + plan vòng đời tài khoản theo hạn HĐ · tuyến km | PM, Architect — **approved** 2026-08-15 |
 | [**FEATURE-TRACKING.md**](FEATURE-TRACKING.md) | **SSOT theo dõi all feature** — demo + STATUS + implement + **release slice** (P2 trong repo ≠ conflict) | PM, Dev, AI |
+| [**docs/data/SOURCE-TRACKING.md**](../data/SOURCE-TRACKING.md) | **SSOT tài liệu khách** — đã / chưa phân tích · **cấm** đọc lại binary khi `analyzed` | PM, BA, AI |
 | [**features/README.md**](features/README.md) | **Feature backlog + context (design/API/DB)** — `/gen-tinh-nang-demo` | PM, Dev, khách chốt UI |
 | [**features/map-service.md**](features/map-service.md) | MapService — gis.vn + clip OSM (chưa repo) | Architect, GIS, Data |
 | [**features/gis-osm-clip.md**](features/gis-osm-clip.md) | GIS prod: OSM clip + overlay MapService | GIS, FE, Mobile |

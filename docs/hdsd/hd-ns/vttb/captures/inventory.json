@@ -1,0 +1,185 @@
+{
+  "list": {
+    "title": "Vật tư và thiết bị",
+    "buttons": [
+      "Làm mới",
+      "Tạo mới",
+      "RMMS",
+      "QL đường bộ",
+      "01. QL tài sản đường bộ",
+      "02. GIS bản đồ số 2D",
+      "03. AI kiểm định mặt đường",
+      "03b. AI phát hiện TS mới",
+      "03c. Kết nối Camera GTVT",
+      "04. Tuần đường / tuần kiểm",
+      "05. Chấm công / định vị",
+      "06. Quản lý sự cố",
+      "07. Bảo trì",
+      "08. AI dự báo bảo trì",
+      "09. Chỉ đạo điều hành",
+      "10. AI ước lượng",
+      "11. HĐ & ngân sách",
+      "Hợp đồng và ngân sách",
+      "Vật tư và thiết bị",
+      "16. AI Copilot",
+      "17. Dashboard & BC",
+      "18. Open API & tích hợp",
+      "Trang chủ",
+      "Bảng điều khiển",
+      "Đăng xuất",
+      "Đơn vị cơ sở: RMMS"
+    ],
+    "headers": [],
+    "labels": [
+      {
+        "label": "Tìm kiếm",
+        "required": false
+      },
+      {
+        "label": "Loại",
+        "required": false
+      },
+      {
+        "label": "Trạng thái",
+        "required": false
+      },
+      {
+        "label": "Kho",
+        "required": false
+      }
+    ],
+    "formCols": "",
+    "footerCrud": false
+  },
+  "form": {
+    "title": "Tạo vật tư / thiết bị",
+    "buttons": [
+      "Quay lại",
+      "Xoá lựa chọn",
+      "Thêm dòng",
+      "Hủy",
+      "Lưu",
+      "RMMS",
+      "QL đường bộ",
+      "01. QL tài sản đường bộ",
+      "02. GIS bản đồ số 2D",
+      "03. AI kiểm định mặt đường",
+      "03b. AI phát hiện TS mới",
+      "03c. Kết nối Camera GTVT",
+      "04. Tuần đường / tuần kiểm",
+      "05. Chấm công / định vị",
+      "06. Quản lý sự cố",
+      "07. Bảo trì",
+      "08. AI dự báo bảo trì",
+      "09. Chỉ đạo điều hành",
+      "10. AI ước lượng",
+      "11. HĐ & ngân sách",
+      "Hợp đồng và ngân sách",
+      "Vật tư và thiết bị",
+      "16. AI Copilot",
+      "17. Dashboard & BC",
+      "18. Open API & tích hợp",
+      "Trang chủ",
+      "Bảng điều khiển",
+      "Đăng xuất",
+      "Đơn vị cơ sở: RMMS"
+    ],
+    "headers": [],
+    "labels": [
+      {
+        "label": "Tên",
+        "required": true
+      },
+      {
+        "label": "Loại",
+        "required": true
+      },
+      {
+        "label": "Nhóm",
+        "required": false
+      },
+      {
+        "label": "ĐVT",
+        "required": true
+      },
+      {
+        "label": "Kho",
+        "required": true
+      },
+      {
+        "label": "Tồn",
+        "required": false
+      },
+      {
+        "label": "Tồn min",
+        "required": false
+      },
+      {
+        "label": "Đơn giá",
+        "required": false
+      },
+      {
+        "label": "Trạng thái",
+        "required": true
+      },
+      {
+        "label": "Ngày nhập",
+        "required": false
+      },
+      {
+        "label": "Đơn vị QL",
+        "required": false
+      },
+      {
+        "label": "NCC",
+        "required": false
+      },
+      {
+        "label": "Serial/biển số",
+        "required": false
+      },
+      {
+        "label": "Model",
+        "required": false
+      },
+      {
+        "label": "GPS lat",
+        "required": false
+      },
+      {
+        "label": "GPS lng",
+        "required": false
+      },
+      {
+        "label": "GPS lúc",
+        "required": false
+      },
+      {
+        "label": "Liên kết WO",
+        "required": false
+      },
+      {
+        "label": "Hợp đồng",
+        "required": false
+      },
+      {
+        "label": "Nhiên liệu (lít)",
+        "required": false
+      },
+      {
+        "label": "Bảo dưỡng gần",
+        "required": false
+      },
+      {
+        "label": "Bảo dưỡng tới",
+        "required": false
+      },
+      {
+        "label": "Ghi chú",
+        "required": false
+      }
+    ],
+    "formCols": "",
+    "footerCrud": false
+  }
+}

@@ -67,6 +67,7 @@
 | T-UI-FORM-01 | asset-type | dev | T-UI-LIST-01 | **done** |
 | T-UI-ACT-01 | asset-type | dev | T-UI-FORM-01 | **done** |
 | T-QA-CRUD-01 | asset-type | qa | T-UI-ACT-01 | **done** |
+| T-UD-BUG-01 | /mas/loai-ts/tao-moi | qa | T-UI-FORM-01 | **done** | confirmed `/run-user-doc` 2026-08-30 · HDSD-P0-08/11 · capture=03-mas-loai-ts-tao-moi.png |
 
 ## Blockers
 

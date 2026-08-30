@@ -4,7 +4,7 @@
 |-------|-------|
 | feature | `field-reflect` |
 | phase | `data_analy` |
-| status | `draft` |
+| status | `pending` |
 | packKind | `sheet` |
 | demo | /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Demo/src/demo/ios/index.html |
 | context | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/docs/context/features/field-reflect.md` |
@@ -15,7 +15,7 @@
 | android | `Linm.RMMS.Mobile.Android` · e2e-qa-mobile emulator |
 | bff | `Linm.RMMS.Mobile.Bff` |
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · DOMAIN-MAP — **cấm ERP.*** |
-| updatedAt | `2026-08-19T18:27:25.125Z` |
+| updatedAt | `2026-08-29T13:11:03.732Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -26,14 +26,14 @@
 
 | Step | Agent | Artifact | Status |
 |------|-------|----------|--------|
-| 0 | data-analy | _data-analy/field-reflect-control-hint.md · field-reflect-bff-endpoints.md · field-reflect-real-data.md · field-reflect-action-tree.md | **pending** |
-| 1 | po | po/requirement.md | **pending** |
-| 2.1 | design | ui/design.md · ui/ux-analy.md · prototype/ios/index.html · prototype/android/index.html | **pending** |
-| 2.2 | sa | be/solution-discovery.md | **pending** |
-| 3 | team-lead | task/field-reflect.md | **pending** |
-| 4 | dev | implement/ios.md · implement/android.md | **pending** |
-| 5 | qa | qa/scenarios.md · qa/store/field-reflect/CAPTURE.md | **pending** |
-| 6 | review | review/findings.md | **pending** |
+| 0 | data-analy | _data-analy/field-reflect-control-hint.md · field-reflect-bff-endpoints.md · field-reflect-real-data.md · field-reflect-action-tree.md | **draft** (retry) |
+| 1 | po | po/requirement.md | pending |
+| 2.1 | design | ui/design.md · ui/ux-analy.md · prototype/ios/index.html · prototype/android/index.html | pending |
+| 2.2 | sa | be/solution-discovery.md | pending |
+| 3 | team-lead | task/field-reflect.md | pending |
+| 4 | dev | implement/ios.md · implement/android.md | pending |
+| 5 | qa | qa/scenarios.md · qa/store/field-reflect/CAPTURE.md | pending |
+| 6 | review | review/findings.md | pending |
 ## Tasks
 
 | id | page | role | deps | status | notes |
@@ -47,3 +47,9 @@
 
 - data-analy → po → ui → be → task → implement → qa → review
 - native: e2eQa ON → `yarn e2e-qa-mobile` (sim + emulator + Maestro) — **cấm** mfeStdUrl
+
+
+## Retry
+
+- from: `data_analy` · at: `2026-08-29T13:11:03.732Z` · board user Retry step
+

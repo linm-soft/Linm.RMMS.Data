@@ -1,0 +1,132 @@
+{
+  "list": {
+    "title": "Tuần đường / tuần kiểm",
+    "buttons": [
+      "Làm mới",
+      "Tạo mới",
+      "RMMS",
+      "QL đường bộ",
+      "01. QL tài sản đường bộ",
+      "02. GIS bản đồ số 2D",
+      "03. AI kiểm định mặt đường",
+      "03b. AI phát hiện TS mới",
+      "03c. Kết nối Camera GTVT",
+      "04. Tuần đường / tuần kiểm",
+      "Tuần đường / tuần kiểm",
+      "Bản đồ tuần đường",
+      "05. Chấm công / định vị",
+      "06. Quản lý sự cố",
+      "07. Bảo trì",
+      "08. AI dự báo bảo trì",
+      "09. Chỉ đạo điều hành",
+      "10. AI ước lượng",
+      "11. HĐ & ngân sách",
+      "16. AI Copilot",
+      "17. Dashboard & BC",
+      "18. Open API & tích hợp",
+      "Trang chủ",
+      "Bảng điều khiển",
+      "Đăng xuất",
+      "Đơn vị cơ sở: RMMS"
+    ],
+    "headers": [],
+    "labels": [
+      {
+        "label": "Tìm kiếm",
+        "required": false
+      },
+      {
+        "label": "Trạng thái",
+        "required": false
+      },
+      {
+        "label": "Tuyến",
+        "required": false
+      }
+    ],
+    "formCols": "",
+    "footerCrud": false
+  },
+  "form": {
+    "title": "Tạo mới phiên tuần",
+    "buttons": [
+      "Quay lại",
+      "Hủy",
+      "Lưu",
+      "Xoá lựa chọn",
+      "RMMS",
+      "QL đường bộ",
+      "01. QL tài sản đường bộ",
+      "02. GIS bản đồ số 2D",
+      "03. AI kiểm định mặt đường",
+      "03b. AI phát hiện TS mới",
+      "03c. Kết nối Camera GTVT",
+      "04. Tuần đường / tuần kiểm",
+      "Tuần đường / tuần kiểm",
+      "Bản đồ tuần đường",
+      "05. Chấm công / định vị",
+      "06. Quản lý sự cố",
+      "07. Bảo trì",
+      "08. AI dự báo bảo trì",
+      "09. Chỉ đạo điều hành",
+      "10. AI ước lượng",
+      "11. HĐ & ngân sách",
+      "16. AI Copilot",
+      "17. Dashboard & BC",
+      "18. Open API & tích hợp",
+      "Trang chủ",
+      "Bảng điều khiển",
+      "Đăng xuất",
+      "Đơn vị cơ sở: RMMS"
+    ],
+    "headers": [],
+    "labels": [
+      {
+        "label": "Mã phiên tuần",
+        "required": false
+      },
+      {
+        "label": "Trạng thái",
+        "required": true
+      },
+      {
+        "label": "Nhân viên",
+        "required": true
+      },
+      {
+        "label": "Tuyến đường",
+        "required": true
+      },
+      {
+        "label": "Loại tuần",
+        "required": true
+      },
+      {
+        "label": "Ngày kế hoạch",
+        "required": true
+      },
+      {
+        "label": "Bắt đầu thực tế",
+        "required": false
+      },
+      {
+        "label": "Số điểm check-in",
+        "required": true
+      },
+      {
+        "label": "Coverage %",
+        "required": false
+      },
+      {
+        "label": "Hàng đợi offline",
+        "required": false
+      },
+      {
+        "label": "Ghi chú",
+        "required": false
+      }
+    ],
+    "formCols": "5",
+    "footerCrud": false
+  }
+}

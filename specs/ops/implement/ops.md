@@ -35,7 +35,7 @@ Audit **trước Write**. Surface: `NotificationListPage` + `NotificationFormPag
 | **cấm** `configHint` | removed unused CSS leftover | **PASS** |
 | list_parity Kind B A–D | A header · B toolbar+filter · C grid · D pagination · F modal | **PASS** |
 | tree_master | n/a | **n/a** |
-| form Z1–Z3 full-page | `NotificationFormPage` C/E/V/Copy · View `<dl>` | **PASS** |
+| form Z1–Z3 full-page | `NotificationFormPage` C/E/V/Copy · View `<dl>` · **5 cột** `data-form-cols="5"` | **PASS** (edit-web 2026-08-29) |
 | OfficialDoc keys | `documentNumber` · `direction` · `summary` · `orgUnitName` | **PASS** |
 | Default list order | title **sau** direction/summary/orgUnitName | **PASS** (this turn) |
 
@@ -51,6 +51,12 @@ Audit **trước Write**. Surface: `NotificationListPage` + `NotificationFormPag
 **Default order:** `code` · `documentNumber` · `direction` · `summary` · `orgUnitName` · `title` · `sender` · `recipient` · `priority` · `type` · `status` · `sentAt`
 
 GAP-SA-OPS-SCHEMA **CLOSED**.
+
+## Notes — `/edit-web-feature` 2026-08-29 (form 5 cột)
+
+**GAP-P2-FORM-GRID-05** live: `NotificationFormPage` full-page (`/chi-dao/tao-moi`) dùng `grid-template-columns: 1fr 1fr` (copy proto Slideout) dù Design/PO đã chốt **cấm** Kind D.
+
+**This turn:** `.fields` / `.viewGrid` = `repeat(5, minmax(0,1fr))` · `data-form-cols="5"` · medium 3 (`1200px`) · small 2 (`720px`) · textarea/title `spanFull` · input 100% cột. Proto + design/ux/task/po lock cùng turn — **cấm** worker revert 2-cột.
 
 ## Build
 

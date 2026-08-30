@@ -84,6 +84,10 @@
 | T-BE-UISCHEMA-01 | api | tl/dev | — | **done** | List keys Hạn+Tiến độ · description |
 | T-BFF-01 | bff | tl/dev | T-BE-INIT-01 | **done** | forward init-data |
 | T-QA-CRUD-01 | qa | qa | Dev | **done** | smoke A–D + Zone F + C/E/V/Copy + init-data |
+| T-UD-BUG-01 | maintenance | docs | — | **done** | confirmed `/run-user-doc` 2026-08-29 · GAP-P2-FORM-GRID-05 · capture=09-sc-bt-tao-moi.png |
+| T-UD-BUG-02 | maintenance | docs | — | **done** | confirmed `/run-user-doc` 2026-08-29 · PLAT-TB-06 · capture=09-sc-bt-tao-moi.png |
+| T-UD-BUG-03 | maintenance | docs | — | **done** | confirmed `/run-user-doc` 2026-08-29 · PLAT-TB-07 · capture=09-sc-bt-tao-moi.png |
+| T-UD-BUG-04 | maintenance | docs | — | **done** | confirmed `/run-user-doc` 2026-08-29 · GAP-P2-BTN-SSOT-01 · capture=09-sc-bt-tao-moi.png |
 
 ## Blockers / open questions
 

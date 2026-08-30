@@ -23,7 +23,7 @@ Kind B list — Mã · Tên · Loại · Tỉnh? · Active.
 
 ## 3. API
 
-`api/v1/open-api/partner-units` · search · init-data (DOMAIN-MAP **Integration** · **cấm** `api/v1/rmms/*`).
+`api/v1/integration/partner-units` · `GET ?search=&partnerKind=` · `/search` · `/init-data` · BFF `web-bff/api/v1/integration/partner-units` (DOMAIN-MAP **Integration** · **cấm** `open-api` SSOT · **cấm** `api/v1/rmms/*`). Code scheme **GAP-PARTNER-01:** `SO-*` / `BOT-*` / `DN-*`.
 
 ## 4. Fields
 

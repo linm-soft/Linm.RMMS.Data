@@ -39,17 +39,22 @@ Cơ chế thật (`WidgetArea.tsx`):
 
 | | |
 |--|--|
-| Registry | `WIDGET_REGISTRY: WidgetConfig[]` — `{ id, title, parcelName?, cols?: 1\|2\|3 }` |
+| Registry | Authen `menuType=widget` → FE `resolveParcelWidgets()` — `{ id, title, parcelName?, cols?: 1\|2\|3 }` |
 | Mount | `System.import(parcelName)` → **`parcelModule.bootstrap` bắt buộc** → `mountRootParcel(parcelModule, { domElement })` |
 | customProps | **chỉ** `domElement` — widget **không** nhận props từ host · đọc API tự · drill `navigateToUrl` |
 | Lỗi | `catch` nuốt → placeholder (không invent toast trên host) |
 | Layout | Grid 3 cột · `cols: 3` = full row (`.widgetCols3`) · header title luôn hiện |
 
-**Entry registry P1 (sửa repo Dashboard, không copy UI):**
+**Entry registry P1 (Authen SSOT — không hardcode ERP placeholder):**
 
-```
-{ id: 'rmms-kcht-hang-muc', title: 'Hạng Mục Kết Cấu Hạ Tầng', parcelName: '@linm/rmms-asset-kcht-widget', cols: 3 }
-```
+Authen · `menuType=widget` · set `dashboard` (quick-links) + `rmms-dashboard` (chỉ `rmms-*`):
+
+| menuId | Title | size (`defaultUrl`) | parcel (`redirectTo`) | mountType | perm |
+|--------|-------|---------------------|-----------------------|-----------|------|
+| `dashboard-widget-quick-links` | Lối tắt nhanh | `3` | — | `native` | `dashboard:widget:quick-links:read` |
+| `dashboard-widget-rmms-asset` | **Tổng quan tài sản** | `3` | `@linm/rmms-asset-kcht-widget` | `parcel` | `dashboard:widget:rmms-asset:read` |
+
+Gói RMMS (`STAFF` · `MANAGER` · `ADMIN` · `MANAGER-RMMS`). Sidebar **ẩn** `menuType=widget`. View widget = cùng lưới 40 ô KCHT (`embedMode`).
 
 **Export widget (Asset webpack entry riêng)** — khớp `dashboard.tsx` (named, không `exportName`):
 
@@ -173,7 +178,7 @@ Catalog 36 (`PAVEMENT` · `BRIDGE` · `TUNNEL` · ATGT con…) **không** = 40 �
 ## 8. Demo checklist
 
 - [ ] 40 card · title khớp screenshot (standalone Asset có H1)
-- [ ] Widget trên `/dashboard`: header registry · body không H1 trùng
+- [ ] Widget trên `/dashboard`: header **Tổng quan tài sản** · body không H1 trùng
 - [ ] Count format vi-VN
 - [ ] Click loại TS → `/so-ts?type=`
 - [ ] `System.import('@linm/rmms-asset-kcht-widget')` mount · thiếu importmap = placeholder (không crash shell)

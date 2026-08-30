@@ -3,48 +3,50 @@
 | Field | Value |
 |-------|-------|
 | feature | `csdl-so-sach` |
-| status | `done` |
+| status | **done** |
 | changeScope | `edit_page` |
-| taskId | `task_8872584b` |
+| taskId | `task_92b7fce4` |
 | pack | list · roleOnly=dev |
-| updatedAt | 2026-08-14T14:32:00.000Z |
-| versionGate | rechecked |
+| updatedAt | `2026-08-29T18:45:00.000Z` |
+| versionGate | ok |
+| mfeStdRoute | `/so-ts/csdl-so-sach` |
+| mfeStdUrl | `http://localhost:9301/so-ts/csdl-so-sach` |
+| API | `api/v1/asset/csdl-records` · **cấm** so-ts / ERP.* |
 
 ## retry.ssot_rereview: **pass**
 
-checklist: `tl-grid-ssot` · `list_parity` · `tl-list-shell-height` · `form-type-task-pack` · tree_master? n/a · form · T-UI-PROD/FIELD/UX  
-gaps fixed this turn: **GAP-T-UI-PROD-01** · **GAP-T-UI-FIELD-NOTES** · **GAP-T-UI-UX-COPY**
+checklist: `tl-grid-ssot` · `list_parity` · `filter-bar V1–V5` · `form slideout` · `LAYOUT-06`  
+gaps fixed this turn: **GAP-CSDL-ROAD-01** · **GAP-QA-HUB-SLUG** · **GAP-CSDL-HIST-01** · **GAP-DEV-LEAVE-01** · **GAP-DEV-ALERT-01** · filter-bar 1:1
 
 | Check | Result |
 |-------|--------|
-| 1× `LinPageLayout` (no nested `CatalogListShell`) | **PASS** (list mode) |
-| `LinCatalogDataGrid` + column resize default ON | **PASS** |
-| Footer `LinCatalogListPagination` | **PASS** · 50/100/200/500 |
-| flex + skeleton + **LAYOUT-06** | **PASS** · `data-catalog-list-page` |
-| toolbar `catalogToolbar` | **PASS** · Add/Edit/View/Delete/History/Config |
-| filter SearchTextInput — no Tìm btn | **PASS** |
-| list_parity Kind B | **PASS** |
-| hub Kind G | **PASS** · tabs + KPI + cards · copy user-facing |
-| form checklist Z1–Z3 | **PASS** `CsdlFormSlideout` footer-only |
-| **cấm** Resource/Slideout/View=readOnly trên UI | **PASS** (removed leak copy) |
-| notes = textarea | **PASS** |
-| Zone F / History | **PASS** stub |
-| Deep-link `?resource=&form=` | **PASS** |
+| 1× `LinPageLayout` (no nested CatalogListShell) | **PASS** |
+| `LinCatalogDataGrid` + `buildDynamicGridColumns` + column filter/sort | **PASS** |
+| Footer `LinCatalogListPagination` 50/100/200/500 | **PASS** |
+| `LinErpListFilterBar` · search·province·status·from/to·roadName · 🔍 | **PASS** |
+| `LinCatalogUiSchemaEditorModal` full · **cấm** configHint/`const columns` | **PASS** |
+| Hub title VN from API-00 · **cấm** slug meta | **PASS** |
+| Slideout 2col · `LeaveConfirmModal` · roadName SearchInput | **PASS** |
+| History `LinCatalogHistoryModal` · **cấm** invent API · stacked | **PASS** |
+| **cấm** `window.confirm`/`alert` | **PASS** (`useAlert` + LeaveConfirm) |
+| LAYOUT-06 flex root | **PASS** |
 
-## Done this turn (Dev · task_8872584b)
+## Done this turn (Dev · task_92b7fce4)
 
 | Task | Result |
 |------|--------|
-| T-UI-LIST-01 | Re-audit PASS — no rewrite |
-| T-UI-FORM-01 | Footer-only · leave-confirm dirty · View Sửa/Đóng |
-| T-UI-ACT-01 | Toolbar + row menu C/E/V/Copy/Delete/History |
-| T-UI-PROD-01 | Hub/form: không hiện Resource / Slideout / View=readOnly / API path |
-| T-UI-FIELD-01 | notes textarea · Select tỉnh/TT/bên · number km |
-| T-UI-LKP-01 | Enum PROVINCES/STATUSES/SIDES (không master lookup API) |
-| T-UI-UX-01 | Title VN · KPI «Đã có dữ liệu» |
-| T-BE-CRUD-01 | Verify API-00…05 Asset · no ERP · no new BE write |
-| T-BFF-01 | Proxy-only verified |
-| T-PERM-01 | FE `asset.csdl-records.*` |
+| T-BE-CRUD-01 | `?roadName=` optional AND contains · ResourceMap title VN |
+| T-UI-LIST-01 | Re-audit + grid_flow `useLinCatalogColumnFilterSort` |
+| T-UI-FILTER-01 | filter-bar.md 1:1 · roadName SearchInput |
+| T-UI-CFG-01 | verify `LinCatalogUiSchemaEditorModal` |
+| T-UI-FORM-01 | roadName SearchInput · 2col footer_only |
+| T-UI-LEAVE-01 | `useLeaveConfirm` + `LeaveConfirmModal` |
+| T-UI-LKP-01 | API-LKP-01 bind label → `roadName` |
+| T-UI-PROD-01 | hub/listTitle VN · AlertProvider |
+| T-UI-HIST-01 | History modal + `useAlert` (no invent API) |
+| T-UI-FIELD-01 / UX / ACT | verify PASS |
+| T-UI-RESP-01 | layout CSS already D/T wrap · no shrink invent |
+| T-BFF-01 | proxy-only · qs forward (no BFF code change) |
 
 ## Paths
 
@@ -52,33 +54,42 @@ gaps fixed this turn: **GAP-T-UI-PROD-01** · **GAP-T-UI-FIELD-NOTES** · **GAP-
 |-------|------|
 | BackendRoot | `D:/AI-QLBD/Linm.RMMS.WebService` |
 | API | `Domains/Asset/Controllers/CsdlCatalogRecordsController.cs` |
-| Entity | `CsdlCatalogRecordEntity` + `CsdlBookEntryEntity` |
-| BFF | `CsdlCatalogRecordsBffController.cs` |
-| MFE | `pages/CsdlSoSachPage/` |
-| mfeStdRoute | `/asset/csdl-so-sach` |
-| mfeStdUrl | `http://localhost:9301/asset/csdl-so-sach` |
+| Service | `CsdlCatalogService.cs` · `ICsdlCatalogService.cs` |
+| BFF | `CsdlCatalogRecordsBffController.cs` (proxy qs) |
+| MFE | `pages/CsdlSoSachPage/` · `services/csdlSoSach/` |
+| Lookup | `services/csdlSoSach/lookups.ts` → `/integration/road-routes/search` |
 
-**Cấm** ERP.* — void.
+**Cấm** ERP.* — void. Migration **none**.
 
-## Verify (task_8872584b · 2026-08-14)
+## Verify (task_92b7fce4 · 2026-08-29)
 
 ```
-yarn typecheck → PASS
-LINM_RUN_DEV_LOCAL_BUNDLE=1 yarn build → PASS (webpack 5.109.2, 3 size warnings, 0 errors)
+yarn build (MFE Asset) → PASS (webpack 5.109.2, size warnings only, 0 errors)
 dotnet build RMMS.Service.Api -c Release → PASS (0 errors, 0 warnings)
 dotnet build LINM.RMMS.Asset.Bff -c Release → PASS (0 errors)
+rg window.confirm|ErpListHeaderFilters|configHint on CsdlSoSachPage → 0
 ```
 
-**retry.ssot_rereview (live `CsdlSoSachPage.tsx` + `CsdlFormSlideout.tsx`):** 1× LinPageLayout · no nested CatalogListShell · LinCatalogDataGrid · LinCatalogListPagination · toolbar Delete + row menu · deep-link · form footer-only · no Resource/Slideout/View=readOnly leak.
+**e2e / start:std:** **cấm** ở Dev — queued `/agent-qa*`.
 
-## Debt
+## QA verdict (`task_dc38e4de` · 2026-08-29)
+
+| Check | Result |
+|-------|--------|
+| verdict | **pass** · `qa/scenarios.md` **confirmed** |
+| e2e S0/S1/QA-20 | **PASS** · `qa/screens/*.png` |
+| typecheck + build | **PASS** |
+| phase | **review** (**cấm** done) |
+
+## Debt (unchanged)
 
 | ID | Note |
 |----|------|
-| SD-AUTH | `[RequirePermission]` TODO BE |
-| Excel import | OUT pack · toast stub later |
-| History API | Stub empty |
-| Per-entity tables | P1 polymorphic facade — split later if needed |
+| GAP-CSDL-AUTH-01 | Auth NuGet DEFER |
+| GAP-CSDL-XLS-01 | Excel OUT |
+| GAP-CSDL-ORG-01 | org SearchInput P2 |
+| GAP-CSDL-HIST-01 | History API real optional — UI wired common client |
+| GAP-CSDL-PROV-01 | LOOKUP_STATIC P1 keep |
 
 ## Version meta (REQUIRED)
 
@@ -87,8 +98,16 @@ dotnet build LINM.RMMS.Asset.Bff -c Release → PASS (0 errors)
 | skillId | agent-dev |
 | skillVersion | 2026.08.09.02 |
 | schemaVersion | 1 |
-| workflowVersion | 2026.08.09.02 |
-| rulesVersion | 2026.08.09.3 |
-| generatedAt | 2026-08-14T14:32:00.000Z |
-| versionGate | rechecked |
-| formTypePack | task_8872584b |
+| workflowVersion | 2026.08.29.03 |
+| rulesVersion | 2026.08.29.31 |
+| generatedAt | 2026-08-29T18:45:00.000Z |
+| versionGate | ok |
+| formTypePack | list |
+| changeScope | edit_page |
+| tlTaskId | task_167e4298 |
+| taskId | task_92b7fce4 |
+| route_confirm | route_a |
+| contentHashPriorDataAnaly | sha256:e13a39df3b06c9b08f1ef4f197b6b0e76e3d7863b1e6fffe42a196a22bb1faad |
+
+---
+<!-- Version meta: skillId=agent-dev skillVersion=2026.08.09.02 schemaVersion=1 workflowVersion=2026.08.29.03 rulesVersion=2026.08.29.31 versionGate=ok taskId=task_92b7fce4 route_confirm=route_a -->

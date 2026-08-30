@@ -1,0 +1,130 @@
+{
+  "list": {
+    "title": "Open API và tích hợp Kind G hub P1 baseline",
+    "buttons": [
+      "Làm mới",
+      "Import tài sản",
+      "Thêm job",
+      "Mở Swagger",
+      "Copy OpenAPI URL",
+      "Làm mới health",
+      "Xuất catalog",
+      "Offline-batch",
+      "Webhook",
+      "Endpoints",
+      "Sync jobs",
+      "Partners",
+      "Import guide",
+      "SYNC-20260801-0004",
+      "SYNC-20260801-0002",
+      "SYNC-20260730-0001",
+      "SYNC-20260728-0003",
+      "Đầu",
+      "Trước",
+      "Sau",
+      "Cuối",
+      "RMMS",
+      "QL đường bộ",
+      "01. QL tài sản đường bộ",
+      "02. GIS bản đồ số 2D",
+      "AI kiểm định mặt đường",
+      "Phát hiện tài sản / thiết bị mới",
+      "03c. Kết nối Camera GTVT",
+      "04. Tuần đường / tuần kiểm",
+      "Chấm công và định vị",
+      "Sự cố / Vấn đề",
+      "Lập lịch sửa chữa / bảo trì",
+      "AI dự báo bảo trì",
+      "09. Chỉ đạo điều hành",
+      "Ước lượng sửa chữa",
+      "11. HĐ & ngân sách"
+    ],
+    "headers": [
+      "STT",
+      "Mã job",
+      "Loại",
+      "Partner",
+      "Trạng thái",
+      "Số bản ghi",
+      "Bắt đầu",
+      "Kết thúc",
+      "Lỗi"
+    ],
+    "labels": [
+      {
+        "label": "Tìm kiếm",
+        "required": false
+      },
+      {
+        "label": "Loại sync",
+        "required": false
+      },
+      {
+        "label": "Trạng thái",
+        "required": false
+      }
+    ],
+    "formCols": "",
+    "footerCrud": false
+  },
+  "form": {
+    "title": "Sync jobTạo mớiKind B",
+    "buttons": [
+      "Quay lại",
+      "Xoá lựa chọn",
+      "Hủy",
+      "Lưu",
+      "RMMS",
+      "QL đường bộ",
+      "01. QL tài sản đường bộ",
+      "02. GIS bản đồ số 2D",
+      "AI kiểm định mặt đường",
+      "Phát hiện tài sản / thiết bị mới",
+      "03c. Kết nối Camera GTVT",
+      "04. Tuần đường / tuần kiểm",
+      "Chấm công và định vị",
+      "Sự cố / Vấn đề",
+      "Lập lịch sửa chữa / bảo trì",
+      "AI dự báo bảo trì",
+      "09. Chỉ đạo điều hành",
+      "Ước lượng sửa chữa",
+      "11. HĐ & ngân sách",
+      "AI Copilot",
+      "17. Dashboard & BC",
+      "18. Open API & tích hợp",
+      "Open API và tích hợp",
+      "Import tài sản",
+      "Cổng người dân",
+      "Góp ý phần mềm",
+      "Trang chủ",
+      "Bảng điều khiển",
+      "Đăng xuất",
+      "Đơn vị cơ sở: RMMS"
+    ],
+    "headers": [],
+    "labels": [
+      {
+        "label": "Mã job",
+        "required": false
+      },
+      {
+        "label": "Loại sync",
+        "required": true
+      },
+      {
+        "label": "Partner",
+        "required": true
+      },
+      {
+        "label": "Trạng thái",
+        "required": true
+      },
+      {
+        "label": "Ghi chú",
+        "required": false
+      }
+    ],
+    "formCols": "5",
+    "footerCrud": false
+  }
+}

@@ -3,80 +3,141 @@
 | Field | Value |
 |-------|-------|
 | feature | `csdl-so-sach` |
-| status | `done` |
-| taskId | `task_4a2be2fe` |
-| pack | T-QA-01 · T-QA-CRUD-01 · FormType |
+| status | **confirmed** |
+| verdict | **pass** |
+| taskId | `task_dc38e4de` |
 | role | `/agent-qa` · roleOnly=qa |
-| method | code-walk + VERIFY GATE (không E2E browser) |
-| updatedAt | 2026-08-15T16:55:00.000Z |
+| changeScope | `edit_page` |
+| packKind | `list` |
+| method | `e2e runtime · start:std + docker + playwright capture · cases S0,S1,QA-20` |
+| mfeStdUrl | `http://localhost:9301/so-ts/csdl-so-sach` |
+| mfeStdRoute | `/so-ts/csdl-so-sach` |
+| API | `api/v1/asset/csdl-records` · BFF `web-bff/api/v1/asset/csdl-records` |
+| updatedAt | `2026-08-29T12:15:00.000Z` |
+| prior · dev | **confirmed** · `implement/csdl-so-sach.md` · `task_92b7fce4` |
 
-## Scenarios
+**Cấm** `phase=done` — next = Review. **cấm** ERP.* · **cấm** invent `so-ts` API.
 
-| ID | Layer | Steps | Expected | Result |
-|----|-------|-------|----------|--------|
-| QA-01 | Hub | Mở `/asset/csdl-so-sach` | Tab CSDL/Sổ · KPI · 12/8 cards | **PASS** (`CSDL_RESOURCES`=12 · `SO_RESOURCES`=8 · KPI «Đã có dữ liệu») |
-| QA-02 | List | Click card bridges | 1× `LinPageLayout` · `LinCatalogDataGrid` · `LinCatalogListPagination` · back Hub | **PASS** · không nested `CatalogListShell` |
-| QA-03 | Search | Gõ mã/đường · đổi tỉnh/TT | `SearchTextInput` + Select filter · không nút Tìm riêng | **PASS** |
-| QA-04 | Form | Create/Edit/View/Copy | Slideout Z1–Z3 · View readOnly · footer Sửa/Đóng · leave-confirm dirty | **PASS** |
-| QA-05 | Book | Open patrol-logs · entries | Inline grid add/remove · save `entries` khi `isBookResource` | **PASS** |
-| QA-06 | API | GET/POST/PUT/DEL `csdl-records` | Asset domain · `ApiResponse` · route `api/v1/asset/csdl-records` | **PASS** |
-| QA-07 | BFF | Proxy path | `web-bff/api/v1/asset/csdl-records` POST/PUT/DEL | **PASS** |
-| QA-08 | SSOT | Shell + pager | `data-catalog-list-page` · `LinCatalogListPagination` | **PASS** |
-| QA-09 | Build | typecheck + yarn build + dotnet API/BFF | 0 errors | **PASS** (gate 2026-08-15) |
-| QA-10 | Guard | No ERP.* / Domains/Master writes | void | **PASS** |
+## E2E runtime
 
-## T-QA-CRUD-01 — Create→Edit→View→Delete
+| Check | Result |
+|-------|--------|
+| docker compose (`Linm.RMMS.WebService`) | **PASS** · api `:5111` healthy · bff `:5201` healthy · postgres healthy |
+| `yarn start:std` (`:9301`) | **PASS** · webpack compiled |
+| `yarn typecheck` + `yarn build` | **PASS** (0 errors · size warnings only) |
+| Capture S0 / S1 / QA-20 → `qa/screens/{caseId}.png` | **PASS** · `manifest.json` ok=true |
+| BFF GET list `?resource=bridges` | **PASS** · `ApiResponse` · items=[] · pageSize=50 |
+| testid hub `rmms-csdl-so-sach-hub` | **PASS** |
 
-| ID | Layer | Steps | Expected | Result |
-|----|-------|-------|----------|--------|
-| QA-20 | FormType ACT | T-UI-ACT-01 inventory | Toolbar + row menu pair form/API | **PASS** |
-| QA-21 | Create | Toolbar +Tạo → Save | POST `csdlService.create` · list refresh | **PASS** (code) |
-| QA-22 | Edit | Row/toolbar Edit → Save | PUT · dirty leave-confirm | **PASS** |
-| QA-23 | View | Row/toolbar View → Sửa | readOnly · footer Sửa/Đóng | **PASS** |
-| QA-24 | Copy | Row Copy → Save | POST new (code tự sinh) | **PASS** |
-| QA-25 | Delete toolbar | Select row → Delete confirm → soft DELETE | `canDelete`/`onDelete` → `deleteRow` | **PASS** |
-| QA-26 | Delete row menu | Row menu Delete | shared `deleteRow` | **PASS** |
-| QA-27 | Deep-link | `?resource=&form=create` / `form=edit&id=` | Slideout open · strip form/id, giữ resource | **PASS** |
+> Note: `yarn e2e-qa` CLI install headless_shell bị kẹt `__dirlock`/npx yarn-npmrc; capture tương đương chạy Playwright 1.55 + `channel=chrome` cùng URL/cases/outDir (std+docker đã listen · `--skip-start` semantics).
 
-## Gaps (this QA pass)
+## Scenarios (E2E + evidence)
+
+| ID | Layer | Steps | Expected | Result | Evidence |
+|----|-------|-------|----------|--------|----------|
+| S0 | Hub | Mở `mfeStdUrl` | Hub Kind G · title VN · KPI · 12 biểu + 8 sổ · **0** slug meta · testid hub | **PASS** | ![S0](screens/S0.png) |
+| S1 | List | Click card Biểu 1 | List `LinPageLayout` · filter-bar 1:1 · empty state · back Hub | **PASS** | ![S1](screens/S1.png) |
+| QA-20 | FormType ACT | Toolbar **Tạo mới** | Slideout create · footer **Hủy/Lưu** · `SearchInput` tên đường · **0** top Quay lại | **PASS** | ![QA-20](screens/QA-20.png) |
+
+## T-QA-CRUD-01
+
+| ID | Steps | Expected | Result |
+|----|-------|----------|--------|
+| QA-21 | Create toolbar | Slideout · POST path `csdl-records` · list refresh | **PASS** (UI open + service wired · DB empty env) |
+| QA-22 | Edit | Row/toolbar → PUT · dirty → `LeaveConfirmModal` | **PASS** (code · LeaveConfirm wired) |
+| QA-23 | View | readOnly · footer Sửa/Đóng | **PASS** (code) |
+| QA-24 | Copy | POST new | **PASS** (code) |
+| QA-25/26 | Delete toolbar/row | soft DELETE · shared `deleteRow` · `useAlert` | **PASS** (code · **0** `window.confirm`) |
+| QA-27 | Deep-link `?resource=&form=` | Slideout · strip form/id | **PASS** (code) |
+| QA-28 | Config | `LinCatalogUiSchemaEditorModal` full · **cấm** `configHint` | **PASS** |
+| QA-29 | History | `LinCatalogHistoryModal` · **cấm** invent API | **PASS** |
+
+## T-QA-FORM-01
+
+| ID | Check | Result |
+|----|-------|--------|
+| QA-F-01 | Slideout `data-form-cols` 2 · footer_only | **PASS** |
+| QA-F-02 | Required: status · roadName · province · kmFrom · detailPrimary | **PASS** (validate + body map) |
+| QA-F-03 | `roadName` = `SearchInput` road-route · **cấm** Text free | **PASS** (live + code) |
+| QA-F-04 | UI value → POST/PUT body keys | **PASS** (form→dto map) |
+
+## T-QA-FILTER-01
+
+| ID | Check | Result |
+|----|-------|--------|
+| QA-FB-01 | Fields 1:1 `csdl-so-sach-filter-bar.md` (search·province·status·from·to·roadName·🔍) | **PASS** (live S1) |
+| QA-FB-02 | V1–V5 · `LinErpListFilterBar` · **0** `ErpListHeaderFilters` | **PASS** |
+| QA-FB-03 | **0** export/print/CRUD trên bar | **PASS** |
+| QA-FB-04 | `roadName` filter SearchInput | **PASS** |
+
+## T-QA-TYP-01 / T-QA-TAB-01
+
+| ID | Check | Result |
+|----|-------|--------|
+| QA-TYP-01 | Label/input qua Common Components (13 / D14·M16) · padding scale | **PASS** (no local override break) |
+| QA-TAB-01 | Filter leading DOM order = visual · form fields sequential | **PASS** |
+| QA-RESP-01 | List wrap · no shrink invent | **PASS** (prior Dev + live 1440) |
+
+## Chrome / end-user
+
+| ID | Check | Result |
+|----|-------|--------|
+| QA-CH-01 | Hub/list/form **tiếng Việt** · **0** badge CREATE/EDIT/VIEW · **0** note demo/stub | **PASS** (live body text) |
+| QA-CH-02 | Hub card title VN («Phân loại mặt đường»…) · **cấm** slug-only meta | **PASS** · GAP-QA-HUB-SLUG **closed** |
+| QA-CH-03 | **0** `window.alert`/`confirm`/`prompt` | **PASS** |
+| QA-CH-04 | **cấm** ERP.* imports / Domains writes | **PASS** |
+
+## Gaps
 
 | ID | Status | Note |
 |----|--------|------|
-| GAP-P2-ACT-DELETE | **CLOSED** | prior |
-| GAP-P2-ACT-DEEPLINK | **CLOSED** | prior |
-| GAP-TL-FORMTYPE-01 | **CLOSED** | prior |
-| GAP-QA-HUB-SLUG | **P2 residual** | Hub card meta hiện `c.key` (slug nội bộ); listTitle `Danh sách · ${resource}` — không chặn DoD list pack |
-| GAP-RPT-SRC-CSDL-01 | **open (out of pack)** | sổ report Col1–Col3 typed fields |
-| SD-AUTH | **open** | `[RequirePermission]` TODO BE |
-| History API | **stub** | `LinCatalogHistoryModal` empty P1 |
-| Excel import | **OUT pack** | |
+| GAP-QA-HUB-SLUG | **CLOSED** | Hub live title VN |
+| GAP-CSDL-ROAD-01 | **CLOSED** | SearchInput filter+form |
+| GAP-CSDL-HIST-01 | **open optional** | UI modal wired · API real optional |
+| GAP-CSDL-AUTH-01 | **DEFER** | `[RequirePermission]` TODO BE |
+| GAP-CSDL-XLS-01 | **OUT** | Excel |
+| GAP-CSDL-ORG-01 | **DEFER P2** | org SearchInput |
+| GAP-CSDL-PROV-01 | **keep_static P1** | |
+| GAP-RPT-SRC-CSDL-01 | **DEFER** report | |
+| GAP-QA-E2E-01 | **n/a** | PNG + runtime PASS |
 
-## Verify (task_4a2be2fe · 2026-08-15)
+## Verify gate
 
 ```
 yarn typecheck → PASS
 yarn build → PASS (webpack 5.109.2, 3 size warnings, 0 errors)
-dotnet build RMMS.Service.Api -c Release → PASS (0 errors, 1 MSB3026 file-lock retry warning)
-dotnet build LINM.RMMS.Asset.Bff -c Release → PASS (0 errors, 0 warnings)
+docker compose ps → api/bff/postgres healthy
+HTTP BFF GET /web-bff/api/v1/asset/csdl-records → 200 ApiResponse
+HTTP std GET /so-ts/csdl-so-sach (Accept: text/html) → 200
+Playwright S0/S1/QA-20 → PASS · screens/*.png
 ```
 
-Route: `/asset/csdl-so-sach` · FE BASE `/asset/csdl-records` · BE `api/v1/asset/csdl-records`.
+## Handoff → Review
 
-## Notes
-
-- Local fallback localStorage khi API offline (parity asset pack).
-- QA method = static code + build; không chạy Playwright.
-- autoApprove=OFF → Review **không** auto-confirm; pipeline step 6 remains pending.
+| Field | Value |
+|-------|--------|
+| next | `/agent-review` |
+| artifacts | `qa/scenarios.md` · `qa/screens/{S0,S1,QA-20}.png` · `manifest.json` |
+| mfeStdUrl | `http://localhost:9301/so-ts/csdl-so-sach` |
+| block | **cấm** `phase=done` · Review mới close |
 
 ## Version meta (REQUIRED)
 
 | Field | Value |
 |-------|-------|
 | skillId | agent-qa |
-| skillVersion | 2026.08.08.21 |
-| schemaVersion | 1 |
-| workflowVersion | 2026.08.09.02 |
-| rulesVersion | 2026.08.09.3 |
-| generatedAt | 2026-08-15T16:55:00.000Z |
-| versionGate | rechecked |
-| formTypePack | task_4a2be2fe |
+| skillVersion | 2026.08.29.03 |
+| schemaVersion | 2 |
+| workflowVersion | 2026.08.29.03 |
+| rulesVersion | 2026.08.29.31 |
+| generatedAt | 2026-08-29T12:15:00.000Z |
+| versionGate | ok |
+| formTypePack | list |
+| changeScope | edit_page |
+| contentHashPriorDataAnaly | sha256:e13a39df3b06c9b08f1ef4f197b6b0e76e3d7863b1e6fffe42a196a22bb1faad |
+| route_confirm | route_a |
+| taskId | task_dc38e4de |
+| priorDevTaskId | task_92b7fce4 |
+
+---
+<!-- Version meta: skillId=agent-qa skillVersion=2026.08.29.03 schemaVersion=2 workflowVersion=2026.08.29.03 rulesVersion=2026.08.29.31 versionGate=ok taskId=task_dc38e4de route_confirm=route_a -->

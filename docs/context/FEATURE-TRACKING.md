@@ -3,8 +3,9 @@
 > **SSOT theo dõi.** Backlog mô tả: [`features/README.md`](features/README.md). Pipeline scan: [`implement-status.json`](implement-status.json) (có thể lệch — **ưu tiên** `specs/{slug}/STATUS.md`).  
 > **HĐ:** `37001-08/2026-LIC/LINM-JNET` · PL01 P1 CAPEX 900tr (A 450 + B 300 + C 150). Spec: [`Linm.RMMS.Contract/analy/PROMPT-SPEC-P1-P2-PHU-LUC-RELEASE.md`](../../../Linm.RMMS.Contract/analy/PROMPT-SPEC-P1-P2-PHU-LUC-RELEASE.md).  
 > **Demo hub:** `Linm.RMMS.Demo` · `npm run start:std` → http://localhost:5180 · catalog [`demoCatalog.ts`](../../../Linm.RMMS.Demo/src/demoCatalog.ts).  
-> **Cập nhật:** 2026-08-28 · skill **`/gen-feature-tracking`** — thêm feature / implement (queue + chat) **phải** upsert file này. Nguồn STATUS đọc cùng ngày.  
-> **Changelog:** 28/08/2026 — `incident` (`/su-co`) upsert Pipeline `data_analy` / `pending` + task **T-PILOT-01** (e2e + HDSD + guide). · 27/08/2026 — upsert `kcht-cong-trinh` (công văn KQLĐB IV · 5 phân hệ CT KCHT · ngoài PL01 900tr) · `/hey-linm` + plan.
+> **Cập nhật:** 2026-08-29 · skill **`/gen-feature-tracking`** — thêm feature / implement (queue + chat) **phải** upsert file này. Nguồn STATUS đọc cùng ngày.  
+> **Tài liệu khách (đã/chưa phân tích) — SSOT duy nhất:** [`docs/data/SOURCE-TRACKING.md`](../data/SOURCE-TRACKING.md) · extract [`docs/data/analyzed/`](../data/analyzed/). **Cấm** đọc lại xlsx/docx/pdf khi dòng = `analyzed`.  
+> **Changelog:** 29/08/2026 — enqueue `kcht-cong-trinh` `task_399151e1` edit_page PH2–PH4 · extract wave + SRC-KCT-GN03. · 28/08/2026 — `incident` (`/su-co`) upsert Pipeline `data_analy` / `pending` + task **T-PILOT-01** (e2e + HDSD + guide). · 27/08/2026 — upsert `kcht-cong-trinh` (công văn KQLĐB IV · 5 phân hệ CT KCHT · ngoài PL01 900tr) · `/hey-linm` + plan.
 
 ## Chính sách (chốt user 2026-08-26)
 
@@ -37,14 +38,14 @@
 
 | Slug | Tên | PL | Release | Pipeline | Demo | Context | STATUS |
 |------|-----|----|---------|----------|------|---------|--------|
-| `master` | Hub Master | — | support | po / draft | none | [ctx](features/master.md) | [ST](../../specs/master/STATUS.md) |
+| `master` | Hub Master | — | support | `done` / `done` | none | [ctx](features/master.md) | [ST](../../specs/master/STATUS.md) |
 | `org-unit` | Cơ cấu TC DRVN | — | support | done | none | [ctx](features/org-unit.md) | [ST](../../specs/org-unit/STATUS.md) |
 | `road-route` | Tuyến đường | — | support | done | none | [ctx](features/road-route.md) | [ST](../../specs/road-route/STATUS.md) |
 | `asset-type` | Loại TS KCHT | — | support | done | none | [ctx](features/asset-type.md) | [ST](../../specs/asset-type/STATUS.md) |
 | `partner-unit` | Sở / BOT / Cty | — | support | done | none | [ctx](features/partner-unit.md) | [ST](../../specs/partner-unit/STATUS.md) |
 | `asset` | QL tài sản ĐB | 01 | P1-900 | `data_analy` / `draft` | catalog | [ctx](features/asset.md) | [ST](../../specs/asset/STATUS.md) |
-| `asset-kcht-32` | 36 loại TS | 01 | P1-900 | design await_confirm | proto mobile-p1 | [ctx](features/asset-kcht-32.md) | [ST](../../specs/asset-kcht-32/STATUS.md) |
-| `csdl-so-sach` | 12 biểu + 8 sổ | 01 | P1-900 | data_analy pending | catalog | [ctx](features/csdl-so-sach.md) | [ST](../../specs/csdl-so-sach/STATUS.md) |
+| `asset-kcht-32` | 36 loại TS | 01 | P1-900 | `qa` / `await_confirm` | proto mobile-p1 | [ctx](features/asset-kcht-32.md) | [ST](../../specs/asset-kcht-32/STATUS.md) |
+| `csdl-so-sach` | 12 biểu + 8 sổ | 01 | P1-900 | `done` / `done` | catalog | [ctx](features/csdl-so-sach.md) | [ST](../../specs/csdl-so-sach/STATUS.md) |
 | `pavement-section` | Biểu 1 mặt đường | 01 | P1-900 | done | catalog | [ctx](features/pavement-section.md) | [ST](../../specs/pavement-section/STATUS.md) |
 | `asset-kcht-dashboard` | Hub 40 ô KCHT | 01 | P1-900 | qa paused | none | [ctx](features/asset-kcht-dashboard.md) | [ST](../../specs/asset-kcht-dashboard/STATUS.md) |
 | `asset-hub` | Hub TS mobile | 01 | P1-900 | done | none | [ctx](features/asset-hub.md) | [ST](../../specs/asset-hub/STATUS.md) |
@@ -65,16 +66,16 @@
 | `tuan-duong-web` | TT 04 web demo | 04 | P1-900 | (gắn patrol) | catalog | [24](24-TUAN-DUONG-DUONG-BO.md) | [patrol](../../specs/patrol/STATUS.md) |
 | `tuan-duong-mobile` | TT 04 mobile demo | 04 | P1-900 | (gắn mobile-p1) | catalog | [24](24-TUAN-DUONG-DUONG-BO.md) | [mobile-p1](../../specs/mobile-p1/STATUS.md) |
 | `platform-task` | Platform QLCV | — | support P1 | `qa` / `paused` | catalog | [ctx](features/platform-task.md) | [ST](../../specs/platform-task/STATUS.md) |
-| `platform-message` | Chat parcel | — | support P1 | `qa` / `await_confirm` | none | [ctx](features/platform-message.md) | [ST](../../specs/platform-message/STATUS.md) |
+| `platform-message` | Chat parcel | — | support P1 | `dev` / `await_confirm` | none | [ctx](features/platform-message.md) | [ST](../../specs/platform-message/STATUS.md) |
 | `rmms-task-integrate` | Task × tuần đường | — | P2 later | `done` / `done` | none | [plan](../plan/platform-task/RMMS-TUAN-DUONG.md) | [ST](../../specs/rmms-task-integrate/STATUS.md) |
 | `attendance` | Chấm công GPS | 05 | P1-900 | done | catalog | [ctx](features/attendance.md) | [ST](../../specs/attendance/STATUS.md) |
-| `incident` | Quản lý sự cố | 06 | P1-900 | `data_analy` / `pending` | catalog | [ctx](features/incident.md) | [ST](../../specs/incident/STATUS.md) |
+| `incident` | Quản lý sự cố | 06 | P1-900 | `dev` / `pending` | catalog | [ctx](features/incident.md) | [ST](../../specs/incident/STATUS.md) |
 | `maintenance` | Bảo trì khung + WO P2 | 07 / 07-P2 | P1-900 khung · P2-CR full | done | catalog | [ctx](features/maintenance.md) | [ST](../../specs/maintenance/STATUS.md) |
 | `predict` | AI dự báo | 08 / 08-P2 | P1-900 · P2-CR | done | catalog | [ctx](features/predict.md) | [ST](../../specs/predict/STATUS.md) |
 | `ops` | Điều hành | 09 / 09-P2 | P1-900 board · P2-CR full | done | catalog | [ctx](features/ops.md) | [ST](../../specs/ops/STATUS.md) |
 | `estimate` | AI ước lượng | 10 / 10-P2 | P1-900 · P2-CR | done | catalog | [ctx](features/estimate.md) | [ST](../../specs/estimate/STATUS.md) |
 | `contract` | HĐ & ngân sách | 11 / 11-P2 | P1-900 thin · P2-CR | done | catalog | [ctx](features/contract.md) | [ST](../../specs/contract/STATUS.md) |
-| `kcht-cong-trinh` | Công trình KCHT (Khu IV) | — | CR-Khu-IV | `done` / `done` | none | [ctx](features/kcht-cong-trinh.md) | [ST](../../specs/kcht-cong-trinh/STATUS.md) |
+| `kcht-cong-trinh` | Công trình KCHT (Khu IV) | — | CR-Khu-IV | `qa` / `await_confirm` | none | [ctx](features/kcht-cong-trinh.md) | [ST](../../specs/kcht-cong-trinh/STATUS.md) |
 | `inventory` | Vật tư | 12 | P3-CR | Dev pending | catalog | [ctx](features/inventory.md) | [ST](../../specs/inventory/STATUS.md) |
 | `drone` | Drone RC | 13-P2 | P2-CR | done | catalog | [ctx](features/drone.md) | [ST](../../specs/drone/STATUS.md) |
 | `toc` | TOC / VMS | 14 | P3-CR | no STATUS | catalog | [ctx](features/toc.md) | — |
@@ -125,7 +126,7 @@
 | Gói B | `patrol-pin` | Review findings |
 | Gói B | `asset` mobile | TL · iOS/Android/BFF **BLOCKED** |
 | P3-CR | `inventory` | Dev · be/ui repo confirm |
-| CR-Khu-IV | `kcht-cong-trinh` | data_analy draft · công văn 08/2026 · 5 PH |
+| CR-Khu-IV | `kcht-cong-trinh` | Wave 1 done · **edit_page PH2–PH4** queue data_analy · PH5 park |
 | support | `feedback` · `master` hub · `patrol-checkin` | draft |
 | support | `map-service` · `gis-osm-clip` · `directions` · `legal-tech-corridor` · `toc` | chưa STATUS |
 
@@ -354,11 +355,12 @@ Cùng feature vừa release P1 vừa implement P2 trong demo/STATUS — **đúng
 |--|--|
 | Release / implement | **CR-Khu-IV** — ngoài PL01 900tr · công văn KQLĐB IV `/KQLĐBIV-QLBT` 08/2026 |
 | Demo | none |
-| Context | [kcht-cong-trinh.md](features/kcht-cong-trinh.md) · nguồn [công văn](../tinh-nang/Cung-cap-thong-tin-phan-mem.md) |
+| Context | [kcht-cong-trinh.md](features/kcht-cong-trinh.md) · [công văn](../tinh-nang/Cung-cap-thong-tin-phan-mem.md) · **sổ/BC giải ngân** [SRC-KCT-GN03](../data/analyzed/kcht-giai-ngan-03-sheet.md) |
 | Plan | [PLAN.md](../plan/kcht-cong-trinh/PLAN.md) |
-| Pipeline | `data_analy` / `draft` |
+| Pipeline | STATUS **`done` / `done`** (Wave 1 PH1) · PH2–PH5 **defer** — **không** conflict |
+| Nguồn khách | [SOURCE-TRACKING](../data/SOURCE-TRACKING.md) `SRC-KCT-CV` + `SRC-KCT-GN03` — **cấm** đọc lại .doc/.xlsx |
 | Reuse | `contract` · `road-route` · `org-unit` `REG-IV*` · `partner-unit` · `users` · FileService |
-| Next | `/agent-data-analy` `feature_context` → PO → Design → SA |
+| Next | Queue **edit_page** `roleOnly=data_analy` wave PH2–PH4 · extract [wave](../data/analyzed/kcht-wave-ph2-ph4.md) · PH5 park `sourceFormReady=no` |
 
 ---
 
@@ -419,6 +421,8 @@ Không có HTML riêng trong `demoCatalog` — nằm hub reports / GOVOne.
 | `rpt-dem-xe` | P2-CR | [ctx](features/rpt-dem-xe.md) | [ST](../../specs/rpt-dem-xe/STATUS.md) |
 | `rpt-giay-phep-thi-cong` | P3-CR | [ctx](features/rpt-giay-phep-thi-cong.md) | [ST](../../specs/rpt-giay-phep-thi-cong/STATUS.md) |
 | `rpt-cong-van` | P3-CR | [ctx](features/rpt-cong-van.md) | [ST](../../specs/rpt-cong-van/STATUS.md) |
+
+**≠ PHỤ LỤC 03 giải ngân Khu IV** — form nguồn [SRC-KCT-GN03](../data/analyzed/kcht-giai-ngan-03-sheet.md) thuộc `kcht-cong-trinh` PH5 (chưa tách slug `rpt-*`).
 
 ---
 
@@ -529,7 +533,9 @@ Pending domain folders (README only): `workflow` · `iot`.
 | Kỹ thuật | [07-TECHNICAL-IMPLEMENTATION.md](07-TECHNICAL-IMPLEMENTATION.md) |
 | Scan JSON | [implement-status.json](implement-status.json) |
 | HĐ PL01/PL04 | [PROMPT-SPEC…](../../../Linm.RMMS.Contract/analy/PROMPT-SPEC-P1-P2-PHU-LUC-RELEASE.md) |
+| Tài liệu khách (đã/chưa) | [SOURCE-TRACKING.md](../data/SOURCE-TRACKING.md) · [docs/data/](../data/README.md) |
 | Công văn Khu IV (CT KCHT) | [Cung-cap-thong-tin-phan-mem.md](../tinh-nang/Cung-cap-thong-tin-phan-mem.md) |
+| Sổ + PHỤ LỤC 03 giải ngân | [kcht-giai-ngan-03-sheet.md](../data/analyzed/kcht-giai-ngan-03-sheet.md) |
 | Demo catalog | [demoCatalog.ts](../../../Linm.RMMS.Demo/src/demoCatalog.ts) |
 | Demo DOMAIN | [DOMAIN.md](../../../Linm.RMMS.Demo/src/demo/DOMAIN.md) |
 | Route VN | [route-vn-abbr-confirm.md](route-vn-abbr-confirm.md) |

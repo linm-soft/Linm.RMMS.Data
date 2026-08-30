@@ -66,6 +66,7 @@
 | T-QA-CHAT-10 | Title Z1 | `Input` + PATCH blur · code readonly | **PASS** |
 | T-QA-CHAT-11 | Leave dirty | `useLeaveConfirm` + `LeaveConfirmModal` · **cấm** `window.confirm` | **PASS** |
 | T-QA-CHAT-12 | Escalate / P2 | Badge engine GPT-4o / RAG on-prem | **PASS** (badge only P1) |
+| T-QA-CHAT-13 | Unicode + BE mock | Chip từ `GET /prompts` · «xuống cấp» → QL.22 UTF-8 · **cấm** `nh?n` / `(P1 stub)` | **OPEN** (edit-web 2026-08-30) |
 
 ## T-QA CRUD-session (không form page)
 

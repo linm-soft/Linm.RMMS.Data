@@ -43,7 +43,7 @@ Live MFE sau `task_31a9bbd8` đã ship CV + schema editor. Design **chốt UI** 
 | List pattern | 1× `LinPageLayout kind="catalog"` — **cấm** nested CatalogListShell |
 | Grid | `LinCatalogDataGrid` + kéo cột default **ON** · `columns={buildDynamicGridColumns(schema, uiColumns)}` |
 | Footer | `LinCatalogListPagination` 50 / 100 / 200 / 500 — **cấm** footerPagination / pageSizeBar / raw table product |
-| Form pattern | Full-page `NotificationFormPage` C/E/V/Copy — **cấm** Slideout / Resource / Modal form |
+| Form pattern | Full-page `NotificationFormPage` C/E/V/Copy — **5 cột** `data-form-cols="5"` + header chrome — **cấm** Slideout / Resource / Modal form · **cấm** copy 2-cột |
 | View | `<dl>` display — **cấm** View=`readOnly` Input xám |
 | Routes | List `/ops` · form `/ops/new` · `/ops/:id` · copy `/ops/:id?mode=copy` |
 | Zone F | `LinCatalogUiSchemaEditorModal` title «Cấu hình hiển thị danh mục» · kind=`ops-inbox` — **cấm** `LinListTableConfigModal` editor cột · **cấm** `configHint` |
@@ -75,7 +75,7 @@ Live MFE sau `task_31a9bbd8` đã ship CV + schema editor. Design **chốt UI** 
 |------|------|
 | Z1 | Quay lại · Đóng · title · dirty badge · hint |
 | Z2a | Validation banner (tiêu đề · nội dung · người nhận · status) |
-| Z2b | Fields §3 — **cấm** native `<select>` lookup |
+| Z2b | Fields §3 — **full page 5 cột** `data-form-cols="5"` (`repeat(5, minmax(0,1fr))`) · medium **3** (`max-width: 1200px`) · small **2** (`max-width: 720px`) · textarea / tiêu đề `span-full` · input 100% cột · **cấm** grid 2-cột Slideout (**GAP-P2-FORM-GRID-05**) · **cấm** native `<select>` lookup |
 | Z3 | Gửi chỉ đạo · Lưu nháp · Xóa nội dung · Hủy · Giao việc P2 stub |
 | View | `<dl>` — Copy → POST new · IdCode `OPS-YYYYMMDD-NNNN` readonly · leave-confirm dirty |
 
@@ -85,22 +85,24 @@ Live MFE sau `task_31a9bbd8` đã ship CV + schema editor. Design **chốt UI** 
 |---------|----------|---------|----------|---------------|
 | code | Mã chỉ đạo | Text IdCode `OPS-*` | auto | all **readonly** |
 | documentNumber | Số công văn | Text | | view=`<dl>` |
-| direction | Chiều | SearchInput · **cv-direction** `di`/`den` | | view=`<dl>` |
+| direction | Chiều | SearchInput · **cv-direction** `di`/`den` · **ô đã chọn = tên only** | | view=`<dl>` |
 | summary | Trích yếu | Text textarea | | view=`<dl>` |
-| orgUnitCode | Đơn vị | SearchInput · **org-unit** · persist code+name | | view=`<dl>` |
+| orgUnitCode | Đơn vị | SearchInput · **org-unit** · persist code+name · **ô đã chọn = tên only** | | view=`<dl>` |
 | sender | Người gửi | Text | | create default · view=`<dl>` |
 | sentAt | Thời gian gửi | Date (datetime) | | view=`<dl>` |
-| status | Trạng thái | SearchInput · **ops-status** | * | view=`<dl>` |
+| status | Trạng thái | SearchInput · **ops-status** · **ô đã chọn = tên only** | * | view=`<dl>` |
 | title | Tiêu đề | Text | * | view=`<dl>` |
 | body | Nội dung | Text textarea | * | view=`<dl>` |
-| recipient | Người nhận / đội | SearchInput | * | view=`<dl>` |
-| priority | Độ ưu tiên | SearchInput · **ops-priority** | | view=`<dl>` |
-| type | Loại chỉ đạo | SearchInput · **ops-type** | | view=`<dl>` |
-| channel | Kênh gửi | SearchInput · **ops-channel** | | view=`<dl>` |
+| recipient | Người nhận / đội | SearchInput · **ô đã chọn = tên only** | * | view=`<dl>` |
+| priority | Độ ưu tiên | SearchInput · **ops-priority** · **ô đã chọn = tên only** | | view=`<dl>` |
+| type | Loại chỉ đạo | SearchInput · **ops-type** · **ô đã chọn = tên only** | | view=`<dl>` |
+| channel | Kênh gửi | SearchInput · **ops-channel** · **ô đã chọn = tên only** | | view=`<dl>` |
 | linkRef | Liên kết nguồn | Text | | view=`<dl>` |
 | reply | Phản hồi | Text textarea | P2 | view=`<dl>` |
 
 **Cấm** native `<select>` / free-text đơn vị trên product UI. Prototype dùng `input`+`datalist` làm stand-in SearchInput.
+
+**Lookup closed display (confirm 2026-08-29):** ô đã chọn + filter inbox = **chỉ tên**. Dropdown mở vẫn 2 cột badge Mã + Tên. Persist `value` = code (`orgUnitCode` + `orgUnitName`).
 
 ### List columns (bootstrap schema `ops-inbox`)
 
@@ -129,7 +131,7 @@ STT · Mã · **Số CV** · **Chiều** · **Trích yếu** · **Đơn vị** �
 | | |
 |--|--|
 | Artifact | `ui/prototype/ops-list-prototype.html` |
-| Zones | **A–D** + KPI + filter CV + Zone F mock + **full-page** form Z1–Z3 (**không** Slideout) |
+| Zones | **A–D** + KPI + filter CV + Zone F mock + **full-page** form Z1–Z3 · **5 cột** `data-form-cols="5"` (**không** Slideout) |
 | Scope | content-only — skip note/sidebar/menu/chrome demo |
 | **reviewUrl** | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/ops/ui/prototype/ops-list-prototype.html` |
 | design_confirm | **approve** (autoApprove=ON · agent · 2026-08-16) |

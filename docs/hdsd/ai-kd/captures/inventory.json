@@ -1,0 +1,175 @@
+{
+  "list": {
+    "title": "AI kiểm định mặt đường",
+    "buttons": [
+      "Làm mới",
+      "Giả lập P1",
+      "Giả lập P2",
+      "Tạo mới",
+      "DET-260829-2",
+      "DET-260829-1",
+      "Đầu",
+      "Trước",
+      "Sau",
+      "Cuối",
+      "RMMS",
+      "QL đường bộ",
+      "01. QL tài sản đường bộ",
+      "02. GIS bản đồ số 2D",
+      "03. AI kiểm định mặt đường",
+      "AI kiểm định mặt đường",
+      "03b. AI phát hiện TS mới",
+      "03c. Kết nối Camera GTVT",
+      "04. Tuần đường / tuần kiểm",
+      "05. Chấm công / định vị",
+      "06. Quản lý sự cố",
+      "07. Bảo trì",
+      "08. AI dự báo bảo trì",
+      "09. Chỉ đạo điều hành",
+      "10. AI ước lượng",
+      "11. HĐ & ngân sách",
+      "16. AI Copilot",
+      "17. Dashboard & BC",
+      "18. Open API & tích hợp",
+      "Trang chủ",
+      "Bảng điều khiển",
+      "Đăng xuất",
+      "Đơn vị cơ sở: RMMS"
+    ],
+    "headers": [
+      "STT",
+      "Mã",
+      "Loại hư hỏng",
+      "Độ tin cậy",
+      "Mức độ",
+      "Đoạn",
+      "Tuyến",
+      "Trạng thái",
+      "Nguồn nhận dạng",
+      "Sự cố"
+    ],
+    "labels": [
+      {
+        "label": "Tìm kiếm",
+        "required": false
+      },
+      {
+        "label": "Đoạn",
+        "required": false
+      },
+      {
+        "label": "Loại hư hỏng",
+        "required": false
+      },
+      {
+        "label": "Mức độ",
+        "required": false
+      },
+      {
+        "label": "Trạng thái",
+        "required": false
+      },
+      {
+        "label": "Nguồn nhận dạng",
+        "required": false
+      }
+    ],
+    "formCols": "",
+    "footerCrud": false
+  },
+  "form": {
+    "title": "AI kiểm định mặt đường",
+    "buttons": [
+      "Quay lại",
+      "Lưu",
+      "RMMS",
+      "QL đường bộ",
+      "01. QL tài sản đường bộ",
+      "02. GIS bản đồ số 2D",
+      "03. AI kiểm định mặt đường",
+      "AI kiểm định mặt đường",
+      "03b. AI phát hiện TS mới",
+      "03c. Kết nối Camera GTVT",
+      "04. Tuần đường / tuần kiểm",
+      "05. Chấm công / định vị",
+      "06. Quản lý sự cố",
+      "07. Bảo trì",
+      "08. AI dự báo bảo trì",
+      "09. Chỉ đạo điều hành",
+      "10. AI ước lượng",
+      "11. HĐ & ngân sách",
+      "16. AI Copilot",
+      "17. Dashboard & BC",
+      "18. Open API & tích hợp",
+      "Trang chủ",
+      "Bảng điều khiển",
+      "Đăng xuất",
+      "Đơn vị cơ sở: RMMS"
+    ],
+    "headers": [],
+    "labels": [
+      {
+        "label": "Mã (DET)",
+        "required": false
+      },
+      {
+        "label": "Trạng thái",
+        "required": true
+      },
+      {
+        "label": "Loại hư hỏng",
+        "required": true
+      },
+      {
+        "label": "Độ tin cậy * (0–1)",
+        "required": true
+      },
+      {
+        "label": "Mức độ",
+        "required": true
+      },
+      {
+        "label": "Nguồn nhận dạng",
+        "required": true
+      },
+      {
+        "label": "Đoạn",
+        "required": true
+      },
+      {
+        "label": "Mô hình",
+        "required": false
+      },
+      {
+        "label": "Tuyến",
+        "required": false
+      },
+      {
+        "label": "Vĩ độ",
+        "required": false
+      },
+      {
+        "label": "Kinh độ",
+        "required": false
+      },
+      {
+        "label": "PCI",
+        "required": false
+      },
+      {
+        "label": "Khung nhận dạng",
+        "required": false
+      },
+      {
+        "label": "Sự cố",
+        "required": false
+      },
+      {
+        "label": "Ghi chú",
+        "required": false
+      }
+    ],
+    "formCols": "5",
+    "footerCrud": false
+  }
+}

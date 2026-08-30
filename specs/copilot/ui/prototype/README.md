@@ -8,6 +8,7 @@ Design gate: prototype + **reviewUrl**. `autoApprove=OFF` → user Approve board
 - Kind: **B** A–D + **D** drawer Z1–Z3 · content-only · skip chrome
 - Controls: SearchTextInput · SearchInput status/locale · **cấm** native Select
 - MFE: `Linm.Web.RMMS.Copilot` · `/copilot`
+- Live chips/replies SSOT: BE `CopilotMockCatalog` + `GET /api/v1/copilot/prompts` (UTF-8). Prototype HTML giữ visual mock.
 - skillVersion: `2026.08.15.5` · schemaVersion: `2` · workflowVersion: `2026.08.15.5` · rulesVersion: `2026.08.15.8`
 
 ---

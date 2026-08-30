@@ -187,3 +187,10 @@ Platform events **DEFER** tới Signed + BE.
 Vision packets: **0** (pure synthetic).  
 Pages suy luận: hub · list ×20 resource · form ×20 · book entry grid.
 <!-- LEGACY-GOVONE-CAPTURE:END -->
+
+## Implement tracking
+
+| lane | phase | status | updatedAt |
+|------|-------|--------|-----------|
+| web | `done` | `done` | `2026-08-29T12:29:10.846Z` |
+| mobile | — | — | — |

@@ -42,7 +42,7 @@ Align:
 | Layer | Current | New |
 |-------|---------|-----|
 | Web Sổ TS | List asset · **không** hub count KCHT | Page `/so-ts/hang-muc` · 40 card grid 4 cột |
-| Dashboard | Placeholder widgets | Widget `@linm/rmms-asset-kcht-widget` · `WIDGET_REGISTRY` entry `rmms-kcht-hang-muc` |
+| Dashboard | Placeholder widgets | Authen widget **Tổng quan tài sản** · parcel `@linm/rmms-asset-kcht-widget` · size `3` · + Lối tắt nhanh |
 | API | RoadAssets list/CRUD only | + `GET …/road-assets/summary-by-type` aggregate group `Type` |
 | GOVOne | Screenshot 40 ô (mock count) | P1 = screenshot order · thiếu `asset-type` = count 0 |
 

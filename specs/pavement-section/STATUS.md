@@ -78,6 +78,7 @@
 | T-UI-FORM-01 | pavement-section | ui | T-UI-LIST-01 | **done** | **GAP-TL-ROUTE-01 CLOSED** `/:id/edit` `/:id/copy` |
 | T-UI-LEAVE-01 | pavement-section | ui | T-UI-FORM-01 | **verify** | dirty confirm |
 | T-UI-ACT-01 | pavement-section | ui | T-UI-FORM-01 | **done** | dedicated path nav |
+| T-UD-BUG-01 | pavement-section | ui | — | **done** | confirmed `/run-user-doc` 2026-08-29 · UD-P0-09 IdCode |
 | T-UI-LKP-01 | pavement-section | ui | T-UI-FORM-01 | **verify** | FE constants P1 |
 | T-UI-FIELD-01 | pavement-section | ui | T-UI-LKP-01 | **verify** | DTO ↔ control-map |
 | T-UI-PROD-01 | pavement-section | ui | T-UI-FORM-01 | **verify** | no Resource/Slideout/View=readOnly |

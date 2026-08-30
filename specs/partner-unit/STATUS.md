@@ -64,6 +64,7 @@
 | T-UI-LIST-01 | partner-unit | dev | T-BFF-01 | **done** |
 | T-UI-FORM-01 | partner-unit | dev | T-UI-LIST-01 | **done** |
 | T-QA-01 | partner-unit | qa | T-UI-FORM-01 | **done** |
+| T-UD-BUG-01 | /mas/doi-tac/tao-moi | qa | T-UI-FORM-01 | **done** | confirmed `/run-user-doc` 2026-08-30 · HDSD-P0-08/11 · capture=03-mas-doi-tac-tao-moi.png |
 
 ## Blockers
 

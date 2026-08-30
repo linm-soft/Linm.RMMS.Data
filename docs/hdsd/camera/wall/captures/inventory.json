@@ -1,0 +1,123 @@
+{
+  "list": {
+    "title": "Tường camera (wall)",
+    "buttons": [
+      "Quay lại",
+      "Test kết nối",
+      "Bật live (snapshot)",
+      "Tải events",
+      "Hủy",
+      "Lưu",
+      "RMMS",
+      "QL đường bộ",
+      "01. QL tài sản đường bộ",
+      "02. GIS bản đồ số 2D",
+      "03. AI kiểm định mặt đường",
+      "03b. AI phát hiện TS mới",
+      "03c. Kết nối Camera GTVT",
+      "Kết nối camera ITS",
+      "Tường camera (wall)",
+      "ITS biển báo / cọc tiêu",
+      "ITS ANPR · Quá tải / tốc độ",
+      "04. Tuần đường / tuần kiểm",
+      "05. Chấm công / định vị",
+      "06. Quản lý sự cố",
+      "07. Bảo trì",
+      "08. AI dự báo bảo trì",
+      "09. Chỉ đạo điều hành",
+      "10. AI ước lượng",
+      "11. HĐ & ngân sách",
+      "16. AI Copilot",
+      "17. Dashboard & BC",
+      "18. Open API & tích hợp",
+      "Trang chủ",
+      "Bảng điều khiển",
+      "Đăng xuất",
+      "Đơn vị cơ sở: RMMS"
+    ],
+    "headers": [
+      "Thời gian",
+      "Biển",
+      "Tốc độ",
+      "Loại",
+      "Hướng"
+    ],
+    "labels": [
+      {
+        "label": "Model",
+        "required": false
+      },
+      {
+        "label": "Mã camera",
+        "required": false
+      },
+      {
+        "label": "Tên",
+        "required": false
+      },
+      {
+        "label": "IP / Host",
+        "required": false
+      },
+      {
+        "label": "HTTP / ISAPI port",
+        "required": false
+      },
+      {
+        "label": "Port (SDK)",
+        "required": false
+      },
+      {
+        "label": "RTSP port",
+        "required": false
+      },
+      {
+        "label": "Protocol",
+        "required": false
+      },
+      {
+        "label": "User",
+        "required": false
+      },
+      {
+        "label": "Password",
+        "required": false
+      },
+      {
+        "label": "Tuyến",
+        "required": false
+      },
+      {
+        "label": "Km",
+        "required": false
+      },
+      {
+        "label": "Chuẩn",
+        "required": false
+      },
+      {
+        "label": "HTTPS",
+        "required": false
+      },
+      {
+        "label": "RTSP (port 554 — gateway sau)",
+        "required": false
+      },
+      {
+        "label": "ONVIF",
+        "required": false
+      },
+      {
+        "label": "ISAPI",
+        "required": false
+      },
+      {
+        "label": "ISAPI Host notify URL",
+        "required": false
+      }
+    ],
+    "formCols": "",
+    "footerCrud": false
+  },
+  "form": null
+}

@@ -1,0 +1,122 @@
+{
+  "list": {
+    "title": "Góp ý phần mềm Kind B ≠ Cổng người dân",
+    "buttons": [
+      "Làm mới",
+      "Tạo mới",
+      "RMMS",
+      "QL đường bộ",
+      "01. QL tài sản đường bộ",
+      "02. GIS bản đồ số 2D",
+      "AI kiểm định mặt đường",
+      "Phát hiện tài sản / thiết bị mới",
+      "03c. Kết nối Camera GTVT",
+      "04. Tuần đường / tuần kiểm",
+      "Chấm công và định vị",
+      "Sự cố / Vấn đề",
+      "Lập lịch sửa chữa / bảo trì",
+      "AI dự báo bảo trì",
+      "09. Chỉ đạo điều hành",
+      "Ước lượng sửa chữa",
+      "11. HĐ & ngân sách",
+      "AI Copilot",
+      "17. Dashboard & BC",
+      "18. Open API & tích hợp",
+      "Open API và tích hợp",
+      "Import tài sản",
+      "Cổng người dân",
+      "Góp ý phần mềm",
+      "Trang chủ",
+      "Bảng điều khiển",
+      "Đăng xuất",
+      "Đơn vị cơ sở: RMMS"
+    ],
+    "headers": [],
+    "labels": [
+      {
+        "label": "Tìm kiếm",
+        "required": false
+      },
+      {
+        "label": "Trạng thái",
+        "required": false
+      }
+    ],
+    "formCols": "",
+    "footerCrud": false
+  },
+  "form": {
+    "title": "Góp ý phần mềmTạo mớiKind B≠ Cổng người dân",
+    "buttons": [
+      "Quay lại",
+      "Xoá lựa chọn",
+      "Xóa nội dung",
+      "Hủy thay đổi",
+      "Lưu nháp",
+      "Gửi góp ý của bạn",
+      "RMMS",
+      "QL đường bộ",
+      "01. QL tài sản đường bộ",
+      "02. GIS bản đồ số 2D",
+      "AI kiểm định mặt đường",
+      "Phát hiện tài sản / thiết bị mới",
+      "03c. Kết nối Camera GTVT",
+      "04. Tuần đường / tuần kiểm",
+      "Chấm công và định vị",
+      "Sự cố / Vấn đề",
+      "Lập lịch sửa chữa / bảo trì",
+      "AI dự báo bảo trì",
+      "09. Chỉ đạo điều hành",
+      "Ước lượng sửa chữa",
+      "11. HĐ & ngân sách",
+      "AI Copilot",
+      "17. Dashboard & BC",
+      "18. Open API & tích hợp",
+      "Open API và tích hợp",
+      "Import tài sản",
+      "Cổng người dân",
+      "Góp ý phần mềm",
+      "Trang chủ",
+      "Bảng điều khiển",
+      "Đăng xuất",
+      "Đơn vị cơ sở: RMMS"
+    ],
+    "headers": [],
+    "labels": [
+      {
+        "label": "Mã góp ý",
+        "required": false
+      },
+      {
+        "label": "Trạng thái",
+        "required": true
+      },
+      {
+        "label": "Người gửi",
+        "required": true
+      },
+      {
+        "label": "Vai trò",
+        "required": true
+      },
+      {
+        "label": "Thời gian",
+        "required": true
+      },
+      {
+        "label": "UserId",
+        "required": false
+      },
+      {
+        "label": "Loại góp ý",
+        "required": true
+      },
+      {
+        "label": "Nội dung cần góp ý",
+        "required": true
+      }
+    ],
+    "formCols": "5",
+    "footerCrud": false
+  }
+}

@@ -40,7 +40,7 @@ Nguồn SSOT: control-hint `2026-08-16T00:40:00.000Z` + live MFE `NotificationLi
 | Zone B filter | SearchText + SearchInput status/priority/type · **direction** · **orgUnitCode** · unread toggle | **keep** — GET `?search=&status=&priority=&type=&direction=&orgUnitCode=&unreadOnly=` |
 | Grid cols | STT · Mã · Số CV · Chiều · Trích yếu · Đơn vị · Tiêu đề · Người gửi · Người nhận · Ưu tiên · Loại · TT · Thời gian · actions | **keep** · schema-driven `buildDynamicGridColumns` |
 | Zone F | `LinCatalogUiSchemaEditorModal` title «Cấu hình hiển thị danh mục» · seed `ops-inbox` | **keep** — **cấm** `LinListTableConfigModal` editor cột · **cấm** `configHint` |
-| Form | Full page C/E/V/Copy · CV fields · View `<dl>` | **keep** — **cấm** Resource / Slideout / View=`readOnly` Input xám |
+| Form | Full page C/E/V/Copy · **5 cột** `data-form-cols="5"` · CV fields · View `<dl>` | **keep** — **cấm** Resource / Slideout / View=`readOnly` Input xám · **cấm** grid 2-cột (**GAP-P2-FORM-GRID-05**) |
 | Prototype | `specs/ops/ui/prototype/ops-list-prototype.html` | **IN P1 Design:** content-only A–D + form **full-page** Z1–Z3 · cột CV · filter chiều/đơn vị · Zone F schema mock |
 | Demo HTML | `ops-demo.html` → `ops/ops.html` | Giữ visual SSOT — **không** clone chrome |
 | API / BE | Notification CRUD + OfficialDoc columns · BFF passthrough | **keep** · **cấm ERP.*** |
@@ -55,7 +55,7 @@ Nguồn SSOT: control-hint `2026-08-16T00:40:00.000Z` + live MFE `NotificationLi
 4. Zone C: `LinCatalogDataGrid` + cột Số CV · Chiều · Trích yếu · Đơn vị · row menu Xem · Sửa · Sao chép · Đánh dấu đã đọc · Giao việc P2 stub.
 5. Zone D: `LinCatalogListPagination` pageSize **50 / 100 / 200 / 500**.
 6. Zone F: `LinCatalogUiSchemaEditorModal` kind=`ops-inbox`.
-7. Form full-page: validate + save · leave-confirm dirty · Copy → POST new · IdCode `OPS-YYYYMMDD-NNNN` readonly.
+7. Form full-page: **5 cột** large · 3 medium · 2 small · validate + save · leave-confirm dirty · Copy → POST new · IdCode `OPS-YYYYMMDD-NNNN` readonly.
 8. Required: title · body · recipient · status. CV fields optional. org-unit persist **code + name**.
 9. View = `<dl>` display — **cấm** Input disabled xám toàn form.
 10. Lookup: status/priority/type/channel/recipient/direction/org-unit = **SearchInput** — **cấm** native `<select>` / free-text đơn vị.

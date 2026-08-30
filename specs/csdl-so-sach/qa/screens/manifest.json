@@ -1,0 +1,26 @@
+﻿{
+    "ok":  true,
+    "url":  "http://localhost:9301/so-ts/csdl-so-sach",
+    "method":  "e2e runtime · start:std + docker + playwright (channel=chrome) · cases S0,S1,QA-20",
+    "steps":  [
+                  {
+                      "result":  "PASS",
+                      "screenshot":  "S0.png",
+                      "id":  "S0",
+                      "note":  "hub VN titles · KPI · 12+8 cards · testid hub"
+                  },
+                  {
+                      "result":  "PASS",
+                      "screenshot":  "S1.png",
+                      "id":  "S1",
+                      "note":  "list after card · filter-bar 1:1 · empty state"
+                  },
+                  {
+                      "result":  "PASS",
+                      "screenshot":  "QA-20.png",
+                      "id":  "QA-20",
+                      "note":  "Tạo mới slideout · footer Hủy/Lưu · SearchInput road"
+                  }
+              ],
+    "capturedAt":  "2026-08-29T12:14:39.2430360Z"
+}

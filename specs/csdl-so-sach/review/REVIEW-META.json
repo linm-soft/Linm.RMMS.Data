@@ -1,0 +1,16 @@
+{
+  "feature": "csdl-so-sach",
+  "schemaVersion": 1,
+  "reviewHash": "sha256:5fab4c5f2fd8c3ae1f675183eed79022",
+  "rulesVersion": "2026.08.29.31",
+  "skillVersion": "2026.08.29.03",
+  "workflowVersion": "2026.08.29.03",
+  "status": "done",
+  "review_confirm": "confirmed",
+  "taskId": "task_915baff1",
+  "priorQaTaskId": "task_dc38e4de",
+  "mfeStdRoute": "/so-ts/csdl-so-sach",
+  "generatedAt": "2026-08-29T12:25:00.000Z",
+  "versionGate": "ok",
+  "autoCreated": false
+}

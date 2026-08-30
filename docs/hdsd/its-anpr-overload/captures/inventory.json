@@ -1,0 +1,71 @@
+{
+  "list": {
+    "title": "ITS ANPR · Quá tải / tốc độ",
+    "buttons": [
+      "Mô phỏng bắt mới",
+      "Tra cứu",
+      "Tạo",
+      "Làm mới",
+      "ANPR-20260824-0001",
+      "ANPR-2405",
+      "ANPR-2404",
+      "ANPR-2403",
+      "ANPR-2402",
+      "ANPR-2401",
+      "Đầu",
+      "Trước",
+      "Sau",
+      "Cuối",
+      "RMMS",
+      "QL đường bộ",
+      "01. QL tài sản đường bộ",
+      "02. GIS bản đồ số 2D",
+      "03. AI kiểm định mặt đường",
+      "03b. AI phát hiện TS mới",
+      "03c. Kết nối Camera GTVT",
+      "Kết nối camera ITS",
+      "Tường camera (wall)",
+      "ITS biển báo / cọc tiêu",
+      "ITS ANPR · Quá tải / tốc độ",
+      "04. Tuần đường / tuần kiểm",
+      "05. Chấm công / định vị",
+      "06. Quản lý sự cố",
+      "07. Bảo trì",
+      "08. AI dự báo bảo trì",
+      "09. Chỉ đạo điều hành",
+      "10. AI ước lượng",
+      "11. HĐ & ngân sách",
+      "16. AI Copilot",
+      "17. Dashboard & BC",
+      "18. Open API & tích hợp"
+    ],
+    "headers": [
+      "STT",
+      "Mã",
+      "Biển số",
+      "Tốc độ",
+      "Tải trọng",
+      "Camera",
+      "Lúc",
+      "TT",
+      "Mức lỗi"
+    ],
+    "labels": [
+      {
+        "label": "Tìm biển số",
+        "required": false
+      },
+      {
+        "label": "Camera",
+        "required": false
+      },
+      {
+        "label": "Trạng thái",
+        "required": false
+      }
+    ],
+    "formCols": "",
+    "footerCrud": false
+  },
+  "form": null
+}

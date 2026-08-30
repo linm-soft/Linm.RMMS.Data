@@ -1,0 +1,169 @@
+{
+  "list": {
+    "title": "Hợp đồng và ngân sách",
+    "buttons": [
+      "Làm mới",
+      "Tạo mới",
+      "RMMS",
+      "QL đường bộ",
+      "01. QL tài sản đường bộ",
+      "02. GIS bản đồ số 2D",
+      "03. AI kiểm định mặt đường",
+      "03b. AI phát hiện TS mới",
+      "03c. Kết nối Camera GTVT",
+      "04. Tuần đường / tuần kiểm",
+      "05. Chấm công / định vị",
+      "06. Quản lý sự cố",
+      "07. Bảo trì",
+      "08. AI dự báo bảo trì",
+      "09. Chỉ đạo điều hành",
+      "10. AI ước lượng",
+      "11. HĐ & ngân sách",
+      "Hợp đồng và ngân sách",
+      "Vật tư và thiết bị",
+      "16. AI Copilot",
+      "17. Dashboard & BC",
+      "18. Open API & tích hợp",
+      "Trang chủ",
+      "Bảng điều khiển",
+      "Đăng xuất",
+      "Đơn vị cơ sở: RMMS"
+    ],
+    "headers": [],
+    "labels": [
+      {
+        "label": "Tìm kiếm",
+        "required": false
+      },
+      {
+        "label": "Loại hợp đồng",
+        "required": false
+      },
+      {
+        "label": "Trạng thái",
+        "required": false
+      },
+      {
+        "label": "Nhà thầu",
+        "required": false
+      }
+    ],
+    "formCols": "",
+    "footerCrud": false
+  },
+  "form": {
+    "title": "Tạo hợp đồng",
+    "buttons": [
+      "Quay lại",
+      "Xoá lựa chọn",
+      "Thêm đợt",
+      "Hủy",
+      "Lưu",
+      "RMMS",
+      "QL đường bộ",
+      "01. QL tài sản đường bộ",
+      "02. GIS bản đồ số 2D",
+      "03. AI kiểm định mặt đường",
+      "03b. AI phát hiện TS mới",
+      "03c. Kết nối Camera GTVT",
+      "04. Tuần đường / tuần kiểm",
+      "05. Chấm công / định vị",
+      "06. Quản lý sự cố",
+      "07. Bảo trì",
+      "08. AI dự báo bảo trì",
+      "09. Chỉ đạo điều hành",
+      "10. AI ước lượng",
+      "11. HĐ & ngân sách",
+      "Hợp đồng và ngân sách",
+      "Vật tư và thiết bị",
+      "16. AI Copilot",
+      "17. Dashboard & BC",
+      "18. Open API & tích hợp",
+      "Trang chủ",
+      "Bảng điều khiển",
+      "Đăng xuất",
+      "Đơn vị cơ sở: RMMS"
+    ],
+    "headers": [],
+    "labels": [
+      {
+        "label": "Số hợp đồng",
+        "required": true
+      },
+      {
+        "label": "Tên hợp đồng",
+        "required": true
+      },
+      {
+        "label": "Loại hợp đồng",
+        "required": true
+      },
+      {
+        "label": "Nhà thầu",
+        "required": true
+      },
+      {
+        "label": "Giá trị HĐ (VND)",
+        "required": false
+      },
+      {
+        "label": "Trạng thái",
+        "required": true
+      },
+      {
+        "label": "Ngày ký",
+        "required": false
+      },
+      {
+        "label": "Hiệu lực từ",
+        "required": false
+      },
+      {
+        "label": "Hiệu lực đến",
+        "required": false
+      },
+      {
+        "label": "NS phân bổ (VND)",
+        "required": false
+      },
+      {
+        "label": "Năm ngân sách",
+        "required": false
+      },
+      {
+        "label": "KPI nhà thầu",
+        "required": false
+      },
+      {
+        "label": "SLA %",
+        "required": false
+      },
+      {
+        "label": "BH (tháng)",
+        "required": false
+      },
+      {
+        "label": "BH hết hạn",
+        "required": false
+      },
+      {
+        "label": "Đơn vị",
+        "required": false
+      },
+      {
+        "label": "Đoạn tuyến",
+        "required": false
+      },
+      {
+        "label": "Liên kết WorkOrder",
+        "required": false
+      },
+      {
+        "label": "Ghi chú",
+        "required": false
+      }
+    ],
+    "formCols": "",
+    "footerCrud": false
+  }
+}

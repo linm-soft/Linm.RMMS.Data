@@ -1,0 +1,154 @@
+{
+  "list": {
+    "title": "Lập lịch sửa chữa / bảo trì",
+    "buttons": [
+      "Làm mới",
+      "Tạo mới",
+      "WO-20260827-0001",
+      "Đầu",
+      "Trước",
+      "Sau",
+      "Cuối",
+      "RMMS",
+      "QL đường bộ",
+      "01. QL tài sản đường bộ",
+      "02. GIS bản đồ số 2D",
+      "03. AI kiểm định mặt đường",
+      "03b. AI phát hiện TS mới",
+      "03c. Kết nối Camera GTVT",
+      "04. Tuần đường / tuần kiểm",
+      "05. Chấm công / định vị",
+      "06. Quản lý sự cố",
+      "07. Bảo trì",
+      "Lập lịch sửa chữa / bảo trì",
+      "08. AI dự báo bảo trì",
+      "09. Chỉ đạo điều hành",
+      "10. AI ước lượng",
+      "11. HĐ & ngân sách",
+      "16. AI Copilot",
+      "17. Dashboard & BC",
+      "18. Open API & tích hợp",
+      "Trang chủ",
+      "Bảng điều khiển",
+      "Đăng xuất",
+      "Đơn vị cơ sở: RMMS"
+    ],
+    "headers": [
+      "STT",
+      "Mã",
+      "Tuyến",
+      "Loại",
+      "Đội",
+      "Cán bộ",
+      "Hạn",
+      "Trạng thái",
+      "Tiến độ"
+    ],
+    "labels": [
+      {
+        "label": "Tìm kiếm",
+        "required": false
+      },
+      {
+        "label": "Trạng thái",
+        "required": false
+      },
+      {
+        "label": "Loại",
+        "required": false
+      }
+    ],
+    "formCols": "",
+    "footerCrud": false
+  },
+  "form": {
+    "title": "Công việc bảo trì",
+    "buttons": [
+      "Quay lại",
+      "Hủy",
+      "Lưu (Mới)",
+      "Lưu",
+      "Xoá lựa chọn",
+      "RMMS",
+      "QL đường bộ",
+      "01. QL tài sản đường bộ",
+      "02. GIS bản đồ số 2D",
+      "03. AI kiểm định mặt đường",
+      "03b. AI phát hiện TS mới",
+      "03c. Kết nối Camera GTVT",
+      "04. Tuần đường / tuần kiểm",
+      "05. Chấm công / định vị",
+      "06. Quản lý sự cố",
+      "07. Bảo trì",
+      "Lập lịch sửa chữa / bảo trì",
+      "08. AI dự báo bảo trì",
+      "09. Chỉ đạo điều hành",
+      "10. AI ước lượng",
+      "11. HĐ & ngân sách",
+      "16. AI Copilot",
+      "17. Dashboard & BC",
+      "18. Open API & tích hợp",
+      "Trang chủ",
+      "Bảng điều khiển",
+      "Đăng xuất",
+      "Đơn vị cơ sở: RMMS"
+    ],
+    "headers": [],
+    "labels": [
+      {
+        "label": "Mã công việc",
+        "required": false
+      },
+      {
+        "label": "Trạng thái",
+        "required": true
+      },
+      {
+        "label": "Tiêu đề",
+        "required": false
+      },
+      {
+        "label": "Tuyến đường",
+        "required": true
+      },
+      {
+        "label": "Loại công việc",
+        "required": true
+      },
+      {
+        "label": "Hạn hoàn thành",
+        "required": true
+      },
+      {
+        "label": "Đội SC",
+        "required": false
+      },
+      {
+        "label": "Cán bộ",
+        "required": false
+      },
+      {
+        "label": "Tiến độ (%)",
+        "required": false
+      },
+      {
+        "label": "SLA (giờ)",
+        "required": false
+      },
+      {
+        "label": "Sự cố liên kết",
+        "required": false
+      },
+      {
+        "label": "Mô tả",
+        "required": false
+      },
+      {
+        "label": "Ghi chú tiến độ",
+        "required": false
+      }
+    ],
+    "formCols": "5",
+    "footerCrud": false
+  }
+}

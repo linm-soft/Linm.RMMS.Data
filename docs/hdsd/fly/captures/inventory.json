@@ -1,0 +1,197 @@
+{
+  "list": {
+    "title": "Drone / Reality Capture",
+    "buttons": [
+      "Làm mới",
+      "Tạo mới",
+      "Tìm",
+      "RMMS",
+      "QL đường bộ",
+      "01. QL tài sản đường bộ",
+      "Cơ cấu tổ chức",
+      "Tuyến đường",
+      "Loại tài sản",
+      "Đơn vị đối tác",
+      "Sổ tài sản KCHT",
+      "Phân loại mặt đường",
+      "CSDL 12 biểu + 8 sổ BDTX",
+      "Hạng Mục Kết Cấu Hạ Tầng",
+      "Danh sách IoT",
+      "Drone / Reality Capture",
+      "02. GIS bản đồ số 2D",
+      "03. AI kiểm định mặt đường",
+      "03b. AI phát hiện TS mới",
+      "03c. Kết nối Camera GTVT",
+      "04. Tuần đường / tuần kiểm",
+      "05. Chấm công / định vị",
+      "06. Quản lý sự cố",
+      "07. Bảo trì",
+      "08. AI dự báo bảo trì",
+      "09. Chỉ đạo điều hành",
+      "10. AI ước lượng",
+      "11. HĐ & ngân sách",
+      "16. AI Copilot",
+      "17. Dashboard & BC",
+      "18. Open API & tích hợp",
+      "Trang chủ",
+      "Bảng điều khiển",
+      "Đăng xuất",
+      "Đơn vị cơ sở: RMMS"
+    ],
+    "headers": [],
+    "labels": [
+      {
+        "label": "Tìm kiếm",
+        "required": false
+      },
+      {
+        "label": "Loại bay",
+        "required": false
+      },
+      {
+        "label": "Trạng thái",
+        "required": false
+      },
+      {
+        "label": "Đơn vị",
+        "required": false
+      }
+    ],
+    "formCols": "",
+    "footerCrud": false
+  },
+  "form": {
+    "title": "Tạo scan / Upload",
+    "buttons": [
+      "Danh sách",
+      "Lưu",
+      "Lưu nháp",
+      "Huỷ",
+      "Xoá lựa chọn",
+      "+ Thêm artifact",
+      "Upload",
+      "RMMS",
+      "QL đường bộ",
+      "01. QL tài sản đường bộ",
+      "Cơ cấu tổ chức",
+      "Tuyến đường",
+      "Loại tài sản",
+      "Đơn vị đối tác",
+      "Sổ tài sản KCHT",
+      "Phân loại mặt đường",
+      "CSDL 12 biểu + 8 sổ BDTX",
+      "Hạng Mục Kết Cấu Hạ Tầng",
+      "Danh sách IoT",
+      "Drone / Reality Capture",
+      "02. GIS bản đồ số 2D",
+      "03. AI kiểm định mặt đường",
+      "03b. AI phát hiện TS mới",
+      "03c. Kết nối Camera GTVT",
+      "04. Tuần đường / tuần kiểm",
+      "05. Chấm công / định vị",
+      "06. Quản lý sự cố",
+      "07. Bảo trì",
+      "08. AI dự báo bảo trì",
+      "09. Chỉ đạo điều hành",
+      "10. AI ước lượng",
+      "11. HĐ & ngân sách",
+      "16. AI Copilot",
+      "17. Dashboard & BC",
+      "18. Open API & tích hợp",
+      "Trang chủ"
+    ],
+    "headers": [],
+    "labels": [
+      {
+        "label": "Mã scan",
+        "required": false
+      },
+      {
+        "label": "Trạng thái",
+        "required": false
+      },
+      {
+        "label": "Tên nhiệm vụ",
+        "required": true
+      },
+      {
+        "label": "Loại bay",
+        "required": true
+      },
+      {
+        "label": "Mục đích",
+        "required": false
+      },
+      {
+        "label": "Tuyến/đoạn",
+        "required": true
+      },
+      {
+        "label": "Công trình",
+        "required": false
+      },
+      {
+        "label": "Đơn vị TH",
+        "required": false
+      },
+      {
+        "label": "Thiết bị",
+        "required": false
+      },
+      {
+        "label": "Phi công",
+        "required": false
+      },
+      {
+        "label": "Ngày bay",
+        "required": false
+      },
+      {
+        "label": "Giờ BD",
+        "required": false
+      },
+      {
+        "label": "Giờ KT",
+        "required": false
+      },
+      {
+        "label": "Diện tích km²",
+        "required": false
+      },
+      {
+        "label": "Số ảnh",
+        "required": false
+      },
+      {
+        "label": "Point cloud key",
+        "required": false
+      },
+      {
+        "label": "Orthophoto key",
+        "required": false
+      },
+      {
+        "label": "3D Tiles",
+        "required": false
+      },
+      {
+        "label": "GIS ref",
+        "required": false
+      },
+      {
+        "label": "Incident ref",
+        "required": false
+      },
+      {
+        "label": "AiVision job",
+        "required": false
+      },
+      {
+        "label": "Ghi chú",
+        "required": false
+      }
+    ],
+    "formCols": "",
+    "footerCrud": false
+  }
+}

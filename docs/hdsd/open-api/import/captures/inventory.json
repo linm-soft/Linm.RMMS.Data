@@ -1,0 +1,72 @@
+{
+  "list": {
+    "title": "Import tài sản KCHTTạo mớiKind B",
+    "buttons": [
+      "Quay lại",
+      "Xoá lựa chọn",
+      "Tải mẫu Excel",
+      "Hủy thay đổi",
+      "Chạy import",
+      "RMMS",
+      "QL đường bộ",
+      "01. QL tài sản đường bộ",
+      "02. GIS bản đồ số 2D",
+      "AI kiểm định mặt đường",
+      "Phát hiện tài sản / thiết bị mới",
+      "03c. Kết nối Camera GTVT",
+      "04. Tuần đường / tuần kiểm",
+      "Chấm công và định vị",
+      "Sự cố / Vấn đề",
+      "Lập lịch sửa chữa / bảo trì",
+      "AI dự báo bảo trì",
+      "09. Chỉ đạo điều hành",
+      "Ước lượng sửa chữa",
+      "11. HĐ & ngân sách",
+      "AI Copilot",
+      "17. Dashboard & BC",
+      "18. Open API & tích hợp",
+      "Open API và tích hợp",
+      "Import tài sản",
+      "Cổng người dân",
+      "Góp ý phần mềm",
+      "Trang chủ",
+      "Bảng điều khiển",
+      "Đăng xuất",
+      "Đơn vị cơ sở: RMMS"
+    ],
+    "headers": [],
+    "labels": [
+      {
+        "label": "Mã job",
+        "required": false
+      },
+      {
+        "label": "Loại tài sản",
+        "required": true
+      },
+      {
+        "label": "Địa bàn",
+        "required": true
+      },
+      {
+        "label": "Tuyến đường",
+        "required": true
+      },
+      {
+        "label": "Đoạn đường",
+        "required": false
+      },
+      {
+        "label": "File nguồn",
+        "required": true
+      },
+      {
+        "label": "Ghi chú",
+        "required": false
+      }
+    ],
+    "formCols": "5",
+    "footerCrud": false
+  },
+  "form": null
+}

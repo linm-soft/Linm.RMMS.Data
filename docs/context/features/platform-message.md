@@ -56,4 +56,5 @@ Xem [`../26-MESSAGE-PARCEL.md`](../26-MESSAGE-PARCEL.md) §6.
 
 | lane | phase | status | updatedAt |
 |------|-------|--------|-----------|
-| web | `qa` | `blocked` · e2e FAIL | `2026-08-25T17:56:00.000Z` |
+| web | `dev` | `await_confirm` | `2026-08-30T07:30:55.331Z` |
+| mobile | — | — | — |

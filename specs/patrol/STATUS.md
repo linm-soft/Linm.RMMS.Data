@@ -96,6 +96,10 @@
 | T-UI-UX-01 | patrol | ui | T-UI-LIST-01 | **done** | constitution · footer-only |
 | T-QA-01 | patrol | qa | T-UI-FORM-01 | **done** | A–D + smoke · `task_8178afb0` |
 | T-QA-CRUD-01 | patrol | qa | T-UI-ACT-01 | **done** | C/E/V/Copy/D + LKP/VAL · P0 none |
+| T-UD-BUG-01 | patrol | docs | — | **done** | confirmed `/run-user-doc` 2026-08-29 · GAP-P2-FORM-GRID-05 · capture=08-td-tk-tao-moi.png |
+| T-UD-BUG-02 | patrol | docs | — | **done** | confirmed `/run-user-doc` 2026-08-29 · PLAT-TB-06 · capture=08-td-tk-tao-moi.png |
+| T-UD-BUG-03 | patrol | docs | — | **done** | confirmed `/run-user-doc` 2026-08-29 · PLAT-TB-07 · capture=08-td-tk-tao-moi.png |
+| T-UD-BUG-04 | patrol | docs | — | **done** | confirmed `/run-user-doc` 2026-08-29 · GAP-P2-BTN-SSOT-01 · capture=08-td-tk-tao-moi.png |
 
 ## Blockers / open questions
 

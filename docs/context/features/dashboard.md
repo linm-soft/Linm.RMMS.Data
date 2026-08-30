@@ -1,6 +1,7 @@
 # Dashboard điều hành — Feature Context
 
 > **Slug:** `dashboard` · **Module:** `Report` + FE · **Phase:** KPI nhẹ P1 · full P2  
+> **Khác host** `@linm/dashboard` `/dashboard` — lối tắt nhanh + widget Authen (`asset-kcht-dashboard` · Tổng quan tài sản). File này = KPI Báo cáo.  
 > **Status:** Context  
 > **Sources:** `RMMS` §17 · `05` · `07` §17 · `09` · `15-SCREEN-AI-MAP.md`  
 > **Gắn màn:** Web **Giám sát** · **Báo cáo** *

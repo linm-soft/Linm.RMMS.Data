@@ -5,7 +5,7 @@
 | feature | `asset-kcht-dashboard` |
 | this role | `design` · `/edit-web-feature` |
 | changeScope | `edit_page` — count từ DB (`BRIDGE`/`TUNNEL` + summary-by-type) · pict GIS giữ |
-| updatedAt | `2026-08-24T00:40:00.000Z` |
+| updatedAt | `2026-08-30T01:31:00.000Z` |
 
 ## Zones (không đổi)
 
@@ -14,7 +14,7 @@
 | A | H1 «Hạng Mục Kết Cấu Hạ Tầng» | Chrome `fa-th-large` OK — không pict tài sản |
 | GRID | 40 ô · 4 cột wrap | GAP-WEB-EDIT-04 **closed** — GIS SVG `iconCode` |
 | CARD | label + count `vi-VN` | Pict = `assetIconBareHtml(iconCode)` · vòng 40×40 `#e6f4ff` · **cấm** recolor `#1677ff` |
-| Widget | body cards only | **cấm** H1 trùng host |
+| Widget | body cards only · host title **Tổng quan tài sản** | **cấm** H1 trùng host · size/parcel từ Authen `menuType=widget` |
 
 ## Copy / GAP mới
 
@@ -29,5 +29,7 @@ Tile không 1:1 GIS → **closest** (bảng design §6) · **cấm** invent pict
 
 ## Out
 
-- Không đổi toast GAP-AKD-01 / drill / widget registry.
+- Không đổi toast GAP-AKD-01 / drill.
+- Host `/dashboard`: Authen size+parcel · ẩn ERP placeholder · Lối tắt nhanh gated `dashboard:widget:quick-links:read`.
+- L0 **Bảng điều khiển** → `/dashboard` (flatten group `#` · **cấm** `#` → `/` → packageDefaultUrl `/so-ts`).
 - Không AskQuestion `design_confirm` (user scoped Design + TL).

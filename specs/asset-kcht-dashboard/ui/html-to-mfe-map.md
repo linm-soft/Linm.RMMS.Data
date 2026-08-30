@@ -4,14 +4,14 @@
 |-------|-------|
 | prototype | `ui/prototype/asset-kcht-dashboard-prototype.html` |
 | mfe | `Linm.Web.RMMS.Asset` |
-| updatedAt | `2026-08-24T00:40:00.000Z` |
+| updatedAt | `2026-08-30T01:31:00.000Z` |
 
 ## Surface
 
 | Prototype | MFE |
 |-----------|-----|
 | `#variant-standalone` + H1 | `KchtHangMucPage` + `LinPageLayout` |
-| `#variant-widget` (no H1) | `KchtHangMucDashboard` `embedMode` · widget entry |
+| `#variant-widget` (no H1) | `KchtHangMucDashboard` `embedMode` · host title Authen **Tổng quan tài sản** · parcel `@linm/rmms-asset-kcht-widget` size `3` |
 | `.grid` 4-col | `.grid` `role="list"` |
 | `.card` | `<button>` card |
 | Count | BFF `summary-by-type` / `road-routes.totalCount` / `pavement-sections.totalCount` · fail → «—» · **cấm** demo seed |

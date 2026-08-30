@@ -27,7 +27,7 @@
 
 ## 3. API (outline)
 
-`api/v1/open-api/road-routes` · `GET ?search=` · `/search` SearchInput (Step **2li**) · BFF `web-bff/api/v1/integration/road-routes`.
+`api/v1/integration/road-routes` · `GET ?search=&routeKind=` · `/search` SearchInput (Step **2li**) · `/init-data` · BFF `web-bff/api/v1/integration/road-routes` · **cấm** `open-api` SSOT.
 
 ## 4. Fields
 

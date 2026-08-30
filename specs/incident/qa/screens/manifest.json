@@ -1,0 +1,28 @@
+{
+  "url": "http://localhost:9304/su-co",
+  "capturedAt": "2026-08-29T03:47:22.789Z",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "httpStatus": 200,
+      "sha256": "1542ce2cd1f4875090e1e03c6c673b8fe2114942a5123d2462bc7ef3a92cac06"
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "sha256": "613a251e7623fc7b8555362b37f83d9095932f3b5e5e7f49d7973d1e6d65bacd"
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "sha256": "86dec11b20233c4d8de1fc930f84726a3d8ee0271be242f9bdbe8795da85ade9"
+    }
+  ],
+  "ok": true,
+  "tool": "incident-e2e-capture",
+  "note": "Chromium executablePath · SSOT /su-co · testid rmms-incident-list-page · S1 filtered · QA-20 form=create"
+}

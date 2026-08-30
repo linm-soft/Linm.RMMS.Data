@@ -1,0 +1,97 @@
+{
+  "list": {
+    "title": "Bản đồ hạ tầng — vẽ tài sản",
+    "buttons": [
+      "Lớp bản đồ",
+      "Chú giải",
+      "Thuộc tính",
+      "Kết quả",
+      "Fit tổng quan",
+      "Nạp seed Excel",
+      "Chuẩn hóa cột Km",
+      "Export GeoJSON",
+      "Xoá hết layer",
+      "Hủy biên tập",
+      "Lưu kết quả (Ctrl+S)",
+      "Công cụ ▾",
+      "Vẽ điểm",
+      "Vẽ đường",
+      "Vẽ vùng",
+      "Đo chiều dài",
+      "Đo diện tích",
+      "Lấy thông tin vị trí",
+      "In bản đồ",
+      "Xem hướng đoạn đường",
+      "Gộp đoạn đường multiline",
+      "Tạo đoạn đánh giá 100m",
+      "Gán mã đoạn đánh giá",
+      "Sao chép tài sản",
+      "Tổng hợp lớp",
+      "Chia sẻ liên kết",
+      "Tìm kiếm",
+      "Đo dài",
+      "Đo diện",
+      "Zoom in",
+      "Zoom out",
+      "OSM = OpenStreetMap — nhãn tiếng Việt",
+      "Esri Streets",
+      "Esri sat — ảnh vệ tinh",
+      "Google style proxy (Carto) — không API key",
+      "Fit = phóng vừa toàn bộ pin / tuyến"
+    ],
+    "headers": [],
+    "labels": [
+      {
+        "label": "✓ Tuyến đường (LineString)",
+        "required": false
+      },
+      {
+        "label": "Km ✓ Cột km (Point)",
+        "required": false
+      },
+      {
+        "label": "! ✓ Biển báo (Point)",
+        "required": false
+      },
+      {
+        "label": "✓ Cầu (Polygon)",
+        "required": false
+      },
+      {
+        "label": "✓ Hầm (Point)",
+        "required": false
+      },
+      {
+        "label": "✓ Hộ lan (LineString)",
+        "required": false
+      },
+      {
+        "label": "✓ Cống (Point)",
+        "required": false
+      },
+      {
+        "label": "✓ Ta luy / tường chắn (Polygon)",
+        "required": false
+      },
+      {
+        "label": "✓ Đoạn mặt đường (LineString)",
+        "required": false
+      },
+      {
+        "label": "Diện tích",
+        "required": false
+      },
+      {
+        "label": "Chiều dài",
+        "required": false
+      },
+      {
+        "label": "Tìm kiếm",
+        "required": false
+      }
+    ],
+    "formCols": "",
+    "footerCrud": false
+  },
+  "form": null
+}

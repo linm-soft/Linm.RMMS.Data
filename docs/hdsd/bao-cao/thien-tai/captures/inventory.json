@@ -1,0 +1,14 @@
+{
+  "list": {
+    "title": "This site can’t be reached",
+    "buttons": [
+      "Reload",
+      "Details"
+    ],
+    "headers": [],
+    "labels": [],
+    "formCols": "",
+    "footerCrud": false
+  },
+  "form": null
+}

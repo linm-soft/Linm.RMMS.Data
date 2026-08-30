@@ -1,0 +1,27 @@
+{
+  "url": "http://localhost:9318/mas/co-cau-tc",
+  "method": "e2e runtime · yarn start:std + docker + yarn e2e-qa contract (Chromium executablePath fallback)",
+  "capturedAt": "2026-08-29T07:28:03.337Z",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "sha256_16": "662337bf2c6c28de"
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "sha256_16": "d035a75e17fc807a"
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "sha256_16": "03ee3a8f0529c3b2"
+    }
+  ],
+  "ok": true,
+  "note": "GAP-QA-E2E-PW-01: playwright install hung on __dirlock — capture used executablePath"
+}

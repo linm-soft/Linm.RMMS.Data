@@ -37,5 +37,23 @@ e2e-playwright-runtime/
 !*/img-log/
 !*/img-log/**
 
-# Local Pages Index output — root-only (cấm **/ — skill SSOT)
+# Local Pages Index output -- root-only (do not use **/ -- skill SSOT)
 /local-deploy-page/
+
+# Customer source SSOT -- allow @/index for xlsx/docx/pdf/doc
+# Hub: docs/data/SOURCE-TRACKING.md -- do not re-read when analyzed
+!docs/**/*.xlsx
+!docs/**/*.xls
+!docs/**/*.docx
+!docs/**/*.doc
+!docs/**/*.pdf
+!docs/data/
+!docs/data/**
+
+# Gov dump + demo archive -- heavy; SSOT = import-gov-ssot.md
+data-import/
+docs/Mẫu import/
+
+out/
+target/
+local-packages/

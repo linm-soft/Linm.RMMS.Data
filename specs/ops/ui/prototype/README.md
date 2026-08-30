@@ -5,7 +5,7 @@ Design gate: **prototype + reviewUrl** — **approve** (autopilot · `task_6f04b
 | | |
 |--|--|
 | Artifact | `ops-list-prototype.html` |
-| Zones | A–D + KPI + filter chiều/đơn vị + cột CV + Zone F schema mock + **full-page** form Z1–Z3 |
+| Zones | A–D + KPI + filter chiều/đơn vị + cột CV + Zone F schema mock + **full-page** form Z1–Z3 · **5 cột** `data-form-cols="5"` |
 | **Cấm** | chrome/menu/note banner · Kind D Slideout · native `<select>` product (proto = input+datalist) |
 | **reviewUrl** | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/ops/ui/prototype/ops-list-prototype.html` |
 | Demo SSOT | `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/ops-demo.html` → `ops/ops.html` |

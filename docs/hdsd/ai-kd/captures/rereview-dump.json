@@ -1,0 +1,1809 @@
+{
+  "form-ai-kd-create": {
+    "url": "/ai-kd/tao-moi",
+    "toolbarCount": 1,
+    "formCols": "5",
+    "titles": [
+      "Tạo mới phát hiện",
+      "Tạo mới phát hiện"
+    ],
+    "badges": [
+      "Tạo mới"
+    ],
+    "buttons": [
+      {
+        "text": "Quay lại",
+        "title": "Quay lại",
+        "testid": "rmms-ai-vision-form-back-btn"
+      },
+      {
+        "text": "Lưu",
+        "title": "Lưu",
+        "testid": "ai-vision-btn-save"
+      },
+      {
+        "text": "RMMS",
+        "title": "",
+        "testid": "sidebar-logo-home"
+      },
+      {
+        "text": "QL đường bộ",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "01. QL tài sản đường bộ",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Danh mục",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "02. GIS bản đồ số 2D",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Hiện trường",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Chứng từ",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Bản đồ",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "AI kiểm định",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "AI kiểm định mặt đường",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Phát hiện tài sản / thiết bị mới",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Ước lượng sửa chữa",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "AI dự báo bảo trì",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "ITS biển báo / cọc tiêu",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "ITS ANPR · Quá tải / tốc độ",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "03c. Kết nối Camera GTVT",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "04. Tuần đường / tuần kiểm",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Báo cáo",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Tích hợp",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Copilot",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Trang chủ",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Bảng điều khiển",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "RMMS",
+        "title": "Đơn vị cơ sở: RMMS",
+        "testid": "nav-switch-company-btn"
+      }
+    ],
+    "labels": [
+      "Mã (DET)",
+      "Trạng thái *",
+      "Loại hư hỏng *",
+      "Độ tin cậy * (0–1)",
+      "Mức độ *",
+      "Nguồn nhận dạng *",
+      "Đoạn *",
+      "Mô hình",
+      "Tuyến",
+      "Vĩ độ",
+      "Kinh độ",
+      "PCI",
+      "Khung nhận dạng",
+      "Sự cố",
+      "Ghi chú",
+      "Đang tải hệ thống…"
+    ],
+    "kpi": [],
+    "enHits": [],
+    "headerTitle": "Tạo mới phát hiện",
+    "headerFontPx": 22,
+    "headerWeight": "600",
+    "listTitles": [],
+    "searchPlaceholders": [],
+    "linErpFilter": false,
+    "erpHeaderFilters": false,
+    "customFilterRow": false,
+    "nativeSelects": 0
+  },
+  "list-ai-kd": {
+    "url": "/ai-kd",
+    "toolbarCount": 1,
+    "formCols": "",
+    "titles": [
+      "AI kiểm định mặt đường",
+      "AI kiểm định mặt đường"
+    ],
+    "badges": [],
+    "buttons": [
+      {
+        "text": "Làm mới",
+        "title": "",
+        "testid": "rmms-ai-vision-list-refresh-btn"
+      },
+      {
+        "text": "Giả lập P1",
+        "title": "Giả lập P1",
+        "testid": "rmms-ai-vision-list-btn-detect-p1"
+      },
+      {
+        "text": "Giả lập P2",
+        "title": "Giả lập P2",
+        "testid": "rmms-ai-vision-list-btn-detect-p2"
+      },
+      {
+        "text": "Tạo mới",
+        "title": "",
+        "testid": "rmms-ai-vision-list-create-btn"
+      },
+      {
+        "text": "",
+        "title": "",
+        "testid": "rmms-ai-vision-list-search-search-btn"
+      },
+      {
+        "text": "",
+        "title": "",
+        "testid": "rmms-ai-vision-list-view-btn"
+      },
+      {
+        "text": "DET-260829-2",
+        "title": "",
+        "testid": "rmms-ai-vision-list-code-DET-260829-2"
+      },
+      {
+        "text": "DET-260829-1",
+        "title": "",
+        "testid": "rmms-ai-vision-list-code-DET-260829-1"
+      },
+      {
+        "text": "",
+        "title": "Đầu",
+        "testid": "rmms-ai-vision-list-page-first"
+      },
+      {
+        "text": "",
+        "title": "Trước",
+        "testid": "rmms-ai-vision-list-page-prev"
+      },
+      {
+        "text": "",
+        "title": "Sau",
+        "testid": "rmms-ai-vision-list-page-next"
+      },
+      {
+        "text": "",
+        "title": "Cuối",
+        "testid": "rmms-ai-vision-list-page-end"
+      },
+      {
+        "text": "RMMS",
+        "title": "",
+        "testid": "sidebar-logo-home"
+      },
+      {
+        "text": "QL đường bộ",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "01. QL tài sản đường bộ",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Danh mục",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "02. GIS bản đồ số 2D",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Hiện trường",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Chứng từ",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Bản đồ",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "AI kiểm định",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "AI kiểm định mặt đường",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Phát hiện tài sản / thiết bị mới",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Ước lượng sửa chữa",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "AI dự báo bảo trì",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "ITS biển báo / cọc tiêu",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "ITS ANPR · Quá tải / tốc độ",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "03c. Kết nối Camera GTVT",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "04. Tuần đường / tuần kiểm",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Báo cáo",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Tích hợp",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Copilot",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Trang chủ",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Bảng điều khiển",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "RMMS",
+        "title": "Đơn vị cơ sở: RMMS",
+        "testid": "nav-switch-company-btn"
+      }
+    ],
+    "labels": [
+      "Tìm kiếm",
+      "Đoạn",
+      "Loại hư hỏng",
+      "Mức độ",
+      "Trạng thái",
+      "Nguồn nhận dạng",
+      "STT",
+      "Mã",
+      "Loại hư hỏng",
+      "Độ tin cậy",
+      "Mức độ",
+      "Đoạn",
+      "Tuyến",
+      "Trạng thái",
+      "Nguồn nhận dạng",
+      "Sự cố",
+      "Đang tải hệ thống…"
+    ],
+    "kpi": [],
+    "enHits": [],
+    "headerTitle": "AI kiểm định mặt đường",
+    "headerFontPx": 22,
+    "headerWeight": "700",
+    "listTitles": [
+      "Danh sách phát hiệnMenu dòng: nhấn đúp · Ctrl + chuột phải · nhấn giữ dòng",
+      "Danh sách phát hiện",
+      "Menu dòng: nhấn đúp · Ctrl + chuột phải · nhấn giữ dòng"
+    ],
+    "searchPlaceholders": [
+      "Mã, loại hư hỏng, đoạn, tuyến, sự cố…"
+    ],
+    "linErpFilter": true,
+    "erpHeaderFilters": false,
+    "customFilterRow": false,
+    "nativeSelects": 5
+  },
+  "list-phat-hien-ts": {
+    "url": "/ai-kd/phat-hien-ts",
+    "toolbarCount": 1,
+    "formCols": "",
+    "titles": [
+      "Phát hiện tài sản / thiết bị mới",
+      "Tạo candidate"
+    ],
+    "badges": [],
+    "buttons": [
+      {
+        "text": "Phát hiện",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Bản đồ",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Kiểm tra trùng vị trí",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Xuất Excel",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Làm mới",
+        "title": "",
+        "testid": "rmms-ai-asset-detect-list-refresh-btn"
+      },
+      {
+        "text": "Tạo mới",
+        "title": "",
+        "testid": "rmms-ai-asset-detect-list-create-btn"
+      },
+      {
+        "text": "",
+        "title": "",
+        "testid": "rmms-ai-asset-detect-list-search-text-search-btn"
+      },
+      {
+        "text": "",
+        "title": "",
+        "testid": "rmms-ai-asset-detect-list-date-range-date-expand-btn"
+      },
+      {
+        "text": "",
+        "title": "",
+        "testid": "rmms-ai-asset-detect-list-view-btn"
+      },
+      {
+        "text": "RMMS",
+        "title": "",
+        "testid": "sidebar-logo-home"
+      },
+      {
+        "text": "QL đường bộ",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "01. QL tài sản đường bộ",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Danh mục",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "02. GIS bản đồ số 2D",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Hiện trường",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Chứng từ",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Bản đồ",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "AI kiểm định",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "AI kiểm định mặt đường",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Phát hiện tài sản / thiết bị mới",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Ước lượng sửa chữa",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "AI dự báo bảo trì",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "ITS biển báo / cọc tiêu",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "ITS ANPR · Quá tải / tốc độ",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "03c. Kết nối Camera GTVT",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "04. Tuần đường / tuần kiểm",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Báo cáo",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Tích hợp",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Copilot",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Trang chủ",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Bảng điều khiển",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "RMMS",
+        "title": "Đơn vị cơ sở: RMMS",
+        "testid": "nav-switch-company-btn"
+      }
+    ],
+    "labels": [
+      "Tìm kiếm",
+      "Tuyến",
+      "Loại TS",
+      "Trạng thái",
+      "Thời gian",
+      "Đang tải hệ thống…"
+    ],
+    "kpi": [],
+    "enHits": [],
+    "headerTitle": "Phát hiện tài sản / thiết bị mới",
+    "headerFontPx": 22,
+    "headerWeight": "700",
+    "listTitles": [
+      "Danh sách ứng viênMenu dòng: nhấn đúp · Ctrl + chuột phải · nhấn giữ dòng",
+      "Danh sách ứng viên",
+      "Menu dòng: nhấn đúp · Ctrl + chuột phải · nhấn giữ dòng"
+    ],
+    "searchPlaceholders": [
+      "Mã, loại tài sản, tuyến"
+    ],
+    "linErpFilter": true,
+    "erpHeaderFilters": false,
+    "customFilterRow": false,
+    "nativeSelects": 2
+  },
+  "list-du-bao-bt": {
+    "url": "/ai-kd/du-bao-bt",
+    "toolbarCount": 1,
+    "formCols": "",
+    "titles": [
+      "AI dự báo bảo trì",
+      "Chi tiết dự báo đoạn"
+    ],
+    "badges": [],
+    "buttons": [
+      {
+        "text": "Thêm đoạn",
+        "title": "",
+        "testid": "rmms-predict-list-create"
+      },
+      {
+        "text": "Chạy dự báo hàng loạt",
+        "title": "",
+        "testid": "rmms-predict-list-batch"
+      },
+      {
+        "text": "Xuất Excel",
+        "title": "",
+        "testid": "rmms-predict-list-export"
+      },
+      {
+        "text": "Mở Dashboard",
+        "title": "",
+        "testid": "rmms-predict-list-dashboard"
+      },
+      {
+        "text": "Sắp xếp điểm ↓",
+        "title": "Sắp xếp điểm giảm",
+        "testid": "rmms-predict-list-sort"
+      },
+      {
+        "text": "Làm mới",
+        "title": "",
+        "testid": "rmms-predict-list-refresh-btn"
+      },
+      {
+        "text": "Xóa lọc",
+        "title": "",
+        "testid": "rmms-predict-list-clear"
+      },
+      {
+        "text": "",
+        "title": "",
+        "testid": "rmms-predict-list-view-btn"
+      },
+      {
+        "text": "SEC-001",
+        "title": "",
+        "testid": "rmms-predict-list-code-SEC-001"
+      },
+      {
+        "text": "SEC-002",
+        "title": "",
+        "testid": "rmms-predict-list-code-SEC-002"
+      },
+      {
+        "text": "SEC-003",
+        "title": "",
+        "testid": "rmms-predict-list-code-SEC-003"
+      },
+      {
+        "text": "SEC-004",
+        "title": "",
+        "testid": "rmms-predict-list-code-SEC-004"
+      },
+      {
+        "text": "SEC-005",
+        "title": "",
+        "testid": "rmms-predict-list-code-SEC-005"
+      },
+      {
+        "text": "SEC-006",
+        "title": "",
+        "testid": "rmms-predict-list-code-SEC-006"
+      },
+      {
+        "text": "SEC-007",
+        "title": "",
+        "testid": "rmms-predict-list-code-SEC-007"
+      },
+      {
+        "text": "SEC-008",
+        "title": "",
+        "testid": "rmms-predict-list-code-SEC-008"
+      },
+      {
+        "text": "",
+        "title": "Đầu",
+        "testid": "rmms-predict-list-page-first"
+      },
+      {
+        "text": "",
+        "title": "Trước",
+        "testid": "rmms-predict-list-page-prev"
+      },
+      {
+        "text": "",
+        "title": "Sau",
+        "testid": "rmms-predict-list-page-next"
+      },
+      {
+        "text": "",
+        "title": "Cuối",
+        "testid": "rmms-predict-list-page-end"
+      },
+      {
+        "text": "RMMS",
+        "title": "",
+        "testid": "sidebar-logo-home"
+      },
+      {
+        "text": "QL đường bộ",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "01. QL tài sản đường bộ",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Danh mục",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "02. GIS bản đồ số 2D",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Hiện trường",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Chứng từ",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Bản đồ",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "AI kiểm định",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "AI kiểm định mặt đường",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Phát hiện tài sản / thiết bị mới",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Ước lượng sửa chữa",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "AI dự báo bảo trì",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "ITS biển báo / cọc tiêu",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "ITS ANPR · Quá tải / tốc độ",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "03c. Kết nối Camera GTVT",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "04. Tuần đường / tuần kiểm",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Báo cáo",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Tích hợp",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Copilot",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Trang chủ",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Bảng điều khiển",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "RMMS",
+        "title": "Đơn vị cơ sở: RMMS",
+        "testid": "nav-switch-company-btn"
+      }
+    ],
+    "labels": [
+      "Tuyến",
+      "Kỳ hạn (tháng)",
+      "Số đoạn ưu tiên",
+      "Điểm tối thiểu",
+      "STT",
+      "Thứ hạng",
+      "Mã đoạn",
+      "Tên đoạn / Km",
+      "Điểm",
+      "Tuổi thọ còn lại",
+      "Khuyến nghị",
+      "Mô hình",
+      "Dự báo lúc",
+      "Đang tải hệ thống…"
+    ],
+    "kpi": [
+      "Số đoạn",
+      "Điểm TB",
+      "Ưu tiên đại tu",
+      "Kỳ hạn (tháng)"
+    ],
+    "enHits": [],
+    "headerTitle": "AI dự báo bảo trì",
+    "headerFontPx": 20,
+    "headerWeight": "700",
+    "listTitles": [
+      "Danh sách ưu tiên dự báoMenu dòng: nhấn đúp · Ctrl + chuột phải · nhấn giữ dòng",
+      "Danh sách ưu tiên dự báo",
+      "Menu dòng: nhấn đúp · Ctrl + chuột phải · nhấn giữ dòng"
+    ],
+    "searchPlaceholders": [],
+    "linErpFilter": true,
+    "erpHeaderFilters": false,
+    "customFilterRow": false,
+    "nativeSelects": 1
+  },
+  "list-bb-ct": {
+    "url": "/ai-its/bb-ct",
+    "toolbarCount": 1,
+    "formCols": "",
+    "titles": [
+      "ITS phát hiện biển báo / cọc tiêu",
+      "Tạo quan sát ITS"
+    ],
+    "badges": [],
+    "buttons": [
+      {
+        "text": "Phát hiện",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Bản đồ",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Kiểm tra trùng vị trí",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Xuất Excel",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Làm mới",
+        "title": "",
+        "testid": "rmms-its-traffic-detect-list-refresh-btn"
+      },
+      {
+        "text": "Tạo mới",
+        "title": "",
+        "testid": "rmms-its-traffic-detect-list-create-btn"
+      },
+      {
+        "text": "",
+        "title": "",
+        "testid": "rmms-its-traffic-detect-list-search-text-search-btn"
+      },
+      {
+        "text": "",
+        "title": "",
+        "testid": "rmms-its-traffic-detect-list-date-range-date-expand-btn"
+      },
+      {
+        "text": "",
+        "title": "",
+        "testid": "rmms-its-traffic-detect-list-view-btn"
+      },
+      {
+        "text": "RMMS",
+        "title": "",
+        "testid": "sidebar-logo-home"
+      },
+      {
+        "text": "QL đường bộ",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "01. QL tài sản đường bộ",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Danh mục",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "02. GIS bản đồ số 2D",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Hiện trường",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Chứng từ",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Bản đồ",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "AI kiểm định",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "AI kiểm định mặt đường",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Phát hiện tài sản / thiết bị mới",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Ước lượng sửa chữa",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "AI dự báo bảo trì",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "ITS biển báo / cọc tiêu",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "ITS ANPR · Quá tải / tốc độ",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "03c. Kết nối Camera GTVT",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "04. Tuần đường / tuần kiểm",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Báo cáo",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Tích hợp",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Copilot",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Trang chủ",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Bảng điều khiển",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "RMMS",
+        "title": "Đơn vị cơ sở: RMMS",
+        "testid": "nav-switch-company-btn"
+      }
+    ],
+    "labels": [
+      "Tìm kiếm",
+      "Tuyến",
+      "Loại",
+      "Nguồn",
+      "Trạng thái",
+      "Nguồn nhận dạng",
+      "Thời gian",
+      "Đang tải hệ thống…"
+    ],
+    "kpi": [],
+    "enHits": [],
+    "headerTitle": "ITS phát hiện biển báo / cọc tiêu",
+    "headerFontPx": 20,
+    "headerWeight": "700",
+    "listTitles": [
+      "Danh sách candidateMenu dòng: nhấn đúp · Ctrl + chuột phải · nhấn giữ dòng",
+      "Danh sách candidate",
+      "Menu dòng: nhấn đúp · Ctrl + chuột phải · nhấn giữ dòng"
+    ],
+    "searchPlaceholders": [
+      "Mã, loại tài sản, tuyến"
+    ],
+    "linErpFilter": true,
+    "erpHeaderFilters": false,
+    "customFilterRow": false,
+    "nativeSelects": 4
+  },
+  "form-bb-ct": {
+    "url": "/ai-its/bb-ct",
+    "toolbarCount": 1,
+    "formCols": "",
+    "titles": [
+      "ITS phát hiện biển báo / cọc tiêu",
+      "Tạo quan sát ITS",
+      "Tạo quan sát ITS"
+    ],
+    "badges": [
+      "Tạo quan sát ITS"
+    ],
+    "buttons": [
+      {
+        "text": "Phát hiện",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Bản đồ",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Kiểm tra trùng vị trí",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Xuất Excel",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Làm mới",
+        "title": "",
+        "testid": "rmms-its-traffic-detect-list-refresh-btn"
+      },
+      {
+        "text": "Tạo mới",
+        "title": "",
+        "testid": "rmms-its-traffic-detect-list-create-btn"
+      },
+      {
+        "text": "",
+        "title": "",
+        "testid": "rmms-its-traffic-detect-list-search-text-search-btn"
+      },
+      {
+        "text": "",
+        "title": "",
+        "testid": "rmms-its-traffic-detect-list-date-range-date-expand-btn"
+      },
+      {
+        "text": "",
+        "title": "",
+        "testid": "rmms-its-traffic-detect-list-view-btn"
+      },
+      {
+        "text": "RMMS",
+        "title": "",
+        "testid": "sidebar-logo-home"
+      },
+      {
+        "text": "QL đường bộ",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "01. QL tài sản đường bộ",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Danh mục",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "02. GIS bản đồ số 2D",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Hiện trường",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Chứng từ",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Bản đồ",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "AI kiểm định",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "AI kiểm định mặt đường",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Phát hiện tài sản / thiết bị mới",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Ước lượng sửa chữa",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "AI dự báo bảo trì",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "ITS biển báo / cọc tiêu",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "ITS ANPR · Quá tải / tốc độ",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "03c. Kết nối Camera GTVT",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "04. Tuần đường / tuần kiểm",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Báo cáo",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Tích hợp",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Copilot",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Trang chủ",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Bảng điều khiển",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "RMMS",
+        "title": "Đơn vị cơ sở: RMMS",
+        "testid": "nav-switch-company-btn"
+      },
+      {
+        "text": "",
+        "title": "",
+        "testid": "rmms-its-traffic-detect-form-slideout-close-button"
+      },
+      {
+        "text": "Chọn ảnh khung hình",
+        "title": "",
+        "testid": "rmms-its-traffic-detect-form-attach"
+      },
+      {
+        "text": "Hủy",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Chạy phát hiện",
+        "title": "",
+        "testid": "rmms-its-traffic-detect-form-run-detect"
+      },
+      {
+        "text": "Lưu",
+        "title": "",
+        "testid": ""
+      }
+    ],
+    "labels": [
+      "Tìm kiếm",
+      "Tuyến",
+      "Loại",
+      "Nguồn",
+      "Trạng thái",
+      "Nguồn nhận dạng",
+      "Thời gian",
+      "Đang tải hệ thống…",
+      "Mã",
+      "Trạng thái",
+      "Loại TS*",
+      "Độ tin cậy (0–1) *",
+      "Nguồn nhận dạng*",
+      "Vĩ độ *",
+      "Kinh độ *",
+      "Tuyến đường *",
+      "Nguồn *",
+      "Chuyến tuần đường",
+      "Bbox [x1, y1, x2, y2]",
+      "Ghi chú"
+    ],
+    "kpi": [],
+    "enHits": [],
+    "headerTitle": "ITS phát hiện biển báo / cọc tiêu",
+    "headerFontPx": 20,
+    "headerWeight": "700",
+    "listTitles": [
+      "Danh sách candidateMenu dòng: nhấn đúp · Ctrl + chuột phải · nhấn giữ dòng",
+      "Danh sách candidate",
+      "Menu dòng: nhấn đúp · Ctrl + chuột phải · nhấn giữ dòng"
+    ],
+    "searchPlaceholders": [
+      "Mã, loại tài sản, tuyến"
+    ],
+    "linErpFilter": true,
+    "erpHeaderFilters": false,
+    "customFilterRow": false,
+    "nativeSelects": 4
+  },
+  "list-anpr": {
+    "url": "/its-anpr-overload",
+    "toolbarCount": 1,
+    "formCols": "",
+    "titles": [
+      "ITS ANPR · Quá tải / tốc độ",
+      "Xem sự kiện ANPR"
+    ],
+    "badges": [],
+    "buttons": [
+      {
+        "text": "Mô phỏng bắt mới",
+        "title": "",
+        "testid": "rmms-its-anpr-overload-list-simulate"
+      },
+      {
+        "text": "Tra cứu",
+        "title": "",
+        "testid": "rmms-its-anpr-overload-list-lookup"
+      },
+      {
+        "text": "Tạo",
+        "title": "Tạo",
+        "testid": "rmms-its-anpr-overload-list-create"
+      },
+      {
+        "text": "Làm mới",
+        "title": "",
+        "testid": "rmms-its-anpr-overload-list-refresh-btn"
+      },
+      {
+        "text": "",
+        "title": "",
+        "testid": "rmms-its-anpr-overload-list-search-text-search-btn"
+      },
+      {
+        "text": "",
+        "title": "",
+        "testid": "rmms-its-anpr-overload-list-view-btn"
+      },
+      {
+        "text": "ANPR-20260824-0001",
+        "title": "",
+        "testid": "rmms-its-anpr-overload-list-code-ANPR-20260824-0001"
+      },
+      {
+        "text": "ANPR-2405",
+        "title": "",
+        "testid": "rmms-its-anpr-overload-list-code-ANPR-2405"
+      },
+      {
+        "text": "ANPR-2404",
+        "title": "",
+        "testid": "rmms-its-anpr-overload-list-code-ANPR-2404"
+      },
+      {
+        "text": "ANPR-2403",
+        "title": "",
+        "testid": "rmms-its-anpr-overload-list-code-ANPR-2403"
+      },
+      {
+        "text": "ANPR-2402",
+        "title": "",
+        "testid": "rmms-its-anpr-overload-list-code-ANPR-2402"
+      },
+      {
+        "text": "ANPR-2401",
+        "title": "",
+        "testid": "rmms-its-anpr-overload-list-code-ANPR-2401"
+      },
+      {
+        "text": "",
+        "title": "Đầu",
+        "testid": "rmms-its-anpr-overload-list-page-first"
+      },
+      {
+        "text": "",
+        "title": "Trước",
+        "testid": "rmms-its-anpr-overload-list-page-prev"
+      },
+      {
+        "text": "",
+        "title": "Sau",
+        "testid": "rmms-its-anpr-overload-list-page-next"
+      },
+      {
+        "text": "",
+        "title": "Cuối",
+        "testid": "rmms-its-anpr-overload-list-page-end"
+      },
+      {
+        "text": "RMMS",
+        "title": "",
+        "testid": "sidebar-logo-home"
+      },
+      {
+        "text": "QL đường bộ",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Trang chủ",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Bảng điều khiển",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "RMMS",
+        "title": "Đơn vị cơ sở: RMMS",
+        "testid": "nav-switch-company-btn"
+      }
+    ],
+    "labels": [
+      "Tìm biển số",
+      "Camera",
+      "Trạng thái",
+      "STT",
+      "Mã",
+      "Biển số",
+      "Tốc độ",
+      "Tải trọng",
+      "Camera",
+      "Lúc",
+      "TT",
+      "Mức lỗi",
+      "Đang tải hệ thống…"
+    ],
+    "kpi": [
+      "Tổng",
+      "Chờ xử lý",
+      "Nghiêm trọng",
+      "Đã xác nhận"
+    ],
+    "enHits": [],
+    "headerTitle": "ITS ANPR · Quá tải / tốc độ",
+    "headerFontPx": 20,
+    "headerWeight": "700",
+    "listTitles": [
+      "Danh sách sự kiện ANPRMenu dòng: nhấn đúp · Ctrl + chuột phải · nhấn giữ dòng",
+      "Danh sách sự kiện ANPR",
+      "Menu dòng: nhấn đúp · Ctrl + chuột phải · nhấn giữ dòng"
+    ],
+    "searchPlaceholders": [
+      "Biển số, mã ANPR…"
+    ],
+    "linErpFilter": true,
+    "erpHeaderFilters": false,
+    "customFilterRow": false,
+    "nativeSelects": 2
+  },
+  "form-anpr": {
+    "url": "/its-anpr-overload",
+    "toolbarCount": 1,
+    "formCols": "",
+    "titles": [
+      "ITS ANPR · Quá tải / tốc độ",
+      "Tạo sự kiện ANPR",
+      "Tạo sự kiện ANPR"
+    ],
+    "badges": [],
+    "buttons": [
+      {
+        "text": "Mô phỏng bắt mới",
+        "title": "",
+        "testid": "rmms-its-anpr-overload-list-simulate"
+      },
+      {
+        "text": "Tra cứu",
+        "title": "",
+        "testid": "rmms-its-anpr-overload-list-lookup"
+      },
+      {
+        "text": "Tạo",
+        "title": "Tạo",
+        "testid": "rmms-its-anpr-overload-list-create"
+      },
+      {
+        "text": "Làm mới",
+        "title": "",
+        "testid": "rmms-its-anpr-overload-list-refresh-btn"
+      },
+      {
+        "text": "",
+        "title": "",
+        "testid": "rmms-its-anpr-overload-list-search-text-search-btn"
+      },
+      {
+        "text": "",
+        "title": "",
+        "testid": "rmms-its-anpr-overload-list-view-btn"
+      },
+      {
+        "text": "ANPR-20260824-0001",
+        "title": "",
+        "testid": "rmms-its-anpr-overload-list-code-ANPR-20260824-0001"
+      },
+      {
+        "text": "ANPR-2405",
+        "title": "",
+        "testid": "rmms-its-anpr-overload-list-code-ANPR-2405"
+      },
+      {
+        "text": "ANPR-2404",
+        "title": "",
+        "testid": "rmms-its-anpr-overload-list-code-ANPR-2404"
+      },
+      {
+        "text": "ANPR-2403",
+        "title": "",
+        "testid": "rmms-its-anpr-overload-list-code-ANPR-2403"
+      },
+      {
+        "text": "ANPR-2402",
+        "title": "",
+        "testid": "rmms-its-anpr-overload-list-code-ANPR-2402"
+      },
+      {
+        "text": "ANPR-2401",
+        "title": "",
+        "testid": "rmms-its-anpr-overload-list-code-ANPR-2401"
+      },
+      {
+        "text": "",
+        "title": "Đầu",
+        "testid": "rmms-its-anpr-overload-list-page-first"
+      },
+      {
+        "text": "",
+        "title": "Trước",
+        "testid": "rmms-its-anpr-overload-list-page-prev"
+      },
+      {
+        "text": "",
+        "title": "Sau",
+        "testid": "rmms-its-anpr-overload-list-page-next"
+      },
+      {
+        "text": "",
+        "title": "Cuối",
+        "testid": "rmms-its-anpr-overload-list-page-end"
+      },
+      {
+        "text": "RMMS",
+        "title": "",
+        "testid": "sidebar-logo-home"
+      },
+      {
+        "text": "QL đường bộ",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Trang chủ",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Bảng điều khiển",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "RMMS",
+        "title": "Đơn vị cơ sở: RMMS",
+        "testid": "nav-switch-company-btn"
+      },
+      {
+        "text": "",
+        "title": "",
+        "testid": "rmms-its-anpr-form-slideout-close-button"
+      },
+      {
+        "text": "Hủy",
+        "title": "Hủy",
+        "testid": ""
+      },
+      {
+        "text": "Lưu",
+        "title": "Lưu",
+        "testid": ""
+      }
+    ],
+    "labels": [
+      "Tìm biển số",
+      "Camera",
+      "Trạng thái",
+      "STT",
+      "Mã",
+      "Biển số",
+      "Tốc độ",
+      "Tải trọng",
+      "Camera",
+      "Lúc",
+      "TT",
+      "Mức lỗi",
+      "Đang tải hệ thống…",
+      "Mã sự kiện",
+      "Camera *",
+      "Biển số *",
+      "Tốc độ (km/h) *",
+      "Tải trọng (kg)",
+      "Độ tin cậy",
+      "Thời điểm",
+      "Ghi chú"
+    ],
+    "kpi": [
+      "Tổng",
+      "Chờ xử lý",
+      "Nghiêm trọng",
+      "Đã xác nhận"
+    ],
+    "enHits": [],
+    "headerTitle": "ITS ANPR · Quá tải / tốc độ",
+    "headerFontPx": 20,
+    "headerWeight": "700",
+    "listTitles": [
+      "Danh sách sự kiện ANPRMenu dòng: nhấn đúp · Ctrl + chuột phải · nhấn giữ dòng",
+      "Danh sách sự kiện ANPR",
+      "Menu dòng: nhấn đúp · Ctrl + chuột phải · nhấn giữ dòng"
+    ],
+    "searchPlaceholders": [
+      "Biển số, mã ANPR…"
+    ],
+    "linErpFilter": true,
+    "erpHeaderFilters": false,
+    "customFilterRow": false,
+    "nativeSelects": 2
+  },
+  "list-uoc-luong-sc": {
+    "url": "/ai-kd/uoc-luong-sc",
+    "toolbarCount": 1,
+    "formCols": "",
+    "titles": [
+      "Ước lượng sửa chữa",
+      "Xem ước lượng"
+    ],
+    "badges": [],
+    "buttons": [
+      {
+        "text": "Tạo từ sự cố",
+        "title": "",
+        "testid": "rmms-estimate-list-from-incident"
+      },
+      {
+        "text": "Tạo từ phát hiện",
+        "title": "",
+        "testid": "rmms-estimate-list-from-defects"
+      },
+      {
+        "text": "Xuất Excel",
+        "title": "",
+        "testid": "rmms-estimate-list-export"
+      },
+      {
+        "text": "Làm mới",
+        "title": "",
+        "testid": "rmms-estimate-list-refresh-btn"
+      },
+      {
+        "text": "",
+        "title": "",
+        "testid": "rmms-estimate-list-search-text-search-btn"
+      },
+      {
+        "text": "",
+        "title": "",
+        "testid": "rmms-estimate-list-date-range-date-expand-btn"
+      },
+      {
+        "text": "",
+        "title": "",
+        "testid": "rmms-estimate-list-view-btn"
+      },
+      {
+        "text": "RMMS",
+        "title": "",
+        "testid": "sidebar-logo-home"
+      },
+      {
+        "text": "QL đường bộ",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "01. QL tài sản đường bộ",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Danh mục",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "02. GIS bản đồ số 2D",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Hiện trường",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Chứng từ",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Bản đồ",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "AI kiểm định",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "AI kiểm định mặt đường",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Phát hiện tài sản / thiết bị mới",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Ước lượng sửa chữa",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "AI dự báo bảo trì",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "ITS biển báo / cọc tiêu",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "ITS ANPR · Quá tải / tốc độ",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "03c. Kết nối Camera GTVT",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "04. Tuần đường / tuần kiểm",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Báo cáo",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Tích hợp",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Copilot",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Trang chủ",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "Bảng điều khiển",
+        "title": "",
+        "testid": ""
+      },
+      {
+        "text": "RMMS",
+        "title": "Đơn vị cơ sở: RMMS",
+        "testid": "nav-switch-company-btn"
+      }
+    ],
+    "labels": [
+      "Tìm kiếm",
+      "Trạng thái",
+      "Nguồn",
+      "Thời gian",
+      "Đang tải hệ thống…"
+    ],
+    "kpi": [],
+    "enHits": [],
+    "headerTitle": "Ước lượng sửa chữa",
+    "headerFontPx": 20,
+    "headerWeight": "700",
+    "listTitles": [
+      "Danh sách ước lượngMenu dòng: nhấn đúp · Ctrl + chuột phải · nhấn giữ dòng",
+      "Danh sách ước lượng",
+      "Menu dòng: nhấn đúp · Ctrl + chuột phải · nhấn giữ dòng"
+    ],
+    "searchPlaceholders": [
+      "Mã, sự cố, tuyến, loại…"
+    ],
+    "linErpFilter": true,
+    "erpHeaderFilters": false,
+    "customFilterRow": false,
+    "nativeSelects": 2
+  }
+}

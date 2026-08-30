@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hướng dẫn — Quản lý sự cố</title>
+  <style>
+    body { font-family: 'Segoe UI', Tahoma, sans-serif; max-width: 960px; margin: 0 auto; padding: 24px; color: #1a1a1a; background: #fafafa; line-height: 1.6; }
+    h1 { border-bottom: 2px solid #005a9e; padding-bottom: 8px; color: #005a9e; }
+    h2 { color: #2c3e50; margin-top: 32px; }
+    table { border-collapse: collapse; width: 100%; margin: 16px 0; background: #fff; }
+    th, td { border: 1px solid #ddd; padding: 8px 12px; text-align: left; }
+    th { background: #005a9e; color: #fff; }
+    img { max-width: 100%; border: 1px solid #ddd; }
+    .tien-do-ref { background: #fff8e1; border-left: 4px solid #f9a825; padding: 12px 16px; margin: 24px 0; border-radius: 4px; }
+    .nav-links { margin: 16px 0; display: flex; gap: 12px; flex-wrap: wrap; }
+    .nav-links a { background: #005a9e; color: #fff; padding: 8px 16px; border-radius: 4px; text-decoration: none; }
+    .footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid #ddd; font-size: 0.85em; color: #666; }
+    @media print { .nav-links { display: none; } body { font-size: 12pt; } }
+  </style>
+</head>
+<body>
+  <h1>Hướng dẫn — Quản lý sự cố</h1>
+  <nav class="nav-links">
+    <a href="#overview">Tổng quan</a>
+    <a href="#workflow">Workflow</a>
+    <a href="#walk">Walkthrough</a>
+  </nav>
+  <section id="overview">
+    <h2>1. Tổng quan</h2>
+    <p>Ghi nhận sự cố / vấn đề hiện trường trên web Sự cố / Vấn đề. Không lẫn Cổng người dân.</p>
+    <p>Truy cập: menu <strong>Sự cố / Vấn đề</strong> · <code>/su-co</code></p>
+  </section>
+  <section id="workflow">
+    <h2>2. Workflow</h2>
+    <table>
+      <thead><tr><th>Luồng</th><th>Bắt đầu</th><th>Kết thúc</th></tr></thead>
+      <tbody>
+        <tr><td>Tạo mới</td><td>Danh sách</td><td>Phiếu Mới</td></tr>
+        <tr><td>Giao việc</td><td>Menu dòng</td><td>Người xử lý</td></tr>
+        <tr><td>Đóng</td><td>Menu dòng</td><td>Đã đóng</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <section id="walk">
+    <h2>3. Walkthrough</h2>
+    <p>HDSD đầy đủ + ảnh: <a href="../../user-doc/incident/preview.html">user-doc preview</a></p>
+    <p><img src="../../user-doc/incident/captures/02-su-co.png" alt="Danh sách sự cố" /></p>
+  </section>
+  <section class="tien-do-ref">
+    <h3>Tiến độ triển khai</h3>
+    <p>Xem tiến độ tại <a href="../../../tien-do/tien-do.html" target="_blank">Tiến độ hợp đồng</a>.</p>
+  </section>
+  <div class="footer">
+    <p><a href="guide.md">guide.md</a> · <a href="../../user-doc/incident/huong-dan-su-dung.md">HDSD</a></p>
+  </div>
+</body>
+</html>

@@ -32,14 +32,15 @@
 
 ## 3. API
 
-Base: `api/v1/open-api/org-units` (SA DOMAIN-MAP · Integration · GAP-SA-ROUTE-01)
+Base: `api/v1/integration/org-units` (DOMAIN-MAP **Integration** · live · **cấm** `open-api` SSOT) · BFF `web-bff/api/v1/integration/org-units`
 
 | Method | Path | Mô tả |
 |--------|------|-------|
-| GET | `/open-api/org-units/tree` | Cây đầy đủ |
-| GET | `/open-api/org-units?search=` | List/search CI không dấu |
-| GET | `/open-api/org-units/search` | SearchInput parent |
-| GET | `/open-api/org-units/{id}` | Chi tiết |
+| GET | `/integration/org-units/tree` | Cây non-leaf |
+| GET | `/integration/org-units?search=&kind=&parentCode=` | List/search CI không dấu |
+| GET | `/integration/org-units/search` | SearchInput parent |
+| GET | `/integration/org-units/init-data` | kinds `{value,label}` |
+| GET | `/integration/org-units/{id}` | Chi tiết |
 | POST / PUT / DELETE | … | CRUD shared Type A |
 
 ## 4. Fields (draft)

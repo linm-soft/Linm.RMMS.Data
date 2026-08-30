@@ -119,7 +119,7 @@ Live seed `CatalogUiSchemaSeed.OpsInbox()` `Field.List.Order` **và** FE `uiColu
 | layer | ui |
 | status | **verify** (live done) |
 | Routes | `/ops/new` · `/ops/:id` · `?mode=edit` · `?mode=copy` |
-| DoD | Full-page Z1–Z3 · C/E/V/Copy · View=`<dl>` · leave-confirm dirty · Copy → POST new · IdCode `OPS-*` readonly · **cấm** Slideout / Resource / Modal form. |
+| DoD | Full-page Z1–Z3 · **5 cột** `data-form-cols="5"` · medium 3 · small 2 · C/E/V/Copy · View=`<dl>` · leave-confirm dirty · Copy → POST new · IdCode `OPS-*` readonly · **cấm** Slideout / Resource / Modal form · **cấm** grid 2-cột (**GAP-P2-FORM-GRID-05**). |
 
 ## T-UI-ACT-01 — action inventory
 
@@ -190,7 +190,7 @@ Map controlHint ↔ DTO (SA lock). **cấm** Dev đổi SearchInput → select.
 ## T-UI-UX-01
 
 **status:** **verify**  
-Spacing 4/8/16 · `LinPageLayout` list · `LinPageHeader` form · `LinCatalogDataGrid` · `LinCatalogListPagination` · **cấm** `filterMaxWidthPx`. LAYOUT-06 list shell height **PASS** prior — Dev re-check.
+Spacing 4/8/16 · `LinPageLayout` list · `LinPageHeader` form · form grid **5 cột** `data-form-cols="5"` (`form-field-grid.md`) · `LinCatalogDataGrid` · `LinCatalogListPagination` · **cấm** `filterMaxWidthPx` · **cấm** 2-cột full page. LAYOUT-06 list shell height **PASS** prior — Dev re-check.
 
 ## T-BE-CRUD-01 (= T-BE-01)
 
@@ -232,12 +232,12 @@ Smoke: list filters direction/org · default column order · Create→Edit→Vie
 | T-PERM-01 | Dev | **verify** | `notification.inbox.*` |
 | T-UI-LIST-01 | Dev | **verify** | A–D + Zone F PASS |
 | T-UI-LIST-02 | Dev | **pending** | column order |
-| T-UI-FORM-01 | Dev | **verify** | full-page |
+| T-UI-FORM-01 | Dev | **verify** | full-page **5 cột** |
 | T-UI-ACT-01 | Dev | **verify** | inventory |
 | T-UI-LKP-01 | Dev | **verify** | FE constants |
 | T-UI-FIELD-01 | Dev | **verify** | control-map |
 | T-UI-PROD-01 | Dev | **verify** | cấm Resource/Slideout |
-| T-UI-UX-01 | Dev | **verify** | constitution |
+| T-UI-UX-01 | Dev | **verify** | constitution · **5 cột** |
 | T-BE-CRUD-01 | Dev | **verify** | keep contract |
 | T-BE-02 | Dev | **verify** | migrations exist |
 | T-BE-SCHEMA-01 | Dev | **pending** | GAP-SA-OPS-SCHEMA |

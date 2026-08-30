@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hướng dẫn sử dụng — Cổng người dân</title>
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
+    mermaid.initialize({ startOnLoad: true, theme: "neutral", securityLevel: "strict" });
+  </script>
+  <style>
+    :root { font-family: "Segoe UI", system-ui, sans-serif; color: #1a1a1a; }
+    body { margin: 0; background: #fafafa; }
+    .wrap { max-width: 960px; margin: 0 auto; padding: 24px; background: #fff; }
+    h1 { font-size: 1.35rem; margin-top: 0; }
+    h2 { font-size: 1.15rem; }
+    table { border-collapse: collapse; width: 100%; font-size: 0.9rem; }
+    th, td { border: 1px solid #d0d0d0; padding: 0.4rem 0.55rem; text-align: left; }
+    th { background: #f4f4f4; }
+    figure { margin: 0 0 1rem; }
+    figure img { width: 100%; height: auto; border: 1px solid #ddd; }
+    figcaption { font-size: 0.85rem; color: #444; margin-top: 0.35rem; }
+    .phone-row { display: grid; grid-template-columns: 375px minmax(200px, 1fr); column-gap: 24px; align-items: start; margin: 0 0 1rem; }
+    .phone-row > figure.fig-phone { grid-column: 1; width: 375px; max-width: 100%; margin: 0; }
+    .phone-row > :not(figure) { grid-column: 2; min-width: 0; }
+    .fig-phone img { width: 375px; max-width: 100%; height: auto; object-fit: contain; display: block; }
+    @media screen and (max-width: 720px) { .phone-row { grid-template-columns: 1fr; } .phone-row > * { grid-column: 1; } }
+    .mermaid { break-inside: avoid; }
+    @page {
+      size: A4 portrait;
+      margin: 14mm 12mm 16mm 12mm;
+      @top-left { content: "Hướng dẫn sử dụng — Cổng người dân"; font-size: 9pt; color: #555; }
+      @top-center { content: none; }
+      @top-right { content: none; }
+      @bottom-left { content: none; }
+      @bottom-center { content: none; }
+      @bottom-right { content: counter(page) "/" counter(pages); font-size: 9pt; color: #555; }
+    }
+    @media print {
+      html, body { width: 100%; margin: 0; padding: 0; background: #fff; }
+      .wrap { max-width: none !important; width: 100% !important; margin: 0; padding: 0; }
+      a { color: inherit; text-decoration: none; }
+      a[href]::after { content: none !important; }
+      .no-print { display: none !important; }
+      .has-fig { break-before: page; page-break-before: always; margin-top: 0; }
+      .text-only { break-before: auto; page-break-before: auto; }
+      figure { break-inside: avoid; }
+      figure img { width: 100%; max-height: 145mm; object-fit: contain; }
+      h2, h3 { break-after: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Hướng dẫn sử dụng — Cổng người dân</h1>
+    <p class="no-print">Bản in: tắt «Tiêu đề và chân trang» của trình duyệt.</p>
+
+    <section class="screen text-only">
+      <h2>Phạm vi</h2>
+      <p>Tài khoản được cấp quyền menu <strong>18. Open API &amp; tích hợp</strong> thao tác <strong>Cổng người dân</strong>.</p>
+    </section>
+
+    <section class="screen text-only wf">
+      <h2>Luồng xử lý</h2>
+      <table>
+        <thead><tr><th>Luồng</th><th>Mô tả</th><th>Bắt đầu</th><th>Kết thúc</th><th>Người thực hiện</th></tr></thead>
+        <tbody>
+          <tr><td>Mở danh sách</td><td>Vào menu Cổng người dân</td><td>Đăng nhập</td><td>Danh sách / trang</td><td>Tài khoản được cấp</td></tr>
+          <tr><td>Thêm mới</td><td>Nhấn Tạo mới / Thêm</td><td>Danh sách</td><td>Lưu phiếu</td><td>Tài khoản được cấp</td></tr>
+        </tbody>
+      </table>
+      <pre class="mermaid">
+graph TD
+  A[Đăng nhập] --> B[Cổng người dân]
+  B --> C[Tạo mới]
+  C --> D[Lưu]
+      </pre>
+    </section>
+
+    <section class="screen text-only">
+      <h2>Thao tác chung</h2>
+      <p>Đăng nhập: xem <a href="../dang-nhap/preview.html">Hướng dẫn đăng nhập</a>.</p>
+      <ul>
+        <li><code>*</code> = bắt buộc khi Lưu / Gửi. Ô trống = không bắt buộc.</li>
+        <li>Lọc: điền ô tìm hoặc danh sách thả xuống, rồi nhấn <strong>Tìm</strong> nếu có trên thanh lọc.</li>
+        <li><strong>Làm mới</strong> tải lại danh sách từ thanh công cụ.</li>
+        <li>Nhấn <strong>Lưu</strong> / <strong>Gửi</strong> / <strong>Tạo mới</strong> khi hoàn tất form.</li>
+      </ul>
+    </section>
+
+    <section class="screen has-fig">
+      <h2 id="form-list">Cổng người dân</h2>
+      <p><strong>Mục đích:</strong> mở và tra cứu Cổng người dân.</p>
+      <p><strong>Cách thực hiện:</strong></p>
+      <ol>
+        <li>Vào menu <strong>Cổng người dân</strong> (nhóm 18. Open API &amp; tích hợp).</li>
+        <li>Điền điều kiện lọc nếu cần.</li>
+        <li>Nhấn <strong>Tạo mới</strong> hoặc <strong>Thêm</strong> để lập bản ghi mới.</li>
+      </ol>
+      <figure><img src="captures/02-nhan-dan.png" alt="Hình 1. Cổng người dân" /><figcaption>Hình 1. Cổng người dân</figcaption></figure>
+      <div class="phone-row">
+        <figure class="fig-phone">
+          <img src="captures/02-nhan-dan-375.png" alt="View trên mobile device(<= 375px)" />
+          <figcaption>Hình 2. View trên mobile device(<= 375px)</figcaption>
+        </figure>
+        <p>Màn hẹp: xếp dọc, nút chính phía trên.</p>
+      </div>
+      
+      <p>Nút trên màn: <strong>Làm mới</strong> · <strong>Tạo mới</strong> · <strong>RMMS</strong> · <strong>QL đường bộ</strong> · <strong>01. QL tài sản đường bộ</strong> · <strong>02. GIS bản đồ số 2D</strong> · <strong>AI kiểm định mặt đường</strong> · <strong>Phát hiện tài sản / thiết bị mới</strong> · <strong>03c. Kết nối Camera GTVT</strong> · <strong>04. Tuần đường / tuần kiểm</strong> · <strong>Chấm công và định vị</strong> · <strong>Sự cố / Vấn đề</strong> · <strong>Lập lịch sửa chữa / bảo trì</strong> · <strong>AI dự báo bảo trì</strong> · <strong>09. Chỉ đạo điều hành</strong> · <strong>Ước lượng sửa chữa</strong>.</p>
+    </section>
+
+    <section class="screen has-fig">
+      <h2 id="form-create">Báo sự cố mới</h2>
+      <p><strong>Mục đích:</strong> lập bản ghi Cổng người dân.</p>
+      <p><strong>Cách thực hiện:</strong></p>
+      <ol>
+        <li>Nhấn <strong>Tạo mới</strong> hoặc <strong>Thêm</strong> trên danh sách.</li>
+        <li>Điền các ô <code>*</code>.</li>
+        <li>Nhấn <strong>Lưu</strong> / <strong>Gửi</strong> / <strong>Tạo mới</strong> khi hoàn tất.</li>
+      </ol>
+      <figure><img src="captures/03-nhan-dan-tao-moi.png" alt="Hình 3. Tạo mới" /><figcaption>Hình 3. Báo sự cố mới</figcaption></figure>
+      <div class="phone-row">
+        <figure class="fig-phone">
+          <img src="captures/03-nhan-dan-tao-moi-375.png" alt="View trên mobile device(<= 375px)" />
+          <figcaption>Hình 4. View trên mobile device(<= 375px)</figcaption>
+        </figure>
+        <p>Màn hẹp: xếp dọc, nút chính phía trên.</p>
+      </div>
+      <p><code>*</code> = bắt buộc khi Lưu / Gửi. Ô trống = không bắt buộc.</p>
+    <table><thead><tr><th>Nhãn trên màn</th><th>*</th><th>Cách điền</th></tr></thead><tbody><tr><td>Mã theo dõi</td><td></td><td>Được để trống</td></tr><tr><td>Trạng thái xử lý</td><td>*</td><td>Điền / chọn trước khi Lưu</td></tr><tr><td>Họ tên</td><td>*</td><td>Điền / chọn trước khi Lưu</td></tr><tr><td>Số điện thoại</td><td>*</td><td>Điền / chọn trước khi Lưu</td></tr><tr><td>Email</td><td></td><td>Được để trống</td></tr><tr><td>Loại sự cố</td><td>*</td><td>Điền / chọn trước khi Lưu</td></tr><tr><td>Thời gian báo cáo</td><td>*</td><td>Điền / chọn trước khi Lưu</td></tr><tr><td>Nguồn</td><td></td><td>Được để trống</td></tr><tr><td>Ảnh/Video (meta)</td><td></td><td>Được để trống</td></tr><tr><td>Mô tả / phản ánh hiện trường</td><td>*</td><td>Điền / chọn trước khi Lưu</td></tr><tr><td>Địa chỉ vị trí</td><td></td><td>Được để trống</td></tr><tr><td>Vĩ độ (Lat)</td><td>*</td><td>Điền / chọn trước khi Lưu</td></tr><tr><td>Kinh độ (Lng)</td><td>*</td><td>Điền / chọn trước khi Lưu</td></tr><tr><td>Tuyến đường</td><td></td><td>Được để trống</td></tr><tr><td>Lý trình (Km)</td><td></td><td>Được để trống</td></tr></tbody></table>
+      <h3>Kết quả</h3>
+    <table><thead><tr><th>Trường hợp</th><th>Thao tác</th><th>Kết quả</th></tr></thead><tbody>
+      <tr><td>Thành công</td><td>Điền đủ ô <code>*</code>. Nhấn <strong>Lưu</strong> / <strong>Gửi</strong> / <strong>Tạo mới</strong>.</td><td>Bản ghi được ghi. Danh sách hoặc màn xem cập nhật.</td></tr>
+      <tr><td>Thiếu <code>*</code></td><td>Để trống ít nhất một ô <code>*</code>. Nhấn Lưu / Gửi.</td><td>Không ghi. Ô bắt buộc báo lỗi.</td></tr>
+      <tr><td>Dữ liệu không hợp lệ</td><td>Điền sai quy tắc trên màn (trùng mã, sai định dạng).</td><td>Không ghi. Phần mềm báo lỗi.</td></tr>
+    </tbody></table>
+    </section>
+  </div>
+</body>
+</html>

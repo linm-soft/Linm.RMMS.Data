@@ -1,0 +1,19 @@
+{
+  "list": {
+    "title": "404",
+    "buttons": [
+      "Về trang chủ",
+      "Quay lại",
+      "RMMS",
+      "Menu",
+      "Quản trị hệ thống",
+      "Đăng xuất",
+      "Đơn vị cơ sở: RMMS"
+    ],
+    "headers": [],
+    "labels": [],
+    "formCols": "",
+    "footerCrud": false
+  },
+  "form": null
+}

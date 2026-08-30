@@ -54,7 +54,7 @@
 | **MFE** | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Asset` | `/so-ts/hang-muc` · widget webpack entry |
 | **BE** | `Linm.RMMS.WebService` domain **Asset** | `api/v1/asset/road-assets/summary-by-type` |
 | **BFF** | `LINM.RMMS.Asset.Bff` | proxy-only `web-bff/api/v1/asset/road-assets/summary-by-type` |
-| **Host** | `D:/MFE-CORE/Linm.Web.Dashboard` | `WIDGET_REGISTRY` · **không** API trên host |
+| **Host** | `D:/MFE-CORE/Linm.Web.Dashboard` | `resolveParcelWidgets()` từ Authen `menuType=widget` · **không** API trên host |
 | **Auth** | CommonLib stub | `asset.road-assets.read` |
 
 ### ssot.reuse
@@ -154,7 +154,7 @@ Audit `Linm.Web.RMMS.Asset` + `Linm.Web.Dashboard` `WidgetArea.tsx` + `RoadAsset
 | id | Surface | Pattern | Route / mount | Zones | Actions |
 |----|---------|---------|---------------|-------|---------|
 | S-STANDALONE | Hub KCHT full page | Kind E A + GRID | `/so-ts/hang-muc` | A · GRID | display counts · click drill |
-| S-WIDGET | Dashboard widget slot | Kind E body only | `@linm/rmms-asset-kcht-widget` cols:3 | GRID | same drill · host title from registry |
+| S-WIDGET | Dashboard widget slot | Kind E body only | `@linm/rmms-asset-kcht-widget` size 3 | GRID | same drill · host title **Tổng quan tài sản** |
 | S-FORM | Form CRUD | — | — | — | **OUT P1** |
 
 ## T-CTX · T-PERM · T-UI-* · T-BE/BFF · T-HOST
@@ -170,7 +170,7 @@ Audit `Linm.Web.RMMS.Asset` + `Linm.Web.Dashboard` `WidgetArea.tsx` + `RoadAsset
 | **T-UI-UX-01** | hub | ui | T-UI-TILE-01 | **done** | gap 12px grid · hover border primary · focus-visible · toast SSOT · **cấm** alert |
 | **T-BE-01** | api | api | T-CTX-01 | **done** | `GET api/v1/asset/road-assets/summary-by-type` · `GetSummaryByTypeAsync` group `Type` tenant active · **không** migration |
 | **T-BFF-01** | bff | bff | T-BE-01 | **done** | Proxy GET summary-by-type · **không** business |
-| **T-HOST-01** | dashboard | host | T-UI-TILE-02 | **done** | `WIDGET_REGISTRY` `rmms-kcht-hang-muc` · `.widgetBodyStretch` · **cấm** API trên host |
+| **T-HOST-01** | dashboard | host | T-UI-TILE-02 | **done** | Authen `menuType=widget` · title **Tổng quan tài sản** · size 3 · parcel `@linm/rmms-asset-kcht-widget` · **cấm** API trên host |
 | **T-QA-HUB-01** | asset-kcht-dashboard | qa | T-HOST-01 | pending QA | scenarios · mfeStdUrl · widget mount · 40 cards · drill · build PASS |
 | **T-UI-ICON-01** | /so-ts/hang-muc + widget | ui | T-UI-TILE-01 | **done** | `iconCode` + alias GIS `assetIconBareHtml` · Root importmap widget :9221 |
 | **T-QA-ICON-01** | hub + widget | qa | T-UI-ICON-01 | **open** | 40 ô SVG GIS · không `fas fa-*` trên tile · chrome H1 FA OK |
@@ -231,6 +231,11 @@ Slug `dashboard` KPI Report (`/bao-cao/dashboard`) · `ParcelComponent` · CRUD 
 - Standalone + widget: 40 SVG · `data-icon-code` khớp Design §6.
 - Grep tile: **0** `fas fa-` trong card pict.
 - Map pin GIS cùng `iconCode` = cùng SVG.
+
+## UI notes Dev (`/edit-web-feature` · 2026-08-30)
+
+- Host `/dashboard`: Lối tắt nhanh (native size 3) + widget **Tổng quan tài sản** (parcel `@linm/rmms-asset-kcht-widget` size 3) — cùng lưới KCHT.
+- Config Authen: `menuType=widget` · `defaultUrl`=size · `redirectTo`=parcel · set `rmms-dashboard` chỉ RMMS. Sidebar ẩn widget.
 
 ## Handoff → Dev (icon delta — **không** chạy turn này)
 

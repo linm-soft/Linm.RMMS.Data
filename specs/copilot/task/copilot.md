@@ -95,6 +95,7 @@ Base BE: `api/v1/copilot` · BFF: `web-bff/api/v1/copilot` · FE BASE: **`/copil
 | API-09 | GET | `/stats` | DONE | keep optional |
 | API-10 | GET | `/rate` | **MISSING** | **GAP-SA-COP-RATE** peek `{ rateRemaining, rateLimit: 10 }` **không** consume |
 | API-11 | GET | `/health` | DONE | keep |
+| API-12 | GET | `/prompts` | **NEW** | chips + canned SSOT `CopilotMockCatalog` UTF-8 · FE load drawer · **cấm** hardcode PROMPTS |
 | LKP | — | init-data | **OUT P1** | FE static enum |
 
 ## Implement gates (from SA)
@@ -179,7 +180,7 @@ Audit `Linm.Web.RMMS.Copilot` + `CopilotService` / `CopilotBffController` — **
 | T-PERM-01 | copilot | ui+api | T-CTX-01 | FE partial | `copilot.sessions.read\|create\|update\|delete` · `copilot.chat.send` · `copilot.chat.feedback` · FE `copilotListPermissions` + chat gates · BE `[RequirePermission]` stub P1 |
 | T-UI-LIST-01 | /copilot | ui-list | T-PERM-01 | shell **PASS** · A/B **GAP** | Giữ 1× LinPageLayout + grid + pagination · Zone A `fa-comments` + badges tách · listTitle «Danh sách phiên hội thoại» · SearchInput status · filter đổi page=1 · **cấm** filterMaxWidth · FE pageSize 50/100/200/500 |
 | T-UI-FORM-01 | /copilot/new | ui-form | T-UI-LIST-01 | redirect **PASS** | Giữ `Navigate` `/copilot/new` → `/copilot` · **không** mount CRUD form · **không** Slideout CRUD phiên |
-| T-UI-DRAWER-01 | drawer | ui-form | T-UI-LIST-01 | Kind D **GAP** | Z1: Đóng + LeaveConfirmModal · code readonly · **Text title** persist PATCH · Xuất JSON · engine badge · Z2: chips×5 · bubbles · citations toast · chart stub · thumbs · copy · **note modal** down · Z3: TextArea · SearchInput locale · Gửi · Escalate · P2 badge only · disclaimer |
+| T-UI-DRAWER-01 | drawer | ui-form | T-UI-LIST-01 | Kind D **GAP** | Z1: Đóng + LeaveConfirmModal · code readonly · **Text title** persist PATCH · Xuất JSON · engine badge · Z2: chips×5 **từ GET /prompts** · bubbles UTF-8 · citations toast · chart stub · thumbs · copy · **note modal** down · Z3: TextArea · SearchInput locale · Gửi · Escalate · P2 badge only · disclaimer |
 | T-UI-ACT-01 | copilot | ui | T-UI-LIST-01 | partial | Toolbar Phiên mới / Xem / Xóa · FAB · row Xem/Lịch sử/Lưu trữ/Xóa · delete **useAlert** · **cấm** `window.confirm` |
 | T-UI-LKP-01 | copilot | ui | T-UI-LIST-01 | **FAIL Select** | status + locale = `SearchInput` static enum · **cấm** `Select` / native select · **không** init-data |
 | T-UI-FIELD-01 | copilot | ui | T-UI-DRAWER-01 | **delta** | Date UTC→local · tokens INT · enum status/locale/model/vote · title PATCH · feedback.note string |

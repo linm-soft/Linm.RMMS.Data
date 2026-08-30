@@ -1,0 +1,235 @@
+{
+  "list": {
+    "title": "Phân loại mặt đường (Biểu 1)",
+    "buttons": [
+      "Làm mới",
+      "Tạo mới",
+      "PV-17624245261003300",
+      "PV-17624261646738300",
+      "PV-17624265389047900",
+      "PV-rmd_qldb_4_62_2",
+      "PV-rmd_qldb_4_62_3",
+      "PV-rmd_1150_1",
+      "PV-rmd_1150_2",
+      "PV-rmd_1150_3",
+      "PV-rmd_1150_4",
+      "PV-rmd_1150_5",
+      "PV-rmd_1151_1",
+      "PV-rmd_1151_2",
+      "PV-rmd_1151_3",
+      "PV-rmd_1151_4",
+      "PV-rmd_1152_1",
+      "PV-rmd_1152_2",
+      "PV-rmd_1152_3",
+      "PV-rmd_1152_4",
+      "PV-rmd_1152_5",
+      "PV-rmd_1153_1",
+      "PV-rmd_1154_1",
+      "PV-rmd_1154_2",
+      "PV-rmd_1154_3",
+      "PV-rmd_1154_4",
+      "PV-rmd_1154_5",
+      "PV-rmd_1154_6",
+      "PV-rmd_1154_7",
+      "PV-rmd_1154_8",
+      "PV-rmd_1154_9",
+      "PV-rmd_1155_1",
+      "PV-rmd_1155_2",
+      "PV-rmd_1155_3",
+      "PV-rmd_1155_4",
+      "PV-rmd_1155_5"
+    ],
+    "headers": [
+      "STT",
+      "Mã",
+      "Tên đường",
+      "Tỉnh",
+      "KmFrom–To",
+      "Kết cấu",
+      "Cấp",
+      "Tình trạng",
+      "PCI",
+      "Lớp",
+      "Ngày đo",
+      "ĐV QL"
+    ],
+    "labels": [
+      {
+        "label": "Tìm kiếm",
+        "required": false
+      },
+      {
+        "label": "Tỉnh",
+        "required": false
+      },
+      {
+        "label": "Tình trạng",
+        "required": false
+      },
+      {
+        "label": "Tên đường",
+        "required": false
+      },
+      {
+        "label": "Từ Km",
+        "required": false
+      },
+      {
+        "label": "Đến Km",
+        "required": false
+      }
+    ],
+    "formCols": "",
+    "footerCrud": false
+  },
+  "form": {
+    "title": "Tạo phân loại mặt đường",
+    "buttons": [
+      "Quay lại",
+      "Mở bản đồ live",
+      "Hủy thay đổi",
+      "Tạo mới",
+      "Xoá lựa chọn",
+      "RMMS",
+      "QL đường bộ",
+      "01. QL tài sản đường bộ",
+      "Cơ cấu tổ chức",
+      "Tuyến đường",
+      "Loại tài sản",
+      "Đơn vị đối tác",
+      "Sổ tài sản KCHT",
+      "Phân loại mặt đường",
+      "CSDL 12 biểu + 8 sổ BDTX",
+      "Hạng Mục Kết Cấu Hạ Tầng",
+      "Danh sách IoT",
+      "Drone / Reality Capture",
+      "02. GIS bản đồ số 2D",
+      "03. AI kiểm định mặt đường",
+      "03b. AI phát hiện TS mới",
+      "03c. Kết nối Camera GTVT",
+      "04. Tuần đường / tuần kiểm",
+      "05. Chấm công / định vị",
+      "06. Quản lý sự cố",
+      "07. Bảo trì",
+      "08. AI dự báo bảo trì",
+      "09. Chỉ đạo điều hành",
+      "10. AI ước lượng",
+      "11. HĐ & ngân sách",
+      "16. AI Copilot",
+      "17. Dashboard & BC",
+      "18. Open API & tích hợp",
+      "Trang chủ",
+      "Bảng điều khiển",
+      "Đăng xuất"
+    ],
+    "headers": [],
+    "labels": [
+      {
+        "label": "Mã",
+        "required": false
+      },
+      {
+        "label": "Tên đường",
+        "required": true
+      },
+      {
+        "label": "Tỉnh / địa phương",
+        "required": true
+      },
+      {
+        "label": "Từ Km",
+        "required": true
+      },
+      {
+        "label": "Đến Km",
+        "required": true
+      },
+      {
+        "label": "Chiều dài (Km)",
+        "required": false
+      },
+      {
+        "label": "B nền (m)",
+        "required": false
+      },
+      {
+        "label": "B mặt (m)",
+        "required": false
+      },
+      {
+        "label": "Loại kết cấu",
+        "required": true
+      },
+      {
+        "label": "Dày mặt (cm)",
+        "required": false
+      },
+      {
+        "label": "Cấp đường",
+        "required": false
+      },
+      {
+        "label": "Số năm khai thác",
+        "required": false
+      },
+      {
+        "label": "Bàn giao BT",
+        "required": false
+      },
+      {
+        "label": "Bàn giao XDCB",
+        "required": false
+      },
+      {
+        "label": "Năm đại tu",
+        "required": false
+      },
+      {
+        "label": "Năm SC mặt",
+        "required": false
+      },
+      {
+        "label": "Tình trạng",
+        "required": true
+      },
+      {
+        "label": "PCI",
+        "required": false
+      },
+      {
+        "label": "Lớp GIS",
+        "required": false
+      },
+      {
+        "label": "Ngày đo",
+        "required": false
+      },
+      {
+        "label": "ĐV thi công",
+        "required": false
+      },
+      {
+        "label": "ĐV quản lý",
+        "required": true
+      },
+      {
+        "label": "Chủ QLSD",
+        "required": false
+      },
+      {
+        "label": "Ngày cập nhật",
+        "required": false
+      },
+      {
+        "label": "Người cập nhật",
+        "required": false
+      },
+      {
+        "label": "Ghi chú",
+        "required": false
+      }
+    ],
+    "formCols": "5",
+    "footerCrud": false
+  }
+}

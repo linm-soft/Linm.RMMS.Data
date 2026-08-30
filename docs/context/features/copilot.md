@@ -60,7 +60,8 @@
 
 | Method | Path | Mô tả |
 |--------|------|-------|
-| POST | `/api/v1/copilot/chat` | Message + sessionId (alias `ask`) |
+| POST | `/api/v1/copilot/chat` | Message + sessionId — canned `CopilotMockCatalog` UTF-8 |
+| GET | `/api/v1/copilot/prompts` | Chip ×5 SSOT (FE không hardcode) |
 | GET | `/api/v1/copilot/sessions/{id}` | History |
 | GET | `/api/v1/copilot/sessions` | List sessions |
 | POST | `/api/v1/copilot/feedback` | Thumb up/down |

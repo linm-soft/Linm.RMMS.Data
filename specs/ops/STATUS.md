@@ -96,6 +96,9 @@
 | task_3b00ed47 | ops | dev | team_lead | **completed** | `/agent-dev-ios` + `/agent-dev-android` · DELTA verify · VERIFY PASS |
 | task_6be285ee | ops | qa | dev | **completed** | `/agent-qa-mobile` · roleOnly=`qa` · e2e-qa-mobile **ok:true** · align Must 0 · VERIFY PASS |
 | task_a85d01a0 | ops | review | qa | **completed** | `/agent-review-mobile` · review_confirm approve · verifyGate PASS · roleOnly · post_review skip |
+| T-UD-BUG-01 | ops | docs | — | **done** | confirmed `/run-user-doc` 2026-08-29 · web `/chi-dao` PLAT-TB-06 · capture=10-chi-dao-tao-moi.png |
+| T-UD-BUG-02 | ops | docs | — | **done** | confirmed `/run-user-doc` 2026-08-29 · web `/chi-dao` PLAT-TB-07 · capture=10-chi-dao-tao-moi.png |
+| T-UD-BUG-03 | ops | docs | — | **done** | confirmed `/run-user-doc` 2026-08-29 · web `/chi-dao` GAP-P2-BTN-SSOT-01 · capture=10-chi-dao-tao-moi.png |
 
 ## Blockers / open questions
 

@@ -1,0 +1,230 @@
+{
+  "list": {
+    "title": "Sự cố / Vấn đề",
+    "buttons": [
+      "Làm mới",
+      "Tạo mới",
+      "VD-20260829-0003",
+      "VD-20260829-0002",
+      "VD-20260829-0001",
+      "VD-20260827-0001",
+      "Đầu",
+      "Trước",
+      "Sau",
+      "Cuối",
+      "RMMS",
+      "QL đường bộ",
+      "01. QL tài sản đường bộ",
+      "02. GIS bản đồ số 2D",
+      "03. AI kiểm định mặt đường",
+      "03b. AI phát hiện TS mới",
+      "03c. Kết nối Camera GTVT",
+      "04. Tuần đường / tuần kiểm",
+      "05. Chấm công / định vị",
+      "06. Quản lý sự cố",
+      "Sự cố / Vấn đề",
+      "07. Bảo trì",
+      "08. AI dự báo bảo trì",
+      "09. Chỉ đạo điều hành",
+      "10. AI ước lượng",
+      "11. HĐ & ngân sách",
+      "16. AI Copilot",
+      "17. Dashboard & BC",
+      "18. Open API & tích hợp",
+      "Trang chủ",
+      "Bảng điều khiển",
+      "Đăng xuất",
+      "Đơn vị cơ sở: RMMS"
+    ],
+    "headers": [
+      "STT",
+      "Mã",
+      "Tiêu đề",
+      "Đoạn",
+      "Loại",
+      "Mức độ",
+      "Trạng thái",
+      "Ngày YC",
+      "AI"
+    ],
+    "labels": [
+      {
+        "label": "Tìm kiếm",
+        "required": false
+      },
+      {
+        "label": "Trạng thái",
+        "required": false
+      },
+      {
+        "label": "Mức độ",
+        "required": false
+      },
+      {
+        "label": "Đoạn đường",
+        "required": false
+      },
+      {
+        "label": "Loại sự cố",
+        "required": false
+      }
+    ],
+    "formCols": "",
+    "footerCrud": false
+  },
+  "form": {
+    "title": "Sự cố / Vấn đề",
+    "buttons": [
+      "Làm mới",
+      "Tạo mới",
+      "VD-20260829-0003",
+      "VD-20260829-0002",
+      "VD-20260829-0001",
+      "VD-20260827-0001",
+      "Đầu",
+      "Trước",
+      "Sau",
+      "Cuối",
+      "RMMS",
+      "QL đường bộ",
+      "01. QL tài sản đường bộ",
+      "02. GIS bản đồ số 2D",
+      "03. AI kiểm định mặt đường",
+      "03b. AI phát hiện TS mới",
+      "03c. Kết nối Camera GTVT",
+      "04. Tuần đường / tuần kiểm",
+      "05. Chấm công / định vị",
+      "06. Quản lý sự cố",
+      "Sự cố / Vấn đề",
+      "07. Bảo trì",
+      "08. AI dự báo bảo trì",
+      "09. Chỉ đạo điều hành",
+      "10. AI ước lượng",
+      "11. HĐ & ngân sách",
+      "16. AI Copilot",
+      "17. Dashboard & BC",
+      "18. Open API & tích hợp",
+      "Trang chủ",
+      "Bảng điều khiển",
+      "Đăng xuất",
+      "Đơn vị cơ sở: RMMS",
+      "Hủy",
+      "Lưu"
+    ],
+    "headers": [
+      "STT",
+      "Mã",
+      "Tiêu đề",
+      "Đoạn",
+      "Loại",
+      "Mức độ",
+      "Trạng thái",
+      "Ngày YC",
+      "AI"
+    ],
+    "labels": [
+      {
+        "label": "Tìm kiếm",
+        "required": false
+      },
+      {
+        "label": "Trạng thái",
+        "required": false
+      },
+      {
+        "label": "Mức độ",
+        "required": false
+      },
+      {
+        "label": "Đoạn đường",
+        "required": false
+      },
+      {
+        "label": "Loại sự cố",
+        "required": false
+      },
+      {
+        "label": "Mã sự cố",
+        "required": false
+      },
+      {
+        "label": "Trạng thái",
+        "required": true
+      },
+      {
+        "label": "Tiêu đề",
+        "required": true
+      },
+      {
+        "label": "Đoạn đường",
+        "required": true
+      },
+      {
+        "label": "Loại sự cố",
+        "required": true
+      },
+      {
+        "label": "Mức độ",
+        "required": false
+      },
+      {
+        "label": "Ngày yêu cầu",
+        "required": true
+      },
+      {
+        "label": "Người báo",
+        "required": false
+      },
+      {
+        "label": "Người xử lý",
+        "required": false
+      },
+      {
+        "label": "Hướng xử lý",
+        "required": false
+      },
+      {
+        "label": "Trạng thái đọc",
+        "required": false
+      },
+      {
+        "label": "Trạng thái báo cáo",
+        "required": false
+      },
+      {
+        "label": "Tài sản / hạng mục",
+        "required": false
+      },
+      {
+        "label": "Km đầu",
+        "required": false
+      },
+      {
+        "label": "Km cuối",
+        "required": false
+      },
+      {
+        "label": "Thời tiết",
+        "required": false
+      },
+      {
+        "label": "AI Detection Id",
+        "required": false
+      },
+      {
+        "label": "Gây ùn tắc",
+        "required": false
+      },
+      {
+        "label": "Có GPS",
+        "required": false
+      },
+      {
+        "label": "Mô tả",
+        "required": false
+      }
+    ],
+    "formCols": "2",
+    "footerCrud": false
+  }
+}

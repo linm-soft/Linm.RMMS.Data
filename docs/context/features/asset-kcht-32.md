@@ -200,3 +200,10 @@ Master: `api/v1/open-api/asset-types` seed **36**.
 
 - Mobile: `specs/mobile-p1/ui/prototype/ios|android` · `asset-kcht-32.js`  
 - **reviewUrl:** `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/mobile-p1/ui/prototype/index.html`
+
+## Implement tracking
+
+| lane | phase | status | updatedAt |
+|------|-------|--------|-----------|
+| web | `qa` | `await_confirm` | `2026-08-29T13:37:40.928Z` |
+| mobile | — | — | — |
