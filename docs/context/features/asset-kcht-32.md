@@ -91,9 +91,9 @@ Nguồn cột: `11` §1.2. Thiếu Excel → **GAP** ghi dưới.
 | CULVERT_X | CulvertCode · Aperture* · Shape* · BodyStructure · LengthM · DesignLoad · BuiltYear | Inlet/Outlet head |
 | DITCH | DitchKind* (hở/kín) · Structure · Shape · ApertureSize · LengthM · DrainageCapacity | 2 file import — gộp 1 loại? **GAP-AK32-05** |
 | UNDERPASS | ApertureM* · BodyStructure · LengthM · Lighting · Drainage · BuiltYear | PavementInside |
-| TRAFFIC_SIGN | SignCode* · SignSize · PoleCount · PoleHeightM | vs GANTRY_SIGN — 1 hay 2 loại? **GAP-AK32-06** |
-| DELINEATOR | Kind* · Qty · Structure · AreaM2 | Cọc H vs cọc tiêu cùng mã? |
-| KM_POST | StationKm* · Kind (Km/H) · Structure | — |
+| TRAFFIC_SIGN | **Dump SSOT** `sign_code_number*` · `road_sign_content` · `shape_sign_id*` · `material_sign_id` · `width` · `height` · `area` · `location_id` · `ngaylapdat` — **không** PoleCount/PoleHeightM (không có trên `tbl_road_sign`) | vs GANTRY_SIGN — **GAP-AK32-06** · **GAP-SIGN-SPEC-01** |
+| DELINEATOR | **Dump** `guide_post_type_id` · `h_post_type_id` · `installed_location_id` · `average_installation_interval` · `length/width/height` + bộ `h_*` (cọc H) · `total_number_*` | Cọc tiêu + cọc H **cùng bảng** 2 bộ kích thước — **GAP-DELIM-SPEC-01** · ô loại trống = dump null |
+| KM_POST | **Dump** `name_km_post*` (`Km2`) · `lytrinh` / parse tên · `materials_id` · `distance_next_post` | Rebuild đang ghi tên = đoạn — **GAP-KMPOST-NAME-01** |
 | MEDIAN | Kind · Structure · LengthM* · HeightM | — |
 | ANTI_GLARE | Kind · Structure · Qty · LengthM | **Không mẫu import** |
 | TRAFFIC_ISLAND | IslandType · Structure · AreaM2 | **Không mẫu import** |

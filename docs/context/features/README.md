@@ -32,6 +32,7 @@
 | 1b | `csdl-so-sach` | CSDL 12 biểu + 8 sổ BDTX | Asset·Patrol·Maint | P1 | Hồ sơ chuẩn hóa sổ sách | Demo | [csdl-so-sach.md](csdl-so-sach.md) · [../11-…](../11-CSDL-SO-SACH-DATABASE-API.md) |
 | 1c | `pavement-section` | Phân loại mặt đường (Biểu 1) | Asset | P1 | Hồ sơ CSDL biểu 1 | Demo | [pavement-section.md](pavement-section.md) |
 | 1d | `asset-kcht-dashboard` | Hub Hạng mục KCHT (40 ô) · widget `@linm/dashboard` | Asset | P1 | GOVOne lưới hạng mục | Context | [asset-kcht-dashboard.md](asset-kcht-dashboard.md) |
+| 1e | `so-ts-type-grid` | Sổ TS grid/form theo loại (reuse section) | Asset | P1 | DRVN `docs/img/gov-mau-tai-san` | Context | [so-ts-type-grid.md](so-ts-type-grid.md) · `/data-gov-integration` |
 | 2 | `gis` | GIS và Digital Twin | Gis | P1–P2 | Bản đồ Giám sát / TS / SC | Demo | [gis.md](gis.md) · **pilot camera overlay** [camera-ops-dashboard-demo.html](../../../Linm.RMMS.Demo/src/demo/features/camera-ops-dashboard-demo.html) |
 | 2s | `map-service` | MapService — gis.vn + clip OSM | Gis/Platform | P1 | File 34 **đã giao** `docs/gis-vn-map/` · chưa ingest | Context | [map-service.md](map-service.md) · skill `/implement-map-service` |
 | 2t | `gis-osm-clip` | GIS prod: OSM clip + overlay MapService | Gis | P1 | MFE OSM.org/Google (**lệch**) | Context | [gis-osm-clip.md](gis-osm-clip.md) · `/implement-gis-map` |

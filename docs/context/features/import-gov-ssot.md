@@ -1,8 +1,9 @@
 # Import data — SSOT `Sau-sat-nhap/gov`
 
 > **Slug:** `import-gov-ssot` · **Module:** Data · **Phase:** P1  
-> **Status:** Context · **2026-08-25** — rebuild skip banner Excel · `vidagis_id` + tên công trình · set **`gov-vn`** từ dump `moc_dbvn` **hiện tại**  
-> **Review skill:** `/data-gov-integration` — đối chiếu 36 mã + ô KCHT vs CSV import (cấm seed riêng)
+> **Status:** Context · **2026-08-31** — map 3 tầng tuyến + thông số dump mọi loại (biển · cột km · cọc · Biểu 1)  
+> **Review skill:** `/data-gov-integration` — đối chiếu 36 mã + ô KCHT vs CSV import (cấm seed riêng)  
+> **Field map (đủ cột dump):** [`import-gov-asset-fields.md`](import-gov-asset-fields.md)
 
 ## SSOT
 
@@ -30,7 +31,8 @@ Rebuild CSV **không** ghi DB. Import (`ReImportSeed` + **`ReInitData`**) mới 
 
 1. Bỏ dòng banner/header Excel (`Tên tài sản:` · `Đơn vị cung cấp dữ liệu:` · `Thời gian cung cấp dữ liệu:` · `parentid` lặp · `(1)`).
 2. Mã tài sản = prefix + **`vidagis_id`** — không `parentid`, không sinh mã từ số thứ tự.
-3. Tên chính thức = cột loại (`name_pontoon_bridge`, `name_work`, `station_name`, …) — không lấy tên đoạn tuyến/`QL.*` khi có tên công trình.
+3. Tên chính thức = cột loại (`name_km_post`, `sign_code_number` + `road_sign_content`, `name_pontoon_bridge`, `name_work`, `station_name`, …) — **không** lấy `name_of_route_asset` / `QL.*` khi có tên công trình. **Cấm** `IsWeakAssetName` loại `Km2` / `Km1+800`.
+4. Mọi bảng moc: tách **3 tầng tuyến** `road_name` · `long_route_name` · `name_of_route_asset` — **không** gộp 1 ô. Giữ **đủ** cột thuộc tính dump (hình dạng biển, cọc H, nền đường, …) — xem [`import-gov-asset-fields.md`](import-gov-asset-fields.md). **Cấm** pick vài field.
 
 Type ngoài catalog 36 seed trong `EnsureTypes`. Runtime lớn → [PLAN](../../plan/gov-vn-nationwide/PLAN.md) A.2 (RAM) · B.2 (paging) · C (GIS toàn quốc).
 
@@ -76,15 +78,15 @@ Status: `imported` = type CSV count > 0 · `gap-no-source` = không bảng moc, 
 
 | # | code | Dump / CSV type | Ô KCHT | Status | Note |
 |---|------|-----------------|--------|--------|------|
-| 1 | PAVEMENT | `pavement_sections` (`tbl_rmd`) | t02 | imported | Không `road_assets.type` |
+| 1 | PAVEMENT | `pavement_sections` (`tbl_rmd`) | t02 | imported · **mapped-wrong spec** | 16 cột CSV · thiếu 3 tầng + nền/chiều xe/4 XY/làn — GAP-PAV-SPEC-01 |
 | 2 | BRIDGE | — | — (hub t05 = PONTOON) | gap-no-source | Catalog 36 Cầu · dump không bảng cầu · **không** bind ô live |
 | 3 | TUNNEL | — | — (hub t16 = SPILLWAY) | gap-no-source | Catalog 36 Hầm · dump không bảng hầm |
 | 4 | CULVERT_X | — | t07 | gap-no-source | |
 | 5 | DITCH | `tbl_longitudinal` | t10 | imported | Alias count `CULVERT_L` (0) |
 | 6 | UNDERPASS | `tbl_underpass_box` | t06 | imported | |
-| 7 | TRAFFIC_SIGN | `tbl_road_sign` | t32 | imported | |
-| 8 | DELINEATOR | `tbl_guide_post` | t14 | imported | |
-| 9 | KM_POST | `tbl_km_post` | t09 | imported | |
+| 7 | TRAFFIC_SIGN | `tbl_road_sign` | t32 | imported · **mapped-wrong spec** | `name`=nội dung · thiếu số hiệu / `shape_sign_id` / vật liệu / R·C·DT — GAP-SIGN-SPEC-01 |
+| 8 | DELINEATOR | `tbl_guide_post` | t14 | imported · **mapped-wrong qty+label** | `dump_specs` đủ `h_*` · `quantity=1` · FE đảo loại cọc/vật liệu · km G/H dump 0% — GAP-DELIM-SPEC-01 |
+| 9 | KM_POST | `tbl_km_post` | t09 | imported · **mapped-wrong name+km** | `name`=đoạn vì `IsWeak` · `km_from`→0 — GAP-KMPOST-NAME-01 |
 | 10 | MEDIAN | `tbl_median_strip` | t11 | imported | |
 | 11 | ANTI_GLARE | — | — | gap-no-source | Không ô riêng |
 | 12 | TRAFFIC_ISLAND | — | — | gap-no-source | |
@@ -165,3 +167,25 @@ t26/t37: dump `tbl_rest_stops` tách `PARKING` — live gộp 76 vào trạm d�
 ## Rebuild ≠ DB
 
 Rebuild CSV không ghi Postgres. Muốn t37 / type mới hiện: chạy lại import (`ReImportSeed`) trên CSV đã tách. Coverage: mirror `COVERAGE-KCHT-40.md` trong set `gov-vn`.
+
+## 3 tầng tuyến + thông số dump (2026-08-31)
+
+Live DRVN / user: **Tuyến chính** `QL.1` · **Tuyến** `QL.1 - Lạng Sơn (BOT): Km 0+000 – 1+800` · **Đoạn** `Km 0+000 – 1+800`. Cùng 3 cột trên **33/35** file moc.
+
+`road_routes` **420** dẹt: `QUOC_LO` 146 · `NHANH` 226 (`KM0+000-*`, `parent_code` trống) · **0** row `QL.1 - Lạng Sơn (BOT)`.
+
+`road_assets` 13 cột — bỏ hình dạng biển, tên cột km, thông số cọc, 3 tầng tuyến. `pavement_sections` 16 cột — bỏ nền / chiều xe / 4 XY / `long_route_name` / làn·lề (dump `tbl_rmd`).
+
+Chi tiết đủ cột + map chứng từ (Biểu 1 · hộ chiếu cọc · biển): [`import-gov-asset-fields.md`](import-gov-asset-fields.md).
+
+| ID | Status | Việc |
+|----|--------|------|
+| GAP-GOV-ROUTE-3LVL | mở | Rebuild tách 3 tầng — mọi type |
+| GAP-KMPOST-NAME-01 / KM-01 | mở | `name_km_post` + parse lý trình |
+| GAP-SIGN-SPEC-01 | mở | Đủ `tbl_road_sign` (hình dạng*) |
+| GAP-DELIM-SPEC-01 | mở | Đủ `tbl_guide_post` (cọc tiêu + H) |
+| GAP-PAV-SPEC-01 | mở | Đủ `tbl_rmd` trên Biểu 1 |
+| GAP-GOV-SPEC-ALL | mở | Mục 4 field-map — không pick |
+| GAP-ROUTE-NAMED-01 | mở | Catalog named/BOT + parent |
+
+`invented-seed`: **không**. Sửa = rebuild + `ReImportSeed` + Schema_* khi SA chốt (cấm invent API).

@@ -1,4 +1,4 @@
-node_modules/
+﻿node_modules/
 .npm/
 .pnpm-store/
 vendor/
@@ -37,6 +37,14 @@ e2e-playwright-runtime/
 !*/img-log/
 !*/img-log/**
 
+# Exception: gov mẫu tài sản (list + detail DRVN) — /data-gov-integration
+!docs/img/
+!docs/img/**
+!docs/img/**/*.png
+!docs/img/**/*.jpg
+!docs/img/**/*.jpeg
+!docs/img/**/*.webp
+
 # Local Pages Index output -- root-only (do not use **/ -- skill SSOT)
 /local-deploy-page/
 
@@ -50,10 +58,25 @@ e2e-playwright-runtime/
 !docs/data/
 !docs/data/**
 
-# Gov dump + demo archive -- heavy; SSOT = import-gov-ssot.md
-data-import/
+# Demo archive xlsx -- not SSOT
 docs/Mẫu import/
+
+# Customer dump archive -- skip index
+_archive/
+
+# Exception: data-import SSOT (gov-vn) -- allow @/Read
+!data-import/
+!data-import/**
+!data-import/**/*.xlsx
+!data-import/**/*.xls
+!data-import/**/*.csv
+!data-import/**/*.json
+!data-import/**/*.md
+!data-import/**/*.ps1
+!data-import/**/*.cs
+!data-import/**/*.txt
 
 out/
 target/
 local-packages/
+

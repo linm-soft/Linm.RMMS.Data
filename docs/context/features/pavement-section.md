@@ -126,6 +126,8 @@ Index: `(CompanyCode, Code)` unique · `(RoadName, KmFrom, KmTo)` · GIST option
 | GAP-LKP-SELECT | — | **Closed** — native `<select>` / `Select` → SearchInput (task_e95b3b89) |
 | GAP-PROD-VIEW-RO | — | **Closed** — View = `<dl>` display · form page riêng (task_e95b3b89) |
 | GAP-TL-ROUTE-01 | — | **Closed** — dedicated `/:id/edit` · `/:id/copy` (task_96b1864b) |
+| GAP-PAV-SPEC-01 | P0 | Dump `tbl_rmd` / live DRVN: 3 tầng tuyến · tỉnh đầu+cuối · 4 tọa độ · `roadtype` · `embankment_type_id` · `traffic_flow_direction_id` · làn/lề/vỉa/`design_speed` — CSV 16 cột + form Biểu 1 **thiếu** — [`import-gov-asset-fields.md`](import-gov-asset-fields.md) §2.1 |
+| GAP-GOV-ROUTE-3LVL | P0 | Form/list: tách Cao tốc/QL · Tuyến named (`long_route_name`) · đoạn km — hiện 1 `RoadName`=`QL.1` |
 
 ## 8. Demo checklist
 

@@ -36,7 +36,7 @@
 | code | Text code | `QL.1`, `HCM`, `QL.46B` |
 | name | Text | |
 | routeKind | LOOKUP | `QUOC_LO` · `HCM` · `CAO_TOC` · `KHAC` |
-| parentCode | SearchInput road-route | đoạn/tránh thuộc tuyến chính (optional) |
+| parentCode | SearchInput road-route | named/BOT / nhánh thuộc tuyến chính (`QL.1`) — CSV hiện **trống** (GAP-ROUTE-NAMED-01) |
 | legacyAliases | tags/json | folder names import |
 | isActive | Switch | |
 
@@ -58,3 +58,5 @@ QL.1 · HCM · QL.7 · QL.8 · QL.9 · QL.10 · QL.12A/C · QL.15* · QL.16 · Q
 | GAP-TD-LRS-01 | Snap GPS WGS-84 → lý trình Km+m trên `code` tuyến. Runtime map SRID 4326 ([`map-service.md`](map-service.md)); VN-2000 chỉ khi nộp hồ sơ. **Cấm** invent `api/v1/lrs-*` trước SA. |
 | GAP-ROUTE-04 | Unique ID đoạn HĐ (RADS đề cương) vs `code` tuyến — SA: attribute HĐ hay child route |
 | GAP-ROUTE-05 | Dropdown BC dùng tên `Km 0+000…` (NHANH/TRANH/GOM) như tuyến chính — peer [`org-route-scope.md`](org-route-scope.md) GAP-ORS-05 |
+| GAP-ROUTE-NAMED-01 | Dump `long_route_name` (`QL.1 - Lạng Sơn (BOT)`) **không** thành row catalog · `parent_code` trống · grid chỉ Mã/Tên/Loại — peer [`import-gov-asset-fields.md`](import-gov-asset-fields.md) |
+| GAP-GOV-ROUTE-3LVL | Mọi tài sản + Biểu 1: tách Cao tốc/QL · Tuyến named · Đoạn — **cấm** 1 ô gộp |
