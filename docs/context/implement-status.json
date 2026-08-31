@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-30T16:39:35.567Z",
+  "updatedAt": "2026-08-31T18:54:53.503Z",
   "features": {
     "ai-asset-detect": {
       "web": {
@@ -334,7 +334,7 @@
       "web": {
         "phase": "done",
         "status": "done",
-        "updatedAt": "2026-08-30T16:26:49.927Z",
+        "updatedAt": "2026-08-31T18:54:53.503Z",
         "statusRel": "specs/rmms-task-integrate/STATUS.md"
       }
     },
@@ -576,6 +576,30 @@
         "status": "done",
         "updatedAt": "2026-08-30T16:39:35.567Z",
         "statusRel": "specs/reports-filter-bar/STATUS.md"
+      }
+    },
+    "field-reflect": {
+      "mobile": {
+        "phase": "data_analy",
+        "status": "blocked",
+        "updatedAt": "2026-08-31T18:54:36.586Z",
+        "statusRel": "specs/field-reflect/STATUS.md"
+      }
+    },
+    "so-ts-km-post": {
+      "web": {
+        "phase": "data_analy",
+        "status": "blocked",
+        "updatedAt": "2026-08-31T18:54:36.625Z",
+        "statusRel": "specs/so-ts-km-post/STATUS.md"
+      }
+    },
+    "so-ts-type-grid": {
+      "web": {
+        "phase": "data_analy",
+        "status": "blocked",
+        "updatedAt": "2026-08-31T18:54:36.628Z",
+        "statusRel": "specs/so-ts-type-grid/STATUS.md"
       }
     }
   }

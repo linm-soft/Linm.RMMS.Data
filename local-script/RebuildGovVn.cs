@@ -226,15 +226,16 @@ namespace GovVn
             File.Copy(a, Path.Combine(dir, "road_assets.csv"), true);
             File.Copy(p, Path.Combine(dir, "pavement_sections.csv"), true);
             WriteSignTypes(Path.Combine(dir, "traffic_sign_types.csv"), signTypes, utf8, officialSigns);
+            string[] assetGit = SplitCsvForGit(Path.Combine(dir, "road_assets.csv"), utf8);
             string man =
                 "{\n" +
                 "  \"setName\": \"gov-vn\",\n" +
                 "  \"importDate\": \"2026-08-24\",\n" +
                 "  \"importVersion\": \"3\",\n" +
-                "  \"description\": \"Nationwide GOV moc_dbvn. Unique road_routes. All pavement_sections. All road_assets by table-type-map.\",\n" +
+                "  \"description\": \"Nationwide GOV moc_dbvn. Unique road_routes. All pavement_sections. All road_assets by table-type-map. Sign types from Số hiệu biển báo.xlsx.\",\n" +
                 "  \"sourceDoc\": \"Linm.RMMS.Data/data-import/Sau-sat-nhap/gov\",\n" +
-                "  \"catalogs\": [\"road_routes\", \"road_assets\", \"pavement_sections\"],\n" +
-                "  \"files\": [\"road_routes.csv\", \"road_assets.csv\", \"pavement_sections.csv\"]\n" +
+                "  \"catalogs\": [\"road_routes\", \"road_assets\", \"pavement_sections\", \"traffic_sign_types\"],\n" +
+                "  \"files\": [\"road_routes.csv\", \"pavement_sections.csv\", \"traffic_sign_types.csv\"" + GitFilesJson(assetGit) + "]\n" +
                 "}\n";
             File.WriteAllText(Path.Combine(dir, "set.manifest.json"), man, utf8);
             StringBuilder cov = new StringBuilder();
@@ -304,6 +305,87 @@ namespace GovVn
             if (code.StartsWith("CT.", StringComparison.OrdinalIgnoreCase)) return false;
             if (code.StartsWith("Km", StringComparison.OrdinalIgnoreCase)) return false;
             return code.IndexOf('.') >= 0 || char.IsLetter(code[0]);
+        }
+
+        /// <summary>GitHub 100 MiB hard limit — split into N parts (each with header) under 95 MiB.</summary>
+        private static string[] SplitCsvForGit(string fullPath, Encoding utf8)
+        {
+            const long maxBytes = 95L * 1024 * 1024;
+            string dir = Path.GetDirectoryName(fullPath);
+            string name = Path.GetFileNameWithoutExtension(fullPath);
+            if (dir != null && Directory.Exists(dir))
+            {
+                string[] old = Directory.GetFiles(dir, name + ".part*.csv");
+                for (int i = 0; i < old.Length; i++)
+                    File.Delete(old[i]);
+            }
+            FileInfo fi = new FileInfo(fullPath);
+            if (!fi.Exists)
+                return new string[0];
+            if (fi.Length <= maxBytes)
+                return new string[] { fullPath };
+
+            int nParts = (int)Math.Ceiling((double)fi.Length / (double)maxBytes);
+            if (nParts < 2) nParts = 2;
+
+            int dataLines = 0;
+            string header;
+            using (StreamReader srCount = new StreamReader(fullPath, utf8))
+            {
+                header = srCount.ReadLine();
+                if (header == null)
+                    return new string[] { fullPath };
+                while (srCount.ReadLine() != null)
+                    dataLines++;
+            }
+            int per = dataLines / nParts;
+            if (per < 1) per = 1;
+
+            List<string> parts = new List<string>();
+            using (StreamReader sr = new StreamReader(fullPath, utf8))
+            {
+                sr.ReadLine();
+                int part = 1;
+                int written = 0;
+                StreamWriter w = OpenGitPart(dir, name, part, header, utf8, parts);
+                string line;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    w.WriteLine(line);
+                    written++;
+                    if (written >= per && part < nParts)
+                    {
+                        w.Flush();
+                        w.Close();
+                        part++;
+                        written = 0;
+                        w = OpenGitPart(dir, name, part, header, utf8, parts);
+                    }
+                }
+                w.Flush();
+                w.Close();
+            }
+            Console.WriteLine("SPLIT " + name + " bytes=" + fi.Length.ToString() + " parts=" + parts.Count.ToString());
+            return parts.ToArray();
+        }
+
+        private static StreamWriter OpenGitPart(string dir, string name, int part, string header, Encoding utf8, List<string> parts)
+        {
+            string path = Path.Combine(dir, name + ".part" + part.ToString() + ".csv");
+            parts.Add(path);
+            StreamWriter w = new StreamWriter(path, false, utf8);
+            w.WriteLine(header);
+            return w;
+        }
+
+        private static string GitFilesJson(string[] files)
+        {
+            if (files == null || files.Length == 0)
+                return ", \"road_assets.csv\"";
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < files.Length; i++)
+                sb.Append(", \"").Append(Path.GetFileName(files[i])).Append("\"");
+            return sb.ToString();
         }
 
         private static string InferSignGroup(string code)

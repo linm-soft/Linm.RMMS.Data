@@ -51,7 +51,7 @@
 | `import-gov-ssot` | Import dump moc → gov-vn | — | support | context / open GAP | none | [ctx](features/import-gov-ssot.md) · [fields](features/import-gov-asset-fields.md) | — |
 | `traffic-sign-type` | Loại biển báo theo mã QCVN | — | support | implement | catalog | [ctx](features/traffic-sign-type.md) | — |
 | `asset-kcht-dashboard` | Hub 40 ô KCHT | 01 | P1-900 | qa paused | none | [ctx](features/asset-kcht-dashboard.md) | [ST](../../specs/asset-kcht-dashboard/STATUS.md) |
-| `so-ts-type-grid` | Sổ TS grid/form theo loại | 01 | P1-900 | `data_analy` / `draft` | none | [ctx](features/so-ts-type-grid.md) | [ST](../../specs/so-ts-type-grid/STATUS.md) |
+| `so-ts-type-grid` | Sổ TS grid/form theo loại | 01 | P1-900 | `data_analy` / `blocked` | none | [ctx](features/so-ts-type-grid.md) | [ST](../../specs/so-ts-type-grid/STATUS.md) |
 | `asset-hub` | Hub TS mobile | 01 | P1-900 | done | none | [ctx](features/asset-hub.md) | [ST](../../specs/asset-hub/STATUS.md) |
 | `gis` | GIS 2D (+ Twin P2) | 02 / 02-P2 | P1-900 · Twin P2-CR | `data_analy` / `draft` | catalog | [ctx](features/gis.md) | [ST](../../specs/gis/STATUS.md) |
 | `gis-draw-live` | Vẽ Leaflet | 02 | P1-900 | done | catalog | [ctx](features/gis-draw-live.md) | [ST](../../specs/gis-draw-live/STATUS.md) |
@@ -105,7 +105,7 @@
 | `patrol-checkin` | Check-in | 05 | P1-900 | data_analy draft | none | — | [ST](../../specs/patrol-checkin/STATUS.md) |
 
 | `reports-filter-bar` | Edit /bao-cao filter bar | — | support | `data_analy` / `draft` | none | [ctx](features/reports-filter-bar.md) | [ST](../../specs/reports-filter-bar/STATUS.md) |
-| `so-ts-km-post` | Sổ TS — Cột Km | — | support | `data_analy` / `draft` | none | [ctx](features/so-ts-km-post.md) | [ST](../../specs/so-ts-km-post/STATUS.md) |
+| `so-ts-km-post` | Sổ TS — Cột Km | — | support | `data_analy` / `in_progress` | none | [ctx](features/so-ts-km-post.md) | [ST](../../specs/so-ts-km-post/STATUS.md) |
 | `so-ts-traffic-sign` | Sổ TS — Biển báo | — | support | `data_analy` / `draft` | none | [ctx](features/so-ts-traffic-sign.md) | [ST](../../specs/so-ts-traffic-sign/STATUS.md) |
 | `so-ts-delineator` | Sổ TS — Cọc tiêu / cọc H | — | support | `data_analy` / `draft` | none | [ctx](features/so-ts-delineator.md) | [ST](../../specs/so-ts-delineator/STATUS.md) |
 | `so-ts-convex-mirror` | Sổ TS — Gương cầu / long môn | — | support | `data_analy` / `draft` | none | [ctx](features/so-ts-convex-mirror.md) | [ST](../../specs/so-ts-convex-mirror/STATUS.md) |
@@ -137,6 +137,7 @@
 | `so-ts-lighting` | Sổ TS — Chiếu sáng đường | — | support | `data_analy` / `draft` | none | [ctx](features/so-ts-lighting.md) | [ST](../../specs/so-ts-lighting/STATUS.md) |
 | `so-ts-its-camera` | Sổ TS — Hệ thống ITS | — | support | `data_analy` / `draft` | none | [ctx](features/so-ts-its-camera.md) | [ST](../../specs/so-ts-its-camera/STATUS.md) |
 | `so-ts-rescue-vehicle` | Sổ TS — Xe cứu hộ | — | support | `data_analy` / `draft` | none | [ctx](features/so-ts-rescue-vehicle.md) | [ST](../../specs/so-ts-rescue-vehicle/STATUS.md) |
+| `field-reflect` | field-reflect | — | support | `data_analy` / `blocked` | none | [ctx](features/field-reflect.md) | [ST](../../specs/field-reflect/STATUS.md) |
 **Báo cáo `rpt-*`:** xem [§ Reports](#17--dashboard--báo-cáo). Pipeline STATUS **done** hết (release: P1 / P1.5 / P2 / P3 theo từng slug).
 
 **Draft mobile (chưa context đầy):** `incident-list` · `incident-create` · `mnt-list` · `field-reflect` · `cam-view` · `cam-patrol` — [STATUS](../../specs/) tương ứng `data_analy` / `draft`.

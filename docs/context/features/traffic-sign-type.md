@@ -16,7 +16,7 @@ Bảng riêng `rmms_traffic_sign_types` (shared Type A) — **1 dòng / mã bi�
 | Width / Height | Excel **Chiều rộng / Chiều dài** — khổ chuẩn danh mục (khác kích thước lắp đặt trên asset) |
 | Icon | `NULL` — form Master gắn URL/path sau |
 
-Nguồn danh mục: `Linm.RMMS.Data/data-import/so-hieu-bien-bao/Số hiệu biển báo.xlsx` → set `so-hieu-bien-bao` (không nhét vào catalogs `gov-vn`). Mã dump không có trong Excel: `EnsureFromImportedAssetsAsync` **chỉ thêm**, không ghi đè tên official.
+Nguồn danh mục: `Linm.RMMS.Data/data-import/so-hieu-bien-bao/Số hiệu biển báo.xlsx` → **cùng seed `gov-vn`** (`traffic_sign_types.csv`). Mã dump không có trong Excel: `EnsureFromImportedAssetsAsync` **chỉ thêm**, không ghi đè tên official.
 
 ## Chứng từ
 

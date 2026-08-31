@@ -4,7 +4,7 @@
 |-------|-------|
 | feature | `field-reflect` |
 | phase | `data_analy` |
-| status | `pending` |
+| status | `blocked` |
 | packKind | `sheet` |
 | demo | /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Demo/src/demo/ios/index.html |
 | context | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/docs/context/features/field-reflect.md` |
@@ -15,7 +15,7 @@
 | android | `Linm.RMMS.Mobile.Android` · e2e-qa-mobile emulator |
 | bff | `Linm.RMMS.Mobile.Bff` |
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · DOMAIN-MAP — **cấm ERP.*** |
-| updatedAt | `2026-08-29T13:11:03.732Z` |
+| updatedAt | `2026-08-31T18:53:38.359Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -26,7 +26,7 @@
 
 | Step | Agent | Artifact | Status |
 |------|-------|----------|--------|
-| 0 | data-analy | _data-analy/field-reflect-control-hint.md · field-reflect-bff-endpoints.md · field-reflect-real-data.md · field-reflect-action-tree.md | **draft** (retry) |
+| 0 | data-analy | _data-analy/field-reflect-control-hint.md · field-reflect-bff-endpoints.md · field-reflect-real-data.md · field-reflect-action-tree.md | **blocked** (failed) |
 | 1 | po | po/requirement.md | pending |
 | 2.1 | design | ui/design.md · ui/ux-analy.md · prototype/ios/index.html · prototype/android/index.html | pending |
 | 2.2 | sa | be/solution-discovery.md | pending |

@@ -18,7 +18,9 @@
 
 Mirror: `Linm.RMMS.WebService/api/src/RMMS.Service.Api/data/import/sets/gov-vn/`.
 
-`ImportSets` = `["gov-vn"]`. **Không** khu-2/khu-4. **Không** `_archive`.
+`ImportSets` = `["drvn-org", "gov-vn"]`. **Không** set riêng `so-hieu-bien-bao` — loại biển nằm trong `gov-vn` (`traffic_sign_types.csv`). **Không** khu-2/khu-4. **Không** `_archive`.
+
+`road_assets.csv` > 100 MiB → rebuild **tách** `road_assets.part1.csv` + `part2.csv` (commit parts). Import đọc parts trước file ghép. Rule: `service/rule/import-csv-git-split.md`.
 
 Chạy:
 
