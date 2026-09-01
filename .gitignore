@@ -31,3 +31,5 @@ pnpm-debug.log*
 data-import/
 local-script/its-public-pilot/data/
 local-script/its-public-pilot/out/
+specs/asset-hub/qa/screens/_maestro_android/android/logs
+*.log
