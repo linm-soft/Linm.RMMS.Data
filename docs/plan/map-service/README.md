@@ -24,12 +24,12 @@ Chạy **đúng thứ tự**. Không copy prompt generic MapLibre/Flutter.
 | 2 | **BFF web** | `/create-bff-api-feature` · Ask **BFF** (không API mới) | `Linm.RMMS.Web.Bff` (hoặc host `web-bff` hiện có) | Proxy **cùng origin** `web-bff/api/v1/gis/tiles/{layer}/{z}/{x}/{y}.pbf` · forward JWT · **cấm** lộ URL Martin/OSM |
 | 2b | **BFF mobile** | `/create-bff-api-feature` lần 2 · BFF | `Linm.RMMS.Mobile.Bff` | Cùng path `mobile-bff/api/v1/gis/tiles/…` — **cấm** app gọi `:5101` / WebService trực tiếp |
 | 3 | **UI web** | `/implement-gis-map` · host `web` | `Linm.Web.RMMS.Gis` | MapLibre · `{TileUrl}` BFF · invert mask · maxBounds · `transformRequest` JWT · tắt OSM.org · pin = `clusters` WebService |
-| 3b | Chrome OMS | `/agent-dev-oms-map` | Cùng MFE Gis | Fit · legend · `LeaveConfirmModal` · tile URL **override** clip |
+| 3b | Chrome OMS | `/agent-dev-oms-map` | Cùng MFE Gis | Fit **map-bar** · **cấm** isolate legend bottom · map **flex fill** · attribution `RMMS.vn` · tile URL **override** clip |
 | 4 | **UI native** | `/implement-gis-map` · host `ios` rồi `android` | `Linm.RMMS.Mobile.iOS` · `.Android` | MapLibre Native · cùng `{TileUrl}` BFF · cùng bounds/mask · cùng LOD pin |
 | 4b | Tuần + GPS | `/edit-mobile-feature` · `patrol-map` | Native dual | Follow WhenInUse · **cấm** invent `api/v1/patrol-map` · tracks = P2 SA |
 | 5 | Gate | `/review-map-release` rồi `/review-app-vn-map-law` | Web + iOS + Android | 0 request `openstreetmap.org` · HS/TS trên mask · **cấm** geo-block reviewer |
 
-**Wave 1 + 1b = done** (STATUS 2026-09-01). Next = Wave 2 BFF.
+**Wave 1 + 1b = done** (STATUS 2026-09-01). Wave 4 **web done**. **P2 streets done** (Osmium + Planetiler MBTiles · `streetTilesReady`). Next = Wave 2 mobile BFF · Wave 3 integrate · Wave 4 iOS/Android.
 
 **Không** dùng: `/init-bff-file` / `/init-bff-auth` / `/init-bff-job` (BFF platform khác). GIS BFF **đã có** `web-bff/api/v1/gis` — skill 2 = **mở rộng proxy tile**, không tạo BFF mới.
 
@@ -103,8 +103,8 @@ PCI / drawings / clusters **ở lại** WebService.
 
 | Màn | Nền (MapService → BFF) | Overlay (WebService) | Slash UI |
 |-----|------------------------|----------------------|----------|
-| Tuyến + tài sản (vẽ) | Tile clip | `clusters` + draw APIs **existing** | `/implement-gis-map` web |
-| Tuyến + camera | Tile clip | `geojson/cameras` · Signed `gis.md` P1.6 | Cùng map |
+| Tuyến + tài sản (vẽ) `/gis/live` · `/gis/ha-tang` | Tile clip | `clusters` + draw APIs **existing** | `/implement-gis-map` web · chrome **gis-mfe-map-standard** |
+| Tuyến + camera `/gis` | Tile clip | `geojson/cameras` · Signed `gis.md` P1.6 | Cùng map · **giữ** toolbar vận hành · **cấm** page header |
 | Tuần + GPS user | Tile clip | `patrol-map` existing · tracks P2 | `/implement-gis-map` native + `/edit-mobile-feature` |
 
 **Không** một pipeline tile cho pin TS.

@@ -1,0 +1,49 @@
+{
+  "list": {
+    "titleFerry": true,
+    "headerFerry": true,
+    "createBtn": true,
+    "noCreateBadge": true,
+    "typeFilterHidden": true,
+    "filterBar": true,
+    "search": true,
+    "route": true,
+    "kmFrom": true,
+    "kmToFilter": true,
+    "org": true,
+    "snippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nHạng mục KCHT\nDS\nDev Standalone\nDeveloper\nTài sản đường\nSổ TS — Bến phà\nLàm mới\nTạo mới\nDanh sách bến phà\nMenu dòng: nhấn đúp · Ctrl + chuột phải · nhấn giữ dòng\nTìm kiếm\nCao tốc / quốc lộ\nLý trình từ\nLý trình đến\nCây đơn vị\n​\nSTT\t\n\tMã tài sản\n\tTên tài sản\n\tTuyến đường\n\tLý trình bắt đầu\n\tLoại bến phà\n\tCấp công trình\n\tSông / luồng\n\tSố phà tại bến\n\tTình trạng KT\n\tTọa độ GPS\n\n1\t\n\tPH-780860\tPhà Đại Ngãi\tQL.60\t\t—\t—\t—\t—\tTốt\t"
+  },
+  "form": {
+    "cols5": true,
+    "ferryAttr": true,
+    "loaibenpha": true,
+    "levelWork": true,
+    "riverChannel": true,
+    "ferriesCount": true,
+    "kmToVisible": false,
+    "nameFerry": true,
+    "noModeBadge": true,
+    "snippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nHạng mục KCHT\nDS\nDev Standalone\nDeveloper\nTạo tài sản\nQuay lại\nHủy\nTạo mới\nTạo tài sản\nĐang tạo mới — Lưu hoặc Hủy\nTHÔNG TIN TÀI SẢN\nMã tài sản\nTình trạng kỹ thuật*\nChọn tình trạng\nTốt\nTheo dõi\nCần bảo trì\nLoại tài sản *\n✕\nCao tốc / quốc lộ *\nTuyến\nĐoạn tuyến\nNguồn\nNhập tay\nAI\nTên bến phà\nLý trình bắt đầu (Km+)\nẢnh hiện trường\nTHÔNG SỐ BẾN PHÀ\nLoại bến phà*\nChọn loại bến phà\nBến phà biển\nBến phà hồ\nBến phà sông\nCấp công trình\nChọn cấp\nCấp I\nCấp II\nCấp III\nCấp IV\nCấp V\nTên sông / luồng\nChọn\nLuồng ven biển\nSông Hồng\nSông Đuống\nSông Đáy\nSố phà tại bến\nThời gian hoạt động\nChiều rộng bến (m)\nChiều dài luồng bến (m)\nThay"
+  },
+  "dtm": {
+    "D": {
+      "filterBar": true,
+      "overflowX": false,
+      "bodyW": 1280,
+      "vw": 1280
+    },
+    "T": {
+      "filterBar": true,
+      "overflowX": false,
+      "bodyW": 768,
+      "vw": 768
+    },
+    "M": {
+      "filterBar": true,
+      "overflowX": false,
+      "bodyW": 375,
+      "vw": 375
+    }
+  },
+  "at": "2026-09-01T00:40:50.204Z"
+}

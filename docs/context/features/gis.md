@@ -20,9 +20,11 @@
 
 ## 2. Design / UI
 
+**MFE `/gis` 2026-09-01:** chrome **parity** [`gis-draw-live.md`](gis-draw-live.md) — **cấm** page header · **giữ** toolbar vận hành (Lấy dữ liệu / overlay / Heatmap / Twin / Mở vẽ) · **cấm** isolate legend bottom · map **flex fill** · click đoạn/pin/cam trên map **không** auto zoom (`?cam=` deep-link vẫn `setView`). Spec: `specs/gis/ui/design.md` · GAP-WEB-EDIT-01.
+
 | Screen | Pattern | Zones |
 |--------|---------|-------|
-| Map 2D | Full Kind F | Sidebar tabs · Toolbar · Leaflet · legend PCI · props panel |
+| Map 2D | Full Kind F | Sidebar tabs · Toolbar vận hành · Leaflet flex fill · chú giải **sidebar** · props panel |
 | **Camera overlay** (pilot P1.6) | Cùng map Kind F | Lớp **TS camera** · 1-click · slideout live | Chỉ pin `assetType=camera` / mã `CAM-*` |
 | Heatmap PCI | Full | Same map · toggle layer |
 | 3D Twin | Full | **CesiumJS** — demo [`gis-3d-twin.html`](../../../Linm.RMMS.Demo/public/demo/gis/gis-3d-twin.html) · Cột Km thật QL.1 II.1 |
@@ -36,7 +38,7 @@
 | Hành vi | Rule |
 |---------|------|
 | Lớp | Toggle «Camera ITS» · icon cam · Online xanh / Offline xám |
-| 1 click pin | Popup/panel: mã TS · tuyến/Km · **đếm xe hôm nay** (nếu `supportsCount`) · 3 event mới |
+| 1 click pin | Popup/panel: mã TS · tuyến/Km · **đếm xe hôm nay** (nếu `supportsCount`) · 3 event mới · **cấm** auto zoom |
 | Không support đếm | Hiện «Cam không đếm xe» — vẫn hiện event/tín hiệu |
 | **Xem live** | Slideout stacked (Camera MFE `/camera/wall` cùng payload) |
 | Fullscreen | Overlay live + event · Esc / Đóng |

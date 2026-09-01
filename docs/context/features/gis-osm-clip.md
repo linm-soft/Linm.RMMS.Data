@@ -1,7 +1,7 @@
 # GIS — nền OSM đã cắt + overlay MapService
 
 > **Slug:** `gis-osm-clip` · **Module:** `Gis` · **Phase:** P1 prod map  
-> **Status:** Context (target) — **demo hiện tại lệch** (OSM.org/Google)  
+> **Status:** Context — **MFE web clip BFF** (Wave 4 web) · **P2 streets** OpenMapTiles trên `basemap` · demo HTML / native vẫn OSM.org/Google  
 > **Skills:** `/implement-gis-map` · `/agent-dev-oms-map` · `/review-map-release`  
 > **Parent:** [`gis.md`](gis.md) · data [`map-service.md`](map-service.md) · law [`legal-tech-corridor.md`](legal-tech-corridor.md)  
 > **MFE:** `Linm.Web.RMMS.Gis` · **Mobile:** [`patrol-map.md`](patrol-map.md)  
@@ -18,7 +18,7 @@
 
 ## 2. Design / UI
 
-Giữ chrome [`gis.md`](gis.md) / OMS (Fit, legend, `LeaveConfirmModal`).
+Giữ chrome MFE GIS (`/agent-dev-oms-map` · `gis-mfe-map-standard.md`): Fit **map-bar** · **cấm** isolate legend bottom · attribution **`RMMS.vn`** · `LeaveConfirmModal`.
 
 **Đổi:** default basemap **không** OSM.org. Chip «OSM» = tile clip. Ẩn Google/Esri trên **release** (demo HTML được giữ tách).
 
@@ -55,15 +55,16 @@ Xem [`map-service.md`](map-service.md). Client không giữ polygon chủ quyề
 
 | ID | Default |
 |----|---------|
-| GAP-MAP-OSM-CDN-01 | `GisListPage` / draw pages CDN |
-| GAP-MAP-BOUNDS-01 | Chưa gắn maxBounds trên MFE/native — số SSOT: 102.0–118.0 / 6.8–23.5 / minZoom 5 |
-| GAP-MAP-MASK-01 | File 34 **đã có** — chưa invert mask trên client |
+| GAP-MAP-OSM-CDN-01 | **CLOSED web** — `GisListPage` / draw pages BFF clip · native/demo HTML CDN còn |
+| GAP-MAP-BOUNDS-01 | **CLOSED web** — maxBounds 102.0–118.0 / 6.8–23.5 / minZoom 5 trên Gis*Page |
+| GAP-MAP-MASK-01 | **CLOSED web** — MVT `mask` invert trên MapLibre · file 34 đã ingest |
 | GAP-MAP-PARITY-01 | Mobile ≠ web tiles |
 | GAP-F-GIS-02 | Google draw parity — **không** dùng làm nền Store |
 
 ## 7. Demo checklist
 
-- [ ] Prod: 0 request `openstreetmap.org`  
-- [ ] Mask + bounds  
+- [x] Prod web: 0 request `openstreetmap.org` (Gis*Page source · live browser DEFER)  
+- [x] Mask + bounds (web MFE)  
+- [x] P2 street MVT (roads + place names) via BFF `tiles/basemap` · `streetTilesReady`  
 - [ ] Staff overlay 401 unsigned  
 - [ ] `/review-map-release`

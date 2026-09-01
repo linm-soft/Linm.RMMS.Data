@@ -732,6 +732,13 @@ namespace GovVn
                 || string.Equals(raw, "Loại nút", StringComparison.OrdinalIgnoreCase)
                 || raw.StartsWith("Nút giao ", StringComparison.OrdinalIgnoreCase))
                 return false;
+            // GAP-FY-NAME-01 — generic ferry labels never weak (cấm IsWeak→đoạn)
+            if (string.Equals(raw, "Bến phà", StringComparison.OrdinalIgnoreCase)
+                || string.Equals(raw, "Loại bến", StringComparison.OrdinalIgnoreCase)
+                || string.Equals(raw, "Loại bến phà", StringComparison.OrdinalIgnoreCase)
+                || raw.StartsWith("Bến phà ", StringComparison.OrdinalIgnoreCase)
+                || raw.StartsWith("Phà ", StringComparison.OrdinalIgnoreCase))
+                return false;
             string t = raw.ToUpperInvariant();
             if (t.StartsWith("QL.") || t.StartsWith("QL ") || t.StartsWith("CT.") || t.StartsWith("CT "))
                 return true;
@@ -768,6 +775,13 @@ namespace GovVn
                 // GAP-IX-NAME-01 — name ← name_intersection; trống OK; cấm IsWeak→đoạn tuyến
                 string ix = Cell(f, iOfficial);
                 if (ix.Length > 0 && !IsJunk(ix)) return ix;
+                return "";
+            }
+            if (type == "FERRY")
+            {
+                // GAP-FY-NAME-01 — name ← name_ferry_terminal; trống OK; cấm IsWeak→đoạn tuyến
+                string fy = Cell(f, iOfficial);
+                if (fy.Length > 0 && !IsJunk(fy)) return fy;
                 return "";
             }
             if (type == "DELINEATOR")

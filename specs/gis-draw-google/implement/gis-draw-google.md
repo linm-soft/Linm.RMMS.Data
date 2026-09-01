@@ -11,7 +11,7 @@
 | schemaVersion | `qldb-workflow-skill-v1` |
 | workflowVersion | `2026.08.10.3` |
 | versionGate | `ok` |
-| updatedAt | `2026-08-11T15:30:00.000Z` |
+| updatedAt | `2026-09-01T01:45:00.000Z` |
 
 ## retry.ssot_rereview
 
@@ -20,15 +20,15 @@
 | LinPageLayout / CatalogListShell | N/A Kind F |
 | CatalogListPagination | N/A |
 | flex + skeleton | map-host flex · loading overlay |
-| toolbar | zone B + map-bar |
+| toolbar | map-bar + MAP_QUICK_TOOLS overlay — **cấm** zone B seed toolbar |
 | OMS R1 live Leaflet | PASS |
 | OMS R2 basemap OSM/Esri/sat + Google proxy default | PASS (feature default Google · OSM VN on bar) |
 | OMS R3 title/aria | PASS |
 | OMS R4b full flex | PASS |
-| OMS R4c host→bar→legend | PASS |
+| OMS R4c host→bar | PASS · **không** legend isolate bottom |
 | OMS R5b sat maxNativeZoom 17 | PASS |
 | OMS R7b corridor + track panes | PASS `corridorStyle` / `trackLineStyle` |
-| OMS R7c isolate + Fit focus | PASS legend/line/results |
+| OMS R7c isolate + Fit focus | List Kết quả only — **cấm** map click auto zoom |
 | OMS R8/R9 OSRM route + snap | PASS (fallback raw) |
 | OMS R11 Fit overview ≤13 | PASS |
 

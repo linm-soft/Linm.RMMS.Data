@@ -1,0 +1,51 @@
+{
+  "list": {
+    "titleStation": true,
+    "headerStation": true,
+    "createBtn": true,
+    "noCreateBadge": true,
+    "typeFilterHidden": true,
+    "filterBar": true,
+    "search": true,
+    "route": true,
+    "kmFrom": true,
+    "kmToFilter": true,
+    "org": true,
+    "typeWorkCol": true,
+    "snippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nHạng mục KCHT\nDS\nDev Standalone\nDeveloper\nTài sản đường\nSổ TS — Nhà hạt QLĐB\nLàm mới\nTạo mới\nDanh sách nhà hạt QLĐB\nMenu dòng: nhấn đúp · Ctrl + chuột phải · nhấn giữ dòng\nTìm kiếm\nCao tốc / quốc lộ\nLý trình từ\nLý trình đến\nCây đơn vị\n​\nSTT\t\n\tMã tài sản\n\tTên tài sản\n\tTuyến đường\n\tLý trình bắt đầu\n\tLoại công trình\n\tTình trạng KT\n\tTọa độ GPS\n\n1\t\n\tNH-road_admin_office_77914\tHạt QLĐB Đắk Glei\tQL.Hồ Chí Minh\t\t—\ttot\t15.0700,"
+  },
+  "form": {
+    "cols5": true,
+    "stationAttr": true,
+    "typeWork": true,
+    "buildLocation": true,
+    "officeGrade": true,
+    "auxGrade": true,
+    "totalArea": true,
+    "kmToVisible": false,
+    "nameBuilding": true,
+    "noModeBadge": true,
+    "snippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nHạng mục KCHT\nDS\nDev Standalone\nDeveloper\nTạo tài sản\nQuay lại\nHủy\nTạo mới\nTạo tài sản\nĐang tạo mới — Lưu hoặc Hủy\nTHÔNG TIN TÀI SẢN\nMã tài sản\nTình trạng kỹ thuật*\nChọn tình trạng\nLoại tài sản *\n✕\nCao tốc / quốc lộ *\nTuyến\nĐoạn tuyến\nNguồn\nTên công trình\nLý trình bắt đầu (Km+)\nẢnh hiện trường\nTHÔNG SỐ NHÀ HẠT QLĐB\nLoại công trình*\nChọn loại công trình\nVị trí mặt cắt ngang đường\nChọn vị trí\nCấp nhà làm việc\nChọn cấp\nTổng DT nhà làm việc (m²)\nDT khuôn viên sử dụng đất (m²)\nCấp công trình phụ\nChọn cấp\nTổng DT CT phụ (m²)\nVật tư trong nhà hạt\nGPS / HỒ SƠ\nVĩ độ\nKinh độ\nMã QR\nGiá trị tài sản (VND)\nNgày cập nhật\nGhi chú "
+  },
+  "dtm": {
+    "D": {
+      "filterBar": true,
+      "overflowX": false,
+      "bodyW": 1280,
+      "vw": 1280
+    },
+    "T": {
+      "filterBar": true,
+      "overflowX": false,
+      "bodyW": 768,
+      "vw": 768
+    },
+    "M": {
+      "filterBar": true,
+      "overflowX": false,
+      "bodyW": 375,
+      "vw": 375
+    }
+  },
+  "at": "2026-09-01T01:45:02.687Z"
+}

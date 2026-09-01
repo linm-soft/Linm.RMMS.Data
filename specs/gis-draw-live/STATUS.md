@@ -18,7 +18,7 @@
 | schemaVersion | `qldb-workflow-skill-v1` |
 | workflowVersion | `2026.08.10.3` |
 | versionGate | `ok` |
-| updatedAt | `2026-08-11T15:21:09.698Z` |
+| updatedAt | `2026-09-01T01:18:00.000Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -77,6 +77,13 @@
 - edit_page: mock localStorage → `api/v1/gis/liveings` + OMS R1–R11 · default OSM
 - BE only `Linm.RMMS.WebService` domain Gis · `purpose=live`
 - Verify gate 2026-08-11: FE typecheck/build + BE Release **PASS**
+
+## Edit (2026-09-01 `/edit-web-feature`)
+
+- Bỏ header Dev/GIS/title · toolbar seed · bottom isolate legend
+- Map dock flex fill remaining · click TS trên map không auto zoom
+- Attribution ẩn Leaflet · `RMMS.vn` · bỏ map-bar meta cụm/TS
+- Context lock: `ui/design.md` · `ui/ux-analy.md` · task · implement Notes
 
 ---
 <!-- Version meta: skillVersion=2026.08.10.3 · schemaVersion=qldb-workflow-skill-v1 · workflowVersion=2026.08.10.3 · versionGate=ok -->

@@ -81,6 +81,7 @@
 - **2026-08-24 `/edit-web-feature`:** click pin = inspect + tab Thuộc tính · không isolate (vẫn show all)
 - BE only `Linm.RMMS.WebService` domain Gis
 - Verify gate 2026-08-11: FE typecheck/build + BE Release **PASS**
+- **2026-09-01 `/hey-linm` + `/edit-web-feature`:** chrome parity `/gis/live` — bỏ header/toolbar seed/isolate legend · map flex fill · click map không zoom · attribution `RMMS.vn` · GAP-WEB-EDIT-01
 
 ---
 <!-- Version meta: skillVersion=2026.08.10.3 · schemaVersion=qldb-workflow-skill-v1 · workflowVersion=2026.08.10.3 · versionGate=ok -->

@@ -9,7 +9,7 @@
 | schemaVersion | `qldb-workflow-skill-v1` |
 | workflowVersion | `2026.08.10.3` |
 | versionGate | `ok` |
-| updatedAt | `2026-08-11T22:20:00.000Z` |
+| updatedAt | `2026-09-01T01:18:00.000Z` |
 
 ## Preconditions
 
@@ -26,9 +26,8 @@
 | QA-04 | Draw Point/Line/Polygon | Leaflet.draw + chọn target | Draft → props · đo length/area | PASS (code) |
 | QA-05 | Save drawing | Nhập mã/tên · Lưu | POST `/api/v1/gis/drawings` hoặc local fallback | PASS (code) |
 | QA-06 | Basemap | OSM → Esri → Sat | Tiles switch · sat maxNativeZoom 17 | PASS (code) |
-| QA-07 | Full/Dock | Toggle Full/Dock | Full ẩn sidebar · dock hiện side + cap host | PASS (code) |
-| QA-08 | Isolate + Fit | Click chú giải / list | Isolate layer/feature · Fit focus | PASS (code) |
-| QA-09 | Chuẩn hóa cột Km | Click toolbar | lyTrinh `KmN+OO` | PASS (code) |
+| QA-07 | Full/Dock | Toggle icon map-bar | Full ẩn sidebar · dock hiện side + map **flex fill** remaining | PASS (code) |
+| QA-08 | Click tài sản map | Click cụm / pin | Popup · **không** auto zoom | PASS (code) |
 | QA-10 | BFF fallback | Stop API · Lưu | `local-seed` · persist localStorage | PASS (code) |
 | QA-11 | BE contract | GET `/api/v1/gis/basemap-config?purpose=live` | defaultBasemap=`osm` | PASS (build) |
 | QA-12 | BFF proxy | GET `web-bff/api/v1/gis/layers?purpose=live` | Catalog asset layers | PASS (build) |

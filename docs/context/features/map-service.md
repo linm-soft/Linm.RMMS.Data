@@ -1,9 +1,9 @@
 # MapService — dữ liệu gis.vn / CSDL nhà nước
 
 > **Slug:** `map-service` · **Module:** Platform GIS · **Phase:** P1 (ingest+clip) / P1.5 (tile prod)  
-> **Status:** Stack Wave 1 **done** · BE live — host **`Linm.Platform.MapService`** (`API-CORE`) · Docker `:5021` · **34 tỉnh + mask + MVT + guest 401** · **chưa** BFF consumer / MFE clip  
+> **Status:** Stack Wave 1 **done** · Wave 2 **web BFF done** (mobile pending) · Wave 4 **web done** (iOS/Android pending) · **P2 streets done** (`streetTilesReady`) — host **`Linm.Platform.MapService`** (`API-CORE`) · Docker `:5021` · Web BFF NuGet **1.1.0** tiles `web-bff/api/v1/gis/tiles/…` · MFE clip BFF MVT + OpenMapTiles roads/names  
 > **Confirmed (2026-09-01):** `svc_host=new_svc` · `service_kind=api` · `src_style=micro_src` · **platform service** (không RMMS domain)  
-> **Skills:** `/implement-map-stack` (entry) · `/implement-map-service` · `/data-gov-integration` · `/new-service` · next `/create-bff-api-feature` · `/implement-gis-map`  
+> **Skills:** `/implement-map-stack` (entry) · `/implement-map-service` · `/data-gov-integration` · `/new-service` · next Wave 2 mobile BFF · Wave 3 `/implement-map-stack` integrate · Wave 4 native `/implement-gis-map`  
 > **Implement plan (BE→BFF→UI):** [`../../plan/map-service/README.md`](../../plan/map-service/README.md)  
 > **Platform STATUS:** `D:/API-CORE/Linm.Platform.MapService/docs/STATUS.md`  
 > **Peers:** [`gis.md`](gis.md) · [`gis-osm-clip.md`](gis-osm-clip.md) · [`import-gov-ssot.md`](import-gov-ssot.md) · [`legal-tech-corridor.md`](legal-tech-corridor.md)  
@@ -19,7 +19,7 @@
 | App hiện có | Platform `Linm.Platform.MapService` `api/v1/gis/*` (tiles/clip) · RMMS.WebService GIS giữ drawings/PCI — **cấm** hai bảng `VietnamBoundaries` |
 | DoD P1 | File gis.vn 34 tỉnh (HS/TS) **trong pipeline** · Osmium clip · tile **tự host** · GIST · guest không GeoJSON TS · map **chỉ hiện Việt Nam** |
 
-**Host:** `Linm.Platform.MapService` (Ask `new_svc` + platform 2026-09-01). Layout C `api/src/Map.Api/` + BFF lib `Linm.Platform.MapService.Bff` (NuGet **chưa** gắn RMMS Web.Bff). Overlay KCHT vẫn `/data-gov-integration` trên RMMS. **Cấm** hai bảng `VietnamBoundaries`.
+**Host:** `Linm.Platform.MapService` (Ask `new_svc` + platform 2026-09-01). Layout C `api/src/Map.Api/` + BFF lib `Linm.Platform.MapService.Bff` **1.1.0** (Web.Bff **đã** `AddLinmMapServiceBff` · tiles trên `GisBffController` · **cấm** `AddLinmMapServiceBffControllers`). Overlay KCHT vẫn `/data-gov-integration` trên RMMS. **Cấm** hai bảng `VietnamBoundaries`.
 
 | | |
 |--|--|
@@ -29,7 +29,7 @@
 
 ## 2. Design / UI
 
-Không MFE riêng. Admin ingest = hosted `Map:IngestOnStartup` (file mount `/clip/vietnam-34.geojson`). User map → [`gis-osm-clip.md`](gis-osm-clip.md) — **chưa** đổi tile URL (vẫn OSM.org trên Gis*Page).
+Không MFE riêng. Admin ingest = hosted `Map:IngestOnStartup` (file mount `/clip/vietnam-34.geojson`). User map → [`gis-osm-clip.md`](gis-osm-clip.md) — MFE Gis*Page **clip BFF** (MapLibre MVT) · **0** OSM.org.
 
 ## 3. API
 
@@ -40,8 +40,8 @@ Reuse Signed GIS (MapService):
 | Method | Path | Ghi chú |
 |--------|------|---------|
 | GET | `/health` | Anonymous |
-| GET | `/api/v1/gis/health` | `boundaryCount` · `clipMaskReady` |
-| GET | `/api/v1/gis/basemap-config` | Guest · `provider=map-service-clip` · maxBounds 102–118 / **6.8–23.5** · minZoom 5 |
+| GET | `/api/v1/gis/health` | `boundaryCount` · `clipMaskReady` · `streetTilesReady` |
+| GET | `/api/v1/gis/basemap-config` | Guest · `provider=map-service-clip-osm` khi P2 ready · maxBounds 102–118 / **6.8–23.5** · minZoom 5 |
 | GET | `/api/v1/gis/layers` | Guest thấy lớp public; inspector thêm overlay |
 | GET | `/api/v1/gis/tiles/{layer}/{z}/{x}/{y}.pbf` | Guest: `basemap`/`boundaries`/`mask`/`notices`. Inspector: `routes`/`assets`/`cameras`/`patrol` |
 | GET | `/api/v1/gis/geojson/{layer}?bbox=` | JWT inspector; **cấm** guest |
@@ -71,7 +71,7 @@ Isolated PostGIS `linm_maps` (không Auth DB · không RMMS AppDbContext):
 | National/province MultiPolygon | [`../../gis-vn-map/`](../../gis-vn-map/) `Việt Nam (tỉnh thành) - 34.geojson` · 34 MultiPolygon · 31.7 MB | **Ingested 2026-09-01** · `vietnam_boundaries` count=34 · GIST `"Geom"` |
 | Clip mask | `ST_Union` 34 → invert world-minus-VN (đất liền + HS + TS) | **Ready** · `clip_masks` count=1 |
 | Road/KCHT overlay | `gov-vn` import → `overlay_features` | **Trống** — `/data-gov-integration` |
-| OSM streets | PBF clipped → `Map:OsmTileCacheRoot` | **GAP** — script `local-script/osmium-clip.sh` |
+| OSM streets | PBF clipped → `Map:OsmTileCacheRoot` `vietnam.mbtiles` | **Ready 2026-09-01** — Osmium + Planetiler z12 · `streetTilesReady=true` |
 | Forbidden geofence | Bảng `forbidden_geofences` | **Không** public GeoJSON |
 
 SRID 4326 + GIST. VN-2000 = transform khi nộp hồ sơ — không thay 4326 runtime.
@@ -97,9 +97,10 @@ Import gov xong → rebuild overlay MVT. Clip PBF mới → invalidate tile cach
 
 | ID | Default |
 |----|---------|
-| GAP-MAP-SVC-01 | **Wave 1 CLOSED** — ingest 34 + mask + MVT + guest 401 · Osmium PBF / street tiles **P2** |
-| GAP-MAP-OSM-CDN-01 | MFE Gis*Page OSM.org / Esri / Carto / Google · RMMS BFF chưa `AddLinmMapServiceBff` |
+| GAP-MAP-SVC-01 | **CLOSED** — ingest 34 + mask + MVT + guest 401 · **P2 streets** MBTiles (`MAP-P2-01`) |
+| GAP-MAP-OSM-CDN-01 | **CLOSED web MFE** — Gis*Page BFF clip; native / demo HTML OSM.org còn |
 | GAP-MAP-GISVN-01 | **CLOSED file** — `docs/gis-vn-map/Việt Nam (tỉnh thành) - 34.geojson` |
+| GAP-MAP-TILE-500 | **CLOSED 2026-09-01** — SQLite MBTiles NRE concurrent · clip MVT · sea bg / layer order |
 | GOV-IMP-* | `/data-gov-integration` — overlay `overlay_features` trống |
 
 ## 7. Demo checklist
@@ -108,6 +109,7 @@ Import gov xong → rebuild overlay MVT. Clip PBF mới → invalidate tile cach
 - [x] Platform repo + Schema applied + ingest 34 + mask (Docker `:5021`)  
 - [x] Tile MVT nội bộ (`basemap` 200)  
 - [x] Osmium extract **documented** (`local-script/osmium-clip.sh`) · `/clip/vietnam.poly` written  
-- [ ] Osmium extract **ran** (PBF clip — P2)  
-- [ ] Prod tile URL **BFF** cùng origin  
-- [ ] Không gọi `tile.openstreetmap.org`
+- [x] Web BFF same-origin tiles (`web-bff/api/v1/gis/tiles/basemap/…` 200 · guest overlay 401)  
+- [x] Osmium extract **ran** + Planetiler MBTiles z12 (`streetTilesReady` · layers transportation/place)  
+- [x] Prod tile URL **BFF** cùng origin (MFE Wave 4 web)  
+- [x] Không gọi `tile.openstreetmap.org` (MFE Gis*Page source)

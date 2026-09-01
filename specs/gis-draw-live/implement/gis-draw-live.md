@@ -11,7 +11,7 @@
 | schemaVersion | `qldb-workflow-skill-v1` |
 | workflowVersion | `2026.08.10.3` |
 | versionGate | `ok` |
-| updatedAt | `2026-08-11T22:20:00.000Z` |
+| updatedAt | `2026-09-01T01:18:00.000Z` |
 
 ## retry.ssot_rereview
 
@@ -22,7 +22,7 @@ Live page `/gis/draw` audit before Write:
 | LinPageLayout / CatalogListShell | N/A Kind F — 1 map shell, no nested CatalogListShell |
 | CatalogListPagination | N/A |
 | flex + skeleton | map-host flex · loading overlay Leaflet / sync |
-| toolbar | zone B + map-bar (OSM/Esri/sat · Fit · Full/Dock) |
+| toolbar | map-bar only (clip · Fit · Full/Dock) — **cấm** zone B seed toolbar |
 | list_parity | N/A packKind=map |
 | tree_master | layer tree sidebar (checkbox + radio target) |
 | form checklist | props panel after draw (not Slideout) |
@@ -30,10 +30,10 @@ Live page `/gis/draw` audit before Write:
 | OMS R2 basemap OSM default + Esri/sat | PASS |
 | OMS R3 title/aria | PASS map `role=application` · bar aria |
 | OMS R4b full flex | PASS · full ẩn sidebar (demo parity) |
-| OMS R4c host→bar→legend | PASS |
+| OMS R4c host→bar | PASS · **không** legend isolate bottom |
 | OMS R5b sat maxNativeZoom 17 | PASS |
 | OMS R7b corridor + track panes | PASS `corridorStyle` / `trackLineStyle` |
-| OMS R7c isolate + Fit focus | PASS legend/list |
+| OMS R7c isolate + Fit focus | List Kết quả only — **cấm** map click auto zoom |
 | OMS R8/R9 OSRM route + snap | PASS (fallback raw) |
 | OMS R11 Fit overview ≤13 | PASS |
 
@@ -79,6 +79,14 @@ Live page `/gis/draw` audit before Write:
 - Unit tests — pending
 - Demo seed QL.1 vs MFE Cot_km QL.22 — seed file remains QL.22 (existing MFE seed)
 
+## Notes (2026-09-01 `/edit-web-feature`)
+
+- Removed page header (`← Dev ← GIS` + title) · seed toolbar · bottom isolate legend
+- Dock map-host **flex fill** remaining (sidebar + status + map-bar)
+- Click cụm / pin / line trên map: **popup only** — **cấm** `setView` auto zoom
+- Attribution: ẩn Leaflet · `RMMS.vn` (`CLIP_MAP_ATTRIBUTION` · `setPrefix(false)`)
+- Dest: `GisDrawLivePage.tsx` · `.module.css` · `vnClipBasemap.ts` · demo `gis-draw-live.html`
+
 ## Notes (2026-08-26 · lazy Lớp + zoom snap)
 
 Reopen `docs/defect/gis-live-lop-lazy-load-zoom-snap.md`:
@@ -86,8 +94,8 @@ Reopen `docs/defect/gis-live-lop-lazy-load-zoom-snap.md`:
 - Lớp checkbox default **off**; boot chỉ `getSummaryByType` (count); tick mới fetch + spinner
 - `loadViewport`: clusters trước, corridor 1-shot `take=400` sau; `getGisClusters({ layer })` bắt buộc
 - Paint raw `overlayPane` trước `linePaintSigRef`; z≥9 OSRM `setLatLngs`; abort giữ nét
-- Click cụm `setView` ≥14; `hasMore !== false`; `routeSavedLines` fail **không** `byRoute.set`
-- Isolate chưa tick → auto-tick; **Tất cả** không tick hết; tab Lớp ≠ `{OsrmNearest}`
+- `hasMore !== false`; `routeSavedLines` fail **không** `byRoute.set`
+- Tab Lớp ≠ `{OsrmNearest}`
 
 ## Permissions
 

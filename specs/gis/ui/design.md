@@ -1,4 +1,4 @@
-# Design — gis (Kind F map)
+# Design — gis (Kind F map · chrome parity live)
 
 | Field | Value |
 |-------|-------|
@@ -11,23 +11,23 @@
 | schemaVersion | `qldb-workflow-skill-v1` |
 | workflowVersion | `2026.08.08.31` |
 | versionGate | `ok` |
-| updatedAt | `2026-08-08T16:24:00.000Z` |
+| updatedAt | `2026-09-01T01:45:00.000Z` |
 
 ## 1. Context & Demo
 
 - Context: `docs/context/features/gis.md`
 - Demo SSOT: `Demo/src/demo/gis/gis.html`
 - controlHint: `specs/_data-analy/features/gis-control-hint.md`
-- OMS: `/agent-dev-oms-map` R1–R11
+- OMS: `/agent-dev-oms-map` · **MFE chrome** `gis-mfe-map-standard.md` (parity `/gis/live`)
 
 ## 2. Screens / zones (content-only · skip chrome demo · **cấm badge P1/P2**)
 
 | Zone | Name | Content |
 |------|------|---------|
 | A | Sidebar | Tabs: Lớp · Chú giải · Thuộc tính · Kết quả |
-| B | Toolbar + filter | Fetch · overlay · heatmap · fit · twin · draw · search · PCI min/max · **toolbar FA+perm** (parity list) |
-| C | Map chrome | `map-host` (Leaflet) → `map-bar` (OSM/Esri/sat · Fit · full/dock) → legend PCI |
-| D | Results + props | Section + pin + camera **full table** (cấm `max-height` cắt hàng) · **MapPointDetail** · legend **đủ** loại TS / đoạn đang vẽ (cấm cap 16) |
+| B | Toolbar + filter | **Giữ** Lấy dữ liệu / overlay / Heatmap / Twin / Mở vẽ + search + PCI min/max · **cấm** page header `← Dev` / title «GIS bản đồ giám sát 2D» |
+| C | Map chrome | `map-host` (Leaflet **flex fill**) → `map-bar` (Nền VN clip · Fit · full/dock) · **cấm** map-bar meta · **cấm** legend isolate bottom |
+| D | Results + props | Section + pin + camera **full table** (cấm `max-height` cắt hàng) · **MapPointDetail** · chú giải **sidebar** đủ loại TS |
 
 ## 2b. Shared map REF (promote Common sau)
 
@@ -52,6 +52,9 @@
 | Twin 3D | Nav link (no phase badge) | B |
 | Mở vẽ | Nav Link | B |
 | Pin theo mã TS | DivIcon `assetCode` | C |
+| Click đoạn / pin / camera trên map | Popup + tab Thuộc tính · **cấm auto zoom** (`isolateSection` từ map) | C |
+| Grid row đoạn | Vẫn isolate + Fit | D |
+| `?cam=` deep-link | `setView` + slideout — **giữ** | C |
 | Điểm đang chọn | HtmlComponent `detailHtml` / ReactNode | A props |
 
 ## 4. Prototype
@@ -64,7 +67,10 @@
 
 - Primary teal `#0f766e` (demo parity)
 - Live Leaflet only — cấm fake gradient map
-- Default Fit overview zoom ≤13
+- Default Fit overview zoom ≤13 — **chỉ** map-bar Fit / load
+- Dock: map-host **flex fill** remaining (toolbar + filter + status + map-bar + grid) — **cấm** cap `min(42vh, 420px)`
+- **Cấm** bottom isolate legend
+- Attribution: **ẩn Leaflet** · chỉ `RMMS.vn`
 - sat `maxNativeZoom: 17`
 
 ## 6. Handoff → SA

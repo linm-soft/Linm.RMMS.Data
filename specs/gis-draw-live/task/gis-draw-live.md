@@ -9,7 +9,7 @@
 | schemaVersion | `qldb-workflow-skill-v1` |
 | workflowVersion | `2026.08.10.3` |
 | versionGate | `ok` |
-| updatedAt | `2026-08-11T22:16:00.000Z` |
+| updatedAt | `2026-09-01T01:18:00.000Z` |
 
 ## Source assignment
 
@@ -19,13 +19,15 @@
 | BE API/BFF | `D:/AI-QLBD/Linm.RMMS.WebService` · domain `Gis` |
 | Demo SSOT | `Linm.RMMS.Demo/src/demo/gis/gis-draw-live.html` |
 | Context | `Linm.RMMS.Data/docs/context/features/gis-draw-live.md` |
-| Design zones | A sidebar · B toolbar · C map chrome · D props/results |
+| Design zones | A sidebar · C map chrome (host→bar, **không** legend isolate) · D props/results · **không** header/toolbar B |
 
 **Cấm:** `Linm.Web.ERP.WebService` · `Domains/Master` · `api/v1/rmms/*` ERP.
 
-## UI notes (2026-08-26)
+## UI notes (2026-09-01 `/edit-web-feature`)
 
-Lớp lazy default off + count. Paint nét overlayPane raw trước OSRM. Click cụm `setView` ≥ DETAIL_ZOOM. Snap `projectToPath` đúng `props.route` — cấm nearest inventory.
+**Cấm revert:** không header `← Dev ← GIS` + title · không toolbar seed/export · không bottom isolate legend. Dock map **flex fill** remaining. Click cụm/pin **không** `setView` / auto zoom (popup only). List Kết quả vẫn Fit.
+
+Lớp lazy default off + count. Paint nét overlayPane raw trước OSRM. Snap `projectToPath` đúng `props.route` — cấm nearest inventory.
 
 ## Platform SSOT / permissions
 
@@ -56,7 +58,7 @@ Live page `/gis/draw` audit before Write:
 | 1 LinPageLayout nested CatalogListShell | N/A — Kind F map (not Kind B list) |
 | footer CatalogListPagination | N/A |
 | flex+skeleton | map-host flex fill · loading state |
-| toolbar config | zone B + map-bar |
+| toolbar config | map-bar only (Fit · clip · toggle) — **cấm** zone B seed toolbar |
 | list_parity | N/A packKind=map |
 | tree_master | layer tree sidebar (not catalog tree_master) |
 | form checklist | props panel after draw (not Slideout form) |

@@ -180,6 +180,8 @@ Live DRVN / user: **Tuyến chính** `QL.1` · **Tuyến** `QL.1 - Lạng Sơn (
 
 Chi tiết đủ cột + map chứng từ (Biểu 1 · hộ chiếu cọc · biển): [`import-gov-asset-fields.md`](import-gov-asset-fields.md).
 
+**GIS overlay (không tile MapService):** tuyến + pin vẽ trên MFE (`/gis/live`) — OSRM `/route` + OSM `ref` = mã tầng 1, pin `projectToPath` theo `route` (`road_name`). **Cấm** nearest-mọi-tuyến. Nhánh/tránh chỉ đúng tim khi `Route` ≠ QL chính — **GAP-GOV-ROUTE-3LVL**.
+
 | ID | Status | Việc |
 |----|--------|------|
 | GAP-GOV-ROUTE-3LVL | mở | Rebuild tách 3 tầng — mọi type |

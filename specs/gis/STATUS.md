@@ -100,6 +100,7 @@
 - from: `data_analy` · task `task_026922f7` · `edit_page` · Autopilot
 - reason: thiếu `gis-real-data.md` → **must** `/agent-data-analy` feature_context
 - completed: control-hint + real-data · STATUS pipeline 0b done · roles sau pending
+- **2026-09-01 `/hey-linm`:** chrome parity `/gis/live` — bỏ page header + isolate legend · map flex fill · map click không zoom · giữ toolbar vận hành + `?cam=` · GAP-WEB-EDIT-01
 
 ---
 <!-- Version meta: skillVersion=2026.08.25.01 · schemaVersion=qldb-workflow-skill-v1 · workflowVersion=2026.08.25.01 · rulesVersion=2026.08.25.4 · versionGate=rechecked · versionMismatchAction=keep_current→recheck_analy · contentHash=sha256:131af800fbec56a23f6233a7ad257c244d7bf777f1a411ccf39b3fc2fe1349f0 -->

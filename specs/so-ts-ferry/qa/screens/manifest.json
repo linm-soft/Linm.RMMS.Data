@@ -1,0 +1,37 @@
+{
+  "url": "http://localhost:9301/so-ts?type=FERRY",
+  "aliasUrl": "http://localhost:9301/so-ts-ferry",
+  "formUrl": "http://localhost:9301/so-ts/tao-moi?type=FERRY",
+  "method": "e2e runtime · yarn start:std :9301 + docker API :5111 + BFF :5201 + yarn e2e-qa contract (Chrome channel fallback)",
+  "capturedAt": "2026-09-01T00:40:13.722Z",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "sha256_16": "3f80ef1c086c177a",
+      "url": "http://localhost:9301/so-ts?type=FERRY",
+      "note": "list FERRY profile + filter bar"
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "sha256_16": "3f80ef1c086c177a",
+      "url": "http://localhost:9301/so-ts-ferry",
+      "note": "alias /so-ts-ferry → type=FERRY"
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "sha256_16": "e750cf946ab00e89",
+      "url": "http://localhost:9301/so-ts/tao-moi?type=FERRY",
+      "note": "Create form · S-ATTR ferry"
+    }
+  ],
+  "ok": true,
+  "note": "GAP-QA-E2E-PW-01: yarn e2e-qa hung after login banner — capture used channel=chrome; API host port 5111 (compose map) · --skip-start",
+  "testid": "rmms-so-ts-ferry-list-page",
+  "formTestid": "rmms-asset-form-shell"
+}

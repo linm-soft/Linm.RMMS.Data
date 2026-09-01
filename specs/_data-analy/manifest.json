@@ -1,4 +1,4 @@
-﻿{
+{
     "schemaVersion":  "1",
     "skillId":  "agent-data-analy",
     "skillVersion":  "2026.08.15.5",
@@ -444,6 +444,23 @@
                              "analyzedAt":  "2026-08-18T17:35:15.000Z",
                              "backup":  "specs/login/_backup/20260818T173515Z",
                              "notes":  "retry roleOnly data_analy · task_3b190d5a · recheck 2026.08.19.01 · GAP-MOB-BFF-01 forgot · GAP-MOB-BFF-02 refresh-token · GAP-MOB-ACT-02 none · kit_missing password/eye · no Excel"
+                         },
+                         {
+                             "id":  "feature-so-ts-bus-station-v1",
+                             "featureSlug":  "so-ts-bus-station",
+                             "catalogKind":  "road-assets",
+                             "packKind":  "list",
+                             "status":  "done",
+                             "artifact":  "specs/_data-analy/features/so-ts-bus-station-control-hint.md",
+                             "realData":  "specs/_data-analy/features/so-ts-bus-station-real-data.md",
+                             "contentHash":  "sha256:e163077d4f1e16605d699be6e6c518273e794d50ffa7c0ce79379e92c70d98dd",
+                             "headerFingerprint":  "sha256:9815ded05f96794f988621ea6f19a2f4b6f75cad726a54e80d11060c6af52553",
+                             "skillVersion":  "2026.08.25.01",
+                             "workflowVersion":  "2026.09.01.02",
+                             "rulesVersion":  "2026.09.01.1",
+                             "versionGate":  "ok",
+                             "analyzedAt":  "2026-09-01T03:04:42.869Z",
+                             "notes":  "roleOnly data_analy · task_dc06532d · new_page · feature_context · type BUS_STATION · tbl_bus_station · live api/v1/asset/road-assets · GAP-SOTS-COL/FORM · cấm ERP · cấm fork form · tile t04 · 387 gov-vn"
                          }
                      ]
 }

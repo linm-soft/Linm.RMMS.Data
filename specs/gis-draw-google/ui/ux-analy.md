@@ -4,36 +4,44 @@
 |-------|-------|
 | feature | `gis-draw-google` |
 | route | `/gis/ha-tang` |
-| updatedAt | `2026-08-24T01:10:00.000Z` |
+| updatedAt | `2026-09-01T01:45:00.000Z` |
 
 ## Zones
 
 | Zone | Copy / hành vi |
 |------|----------------|
-| Header | Bản đồ hạ tầng — vẽ tài sản · badge API khi BFF |
-| Sidebar Lớp | Tree lớp vẽ + **Hầm** · radio target · chỉ lớp đang work |
-| Toolbar | **Fit tổng quan** (không «Về QL.22») · nạp seed Excel = fallback |
-| Map | Leaflet live · host→bar→legend · pin QCVN CAU/HAM **trùng chú giải** (không vòng trắng) |
-| Click pin | Chỉ **Thuộc tính** (mã/tên/geom) · **không** isolate · map vẫn **Tất cả** |
-| Status | `DB khu-2-gov` khi API trả inventory |
+| Header | **Không** `← Dev` · `← GIS` · title «Bản đồ hạ tầng — vẽ tài sản» · badge API |
+| Toolbar | **Không** Fit tổng quan / Nạp seed Excel / Chuẩn hóa cột Km / Export GeoJSON / Xoá hết layer / Hủy biên tập / Lưu Ctrl+S / Công cụ ▾ |
+| Overlay tools | **Không** MAP_QUICK_TOOLS / Leaflet.draw toolbar — chỉ +/- zoom |
+| Status | EPSG:4326 · overlay status · **cấm** `Cot_km*.xlsx` / seed filename |
+| Map | Leaflet live · **default zoom min** (toàn clip VN) · flex fill |
+| Map-bar | Nền VN (clip) · Fit · toggle full/dock · **không** meta overlay/apiMode |
+| Attribution | **Ẩn** Leaflet prefix · chỉ `RMMS.vn` |
+| Bottom legend | **Không** «Lớp · click isolate + Fit» · **không** Tuyến/Corridor chips |
+| Click pin/line trên map | Popup + tab Thuộc tính · **không auto zoom** |
+| List Kết quả | Click dòng vẫn Fit focus |
+| Ctrl+S | Vẫn commit local (không cần nút toolbar) |
 
 ## Overlay SSOT
 
 - Nguồn: `GET /api/v1/gis/geojson/drawings` merge drawings + **mọi** `rmms_road_assets` plottable (set **khu-2-gov**)
 - BRIDGE → lớp `cau` · TUNNEL → lớp `ham` · tuyến km-chain → `tuyen-duong`
 - Cấm vẽ placeholder `lat=16,lng=110`
-- Thiếu tọa độ: `coordSource=km-copy` (cùng route+km) hoặc `km-lerp` (mốc ≤40 km)
-- CSV trùng `code` (vidagis) → import suffix `#n` / merge cùng tên+km
-- Vidagis lat/lng **ngoài bbox Nghệ An** (Quảng Ninh / Quảng Trị / 16,110) **không** plot — `coordSource=khu2-corridor` trên tim đường Khu II
-- LineString tuyến = vertices corridor QL.1 / QL.48B / CT / QL.HCM · **OSRM routeAlongStreets** (R8) · pin ghim `projectToPath`
-- Fit overview ≤13 trên bbox tài sản
-- Tree lớp vẽ (cột km, biển báo, …) vẫn hiện để vẽ mới — CSV set không có loại đó thì trống overlay
+- LineString tuyến = vertices corridor · **OSRM routeAlongStreets** (R8) · pin ghim `projectToPath`
+- Fit overview ≤13 trên bbox tài sản — **chỉ** map-bar Fit
+- Tree lớp vẽ vẫn hiện để vẽ mới
 
 ## GAP
 
 | ID | Note |
 |----|------|
-| GAP-WEB-EDIT-01 | Context lock cùng turn với wire DB |
-| GAP-MAP-ICON | Pin map = pictogram QCVN (`createAssetLeafletIcon`) · legend `assetIconHtml` cùng glyph · cấm vòng trắng |
-| DEFER | `pavement_sections` không geom / km lệch Khu 2 — không vẽ mặt đường |
+| GAP-WEB-EDIT-01 | Context lock 2026-09-01 — **cấm** worker re-add header/toolbar-seed/legend isolate / map click `setView` |
+| GAP-MAP-CLICK-ZOOM | Click tài sản trên map = popup only · cấm `fitIsolateSelection` từ paint |
+| GAP-MAP-ATTR-RMMS | Attribution `RMMS.vn` · `setPrefix(false)` |
+| GAP-MAP-ICON | Pin map = pictogram QCVN · cấm vòng trắng |
 | GAP-MAP-CLICK-INSPECT | Click icon map = inspect + tab Thuộc tính · cấm isolate/ẩn tài sản khác |
+| DEFER | `pavement_sections` không geom / km lệch Khu 2 — không vẽ mặt đường |
+
+## Copy
+
+Không hardcode title page. Fit overview chỉ nút **Fit** trên map-bar. Chrome **parity** `/gis/live`.

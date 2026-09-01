@@ -16,5 +16,5 @@
 
 | lane | phase | status | updatedAt |
 |------|-------|--------|-----------|
-| web | `design` | `pending` | `2026-09-01T00:01:06.612Z` |
+| web | `done` | `done` | `2026-09-01T00:44:45.705Z` |
 | mobile | — | — | — |

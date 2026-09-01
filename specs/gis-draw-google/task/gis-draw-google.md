@@ -19,7 +19,7 @@
 | BE API/BFF | `D:/AI-QLBD/Linm.RMMS.WebService` · domain `Gis` |
 | Demo SSOT | `Linm.RMMS.Demo/src/demo/gis/gis-draw-google.html` |
 | Context | `Linm.RMMS.Data/docs/context/features/gis-draw-google.md` |
-| Design zones | A sidebar · B toolbar · C map chrome · D props/results |
+| Design zones | A sidebar · B *(removed seed toolbar)* · C map chrome host→bar · D props/results |
 
 **Cấm:** `Linm.Web.ERP.WebService` · `Domains/Master` · `api/v1/rmms/*` ERP.
 

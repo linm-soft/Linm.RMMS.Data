@@ -19,11 +19,22 @@
 | App hiện có | GOVOne «Bản đồ quản lý hạ tầng giao thông» — screenshot `1-ban-do.png` |
 | DoD P1 | Base Google · toggle lớp · toolbar vẽ · save draft → API · form thuộc tính tối thiểu |
 
-**Nguyên tắc:** Không redesign shell — parity layout screenshot (header · sidebar lớp · toolbar · map). Nâng cấp = API/DB chuẩn Linm + adapter.
+**Nguyên tắc MFE 2026-09-01:** chrome **parity** [`gis-draw-live.md`](gis-draw-live.md) — **cấm** page header · **cấm** toolbar seed/export · **cấm** isolate legend bottom · map **flex fill** · click TS **không** auto zoom · attribution `RMMS.vn`. Demo HTML GOVOne **được** giữ screenshot chrome. Spec lock: `specs/gis-draw-google/ui/design.md` · GAP-WEB-EDIT-01.
 
-## 2. Design / UI (parity screenshot)
+## 2. Design / UI (MFE = live chrome · screenshot = demo HTML)
 
-### Layout zones (Full page)
+### Layout zones (MFE `/gis/ha-tang`)
+
+| Zone | Nội dung |
+|------|----------|
+| Header | **Không** |
+| Sidebar | Tabs: Lớp bản đồ · Chú giải · Thuộc tính · Kết quả |
+| Toolbar seed | **Không** — vẽ/đo/in = MAP_QUICK_TOOLS trên map |
+| Map | Clip VN + overlay tuyến + marker · **flex fill** |
+| Map-bar | Nền VN clip · Fit · full/dock |
+| Thuộc tính | Panel sau khi vẽ xong: loại tài sản · mã · tên · lưu |
+
+### Layout zones (demo HTML / legacy GOVOne — ref only)
 
 | Zone | Nội dung (khớp GOVOne) |
 |------|------------------------|

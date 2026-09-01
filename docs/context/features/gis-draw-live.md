@@ -26,10 +26,10 @@
 
 | Zone | Nội dung |
 |------|----------|
-| Header | Tiêu đề · link GIS hub · tag live |
-| Sidebar | Lớp tài sản (checkbox default off + count) · isolate · thuộc tính |
-| Toolbar | Select · Pan · Point · Line · Polygon · Save |
-| Map | Leaflet full-page · OSRM optional |
+| Header | **Không** — title thuộc menu shell |
+| Sidebar | Lớp tài sản (checkbox default off + count) · thuộc tính |
+| Toolbar | **Không** seed/export — Fit trên map-bar |
+| Map | Leaflet **flex fill** remaining · OSRM optional · click TS **không** auto zoom |
 | Props | Mã · tên · loại · lưu draft |
 
 ## 3. API

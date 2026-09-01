@@ -96,7 +96,7 @@ RMMS_DB (PostgreSQL 16)
 | Surface | Ghi chú |
 |---------|---------|
 | **Mobile App (đã có)** | Check-in, Vấn đề, Công việc, Tài sản, Giám sát, Lưu trữ offline — giữ hành vi; bổ sung API AI / sync |
-| **Web Portal** | Nâng cấp theo module MFE khi cần; ưu tiên tích hợp API trước |
+| **Web GIS MFE** | `Linm.Web.RMMS.Gis` — `/gis` · `/gis/live` · `/gis/ha-tang` · chrome **flex fill** · attribution `RMMS.vn` · click pin **không** auto zoom |
 | **Cổng người dân** | Mở rộng báo sự cố (phase sau) |
 
 ## 7. Tích hợp dữ liệu & API (ưu tiên)

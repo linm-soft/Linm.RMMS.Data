@@ -11,7 +11,7 @@
 | schemaVersion | `qldb-workflow-skill-v1` |
 | workflowVersion | `2026.08.10.3` |
 | versionGate | `ok` |
-| updatedAt | `2026-08-11T22:15:00.000Z` |
+| updatedAt | `2026-09-01T01:30:00.000Z` |
 
 ## 1. Context & Demo
 
@@ -23,39 +23,42 @@
 
 | Zone | Name | Content |
 |------|------|---------|
-| A | Sidebar | Lớp nền · tree lớp tài sản (checkbox **default off** + count + spinner) · chú giải isolate · thuộc tính · list đã lưu |
-| B | Toolbar | Fit · seed · chuẩn hóa Km · export · xoá layer |
-| C | Map chrome | `map-host` (Leaflet.draw) → `map-bar` (OSM / Esri / sat · Fit · full/dock) → legend |
-| D | Props + results | Form mã/tên sau vẽ · list session · click → Fit focus |
+| A | Sidebar | Tabs Lớp / Chú giải / Thuộc tính / Kết quả · tree lớp tài sản (checkbox **default off** + count + spinner) · form mã/tên · list đã lưu |
+| B | *(removed 2026-09-01)* | **Cấm** thanh `← Dev ← GIS` + title · **cấm** toolbar Fit tổng quan / Nạp seed / Chuẩn hóa / Export / Xoá layer |
+| C | Map chrome | `map-host` (**flex fill** · **chỉ** Leaflet +/- zoom) → `map-bar` (Nền VN clip · Fit · full/dock) · **cấm** Leaflet.draw toolbar · **cấm** `map-legend` isolate |
+| D | Props + results | Form mã/tên sau vẽ · list session (list click vẫn Fit focus) |
 
 ## 3. Control map
 
 | Control | Hint | Zone |
 |---------|------|------|
-| Lớp nền | Radio sidebar + map-bar buttons | A / C |
 | Lớp tài sản | Checkbox tree + radio target | A |
-| Point / Line / Polygon | Leaflet.draw | C |
+| Zoom +/- | Leaflet zoomControl only | C |
 | Mã / Tên | Text after draw | D |
-| Fit / Full | Button + title/aria | C |
-| Isolate lớp / feature | Legend + list click | C / D |
+| Fit / Full | Chỉ **map-bar** Fit + toggle icon | C |
+| Click tài sản trên map | Popup + tab Thuộc tính · **cấm auto zoom** (`setView` / `fitIsolateSelection`) | C |
 
 ## 4. Prototype
 
 - File: `ui/prototype/gis-draw-live-prototype.html`
 - reviewUrl: above (browser-openable)
-- Content-only Kind F — **không** clone full GOVOne topnav
-- Default basemap **OSM** (live SSOT) — khác Google proxy của sibling
+- Content-only Kind F — **không** header Dev/GIS · **không** toolbar seed · **không** legend isolate
+- Default basemap **clip VN** (live SSOT)
 
 ## 5. Visual / map rules
 
-- Header gradient navy→teal (`#1e3a5f` → `#0d9488`) — demo parity
+- **Cấm** header gradient / title «Bản đồ live — vẽ Point / Line / Polygon» trên page
 - Live Leaflet only — cấm fake gradient map
-- Default basemap **OSM** · Esri Streets · sat `maxNativeZoom: 17`
-- Default Fit overview zoom ≤13
-- Corridor underlay + track trên **overlayPane** (GIS live — Linm `svg max-width` ẩn custom pane)
-- Isolate → Fit focus ≤15; isolate pill chưa tick → auto-tick, **Tất cả** không tick hết
-- Tag: `Leaflet + OSM/Esri · LIVE`
-- Click cụm → `setView` ≥ DETAIL_ZOOM (cấm `fitBounds` ô 0.5°)
+- Default Fit = **zoom min** (`fitVnClipMap` · `VN_CLIP_MIN_ZOOM` = 5) — **cấm** auto zoom corridor/seed on load
+- Map-bar **Fit** = phóng tài sản (không phải default load)
+- **Cấm** Leaflet.draw toolbar (polyline / polygon / marker / edit / delete) — chỉ +/-
+- **Cấm** status `Cot_km*.xlsx` / seed filename / `· bff`
+- Corridor underlay + track trên **overlayPane**
+- Dock: map-host **flex fill** remaining (sidebar + status + map-bar) — **cấm** cap `min(42vh, 420px)`
+- **Cấm** bottom «Lớp · click isolate + Fit» + Tuyến/Corridor chips
+- Click cụm / pin / line trên map: **popup only** — **cấm** `setView` ≥ DETAIL_ZOOM · **cấm** `fitIsolateSelection` trong paint
+- List Kết quả click → vẫn Fit focus (không phải click map)
+- Attribution: **ẩn Leaflet** (`setPrefix(false)`) · hiển thị `RMMS.vn` · **cấm** meta «Cụm vùng · 0 cụm · 0 vẽ · 0 TS · bff» trên map-bar
 
 ## 6. Handoff → SA
 

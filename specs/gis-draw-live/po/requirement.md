@@ -5,14 +5,14 @@
 | feature | `gis-draw-live` |
 | changeScope | `edit_page` |
 | packKind | `map` |
-| Feature Kind | **F** — GIS live draw shell (sidebar · toolbar · Leaflet.draw · props) |
+| Feature Kind | **F** — GIS live draw shell (sidebar · Leaflet.draw · props) · **không** header/toolbar seed |
 | requestSource | run packet `task_6e79dde5` · `/agent-qldb-workflow` · Autopilot |
 | status | `confirmed` (autopilot) |
 | skillVersion | `2026.08.10.3` |
 | schemaVersion | `qldb-workflow-skill-v1` |
 | workflowVersion | `2026.08.10.3` |
 | versionGate | `ok` |
-| updatedAt | `2026-08-11T22:15:00.000Z` |
+| updatedAt | `2026-09-01T01:18:00.000Z` |
 
 ## 1. Goal
 
@@ -36,16 +36,15 @@ Khác sibling `gis-draw-google`: Live = shell nhẹ / nhanh thử vẽ; Google =
 - DoD P1:
   1. Live Leaflet map (không screenshot) — OMS R1
   2. Default **OSM** + Esri Streets / sat trên map-bar — R2/R5b
-  3. Full-page + dock; chrome `map-host → map-bar → legend` — R4/R4b/R4c
-  4. Fit overview on load (`overviewFitMaxZoom` ≤13) — R11
+  3. Chrome `map-host → map-bar` (không legend isolate bottom) · dock map **flex fill** remaining — R4/R4b
+  4. Fit overview **chỉ** map-bar Fit (`overviewFitMaxZoom` ≤13) — R11
   5. Chọn loại tài sản trước khi vẽ · Point / Line / Polygon
   6. Panel thuộc tính · Lưu draft → `POST /api/v1/gis/drawings` (fallback local)
-  7. Layer toggle + isolate legend/line + Fit focus — R7/R7b/R7c
+  7. Layer toggle sidebar — **cấm** isolate legend bottom
   8. LineString corridor/track panes · OSRM khi vẽ/hiện tuyến — R7b/R8
-  9. Chuẩn hóa cột Km (vision-014)
-  10. FE `yarn typecheck` + `yarn build` PASS · BE `dotnet build` PASS
-  11. **Lớp lazy:** checkbox default off · count `summary-by-type` · tick mới fetch · **cấm** load 394k lúc vào trang
-  12. Zoom z≥14 / click cụm → `setView` ≥14 · pin snap đúng `props.route` · **cấm** `{OsrmNearest}` inventory / `fitBounds` ô cụm 0.5°
+  9. FE `yarn typecheck` + `yarn build` PASS · BE `dotnet build` PASS
+  10. **Lớp lazy:** checkbox default off · count `summary-by-type` · tick mới fetch · **cấm** load 394k lúc vào trang
+  11. Click tài sản trên map: popup only · **cấm** `setView` auto zoom / `fitBounds` ô cụm
 
 ## 4. CTX / DEM inventory
 
@@ -69,7 +68,7 @@ Khác sibling `gis-draw-google`: Live = shell nhẹ / nhanh thử vẽ; Google =
 
 ## 6. Handoff → Design
 
-- Kind F zones A–D (sidebar · toolbar · map chrome · props/results) — **rút gọn**
+- Kind F zones A/C/D (sidebar · map chrome · props/results) — **rút gọn** · **không** header Dev/GIS · **không** toolbar B · **không** isolate legend
 - reviewUrl bắt buộc
 - Skills: `/agent-dev-oms-map` · Step 4d/4m · không `/erp-feature`
 

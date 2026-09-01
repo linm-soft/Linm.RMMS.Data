@@ -12,7 +12,7 @@
 | workflowVersion | `2026.08.08.31` |
 | versionGate | `ok` |
 | versionMismatchAction | `keep_current` |
-| updatedAt | `2026-08-10T02:10:00.000Z` |
+| updatedAt | `2026-09-01T01:45:00.000Z` |
 
 ## retry.ssot_rereview
 
@@ -26,10 +26,10 @@
 | OMS R2 basemap OSM/Esri/sat | PASS |
 | OMS R3 title/aria | PASS |
 | OMS R4b full flex | PASS (full mode) |
-| OMS R4c host→bar→legend | PASS |
+| OMS R4c host→bar | PASS · **không** legend isolate bottom |
 | OMS R5b sat maxNativeZoom 17 | PASS |
 | OMS R7b corridor + track panes | **FIXED** `mapLineLevels.ts` · corridorStyle + trackLineStyle |
-| OMS R7c isolate + Fit focus | **FIXED** legend/line/table · `fitIsolateSelection` |
+| OMS R7c isolate + Fit focus | Grid row / list only — **cấm** map click auto zoom |
 | Dock table + legend | **FIXED** `gridWrap` no max-height · `flex-shrink: 0` · legendPins no cap 16 · rows = đoạn + pin + cam |
 | OMS R8/R9 OSRM route + snap | PASS |
 | OMS R11 Fit overview ≤13 | PASS |

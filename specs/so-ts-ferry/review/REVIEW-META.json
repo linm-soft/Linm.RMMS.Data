@@ -1,0 +1,16 @@
+{
+  "feature": "so-ts-ferry",
+  "status": "confirmed",
+  "verdict": "PASS",
+  "review_confirm": "done",
+  "taskId": "task_75eb9674",
+  "contentHash": "sha256:0737298d3ce0a14ae36a4c9dfb37563e315723a476c59d953737019260a5a2f4",
+  "gates": {
+    "QUERY": "PASS",
+    "SEC": "PASS",
+    "UI-FN": "PASS",
+    "BE-FN": "PASS"
+  },
+  "reviewedAt": "2026-09-01T00:50:00.000Z",
+  "autoApprove": true
+}
