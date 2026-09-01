@@ -151,7 +151,7 @@ Safe area: nav + map + chips + tab không đè notch / home indicator.
 
 | State | UI |
 |-------|-----|
-| default | overlay live/demo OMS · Đường on · Tất cả on |
+| default | overlay live-only · empty OK · Đường on · Tất cả on · **cấm** demo OMS native (cleanup_mock) |
 | isolate ts/sc/corridor | legend filter client (corridor isolate **iOS only**) |
 | GET geojson fail / offline | map **mở** · demo `GIS_ASSETS` + corridor · `LinmToast` · **cấm** blank dead map · **cấm** mock-only ship khi live OK |
 | focus từ detail | GetById Lat/Lng → center + highlight · thiếu/fail → fit all · toast optional · **cấm** fake lat/lng |

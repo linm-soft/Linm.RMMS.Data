@@ -109,4 +109,4 @@ mobile-p1 `#sc-patrol-history` rows → `toast('Chi tiết phiên')` — native 
 | lane | phase | status | updatedAt |
 |------|-------|--------|-----------|
 | web | — | — | — |
-| mobile | `po` | `pending` | `2026-08-31T03:20:14.893Z` |
+| mobile | `done` | `done` | `2026-09-01T02:02:25.293Z` |

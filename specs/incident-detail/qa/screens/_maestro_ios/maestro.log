@@ -1,38 +1,48 @@
 Running on iPhone 17 Pro Max - iOS 26.2 - 518BFF77-0941-448B-8D37-67678F4506C7
- > Flow crawl-ios
+ > Flow ios
 Launch app "org.linmsoft.rmms" with clear state and clear keychain... COMPLETED
 Assert that id: sc-home is visible... COMPLETED
-Tap on (Optional) id: btn-home-login... COMPLETED
+Take screenshot A11-LAUNCH... COMPLETED
+Tap on id: btn-home-login... COMPLETED
 Assert that id: f-user is visible... COMPLETED
 Tap on id: f-user... COMPLETED
 Erase text... COMPLETED
 Input text linm-soft... COMPLETED
 Tap on (Optional) "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"... COMPLETED
-Tap on (Optional) "RMMS"... COMPLETED
 Tap on id: f-pass... COMPLETED
 Erase text... COMPLETED
 Input text Linm@2026... COMPLETED
-Tap on (Optional) "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"... COMPLETED
-Tap on (Optional) "RMMS"... COMPLETED
+Tap on (Optional) "Not Now"... WARNED
+Take screenshot A9-LOGIN... COMPLETED
 Tap on (Optional) id: btn-login... COMPLETED
 Tap on (Optional) "Đăng nhập"... WARNED
 Tap on (Optional) "Not Now"... WARNED
-Assert that id: home-who is visible... COMPLETED
+Press Enter key... COMPLETED
+Wait for animation to end within 4000 ms... COMPLETED
+Assert that id: sc-home is visible... COMPLETED
+Scrolling DOWN until id: tile-incident is visible with speed 40, visibility percentage 100%, timeout 15000 ms, with centering disabled... COMPLETED
+Tap on (Optional) id: tile-incident... COMPLETED
 Tap on (Optional) id: tab-incident... WARNED
 Tap on (Optional) "Vấn đề"... COMPLETED
-Tap on point (50%,96%)... COMPLETED
 Assert that id: sc-incident-list is visible... COMPLETED
-Tap on id: card-inc-demo-inc-1... FAILED
-
-Element not found: Id matching regex: card-inc-demo-inc-1
-
-Element with Id matching regex: card-inc-demo-inc-1 not found. Check the UI hierarchy in debug artifacts to verify if the element exists.
-
-Possible causes:
-- Element selector may be incorrect - check if there are similar elements with slightly different names/properties.
-- Element may be temporarily unavailable due to loading state.
-- This could be a real regression that needs to be addressed.
-
-==== Debug output (logs & screenshots) ====
-
-/Users/mac/.maestro/tests/2026-08-31_022744
+Assert that "Quản lý vấn đề" is visible... COMPLETED
+Assert that "Nứt mặt đường" is visible... COMPLETED
+Tap on (Optional) id: btn-inc-detail-4b0d2722-e072-4775-8976-ec06952fc804... WARNED
+Run flow when id: sc-incident-detail is not visible...
+  Tap on point (61%,54%)... COMPLETED
+Run flow when id: sc-incident-detail is not visible... COMPLETED
+Assert that id: sc-incident-detail is visible... COMPLETED
+Assert that "Mã" is visible... COMPLETED
+Assert that "Mã" is visible... COMPLETED
+Assert that "Loại" is visible... COMPLETED
+Assert that "Vị trí ghim tự động" is visible... COMPLETED
+Assert that "Định vị" is visible... COMPLETED
+Assert that "Giao việc xử lý" is visible... COMPLETED
+Assert that "Xem trên bản đồ" is visible... COMPLETED
+Assert that "Đóng sự cố" is visible... COMPLETED
+Assert that (Optional) id: btn-assign is visible... COMPLETED
+Assert that (Optional) id: btn-map is visible... COMPLETED
+Assert that (Optional) id: btn-close is visible... COMPLETED
+Take screenshot A3-CORE... COMPLETED
+Tap on (Optional) id: btn-close... COMPLETED
+Wait for animation to end within 3000 ms... COMPLETED

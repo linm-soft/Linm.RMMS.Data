@@ -99,3 +99,10 @@ Object storage: MinIO raw images.
 - [x] Dev catalog `/demo/p/ai-vision` · domain `ai-vision`
 
 **Sign-off UI:** localStorage `tn-demo:ai-vision:signed` trên demo page.
+
+## Implement tracking
+
+| lane | phase | status | updatedAt |
+|------|-------|--------|-----------|
+| web | `data_analy` | `in_progress` | `2026-08-28T18:29:41.754Z` |
+| mobile | `done` | `in_progress` | `2026-09-01T00:42:01.265Z` |

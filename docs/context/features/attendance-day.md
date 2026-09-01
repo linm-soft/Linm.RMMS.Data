@@ -21,7 +21,7 @@
 | Mục tiêu | Màn **Chi tiết ngày công**: tóm tắt 1 ngày (badge · khoảng giờ · tuyến/ca) + danh sách các lần chấm trong ngày |
 | Persona | Tuần đường · NV chấm công |
 | Entry | Hub `#sc-attendance` section **7 ngày gần đây** — tap row (live = toast `attendance.toast.dayDetail` P1) |
-| DoD P1 | Dual `#sc-attendance-day` · GET list + filter `dayKey` · wire list toast → push · demo fallback · **cấm** mfeStdUrl · **cấm** invent `attendance-day` path BE |
+| DoD P1 | Dual `#sc-attendance-day` · GET list + filter `dayKey` · wire list toast → push · **live-only** (no mock) · **cấm** mfeStdUrl · **cấm** invent `attendance-day` path BE |
 
 ## 2. Design / UI
 
@@ -55,23 +55,15 @@ Nav param: `dayKey` (epoch start-of-day) · `dayTitle` (VN «T7 09/08») · opti
 | `attendance-report` | Hero «Báo cáo» — sibling unique |
 | `supervise-detail` | Chi tiết **1** check-in GetById — **≠** aggregate ngày |
 
-## 5. Demo SSOT (row T7 09/08 → detail fallback)
+## 5. Live-only bind (no demo SSOT)
 
-| Field | Value |
-|-------|-------|
-| dayTitle | T7 09/08 |
-| badge | Đủ công |
-| timeRange | 07:05 – 16:40 |
-| routeShift | QL.1 · Ca sáng |
-| checkinCount | 2 lần chấm |
-| log1 | 07:05 · QL.1 · Đúng tuyến · Trong vùng |
-| log2 | 16:40 · QL.1 · Đúng tuyến · Trong vùng |
-| emptyDay | CN 10/08 · Nghỉ · «Không có lần chấm trong ngày» |
+| Case | Behavior |
+|------|----------|
+| GET OK · has logs | Bind BE · badge/range/route/count/logs derived |
+| GET OK · empty | EmptyChrome + badge **Nghỉ** · **cấm** demo T7/CN |
+| GET fail | Empty chrome + toast · **cấm** mock |
+| Missing Route/Status | «—» · **cấm** invent QL.1 / Đúng tuyến / Ca sáng |
 | Back | Chấm công → `#sc-attendance` |
-
-### Demo wire gap
-
-mobile-p1 `#sc-attendance` day rows **không** `onclick` — toast-only trên native. Design: thêm `#sc-attendance-day` · `DES-MOB-ATT-DAY` · rewire row → `go('attendance-day')` + pass `dayKey`.
 
 ## 6. Gaps
 
@@ -80,7 +72,7 @@ mobile-p1 `#sc-attendance` day rows **không** `onclick` — toast-only trên na
 | GAP-MOB-ATT-DAY-NAV-01 | List row toast → push detail |
 | GAP-MOB-ATT-DAY-SCR-01 | Thiếu `#sc-attendance-day` dual — Design tạo |
 | GAP-MOB-ATT-DAY-DEMO-01 | Demo rows chưa wire push |
-| GAP-MOB-ATT-DAY-DATA-01 | GET list + filter `dayKey` · **cấm** ship mock-only khi BFF OK |
+| GAP-MOB-ATT-DAY-DATA-01 | **closed** live-only · GET OK empty = EmptyChrome Nghỉ · fail = empty + toast · **cấm** demo SSOT / mock |
 | GAP-MOB-ATT-DAY-PACK-01 | packKind `sheet` · surface full screen — PO/Design chốt label |
 
 ## 7. Cấm

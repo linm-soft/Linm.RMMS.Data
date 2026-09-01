@@ -6,6 +6,8 @@
 **Brand tokens:** Primary `#0C84C0` · deep `#086A9A` · FOV `#5AC8FA` · success `#34C759` · surface `#F2F2F7` · label `#1C1C1E` · muted `#8E8E93`  
 **Hash skip:** DA contentHash `sha256:cam-patrol-control-hint-20260828` · **cấm** re-scan DemoRoot (`GAP-DES-DEMO-RESCAN-01`)
 
+**Context lock (cleanup_mock):** finder stamp = live active session route · empty = «Chưa có ca đang chạy» · **cấm** demo SSOT `QL.1 · Km 1556+040` on native (`GAP-MOB-EDIT-DEMO-01`).
+
 ## 1. IA
 
 ```

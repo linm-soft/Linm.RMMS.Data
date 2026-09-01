@@ -3,20 +3,22 @@
 | Field | Value |
 |-------|-------|
 | feature | `mnt-chat` |
-| method | **blocked** · e2e runtime **không** chạy · prior Dev DoR FAIL |
-| iosDevice | iPhone 17 Pro Max (6.9") · phase1 — **N/A** (no harvest) |
-| androidDevice | Pixel 2 · 1080×1920 — **N/A** |
+| method | e2e runtime · yarn e2e-qa-mobile · Maestro ON |
+| iosDevice | iPhone 17 Pro Max (6.9") · phase1 |
+| androidDevice | Pixel · 1080×1920 |
 | iPad | **DEFER** Phase 1 |
-| capturedAt | `2026-08-29T05:56:30.000Z` |
-| verdict | **FAIL** |
+| capturedAt | `2026-09-01T09:37:54.913Z` |
+| verdict | **PASS** · visual **Aligned** (Must 0) |
 
 | Case | Store | Result | Evidence |
 |------|-------|--------|----------|
-| A10-BFF | A10 · P11 | **BLOCKED** | — |
-| A11-LAUNCH | A11 | **BLOCKED** | — |
-| A9-LOGIN | A9 · P10 | **BLOCKED** | — |
-| A3-CORE | A3 · A11 | **FAIL** | missing implement · **không** PNG |
-| P6-CORE | P6 · P11 | **FAIL** | missing implement · **không** PNG |
-| P6-CORE-2 | P6 | **FAIL** | missing implement · **không** PNG |
+| A10-BFF | A10 · P11 | **PASS** | `:5202` health |
+| A11-LAUNCH | A11 | **PASS** | ![A11-LAUNCH](A11-LAUNCH.png) |
+| A9-LOGIN | A9 · P10 | **PASS** | ![A9-LOGIN](A9-LOGIN.png) |
+| A3-CORE | A3 · A11 | **PASS** | ![A3-CORE](A3-CORE.png) · `#sc-mnt-chat` empty live |
+| P6-CORE | P6 · P11 | **PASS** | ![P6-CORE](P6-CORE.png) |
+| P6-CORE-2 | P6 | **PASS** | ![P6-CORE-2](P6-CORE-2.png) |
 
-**Cấm** GenerateImage / mock HTML / copy sibling shot. Listing official → sau implement + e2e PASS.
+CLI PASS = capture+px only. Visual = `/review-align-ux-ios-android` Read CORE vs demo HTML → **Aligned** · empty thread Accept (live) · demo bubbles = seed only.
+
+Listing official → live Maestro harvest (cấm AI vẽ).

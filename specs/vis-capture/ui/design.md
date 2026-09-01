@@ -46,7 +46,7 @@
 | `DES-MOB-VIS-CAPTURE` | Screen owner `#sc-vis-capture` | push từ `incident-list` banner | same | `data-tab="incident"` |
 | SectionLabel | **Ảnh hiện trường** | 13 uppercase | same · **bắt buộc** | dual parity |
 | PhotoRow | slots + `#i-camera` | still capture | same | `openCapture('vision')` · **không** continuous finder |
-| `LinmListRow` Loc | Vị trí đã chốt / QL.1 · Km 1556+050 | label 13 / value ≥16 | same | GPS + optional session |
+| `LinmListRow` Loc | Vị trí đã chốt / live session (HTML demo: QL.1 · Km 1556+050) | label 13 / value ≥16 | same | live `GET patrol/sessions` active · empty=`patrol.empty.active.route` · **cấm** demoLoc seed |
 | `LinmListRow` Acc | Sai số định vị / ±{n} m | same | same | device `AccuracyM` · gate ≤ 30 |
 | `LinmListRow` Class | Phân loại / {DefectClass} | same | same | bind detect |
 | `LinmListRow` + Badge Sev | Mức / {Severity} | badge orange = Cao | same | severity map |

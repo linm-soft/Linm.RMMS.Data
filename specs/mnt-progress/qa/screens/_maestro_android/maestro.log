@@ -1,32 +1,56 @@
 Running on Pixel_2
- > Flow crawl-android
+ > Flow android
 Launch app "org.linmsoft.rmms" with clear state and clear keychain... COMPLETED
 Assert that id: sc-home is visible... COMPLETED
-Tap on (Optional) id: btn-home-login... COMPLETED
+Tap on id: btn-home-login... COMPLETED
 Assert that id: f-user is visible... COMPLETED
 Tap on id: f-user... COMPLETED
 Erase text... COMPLETED
 Input text linm-soft... COMPLETED
-Tap on (Optional) "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"... COMPLETED
-Tap on (Optional) "RMMS"... COMPLETED
+Tap on "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"... COMPLETED
 Tap on id: f-pass... COMPLETED
 Erase text... COMPLETED
 Input text Linm@2026... COMPLETED
-Tap on (Optional) "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"... COMPLETED
-Tap on (Optional) "RMMS"... COMPLETED
-Tap on (Optional) id: btn-login... COMPLETED
+Press Enter key... COMPLETED
+Wait for animation to end within 4000 ms... COMPLETED
+Tap on (Optional) id: btn-login... WARNED
+
+
+ Warning: Element not found: Id matching regex: btn-login
 Tap on (Optional) "Đăng nhập"... WARNED
 
 
  Warning: Element not found: Text matching regex: Đăng nhập
-Tap on (Optional) "Not Now"... WARNED
-
-
- Warning: Element not found: Text matching regex: Not Now
-Assert that id: home-who is visible... COMPLETED
+Assert that "Trang Chủ" is visible... COMPLETED
+Assert that id: sc-home is visible... COMPLETED
+Scrolling DOWN until id: tile-mnt is visible with speed 40, visibility percentage 100%, timeout 15000 ms, with centering disabled... COMPLETED
+Tap on (Optional) id: tile-mnt... COMPLETED
 Tap on (Optional) id: tab-work... COMPLETED
-Tap on (Optional) "Công việc"... COMPLETED
-Tap on point (70%,96%)... COMPLETED
 Assert that id: sc-mnt-list is visible... COMPLETED
-Tap on id: btn-mnt-sync-demo-wo-1... COMPLETED
+Assert that "Danh sách công việc" is visible... COMPLETED
+Assert that id: row-mnt-hub is visible... COMPLETED
+Tap on id: btn-mnt-sync-11111111-1111-1111-1111-111111111101... COMPLETED
+Assert that id: sc-mnt-progress is visible... COMPLETED
+Assert that "Cập nhật trạng thái" is visible... COMPLETED
+Assert that id: wo-title is visible... COMPLETED
+Assert that id: progress-pct is visible... COMPLETED
+Assert that id: note is visible... COMPLETED
+Tap on id: progress-pct... COMPLETED
+Erase text... COMPLETED
+Input text 45... COMPLETED
+Tap on (Optional) "Cập nhật trạng thái"... COMPLETED
+Tap on id: note... COMPLETED
+Input text E2E QA mobile cập nhật tiến độ hiện trường vá mặt đường... COMPLETED
+Press Enter key... COMPLETED
+Wait for animation to end within 2000 ms... COMPLETED
+Scrolling DOWN until id: photo-row is visible with speed 40, visibility percentage 100%, timeout 10000 ms, with centering disabled... COMPLETED
+Scrolling DOWN until id: i-camera is visible with speed 40, visibility percentage 100%, timeout 10000 ms, with centering disabled... COMPLETED
+Scrolling DOWN until id: location-row is visible with speed 40, visibility percentage 100%, timeout 10000 ms, with centering disabled... COMPLETED
+Scrolling DOWN until id: btn-update is visible with speed 40, visibility percentage 100%, timeout 10000 ms, with centering disabled... COMPLETED
+Assert that id: sc-mnt-progress is visible... COMPLETED
+Take screenshot P6-CORE... COMPLETED
+Scroll vertically... COMPLETED
+Scroll vertically... COMPLETED
+Assert that id: btn-update is visible... COMPLETED
+Take screenshot P6-CORE-2... COMPLETED
 Assert that id: sc-mnt-progress is visible... COMPLETED

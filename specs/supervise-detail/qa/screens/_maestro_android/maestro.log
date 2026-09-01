@@ -26,29 +26,17 @@ Assert that id: sc-home is visible... COMPLETED
 Tap on id: tile-supervise... COMPLETED
 Assert that id: sc-supervise is visible... COMPLETED
 Wait for animation to end within 2000 ms... COMPLETED
-Tap on id: sup-card-demo-1... COMPLETED
-Wait for animation to end within 3000 ms... COMPLETED
-Assert that id: sc-supervise-detail is visible... COMPLETED
-Assert that id: value-user is visible... COMPLETED
-Assert that id: label-code is visible... COMPLETED
-Assert that id: value-code is visible... COMPLETED
-Assert that id: row-org is visible... COMPLETED
-Assert that id: row-loc is visible... COMPLETED
-Assert that id: row-time is visible... COMPLETED
-Assert that id: row-status is visible... COMPLETED
-Assert that id: row-gps is visible... COMPLETED
-Assert that id: row-in-zone is visible... COMPLETED
-Assert that "Chi tiết check-in" is visible... COMPLETED
-Assert that id: value-user is visible... COMPLETED
-Assert that "Mã" is visible... COMPLETED
-Take screenshot P6-CORE... COMPLETED
-Scrolling DOWN until id: btn-sup-detail-map is visible with speed 40, visibility percentage 100%, timeout 8000 ms, with centering disabled... COMPLETED
-Assert that id: btn-sup-detail-map is visible... COMPLETED
-Assert that "Xem trên bản đồ" is visible... COMPLETED
-Take screenshot P6-CORE-2... COMPLETED
-Tap on (Optional) id: btn-sup-detail-map... COMPLETED
-Wait for animation to end within 2000 ms... COMPLETED
-Tap on (Optional) id: btn-sup-detail-back... WARNED
+Assert that id: sup-card-a0000001-2026-0810-0001-000000000001 is visible... FAILED
 
+Assertion is false: id: sup-card-a0000001-2026-0810-0001-000000000001 is visible
 
- Warning: Element not found: Id matching regex: btn-sup-detail-back
+Assertion 'id: sup-card-a0000001-2026-0810-0001-000000000001 is visible' failed. Check the UI hierarchy in debug artifacts to verify the element state and properties.
+
+Possible causes:
+- Element selector may be incorrect - check if there are similar elements with slightly different names/properties.
+- Element may be temporarily unavailable due to loading state
+- This could be a real regression that needs to be addressed
+
+==== Debug output (logs & screenshots) ====
+
+/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/supervise-detail/qa/screens/_maestro_android

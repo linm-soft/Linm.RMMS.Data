@@ -58,4 +58,4 @@ Frame iOS 390×844 · Android 412×915 · copy VN từ `#sheet-checkin` · banne
 | lane | phase | status | updatedAt |
 |------|-------|--------|-----------|
 | web | — | — | — |
-| mobile | `done` | `done` | `2026-08-28T20:58:03.577Z` |
+| mobile | `done` | `done` | `2026-09-01T07:21:22.137Z` |

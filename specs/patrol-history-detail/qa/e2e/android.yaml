@@ -1,0 +1,104 @@
+appId: org.linmsoft.rmms
+---
+# patrol-history-detail · store P6 ×2 · guest home → login → hub → history → #sc-patrol-detail
+# Seed BFF session a11e0001-0001-4a01-8a01-000000000001 · TD-20260821-001
+# Pixel 1080×1920 · cấm hideKeyboard
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 20000
+- tapOn:
+    id: "btn-home-login"
+- extendedWaitUntil:
+    visible:
+      id: "f-user"
+    timeout: 15000
+- tapOn:
+    id: "f-user"
+- eraseText
+- inputText: "linm-soft"
+- tapOn: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
+- tapOn:
+    id: "f-pass"
+- eraseText
+- inputText: "Linm@2026"
+- pressKey: Enter
+- waitForAnimationToEnd:
+    timeout: 4000
+- tapOn:
+    id: "btn-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
+- extendedWaitUntil:
+    visible: "Trang Chủ"
+    timeout: 45000
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 15000
+- tapOn:
+    id: "tab-field"
+- extendedWaitUntil:
+    visible:
+      id: "sc-patrol-home"
+    timeout: 20000
+- scrollUntilVisible:
+    element:
+      id: "row-quick-patrol-history"
+    direction: DOWN
+    timeout: 15000
+- tapOn:
+    id: "row-quick-patrol-history"
+    optional: true
+- tapOn:
+    text: "Lịch sử phiên"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-patrol-history"
+    timeout: 20000
+- assertVisible: "Lịch sử ca"
+- tapOn:
+    id: "row-history-a11e0001-0001-4a01-8a01-000000000001"
+    optional: true
+- tapOn:
+    text: "TD-20260821-001"
+    optional: true
+- runFlow:
+    when:
+      notVisible:
+        id: "sc-patrol-detail"
+    commands:
+      - tapOn:
+          point: "50%,32%"
+- extendedWaitUntil:
+    visible:
+      id: "sc-patrol-detail"
+    timeout: 25000
+- extendedWaitUntil:
+    visible: "Chi tiết ca"
+    timeout: 15000
+- assertVisible: "Mã phiên"
+- assertVisible: "TD-20260821-001"
+- assertVisible: "Thông tin"
+- takeScreenshot: P6-CORE
+- scrollUntilVisible:
+    element: "Điểm tuần"
+    direction: DOWN
+    timeout: 15000
+- assertVisible: "Điểm tuần"
+- assertVisible: "Km 1551+200 · Xuân Hải"
+- scrollUntilVisible:
+    element: "Kết thúc ca"
+    direction: DOWN
+    timeout: 15000
+- assertVisible: "Mở bản đồ ca"
+- assertVisible: "Kết thúc ca"
+- takeScreenshot: P6-CORE-2
+- assertVisible:
+    id: "sc-patrol-detail"

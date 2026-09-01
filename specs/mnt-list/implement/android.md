@@ -7,17 +7,18 @@
 | status | **done** |
 | packKind | `list` |
 | route_confirm | **route_a** |
-| taskId | `task_e238765c` |
-| updatedAt | `2026-08-29T02:50:00.000Z` |
+| taskId | `task_53934dab` |
+| updatedAt | `2026-09-01T04:45:00.000Z` |
 
 ## Notes (`/edit-mobile-feature`)
 
+- **cleanup_mock** (`task_53934dab`): live-only · `FetchWorkOrdersOutcome` · GET OK empty = `[]` + `EmptyChrome` · fail = toast `mnt.list.toast.loadFail` · **cấm** `MntListCopy.demoItems`.
 - **GAP-MOB-EDIT-STATUS-01:** status = 1 text `Tình trạng xử lý: {label}` · **cấm** `LinmBadge` trùng · dual iOS.
 - **GAP-MOB-EDIT-ACT-01:** action `Modifier.weight(1f)` dàn đều · tap 44 · **cấm** left-pack. Cùng pattern `incident-list`.
 
 ## Summary
 
-Shipped `#sc-mnt-list` dual parity with iOS. `MainTab.Work` → `MntListScreen` · Home `TileMnt` → Work tab. Retrofit `GET maintenance/work-orders` · demo **2** cards fallback · toast sibling CTAs. Trailing filter = `#i-list` icon (parity GAP-MOB-ALIGN-01).
+Shipped `#sc-mnt-list` dual parity with iOS. `MainTab.Work` → `MntListScreen` · Home `TileMnt` → Work tab. Retrofit `GET maintenance/work-orders` · live-only · empty = EmptyChrome · toast sibling CTAs. Trailing filter = `#i-list` icon (parity GAP-MOB-ALIGN-01).
 
 ## Files
 

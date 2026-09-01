@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-31T03:20:14.893Z",
+  "updatedAt": "2026-09-01T10:01:14.298Z",
   "features": {
     "ai-asset-detect": {
       "web": {
@@ -12,9 +12,15 @@
     },
     "ai-vision": {
       "web": {
-        "phase": "data_analy",
+        "phase": "done",
         "status": "in_progress",
-        "updatedAt": "2026-08-28T18:29:41.754Z",
+        "updatedAt": "2026-09-01T00:43:43.989Z",
+        "statusRel": "specs/ai-vision/STATUS.md"
+      },
+      "mobile": {
+        "phase": "done",
+        "status": "in_progress",
+        "updatedAt": "2026-09-01T00:42:01.265Z",
         "statusRel": "specs/ai-vision/STATUS.md"
       }
     },
@@ -22,7 +28,7 @@
       "mobile": {
         "phase": "done",
         "status": "done",
-        "updatedAt": "2026-08-21T03:31:41.241Z",
+        "updatedAt": "2026-09-01T04:09:38.940Z",
         "statusRel": "specs/asset-hub/STATUS.md"
       }
     },
@@ -46,7 +52,7 @@
       "mobile": {
         "phase": "done",
         "status": "done",
-        "updatedAt": "2026-08-21T03:31:41.242Z",
+        "updatedAt": "2026-09-01T08:52:31.502Z",
         "statusRel": "specs/attendance/STATUS.md"
       }
     },
@@ -106,9 +112,9 @@
         "statusRel": "specs/estimate/STATUS.md"
       },
       "mobile": {
-        "phase": "dev",
-        "status": "await_confirm",
-        "updatedAt": "2026-08-29T18:34:28.210Z",
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-01T09:27:55.682Z",
         "statusRel": "specs/estimate/STATUS.md"
       }
     },
@@ -228,7 +234,7 @@
       "mobile": {
         "phase": "done",
         "status": "done",
-        "updatedAt": "2026-08-21T03:31:41.250Z",
+        "updatedAt": "2026-09-01T02:36:56.740Z",
         "statusRel": "specs/ops/STATUS.md"
       }
     },
@@ -260,7 +266,7 @@
       "mobile": {
         "phase": "done",
         "status": "done",
-        "updatedAt": "2026-08-21T03:31:41.252Z",
+        "updatedAt": "2026-09-01T05:52:24.618Z",
         "statusRel": "specs/patrol-history/STATUS.md"
       }
     },
@@ -268,7 +274,7 @@
       "mobile": {
         "phase": "done",
         "status": "done",
-        "updatedAt": "2026-08-21T03:31:41.252Z",
+        "updatedAt": "2026-09-01T05:24:37.336Z",
         "statusRel": "specs/patrol-home/STATUS.md"
       }
     },
@@ -284,7 +290,7 @@
       "mobile": {
         "phase": "done",
         "status": "done",
-        "updatedAt": "2026-08-21T03:31:41.253Z",
+        "updatedAt": "2026-09-01T08:31:51.886Z",
         "statusRel": "specs/patrol-offline/STATUS.md"
       }
     },
@@ -292,7 +298,7 @@
       "mobile": {
         "phase": "done",
         "status": "done",
-        "updatedAt": "2026-08-21T04:03:52.268Z",
+        "updatedAt": "2026-09-01T07:46:33.446Z",
         "statusRel": "specs/patrol-pin/STATUS.md"
       }
     },
@@ -524,7 +530,7 @@
       "mobile": {
         "phase": "done",
         "status": "done",
-        "updatedAt": "2026-08-21T03:31:41.263Z",
+        "updatedAt": "2026-09-01T02:58:18.605Z",
         "statusRel": "specs/supervise/STATUS.md"
       }
     },
@@ -538,9 +544,9 @@
     },
     "asset": {
       "mobile": {
-        "phase": "done",
-        "status": "done",
-        "updatedAt": "2026-08-29T17:23:47.902Z",
+        "phase": "dev",
+        "status": "await_confirm",
+        "updatedAt": "2026-09-01T10:01:14.298Z",
         "statusRel": "specs/asset/STATUS.md"
       }
     },
@@ -556,7 +562,7 @@
       "mobile": {
         "phase": "done",
         "status": "done",
-        "updatedAt": "2026-08-28T22:05:52.911Z",
+        "updatedAt": "2026-09-01T06:19:06.751Z",
         "statusRel": "specs/cam-patrol/STATUS.md"
       }
     },
@@ -580,7 +586,7 @@
       "mobile": {
         "phase": "done",
         "status": "done",
-        "updatedAt": "2026-08-28T20:58:03.577Z",
+        "updatedAt": "2026-09-01T07:21:22.137Z",
         "statusRel": "specs/patrol-checkin/STATUS.md"
       }
     },
@@ -588,7 +594,7 @@
       "mobile": {
         "phase": "done",
         "status": "done",
-        "updatedAt": "2026-08-28T19:49:37.822Z",
+        "updatedAt": "2026-09-01T05:01:31.089Z",
         "statusRel": "specs/mnt-list/STATUS.md"
       }
     },
@@ -620,7 +626,7 @@
       "mobile": {
         "phase": "done",
         "status": "done",
-        "updatedAt": "2026-08-29T02:31:04.931Z",
+        "updatedAt": "2026-09-01T04:27:38.946Z",
         "statusRel": "specs/incident-list/STATUS.md"
       }
     },
@@ -628,15 +634,15 @@
       "mobile": {
         "phase": "done",
         "status": "done",
-        "updatedAt": "2026-08-29T04:11:50.045Z",
+        "updatedAt": "2026-09-01T04:38:09.166Z",
         "statusRel": "specs/incident-detail/STATUS.md"
       }
     },
     "mnt-chat": {
       "mobile": {
-        "phase": "dev",
-        "status": "await_confirm",
-        "updatedAt": "2026-08-29T18:29:10.561Z",
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-01T09:43:54.032Z",
         "statusRel": "specs/mnt-chat/STATUS.md"
       }
     },
@@ -644,7 +650,7 @@
       "mobile": {
         "phase": "done",
         "status": "done",
-        "updatedAt": "2026-08-30T18:59:12.212Z",
+        "updatedAt": "2026-09-01T08:44:54.308Z",
         "statusRel": "specs/mnt-progress/STATUS.md"
       }
     },
@@ -660,7 +666,7 @@
       "mobile": {
         "phase": "done",
         "status": "done",
-        "updatedAt": "2026-08-29T10:33:13.226Z",
+        "updatedAt": "2026-09-01T06:33:22.265Z",
         "statusRel": "specs/vis-capture/STATUS.md"
       }
     },
@@ -690,9 +696,9 @@
     },
     "asset-detail": {
       "mobile": {
-        "phase": "qa",
+        "phase": "dev",
         "status": "await_confirm",
-        "updatedAt": "2026-08-30T22:23:26.832Z",
+        "updatedAt": "2026-09-01T09:55:19.420Z",
         "statusRel": "specs/asset-detail/STATUS.md"
       }
     },
@@ -706,9 +712,9 @@
     },
     "asset-adjust": {
       "mobile": {
-        "phase": "qa",
+        "phase": "dev",
         "status": "await_confirm",
-        "updatedAt": "2026-08-31T00:20:49.570Z",
+        "updatedAt": "2026-09-01T09:50:50.416Z",
         "statusRel": "specs/asset-adjust/STATUS.md"
       }
     },
@@ -716,15 +722,15 @@
       "mobile": {
         "phase": "done",
         "status": "done",
-        "updatedAt": "2026-08-31T01:44:55.387Z",
+        "updatedAt": "2026-09-01T08:03:53.090Z",
         "statusRel": "specs/gis-map/STATUS.md"
       }
     },
     "supervise-detail": {
       "mobile": {
-        "phase": "done",
-        "status": "done",
-        "updatedAt": "2026-08-31T02:49:23.233Z",
+        "phase": "dev",
+        "status": "await_confirm",
+        "updatedAt": "2026-09-01T09:58:23.851Z",
         "statusRel": "specs/supervise-detail/STATUS.md"
       }
     },
@@ -738,10 +744,26 @@
     },
     "patrol-history-detail": {
       "mobile": {
-        "phase": "po",
-        "status": "pending",
-        "updatedAt": "2026-08-31T03:20:14.893Z",
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-01T02:02:25.293Z",
         "statusRel": "specs/patrol-history-detail/STATUS.md"
+      }
+    },
+    "asset-ai": {
+      "mobile": {
+        "phase": "data_analy",
+        "status": "paused",
+        "updatedAt": "2026-09-01T00:41:45.538Z",
+        "statusRel": "specs/asset-ai/STATUS.md"
+      }
+    },
+    "attendance-report": {
+      "mobile": {
+        "phase": "design",
+        "status": "pending",
+        "updatedAt": "2026-09-01T08:55:36.301Z",
+        "statusRel": "specs/attendance-report/STATUS.md"
       }
     }
   }

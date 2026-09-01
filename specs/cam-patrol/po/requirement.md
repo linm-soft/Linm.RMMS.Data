@@ -36,7 +36,7 @@ Pack **screen mới** theo data-analy (`changeScope=new_page`). Native hiện: h
 
 1. Dual native: iOS SwiftUI + Android Compose — **cùng** zone `#sc-cam-patrol` `DES-MOB-CAM-PATROL`: nav back → `patrol-home` · title **Thu thập bằng camera** · finder `DES-MOB-CAM-FINDER` · stamp tuyến/Km · stamp GPS · card Phát hiện (+ Hành động) · CTA Confirm / Skip · toast. Frame proto iOS 390×844 · Android 412×915. Tab 5: tab **`field`** (Tuần đường) active (`data-tab="field"`) · `tabs: none` trên surface (`GAP-TAB-01`).
 2. Finder live: continuous camera preview + FOV box · **cấm** fake placeholder ảnh tĩnh thay camera khi permission granted.
-3. Stamp tuyến/Km SSOT / live: **QL.1 · Km 1556+040** (demo) · live = session `Status=Đang tuần` từ `GET patrol/sessions` · fail/empty → demo SSOT · GPS **vẫn** chạy.
+3. Stamp tuyến/Km live: session active từ `GET patrol/sessions` · fail/empty → empty label «Chưa có ca đang chạy» + toast · **cấm** demo SSOT trên native (cleanup_mock) · GPS **vẫn** chạy. Demo HTML prototype may keep sample stamp visual-only.
 4. Stamp GPS: `{lat}, {lng} · ±{a} m · đã chốt` · **device GPS only** · **cấm** fake lat/lng. Deny → modal reuse `DES-MOB-GPS-DENY` · **chặn** Confirm.
 5. Detection card sau `POST ai-vision/detect`:
 

@@ -5,7 +5,7 @@
 | feature | `incident-detail` |
 | phase | `done` |
 | status | `done` |
-| changeScope | `new_page` |
+| changeScope | `edit_page` (cleanup-mock) |
 | packKind | **`screen`** (PO+Design+SA+TL chốt · đóng GAP-MOB-INC-DETAIL-PACK-01) |
 | stack | `native_dual` |
 | mode | `feature_context` |
@@ -27,10 +27,10 @@
 | implement | `specs/incident-detail/implement/ios.md` · `implement/android.md` |
 | qa | `specs/incident-detail/qa/scenarios.md` · `qa/store/incident-detail/` · `ui/review/align-ux.md` |
 | review | `specs/incident-detail/review/findings.md` · `REVIEW-META.json` |
-| taskId | `task_23be5dc0` |
-| lastRole | `review` · `/agent-review-mobile` · **PASS** · confirmed |
+| taskId | `task_3774bc97` |
+| lastRole | `review` · `/agent-review-mobile` · **PASS** |
 | autoApprove | `ON` |
-| e2eQa | ON — prior QA `yarn e2e-qa-mobile` **PASS** · Review **cấm** re-run e2e/start:std |
+| e2eQa | ON — `yarn e2e-qa-mobile` **PASS** · task_f0f56b29 post cleanup-mock |
 | skillId | `agent-review-mobile` |
 | skillVersion | `2026.08.20.01` |
 | schemaVersion | `1` |
@@ -41,12 +41,12 @@
 | realDataHash | `sha256:incident-detail-mobile-real-data-20260829` |
 | bffContentHash | `sha256:incident-incidents-getbyid-close-proxy` |
 | reviewHash | `sha256:cb070b814f5c15b1fd0e2152b78bae87fc29be6e4c44746f8d623f6a2419d6c7` |
-| updatedAt | `2026-08-29T04:11:50.044Z` |
+| updatedAt | `2026-09-01T04:38:09.165Z` |
 ## Lock
 
 | agent | scope | id | at |
 |-------|-------|-----|-----|
-| — | — | — | released after review `task_23be5dc0` |
+| review | incident-detail | task_3774bc97 | released 2026-09-01T04:45:00Z |
 
 ## Pipeline
 
@@ -57,9 +57,9 @@
 | 2.1 | design | ui/design.md · ui/ux-analy.md · ui/html-to-native-map.md · prototype/ios/index.html · prototype/android/index.html · ui/review/demo-parity.md | **confirmed** |
 | 2.2 | sa | be/solution-discovery.md | **confirmed** |
 | 3 | team-lead | task/incident-detail.md | **confirmed** |
-| 4 | dev | implement/ios.md · implement/android.md | **confirmed** |
+| 4 | dev | implement/ios.md · implement/android.md · handoff/dev-compact.md | **confirmed** |
 | 5 | qa | qa/scenarios.md · qa/store/incident-detail/CAPTURE.md · ui/review/align-ux.md | **confirmed** |
-| 6 | review | review/findings.md | **done** |
+| 6 | review | review/findings.md · handoff/review-compact.md | **done** |
 ## Confirms
 
 | Gate | Value |
@@ -95,6 +95,9 @@
 | task_ebf09e82 | incident-detail | dev | team_lead | **done** | iOS+Android detail · GET/close · VERIFY PASS · handoff QA |
 | task_21b55839 | incident-detail | qa | dev | **done** | e2e-qa-mobile PASS · align Aligned · store PNG · handoff Review |
 | task_23be5dc0 | incident-detail | review | qa | **done** | findings · review_confirm done · pipeline complete |
+| task_53a77d94 | incident-detail | dev | team_lead | **done** | cleanup-mock live-only · dev-compact · VERIFY PASS |
+| task_f0f56b29 | incident-detail | qa | dev | **done** | e2e-qa-mobile PASS · post cleanup-mock · align Aligned · store PNG |
+| task_3774bc97 | incident-detail | review | qa | **done** | findings · review_confirm done · live-only cleanup-mock recheck · pipeline complete |
 
 ## Blockers / open questions
 

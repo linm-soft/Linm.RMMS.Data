@@ -5,7 +5,7 @@
 | feature | `patrol-home` |
 | phase | `done` |
 | status | `done` |
-| changeScope | `new_page` |
+| changeScope | `edit_page` |
 | packKind | `hub` (**PO confirm**) |
 | stack | `native_dual` |
 | demo | `specs/patrol-home/ui/prototype/{ios,android}/index.html` `#sc-patrol-home` · `DES-MOB-PAT-HOME` |
@@ -25,7 +25,7 @@
 | dev | `specs/patrol-home/implement/{ios,android}.md` |
 | qa | `specs/patrol-home/qa/scenarios.md` · `qa/store/patrol-home/` · `qa/e2e/{ios,android}.yaml` · `ui/review/align-ux.md` |
 | review | `specs/patrol-home/review/findings.md` · `review/REVIEW-META.json` (**done**) |
-| taskId | `task_929e803f` |
+| taskId | `task_262a3fa6` |
 | skillVersion | `2026.08.19.29` (agent-review-mobile) |
 | schemaVersion | `1` |
 | workflowVersion | `2026.08.19.29` |
@@ -33,13 +33,13 @@
 | versionGate | `rechecked` |
 | contentHash | `sha256:7ad6e12c43d77ffc6133f5e3063b85200a6d18d6bd1f8ff91a265b989dcd3b9c` |
 | bffContentHash | `sha256:bcf39a561ac6a4ecf60df85f6c8526b926a1c33a3b3f34628aeaa9b9d6d36ead` |
-| verifyGate | iOS `xcodegen` + `xcodebuild` dest **iPhone 17 Pro** **PASS** ✓ · Android `assembleDebug` **PASS** ✓ · BFF `dotnet build` **PASS** ✓ · `yarn e2e-qa-mobile` **ok:true** ✓ · roleOnly=`review` · Step 4b **N/A** · **cấm** mfeStdUrl |
-| updatedAt | `2026-08-19T14:56:15.291Z` |
+| verifyGate | iOS `xcodegen` + `xcodebuild` dest **iPhone 17 Pro** **PASS** ✓ · Android `assembleDebug` **PASS** ✓ · BFF `dotnet build` **PASS** ✓ · roleOnly=`dev` · Step 4b **N/A** · **cấm** mfeStdUrl |
+| updatedAt | `2026-09-01T05:24:37.335Z` |
 ## Lock
 
 | agent | scope | id | at |
 |-------|-------|-----|-----|
-| — | — | — | released after Review `task_929e803f` |
+| — | — | — | released after Review `task_262a3fa6` |
 
 ## Pipeline
 
@@ -66,7 +66,7 @@
 | kit_missing_confirm | **N/A** — reuse map hub kit dual |
 | route_confirm | **route_a** (autoApprove=ON · TL) |
 | autoApprove | **ON** |
-| e2eQa | **ON** · runtime **PASS** · `ok:true` |
+| e2eQa | **ON** · runtime **PASS** · `ok:true` · `2026-09-01T05:22:21.520Z` |
 | ios_test_phase | **phase1_iphone** (autoApprove=ON) · dest **iPhone 17 Pro Max** · **A4-IPAD DEFER** |
 | store_qa | **run_store** · store PNG live |
 | align_confirm | **approve** (autoApprove=ON · QA) · Must **0** |
@@ -89,6 +89,9 @@
 | task_488d0e96 | patrol-home | dev | team_lead | **completed** | `/agent-dev-ios` + `/agent-dev-android` · pin → `LinmPrimaryButton` dual · VERIFY PASS |
 | task_c882b8bd | patrol-home | qa | dev | **completed** | `/agent-qa-mobile` · e2e-qa-mobile **ok:true** · store PNG live · roleOnly |
 | task_929e803f | patrol-home | review | qa | **completed** | `/agent-review-mobile` · review_confirm approve · verifyGate PASS · roleOnly · post_review skip |
+| task_22fa5cba | patrol-home | dev | cleanup_mock | **completed** | `/edit-mobile-feature` · live-only · cấm demoToday/demoActive · VERIFY PASS |
+| task_2fbe1ca6 | patrol-home | qa | dev | **completed** | `/agent-qa-mobile` · re-QA post cleanup_mock · e2e **ok:true** · Maestro PASS · align Must 0 · VERIFY PASS |
+| task_262a3fa6 | patrol-home | review | qa | **completed** | `/agent-review-mobile` · re-review post cleanup_mock · review_confirm approve · live-only PASS · Must 0 · VERIFY prior PASS · roleOnly |
 
 ## Blockers / open questions
 
@@ -99,8 +102,9 @@
 
 ## Links
 
-- data-analy → po → design → sa → tl → dev → qa → **review done** → pipeline **complete**
-- closeout Review: `task_929e803f` · `/agent-review-mobile` · roleOnly=`review` · `review_confirm=approve` · P0 **none** · Must align **0** · VERIFY GATE PASS · iOS xcodegen+xcodebuild iPhone 17 Pro · Android assembleDebug · BFF dotnet build · prior e2e **ok:true** · post_review **skip** · pipeline **complete** · at: `2026-08-19T15:00:00.000Z`
+- data-analy → po → design → sa → tl → dev → qa → review → **pipeline complete**
+- closeout Review: `task_262a3fa6` · `/agent-review-mobile` · roleOnly=`review` · re-review post cleanup_mock · live-only PASS · `review_confirm=approve` · P0 **none** · Must align **0** · VERIFY GATE prior PASS · post_review **skip** · pipeline **complete** · at: `2026-09-01T05:30:00.000Z`
+- closeout Review (prior): `task_929e803f` · `/agent-review-mobile` · roleOnly=`review` · `review_confirm=approve` · P0 **none** · Must align **0** · VERIFY GATE PASS · iOS xcodegen+xcodebuild iPhone 17 Pro · Android assembleDebug · BFF dotnet build · prior e2e **ok:true** · post_review **skip** · at: `2026-08-19T15:00:00.000Z`
 - closeout QA: `task_c882b8bd` · `/agent-qa-mobile` · roleOnly=`qa` · autoApprove=ON · ios_test_phase **phase1_iphone** · VERIFY GATE PASS · docker API :5101 + BFF :5202 · `yarn e2e-qa-mobile` **ok:true** · iPhone 17 Pro Max · Pixel_2 · Maestro iOS+Android PASS · PNG `qa/screens` + `qa/store/patrol-home` · at: `2026-08-19T14:50:00.000Z`
 - native: e2eQa ON → `yarn e2e-qa-mobile` — **cấm** mfeStdUrl
 
@@ -112,5 +116,5 @@
 | iOS xcodebuild iPhone 17 Pro | **BUILD SUCCEEDED** (`task_929e803f`) |
 | Android assembleDebug | **BUILD SUCCESSFUL** (`task_929e803f`) |
 | Mobile.Bff dotnet build | **Build succeeded** (`task_929e803f`) |
-| yarn e2e-qa-mobile | prior QA **PASS** (`ok: true`) — Review không re-run |
+| yarn e2e-qa-mobile | **PASS** · `ok:true` (`task_2fbe1ca6`) |
 | Store PNG | A11/A9/A3 1320×2868 RGB · P6/P6-2 1080×1920 RGB |

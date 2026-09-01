@@ -1,52 +1,40 @@
 Running on Pixel_2
- > Flow crawl-android
+ > Flow android
 Launch app "org.linmsoft.rmms" with clear state and clear keychain... COMPLETED
 Assert that id: sc-home is visible... COMPLETED
-Tap on (Optional) id: btn-home-login... COMPLETED
+Tap on id: btn-home-login... COMPLETED
 Assert that id: f-user is visible... COMPLETED
 Tap on id: f-user... COMPLETED
 Erase text... COMPLETED
 Input text linm-soft... COMPLETED
-Tap on (Optional) "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"... COMPLETED
-Tap on (Optional) "RMMS"... COMPLETED
+Tap on "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"... COMPLETED
 Tap on id: f-pass... COMPLETED
 Erase text... COMPLETED
 Input text Linm@2026... COMPLETED
-Tap on (Optional) "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"... COMPLETED
-Tap on (Optional) "RMMS"... COMPLETED
-Tap on (Optional) id: btn-login... COMPLETED
+Press Enter key... COMPLETED
+Wait for animation to end within 4000 ms... COMPLETED
+Tap on (Optional) id: btn-login... WARNED
+
+
+ Warning: Element not found: Id matching regex: btn-login
 Tap on (Optional) "Đăng nhập"... WARNED
 
 
  Warning: Element not found: Text matching regex: Đăng nhập
-Tap on (Optional) "Not Now"... WARNED
-
-
- Warning: Element not found: Text matching regex: Not Now
-Assert that id: home-who is visible... COMPLETED
+Assert that "Trang Chủ" is visible... COMPLETED
+Assert that id: sc-home is visible... COMPLETED
+Scrolling DOWN until id: tile-incident is visible with speed 40, visibility percentage 100%, timeout 15000 ms, with centering disabled... COMPLETED
+Tap on (Optional) id: tile-incident... COMPLETED
 Tap on (Optional) id: tab-incident... COMPLETED
-Tap on (Optional) "Vấn đề"... COMPLETED
-Tap on point (50%,96%)... COMPLETED
 Assert that id: sc-incident-list is visible... COMPLETED
-Tap on id: row-inc-banner-vis... COMPLETED
-Assert that id: sc-vis-capture is visible... COMPLETED
-Take screenshot CRAWL-vis... COMPLETED
-Tap on (Optional) id: tab-incident... COMPLETED
-Tap on (Optional) "Vấn đề"... COMPLETED
-Tap on point (50%,96%)... COMPLETED
-Tap on (Optional) "Vấn đề"... COMPLETED
-Tap on point (50%,96%)... COMPLETED
-Tap on id: fab-inc-create... FAILED
-
-Element not found: Id matching regex: fab-inc-create
-
-Element with Id matching regex: fab-inc-create not found. Check the UI hierarchy in debug artifacts to verify if the element exists.
-
-Possible causes:
-- Element selector may be incorrect - check if there are similar elements with slightly different names/properties.
-- Element may be temporarily unavailable due to loading state.
-- This could be a real regression that needs to be addressed.
-
-==== Debug output (logs & screenshots) ====
-
-/Users/mac/.maestro/tests/2026-08-31_022400
+Assert that "Quản lý vấn đề" is visible... COMPLETED
+Assert that "Danh sách" is visible... COMPLETED
+Assert that "Bản đồ" is visible... COMPLETED
+Assert that "Nhận diện mặt đường" is visible... COMPLETED
+Assert that id: inc-list-search is visible... COMPLETED
+Assert that id: row-inc-banner-vis is visible... COMPLETED
+Assert that id: fab-inc-create is visible... COMPLETED
+Take screenshot P6-CORE... COMPLETED
+Scroll vertically... COMPLETED
+Assert that id: sc-incident-list is visible... COMPLETED
+Take screenshot P6-CORE-2... COMPLETED

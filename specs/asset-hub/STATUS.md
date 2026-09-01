@@ -5,7 +5,7 @@
 | feature | `asset-hub` |
 | phase | `done` |
 | status | `done` |
-| changeScope | `new_page` |
+| changeScope | `edit_page` |
 | packKind | `hub` (**PO + Design + SA confirm**) |
 | stack | `native_dual` |
 | demo | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/asset-hub/ui/prototype/ios/index.html#sc-asset-hub` |
@@ -27,7 +27,7 @@
 | implement | `specs/asset-hub/implement/ios.md` · `implement/android.md` |
 | qa | `specs/asset-hub/qa/scenarios.md` · `qa/store/asset-hub/CAPTURE.md` · `qa/e2e/{ios,android}.yaml` |
 | review | `specs/asset-hub/review/findings.md` · `REVIEW-META.json` |
-| taskId | `task_0cf68cc3` |
+| taskId | `task_042eeb65` |
 | skillVersion | `2026.08.19.22` (agent-review-mobile) |
 | schemaVersion | `1` |
 | workflowVersion | `2026.08.19.23` |
@@ -36,20 +36,20 @@
 | contentHash | `sha256:c4be71e3e31309204f5a43ff4fd1aed611bcc7ab643bcdb054e0170334628bf2` |
 | bffContentHash | `sha256:6c32dc678168a7923cbd7c06a412ac5c3628d112a6d44ea22c4086128f9bf2a0` |
 | autoApprove | **ON** |
-| e2eQa | **ON** · runtime PASS (prior QA) |
+| e2eQa | **ON** · runtime PASS · task `task_4e062d1e` |
 | solution_confirm | **approve** (autoApprove=ON · prior `task_d250d60c`) |
 | route_confirm | **route_a** (autoApprove=ON · TL `task_c7512c97`) |
-| review_confirm | **approve** (autoApprove=ON · `task_0cf68cc3`) |
+| review_confirm | **approve** (autoApprove=ON · `task_042eeb65`) |
 | post_review | **skip** |
-| verifyGate | iOS `xcodegen` + `xcodebuild` dest **iPhone 17 Pro** **PASS** · Android `assembleDebug` **PASS** · BFF `dotnet build` **PASS** · prior QA `yarn e2e-qa-mobile` **PASS** · roleOnly=`review` · Step 4b **N/A** · **cấm** mfeStdUrl |
+| verifyGate | iOS `xcodegen` + `xcodebuild` dest **iPhone 17 Pro** **PASS** · Android `assembleDebug` **PASS** · BFF `dotnet build` **PASS** · cleanup_mock live-only · Step 4b **N/A** · **cấm** mfeStdUrl |
 | ios_test_phase | `phase1_iphone` (autoApprove=ON) · **A4-IPAD DEFER** |
 | e2e_toolchain | `ok` |
-| updatedAt | `2026-08-19T10:11:35.171Z` |
+| updatedAt | `2026-09-01T04:09:38.939Z` |
 ## Lock
 
 | agent | scope | id | at |
 |-------|-------|-----|-----|
-| — | — | — | released after Review `task_0cf68cc3` |
+| — | — | — | released after Review `task_042eeb65` |
 
 ## Pipeline
 
@@ -76,7 +76,7 @@
 | kit_missing_confirm | **N/A** — reuse map hub kit dual |
 | route_confirm | **route_a** (autoApprove=ON · TL) |
 | autoApprove | **ON** |
-| e2eQa | **ON** · runtime PASS (prior QA) |
+| e2eQa | **ON** · runtime PASS · task `task_4e062d1e` |
 | ios_test_phase | **phase1_iphone** (autoApprove) · A4-IPAD DEFER |
 | design_confirm | **confirmed** (user Approve board) |
 | solution_confirm | **confirmed** (user Approve board) |
@@ -96,12 +96,16 @@
 | task_746238de | asset-hub | dev | team_lead | **completed** | `/agent-dev-ios` + `/agent-dev-android` · VERIFY GATE PASS · Step 4b N/A |
 | task_3e29163a | asset-hub | qa | dev | **completed** | `/agent-qa-mobile` · e2e-qa-mobile PASS · store PNG live · roleOnly · ios_test_phase=phase1_iphone |
 | task_0cf68cc3 | asset-hub | review | qa | **completed** | `/agent-review-mobile` · review_confirm approve · verifyGate PASS · roleOnly · post_review skip |
+| task_9c9293d2 | asset-hub | dev | review | **completed** | `/edit-mobile-feature` · cleanup_mock live-only wallet · VERIFY GATE PASS · Step 4b N/A |
+| task_4e062d1e | asset-hub | qa | dev | **completed** | `/agent-qa-mobile` · e2e-qa-mobile PASS · store PNG live · recheck post cleanup_mock · roleOnly |
+| task_042eeb65 | asset-hub | review | qa | **completed** | `/agent-review-mobile` · review_confirm approve · recheck post cleanup_mock · verifyGate prior PASS · roleOnly · post_review skip |
 
 ## Blockers / open questions
 
 - GAP-F-AHUB-01 — **Review verified:** optional `road-routes/search` · iOS live · Android demo · hub **không** block
 - GAP-F-AHUB-02 — **Review verified:** tile «32 loại tài sản» · subtitle count live/demo
 - GAP-F-AHUB-03 — **Review verified:** AI pending empty → ẩn section
+- GAP-MOB-AHUB-CLEANUP-01 — **`/edit-mobile-feature` 2026-09-01:** wallet live-only · gỡ demoTitle/demoCount/patrolLine · toast `asset.hub.toast.loadFail` · **PASS**
 - GAP-MOB-AHUB-ALIGN-01 — **`/edit-mobile-feature` 2026-08-29:** hub tile hàng 2 cột stretch cùng height · subtitle 2 dòng · lock design/ux/map/task/implement — **cấm** revert
 - R-07 P2 — thiếu `PrivacyInfo.xcprivacy` / Play Data safety / landing HTTPS → **Accept** đến `post_review`/`app_submit` (**không** chặn hub done)
 - Sibling **không** start đến khi board Approve (`GAP-MOB-ACT-06`)
@@ -114,12 +118,10 @@
 | feature / packKind | `asset-hub` / **`hub`** (confirmed) |
 | phase_from / phase_to | review **confirmed** → **done** |
 | STATUS | `specs/asset-hub/STATUS.md` |
-| review | `review/findings.md` · `review_confirm=approve` |
-| Open Must align | **0** |
-| post_review | **skip** |
-| Next | sibling `pending_confirm` chờ board — **cấm** auto chain |
+| review | `review/findings.md` · `review/REVIEW-META.json` · `handoff/review-compact.md` |
+| Next | sibling `pending_confirm` chờ board Approve — **cấm** auto chain |
 | Chain this turn | **không** (roleOnly=`review`) |
-| e2eQa | prior QA **PASS** · **cấm** mfeStdUrl / yarn start:std |
+| e2eQa | **PASS** · `ok:true` · task `task_4e062d1e` · **cấm** mfeStdUrl |
 
 ## Links
 

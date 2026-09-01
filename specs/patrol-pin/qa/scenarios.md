@@ -6,11 +6,11 @@
 | role | `/agent-qa-mobile` |
 | e2e | `yarn e2e-qa-mobile` · sim + emulator + Maestro |
 | status | **confirmed** |
-| taskId | `task_3a68f8d3` |
+| taskId | `task_c5415843` |
 | method | e2e runtime · yarn e2e-qa-mobile |
 | ios_test_phase | phase1_iphone · iPhone 17 Pro Max · A4-IPAD DEFER |
 | visual | **Aligned** · Must **0** · `/review-align-ux-ios-android` Read CORE |
-| updatedAt | `2026-08-21T04:00:00.000Z` |
+| updatedAt | `2026-09-01T07:42:00.000Z` |
 
 ## Scenarios
 
@@ -32,39 +32,6 @@
 CLI e2e PASS ≠ visual Aligned · `mfeStdUrl` · `yarn start:std`.
 
 ## E2E screenshots
-
-Viewer: `/api/qldb/artifact?id=&rel=qa/scenarios.md` rewrite `screens/{caseId}.png`.
-
-CLI **PASS** = Maestro + PNG + store px only — **not** visual vs demo. QA **Read** A3-CORE + P6-CORE vs prototype (`/review-align-ux-ios-android`). Demo `.row-icon`/`#i-*` missing on live → Must **GAP-MOB-UX-COMP-03** · log `qa/bugs/`. Skip vision → **GAP-MOB-E2E-VIS-01**.
-
-| Case | Store | Result | Evidence |
-|------|-------|--------|----------|
-| A10-BFF | A10 · P11 | **PASS** | — |
-| MAESTRO-IOS | A3 · A9 · A11 | **FAIL** | — |
-| CRAWL | — | **FAIL** | — |
-| MAESTRO-AND | P6 | **FAIL** | — |
-| A11-LAUNCH | A11 | **PASS** | ![A11-LAUNCH](screens/A11-LAUNCH.png) |
-| A9-LOGIN | A9 · P10 | **PASS** | ![A9-LOGIN](screens/A9-LOGIN.png) |
-| A3-CORE | A3 · A11 | **PASS** | ![A3-CORE](screens/A3-CORE.png) |
-| P6-CORE | P6 · P11 | **PASS** | ![P6-CORE](screens/P6-CORE.png) |
-| P6-CORE-2 | P6 | **PASS** | ![P6-CORE-2](screens/P6-CORE-2.png) |
-
-
-Viewer: `/api/qldb/artifact?id=&rel=qa/scenarios.md` rewrite `screens/{caseId}.png`.
-
-CLI **PASS** = Maestro + PNG + store px only — **not** visual vs demo. QA **Read** A3-CORE + P6-CORE vs prototype (`/review-align-ux-ios-android`). Demo `.row-icon`/`#i-*` missing on live → Must **GAP-MOB-UX-COMP-03** · log `qa/bugs/`. Skip vision → **GAP-MOB-E2E-VIS-01**.
-
-| Case | Store | Result | Evidence |
-|------|-------|--------|----------|
-| A10-BFF | A10 · P11 | **PASS** | — |
-| MAESTRO-IOS | A3 · A9 · A11 | **FAIL** | — |
-| MAESTRO-AND | P6 | **FAIL** | — |
-| A11-LAUNCH | A11 | **PASS** | ![A11-LAUNCH](screens/A11-LAUNCH.png) |
-| A9-LOGIN | A9 · P10 | **PASS** | ![A9-LOGIN](screens/A9-LOGIN.png) |
-| A3-CORE | A3 · A11 | **PASS** | ![A3-CORE](screens/A3-CORE.png) |
-| P6-CORE | P6 · P11 | **PASS** | ![P6-CORE](screens/P6-CORE.png) |
-| P6-CORE-2 | P6 | **PASS** | ![P6-CORE-2](screens/P6-CORE-2.png) |
-
 
 Viewer: `/api/qldb/artifact?id=&rel=qa/scenarios.md` rewrite `screens/{caseId}.png`.
 

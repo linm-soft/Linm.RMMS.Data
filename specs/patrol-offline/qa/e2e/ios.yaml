@@ -1,14 +1,21 @@
 appId: org.linmsoft.rmms
 ---
-# patrol-offline · login → tab Tôi → #row-offline → #sc-patrol-offline
-# iOS LinmTopBar title «Dữ liệu lưu trữ» có thể không expose a11y — assert id sc-patrol-offline + card copy
+# patrol-offline · guest home → login → tab Tôi → #row-offline → #sc-patrol-offline
+# live-only · EmptyChrome (cleanup_mock · cấm demo card assert)
 - launchApp:
     clearState: true
     clearKeychain: true
 - extendedWaitUntil:
-    visible: "Đăng nhập"
-    timeout: 15000
+    visible:
+      id: "sc-home"
+    timeout: 20000
 - takeScreenshot: A11-LAUNCH
+- tapOn:
+    id: "btn-home-login"
+- extendedWaitUntil:
+    visible:
+      id: "f-user"
+    timeout: 15000
 - tapOn:
     id: "f-user"
     optional: true
@@ -17,12 +24,6 @@ appId: org.linmsoft.rmms
     optional: true
 - inputText: "linm-soft"
 - tapOn:
-    text: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
-    optional: true
-- tapOn:
-    text: "RMMS"
-    optional: true
-- tapOn:
     id: "f-pass"
     optional: true
 - tapOn:
@@ -30,7 +31,7 @@ appId: org.linmsoft.rmms
     optional: true
 - inputText: "Linm@2026"
 - tapOn:
-    text: "Not Now"
+    text: "RMMS"
     optional: true
 - takeScreenshot: A9-LOGIN
 - tapOn:
@@ -60,7 +61,8 @@ appId: org.linmsoft.rmms
     visible:
       id: "sc-patrol-offline"
     timeout: 20000
-- assertVisible: "Điểm tuần · Km 1556+000"
-- assertVisible: "Chờ gửi"
-- assertVisible: "Điểm tuần · Km 1561+134"
+- assertVisible:
+    id: "offline-empty"
+- assertVisible: "Chưa có bản ghi chờ gửi"
+- assertVisible: "Dữ liệu mất sóng sẽ hiện khi thiết bị ghi cục bộ."
 - takeScreenshot: A3-CORE

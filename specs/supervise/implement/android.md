@@ -1,23 +1,22 @@
 # Dev — Implement — supervise (Android)
 
-> Status: **done** · `/agent-dev-android` · `/dev-android-compose` · `/android-new-screen` · `/android-new-api-call` · `/dev-ui-review` · `/convert-web-icon-to-mobile`  
-> task `task_e29847e6` · T-AND-SUPERVISE
+> Status: **done** · `/edit-mobile-feature` · cleanup_mock · `/agent-dev-android`  
+> task `task_65931a17` · T-AND-SUPERVISE · parent `mobile-cleanup-mock`
 
 | Feature | `supervise` |
 | assembleDebug | **PASS** |
-| Kit | `LinmTopBar` · `LinmSegment` · `LinmToast` (via `LoginToastHub`) · `LinmMapPinGlyph` · `LinmBusyOverlay` · card = feature composition |
+| Kit | `LinmTopBar` · `LinmSegment` · `LinmToast` (via `LoginToastHub`) · `EmptyChrome` · `LinmMapPinGlyph` · `LinmBusyOverlay` · card = feature composition |
 
 ## Layers
 
 | Presentation | `presentation/feature/supervise/SuperviseScreen.kt` · `SuperviseViewModel.kt` · `SuperviseUiState.kt` · `MainTabScreen` `navigate("supervise")` |
-| Domain | `FetchSuperviseCheckinsUseCase` · `SuperviseCopy.orgFallback` · `SuperviseCopy.demoItems` |
+| Domain | `FetchSuperviseCheckinsUseCase` → `FetchSuperviseCheckinsOutcome` · `SuperviseCopy.orgFallback` · `SuperviseCopy.loadFailToast` · **no** `demoItems` |
 | Data | `SuperviseRepositoryImpl` · `SuperviseDtoMapper.checkin` · `ApiService.attendanceLogs` · `GET patrol/attendance-logs` |
 
-## IA / API
+## Behavior (live-only · **cấm** `SuperviseCopy.demoItems`)
 
-Dual parity iOS · route_a push · demo fallback.  
-**DELTA:** gỡ `Icons.Default.Business` / `Place` (Filled) → `#i-building` Path `d=` + `LinmMapPinGlyph` (`GAP-MOB-ICON-02`). Empty `Note` → «Tổ tuần đường · VP-IV.1».  
-E2E tags: `sc-supervise` · `btn-sup-back` · `btn-sup-filter` · `sup-segment` · `sup-card-*`.
+Parity iOS · GET OK empty = EmptyChrome `sup-empty` · GET fail = empty + `supervise.toast.loadFail` · org fallback mapper · **cấm** `AlertDialog` · **cấm** invent kit `LinmRichCheckinCard`.  
+E2E tags: `sc-supervise` · `btn-sup-back` · `btn-sup-filter` · `sup-segment` · `sup-empty` · `sup-card-*`.
 
 ## VERIFY GATE
 
@@ -25,4 +24,6 @@ E2E tags: `sc-supervise` · `btn-sup-back` · `btn-sup-filter` · `sup-segment` 
 
 ## Notes
 
-Step 4b / T-BE **N/A** — reuse attendance-logs. **Cấm** `AlertDialog` · **cấm** invent kit `LinmRichCheckinCard`.
+`/edit-mobile-feature` 2026-09-01: **cleanup_mock** · remove demo fallback · dual EmptyChrome + loadFail toast. Step 4b / T-BE **N/A** — reuse attendance-logs · EmptyChrome OK khi tenant rỗng · **cấm** `mfeStdUrl`.
+
+<!-- Version meta: skillId=edit-mobile-feature+agent-dev-android skillVersion=2026.08.19.26 schemaVersion=1 workflowVersion=2026.08.31.2 rulesVersion=2026.08.31.2 versionGate=rechecked taskId=task_65931a17 -->

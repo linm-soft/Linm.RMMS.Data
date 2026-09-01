@@ -1,19 +1,28 @@
 appId: org.linmsoft.rmms
 ---
-# attendance · store P6 ×2 · login Auth seed → tab field → seg Chấm công → #sc-attendance (Pixel 1080×1920)
-# cấm hideKeyboard (BACK có thể về launcher) — tap title + Enter như patrol-home
+# attendance · store P6 ×2 · guest → login → tab field → seg Chấm công → #sc-attendance (Pixel 1080×1920)
+# cấm hideKeyboard (BACK có thể về launcher) — tap title + Enter như patrol-checkin
 - launchApp:
     clearState: true
     clearKeychain: true
 - extendedWaitUntil:
-    visible: "Đăng nhập"
+    visible:
+      id: "sc-home"
+    timeout: 20000
+- tapOn:
+    id: "btn-home-login"
+- extendedWaitUntil:
+    visible:
+      id: "f-user"
     timeout: 15000
 - tapOn:
     id: "f-user"
+- eraseText
 - inputText: "linm-soft"
 - tapOn: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
 - tapOn:
     id: "f-pass"
+- eraseText
 - inputText: "Linm@2026"
 - pressKey: Enter
 - waitForAnimationToEnd:

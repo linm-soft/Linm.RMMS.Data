@@ -57,7 +57,7 @@ Demo states: `?deny=1` · `?timeout=1` (cùng dual). **Cấm** `mfeStdUrl` / `ya
 | Key | Copy |
 |-----|------|
 | CTA | **Ghim vị trí hiện tại** |
-| Toast OK | **Đã ghim vị trí hiện tại · QL.1 · Km 1561+134 · ±4 m** (bind route + accuracy) |
+| Toast OK | **Đã ghim vị trí hiện tại · {live Route} · ±N m** (bind active session route + accuracy · empty = `Chưa có ca đang chạy` · **cấm** demoRoute) |
 | Modal title | **Định vị bị tắt** |
 | Modal body | **Cần vị trí để chấm công / chấm điểm tuần. Mở Cài đặt → Quyền vị trí cho RMMS.** |
 | Modal primary | **Sao chép hướng dẫn** |

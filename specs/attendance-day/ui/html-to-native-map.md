@@ -9,13 +9,13 @@ Cite SSOT `docs/html-to-native-map.md`. Feature deltas (`#sc-attendance-day`):
 | `.hero-day` dayTitle | Display Text bold | iOS **28** · Android **24** · nav `dayTitle` |
 | `.badge` Đủ công / Nghỉ | `LinmBadge` | derived aggregate · ok / idle / warn |
 | `.card-group` `.row` Khoảng giờ | `LinmListRow` | label **13** / value **≥16** · min/max `CheckInAt` |
-| `.row` Tuyến · ca | `LinmListRow` | first log `Route` · shift demo «Ca sáng» offline |
+| `.row` Tuyến · ca | `LinmListRow` | first log `Route` · empty → «—» · **cấm** invent Ca sáng |
 | `.row` Số lần chấm | `LinmListRow` | `{n} lần chấm` |
 | `.section-label` Các lần chấm | `LinmSectionLabel` | hidden khi count=0 |
 | `.row` log time + sub | `LinmListRow` | title `CheckInAt` HH:mm · sub `{Route} · {Status} · {InZone VN}` · onTap toast |
 | `.badge` log InZone optional | `LinmBadge` | Trong vùng / Ngoài vùng |
 | empty day | `LinmEmptyChrome` | «Không có lần chấm trong ngày» · badge Nghỉ |
-| toast | `LinmToast` | GET fail · tap log «Chi tiết lần chấm» · **cấm** `window.alert` |
+| toast | `LinmToast` | GET fail → empty chrome + toast · **cấm** demo fallback · tap log «Chi tiết lần chấm» · **cấm** `window.alert` |
 | `.tab` / DES-MOB-TABBAR | `LinmTabBar` | shell · selected **Tuần đường** · label **13** · **cấm** invent |
 
 **Bind (real-data §B):**
@@ -25,7 +25,7 @@ Cite SSOT `docs/html-to-native-map.md`. Feature deltas (`#sc-attendance-day`):
 | dayHero | nav `dayTitle` hoặc format `E dd/MM` từ `dayKey` |
 | badge | 0 → Nghỉ · 1 → Đã chấm · ≥2 → Đủ công · any outZone → warn optional |
 | range | 0 logs → «—» · 1 → `HH:mm` · ≥2 → `{min} – {max}` local |
-| route | first log `Route` · ca = demo «Ca sáng» khi offline |
+| route | first log `Route` · empty → «—» · **cấm** demo shift / QL.1 invent |
 | count | `{n} lần chấm` · 0 → hide section / show empty |
 | log row | sort `CheckInAt` asc · sub = `{Route} · {Status} · {InZone VN}` |
 | inZone | `true` → «Trong vùng» · `false` → «Ngoài vùng» |

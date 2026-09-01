@@ -56,7 +56,7 @@
 | `DES-MOB-SUPERVISE` `#sc-supervise` | Giám sát tuần đường | Nav · segment · list cards | toast / pop |
 | `DES-MOB-SUP-NAV` | Nav | back **Trang Chủ** · title · **Lọc** | pop / toast |
 | `DES-MOB-SUP-SEG` | Segment 2 | idx **0** Danh sách check in · **1** Bản đồ | owner / toast |
-| `DES-MOB-SUP-LIST` | List | ≥2 rich-card (demo SSOT) | |
+| `DES-MOB-SUP-LIST` | List | live cards · empty → EmptyChrome | |
 | `DES-MOB-SUP-CARD` | Card | title · org · loc · time · status · thumb | toast detail |
 
 ### IA lock
@@ -128,7 +128,7 @@ Toast → `LinmToast`. **Cấm** raw `List` / M3 `NavigationBar` / `TabView` (`G
 
 | Case | UI |
 |------|-----|
-| Appear | GET `patrol/attendance-logs` · map cards · fail/empty/offline → demo SSOT · list **mở** |
+| Appear | GET `patrol/attendance-logs` · map cards · OK empty → EmptyChrome · fail → empty + toast loadFail · **cấm** demo SSOT · list **mở** |
 | Back | pop `#sc-home` · **cấm** alert |
 | Filter | toast **Lọc tuyến · ngày** · **cấm** sheet / API filter P1 |
 | Segment 1 | toast **Bản đồ** · stay list idx **0** |

@@ -6,33 +6,35 @@
 | title | [Mobile] [Vấn đề] -> Nhận diện mặt đường |
 | this role | `review` · `/agent-review-mobile` |
 | status | **done** |
-| review_confirm | **done** (autopilot · `task_3be26d66` · autoApprove=ON) |
+| review_confirm | **done** (autopilot · `task_f31fa8eb` · autoApprove=ON) |
 | packKind | **`screen`** (`DES-MOB-VIS-CAPTURE` · `#sc-vis-capture`) |
 | lane | `mobile` · **cấm** mfeStdUrl / yarn start:std |
-| prior · qa | `qa/scenarios.md` · **confirmed** · e2eQa ON · `ok:true` · align **Aligned** Must **0** |
-| prior · dev | `implement/{ios,android}.md` · **confirmed** · builds PASS · T-BE Signed detect · MIG n/a |
-| prior · sa | `be/solution-discovery.md` · **confirmed** · GAP-MOB-VIS-DETECT-01 closed on Dev |
-| prior · design | `ui/design.md` · `demo-parity.md` · `align-ux.md` · **confirmed** |
+| changeScope | `edit_page` · cleanup_mock recheck post QA `task_4b69db15` |
+| prior · qa | `handoff/qa-compact.md` · **confirmed** · e2eQa ON · `ok:true` · align **Aligned** Must **0** |
+| prior · dev | `handoff/dev-compact.md` · **confirmed** · cleanup_mock · builds PASS |
+| prior · sa | `be/solution-discovery.md` · **confirmed** (compact missing → full) · GAP-MOB-VIS-DETECT-01 closed |
+| prior · design | `ui/design.md` · `align-ux.md` · **confirmed** (compact missing → align + prior) |
+| prior · po | `po/requirement.md` · **confirmed** (compact missing → full header) |
 | ios | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS` |
 | android | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android` |
 | bff | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Bff` · catch-all proxy |
 | backend | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.WebService` · AiVision + Incident + Patrol · **cấm ERP.*** |
 | autoApprove | **ON** |
-| e2eQa | **ON** · prior QA `task_752e74c9` · **cấm** re-run e2e/build ở role review |
-| updatedAt | `2026-08-29T10:31:54.000Z` |
-| taskId | `task_3be26d66` |
+| e2eQa | **ON** · prior QA `task_4b69db15` · **cấm** re-run e2e/build ở role review |
+| updatedAt | `2026-09-01T06:31:32.000Z` |
+| taskId | `task_f31fa8eb` |
 
 ## REVIEW-META
 
 | Hash input | Notes |
 |------------|-------|
-| iOS | `VisCapture/*` · `DetectAiVisionUseCase` · `CreateIncidentUseCase` · Keychain · `GpsDenyModal` · still `FieldReflectCameraPicker` |
-| Android | `presentation/feature/viscapture/*` · same use cases · EncryptedSharedPreferences · `GpsDenyDialog` · CameraX still Dialog |
+| iOS | `VisCapture/*` · live session stamp · **cấm** demoLoc · `DetectAiVisionUseCase` · `CreateIncidentUseCase` · Keychain · `GpsDenyModal` · still `FieldReflectCameraPicker` |
+| Android | `presentation/feature/viscapture/*` · live stamp · **cấm** DEMO_LOC · EncryptedSharedPreferences · `GpsDenyDialog` · CameraX still |
 | BFF | `MobileApiProxyController` catch-all · **cấm** invent `VisCaptureController` |
 | API | `GET patrol/sessions` · `POST ai-vision/detect` (SourceKind=`detect-signed`) · `POST incident/incidents` · AccuracyM request-only |
-| QA store | `qa/store/vis-capture/` A11/A9/A3/P6/P6-2 live PNG · `ok:true` |
-| align | `ui/review/align-ux.md` · Must **0** · `demo-parity.md` Must closed · `qa/bugs` Should only |
-| skillVersion | agent-review-mobile **2026.08.20.01** |
+| QA store | `qa/store/vis-capture/` A11/A9/A3/P6/P6-2 · manifest `ok:true` · 1320×2868 · 1080×1920 |
+| align | `ui/review/align-ux.md` · Must **0** · Aligned · live Loc stamp |
+| skillVersion | agent-review-mobile **2026.08.29.1** |
 | contentHash | `sha256:vis-capture-control-hint-20260829` · unchanged |
 | realDataHash | `sha256:vis-capture-real-data-20260829` · unchanged |
 | bffContentHash | `sha256:vis-capture-mobile-bff-20260829` · unchanged |
@@ -43,40 +45,35 @@
 | Check | Result |
 |-------|--------|
 | Token store iOS Keychain · Android EncryptedSharedPreferences | **PASS** |
-| Interceptor Bearer + `X-Company-Id` | **PASS** (`ApiClient` / `AuthInterceptor` · BFF forward) |
-| IDOR / tenant | **PASS** — Incident create stamps `CompanyCode` from claim · cross-company view denied |
-| Location Info.plist `NSLocationWhenInUseUsageDescription` · Manifest `ACCESS_FINE/COARSE_LOCATION` | **PASS** |
-| Camera `NSCameraUsageDescription` · Manifest `CAMERA` | **PASS** |
-| `PrivacyInfo.xcprivacy` PreciseLocation + PhotosorVideos · AppFunctionality | **PASS** (declared) |
-| Deny in-app · **cấm** `UIAlertController` / system `AlertDialog` | **PASS** · `GpsDenyModal` / `GpsDenyDialog` |
-| Fake lat/lng | **PASS** — live CL / Fused · GPS gate AccuracyM ≤ 30 · no fake SC on fail |
-| Invent `api/v1/vis-capture` / BFF controller | **PASS** — reuse AiVision + Incident + Patrol only |
-| Fake HTTP 200 khi POST fail | **PASS** — queue `OfflineQueueKind.incident` · toast fail |
-| Plaintext JWT / UserDefaults | **PASS** — Keychain / Encrypted only |
-| Score % ship / watermark / process text / `mfeStdUrl` | **PASS** — score ẩn · không ship |
-| ImageBase64 on wire P1 | **Accept** — still PhotoRow → detect body · optional uploads P2 |
+| Interceptor Bearer + `X-Company-Id` | **PASS** |
+| IDOR / tenant Incident create | **PASS** |
+| Location + Camera plist/Manifest · PrivacyInfo | **PASS** |
+| Deny in-app · **cấm** system alert | **PASS** · `GpsDenyModal` / `GpsDenyDialog` |
+| Fake lat/lng · demoLoc seed | **PASS** — live CL/Fused · GPS ≤30 · **GAP-MOB-EDIT-DEMO-01 CLOSED** (no demoLoc/DEMO_LOC/itemsOrDemo) |
+| Invent `api/v1/vis-capture` / BFF controller | **PASS** |
+| Fake HTTP 200 khi POST fail | **PASS** — offline queue · toast |
+| Score % / watermark / `mfeStdUrl` | **PASS** — none |
+| ImageBase64 on wire P1 | **Accept** — optional uploads P2 |
 
 ## DTO parity (iOS = Android = BE)
 
 | Field | Disposition |
 |-------|-------------|
-| Detect `engine` · `note` · `imageBase64` · `lat` · `lng` · `accuracyM` · `videoRef` | **OK** dual = `DetectAiVisionRequest` |
-| Detection card `id` · `code` · `defectClass` · `severity` · `routeLabel` · `sectionId` · `lat`/`lng` | **OK** · **cấm** bind Score to UI |
-| Attach `title` · `routeName` · `incidentType` · `status` · `severity` · `kmStart` · `requestedAt` · `detectionId` · `hasGps` | **OK** dual = `CreateIncidentRequest` |
-| Prefill `GET patrol/sessions` / demo SSOT `QL.1 · Km 1556+050` | **OK** dual (`VisCaptureCopy`) · live Km from session |
-| GPS gate `maxAccuracyM` / `MAX_ACCURACY_M` = **30** | **OK** dual |
-| Tab invent | **OK** · pack `tabs: none` · shell Tab 5 · tab **incident** · **GAP-TAB-01** none |
+| Detect body `engine` · `note` · `imageBase64` · `lat` · `lng` · `accuracyM` · `videoRef` | **OK** dual |
+| Detection card · **cấm** Score UI | **OK** |
+| Attach `CreateIncidentRequest` + `detectionId` · `hasGps` | **OK** |
+| Prefill Loc live `GET patrol/sessions` · empty=`patrol.empty.active.route` | **OK** · **cấm** demoLoc |
+| GPS gate `MAX_ACCURACY_M` = **30** | **OK** dual |
+| Tab invent | **OK** · tab **incident** · GAP-TAB-01 none |
 
-## UI align (vision · `/review-align-ux-ios-android`)
+## UI align (vision · prior QA align)
 
 | Zone | Result |
 |------|--------|
-| A3-CORE vs demo `#sc-vis-capture` | **PASS** — title · section **Ảnh hiện trường** · `#i-camera` · Loc/Acc/Class/Sev · CTA Gắn/Bỏ qua · tab incident · no watermark |
-| P6-CORE / P6-CORE-2 vs demo | **PASS** — same dual · Android section + **Bỏ qua** (GAP-MOB-VIS-DUAL-01) · TopBar overflow Observe |
-| Pict leading tile | **PASS** · rows `.no-icon` · **không** GAP-MOB-UX-COMP-03 |
-| Dual copy VN · watermark / device label | **PASS** none |
-| Live Class/Sev `—` vs demo post-detect | **state** pre-detect · **không** Must |
-| Must align / demo-parity / COLOR / COMP / bugs OPEN Must | **0** |
+| A3-CORE / P6(+2) vs demo `#sc-vis-capture` | **PASS** — title · **Ảnh hiện trường** · `#i-camera` · Loc/Acc/Class/Sev · Gắn/Bỏ qua · tab incident |
+| Live Loc stamp cleanup_mock | **PASS** — Android `QL.1 · đã chốt` · iOS `QL.1` · no demo Km seed |
+| Dual Android section + **Bỏ qua** | **PASS** (GAP-MOB-VIS-DUAL-01) |
+| Must align / bugs OPEN Must | **0** |
 
 AskQuestion (autoApprove=ON): `review_confirm=done` · `align_confirm=approve` · `post_review=skip`.
 
@@ -84,41 +81,42 @@ AskQuestion (autoApprove=ON): `review_confirm=done` · `align_confirm=approve` �
 
 | ID | Area | Sev | Finding | Disposition |
 |----|------|-----|---------|-------------|
-| R-01 | Security | — | Keychain / Encrypted · Bearer · `X-Company-Id` · tenant Incident create | **OK** |
-| R-02 | API | — | detect Signed + incident live · **cấm ERP.*** · no invent slug | **OK** |
-| R-03 | Camera/GPS | — | plist + Manifest · PrivacyInfo · deny in-app · AccuracyM ≤ 30 gate | **OK** |
-| R-04 | DTO | — | Dual body = BE DetectAiVisionRequest / CreateIncidentBody | **OK** |
-| R-05 | Align | — | A3 + P6(+2) vs demo · Must **0** · Aligned · score ẩn | **OK** |
-| R-06 | A11y Maestro | Should | `GAP-MOB-A11Y-VIS-01` «±»/«đã chốt» NFC·NFD flake | **Defer** non-block |
-| R-07 | Frame upload | P2 | ImageBase64 on detect · continuous finder OUT · media uploads optional | **Accept** |
-| R-08 | QA | — | e2eQa ON · Maestro · store live · prior PASS | **OK** |
-| R-09 | Store | P2 | Play Data safety / READY_TO_SUBMIT → `/review-app-submit` | **Accept** |
-| R-10 | Step 4b | — | T-BE-VIS-DETECT-ENGINE **PASS** · MIG **n/a** · review **skip** re-run | **OK** |
+| R-01 | Security | — | Keychain / Encrypted · Bearer · tenant · deny in-app | **OK** |
+| R-02 | API | — | detect Signed + sessions + incident · **cấm ERP.*** | **OK** |
+| R-03 | cleanup_mock | — | live session stamp · **cấm** demoLoc/DEMO_LOC · GAP-MOB-EDIT-DEMO-01 | **OK** |
+| R-04 | Camera/GPS | — | still PhotoRow · AccuracyM ≤ 30 · no fake SC | **OK** |
+| R-05 | DTO | — | Dual = BE Detect / CreateIncident | **OK** |
+| R-06 | Align | — | A3+P6 vs demo · Must **0** · Aligned | **OK** |
+| R-07 | A11y Maestro | Should | `GAP-MOB-A11Y-VIS-01` NFC·NFD flake | **Defer** non-block |
+| R-08 | Frame upload | P2 | ImageBase64 · media uploads optional | **Accept** |
+| R-09 | QA | — | e2eQa ON · store live · `ok:true` · task_4b69db15 | **OK** |
+| R-10 | Store | P2 | Play Data safety / READY_TO_SUBMIT | **Accept** |
+| R-11 | Step 4b | — | DETECT-ENGINE done · MIG n/a · review **skip** re-run | **OK** |
 
 ## Task gate
 
 | Task | Result |
 |------|--------|
-| T-IOS-VIS-CAP | PASS (prior Dev) |
-| T-AND-VIS-CAP | PASS (prior Dev) |
-| T-BE-VIS-DETECT-ENGINE | PASS (prior Dev · SourceKind=`detect-signed`) |
+| T-IOS-VIS-CAP | PASS (cleanup_mock · prior Dev) |
+| T-AND-VIS-CAP | PASS (cleanup_mock · prior Dev) |
+| T-BE-VIS-DETECT-ENGINE | PASS (SourceKind=`detect-signed`) |
 | T-BE-VIS-DETECT-MIG | **n/a** |
 | T-BFF-* | **n/a** · catch-all |
-| T-QA | PASS (`ok:true` · Must align 0) |
-| T-REVIEW-SEC / DTO / ALIGN | PASS · Must align = **0** |
+| T-QA-VIS-CAP | PASS (`ok:true` · Must 0 · task_4b69db15) |
+| T-REVIEW-VIS-CAP | **PASS** · SEC/DTO/ALIGN · Must align = **0** |
 
-## VERIFY GATE (`task_3be26d66` · roleOnly=`review`)
+## VERIFY GATE (`task_f31fa8eb` · roleOnly=`review`)
 
 | Gate | Result |
 |------|--------|
-| review/findings.md · REVIEW-META | **PASS** · done |
+| review/findings.md · REVIEW-META · review-compact | **PASS** · done |
 | prior QA e2e / Dev builds (evidence only) | **PASS** · **cấm** re-run yarn build/e2e/start:std |
-| Step 4b BE align / migration | **SKIP** · role review · prior Dev closed GAP-MOB-VIS-DETECT-01 |
+| Step 4b BE align / migration | **SKIP** · role review |
 | Chain other role | **SKIP** · GAP-PKT-ROLE-01 |
 
 ## Verdict
 
-Screen Nhận diện mặt đường dual-native: security + DTO + UI align Must **0** · prior QA/Dev VERIFY PASS · still PhotoRow + GPS ≤30 + Signed detect + attach/offline · A11y Should non-block. **review_confirm=done** (autopilot). Pipeline **complete**.
+Post cleanup_mock recheck: live Loc stamp dual · security + DTO + UI align Must **0** · prior QA `ok:true` · no demoLoc. **review_confirm=done** (autopilot). Pipeline **complete**.
 
 ## Handoff
 
@@ -126,7 +124,7 @@ Screen Nhận diện mặt đường dual-native: security + DTO + UI align Must
 |-------|--------|
 | phase_to | `done` |
 | post_review | **skip** |
-| Next | `/edit-mobile-feature` — **cấm** re-run full pipeline |
+| Next | — pipeline complete · **cấm** re-run full chain |
 | Should follow-ups | `GAP-MOB-A11Y-VIS-01` · media uploads P2 · Play Data safety submit |
 
 ## Version meta (REQUIRED)
@@ -134,16 +132,16 @@ Screen Nhận diện mặt đường dual-native: security + DTO + UI align Must
 | Field | Value |
 |-------|-------|
 | skillId | agent-review-mobile |
-| skillVersion | 2026.08.20.01 |
+| skillVersion | 2026.08.29.1 |
 | schemaVersion | 1 |
 | workflowVersion | 2026.08.29.1 |
 | rulesVersion | 2026.08.29.5 |
-| generatedAt | 2026-08-29T10:31:54.000Z |
+| generatedAt | 2026-09-01T06:31:32.000Z |
 | versionGate | rechecked |
-| taskId | `task_3be26d66` |
+| taskId | `task_f31fa8eb` |
 | contentHash | sha256:vis-capture-control-hint-20260829 |
 | realDataHash | sha256:vis-capture-real-data-20260829 |
 | bffContentHash | sha256:vis-capture-mobile-bff-20260829 |
 | actionTreeHash | sha256:vis-capture-action-tree-20260829 |
 
-<!-- Version meta: skillId=agent-review-mobile skillVersion=2026.08.20.01 schemaVersion=1 workflowVersion=2026.08.29.1 rulesVersion=2026.08.29.5 versionGate=rechecked contentHash=sha256:vis-capture-control-hint-20260829 -->
+<!-- Version meta: skillId=agent-review-mobile skillVersion=2026.08.29.1 schemaVersion=1 workflowVersion=2026.08.29.1 rulesVersion=2026.08.29.5 versionGate=rechecked contentHash=sha256:vis-capture-control-hint-20260829 -->

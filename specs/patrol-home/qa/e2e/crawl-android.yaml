@@ -67,12 +67,9 @@ appId: org.linmsoft.rmms
     id: "btn-pin-here"
 - extendedWaitUntil:
     visible:
-      id: "sheet-checkin"
+      id: "sc-patrol-home"
     timeout: 8000
 - takeScreenshot: CRAWL-pin
-- tapOn:
-    id: "nav-back"
-    optional: true
 
 - tapOn:
     id: "row-quick-field-reflect"

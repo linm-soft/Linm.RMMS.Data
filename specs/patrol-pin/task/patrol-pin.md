@@ -100,11 +100,11 @@
 
 ### Shared AC (both native)
 
-1. Hub CTA **Ghim vị trí hiện tại** → xin quyền → fix live → toast `Đã ghim vị trí hiện tại · {route} · ±N m` (route active / demo `QL.1 · Km 1561+134`).
+1. Hub CTA **Ghim vị trí hiện tại** → xin quyền → fix live → toast `Đã ghim vị trí hiện tại · {route} · ±N m` (route = live active · empty = `Chưa có ca đang chạy` · **cấm** demoRoute).
 2. Map cùng CTA → cùng toast + pin `.here` + camera follow · **cấm** fake lat/lng.
 3. Deny → in-app `DES-MOB-GPS-DENY` (title/body/Sao chép/Để sau) · **cấm** system alert.
 4. Timeout → toast `Chưa lấy được vị trí. Thử lại.`
-5. Offline: ghim local OK · GET fail → demo route toast · **cấm** full-screen block.
+5. Offline: ghim local OK · GET fail → empty-label + `cam.toast.sessionFail` · **cấm** demo route · **cấm** full-screen block.
 6. Handoff sibling `patrol-checkin` stub only · **cấm** form / `POST …/check-ins`.
 7. Dual copy + `#i-mappin` parity (`GAP-MOB-ALIGN-01`).
 8. Tab 5 shell giữ · pack tabs none (`T-QA-TAB-01`).

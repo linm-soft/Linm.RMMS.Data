@@ -174,7 +174,7 @@ Frame: iOS 390×844 · Android 412×915 · safe area · sheet/modal không đè 
 | AC-MATCH-02 | `matchOk=true` | Banner xanh · enable submit |
 | AC-CAM-01 | Capture | `#i-camera` → attach PhotoRow · local URI P1 |
 | AC-OFF-01 | Offline / POST MISSING | Sheet mở · local queue `patrol-offline` · toast ok · **cấm** fake 200 · **cấm** full-screen block |
-| AC-D-03 | Leave dirty | Modal `DES-MOB-LEAVE` · Bỏ thay đổi / Tiếp tục sửa |
+| AC-D-03 | Leave dirty | Modal `DES-MOB-LEAVE` · Bỏ thay đổi / Tiếp tục sửa · **trên** sheet (không under) · swipe dirty giữ sheet |
 | AC-D-04 | Native alert | **Cấm** mọi system alert · toast/modal in-app only |
 | AC-D-05 | Keyboard | TextArea Nội dung · không đè primary / home indicator |
 | AC-D-06 | Safe area | Sheet + modal + tab không đè notch / home indicator |

@@ -5,8 +5,9 @@
 | feature | `patrol-history` |
 | phase | `done` |
 | status | `done` |
+| taskId | `task_1fc7e2bc` |
 | packKind | `list` (**PO confirm**) |
-| changeScope | `new_page` |
+| changeScope | `new_page` · re-review post `edit_page` cleanup_mock |
 | stack | `native_dual` |
 | demo | `specs/patrol-history/ui/prototype/{ios,android}/index.html#sc-patrol-history` · `DES-MOB-PAT-LIST` |
 | context | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/docs/context/features/patrol-history.md` |
@@ -23,7 +24,6 @@
 | dev | `specs/patrol-history/implement/{ios,android}.md` |
 | qa | `specs/patrol-history/qa/scenarios.md` · `qa/store/patrol-history/` · `qa/e2e/{ios,android}.yaml` |
 | review | `specs/patrol-history/review/findings.md` · `review/REVIEW-META.json` (**confirmed**) |
-| taskId | `task_f42bd832` |
 | skillVersion | `2026.08.19.29` (agent-review-mobile) |
 | schemaVersion | `1` |
 | workflowVersion | `2026.08.19.29` |
@@ -31,13 +31,13 @@
 | versionGate | `rechecked` |
 | contentHash | `sha256:patrol-history-control-hint-20260820` |
 | bffContentHash | `sha256:patrol-history-mobile-bff-20260820` |
-| verifyGate | iOS `xcodegen` + `xcodebuild` dest **iPhone 17 Pro** **PASS** ✓ · Android `assembleDebug` **PASS** ✓ · BFF `dotnet build` **PASS** ✓ · e2e-qa-mobile **PASS** ✓ · roleOnly=`review` · Step 4b **N/A** · **cấm** mfeStdUrl |
-| updatedAt | `2026-08-19T21:53:47.731Z` |
+| verifyGate | iOS/Android/BFF prior Dev **PASS** · e2eQa prior QA **ok:true** · roleOnly=`review` · Step 4b **N/A** · cleanup_mock **PASS** · **cấm** mfeStdUrl / yarn e2e ở Review |
+| updatedAt | `2026-09-01T05:52:24.617Z` |
 ## Lock
 
 | agent | scope | id | at |
 |-------|-------|-----|-----|
-| — | — | — | released after review `task_f42bd832` |
+| — | — | — | **released** (review `task_1fc7e2bc`) |
 
 ## Pipeline
 
@@ -55,7 +55,7 @@
 
 | Gate | Value |
 |------|-------|
-| change_scope | `new_page` |
+| change_scope | `new_page` · cleanup_mock re-review |
 | packKind | **`list`** (PO confirm) |
 | stack_confirm | `native_dual` |
 | be_repo_confirm | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.WebService` |
@@ -64,11 +64,11 @@
 | kit_missing_confirm | **N/A** — reuse map list kit dual |
 | route_confirm | **route_a** (TL autoApprove) — hub row **Lịch sử phiên** → push `#sc-patrol-history` |
 | autoApprove | **ON** |
-| e2eQa | **ON** · runtime **PASS** · `ok:true` |
+| e2eQa | **ON** · runtime **PASS** · `ok:true` (`task_203672b2`) |
 | ios_test_phase | **phase1_iphone** · dest **iPhone 17 Pro** · A4-IPAD DEFER |
 | design_confirm | **confirmed** (user Approve board) |
 | solution_confirm | **confirmed** (user Approve board) |
-| align_confirm | **approve** (autoApprove=ON · Review) · Must **0** |
+| align_confirm | **approve** · Must **0** |
 | review_confirm | **confirmed** (user Approve board) |
 | post_review | **skip** |
 | Step 4b | **N/A** — reuse `GET patrol/sessions` · không endpoint mới |
@@ -86,8 +86,11 @@
 | task_c3705a2f | patrol-history | dev | tl | **completed** | `/agent-dev-ios` + `/agent-dev-android` · GAP-F-PAT-HIST-01/03/04 · GAP-AND-NAV-01 · GAP-AND-ROW-01 · VERIFY GATE PASS |
 | task_7ecfbf20 | patrol-history | qa | dev | **completed** | `/agent-qa-mobile` · e2eQa=ON · yarn e2e-qa-mobile PASS · align Must 0 · store PNG |
 | task_f42bd832 | patrol-history | review | qa | **completed** | `/agent-review-mobile` · review_confirm=approve · Must **0** · VERIFY GATE PASS · roleOnly · post_review skip |
-| T-IOS-PAT-HIST | patrol-history | ios | SA · route_a | **completed** | badge Hoàn thành · Offline queue → Mất sóng · `implement/ios.md` |
-| T-AND-PAT-HIST | patrol-history | android | SA · route_a | **completed** | nav Tuần đường · no leading icon · same badge/offline delta · `implement/android.md` |
+| task_430bde31 | patrol-history | dev | cleanup_mock | **completed** | `/edit-mobile-feature` · live-only · GAP-MOB-EDIT-DEMO-01 · EmptyChrome · VERIFY GATE PASS |
+| task_203672b2 | patrol-history | qa | dev | **completed** | `/agent-qa-mobile` · re-QA post cleanup_mock · e2eQa=ON · yarn e2e-qa-mobile **ok:true** · live BFF seed · align Must 0 · store PNG |
+| task_1fc7e2bc | patrol-history | review | qa | **completed** | `/agent-review-mobile` · re-review post cleanup_mock · review_confirm=approve · Must **0** · post_review skip · VERIFY GATE PASS (prior) · roleOnly |
+| T-IOS-PAT-HIST | patrol-history | ios | SA · route_a | **completed** | badge Hoàn thành · Offline queue → Mất sóng · live-only · `implement/ios.md` |
+| T-AND-PAT-HIST | patrol-history | android | SA · route_a | **completed** | nav Tuần đường · no leading icon · same badge/offline · live-only · `implement/android.md` |
 | T-BE-* | patrol-history | be | — | **n/a** | Step 4b N/A · reuse GET sessions |
 
 ## Blockers / open questions
@@ -100,22 +103,24 @@
 
 | Check | Result |
 |-------|--------|
-| iOS xcodegen | **PASS** (`task_f42bd832`) |
+| iOS xcodegen | **PASS** (`task_430bde31`) |
 | iOS xcodebuild iPhone 17 Pro | **BUILD SUCCEEDED** |
 | Android assembleDebug | **BUILD SUCCESSFUL** |
 | Mobile.Bff dotnet build | **Build succeeded** (0 Warning · 0 Error) |
 | Step 4b | **N/A** |
-| Docker API :5101 | **healthy** (prior QA) |
-| Docker BFF :5202 | **healthy** (prior QA) |
-| yarn e2e-qa-mobile | **PASS** · ok:true · A11/A10/A9/A3/P6/P6-2 (prior QA `task_7ecfbf20`) |
+| Docker API :5111 | **healthy** (`task_203672b2`) |
+| Docker BFF :5202 | **healthy** (`task_203672b2`) |
+| yarn e2e-qa-mobile | **PASS** · ok:true · A11/A10/A9/A3/P6/P6-2 (`task_203672b2`) |
 | align UX | **Aligned** · Must **0** |
+| review | **approve** (`task_1fc7e2bc`) · roleOnly · **không** re-run build/e2e |
 
 ## Links
 
 - Parent: `patrol-home` · row Lịch sử phiên → push `#sc-patrol-history`
 - data-analy **confirmed** → PO **confirmed** → Design **confirmed** → SA **confirmed** → TL **confirmed** → Dev **confirmed** → QA **confirmed** → Review **confirmed** → **done**
-- closeout Review: `task_f42bd832` · `/agent-review-mobile` · roleOnly=`review` · autoApprove=ON · `review_confirm=approve` · Must **0** · VERIFY GATE PASS · Step 4b **N/A** · post_review **skip** · pipeline **complete** · at: `2026-08-20T05:52:00.000Z`
-- closeout QA: `task_7ecfbf20` · `/agent-qa-mobile` · roleOnly=`qa` · autoApprove=ON · e2eQa=ON · Maestro feature flow · store `qa/store/patrol-history` · align Must 0 · VERIFY GATE PASS · at: `2026-08-20T05:00:00.000Z`
+- closeout Review: `task_1fc7e2bc` · `/agent-review-mobile` · roleOnly=`review` · autoApprove=ON · `review_confirm=approve` · Must **0** · live-only post cleanup_mock · VERIFY GATE PASS (prior Dev+QA) · Step 4b **N/A** · post_review **skip** · pipeline **complete** · at: `2026-09-01T06:05:00.000Z`
+- closeout QA: `task_203672b2` · `/agent-qa-mobile` · roleOnly=`qa` · autoApprove=ON · e2eQa=ON · re-QA post cleanup_mock · live BFF · store `qa/store/patrol-history` · align Must 0 · VERIFY GATE PASS · at: `2026-09-01T05:50:00.000Z`
+- prior Review: `task_f42bd832` · at: `2026-08-20T05:52:00.000Z`
 - reviewUrl iOS: `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/patrol-history/ui/prototype/ios/index.html#sc-patrol-history`
 - reviewUrl Android: `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/patrol-history/ui/prototype/android/index.html#sc-patrol-history`
 - native: e2eQa ON → `yarn e2e-qa-mobile` — **cấm** mfeStdUrl

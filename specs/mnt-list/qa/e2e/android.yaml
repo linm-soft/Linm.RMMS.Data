@@ -59,18 +59,18 @@ appId: org.linmsoft.rmms
 - assertVisible: "Danh sách công việc"
 - assertVisible: "Giao việc xử lý"
 - assertVisible: "Vá mặt đường"
-- assertVisible: "Chờ xử lý"
+- assertVisible: "Tình trạng xử lý: Chờ xử lý"
 - assertVisible:
     id: "row-mnt-hub"
 - assertVisible:
     id: "btn-mnt-filter"
 - takeScreenshot: P6-CORE
 - scrollUntilVisible:
-    element: "Đã hoàn thành"
+    element: "Tình trạng xử lý: Đã hoàn thành"
     direction: DOWN
     timeout: 15000
 - assertVisible: "Nạo cống"
-- assertVisible: "Đã hoàn thành"
+- assertVisible: "Tình trạng xử lý: Đã hoàn thành"
 - assertVisible: "Tuyến HCM"
 - takeScreenshot: P6-CORE-2
 - assertVisible:

@@ -20,7 +20,7 @@ P1 toast **không** = skip enqueue. Chrome (tín hiệu) **không** enqueue.
 | `gis-map` | `asset-hub` | Xem trên bản đồ + Bản đồ tài sản | toast `asset.tile.map` / `asset.row.map` | `task_23d7eba0` | shared_action owner |
 | `asset-ai` | `asset-hub` | Camera AI + Xác nhận | toast `asset.tile.ai` / `asset.toast.ai` · **≠** MAIN3 `ai-vision` | `task_fcd587c7` | unique |
 | `supervise-detail` | `supervise` | tap check-in | toast `supervise.toast.detail` | `task_950d67b1` | unique |
-| `attendance-report` | `attendance` | Báo cáo công | toast `attendance.toast.report` | `task_eb560c57` | unique |
+| `attendance-report` | `attendance` | Báo cáo công | toast `attendance.toast.report` | `task_cc8d9202` · data_analy **done** | unique |
 | `attendance-day` | `attendance` | tap ngày | toast `attendance.toast.dayDetail` | `task_3fdb1cea` | unique |
 | `patrol-history-detail` | `patrol-history` | tap ca | toast `patrol.toast.detail` | `task_b2fb1a98` | unique |
 

@@ -76,7 +76,6 @@ appId: org.linmsoft.rmms
 - assertVisible:
     id: "row-inc-banner-vis"
 - assertVisible: "Nứt mặt đường"
-- assertVisible: "Cống tắc"
 - assertVisible:
     id: "fab-inc-create"
     optional: true
@@ -84,3 +83,9 @@ appId: org.linmsoft.rmms
     text: "Thêm"
     optional: true
 - takeScreenshot: A3-CORE
+- scroll
+- assertVisible:
+    id: "sc-incident-list"
+- assertVisible:
+    text: "Cống tắc"
+    optional: true

@@ -60,7 +60,7 @@ appId: org.linmsoft.rmms
 - assertVisible:
     id: "row-mnt-hub"
 - tapOn:
-    id: "btn-mnt-sync-demo-wo-1"
+    id: "btn-mnt-sync-11111111-1111-1111-1111-111111111101"
 - extendedWaitUntil:
     visible:
       id: "sc-mnt-progress"

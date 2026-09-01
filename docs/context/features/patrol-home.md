@@ -52,3 +52,10 @@
 ## 5. Demo SSOT
 
 Frame iOS 390×844 · Android 412×915 · copy VN từ `#sc-patrol-home` mobile-p1 prototype.
+
+## Implement tracking
+
+| lane | phase | status | updatedAt |
+|------|-------|--------|-----------|
+| web | — | — | — |
+| mobile | `done` | `done` | `2026-09-01T05:24:37.336Z` |

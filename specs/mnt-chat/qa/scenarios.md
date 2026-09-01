@@ -5,135 +5,128 @@
 | feature | `mnt-chat` |
 | title | [Mobile] [Công việc] -> Trao đổi công việc |
 | this role | `qa` · `/agent-qa-mobile` |
-| changeScope | **UNCLEAR** — prior Dev/TL/SA/Design/PO **blocked** · analy stub |
+| changeScope | `edit_page` · qaFailFix re-QA sau Dev implement |
 | packKind | `sheet` |
 | stack | `native_dual` |
-| status | **`blocked`** · verdict **FAIL** · dorGate **FAIL** |
-| requestSource | run packet `task_81d1652d` · `/agent-qldb-workflow-mobile` · roleOnly=`qa` |
-| autoApprove | ON trên packet — **không** skip DoR / **không** claim e2e PASS khi thiếu implement |
-| e2eQa | ON — **không** chạy `yarn e2e-qa-mobile` (DoR FAIL · **cấm** PASS static-only · **cấm** fake PNG / GenerateImage) |
-| method | **blocked before runtime** · prior Dev **blocked** · **không** Maestro harvest |
-| iosPhase | `phase1_iphone` (autoApprove) · **A4-IPAD DEFER** — **N/A** (e2e không chạy) |
-| prior · data_analy | handoff claimed `confirmed` · **verify FAIL** — stubs `draft` ~309B · không controlHint / §A+§B / contentHash |
-| prior · po | handoff claimed `confirmed` · **verify FAIL** — `po/requirement.md` status=`blocked` |
-| prior · design | handoff claimed `confirmed` · **verify FAIL** — `ui/design.md` · `ux-analy.md` · proto stubs · **GAP-MOB-UX-01** |
-| prior · sa | handoff claimed `confirmed` · **verify FAIL** — `be/solution-discovery.md` status=`blocked` |
-| prior · team_lead | handoff claimed `confirmed` · **verify FAIL** — `task/mnt-chat.md` status=`blocked` · **không** `T-IOS-*` / `T-AND-*` |
-| prior · dev | handoff claimed `confirmed` · **verify FAIL** — `implement/ios.md` + `implement/android.md` status=`blocked` · **không** Write SwiftUI/Compose |
+| status | **`done`** · verdict **PASS** · dorGate **PASS** |
+| requestSource | run packet `task_d743848b` · `/agent-qldb-workflow-mobile` · roleOnly=`qa` |
+| autoApprove | ON |
+| e2eQa | ON — `yarn e2e-qa-mobile` · Maestro dual · **cấm** start:std / mfeStdUrl |
+| method | e2e runtime · sim 6.9" + emulator · store-px |
+| iosPhase | `phase1_iphone` · **A4-IPAD DEFER** |
+| prior · data_analy | **confirmed** · control-hint · real-data · bff-endpoints · action-tree |
+| prior · po | **confirmed** |
+| prior · design | **confirmed** · dual proto `#sc-mnt-chat` |
+| prior · sa | **confirmed** |
+| prior · team_lead | **confirmed** |
+| prior · dev | **confirmed** · handoff/dev-compact.md · VERIFY GATE PASS |
 | ios | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS` |
 | android | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android` |
-| bff | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Bff` |
-| BackendRoot | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.WebService` · **cấm ERP.*** |
-| updatedAt | `2026-08-29T05:56:30.000Z` |
-| taskId | `task_81d1652d` |
+| bff | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Bff` · `:5202` |
+| BackendRoot | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.WebService` · API `:5111` · **cấm ERP.*** |
+| updatedAt | `2026-09-01T09:40:00.000Z` |
+| taskId | `task_d743848b` |
 
-## DoR gate — FAIL (role này dừng)
+## DoR gate — PASS
 
 | Check | Result |
 |-------|--------|
-| Skill Requires `/agent-qa-mobile` | **FAIL** — cần Dev implement PASS + Device AC từ Design/PO |
-| Read Dev `implement/ios.md` · `implement/android.md` | **FAIL** — cả hai `blocked` · dorGate=FAIL · **không** feature screen |
-| Disk iOS `*Chat*` Sources | **FAIL** — **không** màn `mnt-chat` / `#sc-mnt-chat` |
-| Disk Android `app/src` `*Chat*` feature | **FAIL** — chỉ intent stub trên `mnt-list` · **không** sheet Compose |
-| Read Design + proto dual | **FAIL** — blocked/stub · proto ios ~520B |
-| Read SA BFF contract | **FAIL** — blocked · comments API **DEFER** / không endpoint pack |
-| Read `specs/_data-analy/mnt-chat-control-hint.md` | **FAIL** — auto stub · `status: draft` · ~309B |
-| Read `specs/_data-analy/mnt-chat-real-data.md` §B | **FAIL** — auto stub · không §A+§B |
-| `mnt-chat-bff-endpoints.md` · `mnt-chat-action-tree.md` | **MISSING** |
-| CTX `docs/context/features/mnt-chat.md` | **MISSING** |
-| Hash skip | **REJECT** — **cấm** skip khi prior `draft`/`blocked` |
-| `yarn e2e-qa-mobile` | **không** chạy — thiếu implement target · **cấm** CORE shot login-only / sibling |
-| `/review-align-ux-ios-android` Read CORE PNG | **N/A** — không PNG · **cấm** GAP-MOB-E2E-VIS-01 bằng cách fake Aligned |
-| Store pack PNG | **FAIL** · **GAP-QA-STORE-03** / **GAP-QA-E2E-MOB-01** (runtime blocked upstream) |
-| Queue `completed` | **CẤM** |
+| Prior Dev implement + VERIFY GATE | **PASS** · `#sc-mnt-chat` dual · entry navigate · **0** toast |
+| Analy SSOT | **PASS** · control-hint · real-data · bff-endpoints · action-tree confirmed |
+| Design + proto dual | **PASS** |
+| `yarn e2e-qa-mobile` cases A11,A10,A9,A3,P6,P6-2 | **PASS** · CLI `ok:true` · exit 0 |
+| Store PNG live | **PASS** · `qa/screens` + `qa/store/mnt-chat/` |
+| Visual `/review-align-ux-ios-android` Read CORE vs demo | **Aligned** · Must **0** |
+| Queue `completed` | **OK** khi DoR PASS |
 
-## Device AC (slug `mnt-chat` only)
+## Device AC (slug `mnt-chat`)
 
 | AC | Expect | Result | Evidence |
 |----|--------|--------|----------|
-| Launch | App mở · 0 crash | **BLOCKED** | e2e không chạy · prior Dev blocked |
-| BFF | Mobile.Bff `:5202` | **BLOCKED** | không compose — DoR FAIL trước Step 2e |
-| Login demo | seed `linm-soft` | **BLOCKED** | — |
-| Sheet `#sc-mnt-chat` iOS | Trao đổi công việc · entry `#i-chat` | **FAIL** | **không** screen implement |
-| Sheet `#sc-mnt-chat` Android | Cùng zone · Pixel 1080×1920 | **FAIL** | **không** screen implement |
-| Align live vs demo | Read A3-CORE + P6-CORE vs proto | **FAIL** | không PNG · proto stub |
-| GAP-DEV-MOB-PLACEHOLDER-01 | **Cấm** watermark | **N/A** | không shot |
+| Launch | App mở · 0 crash | **PASS** | A11-LAUNCH |
+| BFF | Mobile.Bff `:5202` | **PASS** | A10-BFF |
+| Login demo | seed `linm-soft` | **PASS** | A9-LOGIN |
+| Sheet `#sc-mnt-chat` iOS | Trao đổi công việc · entry `#i-chat` | **PASS** | A3-CORE · title + sub WO-DEMO-1 · composer |
+| Sheet `#sc-mnt-chat` Android | Cùng zone · Pixel 1080×1920 | **PASS** | P6-CORE · P6-CORE-2 |
+| Align live vs demo | Read A3 + P6 vs proto | **Aligned** | empty live OK · demo bubbles = seed only |
+| GAP-DEV-MOB-PLACEHOLDER-01 | **Cấm** watermark | **PASS** | no watermark on CORE |
 
 ## Store Must × feature
 
 | Case | Store | Result | Evidence |
 |------|-------|--------|----------|
-| A10-BFF | A10 · P11 | **BLOCKED** | — |
-| A11-LAUNCH | A11 | **BLOCKED** | — |
-| A9-LOGIN | A9 · P10 | **BLOCKED** | — |
-| A3-CORE | A3 · A11 | **FAIL** | thiếu implement · **GAP-QA-STORE-01** |
-| P6-CORE | P6 · P11 | **FAIL** | thiếu implement · **GAP-QA-STORE-03** |
-| P6-CORE-2 | P6 | **FAIL** | thiếu implement |
+| A10-BFF | A10 · P11 | **PASS** | health `:5202` |
+| A11-LAUNCH | A11 | **PASS** | `A11-LAUNCH.png` |
+| A9-LOGIN | A9 · P10 | **PASS** | `A9-LOGIN.png` |
+| A3-CORE | A3 · A11 | **PASS** | `A3-CORE.png` · `#sc-mnt-chat` |
+| P6-CORE | P6 · P11 | **PASS** | `P6-CORE.png` |
+| P6-CORE-2 | P6 | **PASS** | `P6-CORE-2.png` |
 
 ## E2E screenshots
 
-**Không** có `qa/screens/{caseId}.png` — **cấm** GenerateImage / HTML mock / copy sibling shot.
-
 | Case | Store | Result | Evidence |
 |------|-------|--------|----------|
-| A11-LAUNCH | A11 | **BLOCKED** | — |
-| A10-BFF | A10 · P11 | **BLOCKED** | — |
-| A9-LOGIN | A9 · P10 | **BLOCKED** | — |
-| A3-CORE | A3 · A11 | **FAIL** | missing screen |
-| P6-CORE | P6 · P11 | **FAIL** | missing screen |
-| P6-CORE-2 | P6 | **FAIL** | missing screen |
+| A11-LAUNCH | A11 | **PASS** | screens + store |
+| A10-BFF | A10 · P11 | **PASS** | — |
+| A9-LOGIN | A9 · P10 | **PASS** | screens + store |
+| A3-CORE | A3 · A11 | **PASS** | iPhone 17 Pro Max 1320×2868 |
+| P6-CORE | P6 · P11 | **PASS** | Pixel 1080×1920 |
+| P6-CORE-2 | P6 | **PASS** | Pixel 1080×1920 |
 
-## VERIFY GATE
+## Visual align (CORE vs demo)
+
+| Zone | Demo | Live A3/P6 | Verdict |
+|------|------|------------|---------|
+| `#sc-mnt-chat` title | Trao đổi công việc | Trao đổi công việc | **Aligned** |
+| subtitle | Vá mặt đường · WO-DEMO-1 | Vá mặt đường · WO-DEMO-1 | **Aligned** |
+| thread | seed bubbles | empty «Chưa có trao đổi» | **Accept** · live API empty · **cấm** fake |
+| composer | Nhập tin nhắn… + send | same | **Aligned** |
+| app tab bar | n/a (HTML) | shell Công việc active | **Accept** · native chrome |
+
+Must **0** · **GAP-MOB-E2E-VIS-01** N/A (Read done).
+
+## VERIFY GATE (prior Dev · cite)
 
 | Gate | Result |
 |------|--------|
-| iOS `xcodegen` + `xcodebuild` dest iPhone 17 Pro | **không** chạy — không feature target từ pack · prior Dev blocked |
-| Android `assembleDebug` | **không** chạy — không feature Compose target |
-| BFF `dotnet build` | **không** chạy — SA/Dev **không** Write BFF cho `mnt-chat` |
-| `yarn e2e-qa-mobile` · cases A11,A10,A9,A3,P6,P6-2 | **không** chạy · verdict **FAIL** |
+| iOS xcodegen + xcodebuild | **PASS** (Dev) |
+| Android assembleDebug | **PASS** (Dev) |
+| BFF dotnet build | **PASS** (Dev) |
+| `yarn e2e-qa-mobile` | **PASS** `2026-09-01T09:37:54Z` |
 
 ## Gaps (log)
 
 | ID | Issue | Next |
 |----|-------|------|
-| **GAP-QA-PRIOR-BLOCKED-01** | Handoff claimed analy→dev `confirmed` · disk **blocked**/stub | Re-open `/agent-data-analy-mobile` |
-| **GAP-QA-NO-IMPLEMENT-01** | Không SwiftUI/Compose `mnt-chat` · Dev DoR FAIL | Sau analy→…→Dev PASS rồi re-QA |
-| **GAP-QA-E2E-SKIP-UPSTREAM-01** | e2eQa=ON nhưng **cấm** runtime khi thiếu screen (tránh false CORE) | Fix upstream · rồi `yarn e2e-qa-mobile` |
-| **GAP-QA-STORE-01** / **03** | Không A3/P6 live shot | Sau implement |
-| **GAP-MOB-UX-01** | ux-analy / proto stub | Design sau analy+PO |
-| **GAP-PKT-ROLE-01** | roleOnly=`qa` | **cấm** start data-analy/Dev trong task này |
+| **R-QA-01** | prior FAIL | **CLOSED** · re-QA PASS |
+| **GAP-QA-E2E-SKIP-UPSTREAM-01** | e2e chưa chạy | **CLOSED** |
+| **GAP-QA-STORE-01** / **03** | thiếu A3/P6 | **CLOSED** |
+| **GAP-QA-NO-IMPLEMENT-01** | thiếu screen | **CLOSED** (prior) |
+| **GAP-MSG-HUB-01** | SignalR | **DEFER** · Notification |
 
-Bugs detail: `qa/bugs/mnt-chat.md`
+Bugs: `qa/bugs/mnt-chat.md` — OPEN Must **0**.
 
 ## Notes
 
-- **Cấm** `yarn e2e-qa` / `mfeStdUrl` / `start:std` / GenerateImage.
-- **Cấm** tự Dev fix trong role QA · `qa_fail_rollback` → board Approve → Dev plan (new taskId).
-- **Cấm** `phase=review` / READY_TO_SUBMIT.
-- Sibling `mnt-list` `#i-chat` toast P1 · comments API **DEFER** — cite only · **không** đủ DoR QA.
+- Maestro: `qa/e2e/ios.yaml` · `android.yaml` · WO `11111111-1111-1111-1111-111111111101`
+- API live `:5111` · BFF `:5202` · `--skip-start` (compose already up)
+- **Cấm** `yarn e2e-qa` / mfeStdUrl / GenerateImage / kill worker
 
-## Handoff (blocked)
+## Handoff
 
 | Field | Value |
 |-------|-------|
-| phase_from / phase_to | qa **blocked** → **data_analy** (re-open) rồi PO→Design→SA→TL→Dev→QA |
+| phase_from / phase_to | qa **done** → review **pending** |
 | STATUS | `specs/mnt-chat/STATUS.md` |
-| Next slash | `/agent-data-analy-mobile` feature `mnt-chat` (task/queue **riêng**) |
-| Chain this turn | **không** |
-| Queue task | `task_81d1652d` · **`--status failed`** · **cấm** `completed` |
-| Rollback | `qa_fail_rollback` (board) — **cấm** QA tự enqueue Dev |
+| compact | `handoff/qa-compact.md` |
+| next | `/agent-review-mobile` (roleOnly separate task) |
 
 ## Version meta
 
 | Field | Value |
 |-------|-------|
 | skillId | agent-qa-mobile |
-| skillVersion | 2026.08.25.01 |
+| skillVersion | 2026.08.29.1 |
 | schemaVersion | 1 |
 | workflowVersion | 2026.08.25.01 |
-| rulesVersion | 2026.08.25.2 |
-| generatedAt | `2026-08-29T05:56:30.000Z` |
-| versionGate | blocked — prior DoR FAIL |
-| contentHash | — |
-| dorGate | **FAIL** |
-| verdict | **FAIL** |
+| contentHash | sha256:mnt-chat-qa-e2e-20260901 |

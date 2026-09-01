@@ -3,24 +3,29 @@
   "status": "done",
   "review_confirm": "approve",
   "align_confirm": "approve",
-  "taskId": "task_f617b718",
+  "taskId": "task_946698fe",
   "skillId": "agent-review-mobile",
   "skillVersion": "2026.08.19.29",
-  "workflowVersion": "2026.08.19.29",
-  "rulesVersion": "2026.08.19.34",
+  "workflowVersion": "2026.08.25.01",
+  "rulesVersion": "2026.08.29.4",
   "schemaVersion": "1",
   "versionGate": "rechecked",
   "autoApprove": true,
   "post_review": "skip",
   "alignMustOpen": 0,
+  "changeScope": "edit_page",
+  "editScope": "cleanup_mock",
+  "priorQaTaskId": "task_b96fb3d7",
+  "priorDevTaskId": "task_242d0372",
   "verifyGate": {
     "ios": "PASS",
     "android": "PASS",
     "bff": "PASS",
     "step4b": "N/A",
-    "e2eQa": "PASS"
+    "e2eQa": "PASS",
+    "thisRole": "artifact_only"
   },
   "contentHash": "sha256:attendance-mobile-hub-20260819",
   "bffContentHash": "sha256:attendance-mobile-bff-20260819",
-  "updatedAt": "2026-08-19T20:56:00.000Z"
+  "updatedAt": "2026-09-01T08:55:00.000Z"
 }

@@ -6,14 +6,15 @@
 | this role | `qa` · `/agent-qa-mobile` |
 | status | **confirmed** |
 | packKind | **`screen`** |
-| taskId | `task_21b55839` |
+| taskId | `task_f0f56b29` |
 | e2eQa | **ON** · `yarn e2e-qa-mobile` · `ios_test_phase=phase1_iphone` · **A4-IPAD DEFER** |
 | store_qa | **run_store** (autoApprove=ON) |
 | e2e result | **ok:true** · dest **iPhone 17 Pro Max** 1320×2868 · AVD **Pixel_2** 1080×1920 |
 | method | e2e runtime · yarn e2e-qa-mobile · Maestro + simctl/adb · **cấm** GenerateImage · **cấm** yarn start:std / mfeStdUrl |
 | align | dual proto `#sc-incident-detail` · live A3 ↔ P6 · **Aligned** · Must **0** |
+| re-run | post dev cleanup-mock (`task_53a77d94`) · live-only · cấm demo SSOT |
 | seed | BFF POST `incident/incidents` + `X-Company-Id: LINM` · `VD-20260829-0001` · id `4b0d2722-e072-4775-8976-ec06952fc804` |
-| updatedAt | `2026-08-29T04:10:00.000Z` |
+| updatedAt | `2026-09-01T04:35:14.728Z` |
 
 **Scope:** slug `incident-detail` screen `#sc-incident-detail` only. **Cấm** AC sibling create/chat/map implement as in-scope.
 
@@ -24,9 +25,9 @@
 | iOS `xcodegen` + `xcodebuild` | **PASS** (prior Dev · e2e `--skip-build` reuse e2e-dd) |
 | Android `assembleDebug` | **PASS** (prior Dev · e2e reuse APK) |
 | Mobile.Bff `dotnet build` / :5202 | **PASS** (healthy) |
-| API docker :5111 | **PASS** (recreate after FileLoadException · healthy) |
-| Maestro iOS + Android | **PASS** · login → list → detail · assert Mã/Loại/CTA |
-| `yarn e2e-qa-mobile` | **PASS** · `ok:true` |
+| API docker :5111 | **PASS** (--skip-start · healthy) |
+| Maestro iOS + Android | **PASS** · login → list (live seed) → detail · assert Mã/Loại/CTA |
+| `yarn e2e-qa-mobile` | **PASS** · `ok:true` · `--skip-start --skip-build` |
 
 ## Device AC
 
@@ -68,6 +69,20 @@
 | GAP-QA-SEED-COMPANY-01 | List empty nếu seed thiếu `X-Company-Id: LINM` (JWT `company_id`) · demo list → GetById 404 EmptyChrome | **no** (ops note · documented) |
 
 ## E2E screenshots
+
+Viewer: `/api/qldb/artifact?id=&rel=qa/scenarios.md` rewrite `screens/{caseId}.png`.
+
+CLI **PASS** = Maestro + PNG + store px only — **not** visual vs demo. QA **Read** A3-CORE + P6-CORE vs prototype (`/review-align-ux-ios-android`). Demo `.row-icon`/`#i-*` missing on live → Must **GAP-MOB-UX-COMP-03** · log `qa/bugs/`. Skip vision → **GAP-MOB-E2E-VIS-01**.
+
+| Case | Store | Result | Evidence |
+|------|-------|--------|----------|
+| A10-BFF | A10 · P11 | **PASS** | — |
+| A11-LAUNCH | A11 | **PASS** | ![A11-LAUNCH](screens/A11-LAUNCH.png) |
+| A9-LOGIN | A9 · P10 | **PASS** | ![A9-LOGIN](screens/A9-LOGIN.png) |
+| A3-CORE | A3 · A11 | **PASS** | ![A3-CORE](screens/A3-CORE.png) |
+| P6-CORE | P6 · P11 | **PASS** | ![P6-CORE](screens/P6-CORE.png) |
+| P6-CORE-2 | P6 | **PASS** | ![P6-CORE-2](screens/P6-CORE-2.png) |
+
 
 Viewer: `/api/qldb/artifact?id=&rel=qa/scenarios.md` rewrite `screens/{caseId}.png`.
 
@@ -125,7 +140,7 @@ CLI **PASS** = Maestro + PNG + store px only — **not** visual vs demo. QA **Re
 
 ## Handoff
 
-- closeout QA: `task_21b55839` · `/agent-qa-mobile` · e2eQa=ON · VERIFY GATE PASS · store PNG live · at: `2026-08-29T04:10:00.000Z`
+- closeout QA: `task_f0f56b29` · `/agent-qa-mobile` · e2eQa=ON · post cleanup-mock · VERIFY GATE PASS · store PNG live · at: `2026-09-01T04:35:14.728Z`
 
 ---
 <!-- Version meta: skillId=agent-qa-mobile skillVersion=2026.08.25.01 schemaVersion=1 workflowVersion=2026.08.25.01 rulesVersion=2026.08.25.2 versionGate=rechecked contentHash=sha256:incident-detail-control-hint-20260829 realDataHash=sha256:incident-detail-mobile-real-data-20260829 bffContentHash=sha256:incident-incidents-getbyid-close-proxy -->

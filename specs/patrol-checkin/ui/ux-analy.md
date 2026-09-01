@@ -60,7 +60,10 @@ Login → Tab Tuần đường (shell Tab 5 · index giữ)
 
 | Zone | Demo | SwiftUI | Compose |
 |------|------|---------|---------|
-| Title / body / 2 CTA | copy SSOT dual | in-app overlay | Material dialog card |
+| Title / body / 2 CTA | copy SSOT dual | **in-sheet** overlay (+ `interactiveDismissDisabled` dirty) | `Dialog` window trên `ModalBottomSheet` · `LinmSheet.dismissEnabled=false` dirty |
+
+**GAP-MOB-EDIT-LEAVE-01 (fixed):** leave/GPS **không** gắn overlay parent — under sheet → không tap/close được.  
+`matchOk=false` / toast chặn → **không** mở leave (chỉ toast). Leave chỉ Hủy/swipe dirty.
 
 **Cấm** `UIAlertController` / `AlertDialog` hệ thống (`AC-D-04`).
 

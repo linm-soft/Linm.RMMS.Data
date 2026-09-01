@@ -43,7 +43,7 @@ Delta Current vs New (analy):
 |----|---------|-----|
 | GAP-MOB-GIS-NAV-01 | Hub/detail/incident → toast / pending | Push `#sc-gis-map` · back → `asset-hub` |
 | GAP-MOB-GIS-SCR-01 | Không màn bản đồ TS | Full map OMS · basemap · legend · overlay |
-| GAP-MOB-GIS-DATA-01 | — | GET `gis/geojson/*` · fail → demo OMS · **cấm** mock-only ship |
+| GAP-MOB-GIS-DATA-01 | — | GET `gis/geojson/*` · fail/empty → map trống + toast · **cấm** demo SSOT native · **cấm** mock-only ship |
 | GAP-MOB-GIS-FOCUS-01 | — | Detail pass Id → center pin |
 | GAP-MOB-GIS-SEARCH-01 | — | iOS search · Android thiếu (dual) |
 | GAP-MOB-GIS-LAYER-01 | — | iOS Lớp toast · Android Danh sách |
@@ -69,8 +69,8 @@ Delta Current vs New (analy):
    - TS: `GET gis/geojson/all` (isolate `ts` client)
    - SC: `GET gis/geojson/incidents` (**cấm** `incident/incidents` pin — no Lat/Lng · **GAP-MOB-GIS-SC-01**)
    - Corridor: `GET gis/geojson/tuyen-duong` (hoặc `lod=corridor`)
-   - Fail / empty → demo OMS `GIS_ASSETS` + corridor (`map-oms.js`) · toast lỗi · map **vẫn mở** · **cấm** blank dead map · **cấm** ship mock-only khi live OK (`GAP-MOB-REAL-02`)
-9. Focus từ detail (**GAP-MOB-GIS-FOCUS-01**): nav args Id → `GET asset/road-assets/{id}` · center + highlight Lat/Lng · thiếu coords / fail → fit all · toast optional · **cấm** fake lat/lng.
+   - Fail / empty → map trống (live-only) · toast lỗi khi fail · map **vẫn mở** · **cấm** GisMapDemoOverlay / demo SSOT native (`cleanup_mock`) · **cấm** ship mock-only khi live OK (`GAP-MOB-REAL-02`)
+9. Focus từ detail (**GAP-MOB-GIS-FOCUS-01**): nav args Id → `GET asset/road-assets/{id}` · center + highlight Lat/Lng · thiếu coords / fail / OfflineDemo → fit all · toast · **cấm** fake lat/lng · **cấm** OfflineDemo focus.
 10. Popup SSOT demo (fallback): **TS-20260810-014 · Cống ngang · QL.1 Km 1556+000** · **SC-2401 · Nứt mặt đường · QL.1 Km 1556+080**. Live bind `properties.code` / `name` / `route` / km.
 11. Kit reuse: `LinmTopBar` · `LinmChip` · `LinmToast` · `LinmTabBar` shell · pin glyph `#i-scope` / map pin. Map host = feature MapKit/OSM · **cấm** WebView HTML · **cấm** raw M3 `NavigationBar` / `TabView` (`GAP-MOB-ACT-05`).
 12. App chỉ `{BffPrefix}` · Step 4b **N/A** (GIS GET **DONE** · Asset GetById live · **cấm** invent `gis-map` controller).
@@ -195,7 +195,7 @@ Frame: iOS 390×844 · Android 412×915 · safe area · map + overlay không đ�
 
 | ID | Behavior | AC |
 |----|----------|-----|
-| AC-D-01 | Offline / GET fail | Map **mở** · demo OMS overlay · toast in-app không chặn · **cấm** full-screen block |
+| AC-D-01 | Offline / GET fail | Map **mở** · overlay trống/partial live · toast in-app không chặn · **cấm** demo OMS native · **cấm** full-screen block |
 | AC-D-02 | GPS deny | **N/A P1** — không bắt buộc device GPS (focus từ Lat/Lng API / nav args) |
 | AC-D-03 | Leave dirty | **N/A** — không form |
 | AC-D-04 | Native alert | **Cấm** `UIAlert` / `AlertDialog` / `window.alert`. Mọi phản hồi = `LinmToast` |

@@ -7,17 +7,18 @@
 | status | **done** |
 | packKind | `list` |
 | route_confirm | **route_a** |
-| taskId | `task_e238765c` |
-| updatedAt | `2026-08-29T02:50:00.000Z` |
+| taskId | `task_53934dab` |
+| updatedAt | `2026-09-01T04:45:00.000Z` |
 
 ## Notes (`/edit-mobile-feature`)
 
+- **cleanup_mock** (`task_53934dab`): live-only · `FetchWorkOrdersOutcome` · GET OK empty = `[]` + `EmptyChromeView` · fail = toast `mnt.list.toast.loadFail` · **cấm** `MntListCopy.demoItems`.
 - **GAP-MOB-EDIT-STATUS-01:** status = 1 text `Tình trạng xử lý: {label}` · **cấm** `LinmBadge` trùng.
 - **GAP-MOB-EDIT-ACT-01:** action `frame(maxWidth: .infinity)` dàn đều · tap 44 · **cấm** `Spacer` đẩy trái. Cùng pattern `incident-list`.
 
 ## Summary
 
-Shipped `#sc-mnt-list` `DES-MOB-MNT-LIST` as tab `.work` root + Home `tile-mnt` → tab Công việc. GET `maintenance/work-orders?page=1&pageSize=50` via `FetchWorkOrdersUseCase` · fail/empty → demo **2** SSOT cards. Sibling CTAs / Lọc / hub = `LinmToast` only.
+Shipped `#sc-mnt-list` `DES-MOB-MNT-LIST` as tab `.work` root + Home `tile-mnt` → tab Công việc. GET `maintenance/work-orders?page=1&pageSize=50` via `FetchWorkOrdersUseCase` · live-only · empty = EmptyChrome · fail = toast.
 
 ## Files
 

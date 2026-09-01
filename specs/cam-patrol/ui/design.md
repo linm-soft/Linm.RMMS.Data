@@ -7,13 +7,19 @@
 | role | `/agent-design-mobile` |
 | status | **confirmed** (autoApprove=ON) |
 | packKind | **`screen`** (PO chốt · đóng GAP-MOB-CAM-PACK-01 · **cấm** sheet chrome) |
-| changeScope | `new_page` |
+| changeScope | `new_page` · **edit_page** post cleanup_mock (`task_e7101ed6`) |
 | taskId | `task_0f0d1974` |
 | priorPo | `po/requirement.md` **confirmed** |
 | priorDa | `_data-analy/cam-patrol-control-hint.md` + `cam-patrol-real-data.md` **confirmed** · hash skip · **cấm** re-scan (`GAP-DES-DEMO-RESCAN-01`) |
 | contentHash | `sha256:cam-patrol-control-hint-20260828` |
 | realDataHash | `sha256:cam-patrol-real-data-20260828` |
-| updatedAt | `2026-08-28T21:08:48.000Z` |
+| updatedAt | `2026-09-01T06:00:00.000Z` |
+
+## Context lock (cleanup_mock · 2026-09-01)
+
+- Live route stamp từ active session · **cấm** ship `demoRouteStamp` / invent `QL.1 · Km 1556+040` khi empty/fail.
+- Empty/no active → copy `patrol.empty.active.route` · fail → toast `cam.toast.sessionFail`.
+- Demo HTML prototype **giữ** sample stamp (visual only · `?ship` unrelated).
 
 ## reviewUrl (dual — REQUIRED)
 

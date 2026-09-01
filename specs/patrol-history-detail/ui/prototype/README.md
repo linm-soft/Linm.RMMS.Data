@@ -1,11 +1,14 @@
 # Prototype — patrol-history-detail
 
-Design gate: **prototype + reviewUrl** — board Approve (**không auto**).
-Repo confirm: user tick BE+UI trên `/qldb-workflow` Progress trước Dev (**không auto** · cấm ERP.*).
+Board: **`ios/index.html`** · **`android/index.html`** (`GAP-MOB-DES-PFX-01`)
 
-- Demo SSOT: `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Demo/src/demo/ios/index.html`
-- Title: Chi tiết ca
-- Pack kind: `sheet`
-- MFE: `Linm.RMMS.Mobile.iOS`
+| | |
+|--|--|
+| Screen | `#sc-patrol-detail` · `DES-MOB-PAT-DETAIL` |
+| Title | Chi tiết ca |
+| Pack | `sheet` meta · Full surface |
+| reviewUrlIos | `ui/prototype/ios/index.html#sc-patrol-detail` |
+| reviewUrlAndroid | `ui/prototype/android/index.html#sc-patrol-detail` |
+| design_confirm | approve (autoApprove ON · `task_5777786c`) |
 
-Put HTML prototype / screenshot link here; update `ui/design.md` with a browser-openable **reviewUrl**.
+**Cấm** mfeStdUrl · e2e ở role design.

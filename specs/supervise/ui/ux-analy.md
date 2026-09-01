@@ -58,10 +58,10 @@
 
 | State | Hành vi |
 |-------|---------|
-| default | demo SSOT 2 cards · segment 0 |
+| default | live GET cards · segment 0 · **cấm** demo SSOT |
 | loading | overlay nhẹ · **cấm** full-screen block list |
-| error / offline | demo fallback · optional toast · list **mở** |
-| empty live | demo 2 rows OK P1 |
+| error / offline | empty + toast `supervise.toast.loadFail` · list **mở** · **cấm** demo |
+| empty live | EmptyChrome `sup-empty` · **cấm** mock rows |
 | permission GPS | **N/A** |
 | leave dirty | **N/A** (không form) |
 

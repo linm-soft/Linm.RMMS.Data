@@ -1,28 +1,34 @@
 Running on Pixel_2
- > Flow crawl-android
+ > Flow android
 Launch app "org.linmsoft.rmms" with clear state and clear keychain... COMPLETED
 Assert that id: sc-home is visible... COMPLETED
-Tap on (Optional) id: btn-home-login... COMPLETED
+Tap on id: btn-home-login... COMPLETED
 Assert that id: f-user is visible... COMPLETED
 Tap on id: f-user... COMPLETED
 Erase text... COMPLETED
 Input text linm-soft... COMPLETED
-Tap on (Optional) "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"... COMPLETED
-Tap on (Optional) "RMMS"... COMPLETED
 Tap on id: f-pass... COMPLETED
 Erase text... COMPLETED
 Input text Linm@2026... COMPLETED
-Tap on (Optional) "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"... COMPLETED
-Tap on (Optional) "RMMS"... COMPLETED
-Tap on (Optional) id: btn-login... COMPLETED
+Press Enter key... COMPLETED
+Wait for animation to end within 4000 ms... COMPLETED
+Tap on (Optional) id: btn-login... WARNED
+
+
+ Warning: Element not found: Id matching regex: btn-login
 Tap on (Optional) "Đăng nhập"... WARNED
 
 
  Warning: Element not found: Text matching regex: Đăng nhập
-Tap on (Optional) "Not Now"... WARNED
-
-
- Warning: Element not found: Text matching regex: Not Now
-Assert that id: home-who is visible... COMPLETED
-Tap on (Optional) id: tile-offline... COMPLETED
+Assert that "Trang Chủ" is visible... COMPLETED
+Assert that id: sc-home is visible... COMPLETED
+Tap on id: tab-me... COMPLETED
+Assert that id: row-offline is visible... COMPLETED
+Tap on id: row-offline... COMPLETED
+Assert that id: sc-patrol-offline is visible... COMPLETED
+Assert that "Dữ liệu lưu trữ" is visible... COMPLETED
+Assert that id: offline-empty is visible... COMPLETED
+Take screenshot P6-CORE... COMPLETED
+Assert that "Chưa có bản ghi chờ gửi" is visible... COMPLETED
+Take screenshot P6-CORE-2... COMPLETED
 Assert that id: sc-patrol-offline is visible... COMPLETED

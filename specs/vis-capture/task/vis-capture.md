@@ -105,7 +105,7 @@ AskQuestion (autoApprove=ON · không chờ board): `ios_repo_confirm` · `andro
 | title | `LinmTopBar` | **Nhận diện mặt đường** fixed 17 |
 | sectionPhoto | SectionLabel | **Ảnh hiện trường** · label **13** |
 | photos | PhotoRow · `#i-camera` | still `openCapture('vision')` · filled preview · **cấm** continuous finder |
-| rowLoc | `LinmListRow` | **Vị trí đã chốt** · GPS + optional sessions · fallback `QL.1 · Km 1556+050` · label 13 / value ≥16 |
+| rowLoc | `LinmListRow` | **Vị trí đã chốt** · GPS + live active session `.route` · empty/fail → `patrol.empty.active.route` · **cấm** demoLoc · label 13 / value ≥16 |
 | rowAcc | `LinmListRow` | **Sai số định vị** · `±{n} m` từ device AccuracyM |
 | rowClass | `LinmListRow` | **Phân loại** · bind live `DefectClass` · **cấm** fake «Nứt dọc» khi fail |
 | rowSev | `LinmListRow` + Badge | **Mức** · bind `Severity` · Cao=orange · Nghiêm trọng=red · Trung bình/Thấp muted/green |

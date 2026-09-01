@@ -18,7 +18,7 @@ Trang Chủ (selected) → #sc-asset-hub
     → Android Danh sách = go('asset-list') reuse · cấm reimplement
     → iOS search overlay local filter/toast · Android không search P1
     → basemap ×4 · legend (iOS +Hành lang · Android 3 chip) = filter cùng slug
-    → appear GET gis/geojson/* · focus GetById · fail → demo OMS + toast
+    → appear GET gis/geojson/* · focus GetById · fail/empty → map trống + toast (cleanup_mock · **cấm** demo OMS)
 ```
 
 Entry shared_action (không re-enqueue): hub tile/row · detail Ghim · incident Bản đồ / Xem trên bản đồ.

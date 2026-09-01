@@ -1,46 +1,38 @@
 Running on Pixel_2
- > Flow crawl-android
+ > Flow android
 Launch app "org.linmsoft.rmms" with clear state and clear keychain... COMPLETED
 Assert that id: sc-home is visible... COMPLETED
-Tap on (Optional) id: btn-home-login... COMPLETED
+Tap on id: btn-home-login... COMPLETED
 Assert that id: f-user is visible... COMPLETED
 Tap on id: f-user... COMPLETED
 Erase text... COMPLETED
 Input text linm-soft... COMPLETED
-Tap on (Optional) "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"... COMPLETED
-Tap on (Optional) "RMMS"... COMPLETED
+Tap on "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"... COMPLETED
 Tap on id: f-pass... COMPLETED
 Erase text... COMPLETED
 Input text Linm@2026... COMPLETED
-Tap on (Optional) "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"... COMPLETED
-Tap on (Optional) "RMMS"... COMPLETED
-Tap on (Optional) id: btn-login... COMPLETED
+Press Enter key... COMPLETED
+Wait for animation to end within 4000 ms... COMPLETED
+Tap on (Optional) id: btn-login... WARNED
+
+
+ Warning: Element not found: Id matching regex: btn-login
 Tap on (Optional) "Đăng nhập"... WARNED
 
 
  Warning: Element not found: Text matching regex: Đăng nhập
-Tap on (Optional) "Not Now"... WARNED
-
-
- Warning: Element not found: Text matching regex: Not Now
-Assert that id: home-who is visible... COMPLETED
-Tap on (Optional) id: tab-field... COMPLETED
-Tap on (Optional) "Tuần đường"... COMPLETED
-Tap on point (30%,96%)... COMPLETED
+Assert that "Trang Chủ" is visible... COMPLETED
+Assert that id: sc-home is visible... COMPLETED
+Take screenshot P6-CORE... COMPLETED
+Tap on id: tab-field... COMPLETED
 Assert that id: sc-patrol-home is visible... COMPLETED
 Tap on "Chấm công"... COMPLETED
 Assert that id: sc-attendance is visible... COMPLETED
-Tap on "Báo cáo công"... FAILED
-
-Element not found: Text matching regex: Báo cáo công
-
-Element with Text matching regex: Báo cáo công not found. Check the UI hierarchy in debug artifacts to verify if the element exists.
-
-Possible causes:
-- Element selector may be incorrect - check if there are similar elements with slightly different names/properties.
-- Element may be temporarily unavailable due to loading state.
-- This could be a real regression that needs to be addressed.
-
-==== Debug output (logs & screenshots) ====
-
-/Users/mac/.maestro/tests/2026-08-31_024850
+Assert that "Chấm công" is visible... COMPLETED
+Assert that "Chấm vào" is visible... COMPLETED
+Assert that "7 ngày gần đây" is visible... COMPLETED
+Take screenshot P6-CORE-2... COMPLETED
+Tap on (Optional) "Báo cáo"... COMPLETED
+Assert that (Optional) "Báo cáo công" is visible... COMPLETED
+Tap on (Optional) "Tuần đường"... COMPLETED
+Assert that (Optional) id: sc-patrol-home is visible... COMPLETED

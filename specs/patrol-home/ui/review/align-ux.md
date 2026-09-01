@@ -4,14 +4,14 @@
 |-------|-------|
 | feature | `patrol-home` |
 | zone | `#sc-patrol-home` · DES-MOB-PAT-HOME |
-| this role | `/review-align-ux-ios-android` · QA `task_c882b8bd` |
+| this role | `/review-align-ux-ios-android` · QA `task_2fbe1ca6` |
 | verdict | **Aligned** · Must **0** · Should **1** DEFER |
 | align_confirm | **approve** (autoApprove=ON · QA) |
 | TokenFile | `docs/mobile-tokens.json` |
 | MapFile | `specs/patrol-home/ui/html-to-native-map.md` |
 | shots | `ui/review/align/patrol-home-{demo,ios,android}.png` · fold2 `patrol-home-android-fold2.png` |
-| live capturedAt | `2026-08-19T14:47:21.050Z` · iPhone 17 Pro Max · wm **1080×1920** |
-| updatedAt | `2026-08-19T14:50:00.000Z` |
+| live capturedAt | `2026-09-01T05:22:21.520Z` · iPhone 17 Pro Max · wm **1080×1920** |
+| updatedAt | `2026-09-01T05:25:00.000Z` |
 
 ## Must — PASS (3-up `#sc-patrol-home`)
 

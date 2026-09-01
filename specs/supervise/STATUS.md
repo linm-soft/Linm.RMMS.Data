@@ -5,9 +5,10 @@
 | feature | `supervise` |
 | phase | `done` |
 | status | `done` |
-| changeScope | `new_page` |
+| changeScope | `edit_page` |
 | packKind | `list` (**PO confirm**) |
 | stack | `native_dual` |
+| runMode | `fix_gaps` · gap=`cleanup_mock` |
 | demo | `specs/supervise/ui/prototype/ios/index.html` `#sc-supervise` · `specs/supervise/ui/prototype/android/index.html` `#sc-supervise` · `DES-MOB-SUPERVISE` |
 | context | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/docs/context/features/supervise.md` |
 | mfe | — (native · **cấm** mfeStdUrl) |
@@ -22,24 +23,25 @@
 | design | `specs/supervise/ui/design.md` · `ui/ux-analy.md` · `ui/review/demo-parity.md` · `ui/html-to-native-map.md` · `prototype/ios/index.html` · `prototype/android/index.html` |
 | sa | `specs/supervise/be/solution-discovery.md` |
 | tl | `specs/supervise/task/supervise.md` |
-| dev | `specs/supervise/implement/{ios,android}.md` · `ui/review/ui-review.md` |
-| qa | `specs/supervise/qa/scenarios.md` · `qa/store/supervise/` · `qa/e2e/{ios,android}.yaml` |
-| review | `specs/supervise/review/findings.md` · `review/REVIEW-META.json` (**done**) |
-| taskId | `task_33077a59` |
-| skillVersion | `2026.08.19.29` (agent-review-mobile) |
+| dev | `specs/supervise/implement/{ios,android}.md` · `ui/review/ui-review.md` · `handoff/dev-compact.md` |
+| qa | `specs/supervise/qa/scenarios.md` · `qa/store/supervise/` · `qa/e2e/{ios,android}.yaml` · `handoff/qa-compact.md` |
+| review | `specs/supervise/review/findings.md` · `review/REVIEW-META.json` · `handoff/review-compact.md` |
+| taskId | `task_ae0b11d0` |
+| parent | `mobile-cleanup-mock` |
+| skillVersion | `2026.08.19.26` |
 | schemaVersion | `1` |
-| workflowVersion | `2026.08.19.29` |
-| rulesVersion | `2026.08.19.34` |
+| workflowVersion | `2026.08.31.2` |
+| rulesVersion | `2026.08.31.2` |
 | versionGate | `rechecked` |
-| contentHash | `sha256:supervise-mobile-list-20260819` |
+| contentHash | `sha256:supervise-mobile-cleanup-mock-20260901` |
 | bffContentHash | `sha256:supervise-mobile-bff-20260819` |
-| verifyGate | iOS `xcodegen` + `xcodebuild` dest **iPhone 17 Pro** **PASS** ✓ · Android `assembleDebug` **PASS** ✓ · BFF `dotnet build` **PASS** ✓ · `yarn e2e-qa-mobile` **ok:true** ✓ · roleOnly=`review` · Step 4b **N/A** · **cấm** mfeStdUrl |
-| updatedAt | `2026-08-19T16:05:48.901Z` |
+| verifyGate | prior Dev+QA PASS · review_confirm=approve · Must **0** · roleOnly=`review` · **cấm** mfeStdUrl |
+| updatedAt | `2026-09-01T02:58:18.604Z` |
 ## Lock
 
 | agent | scope | id | at |
 |-------|-------|-----|-----|
-| — | — | — | released after Review `task_33077a59` |
+| — | — | — | released after Review `task_ae0b11d0` |
 
 ## Pipeline
 
@@ -50,31 +52,30 @@
 | 2.1 | design | ui/design.md · ui/ux-analy.md · ui/review/demo-parity.md · prototype/ios/index.html · prototype/android/index.html | **confirmed** |
 | 2.2 | sa | be/solution-discovery.md | **confirmed** |
 | 3 | team-lead | task/supervise.md | **confirmed** |
-| 4 | dev | implement/ios.md · implement/android.md · ui/review/ui-review.md | **confirmed** |
-| 5 | qa | qa/scenarios.md · qa/store/supervise · qa/e2e/{ios,android}.yaml | **confirmed** |
-| 6 | review | review/findings.md · review/REVIEW-META.json | **done** |
+| 4 | dev | implement/ios.md · implement/android.md · ui/review/ui-review.md · handoff/dev-compact.md | **confirmed** |
+| 5 | qa | qa/scenarios.md · qa/store/supervise · qa/e2e/{ios,android}.yaml · handoff/qa-compact.md | **confirmed** |
+| 6 | review | review/findings.md · review/REVIEW-META.json · handoff/review-compact.md | **done** |
 ## Confirms
 
 | Gate | Value |
 |------|-------|
-| change_scope | `new_page` |
+| change_scope | `edit_page` |
 | packKind | **`list`** (PO confirm) |
 | stack_confirm | `native_dual` |
 | be_repo_confirm | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.WebService` |
 | ios_repo_confirm | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS` |
 | android_repo_confirm | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android` |
-| kit_missing_confirm | **N/A** — reuse map dual (`LinmTopBar` / `LinmSegment` / `LinmCard` feature composition / `LinmToast`) |
-| route_confirm | **route_a** (TL autoApprove) — push `#sc-supervise` từ Home tile + patrol-home quick |
+| kit_missing_confirm | **N/A** — reuse map dual |
+| route_confirm | **route_a** |
 | autoApprove | **ON** |
-| e2eQa | **ON** · runtime **PASS** · `ok:true` |
-| ios_test_phase | **phase1_iphone** · dest **iPhone 17 Pro** · A4-IPAD DEFER |
-| store_qa | **run_store** · store PNG live |
-| align_confirm | **approve** (autoApprove=ON · QA) · Must **0** |
+| e2eQa | **ON** · yarn e2e-qa-mobile **ok:true** · **cấm** start:std |
+| ios_test_phase | **phase1_iphone** · dest **iPhone 17 Pro Max** · A4-IPAD DEFER |
+| align_confirm | **approve** · visual **Aligned** Must **0** |
 | design_confirm | **confirmed** (user Approve board) |
 | solution_confirm | **confirmed** (user Approve board) |
 | review_confirm | **confirmed** (user Approve board) |
 | post_review | **skip** |
-| Step 4b | **N/A** — reuse `GET patrol/attendance-logs` |
+| Step 4b | **N/A** — reuse `GET patrol/attendance-logs` · EmptyChrome OK empty tenant |
 | sibling_assign | `patrol-map` · `checkin-detail` · `pending_confirm` (**cấm** auto start) |
 
 ## Tasks
@@ -82,36 +83,40 @@
 | id | page | role | deps | status | notes |
 |----|------|------|------|--------|-------|
 | task_e8ad42d2 | supervise | full_pipeline | — | **completed** | prior VERIFY GATE PASS |
-| task_bdca2ab2 | supervise | po | data_analy | **completed** | `/agent-po-mobile` · roleOnly · autoApprove=ON · packKind `list` |
-| task_b163f3ae | supervise | design | po | **completed** | `/agent-design-mobile` · roleOnly · autoApprove=ON · dual mock + ux-analy + demo-parity |
-| task_761211bf | supervise | sa | design | **completed** | `/agent-sa-mobile` · roleOnly · autoApprove=ON · Step 4b N/A · reuse attendance-logs |
-| task_706e0bec | supervise | team_lead | sa | **completed** | `/agent-tl-mobile` · roleOnly · autoApprove=ON · route_a · T-IOS/T-AND · T-BE n/a |
-| task_e29847e6 | supervise | dev | team_lead | **completed** | `/agent-dev-ios` + `/agent-dev-android` · GAP-MOB-SUP-03 · GAP-MOB-ICON-02 · VERIFY GATE PASS |
-| task_45c8bd53 | supervise | qa | dev | **completed** | `/agent-qa-mobile` · e2e-qa-mobile **ok:true** · store PNG live · roleOnly |
-| task_33077a59 | supervise | review | qa | **completed** | `/agent-review-mobile` · review_confirm approve · verifyGate PASS · roleOnly · post_review skip |
+| task_bdca2ab2 | supervise | po | data_analy | **completed** | `/agent-po-mobile` · roleOnly · packKind `list` |
+| task_b163f3ae | supervise | design | po | **completed** | `/agent-design-mobile` · dual mock |
+| task_761211bf | supervise | sa | design | **completed** | `/agent-sa-mobile` · Step 4b N/A |
+| task_706e0bec | supervise | team_lead | sa | **completed** | `/agent-tl-mobile` · route_a |
+| task_e29847e6 | supervise | dev | team_lead | **completed** | prior dual · GAP-MOB-SUP-03 · GAP-MOB-ICON-02 |
+| task_45c8bd53 | supervise | qa | dev | **completed** | prior e2e-qa-mobile |
+| task_33077a59 | supervise | review | qa | **completed** | prior `/agent-review-mobile` · approve |
+| task_65931a17 | supervise | dev | — | **completed** | `/edit-mobile-feature` · cleanup_mock · VERIFY PASS |
+| task_16b5d063 | supervise | qa | dev | **completed** | `/agent-qa-mobile` · e2eQa ON · ok:true · Aligned |
+| task_ae0b11d0 | supervise | review | qa | **completed** | `/agent-review-mobile` · approve · cleanup_mock re-audit |
 
 ## Blockers / open questions
 
 - Sibling `patrol-map` · `checkin-detail` — **pending_confirm**
-- GAP-MOB-SUP-03 · GAP-MOB-ICON-02 — **closed** Dev dual this pack
-- GAP-QA-A11Y-SUP-FILTER-01 · GAP-QA-SUP-TAB-01 — **Defer** P1 · không block pipeline complete
+- Sibling `supervise-detail` OfflineDemo — epic child riêng
+- GAP-QA-A11Y-SUP-FILTER-01 · GAP-QA-SUP-TAB-01 — **Defer** P1
 - P2: `PrivacyInfo.xcprivacy` · store submit → `/review-app-submit`
 
 ## Links
 
-- data-analy → po → design → sa → tl → dev → qa → **review done** → pipeline **complete**
-- closeout Review: `task_33077a59` · `/agent-review-mobile` · roleOnly=`review` · `review_confirm=approve` · P0 **none** · Must align **0** · VERIFY GATE PASS · iOS xcodegen+xcodebuild iPhone 17 Pro · Android assembleDebug · BFF dotnet build · prior e2e **ok:true** · post_review **skip** · pipeline **complete** · at: `2026-08-19T16:10:00.000Z`
-- closeout QA: `task_45c8bd53` · `/agent-qa-mobile` · roleOnly=`qa` · autoApprove=ON · ios_test_phase **phase1_iphone** · VERIFY GATE PASS · docker API :5101 + BFF :5202 · `yarn e2e-qa-mobile` **ok:true** · iPhone 17 Pro Max · Pixel_2 · Maestro iOS+Android PASS · PNG `qa/screens` + `qa/store/supervise` · at: `2026-08-19T16:00:00.000Z`
-- native: e2eQa ON → `yarn e2e-qa-mobile` — **cấm** mfeStdUrl
+- Review: `task_ae0b11d0` · `/agent-review-mobile` · approve · live-only EmptyChrome · at: `2026-09-01T03:00:00.000Z`
+- QA e2e: `task_16b5d063` · `/agent-qa-mobile` · guest→login→`#sc-supervise` EmptyChrome · store PASS · harvest fix GAP-QA-HARVEST-01
+- cleanup_mock Dev: `task_65931a17`
+- native: **cấm** mfeStdUrl
 
 ## VERIFY GATE
 
 | Check | Result |
 |-------|--------|
-| iOS xcodegen | **PASS** (`task_33077a59`) |
-| iOS xcodebuild iPhone 17 Pro | **BUILD SUCCEEDED** (`task_33077a59`) |
-| Android assembleDebug | **BUILD SUCCESSFUL** (`task_33077a59`) |
-| Mobile.Bff dotnet build | **Build succeeded** (`task_33077a59`) |
-| yarn e2e-qa-mobile | prior QA **PASS** (`ok: true`) — Review không re-run |
-| Store PNG | A11/A9/A3 1320×2868 RGB · P6/P6-2 1080×1920 RGB |
+| iOS xcodegen / xcodebuild | **PASS** (prior Dev) |
+| Android assembleDebug | **PASS** (prior Dev) |
+| Mobile.Bff dotnet build | **PASS** (prior Dev) |
+| yarn e2e-qa-mobile | **PASS** · `ok:true` · A11/A10/A9/A3/P6/P6-2 |
+| Visual A3↔P6↔demo | **Aligned** · Must **0** |
+| Review cleanup_mock | **PASS** · no demoItems / mock banner |
 | Step 4b | **N/A** |
+| review_confirm | **approve** |

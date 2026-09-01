@@ -9,7 +9,7 @@
 | autoApprove | ON · `align_confirm=approve` |
 | demo | `ui/prototype/{ios,android}/index.html` `#sc-mnt-progress` · `DES-MOB-MNT-PROGRESS` |
 | live | `qa/screens/A3-CORE.png` (iOS) · `P6-CORE.png` · `P6-CORE-2.png` (Android) |
-| updatedAt | `2026-08-29T07:02:00.000Z` |
+| updatedAt | `2026-09-01T05:10:00.000Z` |
 
 ## Vision (REQUIRED — CLI ≠ visual)
 
@@ -17,7 +17,7 @@
 |------|------|-------------|-----------------|-----|
 | Title | **Cập nhật trạng thái** | **Cập nhật trạng thái** | **Cập nhật trạng thái** | — |
 | Back | iOS `#i-chevron-left`+**Công việc** · Android icon-only | **Công việc** + chevron | icon-only ArrowBack | — (Design GAP-MOB-ALIGN-01 OK) |
-| WO header rows | `.row.no-icon` title/code/status | present (WO-DEMO-1 · Chờ xử lý) | present · GPS+CTA fold | — |
+| WO header rows | `.row.no-icon` title/code/status | present (live WO · Chờ xử lý) | present · GPS+CTA fold | — |
 | Tiến độ | % + slider | `45` + slider sync | slider visible | — |
 | Ghi chú | textarea placeholder | filled ≥16 | filled + GPS embed | — |
 | `#i-camera` | photo-slot glyph | below IME fold · a11y id live | Maestro `scrollUntilVisible` PASS | — (không GAP-MOB-UX-COMP-03) |

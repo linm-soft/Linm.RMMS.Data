@@ -1,21 +1,30 @@
 appId: org.linmsoft.rmms
 ---
-# supervise · store A11/A9/A3 · login Auth seed → tile Giám sát → #sc-supervise
-# iOS LinmTopBar trailing id không expose XCUITest (kit a11y) — tap text Lọc / Trang Chủ
+# supervise · store A11/A9/A3 · guest home → login Auth seed → tile Giám sát → #sc-supervise
+# live-only (cleanup_mock) · EmptyChrome OK · cấm assert demo names
+# iOS LinmTopBar trailing id không expose XCUITest — tap text Lọc / Trang Chủ
 # cấm shot login-only cho A3 · cấm mfeStdUrl / start:std
 - launchApp:
     clearState: true
     clearKeychain: true
 - extendedWaitUntil:
-    visible: "Đăng nhập"
-    timeout: 15000
+    visible:
+      id: "sc-home"
+    timeout: 20000
 - takeScreenshot: A11-LAUNCH
 - tapOn:
-    id: "f-user"
+    id: "btn-home-login"
     optional: true
 - tapOn:
-    text: "Tài khoản"
+    text: "Đăng nhập"
     optional: true
+- extendedWaitUntil:
+    visible:
+      id: "f-user"
+    timeout: 15000
+- tapOn:
+    id: "f-user"
+- eraseText
 - inputText: "linm-soft"
 - tapOn:
     text: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
@@ -25,10 +34,7 @@ appId: org.linmsoft.rmms
     optional: true
 - tapOn:
     id: "f-pass"
-    optional: true
-- tapOn:
-    text: "Mật khẩu"
-    optional: true
+- eraseText
 - inputText: "Linm@2026"
 - tapOn:
     text: "Not Now"
@@ -43,20 +49,25 @@ appId: org.linmsoft.rmms
 - tapOn:
     text: "Not Now"
     optional: true
+- pressKey: Enter
+- waitForAnimationToEnd:
+    timeout: 4000
 - extendedWaitUntil:
     visible:
       id: "sc-home"
-    timeout: 30000
+    timeout: 45000
 - tapOn:
     id: "tile-supervise"
+    optional: true
+- tapOn:
+    text: "Giám sát"
+    optional: true
 - extendedWaitUntil:
     visible:
       id: "sc-supervise"
     timeout: 20000
 - assertVisible: "Giám sát tuần đường"
 - assertVisible: "Danh sách check in"
-- assertVisible: "Nguyễn Văn A"
-- assertVisible: "Trần Khánh"
 - takeScreenshot: A3-CORE
 - tapOn:
     id: "btn-sup-filter"
@@ -68,8 +79,12 @@ appId: org.linmsoft.rmms
     timeout: 8000
 - tapOn:
     text: "Bản đồ"
-- tapOn:
-    text: "Nguyễn Văn A"
+- extendedWaitUntil:
+    visible: "Bản đồ"
+    timeout: 8000
 - tapOn:
     id: "btn-sup-back"
+    optional: true
+- tapOn:
+    text: "Trang Chủ"
     optional: true

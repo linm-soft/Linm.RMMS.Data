@@ -51,3 +51,10 @@ BFF: `mobile-bff/api/v1/patrol/attendance-logs` proxy catch-all.
 - [x] Segment Danh sách / Bản đồ
 - [x] Nav Trang Chủ + filter toast
 - [ ] Native dual ship (task `task_e8ad42d2`)
+
+## Implement tracking
+
+| lane | phase | status | updatedAt |
+|------|-------|--------|-----------|
+| web | — | — | — |
+| mobile | `done` | `done` | `2026-09-01T02:58:18.605Z` |

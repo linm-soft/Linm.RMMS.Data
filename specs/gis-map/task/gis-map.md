@@ -95,7 +95,7 @@ AskQuestion (autoApprove=ON · không chờ board): `ios_repo_confirm=path` · `
 | id | layer | deps | status | skills | DoD |
 |----|-------|------|--------|--------|-----|
 | T-KIT-GIS-MAP | kit | — | **n/a** | — | Chrome kit **đã map dual** · map = feature composition · Design `kit_missing_confirm` **N/A** — **không** giao Dev kit |
-| **T-IOS-GIS-MAP** | ios | SA · route_a | pending | `/agent-dev-ios` · `/ios-new-screen` · `/dev-ios-swiftui` · `/mobile-ui-ux-analy` packet · MVVM | Ship `Presentation/Features/GisMap/*` · MapKit OMS · GET geojson ×3 + focus GetById · dual chrome iOS · wire hub/detail/incident → push · fail → demo OMS + toast · map **vẫn mở** · `xcodegen` + `xcodebuild` dest **iPhone 17 Pro** PASS · ghi `implement/ios.md` |
+| **T-IOS-GIS-MAP** | ios | SA · route_a | pending | `/agent-dev-ios` · `/ios-new-screen` · `/dev-ios-swiftui` · `/mobile-ui-ux-analy` packet · MVVM | Ship `Presentation/Features/GisMap/*` · MapKit OMS · GET geojson ×3 + focus GetById · dual chrome iOS · wire hub/detail/incident → push · fail/empty → map trống + toast · map **vẫn mở** · **cấm** demo OMS native · `xcodegen` + `xcodebuild` dest **iPhone 17 Pro** PASS · ghi `implement/ios.md` |
 | **T-AND-GIS-MAP** | android | SA · route_a | pending | `/agent-dev-android` · `/android-new-screen` · `/dev-android-compose` · `/android-new-api-call` · cùng ux packet | Same field/API/DoD dual · `presentation/feature/gis_map/*` · OSM/Esri · dual chrome Android · wire entry · `./gradlew :app:assembleDebug` PASS · ghi `implement/android.md` |
 | **T-BE-API** | be | — | **n/a** | — | **không** `/new-endpoint` — Gis + Asset **live** · Step 4b **N/A** |
 | **T-BE-MIG** | be | — | **n/a** | — | **không** `/database-migration` |
@@ -147,7 +147,7 @@ AskQuestion (autoApprove=ON · không chờ board): `ios_repo_confirm=path` · `
 | Corridor | LineString từ `tuyen-duong` · vẽ khi Tất cả / Hành lang |
 | Focus | nav `assetId` → `GET asset/road-assets/{id}` · center Lat/Lng · fail/missing → fit all · toast optional |
 | Search | local filter pin/popup **hoặc** `?search=` trên geojson · **cấm invent** search API |
-| Fail / offline | demo OMS pins + corridor (SSOT: TS-20260810-014 · SC-2401 · corridor) · toast lỗi · map **vẫn mở** · **cấm** blank dead · **cấm** fake 200 · **cấm** ship mock-only khi live OK |
+| Fail / offline | map trống/partial live · toast lỗi · map **vẫn mở** · **cấm** GisMapDemoOverlay · **cấm** fake 200 · **cấm** ship mock-only khi live OK |
 | Persist / OfflineQueue | **không** P1 |
 | Layers sheet | **P2** · `GET gis/layers` optional |
 
@@ -197,7 +197,7 @@ Kit: `LinmTopBar` · `FlowRow` + `LinmChip` · `LinmToast` · osmdroid/Esri `Map
 
 Hilt: `GisMapViewModel` + Retrofit `gis/geojson/*` trên `ApiService` + thin repos/use cases · reuse Asset GetById.
 
-Offline: demo OMS + toast · map **vẫn mở**.
+Offline: map trống + toast · map **vẫn mở** · **cấm** demo OMS native.
 
 ### Build DoD
 
@@ -233,7 +233,7 @@ cd /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android && ./gradlew :app:assemb
 |----------|------|
 | geojson 200 | `GisGeoJsonFeatureCollection` · `features[].geometry` Point/LineString · `properties.code/name/title/route/kmFrom/layer` |
 | GetById 200 | `RoadAssetDto` · `Lat` · `Lng` · code/name/route/km |
-| Fail / offline | demo OMS SSOT · map **vẫn mở** · toast · **cấm** native alert · **cấm** fake 200 |
+| Fail / offline | map trống live · map **vẫn mở** · toast · **cấm** demo OMS · **cấm** native alert · **cấm** fake 200 |
 | Empty features | fit demo corridor / empty overlay · map vẫn mở |
 
 Query geojson (reuse BE): `bbox` · `pciMin` · `pciMax` · `search` · `route` · `lod` · `skip` · `take`.
@@ -269,7 +269,7 @@ App paths (`{BffPrefix}` · **không** lặp prefix):
 | **Toàn tuyến** | fit overlay bounds |
 | Legend chips | isolate client-side |
 | iOS search | local / `?search=` |
-| GET fail | toast + demo OMS · map mở |
+| GET fail | toast + map trống · map mở · **cấm** demo OMS |
 | Tab 5 | shell giữ · home selected · **cấm** invent |
 
 ---

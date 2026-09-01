@@ -1,14 +1,21 @@
 appId: org.linmsoft.rmms
 ---
-# attendance · store A11/A9/A3 · login Auth seed → tab field → seg Chấm công → #sc-attendance
+# attendance · store A11/A9/A3 · guest → login → tab field → seg Chấm công → #sc-attendance
 # cấm shot login-only cho A3 · cấm mfeStdUrl / start:std
 - launchApp:
     clearState: true
     clearKeychain: true
 - extendedWaitUntil:
-    visible: "Đăng nhập"
-    timeout: 15000
+    visible:
+      id: "sc-home"
+    timeout: 20000
 - takeScreenshot: A11-LAUNCH
+- tapOn:
+    id: "btn-home-login"
+- extendedWaitUntil:
+    visible:
+      id: "f-user"
+    timeout: 15000
 - tapOn:
     id: "f-user"
     optional: true
@@ -17,18 +24,15 @@ appId: org.linmsoft.rmms
     optional: true
 - inputText: "linm-soft"
 - tapOn:
-    text: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
-    optional: true
-- tapOn:
-    text: "RMMS"
-    optional: true
-- tapOn:
     id: "f-pass"
     optional: true
 - tapOn:
     text: "Mật khẩu"
     optional: true
 - inputText: "Linm@2026"
+- tapOn:
+    text: "RMMS"
+    optional: true
 - tapOn:
     text: "Not Now"
     optional: true

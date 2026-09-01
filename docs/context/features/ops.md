@@ -229,3 +229,10 @@ Consume incident/patrol/workorder · publish push/SignalR (P2). Cross-nav demo �
 - [x] Status Demo · signed → `/qlbd-align-mfe` later
 - [x] sourceKind=synthetic · task_e954d58d
 <!-- LEGACY-GOVONE-CAPTURE:END -->
+
+## Implement tracking
+
+| lane | phase | status | updatedAt |
+|------|-------|--------|-----------|
+| web | — | — | — |
+| mobile | `done` | `done` | `2026-09-01T02:36:56.740Z` |

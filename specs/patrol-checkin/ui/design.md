@@ -44,8 +44,8 @@
 |-----|------|-----|---------|-------|
 | `DES-MOB-PAT-CHECKIN-SHEET` | `#sheet-checkin` | `LinmBottomSheet` | same | Hủy / Lưu · fields · PhotoRow · primary |
 | `DES-MOB-LOC-MISMATCH` | match banner | Banner ok/warn | same colors platform | gate primary |
-| `DES-MOB-LEAVE` | `#modal-leave` | in-app modal | Material dialog card | **cấm** system alert |
-| `DES-MOB-GPS-DENY` | `#modal-gps` | reuse pin | same | **cấm** `UIAlert` / `AlertDialog` |
+| `DES-MOB-LEAVE` | `#modal-leave` | in-sheet overlay | `Dialog` trên sheet | **cấm** system · **cấm** under-sheet parent overlay |
+| `DES-MOB-GPS-DENY` | `#modal-gps` | reuse in-sheet | `Dialog` wrap | **cấm** `UIAlert` / `AlertDialog` |
 | `DES-MOB-CI-DETAIL` | `#sc-checkin-detail` | `LinmTopBar` + rows | same | back **Ca** · title **Ghi điểm tuần** |
 
 ## SF ↔ Material icon
@@ -99,7 +99,7 @@
 | Ghi nhận điểm tuần | `LinmPrimaryButton` |
 | Hủy footer | `LinmSecondaryButton` |
 | toast | `LinmToast` |
-| leave / GPS deny | in-app modal · Primary / Secondary |
+| leave / GPS deny | in-sheet (iOS) / `Dialog` (Android) · Primary / Secondary · dirty → `interactiveDismissDisabled` / `dismissEnabled=false` |
 | detail top bar | `LinmTopBar` |
 
 ## controlHint ↔ DES

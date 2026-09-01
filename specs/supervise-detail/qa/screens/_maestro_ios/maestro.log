@@ -24,7 +24,8 @@ Assert that id: sc-home is visible... COMPLETED
 Tap on id: tile-supervise... COMPLETED
 Assert that id: sc-supervise is visible... COMPLETED
 Wait for animation to end within 2000 ms... COMPLETED
-Tap on id: sup-card-demo-1... COMPLETED
+Assert that id: sup-card-a0000001-2026-0810-0001-000000000001 is visible... COMPLETED
+Tap on id: sup-card-a0000001-2026-0810-0001-000000000001... COMPLETED
 Wait for animation to end within 3000 ms... COMPLETED
 Assert that id: sc-supervise-detail is visible... COMPLETED
 Assert that id: value-user is visible... COMPLETED

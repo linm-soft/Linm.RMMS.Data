@@ -1,40 +1,39 @@
 Running on Pixel_2
- > Flow crawl-android
+ > Flow android
 Launch app "org.linmsoft.rmms" with clear state and clear keychain... COMPLETED
 Assert that id: sc-home is visible... COMPLETED
-Tap on (Optional) id: btn-home-login... COMPLETED
+Tap on id: btn-home-login... COMPLETED
 Assert that id: f-user is visible... COMPLETED
 Tap on id: f-user... COMPLETED
 Erase text... COMPLETED
 Input text linm-soft... COMPLETED
-Tap on (Optional) "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"... COMPLETED
-Tap on (Optional) "RMMS"... COMPLETED
+Tap on "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"... COMPLETED
 Tap on id: f-pass... COMPLETED
 Erase text... COMPLETED
 Input text Linm@2026... COMPLETED
-Tap on (Optional) "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"... COMPLETED
-Tap on (Optional) "RMMS"... COMPLETED
-Tap on (Optional) id: btn-login... COMPLETED
+Press Enter key... COMPLETED
+Wait for animation to end within 4000 ms... COMPLETED
+Tap on (Optional) id: btn-login... WARNED
+
+
+ Warning: Element not found: Id matching regex: btn-login
 Tap on (Optional) "Đăng nhập"... WARNED
 
 
  Warning: Element not found: Text matching regex: Đăng nhập
-Tap on (Optional) "Not Now"... WARNED
-
-
- Warning: Element not found: Text matching regex: Not Now
-Assert that id: home-who is visible... COMPLETED
-Scrolling DOWN until id: tile-asset is visible with speed 40, visibility percentage 100%, timeout 12000 ms, with centering disabled... COMPLETED
+Assert that "Trang Chủ" is visible... COMPLETED
+Assert that id: sc-home is visible... COMPLETED
+Scrolling DOWN until id: tile-asset is visible with speed 40, visibility percentage 100%, timeout 15000 ms, with centering disabled... COMPLETED
 Tap on id: tile-asset... COMPLETED
 Assert that id: sc-asset-hub is visible... COMPLETED
 Tap on id: tile-list... COMPLETED
 Assert that id: sc-asset-list is visible... COMPLETED
-Tap on id: row-asset-0... COMPLETED
-Assert that id: sc-asset-detail is visible... FAILED
+Assert that id: asset-list-search is visible... COMPLETED
+Assert that id: row-asset-0 is visible... FAILED
 
-Assertion is false: id: sc-asset-detail is visible
+Assertion is false: id: row-asset-0 is visible
 
-Assertion 'id: sc-asset-detail is visible' failed. Check the UI hierarchy in debug artifacts to verify the element state and properties.
+Assertion 'id: row-asset-0 is visible' failed. Check the UI hierarchy in debug artifacts to verify the element state and properties.
 
 Possible causes:
 - Element selector may be incorrect - check if there are similar elements with slightly different names/properties.
@@ -43,4 +42,4 @@ Possible causes:
 
 ==== Debug output (logs & screenshots) ====
 
-/Users/mac/.maestro/tests/2026-08-31_021141
+/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/asset/qa/screens/_maestro_android

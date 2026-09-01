@@ -57,8 +57,8 @@
     → tap day row → push #sc-attendance-day DES-MOB-ATT-DAY  ← this pack
   Back → go('attendance')
   Appear → GET patrol/attendance-logs · filter dayKey · bind summary + log rows
-  Empty count=0 → EmptyChrome · badge Nghỉ
-  GET fail → demo SSOT + LinmToast · screen vẫn mở · cấm fake 200
+  Empty count=0 → EmptyChrome · badge Nghỉ · **cấm** demo SSOT / mock
+  GET fail → empty chrome + LinmToast · screen vẫn mở · **cấm** demo T7/CN · cấm fake 200
   Tap log row → toast «Chi tiết lần chấm» · cấm push supervise-detail
   không child form / sheet / segment trên detail
 ```
@@ -74,7 +74,7 @@
 | dayHero | (T7 09/08) | Display **≥24 / 28** bold | — | nav `dayTitle` · iOS 28 · Android 24 |
 | dayBadge | Đủ công / Nghỉ / Đã chấm | `LinmBadge` | — | derived aggregate §3.5 PO |
 | rowRange | Khoảng giờ | `LinmListRow` | — | label **13** / value **≥16** · min/max `CheckInAt` |
-| rowRoute | Tuyến · ca | `LinmListRow` | — | first log `Route` · shift demo offline |
+| rowRoute | Tuyến · ca | `LinmListRow` | — | first log `Route` · empty → «—» · **cấm** invent Ca sáng / QL.1 |
 | rowCount | Số lần chấm | `LinmListRow` | — | count filtered logs |
 | sectionLogs | Các lần chấm | `LinmSectionLabel` | — | hidden khi empty |
 | logTime | (HH:mm) | `LinmListRow` title | — | `CheckInAt` local |
@@ -100,20 +100,14 @@
 | ≥2 logs | Đủ công · ok |
 | any `InZone=false` | Lệch zone · warn (optional P1) |
 
-### Demo / fallback SSOT (dual)
+### Live-only bind (edit-mobile-feature · no mock)
 
-| Field | Value |
-|-------|-------|
-| Title | Chi tiết ngày công |
-| dayTitle | T7 09/08 |
-| badge | Đủ công |
-| rowRange | 07:05 – 16:40 |
-| rowRoute | QL.1 · Ca sáng |
-| rowCount | 2 lần chấm |
-| log1 | 07:05 · QL.1 · Đúng tuyến · Trong vùng |
-| log2 | 16:40 · QL.1 · Đúng tuyến · Trong vùng |
-| emptyDay | CN 10/08 · Nghỉ · «Không có lần chấm trong ngày» |
-| Back | Chấm công |
+| Case | Behavior |
+|------|----------|
+| GET OK · logs for day | Bind BE fields · badge/range/route/count/logs derived |
+| GET OK · empty day | EmptyChrome + badge **Nghỉ** · **cấm** demo T7/CN SSOT |
+| GET fail / offline | Empty chrome + toast · screen vẫn mở · **cấm** demo / mock · **cấm** fake 200 |
+| Route / status missing | Display «—» · **cấm** invent QL.1 / Đúng tuyến / Ca sáng |
 
 Toast → `LinmToast`. **Cấm** raw `NavigationBar` / M3 bar / `TabView` / `UIAlert` / `AlertDialog` / `window.alert`.
 

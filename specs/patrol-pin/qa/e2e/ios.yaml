@@ -1,14 +1,21 @@
 appId: org.linmsoft.rmms
 ---
-# patrol-pin · store A11/A9/A3 · login Auth seed → #sc-patrol-home · btn-pin-here + #i-mappin
-# cấm shot login-only cho A3 · cấm mfeStdUrl / start:std
+# patrol-pin · store A11/A9/A3 · guest home → login → #sc-patrol-home · btn-pin-here + glyph
+# cấm sheet-checkin · cấm mfeStdUrl / start:std
 - launchApp:
     clearState: true
     clearKeychain: true
 - extendedWaitUntil:
-    visible: "Đăng nhập"
-    timeout: 15000
+    visible:
+      id: "sc-home"
+    timeout: 20000
 - takeScreenshot: A11-LAUNCH
+- tapOn:
+    id: "btn-home-login"
+- extendedWaitUntil:
+    visible:
+      id: "f-user"
+    timeout: 15000
 - tapOn:
     id: "f-user"
     optional: true
@@ -17,12 +24,6 @@ appId: org.linmsoft.rmms
     optional: true
 - inputText: "linm-soft"
 - tapOn:
-    text: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
-    optional: true
-- tapOn:
-    text: "RMMS"
-    optional: true
-- tapOn:
     id: "f-pass"
     optional: true
 - tapOn:
@@ -30,7 +31,7 @@ appId: org.linmsoft.rmms
     optional: true
 - inputText: "Linm@2026"
 - tapOn:
-    text: "Not Now"
+    text: "RMMS"
     optional: true
 - takeScreenshot: A9-LOGIN
 - tapOn:
@@ -46,7 +47,6 @@ appId: org.linmsoft.rmms
     visible:
       id: "sc-home"
     timeout: 30000
-# iOS LinmTabBar children inherit resource-id tab-bar — dùng tile-patrol + text
 - tapOn:
     id: "tab-field"
     optional: true

@@ -5,7 +5,8 @@
 | feature | `mnt-progress` |
 | phase | `done` |
 | status | `done` |
-| changeScope | `new_page` |
+| taskId | `task_50b18ae5` |
+| changeScope | `edit_page` (cleanup_mock) |
 | packKind | **`sheet`** (PO **confirmed** · surface screen `#sc-mnt-progress` · **đóng** GAP-MOB-MNT-PROG-PACK-01) |
 | gap | MEDIA-01 DEFER · GPS-01 Note embed · Should GAP-MOB-A11Y-01 (iOS sync a11y) · Must **0** |
 | mode | `feature_context` |
@@ -22,8 +23,7 @@
 | backend | `Linm.RMMS.WebService` · `api/v1/maintenance/work-orders/{id}/progress` · DOMAIN-MAP Maintenance — **cấm ERP.*** |
 | domain | **Maintenance** |
 | review | `specs/mnt-progress/review/findings.md` · `review/REVIEW-META.json` (**confirmed**) |
-| taskId | `task_cfc08301` |
-| lastRole | `review` · `/agent-review-mobile` · **confirmed** · review_confirm=approve · Must **0** |
+| lastRole | `review` · `/agent-review-mobile` · post cleanup_mock re-review · review_confirm=approve · Must **0** |
 | autoApprove | `ON` |
 | contentHash | `sha256:mnt-progress-mobile-control-hint-20260829` |
 | realDataHash | `sha256:mnt-progress-mobile-real-data-20260829` |
@@ -36,8 +36,8 @@
 | workflowVersion | `2026.08.29.1` |
 | rulesVersion | `2026.08.29.5` |
 | versionGate | `rechecked` |
-| verifyGate | artifact review **PASS** · prior Dev/QA iOS/Android/BFF/e2e **PASS** · roleOnly=`review` · Step 4b **N/A** · **cấm** yarn build/e2e/start:std |
-| updatedAt | `2026-08-30T18:59:12.211Z` |
+| verifyGate | iOS xcodegen · Android assembleDebug · BFF dotnet build **PASS** · e2e-qa-mobile **ok:true** · review artifact **PASS** · roleOnly=`review` · **cấm** start:std |
+| updatedAt | `2026-09-01T08:44:54.307Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -53,14 +53,14 @@
 | 2.1 | design | ui/design.md · ui/ux-analy.md · ui/html-to-native-map.md · ui/review/demo-parity.md · prototype/ios|android/index.html | **confirmed** |
 | 2.2 | sa | be/solution-discovery.md | **confirmed** |
 | 3 | team-lead | task/mnt-progress.md | **confirmed** |
-| 4 | dev | implement/ios.md · implement/android.md | **confirmed** |
+| 4 | dev | implement/ios.md · implement/android.md · handoff/dev-compact.md | **confirmed** |
 | 5 | qa | qa/scenarios.md · qa/store/mnt-progress/CAPTURE.md · ui/review/align-ux.md | **confirmed** |
-| 6 | review | review/findings.md · review/REVIEW-META.json | **done** |
+| 6 | review | review/findings.md · review/REVIEW-META.json · handoff/review-compact.md | **done** |
 ## Confirms
 
 | Gate | Value |
 |------|-------|
-| change_scope | `new_page` |
+| change_scope | `edit_page` (cleanup_mock) |
 | packKind | **`sheet`** · surface `#sc-mnt-progress` |
 | stack_confirm | `native_dual` |
 | autoApprove | **ON** |
@@ -84,11 +84,14 @@
 | task_5ce628cf | mnt-progress | dev | team_lead | **done** | iOS+Android ship · xcodegen/xcodebuild + assembleDebug + BFF build PASS · handoff QA |
 | task_86089ea4 | mnt-progress | qa | dev | **done** | e2e-qa-mobile ok:true · CORE PNG Read Aligned · Must 0 · handoff Review |
 | task_cfc08301 | mnt-progress | review | qa | **done** | `/agent-review-mobile` · review_confirm=approve · Must 0 · VERIFY GATE artifact PASS · roleOnly |
+| task_e4368753 | mnt-progress | dev | review | **done** | `/edit-mobile-feature` · cleanup_mock live-only · GAP-MOB-EDIT-DEMO-01 · xcodegen+xcodebuild iPhone 17 Pro · assembleDebug · BFF dotnet build PASS · **cấm** e2e |
+| task_995ec06e | mnt-progress | qa | dev | **done** | `/agent-qa-mobile` · re-e2e live IDs · ok:true · Aligned Must 0 · handoff Review |
+| task_50b18ae5 | mnt-progress | review | qa | **done** | `/agent-review-mobile` · post cleanup_mock · review_confirm=approve · Must 0 · VERIFY GATE PASS |
 
 ## Blockers / open questions
 
-- Review **confirmed** · review_confirm=approve · Must **0** · phase **done**.
-- Should: GAP-MOB-A11Y-01 iOS sync a11y id — không block · `/edit-mobile-feature`.
+- cleanup_mock **done** · QA re-e2e **PASS** (`task_995ec06e`) · Review re-check **PASS** (`task_50b18ae5`) · live WO `11111111-…101`.
+- Should: GAP-MOB-A11Y-01 iOS sync a11y id — không block.
 - MEDIA-01 DEFER · Step 4b **N/A**.
 - post_review **skip** · store submit → `/review-app-submit` khi cần.
 - Hash skip analy — **cấm** re-scan demo (`GAP-DES-DEMO-RESCAN-01`).

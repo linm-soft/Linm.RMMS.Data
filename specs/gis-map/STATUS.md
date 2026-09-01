@@ -5,116 +5,111 @@
 | feature | `gis-map` |
 | phase | `done` |
 | status | `done` |
-| packKind | **`map`** (PO+Design+SA+TL+Dev+QA+Review **confirmed**) |
-| changeScope | `new_page` |
+| packKind | **`map`** |
+| changeScope | `edit_page` |
+| editScope | `cleanup_mock` · review PASS |
 | demo | `specs/gis-map/ui/prototype/{ios,android}/index.html` `#sc-gis-map` · `DES-MOB-GIS` |
 | context | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/docs/context/features/gis-map.md` |
 | mfe | — (native · **cấm** mfeStdUrl) |
 | mfeStdRoute | — |
 | mfeStdUrl | — |
-| ios | `Linm.RMMS.Mobile.iOS` · e2e-qa-mobile sim 6.9" |
-| android | `Linm.RMMS.Mobile.Android` · e2e-qa-mobile emulator |
+| ios | `Linm.RMMS.Mobile.iOS` |
+| android | `Linm.RMMS.Mobile.Android` |
 | bff | `Linm.RMMS.Mobile.Bff` |
-| backend | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.WebService` · DOMAIN-MAP Gis (+ Asset focus) — **cấm ERP.*** |
-| lastRole | `review` · `/agent-review-mobile` · **confirmed** |
+| backend | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.WebService` · DOMAIN-MAP Gis — **cấm ERP.*** |
+| lastRole | `review` · `/agent-review-mobile` · **PASS** |
 | autoApprove | `ON` |
-| e2eQa | ON · `ok:true` · visual **Aligned** · `ios_test_phase=phase1_iphone` |
+| e2eQa | **ON** · prior qa PASS · review crawl skipped |
 | contentHash | `sha256:gis-map-control-hint-20260831` |
 | realDataHash | `sha256:gis-map-real-data-20260831` |
 | bffContentHash | `sha256:gis-geojson-proxy-passthrough-20260831` |
 | actionTreeHash | `sha256:gis-map-action-tree-20260831` |
-| reviewHash | `sha256:gis-map-review-20260831` |
-| skillVersion | `2026.08.31.2` (agent-review-mobile) |
+| reviewHash | `sha256:gis-map-review-cleanup-20260901` |
+| skillVersion | `2026.08.29.1` |
 | schemaVersion | `1` |
 | workflowVersion | `2026.08.31.2` |
 | rulesVersion | `2026.08.31.2` |
 | versionGate | `rechecked` |
-| updatedAt | `2026-08-31T01:44:55.385Z` |
+| updatedAt | `2026-09-01T08:03:53.089Z` |
 ## Lock
 
 | agent | scope | id | at |
 |-------|-------|-----|-----|
-| — | — | — | **released** (review done · phase=done) |
+| — | — | — | **released** (review PASS) |
 
 ## Confirms (autoApprove=ON)
 
 | Key | Value | Notes |
 |-----|-------|-------|
 | beRepo | **confirmed** | `Linm.RMMS.WebService` · **cấm ERP.*** |
-| ios_repo_confirm | **path** | `Linm.RMMS.Mobile.iOS` · **không** scaffold_new |
-| android_repo_confirm | **path** | `Linm.RMMS.Mobile.Android` · **không** scaffold_new |
-| design_confirm | **approve** | dual + ux-analy + demo-parity · `task_81ce36d6` |
-| solution_confirm | **approve** | `be/solution-discovery.md` · Gis geojson + Asset GetById · Step 4b **N/A** · `task_e39b336c` |
-| route_confirm | **route_a** | hub/detail/incident → push `#sc-gis-map` · back hub · dual chrome · **cấm** patrol-map target · `task_ee5c8ae2` |
+| ios_repo_confirm | **path** | `Linm.RMMS.Mobile.iOS` |
+| android_repo_confirm | **path** | `Linm.RMMS.Mobile.Android` |
+| design_confirm | **approve** | context lock cleanup_mock |
+| solution_confirm | **approve** | Step 4b **N/A** |
+| route_confirm | **route_a** | |
 | sa_tz_gate | **tz_na** | |
 | sa_xco_gate | **xco_na** | |
-| sa_shared_table | **share_tenant** | reuse Gis + RoadAssets · no new table |
-| version_mismatch_action | **recheck_new** | workflow/rules `2026.08.31.2` · review skill `2026.08.31.2` |
-| e2eQa | **ON** | CLI `ok:true` · store_qa=`run_store` |
-| ios_test_phase | **phase1_iphone** | dest **iPhone 17 Pro Max** · **A4-IPAD DEFER** |
-| align_confirm | **approve** | Read CORE vs demo · Must 0 · `ui/review/align-ux.md` |
-| review_confirm | **done** | `review/findings.md` · P0=0 · Must=0 · `task_b400b95d` |
+| sa_shared_table | **share_tenant** | |
+| version_mismatch_action | **recheck_new** | |
+| e2eQa | **ON** | prior qa · yarn e2e-qa-mobile **PASS** |
+| ios_test_phase | **phase1_iphone** | dest **iPhone 17 Pro Max** · A4 DEFER |
+| store_qa | **run_store** | e2eQa=ON |
+| align_confirm | **approve** | Must 0 · Read CORE |
+| cleanup_mock | **done** | live-only · review verified |
+| review_confirm | **done** | `task_0abfdaac` · P0=0 · Must=0 |
 
 ## Pipeline
 
 | Step | Agent | Artifact | Status |
 |------|-------|----------|--------|
-| 0 | data-analy | _data-analy/gis-map-control-hint.md · gis-map-bff-endpoints.md · gis-map-real-data.md · gis-map-action-tree.md | **confirmed** |
-| 1 | po | po/requirement.md | **confirmed** |
-| 2.1 | design | ui/design.md · ui/ux-analy.md · ui/html-to-native-map.md · ui/review/demo-parity.md · prototype/ios/index.html · prototype/android/index.html | **confirmed** |
-| 2.2 | sa | be/solution-discovery.md | **confirmed** |
-| 3 | team-lead | task/gis-map.md | **confirmed** |
-| 4 | dev | implement/ios.md · implement/android.md | **confirmed** |
-| 5 | qa | qa/scenarios.md · qa/store/gis-map/CAPTURE.md · ui/review/align-ux.md | **confirmed** |
-| 6 | review | review/findings.md · qa/e2e/CLICKABLES.md | **done** |
+| 0–3 | data-analy→TL | prior | **confirmed** |
+| 4 | dev | implement/ios.md · android.md · handoff/dev-compact.md | **confirmed** |
+| 5 | qa | qa/scenarios.md · store · handoff/qa-compact.md | **confirmed** |
+| 6 | review | review/findings.md · handoff/review-compact.md | **done** |
 ## Tasks
 
 | id | page | role | deps | status | notes |
 |----|------|------|------|--------|-------|
-| task_23d7eba0 | gis-map | data_analy | — | **completed** | control-hint + BFF + real-data + action-tree |
-| task_76dabc8f | gis-map | po | data_analy | **completed** | po/requirement.md confirmed |
-| task_81ce36d6 | gis-map | design | po | **completed** | design + dual proto `#sc-gis-map` |
-| task_e39b336c | gis-map | sa | design | **completed** | solution_confirm=approve · Step 4b N/A |
-| task_ee5c8ae2 | gis-map | team_lead | sa | **completed** | route_a · T-IOS/T-AND |
-| task_3f6f4524 | gis-map | dev | team_lead | **completed** | iOS+Android GisMap · wire hub/detail/incident · builds PASS |
-| task_9d4480e2 | gis-map | qa | dev | **completed** | e2e-qa-mobile ok:true · visual Aligned · store pack |
-| task_b400b95d | gis-map | review | qa | **completed** | findings · review_confirm=done · phase=done |
+| task_3f6f4524 | gis-map | dev | team_lead | **completed** | initial ship |
+| task_9d4480e2 | gis-map | qa | dev | **completed** | prior e2e |
+| task_b400b95d | gis-map | review | qa | **completed** | prior review |
+| task_ad6cbe30 | gis-map | dev | — | **completed** | cleanup_mock · VERIFY PASS |
+| task_337999db | gis-map | qa | cleanup_mock | **completed** | e2eQa ON · visual Aligned |
+| task_0abfdaac | gis-map | review | qa | **completed** | post-cleanup · review_confirm done |
 
 ## Blockers / open questions
 
-- **none** blocking · Should: seed GIS DB nếu cần pin live (GAP-QA-GIS-EMPTY)
-- Step 4b **N/A** giữ
+- **none** · Should-only: GAP-QA-GIS-EMPTY · GAP-QA-AND-TILE-RACE · GAP-QA-A11Y-CHIP
 
 ## Links
 
-- review: `specs/gis-map/review/findings.md` · `qa/e2e/CLICKABLES.md`
-- qa: `specs/gis-map/qa/scenarios.md` · `qa/store/gis-map/` · `ui/review/align-ux.md`
+- handoff: `specs/gis-map/handoff/review-compact.md`
+- review: `specs/gis-map/review/findings.md`
+- qa: `specs/gis-map/qa/scenarios.md` · `qa/store/gis-map/`
+- align: `specs/gis-map/ui/review/align-ux.md`
 
-## Handoff → done (`task_b400b95d` review done)
+## Handoff → (review PASS)
 
 | Field | Value |
 |-------|-------|
 | feature | `gis-map` |
 | this role | `review` · `/agent-review-mobile` · **PASS** |
-| next | **phase=done** · **không** chain role khác (GAP-PKT-ROLE-01) |
+| next | **pipeline done** · GAP-PKT-ROLE-01 — **không** chain |
 | review_confirm | **done** |
-| must-verified | P0=0 · align Must 0 · REAL-02 closed · ACT-03 none |
-| Builds | prior QA PASS · review **không** rebuild |
-| E2E | prior `ok:true` · crawl **skipped** role packet |
+| debt | Should-only gaps (non-blocking) |
 
 ## Verify
 
 | Gate | Result |
 |------|--------|
-| Role | review only · **PASS** |
-| artifact | `review/findings.md` · `REVIEW-META.json` · `qa/e2e/CLICKABLES.md` · **PASS** |
-| Security / DTO / PrivacyInfo | **PASS** |
-| Align / demo-parity / CORE Read | **Aligned** · Must 0 |
-| Real data GAP-MOB-REAL-02 / GAP-QA-REAL-01 | **CLOSED / N/A** |
-| GAP-MOB-ACT-03 | **none** · CLICKABLES written |
-| Step 4b / migration | **skipped** · N/A |
-| yarn e2e/start:std / mfeStdUrl / build | **cấm** role này · không dùng |
+| Role | review /agent-review-mobile only · **PASS** |
+| yarn e2e / start:std | **cấm** · không chạy |
+| Read CORE vs demo | **Aligned** · Must 0 |
+| Security / DTO / REAL | **PASS** · GAP-MOB-REAL-02 CLOSED |
+| Step 4b | **N/A** |
+| mfeStdUrl / yarn start:std | **cấm** · không dùng |
 | ERP.* | **none** |
+| kill worker | **cấm** · không dùng |
 | Chain other role | **không** (GAP-PKT-ROLE-01) |
 
 ## Version meta (REQUIRED)
@@ -122,12 +117,12 @@
 | Field | Value |
 |-------|-------|
 | skillId | agent-review-mobile |
-| skillVersion | 2026.08.31.2 |
+| skillVersion | 2026.08.29.1 |
 | schemaVersion | 1 |
 | workflowVersion | 2026.08.31.2 |
 | rulesVersion | 2026.08.31.2 |
-| generatedAt | 2026-08-31T01:40:50.000Z |
+| generatedAt | 2026-09-01T08:01:14.000Z |
 | versionGate | rechecked |
 
 ---
-<!-- Version meta: skillVersion=2026.08.31.2 · schemaVersion=1 · workflowVersion=2026.08.31.2 · versionGate=rechecked -->
+<!-- Version meta: skillVersion=2026.08.29.1 · schemaVersion=1 · workflowVersion=2026.08.31.2 · versionGate=rechecked -->

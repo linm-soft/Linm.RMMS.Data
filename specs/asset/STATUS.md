@@ -3,8 +3,8 @@
 | Field | Value |
 |-------|-------|
 | feature | `asset` |
-| phase | `done` |
-| status | `done` |
+| phase | `dev` |
+| status | `await_confirm` |
 | changeScope | `edit_page` |
 | packKind | `list` (**PO confirm mobile**) |
 | stack | `native_dual` |
@@ -29,16 +29,16 @@
 | implement.artifact | `specs/asset/implement/ios.md` · `specs/asset/implement/android.md` |
 | qa.artifact | `specs/asset/qa/scenarios.md` · `qa/store/asset` · `ui/review/align-ux.md` |
 | review.artifact | `specs/asset/review/findings.md` |
-| taskId | `task_46abd0c9` |
-| skillVersion | `2026.08.20.01` (agent-review-mobile) |
+| taskId | `task_7e0b31e2` |
+| skillVersion | `2026.08.29.1` (agent-qa-mobile) |
 | schemaVersion | `1` |
 | workflowVersion | `2026.08.29.1` |
 | rulesVersion | `2026.08.29.5` |
 | versionGate | `rechecked` |
 | contentHash | `sha256:asset-mobile-edit-list-20260823` |
 | bffContentHash | `sha256:asset-mobile-list-road-assets-proxy-20260823` |
-| updatedAt | `2026-08-29T17:23:47.901Z` |
-| verifyGate | Review **PASS** · prior QA e2e + Dev builds evidence · align Must 0 · **cấm** mfeStdUrl / yarn e2e/build ở Review |
+| updatedAt | `2026-09-01T10:01:14.297Z` |
+| verifyGate | QA e2e **FAIL** · plan-only DoR PASS · **cấm** implement trước board Approve `qa_fix_plan` |
 
 ## Lock
 
@@ -55,9 +55,9 @@
 | 2.1 | design | ui/design.md + dual prototype + ux-analy + reviewUrl | **confirmed** |
 | 2.2 | sa | be/solution-discovery-mobile.md | **confirmed** |
 | 3 | team-lead | task/asset.md | **confirmed** |
-| 4 | dev | implement/ios.md · implement/android.md | **confirmed** |
-| 5 | qa | qa/scenarios.md · qa/store/asset | **confirmed** |
-| 6 | review | review/findings.md | **done** |
+| 4 | dev | implement/asset-qa-fix-plan.md · (implement sau Approve) | **await_confirm** |
+| 5 | qa | qa/scenarios.md · qa/store/asset | **blocked** |
+| 6 | review | review/findings.md | **pending** |
 ## Pipeline (web — prior done)
 
 | Step | Agent | Status |
@@ -81,10 +81,11 @@
 | android_repo_confirm | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android` |
 | route_confirm | **route_a** (autoApprove TL · hub tile Danh sách → `#sc-asset-list`) |
 | ui_repo_confirm | `Linm.Web.RMMS.Asset` (web only) |
-| autoApprove | **ON** (`task_46abd0c9` · mobile list Review) |
-| e2eQa | **ON** · prior QA `task_edfc2374` · **PASS** · Review **cấm** re-run |
+| autoApprove | **OFF** this task · **cấm** bỏ qua `qa_fix_plan` / `qa_fail_rollback` |
+| e2eQa | **OFF** plan phase · prior QA `task_4ec34586` **FAIL** · re-QA sau implement |
+| qa_fix_plan | **await_confirm** · `implement/asset-qa-fix-plan.md` · task `task_7e0b31e2` |
 | ios_test_phase | **phase1_iphone** · dest **iPhone 17 Pro Max** · A4 **DEFER** |
-| align_confirm | **approve** (Must 0 · Read CORE PNG) |
+| align_confirm | **reject** (Must ≥1 · Android empty vs iOS rows) |
 | Step 4b | **N/A** PO — reuse `GET asset/road-assets` |
 | cluster_confirm | done (feature-scoped cluster) |
 | review_confirm | **confirmed** (user Approve board) |
@@ -98,12 +99,13 @@
 | T-CTX-01 | docs | **done** (web) |
 | T-BE-01 | api | **done** (web · reuse mobile) |
 | T-BFF-01 | bff | **reuse** (Mobile.Bff proxy · **cấm** AssetListController) |
-| T-IOS-LIST-01 | ios | **done** |
-| T-AND-LIST-01 | android | **done** |
+| T-IOS-LIST-01 | ios | **done** · cleanup_mock live-only |
+| T-AND-LIST-01 | android | **done** · cleanup_mock live-only |
 | T-BE-API | be | **n/a** |
 | T-BE-MIG | be | **n/a** |
-| T-QA-01 | qa | **done** (mobile · e2e + align) |
+| T-QA-01 | qa | **failed** (`task_4ec34586` · GAP-QA-STORE-03) |
 | T-REVIEW-01 | review | **done** (mobile · `task_46abd0c9`) |
+| task_7e0b31e2 | asset | dev | **await_confirm** | qaFailFix=1 · qaFixPhase=plan · `implement/asset-qa-fix-plan.md` · from `task_4ec34586` |
 
 ## Blockers / open questions
 
@@ -113,6 +115,9 @@
 - Filter type/route/km toolbar mobile = **P2** (search only P1)
 - Live gap TL: hub `tileList` = toast stub · **RESOLVED** Dev dual list ship
 - Review Should (không P0): demo badge Ghim · search placeholder · Android TopBar overflow
+- Cleanup mock list (`task_dc98ed58`): **DONE** · empty/fail → EmptyChrome+toast · **cấm** demoRows on list path · BE empty OK
+- QA live-only retest (`task_4ec34586`): **FAIL** · Android EmptyChrome dù BFF có data · 0 GET `road-assets` từ emulator · `qa_fail_rollback`
+- Dev plan (`task_7e0b31e2`): **await_confirm** `qa_fix_plan` · root-cause `LaunchedEffect(onBack,onOpenDetail)` · **cấm** code tới board Approve
 
 ## Links
 - mfeStdUrl: `http://localhost:9301/asset` (web only · **cấm** mobile AC)
@@ -146,6 +151,9 @@
 - closeout Dev mobile: `task_bee51c9e` · roleOnly=`dev` · `/agent-dev-ios` + `/agent-dev-android` · `implement/ios.md` · `implement/android.md` · T-IOS/T-AND **done** · VERIFY PASS · QA **pending** · at: `2026-08-29T17:04:05.000Z`
 - closeout QA mobile: `task_edfc2374` · roleOnly=`qa` · `/agent-qa-mobile` · e2e-qa-mobile **PASS** · align Must 0 · Review **pending** · at: `2026-08-29T17:15:00.000Z`
 - closeout Review mobile: `task_46abd0c9` · roleOnly=`review` · `/agent-review-mobile` · `review_confirm=approve` · Must align 0 · pipeline **done** · at: `2026-08-29T17:22:00.000Z`
+- closeout Dev cleanup_mock: `task_dc98ed58` · roleOnly=`dev` · `/edit-mobile-feature` · live-only AssetList dual · VERIFY PASS · handoff `handoff/dev-compact.md` · at: `2026-09-01T03:40:00.000Z`
+- closeout QA FAIL: `task_4ec34586` · roleOnly=`qa` · `/agent-qa-mobile` · e2e-qa-mobile **FAIL** · GAP-QA-STORE-03 · handoff `handoff/qa-compact.md` · `qa_fail_rollback` · at: `2026-09-01T03:51:00.000Z`
+- closeout Dev qa_fix_plan: `task_7e0b31e2` · roleOnly=`dev` · qaFixPhase=plan · `implement/asset-qa-fix-plan.md` · **await_confirm** board · **cấm** Write code · at: `2026-09-01T09:58:56.000Z`
 - closeout PO web: `task_9ab7f74a` · `/agent-po` · web Kind B · at: `2026-08-14T15:00:00.000Z`
 - closeout Review web: `task_bf4df098` · web pipeline **done** · at: `2026-08-14T16:55:00.000Z`
 
@@ -159,25 +167,28 @@
 
 | Check | Result |
 |-------|--------|
-| review/findings.md · REVIEW-META | **PASS** · `task_46abd0c9` |
-| Prior QA + Dev + SA + Design + PO + data-analy + TL | **PASS** |
-| Align vision CORE PNG vs `#sc-asset-list` | **PASS** · Must **0** |
-| Security Keychain / X-Company-Id / no alert / no ERP | **PASS** |
-| DTO iOS = Android list fields | **PASS** |
-| WebService / Step 4b / migration | **N/A** · reuse GET road-assets · Review **SKIP** |
-| yarn e2e / yarn build / start:std / mfeStdUrl | **cấm** · không dùng ở Review |
+| iOS `xcodegen` + `xcodebuild` iPhone 17 Pro | **PASS** · `task_dc98ed58` |
+| Android `./gradlew :app:assembleDebug` | **PASS** |
+| Mobile.Bff `dotnet build` | **PASS** |
+| Live-only list · no empty→demo · no «dữ liệu mẫu» toast | **PASS** |
+| ACTION: Search + View(detail) · Create/Edit/Copy N/A | **PASS** |
+| WebService / Step 4b / migration | **N/A** · reuse GET road-assets |
+| yarn e2e-qa-mobile (A11,A10,A9,A3,P6,P6-2) | **FAIL** · MAESTRO-AND `row-asset-0` · `task_4ec34586` |
+| Align CORE PNG iOS↔Android | **FAIL** Must · Android empty vs iOS rows |
+| yarn e2e / yarn build / start:std / mfeStdUrl | **cấm** · mobile chain |
 
 ## Version meta (REQUIRED)
 
 | Field | Value |
 |-------|-------|
-| skillId | agent-review-mobile |
-| skillVersion | 2026.08.20.01 |
+| skillId | agent-dev-ios · agent-dev-android |
+| skillVersion | 2026.08.29.1 |
 | schemaVersion | 1 |
 | workflowVersion | 2026.08.29.1 |
 | rulesVersion | 2026.08.29.5 |
-| generatedAt | 2026-08-29T17:22:00.000Z |
+| generatedAt | 2026-09-01T09:58:56.000Z |
 | versionGate | rechecked |
-| contentHash | sha256:asset-mobile-edit-list-20260823 |
+| contentHash | sha256:asset-qa-fix-plan-20260901 |
 | bffContentHash | sha256:asset-mobile-list-road-assets-proxy-20260823 |
-| taskId | task_46abd0c9 |
+| taskId | task_7e0b31e2 |
+| qaFixPhase | plan |

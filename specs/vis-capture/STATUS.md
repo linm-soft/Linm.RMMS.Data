@@ -6,7 +6,7 @@
 | phase | `done` |
 | status | `done` |
 | packKind | **`screen`** (PO chốt · đóng GAP-MOB-VIS-PACK-01 · demo `#sc-vis-capture` full) |
-| changeScope | `new_page` |
+| changeScope | `edit_page` · cleanup_mock |
 | demo | /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/vis-capture/ui/prototype/{ios,android}/index.html |
 | context | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/docs/context/features/vis-capture.md` |
 | mfe | — (native · **cấm** mfeStdUrl) |
@@ -16,25 +16,25 @@
 | android | `Linm.RMMS.Mobile.Android` · e2e-qa-mobile emulator |
 | bff | `Linm.RMMS.Mobile.Bff` |
 | backend | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.WebService` · DOMAIN-MAP AiVision + Incident + Patrol — **cấm ERP.*** |
-| lastRole | `review` · `/agent-review-mobile` · **confirmed** · task `task_3be26d66` · `review_confirm=done` |
+| lastRole | `review` · `/agent-review-mobile` · review_confirm=done · task `task_f31fa8eb` |
 | autoApprove | `ON` |
-| e2eQa | ON · prior QA `ok:true` · CORE PNG Read **Aligned** · Must **0** · review **cấm** re-run e2e/start:std |
+| e2eQa | ON · prior QA ok:true · **cấm** re-run ở review |
 | contentHash | `sha256:vis-capture-control-hint-20260829` |
 | realDataHash | `sha256:vis-capture-real-data-20260829` |
 | bffContentHash | `sha256:vis-capture-mobile-bff-20260829` |
 | actionTreeHash | `sha256:vis-capture-action-tree-20260829` |
-| skillVersion | `2026.08.20.01` (agent-review-mobile) |
+| skillVersion | `2026.08.29.1` (agent-review-mobile) |
 | schemaVersion | `1` |
 | workflowVersion | `2026.08.29.1` |
 | rulesVersion | `2026.08.29.5` |
 | versionGate | `rechecked` |
-| verifyGate | review findings **PASS** · SEC/DTO/ALIGN Must **0** · prior QA/Dev evidence only · roleOnly=`review` · **cấm** e2e/build/Step4b |
-| updatedAt | `2026-08-29T10:33:13.225Z` |
+| verifyGate | review SEC/DTO/ALIGN PASS · Must **0** · prior QA ok:true · cleanup_mock closed |
+| updatedAt | `2026-09-01T06:33:22.264Z` |
 ## Lock
 
 | agent | scope | id | at |
 |-------|-------|-----|-----|
-| — | — | — | **released** (review done) |
+| — | — | — | **released** (review done · task_f31fa8eb) |
 
 ## Pipeline
 
@@ -45,9 +45,9 @@
 | 2.1 | design | ui/design.md · ui/ux-analy.md · ui/html-to-native-map.md · ui/review/demo-parity.md · prototype/ios/index.html · prototype/android/index.html | **confirmed** |
 | 2.2 | sa | be/solution-discovery.md | **confirmed** |
 | 3 | team-lead | task/vis-capture.md | **confirmed** |
-| 4 | dev | implement/ios.md · implement/android.md | **confirmed** |
-| 5 | qa | qa/scenarios.md · qa/store/vis-capture/CAPTURE.md · qa/store/vis-capture/manifest.json · ui/review/align-ux.md | **confirmed** |
-| 6 | review | review/findings.md · review/REVIEW-META.json | **done** |
+| 4 | dev | implement/ios.md · implement/android.md · handoff/dev-compact.md | **confirmed** |
+| 5 | qa | qa/scenarios.md · qa/store/vis-capture/CAPTURE.md · qa/store/vis-capture/manifest.json · ui/review/align-ux.md · handoff/qa-compact.md | **confirmed** |
+| 6 | review | review/findings.md · review/REVIEW-META.json · handoff/review-compact.md | **done** |
 ## Tasks
 
 | id | page | role | deps | status | notes |
@@ -60,19 +60,22 @@
 | task_23892797 | vis-capture | dev | team_lead | **completed** | `/agent-dev-ios`+`/agent-dev-android` · T-IOS/T-AND/T-BE-ENGINE · build gates PASS · **cấm** e2e |
 | task_752e74c9 | vis-capture | qa | dev | **completed** | `/agent-qa-mobile` · e2eQa=ON · ok:true · align Aligned · Must 0 · handoff Review |
 | task_3be26d66 | vis-capture | review | qa | **completed** | `/agent-review-mobile` · review_confirm=done · SEC/DTO/ALIGN PASS · pipeline complete |
+| task_4dc20e00 | vis-capture | dev | — | **completed** | `/edit-mobile-feature` · cleanup_mock · live GPS/session stamp · builds PASS |
+| task_4b69db15 | vis-capture | qa | cleanup_mock | **completed** | `/agent-qa-mobile` · e2eQa=ON · ok:true · Aligned · Must 0 · qa-compact |
+| task_f31fa8eb | vis-capture | review | qa | **completed** | `/agent-review-mobile` · review_confirm=done · cleanup_mock recheck · SEC/DTO/ALIGN PASS |
 
 ### Dev split (from task/vis-capture.md)
 
 | id | layer | status | notes |
 |----|-------|--------|-------|
-| T-IOS-VIS-CAP | ios | **done** | screen + PhotoRow + GPS gate + detect/attach + entry |
-| T-AND-VIS-CAP | android | **done** | dual parity · section + Bỏ qua |
+| T-IOS-VIS-CAP | ios | **done** | cleanup_mock · live stamp · no demoLoc |
+| T-AND-VIS-CAP | android | **done** | dual parity · live stamp · no DEMO_LOC |
 | T-BE-VIS-DETECT-ENGINE | be | **done** | Signed harden `POST ai-vision/detect` · SourceKind=`detect-signed` |
 | T-BE-VIS-DETECT-MIG | be | **n/a** | AccuracyM request-only |
 | T-BFF-VIS-CAP | bff | **n/a** | proxy catch-all |
 | T-KIT-VIS-CAP | kit | **n/a** | kit_missing none |
-| T-QA-VIS-CAP | qa | **done** | e2e-qa-mobile slug only · store PNG · align Aligned |
-| T-REVIEW-VIS-CAP | review | **done** | findings · SEC/DTO/ALIGN Must 0 · review_confirm=done |
+| T-QA-VIS-CAP | qa | **done** | post cleanup_mock · task_4b69db15 · ok:true |
+| T-REVIEW-VIS-CAP | review | **done** | post cleanup_mock · task_f31fa8eb · review_confirm=done |
 
 ## Blockers / open questions
 
@@ -81,13 +84,14 @@
 - GAP-MOB-VIS-DETECT-01 — **CLOSED** Dev · Signed engine trên `POST ai-vision/detect` · HTTP AiService + local fallback · SourceKind=`detect-signed`
 - GAP-MOB-VIS-GPS-01 — **CLOSED** SA · client gate AccuracyM ≤ 30 m trước detect
 - GAP-MOB-A11Y-VIS-01 — **OPEN Should** · Maestro text «±»/«đã chốt» NFC·NFD · không block · Review Defer
+- GAP-MOB-EDIT-DEMO-01 — **CLOSED** Dev · cleanup_mock live session stamp · **cấm** demoLoc/DEMO_LOC/itemsOrDemo
 
 ## Links
 
-- data-analy → po → ui → be → task → implement → qa → review → **done**
-- native: e2eQa ON → prior `yarn e2e-qa-mobile` **PASS** — review **cấm** re-run / mfeStdUrl
-- review: `specs/vis-capture/review/findings.md` · `review_confirm=done` · autoApprove ON
+- data-analy → po → ui → be → task → implement → qa → review → edit cleanup_mock → qa recheck → **review done**
+- native: e2eQa ON · store live · **cấm** mfeStdUrl
 - reviewUrl iOS: `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/vis-capture/ui/prototype/ios/index.html`
 - reviewUrl Android: `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/vis-capture/ui/prototype/android/index.html`
-- align: `specs/vis-capture/ui/review/align-ux.md` · Must **0**
-- post_review: **skip** · next `/edit-mobile-feature` only nếu cần delta
+- align: `specs/vis-capture/ui/review/align-ux.md` · Must **0** · Aligned
+- handoff: `specs/vis-capture/handoff/review-compact.md`
+- phase: **done** · T-REVIEW-VIS-CAP PASS

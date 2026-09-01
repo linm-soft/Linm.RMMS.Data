@@ -67,11 +67,11 @@ appId: org.linmsoft.rmms
 - assertVisible:
     id: "row-mnt-hub"
 - assertVisible:
-    id: "card-mnt-demo-wo-1"
+    id: "card-mnt-11111111-1111-1111-1111-111111111101"
 - assertVisible: "Vá mặt đường"
-# iOS LinmStrokeGlyph sync chưa expose resource-id (GAP-MOB-A11Y-01) — tap middle action = sync trên card demo-wo-1
+# iOS LinmStrokeGlyph sync chưa expose resource-id (GAP-MOB-A11Y-01) — tap middle action = sync trên card live WO
 - tapOn:
-    id: "btn-mnt-sync-demo-wo-1"
+    id: "btn-mnt-sync-11111111-1111-1111-1111-111111111101"
     optional: true
 - tapOn:
     point: "50%,48%"

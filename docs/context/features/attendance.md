@@ -65,7 +65,7 @@ BackendRoot: `D:/AI-QLBD/Linm.RMMS.WebService` · domain **Patrol** · **cấm**
 | GET | `/attendance/zones?routeId=` | Geo-fence | **MISSING** (P2) |
 
 Auth: JWT · tenant · perms `patrol.attendance-logs.read|create|update|delete` (BE `[RequirePermission]` stub P1).  
-MFE fallback demo store khi BFF down.
+MFE fallback demo store khi BFF down (web). **Mobile hub** `#sc-attendance`: live GET only · empty → `[]` / unchecked hero «—» · **cấm** `demoDays` / `demoHero` fallback.
 
 ## 4. Database
 
@@ -120,3 +120,10 @@ Cross-nav demo: Patrol Check-in · Report BC checkin.
 - Actions: `docs/context/_raw/legacy-govone/demo-maps/attendance-actions.md`
 - Infer: ≥3 check-in/ngày · buffer geo-fence · báo cáo tuần/tháng · Face/NFC DEFER
 <!-- SYNTHETIC-PRODUCT-DOCS:END -->
+
+## Implement tracking
+
+| lane | phase | status | updatedAt |
+|------|-------|--------|-----------|
+| web | — | — | — |
+| mobile | `done` | `done` | `2026-09-01T08:52:31.502Z` |

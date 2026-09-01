@@ -1,57 +1,49 @@
-# Dev — Implement — patrol-pin (Android)
+# Dev — Implement Android — patrol-pin
 
 | Field | Value |
 |-------|-------|
 | feature | `patrol-pin` |
-| task | `T-AND-PAT-PIN` · `task_5bb83877` |
-| role | `/agent-dev-android` · `/dev-android-compose` · `/dev-ui-review` |
+| platform | Android |
+| this role | `dev` · `/edit-mobile-feature` · `/agent-dev-android` |
 | status | **confirmed** |
-| changeScope | `new_page` |
-| packKind | `sheet` |
-| updatedAt | `2026-08-21T03:41:21.000Z` |
+| changeScope | `edit_page` (cleanup_mock) |
+| packKind | **`sheet`** |
+| taskId | `task_c9fd5cec` |
+| updatedAt | `2026-09-01T07:25:00.000Z` |
+| autoApprove | ON |
+| contentHash | sha256:patrol-pin-control-hint-20260821 |
+| bffContentHash | sha256:patrol-pin-mobile-bff-20260821 |
 
-## Layers
+## Notes (cleanup_mock)
 
-| Layer | Path |
-|-------|------|
-| Domain | `domain/model/PatrolPinCopy.kt` · `GetCurrentLocationUseCase` · `LocationReading` |
-| Data | `data/repository/AndroidLocationReader.kt` · timeout 8s · **cấm** fake lat/lng |
-| Presentation | `PatrolHome*` · `PatrolMap*` · `GpsDenyDialog` (`LinmPrimaryButton` + `LinmSecondaryButton`) |
-| Copy | `LinmCopy` parity VN |
-| DI | Hilt · permission launcher hub/map · `setOpenCheckIn` sibling stub |
-| BFF | **chỉ** `GET patrol/sessions` · Step 4b **N/A** |
+- **GAP-MOB-EDIT-DEMO-01 closed** — dual parity iOS · gỡ `PatrolPinCopy.demoRoute` · map **cấm** `itemsOrDemo` / `nextDemoTitle`.
+- Toast route = live `GET patrol/sessions` active · empty = `patrol.empty.active.route` (resolve copy key) · fail = `cam.toast.sessionFail`.
+- GPS pin local OK offline · **cấm** invent `QL.1 · Km 1561+134`.
+- Seed: reuse sessions · Step 4b **N/A** · BE empty OK.
+- Action gate: sheet CTA pin + GpsDenyDialog · list/search N/A · CRUD forms N/A.
 
-## Behavior (DoD)
+## Shipped (prior + this edit)
 
-1. Hub + map CTA **Ghim vị trí hiện tại** (`LinmPrimaryButton` + `LinmMapPinGlyph`) → permission launcher → live GPS → toast Route/±m (roundToInt parity iOS).
-2. Map: pin `.here` + follow · **cấm** fake coords.
-3. Deny → in-app `GpsDenyDialog` · clipboard body + toast · **cấm** system `AlertDialog`.
-4. Timeout → `patrol.map.locTimeout`.
-5. Offline ghim local OK · GET fail → demo route · **cấm** full-screen block.
-6. Handoff check-in stub toast only · **cấm** form / POST.
-7. Tab 5 shell giữ · pack `tabs: none`.
+| Area | Path / note |
+|------|-------------|
+| Domain | `domain/model/PatrolPinCopy.kt` · **no** demoRoute |
+| Hub CTA | `PatrolHomeViewModel.pinHere` · resolve live route label |
+| Map CTA | `PatrolMapViewModel` live sessions · nextTitle empty-label |
+| Deny | `GpsDenyDialog` · **cấm** system AlertDialog |
+| BFF | `GET patrol/sessions` only |
 
-## Build (VERIFY GATE)
+## Build gate
 
-```bash
-cd /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android && ./gradlew assembleDebug
-```
-
-**PASS** — `2026-08-21T03:41:21.000Z`.
-
-## BFF (shared VERIFY)
-
-```bash
-cd /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Bff
-dotnet build bff/src/RMMS.Mobile.Bff/RMMS.Mobile.Bff.csproj
-```
-
-**PASS** — `2026-08-21T03:41:21.000Z` · Step 4b **N/A** (SA).
+| Check | Result |
+|-------|--------|
+| `./gradlew :app:assembleDebug` | **PASS** |
+| demoRoute / nextDemoTitle pin path | **removed** |
 
 ## Version meta
 
 | Field | Value |
 |-------|-------|
 | skillId | agent-dev-android |
-| contentHash | sha256:patrol-pin-control-hint-20260821 |
-| bffContentHash | sha256:patrol-pin-mobile-bff-20260821 |
+| skillVersion | 2026.08.20.03 |
+| schemaVersion | 1 |
+| workflowVersion | 2026.08.25.01 |

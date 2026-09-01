@@ -1,13 +1,16 @@
 {
   "feature": "estimate",
   "status": "done",
-  "schemaVersion": "1",
-  "reviewHash": "sha256:est-rev-4d8efb95-8f59b71b-2abaf41c",
-  "rulesVersion": "2026.08.16.05",
-  "skillVersion": "2026.08.15.17",
-  "workflowVersion": "2026.08.18.02",
+  "schemaVersion": "2",
+  "reviewHash": "sha256:est-mob-rev-20260901-task0d408356",
+  "rulesVersion": "2026.08.29.5",
+  "skillVersion": "2026.08.25.01",
+  "workflowVersion": "2026.08.29.1",
   "review_confirm": "approve",
-  "taskId": "task_f699faf1",
-  "generatedAt": "2026-08-17T17:28:23.648Z",
-  "versionGate": "ok"
+  "align_confirm": "approve",
+  "packKind": "sheet",
+  "taskId": "task_0d408356",
+  "generatedAt": "2026-09-01T09:26:00.000Z",
+  "versionGate": "rechecked",
+  "priorWeb": "findings-web.md"
 }

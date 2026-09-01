@@ -1,7 +1,7 @@
 appId: org.linmsoft.rmms
 ---
 # estimate · store P6 ×2 · guest → login → tile-mnt → hub/card → #sc-estimate (Pixel 1080×1920)
-# cấm hideKeyboard (BACK có thể về launcher) — tap title + Enter như mnt-list
+# QA-fix GAP-QA-E2E-AND-01: sc-home PRIMARY · Trang Chủ secondary · tap CTA trước/sau Enter · cấm hideKeyboard
 - launchApp:
     clearState: true
     clearKeychain: true
@@ -24,6 +24,13 @@ appId: org.linmsoft.rmms
     id: "f-pass"
 - eraseText
 - inputText: "Linm@2026"
+- tapOn: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
+- tapOn:
+    id: "btn-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
 - pressKey: Enter
 - waitForAnimationToEnd:
     timeout: 4000
@@ -34,11 +41,11 @@ appId: org.linmsoft.rmms
     text: "Đăng nhập"
     optional: true
 - extendedWaitUntil:
-    visible: "Trang Chủ"
-    timeout: 45000
-- extendedWaitUntil:
     visible:
       id: "sc-home"
+    timeout: 45000
+- extendedWaitUntil:
+    visible: "Trang Chủ"
     timeout: 15000
 - scrollUntilVisible:
     element:
@@ -77,8 +84,19 @@ appId: org.linmsoft.rmms
     id: "row-from-incident"
 - assertVisible:
     id: "input-assignee"
+# Pixel_2: CTA dưới fold (input-due clip) — scroll trước assert btn-*
+- scrollUntilVisible:
+    element:
+      id: "btn-assign"
+    direction: DOWN
+    timeout: 15000
 - assertVisible:
     id: "btn-assign"
+- scrollUntilVisible:
+    element:
+      id: "btn-draft"
+    direction: DOWN
+    timeout: 10000
 - assertVisible:
     id: "btn-draft"
 - tapOn:
@@ -105,7 +123,11 @@ appId: org.linmsoft.rmms
 - assertVisible:
     id: "sc-estimate"
 - takeScreenshot: P6-CORE
-- scroll
+- scrollUntilVisible:
+    element:
+      id: "btn-draft"
+    direction: DOWN
+    timeout: 10000
 - scroll
 - assertVisible:
     id: "btn-draft"

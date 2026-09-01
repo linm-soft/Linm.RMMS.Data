@@ -155,7 +155,7 @@ AskQuestion: `route_confirm=route_a` · `ios_repo_confirm` · `android_repo_conf
 
 1. Screen **Thu thập bằng camera** full (`DES-MOB-CAM-PATROL`): nav back → `patrol-home` · title fixed · finder · stamps · detect card · Confirm / Skip · toast · **cấm** bottom-sheet chrome.
 2. Finder live continuous (`DES-MOB-CAM-FINDER`) + FOV · **cấm** fake placeholder khi camera granted · deny camera → toast/block detect.
-3. Stamp tuyến/Km: live `GET patrol/sessions` filter `Status=Đang tuần` · fail/empty → demo SSOT **QL.1 · Km 1556+040** · GPS **vẫn** chạy.
+3. Stamp tuyến/Km: live `GET patrol/sessions` filter active · fail/empty → `patrol.empty.active.route` + toast fail · **cấm** demo SSOT · GPS **vẫn** chạy.
 4. Stamp GPS device only: `{lat}, {lng} · ±{a} m · đã chốt` · **cấm** fake lat/lng · deny → `DES-MOB-GPS-DENY` · **chặn** Confirm.
 5. Detect: `POST ai-vision/detect` · card bind `DefectClass` (+ surface) · row Hành động cố định · **ship ẩn Score %** (`GAP-MOB-CAM-SCORE-01`) · detect fail → toast lỗi · **cấm** fake card.
 6. Confirm: HasGps → `POST incident/incidents` bind `DetectionId` + stamp · toast **Đã tạo vấn đề {Code} · định vị đã chốt** · fail/offline → `OfflineQueueKind.incident` + toast nháp · **cấm** invent SC · **cấm** fake 200.

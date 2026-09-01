@@ -6,13 +6,13 @@
 | this role | `qa` · `/agent-qa-mobile` |
 | status | **confirmed** |
 | packKind | **`hub`** |
-| taskId | `task_c882b8bd` |
+| taskId | `task_2fbe1ca6` |
 | e2eQa | **ON** · `yarn e2e-qa-mobile` · `ios_test_phase=phase1_iphone` · **A4-IPAD DEFER** |
 | store_qa | **run_store** (autoApprove=ON) |
-| e2e result | **ok:true** · `2026-08-19T14:47:21.050Z` · dest **iPhone 17 Pro Max** 1320×2868 RGB · AVD **1080×1920** |
+| e2e result | **ok:true** · `2026-09-01T05:22:21.520Z` · dest **iPhone 17 Pro Max** 1320×2868 RGB · AVD **1080×1920** |
 | method | e2e runtime · yarn e2e-qa-mobile · Maestro + simctl/adb · **cấm** GenerateImage · **cấm** yarn start:std / mfeStdUrl |
 | align | dual proto `#sc-patrol-home` · live A3 ↔ P6 · **Aligned** · Must **0** |
-| updatedAt | `2026-08-19T14:50:00.000Z` |
+| updatedAt | `2026-09-01T05:25:00.000Z` |
 
 **Scope:** slug `patrol-home` hub `#sc-patrol-home` only. **Cấm** AC sibling screens (`attendance` · `patrol-map` · check-in form · `ops`).
 
@@ -21,11 +21,11 @@
 | Gate | Result |
 |------|--------|
 | iOS `xcodegen` | **PASS** |
-| iOS `xcodebuild` dest **iPhone 17 Pro** | **PASS** |
+| iOS `xcodebuild` dest **iPhone 17 Pro** | **PASS** (prior) |
 | Android `./gradlew :app:assembleDebug` | **PASS** |
 | Mobile.Bff `dotnet build` | **PASS** (0 warning · 0 error) |
-| Maestro iOS + Android | **PASS** · Home `tile-patrol` / `tab-field` → `#sc-patrol-home` |
-| API :5101 + BFF :5202 | **PASS** (docker) |
+| Maestro iOS + Android | **PASS** · guest→login→`tab-field`/`tile-patrol` → `#sc-patrol-home` |
+| API :5111 + BFF :5202 | **PASS** (docker · `--skip-start`) |
 | `yarn e2e-qa-mobile` | **PASS** · `ok:true` |
 
 ## Device AC
@@ -46,14 +46,14 @@
 | AC-D-12 | Type 13 / ≥16 | **PASS** (visual + SSOT parity) |
 | AC-D-13 | Dual copy VN | **PASS** (A3 ↔ P6) |
 | AC-D-14 | Cấm watermark / device label | **PASS** |
-| AC-F-01 | Hero + KPI + pin `LinmPrimaryButton` | **PASS** (`btn-pin-here` · 2 / 1 / 67%) |
+| AC-F-01 | Hero + KPI + pin `LinmPrimaryButton` | **PASS** (`btn-pin-here` · live/emptyActive) |
 | AC-F-02 | Home tile `tile-patrol` / tab field → `#sc-patrol-home` | **PASS** (Maestro) |
 | AC-F-03 | Nav sync / Lưu trữ ids · **cấm** AC sibling screen | **PASS** (`btn-sync` · `row-quick-patrol-offline`) |
 | AC-F-04 | Bell toast Thông báo · badge 0 ẩn | **PASS** (shots không badge 3) |
 | AC-F-05 | Segment idx 0 Tuần đường | **PASS** (A3/P6) |
 | AC-F-06 | A11y `sc-patrol-home` · `btn-pin-here` · `patrol-hero` | **PASS** (Maestro) |
 | AC-F-07 | Cấm watermark Gói | **PASS** |
-| AC-F-08 | Sibling toast · **cấm** sheet check-in | **PASS** (shots hub only) |
+| AC-F-08 | Sibling toast · **cấm** sheet check-in on hub scope | **PASS** (hub-only · pin→toast/nav sibling) |
 
 ## Store Must
 
@@ -71,8 +71,8 @@
 
 | Flow | Path | Result |
 |------|------|--------|
-| iOS | `qa/e2e/ios.yaml` | **PASS** · login seed → `tile-patrol` / text Tuần đường → `#sc-patrol-home` |
-| Android | `qa/e2e/android.yaml` | **PASS** · `tab-field` → `#sc-patrol-home` · scroll `row-quick-patrol-offline` |
+| iOS | `qa/e2e/ios.yaml` | **PASS** · guest→login seed → `tile-patrol` / text Tuần đường → `#sc-patrol-home` |
+| Android | `qa/e2e/android.yaml` | **PASS** · guest→login → `tab-field` → `#sc-patrol-home` · scroll `row-quick-patrol-offline` |
 
 ## Gaps
 
@@ -81,41 +81,6 @@
 | GAP-QA-A11Y-TAB-FIELD-01 | iOS `LinmTabBar` children inherit `resource-id` `tab-bar` (không expose `tab-field`) · Maestro dùng `tile-patrol` + text **Tuần đường** · Android `tab-field` OK | **No** |
 
 ## E2E screenshots
-
-Viewer: `/api/qldb/artifact?id=&rel=qa/scenarios.md` rewrite `screens/{caseId}.png`.
-
-CLI **PASS** = Maestro + PNG + store px only — **not** visual vs demo. QA **Read** A3-CORE + P6-CORE vs prototype (`/review-align-ux-ios-android`). Demo `.row-icon`/`#i-*` missing on live → Must **GAP-MOB-UX-COMP-03** · log `qa/bugs/`. Skip vision → **GAP-MOB-E2E-VIS-01**.
-
-| Case | Store | Result | Evidence |
-|------|-------|--------|----------|
-| A10-BFF | A10 · P11 | **PASS** | — |
-| MAESTRO-IOS | A3 · A9 · A11 | **FAIL** | — |
-| CRAWL | — | **FAIL** | — |
-| MAESTRO-AND | P6 | **FAIL** | — |
-| A11-LAUNCH | A11 | **PASS** | ![A11-LAUNCH](screens/A11-LAUNCH.png) |
-| A9-LOGIN | A9 · P10 | **PASS** | ![A9-LOGIN](screens/A9-LOGIN.png) |
-| A3-CORE | A3 · A11 | **PASS** | ![A3-CORE](screens/A3-CORE.png) |
-| P6-CORE | P6 · P11 | **PASS** | ![P6-CORE](screens/P6-CORE.png) |
-| P6-CORE-2 | P6 | **PASS** | ![P6-CORE-2](screens/P6-CORE-2.png) |
-
-
-Viewer: `/api/qldb/artifact?id=&rel=qa/scenarios.md` rewrite `screens/{caseId}.png`.
-
-CLI **PASS** = Maestro + PNG + store px only — **not** visual vs demo. QA **Read** A3-CORE + P6-CORE vs prototype (`/review-align-ux-ios-android`). Demo `.row-icon`/`#i-*` missing on live → Must **GAP-MOB-UX-COMP-03** · log `qa/bugs/`. Skip vision → **GAP-MOB-E2E-VIS-01**.
-
-| Case | Store | Result | Evidence |
-|------|-------|--------|----------|
-| A10-BFF | A10 · P11 | **PASS** | — |
-| MAESTRO-IOS | A3 · A9 · A11 | **FAIL** | — |
-| MAESTRO-AND | P6 | **FAIL** | — |
-| A11-LAUNCH | A11 | **PASS** | ![A11-LAUNCH](screens/A11-LAUNCH.png) |
-| A9-LOGIN | A9 · P10 | **PASS** | ![A9-LOGIN](screens/A9-LOGIN.png) |
-| A3-CORE | A3 · A11 | **PASS** | ![A3-CORE](screens/A3-CORE.png) |
-| P6-CORE | P6 · P11 | **PASS** | ![P6-CORE](screens/P6-CORE.png) |
-| P6-CORE-2 | P6 | **PASS** | ![P6-CORE-2](screens/P6-CORE-2.png) |
-
-
-Viewer: `/api/qldb/artifact?id=&rel=qa/scenarios.md` rewrite `screens/{caseId}.png`.
 
 | Case | Store | Result | Evidence |
 |------|-------|--------|----------|
@@ -130,6 +95,7 @@ Viewer: `/api/qldb/artifact?id=&rel=qa/scenarios.md` rewrite `screens/{caseId}.p
 
 - Maestro iOS: **cấm** rely `id: tab-field` (kit a11y) — same class work-around as ops `text: Tôi`.
 - px: iOS A3 **1320×2868** RGB · Play P6 **1080×1920** RGB.
+- Flow fix post cleanup_mock: guest home → `btn-home-login` (cấm launch-to-login-only).
 - **Cấm** READY_TO_SUBMIT ở QA — next `/agent-review-mobile`.
 - Sibling AC / form slug khác: **out of scope**. Form submit **N/A** (hub không CTA Lưu/Gửi).
 
@@ -145,4 +111,4 @@ Viewer: `/api/qldb/artifact?id=&rel=qa/scenarios.md` rewrite `screens/{caseId}.p
 
 ## Version meta
 
-skillId=agent-qa-mobile · skillVersion=2026.08.19.28 · workflowVersion=2026.08.19.29 · generatedAt=2026-08-19T14:50:00.000Z · taskId=task_c882b8bd
+skillId=agent-qa-mobile · skillVersion=2026.08.19.28 · workflowVersion=2026.08.19.29 · generatedAt=2026-09-01T05:25:00.000Z · taskId=task_2fbe1ca6

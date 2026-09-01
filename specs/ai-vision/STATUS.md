@@ -3,7 +3,7 @@
 | Field | Value |
 |-------|-------|
 | feature | `ai-vision` |
-| phase | `data_analy` |
+| phase | `done` |
 | status | `in_progress` |
 | changeScope | `edit_page` |
 | packKind | `ai` |
@@ -18,7 +18,7 @@
 | versionGate | `ok` |
 | mfeStdRoute | `/ai-vision` |
 | mfeStdUrl | `http://localhost:9303/ai-vision` |
-| updatedAt | `2026-08-24T15:40:02.687Z` |
+| updatedAt | `2026-09-01T00:42:01.263Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -39,14 +39,14 @@
 
 | Step | Agent | Artifact | Status |
 |------|-------|----------|--------|
-| 0b | data-analy | `_data-analy/features/ai-vision-control-hint.md` + `ai-vision-real-data.md` | **paused** |
+| 0b | data-analy | `_data-analy/features/ai-vision-control-hint.md` + `ai-vision-real-data.md` | **done** |
 | 1 | po | po/requirement.md | **done** |
 | 2.1 | design | ui/design.md + prototype + reviewUrl | **done** |
 | 2.2 | sa | be/solution-discovery.md | **done** |
 | 3 | team-lead | task/ai-vision.md | **done** |
-| 4 | dev | implement/ai-vision.md | **in_progress** |
-| 5 | qa | qa/scenarios.md | **pending** |
-| 6 | review | review/findings.md | **pending** |
+| 4 | dev | implement/ai-vision.md | **done** |
+| 5 | qa | qa/scenarios.md | **done** |
+| 6 | review | review/findings.md | **confirmed** |
 ## Tasks
 
 | id | page | role | deps | status | notes |

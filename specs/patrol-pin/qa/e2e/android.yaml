@@ -1,12 +1,19 @@
 appId: org.linmsoft.rmms
 ---
-# patrol-pin · store P6 ×2 · login Auth seed → hub pin CTA · map pin CTA (Pixel 1080×1920)
-# Submit qua ImeAction trên f-pass (pressKey Enter) · title tap optional nếu đã vào home
+# patrol-pin · store P6 ×2 · guest → login → hub pin CTA · map pin CTA (Pixel 1080×1920)
+# Submit IME Enter trên f-pass · cấm sheet-checkin
 - launchApp:
     clearState: true
     clearKeychain: true
 - extendedWaitUntil:
-    visible: "Đăng nhập"
+    visible:
+      id: "sc-home"
+    timeout: 20000
+- tapOn:
+    id: "btn-home-login"
+- extendedWaitUntil:
+    visible:
+      id: "f-user"
     timeout: 15000
 - tapOn:
     id: "f-user"
@@ -21,15 +28,18 @@ appId: org.linmsoft.rmms
 - waitForAnimationToEnd:
     timeout: 4000
 - tapOn:
-    text: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
-    optional: true
-- tapOn:
     id: "btn-login"
     optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
+- extendedWaitUntil:
+    visible: "Trang Chủ"
+    timeout: 45000
 - extendedWaitUntil:
     visible:
       id: "sc-home"
-    timeout: 45000
+    timeout: 15000
 - tapOn:
     id: "tab-field"
 - extendedWaitUntil:

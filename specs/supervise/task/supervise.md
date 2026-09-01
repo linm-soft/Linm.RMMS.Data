@@ -58,9 +58,9 @@ AskQuestion (autoApprove=ON · không chờ board): `route_confirm=route_a` · `
 |---------|------|---------|
 | iOS `#sc-supervise` | **shipped** Dev `task_e29847e6` — org fallback «Tổ tuần đường · VP-IV.1» · `#i-building` Path + `LinmMapPinGlyph` · toast · GET | **T-IOS-SUPERVISE** **confirmed** |
 | Android `#sc-supervise` | **shipped** — gỡ Filled Business/Place · outline building `d=` + `LinmMapPinGlyph` · org SSOT | **T-AND-SUPERVISE** **confirmed** |
-| `SuperviseViewModel` + GET attendance-logs | **shipped** — `FetchSuperviseCheckinsUseCase` · demo fallback · toast filter/map/card | **reuse** · verify bind |
+| `SuperviseViewModel` + GET attendance-logs | **shipped** — `FetchSuperviseCheckinsUseCase` · live-only EmptyChrome · toast filter/map/card | **cleanup_mock** `task_65931a17` |
 | Home tile / patrol-home quick → push | **shipped** `setOpenSupervise` / navigate `supervise` | **reuse** · **cấm** reimplement hubs |
-| Demo SSOT 2 rows | **shipped** `SuperviseCopy.demoItems` (đã có VP-IV.1) | **reuse** |
+| Demo SSOT 2 rows | **removed** — **cấm** `SuperviseCopy.demoItems` | **closed** cleanup_mock |
 | Org empty `Note` | mapper **«Tổ tuần đường · VP-IV.1»** | **closed** Dev dual (`GAP-MOB-SUP-03`) |
 | Android `#i-building` / `#i-mappin` | outline Path `d=` / `LinmMapPinGlyph` | **closed** (`GAP-MOB-ICON-02`) |
 | Card kit | feature composition (custom) · chưa `LinmCard` wrapper | **DELTA verify** zone `DES-MOB-SUP-CARD` · wrap `LinmCard` content **nếu** kit slot khớp · **cấm** invent `LinmRichCheckinCard` |

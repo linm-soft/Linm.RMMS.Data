@@ -4,13 +4,13 @@
 |--|--|
 | Feature | `gis-map` |
 | Title | [Mobile] [Tài sản] -> Xem trên bản đồ |
-| Role | `dev` · `/agent-dev-ios` |
+| Role | `dev` · `/edit-mobile-feature` · `/agent-dev-ios` · `/agent-dev-oms-map` |
 | status | **confirmed** |
-| taskId | `task_3f6f4524` |
+| taskId | `task_ad6cbe30` |
 | packKind | **map** |
-| changeScope | `new_page` |
+| changeScope | `edit_page` (cleanup_mock) |
 | route_confirm | **route_a** |
-| updatedAt | `2026-08-31T00:57:35.000Z` |
+| updatedAt | `2026-09-01T07:50:00.000Z` |
 
 ## Shipped
 
@@ -19,43 +19,43 @@
 | Feature | `Presentation/Features/GisMap/*` — View · ViewModel · UiState · `#sc-gis-map` |
 | Domain | `GisMapModels` · `LoadGisOverlayUseCase` · `GisRepository` |
 | Data | `GisGeoJsonDto` · `GisRepositoryImpl` → `GET gis/geojson/{layer}` |
-| Focus | reuse `FetchRoadAssetByIdUseCase` · `GET asset/road-assets/{id}` |
-| DI | `AppContainer.loadGisOverlayUseCase` · `AppRouter` `GisMapViewModel` |
-| Wire hub | `AssetHubViewModel.setOnOpenGisMap` · tile/row → push (không toast) |
-| Wire detail | `assetDetailViewModel.setOnOpenMap` → push + `gisFocusAssetId` |
-| Wire incident | list/detail map → Home + `#sc-gis-map` (**≠** patrol-map) |
-| Chrome | `LinmTopBar` Tài sản/Lớp · search · basemap · legend (+ Hành lang) · MapKit |
-| Fail | demo OMS `map-oms.js` SSOT + toast · map vẫn mở |
+| Focus | `FetchRoadAssetByIdUseCase` · **chỉ** `.loaded` · **cấm** OfflineDemo focus |
+| Wire | hub/detail/incident → push (prior) |
+
+## Notes (cleanup_mock)
+
+- Removed `GisMapDemoOverlay` · `usedDemo` → `loadFailed`
+- Fail → empty/partial live + toast `gis.map.loadFallback` («…bản đồ trống») · map **vẫn mở**
+- Empty GET OK → map trống · **cấm** demo SSOT pins
+- Search (iOS) → `loadOverlay.execute(search:)` live filter
+- Step 4b **N/A** · **cấm** mfeStdUrl
 
 ## Verify
 
 ```bash
 cd /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS && xcodegen generate
 xcodebuild -scheme LinmRmms -destination 'platform=iOS Simulator,name=iPhone 17 Pro' build
-# ** BUILD SUCCEEDED **
 ```
 
 | Gate | Result |
 |------|--------|
-| xcodegen | **PASS** |
-| xcodebuild iPhone 17 Pro | **PASS** |
-| Step 4b | **N/A** (SA) |
-| e2e / start:std / mfeStdUrl | **skipped** (cấm Dev · queued QA) |
+| xcodegen + xcodebuild iPhone 17 Pro | **PASS** |
+| Step 4b | **N/A** |
+| e2e / start:std / mfeStdUrl | **skipped** |
 | ERP.* | **none** |
 
 ## Version meta
 
 | Field | Value |
 |-------|-------|
-| skillId | agent-dev-ios |
+| skillId | agent-dev-ios · edit-mobile-feature |
 | skillVersion | 2026.08.29.1 |
 | schemaVersion | 1 |
 | workflowVersion | 2026.08.31.2 |
 | rulesVersion | 2026.08.31.2 |
-| generatedAt | 2026-08-31T00:57:35.000Z |
+| generatedAt | 2026-09-01T07:50:00.000Z |
 | versionGate | rechecked |
-| contentHash | sha256:gis-map-control-hint-20260831 |
-| taskId | `task_3f6f4524` |
+| taskId | `task_ad6cbe30` |
 
 ---
 <!-- Version meta: skillId=agent-dev-ios skillVersion=2026.08.29.1 schemaVersion=1 workflowVersion=2026.08.31.2 versionGate=rechecked -->

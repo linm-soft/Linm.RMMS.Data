@@ -12,8 +12,9 @@
 | `.rc-time` | Time | muted | same | CheckInAt local |
 | `.rc-status` | Status strip | Text 13 | same | ok/warn |
 | `.rc-thumb` | Placeholder | 56 gradient | same | camera P2 |
-| `.toast` | Feedback | `LinmToast` | same | **cấm** alert |
-| `#sc-supervise` | Screen | `SuperviseView` | `SuperviseScreen` | **defer** feature page |
+| `.toast` | Feedback | `LinmToast` | same | **cấm** alert · loadFail list |
+| empty list | Empty | `EmptyChromeView` | `EmptyChrome` | id `sup-empty` · live-only |
+| `#sc-supervise` | Screen | `SuperviseView` | `SuperviseScreen` | live GET · **cấm** demoItems |
 
 **Cấm** raw `TabView` / M3 `NavigationBar` · WebView HTML.
 

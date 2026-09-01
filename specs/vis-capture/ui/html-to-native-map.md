@@ -51,7 +51,7 @@
 |------|----------------|
 | Optional media | `POST ai-vision/uploads/init` · PUT · complete |
 | Detect | `POST ai-vision/detect` |
-| Prefill Loc | optional `GET patrol/sessions` |
+| Prefill Loc | live `GET patrol/sessions` active · empty/fail → empty chrome · **cấm** demoLoc |
 | Attach | `POST incident/incidents` |
 | GPS / camera / Skip | device · local |
 

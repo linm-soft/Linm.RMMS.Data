@@ -66,7 +66,7 @@
 
 ## Blockers / open questions
 
--
+- `/edit-mobile-feature` 2026-09-01: **no-mock BE-only** — GAP-MOB-ATT-DAY-DATA-01 closed live-only · hub/day **cấm** `demoDays` / `AttendanceDayCopy.demo*`
 
 ## Links
 

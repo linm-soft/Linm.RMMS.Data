@@ -2,7 +2,7 @@
   "feature": "cam-patrol",
   "status": "done",
   "review_confirm": "done",
-  "taskId": "task_e487ff4f",
+  "taskId": "task_20cf4fcb",
   "skillId": "agent-review-mobile",
   "skillVersion": "2026.08.20.01",
   "schemaVersion": 1,
@@ -13,5 +13,8 @@
   "realDataHash": "sha256:cam-patrol-real-data-20260828",
   "bffContentHash": "sha256:cam-patrol-mobile-bff-20260828",
   "alignMustOpen": 0,
-  "generatedAt": "2026-08-28T22:03:40.000Z"
+  "changeScope": "edit_page",
+  "cleanupMock": "PASS",
+  "priorQaTaskId": "task_fb828936",
+  "generatedAt": "2026-09-01T06:17:31.000Z"
 }

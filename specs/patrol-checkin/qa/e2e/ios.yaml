@@ -73,11 +73,14 @@ appId: org.linmsoft.rmms
     id: "ci-btn-save"
 - extendedWaitUntil:
     visible: "Đúng điểm"
-    timeout: 25000
+    timeout: 35000
     optional: true
+- extendedWaitUntil:
+    visible: "QL.1"
+    timeout: 15000
 - tapOn:
     id: "ci-content"
-- inputText: "Mặt đường khô, lan can đạt"
+- inputText: "Mat duong kho, lan can dat"
 - tapOn:
     text: "Ghi điểm tuần"
     optional: true

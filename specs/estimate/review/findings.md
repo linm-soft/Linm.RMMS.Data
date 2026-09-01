@@ -1,159 +1,137 @@
-# Review findings — estimate
+# Review findings — estimate (mobile sheet → screen)
 
 > Status: **done**  
-> Mode: `review_only` (autopilot · roleOnly=`review`)  
-> reviewHash: `sha256:est-rev-4d8efb95-8f59b71b-2abaf41c` · rulesVersion: `2026.08.16.05`
+> Mode: `review_only` (autopilot · roleOnly=`review` · `/agent-review-mobile`)  
+> reviewHash: `sha256:est-mob-rev-20260901-task0d408356` · rulesVersion: `2026.08.29.5`
 
 | Field | Value |
 |-------|-------|
 | feature | `estimate` |
-| this role | `review` · `/agent-review` |
+| this role | `review` · `/agent-review-mobile` |
 | status | **done** · **approve** |
-| review_confirm | **approve** (autoApprove=ON · `task_f699faf1`) |
-| taskId | `task_f699faf1` |
+| review_confirm | **approve** (autoApprove=ON · `task_0d408356`) |
+| taskId | `task_0d408356` |
 | autoApprove | ON → agent tự confirm gate |
-| packKind | `ai` · Kind B list + Kind D slideout · Config **FULL** |
-| prior · qa | **`confirmed`/`PASS`** · `qa/scenarios.md` · e2e 21/21 · QA-CFG **PASS** · `task_1c6c0433` |
-| prior · dev | `done` · Config FULL · `implement/estimate.md` · `task_5554ab03` |
-| prior · review | `task_e4f4dd95` **reject** (Config P0) → fixed + re-QA |
-| mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.AiVision` |
-| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · AiVision · `api/v1/ai-vision/estimates` · ui-schema `ai-estimates` · **cấm ERP.*** |
-| mfeStdRoute | `/ai-vision/estimate` |
-| mfeStdUrl | `http://localhost:9303/ai-vision/estimate` |
-| reviewedAt | `2026-08-17T17:28:23.648Z` |
-| method | live code SSOT re-review + QA screens + typecheck/build |
-| skillVersion | `2026.08.15.17` |
-| schemaVersion | `1` |
-| workflowVersion | `2026.08.18.02` |
-| rulesVersion | `2026.08.16.05` |
-| versionGate | `ok` · prior artifacts keep_current (autopilot · no AskQuestion) |
+| packKind | **`sheet`** · surface screen `#sc-estimate` · `DES-MOB-EST` · ≠ web `list` Kind B+D |
+| changeScope | `edit_page` |
+| prior · qa | **`confirmed`/`PASS`** · e2e ok:true · MAESTRO-AND PASS · visual Aligned · Must 0 · `task_992add79` · `handoff/qa-compact.md` |
+| prior · dev | **done** · VERIFY GATE PASS · qa-fix implement · `task_8ab3d7ec` · `handoff/dev-compact.md` |
+| prior · tl/sa/design/po/da | **confirmed** (compact missing → full SSOT cited) |
+| priorWeb | **giữ** · `review/findings-web.md` · `REVIEW-META-web.json` · closed `task_f699faf1` |
+| ios | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS` |
+| android | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android` |
+| bff | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Bff` · catch-all · **cấm** EstimateController local |
+| backend | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.WebService` · `ai-vision/estimates` · `maintenance/work-orders` · `incident/…/assign` · **cấm ERP.*** |
+| mfeStdUrl | — · **cấm** |
+| reviewedAt | `2026-09-01T09:26:00.000Z` |
+| method | compact prior + store CAPTURE/manifest + live Estimate VM/repo spot-check · **cấm** yarn e2e/build/start:std |
+| skillVersion | `2026.08.25.01` |
+| schemaVersion | `2` |
+| workflowVersion | `2026.08.29.1` |
+| rulesVersion | `2026.08.29.5` |
+| versionGate | `rechecked` |
 
 ## Scope
 
 | Surface | Repo / path |
 |---------|-------------|
-| List Kind B | `EstimateListPage.tsx` · `mfeStdUrl` |
-| Form Kind D | `EstimateFormSlideout.tsx` |
-| Config FULL | `LinCatalogUiSchemaEditorModal` · kind `ai-estimates` |
-| BE / BFF | AiVision estimates + Integration CatalogUiSchema |
-| QA evidence | `specs/estimate/qa/screens/` · especially `QA-CFG.png` · `S0`/`S1` |
+| Screen `#sc-estimate` | iOS `EstimateView` · Android `EstimateScreen` |
+| Entry | mnt-list hub/card + incident CTA → push (route_a) |
+| APIs | seed/from-incident · PUT lines · draft · POST WO `repair` · assign |
+| QA evidence | `qa/store/estimate/` · A3-CORE · P6-CORE · P6-CORE-2 · manifest ok:true |
 
 ## Verdict
 
-**APPROVE** · `review_confirm=approve` · pipeline **closed**.
+**APPROVE** · `review_confirm=approve` · mobile pipeline **closed** (role Review).
 
-Không P0. Config FULL live + QA re-PASS đóng reject trước (`task_e4f4dd95` / `GAP-P2-CC-06`). Build PASS. Chỉ còn P2 accept/defer đã ghi STATUS.
+P0 open: **0**. Align Must: **0**. QA gate PASS. Prior web review **giữ** (OUT mobile P1).
 
-## Live SSOT re-review
+## Checks
 
-| # | Check | Live | Verdict |
-|---|-------|------|---------|
-| 1 | 1× `LinPageLayout` · **cấm** nested `CatalogListShell` | 1× layout · title «Ước lượng sửa chữa» · no AI badge | **PASS** |
-| 2 | `LinCatalogDataGrid` + kéo cột default ON | grid + schema-driven columns | **PASS** |
-| 3 | Footer `LinCatalogListPagination` only · **cấm** footerPagination / pageSizeBar | pager only · pageSize 50+ | **PASS** |
-| 4 | Flex root + skeleton / `useServerPagedListLoading` | present | **PASS** |
-| 5 | Zone F **`LinCatalogUiSchemaEditorModal`** title «Cấu hình hiển thị danh mục» · **cấm** `configHint` / `LinListTableConfigModal` | modal wired · **no** `configHint` in Estimate CSS/TSX | **PASS** |
-| 6 | `columns={buildDynamicGridColumns(schema, uiColumns)}` · `useCatalogUiSchema('ai-estimates')` | `CATALOG_KIND='ai-estimates'` · dynamic columns | **PASS** |
-| 7 | BE `CatalogUiSchemaRegistry` + Seed `ai-estimates` | Registry + `AiEstimates()` 8 fields | **PASS** |
-| 8 | Zone B `LinErpListFilterBar` · SearchTextInput + status · **cấm** nút chữ «Tìm» | present · icon apply | **PASS** |
-| 9 | Path FE `/ai-vision/estimate` · BE `api/v1/ai-vision/estimates` · **cấm** `/ai-estimate` · **cấm ERP.*** | endpoint + domain AiVision only | **PASS** |
-| 10 | Form Kind D slideout footer-only + `LeaveConfirmModal` | present | **PASS** |
-| 11 | Confirm `Modal` · **cấm** `window.confirm` · no auto WO | Modal confirm · no WO | **PASS** |
-| 12 | LAYOUT-06 shell (title+toolbar+grid visible) | QA `S0`/`S1` · live list populated | **PASS** |
-| 13 | End-user · **cấm** demo note / AI chrome | no DEMO banner · no Kind/GAP labels on UI | **PASS** |
-| 14 | Prior QA e2e | `qa/scenarios.md` **PASS** · 21/21 · QA-CFG **PASS** | **PASS gate** |
+| # | Check | Evidence | Verdict |
+|---|-------|----------|---------|
+| 1 | QA e2e + Maestro | `qa-compact` · manifest ok:true · A11→P6 PASS | **PASS** |
+| 2 | Visual align CORE vs demo | QA Aligned · demo `row no-icon` · GAP-MOB-UX-COMP-03 closed · PNG Read store blocked this host → cite QA | **PASS** |
+| 3 | demo-parity Must | `ui/review/demo-parity.md` OK · no open bugs/ | **PASS** |
+| 4 | Pack / zones | sheet→screen · DES-MOB-EST · tabs none · tab work | **PASS** |
+| 5 | API paths · no ERP.* · no invent | EstimateRepository `ai-vision/estimates/*` · WO · assign | **PASS** |
+| 6 | Dual DTO / Lines[0] | iOS+Android UpdateEstimate lines map | **PASS** |
+| 7 | Security session | shared Session / Encrypted prefs · Bearer via ApiClient · no plaintext token in Estimate* | **PASS** |
+| 8 | No system alert | no UIAlert / AlertDialog in Estimate* · LinmToast | **PASS** |
+| 9 | Real data | seed API primary · `applyDemoFallbackRows` only on seed fail/empty (PO DoD) · A10-BFF PASS | **PASS** · GAP-MOB-REAL-02 **closed** · GAP-QA-REAL-01 **closed** |
+| 10 | Store submit | PrivacyInfo / Play · A4-IPAD DEFER · HTTPS landing N/A pack | **PASS** / defer noted |
+| 11 | Crawl / ACT-03 | role **cấm** e2e · QA Maestro slug estimate only · no open GAP-MOB-ACT-03 / sibling enqueue | **PASS** (cite QA) |
+| 12 | VERIFY prior Dev | iOS xcodebuild · Android assembleDebug · BFF dotnet **PASS** | **PASS** |
+| 13 | Step 4b / migration | N/A Signed · **không** chạy ở Review | **n/a** |
 
 ## Findings
 
-| ID | Class | Sev | Status | Where | Note / Fix |
-|----|-------|-----|--------|-------|------------|
-| R-CFG-01 | ui-fn | P0 | **closed** | Zone F | Config FULL · modal «Cấu hình hiển thị danh mục» · evidence `QA-CFG.png` |
-| R-CFG-02 | ui-fn | P0 | **closed** | columns | `buildDynamicGridColumns` + `useCatalogUiSchema` |
-| R-CFG-03 | be-fn | P0 | **closed** | CatalogUiSchema | seed/registry `ai-estimates` |
-| R-QA-01 | process | P0 | **closed** | QA gate | `task_1c6c0433` PASS |
-| R-PATH-01 | be-fn | — | closed | domain | AiVision · no ERP.* |
-| R-UI-01 | ui-fn | — | closed | list/form | shell · pager · leave · confirm |
-| R-UI-LAYOUT-06 | ui-fn | P0 | closed | list shell | title+toolbar+grid visible |
-| R-UI-DEMO-NOTE-01 | ui-fn | P0 | closed | copy | no end-user demo notes |
-| R-S-01 | security | P2 | **accept** | Controller | `[RequirePermission]` TODO when CommonLib ready |
-| R-MIG-01 | be-fn | P2 | **accept** | migration | **GAP-QA-MIG-EST-01** Designer/snapshot missing · SQL applied in QA |
-| R-P2-01 | product | P2 | defer | catalog / WO | UnitPriceCatalog · Auto WO / `estimate.created` |
+| ID | Class | Sev | Status | Note |
+|----|-------|-----|--------|------|
+| R-QA-01 | process | P0 | **closed** | re-QA `task_992add79` PASS |
+| GAP-QA-E2E-AND-01 | e2e | P0 | **closed** | MAESTRO-AND PASS |
+| GAP-QA-STORE-03 | e2e | P0 | **closed** | manifest.ok=true |
+| GAP-QA-P6-DUP-01 | e2e | — | **closed** | CORE ≠ CORE-2 |
+| GAP-MOB-UX-COMP-03 | align | Must | **closed** | Aligned · Must 0 |
+| GAP-MOB-REAL-02 | data | — | **closed** | demo fallback ≠ sole source |
+| GAP-QA-REAL-01 | data | — | **closed** | A10-BFF PASS |
+| GAP-MOB-EST-* (NAV/SIMP/ASSIGNEE/WO/SLA/PACK) | product | — | **closed** | **cấm** reopen |
+| R-WEB-* | web | — | **giữ** | `findings-web.md` |
 
-**P0 open:** 0.
+**P0 open:** 0. **Must align open:** 0.
 
-## Query (`/review-query`)
+## Security (mobile)
 
-- List: server page via `estimateEndpoint.getList` · filters search/status/sourceType/from/to — no FE N+1 on grid.
-- Init-data dropdowns only (`getInitData`) — no hardcode enum on list filters.
-- Lines: entity rows (no `*LinesJson`) per SA — **PASS**.
-- Lookup 422 / OOM: không phát hiện P0 trên surface estimate.
-
-## Security
-
-- FE: no secrets / token in estimate services · uses shared `apiClient`.
-- BE: tenant/`allowed_company_ids` claim used in service · soft-delete Draft-only.
-- `[RequirePermission]` still TODO comments — **P2 accept** (STATUS known).
-- IDOR by id: standard authenticated CRUD path · no extra gap beyond perm stub.
-- **cấm ERP.*** paths — verified.
+- Token: Keychain / EncryptedSharedPreferences via shared session — Estimate feature không ghi secret.
+- Tenant: `X-Company-Id` / Bearer trên ApiClient path — không fork URL `:5101`.
+- IDOR: estimate/{id} + incident/{id} qua authenticated BFF proxy — không lộ id ngoài session.
+- Camera/GPS: **n/a** pack.
+- **cấm ERP.*** — verified paths AiVision + Maintenance + Incident only.
 
 ## UI / BE function
 
-- CRUD from-incident / from-defects / edit / view / copy / delete Draft / confirm / history — QA **PASS**.
-- Config FULL editor columns List/width/filter/sort · **Lưu cấu hình** — QA-CFG **PASS**.
-- Money `vi-VN` · leave dirty confirm · no `window.confirm`.
-- Util import `demo/estimateStore` (formatMoneyVi only) — **not** UI demo note · no REV-UI-DEMO-NOTE.
+- Primary Giao việc → WO `WorkType=repair` · Status=`new` · SLA 24h · DueAt UTC · toast real Code.
+- Secondary Lưu nháp → draft endpoint · **cấm** fake 200.
+- Missing incidentId → banner + chặn Giao việc.
+- Assignee required · free text P1.
 
-## Task gate
+## Query / debt accept
 
-| Task | Result |
-|------|--------|
-| T-CTX-01 / T-PERM-01 | **PASS** |
-| T-UI-LIST-01 A–D | **PASS** |
-| T-UI-FILTER-01 | **PASS** |
-| **T-UI-CONFIG / Config FULL** | **PASS** |
-| T-UI-FORM / T-UI-ACT / T-UI-LEAVE | **PASS** |
-| T-BE-CRUD / T-BFF | **PASS** · no ERP |
-| **T-BE-SCHEMA `ai-estimates`** | **PASS** |
-| **T-QA-CRUD-01 · QA-CFG** | **PASS** |
+| ID | Sev | Decision |
+|----|-----|----------|
+| A4-IPAD | — | **DEFER** Phase 1 (QA) |
+| Offline draft queue | P2 | **DEFER** (SA) |
+| Staff lookup API | P2 | **DEFER** P1 free text |
 
-## Build gate (`task_f699faf1`)
+## Align confirm
 
-| Check | Result |
-|-------|--------|
-| `yarn typecheck` (MFE AiVision) | **PASS** |
-| `LINM_RUN_DEV_LOCAL_BUNDLE=1 yarn build` | **PASS** (3 size warnings · 0 errors · webpack compiled) |
-| BE write this role | **n/a** — Review không đụng API |
-| ERP.* | **none** |
+`align_confirm=approve` (autoApprove=ON) · Must 0 · demo-parity OK · QA visual Aligned.
 
-## Confirm (autoApprove=ON)
+## review_confirm
 
-| Gate | Decision |
-|------|----------|
-| review | **approve** · pipeline **closed** · no Dev retry |
+**approve** · autoApprove=ON · `task_0d408356` · `2026-09-01T09:26:00.000Z`.
 
-## Handoff
+## Counts
+
+| Metric | Value |
+|--------|-------|
+| findings total | 9 tracked (all closed/defer) |
+| P0 open | 0 |
+| Must align open | 0 |
+| review_confirm | approve |
+
+## Version meta
 
 | Field | Value |
 |-------|-------|
-| next | **none** · feature `estimate` review done |
-| review_confirm | **approve** |
-| open P2 | GAP-QA-MIG-EST-01 · RequirePermission · UnitPriceCatalog / Auto WO |
-| evidence | `qa/screens/QA-CFG.png` · `S0.png` · `S1.png` · live `EstimateListPage.tsx` |
-| BE | `Linm.RMMS.WebService` · AiVision · **cấm ERP.*** |
-| MFE | `Linm.Web.RMMS.AiVision` |
-
-## Version meta (REQUIRED)
-
-| Field | Value |
-|-------|-------|
-| skillId | agent-review |
-| skillVersion | 2026.08.15.17 |
-| schemaVersion | 1 |
-| workflowVersion | 2026.08.18.02 |
-| rulesVersion | 2026.08.16.05 |
-| reviewHash | sha256:est-rev-4d8efb95-8f59b71b-2abaf41c |
-| generatedAt | 2026-08-17T17:28:23.648Z |
-| versionGate | ok |
+| skillId | agent-review-mobile |
+| skillVersion | 2026.08.25.01 |
+| schemaVersion | 2 |
+| workflowVersion | 2026.08.29.1 |
+| rulesVersion | 2026.08.29.5 |
+| generatedAt | 2026-09-01T09:26:00.000Z |
+| versionGate | rechecked |
+| taskId | task_0d408356 |
 
 ---
-<!-- Version meta: skillVersion=2026.08.15.17 · schemaVersion=1 · workflowVersion=2026.08.18.02 · versionGate=ok · skillId=agent-review -->
+<!-- Version meta: skillVersion=2026.08.25.01 · schemaVersion=2 · workflowVersion=2026.08.29.1 · versionGate=rechecked · skillId=agent-review-mobile · taskId=task_0d408356 -->

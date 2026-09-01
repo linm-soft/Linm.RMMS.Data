@@ -30,7 +30,7 @@ Entry: Home tile **Giám sát** · patrol-home quick **Giám sát** → push `#s
 
 ## 2. changeScope `new_page`
 
-Pack **list mới** theo data-analy. Native đã có scaffold prior (`SuperviseView` / `SuperviseScreen` + GET attendance-logs) — **không** đổi `changeScope` thành `edit_page`. Delta Design/Dev = khớp PO này (dual copy · kit · toast sibling · demo fallback). Không bảng Current vs New web. SSOT visual = dual HTML `#sc-supervise` (iOS 390×844 · Android 412×915 · **parity copy** trừ chrome HIG/Material).
+Pack **list** theo data-analy. Native live-only (`SuperviseView` / `SuperviseScreen` + GET attendance-logs) — cleanup_mock `edit_page` (`task_65931a17`): **cấm** demo SSOT · OK empty = EmptyChrome · fail = empty + toast. SSOT visual = dual HTML `#sc-supervise` (iOS 390×844 · Android 412×915 · **parity copy** trừ chrome HIG/Material).
 
 ## 3. DoD (đo được)
 

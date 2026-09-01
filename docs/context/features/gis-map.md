@@ -21,7 +21,7 @@
 | Mục tiêu | Màn **Bản đồ tài sản**: OMS basemap · overlay ghim TS + SC · hành lang tuyến · isolate legend · fit toàn tuyến · entry hub / detail / incident |
 | Persona | Tuần đường · Hạt QLĐB IV |
 | Entry | Hub tile **Xem trên bản đồ** `#i-scope` · hub row · detail **Ghim trên bản đồ** · incident seg/CTA |
-| DoD P1 | Dual `#sc-gis-map` · native MapKit/OSM (**cấm** WebView HTML) · GET `gis/geojson/*` · fail → demo OMS fallback · map **vẫn mở** · **cấm** mfeStdUrl · **cấm** invent `api/v1/gis-map` |
+| DoD P1 | Dual `#sc-gis-map` · native MapKit/OSM (**cấm** WebView HTML) · GET `gis/geojson/*` · live-only · fail/empty → map trống + toast · map **vẫn mở** · **cấm** GisMapDemoOverlay · **cấm** mfeStdUrl · **cấm** invent `api/v1/gis-map` |
 
 ## 2. Design / UI (`#sc-gis-map`)
 
@@ -100,4 +100,4 @@ App base: `{BffBase}/mobile-bff/api/v1`. **Cấm** app `:5101` · invent `api/v1
 | lane | phase | status | updatedAt |
 |------|-------|--------|-----------|
 | web | — | — | — |
-| mobile | `done` | `done` | `2026-08-31T01:44:55.387Z` |
+| mobile | `done` | `done` | `2026-09-01T08:03:53.090Z` |

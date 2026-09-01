@@ -6,19 +6,20 @@
 | title | [Mobile] [Công việc] → Cập nhật trạng thái |
 | this role | `review` · `/agent-review-mobile` |
 | status | **done** |
-| review_confirm | **approve** (autopilot · `task_cfc08301` · autoApprove=ON) |
+| review_confirm | **approve** (autopilot · `task_50b18ae5` · autoApprove=ON) |
 | packKind | **`sheet`** (surface full screen `#sc-mnt-progress` · `DES-MOB-MNT-PROGRESS`) |
 | lane | `mobile` · **cấm** mfeStdUrl / yarn start:std |
-| prior · qa | `qa/scenarios.md` · **confirmed** · e2eQa ON · `ok:true` · align **Aligned** · Must **0** |
-| prior · dev | `implement/{ios,android}.md` · **confirmed** · builds PASS |
+| changeScope | `edit_page` (cleanup_mock re-review) |
+| prior · qa | `qa/scenarios.md` · **confirmed** · e2eQa ON · `ok:true` · align **Aligned** · Must **0** · `task_995ec06e` |
+| prior · dev | `implement/{ios,android}.md` · **confirmed** · live-only · builds PASS · `task_e4368753` |
 | prior · sa | `be/solution-discovery.md` · **confirmed** · Step 4b **N/A** |
 | ios | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS` |
 | android | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android` |
 | bff | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Bff` · catch-all proxy `maintenance/*` |
 | backend | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.WebService` · **cấm ERP.*** |
 | autoApprove | **ON** |
-| e2eQa | **ON** (prior QA · **cấm** re-run e2e ở role Review) |
-| updatedAt | `2026-08-29T07:08:50.000Z` |
+| e2eQa | **ON** (prior QA re-e2e · **cấm** re-run e2e ở role Review) |
+| updatedAt | `2026-09-01T05:15:00.000Z` |
 
 ## REVIEW-META
 
@@ -28,7 +29,8 @@
 | Android | `MntProgressScreen` · `MntProgressViewModel` · `MntProgressUiState` · `MntProgressDto` · EncryptedSharedPreferences |
 | BFF | catch-all → GET `{id}` · POST `…/progress` · POST `…/complete` |
 | API | body `{ progressPercent, note? }` · GPS embed → Note · MediaUrl **DEFER** |
-| QA store | `qa/store/mnt-progress/` A11/A9/A3/P6/P6-2 live PNG |
+| QA store | `qa/store/mnt-progress/` A11/A9/A3/P6/P6-2 live PNG · `ok:true` |
+| cleanup_mock | **PASS** — **cấm** `MntProgressCopy.demo*` · nav seed + GET enrich · fail = toast |
 | skillVersion | agent-review-mobile **2026.08.20.01** |
 
 ## Security + permission
@@ -36,13 +38,14 @@
 | Check | Result |
 |-------|--------|
 | Token store iOS Keychain · Android EncryptedSharedPreferences | **PASS** |
-| Interceptor Bearer + `X-Company-Id` | **PASS** (`ApiClient` / `AuthInterceptor`) |
-| IDOR `{id}` | **PASS** — path `maintenance/work-orders/{id}` · tenant header + Bearer · missing id → banner + chặn submit |
-| GPS Info.plist `NSLocationWhenInUseUsageDescription` · Manifest FINE/COARSE | **PASS** (deny → `GpsDenyModal` · vẫn cho submit không GPS) |
-| Camera Info.plist `NSCameraUsageDescription` · Manifest CAMERA | **PASS** (deny → toast · no invent MediaUrl) |
+| Interceptor Bearer + `X-Company-Id` | **PASS** (prior review · cite Dev+QA) |
+| IDOR `{id}` | **PASS** — path `maintenance/work-orders/{id}` · tenant header + Bearer · missing id → toast + chặn submit |
+| GPS Info.plist · Manifest FINE/COARSE | **PASS** (deny → `GpsDenyModal` · vẫn cho submit không GPS) |
+| Camera Info.plist · Manifest CAMERA | **PASS** (deny → toast · no invent MediaUrl) |
 | `alert` / `UIAlert` / `AlertDialog` trên mnt-progress | **PASS** — in-app leave + GPS deny modals · toast only |
 | Invent `mnt-progress` API / `mfeStdUrl` / watermark | **PASS** — không ship |
 | Plaintext token / UserDefaults JWT | **PASS** — Keychain / Encrypted only |
+| Live-only (no demo/mock fallback) | **PASS** — Grep `demo|mock` trong `MntProgress*` = **0** |
 
 ## DTO parity (iOS = Android = Web)
 
@@ -59,7 +62,7 @@
 
 | Zone | Result |
 |------|--------|
-| A3-CORE (1320×2868) vs demo `#sc-mnt-progress` | **PASS** — title **Cập nhật trạng thái** · back **Công việc** · WO code/status · % `45` + slider · Ghi chú filled · tab **work** |
+| A3-CORE (1320×2868) vs demo `#sc-mnt-progress` | **PASS** — title **Cập nhật trạng thái** · back **Công việc** · WO live · % + slider · Ghi chú filled · tab **work** |
 | P6-CORE / P6-CORE-2 (1080×1920) vs demo | **PASS** — title · Ghi chú + GPS embed · **Ảnh hiện trường** · **Vị trí đã chốt** · CTA **Cập nhật** · tab **work** |
 | IME fold (iOS keyboard / Android Gboard float) | **Accept** — OS chrome · không Must |
 | Android TopBar `…` overflow | **Accept** — kit default · Observe (QA) |
@@ -87,43 +90,45 @@ AskQuestion (autoApprove=ON): `review_confirm=approve` · `align_confirm=approve
 | R-03 | DTO | — | Dual parity `{ progressPercent, note? }` · complete @100 | **OK** |
 | R-04 | IDOR | — | `{id}` + tenant · missingId gate | **OK** |
 | R-05 | Align | — | A3 + P6 + P6-2 Read vs demo · Must **0** | **OK** |
-| R-06 | A11y | Should | GAP-MOB-A11Y-01 iOS sync a11y id (QA) | **Accept** · không block · `/edit-mobile-feature` |
-| R-07 | Media | — | MEDIA-01 DEFER · GPS→Note embed | **Defer** |
-| R-08 | QA | — | e2eQa ON · Maestro · store live · Aligned | **OK** |
-| R-09 | Store | P2 | PrivacyInfo / Data safety submit | **Accept** |
-| R-10 | Step 4b | — | T-BE **n/a** | **OK** |
+| R-06 | Real-data | — | cleanup_mock live-only · nav seed → GET enrich · **cấm** demo fallback | **OK** · GAP-MOB-EDIT-DEMO-01 **closed** |
+| R-07 | A11y | Should | GAP-MOB-A11Y-01 iOS sync a11y id (QA) | **Accept** · không block |
+| R-08 | Media | — | MEDIA-01 DEFER · GPS→Note embed | **Defer** |
+| R-09 | QA | — | e2eQa ON · Maestro re-e2e live IDs · store live · Aligned | **OK** |
+| R-10 | Store | P2 | PrivacyInfo / Data safety submit | **Accept** |
+| R-11 | Step 4b | — | T-BE **n/a** | **OK** |
 
 ## Task gate
 
 | Task | Result |
 |------|--------|
-| T-IOS-MNT-PROG | PASS (prior Dev) |
-| T-AND-MNT-PROG | PASS (prior Dev) |
+| T-IOS-MNT-PROG | PASS (Dev cleanup_mock · cite prior) |
+| T-AND-MNT-PROG | PASS (Dev cleanup_mock · cite prior) |
 | T-BE-* | **n/a** |
-| T-QA | PASS (`ok:true` · `task_86089ea4`) |
-| T-REVIEW-SEC / DTO / ALIGN | PASS · Must align = **0** |
+| T-QA | PASS (`ok:true` · `task_995ec06e` post cleanup_mock) |
+| T-REVIEW-SEC / DTO / ALIGN / REAL | PASS · Must align = **0** |
 
-## VERIFY GATE (`task_cfc08301` · roleOnly=`review`)
+## VERIFY GATE (`task_50b18ae5` · roleOnly=`review`)
 
 | Gate | Result |
 |------|--------|
 | Artifact `review/findings.md` + STATUS | **PASS** |
 | iOS / Android / BFF build | **cite prior** Dev+QA **PASS** · **cấm** yarn build ở role Review |
-| yarn e2e / start:std | **cấm** · prior QA `ok:true` |
+| yarn e2e / start:std | **cấm** · prior QA re-e2e `ok:true` |
 | Step 4b BE align | **N/A** — reuse progress+complete |
 | Align vision CORE PNG Read | **PASS** · Must **0** |
+| cleanup_mock code scan | **PASS** — no demo/mock in MntProgress sources |
 
 ## Verdict
 
-mnt-progress dual-native sheet→screen: security + DTO + UI align Must **0** · VERIFY GATE artifact PASS · Step 4b N/A · Should A11Y Accept · MEDIA DEFER. **Approve** (autopilot). Pipeline **complete**.
+mnt-progress dual-native sheet→screen post cleanup_mock: security + DTO + live-only + UI align Must **0** · VERIFY GATE artifact PASS · Step 4b N/A · Should A11Y Accept · MEDIA DEFER. **Approve** (autopilot). Pipeline **complete**.
 
 ## Handoff
 
 | Field | Value |
-|-------|--------|
+|-------|-------|
 | phase_to | `done` |
 | post_review | **skip** |
-| Next | `/edit-mobile-feature` — **cấm** re-run full pipeline |
+| Next | store submit → `/review-app-submit` khi cần |
 | Sibling | mnt-chat / mnt-log / estimate — **không** start (`GAP-MOB-ACT-06`) |
 
 ## Version meta (REQUIRED)
@@ -135,9 +140,9 @@ mnt-progress dual-native sheet→screen: security + DTO + UI align Must **0** ·
 | schemaVersion | 1 |
 | workflowVersion | 2026.08.29.1 |
 | rulesVersion | 2026.08.29.5 |
-| generatedAt | 2026-08-29T07:08:50.000Z |
+| generatedAt | 2026-09-01T05:15:00.000Z |
 | versionGate | rechecked |
-| taskId | `task_cfc08301` |
+| taskId | `task_50b18ae5` |
 | contentHash | sha256:mnt-progress-mobile-control-hint-20260829 |
 | realDataHash | sha256:mnt-progress-mobile-real-data-20260829 |
 | bffContentHash | sha256:mnt-progress-mobile-bff-20260829 |

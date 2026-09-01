@@ -42,7 +42,7 @@ Standards: api-endpoint · bff-api-structure · company-field · no-parent-json-
 | API downstream | `POST ai-vision/detect` **live stub** (body ImageBase64 · Lat · Lng · AccuracyM **đã có**) · optional uploads · `GET patrol/sessions` live · `POST incident/incidents` live |
 | BFF mobile | `Linm.RMMS.Mobile.Bff` · `MobileApiProxyController` catch-all → `ApiBase` |
 | App | iOS + Android · base `{BffBase}/mobile-bff/api/v1` · **cấm** URLSession/OkHttp trong View |
-| Prefill Loc | optional `GET patrol/sessions` filter «Đang tuần» · fail/empty Route/Km → demo SSOT `QL.1 · Km 1556+050` · GPS accuracy **vẫn** device |
+| Prefill Loc | live `GET patrol/sessions` filter «Đang tuần» · fail/empty → `patrol.empty.active.route` · **cấm** demoLoc · GPS accuracy **vẫn** device |
 | GPS | Device CL / Fused · stamp «đã chốt» · gate **AccuracyM ≤ 30** trước detect · deny → `DES-MOB-GPS-DENY` · **chặn** detect + Gắn · **cấm** fake |
 | Camera | Still PhotoRow · reuse field-reflect `UIImagePicker` / Android still · `#i-camera` · **không** continuous finder (`cam-patrol` OUT) |
 | Detect P1 | `POST ai-vision/detect` body full `DetectAiVisionRequest` · bind `DefectClass` / `Severity` · **cấm** tên thuật toán · **cấm** Score row |

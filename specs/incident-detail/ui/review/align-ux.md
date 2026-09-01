@@ -7,8 +7,8 @@
 | sources | `qa/screens/A3-CORE.png` · `P6-CORE.png` · `P6-CORE-2.png` vs `ui/prototype/{ios,android}/index.html` `#sc-incident-detail` |
 | result | **Aligned** |
 | Must open | **0** |
-| updatedAt | `2026-08-29T04:10:00.000Z` |
-| taskId | `task_21b55839` |
+| updatedAt | `2026-09-01T04:35:14.728Z` |
+| taskId | `task_f0f56b29` |
 
 ## Demo pictogram inventory
 

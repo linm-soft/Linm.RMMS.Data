@@ -36,14 +36,8 @@ Pack **screen mới** theo data-analy (`changeScope=new_page`). Native hiện: h
 
 1. Dual native push `#sc-attendance-day` `DES-MOB-ATT-DAY`: nav back → `#sc-attendance` · title **Chi tiết ngày công** · hero `dayTitle` + badge · rows **Khoảng giờ** · **Tuyến · ca** · **Số lần chấm** · section **Các lần chấm** · log rows time + route/status/inZone. Frame proto iOS 390×844 · Android 412×915. Shell Tab **Tuần đường** giữ parent · `tabs: none` trên surface · **cấm** segment trên detail (`GAP-TAB-01`).
 2. Back → `go('attendance')` / pop hub (`reuse` parent · **cấm** reimplement hub).
-3. Appear: GET `patrol/attendance-logs` · client filter `dayKey` (epoch start-of-day local) · bind summary + log rows · empty count=0 → empty chrome · network fail → demo SSOT · screen **vẫn mở** · **cấm** fake 200.
-4. Demo / fallback SSOT (dual parity):
-
-   | Case | dayTitle | badge | range | routeShift | count | logs |
-   |------|----------|-------|-------|------------|-------|------|
-   | đủ công | T7 09/08 | Đủ công | 07:05 – 16:40 | QL.1 · Ca sáng | 2 lần chấm | 07:05 · 16:40 · QL.1 · Đúng tuyến · Trong vùng |
-   | nghỉ | CN 10/08 | Nghỉ | — | — | 0 | empty «Không có lần chấm trong ngày» |
-   | Back | — | — | — | — | — | Chấm công → hub |
+3. Appear: GET `patrol/attendance-logs` · client filter `dayKey` (epoch start-of-day local) · bind summary + log rows · empty count=0 → EmptyChrome + badge Nghỉ · network fail → empty chrome + toast · screen **vẫn mở** · **cấm** demo SSOT / mock T7/CN · **cấm** fake 200.
+4. Live-only (edit-mobile-feature): GET OK empty = EmptyChrome + Nghỉ · GET fail = empty + toast · bind BE fields only · missing Route/Status → «—» · **cấm** invent QL.1 / Ca sáng / Đúng tuyến for display.
 
 5. Badge aggregate (khớp hub):
 

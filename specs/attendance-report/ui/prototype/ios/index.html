@@ -1,0 +1,14 @@
+# Design — attendance-report
+
+> Status: **draft** · auto-created 2026-09-01T08:55:46.501Z · task `task_52898ccc`  
+> Agent điền nội dung. **Cấm** xóa file này.
+
+| | |
+|--|--|
+| Feature | `attendance-report` |
+| Title | [Mobile] [Chấm công] -> Báo cáo công |
+| Role | `design` |
+
+## Notes
+
+-

@@ -1,0 +1,48 @@
+# QA — Scenarios — patrol-history-detail
+
+> Status: **PASS** · task `task_89ab887f` · e2eQa ON · method `yarn e2e-qa-mobile`  
+> Devices: iPhone 17 Pro Max (6.9") · Android Pixel 2 (1080×1920) · A4-IPAD **DEFER** Phase 1
+
+| | |
+|--|--|
+| Feature | `patrol-history-detail` |
+| Title | [Mobile] [Lịch sử phiên] -> Chi tiết ca |
+| Role | `qa` |
+| Seed | BFF `a11e0001-0001-4a01-8a01-000000000001` · `TD-20260821-001` |
+| API | GET `mobile-bff/api/v1/patrol/sessions/{id}` · real row (cấm mock-only PASS) |
+
+## Device AC
+
+| id | AC | Result | notes |
+|----|----|--------|-------|
+| T-QA-LAUNCH | A11 guest home | **PASS** | `#sc-home` |
+| T-QA-BFF | A10 BFF :5202 | **PASS** | health |
+| T-QA-LOGIN | A9 Auth seed | **PASS** | `linm-soft` / `Linm@2026` |
+| T-QA-CORE-IOS | A3 `#sc-patrol-detail` | **PASS** | hero+info+timeline+CTA · real Code TD-* |
+| T-QA-CORE-AND | P6 ×2 folds | **PASS** | top hero · scroll timeline+CTA |
+| T-QA-REAL | GET BFF ≠ demo-only | **PASS** | list/detail live seed |
+| T-QA-ALIGN | Read CORE vs demo | **PASS** | `ui/review/align-ux.md` · Must 0 |
+
+## Hotfix (QA unblock)
+
+| id | note |
+|----|------|
+| GAP-MOB-NAV-DETAIL-01 | iOS nested `navigationDestination` trên history **không push** detail → sibling dest trên field `NavigationStack` (`AppRouter.swift`) · rebuild PASS |
+| GAP-QA-E2E-HARVEST-01 | CLI `latestMaestroTakeScreenshotDir` có thể copy shot feature khác → QA force-copy `_maestro_*/takeScreenshot` vào `qa/screens` + store |
+
+## E2E screenshots
+
+Viewer: `/api/qldb/artifact?id=&rel=qa/scenarios.md` rewrite `screens/{caseId}.png`.
+
+CLI **PASS** = Maestro + PNG + store px only — **not** visual vs demo. QA **Read** A3-CORE + P6-CORE vs prototype (`/review-align-ux-ios-android`).
+
+| Case | Store | Result | Evidence |
+|------|-------|--------|----------|
+| A10-BFF | A10 · P11 | **PASS** | — |
+| A11-LAUNCH | A11 | **PASS** | ![A11-LAUNCH](screens/A11-LAUNCH.png) |
+| A9-LOGIN | A9 · P10 | **PASS** | ![A9-LOGIN](screens/A9-LOGIN.png) |
+| A3-CORE | A3 · A11 | **PASS** | ![A3-CORE](screens/A3-CORE.png) |
+| P6-CORE | P6 · P11 | **PASS** | ![P6-CORE](screens/P6-CORE.png) |
+| P6-CORE-2 | P6 | **PASS** | ![P6-CORE-2](screens/P6-CORE-2.png) |
+
+method: `e2e runtime · yarn e2e-qa-mobile` · **cấm** start:std / mfeStdUrl

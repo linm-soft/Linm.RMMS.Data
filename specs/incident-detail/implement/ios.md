@@ -5,8 +5,8 @@
 | Feature | `incident-detail` |
 | Title | [Mobile] [Vấn đề] -> Chi tiết |
 | Role | `dev` · `/agent-dev-ios` · `/dev-ios-swiftui` |
-| status | **done** |
-| taskId | `task_ebf09e82` |
+| status | **done** · cleanup-mock live-only |
+| taskId | `task_53a77d94` |
 | packKind | `screen` |
 | route_confirm | `route_a` |
 | updatedAt | `2026-08-29T03:20:00.000Z` |
@@ -21,7 +21,7 @@
 | DI | `AppContainer` · `fetchIncidentByIdUseCase` · `closeIncidentUseCase` |
 | Router | `AppRouter` · push `#sc-incident-detail` trên Incident stack · list Detail + create success → Id |
 | CTA | Giao việc → toast estimate P1 · Bản đồ → field `PatrolMap` · Close → POST + toast **Đã đóng sự cố** |
-| Empty 404 | `EmptyChromeView` |
+| Empty 404 / fail | `EmptyChromeView` · GET fail → toast + empty-load-fail · **cấm** demo SSOT |
 | Copy | `inc.detail.*` trong `LinmCopy` |
 
 ## Bind (real-data §B)

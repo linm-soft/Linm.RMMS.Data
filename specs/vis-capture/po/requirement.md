@@ -36,7 +36,7 @@ Pack **screen mới** theo data-analy (`changeScope=new_page`). Native hiện: p
 
 1. Dual native: iOS SwiftUI + Android Compose — **cùng** zone `#sc-vis-capture` `DES-MOB-VIS-CAPTURE`: nav back → `incident-list` · title **Nhận diện mặt đường** · section **Ảnh hiện trường** · PhotoRow + camera · 4 rows (Loc · Acc · Phân loại · Mức+badge) · primary **Gắn sự cố** · secondary **Bỏ qua** · toast. Frame proto iOS 390×844 · Android 412×915. Tab 5: tab **`incident`** (Vấn đề) active (`data-tab="incident"`) · `tabs: none` trên surface (`GAP-TAB-01`).
 2. PhotoRow still capture: `openCapture('vision')` · camera slot `#i-camera` · filled preview · **không** continuous finder (`cam-patrol` OUT). Permission deny → toast/in-app · **không** crash · **cấm** fake detection khi no camera.
-3. Loc / Acc SSOT / live: demo **QL.1 · Km 1556+050** · **±4 m** · live = device GPS + optional session `Status=Đang tuần` từ `GET patrol/sessions` · fail/empty Route/Km → demo SSOT label · GPS accuracy **vẫn** từ device.
+3. Loc / Acc: HTML demo **QL.1 · Km 1556+050** · **±4 m** (prototype only). Live = device GPS + active session `Status=Đang tuần` từ `GET patrol/sessions` · fail/empty Route → `patrol.empty.active.route` + toast · **cấm** demoLoc seed · GPS accuracy **vẫn** từ device.
 4. GPS gate (**GAP-MOB-VIS-GPS-01**): **chỉ** POST detect khi đã chốt GPS và `AccuracyM ≤ 30`. Thiếu GPS / sai số **> 30 m** → toastGpsBlock · **không** gửi detect · **cấm** fake lat/lng · **cấm** gõ tay tọa độ. Deny → modal reuse `DES-MOB-GPS-DENY` · chặn detect + Gắn.
 5. Detection rows sau `POST ai-vision/detect`:
 

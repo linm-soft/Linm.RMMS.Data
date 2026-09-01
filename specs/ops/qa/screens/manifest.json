@@ -1,78 +1,45 @@
 {
   "feature": "ops",
-  "capturedAt": "2026-08-30T19:05:05.234Z",
+  "capturedAt": "2026-09-01T02:35:00.000Z",
   "iosDevice": "iPhone 17 Pro Max",
   "method": "e2e-qa-mobile",
+  "harvestNote": "re-copied from specs/ops/qa/screens/_maestro_ios/ios-2 + _maestro_android/android-3 after GAP-QA-E2E-HARVEST-01",
   "steps": [
     {
       "id": "A10-BFF",
       "result": "PASS",
-      "store": [
-        "A10",
-        "P11"
-      ]
-    },
-    {
-      "id": "MAESTRO-IOS",
-      "result": "FAIL",
-      "store": [
-        "A3",
-        "A9",
-        "A11"
-      ],
-      "error": " that id: sc-home is visible... COMPLETED\nTap on (Optional) id: btn-home-login... COMPLETED\nAssert that id: f-user is visible... COMPLETED\nTap on id: f-user... COMPLETED\nErase text... COMPLETED\nInput text linm-soft... COMPLETED\nTap on (Optional) \"QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ\"... COMPLETED\nTap on (Optional) \"RMMS\"... COMPLETED\nTap on id: f-pass... COMPLETED\nErase text... COMPLETED\nInput text Linm@2026... COMPLETED\nTap on (Optional) \"QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ\"... COMPLETED\nTap on (Optional) \"RMMS\"... COMPLETED\nTap on (Optional) id: btn-login... COMPLETED\nTap on (Optional) \"Đăng nhập\"... WARNED\nTap on (Optional) \"Not Now\"... WARNED\nAssert that id: home-who is visible... FAILED\n\nAssertion is false: id: home-who is visible\n\nAssertion 'id: home-who is visible' failed. Check the UI hierarchy in debug artifacts to verify the element state and properties.\n\nPossible causes:\n- Element selector may be incorrect - check if there are similar elements with slightly different names/properties.\n- Element may be temporarily unavailable due to loading state\n- This could be a real regression that needs to be addressed\n\n==== Debug output (logs & screenshots) ====\n\n/Users/mac/.maestro/tests/2026-08-31_020257",
-      "gap": "GAP-MOB-ACT-03"
-    },
-    {
-      "id": "CRAWL",
-      "result": "FAIL",
-      "store": [],
-      "error": "Running on iPhone 17 Pro Max - iOS 26.2 - 518BFF77-0941-448B-8D37-67678F4506C7\n > Flow crawl-ios\nLaunch app \"org.linmsoft.rmms\" with clear state and clear keychain... COMPLETED\nAssert that id: sc-home is visible... COMPLETED\nTap on (Optional) id: btn-home-login... COMPLETED\nAssert that id: f-user is visible... COMPLETED\nTap on id: f-user... COMPLETED\nErase text... COMPLETED\nInput text linm-soft... COMPLETED\nTap on (Optional) \"QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ\"... COMPLETED\nTap on (Optional) \"RMMS\"... COMPLETED\nTap on id: f-pass... COMPLETED\nErase text... COMPLETED\nInput text Linm@2026... COMPLETED\nTap on (Optional) \"QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ\"... COMPLETED\nTap on (Optional) \"RMMS\"... COMPLETED\nTap on (Optional) id: btn-login... COMPLETED\nTap on (Optional) \"Đăng nhập\"... WARNED\nTap on (Optional) \"Not Now\"... WARNED\nAssert that id: home-who is visible... FAILED\n\nAssertion is false: id: home-who is visible\n\nAssertion 'id: home-who is visible' failed. Check the UI hierarchy in debug artifacts to verify the element state and properties.\n\nPossible causes:\n- Element selector may be incorrect - check if there are similar elements with slightly different names/properties.\n- Element may be temporarily unavailable due to loading state\n- This could be a real regression that needs to be addressed\n\n==== Debug output (logs & screenshots) ====\n\n/Users/mac/.maestro/tests/2026-08-31_020257",
-      "gap": "GAP-MOB-ACT-03"
+      "store": ["A10", "P11"]
     },
     {
       "id": "A11-LAUNCH",
       "result": "PASS",
       "screenshot": "A11-LAUNCH.png",
-      "store": [
-        "A11"
-      ]
+      "store": ["A11"]
     },
     {
       "id": "A9-LOGIN",
       "result": "PASS",
       "screenshot": "A9-LOGIN.png",
-      "store": [
-        "A9",
-        "P10"
-      ]
+      "store": ["A9", "P10"]
     },
     {
       "id": "A3-CORE",
       "result": "PASS",
       "screenshot": "A3-CORE.png",
-      "store": [
-        "A3",
-        "A11"
-      ]
+      "store": ["A3", "A11"]
     },
     {
       "id": "P6-CORE",
       "result": "PASS",
       "screenshot": "P6-CORE.png",
-      "store": [
-        "P6",
-        "P11"
-      ]
+      "store": ["P6", "P11"]
     },
     {
       "id": "P6-CORE-2",
       "result": "PASS",
       "screenshot": "P6-CORE-2.png",
-      "store": [
-        "P6"
-      ]
+      "store": ["P6"]
     }
   ],
-  "ok": false
+  "ok": true
 }

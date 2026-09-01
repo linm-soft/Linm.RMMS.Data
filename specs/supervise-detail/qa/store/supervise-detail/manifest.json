@@ -1,23 +1,17 @@
 {
   "feature": "supervise-detail",
   "role": "qa",
-  "status": "confirmed",
+  "status": "blocked",
   "e2eQa": true,
   "iosPhase": "phase1_iphone",
   "method": "yarn e2e-qa-mobile",
-  "verdict": "pass",
-  "gaps": [],
-  "shots": [
-    "A11-LAUNCH.png",
-    "A9-LOGIN.png",
-    "A3-CORE.png",
-    "P6-CORE.png",
-    "P6-CORE-2.png"
-  ],
-  "updatedAt": "2026-08-31T02:50:00.000Z",
-  "taskId": "task_63f14363",
-  "e2eOk": true,
-  "capturedAt": "2026-08-31T02:46:01.428Z",
+  "verdict": "fail",
+  "gaps": ["GAP-QA-SUP-DET-AND-LIST-01", "GAP-QA-STORE-03"],
+  "shots": ["A11-LAUNCH.png", "A9-LOGIN.png", "A3-CORE.png", "P6-CORE.png", "P6-CORE-2.png"],
+  "updatedAt": "2026-09-01T03:30:00.000Z",
+  "taskId": "task_02d20b55",
+  "e2eOk": false,
+  "capturedAt": "2026-09-01T03:14:00.000Z",
   "iosDevice": "iPhone 17 Pro Max",
-  "align": "Aligned"
+  "align": "iOS Aligned · Android blocked"
 }

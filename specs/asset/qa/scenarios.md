@@ -1,33 +1,33 @@
 # QA — Scenarios — asset
 
-> Status: **done** · `/agent-qa-mobile` · e2eQa=ON · task `task_edfc2374`  
-> method: `e2e runtime · yarn e2e-qa-mobile` · Maestro · sim **iPhone 17 Pro Max** + emulator **Pixel 2** · **cấm** `yarn e2e-qa` / `start:std` / GenerateImage
+> Status: **FAIL** · `/agent-qa-mobile` · e2eQa=ON · task `task_4ec34586`  
+> method: `yarn e2e-qa-mobile` · Maestro · sim **iPhone 17 Pro Max** + emulator **Pixel 2** · **cấm** `yarn e2e-qa` / `start:std` / GenerateImage  
+> prior Dev: `task_dc98ed58` · cleanup_mock live-only · handoff `handoff/dev-compact.md`
 
 | | |
 |--|--|
 | Feature | `asset` |
-| Title | [Mobile] List danh mục tài sản |
+| Title | [Mobile] List danh mục tài sản · live-only re-QA |
 | Role | `qa` |
 | packKind | `list` · `#sc-asset-list` · `DES-MOB-ASSET-LIST` |
 | iosPhase | `phase1_iphone` · **A4-IPAD DEFER** |
 | demo | `linm-soft` / Auth docker seed |
-| API / BFF | WebService docker host **:5111** · Mobile.Bff **:5202** · `--skip-start` |
-| prior Dev | `task_bee51c9e` · implement **confirmed** |
+| API / BFF | WebService docker **:5111** · Mobile.Bff **:5202** · `--skip-start` |
 
 ## Device AC (slug `asset` only)
 
 | AC | Expect | Result | Evidence |
 |----|--------|--------|----------|
-| Launch | Cold start guest `#sc-home` · 0 crash | **PASS** | ![A11-LAUNCH](screens/A11-LAUNCH.png) |
+| Launch | Cold start guest · 0 crash | **PASS** | ![A11-LAUNCH](screens/A11-LAUNCH.png) |
 | BFF | Mobile.Bff listen `:5202` | **PASS** | A10-BFF |
-| Login demo | `#btn-home-login` → fill `#f-user`/`#f-pass` · seed Auth | **PASS** | ![A9-LOGIN](screens/A9-LOGIN.png) |
-| List `#sc-asset-list` iOS | Nav **Danh sách** · search · `LinmListRow` + cube leading · **cấm** detail push / watermark | **PASS** | ![A3-CORE](screens/A3-CORE.png) |
-| List `#sc-asset-list` Android | Cùng zone · Pixel **1080×1920** | **PASS** | ![P6-CORE](screens/P6-CORE.png) |
-| List fold 2 Android | Row 2 visible (`#row-asset-1`) | **PASS** | ![P6-CORE-2](screens/P6-CORE-2.png) |
-| Entry path | Home `#tile-asset` → hub → `#tile-list` → list | **PASS** | Maestro assert `#sc-asset-list` |
-| API / demo | GET `asset/road-assets` · empty/fail → demo 2 rows | **PASS** | iOS live 3 rows · Android demo SSOT 2 rows |
+| Login demo | seed Auth → home | **PASS** | ![A9-LOGIN](screens/A9-LOGIN.png) |
+| List `#sc-asset-list` iOS | Nav **Danh sách** · search · live rows · **cấm** demo watermark | **PASS** | ![A3-CORE](screens/A3-CORE.png) |
+| List `#sc-asset-list` Android | Cùng zone · live rows khi BFF có data | **FAIL** | ![P6-CORE](screens/P6-CORE.png) · EmptyChrome |
+| List fold 2 Android | Row 2 visible | **FAIL** | ![P6-CORE-2](screens/P6-CORE-2.png) · empty |
+| Entry path | Home → hub → `#tile-list` → list | **PASS** | Maestro assert `#sc-asset-list` |
+| API / live-only | GET `asset/road-assets` · empty→EmptyChrome · **cấm** demoRows | **FAIL** And | BFF có ≥50 items · And **0** request `road-assets` từ `10.0.2.2` |
 | GAP-DEV-MOB-PLACEHOLDER-01 | **Cấm** watermark «Phiên bản Gói» | **PASS** | A3 / P6 |
-| Dual align | Chrome kit cùng zone iOS↔Android · cube leading | **PASS** | A3 ↔ P6 · **không** GAP-MOB-UX-COMP-03 Must |
+| Dual align | iOS↔Android cùng zone + data | **FAIL** Must | iOS rows · Android empty |
 
 ## Store Must × feature
 
@@ -37,94 +37,33 @@
 | A11-LAUNCH | A11 | **PASS** | ![A11-LAUNCH](screens/A11-LAUNCH.png) |
 | A9-LOGIN | A9 · P10 | **PASS** | ![A9-LOGIN](screens/A9-LOGIN.png) |
 | A3-CORE | A3 · A11 | **PASS** | ![A3-CORE](screens/A3-CORE.png) |
-| P6-CORE | P6 · P11 | **PASS** | ![P6-CORE](screens/P6-CORE.png) |
-| P6-CORE-2 | P6 | **PASS** | ![P6-CORE-2](screens/P6-CORE-2.png) |
+| P6-CORE | P6 · P11 | **PASS*** | ![P6-CORE](screens/P6-CORE.png) · *CLI px only · visual empty |
+| P6-CORE-2 | P6 | **PASS*** | ![P6-CORE-2](screens/P6-CORE-2.png) |
+| MAESTRO-AND | P6 | **FAIL** | `row-asset-0` missing · **GAP-QA-STORE-03** |
 
-## E2E screenshots
-
-Viewer: `/api/qldb/artifact?id=&rel=qa/scenarios.md` rewrite `screens/{caseId}.png`.
-
-CLI **PASS** = Maestro + PNG + store px only — **not** visual vs demo. QA **Read** A3-CORE + P6-CORE vs prototype (`/review-align-ux-ios-android`). Demo `.row-icon`/`#i-*` missing on live → Must **GAP-MOB-UX-COMP-03** · log `qa/bugs/`. Skip vision → **GAP-MOB-E2E-VIS-01**.
-
-| Case | Store | Result | Evidence |
-|------|-------|--------|----------|
-| A10-BFF | A10 · P11 | **PASS** | — |
-| MAESTRO-IOS | A3 · A9 · A11 | **FAIL** | — |
-| CRAWL | — | **FAIL** | — |
-| MAESTRO-AND | P6 | **FAIL** | — |
-| A11-LAUNCH | A11 | **PASS** | ![A11-LAUNCH](screens/A11-LAUNCH.png) |
-| A9-LOGIN | A9 · P10 | **PASS** | ![A9-LOGIN](screens/A9-LOGIN.png) |
-| A3-CORE | A3 · A11 | **PASS** | ![A3-CORE](screens/A3-CORE.png) |
-| P6-CORE | P6 · P11 | **PASS** | ![P6-CORE](screens/P6-CORE.png) |
-| P6-CORE-2 | P6 | **PASS** | ![P6-CORE-2](screens/P6-CORE-2.png) |
-
-
-Viewer: `/api/qldb/artifact?id=&rel=qa/scenarios.md` rewrite `screens/{caseId}.png`.
-
-CLI **PASS** = Maestro + PNG + store px only — **not** visual vs demo. QA **Read** A3-CORE + P6-CORE vs prototype (`/review-align-ux-ios-android`). Demo `.row-icon`/`#i-*` missing on live → Must **GAP-MOB-UX-COMP-03** · log `qa/bugs/`. Skip vision → **GAP-MOB-E2E-VIS-01**.
-
-| Case | Store | Result | Evidence |
-|------|-------|--------|----------|
-| A10-BFF | A10 · P11 | **PASS** | — |
-| MAESTRO-IOS | A3 · A9 · A11 | **FAIL** | — |
-| MAESTRO-AND | P6 | **FAIL** | — |
-| A11-LAUNCH | A11 | **PASS** | ![A11-LAUNCH](screens/A11-LAUNCH.png) |
-| A9-LOGIN | A9 · P10 | **PASS** | ![A9-LOGIN](screens/A9-LOGIN.png) |
-| A3-CORE | A3 · A11 | **PASS** | ![A3-CORE](screens/A3-CORE.png) |
-| P6-CORE | P6 · P11 | **PASS** | ![P6-CORE](screens/P6-CORE.png) |
-| P6-CORE-2 | P6 | **PASS** | ![P6-CORE-2](screens/P6-CORE-2.png) |
-
-
-Viewer: `/api/qldb/artifact?id=&rel=qa/scenarios.md` rewrite `screens/{caseId}.png`.
-
-| Case | Store | Result | Evidence |
-|------|-------|--------|----------|
-| A10-BFF | A10 · P11 | **PASS** | — |
-| A11-LAUNCH | A11 | **PASS** | ![A11-LAUNCH](screens/A11-LAUNCH.png) |
-| A9-LOGIN | A9 · P10 | **PASS** | ![A9-LOGIN](screens/A9-LOGIN.png) |
-| A3-CORE | A3 · A11 | **PASS** | ![A3-CORE](screens/A3-CORE.png) |
-| P6-CORE | P6 · P11 | **PASS** | ![P6-CORE](screens/P6-CORE.png) |
-| P6-CORE-2 | P6 | **PASS** | ![P6-CORE-2](screens/P6-CORE-2.png) |
+\* CLI PASS ≠ visual Aligned.
 
 ## Live vs demo (`/review-align-ux-ios-android`)
 
-| Check | Result |
-|-------|--------|
-| Read `A3-CORE` + `P6-CORE` vs `#sc-asset-list` | **PASS** |
-| Demo `.row-icon` / `#i-cube` → live cube leading ô màu | **Aligned** · iOS + Android |
-| CLI PASS ≠ visual | Vision done · **không** GAP-MOB-E2E-VIS-01 |
-| Must mở | **0** · detail `ui/review/align-ux.md` |
+| Check | Result | Notes |
+|-------|--------|-------|
+| A3-CORE vs `#sc-asset-list` demo | **Aligned** chrome | Nav Danh sách · search · cube rows · **cấm** watermark |
+| P6-CORE vs demo / A3 | **Not aligned** Must | EmptyChrome «Chưa có tài sản» vs iOS live rows |
+| Live-only | iOS OK · Android GAP | Dev cleanup_mock: fail/empty→EmptyChrome · And không gọi API → false empty |
 
-## VERIFY GATE (recheck QA)
+## GAP
 
-| Gate | Result |
-|------|--------|
-| iOS `xcodegen` | **PASS** |
-| Android `assembleDebug` | **PASS** |
-| BFF `dotnet build` | **PASS** |
-| `yarn e2e-qa-mobile` · cases A11,A10,A9,A3,P6,P6-2 · `ios-phase=phase1_iphone` · `--skip-start` | **PASS** · `ok: true` |
+| Id | Sev | Note |
+|----|-----|------|
+| GAP-QA-STORE-03 | **Must** | MAESTRO-AND assert `row-asset-0` FAIL |
+| GAP-MOB-ASSET-AND-FETCH-01 | **Must** | Android list không emit GET `mobile-bff/.../asset/road-assets` (BFF log 0 từ emulator) trong khi iOS/localhost 200 + items · nghi `LaunchedEffect(onBack,onOpenDetail)` cancel trước `Appear` |
+| GAP-MOB-UX-DUAL-01 | **Must** | Dual iOS rows ↔ Android empty |
 
-## Notes
+## Verdict
 
-- Maestro flows: `qa/e2e/ios.yaml` · `qa/e2e/android.yaml` — guest home → login → `#tile-asset` → `#tile-list` → assert `#sc-asset-list` trước shot A3/P6.
-- Android: **cấm** `hideKeyboard` — tap title + Enter.
-- Host API compose = **:5111** (Linux) · packet `:5101` = Win64 camera; BFF `:5202` healthy → `--skip-start`.
-- px: iOS A3 **1320×2868** RGB · Play P6 **1080×1920** RGB.
-- **Cấm** READY_TO_SUBMIT ở QA — next `/agent-review-mobile`.
-- Sibling AC (`asset-detail` / collect / adjust): **out of scope**.
-- A4-IPAD **DEFER** Phase 1.
-- Should (không block): demo badge «Ghim» row1 · search placeholder kit «Tìm» vs demo dài · Android overflow `…` TopBar.
+**FAIL** · e2e `ok:false` · **cấm** completed · `qa_fail_rollback` → Dev Android fetch/Appear.
 
-## Handoff → Review
-
-| Field | Value |
-|-------|-------|
-| phase_to | `review` |
-| Next slash | `/agent-review-mobile` |
-| store | `qa/store/asset/` · CAPTURE.md |
-| Chain this turn | **không** (roleOnly=`qa`) |
-
-## Version meta (REQUIRED)
+## Version meta
 
 | Field | Value |
 |-------|-------|
@@ -133,12 +72,6 @@ Viewer: `/api/qldb/artifact?id=&rel=qa/scenarios.md` rewrite `screens/{caseId}.p
 | schemaVersion | 1 |
 | workflowVersion | 2026.08.29.1 |
 | rulesVersion | 2026.08.29.5 |
-| generatedAt | 2026-08-29T17:15:00.000Z |
-| versionGate | rechecked |
+| generatedAt | 2026-09-01T03:51:00.000Z |
+| taskId | task_4ec34586 |
 | contentHash | sha256:asset-mobile-edit-list-20260823 |
-| bffContentHash | sha256:asset-mobile-list-road-assets-proxy-20260823 |
-| taskId | task_edfc2374 |
-| contentHashPriorDev | task_bee51c9e |
-
----
-<!-- Version meta: skillId=agent-qa-mobile skillVersion=2026.08.29.1 schemaVersion=1 workflowVersion=2026.08.29.1 rulesVersion=2026.08.29.5 versionGate=rechecked -->

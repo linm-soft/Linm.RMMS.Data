@@ -2,7 +2,7 @@
 
 STATUS: **CLOSED** · Must **0** · Should **1** DEFER  
 Handoff: `/edit-mobile-feature` (optional Should only)  
-align_confirm: **approve** (autoApprove=ON · QA `task_c882b8bd`)
+align_confirm: **approve** (autoApprove=ON · QA `task_2fbe1ca6`)
 
 | ID | Zone | Demo shot | iOS shot | Android shot | SSOT | Lệch | Owner |
 |----|------|-----------|----------|--------------|------|------|-------|

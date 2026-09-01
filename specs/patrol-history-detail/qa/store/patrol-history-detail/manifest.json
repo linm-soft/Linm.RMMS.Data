@@ -1,0 +1,20 @@
+{
+  "feature": "patrol-history-detail",
+  "capturedAt": "2026-09-01T01:53:30.000Z",
+  "iosDevice": "iPhone 17 Pro Max",
+  "androidDevice": "Pixel_2",
+  "method": "e2e-qa-mobile",
+  "iosPhase": "phase1_iphone",
+  "a4Ipad": "DEFER",
+  "seedSessionId": "a11e0001-0001-4a01-8a01-000000000001",
+  "seedCode": "TD-20260821-001",
+  "steps": [
+    { "id": "A10-BFF", "result": "PASS", "store": ["A10", "P11"] },
+    { "id": "A11-LAUNCH", "result": "PASS", "screenshot": "A11-LAUNCH.png", "store": ["A11"], "px": "1320x2868" },
+    { "id": "A9-LOGIN", "result": "PASS", "screenshot": "A9-LOGIN.png", "store": ["A9", "P10"], "px": "1320x2868" },
+    { "id": "A3-CORE", "result": "PASS", "screenshot": "A3-CORE.png", "store": ["A3", "A11"], "px": "1320x2868", "rgb": true },
+    { "id": "P6-CORE", "result": "PASS", "screenshot": "P6-CORE.png", "store": ["P6", "P11"], "px": "1080x1920" },
+    { "id": "P6-CORE-2", "result": "PASS", "screenshot": "P6-CORE-2.png", "store": ["P6"], "px": "1080x1920" }
+  ],
+  "ok": true
+}

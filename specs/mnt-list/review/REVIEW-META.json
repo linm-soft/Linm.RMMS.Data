@@ -3,7 +3,7 @@
   "status": "done",
   "review_confirm": "done",
   "autoApprove": true,
-  "taskId": "task_6eafecab",
+  "taskId": "task_fdf1f59c",
   "skillId": "agent-review-mobile",
   "skillVersion": "2026.08.20.01",
   "schemaVersion": "1",
@@ -14,11 +14,14 @@
   "bffContentHash": "sha256:mnt-list-mobile-bff-20260828",
   "mustAlignOpen": 0,
   "align": "Aligned",
-  "generatedAt": "2026-08-28T19:47:18.000Z",
+  "generatedAt": "2026-09-01T05:30:00.000Z",
+  "reRunContext": "post cleanup_mock · live-only · GAP-MOB-EDIT-STATUS/ACT closed",
   "inputs": {
     "ios": [
       "Presentation/Features/MntList/MntListView.swift",
       "Presentation/Features/MntList/MntListViewModel.swift",
+      "Domain/UseCases/FetchWorkOrdersUseCase.swift",
+      "Domain/Entities/MntListModels.swift",
       "Data/Dto/MntListDto.swift",
       "Data/Repositories/MaintenanceRepositoryImpl.swift",
       "Data/Auth/KeychainTokenStore.swift",
@@ -27,6 +30,8 @@
     "android": [
       "presentation/feature/mntlist/MntListScreen.kt",
       "presentation/feature/mntlist/MntListViewModel.kt",
+      "domain/usecase/FetchWorkOrdersUseCase.kt",
+      "domain/model/MntListModels.kt",
       "data/remote/MntListDto.kt",
       "data/mapper/MntListDtoMapper.kt",
       "data/local/TokenStore.kt",

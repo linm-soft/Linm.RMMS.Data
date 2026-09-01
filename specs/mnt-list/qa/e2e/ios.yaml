@@ -66,7 +66,7 @@ appId: org.linmsoft.rmms
 - assertVisible: "Danh sách công việc"
 - assertVisible: "Giao việc xử lý"
 - assertVisible: "Vá mặt đường"
-- assertVisible: "Chờ xử lý"
+- assertVisible: "Tình trạng xử lý: Chờ xử lý"
 - assertVisible:
     id: "row-mnt-hub"
 - assertVisible:

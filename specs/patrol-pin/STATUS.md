@@ -16,7 +16,7 @@
 | android | `Linm.RMMS.Mobile.Android` · e2e-qa-mobile emulator |
 | bff | `Linm.RMMS.Mobile.Bff` |
 | backend | `Linm.RMMS.WebService` · DOMAIN-MAP — **cấm ERP.*** |
-| updatedAt | `2026-08-21T04:03:59.710Z` |
+| updatedAt | `2026-09-01T07:46:33.445Z` |
 | designConfirm | **approved** · autoApprove=ON · `task_463367a8` |
 | solutionConfirm | **approved** · autoApprove=ON · `task_688fe507` |
 | route_confirm | **route_a** · autoApprove=ON · `task_018ad2c4` |
@@ -24,7 +24,7 @@
 | android_repo_confirm | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android` · reuse |
 | ios_test_phase | **phase1_iphone** · autoApprove=ON · dest **iPhone 17 Pro Max** · A4-IPAD DEFER |
 | align_confirm | **approve** · autoApprove=ON · Must **0** · `ui/review/align-ux.md` |
-| review_confirm | **approve** · autoApprove=ON · `task_ff84d158` · `review/findings.md` |
+| review_confirm | **approve** · autoApprove=ON · `task_08d8cb4b` · `review/findings.md` |
 
 ## Lock
 
@@ -43,7 +43,7 @@
 | 3 | team-lead | task/patrol-pin.md | **confirmed** |
 | 4 | dev | implement/ios.md · implement/android.md | **confirmed** |
 | 5 | qa | qa/scenarios.md · qa/store/patrol-pin/CAPTURE.md · ui/review/align-ux.md | **confirmed** |
-| 6 | review | review/findings.md | **done** |
+| 6 | review | review/findings.md · handoff/review-compact.md | **done** |
 ## Tasks
 
 | id | page | role | deps | status | notes |
@@ -55,8 +55,10 @@
 | task_688fe507 | patrol-pin | sa | design confirmed | completed | roleOnly=sa · solution_confirm approve · GET sessions only · Step 4b N/A · VERIFY Dev gate role sau |
 | task_018ad2c4 | patrol-pin | team_lead | sa confirmed | completed | roleOnly=team_lead · route_a · T-IOS/T-AND · T-BE n/a · kit_skip · chain Dev **không** |
 | task_5bb83877 | patrol-pin | dev | TL confirmed | completed | roleOnly=dev · dual iOS+Android · VERIFY PASS · Step 4b N/A |
-| task_3a68f8d3 | patrol-pin | qa | Dev confirmed | completed | roleOnly=qa · e2eQa ON · yarn e2e-qa-mobile PASS · align Must 0 · VERIFY PASS |
-| task_ff84d158 | patrol-pin | review | QA confirmed | completed | roleOnly=review · review_confirm approve · VERIFY PASS · Must 0 |
+| task_3a68f8d3 | patrol-pin | qa | Dev confirmed | completed | roleOnly=qa · prior e2e (superseded capture) |
+| task_ff84d158 | patrol-pin | review | QA confirmed | completed | roleOnly=review · prior · re-queue after cleanup_mock |
+| task_c5415843 | patrol-pin | qa | Dev confirmed · cleanup_mock | completed | roleOnly=qa · e2eQa ON · yarn e2e-qa-mobile ok=true · align Must 0 · yaml guest→login fix |
+| task_08d8cb4b | patrol-pin | review | QA confirmed · cleanup_mock | completed | roleOnly=review · review_confirm approve · Must 0 · post_review skip |
 
 ## Blockers / open questions
 
@@ -66,12 +68,12 @@
 
 - data-analy → po → ui → be → task → implement → qa → review → **done**
 - native: e2eQa ON → `yarn e2e-qa-mobile` — **cấm** mfeStdUrl
-- VERIFY Review `2026-08-21T04:02:45Z`: iOS xcodegen+xcodebuild **iPhone 17 Pro** **PASS** · Android `assembleDebug` **PASS** · BFF `dotnet build` **PASS** · Step 4b **N/A**
-- E2E: A11/A9/A3/P6/P6-2 **PASS** · px 1320×2868 (iOS 6.9") · 1080×1920 (Play) · Maestro ON
-- Align: `ui/review/align-ux.md` · Must **0** · review_confirm **approve**
+- VERIFY Review `2026-09-01T07:46:00Z`: artifact+STATUS **PASS** · yarn build/e2e **SKIP** (roleOnly=review) · prior Dev iOS/Android/BFF PASS · Step 4b **N/A**
+- E2E: A11/A10/A9/A3/P6/P6-2 **PASS** · `task_c5415843` · px 1320×2868 (iOS 6.9") · 1080×1920 (Play) · Maestro ON · capturedAt `2026-09-01T07:41:09.032Z`
+- Align: `ui/review/align-ux.md` · Must **0** · align_confirm **approve** · QA re-Read CORE
 - Design reviewUrl: `file://…/prototype/ios/index.html` · `file://…/prototype/android/index.html` (+ `?surface=map` · `?deny=1` · `?timeout=1`)
 - SA: `be/solution-discovery.md` · BFF `GET patrol/sessions` only · Step 4b **N/A**
 - TL: `task/patrol-pin.md` · `T-IOS-PAT-PIN` · `T-AND-PAT-PIN` · `T-BE-PAT-PIN` n/a
-- Dev: `implement/ios.md` · `implement/android.md`
-- QA: `qa/scenarios.md` · `qa/e2e/{ios,android}.yaml` · `qa/bugs/patrol-pin.md` CLOSED
-- Review: `review/findings.md` · Must **0** · pipeline complete
+- Dev: `implement/ios.md` · `implement/android.md` · cleanup_mock `task_c9fd5cec` · live-only pin toast
+- QA: `qa/scenarios.md` · `qa/e2e/{ios,android}.yaml` · `qa/bugs/patrol-pin.md` CLOSED · handoff `qa-compact.md`
+- Review: `review/findings.md` · `handoff/review-compact.md` · Must **0** · `review_confirm` **approve** · `task_08d8cb4b`

@@ -1,10 +1,20 @@
 # QA bugs — gis-map
 
-> Must mở = **0**. Should-only notes từ e2e `task_9d4480e2`.
+| Field | Value |
+|-------|-------|
+| feature | `gis-map` |
+| taskId | `task_337999db` |
+| Must open | **0** |
+| updatedAt | `2026-09-01T07:58:09.000Z` |
 
-| ID | Severity | OS | Summary | Evidence |
-|----|----------|----|---------|----------|
-| GAP-QA-GIS-EMPTY | Should | dual | BFF `GET gis/geojson/*` 200 · `features:[]` → demo OMS (PO fail-open + Android toast) · seed GIS nếu cần pin live | A3 demo-shaped pins · P6 toast |
-| GAP-QA-A11Y-CHIP | Should | iOS | `LinmChip` / TopBar accessibilityIdentifier không expose Maestro (`mb-*` · `btn-gis-*` · `gis-search`) — assert text PASS | maestro WARN optional |
+## Must
 
-**Cấm** QA tự Dev fix. Should không block `phase=review`.
+none
+
+## Should
+
+| ID | Summary | Status |
+|----|---------|--------|
+| GAP-QA-GIS-EMPTY | empty geojson → map trống OK · optional seed | open · non-blocking |
+| GAP-QA-AND-TILE-RACE | P6-CORE gray grid first frame · P6-2 live | open · DEFER |
+| GAP-QA-A11Y-CHIP | Maestro text assert · chip a11y | open · DEFER kit |

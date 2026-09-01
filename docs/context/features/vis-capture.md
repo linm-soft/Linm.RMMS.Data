@@ -82,4 +82,4 @@ App base: `{BffBase}/mobile-bff/api/v1`. **Cấm** app `:5101` · invent `api/v1
 | lane | phase | status | updatedAt |
 |------|-------|--------|-----------|
 | web | — | — | — |
-| mobile | `done` | `done` | `2026-08-29T10:33:13.226Z` |
+| mobile | `done` | `done` | `2026-09-01T06:33:22.265Z` |

@@ -4,20 +4,20 @@
 |-------|-------|
 | feature | `patrol-pin` |
 | zone | `#btn-pin-here` · DES-MOB-CI-PIN-HERE · hub + map |
-| this role | `/review-align-ux-ios-android` · QA `task_3a68f8d3` |
+| this role | `/review-align-ux-ios-android` · QA `task_c5415843` |
 | verdict | **Aligned** · Must **0** |
 | align_confirm | **approve** (autoApprove=ON · QA) |
 | MapFile | `specs/patrol-pin/ui/html-to-native-map.md` |
 | demo | `ui/prototype/{ios,android}/index.html` |
 | live | `qa/screens/A3-CORE.png` · `P6-CORE.png` · `P6-CORE-2.png` |
-| capturedAt | `2026-08-21T03:58:00.000Z` · iPhone 17 Pro Max · Pixel 2 **1080×1920** |
-| updatedAt | `2026-08-21T04:00:00.000Z` |
+| capturedAt | `2026-09-01T07:41:09.032Z` · iPhone 17 Pro Max · Pixel 2 **1080×1920** |
+| updatedAt | `2026-09-01T07:42:00.000Z` |
 
 ## Must — PASS (Read CORE PNG)
 
 | Zone | Demo | iOS live (A3) | Android live (P6) | Kit / token | Verdict |
 |------|------|---------------|-------------------|-------------|---------|
-| Pin CTA hub | `#btn-pin-here` + `#i-mappin` · **Ghim vị trí hiện tại** | `LinmPrimaryButton` + `LinmMapPinGlyph` · same copy | same | MapFile pin | **PASS** |
+| Pin CTA hub | `#btn-pin-here` + `#i-mappin` · **Ghim vị trí hiện tại** | Primary + map-pin glyph · same copy | same | MapFile pin | **PASS** |
 | Pin CTA map | map card CTA + `#i-mappin` | (iOS store A3 = hub) | P6-CORE-2 `sc-patrol-map` + `btn-pin-here` | same | **PASS** |
 | Title / tab | Tuần đường · tab 5 | same · tab field on | same | `LinmTabBar` | **PASS** |
 | Glyph leading | SVG `#i-mappin` on CTA | pin glyph visible (not text-only) | pin glyph visible | **GAP-MOB-UX-COMP-03** check | **PASS** |
@@ -40,4 +40,4 @@
 ## Handoff
 
 - Bug log: `qa/bugs/patrol-pin.md` · STATUS **CLOSED** Must 0
-- Next: Review `/agent-review-mobile`
+- Next: Review `/agent-review-mobile` (pending · roleOnly gate)

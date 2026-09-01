@@ -4,8 +4,9 @@
   "review_confirm": "done",
   "align_confirm": "approve",
   "post_review": "skip",
-  "taskId": "task_84636908",
+  "taskId": "task_370526d9",
   "packKind": "sheet",
+  "changeScope": "edit_page",
   "mustAlignOpen": 0,
   "contentHash": "sha256:patrol-checkin-control-hint-20260828",
   "bffContentHash": "sha256:patrol-checkin-mobile-bff-20260828",
@@ -13,5 +14,5 @@
   "skillVersion": "2026.08.20.01",
   "workflowVersion": "2026.08.25.01",
   "rulesVersion": "2026.08.29.4",
-  "updatedAt": "2026-08-28T20:56:00.000Z"
+  "updatedAt": "2026-09-01T07:19:03.000Z"
 }

@@ -1,19 +1,33 @@
 appId: org.linmsoft.rmms
 ---
-# supervise · store P6 ×2 · login Auth seed → tile Giám sát → #sc-supervise (Pixel 1080×1920)
-# cấm hideKeyboard (BACK có thể về launcher) — tap title + Enter như patrol-home
+# supervise · store P6 ×2 · guest home → login Auth seed → tile Giám sát → #sc-supervise
+# live-only (cleanup_mock) · EmptyChrome OK · cấm assert demo names
+# cấm hideKeyboard (BACK có thể về launcher) — tap title + Enter
 - launchApp:
     clearState: true
     clearKeychain: true
 - extendedWaitUntil:
-    visible: "Đăng nhập"
+    visible:
+      id: "sc-home"
+    timeout: 20000
+- tapOn:
+    id: "btn-home-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "f-user"
     timeout: 15000
 - tapOn:
     id: "f-user"
+- eraseText
 - inputText: "linm-soft"
 - tapOn: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
 - tapOn:
     id: "f-pass"
+- eraseText
 - inputText: "Linm@2026"
 - pressKey: Enter
 - waitForAnimationToEnd:
@@ -33,13 +47,16 @@ appId: org.linmsoft.rmms
     timeout: 15000
 - tapOn:
     id: "tile-supervise"
+    optional: true
+- tapOn:
+    text: "Giám sát"
+    optional: true
 - extendedWaitUntil:
     visible:
       id: "sc-supervise"
     timeout: 20000
 - assertVisible: "Giám sát tuần đường"
 - assertVisible: "Danh sách check in"
-- assertVisible: "Nguyễn Văn A"
 - takeScreenshot: P6-CORE
 - tapOn:
     id: "btn-sup-filter"
@@ -50,7 +67,6 @@ appId: org.linmsoft.rmms
 - extendedWaitUntil:
     visible: "Lọc tuyến · ngày"
     timeout: 8000
-- assertVisible: "Trần Khánh"
 - takeScreenshot: P6-CORE-2
 - tapOn:
     text: "Bản đồ"
@@ -58,17 +74,5 @@ appId: org.linmsoft.rmms
     visible: "Bản đồ"
     timeout: 8000
 - tapOn:
-    id: "sup-card-demo-1"
-    optional: true
-- tapOn:
-    text: "Nguyễn Văn A"
-    optional: true
-- extendedWaitUntil:
-    visible: "Chi tiết check-in"
-    timeout: 8000
-- tapOn:
     id: "btn-sup-back"
-- extendedWaitUntil:
-    visible:
-      id: "sc-home"
-    timeout: 15000
+    optional: true

@@ -43,7 +43,7 @@
 
 | Option | Decision |
 |--------|----------|
-| **route_a** (chọn) | Entry: `#sc-attendance` day row tap → **push** `#sc-attendance-day` `DES-MOB-ATT-DAY` pass `dayKey` (epoch start-of-day) + `dayTitle` · **thay** toast-only `attendance.toast.dayDetail` khi pack ship · **cấm** GetById / `go('supervise-detail')`. Back / leading «Chấm công»+chevron (iOS) / icon-only (Android) → `go('attendance')` · **cấm** reimplement hub. Appear: GET list + filter `dayKey` · bind hero/badge/summary/logs · empty count=0 → EmptyChrome + badge Nghỉ · network fail → demo SSOT + toast · screen **vẫn mở** · **cấm** fake 200. Tap log row → toast **Chi tiết lần chấm** P1 · **cấm** push supervise-detail. Thiếu dayKey nav → back hub + toast · **cấm** blank invent. Shell Tab 5 **giữ** selected **Tuần đường** · pack `tabs: none` · **cấm** invent segment/tab trên detail (`GAP-TAB-01`). |
+| **route_a** (chọn) | Entry: `#sc-attendance` day row tap → **push** `#sc-attendance-day` `DES-MOB-ATT-DAY` pass `dayKey` (epoch start-of-day) + `dayTitle` · **thay** toast-only `attendance.toast.dayDetail` khi pack ship · **cấm** GetById / `go('supervise-detail')`. Back / leading «Chấm công»+chevron (iOS) / icon-only (Android) → `go('attendance')` · **cấm** reimplement hub. Appear: GET list + filter `dayKey` · bind hero/badge/summary/logs · empty count=0 → EmptyChrome + badge Nghỉ · network fail → empty chrome + toast · screen **vẫn mở** · **cấm** demo SSOT / mock · **cấm** fake 200. Tap log row → toast **Chi tiết lần chấm** P1 · **cấm** push supervise-detail. Thiếu dayKey nav → back hub + toast · **cấm** blank invent. Shell Tab 5 **giữ** selected **Tuần đường** · pack `tabs: none` · **cấm** invent segment/tab trên detail (`GAP-TAB-01`). |
 | route_b | — không dùng (không deep-link web / `mfeStdUrl`) |
 | route_c | — không dùng (không invent tab) |
 
@@ -145,7 +145,7 @@ AskQuestion (autoApprove=ON · không chờ board): `ios_repo_confirm` · `andro
 | Appear | `FetchAttendanceDayUseCase` → reuse `AttendanceRepository.fetchLogs` → `GET patrol/attendance-logs` Bearer · filter `dayKey` client |
 | Repo | extend `AttendanceRepository` **hoặc** `AttendanceDayRepository` same GET · **cấm** fork DTO |
 | Mapper | extend `AttendanceDtoMapper` · day filter · summary + log rows · badge/range/count derived |
-| Fail / offline | `AttendanceCopy.demoDays` + detail log rows T7/CN · screen **vẫn mở** · toast · **cấm** native alert · **cấm** fake 200 · **không** OfflineQueue |
+| Fail / offline | empty mapped detail + toast · screen **vẫn mở** · **cấm** demo T7/CN · **cấm** native alert · **cấm** fake 200 · **không** OfflineQueue |
 | Empty day | `LinmEmptyChrome` · badge Nghỉ |
 | 403 XCO | toast · back hub |
 | Thiếu dayKey | back hub + toast · **cấm** blank invent |

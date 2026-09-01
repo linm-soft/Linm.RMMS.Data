@@ -19,3 +19,10 @@ Reuse `GET mobile-bff/api/v1/patrol/sessions` — **cấm** endpoint mới.
 
 - `#sc-patrol-detail` push
 - Filter sheet (toast only)
+
+## Implement tracking
+
+| lane | phase | status | updatedAt |
+|------|-------|--------|-----------|
+| web | — | — | — |
+| mobile | `done` | `done` | `2026-09-01T05:52:24.618Z` |

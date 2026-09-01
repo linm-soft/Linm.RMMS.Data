@@ -6,11 +6,11 @@
 | title | [Mobile] Tuần đường |
 | this role | `review` · `/agent-review-mobile` |
 | status | **done** |
-| review_confirm | **approve** (autopilot · `task_929e803f` · autoApprove=ON) |
+| review_confirm | **approve** (autopilot · `task_262a3fa6` · autoApprove=ON) |
 | packKind | **`hub`** |
 | lane | `mobile` · **cấm** mfeStdUrl / yarn start:std |
-| prior · qa | `task_c882b8bd` · `qa/scenarios.md` · **confirmed** · e2e `ok: true` |
-| prior · dev | `task_488d0e96` · `implement/{ios,android}.md` · **confirmed** |
+| prior · qa | `task_2fbe1ca6` · `qa/scenarios.md` · **confirmed** · re-QA post cleanup_mock · e2e `ok: true` |
+| prior · dev | `task_22fa5cba` · `implement/{ios,android}.md` · **confirmed** · cleanup_mock live-only |
 | prior · sa | `task_874f3421` · `be/solution-discovery.md` · **confirmed** · Step 4b **N/A** |
 | ios | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS` |
 | android | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android` |
@@ -18,7 +18,7 @@
 | backend | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.WebService` · **cấm ERP.*** |
 | autoApprove | **ON** |
 | e2eQa | **ON** · prior QA runtime PASS · Review **không** re-run Maestro |
-| updatedAt | `2026-08-19T15:00:00.000Z` |
+| updatedAt | `2026-09-01T05:30:00.000Z` |
 
 ## REVIEW-META
 
@@ -27,9 +27,9 @@
 | iOS | `PatrolHomeView` · `PatrolHomeViewModel` · `PatrolHomeNavBar` · `PatrolRepositoryImpl` · `FetchPatrolSessionsUseCase` · `FetchOfflineQueueCountUseCase` |
 | Android | `PatrolHomeScreen` · `PatrolHomeViewModel` · `PatrolRepositoryImpl` · same use cases |
 | BFF | `MobileApiProxyController` catch-all → `GET patrol/sessions` · **cấm** `PatrolHomeController` |
-| API | `GET patrol/sessions` Bearer · client filter «Đang tuần» · demo fallback |
+| API | `GET patrol/sessions` Bearer · client filter «Đang tuần» · **live-only** on hub |
 | skillVersion | agent-review-mobile **2026.08.19.29** |
-| live re-audit | 2026-08-19 after QA `task_c882b8bd` · VERIFY GATE recheck `task_929e803f` |
+| live re-audit | 2026-09-01 after cleanup_mock `task_22fa5cba` + re-QA `task_2fbe1ca6` · VERIFY GATE prior PASS |
 
 ## Security + permission
 
@@ -52,7 +52,8 @@
 |-------|-----|---------|-------------|
 | Session list | `PatrolRepositoryImpl` GET `patrol/sessions` | same Retrofit path | **OK** |
 | Active filter | `PatrolDtoMapper.active(from:)` | `PatrolDtoMapper.active()` | **OK** — «Đang tuần» |
-| Demo fallback | `PatrolHomeCopy.demoActive` · `demoToday` | same SSOT | **OK** — Km 1556+000 · PAT-…0014 |
+| Live-only hub | `emptyActive` + `[]` on fail · **cấm** `demoActive`/`demoToday` path | same | **OK** — GAP-MOB-EDIT-DEMO **closed** |
+| Demo SSOT (siblings) | `itemsOrDemo` ext still in domain | same | **Defer** — siblings only · non-block |
 | Hero/KPI fields | `checkInCount` · `remainingCount` · `coveragePercent` | same | **OK** |
 | Offline count | `FetchOfflineQueueCountUseCase` local store | same | **OK** — badge ẩn khi 0 |
 | Quick actions | `PatrolHomeCopy.quickActions` 6 rows | same | **OK** — Lưu trữ last |
@@ -94,10 +95,11 @@ AskQuestion (autoApprove=ON): `review_confirm=approve` · `post_review=skip` (Re
 |----|------|-----|---------|-------------|
 | R-01 | Security | — | Keychain / EncryptedPrefs · Bearer · local offline count only | **OK** |
 | R-02 | API | — | Chỉ `GET patrol/sessions` proxy · **cấm** `PatrolHomeController` / hub aggregate | **OK** |
-| R-03 | DTO | — | Session list dual parity · active filter · demo fallback SSOT | **OK** |
+| R-03 | DTO | — | Session list dual parity · active filter · live-only hub · emptyActive on fail | **OK** |
+| R-13 | Live | — | cleanup_mock: ViewModel **cấm** `itemsOrDemo` · fail→toast+empty | **OK** — `task_22fa5cba` |
 | R-04 | UX | P2 | Sibling CTA (map · check-in · attendance) toast-only P1 | **Accept** — scope hub · QA Must 0 |
 | R-05 | Align | — | iOS↔Android zone kit parity · segment · hero · KPI · quick · tab | **OK** |
-| R-06 | QA | — | e2e-qa-mobile PASS · cases A11,A10,A9,A3,P6,P6-2 | **OK** |
+| R-06 | QA | — | re-QA post cleanup_mock PASS · cases A11,A10,A9,A3,P6,P6-2 · `task_2fbe1ca6` | **OK** |
 | R-07 | Store | P2 | thiếu `PrivacyInfo.xcprivacy` + Data safety / landing | **Accept** — chặn chỉ khi `app_submit` |
 | R-08 | Scope | — | check-in live · map · attendance implement · 6 sibling screens **OUT** P1 | **OK** |
 | R-09 | Step 4b | — | T-BE / migration **N/A** · reuse `GET patrol/sessions` | **OK** |
@@ -112,24 +114,24 @@ AskQuestion (autoApprove=ON): `review_confirm=approve` · `post_review=skip` (Re
 | T-IOS-PAT-HOME | PASS (prior Dev + Review re-audit) |
 | T-AND-PAT-HOME | PASS |
 | T-BE-* | **n/a** |
-| T-QA (e2e store) | PASS (`task_c882b8bd`) |
+| T-QA (e2e store) | PASS (`task_2fbe1ca6`) |
 | T-REVIEW-SEC | PASS |
 | T-REVIEW-DTO | PASS |
 | T-REVIEW-ALIGN | PASS · Must align = 0 |
 
-## VERIFY GATE (`task_929e803f` recheck)
+## VERIFY GATE (prior PASS — Review không re-run build/e2e)
 
 | Gate | Result |
 |------|--------|
-| iOS `xcodegen generate` + `xcodebuild` dest **iPhone 17 Pro** | **PASS** · BUILD SUCCEEDED |
-| Android `./gradlew :app:assembleDebug` | **PASS** · BUILD SUCCESSFUL |
-| BFF `dotnet build` | **PASS** · 0 Warning(s) · 0 Error(s) |
+| iOS `xcodegen generate` + `xcodebuild` dest **iPhone 17 Pro** | **PASS** (`task_22fa5cba` / `task_929e803f`) |
+| Android `./gradlew :app:assembleDebug` | **PASS** |
+| BFF `dotnet build` | **PASS** |
 | Step 4b BE align | **N/A** |
-| `yarn e2e-qa-mobile` | prior QA **PASS** (`ok: true`) — Review không re-run |
+| `yarn e2e-qa-mobile` | re-QA **PASS** (`ok: true` · `task_2fbe1ca6`) — Review không re-run |
 
 ## Verdict
 
-Hub Tuần đường dual-native: security token/local-store/API scope PASS · GAP-MOB-ACT-PAT-OFFLINE-01 nav wire **Closed** · UI align 0 Must · QA store live PASS · VERIFY GATE native+BFF PASS. P2 PrivacyInfo/sibling toast-only **Accept** đến `post_review`/`app_submit`. GAP-MOB-ACT-06 · GAP-QA-A11Y-TAB-FIELD-01 **Defer** P1. **Approve** (autopilot). Pipeline **complete**.
+Hub Tuần đường dual-native post cleanup_mock: live-only hub PASS · security token/local-store/API scope PASS · GAP-MOB-ACT-PAT-OFFLINE-01 nav wire **Closed** · GAP-MOB-EDIT-DEMO **closed** · UI align 0 Must · re-QA store live PASS · VERIFY GATE native+BFF prior PASS. P2 PrivacyInfo/sibling toast-only **Accept** đến `post_review`/`app_submit`. GAP-MOB-ACT-06 · GAP-QA-A11Y-TAB-FIELD-01 **Defer** P1. **Approve** (autopilot). Pipeline **complete**.
 
 ## Handoff
 
@@ -149,10 +151,11 @@ Hub Tuần đường dual-native: security token/local-store/API scope PASS · G
 | schemaVersion | 1 |
 | workflowVersion | 2026.08.19.29 |
 | rulesVersion | 2026.08.19.34 |
-| generatedAt | 2026-08-19T15:00:00.000Z |
+| generatedAt | 2026-09-01T05:30:00.000Z |
 | versionGate | rechecked |
-| taskId | `task_929e803f` |
-| contentHashPriorQa | `task_c882b8bd` |
+| taskId | `task_262a3fa6` |
+| contentHashPriorQa | `task_2fbe1ca6` |
+| contentHashPriorDev | `task_22fa5cba` |
 | dataAnalySkillVersion | 2026.08.19.27 |
 | poSkillVersion | 2026.08.19.23 |
 | designSkillVersion | 2026.08.19.24 |

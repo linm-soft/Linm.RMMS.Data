@@ -41,7 +41,7 @@ Login → Tab Vấn đề (shell Tab 5 · index incident)
 | Header | Vấn đề · Nhận diện mặt đường | A `.nav-bar` / `.top-bar` | `LinmTopBar` | same |
 | Section | Ảnh hiện trường | A `.section-label` | SectionLabel 13 | same · **parity** |
 | PhotoRow | filled Ảnh + camera slot | A `.photo-row` | PhotoRow still | same |
-| Row Loc | Vị trí đã chốt / QL.1 · Km 1556+050 | A `.row` | `LinmListRow` | same |
+| Row Loc | Vị trí đã chốt / live session (demo HTML QL.1 · Km 1556+050) | A `.row` | `LinmListRow` | live-only · **cấm** demoLoc |
 | Row Acc | Sai số định vị / ±4 m | A `.row` | `LinmListRow` | same |
 | Row Class | Phân loại / Nứt dọc | A `.row` | `LinmListRow` | same |
 | Row Sev | Mức / Cao + badge | A `.row` + `.badge` | `LinmListRow` + Badge | same |

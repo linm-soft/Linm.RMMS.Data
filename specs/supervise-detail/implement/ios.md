@@ -3,33 +3,32 @@
 | Field | Value |
 |-------|-------|
 | feature | `supervise-detail` |
-| role | `dev` · `/agent-dev-ios` · `/dev-ios-swiftui` · `/dev-ui-review` |
+| role | `dev` · `/edit-mobile-feature` · `/agent-dev-ios` |
 | status | **PASS** |
 | packKind | **`screen`** |
-| changeScope | `new_page` |
+| changeScope | `edit_page` |
+| gap | `cleanup_mock` |
 | route_confirm | **route_a** |
-| taskId | `task_1c63dead` |
-| updatedAt | `2026-08-31T02:20:00.000Z` |
+| taskId | `task_b9997d8c` |
+| updatedAt | `2026-09-01T03:00:52.000Z` |
 
 ## Tasks
 
 | id | status | notes |
 |----|--------|-------|
-| T-IOS-SUP-DETAIL | **done** | `#sc-supervise-detail` · GET by id · hero+rows+CTA · demo CC-20260810-001 · list toast → push |
-| T-BE / T-BFF | **n/a · reuse** | `GET patrol/attendance-logs/{id}` live · proxy catch-all · **không** Write BFF/BE |
-| Step 4b | **N/A** | SA chốt |
+| T-IOS-SUP-DETAIL cleanup | **done** | remove OfflineDemo · live-only GET by id |
+| T-BE / T-BFF | **n/a · reuse** | `GET patrol/attendance-logs/{id}` · **không** Write BFF/BE |
+| Step 4b | **N/A** | SA chốt · EmptyChrome OK |
 
-## Ship summary
+## Ship summary (cleanup_mock)
 
-- **Screen** `#sc-supervise-detail` · `DES-MOB-SUP-DETAIL` · push (không sheet)
-- **Entry:** list rich-card `TapItem` → push + `Id` · **supersede** toast-only
-- **API:** `GET patrol/attendance-logs/{id}` · `FetchAttendanceLogByIdUseCase` · `SuperviseRepository.fetchById`
-- **DTO:** extend `AttendanceLogItemDto` + `code`/`lat`/`lng`/`inZone` · mapper `detail` · Status VN map · org Note fallback
-- **Bind:** UserName 28 · Mã · Tổ · Tuyến · Thời điểm · Trạng thái · Tọa độ · Trong vùng · CTA **Xem trên bản đồ**
-- **404** → EmptyChrome · **403** → toast + back · **GET fail** → demo SSOT + toast · screen vẫn mở · **cấm** fake 200
-- **Thiếu Id** → toast + back list
-- **Router:** nest `showSuperviseDetail` under both Home/Field Supervise · CTA map → gis-map (home/asset-hub path)
-- **Copy:** title **Chi tiết check-in** · back **Giám sát** · e2e `btn-sup-detail-back` · `btn-sup-detail-map`
+- **Removed** `SuperviseDetailCopy.demo` / `.withId` / OfflineDemo outcome
+- **UC:** `loaded` · `failed` · `notFound` · `forbidden` only
+- **404** → EmptyChrome `empty-not-found`
+- **GET fail** → EmptyChrome `empty-load-fail` + toast `Không tải được chi tiết check-in.` (**cấm** «Đang dùng dữ liệu mẫu»)
+- **403** → toast + back · **thiếu Id** → toast + back
+- **Org fallback** mapper only (`SuperviseCopy.orgFallback`) khi live Note empty
+- Entry list TapItem → push `#sc-supervise-detail` · CTA map unchanged
 
 ## VERIFY GATE
 
@@ -37,39 +36,31 @@
 |-------|--------|
 | `xcodegen generate` | **PASS** |
 | `xcodebuild -scheme LinmRmms -destination 'platform=iOS Simulator,name=iPhone 17 Pro' build` | **PASS** |
-| BFF `dotnet build` | **PASS** (no BFF write · verify only) |
+| BFF `dotnet build` | **PASS** |
 | e2e / start:std / mfeStdUrl | **SKIP** (cấm role Dev) |
 
 ## Files
 
 | Path | Change |
 |------|--------|
-| `Presentation/Features/SuperviseDetail/*` | NEW screen · VM · UiState |
-| `Domain/Entities/SuperviseDetailModels.swift` | NEW · demo SSOT |
-| `Domain/UseCases/FetchAttendanceLogByIdUseCase.swift` | NEW |
-| `Domain/Repositories/SuperviseRepository.swift` | +`fetchById` |
-| `Data/Repositories/SuperviseRepositoryImpl.swift` | +GET by id |
-| `Data/Dto/SuperviseDto.swift` | +code/lat/lng/inZone · detail mapper · Status VN |
-| `Presentation/Features/Supervise/SuperviseViewModel.swift` | push wire |
-| `App/AppRouter.swift` · `App/AppContainer.swift` | nav + DI |
-| `Presentation/Shared/LinmCopy.swift` | `supervise.detail.*` |
+| `Domain/UseCases/FetchAttendanceLogByIdUseCase.swift` | OfflineDemo → Failed |
+| `Domain/Entities/SuperviseDetailModels.swift` | drop SuperviseDetailCopy |
+| `Presentation/Features/SuperviseDetail/*` | loadFailed · EmptyChrome dual |
+| `Presentation/Shared/LinmCopy.swift` | loadFail toast no demo wording |
 
 ## Version meta
 
 | Field | Value |
 |-------|-------|
-| skillId | agent-dev-ios |
-| skillVersion | 2026.08.29.1 |
+| skillId | edit-mobile-feature+agent-dev-ios |
+| skillVersion | 2026.08.19.26 |
 | schemaVersion | 1 |
 | workflowVersion | 2026.08.31.2 |
 | rulesVersion | 2026.08.31.2 |
 | versionGate | rechecked |
-| contentHash | sha256:supervise-detail-control-hint-20260831 |
-| realDataHash | sha256:supervise-detail-real-data-20260831 |
-| bffContentHash | sha256:patrol-attendance-logs-getbyid-passthrough |
-| actionTreeHash | sha256:supervise-detail-action-tree-20260831 |
-| iosContentHash | sha256:supervise-detail-implement-ios-20260831 |
-| taskId | `task_1c63dead` |
+| contentHash | sha256:supervise-detail-cleanup-mock-20260901 |
+| iosContentHash | sha256:supervise-detail-implement-ios-cleanup-20260901 |
+| taskId | `task_b9997d8c` |
 
 ---
-<!-- Version meta: skillId=agent-dev-ios skillVersion=2026.08.29.1 schemaVersion=1 workflowVersion=2026.08.31.2 rulesVersion=2026.08.31.2 versionGate=rechecked -->
+<!-- Version meta: skillId=edit-mobile-feature+agent-dev-ios skillVersion=2026.08.19.26 schemaVersion=1 workflowVersion=2026.08.31.2 rulesVersion=2026.08.31.2 versionGate=rechecked taskId=task_b9997d8c -->

@@ -1,0 +1,85 @@
+appId: org.linmsoft.rmms
+---
+# mnt-chat · P6 ×2 · Pixel 1080×1920 · guest → login → mnt-list → chat screen
+# Seed WO-DEMO-1 · cấm hideKeyboard · cấm toast-only entry · cấm mfeStdUrl
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 20000
+- tapOn:
+    id: "btn-home-login"
+- extendedWaitUntil:
+    visible:
+      id: "f-user"
+    timeout: 15000
+- tapOn:
+    id: "f-user"
+- eraseText
+- inputText: "linm-soft"
+- tapOn: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
+- tapOn:
+    id: "f-pass"
+- eraseText
+- inputText: "Linm@2026"
+- pressKey: Enter
+- waitForAnimationToEnd:
+    timeout: 4000
+- tapOn:
+    id: "btn-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
+- extendedWaitUntil:
+    visible: "Trang Chủ"
+    timeout: 45000
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 15000
+- scrollUntilVisible:
+    element:
+      id: "tile-mnt"
+    direction: DOWN
+    timeout: 15000
+    optional: true
+- tapOn:
+    id: "tile-mnt"
+    optional: true
+- tapOn:
+    id: "tab-work"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-mnt-list"
+    timeout: 25000
+- assertVisible: "Danh sách công việc"
+- assertVisible: "Vá mặt đường"
+- tapOn:
+    id: "btn-mnt-chat-11111111-1111-1111-1111-111111111101"
+    optional: true
+- runFlow:
+    when:
+      notVisible:
+        id: "sc-mnt-chat"
+    commands:
+      - tapOn:
+          text: "Trao đổi"
+          optional: true
+      - tapOn:
+          point: "88%,38%"
+- extendedWaitUntil:
+    visible:
+      id: "sc-mnt-chat"
+    timeout: 15000
+- assertVisible: "Trao đổi công việc"
+- assertVisible:
+    id: "sc-mnt-chat"
+- takeScreenshot: P6-CORE
+- assertVisible:
+    text: "Nhập tin nhắn…"
+    optional: true
+- takeScreenshot: P6-CORE-2

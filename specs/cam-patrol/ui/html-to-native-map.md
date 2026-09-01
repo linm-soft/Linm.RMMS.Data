@@ -9,7 +9,7 @@
 | DES-MOB-CAM-PATROL | Back | `.nav-btn` + `#i-chevron-left` · text «Tuần đường» (iOS) | leading | `icon-btn` chevron only | `go('patrol-home')` |
 | DES-MOB-CAM-FINDER | Preview | `.finder` | AVCapture overlay | CameraX Preview | **app surface** · không kit package mới |
 | DES-MOB-CAM-FINDER | FOV | `.finder .box` | overlay rect `#5AC8FA` | same | |
-| OverlayStamp | Route + GPS | `.finder .stamp` | Text 13 overlay | same | bind sessions + GPS |
+| OverlayStamp | Route + GPS | `.finder .stamp` | Text 13 overlay | same | live sessions + GPS · **cấm** demoRouteStamp (cleanup_mock) |
 | Detect card | Group | `.card-group` | inset grouped / card | `Card` + column | |
 | rowDetect | List | `.row` · row-sub/title | `LinmListRow` | same | label 13 · value ≥16 |
 | rowScore | List | `#row-score` | — | — | **demo only** · **không map ship** |

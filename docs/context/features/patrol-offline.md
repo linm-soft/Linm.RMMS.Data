@@ -34,3 +34,10 @@ Hiện trường QLĐB thường mất sóng — ghi cục bộ cùng dữ liệ
 
 - Demo: `specs/mobile-p1/ui/prototype/ios/index.html` `#sc-patrol-offline`
 - Strings: `docs/mobile-strings.json` keys `offline.*`
+
+## Implement tracking
+
+| lane | phase | status | updatedAt |
+|------|-------|--------|-----------|
+| web | — | — | — |
+| mobile | `done` | `done` | `2026-09-01T08:31:51.886Z` |

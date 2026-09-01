@@ -1,38 +1,56 @@
 Running on iPhone 17 Pro Max - iOS 26.2 - 518BFF77-0941-448B-8D37-67678F4506C7
- > Flow crawl-ios
+ > Flow ios
 Launch app "org.linmsoft.rmms" with clear state and clear keychain... COMPLETED
 Assert that id: sc-home is visible... COMPLETED
-Tap on (Optional) id: btn-home-login... COMPLETED
+Take screenshot A11-LAUNCH... COMPLETED
+Tap on id: btn-home-login... COMPLETED
 Assert that id: f-user is visible... COMPLETED
 Tap on id: f-user... COMPLETED
 Erase text... COMPLETED
 Input text linm-soft... COMPLETED
 Tap on (Optional) "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"... COMPLETED
-Tap on (Optional) "RMMS"... COMPLETED
 Tap on id: f-pass... COMPLETED
 Erase text... COMPLETED
 Input text Linm@2026... COMPLETED
-Tap on (Optional) "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"... COMPLETED
-Tap on (Optional) "RMMS"... COMPLETED
+Tap on (Optional) "Not Now"... WARNED
+Take screenshot A9-LOGIN... COMPLETED
 Tap on (Optional) id: btn-login... COMPLETED
 Tap on (Optional) "Đăng nhập"... WARNED
 Tap on (Optional) "Not Now"... WARNED
-Assert that id: home-who is visible... COMPLETED
+Press Enter key... COMPLETED
+Wait for animation to end within 4000 ms... COMPLETED
+Assert that id: sc-home is visible... COMPLETED
+Scrolling DOWN until id: tile-mnt is visible with speed 40, visibility percentage 100%, timeout 15000 ms, with centering disabled... COMPLETED
+Tap on (Optional) id: tile-mnt... COMPLETED
 Tap on (Optional) id: tab-work... WARNED
-Tap on (Optional) "Công việc"... COMPLETED
-Tap on point (70%,96%)... COMPLETED
 Assert that id: sc-mnt-list is visible... COMPLETED
-Tap on id: btn-mnt-sync-demo-wo-1... FAILED
-
-Element not found: Id matching regex: btn-mnt-sync-demo-wo-1
-
-Element with Id matching regex: btn-mnt-sync-demo-wo-1 not found. Check the UI hierarchy in debug artifacts to verify if the element exists.
-
-Possible causes:
-- Element selector may be incorrect - check if there are similar elements with slightly different names/properties.
-- Element may be temporarily unavailable due to loading state.
-- This could be a real regression that needs to be addressed.
-
-==== Debug output (logs & screenshots) ====
-
-/Users/mac/.maestro/tests/2026-08-31_021754
+Assert that "Danh sách công việc" is visible... COMPLETED
+Assert that id: row-mnt-hub is visible... COMPLETED
+Assert that id: card-mnt-11111111-1111-1111-1111-111111111101 is visible... COMPLETED
+Assert that "Vá mặt đường" is visible... COMPLETED
+Tap on (Optional) id: btn-mnt-sync-11111111-1111-1111-1111-111111111101... WARNED
+Tap on point (50%,48%)... COMPLETED
+Assert that id: sc-mnt-progress is visible... COMPLETED
+Assert that "Cập nhật trạng thái" is visible... COMPLETED
+Assert that id: wo-title is visible... COMPLETED
+Assert that id: wo-code is visible... COMPLETED
+Assert that id: wo-status is visible... COMPLETED
+Assert that id: progress-pct is visible... COMPLETED
+Assert that id: note is visible... COMPLETED
+Tap on id: progress-pct... COMPLETED
+Erase text... COMPLETED
+Input text 45... COMPLETED
+Tap on (Optional) "Cập nhật trạng thái"... COMPLETED
+Tap on id: note... COMPLETED
+Input text E2E QA mobile cập nhật tiến độ hiện trường vá mặt đường... COMPLETED
+Tap on (Optional) "Cập nhật trạng thái"... COMPLETED
+Scrolling DOWN until id: i-camera is visible with speed 40, visibility percentage 100%, timeout 10000 ms, with centering disabled... COMPLETED
+Scrolling DOWN until id: location-row is visible with speed 40, visibility percentage 100%, timeout 10000 ms, with centering disabled... COMPLETED
+Scrolling DOWN until id: btn-update is visible with speed 40, visibility percentage 100%, timeout 10000 ms, with centering disabled... COMPLETED
+Assert that id: sc-mnt-progress is visible... COMPLETED
+Take screenshot A3-CORE... COMPLETED
+Scroll vertically... COMPLETED
+Assert that id: btn-update is visible... COMPLETED
+Assert that id: i-camera is visible... COMPLETED
+Take screenshot P6-CORE... COMPLETED
+Take screenshot P6-CORE-2... COMPLETED

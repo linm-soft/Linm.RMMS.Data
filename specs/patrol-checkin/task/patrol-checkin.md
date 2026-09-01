@@ -128,11 +128,12 @@
 5. GPS deny → `DES-MOB-GPS-DENY` · **không** submit · **cấm** system alert.
 6. PhotoRow + `#i-camera` → `openCapture('checkin')` · local URI P1.
 7. Submit khi `matchOk`: POST `patrol/sessions/{id}/check-ins` khi live · else `OfflineQueueKind.checkIn` + toast **Đã ghi điểm tuần · …** · **cấm** fake 200.
-8. Dirty leave → `DES-MOB-LEAVE` (**Bỏ thay đổi?** / **Tiếp tục sửa**).
+8. Dirty leave → `DES-MOB-LEAVE` (**Bỏ thay đổi?** / **Tiếp tục sửa**) · leave **trên** sheet (iOS in-sheet · Android `Dialog`) · swipe dirty không ẩn sheet trước confirm · **cấm** under-sheet / orphan leave trên map.
 9. Detail `#sc-checkin-detail` cùng slug · banner **Đã lưu** · rows Điểm KH / Cách điểm · back Ca.
 10. Dual copy + `#i-camera` + Android label **Ảnh** (`GAP-MOB-ALIGN-01`).
 11. Tab 5 shell giữ · pack `tabs: none` (`T-QA-TAB-01`).
 12. **Cấm** ship pin form / map host trên pack này.
+13. **UI note Dev (edit):** `matchOk=false` → toast chặn only · **không** mở leave; Cancel khi `showGpsDeny`/`showLeave` = no-op.
 
 ### Build gate (Dev — HARD trước Dev done · **cấm** TL chạy)
 

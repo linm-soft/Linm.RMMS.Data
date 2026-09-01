@@ -44,10 +44,10 @@ Login → Tab 5
 
 | State | Hành vi |
 |-------|---------|
-| default | GET inbox · bind rows · demo fallback nếu fail |
+| default | GET inbox · bind live rows · **cấm** demo fallback |
 | loading | refresh nhẹ · **cấm** full-screen block list |
-| error / offline | demo 2 rows SSOT · toast info optional · **cấm** block Me/Home |
-| empty live | optional empty chrome · P1 fail → demo rows |
+| error / offline | empty list + toast `ops.toast.loadFail` · **cấm** demo SSOT · **cấm** block Me/Home |
+| empty live | EmptyChrome `ops.empty.*` · id `ops-empty` |
 | permission | GPS/camera **N/A** trên ops |
 | leave dirty | **N/A** (không form) |
 

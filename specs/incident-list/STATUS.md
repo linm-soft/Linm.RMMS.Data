@@ -25,9 +25,9 @@
 | implement | `specs/incident-list/implement/ios.md` · `implement/android.md` |
 | qa | `specs/incident-list/qa/scenarios.md` · `qa/store/incident-list/CAPTURE.md` · `ui/review/align-ux.md` |
 | review | `specs/incident-list/review/findings.md` |
-| taskId | `task_ddcd049e` |
-| skillId | `agent-review-mobile` |
-| skillVersion | `2026.08.20.01` |
+| taskId | `task_3a718e5d` |
+| skillId | `edit-mobile-feature` |
+| skillVersion | `2026.08.25.01` |
 | schemaVersion | `1` |
 | workflowVersion | `2026.08.25.01` |
 | rulesVersion | `2026.08.25.2` |
@@ -35,12 +35,12 @@
 | contentHash | `sha256:incident-list-mobile-list-20260829` |
 | realDataHash | `sha256:incident-list-mobile-real-data-20260829` |
 | bffContentHash | `sha256:incident-incidents-proxy-passthrough` |
-| updatedAt | `2026-08-29T02:31:04.930Z` |
+| updatedAt | `2026-09-01T04:27:38.945Z` |
 ## Lock
 
 | agent | scope | id | at |
 |-------|-------|-----|-----|
-| — | — | — | released after review `task_ddcd049e` |
+| — | — | — | released after `/agent-review-mobile` task_8fd8993f |
 
 ## Pipeline
 
@@ -87,8 +87,10 @@
 | T-IOS-INC-LIST | incident-list | dev_ios | TL | **done** | GET list · tab + tile → list · xcodegen+xcodebuild PASS |
 | T-AND-INC-LIST | incident-list | dev_android | TL | **done** | dual parity · assembleDebug PASS |
 | task_0d0a8786 | incident-list | dev | TL | **completed** | `/agent-dev-ios` + `/agent-dev-android` · VERIFY GATE PASS · Step 4b N/A · **cấm** e2e |
-| task_3004011c | incident-list | qa | dev | **completed** | `/agent-qa-mobile` · e2eQa ON · yarn e2e-qa-mobile ok:true · align Aligned Must 0 |
+| task_f70a425c | incident-list | qa | dev | **completed** | `/agent-qa-mobile` · e2eQa ON · ok:true · align Aligned Must 0 · re-QA post edit-mobile-feature |
 | task_ddcd049e | incident-list | review | qa | **completed** | `/agent-review-mobile` · review_confirm=done · Must 0 · **cấm** e2e/build |
+| task_8fd8993f | incident-list | review | dev | **completed** | `/agent-review-mobile` · re-review post edit-mobile-feature · review_confirm=done · Must 0 · **cấm** e2e/build |
+| task_3a718e5d | incident-list | dev | review | **completed** | `/edit-mobile-feature` · GAP-MOB-EDIT-STATUS-01 · GAP-MOB-EDIT-ACT-01 · VERIFY GATE PASS · **cấm** e2e |
 | task_086ba802 | vis-capture | — | incident-list | pending_confirm | sibling_assign · cấm auto start |
 | task_42bb4141 | incident-detail | — | incident-list | pending_confirm | sibling_assign · cấm auto start |
 | task_9e8d18c5 | incident-chat | — | incident-list | pending_confirm | sibling_assign · cấm auto start |
@@ -96,9 +98,8 @@
 ## Blockers / open questions
 
 - GAP-MOB-INC-LIST-PLACE-01 · GAP-MOB-INC-LIST-ORG-01 · GAP-MOB-INC-LIST-THUMB-01 — closed for Dev (bind + thumb DEFER)
-- Siblings `pending_confirm`: `vis-capture` · `incident-detail` · `incident-chat` (± `gis-map`) — **cấm** auto start
-- Review Should (non-block): GAP-MOB-COPY-SEARCH-01 · GAP-MOB-A11Y-FAB-01
-- `/edit-mobile-feature` 2026-08-29: **GAP-MOB-EDIT-STATUS-01** (status 1 dòng full width · cấm badge trùng) · **GAP-MOB-EDIT-ACT-01** (4 nút flex:1 dàn đều) — locked design/ux/map/task/po/implement dual
+- **GAP-MOB-EDIT-STATUS-01** · **GAP-MOB-EDIT-ACT-01** — **closed** (`/edit-mobile-feature` task_3a718e5d · dual iOS+Android)
+- *(closed epic cleanup `task_a33dfede`)* residual `demoItems` empty/fail → live-only EmptyChrome + `inc.list.toast.loadFail`
 
 ## Links
 
@@ -112,4 +113,5 @@
 - review: `specs/incident-list/review/findings.md`
 - analy: `specs/_data-analy/incident-list-*.md` (4 files)
 - po: `specs/incident-list/po/requirement.md`
-- next: `/edit-mobile-feature` (Should kit) · siblings **cấm** auto start
+- next: siblings **cấm** auto start (`vis-capture` · `incident-detail` · `incident-chat`)
+- closeout epic cleanup_mock: `task_a33dfede` · live-only dual · at: `2026-09-01T10:10:00.000Z`

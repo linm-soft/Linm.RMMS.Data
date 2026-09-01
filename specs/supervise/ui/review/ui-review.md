@@ -27,9 +27,9 @@ _(none)_
 
 ## Pass
 
-- [x] P1 surface 1 cột native · [x] P4 spacing 12/14/16 · [x] P6 loading overlay + demo fallback · [x] P7 VoiceOver/TalkBack label card
-- Native dual: cùng zone DES-MOB-SUP-* · copy VN · toast siblings · **cấm** WebView-as-app
-- GAP-MOB-SUP-03 org fallback SSOT · GAP-MOB-ICON-02 outline building/mappin `d=`
+- [x] P1 surface 1 cột native · [x] P4 spacing 12/14/16 · [x] P6 loading overlay + EmptyChrome live-only · [x] P7 VoiceOver/TalkBack label card
+- Native dual: cùng zone DES-MOB-SUP-* · copy VN · toast siblings · **cấm** WebView-as-app · **cấm** demoItems
+- GAP-MOB-SUP-03 org fallback SSOT · GAP-MOB-ICON-02 outline building/mappin `d=` · cleanup_mock `task_65931a17`
 - Must **0** · `align_confirm` N/A (cùng zone)
 
 ## Checklist

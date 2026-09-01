@@ -12,8 +12,8 @@ Login (ngoài tab) → Tab 5
 #sc-attendance-day
   → Back = go('attendance')
   → Appear = GET patrol/attendance-logs · filter dayKey · bind hero + summary + logs
-  → Empty count=0 = EmptyChrome · badge Nghỉ
-  → GET fail = demo SSOT + toast · screen mở · cấm fake 200
+  → Empty count=0 = EmptyChrome · badge Nghỉ · **cấm** demo SSOT / mock
+  → GET fail = empty chrome + toast · screen mở · **cấm** demo T7/CN · cấm fake 200
   → Tap log row = toast «Chi tiết lần chấm» · cấm push supervise-detail
   → không child form / sheet / segment
 ```
@@ -50,7 +50,7 @@ Surface: `tabs: none` · shell tab `field` (Tuần đường) giữ (`GAP-TAB-01
 | default | GET list + filter dayKey · bind hero + summary + log rows |
 | empty day | count=0 · badge Nghỉ · `LinmEmptyChrome` · hide section logs |
 | loading | nhẹ · **cấm** full-screen block tab |
-| error / offline | demo SSOT T7 09/08 / 07:05–16:40 · toast lỗi · **cấm** fake 200 |
+| error / offline | empty chrome + toast lỗi · **cấm** demo T7/CN · **cấm** fake 200 |
 | permission | GPS request **N/A** — Lat/Lng readonly nếu bind sub |
 | leave dirty | **N/A** — không form dirty |
 | missing dayKey | back hub + toast · **cấm** blank invent |
@@ -92,7 +92,7 @@ Không `/wf-anim` trên detail `attendance-day`.
 | GAP-MOB-ATT-DAY-DEMO-01 | Hub row toast only | Pack `#sc-attendance-day` · Dev rewire `go('attendance-day')` + dayKey |
 | GAP-MOB-ATT-DAY-NAV-01 | List toast → push | Wire push + dayKey + dayTitle khi pack ship |
 | GAP-MOB-ATT-DAY-SCR-01 | Thiếu màn detail | Design ship dual `#sc-attendance-day` `DES-MOB-ATT-DAY` |
-| GAP-MOB-ATT-DAY-DATA-01 | GET + filter | GET list live · client filter · fail → demo SSOT |
+| GAP-MOB-ATT-DAY-DATA-01 | GET + filter | **closed** live-only · empty OK → EmptyChrome Nghỉ · fail → empty + toast · **cấm** demo SSOT |
 | GAP-MOB-ATT-DAY-TITLE-01 | Chrome title | Dual «Chi tiết ngày công» · back iOS text / Android icon-only |
 | GAP-MOB-ACT-01/02 | Gộp hub/report/supervise | **Cấm** |
 | GAP-MOB-ACT-05 | Kit đã map | reuse · **cấm** raw NavBar / TabView |

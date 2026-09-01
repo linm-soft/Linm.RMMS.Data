@@ -1,4 +1,4 @@
-# Review — Findings — cam-patrol (mobile screen · Thu thập camera)
+# Review — Findings — cam-patrol (mobile screen · Thu thập camera · cleanup_mock re-check)
 
 | Field | Value |
 |-------|-------|
@@ -6,32 +6,32 @@
 | title | [Mobile] [Tuần đường] -> Thu thập camera |
 | this role | `review` · `/agent-review-mobile` |
 | status | **done** |
-| review_confirm | **done** (autopilot · `task_e487ff4f` · autoApprove=ON) |
+| review_confirm | **done** (autopilot · `task_20cf4fcb` · autoApprove=ON) |
 | packKind | **`screen`** (`DES-MOB-CAM-PATROL` + finder `DES-MOB-CAM-FINDER`) |
 | lane | `mobile` · **cấm** mfeStdUrl / yarn start:std |
-| prior · qa | `qa/scenarios.md` · **confirmed** · e2eQa ON · `ok:true` · align **Aligned** Must **0** |
-| prior · dev | `implement/{ios,android}.md` · **confirmed** · builds PASS · T-BE detect expand · MIG n/a |
-| prior · sa | `be/solution-discovery.md` · **confirmed** · GAP-MOB-CAM-DETECT-01 closed on Dev |
-| prior · design | `ui/design.md` · `demo-parity.md` · `align-ux.md` · **confirmed** |
+| changeScope | `edit_page` (cleanup_mock) |
+| prior · qa | `handoff/qa-compact.md` · **confirmed** · e2eQa ON · `ok:true` · visual **Aligned** Must **0** · `task_fb828936` |
+| prior · dev | `handoff/dev-compact.md` · **confirmed** · cleanup_mock · VERIFY builds PASS · `task_e7101ed6` |
+| prior · design/sa/po/tl | **confirmed** (STATUS) · compact missing → rely STATUS + prior findings · scope unchanged |
 | ios | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS` |
 | android | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android` |
 | bff | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Bff` · catch-all proxy |
-| backend | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.WebService` · AiVision + Incident + Patrol · **cấm ERP.*** |
+| backend | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.WebService` · **cấm ERP.*** |
 | autoApprove | **ON** |
-| e2eQa | **ON** · prior QA `task_6ba51c44` · **cấm** re-run e2e/build ở role review |
-| updatedAt | `2026-08-28T22:03:40.000Z` |
-| taskId | `task_e487ff4f` |
+| e2eQa | **ON** · prior QA `task_fb828936` · **cấm** re-run e2e/build ở role review |
+| updatedAt | `2026-09-01T06:17:31.000Z` |
+| taskId | `task_20cf4fcb` |
 
 ## REVIEW-META
 
 | Hash input | Notes |
 |------------|-------|
-| iOS | `CamPatrol/*` · `DetectAiVisionUseCase` · `CreateIncidentUseCase` · Keychain · GpsDenyModal · AVCapture finder |
-| Android | `presentation/feature/campatrol/*` · same use cases · EncryptedSharedPreferences · GpsDenyDialog · CameraX |
-| BFF | `MobileApiProxyController` catch-all · **cấm** invent `CamPatrolController` |
-| API | `GET patrol/sessions` · `POST ai-vision/detect` · `POST incident/incidents` · expand `DetectAiVisionRequest` |
-| QA store | `qa/store/cam-patrol/` A11/A9/A3/P6/P6-2 live PNG · `ok:true` |
-| align | `ui/review/align-ux.md` · Must **0** · `demo-parity.md` Must closed · `qa/bugs` CLOSED |
+| iOS | `CamPatrol/*` · live-only route stamp · **cấm** `demoRouteStamp` / `itemsOrDemo` in CamPatrol VM |
+| Android | `presentation/feature/campatrol/*` · dual parity live-only |
+| BFF | catch-all · **cấm** invent CamPatrolController |
+| API | `GET patrol/sessions` · `POST ai-vision/detect` · `POST incident/incidents` |
+| QA store | `qa/store/cam-patrol/` A11/A9/A3/P6/P6-2 · manifest **ok:true** · CAPTURE PASS |
+| align | QA Read A3↔P6↔demo **Aligned** · Must **0** · score ẩn · no demoRouteStamp |
 | skillVersion | agent-review-mobile **2026.08.20.01** |
 | contentHash | `sha256:cam-patrol-control-hint-20260828` · unchanged |
 | realDataHash | `sha256:cam-patrol-real-data-20260828` · unchanged |
@@ -41,39 +41,32 @@
 
 | Check | Result |
 |-------|--------|
-| Token store iOS Keychain · Android EncryptedSharedPreferences | **PASS** |
-| Interceptor Bearer + `X-Company-Id` | **PASS** (`ApiClient` / `AuthInterceptor` · BFF forward) |
-| IDOR / tenant | **PASS** — Incident create stamps `CompanyCode` from claim · cross-company view denied · detect stub tenant-scoped |
-| Location Info.plist `NSLocationWhenInUseUsageDescription` · Manifest `ACCESS_FINE/COARSE_LOCATION` | **PASS** |
-| Camera `NSCameraUsageDescription` · Manifest `CAMERA` | **PASS** |
-| `PrivacyInfo.xcprivacy` PreciseLocation + PhotosorVideos · AppFunctionality | **PASS** (declared) |
-| Deny in-app · **cấm** `UIAlertController` / system `AlertDialog` | **PASS** · `GpsDenyModal` / `GpsDenyDialog` |
-| Fake lat/lng | **PASS** — live CL / Fused · Confirm gated `hasGps` · no fake SC on fail |
-| Invent `api/v1/cam-patrol` / BFF controller | **PASS** — reuse AiVision + Incident paths only |
-| Fake HTTP 200 khi POST fail | **PASS** — queue `OfflineQueueKind.incident` |
-| Plaintext JWT / UserDefaults | **PASS** — Keychain / Encrypted only |
-| Score % ship / watermark / process text / `mfeStdUrl` | **PASS** — score ẩn · không ship |
-| ImageBase64 on wire P1 | **Accept** — body fields present · frame upload optional P1 stub |
+| Token Keychain / EncryptedSharedPreferences | **PASS** (prior · unchanged) |
+| Bearer + `X-Company-Id` | **PASS** |
+| IDOR / tenant Incident create | **PASS** |
+| Location + Camera plist/Manifest · PrivacyInfo | **PASS** |
+| Deny in-app GpsDenyModal / GpsDenyDialog | **PASS** |
+| Fake lat/lng · Confirm `hasGps` gate | **PASS** |
+| Invent cam-patrol slug / fake HTTP 200 | **PASS** |
+| Score % / watermark / mfeStdUrl | **PASS** — score ẩn · none |
+| cleanup_mock demo SSOT stamp | **PASS** — CamPatrol dual live-only · empty=`patrol.empty.active.route` · fail toast=`cam.toast.sessionFail` |
 
 ## DTO parity (iOS = Android = BE)
 
 | Field | Disposition |
 |-------|-------------|
-| Detect `engine` · `note` · `imageBase64` · `lat` · `lng` · `accuracyM` · `videoRef` | **OK** dual = `DetectAiVisionRequest` |
-| Detection card `id` · `code` · `defectClass` · `severity` · `routeLabel` · `sectionId` · `lat`/`lng` | **OK** · **cấm** bind Score to UI |
-| Confirm `title` · `routeName` · `incidentType` · `status` · `severity` · `kmStart` · `requestedAt` · `detectionId` · `description` · `causesCongestion` · `hasGps` | **OK** dual = `CreateIncidentRequest` |
-| Prefill `GET patrol/sessions` active / demo SSOT `QL.1 · Km 1556+040` | **OK** dual (`CamPatrolCopy`) |
-| Tab invent | **OK** · pack `tabs: none` · shell Tab 5 · tab **field** · **GAP-TAB-01** none |
+| Detect / Detection card / Confirm bodies | **OK** (prior · unchanged) |
+| Route stamp source | **OK** — live `GET patrol/sessions` active only · **cấm** demo fallback in CamPatrol |
+| Tab invent | **OK** · pack tabs none · shell Tab field |
 
-## UI align (vision · `/review-align-ux-ios-android`)
+## UI align (vision · prior QA + store)
 
 | Zone | Result |
 |------|--------|
-| A3-CORE vs demo `#sc-cam-patrol` | **PASS** — title · FOV `#5AC8FA` · route stamp · detect/action **no-icon** · CTA Confirm/Skip · tab field · score **ẩn** |
-| P6-CORE / P6-CORE-2 vs demo | **PASS** — live camera + FOV · GPS đã chốt · same rows/CTA · fold2 |
-| Pict leading tile | **PASS** · **không** GAP-MOB-UX-COMP-03 (`no-icon` / EmptyView / leadingSlot 0) |
-| Dual copy VN · watermark / device label | **PASS** none |
-| Must align / demo-parity / COLOR / COMP / bugs OPEN | **0** |
+| A3-CORE vs demo `#sc-cam-patrol` | **PASS** — QA Aligned · live-only route · score ẩn · Confirm/Skip no-icon |
+| P6-CORE / P6-CORE-2 | **PASS** — dual parity · fold2 |
+| Must align / bugs OPEN | **0** |
+| GAP-MOB-EDIT-DEMO-01 | **CLOSED** |
 
 AskQuestion (autoApprove=ON): `review_confirm=done` · `align_confirm=approve` · `post_review=skip`.
 
@@ -81,41 +74,39 @@ AskQuestion (autoApprove=ON): `review_confirm=done` · `align_confirm=approve` �
 
 | ID | Area | Sev | Finding | Disposition |
 |----|------|-----|---------|-------------|
-| R-01 | Security | — | Keychain / Encrypted · Bearer · `X-Company-Id` · tenant Incident create | **OK** |
-| R-02 | API | — | detect + incident live · expand request · **cấm ERP.*** · no invent slug | **OK** |
-| R-03 | Camera/GPS | — | plist + Manifest · PrivacyInfo · deny in-app · Confirm GPS gate | **OK** |
-| R-04 | DTO | — | Dual body = BE DetectAiVisionRequest / CreateIncidentRequest | **OK** |
-| R-05 | Align | — | A3 + P6(+2) vs demo · Must **0** · Aligned · score ẩn | **OK** |
-| R-06 | GPS timing | Should | `GAP-QA-CAM-GPS-TIMING-01` iOS CORE «Đang lấy định vị…» vs Android locked | **Defer** non-block |
-| R-07 | Frame upload | P2 | ImageBase64 optional · continuous finder P1 · media bind P2 | **Accept** |
-| R-08 | QA | — | e2eQa ON · Maestro · store live · prior PASS | **OK** |
-| R-09 | Store | P2 | Play Data safety / READY_TO_SUBMIT → `/review-app-submit` | **Accept** |
-| R-10 | Step 4b | — | T-BE-CAM-DETECT-API **PASS** · MIG **n/a** · review **skip** re-run | **OK** |
+| R-01 | Security | — | Keychain/Encrypted · Bearer · tenant · camera/GPS privacy | **OK** |
+| R-02 | API | — | sessions + detect + incident · **cấm ERP.*** · no invent slug | **OK** |
+| R-03 | cleanup_mock | — | CamPatrol dual **cấm** demoRouteStamp/itemsOrDemo · empty/fail copy live | **OK** |
+| R-04 | DTO | — | Dual = BE Detect/CreateIncident | **OK** |
+| R-05 | Align | — | A3+P6(+2) vs demo · Must **0** · Aligned | **OK** |
+| R-06 | GPS timing | Should | `GAP-QA-CAM-GPS-TIMING-01` | **Defer** non-block |
+| R-07 | Frame upload | P2 | ImageBase64 optional / media bind | **Accept** |
+| R-08 | QA | — | e2eQa ON · Maestro · store live · `task_fb828936` PASS | **OK** |
+| R-09 | Store | P2 | Play Data safety / READY_TO_SUBMIT | **Accept** |
+| R-10 | Step 4b | — | N/A reuse sessions · review skip re-run | **OK** |
 
 ## Task gate
 
 | Task | Result |
 |------|--------|
-| T-IOS-CAM-PAT | PASS (prior Dev) |
-| T-AND-CAM-PAT | PASS (prior Dev) |
-| T-BE-CAM-DETECT-API | PASS (prior Dev) |
-| T-BE-CAM-DETECT-MIG | **n/a** |
-| T-BFF-* | **n/a** · catch-all |
-| T-QA | PASS (`ok:true` · Must align 0) |
-| T-REVIEW-SEC / DTO / ALIGN | PASS · Must align = **0** |
+| T-IOS-CAM-PAT-CLEAN | PASS (prior Dev) |
+| T-AND-CAM-PAT-CLEAN | PASS (prior Dev) |
+| T-BE / T-BFF | n/a |
+| T-QA | PASS (`ok:true` · Must 0) |
+| T-REVIEW-SEC / DTO / ALIGN / CLEANUP | PASS · Must align = **0** |
 
-## VERIFY GATE (`task_e487ff4f` · roleOnly=`review`)
+## VERIFY GATE (`task_20cf4fcb` · roleOnly=`review`)
 
 | Gate | Result |
 |------|--------|
 | review/findings.md · REVIEW-META | **PASS** · done |
 | prior QA e2e / Dev builds (evidence only) | **PASS** · **cấm** re-run yarn build/e2e/start:std |
-| Step 4b BE align / migration | **SKIP** · role review · prior Dev closed GAP-MOB-CAM-DETECT-01 |
+| Step 4b BE align / migration | **SKIP** · role review |
 | Chain other role | **SKIP** · GAP-PKT-ROLE-01 |
 
 ## Verdict
 
-Screen Thu thập camera dual-native: security + DTO + UI align Must **0** · prior QA/Dev VERIFY PASS · detect/confirm/offline + camera/GPS privacy declared · GPS timing Should non-block. **review_confirm=done** (autopilot). Pipeline **complete**.
+Re-review post cleanup_mock: CamPatrol dual live-only route · security/DTO/align Must **0** · prior QA `ok:true` · GAP-MOB-EDIT-DEMO-01 closed · GPS timing Should non-block. **review_confirm=done**. Pipeline **complete**.
 
 ## Handoff
 
@@ -123,8 +114,8 @@ Screen Thu thập camera dual-native: security + DTO + UI align Must **0** · pr
 |-------|--------|
 | phase_to | `done` |
 | post_review | **skip** |
-| Next | `/edit-mobile-feature` — **cấm** re-run full pipeline |
-| Should follow-ups | `GAP-QA-CAM-GPS-TIMING-01` · frame media bind P2 · Play Data safety submit |
+| Next | — · epic child #14 cam-patrol **DONE** · **cấm** re-run full pipeline |
+| Should follow-ups | `GAP-QA-CAM-GPS-TIMING-01` · frame media P2 · Play Data safety |
 
 ## Version meta (REQUIRED)
 
@@ -135,9 +126,9 @@ Screen Thu thập camera dual-native: security + DTO + UI align Must **0** · pr
 | schemaVersion | 1 |
 | workflowVersion | 2026.08.25.01 |
 | rulesVersion | 2026.08.29.4 |
-| generatedAt | 2026-08-28T22:03:40.000Z |
+| generatedAt | 2026-09-01T06:17:31.000Z |
 | versionGate | rechecked |
-| taskId | `task_e487ff4f` |
+| taskId | `task_20cf4fcb` |
 | contentHash | sha256:cam-patrol-control-hint-20260828 |
 | realDataHash | sha256:cam-patrol-real-data-20260828 |
 | bffContentHash | sha256:cam-patrol-mobile-bff-20260828 |

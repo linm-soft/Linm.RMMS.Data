@@ -61,3 +61,10 @@ Sibling screens gọi CRUD riêng — xem `asset-hub-bff-endpoints.md`.
 - ERP.* prefix
 
 <!-- context: asset-hub mobile hub P1 · data_analy 2026-08-19 -->
+
+## Implement tracking
+
+| lane | phase | status | updatedAt |
+|------|-------|--------|-----------|
+| web | — | — | — |
+| mobile | `done` | `done` | `2026-09-01T04:09:38.940Z` |

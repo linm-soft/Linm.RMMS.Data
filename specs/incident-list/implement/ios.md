@@ -7,8 +7,8 @@
 | status | **done** |
 | packKind | `list` |
 | route_confirm | **route_a** |
-| taskId | `task_0d0a8786` |
-| updatedAt | `2026-08-29T02:45:00.000Z` |
+| taskId | `task_3a718e5d` |
+| updatedAt | `2026-09-01T04:15:00.000Z` |
 
 ## Notes (`/edit-mobile-feature`)
 

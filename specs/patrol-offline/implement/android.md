@@ -1,23 +1,30 @@
 # Dev — Implement — patrol-offline (Android)
 
-| Feature | `patrol-offline` |
-| Kit | `LinmTopBar` text slots · `LinmSegment` · `LinmBanner` |
+| Field | Value |
+|-------|-------|
+| feature | `patrol-offline` |
+| taskId | `task_93163b23` |
+| slash | `/edit-mobile-feature` · cleanup_mock |
+| status | **confirmed** |
+| changeScope | `edit_page` · live-only local queue |
+| updatedAt | `2026-09-01T08:10:00.000Z` |
+
+## Cleanup mock (this turn)
+
+- **Removed** `PatrolOfflineCopy.demoItems` + first-launch seed
+- `OfflineQueueStore.ensureLiveOnly()` purges legacy `demo-*` · **cấm** re-seed
+- Empty → `EmptyChrome` (`offline-empty`) · **cấm** «Đang dùng dữ liệu mẫu»
+- Seed: **BE empty OK** — real enqueue only
 
 ## Layers
 
-| Presentation | `presentation/feature/patroloffline/*` · MainTabScreen |
-| Domain | use cases · `OfflineQueueRepository` |
-| Data | `OfflineQueueStore` · Retrofit sync |
+| Presentation | `patroloffline/*` · MainTabScreen |
+| Domain | use cases · no demo |
+| Data | `OfflineQueueStore` live-only · Retrofit sync |
 
-## Behavior
-
-- Parity iOS · route `patrol-offline` in HomeStack + ProfileStack
-- Nav: kit `LinmTopBar` leading «Trang Chủ» · trailing «Đồng bộ»
-- First launch: seed SSOT 2 cards once (`initialized` flag) · **cấm** runtime demo fallback · **cấm** re-seed after sync
-- Sync fail: toast error · **giữ** queue · status pill «Chờ gửi» ngắn
-
-## Build
+## VERIFY GATE
 
 ```bash
-cd /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android && ./gradlew :app:assembleDebug
+./gradlew :app:assembleDebug
+# BUILD SUCCESSFUL · 2026-09-01
 ```

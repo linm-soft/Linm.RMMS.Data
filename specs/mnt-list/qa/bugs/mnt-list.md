@@ -5,7 +5,7 @@
 | feature | `mnt-list` |
 | status | **CLOSED** |
 | Must open | **0** |
-| updatedAt | `2026-08-28T19:40:00.000Z` |
+| updatedAt | `2026-09-01T05:00:00.000Z` |
 
 ## Open Must
 
@@ -23,4 +23,4 @@
 
 | ID | Resolution |
 |----|------------|
-| — | Visual CORE Read vs demo · Aligned · e2e `ok:true` |
+| — | Visual CORE Read vs demo · Aligned · e2e `ok:true` · re-QA `task_c9ac27ea` post cleanup_mock |

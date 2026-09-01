@@ -43,4 +43,4 @@ P1 HTTP only. Hub = Notification — **cấm** kit start SignalR.
 | lane | phase | status | updatedAt |
 |------|-------|--------|-----------|
 | web | — | — | — |
-| mobile | `dev` | `await_confirm` | `2026-08-29T18:29:10.561Z` |
+| mobile | `done` | `done` | `2026-09-01T09:43:54.032Z` |

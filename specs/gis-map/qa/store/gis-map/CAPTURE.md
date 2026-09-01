@@ -1,24 +1,21 @@
 # Capture — gis-map
 
-| Field | Value |
-|-------|-------|
-| feature | `gis-map` |
-| method | `e2e runtime · yarn e2e-qa-mobile` |
-| iosDevice | **iPhone 17 Pro Max** (6.9" · phase1) |
-| android | Pixel 2 · **1080×1920** |
-| iPad | **DEFER** Phase 1 |
-| capturedAt | `2026-08-31T01:21:00.000Z` |
-| CLI | `ok: true` · visual **Aligned** (Must 0) |
-
 | Case | Store | Result | Evidence |
 |------|-------|--------|----------|
 | A10-BFF | A10 · P11 | **PASS** | — |
 | A11-LAUNCH | A11 | **PASS** | ![A11-LAUNCH](A11-LAUNCH.png) |
 | A9-LOGIN | A9 · P10 | **PASS** | ![A9-LOGIN](A9-LOGIN.png) |
-| A3-CORE | A3 · A11 | **PASS** CLI · visual Aligned | ![A3-CORE](A3-CORE.png) |
-| P6-CORE | P6 · P11 | **PASS** CLI · visual Aligned | ![P6-CORE](P6-CORE.png) |
-| P6-CORE-2 | P6 | **PASS** CLI | ![P6-CORE-2](P6-CORE-2.png) |
+| A3-CORE | A3 · A11 | **PASS** | ![A3-CORE](A3-CORE.png) |
+| P6-CORE | P6 · P11 | **PASS** | ![P6-CORE](P6-CORE.png) |
+| P6-CORE-2 | P6 | **PASS** | ![P6-CORE-2](P6-CORE-2.png) |
+
+iOS device: iPhone 17 Pro Max · 1320×2868
+Android: Pixel 2 · 1080×1920
+iPad device: DEFER Phase 1
+method: e2e runtime · yarn e2e-qa-mobile · Maestro ON
+taskId: task_337999db · capturedAt: 2026-09-01T07:57:11.661Z
+post-dev: cleanup_mock · live-only
 
 CLI PASS = capture+px only. Visual = `/review-align-ux-ios-android` Read CORE vs demo HTML.
 
-Listing official → `/store-image-capture` confirm file live (**cấm** AI vẽ).
+Listing official → `/store-image-capture` confirm file live (cấm AI vẽ).

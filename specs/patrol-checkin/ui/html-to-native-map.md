@@ -18,8 +18,8 @@
 | btnSave | primary | Ghi nhận điểm tuần | `LinmPrimaryButton` | same | `saveCheckin()` |
 | btnCancelFooter | secondary | Hủy | `LinmSecondaryButton` | same | leave / close |
 | Toast ok / block | banner | `#toast` | `LinmToast` | same | |
-| DES-MOB-LEAVE | modal | `#modal-leave` | in-app overlay | Material dialog | **cấm** system |
-| DES-MOB-GPS-DENY | modal | `#modal-gps` | reuse | same | **cấm** system |
+| DES-MOB-LEAVE | modal | `#modal-leave` | in-sheet overlay · `interactiveDismissDisabled` dirty | `Dialog` trên sheet · `dismissEnabled=false` dirty | **cấm** system · **cấm** under-sheet |
+| DES-MOB-GPS-DENY | modal | `#modal-gps` | reuse in-sheet | `Dialog` wrap | **cấm** system |
 | DES-MOB-CI-DETAIL | screen | `#sc-checkin-detail` | `LinmTopBar` + rows | same | title Ghi điểm tuần |
 | Detail back | leading | Ca + chevron | BackButton | `IconButton` | `go('patrol-detail')` |
 | Detail banner | ok | Đã lưu · {time} | Banner | same | |

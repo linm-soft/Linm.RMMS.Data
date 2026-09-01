@@ -24,15 +24,14 @@ appId: org.linmsoft.rmms
     id: "f-pass"
 - eraseText
 - inputText: "Linm@2026"
-- pressKey: Enter
-- waitForAnimationToEnd:
-    timeout: 4000
+# cấm hideKeyboard (drops to launcher) · scroll to btn-login
+- scrollUntilVisible:
+    element:
+      id: "btn-login"
+    direction: DOWN
+    timeout: 8000
 - tapOn:
     id: "btn-login"
-    optional: true
-- tapOn:
-    text: "Đăng nhập"
-    optional: true
 - extendedWaitUntil:
     visible: "Trang Chủ"
     timeout: 45000
@@ -48,8 +47,13 @@ appId: org.linmsoft.rmms
     timeout: 20000
 - waitForAnimationToEnd:
     timeout: 2000
+# live seed Id CompanyCode=LINM (cleanup_mock · **cấm** demo-1 OfflineDemo)
+- extendedWaitUntil:
+    visible:
+      id: "sup-card-a0000001-2026-0810-0001-000000000001"
+    timeout: 30000
 - tapOn:
-    id: "sup-card-demo-1"
+    id: "sup-card-a0000001-2026-0810-0001-000000000001"
 - waitForAnimationToEnd:
     timeout: 3000
 - extendedWaitUntil:

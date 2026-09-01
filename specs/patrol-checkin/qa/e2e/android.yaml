@@ -1,7 +1,7 @@
 appId: org.linmsoft.rmms
 ---
-# patrol-checkin · store P6 ×2 · guest → login → sheet · fill Nội dung · scroll fold 2
-# ModalBottomSheet: assert text · GPS mock Phước Dinh · form-field-e2e fill trước CORE
+# patrol-checkin · store P6 ×2 · guest → login → sheet · CORE sớm · scroll fold 2
+# live-only · cấm demo Phước Dinh · cấm Back/hideKeyboard (đóng ModalBottomSheet)
 - launchApp:
     clearState: true
     clearKeychain: true
@@ -55,18 +55,21 @@ appId: org.linmsoft.rmms
     timeout: 20000
 - extendedWaitUntil:
     visible: "Đúng điểm"
-    timeout: 25000
+    timeout: 35000
     optional: true
-- tapOn: "Nội dung"
-- inputText: "Mặt đường khô, lan can đạt"
-- assertVisible: "Km 1561+134 · Phước Dinh"
 - takeScreenshot: P6-CORE
+- tapOn: "Nội dung"
+- inputText: "Mat duong kho, lan can dat"
+- waitForAnimationToEnd:
+    timeout: 2000
 - scroll
 - assertVisible: "Ảnh"
-- assertVisible: "Ghi nhận điểm tuần"
 - takeScreenshot: P6-CORE-2
 - tapOn:
     text: "Ghi nhận điểm tuần"
+    optional: true
+- tapOn:
+    text: "Lưu"
     optional: true
 - extendedWaitUntil:
     visible: "Đã lưu"

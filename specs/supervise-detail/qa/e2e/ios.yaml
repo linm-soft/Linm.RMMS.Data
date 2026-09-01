@@ -64,8 +64,13 @@ appId: org.linmsoft.rmms
     timeout: 20000
 - waitForAnimationToEnd:
     timeout: 2000
+# live seed Id CompanyCode=LINM (cleanup_mock · **cấm** demo-1 OfflineDemo)
+- extendedWaitUntil:
+    visible:
+      id: "sup-card-a0000001-2026-0810-0001-000000000001"
+    timeout: 30000
 - tapOn:
-    id: "sup-card-demo-1"
+    id: "sup-card-a0000001-2026-0810-0001-000000000001"
 - waitForAnimationToEnd:
     timeout: 3000
 - extendedWaitUntil:

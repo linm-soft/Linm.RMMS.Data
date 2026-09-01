@@ -13,9 +13,10 @@
 
 | Surface | Before | After |
 |---------|--------|-------|
-| Today / Quick `.row-icon` | `LinmListRow` text + badge only | **`LinmRowIcon`** + `LinmStrokeGlyph` cùng `d=` demo · iOS chevron |
-| Hero CTA | text only | `#i-map` / `#i-plus` |
-| Pin | text only | `LinmMapPinGlyph` `#i-mappin` |
+| Fetch sessions | empty/fail → `demoToday`/`demoActive` | **`FetchPatrolSessionsOutcome`** live-only · empty = `emptyActive` + EmptyChrome |
+| Today section | always 2 demo rows | live GET · empty → `patrol-today-empty` |
+| Hero / KPI | demo active session | live active or `emptyActive` |
+| Fail | silent demo | toast `patrol.toast.loadFail` |
 
 ## Layers
 
@@ -47,4 +48,4 @@ cd /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS && xcodegen generate
 xcodebuild -scheme LinmRmms -destination 'platform=iOS Simulator,name=iPhone 17 Pro' build
 ```
 
-**PASS** (`edit-mobile-feature` 2026-08-20 · `LinmRowIcon` + pin/hero glyphs).
+**PASS** (`edit-mobile-feature` task_22fa5cba · cleanup_mock live-only).

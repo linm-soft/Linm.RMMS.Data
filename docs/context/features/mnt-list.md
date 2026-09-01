@@ -43,4 +43,4 @@ List công việc bảo trì (thin mobile):
 | lane | phase | status | updatedAt |
 |------|-------|--------|-----------|
 | web | — | — | — |
-| mobile | `done` | `done` | `2026-08-28T19:49:37.822Z` |
+| mobile | `done` | `done` | `2026-09-01T05:01:31.089Z` |

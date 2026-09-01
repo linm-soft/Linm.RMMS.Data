@@ -1,38 +1,44 @@
-# Implement — iOS — patrol-checkin
+# Dev — Implement iOS — patrol-checkin
 
 | Field | Value |
 |-------|-------|
 | feature | `patrol-checkin` |
 | platform | iOS |
-| role | `/agent-dev-ios` · `/dev-ios-swiftui` · `/dev-ui-review` |
-| status | **done** |
-| changeScope | `new_page` |
-| taskId | `task_f3b9d3f4` · `T-IOS-PAT-CI` |
-| updatedAt | `2026-08-28T20:25:00.000Z` |
+| this role | `dev` · `/edit-mobile-feature` · `/agent-dev-ios` |
+| status | **confirmed** |
+| changeScope | `edit_page` (cleanup_mock) |
+| packKind | **`sheet`** |
+| taskId | `task_2f18d421` |
+| updatedAt | `2026-09-01T06:40:00.000Z` |
+| autoApprove | ON |
 | contentHash | sha256:patrol-checkin-control-hint-20260828 |
 | bffContentHash | sha256:patrol-checkin-mobile-bff-20260828 |
 
-## Shipped
+## Notes (cleanup_mock)
+
+- **GAP-MOB-EDIT-DEMO-01 closed** — gỡ `PatrolCheckInCopy.demoRoute/demoPlan*/demoContent` · `demo-session` · `itemsOrDemo` trên path check-in.
+- Prefill = live `GET patrol/sessions` active `.route` · empty/no active = `patrol.empty.active.route` · fail = toast `cam.toast.sessionFail`.
+- Plan lat/lng = live GPS pin (chưa có BE plan-points) · **cấm** invent `QL.1` / Km demo.
+- Save chặn khi `sessionId` trống hoặc `matchOk=false`.
+- Seed: reuse sessions + POST check-ins · Step 4b **N/A**.
+
+## Shipped (prior + this edit)
 
 | Area | Path / note |
 |------|-------------|
-| Sheet + leave + detail | `Presentation/Features/PatrolCheckIn/*` · `LinmSheet` chrome Hủy/Lưu · PhotoRow + camera · DES-MOB-LEAVE in-app |
-| Entry wire | Hub/map `.checkIn` + pin handoff → `PatrolCheckInViewModel.open` (thay toast stub) |
-| GPS match | Live `GetCurrentLocationUseCase` · haversine · `MATCH_RADIUS_M=50` · banner + disable save |
-| Submit | `SubmitPatrolCheckInUseCase` · `POST patrol/sessions/{id}/check-ins` · else `OfflineQueueKind.checkIn` enqueue · **cấm** fake 200 |
-| DI | `AppContainer.submitPatrolCheckInUseCase` · `AppRouter` sheet/overlays |
-| Copy | `LinmCopy` checkin.* VN SSOT Design |
+| Sheet + leave + detail | `Presentation/Features/PatrolCheckIn/*` · `LinmSheet` · DES-MOB-LEAVE |
+| Entry | Hub/map `.checkIn` + pin handoff |
+| GPS match | Live GPS · haversine 50 m · **cấm** demo plan coords |
+| Submit | `POST …/check-ins` · else offline queue |
+| Live session | `FetchPatrolSessionsOutcome` · **cấm** itemsOrDemo |
 
 ## Build gate
 
-| Gate | Result |
-|------|--------|
+| Check | Result |
+|-------|--------|
 | `xcodegen generate` | **PASS** |
-| `xcodebuild -scheme LinmRmms -destination 'platform=iOS Simulator,name=iPhone 17 Pro' build` | **PASS** |
-
-## Out of pack
-
-Pin form / map host · invent `api/v1/patrol-checkin` · e2e QA (queued `/agent-qa*`) · watermark Gói.
+| `xcodebuild` iPhone 17 Pro | **PASS** |
+| demo route/plan/latlng | **removed** |
 
 ## Version meta
 
@@ -43,7 +49,7 @@ Pin form / map host · invent `api/v1/patrol-checkin` · e2e QA (queued `/agent-
 | schemaVersion | 1 |
 | workflowVersion | 2026.08.25.01 |
 | rulesVersion | 2026.08.29.4 |
-| generatedAt | `2026-08-28T20:25:00.000Z` |
+| generatedAt | `2026-09-01T06:40:00.000Z` |
 | versionGate | rechecked |
 
 ---

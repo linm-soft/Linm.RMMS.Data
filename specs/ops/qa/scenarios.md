@@ -6,51 +6,51 @@
 | this role | `qa` · `/agent-qa-mobile` |
 | status | **confirmed** |
 | packKind | **`list`** |
-| taskId | `task_6be285ee` |
+| taskId | `task_1f014c56` |
 | e2eQa | **ON** · `yarn e2e-qa-mobile` · `ios_test_phase=phase1_iphone` · **A4-IPAD DEFER** |
 | store_qa | **run_store** |
-| e2e result | **ok:true** · `2026-08-19T12:59:36.360Z` · dest **iPhone 17 Pro Max** · AVD **Pixel_2** 1080×1920 |
+| e2e result | **ok:true** · `2026-09-01T02:26:26.540Z` · dest **iPhone 17 Pro Max** · AVD **Pixel_2** 1080×1920 · `--skip-start` (API host **:5111** · BFF **:5202**) |
 | method | e2e runtime · yarn e2e-qa-mobile · Maestro + simctl/adb · **cấm** GenerateImage · **cấm** yarn start:std / mfeStdUrl |
-| align | `ui/review/align-ux.md` · **Aligned** · Must 0 |
-| updatedAt | `2026-08-19T13:05:00.000Z` |
+| align | `ui/review/align-ux.md` · **Aligned** · Must **0** · empty-path live |
+| harvest_fix | CLI `latestMaestroTakeScreenshotDir` lấy shot stale `~/.maestro/tests` → QA re-copy từ `_maestro_ios/ios-2` + `_maestro_android/android-3` · flatten A3 · **GAP-QA-E2E-HARVEST-01** logged |
+| updatedAt | `2026-09-01T02:35:00.000Z` |
 
-**Scope:** slug `ops` list `#sc-ops` only. **Cấm** AC sibling / form create / Kind B web.
+**Scope:** slug `ops` list `#sc-ops` only · live-only post `cleanup_mock` · **cấm** demo SC-2401 assert.
 
 ## VERIFY GATE
 
 | Gate | Result |
 |------|--------|
-| iOS `xcodegen` | **PASS** |
-| iOS `xcodebuild` dest **iPhone 17 Pro** | **PASS** |
-| Android `./gradlew :app:assembleDebug` | **PASS** |
-| Mobile.Bff `dotnet build` | **PASS** (0 warning · 0 error) |
-| Maestro iOS + Android | **PASS** · Me `row-ops` → `#sc-ops` |
-| API :5101 + BFF :5202 | **PASS** (docker) |
+| iOS Maestro + store px 6.9" | **PASS** (A3 1320×2868 · no alpha) |
+| Android Maestro + P6 1080×1920 | **PASS** |
+| Mobile.Bff `dotnet build` | **PASS** (0 warn · 0 err) |
+| API :5111 + BFF :5202 | **PASS** listen · inbox GET **HTTP 500** (EmptyChrome + toast loadFail — **cấm** demo fallback) |
+| Maestro iOS + Android | **PASS** · guest→login→Me `row-ops` → `#sc-ops` |
 
 ## Device AC
 
 | ID | Expect | Result |
 |----|--------|--------|
-| AC-D-01 | Offline · list mở · demo 2 rows | **PASS** (code + live demo fallback rows) |
+| AC-D-01 | Offline / empty list | **PASS** · EmptyChrome `ops-empty` (no demo rows) |
 | AC-D-02 | GPS deny | **N/A** |
 | AC-D-03 | Leave dirty | **N/A** |
-| AC-D-04 | Cấm native alert · toast only | **PASS** (Maestro mark-read toast) |
+| AC-D-04 | Toast only · cấm native alert | **PASS** · toast loadFail |
 | AC-D-05 | Keyboard | **N/A** |
-| AC-D-06 | Safe area TopBar + list | **PASS** (shots A3/P6) |
+| AC-D-06 | Safe area TopBar + list | **PASS** (A3/P6) |
 | AC-D-07 | Biometric | **N/A** |
 | AC-D-08 | Signal on ops | **N/A** |
-| AC-D-09 | Bearer BFF prefix | **PASS** (BFF :5202) |
-| AC-D-10 | tabs none trên ops | **PASS** (shell tab only) |
+| AC-D-09 | Bearer BFF | **PASS** (:5202) |
+| AC-D-10 | tabs none trên ops | **PASS** |
 | AC-D-11 | Camera / push | **N/A** |
-| AC-D-12 | Type 13 / ≥16 | **PASS** (visual + demo-parity) |
+| AC-D-12 | Type 13 / ≥16 | **PASS** |
 | AC-D-13 | Dual copy VN | **PASS** |
-| AC-D-14 | Cấm watermark / device label | **PASS** |
-| AC-F-01 | GET inbox · fail → demo | **PASS** (demo rows live) |
-| AC-F-02 | Me `row-ops` → `#sc-ops` | **PASS** (Maestro iOS+Android) |
-| AC-F-03 | Home `btn-notify` → `#sc-ops` | **PASS** (code · route_a · ids shipped) |
-| AC-F-04 | Mark-read toast | **PASS** (Maestro «Đã đọc chỉ đạo») |
+| AC-D-14 | Cấm watermark / «Đang dùng dữ liệu mẫu» | **PASS** · toast = loadFail only |
+| AC-F-01 | GET inbox fail → EmptyChrome + toast | **PASS** (API 500) |
+| AC-F-02 | Me `row-ops` → `#sc-ops` | **PASS** Maestro dual |
+| AC-F-03 | Home `btn-notify` → `#sc-ops` | **PASS** (code · route_a) |
+| AC-F-04 | Mark-read toast | **N/A** · empty inbox (no row) |
 | AC-F-05 | POST fail toast | **PASS** (code) |
-| AC-F-06 | A11y Maestro ids | **PASS** · yaml fix: assert `sc-ops`+row copy · **cấm** assert title text iOS |
+| AC-F-06 | A11y ids | **PASS** · yaml guest→login + `sc-ops` |
 | AC-F-07 | Cấm watermark Gói | **PASS** |
 
 ## Store Must
@@ -63,107 +63,28 @@
 | A3-CORE | A3 · A11 | ![A3-CORE](screens/A3-CORE.png) | **PASS** |
 | P6-CORE | P6 · P11 | ![P6-CORE](screens/P6-CORE.png) | **PASS** |
 | P6-CORE-2 | P6 | ![P6-CORE-2](screens/P6-CORE-2.png) | **PASS** |
-| A4-IPAD | A4 | **DEFER** Phase 1 · family `1` | DEFER |
+| A4-IPAD | A4 | **DEFER** Phase 1 | DEFER |
 
 ## Maestro
 
 | Flow | Path | Result |
 |------|------|--------|
-| iOS | `qa/e2e/ios.yaml` | **PASS** · Me `tab-me` → `row-ops` → `#sc-ops` |
+| iOS | `qa/e2e/ios.yaml` | **PASS** · guest `sc-home` → login → Me → `row-ops` → `#sc-ops` |
 | Android | `qa/e2e/android.yaml` | **PASS** |
 
 ## Gaps
 
 | ID | Note | Block complete? |
 |----|------|-----------------|
-| GAP-QA-OPS-IOS-01 | **CLOSED** — yaml assert `sc-ops`+row · không assert «Thông báo» (TopBar title không expose a11y iOS) | **No** |
-| GAP-MOB-UX-COMP-OPS-01 | Android TopBar trailing default · Should DEFER | **No** |
+| GAP-MOB-UX-COMP-OPS-01 | Android TopBar trailing `MoreHoriz` · Should DEFER | **No** |
+| GAP-QA-E2E-HARVEST-01 | CLI harvest ưu tiên `~/.maestro/tests` stale → wrong feature shot · QA remediated copy từ run dir | **No** (fixed this turn) |
+| GAP-BE-OPS-INBOX-500 | GET `notification/inbox` → API **500** · EmptyChrome OK · BE follow-up | **No** (FE live-only OK) |
 
 ## E2E screenshots
 
 Viewer: `/api/qldb/artifact?id=&rel=qa/scenarios.md` rewrite `screens/{caseId}.png`.
 
-CLI **PASS** = Maestro + PNG + store px only — **not** visual vs demo. QA **Read** A3-CORE + P6-CORE vs prototype (`/review-align-ux-ios-android`). Demo `.row-icon`/`#i-*` missing on live → Must **GAP-MOB-UX-COMP-03** · log `qa/bugs/`. Skip vision → **GAP-MOB-E2E-VIS-01**.
-
-| Case | Store | Result | Evidence |
-|------|-------|--------|----------|
-| A10-BFF | A10 · P11 | **PASS** | — |
-| MAESTRO-IOS | A3 · A9 · A11 | **FAIL** | — |
-| CRAWL | — | **FAIL** | — |
-| A11-LAUNCH | A11 | **PASS** | ![A11-LAUNCH](screens/A11-LAUNCH.png) |
-| A9-LOGIN | A9 · P10 | **PASS** | ![A9-LOGIN](screens/A9-LOGIN.png) |
-| A3-CORE | A3 · A11 | **PASS** | ![A3-CORE](screens/A3-CORE.png) |
-| P6-CORE | P6 · P11 | **PASS** | ![P6-CORE](screens/P6-CORE.png) |
-| P6-CORE-2 | P6 | **PASS** | ![P6-CORE-2](screens/P6-CORE-2.png) |
-
-
-Viewer: `/api/qldb/artifact?id=&rel=qa/scenarios.md` rewrite `screens/{caseId}.png`.
-
-CLI **PASS** = Maestro + PNG + store px only — **not** visual vs demo. QA **Read** A3-CORE + P6-CORE vs prototype (`/review-align-ux-ios-android`). Demo `.row-icon`/`#i-*` missing on live → Must **GAP-MOB-UX-COMP-03** · log `qa/bugs/`. Skip vision → **GAP-MOB-E2E-VIS-01**.
-
-| Case | Store | Result | Evidence |
-|------|-------|--------|----------|
-| A10-BFF | A10 · P11 | **PASS** | — |
-| MAESTRO-IOS | A3 · A9 · A11 | **FAIL** | — |
-| CRAWL | — | **FAIL** | — |
-| MAESTRO-AND | P6 | **FAIL** | — |
-| A11-LAUNCH | A11 | **PASS** | ![A11-LAUNCH](screens/A11-LAUNCH.png) |
-| A9-LOGIN | A9 · P10 | **PASS** | ![A9-LOGIN](screens/A9-LOGIN.png) |
-| A3-CORE | A3 · A11 | **PASS** | ![A3-CORE](screens/A3-CORE.png) |
-| P6-CORE | P6 · P11 | **PASS** | ![P6-CORE](screens/P6-CORE.png) |
-| P6-CORE-2 | P6 | **PASS** | ![P6-CORE-2](screens/P6-CORE-2.png) |
-
-
-Viewer: `/api/qldb/artifact?id=&rel=qa/scenarios.md` rewrite `screens/{caseId}.png`.
-
-CLI **PASS** = Maestro + PNG + store px only — **not** visual vs demo. QA **Read** A3-CORE + P6-CORE vs prototype (`/review-align-ux-ios-android`). Demo `.row-icon`/`#i-*` missing on live → Must **GAP-MOB-UX-COMP-03** · log `qa/bugs/`. Skip vision → **GAP-MOB-E2E-VIS-01**.
-
-| Case | Store | Result | Evidence |
-|------|-------|--------|----------|
-| A10-BFF | A10 · P11 | **PASS** | — |
-| MAESTRO-IOS | A3 · A9 · A11 | **FAIL** | — |
-| CRAWL | — | **FAIL** | — |
-| A11-LAUNCH | A11 | **PASS** | ![A11-LAUNCH](screens/A11-LAUNCH.png) |
-| A9-LOGIN | A9 · P10 | **PASS** | ![A9-LOGIN](screens/A9-LOGIN.png) |
-| A3-CORE | A3 · A11 | **PASS** | ![A3-CORE](screens/A3-CORE.png) |
-| P6-CORE | P6 · P11 | **PASS** | ![P6-CORE](screens/P6-CORE.png) |
-| P6-CORE-2 | P6 | **PASS** | ![P6-CORE-2](screens/P6-CORE-2.png) |
-
-
-Viewer: `/api/qldb/artifact?id=&rel=qa/scenarios.md` rewrite `screens/{caseId}.png`.
-
-CLI **PASS** = Maestro + PNG + store px only — **not** visual vs demo. QA **Read** A3-CORE + P6-CORE vs prototype (`/review-align-ux-ios-android`). Demo `.row-icon`/`#i-*` missing on live → Must **GAP-MOB-UX-COMP-03** · log `qa/bugs/`. Skip vision → **GAP-MOB-E2E-VIS-01**.
-
-| Case | Store | Result | Evidence |
-|------|-------|--------|----------|
-| A10-BFF | A10 · P11 | **PASS** | — |
-| MAESTRO-IOS | A3 · A9 · A11 | **FAIL** | — |
-| CRAWL | — | **FAIL** | — |
-| MAESTRO-AND | P6 | **FAIL** | — |
-| A11-LAUNCH | A11 | **PASS** | ![A11-LAUNCH](screens/A11-LAUNCH.png) |
-| A9-LOGIN | A9 · P10 | **PASS** | ![A9-LOGIN](screens/A9-LOGIN.png) |
-| A3-CORE | A3 · A11 | **PASS** | ![A3-CORE](screens/A3-CORE.png) |
-| P6-CORE | P6 · P11 | **PASS** | ![P6-CORE](screens/P6-CORE.png) |
-| P6-CORE-2 | P6 | **PASS** | ![P6-CORE-2](screens/P6-CORE-2.png) |
-
-
-Viewer: `/api/qldb/artifact?id=&rel=qa/scenarios.md` rewrite `screens/{caseId}.png`.
-
-CLI **PASS** = Maestro + PNG + store px only — **not** visual vs demo. QA **Read** A3-CORE + P6-CORE vs prototype (`/review-align-ux-ios-android`). Demo `.row-icon`/`#i-*` missing on live → Must **GAP-MOB-UX-COMP-03** · log `qa/bugs/`. Skip vision → **GAP-MOB-E2E-VIS-01**.
-
-| Case | Store | Result | Evidence |
-|------|-------|--------|----------|
-| A10-BFF | A10 · P11 | **PASS** | — |
-| MAESTRO-IOS | A3 · A9 · A11 | **FAIL** | — |
-| MAESTRO-AND | P6 | **FAIL** | — |
-| A11-LAUNCH | A11 | **PASS** | ![A11-LAUNCH](screens/A11-LAUNCH.png) |
-| A9-LOGIN | A9 · P10 | **PASS** | ![A9-LOGIN](screens/A9-LOGIN.png) |
-| A3-CORE | A3 · A11 | **PASS** | ![A3-CORE](screens/A3-CORE.png) |
-| P6-CORE | P6 · P11 | **PASS** | ![P6-CORE](screens/P6-CORE.png) |
-| P6-CORE-2 | P6 | **PASS** | ![P6-CORE-2](screens/P6-CORE-2.png) |
-
-
-Viewer: `/api/qldb/artifact?id=&rel=qa/scenarios.md` rewrite `screens/{caseId}.png`.
+CLI **PASS** = Maestro + PNG + store px only — **not** visual vs demo. QA **Read** A3-CORE + P6-CORE vs prototype (`/review-align-ux-ios-android`).
 
 | Case | Store | Result | Evidence |
 |------|-------|--------|----------|
@@ -174,6 +95,6 @@ Viewer: `/api/qldb/artifact?id=&rel=qa/scenarios.md` rewrite `screens/{caseId}.p
 | P6-CORE | P6 · P11 | **PASS** | ![P6-CORE](screens/P6-CORE.png) |
 | P6-CORE-2 | P6 | **PASS** | ![P6-CORE-2](screens/P6-CORE-2.png) |
 
-## Version meta
+## Verdict
 
-skillId=agent-qa-mobile · skillVersion=2026.08.19.28 · workflowVersion=2026.08.19.27 · generatedAt=2026-08-19T13:05:00.000Z · taskId=task_6be285ee
+**PASS** · device + store pack + align Must **0** · phase→`review` · **cấm** `done`.

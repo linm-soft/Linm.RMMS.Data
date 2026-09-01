@@ -1,9 +1,9 @@
 # QA fix plan — estimate (mobile)
 
-> Status: **await_confirm** · **cấm** Write iOS/Android/BFF/BE trước board Approve `qa_fix_plan`  
+> Status: **approved** · board enqueue `task_8ab3d7ec` = Approve `qa_fix_plan` · implement in progress  
 > Nguồn: `qa/scenarios.md` · `qa/store/estimate/CAPTURE.md` · `qa/store/estimate/manifest.json` · STATUS blockers  
-> Phase: `qaFixPhase=plan` · taskId=`task_bb0c0524` · qaFailFrom=`task_a89bc544`  
-> lane: **mobile** · packKind: **`sheet`** → screen `#sc-estimate` · **cấm** mfeStdUrl / yarn start:std / e2e ở phase plan  
+> Phase: `qaFixPhase=implement` · taskId=`task_8ab3d7ec` · planFrom=`task_bb0c0524` · qaFailFrom=`task_a89bc544`  
+> lane: **mobile** · packKind: **`sheet`** → screen `#sc-estimate` · **cấm** mfeStdUrl / yarn start:std / e2e ở Dev  
 > Prior web plan (Config FULL) → `implement/estimate-qa-fix-plan-web.md` · **giữ** · **không** reopen web
 
 ## Gaps (từ QA `task_a89bc544`)
@@ -78,11 +78,11 @@
 
 | Field | Value |
 |-------|-------|
-| this role | `dev` · `qaFixPhase=plan` · **done** |
-| next gate | board **`qa_fix_plan`** Approve |
-| after Approve | enqueue Dev `qaFixPhase=implement` · follow Plan §1–5 · **cấm** e2e ở Dev |
-| after implement PASS | `/agent-qa-mobile` · e2eQa ON · Plan §6–7 |
-| STATUS | Dev plan **await_confirm** · QA vẫn **blocked**/failed prior |
+| this role | `dev` · `qaFixPhase=implement` · **done** · VERIFY GATE **PASS** |
+| plan §1 | `qa/e2e/android.yaml` hardened · sc-home PRIMARY |
+| plan §2–3 | native tags/nav PRESENT · **no** app code change |
+| next | `/agent-qa-mobile` · e2eQa ON · Plan §6–7 |
+| STATUS | Dev implement **done** · QA **pending** |
 
 ## Version meta
 
@@ -93,12 +93,12 @@
 | schemaVersion | 2 |
 | workflowVersion | 2026.08.29.1 |
 | rulesVersion | 2026.08.29.5 |
-| generatedAt | `2026-08-29T18:31:49.000Z` |
+| generatedAt | `2026-09-01T08:58:07.000Z` |
 | versionGate | rechecked |
-| qaFixPhase | plan |
-| taskId | task_bb0c0524 |
-| dorGate | PASS (plan-only · **không** require VERIFY GATE builds) |
+| qaFixPhase | implement |
+| taskId | task_8ab3d7ec |
+| dorGate | PASS (VERIFY GATE builds) |
 | contentHash | sha256:estimate-mobile-control-hint-20260829 |
 
 ---
-<!-- Version meta: skillVersion=2026.08.29.1 · schemaVersion=2 · workflowVersion=2026.08.29.1 · versionGate=rechecked · skillId=agent-dev-ios · qaFixPhase=plan · taskId=task_bb0c0524 -->
+<!-- Version meta: skillVersion=2026.08.29.1 · schemaVersion=2 · workflowVersion=2026.08.29.1 · versionGate=rechecked · skillId=agent-dev-ios · qaFixPhase=implement · taskId=task_8ab3d7ec -->

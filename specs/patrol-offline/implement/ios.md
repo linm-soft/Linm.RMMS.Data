@@ -1,27 +1,30 @@
 # Dev — Implement — patrol-offline (iOS)
 
-| Feature | `patrol-offline` |
-| Kit | `LinmTopBar` text slots · `LinmSegment` · `LinmBanner` |
+| Field | Value |
+|-------|-------|
+| feature | `patrol-offline` |
+| taskId | `task_93163b23` |
+| slash | `/edit-mobile-feature` · cleanup_mock |
+| status | **confirmed** |
+| changeScope | `edit_page` · live-only local queue |
+| updatedAt | `2026-09-01T08:10:00.000Z` |
+
+## Cleanup mock (this turn)
+
+- **Removed** `PatrolOfflineCopy.demoItems` + first-launch seed
+- `OfflineQueueStore.ensureLiveOnly()` purges legacy `demo-*` ids · **cấm** re-seed
+- Empty queue → `EmptyChromeView` (`offline-empty`) · **cấm** «Đang dùng dữ liệu mẫu»
+- Seed note: **BE empty OK** — queue chỉ có record từ writer enqueue thật (sibling P2)
 
 ## Layers
 
-| Presentation | `Presentation/Features/PatrolOffline/*` · AppRouter |
-| Domain | `PatrolOfflineUseCases` · `OfflineQueueRepository` |
-| Data | `OfflineQueueStore` · `IntegrationRepository.syncOfflineBatch` |
+| Presentation | `PatrolOffline/*` · EmptyChrome · AppRouter entries |
+| Domain | use cases · **no** demo Copy |
+| Data | `OfflineQueueStore` live-only · `POST integration/sync/offline-batch` |
 
-## Behavior
-
-- Home tile + Me row → push `#sc-patrol-offline`
-- Nav: `LinmTopBar` leading «Trang Chủ» · trailing «Đồng bộ»
-- First launch: seed SSOT 2 cards once (`linm.offline.queue.initialized`) · **cấm** runtime demo fallback · **cấm** re-seed after sync
-- Appear: load local pending only
-- Sync OK: POST offline-batch · toast N · clear pending · reload
-- Sync fail: toast error · **giữ** queue
-- Segment filter checkIn / incident · status pill «Chờ gửi» ngắn
-
-## Build
+## VERIFY GATE
 
 ```bash
-cd /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS && xcodegen generate
-xcodebuild -scheme LinmRmms -destination 'platform=iOS Simulator,name=iPhone 17 Pro' build
+xcodegen generate && xcodebuild -scheme LinmRmms -destination 'platform=iOS Simulator,name=iPhone 17 Pro' build
+# ** BUILD SUCCEEDED ** · 2026-09-01
 ```

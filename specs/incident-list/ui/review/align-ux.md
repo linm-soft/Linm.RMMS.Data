@@ -4,14 +4,14 @@
 |-------|-------|
 | feature | `incident-list` |
 | zone | `#sc-incident-list` · DES-MOB-INC-LIST |
-| this role | `/review-align-ux-ios-android` · QA `task_3004011c` |
+| this role | `/review-align-ux-ios-android` · QA `task_f70a425c` · re-run post edit-mobile-feature |
 | verdict | **Aligned** · Must **0** |
 | align_confirm | **approve** (autoApprove=ON · QA) |
 | TokenFile | `docs/mobile-tokens.json` |
 | MapFile | `specs/incident-list/ui/html-to-native-map.md` · list kit dual |
 | shots | live `qa/screens/A3-CORE.png` · `P6-CORE.png` · `P6-CORE-2.png` vs proto `ui/prototype/{ios,android}/index.html#sc-incident-list` |
-| live capturedAt | `2026-08-29T02:20:00.000Z` · iPhone 17 Pro Max · wm **1080×1920** |
-| updatedAt | `2026-08-29T02:25:00.000Z` |
+| live capturedAt | `2026-09-01T04:22:00.000Z` · iPhone 17 Pro Max · wm **1080×1920** |
+| updatedAt | `2026-09-01T04:25:00.000Z` |
 
 ## Must — PASS (3-up `#sc-incident-list`)
 
