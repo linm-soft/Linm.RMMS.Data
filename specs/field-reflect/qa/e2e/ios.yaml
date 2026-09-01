@@ -89,6 +89,28 @@ appId: org.linmsoft.rmms
     optional: true
 - extendedWaitUntil:
     visible:
+      id: "sc-field-pick"
+    timeout: 25000
+- assertVisible:
+    id: "banner-pick"
+    optional: true
+- assertVisible:
+    id: "asset-grid"
+    optional: true
+- tapOn:
+    id: "ak32-PAVEMENT"
+    optional: true
+- tapOn:
+    text: "Mặt đường"
+    optional: true
+- tapOn:
+    id: "ak32-BRIDGE"
+    optional: true
+- tapOn:
+    text: "Cầu"
+    optional: true
+- extendedWaitUntil:
+    visible:
       id: "sc-field-reflect"
     timeout: 25000
 - assertVisible: "Ghi nhận hư hỏng"

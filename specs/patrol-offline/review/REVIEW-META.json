@@ -2,7 +2,7 @@
   "feature": "patrol-offline",
   "status": "done",
   "review_confirm": "approve",
-  "taskId": "task_572a884d",
+  "taskId": "task_94929183",
   "skillId": "agent-review-mobile",
   "skillVersion": "2026.08.19.29",
   "workflowVersion": "2026.08.19.29",
@@ -13,7 +13,7 @@
   "post_review": "skip",
   "alignMustOpen": 0,
   "changeScope": "edit_page",
-  "gap": "cleanup_mock re-review · EmptyChrome live-only",
+  "gap": "cleanup_mock_offline_storage re-review · live pendingCount · EmptyChrome",
   "verifyGate": {
     "artifact": "PASS",
     "status": "PASS",
@@ -22,7 +22,8 @@
     "bff": "prior_PASS",
     "step4b": "N/A",
     "e2ePriorQa": "PASS",
-    "priorQaTaskId": "task_883401d4"
+    "priorQaTaskId": "task_fcc96865",
+    "priorDevTaskId": "task_4fae30f8"
   },
-  "updatedAt": "2026-09-01T08:35:00.000Z"
+  "updatedAt": "2026-09-01T11:52:00.000Z"
 }

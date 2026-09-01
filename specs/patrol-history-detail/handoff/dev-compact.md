@@ -6,59 +6,43 @@ packKind: sheet
 role: dev
 status: done
 skillVersion: 2026.08.31.2
-writtenAt: 2026-09-01T01:20:57.000Z
-taskId: task_69386cbc
+writtenAt: 2026-09-01T11:15:00.000Z
+taskId: task_158bf625
 
 ## Decisions
-- changeScope: new_page
-- formPattern: Full (`#sc-patrol-detail` · DES-MOB-PAT-DETAIL) — sheet meta · surface screen
-- route_a: list row → push + Id · back pop list
+- changeScope: edit_page (`/edit-mobile-feature`) — close GAP-MOB-PAT-HIST-DET-NAV-01
+- formPattern: Full (`#sc-patrol-detail` · DES-MOB-PAT-DETAIL)
+- FIX: PatrolHome.tapToday + PatrolHistory row → push detail + Id (supersede toast `patrol.toast.detail`)
+- FIX: strip OfflineDemo → live-only GET · fail/404 → EmptyChrome + toast · 403 toast+back
 - API-01: GET `mobile-bff/api/v1/patrol/sessions/{id}` · reuse · Step 4b N/A
-- TIMELINE: demo SSOT 3 · LinmListRow substitute (kit thiếu LinmTimelineRow · T-KIT n/a)
-- END/Share: toast P1 · no PUT / share sheet
-- Map CTA: nav patrol-map (+ Id nav only)
-- Offline: GET fail → toast + demo SSOT · 404 EmptyChrome · 403 toast+back
-- Parent: rewire toast → push + Id
-- mfeStdUrl: N/A · cấm
-- BE/BFF Write: none · verify-only build PASS
-- e2eQa: queued `/agent-qa*` only · cấm Dev e2e
-- autoApprove: ON
-- open questions: none
+- TIMELINE: demo SSOT 3 · ListRow substitute (Defer P2)
+- END/Share: toast P1 · Map CTA patrol-map
+- mfeStdUrl: N/A · **cấm**
+- e2eQa: **cấm** role Dev
+- autoApprove: ON · open questions: none
 
 ## Inventory (slim)
 | id | label | controlHint | notes |
 |----|-------|-------------|-------|
-| navBack | Lịch sử | BackButton | iOS text · Android icon |
-| title | Chi tiết ca | TopBar title | fixed |
-| navShare | Chia sẻ | IconButton | toast |
-| codeHero | PAT-* | Text ≥28 | GET Code |
-| badgeStatus | trạng thái | Badge | VN + OfflineQueued |
-| rowUser…Coverage | info | ListRow | GET §B |
-| tlItem | Điểm tuần | ListRow≈Timeline | demo 3 |
-| btnMap | Mở bản đồ ca | PrimaryButton | patrol-map |
-| btnEnd | Kết thúc ca | SecondaryButton | toast |
+| tapToday | Hôm nay row | ListRow | **push** detail + Id |
+| histRow | Lịch sử row | ListRow | push detail + Id |
+| navBack…btnEnd | detail chrome | per prior | unchanged |
 
 ## Screens / zones (ids only)
-- DES-MOB-PAT-DETAIL `#sc-patrol-detail` Full — owner
-- DES-MOB-PAT-DETAIL-NAV · HERO · INFO · TL · CTA
-- entry `#sc-patrol-history` → push
-- reviewUrl: dual prototype `#sc-patrol-detail`
+- DES-MOB-PAT-DETAIL `#sc-patrol-detail`
+- entry: `#sc-patrol-home` today · `#sc-patrol-history` row
 - peerStdUrl / mfeStdUrl: N/A
 
 ## API / tasks (ids only)
 - FormMode↔API: appear GET sessions/{id}
-- API-01: GET mobile-bff/api/v1/patrol/sessions/{id}
-- OUT: check-ins · session PUT · invent path
-- T-IOS-PAT-DETAIL: done · build PASS
-- T-AND-PAT-DETAIL: done · assembleDebug PASS
-- T-BE-API / T-BE-MIG: n/a
-- T-QA-*: pending · `/agent-qa-mobile`
+- OUT: OfflineDemo · invent API · PUT end
+- T-IOS/T-AND edit: done · VERIFY PASS
 
 ## VERIFY
-- iOS xcodegen + iPhone 17 Pro Max + iPad Pro 13 M5: PASS
-- Android assembleDebug: PASS
-- BFF dotnet build: PASS
-- debt: TimelineRow kit · map Id consume · checkin-detail screen
+- iOS xcodegen + LinmRmms · iPhone 17 Pro: **PASS**
+- Android assembleDebug: **PASS**
+- BFF dotnet build: **PASS**
+- debt: TimelineRow kit · map Id · checkin-detail (Defer)
 
 ## UNCLEAR
 - none

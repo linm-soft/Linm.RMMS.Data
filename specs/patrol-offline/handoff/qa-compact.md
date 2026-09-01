@@ -6,17 +6,18 @@ packKind: list
 role: qa
 status: done
 skillVersion: 2026.08.19.29
-writtenAt: 2026-09-01T08:27:11.000Z
-taskId: task_883401d4
+writtenAt: 2026-09-01T11:48:50.000Z
+taskId: task_fcc96865
 slash: /agent-qa-mobile
-gap: cleanup_mock re-e2e · ok:true · EmptyChrome live-only
+gap: cleanup_mock_offline_storage re-e2e · ok:true · live pendingCount · EmptyChrome
 
 ## Decisions
-- changeScope: edit_page post cleanup_mock · packKind list
+- changeScope: edit_page post cleanup_mock_offline_storage · packKind list
 - mfeStdUrl: none (native_dual · cấm start:std)
 - e2eQa: ON · yarn e2e-qa-mobile · ok:true · A11/A10/A9/A3/P6/P6-2 PASS
+- API: docker :5101 (`API_HOST_PORT=5101`) · BFF :5202
 - align: chrome/kit Aligned · Must 0 · list EmptyChrome vs demo 2-card = intentional
-- data: live-only · BE empty OK · cấm demo seed assert
+- data: live-only · BE empty OK · cấm hardcode «3 bản ghi» / demo seed
 - autoApprove: ON
 - open: GAP-MOB-ACT-PAT-OFFLINE-01 Defer · Android EmptyChrome hint optional P2
 
@@ -24,7 +25,7 @@ gap: cleanup_mock re-e2e · ok:true · EmptyChrome live-only
 | id | label | controlHint | notes |
 |----|-------|-------------|-------|
 | sc-patrol-offline | Dữ liệu lưu trữ | Screen | A3+P6 |
-| offline-empty | EmptyChrome | Empty | title VN |
+| offline-empty | EmptyChrome | Empty | iOS title+hint · Android title |
 | btn-sync | Đồng bộ | TopBar trailing | Sync-only |
 | nav-back | Trang Chủ | TopBar leading | text |
 | segment | Điểm tuần / Sự cố | LinmSegment | filter |

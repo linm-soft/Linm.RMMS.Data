@@ -62,5 +62,15 @@ appId: org.linmsoft.rmms
     id: "row-quick-field-reflect"
 - extendedWaitUntil:
     visible:
+      id: "sc-field-pick"
+    timeout: 20000
+- tapOn:
+    id: "ak32-PAVEMENT"
+    optional: true
+- tapOn:
+    text: "Mặt đường"
+    optional: true
+- extendedWaitUntil:
+    visible:
       id: "sc-field-reflect"
     timeout: 20000

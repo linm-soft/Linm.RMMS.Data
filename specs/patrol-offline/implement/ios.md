@@ -3,24 +3,31 @@
 | Field | Value |
 |-------|-------|
 | feature | `patrol-offline` |
-| taskId | `task_93163b23` |
-| slash | `/edit-mobile-feature` · cleanup_mock |
+| taskId | `task_4fae30f8` |
+| slash | `/edit-mobile-feature` · cleanup_mock_offline_storage |
 | status | **confirmed** |
 | changeScope | `edit_page` · live-only local queue |
-| updatedAt | `2026-09-01T08:10:00.000Z` |
+| updatedAt | `2026-09-01T11:29:32.000Z` |
 
-## Cleanup mock (this turn)
+## Cleanup mock residual (this turn)
 
-- **Removed** `PatrolOfflineCopy.demoItems` + first-launch seed
-- `OfflineQueueStore.ensureLiveOnly()` purges legacy `demo-*` ids · **cấm** re-seed
-- Empty queue → `EmptyChromeView` (`offline-empty`) · **cấm** «Đang dùng dữ liệu mẫu»
-- Seed note: **BE empty OK** — queue chỉ có record từ writer enqueue thật (sibling P2)
+- **Removed** hardcode `patrol.quick.offlineSub` «3 bản ghi chờ đồng bộ» → empty copy «Chưa có bản ghi chờ gửi»
+- Patrol-home quick Lưu trữ: count>0 → `offlineSubFmt` `%d` live · count=0 → empty copy
+- Me row: count>0 → `me.row.offlineSub` · count=0 → `offline.empty.title` · badge ẩn khi 0
+- `#sc-patrol-offline` EmptyChrome giữ (prior `task_93163b23`) · **cấm** seed demo queue
+- SSOT: `docs/mobile-strings.json` synced
+
+## ACTION WORK
+
+| Action | Pair | Status |
+|--------|------|--------|
+| Sync (`btn-sync`) | POST `integration/sync/offline-batch` | **work** · list-only · no search/CRUD |
 
 ## Layers
 
-| Presentation | `PatrolOffline/*` · EmptyChrome · AppRouter entries |
-| Domain | use cases · **no** demo Copy |
-| Data | `OfflineQueueStore` live-only · `POST integration/sync/offline-batch` |
+| Presentation | `PatrolHome` offline subtitle · `Me` subtitleQueue · `PatrolOffline` EmptyChrome |
+| Domain | `pendingCount()` live |
+| Data | `OfflineQueueStore` live-only · no demo seed |
 
 ## VERIFY GATE
 

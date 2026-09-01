@@ -2,7 +2,9 @@
   "feature": "field-reflect",
   "status": "done",
   "review_confirm": "done",
-  "taskId": "task_76fc3cce",
+  "taskId": "task_f7b2133b",
+  "changeScope": "edit_page",
+  "gapClosed": "field_reflect_align_incident_create",
   "skillId": "agent-review-mobile",
   "skillVersion": "2026.08.20.03",
   "schemaVersion": 1,
@@ -13,6 +15,8 @@
   "bffContentHash": "sha256:field-reflect-mobile-bff-20260829",
   "mustAlignOpen": 0,
   "alignVerdict": "Aligned",
-  "generatedAt": "2026-08-29T05:53:00.000Z",
+  "priorQaTaskId": "task_26b1db16",
+  "priorDevTaskId": "task_a6f9a7eb",
+  "generatedAt": "2026-09-01T12:24:38.000Z",
   "versionGate": "rechecked"
 }

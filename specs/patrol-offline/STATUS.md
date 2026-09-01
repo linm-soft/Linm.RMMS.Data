@@ -5,7 +5,7 @@
 | feature | `patrol-offline` |
 | phase | `done` |
 | status | `done` |
-| changeScope | `edit_page` (post cleanup_mock · prior `new_page`) |
+| changeScope | `edit_page` (cleanup_mock_offline_storage residual) |
 | packKind | `list` (**PO confirm**) |
 | stack | `native_dual` |
 | demo | `specs/patrol-offline/ui/prototype/{ios,android}/index.html` `#sc-patrol-offline` · `DES-MOB-PAT-OFFLINE` |
@@ -24,24 +24,24 @@
 | design | `specs/patrol-offline/ui/design.md` · `ui/ux-analy.md` · `prototype/{ios,android}` |
 | sa | `specs/patrol-offline/be/solution-discovery.md` |
 | tl | `specs/patrol-offline/task/patrol-offline.md` |
-| implement | `specs/patrol-offline/implement/ios.md` · `implement/android.md` (**confirmed**) |
+| implement | `specs/patrol-offline/implement/ios.md` · `implement/android.md` |
 | qa | `specs/patrol-offline/qa/scenarios.md` · `qa/store/patrol-offline/` (**confirmed**) |
-| review | `specs/patrol-offline/review/findings.md` · `review/REVIEW-META.json` (**confirmed** · cleanup_mock re-review) |
-| taskId | `task_572a884d` |
-| skillVersion | `2026.08.19.29` (agent-review-mobile) |
+| review | `specs/patrol-offline/review/findings.md` · `review/REVIEW-META.json` (**confirmed**) |
+| taskId | `task_94929183` |
+| skillVersion | `2026.08.19.29` |
 | schemaVersion | `1` |
 | workflowVersion | `2026.08.19.29` |
 | rulesVersion | `2026.08.19.34` |
 | versionGate | `rechecked` |
 | contentHash | `sha256:2f2cf6976914278da294ed00a6d1eeecb50364201812335d6852c0f4e46ccaad` |
 | bffContentHash | `sha256:10d525fc95cdd32c9e4ede818499041f44341c7481d1d44e0fde6bec5738f403` |
-| verifyGate | review artifact+STATUS **PASS** · prior QA e2e **ok:true** · roleOnly=`review` · **cấm** build/e2e · `task_572a884d` |
-| updatedAt | `2026-09-01T08:31:51.885Z` |
+| verifyGate | artifact **PASS** · review_confirm **approve** · prior QA e2e **ok:true** · roleOnly=`review` · **cấm** build/e2e · e2eQa=ON (queued prior) |
+| updatedAt | `2026-09-01T11:54:01.577Z` |
 ## Lock
 
 | agent | scope | id | at |
 |-------|-------|-----|-----|
-| — | — | — | released after review `task_572a884d` |
+| — | — | — | released after review `task_94929183` |
 
 ## Pipeline
 
@@ -59,7 +59,7 @@
 
 | Gate | Value |
 |------|-------|
-| change_scope | `edit_page` (post cleanup_mock) |
+| change_scope | `edit_page` · gap=`cleanup_mock_offline_storage` |
 | packKind | **`list`** (PO confirm) |
 | stack_confirm | `native_dual` |
 | be_repo_confirm | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.WebService` |
@@ -68,7 +68,7 @@
 | kit_missing_confirm | **implement_kit** · `LinmTopBar` text leading «Trang Chủ» + trailing «Đồng bộ» dual ✓ |
 | route_confirm | **route_a** (autoApprove=ON · TL) |
 | autoApprove | **ON** |
-| e2eQa | **ON** · runtime QA **ok:true** |
+| e2eQa | **ON** (prior QA · yarn e2e-qa-mobile) |
 | design_confirm | **confirmed** (user Approve board) |
 | solution_confirm | **confirmed** (user Approve board) |
 | review_confirm | **confirmed** (user Approve board) |
@@ -90,6 +90,9 @@
 | task_93163b23 | patrol-offline | dev | team_lead | **completed** | `/edit-mobile-feature` · cleanup_mock · removed demoItems seed · EmptyChrome · VERIFY PASS · roleOnly=`dev` |
 | task_883401d4 | patrol-offline | qa | dev | **completed** | `/agent-qa-mobile` · e2e **ok:true** · EmptyChrome · guest→login flow · store PNG · roleOnly=`qa` |
 | task_572a884d | patrol-offline | review | qa | **completed** | `/agent-review-mobile` · cleanup_mock re-review · review_confirm approve · EmptyChrome · roleOnly=`review` |
+| task_4fae30f8 | patrol-offline | dev | — | **completed** | `/edit-mobile-feature` · cleanup_mock_offline_storage · gỡ «3 bản ghi» · live pendingCount · VERIFY PASS · roleOnly=`dev` · e2eQa=OFF |
+| task_fcc96865 | patrol-offline | qa | dev | **completed** | `/agent-qa-mobile` · e2e **ok:true** · store PNG · EmptyChrome live · roleOnly=`qa` |
+| task_94929183 | patrol-offline | review | qa | **completed** | `/agent-review-mobile` · cleanup_mock_offline_storage re-review · review_confirm approve · Must 0 · roleOnly=`review` |
 
 ## Blockers / open questions
 
@@ -99,7 +102,10 @@
 
 ## Links
 
+- closeout Review: `task_94929183` · `/agent-review-mobile` · roleOnly=`review` · autoApprove=ON · review_confirm **approve** · post_review **skip** · Must align 0 · live pendingCount · no hardcode «3 bản ghi» · at: `2026-09-01T11:52:00.000Z`
+- closeout QA: `task_fcc96865` · `/agent-qa-mobile` · roleOnly=`qa` · autoApprove=ON · ios_test_phase **phase1_iphone** · docker API :5101 + BFF :5202 · `yarn e2e-qa-mobile` **ok:true** · iPhone 17 Pro Max · emulator-5554 · Maestro iOS+Android PASS · PNG `qa/screens` + `qa/store/patrol-offline` · align chrome Aligned · EmptyChrome live · at: `2026-09-01T11:48:50.000Z`
+- closeout Dev residual mock: `task_4fae30f8` · `/edit-mobile-feature` · gap=`cleanup_mock_offline_storage` · gỡ hardcode offlineSub · Me empty · VERIFY PASS · at: `2026-09-01T11:31:00.000Z`
 - closeout Review: `task_572a884d` · `/agent-review-mobile` · roleOnly=`review` · autoApprove=ON · review_confirm **approve** · post_review **skip** · Must align 0 · live-only EmptyChrome · at: `2026-09-01T08:35:00.000Z`
 - closeout QA: `task_883401d4` · `/agent-qa-mobile` · roleOnly=`qa` · autoApprove=ON · ios_test_phase **phase1_iphone** · docker API :5111 (+proxy :5101) + BFF :5202 · `yarn e2e-qa-mobile` **ok:true** · iPhone 17 Pro Max · Pixel_2 · Maestro iOS+Android PASS · PNG `qa/screens` + `qa/store/patrol-offline` · align chrome Aligned · EmptyChrome live · at: `2026-09-01T08:27:11.000Z`
 - closeout Dev cleanup_mock: `task_93163b23` · removed `demoItems` + seed-once · purge `demo-*` · EmptyChrome · VERIFY PASS · at: `2026-09-01T08:08:54.000Z`
-- native: e2eQa ON → `yarn e2e-qa-mobile` — **cấm** mfeStdUrl
+- native: e2eQa ON this task · **cấm** mfeStdUrl

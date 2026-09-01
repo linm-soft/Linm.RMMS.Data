@@ -5,9 +5,9 @@
 | feature | `patrol-history-detail` |
 | phase | `done` |
 | status | `done` |
-| taskIdReview | `task_1c744554` |
+| taskIdReview | `task_96251956` |
 | packKind | `sheet` · surface Full `#sc-patrol-detail` (PO PACK-01) |
-| changeScope | `new_page` |
+| changeScope | `edit_page` |
 | demo | `specs/patrol-history-detail/ui/prototype/{ios,android}/index.html` · `#sc-patrol-detail` · `DES-MOB-PAT-DETAIL` |
 | context | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/docs/context/features/patrol-history-detail.md` |
 | mfe | — (native · **cấm** mfeStdUrl) |
@@ -18,8 +18,8 @@
 | bff | `Linm.RMMS.Mobile.Bff` · `mobile-bff/api/v1/patrol/sessions/{id}` |
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · DOMAIN-MAP Patrol — **cấm ERP.*** |
 | lane | **mobile** · `/agent-qldb-workflow-mobile` |
-| lastRole | `review` · `/agent-review-mobile` · review_confirm **done** · Must align **0** |
-| taskId | `task_1c744554` |
+| lastRole | `review` · `/agent-review-mobile` · review_confirm done · Must 0 · compact written |
+| taskId | `task_96251956` |
 | autoApprove | `ON` |
 | dataAnaly | `specs/_data-analy/patrol-history-detail-control-hint.md` · `patrol-history-detail-bff-endpoints.md` · `patrol-history-detail-real-data.md` · `patrol-history-detail-action-tree.md` |
 | contentHash | `sha256:patrol-history-detail-control-hint-20260831` |
@@ -31,10 +31,10 @@
 | workflowVersion | `2026.08.31.2` |
 | rulesVersion | `2026.08.31.2` |
 | versionGate | `ok` |
-| verifyGate | roleOnly=review · findings+STATUS **PASS** · **cấm** build/e2e/start:std · Step 4b N/A |
+| verifyGate | roleOnly=review · artifact findings+compact · Must 0 · **PASS** · **cấm** yarn build/e2e/start:std |
 | reviewUrlIos | `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/patrol-history-detail/ui/prototype/ios/index.html#sc-patrol-detail` |
 | reviewUrlAndroid | `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/patrol-history-detail/ui/prototype/android/index.html#sc-patrol-detail` |
-| updatedAt | `2026-09-01T02:02:25.292Z` |
+| updatedAt | `2026-09-01T11:27:33.767Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -65,23 +65,25 @@
 | `task_69386cbc` | patrol-history-detail | dev | team_lead | **done** | dual ship · VERIFY PASS · compact written |
 | `task_89ab887f` | patrol-history-detail | qa | dev | **done** | e2e PASS · align Must 0 · compact written |
 | `task_1c744554` | patrol-history-detail | review | qa | **done** | review_confirm done · Must 0 · compact written |
+| `task_158bf625` | patrol-history-detail | dev | review | **done** | `/edit-mobile-feature` · tapToday+history → push · strip OfflineDemo · VERIFY PASS |
+| `task_cf2aadc0` | patrol-history-detail | qa | dev | **done** | e2e PASS · NAV push · align Must 0 · compact written |
+| `task_96251956` | patrol-history-detail | review | qa | **done** | re-review · review_confirm done · Must 0 · compact written |
 
 ## Blockers / open questions
 
-- GAP-MOB-PAT-HIST-DET-TIMELINE-01: **PO chốt** demo SSOT P1 · GET check-ins = P2
-- GAP-MOB-PAT-HIST-DET-PACK-01: **PO chốt** packKind `sheet` meta · surface Full screen
-- Dev debt: kit thiếu `LinmTimelineRow` → ListRow substitute · map Id nav-only · checkin-detail toast — **Defer** P2 (Review Accept)
-- QA hotfix: GAP-MOB-NAV-DETAIL-01 **fixed** · harvest force-copy (AutoCode) Accept
-- SA/TL/Review: **none** open Must · Step 4b N/A · ACT-03 **0**
+- GAP-MOB-PAT-HIST-DET-NAV-01 / DEMO-01: **fixed** · review confirmed
+- GAP-MOB-PAT-HIST-DET-TIMELINE-01: demo SSOT P1 · GET check-ins = P2
+- Dev debt: LinmTimelineRow · map Id · checkin-detail — **Defer** P2
+- Offline fail path: EmptyChrome (Accept vs SA demo-fallback)
+- SA/TL/Review: Must 0 · Step 4b N/A · pipeline **complete**
 
 ## Links
 
-- data-analy → po → ui → be → task → implement → qa → review **done**
-- native: e2eQa prior PASS — **cấm** mfeStdUrl
-- parent: `patrol-history` · list row → push detail + Id
-- compact: `handoff/review-compact.md`
-- reviewUrl: dual `ios/index.html` · `android/index.html` `#sc-patrol-detail`
-- tasks: T-IOS/T-AND/T-QA/T-REVIEW **done** · T-BE n/a
+- review **done** · compact `handoff/review-compact.md` · findings `review/findings.md`
+- native: **cấm** mfeStdUrl
+- entry: patrol-home today · patrol-history row → `#sc-patrol-detail`
+- reviewUrl: dual prototype `#sc-patrol-detail`
+- post_review: **skip** · next visual → `/edit-mobile-feature` only
 
 ## Retry
 

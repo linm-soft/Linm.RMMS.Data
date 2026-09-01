@@ -8,8 +8,8 @@
 | packKind | **`sheet`** meta · surface Full `#sc-patrol-detail` |
 | changeScope | `new_page` |
 | route_confirm | **route_a** |
-| taskId | `task_69386cbc` |
-| updatedAt | `2026-09-01T01:20:57.000Z` |
+| taskId | `task_158bf625` · prior `task_69386cbc` |
+| updatedAt | `2026-09-01T11:10:00.000Z` |
 
 ## Tasks
 
@@ -22,17 +22,16 @@
 ## Ship summary
 
 - **Screen** `#sc-patrol-detail` · `PatrolHistoryDetailScreen` · Compose push
-- **Entry:** `patrol-history` row → `patrol-history-detail/{id}`
-- **API:** `FetchPatrolSessionByIdUseCase` · `PatrolRepository.fetchSessionById` · `HttpException` 404/403
-- **Chrome:** TopBar leading **icon-only** ArrowBack · trailing MoreHoriz share toast
-- **Bind / timeline / CTA / error** — same dual as iOS
+- **Entry (edit `task_158bf625`):** `patrol-home` today + `patrol-history` row → `patrol-history-detail/{id}` · supersede toast
+- **API:** live-only GetById · fail/404 EmptyChrome+toast · **cấm** OfflineDemo
+- **Chrome / CTA / timeline** — dual parity iOS
 - **Cấm** AlertDialog · invent path · PUT · GET check-ins
 
 ## VERIFY GATE
 
 | Check | Result |
 |-------|--------|
-| `./gradlew :app:assembleDebug` | **PASS** |
+| `./gradlew :app:assembleDebug` | **PASS** (`task_158bf625` re-VERIFY) |
 | BFF `dotnet build` | **PASS** (verify only) |
 | e2e / start:std / mfeStdUrl | **SKIP** (cấm role Dev) |
 

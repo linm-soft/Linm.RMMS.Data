@@ -1,5 +1,7 @@
 # Capture — patrol-history-detail
 
+> task `task_cf2aadc0` · capturedAt `2026-09-01T11:20:57.515Z` · re-QA after edit NAV
+
 | Case | Store | Result | Evidence |
 |------|-------|--------|----------|
 | A10-BFF | A10 · P11 | **PASS** | — |
@@ -9,11 +11,10 @@
 | P6-CORE | P6 · P11 | **PASS** | ![P6-CORE](P6-CORE.png) |
 | P6-CORE-2 | P6 | **PASS** | ![P6-CORE-2](P6-CORE-2.png) |
 
-iOS device: iPhone 17 Pro Max  
-iPad device: DEFER Phase 1  
-method: e2e runtime · yarn e2e-qa-mobile · Maestro ON  
-px: A3 1320×2868 RGB · P6 1080×1920 RGB  
+iOS device: iPhone 17 Pro Max
+iPad device: DEFER Phase 1
+method: e2e runtime · yarn e2e-qa-mobile · Maestro ON · `--skip-start` (API :5111 Linux · BFF :5202 healthy)
 
-CLI PASS = capture+px only. Visual = `/review-align-ux-ios-android` Read CORE vs demo HTML (`ui/review/align-ux.md`).
+CLI PASS = capture+px only. Visual = `/review-align-ux-ios-android` Read CORE vs demo HTML.
 
 Listing official → `/store-image-capture` confirm file live (cấm AI vẽ).

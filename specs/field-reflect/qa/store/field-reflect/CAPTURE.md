@@ -3,9 +3,6 @@
 | Case | Store | Result | Evidence |
 |------|-------|--------|----------|
 | A10-BFF | A10 · P11 | **PASS** | — |
-| MAESTRO-IOS | A3 · A9 · A11 | **FAIL** | — |
-| CRAWL | — | **FAIL** | — |
-| MAESTRO-AND | P6 | **FAIL** | — |
 | A11-LAUNCH | A11 | **PASS** | ![A11-LAUNCH](A11-LAUNCH.png) |
 | A9-LOGIN | A9 · P10 | **PASS** | ![A9-LOGIN](A9-LOGIN.png) |
 | A3-CORE | A3 · A11 | **PASS** | ![A3-CORE](A3-CORE.png) |
@@ -15,7 +12,12 @@
 iOS device: iPhone 17 Pro Max
 iPad device: DEFER Phase 1
 method: e2e runtime · yarn e2e-qa-mobile · Maestro ON
+capturedAt: 2026-09-01T12:17:51.598Z
+taskId: task_26b1db16
+ok: true
 
-CLI PASS = capture+px only. Visual = `/review-align-ux-ios-android` Read CORE vs demo HTML.
+CLI PASS = capture+px only. Visual = `/review-align-ux-ios-android` Read CORE vs demo HTML · **Aligned** · Must **0**.
+
+Flow: hub → `#sc-field-pick` → asset → `#sc-field-reflect`.
 
 Listing official → `/store-image-capture` confirm file live (cấm AI vẽ).

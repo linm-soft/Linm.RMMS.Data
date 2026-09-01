@@ -6,16 +6,17 @@ packKind: sheet
 role: review
 status: done
 skillVersion: 2026.08.31.2
-writtenAt: 2026-09-01T02:00:28.000Z
-taskId: task_1c744554
+writtenAt: 2026-09-01T11:25:38.000Z
+taskId: task_96251956
 
 ## Decisions
-- changeScope: new_page
+- changeScope: edit_page (re-review after NAV + OfflineDemo strip)
 - formPattern: Full (`#sc-patrol-detail` · DES-MOB-PAT-DETAIL)
 - review_confirm: **done** (autoApprove ON)
 - align_confirm: approve · Must open **0**
-- findings: P0=0 · MustOpen=0 · Accept/Defer=TimelineRow kit · map Id · checkin-detail · PrivacyInfo P2 · harvest tool
-- security: Keychain/Encrypted · X-Company-Id · 403/404 · toast-only End/Share · no invent API
+- findings: P0=0 · MustOpen=0 · Accept=Offline EmptyChrome vs SA demo-fallback · Defer=TimelineRow/map/checkin · PrivacyInfo P2
+- security: Keychain/Encrypted · X-Company-Id · 403/404 · toast End/Share · no invent API
+- NAV: history/today → push + Id **OK** (GAP-NAV-01 closed · QA PASS)
 - DTO: dual GET §B · timeline demo SSOT P1 OK
 - clickables: ACT-03 **0** · cấm crawl re-run
 - REAL-02 / QA-REAL-01: none
@@ -29,6 +30,7 @@ taskId: task_1c744554
 | R-SEC | token/XCO/IDOR | — | PASS |
 | R-DTO | sessions/{id} | — | PASS |
 | R-ALIGN | CORE vs demo | — | Must 0 |
+| R-NAV | list→detail push | — | PASS |
 | R-CLICK | CLICKABLES | — | ACT-03=0 |
 
 ## Screens / zones (ids only)
@@ -38,8 +40,8 @@ taskId: task_1c744554
 
 ## API / tasks (ids only)
 - API-01 GET sessions/{id} · verified
-- T-REVIEW-* PASS · T-QA prior PASS · T-BE n/a
-- findings counts: P0=0 · Must=0 · Defer/Accept=4
+- T-REVIEW-* PASS · T-QA `task_cf2aadc0` PASS · T-BE n/a
+- findings counts: P0=0 · Must=0 · Accept/Defer=3
 
 ## UNCLEAR
 - none

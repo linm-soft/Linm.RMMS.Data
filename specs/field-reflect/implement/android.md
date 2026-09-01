@@ -1,36 +1,26 @@
-# Dev — Implement Android — field-reflect
+# Dev — Implement Android — field-reflect (edit)
 
 | Field | Value |
 |-------|-------|
 | feature | `field-reflect` |
 | platform | Android |
-| this role | `dev` · `/agent-dev-android` · `/dev-android-compose` · `/dev-ui-review` |
+| this role | `dev` · `/agent-dev-android` · `/edit-mobile-feature` |
 | status | **confirmed** |
-| changeScope | `new_page` |
+| changeScope | `edit_page` · gap=`field_reflect_align_incident_create` |
 | packKind | **`screen`** |
-| taskId | `task_fa7f3596` |
-| updatedAt | `2026-08-29T05:40:00.000Z` |
+| taskId | `task_a6f9a7eb` |
+| updatedAt | `2026-09-01T12:10:00.000Z` |
 | autoApprove | ON |
-| contentHash | sha256:field-reflect-control-hint-20260829 |
-| realDataHash | sha256:field-reflect-real-data-20260829 |
-| bffContentHash | sha256:field-reflect-mobile-bff-20260829 |
 
-## Shipped
+## Delta this turn
 
-| Area | Path / note |
-|------|-------------|
-| Screen | `presentation/feature/fieldreflect/*` · `#sc-field-reflect` · `DES-MOB-FIELD-REFLECT` |
-| Kind pills | `LinmKindPills` Hư/Mất/Hỏng · default Hư |
-| PhotoRow | CameraX `ImageCapture` still · `#i-camera` · **không** continuous finder |
-| Card | Nhận diện / Mức / Vị trí · `LinmListRow` + badge Warning |
-| Checklist | local PAVEMENT `asset-kcht-32` · filter by kind |
-| Entry | hub `field-reflect` → navigate (toast stub removed) · `MainTabScreen` + `PatrolHomeViewModel.setOpenFieldReflect` |
-| Prefill | `FetchPatrolSessionsUseCase` · empty banner · **cấm** fake ca |
-| Detect | `DetectAiVisionUseCase` · ImageBase64 + GPS |
-| Create / Draft | `CreateIncidentUseCase` · GPS gate Create · Draft `forceOffline` |
-| GPS deny | `GpsDenyDialog` reuse · **cấm** system AlertDialog product |
-| Copy | VN parity (`GAP-MOB-ALIGN-01`) · back icon-only |
-| DI | Hilt · reuse CamPatrol use cases |
+| Area | Note |
+|------|------|
+| Pick gate | `#sc-field-pick` · KCHT-32 grid · `FetchAssetTypesUseCase` |
+| Form | `#sc-field-reflect` · WalletCard · kind · chk by code · CameraX still · severity · desc · Create/Draft |
+| Reuse | `IncidentCreateChecklist` · `IncidentCreateSeverity` · same BFF paths · **cấm** gộp slug |
+| Entry | hub `field-reflect` giữ |
+| DI | Hilt inject `FetchAssetTypesUseCase` |
 
 ## Build gate
 
@@ -38,20 +28,15 @@
 |-------|--------|
 | `./gradlew :app:assembleDebug` | **PASS** |
 | BFF `dotnet build` | **PASS** (shared) |
-| Invent `field-reflect` API | **none** |
-| Step 4b / media Signed | **n/a P1** |
+| Invent API | **none** |
 
-## Version meta
+## ACTION WORK
 
-| Field | Value |
-|-------|-------|
-| skillId | agent-dev-android |
-| skillVersion | 2026.08.20.03 |
-| schemaVersion | 1 |
-| workflowVersion | 2026.08.25.01 |
-| rulesVersion | 2026.08.29.4 |
-| generatedAt | `2026-08-29T05:40:00.000Z` |
-| versionGate | rechecked |
+| Action | Pair | Work |
+|--------|------|------|
+| Pick asset | → form | **yes** |
+| Create | POST incident | **yes** |
+| Draft | offline | **yes** |
 
 ---
 <!-- Version meta: skillId=agent-dev-android skillVersion=2026.08.20.03 schemaVersion=1 workflowVersion=2026.08.25.01 rulesVersion=2026.08.29.4 versionGate=rechecked -->

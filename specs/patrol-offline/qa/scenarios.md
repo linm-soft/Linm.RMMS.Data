@@ -6,13 +6,14 @@
 | this role | `qa` · `/agent-qa-mobile` |
 | status | **confirmed** |
 | packKind | **`list`** |
-| taskId | `task_883401d4` |
+| taskId | `task_fcc96865` |
 | e2eQa | **ON** · `yarn e2e-qa-mobile` · `ios_test_phase=phase1_iphone` · **A4-IPAD DEFER** |
 | store_qa | **run_store** |
-| e2e result | **ok:true** · `2026-09-01T08:27:01.159Z` · dest **iPhone 17 Pro Max** · AVD **Pixel_2** 1080×1920 |
+| e2e result | **ok:true** · `2026-09-01T11:46:02.050Z` · dest **iPhone 17 Pro Max** · AVD **emulator-5554** |
 | method | e2e runtime · yarn e2e-qa-mobile · Maestro + simctl/adb · **cấm** GenerateImage · **cấm** yarn start:std / mfeStdUrl |
-| align | dual proto `#sc-patrol-offline` · chrome/kit **Aligned** · list body live EmptyChrome vs demo 2-card (cleanup_mock intentional) |
-| updatedAt | `2026-09-01T08:27:11.000Z` |
+| align | dual proto `#sc-patrol-offline` · chrome/kit **Aligned** · list body live EmptyChrome vs demo 2-card (cleanup_mock_offline_storage intentional) |
+| gap | post `cleanup_mock_offline_storage` · live pendingCount only · **cấm** hardcode «3 bản ghi» |
+| updatedAt | `2026-09-01T11:48:50.000Z` |
 
 **Scope:** slug `patrol-offline` list `#sc-patrol-offline` only. **Cấm** AC sibling (patrol-home check-in live · incident form).
 
@@ -20,20 +21,20 @@
 
 | Gate | Result |
 |------|--------|
-| iOS prior `xcodegen` + `xcodebuild` iPhone 17 Pro | **PASS** (dev `task_93163b23`) |
+| iOS prior `xcodegen` + `xcodebuild` iPhone 17 Pro | **PASS** (dev `task_4fae30f8`) |
 | Android prior `assembleDebug` | **PASS** (dev) |
 | Mobile.Bff prior `dotnet build` | **PASS** (dev) |
-| Maestro iOS + Android | **PASS** · guest `#sc-home` → login → Me `row-offline` → `#sc-patrol-offline` · `offline-empty` |
-| API :5111 (+ host proxy :5101) + BFF :5202 | **PASS** (docker) |
+| Maestro iOS + Android | **PASS** · guest → login → Me `row-offline` → `#sc-patrol-offline` · EmptyChrome |
+| API :5101 + BFF :5202 | **PASS** (docker · `API_HOST_PORT=5101`) |
 
 ## Device AC
 
 | ID | Expect | Result |
 |----|--------|--------|
-| AC-D-01 | Offline · list mở · live queue (empty OK) | **PASS** · EmptyChrome `offline-empty` |
+| AC-D-01 | Offline · list mở · live queue (empty OK) | **PASS** · EmptyChrome |
 | AC-D-02 | GPS deny | **N/A** |
 | AC-D-03 | Leave dirty | **N/A** |
-| AC-D-04 | Cấm native alert · toast only | **PASS** (code · sync/incidentEmpty toast) |
+| AC-D-04 | Cấm native alert · toast only | **PASS** (code) |
 | AC-D-05 | Keyboard | **N/A** |
 | AC-D-06 | Safe area TopBar + list | **PASS** (shots A3/P6) |
 | AC-D-07 | Biometric | **N/A** |
@@ -44,16 +45,16 @@
 | AC-D-12 | Type 13 / ≥16 | **PASS** |
 | AC-D-13 | Dual copy VN | **PASS** |
 | AC-D-14 | Cấm watermark / device label | **PASS** |
-| AC-F-01 | Live-only · **cấm** demo seed / demo-* | **PASS** · EmptyChrome · purge demo |
+| AC-F-01 | Live-only · **cấm** demo seed / hardcode «3 bản ghi» | **PASS** · EmptyChrome · live pendingCount |
 | AC-F-02 | Me `row-offline` → `#sc-patrol-offline` | **PASS** (Maestro iOS+Android) |
-| AC-F-03 | Home `tile-offline` → `#sc-patrol-offline` | **PASS** (code · route_a · ids shipped) |
+| AC-F-03 | Home `tile-offline` → `#sc-patrol-offline` | **PASS** (code · route_a) |
 | AC-F-04 | Sync POST offline-batch + toast N | **PASS** (code · BFF proxy) |
 | AC-F-05 | Sync fail toast · giữ queue | **PASS** (code) |
-| AC-F-06 | A11y Maestro ids | **PASS** · `sc-patrol-offline` · `row-offline` · `offline-empty` · `btn-sync` |
+| AC-F-06 | A11y Maestro ids | **PASS** · `sc-patrol-offline` · `row-offline` · `btn-sync` |
 | AC-F-07 | Cấm watermark Gói | **PASS** |
 | AC-F-08 | Segment filter checkIn/incident | **PASS** (shots · LinmSegment) |
-| AC-F-09 | Banner weak khi có pending | **N/A** empty queue (code path kept) |
-| AC-F-10 | Status pill «Chờ gửi» | **N/A** empty · shows when items exist |
+| AC-F-09 | Banner weak khi có pending | **N/A** empty queue |
+| AC-F-10 | Status pill «Chờ gửi» | **N/A** empty |
 
 ## Store Must
 
@@ -71,8 +72,8 @@
 
 | Flow | Path | Result |
 |------|------|--------|
-| iOS | `qa/e2e/ios.yaml` | **PASS** · guest → login → Me `row-offline` → EmptyChrome |
-| Android | `qa/e2e/android.yaml` | **PASS** · title-only EmptyChrome (no hint param) |
+| iOS | `qa/e2e/ios.yaml` | **PASS** · guest → login → Me → EmptyChrome + hint |
+| Android | `qa/e2e/android.yaml` | **PASS** · EmptyChrome title-only (hint optional P2) |
 
 ## Visual align (`/review-align-ux-ios-android`)
 
@@ -109,4 +110,4 @@ CLI **PASS** = Maestro + PNG + store px only — **not** visual vs demo. QA **Re
 
 ## Version meta
 
-skillId=agent-qa-mobile · skillVersion=2026.08.19.29 · workflowVersion=2026.08.19.29 · generatedAt=2026-09-01T08:27:11.000Z · taskId=task_883401d4
+skillId=agent-qa-mobile · skillVersion=2026.08.19.29 · workflowVersion=2026.08.19.29 · generatedAt=2026-09-01T11:48:50.000Z · taskId=task_fcc96865

@@ -14,14 +14,15 @@
 | Mục tiêu | Trong ca tuần đường: chọn loại phản ánh **Hư / Mất / Hỏng** · chụp ảnh hiện trường · GPS chốt · (tuỳ chọn) nhận diện AI · checklist theo loại TS · **Tạo vấn đề** gắn ca · hoặc **Lưu nháp mất sóng** |
 | Persona | Tuần đường hiện trường |
 | Entry | `patrol-home` row «Ghi nhận hư hỏng» · `#row-reflect` · `#i-camera` |
-| DoD P1 | Dual screen · kind pills · PhotoRow + capture · card nhận diện/mức/vị trí · checklist PAVEMENT SSOT · POST incident · offline draft · **cấm** fake lat/lng · **cấm** mfeStdUrl |
+| DoD P1 | Dual · **pick KCHT-32** → form (kind · checklist by asset · PhotoRow · GPS · mức · mô tả · Create/Draft) · POST incident · offline · **cấm** fake lat/lng · **cấm** mfeStdUrl · **cấm** gộp slug `incident-create` |
 | Design rule | Phản ánh **tay** (khác `cam-patrol` finder liên tục) · **cấm** badge P1/P2 trên header |
 
 ## 2. Design / UI
 
 | Zone | Pattern | DES-ID | Notes |
 |------|---------|--------|-------|
-| Screen | Full (tab `field`) | `DES-MOB-FIELD-REFLECT` | Title «Ghi nhận hư hỏng» · back → patrol-home |
+| Pick | Full gate | — | `#sc-field-pick` · grid loại TS (KCHT-32 / `startIncidentPick` pattern) |
+| Screen | Full form (tab `field`) | `DES-MOB-FIELD-REFLECT` | Title «Ghi nhận hư hỏng» · back → pick |
 | Kind | Pill / segment 3 | `DES-MOB-FIELD-KIND` | Hư · Mất · Hỏng |
 | Photos | PhotoRow + camera slot | — | `openCapture('reflect')` · `#i-camera` |
 | Result card | 3 list rows | — | Nhận diện · Mức · Vị trí đã chốt |
@@ -82,4 +83,9 @@ App base: `{BffBase}/mobile-bff/api/v1`. **Cấm** app `:5101` · invent `api/v1
 | lane | phase | status | updatedAt |
 |------|-------|--------|-----------|
 | web | — | — | — |
-| mobile | `done` | `done` | `2026-08-28T22:55:51.727Z` |
+| mobile | `done` | `done` | `2026-09-01T12:26:04.826Z` |
+
+## Edit 2026-09-01
+
+- gap=`field_reflect_align_incident_create` · pick asset → fill detail (align incident-create flow · keep slug `field-reflect`)
+- APIs: `GET integration/asset-types` · reuse detect/incident/sessions · checklist local by asset code

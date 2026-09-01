@@ -8,8 +8,8 @@
 | packKind | **`sheet`** meta · surface Full `#sc-patrol-detail` |
 | changeScope | `new_page` |
 | route_confirm | **route_a** |
-| taskId | `task_69386cbc` |
-| updatedAt | `2026-09-01T01:20:57.000Z` |
+| taskId | `task_158bf625` · prior `task_69386cbc` |
+| updatedAt | `2026-09-01T11:10:00.000Z` |
 
 ## Tasks
 
@@ -21,23 +21,19 @@
 
 ## Ship summary
 
-- **Screen** `#sc-patrol-detail` · `DES-MOB-PAT-DETAIL` · push Full (không sheet chrome)
-- **Entry:** `#sc-patrol-history` row → push + `Id` · **supersede** toast-only
-- **API:** `GET patrol/sessions/{id}` · `FetchPatrolSessionByIdUseCase` · `PatrolRepository.fetchSessionById`
-- **Bind:** Code hero ≥28 · Status VN + OfflineQueued · info rows §B · PlannedDate `dd/MM/yyyy` · StartedAt `HH:mm (UTC+7)` · Coverage `%`
-- **Timeline:** demo SSOT 3 rows (LinmListRow substitute — kit thiếu `LinmTimelineRow`) · tap done → toast `checkin-detail`
-- **404** → EmptyChrome · **403** → toast + back · **GET fail** → demo SSOT + toast · screen vẫn mở · **cấm** fake 200
-- **Thiếu Id** → toast + back list
-- **CTA:** map → `patrol-map` · end/share toast · **cấm** PUT / share sheet
-- **Tab:** shell Tuần đường · `tabs: none`
+- **Screen** `#sc-patrol-detail` · `DES-MOB-PAT-DETAIL` · push Full
+- **Entry (edit `task_158bf625`):** `#sc-patrol-home` today row + `#sc-patrol-history` row → push + `Id` · **supersede** toast `patrol.toast.detail`
+- **API:** `GET patrol/sessions/{id}` · live-only · **cấm** OfflineDemo
+- **404** → EmptyChrome · **GET fail** → EmptyChrome + toast · **403** → toast + back
+- **CTA:** map → `patrol-map` · end/share toast
+- **Timeline:** demo SSOT 3 (ListRow substitute)
 
 ## VERIFY GATE
 
 | Check | Result |
 |-------|--------|
 | `xcodegen generate` | **PASS** |
-| `xcodebuild` dest **iPhone 17 Pro Max** | **PASS** |
-| `xcodebuild` dest **iPad Pro 13-inch (M5)** | **PASS** |
+| `xcodebuild` scheme **LinmRmms** dest **iPhone 17 Pro** (OS 26.5) | **PASS** (`task_158bf625`) |
 | BFF `dotnet build` | **PASS** (no BFF write · verify only) |
 | e2e / start:std / mfeStdUrl | **SKIP** (cấm role Dev) |
 
