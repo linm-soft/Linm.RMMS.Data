@@ -38,13 +38,13 @@ Pilot: `home` (new · high) — tab Trang Chủ trên `DES-MOB-TABBAR`.
 | `asset-hub` | `home` | new | shared_action | — (owner) | `LinmHomeTile` `#i-cube` · `LinmWalletCard` | home tile · wallet | high | `docs/context/features/asset.md` | `#sc-asset-hub` | analy sibling |
 | `patrol-offline` | `home` | skip | shared_action | `patrol-offline` | `LinmHomeTile` `#i-sync` | home · patrol · me | high | patrol Lưu trữ | `#sc-patrol-offline` | **không** enqueue (reuse) |
 | `me` | — | new | unique | — | `LinmLargeTitle` | tab + home hero | high | (analy ghi `me.md`) | `mobile-p1` `#sc-me` | đã enqueue (scan trước) |
-| `me-profile` | `me` | gap | unique | — | `LinmListRow` | me | med | users § Hồ sơ · **cấm** web admin | `#sc-me` row · **không** `go()` | **không** enqueue (thiếu route) |
+| `me-profile` | `me` | new | unique | — | `LinmListRow` | me | med | users § Hồ sơ · **cấm** web admin | `#sc-me` `row-profile` · live no-op | sibling `pending_confirm` · GAP-MOB-ACT-03 |
 | `patrol-offline` | `me` | new | shared_action | — (owner) | `LinmListRow` `#i-sync` | home · patrol · me | high | patrol Lưu trữ | `#sc-patrol-offline` | analy sibling `pending_confirm` |
 | `me-signal` | `me` | skip | shared_kit | — | `LinmStatusCapsule` | me · home | high | — | `data-net-signal` | **không** enqueue |
 | `feedback` | `me` | new | unique | — | `LinmListRow` `#i-info` | me | high | `docs/context/features/feedback.md` | `#sc-feedback` | analy sibling `pending_confirm` |
 | `cam-view` | `me` | new | unique | — | `LinmListRow` `#i-video` | me | high | camera-connect ≠ HW form | `#sc-cam-view` | analy sibling `pending_confirm` |
 | `ops` | `me` | new | shared_action | — (owner) | `LinmNotifyButton` | home · me | high | `docs/context/features/ops.md` | `#sc-ops` | analy sibling `pending_confirm` |
-| `me-settings` | `me` | gap | unique | — | `LinmListRow` `#i-gear` | me (iOS) | low | — | toast / Android thiếu | **không** enqueue (thiếu màn) |
+| `me-settings` | `me` | new | unique | — | `LinmListRow` `#i-gear` | me | low | `docs/context/features/me-settings.md` | `#sc-me-settings` · `row-settings` | `task_43c37168` data_analy PASS · handoff PO |
 | `login-logout` | `me` | skip | shared_action | `login-logout` | `LinmSecondaryButton` | me | high | `POST …/auth/logout` | `#sc-me` Đăng xuất | **không** enqueue |
 
 ## shell

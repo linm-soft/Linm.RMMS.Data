@@ -1,0 +1,91 @@
+appId: org.linmsoft.rmms
+---
+# asset-collect · store P6 ×2 · guest → login → hub → tile-collect → #sc-asset-collect (Pixel 1080×1920)
+# P6-CORE = form fold · P6-CORE-2 = photo + CTA fold · cấm hideKeyboard · MEDIA local DEFER
+# CTA dưới fold → scrollUntilVisible trước assert btn-add-asset
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 20000
+- tapOn:
+    id: "btn-home-login"
+- extendedWaitUntil:
+    visible:
+      id: "f-user"
+    timeout: 15000
+- tapOn:
+    id: "f-user"
+- eraseText
+- inputText: "linm-soft"
+- tapOn: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
+- tapOn:
+    id: "f-pass"
+- eraseText
+- inputText: "Linm@2026"
+- pressKey: Enter
+- waitForAnimationToEnd:
+    timeout: 4000
+- tapOn:
+    id: "btn-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
+- extendedWaitUntil:
+    visible: "Trang Chủ"
+    timeout: 45000
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 15000
+- scrollUntilVisible:
+    element:
+      id: "tile-asset"
+    direction: DOWN
+    timeout: 15000
+- tapOn:
+    id: "tile-asset"
+- extendedWaitUntil:
+    visible:
+      id: "sc-asset-hub"
+    timeout: 20000
+- assertVisible:
+    id: "tile-collect"
+- tapOn:
+    id: "tile-collect"
+- extendedWaitUntil:
+    visible:
+      id: "sc-asset-collect"
+    timeout: 25000
+- assertVisible: "Thu thập thủ công"
+- assertVisible:
+    id: "select-type"
+- assertVisible:
+    id: "input-name"
+- assertVisible:
+    id: "select-status"
+- tapOn:
+    id: "input-name"
+- eraseText
+- inputText: "E2E cột km QA"
+- tapOn:
+    text: "Thu thập thủ công"
+    optional: true
+- takeScreenshot: P6-CORE
+- scrollUntilVisible:
+    element:
+      id: "btn-add-asset"
+    direction: DOWN
+    timeout: 15000
+- assertVisible:
+    id: "photo-row"
+- assertVisible:
+    id: "i-camera"
+- assertVisible:
+    id: "btn-add-asset"
+- takeScreenshot: P6-CORE-2
+- assertVisible:
+    id: "sc-asset-collect"

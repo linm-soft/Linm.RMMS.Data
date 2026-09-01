@@ -1,0 +1,43 @@
+Running on Pixel_2
+ > Flow crawl-android
+Launch app "org.linmsoft.rmms" with clear state and clear keychain... COMPLETED
+Assert that id: sc-home is visible... COMPLETED
+Tap on (Optional) id: btn-home-login... COMPLETED
+Assert that id: f-user is visible... COMPLETED
+Tap on id: f-user... COMPLETED
+Erase text... COMPLETED
+Input text linm-soft... COMPLETED
+Tap on (Optional) "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"... COMPLETED
+Tap on (Optional) "RMMS"... COMPLETED
+Tap on id: f-pass... COMPLETED
+Erase text... COMPLETED
+Input text Linm@2026... COMPLETED
+Tap on (Optional) "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"... COMPLETED
+Tap on (Optional) "RMMS"... COMPLETED
+Tap on (Optional) id: btn-login... COMPLETED
+Tap on (Optional) "Đăng nhập"... WARNED
+
+
+ Warning: Element not found: Text matching regex: Đăng nhập
+Tap on (Optional) "Not Now"... WARNED
+
+
+ Warning: Element not found: Text matching regex: Not Now
+Assert that id: home-who is visible... COMPLETED
+Tap on (Optional) id: tab-field... COMPLETED
+Tap on (Optional) "Tuần đường"... COMPLETED
+Tap on point (30%,96%)... COMPLETED
+Tap on id: row-quick-cam-patrol... FAILED
+
+Element not found: Id matching regex: row-quick-cam-patrol
+
+Element with Id matching regex: row-quick-cam-patrol not found. Check the UI hierarchy in debug artifacts to verify if the element exists.
+
+Possible causes:
+- Element selector may be incorrect - check if there are similar elements with slightly different names/properties.
+- Element may be temporarily unavailable due to loading state.
+- This could be a real regression that needs to be addressed.
+
+==== Debug output (logs & screenshots) ====
+
+/Users/mac/.maestro/tests/2026-08-31_023548

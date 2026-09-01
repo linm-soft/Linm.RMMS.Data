@@ -1,0 +1,74 @@
+yarn run v1.22.22
+warning From Yarn 1.0 onwards, scripts don't require "--" for options to be forwarded. In a future version, any explicit "--" will be forwarded as-is to the scripts.
+$ tsx src/index.ts e2e-qa-mobile --feature=home --product-root=/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data --ios-root=/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS --android-root=/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android --docker-dir=/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.WebService --bff-root=/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Bff --ios-phase=phase1_iphone --skip-start --skip-build --cases=A11-LAUNCH,A10-BFF,A9-LOGIN,A3-CORE,P6-CORE,P6-CORE-2
+{
+  "ok": false,
+  "outDir": "/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/home/qa/screens",
+  "storeDir": "/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/home/qa/store/home",
+  "iosDevice": "iPhone 17 Pro Max",
+  "steps": [
+    {
+      "id": "A10-BFF",
+      "result": "PASS",
+      "store": [
+        "A10",
+        "P11"
+      ]
+    },
+    {
+      "id": "MAESTRO-AND",
+      "result": "FAIL",
+      "store": [
+        "P6"
+      ],
+      "error": "Running on Pixel_2\n > Flow android\nLaunch app \"org.linmsoft.rmms\" with clear state and clear keychain... COMPLETED\nAssert that id: sc-home is visible... COMPLETED\nTake screenshot A11-LAUNCH... COMPLETED\nTap on id: btn-home-login... COMPLETED\nAssert that id: f-user is visible... COMPLETED\nTap on id: f-user... COMPLETED\nErase text... COMPLETED\nInput text linm-soft... COMPLETED\nTap on id: f-pass... COMPLETED\nErase text... COMPLETED\nInput text Linm@2026... COMPLETED\nHide Keyboard... COMPLETED\nTake s",
+      "gap": "GAP-QA-STORE-03"
+    },
+    {
+      "id": "A11-LAUNCH",
+      "result": "PASS",
+      "screenshot": "A11-LAUNCH.png",
+      "store": [
+        "A11"
+      ]
+    },
+    {
+      "id": "A9-LOGIN",
+      "result": "PASS",
+      "screenshot": "A9-LOGIN.png",
+      "store": [
+        "A9",
+        "P10"
+      ]
+    },
+    {
+      "id": "A3-CORE",
+      "result": "PASS",
+      "screenshot": "A3-CORE.png",
+      "store": [
+        "A3",
+        "A11"
+      ]
+    },
+    {
+      "id": "P6-CORE",
+      "result": "PASS",
+      "screenshot": "P6-CORE.png",
+      "store": [
+        "P6",
+        "P11"
+      ]
+    },
+    {
+      "id": "P6-CORE-2",
+      "result": "PASS",
+      "screenshot": "P6-CORE-2.png",
+      "store": [
+        "P6"
+      ]
+    }
+  ],
+  "error": "GAP-QA-STORE-03"
+}
+error Command failed with exit code 1.
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.

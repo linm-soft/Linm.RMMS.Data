@@ -14,7 +14,8 @@ Pilot enqueue **1** slug: `login` (submit **Đăng nhập** — không tách).
 `login-logout` = backlog `prior=new` (clickable màn Tôi — chưa enqueue turn này).
 
 Hub `me` (`task_84e8e0e2`) — sibling `pending_confirm` (chờ Approve · **cấm** auto start): `patrol-offline` · `feedback` · `cam-view` · `ops`.  
-**Không** enqueue: `me-profile` (thiếu route) · `me-signal` (`shared_kit`) · `me-settings` (thiếu màn) · `login-logout` (`reuse`).
+**Không** enqueue: `me-signal` (`shared_kit`) · `login-logout` (`reuse`).  
+`me-profile` · `me-settings` = owner task riêng (đã enqueue / đang pipeline).
 
 Hub `patrol-home` (Tuần đường) — sibling `pending_confirm` (chờ Approve · **cấm** auto start): `attendance` · `patrol-map` · `field-reflect` · `cam-patrol` · `patrol-history` · **`patrol-pin`** · **`patrol-checkin`**.  
 Title: `[Mobile] [Tuần đường] -> {nhãn}`. **Không** enqueue: `supervise` (`reuse`) · `patrol-offline` (`reuse`) · today row tap · Tab 5. P1 toast **không** skip pin / ghi điểm.

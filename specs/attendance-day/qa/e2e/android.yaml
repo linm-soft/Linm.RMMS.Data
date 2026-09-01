@@ -1,0 +1,94 @@
+appId: org.linmsoft.rmms
+---
+# attendance-day · store P6 ×2 · guest → login → tab field → Chấm công → day row → #sc-attendance-day (Pixel 1080×1920)
+# P6-CORE = detail hero+rows · P6-CORE-2 = scroll logs fold · cấm hideKeyboard
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 20000
+- tapOn:
+    id: "btn-home-login"
+- extendedWaitUntil:
+    visible:
+      id: "f-user"
+    timeout: 15000
+- tapOn:
+    id: "f-user"
+- eraseText
+- inputText: "linm-soft"
+- tapOn: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
+- tapOn:
+    id: "f-pass"
+- eraseText
+- inputText: "Linm@2026"
+- pressKey: Enter
+- waitForAnimationToEnd:
+    timeout: 4000
+- tapOn:
+    id: "btn-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
+- extendedWaitUntil:
+    visible: "Trang Chủ"
+    timeout: 45000
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 15000
+- tapOn:
+    id: "tab-field"
+- extendedWaitUntil:
+    visible:
+      id: "sc-patrol-home"
+    timeout: 20000
+- tapOn:
+    text: "Chấm công"
+- extendedWaitUntil:
+    visible:
+      id: "sc-attendance"
+    timeout: 20000
+- tapOn:
+    id: "att-day-demo-day-2"
+    optional: true
+- tapOn:
+    text: "T7 09/08"
+- waitForAnimationToEnd:
+    timeout: 3000
+- extendedWaitUntil:
+    visible:
+      id: "sc-attendance-day"
+    timeout: 25000
+- extendedWaitUntil:
+    visible:
+      id: "attendance-day-hero"
+    timeout: 15000
+- assertVisible:
+    id: "attendance-day-badge"
+- assertVisible:
+    id: "attendance-day-range"
+- assertVisible:
+    id: "attendance-day-route"
+- assertVisible:
+    id: "attendance-day-count"
+- assertVisible: "Chi tiết ngày công"
+- assertVisible: "T7 09/08"
+- assertVisible: "Đủ công"
+- takeScreenshot: P6-CORE
+- scrollUntilVisible:
+    element:
+      id: "attendance-day-section-logs"
+    direction: DOWN
+    timeout: 8000
+- assertVisible:
+    id: "attendance-day-log-demo-log-1"
+    optional: true
+- assertVisible: "Các lần chấm"
+- takeScreenshot: P6-CORE-2
+- tapOn:
+    id: "btn-att-day-back"
+    optional: true

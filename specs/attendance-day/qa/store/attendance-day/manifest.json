@@ -1,0 +1,23 @@
+{
+  "feature": "attendance-day",
+  "role": "qa",
+  "status": "confirmed",
+  "e2eQa": true,
+  "iosPhase": "phase1_iphone",
+  "method": "yarn e2e-qa-mobile",
+  "verdict": "pass",
+  "gaps": [],
+  "shots": [
+    "A11-LAUNCH.png",
+    "A9-LOGIN.png",
+    "A3-CORE.png",
+    "P6-CORE.png",
+    "P6-CORE-2.png"
+  ],
+  "updatedAt": "2026-08-31T03:14:00.000Z",
+  "taskId": "task_a8beae6d",
+  "e2eOk": true,
+  "capturedAt": "2026-08-31T03:13:37.332Z",
+  "iosDevice": "iPhone 17 Pro Max",
+  "align": "Aligned"
+}

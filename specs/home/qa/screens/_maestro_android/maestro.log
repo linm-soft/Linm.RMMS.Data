@@ -1,0 +1,25 @@
+Running on Pixel_2
+ > Flow crawl-android
+Launch app "org.linmsoft.rmms" with clear state and clear keychain... COMPLETED
+Assert that id: sc-home is visible... COMPLETED
+Tap on id: btn-home-faq... COMPLETED
+Assert that id: sc-faq is visible... COMPLETED
+Take screenshot CRAWL-faq... COMPLETED
+Tap on (Optional) id: nav-back... WARNED
+
+
+ Warning: Element not found: Id matching regex: nav-back
+Tap on id: btn-home-privacy... FAILED
+
+Element not found: Id matching regex: btn-home-privacy
+
+Element with Id matching regex: btn-home-privacy not found. Check the UI hierarchy in debug artifacts to verify if the element exists.
+
+Possible causes:
+- Element selector may be incorrect - check if there are similar elements with slightly different names/properties.
+- Element may be temporarily unavailable due to loading state.
+- This could be a real regression that needs to be addressed.
+
+==== Debug output (logs & screenshots) ====
+
+/Users/mac/.maestro/tests/2026-08-31_015858

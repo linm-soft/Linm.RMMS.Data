@@ -1,0 +1,2032 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>RMMS hiện trường — Android · xem thiết kế</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <link rel="stylesheet" href="../feature-guide.css" />
+  <link rel="stylesheet" href="../net-signal.css" />
+  <style>
+    :root {
+      --rmms-blue: #0C84C0;
+      --rmms-blue-deep: #086A9A;
+      --rmms-yellow: #FCB43C;
+      --rmms-green: #3CB448;
+      --rmms-red: #F03C30;
+      --md-primary: #0C84C0;
+      --md-on-primary: #fff;
+      --md-success: #3CB448;
+      --md-warn: #FCB43C;
+      --md-error: #F03C30;
+      --md-surface: #F7F2FA;
+      --md-container: #FFFFFF;
+      --md-outline: #CAC4D0;
+      --md-label: #1C1B1F;
+      --md-muted: #49454F;
+      --safe-top: 28px;
+      --nav-h: 80px;
+      --font: Roboto, "Google Sans", system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      min-height: 100%; font-family: var(--font); background: #111318;
+      color: var(--md-label); -webkit-font-smoothing: antialiased;
+    }
+    .stage {
+      min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+      gap: 16px; padding: 24px 16px 40px;
+      background: radial-gradient(ellipse at 20% 0%, #1e2a3a 0%, transparent 50%), #0e1116;
+    }
+    .stage-meta { width: min(1180px, 100%); color: #e6e1e5; text-align: center; }
+    .stage-meta h1 { font-size: 16px; font-weight: 600; }
+    .stage-meta p { margin-top: 6px; font-size: 13px; color: rgba(230,225,229,.55); }
+    .chip-row { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-top: 12px; }
+    .chip {
+      font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 8px;
+      background: rgba(255,255,255,.08); color: rgba(230,225,229,.85);
+      border: 1px solid rgba(255,255,255,.08); cursor: pointer;
+    }
+    .chip.active { background: rgba(27,110,243,.35); border-color: var(--md-primary); color: #b3d0ff; }
+    .phone {
+      width: 412px; height: 915px; border-radius: 28px; background: #000; padding: 10px;
+      box-shadow: 0 0 0 2px #3a3a3c, 0 40px 80px rgba(0,0,0,.55); position: relative; flex-shrink: 0;
+    }
+    .phone-screen {
+      width: 100%; height: 100%; border-radius: 20px; overflow: hidden;
+      background: var(--md-surface); position: relative; display: flex; flex-direction: column; min-height: 0;
+    }
+    .ic { width: 1em; height: 1em; display: inline-block; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+    .ic.fill { fill: currentColor; stroke: none; }
+    .ic-sm { font-size: 15px; } .ic-md { font-size: 18px; } .ic-lg { font-size: 22px; } .ic-xl { font-size: 28px; }
+    .sprites { position: absolute; width: 0; height: 0; overflow: hidden; }
+    .status-bar {
+      height: var(--safe-top); padding: 6px 18px 0; display: flex; justify-content: space-between; align-items: center;
+      font-size: 12px; font-weight: 600; flex-shrink: 0;
+    }
+    .sb-signal { display: flex; gap: 1.5px; align-items: flex-end; height: 10px; }
+    .sb-signal i { display: block; width: 3px; background: currentColor; border-radius: 1px; }
+    .sb-signal i:nth-child(1){height:3px} .sb-signal i:nth-child(2){height:5px}
+    .sb-signal i:nth-child(3){height:7px} .sb-signal i:nth-child(4){height:10px}
+    .top-bar {
+      min-height: 56px; padding: 8px 12px; display: flex; align-items: center; gap: 4px; flex-shrink: 0; min-width: 0;
+    }
+    .top-bar.solid { background: var(--md-surface); border-bottom: 1px solid rgba(0,0,0,.06); }
+    .icon-btn {
+      width: 40px; height: 40px; border: 0; background: transparent; border-radius: 20px;
+      display: grid; place-items: center; cursor: pointer; color: var(--md-label); font-family: inherit;
+      flex-shrink: 0;
+    }
+    .top-bar:not(.solid) .icon-btn {
+      width: 32px; height: 32px; margin: 0 8px; border-radius: 50%;
+      background: rgba(120,120,128,.16); position: relative;
+    }
+    .top-bar:not(.solid) .icon-btn .dot {
+      position: absolute; top: -4px; right: -4px;
+      min-width: 22px; height: 22px; padding: 0 5px; box-sizing: border-box;
+      background: #F03C30; color: #fff; border-radius: 999px; border: 1.5px solid #fff;
+      font-size: 11px; font-weight: 700; line-height: 19px; text-align: center;
+    }
+    .nav-title {
+      flex: 1; min-width: 0; text-align: center; font-size: 18px; font-weight: 600;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .large-title { padding: 4px 16px 12px; font-size: 32px; font-weight: 700; letter-spacing: -0.4px; flex-shrink: 0; }
+    .content { flex: 1; overflow-y: auto; overflow-x: hidden; padding-bottom: calc(var(--nav-h) + 12px); min-height: 0; width: 100%; }
+    .content.map-mode { padding-bottom: 0; overflow: hidden; display: flex; flex-direction: column; flex: 1; }
+    .content.no-tab { padding-bottom: 20px; }
+    .nav-bar {
+      position: absolute; left: 0; right: 0; bottom: 0; height: var(--nav-h);
+      background: #F3EDF7; border-top: 1px solid rgba(0,0,0,.06);
+      display: flex; padding: 8px 4px 20px; z-index: 45;
+    }
+    .nav-bar.hidden { display: none; }
+    .tab {
+      flex: 1; border: 0; background: transparent; font-family: inherit;
+      display: flex; flex-direction: column; align-items: center; gap: 2px;
+      cursor: pointer; color: var(--md-muted); font-size: 13px; font-weight: 500;
+    }
+    .tab.active { color: var(--md-primary); }
+    .tab .ti { width: 28px; height: 28px; display: grid; place-items: center; font-size: 22px; }
+    .gesture {
+      position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
+      width: 108px; height: 4px; background: #1C1B1F; border-radius: 100px; z-index: 46; pointer-events: none;
+    }
+    .seg {
+      margin: 0 16px 12px; display: flex; gap: 8px; flex-shrink: 0;
+    }
+    .seg button {
+      border: 1px solid var(--md-outline); background: transparent; font-family: inherit; font-size: 13px; font-weight: 600;
+      padding: 8px 14px; border-radius: 8px; color: var(--md-label); cursor: pointer;
+    }
+    .seg button.on { background: var(--md-primary); color: #fff; border-color: var(--md-primary); }
+    .card-group { margin: 0 16px 16px; background: var(--md-container); border-radius: 16px; overflow: hidden; }
+    .row {
+      display: flex; align-items: center; gap: 12px; padding: 14px 16px; min-height: 56px;
+      cursor: pointer; background: var(--md-container);
+    }
+    .row + .row { border-top: 1px solid rgba(0,0,0,.06); }
+    .row-icon { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; color: #fff; flex-shrink: 0; }
+    .row-body { flex: 1; min-width: 0; }
+    .row-title { font-size: 16px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .row-sub { font-size: 13px; color: var(--md-muted); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .badge { font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 6px; background: #E7E0EC; color: var(--md-muted); flex-shrink: 0; }
+    .badge.green { background: #C8E6C9; color: #1B5E20; }
+    .badge.orange { background: #FFE0B2; color: #E65100; }
+    .badge.blue { background: #BBDEFB; color: #0D47A1; }
+    .badge.red { background: #FFCDD2; color: #B71C1C; }
+    .section-label { font-size: 13px; color: var(--md-muted); letter-spacing: .4px; padding: 8px 24px 6px; text-transform: uppercase; }
+    .hub-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 0 16px 16px; }
+    .hub-tile {
+      background: var(--md-container); border-radius: 16px; padding: 16px 14px; min-height: 108px;
+      display: flex; flex-direction: column; align-items: flex-start;
+      border: 0; font-family: inherit; text-align: left; cursor: pointer; color: inherit;
+    }
+    .hub-tile .hi {
+      width: 36px; height: 36px; border-radius: 12px; display: grid; place-items: center;
+      color: #fff; font-size: 18px; margin-bottom: 10px;
+    }
+    .hub-tile .t { font-size: 15px; font-weight: 600; }
+    .hub-tile .s { font-size: 13px; color: var(--md-muted); margin-top: 3px; line-height: 1.3; }
+    .vn-hero {
+      margin: 0 0 14px; padding: 12px 16px 18px;
+      background: linear-gradient(165deg, #086A9A 0%, #0C84C0 100%);
+      color: #fff; border-radius: 0 0 24px 24px;
+    }
+    .vn-hero .who { font-size: 22px; font-weight: 800; margin: 8px 0 12px; }
+    .btn-home-login {
+      display: block; width: 100%; border: 0; border-radius: 14px; padding: 12px 14px;
+      text-align: left; cursor: pointer; background: #fff; color: #086A9A;
+      font: 700 15px/1.25 inherit; box-shadow: 0 4px 12px rgba(0,0,0,.12); margin-bottom: 12px;
+    }
+    .btn-home-login .s { display: block; font-size: 13px; font-weight: 500; color: #5a6a80; margin-top: 4px; }
+    .login-back {
+      position: absolute; top: 48px; left: 16px; z-index: 20; border: 0; background: transparent;
+      color: #0C84C0; font: 500 12px/1.2 inherit; cursor: pointer; padding: 8px 0;
+    }
+    .vn-quick { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; min-width: 0; }
+    .vn-quick button {
+      border: 0; border-radius: 14px; padding: 14px 12px; text-align: left; cursor: pointer;
+      background: #fff; color: #086A9A; font-family: inherit; font-weight: 700; font-size: 14px;
+    }
+    .vn-quick .s { display: block; font-size: 13px; font-weight: 500; color: #5a6a80; margin-top: 4px; }
+    .ak32-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin: 0 16px 16px; min-width: 0; align-items: stretch; }
+    .ak32-tile {
+      border: 0; background: var(--md-container); border-radius: 14px; min-height: 108px;
+      padding: 10px 8px; font-family: inherit; cursor: pointer; text-align: center; color: inherit;
+      height: 100%; display: flex; flex-direction: column; align-items: center;
+    }
+    .ak32-dot { display: block; width: 10px; height: 10px; border-radius: 50%; background: var(--md-primary); margin: 0 auto 8px; }
+    .ak32-ico { display: block; width: 28px; height: 34px; margin: 0 auto 6px; }
+    .ak32-ico svg { display: block; width: 28px; height: 34px; }
+    .ak32-n {
+      font-size: 12px; font-weight: 650; line-height: 1.25; display: -webkit-box;
+      -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+      min-height: 3.75em;
+    }
+    .ak32-gap { display: block; font-size: 10px; color: var(--md-warn); margin-top: 4px; }
+    .chk-row {
+      display: flex; align-items: center; gap: 10px;
+      padding: 11px 16px; background: var(--md-container); font-size: 15px; cursor: pointer;
+    }
+    .chk-row + .chk-row { border-top: 0.5px solid var(--md-outline); }
+    .chk-k {
+      font-size: 13px; font-weight: 700; text-transform: uppercase;
+      color: var(--md-primary); min-width: 42px;
+    }
+    .chk-t { flex: 1; }
+    .kind-pills { display: flex; gap: 8px; margin: 0 16px 12px; min-width: 0; }
+    .kind-pills button {
+      flex: 1; border: 0; border-radius: 10px; padding: 10px 6px;
+      font-family: inherit; font-weight: 650; font-size: 13px; cursor: pointer;
+      background: var(--md-surface); color: var(--md-label);
+    }
+    .kind-pills button.on { background: var(--md-primary); color: #fff; }
+    .finder {
+      margin: 0 16px 12px; height: 220px; border-radius: 16px;
+      background: linear-gradient(160deg, #1a2332, #3a4a5c);
+      position: relative; overflow: hidden; color: #fff;
+    }
+    .finder .box {
+      position: absolute; left: 18%; top: 28%; width: 64%; height: 36%;
+      border: 2px solid #8ab4f8; border-radius: 8px;
+    }
+    .finder .stamp {
+      position: absolute; left: 12px; right: 12px; bottom: 12px;
+      font-size: 12px; font-weight: 650; line-height: 1.35;
+    }
+    .wallet-card {
+      margin: 0 16px 14px; border-radius: 16px; padding: 16px;
+      background: linear-gradient(135deg, #086A9A, #0C84C0); color: #fff;
+    }
+    .wallet-card .k { font-size: 12px; opacity: .85; font-weight: 700; }
+    .wallet-card .t { font-size: 20px; font-weight: 800; margin: 6px 0 4px; }
+    .wallet-card .m { font-size: 13px; opacity: .92; line-height: 1.35; }
+    .home-hello {
+      margin: 0 16px 14px; background: var(--md-container); border-radius: 20px;
+      padding: 14px 16px; display: flex; align-items: center; gap: 12px;
+    }
+    .home-hello .av {
+      width: 48px; height: 48px; border-radius: 50%; background: var(--md-primary);
+      color: #fff; display: grid; place-items: center; font-size: 22px; flex-shrink: 0;
+    }
+    .home-hello .g { font-size: 13px; color: var(--md-muted); }
+    .home-hello .n { font-size: 18px; font-weight: 700; }
+    .home-hello .r { font-size: 13px; color: var(--md-muted); margin-top: 2px; }
+    .home-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin: 0 16px 8px; min-width: 0; }
+    .home-tile {
+      background: var(--md-container); border-radius: 20px; min-height: 96px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 10px; border: 0; font-family: inherit; cursor: pointer; color: inherit;
+    }
+    .home-tile .hi {
+      width: 48px; height: 48px; border-radius: 16px; display: grid; place-items: center;
+      color: #fff; font-size: 24px;
+    }
+    .home-tile .t { font-size: 15px; font-weight: 650; line-height: 1.2; text-align: center; }
+    .home-foot { text-align: center; padding: 18px 16px 8px; font-size: 12px; color: var(--md-muted); line-height: 1.45; }
+    .rich-card {
+      background: #fff; border-radius: 16px; margin: 0 16px 12px; overflow: hidden;
+      border: 1px solid rgba(28,27,31,.1); box-shadow: 0 1px 2px rgba(0,0,0,.04);
+    }
+    .rich-card .rc-main { display: flex; align-items: flex-start; gap: 12px; padding: 14px 14px 8px; }
+    .rich-card .rc-body { flex: 1; min-width: 0; }
+    .rich-card .rc-title { font-size: 17px; font-weight: 700; line-height: 1.25; margin-bottom: 6px; }
+    .rich-card .rc-line {
+      font-size: 13px; color: var(--md-muted); margin-top: 5px; line-height: 1.35;
+      display: flex; align-items: flex-start; gap: 8px;
+    }
+    .rich-card .rc-line .ic { margin-top: 1px; flex-shrink: 0; color: #79747E; }
+    .rich-card .rc-time { font-size: 12px; color: #79747E; margin-top: 8px; }
+    .rich-card .rc-thumb {
+      width: 64px; height: 64px; border-radius: 10px; flex-shrink: 0;
+      background: linear-gradient(145deg,#c7d2e0,#8fa3b8);
+    }
+    .rich-card .rc-status {
+      padding: 8px 14px 10px; font-size: 13px; font-weight: 650;
+      border-top: 1px solid rgba(0,0,0,.06);
+    }
+    .rich-card .rc-status.warn { color: #E65100; }
+    .rich-card .rc-status.ok { color: #1B5E20; }
+    .rich-card .rc-actions { display: flex; border-top: 1px solid rgba(0,0,0,.08); background: #fff; }
+    .rich-card .rc-actions button {
+      flex: 1; border: 0; background: transparent; color: #79747E;
+      min-height: 48px; cursor: pointer; display: grid; place-items: center;
+    }
+    .vn-banner {
+      margin: 0 16px 12px; background: #fff; border-radius: 16px;
+      border: 1px solid rgba(28,27,31,.1); box-shadow: 0 1px 2px rgba(0,0,0,.04);
+      padding: 12px 14px; display: flex; align-items: center; gap: 12px;
+      cursor: pointer; width: calc(100% - 32px); text-align: left; font-family: inherit; color: inherit;
+    }
+    .vn-banner .vb-icon {
+      width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0;
+      background: #6750A4; color: #fff; display: grid; place-items: center;
+    }
+    .vn-banner .vb-body { flex: 1; min-width: 0; }
+    .vn-banner .vb-t { font-size: 16px; font-weight: 700; }
+    .vn-banner .vb-s { font-size: 12px; color: var(--md-muted); margin-top: 2px; }
+    .chev { color: #79747E; display: inline-flex; flex-shrink: 0; }
+    .kpi-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 0 16px 16px; min-width: 0; }
+    .kpi {
+      background: var(--md-container); border-radius: 16px; padding: 12px 8px; text-align: center;
+      min-width: 0; box-shadow: 0 1px 4px rgba(0,0,0,.06);
+    }
+    .kpi .v { font-size: 22px; font-weight: 700; }
+    .kpi .l { font-size: 13px; color: var(--md-muted); margin-top: 2px; line-height: 1.25; }
+    .hero-card {
+      margin: 0 16px 16px; background: linear-gradient(145deg, #0C84C0, #086A9A);
+      border-radius: 20px; padding: 18px; color: #fff; min-width: 0;
+    }
+    .hero-eyebrow { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; font-size: 12px; font-weight: 700; opacity: .9; text-transform: uppercase; }
+    .hero-title { font-size: 22px; font-weight: 700; margin-top: 4px; word-break: break-word; }
+    .hero-meta { font-size: 14px; margin-top: 6px; opacity: .95; line-height: 1.4; }
+    .hero-actions { display: flex; gap: 8px; margin-top: 14px; min-width: 0; }
+    .hero-actions .btn {
+      flex: 1 1 0; min-width: 0; padding: 10px 6px; font-size: 13px; line-height: 1.2; white-space: nowrap;
+    }
+    .progress { height: 6px; border-radius: 3px; background: rgba(255,255,255,.28); margin-top: 12px; overflow: hidden; }
+    .progress > span { display: block; height: 100%; width: 67%; background: #fff; }
+    .btn {
+      border: 0; font-family: inherit; cursor: pointer; font-size: 14px; font-weight: 600;
+      padding: 10px 16px; border-radius: 20px; display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+    }
+    .btn-white { background: #fff; color: var(--md-primary); }
+    .btn-ghost { background: rgba(255,255,255,.2); color: #fff; }
+    .btn-primary { background: var(--md-primary); color: #fff; width: 100%; height: 48px; }
+    .pin-here { display: flex; margin: 0 16px 16px; width: calc(100% - 32px); max-width: calc(100% - 32px); }
+    .btn.pin-here { width: calc(100% - 32px); max-width: calc(100% - 32px); }
+    .map-pin-here { width: 100%; height: 44px; font-size: 14px; }
+    .btn-secondary { background: #E8DEF8; color: #1D192B; width: 100%; height: 48px; }
+    .search {
+      margin: 0 16px 12px; background: #E7E0EC; border-radius: 28px;
+      padding: 10px 16px; display: flex; align-items: center; gap: 8px; color: var(--md-muted); font-size: 16px;
+    }
+    .map-shell {
+      flex: 1; min-height: 0; display: flex; flex-direction: column; background: #94a3b8;
+      isolation: isolate; overflow: hidden; z-index: 0; position: relative;
+    }
+    .map-host { flex: 1; min-height: 0; position: relative; isolation: isolate; z-index: 0; overflow: hidden; }
+    .map-host .leaflet-container { width: 100%; height: 100%; font: 12px/1.4 var(--font); }
+    .map-bar {
+      flex-shrink: 0; display: flex; gap: 6px; flex-wrap: wrap; padding: 8px 10px;
+      background: #fff; border-top: 1px solid rgba(0,0,0,.06);
+    }
+    .map-bar .mb {
+      border: 0; font-family: inherit; font-size: 12px; font-weight: 600;
+      padding: 8px 12px; border-radius: 8px; cursor: pointer; background: #E7E0EC;
+    }
+    .map-bar .mb.on { background: var(--md-primary); color: #fff; }
+    .map-bar .mb-fit { margin-left: auto; color: var(--md-primary); background: #D3E3FD; }
+    .map-legend {
+      flex-shrink: 0; display: flex; gap: 4px; flex-wrap: wrap; padding: 8px 10px calc(var(--nav-h) + 6px);
+      background: #F3EDF7;
+    }
+    .map-legend .lg {
+      border: 0; font-family: inherit; font-size: 11px; font-weight: 600;
+      padding: 6px 8px; border-radius: 8px; cursor: pointer; background: transparent; color: var(--md-muted);
+      display: inline-flex; align-items: center; gap: 5px;
+    }
+    .map-legend .lg.on { background: #D3E3FD; color: var(--md-primary); }
+    .map-legend .dot { width: 8px; height: 8px; border-radius: 50%; }
+    .map-next-card { position: absolute; left: 10px; right: 10px; top: 10px; z-index: 500; display: flex; flex-direction: column; gap: 8px; }
+    .glass { background: #fff; border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,.14); padding: 12px 14px; min-width: 0; }
+    .map-next-card .glass > div:first-child { min-width: 0; flex: 1; }
+    .ci-pin {
+      width: 28px; height: 28px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg);
+      border: 2.5px solid #fff; box-shadow: 0 3px 8px rgba(0,0,0,.3); display: grid; place-items: center;
+    }
+    .ci-pin span { transform: rotate(45deg); font-size: 10px; font-weight: 700; color: #fff; }
+    .ci-pin.done { background: var(--md-success); }
+    .ci-pin.here { background: var(--md-primary); width: 32px; height: 32px; }
+    .ci-pin.next { background: var(--md-warn); }
+    .ci-pin.ts { background: #6750A4; }
+    .ci-pin.sc { background: var(--md-error); }
+    .fab {
+      position: absolute; right: 18px; bottom: calc(var(--nav-h) + 16px);
+      width: 56px; height: 56px; border-radius: 16px; background: #D0BCFF; color: #381E72;
+      border: 0; box-shadow: 0 6px 16px rgba(103,80,164,.35); cursor: pointer; z-index: 40; display: grid; place-items: center;
+    }
+    .sheet-backdrop {
+      position: absolute; inset: 0; background: rgba(0,0,0,.4); z-index: 30000;
+      opacity: 0; pointer-events: none; transition: opacity .2s;
+    }
+    .sheet-backdrop.open { opacity: 1; pointer-events: auto; }
+    .sheet {
+      position: absolute; left: 0; right: 0; bottom: 0; max-height: 88%; min-height: 0;
+      background: var(--md-surface); border-radius: 28px 28px 0 0; z-index: 30010;
+      isolation: isolate;
+      transform: translateY(110%); transition: transform .28s ease; display: flex; flex-direction: column; padding-bottom: 16px;
+      box-shadow: 0 -8px 32px rgba(0,0,0,.18);
+    }
+    .sheet.open { transform: translateY(0); }
+    .sheet-handle { width: 32px; height: 4px; border-radius: 100px; background: #CAC4D0; margin: 12px auto 4px; }
+    .sheet-nav { display: flex; align-items: center; padding: 4px 8px 10px; }
+    .sheet-body { overflow-y: auto; overflow-x: hidden; flex: 1; min-height: 0; }
+    .field {
+      background: var(--md-container); margin: 0 16px 12px; border-radius: 4px 4px 0 0;
+      padding: 8px 14px 10px; border-bottom: 2px solid var(--md-primary);
+    }
+    .field label { display: block; font-size: 13px; color: var(--md-primary); margin-bottom: 2px; }
+    .field input, .field textarea, .field select {
+      width: 100%; border: 0; outline: 0; font-family: inherit; font-size: 16px; background: transparent;
+    }
+    .field textarea { min-height: 72px; }
+    .photo-row { display: flex; gap: 10px; margin: 0 16px 12px; }
+    .photo-slot {
+      width: 88px; height: 88px; border-radius: 12px; background: var(--md-container);
+      border: 1.5px dashed var(--md-outline); display: grid; place-items: center; color: var(--md-primary); cursor: pointer;
+    }
+    .photo-slot.filled { border: 0; background: linear-gradient(135deg, #8AB4F8, #1B6EF3); color: #fff; font-weight: 600; font-size: 13px; }
+    .capture-overlay {
+      position: absolute; inset: 0; z-index: 30020; display: none; flex-direction: column; background: #000; color: #fff;
+    }
+    .capture-overlay.open { display: flex; }
+    .capture-finder { flex: 1; min-height: 0; position: relative; background: linear-gradient(180deg,#2c3a2e 0%,#1a221c 40%,#0d100e 100%); }
+    .capture-finder::after {
+      content: ''; position: absolute; left: 10%; right: 10%; top: 26%; bottom: 30%;
+      border: 1.5px solid rgba(255,255,255,.35); border-radius: 12px;
+    }
+    .capture-close {
+      position: absolute; top: 48px; left: 12px; z-index: 2; border: 0; background: rgba(0,0,0,.4);
+      color: #fff; font: 600 14px var(--font); padding: 8px 14px; border-radius: 20px; cursor: pointer;
+    }
+    .capture-live {
+      position: absolute; top: 48px; right: 12px; z-index: 2;
+      background: rgba(0,0,0,.45); font-size: 12px; font-weight: 600; padding: 8px 10px; border-radius: 20px;
+    }
+    .shutter {
+      position: absolute; left: 50%; bottom: 28px; transform: translateX(-50%);
+      width: 72px; height: 72px; border-radius: 50%; border: 4px solid #fff; background: #fff; cursor: pointer; z-index: 2;
+    }
+    .capture-preview { display: none; flex: 1; min-height: 0; flex-direction: column; background: var(--md-surface); color: var(--md-on); }
+    .capture-preview.on { display: flex; }
+    .capture-photo {
+      height: 220px; margin: 12px 16px 0; border-radius: 16px; position: relative; overflow: hidden;
+      background: linear-gradient(160deg,#4a5560,#2d3740 50%,#1a2026);
+    }
+    .gps-stamp {
+      position: absolute; left: 10px; bottom: 10px; background: rgba(0,0,0,.62); color: #fff;
+      font-size: 12px; font-weight: 600; padding: 6px 10px; border-radius: 8px;
+    }
+    .mini-pin {
+      height: 88px; margin: 0 16px 12px; border-radius: 16px; position: relative; overflow: hidden; background: #c5d4c8;
+    }
+    .mini-pin i {
+      position: absolute; left: 46%; top: 38%; width: 16px; height: 16px; border-radius: 50% 50% 50% 0;
+      transform: rotate(-45deg); background: var(--md-primary); border: 2px solid #fff; box-shadow: 0 2px 6px rgba(0,0,0,.3);
+    }
+    .capture-overlay.previewed .capture-finder { display: none; }
+    .capture-preview { overflow-y: auto; }
+    .sheet-footer { padding: 8px 16px 0; display: flex; flex-direction: column; gap: 8px; }
+    .toast {
+      position: absolute; left: 16px; right: 16px; bottom: calc(var(--nav-h) + 16px);
+      background: #313033; color: #F4EFF4; font-size: 14px; padding: 12px 16px; border-radius: 8px; z-index: 30100;
+      opacity: 0; pointer-events: none; transition: .2s;
+    }
+    .app-auth .toast { bottom: 24px; }
+    .toast.show { opacity: 1; }
+    .timeline { margin: 0 16px; padding-left: 14px; border-left: 2px solid #CAC4D0; }
+    .tl-item { position: relative; padding: 0 0 16px 16px; }
+    .tl-item::before {
+      content: ''; position: absolute; left: -19px; top: 4px; width: 10px; height: 10px;
+      border-radius: 50%; background: var(--md-primary); border: 2px solid #fff;
+    }
+    .tl-item.done::before { background: var(--md-success); }
+    .tl-t { font-size: 15px; font-weight: 600; }
+    .tl-s { font-size: 13px; color: var(--md-muted); margin-top: 2px; }
+    .offline-banner {
+      margin: 0 16px 12px; background: #FFE0B2; color: #E65100;
+      border-radius: 12px; padding: 10px 12px; font-size: 13px; font-weight: 500;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .screen {
+      display: none; height: auto; flex-direction: column; min-height: 0; flex: 1;
+      position: relative; z-index: 0; isolation: isolate; overflow: hidden;
+    }
+    .screen.on { display: flex; }
+    .phone-screen.sheet-open .leaflet-control-container { visibility: hidden; }
+    .login {
+      flex: 1; display: flex; flex-direction: column;
+      background: #F2F2F7;
+      padding-bottom: 20px; min-height: 0;
+    }
+    .login-main {
+      flex: 1; display: flex; flex-direction: column; justify-content: center;
+      min-height: 0;
+    }
+    .login-brand { padding: 24px 28px 0; text-align: center; }
+    .login-logo {
+      width: 192px; height: 192px; margin: 0 auto;
+      background: transparent;
+    }
+    .login-logo img { display: block; width: 100%; height: 100%; object-fit: contain; }
+    .login-brand p {
+      margin: 24px 0 0; font-size: 22px; font-weight: 700; line-height: 1.25;
+      color: #1C1C1E; text-transform: uppercase; letter-spacing: 0.01em;
+    }
+    .login-form { margin-top: 24px; }
+    .login-field {
+      margin: 0 20px 10px; background: var(--md-container); border-radius: 4px 4px 0 0;
+      padding: 0 14px; display: flex; align-items: center; gap: 10px; min-height: 56px;
+      border-bottom: 2px solid var(--md-primary);
+    }
+    .login-field .lead { color: rgba(28, 28, 30, 0.45); font-size: 18px; width: 22px; display: grid; place-items: center; }
+    .login-field input { flex: 1; border: 0; outline: 0; font-size: 16px; font-family: inherit; background: transparent; padding: 14px 0; }
+    .login-field .trail { border: 0; background: transparent; color: var(--md-primary); cursor: pointer; padding: 8px; display: grid; place-items: center; }
+    .login-actions { padding: 16px 20px 0; display: flex; flex-direction: column; gap: 10px; }
+    .login-meta { margin-top: auto; padding: 16px 24px; text-align: center; font-size: 12px; color: var(--md-muted); line-height: 1.45; }
+    .login-meta a { color: var(--md-primary); text-decoration: none; font-weight: 500; }
+    .modal-backdrop {
+      position: absolute; inset: 0; background: rgba(0,0,0,.4); z-index: 30200;
+      display: none; align-items: center; justify-content: center; padding: 28px;
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal-card { width: 100%; background: #fff; border-radius: 28px; padding: 24px 20px 16px; }
+    .modal-card h3 { font-size: 22px; font-weight: 600; }
+    .modal-card p { margin-top: 10px; font-size: 14px; color: var(--md-muted); line-height: 1.4; }
+    .modal-actions { display: flex; flex-direction: column; gap: 8px; margin-top: 20px; }
+    @media (max-width: 440px) {
+      .stage { padding: 0; justify-content: flex-start; }
+      .stage-meta { display: none; }
+      .phone { width: 100vw; height: 100dvh; border-radius: 0; padding: 0; box-shadow: none; }
+      .phone-screen { border-radius: 0; }
+    }
+  </style>
+</head>
+<body>
+  <svg class="sprites" aria-hidden="true">
+    <symbol id="i-mappin" viewBox="0 0 24 24"><path d="M12 21s7-5.2 7-11a7 7 0 1 0-14 0c0 5.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.2"/></symbol>
+    <symbol id="i-warning" viewBox="0 0 24 24"><path d="M12 3.5 22 20H2L12 3.5z"/><path d="M12 10v5"/><path d="M12 17.5h.01"/></symbol>
+    <symbol id="i-scope" viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="2"/></symbol>
+    <symbol id="i-sparkles" viewBox="0 0 24 24"><path d="M12 3l1.2 4.2L17.5 8.5 13.2 9.8 12 14l-1.2-4.2L6.5 8.5l4.3-1.3L12 3z"/><path d="M18.5 14l.7 2.3 2.3.7-2.3.7-.7 2.3-.7-2.3-2.3-.7 2.3-.7.7-2.3z"/><path d="M6 15l.5 1.6L8 17.2l-1.5.5L6 19.2l-.5-1.5L4 17.2l1.5-.6L6 15z"/></symbol>
+    <symbol id="i-person" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 19.5c1.8-3.2 4.2-4.5 7-4.5s5.2 1.3 7 4.5"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 17h12l-1.2-1.2A6.5 6.5 0 0 1 15 11V9a3 3 0 1 0-6 0v2a6.5 6.5 0 0 1-1.8 4.8L6 17z"/><path d="M10 17a2 2 0 0 0 4 0"/></symbol>
+    <symbol id="i-sync" viewBox="0 0 24 24"><path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0 1 15.5-6.4L21 8"/><path d="M3 22v-6h6"/><path d="M21 12a9 9 0 0 1-15.5 6.4L3 16"/></symbol>
+    <symbol id="i-tray-down" viewBox="0 0 24 24"><path d="M12 3v10"/><path d="M8 9l4 4 4-4"/><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></symbol>
+    <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+    <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l5 5L19 7"/></symbol>
+    <symbol id="i-map" viewBox="0 0 24 24"><path d="M9 4l6 2 5-2v16l-5 2-6-2-5 2V6l5-2z"/><path d="M9 4v16M15 6v16"/></symbol>
+    <symbol id="i-list" viewBox="0 0 24 24"><path d="M8 7h12M8 12h12M8 17h12"/><path d="M4 7h.01M4 12h.01M4 17h.01"/></symbol>
+    <symbol id="i-walk" viewBox="0 0 24 24"><circle cx="13" cy="5" r="2"/><path d="M10 21l2-7 3 2 2 5"/><path d="M8 12l4 2 3-5 3 1"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16.5 16.5 21 21"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 10v6"/><path d="M12 7.5h.01"/></symbol>
+    <symbol id="i-camera" viewBox="0 0 24 24"><path d="M4 8h3l2-2h6l2 2h3v11H4V8z"/><circle cx="12" cy="13" r="3.5"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
+    <symbol id="i-building" viewBox="0 0 24 24"><path d="M4 20h16"/><path d="M6 20V6l6-2 6 2v14"/><path d="M10 10h.01M14 10h.01M10 14h.01M14 14h.01"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="2.5"/></symbol>
+    <symbol id="i-eye-off" viewBox="0 0 24 24"><path d="M3 3l18 18"/><path d="M10.6 10.6A2.5 2.5 0 0 0 13.4 13.4"/><path d="M9.9 5.1A10.5 10.5 0 0 1 12 5c6 0 10 7 10 7a17.6 17.6 0 0 1-3.2 3.9"/><path d="M6.1 6.1C3.9 7.8 2 12 2 12s4 7 10 7c1.3 0 2.5-.3 3.6-.7"/></symbol>
+    <symbol id="i-finger" viewBox="0 0 24 24"><path d="M12 11v6"/><path d="M8 12.5a4 4 0 1 1 8 0c0 3-2 5-4 7"/><path d="M6 11a6 6 0 0 1 12 0"/></symbol>
+    <symbol id="i-faceid" viewBox="0 0 24 24"><path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2"/><path d="M9 10v1M15 10v1"/><path d="M9.5 15c.8.8 1.6 1.2 2.5 1.2s1.7-.4 2.5-1.2"/></symbol>
+    <symbol id="i-wifi" viewBox="0 0 24 24"><path d="M2.6 8.6A16 16 0 0 1 12 5c3.4 0 6.6 1 9.4 3.6"/><path d="M5.4 12.5A10.2 10.2 0 0 1 12 10c2.4 0 4.6.8 6.6 2.5"/><path d="M8.8 16.2A5 5 0 0 1 12 15c1.2 0 2.3.4 3.2 1.2"/><circle cx="12" cy="19.4" r="1.35" class="fill"/></symbol>
+    <symbol id="i-wifi-off" viewBox="0 0 24 24"><path d="M2 8.5A14 14 0 0 1 12 5c1.4 0 2.7.2 4 .6"/><path d="M5.5 12a9.5 9.5 0 0 1 5.2-1.8"/><path d="M9 15.5a5 5 0 0 1 2-.4"/><circle cx="12" cy="19" r="1.2" class="fill"/><path d="M3 3l18 18"/></symbol>
+    <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.5 6.5a4 4 0 0 0-5.6 5.6L3 18v3h3l5.9-5.9a4 4 0 0 0 5.6-5.6l-2.5 2.5-2.5-2.5 2.5-2.5z"/></symbol>
+    <symbol id="i-video" viewBox="0 0 24 24"><rect x="3" y="7" width="12" height="10" rx="2"/><path d="M15 10.5 21 7v10l-6-3.5"/></symbol>
+    <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 3v2.2M12 18.8V21M4.9 6.5l1.6 1.6M17.5 17.9l1.6 1.6M3 12h2.2M18.8 12H21M4.9 17.5l1.6-1.6M17.5 6.1l1.6-1.6"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 12l9 5 9-5"/><path d="M3 16l9 5 9-5"/></symbol>
+    <symbol id="i-arrow-down" viewBox="0 0 24 24"><path d="M12 4v14"/><path d="M6 14l6 6 6-6"/></symbol>
+    <symbol id="i-ellipsis" viewBox="0 0 24 24"><circle cx="6" cy="12" r="1.4" class="fill"/><circle cx="12" cy="12" r="1.4" class="fill"/><circle cx="18" cy="12" r="1.4" class="fill"/></symbol>
+    <symbol id="i-road" viewBox="0 0 24 24"><path d="M7 21 10 3h4l3 18"/><path d="M12 7v2M12 12v2M12 17v2"/></symbol>
+    <symbol id="i-cube" viewBox="0 0 24 24"><path d="M12 3 21 8v8l-9 5-9-5V8l9-5z"/><path d="M12 13V22M12 13 3 8M12 13l9-5"/></symbol>
+    <symbol id="i-sum" viewBox="0 0 24 24"><path d="M6 6h12L10 12l8 6H6"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11.5 12 4l8 7.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1v-8.5z"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M5 6h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H9l-4 3v-3H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"/></symbol>
+    <symbol id="i-briefcase" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M8 8V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></symbol>
+  </svg>
+
+  <div class="stage">
+    <div class="stage-meta">
+      <h1>RMMS hiện trường · Android</h1>
+      <p><a href="../index.html" style="color:#8ab4f8;text-decoration:none;font-weight:600">← Tổng quan Gói 1</a> · cùng nghiệp vụ iPhone · bản đồ tuyến</p>
+      <div class="chip-row" id="jumpChips">
+        <button class="chip" data-jump="login">Đăng nhập</button>
+        <button class="chip active" data-jump="home">Trang Chủ</button>
+        <button class="chip" data-jump="patrol-home">Tuần đường</button>
+        <button class="chip" data-jump="patrol-map">Bản đồ tuần</button>
+        <button class="chip" type="button" id="chipWrongPoint">Thử sai điểm</button>
+        <button class="chip" data-jump="checkin-detail">Đã ghi điểm tuần</button>
+        <button class="chip" data-jump="attendance">Chấm công</button>
+        <button class="chip" data-jump="incident-list">Sự cố</button>
+        <button class="chip" data-jump="incident-detail">Chi tiết sự cố</button>
+        <button class="chip" data-jump="supervise">Giám sát</button>
+        <button class="chip" data-jump="asset-hub">Tài sản</button>
+        <button class="chip" data-jump="asset-collect">Thu thập tay</button>
+        <button class="chip" data-jump="asset-ai">Camera AI</button>
+        <button class="chip" data-jump="asset-adjust">Cập nhật / bớt</button>
+        <button class="chip" data-jump="gis-map">Bản đồ TS</button>
+        <button class="chip" data-jump="asset-detail">Chi tiết TS</button>
+        <button class="chip" data-jump="field-reflect">Ghi nhận</button>
+        <button class="chip" data-jump="cam-patrol">Thu thập bằng camera</button>
+        <button class="chip" data-jump="vis-capture">Nhận diện mặt đường</button>
+        <button class="chip" type="button" id="chipPhotoGps">Chụp + định vị</button>
+        <button class="chip" data-jump="det-hitl">Xác nhận TS</button>
+        <button class="chip" data-jump="asset-types">32 loại</button>
+        <button class="chip" data-jump="asset-type">Thông tin tài sản</button>
+        <button class="chip" data-jump="inc-form">Form sự cố</button>
+        <button class="chip" data-jump="asset-form">Mẫu 32 loại</button>
+        <button class="chip" data-jump="mnt-list">Công việc</button>
+        <button class="chip" data-jump="estimate">Giao việc</button>
+        <button class="chip" data-jump="feedback">Góp ý</button>
+        <button class="chip" data-jump="cam-view">Camera tuyến</button>
+        <button class="chip" data-jump="ops">Chỉ đạo</button>
+        <button class="chip" data-jump="me">Tôi</button>
+      </div>
+    </div>
+
+    <div class="review-row">
+    <aside class="doc-panel" id="featureDoc" data-des-id="DES-MOB-DOC-GUIDE" data-frame="android"></aside>
+    <div class="phone" data-des-id="DES-MOBILE-DEVICE">
+      <div class="phone-screen" id="app">
+        <div class="status-bar" id="statusBar">
+          <span>9:41</span>
+          <div style="display:flex;align-items:center;gap:6px">
+            <div class="sb-signal"><i></i><i></i><i></i><i></i></div>
+            <span>5G</span>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-login" data-des-id="DES-MOB-LOGIN" data-tab="auth">
+          <button class="login-back" id="btn-login-back" type="button" onclick="go('home')">Về Trang Chủ</button>
+          <div class="login">
+            <div class="login-main">
+            <div class="login-brand" data-des-id="DES-MOB-LOGIN-BRAND">
+              <div class="login-logo">
+                <img src="../assets/app-logo.png" alt="RMMS" width="192" height="192" />
+              </div>
+              <p>Quản lý bảo trì đường bộ</p>
+            </div>
+            <div class="login-form" data-des-id="DES-MOB-LOGIN-FORM">
+              <div class="login-field">
+                <span class="lead"><svg class="ic" viewBox="0 0 24 24"><use href="#i-person"/></svg></span>
+                <input id="f-user" type="text" placeholder="Tài khoản" value="nguyenvana" />
+              </div>
+              <div class="login-field">
+                <span class="lead"><svg class="ic" viewBox="0 0 24 24"><use href="#i-lock"/></svg></span>
+                <input id="f-pass" type="password" placeholder="Mật khẩu" value="••••••••" />
+                <button class="trail" type="button" onclick="togglePass()" aria-label="Hiện mật khẩu">
+                  <svg class="ic" viewBox="0 0 24 24"><use href="#i-eye" id="eyeUse"/></svg>
+                </button>
+              </div>
+            </div>
+            <div class="login-actions">
+              <button class="btn btn-primary" onclick="loginOk()">Đăng nhập</button>
+            </div>
+            </div>
+            <div class="login-meta">Tín hiệu <span data-net-signal="light"></span> · đồng bộ hệ thống<br/>
+              <a href="#" onclick="toast('Quên mật khẩu → hệ thống xác thực');return false">Quên mật khẩu?</a>
+              · bản Gói 1
+            </div>
+          </div>
+        </div>
+
+        <div class="screen on" id="sc-home" data-des-id="DES-MOB-HOME" data-tab="home">
+          <div class="content" style="padding-top:0">
+            <div class="vn-hero" data-des-id="DES-MOB-HOME-HELLO">
+              <div class="vn-hero-tools">
+                <button class="hero-ico" type="button" onclick="go('me')" title="Hồ sơ">
+                  <svg class="ic" viewBox="0 0 24 24"><use href="#i-person"/></svg>
+                </button>
+                <button class="hero-ico" type="button" onclick="go('ops')" title="Thông báo">
+                  <svg class="ic" viewBox="0 0 24 24"><use href="#i-bell"/></svg>
+                  <span class="dot">3</span>
+                </button>
+              </div>
+              <span class="role">Khu QLĐB IV<span class="net-sep"></span><span data-net-signal></span></span>
+              <div class="who" id="home-who">Khách</div>
+              <button class="btn-home-login" id="btn-home-login" type="button" onclick="go('login')">
+                Đăng nhập<span class="s">Dành cho cán bộ</span>
+              </button>
+              <div class="vn-quick" id="home-quick">
+                <button type="button" onclick="go('patrol-home')">Điểm tuần<span class="s">Ghim định vị · lý trình</span></button>
+                <button type="button" onclick="startIncidentPick()">Ghi sự cố<span class="s">Chọn tài sản · mẫu sự cố</span></button>
+              </div>
+            </div>
+            <div id="home-guest">
+              <div class="section-label" id="section-guest">Hỗ trợ người dân</div>
+              <button type="button" id="btn-home-faq" onclick="go('faq')" style="margin:0 16px 8px;width:calc(100% - 32px);border:0;border-radius:16px;background:#fff;padding:14px;text-align:left;font:650 15px inherit">
+                Câu hỏi thường gặp<div style="font:500 13px inherit;color:#8E8E93;margin-top:2px">Tài liệu · thủ tục · cấp phép</div>
+              </button>
+              <button type="button" id="btn-home-privacy" onclick="go('privacy')" style="display:block;width:100%;border:0;background:none;color:#0C84C0;text-decoration:underline;font:500 13px inherit;padding:8px 16px 16px">Chính sách quyền riêng tư</button>
+            </div>
+            <div id="home-staff">
+            <div class="section-label">Nghiệp vụ thường dùng</div>
+            <div class="home-grid" data-des-id="DES-MOB-HOME-GRID">
+              <button type="button" class="home-tile" onclick="go('supervise')">
+                <div class="hi" style="background:#FCB43C"><svg class="ic" viewBox="0 0 24 24"><use href="#i-list"/></svg></div>
+                <div class="t">Giám sát</div>
+              </button>
+              <button type="button" class="home-tile" onclick="go('patrol-home')">
+                <div class="hi" style="background:#F03C30"><svg class="ic" viewBox="0 0 24 24"><use href="#i-mappin"/></svg></div>
+                <div class="t">Tuần đường</div>
+              </button>
+              <button type="button" class="home-tile" onclick="go('mnt-list')">
+                <div class="hi" style="background:#3CB448"><svg class="ic" viewBox="0 0 24 24"><use href="#i-wrench"/></svg></div>
+                <div class="t">Công việc</div>
+              </button>
+              <button type="button" class="home-tile" onclick="go('incident-list')">
+                <div class="hi" style="background:#FCB43C"><svg class="ic" viewBox="0 0 24 24"><use href="#i-warning"/></svg></div>
+                <div class="t">Vấn đề</div>
+              </button>
+              <button type="button" class="home-tile" onclick="go('asset-hub')">
+                <div class="hi" style="background:#0C84C0"><svg class="ic" viewBox="0 0 24 24"><use href="#i-cube"/></svg></div>
+                <div class="t">Tài sản</div>
+              </button>
+              <button type="button" class="home-tile" onclick="go('patrol-offline')">
+                <div class="hi" style="background:#086A9A"><svg class="ic" viewBox="0 0 24 24"><use href="#i-sync"/></svg></div>
+                <div class="t">Lưu trữ</div>
+              </button>
+            </div>
+            <div class="wallet-card" data-des-id="DES-MOB-HOME-WALLET" onclick="go('asset-hub')" style="cursor:pointer">
+              <div class="k">HỒ SƠ TÀI SẢN</div>
+              <div class="t">QL.1 · Khu IV</div>
+              <div class="m">32 loại KCHT · thông số + checklist sự cố</div>
+            </div>
+            <div class="home-foot">Phiên bản Gói 1 · RMMS hiện trường<br/>Cục Đường bộ VN · Khu QLĐB IV</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-faq" data-des-id="DES-MOB-HOME-FAQ" data-tab="home">
+          <div class="top-bar">
+            <button class="icon-btn" type="button" id="btn-faq-back" onclick="go('home')">Về Trang Chủ</button>
+            <div class="nav-title">Câu hỏi thường gặp</div>
+            <span></span>
+          </div>
+          <div class="content">
+            <div class="seg" style="margin:8px 16px">
+              <button class="on" type="button" id="chip-faq-docs">Tài liệu</button>
+              <button type="button" id="chip-faq-proc">Thủ tục</button>
+              <button type="button" id="chip-faq-permit">Cấp phép</button>
+              <button type="button" id="chip-faq-app">Ứng dụng</button>
+            </div>
+            <input id="f-faq-search" placeholder="Tìm kiếm câu hỏi" style="margin:0 16px 8px;height:44px;border-radius:999px;border:0;padding:0 14px;width:calc(100% - 32px)" />
+            <button type="button" style="width:100%;border:0;background:#fff;text-align:left;padding:14px 16px">Open data Bộ GTVT là gì?</button>
+            <button type="button" style="width:100%;border:0;background:#fff;text-align:left;padding:14px 16px">Tài liệu thủ tục có mất phí không?</button>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-privacy" data-des-id="DES-MOB-HOME-PRIVACY" data-tab="home">
+          <div class="top-bar">
+            <button class="icon-btn" type="button" id="btn-privacy-back" onclick="go('home')">Về Trang Chủ</button>
+            <div class="nav-title">Chính sách quyền riêng tư</div>
+            <span></span>
+          </div>
+          <div class="content" id="privacy-body" style="padding:16px;font-size:15px;line-height:1.45">
+            Khi bạn là Khách, ứng dụng chỉ hiển thị thông tin công khai (FAQ, tài liệu thủ tục). Không gửi hồ sơ cán bộ, không lấy vị trí lúc mở app.
+          </div>
+        </div>
+
+        <div class="screen" id="sc-patrol-home" data-des-id="DES-MOB-PAT-HOME" data-tab="field">
+          <div class="top-bar">
+            <button class="icon-btn" title="Đồng bộ" onclick="go('patrol-offline')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-sync"/></svg></button>
+            <div class="nav-title"></div>
+            <button class="icon-btn" title="Thông báo" onclick="go('ops')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-bell"/></svg><span class="dot">3</span></button>
+          </div>
+          <div class="large-title">Tuần đường</div>
+          <div class="seg" data-des-id="DES-MOB-PAT-SEG">
+            <button class="on" type="button">Tuần đường</button>
+            <button type="button" onclick="go('attendance')">Chấm công</button>
+          </div>
+          <div class="content">
+            <div class="hero-card" data-des-id="DES-MOB-PAT-ACTIVE">
+              <div class="hero-eyebrow">Ca đang chạy · <span data-net-signal></span></div>
+              <div class="hero-title">QL.1 · Km 1556+000</div>
+              <div class="hero-meta">PAT-20260810-0014 · Nguyễn Văn A<br/>Điểm tuần 2/3 · Độ phủ 67%</div>
+              <div class="progress"><span></span></div>
+              <div class="hero-actions">
+                <button class="btn btn-white" onclick="go('patrol-map')">Tiếp tục bản đồ</button>
+                <button class="btn btn-ghost" onclick="openSheet('checkin')">Ghi điểm tuần</button>
+              </div>
+            </div>
+            <button type="button" class="btn btn-primary pin-here" data-des-id="DES-MOB-CI-PIN-HERE" onclick="pinHereCheckin()">
+              <svg class="ic" viewBox="0 0 24 24"><use href="#i-mappin"/></svg>
+              Ghim vị trí hiện tại
+            </button>
+            <div class="kpi-strip" data-des-id="DES-MOB-PAT-KPI">
+              <div class="kpi"><div class="v" style="color:var(--md-success)">2</div><div class="l">Đã ghi điểm tuần</div></div>
+              <div class="kpi"><div class="v" style="color:var(--md-warn)">1</div><div class="l">Còn lại</div></div>
+              <div class="kpi"><div class="v">67%</div><div class="l">Độ phủ</div></div>
+            </div>
+            <div class="section-label">Hôm nay</div>
+            <div class="card-group">
+              <div class="row" onclick="go('patrol-detail')">
+                <div class="row-icon" style="background:var(--md-primary)"><svg class="ic" viewBox="0 0 24 24"><use href="#i-walk"/></svg></div>
+                <div class="row-body"><div class="row-title">PAT-20260810-0014</div><div class="row-sub">Tuần đường · QL.1 · 07:20</div></div>
+                <span class="badge blue">Đang tuần</span>
+              </div>
+              <div class="row" onclick="go('patrol-history')">
+                <div class="row-icon" style="background:var(--md-success)"><svg class="ic" viewBox="0 0 24 24"><use href="#i-check"/></svg></div>
+                <div class="row-body"><div class="row-title">PAT-20260810-0009</div><div class="row-sub">Tuần kiểm · HCM · Hoàn thành</div></div>
+                <span class="badge green">Xong</span>
+              </div>
+            </div>
+            <div class="section-label">Thao tác nhanh</div>
+            <div class="card-group">
+              <div class="row" onclick="go('field-reflect')">
+                <div class="row-icon" style="background:var(--md-error)"><svg class="ic" viewBox="0 0 24 24"><use href="#i-camera"/></svg></div>
+                <div class="row-body"><div class="row-title">Ghi nhận hư hỏng</div><div class="row-sub">Chụp · hư / mất / hỏng · nhận diện</div></div>
+              </div>
+              <div class="row" onclick="go('cam-patrol')">
+                <div class="row-icon" style="background:#6750A4"><svg class="ic" viewBox="0 0 24 24"><use href="#i-video"/></svg></div>
+                <div class="row-body"><div class="row-title">Thu thập bằng camera</div><div class="row-sub">Tự nhận diện theo tọa độ · tạo vấn đề</div></div>
+              </div>
+              <div class="row" onclick="go('patrol-map')">
+                <div class="row-icon" style="background:#6750A4"><svg class="ic" viewBox="0 0 24 24"><use href="#i-map"/></svg></div>
+                <div class="row-body"><div class="row-title">Bản đồ ca</div><div class="row-sub">Ghim điểm tuần · hành trình</div></div>
+              </div>
+              <div class="row" onclick="go('patrol-history')">
+                <div class="row-icon" style="background:#79747E"><svg class="ic" viewBox="0 0 24 24"><use href="#i-list"/></svg></div>
+                <div class="row-body"><div class="row-title">Lịch sử phiên</div><div class="row-sub">Lọc tuyến · trạng thái</div></div>
+              </div>
+              <div class="row" onclick="go('supervise')">
+                <div class="row-icon" style="background:#6750A4"><svg class="ic" viewBox="0 0 24 24"><use href="#i-list"/></svg></div>
+                <div class="row-body"><div class="row-title">Giám sát</div><div class="row-sub">Lịch sử điểm tuần · bản đồ · thông báo</div></div>
+              </div>
+              <div class="row" onclick="go('patrol-offline')">
+                <div class="row-icon" style="background:var(--md-warn)"><svg class="ic" viewBox="0 0 24 24"><use href="#i-sync"/></svg></div>
+                <div class="row-body"><div class="row-title">Lưu trữ</div><div class="row-sub">3 bản ghi chờ đồng bộ</div></div>
+                <span class="badge orange">3</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-patrol-map" data-des-id="DES-MOB-PAT-MAP" data-tab="field">
+          <div class="top-bar solid">
+            <button class="icon-btn" onclick="go('patrol-home')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg></button>
+            <div class="nav-title">Ca đang chạy</div>
+            <button class="btn" style="background:transparent;color:var(--md-primary)" onclick="openSheet('checkin')">Ghi điểm tuần</button>
+          </div>
+          <div class="content map-mode">
+            <div class="map-shell" data-des-id="DES-MOB-OMS-PATROL">
+              <div class="map-host" id="map-patrol-host" role="application" aria-label="Bản đồ tuần tra OMS">
+                <div id="map-patrol" style="width:100%;height:100%"></div>
+                <div class="map-next-card">
+                  <div class="glass" style="display:flex;justify-content:space-between;align-items:center;gap:8px">
+                    <div>
+                      <div style="font-size:12px;color:var(--md-muted)">Điểm tiếp theo · OSRM</div>
+                      <div style="font-size:16px;font-weight:600">Km 1561+134 · Phước Dinh</div>
+                    </div>
+                    <button class="btn btn-primary" style="width:auto;height:40px" onclick="openSheet('checkin')">Ghi điểm tuần</button>
+                  </div>
+                  <button type="button" class="btn btn-primary map-pin-here" data-des-id="DES-MOB-CI-PIN-HERE" onclick="pinHereCheckin()">
+                    <svg class="ic" viewBox="0 0 24 24"><use href="#i-mappin"/></svg>
+                    Ghim vị trí hiện tại
+                  </button>
+                </div>
+              </div>
+              <div class="map-bar" id="map-patrol-bar">
+                <button type="button" class="mb on" data-base="osm" title="Nền đường phố" aria-label="Nền đường phố">Đường</button>
+                <button type="button" class="mb" data-base="esri" title="Nền phố Esri" aria-label="Nền phố Esri">Phố</button>
+                <button type="button" class="mb" data-base="sat" title="Ảnh vệ tinh" aria-label="Nền ảnh vệ tinh">Vệ tinh</button>
+                <button type="button" class="mb mb-fit" data-fit title="Vừa toàn tuyến" aria-label="Vừa toàn tuyến">Toàn tuyến</button>
+              </div>
+              <div class="map-legend" id="map-patrol-legend">
+                <button type="button" class="lg on" data-iso="all"><span class="dot" style="background:#0C84C0"></span>Tất cả</button>
+                <button type="button" class="lg" data-iso="track"><span class="dot" style="background:#0C84C0"></span>Hành trình</button>
+                <button type="button" class="lg" data-iso="ci-done"><span class="dot" style="background:#1B8A4A"></span>Đã ghi điểm tuần</button>
+                <button type="button" class="lg" data-iso="ci-next"><span class="dot" style="background:#E67E00"></span>Điểm kế tiếp</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-patrol-history" data-des-id="DES-MOB-PAT-LIST" data-tab="field">
+          <div class="top-bar solid">
+            <button class="icon-btn" style="width:auto;padding:0 8px;font-size:15px;font-weight:600;color:var(--md-primary);gap:4px" onclick="go('patrol-home')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg> Tuần đường</button>
+            <div class="nav-title"></div>
+            <button class="icon-btn" style="width:auto;padding:0 12px;font-size:15px;font-weight:600;color:var(--md-primary)" onclick="toast('Lọc')">Lọc</button>
+          </div>
+          <div class="large-title" style="font-size:28px;font-weight:700;padding:8px 16px">Lịch sử ca</div>
+          <div class="search"><svg class="ic" viewBox="0 0 24 24"><use href="#i-search"/></svg><span>Tìm mã phiên, tuyến…</span></div>
+          <div class="content" style="padding-top:0">
+            <div class="card-group">
+              <div class="row no-icon" onclick="toast('Chi tiết phiên')">
+                <div class="row-body"><div class="row-title">PAT-20260810-0014</div><div class="row-sub">QL.1 · Tuần đường · 2/3 điểm</div></div>
+                <span class="badge blue">Đang tuần</span>
+              </div>
+              <div class="row no-icon" onclick="toast('Chi tiết phiên')">
+                <div class="row-body"><div class="row-title">PAT-20260810-0009</div><div class="row-sub">HCM · Tuần kiểm · 100%</div></div>
+                <span class="badge green">Hoàn thành</span>
+              </div>
+              <div class="row no-icon" onclick="toast('Chi tiết phiên')">
+                <div class="row-body"><div class="row-title">PAT-20260809-0021</div><div class="row-sub">QL.1 · Thiếu điểm tuần</div></div>
+                <span class="badge red">Bỏ sót</span>
+              </div>
+              <div class="row no-icon" onclick="toast('Chi tiết phiên')">
+                <div class="row-body"><div class="row-title">PAT-20260809-0015</div><div class="row-sub">Chờ đồng bộ · 1 điểm tuần</div></div>
+                <span class="badge orange">Mất sóng</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-patrol-detail" data-des-id="DES-MOB-PAT-DETAIL" data-tab="field">
+          <div class="top-bar solid">
+            <button class="icon-btn" onclick="go('patrol-history')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg></button>
+            <div class="nav-title">Chi tiết ca</div>
+            <button class="icon-btn" onclick="toast('Chia sẻ')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-ellipsis"/></svg></button>
+          </div>
+          <div class="content">
+            <div style="padding:16px 20px 8px">
+              <div style="font-size:13px;color:var(--md-muted)">Mã phiên</div>
+              <div style="font-size:26px;font-weight:700">PAT-20260810-0014</div>
+              <div style="margin-top:8px"><span class="badge blue">Đang tuần</span></div>
+            </div>
+            <div class="section-label">Thông tin</div>
+            <div class="card-group">
+              <div class="row"><div class="row-body"><div class="row-sub">Nhân viên</div><div class="row-title">Nguyễn Văn A</div></div></div>
+              <div class="row"><div class="row-body"><div class="row-sub">Tuyến</div><div class="row-title">QL.1 · Km 1551+200–1561+134</div></div></div>
+              <div class="row"><div class="row-body"><div class="row-sub">Loại tuần</div><div class="row-title">Tuần đường</div></div></div>
+              <div class="row"><div class="row-body"><div class="row-sub">Ngày KH</div><div class="row-title">10/08/2026</div></div></div>
+              <div class="row"><div class="row-body"><div class="row-sub">Bắt đầu</div><div class="row-title">07:20 (UTC+7)</div></div></div>
+              <div class="row"><div class="row-body"><div class="row-sub">Độ phủ</div><div class="row-title">67%</div></div></div>
+            </div>
+            <div class="section-label">Điểm tuần</div>
+            <div class="timeline">
+              <div class="tl-item done" onclick="go('checkin-detail')" style="cursor:pointer"><div class="tl-t">Km 1551+200 · Xuân Hải</div><div class="tl-s">07:28 · định vị đạt · Ảnh ×1 · Xem</div></div>
+              <div class="tl-item done"><div class="tl-t">Km 1556+000 · Cống ngang</div><div class="tl-s">08:05 · định vị đạt</div></div>
+              <div class="tl-item"><div class="tl-t">Km 1561+134 · Phước Dinh</div><div class="tl-s">Đang tới · ~180 m</div></div>
+            </div>
+            <div style="padding:16px;display:flex;flex-direction:column;gap:8px">
+              <button class="btn btn-primary" onclick="go('patrol-map')">Mở bản đồ ca</button>
+              <button class="btn btn-secondary" onclick="toast('Kết thúc ca — xác nhận sau')">Kết thúc ca</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-patrol-offline" data-des-id="DES-MOB-PAT-OFFLINE" data-tab="home">
+          <div class="top-bar solid">
+            <button class="icon-btn" onclick="go('home')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg></button>
+            <div class="nav-title">Dữ liệu lưu trữ</div>
+            <button class="btn" style="background:transparent;color:var(--md-primary)" onclick="toast('Đã đồng bộ 3 bản ghi')">Đồng bộ</button>
+          </div>
+          <div class="seg">
+            <button class="on" type="button">Điểm tuần mất sóng</button>
+            <button type="button" onclick="toast('Sự cố mất sóng · 1 bản ghi')">Sự cố mất sóng</button>
+          </div>
+          <div class="content">
+            <div class="offline-banner"><svg class="ic" viewBox="0 0 24 24"><use href="#i-wifi-off"/></svg> Tín hiệu yếu — ghi cục bộ, đồng bộ khi tín hiệu tốt</div>
+            <div class="rich-card">
+              <div class="rc-main">
+                <div class="rc-thumb"></div>
+                <div class="rc-body">
+                  <div class="rc-title">Điểm tuần · Km 1556+000</div>
+                  <div class="rc-line">QL.1 · Xuân Hải</div>
+                  <div class="rc-line">2026-08-10 08:40:12</div>
+                </div>
+              </div>
+              <div class="rc-status warn">Chờ gửi</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-attendance" data-des-id="DES-MOB-ATT" data-tab="field">
+          <div class="large-title">Chấm công</div>
+          <div class="seg">
+            <button type="button" onclick="go('patrol-home')">Tuần đường</button>
+            <button class="on" type="button">Chấm công</button>
+          </div>
+          <div class="content">
+            <div class="hero-card" style="background:linear-gradient(145deg,#1B8A4A,#0F5C30)">
+              <div class="hero-eyebrow">Chấm công theo định vị</div>
+              <div class="hero-title">Chưa chấm vào</div>
+              <div class="hero-meta">Văn phòng QLĐB IV.1 · Khu IV · ghim tự động ±6 m<br/>QL.1 hành lang · trong hành lang (12 m)</div>
+              <div class="hero-actions">
+                <button class="btn btn-white" onclick="openModal('gps')">Chấm vào</button>
+                <button class="btn btn-ghost" onclick="toast('Báo cáo công')">Báo cáo</button>
+              </div>
+            </div>
+            <div class="section-label">7 ngày gần đây</div>
+            <div class="card-group">
+              <div class="row"><div class="row-body"><div class="row-title">CN 10/08</div><div class="row-sub">—</div></div><span class="badge">Nghỉ</span></div>
+              <div class="row"><div class="row-body"><div class="row-title">T7 09/08</div><div class="row-sub">07:05 – 16:40</div></div><span class="badge green">Đủ công</span></div>
+              <div class="row"><div class="row-body"><div class="row-title">T6 08/08</div><div class="row-sub">07:12 – 16:55</div></div><span class="badge green">Đủ công</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-incident-list" data-des-id="DES-MOB-INC-LIST" data-tab="incident">
+          <div class="top-bar solid">
+            <button class="icon-btn" onclick="go('home')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg></button>
+            <div class="nav-title">Quản lý vấn đề</div>
+            <button class="icon-btn" onclick="toast('Lọc tuyến · loại · trạng thái')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-list"/></svg></button>
+          </div>
+          <div class="seg">
+            <button class="on" type="button">Danh sách</button>
+            <button type="button" onclick="go('gis-map')">Bản đồ</button>
+          </div>
+          <div class="search"><svg class="ic" viewBox="0 0 24 24"><use href="#i-search"/></svg><span>Tìm kiếm vấn đề…</span></div>
+          <div class="content" style="padding-top:0">
+            <button type="button" class="vn-banner" onclick="go('vis-capture')">
+              <div class="vb-icon"><svg class="ic" viewBox="0 0 24 24"><use href="#i-camera"/></svg></div>
+              <div class="vb-body">
+                <div class="vb-t">Nhận diện mặt đường</div>
+                <div class="vb-s">Chụp + định vị → gắn sự cố</div>
+              </div>
+              <span class="chev"><svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-chevron-right"/></svg></span>
+            </button>
+            <div class="rich-card" onclick="go('incident-detail')">
+              <div class="rc-main">
+                <div class="rc-body">
+                  <div class="rc-title">Nứt mặt đường</div>
+                  <div class="rc-line"><svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-warning"/></svg> Sự cố nhanh · SC-2401</div>
+                  <div class="rc-line"><svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-mappin"/></svg> QL.1 Km 1556+080 · Xuân Hải</div>
+                  <div class="rc-line"><svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-person"/></svg> Nguyễn Văn A · Tổ tuần đường VP-IV.1</div>
+                  <div class="rc-time">2026-08-10 08:12:40</div>
+                </div>
+                <div class="rc-thumb"></div>
+              </div>
+              <div class="rc-status warn">Trạng thái: Đợi phân công giám sát</div>
+              <div class="rc-actions">
+                <button type="button" onclick="event.stopPropagation();toast('Trao đổi sự cố')" title="Trao đổi"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chat"/></svg></button>
+                <button type="button" onclick="event.stopPropagation();go('mnt-list')" title="Giao việc"><svg class="ic" viewBox="0 0 24 24"><use href="#i-briefcase"/></svg></button>
+                <button type="button" onclick="event.stopPropagation();go('incident-detail')" title="Chi tiết"><svg class="ic" viewBox="0 0 24 24"><use href="#i-list"/></svg></button>
+                <button type="button" onclick="event.stopPropagation();go('gis-map')" title="Bản đồ"><svg class="ic" viewBox="0 0 24 24"><use href="#i-mappin"/></svg></button>
+              </div>
+            </div>
+            <div class="rich-card" onclick="go('incident-detail')">
+              <div class="rc-main">
+                <div class="rc-body">
+                  <div class="rc-title">Cống tắc</div>
+                  <div class="rc-line"><svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-warning"/></svg> Hệ thống an toàn · SC-2398</div>
+                  <div class="rc-line"><svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-mappin"/></svg> HCM · Km 12+400</div>
+                  <div class="rc-line"><svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-person"/></svg> Trần Khánh · Chi cục II.2</div>
+                  <div class="rc-time">2026-08-09 14:40:13</div>
+                </div>
+                <div class="rc-thumb" style="background:linear-gradient(145deg,#f0c27a,#c77800)"></div>
+              </div>
+              <div class="rc-status ok">Trạng thái: Đang được giám sát</div>
+              <div class="rc-actions">
+                <button type="button" onclick="event.stopPropagation();toast('Trao đổi sự cố')" title="Trao đổi"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chat"/></svg></button>
+                <button type="button" onclick="event.stopPropagation();go('mnt-list')" title="Giao việc"><svg class="ic" viewBox="0 0 24 24"><use href="#i-briefcase"/></svg></button>
+                <button type="button" onclick="event.stopPropagation();go('incident-detail')" title="Chi tiết"><svg class="ic" viewBox="0 0 24 24"><use href="#i-list"/></svg></button>
+                <button type="button" onclick="event.stopPropagation();go('gis-map')" title="Bản đồ"><svg class="ic" viewBox="0 0 24 24"><use href="#i-mappin"/></svg></button>
+              </div>
+            </div>
+          </div>
+          <button class="fab" onclick="startIncidentPick()" title="Ghi sự cố" aria-label="Ghi sự cố">
+            <svg class="ic ic-lg" viewBox="0 0 24 24"><use href="#i-plus"/></svg>
+          </button>
+        </div>
+
+        <div class="screen" id="sc-gis-map" data-des-id="DES-MOB-GIS" data-tab="home">
+          <div class="top-bar solid">
+            <button class="icon-btn" onclick="go('asset-hub')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg></button>
+            <div class="nav-title">Bản đồ tài sản</div>
+            <button class="btn" style="background:transparent;color:var(--md-primary)" onclick="go('asset-list')">Danh sách</button>
+          </div>
+          <div class="content map-mode">
+            <div class="map-shell" data-des-id="DES-MOB-OMS-GIS">
+              <div class="map-host" id="map-gis-host" role="application" aria-label="Bản đồ GIS OMS">
+                <div id="map-gis" style="width:100%;height:100%"></div>
+              </div>
+              <div class="map-bar" id="map-gis-bar">
+                <button type="button" class="mb on" data-base="osm" aria-label="Nền đường phố">Đường</button>
+                <button type="button" class="mb" data-base="esri" aria-label="Nền phố Esri">Phố</button>
+                <button type="button" class="mb" data-base="sat" aria-label="Nền ảnh vệ tinh">Vệ tinh</button>
+                <button type="button" class="mb mb-fit" data-fit aria-label="Vừa toàn tuyến">Toàn tuyến</button>
+              </div>
+              <div class="map-legend" id="map-gis-legend">
+                <button type="button" class="lg on" data-iso="all"><span class="dot" style="background:#0C84C0"></span>Tất cả</button>
+                <button type="button" class="lg" data-iso="ts"><span class="dot" style="background:#6750A4"></span>Tài sản</button>
+                <button type="button" class="lg" data-iso="sc"><span class="dot" style="background:#D32F2F"></span>Sự cố</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-asset-hub" data-des-id="DES-MOB-ASSET-HUB" data-tab="home">
+          <div class="top-bar solid">
+            <button class="icon-btn" onclick="go('home')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg></button>
+            <div class="nav-title">Tài sản</div>
+          </div>
+          <div class="content">
+            <div class="wallet-card" data-des-id="DES-MOB-ASSET-WALLET">
+              <div class="k">HỒ SƠ TÀI SẢN</div>
+              <div class="t">QL.1 · Khu IV</div>
+              <div class="m">32 loại KCHT · thông số + checklist sự cố</div>
+            </div>
+            <div class="hub-grid">
+              <button type="button" class="hub-tile" onclick="go('asset-types')">
+                <div class="hi" style="background:var(--md-primary)"><svg class="ic" viewBox="0 0 24 24"><use href="#i-cube"/></svg></div>
+                <div class="t">32 loại tài sản</div>
+                <div class="s">Thông số · checklist sự cố</div>
+              </button>
+              <button type="button" class="hub-tile" onclick="go('gis-map')">
+                <div class="hi" style="background:#1B8A4A"><svg class="ic" viewBox="0 0 24 24"><use href="#i-scope"/></svg></div>
+                <div class="t">Xem trên bản đồ</div>
+                <div class="s">Ghim lý trình</div>
+              </button>
+            </div>
+            <div class="section-label">Thu thập</div>
+            <div class="hub-grid">
+              <button type="button" class="hub-tile" onclick="go('asset-collect')">
+                <div class="hi" style="background:var(--md-primary)"><svg class="ic" viewBox="0 0 24 24"><use href="#i-plus"/></svg></div>
+                <div class="t">Thủ công</div>
+                <div class="s">Thêm cột km, biển, cống…</div>
+              </button>
+              <button type="button" class="hub-tile" onclick="go('asset-ai')">
+                <div class="hi" style="background:#6750A4"><svg class="ic" viewBox="0 0 24 24"><use href="#i-camera"/></svg></div>
+                <div class="t">Camera AI</div>
+                <div class="s">Chụp → xác nhận vào sổ</div>
+              </button>
+            </div>
+            <div class="section-label">Quản lý</div>
+            <div class="hub-grid">
+              <button type="button" class="hub-tile" onclick="go('asset-list')">
+                <div class="hi" style="background:#79747E"><svg class="ic" viewBox="0 0 24 24"><use href="#i-cube"/></svg></div>
+                <div class="t">Danh sách</div>
+                <div class="s">Tra cứu mã · tuyến · loại</div>
+              </button>
+              <button type="button" class="hub-tile" onclick="go('asset-adjust')">
+                <div class="hi" style="background:var(--md-warn)"><svg class="ic" viewBox="0 0 24 24"><use href="#i-minus"/></svg></div>
+                <div class="t">Cập nhật / bớt</div>
+                <div class="s">Sửa hiện trường · bớt khỏi sổ</div>
+              </button>
+            </div>
+            <div class="card-group">
+              <div class="row" onclick="go('gis-map')">
+                <div class="row-icon" style="background:#1B8A4A"><svg class="ic" viewBox="0 0 24 24"><use href="#i-scope"/></svg></div>
+                <div class="row-body"><div class="row-title">Bản đồ tài sản</div><div class="row-sub">Ghim cột km · lớp tuyến</div></div>
+              </div>
+            </div>
+            <div class="section-label">Chờ xác nhận AI</div>
+            <div class="card-group">
+              <div class="row">
+                <div class="row-body"><div class="row-title">Ứng viên TS-88 · Cống</div><div class="row-sub">91% · QL.1 Km 1556+000</div></div>
+                <button class="btn btn-primary" style="width:auto;height:36px;padding:0 12px" onclick="go('det-hitl')">Xác nhận</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-asset-types" data-des-id="DES-MOB-ASSET-32" data-tab="home">
+          <div class="top-bar solid">
+            <button class="icon-btn" onclick="go('asset-hub')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg></button>
+            <div class="nav-title">32 loại</div>
+          </div>
+          <div class="search"><svg class="ic" viewBox="0 0 24 24"><use href="#i-search"/></svg><span>Tìm loại tài sản…</span></div>
+          <div class="offline-banner" data-ak32-pick style="display:none">Chọn loại tài sản để ghi sự cố</div>
+          <div class="content" style="padding-top:0">
+            <div class="ak32-grid" id="ak32-grid-and"></div>
+          </div>
+        </div>
+        <div class="screen" id="sc-asset-type" data-des-id="DES-MOB-ASSET-TYPE" data-tab="home">
+          <div class="top-bar solid">
+            <button class="icon-btn" onclick="go('asset-types')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg></button>
+            <div class="nav-title">Thông tin tài sản</div>
+          </div>
+          <div class="content" id="ak32-detail-and">
+            <div class="wallet-card">
+              <div class="k">THÔNG TIN TÀI SẢN</div>
+              <div class="t" data-ak32-title>Cột Km</div>
+              <div class="m" data-ak32-sub>KM_POST · ATGT</div>
+            </div>
+            <div class="section-label">Thông số</div>
+            <div class="card-group" data-ak32-specs></div>
+            <div class="section-label">Checklist sự cố</div>
+            <div class="card-group" data-ak32-chk></div>
+            <div class="section-label">Sự cố đã ghi</div>
+            <div class="card-group" data-ak32-inc></div>
+            <div style="padding:0 16px 20px;display:flex;flex-direction:column;gap:8px">
+              <button class="btn btn-primary" onclick="openIncidentForm()">Ghi sự cố</button>
+              <button class="btn btn-secondary" onclick="openAssetForm()">Sửa thông số</button>
+            </div>
+          </div>
+        </div>
+        <div class="screen" id="sc-inc-form" data-des-id="DES-MOB-INC-FORM" data-tab="home">
+          <div class="top-bar solid">
+            <button class="icon-btn" onclick="go('asset-type')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg></button>
+            <div class="nav-title">Ghi sự cố</div>
+          </div>
+          <div class="content" id="ak32-inc-and">
+            <div class="wallet-card">
+              <div class="k">TÀI SẢN ĐÃ CHỌN</div>
+              <div class="t" data-inc-asset-title>Cầu</div>
+              <div class="m" data-inc-asset-sub>BRIDGE · Kết cấu</div>
+            </div>
+            <div class="section-label">Loại ghi nhận</div>
+            <div class="kind-pills" data-des-id="DES-MOB-INC-KIND">
+              <button type="button" class="on">Hư</button>
+              <button type="button">Mất</button>
+              <button type="button">Hỏng</button>
+            </div>
+            <div class="section-label">Checklist theo loại</div>
+            <div class="card-group" data-inc-chk></div>
+            <div class="section-label">Ảnh hiện trường</div>
+            <div class="photo-row">
+              <div class="photo-slot" onclick="openCapture('inc-form')"><svg class="ic ic-lg" viewBox="0 0 24 24"><use href="#i-camera"/></svg></div>
+            </div>
+            <div class="card-group">
+              <div class="row">
+                <div class="row-body">
+                  <div class="row-sub">Nhận diện từ ảnh</div>
+                  <div class="row-title" data-inc-ai>Chưa có ảnh — chụp để phân loại</div>
+                </div>
+              </div>
+            </div>
+            <div class="field"><label>Vị trí đã chốt *</label><input data-inc-loc value="QL.1 · Km 1556+080 · định vị ±5 m" readonly /></div>
+            <div class="field">
+              <label>Mức độ</label>
+              <select>
+                <option>Nghiêm trọng</option>
+                <option selected>Cao</option>
+                <option>Trung bình</option>
+                <option>Thấp</option>
+              </select>
+            </div>
+            <div class="field"><label>Mô tả</label><textarea placeholder="Mô tả hiện trường…"></textarea></div>
+            <div style="padding:0 16px 24px;display:flex;flex-direction:column;gap:8px">
+              <button class="btn btn-primary" onclick="submitIncident()">Tạo vấn đề</button>
+              <button class="btn btn-secondary" onclick="go('cam-patrol')">Thu thập bằng camera</button>
+              <button class="btn btn-secondary" onclick="go('estimate')">Giao việc xử lý</button>
+              <button class="btn btn-secondary" onclick="toast('Nháp mất sóng')">Lưu nháp mất sóng</button>
+            </div>
+          </div>
+        </div>
+        <div class="screen" id="sc-asset-list" data-des-id="DES-MOB-ASSET-LIST" data-tab="home">
+          <div class="top-bar solid">
+            <button class="icon-btn" onclick="go('asset-hub')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg></button>
+            <div class="nav-title">Danh sách</div>
+          </div>
+          <div class="search"><svg class="ic" viewBox="0 0 24 24"><use href="#i-search"/></svg><span>Tìm mã TS…</span></div>
+          <div class="content" style="padding-top:0">
+            <div class="card-group">
+              <div class="row" onclick="go('asset-detail')">
+                <div class="row-icon" style="background:#6750A4"><svg class="ic" viewBox="0 0 24 24"><use href="#i-cube"/></svg></div>
+                <div class="row-body"><div class="row-title">TS-20260810-014 · Cống ngang</div><div class="row-sub">QL.1 · Km 1556+000</div></div>
+                <span class="badge blue">Ghim</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-ai-hub" data-des-id="DES-MOB-AI" data-tab="home">
+          <div class="large-title">Nhận diện</div>
+          <div class="content">
+            <div class="card-group">
+              <div class="row" onclick="go('vis-capture')">
+                <div class="row-icon" style="background:#6750A4"><svg class="ic" viewBox="0 0 24 24"><use href="#i-camera"/></svg></div>
+                <div class="row-body"><div class="row-title">Nhận diện mặt đường</div><div class="row-sub">Chụp → phân loại → sự cố</div></div>
+              </div>
+              <div class="row" onclick="go('det-hitl')">
+                <div class="row-icon" style="background:var(--md-primary)"><svg class="ic" viewBox="0 0 24 24"><use href="#i-cube"/></svg></div>
+                <div class="row-body"><div class="row-title">Phát hiện tài sản</div><div class="row-sub">Người xác nhận · Xác nhận / Bỏ qua</div></div>
+              </div>
+              <div class="row" onclick="go('estimate')">
+                <div class="row-icon" style="background:var(--md-success)"><svg class="ic" viewBox="0 0 24 24"><use href="#i-sum"/></svg></div>
+                <div class="row-body"><div class="row-title">Ước lượng</div><div class="row-sub">Khối lượng · đơn giá · xác nhận</div></div>
+              </div>
+            </div>
+            <div class="section-label">Chờ người xác nhận</div>
+            <div class="card-group">
+              <div class="row" onclick="go('det-hitl')">
+                <div class="row-body"><div class="row-title">Ứng viên TS-88 · Cống</div><div class="row-sub">Độ tin cậy 91% · chờ xác nhận</div></div>
+                <button class="btn btn-primary" style="width:auto;height:36px;padding:0 12px" onclick="event.stopPropagation();go('det-hitl')">Xác nhận</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-vis-capture" data-des-id="DES-MOB-VIS-CAPTURE" data-tab="incident">
+          <div class="top-bar solid">
+            <button class="icon-btn" onclick="go('incident-list')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg></button>
+            <div class="nav-title">Nhận diện mặt đường</div>
+          </div>
+          <div class="content">
+            <div class="photo-row">
+              <div class="photo-slot filled">Ảnh</div>
+              <div class="photo-slot" onclick="openCapture('vision')"><svg class="ic ic-lg" viewBox="0 0 24 24"><use href="#i-camera"/></svg></div>
+            </div>
+            <div class="card-group">
+              <div class="row"><div class="row-body"><div class="row-sub">Vị trí đã chốt</div><div class="row-title">QL.1 · Km 1556+050</div></div></div>
+              <div class="row"><div class="row-body"><div class="row-sub">Sai số định vị</div><div class="row-title">±4 m</div></div></div>
+              <div class="row"><div class="row-body"><div class="row-sub">Phân loại</div><div class="row-title">Nứt dọc</div></div></div>
+              <div class="row"><div class="row-body"><div class="row-sub">Mức</div><div class="row-title">Cao</div></div><span class="badge orange">Cao</span></div>
+            </div>
+            <div style="padding:16px"><button class="btn btn-primary" onclick="toast('Đã gắn sự cố')">Gắn sự cố</button></div>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-det-hitl" data-des-id="DES-MOB-DET-HITL" data-tab="home">
+          <div class="top-bar solid">
+            <button class="icon-btn" onclick="go('asset-hub')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg></button>
+            <div class="nav-title">Phát hiện TS</div>
+          </div>
+          <div class="content">
+            <div class="hero-card" style="background:linear-gradient(145deg,#6750A4,#4F378B)">
+              <div class="hero-eyebrow">Người xác nhận · <span data-net-signal></span></div>
+              <div class="hero-title">Ứng viên TS-88 · Cống</div>
+              <div class="hero-meta">QL.1 Km 1556+000 · độ tin cậy 91%</div>
+            </div>
+            <div style="padding:0 16px;display:flex;flex-direction:column;gap:8px">
+              <button class="btn btn-primary" onclick="toast('Đã xác nhận · vào sổ tài sản')">Xác nhận</button>
+              <button class="btn btn-secondary" onclick="toast('Đã bỏ qua · nhận nhầm')">Bỏ qua</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-estimate" data-des-id="DES-MOB-EST" data-tab="work">
+          <div class="top-bar solid">
+            <button class="icon-btn" onclick="go('mnt-list')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg></button>
+            <div class="nav-title">Giao việc xử lý</div>
+          </div>
+          <div class="content">
+            <div class="card-group">
+              <div class="row"><div class="row-body"><div class="row-sub">Từ sự cố</div><div class="row-title">SC-2401 · Ổ gà · QL.1 Km 1556+040</div></div></div>
+              <div class="row"><div class="row-body"><div class="row-sub">Loại tài sản</div><div class="row-title">Mặt đường</div></div></div>
+            </div>
+            <div class="field"><label>Giao cho *</label><input value="Nguyễn Văn A · Tổ tuần đường" /></div>
+            <div class="field"><label>Khối lượng</label><input value="12.5" inputmode="decimal" /></div>
+            <div class="field"><label>Đơn giá</label><input value="850.000" inputmode="decimal" /></div>
+            <div class="field"><label>Thành tiền</label><input value="10.625.000" readonly /></div>
+            <div class="field"><label>Thời hạn xử lý (giờ)</label><input value="24" readonly /></div>
+            <div class="field"><label>Hạn xử lý</label><input value="19/08/2026 08:00" readonly /></div>
+            <div style="padding:8px 16px;display:flex;flex-direction:column;gap:8px">
+              <button class="btn btn-primary" onclick="toast('Đã giao việc · CV-20260818-0003 · thời hạn 24 giờ')">Giao việc</button>
+              <button class="btn btn-secondary" onclick="toast('Đã lưu nháp ước lượng')">Lưu nháp</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-cam-view" data-des-id="DES-MOB-CAM-VIEW" data-tab="me">
+          <div class="top-bar solid">
+            <button class="icon-btn" onclick="go('me')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg></button>
+            <div class="nav-title">Camera xem</div>
+            <button class="btn" style="background:transparent;color:var(--md-primary)" onclick="toast('Đã làm mới ảnh')">Làm mới</button>
+          </div>
+          <div class="content">
+            <div class="card-group" style="min-height:180px;display:grid;place-items:center;background:#1C1B1F;color:#fff">
+              <div style="text-align:center;padding:24px">
+                <svg class="ic ic-xl" viewBox="0 0 24 24"><use href="#i-video"/></svg>
+                <div style="margin-top:8px;font-weight:600">Ảnh JPEG · iDS-TCM403</div>
+                <div style="font-size:13px;opacity:.7">Cập nhật 08:41</div>
+              </div>
+            </div>
+            <div class="section-label">Sự kiện</div>
+            <div class="card-group">
+              <div class="row"><div class="row-body"><div class="row-title">Tốc độ 72 km/h</div><div class="row-sub">08:41</div></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-mnt-list" data-des-id="DES-MOB-MNT-LIST" data-tab="work">
+          <div class="top-bar solid">
+            <button class="icon-btn" onclick="go('home')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg></button>
+            <div class="nav-title">Danh sách công việc</div>
+            <button class="icon-btn" onclick="toast('Bộ lọc · tuyến đường')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-list"/></svg></button>
+          </div>
+          <div class="search"><svg class="ic" viewBox="0 0 24 24"><use href="#i-search"/></svg><span>Tìm kiếm công việc…</span></div>
+          <div class="content" style="padding-top:0">
+            <div class="card-group" style="margin-bottom:10px">
+              <div class="row" onclick="go('estimate')">
+                <div class="row-icon" style="background:var(--md-success)"><svg class="ic" viewBox="0 0 24 24"><use href="#i-sum"/></svg></div>
+                <div class="row-body"><div class="row-title">Giao việc xử lý</div><div class="row-sub">Khối lượng · thời hạn · giao việc</div></div>
+              </div>
+            </div>
+            <div class="rich-card">
+              <div class="rc-main">
+                <div class="rc-body">
+                  <div class="rc-title">Vá mặt đường</div>
+                  <div class="rc-line">Hạt trưởng VP-IV.1 giao việc cho Nguyễn Văn A · Tổ tuần đường</div>
+                  <div class="rc-line">2026-08-10 08:30 — 2026-08-12 17:00</div>
+                  <div class="rc-line">Từ sự cố SC-2401 · QL.1 Km 1556+080</div>
+                </div>
+              </div>
+              <div class="rc-status warn">Tình trạng xử lý: Chờ xử lý</div>
+              <div class="rc-actions">
+                <button type="button" onclick="toast('Trao đổi công việc')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chat"/></svg></button>
+                <button type="button" onclick="toast('Cập nhật trạng thái · ảnh + định vị')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-sync"/></svg></button>
+                <button type="button" onclick="go('estimate')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-sum"/></svg></button>
+              </div>
+            </div>
+            <div class="rich-card">
+              <div class="rc-main">
+                <div class="rc-body">
+                  <div class="rc-title">Nạo cống</div>
+                  <div class="rc-line">Hạt trưởng giao việc cho Trần Khánh · Chi cục II.2</div>
+                  <div class="rc-line">2026-08-09 07:00 — 2026-08-09 16:00</div>
+                  <div class="rc-line">Tuyến HCM</div>
+                </div>
+              </div>
+              <div class="rc-status ok">Tình trạng xử lý: Đã hoàn thành</div>
+              <div class="rc-actions">
+                <button type="button" onclick="toast('Trao đổi công việc')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chat"/></svg></button>
+                <button type="button" onclick="toast('Nhật ký xử lý')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-list"/></svg></button>
+                <button type="button" onclick="go('estimate')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-sum"/></svg></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-ops" data-des-id="DES-MOB-OPS" data-tab="me">
+          <div class="top-bar solid">
+            <button class="icon-btn" id="nav-back" onclick="go('me')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg></button>
+            <div class="nav-title">Thông báo</div>
+          </div>
+          <div class="content">
+            <div class="card-group">
+              <div class="row" id="row-ops-1" onclick="toast('Đã đọc chỉ đạo')"><div class="row-body"><div class="row-title">Ưu tiên SC-2401</div><div class="row-sub">Hạt trưởng · 08:12</div></div><span class="badge blue">Mới</span></div>
+              <div class="row" id="row-ops-2"><div class="row-body"><div class="row-title">Ca PAT-…0014 độ phủ 67%</div><div class="row-sub">Hệ thống · 07:50</div></div><span class="badge gray">Đã đọc</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-me" data-des-id="DES-MOB-ME" data-tab="me">
+          <div class="large-title">Tôi</div>
+          <div class="content">
+            <div class="card-group">
+              <div class="row">
+                <div class="row-icon" style="background:var(--md-primary);border-radius:20px"><svg class="ic" viewBox="0 0 24 24"><use href="#i-person"/></svg></div>
+                <div class="row-body"><div class="row-title">Nguyễn Văn A</div><div class="row-sub">Tuần đường · Văn phòng QLĐB IV.1</div></div>
+              </div>
+            </div>
+            <div class="section-label">Đồng bộ</div>
+            <div class="card-group">
+              <div class="row" onclick="go('patrol-offline')">
+                <div class="row-icon" style="background:#E65100"><svg class="ic" viewBox="0 0 24 24"><use href="#i-sync"/></svg></div>
+                <div class="row-body"><div class="row-title">Hàng đợi mất sóng</div><div class="row-sub">3 chờ đồng bộ</div></div>
+                <span class="badge orange">3</span>
+              </div>
+              <div class="row">
+                <div class="row-icon" style="background:#1B8A4A"><svg class="ic" viewBox="0 0 24 24"><use href="#i-wifi"/></svg></div>
+                <div class="row-body"><div class="row-title">Tín hiệu</div><div class="row-sub"><span data-net-signal="light"></span></div></div>
+              </div>
+            </div>
+            <div class="section-label">Cập nhật thông tin</div>
+            <div class="card-group">
+              <div class="row" onclick="go('feedback')">
+                <div class="row-icon" style="background:#1B8A4A"><svg class="ic" viewBox="0 0 24 24"><use href="#i-info"/></svg></div>
+                <div class="row-body"><div class="row-title">Góp ý</div><div class="row-sub">Phản ánh tính năng phần mềm</div></div>
+              </div>
+              <div class="row" onclick="go('cam-view')">
+                <div class="row-icon" style="background:#6750A4"><svg class="ic" viewBox="0 0 24 24"><use href="#i-video"/></svg></div>
+                <div class="row-body"><div class="row-title">Camera xem</div></div>
+              </div>
+              <div class="row" onclick="go('ops')">
+                <div class="row-icon" style="background:var(--md-primary)"><svg class="ic" viewBox="0 0 24 24"><use href="#i-bell"/></svg></div>
+                <div class="row-body"><div class="row-title">Thông báo</div></div>
+                <span class="badge blue">2</span>
+              </div>
+              <div class="row" onclick="toast('Cài đặt')">
+                <div class="row-icon" style="background:#79747E"><svg class="ic" viewBox="0 0 24 24"><use href="#i-gear"/></svg></div>
+                <div class="row-body"><div class="row-title">Cài đặt</div></div>
+              </div>
+              <div class="row" onclick="logout()">
+                <div class="row-body"><div class="row-title" style="color:var(--md-error)">Đăng xuất</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-incident-detail" data-des-id="DES-MOB-INC-DETAIL" data-tab="incident">
+          <div class="top-bar solid">
+            <button class="icon-btn" onclick="go('incident-list')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg></button>
+            <div class="nav-title">Chi tiết sự cố</div>
+          </div>
+          <div class="content">
+            <div style="padding:16px 20px 8px">
+              <div style="font-size:13px;color:var(--md-muted)">Mã</div>
+              <div style="font-size:24px;font-weight:700">SC-2401</div>
+              <div style="margin-top:8px"><span class="badge red">Nghiêm trọng · Đang mở</span></div>
+            </div>
+            <div class="card-group">
+              <div class="row"><div class="row-body"><div class="row-sub">Loại</div><div class="row-title">Nứt mặt đường</div></div></div>
+              <div class="row"><div class="row-body"><div class="row-sub">Vị trí ghim tự động</div><div class="row-title">QL.1 · Km 1556+080</div></div></div>
+              <div class="row"><div class="row-body"><div class="row-sub">Định vị</div><div class="row-title">10.9620, 106.8518 · ±5 m</div></div></div>
+              <div class="row"><div class="row-body"><div class="row-sub">Nguồn</div><div class="row-title">Tuần đường PAT-…0014</div></div></div>
+            </div>
+            <div style="padding:16px;display:flex;flex-direction:column;gap:8px">
+              <button class="btn btn-primary" onclick="go('estimate')">Giao việc xử lý</button>
+              <button class="btn btn-secondary" onclick="go('gis-map')">Xem trên bản đồ</button>
+              <button class="btn btn-secondary" onclick="toast('Đã đóng sự cố')">Đóng sự cố</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-asset-detail" data-des-id="DES-MOB-ASSET-DETAIL" data-tab="home">
+          <div class="top-bar solid">
+            <button class="icon-btn" onclick="go('asset-list')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg></button>
+            <div class="nav-title">Chi tiết tài sản</div>
+          </div>
+          <div class="content">
+            <div style="padding:16px 20px 8px">
+              <div style="font-size:13px;color:var(--md-muted)">Mã TS</div>
+              <div style="font-size:24px;font-weight:700">TS-20260810-014</div>
+            </div>
+            <div class="card-group">
+              <div class="row"><div class="row-body"><div class="row-sub">Loại</div><div class="row-title">Cống</div></div></div>
+              <div class="row"><div class="row-body"><div class="row-sub">Tuyến · lý trình</div><div class="row-title">QL.1 · Km 1556+000</div></div></div>
+              <div class="row"><div class="row-body"><div class="row-sub">Tọa độ</div><div class="row-title">11.5300, 109.0040</div></div></div>
+            </div>
+            <div style="padding:16px"><button class="btn btn-primary" onclick="go('gis-map')">Ghim trên bản đồ</button></div>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-checkin-detail" data-des-id="DES-MOB-CI-DETAIL" data-tab="field">
+          <div class="top-bar solid">
+            <button class="icon-btn" onclick="go('patrol-detail')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg></button>
+            <div class="nav-title">Điểm tuần đã lưu</div>
+          </div>
+          <div class="content">
+            <div class="offline-banner" style="background:#C8E6C9;color:#1B5E20">Đã lưu · 07:28</div>
+            <div class="card-group">
+              <div class="row"><div class="row-body"><div class="row-sub">Điểm KH</div><div class="row-title">Km 1551+200 · Xuân Hải</div></div></div>
+              <div class="row"><div class="row-body"><div class="row-sub">Định vị / sai số</div><div class="row-title">11.5800, 109.0120 · ±4 m</div></div></div>
+              <div class="row"><div class="row-body"><div class="row-sub">Cách điểm</div><div class="row-title">12 m · đạt</div></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-asset-collect" data-des-id="DES-MOB-ASSET-COLLECT" data-tab="home">
+          <div class="top-bar solid">
+            <button class="icon-btn" onclick="go('asset-hub')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg></button>
+            <div class="nav-title">Thu thập thủ công</div>
+          </div>
+          <div class="content">
+            <div class="field"><label>Loại tài sản *</label><select><option>Cột km</option><option>Biển báo</option><option>Cống</option><option>Hộ lan</option></select></div>
+            <div class="field"><label>Tên / mô tả *</label><input value="Cột Km 1556" /></div>
+            <div class="field"><label>Tuyến / lý trình *</label><input value="QL.1 · Km 1556+000" readonly /></div>
+            <div class="field"><label>Định vị ghim tự động *</label><input value="11.5300, 109.0040 · ±5 m" readonly /></div>
+            <div class="photo-row">
+              <div class="photo-slot" onclick="openCapture('asset')"><svg class="ic ic-lg" viewBox="0 0 24 24"><use href="#i-camera"/></svg></div>
+            </div>
+            <div style="padding:8px 16px"><button class="btn btn-primary" onclick="toast('Đã thêm tài sản · TS-20260818-021')">Thêm tài sản</button></div>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-asset-adjust" data-des-id="DES-MOB-ASSET-ADJUST" data-tab="home">
+          <div class="top-bar solid">
+            <button class="icon-btn" onclick="go('asset-hub')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg></button>
+            <div class="nav-title">Cập nhật / bớt</div>
+          </div>
+          <div class="search"><svg class="ic" viewBox="0 0 24 24"><use href="#i-search"/></svg><span>Tìm mã TS…</span></div>
+          <div class="content" style="padding-top:0">
+            <div class="card-group">
+              <div class="row">
+                <div class="row-body"><div class="row-title">TS-20260810-014 · Cống ngang</div><div class="row-sub">QL.1 · Km 1556+000</div></div>
+                <button class="btn" style="background:transparent;color:var(--md-primary);width:auto;padding:0 8px" onclick="go('asset-detail')">Sửa</button>
+                <button class="btn" style="background:transparent;color:var(--md-error);width:auto;padding:0 8px" onclick="openModal('asset-remove')">Bớt</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-asset-ai" data-des-id="DES-MOB-ASSET-AI" data-tab="home">
+          <div class="top-bar solid">
+            <button class="icon-btn" onclick="go('asset-hub')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg></button>
+            <div class="nav-title">Camera AI</div>
+          </div>
+          <div class="content">
+            <div class="section-label">Chụp tài sản / thiết bị mới</div>
+            <div class="photo-row">
+              <div class="photo-slot" onclick="openCapture('asset-ai')"><svg class="ic ic-lg" viewBox="0 0 24 24"><use href="#i-camera"/></svg></div>
+            </div>
+            <div class="card-group">
+              <div class="row"><div class="row-body"><div class="row-sub">Vị trí đã chốt</div><div class="row-title">QL.1 · Km 1556+000</div></div></div>
+              <div class="row"><div class="row-body"><div class="row-sub">Loại đề xuất</div><div class="row-title">Cống</div></div></div>
+              <div class="row"><div class="row-body"><div class="row-sub">Độ tin cậy</div><div class="row-title">91%</div></div></div>
+            </div>
+            <div style="padding:16px;display:flex;flex-direction:column;gap:8px">
+              <button class="btn btn-primary" onclick="go('det-hitl')">Gửi nhận diện</button>
+              <button class="btn btn-secondary" onclick="go('asset-hub')">Hủy</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-supervise" data-des-id="DES-MOB-SUPERVISE" data-tab="home">
+          <div class="top-bar solid">
+            <button class="icon-btn" onclick="go('home')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg></button>
+            <div class="nav-title">Giám sát tuần đường</div>
+          </div>
+          <div class="seg">
+            <button class="on" type="button">Danh sách check in</button>
+            <button type="button" onclick="go('patrol-map')">Bản đồ</button>
+          </div>
+          <div class="content" style="padding-top:0">
+            <div class="rich-card" onclick="go('checkin-detail')">
+              <div class="rc-main">
+                <div class="rc-thumb"></div>
+                <div class="rc-body">
+                  <div class="rc-title">Nguyễn Văn A</div>
+                  <div class="rc-line">Tổ tuần đường · VP-IV.1</div>
+                  <div class="rc-line">QL.1 Km 1556+000 · Xuân Hải</div>
+                  <div class="rc-line" style="color:#1B5E20">2026-08-10 08:40:12</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-field-reflect" data-des-id="DES-MOB-FIELD-REFLECT" data-tab="field">
+          <div class="top-bar solid">
+            <button class="icon-btn" onclick="go('patrol-home')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg></button>
+            <div class="nav-title">Ghi nhận hư hỏng</div>
+          </div>
+          <div class="content">
+            <div class="section-label">Loại phản ánh</div>
+            <div class="kind-pills" data-des-id="DES-MOB-FIELD-KIND">
+              <button type="button" class="on">Hư</button>
+              <button type="button">Mất</button>
+              <button type="button">Hỏng</button>
+            </div>
+            <div class="section-label">Ảnh hiện trường</div>
+            <div class="photo-row">
+              <div class="photo-slot filled">Ảnh</div>
+              <div class="photo-slot" onclick="openCapture('reflect')"><svg class="ic ic-lg" viewBox="0 0 24 24"><use href="#i-camera"/></svg></div>
+            </div>
+            <div class="card-group">
+              <div class="row"><div class="row-body"><div class="row-sub">Nhận diện</div><div class="row-title">Ổ gà · Mặt đường</div></div></div>
+              <div class="row"><div class="row-body"><div class="row-sub">Mức</div><div class="row-title">Cao</div></div><span class="badge orange">Cao</span></div>
+              <div class="row"><div class="row-body"><div class="row-sub">Vị trí đã chốt</div><div class="row-title">QL.1 · Km 1556+040 · ±4 m</div></div></div>
+            </div>
+            <div class="section-label">Checklist theo loại tài sản</div>
+            <div class="card-group" id="ak32-chk-reflect-and"></div>
+            <div style="padding:8px 16px;display:flex;flex-direction:column;gap:8px">
+              <button class="btn btn-primary" onclick="toast('Đã tạo vấn đề SC-2408 · gắn ca tuần')">Tạo vấn đề</button>
+              <button class="btn btn-secondary" onclick="toast('Đã lưu nháp · Lưu trữ')">Lưu nháp mất sóng</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-cam-patrol" data-des-id="DES-MOB-CAM-PATROL" data-tab="field">
+          <div class="top-bar solid">
+            <button class="icon-btn" onclick="go('patrol-home')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg></button>
+            <div class="nav-title">Thu thập bằng camera</div>
+          </div>
+          <div class="content">
+            <div class="finder" data-des-id="DES-MOB-CAM-FINDER">
+              <div class="box"></div>
+              <div class="stamp">QL.1 · Km 1556+040<br/>11.5308, 109.0082 · ±4 m · đã chốt</div>
+            </div>
+            <div class="card-group">
+              <div class="row"><div class="row-body"><div class="row-sub">Phát hiện</div><div class="row-title">Ổ gà · Mặt đường</div></div></div>
+              <div class="row"><div class="row-body"><div class="row-sub">Độ tin cậy</div><div class="row-title">91%</div></div></div>
+              <div class="row"><div class="row-body"><div class="row-sub">Hành động</div><div class="row-title">Tạo vấn đề sau xác nhận</div></div></div>
+            </div>
+            <div style="padding:8px 16px;display:flex;flex-direction:column;gap:8px">
+              <button class="btn btn-primary" onclick="toast('Đã tạo vấn đề SC-2409 · định vị đã chốt')">Xác nhận · tạo vấn đề</button>
+              <button class="btn btn-secondary" onclick="toast('Đã bỏ · nhận nhầm')">Bỏ qua</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-asset-form" data-des-id="DES-MOB-ASSET-FORM" data-tab="home">
+          <div class="top-bar solid">
+            <button class="icon-btn" onclick="go('asset-type')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg></button>
+            <div class="nav-title" data-ak32-form-title>Mẫu thông số</div>
+          </div>
+          <div class="content" id="ak32-form-and">
+            <div class="section-label">Thông số (Biểu / mẫu loại)</div>
+            <div data-ak32-form-fields></div>
+            <div class="section-label">Checklist sự cố</div>
+            <div class="card-group" data-ak32-form-chk></div>
+            <div style="padding:8px 16px;display:flex;flex-direction:column;gap:8px">
+              <button class="btn btn-primary" onclick="toast('Đã lưu hồ sơ · định vị đã chốt')">Lưu</button>
+              <button class="btn btn-secondary" onclick="openIncidentForm()">Ghi sự cố</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen" id="sc-feedback" data-des-id="DES-MOB-FEEDBACK" data-tab="me">
+          <div class="top-bar solid">
+            <button class="icon-btn" onclick="go('me')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg></button>
+            <div class="nav-title">Góp ý</div>
+          </div>
+          <div class="content">
+            <div class="field"><label>Nội dung góp ý</label><textarea placeholder="Mô tả tính năng cần sửa / bổ sung…"></textarea></div>
+            <div style="padding:16px"><button class="btn btn-primary" onclick="toast('Đã gửi góp ý')">Gửi góp ý</button></div>
+          </div>
+        </div>
+
+        <nav class="nav-bar" id="tabBar" data-des-id="DES-MOB-TABBAR">
+          <button class="tab active" data-tab="home" onclick="tab('home')"><div class="ti"><svg class="ic" viewBox="0 0 24 24"><use href="#i-home"/></svg></div>Trang Chủ</button>
+          <button class="tab" data-tab="field" onclick="tab('field')"><div class="ti"><svg class="ic" viewBox="0 0 24 24"><use href="#i-mappin"/></svg></div>Tuần đường</button>
+          <button class="tab" data-tab="incident" onclick="tab('incident')"><div class="ti"><svg class="ic" viewBox="0 0 24 24"><use href="#i-warning"/></svg></div>Vấn đề</button>
+          <button class="tab" data-tab="work" onclick="tab('work')"><div class="ti"><svg class="ic" viewBox="0 0 24 24"><use href="#i-wrench"/></svg></div>Công việc</button>
+          <button class="tab" data-tab="me" onclick="tab('me')"><div class="ti"><svg class="ic" viewBox="0 0 24 24"><use href="#i-person"/></svg></div>Tôi</button>
+        </nav>
+        <div class="gesture"></div>
+
+        <div class="sheet-backdrop" id="sheetBg" onclick="closeSheet()"></div>
+        <div class="sheet" id="sheet-checkin" data-des-id="DES-MOB-PAT-CHECKIN-SHEET">
+          <div class="sheet-handle"></div>
+          <div class="sheet-nav">
+            <button class="icon-btn" onclick="requestCloseSheet()" style="color:var(--md-primary);width:auto;padding:0 12px">Hủy</button>
+            <div class="nav-title">Ghi điểm tuần</div>
+            <button class="icon-btn" onclick="closeSheet();toast('Đã ghi điểm tuần · điểm tuần thứ 3')" style="color:var(--md-primary);width:auto;padding:0 12px">Lưu</button>
+          </div>
+          <div class="sheet-body">
+            <div class="offline-banner" data-des-id="DES-MOB-LOC-MISMATCH" id="ci-match-banner" style="background:#C8E6C9;color:#1B5E20">
+              Đúng điểm · 18 m · định vị ±4 m · ghim tự động
+            </div>
+            <div class="field"><label>Điểm kế hoạch *</label><input value="Km 1561+134 · Phước Dinh" readonly /></div>
+            <div class="field"><label>Tuyến / lý trình *</label><input value="QL.1 · Km 1561+134" readonly /></div>
+            <div class="field"><label>Định vị ghim tự động *</label><input value="11.6030, 109.0160 · ±4 m" readonly /></div>
+            <div class="field"><label>Cách điểm KH *</label><input value="18 m · Đúng điểm" readonly /></div>
+            <div class="field"><label>Nội dung</label><textarea>Mặt đường khô, lan can đạt</textarea></div>
+            <div class="photo-row">
+              <div class="photo-slot filled">Ảnh</div>
+              <div class="photo-slot" onclick="openCapture('checkin')"><svg class="ic ic-lg" viewBox="0 0 24 24"><use href="#i-camera"/></svg></div>
+            </div>
+            <div class="sheet-footer">
+              <button class="btn btn-primary" id="ci-save-btn" onclick="saveCheckin()">Ghi nhận điểm tuần</button>
+              <button class="btn btn-secondary" onclick="closeSheet()">Hủy</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="sheet" id="sheet-incident" data-des-id="DES-MOB-INC-CREATE-SHEET">
+          <div class="sheet-handle"></div>
+          <div class="sheet-nav">
+            <button class="icon-btn" onclick="requestCloseSheet()" style="color:var(--md-primary);width:auto;padding:0 12px">Hủy</button>
+            <div class="nav-title">Tạo sự cố</div>
+            <button class="icon-btn" onclick="closeSheet();toast('Đã tạo Nháp sự cố')" style="color:var(--md-primary);width:auto;padding:0 12px">Lưu</button>
+          </div>
+          <div class="sheet-body">
+            <div class="field"><label>Loại sự cố</label><select><option>Nứt / ổ gà</option><option>Cống</option></select></div>
+            <div class="field"><label>Mức độ</label><select><option>Nghiêm trọng</option><option selected>Cao</option></select></div>
+            <div class="field"><label>Vị trí ghim tự động *</label><input value="QL.1 · Km 1556+080 · định vị ±5 m" readonly /></div>
+            <div class="field"><label>Mô tả</label><textarea placeholder="Mô tả hiện trường…"></textarea></div>
+            <div class="photo-row">
+              <div class="photo-slot" onclick="openCapture('incident')"><svg class="ic ic-lg" viewBox="0 0 24 24"><use href="#i-camera"/></svg></div>
+            </div>
+            <div class="sheet-footer">
+              <button class="btn btn-primary" onclick="closeSheet();toast('Đã tạo sự cố · gắn ca PAT-…0014')">Gửi sự cố</button>
+              <button class="btn btn-secondary" onclick="closeSheet();toast('Nháp mất sóng')">Lưu nháp mất sóng</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-backdrop" id="modal-gps" data-des-id="DES-MOB-GPS-DENY">
+          <div class="modal-card">
+            <h3>Định vị bị tắt</h3>
+            <p>Cần vị trí để chấm công. Mở Cài đặt → Quyền vị trí cho RMMS.</p>
+            <div class="modal-actions">
+              <button class="btn btn-primary" onclick="closeModal();toast('Đã sao chép: Cài đặt → Quyền vị trí')">Sao chép hướng dẫn</button>
+              <button class="btn btn-secondary" onclick="closeModal()">Để sau</button>
+            </div>
+          </div>
+        </div>
+        <div class="modal-backdrop" id="modal-leave" data-des-id="DES-MOB-LEAVE">
+          <div class="modal-card">
+            <h3>Bỏ thay đổi?</h3>
+            <p>Nội dung chưa lưu sẽ mất.</p>
+            <div class="modal-actions">
+              <button class="btn btn-primary" onclick="confirmLeave()">Bỏ thay đổi</button>
+              <button class="btn btn-secondary" onclick="closeModal()">Tiếp tục sửa</button>
+            </div>
+          </div>
+        </div>
+        <div class="modal-backdrop" id="modal-asset-remove" data-des-id="DES-MOB-ASSET-REMOVE">
+          <div class="modal-card">
+            <h3>Bớt tài sản khỏi sổ?</h3>
+            <p>Ẩn khỏi danh sách hiện trường (không xóa hẳn). Có thể khôi phục trên Web.</p>
+            <div class="modal-actions">
+              <button class="btn btn-primary" onclick="closeModal();toast('Đã bớt tài sản · TS-20260810-014')">Bớt khỏi sổ</button>
+              <button class="btn btn-secondary" onclick="closeModal()">Giữ lại</button>
+            </div>
+          </div>
+        </div>
+        <div class="capture-overlay" id="captureOverlay" data-des-id="DES-MOB-PHOTO-GPS">
+          <div class="capture-finder" id="captureFinder">
+            <button class="capture-close" type="button" onclick="closeCapture()">Đóng</button>
+            <div class="capture-live">Định vị ±4 m</div>
+            <button class="shutter" type="button" onclick="takePhoto()" aria-label="Chụp"></button>
+          </div>
+          <div class="capture-preview" id="capturePreview" data-des-id="DES-MOB-GPS-PIN">
+            <div class="capture-photo">
+              <span class="gps-stamp">QL.1 · Km 1556+050 · ±4 m</span>
+            </div>
+            <div class="mini-pin"><i></i></div>
+            <div class="card-group">
+              <div class="row"><div class="row-body"><div class="row-sub">Vị trí đã chốt</div><div class="row-title">QL.1 · Km 1556+050</div></div></div>
+              <div class="row"><div class="row-body"><div class="row-sub">Sai số định vị</div><div class="row-title">±4 m</div></div></div>
+            </div>
+            <div style="padding:8px 16px 24px;display:flex;flex-direction:column;gap:8px">
+              <button class="btn btn-primary" onclick="usePhoto()">Dùng ảnh</button>
+              <button class="btn btn-secondary" onclick="retakePhoto()">Chụp lại</button>
+            </div>
+          </div>
+        </div>
+        <div class="toast" id="toast"></div>
+      </div>
+    </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="../map-oms.js"></script>
+  <script src="../asset-kcht-icons.js"></script>
+  <script src="../asset-kcht-32.js"></script>
+  <script src="../feature-guide.js"></script>
+  <script src="../net-signal.js"></script>
+  <script>
+    const TAB_HOME = { home: 'home', field: 'patrol-home', incident: 'incident-list', work: 'mnt-list', me: 'me' };
+    function setAuthMode(isAuth) {
+      document.getElementById('app').classList.toggle('app-auth', isAuth);
+      document.getElementById('tabBar').classList.toggle('hidden', isAuth);
+    }
+    let isGuest = true;
+    const STAFF = new Set([
+      'patrol-home', 'patrol-map', 'checkin-detail', 'attendance', 'incident-list', 'incident-detail',
+      'supervise', 'asset-hub', 'asset-collect', 'asset-ai', 'asset-adjust', 'gis-map', 'asset-detail',
+      'field-reflect', 'cam-patrol', 'vis-capture', 'det-hitl', 'asset-types', 'asset-type', 'inc-form',
+      'asset-form', 'mnt-list', 'estimate', 'me', 'ops', 'feedback', 'cam-view'
+    ]);
+    function applyHomeSession() {
+      const who = document.getElementById('home-who');
+      const btn = document.getElementById('btn-home-login');
+      if (who) who.textContent = isGuest ? 'Khách' : 'Nguyễn Văn A';
+      if (btn) btn.hidden = !isGuest;
+      const quick = document.getElementById('home-quick');
+      const guest = document.getElementById('home-guest');
+      const staff = document.getElementById('home-staff');
+      if (quick) quick.hidden = isGuest;
+      if (guest) guest.hidden = !isGuest;
+      if (staff) staff.hidden = isGuest;
+    }
+    function go(id, force) {
+      if (!force && isGuest && STAFF.has(id)) {
+        toast('Đăng nhập để dùng nghiệp vụ');
+        id = 'login';
+      }
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('on'));
+      const sc = document.getElementById('sc-' + id);
+      if (!sc) return;
+      sc.classList.add('on');
+      const t = sc.dataset.tab;
+      setAuthMode(t === 'auth');
+      document.querySelectorAll('.tab').forEach(el => el.classList.toggle('active', el.dataset.tab === t));
+      document.querySelectorAll('#jumpChips .chip').forEach(c => c.classList.toggle('active', c.dataset.jump === id));
+      closeSheet();
+      closeCapture();
+      if (window.MobileOmsMap) window.MobileOmsMap.onScreen(id);
+      if (window.FeatureGuide) window.FeatureGuide.set(id);
+    }
+    function tab(name) { go(TAB_HOME[name] || 'home'); }
+    function loginOk() {
+      isGuest = false;
+      applyHomeSession();
+      toast('Đăng nhập thành công');
+      setTimeout(() => go('home'), 350);
+    }
+    function logout() {
+      isGuest = true;
+      applyHomeSession();
+      toast('Đã đăng xuất');
+      setTimeout(() => go('home'), 300);
+    }
+    function togglePass() {
+      const input = document.getElementById('f-pass');
+      const use = document.getElementById('eyeUse');
+      const show = input.type === 'password';
+      input.type = show ? 'text' : 'password';
+      use.setAttribute('href', show ? '#i-eye-off' : '#i-eye');
+    }
+    let ciWrong = false;
+    function toggleWrongPoint() {
+      ciWrong = !ciWrong;
+      const b = document.getElementById('ci-match-banner');
+      const btn = document.getElementById('ci-save-btn');
+      if (!b) return;
+      if (ciWrong) {
+        b.style.background = '#FFCDD2';
+        b.style.color = '#B71C1C';
+        b.textContent = 'Sai điểm · 86 m · gần Km 1556+000 (Cống ngang) — chặn Lưu';
+        if (btn) { btn.disabled = true; btn.style.opacity = '.45'; }
+        toast('Sai điểm kế hoạch · không lưu');
+      } else {
+        b.style.background = '#C8E6C9';
+        b.style.color = '#1B5E20';
+        b.textContent = 'Đúng điểm · 18 m · định vị ±4 m · ghim tự động';
+        if (btn) { btn.disabled = false; btn.style.opacity = '1'; }
+      }
+    }
+    function saveCheckin() {
+      if (ciWrong) { toast('Chặn — không đúng điểm kế hoạch'); return; }
+      closeSheet();
+      toast('Đã ghi điểm tuần · điểm tuần thứ 3');
+    }
+    function pinHereCheckin() {
+      toast('Đã ghim vị trí hiện tại · QL.1 · Km 1561+134 · ±4 m');
+      openSheet('checkin');
+    }
+    function openSheet(name) {
+      document.getElementById('app').classList.add('sheet-open');
+      document.getElementById('sheetBg').classList.add('open');
+      document.querySelectorAll('.sheet').forEach(s => s.classList.remove('open'));
+      document.getElementById('sheet-' + name).classList.add('open');
+      if (window.FeatureGuide) window.FeatureGuide.set(name);
+    }
+    function closeSheet() {
+      document.getElementById('app').classList.remove('sheet-open');
+      document.getElementById('sheetBg').classList.remove('open');
+      document.querySelectorAll('.sheet').forEach(s => s.classList.remove('open'));
+    }
+    function requestCloseSheet() { openModal('leave'); }
+    function confirmLeave() { closeModal(); closeSheet(); toast('Đã hủy — không lưu'); }
+    function openModal(name) {
+      document.querySelectorAll('.modal-backdrop').forEach(m => m.classList.remove('open'));
+      const el = document.getElementById('modal-' + name);
+      if (el) el.classList.add('open');
+    }
+    function closeModal() { document.querySelectorAll('.modal-backdrop').forEach(m => m.classList.remove('open')); }
+    let captureTarget = 'vision';
+    function openCapture(target) {
+      captureTarget = target || 'vision';
+      const ov = document.getElementById('captureOverlay');
+      if (!ov) return;
+      document.getElementById('app').classList.add('sheet-open');
+      ov.classList.add('open');
+      ov.classList.remove('previewed');
+      if (window.FeatureGuide) window.FeatureGuide.set('photo-capture');
+    }
+    function takePhoto() {
+      document.getElementById('captureOverlay').classList.add('previewed');
+    }
+    function retakePhoto() {
+      document.getElementById('captureOverlay').classList.remove('previewed');
+    }
+    function usePhoto() {
+      const root = captureTarget === 'checkin'
+        ? document.querySelector('#sheet-checkin .photo-row')
+        : captureTarget === 'incident'
+          ? document.querySelector('#sheet-incident .photo-row')
+          : captureTarget === 'inc-form'
+            ? document.querySelector('#sc-inc-form .photo-row')
+          : captureTarget === 'asset'
+            ? document.querySelector('#sc-asset-collect .photo-row')
+            : captureTarget === 'asset-ai'
+              ? document.querySelector('#sc-asset-ai .photo-row')
+              : captureTarget === 'reflect'
+                ? document.querySelector('#sc-field-reflect .photo-row')
+                : document.querySelector('#sc-vis-capture .photo-row');
+      const empty = root && root.querySelector('.photo-slot:not(.filled)');
+      if (empty) {
+        empty.classList.add('filled');
+        empty.textContent = 'Ảnh';
+      }
+      if (captureTarget === 'inc-form' && window.AssetKcht32) {
+        const form = document.getElementById('ak32-inc-and');
+        const t = window.AssetKcht32.byCode(form && form.dataset.ak32);
+        const first = t && window.AssetKcht32.checklist(t.code)[0];
+        const ai = form && form.querySelector('[data-inc-ai]');
+        if (ai) ai.textContent = (first ? first[1] : 'Hư hỏng') + ' · ' + (t ? t.name : 'Tài sản') + ' · định vị đã chốt';
+      }
+      closeCapture();
+      toast('Đã gắn ảnh · vị trí đã chốt');
+    }
+    function closeCapture() {
+      const ov = document.getElementById('captureOverlay');
+      if (!ov) return;
+      ov.classList.remove('open', 'previewed');
+      if (!document.querySelector('.sheet.open')) document.getElementById('app').classList.remove('sheet-open');
+    }
+    let toastTimer;
+    function toast(msg) {
+      const el = document.getElementById('toast');
+      el.textContent = msg;
+      el.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => el.classList.remove('show'), 2200);
+    }
+    document.getElementById('jumpChips').addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-jump]');
+      if (btn) go(btn.dataset.jump, true);
+    });
+    document.getElementById('chipWrongPoint').addEventListener('click', () => {
+      go('patrol-map');
+      openSheet('checkin');
+      if (!ciWrong) toggleWrongPoint();
+    });
+    document.getElementById('chipPhotoGps').addEventListener('click', () => {
+      go('vis-capture');
+      openCapture('vision');
+    });
+    setAuthMode(false);
+    applyHomeSession();
+    function openAssetForm(code) {
+      const root = document.getElementById('sc-asset-form');
+      const from = document.getElementById('ak32-detail-and');
+      const c = code || (from && from.dataset.ak32) || 'PAVEMENT';
+      if (window.AssetKcht32) window.AssetKcht32.fillForm(root, c);
+      go('asset-form');
+    }
+    let pickInc = false;
+    function setPickBanner(on) {
+      document.querySelectorAll('[data-ak32-pick]').forEach((el) => {
+        el.style.display = on ? '' : 'none';
+      });
+    }
+    function startIncidentPick() {
+      pickInc = true;
+      setPickBanner(true);
+      go('asset-types');
+      toast('Chọn loại tài sản để ghi sự cố');
+    }
+    function openIncidentForm(code) {
+      pickInc = false;
+      setPickBanner(false);
+      const detail = document.getElementById('ak32-detail-and');
+      const form = document.getElementById('ak32-inc-and');
+      const c = code || (detail && detail.dataset.ak32) || 'BRIDGE';
+      if (window.AssetKcht32) {
+        window.AssetKcht32.fillDetail(detail, c);
+        window.AssetKcht32.fillIncidentForm(form, c);
+      }
+      go('inc-form');
+    }
+    function submitIncident() {
+      toast('Đã tạo vấn đề SC-2418 · gắn tài sản đã chọn');
+      go('incident-detail');
+    }
+    if (window.AssetKcht32) {
+      const grid = document.getElementById('ak32-grid-and');
+      window.AssetKcht32.renderGrid(grid);
+      window.AssetKcht32.fillChecklist(document.getElementById('ak32-chk-reflect-and'), 'PAVEMENT');
+      window.AssetKcht32.fillIncidentForm(document.getElementById('ak32-inc-and'), 'BRIDGE');
+      if (grid) grid.addEventListener('click', (e) => {
+        const btn = e.target.closest('[data-ak32]');
+        if (!btn) return;
+        window.AssetKcht32.fillDetail(document.getElementById('ak32-detail-and'), btn.dataset.ak32);
+        if (pickInc) openIncidentForm(btn.dataset.ak32);
+        else go('asset-type');
+      });
+    }
+    document.querySelectorAll('#sc-field-reflect .kind-pills button, #sc-inc-form .kind-pills button').forEach((b) => {
+      b.addEventListener('click', () => {
+        b.parentElement.querySelectorAll('button').forEach((x) => x.classList.remove('on'));
+        b.classList.add('on');
+      });
+    });
+    if (window.NetSignal) window.NetSignal.mount();
+    if (window.FeatureGuide) window.FeatureGuide.mount('android');
+  </script>
+</body>
+</html>

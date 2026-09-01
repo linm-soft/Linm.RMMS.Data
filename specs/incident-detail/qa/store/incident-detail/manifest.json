@@ -1,48 +1,87 @@
 {
   "feature": "incident-detail",
-  "capturedAt": "2026-08-29T04:10:00.000Z",
+  "capturedAt": "2026-08-30T19:30:00.580Z",
   "iosDevice": "iPhone 17 Pro Max",
   "method": "e2e-qa-mobile",
   "steps": [
     {
       "id": "A10-BFF",
       "result": "PASS",
-      "store": ["A10", "P11"]
+      "store": [
+        "A10",
+        "P11"
+      ]
+    },
+    {
+      "id": "MAESTRO-IOS",
+      "result": "FAIL",
+      "store": [
+        "A3",
+        "A9",
+        "A11"
+      ],
+      "error": "\"QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ\"... COMPLETED\nTap on (Optional) \"RMMS\"... COMPLETED\nTap on id: f-pass... COMPLETED\nErase text... COMPLETED\nInput text Linm@2026... COMPLETED\nTap on (Optional) \"QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ\"... COMPLETED\nTap on (Optional) \"RMMS\"... COMPLETED\nTap on (Optional) id: btn-login... COMPLETED\nTap on (Optional) \"Đăng nhập\"... WARNED\nTap on (Optional) \"Not Now\"... WARNED\nAssert that id: home-who is visible... COMPLETED\nTap on (Optional) id: tab-incident... WARNED\nTap on (Optional) \"Vấn đề\"... COMPLETED\nTap on point (50%,96%)... COMPLETED\nAssert that id: sc-incident-list is visible... COMPLETED\nTap on id: card-inc-demo-inc-1... FAILED\n\nElement not found: Id matching regex: card-inc-demo-inc-1\n\nElement with Id matching regex: card-inc-demo-inc-1 not found. Check the UI hierarchy in debug artifacts to verify if the element exists.\n\nPossible causes:\n- Element selector may be incorrect - check if there are similar elements with slightly different names/properties.\n- Element may be temporarily unavailable due to loading state.\n- This could be a real regression that needs to be addressed.\n\n==== Debug output (logs & screenshots) ====\n\n/Users/mac/.maestro/tests/2026-08-31_022744",
+      "gap": "GAP-MOB-ACT-03"
+    },
+    {
+      "id": "CRAWL",
+      "result": "FAIL",
+      "store": [],
+      "error": "ith clear state and clear keychain... COMPLETED\nAssert that id: sc-home is visible... COMPLETED\nTap on (Optional) id: btn-home-login... COMPLETED\nAssert that id: f-user is visible... COMPLETED\nTap on id: f-user... COMPLETED\nErase text... COMPLETED\nInput text linm-soft... COMPLETED\nTap on (Optional) \"QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ\"... COMPLETED\nTap on (Optional) \"RMMS\"... COMPLETED\nTap on id: f-pass... COMPLETED\nErase text... COMPLETED\nInput text Linm@2026... COMPLETED\nTap on (Optional) \"QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ\"... COMPLETED\nTap on (Optional) \"RMMS\"... COMPLETED\nTap on (Optional) id: btn-login... COMPLETED\nTap on (Optional) \"Đăng nhập\"... WARNED\nTap on (Optional) \"Not Now\"... WARNED\nAssert that id: home-who is visible... COMPLETED\nTap on (Optional) id: tab-incident... WARNED\nTap on (Optional) \"Vấn đề\"... COMPLETED\nTap on point (50%,96%)... COMPLETED\nAssert that id: sc-incident-list is visible... COMPLETED\nTap on id: card-inc-demo-inc-1... FAILED\n\nElement not found: Id matching regex: card-inc-demo-inc-1\n\nElement with Id matching regex: card-inc-demo-inc-1 not found. Check the UI hierarchy in debug artifacts to verify if the element exists.\n\nPossible causes:\n- Element selector may be incorrect - check if there are similar elements with slightly different names/properties.\n- Element may be temporarily unavailable due to loading state.\n- This could be a real regression that needs to be addressed.\n\n==== Debug output (logs & screenshots) ====\n\n/Users/mac/.maestro/tests/2026-08-31_022744; AND: ome-who is visible... COMPLETED\nTap on (Optional) id: tab-incident... COMPLETED\nTap on (Optional) \"Vấn đề\"... COMPLETED\nTap on point (50%,96%)... COMPLETED\nAssert that id: sc-incident-list is visible... COMPLETED\nTap on id: card-inc-demo-inc-1... FAILED\n\nElement not found: Id matching regex: card-inc-demo-inc-1\n\nElement with Id matching regex: card-inc-demo-inc-1 not found. Check the UI hierarchy in debug artifacts to verify if the element exists.\n\nPossible causes:\n- Element selector may be incorrect - check if there are similar elements with slightly different names/properties.\n- Element may be temporarily unavailable due to loading state.\n- This could be a real regression that needs to be addressed.\n\n==== Debug output (logs & screenshots) ====\n\n/Users/mac/.maestro/tests/2026-08-31_022853",
+      "gap": "GAP-MOB-ACT-03"
+    },
+    {
+      "id": "MAESTRO-AND",
+      "result": "FAIL",
+      "store": [
+        "P6"
+      ],
+      "error": "MPLETED\nInput text Linm@2026... COMPLETED\nTap on (Optional) \"QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ\"... COMPLETED\nTap on (Optional) \"RMMS\"... COMPLETED\nTap on (Optional) id: btn-login... COMPLETED\nTap on (Optional) \"Đăng nhập\"... WARNED\n\n\n Warning: Element not found: Text matching regex: Đăng nhập\nTap on (Optional) \"Not Now\"... WARNED\n\n\n Warning: Element not found: Text matching regex: Not Now\nAssert that id: home-who is visible... COMPLETED\nTap on (Optional) id: tab-incident... COMPLETED\nTap on (Optional) \"Vấn đề\"... COMPLETED\nTap on point (50%,96%)... COMPLETED\nAssert that id: sc-incident-list is visible... COMPLETED\nTap on id: card-inc-demo-inc-1... FAILED\n\nElement not found: Id matching regex: card-inc-demo-inc-1\n\nElement with Id matching regex: card-inc-demo-inc-1 not found. Check the UI hierarchy in debug artifacts to verify if the element exists.\n\nPossible causes:\n- Element selector may be incorrect - check if there are similar elements with slightly different names/properties.\n- Element may be temporarily unavailable due to loading state.\n- This could be a real regression that needs to be addressed.\n\n==== Debug output (logs & screenshots) ====\n\n/Users/mac/.maestro/tests/2026-08-31_022853",
+      "gap": "GAP-MOB-ACT-03"
     },
     {
       "id": "A11-LAUNCH",
       "result": "PASS",
       "screenshot": "A11-LAUNCH.png",
-      "store": ["A11"]
+      "store": [
+        "A11"
+      ]
     },
     {
       "id": "A9-LOGIN",
       "result": "PASS",
       "screenshot": "A9-LOGIN.png",
-      "store": ["A9", "P10"]
+      "store": [
+        "A9",
+        "P10"
+      ]
     },
     {
       "id": "A3-CORE",
       "result": "PASS",
       "screenshot": "A3-CORE.png",
-      "store": ["A3", "A11"]
+      "store": [
+        "A3",
+        "A11"
+      ]
     },
     {
       "id": "P6-CORE",
       "result": "PASS",
       "screenshot": "P6-CORE.png",
-      "store": ["P6", "P11"]
+      "store": [
+        "P6",
+        "P11"
+      ]
     },
     {
       "id": "P6-CORE-2",
       "result": "PASS",
       "screenshot": "P6-CORE-2.png",
-      "store": ["P6"]
+      "store": [
+        "P6"
+      ]
     }
   ],
-  "ok": true,
-  "align": "Aligned",
-  "qaTaskId": "task_21b55839",
-  "seedIncidentId": "4b0d2722-e072-4775-8976-ec06952fc804",
-  "seedCode": "VD-20260829-0001"
+  "ok": false
 }

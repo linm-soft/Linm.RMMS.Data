@@ -1,0 +1,109 @@
+appId: org.linmsoft.rmms
+---
+# supervise-detail · store A11/A9/A3 · guest → login → tile Giám sát → card → #sc-supervise-detail
+# cấm shot list-only cho A3 · cấm sibling list/filter CRUD · cấm mfeStdUrl / start:std
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 20000
+- takeScreenshot: A11-LAUNCH
+- tapOn:
+    id: "btn-home-login"
+- extendedWaitUntil:
+    visible:
+      id: "f-user"
+    timeout: 15000
+- tapOn:
+    id: "f-user"
+    optional: true
+- tapOn:
+    text: "Tài khoản"
+    optional: true
+- inputText: "linm-soft"
+- tapOn:
+    text: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
+    optional: true
+- tapOn:
+    text: "RMMS"
+    optional: true
+- tapOn:
+    id: "f-pass"
+    optional: true
+- tapOn:
+    text: "Mật khẩu"
+    optional: true
+- inputText: "Linm@2026"
+- tapOn:
+    text: "Not Now"
+    optional: true
+- takeScreenshot: A9-LOGIN
+- tapOn:
+    id: "btn-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
+- tapOn:
+    text: "Not Now"
+    optional: true
+- pressKey: Enter
+- waitForAnimationToEnd:
+    timeout: 4000
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 45000
+- tapOn:
+    id: "tile-supervise"
+- extendedWaitUntil:
+    visible:
+      id: "sc-supervise"
+    timeout: 20000
+- waitForAnimationToEnd:
+    timeout: 2000
+- tapOn:
+    id: "sup-card-demo-1"
+- waitForAnimationToEnd:
+    timeout: 3000
+- extendedWaitUntil:
+    visible:
+      id: "sc-supervise-detail"
+    timeout: 25000
+- extendedWaitUntil:
+    visible:
+      id: "value-user"
+    timeout: 30000
+- assertVisible:
+    id: "label-code"
+- assertVisible:
+    id: "value-code"
+- assertVisible:
+    id: "row-org"
+- assertVisible:
+    id: "row-loc"
+- assertVisible:
+    id: "row-time"
+- assertVisible:
+    id: "row-status"
+- assertVisible:
+    id: "row-gps"
+- assertVisible:
+    id: "row-in-zone"
+- assertVisible:
+    id: "btn-sup-detail-map"
+- assertVisible: "Chi tiết check-in"
+- assertVisible: "Nguyễn Văn A"
+- assertVisible: "Mã"
+- assertVisible: "Xem trên bản đồ"
+- takeScreenshot: A3-CORE
+- tapOn:
+    id: "btn-sup-detail-map"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 2000
+- tapOn:
+    id: "btn-sup-detail-back"
+    optional: true

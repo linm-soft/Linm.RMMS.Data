@@ -1,0 +1,29 @@
+{
+  "feature": "me-profile",
+  "capturedAt": "2026-08-30T19:54:19.942Z",
+  "iosDevice": "iPhone 17 Pro Max",
+  "androidDevice": "Pixel_2",
+  "iosPhase": "phase1_iphone",
+  "method": "e2e-qa-mobile",
+  "ok": true,
+  "px": {
+    "A11-LAUNCH": "1320x2868",
+    "A9-LOGIN": "1320x2868",
+    "A3-CORE": "1320x2868",
+    "P6-CORE": "1080x1920",
+    "P6-CORE-2": "1080x1920"
+  },
+  "steps": [
+    { "id": "A10-BFF", "result": "PASS", "store": ["A10", "P11"] },
+    { "id": "A11-LAUNCH", "result": "PASS", "screenshot": "A11-LAUNCH.png", "store": ["A11"] },
+    { "id": "A9-LOGIN", "result": "PASS", "screenshot": "A9-LOGIN.png", "store": ["A9", "P10"] },
+    { "id": "A3-CORE", "result": "PASS", "screenshot": "A3-CORE.png", "store": ["A3", "A11"] },
+    { "id": "P6-CORE", "result": "PASS", "screenshot": "P6-CORE.png", "store": ["P6", "P11"] },
+    { "id": "P6-CORE-2", "result": "PASS", "screenshot": "P6-CORE-2.png", "store": ["P6"] }
+  ],
+  "visual": {
+    "align": "Aligned",
+    "mustOpen": 0,
+    "alignConfirm": "approve"
+  }
+}

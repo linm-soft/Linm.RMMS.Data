@@ -3,6 +3,7 @@
 | Case | Store | Result | Evidence |
 |------|-------|--------|----------|
 | A10-BFF | A10 · P11 | **PASS** | — |
+| CRAWL | — | **PASS** | — |
 | A11-LAUNCH | A11 | **PASS** | ![A11-LAUNCH](A11-LAUNCH.png) |
 | A9-LOGIN | A9 · P10 | **PASS** | ![A9-LOGIN](A9-LOGIN.png) |
 | A3-CORE | A3 · A11 | **PASS** | ![A3-CORE](A3-CORE.png) |

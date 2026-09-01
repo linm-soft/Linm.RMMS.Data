@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-29T18:34:28.210Z",
+  "updatedAt": "2026-08-31T03:20:14.893Z",
   "features": {
     "ai-asset-detect": {
       "web": {
@@ -644,7 +644,7 @@
       "mobile": {
         "phase": "done",
         "status": "done",
-        "updatedAt": "2026-08-29T16:53:37.658Z",
+        "updatedAt": "2026-08-30T18:59:12.212Z",
         "statusRel": "specs/mnt-progress/STATUS.md"
       }
     },
@@ -666,10 +666,82 @@
     },
     "incident-chat": {
       "mobile": {
+        "phase": "dev",
+        "status": "implemented · chat style + messages API · /edit-mobile-feature",
+        "updatedAt": "2026-08-30T17:59:33.784Z",
+        "statusRel": "specs/incident-chat/STATUS.md"
+      }
+    },
+    "me-profile": {
+      "mobile": {
         "phase": "done",
         "status": "done",
-        "updatedAt": "2026-08-29T11:24:29.978Z",
-        "statusRel": "specs/incident-chat/STATUS.md"
+        "updatedAt": "2026-08-30T20:09:00.179Z",
+        "statusRel": "specs/me-profile/STATUS.md"
+      }
+    },
+    "me-settings": {
+      "mobile": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-30T21:06:53.274Z",
+        "statusRel": "specs/me-settings/STATUS.md"
+      }
+    },
+    "asset-detail": {
+      "mobile": {
+        "phase": "qa",
+        "status": "await_confirm",
+        "updatedAt": "2026-08-30T22:23:26.832Z",
+        "statusRel": "specs/asset-detail/STATUS.md"
+      }
+    },
+    "asset-collect": {
+      "mobile": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-30T23:25:31.802Z",
+        "statusRel": "specs/asset-collect/STATUS.md"
+      }
+    },
+    "asset-adjust": {
+      "mobile": {
+        "phase": "qa",
+        "status": "await_confirm",
+        "updatedAt": "2026-08-31T00:20:49.570Z",
+        "statusRel": "specs/asset-adjust/STATUS.md"
+      }
+    },
+    "gis-map": {
+      "mobile": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-31T01:44:55.387Z",
+        "statusRel": "specs/gis-map/STATUS.md"
+      }
+    },
+    "supervise-detail": {
+      "mobile": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-31T02:49:23.233Z",
+        "statusRel": "specs/supervise-detail/STATUS.md"
+      }
+    },
+    "attendance-day": {
+      "mobile": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-08-31T03:17:50.875Z",
+        "statusRel": "specs/attendance-day/STATUS.md"
+      }
+    },
+    "patrol-history-detail": {
+      "mobile": {
+        "phase": "po",
+        "status": "pending",
+        "updatedAt": "2026-08-31T03:20:14.893Z",
+        "statusRel": "specs/patrol-history-detail/STATUS.md"
       }
     }
   }

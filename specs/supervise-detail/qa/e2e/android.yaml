@@ -1,0 +1,100 @@
+appId: org.linmsoft.rmms
+---
+# supervise-detail · store P6 ×2 · guest → login → tile Giám sát → card → #sc-supervise-detail (Pixel 1080×1920)
+# P6-CORE = detail hero+rows · P6-CORE-2 = scroll CTA fold · cấm hideKeyboard
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 20000
+- tapOn:
+    id: "btn-home-login"
+- extendedWaitUntil:
+    visible:
+      id: "f-user"
+    timeout: 15000
+- tapOn:
+    id: "f-user"
+- eraseText
+- inputText: "linm-soft"
+- tapOn: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
+- tapOn:
+    id: "f-pass"
+- eraseText
+- inputText: "Linm@2026"
+- pressKey: Enter
+- waitForAnimationToEnd:
+    timeout: 4000
+- tapOn:
+    id: "btn-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
+- extendedWaitUntil:
+    visible: "Trang Chủ"
+    timeout: 45000
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 15000
+- tapOn:
+    id: "tile-supervise"
+- extendedWaitUntil:
+    visible:
+      id: "sc-supervise"
+    timeout: 20000
+- waitForAnimationToEnd:
+    timeout: 2000
+- tapOn:
+    id: "sup-card-demo-1"
+- waitForAnimationToEnd:
+    timeout: 3000
+- extendedWaitUntil:
+    visible:
+      id: "sc-supervise-detail"
+    timeout: 25000
+- extendedWaitUntil:
+    visible:
+      id: "value-user"
+    timeout: 15000
+- assertVisible:
+    id: "label-code"
+- assertVisible:
+    id: "value-code"
+- assertVisible:
+    id: "row-org"
+- assertVisible:
+    id: "row-loc"
+- assertVisible:
+    id: "row-time"
+- assertVisible:
+    id: "row-status"
+- assertVisible:
+    id: "row-gps"
+- assertVisible:
+    id: "row-in-zone"
+- assertVisible: "Chi tiết check-in"
+- assertVisible:
+    id: "value-user"
+- assertVisible: "Mã"
+- takeScreenshot: P6-CORE
+- scrollUntilVisible:
+    element:
+      id: "btn-sup-detail-map"
+    direction: DOWN
+    timeout: 8000
+- assertVisible:
+    id: "btn-sup-detail-map"
+- assertVisible: "Xem trên bản đồ"
+- takeScreenshot: P6-CORE-2
+- tapOn:
+    id: "btn-sup-detail-map"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 2000
+- tapOn:
+    id: "btn-sup-detail-back"
+    optional: true

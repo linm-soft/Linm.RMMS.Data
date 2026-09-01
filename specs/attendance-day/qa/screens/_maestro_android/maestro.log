@@ -1,0 +1,47 @@
+Running on Pixel_2
+ > Flow android
+Launch app "org.linmsoft.rmms" with clear state and clear keychain... COMPLETED
+Assert that id: sc-home is visible... COMPLETED
+Tap on id: btn-home-login... COMPLETED
+Assert that id: f-user is visible... COMPLETED
+Tap on id: f-user... COMPLETED
+Erase text... COMPLETED
+Input text linm-soft... COMPLETED
+Tap on "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"... COMPLETED
+Tap on id: f-pass... COMPLETED
+Erase text... COMPLETED
+Input text Linm@2026... COMPLETED
+Press Enter key... COMPLETED
+Wait for animation to end within 4000 ms... COMPLETED
+Tap on (Optional) id: btn-login... WARNED
+
+
+ Warning: Element not found: Id matching regex: btn-login
+Tap on (Optional) "Đăng nhập"... WARNED
+
+
+ Warning: Element not found: Text matching regex: Đăng nhập
+Assert that "Trang Chủ" is visible... COMPLETED
+Assert that id: sc-home is visible... COMPLETED
+Tap on id: tab-field... COMPLETED
+Assert that id: sc-patrol-home is visible... COMPLETED
+Tap on "Chấm công"... COMPLETED
+Assert that id: sc-attendance is visible... COMPLETED
+Tap on (Optional) id: att-day-demo-day-2... COMPLETED
+Tap on "T7 09/08"... COMPLETED
+Wait for animation to end within 3000 ms... COMPLETED
+Assert that id: sc-attendance-day is visible... COMPLETED
+Assert that id: attendance-day-hero is visible... COMPLETED
+Assert that id: attendance-day-badge is visible... COMPLETED
+Assert that id: attendance-day-range is visible... COMPLETED
+Assert that id: attendance-day-route is visible... COMPLETED
+Assert that id: attendance-day-count is visible... COMPLETED
+Assert that "Chi tiết ngày công" is visible... COMPLETED
+Assert that "T7 09/08" is visible... COMPLETED
+Assert that "Đủ công" is visible... COMPLETED
+Take screenshot P6-CORE... COMPLETED
+Scrolling DOWN until id: attendance-day-section-logs is visible with speed 40, visibility percentage 100%, timeout 8000 ms, with centering disabled... COMPLETED
+Assert that (Optional) id: attendance-day-log-demo-log-1 is visible... COMPLETED
+Assert that "Các lần chấm" is visible... COMPLETED
+Take screenshot P6-CORE-2... COMPLETED
+Tap on (Optional) id: btn-att-day-back... COMPLETED

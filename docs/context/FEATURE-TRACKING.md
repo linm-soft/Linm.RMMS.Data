@@ -110,6 +110,17 @@
 | `incident-chat` | Trao đổi sự cố | — | support | `dev` / `implemented` | none | [ctx](features/incident-chat.md) | [ST](../../specs/incident-chat/STATUS.md) |
 | `vis-capture` | Nhận diện mặt đường | — | support | `done` / `done` | data_analy PASS · dual/pack GAP | [ctx](features/vis-capture.md) | [ST](../../specs/vis-capture/STATUS.md) |
 | `incident-detail` | Chi tiết | — | support | `done` / `done` | none | [ctx](features/incident-detail.md) | [ST](../../specs/incident-detail/STATUS.md) |
+| `me-profile` | Hồ sơ | — | support | `done` / `done` | data_analy PASS · handoff PO | [ctx](features/me-profile.md) | [ST](../../specs/me-profile/STATUS.md) |
+| `me-settings` | Cài đặt | — | support | `done` / `done` | data_analy PASS · handoff PO | [ctx](features/me-settings.md) | [ST](../../specs/me-settings/STATUS.md) |
+| `asset-detail` | Chi tiết tài sản | — | support | `qa` / `await_confirm` | data_analy **PASS** | [ctx](features/asset-detail.md) | [ST](../../specs/asset-detail/STATUS.md) |
+| `asset-collect` | Thủ công | — | support | `done` / `done` | data_analy **PASS** · handoff PO | [ctx](features/asset-collect.md) | [ST](../../specs/asset-collect/STATUS.md) |
+| `asset-adjust` | Cập nhật / bớt | — | support | `qa` / `await_confirm` | none | [ctx](features/asset-adjust.md) | [ST](../../specs/asset-adjust/STATUS.md) |
+| `gis-map` | Xem trên bản đồ | — | support | `done` / `done` | data_analy **PASS** · handoff PO | [ctx](features/gis-map.md) | [ST](../../specs/gis-map/STATUS.md) |
+| `asset-ai` | Camera AI | — | support | `data_analy` / `paused` | none | [ctx](features/asset-ai.md) | [ST](../../specs/asset-ai/STATUS.md) |
+| `supervise-detail` | Chi tiết check-in | — | support | `done` / `done` | none | [ctx](features/supervise-detail.md) | [ST](../../specs/supervise-detail/STATUS.md) |
+| `attendance-report` | Báo cáo công | — | support | `data_analy` / `in_progress` | none | [ctx](features/attendance-report.md) | [ST](../../specs/attendance-report/STATUS.md) |
+| `attendance-day` | Chi tiết ngày công | — | support | `done` / `done` | data_analy **PASS** | [ctx](features/attendance-day.md) | [ST](../../specs/attendance-day/STATUS.md) |
+| `patrol-history-detail` | Chi tiết ca | — | support | `po` / `blocked` | none | [ctx](features/patrol-history-detail.md) | [ST](../../specs/patrol-history-detail/STATUS.md) |
 **Báo cáo `rpt-*`:** xem [§ Reports](#17--dashboard--báo-cáo). Pipeline STATUS **done** hết (release: P1 / P1.5 / P2 / P3 theo từng slug).
 
 **Draft mobile (CTX/analy):** `incident-list` — [STATUS](../../specs/). `cam-view` data_analy **PASS** → PO pending. `incident-create` · `field-reflect` · `cam-patrol` · `mnt-list` đã có CTX + data_analy (hoặc done).

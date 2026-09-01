@@ -1,0 +1,28 @@
+Running on Pixel_2
+ > Flow crawl-android
+Launch app "org.linmsoft.rmms" with clear state and clear keychain... COMPLETED
+Assert that id: sc-home is visible... COMPLETED
+Tap on (Optional) id: btn-home-login... COMPLETED
+Assert that id: f-user is visible... COMPLETED
+Tap on id: f-user... COMPLETED
+Erase text... COMPLETED
+Input text linm-soft... COMPLETED
+Tap on (Optional) "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"... COMPLETED
+Tap on (Optional) "RMMS"... COMPLETED
+Tap on id: f-pass... COMPLETED
+Erase text... COMPLETED
+Input text Linm@2026... COMPLETED
+Tap on (Optional) "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"... COMPLETED
+Tap on (Optional) "RMMS"... COMPLETED
+Tap on (Optional) id: btn-login... COMPLETED
+Tap on (Optional) "Đăng nhập"... WARNED
+
+
+ Warning: Element not found: Text matching regex: Đăng nhập
+Tap on (Optional) "Not Now"... WARNED
+
+
+ Warning: Element not found: Text matching regex: Not Now
+Assert that id: home-who is visible... COMPLETED
+Tap on (Optional) id: tile-offline... COMPLETED
+Assert that id: sc-patrol-offline is visible... COMPLETED

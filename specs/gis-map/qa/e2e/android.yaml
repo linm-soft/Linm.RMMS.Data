@@ -1,0 +1,98 @@
+appId: org.linmsoft.rmms
+---
+# gis-map · store P6 ×2 · guest → login → hub → #tile-map → #sc-gis-map (Pixel 1080×1920)
+# P6-CORE = map CORE · P6-CORE-2 = after basemap/legend tap · cấm hideKeyboard · cấm patrol-map
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 20000
+- tapOn:
+    id: "btn-home-login"
+- extendedWaitUntil:
+    visible:
+      id: "f-user"
+    timeout: 15000
+- tapOn:
+    id: "f-user"
+- eraseText
+- inputText: "linm-soft"
+- tapOn: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
+- tapOn:
+    id: "f-pass"
+- eraseText
+- inputText: "Linm@2026"
+- pressKey: Enter
+- waitForAnimationToEnd:
+    timeout: 4000
+- tapOn:
+    id: "btn-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
+- extendedWaitUntil:
+    visible: "Trang Chủ"
+    timeout: 45000
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 15000
+- scrollUntilVisible:
+    element:
+      id: "tile-asset"
+    direction: DOWN
+    timeout: 15000
+- tapOn:
+    id: "tile-asset"
+- extendedWaitUntil:
+    visible:
+      id: "sc-asset-hub"
+    timeout: 20000
+- tapOn:
+    id: "tile-map"
+- extendedWaitUntil:
+    visible:
+      id: "sc-gis-map"
+    timeout: 30000
+# map-gis-host = OsmDroid AndroidView · semantics invisibleToUser → assert chrome/title
+- waitForAnimationToEnd:
+    timeout: 5000
+- assertVisible:
+    text: "Bản đồ tài sản"
+- assertVisible:
+    id: "mb-osm"
+- assertVisible:
+    id: "mb-esri"
+- assertVisible:
+    id: "mb-sat"
+- assertVisible:
+    id: "mb-fit"
+- assertVisible:
+    id: "lg-all"
+- assertVisible:
+    id: "lg-ts"
+- assertVisible:
+    id: "lg-sc"
+- assertVisible:
+    id: "btn-gis-back"
+- assertVisible:
+    id: "btn-gis-list"
+- waitForAnimationToEnd:
+    timeout: 4000
+- takeScreenshot: P6-CORE
+- tapOn:
+    id: "mb-esri"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 2000
+- tapOn:
+    id: "lg-ts"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 2000
+- takeScreenshot: P6-CORE-2
+- assertVisible:
+    id: "sc-gis-map"

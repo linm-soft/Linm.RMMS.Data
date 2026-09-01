@@ -1,6 +1,6 @@
 {
   "feature": "incident-list",
-  "capturedAt": "2026-08-29T02:19:53.014Z",
+  "capturedAt": "2026-08-30T19:25:20.033Z",
   "iosDevice": "iPhone 17 Pro Max",
   "method": "e2e-qa-mobile",
   "steps": [
@@ -11,6 +11,33 @@
         "A10",
         "P11"
       ]
+    },
+    {
+      "id": "MAESTRO-IOS",
+      "result": "FAIL",
+      "store": [
+        "A3",
+        "A9",
+        "A11"
+      ],
+      "error": "ional) \"Đăng nhập\"... WARNED\nTap on (Optional) \"Not Now\"... WARNED\nAssert that id: home-who is visible... COMPLETED\nTap on (Optional) id: tab-incident... WARNED\nTap on (Optional) \"Vấn đề\"... COMPLETED\nTap on point (50%,96%)... COMPLETED\nAssert that id: sc-incident-list is visible... COMPLETED\nTap on id: row-inc-banner-vis... COMPLETED\nAssert that id: sc-vis-capture is visible... COMPLETED\nTake screenshot CRAWL-vis... COMPLETED\nTap on (Optional) id: tab-incident... WARNED\nTap on (Optional) \"Vấn đề\"... COMPLETED\nTap on point (50%,96%)... COMPLETED\nTap on (Optional) \"Vấn đề\"... COMPLETED\nTap on point (50%,96%)... COMPLETED\nTap on id: fab-inc-create... FAILED\n\nElement not found: Id matching regex: fab-inc-create\n\nElement with Id matching regex: fab-inc-create not found. Check the UI hierarchy in debug artifacts to verify if the element exists.\n\nPossible causes:\n- Element selector may be incorrect - check if there are similar elements with slightly different names/properties.\n- Element may be temporarily unavailable due to loading state.\n- This could be a real regression that needs to be addressed.\n\n==== Debug output (logs & screenshots) ====\n\n/Users/mac/.maestro/tests/2026-08-31_022227",
+      "gap": "GAP-MOB-ACT-03"
+    },
+    {
+      "id": "CRAWL",
+      "result": "FAIL",
+      "store": [],
+      "error": "ỜNG BỘ\"... COMPLETED\nTap on (Optional) \"RMMS\"... COMPLETED\nTap on id: f-pass... COMPLETED\nErase text... COMPLETED\nInput text Linm@2026... COMPLETED\nTap on (Optional) \"QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ\"... COMPLETED\nTap on (Optional) \"RMMS\"... COMPLETED\nTap on (Optional) id: btn-login... COMPLETED\nTap on (Optional) \"Đăng nhập\"... WARNED\nTap on (Optional) \"Not Now\"... WARNED\nAssert that id: home-who is visible... COMPLETED\nTap on (Optional) id: tab-incident... WARNED\nTap on (Optional) \"Vấn đề\"... COMPLETED\nTap on point (50%,96%)... COMPLETED\nAssert that id: sc-incident-list is visible... COMPLETED\nTap on id: row-inc-banner-vis... COMPLETED\nAssert that id: sc-vis-capture is visible... COMPLETED\nTake screenshot CRAWL-vis... COMPLETED\nTap on (Optional) id: tab-incident... WARNED\nTap on (Optional) \"Vấn đề\"... COMPLETED\nTap on point (50%,96%)... COMPLETED\nTap on (Optional) \"Vấn đề\"... COMPLETED\nTap on point (50%,96%)... COMPLETED\nTap on id: fab-inc-create... FAILED\n\nElement not found: Id matching regex: fab-inc-create\n\nElement with Id matching regex: fab-inc-create not found. Check the UI hierarchy in debug artifacts to verify if the element exists.\n\nPossible causes:\n- Element selector may be incorrect - check if there are similar elements with slightly different names/properties.\n- Element may be temporarily unavailable due to loading state.\n- This could be a real regression that needs to be addressed.\n\n==== Debug output (logs & screenshots) ====\n\n/Users/mac/.maestro/tests/2026-08-31_022227; AND: shot CRAWL-vis... COMPLETED\nTap on (Optional) id: tab-incident... COMPLETED\nTap on (Optional) \"Vấn đề\"... COMPLETED\nTap on point (50%,96%)... COMPLETED\nTap on (Optional) \"Vấn đề\"... COMPLETED\nTap on point (50%,96%)... COMPLETED\nTap on id: fab-inc-create... FAILED\n\nElement not found: Id matching regex: fab-inc-create\n\nElement with Id matching regex: fab-inc-create not found. Check the UI hierarchy in debug artifacts to verify if the element exists.\n\nPossible causes:\n- Element selector may be incorrect - check if there are similar elements with slightly different names/properties.\n- Element may be temporarily unavailable due to loading state.\n- This could be a real regression that needs to be addressed.\n\n==== Debug output (logs & screenshots) ====\n\n/Users/mac/.maestro/tests/2026-08-31_022400",
+      "gap": "GAP-MOB-ACT-03"
+    },
+    {
+      "id": "MAESTRO-AND",
+      "result": "FAIL",
+      "store": [
+        "P6"
+      ],
+      "error": "\n\n\n Warning: Element not found: Text matching regex: Not Now\nAssert that id: home-who is visible... COMPLETED\nTap on (Optional) id: tab-incident... COMPLETED\nTap on (Optional) \"Vấn đề\"... COMPLETED\nTap on point (50%,96%)... COMPLETED\nAssert that id: sc-incident-list is visible... COMPLETED\nTap on id: row-inc-banner-vis... COMPLETED\nAssert that id: sc-vis-capture is visible... COMPLETED\nTake screenshot CRAWL-vis... COMPLETED\nTap on (Optional) id: tab-incident... COMPLETED\nTap on (Optional) \"Vấn đề\"... COMPLETED\nTap on point (50%,96%)... COMPLETED\nTap on (Optional) \"Vấn đề\"... COMPLETED\nTap on point (50%,96%)... COMPLETED\nTap on id: fab-inc-create... FAILED\n\nElement not found: Id matching regex: fab-inc-create\n\nElement with Id matching regex: fab-inc-create not found. Check the UI hierarchy in debug artifacts to verify if the element exists.\n\nPossible causes:\n- Element selector may be incorrect - check if there are similar elements with slightly different names/properties.\n- Element may be temporarily unavailable due to loading state.\n- This could be a real regression that needs to be addressed.\n\n==== Debug output (logs & screenshots) ====\n\n/Users/mac/.maestro/tests/2026-08-31_022400",
+      "gap": "GAP-MOB-ACT-03"
     },
     {
       "id": "A11-LAUNCH",
@@ -56,7 +83,5 @@
       ]
     }
   ],
-  "ok": true,
-  "align": "Aligned",
-  "qaTaskId": "task_3004011c"
+  "ok": false
 }

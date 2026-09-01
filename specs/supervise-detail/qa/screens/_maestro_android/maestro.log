@@ -1,0 +1,54 @@
+Running on Pixel_2
+ > Flow android
+Launch app "org.linmsoft.rmms" with clear state and clear keychain... COMPLETED
+Assert that id: sc-home is visible... COMPLETED
+Tap on id: btn-home-login... COMPLETED
+Assert that id: f-user is visible... COMPLETED
+Tap on id: f-user... COMPLETED
+Erase text... COMPLETED
+Input text linm-soft... COMPLETED
+Tap on "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"... COMPLETED
+Tap on id: f-pass... COMPLETED
+Erase text... COMPLETED
+Input text Linm@2026... COMPLETED
+Press Enter key... COMPLETED
+Wait for animation to end within 4000 ms... COMPLETED
+Tap on (Optional) id: btn-login... WARNED
+
+
+ Warning: Element not found: Id matching regex: btn-login
+Tap on (Optional) "Đăng nhập"... WARNED
+
+
+ Warning: Element not found: Text matching regex: Đăng nhập
+Assert that "Trang Chủ" is visible... COMPLETED
+Assert that id: sc-home is visible... COMPLETED
+Tap on id: tile-supervise... COMPLETED
+Assert that id: sc-supervise is visible... COMPLETED
+Wait for animation to end within 2000 ms... COMPLETED
+Tap on id: sup-card-demo-1... COMPLETED
+Wait for animation to end within 3000 ms... COMPLETED
+Assert that id: sc-supervise-detail is visible... COMPLETED
+Assert that id: value-user is visible... COMPLETED
+Assert that id: label-code is visible... COMPLETED
+Assert that id: value-code is visible... COMPLETED
+Assert that id: row-org is visible... COMPLETED
+Assert that id: row-loc is visible... COMPLETED
+Assert that id: row-time is visible... COMPLETED
+Assert that id: row-status is visible... COMPLETED
+Assert that id: row-gps is visible... COMPLETED
+Assert that id: row-in-zone is visible... COMPLETED
+Assert that "Chi tiết check-in" is visible... COMPLETED
+Assert that id: value-user is visible... COMPLETED
+Assert that "Mã" is visible... COMPLETED
+Take screenshot P6-CORE... COMPLETED
+Scrolling DOWN until id: btn-sup-detail-map is visible with speed 40, visibility percentage 100%, timeout 8000 ms, with centering disabled... COMPLETED
+Assert that id: btn-sup-detail-map is visible... COMPLETED
+Assert that "Xem trên bản đồ" is visible... COMPLETED
+Take screenshot P6-CORE-2... COMPLETED
+Tap on (Optional) id: btn-sup-detail-map... COMPLETED
+Wait for animation to end within 2000 ms... COMPLETED
+Tap on (Optional) id: btn-sup-detail-back... WARNED
+
+
+ Warning: Element not found: Id matching regex: btn-sup-detail-back

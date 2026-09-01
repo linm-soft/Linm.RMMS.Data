@@ -1,0 +1,41 @@
+Running on Pixel_2
+ > Flow android
+Launch app "org.linmsoft.rmms" with clear state and clear keychain... COMPLETED
+Assert that id: sc-home is visible... COMPLETED
+Tap on id: btn-home-login... COMPLETED
+Assert that id: f-user is visible... COMPLETED
+Tap on id: f-user... COMPLETED
+Erase text... COMPLETED
+Input text linm-soft... COMPLETED
+Tap on "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"... COMPLETED
+Tap on id: f-pass... COMPLETED
+Erase text... COMPLETED
+Input text Linm@2026... COMPLETED
+Press Enter key... COMPLETED
+Wait for animation to end within 4000 ms... COMPLETED
+Tap on (Optional) id: btn-login... WARNED
+
+
+ Warning: Element not found: Id matching regex: btn-login
+Tap on (Optional) "Đăng nhập"... WARNED
+
+
+ Warning: Element not found: Text matching regex: Đăng nhập
+Assert that "Trang Chủ" is visible... COMPLETED
+Assert that id: sc-home is visible... COMPLETED
+Scrolling DOWN until id: tile-asset is visible with speed 40, visibility percentage 100%, timeout 15000 ms, with centering disabled... COMPLETED
+Tap on id: tile-asset... COMPLETED
+Assert that id: sc-asset-hub is visible... COMPLETED
+Scrolling DOWN until id: tile-adjust is visible with speed 40, visibility percentage 100%, timeout 12000 ms, with centering disabled... COMPLETED
+Tap on id: tile-adjust... COMPLETED
+Assert that id: sc-asset-adjust is visible... COMPLETED
+Assert that id: asset-adjust-search is visible... COMPLETED
+Assert that "Cập nhật / bớt" is visible... COMPLETED
+Wait for animation to end within 3000 ms... COMPLETED
+Take screenshot P6-CORE... COMPLETED
+Swipe from (50%, 75%) to (50%, 35%) in 400 ms... COMPLETED
+Take screenshot P6-CORE-2... COMPLETED
+Assert that id: sc-asset-adjust is visible... COMPLETED
+Tap on (Optional) id: btn-asset-adjust-remove-0... COMPLETED
+Tap on (Optional) id: btn-asset-remove-cancel... COMPLETED
+Assert that id: sc-asset-adjust is visible... COMPLETED

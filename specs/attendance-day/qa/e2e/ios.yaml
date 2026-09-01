@@ -1,0 +1,111 @@
+appId: org.linmsoft.rmms
+---
+# attendance-day · store A11/A9/A3 · guest → login → tab field → Chấm công → day row → #sc-attendance-day
+# cấm shot hub-only cho A3 · cấm sibling report/supervise · cấm mfeStdUrl / start:std
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 20000
+- takeScreenshot: A11-LAUNCH
+- tapOn:
+    id: "btn-home-login"
+- extendedWaitUntil:
+    visible:
+      id: "f-user"
+    timeout: 15000
+- tapOn:
+    id: "f-user"
+    optional: true
+- tapOn:
+    text: "Tài khoản"
+    optional: true
+- inputText: "linm-soft"
+- tapOn:
+    text: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
+    optional: true
+- tapOn:
+    text: "RMMS"
+    optional: true
+- tapOn:
+    id: "f-pass"
+    optional: true
+- tapOn:
+    text: "Mật khẩu"
+    optional: true
+- inputText: "Linm@2026"
+- tapOn:
+    text: "Not Now"
+    optional: true
+- takeScreenshot: A9-LOGIN
+- tapOn:
+    id: "btn-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
+- tapOn:
+    text: "Not Now"
+    optional: true
+- pressKey: Enter
+- waitForAnimationToEnd:
+    timeout: 4000
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 45000
+# iOS LinmTabBar children inherit resource-id tab-bar (không expose tab-field) — dùng tile-patrol + text
+- tapOn:
+    id: "tab-field"
+    optional: true
+- tapOn:
+    id: "tile-patrol"
+    optional: true
+- tapOn:
+    text: "Tuần đường"
+- extendedWaitUntil:
+    visible:
+      id: "sc-patrol-home"
+    timeout: 20000
+- tapOn:
+    text: "Chấm công"
+- extendedWaitUntil:
+    visible:
+      id: "sc-attendance"
+    timeout: 20000
+- tapOn:
+    id: "att-day-demo-day-2"
+    optional: true
+- tapOn:
+    text: "T7 09/08"
+- waitForAnimationToEnd:
+    timeout: 3000
+- extendedWaitUntil:
+    visible:
+      id: "sc-attendance-day"
+    timeout: 25000
+- extendedWaitUntil:
+    visible:
+      id: "attendance-day-hero"
+    timeout: 30000
+- assertVisible:
+    id: "attendance-day-badge"
+- assertVisible:
+    id: "attendance-day-range"
+- assertVisible:
+    id: "attendance-day-route"
+- assertVisible:
+    id: "attendance-day-count"
+- assertVisible:
+    id: "attendance-day-section-logs"
+- assertVisible: "Chi tiết ngày công"
+- assertVisible: "T7 09/08"
+- assertVisible: "Đủ công"
+- assertVisible: "Khoảng giờ"
+- assertVisible: "Các lần chấm"
+- takeScreenshot: A3-CORE
+- tapOn:
+    id: "btn-att-day-back"
+    optional: true

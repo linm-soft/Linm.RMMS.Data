@@ -1,6 +1,6 @@
 {
   "feature": "cam-view",
-  "capturedAt": "2026-08-29T18:15:17.640Z",
+  "capturedAt": "2026-08-30T19:08:31.286Z",
   "iosDevice": "iPhone 17 Pro Max",
   "method": "e2e-qa-mobile",
   "steps": [
@@ -11,6 +11,11 @@
         "A10",
         "P11"
       ]
+    },
+    {
+      "id": "CRAWL",
+      "result": "PASS",
+      "store": []
     },
     {
       "id": "A11-LAUNCH",

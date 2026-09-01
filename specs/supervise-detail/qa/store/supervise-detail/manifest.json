@@ -1,0 +1,23 @@
+{
+  "feature": "supervise-detail",
+  "role": "qa",
+  "status": "confirmed",
+  "e2eQa": true,
+  "iosPhase": "phase1_iphone",
+  "method": "yarn e2e-qa-mobile",
+  "verdict": "pass",
+  "gaps": [],
+  "shots": [
+    "A11-LAUNCH.png",
+    "A9-LOGIN.png",
+    "A3-CORE.png",
+    "P6-CORE.png",
+    "P6-CORE-2.png"
+  ],
+  "updatedAt": "2026-08-31T02:50:00.000Z",
+  "taskId": "task_63f14363",
+  "e2eOk": true,
+  "capturedAt": "2026-08-31T02:46:01.428Z",
+  "iosDevice": "iPhone 17 Pro Max",
+  "align": "Aligned"
+}

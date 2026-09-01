@@ -1,0 +1,104 @@
+appId: org.linmsoft.rmms
+---
+# asset-detail · store A11/A9/A3 · guest → login → hub → list → row → #sc-asset-detail
+# cấm shot list/hub-only cho A3 · cấm sibling adjust/collect/AI
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 20000
+- takeScreenshot: A11-LAUNCH
+- tapOn:
+    id: "btn-home-login"
+- extendedWaitUntil:
+    visible:
+      id: "f-user"
+    timeout: 15000
+- tapOn:
+    id: "f-user"
+- eraseText
+- inputText: "linm-soft"
+- tapOn:
+    text: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
+    optional: true
+- tapOn:
+    id: "f-pass"
+- eraseText
+- inputText: "Linm@2026"
+- tapOn:
+    text: "Not Now"
+    optional: true
+- takeScreenshot: A9-LOGIN
+- tapOn:
+    id: "btn-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
+- tapOn:
+    text: "Not Now"
+    optional: true
+- pressKey: Enter
+- waitForAnimationToEnd:
+    timeout: 4000
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 45000
+- scrollUntilVisible:
+    element:
+      id: "tile-asset"
+    direction: DOWN
+    timeout: 15000
+- tapOn:
+    id: "tile-asset"
+- extendedWaitUntil:
+    visible:
+      id: "sc-asset-hub"
+    timeout: 20000
+- tapOn:
+    id: "tile-list"
+- extendedWaitUntil:
+    visible:
+      id: "sc-asset-list"
+    timeout: 25000
+# Chờ GET live (X-Company-Id) — cấm tap demo TS-20260810-* (GAP-QA-REAL-01)
+# Maestro iOS: match full a11y title (substring "KM-QL1" flaky)
+- extendedWaitUntil:
+    visible: ".*KM-QL1-NA-461.*"
+    timeout: 25000
+- waitForAnimationToEnd:
+    timeout: 2000
+- assertVisible:
+    id: "row-asset-0"
+- tapOn:
+    id: "row-asset-0"
+- extendedWaitUntil:
+    visible:
+      id: "sc-asset-detail"
+    timeout: 25000
+- extendedWaitUntil:
+    visible:
+      id: "label-code"
+    timeout: 20000
+- extendedWaitUntil:
+    visible:
+      id: "value-code"
+    timeout: 15000
+- assertVisible:
+    id: "row-type"
+- assertVisible:
+    id: "row-route-km"
+- assertVisible:
+    id: "btn-pin-map"
+- assertVisible: "Mã TS"
+- assertVisible: "Ghim trên bản đồ"
+- assertVisible: ".*KM-QL1-NA-461.*"
+- takeScreenshot: A3-CORE
+- tapOn:
+    id: "btn-pin-map"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 2000

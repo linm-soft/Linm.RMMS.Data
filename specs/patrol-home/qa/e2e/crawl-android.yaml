@@ -1,0 +1,219 @@
+appId: org.linmsoft.rmms
+---
+# crawl · patrol-home
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 15000
+- tapOn:
+    id: "btn-home-login"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "f-user"
+    timeout: 15000
+- tapOn:
+    id: "f-user"
+- eraseText
+- inputText: "linm-soft"
+- tapOn:
+    text: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
+    optional: true
+- tapOn:
+    text: "RMMS"
+    optional: true
+- tapOn:
+    id: "f-pass"
+- eraseText
+- inputText: "Linm@2026"
+- tapOn:
+    text: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
+    optional: true
+- tapOn:
+    text: "RMMS"
+    optional: true
+- tapOn:
+    id: "btn-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
+- tapOn:
+    text: "Not Now"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "home-who"
+    timeout: 40000
+
+- tapOn:
+    id: "tab-field"
+    optional: true
+- tapOn:
+    text: "Tuần đường"
+    optional: true
+- tapOn:
+    point: "30%,96%"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-patrol-home"
+    timeout: 20000
+
+- tapOn:
+    id: "btn-pin-here"
+- extendedWaitUntil:
+    visible:
+      id: "sheet-checkin"
+    timeout: 8000
+- takeScreenshot: CRAWL-pin
+- tapOn:
+    id: "nav-back"
+    optional: true
+
+- tapOn:
+    id: "row-quick-field-reflect"
+- extendedWaitUntil:
+    visible:
+      id: "sc-field-reflect"
+    timeout: 8000
+- takeScreenshot: CRAWL-reflect
+- tapOn:
+    id: "tab-field"
+    optional: true
+- tapOn:
+    text: "Tuần đường"
+    optional: true
+- tapOn:
+    point: "30%,96%"
+    optional: true
+- tapOn:
+    text: "Tuần đường"
+    optional: true
+- tapOn:
+    point: "30%,96%"
+    optional: true
+
+
+- tapOn:
+    id: "row-quick-cam-patrol"
+- extendedWaitUntil:
+    visible:
+      id: "sc-cam-patrol"
+    timeout: 8000
+- takeScreenshot: CRAWL-cam
+- tapOn:
+    id: "tab-field"
+    optional: true
+- tapOn:
+    text: "Tuần đường"
+    optional: true
+- tapOn:
+    point: "30%,96%"
+    optional: true
+- tapOn:
+    text: "Tuần đường"
+    optional: true
+- tapOn:
+    point: "30%,96%"
+    optional: true
+
+
+- tapOn:
+    id: "row-quick-patrol-map"
+- extendedWaitUntil:
+    visible:
+      id: "sc-patrol-map"
+    timeout: 8000
+- takeScreenshot: CRAWL-map
+- tapOn:
+    id: "tab-field"
+    optional: true
+- tapOn:
+    text: "Tuần đường"
+    optional: true
+- tapOn:
+    point: "30%,96%"
+    optional: true
+- tapOn:
+    text: "Tuần đường"
+    optional: true
+- tapOn:
+    point: "30%,96%"
+    optional: true
+
+
+- tapOn:
+    id: "row-quick-patrol-history"
+- extendedWaitUntil:
+    visible:
+      id: "sc-patrol-history"
+    timeout: 8000
+- takeScreenshot: CRAWL-history
+- tapOn:
+    id: "tab-field"
+    optional: true
+- tapOn:
+    text: "Tuần đường"
+    optional: true
+- tapOn:
+    point: "30%,96%"
+    optional: true
+- tapOn:
+    text: "Tuần đường"
+    optional: true
+- tapOn:
+    point: "30%,96%"
+    optional: true
+
+
+- tapOn:
+    id: "row-quick-supervise"
+- extendedWaitUntil:
+    visible:
+      id: "sc-supervise"
+    timeout: 8000
+- takeScreenshot: CRAWL-supervise
+- tapOn:
+    id: "tab-field"
+    optional: true
+- tapOn:
+    text: "Tuần đường"
+    optional: true
+- tapOn:
+    point: "30%,96%"
+    optional: true
+- tapOn:
+    text: "Tuần đường"
+    optional: true
+- tapOn:
+    point: "30%,96%"
+    optional: true
+
+
+- tapOn:
+    id: "row-quick-patrol-offline"
+- extendedWaitUntil:
+    visible:
+      id: "sc-patrol-offline"
+    timeout: 8000
+- takeScreenshot: CRAWL-offline
+- tapOn:
+    id: "tab-field"
+    optional: true
+- tapOn:
+    text: "Tuần đường"
+    optional: true
+- tapOn:
+    point: "30%,96%"
+    optional: true
+- tapOn:
+    text: "Tuần đường"
+    optional: true
+- tapOn:
+    point: "30%,96%"
+    optional: true
+

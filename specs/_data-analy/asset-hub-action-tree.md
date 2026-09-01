@@ -32,7 +32,7 @@ Entry từ `home`: tile Tài sản + wallet = **một** slug `asset-hub`.
 | `asset-collect` | `asset-hub` | Thu thập thủ công | `#sc-asset-collect` `DES-MOB-ASSET-COLLECT` | form | unique | — | `LinmHubTile` `#i-plus` | **pending_confirm** |
 | `asset-ai` | `asset-hub` | Camera AI | `#sc-asset-ai` `DES-MOB-ASSET-AI` | form | unique | — | `LinmHubTile` `#i-camera` | **pending_confirm** |
 | `asset-list` | `asset-hub` | Danh sách | `#sc-asset-list` `DES-MOB-ASSET-LIST` | list | unique | — | `LinmHubTile` · `LinmSearchField` | **pending_confirm** |
-| `asset-detail` | `asset-list` | Chi tiết TS | `#sc-asset-detail` `DES-MOB-ASSET-DETAIL` | sheet | unique | — | `LinmListRow` | **pending_confirm** |
+| `asset-detail` | `asset-list` | Chi tiết TS | `#sc-asset-detail` `DES-MOB-ASSET-DETAIL` | sheet | unique | — | `LinmListRow` | **this turn** `task_f6ca06ad` · data_analy PASS |
 | `asset-adjust` | `asset-hub` | Cập nhật / bớt | `#sc-asset-adjust` `DES-MOB-ASSET-ADJUST` | list | unique | — | `LinmHubTile` `#i-minus` | **pending_confirm** |
 | `det-hitl` | `asset-hub` | Xác nhận AI | `#sc-det-hitl` · hub row CTA | sheet | shared_action | — | `LinmPrimaryButton` | **pending_confirm** |
 

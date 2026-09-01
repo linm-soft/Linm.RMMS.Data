@@ -47,13 +47,13 @@ Cùng `go()` trên 2 chỗ (quick + tile / tile + wallet) = **một** slug.
 
 ```
 me                            ← kind=hub · tab Tôi · DES-MOB-ME
-├── me-profile                ← hàng Hồ sơ · iOS chevron · **không** go() · gap
+├── me-profile                ← hàng Hồ sơ · live no-op · **enqueue** pending_confirm · GAP-MOB-ACT-03
 ├── patrol-offline            ← Hàng đợi mất sóng · go('patrol-offline')
 ├── me-signal                 ← Tín hiệu · chrome kit · skip
 ├── feedback                  ← Góp ý · go('feedback')
 ├── cam-view                  ← Camera xem · go('cam-view')
 ├── ops                       ← Thông báo · go('ops')
-├── me-settings               ← Cài đặt · iOS toast · Android thiếu · gap
+├── me-settings               ← Cài đặt · owner DES-MOB-ME-SETTINGS · task_43c37168 data_analy
 └── login-logout              ← Đăng xuất · reuse=login-logout
 ```
 
@@ -127,13 +127,13 @@ Title: `[Mobile] [Tuần đường] -> {nhãn nút}`. **Cấm** GAP-MOB-ACT-07 c
 | feature | parent | action | demoRel | kind | prior | share | reuse | mapCite | usedOn |
 |---------|--------|--------|---------|------|-------|-------|-------|---------|--------|
 | `me` | — | Tab Tôi / Hồ sơ | `#sc-me` · `DES-MOB-ME` | hub | new | unique | — | `.large-title` · `LinmLargeTitle` | tabbar `me` · home `.hero-ico` |
-| `me-profile` | `me` | Hàng tên / Hồ sơ | `#sc-me` row person · iOS `.chev` | sheet | gap | unique | — | `.list` / `.row` · `LinmListRow` | me |
+| `me-profile` | `me` | Hàng tên / Hồ sơ | `#sc-me` row person · iOS `.chev` | sheet | new | unique | — | `.list` / `.row` · `LinmListRow` | me |
 | `patrol-offline` | `me` | Hàng đợi mất sóng | `#sc-patrol-offline` · `DES-MOB-PAT-OFFLINE` | list | new | shared_action | — (owner) | `.list` · `LinmListRow` · `#i-sync` | home tile Lưu trữ · patrol nav · me |
 | `me-signal` | `me` | Tín hiệu | `#sc-me` `data-net-signal` | — | skip | shared_kit | — | `.role` + `data-net-signal` · `LinmStatusCapsule` | me · home hero |
 | `feedback` | `me` | Góp ý | `#sc-feedback` · `DES-MOB-FEEDBACK` | sheet | new | unique | — | `.list` · `LinmListRow` · `#i-info` | me |
 | `cam-view` | `me` | Camera xem | `#sc-cam-view` · `DES-MOB-CAM-VIEW` | sheet | new | unique | — | `.list` · `LinmListRow` · `#i-video` | me |
 | `ops` | `me` | Thông báo | `#sc-ops` · `DES-MOB-OPS` | list | new | shared_action | — (owner) | `.hero-ico` + badge · `LinmNotifyButton` · `#i-bell` | home `.vn-hero-tools` · me |
-| `me-settings` | `me` | Cài đặt | iOS toast only · Android **thiếu** row | sheet | gap | unique | — | `.list` · `LinmListRow` · `#i-gear` | me (iOS) |
+| `me-settings` | `me` | Cài đặt | `#sc-me-settings` (Design) · entry `row-settings` | sheet | new | unique | — | `.list` · `LinmListRow` · `#i-gear` | me |
 | `login-logout` | `me` | Đăng xuất | `#sc-me` `logout()` | shell | skip | shared_action | `login-logout` | `.btn-skip` · `LinmSecondaryButton` | me · login |
 
 ## Rows — shell (giữ)

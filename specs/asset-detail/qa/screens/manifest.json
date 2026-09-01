@@ -1,0 +1,80 @@
+{
+  "feature": "asset-detail",
+  "capturedAt": "2026-08-30T22:16:21.770Z",
+  "iosDevice": "iPhone 17 Pro Max",
+  "method": "e2e-qa-mobile",
+  "steps": [
+    {
+      "id": "A10-BFF",
+      "result": "PASS",
+      "store": [
+        "A10",
+        "P11"
+      ]
+    },
+    {
+      "id": "MAESTRO-IOS",
+      "result": "FAIL",
+      "store": [
+        "A3",
+        "A9",
+        "A11"
+      ],
+      "error": "ED\nAssert that id: sc-home is visible... COMPLETED\nScrolling DOWN until id: tile-asset is visible with speed 40, visibility percentage 100%, timeout 15000 ms, with centering disabled... COMPLETED\nTap on id: tile-asset... COMPLETED\nAssert that id: sc-asset-hub is visible... COMPLETED\nTap on id: tile-list... COMPLETED\nAssert that id: sc-asset-list is visible... COMPLETED\nAssert that \".*KM-QL1-NA-461.*\" is visible... COMPLETED\nWait for animation to end within 2000 ms... COMPLETED\nAssert that id: row-asset-0 is visible... COMPLETED\nTap on id: row-asset-0... COMPLETED\nAssert that id: sc-asset-detail is visible... COMPLETED\nAssert that id: label-code is visible... FAILED\n\nAssertion is false: id: label-code is visible\n\nAssertion 'id: label-code is visible' failed. Check the UI hierarchy in debug artifacts to verify the element state and properties.\n\nPossible causes:\n- Element selector may be incorrect - check if there are similar elements with slightly different names/properties.\n- Element may be temporarily unavailable due to loading state\n- This could be a real regression that needs to be addressed\n\n==== Debug output (logs & screenshots) ====\n\n/Users/mac/.maestro/tests/2026-08-31_051357",
+      "gap": "GAP-QA-STORE-01"
+    },
+    {
+      "id": "MAESTRO-AND",
+      "result": "FAIL",
+      "store": [
+        "P6"
+      ],
+      "error": "tional) id: btn-login... WARNED\n\n\n Warning: Element not found: Id matching regex: btn-login\nTap on (Optional) \"Đăng nhập\"... WARNED\n\n\n Warning: Element not found: Text matching regex: Đăng nhập\nAssert that \"Trang Chủ\" is visible... COMPLETED\nAssert that id: sc-home is visible... COMPLETED\nScrolling DOWN until id: tile-asset is visible with speed 40, visibility percentage 100%, timeout 15000 ms, with centering disabled... COMPLETED\nTap on id: tile-asset... COMPLETED\nAssert that id: sc-asset-hub is visible... COMPLETED\nTap on id: tile-list... COMPLETED\nAssert that id: sc-asset-list is visible... COMPLETED\nAssert that \".*KM-QL1-NA-461.*\" is visible... FAILED\n\nAssertion is false: \".*KM-QL1-NA-461.*\" is visible\n\nAssertion '\".*KM-QL1-NA-461.*\" is visible' failed. Check the UI hierarchy in debug artifacts to verify the element state and properties.\n\nPossible causes:\n- Element selector may be incorrect - check if there are similar elements with slightly different names/properties.\n- Element may be temporarily unavailable due to loading state\n- This could be a real regression that needs to be addressed\n\n==== Debug output (logs & screenshots) ====\n\n/Users/mac/.maestro/tests/2026-08-31_051512",
+      "gap": "GAP-QA-STORE-03"
+    },
+    {
+      "id": "A11-LAUNCH",
+      "result": "PASS",
+      "screenshot": "A11-LAUNCH.png",
+      "store": [
+        "A11"
+      ]
+    },
+    {
+      "id": "A9-LOGIN",
+      "result": "PASS",
+      "screenshot": "A9-LOGIN.png",
+      "store": [
+        "A9",
+        "P10"
+      ]
+    },
+    {
+      "id": "A3-CORE",
+      "result": "PASS",
+      "screenshot": "A3-CORE.png",
+      "store": [
+        "A3",
+        "A11"
+      ]
+    },
+    {
+      "id": "P6-CORE",
+      "result": "PASS",
+      "screenshot": "P6-CORE.png",
+      "store": [
+        "P6",
+        "P11"
+      ]
+    },
+    {
+      "id": "P6-CORE-2",
+      "result": "PASS",
+      "screenshot": "P6-CORE-2.png",
+      "store": [
+        "P6"
+      ]
+    }
+  ],
+  "ok": false
+}

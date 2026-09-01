@@ -1,0 +1,81 @@
+appId: org.linmsoft.rmms
+---
+# crawl · incident-detail
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 15000
+- tapOn:
+    id: "btn-home-login"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "f-user"
+    timeout: 15000
+- tapOn:
+    id: "f-user"
+- eraseText
+- inputText: "linm-soft"
+- tapOn:
+    text: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
+    optional: true
+- tapOn:
+    text: "RMMS"
+    optional: true
+- tapOn:
+    id: "f-pass"
+- eraseText
+- inputText: "Linm@2026"
+- tapOn:
+    text: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
+    optional: true
+- tapOn:
+    text: "RMMS"
+    optional: true
+- tapOn:
+    id: "btn-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
+- tapOn:
+    text: "Not Now"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "home-who"
+    timeout: 40000
+
+- tapOn:
+    id: "tab-incident"
+    optional: true
+- tapOn:
+    text: "Vấn đề"
+    optional: true
+- tapOn:
+    point: "50%,96%"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-incident-list"
+    timeout: 20000
+- tapOn:
+    id: "card-inc-demo-inc-1"
+- extendedWaitUntil:
+    visible:
+      id: "sc-incident-detail"
+    timeout: 20000
+
+- tapOn:
+    id: "btn-map"
+- extendedWaitUntil:
+    visible:
+      id: "sc-gis-map"
+    timeout: 8000
+- takeScreenshot: CRAWL-map
+- tapOn:
+    id: "nav-back"
+    optional: true

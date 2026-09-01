@@ -1,6 +1,6 @@
 {
   "feature": "vis-capture",
-  "capturedAt": "2026-08-29T10:22:59.750Z",
+  "capturedAt": "2026-08-30T19:31:56.338Z",
   "iosDevice": "iPhone 17 Pro Max",
   "method": "e2e-qa-mobile",
   "steps": [
@@ -11,6 +11,11 @@
         "A10",
         "P11"
       ]
+    },
+    {
+      "id": "CRAWL",
+      "result": "PASS",
+      "store": []
     },
     {
       "id": "A11-LAUNCH",

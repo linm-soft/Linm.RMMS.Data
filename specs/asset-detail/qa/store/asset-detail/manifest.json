@@ -1,0 +1,27 @@
+{
+  "feature": "asset-detail",
+  "role": "qa",
+  "status": "fail",
+  "e2eQa": true,
+  "iosPhase": "phase1_iphone",
+  "method": "yarn e2e-qa-mobile",
+  "verdict": "fail",
+  "gaps": [
+    "GAP-QA-REAL-01",
+    "GAP-QA-STORE-01",
+    "GAP-QA-STORE-03",
+    "GAP-MOB-ASSET-DET-NAV-02",
+    "GAP-MOB-E2E-VIS-01"
+  ],
+  "shots": [
+    "A11-LAUNCH.png",
+    "A9-LOGIN.png",
+    "A3-CORE.png",
+    "A3-CORE-EMPTY.png",
+    "P6-CORE.png",
+    "P6-CORE-2.png",
+    "P6-LIST-DEMO.png"
+  ],
+  "updatedAt": "2026-08-30T22:21:24.000Z",
+  "taskId": "task_cbda6a54"
+}

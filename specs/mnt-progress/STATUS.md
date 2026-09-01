@@ -37,7 +37,7 @@
 | rulesVersion | `2026.08.29.5` |
 | versionGate | `rechecked` |
 | verifyGate | artifact review **PASS** · prior Dev/QA iOS/Android/BFF/e2e **PASS** · roleOnly=`review` · Step 4b **N/A** · **cấm** yarn build/e2e/start:std |
-| updatedAt | `2026-08-29T16:53:37.657Z` |
+| updatedAt | `2026-08-30T18:59:12.211Z` |
 ## Lock
 
 | agent | scope | id | at |

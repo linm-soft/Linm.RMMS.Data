@@ -1,0 +1,86 @@
+appId: org.linmsoft.rmms
+---
+# asset-adjust · store A11/A9/A3 · guest home → login → #tile-asset → hub → #tile-adjust → #sc-asset-adjust
+# Pattern asset-collect · cấm shot hub/login-only cho A3 · modal cancel = không soft-delete DB
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 20000
+- takeScreenshot: A11-LAUNCH
+- tapOn:
+    id: "btn-home-login"
+- extendedWaitUntil:
+    visible:
+      id: "f-user"
+    timeout: 15000
+- tapOn:
+    id: "f-user"
+- eraseText
+- inputText: "linm-soft"
+- tapOn:
+    text: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
+    optional: true
+- tapOn:
+    id: "f-pass"
+- eraseText
+- inputText: "Linm@2026"
+- tapOn:
+    text: "Not Now"
+    optional: true
+- takeScreenshot: A9-LOGIN
+- tapOn:
+    id: "btn-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
+- tapOn:
+    text: "Not Now"
+    optional: true
+- pressKey: Enter
+- waitForAnimationToEnd:
+    timeout: 4000
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 45000
+- scrollUntilVisible:
+    element:
+      id: "tile-asset"
+    direction: DOWN
+    timeout: 15000
+- tapOn:
+    id: "tile-asset"
+- extendedWaitUntil:
+    visible:
+      id: "sc-asset-hub"
+    timeout: 20000
+- scrollUntilVisible:
+    element:
+      id: "tile-adjust"
+    direction: DOWN
+    timeout: 12000
+- tapOn:
+    id: "tile-adjust"
+- extendedWaitUntil:
+    visible:
+      id: "sc-asset-adjust"
+    timeout: 25000
+- assertVisible:
+    id: "asset-adjust-search"
+- assertVisible:
+    text: "Cập nhật / bớt"
+- waitForAnimationToEnd:
+    timeout: 3000
+- takeScreenshot: A3-CORE
+- tapOn:
+    id: "btn-asset-adjust-remove-0"
+    optional: true
+- tapOn:
+    id: "btn-asset-remove-cancel"
+    optional: true
+- assertVisible:
+    id: "sc-asset-adjust"

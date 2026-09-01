@@ -1,0 +1,21 @@
+{
+  "feature": "supervise-detail",
+  "status": "done",
+  "review_confirm": "done",
+  "taskId": "task_da5594c4",
+  "autoApprove": true,
+  "reviewHash": "sha256:supervise-detail-review-20260831",
+  "contentHash": "sha256:supervise-detail-control-hint-20260831",
+  "realDataHash": "sha256:supervise-detail-real-data-20260831",
+  "bffContentHash": "sha256:patrol-attendance-logs-getbyid-passthrough",
+  "skillId": "agent-review-mobile",
+  "skillVersion": "2026.08.29.1",
+  "schemaVersion": "1",
+  "workflowVersion": "2026.08.31.2",
+  "rulesVersion": "2026.08.31.2",
+  "versionGate": "rechecked",
+  "updatedAt": "2026-08-31T02:52:00.000Z",
+  "mustAlignOpen": 0,
+  "gapMobAct03": "none",
+  "postReview": "skip"
+}

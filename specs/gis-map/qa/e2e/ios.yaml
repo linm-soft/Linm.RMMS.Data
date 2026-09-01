@@ -1,0 +1,98 @@
+appId: org.linmsoft.rmms
+---
+# gis-map · store A11/A9/A3 · guest → login → #tile-asset → hub → #tile-map → #sc-gis-map
+# iOS LinmChip a11y id thường không expose → assert text copy SSOT · cấm patrol-map
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 20000
+- takeScreenshot: A11-LAUNCH
+- tapOn:
+    id: "btn-home-login"
+- extendedWaitUntil:
+    visible:
+      id: "f-user"
+    timeout: 15000
+- tapOn:
+    id: "f-user"
+- eraseText
+- inputText: "linm-soft"
+- tapOn:
+    text: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
+    optional: true
+- tapOn:
+    id: "f-pass"
+- eraseText
+- inputText: "Linm@2026"
+- tapOn:
+    text: "Not Now"
+    optional: true
+- takeScreenshot: A9-LOGIN
+- tapOn:
+    id: "btn-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
+- tapOn:
+    text: "Not Now"
+    optional: true
+- pressKey: Enter
+- waitForAnimationToEnd:
+    timeout: 4000
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 45000
+- scrollUntilVisible:
+    element:
+      id: "tile-asset"
+    direction: DOWN
+    timeout: 15000
+- tapOn:
+    id: "tile-asset"
+- extendedWaitUntil:
+    visible:
+      id: "sc-asset-hub"
+    timeout: 20000
+- tapOn:
+    id: "tile-map"
+- extendedWaitUntil:
+    visible:
+      id: "sc-gis-map"
+    timeout: 30000
+- waitForAnimationToEnd:
+    timeout: 5000
+- assertVisible:
+    text: "Bản đồ tài sản"
+- assertVisible:
+    text: "Đường"
+- assertVisible:
+    text: "Phố"
+- assertVisible:
+    text: "Vệ tinh"
+- assertVisible:
+    text: "Toàn tuyến"
+- assertVisible:
+    text: "Tất cả"
+- assertVisible:
+    text: "Sự cố"
+- assertVisible:
+    text: "Hành lang"
+- assertVisible:
+    id: "btn-gis-back"
+    optional: true
+- assertVisible:
+    id: "btn-gis-layers"
+    optional: true
+- assertVisible:
+    id: "gis-search"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 4000
+- takeScreenshot: A3-CORE
+- assertVisible:
+    id: "sc-gis-map"

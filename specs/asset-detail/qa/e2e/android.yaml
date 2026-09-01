@@ -1,0 +1,99 @@
+appId: org.linmsoft.rmms
+---
+# asset-detail · store P6 ×2 · guest → login → hub → list → row → #sc-asset-detail (Pixel 1080×1920)
+# P6-CORE = detail fold · P6-CORE-2 = sau CTA / fold 2 · cấm hideKeyboard
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 20000
+- tapOn:
+    id: "btn-home-login"
+- extendedWaitUntil:
+    visible:
+      id: "f-user"
+    timeout: 15000
+- tapOn:
+    id: "f-user"
+- eraseText
+- inputText: "linm-soft"
+- tapOn: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
+- tapOn:
+    id: "f-pass"
+- eraseText
+- inputText: "Linm@2026"
+- pressKey: Enter
+- waitForAnimationToEnd:
+    timeout: 4000
+- tapOn:
+    id: "btn-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
+- extendedWaitUntil:
+    visible: "Trang Chủ"
+    timeout: 45000
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 15000
+- scrollUntilVisible:
+    element:
+      id: "tile-asset"
+    direction: DOWN
+    timeout: 15000
+- tapOn:
+    id: "tile-asset"
+- extendedWaitUntil:
+    visible:
+      id: "sc-asset-hub"
+    timeout: 20000
+- tapOn:
+    id: "tile-list"
+- extendedWaitUntil:
+    visible:
+      id: "sc-asset-list"
+    timeout: 25000
+# Chờ GET live — cấm tap demo TS-20260810-* (GAP-QA-REAL-01)
+- extendedWaitUntil:
+    visible: ".*KM-QL1-NA-461.*"
+    timeout: 25000
+- waitForAnimationToEnd:
+    timeout: 2000
+- assertVisible:
+    id: "row-asset-0"
+- tapOn:
+    id: "row-asset-0"
+- extendedWaitUntil:
+    visible:
+      id: "sc-asset-detail"
+    timeout: 25000
+- extendedWaitUntil:
+    visible:
+      id: "label-code"
+    timeout: 20000
+- extendedWaitUntil:
+    visible:
+      id: "value-code"
+    timeout: 15000
+- assertVisible:
+    id: "row-type"
+- assertVisible:
+    id: "row-route-km"
+- assertVisible:
+    id: "btn-pin-map"
+- assertVisible: "Mã TS"
+- assertVisible: "Ghim trên bản đồ"
+- assertVisible: ".*KM-QL1-NA-461.*"
+- takeScreenshot: P6-CORE
+- tapOn:
+    id: "btn-pin-map"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 2000
+- takeScreenshot: P6-CORE-2
+- assertVisible:
+    id: "sc-asset-detail"

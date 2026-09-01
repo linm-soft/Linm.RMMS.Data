@@ -1,0 +1,23 @@
+appId: org.linmsoft.rmms
+---
+# crawl · login-forgot
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 15000
+- tapOn:
+    id: "btn-home-login"
+- tapOn:
+    id: "btn-forgot"
+
+- tapOn:
+    id: "btn-forgot"
+- extendedWaitUntil:
+    visible:
+      id: "f-otp"
+    timeout: 8000
+- takeScreenshot: CRAWL-forgot
+
