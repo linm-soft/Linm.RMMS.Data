@@ -4,6 +4,7 @@
 > **Status:** Demo  
 > **Kind:** **B** (CatalogListShell) + **D** (section slideout) — Confirmed by: ai-autocode-autopilot  
 > **Sources:** `RMMS` §8 · `07` §8 · `08` · `09` · `15-SCREEN-AI-MAP.md`  
+> **Host:** [`ai-vision-service.md`](ai-vision-service.md) — **`Linm.RMMS.Vision`** (P2 XGBoost/ONNX **chỉ** đây)  
 > **Gắn màn:** Web **Báo cáo** / **Dashboard** · route MFE `/ai-kd/du-bao-bt`  
 > **Demo HTML:** `Linm.RMMS.Demo/public/demo/ai-kd/du-bao-bt.html`  
 > **MFE (align):** `Linm.Web.RMMS.AiVision` · **cấm** sửa MFE ở phase demo

@@ -7,6 +7,7 @@
 > **SSOT P2:** [`14-P2-AI-VISION-STANDARD.md`](../14-P2-AI-VISION-STANDARD.md)  
 > **Sources:** `RMMS` §3 · `07` §3 · `08` · `09` · `10` · `13` · `14` · [`15-SCREEN-AI-MAP.md`](../15-SCREEN-AI-MAP.md)  
 > **Demo:** `Linm.RMMS.Demo/src/demo/ai-vision/ai-vision.html` · control-map `demo-maps/ai-vision-control-map.md`  
+> **Host V1/P2:** [`ai-vision-service.md`](ai-vision-service.md) · plan [`../../plan/ai-vision-service/README.md`](../../plan/ai-vision-service/README.md) — **`Linm.RMMS.Vision`** `:5311` · **cấm** stub `mock://` · **cấm** `:5301`  
 > **Gắn màn:** Mobile **Vấn đề** (chụp) · Web **Sự cố** · Giám sát bản đồ
 
 ## 1. Tổng quan
@@ -47,22 +48,22 @@
 | Form | class · conf · sev · lat/lng · section · route · PCI · bbox · note · incidentCode |
 | Actions | View/Edit/Copy · Tạo Vấn đề · Dismiss · Lưu nháp · leave-confirm |
 
-## 3. API (skeleton — Demo không implement BE)
+## 3. API (Signed — DOMAIN-MAP `api/v1/ai-vision`)
+
+Client **qua BFF** `web-bff/api/v1/ai-vision/**`. Host SSOT **`Linm.RMMS.Vision`** — Azure/ONNX **không** trong WebService. Plan: [`../../plan/ai-vision-service/README.md`](../../plan/ai-vision-service/README.md).
 
 | Method | Path | Mô tả |
 |--------|------|-------|
-| POST | `/api/v1/ai-vision/detect` | 1 ảnh |
-| POST | `/api/v1/ai-vision/batch` | Batch |
-| POST | `/api/v1/ai-vision/segment` | P2 SAM |
-| POST | `/api/v1/ai-vision/calculate-pci` | PCI |
-| GET | `/api/v1/ai-vision/defects?sectionId=&from=&to=` | List |
-| GET | `/api/v1/ai-vision/pci-history/{sectionId}` | History |
+| GET/POST/PUT/DELETE | `/api/v1/ai-vision/detections` | CRUD list/form — **đã có** |
+| POST | `/api/v1/ai-vision/detect` | 1 frame `imageUrl` → Draft trên **Vision** · **hiện** WebService `DetectStubAsync` (`mock://`) — GAP-F-AIV-04 |
+| GET | `/api/v1/ai-vision/pci-history/{sectionId}` | History stub — **đã có** |
+| POST | `/api/v1/ai-vision/detect-assets` | Slug **`ai-asset-detect`** — không dùng trên màn kiểm định MD |
 
-Adapter: `IDefectDiagnoser` → P1 `Gpt4oVisionDiagnoser` · P2 `OnnxDetectorDiagnoser` (alias `YoloOnnxDiagnoser`).
+**DEFER (chưa Signed — cấm invent trên MFE):** `POST …/batch` · `…/segment` · `…/calculate-pci` · `GET …/defects` (list = `detections`).
+
+Adapter **trong Vision:** P1 GPT-4o · P2 `OnnxDetectorDiagnoser` (sau `14` gate) — **cùng** `/detect`.
 
 **P2 stack suggest:** **P2-A** Apache (YOLOX/RTMDet/RT-DETR) **hoặc** **P2-B** Ultralytics Enterprise — xem `14` §2.
-
-**BE align:** Chưa Signed → **DEFER** scaffold endpoint. Khi Signed → `/align-demo-mfe` + Step 4b.
 
 ## 4. Database
 
@@ -86,6 +87,7 @@ Object storage: MinIO raw images.
 | GAP-F-AIV-01 Dataset ≥20k + train P2 | OUT P1 · sau gate (`14`) |
 | GAP-F-AIV-02 Token budget | Alert $200/tháng (`08`) |
 | GAP-F-AIV-03 License P2-A vs P2-B | Chốt HĐ trước train (`14` §7) |
+| GAP-F-AIV-04 Detect stub / `mock://` | V1: host `Linm.RMMS.Vision` — plan `ai-vision-service` |
 
 ## 7. Demo checklist
 

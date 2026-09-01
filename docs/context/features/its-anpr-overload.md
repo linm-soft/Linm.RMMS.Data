@@ -5,6 +5,7 @@
 > **Status:** Demo · backlog **V2-C2** trong [`../09-PLAN-P1-V2.md`](../09-PLAN-P1-V2.md)  
 > **Kind:** **B** list feed + **D** slideout Confirm  
 > **Demo:** `Linm.RMMS.Demo/.../ai-its/toc-do-qt.html` · `/demo/p/ai-its/toc-do-qt`  
+> **Host:** [`ai-vision-service.md`](ai-vision-service.md) — **`Linm.RMMS.Vision`**  
 > **≠** `its-traffic-detect` (biển báo/cọc) · `toc` (ùn tắc) · `incident` (Vấn đề chung)
 
 ## 1. Tổng quan

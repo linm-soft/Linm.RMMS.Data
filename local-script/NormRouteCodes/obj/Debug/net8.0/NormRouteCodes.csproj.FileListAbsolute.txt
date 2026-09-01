@@ -1,0 +1,15 @@
+d:\AI-QLBD\Linm.RMMS.Data\local-script\NormRouteCodes\bin\Debug\net8.0\NormRouteCodes.exe
+d:\AI-QLBD\Linm.RMMS.Data\local-script\NormRouteCodes\bin\Debug\net8.0\NormRouteCodes.deps.json
+d:\AI-QLBD\Linm.RMMS.Data\local-script\NormRouteCodes\bin\Debug\net8.0\NormRouteCodes.runtimeconfig.json
+d:\AI-QLBD\Linm.RMMS.Data\local-script\NormRouteCodes\bin\Debug\net8.0\NormRouteCodes.dll
+d:\AI-QLBD\Linm.RMMS.Data\local-script\NormRouteCodes\bin\Debug\net8.0\NormRouteCodes.pdb
+d:\AI-QLBD\Linm.RMMS.Data\local-script\NormRouteCodes\obj\Debug\net8.0\NormRouteCodes.GeneratedMSBuildEditorConfig.editorconfig
+d:\AI-QLBD\Linm.RMMS.Data\local-script\NormRouteCodes\obj\Debug\net8.0\NormRouteCodes.AssemblyInfoInputs.cache
+d:\AI-QLBD\Linm.RMMS.Data\local-script\NormRouteCodes\obj\Debug\net8.0\NormRouteCodes.AssemblyInfo.cs
+d:\AI-QLBD\Linm.RMMS.Data\local-script\NormRouteCodes\obj\Debug\net8.0\NormRouteCodes.csproj.CoreCompileInputs.cache
+d:\AI-QLBD\Linm.RMMS.Data\local-script\NormRouteCodes\obj\Debug\net8.0\NormRouteCodes.sourcelink.json
+d:\AI-QLBD\Linm.RMMS.Data\local-script\NormRouteCodes\obj\Debug\net8.0\NormRouteCodes.dll
+d:\AI-QLBD\Linm.RMMS.Data\local-script\NormRouteCodes\obj\Debug\net8.0\refint\NormRouteCodes.dll
+d:\AI-QLBD\Linm.RMMS.Data\local-script\NormRouteCodes\obj\Debug\net8.0\NormRouteCodes.pdb
+d:\AI-QLBD\Linm.RMMS.Data\local-script\NormRouteCodes\obj\Debug\net8.0\NormRouteCodes.genruntimeconfig.cache
+d:\AI-QLBD\Linm.RMMS.Data\local-script\NormRouteCodes\obj\Debug\net8.0\ref\NormRouteCodes.dll

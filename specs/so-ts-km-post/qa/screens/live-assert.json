@@ -1,0 +1,46 @@
+{
+  "list": {
+    "titleKm": true,
+    "createBtn": true,
+    "noCreateBadge": true,
+    "typeFilterHidden": true,
+    "filterBar": true,
+    "search": true,
+    "route": true,
+    "kmFrom": true,
+    "kmToFilter": true,
+    "org": true,
+    "snippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nHạng mục KCHT\nDS\nDev Standalone\nDeveloper\nTài sản đường\nSổ TS — Cột Km\nLàm mới\nTạo mới\nDanh sách cột Km\nMenu dòng: nhấn đúp · Ctrl + chuột phải · nhấn giữ dòng\nTìm kiếm\nTuyến đường\nĐơn vị\nLý trình từ\nLý trình đến\n​\nSTT\t\n\tMã tài sản\n\tTên tài sản\n\tTuyến đường\n\tLý trình bắt đầu\n\tKhoảng cách tới cột kế (m)\n\tVật liệu cột\n\tTìn"
+  },
+  "form": {
+    "cols5": true,
+    "kmAttr": true,
+    "materials": true,
+    "distance": true,
+    "kmToVisible": false,
+    "nameLabel": true,
+    "noModeBadge": true,
+    "snippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nHạng mục KCHT\nDS\nDev Standalone\nDeveloper\nTạo tài sản\nQuay lại\nHủy\nTạo mới\nTạo tài sản\nĐang tạo mới — Lưu hoặc Hủy\nTHÔNG TIN TÀI SẢN\nMã tài sản\nTình trạng kỹ thuật*\nChọn tình trạng\nTốt\nTheo dõi\nCần bảo trì\nLoại tài sản *\n✕\nCao tốc / quốc lộ *\nTuyến\nĐoạn tuyến\nNguồn\nNhập tay\nAI\nTên cột Km*\nLý trình bắt đầu (Km+)*\nẢnh hiện trường\nTHÔNG SỐ CỘT KM\nKhoảng cách tới cột kế tiếp (m)\nVật liệu cột\nChọn vật liệu\nGPS / HỒ SƠ\nVĩ độ"
+  },
+  "dtm": {
+    "D": {
+      "filterBar": true,
+      "overflowX": false,
+      "bodyW": 1280,
+      "vw": 1280
+    },
+    "T": {
+      "filterBar": true,
+      "overflowX": false,
+      "bodyW": 768,
+      "vw": 768
+    },
+    "M": {
+      "filterBar": true,
+      "overflowX": false,
+      "bodyW": 375,
+      "vw": 375
+    }
+  },
+  "at": "2026-08-31T20:31:52.409Z"
+}

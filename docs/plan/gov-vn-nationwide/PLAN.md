@@ -43,7 +43,7 @@ Import CSV **không** đổi shape DB. GIS + list UI đang giả định volume 
 |---|------|--------|-----|
 | C.1 | Overlay **không** kẹp corridor Khu II | **Code** | Fit VN; layer theo type; bbox; **GeoJSON page take=100 + FE cache**; detail cap 2000 |
 | C.2 | Bỏ giả định `khu-2-gov` / pin 16,110 | **Code** | Skip 16,110; swap X/Y; source `gov-vn` |
-| C.3 | Cluster bbox LOD0–2 (không 650k GeoJSON) | **P1 / Code** | `GET /gis/clusters` COUNT DB; z≤8 bubble+count; z9–13 tuyến; z≥14 detail bbox; `total` = totalRaw. **MVT = P2** |
+| C.3 | Cluster bbox LOD0–2 (không 650k GeoJSON) | **P1 / Code** · SSOT gộp [`../map-service/README.md`](../map-service/README.md) § Pin | `GET /gis/clusters` **RMMS.WebService**; z≤8 bubble+count; z9–13 tuyến; z≥14 detail bbox; `total` = totalRaw. MVT `assets` MapService = **P2 trống** — **không** pin SSOT |
 
 ## Phase D — Pavement / tuyến (data)
 

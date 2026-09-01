@@ -1,0 +1,23 @@
+{
+  "feature": "so-ts-km-post",
+  "schemaVersion": 1,
+  "reviewHash": "sha256:27b13ec0f638d569eba2e68d2827ae13657a6c4e7c08bbc057e08f83d653cd1e",
+  "rulesVersion": "2026.08.31.2",
+  "skillVersion": "2026.08.30.01",
+  "workflowVersion": "2026.08.30.01",
+  "status": "done",
+  "review_confirm": "confirmed",
+  "taskId": "task_26236089",
+  "priorQaTaskId": "task_2197869b",
+  "priorDevTaskId": "task_86ca8f12",
+  "mfeStdRoute": "/so-ts?type=KM_POST",
+  "mfeStdUrl": "http://localhost:9301/so-ts?type=KM_POST",
+  "generatedAt": "2026-08-31T20:40:00.000Z",
+  "versionGate": "ok",
+  "autoCreated": false,
+  "verdict": "PASS",
+  "changeScope": "edit_page",
+  "formTypePack": "list",
+  "route_confirm": "route_a",
+  "contentHashPriorDataAnaly": "sha256:3a11d776482d57eebc6be1ed1a101e42525ea576986a8e8f7a49ef00b542e9fc"
+}

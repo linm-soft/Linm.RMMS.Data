@@ -83,7 +83,8 @@
 ## Blockers / open questions
 
 - Edit delta `task_d52ac8ac`: real-data bind + list parity gaps (section filter · detect stub · status labels).
-- Follow-up OUT: Kind F map · real detect runtime (F-02).
+- Follow-up OUT: Kind F map.
+- **F-02 / GAP-F-AIV-04:** `POST …/detect` = `DetectStubAsync` (`mock://`) — V1 host **`Linm.RMMS.Vision`** [`docs/plan/ai-vision-service/README.md`](../../docs/plan/ai-vision-service/README.md).
 
 ## Links
 - mfeStdUrl: `http://localhost:9303/ai-vision`
@@ -93,6 +94,7 @@
 - controlHint: `specs/_data-analy/features/ai-vision-control-hint.md`
 - realData: `specs/_data-analy/features/ai-vision-real-data.md`
 - implement: `specs/ai-vision/implement/ai-vision.md`
+- plan V1: `D:/AI-QLBD/Linm.RMMS.Data/docs/plan/ai-vision-service/README.md` · host **`Linm.RMMS.Vision`** `:5311` (chưa scaffold) · **cấm** `:5301`
 
 ## Retry
 

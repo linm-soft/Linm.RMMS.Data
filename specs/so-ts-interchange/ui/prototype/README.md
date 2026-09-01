@@ -1,11 +1,18 @@
 # Prototype — so-ts-interchange
 
-Design gate: **prototype + reviewUrl** — board Approve (**không auto**).
-Repo confirm: user tick BE+UI trên `/qldb-workflow` Progress trước Dev (**không auto** · cấm ERP.*).
+| | |
+|--|--|
+| status | **ready** · `design_confirm=approve` (autoApprove ON) |
+| Title | Sổ TS — Nút giao |
+| Pack kind | `list` · Kind B A–D+F + full-page form `data-form-cols="5"` |
+| typeCode | `INTERCHANGE` |
+| MFE | `Linm.Web.RMMS.Asset` |
+| peerStdUrl | `http://localhost:9301/so-ts?type=INTERCHANGE` |
+| **reviewUrl** | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/so-ts-interchange/ui/prototype/so-ts-interchange-list-prototype.html` |
+| artifact | `so-ts-interchange-list-prototype.html` |
+| shared_grid_example | `v1` |
+| real_view_parity | `v1` |
 
-- Demo SSOT: `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/asset-demo.html`
-- Title: Sổ TS — Nút giao
-- Pack kind: `list`
-- MFE: `Linm.Web.RMMS.Asset`
+Zones: DES-GRID-A…D · B-FILTER · F · H · DES-FORM-Z1/Z2 · DES-LEAVE.
 
-Put HTML prototype / screenshot link here; update `ui/design.md` with a browser-openable **reviewUrl**.
+**Cấm** GOVOne chrome · demo skin · native confirm · fork form · kmTo trên form INTERCHANGE · ép kmFrom `"0"`.

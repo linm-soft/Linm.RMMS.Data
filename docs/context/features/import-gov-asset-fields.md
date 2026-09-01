@@ -11,8 +11,8 @@ Rebuild `gov-vn` **không** ghi JSON `dump_specs` trên CSV — chỉ cột dữ
 
 | Tầng | Cột dump | Live DRVN | CSV `gov-vn` / DB | Chứng từ RMMS |
 |------|----------|-----------|-------------------|---------------|
-| Tuyến chính (Cao tốc/QL) | `road_name` | «Cao tốc/quốc lộ: QL.1» | `route` / `RoadName` = `QL.1` | 1 ô «Tuyến đường» |
-| Tuyến (named / BOT) | `long_route_name` | «Tuyến: QL.1 - Lạng Sơn (BOT): Km 0 + 000 - Km 1 + 800» | `route_named` + catalog `KHAC` `parent_code=QL.1` | Form «Tuyến» |
+| Tuyến chính (Cao tốc/QL) | `road_name` | «Cao tốc/quốc lộ: QL.1» | `route` = mã catalog `/mas/tuyen-duong` (in hoa, không dấu; thiếu → `KHAC`) | SearchInput tầng 1 |
+| Tuyến (named / BOT) | `long_route_name` | «Tuyến: QL.1 - Lạng Sơn (BOT): Km 0 + 000 - Km 1 + 800» | `route_named` = mã con catalog (`parent_code` = tầng 1) | SearchInput tầng 2 |
 | Đoạn tuyến | `name_of_route_asset` | «Đoạn tuyến: Km 0 + 000 - Km 1 + 800» | hay bị nhét vào `name` tài sản | Không cột |
 
 `tbl_rmd`: có `road_name` + `long_route_name`; đoạn = `vitridiemdau-kmlytrinh`–`vitridiemcuoi-kmlytrinh` (không cột `name_of_route_asset`).
@@ -214,5 +214,5 @@ Schema cột spec + import: SA chốt (cột phẳng theo loại vs bảng con).
 | GAP-DELIM-SPEC-01 | P0 | Cọc: đủ cột `tbl_guide_post` (2 bộ H + vị trí cắt) · `name` ≠ đoạn |
 | GAP-PAV-SPEC-01 | P0 | `tbl_rmd` đủ cột dump → CSV/entity/form Biểu 1 · 3 tầng tuyến |
 | GAP-GOV-SPEC-ALL | P1 | Mọi type mục 4 — rebuild giữ cột · form hộ chiếu theo loại |
-| GAP-ROUTE-NAMED-01 | P0 | Row named/BOT + `parent_code` |
+| GAP-ROUTE-NAMED-01 | P0 | **đóng (import + form)** · named/đoạn upsert `rmms_road_routes` (KHAC + `parent_code`) · form S-ROUTE SearchInput cascade `/mas/tuyen-duong` |
 | GAP-ROUTE-05 | P1 | Dropdown tuyến = chính + named |

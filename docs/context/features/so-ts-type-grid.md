@@ -26,7 +26,7 @@ Mọi loại **asset** dùng `CatalogFormShell` + `data-form-cols="5"`. Chỉ ta
 | id | Section | Fields | Control |
 |----|---------|--------|---------|
 | `S-META` | Định danh | `code` IdCode · `type` · `status` · `source` | Input readonly · SearchInput **asset-type** · Select · Select |
-| `S-ROUTE` | Thông tin tuyến đường | `route` · `routeNamed` · `routeSegment` | SearchInput **road-route** · Input · Input |
+| `S-ROUTE` | Thông tin tuyến đường | `route` · `routeNamed` · `routeSegment` | SearchInput **road-route** ×3 (`/mas/tuyen-duong`) · cascade `parentCode` |
 | `S-LOC-POINT` | Vị trí (điểm) | `kmFrom` · lat/lng (X/Y) · tỉnh · `side` (mặt cắt) | Input chainage · Number · SearchInput/Select · Select L/R/C |
 | `S-LOC-RANGE` | Vị trí (đoạn) | `kmFrom` · `kmTo` · 4 XY đầu/cuối | Input ×2 · Number ×4 |
 | `S-NAME` | Tên official | theo dump §3 `import-gov-asset-fields` | Input **hoặc** SearchInput (biển = QCVN) |

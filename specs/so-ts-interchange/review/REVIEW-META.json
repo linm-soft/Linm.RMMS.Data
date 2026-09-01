@@ -1,0 +1,13 @@
+{
+  "feature": "so-ts-interchange",
+  "status": "confirmed",
+  "verdict": "PASS",
+  "review_confirm": "approve",
+  "taskId": "task_4ae29f99",
+  "contentHash": "sha256:65b62eed838d6077ebf0ff519ea67e2479d50d3ec49f754f056942ade05b112a",
+  "reviewedAt": "2026-09-01T06:50:00.000Z",
+  "autoApprove": true,
+  "p0": [],
+  "defer": ["GAP-IX-FLAT-01", "GAP-IX-AUTH-01"],
+  "accept": ["GAP-QA-E2E-PW-01"]
+}

@@ -1,0 +1,49 @@
+{
+  "list": {
+    "titleSpillway": true,
+    "createBtn": true,
+    "noCreateBadge": true,
+    "typeFilterHidden": true,
+    "filterBar": true,
+    "search": true,
+    "route": true,
+    "kmFrom": true,
+    "kmToFilter": true,
+    "org": true,
+    "snippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nHạng mục KCHT\nDS\nDev Standalone\nDeveloper\nTài sản đường\nSổ TS — Đường tràn\nLàm mới\nTạo mới\nDanh sách đường tràn\nMenu dòng: nhấn đúp · Ctrl + chuột phải · nhấn giữ dòng\nTìm kiếm\nCao tốc / quốc lộ\nLý trình từ\nLý trình đến\nCây đơn vị\n​\nSTT\t\n\tMã tài sản\n\tTên tài sản\n\tTuyến đường\n\tLý trình bắt đầu\n\tLoại công trình\n\tTên sông\n\t"
+  },
+  "form": {
+    "cols5": true,
+    "spillAttr": true,
+    "spillwayType": true,
+    "width": true,
+    "length": true,
+    "structureType": true,
+    "kmToVisible": false,
+    "nameWork": true,
+    "nameRiver": true,
+    "noModeBadge": true,
+    "snippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nHạng mục KCHT\nDS\nDev Standalone\nDeveloper\nTạo tài sản\nQuay lại\nHủy\nTạo mới\nTạo tài sản\nĐang tạo mới — Lưu hoặc Hủy\nTHÔNG TIN TÀI SẢN\nMã tài sản\nTình trạng kỹ thuật*\nChọn tình trạng\nTốt\nTheo dõi\nCần bảo trì\nLoại tài sản *\n✕\nCao tốc / quốc lộ *\nTuyến\nĐoạn tuyến\nNguồn\nNhập tay\nAI\nTên công trình*\nLý trình bắt đầu (Km+)*\nẢnh hiện trường\nTHÔNG SỐ ĐƯỜNG TRÀN\nLoại công trình*\nChọn loại công trình\nBến tràn\nCầu tràn\nNgầm\nĐường t"
+  },
+  "dtm": {
+    "D": {
+      "filterBar": true,
+      "overflowX": false,
+      "bodyW": 1280,
+      "vw": 1280
+    },
+    "T": {
+      "filterBar": true,
+      "overflowX": false,
+      "bodyW": 768,
+      "vw": 768
+    },
+    "M": {
+      "filterBar": true,
+      "overflowX": false,
+      "bodyW": 375,
+      "vw": 375
+    }
+  },
+  "at": "2026-08-31T22:24:59.894Z"
+}

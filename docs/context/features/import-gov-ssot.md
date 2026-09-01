@@ -188,6 +188,6 @@ Chi tiết đủ cột + map chứng từ (Biểu 1 · hộ chiếu cọc · bi�
 | GAP-DELIM-SPEC-01 | mở | Đủ `tbl_guide_post` (cọc tiêu + H) |
 | GAP-PAV-SPEC-01 | mở | Đủ `tbl_rmd` trên Biểu 1 |
 | GAP-GOV-SPEC-ALL | mở | Mục 4 field-map — không pick |
-| GAP-ROUTE-NAMED-01 | mở | Catalog named/BOT + parent |
+| GAP-ROUTE-NAMED-01 | đóng | Import upsert named/đoạn + SearchInput cascade `/mas/tuyen-duong` |
 
 `invented-seed`: **không**. Sửa = rebuild + `ReImportSeed` + Schema_* khi SA chốt (cấm invent API).

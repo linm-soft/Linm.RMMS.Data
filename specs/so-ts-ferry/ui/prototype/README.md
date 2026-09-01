@@ -1,11 +1,17 @@
 # Prototype — so-ts-ferry
 
-Design gate: **prototype + reviewUrl** — board Approve (**không auto**).
-Repo confirm: user tick BE+UI trên `/qldb-workflow` Progress trước Dev (**không auto** · cấm ERP.*).
+Design gate: **PASS** · `design_confirm=approve` (autoApprove ON · `task_c1864fe6`).
 
-- Demo SSOT: `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/asset-demo.html`
-- Title: Sổ TS — Bến phà
-- Pack kind: `list`
-- MFE: `Linm.Web.RMMS.Asset`
+| | |
+|--|--|
+| Title | Sổ TS — Bến phà |
+| Pack kind | `list` · Kind **B** A–D+F + full-page 5 cols |
+| typeCode | `FERRY` |
+| Artifact | `so-ts-ferry-list-prototype.html` |
+| **reviewUrl** | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/so-ts-ferry/ui/prototype/so-ts-ferry-list-prototype.html` |
+| peerStdUrl | `http://localhost:9301/so-ts?type=FERRY` |
+| Demo SSOT (tham chiếu only) | `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/asset-demo.html` |
+| MFE | `Linm.Web.RMMS.Asset` |
+| Zones | DES-GRID-A…D · B-FILTER · F · H · DES-FORM-Z1/Z2 · DES-LEAVE |
 
-Put HTML prototype / screenshot link here; update `ui/design.md` with a browser-openable **reviewUrl**.
+**Cấm:** GOVOne chrome · demo skin · re-scan demo · paste HTML vào compact.

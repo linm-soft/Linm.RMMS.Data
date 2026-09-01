@@ -7,6 +7,7 @@
 > **SSOT kiến trúc:** [`../16-ITS-TRAFFIC-OBJECT-DETECTION-DESIGN.md`](../16-ITS-TRAFFIC-OBJECT-DETECTION-DESIGN.md) · P2 license [`../14-P2-AI-VISION-STANDARD.md`](../14-P2-AI-VISION-STANDARD.md)  
 > **GPU / chi phí:** [`../17-GPU-VNSO-COST-STANDARD.md`](../17-GPU-VNSO-COST-STANDARD.md) · [`../10-YOLO-SERVER-REQUIREMENTS.md`](../10-YOLO-SERVER-REQUIREMENTS.md) · [`../../gpu-model/gpu.md`](../../gpu-model/gpu.md)  
 > **Train + export (arch):** [`../../tinh-nang/Tai_lieu_Nhan_dien_Bien_bao_Giao_thong.md`](../../tinh-nang/Tai_lieu_Nhan_dien_Bien_bao_Giao_thong.md)  
+> **Host:** [`ai-vision-service.md`](ai-vision-service.md) — **`Linm.RMMS.Vision`** (P2 ONNX **chỉ** đây)  
 > **Peer:** [`ai-asset-detect.md`](ai-asset-detect.md) (candidate rộng) · [`camera-connect.md`](camera-connect.md) (IP · JPEG) · [`incident.md`](incident.md) (sự cố mất) · [`ai-vision.md`](ai-vision.md) (10 class mặt đường — **cấm trộn**)  
 
 > **Control-map:** [`../_raw/legacy-govone/demo-maps/ai-its/bb-ct-control-map.md`](../_raw/legacy-govone/demo-maps/ai-its/bb-ct-control-map.md)  

@@ -1,0 +1,37 @@
+{
+  "url": "http://localhost:9301/so-ts?type=KM_POST",
+  "aliasUrl": "http://localhost:9301/so-ts-km-post",
+  "formUrl": "http://localhost:9301/so-ts/tao-moi?type=KM_POST",
+  "method": "e2e runtime · yarn start:std :9301 + docker API :5111 + BFF :5201 + yarn e2e-qa contract (Chrome channel fallback)",
+  "capturedAt": "2026-08-31T20:29:39.643Z",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "sha256_16": "29d8505242e2e0e9",
+      "url": "http://localhost:9301/so-ts?type=KM_POST",
+      "note": "list KM_POST profile + filter bar"
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "sha256_16": "29d8505242e2e0e9",
+      "url": "http://localhost:9301/so-ts-km-post",
+      "note": "alias /so-ts-km-post → type=KM_POST"
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "sha256_16": "fc31c2a881237bc8",
+      "url": "http://localhost:9301/so-ts/tao-moi?type=KM_POST",
+      "note": "Create form · S-ATTR km-post"
+    }
+  ],
+  "ok": true,
+  "note": "GAP-QA-E2E-PW-01: yarn e2e-qa hung on playwright install chromium — capture used channel=chrome; API host port 5111 (compose map) · --skip-start",
+  "testid": "rmms-so-ts-km-post-list-page",
+  "formTestid": "rmms-asset-form-shell"
+}

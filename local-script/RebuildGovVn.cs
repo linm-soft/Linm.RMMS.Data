@@ -25,13 +25,15 @@ namespace GovVn
             StreamWriter pw = new StreamWriter(pPath, false, utf8);
             rw.WriteLine("code,name,route_kind,parent_code,notes,sort_order,legacy_aliases");
             int nRoute = 0, nAsset = 0, nPav = 0;
+            AddRoute(rw, routes, ref nRoute, "Khác", "KHAC", "fallback khi dump thiếu tuyến", "", "");
             bool rmdDone = false;
             Dictionary<string, bool> claimed = new Dictionary<string, bool>(StringComparer.OrdinalIgnoreCase);
             Dictionary<string, string[]> signTypes = new Dictionary<string, string[]>(StringComparer.OrdinalIgnoreCase);
             List<string> coverage = new List<string>();
             string[] files = Directory.GetFiles(rawDir, "*.csv");
             Array.Sort(files, StringComparer.OrdinalIgnoreCase);
-            aw.WriteLine("code,name,type,route,route_named,route_segment,km_from,km_to,status,lat,lng,quantity,unit_code,note,source_ref");
+            // materials_id · distance_next_post · name_km_post → DumpSpecsFromRow (GAP-KM-SPEC-01)
+            aw.WriteLine("code,name,type,route,route_named,route_segment,km_from,km_to,status,lat,lng,quantity,unit_code,note,source_ref,materials_id,distance_next_post,name_km_post");
             pw.WriteLine("code,road_name,route_named,province_name,km_from,km_to,length_km,base_width_m,surface_width_m,structure_type,surface_thickness_cm,road_class,status,construction_unit,manage_unit,owner_unit,notes");
 
             for (int si = 0; si < specs.Count; si++)
@@ -94,6 +96,8 @@ namespace GovVn
                         int iHLen = FindExact(idx, "h_length");
                         int iWork = Find(idx, "name_work", "loaicongtrinh");
                         int iTypeWork = Find(idx, "type_work_id");
+                        int iMaterials = FindExact(idx, "materials_id");
+                        int iDistNext = FindExact(idx, "distance_next_post");
                         string line;
                         while ((line = sr.ReadLine()) != null)
                         {
@@ -155,6 +159,8 @@ namespace GovVn
                                 string code = Trunc(pfx + "-" + id, 64);
                                 if (named.Length > 0)
                                     AddRoute(rw, routes, ref nRoute, named, "KHAC", "named; " + name, road, road);
+                                if (segment.Length > 0)
+                                    AddRoute(rw, routes, ref nRoute, segment, "KHAC", "segment; " + name, named.Length > 0 ? named : road, named.Length > 0 ? named : road);
                                 if (type == "TRAFFIC_SIGN")
                                 {
                                     string sc = Cell(f, iSignCode);
@@ -167,7 +173,11 @@ namespace GovVn
                                 }
                                 string qty = Cell(f, iQty);
                                 if (qty.Length == 0) qty = Cell(f, iQtyH);
-                                WriteAsset(aw, code, nm, type, road, named, segment, kmA, kmB, Cell(f, iLat), Cell(f, iLng), qty, Cell(f, iUnit), Cell(f, iNote), Trunc(spec.Match + ":" + id, 64));
+                                string materials = type == "KM_POST" ? Cell(f, iMaterials) : "";
+                                string distNext = type == "KM_POST" ? Cell(f, iDistNext) : "";
+                                string nameKm = type == "KM_POST" ? Cell(f, iKmPostName) : "";
+                                if (nameKm.Length == 0 && type == "KM_POST") nameKm = nm;
+                                WriteAsset(aw, code, nm, type, road, named, segment, kmA, kmB, Cell(f, iLat), Cell(f, iLng), qty, Cell(f, iUnit), Cell(f, iNote), Trunc(spec.Match + ":" + id, 64), materials, distNext, nameKm);
                                 nAsset++;
                                 if (nAsset % 50000 == 0)
                                     Console.WriteLine("  assets " + nAsset.ToString());
@@ -422,13 +432,14 @@ namespace GovVn
             return true;
         }
 
-        private static void WriteAsset(StreamWriter w, string code, string name, string type, string route, string named, string segment, string kmA, string kmB, string lat, string lng, string qty, string unit, string note, string src)
+        private static void WriteAsset(StreamWriter w, string code, string name, string type, string route, string named, string segment, string kmA, string kmB, string lat, string lng, string qty, string unit, string note, string src, string materialsId, string distanceNextPost, string nameKmPost)
         {
             w.WriteLine(string.Join(",", new string[] {
-                Esc(code), Esc(name), type, Esc(NormCode(route)), Esc(named), Esc(segment),
+                Esc(code), Esc(name), type, Esc(NormCode(route)), Esc(NamedCatalogCode(named, route)), Esc(segment),
                 Esc(ParseKm(kmA)), Esc(ParseKm(kmB)),
                 "tot", Esc(lat), Esc(lng), Esc(qty), Esc(unit),
-                Esc(note), Esc(src)
+                Esc(note), Esc(src),
+                Esc(materialsId), Esc(distanceNextPost), Esc(nameKmPost)
             }));
         }
 
@@ -583,15 +594,27 @@ namespace GovVn
             return list.ToArray();
         }
 
+        private static string NamedCatalogCode(string named, string route)
+        {
+            string namedCode = NormCode(named);
+            string routeCode = NormCode(route);
+            if (namedCode.Length == 0 || string.Equals(namedCode, routeCode, StringComparison.OrdinalIgnoreCase))
+                return "";
+            return namedCode;
+        }
+
         private static string NormCode(string s)
         {
             if (s == null) return "";
-            s = s.Trim().ToUpperInvariant();
+            string formD = s.Trim().ToUpperInvariant().Normalize(NormalizationForm.FormD);
             StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < s.Length; i++)
+            for (int i = 0; i < formD.Length; i++)
             {
-                char c = s[i];
-                if (!char.IsWhiteSpace(c)) sb.Append(c);
+                char c = formD[i];
+                if (CharUnicodeInfo.GetUnicodeCategory(c) == UnicodeCategory.NonSpacingMark) continue;
+                if (char.IsWhiteSpace(c)) continue;
+                if (c == 'Đ' || c == 'Ð') c = 'D';
+                sb.Append(c);
             }
             string code = sb.ToString();
             if (code.Length <= 64) return code;
@@ -697,7 +720,19 @@ namespace GovVn
         private static bool IsWeakAssetName(string name)
         {
             if (string.IsNullOrEmpty(name)) return true;
-            string t = name.Trim().ToUpperInvariant();
+            string raw = name.Trim();
+            // GAP-SPW-NAME-01 — official spillway work names never weak (keep name_work)
+            if (string.Equals(raw, "Đường tràn", StringComparison.OrdinalIgnoreCase)
+                || string.Equals(raw, "Cầu tràn", StringComparison.OrdinalIgnoreCase)
+                || string.Equals(raw, "Bến tràn", StringComparison.OrdinalIgnoreCase)
+                || string.Equals(raw, "Ngầm", StringComparison.OrdinalIgnoreCase))
+                return false;
+            // GAP-IX-NAME-01 — generic interchange labels never weak
+            if (string.Equals(raw, "Nút giao", StringComparison.OrdinalIgnoreCase)
+                || string.Equals(raw, "Loại nút", StringComparison.OrdinalIgnoreCase)
+                || raw.StartsWith("Nút giao ", StringComparison.OrdinalIgnoreCase))
+                return false;
+            string t = raw.ToUpperInvariant();
             if (t.StartsWith("QL.") || t.StartsWith("QL ") || t.StartsWith("CT.") || t.StartsWith("CT "))
                 return true;
             return false;
@@ -721,6 +756,19 @@ namespace GovVn
             {
                 string kmName = Cell(f, iKmPostName);
                 if (kmName.Length > 0 && !IsJunk(kmName)) return kmName;
+            }
+            if (type == "SPILLWAY")
+            {
+                // GAP-SPW-NAME-01 — name ← name_work (iOfficial); cấm fallback đoạn tuyến khi name_work hợp lệ
+                string work = Cell(f, iOfficial);
+                if (work.Length > 0 && !IsJunk(work)) return work;
+            }
+            if (type == "INTERCHANGE")
+            {
+                // GAP-IX-NAME-01 — name ← name_intersection; trống OK; cấm IsWeak→đoạn tuyến
+                string ix = Cell(f, iOfficial);
+                if (ix.Length > 0 && !IsJunk(ix)) return ix;
+                return "";
             }
             if (type == "DELINEATOR")
             {

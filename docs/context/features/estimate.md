@@ -5,6 +5,7 @@
 > **Kind:** **D** (slideout form) — Confirmed by: ai-autocode-autopilot  
 > **sourceKind:** **synthetic** · product docs (không màn GOVOne)  
 > **Sources:** `RMMS` §10 · `07` §10 · `08` · `09` · `15-SCREEN-AI-MAP.md`  
+> **Host:** [`ai-vision-service.md`](ai-vision-service.md) — **`Linm.RMMS.Vision`** (P2 local **chỉ** đây)  
 > **Gắn màn:** Mobile/Web **Công việc** · chi tiết **Sự cố** · route MFE `/ai-kd/uoc-luong-sc`  
 > **Demo HTML:** `Linm.RMMS.Demo/public/demo/ai-kd/uoc-luong-sc.html`  
 > **MFE (align):** `Linm.Web.RMMS.AiVision` · **cấm** sửa MFE ở phase demo

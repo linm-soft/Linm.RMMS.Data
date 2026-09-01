@@ -18,7 +18,7 @@
 | [**FEATURE-TRACKING.md**](FEATURE-TRACKING.md) | **SSOT theo dõi all feature** — demo + STATUS + implement + **release slice** (P2 trong repo ≠ conflict) | PM, Dev, AI |
 | [**docs/data/SOURCE-TRACKING.md**](../data/SOURCE-TRACKING.md) | **SSOT tài liệu khách** — đã / chưa phân tích · **cấm** đọc lại binary khi `analyzed` | PM, BA, AI |
 | [**features/README.md**](features/README.md) | **Feature backlog + context (design/API/DB)** — `/gen-tinh-nang-demo` | PM, Dev, khách chốt UI |
-| [**features/map-service.md**](features/map-service.md) | MapService — gis.vn 34 **file landed** · clip/ingest GAP (chưa repo) | Architect, GIS, Data |
+| [**features/map-service.md**](features/map-service.md) | MapService — `Linm.Platform.MapService` `:5021` · 34 tỉnh ingest · BFF/MFE GAP | Architect, GIS, Data |
 | [**features/gis-osm-clip.md**](features/gis-osm-clip.md) | GIS prod: OSM clip + overlay MapService | GIS, FE, Mobile |
 | [**features/legal-tech-corridor.md**](features/legal-tech-corridor.md) | Luật VN + Store (GPS / vẽ TS / guest) | Pháp chế, PM Store |
 | [**features/directions.md**](features/directions.md) | Chỉ đường / HD điện tử guest | Product, Mobile |

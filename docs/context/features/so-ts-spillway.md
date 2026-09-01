@@ -1,4 +1,4 @@
-# Sổ TS — Đường tràn
+﻿# Sổ TS — Đường tràn
 
 > **Slug:** `so-ts-spillway` · **type:** `SPILLWAY` · **cluster:** `crossing` · ô `t16`  
 > **Parent SSOT:** [`so-ts-type-grid.md`](so-ts-type-grid.md) · fields [`import-gov-asset-fields.md`](import-gov-asset-fields.md)  
@@ -11,3 +11,10 @@
 1. Grid cột đúng loại · ẩn cột không thông tin (`GAP-SOTS-COL-01`)
 2. Form field = tab Thông tin chung trên mẫu · control Linm
 3. Import section từ parent — không copy-paste `AssetFormPage`
+
+## Implement tracking
+
+| lane | phase | status | updatedAt |
+|------|-------|--------|-----------|
+| web | `done` | `done` | `2026-08-31T22:37:10.803Z` |
+| mobile | — | — | — |

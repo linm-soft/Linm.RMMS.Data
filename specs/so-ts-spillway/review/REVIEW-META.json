@@ -1,0 +1,19 @@
+﻿{
+  "schemaVersion": "1",
+  "skillId": "agent-review",
+  "skillVersion": "2026.08.30.01",
+  "workflowVersion": "2026.09.01.02",
+  "rulesVersion": "2026.08.31.2",
+  "feature": "so-ts-spillway",
+  "status": "done",
+  "review_confirm": "accept",
+  "reviewHash": "sha256:b22131cd8b478e49544fa7450e7a987bed51737e519b0be78e80dd8135394eec",
+  "versionGate": "ok",
+  "taskId": "task_3545d552",
+  "packKind": "list",
+  "changeScope": "new_page",
+  "route_confirm": "route_a",
+  "contentHashPriorDataAnaly": "sha256:508eb2426b263e800949a533e300220f75a65b128771f77baf52d3e0d567517f",
+  "generatedAt": "2026-08-31T22:33:10.000Z",
+  "autoCreated": false
+}
