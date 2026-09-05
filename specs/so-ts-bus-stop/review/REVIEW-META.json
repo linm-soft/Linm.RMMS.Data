@@ -1,0 +1,12 @@
+{
+  "feature": "so-ts-bus-stop",
+  "status": "confirmed",
+  "verdict": "PASS",
+  "review_confirm": "done",
+  "taskId": "task_b80ff717",
+  "contentHash": "sha256:c1af893aa22666c6c7941b086d81a47824dda068262aa58824b3657b7f2a4f0f",
+  "hashGate": "skip",
+  "writtenAt": "2026-09-01T08:20:00.000Z",
+  "p0": 0,
+  "autoApprove": true
+}

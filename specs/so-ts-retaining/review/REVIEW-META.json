@@ -1,0 +1,17 @@
+{
+  "feature": "so-ts-retaining",
+  "status": "confirmed",
+  "verdict": "PASS",
+  "review_confirm": "done",
+  "taskId": "task_17371c37",
+  "autoApprove": true,
+  "contentHashPrior": "sha256:81662f66f48ea982b12b06d93e0716f7449b1356d169541e62a40b377178c061",
+  "gates": {
+    "QUERY": "PASS",
+    "SEC": "PASS",
+    "UI-FN": "PASS",
+    "BE-FN": "PASS"
+  },
+  "p0": 0,
+  "writtenAt": "2026-09-02T01:26:30.000Z"
+}

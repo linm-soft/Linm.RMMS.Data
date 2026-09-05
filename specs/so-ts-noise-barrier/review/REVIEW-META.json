@@ -1,0 +1,10 @@
+{
+  "feature": "so-ts-noise-barrier",
+  "status": "confirmed",
+  "verdict": "PASS",
+  "review_confirm": "done",
+  "taskId": "task_2ba3134c",
+  "contentHashPrior": "sha256:5167bd802b25b82d0d99f0194c1bb059f8f5862747e2035a61e451fd8ae0b7e3",
+  "writtenAt": "2026-09-01T10:15:00.000Z",
+  "autoApprove": true
+}

@@ -1,0 +1,70 @@
+{
+  "listUrl": "http://localhost:9301/so-ts?type=COUNT_STATION",
+  "formUrl": "http://localhost:9301/so-ts/tao-moi?type=COUNT_STATION",
+  "capturedAt": "2026-09-01T07:24:13.322Z",
+  "list": {
+    "titleCount": true,
+    "headerCount": true,
+    "createBtn": true,
+    "noCreateBadge": true,
+    "typeFilterHidden": true,
+    "filterBar": true,
+    "search": true,
+    "route": true,
+    "kmFrom": true,
+    "kmToFilter": true,
+    "org": true,
+    "headers": [
+      "STT",
+      "Mã tài sản",
+      "Tên tài sản",
+      "Tuyến đường",
+      "Lý trình bắt đầu",
+      "ĐVQL",
+      "Tên (EN)",
+      "Số làn",
+      "Tốc độ",
+      "Tình trạng KT",
+      "Tọa độ GPS"
+    ],
+    "snippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nHạng mục KCHT\nDS\nDev Standalone\nDeveloper\nTài sản đường\nSổ TS — Trạm đếm\nLàm mới\nTạo mới\nDanh sách trạm đếm\nMenu dòng: nhấn đúp · Ctrl + chuột phải · nhấn giữ dòng\nTìm kiếm\nCao tốc / quốc lộ\nLý trình từ\nLý trình đến\nCây đơn vị\n​\nSTT\t\n\tMã tài sản\n\tTên tài sản\n\tTuyến đường\n\tLý trình bắt đầu\n\tĐVQL\n\tTên (EN)\n\tSố làn\n\tTốc độ\n\tTình trạng KT\n\tTọa độ GPS\n\n1\t\n\tTX-counting_station_319\tKhai Sơn - Km708+300\tKhác\t708.3\t—\t—\t—\t—\ttot\t—\n2\t\n\tTX-counting_station_45\tTrạm Lương Sơn Km438+250\tKhác\t438.25\t—\t—\t—\t—\ttot\t—\n3\t\n\tTX-counting_stat"
+  },
+  "form": {
+    "cols5": true,
+    "countAttr": true,
+    "agency": true,
+    "nameEn": true,
+    "noOfLane": true,
+    "speed": true,
+    "stationNameLabel": true,
+    "kmToVisible": false,
+    "snippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nHạng mục KCHT\nDS\nDev Standalone\nDeveloper\nTạo tài sản\nQuay lại\nHủy\nTạo mới\nTạo tài sản\nĐang tạo mới — Lưu hoặc Hủy\nTHÔNG TIN TÀI SẢN\nMã tài sản\nTình trạng kỹ thuật*\nChọn tình trạng\nLoại tài sản *\n✕\nCao tốc / quốc lộ *\nTuyến\nĐoạn tuyến\nNguồn\nTên (VI)\nLý trình bắt đầu (Km+)\nẢnh hiện trường\nTHÔNG SỐ TRẠM ĐẾM\nĐơn vị quản lý\nChọn ĐVQL\nTên (EN)\nSố làn\nTốc độ\nTọa độ đầu (dump)\nGPS / HỒ SƠ\nVĩ độ\nKinh độ\nMã QR\nGiá trị tài sản (VND)\nNgày cập nhật\nGhi chú hiện trường"
+  },
+  "dtm": [
+    {
+      "label": "D",
+      "width": 1280,
+      "overflowX": false,
+      "scrollWidth": 952,
+      "clientWidth": 952,
+      "screenshot": "filter-D.png"
+    },
+    {
+      "label": "T",
+      "width": 768,
+      "overflowX": false,
+      "scrollWidth": 440,
+      "clientWidth": 440,
+      "screenshot": "filter-T.png"
+    },
+    {
+      "label": "M",
+      "width": 375,
+      "overflowX": false,
+      "scrollWidth": 343,
+      "clientWidth": 343,
+      "screenshot": "filter-M.png"
+    }
+  ],
+  "ok": true
+}

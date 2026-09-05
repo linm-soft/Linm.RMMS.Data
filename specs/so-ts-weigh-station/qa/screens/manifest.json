@@ -1,0 +1,38 @@
+{
+  "url": "http://localhost:9301/so-ts?type=WEIGH_STATION",
+  "aliasUrl": "http://localhost:9301/so-ts-weigh-station",
+  "formUrl": "http://localhost:9301/so-ts/tao-moi?type=WEIGH_STATION",
+  "method": "e2e runtime · yarn start:std :9301 + docker API :5111 + BFF :5201 + yarn e2e-qa contract (Chrome channel · index.html+popstate)",
+  "capturedAt": "2026-09-01T06:33:01.782Z",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "sha256_16": "ff03c9562e72c567",
+      "url": "http://localhost:9301/so-ts?type=WEIGH_STATION",
+      "note": "list WEIGH_STATION profile + filter bar"
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "sha256_16": "ff03c9562e72c567",
+      "url": "http://localhost:9301/so-ts-weigh-station",
+      "note": "alias /so-ts-weigh-station → type=WEIGH_STATION"
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "sha256_16": "c430a0053afa5dbb",
+      "url": "http://localhost:9301/so-ts/tao-moi?type=WEIGH_STATION",
+      "note": "Create form · S-ATTR weigh"
+    }
+  ],
+  "ok": true,
+  "note": "GAP-QA-E2E-PW-01 / GAP-QA-E2E-HAF-01: yarn e2e-qa hung headed login; deep-link HTTP 404 — boot index.html + popstate; no process kill",
+  "testid": "rmms-so-ts-weigh-station-list-page",
+  "formTestid": "rmms-asset-form-shell",
+  "attrTestid": "asset-weigh-station-attr"
+}

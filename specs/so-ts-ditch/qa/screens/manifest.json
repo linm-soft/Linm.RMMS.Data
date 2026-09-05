@@ -1,0 +1,36 @@
+{
+  "url": "http://localhost:9301/so-ts?type=DITCH",
+  "aliasUrl": "http://localhost:9301/so-ts-ditch",
+  "formUrl": "http://localhost:9301/so-ts/tao-moi?type=DITCH",
+  "method": "e2e runtime · yarn start:std :9301 + docker API :5111 + BFF :5201 + yarn e2e-qa contract (Chrome channel fallback)",
+  "capturedAt": "2026-09-01T10:58:24.319Z",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "sha256_16": "80cd1472b1186859",
+      "url": "http://localhost:9301/so-ts?type=DITCH",
+      "note": "list DITCH profile + filter bar · kmTo ON · primary ditch_type"
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "sha256_16": "80cd1472b1186859",
+      "url": "http://localhost:9301/so-ts-ditch",
+      "note": "alias /so-ts-ditch → type=DITCH"
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "sha256_16": "5b82db2826bfaaa1",
+      "url": "http://localhost:9301/so-ts/tao-moi?type=DITCH",
+      "note": "Create form · S-ATTR ditch · S-LOC-RANGE · CD-"
+    }
+  ],
+  "ok": true,
+  "note": "GAP-QA-E2E-PW-01: yarn e2e-qa headed hang · capture channel=chrome · --skip-start · API :5111",
+  "testid": "rmms-so-ts-ditch-list-page"
+}

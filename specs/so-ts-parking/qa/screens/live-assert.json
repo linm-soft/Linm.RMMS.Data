@@ -1,0 +1,52 @@
+{
+  "list": {
+    "titleParking": true,
+    "headerParking": true,
+    "createBtn": true,
+    "noCreateBadge": true,
+    "typeFilterHidden": true,
+    "filterBar": true,
+    "search": true,
+    "route": true,
+    "kmFrom": true,
+    "kmToFilter": true,
+    "org": true,
+    "snippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nHạng mục KCHT\nDS\nDev Standalone\nDeveloper\nTài sản đường\nSổ TS — Bãi đỗ xe\nLàm mới\nTạo mới\nDanh sách bãi đỗ xe\nMenu dòng: nhấn đúp · Ctrl + chuột phải · nhấn giữ dòng\nTìm kiếm\nCao tốc / quốc lộ\nLý trình từ\nLý trình đến\nCây đơn vị\n​\nSTT\t\n\tMã tài sản\n\tTên tài sản\n\tTuyến đường\n\tLý trình bắt đầu\n\tLoại công trình\n\tXếp loại\n\tChủ sở hữu\n\tChiều dài (m)\n\tDT khuôn viên (m²)\n\tBãi đỗ xe\n\tTổng DT bãi đỗ (m²)\n\tCứu hộ GT\n\tCấp cứu\n\tMặt"
+  },
+  "form": {
+    "cols5": true,
+    "parkingAttr": true,
+    "typeWork": true,
+    "categorized": true,
+    "owner": true,
+    "actualLength": true,
+    "siteArea": true,
+    "parkingLot": true,
+    "totalParking": true,
+    "emergency": true,
+    "firstAid": true,
+    "buildLocation": true,
+    "kmToVisible": false,
+    "nameParking": true,
+    "noModeBadge": true,
+    "snippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nHạng mục KCHT\nDS\nDev Standalone\nDeveloper\nTạo tài sản\nQuay lại\nHủy\nTạo mới\nTạo tài sản\nĐang tạo mới — Lưu hoặc Hủy\nTHÔNG TIN TÀI SẢN\nMã tài sản\nTình trạng kỹ thuật*\nChọn tình trạng\nTốt\nTheo dõi\nCần bảo trì\nLoại tài sản *\n✕\nCao tốc / quốc lộ *\nTuyến\nĐoạn tuyến\nNguồn\nNhập tay\nAI\nTên bãi\nLý trình bắt đầu (Km+)\nẢnh hiện trường\nTHÔNG SỐ BÃI ĐỖ XE\nLoại công trình*\nChọn loại công trình\nXếp loại\nChọn xếp loại\nChủ sở hữu\nChọn chủ sở hữu\nChiều dài (m)\nDT khuôn viên (m²)\nBãi đỗ xe\nChọn\nCó\nKhông\nTổng DT bãi đỗ (m²)\nCấp nhà làm việc\nChọn cấp\nCấp 3\nCấp 4\nCấp 5\nTổng DT nhà làm việc (m²)\nCấp CT phụ\nChọn cấp\nCấp 3\nCấp 4\nCấp 5\nTổng "
+  },
+  "dtm": {
+    "D": {
+      "overflowX": false,
+      "bodyW": 1280,
+      "vw": 1280
+    },
+    "T": {
+      "overflowX": false,
+      "bodyW": 768,
+      "vw": 768
+    },
+    "M": {
+      "overflowX": false,
+      "bodyW": 375,
+      "vw": 375
+    }
+  },
+  "at": "2026-09-01T04:49:30.996Z"
+}

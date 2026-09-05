@@ -12,8 +12,8 @@
 | demo | D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/asset-demo.html |
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/so-ts-spillway.md` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Asset` |
-| mfeStdRoute | `/so-ts?type=SPILLWAY` · alias board `/so-ts-spillway` |
-| mfeStdUrl | live `http://localhost:9301/so-ts?type=SPILLWAY` · alias `http://localhost:9301/so-ts-spillway` |
+| mfeStdRoute | `/so-ts-spillway` |
+| mfeStdUrl | `http://localhost:9301/so-ts-spillway` |
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · DOMAIN-MAP — **cấm ERP.*** |
 | dataAnaly | `specs/_data-analy/features/so-ts-spillway-control-hint.md` · `so-ts-spillway-real-data.md` · **PASS** |
 | contentHash | `sha256:508eb2426b263e800949a533e300220f75a65b128771f77baf52d3e0d567517f` |
@@ -72,6 +72,8 @@
 - none — Review **accept** · pipeline **done**. Residual: GAP-SPW-AUTH-01 · GAP-SPW-FLAT-01 (P2 DEFER).
 
 ## Links
+- mfeStdUrl: `http://localhost:9301/so-ts-spillway`
+- mfeStdRoute: `/so-ts-spillway`
 
 - data-analy → po → ui → be → task → implement → qa → review (**done**)
 - review: `D:/AI-QLBD/Linm.RMMS.Data/specs/so-ts-spillway/review/findings.md`

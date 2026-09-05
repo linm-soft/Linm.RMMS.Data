@@ -15,8 +15,8 @@
 | domain | **Asset** |
 | prototype.artifact | `specs/pavement-section/ui/prototype/pavement-section-list-prototype.html` |
 | prototype.reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/pavement-section/ui/prototype/pavement-section-list-prototype.html` |
-| mfeStdRoute | `/so-ts/pl-mat-duong` |
-| mfeStdUrl | `http://localhost:9301/so-ts/pl-mat-duong` |
+| mfeStdRoute | `/asset/pavement-section` |
+| mfeStdUrl | `http://localhost:9301/asset/pavement-section` |
 | taskId | `task_1663841e` |
 | updatedAt | `2026-08-15T18:35:20.097Z` |
 ## Lock
@@ -100,7 +100,7 @@
 
 ## Links
 
-- mfeStdUrl: `http://localhost:9301/so-ts/pl-mat-duong`
+- mfeStdUrl: `http://localhost:9301/asset/pavement-section`
 - Control hint: `specs/_data-analy/features/pavement-section-control-hint.md`
 - PO: `specs/pavement-section/po/requirement.md`
 - Design: `specs/pavement-section/ui/design.md`

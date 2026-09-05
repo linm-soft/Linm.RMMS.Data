@@ -1,0 +1,40 @@
+{
+  "url": "http://localhost:9301/so-ts?type=EMS_POST",
+  "aliasUrl": "http://localhost:9301/so-ts-ems-post",
+  "formUrl": "http://localhost:9301/so-ts/tao-moi?type=EMS_POST",
+  "method": "e2e runtime · yarn start:std :9301 + docker + headless capture fallback",
+  "capturedAt": "2026-09-01T05:47:55.108Z",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "sha256_16": "8e39c9c850e00277",
+      "url": "http://localhost:9301/so-ts?type=EMS_POST",
+      "httpStatus": 200,
+      "note": "list EMS_POST profile + filter bar"
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "sha256_16": "8e39c9c850e00277",
+      "url": "http://localhost:9301/so-ts-ems-post",
+      "httpStatus": 200,
+      "note": "alias /so-ts-ems-post → type=EMS_POST"
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "sha256_16": "79f485c00ecdbe7a",
+      "url": "http://localhost:9301/so-ts/tao-moi?type=EMS_POST",
+      "httpStatus": 200,
+      "note": "Create form · S-ATTR ems · kmTo ẩn"
+    }
+  ],
+  "ok": true,
+  "testid": "rmms-so-ts-ems-post-list",
+  "formSelector": "asset-ems-post-attr",
+  "note": "GAP-QA-E2E-02: yarn e2e-qa headed hung — fallback headless direct std :9301"
+}

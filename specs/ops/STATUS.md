@@ -11,8 +11,8 @@
 | demo | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/ops/ui/prototype/ios/index.html#sc-ops` |
 | context | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/docs/context/features/ops.md` |
 | mfe | — (native · **cấm** mfeStdUrl) |
-| mfeStdRoute | — |
-| mfeStdUrl | — |
+| mfeStdRoute | `/ops` |
+| mfeStdUrl | `http://localhost:9304/ops` |
 | reviewUrlIos | `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/ops/ui/prototype/ios/index.html#sc-ops` |
 | reviewUrlAndroid | `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/ops/ui/prototype/android/index.html#sc-ops` |
 | ios | `Linm.RMMS.Mobile.iOS` · `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS` |
@@ -123,6 +123,8 @@
 | e2eQa | prior QA **PASS** · **cấm** mfeStdUrl / yarn start:std |
 
 ## Links
+- mfeStdUrl: `http://localhost:9304/ops`
+- mfeStdRoute: `/ops`
 
 - data-analy: `specs/_data-analy/ops-control-hint.md`
 - PO mobile: `specs/ops/po/requirement-mobile.md`

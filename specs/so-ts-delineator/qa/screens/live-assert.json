@@ -1,0 +1,72 @@
+{
+  "list": {
+    "titleList": true,
+    "headerDelineator": true,
+    "createBtn": true,
+    "noCreateBadge": true,
+    "typeFilterHidden": true,
+    "filterBar": true,
+    "search": true,
+    "route": true,
+    "kmFrom": true,
+    "kmToFilter": true,
+    "org": true,
+    "colHPost": true,
+    "colInstalled": true,
+    "colGuide": true,
+    "colKmToHidden": true,
+    "headers": [
+      "STT",
+      "Mã tài sản",
+      "Tên tài sản",
+      "Tuyến đường",
+      "Lý trình bắt đầu",
+      "Số lượng (SL)",
+      "Loại kiểu cọc",
+      "Vị trí đặt",
+      "VL cọc tiêu",
+      "KC lắp đặt TB tiêu (m)",
+      "Chiều cao cọc tiêu (m)",
+      "SL cọc tiêu",
+      "VL cọc H",
+      "Chiều cao cọc H (m)",
+      "SL cọc H",
+      "Tình trạng KT",
+      "Tọa độ GPS"
+    ],
+    "snippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nHạng mục KCHT\nDS\nDev Standalone\nDeveloper\nTài sản đường\nSổ TS — Cọc tiêu / cọc H\nLàm mới\nTạo mới\nDanh sách cọc tiêu / cọc H\nMenu dòng: nhấn đúp · Ctrl + chuột phải · nhấn giữ dòng\nTìm kiếm\nCao tốc / quốc lộ\nLý trình từ\nLý trình đến\nCây đơn vị\n​\nSTT\t\n\tMã tài sản\n\tTên tài sản\n\tTuyến đường\n\tLý trình bắt đầu\n\tSố lượng (SL)\n\tLoại kiểu cọc\n\tVị trí đặt\n\tVL cọc tiêu\n\tKC lắp đặt TB tiêu (m)\n\tChiều cao cọc tiêu (m)\n\tSL cọc tiêu\n"
+  },
+  "form": {
+    "cols5": true,
+    "delineatorMeta": true,
+    "delineatorTieu": true,
+    "delineatorH": true,
+    "tenCoc": true,
+    "loaiKieu": true,
+    "cocTieu": true,
+    "cocH": true,
+    "viTriDat": true,
+    "kmToVisible": false,
+    "kmToHiddenOk": true,
+    "noModeBadge": true,
+    "snippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nHạng mục KCHT\nDS\nDev Standalone\nDeveloper\nTạo tài sản\nQuay lại\nHủy\nTạo mới\nTạo tài sản\nĐang tạo mới — Lưu hoặc Hủy\nTHÔNG TIN TÀI SẢN\nMã tài sản\nTình trạng kỹ thuật*\nChọn tình trạng\nLoại tài sản *\n✕\nCao tốc / quốc lộ *\nTuyến\nĐoạn tuyến\nNguồn\nTên cọc*\nLý trình bắt đầu (Km+)*\nẢnh hiện trường\nTHÔNG SỐ CHUNG CỌC\nLoại kiểu cọc\nChọn loại kiểu cọc\nVị trí đặt\nChọn vị trí\nCỌC TIÊU\nLoại vật liệu\nChọn vật liệu\nKhoảng cách lắp đặt TB (m)\nChiều dài (m)\nChiều rộng (m)\nChiều cao cọc tiêu (m)\nTổng số cọc tiêu trong đoạn\nCỌC H / CỘT H\nLoại vật liệu cọc H\nChọn vật liệu\nKhoảng cách lắp đặt TB — cọc H (m)\nChiều dài cọc H (m)\nChiều rộng"
+  },
+  "dtm": {
+    "D": {
+      "overflowX": false,
+      "bodyW": 1280,
+      "vw": 1280
+    },
+    "T": {
+      "overflowX": false,
+      "bodyW": 768,
+      "vw": 768
+    },
+    "M": {
+      "overflowX": false,
+      "bodyW": 375,
+      "vw": 375
+    }
+  },
+  "at": "2026-09-01T15:14:09.771Z"
+}

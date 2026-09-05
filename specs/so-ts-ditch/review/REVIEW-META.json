@@ -1,0 +1,13 @@
+{
+  "feature": "so-ts-ditch",
+  "status": "confirmed",
+  "verdict": "PASS",
+  "review_confirm": "done",
+  "autoApprove": true,
+  "taskId": "task_ba1d67c1",
+  "contentHashPrior": "sha256:8f37e4455aded2ca3a045f47a50916be0563e859af9b18bdcc59000ce4305854",
+  "writtenAt": "2026-09-01T11:20:00.000Z",
+  "skillVersion": "2026.08.19.04",
+  "workflowVersion": "2026.09.01.02",
+  "rulesVersion": "2026.09.01.1"
+}

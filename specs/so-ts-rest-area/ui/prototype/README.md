@@ -1,11 +1,9 @@
 # Prototype — so-ts-rest-area
 
-Design gate: **prototype + reviewUrl** — board Approve (**không auto**).
-Repo confirm: user tick BE+UI trên `/qldb-workflow` Progress trước Dev (**không auto** · cấm ERP.*).
+Design gate: **prototype + reviewUrl** — autoApprove ON (`design_confirm=approve`).
 
-- Demo SSOT: `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/asset-demo.html`
-- Title: Sổ TS — Trạm dừng nghỉ
-- Pack kind: `list`
-- MFE: `Linm.Web.RMMS.Asset`
-
-Put HTML prototype / screenshot link here; update `ui/design.md` with a browser-openable **reviewUrl**.
+- Artifact: `ui/prototype/so-ts-rest-area-list-prototype.html`
+- **reviewUrl**: `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/so-ts-rest-area/ui/prototype/so-ts-rest-area-list-prototype.html`
+- Title: Sổ TS — Trạm dừng nghỉ · type `REST_AREA` · tile `t26`
+- Pack kind: `list` · Kind B A–D+F + full-page 5 cột
+- MFE: `Linm.Web.RMMS.Asset` · live `/so-ts?type=REST_AREA`

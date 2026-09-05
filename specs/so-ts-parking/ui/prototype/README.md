@@ -1,11 +1,10 @@
 # Prototype — so-ts-parking
 
-Design gate: **prototype + reviewUrl** — board Approve (**không auto**).
-Repo confirm: user tick BE+UI trên `/qldb-workflow` Progress trước Dev (**không auto** · cấm ERP.*).
+Design gate: **prototype + reviewUrl** — autoApprove ON (`design_confirm=approve`).
 
-- Demo SSOT: `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/asset-demo.html`
+- Artifact: `so-ts-parking-list-prototype.html`
+- **reviewUrl:** `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/so-ts-parking/ui/prototype/so-ts-parking-list-prototype.html`
 - Title: Sổ TS — Bãi đỗ xe
-- Pack kind: `list`
+- Pack kind: `list` · type `PARKING`
 - MFE: `Linm.Web.RMMS.Asset`
-
-Put HTML prototype / screenshot link here; update `ui/design.md` with a browser-openable **reviewUrl**.
+- Peer live: `http://localhost:9301/so-ts?type=PARKING`

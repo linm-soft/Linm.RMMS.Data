@@ -1,0 +1,36 @@
+{
+  "url": "http://localhost:9301/so-ts?type=GUARDRAIL",
+  "aliasUrl": "http://localhost:9301/so-ts-guardrail",
+  "formUrl": "http://localhost:9301/so-ts/tao-moi?type=GUARDRAIL",
+  "method": "e2e runtime · yarn start:std :9301 + docker API :5111 + BFF :5201 + yarn e2e-qa contract (Chrome channel fallback)",
+  "capturedAt": "2026-09-01T16:42:26.573Z",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "sha256_16": "861e846e5db56a6c",
+      "url": "http://localhost:9301/so-ts?type=GUARDRAIL",
+      "note": "list GUARDRAIL profile + filter bar · kmTo ON · type hidden"
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "sha256_16": "861e846e5db56a6c",
+      "url": "http://localhost:9301/so-ts-guardrail",
+      "note": "alias /so-ts-guardrail → Navigate type=GUARDRAIL"
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "sha256_16": "7b43cd70b8de9c79",
+      "url": "http://localhost:9301/so-ts/tao-moi?type=GUARDRAIL",
+      "note": "Create form · S-ATTR guardrail · S-LOC-RANGE · HL-"
+    }
+  ],
+  "ok": true,
+  "note": "GAP-QA-E2E-PW-01: yarn e2e-qa headed hang · capture channel=chrome · --skip-start · API :5111",
+  "testid": "rmms-so-ts-guardrail-list"
+}

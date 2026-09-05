@@ -16,7 +16,7 @@
 | Sidebar | Tabs Lớp · Chú giải (PCI + pin QCVN) · Thuộc tính · Kết quả |
 | Status | bbox · EPSG:4326 · overlay status |
 | Map | Leaflet live · **default zoom min** (toàn clip VN) · **flex fill** remaining · **cấm** auto Fit tài sản on load |
-| Map-bar | Nền VN (clip) · Fit · toggle full/dock · **không** meta |
+| Map-bar | **Tiêu chuẩn \| Vệ tinh** · **Vị trí của tôi** · toggle full/dock · **cấm** nút Fit · **cấm** Default/Streets/Sat EN · **không** meta |
 | Attribution | **Ẩn** Leaflet prefix · chỉ `RMMS.vn` |
 | Bottom legend | **Không** isolate «Tất cả» / lớp |
 | Click đoạn / pin trên map | Popup + tab Thuộc tính · **không** `isolateSection` / auto zoom |

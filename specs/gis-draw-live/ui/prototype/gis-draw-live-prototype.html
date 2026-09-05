@@ -35,15 +35,18 @@
         <label><input type="checkbox" /> Tuyến đường</label>
         <label><input type="checkbox" /> Biển báo</label>
         <label><input type="checkbox" /> Cột km</label>
-        <h3>Thuộc tính draft</h3>
-        <p style="font-size:12px;color:var(--muted)">Vẽ xong → Mã/Tên · Lưu API (`POST /api/v1/gis/drawings`)</p>
+        <h3>Thuộc tính</h3>
+        <p style="font-size:12px;color:var(--muted)">Click pin trên map → Tên · Mã TS · KM · GPS · Tuyến + 3 tầng tuyến · dumpSpecs loại (gov-vn). <strong>Không</strong> Lưu bản vẽ / Huỷ.</p>
       </aside>
       <div class="main">
         <div class="status">EPSG:4326 · overlay status</div>
         <div class="map-host"><em>Leaflet.draw · Point / Line / Polygon · live · fill remaining</em></div>
         <div class="map-bar" role="toolbar" aria-label="Lớp nền bản đồ">
-          <button class="on" title="Nền VN (clip)" aria-label="Nền VN clip">Nền VN (clip)</button>
-          <button title="Fit = phóng vừa toàn bộ pin / tuyến" aria-label="Fit overview">Fit</button>
+          <div role="group" aria-label="Lớp nền">
+            <button class="on" data-basemap="default" title="Nền tiêu chuẩn">Tiêu chuẩn</button>
+            <button data-basemap="sat" title="Nền vệ tinh">Vệ tinh</button>
+          </div>
+          <button title="Định vị GPS — phóng vùng quanh vị trí hiện tại và ghim pin" aria-label="Vị trí của tôi">Vị trí của tôi</button>
           <button title="Phóng full map" aria-label="Phóng full map">▣</button>
         </div>
       </div>

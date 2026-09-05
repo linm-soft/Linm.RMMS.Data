@@ -11,8 +11,8 @@
 | demo | `specs/patrol-home/ui/prototype/{ios,android}/index.html` `#sc-patrol-home` · `DES-MOB-PAT-HOME` |
 | context | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/docs/context/features/patrol-home.md` |
 | mfe | — (native · **cấm** mfeStdUrl) |
-| mfeStdRoute | — |
-| mfeStdUrl | — |
+| mfeStdRoute | `/patrol-home` |
+| mfeStdUrl | `http://localhost:9301/patrol-home` |
 | ios | `Linm.RMMS.Mobile.iOS` · `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS` · e2e-qa-mobile sim 6.9" |
 | android | `Linm.RMMS.Mobile.Android` · `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android` · e2e-qa-mobile emulator |
 | bff | `Linm.RMMS.Mobile.Bff` · `mobile-bff/api/v1/patrol/sessions` |
@@ -98,6 +98,8 @@
 - P2: `PrivacyInfo.xcprivacy` · store submit → `/review-app-submit`
 
 ## Links
+- mfeStdUrl: `http://localhost:9301/patrol-home`
+- mfeStdRoute: `/patrol-home`
 
 - data-analy → po → design → sa → tl → dev → qa → **review done** → pipeline **complete**
 - closeout Review: `task_929e803f` · `/agent-review-mobile` · roleOnly=`review` · `review_confirm=approve` · P0 **none** · Must align **0** · VERIFY GATE PASS · iOS xcodegen+xcodebuild iPhone 17 Pro · Android assembleDebug · BFF dotnet build · prior e2e **ok:true** · post_review **skip** · pipeline **complete** · at: `2026-08-19T15:00:00.000Z`

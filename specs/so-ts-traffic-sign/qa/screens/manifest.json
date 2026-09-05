@@ -1,0 +1,36 @@
+{
+  "url": "http://localhost:9301/so-ts?type=TRAFFIC_SIGN",
+  "aliasUrl": "http://localhost:9301/so-ts-traffic-sign",
+  "formUrl": "http://localhost:9301/so-ts/tao-moi?type=TRAFFIC_SIGN",
+  "method": "e2e runtime · yarn start:std :9301 + docker API :5111 + BFF :5201 + yarn e2e-qa contract (Chrome channel)",
+  "capturedAt": "2026-09-01T14:15:01.258Z",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "sha256_16": "cbf24868aadab5c0",
+      "url": "http://localhost:9301/so-ts?type=TRAFFIC_SIGN",
+      "note": "list TRAFFIC_SIGN · filter · title Biển báo"
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "sha256_16": "cbf24868aadab5c0",
+      "url": "http://localhost:9301/so-ts-traffic-sign",
+      "note": "alias /so-ts-traffic-sign → type=TRAFFIC_SIGN"
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "sha256_16": "165b3f68d5edd897",
+      "url": "http://localhost:9301/so-ts/tao-moi?type=TRAFFIC_SIGN",
+      "note": "Create form · S-ATTR · S-LOC-POINT ẩn kmTo · BB-"
+    }
+  ],
+  "ok": true,
+  "note": "GAP-QA-E2E-PW-01: yarn e2e-qa headed hang · capture channel=chrome · --skip-start · API :5111",
+  "testid": "rmms-so-ts-traffic-sign-list-page"
+}

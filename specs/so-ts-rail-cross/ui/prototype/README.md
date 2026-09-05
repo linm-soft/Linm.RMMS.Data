@@ -8,4 +8,6 @@ Repo confirm: user tick BE+UI trên `/qldb-workflow` Progress trước Dev (**kh
 - Pack kind: `list`
 - MFE: `Linm.Web.RMMS.Asset`
 
-Put HTML prototype / screenshot link here; update `ui/design.md` with a browser-openable **reviewUrl**.
+- Prototype: `so-ts-rail-cross-list-prototype.html`
+- **reviewUrl:** `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/so-ts-rail-cross/ui/prototype/so-ts-rail-cross-list-prototype.html`
+- peerStdUrl: `http://localhost:9301/so-ts?type=RAIL_CROSS`

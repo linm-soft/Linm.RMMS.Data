@@ -1,0 +1,74 @@
+{
+  "list": {
+    "titleList": true,
+    "headerMedian": true,
+    "createBtn": true,
+    "noCreateBadge": true,
+    "typeFilterHidden": true,
+    "filterBar": true,
+    "search": true,
+    "route": true,
+    "kmFrom": true,
+    "kmToFilter": true,
+    "org": true,
+    "colLoaiDai": true,
+    "colDai": true,
+    "colRong": true,
+    "colHangRao": true,
+    "headers": [
+      "STT",
+      "Mã tài sản",
+      "Tên tài sản",
+      "Tuyến đường",
+      "Lý trình bắt đầu",
+      "Lý trình kết thúc",
+      "Loại dải phân cách",
+      "Chiều dài dải (m)",
+      "Chiều rộng dải (m)",
+      "Trồng cỏ",
+      "Trồng cây",
+      "Cao hàng rào (m)",
+      "VL hàng rào",
+      "Vị trí dải",
+      "DT cỏ (m²)",
+      "Số cây",
+      "Tỉnh / thành phố",
+      "Xã / phường",
+      "Tình trạng KT",
+      "Tọa độ GPS"
+    ],
+    "snippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nHạng mục KCHT\nDS\nDev Standalone\nDeveloper\nTài sản đường\nSổ TS — Dải phân cách\nLàm mới\nTạo mới\nDanh sách dải phân cách\nMenu dòng: nhấn đúp · Ctrl + chuột phải · nhấn giữ dòng\nTìm kiếm\nCao tốc / quốc lộ\nLý trình từ\nLý trình đến\nCây đơn vị\n​\nSTT\t\n\tMã tài sản\n\tTên tài sản\n\tTuyến đường\n\tLý trình bắt đầu\n\tLý trình kết thúc\n\tLoại dải phân cách\n\tChiều dài dải (m)\n\tChiều rộng dải (m)\n\tTrồng cỏ\n\tTrồng cây\n\tCao hàng rào (m)\n\tVL h"
+  },
+  "form": {
+    "cols5": true,
+    "medianAttr": true,
+    "loaiDai": true,
+    "chieuDai": true,
+    "chieuRong": true,
+    "trongCo": true,
+    "trongCay": true,
+    "caoHangRao": true,
+    "kmToVisible": true,
+    "codePrefixPC": false,
+    "noModeBadge": true,
+    "snippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nHạng mục KCHT\nDS\nDev Standalone\nDeveloper\nTạo tài sản\nQuay lại\nHủy\nTạo mới\nTạo tài sản\nĐang tạo mới — Lưu hoặc Hủy\nTHÔNG TIN TÀI SẢN\nMã tài sản\nTình trạng kỹ thuật*\nChọn tình trạng\nLoại tài sản *\n✕\nCao tốc / quốc lộ *\nTuyến\nĐoạn tuyến\nNguồn\nTên\nLý trình bắt đầu (Km+)*\nLý trình kết thúc (Km+)\nẢnh hiện trường\nTHÔNG SỐ DẢI PHÂN CÁCH\nLoại dải phân cách*\nChọn loại dải\nChiều dài dải (m)\nChiều rộng dải (m)\nTrồng cỏ\nChọn\nCó\nKhông\nDT trồng cỏ (m²)\nTrồng cây\nChọn\nCó\nKhông\nSố cây\nChiều cao hàng rào (m)\nVật liệu hàng rào\nChọn vật liệu\nVị trí dải phân cách\nChọn vị trí (tuỳ chọn)\nTỉnh / TP đầu\nXã / phường đầu\nTỉnh / TP cuối\nXã /"
+  },
+  "dtm": {
+    "D": {
+      "overflowX": false,
+      "bodyW": 1280,
+      "vw": 1280
+    },
+    "T": {
+      "overflowX": false,
+      "bodyW": 768,
+      "vw": 768
+    },
+    "M": {
+      "overflowX": false,
+      "bodyW": 375,
+      "vw": 375
+    }
+  },
+  "at": "2026-09-01T17:36:59.749Z"
+}

@@ -1,0 +1,92 @@
+{
+  "capturedAt": "2026-09-01T20:13:59.251Z",
+  "listUrl": "http://localhost:9301/so-ts?type=ROW_UTIL",
+  "formUrl": "http://localhost:9301/so-ts/tao-moi?type=ROW_UTIL",
+  "list": {
+    "titleList": true,
+    "headerRowUtil": true,
+    "createBtn": true,
+    "noCreateBadge": true,
+    "typeFilterHidden": true,
+    "filterBar": true,
+    "search": true,
+    "route": true,
+    "kmFrom": true,
+    "kmToFilter": true,
+    "colTypeWork": true,
+    "colLength": true,
+    "colOwner": true,
+    "headers": [
+      "STT",
+      "Mã tài sản",
+      "Tên tài sản",
+      "Tuyến đường",
+      "Lý trình bắt đầu",
+      "Lý trình kết thúc",
+      "Loại công trình",
+      "Chiều dài (m)",
+      "Số trụ / cột",
+      "Chủ sở hữu",
+      "Tình trạng KT",
+      "Tọa độ GPS"
+    ],
+    "snippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nHạng mục KCHT\nDS\nDev Standalone\nDeveloper\nTài sản đường\nSổ TS — CT HTKT trong HL\nLàm mới\nTạo mới\nDanh sách công trình HTKT\nMenu dòng: nhấn đúp · Ctrl + chuột phải · nhấn giữ dòng\nTìm kiếm\nCao tốc / quốc lộ\nLý trình từ\nLý trình đến\nCây đơn vị\n​\nSTT\t\n\tMã tài sản\n\tTên tài sản\n\tTuyến đường\n\tLý trình bắt đầu\n\tLý trình kết thúc\n\tLoại công trình\n\tChiều dài (m)\n\tSố trụ / cột\n\tChủ sở hữu\n\tTình trạng KT\n\tTọa độ GPS\n\n1\t\n\tHT-infra"
+  },
+  "form": {
+    "cols5": true,
+    "kmFromVisible": true,
+    "kmToVisible": true,
+    "rowUtilAttr": true,
+    "typeWorkField": true,
+    "lengthField": true,
+    "ownerField": true,
+    "sectionTitle": true,
+    "nameLabel": true,
+    "noCreateBadge": true,
+    "snippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nHạng mục KCHT\nDS\nDev Standalone\nDeveloper\nTạo tài sản\nQuay lại\nHủy\nTạo mới\nTạo tài sản\nĐang tạo mới — Lưu hoặc Hủy\nTHÔNG TIN TÀI SẢN\nMã tài sản\nTình trạng kỹ thuật*\nChọn tình trạng\nLoại tài sản *\n✕\nCao tốc / quốc lộ *\nTuyến\nĐoạn tuyến\nNguồn\nCông trình HTKT\nLý trình bắt đầu (Km+)\nLý trình kết thúc (Km+)\nẢnh hiện trường\nTHÔNG SỐ CT HTKT TRONG HL\nLoại công trình*\nChọn loại công trình\nChiều dài (m)\nSố trụ / cột\nChủ sở hữu\n"
+  },
+  "dtm": [
+    {
+      "id": "D",
+      "overflowX": false,
+      "width": 1280
+    },
+    {
+      "id": "T",
+      "overflowX": false,
+      "width": 768
+    },
+    {
+      "id": "M",
+      "overflowX": false,
+      "width": 375
+    }
+  ],
+  "checks": {
+    "listTitle": true,
+    "headerRowUtil": true,
+    "createBtn": true,
+    "noCreateBadgeList": true,
+    "typeFilterHidden": true,
+    "filterBar": true,
+    "searchField": true,
+    "routeField": true,
+    "kmFromFilter": true,
+    "kmToFilter": true,
+    "colTypeWork": true,
+    "colLength": true,
+    "colOwner": true,
+    "formCols5": true,
+    "kmFromForm": true,
+    "kmToForm": true,
+    "rowUtilAttr": true,
+    "typeWorkField": true,
+    "lengthField": true,
+    "ownerField": true,
+    "sectionTitle": true,
+    "nameLabel": true,
+    "noCreateBadgeForm": true,
+    "dtmNoOverflow": true
+  },
+  "pass": true
+}

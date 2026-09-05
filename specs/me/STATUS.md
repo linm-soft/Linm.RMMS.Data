@@ -11,8 +11,8 @@
 | demo | `specs/me/ui/prototype/{ios,android}/index.html` `#sc-me` · SSOT peer `specs/mobile-p1/ui/prototype/{ios,android}/index.html` |
 | context | `docs/context/features/me.md` |
 | mfe | — (native · **cấm** mfeStdUrl) |
-| mfeStdRoute | — |
-| mfeStdUrl | — |
+| mfeStdRoute | `/me` |
+| mfeStdUrl | `http://localhost:9301/me` |
 | ios | `Linm.RMMS.Mobile.iOS` · e2e-qa-mobile sim 6.9" |
 | android | `Linm.RMMS.Mobile.Android` · e2e-qa-mobile emulator |
 | bff | `Linm.RMMS.Mobile.Bff` · `mobile-bff/api/v1/auth/profile` |
@@ -128,6 +128,8 @@
 | Next | sibling Approve · **không** chain this turn |
 
 ## Links
+- mfeStdUrl: `http://localhost:9301/me`
+- mfeStdRoute: `/me`
 
 - analy → `specs/_data-analy/me-*.md`
 - design → `specs/me/ui/design.md` · `ui/ux-analy.md`

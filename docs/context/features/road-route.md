@@ -14,7 +14,7 @@
 | | |
 |--|--|
 | Mục tiêu | Danh mục tuyến / đoạn đường — SearchInput trên Asset, map, import, **ca tuần đường**. Unique `code` (vd `QL.1`) = khóa LRS `RouteID + Km + m` khi GIS snap GPS (P2). |
-| Nguồn data | SSOT [`import-gov-ssot.md`](import-gov-ssot.md) · set `gov-vn` `road_routes.csv` **429** (live DRVN 604). `RMMS CUC 2` = demo / archive. |
+| Nguồn data | SSOT [`import-gov-ssot.md`](import-gov-ssot.md) · set `gov-vn` `road_routes.csv` **T6.2026 normalize** (~210 tuyến chính + named/đoạn có `parent_code`). Script `normalize-routes-from-t6.mjs`. `RMMS CUC 2` = demo / archive. |
 | Raw keys | ~42 · **canonical ~25** sau gộp alias |
 | DoD | CRUD list · search CI · seed từ import · `legacyFolderName[]` |
 
@@ -59,4 +59,5 @@ QL.1 · HCM · QL.7 · QL.8 · QL.9 · QL.10 · QL.12A/C · QL.15* · QL.16 · Q
 | GAP-ROUTE-04 | Unique ID đoạn HĐ (RADS đề cương) vs `code` tuyến — SA: attribute HĐ hay child route |
 | GAP-ROUTE-05 | Dropdown BC dùng tên `Km 0+000…` (NHANH/TRANH/GOM) như tuyến chính — peer [`org-route-scope.md`](org-route-scope.md) GAP-ORS-05 |
 | GAP-ROUTE-NAMED-01 | **đóng** — import `road_assets` upsert named/đoạn (kind KHAC, `parent_code` = QL / named) · `GET …/road-routes/search?parentCode=` · form `/so-ts` + Biểu 1 SearchInput. Rebuild ghi đoạn vào `road_routes.csv`. |
-| GAP-GOV-ROUTE-3LVL | Mọi tài sản + Biểu 1: tách Cao tốc/QL · Tuyến named · Đoạn — **cấm** 1 ô gộp |
+| GAP-GOV-ROUTE-3LVL | **partial 2026-09-04** — `normalize-routes-from-t6.mjs` + Excel T6.2026 → mains `QUOC_LO`/`HCM`/`CAO_TOC` · named/đoạn `KHAC`+parent. **Cấm** đoán alias (vd Nghi Sơn–Bãi Trành → QL.45). Cần `ReImportSeed`+`ReInitData`. |
+| GAP-ROUTE-UI-KM-01 | **partial** — list đầy `KM0+000…` kind Khác: import skip orphan KM; catalog gắn parent từ dump triple. Filter UI nên ưu tiên `QUOC_LO`/`HCM`/`CAO_TOC`. |

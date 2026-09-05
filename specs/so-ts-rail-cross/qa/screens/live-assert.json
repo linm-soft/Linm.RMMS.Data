@@ -1,0 +1,87 @@
+{
+  "capturedAt": "2026-09-01T19:47:15.078Z",
+  "listUrl": "http://localhost:9301/so-ts?type=RAIL_CROSS",
+  "formUrl": "http://localhost:9301/so-ts/tao-moi?type=RAIL_CROSS",
+  "list": {
+    "titleList": true,
+    "headerRailCross": true,
+    "createBtn": true,
+    "noCreateBadge": true,
+    "typeFilterHidden": true,
+    "filterBar": true,
+    "search": true,
+    "route": true,
+    "kmFrom": true,
+    "kmToFilter": true,
+    "org": true,
+    "colProtection": true,
+    "colTraffic": true,
+    "colWaiting": true,
+    "headers": [
+      "STT",
+      "Mã tài sản",
+      "Tên tài sản",
+      "Tuyến đường",
+      "Lý trình bắt đầu",
+      "Kiểu bảo vệ",
+      "Phương thức điều khiển",
+      "Thời gian chờ (phút)",
+      "Tình trạng KT",
+      "Tọa độ GPS"
+    ],
+    "snippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nHạng mục KCHT\nDS\nDev Standalone\nDeveloper\nTài sản đường\nSổ TS — Giao cắt đường sắt\nLàm mới\nTạo mới\nDanh sách giao cắt đường sắt\nMenu dòng: nhấn đúp · Ctrl + chuột phải · nhấn giữ dòng\nTìm kiếm\nCao tốc / quốc lộ\nLý trình từ\nLý trình đến\nCây đơn vị\n​\nSTT\t\n\tMã tài sản\n\tTên tài sản\n\tTuyến đường\n\tLý trình bắt đầu\n\tKiểu bảo vệ\n\tPhương thức điều khiển\n\tThời gian chờ (phút)\n\tTình trạng KT\n\tTọa độ GPS\n\n1\t\n\tDS-railway_crossing_7"
+  },
+  "form": {
+    "cols5": true,
+    "kmToVisible": false,
+    "railCrossAttr": true,
+    "protectionField": true,
+    "trafficField": true,
+    "waitingField": true,
+    "sectionTitle": true,
+    "waitingLabel": true,
+    "noCreateBadge": true,
+    "snippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nHạng mục KCHT\nDS\nDev Standalone\nDeveloper\nTạo tài sản\nQuay lại\nHủy\nTạo mới\nTạo tài sản\nĐang tạo mới — Lưu hoặc Hủy\nTHÔNG TIN TÀI SẢN\nMã tài sản\nTình trạng kỹ thuật*\nChọn tình trạng\nLoại tài sản *\n✕\nCao tốc / quốc lộ *\nTuyến\nĐoạn tuyến\nNguồn\nTên giao cắt\nLý trình bắt đầu (Km+)\nẢnh hiện trường\nTHÔNG SỐ GIAO CẮT ĐƯỜNG SẮT\nKiểu bảo vệ\nChọn kiểu bảo vệ\nPhương thức điều khiển giao thông\nChọn phương thức\nThời gian chờ ngắn nh"
+  },
+  "dtm": [
+    {
+      "id": "D",
+      "overflowX": false,
+      "width": 1280
+    },
+    {
+      "id": "T",
+      "overflowX": false,
+      "width": 768
+    },
+    {
+      "id": "M",
+      "overflowX": false,
+      "width": 375
+    }
+  ],
+  "checks": {
+    "listTitle": true,
+    "headerRailCross": true,
+    "createBtn": true,
+    "noCreateBadgeList": true,
+    "typeFilterHidden": true,
+    "filterBar": true,
+    "searchField": true,
+    "routeField": true,
+    "colProtection": true,
+    "colTraffic": true,
+    "colWaiting": true,
+    "formCols5": true,
+    "kmToHidden": true,
+    "railCrossAttr": true,
+    "protectionField": true,
+    "trafficField": true,
+    "waitingField": true,
+    "sectionTitle": true,
+    "waitingLabelMinutes": true,
+    "noCreateBadgeForm": true,
+    "dtmNoOverflow": true
+  },
+  "pass": true
+}

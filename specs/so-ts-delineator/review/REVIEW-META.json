@@ -1,0 +1,17 @@
+{
+  "feature": "so-ts-delineator",
+  "status": "confirmed",
+  "verdict": "PASS",
+  "review_confirm": "done",
+  "taskId": "task_ba2abd6e",
+  "autoApprove": true,
+  "contentHash": "sha256:9a116268e7b5c333125d903498bf9135379c2f6a5863d309ff5f1d8055a397b9",
+  "updatedAt": "2026-09-01T15:25:00.000Z",
+  "gates": {
+    "QUERY": "PASS",
+    "SEC": "PASS",
+    "UI-FN": "PASS",
+    "BE-FN": "PASS"
+  },
+  "p0": false
+}

@@ -11,8 +11,8 @@
 | demo | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/asset-hub/ui/prototype/ios/index.html#sc-asset-hub` |
 | context | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/docs/context/features/asset-hub.md` |
 | mfe | — (native · **cấm** mfeStdUrl) |
-| mfeStdRoute | — |
-| mfeStdUrl | — |
+| mfeStdRoute | `/asset-hub` |
+| mfeStdUrl | `http://localhost:9301/asset-hub` |
 | reviewUrlIos | `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/asset-hub/ui/prototype/ios/index.html#sc-asset-hub` |
 | reviewUrlAndroid | `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/asset-hub/ui/prototype/android/index.html#sc-asset-hub` |
 | ios | `Linm.RMMS.Mobile.iOS` · `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS` · e2e-qa-mobile sim 6.9" |
@@ -121,6 +121,8 @@
 | e2eQa | prior QA **PASS** · **cấm** mfeStdUrl / yarn start:std |
 
 ## Links
+- mfeStdUrl: `http://localhost:9301/asset-hub`
+- mfeStdRoute: `/asset-hub`
 
 - data-analy → po → ui → be → task → implement → qa → review → **done**
 - native: e2eQa ON → `yarn e2e-qa-mobile` (sim + emulator + Maestro) — **cấm** mfeStdUrl

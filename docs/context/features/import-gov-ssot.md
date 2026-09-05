@@ -174,7 +174,15 @@ Rebuild CSV không ghi Postgres. Muốn t37 / type mới hiện: chạy lại im
 
 Live DRVN / user: **Tuyến chính** `QL.1` · **Tuyến** `QL.1 - Lạng Sơn (BOT): Km 0+000 – 1+800` · **Đoạn** `Km 0+000 – 1+800`. Cùng 3 cột trên **33/35** file moc.
 
-`road_routes` **420** dẹt: `QUOC_LO` 146 · `NHANH` 226 (`KM0+000-*`, `parent_code` trống) · **0** row `QL.1 - Lạng Sơn (BOT)`.
+**2026-09-04 `/data-gov-integration`:** Excel SSOT `data-import/Bản sao của Tổng hợp QL T6.2026.xlsx` + script `normalize-routes-from-t6.mjs` → `road_routes.csv` **importVersion 5**:
+
+| Tầng | `route_kind` | Nguồn |
+|------|--------------|-------|
+| Chính | `QUOC_LO` / `HCM` / `CAO_TOC` | Excel T6 (~135 QL + CT) + dump mã số |
+| Named | `KHAC` + `parent_code` | `route_named` / named-as-route (vd `QL.NGHISON-BAITRANH`) |
+| Đoạn | `KHAC` + `parent_code` | `route_segment` (triple dump) — **cấm** orphan KM |
+
+Backup: `road_routes.before-t6.csv`. Mirror WebService `data/import/sets/gov-vn/`. **Cấm** alias tự động Nghi Sơn–Bãi Trành → QL.45 / cao tốc QL.45–Nghi Sơn.
 
 `road_assets` 13 cột — bỏ hình dạng biển, tên cột km, thông số cọc, 3 tầng tuyến. `pavement_sections` 16 cột — bỏ nền / chiều xe / 4 XY / `long_route_name` / làn·lề (dump `tbl_rmd`).
 
@@ -184,7 +192,8 @@ Chi tiết đủ cột + map chứng từ (Biểu 1 · hộ chiếu cọc · bi�
 
 | ID | Status | Việc |
 |----|--------|------|
-| GAP-GOV-ROUTE-3LVL | mở | Rebuild tách 3 tầng — mọi type |
+| GAP-GOV-ROUTE-3LVL | **partial** | Catalog T6 + parent; còn ReImport + FE filter mains |
+| GAP-ROUTE-UI-KM-01 | **partial** | Import skip KM orphan; list còn cần filter kind |
 | GAP-KMPOST-NAME-01 / KM-01 | mở | `name_km_post` + parse lý trình |
 | GAP-SIGN-SPEC-01 | mở | Đủ `tbl_road_sign` (hình dạng*) |
 | GAP-DELIM-SPEC-01 | mở | Đủ `tbl_guide_post` (cọc tiêu + H) |

@@ -1,0 +1,9 @@
+{
+  "feature": "so-ts-slope-protect",
+  "status": "confirmed",
+  "verdict": "PASS",
+  "review_confirm": "done",
+  "taskId": "task_5c72213f",
+  "contentHashPrior": "sha256:52501076e559261162c4741e46e0826cab2059143221abe3e32b1ca279253294",
+  "writtenAt": "2026-09-01T19:05:00.000Z"
+}

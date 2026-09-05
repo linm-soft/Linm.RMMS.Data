@@ -4,12 +4,12 @@
 |-------|-------|
 | feature | `gis-draw-live` |
 | status | `confirmed` |
-| mfeStdRoute | `/gis/draw` (route_confirm) |
+| mfeStdRoute | `/gis/tai-san` |
 | skillVersion | `2026.08.10.3` |
 | schemaVersion | `qldb-workflow-skill-v1` |
 | workflowVersion | `2026.08.10.3` |
 | versionGate | `ok` |
-| updatedAt | `2026-09-01T01:18:00.000Z` |
+| updatedAt | `2026-09-01T21:20:00.000Z` |
 
 ## Source assignment
 
@@ -25,9 +25,24 @@
 
 ## UI notes (2026-09-01 `/edit-web-feature`)
 
-**Cấm revert:** không header `← Dev ← GIS` + title · không toolbar seed/export · không bottom isolate legend. Dock map **flex fill** remaining. Click cụm/pin **không** `setView` / auto zoom (popup only). List Kết quả vẫn Fit.
+Canonical route **`/gis/tai-san`**. **`/gis/live`** · `/gis` · `/gis/ha-tang` · `/gis/tao-moi` → redirect **giữ `search`+`hash`**. `parseAssetTypeQuery` + `layerMatchesTypeQuery` — vd `?type=BUS_STOP` tick lớp Điểm đỗ. **Cấm** revert về `/gis/live` làm canonical.
 
-Lớp lazy default off + count. Paint nét overlayPane raw trước OSRM. Snap `projectToPath` đúng `props.route` — cấm nearest inventory.
+**Cấm revert:** không header `← Dev ← GIS` + title · không toolbar seed/export · không bottom isolate legend. Menu GIS **chỉ** Bản đồ tài sản + Bản đồ Tuần đường — **cấm** re-add giám sát 2D / ha-tang / tạo mới.
+
+Pin tài sản **chỉ xem** — **cấm** Leaflet.draw edit/CREATED · **cấm** `draggable` · **cấm** persist sau kéo (`GAP-MAP-DISPLAY-ONLY`).
+
+Tab **Thuộc tính** = inspect (parity popup: Tên · Mã TS · KM · GPS · Tuyến) + gov `/data-gov-integration`: 3 tầng tuyến · dumpSpecs loại. **Cấm** Lưu bản vẽ / Huỷ · **cấm** textarea GeoJSON.
+
+Lớp lazy default off + count. z≤8: nét **đã bake/index** (GetCorridors không bbox · overlay bake bỏ geomKey). Zoom sát: **giữ** cache `national` overlay Tuyến — **cấm** refetch bbox / `clipPathToView` ẩn nét (`GAP-MAP-INDEX-PAINT`). Snap `projectToPath` đúng `props.route` — cấm nearest inventory. Bake pairwise fail **không** nối chord; FE `splitPathOnJump` nhiều polyline cùng id. Nền: biển `theme.sea` một màu · đất `vn-land` · **cấm** OSM water 2 tone. GL: không đụng canvas transform.
+
+Map-bar **2 chip: Tiêu chuẩn · Vệ tinh** (`CLIP_STYLE_OPTIONS`) — **cấm** Default/Streets/Sat EN · **cấm** chip Streets.
+
+Đường nền clip: **nền + biên** OSM Carto (`GAP-MAP-ROAD-CARTO-01`) · overlay Tuyến = pair blue `guideBlue` / `routeBlueCase` (`GAP-MAP-ROUTE-BLUE`) — **cấm** peach `#fcd6a4`.
+Map-bar **Vị trí của tôi** (`locateUserOnMap`) — **cấm** nút Fit. Click pin: **Tên: Vị trí của bạn** + **GPS:** (`/map-inspect-popup`).
+
+Clip camera: **cấm** `setMaxBounds` sau `map.remove()` — `isVnClipMapAlive` + clear timer `attachVnClipBasemap` (`GAP-MAP-PANE-ALIVE`).
+
+Overlay Tuyến: **cấm** dump GPS thưa (`isSparseGpsChord`) — fail = nét đứt (`GAP-MAP-DRAW-STREET-01` · `/map-draw-street`).
 
 ## Platform SSOT / permissions
 

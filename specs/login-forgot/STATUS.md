@@ -12,8 +12,8 @@
 | context | `docs/context/features/login-forgot.md` · parent `login.md` |
 | logo | `logo/mobile` AppIcon 1024 → proto `assets/app-logo.png` |
 | mfe | — (native · **cấm** mfeStdUrl / yarn start:std) |
-| mfeStdRoute | — |
-| mfeStdUrl | — |
+| mfeStdRoute | `/login-forgot` |
+| mfeStdUrl | `http://localhost:9301/login-forgot` |
 | ios | `Linm.RMMS.Mobile.iOS` · `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS` |
 | android | `Linm.RMMS.Mobile.Android` · `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android` |
 | bff | `Linm.RMMS.Mobile.Bff` · `mobile-bff/api/v1/auth/forgot-password` · `auth/reset-password` |
@@ -113,6 +113,8 @@
 | e2eQa | ON · prior PNG store · **cấm** yarn start:std / mfeStdUrl |
 
 ## Links
+- mfeStdUrl: `http://localhost:9301/login-forgot`
+- mfeStdRoute: `/login-forgot`
 
 - review findings: `specs/login-forgot/review/findings.md`
 - reviewUrl iOS: `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/login-forgot/ui/prototype/ios/index.html#sc-forgot`

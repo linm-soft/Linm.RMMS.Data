@@ -1,0 +1,52 @@
+{
+  "list": {
+    "titleToll": true,
+    "headerToll": true,
+    "createBtn": true,
+    "noCreateBadge": true,
+    "typeFilterHidden": true,
+    "filterBar": true,
+    "search": true,
+    "route": true,
+    "kmFrom": true,
+    "kmToFilter": true,
+    "org": true,
+    "snippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nHạng mục KCHT\nDS\nDev Standalone\nDeveloper\nTài sản đường\nSổ TS — Trạm thu phí\nLàm mới\nTạo mới\nDanh sách trạm thu phí\nMenu dòng: nhấn đúp · Ctrl + chuột phải · nhấn giữ dòng\nTìm kiếm\nCao tốc / quốc lộ\nLý trình từ\nLý trình đến\nCây đơn vị\n​\nSTT\t\n\tMã tài sản\n\tTên tài sản\n\tTuyến đường\n\tLý trình bắt đầu\n\tPhương pháp cân\n\tSố làn cân\n\tSố làn ETC\n\tSố làn thủ công\n\tCấp nhà\n\tDT mặt cổng (m²)\n\tTình trạng KT\n\tTọa độ GPS\n\n1\t\n\tTP-1768"
+  },
+  "form": {
+    "cols5": true,
+    "tollAttr": true,
+    "weightingMethod": true,
+    "weightingLane": true,
+    "etcLane": true,
+    "manualLane": true,
+    "houseGrade": true,
+    "gatePavement": true,
+    "roofStructure": true,
+    "pavementType": true,
+    "roadStructure": true,
+    "operationLocation": true,
+    "kmToVisible": false,
+    "nameToll": true,
+    "noModeBadge": true,
+    "snippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nHạng mục KCHT\nDS\nDev Standalone\nDeveloper\nTạo tài sản\nQuay lại\nHủy\nTạo mới\nTạo tài sản\nĐang tạo mới — Lưu hoặc Hủy\nTHÔNG TIN TÀI SẢN\nMã tài sản\nTình trạng kỹ thuật*\nChọn tình trạng\nTốt\nTheo dõi\nCần bảo trì\nLoại tài sản *\n✕\nCao tốc / quốc lộ *\nTuyến\nĐoạn tuyến\nNguồn\nNhập tay\nAI\nTên trạm\nLý trình bắt đầu (Km+)\nẢnh hiện trường\nTHÔNG SỐ TRẠM THU PHÍ\nPhương pháp cân*\nChọn phương pháp cân\nSố làn cân\nSố làn ETC\nSố làn thủ công\nSố làn một dừng\nKết cấu mái cổng\nChọn kết cấu mái\nLoại mặt đường\nChọn loại mặt đường\nDT mặt cổng (m²)\nCấp nhà\nChọn cấp nhà\nKết cấu đường\nChọn kết cấu đường\nVị trí nhà điều hành\nChọn vị trí\nCHIỀU RỘN"
+  },
+  "dtm": {
+    "D": {
+      "overflowX": false,
+      "bodyW": 1280,
+      "vw": 1280
+    },
+    "T": {
+      "overflowX": false,
+      "bodyW": 768,
+      "vw": 768
+    },
+    "M": {
+      "overflowX": false,
+      "bodyW": 375,
+      "vw": 375
+    }
+  },
+  "at": "2026-09-01T05:15:58.198Z"
+}

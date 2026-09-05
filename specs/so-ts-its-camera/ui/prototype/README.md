@@ -1,11 +1,9 @@
 # Prototype — so-ts-its-camera
 
-Design gate: **prototype + reviewUrl** — board Approve (**không auto**).
-Repo confirm: user tick BE+UI trên `/qldb-workflow` Progress trước Dev (**không auto** · cấm ERP.*).
+Design gate: **prototype + reviewUrl** — autoApprove ON (`design_confirm=approve`).
 
-- Demo SSOT: `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/asset-demo.html`
+- Artifact: `so-ts-its-camera-list-prototype.html`
+- **reviewUrl**: `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/so-ts-its-camera/ui/prototype/so-ts-its-camera-list-prototype.html`
 - Title: Sổ TS — Hệ thống ITS
-- Pack kind: `list`
+- Pack kind: `list` · type `ITS_CAMERA` · tile `t19`
 - MFE: `Linm.Web.RMMS.Asset`
-
-Put HTML prototype / screenshot link here; update `ui/design.md` with a browser-openable **reviewUrl**.

@@ -12,11 +12,13 @@
 | schemaVersion | `qldb-workflow-skill-v1` |
 | workflowVersion | `2026.08.10.3` |
 | versionGate | `ok` |
-| updatedAt | `2026-09-01T01:18:00.000Z` |
+| updatedAt | `2026-09-01T21:20:00.000Z` |
 
 ## 1. Goal
 
-Chỉnh MFE **Bản đồ live** `/gis/draw` từ mock localStorage → **live Leaflet.draw Kind F rút gọn** parity demo: nền OSM/Esri/sat · tree lớp · Point/Line/Polygon · panel thuộc tính · **POST/PUT/DELETE `api/v1/gis/drawings`**. Align BE trong `Linm.RMMS.WebService` domain Gis (**cấm ERP.Master**).
+Chỉnh MFE **Bản đồ tài sản** `/gis/tai-san` (trước: `/gis/live` · Bản đồ live).
+
+Deep-link **`?type=`** (vd `type=BUS_STOP`) auto-tick checkbox **Loại tài sản** khớp mã loại.
 
 Khác sibling `gis-draw-google`: Live = shell nhẹ / nhanh thử vẽ; Google = full shell parity GOVOne.
 
@@ -35,16 +37,20 @@ Khác sibling `gis-draw-google`: Live = shell nhẹ / nhanh thử vẽ; Google =
 - Persona: Cán bộ GIS · tuần đường
 - DoD P1:
   1. Live Leaflet map (không screenshot) — OMS R1
-  2. Default **OSM** + Esri Streets / sat trên map-bar — R2/R5b
+  2. Map-bar **Tiêu chuẩn \| Vệ tinh** (clip BFF) — **cấm** Default/Streets/Sat EN · **cấm** OSM.org/Esri chip — R2/R5b
   3. Chrome `map-host → map-bar` (không legend isolate bottom) · dock map **flex fill** remaining — R4/R4b
-  4. Fit overview **chỉ** map-bar Fit (`overviewFitMaxZoom` ≤13) — R11
+  4. Map-bar **Vị trí của tôi** (GPS pin + vùng) — click pin card **Tên: Vị trí của bạn** + **GPS:** — **cấm** nút Fit — R11
   5. Chọn loại tài sản trước khi vẽ · Point / Line / Polygon
-  6. Panel thuộc tính · Lưu draft → `POST /api/v1/gis/drawings` (fallback local)
+  6. Panel thuộc tính **inspect** (popup + 3 tầng tuyến + dumpSpecs) · **không** Lưu bản vẽ
   7. Layer toggle sidebar — **cấm** isolate legend bottom
   8. LineString corridor/track panes · OSRM khi vẽ/hiện tuyến — R7b/R8
   9. FE `yarn typecheck` + `yarn build` PASS · BE `dotnet build` PASS
   10. **Lớp lazy:** checkbox default off · count `summary-by-type` · tick mới fetch · **cấm** load 394k lúc vào trang
   11. Click tài sản trên map: popup only · **cấm** `setView` auto zoom / `fitBounds` ô cụm
+  12. z≤8 tick Tuyến đường: nét **osrm-bake/index** đủ (kể cả Bắc) — **cấm** chỉ vài đoạn Nam vì geomKey/`landReadyPath`
+  13. Nét đã ghim **bám mạng OSM** (không blob/chord biển) · canvas GL phủ full pane (mép tây không phải lỗ transform)
+  14. Đường **nền + biên** OSM Carto (fill class + casing) trên clip · overlay Tuyến pair **blue** `guideBlue`/`routeBlueCase` — **cấm** peach `#fcd6a4` overlay / casing +0.35px
+  15. Route canonical **`/gis/tai-san`** · `/gis/live` redirect giữ `?type=` · `type=BUS_STOP` (và comma/`+`/`|`) auto-check lớp tương ứng
 
 ## 4. CTX / DEM inventory
 
@@ -52,7 +58,7 @@ Khác sibling `gis-draw-google`: Live = shell nhẹ / nhanh thử vẽ; Google =
 |--------|------|
 | Context | `docs/context/features/gis-draw-live.md` |
 | Demo | `Demo/src/demo/gis/gis-draw-live.html` |
-| MFE | `Linm.Web.RMMS.Gis` · route `/gis/draw` |
+| MFE | `Linm.Web.RMMS.Gis` · route `/gis/tai-san` (`/gis/live` redirect) |
 | BE | `Linm.RMMS.WebService` · `api/v1/gis` |
 | Sibling | `gis-draw-google` — cùng contract drawings |
 

@@ -1,7 +1,10 @@
 # Loại biển báo (mã QCVN 41)
 
 > **Slug:** `traffic-sign-type` · **Module:** Master × Asset  
-> **Review:** 2026-08-31  
+> **Kind:** **B** — Catalog list + form  
+> **packKind:** `master` — **không demo** · UI confirm Design  
+> **MFE:** `Linm.Web.RMMS.Master` · `/mas/loai-bien-bao` · `mfeStdUrl` `http://localhost:9318/mas/loai-bien-bao`  
+> **Menu:** `rmms-master-loai-bien-bao` · `package_menu_items` **ADMIN** only (2026-09-04)  
 > **Cấm** seed / invent mã không có trong dump · **cấm** bịa pict icon
 
 Bảng riêng `rmms_traffic_sign_types` (shared Type A) — **1 dòng / mã biển** (`I.414b`, `P.102`, …). Icon để trống: user config theo luật đường bộ VN.

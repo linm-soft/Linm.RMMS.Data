@@ -14,8 +14,8 @@
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · **`api/v1/td-tk/sessions`** (**cấm ERP.***) |
 | domain | **Patrol** |
 | taskId | `task_d496cfeb` |
-| mfeStdRoute | `/td-tk` |
-| mfeStdUrl | `http://localhost:9304/td-tk` |
+| mfeStdRoute | `/patrol` |
+| mfeStdUrl | `http://localhost:9304/patrol` |
 | dataAnaly | `D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/patrol-control-hint.md` |
 | po.requirement | `specs/patrol/po/requirement.md` |
 | design.artifact | `specs/patrol/ui/design.md` |
@@ -112,7 +112,7 @@
 
 - data-analy → po → ui → be → task → implement → qa → review
 - DOMAIN-MAP: `D:/AI-QLBD/Linm.RMMS.WebService/docs/DOMAIN-MAP.md`
-- mfeStdUrl: `http://localhost:9304/td-tk`
+- mfeStdUrl: `http://localhost:9304/patrol`
 - reviewUrl: `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/patrol/ui/prototype/patrol-list-prototype.html`
 - solution: `specs/patrol/be/solution-discovery.md`
 - task: `specs/patrol/task/patrol.md`

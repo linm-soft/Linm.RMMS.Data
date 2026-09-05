@@ -1,0 +1,51 @@
+{
+  "list": {
+    "titleList": true,
+    "headerCulvertX": true,
+    "createBtn": true,
+    "noCreateBadge": true,
+    "typeFilterHidden": true,
+    "filterBar": true,
+    "search": true,
+    "route": true,
+    "kmFrom": true,
+    "kmToFilter": true,
+    "org": true,
+    "colLoaiCT": false,
+    "colHinhDang": false,
+    "colDai": false,
+    "colKmToHidden": true,
+    "headers": [],
+    "snippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nHạng mục KCHT\nDS\nDev Standalone\nDeveloper\nTài sản đường\nSổ TS — Cống thoát nước ngang\nLàm mới\nTạo mới\nDanh sách cống thoát nước ngang\nMenu dòng: nhấn đúp · Ctrl + chuột phải · nhấn giữ dòng\nTìm kiếm\nCao tốc / quốc lộ\nLý trình từ\nLý trình đến\nCây đơn vị\n​\nKhông có tài sản phù hợp bộ lọc."
+  },
+  "form": {
+    "cols5": true,
+    "culvertXAttr": true,
+    "loaiCT": true,
+    "hinhDang": true,
+    "daiThan": true,
+    "kmToVisible": false,
+    "kmToHiddenOk": true,
+    "codeHint": true,
+    "noModeBadge": true,
+    "snippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nHạng mục KCHT\nDS\nDev Standalone\nDeveloper\nTạo tài sản\nQuay lại\nHủy\nTạo mới\nTạo tài sản\nĐang tạo mới — Lưu hoặc Hủy\nTHÔNG TIN TÀI SẢN\nMã tài sản\nTình trạng kỹ thuật*\nChọn tình trạng\nLoại tài sản *\n✕\nCao tốc / quốc lộ *\nTuyến\nĐoạn tuyến\nNguồn\nTên / mô tả cống\nLý trình bắt đầu (Km+)\nẢnh hiện trường\nTHÔNG SỐ CỐNG THOÁT NƯỚC NGANG\nLoại công trình*\nChọn loại công trình\nHình dạng\nChọn hình dạng\nTải trọng\nSố ngăn cống\nBề rộng lòng / ĐK trong (m)\nChiều cao TB lòng cống (m)\nChiều dài thân cống (m)\nVật liệu thân cống\nChọn vật liệu\nCó đầu cống thượng lưu?\nChọn\nCó\nKhông\nKết cấu đầu thượng lưu\nChọn kết cấu\nCó van/phai thượng lưu"
+  },
+  "dtm": {
+    "D": {
+      "overflowX": false,
+      "bodyW": 1280,
+      "vw": 1280
+    },
+    "T": {
+      "overflowX": false,
+      "bodyW": 768,
+      "vw": 768
+    },
+    "M": {
+      "overflowX": false,
+      "bodyW": 375,
+      "vw": 375
+    }
+  },
+  "at": "2026-09-01T13:08:59.895Z"
+}

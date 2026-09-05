@@ -1,0 +1,28 @@
+A Tuấn Anh
+Phát hiện tài sản, giao việc, 
+Xe tuần đường di chuyển -> tuần đường  -> phát hiện những phần giao việc nhưng chưa thực hiện
+-> tìm kiếm theo lý trình, mặt cắt ở dưới có thông tin gì
+II - phần hành thu tiền và hình thành tài sản 
+------------------------------------------------------------
+Tuần đường, tuần kiểm => công tác nghiệm thu
+Module Công tác nghiệm thu - camera:
+Chọn 10 mẫu nghiệm thu.
+(4 ông - )
+------------------------------------------------------------
+Xe và đánh giá hư hỏng:
+- Tính toán chi tiết - m2
+------------------------------------------------------------
+Tổng kết cuộc họp:
+1- Tạo thêm module "Công tác nghiệm thu" tương tự module tuần kiểm nhưng dành cho cán bộ phục vụ công tác nghiệm thu bao gồm upload hình ảnh/video và thông tin
+2- Hoàn thiện tính năng CSDL 12 biểu + 8 sổ BDTX
+3- Dữ liệu pilot(thử nghiệm) khu 1
+4- Hoàn thiện tính năng tuần đường tuần kiểm gửi video/hình ảnh báo cáo về sự cố
+và AI hỗ trợ phát hiện cảnh báo hư hỏng, mất tài sản
++ Mất tài sản: Khi dữ liệu tọa độ đã có trước đó nhưng thời điểm chụp/video chung tọa độ bị mất không có trong khung hình
++ Tài sản hư hỏng dựa trên hình ảnh hiện trạng tài sản.
+Một số ý kiến khác trong hạng mục mong muốn:
+- Module đếm xe tập trung, xử lý video ở server trung tâm(dự kiến cho vận hành thí điểm bến xe/ điểm giao thông)
+- Kết nối API với các thiết bị chuyên dụng để nhận dữ liệu chi tiết như mặt cắt, chi tiết về đường và lên phương án sửa đường
+- Cập nhật công thức đánh giá/ dự kiến sửa chữa theo chuẩn công thức của bộ giao thông vận tải(PCI)
+- Bản đồ phân luồng xe khi có sự cố hỏng cầu đường bão lụt nghiêm trọng mà các phương tiện không thể đi qua
+- Sổ sách tuần đường được xác nhận chữ ký số của người phụ trách

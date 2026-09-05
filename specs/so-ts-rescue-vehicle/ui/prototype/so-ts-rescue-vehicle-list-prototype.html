@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Prototype — Sổ TS — Xe cứu hộ (RESCUE_VEHICLE) · Kind B A–D+F + full-page 5 cột</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    :root { --bg:#f5f7fa; --card:#fff; --border:#BABCBE; --soft:#e9ecef; --txt:#1A1A1A; --muted:#6c757d; --primary:#0d6efd; --btn:#EEEEEE; --r:4px; }
+    *{box-sizing:border-box}
+    body{margin:0;font:13px/1.4 "Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--txt)}
+    .page{max-width:1280px;margin:0 auto;padding:8px 16px 24px;min-height:100vh;display:flex;flex-direction:column;gap:8px}
+    .screen{display:none}.screen.active{display:flex;flex-direction:column;gap:8px}
+    .zone-a{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+    .zone-a h1{margin:0;font-size:22px;font-weight:700;display:flex;align-items:center;gap:10px}
+    .zone-a h1 i{color:var(--primary);font-size:20px}
+    .badge{font-size:11px;font-weight:700;padding:2px 8px;border-radius:4px;background:#e7f1ff;color:#0b5ed7}
+    .zone-b{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:8px 0;position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--soft)}
+    .zone-b-left,.zone-b-right{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .tb{display:inline-flex;align-items:center;gap:4px;height:32px;padding:6px 8px;border:0;border-radius:var(--r);background:var(--btn);font-size:12px;font-weight:600;cursor:pointer}
+    .tb:hover{background:#BABCBE}.tb.primary{background:var(--primary);color:#fff}.tb:disabled{opacity:.55;cursor:not-allowed}
+    .filter-bar{display:flex;flex-wrap:wrap;gap:8px;align-items:flex-end;padding:8px 0 4px}
+    .filter-bar .fld{display:flex;flex-direction:column;gap:4px}
+    .filter-bar .fld > span.lbl{font-size:12px;color:var(--muted)}
+    .filter-bar input,.filter-bar select{height:32px;padding:4px 8px;border:1px solid var(--border);border-radius:var(--r);font:inherit;min-width:120px}
+    .search-wrap{display:flex;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;height:32px;background:#fff;min-width:220px}
+    .search-wrap input{border:0;outline:0;padding:6px 10px;flex:1;font-size:13px;min-width:0}
+    .search-wrap .ico{border:0;border-left:1px solid var(--border);background:#f8fafc;padding:0 10px;color:var(--muted);display:inline-flex;align-items:center}
+    .si{position:relative;display:inline-flex}.si input{padding-right:28px;min-width:150px}
+    .si > i{position:absolute;right:8px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none;font-size:12px}
+    .card{background:var(--card);border:1px solid var(--soft);border-radius:var(--r);flex:1;display:flex;flex-direction:column;min-height:0;overflow:hidden}
+    .grid-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 16px 8px}
+    .grid-title{margin:0;font-size:15px;font-weight:700}.grid-help{margin:4px 0 0;font-size:12px;color:var(--muted)}
+    .table-wrap{overflow:auto;flex:1;min-height:200px;border-top:1px solid var(--soft)}
+    table{width:100%;border-collapse:collapse;table-layout:fixed}
+    th,td{padding:8px 10px;border-bottom:1px solid var(--soft);text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    th{background:#f8fafc;font-size:12px;color:var(--muted);position:sticky;top:0}
+    th.num,td.num{text-align:center;width:48px}
+    tbody tr:nth-child(even){background:#fafbfc}tbody tr:hover,tbody tr.sel{background:#eff6ff}
+    .link{border:0;background:0;color:var(--primary);text-decoration:underline;cursor:pointer;font:inherit;padding:0}
+    .zone-d{display:flex;flex-direction:column;align-items:center;gap:10px;padding:12px 16px;border-top:1px solid var(--soft)}
+    .zone-d-total{color:var(--muted)}.zone-d-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center}
+    .pager-btn{width:32px;height:32px;border:1px solid var(--soft);border-radius:var(--r);background:#fff;color:var(--muted);cursor:pointer}
+    .menu{position:relative}.menu summary{list-style:none;cursor:pointer;padding:4px 8px;border:1px solid var(--border);border-radius:var(--r);background:#fff}
+    .menu summary::-webkit-details-marker{display:none}
+    .menu-panel{display:none;position:absolute;right:0;z-index:5;background:#fff;border:1px solid var(--border);border-radius:6px;min-width:140px;box-shadow:0 8px 24px rgba(0,0,0,.12)}
+    .menu[open] .menu-panel{display:block}
+    .menu-panel button{display:block;width:100%;text-align:left;border:0;background:0;padding:8px 12px;cursor:pointer;font-size:13px}
+    .menu-panel button:hover{background:#f1f5f9}
+    .backdrop{display:none;position:fixed;inset:0;background:rgba(15,23,42,.35);z-index:40;align-items:center;justify-content:center;padding:16px}
+    .backdrop.on{display:flex}
+    .modal{width:min(520px,96vw);background:#fff;border-radius:8px;border:1px solid var(--soft);max-height:90vh;overflow:auto}
+    .modal.wide{width:min(720px,96vw)}
+    .modal-h{padding:12px 16px;border-bottom:1px solid var(--soft);font-weight:700}
+    .modal-b{padding:16px;font-size:13px;color:var(--muted)}
+    .modal-f{padding:12px 16px;border-top:1px solid var(--soft);display:flex;justify-content:flex-end;gap:8px}
+    .form-page{display:grid;grid-template-rows:auto minmax(0,1fr);height:100vh;max-width:1280px;margin:0 auto}
+    .chrome{border:1px solid var(--soft);border-radius:8px;background:var(--card);margin:16px 16px 0;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+    .form-toolbar{display:flex;align-items:center;gap:8px;padding:16px 20px 12px;border-bottom:1px solid var(--soft);flex-wrap:wrap}
+    .form-toolbar .crud{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
+    .title-block{padding:12px 20px 16px}.title-block h1{margin:0;font-size:18px}
+    .hint-chip{display:inline-flex;margin-top:8px;padding:4px 8px;font-size:12px;color:var(--muted);background:#f3f4f6;border:1px dashed #e5e7eb;border-radius:6px}
+    .scroll{margin:16px;overflow:auto;display:flex;flex-direction:column;gap:16px;padding-bottom:16px}
+    .section{padding:16px;background:var(--card);border:1px solid var(--soft);border-radius:8px}
+    .section h3{margin:0 0 12px;font-size:13px;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:.5px;padding-bottom:8px;border-bottom:1px solid var(--soft)}
+    .fields{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px;align-items:start}
+    .field{display:flex;flex-direction:column;gap:4px;min-width:0}.field label{font-size:12px;color:var(--muted)}
+    .req::after{content:" *";color:#dc2626}.span2{grid-column:span 2}.span3{grid-column:span 3}.span-full{grid-column:1 / -1}
+    .fields input,.fields select,.fields textarea{width:100%;min-height:32px;padding:6px 10px;border:1px solid #bababe;border-radius:4px;font:inherit}
+    .fields textarea{min-height:72px;resize:vertical}
+    .dl{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px}
+    .dl div{border-bottom:1px dashed var(--soft);padding-bottom:6px}.dl dt{font-size:12px;color:var(--muted)}.dl dd{margin:2px 0 0;font-size:13px}
+    @media (max-width:1200px){.fields,.dl{grid-template-columns:repeat(3,minmax(0,1fr))}}
+    @media (max-width:720px){.fields,.dl{grid-template-columns:1fr 1fr}.span2{grid-column:1 / -1}}
+  </style>
+</head>
+<body>
+  <div id="screen-list" class="page screen active" data-testid="rmms-so-ts-rescue-vehicle-list-prototype" data-shared-grid="v1">
+    <header class="zone-a" data-des-id="DES-GRID-A">
+      <h1><i class="fas fa-truck-medical" aria-hidden="true"></i> Sổ TS — Xe cứu hộ</h1>
+      <span class="badge">type=RESCUE_VEHICLE</span>
+    </header>
+    <div class="zone-b" data-des-id="DES-GRID-B">
+      <div class="zone-b-left">
+        <button type="button" class="tb" data-action="refresh" title="Làm mới"><i class="fas fa-sync-alt" aria-hidden="true"></i> Làm mới</button>
+        <button type="button" class="tb" data-action="history" title="Lịch sử"><i class="fas fa-history" aria-hidden="true"></i> Lịch sử</button>
+        <button type="button" class="tb" data-action="config" title="Sửa config"><i class="fas fa-cog" aria-hidden="true"></i> Sửa config</button>
+        <button type="button" class="tb" id="btn-view" disabled title="Xem"><i class="fas fa-eye" aria-hidden="true"></i> Xem</button>
+        <button type="button" class="tb" id="btn-edit" disabled title="Sửa"><i class="fas fa-pen" aria-hidden="true"></i> Sửa</button>
+        <button type="button" class="tb" id="btn-del" disabled title="Xóa"><i class="fas fa-trash" aria-hidden="true"></i> Xóa</button>
+      </div>
+      <div class="zone-b-right">
+        <button type="button" class="tb primary" data-action="create" title="Tạo mới"><i class="fas fa-plus" aria-hidden="true"></i> Tạo mới</button>
+      </div>
+    </div>
+    <div class="filter-bar" data-des-id="DES-GRID-B-FILTER" data-filter="LinErpListFilterBar">
+      <div class="fld"><span class="lbl">Tìm kiếm</span><div class="search-wrap"><input type="search" id="q" placeholder="Mã · tên · tuyến · loại PT · vị trí đậu · QR" aria-label="Tìm kiếm" /><span class="ico" aria-hidden="true"><i class="fas fa-search"></i></span></div></div>
+      <div class="fld"><span class="lbl">Loại tài sản</span><span class="si"><input id="fType" value="Xe cứu hộ (RESCUE_VEHICLE)" readonly title="prefill / ẩn khi deep-link" /><i class="fas fa-search"></i></span></div>
+      <div class="fld"><span class="lbl">Cao tốc / quốc lộ</span><span class="si"><input id="fRoute" list="dl-route" placeholder="SearchInput road-route" /><i class="fas fa-search"></i></span></div>
+      <div class="fld"><span class="lbl">Lý trình từ</span><input id="fKmFrom" placeholder="Km+" /></div>
+      <div class="fld"><span class="lbl">Lý trình đến</span><input id="fKmTo" placeholder="filter range" /></div>
+      <div class="fld"><span class="lbl">Cây đơn vị</span><span class="si"><input id="fOrg" list="dl-org" placeholder="SearchInput org-unit" /><i class="fas fa-search"></i></span></div>
+    </div>
+    <datalist id="dl-route"><option value="QL.1"><option value="QL.1A"><option value="CT.01"></datalist>
+    <datalist id="dl-org"><option value="Khu QLĐB I"><option value="Sở GTVT Khánh Hòa"></datalist>
+    <section class="card">
+      <div class="grid-head" data-des-id="DES-GRID-C0">
+        <div>
+          <h2 class="grid-title">Danh sách xe cứu hộ</h2>
+          <p class="grid-help" data-des-id="DES-GRID-C3-help">Nhấn đúp · Ctrl + chuột phải · giữ chạm (mobile) để mở menu dòng · kéo cột default ON · schema kind=<code>road-assets</code> · profile RESCUE_VEHICLE ẩn type/kmTo/SL/ĐVT · hide-empty kmFrom/vị trí đậu/ĐV mua · KCHT tile <code>t24</code> count import <strong>7</strong> · prefix <code>XH-</code> · ≠ RESCUE_STATION</p>
+        </div>
+      </div>
+      <div class="table-wrap" data-des-id="DES-GRID-C2">
+        <table>
+          <thead><tr>
+            <th class="num">STT</th>
+            <th>Tên vị trí / xe</th>
+            <th>Cao tốc / QL</th>
+            <th>Tuyến</th>
+            <th>Đoạn tuyến</th>
+            <th>Lý trình</th>
+            <th>Loại phương tiện</th>
+            <th>Vị trí đậu</th>
+            <th>Đơn vị mua sắm</th>
+            <th>Cơ quan khai thác</th>
+            <th>TT KT</th>
+            <th class="num"></th>
+          </tr></thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+      <div class="zone-d" data-des-id="DES-GRID-D">
+        <div class="zone-d-total">Tổng: <span id="total">0</span> · Trang <span id="page">1</span>/1</div>
+        <div class="zone-d-row">
+          <label>Hiển thị <select id="pageSize"><option>50</option><option>100</option><option>200</option><option>500</option></select></label>
+          <button type="button" class="pager-btn" disabled><i class="fas fa-angle-double-left"></i></button>
+          <button type="button" class="pager-btn" disabled><i class="fas fa-angle-left"></i></button>
+          <span>1/1</span>
+          <button type="button" class="pager-btn" disabled><i class="fas fa-angle-right"></i></button>
+          <button type="button" class="pager-btn" disabled><i class="fas fa-angle-double-right"></i></button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div id="screen-form" class="screen" data-form-surface="full" data-des-id="DES-GRID-Z">
+    <div class="form-page">
+      <div class="chrome">
+        <div class="form-toolbar" data-des-id="DES-FORM-Z1">
+          <button type="button" class="tb" id="btn-back" title="Quay lại"><i class="fas fa-arrow-left" aria-hidden="true"></i> Quay lại</button>
+          <div class="crud">
+            <button type="button" class="tb" id="btn-cancel" title="Hủy"><i class="fas fa-times" aria-hidden="true"></i> Hủy</button>
+            <button type="button" class="tb primary" id="btn-save" title="Lưu"><i class="fas fa-save" aria-hidden="true"></i> <span id="saveLabel">Tạo mới</span></button>
+            <button type="button" class="tb primary" id="btn-edit-view" hidden title="Sửa"><i class="fas fa-pen" aria-hidden="true"></i> Sửa</button>
+            <button type="button" class="tb" id="btn-close-view" hidden title="Đóng"><i class="fas fa-times" aria-hidden="true"></i> Đóng</button>
+          </div>
+        </div>
+        <div class="title-block">
+          <h1 id="formTitle">Tạo mới — Xe cứu hộ</h1>
+          <div class="hint-chip" id="formHint">Đang tạo mới · type=RESCUE_VEHICLE · data-form-cols=5 · LeaveConfirmModal · cấm footer Lưu · cấm S-LOC-RANGE/kmTo · kmFrom không required · prefix XH- · ≠ RESCUE_STATION</div>
+        </div>
+      </div>
+      <div class="scroll" data-des-id="DES-FORM-Z2">
+        <div id="formEdit">
+          <section class="section"><h3>S-META · Meta</h3>
+            <div class="fields" data-form-cols="5">
+              <div class="field"><label>Mã tài sản</label><input id="code" value="(tự sinh XH-…)" readonly /></div>
+              <div class="field"><label class="req">Loại tài sản</label><span class="si"><input id="type" value="Xe cứu hộ (RESCUE_VEHICLE)" readonly /><i class="fas fa-search"></i></span></div>
+              <div class="field"><label class="req">Tình trạng KT</label><select id="status"><option>Tốt</option><option>Theo dõi</option><option>Hư hỏng</option></select></div>
+              <div class="field"><label>Nguồn</label><select id="source"><option>Import</option><option>Nhập tay</option><option>Đồng bộ</option></select></div>
+              <div class="field"><label></label><span style="color:var(--muted);font-size:12px">lock type từ filter · KCHT tile t24 drill OK</span></div>
+            </div>
+          </section>
+          <section class="section"><h3>S-ROUTE · Tuyến</h3>
+            <div class="fields" data-form-cols="5">
+              <div class="field"><label class="req">Cao tốc / quốc lộ</label><span class="si"><input id="route" list="dl-route" placeholder="SearchInput road-route" /><i class="fas fa-search"></i></span></div>
+              <div class="field span2"><label>Tuyến</label><span class="si"><input id="routeNamed" list="dl-route" placeholder="SearchInput road-route · parentCode=route" /><i class="fas fa-search"></i></span></div>
+              <div class="field span2"><label>Đoạn tuyến</label><span class="si"><input id="routeSegment" placeholder="SearchInput road-route · parentCode=routeNamed|route" /><i class="fas fa-search"></i></span></div>
+            </div>
+          </section>
+          <section class="section"><h3>S-LOC-POINT · Vị trí điểm (ops)</h3>
+            <div class="fields" data-form-cols="5">
+              <div class="field"><label>Lý trình (Km+)</label><input id="kmFrom" placeholder="Km0+000 · dump lytrinh · không required · cấm ép 0" /></div>
+              <div class="field"><label>X (lng)</label><input id="lng" type="number" step="any" /></div>
+              <div class="field"><label>Y (lat)</label><input id="lat" type="number" step="any" /></div>
+              <div class="field"><label>Tỉnh / TP</label><input id="province" placeholder="tinhthanhpho (optional)" /></div>
+              <div class="field"><label>Phường / Xã</label><input id="ward" placeholder="xaphuong (optional)" /></div>
+            </div>
+          </section>
+          <section class="section"><h3>S-NAME · Tên</h3>
+            <div class="fields" data-form-cols="5">
+              <div class="field span2"><label>Tên vị trí / phương tiện</label><input id="name" placeholder="parking_location_name · trống OK · cấm ép route làm tên duy nhất" /></div>
+              <div class="field span3"><label></label><span style="color:var(--muted);font-size:12px">GAP-RV-NAME-01 · import hay = parking_location_name (vd. SS3) · trống OK</span></div>
+            </div>
+          </section>
+          <section class="section"><h3>S-ATTR · Thông tin chung (editable · dumpSpecs P1)</h3>
+            <div class="fields" data-form-cols="5">
+              <div class="field"><label>Loại phương tiện cứu hộ</label><select id="vehicle_type_id"><option value="">— chọn —</option><option>Xe cứu hộ</option><option>Xe chữa cháy</option><option>Xe cứu thương</option></select></div>
+              <div class="field span2"><label>Tên vị trí đậu</label><input id="parking_location_name" placeholder="mirror S-NAME · có thể trùng name" /></div>
+              <div class="field"><label>Đơn vị mua sắm</label><input id="purchased_by" placeholder="purchased_by dump" /></div>
+              <div class="field"><label>Cơ quan đang khai thác</label><select id="under_operation_by"><option value="">— chọn —</option><option>Khu QLĐB I</option><option>Sở GTVT Khánh Hòa</option></select></div>
+              <div class="field span-full"><label></label><span style="color:var(--muted);font-size:12px">Dropdown LOOKUP_STATIC dump · GAP-RV-LOOKUP-01 · canonical key <code>under_operation_by</code> · FE map <code>under_operation</code> (GAP-RV-DUMP-KEY-01) · GAP-SOTS-FORM-01 · <strong>cấm</strong> chỉ &lt;dl&gt; dumpSpecs</span></div>
+            </div>
+          </section>
+          <section class="section"><h3>S-GPS · Bổ sung</h3>
+            <div class="fields" data-form-cols="5">
+              <div class="field"><label>Vĩ độ</label><input id="gpsLat" type="number" step="any" /></div>
+              <div class="field"><label>Kinh độ</label><input id="gpsLng" type="number" step="any" /></div>
+              <div class="field"><label>Mã QR</label><input id="qr" /></div>
+              <div class="field"><label>Giá trị (VND)</label><input id="valueVnd" type="number" /></div>
+              <div class="field"><label>Cập nhật</label><input id="updatedAt" readonly placeholder="—" /></div>
+              <div class="field span-full"><label>Ghi chú</label><textarea id="note" rows="3"></textarea></div>
+            </div>
+          </section>
+        </div>
+        <div id="formView" hidden>
+          <section class="section"><h3>Xem — display (không Input disabled xám)</h3><dl class="dl" id="viewDl"></dl></section>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="backdrop" id="modal-config" data-des-id="DES-GRID-F"><div class="modal wide"><div class="modal-h"><i class="fas fa-cog"></i> Cấu hình hiển thị danh mục</div><div class="modal-b">catalogKind=<code>road-assets</code> · kéo cột default <strong>ON</strong> · profile RESCUE_VEHICLE ẩn type / kmTo / SL / ĐVT · hide-empty kmFrom/vị trí đậu/ĐV mua · <strong>cấm</strong> <code>LinListTableConfigModal</code> / <code>configHint</code>.</div><div class="modal-f"><button type="button" class="tb" data-close="modal-config">Đóng</button></div></div></div>
+  <div class="backdrop" id="modal-history" data-des-id="DES-GRID-H"><div class="modal"><div class="modal-h"><i class="fas fa-history"></i> Lịch sử</div><div class="modal-b">LinCatalogHistoryModal · stub OK · cấm invent History path.</div><div class="modal-f"><button type="button" class="tb" data-close="modal-history">Đóng</button></div></div></div>
+  <div class="backdrop" id="modal-delete"><div class="modal"><div class="modal-h">Xóa xe cứu hộ?</div><div class="modal-b">Soft delete · <strong>useAlert / Modal</strong> — cấm window.alert.</div><div class="modal-f"><button type="button" class="tb" data-close="modal-delete">Hủy</button><button type="button" class="tb primary" data-close="modal-delete">Xóa</button></div></div></div>
+  <div class="backdrop" id="modal-leave" data-des-id="DES-LEAVE"><div class="modal"><div class="modal-h">Rời trang?</div><div class="modal-b">Bạn có thay đổi chưa lưu. <strong>LeaveConfirmModal</strong> — cấm <code>window.confirm</code>.</div><div class="modal-f"><button type="button" class="tb" data-close="modal-leave">Ở lại</button><button type="button" class="tb primary" id="btn-leave-ok">Rời đi</button></div></div></div>
+
+  <script>
+    const rows = [
+      { id:'779829', code:'XH-rescue_vehicle_779829', name:'SS3', route:'QL.1', routeNamed:'QL.1-TP.HUE(BOT)', routeSegment:'Km 0 + 000 - Km 13 + 377', kmFrom:'', vehicle_type_id:'Xe cứu hộ', parking_location_name:'SS3', purchased_by:'ĐV QL1', under_operation_by:'Khu QLĐB I', status:'Tốt', lat:'12.88', lng:'109.37' },
+      { id:'779835', code:'XH-rescue_vehicle_779835', name:'Trạm cứu hộ CT.01', route:'CT.01', routeNamed:'Cao tốc Bắc – Nam', routeSegment:'Gói XL01', kmFrom:'Km10+500', vehicle_type_id:'Xe chữa cháy', parking_location_name:'Trạm cứu hộ CT.01', purchased_by:'BOT CT.01', under_operation_by:'Sở GTVT Khánh Hòa', status:'Tốt', lat:'10.85', lng:'106.65' },
+      { id:'779840', code:'XH-rescue_vehicle_779840', name:'', route:'QL.1A', routeNamed:'QL.1A-NINHBINH', routeSegment:'Km 5 + 000 - Km 8 + 200', kmFrom:'', vehicle_type_id:'', parking_location_name:'', purchased_by:'', under_operation_by:'', status:'Tốt', lat:'', lng:'' },
+    ];
+    let selected = null, formMode = 'create', dirty = false, leaveAction = null;
+    const tbody = document.getElementById('tbody');
+    function disp(v){ return (v === '' || v == null) ? '—' : v; }
+    function openModal(id){ document.getElementById(id).classList.add('on'); }
+    function closeModal(id){ document.getElementById(id).classList.remove('on'); }
+    function showList(){ document.getElementById('screen-list').classList.add('active'); document.getElementById('screen-form').classList.remove('active'); dirty = false; }
+    function fillEdit(r, mode){
+      document.getElementById('code').value = (mode === 'create' || mode === 'copy') ? '(tự sinh XH-…)' : (r.code || ('XH-' + (r.id || '')));
+      document.getElementById('route').value = r.route || '';
+      document.getElementById('routeNamed').value = r.routeNamed || '';
+      document.getElementById('routeSegment').value = r.routeSegment || '';
+      document.getElementById('kmFrom').value = r.kmFrom || '';
+      document.getElementById('lng').value = r.lng || '';
+      document.getElementById('lat').value = r.lat || '';
+      document.getElementById('gpsLat').value = r.lat || '';
+      document.getElementById('gpsLng').value = r.lng || '';
+      document.getElementById('name').value = mode === 'copy' ? ((r.name || '') + (r.name ? ' (copy)' : '')) : (r.name || '');
+      document.getElementById('parking_location_name').value = r.parking_location_name || r.name || '';
+      document.getElementById('vehicle_type_id').value = r.vehicle_type_id || '';
+      document.getElementById('purchased_by').value = r.purchased_by || '';
+      document.getElementById('under_operation_by').value = r.under_operation_by || '';
+      document.getElementById('status').value = r.status || 'Tốt';
+    }
+    function showForm(mode, row){
+      formMode = mode; dirty = false;
+      document.getElementById('screen-list').classList.remove('active');
+      document.getElementById('screen-form').classList.add('active');
+      const isView = mode === 'view';
+      document.getElementById('formEdit').hidden = isView;
+      document.getElementById('formView').hidden = !isView;
+      document.getElementById('btn-save').hidden = isView;
+      document.getElementById('btn-cancel').hidden = isView;
+      document.getElementById('btn-edit-view').hidden = !isView;
+      document.getElementById('btn-close-view').hidden = !isView;
+      const titles = { create:'Tạo mới — Xe cứu hộ', edit:'Sửa — Xe cứu hộ', view:'Xem — Xe cứu hộ', copy:'Sao chép — Xe cứu hộ' };
+      document.getElementById('formTitle').textContent = titles[mode] || titles.create;
+      document.getElementById('saveLabel').textContent = mode === 'edit' ? 'Lưu' : 'Tạo mới';
+      document.getElementById('formHint').textContent = isView ? 'View = display · không Input disabled xám' : ('Đang ' + mode + ' · type=RESCUE_VEHICLE · data-form-cols=5 · LeaveConfirmModal · kmFrom không required · prefix XH-');
+      const r = row || {};
+      if (!isView) {
+        fillEdit(r, mode);
+        document.querySelectorAll('#formEdit input, #formEdit select, #formEdit textarea').forEach(el => {
+          el.addEventListener('input', () => { dirty = true; }, { once: true });
+          el.addEventListener('change', () => { dirty = true; }, { once: true });
+        });
+      } else {
+        document.getElementById('viewDl').innerHTML = [
+          ['Tên vị trí/xe', r.name || '— (trống OK)'], ['Cao tốc/QL', r.route], ['Tuyến', r.routeNamed], ['Đoạn', r.routeSegment],
+          ['Lý trình', r.kmFrom || '—'], ['Loại phương tiện', r.vehicle_type_id], ['Vị trí đậu', r.parking_location_name],
+          ['ĐV mua sắm', r.purchased_by], ['Cơ quan khai thác', r.under_operation_by],
+          ['TT KT', r.status], ['Lat', r.lat], ['Lng', r.lng]
+        ].map(([k,v]) => '<div><dt>'+k+'</dt><dd>'+(v||'—')+'</dd></div>').join('');
+      }
+    }
+    function requestLeave(fn){ if (!dirty || formMode === 'view') { fn(); return; } leaveAction = fn; openModal('modal-leave'); }
+    function syncSel(){ const on = Boolean(selected); ['btn-view','btn-edit','btn-del'].forEach(id => { document.getElementById(id).disabled = !on; }); }
+    function rowById(id){ return rows.find(r => r.id === id); }
+    function render(){
+      const q = (document.getElementById('q').value || '').trim().toLowerCase();
+      const route = (document.getElementById('fRoute').value || '').trim().toLowerCase();
+      const list = rows.filter(r => {
+        const hay = [r.name, r.route, r.routeNamed, r.routeSegment, r.code, r.vehicle_type_id, r.parking_location_name].join(' ').toLowerCase();
+        if (q && !hay.includes(q)) return false;
+        if (route && !(r.route || '').toLowerCase().includes(route)) return false;
+        return true;
+      });
+      tbody.innerHTML = list.map((r, i) => '<tr data-id="'+r.id+'" class="'+(selected===r.id?'sel':'')+'">'
+        + '<td class="num">'+(i+1)+'</td>'
+        + '<td><button type="button" class="link name-link">'+(r.name || '—')+'</button></td>'
+        + '<td>'+r.route+'</td><td>'+r.routeNamed+'</td><td>'+r.routeSegment+'</td><td>'+(r.kmFrom||'—')+'</td>'
+        + '<td>'+disp(r.vehicle_type_id)+'</td><td>'+disp(r.parking_location_name)+'</td>'
+        + '<td>'+disp(r.purchased_by)+'</td><td>'+disp(r.under_operation_by)+'</td><td>'+r.status+'</td>'
+        + '<td class="num" data-des-id="DES-GRID-C3"><details class="menu"><summary>⋮</summary><div class="menu-panel">'
+        + '<button type="button" data-menu="view">Xem</button><button type="button" data-menu="edit">Sửa</button>'
+        + '<button type="button" data-menu="copy">Sao chép</button><button type="button" data-menu="history">Lịch sử</button>'
+        + '<button type="button" data-menu="delete">Xóa</button></div></details></td></tr>').join('');
+      document.getElementById('total').textContent = String(list.length);
+      syncSel();
+    }
+    tbody.addEventListener('click', (e) => {
+      const tr = e.target.closest('tr'); if (!tr) return;
+      const id = tr.getAttribute('data-id');
+      if (e.target.closest('[data-menu]')) {
+        const act = e.target.getAttribute('data-menu'); selected = id; syncSel(); render();
+        if (act === 'history') openModal('modal-history');
+        else if (act === 'delete') openModal('modal-delete');
+        else if (act === 'view' || act === 'edit' || act === 'copy') showForm(act, rowById(id));
+        return;
+      }
+      if (e.target.classList.contains('name-link')) { selected = id; syncSel(); render(); showForm('view', rowById(id)); return; }
+      selected = id; syncSel(); render();
+    });
+    tbody.addEventListener('dblclick', (e) => {
+      const tr = e.target.closest('tr'); if (!tr) return;
+      selected = tr.getAttribute('data-id'); syncSel(); render(); showForm('edit', rowById(selected));
+    });
+    document.getElementById('q').addEventListener('input', render);
+    document.getElementById('fRoute').addEventListener('input', render);
+    document.querySelector('[data-action="config"]').addEventListener('click', () => openModal('modal-config'));
+    document.querySelector('[data-action="history"]').addEventListener('click', () => openModal('modal-history'));
+    document.querySelector('[data-action="create"]').addEventListener('click', () => showForm('create'));
+    document.querySelector('[data-action="refresh"]').addEventListener('click', render);
+    document.getElementById('btn-view').addEventListener('click', () => selected && showForm('view', rowById(selected)));
+    document.getElementById('btn-edit').addEventListener('click', () => selected && showForm('edit', rowById(selected)));
+    document.getElementById('btn-del').addEventListener('click', () => openModal('modal-delete'));
+    document.getElementById('btn-back').addEventListener('click', () => requestLeave(showList));
+    document.getElementById('btn-cancel').addEventListener('click', () => requestLeave(showList));
+    document.getElementById('btn-close-view').addEventListener('click', showList);
+    document.getElementById('btn-edit-view').addEventListener('click', () => showForm('edit', rowById(selected)));
+    document.getElementById('btn-save').addEventListener('click', () => { dirty = false; showList(); });
+    document.getElementById('btn-leave-ok').addEventListener('click', () => { closeModal('modal-leave'); const fn = leaveAction; leaveAction = null; dirty = false; if (fn) fn(); });
+    document.querySelectorAll('[data-close]').forEach(btn => btn.addEventListener('click', () => closeModal(btn.getAttribute('data-close'))));
+    render();
+  </script>
+</body>
+</html>

@@ -15,8 +15,8 @@
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · **`api/v1/incident/incidents`** (**cấm ERP.***) |
 | domain | **Incident** |
 | taskId | `task_e5e3ba46` |
-| mfeStdRoute | `/su-co` |
-| mfeStdUrl | `http://localhost:9304/su-co` |
+| mfeStdRoute | `/incident` |
+| mfeStdUrl | `http://localhost:9304/incident` |
 | skillVersion | `2026.08.25.02` |
 | schemaVersion | `qldb-workflow-skill-v1` |
 | workflowVersion | `2026.08.25.02` |
@@ -123,7 +123,7 @@
 - qa: `D:/AI-QLBD/Linm.RMMS.Data/specs/incident/qa/scenarios.md`
 - filter-bar: `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/incident-filter-bar.md`
 - DOMAIN-MAP: `D:/AI-QLBD/Linm.RMMS.WebService/docs/DOMAIN-MAP.md`
-- mfeStdUrl: `http://localhost:9304/su-co`
+- mfeStdUrl: `http://localhost:9304/incident`
 - reviewUrl: `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/incident/ui/prototype/incident-list-prototype.html`
 - peerStdUrl: `http://localhost:9304/su-co`
 

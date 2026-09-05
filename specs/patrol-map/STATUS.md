@@ -11,6 +11,8 @@
 | demo | `specs/patrol-map/ui/prototype/{ios,android}/index.html#sc-patrol-map` · `DES-MOB-PAT-MAP` |
 | context | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/docs/context/features/patrol-map.md` |
 | mfe | — (native · **cấm** mfeStdUrl) |
+| mfeStdRoute | `/patrol-map` |
+| mfeStdUrl | `http://localhost:9301/patrol-map` |
 | ios | `Linm.RMMS.Mobile.iOS` · `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS` · e2e-qa-mobile sim 6.9" |
 | android | `Linm.RMMS.Mobile.Android` · `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android` · e2e-qa-mobile emulator |
 | bff | `Linm.RMMS.Mobile.Bff` · `mobile-bff/api/v1/patrol/sessions` |
@@ -80,6 +82,8 @@
 - **EDIT LOCK** pin-here = loc + **snap tim đường** + zoom + pin tip neo đáy · OSRM corridor/track · chips wrap · **cấm** revert polyline thẳng / pin raw (`GAP-MOB-EDIT-01` · `GAP-MAP-OSRM-ROUTE` · `GAP-MAP-OSRM-SNAP`)
 
 ## Links
+- mfeStdUrl: `http://localhost:9301/patrol-map`
+- mfeStdRoute: `/patrol-map`
 
 - Parent: `patrol-home` · push hero/row map
 - data-analy → po **confirmed** → design **confirmed** → sa **confirmed** → tl **confirmed** → dev **confirmed** → qa pending → review pending

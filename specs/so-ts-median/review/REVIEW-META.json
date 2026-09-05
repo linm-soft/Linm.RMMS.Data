@@ -1,0 +1,10 @@
+{
+  "feature": "so-ts-median",
+  "status": "confirmed",
+  "verdict": "PASS",
+  "review_confirm": "done",
+  "taskId": "task_4be20cad",
+  "writtenAt": "2026-09-01T17:50:00.000Z",
+  "autoApprove": true,
+  "p0": 0
+}

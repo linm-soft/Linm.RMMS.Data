@@ -14,8 +14,8 @@
 | context | `docs/context/features/login.md` |
 | logo | `logo/mobile` AppIcon 1024 → `assets/app-logo.png` |
 | mfe | — (native · **cấm** mfeStdUrl / yarn start:std) |
-| mfeStdRoute | — |
-| mfeStdUrl | — |
+| mfeStdRoute | `/login` |
+| mfeStdUrl | `http://localhost:9301/login` |
 | ios | `Linm.RMMS.Mobile.iOS` · `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS` |
 | android | `Linm.RMMS.Mobile.Android` · `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android` |
 | bff | `Linm.RMMS.Mobile.Bff` · `mobile-bff/api/v1/auth/*` |
@@ -129,6 +129,8 @@
 | Chain this turn | **không** (roleOnly=review) |
 
 ## Links
+- mfeStdUrl: `http://localhost:9301/login`
+- mfeStdRoute: `/login`
 
 - scan → `specs/_form-type-mobile/ACTION-TREE.md`
 - design → `specs/login/ui/design.md`

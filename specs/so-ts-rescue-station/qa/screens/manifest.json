@@ -1,0 +1,37 @@
+{
+  "url": "http://localhost:9301/so-ts?type=RESCUE_STATION",
+  "aliasUrl": "http://localhost:9301/so-ts-rescue-station",
+  "formUrl": "http://localhost:9301/so-ts/tao-moi?type=RESCUE_STATION",
+  "method": "e2e runtime · yarn start:std :9301 + docker API :5111 + BFF :5201 + yarn e2e-qa contract (Chrome channel fallback)",
+  "capturedAt": "2026-09-01T09:16:25.074Z",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "sha256_16": "c63a7ae98e5eea86",
+      "url": "http://localhost:9301/so-ts?type=RESCUE_STATION",
+      "note": "list RESCUE_STATION profile + filter bar"
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "sha256_16": "c63a7ae98e5eea86",
+      "url": "http://localhost:9301/so-ts-rescue-station",
+      "note": "alias /so-ts-rescue-station → type=RESCUE_STATION"
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "sha256_16": "6a0f8ac32428839d",
+      "url": "http://localhost:9301/so-ts/tao-moi?type=RESCUE_STATION",
+      "note": "Create form · S-ATTR rescue-station · Tên kho bãi · kmTo ẩn"
+    }
+  ],
+  "ok": true,
+  "note": "GAP-QA-E2E-PW-01: yarn e2e-qa Docker gate expects :5101 — compose maps :5111; capture used channel=chrome · --skip-start",
+  "testid": "rmms-so-ts-rescue-station-list-page",
+  "formTestid": "rmms-asset-form-shell"
+}

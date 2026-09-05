@@ -1,0 +1,74 @@
+{
+  "listUrl": "http://localhost:9301/so-ts?type=WEIGH_STATION",
+  "formUrl": "http://localhost:9301/so-ts/tao-moi?type=WEIGH_STATION",
+  "capturedAt": "2026-09-01T06:33:18.886Z",
+  "list": {
+    "titleWeigh": true,
+    "headerWeigh": true,
+    "createBtn": true,
+    "noCreateBadge": true,
+    "typeFilterHidden": true,
+    "filterBar": true,
+    "search": true,
+    "route": true,
+    "kmFrom": true,
+    "kmToFilter": true,
+    "org": true,
+    "headers": [
+      "STT",
+      "Mã tài sản",
+      "Tên tài sản",
+      "Tuyến đường",
+      "Lý trình bắt đầu",
+      "Loại TB cân",
+      "Tải trục max",
+      "ĐVQL",
+      "DT nhà (m²)",
+      "DT khu lắp TB",
+      "Camera",
+      "Đèn",
+      "Tình trạng KT",
+      "Tọa độ GPS"
+    ],
+    "snippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nHạng mục KCHT\nDS\nDev Standalone\nDeveloper\nTài sản đường\nSổ TS — Trạm kiểm soát tải\nLàm mới\nTạo mới\nDanh sách trạm kiểm soát tải\nMenu dòng: nhấn đúp · Ctrl + chuột phải · nhấn giữ dòng\nTìm kiếm\nCao tốc / quốc lộ\nLý trình từ\nLý trình đến\nCây đơn vị\n​\nSTT\t\n\tMã tài sản\n\tTên tài sản\n\tTuyến đường\n\tLý trình bắt đầu\n\tLoại TB cân\n\tTải trục max\n\tĐVQL\n\tDT nhà (m²)\n\tDT khu lắp TB\n\tCamera\n\tĐèn\n\tTình trạng KT\n\tTọa độ GPS\n\n1\t\n\tTC-weight_station_708858\tTrạm số 07\tQL.12A\t\t—\t—\t—\t—\t—\t—\t—\tTốt\t17.7678, 106.3667\n2\t\n\tTC-weight_station_5484"
+  },
+  "form": {
+    "cols5": true,
+    "weighAttr": true,
+    "approaching": true,
+    "stationNameLabel": true,
+    "equipment": true,
+    "axleLoad": false,
+    "mgmtUnit": true,
+    "buildingArea": true,
+    "kmToVisible": false,
+    "snippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nHạng mục KCHT\nDS\nDev Standalone\nDeveloper\nTạo tài sản\nQuay lại\nHủy\nTạo mới\nTạo tài sản\nĐang tạo mới — Lưu hoặc Hủy\nTHÔNG TIN TÀI SẢN\nMã tài sản\nTình trạng kỹ thuật*\nChọn tình trạng\nTốt\nTheo dõi\nCần bảo trì\nLoại tài sản *\n✕\nCao tốc / quốc lộ *\nTuyến\nĐoạn tuyến\nNguồn\nNhập tay\nAI\nTên trạm\nLý trình bắt đầu (Km+)\nẢnh hiện trường\nTHÔNG SỐ TRẠM KIỂM SOÁT TẢI\nLoại thiết bị cân\nChọn loại TB cân\nTải trọng trục tối đa\nĐơn vị quản lý\nChọn ĐVQL\nDT nhà (m²)\nDT khu lắp thiết bị (m²)\nCó khu vực giảm tải\nChọn\nCó\nKhông\nĐèn chiếu sáng\nChọn\nCó\nKhông\nCamera giám sát\nChọn\nCó\nKhông\nThiết bị đo kích thước xe\nChọn\nCó\nKhông\nNơi sản xuất\nNăm sản xuất\nSố hiệu phê duyệt\nNgày kiểm định trạm cân\nLoại mặt đường\nChọn loại mặt đường\nVị trí\nĐƯỜNG "
+  },
+  "dtm": [
+    {
+      "label": "D",
+      "width": 1280,
+      "overflowX": false,
+      "scrollWidth": 952,
+      "clientWidth": 952,
+      "screenshot": "filter-D.png"
+    },
+    {
+      "label": "T",
+      "width": 768,
+      "overflowX": false,
+      "scrollWidth": 440,
+      "clientWidth": 440,
+      "screenshot": "filter-T.png"
+    },
+    {
+      "label": "M",
+      "width": 375,
+      "overflowX": false,
+      "scrollWidth": 343,
+      "clientWidth": 343,
+      "screenshot": "filter-M.png"
+    }
+  ],
+  "ok": true
+}

@@ -11,7 +11,8 @@
 | controlHint | `specs/_data-analy/features/asset-kcht-32-control-hint.md` |
 | realData | **MISSING** `specs/_data-analy/features/asset-kcht-32-real-data.md` |
 | peer | `asset` · `asset-type` · `mobile-p1` · `incident` |
-| mfeStdUrl | claimed `http://localhost:9301/asset-kcht-32` — **invalid** (Master `start:std`=:9318 · 0 route · HTTP 404) |
+| mfeStdRoute | `/asset-kcht-32` |
+| mfeStdUrl | `http://localhost:9301/asset-kcht-32` |
 | updatedAt | `2026-08-29T13:37:40.926Z` |
 | taskId | `task_a754ec67` |
 | blockReason | QA FAIL — DoR (thiếu real-data + requirement + design; SA/TL/Dev blocked); e2eQa ON không chạy; GAP-QA-DOR-01 / STD-01 / E2E-01/02 → qa_fail_rollback |

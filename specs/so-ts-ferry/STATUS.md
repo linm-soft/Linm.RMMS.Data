@@ -9,8 +9,8 @@
 | demo | D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/asset-demo.html |
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/so-ts-ferry.md` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Asset` |
-| mfeStdRoute | `/so-ts?type=FERRY` |
-| mfeStdUrl | `http://localhost:9301/so-ts?type=FERRY` |
+| mfeStdRoute | `/so-ts-ferry` |
+| mfeStdUrl | `http://localhost:9301/so-ts-ferry` |
 | aliasBoard | `/so-ts-ferry` (optional redirect → live) |
 | liveList | `/so-ts?type=FERRY` |
 | route_confirm | `route_a` |
@@ -66,8 +66,8 @@
 ## Links
 
 - data-analy → po → ui → be → task → implement → qa → review ✅
-- mfeStdUrl: `http://localhost:9301/so-ts?type=FERRY` (live)
-- mfeStdRoute: `/so-ts?type=FERRY`
+- mfeStdUrl: `http://localhost:9301/so-ts-ferry` (live)
+- mfeStdRoute: `/so-ts-ferry`
 - alias board: `/so-ts-ferry` (optional)
 - reviewUrl: `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/so-ts-ferry/ui/prototype/so-ts-ferry-list-prototype.html`
 - implement: `specs/so-ts-ferry/implement/so-ts-ferry.md`

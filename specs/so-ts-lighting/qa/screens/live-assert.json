@@ -1,0 +1,68 @@
+{
+  "capturedAt": "2026-09-01T20:44:58.092Z",
+  "list": {
+    "titleList": true,
+    "headerLighting": true,
+    "createBtn": true,
+    "noCreateBadge": true,
+    "typeFilterHidden": true,
+    "filterBar": true,
+    "search": true,
+    "route": true,
+    "kmFrom": true,
+    "colManagement": false,
+    "colPole": true,
+    "colLight": true,
+    "colVitri": false,
+    "headers": [
+      "STT",
+      "Mã tài sản",
+      "Tên tài sản",
+      "Tuyến đường",
+      "Lý trình bắt đầu",
+      "Đơn vị QL sử dụng",
+      "Số cột đèn chiếu sáng",
+      "Số đèn chiếu sáng",
+      "Loại bóng đèn",
+      "Loại trạm biến áp",
+      "Công suất MBA (kVA)",
+      "Số tủ điều khiển",
+      "Phương thức điều khiển",
+      "Vị trí",
+      "Tình trạng KT",
+      "Tọa độ GPS"
+    ],
+    "snippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nHạng mục KCHT\nDS\nDev Standalone\nDeveloper\nTài sản đường\nSổ TS — Chiếu sáng đường\nLàm mới\nTạo mới\nDanh sách hệ thống chiếu sáng\nMenu dòng: nhấn đúp · Ctrl + chuột phải · nhấn giữ dòng\nTìm kiếm\nCao tốc / quốc lộ\nLý trình từ\nLý trình đến\nCây đơn vị\n​\nSTT\t\n\tMã tài sản\n\tTên tài sản\n\tTuyến đường\n\tLý trình bắt đầu\n\tĐơn vị QL sử dụng\n\tSố cột đèn chiếu sáng\n\tSố đèn chiếu sáng\n\tLoại bóng đèn\n\tLoại trạm biến áp\n\tCông suất MBA (kV"
+  },
+  "form": {
+    "formCols5": true,
+    "lightingAttr": true,
+    "managementField": true,
+    "kmFromForm": true,
+    "kmToForm": false,
+    "noNativeDialog": true,
+    "titleForm": true,
+    "snippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nHạng mục KCHT\nDS\nDev Standalone\nDeveloper\nTạo tài sản\nQuay lại\nHủy\nTạo mới\nTạo tài sản\nĐang tạo mới — Lưu hoặc Hủy\nTHÔNG TIN TÀI SẢN\nMã tài sản\nTình trạng kỹ thuật*\nChọn tình trạng\nLoại tài sản *\n✕\nCao tốc / quốc lộ *\nTuyến\nĐoạn tuyến\nNguồn\nTên hệ thống\nLý trình bắt đầu (Km+)\nẢnh hiện trường\nTHÔNG SỐ HỆ THỐNG CHIẾU SÁNG\nĐơn vị quản lý sử dụng\nChọn ĐV QL\nSố cột đèn chiếu sáng\nSố đèn chiếu sáng\nLoại bóng đèn\nChọn loại bó"
+  },
+  "dtm": [
+    {
+      "tag": "D",
+      "width": 1280,
+      "height": 900,
+      "overflowX": false
+    },
+    {
+      "tag": "T",
+      "width": 768,
+      "height": 900,
+      "overflowX": false
+    },
+    {
+      "tag": "M",
+      "width": 375,
+      "height": 812,
+      "overflowX": false
+    }
+  ],
+  "ok": true
+}

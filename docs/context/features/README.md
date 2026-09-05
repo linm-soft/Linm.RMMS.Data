@@ -25,21 +25,23 @@
 | 0a | `org-unit` | Cơ cấu tổ chức DRVN | Master | P1 | — (**no demo**) | Context | [org-unit.md](org-unit.md) |
 | 0b | `road-route` | Tuyến đường | Master | P1 | `Sau-sat-nhap/gov` raw tuyến | Context | [road-route.md](road-route.md) · [đề cương LRS](../24-TUAN-DUONG-DUONG-BO.md) |
 | 0c | `asset-type` | Loại tài sản KCHT | Master | P1 | `Sau-sat-nhap/gov` (catalog) | Context | [asset-type.md](asset-type.md) |
+| 0c2 | `traffic-sign-type` | Loại biển báo (mã QCVN) | Master | P1 | Excel số hiệu biển + dump `gov-vn` | Context | [traffic-sign-type.md](traffic-sign-type.md) |
 | 0d | `partner-unit` | Sở / BOT / Cty | Master | P1 | DRVN seed · CUC 2 = demo | Context | [partner-unit.md](partner-unit.md) |
 | 0e | `org-route-scope` | Zone km Khu ↔ tuyến / đoạn | Master | P1 | Cây DRVN + LRS · **không** dump gán | Context | [org-route-scope.md](org-route-scope.md) |
 | 1 | `asset` | Quản lý tài sản đường bộ | Asset | P1 | Mobile Tài sản · Web KCHT · Giám sát TS | Demo | [asset.md](asset.md) |
 | 1a | `asset-kcht-32` | 36 loại TS (thông số + sự cố) | Asset×Incident | P1 | CSDL 12 biểu · `Sau-sat-nhap/gov` | Context | [asset-kcht-32.md](asset-kcht-32.md) |
 | 1b | `csdl-so-sach` | CSDL 12 biểu + 8 sổ BDTX | Asset·Patrol·Maint | P1 | Hồ sơ chuẩn hóa sổ sách | Demo | [csdl-so-sach.md](csdl-so-sach.md) · [../11-…](../11-CSDL-SO-SACH-DATABASE-API.md) |
 | 1c | `pavement-section` | Phân loại mặt đường (Biểu 1) | Asset | P1 | Hồ sơ CSDL biểu 1 | Demo | [pavement-section.md](pavement-section.md) |
-| 1d | `asset-kcht-dashboard` | Hub Hạng mục KCHT (40 ô) · widget `@linm/dashboard` | Asset | P1 | GOVOne lưới hạng mục | Context | [asset-kcht-dashboard.md](asset-kcht-dashboard.md) |
+| 1d | `asset-kcht-dashboard` | Hub Hạng mục KCHT (40 ô) · `/so-ts/hang-muc` · **≠** `csdl-so-sach` | Asset | P1 | GOVOne lưới hạng mục | Context | [asset-kcht-dashboard.md](asset-kcht-dashboard.md) |
 | 1e | `so-ts-type-grid` | Sổ TS grid/form theo loại (reuse section) | Asset | P1 | DRVN `docs/img/gov-mau-tai-san` | Context | [so-ts-type-grid.md](so-ts-type-grid.md) · `/data-gov-integration` |
 | 2 | `gis` | GIS và Digital Twin | Gis | P1–P2 | Bản đồ Giám sát / TS / SC | Demo | [gis.md](gis.md) · **pilot camera overlay** [camera-ops-dashboard-demo.html](../../../Linm.RMMS.Demo/src/demo/features/camera-ops-dashboard-demo.html) |
-| 2s | `map-service` | MapService — gis.vn + clip OSM | Platform | P1 | Host `Linm.Platform.MapService` `:5021` · Wave 1 **done** · Wave 2 BFF pending | Context | [map-service.md](map-service.md) · skill `/implement-map-stack` |
-| 2t | `gis-osm-clip` | GIS prod: OSM clip + overlay MapService | Gis | P1 | MFE OSM.org/Google (**lệch**) | Context | [gis-osm-clip.md](gis-osm-clip.md) · `/implement-gis-map` |
+| 2s | `map-service` | MapService — gis.vn + clip OSM | Platform | P1 | Host `Linm.Platform.MapService` `:5021` · Wave 1–4 web **done** · OSM Carto muted | Context | [map-service.md](map-service.md) · skill `/implement-map-stack` |
+| 2t | `gis-osm-clip` | GIS prod: OSM clip + overlay MapService | Gis | P1 | MFE clip BFF · chip **Tiêu chuẩn / Vệ tinh** · mobile copy web live [`patrol-map.md`](patrol-map.md) | Context | [gis-osm-clip.md](gis-osm-clip.md) · `/implement-gis-map` |
 | 2u | `legal-tech-corridor` | Luật VN + Store (GPS/vẽ TS/guest) | Compliance | P1 | — | Context | [legal-tech-corridor.md](legal-tech-corridor.md) · `/review-app-vn-map-law` |
 | 2v | `directions` | Chỉ đường / HD điện tử guest | Integration | P1 | — (chưa OSRM Signed) | Context | [directions.md](directions.md) · `/implement-directions-app` |
 | 2a | `gis-draw-google` | Vẽ tài sản trên Google Map | Gis+Asset | P1 | GOVOne `1-ban-do.png` | Demo | [gis-draw-google.md](gis-draw-google.md) |
 | 2b | `gis-draw-live` | Vẽ tài sản live (Leaflet rút gọn) | Gis+Asset | P1 | HĐ PL01 mã 02 | Demo | [gis-draw-live.md](gis-draw-live.md) |
+| 2c | `gis-camera-map` | Bản đồ camera (wall + clip ANPR) | Gis×Camera | P1 mock | `/gis/camera` · seed Vinh | Dev | [gis-camera-map.md](gis-camera-map.md) |
 | 3s | `ai-vision-service` | Host `Linm.RMMS.Vision` (mọi slug AiVision) | Vision | V1 P1 GPT / P2 ONNX **cùng host** | — | Context | [ai-vision-service.md](ai-vision-service.md) · plan [ai-vision-service](../../plan/ai-vision-service/README.md) |
 | 3 | `ai-vision` | AI kiểm định mặt đường | AiVision | P1 online / P2 local | Overlay **Vấn đề** / Sự cố | Demo | [ai-vision.md](ai-vision.md) · host [ai-vision-service](ai-vision-service.md) |
 | 3b | `ai-asset-detect` | AI phát hiện TS/thiết bị mới (camera tuần đường) | AiVision×Asset×Patrol | P1 online / P2 local | Camera xe → loại TS · tọa độ · tuyến → bản ghi Asset | Demo | [ai-asset-detect.md](ai-asset-detect.md) |
@@ -60,6 +62,7 @@
 | 11k | `kcht-cong-trinh` | Công trình KCHT (Khu QLĐB IV) | Contract×QLDA | CR-Khu-IV | Công văn 08/2026 · 5 phân hệ | Context | [kcht-cong-trinh.md](kcht-cong-trinh.md) · [PLAN](../../plan/kcht-cong-trinh/PLAN.md) |
 | 12 | `inventory` | Vật tư và thiết bị | Inventory | P3 | — | Demo | [inventory.md](inventory.md) |
 | 13 | `drone` | Drone / Reality Capture | Drone | P2–P3 | — | Demo | [drone.md](drone.md) |
+| 13i | `iot` | Danh sách IoT (`/iot`) · P2 extra ADMIN | Iot | P2 | MFE scaffold | Context | [iot.md](iot.md) |
 | 14 | `toc` | Trung tâm ĐH GT | Traffic | P3 | — | Demo | [toc.md](toc.md) |
 | 15 | `citizen` | Cổng người dân | Integration | P3 | — (≠ Góp ý nội bộ) | Demo | [citizen.md](citizen.md) |
 | 16 | `copilot` | AI Copilot | Copilot | P1 online / P2 RAG | Web drawer (mới) | Demo | [copilot.md](copilot.md) |

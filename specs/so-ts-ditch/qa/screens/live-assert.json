@@ -1,0 +1,62 @@
+{
+  "list": {
+    "titleList": true,
+    "headerDitch": true,
+    "createBtn": true,
+    "noCreateBadge": true,
+    "typeFilterHidden": true,
+    "filterBar": true,
+    "search": true,
+    "route": true,
+    "kmFrom": true,
+    "kmToFilter": true,
+    "org": true,
+    "colLoaiRanh": true,
+    "colHinhDang": true,
+    "colDai": true,
+    "headers": [
+      "STT",
+      "Mã tài sản",
+      "Tên tài sản",
+      "Tuyến đường",
+      "Lý trình bắt đầu",
+      "Lý trình kết thúc",
+      "Loại rãnh / cống dọc",
+      "Hình dạng",
+      "Chiều dài (m)",
+      "Chiều cao (m)",
+      "Tình trạng KT",
+      "Tọa độ GPS"
+    ],
+    "snippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nHạng mục KCHT\nDS\nDev Standalone\nDeveloper\nTài sản đường\nSổ TS — Cống / rãnh dọc\nLàm mới\nTạo mới\nDanh sách cống / rãnh dọc\nMenu dòng: nhấn đúp · Ctrl + chuột phải · nhấn giữ dòng\nTìm kiếm\nCao tốc / quốc lộ\nLý trình từ\nLý trình đến\nCây đơn vị\n​\nSTT\t\n\tMã tài sản\n\tTên tài sản\n\tTuyến đường\n\tLý trình bắt đầu\n\tLý trình kết thúc\n\tLoại rãnh / cống dọc\n\tHình dạng\n\tChiều dài (m)\n\tChiều cao (m)\n\tTình trạng KT\n\tTọa độ GPS\n\n1\t\n\tCD-l"
+  },
+  "form": {
+    "cols5": true,
+    "ditchAttr": true,
+    "loaiRanh": true,
+    "hinhDang": true,
+    "daiThucTe": true,
+    "kmToVisible": true,
+    "codeHint": true,
+    "noModeBadge": true,
+    "snippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nHạng mục KCHT\nDS\nDev Standalone\nDeveloper\nTạo tài sản\nQuay lại\nHủy\nTạo mới\nTạo tài sản\nĐang tạo mới — Lưu hoặc Hủy\nTHÔNG TIN TÀI SẢN\nMã tài sản\nTình trạng kỹ thuật*\nChọn tình trạng\nLoại tài sản *\n✕\nCao tốc / quốc lộ *\nTuyến\nĐoạn tuyến\nNguồn\nTên\nLý trình bắt đầu (Km+)*\nLý trình kết thúc (Km+)\nẢnh hiện trường\nTHÔNG SỐ CỐNG / RÃNH DỌC\nLoại rãnh / cống dọc*\nChọn loại\nHình dạng\nChọn hình dạng\nChiều dài thực tế (m)\nChiều cao (m)\nChiều rộng đáy (m)\nChiều rộng miệng (m)\nLoại kết cấu\nChọn kết cấu\nLoại công trình\nChọn loại CT\nVật liệu\nChọn vật liệu\nSố công trình trong đoạn\nChiều dài hố ga (m)\nChiều rộng hố ga (m)\nChiều cao h"
+  },
+  "dtm": {
+    "D": {
+      "overflowX": false,
+      "bodyW": 1280,
+      "vw": 1280
+    },
+    "T": {
+      "overflowX": false,
+      "bodyW": 768,
+      "vw": 768
+    },
+    "M": {
+      "overflowX": false,
+      "bodyW": 375,
+      "vw": 375
+    }
+  },
+  "at": "2026-09-01T10:58:32.678Z"
+}

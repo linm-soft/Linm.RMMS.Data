@@ -16,5 +16,5 @@
 
 | lane | phase | status | updatedAt |
 |------|-------|--------|-----------|
-| web | `qa` | `await_confirm` | `2026-09-01T02:58:15.515Z` |
+| web | `done` | `done` | `2026-09-01T09:23:47.475Z` |
 | mobile | — | — | — |

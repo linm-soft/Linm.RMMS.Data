@@ -1,11 +1,12 @@
 # Prototype — so-ts-culvert-x
 
-Design gate: **prototype + reviewUrl** — board Approve (**không auto**).
-Repo confirm: user tick BE+UI trên `/qldb-workflow` Progress trước Dev (**không auto** · cấm ERP.*).
+| | |
+|--|--|
+| Artifact | `so-ts-culvert-x-list-prototype.html` |
+| reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/so-ts-culvert-x/ui/prototype/so-ts-culvert-x-list-prototype.html` |
+| peerStdUrl | `http://localhost:9301/so-ts?type=CULVERT_X` |
+| Kind | B A–D+F + full-page 5 cols |
+| shared_grid_example | v1 |
+| real_view_parity | v1 |
 
-- Demo SSOT: `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/asset-demo.html`
-- Title: Sổ TS — Cống thoát nước ngang
-- Pack kind: `list`
-- MFE: `Linm.Web.RMMS.Asset`
-
-Put HTML prototype / screenshot link here; update `ui/design.md` with a browser-openable **reviewUrl**.
+Open HTML in browser để `design_confirm`. **Cấm** yarn start:std ở role Design.

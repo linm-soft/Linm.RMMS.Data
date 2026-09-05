@@ -1,0 +1,74 @@
+{
+  "listUrl": "http://localhost:9301/so-ts?type=LAND_ROW",
+  "formUrl": "http://localhost:9301/so-ts/tao-moi?type=LAND_ROW",
+  "capturedAt": "2026-09-01T08:59:45.998Z",
+  "list": {
+    "titleCount": true,
+    "headerCount": true,
+    "createBtn": true,
+    "noCreateBadge": true,
+    "typeFilterHidden": true,
+    "filterBar": true,
+    "search": true,
+    "route": true,
+    "kmFrom": true,
+    "kmToFilter": true,
+    "org": true,
+    "headers": [
+      "STT",
+      "Mã tài sản",
+      "Tên tài sản",
+      "Tuyến đường",
+      "Lý trình bắt đầu",
+      "Tình trạng thửa đất",
+      "Cơ quan chủ quản",
+      "Cơ quan đang khai thác",
+      "Chiều dài (m)",
+      "Chiều rộng (m)",
+      "Tổng DT thửa (m²)",
+      "Tỉnh / thành phố",
+      "Xã / phường",
+      "Tình trạng KT",
+      "Tọa độ GPS"
+    ],
+    "snippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nHạng mục KCHT\nDS\nDev Standalone\nDeveloper\nTài sản đường\nSổ TS — Đất thuộc TS HT\nLàm mới\nTạo mới\nDanh sách đất thuộc TS HT\nMenu dòng: nhấn đúp · Ctrl + chuột phải · nhấn giữ dòng\nTìm kiếm\nCao tốc / quốc lộ\nLý trình từ\nLý trình đến\nCây đơn vị\n​\nSTT\t\n\tMã tài sản\n\tTên tài sản\n\tTuyến đường\n\tLý trình bắt đầu\n\tTình trạng thửa đất\n\tCơ quan chủ quản\n\tCơ quan đang khai thác\n\tChiều dài (m)\n\tChiều rộng (m)\n\tTổng DT thửa (m²)\n\tTỉnh / thành phố\n\tXã / phường\n\tTình trạng KT\n\tTọa độ GPS\n\n1\t\n\tDT-land_btra_720627\tQL.15\tQL.15\t\t—\t—\t—\t—\t—"
+  },
+  "form": {
+    "cols5": true,
+    "landRowAttr": true,
+    "statusLandLot": true,
+    "underManagemen": true,
+    "underOperation": true,
+    "exploited": true,
+    "constructionLabel": true,
+    "kmToVisible": false,
+    "snippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nHạng mục KCHT\nDS\nDev Standalone\nDeveloper\nTạo tài sản\nQuay lại\nHủy\nTạo mới\nTạo tài sản\nĐang tạo mới — Lưu hoặc Hủy\nTHÔNG TIN TÀI SẢN\nMã tài sản\nTình trạng kỹ thuật*\nChọn tình trạng\nTốt\nTheo dõi\nCần bảo trì\nLoại tài sản *\n✕\nCao tốc / quốc lộ *\nTuyến\nĐoạn tuyến\nNguồn\nNhập tay\nAI\nCông trình trên đất\nLý trình bắt đầu (Km+)\nẢnh hiện trường\nTHÔNG SỐ ĐẤT THUỘC TS HT\nTình trạng thửa đất*\nChọn tình trạng thửa\nCơ quan chủ quản\nCơ quan đang khai thác\nHình thức khai thác\nChọn hình thức\nChiều dài (m)\nChiều rộng (m)\nTổng diện tích thửa đất (m²)\nChiều rộng đường vào (m)\nKết cấu mặt đường vào\nChọn kết cấu\nKhoảng cách đến tim đường (km)\nCó đường vào\nChọn\nCó\nKhông\nVị trí mặt cắt ngang đường\nChọn mặt cắt\nChiều dài đường vào thửa đấ"
+  },
+  "dtm": [
+    {
+      "label": "D",
+      "width": 1280,
+      "overflowX": false,
+      "scrollWidth": 952,
+      "clientWidth": 952,
+      "screenshot": "filter-D.png"
+    },
+    {
+      "label": "T",
+      "width": 768,
+      "overflowX": false,
+      "scrollWidth": 440,
+      "clientWidth": 440,
+      "screenshot": "filter-T.png"
+    },
+    {
+      "label": "M",
+      "width": 375,
+      "overflowX": false,
+      "scrollWidth": 343,
+      "clientWidth": 343,
+      "screenshot": "filter-M.png"
+    }
+  ],
+  "ok": true
+}

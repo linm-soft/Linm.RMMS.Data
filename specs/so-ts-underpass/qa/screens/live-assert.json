@@ -1,0 +1,66 @@
+{
+  "list": {
+    "titleList": true,
+    "headerUnderpass": true,
+    "createBtn": true,
+    "noCreateBadge": true,
+    "typeFilterHidden": true,
+    "filterBar": true,
+    "search": true,
+    "route": true,
+    "kmFrom": true,
+    "kmToFilter": true,
+    "org": true,
+    "colLoaiCong": true,
+    "colThiCong": true,
+    "colDaiThan": true,
+    "lowFillHidden": true,
+    "headers": [
+      "STT",
+      "Mã tài sản",
+      "Tên tài sản",
+      "Tuyến đường",
+      "Lý trình bắt đầu",
+      "Loại cống",
+      "Thi công",
+      "Tải trọng thiết kế",
+      "Số ngăn",
+      "Chiều dài thân cống (m)",
+      "Loại kết cấu",
+      "Tên hầm chui",
+      "Tình trạng KT",
+      "Tọa độ GPS"
+    ],
+    "snippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nHạng mục KCHT\nDS\nDev Standalone\nDeveloper\nTài sản đường\nSổ TS — Hầm chui dân sinh\nLàm mới\nTạo mới\nDanh sách hầm chui dân sinh\nMenu dòng: nhấn đúp · Ctrl + chuột phải · nhấn giữ dòng\nTìm kiếm\nCao tốc / quốc lộ\nLý trình từ\nLý trình đến\nCây đơn vị\n​\nSTT\t\n\tMã tài sản\n\tTên tài sản\n\tTuyến đường\n\tLý trình bắt đầu\n\tLoại cống\n\tThi công\n\tTải trọng thiết kế\n\tSố ngăn\n\tChiều dài thân cống (m)\n\tLoại kết cấu\n\tTên hầm chui\n\tTình trạng"
+  },
+  "form": {
+    "cols5": true,
+    "underpassAttr": true,
+    "loaiCong": true,
+    "thiCong": true,
+    "ketCau": true,
+    "kmToVisible": false,
+    "kmToHidden": true,
+    "codeHint": true,
+    "noModeBadge": true,
+    "snippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nHạng mục KCHT\nDS\nDev Standalone\nDeveloper\nTạo tài sản\nQuay lại\nHủy\nTạo mới\nTạo tài sản\nĐang tạo mới — Lưu hoặc Hủy\nTHÔNG TIN TÀI SẢN\nMã tài sản\nTình trạng kỹ thuật*\nChọn tình trạng\nLoại tài sản *\n✕\nCao tốc / quốc lộ *\nTuyến\nĐoạn tuyến\nNguồn\nTên cống\nLý trình bắt đầu (Km+)\nẢnh hiện trường\nTHÔNG SỐ HẦM CHUI DÂN SINH\nLoại cống*\nChọn loại cống\nThi công\nChọn thi công\nTải trọng thiết kế\nSố ngăn\nChiều rộng (m)\nChiều cao (m)\nChiều dài thân cống (m)\nLoại kết cấu\nChọn kết cấu\nSố lượng tường cánh\nVật liệu tường cánh\nChọn vật liệu\nLoại mặt đường trong hầm\nChọn loại mặt đường\nDT mặt đường trong (m²)\nSố đèn chiếu sáng\nSố biển bá"
+  },
+  "dtm": {
+    "D": {
+      "overflowX": false,
+      "bodyW": 1280,
+      "vw": 1280
+    },
+    "T": {
+      "overflowX": false,
+      "bodyW": 768,
+      "vw": 768
+    },
+    "M": {
+      "overflowX": false,
+      "bodyW": 375,
+      "vw": 375
+    }
+  },
+  "at": "2026-09-01T11:55:11.736Z"
+}

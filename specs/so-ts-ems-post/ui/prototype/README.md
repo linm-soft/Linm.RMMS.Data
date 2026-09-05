@@ -1,11 +1,9 @@
 # Prototype — so-ts-ems-post
 
-Design gate: **prototype + reviewUrl** — board Approve (**không auto**).
-Repo confirm: user tick BE+UI trên `/qldb-workflow` Progress trước Dev (**không auto** · cấm ERP.*).
+Design gate: **prototype + reviewUrl** — autoApprove ON (`design_confirm=approve`).
 
-- Demo SSOT: `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/asset-demo.html`
+- Artifact: `so-ts-ems-post-list-prototype.html`
+- **reviewUrl**: `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/so-ts-ems-post/ui/prototype/so-ts-ems-post-list-prototype.html`
 - Title: Sổ TS — Trạm trực cấp cứu
-- Pack kind: `list`
+- Pack kind: `list` · type `EMS_POST`
 - MFE: `Linm.Web.RMMS.Asset`
-
-Put HTML prototype / screenshot link here; update `ui/design.md` with a browser-openable **reviewUrl**.

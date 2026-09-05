@@ -16,8 +16,8 @@
 | context | `docs/context/features/platform-task.md` · hub `docs/context/25-PLATFORM-TASK.md` · `docs/context/26-MESSAGE-PARCEL.md` |
 | plan | `{RulesRoot}/docs/plan/linm-task-service/README.md` · `docs/plan/platform-task/PLAN.md` |
 | skill | `/implement-task-service` · `/integrate-task-service` · `/review-task-service` |
-| mfeStdRoute | `/platform-task` (TL locked · `route_confirm=route_a`) |
-| mfeStdUrl | `http://localhost:9302/platform-task/cv` |
+| mfeStdRoute | `/platform-task` |
+| mfeStdUrl | `http://localhost:9301/platform-task` |
 | hasAnaly | `1` |
 | task_kind | `consumer_cite_p1` |
 | taskId | `task_08b9a781` |

@@ -11,3 +11,10 @@
 1. Grid cột đúng loại · ẩn cột không thông tin (`GAP-SOTS-COL-01`)
 2. Form field = tab Thông tin chung trên mẫu · control Linm
 3. Import section từ parent — không copy-paste `AssetFormPage`
+
+## Implement tracking
+
+| lane | phase | status | updatedAt |
+|------|-------|--------|-----------|
+| web | `done` | `done` | `2026-09-01T08:15:32.867Z` |
+| mobile | — | — | — |

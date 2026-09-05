@@ -1,11 +1,17 @@
 # Prototype — so-ts-slope-protect
 
-Design gate: **prototype + reviewUrl** — board Approve (**không auto**).
-Repo confirm: user tick BE+UI trên `/qldb-workflow` Progress trước Dev (**không auto** · cấm ERP.*).
+Design gate: **PASS** · `design_confirm=approve` (autoApprove ON · `task_ddb66403`).
 
-- Demo SSOT: `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/asset-demo.html`
-- Title: Sổ TS — Bảo vệ mái dốc
-- Pack kind: `list`
-- MFE: `Linm.Web.RMMS.Asset`
+| | |
+|--|--|
+| Title | Sổ TS — Bảo vệ mái dốc |
+| Pack kind | `list` · Kind B A–D+F + full-page 5 cột |
+| typeCode | `SLOPE_PROTECT` |
+| MFE | `Linm.Web.RMMS.Asset` |
+| Prototype | `so-ts-slope-protect-list-prototype.html` |
+| **reviewUrl** | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/so-ts-slope-protect/ui/prototype/so-ts-slope-protect-list-prototype.html` |
+| peerStdUrl | `http://localhost:9301/so-ts?type=SLOPE_PROTECT` |
+| mfeStdUrl | `http://localhost:9301/so-ts-slope-protect` |
+| Demo SSOT (cite only) | `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/asset-demo.html` — **cấm** re-scan |
 
-Put HTML prototype / screenshot link here; update `ui/design.md` with a browser-openable **reviewUrl**.
+Zones: DES-GRID-A/B/B-FILTER/C0/C2/C3/D/F/H · DES-FORM-Z1/Z2 · DES-LEAVE.

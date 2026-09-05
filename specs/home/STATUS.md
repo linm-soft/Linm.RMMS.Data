@@ -11,8 +11,8 @@
 | demo | `specs/home/ui/prototype/{ios,android}/index.html` `#sc-home` · SSOT mobile-p1 |
 | context | `docs/context/features/home.md` |
 | mfe | — (native · **cấm** mfeStdUrl) |
-| mfeStdRoute | — |
-| mfeStdUrl | — |
+| mfeStdRoute | `/home` |
+| mfeStdUrl | `http://localhost:9301/home` |
 | reviewUrlIos | `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/home/ui/prototype/ios/index.html#sc-home` |
 | reviewUrlAndroid | `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/home/ui/prototype/android/index.html#sc-home` |
 | ios | `Linm.RMMS.Mobile.iOS` · `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS` · e2e-qa-mobile sim 6.9" |
@@ -126,6 +126,8 @@
 | e2eQa | prior QA **PASS** · **cấm** mfeStdUrl / yarn start:std |
 
 ## Links
+- mfeStdUrl: `http://localhost:9301/home`
+- mfeStdRoute: `/home`
 
 - data-analy → po → ui → be → task → implement → qa → review → **done**
 - native: e2eQa ON → `yarn e2e-qa-mobile` (sim + emulator + Maestro) — **cấm** mfeStdUrl

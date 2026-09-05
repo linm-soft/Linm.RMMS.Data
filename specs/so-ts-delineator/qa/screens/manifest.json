@@ -1,0 +1,36 @@
+{
+  "url": "http://localhost:9301/so-ts?type=DELINEATOR",
+  "aliasUrl": "http://localhost:9301/so-ts-delineator",
+  "formUrl": "http://localhost:9301/so-ts/tao-moi?type=DELINEATOR",
+  "method": "e2e runtime · yarn start:std :9301 + docker API :5111 + BFF :5201 + yarn e2e-qa contract (Chrome channel)",
+  "capturedAt": "2026-09-01T15:13:29.469Z",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "sha256_16": "454630671204e1ee",
+      "url": "http://localhost:9301/so-ts?type=DELINEATOR",
+      "note": "list DELINEATOR · filter · title Cọc tiêu / cọc H"
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "sha256_16": "454630671204e1ee",
+      "url": "http://localhost:9301/so-ts-delineator",
+      "note": "alias /so-ts-delineator → type=DELINEATOR"
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "sha256_16": "2d336319a8e260ae",
+      "url": "http://localhost:9301/so-ts/tao-moi?type=DELINEATOR",
+      "note": "Create form · S-ATTR 2 nhóm tiêu/H · S-LOC-POINT ẩn kmTo"
+    }
+  ],
+  "ok": true,
+  "note": "GAP-QA-E2E-PW-01: yarn e2e-qa headed hang · capture channel=chrome · --skip-start · API :5111",
+  "testid": "rmms-so-ts-delineator-list-page"
+}

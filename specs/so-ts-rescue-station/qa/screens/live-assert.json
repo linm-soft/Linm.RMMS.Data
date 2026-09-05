@@ -1,0 +1,43 @@
+{
+  "list": {
+    "titleRescue": true,
+    "headerRescue": true,
+    "createBtn": true,
+    "noCreateBadge": true,
+    "typeFilterHidden": true,
+    "filterBar": true,
+    "search": true,
+    "route": true,
+    "kmFrom": true,
+    "kmToFilter": true,
+    "org": true,
+    "snippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nHạng mục KCHT\nDS\nDev Standalone\nDeveloper\nTài sản đường\nSổ TS — Công trình cứu hộ\nLàm mới\nTạo mới\nDanh sách công trình cứu hộ\nMenu dòng: nhấn đúp · Ctrl + chuột phải · nhấn giữ dòng\nTìm kiếm\nCao tốc / quốc lộ\nLý trình từ\nLý trình đến\nCây đơn vị\n​\nSTT\t\n\tMã tài sản\n\tTên tài sản\n\tTuyến đường\n\tLý trình bắt đầu\n\tVật tư chứa trong kho\n\tDT khuôn viên (m²)\n\tCấp nhà làm việc\n\tDT nhà (m²)\n\tCấp CT phụ\n\tDT CT phụ (m²)\n\tCấp nhà kho"
+  },
+  "form": {
+    "cols5": true,
+    "rescueAttr": true,
+    "nameWarehouse": true,
+    "materials": true,
+    "kmToVisible": false,
+    "noModeBadge": true,
+    "snippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nHạng mục KCHT\nDS\nDev Standalone\nDeveloper\nTạo tài sản\nQuay lại\nHủy\nTạo mới\nTạo tài sản\nĐang tạo mới — Lưu hoặc Hủy\nTHÔNG TIN TÀI SẢN\nMã tài sản\nTình trạng kỹ thuật*\nChọn tình trạng\nTốt\nTheo dõi\nCần bảo trì\nLoại tài sản *\n✕\nCao tốc / quốc lộ *\nTuyến\nĐoạn tuyến\nNguồn\nNhập tay\nAI\nTên kho bãi\nLý trình bắt đầu (Km+)\nẢnh hiện trường\nTHÔNG SỐ CÔNG TRÌNH CỨU HỘ\nVật tư chứa trong kho\nDT khuôn viên sử dụng đất (m²)\nCấp nhà làm việc\nChọn cấp\nCấp 3\nCấp 4\nCấp 5\nTổng DT nhà làm việc (m²)\nCấp công trình phụ\nChọn cấp\nCấp 3\nCấp 4\nCấp 5\nTổng DT CT phụ (m²)\nCấp nhà kho\nChọn cấp\nCấp 3\nCấp 4\nCấp 5\nTổng DT nhà kho (m²)\nVị trí\nChọn vị tr"
+  },
+  "dtm": {
+    "D": {
+      "overflowX": false,
+      "bodyW": 1280,
+      "vw": 1280
+    },
+    "T": {
+      "overflowX": false,
+      "bodyW": 768,
+      "vw": 768
+    },
+    "M": {
+      "overflowX": false,
+      "bodyW": 375,
+      "vw": 375
+    }
+  },
+  "at": "2026-09-01T09:16:41.852Z"
+}

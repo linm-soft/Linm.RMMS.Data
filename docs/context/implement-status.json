@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-01T03:10:27.064Z",
+  "updatedAt": "2026-09-03T20:24:25.476Z",
   "features": {
     "ai-asset-detect": {
       "web": {
@@ -126,8 +126,16 @@
       "web": {
         "phase": "done",
         "status": "done",
-        "updatedAt": "2026-08-21T03:31:41.245Z",
+        "updatedAt": "2026-09-03T00:00:00.000Z",
         "statusRel": "specs/gis-draw-live/STATUS.md"
+      }
+    },
+    "gis-patrol-map": {
+      "web": {
+        "phase": "dev",
+        "status": "in_progress",
+        "updatedAt": "2026-09-01T21:20:00.000Z",
+        "statusRel": "specs/gis-patrol-map/STATUS.md"
       }
     },
     "home": {
@@ -334,7 +342,7 @@
       "web": {
         "phase": "done",
         "status": "done",
-        "updatedAt": "2026-09-01T02:58:29.631Z",
+        "updatedAt": "2026-09-02T08:31:13.960Z",
         "statusRel": "specs/rmms-task-integrate/STATUS.md"
       }
     },
@@ -636,9 +644,9 @@
     },
     "so-ts-rescue-station": {
       "web": {
-        "phase": "qa",
-        "status": "await_confirm",
-        "updatedAt": "2026-09-01T02:58:15.515Z",
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-01T09:23:47.475Z",
         "statusRel": "specs/so-ts-rescue-station/STATUS.md"
       }
     },
@@ -652,10 +660,218 @@
     },
     "so-ts-bus-station": {
       "web": {
-        "phase": "po",
-        "status": "pending",
-        "updatedAt": "2026-09-01T03:10:27.064Z",
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-01T04:01:50.228Z",
         "statusRel": "specs/so-ts-bus-station/STATUS.md"
+      }
+    },
+    "so-ts-rest-area": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-01T04:29:50.020Z",
+        "statusRel": "specs/so-ts-rest-area/STATUS.md"
+      }
+    },
+    "so-ts-parking": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-01T04:52:43.967Z",
+        "statusRel": "specs/so-ts-parking/STATUS.md"
+      }
+    },
+    "so-ts-toll": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-01T05:18:53.554Z",
+        "statusRel": "specs/so-ts-toll/STATUS.md"
+      }
+    },
+    "so-ts-ems-post": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-01T05:51:37.530Z",
+        "statusRel": "specs/so-ts-ems-post/STATUS.md"
+      }
+    },
+    "so-ts-weigh-station": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-01T06:38:31.740Z",
+        "statusRel": "specs/so-ts-weigh-station/STATUS.md"
+      }
+    },
+    "so-ts-count-station": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-01T07:29:47.754Z",
+        "statusRel": "specs/so-ts-count-station/STATUS.md"
+      }
+    },
+    "so-ts-bus-stop": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-01T08:15:32.867Z",
+        "statusRel": "specs/so-ts-bus-stop/STATUS.md"
+      }
+    },
+    "so-ts-land-row": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-01T09:04:41.461Z",
+        "statusRel": "specs/so-ts-land-row/STATUS.md"
+      }
+    },
+    "so-ts-noise-barrier": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-01T10:11:20.402Z",
+        "statusRel": "specs/so-ts-noise-barrier/STATUS.md"
+      }
+    },
+    "so-ts-ditch": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-01T11:04:20.962Z",
+        "statusRel": "specs/so-ts-ditch/STATUS.md"
+      }
+    },
+    "so-ts-underpass": {
+      "web": {
+        "phase": "dev",
+        "status": "await_confirm",
+        "updatedAt": "2026-09-01T13:23:14.414Z",
+        "statusRel": "specs/so-ts-underpass/STATUS.md"
+      }
+    },
+    "so-ts-culvert-x": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-01T13:17:58.854Z",
+        "statusRel": "specs/so-ts-culvert-x/STATUS.md"
+      }
+    },
+    "so-ts-traffic-sign": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-01T14:21:23.786Z",
+        "statusRel": "specs/so-ts-traffic-sign/STATUS.md"
+      }
+    },
+    "so-ts-delineator": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-01T15:19:58.503Z",
+        "statusRel": "specs/so-ts-delineator/STATUS.md"
+      }
+    },
+    "so-ts-convex-mirror": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-01T16:07:56.917Z",
+        "statusRel": "specs/so-ts-convex-mirror/STATUS.md"
+      }
+    },
+    "so-ts-guardrail": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-01T16:49:10.999Z",
+        "statusRel": "specs/so-ts-guardrail/STATUS.md"
+      }
+    },
+    "so-ts-median": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-01T17:40:47.260Z",
+        "statusRel": "specs/so-ts-median/STATUS.md"
+      }
+    },
+    "so-ts-retaining": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-01T18:28:08.153Z",
+        "statusRel": "specs/so-ts-retaining/STATUS.md"
+      }
+    },
+    "so-ts-slope-protect": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-01T18:58:35.325Z",
+        "statusRel": "specs/so-ts-slope-protect/STATUS.md"
+      }
+    },
+    "so-ts-pontoon": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-01T19:26:28.464Z",
+        "statusRel": "specs/so-ts-pontoon/STATUS.md"
+      }
+    },
+    "so-ts-rail-cross": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-01T19:51:37.753Z",
+        "statusRel": "specs/so-ts-rail-cross/STATUS.md"
+      }
+    },
+    "so-ts-row-util": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-01T20:17:08.972Z",
+        "statusRel": "specs/so-ts-row-util/STATUS.md"
+      }
+    },
+    "so-ts-lighting": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-01T20:48:08.749Z",
+        "statusRel": "specs/so-ts-lighting/STATUS.md"
+      }
+    },
+    "so-ts-its-camera": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-01T21:13:37.276Z",
+        "statusRel": "specs/so-ts-its-camera/STATUS.md"
+      }
+    },
+    "so-ts-rescue-vehicle": {
+      "web": {
+        "phase": "sa",
+        "status": "pending",
+        "updatedAt": "2026-09-01T21:20:59.212Z",
+        "statusRel": "specs/so-ts-rescue-vehicle/STATUS.md"
+      }
+    },
+    "gis-camera-map": {
+      "web": {
+        "phase": "dev",
+        "status": "in_progress",
+        "updatedAt": "2026-09-03T20:24:25.476Z",
+        "statusRel": "specs/gis-camera-map/STATUS.md"
       }
     }
   }

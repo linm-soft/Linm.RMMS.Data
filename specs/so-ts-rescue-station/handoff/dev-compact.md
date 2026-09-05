@@ -1,12 +1,15 @@
-# handoff-compact — dev → qa
+# handoff-compact — dev (qa-fix implement) → qa
 schemaVersion: 1
 feature: so-ts-rescue-station
 role: dev
 status: done
 packKind: list
 changeScope: new_page
-taskId: task_2f84d6b5
-generatedAt: 2026-09-01T09:45:00.000Z
+taskId: task_8de8e1e0
+qaFixPhase: implement
+qaFailFrom: task_5d9e0c34
+planTaskId: task_01b6dc2c
+generatedAt: 2026-09-01T09:20:00.000Z
 route_confirm: route_a
 mfeStdRoute: /so-ts?type=RESCUE_STATION
 mfeStdUrl: http://localhost:9301/so-ts?type=RESCUE_STATION
@@ -17,33 +20,26 @@ gates: tz_na · xco_get_only · share_tenant
 migration: none
 typeCode: RESCUE_STATION
 prefix: CN-
-build: typecheck PASS · webpack prod PASS (--parallelism=1) · dotnet PASS
-e2eQa: ON (queued /agent-qa* only — not run)
+build: yarn typecheck PASS · yarn build --parallelism=1 PASS · dotnet build PASS
+featureDelta: none (verify+SSOT+peer capture only)
+e2eQa: ON (queued /agent-qa* — not run)
 skillVersion: 2026.08.19.04
 workflowVersion: 2026.08.30.01
 rulesVersion: 2026.08.31.2
 
 ## Artifact
 write: D:/AI-QLBD/Linm.RMMS.Data/specs/so-ts-rescue-station/implement/so-ts-rescue-station.md
-filterBar: D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/so-ts-rescue-station-filter-bar.md
-reviewUrl: file:///D:/AI-QLBD/Linm.RMMS.Data/specs/so-ts-rescue-station/ui/prototype/so-ts-rescue-station-list-prototype.html
+plan: D:/AI-QLBD/Linm.RMMS.Data/specs/so-ts-rescue-station/implement/so-ts-rescue-station-qa-fix-plan.md
+capture: specs/so-ts-rescue-station/qa/screens/_capture.mjs
+liveAssert: specs/so-ts-rescue-station/qa/screens/_live-assert.mjs
 
-## Shipped (T-*)
-- T-UI-LIST-01: RESCUE_STATION grid ON mẫu · hide type/kmTo/qty
-- T-UI-FILTER-01 + T-CTX-01: filter-bar.md
-- T-UI-FORM-01: S-ATTR dump §4 · name←name_building «Tên kho bãi» · ẩn kmTo
-- T-BE-INIT-01: storedBuildingGrades · vitriOptions (+ office/aux)
-- T-BE-CRUD-01: CN- · name/kmFrom optional · no IsWeak
-- T-UI-LEAVE-01 / T-UI-HIST-01: LeaveConfirmModal · useAlert reuse
-- GAP-RS-TILE-01: no invent tile
-
-## APIs
-GET/POST/PUT/DELETE api/v1/asset/road-assets · init-data · summary-by-type · BFF proxy only
+## Gaps → QA
+GAP-QA-E2E-01 · GAP-QA-E2E-DOCKER-01 (:5111 contract) · GAP-QA-E2E-PW-01 (channel=chrome)
+R-QA-01 Dev plan/implement closed
 
 ## Debt
-- yarn build default parallel OOM Node24 → --parallelism=1
-- Auth DEFER · flatten P2 · E2E QA only
+yarn build --parallelism=1 · Auth DEFER · flatten P2 · E2E QA only
 
 ## Next
 role: qa · /agent-qa*
-write: specs/so-ts-rescue-station/qa/scenarios.md
+run: _capture.mjs + _live-assert.mjs · scenarios + PNG S0/S1/QA-20 · qa-compact

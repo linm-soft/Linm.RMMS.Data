@@ -16,8 +16,8 @@
 | apply | patrol `source=patrol` · incident `source=incident` · Field deep-link `/cv` |
 | skill | `/integrate-task-service` · `/integrate-message-service` (`client_scope`) |
 | mfe | `Linm.Web.RMMS.Field` · `Linm.Web.Task` · `Linm.Web.RMMS.Master` |
-| mfeStdRoute | `/rmms-task-integrate` (TL locked · `route_confirm=route_a`) |
-| mfeStdUrl | `http://localhost:9304/rmms-task-integrate` |
+| mfeStdRoute | `/rmms-task-integrate` |
+| mfeStdUrl | `http://localhost:9301/rmms-task-integrate` |
 | backend | RMMS patrol/incident live + Platform Task BFF cite P1 — **cấm** embed |
 | demo | `N/A` (platform-pack-live-mfe · zone ref only) |
 | hasAnaly | `1` |
@@ -27,7 +27,7 @@
 | versionGate | `rechecked` |
 | contentHash | `sha256:49011e5dfcb8bbbb15adc781a60d62ba44446985c9dbf397806ba69dda786c54` |
 | reviewHash | `sha256:f1bff805a575abd36c0771927919b3829f83128d01952d61a6ef6942e4bde9dd` |
-| updatedAt | `2026-09-01T02:58:29.625Z` |
+| updatedAt | `2026-09-02T08:31:13.958Z` |
 ## Lock
 
 | agent | scope | id | at |

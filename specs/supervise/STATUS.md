@@ -11,8 +11,8 @@
 | demo | `specs/supervise/ui/prototype/ios/index.html` `#sc-supervise` · `specs/supervise/ui/prototype/android/index.html` `#sc-supervise` · `DES-MOB-SUPERVISE` |
 | context | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/docs/context/features/supervise.md` |
 | mfe | — (native · **cấm** mfeStdUrl) |
-| mfeStdRoute | — |
-| mfeStdUrl | — |
+| mfeStdRoute | `/supervise` |
+| mfeStdUrl | `http://localhost:9301/supervise` |
 | ios | `Linm.RMMS.Mobile.iOS` · `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS` · e2e-qa-mobile sim 6.9" |
 | android | `Linm.RMMS.Mobile.Android` · `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android` · e2e-qa-mobile emulator |
 | bff | `Linm.RMMS.Mobile.Bff` · `mobile-bff/api/v1/patrol/attendance-logs` |
@@ -98,6 +98,8 @@
 - P2: `PrivacyInfo.xcprivacy` · store submit → `/review-app-submit`
 
 ## Links
+- mfeStdUrl: `http://localhost:9301/supervise`
+- mfeStdRoute: `/supervise`
 
 - data-analy → po → design → sa → tl → dev → qa → **review done** → pipeline **complete**
 - closeout Review: `task_33077a59` · `/agent-review-mobile` · roleOnly=`review` · `review_confirm=approve` · P0 **none** · Must align **0** · VERIFY GATE PASS · iOS xcodegen+xcodebuild iPhone 17 Pro · Android assembleDebug · BFF dotnet build · prior e2e **ok:true** · post_review **skip** · pipeline **complete** · at: `2026-08-19T16:10:00.000Z`

@@ -11,8 +11,8 @@
 | demo | `specs/patrol-offline/ui/prototype/{ios,android}/index.html` `#sc-patrol-offline` · `DES-MOB-PAT-OFFLINE` |
 | context | `docs/context/features/patrol-offline.md` |
 | mfe | — (native · **cấm** mfeStdUrl) |
-| mfeStdRoute | — |
-| mfeStdUrl | — |
+| mfeStdRoute | `/patrol-offline` |
+| mfeStdUrl | `http://localhost:9301/patrol-offline` |
 | reviewUrlIos | `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/patrol-offline/ui/prototype/ios/index.html#sc-patrol-offline` |
 | reviewUrlAndroid | `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/patrol-offline/ui/prototype/android/index.html#sc-patrol-offline` |
 | ios | `Linm.RMMS.Mobile.iOS` · `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS` · e2e-qa-mobile sim 6.9" |
@@ -94,6 +94,8 @@
 - P2: `PrivacyInfo.xcprivacy` · Android mappin icon · store submit → `/review-app-submit`
 
 ## Links
+- mfeStdUrl: `http://localhost:9301/patrol-offline`
+- mfeStdRoute: `/patrol-offline`
 
 - data-analy → po → design → sa → tl → dev → qa → **review done** → pipeline **complete**
 - closeout Review: `task_94592434` · `/agent-review-mobile` · roleOnly=`review` · `review_confirm=approve` · P0 **none** · Must align **0** · VERIFY GATE PASS · iOS xcodegen+xcodebuild iPhone 17 Pro · Android assembleDebug · BFF dotnet build · prior e2e **ok:true** · post_review **skip** · pipeline **complete** · at: `2026-08-19T14:15:00.000Z`

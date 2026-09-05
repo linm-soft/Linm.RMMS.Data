@@ -1,0 +1,64 @@
+{
+  "list": {
+    "titleList": true,
+    "headerSlope": true,
+    "createBtn": true,
+    "noCreateBadge": true,
+    "typeFilterHidden": true,
+    "filterBar": true,
+    "search": true,
+    "route": true,
+    "kmFrom": true,
+    "kmToFilter": true,
+    "org": true,
+    "colKieuBV": true,
+    "colPhanLoai": true,
+    "colChieuDai": true,
+    "colChieuCao": true,
+    "headers": [
+      "STT",
+      "Mã tài sản",
+      "Tên tài sản",
+      "Tuyến đường",
+      "Lý trình bắt đầu",
+      "Lý trình kết thúc",
+      "Kiểu bảo vệ",
+      "Phân loại mái dốc",
+      "Chiều dài BV, gia cố (m)",
+      "Chiều cao TB (m)",
+      "Tình trạng KT",
+      "Tọa độ GPS"
+    ],
+    "snippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nHạng mục KCHT\nDS\nDev Standalone\nDeveloper\nTài sản đường\nSổ TS — Bảo vệ mái dốc\nLàm mới\nTạo mới\nDanh sách bảo vệ mái dốc\nMenu dòng: nhấn đúp · Ctrl + chuột phải · nhấn giữ dòng\nTìm kiếm\nCao tốc / quốc lộ\nLý trình từ\nLý trình đến\nCây đơn vị\n​\nSTT\t\n\tMã tài sản\n\tTên tài sản\n\tTuyến đường\n\tLý trình bắt đầu\n\tLý trình kết thúc\n\tKiểu bảo vệ\n\tPhân loại mái dốc\n\tChiều dài BV, gia cố (m)\n\tChiều cao TB (m)\n\tTình trạng KT\n\tTọa độ GP"
+  },
+  "form": {
+    "cols5": true,
+    "slopeAttr": true,
+    "kieuBV": true,
+    "phanLoai": true,
+    "chieuDaiBV": true,
+    "chieuCaoTB": true,
+    "kmToVisible": true,
+    "codePrefixMD": false,
+    "noModeBadge": true,
+    "snippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nHạng mục KCHT\nDS\nDev Standalone\nDeveloper\nTạo tài sản\nQuay lại\nHủy\nTạo mới\nTạo tài sản\nĐang tạo mới — Lưu hoặc Hủy\nTHÔNG TIN TÀI SẢN\nMã tài sản\nTình trạng kỹ thuật*\nChọn tình trạng\nLoại tài sản *\n✕\nCao tốc / quốc lộ *\nTuyến\nĐoạn tuyến\nNguồn\nTên\nLý trình bắt đầu (Km+)*\nLý trình kết thúc (Km+)\nẢnh hiện trường\nTHÔNG SỐ BẢO VỆ MÁI DỐC\nKiểu bảo vệ*\nChọn kiểu bảo vệ\nPhân loại mái dốc\nChọn phân loại\nChiều dài BV, gia cố (m)\nChiều cao trung bình (m)\nVị trí cắt ngang\nChọn vị trí (tuỳ chọn)\nTỉnh / TP đầu\nXã / phường đầu\nTỉnh / TP cuối\nXã / phường cuối\nTọa độ đầu X\nTọa độ đầu Y\nTọa độ cuối X\nTọa độ cuối Y\nGPS / HỒ SƠ\nVĩ độ\nKi"
+  },
+  "dtm": {
+    "D": {
+      "overflowX": false,
+      "bodyW": 1280,
+      "vw": 1280
+    },
+    "T": {
+      "overflowX": false,
+      "bodyW": 768,
+      "vw": 768
+    },
+    "M": {
+      "overflowX": false,
+      "bodyW": 375,
+      "vw": 375
+    }
+  },
+  "at": "2026-09-01T18:55:25.279Z"
+}

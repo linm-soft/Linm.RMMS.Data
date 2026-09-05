@@ -26,7 +26,7 @@
 |------|------|---------|
 | A | Sidebar | Tabs: Lớp · Chú giải · Thuộc tính · Kết quả |
 | B | Toolbar + filter | **Giữ** Lấy dữ liệu / overlay / Heatmap / Twin / Mở vẽ + search + PCI min/max · **cấm** page header `← Dev` / title «GIS bản đồ giám sát 2D» |
-| C | Map chrome | `map-host` (Leaflet **flex fill**) → `map-bar` (Nền VN clip · Fit · full/dock) · **cấm** map-bar meta · **cấm** legend isolate bottom |
+| C | Map chrome | `map-host` (Leaflet **flex fill**) → `map-bar` (**Tiêu chuẩn \| Vệ tinh** · **Vị trí của tôi** · full/dock) · **cấm** nút Fit · **cấm** Default/Streets/Sat EN · **cấm** map-bar meta · **cấm** legend isolate bottom |
 | D | Results + props | Section + pin + camera **full table** (cấm `max-height` cắt hàng) · **MapPointDetail** · chú giải **sidebar** đủ loại TS |
 
 ## 2b. Shared map REF (promote Common sau)

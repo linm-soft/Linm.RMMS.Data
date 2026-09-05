@@ -31,7 +31,7 @@
 | Sidebar | Tabs: Lớp bản đồ · Chú giải · Thuộc tính · Kết quả |
 | Toolbar seed | **Không** — vẽ/đo/in = MAP_QUICK_TOOLS trên map |
 | Map | Clip VN + overlay tuyến + marker · **flex fill** |
-| Map-bar | Nền VN clip · Fit · full/dock |
+| Map-bar | Nền VN clip · **Tiêu chuẩn \| Vệ tinh** · **Vị trí của tôi** · full/dock · **cấm** Fit trên bar |
 | Thuộc tính | Panel sau khi vẽ xong: loại tài sản · mã · tên · lưu |
 
 ### Layout zones (demo HTML / legacy GOVOne — ref only)

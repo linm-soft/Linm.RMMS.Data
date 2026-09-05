@@ -1,0 +1,14 @@
+{
+  "feature": "so-ts-culvert-x",
+  "status": "confirmed",
+  "verdict": "PASS",
+  "review_confirm": "done",
+  "taskId": "task_1a18eb66",
+  "contentHashPrior": "sha256:baf73523f54f4452cfe4c8eaef3f1a5cd333c56f48f44933027a34a417d49b1b",
+  "hashSkip": true,
+  "autoApprove": true,
+  "writtenAt": "2026-09-01T13:16:00.000Z",
+  "skillVersion": "2026.08.19.04",
+  "workflowVersion": "2026.09.01.02",
+  "rulesVersion": "2026.09.01.1"
+}

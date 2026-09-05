@@ -16,8 +16,8 @@
 | schemaVersion | `qldb-workflow-skill-v1` |
 | workflowVersion | `2026.08.09.02` |
 | versionGate | `ok` |
-| mfeStdRoute | `/fly` |
-| mfeStdUrl | `http://localhost:9313/fly` |
+| mfeStdRoute | `/drone` |
+| mfeStdUrl | `http://localhost:9313/drone` |
 | updatedAt | `2026-08-16T02:44:40.804Z` |
 ## Lock
 
@@ -75,8 +75,8 @@
 - None P0. Follow-up: Cesium live (F-01) · real upload/worker (F-02) · IAM (F-03). QA P2: code `disabled` · extra «Tìm» · `filterMaxWidthPx`. History stub.
 
 ## Links
-- mfeStdUrl: `http://localhost:9313/fly`
-- mfeStdRoute: `/fly`
+- mfeStdUrl: `http://localhost:9313/drone`
+- mfeStdRoute: `/drone`
 
 - DOMAIN-MAP: `D:/AI-QLBD/Linm.RMMS.WebService/docs/DOMAIN-MAP.md`
 - controlHint: `specs/_data-analy/features/drone-control-hint.md`

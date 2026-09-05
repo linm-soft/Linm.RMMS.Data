@@ -11,8 +11,8 @@
 | demo | `specs/attendance/ui/prototype/ios/index.html` `#sc-attendance` · `specs/attendance/ui/prototype/android/index.html` `#sc-attendance` · `DES-MOB-ATT` |
 | context | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/docs/context/features/attendance.md` |
 | mfe | — (native · **cấm** mfeStdUrl) |
-| mfeStdRoute | — |
-| mfeStdUrl | — |
+| mfeStdRoute | `/patrol/attendance` |
+| mfeStdUrl | `http://localhost:9304/patrol/attendance` |
 | ios | `Linm.RMMS.Mobile.iOS` · `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS` · e2e-qa-mobile sim 6.9" |
 | android | `Linm.RMMS.Mobile.Android` · `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android` · e2e-qa-mobile emulator |
 | bff | `Linm.RMMS.Mobile.Bff` · `mobile-bff/api/v1/patrol/attendance-logs` (GET+POST) |
@@ -100,6 +100,8 @@
 - BFF build tracked separately (proxy reuse · no new endpoint)
 
 ## Links
+- mfeStdUrl: `http://localhost:9304/patrol/attendance`
+- mfeStdRoute: `/patrol/attendance`
 
 - data-analy → po **confirmed** → design **confirmed** → sa → tl → dev **confirmed** → qa **confirmed** → review **confirmed** → **done**
 - closeout Review: `task_f617b718` · `/agent-review-mobile` · roleOnly=`review` · autoApprove=ON · `review_confirm=approve` · Must **0** · VERIFY GATE PASS · Step 4b **N/A** · post_review **skip** · at: `2026-08-19T20:56:00.000Z`

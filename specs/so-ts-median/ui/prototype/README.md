@@ -1,11 +1,14 @@
 # Prototype — so-ts-median
 
-Design gate: **prototype + reviewUrl** — board Approve (**không auto**).
-Repo confirm: user tick BE+UI trên `/qldb-workflow` Progress trước Dev (**không auto** · cấm ERP.*).
+Design gate: **prototype + reviewUrl** — board Approve (autoApprove ON · `task_e2599798`).
 
-- Demo SSOT: `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/asset-demo.html`
-- Title: Sổ TS — Dải phân cách
-- Pack kind: `list`
-- MFE: `Linm.Web.RMMS.Asset`
+| | |
+|--|--|
+| reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/so-ts-median/ui/prototype/so-ts-median-list-prototype.html` |
+| Artifact | `so-ts-median-list-prototype.html` |
+| Title | Sổ TS — Dải phân cách giữa |
+| Pack kind | `list` |
+| MFE | `Linm.Web.RMMS.Asset` |
+| Demo SSOT | `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/asset-demo.html` · **cấm** re-scan |
 
-Put HTML prototype / screenshot link here; update `ui/design.md` with a browser-openable **reviewUrl**.
+Zones: DES-GRID-A/B/B-FILTER/C0/C2/C3/D/F/H · DES-FORM-Z1/Z2 · DES-LEAVE.

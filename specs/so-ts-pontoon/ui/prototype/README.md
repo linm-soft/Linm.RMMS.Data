@@ -1,11 +1,8 @@
 # Prototype — so-ts-pontoon
 
-Design gate: **prototype + reviewUrl** — board Approve (**không auto**).
-Repo confirm: user tick BE+UI trên `/qldb-workflow` Progress trước Dev (**không auto** · cấm ERP.*).
+Design gate: **prototype + reviewUrl** — autoApprove ON (`design_confirm=approve`).
 
-- Demo SSOT: `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/asset-demo.html`
-- Title: Sổ TS — Cầu phao
-- Pack kind: `list`
-- MFE: `Linm.Web.RMMS.Asset`
-
-Put HTML prototype / screenshot link here; update `ui/design.md` with a browser-openable **reviewUrl**.
+- Artifact: `so-ts-pontoon-list-prototype.html`
+- **reviewUrl:** `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/so-ts-pontoon/ui/prototype/so-ts-pontoon-list-prototype.html`
+- Title: Sổ TS — Cầu phao · type `PONTOON` · Kind B A–D+F + full-page 5 cột
+- MFE: `Linm.Web.RMMS.Asset` · live `/so-ts?type=PONTOON`

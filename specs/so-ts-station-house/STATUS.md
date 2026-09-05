@@ -9,8 +9,8 @@
 | demo | D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/asset-demo.html |
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/so-ts-station-house.md` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Asset` |
-| mfeStdRoute | `/so-ts?type=STATION_HOUSE` |
-| mfeStdUrl | `http://localhost:9301/so-ts?type=STATION_HOUSE` |
+| mfeStdRoute | `/so-ts-station-house` |
+| mfeStdUrl | `http://localhost:9301/so-ts-station-house` |
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · DOMAIN-MAP — **cấm ERP.*** |
 | updatedAt | `2026-09-01T01:51:57.007Z` |
 | contentHash | `sha256:3d78ed6a2ee20b192926ba4ab625d1af20e67dcb78d7035e543c976b364e7a45` |
@@ -74,8 +74,8 @@
 - handoff compact: `specs/so-ts-station-house/handoff/data_analy-compact.md` · `po-compact.md` · `design-compact.md` · `sa-compact.md` · `team_lead-compact.md` · `dev-compact.md` · `qa-compact.md` · `review-compact.md`
 - reviewUrl: `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/so-ts-station-house/ui/prototype/so-ts-station-house-list-prototype.html`
 - peerStdUrl: `http://localhost:9301/so-ts?type=STATION_HOUSE`
-- mfeStdUrl: `http://localhost:9301/so-ts?type=STATION_HOUSE`
-- mfeStdRoute: `/so-ts?type=STATION_HOUSE`
+- mfeStdUrl: `http://localhost:9301/so-ts-station-house`
+- mfeStdRoute: `/so-ts-station-house`
 - alias board: `/so-ts-station-house` (redirect)
 - live list: `/so-ts?type=STATION_HOUSE`
 - sa: `specs/so-ts-station-house/be/solution-discovery.md`

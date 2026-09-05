@@ -8,4 +8,6 @@ Repo confirm: user tick BE+UI trên `/qldb-workflow` Progress trước Dev (**kh
 - Pack kind: `list`
 - MFE: `Linm.Web.RMMS.Asset`
 
-Put HTML prototype / screenshot link here; update `ui/design.md` with a browser-openable **reviewUrl**.
+- Artifact: `so-ts-toll-list-prototype.html`
+- **reviewUrl**: `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/so-ts-toll/ui/prototype/so-ts-toll-list-prototype.html`
+- design_confirm: **approve** (autoApprove ON · task `task_d313d9f9`)

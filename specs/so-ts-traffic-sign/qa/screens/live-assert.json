@@ -1,0 +1,69 @@
+{
+  "list": {
+    "titleList": true,
+    "headerTrafficSign": true,
+    "createBtn": true,
+    "noCreateBadge": true,
+    "typeFilterHidden": true,
+    "filterBar": true,
+    "search": true,
+    "route": true,
+    "kmFrom": true,
+    "kmToFilter": true,
+    "org": true,
+    "colContent": true,
+    "colMaterial": true,
+    "colShape": true,
+    "colKmToHidden": true,
+    "headers": [
+      "STT",
+      "Mã tài sản",
+      "Tên tài sản",
+      "Tuyến đường",
+      "Lý trình bắt đầu",
+      "Nội dung",
+      "Chiều rộng biển (m)",
+      "Chiều cao biển (m)",
+      "Diện tích (m²)",
+      "Vật liệu biển",
+      "Hình dạng biển",
+      "Vị trí đặt",
+      "Ngày lắp đặt",
+      "Tình trạng KT",
+      "Tọa độ GPS"
+    ],
+    "snippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nHạng mục KCHT\nDS\nDev Standalone\nDeveloper\nTài sản đường\nSổ TS — Biển báo\nLàm mới\nTạo mới\nDanh sách biển báo\nMenu dòng: nhấn đúp · Ctrl + chuột phải · nhấn giữ dòng\nTìm kiếm\nCao tốc / quốc lộ\nLý trình từ\nLý trình đến\nCây đơn vị\n​\nSTT\t\n\tMã tài sản\n\tTên tài sản\n\tTuyến đường\n\tLý trình bắt đầu\n\tNội dung\n\tChiều rộng biển (m)\n\tChiều cao biển (m)\n\tDiện tích (m²)\n\tVật liệu biển\n\tHình dạng biển\n\tVị trí đặt\n\tNgày lắp đặt\n\tTình tr"
+  },
+  "form": {
+    "cols5": true,
+    "trafficSignAttr": true,
+    "noiDung": true,
+    "soHieu": true,
+    "vatLieu": true,
+    "hinhDang": true,
+    "ngayLap": true,
+    "kmToVisible": false,
+    "kmToHiddenOk": true,
+    "codeHint": true,
+    "noModeBadge": true,
+    "snippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nHạng mục KCHT\nDS\nDev Standalone\nDeveloper\nTạo tài sản\nQuay lại\nHủy\nTạo mới\nTạo tài sản\nĐang tạo mới — Lưu hoặc Hủy\nTHÔNG TIN TÀI SẢN\nMã tài sản\nTình trạng kỹ thuật*\nChọn tình trạng\nLoại tài sản *\n✕\nCao tốc / quốc lộ *\nTuyến\nĐoạn tuyến\nNguồn\nSố hiệu QCVN *\nLý trình bắt đầu (Km+)*\nẢnh hiện trường\nTHÔNG SỐ BIỂN BÁO\nNội dung\nChiều rộng biển (m)\nChiều cao biển (m)\nDiện tích (m²)\nVật liệu biển\nChọn vật liệu\nHình dạng biển\nChọn hình dạng\nVị trí đặt\nNgày lắp đặt\nGPS / HỒ SƠ\nVĩ độ\nKinh độ\nMã QR\nGiá trị tài sản (VND)\nNgày cập nhật\nGhi chú hiện trường"
+  },
+  "dtm": {
+    "D": {
+      "overflowX": false,
+      "bodyW": 1280,
+      "vw": 1280
+    },
+    "T": {
+      "overflowX": false,
+      "bodyW": 768,
+      "vw": 768
+    },
+    "M": {
+      "overflowX": false,
+      "bodyW": 375,
+      "vw": 375
+    }
+  },
+  "at": "2026-09-01T14:15:12.350Z"
+}

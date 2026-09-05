@@ -12,8 +12,8 @@
 | controlHint | `D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/org-route-scope-control-hint.md` |
 | realData | `D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/org-route-scope-real-data.md` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Master` |
-| mfeStdRoute | `/mas/phan-khu` (**route_confirm=route_a** · TL lock) |
-| mfeStdUrl | `http://localhost:9318/mas/phan-khu` |
+| mfeStdRoute | `/org-route-scope` |
+| mfeStdUrl | `http://localhost:9301/org-route-scope` |
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · DOMAIN-MAP Integration · resource `org-route-scopes` · **cấm ERP.*** |
 | task | `task_badbc48d` |
 | contentHash | `sha256:81b3c9a520472625cc78375571d1d94ae34a6badc62a7a7bf21f0a2eac7894dc` |
@@ -97,8 +97,8 @@
 ## Links
 
 - data-analy → po → ui → be → task → implement → qa → review ✅
-- mfeStdUrl: `http://localhost:9318/mas/phan-khu`
-- mfeStdRoute: `/mas/phan-khu` (TL route_confirm=route_a)
+- mfeStdUrl: `http://localhost:9301/org-route-scope`
+- mfeStdRoute: `/org-route-scope` (TL route_confirm=route_a)
 - filterBar: `docs/context/features/org-route-scope-filter-bar.md`
 - context: `docs/context/features/org-route-scope.md`
 - controlHint: `specs/_data-analy/features/org-route-scope-control-hint.md`

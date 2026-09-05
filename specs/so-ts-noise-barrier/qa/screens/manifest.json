@@ -1,0 +1,36 @@
+{
+  "url": "http://localhost:9301/so-ts?type=NOISE_BARRIER",
+  "aliasUrl": "http://localhost:9301/so-ts-noise-barrier",
+  "formUrl": "http://localhost:9301/so-ts/tao-moi?type=NOISE_BARRIER",
+  "method": "e2e runtime · yarn start:std :9301 + docker API :5111 + BFF :5201 + yarn e2e-qa contract (Chrome channel fallback)",
+  "capturedAt": "2026-09-01T10:06:31.946Z",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "sha256_16": "a832e53a58b05210",
+      "url": "http://localhost:9301/so-ts?type=NOISE_BARRIER",
+      "note": "list NOISE_BARRIER profile + filter bar · kmTo ON"
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "sha256_16": "a832e53a58b05210",
+      "url": "http://localhost:9301/so-ts-noise-barrier",
+      "note": "alias /so-ts-noise-barrier → type=NOISE_BARRIER"
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "sha256_16": "71ba0057c9dc633b",
+      "url": "http://localhost:9301/so-ts/tao-moi?type=NOISE_BARRIER",
+      "note": "Create form · S-ATTR noise-barrier · S-LOC-RANGE · TC-"
+    }
+  ],
+  "ok": true,
+  "note": "GAP-QA-E2E-PW-01: yarn e2e-qa headed hang · capture channel=chrome · --skip-start · API :5111",
+  "testid": "rmms-so-ts-noise-barrier-list-page"
+}

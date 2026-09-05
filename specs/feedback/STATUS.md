@@ -13,8 +13,8 @@
 | demo | `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/feedback-demo.html` |
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/feedback.md` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Integration` |
-| mfeStdRoute | `/nhan-dan/gop-y` |
-| mfeStdUrl | `http://localhost:9314/nhan-dan/gop-y` |
+| mfeStdRoute | `/integration/feedback` |
+| mfeStdUrl | `http://localhost:9314/integration/feedback` |
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · **`api/v1/nhan-dan/gop-ys`** (**cấm ERP.***) |
 | domain | **Integration** |
 | taskId | `task_7996cabb` |
@@ -96,7 +96,7 @@
 - po → ui → be → task → implement → qa → review
 - controlHint: `specs/_data-analy/features/feedback-control-hint.md`
 - DOMAIN-MAP: `D:/AI-QLBD/Linm.RMMS.WebService/docs/DOMAIN-MAP.md`
-- mfeStdUrl: `http://localhost:9314/nhan-dan/gop-y`
+- mfeStdUrl: `http://localhost:9314/integration/feedback`
 
 ## Version meta (REQUIRED)
 

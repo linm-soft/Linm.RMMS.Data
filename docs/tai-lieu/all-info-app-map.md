@@ -8,7 +8,7 @@
 * **Bản chất OSM:** OpenStreetMap quốc tế không chính thức công nhận đường lưỡi bò nhưng do cơ chế đóng góp mở, dữ liệu thô thường bị tài khoản nước ngoài cài cắm ranh giới phi pháp hoặc sửa tên đảo tiếng Việt.
 * **Giải pháp xử lý:** Tuyệt đối không gọi trực tiếp URL Tile Server mặc định (`.openstreetmap.org`). Phải tải file dữ liệu thô quốc gia (`.osm.pbf`) từ các nguồn uy tín như Geofabrik.
 * **Công cụ lọc thô:** Sử dụng công cụ `Osmium Tool` để cắt nhỏ tệp dữ liệu theo khung đa giác (`.poly`) nhằm cô lập hoàn toàn tọa độ Việt Nam, chặt đứt các đường đứt đoạn phi pháp từ bên ngoài vào vùng biển đảo.
-* **Nguồn ranh giới chuẩn:** Tải tệp dữ liệu thô địa chính cập nhật mới nhất sau sáp nhập `Việt Nam (tỉnh thành) - 34.geojson` từ danh mục góc trái của hệ thống `gis.vn` để làm khung cắt dữ liệu và nạp vào cơ sở dữ liệu.
+* **Nguồn ranh giới chuẩn:** Tải tệp dữ liệu thô địa chính cập nhật mới nhất sau sáp nhập từ `gis.vn`, lưu trong repo thành `vietnam-provinces-34.geojson`, để làm khung cắt dữ liệu và nạp vào cơ sở dữ liệu.
 
 #### 2. Kỹ thuật Front-end Highlight Việt Nam
 * **Hiệu ứng đa giác nghịch đảo (Masking):** Chuẩn bị file GeoJSON ranh giới chuẩn Việt Nam. Tạo một đa giác bao phủ toàn thế giới, sau đó dùng file của `gis.vn` để "đục thủng" một lỗ chính là hình dáng Việt Nam (gồm đất liền, Hoàng Sa, Trường Sa). 

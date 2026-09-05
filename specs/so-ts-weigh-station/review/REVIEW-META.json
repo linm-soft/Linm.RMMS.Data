@@ -1,0 +1,16 @@
+{
+  "feature": "so-ts-weigh-station",
+  "status": "confirmed",
+  "review_confirm": "done",
+  "verdict": "PASS",
+  "taskId": "task_96836e39",
+  "autoApprove": true,
+  "gates": {
+    "QUERY": "PASS",
+    "SEC": "PASS",
+    "UI-FN": "PASS",
+    "BE-FN": "PASS"
+  },
+  "contentHashPrior": "sha256:ce3b6142d8e9debae05124121bcf3856a8c4a06d186a2728a6d59eb55d58233a",
+  "writtenAt": "2026-09-01T13:36:12.000Z"
+}

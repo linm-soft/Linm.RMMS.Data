@@ -1,0 +1,36 @@
+{
+  "url": "http://localhost:9301/so-ts?type=ROW_UTIL",
+  "aliasUrl": "http://localhost:9301/so-ts-row-util",
+  "formUrl": "http://localhost:9301/so-ts/tao-moi?type=ROW_UTIL",
+  "method": "e2e runtime · yarn start:std :9301 + docker API :5111 + BFF :5201 + yarn e2e-qa contract (Chrome channel fallback)",
+  "capturedAt": "2026-09-01T20:14:06.019Z",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "sha256_16": "cbbf7d91035c7729",
+      "url": "http://localhost:9301/so-ts?type=ROW_UTIL",
+      "note": "list ROW_UTIL profile + filter bar · type hidden · CT HTKT/type_work/km cols"
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "sha256_16": "cbbf7d91035c7729",
+      "url": "http://localhost:9301/so-ts-row-util",
+      "note": "alias /so-ts-row-util → Navigate type=ROW_UTIL"
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "sha256_16": "d9872d306e8d3e92",
+      "url": "http://localhost:9301/so-ts/tao-moi?type=ROW_UTIL",
+      "note": "Create form · S-ATTR row-util · S-LOC-RANGE · HT-"
+    }
+  ],
+  "ok": true,
+  "note": "GAP-QA-E2E-PW-01: yarn e2e-qa hang (:9100 down) · capture channel=chrome · --skip-start · API :5111 · no kill worker",
+  "testid": "rmms-so-ts-row-util-list"
+}

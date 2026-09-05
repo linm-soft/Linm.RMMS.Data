@@ -20,7 +20,7 @@
 | hasAnaly | `1` |
 | skill | `/implement-message-service` · `/integrate-message-service` · `/review-message-service` |
 | workflowVersion | `2026.08.29.04` |
-| mfeStdRoute | `/platform-message` (TL draft · route_confirm=route_a) |
+| mfeStdRoute | `/platform-message` |
 | mfeStdUrl | `http://localhost:9301/platform-message` |
 | prototype.artifact | `specs/platform-message/ui/prototype/platform-message-prototype.html` |
 | prototype.reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/platform-message/ui/prototype/platform-message-prototype.html` |
@@ -128,6 +128,8 @@
 | qaSkill | agent-qa · 2026.08.25.02 (prior fail) |
 
 ## Links prev
+- mfeStdUrl: `http://localhost:9301/platform-message`
+- mfeStdRoute: `/platform-message`
 
 - data-analy → PO: control-hint + real-data abs paths
 - PO → Design: `po/requirement.md`

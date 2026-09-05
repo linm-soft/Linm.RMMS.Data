@@ -1,0 +1,68 @@
+{
+  "capturedAt": "2026-09-01T21:09:41.255Z",
+  "list": {
+    "titleList": true,
+    "headerIts": true,
+    "createBtn": true,
+    "noCreateBadge": true,
+    "typeFilterHidden": true,
+    "filterBar": true,
+    "search": true,
+    "route": true,
+    "kmFrom": true,
+    "colTtdh": true,
+    "colVms": true,
+    "colItsPole": true,
+    "headers": [
+      "STT",
+      "Mã tài sản",
+      "Tên tài sản",
+      "Tuyến đường",
+      "Lý trình bắt đầu",
+      "Loại TTĐH",
+      "Vị trí phòng ITS",
+      "Thiết bị VMS",
+      "Bộ ĐK màn hình",
+      "Máy chủ DL",
+      "WIM tốc độ cao",
+      "Cống cáp (km)",
+      "Cáp quang (km)",
+      "Trụ đỡ ITS",
+      "Tình trạng KT",
+      "Tọa độ GPS"
+    ],
+    "snippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nHạng mục KCHT\nDS\nDev Standalone\nDeveloper\nTài sản đường\nSổ TS — Hệ thống ITS\nLàm mới\nTạo mới\nDanh sách hệ thống ITS\nMenu dòng: nhấn đúp · Ctrl + chuột phải · nhấn giữ dòng\nTìm kiếm\nCao tốc / quốc lộ\nLý trình từ\nLý trình đến\nCây đơn vị\n​\nSTT\t\n\tMã tài sản\n\tTên tài sản\n\tTuyến đường\n\tLý trình bắt đầu\n\tLoại TTĐH\n\tVị trí phòng ITS\n\tThiết bị VMS\n\tBộ ĐK màn hình\n\tMáy chủ DL\n\tWIM tốc độ cao\n\tCống cáp (km)\n\tCáp quang (km)\n\tTrụ đ"
+  },
+  "form": {
+    "formCols5": true,
+    "itsAttr": true,
+    "ttdhField": true,
+    "locationField": true,
+    "kmFromForm": true,
+    "kmToForm": false,
+    "noNativeDialog": true,
+    "titleForm": true,
+    "snippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nHạng mục KCHT\nDS\nDev Standalone\nDeveloper\nTạo tài sản\nQuay lại\nHủy\nTạo mới\nTạo tài sản\nĐang tạo mới — Lưu hoặc Hủy\nTHÔNG TIN TÀI SẢN\nMã tài sản\nTình trạng kỹ thuật*\nChọn tình trạng\nLoại tài sản *\n✕\nCao tốc / quốc lộ *\nTuyến\nĐoạn tuyến\nNguồn\nTên phòng ITS\nLý trình bắt đầu (Km+)\nẢnh hiện trường\nTHIẾT BỊ HỆ THỐNG ITS\nLoại trung tâm điều hành\nChọn loại TTĐH\nVị trí phòng ITS\nChọn vị trí\nThiết bị giám sát CCTV\nPhát hiện sự k"
+  },
+  "dtm": [
+    {
+      "tag": "D",
+      "width": 1280,
+      "height": 900,
+      "overflowX": false
+    },
+    {
+      "tag": "T",
+      "width": 768,
+      "height": 900,
+      "overflowX": false
+    },
+    {
+      "tag": "M",
+      "width": 375,
+      "height": 812,
+      "overflowX": false
+    }
+  ],
+  "ok": true
+}

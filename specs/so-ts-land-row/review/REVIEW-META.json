@@ -1,0 +1,10 @@
+{
+  "feature": "so-ts-land-row",
+  "status": "confirmed",
+  "verdict": "PASS",
+  "review_confirm": "approve",
+  "taskId": "task_e0cf058d",
+  "contentHashPrior": "sha256:bc698a4aaec65f07d252d2ba4a3997574faa3c51c53e84e26990734b423a7849",
+  "writtenAt": "2026-09-01T09:05:00.000Z",
+  "autoApprove": true
+}

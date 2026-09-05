@@ -16,8 +16,8 @@
 | updatedAt | `2026-08-15T18:05:23.432Z` |
 | taskId | `task_1d66d0dc` |
 | autoApprove | `ON` |
-| mfeStdRoute | `/sc-bt` |
-| mfeStdUrl | `http://localhost:9304/sc-bt` |
+| mfeStdRoute | `/maintenance` |
+| mfeStdUrl | `http://localhost:9304/maintenance` |
 | skillVersion | `2026.08.09.02` |
 | schemaVersion | `qldb-workflow-skill-v1` |
 | workflowVersion | `2026.08.09.02` |
@@ -104,7 +104,7 @@
 - QA: `D:/AI-QLBD/Linm.RMMS.Data/specs/maintenance/qa/scenarios.md`
 - Review: `D:/AI-QLBD/Linm.RMMS.Data/specs/maintenance/review/findings.md`
 - DOMAIN-MAP: `D:/AI-QLBD/Linm.RMMS.WebService/docs/DOMAIN-MAP.md`
-- mfeStdUrl: `http://localhost:9304/sc-bt`
+- mfeStdUrl: `http://localhost:9304/maintenance`
 - reviewUrl: `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/maintenance/ui/prototype/maintenance-list-prototype.html`
 
 ## Closeout

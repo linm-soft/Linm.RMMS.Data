@@ -1,0 +1,68 @@
+{
+  "list": {
+    "titleList": true,
+    "headerGuardrail": true,
+    "createBtn": true,
+    "noCreateBadge": true,
+    "typeFilterHidden": true,
+    "filterBar": true,
+    "search": true,
+    "route": true,
+    "kmFrom": true,
+    "kmToFilter": true,
+    "org": true,
+    "colLoaiHoLan": true,
+    "colVatLieu": true,
+    "colPhanQuang": true,
+    "colMucDich": true,
+    "colDai": true,
+    "headers": [
+      "STT",
+      "Mã tài sản",
+      "Tên tài sản",
+      "Tuyến đường",
+      "Lý trình bắt đầu",
+      "Lý trình kết thúc",
+      "Loại hộ lan",
+      "Vật liệu",
+      "SL phản quang",
+      "Mục đích lắp đặt",
+      "Chiều dài thực tế (m)",
+      "Vị trí mặt cắt",
+      "Tỉnh / thành phố",
+      "Tình trạng KT",
+      "Tọa độ GPS"
+    ],
+    "snippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nHạng mục KCHT\nDS\nDev Standalone\nDeveloper\nTài sản đường\nSổ TS — Hộ lan / tôn sóng\nLàm mới\nTạo mới\nDanh sách hộ lan\nMenu dòng: nhấn đúp · Ctrl + chuột phải · nhấn giữ dòng\nTìm kiếm\nCao tốc / quốc lộ\nLý trình từ\nLý trình đến\nCây đơn vị\n​\nSTT\t\n\tMã tài sản\n\tTên tài sản\n\tTuyến đường\n\tLý trình bắt đầu\n\tLý trình kết thúc\n\tLoại hộ lan\n\tVật liệu\n\tSL phản quang\n\tMục đích lắp đặt\n\tChiều dài thực tế (m)\n\tVị trí mặt cắt\n\tTỉnh / thà"
+  },
+  "form": {
+    "cols5": true,
+    "guardrailAttr": true,
+    "loaiHoLan": true,
+    "vatLieu": true,
+    "phanQuang": true,
+    "mucDich": true,
+    "daiThucTe": true,
+    "kmToVisible": true,
+    "noModeBadge": true,
+    "snippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nHạng mục KCHT\nDS\nDev Standalone\nDeveloper\nTạo tài sản\nQuay lại\nHủy\nTạo mới\nTạo tài sản\nĐang tạo mới — Lưu hoặc Hủy\nTHÔNG TIN TÀI SẢN\nMã tài sản\nTình trạng kỹ thuật*\nChọn tình trạng\nLoại tài sản *\n✕\nCao tốc / quốc lộ *\nTuyến\nĐoạn tuyến\nNguồn\nTên\nLý trình bắt đầu (Km+)*\nLý trình kết thúc (Km+)\nẢnh hiện trường\nTHÔNG SỐ HỘ LAN / TÔN SÓNG\nLoại hộ lan*\nChọn loại hộ lan\nVật liệu\nChọn vật liệu\nSL phản quang\nMục đích lắp đặt\nChọn mục đích\nChiều dài thực tế (m)\nVị trí mặt cắt\nChọn vị trí (tuỳ chọn)\nTỉnh / TP đầu\nXã / phường đầu\nTỉnh / TP cuối\nXã / phường cuối\nTọa độ đầu X\nTọa độ đầu Y\nTọa độ cuối X\nTọa độ cuối Y\nGPS / HỒ SƠ\n"
+  },
+  "dtm": {
+    "D": {
+      "overflowX": false,
+      "bodyW": 1280,
+      "vw": 1280
+    },
+    "T": {
+      "overflowX": false,
+      "bodyW": 768,
+      "vw": 768
+    },
+    "M": {
+      "overflowX": false,
+      "bodyW": 375,
+      "vw": 375
+    }
+  },
+  "at": "2026-09-01T16:42:48.434Z"
+}

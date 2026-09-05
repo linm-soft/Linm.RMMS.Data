@@ -1,0 +1,36 @@
+{
+  "url": "http://localhost:9301/so-ts?type=LIGHTING",
+  "aliasUrl": "http://localhost:9301/so-ts-lighting",
+  "formUrl": "http://localhost:9301/so-ts/tao-moi?type=LIGHTING",
+  "method": "e2e runtime · yarn start:std :9301 + docker API :5111 + BFF :5201 + headless capture (standalone · no :9100 login)",
+  "capturedAt": "2026-09-01T20:44:44.725Z",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "sha256_16": "b48f26bcdfb3d8d4",
+      "url": "http://localhost:9301/so-ts?type=LIGHTING",
+      "note": "list LIGHTING profile + filter bar · type hidden · ĐV QL · số cột/đèn · MBA · vitri"
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "sha256_16": "b48f26bcdfb3d8d4",
+      "url": "http://localhost:9301/so-ts-lighting",
+      "note": "alias /so-ts-lighting → Navigate type=LIGHTING"
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "sha256_16": "166b623f27e0dbcd",
+      "url": "http://localhost:9301/so-ts/tao-moi?type=LIGHTING",
+      "note": "Create form · S-ATTR lighting · S-LOC-POINT kmFrom only · CS-"
+    }
+  ],
+  "ok": true,
+  "note": "GAP-QA-E2E-02: yarn e2e-qa headed hang (:9100 login) · standalone headless capture · no kill worker",
+  "testid": "rmms-so-ts-lighting-list"
+}

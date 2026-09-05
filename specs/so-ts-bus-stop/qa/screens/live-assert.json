@@ -1,0 +1,72 @@
+{
+  "listUrl": "http://localhost:9301/so-ts?type=BUS_STOP",
+  "formUrl": "http://localhost:9301/so-ts/tao-moi?type=BUS_STOP",
+  "capturedAt": "2026-09-01T08:10:47.474Z",
+  "list": {
+    "titleCount": true,
+    "headerCount": true,
+    "createBtn": true,
+    "noCreateBadge": true,
+    "typeFilterHidden": true,
+    "filterBar": true,
+    "search": true,
+    "route": true,
+    "kmFrom": true,
+    "kmToFilter": true,
+    "org": true,
+    "headers": [
+      "STT",
+      "Mã tài sản",
+      "Tên tài sản",
+      "Tuyến đường",
+      "Lý trình bắt đầu",
+      "Loại tài sản",
+      "Đơn vị QL sử dụng",
+      "Có làn đậu",
+      "Có ghế chờ",
+      "Có nhà chờ",
+      "Tình trạng KT",
+      "Tọa độ GPS"
+    ],
+    "snippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nHạng mục KCHT\nDS\nDev Standalone\nDeveloper\nTài sản đường\nSổ TS — Điểm dừng xe buýt\nLàm mới\nTạo mới\nDanh sách điểm dừng xe buýt\nMenu dòng: nhấn đúp · Ctrl + chuột phải · nhấn giữ dòng\nTìm kiếm\nCao tốc / quốc lộ\nLý trình từ\nLý trình đến\nCây đơn vị\n​\nSTT\t\n\tMã tài sản\n\tTên tài sản\n\tTuyến đường\n\tLý trình bắt đầu\n\tLoại tài sản\n\tĐơn vị QL sử dụng\n\tCó làn đậu\n\tCó ghế chờ\n\tCó nhà chờ\n\tTình trạng KT\n\tTọa độ GPS\n\n1\t\n\tDX-bus_stops_719746\tQL.Hồ Chí Minh\tQL.Hồ Chí Minh\t\t—\t—\t—\t—\t—\ttot\t12.1900, 107.6400\n2\t\n\tDX-bus_stops_529668\tQL.Hồ "
+  },
+  "form": {
+    "cols5": true,
+    "busStopAttr": true,
+    "typeWork": true,
+    "management": true,
+    "stopBay": true,
+    "seated": true,
+    "shelter": true,
+    "stationNameLabel": true,
+    "kmToVisible": false,
+    "snippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nHạng mục KCHT\nDS\nDev Standalone\nDeveloper\nTạo tài sản\nQuay lại\nHủy\nTạo mới\nTạo tài sản\nĐang tạo mới — Lưu hoặc Hủy\nTHÔNG TIN TÀI SẢN\nMã tài sản\nTình trạng kỹ thuật*\nChọn tình trạng\nTốt\nTheo dõi\nCần bảo trì\nLoại tài sản *\n✕\nCao tốc / quốc lộ *\nTuyến\nĐoạn tuyến\nNguồn\nNhập tay\nAI\nTên điểm\nLý trình bắt đầu (Km+)\nẢnh hiện trường\nTHÔNG SỐ ĐIỂM DỪNG XE BUÝT\nLoại tài sản*\nChọn loại tài sản\nĐơn vị quản lý sử dụng\nChọn ĐV QL\nCó làn đậu xe buýt/xe khách\nChọn\nCó\nKhông\nKết cấu mặt đường làn đậu\nChọn kết cấu\nChiều dài làn đậu (m)\nChiều rộng làn đậu (m)\nCó ghế chờ xe buýt\nChọn\nCó\nKhông\nCó nhà chờ xe buýt\nChọn\nCó\nKhông\nKết cấu nhà chờ\nChọn kết cấu\nKết cấu mặt đường nơi chờ\nChiều dài nơi chờ (m)\nChiều rộng nơi chờ (m)\nGiới hạn nơ"
+  },
+  "dtm": [
+    {
+      "label": "D",
+      "width": 1280,
+      "overflowX": false,
+      "scrollWidth": 952,
+      "clientWidth": 952,
+      "screenshot": "filter-D.png"
+    },
+    {
+      "label": "T",
+      "width": 768,
+      "overflowX": false,
+      "scrollWidth": 440,
+      "clientWidth": 440,
+      "screenshot": "filter-T.png"
+    },
+    {
+      "label": "M",
+      "width": 375,
+      "overflowX": false,
+      "scrollWidth": 343,
+      "clientWidth": 343,
+      "screenshot": "filter-M.png"
+    }
+  ],
+  "ok": true
+}

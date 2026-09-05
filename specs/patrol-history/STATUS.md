@@ -11,6 +11,8 @@
 | demo | `specs/patrol-history/ui/prototype/{ios,android}/index.html#sc-patrol-history` · `DES-MOB-PAT-LIST` |
 | context | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/docs/context/features/patrol-history.md` |
 | mfe | — (native · **cấm** mfeStdUrl) |
+| mfeStdRoute | `/patrol-history` |
+| mfeStdUrl | `http://localhost:9301/patrol-history` |
 | ios | `Linm.RMMS.Mobile.iOS` · `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS` · e2e-qa-mobile sim 6.9" |
 | android | `Linm.RMMS.Mobile.Android` · `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android` · e2e-qa-mobile emulator |
 | bff | `Linm.RMMS.Mobile.Bff` · `mobile-bff/api/v1/patrol/sessions` |
@@ -111,6 +113,8 @@
 | align UX | **Aligned** · Must **0** |
 
 ## Links
+- mfeStdUrl: `http://localhost:9301/patrol-history`
+- mfeStdRoute: `/patrol-history`
 
 - Parent: `patrol-home` · row Lịch sử phiên → push `#sc-patrol-history`
 - data-analy **confirmed** → PO **confirmed** → Design **confirmed** → SA **confirmed** → TL **confirmed** → Dev **confirmed** → QA **confirmed** → Review **confirmed** → **done**

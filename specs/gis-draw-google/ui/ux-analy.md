@@ -15,7 +15,7 @@
 | Overlay tools | **Không** MAP_QUICK_TOOLS / Leaflet.draw toolbar — chỉ +/- zoom |
 | Status | EPSG:4326 · overlay status · **cấm** `Cot_km*.xlsx` / seed filename |
 | Map | Leaflet live · **default zoom min** (toàn clip VN) · flex fill |
-| Map-bar | Nền VN (clip) · Fit · toggle full/dock · **không** meta overlay/apiMode |
+| Map-bar | **Tiêu chuẩn \| Vệ tinh** · **Vị trí của tôi** · toggle full/dock · **cấm** nút Fit · **cấm** Default/Streets/Sat EN · **không** meta overlay/apiMode |
 | Attribution | **Ẩn** Leaflet prefix · chỉ `RMMS.vn` |
 | Bottom legend | **Không** «Lớp · click isolate + Fit» · **không** Tuyến/Corridor chips |
 | Click pin/line trên map | Popup + tab Thuộc tính · **không auto zoom** |

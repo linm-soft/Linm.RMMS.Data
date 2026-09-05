@@ -11,8 +11,8 @@
 | demo | D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/asset-demo.html |
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/so-ts-interchange.md` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Asset` |
-| mfeStdRoute | `/so-ts?type=INTERCHANGE` · alias board `/so-ts-interchange` |
-| mfeStdUrl | live `http://localhost:9301/so-ts?type=INTERCHANGE` · alias `http://localhost:9301/so-ts-interchange` |
+| mfeStdRoute | `/so-ts-interchange` |
+| mfeStdUrl | `http://localhost:9301/so-ts-interchange` |
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · DOMAIN-MAP — **cấm ERP.*** |
 | dataAnaly | `specs/_data-analy/features/so-ts-interchange-control-hint.md` · `so-ts-interchange-real-data.md` · **PASS** |
 | contentHash | `sha256:65b62eed838d6077ebf0ff519ea67e2479d50d3ec49f754f056942ade05b112a` |
@@ -53,6 +53,8 @@
 - none (Review PASS · GAP-IX-FLAT/AUTH DEFER · GAP-QA-E2E-PW-01 ACCEPT)
 
 ## Links
+- mfeStdUrl: `http://localhost:9301/so-ts-interchange`
+- mfeStdRoute: `/so-ts-interchange`
 
 - data-analy → po → ui → be → task → implement → qa → review
 - mfeStdUrl live: `http://localhost:9301/so-ts?type=INTERCHANGE`

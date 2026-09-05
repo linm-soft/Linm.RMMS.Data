@@ -11,8 +11,8 @@
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/so-ts-km-post.md` |
 | filterBarContext | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/so-ts-km-post-filter-bar.md` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Asset` |
-| mfeStdRoute | `/so-ts?type=KM_POST` (live · `route_confirm=route_a`) · alias board `/so-ts-km-post` |
-| mfeStdUrl | `http://localhost:9301/so-ts?type=KM_POST` · alias `http://localhost:9301/so-ts-km-post` |
+| mfeStdRoute | `/so-ts-km-post` |
+| mfeStdUrl | `http://localhost:9301/so-ts-km-post` |
 | liveList | `/so-ts?type=KM_POST` |
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · DOMAIN-MAP Asset · `api/v1/asset/road-assets` — **cấm ERP.*** |
 | updatedAt | `2026-08-31T20:43:17.597Z` |
@@ -83,7 +83,7 @@
 - filter-bar: `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/so-ts-km-post-filter-bar.md`
 - prototype: `D:/AI-QLBD/Linm.RMMS.Data/specs/so-ts-km-post/ui/prototype/so-ts-km-post-list-prototype.html`
 - reviewUrl: `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/so-ts-km-post/ui/prototype/so-ts-km-post-list-prototype.html`
-- mfeStdUrl: `http://localhost:9301/so-ts?type=KM_POST`
+- mfeStdUrl: `http://localhost:9301/so-ts-km-post`
 - live: `http://localhost:9301/so-ts?type=KM_POST`
 - alias board: `http://localhost:9301/so-ts-km-post`
 - screens: `specs/so-ts-km-post/qa/screens/{S0,S1,QA-20}.png`

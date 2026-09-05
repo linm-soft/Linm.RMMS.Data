@@ -1,0 +1,80 @@
+{
+  "list": {
+    "titleList": true,
+    "headerMirror": true,
+    "createBtn": true,
+    "noCreateBadge": true,
+    "typeFilterHidden": true,
+    "filterBar": true,
+    "search": true,
+    "route": true,
+    "kmFrom": true,
+    "kmToFilter": true,
+    "org": true,
+    "colLoc": true,
+    "colMst": true,
+    "colShape": false,
+    "colMat": true,
+    "colKmToHidden": true,
+    "headers": [
+      "STT",
+      "Mã tài sản",
+      "Tên tài sản",
+      "Tuyến đường",
+      "Lý trình bắt đầu",
+      "Số lượng (SL)",
+      "Vị trí đặt",
+      "Loại TS (MST)",
+      "Hình cắt trụ",
+      "Đường kính trụ (m)",
+      "Chiều cao trụ (m)",
+      "Chiều dài nhịp (m)",
+      "Vật liệu trụ",
+      "Số biển / gương",
+      "Tổng số trụ",
+      "Tình trạng KT",
+      "Tọa độ GPS"
+    ],
+    "snippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nHạng mục KCHT\nDS\nDev Standalone\nDeveloper\nTài sản đường\nSổ TS — Gương cầu / long môn\nLàm mới\nTạo mới\nDanh sách gương cầu\nMenu dòng: nhấn đúp · Ctrl + chuột phải · nhấn giữ dòng\nTìm kiếm\nCao tốc / quốc lộ\nLý trình từ\nLý trình đến\nCây đơn vị\n​\nSTT\t\n\tMã tài sản\n\tTên tài sản\n\tTuyến đường\n\tLý trình bắt đầu\n\tSố lượng (SL)\n\tVị trí đặt\n\tLoại TS (MST)\n\tHình cắt trụ\n\tĐường kính trụ (m)\n\tChiều cao trụ (m)\n\tChiều dài nhịp (m)\n\tVật"
+  },
+  "form": {
+    "cols5": true,
+    "locSection": true,
+    "attrSection": true,
+    "locationPost": true,
+    "assetTypeMst": true,
+    "shapeCut": true,
+    "material": true,
+    "diameter": true,
+    "height": true,
+    "span": true,
+    "numberSign": true,
+    "totalPost": true,
+    "tenTs": true,
+    "viTriDat": true,
+    "loaiMst": true,
+    "kmToVisible": false,
+    "kmToHiddenOk": true,
+    "noModeBadge": true,
+    "noGantryField": true,
+    "snippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nHạng mục KCHT\nDS\nDev Standalone\nDeveloper\nTạo tài sản\nQuay lại\nHủy\nTạo mới\nTạo tài sản\nĐang tạo mới — Lưu hoặc Hủy\nTHÔNG TIN TÀI SẢN\nMã tài sản\nTình trạng kỹ thuật*\nChọn tình trạng\nLoại tài sản *\n✕\nCao tốc / quốc lộ *\nTuyến\nĐoạn tuyến\nNguồn\nTên / loại gương*\nLý trình bắt đầu (Km+)*\nẢnh hiện trường\nVỊ TRÍ & LOẠI MST\nVị trí đặt\nChọn vị trí\nLoại tài sản (MST)\nChọn loại MST\nTHÔNG SỐ TRỤ / GƯƠNG\nHình dạng mặt cắt trụ\nChọn hình cắt\nĐường kính trụ (m)\nVật liệu trụ\nChọn vật liệu\nChiều cao trụ (m)\nChiều dài nhịp (m)\nSố biển / số gương\nTổng số trụ trong đoạn\nGPS / HỒ SƠ\nVĩ độ\nKinh độ\nMã QR\nGiá trị tài sản (VND)\nSố lượng (SL)\nĐơn vị tính (ĐVT)\nChọn ĐVT\nNgày cập nhật\nGhi chú hiện trường"
+  },
+  "dtm": {
+    "D": {
+      "overflowX": false,
+      "bodyW": 1280,
+      "vw": 1280
+    },
+    "T": {
+      "overflowX": false,
+      "bodyW": 768,
+      "vw": 768
+    },
+    "M": {
+      "overflowX": false,
+      "bodyW": 375,
+      "vw": 375
+    }
+  },
+  "at": "2026-09-01T16:02:15.808Z"
+}

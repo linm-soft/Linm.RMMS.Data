@@ -4,7 +4,9 @@
 > **Status:** Kind B list + CameraDevice CRUD + connect Test/JPEG · continuous live = plan 21  
 > **Sources:** [Hikvision iDS-TCM403-GIR](https://www.hikvision.com/en/products/ITS-Products/traffic-cameras/urban-road-anpr-cameras/ids-tcm403-gir/) · `camera-model.md` · `22-CAMERA-TCM403-SDK-RESEARCH.md` · `21-CAMERA-HLS-WEBRTC-GATEWAY.md` · HĐ [`../../../../Linm.RMMS.Contract/out/camera-gtvt-dinh-nghia.md`](../../../../Linm.RMMS.Contract/out/camera-gtvt-dinh-nghia.md)  
 > **Demo HTML:** `Linm.RMMS.Demo/src/demo/features/camera-connect-demo.html` · **pilot wall+map:** [`camera-ops-dashboard-demo.html`](../../../Linm.RMMS.Demo/src/demo/features/camera-ops-dashboard-demo.html)  
-> **MFE:** `Linm.Web.RMMS.Camera` · route `/camera` · **wall** `/camera/wall` · ports **9216** / **9316** (`yarn start:std` → `http://localhost:9316/camera`)  
+> **MFE:** `Linm.Web.RMMS.Camera` · route `/camera` · ports **9216** / **9316** (`yarn start:std` → `http://localhost:9316/camera`)  
+> **GIS wall+map:** `Linm.Web.RMMS.Gis` · **`/gis/camera`** (`gis-camera-map`) — Kind F · clip stack · **không** `/camera/wall` MFE Camera  
+> **Pilot HTML:** [`camera-ops-dashboard-demo.html`](../../../Linm.RMMS.Demo/src/demo/features/camera-ops-dashboard-demo.html)  
 > **BE:** `api/v1/cameras` · CRUD `CameraDevice` · SDK-first TCM403 · CaptureJPEG · ISAPI Digest · ingest · `Linm.RMMS.WebService`  
 > **Specs:** `specs/camera-connect/STATUS.md` · `task/camera-connect.md` · `implement/camera-connect.md`  
 > **Host notify guide:** [`../23-CAMERA-HOST-NOTIFY-CONFIG.md`](../23-CAMERA-HOST-NOTIFY-CONFIG.md) · ví dụ `http://camera-event-api-rmms.vn`  

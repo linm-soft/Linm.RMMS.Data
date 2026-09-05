@@ -1,0 +1,37 @@
+{
+  "url": "http://localhost:9301/so-ts?type=PARKING",
+  "aliasUrl": "http://localhost:9301/so-ts-parking",
+  "formUrl": "http://localhost:9301/so-ts/tao-moi?type=PARKING",
+  "method": "e2e runtime · yarn start:std :9301 + docker API :5111 + BFF :5201 + yarn e2e-qa contract (Chrome channel fallback)",
+  "capturedAt": "2026-09-01T04:48:58.784Z",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "sha256_16": "b52775d7fb059b77",
+      "url": "http://localhost:9301/so-ts?type=PARKING",
+      "note": "list PARKING profile + filter bar"
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "sha256_16": "b52775d7fb059b77",
+      "url": "http://localhost:9301/so-ts-parking",
+      "note": "alias /so-ts-parking → type=PARKING"
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "sha256_16": "26fe6c7dd3eac03c",
+      "url": "http://localhost:9301/so-ts/tao-moi?type=PARKING",
+      "note": "Create form · S-ATTR parking"
+    }
+  ],
+  "ok": true,
+  "note": "GAP-QA-E2E-PW-01: yarn e2e-qa Docker gate expects :5101 — compose maps :5111; capture used channel=chrome · --skip-start",
+  "testid": "rmms-so-ts-parking-list-page",
+  "formTestid": "rmms-asset-form-shell"
+}

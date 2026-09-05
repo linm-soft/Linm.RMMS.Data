@@ -13,8 +13,8 @@
 | demo | `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/integration-demo.html` |
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/integration.md` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Integration` |
-| mfeStdRoute | `/open-api` |
-| mfeStdUrl | `http://localhost:9314/open-api` |
+| mfeStdRoute | `/integration` |
+| mfeStdUrl | `http://localhost:9314/integration` |
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · **`api/v1/open-api/*`** (**cấm ERP.***) |
 | domain | **Integration** |
 | taskId | `task_52fd7aae` |
@@ -89,7 +89,7 @@
 - QA: `specs/integration/qa/scenarios.md`
 - Review: `specs/integration/review/findings.md`
 - DOMAIN-MAP: `D:/AI-QLBD/Linm.RMMS.WebService/docs/DOMAIN-MAP.md`
-- mfeStdUrl: `http://localhost:9314/open-api`
+- mfeStdUrl: `http://localhost:9314/integration`
 - reviewUrl: `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/integration/ui/prototype/integration-hub-prototype.html`
 
 ## Resume / closeout

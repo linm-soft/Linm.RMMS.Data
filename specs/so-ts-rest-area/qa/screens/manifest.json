@@ -1,0 +1,37 @@
+{
+  "url": "http://localhost:9301/so-ts?type=REST_AREA",
+  "aliasUrl": "http://localhost:9301/so-ts-rest-area",
+  "formUrl": "http://localhost:9301/so-ts/tao-moi?type=REST_AREA",
+  "method": "e2e runtime · yarn start:std :9301 + docker API :5111 + BFF :5201 + yarn e2e-qa contract (Chrome channel fallback)",
+  "capturedAt": "2026-09-01T04:26:40.025Z",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "sha256_16": "466c7eb1d44a0da7",
+      "url": "http://localhost:9301/so-ts?type=REST_AREA",
+      "note": "list REST_AREA profile + filter bar"
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "sha256_16": "466c7eb1d44a0da7",
+      "url": "http://localhost:9301/so-ts-rest-area",
+      "note": "alias /so-ts-rest-area → type=REST_AREA"
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "sha256_16": "1d768102a2b14638",
+      "url": "http://localhost:9301/so-ts/tao-moi?type=REST_AREA",
+      "note": "Create form · S-ATTR rest-area"
+    }
+  ],
+  "ok": true,
+  "note": "GAP-QA-E2E-PW-01: yarn e2e-qa Docker gate expects :5101 — compose maps :5111; capture used channel=chrome · --skip-start",
+  "testid": "rmms-so-ts-rest-area-list-page",
+  "formTestid": "rmms-asset-form-shell"
+}

@@ -1,0 +1,36 @@
+{
+  "url": "http://localhost:9301/so-ts?type=RAIL_CROSS",
+  "aliasUrl": "http://localhost:9301/so-ts-rail-cross",
+  "formUrl": "http://localhost:9301/so-ts/tao-moi?type=RAIL_CROSS",
+  "method": "e2e runtime · yarn start:std :9301 + docker API :5111 + BFF :5201 + yarn e2e-qa contract (Chrome channel fallback)",
+  "capturedAt": "2026-09-01T19:47:59.283Z",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "sha256_16": "6069efc291bae8ef",
+      "url": "http://localhost:9301/so-ts?type=RAIL_CROSS",
+      "note": "list RAIL_CROSS profile + filter bar · type hidden · protection/traffic/waiting cols"
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "sha256_16": "6069efc291bae8ef",
+      "url": "http://localhost:9301/so-ts-rail-cross",
+      "note": "alias /so-ts-rail-cross → Navigate type=RAIL_CROSS"
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "sha256_16": "1dee9007ff9f4c79",
+      "url": "http://localhost:9301/so-ts/tao-moi?type=RAIL_CROSS",
+      "note": "Create form · S-ATTR rail-cross · kmTo hidden · DS-"
+    }
+  ],
+  "ok": true,
+  "note": "GAP-QA-E2E-PW-01: yarn e2e-qa hang (:9100 down) · capture channel=chrome · --skip-start · API :5111 · no kill worker",
+  "testid": "rmms-so-ts-rail-cross-list"
+}

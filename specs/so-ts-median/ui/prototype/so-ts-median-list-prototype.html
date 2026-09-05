@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Prototype — Sổ TS — Dải phân cách giữa (MEDIAN) · Kind B A–D+F + full-page 5 cột</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    :root { --bg:#f5f7fa; --card:#fff; --border:#BABCBE; --soft:#e9ecef; --txt:#1A1A1A; --muted:#6c757d; --primary:#0d6efd; --btn:#EEEEEE; --r:4px; }
+    *{box-sizing:border-box}
+    body{margin:0;font:13px/1.4 "Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--txt)}
+    .page{max-width:1280px;margin:0 auto;padding:8px 16px 24px;min-height:100vh;display:flex;flex-direction:column;gap:8px}
+    .screen{display:none}.screen.active{display:flex;flex-direction:column;gap:8px}
+    .zone-a{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+    .zone-a h1{margin:0;font-size:22px;font-weight:700;display:flex;align-items:center;gap:10px}
+    .zone-a h1 i{color:var(--primary);font-size:20px}
+    .badge{font-size:11px;font-weight:700;padding:2px 8px;border-radius:4px;background:#e7f1ff;color:#0b5ed7}
+    .zone-b{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:8px 0;position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--soft)}
+    .zone-b-left,.zone-b-right{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .tb{display:inline-flex;align-items:center;gap:4px;height:32px;padding:6px 8px;border:0;border-radius:var(--r);background:var(--btn);font-size:12px;font-weight:600;cursor:pointer}
+    .tb:hover{background:#BABCBE}.tb.primary{background:var(--primary);color:#fff}.tb:disabled{opacity:.55;cursor:not-allowed}
+    .filter-bar{display:flex;flex-wrap:wrap;gap:8px;align-items:flex-end;padding:8px 0 4px}
+    .filter-bar .fld{display:flex;flex-direction:column;gap:4px}
+    .filter-bar .fld > span.lbl{font-size:12px;color:var(--muted)}
+    .filter-bar input,.filter-bar select{height:32px;padding:4px 8px;border:1px solid var(--border);border-radius:var(--r);font:inherit;min-width:120px}
+    .search-wrap{display:flex;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;height:32px;background:#fff;min-width:220px}
+    .search-wrap input{border:0;outline:0;padding:6px 10px;flex:1;font-size:13px;min-width:0}
+    .search-wrap .ico{border:0;border-left:1px solid var(--border);background:#f8fafc;padding:0 10px;color:var(--muted);display:inline-flex;align-items:center}
+    .si{position:relative;display:inline-flex}.si input{padding-right:28px;min-width:150px}
+    .si > i{position:absolute;right:8px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none;font-size:12px}
+    .card{background:var(--card);border:1px solid var(--soft);border-radius:var(--r);flex:1;display:flex;flex-direction:column;min-height:0;overflow:hidden}
+    .grid-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 16px 8px}
+    .grid-title{margin:0;font-size:15px;font-weight:700}.grid-help{margin:4px 0 0;font-size:12px;color:var(--muted)}
+    .table-wrap{overflow:auto;flex:1;min-height:200px;border-top:1px solid var(--soft)}
+    table{width:100%;border-collapse:collapse;table-layout:fixed}
+    th,td{padding:8px 10px;border-bottom:1px solid var(--soft);text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    th{background:#f8fafc;font-size:12px;color:var(--muted);position:sticky;top:0}
+    th.num,td.num{text-align:center;width:48px}
+    tbody tr:nth-child(even){background:#fafbfc}tbody tr:hover,tbody tr.sel{background:#eff6ff}
+    .link{border:0;background:0;color:var(--primary);text-decoration:underline;cursor:pointer;font:inherit;padding:0}
+    .zone-d{display:flex;flex-direction:column;align-items:center;gap:10px;padding:12px 16px;border-top:1px solid var(--soft)}
+    .zone-d-total{color:var(--muted)}.zone-d-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center}
+    .pager-btn{width:32px;height:32px;border:1px solid var(--soft);border-radius:var(--r);background:#fff;color:var(--muted);cursor:pointer}
+    .menu{position:relative}.menu summary{list-style:none;cursor:pointer;padding:4px 8px;border:1px solid var(--border);border-radius:var(--r);background:#fff}
+    .menu summary::-webkit-details-marker{display:none}
+    .menu-panel{display:none;position:absolute;right:0;z-index:5;background:#fff;border:1px solid var(--border);border-radius:6px;min-width:140px;box-shadow:0 8px 24px rgba(0,0,0,.12)}
+    .menu[open] .menu-panel{display:block}
+    .menu-panel button{display:block;width:100%;text-align:left;border:0;background:0;padding:8px 12px;cursor:pointer;font-size:13px}
+    .menu-panel button:hover{background:#f1f5f9}
+    .backdrop{display:none;position:fixed;inset:0;background:rgba(15,23,42,.35);z-index:40;align-items:center;justify-content:center;padding:16px}
+    .backdrop.on{display:flex}
+    .modal{width:min(520px,96vw);background:#fff;border-radius:8px;border:1px solid var(--soft);max-height:90vh;overflow:auto}
+    .modal.wide{width:min(720px,96vw)}
+    .modal-h{padding:12px 16px;border-bottom:1px solid var(--soft);font-weight:700}
+    .modal-b{padding:16px;font-size:13px;color:var(--muted)}
+    .modal-f{padding:12px 16px;border-top:1px solid var(--soft);display:flex;justify-content:flex-end;gap:8px}
+    .form-page{display:grid;grid-template-rows:auto minmax(0,1fr);height:100vh;max-width:1280px;margin:0 auto}
+    .chrome{border:1px solid var(--soft);border-radius:8px;background:var(--card);margin:16px 16px 0;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+    .form-toolbar{display:flex;align-items:center;gap:8px;padding:16px 20px 12px;border-bottom:1px solid var(--soft);flex-wrap:wrap}
+    .form-toolbar .crud{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
+    .title-block{padding:12px 20px 16px}.title-block h1{margin:0;font-size:18px}
+    .hint-chip{display:inline-flex;margin-top:8px;padding:4px 8px;font-size:12px;color:var(--muted);background:#f3f4f6;border:1px dashed #e5e7eb;border-radius:6px}
+    .scroll{margin:16px;overflow:auto;display:flex;flex-direction:column;gap:16px;padding-bottom:16px}
+    .section{padding:16px;background:var(--card);border:1px solid var(--soft);border-radius:8px}
+    .section h3{margin:0 0 12px;font-size:13px;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:.5px;padding-bottom:8px;border-bottom:1px solid var(--soft)}
+    .fields{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px;align-items:start}
+    .field{display:flex;flex-direction:column;gap:4px;min-width:0}.field label{font-size:12px;color:var(--muted)}
+    .req::after{content:" *";color:#dc2626}.span2{grid-column:span 2}.span-full{grid-column:1 / -1}
+    .fields input,.fields select,.fields textarea{width:100%;min-height:32px;padding:6px 10px;border:1px solid #bababe;border-radius:4px;font:inherit}
+    .fields textarea{min-height:72px;resize:vertical}
+    .dl{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px}
+    .dl div{border-bottom:1px dashed var(--soft);padding-bottom:6px}.dl dt{font-size:12px;color:var(--muted)}.dl dd{margin:2px 0 0;font-size:13px}
+    @media (max-width:1200px){.fields,.dl{grid-template-columns:repeat(3,minmax(0,1fr))}}
+    @media (max-width:720px){.fields,.dl{grid-template-columns:1fr 1fr}.span2{grid-column:1 / -1}}
+  </style>
+</head>
+<body>
+  <div id="screen-list" class="page screen active" data-testid="rmms-so-ts-median-list-prototype" data-shared-grid="v1">
+    <header class="zone-a" data-des-id="DES-GRID-A">
+      <h1><i class="fas fa-road" aria-hidden="true"></i> Sổ TS — Dải phân cách giữa</h1>
+      <span class="badge">type=MEDIAN</span>
+    </header>
+    <div class="zone-b" data-des-id="DES-GRID-B">
+      <div class="zone-b-left">
+        <button type="button" class="tb" data-action="refresh" title="Làm mới"><i class="fas fa-sync-alt" aria-hidden="true"></i> Làm mới</button>
+        <button type="button" class="tb" data-action="history" title="Lịch sử"><i class="fas fa-history" aria-hidden="true"></i> Lịch sử</button>
+        <button type="button" class="tb" data-action="config" title="Sửa config"><i class="fas fa-cog" aria-hidden="true"></i> Sửa config</button>
+        <button type="button" class="tb" id="btn-view" disabled title="Xem"><i class="fas fa-eye" aria-hidden="true"></i> Xem</button>
+        <button type="button" class="tb" id="btn-edit" disabled title="Sửa"><i class="fas fa-pen" aria-hidden="true"></i> Sửa</button>
+        <button type="button" class="tb" id="btn-del" disabled title="Xóa"><i class="fas fa-trash" aria-hidden="true"></i> Xóa</button>
+      </div>
+      <div class="zone-b-right">
+        <button type="button" class="tb primary" data-action="create" title="Tạo mới"><i class="fas fa-plus" aria-hidden="true"></i> Tạo mới</button>
+      </div>
+    </div>
+    <div class="filter-bar" data-des-id="DES-GRID-B-FILTER" data-filter="LinErpListFilterBar">
+      <div class="fld"><span class="lbl">Tìm kiếm</span><div class="search-wrap"><input type="search" id="q" placeholder="Mã · loại dải · tuyến · QR · địa danh" aria-label="Tìm kiếm" /><span class="ico" aria-hidden="true"><i class="fas fa-search"></i></span></div></div>
+      <div class="fld"><span class="lbl">Loại tài sản</span><span class="si"><input id="fType" value="Dải phân cách giữa (MEDIAN)" readonly title="prefill / ẩn khi deep-link" /><i class="fas fa-search"></i></span></div>
+      <div class="fld"><span class="lbl">Cao tốc / quốc lộ</span><span class="si"><input id="fRoute" list="dl-route" placeholder="SearchInput road-route" /><i class="fas fa-search"></i></span></div>
+      <div class="fld"><span class="lbl">Lý trình từ</span><input id="fKmFrom" placeholder="Km+" /></div>
+      <div class="fld"><span class="lbl">Lý trình đến</span><input id="fKmTo" placeholder="filter range" /></div>
+      <div class="fld"><span class="lbl">Cây đơn vị</span><span class="si"><input id="fOrg" list="dl-org" placeholder="SearchInput org-unit" /><i class="fas fa-search"></i></span></div>
+    </div>
+    <datalist id="dl-route"><option value="CT.Hà Nội – Hải Phòng"><option value="CT.01"><option value="QL.1A"></datalist>
+    <datalist id="dl-org"><option value="Khu QLĐB I"><option value="Sở GTVT HP"></datalist>
+    <section class="card">
+      <div class="grid-head" data-des-id="DES-GRID-C0">
+        <div>
+          <h2 class="grid-title">Danh sách dải phân cách giữa</h2>
+          <p class="grid-help" data-des-id="DES-GRID-C3-help">Nhấn đúp · Ctrl + chuột phải · giữ chạm (mobile) để mở menu dòng · kéo cột default ON · schema kind=<code>road-assets</code> · profile MEDIAN ẩn type/ảnh · primary = loại dải · hide-empty vị trí/địa danh · page filter MEDIAN only</p>
+        </div>
+      </div>
+      <div class="table-wrap" data-des-id="DES-GRID-C2">
+        <table>
+          <thead><tr>
+            <th class="num">STT</th>
+            <th>Loại dải phân cách</th>
+            <th>Cao tốc / QL</th>
+            <th>Tuyến</th>
+            <th>Đoạn tuyến</th>
+            <th>Lý trình đầu</th>
+            <th>Lý trình cuối</th>
+            <th>Vật liệu hàng rào</th>
+            <th>Trồng cỏ</th>
+            <th>Trồng cây</th>
+            <th>Chiều dài dải (m)</th>
+            <th>Chiều rộng (m)</th>
+            <th>TT KT</th>
+            <th class="num"></th>
+          </tr></thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+      <div class="zone-d" data-des-id="DES-GRID-D">
+        <div class="zone-d-total">Tổng: <span id="total">0</span> · Trang <span id="page">1</span>/1</div>
+        <div class="zone-d-row">
+          <label>Hiển thị <select id="pageSize"><option>50</option><option>100</option><option>200</option><option>500</option></select></label>
+          <button type="button" class="pager-btn" disabled><i class="fas fa-angle-double-left"></i></button>
+          <button type="button" class="pager-btn" disabled><i class="fas fa-angle-left"></i></button>
+          <span>1/1</span>
+          <button type="button" class="pager-btn" disabled><i class="fas fa-angle-right"></i></button>
+          <button type="button" class="pager-btn" disabled><i class="fas fa-angle-double-right"></i></button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div id="screen-form" class="screen" data-form-surface="full" data-des-id="DES-GRID-Z">
+    <div class="form-page">
+      <div class="chrome">
+        <div class="form-toolbar" data-des-id="DES-FORM-Z1">
+          <button type="button" class="tb" id="btn-back" title="Quay lại"><i class="fas fa-arrow-left" aria-hidden="true"></i> Quay lại</button>
+          <div class="crud">
+            <button type="button" class="tb" id="btn-cancel" title="Hủy"><i class="fas fa-times" aria-hidden="true"></i> Hủy</button>
+            <button type="button" class="tb primary" id="btn-save" title="Lưu"><i class="fas fa-save" aria-hidden="true"></i> <span id="saveLabel">Tạo mới</span></button>
+            <button type="button" class="tb primary" id="btn-edit-view" hidden title="Sửa"><i class="fas fa-pen" aria-hidden="true"></i> Sửa</button>
+            <button type="button" class="tb" id="btn-close-view" hidden title="Đóng"><i class="fas fa-times" aria-hidden="true"></i> Đóng</button>
+          </div>
+        </div>
+        <div class="title-block">
+          <h1 id="formTitle">Tạo mới — Dải phân cách giữa</h1>
+          <div class="hint-chip" id="formHint">Đang tạo mới · type=MEDIAN · data-form-cols=5 · S-LOC-RANGE · LeaveConfirmModal · prefix PC- · cấm footer Lưu</div>
+        </div>
+      </div>
+      <div class="scroll" data-des-id="DES-FORM-Z2">
+        <div id="formEdit">
+          <section class="section"><h3>S-META · Meta</h3>
+            <div class="fields" data-form-cols="5">
+              <div class="field"><label>Mã tài sản</label><input id="code" value="(tự sinh PC-…)" readonly /></div>
+              <div class="field"><label class="req">Loại tài sản</label><span class="si"><input id="type" value="Dải phân cách giữa (MEDIAN)" readonly /><i class="fas fa-search"></i></span></div>
+              <div class="field"><label class="req">Tình trạng KT</label><select id="status"><option>Tốt</option><option>Theo dõi</option><option>Hư hỏng</option></select></div>
+              <div class="field"><label>Nguồn</label><select id="source"><option>Import</option><option>Nhập tay</option><option>Đồng bộ</option></select></div>
+              <div class="field"><label></label><span style="color:var(--muted);font-size:12px">lock type từ tile t11 · GIS short GPC</span></div>
+            </div>
+          </section>
+          <section class="section"><h3>S-ROUTE · Tuyến</h3>
+            <div class="fields" data-form-cols="5">
+              <div class="field"><label class="req">Cao tốc / quốc lộ</label><span class="si"><input id="route" list="dl-route" placeholder="SearchInput road-route" /><i class="fas fa-search"></i></span></div>
+              <div class="field span2"><label>Tuyến</label><span class="si"><input id="routeNamed" list="dl-route" placeholder="SearchInput road-route · parentCode=route" /><i class="fas fa-search"></i></span></div>
+              <div class="field span2"><label>Đoạn tuyến</label><span class="si"><input id="routeSegment" placeholder="SearchInput road-route · parentCode=routeNamed|route" /><i class="fas fa-search"></i></span></div>
+            </div>
+          </section>
+          <section class="section"><h3>S-LOC-RANGE · Vị trí đoạn (linear_protect)</h3>
+            <div class="fields" data-form-cols="5">
+              <div class="field"><label class="req">Lý trình điểm đầu (Km+)</label><input id="kmFrom" placeholder="Km0+000 · cấm ép 0" /></div>
+              <div class="field"><label class="req">Lý trình điểm cuối (Km+)</label><input id="kmTo" placeholder="mẫu có km cuối" /></div>
+              <div class="field"><label>Tọa độ điểm đầu Y (lat)</label><input id="latFrom" type="number" step="any" /></div>
+              <div class="field"><label>Tọa độ điểm đầu X (lng)</label><input id="lngFrom" type="number" step="any" /></div>
+              <div class="field"><label>Tọa độ điểm cuối Y (lat)</label><input id="latTo" type="number" step="any" /></div>
+              <div class="field"><label>Tọa độ điểm cuối X (lng)</label><input id="lngTo" type="number" step="any" /></div>
+              <div class="field"><label>Địa danh điểm đầu (tỉnh)</label><input id="provinceFrom" placeholder="tinhthanhpho" /></div>
+              <div class="field"><label>Địa danh điểm đầu (xã)</label><input id="communeFrom" placeholder="xaphuong · hide-empty" /></div>
+              <div class="field"><label>Địa danh điểm cuối (tỉnh)</label><input id="provinceTo" placeholder="tinhthanhpho_cuoi" /></div>
+              <div class="field"><label>Địa danh điểm cuối (xã)</label><input id="communeTo" placeholder="xaphuong_cuoi · hide-empty" /></div>
+            </div>
+          </section>
+          <section class="section"><h3>S-NAME · Tên (optional)</h3>
+            <div class="fields" data-form-cols="5">
+              <div class="field span2"><label>Tên / mô tả</label><input id="name" placeholder="optional · dump không cột tên · GAP-MEDIAN-NAME-01" /></div>
+              <div class="field span-full"><label></label><span style="color:var(--muted);font-size:12px">list primary = loại dải · <strong>cấm</strong> IsWeak → đoạn tuyến</span></div>
+            </div>
+          </section>
+          <section class="section"><h3>S-ATTR · Thông tin chung (editable · dumpSpecs P1)</h3>
+            <div class="fields" data-form-cols="5">
+              <div class="field"><label class="req">Loại dải phân cách</label><select id="type_median_strip_id"><option value="">— chọn —</option><option>Cứng</option><option>Mềm</option><option>Bê tông</option><option>Cáp</option></select></div>
+              <div class="field"><label>Vật liệu hàng rào</label><select id="material_type_fence_id"><option value="">— chọn —</option><option>Thép</option><option>Bê tông</option><option>Hỗn hợp</option></select></div>
+              <div class="field"><label>Trồng cỏ</label><select id="planting_grass"><option value="">—</option><option>Có</option><option>Không</option></select></div><div class="field"><label>DT trồng cỏ (m²)</label><input id="planting_grass_area" type="number" step="any" /></div><div class="field"><label>Chiều rộng dải (m)</label><input id="width_median_strip" type="number" step="any" /></div><div class="field"><label>Chiều cao hàng rào (m)</label><input id="height_fence" type="number" step="any" /></div><div class="field"><label>Số cây</label><input id="number_tree" type="number" min="0" step="1" /></div>
+              <div class="field"><label>Trồng cây</label><select id="planting_tree"><option value="">—</option><option>Có</option><option>Không</option></select></div>
+              <div class="field"><label>Chiều dài dải (m)</label><input id="length_median_strip" type="number" step="any" /></div>
+              <div class="field"><label>Vị trí dải phân cách</label><select id="location_median_strip_id"><option value="">— (optional) —</option><option>Bên trái</option><option>Bên phải</option><option>Giữa</option></select></div>
+              <div class="field span-full"><label></label><span style="color:var(--muted);font-size:12px">Dropdown LOOKUP_STATIC · Select bool cỏ/cây · hide-empty vị trí · <strong>cấm</strong> chỉ &lt;dl&gt;</span></div>
+            </div>
+          </section>
+          <section class="section"><h3>S-GPS · Bổ sung</h3>
+            <div class="fields" data-form-cols="5">
+              <div class="field"><label>Vĩ độ</label><input id="gpsLat" type="number" step="any" /></div>
+              <div class="field"><label>Kinh độ</label><input id="gpsLng" type="number" step="any" /></div>
+              <div class="field"><label>Mã QR</label><input id="qr" /></div>
+              <div class="field"><label>Giá trị (VND)</label><input id="valueVnd" type="number" /></div>
+              <div class="field"><label>Cập nhật</label><input id="updatedAt" readonly placeholder="—" /></div>
+              <div class="field span-full"><label>Ghi chú</label><textarea id="note" rows="3"></textarea></div>
+            </div>
+          </section>
+        </div>
+        <div id="formView" hidden>
+          <section class="section"><h3>Xem — display (không Input disabled xám)</h3><dl class="dl" id="viewDl"></dl></section>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="backdrop" id="modal-config" data-des-id="DES-GRID-F"><div class="modal wide"><div class="modal-h"><i class="fas fa-cog"></i> Cấu hình hiển thị danh mục</div><div class="modal-b">catalogKind=<code>road-assets</code> · kéo cột default <strong>ON</strong> · profile MEDIAN ẩn type / ảnh · ON loại dải · 3 tầng tuyến · kmFrom/kmTo · VL · Trồng cỏ · mục đích · dài · hide-empty vị trí/địa danh · <strong>cấm</strong> <code>LinListTableConfigModal</code> / <code>configHint</code>.</div><div class="modal-f"><button type="button" class="tb" data-close="modal-config">Đóng</button></div></div></div>
+  <div class="backdrop" id="modal-history" data-des-id="DES-GRID-H"><div class="modal"><div class="modal-h"><i class="fas fa-history"></i> Lịch sử</div><div class="modal-b">LinCatalogHistoryModal · stub OK · cấm invent History path.</div><div class="modal-f"><button type="button" class="tb" data-close="modal-history">Đóng</button></div></div></div>
+  <div class="backdrop" id="modal-delete"><div class="modal"><div class="modal-h">Xóa dải phân cách giữa?</div><div class="modal-b">Soft delete · <strong>useAlert / Modal</strong> — cấm window.alert.</div><div class="modal-f"><button type="button" class="tb" data-close="modal-delete">Hủy</button><button type="button" class="tb primary" data-close="modal-delete">Xóa</button></div></div></div>
+  <div class="backdrop" id="modal-leave" data-des-id="DES-LEAVE"><div class="modal"><div class="modal-h">Rời trang?</div><div class="modal-b">Bạn có thay đổi chưa lưu. <strong>LeaveConfirmModal</strong> — cấm <code>window.confirm</code>.</div><div class="modal-f"><button type="button" class="tb" data-close="modal-leave">Ở lại</button><button type="button" class="tb primary" id="btn-leave-ok">Rời đi</button></div></div></div>
+
+  <script>
+    const rows = [
+      { id:'PC001', type_median_strip_id:'Cứng', route:'CT.Hà Nội – Hải Phòng', routeNamed:'CT.Hà Nội – Hải Phòng', routeSegment:'Đoạn Km12–Km13', kmFrom:'12+100', kmTo:'12+450', length_median_strip:'350', width_median_strip:'2.5', planting_grass:'Có', planting_grass_area:'875', planting_tree:'Không', number_tree:'', height_fence:'1.2', material_type_fence_id:'Thép', location_median_strip_id:'Bên phải', provinceFrom:'Hải Phòng', provinceTo:'Hải Phòng', communeFrom:'', communeTo:'', name:'', latFrom:'20.899', lngFrom:'105.864', latTo:'20.901', lngTo:'105.866', status:'Tốt' },
+      { id:'PC002', type_median_strip_id:'Mềm', route:'CT.01', routeNamed:'Cao tốc Bắc – Nam', routeSegment:'Gói XL03', kmFrom:'45+200', kmTo:'45+680', length_median_strip:'480', width_median_strip:'3.0', planting_grass:'Có', planting_grass_area:'1440', planting_tree:'Có', number_tree:'120', height_fence:'0.8', material_type_fence_id:'Thép', location_median_strip_id:'Bên trái', provinceFrom:'Hà Nội', provinceTo:'Hà Nội', communeFrom:'', communeTo:'', name:'', latFrom:'20.899', lngFrom:'105.864', latTo:'20.897', lngTo:'105.866', status:'Theo dõi' },
+      { id:'PC003', type_median_strip_id:'Hỗn hợp', route:'QL.1A', routeNamed:'QL.1A Hà Nội – Lạng Sơn', routeSegment:'Km18–Km20', kmFrom:'18+050', kmTo:'18+320', length_median_strip:'270', width_median_strip:'4.0', planting_grass:'Không', planting_grass_area:'', planting_tree:'Có', number_tree:'85', height_fence:'1.5', material_type_fence_id:'Bê tông', location_median_strip_id:'', provinceFrom:'Lạng Sơn', provinceTo:'Lạng Sơn', communeFrom:'Tam Thanh', communeTo:'', name:'Đoạn mẫu', latFrom:'21.85', lngFrom:'106.75', latTo:'21.851', lngTo:'106.752', status:'Tốt' },
+    ];
+    let selected = null, formMode = 'create', dirty = false, leaveAction = null;
+    const tbody = document.getElementById('tbody');
+    function openModal(id){ document.getElementById(id).classList.add('on'); }
+    function closeModal(id){ document.getElementById(id).classList.remove('on'); }
+    function showList(){ document.getElementById('screen-list').classList.add('active'); document.getElementById('screen-form').classList.remove('active'); dirty = false; }
+    function fillEdit(r, mode){
+      document.getElementById('code').value = (mode === 'create' || mode === 'copy') ? '(tự sinh PC-…)' : ('PC-median_' + (r.id || ''));
+      document.getElementById('route').value = r.route || '';
+      document.getElementById('routeNamed').value = r.routeNamed || '';
+      document.getElementById('routeSegment').value = r.routeSegment || '';
+      document.getElementById('kmFrom').value = r.kmFrom || '';
+      document.getElementById('kmTo').value = r.kmTo || '';
+      document.getElementById('latFrom').value = r.latFrom || '';
+      document.getElementById('lngFrom').value = r.lngFrom || '';
+      document.getElementById('latTo').value = r.latTo || '';
+      document.getElementById('lngTo').value = r.lngTo || '';
+      document.getElementById('provinceFrom').value = r.provinceFrom || '';
+      document.getElementById('communeFrom').value = r.communeFrom || '';
+      document.getElementById('provinceTo').value = r.provinceTo || '';
+      document.getElementById('communeTo').value = r.communeTo || '';
+      document.getElementById('name').value = mode === 'copy' ? ((r.name || '') + (r.name ? ' (copy)' : '')) : (r.name || '');
+      document.getElementById('type_median_strip_id').value = r.type_median_strip_id || '';
+      document.getElementById('material_type_fence_id').value = r.material_type_fence_id || '';
+      document.getElementById('planting_grass').value = r.planting_grass || '';
+      document.getElementById('planting_tree').value = r.planting_tree || '';
+      document.getElementById('length_median_strip').value = r.length_median_strip || '';
+      if (document.getElementById('width_median_strip')) document.getElementById('width_median_strip').value = r.width_median_strip || '';
+      if (document.getElementById('planting_grass_area')) document.getElementById('planting_grass_area').value = r.planting_grass_area || '';
+      if (document.getElementById('number_tree')) document.getElementById('number_tree').value = r.number_tree || '';
+      if (document.getElementById('height_fence')) document.getElementById('height_fence').value = r.height_fence || '';
+      document.getElementById('location_median_strip_id').value = r.location_median_strip_id || '';
+      document.getElementById('gpsLat').value = r.latFrom || '';
+      document.getElementById('gpsLng').value = r.lngFrom || '';
+      document.getElementById('status').value = r.status || 'Tốt';
+    }
+    function showForm(mode, row){
+      formMode = mode; dirty = false;
+      document.getElementById('screen-list').classList.remove('active');
+      document.getElementById('screen-form').classList.add('active');
+      const isView = mode === 'view';
+      document.getElementById('formEdit').hidden = isView;
+      document.getElementById('formView').hidden = !isView;
+      document.getElementById('btn-save').hidden = isView;
+      document.getElementById('btn-cancel').hidden = isView;
+      document.getElementById('btn-edit-view').hidden = !isView;
+      document.getElementById('btn-close-view').hidden = !isView;
+      const titles = { create:'Tạo mới — Dải phân cách giữa', edit:'Sửa — Dải phân cách giữa', view:'Xem — Dải phân cách giữa', copy:'Sao chép — Dải phân cách giữa' };
+      document.getElementById('formTitle').textContent = titles[mode] || titles.create;
+      document.getElementById('saveLabel').textContent = mode === 'edit' ? 'Lưu' : 'Tạo mới';
+      document.getElementById('formHint').textContent = isView ? 'View = display · không Input disabled xám' : ('Đang ' + mode + ' · type=MEDIAN · data-form-cols=5 · S-LOC-RANGE · LeaveConfirmModal · prefix PC-');
+      const r = row || {};
+      if (!isView) {
+        fillEdit(r, mode);
+        document.querySelectorAll('#formEdit input, #formEdit select, #formEdit textarea').forEach(el => {
+          el.addEventListener('input', () => { dirty = true; }, { once: true });
+          el.addEventListener('change', () => { dirty = true; }, { once: true });
+        });
+      } else {
+        document.getElementById('viewDl').innerHTML = [
+          ['Loại dải phân cách', r.type_median_strip_id], ['Vật liệu hàng rào', r.material_type_fence_id], ['Trồng cỏ', r.planting_grass],
+          ['Mục đích', r.planting_tree], ['Chiều dài dải (m)', r.length_median_strip], ['Vị trí dải', r.location_median_strip_id],
+          ['Cao tốc/QL', r.route], ['Tuyến', r.routeNamed], ['Đoạn', r.routeSegment],
+          ['Km đầu', r.kmFrom], ['Km cuối', r.kmTo], ['Tên', r.name], ['TT KT', r.status]
+        ].map(([k,v]) => '<div><dt>'+k+'</dt><dd>'+(v||'—')+'</dd></div>').join('');
+      }
+    }
+    function requestLeave(fn){ if (!dirty || formMode === 'view') { fn(); return; } leaveAction = fn; openModal('modal-leave'); }
+    function syncSel(){ const on = Boolean(selected); ['btn-view','btn-edit','btn-del'].forEach(id => { document.getElementById(id).disabled = !on; }); }
+    function rowById(id){ return rows.find(r => r.id === id); }
+    function render(){
+      const q = (document.getElementById('q').value || '').trim().toLowerCase();
+      const route = (document.getElementById('fRoute').value || '').trim().toLowerCase();
+      const list = rows.filter(r => {
+        const hay = [r.type_median_strip_id, r.material_type_fence_id, r.planting_grass, r.planting_tree, r.route, r.routeNamed, r.routeSegment, r.name].join(' ').toLowerCase();
+        if (q && !hay.includes(q)) return false;
+        if (route && !(r.route || '').toLowerCase().includes(route)) return false;
+        return true;
+      });
+      tbody.innerHTML = list.map((r, i) => '<tr data-id="'+r.id+'" class="'+(selected===r.id?'sel':'')+'">'
+        + '<td class="num">'+(i+1)+'</td>'
+        + '<td><button type="button" class="link name-link">'+(r.type_median_strip_id||'—')+'</button></td>'
+        + '<td>'+r.route+'</td><td>'+r.routeNamed+'</td><td>'+r.routeSegment+'</td>'
+        + '<td>'+r.kmFrom+'</td><td>'+r.kmTo+'</td>'
+        + '<td>'+(r.width_median_strip||'—')+'</td><td>'+(r.planting_grass||'—')+'</td><td>'+(r.planting_tree||'—')+'</td>'
+        + '<td>'+(r.height_fence||'—')+'</td><td>'+(r.material_type_fence_id||'—')+'</td><td>'+r.length_median_strip+'</td><td>'+r.status+'</td>'
+        + '<td class="num" data-des-id="DES-GRID-C3"><details class="menu"><summary>⋮</summary><div class="menu-panel">'
+        + '<button type="button" data-menu="view">Xem</button><button type="button" data-menu="edit">Sửa</button>'
+        + '<button type="button" data-menu="copy">Sao chép</button><button type="button" data-menu="history">Lịch sử</button>'
+        + '<button type="button" data-menu="delete">Xóa</button></div></details></td></tr>').join('');
+      document.getElementById('total').textContent = String(list.length);
+      syncSel();
+    }
+    tbody.addEventListener('click', (e) => {
+      const tr = e.target.closest('tr'); if (!tr) return;
+      const id = tr.getAttribute('data-id');
+      if (e.target.closest('[data-menu]')) {
+        const act = e.target.getAttribute('data-menu'); selected = id; syncSel(); render();
+        if (act === 'history') openModal('modal-history');
+        else if (act === 'delete') openModal('modal-delete');
+        else if (act === 'view' || act === 'edit' || act === 'copy') showForm(act, rowById(id));
+        return;
+      }
+      if (e.target.classList.contains('name-link')) { selected = id; syncSel(); render(); showForm('view', rowById(id)); return; }
+      selected = id; syncSel(); render();
+    });
+    tbody.addEventListener('dblclick', (e) => {
+      const tr = e.target.closest('tr'); if (!tr) return;
+      selected = tr.getAttribute('data-id'); syncSel(); render(); showForm('edit', rowById(selected));
+    });
+    document.getElementById('q').addEventListener('input', render);
+    document.getElementById('fRoute').addEventListener('input', render);
+    document.querySelector('[data-action="config"]').addEventListener('click', () => openModal('modal-config'));
+    document.querySelector('[data-action="history"]').addEventListener('click', () => openModal('modal-history'));
+    document.querySelector('[data-action="create"]').addEventListener('click', () => showForm('create'));
+    document.querySelector('[data-action="refresh"]').addEventListener('click', render);
+    document.getElementById('btn-view').addEventListener('click', () => selected && showForm('view', rowById(selected)));
+    document.getElementById('btn-edit').addEventListener('click', () => selected && showForm('edit', rowById(selected)));
+    document.getElementById('btn-del').addEventListener('click', () => openModal('modal-delete'));
+    document.getElementById('btn-back').addEventListener('click', () => requestLeave(showList));
+    document.getElementById('btn-cancel').addEventListener('click', () => requestLeave(showList));
+    document.getElementById('btn-close-view').addEventListener('click', showList);
+    document.getElementById('btn-edit-view').addEventListener('click', () => showForm('edit', rowById(selected)));
+    document.getElementById('btn-save').addEventListener('click', () => { dirty = false; showList(); });
+    document.getElementById('btn-leave-ok').addEventListener('click', () => { closeModal('modal-leave'); const fn = leaveAction; leaveAction = null; dirty = false; if (fn) fn(); });
+    document.querySelectorAll('[data-close]').forEach(btn => btn.addEventListener('click', () => closeModal(btn.getAttribute('data-close'))));
+    render();
+  </script>
+</body>
+</html>

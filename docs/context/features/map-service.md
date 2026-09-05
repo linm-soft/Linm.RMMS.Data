@@ -1,14 +1,14 @@
 # MapService — dữ liệu gis.vn / CSDL nhà nước
 
 > **Slug:** `map-service` · **Module:** Platform GIS · **Phase:** P1 (ingest+clip) / P1.5 (tile prod)  
-> **Status:** Stack Wave 1 **done** · Wave 2 **web BFF done** (mobile pending) · Wave 4 **web done** (iOS/Android pending) · **P2 streets done** (`streetTilesReady`) — host **`Linm.Platform.MapService`** (`API-CORE`) · Docker `:5021` · Web BFF NuGet **1.1.0** tiles `web-bff/api/v1/gis/tiles/…` · MFE clip BFF MVT + OpenMapTiles roads/names  
+> **Status:** Stack Wave 1 **done** · Wave 2 **web BFF done** (mobile pending) · Wave 4 **web done** (iOS/Android pending) · mobile tab 44px + collapse body · **P2 streets done** (`streetTilesReady`) · MBTiles **`api/data/map/cache/vietnam.mbtiles`** · Docker `Map__OsmTileCacheRoot=/cache` · OSM miss z≤12 **200 no-store** · z>12 **404** (`GAP-MAP-TILE-EMPTY-ZOOM`) · MFE chip **Tiêu chuẩn / Vệ tinh** OSM Carto muted (`tone_plan=osm_muted` · 2026-09-01) — **cấm** Default/Streets EN — **clip-mask** invert **dưới** nhãn (`GAP-MAP-MASK-ALIGN` · `GAP-MAP-LABEL-CLIP` · 2026-09-03) — host **`Linm.Platform.MapService`** (`API-CORE`) · Docker `:5021` · Web BFF NuGet **1.1.0** tiles `web-bff/api/v1/gis/tiles/…` · MFE clip BFF MVT + OpenMapTiles roads/names  
 > **Confirmed (2026-09-01):** `svc_host=new_svc` · `service_kind=api` · `src_style=micro_src` · **platform service** (không RMMS domain)  
 > **Skills:** `/implement-map-stack` (entry) · `/implement-map-service` · `/data-gov-integration` · `/new-service` · next Wave 2 mobile BFF · Wave 3 `/implement-map-stack` integrate · Wave 4 native `/implement-gis-map`  
 > **Implement plan (BE→BFF→UI):** [`../../plan/map-service/README.md`](../../plan/map-service/README.md)  
 > **Platform STATUS:** `D:/API-CORE/Linm.Platform.MapService/docs/STATUS.md`  
 > **Peers:** [`gis.md`](gis.md) · [`gis-osm-clip.md`](gis-osm-clip.md) · [`import-gov-ssot.md`](import-gov-ssot.md) · [`legal-tech-corridor.md`](legal-tech-corridor.md)  
 > **Customer file:** [`../../tai-lieu/all-info-app-map.md`](../../tai-lieu/all-info-app-map.md)  
-> **gis.vn pack (DocsRoot):** [`../../gis-vn-map/`](../../gis-vn-map/) — SSOT clip = `Việt Nam (tỉnh thành) - 34.geojson`
+> **gis.vn pack (DocsRoot):** [`../../gis-vn-map/`](../../gis-vn-map/) — SSOT clip = `vietnam-provinces-34.geojson`
 
 ## 1. Tổng quan
 
@@ -29,7 +29,7 @@
 
 ## 2. Design / UI
 
-Không MFE riêng. Admin ingest = hosted `Map:IngestOnStartup` (file mount `/clip/vietnam-34.geojson`). User map → [`gis-osm-clip.md`](gis-osm-clip.md) — MFE Gis*Page **clip BFF** (MapLibre MVT) · **0** OSM.org.
+Không MFE riêng. Admin ingest = hosted `Map:IngestOnStartup` (file mount `/clip/vietnam-34.geojson`). User map → [`gis-osm-clip.md`](gis-osm-clip.md) — MFE Gis*Page **clip BFF** (MapLibre MVT) · **0** OSM.org · chip **Tiêu chuẩn / Vệ tinh** = **OSM Carto muted** (đất `#e8e4dc` · biển `#8eb8c8` · nước `#aad3df` · đường **nền + biên**) · stack sea-fill → water (ocean/`sea`=`theme.sea`) → vn-land → landcover → **clip-mask** → vn-line → **labels** — **cấm** Default/Streets EN · **cấm** clip-mask trên symbol · **cấm** đổi sang CDN. Native chrome copy [`patrol-map.md`](patrol-map.md) (tiles Wave 4 **pending**).
 
 ## 3. API
 
@@ -43,7 +43,7 @@ Reuse Signed GIS (MapService):
 | GET | `/api/v1/gis/health` | `boundaryCount` · `clipMaskReady` · `streetTilesReady` |
 | GET | `/api/v1/gis/basemap-config` | Guest · `provider=map-service-clip-osm` khi P2 ready · maxBounds 102–118 / **6.8–23.5** · minZoom 5 |
 | GET | `/api/v1/gis/layers` | Guest thấy lớp public; inspector thêm overlay |
-| GET | `/api/v1/gis/tiles/{layer}/{z}/{x}/{y}.pbf` | Guest: `basemap`/`boundaries`/`mask`/`notices`. Inspector: `routes`/`assets`/`cameras`/`patrol` |
+| GET | `/api/v1/gis/tiles/{layer}/{z}/{x}/{y}.pbf` | Guest: `basemap`/`boundaries`/`mask`/`notices`. Inspector: `routes`/`assets`/`cameras`/`patrol`. **`basemap`** = MBTiles OSM (`OsmTileMaxZoom` **12**). Empty z≤12 → **200** `no-store` (ocean). Empty z>12 → **404** (MapLibre overzoom). **`boundaries`** = PostGIS ST_AsMVT · empty ocean **200**. Query `?v=` MFE Live — BFF bỏ query khi forward MapService. |
 | GET | `/api/v1/gis/geojson/{layer}?bbox=` | JWT inspector; **cấm** guest |
 
 Heatmap PCI / drawings / **clusters (pin theo view)** = **RMMS.WebService** Gis — không chuyển MapService.
@@ -52,7 +52,7 @@ Heatmap PCI / drawings / **clusters (pin theo view)** = **RMMS.WebService** Gis 
 
 | z | Hiện |
 |---|------|
-| ≤ 8 | Bubble + count |
+| ≤ 8 | Bubble + count · **tuyến** = nét `osrm-bake` / index RMMS Gis (không MVT `assets`) · zoom sát **giữ** bake `national` (`GAP-MAP-INDEX-PAINT`) |
 | 9–13 | Theo tuyến trong bbox |
 | ≥ 14 | Pin bbox · take 100 · cap 2000 |
 
@@ -60,7 +60,7 @@ Chỉ dump WGS-84. **Cấm** 650k GeoJSON · **cấm** km-lerp. Guest không pin
 
 Import KCHT: pipeline [`import-gov-ssot.md`](import-gov-ssot.md) — **cấm** OSM POI làm sổ TS.
 
-Tile URL prod = BFF cùng origin — **GAP-MAP-OSM-CDN-01** đến khi MFE cắt xong. Live API nội bộ: `http://localhost:5021/api/v1/gis/tiles/basemap/{z}/{x}/{y}.pbf` (verify 200 MVT).
+Tile URL prod = BFF cùng origin — **GAP-MAP-OSM-CDN-01 CLOSED web**. Live API nội bộ: `http://localhost:5021/api/v1/gis/tiles/basemap/{z}/{x}/{y}.pbf` (verify 200 MVT). Palette MFE: [`gis-osm-clip.md`](gis-osm-clip.md) §2.
 
 ## 4. Database
 
@@ -68,10 +68,10 @@ Isolated PostGIS `linm_maps` (không Auth DB · không RMMS AppDbContext):
 
 | Concept | Nguồn | Status |
 |---------|-------|--------|
-| National/province MultiPolygon | [`../../gis-vn-map/`](../../gis-vn-map/) `Việt Nam (tỉnh thành) - 34.geojson` · 34 MultiPolygon · 31.7 MB | **Ingested 2026-09-01** · `vietnam_boundaries` count=34 · GIST `"Geom"` |
+| National/province MultiPolygon | [`../../gis-vn-map/`](../../gis-vn-map/) `vietnam-provinces-34.geojson` · 34 MultiPolygon · 31.7 MB | **Ingested 2026-09-01** · `vietnam_boundaries` count=34 · GIST `"Geom"` |
 | Clip mask | `ST_Union` 34 → invert world-minus-VN (đất liền + HS + TS) | **Ready** · `clip_masks` count=1 |
 | Road/KCHT overlay | `gov-vn` import → `overlay_features` | **Trống** — `/data-gov-integration` |
-| OSM streets | PBF clipped → `Map:OsmTileCacheRoot` `vietnam.mbtiles` | **Ready 2026-09-01** — Osmium + Planetiler z12 · `streetTilesReady=true` |
+| OSM streets | PBF clipped → `Map:OsmTileCacheRoot` `vietnam.mbtiles` | **Ready 2026-09-01** — Osmium + Planetiler z12 · host `api/data/map/cache/` · Docker volume **`/cache`** · `streetTilesReady=true` · **cấm** Planetiler trong API startup |
 | Forbidden geofence | Bảng `forbidden_geofences` | **Không** public GeoJSON |
 
 SRID 4326 + GIST. VN-2000 = transform khi nộp hồ sơ — không thay 4326 runtime.
@@ -80,14 +80,14 @@ SRID 4326 + GIST. VN-2000 = transform khi nộp hồ sơ — không thay 4326 ru
 
 | | |
 |--|--|
-| **Dùng cắt** | `docs/gis-vn-map/Việt Nam (tỉnh thành) - 34.geojson` — gis.vn sau sáp nhập · 34 tỉnh/TP |
+| **Dùng cắt** | `docs/gis-vn-map/vietnam-provinces-34.geojson` — gis.vn sau sáp nhập · 34 tỉnh/TP |
 | Union bbox | Lon **102.144–117.393** · Lat **6.931–23.393** (WGS-84) |
-| maxBounds camera | Lon **102.0–118.0** · Lat **6.8–23.5** · `minZoom` **5** — **cấm** Lat min = 8.0 (Mục I.2 khách) vì cắt mất Trường Sa |
+| maxBounds camera | Lon **102.0–118.0** · Lat **6.8–23.5** · `minZoom` **5** · **`maxZoom` 16** (`GAP-MAP-ZOOM-MAX`) — **cấm** Lat min = 8.0 (Mục I.2 khách) vì cắt mất Trường Sa · **cấm** Leaflet 18 (overzoom tile z12 tách QL) |
 | Hoàng Sa | Trong đa giác **Đà Nẵng** (sáp Quảng Nam) — east 112.777 |
 | Trường Sa | Trong đa giác **Khánh Hòa** (sáp Ninh Thuận) — east 117.393 · south 6.931 |
 | Không clip | `Provinces_included_Paracel_SpratlyIslands.geojson` (65 feature · 63 tỉnh cũ — đối soát Note HS/TS) · `dvhcvn.json` (cây 63/696/10047 · **không** geom) |
 
-**Cấm** nhét 31 MB GeoJSON vào MFE / binary Store. Dissolve + `.poly` + mask ở BE/job; client chỉ nhận tile clip + mask đã render.
+**Cấm** nhét 31 MB GeoJSON vào MFE / binary Store. Dissolve + `.poly` + mask ở BE/job; client nhận tile clip. Tile `mask` MVT = `ST_Difference`(tile clip, union tỉnh **cùng** `@simp` với `boundaries`) — **cấm** MVT stored `clip_masks` simp 0.008 (bậc thang vs biên). MFE **sơn** `clip-mask` **dưới** nhãn (`GAP-MAP-MASK-ALIGN` · `GAP-MAP-LABEL-CLIP`).
 
 ## 5. Events
 
@@ -99,9 +99,19 @@ Import gov xong → rebuild overlay MVT. Clip PBF mới → invalidate tile cach
 |----|---------|
 | GAP-MAP-SVC-01 | **CLOSED** — ingest 34 + mask + MVT + guest 401 · **P2 streets** MBTiles (`MAP-P2-01`) |
 | GAP-MAP-OSM-CDN-01 | **CLOSED web MFE** — Gis*Page BFF clip; native / demo HTML OSM.org còn |
-| GAP-MAP-GISVN-01 | **CLOSED file** — `docs/gis-vn-map/Việt Nam (tỉnh thành) - 34.geojson` |
+| GAP-MAP-OSM-TONE-01 | **CLOSED 2026-09-01** — paint OSM Carto muted trên MVT BFF (`vnClipBasemap.ts`) · không OSM.org |
+| GAP-MAP-ROAD-CARTO-01 | **CLOSED 2026-09-01** — đường nền+biên class fill/casing · overlay Tuyến pair primary — [`gis-osm-clip.md`](gis-osm-clip.md) |
+| GAP-MAP-GISVN-01 | **CLOSED file** — `docs/gis-vn-map/vietnam-provinces-34.geojson` |
 | GAP-MAP-TILE-500 | **CLOSED 2026-09-01** — SQLite MBTiles NRE concurrent · clip MVT · sea bg / layer order |
-| GOV-IMP-* | `/data-gov-integration` — overlay `overlay_features` trống |
+| GAP-MAP-INDEX-PAINT | **CLOSED 2026-09-03** — overlay bake/index **mọi zoom** (cache `national` · bỏ geomKey sample-80) · **cấm** refetch bbox thay bake · **cấm** `clipPathToView` ẩn nét đã ghim |
+| GAP-MAP-DRAW-STREET-01 | **CLOSED 2026-09-03 web** — overlay Tuyến = `{HighwayPath}` dense · **cấm** dump GPS thưa (`isSparseGpsChord`) · fail = **nét đứt** — [`gis-draw-live.md`](gis-draw-live.md) |
+| GAP-MAP-BAKE-JUMP | **CLOSED 2026-09-01** — pairwise không nối chord · FE nhiều polyline cùng id |
+| GAP-MAP-GL-LEFT | **CLOSED 2026-09-01** — không đụng canvas transform · overflow chỉ tile-pane |
+| GAP-MAP-LAND-SEA-01 | **UPDATED 2026-09-03** — sea-fill bbox → water (ocean/`sea`=`theme.sea` · inland `#aad3df`) → vn-land → landcover → **clip-mask** → vn-line → labels. **Cấm** water trên đất · **cấm** mask trên symbol |
+| GAP-MAP-MASK-ALIGN | **CLOSED 2026-09-03** — nền xanh khớp biên gis.vn: mask MVT từ tỉnh (không stored 0.008) + MFE fill `clip-mask` |
+| GAP-MAP-LABEL-CLIP | **CLOSED 2026-09-03** — crop đất/đường, **không** crop nhãn (Phú Quốc / Rạch Giá) |
+| GAP-MAP-TILE-EMPTY-ZOOM | **CLOSED 2026-09-03** — OSM empty native **200 no-store** (cấm 404 z≤12) · z>12 **404** · MFE Live `?v=` — [`gis-osm-clip.md`](gis-osm-clip.md) |
+| GAP-MAP-MVT-SIMP | **CLOSED 2026-09-03** — boundaries simp/pad nhỏ + MVT buffer **256** (GL = Leaflet−1) |
 
 ## 7. Demo checklist
 
@@ -113,3 +123,5 @@ Import gov xong → rebuild overlay MVT. Clip PBF mới → invalidate tile cach
 - [x] Osmium extract **ran** + Planetiler MBTiles z12 (`streetTilesReady` · layers transportation/place)  
 - [x] Prod tile URL **BFF** cùng origin (MFE Wave 4 web)  
 - [x] Không gọi `tile.openstreetmap.org` (MFE Gis*Page source)
+- [x] Chip **Tiêu chuẩn / Vệ tinh** OSM Carto muted (`GAP-MAP-OSM-TONE-01`) · **cấm** Default/Streets EN
+- [x] OSM miss z≤12 **200 no-store** · z>12 **404** · MBTiles `/cache` (`GAP-MAP-TILE-EMPTY-ZOOM`)

@@ -10,8 +10,8 @@
 | demo | /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/patrol-pin/ui/prototype/ios/index.html |
 | context | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/docs/context/features/patrol-pin.md` |
 | mfe | — (native · **cấm** mfeStdUrl) |
-| mfeStdRoute | — |
-| mfeStdUrl | — |
+| mfeStdRoute | `/patrol-pin` |
+| mfeStdUrl | `http://localhost:9301/patrol-pin` |
 | ios | `Linm.RMMS.Mobile.iOS` · e2e-qa-mobile sim 6.9" |
 | android | `Linm.RMMS.Mobile.Android` · e2e-qa-mobile emulator |
 | bff | `Linm.RMMS.Mobile.Bff` |
@@ -61,6 +61,8 @@
 -
 
 ## Links
+- mfeStdUrl: `http://localhost:9301/patrol-pin`
+- mfeStdRoute: `/patrol-pin`
 
 - data-analy → po → ui → be → task → implement → qa → review
 - native: e2eQa ON → `yarn e2e-qa-mobile` — **cấm** mfeStdUrl

@@ -7,7 +7,7 @@
 > **Cấm invent** `api/v1/map-service/*` · `api/assets/{z}/{x}/{y}.pbf`
 
 **Context:** [`../../context/features/map-service.md`](../../context/features/map-service.md) · clip UI [`gis-osm-clip.md`](../../context/features/gis-osm-clip.md) · luật [`legal-tech-corridor.md`](../../context/features/legal-tech-corridor.md)  
-**Pack cắt VN:** [`../../gis-vn-map/`](../../gis-vn-map/) — SSOT `Việt Nam (tỉnh thành) - 34.geojson`  
+**Pack cắt VN:** [`../../gis-vn-map/`](../../gis-vn-map/) — SSOT `vietnam-provinces-34.geojson`  
 **Entry:** `/implement-map-stack` (`/map-be-bff-ui`) — một wave / lượt · STATUS [`../../../specs/map-service/STATUS.md`](../../../specs/map-service/STATUS.md)
 
 Chạy **đúng thứ tự**. Không copy prompt generic MapLibre/Flutter.
@@ -60,6 +60,10 @@ SSOT pin ~650k: viewport + zoom trên **RMMS.WebService**. **Không** dump GeoJS
 
 Nguồn gộp: [`../gov-vn-nationwide/PLAN.md`](../gov-vn-nationwide/PLAN.md) §C.3.
 
+**Chuẩn hóa tọa độ dump (named route / lưới 0.01°):** [`../gis-coord-normalize/PLAN.md`](../gis-coord-normalize/PLAN.md) — alias + offline snap bake; **cấm** km-lerp invent.
+
+**Danh mục tuyến T6.2026:** script `data-import/Sau-sat-nhap/gov/normalize-routes-from-t6.mjs` · report `sets/gov-vn/_normalize-t6/REPORT.md` · `road_routes` importVersion **5**.
+
 ---
 
 ## API Signed (reuse — hai host)
@@ -92,7 +96,7 @@ PCI / drawings / clusters **ở lại** WebService.
 
 | | |
 |--|--|
-| File | `docs/gis-vn-map/Việt Nam (tỉnh thành) - 34.geojson` |
+| File | `docs/gis-vn-map/vietnam-provinces-34.geojson` |
 | maxBounds | Lon 102.0–118.0 · Lat **6.8–23.5** · minZoom 5 |
 | HS / TS | Đà Nẵng / Khánh Hòa (trong 34 — không file 65) |
 | Cấm | 31 MB GeoJSON trong MFE/Store · Lat min 8.0 · `tile.openstreetmap.org` prod |

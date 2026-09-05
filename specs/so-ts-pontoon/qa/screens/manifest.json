@@ -1,0 +1,37 @@
+{
+  "url": "http://localhost:9301/so-ts?type=PONTOON",
+  "aliasUrl": "http://localhost:9301/so-ts-pontoon",
+  "formUrl": "http://localhost:9301/so-ts/tao-moi?type=PONTOON",
+  "method": "e2e runtime · yarn start:std :9301 + docker API :5111 + BFF :5201 + yarn e2e-qa contract (Chrome channel fallback)",
+  "capturedAt": "2026-09-01T19:23:18.206Z",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "sha256_16": "849a00aee378349f",
+      "url": "http://localhost:9301/so-ts?type=PONTOON",
+      "note": "list PONTOON profile + filter bar"
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "sha256_16": "849a00aee378349f",
+      "url": "http://localhost:9301/so-ts-pontoon",
+      "note": "alias /so-ts-pontoon → type=PONTOON"
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "sha256_16": "70c3ece270994b0b",
+      "url": "http://localhost:9301/so-ts/tao-moi?type=PONTOON",
+      "note": "Create form · S-ATTR pontoon"
+    }
+  ],
+  "ok": true,
+  "note": "GAP-QA-E2E-PW-01: yarn e2e-qa hung after login banner — capture used channel=chrome; API host port 5111 (compose map) · --skip-start",
+  "testid": "rmms-so-ts-pontoon-list-page",
+  "formTestid": "rmms-asset-form-shell"
+}

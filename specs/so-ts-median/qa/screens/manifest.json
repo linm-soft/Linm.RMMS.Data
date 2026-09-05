@@ -1,0 +1,36 @@
+{
+  "url": "http://localhost:9301/so-ts?type=MEDIAN",
+  "aliasUrl": "http://localhost:9301/so-ts-median",
+  "formUrl": "http://localhost:9301/so-ts/tao-moi?type=MEDIAN",
+  "method": "e2e runtime · yarn start:std :9301 + docker API :5111 + BFF :5201 + yarn e2e-qa contract (Chrome channel fallback)",
+  "capturedAt": "2026-09-01T19:47:36.368Z",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "sha256_16": "9ed73220e2e6bbf1",
+      "url": "http://localhost:9301/so-ts?type=MEDIAN",
+      "note": "list MEDIAN profile + filter bar · kmTo ON · type hidden"
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "sha256_16": "9ed73220e2e6bbf1",
+      "url": "http://localhost:9301/so-ts-median",
+      "note": "alias /so-ts-median → Navigate type=MEDIAN"
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "sha256_16": "d63c9ff608376dbc",
+      "url": "http://localhost:9301/so-ts/tao-moi?type=MEDIAN",
+      "note": "Create form · S-ATTR median · S-LOC-RANGE · PC-"
+    }
+  ],
+  "ok": true,
+  "note": "GAP-QA-E2E-PW-01: yarn e2e-qa hang (:9100 down) · capture channel=chrome · --skip-start · API :5111 · no kill worker",
+  "testid": "rmms-so-ts-median-list"
+}

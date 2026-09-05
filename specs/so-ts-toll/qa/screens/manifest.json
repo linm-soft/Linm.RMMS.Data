@@ -1,0 +1,37 @@
+{
+  "url": "http://localhost:9301/so-ts?type=TOLL",
+  "aliasUrl": "http://localhost:9301/so-ts-toll",
+  "formUrl": "http://localhost:9301/so-ts/tao-moi?type=TOLL",
+  "method": "e2e runtime · yarn start:std :9301 + docker API :5111 + BFF :5201 + yarn e2e-qa contract (Chrome channel fallback)",
+  "capturedAt": "2026-09-01T05:15:44.946Z",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "sha256_16": "3e2c16f09af6b968",
+      "url": "http://localhost:9301/so-ts?type=TOLL",
+      "note": "list TOLL profile + filter bar"
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "sha256_16": "3e2c16f09af6b968",
+      "url": "http://localhost:9301/so-ts-toll",
+      "note": "alias /so-ts-toll → type=TOLL"
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "sha256_16": "2f53830096d92820",
+      "url": "http://localhost:9301/so-ts/tao-moi?type=TOLL",
+      "note": "Create form · S-ATTR toll"
+    }
+  ],
+  "ok": true,
+  "note": "GAP-QA-E2E-PW-01: yarn e2e-qa hung after login banner — capture used channel=chrome · --skip-start; GAP-QA-E2E-DOCKER-01: gate expects :5101 · compose :5111",
+  "testid": "rmms-so-ts-toll-list-page",
+  "formTestid": "rmms-asset-form-shell"
+}

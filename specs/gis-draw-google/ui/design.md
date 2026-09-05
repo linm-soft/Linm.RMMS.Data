@@ -26,7 +26,7 @@
 |------|------|---------|
 | A | Sidebar | Tabs Lớp / Chú giải / Thuộc tính / Kết quả · tree lớp tài sản |
 | B | *(removed 2026-09-01)* | **Cấm** thanh `← Dev ← GIS` + title «Bản đồ hạ tầng» · **cấm** toolbar Fit tổng quan / Nạp seed / Chuẩn hóa / Export / Xoá / Hủy biên tập / Lưu Ctrl+S / Công cụ ▾ |
-| C | Map chrome | `map-host` (Leaflet.draw + MAP_QUICK_TOOLS, **flex fill**) → `map-bar` (Nền VN clip · Fit · full/dock) · **cấm** `map-legend` isolate bottom · **cấm** map-bar meta |
+| C | Map chrome | `map-host` (Leaflet.draw + MAP_QUICK_TOOLS, **flex fill**) → `map-bar` (**Tiêu chuẩn \| Vệ tinh** · **Vị trí của tôi** · full/dock) · **cấm** nút Fit · **cấm** Default/Streets/Sat EN · **cấm** `map-legend` isolate bottom · **cấm** map-bar meta |
 | D | Props + results | Form mã/tên sau vẽ · list đã lưu · list click vẫn Fit focus |
 
 ## 3. Control map

@@ -1,0 +1,38 @@
+{
+  "url": "http://localhost:9301/so-ts?type=LAND_ROW",
+  "aliasUrl": "http://localhost:9301/so-ts-land-row",
+  "formUrl": "http://localhost:9301/so-ts/tao-moi?type=LAND_ROW",
+  "method": "e2e runtime · yarn start:std :9301 + docker API :5111 + BFF :5201 + yarn e2e-qa contract (Chrome channel · index.html+popstate)",
+  "capturedAt": "2026-09-01T08:59:37.812Z",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "sha256_16": "6c6b9cde46e44334",
+      "url": "http://localhost:9301/so-ts?type=LAND_ROW",
+      "note": "list LAND_ROW profile + filter bar"
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "sha256_16": "6c6b9cde46e44334",
+      "url": "http://localhost:9301/so-ts-land-row",
+      "note": "alias /so-ts-land-row → type=LAND_ROW"
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "sha256_16": "631ee3ef603afe50",
+      "url": "http://localhost:9301/so-ts/tao-moi?type=LAND_ROW",
+      "note": "Create form · S-ATTR land row"
+    }
+  ],
+  "ok": true,
+  "note": "GAP-QA-E2E-PW-01 / GAP-QA-E2E-HAF-01: yarn e2e-qa hung headed login; deep-link HTTP 404 — boot index.html + popstate; no process kill",
+  "testid": "rmms-so-ts-land-row-list-page",
+  "formTestid": "rmms-asset-form-shell",
+  "attrTestid": "asset-land-row-attr"
+}

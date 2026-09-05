@@ -20,7 +20,7 @@
 
 ## 2. Design / UI
 
-**MFE `/gis` 2026-09-01:** chrome **parity** [`gis-draw-live.md`](gis-draw-live.md) — **cấm** page header · **giữ** toolbar vận hành (Lấy dữ liệu / overlay / Heatmap / Twin / Mở vẽ) · **cấm** isolate legend bottom · map **flex fill** · click đoạn/pin/cam trên map **không** auto zoom (`?cam=` deep-link vẫn `setView`). Spec: `specs/gis/ui/design.md` · GAP-WEB-EDIT-01.
+**MFE `/gis` 2026-09-01:** chrome **parity** [`gis-draw-live.md`](gis-draw-live.md) — **cấm** page header · **giữ** toolbar vận hành (Lấy dữ liệu / overlay / Heatmap / Twin / Mở vẽ) · map-bar **Tiêu chuẩn \| Vệ tinh** + **Live \| Cache** tile + **Vị trí của tôi** · click pin locate card **Tên: Vị trí của bạn** + **GPS:** · **cấm** nút Fit trên bar · **cấm** isolate legend bottom · map **flex fill** · nền Carto [`gis-osm-clip.md`](gis-osm-clip.md) §2 (`clip-mask` dưới nhãn · ocean=`theme.sea` · `padding: 0` · +/- = wheel) · click đoạn/pin/cam trên map **không** auto zoom (`?cam=` deep-link vẫn `setView`). Spec: `specs/gis/ui/design.md` · GAP-WEB-EDIT-01. Native **copy web live** [`patrol-map.md`](patrol-map.md). Standalone GIS **`:9302`**.
 
 | Screen | Pattern | Zones |
 |--------|---------|-------|
@@ -145,8 +145,8 @@ PostGIS layers publish → Martin/pg_tileserv · Redis tile cache · SignalR `Gi
 | Làm mới overlay | action | toolbar | button | |
 | Heatmap PCI | action | toolbar | button | |
 | Lớp nền | action | toolbar | button | |
-| Vị trí của tôi | action | map | button | |
-| Fit viewport | action | map | button | |
+| Vị trí của tôi | action | map | button | map-bar · GPS pin + vòng vùng · **cấm** Fit trên bar |
+| Fit isolate | action | list | — | Chỉ Kết quả / grid isolate — **không** map-bar |
 | + | action | map | button | |
 | − | action | map | button | |
 | Chụp màn hình | export | toolbar | button | |

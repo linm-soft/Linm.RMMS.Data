@@ -1,0 +1,38 @@
+{
+  "url": "http://localhost:9301/so-ts?type=BUS_STOP",
+  "aliasUrl": "http://localhost:9301/so-ts-bus-stop",
+  "formUrl": "http://localhost:9301/so-ts/tao-moi?type=BUS_STOP",
+  "method": "e2e runtime · yarn start:std :9301 + docker API :5111 + BFF :5201 + yarn e2e-qa contract (Chrome channel · index.html+popstate)",
+  "capturedAt": "2026-09-01T08:09:47.882Z",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "sha256_16": "a4302d29a173d785",
+      "url": "http://localhost:9301/so-ts?type=BUS_STOP",
+      "note": "list BUS_STOP profile + filter bar"
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "sha256_16": "a4302d29a173d785",
+      "url": "http://localhost:9301/so-ts-bus-stop",
+      "note": "alias /so-ts-bus-stop → type=BUS_STOP"
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "sha256_16": "b1892c01698deb94",
+      "url": "http://localhost:9301/so-ts/tao-moi?type=BUS_STOP",
+      "note": "Create form · S-ATTR bus stop"
+    }
+  ],
+  "ok": true,
+  "note": "GAP-QA-E2E-PW-01 / GAP-QA-E2E-HAF-01: yarn e2e-qa hung headed login; deep-link HTTP 404 — boot index.html + popstate; no process kill",
+  "testid": "rmms-so-ts-bus-stop-list-page",
+  "formTestid": "rmms-asset-form-shell",
+  "attrTestid": "asset-bus-stop-attr"
+}
