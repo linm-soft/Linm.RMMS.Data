@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Prototype — Biểu 16 Nút giao (DES-GRID + Slideout typed 39 + branches[])</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
+  <style>
+    :root {
+      --bg:#f5f7fa; --card:#fff; --border:#BABCBE; --soft:#e9ecef; --txt:#1A1A1A;
+      --muted:#6c757d; --primary:#0d6efd; --btn:#EEEEEE; --r:4px;
+      --ds-focus-shadow:0 0 4px #BABCBE; --danger:#dc3545;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font:13px/1.4 "Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--txt)}
+    .page{max-width:1280px;margin:0 auto;padding:8px;display:flex;flex-direction:column;gap:8px;min-height:100vh}
+    .note{font-size:11px;color:var(--muted);padding:4px 0}
+    .zone-a{display:flex;align-items:center;gap:10px}
+    .zone-a h1{margin:0;font-size:18px;font-weight:700;display:flex;align-items:center;gap:10px;flex:1}
+    .back{border:0;background:transparent;color:var(--primary);font-weight:600;cursor:pointer;font-size:13px}
+    .zone-b{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:8px 0;position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--soft)}
+    .zone-b-left,.zone-b-right{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .tb{display:inline-flex;align-items:center;gap:4px;height:32px;padding:6px 8px;border:0;border-radius:var(--r);background:var(--btn);font-size:12px;font-weight:600;cursor:pointer}
+    .tb:hover{background:#BABCBE}
+    .tb.primary{background:var(--primary);color:#fff}
+    .tb.primary:hover{background:#0b5ed7}
+    .tb.danger{background:#f8d7da;color:var(--danger)}
+    .tb:disabled{opacity:.55;cursor:not-allowed}
+    .filter-bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:8px 0;justify-content:flex-end}
+    .filter-bar .fld{display:flex;flex-direction:column;gap:2px;font-size:11px;color:var(--muted)}
+    .filter-bar input,.filter-bar select{height:32px;min-width:100px;padding:4px 8px;border:1px solid var(--border);border-radius:var(--r);font-size:13px;background:#fff}
+    .search{display:flex;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;min-width:200px;height:32px;background:#fff}
+    .search input{border:0;outline:0;padding:6px 10px;flex:1;font-size:13px}
+    .search button{border:0;border-left:1px solid var(--border);background:#f8fafc;padding:0 10px;cursor:pointer;color:var(--muted)}
+    .si{display:flex;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;min-width:140px;height:32px;background:#fff}
+    .si input{border:0;outline:0;padding:6px 10px;flex:1;font-size:13px}
+    .si span{display:flex;align-items:center;padding:0 8px;color:var(--muted);border-left:1px solid var(--border);background:#f8fafc}
+    .shell-card{background:var(--card);border:1px solid var(--soft);border-radius:var(--r);flex:1;display:flex;flex-direction:column;min-height:0;overflow:hidden}
+    .grid-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 16px 8px}
+    .grid-title{margin:0;font-size:15px;font-weight:700}
+    .grid-help{margin:4px 0 0;font-size:12px;color:var(--muted)}
+    .table-wrap{overflow:auto;flex:1;min-height:220px;border-top:1px solid var(--soft)}
+    table{width:100%;border-collapse:collapse;table-layout:auto}
+    th,td{padding:8px 10px;border-bottom:1px solid var(--soft);text-align:left;white-space:nowrap}
+    th{background:#f8fafc;font-size:12px;color:var(--muted);position:sticky;top:0;z-index:1}
+    th.num,td.num{text-align:center;width:48px}
+    tbody tr:nth-child(even){background:#fafbfc}
+    tbody tr:hover,tbody tr.sel{background:#eff6ff}
+    .code{color:var(--primary);text-decoration:underline;cursor:pointer;font-family:ui-monospace,Menlo,Consolas,monospace;border:0;background:0;font:inherit}
+    .empty{padding:32px;text-align:center;color:var(--muted)}
+    .empty.hidden{display:none}
+    .zone-d{display:flex;flex-direction:column;align-items:center;gap:10px;padding:12px 16px;border-top:1px solid var(--soft)}
+    .zone-d-total{color:var(--muted)}
+    .zone-d-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center}
+    .pager-btn{width:32px;height:32px;border:1px solid var(--soft);border-radius:var(--r);background:#fff;color:var(--muted);cursor:pointer}
+    .menu{position:relative}
+    .menu summary{list-style:none;cursor:pointer;padding:4px 8px;border:1px solid var(--border);border-radius:var(--r);background:#fff}
+    .menu summary::-webkit-details-marker{display:none}
+    .menu-panel{display:none;position:absolute;right:0;z-index:5;background:#fff;border:1px solid var(--border);border-radius:6px;min-width:140px;box-shadow:0 8px 24px rgba(0,0,0,.12)}
+    .menu[open] .menu-panel{display:block}
+    .menu-panel button{display:block;width:100%;text-align:left;border:0;background:0;padding:8px 12px;cursor:pointer;font-size:13px}
+    .menu-panel button:hover{background:#f1f5f9}
+    .backdrop{display:none;position:fixed;inset:0;background:rgba(15,23,42,.35);z-index:40;align-items:center;justify-content:center}
+    .backdrop.on{display:flex}
+    .modal{width:min(420px,94vw);background:#fff;border-radius:8px;border:1px solid var(--soft)}
+    .modal-h{padding:12px 16px;border-bottom:1px solid var(--soft);font-weight:700}
+    .modal-b{padding:16px;font-size:13px;color:var(--muted)}
+    .modal-f{padding:12px 16px;border-top:1px solid var(--soft);display:flex;justify-content:flex-end;gap:8px}
+    .slide-root{display:none;position:fixed;inset:0;z-index:50}
+    .slide-root.on{display:block}
+    .slide-mask{position:absolute;inset:0;background:rgba(15,23,42,.35)}
+    .slide{position:absolute;top:0;right:0;width:min(860px,96vw);height:100%;background:#fff;display:flex;flex-direction:column;box-shadow:-8px 0 24px rgba(0,0,0,.12)}
+    .slide-h{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid var(--soft)}
+    .slide-h h2{margin:0;font-size:16px;font-weight:700;flex:1}
+    .slide-x{border:0;background:transparent;font-size:18px;cursor:pointer;color:var(--muted);width:32px;height:32px}
+    .slide-b{flex:1;overflow:auto;padding:16px}
+    .slide-f{padding:12px 16px;border-top:1px solid var(--soft);display:flex;justify-content:flex-end;gap:8px;background:#fff}
+    .slide-f .tb{min-width:100px;justify-content:center}
+    .sec{font-size:12px;font-weight:700;color:var(--muted);margin:12px 0 6px;grid-column:1/-1;border-bottom:1px solid var(--soft);padding-bottom:4px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+    .fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .fields[data-form-cols="2"]{grid-template-columns:1fr 1fr}
+    .fields .full{grid-column:1/-1}
+    .fields label{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--txt)}
+    .fields label span{color:var(--muted);font-size:13px}
+    .fields input,.fields select,.fields textarea{width:100%;padding:6px 10px;border:1px solid var(--border);border-radius:var(--r);font-size:14px;min-height:32px}
+    .fields input:focus,.fields select:focus,.fields textarea:focus{outline:none;border-color:var(--primary);box-shadow:var(--ds-focus-shadow)}
+    .fields .ro{background:#f8fafc}
+    .view-ro input,.view-ro select,.view-ro textarea{border:0;background:transparent;padding-left:0;box-shadow:none!important}
+    .child-wrap{grid-column:1/-1;border:1px solid var(--soft);border-radius:var(--r);overflow:auto}
+    .child-wrap table{font-size:12px}
+    .child-wrap th,.child-wrap td{padding:4px 6px}
+    .child-wrap input,.child-wrap select{min-width:72px;height:28px;font-size:12px;padding:2px 6px}
+    .toast{position:fixed;bottom:16px;right:16px;background:#212529;color:#fff;padding:10px 14px;border-radius:6px;font-size:13px;z-index:60;display:none}
+    .toast.on{display:block}
+    @media (max-width:800px){.fields[data-form-cols="2"]{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="page">
+    <p class="note" id="note">SSOT Design · <code>shared_grid_example v1</code> · pack <code>csdl-bieu-16</code> · resource <code>interchanges</code> · formNo <code>16</code> · mfeStdUrl <code>/csdl-bieu-16</code> · hub NEW card <code>?resource=interchanges</code> · peer so-ts-interchange · <strong>cấm</strong> merge · skip chrome · <strong>cấm</strong> detail* only · <strong>cấm</strong> flatten-only · map none · Q-TYPE-SET cite_excel · Q-TRAFFIC-ORG lookup · Q-ATGT qty · Q-BRANCH-MIN min_1 · Q-KM point_main · Q-MANAGE in_39 · Q-LIST-COLS subset · Q-TITLE nut_giao · Q-DMAP add_now · Q-PEER-LINK none_p1 · Q-CHILD-API embed</p>
+
+    <section id="list" style="display:flex;flex-direction:column;gap:8px;flex:1;min-height:0">
+      <div class="zone-a" data-des-id="DES-GRID-A">
+        <button type="button" class="back" id="btnBack" title="Về hub CSDL">← CSDL sổ sách</button>
+        <h1><i class="fas fa-project-diagram" aria-hidden="true"></i> Biểu 16 — Nút giao</h1>
+      </div>
+
+      <div class="zone-b" data-des-id="DES-GRID-B">
+        <div class="zone-b-left">
+          <button type="button" class="tb" data-action="refresh" title="Làm mới"><i class="fas fa-sync-alt"></i></button>
+          <button type="button" class="tb" data-action="history" title="Lịch sử"><i class="fas fa-history"></i></button>
+          <button type="button" class="tb" data-action="config" title="Cấu hình"><i class="fas fa-cog"></i></button>
+          <button type="button" class="tb" id="btn-del" disabled title="Xóa"><i class="fas fa-trash"></i></button>
+          <button type="button" class="tb" data-action="import" title="Import stub OUT Biểu 16"><i class="fas fa-file-import"></i></button>
+          <button type="button" class="tb" data-action="export" title="Export stub OUT Biểu 16"><i class="fas fa-file-export"></i></button>
+        </div>
+        <div class="zone-b-right">
+          <button type="button" class="tb primary" data-action="create"><i class="fas fa-plus"></i> Tạo mới</button>
+        </div>
+      </div>
+
+      <div class="filter-bar" data-des-id="DES-GRID-B-FILTER" aria-label="LinErpListFilterBar">
+        <label class="fld">Tỉnh/TP
+          <select id="fProv"><option value="">Tất cả</option><option>Hà Tĩnh</option><option>Nghệ An</option><option>Quảng Bình</option><option>Quảng Trị</option><option>TT-Huế</option></select>
+        </label>
+        <label class="fld">Loại nút
+          <select id="fType"><option value="">Tất cả</option><option>Đồng mức</option><option>Khác mức</option><option>Liên thông</option><option>Vòng xuyến</option><option>Khác</option></select>
+        </label>
+        <label class="fld">Tình trạng
+          <select id="fStatus"><option value="">Tất cả</option><option value="tot">Tốt</option><option value="tb">Trung bình</option><option value="kem">Kém</option><option value="hong">Hỏng</option></select>
+        </label>
+        <label class="fld">Đường
+          <span class="si"><input id="fRoad" placeholder="SearchInput road-route…" /><span><i class="fas fa-search"></i></span></span>
+        </label>
+        <label class="fld">Km chính<input id="fKmMain" type="number" step="0.001" placeholder="Km" /></label>
+        <div class="search" title="SearchTextInput · 🔍 cụm phải · cấm nút Tìm riêng">
+          <input id="fSearch" type="search" placeholder="Tìm mã, tên nút, đường, ghi chú…" />
+          <button type="button" id="btnSearchIcon" aria-label="Tìm"><i class="fas fa-search"></i></button>
+        </div>
+      </div>
+
+      <div class="shell-card" data-des-id="DES-GRID-C">
+        <div class="grid-head">
+          <div>
+            <h2 class="grid-title">Danh sách nút giao</h2>
+            <p class="grid-help">subset shared+name/interchangeType/kmMain/status · kéo cột ON · Q-LIST-COLS subset · child branches[] · <strong>cấm</strong> merge so-ts-interchange</p>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th class="num">STT</th>
+                <th class="num"><input type="checkbox" id="chkAll" title="Chọn tất cả" /></th>
+                <th>Mã</th>
+                <th>Tên nút</th>
+                <th>Đường</th>
+                <th>Tỉnh</th>
+                <th>Km chính</th>
+                <th>Loại nút</th>
+                <th>TT</th>
+                <th>Số nhánh</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="tbody"></tbody>
+          </table>
+          <div class="empty hidden" id="empty">Chưa có nút giao · <button type="button" class="tb primary" data-action="create">Tạo mới</button></div>
+        </div>
+        <div class="zone-d" data-des-id="DES-GRID-D">
+          <div class="zone-d-total" id="totalLabel">Tổng: 0</div>
+          <div class="zone-d-row">
+            <button type="button" class="pager-btn" disabled><i class="fas fa-chevron-left"></i></button>
+            <span>1</span>
+            <button type="button" class="pager-btn" disabled><i class="fas fa-chevron-right"></i></button>
+            <select id="pageSize" title="LinCatalogListPagination">
+              <option>50</option><option>100</option><option>200</option><option>500</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="slide-root" id="slide" data-des-id="DES-GRID-Z" aria-hidden="true">
+    <div class="slide-mask" data-close="1"></div>
+    <div class="slide" role="dialog" aria-labelledby="slideTitle">
+      <div class="slide-h">
+        <h2 id="slideTitle">Tạo mới — Biểu 16</h2>
+        <button type="button" class="slide-x" data-close="1" aria-label="Đóng">×</button>
+      </div>
+      <div class="slide-b">
+        <form id="frm" class="fields" data-form-cols="2" autocomplete="off">
+          <div class="sec" data-des-id="DES-FORM-Z1">Z1 · Định danh / vị trí</div>
+          <label><span>Mã</span><input id="fCode" class="ro" readonly placeholder="IX-yyyyMMdd-nnnn" /></label>
+          <label><span>Tên nút giao *</span><input id="fName" required /></label>
+          <label class="full"><span>Đường (SearchInput road-route) *</span>
+            <span class="si" style="height:auto;min-height:32px"><input id="fRoadCode" required placeholder="Chọn tuyến…" /><span><i class="fas fa-search"></i></span></span>
+          </label>
+          <label><span>Tỉnh/TP *</span>
+            <select id="fProvince" required>
+              <option value="">—</option>
+              <option>Hà Tĩnh</option><option>Nghệ An</option><option>Quảng Bình</option><option>Quảng Trị</option><option>TT-Huế</option>
+            </select>
+          </label>
+          <label><span>Km chính *</span><input id="fKmMainForm" type="number" step="0.001" required /></label>
+          <label><span>Km phụ</span><input id="fKmAux" type="number" step="0.001" /></label>
+          <label><span>Vị trí L/R/C</span>
+            <select id="fSide"><option value="">—</option><option>L</option><option>R</option><option>C</option></select>
+          </label>
+
+          <div class="sec" data-des-id="DES-FORM-Z2">Z2 · Đặc trưng nút</div>
+          <label><span>Loại nút *</span>
+            <select id="fTypeForm" required>
+              <option value="Đồng mức">Đồng mức</option>
+              <option value="Khác mức">Khác mức</option>
+              <option value="Liên thông">Liên thông</option>
+              <option value="Vòng xuyến">Vòng xuyến</option>
+              <option value="Khác">Khác</option>
+            </select>
+          </label>
+          <label><span>Tổ chức GT</span>
+            <select id="fTrafficOrg">
+              <option value="">—</option>
+              <option>Đèn tín hiệu</option>
+              <option>Biển báo</option>
+              <option>Đảo giao thông</option>
+              <option>Không điều khiển</option>
+              <option>Khác</option>
+            </select>
+          </label>
+          <label><span>B nền tuyến chính (m)</span><input id="fMainBed" type="number" min="0" step="0.01" /></label>
+          <label><span>B mặt tuyến chính (m)</span><input id="fMainSurf" type="number" min="0" step="0.01" /></label>
+          <label><span>KC / dải PC (m)</span><input id="fMainMed" type="number" min="0" step="0.01" /></label>
+          <label><span>Số làn tuyến chính</span><input id="fMainLane" type="number" min="0" step="1" /></label>
+
+          <div class="sec" data-des-id="DES-FORM-BRANCH">Nhánh tách / nhập (branches[] · min_1)
+            <span>
+              <button type="button" class="tb" id="btnAddBranch"><i class="fas fa-plus"></i> Thêm nhánh</button>
+            </span>
+          </div>
+          <div class="child-wrap full">
+            <table>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Tên nhánh *</th>
+                  <th>Km từ *</th>
+                  <th>Km đến *</th>
+                  <th>Vị trí</th>
+                  <th>Hướng</th>
+                  <th>Dài (m)</th>
+                  <th>B nền</th>
+                  <th>B mặt</th>
+                  <th>KC</th>
+                  <th>R</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="branchBody"></tbody>
+            </table>
+          </div>
+          <label><span>Số nhánh (derived)</span><input id="fBranchCount" class="ro" readonly /></label>
+
+          <div class="sec" data-des-id="DES-FORM-Z3">Z3 · ATGT (qty)</div>
+          <label><span>ATGT biển (SL)</span><input id="fAtgtSign" type="number" min="0" step="1" /></label>
+          <label><span>ATGT vạch (SL)</span><input id="fAtgtMark" type="number" min="0" step="1" /></label>
+          <label><span>ATGT đảo (SL)</span><input id="fAtgtIsland" type="number" min="0" step="1" /></label>
+          <label><span>ATGT đèn (SL)</span><input id="fAtgtLight" type="number" min="0" step="1" /></label>
+
+          <div class="sec">Z3 · Quản lý</div>
+          <label><span>Tình trạng (TT) *</span>
+            <select id="fStatusForm" required>
+              <option value="tot">Tốt</option><option value="tb">Trung bình</option><option value="kem">Kém</option><option value="hong">Hỏng</option>
+            </select>
+          </label>
+          <label><span>Năm</span><input id="fYear" type="number" min="1900" max="2100" step="1" /></label>
+          <label><span>ĐV QL (Text P1)</span><input id="fManage" placeholder="→ org SearchInput P2" /></label>
+          <label><span>Lat</span><input id="fLat" type="number" step="0.000001" /></label>
+          <label><span>Lng</span><input id="fLng" type="number" step="0.000001" /></label>
+          <label class="full"><span>Ghi chú</span><textarea id="fNotes" rows="2"></textarea></label>
+        </form>
+      </div>
+      <div class="slide-f" id="slideFooter">
+        <button type="button" class="tb" data-close="1">Hủy</button>
+        <button type="button" class="tb primary" id="btnSave">Lưu</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="backdrop" id="leaveModal">
+    <div class="modal">
+      <div class="modal-h">Rời form?</div>
+      <div class="modal-b">Dữ liệu chưa lưu sẽ mất. Dùng LeaveConfirmModal — cấm native confirm.</div>
+      <div class="modal-f">
+        <button type="button" class="tb" id="leaveStay">Ở lại</button>
+        <button type="button" class="tb primary" id="leaveOk">Rời</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="backdrop" id="delModal">
+    <div class="modal">
+      <div class="modal-h">Xóa bản ghi?</div>
+      <div class="modal-b">Soft-delete · row biến mất · list refresh.</div>
+      <div class="modal-f">
+        <button type="button" class="tb" id="delCancel">Hủy</button>
+        <button type="button" class="tb primary" id="delOk">Xóa</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const STATUS_LABEL = { tot: "Tốt", tb: "TB", kem: "Kém", hong: "Hỏng" };
+
+    function emptyBranch() {
+      return { branchName: "", branchKmFrom: "", branchKmTo: "", branchSide: "", branchDirection: "Tách", branchLength: "", branchBedWidth: "", branchSurfaceWidth: "", branchMedianWidth: "", branchRadius: "" };
+    }
+
+    let rows = [
+      {
+        id: 1, code: "IX-20260905-0001", name: "Nút giao QL.1 — QL.8", roadName: "QL.1", province: "Hà Tĩnh",
+        kmMain: 520.15, kmAux: 0.2, side: "C", interchangeType: "Khác mức", trafficOrg: "Đèn tín hiệu",
+        mainBedWidth: 22, mainSurfaceWidth: 18, mainMedianWidth: 2, mainLaneCount: 4,
+        atgtSign: 12, atgtMarking: 4, atgtIsland: 1, atgtLight: 8, status: "tot", yearBuilt: 2016,
+        manageUnit: "Khu QLĐB I", notes: "", lat: null, lng: null,
+        branches: [
+          { branchName: "Nhánh tách QL.8", branchKmFrom: 520.1, branchKmTo: 520.4, branchSide: "R", branchDirection: "Tách", branchLength: 280, branchBedWidth: 9, branchSurfaceWidth: 7, branchMedianWidth: 0, branchRadius: 45 },
+          { branchName: "Nhánh nhập QL.1", branchKmFrom: 520.2, branchKmTo: 520.5, branchSide: "L", branchDirection: "Nhập", branchLength: 260, branchBedWidth: 9, branchSurfaceWidth: 7, branchMedianWidth: 0, branchRadius: 40 }
+        ]
+      },
+      {
+        id: 2, code: "IX-20260905-0002", name: "Nút giao vòng xuyến Vinh", roadName: "QL.1", province: "Nghệ An",
+        kmMain: 410.0, kmAux: "", side: "C", interchangeType: "Vòng xuyến", trafficOrg: "Đảo giao thông",
+        mainBedWidth: 18, mainSurfaceWidth: 14, mainMedianWidth: 1.5, mainLaneCount: 3,
+        atgtSign: 8, atgtMarking: 2, atgtIsland: 1, atgtLight: 0, status: "tb", yearBuilt: 2012,
+        manageUnit: "Khu QLĐB II", notes: "cải tạo đảo", lat: null, lng: null,
+        branches: [
+          { branchName: "Nhánh N", branchKmFrom: 409.8, branchKmTo: 410.1, branchSide: "C", branchDirection: "Tách", branchLength: 120, branchBedWidth: 7, branchSurfaceWidth: 6, branchMedianWidth: 0, branchRadius: 25 }
+        ]
+      },
+      {
+        id: 3, code: "IX-20260905-0003", name: "Nút đồng mức Đồng Hới", roadName: "QL.1", province: "Quảng Bình",
+        kmMain: 88.5, kmAux: "", side: "R", interchangeType: "Đồng mức", trafficOrg: "Biển báo",
+        mainBedWidth: 12, mainSurfaceWidth: 10, mainMedianWidth: 0, mainLaneCount: 2,
+        atgtSign: 6, atgtMarking: 1, atgtIsland: 0, atgtLight: 0, status: "tot", yearBuilt: 2008,
+        manageUnit: "Khu QLĐB III", notes: "", lat: null, lng: null,
+        branches: [
+          { branchName: "Nhánh tỉnh lộ", branchKmFrom: 88.4, branchKmTo: 88.6, branchSide: "R", branchDirection: "Tách", branchLength: 80, branchBedWidth: 6, branchSurfaceWidth: 5, branchMedianWidth: 0, branchRadius: 20 },
+          { branchName: "Nhánh nhập", branchKmFrom: 88.45, branchKmTo: 88.65, branchSide: "L", branchDirection: "Nhập", branchLength: 75, branchBedWidth: 6, branchSurfaceWidth: 5, branchMedianWidth: 0, branchRadius: 18 }
+        ]
+      }
+    ];
+    let mode = "list";
+    let dirty = false;
+    let selected = new Set();
+    let editId = null;
+    let pendingClose = null;
+    let draftBranches = [];
+
+    const $ = (s) => document.querySelector(s);
+    const $$ = (s) => [...document.querySelectorAll(s)];
+
+    function toast(msg) {
+      const el = $("#toast");
+      el.textContent = msg;
+      el.classList.add("on");
+      clearTimeout(toast._t);
+      toast._t = setTimeout(() => el.classList.remove("on"), 2200);
+      console.info("[prototype]", msg);
+    }
+
+    function renderBranches() {
+      const tb = $("#branchBody");
+      tb.innerHTML = "";
+      const ro = mode === "view";
+      draftBranches.forEach((b, i) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td class="num">${i + 1}</td>
+          <td><input data-b="${i}" data-k="branchName" value="${b.branchName || ""}" ${ro ? "disabled" : ""} /></td>
+          <td><input data-b="${i}" data-k="branchKmFrom" type="number" step="0.001" value="${b.branchKmFrom ?? ""}" ${ro ? "disabled" : ""} /></td>
+          <td><input data-b="${i}" data-k="branchKmTo" type="number" step="0.001" value="${b.branchKmTo ?? ""}" ${ro ? "disabled" : ""} /></td>
+          <td><select data-b="${i}" data-k="branchSide" ${ro ? "disabled" : ""}>
+            <option value="">—</option><option ${b.branchSide === "L" ? "selected" : ""}>L</option>
+            <option ${b.branchSide === "R" ? "selected" : ""}>R</option><option ${b.branchSide === "C" ? "selected" : ""}>C</option>
+          </select></td>
+          <td><select data-b="${i}" data-k="branchDirection" ${ro ? "disabled" : ""}>
+            <option ${b.branchDirection === "Tách" ? "selected" : ""}>Tách</option>
+            <option ${b.branchDirection === "Nhập" ? "selected" : ""}>Nhập</option>
+            <option ${b.branchDirection === "Khác" ? "selected" : ""}>Khác</option>
+          </select></td>
+          <td><input data-b="${i}" data-k="branchLength" type="number" min="0" step="0.01" value="${b.branchLength ?? ""}" ${ro ? "disabled" : ""} /></td>
+          <td><input data-b="${i}" data-k="branchBedWidth" type="number" min="0" step="0.01" value="${b.branchBedWidth ?? ""}" ${ro ? "disabled" : ""} /></td>
+          <td><input data-b="${i}" data-k="branchSurfaceWidth" type="number" min="0" step="0.01" value="${b.branchSurfaceWidth ?? ""}" ${ro ? "disabled" : ""} /></td>
+          <td><input data-b="${i}" data-k="branchMedianWidth" type="number" min="0" step="0.01" value="${b.branchMedianWidth ?? ""}" ${ro ? "disabled" : ""} /></td>
+          <td><input data-b="${i}" data-k="branchRadius" type="number" min="0" step="0.01" value="${b.branchRadius ?? ""}" ${ro ? "disabled" : ""} /></td>
+          <td>${ro ? "" : `<button type="button" class="tb danger" data-rm-branch="${i}" title="Xóa"><i class="fas fa-times"></i></button>`}</td>`;
+        tb.appendChild(tr);
+      });
+      $("#fBranchCount").value = String(draftBranches.length);
+      $("#btnAddBranch").disabled = ro;
+    }
+
+    function render() {
+      const q = ($("#fSearch").value || "").trim().toLowerCase();
+      const prov = $("#fProv").value;
+      const st = $("#fStatus").value;
+      const typ = $("#fType").value;
+      const road = ($("#fRoad").value || "").trim().toLowerCase();
+      const kmM = $("#fKmMain").value;
+
+      const filtered = rows.filter((r) => {
+        if (prov && r.province !== prov) return false;
+        if (st && r.status !== st) return false;
+        if (typ && r.interchangeType !== typ) return false;
+        if (road && !(r.roadName || "").toLowerCase().includes(road)) return false;
+        if (kmM !== "" && Number(r.kmMain) !== Number(kmM)) return false;
+        if (q) {
+          const hay = [r.code, r.name, r.roadName, r.notes].join(" ").toLowerCase();
+          if (!hay.includes(q)) return false;
+        }
+        return true;
+      });
+
+      const tb = $("#tbody");
+      tb.innerHTML = "";
+      filtered.forEach((r, i) => {
+        const tr = document.createElement("tr");
+        if (selected.has(r.id)) tr.classList.add("sel");
+        const bc = (r.branches || []).length;
+        tr.innerHTML = `
+          <td class="num">${i + 1}</td>
+          <td class="num"><input type="checkbox" data-id="${r.id}" ${selected.has(r.id) ? "checked" : ""} /></td>
+          <td><button type="button" class="code" data-view="${r.id}">${r.code}</button></td>
+          <td>${r.name}</td>
+          <td>${r.roadName}</td>
+          <td>${r.province}</td>
+          <td>${r.kmMain}</td>
+          <td>${r.interchangeType}</td>
+          <td>${STATUS_LABEL[r.status] || r.status}</td>
+          <td>${bc}</td>
+          <td>
+            <details class="menu">
+              <summary>⋯</summary>
+              <div class="menu-panel">
+                <button type="button" data-view="${r.id}">Xem</button>
+                <button type="button" data-edit="${r.id}">Sửa</button>
+                <button type="button" data-copy="${r.id}">Copy</button>
+                <button type="button" data-del1="${r.id}">Xóa</button>
+                <button type="button" data-hist="1">Lịch sử</button>
+              </div>
+            </details>
+          </td>`;
+        tb.appendChild(tr);
+      });
+      $("#empty").classList.toggle("hidden", filtered.length > 0);
+      $("#totalLabel").textContent = "Tổng: " + filtered.length;
+      $("#btn-del").disabled = selected.size === 0;
+    }
+
+    function openSlide(m, row) {
+      mode = m;
+      dirty = false;
+      editId = row ? row.id : null;
+      const titles = { create: "Tạo mới — Biểu 16", edit: "Sửa — Biểu 16", view: "Xem — Biểu 16", copy: "Copy — Biểu 16" };
+      $("#slideTitle").textContent = titles[m] || "Biểu 16";
+      $("#frm").classList.toggle("view-ro", m === "view");
+      const ro = m === "view";
+      $$("#frm input, #frm select, #frm textarea").forEach((el) => {
+        if (el.id === "fCode" || el.id === "fBranchCount") { el.readOnly = true; return; }
+        el.disabled = ro;
+      });
+      if (row) {
+        $("#fCode").value = m === "copy" ? "" : row.code;
+        $("#fName").value = row.name || "";
+        $("#fRoadCode").value = row.roadName;
+        $("#fProvince").value = row.province;
+        $("#fKmMainForm").value = row.kmMain;
+        $("#fKmAux").value = row.kmAux ?? "";
+        $("#fSide").value = row.side || "";
+        $("#fTypeForm").value = row.interchangeType;
+        $("#fTrafficOrg").value = row.trafficOrg || "";
+        $("#fMainBed").value = row.mainBedWidth ?? "";
+        $("#fMainSurf").value = row.mainSurfaceWidth ?? "";
+        $("#fMainMed").value = row.mainMedianWidth ?? "";
+        $("#fMainLane").value = row.mainLaneCount ?? "";
+        $("#fAtgtSign").value = row.atgtSign ?? "";
+        $("#fAtgtMark").value = row.atgtMarking ?? "";
+        $("#fAtgtIsland").value = row.atgtIsland ?? "";
+        $("#fAtgtLight").value = row.atgtLight ?? "";
+        $("#fStatusForm").value = row.status;
+        $("#fYear").value = row.yearBuilt ?? "";
+        $("#fManage").value = row.manageUnit || "";
+        $("#fLat").value = row.lat ?? "";
+        $("#fLng").value = row.lng ?? "";
+        $("#fNotes").value = row.notes || "";
+        draftBranches = (row.branches || []).map((b) => ({ ...b }));
+      } else {
+        $("#frm").reset();
+        $("#fCode").value = "";
+        $("#fStatusForm").value = "tot";
+        $("#fTypeForm").value = "Đồng mức";
+        draftBranches = [emptyBranch()];
+      }
+      renderBranches();
+      const foot = $("#slideFooter");
+      if (m === "view") {
+        foot.innerHTML = `<button type="button" class="tb" data-close="1">Đóng</button>
+          <button type="button" class="tb" id="btnToEdit">Sửa</button>
+          <button type="button" class="tb primary" id="btnToCopy">Copy</button>`;
+        $("#btnToEdit")?.addEventListener("click", () => openSlide("edit", row));
+        $("#btnToCopy")?.addEventListener("click", () => openSlide("copy", row));
+      } else {
+        foot.innerHTML = `<button type="button" class="tb" data-close="1">Hủy</button>
+          <button type="button" class="tb primary" id="btnSave">Lưu</button>`;
+        $("#btnSave")?.addEventListener("click", save);
+      }
+      $("#slide").classList.add("on");
+      $("#slide").setAttribute("aria-hidden", "false");
+    }
+
+    function requestClose() {
+      if (dirty && mode !== "view") {
+        pendingClose = () => closeSlide();
+        $("#leaveModal").classList.add("on");
+        return;
+      }
+      closeSlide();
+    }
+
+    function closeSlide() {
+      $("#slide").classList.remove("on");
+      $("#slide").setAttribute("aria-hidden", "true");
+      dirty = false;
+      mode = "list";
+    }
+
+    function n(id) {
+      const v = $("#" + id).value;
+      return v === "" ? null : Number(v);
+    }
+
+    function collectBranches() {
+      return draftBranches.map((b) => ({
+        branchName: b.branchName || "",
+        branchKmFrom: b.branchKmFrom === "" ? null : Number(b.branchKmFrom),
+        branchKmTo: b.branchKmTo === "" ? null : Number(b.branchKmTo),
+        branchSide: b.branchSide || "",
+        branchDirection: b.branchDirection || "",
+        branchLength: b.branchLength === "" ? null : Number(b.branchLength),
+        branchBedWidth: b.branchBedWidth === "" ? null : Number(b.branchBedWidth),
+        branchSurfaceWidth: b.branchSurfaceWidth === "" ? null : Number(b.branchSurfaceWidth),
+        branchMedianWidth: b.branchMedianWidth === "" ? null : Number(b.branchMedianWidth),
+        branchRadius: b.branchRadius === "" ? null : Number(b.branchRadius)
+      }));
+    }
+
+    function save() {
+      const branches = collectBranches();
+      if (!branches.length || !branches.every((b) => b.branchName && b.branchKmFrom != null && b.branchKmTo != null)) {
+        toast("Bắt buộc ≥1 nhánh · điền tên + Km từ–đến (Q-BRANCH-MIN min_1)");
+        return;
+      }
+      const payload = {
+        id: mode === "edit" && editId ? editId : Date.now(),
+        code: mode === "edit" && editId ? $("#fCode").value : ("IX-20260905-" + String(rows.length + 1).padStart(4, "0")),
+        name: $("#fName").value,
+        roadName: $("#fRoadCode").value || "—",
+        province: $("#fProvince").value,
+        kmMain: Number($("#fKmMainForm").value),
+        kmAux: n("fKmAux"),
+        side: $("#fSide").value,
+        interchangeType: $("#fTypeForm").value,
+        trafficOrg: $("#fTrafficOrg").value,
+        mainBedWidth: n("fMainBed"),
+        mainSurfaceWidth: n("fMainSurf"),
+        mainMedianWidth: n("fMainMed"),
+        mainLaneCount: n("fMainLane"),
+        atgtSign: n("fAtgtSign"),
+        atgtMarking: n("fAtgtMark"),
+        atgtIsland: n("fAtgtIsland"),
+        atgtLight: n("fAtgtLight"),
+        status: $("#fStatusForm").value,
+        yearBuilt: n("fYear"),
+        manageUnit: $("#fManage").value,
+        lat: n("fLat"),
+        lng: n("fLng"),
+        notes: $("#fNotes").value,
+        branches
+      };
+      if (mode === "edit" && editId) {
+        rows = rows.map((r) => (r.id === editId ? { ...r, ...payload } : r));
+      } else {
+        rows = [payload, ...rows];
+      }
+      dirty = false;
+      closeSlide();
+      render();
+    }
+
+    document.addEventListener("click", (e) => {
+      const rm = e.target.closest("[data-rm-branch]");
+      if (rm) {
+        const i = Number(rm.dataset.rmBranch);
+        if (draftBranches.length <= 1) {
+          toast("Giữ ≥1 nhánh (min_1)");
+          return;
+        }
+        draftBranches.splice(i, 1);
+        dirty = true;
+        renderBranches();
+        return;
+      }
+      const t = e.target.closest("[data-action],[data-view],[data-edit],[data-copy],[data-del1],[data-hist],[data-close]");
+      if (!t) return;
+      if (t.dataset.action === "create") openSlide("create");
+      if (t.dataset.action === "refresh") render();
+      if (t.dataset.action === "history" || t.dataset.hist) toast("History modal stub P2");
+      if (t.dataset.action === "config") toast("UiSchema editor · catalogKind interchanges");
+      if (t.dataset.action === "import" || t.dataset.action === "export") toast("XLS Biểu 16 OUT stub");
+      if (t.dataset.view) {
+        const row = rows.find((r) => String(r.id) === t.dataset.view);
+        if (row) openSlide("view", row);
+      }
+      if (t.dataset.edit) {
+        const row = rows.find((r) => String(r.id) === t.dataset.edit);
+        if (row) openSlide("edit", row);
+      }
+      if (t.dataset.copy) {
+        const row = rows.find((r) => String(r.id) === t.dataset.copy);
+        if (row) openSlide("copy", row);
+      }
+      if (t.dataset.del1) {
+        selected = new Set([Number(t.dataset.del1)]);
+        $("#delModal").classList.add("on");
+      }
+      if (t.dataset.close) requestClose();
+    });
+
+    $("#btnAddBranch").addEventListener("click", () => {
+      draftBranches.push(emptyBranch());
+      dirty = true;
+      renderBranches();
+    });
+    $("#branchBody").addEventListener("input", (e) => {
+      const el = e.target.closest("[data-b][data-k]");
+      if (!el) return;
+      const i = Number(el.dataset.b);
+      draftBranches[i][el.dataset.k] = el.value;
+      dirty = true;
+      $("#fBranchCount").value = String(draftBranches.length);
+    });
+    $("#branchBody").addEventListener("change", (e) => {
+      const el = e.target.closest("[data-b][data-k]");
+      if (!el) return;
+      const i = Number(el.dataset.b);
+      draftBranches[i][el.dataset.k] = el.value;
+      dirty = true;
+    });
+
+    $("#btnBack").addEventListener("click", () => toast("Navigate → /so-ts/csdl-so-sach"));
+    $("#btn-del").addEventListener("click", () => { if (selected.size) $("#delModal").classList.add("on"); });
+    $("#delCancel").addEventListener("click", () => $("#delModal").classList.remove("on"));
+    $("#delOk").addEventListener("click", () => {
+      rows = rows.filter((r) => !selected.has(r.id));
+      selected.clear();
+      $("#delModal").classList.remove("on");
+      render();
+    });
+    $("#leaveStay").addEventListener("click", () => { $("#leaveModal").classList.remove("on"); pendingClose = null; });
+    $("#leaveOk").addEventListener("click", () => {
+      $("#leaveModal").classList.remove("on");
+      if (pendingClose) pendingClose();
+      pendingClose = null;
+    });
+    $("#frm").addEventListener("input", () => { dirty = true; });
+    ["fProv","fStatus","fType","fRoad","fKmMain","fSearch"].forEach((id) => {
+      $("#" + id).addEventListener("input", render);
+      $("#" + id).addEventListener("change", render);
+    });
+    $("#btnSearchIcon").addEventListener("click", render);
+    $("#tbody").addEventListener("change", (e) => {
+      const cb = e.target.closest("input[type=checkbox][data-id]");
+      if (!cb) return;
+      const id = Number(cb.dataset.id);
+      if (cb.checked) selected.add(id); else selected.delete(id);
+      render();
+    });
+    $("#chkAll").addEventListener("change", (e) => {
+      if (e.target.checked) rows.forEach((r) => selected.add(r.id));
+      else selected.clear();
+      render();
+    });
+
+    render();
+  </script>
+</body>
+</html>

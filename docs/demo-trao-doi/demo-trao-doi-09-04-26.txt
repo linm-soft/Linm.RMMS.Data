@@ -20,9 +20,14 @@ Tổng kết cuộc họp:
 và AI hỗ trợ phát hiện cảnh báo hư hỏng, mất tài sản
 + Mất tài sản: Khi dữ liệu tọa độ đã có trước đó nhưng thời điểm chụp/video chung tọa độ bị mất không có trong khung hình
 + Tài sản hư hỏng dựa trên hình ảnh hiện trạng tài sản.
+5- Tính năng bản đồ:
+- Tính năng chọn vị trí bản đồ và hiển thị thông tin chi tiết bao gồm
+	+ Hình ảnh tài sản tại vị trí tọa độ(Theo thông tin tài sản/tuần kiểm/tuần đường cung cấp/nhập liệu)
+	+ Hình ảnh mặt cắt ngang(Theo thông tin kỹ thuật cung cấp/nhập liệu)
+	+ Báo cáo nhanh tổng hợp toàn tuyến(sự cố, tu sửa, tổng tài sản theo loại)
 Một số ý kiến khác trong hạng mục mong muốn:
+- Bản đồ phân luồng xe khi có sự cố hỏng cầu đường bão lụt nghiêm trọng mà các phương tiện không thể đi qua
+- Sổ sách tuần đường được xác nhận chữ ký số của người phụ trách
 - Module đếm xe tập trung, xử lý video ở server trung tâm(dự kiến cho vận hành thí điểm bến xe/ điểm giao thông)
 - Kết nối API với các thiết bị chuyên dụng để nhận dữ liệu chi tiết như mặt cắt, chi tiết về đường và lên phương án sửa đường
 - Cập nhật công thức đánh giá/ dự kiến sửa chữa theo chuẩn công thức của bộ giao thông vận tải(PCI)
-- Bản đồ phân luồng xe khi có sự cố hỏng cầu đường bão lụt nghiêm trọng mà các phương tiện không thể đi qua
-- Sổ sách tuần đường được xác nhận chữ ký số của người phụ trách

@@ -1,115 +1,132 @@
-# PO — ai-asset-detect (AI phát hiện tài sản / thiết bị mới)
+# PO — ai-asset-detect (AI phát hiện TS mới + mất TS)
 
 | Field | Value |
 |-------|-------|
 | feature | `ai-asset-detect` |
-| changeScope | `edit_page` (packet · STATUS · **không** AskQuestion — Autopilot) |
-| packKind | `list` |
-| featureClass | `ai` — Kind **B** catalog list + Kind **D** slideout + Kind **F** map overlay |
-| requestSource | scan/run packet `task_b03d06cb` · `/agent-qldb-workflow` · `/agent-po` · roleOnly=`po` |
-| status | `done` (roleOnly po · autoApprove=OFF · Design khi chạy → `await_confirm`) |
+| changeScope | `edit_page` (packet · STATUS · analy · Autopilot — **không** AskQuestion) |
+| packKind | `list` (**confirm**) |
+| featureClass | `ai` — Kind **B** catalog list + Kind **D** slideout + Kind **F** map · **không** trộn `ai-vision` ổ gà |
+| requestSource | run packet `task_d1c291af` · `/agent-qldb-workflow` · `/agent-po` · roleOnly=`po` |
+| status | `done` |
 | controlHint | `specs/_data-analy/features/ai-asset-detect-control-hint.md` |
-| contentHash (data-analy) | `sha256:97450ff90d8d4576a8de82e118d463e705b49b21f212a76fd178527a8b38793e` |
-| skillVersion | `2026.08.10.1` |
-| schemaVersion | `1` |
-| workflowVersion | `2026.08.10.3` |
-| rulesVersion | `2026.08.11.1` |
-| versionGate | `ok` |
-| grid_standard | `po-design-grid-standard` |
+| real-data | `specs/_data-analy/features/ai-asset-detect-real-data.md` (§A+§B **yes**) |
+| contentHash (data-analy) | `sha256:48ebba7d1ea4319eeaa330252a90d875a2a1dca1ff750846b50ff9c18897c20f` |
+| demo baseline | `Linm.RMMS.Demo/src/demo/ai-vision/ai-asset-detect.html` (packet `ai-kd/phat-hien-ts.html` **MISSING** · GAP-DA-DEMO-01 **CLOSED**) |
+| mfeStdUrl | `http://localhost:9303/ai-vision/ai-asset-detect` |
+| reviewUrl (prior) | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/ai-asset-detect/ui/prototype/ai-asset-detect-list-prototype.html` |
+| beRepo | `Linm.RMMS.WebService` · `api/v1/ai-vision` · **cấm ERP.*** |
+| uiRepo | `Linm.Web.RMMS.AiVision` |
+| hostInfer | `Linm.RMMS.Vision` |
+| grid_standard | `po-design-grid-standard` · `filter-bar-layout-hard` |
+| leave_standard | `LeaveConfirmModal` · **GAP-PO-LEAVE-01** |
 | slideout_layout | `footer_actions_only` |
-| updatedAt | `2026-08-12T01:20:00.000Z` |
+| skillVersion | `2026.09.05.03` |
+| schemaVersion | `1` |
+| workflowVersion | `2026.09.05.03` |
+| rulesVersion | `2026.09.06.1` |
+| versionGate | `ok` |
+| updatedAt | `2026-09-06T16:28:00.000Z` |
+| taskId | `task_d1c291af` |
 
-> **Khác `ai-vision`:** taxonomy **thiết bị TS** → bản ghi **Asset**. **Cấm** class ổ gà / Incident (`GAP-F-AAD-01`).
+> **Hash skip:** analy done + contentHash khớp STATUS → **cấm** re-scan demo (**GAP-PO-DEMO-RESCAN-01**). Inventory/controlHint copy từ analy.
 
 ## 1. Goal
 
-Align demo **AI phát hiện tài sản** (camera tuần đường → candidate → Confirm Asset) → MFE `Linm.Web.RMMS.AiVision` route đề xuất `/ai-vision/ai-asset-detect` + BE `Linm.RMMS.WebService` domain **AiVision** (`api/v1/ai-vision`, **cấm ERP.***).
+Enhance list **AI phát hiện tài sản / thiết bị** (candidate → Confirm Asset) + **AI mất tài sản** = GPS có TS kỳ vọng · frame trống / 0 detect (**GAP-ITS-MISS-01** · **cấm** YOLO class «mất»).
 
-Kind B catalog parity (`/erp-form-context`): 1× `LinPageLayout` · toolbar · search **work** · `LinCatalogDataGrid` (kéo cột default ON) · footer `LinCatalogListPagination` · row menu · View/Create/Edit/Copy. Kind D slideout **footer actions only**. Kind F map pin «AI new» vs TS đã có. P1 Confirm **bắt buộc** (`GAP-F-AAD-02`).
+MFE `Linm.Web.RMMS.AiVision` · `mfeStdRoute=/ai-vision/ai-asset-detect` · BE `Linm.RMMS.WebService` domain AiVision · FileService BFF `web-bff/api/v1/files/*` (persist **file id** · resign) · miss → `POST /api/v1/incident/incidents` (peer ITS · **cấm** invent `missing-detect`).
 
-## 2. Current → New (edit_page)
+## 2. Current → New (`edit_page` · copy analy § Delta)
 
-| Layer | Current | New (delta) |
-|-------|---------|-------------|
-| Demo | Kind B+D+F Signed · localStorage seed QL.1 · 4 candidates + 3 existing pins | Giữ SSOT UX; **không** clone chrome GOVOne |
-| MFE | `Linm.Web.RMMS.AiVision` chỉ `/ai-vision` (detections mặt đường) — **chưa** slug `ai-asset-detect` | + list+form+map overlay · **không** Master catalogs |
-| MFE form | — | Kind D slideout C/E/V/Copy · Confirm/Dismiss modal · footer only |
-| API client | — | `/ai-vision/asset-candidates` + detect + confirm/dismiss · local fallback |
-| BE | AiVision detections (sibling `ai-vision`) · **chưa** `asset_candidates` · DOMAIN-MAP **chưa** slug | + candidates CRUD · detect stub · confirm → Asset · slug DOMAIN-MAP |
-| Persist | Demo localStorage | API store + local fallback P1 |
+| ID | Current (shipped / prior PO) | New (this run · `task_d1c291af`) |
+|----|------------------------------|----------------------------------|
+| Scope | Detect **TS mới** → candidate → Confirm Asset | + **Miss reconcile** GPS có Asset · 0 detect/N phút → Draft Incident |
+| Miss semantics | Chỉ candidate «mới» | Reconcile Asset nearby vs frame trống · **cấm** class YOLO «mất» |
+| Host infer | Adapter / AiService wait | Host **`Linm.RMMS.Vision`** |
+| Frame | `imageUrl` text / stub | **FileUpload** → FileService guid · resign mỗi xem · **GAP-AAD-FILE-01** → SA |
+| Filter | search · route · class · status · date | + **`missOnly`** Checkbox |
+| Toolbar | Tạo · Giả lập frame · Nearby · Refresh · Export stub · AI badge | + **Reconcile mất** |
+| Form | candidate fields | + `expectedAssetId` · `missWindowMin` · `incidentDraftId` · `imageFileId` |
+| Demo packet | `ai-kd/phat-hien-ts.html` | **MISSING** → baseline `ai-vision/ai-asset-detect.html` |
+| Filter bar | Search trong card (legacy AC) | **`LinErpListFilterBar`** · lấp hàng rồi wrap · 🔍 mép phải |
+| Artifacts prior | design/sa/dev/qa/review **kept** | Chỉ PO delta · Design reopen prototype miss UI |
 
-## 3. Personas / DoD
+## 3. Personas / DoD (đo được)
 
-- Persona: Tuần đường · Ban QLDA · GIS · AI Vision ops
-- DoD P1 (đo được):
-  1. List load + **search work** (id · loại · tuyến · trip · section · assetCode · note · model)
-  2. Filters Zone B: `routeId` SearchInput (road-route) · `assetClass` Dropdown (8 class) · `status` Dropdown · `fromDate`/`toDate` Date
-  3. Toolbar: + Tạo candidate · Giả lập frame · Nearby · Refresh · Export stub · Reset seed (dev) · config `fa-cog` · badge **AI** P1/P2
-  4. Row menu: Xem · Sửa · Sao chép · Confirm · Dismiss · Lịch sử (stub OK)
-  5. View = `readOnly` (không disabled xám)
-  6. Create/Edit/Copy validate + save Draft · leave-confirm dirty
-  7. Confirm modal: SearchInput `asset-type` * · tạo Asset `source=ai-asset-detect` · mã `TS-AI-YYYYMMDD-NNNN`
-  8. Nearby cùng class: demo **25 m** Haversine banner · **không** auto-create
-  9. Map: pin «AI new» vs TS đã có · OSM/Esri/sat · Fit · pin → View
-  10. FE `yarn build` + typecheck PASS · BE `dotnet build` PASS (khi đụng API) · **cấm ERP.***
+1. List load + search work (code · loại · tuyến · trip · section · assetCode · note)
+2. Zone B filter: `LinErpListFilterBar` · fields §7.1 · **không** nút Tìm riêng · 🔍 mép phải
+3. Toolbar FULL: Làm mới · Lịch sử · Config · View/Edit · **+ Tạo** · Giả lập frame · Nearby · **Reconcile mất** · Export stub · badge AI P1/P2
+4. Row menu: Xem · Sửa · Sao chép · Confirm · Dismiss · Lịch sử · **Mất?** (miss flow)
+5. View = `readOnly` (không disabled xám)
+6. Create/Edit/Copy validate + save Draft · dirty → **LeaveConfirmModal**
+7. Confirm modal: SearchInput `asset-type` * · Asset `source=ai-asset-detect`
+8. Nearby cùng class: demo **25 m** · prod **10 m** · **không** auto-create
+9. Miss: chọn `expectedAssetId` · cửa sổ N phút · 0 detect → Draft Incident (HITL)
+10. Map Kind F: pin AI new · TS đã có · miss reconcile · Fit · pin→View
+11. Frame: upload FileService · persist `imageFileId` · **cấm** full presigned URL
+12. **Cấm ERP.*** · **cấm** class ổ gà · **cấm** YOLO «mất»
 
-## 4. CTX / DEM inventory
+## 4. CTX / DEM inventory (hash skip — copy analy · **không** crawl)
 
 | ID | Path | Loại | Notes |
 |----|------|------|-------|
-| CTX-01 | `docs/context/features/ai-asset-detect.md` | feature P0 | API · entity · GAP-F-AAD-01/02/03 |
-| CTX-02 | `docs/context/15-SCREEN-AI-MAP.md` §3b | platform | Camera tuần đường → candidate → Asset |
-| CTX-03 | `docs/context/_raw/legacy-govone/demo-maps/ai-asset-detect-control-map.md` | control-map | Kind B+D+F |
-| CTX-04 | `docs/context/_raw/legacy-govone/demo-maps/ai-asset-detect-actions.md` | actions | ACTION WORK GATE |
-| CTX-05 | `docs/context/features/ai-vision.md` · `asset.md` · `patrol.md` | sibling | **không** trộn class ổ gà |
-| DEM-01 | `Linm.RMMS.Demo/src/demo/ai-vision/ai-asset-detect.html` | Signed | Zones list+filter+slideout+map |
-| DEM-02 | `…/js/ai-asset-detect-data.js` · `ai-asset-detect-app.js` | seed | 3 Draft + 1 nearby AC-104 |
-| DEM-03 | `Linm.RMMS.Demo/src/demo/features/ai-asset-detect-demo.html` | hub | catalog card |
-| DI | — | N/A | controlHint từ demo+context (scan_workflow) · không Excel |
-| controlHint | `specs/_data-analy/features/ai-asset-detect-control-hint.md` | P0 | **copy bảng dưới** |
-| MFE | `Linm.Web.RMMS.AiVision` | đề xuất | **chưa** `uiRepo` tick |
-| BE | `Linm.RMMS.WebService` · `api/v1/ai-vision` | đề xuất | **chưa** `beRepo` tick · **cấm ERP.*** |
+| CTX-01 | `docs/context/features/ai-asset-detect.md` | feature P0 | |
+| CTX-02 | `docs/context/features/its-traffic-detect.md` §8 | peer miss | GAP-ITS-MISS-01 |
+| CTX-03 | `docs/context/features/ai-vision-service.md` | Vision host | |
+| CTX-04 | `docs/context/_raw/legacy-govone/demo-maps/ai-asset-detect-control-map.md` | control-map | |
+| DEM-01 | `Linm.RMMS.Demo/src/demo/ai-vision/ai-asset-detect.html` | baseline Signed | **GAP-DA-DEMO-01 CLOSED** |
+| DEM-packet | `…/ai-kd/phat-hien-ts.html` | **MISSING** | không crawl |
+| controlHint | `specs/_data-analy/features/ai-asset-detect-control-hint.md` | P0 | §7 |
+| real-data | `specs/_data-analy/features/ai-asset-detect-real-data.md` | P0 | §A+§B |
+| filter-bar | `specs/_data-analy/features/ai-asset-detect-filter-bar.md` | P0 | |
+| MFE | `pages/AiAssetDetectListPage/*` | sameMfe=yes | |
+| BE | `AiVisionAssetCandidatesController` · `AiVisionDetectAssetsController` | cite | |
 
 ### List columns (required)
 
-STT · ID (`AC-*`) · Loại TS · Score (%) · Tọa độ · Tuyến / lý trình · TT · Engine/Model · Nearby · Phát hiện · Mã Asset · actions
+STT · ID (`AC-*`) · Loại TS · Score (%) · Tọa độ · Tuyến / lý trình · TT · Engine/Model · Nearby · Miss? · Phát hiện · Mã Asset · Frame · actions
 
-### Seed DoD (demo → real)
+## 5. Screens (REQUIRED · Pattern + `devSlash`)
 
-- 3 Draft: Hộ lan `AC-101` · Đèn `AC-102` · Cột Km `AC-103` + 1 nearby `AC-104` (cùng class &lt;25 m vs AC-101)
-- Existing TS pins: HL / CS / CN trên QL.1
-- Badge AI · engine P1 · **không** hứa mAP local P1
+| id | Surface | Pattern | Route / open | FormMode | Actions | `devSlash` |
+|----|---------|---------|--------------|----------|---------|------------|
+| S-LIST | Danh sách candidate | Kind B **Full page** A–D | `/ai-vision/ai-asset-detect` | — | filter · toolbar · grid · pagination | `/agent-dev` |
+| S-FORM | Form candidate | Kind D **Slideout** | `?form=` / row | C/E/V/Copy | footer only · Confirm/Dismiss · leave | `/agent-dev` + `/agent-dev-ai-detect` |
+| S-MOD-CONFIRM | Confirm → Asset | **Modal** | row / form | — | Hủy · Confirm · asset-type * | `/agent-dev-ai-detect` |
+| S-MOD-DISMISS | Dismiss FP | **Modal** | row / form | — | Hủy · Dismiss | `/agent-dev-ai-detect` |
+| S-MISS | Reconcile mất | **Modal** / slideout panel | toolbar Reconcile · row Mất? | — | expectedAsset · window · gim Incident | `/agent-dev-ai-detect` |
+| S-MAP | Bản đồ pin | Kind F overlay | cùng S-LIST | — | Fit · pin→View · layers new/existing/miss | `/agent-dev-oms-map` |
+| S-FEED | Frame tuần đường | Zone A / panel | S-LIST | — | FileUpload · detect · preview bbox | `/agent-dev-ai-detect` |
 
-## 5. Screens (formType=`list` + featureClass=`ai`)
-
-| id | Surface | Pattern | Route / open | FormMode | Actions |
-|----|---------|---------|--------------|----------|---------|
-| S-LIST | Danh sách candidate | Kind B full page · A–D | `/ai-vision/ai-asset-detect` (đề xuất · TL `route_confirm`) | — | search, clear-filter, create, sim-frame, nearby, refresh, export-stub, reset-seed, config |
-| S-FORM | Form candidate | Kind D Slideout | `?form=` / row | C/E/V/Copy | **footer only**: Hủy/Lưu (C/E/Copy) · View: Đóng/Sửa/Sao chép · Confirm/Dismiss |
-| S-MOD-CONFIRM | Confirm → Asset | Modal | row / form footer | — | Hủy · Confirm · SearchInput `asset-type` * |
-| S-MOD-DISMISS | Dismiss FP | Modal | row / form footer | — | Hủy · Dismiss |
-| S-MAP | Bản đồ pin | Kind F overlay (cùng page) | S-LIST map zone | — | OSM / Esri Streets / Esri sat · Fit · pin → View |
-| S-FEED | Frame tuần đường | Panel / Zone A extra | S-LIST | — | Giả lập frame · Fake nearby · preview bbox |
-
-**Cấm GAP-PO-SCREEN-01.** Design prototype **content-only** zones A–D (+ map overlay) — skip note/sidebar/menu/chrome demo.
+**Cấm GAP-PO-SCREEN-01.** Prototype content-only (giữ prior reviewUrl · Design cập nhật miss + FileUpload).
 
 ## 6. Grid list AC (REQUIRED · Kind B / list)
 
 | Area | Acceptance (Design phải prototype) |
 |------|-------------------------------------|
 | **Shell A–D** | Header · Toolbar · Grid card · Pagination footer |
-| **Toolbar FULL** | Làm mới · Lịch sử · Sửa config (`fa-cog`) · View/Edit theo chọn · **+ Tạo candidate** · Giả lập frame · Nearby · Export stub · Reset seed (dev) · badge **AI** P1/P2 |
-| **Grid menu** | Row menu: Xem / Sửa / Sao chép / Confirm / Dismiss / Lịch sử · help «nhấn đúp / Ctrl+chuột phải» |
-| **Config** | Sửa cấu hình lưới (ui-schema hoặc Zone F) · **kéo cột default ON** |
-| **Grid flow** | Sort cột · filter cột (panel: tìm · chọn tất cả · Đã chọn N · Xác nhận) · chọn dòng |
-| **Filter Zone B** | SearchInput trong card filter — **search must work** · **không** nút Tìm trùng toolbar |
-| **Form pair** | Create/Edit/View/Copy từ toolbar + menu → Slideout · Confirm/Dismiss → Modal |
-| **Tree?** | Không (không cây master) |
-| **Pagination** | Footer **`LinCatalogListPagination`** — **cấm** footerPagination / pageSizeBar / raw table footer |
+| **Toolbar FULL** | Làm mới · Lịch sử · Sửa config (`fa-cog`) · View/Edit/Delete theo chọn · **+ Tạo candidate** · Giả lập frame · Nearby · **Reconcile mất** · Export stub · badge **AI** P1/P2 |
+| **Grid menu** | Row: Xem/Sửa/Sao chép/Confirm/Dismiss/Lịch sử/**Mất?** · help «nhấn đúp / Ctrl+chuột phải» |
+| **Config** | Sửa cấu hình lưới · kéo cột default ON |
+| **Grid flow** | Sort · filter cột panel · chọn dòng |
+| **Filter Zone B** | **`LinErpListFilterBar`** · 1 hàng wrap · field **lấp hàng rồi wrap** · 🔍 **mép phải** (`filter-bar-layout-hard` · **GAP-FILTER-WRAP-02**) — **không** nút Tìm · **cấm** `ErpListHeaderFilters` / stack · `data-lin-list-layout="erp-filter-bar"` |
+| **Form pair** | C/E/V/Copy → **Slideout** · Confirm/Dismiss/Miss → **Modal** |
+| **Tree?** | Không |
+| **Pagination** | `LinCatalogListPagination` |
 | **SSOT Design** | `shared-grid-example` · `list-shell-prototype` · `po-design-grid-standard` · `slideout-form-layout` |
-| **SSOT TL/Dev** | `tl-design-grid-component-map` · `tl-grid-full-flow` · `tl-ssot-permission-tasks` (T-CTX · T-PERM · T-UI-LIST A–D · T-UI-FORM · T-BE/BFF · T-UI-MAP) |
+| **SSOT TL/Dev** | `tl-design-grid-component-map` · `tl-grid-full-flow` · `tl-filter-bar-task` · `agent-dev-assign` |
 
-**Handoff → Design:** clone `shared-grid-example.html` · giữ `data-des-id` — **cấm** gen list chỉ table giữa trang. 1× `LinPageLayout` — **cấm** nested CatalogListShell.
+**Handoff → Design:** clone `shared-grid-example.html` · giữ `data-des-id` — **cấm** list chỉ table giữa trang.
+
+## 6b. Leave / alert (REQUIRED)
+
+| Event | UI | Cấm |
+|-------|-----|-----|
+| Dirty form / leave slideout | **`LeaveConfirmModal`** (`/implement-show-leave-confirm`) | `window.confirm` / native |
+| Chặn / xóa / dismiss hard | **`useAlert` / `Modal`** | `alert` / `prompt` |
+| Miss gim Incident | Modal confirm copy | native dialog |
+
+Thiếu → **GAP-PO-LEAVE-01**.
 
 ## 7. Control hints (copy data-analy — Design chốt control-map)
 
@@ -117,111 +134,101 @@ STT · ID (`AC-*`) · Loại TS · Score (%) · Tọa độ · Tuyến / lý tr�
 
 | Field key | Label | controlHint | catalogKind | Notes |
 |-----------|-------|-------------|-------------|-------|
-| search | Tìm kiếm | `SearchInput` | text | id · loại · tuyến · trip · section · assetCode · note · model |
-| routeId | Tuyến | `SearchInput` | **road-route** | Master đã có · **cấm** free-text khi seed sẵn |
-| assetClass | Loại TS | `Dropdown` | enum (8) | Taxonomy **AI riêng** — không class ổ gà |
-| status | Trạng thái | `Dropdown` | enum | Draft / Confirmed / Dismissed |
-| fromDate | Từ ngày | `Date` | — | `detectedAt` |
-| toDate | Đến ngày | `Date` | — | `detectedAt` end-of-day |
+| search | Tìm kiếm | `SearchInput` | text | code · loại · tuyến · trip · section · assetCode · note |
+| routeId | Tuyến | `SearchInput` | **road-route** | **cấm** free-text |
+| assetClass | Loại TS | `Dropdown` | LOOKUP_STATIC | 8 class · **không** «mất» |
+| status | Trạng thái | `Dropdown` | LOOKUP_STATIC | Draft / Confirmed / Dismissed |
+| fromDate / toDate | Từ/Đến ngày | `Date` | — | `detectedAt` |
+| missOnly | Chỉ mất TS | `Checkbox` | — | **NEW** · PO chốt P1 (GAP-AAD-MISS-UI-01) |
 
-### 7.2 Form fields (S-FORM)
+### 7.2 Form fields (S-FORM + miss)
 
 | Field key | Label | controlHint | required | Notes |
 |-----------|-------|-------------|----------|-------|
-| id | Mã candidate | `Text` | auto | `AC-*` readonly sau create |
-| assetClass | Loại TS/thiết bị | `Dropdown` | * | 8 class AI |
-| assetTypeCode | Loại Asset (Confirm) | `SearchInput` | * on confirm | `catalogKind=asset-type` · map từ assetClass |
-| score | Confidence | `Text` (number) | * | 0–1 · UI % |
-| status | Trạng thái | `Dropdown` | * | Draft → Confirmed / Dismissed · form disabled (chỉ Confirm/Dismiss đổi) |
-| engine | Engine | `Dropdown` | * | P1 GPT-4o Vision / P2 ONNX |
-| lat / lng | Tọa độ | `Text` (number) | * | Point · pair · không SearchInput |
-| routeId | Tuyến | `SearchInput` | * | `catalogKind=road-route` |
-| routeLabel | Nhãn tuyến / lý trình | `Text` | | display / chainage (Km287…) |
-| sectionId | Đoạn | `Text` | | optional P1 · pavement-section later |
-| patrolTripId | Chuyến tuần đường | `Text` | | P1 free · Patrol lookup **DEFER** |
-| bboxJson | BBox | `Text` | | `[x1,y1,x2,y2]` |
-| modelVersion | Model | `Text` | | readonly · `gpt-4o-vision` / `onnx-asset` |
-| nearbyRisk | Trùng nearby | `Checkbox` | | cùng class &lt;25 m demo · prod ITS 10 m |
-| nearbyOf | Candidate gần | `Text` | | readonly id |
-| note | Ghi chú | `Text` | | multiline · dirty leave-confirm |
-| assetCode | Mã Asset | `Text` | | readonly sau Confirm |
-| imageUrl | Frame | `Text` | | readonly / preview |
+| id / code | Id / Mã | `Text` | auto | Guid · `AC-*` readonly |
+| assetClass | Loại TS | `Dropdown` | * | 8 class AI · **cấm** «mất» |
+| assetTypeCode | Loại Asset (Confirm) | `SearchInput` | * on confirm | `asset-type` |
+| score | Confidence | `Text` (number) | * | 0–1 |
+| status | Trạng thái | `Dropdown` | * | |
+| engine | Engine | `Dropdown` | * | P1 / P2 |
+| lat / lng | Tọa độ | `Text` (number) | * | Point pair |
+| routeId | Tuyến | `SearchInput` | * | road-route |
+| routeLabel | Nhãn / lý trình | `Text` | | |
+| sectionId | Đoạn | `Text` | | |
+| patrolTripId | Chuyến tuần đường | `Text` | | |
+| bboxJson | BBox | `Text` | | empty khi miss=0 detect |
+| modelVersion | Model | `Text` | | readonly |
+| nearbyRisk / nearbyOf | Nearby | `Checkbox` / `Text` | | 25 m demo · 10 m prod |
+| note | Ghi chú | `Text` | | multiline · dirty |
+| assetCode / assetId | Asset sau Confirm | `Text` | | readonly |
+| imageFileId | Frame file | `FileUpload` | | **FileService guid** · **cấm** persist URL |
+| imageUrl | Preview resign | derived | | resign mỗi xem |
 | detectedAt | Phát hiện | `Date` | | |
-| updatedAt | Cập nhật | `Date` | | readonly |
+| expectedAssetId | TS kỳ vọng (miss) | `SearchInput` | miss | **NEW** |
+| missWindowMin | Cửa sổ N phút | `Number` | miss | **NEW** |
+| incidentDraftId | Incident nháp | `Text` | | **NEW** sau gim |
 
-### 7.3 AI taxonomy ↔ asset-type (Confirm) — **PO chốt**
+### 7.3 AI taxonomy ↔ asset-type (Confirm) — giữ chốt prior
 
-Closed set demo `ASSET_CLASSES` (8). Filter/form candidate = **Dropdown**. Khi Confirm tạo Asset = **SearchInput** `asset-type`.
+Closed set 8. **Không** thêm «mất» / `MISSING`.
 
-| assetClass (AI) | `asset-type.code` (chốt) | controlHint | Ghi chú |
-|-----------------|--------------------------|-------------|---------|
-| Biển báo | `GANTRY_SIGN` | SearchInput | seed có |
-| Hộ lan | `GUARDRAIL` | SearchInput | seed có |
-| Cột Km | `KM_POST` | SearchInput | seed có |
-| Cột H | `DELINEATOR` | SearchInput | seed có |
-| Đèn chiếu sáng | `LIGHTING` | SearchInput | seed có |
-| Cống | `CULVERT_X` (default) / `CULVERT_L` | SearchInput | user chọn trên Confirm |
-| Taluy | `SLOPE_PROTECT` | SearchInput | seed có |
-| Camera ITS | **`ITS_CAMERA`** | SearchInput | **PO chốt** — xem §8 |
+| assetClass (AI) | `asset-type.code` | controlHint |
+|-----------------|-------------------|-------------|
+| Biển báo | `GANTRY_SIGN` | SearchInput |
+| Hộ lan | `GUARDRAIL` | SearchInput |
+| Cột Km | `KM_POST` | SearchInput |
+| Cột H | `DELINEATOR` | SearchInput |
+| Đèn chiếu sáng | `LIGHTING` | SearchInput |
+| Cống | `CULVERT_X` / `CULVERT_L` | SearchInput |
+| Taluy | `SLOPE_PROTECT` | SearchInput |
+| Camera ITS | `ITS_CAMERA` | SearchInput |
 
-**Cấm** trộn 10 class mặt đường (`ai-vision`) vào Dropdown này.
+**Cấm** trộn 10 class mặt đường (`ai-vision`) — GAP-F-AAD-01.
 
-## 8. PO chốt — Camera ITS (was `controlHint=UNCLEAR`)
+## 8. PO chốt — open analy (Autopilot)
 
-Data-analy: seed 23 loại **không** mã 1:1; gợi ý `ROW_UTIL?`.
+| ID | Quyết định |
+|----|------------|
+| GAP-DA-DEMO-01 | **CLOSED** — baseline DEM-01 `ai-vision/ai-asset-detect.html` · giữ prototype prior |
+| GAP-AAD-MISS-UI-01 | **CLOSED P1** — `missOnly` filter + toolbar **Reconcile mất** + row **Mất?** · **không** tab riêng P1 · Design layout Zone B |
+| GAP-AAD-FILE-01 | **→ SA** — Prefer cột `ImageFileId` · UI bind `imageFileId` FileUpload · legacy `imageUrl` = resign derived |
+| Camera ITS | **CLOSED** prior — `ITS_CAMERA` |
+| Upload HARD | FileService `web-bff/api/v1/files/*` · **cấm** scaffold API mới / invent `nghiem-thu-files` |
+| Miss API | `POST /api/v1/incident/incidents` · **cấm** invent `missing-detect` |
 
-| Quyết định | Giá trị |
-|------------|---------|
-| **Không** map `ROW_UTIL` | `ROW_UTIL` = «Công trình HTKT trong hành lang» — generic, **không** phải camera giám sát |
-| **Chốt P1** | Thêm mã catalog **`ITS_CAMERA`** · name `Camera ITS / camera giám sát giao thông` · `groupCode=GIAO_THONG` |
-| Confirm UI | SearchInput `asset-type` **default `ITS_CAMERA`** · user được đổi |
-| AI Dropdown | Giữ label `Camera ITS` trong 8 class đóng |
-| **Không** trộn | Feature `camera-connect` = kết nối RTSP/ONVIF (domain Camera) — **khác** inventory TS |
-
-SA: seed/migration `asset-type` + DOMAIN-MAP hàng `ai-asset-detect` → AiVision / `api/v1/ai-vision`.
-
-## 9. APIs (đề xuất SA — **chưa chốt**)
-
-Domain **AiVision** · `api/v1/ai-vision` · BFF `web-bff/api/v1/ai-vision` · repo `D:/AI-QLBD/Linm.RMMS.WebService` · **cấm ERP.***
+## 9. APIs (cite analy / SA chốt schema)
 
 | Lookup | API | Consumer |
 |--------|-----|----------|
-| candidates list | `GET /api/v1/ai-vision/asset-candidates?routeId=&assetClass=&status=&from=&to=&q=` | Zone B + grid |
-| candidate by id | `GET /api/v1/ai-vision/asset-candidates/{id}` | form V/E |
-| create / update | `POST` / `PUT …/asset-candidates` | form C/E/Copy |
-| detect frame | `POST /api/v1/ai-vision/detect-assets` | toolbar «Giả lập frame» |
-| detect batch | `POST /api/v1/ai-vision/detect-assets/batch` | chuyến tuần đường |
-| confirm → Asset | `POST …/asset-candidates/{id}/confirm` | S-MOD-CONFIRM · gọi Asset domain |
-| dismiss FP | `POST …/asset-candidates/{id}/dismiss` | S-MOD-DISMISS |
-| road-route | Master `GET …/road-routes` (Integration) | SearchInput routeId |
-| asset-type | Master `GET …/asset-types` (Integration) | SearchInput confirm · gồm `ITS_CAMERA` |
+| list | `GET /api/v1/ai-vision/asset-candidates` | Zone B+C |
+| init | `GET …/asset-candidates/init-data` | Dropdowns |
+| by id | `GET …/asset-candidates/{id}` | form |
+| CRUD | `POST` / `PUT` / soft `DELETE` | form |
+| nearby | `GET …/asset-candidates/nearby` | toolbar · miss |
+| detect | `POST /api/v1/ai-vision/detect-assets` (+ `/batch`) | toolbar |
+| confirm / dismiss | `POST …/{id}/confirm` · `/dismiss` | modal |
+| road-route / asset-type | Integration search | SearchInput |
+| files | `web-bff/api/v1/files/*` | upload/resign |
+| miss → Incident | `POST /api/v1/incident/incidents` | S-MISS |
 
-Entity: `ai_vision.asset_candidates` · status Draft/Confirmed/Dismissed · geom Point · `modelVersion` · Asset `source=ai-asset-detect`.  
-Dedupe: demo **25 m** · prod ITS SSOT **10 m** PostGIS — SA ghi solution.
+BFF: `web-bff/api/v1/ai-vision/*` → cùng resource. Entity: `AiVisionAssetCandidateEntity`. **Cấm ERP.***
 
-## 10. Out of scope (this pack)
+## 10. Out of scope
 
-- Real GPT-4o / ONNX / SAM runtime (P1 = stub detect + HITL) — `GAP-F-AAD-03` dataset OUT
-- Auto-create Asset khi score ≥ ngưỡng (P2 only · P1 Confirm bắt buộc)
-- Full Patrol trip lookup / Timescale GPS
-- Pavement-section master bind (sectionId free text P1)
-- Excel export wizard (toast stub only)
-- `its-traffic-detect` / `its-anpr-overload` / `camera-connect`
-- Sibling `ai-vision` detections (ổ gà → Incident)
-- ERP.* / `Domains/Master` / `api/v1/rmms/*`
+- Real GPT-4o / ONNX runtime full (P1 HITL + Vision host wire)
+- Auto-create Asset theo ngưỡng (P2)
+- Tab «Mất» riêng (P2 nếu Design đề xuất sau)
+- Sibling `ai-vision` detections ổ gà · `camera-connect` RTSP
+- ERP.* · invent `api/v1/ai-kd/*`
 
-## 11. Open questions
+## 11. Open questions (sau PO)
 
 | ID | Status | Owner |
 |----|--------|-------|
-| Camera ITS ↔ asset-type | **CLOSED** · `ITS_CAMERA` (§8) | PO |
-| `mfeStdRoute` | Đề xuất `/ai-vision/ai-asset-detect` | TL `route_confirm` |
-| DOMAIN-MAP slug | Chưa có hàng `ai-asset-detect` | SA |
-| `beRepo` / `uiRepo` | User tick board — **không auto** | User trước Dev |
+| GAP-AAD-FILE-01 migration ImageFileId | open | **SA** |
 | Dedupe 25 m vs 10 m | Demo 25 · prod 10 | SA |
-| Patrol lookup | DEFER | SA/TL |
-
-**Không** AskQuestion (Autopilot ON · autoApprove=OFF chỉ áp design/sa/review).
+| Design miss panel layout Zone B | closed intent · layout | **Design** |
+| `review_confirm` reopen | autopilot approve sau Design | Review |
 
 ## 12. Handoff → Design
 
@@ -229,21 +236,19 @@ Dedupe: demo **25 m** · prod ITS SSOT **10 m** PostGIS — SA ghi solution.
 |-------|-------|
 | feature | `ai-asset-detect` |
 | phase_from / phase_to | `po` → `design` |
-| STATUS | PO **done** · Design **pending** · `autoApprove=OFF` → Design xong prototype+reviewUrl rồi **`await_confirm`** (user Approve board · **không auto**) |
-| Context (docs) | CTX-01…05 |
-| Demo HTML | `Linm.RMMS.Demo/src/demo/ai-vision/ai-asset-detect.html` · Signed |
-| Demo data | `js/ai-asset-detect-data.js` |
-| controlHint | `_data-analy/features/ai-asset-detect-control-hint.md` · bảng §7 |
-| grid_standard | `po-design-grid-standard` · §6 |
-| Screens | §5 S-LIST · S-FORM · S-MOD-CONFIRM · S-MOD-DISMISS · S-MAP · S-FEED |
-| Forms / screens | Kind D slideout · **footer_actions_only** · leave-confirm dirty |
-| Kind | B list A–D + D form + F map overlay · content-only prototype |
-| Camera ITS | **chốt `ITS_CAMERA`** — Design control-map Confirm SearchInput default |
-| APIs (ids) | đề xuất §9 — SA chốt |
-| Open questions | route_confirm · DOMAIN-MAP · beRepo/uiRepo (user) |
-| Blockers | none for Design start |
-| Next AskQuestion | `design_confirm` (user board · autoApprove=OFF) |
-| Skills | `/agent-design` · `/erp-form-context` · `list-shell-prototype` · `slideout-form-layout` · **không** `/erp-feature` |
+| STATUS | PO **done** · Design **pending** · autoApprove=**ON** → Design xong tự `design_confirm` |
+| packKind | `list` **confirm** |
+| changeScope | `edit_page` · §2 Delta |
+| controlHint | `_data-analy/…-control-hint.md` · §7 |
+| real-data | `_data-analy/…-real-data.md` §A+§B+§D+§E |
+| grid_standard | §6 · `LinErpListFilterBar` · GAP-FILTER-WRAP-02 |
+| Leave | §6b LeaveConfirmModal |
+| Screens | §5 · Pattern + `devSlash` |
+| miss UI | GAP-AAD-MISS-UI-01 CLOSED P1 |
+| FileUpload | `imageFileId` · FileService |
+| peerStdUrl | `http://localhost:9303/ai-vision` (sibling detect) |
+| reviewUrl | prior prototype · Design cập nhật miss + filter bar |
+| Next | `/agent-design` · **không** `/erp-feature` · **không** e2e ở PO |
 
 ---
 
@@ -252,12 +257,12 @@ Dedupe: demo **25 m** · prod ITS SSOT **10 m** PostGIS — SA ghi solution.
 | Field | Value |
 |-------|-------|
 | skillId | agent-po |
-| skillVersion | 2026.08.10.1 |
+| skillVersion | 2026.09.05.03 |
 | schemaVersion | 1 |
-| workflowVersion | 2026.08.10.3 |
-| rulesVersion | 2026.08.11.1 |
-| generatedAt | 2026-08-12T01:20:00.000Z |
+| workflowVersion | 2026.09.05.03 |
+| rulesVersion | 2026.09.06.1 |
+| generatedAt | 2026-09-06T16:28:00.000Z |
 | versionGate | ok |
 
 ---
-<!-- Version meta: skillVersion=2026.08.10.1 · schemaVersion=qldb-workflow-skill-v1 · workflowVersion=2026.08.10.3 · versionGate=ok -->
+<!-- Version meta: skillVersion=2026.09.05.03 · schemaVersion=qldb-workflow-skill-v1 · workflowVersion=2026.09.05.03 · versionGate=ok -->

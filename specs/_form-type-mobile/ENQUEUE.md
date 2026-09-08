@@ -18,3 +18,6 @@ Hub `me` (`task_84e8e0e2`) — sibling `pending_confirm` (chờ Approve · **c�
 
 Hub `patrol-home` (Tuần đường) — sibling `pending_confirm` (chờ Approve · **cấm** auto start): `attendance` · `patrol-map` · `field-reflect` · `cam-patrol` · `patrol-history` · **`patrol-pin`** · **`patrol-checkin`**.  
 Title: `[Mobile] [Tuần đường] -> {nhãn}`. **Không** enqueue: `supervise` (`reuse`) · `patrol-offline` (`reuse`) · today row tap · Tab 5. P1 toast **không** skip pin / ghi điểm.
+
+Họp 04/09 [`MEETING-1-5.md`](MEETING-1-5.md) — **enqueue_later** (chưa gen queue): `nghiem-thu` · `nghiem-thu-create` · edit `patrol-home` (Khu I) · `patrol-checkin` upload/AI · `field-reflect` · `patrol-map` inspect ảnh.  
+**Skip native:** CSDL 16+10 · MAIN3 `gis-*` / `ai-vision*`. Gen task: `/scan-mobile-feature` `run_selected`.

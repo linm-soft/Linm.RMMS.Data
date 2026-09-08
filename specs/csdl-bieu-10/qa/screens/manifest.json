@@ -1,0 +1,38 @@
+{
+  "url": "http://localhost:9301/csdl-bieu-10",
+  "method": "playwright channel=chrome headless · contract fallback after yarn e2e-qa hang (GAP-QA-E2E-PW-01)",
+  "feature": "csdl-bieu-10",
+  "cases": [
+    "S0",
+    "S1",
+    "QA-20"
+  ],
+  "capturedAt": "2026-09-05T12:04:33.958Z",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "sha256_16": "578713d8b3334842",
+      "url": "http://localhost:9301/csdl-bieu-10",
+      "note": "list Biểu 10 · filter-bar · wallKind · empty/grid · peer so-ts-retaining"
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "sha256_16": "578713d8b3334842",
+      "url": "http://localhost:9301/so-ts/csdl-so-sach?resource=retaining-walls",
+      "note": "hub ?resource=retaining-walls → redirect /csdl-bieu-10"
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "sha256_16": "ce780bb7f4d2d2f3",
+      "url": "http://localhost:9301/csdl-bieu-10?form=create",
+      "note": "Create Slideout · form=create · 2 section tường+rãnh · KE-"
+    }
+  ],
+  "ok": true
+}

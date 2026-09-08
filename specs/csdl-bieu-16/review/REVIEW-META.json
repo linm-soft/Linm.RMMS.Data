@@ -1,0 +1,13 @@
+{
+  "feature": "csdl-bieu-16",
+  "status": "done",
+  "verdict": "PASS",
+  "review_confirm": "approve",
+  "taskId": "task_628c95a5",
+  "priorQaTaskId": "task_944da438",
+  "hashGate": "SKIP",
+  "contentHash": "sha256:56e2fb16e9bcde21f17d7e9639b72660666778f5393b1270cecc49d123beba4b",
+  "headerFingerprint": "sha256:ec787bf2008ae89f1b6c085fe238f1b0d50b048f5c672b90b68d9ea102cf8fcc",
+  "reviewedAt": "2026-09-05T17:10:00.000Z",
+  "autoCreated": false
+}

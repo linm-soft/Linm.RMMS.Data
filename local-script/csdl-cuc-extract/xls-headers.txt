@@ -1,0 +1,1343 @@
+WORKBOOK 1. Bi_u m_u CSDL.xls SHEETS 16
+
+# SHEET 01. Duong
+ref=A1:AL33 maxCol=38 rows=33 merges=51
+ROW 1:
+  [1] BIỂU 1: THỐNG KÊ PHÂN LOẠI MẶT ĐƯỜNG
+ROW 2:
+ROW 3:
+ROW 4:
+  [1] Stt
+  [2] Mã đường
+  [3] Tên đường
+  [4] Địa danh
+  [5] Lý trình
+  [7] Chiều dài (Km)
+  [8] B nền (m)
+  [9] B mặt (m)
+  [13] Kết cấu
+  [18] Cấp đường đồng bằng và đồi
+  [23] Cấp đường miền núi
+  [28] Phân loại
+  [32] Bàn giao thi công
+  [34] Năm đại tu XDCB gần nhất
+  [35] Năm có DA sửa chữa mặt đường
+  [36] Người cập nhật
+  [37] Đơn vị quản lý
+  [38] Ghi chú
+ROW 5:
+  [5] Từ Km
+  [6] Đến Km
+  [9] ≥14 (4làn)
+  [10] ≥7 (2làn)
+  [11] 5-6,9 (2làn)
+  [12] ≤ 5
+  [13] BTXM
+  [14] BT nhựa
+  [15] Đá nhựa
+  [16] Cấp phối
+  [17] Chiều dày mặt đường (cm)
+  [18] I
+  [19] II
+  [20] III
+  [21] IV
+  [22] V
+  [23] I
+  [24] II
+  [25] III
+  [26] IV
+  [27] V
+  [28] 1-3 năm
+  [29] 4-6 năm
+  [30] 7-9 năm
+  [31] > 9 năm
+  [32] T.BỘ
+  [33] MĐ
+ROW 6:
+ROW 7:
+  [1] (1)
+  [2] (2)
+  [3] (3)
+  [4] (4)
+  [5] (5)
+  [6] (6)
+  [7] (7)
+  [8] (8)
+  [9] (9)
+  [10] (10)
+  [11] (11)
+  [12] (12)
+  [13] (13)
+  [14] (14)
+  [15] (15)
+  [16] (16)
+  [17] (17)
+  [18] (18)
+  [19] (19)
+  [20] (20)
+  [21] (21)
+  [22] (22)
+  [23] (23)
+  [24] (24)
+  [25] (25)
+  [26] (26)
+  [27] (27)
+  [28] (28)
+  [29] (29)
+  [30] (30)
+  [31] (31)
+  [32] (32)
+  [33] (33)
+  [34] (34)
+  [35] (35)
+  [36] (36)
+  [37] (37)
+  [38] (38)
+ROW 8:
+  [5] TỔNG CỘNG
+  [7] 10.523
+
+# SHEET 02. Cau
+ref=A1:BQ21 maxCol=69 rows=21 merges=41
+ROW 1:
+  [1] BIỂU 2: THỐNG KÊ CẦU
+ROW 2:
+  [1] Biểu 06: Thống kê cầu trên quốc lộ
+ROW 3:
+  [1] Stt
+  [2] Mã cầu
+  [3] Tên cầu
+  [4] Tên đường
+  [5] Loại vượt (tên sông, suối, đường)
+  [6] Địa danh (Tỉnh)
+  [7] Lý trình (Km)
+  [8] Tọa độ
+  [11] C.dài cầu (m)
+  [12] Chiều rộng (m)
+  [13] Bề rộng xe chạy
+  [14] Tĩnh không TT (m)
+  [15] Kết cấu dầm nhịp (nhịp/mét)
+  [24] Kết cấu phần dưới
+  [30] Tải trọng
+  [32] Năm xây dựng
+  [33] Năm khai thác
+  [34] Tình trạng
+  [35] Gối cầu
+  [37] Loại KCG
+  [38] Lan can cầu
+  [41] Ống thoát nước (m)
+  [43] Diện tích phát quang hai đầu mố cầu (m2)
+  [44] Diện tích dầm thép liên hợp (m2)
+  [45] Diện tích đỉnh trụ (m2)
+  [46] Diện tích đỉnh mố (m2)
+  [47] Người cập nhật
+  [48] Đơn vị quản lý
+ROW 4:
+  [8] Điểm đầu
+  [9] Điểm giữa
+  [10] Điểm cuối
+  [15] Số nhịp
+  [16] Sơ đồ nhịp
+  [17] Chiều dài (m)
+  [18] BTCT DUL
+  [19] BTCT
+  [20] Dàn thép
+  [21] I liên hợp
+  [22] Vòm
+  [23] Loại khác
+  [24] Mố TT
+  [25] Móng
+  [26] Thân
+  [27] Trụ TT
+  [28] Móng
+  [29] Thân
+  [30] Thiết kế
+  [31] Thực tế
+  [35] Số lượng (gối)
+  [36] Loại gối
+  [38] Chiều dài (m)
+  [39] Diện tích Gờ chắn bánh BT (m2)
+  [40] Diện tích phần tay vịn thép (m2)
+  [41] Số lượng (ống)
+  [42] Chiều dài (m)
+  [64] Number classify (theophânloại)
+  [66] Transport hydraulic
+  [67] Navigation
+  [68] HSHC
+  [69] Every day repair 2005
+ROW 5:
+  [1] (1)
+  [2] (2)
+  [3] (3)
+  [4] (4)
+  [5] (5)
+  [6] (6)
+  [7] (7)
+  [8] (8)
+  [9] (9)
+  [10] (10)
+  [11] (11)
+  [12] (12)
+  [13] (13)
+  [14] (14)
+  [15] (15)
+  [16] (16)
+  [17] (17)
+  [18] (18)
+  [19] (19)
+  [20] (20)
+  [21] (21)
+  [22] (22)
+  [23] (23)
+  [24] (24)
+  [25] (25)
+  [26] (26)
+  [27] (27)
+  [28] (28)
+  [29] (29)
+  [30] (30)
+  [31] (31)
+  [32] (32)
+  [33] (33)
+  [34] (34)
+  [35] (35)
+  [36] (36)
+  [37] (37)
+  [38] (38)
+  [39] (39)
+  [40] (40)
+  [41] (41)
+  [42] (42)
+  [43] (43)
+  [44] (44)
+  [45] (45)
+  [46] (46)
+  [47] (47)
+  [48] (48)
+ROW 6:
+ROW 7:
+ROW 8:
+
+# SHEET 03. Ham
+ref=A1:AR17 maxCol=44 rows=17 merges=28
+ROW 1:
+  [1] BIỂU 3: THỐNG KÊ HẦM ĐƯỜNG BỘ
+ROW 2:
+ROW 3:
+  [1] Stt
+  [2] Mã hầm
+  [3] Tên hầm
+  [4] Tên đường
+  [5] Loại xuyên
+  [6] Địa danh (Tỉnh)
+  [7] Lý trình
+  [9] Tọa độ
+  [12] Chiều dài Hầm ĐB (Km)
+  [13] Cấp hầm (ghi rõ ĐB hay MN)
+  [14] Số ống
+  [15] Loại kết cấu vỏ hầm
+  [16] Tĩnh không (m)
+  [17] Khổ giới hạn
+  [20] Kết cấu mặt đường
+  [21] Hệ thống thoát nước
+  [23] Lề đường trong hầm
+  [27] Hệ thống PCCC
+  [30] Hệ thống thông gió
+  [32] Hệ thống chiếu sáng
+  [34] Hệ thống giám sát
+  [37] Năm xây dựng
+  [38] Năm khai thác
+  [39] Tình trạng
+  [40] Người cập nhật
+  [41] Đơn vị quản lý
+  [42] Ghi chú
+ROW 4:
+  [7] Từ (Km)
+  [8] Đến (Km)
+  [9] Điểm đầu
+  [10] Điểm giữa
+  [11] Điểm cuối
+  [17] Chiều cao (m)
+  [18] Chiều rộng (m)
+  [19] Chiều rộng xe chạy (m)
+  [21] Chiều dài (m)
+  [22] Kết cấu
+  [23] Chiều dài (m)
+  [24] Chiều rộng lề đường (m)
+  [25] Kết cấu
+  [26] Hệ thống bảo vệ
+  [27] Máy bơm
+  [28] Hốc PCCC
+  [29] Tình trạng
+  [30] Quạt (cái)
+  [31] Loại khác
+  [32] Loại đèn
+  [33] Số lượng
+  [34] CCTV
+  [35] VMS
+  [36] Loại khác
+ROW 5:
+  [1] (1)
+  [2] (2)
+  [3] (3)
+  [4] (4)
+  [5] (5)
+  [6] (6)
+  [7] (7)
+  [8] (8)
+  [9] (9)
+  [10] (10)
+  [11] (11)
+  [12] (12)
+  [13] (13)
+  [14] (14)
+  [15] (15)
+  [16] (16)
+  [17] (17)
+  [18] (18)
+  [19] (19)
+  [20] (20)
+  [21] (21)
+  [22] (22)
+  [23] (23)
+  [24] (24)
+  [25] (25)
+  [26] (26)
+  [27] (27)
+  [28] (28)
+  [29] (29)
+  [30] (30)
+  [31] (31)
+  [32] (32)
+  [33] (33)
+  [34] (34)
+  [35] (35)
+  [36] (36)
+  [37] (37)
+  [38] (38)
+  [39] (39)
+  [40] (40)
+  [41] (41)
+  [42] (42)
+ROW 6:
+  [1] 1
+  [2] ###
+  [3] Hầm Tam Điệp
+  [4] CT.01
+  [5] Núi đá
+  [6] Ninh Bình
+  [7] Km288+405.35
+  [8] Km288+650.35
+  [12] 0.245
+  [13] Cấp I
+  [14] 2
+  [15] BTCT
+  [16] 5.5
+  [17] 4.75
+  [18] 14.50
+  [19] 12.75
+  [20] BTXM
+  [23] 490
+  [24] 1.1
+  [25] BTXM
+  [26] Lan can thép
+  [27] 2
+  [28] 15
+  [29] Tốt
+  [30] 15
+ROW 7:
+  [1] 2
+  [2] ###
+  [3] Hầm Thung Thi
+  [4] CT.01
+  [5] Núi đất
+  [6] Thanh Hoá
+  [7] Km302+060
+  [8] Km302+740
+  [12] 0.68
+  [13] Cấp I
+  [14] 2
+  [15] BTCT
+  [16] 5.5
+  [17] 4.75
+  [18] 14.50
+  [19] 12.75
+  [20] BTN
+  [27] 4.00
+  [28] 20.00
+  [29] Tốt
+  [30] 15
+ROW 8:
+
+# SHEET 04. Cong 
+ref=A1:T29 maxCol=20 rows=29 merges=21
+ROW 1:
+  [1] BIỂU 4: THỐNG KÊ CỐNG CÁC LOẠI
+ROW 2:
+ROW 3:
+  [1] Stt
+  [2] Mã cống
+  [3] Tên đường
+  [4] Lý trình
+  [5] Toạ độ
+  [6] Khẩu độ
+  [7] Hình dạng
+  [8] Kết cấu cống
+  [11] Chiều dài cống (m)
+  [12] Tải trọng
+  [13] Năm xây dựng
+  [14] Tình trạng
+  [15] Người cập nhật
+  [16] Đơn vị quản lý
+  [17] Ghi chú
+ROW 4:
+  [6] ®é
+  [7] ®é
+  [8] Thân cống
+  [9] Đầu cống
+ROW 5:
+  [9] T.Lưu
+  [10] H.Lưu
+ROW 6:
+  [1] (1)
+  [2] (2)
+  [3] (3)
+  [4] (4)
+  [5] (5)
+  [6] (6)
+  [7] (7)
+  [8] (8)
+  [9] (9)
+  [10] (10)
+  [11] (11)
+  [12] (12)
+  [13] (13)
+  [14] (14)
+  [15] (15)
+  [16] (16)
+  [17] (17)
+ROW 7:
+  [1] 1
+  [2] ###
+  [3] HCM
+  [4] Km +98.14
+  [6] 1x1
+  [7] Hộp
+  [8] BTCT
+  [9] Đá xây
+  [10] Đá xây
+  [11] 31.48
+  [13] 2010
+  [14] B/thường
+ROW 8:
+  [1] 2
+  [2] ###
+  [3] HCM
+  [4] Km0+882.00
+  [6] D125
+  [7] Tròn
+  [8] BTCT
+  [9] BTXM
+  [10] BTXM
+  [11] 25.42
+  [13] 2010
+  [14] B/thường
+
+# SHEET 05. Rãnh
+ref=A1:R20 maxCol=18 rows=20 merges=21
+ROW 1:
+  [1] BIỂU 5: THỐNG KÊ RÃNH CÁC LOẠI
+ROW 2:
+ROW 3:
+  [1] Stt
+  [2] Mã tài sản
+  [3] Tên đường
+  [4] Tỉnh/ TP
+  [5] Lý trình
+  [7] Chiều dài (m)
+  [8] Vị trí
+  [9] Loại rãnh
+  [10] Kết cấu
+  [11] Hình dạng
+  [12] Kích thước khẩu độ thoát nước
+  [13] Năm xây dựng
+  [14] Khả năng thoát nước
+  [15] Tình trạng
+  [16] Người cập nhật
+  [17] Đơn vị quản lý
+  [18] Ghi chú
+ROW 4:
+ROW 5:
+ROW 6:
+ROW 7:
+  [5] Từ
+  [6] Đến
+ROW 8:
+  [1] (1)
+  [2] (2)
+  [3] (3)
+  [4] (4)
+  [5] (5)
+  [6] (6)
+  [7] (7)
+  [8] (8)
+  [9] (9)
+  [10] (10)
+  [11] (11)
+  [12] (12)
+  [13] (13)
+  [14] (14)
+  [15] (15)
+  [16] (16)
+  [17] (17)
+  [18] (18)
+
+# SHEET 06. Hầm chui DS
+ref=A1:X21 maxCol=24 rows=21 merges=21
+ROW 1:
+  [1] BIỂU 6: THỐNG KÊ HẦM CHUI DÂN SINH, HỘP KỸ THUẬT
+ROW 2:
+ROW 3:
+  [1] Stt
+  [2] Mã tài sản
+  [3] Tên đường
+  [4] Tỉnh / TP
+  [5] Lý trình
+  [6] Tọa độ
+  [7] Khẩu độ (m)
+  [8] Số lượng ống cống
+  [9] Kết cấu
+  [11] Chiều dài (m)
+  [12] Tải trọng
+  [13] Mặt đường trong cống DS
+  [14] Hệ thống chiếu sáng
+  [15] Hệ thống thoát nước
+  [16] Năm Xây dựng
+  [17] Người cập nhật
+  [18] Đơn vị quản lý
+  [19] Ghi chú
+ROW 4:
+  [9] Thân hầm
+  [10] Cửa hầm
+ROW 5:
+ROW 6:
+  [1] (1)
+  [2] (2)
+  [3] (3)
+  [4] (4)
+  [5] (5)
+  [6] (6)
+  [7] (7)
+  [8] (8)
+  [9] (9)
+  [10] (10)
+  [11] (11)
+  [12] (12)
+  [13] (13)
+  [14] (14)
+  [15] (15)
+  [16] (16)
+  [17] (17)
+  [18] (18)
+  [19] (19)
+ROW 7:
+  [1] 1
+  [3] CT.01
+  [5] Km+710.00
+  [7] 6,5x4,5
+  [8] 1
+  [9] BTCT
+  [10] BTCT
+  [11] 17.60
+  [12] HL93
+  [13] BTXM
+  [16] 2022
+ROW 8:
+  [1] 2
+  [3] CT.01
+  [5] Km1+880.00
+  [7] 2x6,5x5,5
+  [8] 2
+  [9] BTCT
+  [10] BTCT
+  [11] 18.09
+  [12] HL93
+  [13] BTN
+  [16] 2022
+
+# SHEET 07. Lề đường, PQ
+ref=A1:T20 maxCol=20 rows=20 merges=13
+ROW 1:
+  [1] BIỂU 7: THỐNG KÊ LỀ ĐƯỜNG, TALUY DƯƠNG; HÀNG RÀO BẢO VỆ
+ROW 2:
+ROW 3:
+  [1] Stt
+  [2] Mã tài sản
+  [3] Tên đường
+  [4] Lý trình
+  [6] Lề đường
+  [11] Taluy dương
+  [14] Hàng rào bảo vệ
+  [18] Người cập nhật
+  [19] Đơn vị quản lý
+  [20] Ghi chú
+ROW 4:
+  [4] Từ
+  [5] Đến
+  [6] Vị trí
+  [7] Kết cấu
+  [8] Chiều dài (m)
+  [9] Chiều rộng (m)
+  [10] Diện tích (m2)
+  [11] Vị trí
+  [12] Chiều dài (m)
+  [13] Diện tích (m2)
+  [14] Quy cách
+  [15] Vị trí
+  [16] Số cột
+  [17] Chiều dài (Km)
+ROW 5:
+  [1] (1)
+  [2] (2)
+  [3] (3)
+  [4] (4)
+  [5] (5)
+  [6] (6)
+  [7] (7)
+  [8] (8)
+  [9] (9)
+  [10] (10)
+  [11] (11)
+  [12] (12)
+  [13] (13)
+  [14] (14)
+  [15] (15)
+  [16] (16)
+  [17] (17)
+  [18] (18)
+  [19] (19)
+  [20] (20)
+ROW 6:
+  [1] 1
+  [3] QL.2
+  [4] Km0+000
+  [5] Km0+523
+  [6] Trái
+  [7] Đất
+  [8] 523
+  [9] 0.7
+  [10] 366.1
+ROW 7:
+  [1] 2
+  [3] QL.2
+  [4] Km1+200
+  [5] Km1+300
+  [6] Phải
+  [7] BTXM
+  [8] 100
+  [9] 1
+  [10] 100
+ROW 8:
+
+# SHEET 08. ATGT
+ref=A1:AY15 maxCol=51 rows=15 merges=57
+ROW 1:
+  [1] BIỂU 8: THỐNG KÊ HỆ THỐNG AN TOÀN GIAO THÔNG
+ROW 2:
+ROW 3:
+  [1] Stt
+  [2] Mã tài sản
+  [3] Tên đường
+  [4] Tỉnh /TP
+  [5] Lý trình
+  [6] Vị trí
+  [7] Hệ thống an toàn giao thông
+  [38] Đèn tín hiệu giao thông
+  [43] Người cập nhật
+  [44] Đơn vị quản lý
+  [45] Ghi chú
+ROW 4:
+  [7] Biển báo các loại
+  [11] Cọc tiêu, cột H, cột Km, trụ dẻo, cột thuỷ chí
+  [15] Giải phân cách
+  [19] Tấm chống chói
+  [23] Đảo giao thông
+  [26] Đinh phản quang
+  [28] Hộ lan
+  [32] Vạch sơn kẻ đường
+  [36] Thùng giảm chấn (cái)
+  [37] Gương cầu lồi (cái)
+  [38] Cột đèn
+  [41] Loại đèn
+ROW 5:
+  [7] Mặt biển
+  [9] Cột biển
+  [11] Chủng loại
+  [12] Số lượng
+  [13] Kết cấu
+  [14] Diện tích (m2)
+  [15] Chủng loại
+  [16] Kết cấu
+  [17] Chiều dài (m)
+  [18] Chiều cao (m)
+  [19] Chủng loại
+  [20] Kết cấu
+  [21] Số lượng
+  [22] Chiều dài
+  [23] Loại đảo
+  [24] Kết cấu
+  [25] Diện tích (m2)
+  [26] Kích thước
+  [27] Số lượng
+  [28] Chủng loại
+  [29] Kết cấu
+  [30] Chiều dài
+  [31] Mắt/ Tiêu phản quang
+  [32] Số hiệu
+  [33] Chiều dài (m)
+  [34] Chiều rộng (m)
+  [35] Diện tích (m2)
+  [38] Chủng loại
+  [39] Chiều cao
+  [40] Số lượng
+  [41] Chủng loại
+  [42] Số lượng
+ROW 6:
+  [7] Số hiệu
+  [8] Kích thước (m)
+  [9] Số cột
+  [10] Chiều dài (m)
+ROW 7:
+  [1] (1)
+  [2] (2)
+  [3] (3)
+  [4] (4)
+  [5] (5)
+  [6] (6)
+  [7] (7)
+  [8] (8)
+  [9] (9)
+  [10] (10)
+  [11] (11)
+  [12] (12)
+  [13] (13)
+  [14] (14)
+  [15] (15)
+  [16] (16)
+  [17] (17)
+  [18] (18)
+  [19] (19)
+  [20] (20)
+  [21] (21)
+  [22] (22)
+  [23] (23)
+  [24] (24)
+  [25] (25)
+  [26] (26)
+  [27] (27)
+  [28] (28)
+  [29] (29)
+  [30] (30)
+  [31] (31)
+  [32] (32)
+  [33] (33)
+  [34] (34)
+  [35] (35)
+  [36] (36)
+  [37] (37)
+  [38] (38)
+  [39] (39)
+  [40] (40)
+  [41] (41)
+  [42] (42)
+  [43] (43)
+  [44] (44)
+  [45] (45)
+ROW 8:
+  [1] 1
+  [3] QL.1
+  [5] Km0+000
+  [6] Trái
+  [7] W.224
+  [8] 0.7
+  [9] 1
+  [10] 2.3
+
+# SHEET 09. MLG, GPMB
+ref=A1:V16 maxCol=22 rows=16 merges=22
+ROW 1:
+  [1] BIỂU 9: THỐNG KÊ MỐC LỘ GIỚI, MỐC GPMB
+ROW 2:
+ROW 3:
+  [1] Stt
+  [2] Mã tài sản
+  [3] Tên đường
+  [4] Xã /phương, tỉnh /TP
+  [5] Lý trình
+  [6] Vị trí
+  [7] Mốc lộ giới (cọc)
+  [10] Mốc GPMB (cọc)
+  [13] Tình trạng
+  [14] Năm hoàn thành
+  [15] Người cập nhật
+  [16] Đơn vị quản lý
+  [17] Ghi chú
+ROW 4:
+  [7] Chủng loại
+  [8] Kết cấu
+  [9] Diện tích (m2)
+  [10] Chủng loại
+  [11] Kết cấu
+  [12] Diện tích (m2)
+ROW 5:
+ROW 6:
+  [1] (1)
+  [2] (2)
+  [3] (3)
+  [4] (4)
+  [5] (5)
+  [6] (6)
+  [7] (7)
+  [8] (8)
+  [9] (9)
+  [10] (10)
+  [11] (11)
+  [12] (12)
+  [13] (13)
+  [14] (14)
+  [15] (15)
+  [16] (16)
+  [17] (17)
+ROW 7:
+ROW 8:
+
+# SHEET 10. Kè, tường chắn
+ref=A1:U16 maxCol=21 rows=16 merges=13
+ROW 1:
+  [1] BIỂU 10: THỐNG KÊ KÈ, TƯỜNG CHẮN
+ROW 2:
+ROW 3:
+  [1] Stt
+  [2] Mã tài sản
+  [3] Tên đường
+  [4] Địa danh (tỉnh)
+  [5] Lý trình
+  [7] Kè, tường chắn
+  [13] Rãnh đỉnh
+  [17] Năm đưa vào sử dụng
+  [18] Tình trạng
+  [19] Người cập nhật
+  [20] Đơn vị quản lý
+  [21] Ghi chú
+ROW 4:
+  [1] TT
+  [2] TT
+  [3] TT
+  [4] TT
+ROW 5:
+  [5] Từ
+  [6] Đến
+  [7] Vị trí
+  [8] Chủng loại
+  [9] Kết cấu
+  [10] Chiều dài (m)
+  [11] Cao (m)
+  [12] Diện tích (m2)
+  [13] Chủng loại
+  [14] Kết cấu
+  [15] Hình dạng
+  [16] Chiều dài (m)
+ROW 6:
+  [1] (1)
+  [2] (2)
+  [3] (3)
+  [4] (4)
+  [5] (5)
+  [6] (6)
+  [7] (7)
+  [8] (8)
+  [9] (9)
+  [10] (10)
+  [11] (11)
+  [12] (12)
+  [13] (13)
+  [14] (14)
+  [15] (15)
+  [16] (16)
+  [17] (17)
+  [18] (18)
+  [19] (19)
+  [20] (20)
+  [21] (21)
+ROW 7:
+  [1] 1
+  [5] Km111+887
+  [6] Km112+075
+  [7] Trái
+  [8] Kè trọng lực
+  [9] BT
+  [10] 188
+  [11] 3
+  [12] 564
+  [13] Hở
+  [14] BTXM
+  [15] Thang
+  [16] 150
+ROW 8:
+  [1] 2
+  [5] Km111+887
+  [6] Km111+926
+  [7] Trái
+  [8] Kè rọ thép
+  [9] Đá hộc
+  [10] 39
+  [11] 6
+  [12] 234
+
+# SHEET 11. Chiếu sáng
+ref=A1:IV21 maxCol=256 rows=21 merges=25
+ROW 1:
+  [1] BIỂU 11: THỐNG KÊ HỆ THỐNG CHIẾU SÁNG
+ROW 2:
+ROW 3:
+  [1] Stt
+  [2] Mã tài sản
+  [3] Tên đường
+  [4] Tỉnh /TP
+  [5] Lý trình
+  [7] Vị trí
+  [8] Hệ thống chiếu sáng (Điện lưới)
+  [16] Hệ thống chiếu sáng (Năng lượng mặt trời)
+  [22] Người cập nhật
+  [23] Đơn vị quản lý
+  [24] Ghi chú
+ROW 4:
+  [8] Số bóng LED 600W
+  [9] Số bóng LED 240W
+  [10] Số bóng LED 150W
+  [11] Số bóng LED 125W
+  [12] Tình trạng
+  [13] Số cột đèn
+  [14] Số lượng
+  [16] Cột đèn THGT bát giác côn H=6,2m; L=4m (cột)
+  [17] Bộ điều khiển nạp pin và điều khiển (Bộ)
+  [18] Tấm Pin năng lương mặt trời 240Wp (Tấm)
+  [19] Đèn pha chiếu sáng hầm LED- 100W-12V (Bộ)
+  [20] Acquy 145Ah-12V tích điện (Cái)
+  [21] Tủ điện lắp Acquy+ điều khiển (450x500x270) (Tủ)
+ROW 5:
+  [5] Từ
+  [6] Đến
+  [14] Tủ điện (cái)
+  [15] TBA (trạm)
+ROW 6:
+  [1] (1)
+  [2] (2)
+  [3] (3)
+  [4] (4)
+  [5] (5)
+  [6] (6)
+  [7] (7)
+  [8] (8)
+  [9] (9)
+  [10] (10)
+  [11] (11)
+  [12] (12)
+  [13] (13)
+  [14] (14)
+  [15] (15)
+  [16] (16)
+  [17] (17)
+  [18] (18)
+  [19] (19)
+  [20] (20)
+  [21] (21)
+  [22] (22)
+  [23] (23)
+  [24] (24)
+ROW 7:
+  [1] 1
+ROW 8:
+  [1] 2
+
+# SHEET 12. CX, thảm cỏ
+ref=A1:U15 maxCol=21 rows=15 merges=12
+ROW 1:
+  [1] BIỂU 12: THỐNG KÊ CÂY XANH, THẢM CỎ
+ROW 2:
+ROW 3:
+  [1] Stt
+  [2] Mã tài sản
+  [3] Tên đường
+  [4] Tỉnh /TP
+  [5] Lý trình
+  [7] Vị trí
+  [8] Loại cây
+  [12] Thảm cỏ (m2)
+  [13] Người cập nhật
+  [14] Đơn vị quản lý
+  [15] Ghi chú
+ROW 4:
+  [5] Từ
+  [6] Đến
+  [8] Trúc đào (khóm)
+  [9] Cây ngâu (khóm)
+  [10] Cây cọ (khóm)
+  [11] Khác
+ROW 5:
+  [1] (1)
+  [2] (2)
+  [3] (3)
+  [4] (4)
+  [5] (5)
+  [6] (6)
+  [7] (7)
+  [8] (8)
+  [9] (9)
+  [10] (10)
+  [11] (11)
+  [12] (12)
+  [13] (13)
+  [14] (14)
+  [15] (15)
+ROW 6:
+  [1] 1
+ROW 7:
+  [1] 2
+ROW 8:
+  [1] 3
+
+# SHEET 13. Tường chống ồn
+ref=A1:O19 maxCol=15 rows=19 merges=14
+ROW 1:
+  [1] BIỂU 13: THỐNG KÊ TƯỜNG CHỐNG ỒN
+ROW 2:
+ROW 3:
+ROW 4:
+  [1] Stt
+  [2] Mã tài sản
+  [3] Tên đường
+  [4] Địa danh (tỉnh)
+  [5] Lý trình
+  [7] Vị trí
+  [8] Chiều dài (m)
+  [9] Chiều cao (m)
+  [10] Diện tích (m2)
+  [11] Người cập nhật
+  [12] Đơn vị quản lý
+  [13] Ghi chú
+ROW 5:
+ROW 6:
+  [5] Từ
+  [6] Đến
+ROW 7:
+  [1] (1)
+  [2] (2)
+  [3] (3)
+  [4] (4)
+  [5] (5)
+  [6] (6)
+  [7] (7)
+  [8] (8)
+  [9] (9)
+  [10] (10)
+  [11] (11)
+  [12] (12)
+  [13] (13)
+ROW 8:
+  [1] 1
+  [5] Km293+688.00
+  [6] Km293+900.00
+  [7] Phải
+  [8] 212.00
+  [9] 2-3 m
+  [10] 650.60
+
+# SHEET 14. Hệ thống GTTM(ITS)
+ref=A1:U19 maxCol=21 rows=19 merges=14
+ROW 1:
+  [1] BIỂU 14: THỐNG KÊ HỆ THỐNG GIAO THÔNG THÔNG MINH (ITS)
+ROW 2:
+ROW 3:
+  [1] Stt
+  [2] Mã tài sản
+  [3] Tên đường
+  [4] Lý trình
+  [6] Tọa độ
+  [7] Vị trí
+  [8] Hướng tuyến
+  [9] Nhóm thiết bị
+  [14] Hạ tầng lắp đặt thiết bị
+  [18] Năm xây dựng
+  [19] Người cập nhật
+  [20] Đơn vị quản lý
+  [21] Ghi chú
+ROW 4:
+  [4] Từ
+  [5] Đến
+  [9] Loại thiết bị
+  [10] Hãng/xuất xứ
+  [11] Thông số kỹ thuật
+  [12] Số lượng/chiều dài (m)
+  [13] Trạng thái hoạt động
+  [14] Loại hạ tầng
+  [15] Kết cấu
+  [16] Số lượng
+  [17] Tình trạng
+ROW 5:
+  [1] (1)
+  [2] (2)
+  [3] (3)
+  [4] (4)
+  [5] (5)
+  [6] (6)
+  [7] (7)
+  [8] (8)
+  [9] (9)
+  [10] (10)
+  [11] (11)
+  [12] (12)
+  [13] (13)
+  [14] (14)
+  [15] (15)
+  [16] (16)
+  [17] (17)
+  [18] (18)
+  [19] (19)
+  [20] (20)
+  [21] (21)
+ROW 6:
+  [1] 1
+  [3] CT.05
+  [4] Km6+00
+  [5] Km15+00
+  [7] Phải
+  [8] HN-LC
+  [9] Cáp quang
+  [10] Việt Nam
+  [12] 9000
+  [13] Bình thường
+ROW 7:
+  [1] 2
+  [3] CT.05
+  [4] Km6+00
+  [7] Phải
+  [8] HN-LC
+  [9] Camera giám sát (CCTV)
+  [10] Việt Nam
+  [12] 2
+  [13] Bình thường
+  [14] Cần vươn
+  [15] Thép
+  [16] 1
+  [17] Tốt
+ROW 8:
+  [1] 3
+  [3] CT.05
+  [4] Km7+500
+  [7] Trái
+  [8] LC-HN
+  [9] Camera nhận diện biển số
+  [10] Việt Nam
+  [12] 3
+  [13] Bình thường
+  [14] Cần vươn
+  [15] Thép
+  [16] 1
+  [17] Tốt
+
+# SHEET 15. Nhà điều hành, trạm thu 
+ref=A1:T19 maxCol=20 rows=19 merges=21
+ROW 1:
+  [1] BIỂU 15: THỐNG KÊ TRUNG TÂM ĐIỀU HÀNH, TRẠM THU PHÍ, TRẠM DỪNG CHÂN, NHÀ HẠT, KHO VẬT TƯ DỰ PHÒNG
+ROW 2:
+ROW 3:
+  [1] Stt
+  [2] Mã tài sản
+  [3] Tên đường/Đoạn tuyến
+  [4] Loại công trình
+  [5] Lý trình
+  [6] Vị trí
+  [7] Phía tuyến
+  [8] Diện tích (m²)
+  [9] Hạ tầng tài sản
+  [15] Hệ thống thiết bị
+  [18] Người cập nhật
+  [19] Đơn vị quản lý
+  [20] Ghi chú
+ROW 4:
+  [9] Công trình nhà
+  [11] Công trình kiến trúc khác
+  [13] Tình trạng
+  [14] Năm xây dựng
+  [15] Chủng loại
+  [16] Số lượng
+  [17] Tình trạng
+ROW 5:
+  [9] Số lượng
+  [10] Diện tích (m2)
+  [11] Số lượng
+  [12] Diện tích (m2)
+ROW 6:
+  [1] (1)
+  [2] (2)
+  [3] (3)
+  [4] (4)
+  [5] (5)
+  [6] (6)
+  [7] (7)
+  [8] (8)
+  [9] (9)
+  [10] (10)
+  [11] (11)
+  [12] (12)
+  [13] (13)
+  [14] (14)
+  [15] (15)
+  [16] (16)
+  [17] (17)
+  [18] (18)
+  [19] (19)
+  [20] (20)
+ROW 7:
+  [1] 1
+  [3] CT.01 (CT-HG)
+  [4] Trung tâm TMC
+  [5] Km144+00
+  [6] Phải
+  [7] Cần Thơ - Hậu Giang
+  [8] 10,000
+  [9] 3
+  [10] 5,000
+ROW 8:
+  [1] 2
+  [3] CT.01 (CT-HG)
+  [4] Trạm thu phí
+
+# SHEET 16. Nút giao
+ref=A1:AM19 maxCol=39 rows=19 merges=42
+ROW 1:
+  [1] BIỂU 16: THỐNG KÊ CÁC NÚT GIAO
+ROW 2:
+ROW 3:
+  [1] Stt
+  [2] Mã nút giao
+  [3] Tên đường
+  [4] Tên nút giao
+  [5] Lý trình tuyến chính
+  [6] Lý trình tuyến phụ (vượt)
+  [7] Địa danh (Tỉnh)
+  [8] Loại nút
+  [9] Kiểu tổ chức giao thông
+  [10] Tuyến chính
+  [14] Đường nhánh tách, nhập làn
+  [23] Tuyến nhánh
+  [33] Hệ thống an toàn giao thông
+  [37] Người cập nhật
+  [38] Đơn vị quản lý
+  [39] Ghi chú
+ROW 4:
+  [10] B nền (m)
+  [11] B mặt (m)
+  [12] Kết cấu mặt
+  [13] Số làn xe
+  [14] Tên nhánh
+  [15] Lý trình
+  [17] Vị trí
+  [18] Hướng tuyến
+  [19] Chiều dài (m)
+  [20] B nền (m)
+  [21] B mặt (m)
+  [22] Kết cấu mặt
+  [23] Tên nhánh
+  [24] Lý trình
+  [26] Vị trí
+  [27] Hướng tuyến
+  [28] Chiều dài (m)
+  [29] B nền (m)
+  [30] B mặt (m)
+  [31] Kết cấu mặt
+  [32] Bán kính R
+  [33] Biển báo
+  [34] Vạch sơn
+  [35] Vòng xuyến /Đảo
+  [36] Đèn tín hiệu
+ROW 5:
+  [15] Từ
+  [16] Đến
+  [24] Từ
+  [25] Đến
+ROW 6:
+  [1] (1)
+  [2] (2)
+  [3] (3)
+  [4] (4)
+  [5] (5)
+  [6] (6)
+  [7] (7)
+  [8] (8)
+  [9] (9)
+  [10] (10)
+  [11] (11)
+  [12] (12)
+  [13] (13)
+  [14] (14)
+  [15] (15)
+  [16] (16)
+  [17] (17)
+  [18] (18)
+  [19] (19)
+  [20] (20)
+  [21] (21)
+  [22] (22)
+  [23] (23)
+  [24] (24)
+  [25] (25)
+  [26] (26)
+  [27] (27)
+  [28] (28)
+  [29] (29)
+  [30] (30)
+  [31] (31)
+  [32] (32)
+  [33] (33)
+  [34] (34)
+  [35] (35)
+  [36] (36)
+  [37] (37)
+  [38] (38)
+  [39] (39)
+ROW 7:
+  [1] 1
+  [3] CT.01 (PT-DG)
+  [4] Ba Bầu
+  [5] Km63+00
+  [6] Km15-QL.55
+  [7] Lâm Đồng
+  [8] Khác mức
+  [9] Cầu vượt
+  [10] 15
+  [11] 14
+  [13] 4
+  [14] Nhánh tách N1
+  [15] Km62+900
+  [16] Km63+00
+  [17] Phải tuyến
+  [18] Từ CT.01 đi nhánh N1
+  [19] 100
+  [20] 4.5
+  [21] 3.5
+  [22] BTN
+  [23] Nhánh N1
+  [24] Km0+000
+  [25] Km0+275
+  [26] Phải tuyến
+  [27] Từ CT.01 đi nhánh N3
+  [28] 275
+  [29] 6.5
+  [30] 5.5
+  [31] 5.5
+  [32] 60
+ROW 8:
+  [1] 2
+

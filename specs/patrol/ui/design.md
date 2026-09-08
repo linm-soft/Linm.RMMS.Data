@@ -3,28 +3,44 @@
 | Field | Value |
 |-------|-------|
 | feature | `patrol` |
-| Feature Kind | **B** — Catalog list A–D + **full-page** form (`PatrolFormPage`) |
+| Feature Kind | **B** — Catalog list A–D + **full-page** form (`PatrolFormPage`) + **upload zone** |
 | status | `confirmed` (autoApprove=ON · agent self-confirm) |
-| design_confirm | `approve` (`task_5e7961be`) |
+| design_confirm | `approve` (`task_a57d8389`) |
 | changeScope | `edit_page` |
 | packKind | `list` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Field` (`/patrol`) |
-| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/patrol/sessions` |
-| prior | PO `done` · `po/requirement.md` · GAP-PO-PAT-01..07 · data-analy hash `1d25897d8f…` |
-| autoApprove | **ON** (`task_5e7961be`) → agent confirm Design |
-| updatedAt | `2026-08-14T18:10:00.000Z` |
-| taskId | `task_5e7961be` |
+| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/patrol/sessions` · files `web-bff/api/v1/files/*` |
+| prior | PO `confirmed` · `po/requirement.md` · data-analy hash `f2761b7dc5…` · prior design KEEP |
+| autoApprove | **ON** (`task_a57d8389`) → agent confirm Design |
+| updatedAt | `2026-09-07T00:49:00.000Z` |
+| taskId | `task_a57d8389` |
 
-## 0. Context & Demo (from PO)
+## § Delta Current vs New (`edit_page` · W4-1 W4-2 · `task_a57d8389`)
+
+| ID | Current (prior design `task_5e7961be`) | New (this run) | Surface |
+|----|----------------------------------------|----------------|---------|
+| A–D list | Kind B catalog · SearchInput route KEEP | **KEEP** — không đổi Zone A–D | list |
+| Form pattern | Full-page · View `<dl>` · footer-only | **KEEP** + **upload section** | form |
+| mediaIds | Không | **`FileMulti`** · section «Ảnh / video hiện trường» · View gallery resign | form |
+| MIME/UI | — | jpeg\|png\|webp ≤10MB · mp4\|webm ≤50MB · max 10 · helper copy dưới zone | form |
+| Grid media | — | **AC-G-08** không cột media P1 | list |
+| Org bind | live RmmsOrgFormFields | Inventory **KEEP** SearchInput org-unit | form |
+| code | Text readonly IdCode | leftover P2: `readOnly` > `disabled` (không block media) | form |
+| Prior GAP-PO-PAT-01..07 | CLOSED | **KEEP CLOSED** | — |
+
+**Không** đổi: Kind B A–D · full-page · View `<dl>` · footer-only · `?route=` · seed 38 · **cấm ERP.*** · **cấm** invent `api/v1/patrol-files` · lane web · Kind E+F P2.
+
+## 0. Context & Demo (from PO / analy)
 
 | ID | Path | Notes |
 |----|------|-------|
-| CTX-01 | `docs/context/features/patrol.md` | Kind B list + full-page; demo E+F **không** clone |
-| DEM-01 | `Linm.RMMS.Demo/.../patrol-demo.html` → `patrol/patrol.html` | Visual SSOT — skip chrome/map/KPI |
-| DI-02 | `specs/_data-analy/features/patrol-control-hint.md` | controlHint SSOT |
-| DI-03 | `road-route-seed.json` | **38** tuyến · `QL.1` · **cấm** invent ngoài seed |
+| CTX-01 | `docs/context/features/patrol.md` | Kind B + GPS/ảnh DoD |
+| DEM-01 | demo `patrol-demo.html` | Visual ref only — **cấm** re-scan (hash skip) |
+| DI-02 | `specs/_data-analy/features/patrol-control-hint.md` | controlHint SSOT · hash `f2761b7dc5…` |
+| DI-03 | `patrol-real-data.md` §A+§B | bind mediaIds FileMulti |
+| DI-04 | `road-route-seed.json` | **38** · `QL.1` |
 
-Persona: Tuần đường · Hạt trưởng giám sát. Pack **không** clone Kind E report / Kind F Leaflet.
+Persona: Tuần đường · Hạt trưởng. Pack **không** clone Kind E report / Kind F Leaflet.
 
 ## 1. Kind + UI pattern
 
@@ -32,156 +48,157 @@ Persona: Tuần đường · Hạt trưởng giám sát. Pack **không** clone K
 |--|--|
 | Feature Kind | **B** |
 | List pattern | **1×** `LinPageLayout` kind=catalog — **cấm** nested `CatalogListShell` |
-| Grid | `LinCatalogDataGrid` · kéo cột **default ON** |
-| Footer | `LinCatalogListPagination` — **cấm** footerPagination / pageSizeBar / raw table production |
-| Form pattern | **Full-page** `PatrolFormPage` C/E/V/Copy — **cấm** Resource · **cấm** Slideout (GAP-PO-PAT-03) |
+| Grid | `LinCatalogDataGrid` · kéo cột **default ON** · **không** cột media P1 |
+| Footer | `LinCatalogListPagination` — **cấm** footerPagination / pageSizeBar |
+| Form pattern | **Full-page** `PatrolFormPage` C/E/V/Copy — **cấm** Resource · **cấm** Slideout |
+| Upload | Form section `FileMulti` · View = gallery resign — **cấm** Input xám |
 | Routes | List `/patrol` · Create `/patrol/new` · Edit/View `/patrol/:id` |
-| Toolbar SSOT | `catalog-list-toolbar` + `erp-control-icon-map` (`editConfig`=`fa-cog`) |
-| View | **`<dl>` / display** — **cấm** Input `readOnly` xám · **cấm** disabled xám toàn form |
+| Toolbar SSOT | `catalog-list-toolbar` + `erp-control-icon-map` |
+| View | **`<dl>` / display** + media gallery — **cấm** Input `readOnly` xám toàn form |
 
 ## 2. Screens / zones
 
 | Screen | FormMode | Zones | Controls |
 |--------|----------|-------|----------|
 | Sổ phiên tuần tra | list | **A Header · B Toolbar+filter · C Grid · D Pagination** | SearchTextInput + SearchInput status + SearchInput route |
-| Form phiên | create/edit/view/copy | **Full-page** header + body + footer | 13 fields P1 · footer-only Lưu/Hủy |
+| Form phiên | create/edit/view/copy | **Full-page** + **upload zone** | fields P1 + FileMulti · footer-only Lưu/Hủy |
 
 ### Zone A — Header
 
 - Icon `fa-route` + title **Tuần đường / tuần kiểm** (22px)
 - **Cấm** nút Thêm mới / Tạo mới trên A
 
-### Zone B — Toolbar + filter (PO DoD-2 · GAP-DA-PAT-FILTER-ROUTE **IN P1**)
+### Zone B — Toolbar + filter (**KEEP**)
 
-**Trái (filter + icon):**
+**Trái:** search `SearchTextInput` · status `SearchInput` · route `SearchInput` road-route · Làm mới · Lịch sử stub · fa-cog · Xóa  
+**Phải:** **Tạo mới** primary — **chỉ trên B**  
+Filter đổi → **page=1**. **Cấm** Excel / orgUnit filter / date range P2 trên B.
 
-| key | Label | Control (Design chốt) | catalogKind |
-|-----|-------|------------------------|-------------|
-| search | Tìm kiếm | `SearchTextInput` | text — mã · NV · tuyến · loại · status |
-| status | Trạng thái | `SearchInput` | enum: (trống=tất cả) · Đang tuần · Hoàn thành · Bỏ sót · Offline queue — **cấm** native `<select>` production |
-| route | Tuyến đường | `SearchInput` | **road-route** (38) — **cấm** free-text · display `code — name` |
-| — | Làm mới | `fa-sync-alt` | clear filter + reload · page=1 |
-| — | Lịch sử | `fa-history` | stub P1 (cần 1 dòng) |
-| — | Sửa config | `fa-cog` | column config modal |
-| — | Xóa | `fa-trash` | khi có selection |
+### Zone C — Grid (**KEEP** · AC-G-08)
 
-**Phải:** **Tạo mới** primary (`fa-plus`) — **chỉ trên B** (**cấm** nhãn «Thêm mới» trên A).
+- Card: **Sổ phiên tuần tra / check-in**
+- Columns: STT · □ · Mã phiên · Nhân viên · Tuyến · Loại tuần · Ngày KH · Check-in · Coverage % · Trạng thái · Offline · ⋯
+- **Không** cột Ảnh/video P1 (optional thumb P2)
+- Row menu: Xem · Sửa · Sao chép · Xóa · Lịch sử (stub)
 
-**Cấm trên B (pack này):** Xuất Excel (P2) · Đề xuất / Chờ duyệt · orgUnit / staffType / date range (P2).
+### Zone D — Pagination (**KEEP**)
 
-Filter đổi → **page=1** (search must work).
+`LinCatalogListPagination`: 50 / 100 / 200 / 500 · FA pager 32×32.
 
-### Zone C — Grid
+### Form — Upload zone (Design chốt · GAP-DES-PAT-MEDIA-UI)
 
-- Card title: **Sổ phiên tuần tra / check-in**
-- Help: nhấn đúp / menu dòng — Xem · Sửa · Sao chép · Xóa · Lịch sử
-- Flex + skeleton load — **cấm** blank body (GAP-P2-LAYOUT-06)
-- Columns (kéo cột ON): STT · □ · **Mã phiên** · **Nhân viên** · **Tuyến** · **Loại tuần** · **Ngày KH** · **Check-in** · **Coverage %** · **Trạng thái** · **Offline** · ⋯
-- Tuyến hiển thị `QL.1` (master 38)
-- Row menu: **Xem · Sửa · Sao chép · Xóa · Lịch sử** (history stub P1)
-- Click mã → View **full-page** `<dl>`
+| Mode | Layout | Behavior |
+|------|--------|----------|
+| C/E/Copy | Section full-width **sau Ghi chú · trước Cập nhật** · label «Ảnh / video hiện trường» · `data-zone="upload"` | Dropzone + file picker · thumb strip (remove) · dirty khi add/remove |
+| View | Gallery grid dưới `<dl>` · `data-zone="media-gallery"` | Resign URL mỗi lần mở · img / video thumb · lightbox click · **cấm** Input xám |
+| Empty | Helper «Chưa có ảnh/video» | Không skeleton blank cả form |
 
-### Zone D — Pagination
-
-`LinCatalogListPagination`: `Tổng: N · Trang x/y` · Hiển thị **50 / 100 / 200 / 500** · FA pager 32×32.
+**Cấm:** media strip trên Zone A/B · modal-only upload · persist full URL trên DTO · cột grid media P1.
 
 ## 3. Field inventory (form) — Design chốt controlHint
 
 | uiField | Label VN | Control | Required | FormMode lock | Notes |
 |---------|----------|---------|----------|---------------|-------|
-| code | Mã phiên tuần | `Text` readonly IdCode | auto | all readonly | `TD-yyyyMMdd-nnn` · copy = mã mới |
-| userName | Nhân viên | `Text` | * | view=`<dl>` | P1 **không** SearchInput users (GAP-PO-PAT-04) |
-| route | Tuyến đường | `SearchInput` | * | view=`<dl>` | master **road-route** 38 — **cấm** Input Text (GAP-PO-PAT-01) |
-| patrolType | Loại tuần | `SearchInput` | * | view=`<dl>` | enum Tuần đường · Tuần kiểm — **cấm** native `<select>` production |
-| plannedDate | Ngày kế hoạch | `Date` (`type=date`) | * | view=`<dl>` | UTC store / local display |
-| startedAt | Bắt đầu thực tế | `Date` (datetime-local) | | view=`<dl>` | ISO offset |
+| code | Mã phiên tuần | `Text` readOnly IdCode | auto | all readOnly | `TD-yyyyMMdd-nnn` · P2 leftover vs `disabled` |
+| userName | Nhân viên | `Text` | * | view=`<dl>` | P1 **không** SearchInput users |
+| route | Tuyến đường | `SearchInput` | * | view=`<dl>` | road-route 38 — **KEEP** |
+| zoneOrgCode / zoneOrgName | Khu / Chi cục | `SearchInput` | | view=`<dl>` | `RmmsOrgFormFields` · org-unit **KEEP** |
+| vpOrgCode / vpOrgName | VP | `SearchInput` | | view=`<dl>` | org-unit **KEEP** |
+| assigneeCode / assigneeOrgName | Người giao / NV | `SearchInput` | | view=`<dl>` | org bind **KEEP** |
+| routeCode | Mã tuyến (org) | derived / SearchInput | | view=`<dl>` | sync `route` |
+| patrolType | Loại tuần | `SearchInput` | * | view=`<dl>` | Tuần đường · Tuần kiểm |
+| plannedDate | Ngày kế hoạch | `Date` | * | view=`<dl>` | |
+| startedAt | Bắt đầu thực tế | `Date` (datetime-local) | | view=`<dl>` | |
 | checkInCount | Số điểm check-in | `Text` (number ≥0) | * | view=`<dl>` | |
 | coveragePercent | Coverage % | `Text` (number 0–100) | | view=`<dl>` | |
-| status | Trạng thái | `SearchInput` | * | view=`<dl>` | 4 enum |
-| offlineQueued | Hàng đợi offline | `SearchInput` | | view=`<dl>` | Offline queue / Online |
+| status | Trạng thái | `SearchInput` | * | view=`<dl>` | 4 enum VN |
+| offlineQueued | Hàng đợi offline | `SearchInput` | | view=`<dl>` | |
 | note | Ghi chú | `Text` | | view=`<dl>` | |
-| updatedAt | Cập nhật | `Date` readonly | | all readonly | View display |
+| **mediaIds** | **Ảnh / video hiện trường** | **`FileMulti`** | | view=gallery | **NEW P0** · guid[] · FileService · **cấm** full URL |
+| updatedAt | Cập nhật | `Date` readOnly | | all readOnly | |
 
-### Status values (label VN)
+### Status / type / seed (**KEEP**)
 
-| value | Label |
-|-------|--------|
-| `in_progress` | Đang tuần |
-| `done` | Hoàn thành |
-| `missed` | Bỏ sót |
-| `offline_queue` | Offline queue |
+| Enum | Values |
+|------|--------|
+| status | Đang tuần · Hoàn thành · Bỏ sót · Offline queue |
+| patrolType | Tuần đường · Tuần kiểm |
+| seed route | **`QL.1`** ∈ 38 |
 
-### Patrol type
+### MIME / size (PO chốt · Design UI copy)
 
-| value | Label |
-|-------|--------|
-| `road` | Tuần đường |
-| `inspect` | Tuần kiểm |
+| Rule | Value | UI |
+|------|-------|-----|
+| Image | `jpeg` \| `png` \| `webp` ≤ **10 MB**/file | accept + helper dưới dropzone |
+| Video | `mp4` \| `webm` ≤ **50 MB**/file | same |
+| Max | **10** file / session | counter `n/10` · disable add khi đủ |
+| Reject | vượt MIME/size | **toast** — **cấm** `alert` |
+| Persist | file **guid** only | resign mỗi View |
 
-### Seed tuyến
-
-| Demo / MFE | Canonical `road-route.code` |
-|------------|------------------------------|
-| QL.1 · Chi cục II.1 | **`QL.1`** — khớp 38 · **cấm** invent ngoài seed |
-
-### CSS / layout gates
+### CSS / layout gates (**KEEP** + media)
 
 | Rule | Gap |
 |------|-----|
-| SearchInput `route` filter + form — **cấm** Text | GAP-PO-PAT-01 · GAP-DA-PAT-ROUTE |
-| Zone B filter tuyến | GAP-PO-PAT-02 · GAP-DA-PAT-FILTER-ROUTE |
-| Full-page form · View `<dl>` | GAP-PO-PAT-03 · GAP-DA-PAT-DESIGN-STALE |
-| userName Text P1 | GAP-PO-PAT-04 |
-| AppLayout definite height · title không clip | GAP-P2-LAYOUT-06 |
-| Input pad 6×10 · min-height 32 · focus shadow | GAP-P2-CSS-* |
+| SearchInput `route` filter + form | GAP-PO-PAT-01 **CLOSED** |
+| Full-page · View `<dl>` | GAP-PO-PAT-03 **CLOSED** |
+| Upload section + View gallery | **GAP-DES-PAT-MEDIA-UI** · GAP-PO-PAT-MEDIA-UI **chốt** |
+| AppLayout height · Input 6×10 · focus | GAP-P2-LAYOUT/CSS |
 | Spacing 4/8/16 · **cấm** `filterMaxWidth` | T-UI-UX-01 |
 
 ## 4. Form full-page wire
 
 ```
 [Header] [← Quay lại]  Title «Phiên tuần tra» · badge Tạo mới|Sửa|Xem|Sao chép
-         [📋 Sao chép] [✏ Sửa] khi view/edit — không Lưu/Hủy trên header (footer-only)
-[Hint] leave-confirm dirty
-[Body C/E/Copy] 2-col fields · SearchInput tuyến · SearchInput loại · SearchInput trạng thái · SearchInput offline
-[Body View] <dl> display — không Input xám
+         [📋 Sao chép] [✏ Sửa] khi view — không Lưu/Hủy trên header
+[Hint] leave-confirm dirty (kể cả khi đổi mediaIds)
+[Body C/E/Copy] 2-col fields · SearchInput tuyến/loại/status/offline · RmmsOrg*
+         [Upload section span2] FileMulti dropzone + thumbs · helper MIME · n/10
+[Body View] <dl> display + [Media gallery] resign thumbs
 [Footer] [Hủy] [Lưu] — ẩn khi view
 ```
 
-- Copy → POST new · IdCode mới
+- Copy → POST new · IdCode mới · **mediaIds copy theo SA** (P1: copy guid list OK; SA chốt clone file)
 - Dirty leave-confirm khi Hủy / Quay lại
-- **Cấm** parent JSON string trên field/DTO
-- Leaflet / KPI / check-ins / tracks: **out of pack** (P2)
+- **Cấm** parent JSON · Leaflet/KPI/check-ins **out of pack** P2
 
 ## Prototype (REQUIRED)
 
 | | |
 |--|--|
 | Artifact | `ui/prototype/patrol-list-prototype.html` |
-| Zones | **A–D** content-only — skip note/sidebar/menu/chrome |
-| Form | **Full-page** (không Slideout) · View = `<dl>` · footer-only Lưu/Hủy |
-| Lookups | SearchInput combo mock road-route (`QL.1` …) · status · patrolType · offline |
-| SSOT | `list-shell-prototype.md` · `erp-control-icon-map` · VatTu pager |
+| Zones | **A–D** + form **upload** + View **media-gallery** — skip chrome |
+| Form | Full-page · View `<dl>` + gallery · footer-only |
+| Lookups | SearchInput road-route / status / type / offline mock |
+| Upload mock | dropzone · 2 sample thumbs · counter 2/10 |
 | **reviewUrl** | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/patrol/ui/prototype/patrol-list-prototype.html` |
 
-### List wire
+### List / form wire
 
 ```
 [A] fa-route + «Tuần đường / tuần kiểm»
-[B] SearchTextInput · status SearchInput · route SearchInput · Làm mới · Lịch sử · fa-cog · Xóa | [+ Tạo mới]
-[C] «Sổ phiên tuần tra / check-in» · LinCatalogDataGrid mock · ⋯ menu
-[D] Tổng · Hiển thị [50|100|200|500] · pager FA
+[B] SearchText · status · route · icons | [+ Tạo mới]
+[C] grid · không cột media
+[D] pagination 50|100|200|500
+[Form] fields… · [upload] FileMulti · [View gallery]
 ```
 
 ## 5. Map / AI / report (out of pack)
 
-- Leaflet Kind F + KPI strip + Kind E report: demo only — **P2** (GAP-PO-PAT-05)
-- `POST …/check-ins` · `…/tracks` · `GET …/coverage` · `…/kpi`: **P2**
-- orgUnit / staffType / date range / Excel export: **P2** (GAP-PO-PAT-06)
-- Offline conflict merge: **out of pack** (GAP-F-PAT-01)
+- Kind E+F Leaflet/KPI/check-ins/tracks: **P2**
+- Excel / orgUnit list filter / date range: **P2**
+- Offline conflict merge: **out** (GAP-F-PAT-01)
 
-## 6. Open questions (PO closed — Design không re-open)
+## 6. Open → owned (không re-open CLOSED)
 
-GAP-PO-PAT-01..07 giữ nguyên. SA map lookup `road-routes` + list query `?search=&status=&route=&page=&pageSize=` + validate Route ∈ 38. **Cấm ERP.*** · **cấm** `api/v1/rmms/*` · **cấm** parent JSON.
+| ID | Owner | Note |
+|----|-------|------|
+| GAP-PO-PAT-FILE-01 / GAP-DA-PAT-FILE-01 | **SA** | mediaIds jsonb vs child · guid[] P1 |
+| GAP-DES-PAT-MEDIA-UI | **Design CLOSED** | section form + View gallery (this artifact) |
+| GAP-PO-PAT-MIME | **PO CLOSED** · Design UI copy done | limits trên |
+| GAP-QA-PAT-CODE-DISABLED | P2 leftover | không block media |
+| Prior GAP-PO-PAT-01..07 | **KEEP CLOSED** | |
+
+**Cấm ERP.*** · **cấm** `api/v1/rmms/*` · **cấm** invent file API · **cấm** re-scan demo.
 
 ## Confirm
 
@@ -191,17 +208,17 @@ GAP-PO-PAT-01..07 giữ nguyên. SA map lookup `road-routes` + list query `?sear
 
 | Field | Value |
 |-------|-------|
-| Kind / pattern | B · catalog A–D + **full-page** form |
-| Field inventory | §3 · SearchInput `route` / `patrolType` / `status` / `offlineQueued` · Text `userName` |
-| Filters | search · status · **route** → page=1 |
+| Kind / pattern | B · A–D + full-page + **upload zone** |
+| Field inventory | §3 · **FileMulti `mediaIds`** · SearchInput route KEEP · RmmsOrg* KEEP |
+| Filters | search · status · route → page=1 · **no media filter** |
 | Prototype · reviewUrl | § Prototype |
-| API prefer | `GET/POST/PUT/DELETE api/v1/patrol/sessions` + BFF `web-bff/api/v1/patrol/sessions` |
-| Lookups (SA chốt) | Master `road-routes` · **không** users P1 · **+** `GET …/sessions?route=` |
-| Entity | `PatrolSession` · `rmms_patrol_sessions` · SHARE=tenant_keep · **cấm** parent JSON |
+| API prefer | sessions CRUD KEEP · **+** FileService `web-bff/api/v1/files/*` · persist guid[] |
+| Lookups | road-routes · org · files resign · **không** users P1 |
+| Entity | `PatrolSession` · mediaIds schema **SA chốt** · **cấm** URL string |
 | Seed | `QL.1` · IdCode `TD-yyyyMMdd-nnn` |
 | Next | SA **pending** (chain · autoApprove ON) |
 
-## DES-GRID map → Lin\*
+## DES-GRID / DES-RPT map → Lin\*
 
 | Zone | DES-GRID | Component |
 |------|----------|-----------|
@@ -209,6 +226,8 @@ GAP-PO-PAT-01..07 giữ nguyên. SA map lookup `road-routes` + list query `?sear
 | B | DES-GRID-B | `catalogToolbar` |
 | C | DES-GRID-C2 | `LinCatalogDataGrid` + resize ON |
 | D | DES-GRID-D | `LinCatalogListPagination` |
+| Form upload | DES-RPT-UPLOAD | `FileMulti` + FileService BFF |
+| View gallery | DES-RPT-GALLERY | resign preview thumbs |
 
 ## Version meta (REQUIRED)
 
@@ -219,11 +238,11 @@ GAP-PO-PAT-01..07 giữ nguyên. SA map lookup `road-routes` + list query `?sear
 | schemaVersion | 2 |
 | workflowVersion | 2026.08.14.5 |
 | rulesVersion | 2026.08.14.9 |
-| generatedAt | 2026-08-14T18:10:00.000Z |
+| generatedAt | 2026-09-07T00:49:00.000Z |
 | versionGate | rechecked |
-| version_mismatch_action | recheck_new (STATUS orchestrator `2026.08.09.02` · Design SSOT sibling citizen `2026.08.14.5`) |
-| contentHashPriorPo | sha256:task_af761fcc |
-| contentHashPriorDataAnaly | sha256:1d25897d8fbcaa2b7be1174adf71f0840253c187980d23b9618bb3251febbcd5 |
+| version_mismatch_action | recheck_new (STATUS orchestrator `2026.08.09.02` · Design SSOT `2026.08.14.5`) |
+| contentHashPriorPo | sha256:task_54394ae1 |
+| contentHashPriorDataAnaly | sha256:f2761b7dc5b13b1388b9db493b028a10227efd81de142607827c582bc04450b7 |
 | orchestratorSkillVersion | 2026.08.09.02 |
 | orchestratorWorkflowVersion | 2026.08.09.02 |
 

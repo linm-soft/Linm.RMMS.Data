@@ -1,0 +1,38 @@
+{
+  "url": "http://localhost:9301/csdl-bieu-03",
+  "method": "playwright channel=chrome headless · contract fallback after yarn e2e-qa hang (GAP-QA-E2E-PW-01)",
+  "feature": "csdl-bieu-03",
+  "cases": [
+    "S0",
+    "S1",
+    "QA-20"
+  ],
+  "capturedAt": "2026-09-05T09:08:36.784Z",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "sha256_16": "45d1ef17df8e67ef",
+      "url": "http://localhost:9301/csdl-bieu-03",
+      "note": "list Biểu 03 · filter-bar · empty/grid · peer Sổ TS"
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "sha256_16": "d3e7c32e7f3ec999",
+      "url": "http://localhost:9301/so-ts/csdl-so-sach?resource=road-tunnels",
+      "note": "hub deep-link ?resource=road-tunnels → list"
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "sha256_16": "7bef2502656791dc",
+      "url": "http://localhost:9301/csdl-bieu-03?form=create",
+      "note": "Create Slideout · form=create · GPS×6 · TN-"
+    }
+  ],
+  "ok": true
+}

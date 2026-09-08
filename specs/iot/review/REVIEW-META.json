@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "1",
+  "feature": "iot",
+  "skillId": "agent-review",
+  "skillVersion": "2026.08.19.04",
+  "reviewHash": "sha256:review-pass-iot-qa-sha256:qa-pass-iot-e2e",
+  "contentHashPrior": "sha256:qa-pass-iot-e2e",
+  "rulesVersion": "2026.08.19.04",
+  "status": "done",
+  "review_confirm": "done",
+  "autoApprove": true,
+  "taskId": "task_4940556f",
+  "writtenAt": "2026-09-05T04:55:00.000Z",
+  "verdict": "PASS",
+  "p0Count": 0,
+  "fix_gaps": "none"
+}

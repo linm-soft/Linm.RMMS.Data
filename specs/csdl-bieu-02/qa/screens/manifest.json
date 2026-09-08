@@ -1,0 +1,38 @@
+{
+  "url": "http://localhost:9301/csdl-bieu-02",
+  "method": "playwright channel=chrome headless · contract fallback after yarn e2e-qa hang (GAP-QA-E2E-PW-01)",
+  "feature": "csdl-bieu-02",
+  "cases": [
+    "S0",
+    "S1",
+    "QA-20"
+  ],
+  "capturedAt": "2026-09-05T08:29:25.358Z",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "sha256_16": "2f3ef226e8b4373c",
+      "url": "http://localhost:9301/csdl-bieu-02",
+      "note": "list Biểu 02 · filter-bar · empty/grid · peer Sổ TS"
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "sha256_16": "f3d1b7450445adf9",
+      "url": "http://localhost:9301/so-ts/csdl-so-sach?resource=bridges",
+      "note": "hub deep-link ?resource=bridges → list"
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "sha256_16": "18da741efe42ab96",
+      "url": "http://localhost:9301/csdl-bieu-02?form=create",
+      "note": "Create Slideout · form=create · GPS×6 · BR-"
+    }
+  ],
+  "ok": true
+}

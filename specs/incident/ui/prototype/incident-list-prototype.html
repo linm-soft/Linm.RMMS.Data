@@ -89,6 +89,14 @@
     .field input,.field select,.field textarea{padding:6px 10px;border:1px solid var(--border);border-radius:var(--r);font-size:14px;min-height:32px;font-family:inherit;width:100%}
     .field input[readonly]{background:#f8fafc}
     .field.full{grid-column:1/-1}
+    .upload-zone{margin-top:12px;padding:12px;border:1px dashed #94a3b8;border-radius:8px;background:#f8fafc}
+    .upload-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px}
+    .upload-help{margin:0 0 8px;font-size:12px;color:var(--muted)}
+    .upload-drop{display:flex;align-items:center;justify-content:center;gap:8px;padding:16px;border:1px dashed var(--border);border-radius:8px;background:#fff;cursor:pointer;font-size:13px;color:var(--muted)}
+    .upload-drop:hover{border-color:var(--primary);color:var(--primary)}
+    .thumb-strip{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+    .thumb{display:inline-flex;align-items:center;gap:4px;padding:4px 8px;border:1px solid var(--soft);border-radius:6px;background:#fff;font-size:12px}
+    .thumb .rm{border:0;background:transparent;cursor:pointer;color:#b91c1c;font-size:14px;line-height:1}
     .z3{flex-shrink:0;border-top:1px solid var(--soft);background:#fff;padding:12px 14px;display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap}
     .toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%) translateY(12px);background:#0f172a;color:#e2e8f0;padding:10px 16px;border-radius:999px;font-size:12px;opacity:0;pointer-events:none;transition:.2s;z-index:80}
     .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
@@ -100,7 +108,7 @@
 </head>
 <body>
   <div class="page" data-catalog-list-page data-lin-list-layout="erp-filter-bar" data-testid="rmms-incident-list-prototype">
-    <p class="note">SSOT Design · shared-grid-example · <code>data-des-id</code> · filter-bar-layout-hard · slideout footer-only · hash-skip · no Kind F · reviewUrl gate</p>
+    <p class="note">SSOT Design · shared-grid-example · <code>data-des-id</code> · filter-bar-layout-hard · slideout footer-only · DES-FORM-Z2-MEDIA FileUpload · hash-skip · no Kind F · reviewUrl gate</p>
 
     <header class="zone-a" data-des-id="DES-GRID-A">
       <h1><i class="fas fa-exclamation-triangle" aria-hidden="true"></i> Sự cố / Vấn đề</h1>
@@ -283,6 +291,21 @@
             <select id="f-cong"><option value="false">Không</option><option value="true">Có</option></select>
           </div>
           <div class="field full"><label>Mô tả</label><textarea id="f-desc" rows="3" placeholder="Mô tả chi tiết…"></textarea></div>
+        </div>
+        <div class="upload-zone" data-des-id="DES-FORM-Z2-MEDIA" data-zone="upload" data-testid="incident-upload-zone">
+          <div class="upload-head">
+            <strong style="font-size:13px;color:var(--primary);">Ảnh / tệp đính kèm · FileUpload</strong>
+            <span id="mediaCount" style="font-size:12px;color:var(--muted);">1 file</span>
+          </div>
+          <p class="upload-help">optional P1 · <code>web-bff/api/v1/files/*</code> · write fileIds/attachmentKeys · toast fail · cấm invent FilesController / persist presigned · GAP-INC-MEDIA-01</p>
+          <div class="upload-drop" id="uploadDrop" role="button" tabindex="0">
+            <i class="fas fa-cloud-upload-alt" aria-hidden="true"></i>
+            <span>Kéo thả hoặc chọn ảnh/tệp</span>
+          </div>
+          <div class="thumb-strip" id="thumbStrip">
+            <div class="thumb" title="fileId-sample-1"><i class="fas fa-image" aria-hidden="true"></i>&nbsp;img-1<button type="button" class="rm" aria-label="Xóa">×</button></div>
+          </div>
+          <input id="fMedia" type="file" accept="image/jpeg,image/png,image/webp,application/pdf" multiple hidden />
         </div>
       </div>
     </div>
@@ -600,6 +623,41 @@
       el.addEventListener('input', markDirty);
       el.addEventListener('change', markDirty);
     });
+
+    (function wireMediaUpload() {
+      const drop = document.getElementById('uploadDrop');
+      const file = document.getElementById('fMedia');
+      const strip = document.getElementById('thumbStrip');
+      const count = document.getElementById('mediaCount');
+      function syncCount() {
+        const n = strip.querySelectorAll('.thumb').length;
+        count.textContent = n ? `${n} file` : '0 file';
+      }
+      drop.addEventListener('click', () => file.click());
+      drop.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); file.click(); } });
+      file.addEventListener('change', () => {
+        if (!file.files?.length) return;
+        Array.from(file.files).forEach((f) => {
+          const el = document.createElement('div');
+          el.className = 'thumb';
+          el.title = f.name;
+          el.innerHTML = `<i class="fas fa-file" aria-hidden="true"></i>&nbsp;${f.name.slice(0, 18)}<button type="button" class="rm" aria-label="Xóa">×</button>`;
+          strip.appendChild(el);
+        });
+        file.value = '';
+        syncCount();
+        markDirty();
+        toast('Upload mock · bind files/* (GAP-INC-MEDIA-01)');
+      });
+      strip.addEventListener('click', (e) => {
+        const rm = e.target.closest('.rm');
+        if (!rm) return;
+        rm.closest('.thumb')?.remove();
+        syncCount();
+        markDirty();
+      });
+      syncCount();
+    })();
 
     function wireRouteSi(inputId, dropId) {
       const input = document.getElementById(inputId);

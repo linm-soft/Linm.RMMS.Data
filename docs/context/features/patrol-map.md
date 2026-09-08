@@ -16,9 +16,10 @@
 | Mục tiêu | Bản đồ ca đang chạy · hành trình · pin điểm tuần · nền **cùng style web** · overlay kế tiếp |
 | Persona | Tuần đường |
 | Entry | Hub `patrol-home` hero **Tiếp tục bản đồ** · row **Bản đồ ca** |
-| DoD P1 | Push `#sc-patrol-map` · GET sessions bind header · demo OMS overlay · check-in **toast** (sheet = sibling) · **Vị trí của tôi** loc + zoom + pin · map-bar **Tiêu chuẩn \| Vệ tinh** |
+| DoD P1 | Push `#sc-patrol-map` · GET sessions bind header · demo OMS overlay · check-in **toast** (sheet = sibling) · **Vị trí của tôi** loc + zoom + pin · map-bar **Tiêu chuẩn \| Vệ tinh** · họp 5: inspect **ảnh TS** + **ảnh mặt cắt ngang** trên popup |
 | DoD chrome | **Cùng** web `/gis/live` **đã implement** — 2 chip · locate pin+vùng · card **Tên: Vị trí của bạn** + **GPS:** · **cấm** Đường/Phố/Default/Streets/Sat EN · **cấm** Fit / Toàn tuyến · **cấm** MapKit title-only |
 | Tiles | Wave 4 native **pending** (`GAP-MAP-PARITY-01`) — **cấm** fake clip BFF done · demo HTML được OSM/Esri |
+| Scan | `/scan-mobile-feature` · họp 5 · **enqueue_later** |
 
 ## 2. Design / UI
 

@@ -3,9 +3,9 @@
 > **SSOT theo dõi.** Backlog mô tả: [`features/README.md`](features/README.md). Pipeline scan: [`implement-status.json`](implement-status.json) (có thể lệch — **ưu tiên** `specs/{slug}/STATUS.md`).  
 > **HĐ:** `37001-08/2026-LIC/LINM-JNET` · PL01 P1 CAPEX 900tr (A 450 + B 300 + C 150). Spec: [`Linm.RMMS.Contract/analy/PROMPT-SPEC-P1-P2-PHU-LUC-RELEASE.md`](../../../Linm.RMMS.Contract/analy/PROMPT-SPEC-P1-P2-PHU-LUC-RELEASE.md).  
 > **Demo hub:** `Linm.RMMS.Demo` · `npm run start:std` → http://localhost:5180 · catalog [`demoCatalog.ts`](../../../Linm.RMMS.Demo/src/demoCatalog.ts).  
-> **Cập nhật:** 2026-09-04 · skill **`/gen-feature-tracking`** — thêm feature / implement (queue + chat) **phải** upsert file này. Nguồn STATUS đọc cùng ngày.  
+> **Cập nhật:** 2026-09-05 · skill **`/gen-feature-tracking`** — thêm feature / implement (queue + chat) **phải** upsert file này. Nguồn STATUS đọc cùng ngày.  
 > **Tài liệu khách (đã/chưa phân tích) — SSOT duy nhất:** [`docs/data/SOURCE-TRACKING.md`](../data/SOURCE-TRACKING.md) · extract [`docs/data/analyzed/`](../data/analyzed/). **Cấm** đọc lại xlsx/docx/pdf khi dòng = `analyzed`.  
-> **Changelog:** 04/09/2026 — enqueue `traffic-sign-type` (`/mas/loai-bien-bao`) + `iot` (`/iot`) · **CSDL 12+8 ≠ hang-muc:** `csdl-so-sach` = `/so-ts/csdl-so-sach` (STATUS **done**) · `asset-kcht-dashboard` = `/so-ts/hang-muc` (QA paused). · 04/09/2026 — `/hey-linm` Apply `skill_rules`+`feature_context`: pin TS **ghim đúng mã tuyến** tài sản · ẩn raw khi chưa snap (`GAP-MAP-PIN-ROUTE-01`) — [`gis-draw-live.md`](features/gis-draw-live.md) · `/gis-tai-san-snap`. · 03/09/2026 — `/hey-linm` Apply `feature_context`: tile **Live/Cache** + empty zoom (`GAP-MAP-TILE-EMPTY-ZOOM`) · `padding: 0` (`GAP-MAP-PIN-ZOOM`) · +/- = wheel (`GAP-MAP-ZOOM-STEP`) · OSM miss z≤12 **200 no-store** · MBTiles `/cache` (`GAP-MAP-MVT-SIMP`) — [`gis-osm-clip.md`](features/gis-osm-clip.md) · [`map-service.md`](features/map-service.md) · [`gis-draw-live.md`](features/gis-draw-live.md) · [`gis.md`](features/gis.md). · 03/09/2026 — `/hey-linm` Apply `feature_context`: **clip-mask** invert dưới nhãn (`GAP-MAP-MASK-ALIGN` · `GAP-MAP-LABEL-CLIP` · crop đất không crop chữ · ocean=`theme.sea`) — [`gis-osm-clip.md`](features/gis-osm-clip.md) · [`map-service.md`](features/map-service.md) · [`gis.md`](features/gis.md). · 03/09/2026 — `/hey-linm` Apply `feature_context`+`feature_tracking`: overlay Tuyến **cấm dump GPS thưa** (`GAP-MAP-DRAW-STREET-01` · `isSparseGpsChord` · fail = nét đứt) + bake **mọi zoom** (`GAP-MAP-INDEX-PAINT`) — [`gis-draw-live.md`](features/gis-draw-live.md) · [`gis-osm-clip.md`](features/gis-osm-clip.md) · [`map-service.md`](features/map-service.md). · 01/09/2026 — tuần đường **`routeKmChainAlongHighway`** (cấm `/match` đường nhỏ) + pin SVG + animate arc-length — [`gis-patrol-map.md`](features/gis-patrol-map.md). · 01/09/2026 — `/map-inspect-popup` tuần đường pin `.ci-pin` + card Họ tên / Tên vị trí / Tọa độ — [`gis-patrol-map.md`](features/gis-patrol-map.md). · 01/09/2026 — `/edit-web-feature` **`/gis/tai-san`** (`?type=` auto-check lớp) + tuần đường **OSRM snap + pin check-in** — [`gis-draw-live.md`](features/gis-draw-live.md) · [`gis-patrol-map.md`](features/gis-patrol-map.md). · 01/09/2026 — `/edit-web-feature` GIS menu **Bản đồ tài sản** `/gis/live` + **Bản đồ Tuần đường** `/gis/tuan-duong` (bỏ ha-tang / list 2D / tạo mới) — [`gis-draw-live.md`](features/gis-draw-live.md) · [`gis-patrol-map.md`](features/gis-patrol-map.md). · 01/09/2026 — `/hey-linm` Apply `feature_context`: native map **copy web live** `/gis/live` (chip · locate card **Vị trí của bạn**+GPS · **cấm** proto Đường/Phố) — [`patrol-map.md`](features/patrol-map.md) · [`gis-draw-live.md`](features/gis-draw-live.md). · 01/09/2026 — `/hey-linm` Apply `feature_context`: `/gis/live` **maxZoom 16** + pin detail pad 0.02° (`GAP-MAP-ZOOM-MAX` · `GAP-MAP-PIN-DETAIL-BBOX`) — [`gis-draw-live.md`](features/gis-draw-live.md) · [`gis-osm-clip.md`](features/gis-osm-clip.md) · [`map-service.md`](features/map-service.md). · 01/09/2026 — `/hey-linm` Apply `skill_and_context`: `/map-inspect-popup` click pin → card · locate **Tên: Vị trí của bạn** + **GPS** (bar **Vị trí của tôi**) — [`patrol-map.md`](features/patrol-map.md) · [`gis-draw-live.md`](features/gis-draw-live.md). · 01/09/2026 — `/hey-linm` Apply `feature_context`: khóa sơn Carto live (`water` `#aad3df` · **cấm** mask fill MapLibre · nét OSM ≠ Lớp Tuyến) — [`gis-osm-clip.md`](features/gis-osm-clip.md) · [`gis-draw-live.md`](features/gis-draw-live.md) · [`map-service.md`](features/map-service.md). · 01/09/2026 — `/hey-linm` Apply `feature_context`: `/gis/live` đường **nền + biên** OSM Carto (`GAP-MAP-ROAD-CARTO-01` · overlay Tuyến pair primary · **cấm** nét `#2563eb`) — [`gis-draw-live.md`](features/gis-draw-live.md) · [`gis-osm-clip.md`](features/gis-osm-clip.md). · 01/09/2026 — `/edit-web-feature` `/gis/live` đường **nền + biên** OSM Carto (`GAP-MAP-ROAD-CARTO-01`) — [`gis-draw-live.md`](features/gis-draw-live.md) · [`gis-osm-clip.md`](features/gis-osm-clip.md). · 01/09/2026 — `/edit-web-feature` `/gis/live` map-bar **Vị trí của tôi** (cấm Fit) — [`gis-draw-live.md`](features/gis-draw-live.md). · 01/09/2026 — `/edit-web-feature` `/gis/live` map-bar **Tiêu chuẩn \| Vệ tinh** (cấm Default/Streets/Sat EN) — [`gis-draw-live.md`](features/gis-draw-live.md) · [`gis-osm-clip.md`](features/gis-osm-clip.md). · 01/09/2026 — `/edit-web-feature` revert sơn đất/biển về Carto (`water` `#aad3df` · bỏ mask đè) — [`gis-osm-clip.md`](features/gis-osm-clip.md). · 01/09/2026 — `/edit-web-feature` nền đất/biển: đại dương = `theme.sea` (cấm OSM water 2 tone · mép dọc) — [`gis-osm-clip.md`](features/gis-osm-clip.md) · [`gis-draw-live.md`](features/gis-draw-live.md). · 01/09/2026 — `/edit-web-feature` `/gis/live`: nét bake không chord biển (`GAP-MAP-BAKE-JUMP`) · canvas GL mép tây (`GAP-MAP-GL-LEFT`) — [`gis-draw-live.md`](features/gis-draw-live.md) · [`gis-osm-clip.md`](features/gis-osm-clip.md) · [`map-service.md`](features/map-service.md). · 01/09/2026 — `/hey-linm` Apply `feature_context`: Default/Streets **OSM Carto muted** (đất `#e8e4dc` · biển `#8eb8c8` · không OSM.org) — [`gis-osm-clip.md`](features/gis-osm-clip.md) · [`map-service.md`](features/map-service.md). · 01/09/2026 — `/gis/live` z≤8 paint **osrm-bake/index** đủ nét (bỏ geomKey sample-80 · không clip/`landReadyPath` ẩn QL Bắc) — [`gis-draw-live.md`](features/gis-draw-live.md) · [`map-service.md`](features/map-service.md). · 01/09/2026 — `/implement-map-stack` Wave 3 **web done** (mobile pending): BFF clusters 200 + tiles 200 + overlay 401 · `viewport_lod` — [`map-service.md`](features/map-service.md). · 01/09/2026 — `/implement-map-stack` Wave 4 web **mobile tab stack**: tab 44px + ẩn/hiện nội dung để full bản đồ — [`map-service.md`](features/map-service.md). · 01/09/2026 — `/implement-map-stack` Wave 4 web **GAP-MAP-ZOOM-FILL**: zoom min = fill clip VN (không letterbox z5) — [`map-service.md`](features/map-service.md). · 01/09/2026 — `/implement-map-stack` Wave 4 **web done**: `Linm.Web.RMMS.Gis` MapLibre clip BFF MVT · maxBounds 6.8–23.5 · 0 OSM.org trên Gis*Page — [`map-service.md`](features/map-service.md). · 01/09/2026 — `/implement-map-stack` Wave 2 **web BFF done** (mobile pending): NuGet `Linm.Platform.MapService.Bff` **1.1.0** · `web-bff/api/v1/gis/tiles/…` MVT 200 · guest overlay 401 — [`map-service.md`](features/map-service.md). · 01/09/2026 — `/implement-map-stack` Wave 1 **done**: MapService `:5021` guest 401 overlay + MVT + 34 tỉnh — [`map-service.md`](features/map-service.md). · 01/09/2026 — `/hey-linm` Apply `map-service`: host **`Linm.Platform.MapService`** (`:5021`) · 34 tỉnh ingest + mask · **chưa** BFF/MFE/OSM clip — [`map-service.md`](features/map-service.md). · 01/09/2026 — `/hey-linm` Apply: host **`Linm.RMMS.Vision`** (`:5311`) cho **cả** domain AiVision · P2 chỉ đổi engine trên service này · **cấm** reuse `:5301` — [`ai-vision-service.md`](features/ai-vision-service.md) · [`plan/ai-vision-service/README.md`](../plan/ai-vision-service/README.md). · 01/09/2026 — `/hey-linm` + `/set-up-ignore-cursorrules` `!docs/img/` · `/data-gov-integration` cluster sổ TS + enqueue `so-ts-type-grid` + 32 mã — [`so-ts-type-grid.md`](features/so-ts-type-grid.md). · 31/08/2026 — `/data-gov-integration` cọc H: dump đủ `h_*` · import `quantity=1` + FE đảo loại cọc/vật liệu · form tách Cọc tiêu / Cọc H — [`import-gov-asset-fields.md`](features/import-gov-asset-fields.md). · 31/08/2026 — `/data-gov-integration` + `/hey-linm` Apply: map 3 tầng tuyến + đủ cột dump mọi loại (tuyến/`tbl_rmd` · cọc/`tbl_guide_post` · biển · cột km) — [`import-gov-asset-fields.md`](features/import-gov-asset-fields.md) · GAP-GOV-ROUTE-3LVL / GAP-PAV-SPEC-01 / GAP-DELIM-SPEC-01 / GAP-SIGN-SPEC-01. · 30/08/2026 — `org-route-scope` doc 6 cấp Cục→Khu→VP→Đơn vị→tuyến→đoạn · GAP-ORS-CASCADE-01. · 30/08/2026 — `org-route-scope` edit: `vpOrgCode` + cascade · Schema_OrgRouteScopeVpOrgCode. · 30/08/2026 — `reports-filter-bar` `task_a5f134b0` `pending_confirm` (edit `/bao-cao` filter · hold đến `org-route-scope` done + user confirm) · hủy `task_aede4d75`. · 29/08/2026 — enqueue `kcht-cong-trinh` `task_399151e1` edit_page PH2–PH4 · extract wave + SRC-KCT-GN03. · 28/08/2026 — `incident` (`/su-co`) upsert Pipeline `data_analy` / `pending` + task **T-PILOT-01** (e2e + HDSD + guide). · 27/08/2026 — upsert `kcht-cong-trinh` (công văn KQLĐB IV · 5 phân hệ CT KCHT · ngoài PL01 900tr) · `/hey-linm` + plan.
+> **Changelog:** 06/09/2026 — họp 1–5 **mobile** vào `/scan-mobile-feature` (`MEETING-1-5.md` enqueue_later) · pack `nghiem-thu` · `nghiem-thu-create` · **chưa** gen queue `qlbd-mobile`. · 06/09/2026 — enqueue họp 1–5 **web** (`meeting-1-5-web`) · upload = `/init-bff-file` + `/integrate-file-upload-web` · slug mới `nghiem-thu` · `khu-1-pilot` · **cấm** typed 16+10 re-run. · 06/09/2026 — `/hey-linm` plan **Camera security**: AEAD 2 chiều + resign URL (`session` TTL · `dashboard` grant unlimit tường hình) · tách host `Linm.RMMS.Camera` S3 — [plan](../plan/camera-security/PLAN.md) · [28](28-CAMERA-SECURITY.md) · [ctx](features/camera-connect.md). · 05/09/2026 — `/implement-ai-vision-stack` Wave **1 done** (`api/v1/ai-vision/**` · `Schema_RmmsVision` pair · taxonomy catalog · Draft trên `linm_rmms_vision`) · next Wave 2 BFF — [plan](../plan/ai-vision-service/README.md) · [ST](../../specs/ai-vision-service/STATUS.md). · 05/09/2026 — `/implement-ai-vision-stack` Wave **0p done** (`Linm.RMMS.Vision` `:5311`) · hub README `docs/workflows/qlbd` slice `ai_vision_stack` — [plan](../plan/ai-vision-service/README.md) · [ST](../../specs/ai-vision-service/STATUS.md). · 05/09/2026 — retry `task_96940f90` `csdl-bieu-08` Dev · packet integrate hub card `traffic-safety` → typed `/csdl-bieu-08` (`CsdlBieu08Page` đã có) · **cấm** generic `CsdlFormSlideout` — [ctx](features/csdl-bieu-08.md) · [impl](../../specs/csdl-bieu-08/implement/csdl-bieu-08.md). · 05/09/2026 — `/hey-linm` Apply `feature_context`: **hai lớp chứng từ** Sổ TS/hang-muc ≠ biểu·sổ Cục — LOOKUP `road-route` chung · ROW riêng · **cấm** gộp form (`GAP-CSDL-CUC-11` · `Q-PEER` P1 deep-link) — [`csdl-cuc-2026.md`](features/csdl-cuc-2026.md) §1b · analy §1.4 · [`asset-kcht-dashboard.md`](features/asset-kcht-dashboard.md) · [`so-ts-type-grid.md`](features/so-ts-type-grid.md). · 05/09/2026 — `/hey-linm` Apply `feature_context`: TS↔tuyến join **slug dump/T6** (`NormCatalogCode`, không Guid/IdCode) · `partner-unit` T6 **91** · GAP-ORS-VP-01 schema closed / **data** đoạn chưa import — [`road-route.md`](features/road-route.md) · [`import-gov-asset-fields.md`](features/import-gov-asset-fields.md) · [`asset.md`](features/asset.md) · [`partner-unit.md`](features/partner-unit.md) · [`org-route-scope.md`](features/org-route-scope.md). · 05/09/2026 — `/hey-linm` Apply `feature_context`: **camera SDK Railway** Linux64 COPY `hikvision_linux/lib` + `LD_LIBRARY_PATH` · BFF `ApiBase` private `:8080` · **đã kết nối** (`GAP-CAM-SDK-OS` · `GAP-SDK-02`) — [`camera-connect.md`](features/camera-connect.md) · [`22-CAMERA-TCM403-SDK-RESEARCH.md`](22-CAMERA-TCM403-SDK-RESEARCH.md). · 05/09/2026 — `/hey-linm` Apply `feature_context`: CSDL Cục **16 biểu + 10 sổ** (QĐ 08/2026) · hub `csdl-so-sach` = Kind G shell **done** · typed = child `csdl-bieu-01`…`16` / `csdl-so-01`…`10` · epic [`csdl-cuc-2026.md`](features/csdl-cuc-2026.md) · analy `specs/_data-analy/csdl-cuc-2026/` · **cấm** coi 12+8 done = xong cột Cục. · 04/09/2026 — enqueue `traffic-sign-type` (`/mas/loai-bien-bao`) + `iot` (`/iot`) · **CSDL 12+8 ≠ hang-muc:** `csdl-so-sach` = `/so-ts/csdl-so-sach` (STATUS **done**) · `asset-kcht-dashboard` = `/so-ts/hang-muc` (QA paused). · 04/09/2026 — `/hey-linm` Apply `skill_rules`+`feature_context`: pin TS **ghim đúng mã tuyến** tài sản · ẩn raw khi chưa snap (`GAP-MAP-PIN-ROUTE-01`) — [`gis-draw-live.md`](features/gis-draw-live.md) · `/gis-tai-san-snap`. · 03/09/2026 — `/hey-linm` Apply `feature_context`: tile **Live/Cache** + empty zoom (`GAP-MAP-TILE-EMPTY-ZOOM`) · `padding: 0` (`GAP-MAP-PIN-ZOOM`) · +/- = wheel (`GAP-MAP-ZOOM-STEP`) · OSM miss z≤12 **200 no-store** · MBTiles `/cache` (`GAP-MAP-MVT-SIMP`) — [`gis-osm-clip.md`](features/gis-osm-clip.md) · [`map-service.md`](features/map-service.md) · [`gis-draw-live.md`](features/gis-draw-live.md) · [`gis.md`](features/gis.md). · 03/09/2026 — `/hey-linm` Apply `feature_context`: **clip-mask** invert dưới nhãn (`GAP-MAP-MASK-ALIGN` · `GAP-MAP-LABEL-CLIP` · crop đất không crop chữ · ocean=`theme.sea`) — [`gis-osm-clip.md`](features/gis-osm-clip.md) · [`map-service.md`](features/map-service.md) · [`gis.md`](features/gis.md). · 03/09/2026 — `/hey-linm` Apply `feature_context`+`feature_tracking`: overlay Tuyến **cấm dump GPS thưa** (`GAP-MAP-DRAW-STREET-01` · `isSparseGpsChord` · fail = nét đứt) + bake **mọi zoom** (`GAP-MAP-INDEX-PAINT`) — [`gis-draw-live.md`](features/gis-draw-live.md) · [`gis-osm-clip.md`](features/gis-osm-clip.md) · [`map-service.md`](features/map-service.md). · 01/09/2026 — tuần đường **`routeKmChainAlongHighway`** (cấm `/match` đường nhỏ) + pin SVG + animate arc-length — [`gis-patrol-map.md`](features/gis-patrol-map.md). · 01/09/2026 — `/map-inspect-popup` tuần đường pin `.ci-pin` + card Họ tên / Tên vị trí / Tọa độ — [`gis-patrol-map.md`](features/gis-patrol-map.md). · 01/09/2026 — `/edit-web-feature` **`/gis/tai-san`** (`?type=` auto-check lớp) + tuần đường **OSRM snap + pin check-in** — [`gis-draw-live.md`](features/gis-draw-live.md) · [`gis-patrol-map.md`](features/gis-patrol-map.md). · 01/09/2026 — `/edit-web-feature` GIS menu **Bản đồ tài sản** `/gis/live` + **Bản đồ Tuần đường** `/gis/tuan-duong` (bỏ ha-tang / list 2D / tạo mới) — [`gis-draw-live.md`](features/gis-draw-live.md) · [`gis-patrol-map.md`](features/gis-patrol-map.md). · 01/09/2026 — `/hey-linm` Apply `feature_context`: native map **copy web live** `/gis/live` (chip · locate card **Vị trí của bạn**+GPS · **cấm** proto Đường/Phố) — [`patrol-map.md`](features/patrol-map.md) · [`gis-draw-live.md`](features/gis-draw-live.md). · 01/09/2026 — `/hey-linm` Apply `feature_context`: `/gis/live` **maxZoom 16** + pin detail pad 0.02° (`GAP-MAP-ZOOM-MAX` · `GAP-MAP-PIN-DETAIL-BBOX`) — [`gis-draw-live.md`](features/gis-draw-live.md) · [`gis-osm-clip.md`](features/gis-osm-clip.md) · [`map-service.md`](features/map-service.md). · 01/09/2026 — `/hey-linm` Apply `skill_and_context`: `/map-inspect-popup` click pin → card · locate **Tên: Vị trí của bạn** + **GPS** (bar **Vị trí của tôi**) — [`patrol-map.md`](features/patrol-map.md) · [`gis-draw-live.md`](features/gis-draw-live.md). · 01/09/2026 — `/hey-linm` Apply `feature_context`: khóa sơn Carto live (`water` `#aad3df` · **cấm** mask fill MapLibre · nét OSM ≠ Lớp Tuyến) — [`gis-osm-clip.md`](features/gis-osm-clip.md) · [`gis-draw-live.md`](features/gis-draw-live.md) · [`map-service.md`](features/map-service.md). · 01/09/2026 — `/hey-linm` Apply `feature_context`: `/gis/live` đường **nền + biên** OSM Carto (`GAP-MAP-ROAD-CARTO-01` · overlay Tuyến pair primary · **cấm** nét `#2563eb`) — [`gis-draw-live.md`](features/gis-draw-live.md) · [`gis-osm-clip.md`](features/gis-osm-clip.md). · 01/09/2026 — `/edit-web-feature` `/gis/live` đường **nền + biên** OSM Carto (`GAP-MAP-ROAD-CARTO-01`) — [`gis-draw-live.md`](features/gis-draw-live.md) · [`gis-osm-clip.md`](features/gis-osm-clip.md). · 01/09/2026 — `/edit-web-feature` `/gis/live` map-bar **Vị trí của tôi** (cấm Fit) — [`gis-draw-live.md`](features/gis-draw-live.md). · 01/09/2026 — `/edit-web-feature` `/gis/live` map-bar **Tiêu chuẩn \| Vệ tinh** (cấm Default/Streets/Sat EN) — [`gis-draw-live.md`](features/gis-draw-live.md) · [`gis-osm-clip.md`](features/gis-osm-clip.md). · 01/09/2026 — `/edit-web-feature` revert sơn đất/biển về Carto (`water` `#aad3df` · bỏ mask đè) — [`gis-osm-clip.md`](features/gis-osm-clip.md). · 01/09/2026 — `/edit-web-feature` nền đất/biển: đại dương = `theme.sea` (cấm OSM water 2 tone · mép dọc) — [`gis-osm-clip.md`](features/gis-osm-clip.md) · [`gis-draw-live.md`](features/gis-draw-live.md). · 01/09/2026 — `/edit-web-feature` `/gis/live`: nét bake không chord biển (`GAP-MAP-BAKE-JUMP`) · canvas GL mép tây (`GAP-MAP-GL-LEFT`) — [`gis-draw-live.md`](features/gis-draw-live.md) · [`gis-osm-clip.md`](features/gis-osm-clip.md) · [`map-service.md`](features/map-service.md). · 01/09/2026 — `/hey-linm` Apply `feature_context`: Default/Streets **OSM Carto muted** (đất `#e8e4dc` · biển `#8eb8c8` · không OSM.org) — [`gis-osm-clip.md`](features/gis-osm-clip.md) · [`map-service.md`](features/map-service.md). · 01/09/2026 — `/gis/live` z≤8 paint **osrm-bake/index** đủ nét (bỏ geomKey sample-80 · không clip/`landReadyPath` ẩn QL Bắc) — [`gis-draw-live.md`](features/gis-draw-live.md) · [`map-service.md`](features/map-service.md). · 01/09/2026 — `/implement-map-stack` Wave 3 **web done** (mobile pending): BFF clusters 200 + tiles 200 + overlay 401 · `viewport_lod` — [`map-service.md`](features/map-service.md). · 01/09/2026 — `/implement-map-stack` Wave 4 web **mobile tab stack**: tab 44px + ẩn/hiện nội dung để full bản đồ — [`map-service.md`](features/map-service.md). · 01/09/2026 — `/implement-map-stack` Wave 4 web **GAP-MAP-ZOOM-FILL**: zoom min = fill clip VN (không letterbox z5) — [`map-service.md`](features/map-service.md). · 01/09/2026 — `/implement-map-stack` Wave 4 **web done**: `Linm.Web.RMMS.Gis` MapLibre clip BFF MVT · maxBounds 6.8–23.5 · 0 OSM.org trên Gis*Page — [`map-service.md`](features/map-service.md). · 01/09/2026 — `/implement-map-stack` Wave 2 **web BFF done** (mobile pending): NuGet `Linm.Platform.MapService.Bff` **1.1.0** · `web-bff/api/v1/gis/tiles/…` MVT 200 · guest overlay 401 — [`map-service.md`](features/map-service.md). · 01/09/2026 — `/implement-map-stack` Wave 1 **done**: MapService `:5021` guest 401 overlay + MVT + 34 tỉnh — [`map-service.md`](features/map-service.md). · 01/09/2026 — `/hey-linm` Apply `map-service`: host **`Linm.Platform.MapService`** (`:5021`) · 34 tỉnh ingest + mask · **chưa** BFF/MFE/OSM clip — [`map-service.md`](features/map-service.md). · 01/09/2026 — `/hey-linm` Apply: host **`Linm.RMMS.Vision`** (`:5311`) cho **cả** domain AiVision · P2 chỉ đổi engine trên service này · **cấm** reuse `:5301` — [`ai-vision-service.md`](features/ai-vision-service.md) · [`plan/ai-vision-service/README.md`](../plan/ai-vision-service/README.md). · 01/09/2026 — `/hey-linm` + `/set-up-ignore-cursorrules` `!docs/img/` · `/data-gov-integration` cluster sổ TS + enqueue `so-ts-type-grid` + 32 mã — [`so-ts-type-grid.md`](features/so-ts-type-grid.md). · 31/08/2026 — `/data-gov-integration` cọc H: dump đủ `h_*` · import `quantity=1` + FE đảo loại cọc/vật liệu · form tách Cọc tiêu / Cọc H — [`import-gov-asset-fields.md`](features/import-gov-asset-fields.md). · 31/08/2026 — `/data-gov-integration` + `/hey-linm` Apply: map 3 tầng tuyến + đủ cột dump mọi loại (tuyến/`tbl_rmd` · cọc/`tbl_guide_post` · biển · cột km) — [`import-gov-asset-fields.md`](features/import-gov-asset-fields.md) · GAP-GOV-ROUTE-3LVL / GAP-PAV-SPEC-01 / GAP-DELIM-SPEC-01 / GAP-SIGN-SPEC-01. · 30/08/2026 — `org-route-scope` doc 6 cấp Cục→Khu→VP→Đơn vị→tuyến→đoạn · GAP-ORS-CASCADE-01. · 30/08/2026 — `org-route-scope` edit: `vpOrgCode` + cascade · Schema_OrgRouteScopeVpOrgCode. · 30/08/2026 — `reports-filter-bar` `task_a5f134b0` `pending_confirm` (edit `/bao-cao` filter · hold đến `org-route-scope` done + user confirm) · hủy `task_aede4d75`. · 29/08/2026 — enqueue `kcht-cong-trinh` `task_399151e1` edit_page PH2–PH4 · extract wave + SRC-KCT-GN03. · 28/08/2026 — `incident` (`/su-co`) upsert Pipeline `data_analy` / `pending` + task **T-PILOT-01** (e2e + HDSD + guide). · 27/08/2026 — upsert `kcht-cong-trinh` (công văn KQLĐB IV · 5 phân hệ CT KCHT · ngoài PL01 900tr) · `/hey-linm` + plan.
 
 ## Chính sách (chốt user 2026-08-26)
 
@@ -46,16 +46,43 @@
 | `org-route-scope` | Zone km Khu↔tuyến/đoạn | — | support | `done` / `done` | none | [ctx](features/org-route-scope.md) | [ST](../../specs/org-route-scope/STATUS.md) |
 | `asset` | QL tài sản ĐB | 01 | P1-900 | `data_analy` / `draft` | catalog | [ctx](features/asset.md) | [ST](../../specs/asset/STATUS.md) |
 | `asset-kcht-32` | 36 loại TS | 01 | P1-900 | `qa` / `await_confirm` | proto mobile-p1 | [ctx](features/asset-kcht-32.md) | [ST](../../specs/asset-kcht-32/STATUS.md) |
-| `csdl-so-sach` | 12 biểu + 8 sổ · `/so-ts/csdl-so-sach` · **≠** hang-muc | 01 | P1-900 | `done` / `done` | catalog | [ctx](features/csdl-so-sach.md) | [ST](../../specs/csdl-so-sach/STATUS.md) |
+| `csdl-so-sach` | Hub CSDL · Kind G · `/so-ts/csdl-so-sach` · **≠** hang-muc | 01 | P1-900 | `done` / `done` (shell) | catalog | [ctx](features/csdl-so-sach.md) | [ST](../../specs/csdl-so-sach/STATUS.md) |
+| `csdl-cuc-2026` | Epic typed 16 biểu + 10 sổ (Cục 08/2026) | 01 | P1-900 | `done` / `done` | none | [ctx](features/csdl-cuc-2026.md) | — |
+| `csdl-bieu-01` | Biểu 1 mặt đường (38 cột) | 01 | P1-900 | `done` / `done` | none | [ctx](features/csdl-bieu-01.md) | — |
+| `csdl-bieu-02` | Biểu 2 cầu | 01 | P1-900 | `done` / `done` | none | [ctx](features/csdl-bieu-02.md) | — |
+| `csdl-bieu-03` | Biểu 3 hầm ĐB | 01 | P1-900 | `done` / `done` | none | [ctx](features/csdl-bieu-03.md) | — |
+| `csdl-bieu-04` | Biểu 4 cống | 01 | P1-900 | `done` / `done` | none | [ctx](features/csdl-bieu-04.md) | — |
+| `csdl-bieu-05` | Biểu 5 rãnh | 01 | P1-900 | `done` / `done` | none | [ctx](features/csdl-bieu-05.md) | — |
+| `csdl-bieu-06` | Biểu 6 hầm chui + hộp KT | 01 | P1-900 | `done` / `done` | none | [ctx](features/csdl-bieu-06.md) | [ST](../../specs/csdl-bieu-06/STATUS.md) |
+| `csdl-bieu-07` | Biểu 7 lề/taluy/rào (live #10) | 01 | P1-900 | `done` / `done` | none | [ctx](features/csdl-bieu-07.md) | — |
+| `csdl-bieu-08` | Biểu 8 ATGT (live #7) | 01 | P1-900 | `done` / `done` | none | [ctx](features/csdl-bieu-08.md) | [ST](../../specs/csdl-bieu-08/STATUS.md) |
+| `csdl-bieu-09` | Biểu 9 mốc LG/GPMB | 01 | P1-900 | `done` / `done` | none | [ctx](features/csdl-bieu-09.md) | — |
+| `csdl-bieu-10` | Biểu 10 kè/tường chắn | 01 | P1-900 | `done` / `done` | none | [ctx](features/csdl-bieu-10.md) | — |
+| `csdl-bieu-11` | Biểu 11 chiếu sáng | 01 | P1-900 | `done` / `done` | none | [ctx](features/csdl-bieu-11.md) | — |
+| `csdl-bieu-12` | Biểu 12 cây xanh | 01 | P1-900 | `done` / `done` | none | [ctx](features/csdl-bieu-12.md) | — |
+| `csdl-bieu-13` | Biểu 13 tường chống ồn **NEW** | 01 | P1-900 | `done` / `done` | none | [ctx](features/csdl-bieu-13.md) | — |
+| `csdl-bieu-14` | Biểu 14 ITS **NEW** | 01 | P1-900 | `done` / `done` | none | [ctx](features/csdl-bieu-14.md) | — |
+| `csdl-bieu-15` | Biểu 15 TMC/trạm/hạt **NEW** | 01 | P1-900 | `done` / `done` | none | [ctx](features/csdl-bieu-15.md) | — |
+| `csdl-bieu-16` | Biểu 16 nút giao **NEW** | 01 | P1-900 | `done` / `done` | none | [ctx](features/csdl-bieu-16.md) | — |
+| `csdl-so-01` | Sổ 1 tuần kiểm (live #8) | 01 | P1-900 | `done` / `done` | none | [ctx](features/csdl-so-01.md) | — |
+| `csdl-so-02` | Sổ 2 tuần đường (live #1) | 01 | P1-900 | `done` / `done` | none | [ctx](features/csdl-so-02.md) | — |
+| `csdl-so-03` | Sổ 3 trực BĐGT+chốt+SC | 01 | P1-900 | `done` / `done` | none | [ctx](features/csdl-so-03.md) | — |
+| `csdl-so-04` | Sổ 4 đếm xe | 01 | P1-900 | `done` / `done` | none | [ctx](features/csdl-so-04.md) | — |
+| `csdl-so-05` | Sổ 5 TNGT + điểm đen **NEW** | 01 | P1-900 | `done` / `done` | none | [ctx](features/csdl-so-05.md) | — |
+| `csdl-so-06` | Sổ 6 QL cầu / phiếu KT | 01 | P1-900 | `done` / `done` | none | [ctx](features/csdl-so-06.md) | — |
+| `csdl-so-07` | Sổ 7 HL + GPTC + Dự án | 01 | P1-900 | `done` / `done` | none | [ctx](features/csdl-so-07.md) | — |
+| `csdl-so-08` | Sổ 8 kết quả BDTX | 01 | P1-900 | `done` / `done` | none | [ctx](features/csdl-so-08.md) | — |
+| `csdl-so-09` | Sổ 9 ITS/ETC vận hành **NEW** | 01 | P1-900 | `done` / `done` | none | [ctx](features/csdl-so-09.md) | — |
+| `csdl-so-10` | Sổ 10 bình đồ duỗi thẳng **NEW** | 01 | P1-900 | `done` / `done` | none | [ctx](features/csdl-so-10.md) | — |
 | `pavement-section` | Biểu 1 mặt đường | 01 | P1-900 | done | catalog | [ctx](features/pavement-section.md) | [ST](../../specs/pavement-section/STATUS.md) |
 | `import-gov-ssot` | Import dump moc → gov-vn | — | support | context / open GAP | none | [ctx](features/import-gov-ssot.md) · [fields](features/import-gov-asset-fields.md) | — |
-| `traffic-sign-type` | Loại biển báo `/mas/loai-bien-bao` | — | support · ADMIN menu | `data_analy` / `draft` | catalog | [ctx](features/traffic-sign-type.md) | [ST](../../specs/traffic-sign-type/STATUS.md) |
+| `traffic-sign-type` | Loại biển báo `/mas/loai-bien-bao` | — | support · ADMIN menu | `done` / `done` | catalog | [ctx](features/traffic-sign-type.md) | [ST](../../specs/traffic-sign-type/STATUS.md) |
 | `asset-kcht-dashboard` | Hub 40 ô KCHT | 01 | P1-900 | qa paused | none | [ctx](features/asset-kcht-dashboard.md) | [ST](../../specs/asset-kcht-dashboard/STATUS.md) |
 | `so-ts-type-grid` | Sổ TS grid/form theo loại | 01 | P1-900 | `data_analy` / `blocked` | none | [ctx](features/so-ts-type-grid.md) | [ST](../../specs/so-ts-type-grid/STATUS.md) |
 | `asset-hub` | Hub TS mobile | 01 | P1-900 | done | none | [ctx](features/asset-hub.md) | [ST](../../specs/asset-hub/STATUS.md) |
 | `gis` | GIS 2D (+ Twin P2) | 02 / 02-P2 | P1-900 · Twin P2-CR | `data_analy` / `draft` | catalog | [ctx](features/gis.md) | [ST](../../specs/gis/STATUS.md) |
-| `gis-draw-live` | Bản đồ tài sản | 02 | P1-900 | done | catalog | [ctx](features/gis-draw-live.md) | [ST](../../specs/gis-draw-live/STATUS.md) |
-| `gis-patrol-map` | Bản đồ Tuần đường | 02 / 04 | P1-900 | Dev | proto | [ctx](features/gis-patrol-map.md) | [ST](../../specs/gis-patrol-map/STATUS.md) |
+| `gis-draw-live` | Bản đồ tài sản | 02 | P1-900 | `qa` / `in_progress` | catalog | [ctx](features/gis-draw-live.md) | [ST](../../specs/gis-draw-live/STATUS.md) |
+| `gis-patrol-map` | Bản đồ Tuần đường | 02 / 04 | P1-900 | `data_analy` / `draft` | proto | [ctx](features/gis-patrol-map.md) | [ST](../../specs/gis-patrol-map/STATUS.md) |
 | `gis-camera-map` | Bản đồ camera | 02 / 03c | P1-900 | `dev` / `in_progress` | hub | [ctx](features/gis-camera-map.md) | [ST](../../specs/gis-camera-map/STATUS.md) |
 | `gis-draw-google` | Vẽ Google proxy | 02 | P1-900 | done (JWT leftover) | catalog | [ctx](features/gis-draw-google.md) | [ST](../../specs/gis-draw-google/STATUS.md) |
 | `gis-3d-twin` | Twin 3D Cesium | 02-P2 | P2-CR | no STATUS | catalog | — | — |
@@ -63,20 +90,20 @@
 | `gis-osm-clip` | OSM clip prod · Carto muted | — | support | no STATUS | none | [ctx](features/gis-osm-clip.md) | — |
 | `legal-tech-corridor` | Luật VN + Store | — | support | no STATUS | none | [ctx](features/legal-tech-corridor.md) | — |
 | `directions` | Chỉ đường guest | — | support | no STATUS | none | [ctx](features/directions.md) | — |
-| `ai-vision-service` | Host `Linm.RMMS.Vision` | 03 / 03-P2 | support | no STATUS | none | [ctx](features/ai-vision-service.md) · [plan](../plan/ai-vision-service/README.md) | — |
+| `ai-vision-service` | Host `Linm.RMMS.Vision` | 03 / 03-P2 | support | `data_analy` / `draft` | none | [ctx](features/ai-vision-service.md) · [plan](../plan/ai-vision-service/README.md) | [ST](../../specs/ai-vision-service/STATUS.md) |
 | `ai-vision` | AI kiểm định MD | 03 / 03-P2 | P1-900 online · P2-CR local | `data_analy` / `draft` | catalog | [ctx](features/ai-vision.md) · [host](features/ai-vision-service.md) | [ST](../../specs/ai-vision/STATUS.md) |
-| `ai-asset-detect` | AI phát hiện TS | 03b / 03b-P2 | P1-900 · edge P2-CR | done | catalog | [ctx](features/ai-asset-detect.md) | [ST](../../specs/ai-asset-detect/STATUS.md) |
+| `ai-asset-detect` | AI phát hiện TS | 03b / 03b-P2 | P1-900 · edge P2-CR | `qa` / `await_confirm` | catalog | [ctx](features/ai-asset-detect.md) | [ST](../../specs/ai-asset-detect/STATUS.md) |
 | `its-traffic-detect` | ITS biển/cọc | 03c-P2 | P2-CR | done | catalog | [ctx](features/its-traffic-detect.md) | [ST](../../specs/its-traffic-detect/STATUS.md) |
 | `its-anpr-overload` | ITS ANPR/WIM | 03c-P2 | P2-CR | done | catalog | [ctx](features/its-anpr-overload.md) | [ST](../../specs/its-anpr-overload/STATUS.md) |
-| `camera-connect` | Camera GTVT | **03c** | P1-900 gói C | done | hub HTML | [ctx](features/camera-connect.md) | [ST](../../specs/camera-connect/STATUS.md) |
-| `patrol` | Tuần đường web | 04 | P1-900 | Dev leftover | catalog | [ctx](features/patrol.md) | [ST](../../specs/patrol/STATUS.md) |
+| `camera-connect` | Camera GTVT | **03c** | P1-900 gói C | `qa` / `await_confirm` | hub HTML | [ctx](features/camera-connect.md) | [ST](../../specs/camera-connect/STATUS.md) |
+| `patrol` | Tuần đường web | 04 | P1-900 | `qa` / `await_confirm` | catalog | [ctx](features/patrol.md) | [ST](../../specs/patrol/STATUS.md) |
 | `tuan-duong-web` | TT 04 web demo | 04 | P1-900 | (gắn patrol) | catalog | [24](24-TUAN-DUONG-DUONG-BO.md) | [patrol](../../specs/patrol/STATUS.md) |
 | `tuan-duong-mobile` | TT 04 mobile demo | 04 | P1-900 | (gắn mobile-p1) | catalog | [24](24-TUAN-DUONG-DUONG-BO.md) | [mobile-p1](../../specs/mobile-p1/STATUS.md) |
 | `platform-task` | Platform QLCV | — | support P1 | `qa` / `paused` | catalog | [ctx](features/platform-task.md) | [ST](../../specs/platform-task/STATUS.md) |
 | `platform-message` | Chat parcel | — | support P1 | `dev` / `await_confirm` | none | [ctx](features/platform-message.md) | [ST](../../specs/platform-message/STATUS.md) |
 | `rmms-task-integrate` | Task × tuần đường | — | P2 later | `done` / `done` | none | [plan](../plan/platform-task/RMMS-TUAN-DUONG.md) | [ST](../../specs/rmms-task-integrate/STATUS.md) |
 | `attendance` | Chấm công GPS | 05 | P1-900 | done | catalog | [ctx](features/attendance.md) | [ST](../../specs/attendance/STATUS.md) |
-| `incident` | Quản lý sự cố | 06 | P1-900 | `dev` / `pending` | catalog | [ctx](features/incident.md) | [ST](../../specs/incident/STATUS.md) |
+| `incident` | Quản lý sự cố | 06 | P1-900 | `done` / `done` | catalog | [ctx](features/incident.md) | [ST](../../specs/incident/STATUS.md) |
 | `maintenance` | Bảo trì khung + WO P2 | 07 / 07-P2 | P1-900 khung · P2-CR full | done | catalog | [ctx](features/maintenance.md) | [ST](../../specs/maintenance/STATUS.md) |
 | `predict` | AI dự báo | 08 / 08-P2 | P1-900 · P2-CR | done | catalog | [ctx](features/predict.md) | [ST](../../specs/predict/STATUS.md) |
 | `ops` | Điều hành | 09 / 09-P2 | P1-900 board · P2-CR full | done | catalog | [ctx](features/ops.md) | [ST](../../specs/ops/STATUS.md) |
@@ -85,7 +112,7 @@
 | `kcht-cong-trinh` | Công trình KCHT (Khu IV) | — | CR-Khu-IV | `qa` / `await_confirm` | none | [ctx](features/kcht-cong-trinh.md) | [ST](../../specs/kcht-cong-trinh/STATUS.md) |
 | `inventory` | Vật tư | 12 | P3-CR | Dev pending | catalog | [ctx](features/inventory.md) | [ST](../../specs/inventory/STATUS.md) |
 | `drone` | Drone RC | 13-P2 | P2-CR | done | catalog | [ctx](features/drone.md) | [ST](../../specs/drone/STATUS.md) |
-| `iot` | Danh sách IoT `/iot` | 01-P2 | P2 extra ADMIN | `data_analy` / `draft` | none | [ctx](features/iot.md) | [ST](../../specs/iot/STATUS.md) |
+| `iot` | Danh sách IoT `/iot` | 01-P2 | P2 extra ADMIN | `done` / `done` | none | [ctx](features/iot.md) | [ST](../../specs/iot/STATUS.md) |
 | `toc` | TOC / VMS | 14 | P3-CR | no STATUS | catalog | [ctx](features/toc.md) | — |
 | `citizen` | Cổng dân | 15 | P3-CR | done | catalog | [ctx](features/citizen.md) | [ST](../../specs/citizen/STATUS.md) |
 | `copilot` | AI Copilot | 16 / 16-P2 | P1-900 · RAG P2-CR | done | catalog | [ctx](features/copilot.md) | [ST](../../specs/copilot/STATUS.md) |
@@ -142,6 +169,8 @@
 | `so-ts-its-camera` | Sổ TS — Hệ thống ITS | — | support | `done` / `done` | none | [ctx](features/so-ts-its-camera.md) | [ST](../../specs/so-ts-its-camera/STATUS.md) |
 | `so-ts-rescue-vehicle` | Sổ TS — Xe cứu hộ | — | support | `sa` / `pending` | none | [ctx](features/so-ts-rescue-vehicle.md) | [ST](../../specs/so-ts-rescue-vehicle/STATUS.md) |
 | `field-reflect` | field-reflect | — | support | `data_analy` / `blocked` | none | [ctx](features/field-reflect.md) | [ST](../../specs/field-reflect/STATUS.md) |
+| `khu-1-pilot` | Pilot dữ liệu Khu I | — | support | `dev` / `pending` | none | [ctx](features/khu-1-pilot.md) | [ST](../../specs/khu-1-pilot/STATUS.md) |
+| `nghiem-thu` | Công tác nghiệm thu — clone tuần kiểm + 10 mẫu | — | support | `data_analy` / `draft` | none | [ctx](features/nghiem-thu.md) | [ST](../../specs/nghiem-thu/STATUS.md) |
 **Báo cáo `rpt-*`:** xem [§ Reports](#17--dashboard--báo-cáo). Pipeline STATUS **done** hết (release: P1 / P1.5 / P2 / P3 theo từng slug).
 
 **Draft mobile (chưa context đầy):** `incident-list` · `incident-create` · `mnt-list` · `field-reflect` · `cam-view` · `cam-patrol` — [STATUS](../../specs/) tương ứng `data_analy` / `draft`.
@@ -199,7 +228,7 @@ Rule: `packKind=master` **không** gen demo — context + Design prototype.
 |--|--|
 | Release | support P1 (cần cho Asset/GIS) |
 | Pipeline | **done** |
-| Seed | [`seed/org-unit-seed.json`](seed/org-unit-seed.json) · import [`features/import-gov-ssot.md`](features/import-gov-ssot.md) |
+| Seed | [`seed/org-unit-seed.json`](seed/org-unit-seed.json) · `gov-vn` tuyến · `t6-org-scope` đối tác **91** · [`features/import-gov-ssot.md`](features/import-gov-ssot.md) |
 | Ref | [`20-ORG-STRUCTURE-DRVN.md`](20-ORG-STRUCTURE-DRVN.md) · [`24-TUAN-DUONG-DUONG-BO.md`](24-TUAN-DUONG-DUONG-BO.md) (LRS) |
 
 #### `org-route-scope`
@@ -209,7 +238,7 @@ Rule: `packKind=master` **không** gen demo — context + Design prototype.
 | Release / implement | support P1 · tách zone REG-I…IV config km–km theo tuyến/đoạn |
 | Demo | none (`packKind=master`) |
 | Pipeline | **done** / **done** |
-| Next | Config tay `/mas/phan-khu` · `vpOrgCode` bắt buộc trên đoạn · **cấm** seed dump |
+| Next | Restart API `ImportSets` gồm `t6-org-scope` (102 phân khu) · gán VP đoạn trên `/mas/phan-khu` (GAP-ORS-VP-01 **data**) · **cấm** invent VP · **cấm** dump moc |
 
 #### `traffic-sign-type`
 
@@ -253,10 +282,20 @@ Rule: `packKind=master` **không** gen demo — context + Design prototype.
 | Contract | 01 · sổ sách · KPI NT |
 | Live | `/so-ts/csdl-so-sach` :9301 · **không** phải `/so-ts/hang-muc` |
 | Demo | [`/demo/asset/csdl-so-sach.html`](../../../Linm.RMMS.Demo/src/demo/asset/csdl-so-sach.html) |
-| Pipeline | **done** / **done** (`task_915baff1` Review PASS 2026-08-29) |
-| ≠ hang-muc | `asset-kcht-dashboard` = lưới 40 ô KCHT `/so-ts/hang-muc` (QA paused) — **không** tương ứng 12 biểu + 8 sổ |
-| Next | Không enqueue lại full pipeline |
-| Ref | [`11-CSDL-SO-SACH-DATABASE-API.md`](11-CSDL-SO-SACH-DATABASE-API.md) |
+| Pipeline | **done** / **done** (`task_915baff1` Review PASS 2026-08-29) — **shell Kind G only** |
+| ≠ hang-muc | `asset-kcht-dashboard` = lưới 40 ô · **hai lớp:** count/Sổ TS ≠ biểu in Cục · LOOKUP chung / ROW riêng |
+| Next | Wave 0 KPI **16+10** · typed = child `csdl-bieu-*` / `csdl-so-*` — **cấm** enqueue full pipeline typed trên slug hub |
+| Ref | [`csdl-cuc-2026.md`](features/csdl-cuc-2026.md) · [`ANALYSIS-AND-TASKS.md`](../../specs/_data-analy/csdl-cuc-2026/ANALYSIS-AND-TASKS.md) |
+
+#### `csdl-cuc-2026`
+
+| | |
+|--|--|
+| Release / implement | P1-900 · typed 16+10 · **không** fake done |
+| Demo | none (hub demo sẵn) |
+| Pipeline | `data_analy` / `draft` |
+| Next | `/agent-qldb-workflow` từng child · **cấm** gộp Sổ TS (`GAP-CSDL-CUC-11`) |
+| Ref | analy `specs/_data-analy/csdl-cuc-2026/` §1.4 hai lớp |
 
 #### `asset-kcht-32`
 
@@ -275,7 +314,7 @@ Rule: `packKind=master` **không** gen demo — context + Design prototype.
 | Release / implement | support · context GAP mở (rebuild ≠ DB) |
 | Demo | none |
 | Pipeline | context / open GAP |
-| Next | API Docker `ReImportSeed`+`ReInitData` trên CSV v3 · **cấm** seed |
+| Next | `ReImportSeed`+`ReInitData` **gov-vn** v5 (3 tầng) + fingerprint **t6-org-scope** · **cấm** seed · **cấm** gộp zone vào gov-vn |
 | Ref | [`import-gov-ssot.md`](features/import-gov-ssot.md) · [`import-gov-asset-fields.md`](features/import-gov-asset-fields.md) |
 
 #### `asset-kcht-dashboard`
@@ -286,7 +325,7 @@ Rule: `packKind=master` **không** gen demo — context + Design prototype.
 | Live | MFE Asset `/so-ts/hang-muc` :9301 · widget `@linm/rmms-asset-kcht-widget` |
 | API | `api/v1/asset/road-assets/summary-by-type` |
 | Pipeline | PO–Dev **confirmed** · QA **paused** · Review pending |
-| ≠ CSDL 12+8 | Không phải hub 12 biểu + 8 sổ (`csdl-so-sach` `/so-ts/csdl-so-sach` **done**) |
+| ≠ CSDL Cục | Hub 16+10 `/so-ts/csdl-so-sach` · **hai lớp** LOOKUP chung / ROW riêng · không gộp `rmms_road_assets` |
 
 #### `so-ts-type-grid`
 
@@ -295,8 +334,8 @@ Rule: `packKind=master` **không** gen demo — context + Design prototype.
 | Release / implement | P1-900 · grid/form theo loại · reuse section |
 | Demo | none · mẫu `docs/img/gov-mau-tai-san/` |
 | Pipeline | `data_analy` / `draft` |
-| Next | Shell hide-empty + section S-* · 32 task `so-ts-*` `pending_confirm` sau parent |
-| Ref | [`so-ts-type-grid.md`](features/so-ts-type-grid.md) · `/data-gov-integration` |
+| Next | Shell hide-empty + section S-* · **≠** gộp `csdl-bieu-*` (`GAP-CSDL-CUC-11`) |
+| Ref | [`so-ts-type-grid.md`](features/so-ts-type-grid.md) · `/data-gov-integration` · peer [`csdl-cuc-2026.md`](features/csdl-cuc-2026.md) §1b |
 
 #### `asset-hub`
 
@@ -368,9 +407,9 @@ Ref demo: `asset-icons-legend` · `gis-draw-live-ref` · `patrol-centerline-ref`
 
 ### 03 — AI + Camera
 
-#### `ai-vision-service` (chưa STATUS)
+#### `ai-vision-service`
 
-`ai-vision` · `ai-asset-detect` · `its-traffic-detect` · `its-anpr-overload` · `predict` · `estimate` — **một host** `Linm.RMMS.Vision` (`:5311`). P2 ONNX **chỉ** đổi adapter trên service này. Plan [`../plan/ai-vision-service/README.md`](../plan/ai-vision-service/README.md) · ctx [`features/ai-vision-service.md`](features/ai-vision-service.md). **Cấm** SSOT AiVision trên WebService · **cấm** RMMS → `:5301`.
+`ai-vision` · `ai-asset-detect` · `its-traffic-detect` · `its-anpr-overload` · `predict` · `estimate` — **một host** `Linm.RMMS.Vision` (`:5311`). **Wave 1 done** (`api/v1/ai-vision/**` · `Schema_RmmsVision`). P2 ONNX **chỉ** đổi adapter trên service này. Plan [`../plan/ai-vision-service/README.md`](../plan/ai-vision-service/README.md) · ctx [`features/ai-vision-service.md`](features/ai-vision-service.md) · STATUS [`../../specs/ai-vision-service/STATUS.md`](../../specs/ai-vision-service/STATUS.md). **Entry:** `/implement-ai-vision-stack`. **Cấm** SSOT AiVision trên WebService · **cấm** RMMS → `:5301`. Next Wave 2 BFF.
 
 #### `ai-vision`
 
@@ -379,8 +418,8 @@ Ref demo: `asset-icons-legend` · `gis-draw-live-ref` · `patrol-centerline-ref`
 | Contract | 03 P1 cloud · 03-P2 ONNX (implement, release sau) |
 | Demo | [`/demo/ai-vision/ai-vision.html`](../../../Linm.RMMS.Demo/src/demo/ai-vision/ai-vision.html) · std :9303 `/ai-vision` |
 | Pipeline | analy paused · PO–TL done · **Dev in_progress** · QA/Review pending |
-| Host | **`Linm.RMMS.Vision`** — chưa scaffold. Detect WebService còn **stub** `mock://`. |
-| Next | `/new-service` `Linm.RMMS.Vision` · rồi `/implement-ai-detect-run` · BFF retarget · QA |
+| Host | **`Linm.RMMS.Vision`** Wave **0p done** (`D:/AI-QLBD/Linm.RMMS.Vision` `:5311`). Detect WebService còn **stub** `mock://` tới Wave 3. |
+| Next | `/implement-ai-vision-stack` **Wave 1** (`catalog_codes` + `Schema_RmmsVision` pair + detect-run P1-0…P1-2) |
 
 #### `ai-asset-detect`
 
@@ -410,9 +449,10 @@ Ref demo: `asset-icons-legend` · `gis-draw-live-ref` · `patrol-centerline-ref`
 | Alias | HĐ `camera-gtvt` = Data `camera-connect` |
 | Demo | hub [`camera-connect-demo.html`](../../../Linm.RMMS.Demo/src/demo/features/camera-connect-demo.html) · wall [`camera-ops-dashboard-demo.html`](../../../Linm.RMMS.Demo/src/demo/features/camera-ops-dashboard-demo.html) · **chưa** `demoCatalog.ts` |
 | MFE | `Linm.Web.RMMS.Camera` · `/camera` |
-| Pipeline | **done** (BE defer = P2 implement) |
-| Next | Đăng ký catalog slug `camera-connect` (hoặc alias `camera-gtvt`) |
-| Ref | [`camera-model.md`](camera-model.md) · [`21-CAMERA-HLS-WEBRTC-GATEWAY.md`](21-CAMERA-HLS-WEBRTC-GATEWAY.md) |
+| Railway SDK | **2026-09-05 kết nối OK** — Linux64 in API image · TCM403 `sdkPort` 8100 |
+| Pipeline | **dev / pending** security S1 `task_24969c1a` |
+| Next | **Ingest `X-Api-Key` + rate limit** — [task](../../specs/camera-connect/task/camera-ingest-apikey.md) `task_c8a1e4b2` · Auth introspect + 120/min key · [06](06-SECURITY-RATELIMIT.md) · vault S1 [plan](../plan/camera-security/PLAN.md) |
+| Ref | [`camera-model.md`](camera-model.md) · [`21-CAMERA-HLS-WEBRTC-GATEWAY.md`](21-CAMERA-HLS-WEBRTC-GATEWAY.md) · [`22-CAMERA-TCM403-SDK-RESEARCH.md`](22-CAMERA-TCM403-SDK-RESEARCH.md) · [`28-CAMERA-SECURITY.md`](28-CAMERA-SECURITY.md) |
 
 ---
 
@@ -633,9 +673,10 @@ Blocked / later — [STATUS](../../specs/rmms-task-integrate/STATUS.md) · [RMMS
 | Slug | Pipeline | Context |
 |------|----------|---------|
 | `patrol-home` · `patrol-history` · `patrol-offline` | done | [home](features/patrol-home.md) · [history](features/patrol-history.md) · [offline](features/patrol-offline.md) |
-| `patrol-map` | Dev pending · copy **web live** locked (chrome+popup) · native UI chưa · tiles Wave 4 pending | [patrol-map.md](features/patrol-map.md) |
+| `patrol-map` | Dev pending · copy **web live** locked (chrome+popup) · native UI chưa · tiles Wave 4 pending · họp 5 inspect ảnh **enqueue_later** | [patrol-map.md](features/patrol-map.md) |
 | `patrol-pin` | Review in_progress | [patrol-pin.md](features/patrol-pin.md) |
-| `patrol-checkin` | draft | STATUS only |
+| `patrol-checkin` | draft · họp 4 upload/AI **enqueue_later** | STATUS only |
+| `nghiem-thu` · `nghiem-thu-create` | scan seed họp 1 · **enqueue_later** `/scan-mobile-feature` | [nghiem-thu.md](features/nghiem-thu.md) |
 
 `home` · `me` · `login` · `login-forgot` · `supervise` · `asset-hub` · `attendance` (mobile lane) — STATUS **done**.
 

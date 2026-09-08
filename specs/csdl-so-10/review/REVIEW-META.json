@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "1",
+  "feature": "csdl-so-10",
+  "skillId": "agent-review",
+  "skillVersion": "2026.08.25.01",
+  "workflowVersion": "2026.09.05.03",
+  "rulesVersion": "2026.09.05.8",
+  "packKind": "map",
+  "resource": "route-strip-maps",
+  "contentHashPrior": "sha256:e444b5c2b3c297fc9affd2c72aae7f06378eab566c213c88cbdc972a10fae30a",
+  "reviewHash": "sha256:1f85d94b34140b86daad1275b1097719b2cdf6f090ac281a2c2f8ffcd31f7fed",
+  "status": "done",
+  "review_confirm": "done",
+  "taskId": "task_d5e431db",
+  "priorQaTaskId": "task_546e0234",
+  "mode": "review_only",
+  "autoApprove": true,
+  "analyzedAt": "2026-09-06T04:43:08.417Z"
+}

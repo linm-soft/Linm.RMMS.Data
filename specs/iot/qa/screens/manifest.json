@@ -1,0 +1,26 @@
+{
+  "url": "http://localhost:9309/iot",
+  "method": "playwright channel=chrome headless · contract fallback after yarn e2e-qa install fail",
+  "capturedAt": "2026-09-05T04:45:43.237Z",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "sha16": "0c320a59070e30ae"
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "sha16": "0c320a59070e30ae"
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "sha16": "249cfdc6f6ec93aa"
+    }
+  ],
+  "ok": true
+}

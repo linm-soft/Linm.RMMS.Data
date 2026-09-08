@@ -100,3 +100,10 @@ Dedupe: `nearby` cùng class trong bán kính cấu hình (demo JS **25 m** Have
 **Control-map:** `_raw/legacy-govone/demo-maps/ai-asset-detect-control-map.md`  
 **Actions:** `_raw/legacy-govone/demo-maps/ai-asset-detect-actions.md`  
 **sourceKind:** synthetic (docs + feature SSOT; không clone chrome GOVOne; suy luận UI từ product docs)
+
+## Implement tracking
+
+| lane | phase | status | updatedAt |
+|------|-------|--------|-----------|
+| web | `qa` | `await_confirm` | `2026-09-06T17:40:43.839Z` |
+| mobile | — | — | — |

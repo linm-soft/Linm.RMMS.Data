@@ -1,0 +1,15 @@
+{
+  "feature": "csdl-bieu-08",
+  "status": "confirmed",
+  "verdict": "PASS",
+  "review_confirm": "approve",
+  "taskId": "task_fdb010e9",
+  "contentHash": "sha256:f972c82727726d256754d076435f9ef97c993b4f9844dc79e50b6415fcaf54be",
+  "writtenAt": "2026-09-05T17:39:04.000Z",
+  "gates": {
+    "QUERY": "PASS",
+    "SEC": "PASS",
+    "UI_FN": "PASS",
+    "BE_FN": "PASS"
+  }
+}

@@ -3,118 +3,95 @@
 | Field | Value |
 |-------|-------|
 | feature | `ai-asset-detect` |
-| status | `done` |
+| status | `failed` |
 | role | `qa` · `/agent-qa` |
-| taskId | `task_c86da81c` |
-| pack | T-QA-CRUD-01 · T-QA-AI-01 · FormType list+ai+map |
+| taskId | `task_60644689` |
+| changeScope | `edit_page` |
+| packKind | `list` · featureClass `ai` |
+| method | `e2e runtime · yarn start:std + docker compose + playwright` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.AiVision` |
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · AiVision · **no ERP.*** |
 | mfeStdRoute | `/ai-vision/ai-asset-detect` |
 | mfeStdUrl | `http://localhost:9303/ai-vision/ai-asset-detect` |
-| demo | `Linm.RMMS.Demo/src/demo/ai-vision/ai-asset-detect.html` |
-| updatedAt | `2026-08-12T15:10:00.000Z` |
+| liveVnRoute | `/ai-kd/phat-hien-ts` (works) |
+| testid | live `rmms-ai-asset-detect-list-page` |
+| updatedAt | `2026-09-06T17:39:00.000Z` |
 
 ## Preconditions
 
-- AiVision MFE: `yarn start:std` · port **9303** · open `mfeStdUrl`
-- Optional live: API + BFF (`Linm.RMMS.WebService`) · else FE local seed / detect stub fallback
-- Migration `Schema_RmmsAiVisionAssetCandidates` applied before live Confirm / ITS_CAMERA smoke
+- Docker: `linm-rmms-api` `:5111` healthy · `linm-rmms-bff` `:5201` healthy · postgres healthy
+- MFE: `yarn start:std` · `:9303` listen
+- Login creds: `e2e.local.json` (`rmms-admin`) · Pages `:9100` not required for std
 - **Cấm** verify chỉ prototype `reviewUrl`
 
-## Smoke — Final MFE (REQUIRED)
+## E2E runtime — packet cases (mfeStdUrl)
 
-| # | Step | Expect | Result |
-|---|------|--------|--------|
-| S0 | Open `mfeStdUrl` | Route mount · không 404 · title AI phát hiện tài sản | **PASS** (route `ai-vision/ai-asset-detect` trước `:id`) |
-| S1 | List shell | 1× `LinPageLayout` · grid + map split · **không** nested CatalogListShell · skeleton/`useServerPagedListLoading` | **PASS** (code/SSOT) |
-| S2 | Footer pager | `LinCatalogListPagination` · pageSize 50/100/200/500 · **cấm** footerPagination/pageSizeBar | **PASS** |
-| S3 | Search Enter | `SearchTextInput` · **cấm** nút Tìm · page→1 · pulseSearch | **PASS** |
-| S4 | Filters Zone B | class/status từ **init-data** · route · from/to · Xóa lọc | **PASS** |
-| S5 | Toolbar | refresh · history stub · cog config · +Thêm · Giả lập frame · Nearby · Export stub · Reset seed | **PASS** |
-| S6 | Row menu | View/Edit/Copy/History + Confirm/Dismiss (Draft) | **PASS** (delete UI — xem GAP) |
-| S7 | Form C/E/V/Copy | Kind D slideout · footer-only · View readOnly · leave dirty confirm | **PASS** |
-| S8 | Map Kind F | Leaflet CDN · OSM/Esri/Sat · Fit · pins candidate + existing road assets | **PASS** |
-| S9 | No ERP.* | FE BASE `/ai-vision/asset-candidates` · BE `api/v1/ai-vision` · domain AiVision | **PASS** |
+| # | Step | Expect | Result | Evidence |
+|---|------|--------|--------|----------|
+| S0 | Open `mfeStdUrl` · list testid | Route mount · `rmms-ai-asset-detect-list-page` | **FAIL** | ![S0](screens/S0.png) · SimpleNotFoundPage `/ai-vision/ai-asset-detect` |
+| S1 | List shell on `mfeStdUrl` | Grid + filter + map | **FAIL** | ![S1](screens/S1.png) · same 404 |
+| QA-20 | Create/list ACT on `mfeStdUrl` | Toolbar + slideout reachable | **FAIL** | ![QA-20](screens/QA-20.png) · same 404 |
 
-## List A–D (+ MAP)
+## Diagnostic (not packet gate)
 
-| Zone | Scenario | Result |
-|------|----------|--------|
-| A | Header title + `fa-camera` + AI badges | **PASS** |
-| B | catalogToolbar + domain actions (sim-frame · nearby · export · reset-seed) | **PASS** |
-| FILTER | SearchTextInput + dropdowns init-data + date + clear | **PASS** |
-| C | `LinCatalogDataGrid` · kéo cột default ON · row menu | **PASS** |
-| D | `LinCatalogListPagination` only | **PASS** |
-| F | Config stub modal | **PASS** |
-| H | History stub | **PASS** |
-| MAP | Overlay pins · Fit · basemap | **PASS** |
+| # | Step | Expect | Result | Evidence |
+|---|------|--------|--------|----------|
+| S0-vn | Open `/ai-kd/phat-hien-ts` | List testid visible · missOnly · filter bar | **PASS** | ![S0-vn](screens/S0-vn.png) |
 
-## T-QA-CRUD-01 — Create→Edit→View→Copy→Delete
+`src/index.tsx` registers **only** `ai-kd/phat-hien-ts` — **no** `ai-vision/ai-asset-detect` alias → STATUS `mfeStdUrl` 404.
 
-| # | Step | Expect | Result |
-|---|------|--------|--------|
-| QA-20 | FormType ACT | T-UI-ACT inventory · C/E/V/Copy/Confirm/Dismiss wired | **PASS** (delete UI missing — GAP) |
-| QA-21 | Create | Toolbar + → slideout → POST candidate Draft | **PASS** (code) |
-| QA-22 | Edit | Row/toolbar Edit · Draft only → PUT | **PASS** |
-| QA-23 | View | readOnly fields · footer Đóng/Sửa/Sao chép/HITL | **PASS** |
-| QA-24 | Copy | Row Copy → create payload mới | **PASS** |
-| QA-25 | Delete toolbar | Select Draft → soft DELETE | **PASS** (closed in Review `task_b86293c4`) |
-| QA-26 | Delete row menu | Row menu Delete → soft DELETE | **PASS** (closed in Review `task_b86293c4`) |
-| QA-27 | BE soft-delete | `SoftDeleteAsync` Draft-only · API-06 + BFF DELETE + FE `service.delete` | **PASS** |
-| QA-28 | BE route | `api/v1/ai-vision/asset-candidates` · pageSize ∈{50,100,200,500} · no ERP | **PASS** (build) |
+## T-QA-* (blocked by S0)
 
-## T-QA-AI-01 — detect · HITL · map · seed
-
-| # | Step | Expect | Result |
-|---|------|--------|--------|
-| QA-AI-01 | Giả lập frame | POST detect stub → Draft row(s) · không auto Asset | **PASS** |
-| QA-AI-02 | Nearby | GET nearby / flag NearbyRisk · toolbar Nearby · Confirm ack nếu risk | **PASS** |
-| QA-AI-03 | Confirm → Asset | Modal assetType · default map Camera ITS→`ITS_CAMERA` · Code `TS-AI-*` · Source=`ai-asset-detect` | **PASS** (code/BE) |
-| QA-AI-04 | Dismiss | Draft → Dismissed · note optional | **PASS** |
-| QA-AI-05 | Map pins | Candidate vs existing road-asset pins · Fit | **PASS** |
-| QA-AI-06 | Init-data | 8 assetClasses · statuses · engines · nearbyRadiusMeters — **cấm** KIND_LABEL / class ổ gà | **PASS** |
-| QA-AI-07 | Seed ITS_CAMERA | migration + asset-type seed searchable (live DB) | **PASS** (artifact) · live apply = ops note |
+| ID | Focus | Result |
+|----|-------|--------|
+| T-QA-CRUD-01 | C/E/V/Copy/Delete · Confirm/Dismiss/Miss | **blocked** (no mount on mfeStdUrl) |
+| T-QA-FORM-01 | Slideout fields · imageFileId · body | **blocked** |
+| T-QA-FILTER-01 | LinErpListFilterBar · 🔍 mép phải · missOnly | **blocked** on std · VN probe shows filter + missOnly present |
+| T-QA-FILTER-02 | D+T+M headed | **blocked** |
+| T-QA-AI-01 | detect · HITL · map · 0 AI badge | **blocked** |
 
 ## Gaps
 
 | ID | Severity | Note |
 |----|----------|------|
-| GAP-QA-ACT-DELETE-01 | ~~P1~~ **CLOSED** | Review wired toolbar `canDelete` + row `showDelete` Draft-only → `aiAssetDetectService.delete` |
-| — | — | BE `[RequirePermission]` vẫn TODO comments (P2 stub · SD-AUTH) — không block |
-| — | — | Detect engine = P1 stub (documented) |
+| **GAP-QA-STD-01** | **P0** | `mfeStdUrl` `/ai-vision/ai-asset-detect` → 404 NotFound. Dev must add Route alias (dual path with `/ai-kd/phat-hien-ts`) or fix STATUS/shell map. |
+| GAP-QA-E2E-01 | P2 | `yarn e2e-qa` `npx playwright install` failed (yarn npmrc / dirlock). Capture used AI-AutoCode `playwright` + existing `chromium-1187\chrome.exe`. PNG + manifest written. |
+| GAP-QA-DEMO-NOTE-01 | P2 | VN probe sidebar shows label `Danh sách DEMO` — re-check after std route fixed (`demo-to-real-enduser`). |
+| — | note | Auth container `linm-authentication-rmms` restart loop (PG DNS) — std MFE probe không phụ thuộc; không block evidence std 404. |
 
-**Verdict:** **PASS** · FormType ACT delete closed in Review · **không** P0.
+## Build / runtime
 
-## Build verify (re-run QA)
+| Check | Result |
+|-------|--------|
+| docker compose up -d | API+BFF healthy (API host **5111**, not 5101) |
+| yarn start:std :9303 | **PASS** listen |
+| Playwright S0/S1/QA-20 @ mfeStdUrl | **FAIL** |
+| Playwright S0-vn @ `/ai-kd/phat-hien-ts` | **PASS** |
+| ERP.* | none observed |
 
-| Check | Command | Result |
-|-------|---------|--------|
-| MFE typecheck | `yarn typecheck` (AiVision) | **PASS** |
-| MFE build | `LINM_RUN_DEV_LOCAL_BUNDLE=1 yarn build` | **PASS** |
-| BE API | `dotnet build …/RMMS.Service.Api.csproj` | **PASS** 0 err |
-| BE BFF | `dotnet build …/RMMS.Service.Bff.csproj` | **PASS** 0 err |
+## Verdict
 
-## Handoff → Review
+**FAIL** · P0 **GAP-QA-STD-01** · **cấm** pass · queue **`failed`** · board **`qa_fail_rollback`** · **cấm** `phase=done` · **cấm** silent Dev fix in this role.
+
+## Handoff → (rollback / Dev fix)
 
 | Field | Value |
 |-------|-------|
-| next | `/agent-review` · roleOnly · `review/findings.md` |
-| autoApprove | ON · worker enqueue review |
-| focus | GAP-QA-ACT-DELETE-01 · RequirePermission stub · migration applied |
-| mfeStdUrl | `http://localhost:9303/ai-vision/ai-asset-detect` |
+| next | `qa_fail_rollback` → Dev fix route alias / mfeStdUrl · then re-queue `/agent-qa` |
+| compact | `specs/ai-asset-detect/handoff/qa-compact.md` |
+| screens | `specs/ai-asset-detect/qa/screens/{S0,S1,QA-20,S0-vn}.png` + `manifest.json` |
 
 ## Version meta (REQUIRED)
 
 | Field | Value |
 |-------|-------|
 | skillId | agent-qa |
-| skillVersion | 2026.08.08.21 |
-| schemaVersion | 1 |
-| workflowVersion | 2026.08.10.3 |
-| rulesVersion | 2026.08.11.1 |
-| generatedAt | 2026-08-12T15:10:00.000Z |
+| skillVersion | 2026.09.05.03 |
+| schemaVersion | 2 |
+| workflowVersion | 2026.09.05.03 |
+| rulesVersion | 2026.09.06.1 |
+| generatedAt | 2026-09-06T17:39:00.000Z |
 | versionGate | ok |
-| taskId | `task_c86da81c` |
 
 ---
-<!-- Version meta: skillVersion=2026.08.08.21 · schemaVersion=qldb-workflow-skill-v1 · workflowVersion=2026.08.10.3 · versionGate=ok -->
+<!-- Version meta: skillVersion=2026.09.05.03 · schemaVersion=qldb-workflow-skill-v1 · workflowVersion=2026.09.05.03 · versionGate=ok -->

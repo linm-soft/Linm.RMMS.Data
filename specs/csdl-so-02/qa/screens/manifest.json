@@ -1,0 +1,36 @@
+{
+  "feature": "csdl-so-02",
+  "ok": true,
+  "capturedAt": "2026-09-05T17:43:05.230Z",
+  "method": "playwright-channel-chrome",
+  "gap": "GAP-QA-E2E-PW-01",
+  "results": [
+    {
+      "id": "S0",
+      "ok": true,
+      "file": "S0.png",
+      "bytes": 108515,
+      "sha16": "9f44ea2753bd21c4",
+      "note": "list Sổ 02 · filter-bar · province/status/road/period · empty/grid",
+      "finalUrl": "http://localhost:9301/csdl-so-02"
+    },
+    {
+      "id": "S1",
+      "ok": true,
+      "file": "S1.png",
+      "bytes": 108515,
+      "sha16": "9f44ea2753bd21c4",
+      "note": "hub ?resource=patrol-logs → redirect /csdl-so-02",
+      "finalUrl": "http://localhost:9301/csdl-so-02"
+    },
+    {
+      "id": "QA-20",
+      "ok": true,
+      "file": "QA-20.png",
+      "bytes": 110275,
+      "sha16": "591d838db676d7e8",
+      "note": "Create Slideout · form=create · Z2 header · entries inline_grid · SO-",
+      "finalUrl": "http://localhost:9301/csdl-so-02"
+    }
+  ]
+}

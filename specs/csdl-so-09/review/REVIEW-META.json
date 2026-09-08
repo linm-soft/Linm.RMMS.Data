@@ -1,0 +1,14 @@
+{
+  "feature": "csdl-so-09",
+  "status": "confirmed",
+  "verdict": "PASS",
+  "review_confirm": "approve",
+  "taskId": "task_f2f0d1d8",
+  "contentHash": "sha256:1cbd0cd26f977a518c29457acddd7c893fa56fe9bd750ac1ad6a15b0976d03dc",
+  "contentHashGate": "skip",
+  "skillVersion": "2026.08.25.01",
+  "workflowVersion": "2026.09.01.02",
+  "rulesVersion": "2026.08.31.2",
+  "reviewedAt": "2026-09-06T00:25:00.000Z",
+  "autoApprove": true
+}

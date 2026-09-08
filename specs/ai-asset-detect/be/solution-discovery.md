@@ -4,51 +4,54 @@
 > Standards: api-endpoint · bff-api-structure · company-field · database-migration · no-parent-json-field  
 > **SA detail:** `sa-api-form-data.md` · `sa-repo-solution.md` · `sa-implement-gates.md` · `form-type-task-pack.md`  
 > Requires: `ui/design.md` **confirmed** · design_confirm=`approve`  
-> **Khác `ai-vision`:** taxonomy thiết bị TS → Asset · **cấm** class ổ gà / Incident · **cấm ERP.***
+> **changeScope:** `edit_page` · reopen SA — **GAP-AAD-FILE-01** + miss reconcile + filter-bar query keys  
+> **Khác `ai-vision`:** taxonomy thiết bị TS → Asset · **cấm** class ổ gà / YOLO «mất» · **cấm ERP.***
 
 | Field | Value |
 |-------|-------|
 | feature | `ai-asset-detect` |
 | packKind | `list` · featureClass `ai` (Kind B+D+F) |
+| changeScope | `edit_page` |
 | status | `confirmed` |
 | design_confirm | approve |
 | domain_map | **AiVision** · kebab `ai-vision` |
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/ai-vision` |
-| mfe (đề xuất) | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.AiVision` · `/ai-vision/ai-asset-detect` |
+| mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.AiVision` · `/ai-vision/ai-asset-detect` |
+| hostInfer | `Linm.RMMS.Vision` (stub P1 · **cấm** invent missing-detect API) |
 | sa_tz_gate | **tz_required** |
 | sa_xco_gate | **xco_get_only** |
 | sa_shared_table | **share_tenant** (tenant_keep) |
 | solution_confirm | **approve** |
-| contentHash (data-analy) | `sha256:97450ff90d8d4576a8de82e118d463e705b49b21f212a76fd178527a8b38793e` |
-| skillVersion | `2026.08.10.1` |
+| skillVersion | `2026.09.05.03` |
 | schemaVersion | `1` |
-| workflowVersion | `2026.08.10.3` |
-| rulesVersion | `2026.08.11.1` |
+| workflowVersion | `2026.09.05.03` |
+| rulesVersion | `2026.09.06.1` |
 | versionGate | `ok` |
-| updatedAt | `2026-08-12T14:35:00.000Z` |
+| updatedAt | `2026-09-06T16:50:00.000Z` |
+| taskId | `task_7381f42c` |
 
 ## 0. Path guard
 
-**Only** `Linm.RMMS.WebService` / `Domains/AiVision` (+ Asset confirm create · Integration lookups).  
-**Cấm** `Linm.Web.ERP.WebService` · `ERP.Service.*` · `Domains/Master` · `api/v1/rmms/*`.
-
-`beRepo` / `uiRepo` board tick = **user only trước Dev** — SA chốt path đề xuất (không auto tick).
+**Only** `Linm.RMMS.WebService` / `Domains/AiVision` (+ Asset confirm · Incident miss · Integration lookups · FileService BFF).  
+**Cấm** `Linm.Web.ERP.WebService` · `ERP.Service.*` · `Domains/Master` · `api/v1/rmms/*` · invent `api/v1/ai-kd/*`.
 
 ## 1. Ownership
 
 | Layer | Repo / module |
 |-------|----------------|
-| MFE | `Linm.Web.RMMS.AiVision` · route đề xuất `/ai-vision/ai-asset-detect` *(ui_repo_confirm board)* |
-| **BackendRoot** | `D:/AI-QLBD/Linm.RMMS.WebService` *(be_repo_confirm board)* |
-| Domain | **AiVision** / `ai-vision` — DOMAIN-MAP + hàng slug `ai-asset-detect` |
+| MFE | `Linm.Web.RMMS.AiVision` · `/ai-vision/ai-asset-detect` |
+| **BackendRoot** | `D:/AI-QLBD/Linm.RMMS.WebService` |
+| Domain | **AiVision** / `ai-vision` |
 | API host | `api/src/RMMS.Service.Api/Domains/AiVision/` |
 | Models/DTO | `api/domains/ai-vision/LINM.RMMS.AiVision.Models/DTOs/` |
 | Persistence | `api/shared/RMMS.Service.Persistence/` · `AiVisionAssetCandidateEntity` |
 | Migrations | `api/shared/RMMS.Service.Migrations/Migrations/` |
 | BFF | `bff/domains/ai-vision/…` · **proxy only** |
-| Confirm → Asset | inject `IRoadAssetService` (domain Asset · cùng process) |
-| Lookups | Integration `asset-types` · `road-routes` (SearchInput) |
-| Seed ITS_CAMERA | Integration `rmms_asset_types` + `docs/context/seed/asset-type-seed.json` |
+| Files | **reuse** `web-bff/api/v1/files/*` · `Linm.Platform.FileService.Bff` — **cấm** scaffold API file mới |
+| Confirm → Asset | inject `IRoadAssetService` |
+| Miss → Incident | inject Incident create · `POST /api/v1/incident/incidents` (peer) |
+| Lookups | Integration `asset-types` · `road-routes` · Asset `road-assets` |
+| Infer host | `Linm.RMMS.Vision` (P1 stub detect trong AiVision API) |
 
 ### Architecture (repo SSOT)
 
@@ -58,36 +61,52 @@
 | Domain | AiVision / `ai-vision` · **không** domain mới |
 | API prefix | `api/v1/ai-vision` |
 | BFF | `web-bff/api/v1/ai-vision/**` · proxy only = **yes** |
-| MFE | `Linm.Web.RMMS.AiVision` · **không** Master catalogs |
-| Response | ApiResponse / paged (local stub → CommonLib) |
-| Auth perm | `ai-vision.asset-candidates.read|create|update|delete|confirm|dismiss` (stub Attribute TODO CommonLib) |
+| Files BFF | `web-bff/api/v1/files/**` · existing |
+| MFE | `Linm.Web.RMMS.AiVision` |
+| Response | ApiResponse / paged |
+| Auth perm | `ai-vision.asset-candidates.read\|create\|update\|delete\|confirm\|dismiss\|miss` |
 | Persist | flat `TenantEntity` scalars · **no** parent `*LinesJson` |
 | Sibling | `rmms_ai_vision_detections` = mặt đường — **tách** bảng candidates |
-| Out of pack | Real GPT/ONNX · auto-create P2 · Patrol trip lookup · PostGIS prod-only DEFER · camera-connect |
 
 ### SSOT / anti-duplicate
 
 | Concern | Package / rule | Note |
 |---------|----------------|------|
-| UI | `@linm-soft-org/linm-web-common-components` | LinPageLayout · LinCatalogDataGrid · LinCatalogListPagination |
+| UI | `@linm-soft-org/linm-web-common-components` | LinPageLayout · LinCatalogDataGrid · LinCatalogListPagination · **LinErpListFilterBar** · LeaveConfirmModal · FileUpload |
 | HTTP | apiClient SSOT | re-export only |
 | BE | Linm.Platform.CommonLib | ApiResponse envelope |
-| Auth | Linm.Platform.Authentication | RequirePermission khi ≥1.4.0 |
-| Persist | `no-parent-json-field` | `BboxJson` = scalar text bbox · **không** child collection blob |
-| Catalog | Integration asset-type / road-route | SearchInput — **cấm** free-text khi seed sẵn |
+| Files | FileService BFF | upload · resign by `imageFileId` |
+| Persist | `no-parent-json-field` | `BboxJson` = scalar text bbox |
+| Catalog | Integration asset-type / road-route · Asset road-assets | SearchInput |
 
 ## 2. Form data analysis (REQUIRED)
 
 | Screen / FormMode | Fields (UI) | Source type | Entity | data-import / mock |
 |-------------------|-------------|-------------|--------|---------------------|
-| S-LIST filters | search · routeId · assetClass · status · fromDate · toDate | demo + master lookup | Candidate | demo `ai-asset-detect-data.js` |
-| S-LIST grid | columns Design §5 | tx | Candidate | seed AC-101…104 |
-| S-FORM Create/Edit/Copy | assetClass* · score* · engine* · lat/lng* · routeId* · routeLabel · sectionId · patrolTripId · bboxJson · note · imageUrl · detectedAt | tx + LOOKUP_STATIC | Candidate | — |
-| S-FORM View | all + assetCode · nearby* · modelVersion · updatedAt | tx readOnly | Candidate | — |
-| S-MOD-CONFIRM | assetTypeCode* (SearchInput) | master asset-type | Candidate + RoadAsset | map AI class → code |
-| S-MOD-DISMISS | reason? (optional P1 free note) | tx | Candidate | — |
-| S-MAP | pins AI new / confirmed / existing TS | tx + Asset list | Candidate + RoadAsset | demo pins HL/CS/CN |
+| S-LIST filters | search · routeId · assetClass · status · fromDate · toDate · **missOnly** | query + LOOKUP | Candidate | demo |
+| S-LIST grid | Design columns + row **Mất?** | tx | Candidate | AC-101… |
+| S-FORM Create/Edit/Copy | assetClass* · score* · engine* · lat/lng* · routeId* · routeLabel · sectionId · patrolTripId · bboxJson · note · **imageFileId** · detectedAt | tx + LOOKUP + files | Candidate | — |
+| S-FORM View | all + assetCode · nearby* · modelVersion · **imageUrl (resigned)** · updatedAt · expectedAssetId · incidentDraftId | tx readOnly | Candidate | — |
+| S-MOD-CONFIRM | assetTypeCode* (SearchInput) | master asset-type | Candidate + RoadAsset | map §2b |
+| S-MOD-DISMISS | reason? | tx | Candidate | — |
+| S-MOD-MISS | expectedAssetId* · missWindowMin · note? | asset + tx | Candidate + Incident | NEW |
+| S-MAP | pins AI / confirmed / existing / **miss** | tx + Asset | Candidate + RoadAsset | — |
 | S-FEED | Giả lập frame | detect stub | Candidate | toolbar |
+| S-LEAVE | LeaveConfirmModal | UI only | — | — |
+
+### List filter query keys (LinErpListFilterBar — **WHAT only**)
+
+| Query key | controlHint | Notes |
+|-----------|-------------|-------|
+| `search` | SearchInput | |
+| `routeId` | SearchInput road-route | |
+| `assetClass` | Dropdown LOOKUP_STATIC | 8 · **no** «mất» |
+| `status` | Dropdown | Draft/Confirmed/Dismissed |
+| `fromDate` / `toDate` | Date | **TZ** bounds |
+| `missOnly` | Checkbox | NEW · filter miss-reconcile queue |
+| `page` / `pageSize` | pagination | 50/100/200/500 |
+
+**Cấm** `filterItems` HOW — TL owns layout task.
 
 ### controlHint → API (chốt)
 
@@ -95,32 +114,45 @@
 |-------------|-------|--------------|
 | SearchInput (text) | search | `GET …/asset-candidates?search=` |
 | SearchInput **road-route** | routeId | `GET …/integration/road-routes/search` |
-| Dropdown enum 8 | assetClass | `GET …/asset-candidates/init-data` · LOOKUP_STATIC |
+| Dropdown enum 8 | assetClass | `GET …/asset-candidates/init-data` |
 | Dropdown status | status | init-data |
-| Date | fromDate / toDate / detectedAt | list filter + form · **TZ required** |
-| SearchInput **asset-type** | assetTypeCode (Confirm) | `GET …/integration/asset-types/search` · default map §2b |
-| Text number | score · lat · lng | POST/PUT body scalars |
-| Checkbox | nearbyRisk | computed server / persisted flag |
+| Date | fromDate / toDate / detectedAt | list + form · **TZ required** |
+| Checkbox | missOnly | `GET …/asset-candidates?missOnly=true` |
+| FileUpload | imageFileId | `web-bff/api/v1/files/*` upload → guid · persist **ImageFileId** · resign on GET |
+| SearchInput **asset-type** | assetTypeCode (Confirm) | `GET …/integration/asset-types/search` |
+| SearchInput **road-asset** | expectedAssetId (Miss) | `GET …/asset/road-assets` (search) |
+| Number | missWindowMin · score · lat · lng | body scalars |
 | Text | note · bboxJson · sectionId · patrolTripId | scalars |
 
 ### 2b. AI class → asset-type (Confirm default)
 
-| assetClass (AI Dropdown) | `asset-type.code` default | Notes |
-|--------------------------|---------------------------|-------|
-| Biển báo | `GANTRY_SIGN` | seed có |
-| Hộ lan | `GUARDRAIL` | seed có |
-| Cột Km | `KM_POST` | seed có |
-| Cột H | `DELINEATOR` | seed có |
-| Đèn chiếu sáng | `LIGHTING` | seed có |
-| Cống | `CULVERT_X` (default) / `CULVERT_L` | user đổi trên Confirm |
-| Taluy | `SLOPE_PROTECT` | seed có |
-| Camera ITS | **`ITS_CAMERA`** | **seed mới** · groupCode=`GIAO_THONG` |
+| assetClass | `asset-type.code` default |
+|------------|---------------------------|
+| Biển báo | `GANTRY_SIGN` |
+| Hộ lan | `GUARDRAIL` |
+| Cột Km | `KM_POST` |
+| Cột H | `DELINEATOR` |
+| Đèn chiếu sáng | `LIGHTING` |
+| Cống | `CULVERT_X` / `CULVERT_L` |
+| Taluy | `SLOPE_PROTECT` |
+| Camera ITS | **`ITS_CAMERA`** |
 
-**Cấm** trộn 10 class mặt đường `ai-vision` vào Dropdown này (GAP-F-AAD-01 CLOSED).
+**Cấm** trộn 10 class mặt đường `ai-vision` · **cấm** YOLO class «mất».
+
+### 2c. GAP-AAD-FILE-01 — **CLOSED**
+
+| Decision | Value |
+|----------|-------|
+| Persist | **`ImageFileId`** `uuid?` (FileService guid) |
+| Write path | POST/PUT/detect body `imageFileId` — **cấm** persist full URL làm SSOT |
+| Display | DTO `imageUrl` = **resign** từ FileService by id (computed) |
+| Legacy | `ImageUrl` column **nullable keep** (demo/stub) · new writes prefer FileId · migrate: copy none |
+| Upload API | **reuse only** `web-bff/api/v1/files/*` |
+| Migration | `Schema_RmmsAiVisionAssetCandidates_ImageFileId` ALTER ADD |
 
 ## 3. FormType pack (REQUIRED)
 
-`packKind=list` + `featureClass=ai` → **list pack + ai pack**.
+`packKind=list` + `featureClass=ai` → **list pack + ai pack** (+ map overlay + miss).
 
 ### FormMode ↔ API
 
@@ -137,19 +169,23 @@
 | Nearby check | — | API-09 GET `/asset-candidates/nearby` |
 | Confirm → Asset | HITL | API-10 POST `/{id}/confirm` |
 | Dismiss FP | HITL | API-11 POST `/{id}/dismiss` |
-| Map existing pins | — | **reuse** `GET /api/v1/asset/road-assets` (Asset) |
-| History | — | DEFER stub toast (toolbar) |
-| road-route SearchInput | — | Integration API road-routes `/search` |
-| asset-type SearchInput | — | Integration API asset-types `/search` |
+| **Miss reconcile** | HITL Modal | **API-12** POST `/{id}/miss` → Incident |
+| Map existing pins | — | **reuse** `GET /api/v1/asset/road-assets` |
+| File upload | FileUpload | **reuse** `web-bff/api/v1/files/*` |
+| road-route / asset-type | SearchInput | Integration `/search` |
+| expected Asset | SearchInput | Asset road-assets |
 
-**GAP-SA-FORMTYPE-01:** closed — map trên.
+**GAP-SA-FORMTYPE-01:** closed.
 
 ### Task pack ids (handoff TL)
 
-**List:** T-UI-LIST-01 · T-UI-FORM-01 · T-UI-ACT-01 · T-BE-CRUD-01 · T-BE-INIT-01 · T-PERM-01 · T-QA-CRUD-01  
+**List:** T-UI-LIST-01 · T-UI-FORM-01 · T-UI-ACT-01 · **T-UI-FILTER-01** · T-BE-CRUD-01 · T-BE-INIT-01 · T-PERM-01 · T-QA-CRUD-01  
 **AI:** T-UI-AI-01 · T-UI-AI-FORM-01 · T-BE-AI-01 · T-QA-AI-01  
-**Map overlay:** T-UI-MAP-01 (Kind F cùng page · OMS rút gọn)  
+**Map:** T-UI-MAP-01  
+**Delta edit:** T-UI-MISS-01 · T-BE-MISS-01 · T-MIG-FILE-01 · T-UI-FILE-01 · T-BE-FILE-01  
 **+** T-CTX · T-BFF · T-MIG · T-SEED-ITS_CAMERA · T-BE-CONFIRM-ASSET
+
+**devSlash:** list=`/agent-dev` · detect=`/agent-dev-ai-detect` · map=`/agent-dev-oms-map`
 
 ## 4. API catalog
 
@@ -162,38 +198,34 @@ Base: `api/v1/ai-vision` · BFF `web-bff/api/v1/ai-vision`
 | Purpose | Kind B list paged + Zone B filters · search **must work** |
 | Permission | `ai-vision.asset-candidates.read` |
 | Tenant | `X-Company-Id` · HasQueryFilter CompanyCode |
-| Query | `search` · `routeId` · `assetClass` · `status` · `fromDate` · `toDate` · `page` · `pageSize`∈{50,100,200,500} |
-| Response | `ApiResponse<AssetCandidatePagedResult>` |
+| Query | `search` · `routeId` · `assetClass` · `status` · `fromDate` · `toDate` · **`missOnly`** · `page` · `pageSize`∈{50,100,200,500} |
+| `missOnly=true` | rows with `MissFlag=true` OR `ExpectedAssetId` set OR Status Draft + empty frame + GPS near existing Asset (server predicate P1: `MissFlag`) |
+| Response | `ApiResponse<AssetCandidatePagedResult>` · DTO includes `imageFileId` · `imageUrl` (resigned) · `missFlag` · `expectedAssetId` · `incidentDraftId` |
 | Form surfaces | S-LIST |
-| Field map | search→Code/AssetClass/RouteLabel/Trip/Section/AssetCode/Note/Model · dates→DetectedAt UTC |
 | **gates.tz** | **yes** — fromDate start UTC · toDate end-of-day UTC |
-| **gates.xco** | n/a (list tenant filter) |
+| **gates.xco** | n/a |
 | **gates.shared** | tenant_keep |
-| **Context** | `docs/context/features/ai-asset-detect.md` §3 |
-| **Demo** | `ai-asset-detect.html` · Zone FILTER/C |
-| **Demo JSON** | `js/ai-asset-detect-data.js` candidates |
-| **data-import** | N/A (scan_workflow · no Excel) |
-| Migration | Schema_RmmsAiVisionAssetCandidates |
+| **Context** | `docs/context/features/ai-asset-detect.md` |
+| **Demo** | `ai-vision/ai-asset-detect.html` · Zone B/C |
+| **data-import** | N/A |
+| Migration | base + ImageFileId alter |
 
 ### API-02 GET `/asset-candidates/init-data`
 
 | | |
 |--|--|
-| Purpose | LOOKUP_STATIC Dropdown assetClass (8) · status · engine |
+| Purpose | LOOKUP_STATIC assetClass (8) · status · engine · nearbyRadiusMeters · missWindowMinDefault |
 | Permission | read |
-| Response | `{ assetClasses[], statuses[], engines[], nearbyRadiusMeters }` |
-| **gates.tz** | n/a |
-| Context / Demo | control-map · ASSET_CLASSES |
+| Response | `{ assetClasses[], statuses[], engines[], nearbyRadiusMeters, missWindowMinDefault }` |
 
 ### API-03 GET `/asset-candidates/{id}`
 
 | | |
 |--|--|
-| Purpose | Form View/Edit/Copy load |
+| Purpose | Form View/Edit/Copy load · resign `imageUrl` from `imageFileId` |
 | Permission | read |
-| **gates.xco** | **yes** — IgnoreQueryFilters + AllowedCompanyIds trên GET |
-| **gates.tz** | yes — DetectedAt/UpdatedAt serialize ISO UTC |
-| Errors | 404 · 403 XCO |
+| **gates.xco** | **yes** |
+| **gates.tz** | yes |
 
 ### API-04 POST `/asset-candidates`
 
@@ -201,66 +233,59 @@ Base: `api/v1/ai-vision` · BFF `web-bff/api/v1/ai-vision`
 |--|--|
 | Purpose | Create / Copy save Draft |
 | Permission | create |
-| Request | CreateAssetCandidateRequest (scalars §6) |
-| Behavior | Code server-gen `AC-YYYYMMDD-NNNN` · Status=`Draft` · compute NearbyRisk vs radius |
-| **gates.tz** | yes — DetectedAt normalize UTC |
-| Validation | assetClass ∈ 8 · score 0–1 · lat/lng required · routeId required |
+| Request | scalars §6 + **`imageFileId?`** · `expectedAssetId?` · `missWindowMin?` · `missFlag?` |
+| Behavior | Code `AC-YYYYMMDD-NNNN` · Status=`Draft` · NearbyRisk vs radius |
+| **gates.tz** | yes |
 
 ### API-05 PUT `/asset-candidates/{id}`
 
 | | |
 |--|--|
-| Purpose | Edit save · **chỉ** khi Status=`Draft` |
+| Purpose | Edit save · Draft only |
 | Permission | update |
-| Errors | 422 nếu Confirmed/Dismissed |
+| Request | same as create · **`imageFileId`** replace |
+| Errors | 422 Confirmed/Dismissed |
 
 ### API-06 DELETE `/asset-candidates/{id}`
 
 | | |
 |--|--|
-| Purpose | Soft-delete (`IsActive=false`) · Draft only P1 |
+| Purpose | Soft-delete Draft only P1 |
 | Permission | delete |
 
 ### API-07 POST `/detect-assets`
 
 | | |
 |--|--|
-| Purpose | Toolbar «Giả lập frame» — **stub** P1 (không gọi GPT thật) |
+| Purpose | Toolbar «Giả lập frame» — **stub** P1 (host Vision later) |
 | Permission | create |
-| Request | `{ imageUrl? · lat · lng · routeId · routeLabel? · patrolTripId? · engine? }` |
-| Response | 1–N candidates persisted Draft (+ nearby flags) |
-| Context | §3 detect-assets · GAP-F-AAD-03 dataset OUT |
+| Request | `{ imageFileId? · imageUrl? · lat · lng · routeId · routeLabel? · patrolTripId? · engine? }` |
+| Persist | prefer **ImageFileId** when provided |
+| Response | 1–N candidates Draft |
 
 ### API-08 POST `/detect-assets/batch`
 
 | | |
 |--|--|
-| Purpose | Batch theo chuyến tuần đường (stub P1) |
-| Request | `{ patrolTripId · frames:[{lat,lng,imageUrl?}] · routeId }` |
-| Response | `{ created: AssetCandidateDto[] }` |
+| Purpose | Batch stub P1 |
+| Request | `{ patrolTripId · frames:[{lat,lng,imageFileId?,imageUrl?}] · routeId }` |
 
 ### API-09 GET `/asset-candidates/nearby`
 
 | | |
 |--|--|
-| Purpose | Toolbar Nearby · banner duplicate |
-| Query | `lat` · `lng` · `assetClass` · `radiusM?` (default from config) · `excludeId?` |
-| Behavior | Haversine P1 trên candidates + optional RoadAsset cùng Type |
-| Default radius | **25 m** (demo parity) · config `AiVision:AssetDetect:NearbyRadiusMeters` · prod ITS override **10** |
-| **gates.tz** | n/a |
+| Purpose | Nearby · duplicate banner |
+| Query | `lat` · `lng` · `assetClass` · `radiusM?` · `excludeId?` |
+| Default radius | **25 m** P1 · config `AiVision:AssetDetect:NearbyRadiusMeters` · prod ITS **10** |
 
 ### API-10 POST `/asset-candidates/{id}/confirm`
 
 | | |
 |--|--|
-| Purpose | HITL Confirm → tạo RoadAsset · **bắt buộc** (GAP-F-AAD-02) |
+| Purpose | HITL Confirm → RoadAsset |
 | Permission | confirm |
 | Request | `{ assetTypeCode* · name? · note? }` |
-| Behavior | Status must Draft → call `IRoadAssetService.CreateAsync` · Code=`TS-AI-YYYYMMDD-NNNN` · Type=assetTypeCode · Route=routeId · KmFrom from routeLabel/chainage parse or `"0"` · Status=`Draft` · Lat/Lng copy · Note + Source=`ai-asset-detect` · SourceRef=candidate Code · candidate Status=`Confirmed` · AssetCode set · **không** auto-create nếu skipped Confirm |
-| Nearby | nếu NearbyRisk=true → vẫn cho Confirm sau user ack (FE modal) · BE không block |
-| Response | `{ candidate, asset }` |
-| **gates.tz** | yes |
-| **gates.xco** | get path on candidate before mutate |
+| Behavior | Draft → `IRoadAssetService.CreateAsync` · candidate `Confirmed` |
 
 ### API-11 POST `/asset-candidates/{id}/dismiss`
 
@@ -271,23 +296,40 @@ Base: `api/v1/ai-vision` · BFF `web-bff/api/v1/ai-vision`
 | Request | `{ note? }` |
 | Behavior | Status=`Dismissed` · Draft only |
 
-### Lookups (existing — không tạo mới)
+### API-12 POST `/asset-candidates/{id}/miss` (**NEW**)
+
+| | |
+|--|--|
+| Purpose | Miss reconcile HITL — GPS có TS · frame trống / user gim mất (GAP-ITS-MISS-01) · **không** YOLO class «mất» |
+| Permission | `ai-vision.asset-candidates.miss` |
+| Request | `{ expectedAssetId* · missWindowMin? · note? }` |
+| Behavior | Validate Draft · call **existing** `POST /api/v1/incident/incidents` (peer Incident) · set `MissFlag=true` · `ExpectedAssetId` · `MissWindowMin` · `IncidentDraftId` · **cấm** invent `missing-detect` API |
+| Response | `{ candidate, incident }` |
+| **gates.tz** | yes · window relative DetectedAt UTC |
+| **gates.xco** | get path on candidate before mutate |
+| Context | ITS miss policy · real-data §E |
+| Demo | Zone toolbar Reconcile · S-MOD-MISS |
+
+### Lookups / files (existing — không tạo mới)
 
 | API | Path | Consumer |
 |-----|------|----------|
-| L-01 | `GET /api/v1/integration/road-routes/search` | SearchInput routeId |
-| L-02 | `GET /api/v1/integration/asset-types/search` | Confirm SearchInput · gồm `ITS_CAMERA` |
-| L-03 | `GET /api/v1/asset/road-assets` | Map existing pins |
+| L-01 | `GET /api/v1/integration/road-routes/search` | routeId |
+| L-02 | `GET /api/v1/integration/asset-types/search` | Confirm |
+| L-03 | `GET /api/v1/asset/road-assets` | Map + expectedAssetId |
+| L-04 | `web-bff/api/v1/files/*` | FileUpload imageFileId · resign |
+| L-05 | `POST /api/v1/incident/incidents` | API-12 peer |
 
 ## 5. BFF vs API · tenant
 
-- BFF: **proxy only** — extend BFF controller cùng route `web-bff/api/v1/ai-vision` forward `asset-candidates/**` · `detect-assets/**`.
-- Forward headers: `Authorization` · `X-Company-Id`.
-- Tenant: mọi candidate query `CompanyCode` filter; Confirm tạo Asset cùng company.
+- BFF AiVision: **proxy only** — `asset-candidates/**` · `detect-assets/**` (incl. `/{id}/miss`).
+- Files: existing FileService BFF — MFE gọi trực tiếp SSOT.
+- Forward: `Authorization` · `X-Company-Id`.
+- Tenant: CompanyCode filter; Confirm/Miss cùng company.
 
 ## 6. Data model / EF
 
-### Entity `AiVisionAssetCandidateEntity` → table `rmms_ai_vision_asset_candidates`
+### Entity `AiVisionAssetCandidateEntity` → `rmms_ai_vision_asset_candidates`
 
 | Column | Type | Notes |
 |--------|------|-------|
@@ -295,118 +337,126 @@ Base: `api/v1/ai-vision` · BFF `web-bff/api/v1/ai-vision`
 | CompanyCode | string | TenantEntity |
 | Code | varchar(64) | `AC-*` UK / tenant |
 | AssetClass | varchar(64) | 8 AI class |
-| Score | decimal(6,4) | 0–1 |
+| Score | decimal(6,4) | |
 | Status | varchar(32) | Draft / Confirmed / Dismissed |
-| Engine | varchar(16) | P1 / P2 |
-| Lat / Lng | decimal(12,8) | Point scalars |
-| RouteId | varchar(64) | road-route code/id |
-| RouteLabel | varchar(256) | display / chainage |
-| SectionId | varchar(64)? | free P1 |
-| PatrolTripId | varchar(64)? | free P1 |
-| BboxJson | varchar(512)? | `[x1,y1,x2,y2]` scalar text |
-| ModelVersion | varchar(128)? | readonly |
+| Engine | varchar(16) | |
+| Lat / Lng | decimal(12,8) | |
+| RouteId | varchar(64) | |
+| RouteLabel | varchar(256)? | |
+| SectionId | varchar(64)? | |
+| PatrolTripId | varchar(64)? | |
+| BboxJson | varchar(512)? | scalar OK |
+| ModelVersion | varchar(128)? | |
 | NearbyRisk | bool | |
-| NearbyOf | varchar(64)? | peer Code |
+| NearbyOf | varchar(64)? | |
 | Note | varchar(2000)? | |
-| AssetCode | varchar(64)? | set on Confirm |
-| AssetId | uuid? | soft link |
-| ImageUrl | varchar(1024)? | |
+| AssetCode | varchar(64)? | |
+| AssetId | uuid? | |
+| **ImageFileId** | **uuid?** | **NEW · FileService · GAP-AAD-FILE-01 CLOSED** |
+| ImageUrl | varchar(1024)? | legacy/stub display only |
+| **MissFlag** | **bool** | **NEW · miss queue** |
+| **ExpectedAssetId** | **uuid?** | **NEW · miss** |
+| **MissWindowMin** | **int?** | **NEW · default from init-data** |
+| **IncidentDraftId** | **uuid?** | **NEW · after API-12** |
 | DetectedAt | timestamptz | |
-| IsActive | bool | soft-delete |
+| IsActive | bool | |
 | CreatedAt / UpdatedAt | timestamptz | |
 
-### Asset extend (Confirm link)
+### Asset extend (Confirm)
 
-| Column on `rmms_road_assets` | Type | Notes |
-|------------------------------|------|-------|
-| Source | varchar(64)? | `ai-asset-detect` |
-| SourceRef | varchar(64)? | candidate Code |
+| Column `rmms_road_assets` | Notes |
+|---------------------------|-------|
+| Source / SourceRef | `ai-asset-detect` / candidate Code |
 
-Migration: **`Schema_RmmsAiVisionAssetCandidates`** (+ alter RoadAssets Source/SourceRef).
+### Migrations
 
-### Seed
+| Migration | Notes |
+|-----------|-------|
+| `Schema_RmmsAiVisionAssetCandidates` | base (prior) |
+| **`Schema_RmmsAiVisionAssetCandidates_ImageFileId`** | ALTER ADD ImageFileId · MissFlag · ExpectedAssetId · MissWindowMin · IncidentDraftId |
+| RoadAsset Source/SourceRef | prior if missing |
+| Seed `ITS_CAMERA` | prior |
 
-| Seed | Notes |
-|------|-------|
-| Candidates DoD | AC-101…104 — optional Dev seed / reset-seed FE |
-| **ITS_CAMERA** | Insert `rmms_asset_types` · name=`Camera ITS / camera giám sát giao thông` · `groupCode=GIAO_THONG` · update `docs/context/seed/asset-type-seed.json` |
-
-### Persist gate (`no-parent-json-field`)
+### Persist gate
 
 | | |
 |--|--|
-| Parent JSON string inventory | **none** for child lines |
-| BboxJson | scalar bbox string OK (parity detections) |
-| Child tables | n/a |
-| API shape | header scalars only |
+| Parent JSON inventory | **none** |
+| BboxJson | scalar OK |
+| ImageFileId | uuid scalar · **not** URL blob as SSOT |
 
 ## 5b. Implement gates (confirm) — REQUIRED
 
 Autopilot ON · auto-confirm:
 
-| Gate | Decision | Endpoints / surfaces | Skill | Note |
-|------|----------|----------------------|-------|------|
-| TZ | **tz_required** | API-01 from/to · form DetectedAt · API-03/04/05/10 | `/review-timezone-implement` | FE Date → UTC · BE filter UTC bounds |
-| XCO | **xco_get_only** | API-03 GET/{id} (+ confirm/dismiss load) | `/implement-view-cross-company` | IgnoreQueryFilters + AllowedCompanyIds |
-| SHARE | **share_tenant** | `AiVisionAssetCandidateEntity` | `/implement-shared-table` | tenant-only AI candidates |
+| Gate | Decision | Endpoints | Skill |
+|------|----------|-----------|-------|
+| TZ | **tz_required** | API-01/03/04/05/10/12 · DetectedAt | `/review-timezone-implement` |
+| XCO | **xco_get_only** | API-03 · load before confirm/dismiss/miss | `/implement-view-cross-company` |
+| SHARE | **share_tenant** | `AiVisionAssetCandidateEntity` | `/implement-shared-table` |
 
-AskQuestion (autopilot): `sa_tz_gate=tz_required` · `sa_xco_gate=xco_get_only` · `sa_shared_table=share_tenant` · `2026-08-12T14:35:00.000Z`
+AskQuestion (autopilot): `sa_tz_gate=tz_required` · `sa_xco_gate=xco_get_only` · `sa_shared_table=share_tenant` · `2026-09-06T16:50:00.000Z`
 
-## 7. Dedupe (chốt)
+## 7. Dedupe (chốt — UNCLEAR CLOSED)
 
 | Env | Radius | Impl |
 |-----|--------|------|
 | P1 / demo parity | **25 m** | Haversine · NearbyRisk · **không** auto-create |
-| Prod ITS SSOT | **10 m** | `NearbyRadiusMeters=10` · PostGIS `ST_DWithin` **DEFER** (GAP-F-AAD-GEO) |
+| Prod ITS SSOT | **10 m** | `NearbyRadiusMeters=10` · PostGIS `ST_DWithin` **DEFER** |
 
 ## 8. DOMAIN-MAP
 
-Thêm hàng: `ai-asset-detect` → **AiVision** / `ai-vision`.
+Hàng: `ai-asset-detect` → **AiVision** / `ai-vision` (giữ).
 
-## 9. Risks / DEFER
+## 9. Risks / DEFER / CLOSED
 
 | ID | Decision |
 |----|----------|
-| GAP-F-AAD-01 | CLOSED — taxonomy riêng |
-| GAP-F-AAD-02 | CLOSED — Confirm bắt buộc P1 |
-| GAP-F-AAD-03 | OUT — stub detect · no local mAP |
-| GAP-F-AAD-GEO | DEFER PostGIS 10 m |
-| GAP-F-AAD-PATROL | DEFER Patrol trip SearchInput |
-| GAP-F-AAD-HIST | DEFER history API — toolbar stub |
-| JWT Authorize | TODO platform auth (parity siblings) |
+| GAP-AAD-FILE-01 | **CLOSED** — ImageFileId + FileService resign |
+| GAP-AAD-MISS-UI-01 | CLOSED Design · SA API-12 + missOnly |
+| GAP-DA-DEMO-01 | CLOSED PO · demo baseline `ai-vision/ai-asset-detect.html` |
+| GAP-F-AAD-01 | CLOSED taxonomy |
+| GAP-F-AAD-02 | CLOSED Confirm bắt buộc |
+| GAP-F-AAD-03 | OUT stub detect |
+| GAP-F-AAD-GEO | DEFER PostGIS |
+| GAP-F-AAD-PATROL | DEFER |
+| GAP-F-AAD-HIST | DEFER |
+| wait_aiservice | Follow-up GPT-4o · out of this SA reopen |
 
 ## Confirm
 
-`solution_confirm` = **approve** (autopilot · autoApprove=ON · task_fc26e595 · 2026-08-12).
+`solution_confirm` = **approve** (autopilot · autoApprove=ON · task_7381f42c · 2026-09-06).
 
 ## Handoff → Team lead
 
 | Field | Value |
 |-------|-------|
 | feature | `ai-asset-detect` |
+| changeScope | `edit_page` |
 | next | `/agent-team-lead` · roleOnly khi enqueue |
-| API ids | API-01…11 · L-01…03 |
-| Form↔API | §3 |
+| API ids | API-01…**12** · L-01…05 |
+| FormMode↔API | §3 |
+| Filter keys | search · routeId · assetClass · status · fromDate · toDate · missOnly · LinErpListFilterBar |
 | Gates | TZ=`tz_required` · XCO=`xco_get_only` · SHARE=`share_tenant` |
-| Migrations | `Schema_RmmsAiVisionAssetCandidates` · RoadAsset Source/SourceRef · seed `ITS_CAMERA` |
-| BFF | proxy `asset-candidates` · `detect-assets` |
-| MFE | `Linm.Web.RMMS.AiVision` · `route_confirm` đề xuất `/ai-vision/ai-asset-detect` · cập nhật CONTEXT.md §2–§3 |
-| Tasks | list pack + ai pack + T-UI-MAP · T-MIG · T-SEED · T-BE-CONFIRM-ASSET · T-CTX · T-PERM · T-BFF |
-| SSOT grid | 1× LinPageLayout · LinCatalogDataGrid kéo cột ON · LinCatalogListPagination · slideout footer only |
-| beRepo/uiRepo | **chưa tick** — user board trước Dev |
-| Cấm | ERP.* · class ổ gà · nested CatalogListShell · footerPagination |
+| Migrations | base + **ImageFileId/Miss\*** alter · seed ITS_CAMERA |
+| BFF | proxy asset-candidates · detect-assets · miss |
+| Files | reuse FileService BFF |
+| MFE | `Linm.Web.RMMS.AiVision` · mfeStd `/ai-vision/ai-asset-detect` |
+| Tasks | list+ai+map + T-UI-FILTER · T-UI-MISS · T-BE-MISS · T-MIG-FILE · T-UI-FILE · T-BE-FILE |
+| Open questions | **none** (GAP-AAD-FILE-01 · dedupe CLOSED) |
+| Cấm | ERP.* · YOLO «mất» · invent missing-detect · HOW filter layout |
 
 ## Version meta (REQUIRED)
 
 | Field | Value |
 |-------|-------|
 | skillId | agent-sa |
-| skillVersion | 2026.08.10.1 |
+| skillVersion | 2026.09.05.03 |
 | schemaVersion | 1 |
-| workflowVersion | 2026.08.10.3 |
-| rulesVersion | 2026.08.11.1 |
-| generatedAt | 2026-08-12T14:35:00.000Z |
+| workflowVersion | 2026.09.05.03 |
+| rulesVersion | 2026.09.06.1 |
+| generatedAt | 2026-09-06T16:50:00.000Z |
 | versionGate | ok |
 
 ---
-<!-- Version meta: skillVersion=2026.08.10.1 · schemaVersion=qldb-workflow-skill-v1 · workflowVersion=2026.08.10.3 · versionGate=ok -->
+<!-- Version meta: skillVersion=2026.09.05.03 · schemaVersion=qldb-workflow-skill-v1 · workflowVersion=2026.09.05.03 · versionGate=ok -->

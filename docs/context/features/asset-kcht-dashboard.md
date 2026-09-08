@@ -7,7 +7,7 @@
 > **MFE provider:** `Linm.Web.RMMS.Asset` · route `/so-ts/hang-muc` · `mfeStdUrl` `http://localhost:9301/so-ts/hang-muc`  
 > **Consumer (shell):** `D:\MFE-CORE\Linm.Web.Dashboard` · package `@linm/dashboard` · route `/dashboard` · `yarn start` **:8502**  
 > **Cấm** copy 40 ô vào Dashboard hoặc Report · **cấm** `ParcelComponent` / `ParcelLinkConfig` (đó là SearchInput create — skill `/migrate-to-parcel`)  
-> **Peer:** `asset` (list done) · `asset-type` (master done) · `asset-kcht-32` (catalog 36 · await_confirm) · `dashboard` (KPI Report `/bao-cao/dashboard` — khác màn)  
+> **Peer:** `asset` (list done) · `asset-type` (master done) · `asset-kcht-32` · `so-ts-type-grid` · `csdl-so-sach` (**khác lớp chứng từ** — không gộp row) · `dashboard` (KPI Report — khác màn)  
 > **Parent / list nguồn:** `asset` · tables `rmms_road_assets` (+ `rmms_road_routes` · `rmms_pavement_sections` cho 2 ô tuyến/đoạn)
 
 ## 1. Tổng quan
@@ -21,6 +21,8 @@
 | Align MFE | Standalone Asset `http://localhost:9301/so-ts/hang-muc` · shell widget `http://localhost:9000/dashboard` (Root `yarn start:rmms`) · Dashboard std `http://localhost:8502/dashboard` |
 
 **Cấm** enqueue/implement nhầm slug `dashboard` (KPI tuần đường / map sự cố trên Report).
+
+**≠ CSDL Cục:** lưới này **không** phải `/so-ts/csdl-so-sach`. Hai lớp — hang-muc/Sổ TS = từng cái (`rmms_road_assets`); biểu Cục = hàng in Excel. LOOKUP `road-route` chung · **cấm** gộp form (`GAP-CSDL-CUC-11` · [`csdl-cuc-2026.md`](csdl-cuc-2026.md) §1b). 9 loại 1:1 (cống, rãnh, hầm chui, kè, đèn, tường ồn, ITS, nút giao, đoạn mặt đường) vẫn 2 bảng.
 
 ## 2. Design / UI
 

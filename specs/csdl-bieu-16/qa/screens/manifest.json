@@ -1,0 +1,41 @@
+{
+  "url": "http://localhost:9301/csdl-bieu-16",
+  "method": "playwright channel=chrome headless · contract fallback after yarn e2e-qa hang (GAP-QA-E2E-PW-01)",
+  "feature": "csdl-bieu-16",
+  "cases": [
+    "S0",
+    "S1",
+    "QA-20"
+  ],
+  "capturedAt": "2026-09-05T16:56:58.501Z",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "sha256_16": "df8d6375dd104010",
+      "url": "http://localhost:9301/csdl-bieu-16",
+      "note": "list Biểu 16 · filter-bar · interchangeType/kmMain · empty/grid · peer none_p1",
+      "httpStatus": 200
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "sha256_16": "df8d6375dd104010",
+      "url": "http://localhost:9301/so-ts/csdl-so-sach?resource=interchanges",
+      "note": "hub ?resource=interchanges → redirect /csdl-bieu-16",
+      "httpStatus": 200
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "sha256_16": "750db6e448c043ba",
+      "url": "http://localhost:9301/csdl-bieu-16?form=create",
+      "note": "Create Slideout · form=create · Z2 feature + BRANCH · Z3 ATGT+QL · IX-",
+      "httpStatus": 200
+    }
+  ],
+  "ok": true
+}

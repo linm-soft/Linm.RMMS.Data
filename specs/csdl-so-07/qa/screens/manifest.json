@@ -1,0 +1,89 @@
+{
+  "feature": "csdl-so-07",
+  "url": "http://localhost:9301/csdl-so-07",
+  "ok": true,
+  "capturedAt": "2026-09-05T21:57:48.092Z",
+  "method": "playwright-channel-chrome",
+  "gap": "GAP-QA-E2E-PW-01",
+  "cases": [
+    "S0",
+    "S1",
+    "QA-20"
+  ],
+  "results": [
+    {
+      "id": "S0",
+      "ok": true,
+      "result": "PASS",
+      "file": "S0.png",
+      "screenshot": "S0.png",
+      "bytes": 155639,
+      "sha16": "094a3bc30cdfd574",
+      "sha256_16": "094a3bc30cdfd574",
+      "note": "list Sổ 07 · filter-bar · province/status/road · empty/grid · 2-tab form",
+      "finalUrl": "http://localhost:9301/csdl-so-07"
+    },
+    {
+      "id": "S1",
+      "ok": true,
+      "result": "PASS",
+      "file": "S1.png",
+      "screenshot": "S1.png",
+      "bytes": 155639,
+      "sha16": "094a3bc30cdfd574",
+      "sha256_16": "094a3bc30cdfd574",
+      "note": "hub ?resource=row-violations → redirect /csdl-so-07",
+      "finalUrl": "http://localhost:9301/csdl-so-07"
+    },
+    {
+      "id": "QA-20",
+      "ok": true,
+      "result": "PASS",
+      "file": "QA-20.png",
+      "screenshot": "QA-20.png",
+      "bytes": 157482,
+      "sha16": "e9fd16ebfaee89c3",
+      "sha256_16": "e9fd16ebfaee89c3",
+      "note": "Create Slideout · form=create · Z2 header · Tab A/B VP/GP add/remove · SO-",
+      "finalUrl": "http://localhost:9301/csdl-so-07"
+    }
+  ],
+  "steps": [
+    {
+      "id": "S0",
+      "ok": true,
+      "result": "PASS",
+      "file": "S0.png",
+      "screenshot": "S0.png",
+      "bytes": 155639,
+      "sha16": "094a3bc30cdfd574",
+      "sha256_16": "094a3bc30cdfd574",
+      "note": "list Sổ 07 · filter-bar · province/status/road · empty/grid · 2-tab form",
+      "finalUrl": "http://localhost:9301/csdl-so-07"
+    },
+    {
+      "id": "S1",
+      "ok": true,
+      "result": "PASS",
+      "file": "S1.png",
+      "screenshot": "S1.png",
+      "bytes": 155639,
+      "sha16": "094a3bc30cdfd574",
+      "sha256_16": "094a3bc30cdfd574",
+      "note": "hub ?resource=row-violations → redirect /csdl-so-07",
+      "finalUrl": "http://localhost:9301/csdl-so-07"
+    },
+    {
+      "id": "QA-20",
+      "ok": true,
+      "result": "PASS",
+      "file": "QA-20.png",
+      "screenshot": "QA-20.png",
+      "bytes": 157482,
+      "sha16": "e9fd16ebfaee89c3",
+      "sha256_16": "e9fd16ebfaee89c3",
+      "note": "Create Slideout · form=create · Z2 header · Tab A/B VP/GP add/remove · SO-",
+      "finalUrl": "http://localhost:9301/csdl-so-07"
+    }
+  ]
+}

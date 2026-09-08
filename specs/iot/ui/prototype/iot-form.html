@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Thiết bị IoT — Form full page</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    :root {
+      --bg: #f5f7fa; --card: #fff; --border: #e9ecef; --txt: #212529;
+      --muted: #6b7280; --primary: #0d6efd;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: "Segoe UI", system-ui, sans-serif; background: var(--bg); color: var(--txt); font-size: 13px; }
+    .page { display: grid; grid-template-rows: auto minmax(0, 1fr); height: 100vh; }
+    .page-header { padding: 16px 16px 0; }
+    .chrome { border: 1px solid var(--border); border-radius: 8px; background: var(--card); box-shadow: 0 2px 10px rgba(0,0,0,.05); }
+    .toolbar { display: flex; align-items: center; gap: 8px; padding: 16px 20px 12px; border-bottom: 1px solid var(--border); }
+    .toolbar-other { display: flex; gap: 8px; }
+    .toolbar-crud { margin-left: auto; display: flex; gap: 8px; }
+    .btn { height: 32px; padding: 0 12px; border: 1px solid #dee2e6; border-radius: 4px; background: #fff; cursor: pointer; font-size: 12px; display: inline-flex; align-items: center; gap: 6px; }
+    .btn.primary { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .title-block { padding: 12px 20px 16px; }
+    .title-block h1 { margin: 0; font-size: 18px; }
+    .badge { display: inline-flex; margin-top: 8px; padding: 4px 8px; font-size: 12px; color: var(--muted); background: #f3f4f6; border: 1px dashed #e5e7eb; border-radius: 6px; }
+    .scroll { margin: 16px; overflow: auto; display: flex; flex-direction: column; gap: 16px; padding-bottom: 16px; }
+    .section { padding: 16px; background: var(--card); border: 1px solid var(--border); border-radius: 8px; }
+    .section h3 { margin: 0 0 12px; font-size: 13px; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: .5px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+    .fields { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; align-items: start; }
+    .field { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+    .field label { font-size: 13px; color: var(--muted); }
+    .req::after { content: " *"; color: #dc2626; }
+    .span2 { grid-column: span 2; }
+    input, select { width: 100%; min-height: 32px; padding: 6px 10px; border: 1px solid #bababe; border-radius: 4px; font: inherit; font-size: 14px; }
+    .view-mode .fields input, .view-mode .fields select { pointer-events: none; background: #fff; }
+    .backdrop{display:none;position:fixed;inset:0;background:rgba(15,23,42,.35);z-index:40;align-items:center;justify-content:center}
+    .backdrop.on{display:flex}
+    .modal{width:min(420px,94vw);background:#fff;border-radius:8px;border:1px solid var(--border)}
+    .modal-h{padding:12px 16px;border-bottom:1px solid var(--border);font-weight:700}
+    .modal-b{padding:16px;font-size:13px;color:var(--muted)}
+    .modal-f{padding:12px 16px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:8px}
+    @media (max-width: 1200px) { .fields { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+    @media (max-width: 720px) { .fields { grid-template-columns: 1fr 1fr; } .span2 { grid-column: 1 / -1; } }
+  </style>
+</head>
+<body>
+  <div class="page" data-form-surface="full" data-des-id="DES-GRID-Z" id="form-root">
+    <div class="page-header">
+      <div class="chrome">
+        <div class="toolbar">
+          <button type="button" class="btn" id="btn-back" title="Quay lại"><i class="fas fa-arrow-left"></i> Quay lại</button>
+          <div class="toolbar-other"></div>
+          <div class="toolbar-crud">
+            <button type="button" class="btn" id="btn-cancel" title="Hủy"><i class="fas fa-times"></i> Hủy</button>
+            <button type="button" class="btn primary" id="btn-save" title="Tạo mới"><i class="fas fa-save"></i> <span id="save-label">Tạo mới</span></button>
+          </div>
+        </div>
+        <div class="title-block">
+          <h1 id="form-title">Tạo mới — thiết bị IoT</h1>
+          <div class="badge" id="form-badge">Đang tạo mới — Lưu hoặc Hủy · 5 cột · cấm footer Lưu</div>
+        </div>
+      </div>
+    </div>
+    <div class="scroll">
+      <section class="section">
+        <h3>Thông tin thiết bị</h3>
+        <div class="fields" data-form-cols="5">
+          <div class="field">
+            <label class="req" for="code">Mã thiết bị</label>
+            <input id="code" name="code" value="IOT-" placeholder="IOT-…" />
+          </div>
+          <div class="field span2">
+            <label class="req" for="name">Tên thiết bị</label>
+            <input id="name" name="name" placeholder="Tên thiết bị" />
+          </div>
+          <div class="field">
+            <label class="req" for="type">Loại cảm biến</label>
+            <select id="type" name="type">
+              <option value="sensor">Cảm biến (sensor)</option>
+              <option value="logger">Logger (logger)</option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="req" for="status">Trạng thái</label>
+            <select id="status" name="status">
+              <option value="online">Online</option>
+              <option value="offline">Offline</option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="req" for="routeCode">Tuyến</label>
+            <input id="routeCode" name="routeCode" list="route-seed" placeholder="SearchInput · road-route" />
+            <datalist id="route-seed">
+              <option value="QL1"></option>
+              <option value="QL14"></option>
+              <option value="QL20"></option>
+            </datalist>
+          </div>
+          <div class="field">
+            <label for="km">Lý trình</label>
+            <input id="km" name="km" type="number" step="0.1" placeholder="Km" />
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <div class="backdrop" id="modal-leave" data-des-id="DES-LEAVE">
+    <div class="modal">
+      <div class="modal-h">Rời trang?</div>
+      <div class="modal-b">Bạn có thay đổi chưa lưu. Rời trang sẽ mất dữ liệu.</div>
+      <div class="modal-f">
+        <button type="button" class="btn" id="leave-stay">Ở lại</button>
+        <button type="button" class="btn primary" id="leave-ok">Rời trang</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(location.search);
+    const mode = params.get('mode') || 'create';
+    const id = params.get('id') || '';
+    let dirty = false;
+    let leaveTarget = 'iot-list.html';
+
+    const titles = {
+      create: 'Tạo mới — thiết bị IoT',
+      edit: 'Sửa — thiết bị IoT',
+      view: 'Xem — thiết bị IoT',
+      copy: 'Sao chép — thiết bị IoT',
+    };
+    const badges = {
+      create: 'Đang tạo mới',
+      edit: 'Đang sửa',
+      view: 'Chế độ xem (readOnly)',
+      copy: 'Sao chép từ ' + id,
+    };
+    document.getElementById('form-title').textContent = titles[mode] || titles.create;
+    document.getElementById('form-badge').textContent = (badges[mode] || badges.create) + ' · 5 cột · LeaveConfirmModal';
+    const saveLabel = document.getElementById('save-label');
+    const btnSave = document.getElementById('btn-save');
+    if (mode === 'view') {
+      document.getElementById('form-root').classList.add('view-mode');
+      btnSave.hidden = true;
+      document.getElementById('btn-cancel').hidden = true;
+    } else if (mode === 'edit') {
+      saveLabel.textContent = 'Lưu';
+      btnSave.title = 'Lưu';
+    } else {
+      saveLabel.textContent = 'Tạo mới';
+      btnSave.title = 'Tạo mới';
+    }
+    if (id) {
+      document.getElementById('code').value = id;
+      document.getElementById('name').value = 'Thiết bị ' + id;
+    }
+
+    document.querySelectorAll('.fields input, .fields select').forEach(el => {
+      el.addEventListener('input', () => { dirty = true; });
+      el.addEventListener('change', () => { dirty = true; });
+    });
+
+    function openLeave(target) {
+      leaveTarget = target || 'iot-list.html';
+      if (!dirty || mode === 'view') { location.href = leaveTarget; return; }
+      document.getElementById('modal-leave').classList.add('on');
+    }
+    document.getElementById('btn-back').addEventListener('click', () => openLeave('iot-list.html'));
+    document.getElementById('btn-cancel').addEventListener('click', () => openLeave('iot-list.html'));
+    document.getElementById('leave-stay').addEventListener('click', () => document.getElementById('modal-leave').classList.remove('on'));
+    document.getElementById('leave-ok').addEventListener('click', () => { location.href = leaveTarget; });
+    document.getElementById('btn-save').addEventListener('click', () => {
+      dirty = false;
+      location.href = 'iot-list.html';
+    });
+  </script>
+</body>
+</html>

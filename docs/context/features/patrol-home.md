@@ -10,7 +10,7 @@
 
 | | |
 |--|--|
-| Mục tiêu | Hub ca tuần đường hiện trường · ca đang chạy · KPI · danh sách hôm nay · thao tác nhanh |
+| Mục tiêu | Hub ca tuần đường hiện trường · ca đang chạy · KPI · danh sách hôm nay · thao tác nhanh · họp 3: scope **Khu I** |
 | Persona | Tuần đường |
 | Entry | Tab **Tuần đường** · Home quick **Điểm tuần** · Home tile **Tuần đường** |
 | DoD P1 | GET sessions · hero ca active · KPI · list hôm nay · nav Đồng bộ → `patrol-offline` · sibling toast |
@@ -48,6 +48,7 @@
 | `cam-patrol` | Thu thập camera |
 | `patrol-history` | Lịch sử phiên |
 | `supervise` | Giám sát |
+| `nghiem-thu` | Row **Công tác nghiệm thu** · họp 1 · enqueue_later |
 
 ## 5. Demo SSOT
 

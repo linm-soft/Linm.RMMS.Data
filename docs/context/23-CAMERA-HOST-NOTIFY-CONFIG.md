@@ -4,7 +4,9 @@
 > **Ngày:** 2026-08-09  
 > **Mục đích:** Hướng dẫn kỹ thuật ITS cấu hình camera để **đẩy event** (biển · tốc độ · loại xe) về máy chủ RMMS và **đếm số lượng** trên UI.  
 > **Liên quan:** `features/camera-connect.md` · `22-CAMERA-TCM403-SDK-RESEARCH.md` · Cam-HT `08-CAMERA-STANDARD-HIKVISION.md`  
-> **Endpoint nhận:** `POST /api/v1/cameras/ingest/isapi`
+> **Endpoint nhận (SSOT):** `POST /api/v1/camera-events/ingest?host={IP_CAMERA}&apiKey={KEY}`  
+> Alias: `POST /api/v1/cameras/ingest/isapi` (cùng auth). **Không JWT**.  
+> **Next (task `camera-ingest-apikey`):** key do **Auth** cấp · header **`X-Api-Key`** · query `apiKey` = cùng secret (TCM403) · rate limit 120/min/key. Lab hiện tại vẫn env `Camera__Ingest__ApiKey`.
 
 ---
 
@@ -34,10 +36,10 @@
 http://camera-event-api-rmms.vn
 ```
 
-**URL đầy đủ ghi vào camera (Host Notification):**
+**URL đầy đủ ghi vào camera (ISAPI Listening):**
 
 ```text
-http://camera-event-api-rmms.vn/api/v1/cameras/ingest/isapi?host={IP_CAMERA}
+http://camera-event-api-rmms.vn/api/v1/camera-events/ingest?host={IP_CAMERA}&apiKey={CAMERA_INGEST_API_KEY}
 ```
 
 | Thành phần | Giá trị |
@@ -45,16 +47,19 @@ http://camera-event-api-rmms.vn/api/v1/cameras/ingest/isapi?host={IP_CAMERA}
 | Scheme | `http` (lab) · prod khuyến nghị `https` |
 | Host nhận | `camera-event-api-rmms.vn` |
 | Port | **80** (HTTP mặc định) · hoặc `:443` HTTPS · lab local `:5101` |
-| Path | `/api/v1/cameras/ingest/isapi` |
+| Path | `/api/v1/camera-events/ingest` |
 | Query `host` | IP tĩnh camera (VD `113.179.52.55`) |
+| Query `apiKey` | Secret `Camera__Ingest__ApiKey` — Hikvision không hỗ trợ JWT |
+| Auth trên form cam | **None** (key nằm URL) hoặc **Base64** với Password = apiKey |
 
 ### Ví dụ điền sẵn — cam lab
 
 | Field | Value |
 |-------|--------|
-| Full URL | `http://camera-event-api-rmms.vn/api/v1/cameras/ingest/isapi?host=113.179.52.55` |
+| Full URL | `http://camera-event-api-rmms.vn/api/v1/camera-events/ingest?host=113.179.52.55&apiKey=…` |
 | Method | **POST** |
 | Content-Type cam gửi | `application/json` hoặc `application/xml` (theo firmware) |
+| Form Auth | **None** |
 
 ### Lab local (dev)
 
@@ -62,12 +67,12 @@ http://camera-event-api-rmms.vn/api/v1/cameras/ingest/isapi?host={IP_CAMERA}
 |-------|--------|
 | Host nhận | IP máy chạy API (LAN), **không** `localhost` từ phía camera |
 | Port | `5101` |
-| Full URL | `http://{IP_MAY_API}:5101/api/v1/cameras/ingest/isapi?host=113.179.52.55` |
+| Full URL | `http://{IP_MAY_API}:5101/api/v1/camera-events/ingest?host=113.179.52.55&apiKey=rmms-cam-ingest-lab` |
 
 BFF (nếu expose ingest qua BFF):
 
 ```text
-http://camera-event-api-rmms.vn/web-bff/api/v1/cameras/ingest/isapi?host={IP_CAMERA}
+http://camera-event-api-rmms.vn/web-bff/api/v1/camera-events/ingest?host={IP_CAMERA}&apiKey={KEY}
 ```
 
 Ưu tiên **API direct** (`/api/v1/...`) cho cam push — ít hop, dễ firewall.
@@ -82,7 +87,7 @@ http://camera-event-api-rmms.vn/web-bff/api/v1/cameras/ingest/isapi?host={IP_CAM
 | 2 | Cam → `camera-event-api-rmms.vn:80` (hoặc 443) | **Outbound** POST event |
 | 3 | DNS | Cam resolve được `camera-event-api-rmms.vn` (hoặc ghi IP server) |
 | 4 | NTP trên cam | Giờ đúng (timestamp event) |
-| 5 | Firewall server | Allow POST `/api/v1/cameras/ingest/isapi` từ IP cam / dải Chi cục |
+| 5 | Firewall server | Allow POST `/api/v1/camera-events/ingest` từ IP cam / dải Chi cục |
 
 **Lab `113.179.52.55`:** từ Internet chỉ mở SDK **8100** · HTTP đóng → cấu hình Host notify **trên LAN/VPN** cạnh cam; server nhận phải reachable từ mạng cam.
 
@@ -129,28 +134,42 @@ Menu điển hình (tên lệch theo firmware TCM403):
 
 Menu điển hình:
 
-**Configuration → Event → Destination / Notify Surveillence Center**  
-hoặc **Network → Advanced → HTTP Listening Host / HTTP Host Notification / Alarm Server**
+**Configuration → Network → Data Connection → ISAPI Listening** (TCM403)
+
+### 4.0 Auth (Hikvision không JWT)
+
+| Cơ chế | Dùng? |
+|--------|--------|
+| JWT Bearer | **Không** — cam không gửi |
+| Digest admin/pass cam | **Không** — RMMS ingest không challenge Digest |
+| **API-key + IP camera** | **SSOT** |
+
+- Query `apiKey` (ghi trong Host URL) hoặc header `X-Camera-Api-Key` hoặc form **Base64** (Password = key).
+- Query `host` = IP camera.
+- Prod: `RequireSourceIpMatch=true` — TCP source IP phải = `host` hoặc `Camera:Ingest:HostAliases`.
+- Lab: `RequireSourceIpMatch=false` (curl từ máy dev). Env `Camera__Ingest__ApiKey`.
 
 ### 4.1 Bảng điền (SSOT)
 
 | Field trên cam (EN/VN hay gặp) | Giá trị production ví dụ |
 |--------------------------------|--------------------------|
 | Enable / Kích hoạt | **On** |
-| Protocol | **HTTP** (hoặc HTTPS nếu TLS) |
+| Protocol / Version | **HTTP** (hoặc HTTPS nếu TLS) |
 | **Addressing / IP / Host / Server Address** | `camera-event-api-rmms.vn` |
 | Port | `80` (HTTP) · `443` (HTTPS) |
-| URL / Path / Resource | `/api/v1/cameras/ingest/isapi?host=113.179.52.55` |
+| URL / Path / Resource | `/api/v1/camera-events/ingest?host=113.179.52.55&apiKey={KEY}` |
 | Method | **POST** |
-| HTTP Authentication | None (P1.5) · P2: token/mTLS |
+| HTTP Authentication | **None** (key trong URL) · hoặc **Base64** Password=`{KEY}` |
+| Platform Response Verification | **Tắt** |
 | ANPR / Vehicle / Traffic event | **Tick** các loại event cần đẩy |
 
 Một số firmware tách:
 
 - **IP Address** = `camera-event-api-rmms.vn` (hoặc IP server)
-- **URL** chỉ path: `/api/v1/cameras/ingest/isapi?host=113.179.52.55`
+- **URL** chỉ path: `/api/v1/camera-events/ingest?host=113.179.52.55&apiKey={KEY}`
 
-Không ghi `localhost` / `127.0.0.1` — đó là máy cam, không phải RMMS.
+Không ghi `localhost` / `127.0.0.1` — đó là máy cam, không phải RMMS.  
+**Không** điền Host = IP camera (`113.179.52.55`).
 
 ### 4.2 ISAPI tương đương (khi HTTP cam mở)
 
@@ -166,7 +185,7 @@ Skeleton (chỉnh schema theo firmware TPP — **verify trước prod**):
 <HttpHostNotificationList>
   <HttpHostNotification>
     <id>1</id>
-    <url>/api/v1/cameras/ingest/isapi?host=113.179.52.55</url>
+    <url>/api/v1/camera-events/ingest?host=113.179.52.55&amp;apiKey=REPLACE</url>
     <protocolType>HTTP</protocolType>
     <parameterFormatType>JSON</parameterFormatType>
     <addressingFormatType>hostname</addressingFormatType>
@@ -194,7 +213,7 @@ Nếu cam chỉ hỗ trợ IP:
 |--|--|
 | Method | `POST` |
 | Body | JSON hoặc XML ANPR / Traffic (plate · speed · type · color · direction · ảnh) |
-| Query | `host` = IP camera |
+| Query | `host` = IP camera · `apiKey` = ingest key |
 
 RMMS: `CameraConnectService.IngestIsapiAsync` → **EF** `rmms_camera_events` → MFE **Tải events**.
 
@@ -219,13 +238,13 @@ Response thành công (rút gọn):
 
 ```bash
 curl -s -X POST \
-  "http://camera-event-api-rmms.vn/api/v1/cameras/ingest/isapi?host=113.179.52.55" \
+  "http://localhost:5101/api/v1/camera-events/ingest?host=113.179.52.55&apiKey=rmms-cam-ingest-lab" \
   -H "Content-Type: application/json" \
   -d "{\"licensePlate\":\"TEST-001\",\"speed\":60,\"vehicleType\":\"car\"}"
 ```
 
 ```bash
-curl -s "http://camera-event-api-rmms.vn/api/v1/cameras/events?limit=40"
+curl -s "http://localhost:5101/api/v1/camera-events?limit=40"
 ```
 
 Mỗi POST thành công → **+1** event (đếm = `length` danh sách / HUD Events trên `/camera/new`).
@@ -242,7 +261,9 @@ Mỗi POST thành công → **+1** event (đếm = `length` danh sách / HUD Eve
 | Triệu chứng | Kiểm tra |
 |-------------|----------|
 | Events = 0 | Cam → DNS/IP server · port 80/443 · firewall · URL path đúng |
-| 404 | Path thiếu `/api/v1/cameras/ingest/isapi` |
+| 401 | Thiếu/sai `apiKey` |
+| 403 | Source IP ≠ `host` (bật `RequireSourceIpMatch`) — thêm `HostAliases` LAN |
+| 404 | Path thiếu `/api/v1/camera-events/ingest` |
 | Timeout | Cam không ra Internet / NAT; dùng IP LAN Edge |
 | Có POST nhưng thiếu biển | Firmware format khác — xem raw body log API · mở rộng parser |
 | Chỉ SDK 8100 | Host notify **không** chạy qua 8100 — cần HTTP outbound + cấu hình qua LAN |
@@ -257,7 +278,7 @@ Mỗi POST thành công → **+1** event (đếm = `length` danh sách / HUD Eve
 |--|--|
 | Host nhận | `camera-event-api-rmms.vn` |
 | Port | `80` |
-| Full URL | `http://camera-event-api-rmms.vn/api/v1/cameras/ingest/isapi?host=113.179.52.55` |
+| Full URL | `http://camera-event-api-rmms.vn/api/v1/camera-events/ingest?host=113.179.52.55&apiKey=…` |
 
 ### Production HTTPS (khuyến nghị)
 
@@ -265,7 +286,7 @@ Mỗi POST thành công → **+1** event (đếm = `length` danh sách / HUD Eve
 |--|--|
 | Host nhận | `camera-event-api-rmms.vn` |
 | Port | `443` |
-| Full URL | `https://camera-event-api-rmms.vn/api/v1/cameras/ingest/isapi?host=113.179.52.55` |
+| Full URL | `https://camera-event-api-rmms.vn/api/v1/camera-events/ingest?host=113.179.52.55&apiKey=…` |
 
 ### Dev local
 
@@ -273,7 +294,7 @@ Mỗi POST thành công → **+1** event (đếm = `length` danh sách / HUD Eve
 |--|--|
 | Host nhận | `{IP_LAN_MAY_DEV}` |
 | Port | `5101` |
-| Full URL | `http://{IP_LAN_MAY_DEV}:5101/api/v1/cameras/ingest/isapi?host=113.179.52.55` |
+| Full URL | `http://{IP_LAN_MAY_DEV}:5101/api/v1/camera-events/ingest?host=113.179.52.55&apiKey=rmms-cam-ingest-lab` |
 
 ---
 
@@ -284,7 +305,7 @@ Mỗi POST thành công → **+1** event (đếm = `length` danh sách / HUD Eve
 | Feature | `docs/context/features/camera-connect.md` |
 | SDK research | `docs/context/22-CAMERA-TCM403-SDK-RESEARCH.md` |
 | Implement | `specs/camera-connect/implement/camera-connect.md` |
-| API code | `RMMS.Service.Api` · `POST api/v1/cameras/ingest/isapi` |
+| API code | `RMMS.Service.Api` · `POST api/v1/camera-events/ingest` · alias `POST api/v1/cameras/ingest/isapi` |
 | MFE | `Linm.Web.RMMS.Camera` · zone Events |
 
 Version meta: guide=`camera-host-notify-config` · exampleHost=`camera-event-api-rmms.vn` · date=`2026-08-09`

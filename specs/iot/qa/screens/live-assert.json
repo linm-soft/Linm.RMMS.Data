@@ -1,0 +1,47 @@
+{
+  "viewports": [
+    {
+      "width": 1280,
+      "overflowX": false,
+      "hasList": true,
+      "hasFilterSearch": true,
+      "hasStatus": true,
+      "hasType": true,
+      "hasRoute": true,
+      "demoBadges": false,
+      "titleHit": true
+    },
+    {
+      "width": 768,
+      "overflowX": false,
+      "hasList": true,
+      "hasFilterSearch": true,
+      "hasStatus": true,
+      "hasType": true,
+      "hasRoute": true,
+      "demoBadges": false,
+      "titleHit": true
+    },
+    {
+      "width": 375,
+      "overflowX": false,
+      "hasList": true,
+      "hasFilterSearch": true,
+      "hasStatus": true,
+      "hasType": true,
+      "hasRoute": true,
+      "demoBadges": false,
+      "titleHit": true
+    }
+  ],
+  "form": {
+    "formCols": "5",
+    "hasCode": true,
+    "hasName": true,
+    "hasType": true,
+    "hasStatus": true,
+    "hasRoute": false,
+    "hasKm": true,
+    "demoBadges": false
+  }
+}

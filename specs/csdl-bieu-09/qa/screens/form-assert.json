@@ -1,0 +1,12 @@
+{
+  "hasZ2": true,
+  "hasZ3": true,
+  "hasRoad": false,
+  "hasMarkerKind": true,
+  "hasMarkerStructure": true,
+  "hasQty": true,
+  "hasYear": true,
+  "hasSave": true,
+  "dataFormCols": "2",
+  "hasMkCodeHint": true
+}

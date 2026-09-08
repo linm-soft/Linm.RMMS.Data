@@ -4,7 +4,7 @@
 |-------|-------|
 | feature | `ai-vision` |
 | phase | `data_analy` |
-| status | `in_progress` |
+| status | `draft` |
 | changeScope | `edit_page` |
 | packKind | `ai` |
 | demo | `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/ai-vision-demo.html` |
@@ -18,7 +18,7 @@
 | versionGate | `ok` |
 | mfeStdRoute | `/ai-vision` |
 | mfeStdUrl | `http://localhost:9303/ai-vision` |
-| updatedAt | `2026-08-24T15:40:02.687Z` |
+| updatedAt | `2026-09-06T15:22:16.108Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -39,12 +39,12 @@
 
 | Step | Agent | Artifact | Status |
 |------|-------|----------|--------|
-| 0b | data-analy | `_data-analy/features/ai-vision-control-hint.md` + `ai-vision-real-data.md` | **paused** |
-| 1 | po | po/requirement.md | **done** |
-| 2.1 | design | ui/design.md + prototype + reviewUrl | **done** |
-| 2.2 | sa | be/solution-discovery.md | **done** |
-| 3 | team-lead | task/ai-vision.md | **done** |
-| 4 | dev | implement/ai-vision.md | **in_progress** |
+| 0b | data-analy | `_data-analy/features/ai-vision-control-hint.md` + `ai-vision-real-data.md` | **pending** |
+| 1 | po | po/requirement.md | **pending** |
+| 2.1 | design | ui/design.md + prototype + reviewUrl | **pending** |
+| 2.2 | sa | be/solution-discovery.md | **pending** |
+| 3 | team-lead | task/ai-vision.md | **pending** |
+| 4 | dev | implement/ai-vision.md | **pending** |
 | 5 | qa | qa/scenarios.md | **pending** |
 | 6 | review | review/findings.md | **pending** |
 ## Tasks

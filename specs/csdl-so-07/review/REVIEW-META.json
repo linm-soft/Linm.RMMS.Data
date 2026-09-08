@@ -1,0 +1,21 @@
+{
+  "feature": "csdl-so-07",
+  "status": "confirmed",
+  "verdict": "PASS",
+  "review_confirm": "done",
+  "taskId": "task_c8e7adf8",
+  "autoApprove": true,
+  "contentHashPrior": "sha256:b928feb3e0d7900398812630e25afa43bfcbf4971633a9c1184c55ea2912ef69",
+  "gates": {
+    "QUERY": "PASS",
+    "SEC": "PASS",
+    "UI-FN": "PASS",
+    "BE-FN": "PASS",
+    "hash": "skip"
+  },
+  "blockingFindings": 0,
+  "reviewedAt": "2026-09-06T05:01:20.000Z",
+  "skillVersion": "2026.08.25.01",
+  "workflowVersion": "2026.09.01.02",
+  "rulesVersion": "2026.08.31.2"
+}

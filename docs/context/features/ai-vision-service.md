@@ -4,7 +4,7 @@
 > **Phase:** V1 = P1 online · P2 local **chỉ trên host này**  
 > **Status:** Context  
 > **Host:** **`Linm.RMMS.Vision`** (`D:/AI-QLBD/Linm.RMMS.Vision`) — **không** `Linm.AI.WebService` · **không** domain AiVision SSOT trên `Linm.RMMS.WebService`  
-> **Skills:** `/new-service` · `/implement-ai-detect-run` · `/agent-dev-ai-detect` · `/database-migration` · `/create-bff-api-feature`  
+> **Skills:** **`/implement-ai-vision-stack`** (parent BE→BFF→UI) · `/new-service` · `/implement-ai-detect-run` · `/agent-dev-ai-detect` · `/database-migration` · `/create-bff-api-feature` · `/data-gov-integration`  
 > **Implement plan:** [`../../plan/ai-vision-service/README.md`](../../plan/ai-vision-service/README.md)  
 > **Features trên host:** [`ai-vision.md`](ai-vision.md) · [`ai-asset-detect.md`](ai-asset-detect.md) · [`its-traffic-detect.md`](its-traffic-detect.md) · [`its-anpr-overload.md`](its-anpr-overload.md) · [`predict.md`](predict.md) · [`estimate.md`](estimate.md)
 
@@ -46,12 +46,14 @@ Giữ contract feature: `defect.detected` · `asset.candidate.detected` — emit
 
 | ID | Default |
 |----|---------|
-| GAP-VIS-HOST-01 | Repo chưa scaffold — `/new-service` |
-| GAP-VIS-CUTOVER-01 | WebService + `:5301` còn là runtime hiện tại |
-| GAP-F-AIV-04 | `DetectStubAsync` `mock://` trên WebService |
+| GAP-VIS-HOST-01 | Repo chưa scaffold — `/new-service` — **closed 2026-09-05** Wave 0p `Linm.RMMS.Vision` |
+| GAP-VIS-W1-01 | Wave 1 API + Schema pair — **closed 2026-09-06** `20260905173308_Schema_RmmsVision` |
+| GAP-VIS-CUTOVER-01 | WebService + `:5301` còn là runtime hiện tại (Wave 3) |
+| GAP-F-AIV-04 | `DetectStubAsync` `mock://` trên WebService — Vision reject `mock://` 422 |
+| GAP-F-AAD-MAP-01 | Online «Biển báo» → `GANTRY_SIGN` trên WebService — Vision dùng `TRAFFIC_SIGN` |
 
 ## 7. Demo checklist
 
-- [ ] Host health `:5311`
+- [x] Host health `:5311`
 - [ ] BFF cùng path
 - [ ] P2 không đổi route MFE

@@ -13,9 +13,19 @@ Rebuild `gov-vn` **không** ghi JSON `dump_specs` trên CSV — chỉ cột dữ
 |------|----------|-----------|-------------------|---------------|
 | Tuyến chính (Cao tốc/QL) | `road_name` | «Cao tốc/quốc lộ: QL.1» | `route` = mã catalog `/mas/tuyen-duong` (in hoa, không dấu; thiếu → `KHAC`) | SearchInput tầng 1 |
 | Tuyến (named / BOT) | `long_route_name` | «Tuyến: QL.1 - Lạng Sơn (BOT): Km 0 + 000 - Km 1 + 800» | `route_named` = mã con catalog (`parent_code` = tầng 1) | SearchInput tầng 2 |
-| Đoạn tuyến | `name_of_route_asset` | «Đoạn tuyến: Km 0 + 000 - Km 1 + 800» | hay bị nhét vào `name` tài sản | Không cột |
+| Đoạn tuyến | `name_of_route_asset` | «Đoạn tuyến: Km 0 + 000 - Km 1 + 800» | `route_segment` = slug catalog (`parent_code` = named hoặc tầng 1) | SearchInput tầng 3 |
 
 `tbl_rmd`: có `road_name` + `long_route_name`; đoạn = `vitridiemdau-kmlytrinh`–`vitridiemcuoi-kmlytrinh` (không cột `name_of_route_asset`).
+
+**Join tài sản ↔ catalog tuyến (HARD 2026-09-05):** không `RoadRouteId`. Ba cột string trên `rmms_road_assets` = cùng slug `NormCatalogCode` với `rmms_road_routes.Code`:
+
+| Cột DB | CSV / dump | Ví dụ |
+|--------|------------|--------|
+| `Route` | `route` ← `road_name` | `QL.1` |
+| `RouteNamed` | `route_named` ← `long_route_name` | `QL.1-LANGSON(BOT)` |
+| `RouteSegment` | `route_segment` ← `name_of_route_asset` | slug từ `Km 0 + 000 - Km 1 + 800` |
+
+Import resolve catalog rồi **ghi lại `Code`**. Thiếu tầng 1 → `KHAC` (fallback, không phải khóa hệ thống). Nhãn `Km…` thuần → **không** upsert orphan KM (`GAP-ROUTE-UI-KM-01`). Mã tài sản dump = prefix + `vidagis_id` — **không** Guid, **không** `TS-yyyyMMdd-nnn` (mã đó chỉ CRUD form mới).
 
 **Hiển thị chuẩn (mọi list/form tài sản + Biểu 1 + `/mas/tuyen-duong`):** 3 field tách — **cấm** gộp 1 ô text.
 

@@ -18,7 +18,7 @@
 
 Mirror: `Linm.RMMS.WebService/api/src/RMMS.Service.Api/data/import/sets/gov-vn/`.
 
-`ImportSets` = `["drvn-org", "gov-vn"]`. **Không** set riêng `so-hieu-bien-bao` — loại biển nằm trong `gov-vn` (`traffic_sign_types.csv`). **Không** khu-2/khu-4. **Không** `_archive`.
+`ImportSets` = `["drvn-org", "gov-vn", "t6-org-scope"]`. **Không** set riêng `so-hieu-bien-bao` — loại biển nằm trong `gov-vn` (`traffic_sign_types.csv`). **Không** khu-2/khu-4. **Không** `_archive`. **Không** gộp zone km vào `gov-vn` — Excel T6.2026 → `{DocsRoot}/data-import/t6-org-scope/` (phân khu + đối tác; đoạn thiếu VP không import).
 
 `road_assets.csv` > 100 MiB → rebuild **tách** `road_assets.part1.csv` + `part2.csv` (commit parts). Import đọc parts trước file ghép. Rule: `service/rule/import-csv-git-split.md`.
 
@@ -183,6 +183,10 @@ Live DRVN / user: **Tuyến chính** `QL.1` · **Tuyến** `QL.1 - Lạng Sơn (
 | Đoạn | `KHAC` + `parent_code` | `route_segment` (triple dump) — **cấm** orphan KM |
 
 Backup: `road_routes.before-t6.csv`. Mirror WebService `data/import/sets/gov-vn/`. **Cấm** alias tự động Nghi Sơn–Bãi Trành → QL.45 / cao tốc QL.45–Nghi Sơn.
+
+**2026-09-05:** cùng Excel T6 → set **`t6-org-scope`** (`org_route_scopes` · `partner_units`). Script `data-import/t6-org-scope/build-t6-org-scope-catalogs.mjs`. **Không** rebuild `gov-vn`. Dump moc vẫn không có bảng gán Khu↔km. Peer [`org-route-scope.md`](org-route-scope.md) GAP-ORS-01.
+
+**Join TS ↔ tuyến:** slug file `NormCatalogCode` trên `Route` / `RouteNamed` / `RouteSegment` = `RoadRoute.Code` — **không** Guid / IdCode catalog. Chi tiết [`import-gov-asset-fields.md`](import-gov-asset-fields.md) §1 · [`road-route.md`](road-route.md).
 
 `road_assets` 13 cột — bỏ hình dạng biển, tên cột km, thông số cọc, 3 tầng tuyến. `pavement_sections` 16 cột — bỏ nền / chiều xe / 4 XY / `long_route_name` / làn·lề (dump `tbl_rmd`).
 

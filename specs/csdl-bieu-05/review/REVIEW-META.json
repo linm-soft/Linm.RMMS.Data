@@ -1,0 +1,27 @@
+{
+  "feature": "csdl-bieu-05",
+  "status": "confirmed",
+  "verdict": "PASS",
+  "review_confirm": "approve",
+  "fix_gaps": [],
+  "taskId": "task_d12c1bda",
+  "contentHash": "sha256:fd4e6899790aa98d6bc4cb628dc9c0bc5efc90acb3abf03a7b157cf123590117",
+  "hashSkip": true,
+  "layers": {
+    "QUERY": "PASS",
+    "SEC": "PASS",
+    "UI-FN": "PASS",
+    "BE-FN": "PASS"
+  },
+  "qaEvidence": {
+    "S0": "a23703a704e66bd1",
+    "S1": "ea9bebf5a586b1e3",
+    "QA-20": "b8607424dc589ce0",
+    "ok": true
+  },
+  "autoApprove": true,
+  "reviewedAt": "2026-09-05T07:10:30.000Z",
+  "skillVersion": "2026.08.29.03",
+  "workflowVersion": "2026.09.01.02",
+  "rulesVersion": "2026.08.31.2"
+}

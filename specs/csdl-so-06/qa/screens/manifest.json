@@ -1,0 +1,89 @@
+{
+  "feature": "csdl-so-06",
+  "url": "http://localhost:9301/csdl-so-06",
+  "ok": true,
+  "capturedAt": "2026-09-05T20:59:51.704Z",
+  "method": "playwright-channel-chrome",
+  "gap": "GAP-QA-E2E-PW-01",
+  "cases": [
+    "S0",
+    "S1",
+    "QA-20"
+  ],
+  "results": [
+    {
+      "id": "S0",
+      "ok": true,
+      "result": "PASS",
+      "file": "S0.png",
+      "screenshot": "S0.png",
+      "bytes": 107841,
+      "sha16": "bd06b17fe835b37b",
+      "sha256_16": "bd06b17fe835b37b",
+      "note": "list Sổ 06 · filter-bar · province/status/road/bridge/period · empty/grid",
+      "finalUrl": "http://localhost:9301/csdl-so-06"
+    },
+    {
+      "id": "S1",
+      "ok": true,
+      "result": "PASS",
+      "file": "S1.png",
+      "screenshot": "S1.png",
+      "bytes": 107841,
+      "sha16": "bd06b17fe835b37b",
+      "sha256_16": "bd06b17fe835b37b",
+      "note": "hub ?resource=bridge-inspections → redirect /csdl-so-06",
+      "finalUrl": "http://localhost:9301/csdl-so-06"
+    },
+    {
+      "id": "QA-20",
+      "ok": true,
+      "result": "PASS",
+      "file": "QA-20.png",
+      "screenshot": "QA-20.png",
+      "bytes": 113579,
+      "sha16": "858eb97d3763a616",
+      "sha256_16": "858eb97d3763a616",
+      "note": "Create Slideout · form=create · Z2 header · fixed-20 entries · SO-",
+      "finalUrl": "http://localhost:9301/csdl-so-06"
+    }
+  ],
+  "steps": [
+    {
+      "id": "S0",
+      "ok": true,
+      "result": "PASS",
+      "file": "S0.png",
+      "screenshot": "S0.png",
+      "bytes": 107841,
+      "sha16": "bd06b17fe835b37b",
+      "sha256_16": "bd06b17fe835b37b",
+      "note": "list Sổ 06 · filter-bar · province/status/road/bridge/period · empty/grid",
+      "finalUrl": "http://localhost:9301/csdl-so-06"
+    },
+    {
+      "id": "S1",
+      "ok": true,
+      "result": "PASS",
+      "file": "S1.png",
+      "screenshot": "S1.png",
+      "bytes": 107841,
+      "sha16": "bd06b17fe835b37b",
+      "sha256_16": "bd06b17fe835b37b",
+      "note": "hub ?resource=bridge-inspections → redirect /csdl-so-06",
+      "finalUrl": "http://localhost:9301/csdl-so-06"
+    },
+    {
+      "id": "QA-20",
+      "ok": true,
+      "result": "PASS",
+      "file": "QA-20.png",
+      "screenshot": "QA-20.png",
+      "bytes": 113579,
+      "sha16": "858eb97d3763a616",
+      "sha256_16": "858eb97d3763a616",
+      "note": "Create Slideout · form=create · Z2 header · fixed-20 entries · SO-",
+      "finalUrl": "http://localhost:9301/csdl-so-06"
+    }
+  ]
+}

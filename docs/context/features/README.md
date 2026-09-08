@@ -26,11 +26,15 @@
 | 0b | `road-route` | Tuyến đường | Master | P1 | `Sau-sat-nhap/gov` raw tuyến | Context | [road-route.md](road-route.md) · [đề cương LRS](../24-TUAN-DUONG-DUONG-BO.md) |
 | 0c | `asset-type` | Loại tài sản KCHT | Master | P1 | `Sau-sat-nhap/gov` (catalog) | Context | [asset-type.md](asset-type.md) |
 | 0c2 | `traffic-sign-type` | Loại biển báo (mã QCVN) | Master | P1 | Excel số hiệu biển + dump `gov-vn` | Context | [traffic-sign-type.md](traffic-sign-type.md) |
-| 0d | `partner-unit` | Sở / BOT / Cty | Master | P1 | DRVN seed · CUC 2 = demo | Context | [partner-unit.md](partner-unit.md) |
-| 0e | `org-route-scope` | Zone km Khu ↔ tuyến / đoạn | Master | P1 | Cây DRVN + LRS · **không** dump gán | Context | [org-route-scope.md](org-route-scope.md) |
+| 0d | `partner-unit` | Sở / BOT / Cty | Master | P1 | Seed 13 + Excel T6 `t6-org-scope` · CUC 2 = demo | Context | [partner-unit.md](partner-unit.md) |
+| 0e | `org-route-scope` | Zone km Khu ↔ tuyến / đoạn | Master | P1 | Cây DRVN + Excel T6 `t6-org-scope` · **không** dump moc gán | Context | [org-route-scope.md](org-route-scope.md) |
+| 0f | `khu-1-pilot` | Pilot dữ liệu Khu I | Data | P1 | Họp 04/09 hạng 3 | Draft | [khu-1-pilot.md](khu-1-pilot.md) · [org-route-scope.md](org-route-scope.md) |
 | 1 | `asset` | Quản lý tài sản đường bộ | Asset | P1 | Mobile Tài sản · Web KCHT · Giám sát TS | Demo | [asset.md](asset.md) |
 | 1a | `asset-kcht-32` | 36 loại TS (thông số + sự cố) | Asset×Incident | P1 | CSDL 12 biểu · `Sau-sat-nhap/gov` | Context | [asset-kcht-32.md](asset-kcht-32.md) |
-| 1b | `csdl-so-sach` | CSDL 12 biểu + 8 sổ BDTX | Asset·Patrol·Maint | P1 | Hồ sơ chuẩn hóa sổ sách | Demo | [csdl-so-sach.md](csdl-so-sach.md) · [../11-…](../11-CSDL-SO-SACH-DATABASE-API.md) |
+| 1b | `csdl-so-sach` | Hub CSDL Kind G `/so-ts/csdl-so-sach` (shell 12+8 **done**) · **≠** hang-muc / Sổ TS | Asset·Patrol·Maint | P1 | Hub live | Demo | [csdl-so-sach.md](csdl-so-sach.md) |
+| 1b2 | `csdl-cuc-2026` | Epic typed **16 biểu + 10 sổ** · hai lớp LOOKUP chung / ROW riêng | Asset·Patrol·Maint | P1 | Excel+Word trình LĐ Cục | Context | [csdl-cuc-2026.md](csdl-cuc-2026.md) · [analy](../../../specs/_data-analy/csdl-cuc-2026/ANALYSIS-AND-TASKS.md) |
+| 1b3 | `csdl-bieu-01`…`16` | Từng biểu CSDL (1 nút=1 feature) | Asset | P1 | sheet 01–16 `.xls` | Context | [csdl-bieu-01.md](csdl-bieu-01.md) … [csdl-bieu-16.md](csdl-bieu-16.md) |
+| 1b4 | `csdl-so-01`…`10` | Từng sổ BDTX (Sổ 10 = map) | Patrol·Maint | P1 | Word mẫu 1–10 | Context | [csdl-so-01.md](csdl-so-01.md) … [csdl-so-10.md](csdl-so-10.md) |
 | 1c | `pavement-section` | Phân loại mặt đường (Biểu 1) | Asset | P1 | Hồ sơ CSDL biểu 1 | Demo | [pavement-section.md](pavement-section.md) |
 | 1d | `asset-kcht-dashboard` | Hub Hạng mục KCHT (40 ô) · `/so-ts/hang-muc` · **≠** `csdl-so-sach` | Asset | P1 | GOVOne lưới hạng mục | Context | [asset-kcht-dashboard.md](asset-kcht-dashboard.md) |
 | 1e | `so-ts-type-grid` | Sổ TS grid/form theo loại (reuse section) | Asset | P1 | DRVN `docs/img/gov-mau-tai-san` | Context | [so-ts-type-grid.md](so-ts-type-grid.md) · `/data-gov-integration` |
@@ -42,13 +46,14 @@
 | 2a | `gis-draw-google` | Vẽ tài sản trên Google Map | Gis+Asset | P1 | GOVOne `1-ban-do.png` | Demo | [gis-draw-google.md](gis-draw-google.md) |
 | 2b | `gis-draw-live` | Vẽ tài sản live (Leaflet rút gọn) | Gis+Asset | P1 | HĐ PL01 mã 02 | Demo | [gis-draw-live.md](gis-draw-live.md) |
 | 2c | `gis-camera-map` | Bản đồ camera (wall + clip ANPR) | Gis×Camera | P1 mock | `/gis/camera` · seed Vinh | Dev | [gis-camera-map.md](gis-camera-map.md) |
-| 3s | `ai-vision-service` | Host `Linm.RMMS.Vision` (mọi slug AiVision) | Vision | V1 P1 GPT / P2 ONNX **cùng host** | — | Context | [ai-vision-service.md](ai-vision-service.md) · plan [ai-vision-service](../../plan/ai-vision-service/README.md) |
+| 3s | `ai-vision-service` | Host `Linm.RMMS.Vision` (mọi slug AiVision) | Vision | V1 P1 GPT / P2 ONNX **cùng host** | Wave **0p done** · next Wave 1 | Context | [ai-vision-service.md](ai-vision-service.md) · plan [ai-vision-service](../../plan/ai-vision-service/README.md) · skill `/implement-ai-vision-stack` |
 | 3 | `ai-vision` | AI kiểm định mặt đường | AiVision | P1 online / P2 local | Overlay **Vấn đề** / Sự cố | Demo | [ai-vision.md](ai-vision.md) · host [ai-vision-service](ai-vision-service.md) |
 | 3b | `ai-asset-detect` | AI phát hiện TS/thiết bị mới (camera tuần đường) | AiVision×Asset×Patrol | P1 online / P2 local | Camera xe → loại TS · tọa độ · tuyến → bản ghi Asset | Demo | [ai-asset-detect.md](ai-asset-detect.md) |
 | 3c | `its-traffic-detect` | ITS object detect (biển báo · cọc tiêu · cam IP · gim · sự cố mất · **OTA mobile**) | AiVision×Iot×Asset×Gis×Camera×Incident | P1 design / P2-A train+ONNX · P2 OTA TFLite/CoreML · P2.1 CCTV 1 FPS | Dedupe 10 m · user/auto gim · mất = reconcile · mobile `modelVersion` §14 | Context | [its-traffic-detect.md](its-traffic-detect.md) · [../16-…](../16-ITS-TRAFFIC-OBJECT-DETECTION-DESIGN.md) · §8–§14 |
 | 3d | `its-anpr-overload` | ITS ANPR biển số · Cục Đăng kiểm · xác nhận lỗi tốc độ/quá tải | AiVision×Iot×Incident | **P2 core** (demo P1) | Camera+WIM → registry trục·GVW → HITL Confirm | Demo | [its-anpr-overload.md](its-anpr-overload.md) · [../18-…](../18-ITS-ANPR-OVERLOAD-SPEC.md) |
 | 3e | `camera-connect` | Kết nối camera ITS / **HĐ `camera-gtvt`** (PL01 03c · gói C) | **Camera** | P1 Demo / P2 BE | Seed **iDS-TCM403-GIR** · BE defer | Demo | [camera-connect.md](camera-connect.md) · [../camera-model.md](../camera-model.md) · alias HĐ=`camera-gtvt` · **pilot wall+map** [camera-ops-dashboard-demo.html](../../../Linm.RMMS.Demo/src/demo/features/camera-ops-dashboard-demo.html) |
 | 4 | `patrol` | Tuần đường / tuần kiểm | Field | P1 | Check-in · Giám sát · Lưu trữ | Demo | [patrol.md](patrol.md) · [đề cương 24](../24-TUAN-DUONG-DUONG-BO.md) · demo web/mobile mới |
+| 4n | `nghiem-thu` | Công tác nghiệm thu (clone tuần kiểm + 10 mẫu) | Field | P1 | Họp 04/09 hạng 1 | Draft | [nghiem-thu.md](nghiem-thu.md) |
 | 4t | `platform-task` | Công việc (platform) | Platform | P1 demo | Medical QLCV | Demo · **queue pending** | [platform-task.md](platform-task.md) · [25](../25-PLATFORM-TASK.md) · [PLAN](../../plan/platform-task/PLAN.md) · [RMMS](../../plan/platform-task/RMMS-TUAN-DUONG.md) |
 | 4m | `platform-message` | Chat / inbox parcel | Platform | P1 SSOT | `@linm/message` | Context · **queue pending first** | [platform-message.md](platform-message.md) · [26](../26-MESSAGE-PARCEL.md) |
 | 4r | `rmms-task-integrate` | Gắn Task vào tuần đường/sự cố | Platform×Field | P2 later | — | **blocked** | [RMMS-TUAN-DUONG.md](../../plan/platform-task/RMMS-TUAN-DUONG.md) |

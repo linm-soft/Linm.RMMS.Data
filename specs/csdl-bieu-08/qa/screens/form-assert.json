@@ -1,0 +1,10 @@
+{
+  "hasZ2": true,
+  "hasZ3": true,
+  "hasRoad": false,
+  "hasAssetType": true,
+  "hasSignCode": true,
+  "hasSave": true,
+  "dataFormCols": "",
+  "hasAtCodeHint": true
+}

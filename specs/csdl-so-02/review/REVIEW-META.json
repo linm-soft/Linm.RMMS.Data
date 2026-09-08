@@ -1,0 +1,10 @@
+{
+  "feature": "csdl-so-02",
+  "status": "confirmed",
+  "verdict": "PASS",
+  "review_confirm": "done",
+  "taskId": "task_575d1ba6",
+  "contentHash": "sha256:70538d9c9588d335aa43fd5a1fe28433d1138960d5954c5a7ef4cff33a5bd1c3",
+  "reviewedAt": "2026-09-06T00:47:09.122Z",
+  "autoApprove": true
+}

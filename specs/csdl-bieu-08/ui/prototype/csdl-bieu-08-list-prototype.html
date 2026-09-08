@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Prototype — Biểu 08 Hệ thống ATGT (DES-GRID + Slideout shared+1 child)</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
+  <style>
+    :root {
+      --bg:#f5f7fa; --card:#fff; --border:#BABCBE; --soft:#e9ecef; --txt:#1A1A1A;
+      --muted:#6c757d; --primary:#0d6efd; --btn:#EEEEEE; --r:4px;
+      --ds-focus-shadow:0 0 4px #BABCBE;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font:13px/1.4 "Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--txt)}
+    .page{max-width:1280px;margin:0 auto;padding:8px;display:flex;flex-direction:column;gap:8px;min-height:100vh}
+    .note{font-size:11px;color:var(--muted);padding:4px 0}
+    .zone-a{display:flex;align-items:center;gap:10px}
+    .zone-a h1{margin:0;font-size:18px;font-weight:700;display:flex;align-items:center;gap:10px;flex:1}
+    .back{border:0;background:transparent;color:var(--primary);font-weight:600;cursor:pointer;font-size:13px}
+    .zone-b{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:8px 0;position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--soft)}
+    .zone-b-left,.zone-b-right{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .tb{display:inline-flex;align-items:center;gap:4px;height:32px;padding:6px 8px;border:0;border-radius:var(--r);background:var(--btn);font-size:12px;font-weight:600;cursor:pointer}
+    .tb:hover{background:#BABCBE}
+    .tb.primary{background:var(--primary);color:#fff}
+    .tb.primary:hover{background:#0b5ed7}
+    .tb:disabled{opacity:.55;cursor:not-allowed}
+    .filter-bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:8px 0;justify-content:flex-end}
+    .filter-bar .fld{display:flex;flex-direction:column;gap:2px;font-size:11px;color:var(--muted)}
+    .filter-bar input,.filter-bar select{height:32px;min-width:100px;padding:4px 8px;border:1px solid var(--border);border-radius:var(--r);font-size:13px;background:#fff}
+    .search{display:flex;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;min-width:200px;height:32px;background:#fff}
+    .search input{border:0;outline:0;padding:6px 10px;flex:1;font-size:13px}
+    .search button{border:0;border-left:1px solid var(--border);background:#f8fafc;padding:0 10px;cursor:pointer;color:var(--muted)}
+    .si{display:flex;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;min-width:140px;height:32px;background:#fff}
+    .si input{border:0;outline:0;padding:6px 10px;flex:1;font-size:13px}
+    .si span{display:flex;align-items:center;padding:0 8px;color:var(--muted);border-left:1px solid var(--border);background:#f8fafc}
+    .shell-card{background:var(--card);border:1px solid var(--soft);border-radius:var(--r);flex:1;display:flex;flex-direction:column;min-height:0;overflow:hidden}
+    .grid-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 16px 8px}
+    .grid-title{margin:0;font-size:15px;font-weight:700}
+    .grid-help{margin:4px 0 0;font-size:12px;color:var(--muted)}
+    .table-wrap{overflow:auto;flex:1;min-height:220px;border-top:1px solid var(--soft)}
+    table{width:100%;border-collapse:collapse;table-layout:auto}
+    th,td{padding:8px 10px;border-bottom:1px solid var(--soft);text-align:left;white-space:nowrap}
+    th{background:#f8fafc;font-size:12px;color:var(--muted);position:sticky;top:0;z-index:1}
+    th.num,td.num{text-align:center;width:48px}
+    tbody tr:nth-child(even){background:#fafbfc}
+    tbody tr:hover,tbody tr.sel{background:#eff6ff}
+    .code{color:var(--primary);text-decoration:underline;cursor:pointer;font-family:ui-monospace,Menlo,Consolas,monospace;border:0;background:0;font:inherit}
+    .empty{padding:32px;text-align:center;color:var(--muted)}
+    .empty.hidden{display:none}
+    .zone-d{display:flex;flex-direction:column;align-items:center;gap:10px;padding:12px 16px;border-top:1px solid var(--soft)}
+    .zone-d-total{color:var(--muted)}
+    .zone-d-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center}
+    .pager-btn{width:32px;height:32px;border:1px solid var(--soft);border-radius:var(--r);background:#fff;color:var(--muted);cursor:pointer}
+    .menu{position:relative}
+    .menu summary{list-style:none;cursor:pointer;padding:4px 8px;border:1px solid var(--border);border-radius:var(--r);background:#fff}
+    .menu summary::-webkit-details-marker{display:none}
+    .menu-panel{display:none;position:absolute;right:0;z-index:5;background:#fff;border:1px solid var(--border);border-radius:6px;min-width:140px;box-shadow:0 8px 24px rgba(0,0,0,.12)}
+    .menu[open] .menu-panel{display:block}
+    .menu-panel button{display:block;width:100%;text-align:left;border:0;background:0;padding:8px 12px;cursor:pointer;font-size:13px}
+    .menu-panel button:hover{background:#f1f5f9}
+    .backdrop{display:none;position:fixed;inset:0;background:rgba(15,23,42,.35);z-index:40;align-items:center;justify-content:center}
+    .backdrop.on{display:flex}
+    .modal{width:min(420px,94vw);background:#fff;border-radius:8px;border:1px solid var(--soft)}
+    .modal-h{padding:12px 16px;border-bottom:1px solid var(--soft);font-weight:700}
+    .modal-b{padding:16px;font-size:13px;color:var(--muted)}
+    .modal-f{padding:12px 16px;border-top:1px solid var(--soft);display:flex;justify-content:flex-end;gap:8px}
+    .slide-root{display:none;position:fixed;inset:0;z-index:50}
+    .slide-root.on{display:block}
+    .slide-mask{position:absolute;inset:0;background:rgba(15,23,42,.35)}
+    .slide{position:absolute;top:0;right:0;width:min(640px,96vw);height:100%;background:#fff;display:flex;flex-direction:column;box-shadow:-8px 0 24px rgba(0,0,0,.12)}
+    .slide-h{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid var(--soft)}
+    .slide-h h2{margin:0;font-size:16px;font-weight:700;flex:1}
+    .slide-x{border:0;background:transparent;font-size:18px;cursor:pointer;color:var(--muted);width:32px;height:32px}
+    .slide-b{flex:1;overflow:auto;padding:16px}
+    .slide-f{padding:12px 16px;border-top:1px solid var(--soft);display:flex;justify-content:flex-end;gap:8px;background:#fff}
+    .slide-f .tb{min-width:100px;justify-content:center}
+    .sec{font-size:12px;font-weight:700;color:var(--muted);margin:12px 0 6px;grid-column:1/-1;border-bottom:1px solid var(--soft);padding-bottom:4px}
+    .fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .fields[data-form-cols="2"]{grid-template-columns:1fr 1fr}
+    .fields .full{grid-column:1/-1}
+    .fields label{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--txt)}
+    .fields label span{color:var(--muted);font-size:13px}
+    .fields input,.fields select,.fields textarea{width:100%;padding:6px 10px;border:1px solid var(--border);border-radius:var(--r);font-size:14px;min-height:32px}
+    .fields input:focus,.fields select:focus,.fields textarea:focus{outline:none;border-color:var(--primary);box-shadow:var(--ds-focus-shadow)}
+    .fields .ro{background:#f8fafc}
+    .child-block{display:none;grid-column:1/-1;display:contents}
+    .child-block.on{display:contents}
+    .child-block:not(.on){display:none}
+    .view-ro input,.view-ro select,.view-ro textarea{border:0;background:transparent;padding-left:0;box-shadow:none!important}
+    @media (max-width:800px){.fields[data-form-cols="2"]{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="page">
+    <p class="note" id="note">SSOT Design · <code>shared_grid_example v1</code> · pack <code>csdl-bieu-08</code> · resource <code>traffic-safety</code> · formNo <code>08</code> · mfeStdUrl <code>/csdl-bieu-08</code> · peer hub <code>?resource=traffic-safety</code> · skip chrome · <strong>cấm</strong> detail* only · wide 45 · map none · Q-CHILD child_tables · Q-TYPE-UX confirm · Q-LIST-COLS subset_by_type · Q-MARKER lookup_static · Q-REN with_typed · Q-PEER optional</p>
+
+    <section id="list" style="display:flex;flex-direction:column;gap:8px;flex:1;min-height:0">
+      <div class="zone-a" data-des-id="DES-GRID-A">
+        <button type="button" class="back" id="btnBack" title="Về hub CSDL">← CSDL sổ sách</button>
+        <h1><i class="fas fa-traffic-light" aria-hidden="true"></i> Biểu 08 — Hệ thống ATGT</h1>
+      </div>
+
+      <div class="zone-b" data-des-id="DES-GRID-B">
+        <div class="zone-b-left">
+          <button type="button" class="tb" data-action="refresh" title="Làm mới"><i class="fas fa-sync-alt"></i></button>
+          <button type="button" class="tb" data-action="history" title="Lịch sử"><i class="fas fa-history"></i></button>
+          <button type="button" class="tb" data-action="config" title="Cấu hình"><i class="fas fa-cog"></i></button>
+          <button type="button" class="tb" id="btn-del" disabled title="Xóa"><i class="fas fa-trash"></i></button>
+          <button type="button" class="tb" data-action="import" title="Import stub OUT Biểu 8"><i class="fas fa-file-import"></i></button>
+          <button type="button" class="tb" data-action="export" title="Export stub OUT Biểu 8"><i class="fas fa-file-export"></i></button>
+          <button type="button" class="tb" data-action="peer" title="Sổ TS ATGT (optional)"><i class="fas fa-link"></i> Sổ TS</button>
+        </div>
+        <div class="zone-b-right">
+          <button type="button" class="tb primary" data-action="create"><i class="fas fa-plus"></i> Tạo mới</button>
+        </div>
+      </div>
+
+      <div class="filter-bar" data-des-id="DES-GRID-B-FILTER" aria-label="LinErpListFilterBar">
+        <label class="fld">Tỉnh/TP
+          <select id="fProv"><option value="">Tất cả</option><option>Hà Tĩnh</option><option>Nghệ An</option><option>Quảng Bình</option><option>Quảng Trị</option><option>TT-Huế</option></select>
+        </label>
+        <label class="fld">Tình trạng
+          <select id="fStatus"><option value="">Tất cả</option><option value="tot">Tốt</option><option value="tb">Trung bình</option><option value="kem">Kém</option><option value="hong">Hỏng</option></select>
+        </label>
+        <label class="fld">Vị trí
+          <select id="fSide"><option value="">Tất cả</option><option value="L">Trái (L)</option><option value="R">Phải (R)</option><option value="C">Giữa (C)</option><option value="Both">Hai bên</option></select>
+        </label>
+        <label class="fld">Chủng loại
+          <select id="fType" title="Q-LIST-COLS subset_by_type · map ?type=">
+            <option value="">Tất cả (shared cols)</option>
+            <option value="TRAFFIC_SIGN">Biển báo</option>
+            <option value="MARKER_POST">Cọc/Km</option>
+            <option value="MEDIAN">GPC</option>
+            <option value="ANTI_GLARE">Chống chói</option>
+            <option value="TRAFFIC_ISLAND">Đảo GT</option>
+            <option value="ROAD_STUD">Đinh PQ</option>
+            <option value="GUARDRAIL">Hộ lan</option>
+            <option value="ROAD_MARKING">Vạch sơn</option>
+            <option value="CRASH_CUSHION">Thùng GC</option>
+            <option value="CONVEX_MIRROR">Gương cầu</option>
+            <option value="TRAFFIC_SIGNAL">Đèn tín hiệu</option>
+          </select>
+        </label>
+        <label class="fld">Đường
+          <span class="si"><input id="fRoad" placeholder="SearchInput road-route…" /><span><i class="fas fa-search"></i></span></span>
+        </label>
+        <label class="fld">Km từ<input id="fKmFrom" type="number" step="0.001" placeholder="Km" /></label>
+        <label class="fld">Km đến<input id="fKmTo" type="number" step="0.001" placeholder="Km" /></label>
+        <div class="search" title="SearchTextInput · 🔍 cụm phải · cấm nút Tìm riêng">
+          <input id="q" type="search" placeholder="Tìm mã · đường · signCode · ghi chú…" />
+          <button type="button" aria-label="Tìm"><i class="fas fa-search"></i></button>
+        </div>
+      </div>
+
+      <div class="shell-card" data-des-id="DES-GRID-C0">
+        <div class="grid-head">
+          <div>
+            <h2 class="grid-title">Danh sách hệ thống ATGT</h2>
+            <p class="grid-help">Typed 45/11 · shared + subset theo type · kéo cột ON · catalogKind <code>traffic-safety</code> · <strong>cấm</strong> 45 cols cùng lúc · <strong>cấm</strong> detail* only</p>
+          </div>
+        </div>
+        <div class="table-wrap" data-des-id="DES-GRID-C2">
+          <table>
+            <thead>
+              <tr id="thead-row">
+                <th class="num">STT</th>
+                <th class="num">□</th>
+                <th>Mã</th>
+                <th>Đường</th>
+                <th>Tỉnh</th>
+                <th>Km từ</th>
+                <th>Km đến</th>
+                <th>Vị trí</th>
+                <th>Chủng loại</th>
+                <th data-col="extra">Chi tiết type</th>
+                <th>Năm</th>
+                <th>TT</th>
+                <th>ĐV QL</th>
+                <th class="num">⋯</th>
+              </tr>
+            </thead>
+            <tbody id="tbody" data-des-id="DES-GRID-C3"></tbody>
+          </table>
+          <div class="empty hidden" id="empty">Chưa có hệ thống ATGT · <button type="button" class="tb primary" data-action="create-empty">Tạo mới</button></div>
+        </div>
+        <div class="zone-d" data-des-id="DES-GRID-D">
+          <div class="zone-d-total">Tổng: <strong id="total">0</strong></div>
+          <div class="zone-d-row">
+            <button type="button" class="pager-btn" disabled>«</button>
+            <button type="button" class="pager-btn" disabled>‹</button>
+            <span>Trang 1</span>
+            <button type="button" class="pager-btn" disabled>›</button>
+            <button type="button" class="pager-btn" disabled>»</button>
+            <select id="pageSize" aria-label="Page size">
+              <option>50</option><option>100</option><option>200</option><option>500</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="backdrop" id="modal-config" data-des-id="DES-GRID-F">
+    <div class="modal">
+      <div class="modal-h"><i class="fas fa-cog"></i> Sửa cấu hình lưới</div>
+      <div class="modal-b">catalogKind <code>traffic-safety</code> · kéo cột ON · subset_by_type · <code>LinCatalogUiSchemaEditorModal</code> · <strong>cấm</strong> <code>LinListTableConfigModal</code></div>
+      <div class="modal-f"><button type="button" class="tb" data-close="modal-config">Đóng</button></div>
+    </div>
+  </div>
+
+  <div class="backdrop" id="modal-history" data-des-id="DES-GRID-H">
+    <div class="modal">
+      <div class="modal-h"><i class="fas fa-history"></i> Lịch sử</div>
+      <div class="modal-b"><code>LinCatalogHistoryModal</code> · docType <code>csdl-catalog-record</code> · stub P2 · <strong>cấm</strong> invent History API</div>
+      <div class="modal-f"><button type="button" class="tb" data-close="modal-history">Đóng</button></div>
+    </div>
+  </div>
+
+  <div class="backdrop" id="modal-leave">
+    <div class="modal">
+      <div class="modal-h">Chưa lưu</div>
+      <div class="modal-b">Bạn có thay đổi chưa lưu. Ở lại hay rời đi? (<code>LeaveConfirmModal</code>)</div>
+      <div class="modal-f">
+        <button type="button" class="tb" id="leave-stay">Ở lại</button>
+        <button type="button" class="tb primary" id="leave-go">Rời đi</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="backdrop" id="modal-delete">
+    <div class="modal">
+      <div class="modal-h">Xác nhận xóa</div>
+      <div class="modal-b">Xóa mềm hệ thống ATGT đã chọn? (soft DELETE)</div>
+      <div class="modal-f">
+        <button type="button" class="tb" data-close="modal-delete">Hủy</button>
+        <button type="button" class="tb primary" id="delete-ok">Xóa</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="backdrop" id="modal-type">
+    <div class="modal">
+      <div class="modal-h">Đổi chủng loại</div>
+      <div class="modal-b">Đổi chủng loại sẽ xóa dữ liệu khối chi tiết hiện tại. Tiếp tục? (<code>Q-TYPE-UX confirm</code>)</div>
+      <div class="modal-f">
+        <button type="button" class="tb" id="type-cancel">Hủy</button>
+        <button type="button" class="tb primary" id="type-ok">Xác nhận</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-root" id="slide" data-des-id="DES-GRID-Z">
+    <div class="slide-mask" id="slideMask"></div>
+    <aside class="slide" role="dialog" aria-modal="true">
+      <div class="slide-h" data-des-id="DES-FORM-Z1">
+        <h2 id="formTitle">Thêm mới</h2>
+        <button type="button" class="slide-x" id="slideX" aria-label="Đóng">✕</button>
+      </div>
+      <div class="slide-b" data-des-id="DES-FORM-Z2">
+        <div class="fields" id="formFields" data-form-cols="2">
+          <div class="sec">Z1 · Định danh &amp; tuyến</div>
+          <label><span>Mã</span><input class="ro" id="fCode" readonly value="AT-20260905-0001" /></label>
+          <label><span>Đường *</span>
+            <span class="si"><input id="fRoadForm" placeholder="SearchInput road-route…" value="QL1A" /><span><i class="fas fa-search"></i></span></span>
+          </label>
+          <label><span>Tỉnh/Địa danh *</span>
+            <select id="fProvForm"><option>Hà Tĩnh</option><option>Nghệ An</option><option>Quảng Bình</option><option>Quảng Trị</option><option>TT-Huế</option></select>
+          </label>
+          <label><span>Lý trình từ (Km) *</span><input type="number" step="0.001" id="fKmFromForm" value="12.500" /></label>
+          <label><span>Lý trình đến (Km) *</span><input type="number" step="0.001" id="fKmToForm" value="12.500" /></label>
+          <label><span>Vị trí *</span>
+            <select id="fSideForm"><option value="L">Trái (L)</option><option value="R" selected>Phải (R)</option><option value="C">Giữa (C)</option><option value="Both">Hai bên</option></select>
+          </label>
+          <label><span>Chủng loại *</span>
+            <select id="fTypeForm" title="Q-TYPE-UX confirm clear child">
+              <option value="TRAFFIC_SIGN" selected>Biển báo</option>
+              <option value="MARKER_POST">Cọc/Km</option>
+              <option value="MEDIAN">GPC</option>
+              <option value="ANTI_GLARE">Chống chói</option>
+              <option value="TRAFFIC_ISLAND">Đảo GT</option>
+              <option value="ROAD_STUD">Đinh PQ</option>
+              <option value="GUARDRAIL">Hộ lan</option>
+              <option value="ROAD_MARKING">Vạch sơn</option>
+              <option value="CRASH_CUSHION">Thùng GC</option>
+              <option value="CONVEX_MIRROR">Gương cầu</option>
+              <option value="TRAFFIC_SIGNAL">Đèn tín hiệu</option>
+            </select>
+          </label>
+
+          <div class="sec" id="childSecTitle">Z2 · Chi tiết · Biển báo</div>
+
+          <div class="child-block on" data-type="TRAFFIC_SIGN">
+            <label><span>Mã biển *</span><input id="signCode" value="P.123a" /></label>
+            <label><span>Kích thước</span><input id="signSize" value="700×700" /></label>
+            <label><span>SL cột</span><input type="number" id="signPoleCount" value="1" /></label>
+            <label><span>Cao cột (m)</span><input type="number" step="0.01" id="signPoleHeightM" value="3.50" /></label>
+          </div>
+          <div class="child-block" data-type="MARKER_POST">
+            <label><span>Loại cọc *</span>
+              <select id="markerKind" title="Q-MARKER-KIND lookup_static">
+                <option>cọc tiêu</option><option>cọc H</option><option>cọc Km</option><option>cọc dẻo</option><option>thủy chí</option>
+              </select>
+            </label>
+            <label><span>Số lượng</span><input type="number" id="markerQty" value="1" /></label>
+            <label><span>Kết cấu</span><input id="markerStructure" value="bê tông" /></label>
+            <label><span>DT (m²)</span><input type="number" step="0.01" id="markerAreaM2" value="0.12" /></label>
+          </div>
+          <div class="child-block" data-type="MEDIAN">
+            <label><span>Loại GPC</span><input id="medianKind" value="bê tông" /></label>
+            <label><span>Kết cấu</span><input id="medianStructure" value="liên tục" /></label>
+            <label><span>Dài (m)</span><input type="number" step="0.01" id="medianLengthM" value="120" /></label>
+            <label><span>Cao (m)</span><input type="number" step="0.01" id="medianHeightM" value="0.80" /></label>
+          </div>
+          <div class="child-block" data-type="ANTI_GLARE">
+            <label><span>Loại chống chói</span><input id="antiGlareKind" value="tấm" /></label>
+            <label><span>Kết cấu</span><input id="antiGlareStructure" value="nhựa" /></label>
+            <label><span>Số lượng</span><input type="number" id="antiGlareQty" value="40" /></label>
+            <label><span>Dài (m)</span><input type="number" step="0.01" id="antiGlareLengthM" value="80" /></label>
+          </div>
+          <div class="child-block" data-type="TRAFFIC_ISLAND">
+            <label><span>Loại đảo</span><input id="islandType" value="tam giác" /></label>
+            <label><span>Kết cấu</span><input id="islandStructure" value="bê tông" /></label>
+            <label><span>DT (m²)</span><input type="number" step="0.01" id="islandAreaM2" value="24" /></label>
+          </div>
+          <div class="child-block" data-type="ROAD_STUD">
+            <label><span>Kích thước</span><input id="studSize" value="100×100" /></label>
+            <label><span>Số lượng</span><input type="number" id="studQty" value="200" /></label>
+          </div>
+          <div class="child-block" data-type="GUARDRAIL">
+            <label><span>Loại hộ lan</span><input id="guardrailKind" value="sóng" /></label>
+            <label><span>Kết cấu</span><input id="guardrailStructure" value="thép" /></label>
+            <label><span>Dài (m)</span><input type="number" step="0.01" id="guardrailLengthM" value="250" /></label>
+            <label><span>Mắt PQ</span><input id="guardrailReflector" value="có" /></label>
+          </div>
+          <div class="child-block" data-type="ROAD_MARKING">
+            <label><span>Mã vạch</span><input id="markCode" value="V.1.1" /></label>
+            <label><span>Dài (m)</span><input type="number" step="0.01" id="markLengthM" value="500" /></label>
+            <label><span>Rộng (m)</span><input type="number" step="0.01" id="markWidthM" value="0.15" /></label>
+            <label><span>DT (m²)</span><input type="number" step="0.01" id="markAreaM2" value="75" /></label>
+          </div>
+          <div class="child-block" data-type="CRASH_CUSHION">
+            <label><span>SL thùng GC</span><input type="number" id="cushionQty" value="6" /></label>
+          </div>
+          <div class="child-block" data-type="CONVEX_MIRROR">
+            <label><span>SL gương</span><input type="number" id="mirrorQty" value="2" /></label>
+          </div>
+          <div class="child-block" data-type="TRAFFIC_SIGNAL">
+            <label><span>Loại cột đèn</span><input id="signalPoleKind" value="cột đơn" /></label>
+            <label><span>Cao (m)</span><input type="number" step="0.01" id="signalHeightM" value="6.00" /></label>
+            <label><span>Loại đèn</span><input id="lampKind" value="LED 3 màu" /></label>
+            <label><span>SL đèn</span><input type="number" id="lampQty" value="3" /></label>
+          </div>
+
+          <div class="sec">Z3 · Quản lý</div>
+          <label><span>Tình trạng *</span>
+            <select id="fStatusForm"><option value="tot">Tốt</option><option value="tb">Trung bình</option><option value="kem">Kém</option><option value="hong">Hỏng</option></select>
+          </label>
+          <label><span>Năm XD/SD</span><input type="number" id="fYear" value="2020" /></label>
+          <label><span>ĐV QL</span><input id="fUnit" placeholder="Text P1 · SearchInput org P2" value="Khu QLĐB II" /></label>
+          <label class="full"><span>Ghi chú</span><textarea id="fNotes" rows="2">Mẫu Biểu 08 · typed 45/11 · shared + 1 child · Q-TYPE-UX confirm · Q-LIST-COLS subset · cấm detail* / wide 45</textarea></label>
+        </div>
+      </div>
+      <div class="slide-f" data-des-id="DES-FORM-Z3">
+        <button type="button" class="tb" id="btnCancel">Hủy</button>
+        <button type="button" class="tb" id="btnEditView" style="display:none">Sửa</button>
+        <button type="button" class="tb primary" id="btnSave">Lưu</button>
+      </div>
+    </aside>
+  </div>
+
+  <script>
+    var TYPE_LABEL = {
+      TRAFFIC_SIGN:'Biển báo', MARKER_POST:'Cọc/Km', MEDIAN:'GPC', ANTI_GLARE:'Chống chói',
+      TRAFFIC_ISLAND:'Đảo GT', ROAD_STUD:'Đinh PQ', GUARDRAIL:'Hộ lan', ROAD_MARKING:'Vạch sơn',
+      CRASH_CUSHION:'Thùng GC', CONVEX_MIRROR:'Gương cầu', TRAFFIC_SIGNAL:'Đèn tín hiệu'
+    };
+    var rows = [
+      { code:'AT-20260901-0001', road:'QL1A', province:'Hà Tĩnh', kmFrom:'12.500', kmTo:'12.500', side:'R', type:'TRAFFIC_SIGN', detail:'P.123a · 700×700', year:'2020', status:'Tốt', unit:'Khu QLĐB II' },
+      { code:'AT-20260902-0002', road:'QL8', province:'Hà Tĩnh', kmFrom:'5.100', kmTo:'5.350', side:'L', type:'GUARDRAIL', detail:'sóng · 250m · mắt PQ', year:'2019', status:'Trung bình', unit:'Hạt QLĐB 1' },
+      { code:'AT-20260903-0003', road:'QL15', province:'Nghệ An', kmFrom:'22.000', kmTo:'22.000', side:'C', type:'MARKER_POST', detail:'cọc Km · SL 1', year:'2021', status:'Tốt', unit:'Khu QLĐB I' }
+    ];
+    var selected = null, dirty = false, leaveAction = null, formMode = 'create';
+    var pendingType = null, lastType = 'TRAFFIC_SIGN';
+
+    function openModal(id){ document.getElementById(id).classList.add('on'); }
+    function closeModal(id){ document.getElementById(id).classList.remove('on'); }
+    function setViewMode(isView){
+      var el = document.getElementById('formFields');
+      if (isView) el.classList.add('view-ro'); else el.classList.remove('view-ro');
+      el.querySelectorAll('input,select,textarea').forEach(function(i){
+        if (i.id === 'fCode') return;
+        if (isView) { i.setAttribute('readonly','readonly'); if (i.tagName==='SELECT') i.disabled=true; }
+        else { i.removeAttribute('readonly'); i.disabled=false; }
+      });
+      document.getElementById('btnSave').style.display = isView ? 'none' : 'inline-flex';
+      document.getElementById('btnEditView').style.display = isView ? 'inline-flex' : 'none';
+      document.getElementById('btnCancel').textContent = isView ? 'Đóng' : 'Hủy';
+    }
+    function showChild(type){
+      document.querySelectorAll('.child-block').forEach(function(b){
+        if (b.getAttribute('data-type') === type) b.classList.add('on');
+        else b.classList.remove('on');
+      });
+      document.getElementById('childSecTitle').textContent = 'Z2 · Chi tiết · ' + (TYPE_LABEL[type] || type);
+      lastType = type;
+    }
+    function openSlide(mode){
+      formMode = mode;
+      var titles = { view:'Xem ATGT', edit:'Sửa ATGT', copy:'Sao chép', create:'Thêm mới' };
+      document.getElementById('formTitle').textContent = titles[mode] || 'Thêm mới';
+      if (mode === 'copy') document.getElementById('fCode').value = 'AT-20260905-0004';
+      if (mode === 'create') document.getElementById('fCode').value = 'AT-20260905-0001';
+      showChild(document.getElementById('fTypeForm').value);
+      setViewMode(mode === 'view');
+      dirty = false;
+      document.getElementById('slide').classList.add('on');
+    }
+    function requestCloseSlide(){
+      if (dirty && formMode !== 'view'){
+        leaveAction = function(){ document.getElementById('slide').classList.remove('on'); dirty=false; };
+        openModal('modal-leave');
+      } else document.getElementById('slide').classList.remove('on');
+    }
+
+    function renderRows(){
+      var q = (document.getElementById('q').value||'').trim().toLowerCase();
+      var road = (document.getElementById('fRoad').value||'').trim().toLowerCase();
+      var prov = document.getElementById('fProv').value;
+      var side = document.getElementById('fSide').value;
+      var type = document.getElementById('fType').value;
+      var list = rows.filter(function(r){
+        var hit = !q || [r.code,r.road,r.unit,r.detail,r.type,TYPE_LABEL[r.type]||''].join(' ').toLowerCase().indexOf(q)>=0;
+        var hitR = !road || r.road.toLowerCase().indexOf(road)>=0;
+        var hitP = !prov || r.province === prov;
+        var hitS = !side || r.side === side;
+        var hitT = !type || r.type === type;
+        return hit && hitR && hitP && hitS && hitT;
+      });
+      var empty = document.getElementById('empty');
+      var tb = document.getElementById('tbody');
+      var extraTh = document.querySelector('[data-col="extra"]');
+      extraTh.textContent = type ? ('Chi tiết · ' + (TYPE_LABEL[type]||type)) : 'Chi tiết type (subset)';
+      if (!list.length){
+        tb.innerHTML = '';
+        empty.classList.remove('hidden');
+      } else {
+        empty.classList.add('hidden');
+        tb.innerHTML = list.map(function(r,i){
+          return '<tr data-code="'+r.code+'" class="'+(selected===r.code?'sel':'')+'">'
+            +'<td class="num">'+(i+1)+'</td>'
+            +'<td class="num"><input type="checkbox" class="row-chk" '+(selected===r.code?'checked':'')+' /></td>'
+            +'<td><button type="button" class="code">'+r.code+'</button></td>'
+            +'<td>'+r.road+'</td><td>'+r.province+'</td><td>'+r.kmFrom+'</td><td>'+r.kmTo+'</td>'
+            +'<td>'+r.side+'</td><td>'+(TYPE_LABEL[r.type]||r.type)+'</td><td>'+r.detail+'</td>'
+            +'<td>'+r.year+'</td><td>'+r.status+'</td><td>'+r.unit+'</td>'
+            +'<td class="num"><details class="menu"><summary>⋮</summary><div class="menu-panel">'
+            +'<button type="button" data-menu="view">Xem</button>'
+            +'<button type="button" data-menu="edit">Sửa</button>'
+            +'<button type="button" data-menu="copy">Sao chép</button>'
+            +'<button type="button" data-menu="history">Lịch sử</button>'
+            +'<button type="button" data-menu="delete">Xóa</button>'
+            +'</div></details></td></tr>';
+        }).join('');
+      }
+      document.getElementById('total').textContent = String(list.length);
+      document.getElementById('btn-del').disabled = !selected;
+    }
+
+    document.getElementById('btnBack').onclick = function(){
+      document.getElementById('note').textContent += ' · back-hub → /so-ts/csdl-so-sach';
+    };
+    ['q','fRoad','fProv','fStatus','fSide','fType','fKmFrom','fKmTo'].forEach(function(id){
+      document.getElementById(id).addEventListener('input', renderRows);
+      document.getElementById(id).addEventListener('change', renderRows);
+    });
+    document.getElementById('tbody').addEventListener('click', function(e){
+      var tr = e.target.closest('tr'); if(!tr) return;
+      var code = tr.getAttribute('data-code');
+      if (e.target.closest('[data-menu]')){
+        var act = e.target.getAttribute('data-menu');
+        selected = code; renderRows();
+        if (act==='history') openModal('modal-history');
+        else if (act==='delete') openModal('modal-delete');
+        else {
+          var row = rows.filter(function(r){ return r.code===code; })[0];
+          if (row) { document.getElementById('fTypeForm').value = row.type; showChild(row.type); }
+          openSlide(act);
+        }
+        return;
+      }
+      if (e.target.classList.contains('code') || e.target.classList.contains('row-chk')){ selected=code; renderRows(); }
+    });
+    document.getElementById('tbody').addEventListener('dblclick', function(e){
+      var tr = e.target.closest('tr'); if(!tr) return;
+      selected = tr.getAttribute('data-code'); renderRows();
+      var row = rows.filter(function(r){ return r.code===selected; })[0];
+      if (row) { document.getElementById('fTypeForm').value = row.type; showChild(row.type); }
+      openSlide('edit');
+    });
+    document.querySelector('[data-action="config"]').onclick = function(){ openModal('modal-config'); };
+    document.querySelector('[data-action="history"]').onclick = function(){ openModal('modal-history'); };
+    document.querySelector('[data-action="create"]').onclick = function(){ openSlide('create'); };
+    document.querySelector('[data-action="create-empty"]').onclick = function(){ openSlide('create'); };
+    document.querySelector('[data-action="import"]').onclick = function(){ /* OUT XLS Biểu 8 stub */ };
+    document.querySelector('[data-action="export"]').onclick = function(){ /* OUT XLS Biểu 8 stub */ };
+    document.querySelector('[data-action="peer"]').onclick = function(){
+      var t = document.getElementById('fType').value || 'TRAFFIC_SIGN';
+      document.getElementById('note').textContent += ' · peer optional → /so-ts?type='+t+' (cấm merge form)';
+    };
+    document.querySelector('[data-action="refresh"]').onclick = renderRows;
+    document.getElementById('btn-del').onclick = function(){ if(selected) openModal('modal-delete'); };
+    document.querySelectorAll('[data-close]').forEach(function(btn){
+      btn.addEventListener('click', function(){ closeModal(btn.getAttribute('data-close')); });
+    });
+    document.getElementById('fTypeForm').addEventListener('change', function(e){
+      if (formMode === 'view') return;
+      if (formMode === 'edit' || dirty){
+        pendingType = e.target.value;
+        e.target.value = lastType;
+        openModal('modal-type');
+        return;
+      }
+      showChild(e.target.value);
+    });
+    document.getElementById('type-cancel').onclick = function(){ closeModal('modal-type'); pendingType=null; };
+    document.getElementById('type-ok').onclick = function(){
+      closeModal('modal-type');
+      if (pendingType){
+        document.getElementById('fTypeForm').value = pendingType;
+        showChild(pendingType);
+        dirty = true;
+        pendingType = null;
+      }
+    };
+    document.getElementById('slideX').onclick = requestCloseSlide;
+    document.getElementById('btnCancel').onclick = requestCloseSlide;
+    document.getElementById('slideMask').onclick = requestCloseSlide;
+    document.getElementById('btnSave').onclick = function(){ dirty=false; document.getElementById('slide').classList.remove('on'); };
+    document.getElementById('btnEditView').onclick = function(){ openSlide('edit'); };
+    document.getElementById('formFields').addEventListener('input', function(){ if(formMode!=='view') dirty=true; });
+    document.getElementById('formFields').addEventListener('change', function(e){
+      if (e.target.id === 'fTypeForm') return;
+      if(formMode!=='view') dirty=true;
+    });
+    document.getElementById('leave-stay').onclick = function(){ closeModal('modal-leave'); leaveAction=null; };
+    document.getElementById('leave-go').onclick = function(){ closeModal('modal-leave'); if(leaveAction) leaveAction(); leaveAction=null; };
+    document.getElementById('delete-ok').onclick = function(){
+      closeModal('modal-delete');
+      rows = rows.filter(function(r){ return r.code !== selected; });
+      selected=null; renderRows();
+    };
+
+    showChild('TRAFFIC_SIGN');
+    renderRows();
+  </script>
+</body>
+</html>

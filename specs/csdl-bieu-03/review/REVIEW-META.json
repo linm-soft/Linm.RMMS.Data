@@ -1,0 +1,13 @@
+{
+  "feature": "csdl-bieu-03",
+  "status": "confirmed",
+  "verdict": "PASS",
+  "review_confirm": "approve",
+  "taskId": "task_50bbebc7",
+  "autoApprove": true,
+  "contentHashPrior": "sha256:2c03537918bbda56c29e1e1ef98cc081cc4e72c94447a1ac2f87f06bd6f9310e",
+  "writtenAt": "2026-09-05T09:15:00.000Z",
+  "skillVersion": "2026.08.29.03",
+  "workflowVersion": "2026.09.01.02",
+  "rulesVersion": "2026.08.31.2"
+}

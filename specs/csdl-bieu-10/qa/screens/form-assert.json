@@ -1,0 +1,15 @@
+{
+  "hasZ2": true,
+  "hasZ3": true,
+  "hasRoad": false,
+  "hasWallKind": true,
+  "hasStructure": true,
+  "hasMaterial": true,
+  "hasHeightM": true,
+  "hasCrestKind": true,
+  "hasYear": true,
+  "hasSave": true,
+  "dataFormCols": "2",
+  "hasKeCodeHint": true,
+  "sectionSnippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nCSDL Biểu 01 — Phân loại mặt đường\nCSDL Biểu 02 — Thống kê cầu\nCSDL Biểu 03 — Hầm đường bộ\nCSDL Biểu 04 — Cống các loại\nCSDL Biểu 05 — Rãnh các loại\nCSDL Biểu 06 — Hầm chui DS / hộp KT\nCSDL Biểu 07 — Lề đường / taluy / hàng rào\nCSDL Biểu 08 — Hệ thống ATGT\nCSDL Biểu 09 — Mốc lộ giới / GPMB\nCSDL Biểu 10 — Kè, tường chắn\nHạng mục KCHT\nDS\nDev Standalone\nDeveloper\nBiểu 10 — Kè, tường chắn\n← HubBiểu 10 — Kè, tường chắnSổ TS"
+}

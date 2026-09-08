@@ -44,7 +44,7 @@
 | D4 | **Engine mặc định** | **[MediaMTX](https://github.com/bluenviron/mediamtx)** (ex rtsp-simple-server) ± FFmpeg path | RTSP in · HLS + WebRTC out · config YAML · mature |
 | D5 | **Alt engine** | WHEP/WHIP stack hoặc `go2rtc` nếu cần nhẹ hơn site | DEFER trừ POC site nhỏ |
 | D6 | **Stream map** | Sub stream `…/Streaming/Channels/102` = preview UI · Main `101` = LPR/AI worker (không gửi full main lên wall) | Bitrate / CPU |
-| D7 | **Session control** | BE `Camera` cấp **short-lived playToken** → Gateway validate · auto stop idle | Bảo mật · tiết kiệm |
+| D7 | **Session control** | BE Camera cấp **playToken** = grant HMAC (plan [`camera-security`](../plan/camera-security/PLAN.md) S5) → Gateway validate · auto stop idle | Bảo mật · tiết kiệm · **cấm** pass trong URL |
 | D8 | **Tenant** | Gateway biết `companyCode` + `cameraId` · cấm cross-tenant play URL | Multi-tenancy |
 | D9 | **Deploy** | Site Edge (Chi cục) 1 gateway / LAN · Hub chỉ nhận event/ISAPI | Cam không lên cloud raw RTSP |
 
@@ -259,12 +259,14 @@ Secrets: inject từ API lúc `live/start` (dynamic path) — **ưu tiên** hơn
 
 ## 12. Confirm gates (trước code gateway)
 
-Trước `/agent-qldb-workflow` phase gateway:
+**LOCKED 2026-09-06** (`/hey-linm` AskQuestion):
 
-1. **Engine:** MediaMTX (A) · go2rtc (B) · custom FFmpeg-only (C)  
-2. **Default Live mode:** WebRTC (A) · HLS (B) · cả hai + toggle (C)  
-3. **Deploy:** Site Edge only (A) · Hub+VPN (B)  
-4. **EF CameraDevice:** cùng PR gateway (A) · trước (B)
+1. **Engine:** MediaMTX  
+2. **Default Live mode:** cả hai + toggle (WebRTC + HLS) · JPEG poll giữ fallback  
+3. **Deploy:** Hub + VPN  
+4. **EF CameraDevice:** reuse S1 AEAD — không Schema mới  
+
+Implement SSOT: [`../plan/camera-live/PLAN.md`](../plan/camera-live/PLAN.md)
 
 ---
 

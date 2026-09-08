@@ -352,5 +352,5 @@ Gen demo: `/qlbd-analy-demo @incident` — load control-map trên + `/erp-form-c
 
 | lane | phase | status | updatedAt |
 |------|-------|--------|-----------|
-| web | `dev` | `pending` | `2026-08-29T05:03:52.838Z` |
+| web | `done` | `done` | `2026-09-06T19:26:16.790Z` |
 | mobile | — | — | — |

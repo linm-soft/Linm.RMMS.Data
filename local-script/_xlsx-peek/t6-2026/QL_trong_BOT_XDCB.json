@@ -1,0 +1,132 @@
+[
+  {
+    "i": 0,
+    "c": [
+      "BẢNG TỔNG HỢP CÁC QUỐC LỘ ĐANG THỰC HIỆN DỰ ÁN BOT, \r\nBÀN GIAO CHO DỰ ÁN XDCB",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "i": 1,
+    "c": [
+      "STT",
+      "Tên quốc lộ",
+      "Chiều dài QL trong dự án BOT \r\n(Km)",
+      "Chiều dài QL đang trong dự án XDCB (Km)",
+      "",
+      "Ghi chú",
+      "",
+      ""
+    ]
+  },
+  {
+    "i": 2,
+    "c": [
+      "",
+      "",
+      "",
+      "Trên QL không phân cấp",
+      "Trên QL đã phân cấp cho địa phương",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "i": 3,
+    "c": [
+      "",
+      "TỔNG CỘNG 4 KHU",
+      "1,812.86",
+      "159.89",
+      "230.00",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "i": 4,
+    "c": [
+      "1",
+      "Khu I (VB số 1230 ngày 25/6/2026)",
+      "500.99",
+      "0.00",
+      "0.00",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "i": 5,
+    "c": [
+      "2",
+      "Khu II (VB số 1060 ngày 25/6/2026)",
+      "236.46",
+      "",
+      "81.76",
+      "Chiều dài trong XDCB đã tính vào chiều dài QL phân cấp cho địa phương",
+      "",
+      ""
+    ]
+  },
+  {
+    "i": 6,
+    "c": [
+      "3",
+      "2Khu III (VB số 1278 ngày 24/6/2026)",
+      "599.61",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "i": 7,
+    "c": [
+      "",
+      "Trên tuyến QL.1; TSĐ",
+      "",
+      "79.59",
+      "",
+      "Chiều dài trong XDCB là trên đường QL.1+TSĐ",
+      "",
+      ""
+    ]
+  },
+  {
+    "i": 8,
+    "c": [
+      "",
+      "Trên các tuyến QL phân cấp",
+      "",
+      "",
+      "148.24",
+      "Chiều dài đã tính vào chiều dài QL phân cấp cho địa phương",
+      "",
+      ""
+    ]
+  },
+  {
+    "i": 9,
+    "c": [
+      "4",
+      "Khu IV (VB số 1537 ngày 24/6/2026)",
+      "475.81",
+      "80.30",
+      "",
+      "Chiều dài trong XDCB là trên đường HCM",
+      "",
+      ""
+    ]
+  }
+]

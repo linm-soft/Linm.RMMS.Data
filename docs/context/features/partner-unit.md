@@ -13,8 +13,8 @@
 | | |
 |--|--|
 | Mục tiêu | Đơn vị **ngoài** cơ cấu Cục — Sở GTVT · BOT · DN bảo trì — filter/import ownership |
-| Nguồn | Seed DRVN / partner catalog. Top-level `RMMS CUC 2` = **demo / archive** — không import production. |
-| Count | **13** partners (tên demo archive — không import) |
+| Nguồn | Seed 13 mã nền + Excel T6.2026 set **`t6-org-scope`** `partner_units.csv` (Sở / BOT / Cty từ file quản trị). Top-level `RMMS CUC 2` = **demo / archive** — không import production. **Cấm** invent `vpOrgCode` từ tên đối tác. |
+| Count | Catalog T6 **91** (13 seed + Excel) · **không** lấy 13 demo CUC 2 làm SSOT |
 | DoD | CRUD · SearchInput · kind SO_GTVT/BOT/DOANH_NGHIEP · map folder name |
 
 ## 2. Design / UI
@@ -38,7 +38,7 @@ Kind B list — Mã · Tên · Loại · Tỉnh? · Active.
 
 ## 5. Seed (tên demo CUC 2 — archive)
 
-Danh sách tên dưới đây **không** phải nguồn import hiện tại. Import: [`import-gov-ssot.md`](import-gov-ssot.md).
+Danh sách tên dưới đây **không** phải nguồn import hiện tại. Import production: set `t6-org-scope` · peer [`import-gov-ssot.md`](import-gov-ssot.md).
 
 **Sở GTVT (6):** Hà Tĩnh · Nghệ An · Quảng Bình · Quảng Trị · Thanh Hóa · Thừa Thiên Huế  
 

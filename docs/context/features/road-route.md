@@ -15,6 +15,7 @@
 |--|--|
 | Mục tiêu | Danh mục tuyến / đoạn đường — SearchInput trên Asset, map, import, **ca tuần đường**. Unique `code` (vd `QL.1`) = khóa LRS `RouteID + Km + m` khi GIS snap GPS (P2). |
 | Nguồn data | SSOT [`import-gov-ssot.md`](import-gov-ssot.md) · set `gov-vn` `road_routes.csv` **T6.2026 normalize** (~210 tuyến chính + named/đoạn có `parent_code`). Script `normalize-routes-from-t6.mjs`. `RMMS CUC 2` = demo / archive. |
+| **Khóa join (HARD)** | `RoadRoute.Code` = **slug từ file** (dump `road_name` / Excel T6 / `long_route_name` / `name_of_route_asset`) qua `RoadRouteService.NormCatalogCode` (in hoa, bỏ dấu, max 64, SHA suffix nếu dài). **Không** `IIdCodeService`. **Không** Guid FK. Tài sản / phân khu join **cùng chuỗi `Code`**. |
 | Raw keys | ~42 · **canonical ~25** sau gộp alias |
 | DoD | CRUD list · search CI · seed từ import · `legacyFolderName[]` |
 
@@ -33,7 +34,7 @@
 
 | Field | Control | Notes |
 |-------|---------|-------|
-| code | Text code | `QL.1`, `HCM`, `QL.46B` |
+| code | Text code | `QL.1`, `QL.HCM`, `QL.46B` — **slug dump/T6**, không mã hệ thống sinh sẵn |
 | name | Text | |
 | routeKind | LOOKUP | `QUOC_LO` · `HCM` · `CAO_TOC` · `KHAC` |
 | parentCode | SearchInput road-route | named/BOT / đoạn thuộc tuyến chính (`QL.1`) — import asset upsert `parent_code` |

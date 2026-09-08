@@ -1,11 +1,14 @@
 # Prototype — traffic-sign-type
 
-Design gate: **prototype + reviewUrl** — board Approve (**không auto**).
-Repo confirm: user tick BE+UI trên `/qldb-workflow` Progress trước Dev (**không auto** · cấm ERP.*).
+Design gate: **PASS** · `design_confirm=approve` (autoApprove ON · `task_5c6a5cc1`).
 
-- Demo SSOT: `N/A (packKind=master)`
-- Title: Loại biển báo (mã QCVN 41)
-- Pack kind: `master`
-- MFE: `Linm.Web.RMMS.Master`
-
-Put HTML prototype / screenshot link here; update `ui/design.md` with a browser-openable **reviewUrl**.
+| | |
+|--|--|
+| Artifact | `traffic-sign-type-list-prototype.html` |
+| reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/traffic-sign-type/ui/prototype/traffic-sign-type-list-prototype.html` |
+| Zones | DES-GRID-A · B · B-FILTER · C · D · F · H · Z (Slideout) · LeaveConfirmModal |
+| Form | Slideout · `data-form-cols=2` · footer_actions_only |
+| Demo SSOT | N/A (`packKind=master`) |
+| Title | Loại biển báo (QCVN 41) |
+| MFE | `Linm.Web.RMMS.Master` · `/mas/loai-bien-bao` |
+| peerStdUrl | `http://localhost:9318/mas/loai-tai-san` |

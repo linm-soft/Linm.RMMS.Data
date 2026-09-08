@@ -1,8 +1,13 @@
 # RMMS — CSDL & Sổ sách BDTX: Database + API (từ hồ sơ chuẩn hóa)
 
-> **Nguồn:** `docs/Hồ sơ xin ý kiến chuẩn hóa sổ sách/`  
-> **SSOT biểu mẫu CSDL:** `4.1. In_Mẫu biểu_Cơ sở dữ liệu.xlsx` (12 biểu)  
-> **SSOT mẫu sổ:** `3. Mẫu sổ.docx` (8 sổ)  
+> **STALE 12+8.** Catalog Cục **08/2026 = 16 biểu + 10 sổ** — SSOT delta [`features/csdl-cuc-2026.md`](features/csdl-cuc-2026.md) · analy [`specs/_data-analy/csdl-cuc-2026/ANALYSIS-AND-TASKS.md`](../../specs/_data-analy/csdl-cuc-2026/ANALYSIS-AND-TASKS.md). File này giữ schema P1 cũ (12+8) đến khi SA typed table. **API live:** `api/v1/asset/csdl-records` — **cấm** `/api/v1/infra/*`.
+>
+> **Hai lớp (2026-09-05):** Sổ TS / hang-muc (`rmms_road_assets`) ≠ biểu/sổ Cục (`csdl-records`) — LOOKUP `road-route` chung · **cấm** merge row (`GAP-CSDL-CUC-11`).
+>
+> **Nguồn cũ:** `docs/Hồ sơ xin ý kiến chuẩn hóa sổ sách/`  
+> **SSOT biểu mẫu CSDL (cũ):** `4.1. In_Mẫu biểu_Cơ sở dữ liệu.xlsx` (12 biểu)  
+> **SSOT mẫu sổ (cũ):** `3. Mẫu sổ.docx` (8 sổ)  
+> **SSOT Cục 08/2026:** `data-import/Sổ sách, biểu mẫu trình LĐ Cục`  
 > **Căn cứ nghiệp vụ:** Báo cáo 375/BC-QLBT · TT 41/2024/TT-BGTVT · TT 72/2025/TT-BXD · TCVN 14182:2024  
 > **Mục đích file:** Đặc tả **entity / cột DB / endpoint** để team code + chuyển đổi số  
 > **Prefix API:** `api/v1/` · Auth JWT · tenant (`company_id` / đơn vị QLĐB)

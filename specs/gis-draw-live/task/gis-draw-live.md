@@ -4,84 +4,135 @@
 |-------|-------|
 | feature | `gis-draw-live` |
 | status | `confirmed` |
+| changeScope | `edit_page` |
+| packKind | `map` |
+| formType | `map` |
+| formPattern | `Full page` (+ inspect panel/popup) |
 | mfeStdRoute | `/gis/tai-san` |
-| skillVersion | `2026.08.10.3` |
+| peerStdRoute | `/gis/draw` · `/gis` · `/gis/ha-tang` |
+| mfeStdUrl | `http://localhost:9302/gis/draw` (Dev sets live) |
+| route_confirm | `/gis/tai-san` · autopilot keep · `/gis/live` redirect giữ `?type=` |
+| Leave | `LeaveConfirmModal` · **cấm** `window.alert`/`confirm` |
+| Grid/Report AC | `N/A` |
+| skillVersion | `2026.08.25.01` |
 | schemaVersion | `qldb-workflow-skill-v1` |
-| workflowVersion | `2026.08.10.3` |
-| versionGate | `ok` |
-| updatedAt | `2026-09-01T21:20:00.000Z` |
+| workflowVersion | `2026.08.25.02` |
+| versionGate | `rechecked` |
+| contentHash | `sha256:24f695fc96706b7876dffb8960f4186e34b439fb0d5b519d0fa282a01760de02` |
+| taskId | `task_efbc1d08` |
+| priorTaskId | `task_2e873d37` |
+| updatedAt | `2026-09-07T03:50:00.000Z` |
 
 ## Source assignment
 
 | Layer | Source |
 |-------|--------|
-| UI | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Gis` |
-| BE API/BFF | `D:/AI-QLBD/Linm.RMMS.WebService` · domain `Gis` |
+| UI | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Gis` · route `/gis/tai-san` |
+| BE API/BFF | `D:/AI-QLBD/Linm.RMMS.WebService` · domain `Gis` · BFF `web-bff/api/v1/gis` |
+| Files | FileService.Bff **reuse** · `web-bff/api/v1/files/*` · **cấm** invent FilesController / persist presigned |
 | Demo SSOT | `Linm.RMMS.Demo/src/demo/gis/gis-draw-live.html` |
 | Context | `Linm.RMMS.Data/docs/context/features/gis-draw-live.md` |
-| Design zones | A sidebar · C map chrome (host→bar, **không** legend isolate) · D props/results · **không** header/toolbar B |
+| Design | `specs/gis-draw-live/ui/design.md` · reviewUrl prototype |
+| Solution | `specs/gis-draw-live/be/solution-discovery.md` |
 
-**Cấm:** `Linm.Web.ERP.WebService` · `Domains/Master` · `api/v1/rmms/*` ERP.
+**Cấm:** `Linm.Web.ERP.WebService` · `Domains/Master` · `api/v1/rmms/*` ERP · Step 4b / migration (SA: none).
 
-## UI notes (2026-09-01 `/edit-web-feature`)
+## Scope (edit_page · GAP NEW only)
 
-Canonical route **`/gis/tai-san`**. **`/gis/live`** · `/gis` · `/gis/ha-tang` · `/gis/tao-moi` → redirect **giữ `search`+`hash`**. `parseAssetTypeQuery` + `layerMatchesTypeQuery` — vd `?type=BUS_STOP` tick lớp Điểm đỗ. **Cấm** revert về `/gis/live` làm canonical.
+**KEEP (shipped — cấm regress):** Kind F shell · OMS R1–R11 · clip Carto · overlay Tuyến · locate popup · inspect text rows · purpose=live basemap/layers/geojson · map-bar Tiêu chuẩn\|Vệ tinh · **cấm** Fit trên locate · **cấm** Lưu bản vẽ.
 
-**Cấm revert:** không header `← Dev ← GIS` + title · không toolbar seed/export · không bottom isolate legend. Menu GIS **chỉ** Bản đồ tài sản + Bản đồ Tuần đường — **cấm** re-add giám sát 2D / ha-tang / tạo mới.
+**NEW P1 (Dev MUST):**
 
-Pin tài sản **chỉ xem** — **cấm** Leaflet.draw edit/CREATED · **cấm** `draggable` · **cấm** persist sau kéo (`GAP-MAP-DISPLAY-ONLY`).
+| GAP | Do |
+|-----|----|
+| GAP-MAP-INSPECT-FILE-HARD | Wire resign qua `web-bff/api/v1/files/*` · **cấm** invent FilesController |
+| GAP-MAP-INSPECT-PHOTO-01 | Z-PHOTO · ImageGallery 3 tabs (tài sản / tuần kiểm / tuần đường) · geojson `photo.*FileIds` |
+| GAP-MAP-INSPECT-XSECT-01 | Z-XSECT · gallery `xsect.fileIds` · empty copy OK |
+| GAP-MAP-INSPECT-KPI-01 | Z-KPI · soft toast on fail · paths dưới |
+| GAP-MAP-OMS-KEEP | Re-run `/agent-dev-oms-map` **chỉ nếu** đụng paint/basemap |
 
-Tab **Thuộc tính** = inspect (parity popup: Tên · Mã TS · KM · GPS · Tuyến) + gov `/data-gov-integration`: 3 tầng tuyến · dumpSpecs loại. **Cấm** Lưu bản vẽ / Huỷ · **cấm** textarea GeoJSON.
+### KPI path (LOCKED · SA)
 
-Lớp lazy default off + count. z≤8: nét **đã bake/index** (GetCorridors không bbox · overlay bake bỏ geomKey). Zoom sát: **giữ** cache `national` overlay Tuyến — **cấm** refetch bbox / `clipPathToView` ẩn nét (`GAP-MAP-INDEX-PAINT`). Snap `projectToPath` đúng `props.route` — cấm nearest inventory. Bake pairwise fail **không** nối chord; FE `splitPathOnJump` nhiều polyline cùng id. Nền: biển `theme.sea` một màu · đất `vn-land` · **cấm** OSM water 2 tone. GL: không đụng canvas transform.
+| uiField | Path |
+|---------|------|
+| kpi.incidents | `GET …/incident/incidents?routeName=&page=1&pageSize=1` → `TotalCount` (KEEP) |
+| kpi.repairs | `GET …/maintenance/work-orders?routeName=` → `TotalCount` (**NEW** query) |
+| kpi.assetByType | `GET …/gis/summary-by-type?route=` (**NEW** query) |
 
-Map-bar **2 chip: Tiêu chuẩn · Vệ tinh** (`CLIP_STYLE_OPTIONS`) — **cấm** Default/Streets/Sat EN · **cấm** chip Streets.
+**Cấm** Gis fake KPI tables · **cấm** `maintenance/summary` global làm route KPI.
 
-Đường nền clip: **nền + biên** OSM Carto (`GAP-MAP-ROAD-CARTO-01`) · overlay Tuyến = pair blue `guideBlue` / `routeBlueCase` (`GAP-MAP-ROUTE-BLUE`) — **cấm** peach `#fcd6a4`.
-Map-bar **Vị trí của tôi** (`locateUserOnMap`) — **cấm** nút Fit. Click pin: **Tên: Vị trí của bạn** + **GPS:** (`/map-inspect-popup`).
+## Screens / zones
 
-Clip camera: **cấm** `setMaxBounds` sau `map.remove()` — `isVnClipMapAlive` + clear timer `attachVnClipBasemap` (`GAP-MAP-PANE-ALIVE`).
+- SCR-MAP · SCR-INSPECT · SCR-LOCATE
+- Zones: Z-SIDE-LAYER · Z-MAP · Z-MAP-BAR · Z-PROPS · **Z-PHOTO** · **Z-XSECT** · **Z-KPI** · Z-LOCATE
+- reviewUrl=`file:///D:/AI-QLBD/Linm.RMMS.Data/specs/gis-draw-live/ui/prototype/gis-draw-live-prototype.html`
 
-Overlay Tuyến: **cấm** dump GPS thưa (`isSparseGpsChord`) — fail = nét đứt (`GAP-MAP-DRAW-STREET-01` · `/map-draw-street`).
+## FormMode ↔ API
 
-## Platform SSOT / permissions
+| Mode | Op |
+|------|-----|
+| map load | GET basemap/layers/geojson `purpose=live` KEEP |
+| inspect | GET props + files resign + 3 KPI GETs |
+| drawing save | **n/a** · cấm Lưu bản vẽ |
 
-| id | DoD |
-|----|-----|
-| T-CTX | Context + demo wired in implement MD |
-| T-PERM | Local-mode OK · JWT TODO when platform auth lands |
+## ssot.reuse
 
-## Tasks
+| id | Reuse |
+|----|-------|
+| map | `/agent-dev-oms-map` R1–R11 · `/map-inspect-popup` · clip BFF · **cấm** OSM DTO |
+| files | platform FileService.Bff resign only |
+| leave | `/implement-show-leave-confirm` · `LeaveConfirmModal` |
+| ux | `dev-ui-ux-constitution` · `/dev-web-responsive` · `/dev-ui-review` |
+| kpi | cross-domain READ only · query-only · migration **none** |
 
-| id | page | layer | role | deps | skills | DoD |
-|----|------|-------|------|------|--------|-----|
-| T-CTX | gis-draw-live | docs | dev | — | — | Stamp implement paths |
-| T-PERM | gis-draw-live | perm | dev | — | — | Local mode note |
-| T-BE-01 | map | api | dev | — | new-endpoint | purpose=live layers + live basemap · reuse drawings · build PASS |
-| T-BE-02 | map | bff | dev | T-BE-01 | create-bff-api-feature | BFF forward purpose · build PASS |
-| T-UI-MAP | /gis/draw | ui-map | dev | — | agent-dev-oms-map | Kind F A–D rút gọn · OMS R1–R11 · build PASS |
-| T-FE-CLIENT | client | ui-api | dev | T-BE-01,T-UI-MAP | — | wire drawings + local fallback |
-| T-QA-01 | gis-draw-live | qa | qa | T-UI-MAP,T-BE-02 | — | scenarios.md |
-| T-RV-01 | gis-draw-live | review | review | T-QA-01 | review-query | findings.md |
+## implement.wire / state
 
-## retry.ssot_rereview (HARD)
+| Surface | Wire | State |
+|---------|------|-------|
+| Z-PHOTO / Z-XSECT | geojson props fileIds → resign `files/*` → ImageGallery | loading / empty / error toast |
+| Z-KPI | parallel 3 GETs by `route`/`routeName` | soft fail per Stat · không block inspect |
+| Leave | dirty inspect media/KPI bind | `LeaveConfirmModal` only |
 
-Live page `/gis/draw` audit before Write:
+## Tasks — KEEP (done)
 
-| Check | Result |
-|-------|--------|
-| 1 LinPageLayout nested CatalogListShell | N/A — Kind F map (not Kind B list) |
-| footer CatalogListPagination | N/A |
-| flex+skeleton | map-host flex fill · loading state |
-| toolbar config | map-bar only (Fit · clip · toggle) — **cấm** zone B seed toolbar |
-| list_parity | N/A packKind=map |
-| tree_master | layer tree sidebar (not catalog tree_master) |
-| form checklist | props panel after draw (not Slideout form) |
-| OMS R1–R11 | required on T-UI-MAP |
+| id | status | notes |
+|----|--------|-------|
+| T-CTX | done | |
+| T-PERM | done | JWT TODO |
+| T-BE-01 | done | purpose=live basemap |
+| T-BE-02 | done | BFF query forward |
+| T-UI-MAP | done | Kind F · OMS (prior id) |
+| T-FE-CLIENT | done | BFF + fallback |
+| T-QA-01 | done | prior scenarios |
+| T-RV-01 | done | findings |
 
-## Deps order
+## Tasks — NEW (form-type map pack §2b + delta)
 
-T-BE-01 → T-BE-02 · T-UI-MAP → T-FE-CLIENT → verify builds → T-QA-01 → T-RV-01
+| id | page | layer | role | deps | **devSlash** / skills | DoD |
+|----|------|-------|------|------|----------------------|-----|
+| T-BE-GIS-01 | map | api | dev | — | new-endpoint (query-only) | `summary-by-type?route=` + `work-orders?routeName=` · **cấm** migration/Step4b · **cấm** ERP.* · build PASS (Dev role) |
+| T-BE-FILE-01 | map | bff | dev | — | FileService.Bff reuse | Confirm `web-bff/api/v1/files/*` resign proxy · **cấm** invent FilesController / persist presigned |
+| T-UI-MAP-01 | `/gis/tai-san` | ui-map | dev | T-BE-GIS-01 | **`/agent-dev-oms-map`** · `/map-inspect-popup` | KEEP shell · OMS R1–R11 **chỉ nếu paint** · **cấm** Fit locate · popup-only click · peer `/gis` `/gis/ha-tang` |
+| T-UI-MAP-FORM-01 | SCR-INSPECT | ui | dev | T-BE-GIS-01,T-BE-FILE-01 | **`/agent-dev-oms-map`** · `/implement-show-leave-confirm` · `/map-inspect-popup` | Z-PHOTO 3 tabs + Z-XSECT + Z-KPI bind · inspect rows KEEP · dirty → **LeaveConfirmModal** · **cấm** Lưu bản vẽ / native alert · **GAP-DEV-LEAVE-01** |
+| T-PERM-01 | gis-draw-live | perm | dev | — | — | Map/inspect/files/KPI read codes · local-mode OK · JWT TODO |
+| T-UI-UX-01 | map | ui | dev | T-UI-MAP-FORM-01 | `dev-ui-ux-constitution` · `/dev-web-responsive` · `/dev-ui-review` | P1–7 · 1280/768/375 · **GAP-DEV-UX-01** |
+| T-QA-MAP-01 | gis-draw-live | qa | qa | T-UI-MAP-01,T-UI-MAP-FORM-01,T-BE-GIS-01 | `/agent-qa` · e2e queued | PHOTO/XSECT/KPI + empty + soft toast · R1–R11 smoke · Leave Modal · **cấm** start:std ở TL |
+
+## Deps order (NEW)
+
+T-BE-GIS-01 ∥ T-BE-FILE-01 → T-UI-MAP-01 → T-UI-MAP-FORM-01 → T-UI-UX-01 → T-PERM-01 → (Dev verify) → T-QA-MAP-01
+
+## retry.ssot_rereview
+
+N/A — không `retryFrom` · edit_page GAP NEW only. Dev: **cấm** regress KEEP OMS/Carto/locate.
+
+## Handoff next
+
+| Role | Do |
+|------|----|
+| Dev | Implement NEW T-* · slash OMS · **cấm** ERP.* |
+| QA | After Dev · e2e queued `e2eQa=ON` |
+| Review | After QA |
 
 ---
-<!-- Version meta: skillVersion=2026.08.10.3 · schemaVersion=qldb-workflow-skill-v1 · workflowVersion=2026.08.10.3 · versionGate=ok -->
+<!-- Version meta: skillVersion=2026.08.25.01 · schemaVersion=qldb-workflow-skill-v1 · workflowVersion=2026.08.25.02 · versionGate=rechecked · contentHash=sha256:24f695fc96706b7876dffb8960f4186e34b439fb0d5b519d0fa282a01760de02 · taskId=task_efbc1d08 · route_confirm=/gis/tai-san · packKind=map -->

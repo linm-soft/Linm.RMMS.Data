@@ -1,0 +1,89 @@
+{
+  "feature": "traffic-sign-type",
+  "url": "http://localhost:9318/mas/loai-bien-bao",
+  "ok": true,
+  "capturedAt": "2026-09-06T02:52:12.418Z",
+  "method": "playwright-channel-chrome",
+  "note": "yarn e2e-qa hung on playwright install chromium (dirlock) · GAP-QA-E2E-02 mitigated by channel=chrome · no broad kill",
+  "cases": [
+    "S0",
+    "S1",
+    "QA-20"
+  ],
+  "results": [
+    {
+      "id": "S0",
+      "ok": true,
+      "result": "PASS",
+      "file": "S0.png",
+      "screenshot": "S0.png",
+      "bytes": 113260,
+      "sha16": "2245f3cd7bbf72f5",
+      "sha256_16": "2245f3cd7bbf72f5",
+      "note": "list Loại biển báo · filter-bar search+groupCode · grid/empty",
+      "finalUrl": "http://localhost:9318/mas/loai-bien-bao"
+    },
+    {
+      "id": "S1",
+      "ok": true,
+      "result": "PASS",
+      "file": "S1.png",
+      "screenshot": "S1.png",
+      "bytes": 112066,
+      "sha16": "7f089d4add8e29c1",
+      "sha256_16": "7f089d4add8e29c1",
+      "note": "filter groupCode=P · list still mounted",
+      "finalUrl": "http://localhost:9318/mas/loai-bien-bao?groupCode=P"
+    },
+    {
+      "id": "QA-20",
+      "ok": true,
+      "result": "PASS",
+      "file": "QA-20.png",
+      "screenshot": "QA-20.png",
+      "bytes": 96334,
+      "sha16": "229be9c97a50958e",
+      "sha256_16": "229be9c97a50958e",
+      "note": "Create Slideout · form=create · data-form-cols=2 · footer Lưu",
+      "finalUrl": "http://localhost:9318/mas/loai-bien-bao"
+    }
+  ],
+  "steps": [
+    {
+      "id": "S0",
+      "ok": true,
+      "result": "PASS",
+      "file": "S0.png",
+      "screenshot": "S0.png",
+      "bytes": 113260,
+      "sha16": "2245f3cd7bbf72f5",
+      "sha256_16": "2245f3cd7bbf72f5",
+      "note": "list Loại biển báo · filter-bar search+groupCode · grid/empty",
+      "finalUrl": "http://localhost:9318/mas/loai-bien-bao"
+    },
+    {
+      "id": "S1",
+      "ok": true,
+      "result": "PASS",
+      "file": "S1.png",
+      "screenshot": "S1.png",
+      "bytes": 112066,
+      "sha16": "7f089d4add8e29c1",
+      "sha256_16": "7f089d4add8e29c1",
+      "note": "filter groupCode=P · list still mounted",
+      "finalUrl": "http://localhost:9318/mas/loai-bien-bao?groupCode=P"
+    },
+    {
+      "id": "QA-20",
+      "ok": true,
+      "result": "PASS",
+      "file": "QA-20.png",
+      "screenshot": "QA-20.png",
+      "bytes": 96334,
+      "sha16": "229be9c97a50958e",
+      "sha256_16": "229be9c97a50958e",
+      "note": "Create Slideout · form=create · data-form-cols=2 · footer Lưu",
+      "finalUrl": "http://localhost:9318/mas/loai-bien-bao"
+    }
+  ]
+}

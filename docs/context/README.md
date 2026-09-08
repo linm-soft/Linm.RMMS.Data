@@ -11,6 +11,7 @@
 | [**route-vn-abbr-confirm.md**](route-vn-abbr-confirm.md) | **SSOT URL MFE viết tắt VN** — đã apply 13 MFE `src/index.tsx` | PM, Dev, AI |
 | [**15-SCREEN-AI-MAP.md**](15-SCREEN-AI-MAP.md) | **SSOT màn hình Web/Mobile (guide) ↔ 18 phân hệ + AI** — `/analy-requirement` + `/gen-tinh-nang-demo` | PM, BA, Dev |
 | [**11-CSDL-SO-SACH-DATABASE-API.md**](11-CSDL-SO-SACH-DATABASE-API.md) | **DB + API từ hồ sơ chuẩn hóa sổ sách** — 12 biểu CSDL · 8 mẫu sổ · endpoint | Dev, BA, outsource |
+| [**plan/ai-vision-service/README.md**](../plan/ai-vision-service/README.md) | **Vision stack** BE→BFF→UI — `/implement-ai-vision-stack` · host `Linm.RMMS.Vision` `:5311` · P1 GPT / P2 ONNX | Architect, Dev, AI |
 | [**plan/ai-asset-detect/azure-openai-register-use.md**](../plan/ai-asset-detect/azure-openai-register-use.md) | **Azure OpenAI** — đăng ký resource · deploy `gpt-4o` vision · User Secrets · curl · UI detect | Infra, Dev |
 | [**plan/ai-asset-detect/AZURE-OPENAI-CHECKLIST.md**](../plan/ai-asset-detect/AZURE-OPENAI-CHECKLIST.md) | Checklist tick đăng ký → verify → 1 frame thật | Infra, Dev |
 | [**features/login.md**](features/login.md) | **Login Platform.Authentication + TK theo HĐ + job Active/Inactive** | PM, BA, Dev, Security |
@@ -44,7 +45,7 @@
 | [03-EVENT-ARCHITECTURE.md](03-EVENT-ARCHITECTURE.md) | Event, realtime, offline | Backend |
 | [04-PROGRAMS.md](04-PROGRAMS.md) | Nhóm phân hệ / server AI (tham khảo) | PM |
 | [05-DASHBOARD.md](05-DASHBOARD.md) | Dashboard & KPI | Product |
-| [06-SECURITY-RATELIMIT.md](06-SECURITY-RATELIMIT.md) | Bảo mật · rate limit | Security, Dev |
+| [06-SECURITY-RATELIMIT.md](06-SECURITY-RATELIMIT.md) | Bảo mật · rate limit · **§0 ATTT cấp 1–2** (`/review-data-security-l1-l2`) ≠ Layer mạng/app | Security, Dev, pháp chế |
 | [**14-P2-AI-VISION-STANDARD.md**](14-P2-AI-VISION-STANDARD.md) | **P2 chuẩn hóa** — stack P2-A/B · license · data · ONNX · DoD | PM, AI lead, Dev, legal |
 | [**13-AI-SERVER-BY-PHASE.md**](13-AI-SERVER-BY-PHASE.md) | Phase → cloud / vật lý / Vast | Infra, PM |
 | [**12-AI-COST-PHASES.md**](12-AI-COST-PHASES.md) | Chi phí AI theo giai đoạn | PM, CFO |
@@ -60,6 +61,9 @@
 | [**22-CAMERA-TCM403-SDK-RESEARCH.md**](22-CAMERA-TCM403-SDK-RESEARCH.md) | SDK vs ISAPI · port 8000/8100 · **P1.5 BE** `CameraModelCatalog` + `HikvisionSdkClient` | Architect, BE |
 | [**23-CAMERA-HOST-NOTIFY-CONFIG.md**](23-CAMERA-HOST-NOTIFY-CONFIG.md) | **Cấu hình cam → Host nhận event** · ví dụ `camera-event-api-rmms.vn` · đếm Events · skill `/agent-dev-camera-connect` | ITS ops, BE, Dev |
 | [**camera-model.md**](camera-model.md) | Catalog model Hikvision (TCM403-GIR + DeepinView…) | Architect, Dev |
+| [**27-CAMERA-SITE-INSTALL-BRIEF.md**](27-CAMERA-SITE-INSTALL-BRIEF.md) | **Gửi khách** — expect **xem live tại TTĐH** · tủ điện · quang/VPN · IP tĩnh + RTSP · gateway + tường hình | Khách, PM, ITS |
+| [**28-CAMERA-SECURITY.md**](28-CAMERA-SECURITY.md) | **Camera security** — AEAD 2 chiều · tách `Linm.RMMS.Camera` · resign URL exp / grant dashboard unlimit | Architect, BE, Security |
+| [**plan/camera-live/PLAN.md**](../plan/camera-live/PLAN.md) | **P2-G0/G1 live** — MediaMTX Hub+VPN · live/start · MFE HLS/WebRTC · fallback JPEG | Architect, Dev, ITS |
 | [**19-IP-REGISTRATION-MATRIX.md**](19-IP-REGISTRATION-MATRIX.md) | **Ma trận SHTT VN** — thành phần có thể đăng ký (QTG · NH · GPHI · BMKD) · gói G0–G6 | PM, legal, C-level |
 
 ## Demo standalone (std mode)

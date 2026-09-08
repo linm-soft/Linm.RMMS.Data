@@ -59,3 +59,10 @@ BFF `web-bff/api/v1/iot`. **Cấm** invent ERP.*.
 | GAP-IOT-03 | Menu P2 extra — **cấm** gán STAFF / ADMIN-RMMS |
 
 <!-- context: iot web P2 extra · enqueue 2026-09-04 -->
+
+## Implement tracking
+
+| lane | phase | status | updatedAt |
+|------|-------|--------|-----------|
+| web | `done` | `done` | `2026-09-05T04:52:18.055Z` |
+| mobile | — | — | — |

@@ -9,6 +9,7 @@
 | queue | `qlbd-mobile` |
 | demo | `specs/mobile-p1/ui/prototype/{ios,android}/index.html` |
 | generated | 2026-08-19T01:55:00.000Z |
+| meeting seed | `MEETING-1-5.md` · **enqueue_later** · `/scan-mobile-feature` |
 
 ## Tree — home / Trang Chủ (pilot hub)
 
@@ -57,7 +58,9 @@ login                         ← kind=shell · màn Đăng nhập
 patrol-home                   ← kind=hub · tab Tuần đường · DES-MOB-PAT-HOME · done
 ├── attendance                ← segment Chấm công · màn mới
 ├── patrol-map                ← hero Tiếp tục bản đồ · row Bản đồ ca
-├── field-reflect             ← row Ghi nhận hư hỏng
+├── field-reflect             ← row Ghi nhận hư hỏng · họp 4
+├── nghiem-thu                ← row Công tác nghiệm thu · họp 1 · enqueue_later
+│   └── nghiem-thu-create     ← nav Tạo · sheet · enqueue_later
 ├── cam-patrol                ← row Thu thập camera
 ├── patrol-history            ← row Lịch sử phiên
 ├── patrol-pin                ← CTA Ghim vị trí hiện tại · hub job (P1 toast ≠ skip)
@@ -67,19 +70,22 @@ patrol-home                   ← kind=hub · tab Tuần đường · DES-MOB-PA
 ```
 
 **Không** enqueue: Tab 5 · segment cùng slug · today row tap (open existing ca · không CTA mới).  
-Title: `[Mobile] [Tuần đường] -> {nhãn nút}`. **Cấm** GAP-MOB-ACT-07 cho pin / ghi điểm.
+Title: `[Mobile] [Tuần đường] -> {nhãn nút}`. **Cấm** GAP-MOB-ACT-07 cho pin / ghi điểm.  
+Họp 04/09 seed [`MEETING-1-5.md`](MEETING-1-5.md) — **enqueue_later** (chưa gen queue). CSDL 16+10 / MAIN3 gis·ai-vision = skip native.
 
 ## Rows — hub `patrol-home`
 
 | feature | parent | action | demoRel | kind | prior | share | reuse | mapCite | usedOn |
 |---------|--------|--------|---------|------|-------|-------|-------|---------|--------|
 | `attendance` | `patrol-home` | Chấm công | `#sc-patrol-home` `.seg` | list | new | unique | — | `LinmSegment` idx 1 | patrol segment |
-| `patrol-map` | `patrol-home` | Tiếp tục bản đồ | `#sc-patrol-home` `#row-map` · hero | map | new | unique | — | `LinmListRow` `#i-map` | quick · hero |
-| `field-reflect` | `patrol-home` | Ghi nhận hư hỏng | `#row-reflect` | sheet | new | unique | — | `LinmListRow` `#i-camera` | quick |
+| `patrol-map` | `patrol-home` | Tiếp tục bản đồ | `#sc-patrol-home` `#row-map` · hero | map | new | unique | — | `LinmListRow` `#i-map` | quick · hero · họp 5 |
+| `field-reflect` | `patrol-home` | Ghi nhận hư hỏng | `#row-reflect` | sheet | new | unique | — | `LinmListRow` `#i-camera` | quick · họp 4 |
+| `nghiem-thu` | `patrol-home` | Công tác nghiệm thu | `#row-nghiem-thu` · `#sc-nghiem-thu` | list | new | unique | — | `LinmListRow` `#i-check` | quick · họp 1 · **enqueue_later** |
+| `nghiem-thu-create` | `nghiem-thu` | Tạo nghiệm thu | `#sc-nghiem-thu` nav Tạo | sheet | new | unique | — | `LinmPrimaryButton` | NT form · họp 1 · **enqueue_later** |
 | `cam-patrol` | `patrol-home` | Thu thập camera | `#row-cam` | sheet | new | unique | — | `LinmListRow` `#i-video` | quick |
 | `patrol-history` | `patrol-home` | Lịch sử phiên | `#row-history` | list | new | unique | — | `LinmListRow` `#i-list` | quick |
 | `patrol-pin` | `patrol-home` | Ghim vị trí hiện tại | `.btn-primary.pin-here` | sheet | new | unique | — | `LinmPrimaryButton` `#i-mappin` | hub CTA |
-| `patrol-checkin` | `patrol-home` | Ghi điểm tuần | hero `.btn` | sheet | new | unique | — | `LinmPrimaryButton` | hero CTA |
+| `patrol-checkin` | `patrol-home` | Ghi điểm tuần | hero `.btn` | sheet | new | unique | — | `LinmPrimaryButton` | hero CTA · họp 4 |
 | `supervise` | `patrol-home` | Giám sát | `#row-supervise` | list | skip | shared_action | `supervise` | `LinmListRow` `#i-list` | home tile · quick |
 | `patrol-offline` | `patrol-home` | Lưu trữ | `#row-offline` | list | skip | shared_action | `patrol-offline` | `LinmListRow` `#i-sync` | home · me · quick |
 

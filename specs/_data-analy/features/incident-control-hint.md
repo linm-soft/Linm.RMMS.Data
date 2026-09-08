@@ -13,17 +13,17 @@
 | workflowVersion | `2026.08.25.02` |
 | rulesVersion | `2026.08.28.4` |
 | versionGate | `rechecked` |
-| contentHash | `sha256:adf95ccc3f97b05abb02eb1332959aa4525025c55d876bac9ce18f1a4b003577` |
+| contentHash | `sha256:927979e9a8dc3f1491792cc2a87a5e42e0af21842278e65aefcb359f45e021ad` |
 | headerFingerprint | `sha256:0be4e953e4c54c6f55452779bb215d3ad32aa1d2899a3f0407fc2676f58e68cd` |
-| analyzedAt | `2026-08-29T02:20:00.000Z` |
+| analyzedAt | `2026-09-07T01:30:00.000Z` |
 | cluster | — (không Excel) |
-| taskId | `task_29a0c673` |
+| taskId | `task_2ed457c2` |
 | autoApprove | `ON` |
 | realData | `specs/_data-analy/features/incident-real-data.md` |
 | beRepo | `D:/AI-QLBD/Linm.RMMS.WebService` · domain **Incident** · **cấm ERP.*** |
 | uiRepo | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Field` · route `/su-co` |
 | mfeStdUrl | `http://localhost:9304/su-co` |
-| runMode | `fix_gaps` · gap=`crud_formtype` (FormType CRUD **CLOSED** prior) |
+| runMode | `full_pipeline` · `qa_fail_rollback` · gap=`bff_init` + `media_upload` |
 
 > Data-analy **đề xuất** controlHint. Design **chốt** control-map. SA **chốt** lookup/init-data.  
 > **Cấm** Dev đoán Text vs SearchInput khi đã có bảng này.  
@@ -35,7 +35,7 @@
 
 | Source | Path | sha256 |
 |--------|------|--------|
-| Context | `docs/context/features/incident.md` | `c9ead099beedf9b37d2cbea676300b118533652653d6e7f331e2c83b414694b2` |
+| Context | `docs/context/features/incident.md` | `79b0a9ce84b4b9bb612927e9403c08da5e0c4c94833afb3570faa65024273b8e` |
 | Control map | `docs/context/_raw/legacy-govone/demo-maps/incident-control-map.md` | `0c3671e5acc8397520e9292f0d8f8ef8555e5fe75f893211079890e4ade83400` |
 | Demo entry | `Linm.RMMS.Demo/src/demo/features/incident-demo.html` | `b5e48f4b0808c3b72887d72b1e8b31bbd4475e10c73bcf38dc892b023b99dd92` |
 | Demo page | `Linm.RMMS.Demo/src/demo/incident/incident.html` | `3a245e0a5b8cc0fcdd1b13fd0fe133ce4feff3a9c10079399ed0d0ba4272d5a0` |
@@ -50,24 +50,21 @@ Normalized header (no Excel · entity + form inventory):
 
 `code|title|routeName|incidentType|status|severity|reporterName|handleDirection|readStatus|reportStatus|assetLabel|kmStart|kmEnd|weather|requestedAt|detectionId|description|causesCongestion|hasGps|assigneeName|search`
 
-## § Delta Current vs New (`edit_page` · `task_29a0c673`)
+## § Delta Current vs New (`edit_page` · `task_2ed457c2` · họp 04/09)
 
-Giữ PO/Design/SA/TL/Dev/QA artifacts đã confirmed (FormType CRUD **CLOSED**). Delta **bắt buộc** pack edit = **thiếu L3 data-analy artifacts** (stub draft) + report-source debt:
+Giữ PO/Design/SA/TL/Dev artifacts đã confirmed (FormType CRUD **CLOSED** · prior L3 gaps CLOSED hoặc DEFER). Delta **NEW** = QA fail rollback + media upload:
 
-| ID | Current (live inventory 2026-08-29) | New (SSOT CTX+demo+entity) | Surface |
-|----|-------------------------------------|----------------------------|---------|
-| GAP-L3-REAL-DATA | Stub `draft` control-hint + real-data **trống** | §A+§B bind list/form/actions + Version meta `done` | data-analy |
-| GAP-INC-ROUTE-01 | Form/list `routeName` = **Text** free | **SearchInput** `catalogKind=road-route` (master 38) · **cấm** free-text khi master READY | filter + form |
-| GAP-INC-TYPE-01 | `incidentType` Dropdown cứng `INCIDENT_TYPES` (4 mã FE) | Demo 6 loại · PO chốt closed-set **hoặc** master `incident-type` SearchInput | filter + form |
-| GAP-INC-ORG-01 | Filter thiếu Công ty / Người ghi (legacy tree) | SearchInput tree `org-unit` · DEFER P2 nếu list pack giữ slim filter | Zone B |
-| GAP-RPT-SRC-INC-UN-TAC | Entity **không** `DurationMin` | Field số + type congestion\|flood cho `rpt-un-tac` | form + BE |
-| GAP-RPT-SRC-INC-THIET-HAI | **Không** bảng dòng thiệt hại (KL/ĐVT) | Child lines **hoặc** DEFER report pack | form / report |
-| GAP-RPT-SRC-INC-HM | `AssetLabel` free text · thiếu `DefectItem`/`SourceKind` | SearchInput asset-type **hoặc** Text + `sourceKind` enum | form |
-| GAP-INC-MAP-01 | Demo Kind F Leaflet live · MFE map **DEFER** (SD-MAP) | List pack **out of scope** map strip — Design giữ defer | map |
-| GAP-INC-HIST-01 | History `window.alert` stub (implement debt) | `LinCatalogHistoryModal` — **cấm** alert | list |
-| GAP-INC-FOOTER-01 | Slideout actions còn top Quay lại/Hủy/Lưu (Z1) | `slideout-form-layout` — actions **footer only** | form |
+| ID | Current (live 2026-09-07) | New (SSOT họp + FileService) | Surface |
+|----|---------------------------|------------------------------|---------|
+| GAP-QA-BFF-INIT-01 | BFF `GET web-bff/api/v1/incident/incidents/init-data` → **404** · API `:5111` **200** · FE FALLBACK | BFF proxy/route init-data **200** (swagger có) · **cấm** invent path mới · `qa_fail_rollback` | BFF + QA |
+| GAP-INC-MEDIA-01 | Form slideout **không** upload ảnh/file | Reuse **FileService đang có** · slash `/init-bff-file` + `/integrate-file-upload-web` · Host BFF `Linm.RMMS.WebService/bff/src/RMMS.Service.Bff` · route `web-bff/api/v1/files/*` · NuGet `Linm.Platform.FileService.Bff` | form Zone media |
+| GAP-INC-MEDIA-HARD | — | **Cấm** `/implement-file-service` · **cấm** copy `FilesController` · **cấm** persist presigned URL · lane **web** only · **cấm ERP.*** | SA/Dev |
+| GAP-INC-ROUTE-01 | SearchInput road-route (prior target) | **Giữ** · không re-open FormType | filter + form |
+| GAP-INC-ORG-01 | org-unit filter | **DEFER P2** | Zone B |
+| GAP-RPT-SRC-INC-* | DurationMin / damage / DefectItem | **DEFER** report | form/report |
+| GAP-INC-MAP-01 | Kind F MFE | **DEFER** | map |
 
-**Không** đổi: Kind B A–D · `LinPageLayout` · `LinCatalogDataGrid` · `LinCatalogListPagination` · Slideout C/E/V/Copy · leave-confirm · Delete + assign/close API · prefix `api/v1/incident/incidents` · route `/su-co` · **cấm ERP.***
+**Không** đổi: Kind B A–D · Slideout C/E/V/Copy · leave-confirm · Delete + assign/close · prefix `api/v1/incident/incidents` · UI route `/su-co` · **cấm ERP.*** · PO/Design confirmed files.
 
 ## Kind / zones (handoff Design)
 
@@ -118,7 +115,8 @@ Giữ PO/Design/SA/TL/Dev/QA artifacts đã confirmed (FormType CRUD **CLOSED**)
 | durationMin | Thời lượng (phút) | `Text` (number) | | **GAP-RPT-SRC-INC-UN-TAC** · **chưa** entity |
 | hasGps | Có GPS | `Dropdown` bool | | |
 | description | Mô tả | `Text` multiline | | map `rpt-thien-tai` DamageSummary P1 |
-| defectItem | Hạng mục hư hỏng | `Text` / SearchInput | | **GAP-RPT-SRC-INC-HM** · **chưa** entity |
+| mediaFiles | Ảnh / tệ đính kèm | `FileUpload` (platform FileService) | | **GAP-INC-MEDIA-01** · bind `web-bff/api/v1/files/*` · **không** invent controller |
+| defectItem | Hạng mục hư hỏng | `Text` / SearchInput | | **GAP-RPT-SRC-INC-HM** · **chưa** entity · DEFER |
 | sourceKind | Nguồn | `Dropdown` | | ai · patrol · mobile · camera · citizen stub |
 
 ## Actions (toolbar / row / form)
@@ -133,7 +131,8 @@ Giữ PO/Design/SA/TL/Dev/QA artifacts đã confirmed (FormType CRUD **CLOSED**)
 | Đóng vấn đề | Confirm modal | `POST …/{id}/close` | status=closed |
 | Assign | Modal / field | `POST …/{id}/assign` | assigneeName |
 | Config cột | `LinCatalogUiSchemaEditorModal` | catalog `incidents` | **cấm** configHint-only |
-| History | `LinCatalogHistoryModal` | — | **GAP-INC-HIST-01** |
+| History | `LinCatalogHistoryModal` | — | CLOSED prior |
+| Upload media | FileUpload · FileService BFF | `web-bff/api/v1/files/*` | **GAP-INC-MEDIA-01** · reuse package · **cấm** new FilesController |
 | Xuất Excel | Modal export | DEFER P2 | demo 47 actions · list pack optional |
 | Basemap / zoom | Map chrome | DEFER MFE | demo only |
 
@@ -151,7 +150,8 @@ Domain **Incident** · prefix `api/v1/incident` · BFF `web-bff/api/v1/incident`
 | close | `POST …/incidents/{id}/close` | |
 | road-route | `GET /api/v1/…/road-routes/search` | SearchInput route (**GAP-INC-ROUTE-01**) |
 | org-unit | `GET /api/v1/…/org-units/tree` | filter tree P2 |
-| init-data | **đề xuất** `GET …/incidents/init-data` | statuses · severities · types · handleDirs · read/report |
+| init-data | `GET …/incidents/init-data` (**API 200** · **BFF 404** = **GAP-QA-BFF-INIT-01**) | statuses · severities · types · handleDirs · read/report · **fix BFF proxy** |
+| files | `web-bff/api/v1/files/*` (FileService.Bff) | form media · **GAP-INC-MEDIA-01** |
 
 ## Open questions (PO AskQuestion trước Design nếu chạm)
 
@@ -165,11 +165,11 @@ Domain **Incident** · prefix `api/v1/incident` · BFF `web-bff/api/v1/incident`
 
 | Role | Packet |
 |------|--------|
-| PO | Inventory + DoD lookup · Ask Q-INC-* |
-| Design | control-map khớp bảng filter/form · typography · tab-index · slideout footer |
-| SA | Giữ path `api/v1/incident/incidents` · gap fields DurationMin/DefectItem · init-data |
-| TL | Chỉ task gap còn mở — **cấm** re-CRUD FormType đã CLOSED |
-| Dev | Wire SearchInput road-route · history modal · **cấm** invent ERP path |
+| PO | Delta § · keep prior requirement · Ask chỉ nếu media DoD conflict |
+| Design | Prototype + reviewUrl · zone media FileUpload · **cấm** rewrite list A–D |
+| SA | Fix BFF init-data · confirm FileService integrate · **cấm** new FilesController |
+| TL | Task chỉ GAP-QA-BFF-INIT-01 + GAP-INC-MEDIA-01 · **cấm** re-CRUD |
+| Dev | BFF init proxy + wire FileUpload → `files/*` · **cấm** invent ERP / implement-file-service |
 
 ## Version meta (REQUIRED)
 
@@ -180,9 +180,9 @@ Domain **Incident** · prefix `api/v1/incident` · BFF `web-bff/api/v1/incident`
 | schemaVersion | 1 |
 | workflowVersion | 2026.08.25.02 |
 | rulesVersion | 2026.08.28.4 |
-| generatedAt | 2026-08-29T02:20:00.000Z |
+| generatedAt | 2026-09-07T01:30:00.000Z |
 | versionGate | rechecked |
-| contentHash | sha256:adf95ccc3f97b05abb02eb1332959aa4525025c55d876bac9ce18f1a4b003577 |
+| contentHash | sha256:927979e9a8dc3f1491792cc2a87a5e42e0af21842278e65aefcb359f45e021ad |
 
 ---
-<!-- Version meta: skillId=agent-data-analy skillVersion=2026.08.25.01 schemaVersion=1 workflowVersion=2026.08.25.02 rulesVersion=2026.08.28.4 versionGate=rechecked contentHash=sha256:adf95ccc3f97b05abb02eb1332959aa4525025c55d876bac9ce18f1a4b003577 -->
+<!-- Version meta: skillId=agent-data-analy skillVersion=2026.08.25.01 schemaVersion=1 workflowVersion=2026.08.25.02 rulesVersion=2026.08.28.4 versionGate=rechecked contentHash=sha256:927979e9a8dc3f1491792cc2a87a5e42e0af21842278e65aefcb359f45e021ad taskId=task_2ed457c2 -->

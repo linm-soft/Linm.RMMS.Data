@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "1",
+  "feature": "incident",
+  "skillId": "agent-review",
+  "skillVersion": "2026.08.25.02",
+  "workflowVersion": "2026.08.25.02",
+  "rulesVersion": "2026.08.28.4",
+  "reviewHash": "sha256:f97d7887de42851b5759a8e8adb8b3cb9fd80ba8e4c7cb68de3efc438b56e021",
+  "contentHash": "sha256:927979e9a8dc3f1491792cc2a87a5e42e0af21842278e65aefcb359f45e021ad",
+  "status": "done",
+  "review_confirm": "done",
+  "verdict": "PASS",
+  "taskId": "task_3c03bd81",
+  "generatedAt": "2026-09-07T02:24:48.578Z",
+  "versionGate": "rechecked",
+  "hashSkip": false,
+  "surfaces": ["list", "form", "api", "bff", "files"]
+}

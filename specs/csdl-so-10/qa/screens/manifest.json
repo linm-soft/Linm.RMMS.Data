@@ -1,0 +1,89 @@
+{
+  "feature": "csdl-so-10",
+  "url": "http://localhost:9301/csdl-so-10",
+  "ok": true,
+  "capturedAt": "2026-09-06T04:37:38.538Z",
+  "method": "playwright-channel-chrome",
+  "gap": "GAP-QA-E2E-PW-01",
+  "cases": [
+    "S0",
+    "S1",
+    "QA-20"
+  ],
+  "results": [
+    {
+      "id": "S0",
+      "ok": true,
+      "result": "PASS",
+      "file": "S0.png",
+      "screenshot": "S0.png",
+      "bytes": 113189,
+      "sha16": "1ebab90a184fd85d",
+      "sha256_16": "1ebab90a184fd85d",
+      "note": "list Sổ 10 · filter-bar · province/status/road · empty/grid · map pack",
+      "finalUrl": "http://localhost:9301/csdl-so-10"
+    },
+    {
+      "id": "S1",
+      "ok": true,
+      "result": "PASS",
+      "file": "S1.png",
+      "screenshot": "S1.png",
+      "bytes": 113189,
+      "sha16": "1ebab90a184fd85d",
+      "sha256_16": "1ebab90a184fd85d",
+      "note": "hub ?resource=route-strip-maps → redirect /csdl-so-10",
+      "finalUrl": "http://localhost:9301/csdl-so-10"
+    },
+    {
+      "id": "QA-20",
+      "ok": true,
+      "result": "PASS",
+      "file": "QA-20.png",
+      "screenshot": "QA-20.png",
+      "bytes": 105570,
+      "sha16": "fce79dda6ea4f33c",
+      "sha256_16": "fce79dda6ea4f33c",
+      "note": "Create Slideout · Z2 · entries strip · Kind F map host→bar · SO-",
+      "finalUrl": "http://localhost:9301/csdl-so-10"
+    }
+  ],
+  "steps": [
+    {
+      "id": "S0",
+      "ok": true,
+      "result": "PASS",
+      "file": "S0.png",
+      "screenshot": "S0.png",
+      "bytes": 113189,
+      "sha16": "1ebab90a184fd85d",
+      "sha256_16": "1ebab90a184fd85d",
+      "note": "list Sổ 10 · filter-bar · province/status/road · empty/grid · map pack",
+      "finalUrl": "http://localhost:9301/csdl-so-10"
+    },
+    {
+      "id": "S1",
+      "ok": true,
+      "result": "PASS",
+      "file": "S1.png",
+      "screenshot": "S1.png",
+      "bytes": 113189,
+      "sha16": "1ebab90a184fd85d",
+      "sha256_16": "1ebab90a184fd85d",
+      "note": "hub ?resource=route-strip-maps → redirect /csdl-so-10",
+      "finalUrl": "http://localhost:9301/csdl-so-10"
+    },
+    {
+      "id": "QA-20",
+      "ok": true,
+      "result": "PASS",
+      "file": "QA-20.png",
+      "screenshot": "QA-20.png",
+      "bytes": 105570,
+      "sha16": "fce79dda6ea4f33c",
+      "sha256_16": "fce79dda6ea4f33c",
+      "note": "Create Slideout · Z2 · entries strip · Kind F map host→bar · SO-",
+      "finalUrl": "http://localhost:9301/csdl-so-10"
+    }
+  ]
+}

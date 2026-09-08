@@ -1,0 +1,89 @@
+{
+  "feature": "csdl-so-05",
+  "url": "http://localhost:9301/csdl-so-05",
+  "ok": true,
+  "capturedAt": "2026-09-05T23:30:40.154Z",
+  "method": "playwright-channel-chrome",
+  "gap": "GAP-QA-E2E-PW-01",
+  "cases": [
+    "S0",
+    "S1",
+    "QA-20"
+  ],
+  "results": [
+    {
+      "id": "S0",
+      "ok": true,
+      "result": "PASS",
+      "file": "S0.png",
+      "screenshot": "S0.png",
+      "bytes": 83620,
+      "sha16": "7e92179713197a10",
+      "sha256_16": "7e92179713197a10",
+      "note": "list Sổ 05 · filter-bar · province/status/road/year/periodType/tableKind · empty/grid",
+      "finalUrl": "http://localhost:9301/csdl-so-05"
+    },
+    {
+      "id": "S1",
+      "ok": true,
+      "result": "PASS",
+      "file": "S1.png",
+      "screenshot": "S1.png",
+      "bytes": 83620,
+      "sha16": "7e92179713197a10",
+      "sha256_16": "7e92179713197a10",
+      "note": "hub ?resource=accident-summaries → redirect /csdl-so-05",
+      "finalUrl": "http://localhost:9301/csdl-so-05"
+    },
+    {
+      "id": "QA-20",
+      "ok": true,
+      "result": "PASS",
+      "file": "QA-20.png",
+      "screenshot": "QA-20.png",
+      "bytes": 106182,
+      "sha16": "e2a038e5aa09121f",
+      "sha256_16": "e2a038e5aa09121f",
+      "note": "Create Slideout · form=create · Z2 header · 3 tabs C1/C2/BS · SO-",
+      "finalUrl": "http://localhost:9301/csdl-so-05"
+    }
+  ],
+  "steps": [
+    {
+      "id": "S0",
+      "ok": true,
+      "result": "PASS",
+      "file": "S0.png",
+      "screenshot": "S0.png",
+      "bytes": 83620,
+      "sha16": "7e92179713197a10",
+      "sha256_16": "7e92179713197a10",
+      "note": "list Sổ 05 · filter-bar · province/status/road/year/periodType/tableKind · empty/grid",
+      "finalUrl": "http://localhost:9301/csdl-so-05"
+    },
+    {
+      "id": "S1",
+      "ok": true,
+      "result": "PASS",
+      "file": "S1.png",
+      "screenshot": "S1.png",
+      "bytes": 83620,
+      "sha16": "7e92179713197a10",
+      "sha256_16": "7e92179713197a10",
+      "note": "hub ?resource=accident-summaries → redirect /csdl-so-05",
+      "finalUrl": "http://localhost:9301/csdl-so-05"
+    },
+    {
+      "id": "QA-20",
+      "ok": true,
+      "result": "PASS",
+      "file": "QA-20.png",
+      "screenshot": "QA-20.png",
+      "bytes": 106182,
+      "sha16": "e2a038e5aa09121f",
+      "sha256_16": "e2a038e5aa09121f",
+      "note": "Create Slideout · form=create · Z2 header · 3 tabs C1/C2/BS · SO-",
+      "finalUrl": "http://localhost:9301/csdl-so-05"
+    }
+  ]
+}

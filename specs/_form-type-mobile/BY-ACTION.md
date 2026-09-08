@@ -5,6 +5,7 @@
 | skill | `scan-qlbd-form-type-mobile` |
 | kind | `hub` (pilot home) · `hub` me (giữ) · `shell` (giữ) |
 | generated | 2026-08-19T01:55:00.000Z |
+| meeting seed | `MEETING-1-5.md` · enqueue_later |
 
 ## hub
 
@@ -19,10 +20,13 @@ Pilot: `home` (new · high) — tab Trang Chủ trên `DES-MOB-TABBAR`.
 | `me-signal` | `home` | skip | shared_kit | — | `LinmStatusCapsule` | home · me | high | — | `data-net-signal` | **không** enqueue |
 | `patrol-home` | `home` | new | shared_action | — (owner) | `LinmQuickItem` · `LinmHomeTile` `#i-mappin` | home quick · tile | high | `docs/context/features/patrol.md` | `#sc-patrol-home` · `DES-MOB-PAT-HOME` | analy sibling · skip scan `pilot_one` |
 | `attendance` | `patrol-home` | new | unique | — | `LinmSegment` | patrol segment | high | chấm công | `#sc-patrol-home` `.seg` | sibling `pending_confirm` |
-| `patrol-map` | `patrol-home` | new | unique | — | `LinmListRow` `#i-map` | quick | high | bản đồ ca | `#row-map` | sibling `pending_confirm` |
-| `field-reflect` | `patrol-home` | new | unique | — | `LinmListRow` `#i-camera` | quick | high | hư hỏng | `#row-reflect` | sibling `pending_confirm` |
+| `patrol-map` | `patrol-home` | new | unique | — | `LinmListRow` `#i-map` | quick | high | bản đồ ca · họp 5 inspect ảnh | `#row-map` | `/scan-mobile-feature` enqueue_later |
+| `field-reflect` | `patrol-home` | new | unique | — | `LinmListRow` `#i-camera` | quick | high | hư hỏng · họp 4 | `#row-reflect` | `/scan-mobile-feature` enqueue_later |
+| `nghiem-thu` | `patrol-home` | new | unique | — | `LinmListRow` `#i-check` | quick | high | họp 1 NT | `#row-nghiem-thu` · `#sc-nghiem-thu` | `/scan-mobile-feature` enqueue_later |
+| `nghiem-thu-create` | `nghiem-thu` | new | unique | — | `LinmPrimaryButton` | NT Tạo | high | họp 1 form + upload | `#sc-nghiem-thu` nav Tạo | `/scan-mobile-feature` enqueue_later |
 | `cam-patrol` | `patrol-home` | new | unique | — | `LinmListRow` `#i-video` | quick | high | camera tuần | `#row-cam` | sibling `pending_confirm` |
 | `patrol-history` | `patrol-home` | new | unique | — | `LinmListRow` `#i-list` | quick | high | lịch sử | `#row-history` | sibling `pending_confirm` |
+| `patrol-checkin` | `patrol-home` | new | unique | — | `LinmPrimaryButton` | hero CTA | high | họp 4 camera/GPS/upload | hero `.btn` | `/scan-mobile-feature` enqueue_later |
 | `incident-create` | `home` | new | shared_action | — (owner) | `LinmQuickItem` | home quick · incident FAB | high | `docs/context/features/incident.md` | `startIncidentPick()` · `#sc-inc-form` | analy sibling |
 | `supervise` | `home` | new | unique | — | `LinmHomeTile` `#i-list` | home tile | high | patrol Giám sát | `#sc-supervise` · `DES-MOB-SUPERVISE` | analy sibling |
 | `mnt-list` | `home` | new | unique | — | `LinmHomeTile` `#i-wrench` | home tile · tab Công việc | high | `docs/context/features/maintenance.md` | `#sc-mnt-list` | analy sibling |

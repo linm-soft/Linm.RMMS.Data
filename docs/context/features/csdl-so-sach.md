@@ -1,38 +1,40 @@
-# CSDL 12 biểu + 8 sổ BDTX — Feature Context
+# CSDL sổ sách — Hub catalog (Kind G)
 
 > **Slug:** `csdl-so-sach` · **Module:** Asset · Patrol · Maintenance  
 > **Phase:** P1  
-> **Status:** Demo  
-> **sourceKind:** **synthetic** (hồ sơ chuẩn hóa + `11-CSDL-SO-SACH-DATABASE-API.md` · **không** màn GOVOne)  
-> **Kind:** **G** (catalog hub) + **B** (list theo resource) + **D** (slideout form) — Confirmed by: ai-autocode-autopilot  
-> **Sources:** `11-CSDL-SO-SACH-DATABASE-API.md` · hồ sơ `4.1` 12 biểu · `3. Mẫu sổ` 8 sổ · TT 41 · TCVN 14182 · `07` · `09` · `15-SCREEN-AI-MAP.md`  
-> **Demo HTML:** `Linm.RMMS.Demo/public/demo/so-ts/csdl-so-sach.html` (+ `src/demo/asset/`)  
-> **MFE (align):** `Linm.Web.RMMS.Asset` · route `/so-ts/csdl-so-sach` · **cấm** sửa MFE production ở phase demo  
-> **Control-map:** [`csdl-so-sach-control-map.md`](csdl-so-sach-control-map.md) · `_raw/legacy-govone/demo-maps/`  
-> **≠** `pavement-section` (Biểu 1 deep form) · `asset` (SỔ TÀI SẢN GOVOne) — hub này là **catalog chuẩn hóa** 12+8
+> **Status:** Hub shell **done** (2026-08-29) · typed Cục **open**  
+> **sourceKind:** hub = live MFE · **delta Cục** = `data-import/Sổ sách, biểu mẫu trình LĐ Cục` (QĐ/BC 08/2026)  
+> **Kind hub:** **G** only — card grid · KPI · tab · `open-resource`  
+> **Typed form:** **không** gói trong slug này — **1 nút = 1 feature** `csdl-bieu-{nn}` / `csdl-so-{nn}` · epic [`csdl-cuc-2026.md`](csdl-cuc-2026.md)  
+> **SSOT analy:** [`specs/_data-analy/csdl-cuc-2026/ANALYSIS-AND-TASKS.md`](../../../specs/_data-analy/csdl-cuc-2026/ANALYSIS-AND-TASKS.md)  
+> **MFE:** `Linm.Web.RMMS.Asset` · `/so-ts/csdl-so-sach`  
+> **API live:** `api/v1/asset/csdl-records` · **cấm** invent `api/v1/infra/*` · **cấm** ERP.*  
+> **≠** `asset-kcht-dashboard` `/so-ts/hang-muc` · ≠ Sổ TS `so-ts-*`  
+> **Hai lớp (2026-09-05):** hang-muc/Sổ TS = hồ sơ cái · hub này = biểu/sổ in Cục — LOOKUP chung · ROW riêng · [`csdl-cuc-2026.md`](csdl-cuc-2026.md) §1b
 
 ## 1. Tổng quan
 
 | | |
 |--|--|
-| Mục tiêu | Hub số hóa **12 biểu CSDL kết cấu** + **8 sổ vận hành BDTX** (CRUD · import/export layout biểu · link map/patrol) |
+| Mục tiêu hub | Catalog **16 biểu + 10 sổ** (Cục 08/2026) · KPI từ API · card title VN · **cấm** Thêm mới trên title hub |
+| Live hiện tại | Tab **12+8** · form generic 3 ô + `entries.col1–3` — **GAP-CSDL-CUC-01** |
 | Persona | Khu QLĐB · Văn phòng · Nhà thầu BDTX · Hạt trưởng |
-| App hiện có | Hồ sơ chuẩn hóa + Biểu 1 demo · chưa hub 12+8 |
-| DoD demo | Hub 12+8 · list+search · Create/Edit/View/Copy form work · localStorage · no BE |
-| DoD P1 BE | `/api/v1/infra/*` (A) · `/api/v1/patrol-logs/*`… (B) — be_align khi Signed |
+| DoD hub P1 | KPI 16/10 · `formNo` Cục · deep-link `?resource=` giữ key · **không** typed cột Excel |
+| Typed / import | Child `csdl-bieu-*` · `csdl-so-*` · Wave 0 hub = `T-HUB-01` + `T-REN-01` |
+| ≠ KCHT | 40 ô chỉ đếm → `/so-ts?type=` · **cấm** nhập biểu Cục trên hang-muc |
 
 ## 2. Design / UI (erp-form-context)
 
 | Screen | Pattern | Kind | Zones |
 |--------|---------|------|-------|
-| Hub catalog | Card grid 12 biểu + tab 8 sổ | **G** | Title · KPI · tab · cards · deep-links |
+| Hub catalog | Card grid **16 biểu** + tab **10 sổ** | **G** | Title · KPI · tab · cards · deep-links |
 | List resource | CatalogListShell | **B** | Toolbar · filter search · grid · pager |
 | Form bản ghi / entry | Slideout | **D** | Z1 toolbar · Z2 fields (+ entries) · Z3 Lưu/Hủy |
 
 **Layout hub**
 
-- Tab **CSDL (12 biểu)** · **Sổ BDTX (8 mẫu)**  
-- KPI: số biểu · số sổ · tổng bản ghi · đã import mock  
+- Tab **CSDL (16 biểu)** · **Sổ BDTX (10 mẫu)** — live còn 12+8 đến Wave 0  
+- KPI: số biểu · số sổ · tổng bản ghi · đã có dữ liệu (API, **cấm** hardcode)  
 - Card: số thứ tự · tên · entity · API resource · đếm bản ghi  
 - Deep-link Biểu 1 → `pavement-section.html` · map → `gis-draw-live.html`
 
@@ -143,11 +145,18 @@ Chi tiết cột: SSOT [`11-CSDL-SO-SACH-DATABASE-API.md`](../11-CSDL-SO-SACH-DA
 
 Platform events **DEFER** tới Signed + BE.
 
+## 5b. Child features (Cục 08/2026 · 1 nút = 1 feature)
+
+Hub **không** chứa typed Excel. Pipeline: `/agent-qldb-workflow` từng slug `csdl-bieu-01`…`16` · `csdl-so-01`…`10`. Catalog: [`csdl-cuc-2026.md`](csdl-cuc-2026.md).
+
 ## 6. Gaps / quyết định
 
 | ID | Severity | Note |
 |----|----------|------|
-| GAP-F-CSDL-01 | P1 | BE `/api/v1/infra/*` + sổ books **MISSING** — be_align OFF demo |
+| GAP-CSDL-CUC-01 | P0 | Live 12+8 vs Cục **16+10** — Wave 0 hub |
+| GAP-CSDL-CUC-02 | P0 | `formNo` biểu 7–10 và sổ 1–2 **đảo** vs QĐ |
+| GAP-CSDL-CUC-11 | P1 | Hai lớp: **cấm** merge Sổ TS/hang-muc vào biểu — LOOKUP chung · ROW riêng · [`csdl-cuc-2026.md`](csdl-cuc-2026.md) §1b |
+| GAP-F-CSDL-01 | P1 | Docs cũ `/api/v1/infra/*` — live **`api/v1/asset/csdl-records`** |
 | GAP-F-CSDL-02 | Info | Biểu 7 multi-entity vs 1 row — default multi + facade (`GAP-CSDL-01` doc 11) |
 | GAP-F-CSDL-03 | P2 | Import Excel full 12 sheet — demo toast/stub cột |
 | GAP-P2-KIND-RMMS | Info | Hub Kind G+B+D adapted (không voucher KT) |

@@ -1,0 +1,18 @@
+{
+  "feature": "csdl-so-01",
+  "status": "done",
+  "verdict": "PASS",
+  "review_confirm": "approve",
+  "taskId": "task_ae279652",
+  "contentHash": "sha256:9b7c5f11adaed6b64404b77225fbdc0a6a4021b39d7a00dc1922c643aff822d3",
+  "headerFingerprint": "sha256:4e2c2ee770e209ccf28234cb47c2d32098a6b6f9efb8cc5817b9c8964e64a4da",
+  "hashGate": "skip",
+  "gates": {
+    "QUERY": "PASS",
+    "SEC": "PASS",
+    "UI-FN": "PASS",
+    "BE-FN": "PASS"
+  },
+  "writtenAt": "2026-09-06T01:35:00.000Z",
+  "autoApprove": true
+}

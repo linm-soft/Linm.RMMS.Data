@@ -332,3 +332,10 @@ Quy trình 4 nhóm + 3 trụ cột + field ca: [`../24-TUAN-DUONG-DUONG-BO.md`](
 
 Gen demo: `/qlbd-analy-demo @patrol` — load control-map trên + `/erp-form-context` rules (2a-K · 2g · common controls). Verified 2026-08-02 autopilot task_9a01bce6.
 <!-- DEMO-MFE-MODERN:END -->
+
+## Implement tracking
+
+| lane | phase | status | updatedAt |
+|------|-------|--------|-----------|
+| web | `qa` | `await_confirm` | `2026-09-06T18:30:24.634Z` |
+| mobile | — | — | — |

@@ -6,9 +6,11 @@
 > **Context:** [`../../context/features/ai-vision-service.md`](../../context/features/ai-vision-service.md) · [`ai-vision.md`](../../context/features/ai-vision.md) · P2 [`../../context/14-P2-AI-VISION-STANDARD.md`](../../context/14-P2-AI-VISION-STANDARD.md)  
 > **Cấm invent** `api/v1/ai-vision-service/*` · `api/v1/rmms-vision/*` · Azure SDK trong WebService / MFE · trộn class ổ gà với class TS.
 
-**Entry:** `/new-service` (API · micro-src) rồi `/implement-ai-detect-run` `{AiService}=Linm.RMMS.Vision`. UI `/agent-dev-ai-detect`. STATUS infer `specs/ai-vision/run/STATUS.md`.
+**Entry:** `/implement-ai-vision-stack` (`/vision-be-bff-ui`) — một wave / lượt · pattern `/implement-map-stack` · STATUS [`../../../specs/ai-vision-service/STATUS.md`](../../../specs/ai-vision-service/STATUS.md).  
+Child infer: `/implement-ai-detect-run` `{AiService}=Linm.RMMS.Vision`. UI `/agent-dev-ai-detect`. Taxonomy gov: skill `example/taxonomy-gov-map.md`.  
+Research Railway (`docs/ai-detect/reseach-info.md`) = **anti-pattern** — không scaffold `TrafficAI`.
 
-Chạy **đúng thứ tự**. Không copy prompt generic YOLO/OpenAI.
+Chạy **đúng thứ tự**. Không copy prompt generic YOLO/OpenAI. **Cấm** prose «làm tiếp?» — AskQuestion mỗi wave.
 
 ---
 
@@ -26,24 +28,25 @@ P2 sau này: đổi `IDefectDiagnoser` / `IAssetDetector` / ITS / ANPR / predict
 
 ---
 
-## Chuỗi slash (SSOT)
+## Waves (SSOT — `/implement-ai-vision-stack`)
 
-| # | Tầng | Slash | Repo / host | Output |
-|---|------|-------|-------------|--------|
-| 0 | Context | *(xong)* `/hey-linm` | `Linm.RMMS.Data` | Host `Linm.RMMS.Vision` · 6 slug |
-| 1 | **Scaffold** | `/new-service` · API · **micro-src** | `Linm.RMMS.Vision` | `api/src/Vision.Api` · JWT `company_id` · Serilog `"Serilog"` · `IIdCodeService` · `ApplyUtcDateTimeConvention` |
-| 1b | Review | `/review-service-setup` | cùng | P0 FAIL → dừng |
-| 2 | **Domain** | `/implement-ai-detect-run` `--from-start` `{slug}=ai-vision` | Vision | Move/wire `api/v1/ai-vision/**` · GPT V1 · **cấm** stub `mock://` |
-| 2b | EF | `/database-migration` `Schema_RmmsVision` | Vision `api/src/Vision.Api` | **pair** `.cs` + Designer · tables detections · candidates · ITS · ANPR · predict · estimate |
-| 2c | Sibling slugs | cùng detect-run / `/agent-dev` | Vision | `detect-assets` · `its/*` · ANPR · predict · estimate — **cùng host** |
-| 3 | **BFF web** | `/create-bff-api-feature` · Ask **BFF** (không API mới) | `LINM.RMMS.AiVision.Bff` | Downstream **Vision** · JWT · cùng `web-bff/api/v1/ai-vision/**` |
-| 3b | **BFF mobile** | `/create-bff-api-feature` lần 2 | `Linm.RMMS.Mobile.Bff` | Cùng path — **cấm** app gọi `:5311` / WebService AiVision |
-| 4 | **UI web** | `/agent-dev-ai-detect` + `/agent-dev` list | `Linm.Web.RMMS.AiVision` | Upload thật · HITL · **0** badge P1/P2/score |
-| 5 | Cutover | xóa SSOT AiVision trên WebService | `Linm.RMMS.WebService` | Không `DetectStubAsync` · không `HttpAssetDetector` → `:5301` |
-| 6 | Gate | `dotnet build` Vision + BFF + MFE | — | health `:5311` · 1 ảnh thật → Draft |
-| 7 | **P2** | `/implement-ai-detect-run --phase=p2` **sau** `P2-0` | **chỉ** Vision | ONNX + worker GPU · **không** đổi BFF/MFE path |
+Web + app **cùng** `*/api/v1/ai-vision/**` qua BFF. P2 **không** đổi path.
+
+| Wave | Tầng | Slash | Repo / host | Output |
+|------|------|-------|-------------|--------|
+| **0p** | Host | `/new-service` · API · **micro-src** · `/review-service-setup` | `Linm.RMMS.Vision` | `api/src/Vision.Api` · JWT `company_id` · Serilog `"Serilog"` · `IIdCodeService` · UTC |
+| **1** | Vision service | `/implement-ai-detect-run` P1-0…P1-2 · `/database-migration` `Schema_RmmsVision` | Vision | `api/v1/ai-vision/**` · GPT V1 · **mã catalog** · **cấm** stub `mock://` · pair Designer |
+| **2** | BFF | `/create-bff-api-feature` · Ask **BFF** (không API mới) | `LINM.RMMS.AiVision.Bff` rồi `Linm.RMMS.Mobile.Bff` | Downstream Vision · JWT · **cùng path** · **cấm** lộ `:5311` |
+| **3** | Integrate + cutover | wire client | `{MfeAi}` + app | Gọi BFF · 0 `:5301` · 0 persist AiVision trên WebService |
+| **4** | Detect UI | `/agent-dev-ai-detect` + `/agent-dev` list · native `/edit-mobile-feature` | `Linm.Web.RMMS.AiVision` + app | Upload thật · HITL · **0** badge P1/P2/score · P1 **cấm** YOLO on-device |
+| **5** | P2 GPU | `/implement-ai-detect-run --phase=p2` **sau** `P2-0` | **chỉ** Vision | ONNX + worker · class id **không đổi** |
 
 **Không** dùng: `/implement-map-service` · `/ai-integrate` (Medical credit) · `/new-service` BFF (BFF **đã có**). GIS/Camera/Incident **không** chuyển vào Vision.
+
+Confirm bắt buộc Wave 1 (`catalog_codes`) và Wave 3 — **cấm** prose «làm tiếp?».
+
+**Wave 0p (2026-09-05):** host scaffold **done** · `dotnet build` PASS.  
+**Wave 1 (2026-09-06):** Vision service **done** · `Schema_RmmsVision` pair · catalog_codes · next `/implement-ai-vision-stack` Wave 2.
 
 ---
 
@@ -72,7 +75,7 @@ Internal infer **không** lộ `POST /api/v1/vision/detect` ra MFE — đó là 
 | `taxonomy` | Class | Persist |
 |------------|-------|---------|
 | `pavement` | 10 class `14` §3 | `detections` |
-| `asset` | 8 loại TS | `asset_candidates` — **cấm** ổ gà |
+| `asset` | **mã catalog** gov (`TRAFFIC_SIGN` ≠ `GANTRY_SIGN`) | `asset_candidates` — **cấm** ổ gà · **cấm** nhãn VN làm id |
 | ITS / ANPR | SSOT `16` · `18` | tables ITS/ANPR |
 
 ---
@@ -124,4 +127,5 @@ Internal infer **không** lộ `POST /api/v1/vision/detect` ra MFE — đó là 
 | `/database-migration` | `{RulesRoot}/service/skill/database-migration/` |
 | `/create-bff-api-feature` | `{RulesRoot}/service/skill/bff-api-structure/` |
 | `/implement-ai-detect-run` | `{RulesRoot}/common/skill/implement-ai-detect-run/` · `{AiService}`=Vision |
+| `/implement-ai-vision-stack` | `{RulesRoot}/common/skill/implement-ai-vision-stack/` · **parent** BE→BFF→UI |
 | `/agent-dev-ai-detect` | `{RulesRoot}/common/skill/agent-dev-ai-detect/` |

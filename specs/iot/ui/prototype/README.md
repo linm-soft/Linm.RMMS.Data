@@ -1,11 +1,7 @@
 # Prototype — iot
 
-Design gate: **prototype + reviewUrl** — board Approve (**không auto**).
-Repo confirm: user tick BE+UI trên `/qldb-workflow` Progress trước Dev (**không auto** · cấm ERP.*).
+- `index.html` — review entry (reviewUrl)
+- `iot-list.html` — Kind B list · DES-GRID-A…D · LinErpListFilterBar mock
+- `iot-form.html` — Kind D full page · `data-form-cols="5"` · LeaveConfirmModal
 
-- Demo SSOT: `N/A (packKind=master)`
-- Title: Danh sách IoT
-- Pack kind: `list`
-- MFE: `Linm.Web.RMMS.Iot`
-
-Put HTML prototype / screenshot link here; update `ui/design.md` with a browser-openable **reviewUrl**.
+peerStdUrl: http://localhost:9309/iot

@@ -1,0 +1,38 @@
+{
+  "url": "http://localhost:9301/csdl-bieu-05",
+  "method": "playwright channel=chrome headless · contract fallback after yarn e2e-qa playwright install hang risk",
+  "feature": "csdl-bieu-05",
+  "cases": [
+    "S0",
+    "S1",
+    "QA-20"
+  ],
+  "capturedAt": "2026-09-05T07:07:29.076Z",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "sha256_16": "a23703a704e66bd1",
+      "url": "http://localhost:9301/csdl-bieu-05",
+      "note": "list Biểu 05 · filter-bar · empty/grid · peer Sổ TS"
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "sha256_16": "ea9bebf5a586b1e3",
+      "url": "http://localhost:9301/so-ts/csdl-so-sach?resource=ditches",
+      "note": "hub deep-link ?resource=ditches → list"
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "sha256_16": "b8607424dc589ce0",
+      "url": "http://localhost:9301/csdl-bieu-05?form=create",
+      "note": "Create Slideout · form=create"
+    }
+  ],
+  "ok": true
+}

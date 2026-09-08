@@ -6,7 +6,7 @@
   <title>AI phát hiện tài sản — Kind B list prototype</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
   <style>
-    :root{--bg:#f5f7fa;--card:#fff;--border:#BABCBE;--soft:#e9ecef;--txt:#1A1A1A;--muted:#6c757d;--primary:#0d6efd;--btn:#EEEEEE;--r:4px;--ok:#047857;--warn:#b45309;--ai:#5b21b6;--danger:#b91c1c}
+    :root{--bg:#f5f7fa;--card:#fff;--border:#BABCBE;--soft:#e9ecef;--txt:#1A1A1A;--muted:#6c757d;--primary:#0d6efd;--btn:#EEEEEE;--r:4px;--ok:#047857;--warn:#b45309;--ai:#5b21b6;--danger:#b91c1c;--miss:#c2410c}
     *{box-sizing:border-box}body{margin:0;font:13px/1.4 "Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--txt)}
     .page{max-width:1280px;margin:0 auto;padding:8px;display:flex;flex-direction:column;gap:8px;min-height:100vh}
     .note{font-size:11px;color:var(--muted);padding:4px 0}
@@ -18,11 +18,13 @@
     .zone-b{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:8px 0;position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--soft)}
     .zone-b-left,.zone-b-right{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
     .tb{display:inline-flex;align-items:center;gap:4px;height:32px;padding:6px 8px;border:0;border-radius:var(--r);background:var(--btn);font-size:12px;font-weight:600;cursor:pointer}
-    .tb:hover{background:#BABCBE}.tb.primary{background:var(--primary);color:#fff}.tb.ai{background:#6d28d9;color:#fff}.tb:disabled{opacity:.55;cursor:not-allowed}
-    .filters{display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end;padding:10px 12px;background:var(--card);border:1px solid var(--soft);border-radius:var(--r)}
-    .filters .field{display:flex;flex-direction:column;gap:4px;min-width:140px}
+    .tb:hover{background:#BABCBE}.tb.primary{background:var(--primary);color:#fff}.tb.ai{background:#6d28d9;color:#fff}.tb.miss{background:#ea580c;color:#fff}.tb:disabled{opacity:.55;cursor:not-allowed}
+    .filters{display:flex;flex-wrap:wrap;justify-content:flex-end;align-items:flex-end;gap:8px;padding:10px 12px;background:var(--card);border:1px solid var(--soft);border-radius:var(--r)}
+    .filters .field{display:flex;flex-direction:column;gap:4px;flex:1 1 180px;min-width:160px}
+    .filters .field.chk{flex:0 1 140px}.filters .field.chk label{display:flex;align-items:center;gap:6px;margin-top:18px;color:var(--txt);font-size:13px}
     .filters label{font-size:12px;color:var(--muted)}
-    .filters input,.filters select{height:32px;padding:6px 10px;border:1px solid var(--border);border-radius:var(--r);font-size:13px;background:#fff}
+    .filters input,.filters select{height:32px;padding:6px 10px;border:1px solid var(--border);border-radius:var(--r);font-size:13px;background:#fff;width:100%}
+    .filters .bar-search{display:inline-flex;align-items:center;justify-content:center;width:36px;height:32px;border:0;border-radius:var(--r);background:var(--primary);color:#fff;cursor:pointer;flex:0 0 36px}
     .layout{display:grid;grid-template-columns:1fr 320px;gap:8px;min-height:0}@media(max-width:1100px){.layout{grid-template-columns:1fr}}
     .card{background:var(--card);border:1px solid var(--soft);border-radius:var(--r);display:flex;flex-direction:column;min-height:0;overflow:hidden}
     .grid-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 16px 8px}
@@ -38,7 +40,7 @@
     tbody tr:nth-child(even){background:#fafbfc}tbody tr:hover,tbody tr.sel{background:#eff6ff}
     .st{font-size:11px;font-weight:700;padding:2px 6px;border-radius:999px}
     .st-d{background:#ede9fe;color:var(--ai)}.st-ok{background:#ecfdf5;color:var(--ok)}.st-x{background:#f1f5f9;color:var(--muted)}
-    .near{font-size:11px;font-weight:700;color:var(--warn);background:#fffbeb;padding:1px 6px;border-radius:999px}
+    .near{font-size:11px;font-weight:700;color:var(--warn);background:#fffbeb;padding:1px 6px;border-radius:999px}.miss{font-size:11px;font-weight:700;color:var(--miss);background:#fff7ed;padding:1px 6px;border-radius:999px}
     .col-tools{display:inline-flex;gap:4px;margin-left:6px}.col-tools button{border:0;background:transparent;cursor:pointer;color:var(--muted);padding:0 2px;font-size:11px}.col-tools button.on{color:var(--primary)}
     .filter-pop{display:none;position:absolute;z-index:30;width:260px;background:#fff;border:1px solid var(--soft);border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.12);padding:10px}
     .filter-pop.on{display:block}.filter-pop input[type=text]{width:100%;margin-bottom:8px;padding:6px 8px;border:1px solid var(--border);border-radius:var(--r)}
@@ -51,11 +53,11 @@
     .menu{position:relative}.menu summary{list-style:none;cursor:pointer;padding:4px 8px;border:1px solid var(--border);border-radius:var(--r);background:#fff}
     .menu summary::-webkit-details-marker{display:none}.menu-panel{display:none;position:absolute;right:0;z-index:5;background:#fff;border:1px solid var(--border);border-radius:6px;min-width:160px;box-shadow:0 8px 24px rgba(0,0,0,.12)}
     .menu[open] .menu-panel{display:block}.menu-panel button{display:block;width:100%;text-align:left;border:0;background:0;padding:8px 12px;cursor:pointer;font-size:13px}
-    .menu-panel button:hover{background:#f1f5f9}.menu-panel button.danger{color:var(--danger)}
+    .menu-panel button:hover{background:#f1f5f9}.menu-panel button.danger{color:var(--danger)}.menu-panel button.miss{color:var(--miss)}
     .map-card h2{margin:0;padding:12px 14px;font-size:14px;border-bottom:1px solid var(--soft)}
     .map-canvas{height:280px;background:linear-gradient(160deg,#e2e8f0,#cbd5e1);position:relative;overflow:hidden}
     .pin{position:absolute;transform:translate(-50%,-100%);font-size:11px;font-weight:700;padding:4px 6px;border-radius:6px;color:#fff;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.2)}
-    .pin.ai{background:#7c3aed}.pin.exist{background:#64748b}.pin.ok{background:#059669}
+    .pin.ai{background:#7c3aed}.pin.exist{background:#64748b}.pin.ok{background:#059669}.pin.miss{background:#ea580c}
     .map-bar{display:flex;gap:6px;flex-wrap:wrap;padding:8px 10px;border-top:1px solid var(--soft);align-items:center}.map-bar .meta{font-size:11px;color:var(--muted);flex:1}
     .legend{font-size:11px;color:var(--muted);padding:8px 12px;border-top:1px solid var(--soft)}
     .toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%) translateY(12px);background:#0f172a;color:#e2e8f0;padding:10px 16px;border-radius:999px;font-size:12px;opacity:0;pointer-events:none;transition:.2s;z-index:80}.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
@@ -71,7 +73,7 @@
     .z1 .title{font-size:16px;font-weight:700;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
     .dirty{font-size:11px;background:#fff7ed;color:#c2410c;padding:2px 8px;border-radius:999px;font-weight:700}
     .z2{flex:1;overflow:auto;padding:14px;background:#f8fafc}.section{background:#fff;border:1px solid var(--soft);border-radius:8px;padding:14px;margin-bottom:12px}
-    .section h3{margin:0 0 12px;font-size:13px;color:var(--primary)}.fields{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+    .section h3{margin:0 0 12px;font-size:13px;color:var(--primary)}.fields{display:grid;grid-template-columns:1fr 1fr;gap:10px}
     .field{display:flex;flex-direction:column;gap:4px}.field label{font-size:12px;color:var(--muted)}
     .field input,.field select,.field textarea{padding:6px 10px;border:1px solid var(--border);border-radius:var(--r);font-size:13px;min-height:32px;font-family:inherit}
     .field.full{grid-column:1/-1}.near-warn{font-size:12px;color:var(--warn);background:#fffbeb;border:1px solid #fcd34d;padding:8px 10px;border-radius:6px;margin-bottom:12px}
@@ -81,11 +83,11 @@
   </style>
 </head>
 <body>
-<div class="page" data-catalog-list-page>
-  <p class="note">SSOT Design: <code>ai-asset-detect</code> · clone <code>shared-grid-example</code> · giữ <code>data-des-id</code> · content-only A–D + Kind F map · Kind D slideout footer-only · <code>shared_grid_example: v1</code></p>
+<div class="page" data-catalog-list-page data-lin-list-layout="erp-filter-bar">
+  <p class="note">SSOT Design: <code>ai-asset-detect</code> · clone <code>shared-grid-example</code> · giữ <code>data-des-id</code> · LinErpListFilterBar · miss · FileUpload · LeaveConfirm · <code>shared_grid_example: v1</code> · <code>real_view_parity: v1</code></p>
   <header class="zone-a" data-des-id="DES-GRID-A">
     <h1><i class="fas fa-camera" aria-hidden="true"></i> AI phát hiện tài sản</h1>
-    <span class="badge">AI</span><span class="badge warn">P1 GPT-4o Vision</span>
+    <span class="badge">AI</span><span class="badge warn">P1 · Linm.RMMS.Vision</span>
   </header>
   <div class="zone-b" data-des-id="DES-GRID-B">
     <div class="zone-b-left">
@@ -96,32 +98,35 @@
       <button type="button" class="tb" id="btn-edit" disabled><i class="fas fa-pen"></i> Sửa</button>
       <button type="button" class="tb ai" data-action="sim-frame"><i class="fas fa-magic"></i> Giả lập frame</button>
       <button type="button" class="tb" data-action="nearby"><i class="fas fa-bullseye"></i> Nearby</button>
-      <button type="button" class="tb" data-action="export"><i class="fas fa-file-excel"></i> Xuất Excel</button>
+      <button type="button" class="tb miss" data-action="reconcile-miss" title="Reconcile mất TS"><i class="fas fa-exclamation-triangle"></i> Reconcile mất</button>`n      <button type="button" class="tb" data-action="export"><i class="fas fa-file-excel"></i> Xuất Excel</button>
       <button type="button" class="tb" data-action="reset-seed"><i class="fas fa-undo"></i> Reset seed</button>
     </div>
     <div class="zone-b-right">
       <button type="button" class="tb primary" data-action="create"><i class="fas fa-plus"></i> Tạo candidate</button>
     </div>
   </div>
-  <div class="filters" data-des-id="DES-GRID-FILTER">
-    <div class="field" style="min-width:200px;flex:1"><label for="fRoute">Tuyến (SearchInput · road-route)</label><input id="fRoute" type="search" list="routeOpts" placeholder="QL.1…" value="QL.1" /><datalist id="routeOpts"><option value="ALL"><option value="QL.1"></datalist></div>
-    <div class="field"><label for="fClass">Loại TS</label><select id="fClass"><option value="">Tất cả</option><option>Biển báo</option><option>Hộ lan</option><option>Cột Km</option><option>Cột H</option><option>Đèn chiếu sáng</option><option>Camera ITS</option><option>Cống</option><option>Taluy</option></select></div>
-    <div class="field"><label for="fStatus">Trạng thái</label><select id="fStatus"><option value="">Tất cả</option><option value="Draft">Draft</option><option value="Confirmed">Confirmed</option><option value="Dismissed">Dismissed</option></select></div>
-    <div class="field"><label for="fFrom">Từ ngày</label><input id="fFrom" type="date" /></div>
-    <div class="field"><label for="fTo">Đến ngày</label><input id="fTo" type="date" /></div>
+  <div class="filters" data-des-id="DES-GRID-FILTER" data-testid="aad-filter-bar" role="search" aria-label="LinErpListFilterBar mock">
+    <div class="field" data-testid="aad-field-search" style="flex:1 1 180px;min-width:160px"><label for="q">Tìm kiếm</label><input id="q" type="search" placeholder="ID · loại · tuyến · trip · assetCode · note…" aria-label="Tìm kiếm" /></div>
+    <div class="field" data-testid="aad-field-route" style="flex:1 1 180px;min-width:160px"><label for="fRoute">Tuyến (SearchInput · road-route)</label><input id="fRoute" type="search" list="routeOpts" placeholder="QL.1…" value="QL.1" /><datalist id="routeOpts"><option value="ALL"><option value="QL.1"></datalist></div>
+    <div class="field" style="flex:1 1 180px;min-width:160px"><label for="fClass">Loại TS</label><select id="fClass"><option value="">Tất cả</option><option>Biển báo</option><option>Hộ lan</option><option>Cột Km</option><option>Cột H</option><option>Đèn chiếu sáng</option><option>Camera ITS</option><option>Cống</option><option>Taluy</option></select></div>
+    <div class="field" style="flex:1 1 180px;min-width:160px"><label for="fStatus">Trạng thái</label><select id="fStatus"><option value="">Tất cả</option><option value="Draft">Draft</option><option value="Confirmed">Confirmed</option><option value="Dismissed">Dismissed</option></select></div>
+    <div class="field" style="flex:1 1 180px;min-width:160px"><label for="fFrom">Từ ngày</label><input id="fFrom" type="date" /></div>
+    <div class="field" style="flex:1 1 180px;min-width:160px"><label for="fTo">Đến ngày</label><input id="fTo" type="date" /></div>
+    <div class="field" style="flex:0 1 140px;min-width:120px"><label style="display:flex;align-items:center;gap:6px;margin-top:18px;color:#1A1A1A;font-size:13px"><input id="fMissOnly" type="checkbox" /> Chỉ mất TS</label></div>
     <button type="button" class="tb" data-action="clear-filter">Xóa lọc</button>
+    <button type="button" class="bar-search" data-action="bar-search" title="Tìm" aria-label="Tìm" style="display:inline-flex;align-items:center;justify-content:center;width:36px;height:32px;border:0;border-radius:4px;background:#0d6efd;color:#fff;cursor:pointer;flex:0 0 36px"><i class="fas fa-search"></i></button>
   </div>
   <div class="layout">
     <section class="card">
       <div class="grid-head" data-des-id="DES-GRID-C0">
         <div><h2 class="grid-title">Danh sách candidate AI → Asset</h2><p class="grid-help" data-des-id="DES-GRID-C3-help">Nhấn đúp · Ctrl + chuột phải · giữ chạm (mobile) để mở menu dòng</p></div>
-        <div class="search" data-des-id="DES-GRID-C1"><input type="search" id="q" placeholder="ID · loại · tuyến · trip · assetCode · note · model…" aria-label="Tìm kiếm" /><button type="button" aria-label="Tìm"><i class="fas fa-search"></i></button></div>
+        <!-- search moved to LinErpListFilterBar · DES-GRID-C1 = bar 🔍 -->
       </div>
       <div class="table-wrap" data-des-id="DES-GRID-C2" style="position:relative">
         <table><thead><tr>
           <th class="num">STT</th><th class="num"><input type="checkbox" id="chk-all" aria-label="Chọn tất cả" /></th>
           <th>ID <span class="col-tools"><button type="button" class="on" data-sort="id"><i class="fas fa-sort-alpha-down"></i></button><button type="button" id="btn-filter-code"><i class="fas fa-filter"></i></button></span></th>
-          <th>Loại TS</th><th>Score (%)</th><th>Tọa độ</th><th>Tuyến / lý trình</th><th>TT</th><th>Engine/Model</th><th>Nearby</th><th>Phát hiện</th><th>Mã Asset</th><th class="num"></th>
+          <th>Loại TS</th><th>Score (%)</th><th>Tọa độ</th><th>Tuyến / lý trình</th><th>TT</th><th>Engine/Model</th><th>Nearby</th><th>Miss?</th><th>Phát hiện</th><th>Mã Asset</th><th>Frame</th><th class="num"></th>
         </tr></thead><tbody id="tbody"></tbody></table>
         <div class="filter-pop" id="filter-pop" data-des-id="DES-GRID-C2a" style="top:40px;left:180px">
           <input type="text" id="filter-q" placeholder="Tìm trong danh sách…" />
@@ -153,7 +158,7 @@
         <button type="button" class="tb" data-action="fit"><i class="fas fa-expand"></i> Fit</button>
         <span class="meta" id="mapMeta">Basemap: OSM · pin → View</span>
       </div>
-      <div class="legend"><span style="color:#7c3aed;font-weight:700">● AI new</span> <span style="color:#64748b;font-weight:700">● TS đã có</span> <span style="color:#059669;font-weight:700">● Confirmed</span></div>
+      <div class="legend"><span style="color:#7c3aed;font-weight:700">● AI new</span> <span style="color:#64748b;font-weight:700">● TS đã có</span> <span style="color:#059669;font-weight:700">● Confirmed</span> <span style="color:#ea580c;font-weight:700">● Miss</span></div>
     </aside>
   </div>
 </div>
@@ -161,13 +166,15 @@
 <div class="backdrop center" id="modal-history" data-des-id="DES-GRID-H"><div class="modal"><div class="modal-h"><i class="fas fa-history"></i> Lịch sử</div><div class="modal-b" id="historyBody">Timeline stub.</div><div class="modal-f"><button type="button" class="tb" data-close="modal-history">Đóng</button></div></div></div>
 <div class="backdrop center" id="modal-confirm" data-des-id="DES-MOD-CONFIRM"><div class="modal"><div class="modal-h">Confirm → Asset</div><div class="modal-b"><p id="confirmText">P1 Confirm bắt buộc.</p><div class="field"><label for="confirmAssetType">Loại Asset * (SearchInput · asset-type)</label><input id="confirmAssetType" type="search" list="assetTypeOpts" /><datalist id="assetTypeOpts"><option value="GANTRY_SIGN"><option value="GUARDRAIL"><option value="KM_POST"><option value="DELINEATOR"><option value="LIGHTING"><option value="CULVERT_X"><option value="CULVERT_L"><option value="SLOPE_PROTECT"><option value="ITS_CAMERA"></datalist></div></div><div class="modal-f"><button type="button" class="tb" data-close="modal-confirm">Hủy</button><button type="button" class="tb primary" id="btnConfirmOk">Confirm</button></div></div></div>
 <div class="backdrop center" id="modal-dismiss" data-des-id="DES-MOD-DISMISS"><div class="modal"><div class="modal-h">Dismiss FP</div><div class="modal-b" id="dismissText">Đánh dấu Dismissed.</div><div class="modal-f"><button type="button" class="tb" data-close="modal-dismiss">Hủy</button><button type="button" class="tb primary" id="btnDismissOk">Dismiss</button></div></div></div>
+<div class="backdrop center" id="modal-miss" data-des-id="DES-MOD-MISS"><div class="modal"><div class="modal-h"><i class="fas fa-exclamation-triangle" style="color:#ea580c"></i> Reconcile mất TS</div><div class="modal-b"><p id="missText">GPS có TS kỳ vọng · frame trống / 0 detect · không YOLO class «mất».</p><div class="field"><label for="missExpected">TS kỳ vọng * (SearchInput)</label><input id="missExpected" type="search" list="assetOpts" placeholder="TS-QL1-…" /><datalist id="assetOpts"><option value="TS-QL1-HL-001"><option value="TS-QL1-CS-001"><option value="TS-QL1-CN-001"></datalist></div><div class="field"><label for="missWindow">Cửa sổ N phút *</label><input id="missWindow" type="number" min="1" value="15" /></div><div class="field"><label for="missNote">Ghi chú</label><input id="missNote" type="text" /></div></div><div class="modal-f"><button type="button" class="tb" data-close="modal-miss">Hủy</button><button type="button" class="tb miss" id="btnMissOk">Gim Incident draft</button></div></div></div>
+<div class="backdrop center" id="modal-leave" data-des-id="DES-LEAVE"><div class="modal"><div class="modal-h">Rời form?</div><div class="modal-b">Form đang dirty — thay đổi chưa lưu sẽ mất.</div><div class="modal-f"><button type="button" class="tb" id="btnLeaveStay">Ở lại</button><button type="button" class="tb primary" id="btnLeaveGo">Rời khỏi</button></div></div></div>
 <div class="backdrop" id="slide-backdrop"></div>
-<aside class="slideout" id="slideout" data-des-id="DES-GRID-Z">
+<aside class="slideout" id="slideout" data-des-id="DES-GRID-Z" data-form-cols="2">
   <div class="z1"><div class="title"><span id="formTitle">Candidate</span><span class="badge" id="modeBadge">view</span><span class="dirty" id="dirtyBadge" hidden>Dirty</span></div></div>
   <div class="z1h" id="formHint">View = readOnly · footer actions only</div>
   <div class="z2" id="formBody">
     <div class="near-warn" id="nearWarn" hidden>Nearby risk &lt;25 m cùng class — không auto-create.</div>
-    <div class="section"><h3>Frame / bbox</h3><div class="frame-mock"><span class="bbox"></span>Frame mock</div></div>
+    <div class="section"><h3>Frame / FileUpload</h3><div class="frame-mock" id="frameMock"><span class="bbox"></span><span id="frameLabel">Frame preview (resign)</span></div><div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><input id="fImageFile" type="file" accept="image/jpeg,image/png" aria-label="FileUpload imageFileId" /><input id="fImageFileId" type="text" readonly placeholder="imageFileId (guid)" style="flex:1;min-width:160px;height:32px;padding:6px 10px;border:1px solid var(--border);border-radius:4px" /></div></div>
     <div class="section"><h3>Thông tin candidate</h3><div class="fields">
       <div class="field"><label>Mã candidate</label><input id="fId" readonly /></div>
       <div class="field"><label>Loại TS *</label><select id="fAssetClass"></select></div>
@@ -185,7 +192,7 @@
       <div class="field"><label>Nearby of</label><input id="fNearbyOf" readonly /></div>
       <div class="field"><label>Mã Asset</label><input id="fAssetCode" readonly /></div>
       <div class="field"><label>Phát hiện</label><input id="fDetected" type="datetime-local" /></div>
-      <div class="field full"><label>Ghi chú</label><textarea id="fNote" rows="3"></textarea></div>
+      <div class="field"><label>TS kỳ vọng (miss)</label><input id="fExpectedAsset" type="search" list="assetOpts" /></div><div class="field"><label>Cửa sổ N phút</label><input id="fMissWindow" type="number" min="1" /></div><div class="field"><label>Incident nháp</label><input id="fIncidentId" readonly /></div><div class="field full"><label>Ghi chú</label><textarea id="fNote" rows="3"></textarea></div>
     </div></div>
   </div>
   <div class="z3" id="formFooter"></div>

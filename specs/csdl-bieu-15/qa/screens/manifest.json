@@ -1,0 +1,41 @@
+{
+  "url": "http://localhost:9301/csdl-bieu-15",
+  "method": "playwright channel=chrome headless · contract fallback after yarn e2e-qa hang (GAP-QA-E2E-PW-01)",
+  "feature": "csdl-bieu-15",
+  "cases": [
+    "S0",
+    "S1",
+    "QA-20"
+  ],
+  "capturedAt": "2026-09-05T15:55:02.189Z",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "sha256_16": "bb3b71a3587cc57e",
+      "url": "http://localhost:9301/csdl-bieu-15",
+      "note": "list Biểu 15 · filter-bar · facilityKind/km · empty/grid · peer none_p1",
+      "httpStatus": 200
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "sha256_16": "bb3b71a3587cc57e",
+      "url": "http://localhost:9301/so-ts/csdl-so-sach?resource=ops-facilities",
+      "note": "hub ?resource=ops-facilities → redirect /csdl-bieu-15",
+      "httpStatus": 200
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "sha256_16": "1dd3e77a73d1388f",
+      "url": "http://localhost:9301/csdl-bieu-15?form=create",
+      "note": "Create Slideout · form=create · Z2 facility · Z3 TB+QL · OF-",
+      "httpStatus": 200
+    }
+  ],
+  "ok": true
+}

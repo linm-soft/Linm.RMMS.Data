@@ -1,0 +1,56 @@
+{
+  "url": "http://localhost:9304/patrol",
+  "liveUrl": "http://localhost:9304/td-tk",
+  "capturedAt": "2026-09-06T18:27:38.601Z",
+  "method": "local-playwright+chromium-1187 · skip npx install · headless",
+  "gap": "GAP-QA-PAT-STD-01 mfeStdUrl /patrol → 404 · live /td-tk",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "FAIL",
+      "screenshot": "S0.png",
+      "url": "http://localhost:9304/patrol",
+      "error": "page.waitForSelector: Timeout 20000ms exceeded.\nCall log:\n  - waiting for locator('[data-testid=\"rmms-patrol-list-page\"]') to be visible\n"
+    },
+    {
+      "id": "S1",
+      "result": "FAIL",
+      "screenshot": "S1.png",
+      "url": "http://localhost:9304/patrol",
+      "error": "page.waitForSelector: Timeout 20000ms exceeded.\nCall log:\n  - waiting for locator('[data-testid=\"rmms-patrol-list-page\"]') to be visible\n"
+    },
+    {
+      "id": "QA-20",
+      "result": "FAIL",
+      "screenshot": "QA-20.png",
+      "url": "http://localhost:9304/patrol/new",
+      "error": "page.waitForSelector: Timeout 20000ms exceeded.\nCall log:\n  - waiting for locator('[data-testid=\"rmms-patrol-form-page\"]') to be visible\n"
+    },
+    {
+      "id": "S0-vn",
+      "result": "PASS",
+      "screenshot": "S0-vn.png",
+      "url": "http://localhost:9304/td-tk"
+    },
+    {
+      "id": "S1-vn",
+      "result": "PASS",
+      "screenshot": "S1-vn.png",
+      "url": "http://localhost:9304/td-tk"
+    },
+    {
+      "id": "QA-20-vn",
+      "result": "PASS",
+      "screenshot": "QA-20-vn.png",
+      "url": "http://localhost:9304/td-tk/tao-moi"
+    },
+    {
+      "id": "QA-MEDIA-upload",
+      "result": "PASS",
+      "screenshot": "QA-MEDIA-upload.png",
+      "url": "http://localhost:9304/td-tk/tao-moi"
+    }
+  ],
+  "ok": false,
+  "liveOk": true
+}

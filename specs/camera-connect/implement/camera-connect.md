@@ -268,7 +268,7 @@ dotnet build Linm.RMMS.WebService.sln -c Release → PASS (0 Error(s))
 | ID | Note |
 |----|------|
 | SD-AUTH | `[RequirePermission]` TODO BE |
-| SD-PWD | PasswordEnc plain P1 · encrypt P2 |
+| SD-PWD | PasswordEnc plain — **supersede** `docs/plan/camera-security/PLAN.md` `GAP-CAM-SEC-01` · S1 AEAD |
 | History API | window.alert stub |
 | Schema editor | Config hint dialog P1 |
 | P2-G0 | MediaMTX live gateway — plan 21 |

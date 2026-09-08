@@ -1,4 +1,4 @@
-# Team-lead — patrol (crud_formtype)
+# Team-lead — patrol (edit_page · leftover + upload media)
 
 | Field | Value |
 |-------|-------|
@@ -7,306 +7,222 @@
 | status | `done` |
 | packKind | `list` |
 | changeScope | `edit_page` |
-| gap | `crud_formtype` |
+| gap | `crud_formtype` + upload media (W4-1 W4-2) |
 | mode | `fix_gaps` |
 | Feature Kind | **B** — catalog A–D + **full-page** (`PatrolFormPage`) |
-| taskId | `task_a4508318` |
+| taskId | `task_62694861` |
 | autoApprove | **ON** |
-| design_confirm | **approve** (`task_5e7961be`) |
-| solution_confirm | **approve** (`task_91df2c14`) |
+| e2eQa | **ON** (queued `/agent-qa*` only) |
+| design_confirm | **approve** (`task_a57d8389`) |
+| solution_confirm | **approve** (`task_8072f549`) |
 | be_repo_confirm | **approve** |
 | ui_repo_confirm | **approve** |
-| updatedAt | `2026-08-14T18:40:00.000Z` |
+| updatedAt | `2026-09-07T00:55:57.818Z` |
 
 ## Source assignment
 
 | Field | Value |
 |-------|-------|
 | `source.mfe` | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Field` |
-| `source.routes` | `/patrol` · `/patrol/new` · `/patrol/:id` |
+| `source.routes` | `/patrol` · `/patrol/new` · `/patrol/:id` · **route_confirm N/A** (KEEP) |
 | `source.backend` | `D:/AI-QLBD/Linm.RMMS.WebService` |
 | `source.domain` | **Patrol** (DOMAIN-MAP slug `patrol`) |
 | `source.api` | `api/src/RMMS.Service.Api/Domains/Patrol/` · **`api/v1/patrol/sessions`** |
-| `source.bff` | `bff/domains/patrol/LINM.RMMS.Patrol.Bff/Controllers/PatrolSessionsBffController.cs` · **`web-bff/api/v1/patrol/sessions`** |
-| Lookup | Integration **`api/v1/integration/road-routes/search`** — **không** copy vào Patrol |
+| `source.bff` | PatrolSessionsBff · **`web-bff/api/v1/patrol/sessions`** |
+| Files | **reuse** `web-bff/api/v1/files/*` · slash `/init-bff-file` + `/integrate-file-upload-web` |
 | FE BASE | `/patrol/sessions` |
-| Lookup FE | `/integration/road-routes` |
+| Lookup FE | `/integration/road-routes` (KEEP) |
 | reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/patrol/ui/prototype/patrol-list-prototype.html` |
 | mfeStdRoute | `/patrol` |
 | mfeStdUrl | `http://localhost:9304/patrol` |
 
-**Cấm** `ERP.Service.*` · `Domains/Master` · `api/v1/rmms/*`. **Cấm** parent JSON string.
+**Cấm** `ERP.Service.*` · invent `patrol-files` · persist full URL · parent JSON nested · child table media P1.
 
-## Prior (kept — **cấm rewrite shell**)
-
-CRUD list/form/ACT **đã PASS** (`task_1ede6934`). Pack này **chỉ delta** controlHint + SA query/validate.
+## Prior KEEP CLOSED (cấm rewrite shell)
 
 | id | Status | Note |
 |----|--------|------|
-| T-CTX-01 | **done** (verify) | context API Signed |
-| T-BE-01 | **done** | CRUD sessions |
-| T-BE-02 | **done** | `rmms_patrol_sessions` · **không** migration mới |
-| T-PERM-01 | **done** | `patrol.sessions.*` |
-| T-UI-LIST-01 | **done** (shell) | A–D · **cấm rewrite** — chỉ **extend** Zone B filter `route` |
-| T-UI-FORM-01 | **done** (page) | Full-page C/E/V/Copy · View `<dl>` · **cấm rewrite** — chỉ đổi control `route` + footer-only |
-| T-UI-ACT-01 | **done** | Delete toolbar + row menu |
-| T-BE-CRUD-01 | **done** | C/U/D verify |
-| T-QA-01 / T-QA-CRUD-01 | **done** (prior) | QA **re-open** sau Dev delta |
-| T-UI-MAP-FORM | **n/a** | packKind=`list` |
+| T-CTX-01 · T-BE-01 · T-BE-02 · T-PERM-01 · T-BE-CRUD-01 | **done** | CRUD + table |
+| T-BE-Q-01 · T-BE-VAL-01 · T-BFF-01 · T-FE-API-01 | **done** | `?route=` · validate catalog · enum VN |
+| T-UI-LKP-01 · T-UI-FIELD-01 · T-UI-PROD-01 | **done** | SearchInput road-route · seed 38 |
+| T-UI-LIST-01 · T-UI-FORM-01 · T-UI-ACT-01 · T-UI-UX-01 | **done** | A–D KEEP · full-page · footer-only |
+| T-QA-01 · T-QA-CRUD-01 | **done** | prior pack |
+| GAP-PO-PAT-01..07 · GAP-SA-PAT-Q01/LKP/VAL/ENUM · GAP-TL-PAT-* | **CLOSED** | |
+| GAP-SA-PAT-FILE-01 · GAP-DES-PAT-MEDIA-UI | **CLOSED** | SA/Design chốt |
 
-## Live audit (TL · trước emit · `tl-retry-ssot-rereview`)
+## Live audit (TL · `tl-retry-ssot-rereview`)
 
 | Check | Live | Pack required |
 |-------|------|----------------|
-| 1× `LinPageLayout` kind=catalog | **PASS** (`PatrolListPage`) | KEEP |
-| Nested `CatalogListShell` | **không** | KEEP |
-| `LinCatalogDataGrid` `resizable: true` | **PASS** | KEEP |
-| Footer `LinCatalogListPagination` | **PASS** 50 default | KEEP |
-| `footerPagination` / `pageSizeBar` / raw table | **không** | KEEP |
-| flex + skeleton | **PASS** `useServerPagedListLoading` · 8 rows | KEEP |
-| toolbar refresh · history · `fa-cog` · create · delete | **PASS** | KEEP |
-| filter SearchTextInput + status SearchInput | **PASS** | KEEP + **route** SearchInput |
-| `filterMaxWidthPx` | **không** | KEEP |
-| list_parity Kind B | **PASS** shell | KEEP |
-| tree_master | n/a | n/a |
-| form full-page · View `<dl>` | **PASS** | KEEP |
-| form `route` | **`Input` Text** | **SearchInput** `road-route` |
-| Zone B `route` filter | **thiếu** | SearchInput LKP-01 |
-| `getList` / endpoint | `search` · `status` · page | + **`route`** |
-| BE `GetListAsync` | search · status only | GAP-SA-PAT-Q01 |
-| BE Create/Update | trim Route · **không** catalog · enum free | GAP-SA-PAT-VAL/ENUM |
-| BFF list | `Request.QueryString` passthrough | verify `?route=` |
-| seed FE | `QL.1` OK · **`ĐT.784` · `QL.1A`** | **không** ∈ 38 CUC2 (`road-route-seed.json` có `QL.1`) |
-| form Z1 Lưu/Hủy trên header | **có** (`btn-save-top`) | Design **footer-only** |
-| listTitle | `Sổ phiên tuần tra` | Design `Sổ phiên tuần tra / check-in` |
-| Resource / Slideout | **không** | KEEP |
+| List A–D shell · route filter · SearchInput | **PASS** (prior) | KEEP — **cấm rewrite** |
+| Form full-page · View `<dl>` · footer-only | **PASS** (prior) | KEEP + **upload zone** |
+| `mediaIds` / FileMulti / gallery | **thiếu** | NEW P0 |
+| DB `MediaIds` column | **thiếu** | T-MIG-MEDIA |
+| sessions DTO `mediaIds[]` | **thiếu** | T-BE-FILE-01 |
+| FileService wire FE | **thiếu** | T-FE-FILE-01 |
+| AC-G-08 media không cột grid | Design | KEEP |
 
-### retry.ssot_rereview (TL stamp)
+### retry.ssot_rereview
 
 | Field | Value |
 |-------|-------|
-| result | **gaps** (not pass-all) — shell PASS · **GAP cùng surface** LKP/FIELD/BE/seed/footer |
-| rule | Dev **cấm** chỉ patch 1 chỗ user nêu — đóng hết GAP-SA-PAT-* + GAP-TL-PAT-* |
+| result | **gaps** — shell PASS · **GAP cùng surface** media FILE-01 + form upload + View gallery + Copy clone |
+| rule | Dev **cấm** chỉ patch 1 chỗ — đóng hết T-MIG/BE/FE/UI-MEDIA |
 
 ## Implement HOW
 
 | Topic | Decision |
 |-------|----------|
-| Wire list | Page → `patrolService` → `endpoint.ts` → apiClient → BFF → API |
-| Wire lookup | SearchInput → Integration `/integration/road-routes/search` — **cấm** Patrol duplicate search |
-| List | **1×** `LinPageLayout` — **cấm** nested `CatalogListShell` |
-| Grid | `LinCatalogDataGrid` kéo cột **default ON** |
-| Footer | `LinCatalogListPagination` 50/100/200/500 — **cấm** footerPagination / pageSizeBar |
-| Form | **Full-page** `PatrolFormPage` — **cấm** Resource · **cấm** Slideout |
-| View | **`<dl>` display** — **cấm** Input `readOnly` xám · **cấm** disabled toàn form |
-| Persist route | **code** string (`QL.1`) — **không** FK Guid · **không** JSON |
-| Persist enum | **nhãn VN** (`Đang tuần` · `Tuần đường`) — **không** Design codes `in_progress`/`road` |
-| Skills | `/erp-form-context` · `form-type-task-pack` · `list-form-quality-gates` · `tl-retry-ssot-rereview` · `dev-ui-ux-constitution` · `/new-endpoint` · `/create-bff-api-feature` |
+| Schema | `MediaIds` **varchar(2000)** CSV guid trên `rmms_patrol_sessions` · **cấm** jsonb · child table **P2** |
+| DTO | `mediaIds: string[]` max **10** · replace-all Create/Update |
+| Files | reuse `web-bff/api/v1/files/*` · persist **guid only** · resign View |
+| MIME | jpeg\|png\|webp ≤10MB · mp4\|webm ≤50MB · max 10 — FE+FileService; BE **count only** |
+| FormMode | List **no** media · View GetById+resign · Copy **clone guid[]** · Delete soft **no** cascade files |
+| UI | Form `data-zone=upload` FileMulti sau note · View `data-zone=media-gallery` · **không** cột grid (AC-G-08) |
+| List/route | **KEEP** — không đụng filter/route/LKP |
+| Skills | `form-type-task-pack` · `list-form-quality-gates` · `tl-retry-ssot-rereview` · `/init-bff-file` · `/integrate-file-upload-web` · `dev-ui-ux-constitution` |
 
 **ssot.reuse:**
-  ui: LinPageLayout · LinCatalogDataGrid · LinCatalogListPagination · LinCatalogRowActionMenu · SearchInput (road-route + enum) · SearchTextInput
-  http: apiClient · patrolEndpoint · Integration road-routes search (reuse attendance/road-route client nếu đã có)
-  grid: no footerPagination · no pageSizeBar · no nested CatalogListShell
-**implement.list_parity:**
-  layout: flex-root + GAP-P2-LAYOUT-06
-  tree: n/a
-  filter: search + status SearchInput + route SearchInput · filter đổi → page=1 · **no Tìm btn**
-  loading: useServerPagedListLoading + skeleton
-  footer: LinCatalogListPagination
-  row_menu: Xem · Sửa · Sao chép · Xóa · Lịch sử stub
-  zone_f: fa-cog (existing hint OK P1)
-  perm: patrol.sessions.*
+  ui: PatrolListPage · PatrolFormPage · Lin* · SearchInput road-route KEEP · FileMulti (common)
+  http: patrolService · apiClient · FileService files/* (cấm patrol-files)
+  be: PatrolSession entity widen MediaIds · no new controller domain
 **implement.form:**
-  View: `<dl>`
-  route: SearchInput LKP-01
-  footer_actions_only: Lưu/Hủy — **gỡ** Lưu/Hủy trên Z1 header
+  View: `<dl>` + gallery resign
+  upload: FileMulti · toast reject MIME/size
+  footer_actions_only: KEEP
 **DoD (retry HARD):**
-- [ ] Dev re-review `tl-retry-ssot-rereview` **trước Write** — ghi `retry.ssot_rereview` trên implement MD
-- [ ] 1× LinPageLayout · no nested CatalogListShell
-- [ ] LinCatalogDataGrid kéo cột ON · footer LinCatalogListPagination
-- [ ] Flex + skeleton · toolbar config
-- [ ] Form View `<dl>` · **cấm** Resource · **cấm** Slideout
-- [ ] Cùng surface: đóng hết GAP-SA-PAT-* + GAP-TL-PAT-* — **cấm** patch 1 chỗ
+- [ ] Dev stamp `retry.ssot_rereview` trên implement MD trước Write
+- [ ] Đóng hết GAP media cùng surface — **cấm** patch 1 chỗ
+- [ ] **Cấm** rewrite list shell / route LKP
 - [ ] MFE `yarn build` PASS · BE `dotnet build` API + Patrol BFF PASS · implement § Build
 
 ## GAP inventory (Dev phải đóng)
 
 | ID | Gap | Task |
 |----|-----|------|
-| GAP-SA-PAT-Q01 | List thiếu query `route` | T-BE-Q-01 · T-BFF-01 · T-FE-API-01 · T-UI-LIST-01-ext |
-| GAP-SA-PAT-LKP | form `route` = Text · list chưa filter tuyến | T-UI-LKP-01 |
-| GAP-SA-PAT-VAL | Route không ∈ road-routes active | T-BE-VAL-01 |
-| GAP-SA-PAT-ENUM | Status / PatrolType free string | T-BE-VAL-01 |
-| GAP-SA-PAT-SEED | mock `ĐT.784` · `QL.1A` | T-UI-PROD-01 |
-| GAP-PO-PAT-01 | SearchInput road-route form | T-UI-LKP-01 |
-| GAP-PO-PAT-02 | Zone B filter tuyến + `?route=` | T-UI-LIST-01-ext · T-BE-Q-01 |
-| GAP-PO-PAT-03 | Full-page · View `<dl>` | T-UI-PROD-01 (KEEP) |
-| GAP-PO-PAT-04 | userName Text P1 | T-UI-FIELD-01 (KEEP) |
-| GAP-TL-PAT-FOOTER-ACT | Z1 header có Lưu/Hủy | T-UI-FORM-01 · T-UI-UX-01 |
-| GAP-TL-PAT-LIST-TITLE | listTitle thiếu `/ check-in` | T-UI-LIST-01-ext |
-| GAP-TL-PAT-FALLBACK-ROUTE | `filterRows` local thiếu `route` exact | T-FE-API-01 |
+| GAP-SA-PAT-FILE-01 | MediaIds CSV varchar · DTO[] | T-MIG-MEDIA · T-BE-FILE-01 |
+| GAP-DES-PAT-MEDIA-UI | upload zone + View gallery | T-UI-FORM-MEDIA · T-UI-VIEW-GALLERY |
+| GAP-PO-PAT-MEDIA-* | FileMulti · MIME · max 10 | T-FE-FILE-01 · T-UI-FORM-MEDIA |
+| GAP-TL-PAT-COPY-MEDIA | Copy clone guid[] | T-UI-COPY-MEDIA |
+| GAP-TL-PAT-LIST-NO-MEDIA-COL | AC-G-08 | T-UI-LIST-01 verify KEEP |
 
-**Out of pack:** Kind E report · Leaflet · KPI · check-ins/tracks/coverage/kpi API · Excel · orgUnit/staffType/date range · users LKP · index `(CompanyCode, Route)` P2 · migration schema mới · GAP-F-PAT-01.
+**Out of pack P2:** Kind E+F map/tracks · child table media · code readOnly leftover · GAP-QA-PAT-CODE-DISABLED · SD-AUTH · invent patrol-files.
 
 ## Task pack (canonical · `form-type-task-pack`)
 
-### T-CTX-01
-**layer:** docs · **status:** **done** (verify)  
-**DoD:** context Signed · DOMAIN-MAP Patrol · **không** ERP path.
+### Prior done (reference — **không** re-open)
 
-### T-PERM-01
-**layer:** ui+api · **status:** **done**  
-**DoD:** `patrol.sessions.read|create|update|delete` · lookup `master.road-routes.read` (stub).
+T-CTX-01 · T-PERM-01 · T-BE-* · T-BFF-01 · T-FE-API-01 · T-UI-LKP/FIELD/PROD/LIST/FORM/ACT/UX · T-QA-01/CRUD — **done** (prior packs).
 
-### T-BE-01 / T-BE-CRUD-01 / T-BE-02
-**status:** **done**  
-**DoD:** CRUD + table đã có · pack **không** `Schema_*` mới.
-
-### T-BE-Q-01
-**layer:** api · **status:** pending · **deps:** T-BE-01  
-**skills:** `/new-endpoint` (edit existing)  
+### T-MIG-MEDIA
+**layer:** migration · **status:** pending · **deps:** T-BE-02  
+**skills:** Schema migration (add column only)  
 **DoD:**
-- [ ] `GET /api/v1/patrol/sessions` query: `search?` · `status?` · **`route?`** (exact trim = `PatrolSession.Route`) · `page` · `pageSize` 50/100/200/500 (else 50)
-- [ ] `search` AND Contains Code/UserName/Route/PatrolType/Status (đã có)
-- [ ] Sort `PlannedDate` DESC · `UpdatedAt` DESC · `IsActive=true`
-- [ ] Controller + `IPatrolSessionService.GetListAsync` thêm `route`
-- [ ] **Cấm** `ERP.*` · **cấm** `api/v1/rmms/*`
+- [ ] Migration `Schema_RmmsPatrolSessions_MediaIds` — add `MediaIds` varchar(2000) nullable trên `rmms_patrol_sessions`
+- [ ] **Cấm** jsonb · **cấm** child table · **cấm** drop/rename existing cols
+- [ ] Entity map `MediaIds` ↔ CSV guid
 - [ ] `dotnet build` API PASS
 
-### T-BE-VAL-01
-**layer:** api · **status:** pending · **deps:** T-BE-Q-01  
+### T-BE-FILE-01
+**layer:** api · **status:** pending · **deps:** T-MIG-MEDIA  
 **DoD:**
-- [ ] Create/Update: `Route` ∈ `rmms_road_routes.Code` **IsActive** — 422 VN nếu unknown (`ĐT.784` / `QL.1A`)
-- [ ] Status allow-list **Đang tuần · Hoàn thành · Bỏ sót · Offline queue**
-- [ ] PatrolType allow-list **Tuần đường · Tuần kiểm**
-- [ ] Required UserName/Route/PatrolType/Status · CheckInCount ≥0 · Coverage 0–100
-- [ ] Read `DbSet<RoadRouteEntity>` — **không** copy entity sang Patrol (cùng pattern attendance)
-- [ ] `dotnet build` PASS
+- [ ] DTO `mediaIds: string[]` max 10 · serialize CSV ↔ array (pattern CSDL)
+- [ ] GetById returns `mediaIds[]` · List **omit** media (no column)
+- [ ] Create/Update **replace-all** mediaIds · validate count ≤10 · guid format
+- [ ] Copy/clone: response/source includes mediaIds[] for FE clone
+- [ ] Delete soft — **không** cascade delete files
+- [ ] **Cấm** ERP.* · **cấm** invent file endpoints trên Patrol
+- [ ] `dotnet build` API PASS
 
-### T-BFF-01
-**layer:** bff · **status:** pending (verify passthrough) · **deps:** T-BE-Q-01  
-**skills:** `/create-bff-api-feature` (edit existing)  
+### T-BFF-FILE-01
+**layer:** bff · **status:** pending (verify) · **deps:** T-BE-FILE-01  
 **DoD:**
-- [ ] `PatrolSessionsBffController.BuildListPath` forward GET list **kèm** `route` (`Request.QueryString` — **không** controller mới nếu đã passthrough)
-- [ ] **Không** business logic · **không** proxy road-routes từ Patrol BFF
+- [ ] Patrol BFF proxy sessions body `mediaIds` passthrough — **không** business logic
+- [ ] Files vẫn qua **existing** files BFF — **không** Patrol-files controller
 - [ ] `dotnet build` Patrol BFF PASS
 
-### T-FE-API-01
-**layer:** ui · **status:** pending · **deps:** T-BFF-01  
+### T-FE-FILE-01
+**layer:** ui · **status:** pending · **deps:** T-BFF-FILE-01  
+**skills:** `/init-bff-file` · `/integrate-file-upload-web`  
 **DoD:**
-- [ ] `patrolEndpoint.getList` params `route?` (+ existing search/status/page/pageSize)
-- [ ] `patrolService.getList` + `localList` / `filterRows` exact `route`
+- [ ] Wire FileService `web-bff/api/v1/files/*` (upload · get · resign) — **cấm** scaffold API mới
+- [ ] Types: `mediaIds: string[]` trên session DTO FE · getList **không** require media
+- [ ] Persist **guid only** · **cấm** full URL trong store/API body
+- [ ] MIME/size enforce FE: jpeg|png|webp ≤10MB · mp4|webm ≤50MB · max 10 · toast reject
 - [ ] MFE `yarn build` PASS
 
-### T-UI-LIST-01 (extend — **cấm rewrite shell**)
-**layer:** ui · **status:** pending (delta) · **deps:** T-FE-API-01 · T-UI-LKP-01  
-**from_design:** zones **A,B,C,D**  
+### T-UI-FORM-MEDIA
+**layer:** ui · **status:** pending · **deps:** T-FE-FILE-01 · T-UI-FORM-01  
+**from_design:** `data-zone=upload`  
 **DoD:**
-- [ ] **KEEP** 1× LinPageLayout · LinCatalogDataGrid · LinCatalogListPagination · skeleton
-- [ ] Zone A: title **Tuần đường / tuần kiểm** · icon `fa-route` · **cấm** Tạo mới trên A
-- [ ] Zone B: SearchTextInput · SearchInput status · SearchInput **tuyến** · Làm mới · Lịch sử stub · `fa-cog` · Xóa · **Tạo mới primary chỉ trên B**
-- [ ] Filter đổi → `page=1` · search must work · `filterCols` đủ 3 field
-- [ ] Zone C: STT · □ · Mã phiên · Nhân viên · Tuyến · Loại tuần · Ngày KH · Check-in · Coverage % · Trạng thái · Offline · ⋯ — tuyến hiển thị **code 38**
-- [ ] `listTitle` **Sổ phiên tuần tra / check-in**
-- [ ] Zone D: pageSize 50/100/200/500
+- [ ] Form Create/Edit: section FileMulti **sau note** · controlHint=`FileMulti` · field `mediaIds`
+- [ ] Upload → guid[] · dirty leave-confirm includes media change
+- [ ] Submit Create/Update gửi `mediaIds[]` replace-all
+- [ ] **KEEP** footer-only · **cấm** Resource/Slideout · **cấm** rewrite non-media fields
 - [ ] MFE `yarn build` PASS
 
-### T-UI-FORM-01 (extend)
-**layer:** ui · **status:** pending (delta) · **deps:** T-UI-LKP-01 · T-UI-FIELD-01  
+### T-UI-VIEW-GALLERY
+**layer:** ui · **status:** pending · **deps:** T-FE-FILE-01 · T-UI-FORM-01  
+**from_design:** `data-zone=media-gallery`  
 **DoD:**
-- [ ] **KEEP** full-page C/E/V/Copy · leave-confirm dirty · Copy → POST new · IdCode server `TD-yyyyMMdd-nnn`
-- [ ] `route` = SearchInput (thay `Input`) · userName **Text**
-- [ ] View = `<dl>`
-- [ ] Footer-only Lưu/Hủy — **gỡ** `btn-save-top` / `btn-cancel-top` trên Z1 (giữ Quay lại · Sửa · Sao chép khi view)
+- [ ] View mode: gallery resign URLs từ FileService · **không** raw guid-only UI
+- [ ] KEEP View `<dl>` cho scalar fields · gallery riêng zone
 - [ ] MFE `yarn build` PASS
 
-### T-UI-ACT-01
-**status:** **done** (verify) — Search/status/refresh/create/edit/view/delete/history/row menu/deep-link. **Delta:** filter route handler → T-UI-LIST-01.
-
-### T-UI-LKP-01
-**layer:** ui · **status:** pending · **deps:** T-PERM-01  
+### T-UI-COPY-MEDIA
+**layer:** ui · **status:** pending · **deps:** T-UI-FORM-MEDIA · T-BE-FILE-01  
 **DoD:**
-- [ ] Form + Zone B **route**: SearchInput → `GET /api/v1/integration/road-routes/search` (`search` · `page` · `pageSize` · `excludeCode?`)
-- [ ] Display `code — name` · persist **`code`**
-- [ ] Seed 38 CUC2 · có `QL.1` · **không** invent ngoài seed
-- [ ] BFF down → FE fallback subset **chỉ mã có trong seed**
-- [ ] **Cấm** Input Text tuyến · **Cấm** LKP users P1 · **Cấm** Search endpoint trong Patrol
-- [ ] Enum status / patrolType / offline: **KEEP** SearchInput local (`lookups.ts`) value = nhãn VN
+- [ ] Copy: clone `mediaIds[]` guid sang form mới · POST Create kèm mediaIds
+- [ ] **Không** re-upload files · **không** invent copy-file API
+- [ ] MFE `yarn build` PASS
 
-### T-UI-FIELD-01
-**layer:** ui · **status:** pending · **deps:** T-UI-LKP-01  
-**control-map ↔ DTO**
+### T-UI-LIST-01 (verify KEEP)
+**layer:** ui · **status:** pending (verify) · **deps:** —  
+**DoD:**
+- [ ] AC-G-08: **không** thêm cột media trên grid
+- [ ] **Cấm** rewrite Zone A–D shell / route filter
+
+### T-UI-FIELD-01 (extend media)
+**layer:** ui · **status:** pending (delta) · **deps:** T-FE-FILE-01  
 
 | uiField | Control | dtoField | Required | Notes |
 |---------|---------|----------|----------|-------|
-| code | Text readonly IdCode | Code | auto | server `TD-yyyyMMdd-nnn` · body **không** gửi code Create |
-| userName | Text | UserName | * | P1 **không** SearchInput users |
-| route | SearchInput road-route | Route | * | code 38 |
-| patrolType | SearchInput enum | PatrolType | * | VN allow-list |
-| plannedDate | Date `type=date` | PlannedDate | * | DateOnly |
-| startedAt | Date datetime-local | StartedAt | | store UTC · display local |
-| checkInCount | Text number ≥0 | CheckInCount | * | int |
-| coveragePercent | Text number 0–100 | CoveragePercent | | decimal |
-| status | SearchInput enum | Status | * | VN allow-list |
-| offlineQueued | SearchInput bool | OfflineQueued | | true/false |
-| note | Text | Note | | |
-| updatedAt | Date readonly | UpdatedAt | | View display |
-| (filter) route | SearchInput | query `route` | | **không** cột mới |
+| mediaIds | FileMulti | mediaIds[] | | NEW · max 10 · guid · CSV BE |
 
 **DoD:**
-- [ ] Types khớp SA field map · **cấm** parent JSON
-- [ ] Filter `?status=` / persist enum = **nhãn VN**
+- [ ] control-map ↔ DTO · prior fields KEEP
 
-### T-UI-PROD-01
-**layer:** ui · **status:** pending · **deps:** T-UI-LKP-01  
+### T-QA-MEDIA
+**layer:** qa · **status:** pending (QA role — **không** làm ở Dev/TL)  
+**deps:** T-UI-FORM-MEDIA · T-UI-VIEW-GALLERY · T-UI-COPY-MEDIA · T-BE-FILE-01 · T-FE-FILE-01  
 **DoD:**
-- [ ] `patrolStore` SEED: **`ĐT.784` → mã ∈ 38** (ưu tiên `QL.1` hoặc `HCM`) · **`QL.1A` → mã ∈ 38** — bump `STORAGE_KEY` để localStorage cũ không giữ mã lạ
-- [ ] **Cấm** invent mã ngoài 38
-- [ ] **Cấm** Resource · **cấm** Slideout · View `<dl>`
-- [ ] Excel / Leaflet / Kind E **out of pack**
-
-### T-UI-UX-01
-**layer:** ui · **status:** pending · **deps:** T-UI-LIST-01 · T-UI-FORM-01  
-**skills:** `dev-ui-ux-constitution`  
-**DoD:**
-- [ ] spacing 4/8/16 · Lin* · **không** `filterMaxWidthPx`
-- [ ] Input pad 6×10 · min-height 32 · focus shadow
-- [ ] AppLayout height · title không clip (GAP-P2-LAYOUT-06)
-- [ ] SearchInput dropdown portal ON
-- [ ] code View/create **readonly** không disabled xám toàn form (code field disabled OK)
-- [ ] GAP-TL-PAT-FOOTER-ACT đóng
-
-### T-QA-01 / T-QA-CRUD-01
-**layer:** qa · **status:** pending (QA role — **không** làm ở Dev)  
-**deps:** T-UI-LIST-01 · T-UI-FORM-01 · T-UI-LKP-01 · T-BE-Q-01 · T-BE-VAL-01  
-**DoD:**
-- [ ] scenarios: filter route · SearchInput 38 · seed QL.1 · 422 mã lạ · mfeStdUrl · no ERP · footer-only Lưu
+- [ ] Upload/reject MIME · max 10 · View resign · Copy clone · List no media col · mfeStdUrl · no ERP
+- [ ] E2E chỉ `/agent-qa*` khi e2eQa ON
 
 ## Deps
 
 ```
-T-CTX-01 · T-PERM-01 · T-BE-01 · T-BE-02 · T-UI-ACT-01 · T-BE-CRUD-01  [done]
-T-BE-Q-01 → T-BE-VAL-01 → T-BFF-01 → T-FE-API-01
-T-UI-LKP-01 → T-UI-FIELD-01
-            → T-UI-PROD-01
-T-FE-API-01 + T-UI-LKP-01 → T-UI-LIST-01 (extend)
-T-UI-LKP-01 + T-UI-FIELD-01 → T-UI-FORM-01 (extend)
-T-UI-LIST-01 + T-UI-FORM-01 → T-UI-UX-01
-T-UI-* + T-BE-* → T-QA-01 · T-QA-CRUD-01  (QA role)
+[prior done] T-CTX/PERM/BE-CRUD/Q/VAL/BFF/FE-API/UI-*route*
+T-MIG-MEDIA → T-BE-FILE-01 → T-BFF-FILE-01 → T-FE-FILE-01
+T-FE-FILE-01 → T-UI-FORM-MEDIA → T-UI-COPY-MEDIA
+T-FE-FILE-01 → T-UI-VIEW-GALLERY
+T-FE-FILE-01 → T-UI-FIELD-01 (extend)
+T-UI-LIST-01 verify KEEP (parallel)
+T-UI-*media + T-BE-FILE → T-QA-MEDIA  (QA role)
 ```
 
 ## Handoff → Dev
 
 | Field | Value |
 |-------|-------|
-| Next | `/agent-dev` · **chỉ** delta: T-BE-Q-01 · T-BE-VAL-01 · T-BFF-01 · T-FE-API-01 · T-UI-LKP-01 · T-UI-FIELD-01 · T-UI-PROD-01 · T-UI-LIST-01 extend · T-UI-FORM-01 extend · T-UI-UX-01 |
+| Next | `/agent-dev` · **chỉ** delta media: T-MIG-MEDIA · T-BE-FILE-01 · T-BFF-FILE-01 · T-FE-FILE-01 · T-UI-FORM-MEDIA · T-UI-VIEW-GALLERY · T-UI-COPY-MEDIA · T-UI-FIELD-01 extend · T-UI-LIST verify |
 | `devSlash` | `/agent-dev` — **không** `/erp-feature` · **không** OMS/AI |
-| Anti-dup | reuse CRUD/shell/full-page/BFF — **cấm** rewrite T-UI-LIST shell |
-| UI SSOT | `@linm-soft-org/linm-web-common-components` |
-| BE SSOT | `D:/AI-QLBD/Linm.RMMS.WebService` · Patrol + Integration read |
-| HARD | `tl-retry-ssot-rereview` · đóng GAP cùng surface |
+| Anti-dup | reuse CRUD/shell/full-page/BFF/files — **cấm** rewrite list · **cấm** patrol-files |
+| UI SSOT | `@linm-soft-org/linm-web-common-components` · FileMulti |
+| BE SSOT | `D:/AI-QLBD/Linm.RMMS.WebService` · Patrol + FileService reuse |
+| HARD | `tl-retry-ssot-rereview` · đóng GAP media cùng surface |
 | Build | MFE `yarn build` · BE `dotnet build` API+BFF · implement § Build |
-| **cấm** | `ERP.*` · parent JSON · Resource · Slideout · invent ĐT.784/QL.1A · users LKP P1 · persist Design codes `in_progress`/`road` |
+| **cấm** | `ERP.*` · jsonb MediaIds · child table P1 · full URL persist · cascade delete files · media cột grid |
 
 ## Version meta (REQUIRED)
 
@@ -317,20 +233,23 @@ T-UI-* + T-BE-* → T-QA-01 · T-QA-CRUD-01  (QA role)
 | schemaVersion | 2 |
 | workflowVersion | 2026.08.14.5 |
 | rulesVersion | 2026.08.14.9 |
-| generatedAt | 2026-08-14T18:40:00.000Z |
+| generatedAt | 2026-09-07T00:55:57.818Z |
 | versionGate | rechecked |
-| version_mismatch_action | recheck_new (STATUS orchestrator `2026.08.09.02` · TL SSOT sibling attendance `2026.08.14.5`) |
-| dataAnalySkillVersion | 2026.08.08.20 |
+| version_mismatch_action | recheck_new |
+| dataAnalySkillVersion | 2026.09.05.03 |
+| dataAnalyContentHash | sha256:f2761b7dc5b13b1388b9db493b028a10227efd81de142607827c582bc04450b7 |
 | poSkillVersion | 2026.08.14.5 |
 | designSkillVersion | 2026.08.14.5 |
 | saSkillVersion | 2026.08.14.5 |
-| contentHashPriorDataAnaly | sha256:1d25897d8fbcaa2b7be1174adf71f0840253c187980d23b9618bb3251febbcd5 |
-| contentHashPriorPo | sha256:po-requirement-task_af761fcc |
-| priorDesign | design.md · task_5e7961be |
-| priorSa | solution-discovery.md · task_91df2c14 |
+| contentHashPriorDataAnaly | sha256:f2761b7dc5b13b1388b9db493b028a10227efd81de142607827c582bc04450b7 |
+| contentHashPriorPo | sha256:task_54394ae1 |
+| contentHashPriorDesign | sha256:task_a57d8389 |
+| contentHashPriorSa | sha256:task_8072f549 |
+| priorDesign | design.md · task_a57d8389 |
+| priorSa | solution-discovery.md · task_8072f549 |
 | orchestratorSkillVersion | 2026.08.09.02 |
 | orchestratorWorkflowVersion | 2026.08.09.02 |
-| taskId | `task_a4508318` |
+| taskId | `task_62694861` |
 
 ---
 <!-- Version meta: skillVersion=2026.08.14.5 · schemaVersion=2 · workflowVersion=2026.08.14.5 · rulesVersion=2026.08.14.9 · versionGate=rechecked -->

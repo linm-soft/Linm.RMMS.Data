@@ -1,102 +1,82 @@
-# Implement — patrol (crud_formtype delta)
+# Implement — patrol (leftover + upload media)
 
 | Field | Value |
 |-------|-------|
 | feature | `patrol` |
 | this role | `dev` · `/agent-dev` |
 | status | `done` |
-| changeScope | `edit_page` · gap=`crud_formtype` |
+| changeScope | `edit_page` · gap=`crud_formtype` + upload media (W4-1 W4-2) |
 | packKind | `list` |
-| taskId | `task_4f8ea737` |
+| taskId | `task_12280943` |
 | autoApprove | **ON** |
-| updatedAt | `2026-08-14T18:20:00.000Z` |
+| e2eQa | **ON** (queued — QA only) |
+| updatedAt | `2026-09-06T18:10:00.000Z` |
+| skillVersion | `2026.08.14.5` |
+| contentHashPriorTl | `sha256:task_62694861` |
 
-## retry.ssot_rereview (Dev · trước Write)
+## retry.ssot_rereview (Dev)
 
-checklist: `tl-retry-ssot-rereview` · `list_parity` · form · cùng surface GAP  
-result: **gaps** then **fix_all** (không patch 1 chỗ)
+checklist: leftover + FILE-01 media · list/form KEEP  
+result: **fix_all** media path (MIG→BE→BFF→FE)
 
 | Check | Live before | After |
 |-------|-------------|-------|
-| 1× `LinPageLayout` kind=catalog · no nested `CatalogListShell` | PASS | KEEP |
-| `LinCatalogDataGrid` `resizable: true` | PASS | KEEP |
-| Footer `LinCatalogListPagination` · cấm footerPagination / pageSizeBar | PASS | KEEP |
-| flex + skeleton `useServerPagedListLoading` 8 rows | PASS | KEEP |
-| toolbar refresh · history · `fa-cog` · create · delete | PASS | KEEP |
-| Zone B SearchTextInput + status + **route SearchInput** · `filterCols=3` | GAP route | **PASS** |
-| `filterMaxWidthPx` | không | KEEP |
-| listTitle `Sổ phiên tuần tra / check-in` | GAP | **PASS** |
-| form `route` SearchInput Integration | Input Text | **PASS** |
-| View `<dl>` · cấm Resource / Slideout / View=readOnly | PASS | KEEP |
-| footer-only Lưu/Hủy (gỡ Z1 `btn-save-top` / `btn-cancel-top`) | GAP | **PASS** |
-| seed ∈ 38 · bump STORAGE_KEY | ĐT.784 / QL.1A | **QL.1 / HCM** · `rows:v3` |
-| GET list `?route=` exact | GAP | **PASS** API+BFF+FE |
-| Create/Update catalog + enum VN | GAP | **PASS** 422 |
+| MediaIds column | thiếu | **PASS** `Schema_RmmsPatrolSessions_MediaIds` |
+| DTO mediaIds[] max10 | thiếu | **PASS** Create/Update/GetById |
+| Replace-all · no cascade delete files | — | **PASS** |
+| BFF sessions body passthrough | KEEP | **PASS** (no BFF change) |
+| files/* FE | thiếu | **PASS** `LinImageUpload` + `/files/*` |
+| Form data-zone=upload FileMulti | thiếu | **PASS** |
+| View data-zone=media-gallery resign | thiếu | **PASS** |
+| Copy clone guid[] | thiếu | **PASS** |
+| List no media col AC-G-08 | KEEP | **PASS** |
+| Prior route/LKP/VAL/LIST/FORM | CLOSED | **KEEP** |
 
-## Done this turn (`task_4f8ea737`)
+## Done this turn (`task_12280943`)
 
 | Task | Result |
 |------|--------|
-| T-BE-Q-01 | `GET api/v1/patrol/sessions` + `route?` exact trim · pageSize 50/100/200/500 |
-| T-BE-VAL-01 | Route ∈ `rmms_road_routes` IsActive · Status/PatrolType allow-list VN · 422 `ĐT.784`/`QL.1A` |
-| T-BFF-01 | `BuildListPath` `Request.QueryString` — **đã passthrough** `?route=` · no new controller |
-| T-FE-API-01 | `patrolEndpoint.getList` + `localList`/`filterRows` exact `route` |
-| T-UI-LKP-01 | Form + Zone B reuse `ROAD_ROUTE_LOOKUP_CONFIG` (`/integration/road-routes/search`) |
-| T-UI-FIELD-01 | controlHint ↔ DTO · persist **code** · enum **nhãn VN** |
-| T-UI-PROD-01 | seed `ĐT.784`→`QL.1` · `QL.1A`→`HCM` · STORAGE_KEY v3 · cấm Slideout |
-| T-UI-LIST-01 extend | KEEP A–D · filter tuyến · listTitle `/ check-in` |
-| T-UI-FORM-01 extend | SearchInput route · footer-only Lưu/Hủy |
-| T-UI-UX-01 | constitution · dropdownPortal ON (lookup) · GAP-TL-PAT-FOOTER-ACT đóng |
-| T-QA-* | **không** làm (QA role) |
+| T-MIG-MEDIA | Migration add `MediaIds` varchar(2000) · entity + snapshot |
+| T-BE-FILE-01 | DTO `mediaIds[]` · Serialize/Parse CSV · count≤10 · replace-all |
+| T-BFF-FILE-01 | Sessions proxy-only KEEP · files/* FE→FileService trực tiếp |
+| T-FE-FILE-01 | `mediaUpload.ts` · MIME image≤10MB / video≤50MB · guid only |
+| T-UI-FORM-MEDIA | `LinImageUpload` zone upload · controlHint FileMulti |
+| T-UI-VIEW-GALLERY | View gallery disabled + getObject resign |
+| T-UI-COPY-MEDIA | Copy clones `mediaIds[]` guid |
+| T-QA-MEDIA | **không** làm (QA role) |
 
-**Cấm** `ERP.*` · parent JSON · Resource · Slideout · invent mã ngoài 38 · users LKP P1.
+**Cấm** `ERP.*` · invent `patrol-files` · persist full URL · jsonb · child table.
 
 ## Paths
 
 | Layer | Path |
 |-------|------|
 | BackendRoot | `D:/AI-QLBD/Linm.RMMS.WebService` |
-| API | `Domains/Patrol/Controllers/PatrolSessionsController.cs` · `PatrolSessionService.cs` |
-| BFF | `bff/domains/patrol/LINM.RMMS.Patrol.Bff/Controllers/PatrolSessionsBffController.cs` |
-| Lookup | Integration `api/v1/integration/road-routes/search` — **không** copy Patrol |
-| MFE | `PatrolListPage.tsx` · `PatrolFormPage.tsx` · `endpoint.ts` · `patrolService.ts` · `lookups.ts` · `patrolStore.ts` |
-| Route | `api/v1/patrol/sessions` · FE `/patrol/sessions` |
+| Migration | `Migrations/20260906180000_Schema_RmmsPatrolSessions_MediaIds.cs` |
+| Entity | `PatrolSessionEntity.MediaIds` |
+| API | `PatrolSessionService` · `PatrolSessionDtos` |
+| BFF | `PatrolSessionsBffController` (passthrough KEEP) |
+| MFE | `PatrolFormPage.tsx` · `mediaUpload.ts` · models · `patrolStore` v4 |
+| Files | `web-bff/api/v1/files/*` (common `createDefaultLinImageUploadApi`) |
 | mfeStdUrl | `http://localhost:9304/patrol` |
 
 ## Step 4b BE ALIGN
 
-- Edit existing GET list (`route` query) + Create/Update validate catalog — **không** Schema_* mới.
-- BFF proxy-only QueryString.
+- Schema_* MediaIds add-column only · sessions CRUD widen · **cấm** ERP.Service.*
+- BFF proxy-only · FileService reuse outside Patrol BFF
 
 ## Build
 
 ```
-yarn build (Linm.Web.RMMS.Field) → PASS (webpack compiled · size warnings only)
+yarn build (Linm.Web.RMMS.Field) → PASS (webpack · size warnings only)
 dotnet build RMMS.Service.Api -c Release → PASS (0 Error(s))
 dotnet build LINM.RMMS.Patrol.Bff -c Release → PASS (0 Error(s))
 ```
 
 ## Debt
 
-| ID | Note |
-|----|------|
-| SD-AUTH | `[RequirePermission]` TODO BE |
-| Kind E map/tracks/coverage/kpi | P2 out of pack |
-| GAP-F-PAT-01 | Offline conflict merge — flag only |
-| History API | stub |
-
-## Version meta (REQUIRED)
-
-| Field | Value |
-|-------|-------|
-| skillId | agent-dev |
-| skillVersion | 2026.08.09.02 |
-| schemaVersion | 2 |
-| workflowVersion | 2026.08.09.02 |
-| rulesVersion | 2026.08.09.02 |
-| generatedAt | 2026-08-14T18:20:00.000Z |
-| versionGate | rechecked |
-| version_mismatch_action | recheck_new |
-| tlSkillVersion | 2026.08.14.5 |
-| orchestratorSkillVersion | 2026.08.09.02 |
-| taskId | `task_4f8ea737` |
+- Kind E+F map/tracks **P2**
+- child table media **P2**
+- `code` readOnly leftover **P2**
+- GAP-QA-PAT-CODE-DISABLED **P2**
+- LinImageUpload `maxBytes` UI hint = 50MB video; image 10MB enforced in `createPatrolMediaUploadApi.init`

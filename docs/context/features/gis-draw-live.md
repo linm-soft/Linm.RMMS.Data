@@ -99,3 +99,10 @@ Live-specific:
 ## 5. Scan / formType
 
 `formType=map` · `domain=gis` · `mfeRel=Linm.Web.RMMS.Gis` · packKind=`map`.
+
+## Implement tracking
+
+| lane | phase | status | updatedAt |
+|------|-------|--------|-----------|
+| web | `qa` | `pending` | `2026-09-06T20:59:31.810Z` |
+| mobile | — | — | — |

@@ -1,0 +1,26 @@
+{
+  "url": "http://localhost:9316/camera",
+  "capturedAt": "2026-09-06T15:06:13.490Z",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "note": "standalone-no-pages-login"
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "note": "standalone-no-pages-login"
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "note": "standalone-no-pages-login"
+    }
+  ],
+  "ok": true,
+  "note": "fallback headless · yarn e2e-qa hung on playwright install dirlock · Pages :9100 down"
+}

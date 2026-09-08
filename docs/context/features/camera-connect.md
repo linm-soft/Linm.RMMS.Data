@@ -2,7 +2,7 @@
 
 > **Slug:** `camera-connect` · **HĐ alias:** `camera-gtvt` (PL01 mã **03c** · gói **C**) · **Module:** `Camera` · **Phase:** P1.5 connect **DONE** · **CRUD list pack DONE** (task_6baf42c3) · next **P2 live gateway**  
 > **Status:** Kind B list + CameraDevice CRUD + connect Test/JPEG · continuous live = plan 21  
-> **Sources:** [Hikvision iDS-TCM403-GIR](https://www.hikvision.com/en/products/ITS-Products/traffic-cameras/urban-road-anpr-cameras/ids-tcm403-gir/) · `camera-model.md` · `22-CAMERA-TCM403-SDK-RESEARCH.md` · `21-CAMERA-HLS-WEBRTC-GATEWAY.md` · HĐ [`../../../../Linm.RMMS.Contract/out/camera-gtvt-dinh-nghia.md`](../../../../Linm.RMMS.Contract/out/camera-gtvt-dinh-nghia.md)  
+> **Sources:** [Hikvision iDS-TCM403-GIR](https://www.hikvision.com/en/products/ITS-Products/traffic-cameras/urban-road-anpr-cameras/ids-tcm403-gir/) · `camera-model.md` · `22-CAMERA-TCM403-SDK-RESEARCH.md` · `21-CAMERA-HLS-WEBRTC-GATEWAY.md` · [`28-CAMERA-SECURITY.md`](../28-CAMERA-SECURITY.md) · HĐ [`../../../../Linm.RMMS.Contract/out/camera-gtvt-dinh-nghia.md`](../../../../Linm.RMMS.Contract/out/camera-gtvt-dinh-nghia.md)  
 > **Demo HTML:** `Linm.RMMS.Demo/src/demo/features/camera-connect-demo.html` · **pilot wall+map:** [`camera-ops-dashboard-demo.html`](../../../Linm.RMMS.Demo/src/demo/features/camera-ops-dashboard-demo.html)  
 > **MFE:** `Linm.Web.RMMS.Camera` · route `/camera` · ports **9216** / **9316** (`yarn start:std` → `http://localhost:9316/camera`)  
 > **GIS wall+map:** `Linm.Web.RMMS.Gis` · **`/gis/camera`** (`gis-camera-map`) — Kind F · clip stack · **không** `/camera/wall` MFE Camera  
@@ -10,7 +10,7 @@
 > **BE:** `api/v1/cameras` · CRUD `CameraDevice` · SDK-first TCM403 · CaptureJPEG · ISAPI Digest · ingest · `Linm.RMMS.WebService`  
 > **Specs:** `specs/camera-connect/STATUS.md` · `task/camera-connect.md` · `implement/camera-connect.md`  
 > **Host notify guide:** [`../23-CAMERA-HOST-NOTIFY-CONFIG.md`](../23-CAMERA-HOST-NOTIFY-CONFIG.md) · ví dụ `http://camera-event-api-rmms.vn`  
-> **Skill gate:** `/agent-dev-camera-connect` · `/camera-connect`
+> **Skill gate:** `/agent-dev-camera-connect` · `/camera-connect` · **SDK OS:** `/docker-camera-sdk-context`
 
 **Alias HĐ:** mọi chỗ catalogue ghi `camera-gtvt` → **cùng feature** `camera-connect` (không tạo page/slug thứ hai).
 
@@ -40,7 +40,7 @@
 |------|----------|
 | **Z1 Config** | Model · mã cam · tên · IP · HTTP port · RTSP port · SDK port · User · Pass · tuyến · Km · vị trí |
 | **Z2 Protocols** | Bật RTSP live · ONVIF discover · ISAPI HTTP Host notify (URL listener) · Digest auth |
-| **Z3 Live** | **P1.5:** poll JPEG SDK CaptureJPEG · **P2:** WebRTC/HLS player (plan 21) |
+| **Z3 Live** | Toggle **JPEG poll** · **HLS** · **WebRTC** · chu kỳ/timeout JPEG · P2 MediaMTX Hub+VPN · RTSP fail → fallback JPEG |
 | **Z4 Events** | Feed realtime mock: plate · speed · vehicleType · color · direction · timestamp · ảnh crop |
 
 **UI pattern:** Full page (workflow live + events). Wall = Kind F (kéo-thả · không form ≥10 field).  
@@ -74,9 +74,13 @@ Base: `api/v1/cameras` · BFF `web-bff/api/v1/cameras` · domain **Camera** · *
 | GET | `/cameras/models` | Model profiles (ports · preferred protocol) | **DONE** |
 | POST | `/cameras/connect/test` | Model-aware: TCM403 **SDK-first** (`sdkPort`) · else ISAPI Digest | **DONE** |
 | POST | `/cameras/connect/snapshot` | JPEG **SDK CaptureJPEG** (ưu tiên) · fallback ISAPI nếu HTTP mở | **DONE** |
-| POST | `/cameras/{id}/live/start` | RTSP→gateway play URL | **P2** plan 21 |
-| POST | `/cameras/ingest/isapi` | Webhook Host notify → **persist** `CameraEvent` | **DONE** |
-| GET | `/cameras/events` | Event feed from DB (`?host=` optional) | **DONE** |
+| POST | `/cameras/{id}/live/start` | RTSP→MediaMTX play URL · fallback JPEG | **P2-G1** plan `camera-live` |
+| POST | `/cameras/{id}/live/stop` | Hủy session/path | **P2-G1** |
+| GET | `/cameras/{id}/live/status` | publishing · viewers | **P2-G1** |
+| GET | `/cameras/gateway/health` | MediaMTX control ping | **P2-G0** |
+| POST | `/camera-events/ingest` | Dedicated inbound (API-key + IP) → persist `CameraEvent` | **DONE** |
+| POST | `/cameras/ingest/isapi` | Alias cùng auth ingest | **DONE** |
+| GET | `/camera-events` · `/cameras/events` | Event feed from DB (`?host=` optional) · JWT | **DONE** |
 | GET | `/cameras/wall/layout` | Layout wall (user × tenant) | **P1.6 demo** · BE P2 |
 | PUT | `/cameras/wall/layout` | Lưu thứ tự + preset | **P1.6 demo** · BE P2 |
 | GET | `/cameras/{id}/signal` | Heartbeat · bitrate · lastSeen | **P1.6 mock** |
@@ -94,7 +98,7 @@ Base: `api/v1/cameras` · BFF `web-bff/api/v1/cameras` · domain **Camera** · *
   "password": "***",
   "modelCode": "iDS-TCM403-GIR",
   "protocolMode": "auto",
-  "timeoutSeconds": 10
+  "timeoutSeconds": 45
 }
 ```
 
@@ -106,8 +110,31 @@ Base: `api/v1/cameras` · BFF `web-bff/api/v1/cameras` · domain **Camera** · *
 
 **Normalize:** nếu client gửi `httpPort` = 8000/8100/8200 với model SDK-first → remap sang `sdkPort`.
 
-Native DLL path (full): `D:\AI-QLBD\Linm.RMMS.WebService\api\src\RMMS.Service.Api\native\hikvision`  
-Config: `Camera:HikvisionSdk:NativePath` = `native/hikvision` (HiTools — không commit binary · cấm share CDN zip 403).
+Native path:
+
+| OS | Folder | File |
+|----|--------|------|
+| Windows lab | `{BeRoot}/api/src/RMMS.Service.Api/native/hikvision` | `HCNetSDK.dll` + `HCNetSDKCom/` |
+| Linux / Railway | `{BeRoot}/api/src/RMMS.Service.Api/native/hikvision_linux/lib` | `libhcnetsdk.so` + `HCNetSDKCom/` |
+
+`Camera:HikvisionSdk:NativePath` = `native/hikvision` (relative BaseDirectory). Linux image **COPY** `hikvision_linux/lib` → `/app/native/hikvision` (`.so` **root** folder — không thêm tầng `lib/`). TPP **Download Integration Resources** → **Device Network SDK Download Info** → Linux64 / Win64. Cấm CDN zip 403. Runtime dll/so **được** commit; gitignore demo / `.lib` / `.exe`.
+
+**BFF `GET /web-bff/api/v1/cameras/health` cần JWT** (401 nếu curl không token). GIS `/gis/health` anonymous.
+
+### Prod Railway (verified 2026-09-05 — đã kết nối)
+
+API image = Linux. **Cấm** copy Win64 `HCNetSDK.dll` vào NativePath (fail: `libhcnetsdk.so` missing · `GAP-CAM-SDK-OS`).
+
+| Layer | Config |
+|-------|--------|
+| `api/Dockerfile` | `COPY api/src/RMMS.Service.Api/native/hikvision_linux/lib ./native/hikvision` |
+| API env | `Camera__HikvisionSdk__Enabled=true` · `Camera__HikvisionSdk__NativePath=native/hikvision` · `LD_LIBRARY_PATH=/app/native/hikvision:/app/native/hikvision/HCNetSDKCom` |
+| BFF env | `ApiBase=http://${{linm-rmms-api.RAILWAY_PRIVATE_DOMAIN}}:8080` — **cấm** `localhost:5101` |
+| MFE | `VITE_API_URL` = BFF public `…/web-bff/api/v1` — FTP Pages **không** ship SDK |
+| Health pass | `sdkDllLoaded=true` · `sdkOs=linux` · `sdkExpectedLib=libhcnetsdk.so` |
+| Connect | TCM403 `sdkPort` **8100** phải **TCP open từ Railway** (public map). `8100 closed/unreachable` ≠ thiếu `.so` |
+
+Cấm sidecar Docker Linux để load DLL. Lab local Linux: `local-script/start-linux-camera-sdk-lab.ps1`. Skill: `/docker-camera-sdk-context`. Deploy vars: `{BeRoot}/docs/railway-deploy.md`.
 
 ### Config DTO (skeleton persist)
 
@@ -159,12 +186,13 @@ Site lab: `113.179.52.55:8100` = SDK TCP · không phải ISAPI.
 |----|----------|---------|
 | GAP-CAM-01 | BE CRUD + listener | **CRUD DONE** (task_6baf42c3) · SDK ITS listen still DEFER |
 | GAP-CAM-02 | Live video FPS (browser không play RTSP) | **P1.5:** JPEG poll SDK · **Next P2-G0:** MediaMTX HLS/WebRTC |
-| GAP-CAM-03 | Lưu password | Encrypt at rest P2 · demo localStorage masked |
+| GAP-CAM-03 | Lưu password | **Supersede** [`../plan/camera-security/PLAN.md`](../../plan/camera-security/PLAN.md) · `GAP-CAM-SEC-01…07` · AEAD 2 chiều + resign URL · **cấm** plain `PasswordEnc` |
 | GAP-CAM-04 | Multi-model catalog | `GET /cameras/models` + `CameraModelCatalog` |
-| GAP-CAM-05 | HCNetSDK binary | Copy HiTools Win64 → `D:\AI-QLBD\Linm.RMMS.WebService\api\src\RMMS.Service.Api\native\hikvision` · không DLL vẫn `sdk_tcp` |
-| GAP-CAM-SDK-OS | Docker Linux vs Win64 DLL | **Chốt:** Linux image **không** fail build vì thiếu `libhcnetsdk.so` (DEFERRED). `sdkDllLoaded=false` trên Docker. CaptureJPEG = Win64 API `:5101` + BFF `RMMS_API_BASE=http://host.docker.internal:5101`. `REQUIRE_HIKVISION_SDK=true` chỉ khi có Linux `.so`. |
+| GAP-CAM-05 | HCNetSDK binary | Win64 → `native/hikvision` · Linux64 → `native/hikvision_linux/lib` (Railway COPY vào NativePath). Thiếu `.so` → `sdk_tcp` only |
+| GAP-CAM-SDK-OS | Docker/Railway Linux vs Win64 DLL | **Chốt 2026-09-05 (prod kết nối OK):** Linux image COPY `hikvision_linux/lib` → `/app/native/hikvision` + `LD_LIBRARY_PATH` + un-defer cdecl `hcnetsdk`. Health `sdkDllLoaded=true` `sdkOs=linux`. Win64 DLL **không** load. BFF `ApiBase` = private API `:8080`. `REQUIRE_HIKVISION_SDK` default false lúc build; `.so` **phải** có trong image prod. Cấm leftover `localhost:5101`. |
 | GAP-CAM-WALL-01 | Persist layout BE | Demo localStorage · BE `wall/layout` P2 |
 | GAP-CAM-WALL-02 | Live N cam cùng lúc | Demo JPEG mock · P2 gateway N session (plan 21) |
+| GAP-CAM-SEC-* | Vault · tách service · resign exp/unlimit | Pointer [`../28-CAMERA-SECURITY.md`](../28-CAMERA-SECURITY.md) |
 
 ## 7. Demo checklist (chốt khách)
 
@@ -185,4 +213,12 @@ Site lab: `113.179.52.55:8100` = SDK TCP · không phải ISAPI.
 | Demo | `Linm.RMMS.Demo/src/demo/features/camera-connect-demo.html` · **pilot** `camera-ops-dashboard-demo.html` |
 | MFE | `MFE-Source/Linm.Web.RMMS.Camera` |
 | Specs | `Linm.RMMS.Data/specs/camera-connect/` |
-| BE | `Linm.RMMS.WebService` · `Domains/Camera` · Models `LINM.RMMS.Camera.Models` |
+| BE | `Linm.RMMS.WebService` · `Domains/Camera` · Models `LINM.RMMS.Camera.Models` · **S3:** host `Linm.RMMS.Camera` (plan security) |
+| Security plan | [`../plan/camera-security/PLAN.md`](../../plan/camera-security/PLAN.md) |
+
+## Implement tracking
+
+| lane | phase | status | updatedAt |
+|------|-------|--------|-----------|
+| web | `qa` | `await_confirm` | `2026-09-06T15:08:43.792Z` |
+| mobile | — | — | — |

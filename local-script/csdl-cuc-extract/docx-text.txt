@@ -1,0 +1,768 @@
+
+
+======== FILE: 1. M_u_Nh_t k_ tu_n ki_m.docx paras=31 ========
+1: MẪU 1: NHẬT KÝ TUẦN KIỂM
+2: NHẬT KÝ TUẦN KIỂM: Theo Phụ lục VIII Thông tư số 41/2024/TT-BGTVT ngày 15 tháng 11 năm 2024 của Bộ Giao thông vận tải (nay là Bộ Xây dựng)
+3: 1. Mẫu bìa nhật ký
+4: CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAMĐộc lập - Tự do - Hạnh phúc ---------------
+5: NHẬT KÝ TUẦN KIỂM
+6: Quyển số: ...............
+7: Cơ quan, Đơn vị (Người quản lý, sử dụng công trình đường bộ) ........................................................................... .......... .......... .......... .......... ....
+8: Người thực hiện tuần kiểm: .....................................................
+9: Từ Km …....................... đến Km .......................... QL.............
+10: Bắt đầu ngày: ......................./.................../................................
+11: Hết quyển ngày: ..................../..................../..............................
+12: ..........., năm 20 .......
+13: NHẬT KÝ TUẦN KIỂM
+14: MẪU 1
+15: Ngày tháng
+16: Hạng mục công việc, ý kiến đề xuất của đơn vị quản lý, bảo dưỡng thường xuyên
+17: Lý trình
+18: Mô tả chi tiết thực trạng công tác quản lý, bảo dưỡng
+19: Ước tính khối lượng
+20: Ý kiến người thực hiện tuần kiểm
+21: Người nhận báo cáo ghi nhận xét, việc cần lưu ý. Ký tên
+22: Kết quả thực hiện của đơn vị quản lý, bảo dưỡng thường xuyên
+23: Từ Km
+24: Đến Km
+25: Vị trí
+26: Yêu cầu sửa chữa hoặc xử lý vi phạm; hoặc báo cáo cơ quan có thẩm quyền
+27: Thời gian hoàn thành
+28: Khối lượng
+29: Chất lượng
+30: Thời gian hoàn thành thực tế
+31: Ảnh/Video sau khi sửa chữa
+
+
+======== FILE: 10. M_u_B_nh __ du_i th_ng.docx paras=28 ========
+1: MẪU 10: BÌNH ĐỒ DUỖI THẲNG TUYẾN
+2: 1. Mẫu bìa
+3: CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAMĐộc lập - Tự do - Hạnh phúc ---------------
+4: BÌNH ĐỒ DUỖI THẲNG TUYẾN
+5: Nhà thầu quản lý bảo, dưỡng công trình đường bộ ............................................
+6: Từ Km …....................... đến Km .......................... QL/CT.............
+7: Bắt đầu ngày: ......................./.................../................................
+8: Kết thúc ngày: ..................../..................../..............................
+9: ..........., năm 20 .......
+10: BÌNH ĐỒ DUỖI THẲNG TUYẾN </w:r><w:r><w:rPr><w:b/><w:bCs/></w:rPr><w:tab/></w:r><w:r><w:rPr><w:b/><w:bCs/></w:rPr><w:tab/></w:r><w:r><w:rPr><w:b/><w:bCs/></w:rPr><w:tab/></w:r><w:r><w:rPr><w:b/><w:bCs/></w:rPr><w:tab/></w:r><w:r><w:rPr><w:b/><w:bCs/></w:rPr><w:tab/><w:t>Mẫu 10
+11: ĐOẠN TỪ KM …. ĐẾN KM ….. QL/CT …..
+12: Thông tin tuyến
+13: Bnền /Bmặt /KCMĐ /Chiều dày lớp mặt
+14: <w:tc><w:tcPr><w:tcW w:w="2689" w:type="dxa"/><w:gridSpan w:val="2"/></w:tcPr><w:p w14:paraId="2CF41D6F" w14:textId="21FF5B42" w:rsidR="00A61995" w:rsidRDefault="00A61995"><w:r><w:t>Dốc dọc
+15: <w:tc><w:tcPr><w:tcW w:w="2689" w:type="dxa"/><w:gridSpan w:val="2"/></w:tcPr><w:p w14:paraId="0625A7AD" w14:textId="5D918B7E" w:rsidR="00A61995" w:rsidRDefault="00A61995"><w:r><w:t>Đoạn thẳng, đoạn cong
+16: <w:tc><w:tcPr><w:tcW w:w="2689" w:type="dxa"/><w:gridSpan w:val="2"/></w:tcPr><w:p w14:paraId="7C21F6F1" w14:textId="16E6B172" w:rsidR="00A61995" w:rsidRDefault="00A61995"><w:r><w:t>Công trình (cầu/hầm/cống)
+17: <w:tc><w:tcPr><w:tcW w:w="1838" w:type="dxa"/><w:vMerge w:val="restart"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="4ADAFA9A" w14:textId="74A9D283" w:rsidR="00EE157A" w:rsidRDefault="00EE157A"><w:r><w:t>Hệ thống ATGT
+18: Trái
+19: <w:tc><w:tcPr><w:tcW w:w="1838" w:type="dxa"/><w:vMerge/></w:tcPr><w:p w14:paraId="49AAD1FA" w14:textId="77777777" w:rsidR="00EE157A" w:rsidRDefault="00EE157A"/></w:tc><w:tc><w:tcPr><w:tcW w:w="851" w:type="dxa"/></w:tcPr><w:p w14:paraId="394643F4" w14:textId="6B5B222C" w:rsidR="00EE157A" w:rsidRDefault="00EE157A"><w:r><w:t>Phải
+20: <w:tc><w:tcPr><w:tcW w:w="2689" w:type="dxa"/><w:gridSpan w:val="2"/></w:tcPr><w:p w14:paraId="53B7F238" w14:textId="4678CA5C" w:rsidR="00EE157A" w:rsidRDefault="00EE157A"><w:r><w:t>Vị trí nút giao
+21: <w:tc><w:tcPr><w:tcW w:w="1838" w:type="dxa"/><w:vMerge w:val="restart"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="1C455D65" w14:textId="4473EC16" w:rsidR="00EE157A" w:rsidRDefault="00EE157A"><w:r><w:t>Rãnh thoát nước
+22: Trái
+23: <w:tc><w:tcPr><w:tcW w:w="1838" w:type="dxa"/><w:vMerge/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="4C026B96" w14:textId="77777777" w:rsidR="00EE157A" w:rsidRDefault="00EE157A"/></w:tc><w:tc><w:tcPr><w:tcW w:w="851" w:type="dxa"/></w:tcPr><w:p w14:paraId="13E62F23" w14:textId="7EEEED49" w:rsidR="00EE157A" w:rsidRDefault="00EE157A"><w:r><w:t>Phải
+24: <w:tc><w:tcPr><w:tcW w:w="1838" w:type="dxa"/><w:vMerge w:val="restart"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="7FC85335" w14:textId="122B5E7E" w:rsidR="00304466" w:rsidRDefault="00304466"><w:r><w:t>Tường chắn
+25: Trái
+26: <w:tc><w:tcPr><w:tcW w:w="1838" w:type="dxa"/><w:vMerge/></w:tcPr><w:p w14:paraId="4FA1E394" w14:textId="77777777" w:rsidR="00304466" w:rsidRDefault="00304466"/></w:tc><w:tc><w:tcPr><w:tcW w:w="851" w:type="dxa"/></w:tcPr><w:p w14:paraId="10A47C83" w14:textId="2CCAAC91" w:rsidR="00304466" w:rsidRDefault="00304466"><w:r><w:t>Phải
+27: <w:tc><w:tcPr><w:tcW w:w="2689" w:type="dxa"/><w:gridSpan w:val="2"/></w:tcPr><w:p w14:paraId="52BB7207" w14:textId="057186D3" w:rsidR="00A11350" w:rsidRDefault="00A11350"><w:r><w:t>SCĐK/ Dự án
+28: <w:tc><w:tcPr><w:tcW w:w="2689" w:type="dxa"/><w:gridSpan w:val="2"/></w:tcPr><w:p w14:paraId="26B13C34" w14:textId="29723806" w:rsidR="00304466" w:rsidRDefault="00304466"><w:r><w:t>Tình trạng mặt đường
+
+
+======== FILE: 2. M_u_Nh_t k_ tu_n ___ng.docx paras=21 ========
+1: MẪU 2: NHẬT KÝ TUẦN ĐƯỜNG
+2: NHẬT KÝ TUẦN ĐƯỜNG: Theo Phụ lục VIII Thông tư số 41/2024/TT-BGTVT ngày 15 tháng 11 năm 2024 của Bộ Giao thông vận tải (nay là Bộ Xây dựng)
+3: 1. Mẫu bìa nhật ký
+4: CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAMĐộc lập - Tự do - Hạnh phúc ---------------
+5: NHẬT KÝ TUẦN ĐƯỜNG
+6: Quyển số: ...............
+7: Nhà thầu quản lý, bảo dưỡng công trình đường bộ ...............................................
+8: Từ Km …....................... đến Km .......................... QL.............
+9: Nhân viên thực hiện tuần đường: .............................................................
+10: Bắt đầu ngày: ......................./.................../................................
+11: Hết quyển ngày: ..................../..................../..............................
+12: ..........., năm 20 .......
+13: NHẬT KÝ TUẦN ĐƯỜNG
+14: Quyển số: …...........
+15: MẪU 2
+16: Giờ ngày, tháng kiểm tra
+17: Vị trí, Lý trình, xảy ra phát hiện sự cố, vi phạm
+18: Tình hình thời tiết (nắng, mưa, mù, lũ, bão...) Diễn biến đột xuất, nội dung của các sự cố cầu đường, hoặc vi phạm mới phát hiện (vẽ minh họa vị trí, kích thước cụ thể).
+19: Đã giải quyết, xử lý tại chỗ và kết quả
+20: Người nhận báo cáo ghi nhận xét, việc cần lưu ý hàng ngày. Ký tên
+21: Ghi chú
+
+
+======== FILE: 2026.08.20_P BT. T_ng h_p g_p _.docx paras=50 ========
+1: BẢNG TỔNG HỢP Ý KIẾN, TIẾP THU GIẢI TRÌNH
+2: (Đính kèm Văn bản số : 437 /BC-QLBT ngày 20 tháng 8 năm 2026)
+3: STT
+4: NỘI DUNG Ý KIẾN
+5: TIẾP THU GIẢI TRÌNH
+6: GHI CHÚ
+7: 1
+8: Cục trưởng: Bùi Quang Thái
+9: (1). Đồng ý mẫu sổ, cơ sở dữ liệu
+10: (2). Ý kiến:
+11: - Bổ sung dữ liệu tổ chức giao thông;
+12: - Thống kê vị trí hay xảy ra tai nạn, “điểm đen”; tình hình xử lý
+13: Tổ soạn thảo xin tiếp thu ý kiến chỉ đạo của Cục trưởng và giải trình như sau
+14: - Đối với dữ liệu tổ chức giao thông, Tổ soạn thảo bổ sung biểu thống kê nút giao
+15: - Bổ sung Sổ mẫu 05 thống kê, phân tích theo dõi vị trí “điểm hay xảy ra tai nạn giao thông”, “điểm tiềm ẩn tai nạn giao thông”
+16: 2
+17: Phó Cục trưởng: Nguyễn Mạnh Thắng
+18: (1). Đồng ý mẫu sổ, cơ sở dữ liệu
+19: (2). Ý kiến:
+20: - Bổ sung sổ quan trắc các công trình tại Phụ lục VI Thông tư số 41/2024/TT-BGTVT
+21: - Bổ sung Bình đồ duỗi thẳng tuyến
+22: - Nghiên cứu bổ sung Sổ quản lý, vận hành và bảo trì hệ thống ITS, …
+23: Tổ soạn thảo xin tiếp thu ý kiến chỉ đạo của Phó Cục trưởng và giải trình như sau
+24: - Đã nghiên cứu bổ sung Sổ bình đồ duỗi thẳng và Sổ quản lý, vận hành và bảo trì hệ thống giao thông thông minh ITS/ETC/KSTTX.
+25: - Riêng Sổ quan trắc các công trình, Tổ soạn thảo tiếp thu nghiên cứu.
+26: 3
+27: Phó Cục trưởng: Nguyễn Viết Huy
+28: (1). Đồng ý mẫu sổ, cơ sở dữ liệu
+29: (2). Ý kiến:
+30: - Bổ sung số liệu theo dõi nút giao trên đối với tuyến đường cao tốc
+31: - Nghiên cứu bổ sung Sổ quản lý, vận hành và bảo trì hệ thống ITS, ETC, KSTTX
+32: Tổ soạn thảo xin tiếp thu ý kiến chỉ đạo của Phó Cục trưởng và giải trình như sau
+33: - Đã nghiên cứu bổ sung các Sổ quản lý, vận hành và bảo trì hệ thống giao thông thông minh ITS/ETC/KSTTX.
+34: - Bổ sung cơ sở dữ liệu nút giao.
+35: 4
+36: Phó Cục trưởng: Ngô Lâm
+37: (1). Đồng ý mẫu sổ, cơ sở dữ liệu
+38: 5
+39: Các Phòng tham mưu:
+40: (1). Đồng ý mẫu sổ, cơ sở dữ liệu
+41: (2). Ý kiến khác: Phòng Thẩm định có ý kiến góp ý
+42: - Bổ sung xác định phương pháp đếm xe
+43: - Bổ sung hình ảnh/video trong quản lý, xử lý hành lang và sửa chữa bảo dưỡng thường xuyên đường bộ
+44: Tổ soạn thảo xin tiếp thu ý kiến, giải trình như sau
+45: - Đã nghiên cứu bổ sung xác định phương pháp đếm xe tự động hoặc thủ công.
+46: - Bổ sung cột hình ảnh/video.
+47: 6
+48: Các Khu Quản lý đường bộ đã góp ý kiến
+49: Khu Quản lý đường bộ I tổng hợp, tiếp thu, nghiên cứu đề xuất mẫu sổ, cơ sở dữ liệu đường bộ và báo cáo Cục ĐBVN tại văn bản số 1661/KQLĐBI-QLBT ngày 11/8/2026
+50: Đính gửi kèm văn bản số 1661/KQLĐBI-QLBT ngày 11/8/2026 của Khu QLĐB I
+
+
+======== FILE: 2026.08.20_P. BT- BC s_ ho_ h_ s_ qu_n l_, b_o d__ng.docx paras=69 ========
+1: CỤC ĐƯỜNG BỘ VIỆT NAM
+2: PHÒNG QUẢN LÝ BẢO TRÌ
+3: CỘNG HOÀ XÃ HỘI CHỦ NGHĨA VIỆT NAM
+4: Độc lập - Tự do - Hạnh phúc
+5: Số: 437/BC-QLBT
+6: Hà Nội, ngày 20 tháng 8 năm 2026
+7: BÁO CÁO
+8: Ban hành mẫu sổ sách, cơ sở dữ liệu trong công tác quản lý, bảo dưỡng thường xuyên đường bộ
+9: Kính gửi: Phó Cục trưởng Nguyễn Thanh Hoài
+10: Thực hiện Văn bản số 3858/CĐBVN-QLBT ngày 26/6/2026 của Cục Đường bộ Việt Nam về việc rà soát, đánh giá sự thống nhất và các bất cập trong công tác ghi chép sổ sách nội nghiệp đối với công tác quản lý, bảo dưỡng thường xuyên đồng thời nghiên cứu số hoá để khắc phục bất cập, đồng bộ dữ liệu, thuận lợi trong quá trình thực hiện; Thông báo số 111/TB-CĐBVN ngày 24/7/2026 của Cục Đường bộ Việt Nam kết luận của Cục trưởng Bùi Quang Thái tại cuộc họp triển khai các nhiệm vụ ứng dụng công nghệ và chuyển đổi số trong quản lý, bảo trì công trình đường bộ.
+11: Phòng Quản lý, bảo trì xin báo cáo về mẫu sổ sách, biểu mẫu cơ sở dữ liệu đường bộ trong công tác quản lý, bảo dưỡng thường xuyên đường bộ như sau:
+12: 1. Hiện trạng lập hồ sơ quản lý, bảo dưỡng thường xuyên đường bộ
+13: Qua theo dõi các đơn vị lập hồ sơ quản lý, bảo dưỡng thường xuyên đường bộ đã đáp ứng yêu cầu quản lý, kiểm tra, nghiệm thu và lưu trữ theo quy định; là căn cứ phục vụ công tác kiểm tra hiện trường, đánh giá chất lượng quản lý, bảo dưỡng thường xuyên, kiểm tra, kiểm toán và quyết toán kinh phí quản lý, bảo dưỡng thường xuyên. Tuy nhiên, hồ sơ sổ sách, biểu mẫu báo cáo cơ sở dữ liệu đường bộ còn một số tồn tại như: (i) Chưa thống nhất giữa các biểu mẫu; (ii) Nhiều nội dung ghi chép trùng lặp (có đơn vị quy định 2 loại sổ ghi chép của công tác tuần đường là Sổ tuần đường và Sổ ghi chép tuần đường quản lý giao thông); (iii) Chủ yếu quản lý bằng hồ sơ giấy, do đó việc tổng hợp để lập báo cáo làm tăng thời gian nhập liệu; mặt khác, khó tra cứu lịch sử, chia sẻ thông tin và chưa đáp ứng yêu cầu chuyển đổi số; (iv) Chưa hình thành cơ sở dữ liệu dùng chung, mỗi đơn vị hiện quản lý hồ sơ riêng.
+14: 2. Quá trình xây dựng
+15: 2.1. Cơ sở pháp lý
+16: <w:tab w:val="num" w:pos="720"/></w:tabs><w:spacing w:before="60" w:after="60" w:line="276" w:lineRule="auto"/><w:ind w:firstLine="562"/><w:jc w:val="both"/><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:spacing w:val="-4"/><w:sz w:val="27"/><w:szCs w:val="27"/></w:rPr></w:pPr><w:r w:rsidRPr="00B605F3"><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:spacing w:val="-4"/><w:sz w:val="27"/><w:szCs w:val="27"/></w:rPr><w:t xml:space="preserve">- Luật: Đường bộ; Xây dựng;
+17: <w:tab w:val="num" w:pos="720"/></w:tabs><w:spacing w:before="60" w:after="60" w:line="276" w:lineRule="auto"/><w:ind w:firstLine="562"/><w:jc w:val="both"/><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:spacing w:val="-4"/><w:sz w:val="27"/><w:szCs w:val="27"/></w:rPr></w:pPr><w:r w:rsidRPr="00B605F3"><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:spacing w:val="-4"/><w:sz w:val="27"/><w:szCs w:val="27"/></w:rPr><w:t>- Nghị định: số 165/2024/NĐ-CP ngày 26/12/2024; số 241/2026/NĐ-CP ngày 26/6/2026; số 207/2026/NĐ-CP ngày 15/6/2026;
+18: <w:tab w:val="num" w:pos="720"/></w:tabs><w:spacing w:before="60" w:after="60" w:line="276" w:lineRule="auto"/><w:ind w:firstLine="562"/><w:jc w:val="both"/><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:spacing w:val="-4"/><w:sz w:val="27"/><w:szCs w:val="27"/></w:rPr></w:pPr><w:r w:rsidRPr="00B605F3"><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:spacing w:val="-4"/><w:sz w:val="27"/><w:szCs w:val="27"/></w:rPr><w:t>- Thông tư: số 41/2024/TT-BGTVT ngày 15/11/2024; số 72/2025/TT-BXD ngày 31/12/2025 của Bộ Xây dựng;
+19: <w:tab w:val="num" w:pos="720"/></w:tabs><w:spacing w:before="60" w:after="60" w:line="276" w:lineRule="auto"/><w:ind w:firstLine="562"/><w:jc w:val="both"/><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:spacing w:val="-4"/><w:sz w:val="27"/><w:szCs w:val="27"/></w:rPr></w:pPr><w:r w:rsidRPr="00B605F3"><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:spacing w:val="-4"/><w:sz w:val="27"/><w:szCs w:val="27"/></w:rPr><w:t xml:space="preserve">- Tiêu chuẩn kỹ thuật TCVN 14182:2024: Tiêu chuẩn bảo dưỡng thường xuyên đường bộ - Yêu cầu kỹ thuật;
+20: <w:tab w:val="num" w:pos="720"/></w:tabs><w:spacing w:before="60" w:after="60" w:line="276" w:lineRule="auto"/><w:ind w:firstLine="562"/><w:jc w:val="both"/><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:spacing w:val="-4"/><w:sz w:val="27"/><w:szCs w:val="27"/></w:rPr></w:pPr><w:r w:rsidRPr="00B605F3"><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:spacing w:val="-4"/><w:sz w:val="27"/><w:szCs w:val="27"/></w:rPr><w:lastRenderedPageBreak/><w:t xml:space="preserve">- Tiêu chuẩn cơ sở TCCS 17:2016/TCĐBVN: Tiêu chuẩn kỹ thuật bảo dưỡng thường xuyên công trình đường cao tốc;
+21: - Tiêu chuẩn quản lý và khai thác đường cao tốc – Tuần đường và xử lý sự cố trên đường cao tốc TCCS 16:2016/TCĐBVN.
+22: 2.2. Quá trình thực hiện
+23: Ngày 25/6/2026, Cục Đường bộ Việt Nam ban hành văn bản số 3858/CĐBVN-QLBT về việc rà soát, đánh giá sự thống nhất và các bất cập trong công tác ghi chép sổ sách nội nghiệp đối với công tác quản lý, bảo dưỡng thường xuyên đồng thời nghiên cứu số hoá để khắc phục bất cập, đồng bộ dữ liệu, thuận lợi trong quá trình thực hiện; trong đó, giao Khu Quản lý đường bộ I chủ trì tổng hợp báo cáo, nghiên cứu đề xuất xây dựng phần mềm số hoá và ứng dụng để triển khai thống nhất.
+24: Ngày 30/7/2026, Khu Quản lý đường bộ I có văn bản số 1539/KQLĐBI-QLBT về việc báo cáo kết quả rà soát, đánh giá công tác ghi chép sổ sách nội nghiệp trong công tác quản lý, BDTX đường bộ và đề xuất giải pháp chuyển đổi số; Phòng Quản lý, bảo trì tổng hợp, đề xuất việc chuẩn hoá lập hồ sơ quản lý, bảo dưỡng thường xuyên và trình Lãnh đạo Cục Đường bộ Việt Nam ban hành văn bản xin ý kiến Lãnh đạo Cục ĐBVN, các Phòng tham mưu và các Khu QLĐB tại văn bản số 4930/CĐBVN-QLBT ngày 30/7/2026;
+25: Phòng Quản lý, bảo trì tổng hợp báo cáo của Khu QLĐB I tại văn bản số 1661/KQLĐBI-QLBT ngày 11/8/2026 và ý kiến góp ý chỉ đạo của Lãnh đạo Cục Đường bộ Việt Nam, Phòng tiếp thu chỉnh sửa và giải trình (có bảng phụ lục đính kèm).
+26: 2.3. Kiến nghị, đề xuất mẫu sổ, cơ sở dữ liệu quản lý, bảo dưỡng thường xuyên đường bộ
+27: a) Mẫu sổ sách:
+28: (1). Mẫu 1: Nhật ký tuần kiểm;
+29: (2). Mẫu 2: Nhật ký tuần đường;
+30: (3). Mẫu 3: Sổ trực bảo đảm giao thông, trực chốt và xử lý sự cố;
+31: (4). Mẫu 4: Sổ theo dõi kết quả đếm xe;
+32: (5). Mẫu 5: Sổ theo dõi tai nạn giao thông, điểm đen;
+33: (6). Mẫu 6: Sổ quản lý cầu, hầm và công trình phòng hộ;
+34: (7). Mẫu 7: Sổ quản lý hành lang an toàn đường bộ, giấy phép thi công và dự án;
+35: (8). Mẫu 8: Sổ theo dõi kết quả thực hiện bảo dưỡng thường xuyên;
+36: (9). Mẫu 9: Sổ quản lý, vận hành và bảo trì hệ thống ITS/ETC/KSTTX;
+37: (10). Mẫu 10: Bình đồ duỗi thẳng tuyến đường.
+38: b) Cơ sở dữ liệu đường bộ
+39: (1). Biểu 1: Thống kê phân loại mặt đường;
+40: (2). Biểu 2: Thống kê cầu;
+41: (3). Biểu 3: Thống kê hầm đường bộ;
+42: (4). Biểu 4: Thống kê cống các loại;
+43: (5). Biểu 5: Thống kê rãnh các loại;
+44: (6). Biểu 6: Thống kê hầm chui dân sinh, hộp kỹ thuật;
+45: (7). Biểu 7: Thống kê lề đường, taluy dương; hàng rào bảo vệ;
+46: (8). Biểu 8: Thống kê hệ thống an toàn giao thông;
+47: (9). Biểu 9: Thống kê mốc lộ giới, mốc giải phóng mặt bằng;
+48: <w:tab w:val="num" w:pos="720"/></w:tabs><w:spacing w:before="60" w:after="60"/><w:ind w:firstLine="567"/><w:jc w:val="both"/><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:bCs/><w:color w:val="000000" w:themeColor="text1"/><w:spacing w:val="-4"/><w:sz w:val="27"/><w:szCs w:val="27"/></w:rPr></w:pPr><w:r w:rsidRPr="00B605F3"><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:sz w:val="27"/><w:szCs w:val="27"/></w:rPr><w:t xml:space="preserve">(10). Biểu 10: Thống kê kè, tường chắn;
+49: <w:tab w:val="num" w:pos="720"/></w:tabs><w:spacing w:before="60" w:after="60"/><w:ind w:firstLine="567"/><w:jc w:val="both"/><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:bCs/><w:color w:val="000000" w:themeColor="text1"/><w:spacing w:val="-4"/><w:sz w:val="27"/><w:szCs w:val="27"/></w:rPr></w:pPr><w:r w:rsidRPr="00B605F3"><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:bCs/><w:color w:val="000000" w:themeColor="text1"/><w:spacing w:val="-4"/><w:sz w:val="27"/><w:szCs w:val="27"/></w:rPr><w:t xml:space="preserve">(11). Biểu 11: Thống kê hệ thống chiếu sáng;
+50: <w:tab w:val="num" w:pos="720"/></w:tabs><w:spacing w:before="60" w:after="60"/><w:ind w:firstLine="567"/><w:jc w:val="both"/><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:bCs/><w:color w:val="000000" w:themeColor="text1"/><w:spacing w:val="-4"/><w:sz w:val="27"/><w:szCs w:val="27"/></w:rPr></w:pPr><w:r w:rsidRPr="00B605F3"><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:bCs/><w:color w:val="000000" w:themeColor="text1"/><w:spacing w:val="-4"/><w:sz w:val="27"/><w:szCs w:val="27"/></w:rPr><w:t xml:space="preserve">(12). Biểu 12 Thống kê cây xanh, thảm cỏ;
+51: <w:tab w:val="num" w:pos="720"/></w:tabs><w:spacing w:before="60" w:after="60"/><w:ind w:firstLine="567"/><w:jc w:val="both"/><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:bCs/><w:color w:val="000000" w:themeColor="text1"/><w:spacing w:val="-4"/><w:sz w:val="27"/><w:szCs w:val="27"/></w:rPr></w:pPr><w:r w:rsidRPr="00B605F3"><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:bCs/><w:color w:val="000000" w:themeColor="text1"/><w:spacing w:val="-4"/><w:sz w:val="27"/><w:szCs w:val="27"/></w:rPr><w:t>(13). Biểu 13: Thống kê tường chống ồn;
+52: <w:tab w:val="num" w:pos="720"/></w:tabs><w:spacing w:before="60" w:after="60"/><w:ind w:firstLine="567"/><w:jc w:val="both"/><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:bCs/><w:color w:val="000000" w:themeColor="text1"/><w:spacing w:val="-4"/><w:sz w:val="27"/><w:szCs w:val="27"/></w:rPr></w:pPr><w:r w:rsidRPr="00B605F3"><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:bCs/><w:color w:val="000000" w:themeColor="text1"/><w:spacing w:val="-4"/><w:sz w:val="27"/><w:szCs w:val="27"/></w:rPr><w:t>(14). Biểu 14: Thống kê hệ thống giao thông thông minh (ITS);
+53: <w:tab w:val="num" w:pos="720"/></w:tabs><w:spacing w:before="60" w:after="60"/><w:ind w:firstLine="567"/><w:jc w:val="both"/><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:bCs/><w:color w:val="000000" w:themeColor="text1"/><w:spacing w:val="-4"/><w:sz w:val="27"/><w:szCs w:val="27"/></w:rPr></w:pPr><w:r w:rsidRPr="00B605F3"><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:bCs/><w:color w:val="000000" w:themeColor="text1"/><w:spacing w:val="-4"/><w:sz w:val="27"/><w:szCs w:val="27"/></w:rPr><w:t xml:space="preserve">(15). Biểu 15 Thống kê Trung tâm điều hành, Trạm thu phí, Trạm dừng chân, Nhà hạt, Kho vật tư dự phòng;
+54: <w:tab w:val="num" w:pos="720"/></w:tabs><w:spacing w:before="60" w:after="60"/><w:ind w:firstLine="567"/><w:jc w:val="both"/><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:b/><w:bCs/><w:sz w:val="27"/><w:szCs w:val="27"/></w:rPr></w:pPr><w:r w:rsidRPr="00B605F3"><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:bCs/><w:color w:val="000000" w:themeColor="text1"/><w:spacing w:val="-4"/><w:sz w:val="27"/><w:szCs w:val="27"/></w:rPr><w:t>(16). Biểu 16: Thống kê các nút giao.
+55: <w:tab w:val="num" w:pos="720"/></w:tabs><w:spacing w:before="60" w:after="60" w:line="276" w:lineRule="auto"/><w:ind w:firstLine="562"/><w:jc w:val="both"/><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:b/><w:bCs/><w:spacing w:val="-4"/><w:sz w:val="27"/><w:szCs w:val="27"/></w:rPr></w:pPr><w:r w:rsidRPr="00B605F3"><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:b/><w:bCs/><w:spacing w:val="-4"/><w:sz w:val="27"/><w:szCs w:val="27"/></w:rPr><w:t>3. Kết quả
+56: <w:tab w:val="num" w:pos="720"/></w:tabs><w:spacing w:before="60" w:after="60" w:line="276" w:lineRule="auto"/><w:ind w:firstLine="562"/><w:jc w:val="both"/><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:spacing w:val="-4"/><w:sz w:val="27"/><w:szCs w:val="27"/></w:rPr></w:pPr><w:r w:rsidRPr="00B605F3"><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:sz w:val="27"/><w:szCs w:val="27"/></w:rPr><w:t xml:space="preserve">Việc thống nhất mẫu sổ, cơ sở dữ liệu quản lý, bảo dưỡng thường xuyên đường bộ đáp ứng yêu cầu quản lý, kiểm tra, nghiệm thu và lưu trữ theo quy định; đáp ứng công tác tra cứu lịch sử, chia sẻ thông tin và yêu cầu chuyển đổi số; hình thành cơ sở dữ liệu dùng chung, thống nhất trên toàn quốc.
+57: <w:tab w:val="num" w:pos="720"/></w:tabs><w:spacing w:before="60" w:after="60" w:line="276" w:lineRule="auto"/><w:ind w:firstLine="562"/><w:jc w:val="both"/><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:b/><w:bCs/><w:spacing w:val="-4"/><w:sz w:val="27"/><w:szCs w:val="27"/></w:rPr></w:pPr><w:r w:rsidRPr="00B605F3"><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:b/><w:bCs/><w:spacing w:val="-4"/><w:sz w:val="27"/><w:szCs w:val="27"/></w:rPr><w:t>4. Kiến nghị
+58: <w:tab w:val="num" w:pos="720"/></w:tabs><w:spacing w:before="60" w:after="60" w:line="276" w:lineRule="auto"/><w:ind w:firstLine="562"/><w:jc w:val="both"/><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:spacing w:val="-4"/><w:sz w:val="27"/><w:szCs w:val="27"/></w:rPr></w:pPr><w:r><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:spacing w:val="-4"/><w:sz w:val="27"/><w:szCs w:val="27"/></w:rPr><w:t>- Ban hành Quyết định để triển khai áp dụng thống nhất trên toàn hệ thống.
+59: <w:tab w:val="num" w:pos="720"/></w:tabs><w:spacing w:before="60" w:after="60" w:line="276" w:lineRule="auto"/><w:ind w:firstLine="562"/><w:jc w:val="both"/><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:spacing w:val="-4"/><w:sz w:val="27"/><w:szCs w:val="27"/></w:rPr></w:pPr><w:r><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:spacing w:val="-4"/><w:sz w:val="27"/><w:szCs w:val="27"/></w:rPr><w:t>- Tiếp tục theo dõi, đánh giá, tổng kết quá trình thực hiện để hoàn thiện mẫu sổ, cơ sở dữ liệu quản lý, bảo dưỡng thường xuyên đường bộ.
+60: <w:tab w:val="num" w:pos="720"/></w:tabs><w:spacing w:before="60" w:after="60" w:line="276" w:lineRule="auto"/><w:ind w:firstLine="567"/><w:jc w:val="both"/><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:spacing w:val="-4"/><w:sz w:val="27"/><w:szCs w:val="27"/></w:rPr></w:pPr><w:r w:rsidRPr="00B605F3"><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:spacing w:val="-4"/><w:sz w:val="27"/><w:szCs w:val="27"/></w:rPr><w:t>Phòng Quản lý, bảo trì kính báo cáo./.
+61: <w:tab w:val="left" w:pos="2724"/></w:tabs><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:b/><w:i/><w:szCs w:val="24"/></w:rPr></w:pPr><w:r w:rsidRPr="00753184"><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:b/><w:i/><w:szCs w:val="24"/></w:rPr><w:t>Nơi nhận:
+62: - Như trên;
+63: - Cục trưởng (để báo cáo);
+64: - Trưởng phòng (để báo cáo);
+65: - Lưu: QLBT (TTT).
+66: <w:tab w:val="left" w:pos="0"/></w:tabs><w:ind w:left="-142" w:firstLine="284"/><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:sz w:val="22"/><w:szCs w:val="22"/><w:lang w:val="sv-SE"/></w:rPr></w:pPr><w:r w:rsidRPr="00753184"><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:sz w:val="22"/><w:szCs w:val="22"/><w:lang w:val="sv-SE"/></w:rPr><w:t xml:space="preserve">
+67: KT. TRƯỞNG PHÒNG QLBT
+68: PHÓ TRƯỞNG PHÒNG
+69: <w:tab w:val="left" w:pos="360"/></w:tabs><w:jc w:val="center"/><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:b/><w:bCs/><w:sz w:val="27"/><w:szCs w:val="27"/><w:lang w:val="sv-SE"/></w:rPr></w:pPr><w:r w:rsidRPr="00277C6C"><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:b/><w:bCs/><w:sz w:val="27"/><w:szCs w:val="27"/><w:lang w:val="sv-SE"/></w:rPr><w:t xml:space="preserve">Nguyễn Đức Tường
+
+
+======== FILE: 2026.08.20_Q_ BAN H_NH TH_NG NH_T M_U H_ S_ BDTX.docx paras=118 ========
+1: BỘ XÂY DỰNG
+2: CỤC ĐƯỜNG BỘ VIỆT NAM
+3: Số: /QĐ-CĐBVN
+4: CỘNG HOÀ XÃ HỘI CHỦ NGHĨA VIỆT NAM
+5: Độc lập - Tự do - Hạnh phúc
+6: Hà Nội, ngày tháng 8 năm 2026
+7: QUYẾT ĐỊNH
+8: <w:tab w:val="left" w:pos="567"/></w:tabs><w:spacing w:line="288" w:lineRule="auto"/><w:jc w:val="center"/><w:rPr><w:rFonts w:ascii="Times New Roman Bold" w:hAnsi="Times New Roman Bold"/><w:b/><w:bCs/><w:color w:val="000000" w:themeColor="text1"/><w:spacing w:val="-4"/><w:sz w:val="28"/><w:szCs w:val="28"/></w:rPr></w:pPr><w:r w:rsidRPr="00AE1C40"><w:rPr><w:rFonts w:ascii="Times New Roman Bold" w:hAnsi="Times New Roman Bold"/><w:b/><w:bCs/><w:color w:val="000000" w:themeColor="text1"/><w:spacing w:val="-4"/><w:sz w:val="28"/><w:szCs w:val="28"/></w:rPr><w:t xml:space="preserve">Về việc Ban hành mẫu sổ sách, sơ sở dữ liệu
+9: <w:tab w:val="left" w:pos="567"/></w:tabs><w:spacing w:line="288" w:lineRule="auto"/><w:jc w:val="center"/><w:rPr><w:rFonts w:ascii="Times New Roman Bold" w:hAnsi="Times New Roman Bold"/><w:b/><w:bCs/><w:color w:val="000000" w:themeColor="text1"/><w:spacing w:val="-4"/><w:sz w:val="28"/><w:szCs w:val="28"/></w:rPr></w:pPr><w:r w:rsidRPr="00AE1C40"><w:rPr><w:rFonts w:ascii="Times New Roman Bold" w:hAnsi="Times New Roman Bold"/><w:b/><w:bCs/><w:color w:val="000000" w:themeColor="text1"/><w:spacing w:val="-4"/><w:sz w:val="28"/><w:szCs w:val="28"/></w:rPr><w:t xml:space="preserve">quản lý, bảo dưỡng thường xuyên đường bộ.
+10: <w:tab w:val="left" w:pos="567"/></w:tabs><w:spacing w:before="240" w:after="240"/><w:jc w:val="center"/><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:b/><w:color w:val="000000" w:themeColor="text1"/><w:spacing w:val="-4"/><w:sz w:val="28"/><w:szCs w:val="28"/></w:rPr></w:pPr><w:r w:rsidRPr="0001201D"><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:b/><w:noProof/><w:color w:val="000000" w:themeColor="text1"/><w:spacing w:val="-12"/><w:sz w:val="28"/><w:szCs w:val="28"/></w:rPr><mc:AlternateContent><mc:Choice Requires="wps"><w:drawing><wp:anchor distT="0" distB="0" distL="114300" distR="114300" simplePos="0" relativeHeight="251659776" behindDoc="0" locked="0" layoutInCell="1" allowOverlap="1" wp14:anchorId="2D2BDAA3" wp14:editId="2D6D598E"><wp:simplePos x="0" y="0"/><wp:positionH relativeFrom="column"><wp:posOffset>2050719</wp:posOffset></wp:positionH><wp:positionV relativeFrom="paragraph"><wp:posOffset>9525</wp:posOffset></wp:positionV><wp:extent cx="1595755" cy="0"/><wp:effectExtent l="0" t="0" r="0" b="0"/><wp:wrapNone/><wp:docPr id="1" name="AutoShape 28"/><wp:cNvGraphicFramePr><a:graphicFrameLocks xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"/></wp:cNvGraphicFramePr><a:graphic xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"><a:graphicData uri="http://schemas.microsoft.com/office/word/2010/wordprocessingShape"><wps:wsp><wps:cNvCnPr><a:cxnSpLocks noChangeShapeType="1"/></wps:cNvCnPr><wps:spPr bwMode="auto"><a:xfrm><a:off x="0" y="0"/><a:ext cx="1595755" cy="0"/></a:xfrm><a:prstGeom prst="straightConnector1"><a:avLst/></a:prstGeom><a:noFill/><a:ln w="9525"><a:solidFill><a:srgbClr val="000000"/></a:solidFill><a:round/><a:headEnd/><a:tailEnd/></a:ln><a:extLst><a:ext uri="{909E8E84-426E-40DD-AFC4-6F175D3DCCD1}"><a14:hiddenFill xmlns:a14="http://schemas.microsoft.com/office/drawing/2010/main"><a:noFill/></a14:hiddenFill></a:ext></a:extLst></wps:spPr><wps:bodyPr/></wps:wsp></a:graphicData></a:graphic><wp14:sizeRelH relativeFrom="page"><wp14:pctWidth>0</wp14:pctWidth></wp14:sizeRelH><wp14:sizeRelV relativeFrom="page"><wp14:pctHeight>0</wp14:pctHeight></wp14:sizeRelV></wp:anchor></w:drawing></mc:Choice><mc:Fallback xmlns:w16cei="http://schemas.microsoft.com/office/word/2026/wordml/cei"><w:pict><v:shapetype w14:anchorId="7E87C6BE" id="_x0000_t32" coordsize="21600,21600" o:spt="32" o:oned="t" path="m,l21600,21600e" filled="f"><v:path arrowok="t" fillok="f" o:connecttype="none"/><o:lock v:ext="edit" shapetype="t"/></v:shapetype><v:shape id="AutoShape 28" o:spid="_x0000_s1026" type="#_x0000_t32" style="position:absolute;margin-left:161.45pt;margin-top:.75pt;width:125.65pt;height:0;z-index:251659776;visibility:visible;mso-wrap-style:square;mso-width-percent:0;mso-height-percent:0;mso-wrap-distance-left:9pt;mso-wrap-distance-top:0;mso-wrap-distance-right:9pt;mso-wrap-distance-bottom:0;mso-position-horizontal:absolute;mso-position-horizontal-relative:text;mso-position-vertical:absolute;mso-position-vertical-relative:text;mso-width-percent:0;mso-height-percent:0;mso-width-relative:page;mso-height-relative:page" o:gfxdata="UEsDBBQABgAIAAAAIQC2gziS/gAAAOEBAAATAAAAW0NvbnRlbnRfVHlwZXNdLnhtbJSRQU7DMBBF&#xA;90jcwfIWJU67QAgl6YK0S0CoHGBkTxKLZGx5TGhvj5O2G0SRWNoz/78nu9wcxkFMGNg6quQqL6RA&#xA;0s5Y6ir5vt9lD1JwBDIwOMJKHpHlpr69KfdHjyxSmriSfYz+USnWPY7AufNIadK6MEJMx9ApD/oD&#xA;OlTrorhX2lFEilmcO2RdNtjC5xDF9pCuTyYBB5bi6bQ4syoJ3g9WQ0ymaiLzg5KdCXlKLjvcW893&#xA;SUOqXwnz5DrgnHtJTxOsQfEKIT7DmDSUCaxw7Rqn8787ZsmRM9e2VmPeBN4uqYvTtW7jvijg9N/y&#xA;JsXecLq0q+WD6m8AAAD//wMAUEsDBBQABgAIAAAAIQA4/SH/1gAAAJQBAAALAAAAX3JlbHMvLnJl&#xA;bHOkkMFqwzAMhu+DvYPRfXGawxijTi+j0GvpHsDYimMaW0Yy2fr2M4PBMnrbUb/Q94l/f/hMi1qR&#xA;JVI2sOt6UJgd+ZiDgffL8ekFlFSbvV0oo4EbChzGx4f9GRdb25HMsYhqlCwG5lrLq9biZkxWOiqY&#xA;22YiTra2kYMu1l1tQD30/bPm3wwYN0x18gb45AdQl1tp5j/sFB2T0FQ7R0nTNEV3j6o9feQzro1i&#xA;OWA14Fm+Q8a1a8+Bvu/d/dMb2JY5uiPbhG/ktn4cqGU/er3pcvwCAAD//wMAUEsDBBQABgAIAAAA&#xA;IQBqCPe2uAEAAFYDAAAOAAAAZHJzL2Uyb0RvYy54bWysU8Fu2zAMvQ/YPwi6L44DeFuNOD2k6y7d&#xA;FqDdBzCybAuVRYFUYufvJ6lJWmy3oT4IlEg+Pj7S69t5tOKoiQ26RpaLpRTaKWyN6xv5++n+01cp&#xA;OIBrwaLTjTxplrebjx/Wk6/1Cge0rSYRQRzXk2/kEIKvi4LVoEfgBXrtorNDGiHEK/VFSzBF9NEW&#xA;q+XyczEhtZ5Qaeb4evfilJuM33VahV9dxzoI28jILeST8rlPZ7FZQ90T+MGoMw34DxYjGBeLXqHu&#xA;IIA4kPkHajSKkLELC4VjgV1nlM49xG7K5V/dPA7gde4lisP+KhO/H6z6edy6HSXqanaP/gHVMwuH&#xA;2wFcrzOBp5OPgyuTVMXkub6mpAv7HYn99APbGAOHgFmFuaMxQcb+xJzFPl3F1nMQKj6W1U31paqk&#xA;UBdfAfUl0ROH7xpHkYxGciAw/RC26FwcKVKZy8DxgUOiBfUlIVV1eG+szZO1TkyNvKlWVU5gtKZN&#xA;zhTG1O+3lsQR0m7kL/cYPW/DCA+uzWCDhvbb2Q5g7Isdi1t3liapkVaP6z22px1dJIvDyyzPi5a2&#xA;4+09Z7/+Dps/AAAA//8DAFBLAwQUAAYACAAAACEA3+URBdsAAAAHAQAADwAAAGRycy9kb3ducmV2&#xA;LnhtbEyOTU/DMBBE70j8B2srcUHUqWmAhjhVhcSBYz8krm68JKHxOoqdJvTXs3CB4+iNZl6+nlwr&#xA;ztiHxpOGxTwBgVR621Cl4bB/vXsCEaIha1pPqOELA6yL66vcZNaPtMXzLlaCRyhkRkMdY5dJGcoa&#xA;nQlz3yEx+/C9M5FjX0nbm5HHXStVkjxIZxrih9p0+FJjedoNTgOGIV0km5WrDm+X8fZdXT7Hbq/1&#xA;zWzaPIOIOMW/MvzoszoU7HT0A9kgWg33Sq24yiAFwTx9XCoQx98si1z+9y++AQAA//8DAFBLAQIt&#xA;ABQABgAIAAAAIQC2gziS/gAAAOEBAAATAAAAAAAAAAAAAAAAAAAAAABbQ29udGVudF9UeXBlc10u&#xA;eG1sUEsBAi0AFAAGAAgAAAAhADj9If/WAAAAlAEAAAsAAAAAAAAAAAAAAAAALwEAAF9yZWxzLy5y&#xA;ZWxzUEsBAi0AFAAGAAgAAAAhAGoI97a4AQAAVgMAAA4AAAAAAAAAAAAAAAAALgIAAGRycy9lMm9E&#xA;b2MueG1sUEsBAi0AFAAGAAgAAAAhAN/lEQXbAAAABwEAAA8AAAAAAAAAAAAAAAAAEgQAAGRycy9k&#xA;b3ducmV2LnhtbFBLBQYAAAAABAAEAPMAAAAaBQAAAAA=&#xA;"/></w:pict></mc:Fallback></mc:AlternateContent></w:r><w:r w:rsidR="009A5F14" w:rsidRPr="0001201D"><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:b/><w:color w:val="000000" w:themeColor="text1"/><w:spacing w:val="-4"/><w:sz w:val="28"/><w:szCs w:val="28"/></w:rPr><w:t>CỤC TRƯỞNG CỤC ĐƯỜNG BỘ VIỆT NAM
+11: Căn cứ Thông tư số 41/2024/TT-BGTVT ngày 15/11/2024 của Bộ Giao thông vận tải (nay là Bộ Xây dựng) quy định về quản lý, vận hành, khai thác và bảo trì kết cấu hạ tầng đường bộ;
+12: Căn cứ Quyết định số 18/QĐ-BXD ngày 01/3/2025 của Bộ trưởng Bộ Xây dựng quy định chức năng, nhiệm vụ, quyền hạn và cơ cấu tổ chức của Cục Đường bộ Việt Nam;
+13: Căn cứ các Quyết định của Bộ Xây dựng: số 293/QĐ-BXD ngày 27/02/2026 về đột phá phát triển khoa học, công nghệ, đổi mới sáng tạo và chuyển đổi số quốc gia; số 1226/QĐ-BXD ngày 15/7/2026 về thực hiện kế hoạch chuyển đổi số;
+14: Căn cứ các Quyết định của Cục Đường bộ Việt Nam: số 311/QĐ-CĐBVN ngày 20/3/2026 ban hành kế hoạch triển khai năm 2026 của Cục Đường bộ Việt Nam thực hiện Nghị quyết số 57-NQ/TW ngày 22/12/2024 của Bộ Chính trị, Nghị quyết số 11/NQ-CP ngày 14/01/2026 của Chính phủ và Quyết định số 293/QĐ-BXD ngày 27/02/2026 của Bộ Xây dựng về đột phá phá triển khoa học, công nghệ, đổi mới sáng tạo và chuyển đổi số quốc gia; số 836/QĐ-CĐBVN ngày 17/7/2026 về thực hiện kế hoạch chuyển đổi số; số 1044/QĐ-CĐBVN ngày 14/8/2026 về việc thành lập Tổ soạn thảo chuẩn hoá và số hoá hồ sơ quản lý, bảo dưỡng thường xuyên đường bộ;
+15: Căn cứ các Thông báo của Cục Đường bộ Việt Nam: số 111/TB-CĐBVN ngày 24/7/2026 của Cục Đường bộ Việt Nam kết luận của Cục trưởng Bùi Quang Thái tại cuộc họp triển khai các nhiệm vụ ứng dụng công nghệ và chuyển đổi số trong quản lý, bảo trì công trình đường bộ và số 108/TB-CĐBVN ngày 21/7/2026 thông báo kết luận của Phó Cục trưởng Nguyễn Thanh Hoài tại cuộc họp triển khai các nhiệm vụ ứng dụng công nghệ và chuyển đổi số trong quản lý, bảo trì công trình đường bộ;
+16: Theo đề nghị của Trưởng phòng Quản lý, bảo trì.
+17: QUYẾT ĐỊNH:
+18: Điều 1: Ban hành “Mẫu sổ sách, cơ sở dữ liệu quản lý, bảo dưỡng thường xuyên đường bộ” kèm theo Quyết định này, bao gồm:
+19: 1. Mẫu sổ sách;
+20: 2. Biểu cơ sở dữ liệu đường bộ.
+21: (Chi tiết Phụ lục kèm theo)
+22: Điều 2. Giao Phòng Quản lý, bảo trì chủ trì, Khu Quản lý đường bộ I là đầu mối theo dõi, hướng dẫn việc thực hiện; tổng hợp các khó khăn, vướng mắc phát sinh trong quá trình thực hiện, báo cáo Cục trưởng xem xét, điều chỉnh, bổ sung cho phù hợp.
+23: Điều 3. Chánh Văn phòng, Trưởng các Phòng tham mưu; Giám đốc các Khu Quản lý đường bộ I, II, III, IV; Thủ trưởng các đơn vị liên quan chịu trách nhiệm thi hành Quyết định này./.
+24: Nơi nhận:
+25: - Như Điều 3;
+26: - Cục trưởng (để b/c);
+27: - Các Phó Cục trưởng;
+28: - Lưu VT, QLBT (TqT03).
+29: KT.CỤC TRƯỞNG
+30: PHÓ CỤC TRƯỞNG
+31: Nguyễn Thanh Hoài
+32: PHỤ LỤC
+33: (Đính kèm Quyết định số: /QĐ-CĐBVN ngày tháng 8 năm 2026)
+34: STT
+35: TÊN SỔ SÁCH/CƠ SỞ DỮ LIỆU
+36: MÃ
+37: A
+38: SỔ SÁCH
+39: 1
+40: Sổ nhật ký tuần kiểm
+41: Mẫu 01
+42: 2
+43: Sổ nhật ký tuần đường
+44: Mẫu 02
+45: 3
+46: Sổ trực bảo đảm giao thông, trực chốt và xử lý sự cố
+47: Mẫu 03
+48: 4
+49: Sổ theo dõi kết quả đếm xe
+50: Mẫu 04
+51: 5
+52: Sổ theo dõi tai nạn giao thông, điểm đen
+53: Mẫu 05
+54: 6
+55: Sổ quản lý cầu, hầm và công trình phòng hộ
+56: Mẫu 06
+57: 7
+58: Sổ quản lý hành lang an toàn đường bộ, giấy phép thi công và dự án
+59: Mẫu 07
+60: 8
+61: Sổ theo dõi kết quả thực hiện bảo dưỡng thường xuyên
+62: Mẫu 08
+63: 9
+64: Sổ quản lý, vận hành và bảo trì hệ thống ITS/ETC/KSTTX
+65: Mẫu 09
+66: 10
+67: Bình đồ duỗi thẳng tuyến đường
+68: Mẫu 10
+69: B
+70: CƠ SỞ DỮ LIỆU ĐƯỜNG BỘ
+71: 1
+72: Thống kê phân loại mặt đường
+73: Biểu 01
+74: 2
+75: Thống kê cầu
+76: Biểu 02
+77: 3
+78: Thống kê hầm đường bộ
+79: Biểu 03
+80: 4
+... (38 more)
+
+
+======== FILE: 2026.08.21_Phi_u tr_nh + B_o c_o m_u s_, c_ s_ d_ li_u.docx paras=106 ========
+1: <w:tab w:val="left" w:pos="1152"/></w:tabs><w:jc w:val="center"/><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:bCs/><w:color w:val="000000"/><w:sz w:val="26"/><w:szCs w:val="26"/></w:rPr></w:pPr><w:r w:rsidRPr="00C53785"><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:color w:val="000000"/><w:spacing w:val="-4"/><w:sz w:val="26"/><w:szCs w:val="26"/></w:rPr><w:br w:type="page"/></w:r><w:r w:rsidRPr="00C53785"><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:color w:val="000000"/><w:sz w:val="26"/><w:szCs w:val="26"/></w:rPr><w:br w:type="page"/></w:r><w:r w:rsidRPr="00C53785"><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:bCs/><w:color w:val="000000"/><w:sz w:val="26"/><w:szCs w:val="26"/></w:rPr><w:t>BỘ XÂY DỰNG
+2: CỤC ĐƯỜNG BỘ VIỆT NAM
+3: <w:tab w:val="left" w:pos="1152"/></w:tabs><w:jc w:val="center"/><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:color w:val="000000"/><w:sz w:val="26"/><w:szCs w:val="26"/></w:rPr></w:pPr><w:r w:rsidRPr="00C53785"><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:color w:val="000000"/><w:sz w:val="26"/><w:szCs w:val="26"/></w:rPr><w:t>Số:......./PT
+4: <w:tab w:val="left" w:pos="1152"/></w:tabs><w:ind w:left="-114"/><w:jc w:val="center"/><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:b/><w:bCs/><w:color w:val="000000"/><w:sz w:val="26"/><w:szCs w:val="26"/></w:rPr></w:pPr><w:r w:rsidRPr="00C53785"><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:b/><w:bCs/><w:color w:val="000000"/><w:sz w:val="26"/><w:szCs w:val="26"/></w:rPr><w:t>CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
+5: <w:tab w:val="left" w:pos="1152"/></w:tabs><w:jc w:val="center"/><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:b/><w:bCs/><w:color w:val="000000"/><w:sz w:val="26"/><w:szCs w:val="26"/></w:rPr></w:pPr><w:r w:rsidRPr="00C53785"><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:b/><w:bCs/><w:color w:val="000000"/><w:sz w:val="26"/><w:szCs w:val="26"/></w:rPr><w:t>Độc lập - Tự do - Hạnh Phúc
+6: <w:tab w:val="left" w:pos="700"/><w:tab w:val="left" w:pos="1152"/></w:tabs><w:jc w:val="center"/><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:i/><w:color w:val="000000"/><w:sz w:val="26"/><w:szCs w:val="26"/></w:rPr></w:pPr><w:r w:rsidRPr="00C53785"><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:i/><w:color w:val="000000"/><w:sz w:val="26"/><w:szCs w:val="26"/></w:rPr><w:t xml:space="preserve">Ngày tháng 8 năm 2026
+7: PHIẾU TRÌNH GIẢI QUYẾT CÔNG VIỆC
+8: Kính trình: Phó Cục trưởng Nguyễn Thanh Hoài.
+9: Cơ quan chủ trì trình: Phòng Quản lý, bảo trì.
+10: Trích yếu nội dung dự thảo văn bản trình: V/v Ban hành “Mẫu sổ sách, cơ sở dữ liệu quản lý, bảo dưỡng thường xuyên đường bộ” .
+11: Tóm tắt nội dung công việc trình:
+12: Ý kiến của cơ quan chủ trì trình: ...................................................................
+13: Ý kiến bảo lưu (nội dung đề nghị được bảo lưu ý kiến của mình): ...............
+14: Mức độ khẩn, mật, phạm vi lưu hành:
+15: - Mức độ khẩn: Hỏa tốc Khẩn Thượng khẩn
+16: - Mức độ mật: Mật Tối mật Tuyệt mật
+17: <w:t>+ Căn cứ đề xuất mức độ mật của văn bản:…………………………………….
+18: <w:t xml:space="preserve">+ Được phép sao chụp Không được phép sao, chụp
+19: - Tài liệu hạn chế lưu hành:
+20: Dự kiến số lượng bản phát hành:
+21: Tài liệu kèm theo:
+22: <w:tab w:val="left" w:pos="700"/></w:tabs><w:jc w:val="both"/><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:color w:val="000000"/></w:rPr></w:pPr><w:r w:rsidRPr="00C53785"><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:color w:val="000000"/></w:rPr><w:t>STT
+23: <w:tab w:val="left" w:pos="700"/></w:tabs><w:jc w:val="center"/><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:color w:val="000000"/></w:rPr></w:pPr><w:r w:rsidRPr="00C53785"><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:color w:val="000000"/></w:rPr><w:t>Số, ký hiệu văn bản
+24: <w:tab w:val="left" w:pos="700"/></w:tabs><w:jc w:val="center"/><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:color w:val="000000"/></w:rPr></w:pPr><w:r w:rsidRPr="00C53785"><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:color w:val="000000"/></w:rPr><w:t>Ngày, tháng, năm văn bản
+25: <w:tab w:val="left" w:pos="700"/></w:tabs><w:jc w:val="center"/><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:color w:val="000000"/></w:rPr></w:pPr><w:r w:rsidRPr="00C53785"><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:color w:val="000000"/></w:rPr><w:t>Trích yếu nội dung
+26: <w:tab w:val="left" w:pos="700"/></w:tabs><w:jc w:val="center"/><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:color w:val="000000"/></w:rPr></w:pPr><w:r w:rsidRPr="00C53785"><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:color w:val="000000"/></w:rPr><w:t>văn bản
+27: <w:tab w:val="left" w:pos="700"/></w:tabs><w:jc w:val="center"/><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:color w:val="000000"/></w:rPr></w:pPr><w:r w:rsidRPr="00C53785"><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:color w:val="000000"/></w:rPr><w:t>Cơ quan
+28: <w:tab w:val="left" w:pos="700"/></w:tabs><w:jc w:val="center"/><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:color w:val="000000"/></w:rPr></w:pPr><w:r w:rsidRPr="00C53785"><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:color w:val="000000"/></w:rPr><w:t>ban hành
+29: Chữ ký, ý kiến của bộ phận kiểm soát về thể thức văn bản:
+30: <w:tab w:val="left" w:pos="700"/></w:tabs><w:spacing w:before="120"/><w:ind w:left="788" w:hanging="788"/><w:jc w:val="both"/><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:color w:val="000000"/></w:rPr></w:pPr><w:r w:rsidRPr="00C53785"><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:color w:val="000000"/></w:rPr><w:t>- Họ tên: ................................................. Chữ ký: ...........................
+31: <w:tab w:val="left" w:pos="700"/></w:tabs><w:spacing w:before="120"/><w:ind w:left="788" w:hanging="788"/><w:jc w:val="both"/><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:color w:val="000000"/></w:rPr></w:pPr><w:r w:rsidRPr="00C53785"><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:color w:val="000000"/></w:rPr><w:t>- Ý kiến: ...................................................................................................................
+32: Chữ ký của chuyên viên, lãnh đạo cơ quan chủ trì trình:
+33: <w:tab w:val="left" w:pos="700"/><w:tab w:val="left" w:pos="1152"/></w:tabs><w:jc w:val="center"/><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:b/><w:color w:val="000000"/><w:sz w:val="26"/><w:szCs w:val="26"/></w:rPr></w:pPr><w:r w:rsidRPr="00C53785"><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:b/><w:color w:val="000000"/><w:sz w:val="26"/><w:szCs w:val="26"/></w:rPr><w:t>CHUYÊN VIÊN
+34: <w:tab w:val="left" w:pos="1060"/></w:tabs><w:jc w:val="center"/><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:color w:val="000000"/><w:sz w:val="26"/><w:szCs w:val="26"/></w:rPr></w:pPr><w:r w:rsidRPr="00C53785"><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:color w:val="000000"/><w:sz w:val="26"/><w:szCs w:val="26"/></w:rPr><w:t xml:space="preserve">Trần Thanh Tùng
+35: <w:tab w:val="left" w:pos="700"/><w:tab w:val="left" w:pos="1152"/></w:tabs><w:jc w:val="center"/><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:b/><w:color w:val="000000"/><w:sz w:val="26"/><w:szCs w:val="26"/></w:rPr></w:pPr><w:r w:rsidRPr="00C53785"><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:b/><w:color w:val="000000"/><w:sz w:val="26"/><w:szCs w:val="26"/></w:rPr><w:t>LÃNH ĐẠO ĐƠN VỊ
+36: <w:tab w:val="left" w:pos="700"/><w:tab w:val="left" w:pos="1152"/></w:tabs><w:jc w:val="center"/><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:color w:val="000000"/><w:sz w:val="26"/><w:szCs w:val="26"/></w:rPr></w:pPr><w:r><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:color w:val="000000"/><w:sz w:val="26"/><w:szCs w:val="26"/></w:rPr><w:t xml:space="preserve">Nguyễn Đức Tường
+37: Ý kiến giải quyết của Lãnh đạo Cục
+38: CỤC ĐƯỜNG BỘ VIỆT NAM
+39: PHÒNG QUẢN LÝ BẢO TRÌ
+40: CỘNG HOÀ XÃ HỘI CHỦ NGHĨA VIỆT NAM
+41: Độc lập - Tự do - Hạnh phúc
+42: Số: 437/BC-QLBT
+43: Hà Nội, ngày 20 tháng 8 năm 2026
+44: BÁO CÁO
+45: Ban hành mẫu sổ sách, cơ sở dữ liệu trong công tác quản lý, bảo dưỡng thường xuyên đường bộ
+46: Kính gửi: Phó Cục trưởng Nguyễn Thanh Hoài
+47: Thực hiện Văn bản số 3858/CĐBVN-QLBT ngày 26/6/2026 của Cục Đường bộ Việt Nam về việc rà soát, đánh giá sự thống nhất và các bất cập trong công tác ghi chép sổ sách nội nghiệp đối với công tác quản lý, bảo dưỡng thường xuyên đồng thời nghiên cứu số hoá để khắc phục bất cập, đồng bộ dữ liệu, thuận lợi trong quá trình thực hiện; Thông báo số 111/TB-CĐBVN ngày 24/7/2026 của Cục Đường bộ Việt Nam kết luận của Cục trưởng Bùi Quang Thái tại cuộc họp triển khai các nhiệm vụ ứng dụng công nghệ và chuyển đổi số trong quản lý, bảo trì công trình đường bộ.
+48: Phòng Quản lý, bảo trì xin báo cáo về mẫu sổ sách, biểu mẫu cơ sở dữ liệu đường bộ trong công tác quản lý, bảo dưỡng thường xuyên đường bộ như sau:
+49: 1. Hiện trạng lập hồ sơ quản lý, bảo dưỡng thường xuyên đường bộ
+50: Qua theo dõi các đơn vị lập hồ sơ quản lý, bảo dưỡng thường xuyên đường bộ đã đáp ứng yêu cầu quản lý, kiểm tra, nghiệm thu và lưu trữ theo quy định; là căn cứ phục vụ công tác kiểm tra hiện trường, đánh giá chất lượng quản lý, bảo dưỡng thường xuyên, kiểm tra, kiểm toán và quyết toán kinh phí quản lý, bảo dưỡng thường xuyên. Tuy nhiên, hồ sơ sổ sách, biểu mẫu báo cáo cơ sở dữ liệu đường bộ còn một số tồn tại như: (i) Chưa thống nhất giữa các biểu mẫu; (ii) Nhiều nội dung ghi chép trùng lặp (có đơn vị quy định 2 loại sổ ghi chép của công tác tuần đường là Sổ tuần đường và Sổ ghi chép tuần đường quản lý giao thông); (iii) Chủ yếu quản lý bằng hồ sơ giấy, do đó việc tổng hợp để lập báo cáo làm tăng thời gian nhập liệu; mặt khác, khó tra cứu lịch sử, chia sẻ thông tin và chưa đáp ứng yêu cầu chuyển đổi số; (iv) Chưa hình thành cơ sở dữ liệu dùng chung, mỗi đơn vị hiện quản lý hồ sơ riêng.
+51: 2. Quá trình xây dựng
+52: 2.1. Cơ sở pháp lý
+53: <w:tab w:val="num" w:pos="720"/></w:tabs><w:spacing w:before="60" w:after="60" w:line="276" w:lineRule="auto"/><w:ind w:firstLine="562"/><w:jc w:val="both"/><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:spacing w:val="-4"/><w:sz w:val="27"/><w:szCs w:val="27"/></w:rPr></w:pPr><w:r w:rsidRPr="00B605F3"><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:spacing w:val="-4"/><w:sz w:val="27"/><w:szCs w:val="27"/></w:rPr><w:t xml:space="preserve">- Luật: Đường bộ; Xây dựng;
+54: <w:tab w:val="num" w:pos="720"/></w:tabs><w:spacing w:before="60" w:after="60" w:line="276" w:lineRule="auto"/><w:ind w:firstLine="562"/><w:jc w:val="both"/><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:spacing w:val="-4"/><w:sz w:val="27"/><w:szCs w:val="27"/></w:rPr></w:pPr><w:r w:rsidRPr="00B605F3"><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:spacing w:val="-4"/><w:sz w:val="27"/><w:szCs w:val="27"/></w:rPr><w:t>- Nghị định: số 165/2024/NĐ-CP ngày 26/12/2024; số 241/2026/NĐ-CP ngày 26/6/2026; số 207/2026/NĐ-CP ngày 15/6/2026;
+55: <w:tab w:val="num" w:pos="720"/></w:tabs><w:spacing w:before="60" w:after="60" w:line="276" w:lineRule="auto"/><w:ind w:firstLine="562"/><w:jc w:val="both"/><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:spacing w:val="-4"/><w:sz w:val="27"/><w:szCs w:val="27"/></w:rPr></w:pPr><w:r w:rsidRPr="00B605F3"><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:spacing w:val="-4"/><w:sz w:val="27"/><w:szCs w:val="27"/></w:rPr><w:t>- Thông tư: số 41/2024/TT-BGTVT ngày 15/11/2024; số 72/2025/TT-BXD ngày 31/12/2025 của Bộ Xây dựng;
+56: <w:tab w:val="num" w:pos="720"/></w:tabs><w:spacing w:before="60" w:after="60" w:line="276" w:lineRule="auto"/><w:ind w:firstLine="562"/><w:jc w:val="both"/><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:spacing w:val="-4"/><w:sz w:val="27"/><w:szCs w:val="27"/></w:rPr></w:pPr><w:r w:rsidRPr="00B605F3"><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:spacing w:val="-4"/><w:sz w:val="27"/><w:szCs w:val="27"/></w:rPr><w:t>- Tiêu chuẩn kỹ thuật TCVN 14182:2024: Tiêu chuẩn bảo dưỡng thường xuyên đường bộ - Yêu cầu kỹ thuật;
+57: <w:tab w:val="num" w:pos="720"/></w:tabs><w:spacing w:before="60" w:after="60" w:line="276" w:lineRule="auto"/><w:ind w:firstLine="562"/><w:jc w:val="both"/><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:spacing w:val="-4"/><w:sz w:val="27"/><w:szCs w:val="27"/></w:rPr></w:pPr><w:r w:rsidRPr="00B605F3"><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:spacing w:val="-4"/><w:sz w:val="27"/><w:szCs w:val="27"/></w:rPr><w:lastRenderedPageBreak/><w:t>- Tiêu chuẩn cơ sở TCCS 17:2016/TCĐBVN: Tiêu chuẩn kỹ thuật bảo dưỡng thường xuyên công trình đường cao tốc;
+58: - Tiêu chuẩn quản lý và khai thác đường cao tốc – Tuần đường và xử lý sự cố trên đường cao tốc TCCS 16:2016/TCĐBVN.
+59: 2.2. Quá trình thực hiện
+60: Ngày 25/6/2026, Cục Đường bộ Việt Nam ban hành văn bản số 3858/CĐBVN-QLBT về việc rà soát, đánh giá sự thống nhất và các bất cập trong công tác ghi chép sổ sách nội nghiệp đối với công tác quản lý, bảo dưỡng thường xuyên đồng thời nghiên cứu số hoá để khắc phục bất cập, đồng bộ dữ liệu, thuận lợi trong quá trình thực hiện; trong đó, giao Khu Quản lý đường bộ I chủ trì tổng hợp báo cáo, nghiên cứu đề xuất xây dựng phần mềm số hoá và ứng dụng để triển khai thống nhất.
+61: Ngày 30/7/2026, Khu Quản lý đường bộ I có văn bản số 1539/KQLĐBI-QLBT về việc báo cáo kết quả rà soát, đánh giá công tác ghi chép sổ sách nội nghiệp trong công tác quản lý, BDTX đường bộ và đề xuất giải pháp chuyển đổi số; Phòng Quản lý, bảo trì tổng hợp, đề xuất việc chuẩn hoá lập hồ sơ quản lý, bảo dưỡng thường xuyên và trình Lãnh đạo Cục Đường bộ Việt Nam ban hành văn bản xin ý kiến Lãnh đạo Cục ĐBVN, các Phòng tham mưu và các Khu QLĐB tại văn bản số 4930/CĐBVN-QLBT ngày 30/7/2026;
+62: Phòng Quản lý, bảo trì tổng hợp báo cáo của Khu QLĐB I tại văn bản số 1661/KQLĐBI-QLBT ngày 11/8/2026 và ý kiến góp ý chỉ đạo của Lãnh đạo Cục Đường bộ Việt Nam, Phòng tiếp thu chỉnh sửa và giải trình (có bảng phụ lục đính kèm).
+63: 2.3. Kiến nghị, đề xuất mẫu sổ, cơ sở dữ liệu quản lý, bảo dưỡng thường xuyên đường bộ
+64: a) Mẫu sổ sách:
+65: (1). Mẫu 1: Nhật ký tuần kiểm;
+66: (2). Mẫu 2: Nhật ký tuần đường;
+67: (3). Mẫu 3: Sổ trực bảo đảm giao thông, trực chốt và xử lý sự cố;
+68: (4). Mẫu 4: Sổ theo dõi kết quả đếm xe;
+69: (5). Mẫu 5: Sổ theo dõi tai nạn giao thông, điểm đen;
+70: (6). Mẫu 6: Sổ quản lý cầu, hầm và công trình phòng hộ;
+71: (7). Mẫu 7: Sổ quản lý hành lang an toàn đường bộ, giấy phép thi công và dự án;
+72: (8). Mẫu 8: Sổ theo dõi kết quả thực hiện bảo dưỡng thường xuyên;
+73: (9). Mẫu 9: Sổ quản lý, vận hành và bảo trì hệ thống ITS/ETC/KSTTX;
+74: (10). Mẫu 10: Bình đồ duỗi thẳng tuyến đường.
+75: b) Cơ sở dữ liệu đường bộ
+76: (1). Biểu 1: Thống kê phân loại mặt đường;
+77: (2). Biểu 2: Thống kê cầu;
+78: (3). Biểu 3: Thống kê hầm đường bộ;
+79: (4). Biểu 4: Thống kê cống các loại;
+80: (5). Biểu 5: Thống kê rãnh các loại;
+... (26 more)
+
+
+======== FILE: 2026.08.21_Q_ BAN H_NH TH_NG NH_T M_U H_ S_ BDTX.docx paras=118 ========
+1: BỘ XÂY DỰNG
+2: CỤC ĐƯỜNG BỘ VIỆT NAM
+3: Số: /QĐ-CĐBVN
+4: CỘNG HOÀ XÃ HỘI CHỦ NGHĨA VIỆT NAM
+5: Độc lập - Tự do - Hạnh phúc
+6: Hà Nội, ngày tháng 8 năm 2026
+7: QUYẾT ĐỊNH
+8: <w:tab w:val="left" w:pos="567"/></w:tabs><w:spacing w:line="288" w:lineRule="auto"/><w:jc w:val="center"/><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:b/><w:bCs/><w:color w:val="000000" w:themeColor="text1"/><w:spacing w:val="-4"/><w:sz w:val="28"/><w:szCs w:val="28"/></w:rPr></w:pPr><w:r w:rsidRPr="009E1044"><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:b/><w:bCs/><w:color w:val="000000" w:themeColor="text1"/><w:spacing w:val="-4"/><w:sz w:val="28"/><w:szCs w:val="28"/></w:rPr><w:t xml:space="preserve">Về việc ban hành mẫu sổ sách, cơ sở dữ liệu
+9: <w:tab w:val="left" w:pos="567"/></w:tabs><w:spacing w:line="288" w:lineRule="auto"/><w:jc w:val="center"/><w:rPr><w:rFonts w:ascii="Times New Roman Bold" w:hAnsi="Times New Roman Bold"/><w:b/><w:bCs/><w:color w:val="000000" w:themeColor="text1"/><w:spacing w:val="-4"/><w:sz w:val="28"/><w:szCs w:val="28"/></w:rPr></w:pPr><w:r w:rsidRPr="009E1044"><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:b/><w:bCs/><w:color w:val="000000" w:themeColor="text1"/><w:spacing w:val="-4"/><w:sz w:val="28"/><w:szCs w:val="28"/></w:rPr><w:t xml:space="preserve">quản lý, bảo dưỡng thường xuyên đường bộ.
+10: <w:tab w:val="left" w:pos="567"/></w:tabs><w:spacing w:before="240" w:after="240"/><w:jc w:val="center"/><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:b/><w:color w:val="000000" w:themeColor="text1"/><w:spacing w:val="-4"/><w:sz w:val="28"/><w:szCs w:val="28"/></w:rPr></w:pPr><w:r w:rsidRPr="0001201D"><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:b/><w:noProof/><w:color w:val="000000" w:themeColor="text1"/><w:spacing w:val="-12"/><w:sz w:val="28"/><w:szCs w:val="28"/></w:rPr><mc:AlternateContent><mc:Choice Requires="wps"><w:drawing><wp:anchor distT="0" distB="0" distL="114300" distR="114300" simplePos="0" relativeHeight="251659776" behindDoc="0" locked="0" layoutInCell="1" allowOverlap="1" wp14:anchorId="2D2BDAA3" wp14:editId="467F4D7F"><wp:simplePos x="0" y="0"/><wp:positionH relativeFrom="column"><wp:posOffset>2096135</wp:posOffset></wp:positionH><wp:positionV relativeFrom="paragraph"><wp:posOffset>9525</wp:posOffset></wp:positionV><wp:extent cx="1595755" cy="0"/><wp:effectExtent l="0" t="0" r="0" b="0"/><wp:wrapNone/><wp:docPr id="1" name="AutoShape 28"/><wp:cNvGraphicFramePr><a:graphicFrameLocks xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"/></wp:cNvGraphicFramePr><a:graphic xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"><a:graphicData uri="http://schemas.microsoft.com/office/word/2010/wordprocessingShape"><wps:wsp><wps:cNvCnPr><a:cxnSpLocks noChangeShapeType="1"/></wps:cNvCnPr><wps:spPr bwMode="auto"><a:xfrm><a:off x="0" y="0"/><a:ext cx="1595755" cy="0"/></a:xfrm><a:prstGeom prst="straightConnector1"><a:avLst/></a:prstGeom><a:noFill/><a:ln w="9525"><a:solidFill><a:srgbClr val="000000"/></a:solidFill><a:round/><a:headEnd/><a:tailEnd/></a:ln><a:extLst><a:ext uri="{909E8E84-426E-40DD-AFC4-6F175D3DCCD1}"><a14:hiddenFill xmlns:a14="http://schemas.microsoft.com/office/drawing/2010/main"><a:noFill/></a14:hiddenFill></a:ext></a:extLst></wps:spPr><wps:bodyPr/></wps:wsp></a:graphicData></a:graphic><wp14:sizeRelH relativeFrom="page"><wp14:pctWidth>0</wp14:pctWidth></wp14:sizeRelH><wp14:sizeRelV relativeFrom="page"><wp14:pctHeight>0</wp14:pctHeight></wp14:sizeRelV></wp:anchor></w:drawing></mc:Choice><mc:Fallback xmlns:w16cei="http://schemas.microsoft.com/office/word/2026/wordml/cei"><w:pict><v:shapetype w14:anchorId="6F932CA5" id="_x0000_t32" coordsize="21600,21600" o:spt="32" o:oned="t" path="m,l21600,21600e" filled="f"><v:path arrowok="t" fillok="f" o:connecttype="none"/><o:lock v:ext="edit" shapetype="t"/></v:shapetype><v:shape id="AutoShape 28" o:spid="_x0000_s1026" type="#_x0000_t32" style="position:absolute;margin-left:165.05pt;margin-top:.75pt;width:125.65pt;height:0;z-index:251659776;visibility:visible;mso-wrap-style:square;mso-width-percent:0;mso-height-percent:0;mso-wrap-distance-left:9pt;mso-wrap-distance-top:0;mso-wrap-distance-right:9pt;mso-wrap-distance-bottom:0;mso-position-horizontal:absolute;mso-position-horizontal-relative:text;mso-position-vertical:absolute;mso-position-vertical-relative:text;mso-width-percent:0;mso-height-percent:0;mso-width-relative:page;mso-height-relative:page" o:gfxdata="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&#xA;"/></w:pict></mc:Fallback></mc:AlternateContent></w:r><w:r w:rsidR="009A5F14" w:rsidRPr="0001201D"><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:b/><w:color w:val="000000" w:themeColor="text1"/><w:spacing w:val="-4"/><w:sz w:val="28"/><w:szCs w:val="28"/></w:rPr><w:t>CỤC TRƯỞNG CỤC ĐƯỜNG BỘ VIỆT NAM
+11: Căn cứ Thông tư số 41/2024/TT-BGTVT ngày 15/11/2024 của Bộ Giao thông vận tải (nay là Bộ Xây dựng) quy định về quản lý, vận hành, khai thác và bảo trì kết cấu hạ tầng đường bộ (được sửa đổi, bổ sung bởi Thông tư số 72/2025/TT-BXD ngày 31/12/2025 của Bộ Xây dựng);
+12: Căn cứ Quyết định số 18/QĐ-BXD ngày 01/3/2025 của Bộ trưởng Bộ Xây dựng quy định chức năng, nhiệm vụ, quyền hạn và cơ cấu tổ chức của Cục Đường bộ Việt Nam;
+13: Căn cứ các Quyết định của Bộ Xây dựng: số 293/QĐ-BXD ngày 27/02/2026 về đột phá phát triển khoa học, công nghệ, đổi mới sáng tạo và chuyển đổi số quốc gia; số 1226/QĐ-BXD ngày 15/7/2026 về thực hiện kế hoạch chuyển đổi số;
+14: Căn cứ các Quyết định của Cục Đường bộ Việt Nam: số 311/QĐ-CĐBVN ngày 20/3/2026 ban hành kế hoạch triển khai năm 2026 của Cục Đường bộ Việt Nam thực hiện Nghị quyết số 57-NQ/TW ngày 22/12/2024 của Bộ Chính trị, Nghị quyết số 11/NQ-CP ngày 14/01/2026 của Chính phủ và Quyết định số 293/QĐ-BXD ngày 27/02/2026 của Bộ Xây dựng về đột phá phát triển khoa học, công nghệ, đổi mới sáng tạo và chuyển đổi số quốc gia; số 836/QĐ-CĐBVN ngày 17/7/2026 về thực hiện kế hoạch chuyển đổi số; số 1044/QĐ-CĐBVN ngày 14/8/2026 về việc thành lập Tổ soạn thảo chuẩn hoá và số hoá hồ sơ quản lý, bảo dưỡng thường xuyên đường bộ;
+15: Căn cứ các Thông báo của Cục Đường bộ Việt Nam: số 111/TB-CĐBVN ngày 24/7/2026 của Cục Đường bộ Việt Nam kết luận của Cục trưởng Bùi Quang Thái tại cuộc họp triển khai các nhiệm vụ ứng dụng công nghệ và chuyển đổi số trong quản lý, bảo trì công trình đường bộ và số 108/TB-CĐBVN ngày 21/7/2026 thông báo kết luận của Phó Cục trưởng Nguyễn Thanh Hoài tại cuộc họp triển khai các nhiệm vụ ứng dụng công nghệ và chuyển đổi số trong quản lý, bảo trì công trình đường bộ;
+16: Theo đề nghị của Trưởng phòng Quản lý, bảo trì.
+17: QUYẾT ĐỊNH:
+18: Điều 1. Ban hành “Mẫu sổ sách, cơ sở dữ liệu quản lý, bảo dưỡng thường xuyên đường bộ” kèm theo Quyết định này, bao gồm:
+19: 1. Mẫu sổ sách;
+20: 2. Biểu cơ sở dữ liệu đường bộ.
+21: (Chi tiết Phụ lục kèm theo)
+22: Điều 2. Giao Phòng Quản lý, bảo trì chủ trì; Khu Quản lý đường bộ I là đầu mối theo dõi, hướng dẫn việc thực hiện, tổng hợp các khó khăn, vướng mắc phát sinh trong quá trình thực hiện, báo cáo Cục Đường bộ Việt Nam để xem xét, điều chỉnh, bổ sung cho phù hợp.
+23: Điều 3. Chánh Văn phòng, Trưởng các Phòng tham mưu; Giám đốc các Khu Quản lý đường bộ I, II, III, IV; Thủ trưởng các đơn vị liên quan chịu trách nhiệm thi hành Quyết định này./.
+24: Nơi nhận:
+25: - Như Điều 3;
+26: - Cục trưởng (để b/c);
+27: - Các Phó Cục trưởng;
+28: - Lưu VT, QLBT (TqT03).
+29: KT.CỤC TRƯỞNG
+30: PHÓ CỤC TRƯỞNG
+31: Nguyễn Thanh Hoài
+32: PHỤ LỤC
+33: (Đính kèm Quyết định số: /QĐ-CĐBVN ngày tháng 8 năm 2026)
+34: STT
+35: TÊN MẪU SỔ SÁCH/BIỂU CƠ SỞ DỮ LIỆU
+36: MÃ
+37: A
+38: MẪU SỔ SÁCH
+39: 1
+40: Sổ nhật ký tuần kiểm
+41: Mẫu 01
+42: 2
+43: Sổ nhật ký tuần đường
+44: Mẫu 02
+45: 3
+46: Sổ trực bảo đảm giao thông, trực chốt và xử lý sự cố
+47: Mẫu 03
+48: 4
+49: Sổ theo dõi kết quả đếm xe
+50: Mẫu 04
+51: 5
+52: Sổ theo dõi tai nạn giao thông, điểm đen
+53: Mẫu 05
+54: 6
+55: Sổ quản lý cầu, hầm và công trình phòng hộ
+56: Mẫu 06
+57: 7
+58: Sổ quản lý hành lang an toàn đường bộ, giấy phép thi công và dự án
+59: Mẫu 07
+60: 8
+61: Sổ theo dõi kết quả thực hiện bảo dưỡng thường xuyên
+62: Mẫu 08
+63: 9
+64: Sổ quản lý, vận hành và bảo trì hệ thống ITS/ETC/KSTTX
+65: Mẫu 09
+66: 10
+67: Bình đồ duỗi thẳng tuyến đường
+68: Mẫu 10
+69: B
+70: BIỂU MẪU CƠ SỞ DỮ LIỆU ĐƯỜNG BỘ
+71: 1
+72: Biểu thống kê phân loại mặt đường
+73: Biểu 01
+74: 2
+75: Biểu thống kê cầu
+76: Biểu 02
+77: 3
+78: Biểu thống kê hầm đường bộ
+79: Biểu 03
+80: 4
+... (38 more)
+
+
+======== FILE: 3. M_u_tr_c b_o __m giao th_ng, tr_c ch_t v_ x_ l_ s_ c_.docx paras=21 ========
+1: MẪU 3: SỔ TRỰC BẢO ĐẢM GIAO THÔNG, TRỰC CHỐT
+2: VÀ XỬ LÝ SỰ CỐ
+3: 1. Mẫu bìa
+4: CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAMĐộc lập - Tự do - Hạnh phúc ---------------
+5: SỔ
+6: TRỰC BẢO ĐẢM GIAO THÔNG, TRỰC CHỐT VÀ XỬ LÝ SỰ CỐ
+7: Nhà thầu quản lý, bảo dưỡng công trình đường bộ: ........................................................................... .......... .......... .......... .......... ....
+8: Từ Km …....................... đến Km .......................... QL.............
+9: Bắt đầu ngày: ......................./.................../................................
+10: Hết quyển ngày: ..................../..................../..............................
+11: ..........., năm 20 .......
+12: SỔ TRỰC BẢO ĐẢM GIAO THÔNG, TRỰC CHỐT VÀ XỬ LÝ SỰ CỐ
+13: …............................................................
+14: MẪU 3
+15: Stt
+16: Ngày tháng
+17: Ca trực
+18: Tên người trực
+19: Nội dung trực
+20: Xử lý giải quyết
+21: Ký tên xác nhận
+
+
+======== FILE: 4. M_u_T_ng h_p theo d_i k_t qu_ __m xe.docx paras=33 ========
+1: MẪU 4: TỔNG HỢP THEO DÕI KẾT QUẢ ĐẾM XE
+2: Tổng hợp kết quả đếm xe: Theo Phụ lục B TCVN 14182:2024
+3: 1. Mẫu bìa
+4: CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAMĐộc lập - Tự do - Hạnh phúc ---------------
+5: TỔNG HỢP THEO DÕI KẾT QUẢ ĐẾM XE
+6: Nhà thầu quản lý, bảo dưỡng công trình đường bộ ............................................
+7: Trạm ……………………………………………………
+8: Lý trình: Km …....................... QL.............
+9: Bắt đầu ngày: ......................./.................../................................
+10: Kết thúc ngày: ..................../..................../..............................
+11: ..........., năm 20 .......
+12: TỔNG HỢP KẾT QUẢ ĐẾM XE QUÝ …... NĂM 20…. MẪU 4
+13: Tên đường
+14: Tên trạm/(lý trình)
+15: Xe con/ xe bán tải/Xe Jip/ xe khách (dưới 12 ghế)
+16: Xe khách (từ 12 đến dưới 25 ghế)
+17: Xe khách (từ 25 đến dưới 30 ghế)
+18: Xe khách (từ 31 ghế trở lên)
+19: Xe bus (dưới 25 ghế)
+20: Xe bus (từ 25 ghế trở lên)
+21: Xe tải (2 trục, 4 bánh có tải trọng dưới 2 tấn)
+22: Xe tải (2 trục, 4 bánh có tải trọng từ 2 tấn đến dưới 4 tấn)
+23: Xe tải (2 trục, 6 bánh có tải trọng từ 2 tấn đến dưới 4 tấn)
+24: Xe tải (2 trục, 6 bánh có tải trọng từ 4 tấn đến dưới 10 tấn)
+25: Xe tải (2 trục, 6 bánh có tải trọng từ 10 tấn đến dưới 18 tấn)
+26: Xe tải (3 trục, có tải trọng từ 4 tấn đến dưới 10 tấn)
+27: Xe tải (>3 trục, có tải trọng từ 10 tấn đến dưới 18 tấn)
+28: Xe tải (>3 trục, có tải trọng từ 18 tấn trở lên)
+29: Xe đầu kéo kéo theo sơ mi- rơ mooc (>3 trục)/ xe chở hàng bằng container 20 feet)
+30: Xe đầu kéo kéo theo sơ mi- rơ mooc (>3 trục)/ xe chở hàng bằng container 40 feet)
+31: Máy kéo
+32: Tổng cộng xe ô tô
+33: Đếm thủ công : <w:t xml:space="preserve">- Đếm tự động :
+
+
+======== FILE: 5. M_u_T_ng h_p theo d_i tai n_n giao th_ng.docx paras=65 ========
+1: MẪU 5: TỔNG HỢP THEO DÕI TAI NẠN GIAO THÔNG
+2: 1. Mẫu bìa
+3: CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAMĐộc lập - Tự do - Hạnh phúc ---------------
+4: TỔNG HỢP THEO DÕI TAI NẠN GIAO THÔNG
+5: Nhà thầu quản lý, bảo dưỡng công trình đường bộ ............................................
+6: Lý trình: Km …....................... QL.............
+7: Bắt đầu ngày: ......................./.................../................................
+8: Kết thúc ngày: ..................../..................../..............................
+9: ..........., năm 20 .......
+10: Báo cáo tổng hợp tai nạn giao thông đường bộ hằng tháng .......
+11: (Bảng C.1 – TCVN 14182:2024)
+12: Mẫu 5
+13: TT
+14: TNGT đường bộ (vụ)
+15: Nguyên nhân xảy ra (theo kết luận của CA)
+16: Thiệt hại
+17: Ghi chú
+18: Tên đường
+19: Vị trí, lý trình
+20: Tổng số vụ xảy ra
+21: Do đường
+22: Do người
+23: Do phương tiện
+24: Số người
+25: Giá trị (triệu đồng)
+26: Chết
+27: Bị thương
+28: Cầu, đường
+29: Phương tiện
+30: Nhận xét và kiến nghị đối với các vị trí hay xảy ra TNGT: ……………………………………………….…………………………………………………………………..……………………………………………………………….……………………………………………………..………………………….
+31: …..……ngày…. tháng … năm …….….
+32: Đại diện đơn vị
+33: Báo cáo tổng hợp tai nạn giao thông đường bộ 6 tháng/cả năm .......
+34: (Bảng C.2 – TCVN 14182:2024)
+35: Mẫu 5
+36: STT
+37: Quốc lộ
+38: Số người chết
+39: Số người bị thương
+40: Số phương tiện hư hỏng
+41: Ghi chú
+42: Nhận xét và kiến nghị đối với các vị trí hay xảy ra TNGT: ……………….……………………………………………………………………………………………………… …………………….………………………………………………………………………………………………… …………………….………………………………………………………………………………………………… ……………………….………………………………………………………………………………………………
+43: ……. .. ngày…. tháng … năm …….
+44: Đại diện đơn vị
+45: BẢNG THEO DÕI ĐIỂM HAY XẢY RA TẠN NẠN GIAO THÔNG; ĐIỂM TIỀM ẨN TAI NẠN GIAO THÔNG
+46: Mẫu 5
+47: TT
+48: Tên đường
+49: Lý trình
+50: Địa danh
+51: TNGT trong 12 tháng
+52: Đánh giá
+53: Mô tả hiện trạng
+54: Xử lý sơ bộ
+55: Biện phạm pháp khắc phục
+56: Theo dõi quá trình xử lý
+57: Ghi chú
+58: Số vụ
+59: Số người chết
+60: Số người bị thương
+61: Tình trạng nền, mặt đường
+62: Yếu tố hình học
+63: Hệ thống ATGT
+64: ……. .. ngày…. tháng … năm …….
+65: Đại diện đơn vị
+
+
+======== FILE: 6. M_u_Qu_n l_ c_u.docx paras=77 ========
+1: MẪU 6: QUẢN LÝ CẦU (HẦM; CÔNG TRÌNH PHÒNG HỘ)
+2: 1. Mẫu bìa
+3: CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAMĐộc lập - Tự do - Hạnh phúc ---------------
+4: HỒ SƠ
+5: QUẢN LÝ CẦU (HẦM)
+6: Nhà thầu quản lý, bảo dưỡng công trình đường bộ ............................................
+7: Tên cầu ……………………………………………………
+8: Lý trình: Km …....................... QL.............
+9: ..........., năm 20 .......
+10: MẪU 6
+11: Lý lịch cầu
+12: MẪU 6
+13: ………. , ngày ....... tháng........năm 20….
+14: NHÀ THẦU QL, BDCTĐB …
+15: PHIẾU KIỂM TRA CẦU
+16: Tên cầu:
+17: Lý trình:
+18: Vượt qua:
+19: Quốc lộ:
+20: Địa phận địa chính:
+21: T/T
+22: Bộ phận kiểm tra
+23: Mô tả hư hỏng
+24: Kiến nghị xử lý (khối lượng)
+25: Mức độ ưu tiên
+26: Hình ảnh
+27: Ghi chú
+28: 1
+29: Biển báo
+30: 2
+31: 10m đường đầu cầu (bao gồm cả: kè bảo vệ mái, cọc tiêu đầu cầu, hoặc tường phòng vệ mềm)
+32: 3
+33: Hệ thống chiếu sáng
+34: 4
+35: Khe co giãn
+36: 5
+37: Mặt cầu, sơn phân làn
+38: 6
+39: Hệ thoát nước mặt cầu
+40: 7
+41: Lan can tay vịn, gờ chắn xe, lề người đi bộ
+42: 8
+43: Mố
+44: 9
+45: Tứ nón mố
+46: 10
+47: Kè hướng dòng, thanh thải dòng chảy ( nếu có).
+48: 11
+49: Trụ ( bao gồm cả phần chống và trôi)
+50: 12
+51: Gối cầu (cao su, thép và các dạng khác)
+52: 13
+53: Bản mặt cầu
+54: 14
+55: Dầm chủ (BT,BTDUL, Thép và các dạng khác)
+56: 15
+57: Dầm ngang ( Hệ liên kết ngang)
+58: 16
+59: Hệ liên kết dọc ( trên, dưới)
+60: 17
+61: Vòm ( nếu có )
+62: 18
+63: Biển báo, đèn tín hiệu đường sông (nếu có)
+64: 19
+65: Hành lang
+66: 20
+67: Thiết bị treo, bám vào cầu
+68: Mô tả hư hỏng: Ghi tình trạng của bộ phận kiểm tra. - Nếu không hư hỏng ghi không hư hỏng. - Nếu bộ phận không có thì để trống.- Hành lang : Ghi bị lấn chiếm hay không.- Thiết bị treo, bám vào cầu: Ghi loại thiết bị như cáp quang, đường nước mới phát
+69: Kiến nghị xử lý: Nếu bị hư hỏng kiến nghị cách xử lý có kích thước kèm theo khối lượng.
+70: Mức độ ưu tiên:- Làm vào quý - Làm trước mùa mưa bão - Làm ngay.Làm vào quý
+71: Ghi chú: Bộ phận nào không nhìn được bằng ống nhòm vì xa, trụ cầu hoặc mố qua cao, vướng sông....ghi vào phần ghi chú.
+72: Sơ họa hư hỏng
+73: Đơn vị quản lý đường bộ cấp cơ sở
+74: Nhà thầu thực hiện BDTXĐB
+75: Văn phòng QLĐB ....................
+76: Phòng QLBTĐB
+77: Tuần kiểm viên
+
+
+======== FILE: 7. M_u_Qu_n l_ h_nh lang + GPTC + D_ _n.docx paras=38 ========
+1: MẪU 7: SỔ QUẢN LÝ HÀNH LANG AN TOÀN ĐƯỜNG BỘ; GIẤY PHÉP THI CÔNG VÀ DỰ ÁN
+2: 1. Mẫu bìa
+3: CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAMĐộc lập - Tự do - Hạnh phúc ---------------
+4: SỔ
+5: QUẢN LÝ HÀNH LANG AN TOÀN ĐƯỜNG BỘ,
+6: GIẤY PHÉP THI CÔNG VÀ DỰ ÁN
+7: Nhà thầu quản lý bảo dưỡng công trình đường bộ ............................................
+8: Từ Km …....................... đến Km .......................... QL.............
+9: Bắt đầu ngày: ......................./.................../................................
+10: Kết thúc ngày: ..................../..................../..............................
+11: ..........., năm 20 .......
+12: SỔ QUẢN LÝ HÀNH LANG AN TOÀN ĐƯỜNG BỘ; GIẤY PHÉP THI CÔNG VÀ DỰ ÁN
+13: Mẫu 7
+14: TT
+15: VI PHẠM HÀNH LANG AN TOÀN ĐƯỜNG BỘ
+16: Ngày tháng năm
+17: Lý trình
+18: Địa phận
+19: Tình trạng vi phạm
+20: Tổ chức vi phạm
+21: Biên bản làm việc của Hạt (xí nghiệp)
+22: Biên bản làm việc của xã (nếu có)
+23: Biên bản vi phạm hành chính của Văn phòng
+24: Hiện trạng
+25: Xác nhận đơn vị
+26: SỔ THEO DÕI GIẤY PHÉP THI CÔNG VÀ DỰ ÁN
+27: TT
+28: Mã GPTC/Dự án
+29: Số, ngày tháng giấy phép
+30: Đơn vị cấp
+31: Chủ đầu tư
+32: Đơn vị QLDA
+33: Đơn vị thi công
+34: Tên công trình, hạng mục công trình/Dự án
+35: Lý trình
+36: Thời hạn thi công
+37: Ngày gia hạn GPTC/Dự án
+38: Tình hình thực hiện
+
+
+======== FILE: 8. Ghi ch_p k_t qu_ b_o d__ng th__ng xuy_n.docx paras=22 ========
+1: MẪU 8: GHI CHÉP KẾT QUẢ BẢO DƯỠNG THƯỜNG XUYÊN
+2: GHI CHÉP KẾT QUẢ BẢO DƯỠNG THƯỜNG XUYÊN: Theo Mẫu số 2 Phụ lục IV Thông tư số 41/2024/TT-BGTVT ngày 15 tháng 11 năm 2024 của Bộ Giao thông vận tải (nay là Bộ Xây dựng)
+3: 1. Mẫu bìa
+4: CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAMĐộc lập - Tự do - Hạnh phúc ---------------
+5: GHI CHÉP KẾT QUẢ BẢO DƯỠNG THƯỜNG XUYÊN
+6: TUYẾN ĐƯỜNG … TỪ KM … ĐẾN KM
+7: Tên nhà thầu ................................................
+8: Văn phòng QLĐB …….
+9: Khu QLĐB .............................................................
+10: Bắt đầu ngày: ......................./.................../................................
+11: Hết quyển ngày: ..................../..................../..............................
+12: ..........., năm 20 .......
+13: MẪU 8
+14: 2. Nội dung ghi chép:
+15: Số thứ tự
+16: Công việc thực hiện
+17: Ghi lý trình, vị trí công việc được thực hiện
+18: Tóm tắt giải pháp thực hiện
+19: Kết quả chủ yếu
+20: Ghi chú
+21: 1
+22: 2
+
+
+======== FILE: 9. M_u_S_ qu_n l_ ITS.docx paras=25 ========
+1: MẪU 9: SỔ QUẢN LÝ, VẬN HÀNH VÀ BẢO TRÌ HỆ THỐNG ITS/ETC/KSTTX
+2: 1. Mẫu bìa
+3: CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAMĐộc lập - Tự do - Hạnh phúc ---------------
+4: SỔ QUẢN LÝ, VẬN HÀNH VÀ BẢO TRÌ HỆ THỐNG ITS/ETC/KSTTX
+5: Nhà thầu quản lý, bảo dưỡng công trình đường bộ ............................................
+6: Lý trình: Km …....................... QL.............
+7: Bắt đầu ngày: ......................./.................../................................
+8: Kết thúc ngày: ..................../..................../..............................
+9: ..........., năm 20 .......
+10: SỔ QUẢN LÝ, VẬN HÀNH VÀ BẢO TRÌ HỆ THỐNG ITS/ETC/KSTTX
+11: STT
+12: Ngày, giờ
+13: Ca trực
+14: Người trực
+15: Tình trạng hệ thống
+16: Thiết bị/hạng mục bất thường
+17: Nội dung xử lý/vận hành
+18: Kết quả
+19: Kiến nghị, đề xuất
+20: Ký xác nhận
+21: 1
+22: 2
+23: 3
+24: 4
+25: 5

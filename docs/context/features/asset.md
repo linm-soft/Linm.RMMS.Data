@@ -48,6 +48,8 @@
 
 **Entity:** `RoadAssetEntity` · table `rmms_road_assets` · flat scalars · **SHARE=tenant_keep** · Migration `Schema_RmmsRoadAssets`.
 
+**Tuyến (HARD):** **không** FK Guid. Ba cột string `Route` · `RouteNamed` · `RouteSegment` = slug dump (`NormCatalogCode`) khớp `RoadRoute.Code` — peer [`road-route.md`](road-route.md) · [`import-gov-asset-fields.md`](import-gov-asset-fields.md) §1. Import dump: `Code` = prefix + `vidagis_id`. POST form mới: IdCode `TS-yyyyMMdd-nnn` — **không** dùng cho hàng dump.
+
 **Planned (context roadmap — not this pack):**
 
 | Method | Path | Mô tả |

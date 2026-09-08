@@ -1,0 +1,357 @@
+# SA — Solution discovery — csdl-bieu-13 (CSDL Biểu 13 — Tường chống ồn)
+
+> Status: **confirmed** (`solution_confirm=approve` · autoApprove=ON · `task_66b443d8`)  
+> Standards: api-endpoint · bff-api-structure · company-field · database-migration · api-permission-gate · repo-path-guard · **no-parent-json-field** · **ssot-no-duplicate** · **sa-implement-gates** · **form-type-task-pack** (`list`) · **filter-bar-layout-hard** · **slideout-form-layout**  
+> Requires: Design **confirmed** · controlHint + real-data §B · **cấm** re-scan demo · **cấm** invent API  
+> **Cấm:** Write MFE/native · ERP.* · `api/v1/so-ts/*` · `api/v1/infra/*` · `api/v1/rmms/*` · parent `*Json` · yarn build/e2e/start:std · Step 4b/migration ở role SA · merge peer `so-ts-noise-barrier` / `road-assets`
+
+| Field | Value |
+|-------|-------|
+| feature | `csdl-bieu-13` |
+| title | CSDL Biểu 13 — Tường chống ồn |
+| this role | `sa` · `/agent-sa` |
+| changeScope | **`new_page`** |
+| packKind | **`list`** (Kind **B** A–D+F · Kind **D** Slideout 2col · section Vị trí tuyến + Kích thước tường) |
+| status | `confirmed` |
+| design_confirm | approve (`task_ba6fcf2c`) |
+| solution_confirm | **approve** (autoApprove=ON · `task_66b443d8`) |
+| domain_map | **Asset** (`csdl-bieu-13` → `asset` · **T-DM-01** add slug — live map có `csdl-bieu-01`…`12` · `csdl-so-sach` · **thiếu `13`**) |
+| sa_tz_gate | **`tz_na`** |
+| sa_xco_gate | **`xco_get_only`** |
+| sa_shared_table | **`share_tenant`** |
+| be_repo_confirm | `Linm.RMMS.WebService` |
+| ui_repo_confirm | `Linm.Web.RMMS.Asset` |
+| productRoot | `D:/AI-QLBD/Linm.RMMS.Data` |
+| mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Asset` |
+| mfeStdRoute | `/csdl-bieu-13` |
+| mfeStdUrl | `http://localhost:9301/csdl-bieu-13` |
+| hubDeepLink | `/so-ts/csdl-so-sach?resource=noise-barriers` |
+| peerSoTs | `so-ts-noise-barrier` · **cite only** · Q-PEER-LINK **none_p1** · **cấm** merge · **GAP-CSDL-CUC-11** |
+| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · prefix **live** `api/v1/asset/csdl-records` |
+| domain | **Asset** |
+| resource | `noise-barriers` |
+| formNo | `13` |
+| columns | `13` · section vị trí + kích thước |
+| IdCode | `TC-yyyyMMdd-nnnn` (BE generate · prefix `TC` · **cấm** Guid) |
+| catalogKind | `noise-barriers` (typed UiSchema · subset list) |
+| controlHint | `specs/_data-analy/features/csdl-bieu-13-control-hint.md` |
+| realData | `specs/_data-analy/features/csdl-bieu-13-real-data.md` |
+| design | `specs/csdl-bieu-13/ui/design.md` (confirmed) |
+| contentHashPriorDataAnaly | `sha256:39a45de0a9b834c65373e6c20d1664ab43144ff60d97bae4f0d886ad09d91e3a` |
+| headerFingerprintPrior | `sha256:31dbc83200b511c9d61333b1cdb94e2880778980a3b21970be414e926db29008` |
+| analyReuse | **hash skip** — **cấm** re-scan demo / invent API |
+| autoApprove | **ON** |
+| e2eQa | **ON** (queued — chỉ `/agent-qa*`) |
+| taskId | `task_66b443d8` |
+| priorTask | `task_ba6fcf2c` (design completed) |
+| updatedAt | `2026-09-05T14:20:00.000Z` |
+| versionGate | `aligned` (contentHash match prior compact) |
+
+## § Delta Current vs New (`new_page`)
+
+| Area | Current live (hub generic) | New (Biểu 13 typed) | Action |
+|------|----------------------------|---------------------|--------|
+| Form | 3 ô `detail*` polymorphic | Typed **13 cột** · Kind D Slideout · section Vị trí + Kích thước | **GAP-BIEU13-TYPED-01** |
+| Persist | shell `detail*` only | shell + **Schema_CsdlBieu13** 1:1 · **cấm** `DetailJson` · **cấm** 2 entity | migration Dev |
+| Dim | missing / dump | `lengthM` · `heightM` · `areaM2` Number · **manual** area | **GAP-BIEU13-DIM-01** · Q-AREA-DERIVE |
+| barrierType | — | **no_type_keep_13** · **cấm** cột ngoài 13 | Q-BARRIER-TYPE |
+| side | free | LOOKUP L/R/C/Both | **GAP-BIEU13-SIDE-01** |
+| List cols | generic | **subset** shared + lengthM/heightM/areaM2 + status | Q-LIST-COLS |
+| Route | hub-only `?resource=` | **alias_now** `/csdl-bieu-13` + hub NEW card | **GAP-BIEU13-ROUTE-01** · **GAP-BIEU13-HUB-01** |
+| API prefix | `api/v1/asset/csdl-records` | **giữ** · widen typed DTO | keep |
+| road | Text / roadName | SearchInput `road-route` · `roadCode` | **GAP-CSDL-ROAD-01** |
+| province | FE LOOKUP_STATIC | **keep_static** P1 · master P2 | Q-PROV |
+| manageUnit | Text | Text P1 · SearchInput org P2 | **GAP-CSDL-ORG-01** DEFER |
+| Import/XLS | stub | OUT pack Biểu 13 · skip-bridge | **GAP-CSDL-XLS-01** |
+| Peer Sổ TS | `so-ts-noise-barrier` | cite only · **none_p1** · **cấm** merge | **GAP-CSDL-CUC-11** |
+| DOMAIN-MAP | thiếu slug `13` | add `csdl-bieu-13`→Asset | **GAP-BIEU13-DMAP-01** · Q-DMAP **add_now** |
+| Map | none | none · gis deep-link only | **cấm** invent |
+| Title | CTX | ctx_tuong «Biểu 13 — Tường chống ồn» | Q-TITLE |
+
+**Không đổi:** BFF proxy · soft-delete · tenant `CompanyCode` · pageSize 50/100/200/500 · LeaveConfirm · filter-bar-layout-hard · IdCode prefix `TC` · **cấm** ERP.*.
+
+---
+
+## 1. Ownership
+
+| Layer | Repo / module |
+|-------|---------------|
+| MFE | `Linm.Web.RMMS.Asset` · route alias `/csdl-bieu-13` · hub reuse `CsdlSoSachPage` entry + **NEW card** formNo 13 |
+| **BackendRoot** | `D:/AI-QLBD/Linm.RMMS.WebService` |
+| API domain | **Asset** — `api/src/RMMS.Service.Api/Domains/Asset/` |
+| Controller | `CsdlCatalogRecordsController` · `[Route("api/v1/asset/csdl-records")]` · **giữ** |
+| Service | `CsdlCatalogService` · branch `resource=noise-barriers` → typed map (prefix tuple `TC` / «Tường chống ồn») |
+| Models / DTO | `CsdlCatalogDtos.cs` + **`CsdlBieu13Dtos.cs`** (typed create/update/detail) |
+| Persistence shell | `CsdlCatalogRecordEntity` · `rmms_csdl_catalog_records` |
+| Persistence typed | **`CsdlBieu13Entity`** · table **`rmms_csdl_bieu13`** · FK `CatalogRecordId` 1:1 · **cấm** 2 entity · **cấm** merge entity Sổ TS |
+| Schema name | **`Schema_CsdlBieu13`** (migration Dev / Step 4b — **không** chạy ở SA) |
+| BFF | `CsdlCatalogRecordsBffController` · **proxy only = yes** |
+| FE service | `services/csdlSoSach/endpoint.ts` `BASE=/asset/csdl-records` · typed page **reuse** BASE |
+| DOMAIN-MAP | add row `csdl-bieu-13` → Asset (**T-DM-01**) |
+| Lookup | Integration `GET /integration/road-routes/search` |
+
+**Cấm** `ERP.Service.*` · invent `api/v1/infra/*` · invent parallel host · merge `so-ts-noise-barrier` · bind biểu Cục vào `road-assets`.
+
+### Route / domain
+
+| Surface | Path |
+|---------|------|
+| UI alias | `/csdl-bieu-13` |
+| UI hub | `/so-ts/csdl-so-sach?resource=noise-barriers` |
+| Peer Sổ TS | `so-ts-noise-barrier` · cite only · **none_p1** |
+| API | `api/v1/asset/csdl-records` |
+| BFF | `web-bff/api/v1/asset/csdl-records` |
+| FE BASE | `/asset/csdl-records` |
+| road-route | `GET /integration/road-routes/search` |
+
+---
+
+## Architecture (repo SSOT)
+
+| Layer | Choice |
+|-------|--------|
+| BackendRoot | `Linm.RMMS.WebService` · be_repo_confirm |
+| Domain | **Asset** / `asset` |
+| API host | `Domains/Asset/` · widen existing controller |
+| BFF | proxy only = yes |
+| MFE | `Linm.Web.RMMS.Asset` · new list page alias + typed Slideout · hub NEW card |
+| Persist | shell + typed child 1:1 · LengthM/HeightM/AreaM2 **flat columns** · **cấm** parent `*Json` · **cấm** chỉ 3 ô detail* · **cấm** 2 entity |
+| Auth perm | `asset.csdl-records.read\|create\|update\|delete` (reuse hub · Auth debt) |
+| Out of pack | XLS import/export OUT · org SearchInput P2 · map canvas · Step 4b @ SA · peer toolbar link |
+
+## SSOT / anti-duplicate
+
+| Concern | Package / rule | Note |
+|---------|----------------|------|
+| UI | `@linm-soft-org/linm-web-common-components` | LinErpListFilterBar · LinCatalogDataGrid · LeaveConfirmModal · SearchInput — **cấm** local Lin* clone |
+| HTTP | `apiClient` SSOT | BFF only |
+| Persist | `no-parent-json-field` | typed table · **không** nhét 13 cột vào DetailSpec JSON |
+| BFF | proxy only | no business logic |
+| Filter | `filter-bar-layout-hard` | 1 hàng wrap · 🔍 cụm phải · **cấm** nút Tìm riêng |
+| Form | `slideout-form-layout` | footer_actions_only · `data-form-cols=2` · section kích thước · **cấm** Full-page |
+
+## Implement gates (confirm) — RECORDED
+
+| Gate | Decision | Endpoints / surfaces | Note |
+|------|----------|----------------------|------|
+| TZ | **`tz_na`** | **không** filter `fromDate`/`toDate` business · UpdatedAt display-only | PO inventory không có date range |
+| XCO | **`xco_get_only`** | GET `/{id}` · View Slideout | AllowedCompanyIds |
+| SHARE | **`share_tenant`** | shell + `CsdlBieu13Entity` : tenant via parent | `CompanyCode` · **không** Type A master |
+
+AskQuestion (autoApprove=ON · agent confirm): `sa_tz_gate=tz_na` · `sa_xco_gate=xco_get_only` · `sa_shared_table=share_tenant` · `2026-09-05T14:20:00.000Z`
+
+---
+
+## FormType pack (`list`)
+
+| Surface | Pattern | FormMode | API |
+|---------|---------|----------|-----|
+| S-LIST | Kind B A–D+F+H · **no peer toolbar** | list | API-01 list `?resource=noise-barriers` |
+| S-FORM-CREATE | Kind D Slideout Z1–Z3 · Z2 Kích thước tường | create | API-03 POST |
+| S-FORM-EDIT | Kind D Slideout | edit | API-02 GET + API-04 PUT |
+| S-FORM-VIEW | Kind D Slideout | view | API-02 GET |
+| S-FORM-COPY | Kind D Slideout | create | API-02 GET + API-03 POST (clear id · new TC- code) |
+| S-ACT-DELETE | Confirm modal | — | API-05 DELETE soft |
+| S-HUB-ENTRY | hub NEW card formNo 13 | — | same list API · QS resource |
+| S-SKIP-PEER | — | — | cite `so-ts-noise-barrier` · **cấm** merge / toolbar P1 |
+| S-SKIP-MAP | toolbar → gis | — | deep-link only · **cấm** invent canvas |
+| Lookup road | SearchInput | filter + form | API-LKP-01 |
+
+### FormMode ↔ API (REQUIRED)
+
+| FormMode | Load | Save / action | Notes |
+|----------|------|---------------|-------|
+| list | GET list `?resource=noise-barriers` + filters | — | page=1 on filter change · subset cols |
+| create | empty typed form · section kích thước | POST body `resource` + typed fields | IdCode `TC-` BE · Line kmFrom/kmTo · length/height/area ≥0 · area **manual** |
+| edit | GET `/{id}` (shell+typed join) | PUT `/{id}` | replace typed row 1:1 |
+| view | GET `/{id}` | — | readOnly · **không** disabled xám |
+| copy | GET → clear id/code | POST | new IdCode |
+| delete | — | DELETE soft | confirm · reload list |
+
+### List filter query keys (`LinErpListFilterBar`)
+
+| Query key | UI control | Source |
+|-----------|------------|--------|
+| `resource` | const / QS | required `noise-barriers` |
+| `search` | SearchTextInput | mã · đường · notes |
+| `province` | Dropdown LOOKUP_STATIC | FE PROVINCES P1 |
+| `status` | Dropdown LOOKUP_STATIC | tot/tb/kem/hong |
+| `roadCode` | SearchInput road-route | Integration search |
+| `kmFrom` / `kmTo` | Number | Line range filter |
+| `side` | Dropdown LOOKUP_STATIC | L / R / C / Both |
+| `page` / `pageSize` | pagination | 50/100/200/500 |
+
+---
+
+## 2. Form data analysis (dim · shell)
+
+### Header (13) — SSOT
+
+`code|roadCode|roadName|province|kmFrom|kmTo|side|lengthM|heightM|areaM2|status|manageUnit|notes`
+
+### Shell fields (catalog record)
+
+| uiField | DB column (shell) | Type | Notes |
+|---------|-------------------|------|-------|
+| `code` | `Code` | `varchar(32)` | IdCode `TC-yyyyMMdd-nnnn` BE · Text ro |
+| `roadCode` | `RoadCode` | `varchar(32)` | SearchInput road-route |
+| `roadName` | `RoadName` | `nvarchar(256)` | display from LKP |
+| `province` | `Province` | `varchar(16)` | LOOKUP_STATIC keep_static P1 |
+| `kmFrom` / `kmTo` | `KmFrom` / `KmTo` | `decimal(10,3)` | Line Number |
+| `side` | `Side` | `varchar(8)` | L/R/C/Both · **cấm** free-text |
+| `status` | `Status` | `varchar(16)` | tot/tb/kem/hong |
+| `manageUnit` | `ManageUnit` | `nvarchar(256)` | Text P1 · org P2 |
+| `notes` | `Notes` | `nvarchar(max)` | Textarea |
+| `resource` | `Resource` | const | `noise-barriers` |
+| `companyCode` | `CompanyCode` | tenant | share_tenant |
+| `isActive` | `IsActive` | soft-delete | — |
+| `updatedAt` | `UpdatedAt` | datetime | display-only |
+
+### Typed — section Kích thước tường (Dim*)
+
+| uiField | DB column | Type | Rule |
+|---------|-----------|------|------|
+| `lengthM` | `LengthM` | `decimal(18,2)` NOT NULL DEFAULT 0 | Number ≥0 |
+| `heightM` | `HeightM` | `decimal(18,2)` NOT NULL DEFAULT 0 | Number ≥0 |
+| `areaM2` | `AreaM2` | `decimal(18,2)` NOT NULL DEFAULT 0 | Number ≥0 · **manual** · **cấm** auto length×height |
+
+**Validation (BE):** create/update require `lengthM ≥ 0` · `heightM ≥ 0` · `areaM2 ≥ 0`. Business empty reject 422 khi cả ba = 0 (không có kích thước tường).
+
+**Cấm:** invent `barrierType` · parent `*Json` · Guid IdCode · merge so-ts-noise-barrier entity · auto-derive area.
+
+### List subset cols (Q-LIST-COLS)
+
+`code` · `roadCode`/`roadName` · `province` · `kmFrom`–`kmTo` · `side` · `lengthM` · `heightM` · `areaM2` · `status`
+
+### Empty / error
+
+| Case | UX |
+|------|-----|
+| Empty list | «Chưa có tường chống ồn» · CTA Tạo mới |
+| 422 thiếu resource / dim fail | toast |
+| 404 detail | đóng slideout · toast |
+| Soft-delete | row biến mất · refresh |
+
+---
+
+## 3. API contracts (giữ prefix · widen typed)
+
+| ID | Method | Path | Body / query |
+|----|--------|------|--------------|
+| API-01 | GET | `/api/v1/asset/csdl-records` | `?resource=noise-barriers` + filters · page/pageSize |
+| API-02 | GET | `/api/v1/asset/csdl-records/{id}` | shell + typed join |
+| API-03 | POST | `/api/v1/asset/csdl-records` | `resource` + shell + typed 13 |
+| API-04 | PUT | `/api/v1/asset/csdl-records/{id}` | replace typed 1:1 |
+| API-05 | DELETE | `/api/v1/asset/csdl-records/{id}` | soft |
+| API-LKP-01 | GET | `/api/v1/integration/road-routes/search` | SearchInput |
+| BFF | mirror | `web-bff/api/v1/asset/csdl-records` | proxy only |
+
+DTO: `CsdlBieu13CreateDto` / `UpdateDto` / `DetailDto` — camelCase uiField map 1:1 DB Pascal (`LengthM`↔`lengthM` · `HeightM`↔`heightM` · `AreaM2`↔`areaM2`).
+
+---
+
+## 4. Persistence / Schema_CsdlBieu13
+
+| Item | Spec |
+|------|------|
+| Table | `rmms_csdl_bieu13` |
+| Entity | `CsdlBieu13Entity` |
+| FK | `CatalogRecordId` UNIQUE → `rmms_csdl_catalog_records.Id` |
+| Columns | LengthM · HeightM · AreaM2 · audit via shell |
+| Migration | Dev / Step 4b only · name `Schema_CsdlBieu13` |
+| Index | `(CatalogRecordId)` unique · list filter via shell indexes |
+
+**Cấm** `DetailJson` / `*Json` trên parent · **cấm** chạy migration ở SA.
+
+---
+
+## 5. FE / UiSchema
+
+| Surface | Spec |
+|---------|------|
+| Route alias | `/csdl-bieu-13` → typed list page (reuse hub services BASE) |
+| Hub | NEW card `?resource=noise-barriers` · formNo 13 |
+| UiSchema catalogKind | `noise-barriers` typed 13 · section kích thước |
+| Form | Kind D Slideout · `data-form-cols=2` · Z1 shell vị trí · Z2 Kích thước tường · Z3 status/notes |
+| Filter bar | HARD · search must work · **cấm** nút Tìm |
+| Peer | cite only · **none_p1** · **cấm** merge toolbar |
+| Map | none |
+
+---
+
+## 6. Tasks (ids → TL)
+
+| ID | Owner | One-liner |
+|----|-------|-----------|
+| T-DM-01 | Dev/BE | DOMAIN-MAP add `csdl-bieu-13` → Asset |
+| T-BE-01 | Dev | `CsdlBieu13Entity` + `Schema_CsdlBieu13` migration |
+| T-BE-02 | Dev | `CsdlBieu13Dtos` create/update/detail |
+| T-BE-03 | Dev | `CsdlCatalogService` branch `noise-barriers` typed map |
+| T-BE-04 | Dev | IdCode `TC-` generate · validation dim ≥0 · reject all-zero |
+| T-BE-05 | Dev | List subset projection + join typed |
+| T-BE-06 | Dev | Soft-delete + tenant share_tenant |
+| T-BFF-01 | Dev | BFF proxy widen (no logic) |
+| T-FE-01 | Dev | Route alias `/csdl-bieu-13` |
+| T-FE-02 | Dev | Kind B list + filter-bar HARD |
+| T-FE-03 | Dev | Kind D Slideout 13 · section kích thước · LeaveConfirm |
+| T-FE-04 | Dev | SearchInput road-route · static province/status/side |
+| T-FE-05 | Dev | Empty copy VN · hub NEW card formNo 13 · **cấm** peer merge |
+| T-FE-06 | Dev | FormMode wire list/C/E/V/Copy/Delete |
+| T-OUT-01 | Dev | XLS import/export OUT stub |
+| T-OUT-02 | Dev | org SearchInput P2 DEFER |
+
+---
+
+## 7. PO decisions locked (no reopen)
+
+| Q | Decision |
+|---|----------|
+| Q-ROUTE | alias_now |
+| Q-PROV | keep_static |
+| Q-BARRIER-TYPE | no_type_keep_13 |
+| Q-AREA-DERIVE | manual |
+| Q-PREFIX | TC |
+| Q-LIST-COLS | subset |
+| Q-TITLE | ctx_tuong |
+| Q-DMAP | add_now |
+| Q-PEER-LINK | none_p1 |
+
+## Open questions
+
+- **none** — solution_confirm approve (autoApprove ON)
+
+## DoR SA — PASS
+
+- [x] Design confirmed + compact
+- [x] FormMode↔API
+- [x] Entity + Schema_CsdlBieu13 (spec only)
+- [x] BFF proxy vs API
+- [x] Gates tz/xco/share recorded
+- [x] solution_confirm approve
+- [x] **cấm** Write MFE · **cấm** Step 4b · **cấm** ERP.* · **cấm** merge so-ts-noise-barrier
+- [x] handoff compact `handoff/sa-compact.md`
+
+## Next
+
+| Role | Need |
+|------|------|
+| **TL** | `task/csdl-bieu-13.md` · T-* · gates |
+| Dev | Schema_CsdlBieu13 · typed DTO · alias page · Slideout 13 · hub NEW card |
+| QA | e2e queued `/agent-qa*` only |
+
+## Version meta
+
+| Field | Value |
+|-------|-------|
+| skillId | agent-sa |
+| skillVersion | 2026.08.24.01 |
+| schemaVersion | 1 |
+| workflowVersion | 2026.09.01.02 |
+| rulesVersion | 2026.08.31.2 |
+| contentHashPrior | `sha256:39a45de0a9b834c65373e6c20d1664ab43144ff60d97bae4f0d886ad09d91e3a` |
+| headerFingerprintPrior | `sha256:31dbc83200b511c9d61333b1cdb94e2880778980a3b21970be414e926db29008` |
+| generatedAt | 2026-09-05T14:20:00.000Z |
+| versionGate | aligned |
+| taskId | task_66b443d8 |
+| packKind | list |
+| changeScope | new_page |

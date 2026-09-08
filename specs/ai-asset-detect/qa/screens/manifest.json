@@ -1,0 +1,42 @@
+{
+  "url": "http://localhost:9303/ai-vision/ai-asset-detect",
+  "urlVnWorking": "http://localhost:9303/ai-kd/phat-hien-ts",
+  "testidActual": "rmms-ai-asset-detect-list-page",
+  "testidPacketGuess": "rmms-ai-asset-detect-list",
+  "capturedAt": "2026-09-06T17:38:36.280Z",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "FAIL",
+      "screenshot": "S0.png",
+      "url": "http://localhost:9303/ai-vision/ai-asset-detect",
+      "error": "page.waitForSelector: Timeout 12000ms exceeded.\nCall log:\n  - waiting for locator('[data-testid=\"rmms-ai-asset-detect-list-page\"]') to be visible\n"
+    },
+    {
+      "id": "S1",
+      "result": "FAIL",
+      "screenshot": "S1.png",
+      "url": "http://localhost:9303/ai-vision/ai-asset-detect",
+      "error": "page.waitForSelector: Timeout 12000ms exceeded.\nCall log:\n  - waiting for locator('[data-testid=\"rmms-ai-asset-detect-list-page\"]') to be visible\n"
+    },
+    {
+      "id": "QA-20",
+      "result": "FAIL",
+      "screenshot": "QA-20.png",
+      "url": "http://localhost:9303/ai-vision/ai-asset-detect",
+      "error": "page.waitForSelector: Timeout 12000ms exceeded.\nCall log:\n  - waiting for locator('[data-testid=\"rmms-ai-asset-detect-list-page\"]') to be visible\n"
+    },
+    {
+      "id": "S0-vn",
+      "result": "PASS",
+      "screenshot": "S0-vn.png",
+      "url": "http://localhost:9303/ai-kd/phat-hien-ts"
+    }
+  ],
+  "ok": false,
+  "method": "e2e runtime · yarn start:std + docker compose + playwright (local chromium-1187)",
+  "gaps": [
+    "GAP-QA-STD-01: mfeStdUrl /ai-vision/ai-asset-detect → SimpleNotFoundPage (Route missing; live only /ai-kd/phat-hien-ts)",
+    "GAP-QA-E2E-01 note: yarn e2e-qa npx playwright install failed (yarn npmrc); capture via AI-AutoCode playwright + existing chrome.exe"
+  ]
+}

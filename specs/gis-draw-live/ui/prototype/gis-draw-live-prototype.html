@@ -3,51 +3,128 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Prototype — Vẽ tài sản live (gis-draw-live)</title>
+  <title>Prototype — Bản đồ tài sản (gis-draw-live)</title>
   <style>
-    :root { --teal:#0d9488; --navy:#1e3a5f; --border:#c5d0dc; --muted:#64748b; }
+    :root { --teal:#0d9488; --navy:#1e3a5f; --border:#c5d0dc; --muted:#64748b; --bg:#f1f5f9; }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { height: 100%; font-family: system-ui, sans-serif; color: #0f172a; background: #f1f5f9; }
+    html, body { height: 100%; font-family: system-ui, sans-serif; color: #0f172a; background: var(--bg); }
     .page { display: flex; flex-direction: column; height: 100%; }
-    .note { background: #ecfdf5; color: #065f46; font-size: 12px; padding: 6px 12px; border-bottom: 1px solid #a7f3d0; }
     .body { display: flex; flex: 1; min-height: 0; }
-    .side { width: 280px; background: #fff; border-right: 1px solid var(--border); padding: 10px 12px; overflow: auto; }
-    .side h3 { font-size: 11px; text-transform: uppercase; color: var(--muted); margin: 10px 0 6px; }
+    .side { width: 320px; background: #fff; border-right: 1px solid var(--border); padding: 10px 12px; overflow: auto; display: flex; flex-direction: column; gap: 8px; }
+    .side h3 { font-size: 11px; text-transform: uppercase; color: var(--muted); margin: 8px 0 6px; letter-spacing: .04em; }
     .tabs { display: flex; border-bottom: 1px solid var(--border); margin: -10px -12px 8px; }
-    .tabs span { flex: 1; text-align: center; font-size: 11px; font-weight: 700; padding: 8px 4px; color: var(--teal); border-bottom: 2px solid var(--teal); }
+    .tabs span { flex: 1; text-align: center; font-size: 11px; font-weight: 700; padding: 8px 4px; color: var(--muted); }
+    .tabs span.on { color: var(--teal); border-bottom: 2px solid var(--teal); }
     .main { flex: 1; display: flex; flex-direction: column; min-width: 0; min-height: 0; }
     .status { font-size: 12px; color: var(--muted); padding: 6px 10px; background: #fff; border-bottom: 1px solid var(--border); }
-    .map-host { flex: 1; min-height: 0; background: #94a3b8; position: relative; }
-    .map-host em { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: #fff; font-style: normal; font-weight: 700; }
+    .map-host { flex: 1; min-height: 0; background: linear-gradient(160deg, #aad3df 0%, #c5d5c0 42%, #e8e4d4 100%); position: relative; }
+    .map-host .fake-route { position: absolute; left: 12%; top: 38%; width: 76%; height: 0; border-top: 4px solid #1D4ED8; box-shadow: 0 0 0 2px #2563EB; transform: rotate(-8deg); border-radius: 2px; }
+    .map-host .pin { position: absolute; left: 48%; top: 42%; width: 14px; height: 14px; background: #dc2626; border: 2px solid #fff; border-radius: 50%; box-shadow: 0 1px 4px rgba(0,0,0,.35); }
+    .map-host .zoom { position: absolute; left: 10px; top: 10px; display: flex; flex-direction: column; gap: 4px; }
+    .map-host .zoom button { width: 28px; height: 28px; border: 1px solid #cbd5e1; background: #fff; border-radius: 4px; font-weight: 700; }
     .map-bar { display: flex; gap: 8px; align-items: center; padding: 8px 12px; background: #f8fafc; border-top: 1px solid var(--border); font-size: 12px; flex-shrink: 0; }
-    .map-bar button { border: 1px solid #e2e8f0; background: #fff; border-radius: 6px; padding: 5px 10px; font-weight: 700; }
+    .map-bar button { border: 1px solid #e2e8f0; background: #fff; border-radius: 6px; padding: 5px 10px; font-weight: 700; cursor: pointer; }
     .map-bar button.on { background: var(--teal); color: #fff; border-color: var(--teal); }
     label { display: flex; gap: 6px; align-items: center; font-size: 13px; padding: 3px 0; }
+    .props { font-size: 12px; line-height: 1.45; }
+    .props dt { color: var(--muted); font-size: 11px; }
+    .props dd { margin: 0 0 6px; font-weight: 600; }
+    .subtabs { display: flex; gap: 4px; flex-wrap: wrap; margin: 4px 0 8px; }
+    .subtabs button { border: 1px solid #e2e8f0; background: #fff; border-radius: 999px; padding: 4px 10px; font-size: 11px; font-weight: 700; cursor: pointer; }
+    .subtabs button.on { background: #ecfdf5; color: #065f46; border-color: #a7f3d0; }
+    .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+    .gallery .cell { aspect-ratio: 4/3; background: #e2e8f0; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 11px; color: var(--muted); border: 1px dashed #94a3b8; }
+    .empty { font-size: 12px; color: var(--muted); padding: 8px 0; }
+    .kpi { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 4px; }
+    .kpi .stat { background: #f8fafc; border: 1px solid var(--border); border-radius: 8px; padding: 8px; }
+    .kpi .stat b { display: block; font-size: 18px; color: var(--navy); }
+    .kpi .stat span { font-size: 11px; color: var(--muted); }
+    .chips { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px; }
+    .chips i { font-style: normal; font-size: 11px; font-weight: 700; background: #eef2ff; color: #3730a3; border-radius: 999px; padding: 3px 8px; }
+    .popup { position: absolute; left: 52%; top: 28%; width: 220px; background: #fff; border-radius: 8px; box-shadow: 0 8px 24px rgba(15,23,42,.18); padding: 10px 12px; font-size: 12px; border: 1px solid var(--border); }
+    .popup strong { display: block; margin-bottom: 4px; }
+    .section { border-top: 1px solid var(--border); padding-top: 8px; margin-top: 4px; }
   </style>
 </head>
 <body>
-  <div class="page">
-    <div class="note">Kind F · không header Dev/GIS · không toolbar seed · không legend isolate bottom · map flex fill · click TS không auto zoom</div>
+  <div class="page" data-feature="gis-draw-live" data-kind="F" data-form-pattern="full-page-map">
     <div class="body">
-      <aside class="side">
-        <div class="tabs"><span>Lớp</span><span>Chú giải</span><span>Thuộc tính</span><span>Kết quả</span></div>
-        <h3>Loại tài sản (target vẽ)</h3>
-        <label><input type="checkbox" /> Tuyến đường</label>
-        <label><input type="checkbox" /> Biển báo</label>
-        <label><input type="checkbox" /> Cột km</label>
-        <h3>Thuộc tính</h3>
-        <p style="font-size:12px;color:var(--muted)">Click pin trên map → Tên · Mã TS · KM · GPS · Tuyến + 3 tầng tuyến · dumpSpecs loại (gov-vn). <strong>Không</strong> Lưu bản vẽ / Huỷ.</p>
-      </aside>
-      <div class="main">
-        <div class="status">EPSG:4326 · overlay status</div>
-        <div class="map-host"><em>Leaflet.draw · Point / Line / Polygon · live · fill remaining</em></div>
-        <div class="map-bar" role="toolbar" aria-label="Lớp nền bản đồ">
-          <div role="group" aria-label="Lớp nền">
-            <button class="on" data-basemap="default" title="Nền tiêu chuẩn">Tiêu chuẩn</button>
-            <button data-basemap="sat" title="Nền vệ tinh">Vệ tinh</button>
+      <aside class="side" data-zone="Z-SIDE-LAYER">
+        <div class="tabs" role="tablist">
+          <span>Lớp</span>
+          <span>Chú giải</span>
+          <span class="on">Thuộc tính</span>
+          <span>Kết quả</span>
+        </div>
+
+        <div data-zone="Z-PROPS">
+          <h3>Thuộc tính</h3>
+          <dl class="props">
+            <dt>Tên</dt><dd>Biển báo P.127</dd>
+            <dt>Mã TS</dt><dd>BB-QL1A-0127</dd>
+            <dt>KM</dt><dd>Km 127+350</dd>
+            <dt>GPS</dt><dd>21.0285, 105.8542</dd>
+            <dt>Tuyến</dt><dd>QL.1A · đoạn Hà Nội — Ninh Bình</dd>
+          </dl>
+        </div>
+
+        <div class="section" data-zone="Z-PHOTO">
+          <h3>Ảnh tài sản</h3>
+          <div class="subtabs" role="tablist" aria-label="Nguồn ảnh">
+            <button type="button" class="on">Tài sản</button>
+            <button type="button">Tuần kiểm</button>
+            <button type="button">Tuần đường</button>
           </div>
-          <button title="Định vị GPS — phóng vùng quanh vị trí hiện tại và ghim pin" aria-label="Vị trí của tôi">Vị trí của tôi</button>
-          <button title="Phóng full map" aria-label="Phóng full map">▣</button>
+          <div class="gallery" aria-label="Thư viện ảnh">
+            <div class="cell">Ảnh 1</div>
+            <div class="cell">Ảnh 2</div>
+          </div>
+        </div>
+
+        <div class="section" data-zone="Z-XSECT">
+          <h3>Mặt cắt ngang</h3>
+          <p class="empty">Chưa có mặt cắt</p>
+        </div>
+
+        <div class="section" data-zone="Z-KPI">
+          <h3>Báo cáo nhanh tuyến</h3>
+          <div class="kpi">
+            <div class="stat"><b>3</b><span>Sự cố</span></div>
+            <div class="stat"><b>1</b><span>Tu sửa</span></div>
+          </div>
+          <div class="chips" aria-label="Tài sản theo loại">
+            <i>Biển báo 12</i>
+            <i>Cột km 8</i>
+            <i>Cầu 2</i>
+          </div>
+        </div>
+      </aside>
+
+      <div class="main">
+        <div class="status">EPSG:4326 · tuyến · 4 đã ghim</div>
+        <div class="map-host" data-zone="Z-MAP">
+          <div class="zoom" aria-label="Thu phóng">
+            <button type="button" title="Phóng to">+</button>
+            <button type="button" title="Thu nhỏ">−</button>
+          </div>
+          <div class="fake-route" title="Tuyến overlay"></div>
+          <div class="pin" title="Tài sản"></div>
+          <div class="popup" data-zone="Z-LOCATE">
+            <strong>Tên: Vị trí của bạn</strong>
+            <div>GPS: 21.0278, 105.8342</div>
+          </div>
+        </div>
+        <div class="map-bar" role="toolbar" aria-label="Thanh bản đồ" data-zone="Z-MAP-BAR">
+          <div role="group" aria-label="Lớp nền">
+            <button type="button" class="on" title="Nền tiêu chuẩn">Tiêu chuẩn</button>
+            <button type="button" title="Nền vệ tinh">Vệ tinh</button>
+          </div>
+          <div role="group" aria-label="Chế độ tile">
+            <button type="button" class="on">Live</button>
+            <button type="button">Cache</button>
+          </div>
+          <button type="button" title="Định vị GPS" aria-label="Vị trí của tôi">Vị trí của tôi</button>
+          <button type="button" title="Phóng full map" aria-label="Phóng full map">▣</button>
         </div>
       </div>
     </div>

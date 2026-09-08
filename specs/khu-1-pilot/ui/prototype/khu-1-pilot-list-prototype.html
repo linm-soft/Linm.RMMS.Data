@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Prototype — Pilot dữ liệu Khu I (khu-1-pilot)</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
+  <style>
+    :root {
+      --bg:#f5f7fa; --card:#fff; --border:#BABCBE; --soft:#e9ecef; --txt:#1A1A1A;
+      --muted:#6c757d; --primary:#0d6efd; --danger:#dc3545; --btn:#EEEEEE; --r:4px;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font:13px/1.4 "Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--txt)}
+    .page{max-width:1200px;margin:0 auto;padding:8px;display:flex;flex-direction:column;gap:8px;min-height:100vh}
+    .zone-a{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+    .zone-a h1{margin:0;font-size:22px;font-weight:700;display:flex;align-items:center;gap:10px}
+    .zone-a h1 i{color:var(--primary);font-size:20px}
+    .chip{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:4px;background:#e3f2fd;color:#0d47a1;font-size:12px;font-weight:700}
+    .chip.lock{background:#fff3cd;color:#856404;border:1px solid #ffecb5}
+    .note{font-size:12px;color:var(--muted);margin:0}
+    .zone-b{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:8px 0;position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--soft)}
+    .zone-b-left,.zone-b-right{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .tb{display:inline-flex;align-items:center;gap:4px;height:32px;padding:6px 8px;border:0;border-radius:var(--r);background:var(--btn);font-size:12px;font-weight:600;cursor:pointer}
+    .tb:hover{background:#BABCBE}
+    .tb.primary{background:var(--primary);color:#fff}
+    .tb.danger{background:var(--danger);color:#fff}
+    .tb.danger:hover{background:#bb2d3b}
+    .ops-meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:12px}
+    .ops-meta .set{padding:2px 8px;border:1px solid var(--soft);border-radius:4px;background:#fff;color:var(--muted)}
+    .ops-meta .set.on{border-color:var(--primary);color:var(--primary);font-weight:600}
+    .filter-bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:8px 12px;background:var(--card);border:1px solid var(--soft);border-radius:var(--r)}
+    .filter-bar label{font-size:13px;font-weight:600;color:#37474f}
+    .si{display:inline-flex;align-items:center;height:32px;min-width:140px;padding:0 10px;border:1px solid var(--border);border-radius:var(--r);background:#fff;font-size:13px;color:var(--txt);cursor:pointer}
+    .si.locked{background:#f8fafc;color:var(--muted);cursor:default}
+    .si .fa-chevron-down{margin-left:8px;font-size:10px;color:var(--muted)}
+    .filter-bar .search{margin-left:auto;display:flex;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;min-width:260px;height:32px;background:#fff}
+    .filter-bar .search input{border:0;outline:0;padding:6px 10px;flex:1;font-size:14px}
+    .filter-bar .search button{border:0;border-left:1px solid var(--border);background:#f8fafc;padding:0 10px;cursor:pointer;color:var(--muted)}
+    .card{background:var(--card);border:1px solid var(--soft);border-radius:var(--r);flex:1;display:flex;flex-direction:column;min-height:0;overflow:hidden}
+    .grid-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 16px 8px}
+    .grid-title{margin:0;font-size:15px;font-weight:700}
+    .grid-help{margin:4px 0 0;font-size:12px;color:var(--muted)}
+    .table-wrap{overflow:auto;flex:1;min-height:200px;border-top:1px solid var(--soft)}
+    table{width:100%;border-collapse:collapse;table-layout:fixed}
+    th,td{padding:8px 12px;border-bottom:1px solid var(--soft);text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    th{background:#f8fafc;font-size:12px;color:var(--muted);position:sticky;top:0}
+    th.num,td.num{text-align:center;width:56px}
+    tbody tr:nth-child(even){background:#fafbfc}
+    tbody tr:hover{background:#eff6ff}
+    .badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600}
+    .badge.ok{background:#e8f5e9;color:#1b5e20}
+    .badge.empty{background:#eceff1;color:#546e7a}
+    .badge.gap{background:#fff3e0;color:#e65100}
+    .zone-d{display:flex;flex-direction:column;align-items:center;gap:10px;padding:12px 16px;border-top:1px solid var(--soft)}
+    .zone-d-total{color:var(--muted)}
+    .zone-d-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center}
+    .pager-btn{width:32px;height:32px;border:1px solid var(--soft);border-radius:var(--r);background:#fff;color:var(--muted);cursor:pointer}
+    .backdrop{display:none;position:fixed;inset:0;background:rgba(15,23,42,.35);z-index:40;align-items:center;justify-content:center}
+    .backdrop.on{display:flex}
+    .modal{width:min(440px,94vw);background:#fff;border-radius:8px;border:1px solid var(--soft)}
+    .modal-h{padding:12px 16px;border-bottom:1px solid var(--soft);font-weight:700}
+    .modal-b{padding:16px;font-size:13px;color:var(--muted)}
+    .modal-f{padding:12px 16px;border-top:1px solid var(--soft);display:flex;justify-content:flex-end;gap:8px}
+    .proto-banner{padding:8px 12px;background:#fff8e1;border:1px solid #ffe082;border-radius:var(--r);font-size:12px;color:#6d4c41}
+  </style>
+</head>
+<body>
+  <div class="page">
+    <p class="proto-banner"><strong>Prototype UX only</strong> — hàng lưới là placeholder · không phải live DB / HasData. Scope lock <code>REG-I</code> · cấm II.1 / QL.1 demo.</p>
+
+    <header class="zone-a" data-des-id="DES-GRID-A">
+      <h1><i class="fas fa-map-marked-alt" aria-hidden="true"></i> Pilot dữ liệu Khu I</h1>
+      <span class="chip lock" title="zoneOrgCode locked"><i class="fas fa-lock"></i> REG-I</span>
+      <p class="note">MFE Asset · <code>/khu-1-pilot</code> · cấm Thêm mới catalog</p>
+    </header>
+
+    <div class="zone-b" data-des-id="DES-GRID-B">
+      <div class="zone-b-left" data-des-id="DES-OPS">
+        <button type="button" class="tb" id="btn-refresh"><i class="fas fa-sync-alt"></i> Làm mới</button>
+        <button type="button" class="tb primary" id="btn-reimport"><i class="fas fa-cloud-download-alt"></i> ReImportSeed</button>
+        <button type="button" class="tb danger" id="btn-reinit"><i class="fas fa-exclamation-triangle"></i> ReInitData</button>
+      </div>
+      <div class="zone-b-right ops-meta">
+        <span class="chip">Phạm vi: REG-I</span>
+        <span class="set on">gov-vn</span>
+        <span class="set on">t6-org-scope</span>
+        <span class="set on">drvn-org</span>
+      </div>
+    </div>
+
+    <div class="filter-bar" data-des-id="DES-GRID-B-FILTER" aria-label="LinErpListFilterBar /rmms-filter-org">
+      <label>Khu</label>
+      <span class="si locked" title="locked zoneOrgCode=REG-I">REG-I · Khu QLĐB I <i class="fas fa-lock"></i></span>
+      <label>Văn phòng</label>
+      <button type="button" class="si" aria-label="vpOrgCode SearchInput">VP-I.1…I.4 <i class="fas fa-chevron-down"></i></button>
+      <label>Đơn vị</label>
+      <button type="button" class="si" aria-label="assigneeCode SearchInput">Chọn đơn vị <i class="fas fa-chevron-down"></i></button>
+      <label>Tuyến</label>
+      <button type="button" class="si" aria-label="routeCode SearchInput">Chọn tuyến <i class="fas fa-chevron-down"></i></button>
+      <div class="search" data-des-id="DES-GRID-C1">
+        <input type="search" id="q" placeholder="Tìm mã / tên…" aria-label="Tìm kiếm" />
+        <button type="button" aria-label="Tìm"><i class="fas fa-search"></i></button>
+      </div>
+    </div>
+
+    <section class="card">
+      <div class="grid-head" data-des-id="DES-GRID-C0">
+        <div>
+          <h2 class="grid-title">Trạng thái import trong scope Khu I</h2>
+          <p class="grid-help">Counts từ DB sau import · filter bắt buộc <code>zoneOrgCode=REG-I</code> · không mock live</p>
+        </div>
+      </div>
+
+      <div class="table-wrap" data-des-id="DES-GRID-C2">
+        <table>
+          <thead>
+            <tr>
+              <th class="num">STT</th>
+              <th>Catalog</th>
+              <th>Số lượng (Khu I)</th>
+              <th>Lần import</th>
+              <th>Trạng thái</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="num">1</td>
+              <td>route</td>
+              <td>—</td>
+              <td>—</td>
+              <td><span class="badge empty">empty</span></td>
+            </tr>
+            <tr>
+              <td class="num">2</td>
+              <td>pavement</td>
+              <td>—</td>
+              <td>—</td>
+              <td><span class="badge gap">gap-no-source</span></td>
+            </tr>
+            <tr>
+              <td class="num">3</td>
+              <td>asset-type</td>
+              <td>—</td>
+              <td>—</td>
+              <td><span class="badge empty">empty</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="zone-d" data-des-id="DES-GRID-D">
+        <div class="zone-d-total">Tổng: 3 catalog (placeholder)</div>
+        <div class="zone-d-row">
+          <button type="button" class="pager-btn" aria-label="Trang trước"><i class="fas fa-chevron-left"></i></button>
+          <span>1 / 1</span>
+          <button type="button" class="pager-btn" aria-label="Trang sau"><i class="fas fa-chevron-right"></i></button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="backdrop" id="modal-backdrop" data-des-id="DES-ALERT" role="dialog" aria-modal="true">
+    <div class="modal">
+      <div class="modal-h" id="modal-title">Xác nhận</div>
+      <div class="modal-b" id="modal-body">
+        Thao tác scoped <span class="chip lock">REG-I</span> — không wipe ngoài Khu I.
+      </div>
+      <div class="modal-f">
+        <button type="button" class="tb" id="modal-cancel">Hủy</button>
+        <button type="button" class="tb primary" id="modal-ok">Xác nhận</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var backdrop = document.getElementById('modal-backdrop');
+      var title = document.getElementById('modal-title');
+      var body = document.getElementById('modal-body');
+      var ok = document.getElementById('modal-ok');
+      function openModal(kind) {
+        if (kind === 'reinit') {
+          title.textContent = 'ReInitData (nguy hiểm)';
+          body.innerHTML = 'Gỡ mã rác <strong>trong scope</strong> <span class="chip lock">REG-I</span>. Cấm wipe ngoài Khu I.';
+          ok.className = 'tb danger';
+        } else {
+          title.textContent = 'ReImportSeed';
+          body.innerHTML = 'Chạy lại seed/import scoped <span class="chip lock">REG-I</span> · sets gov-vn / t6-org-scope / drvn-org.';
+          ok.className = 'tb primary';
+        }
+        backdrop.classList.add('on');
+      }
+      function closeModal() { backdrop.classList.remove('on'); }
+      document.getElementById('btn-reimport').addEventListener('click', function () { openModal('reimport'); });
+      document.getElementById('btn-reinit').addEventListener('click', function () { openModal('reinit'); });
+      document.getElementById('modal-cancel').addEventListener('click', closeModal);
+      document.getElementById('modal-ok').addEventListener('click', closeModal);
+      document.getElementById('btn-refresh').addEventListener('click', function () {
+        /* UX only — Dev gắn API GAP */
+      });
+    })();
+  </script>
+</body>
+</html>

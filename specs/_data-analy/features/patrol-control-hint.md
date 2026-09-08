@@ -4,184 +4,193 @@
 |-------|-------|
 | feature | `patrol` |
 | packKind | `list` |
-| mode | `cluster_import` feature-scoped (retry `roleOnly=data_analy` · **no Excel** in ProductRoot · demo + context + CUC2 catalogs) |
+| changeScope | `edit_page` |
+| mode | `feature_context` |
 | status | `done` |
 | skillId | `agent-data-analy` |
-| skillVersion | `2026.08.08.20` |
+| skillVersion | `2026.09.05.03` |
 | schemaVersion | `1` |
-| workflowVersion | `2026.08.14.5` |
-| rulesVersion | `2026.08.14.9` |
-| versionGate | `rechecked` |
-| contentHash | `sha256:1d25897d8fbcaa2b7be1174adf71f0840253c187980d23b9618bb3251febbcd5` |
+| workflowVersion | `2026.09.05.03` |
+| rulesVersion | `2026.09.06.1` |
+| versionGate | `ok` (recheck_new · CTX hash đổi) |
+| contentHash | `sha256:f2761b7dc5b13b1388b9db493b028a10227efd81de142607827c582bc04450b7` |
 | headerFingerprint | `sha256:bd9ce13d763c39d04a56a9a24eee73013c09d3679bf0da9fb74ff2d3588bef35` |
-| analyzedAt | `2026-08-14T17:50:00.000Z` |
-| cluster | — (không Excel header · synthetic + demo HTML) |
-| taskId | `task_36ea7fa2` |
-| autoApprove | `OFF` |
+| analyzedAt | `2026-09-06T17:45:00.000Z` |
+| updatedAt | `2026-09-06T17:45:00.000Z` |
+| cluster | — (không Excel · CTX + demo + live MFE/BE) |
+| taskId | `task_53b3bcbb` |
+| autoApprove | `ON` |
+| realData | `specs/_data-analy/features/patrol-real-data.md` |
+| beRepo | `D:/AI-QLBD/Linm.RMMS.WebService` · domain **Patrol** · **cấm ERP.*** |
+| uiRepo | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Field` · `/patrol` · `/td-tk` |
+| mfeStdUrl | `http://localhost:9304/patrol` |
+| runMode | `fix_gaps` · gap=`crud_formtype` + **upload media** (họp 04/09 W4-1 · W4-2) |
 
-> Data-analy **đề xuất** controlHint. Design **chốt** control-map. SA **chốt** lookup API.  
-> **Cấm** Dev đoán Text vs SearchInput khi đã có bảng này.  
-> **Cấm ERP.*** · domain **Patrol** · BE `D:/AI-QLBD/Linm.RMMS.WebService`.
+> Data-analy **đề xuất** controlHint. Design **chốt** control-map. SA **chốt** lookup/FileService.  
+> **Cấm** Dev đoán Text vs SearchInput / invent file API khi đã có bảng này.  
+> **Cấm ERP.*** · BE `Linm.RMMS.WebService` only.  
+> Giữ PO/Design/SA/TL/Dev/QA artifacts đã confirmed — **chỉ** § Delta.
+
+## § Delta Current vs New (`edit_page` · họp 04/09 W4-1 W4-2 · `task_53b3bcbb`)
+
+| ID | Current (shipped / prior analy) | New (this run) | Surface |
+|----|----------------------------------|----------------|---------|
+| Scope | List pack Kind B CRUD sessions · `crud_formtype` route/filter **CLOSED** (`task_4f8ea737`) | + **leftover** formType debt + **upload ảnh/video** trên form | form |
+| GAP-DA-PAT-ROUTE / FILTER | Form+Zone B `route` SearchInput · `?route=` · validate ∈ 38 | **KEEP** CLOSED | list+form |
+| GAP-QA-PAT-CODE-DISABLED | Form `code` = `Input disabled` | Leftover: ưu tiên `readOnly` (không xám) — P2 constitution | form |
+| Org bind | Live `RmmsOrgFormFields` (zone/vp/assignee/routeCode) · DTO optional | Inventory controlHint org · **KEEP** SearchInput org-unit / road-route | form |
+| Media | **Không** field media trên DTO/form · CTX mục tiêu «GPS/ảnh» | **`mediaIds[]`** `FileMulti` · image+video · FileService BFF · persist **guid** · resign mỗi xem | form |
+| File API | — | Reuse **đang có** `/init-bff-file` + `/integrate-file-upload-web` · `web-bff/api/v1/files/*` · **cấm** scaffold / invent `nghiem-thu-files` | BFF+UI |
+| Kind E+F | Map/check-in/tracks/KPI | **P2 KEEP** — không block list pack | demo |
+| PO/Design artifacts | `po/requirement.md` · `ui/design.md` + prototype | **giữ** · PO copy § Delta · Design thêm zone upload | docs |
+
+**Không** đổi: Kind B A–D · full-page `PatrolFormPage` · View=`<dl>` · footer-only Lưu/Hủy · prefix `api/v1/patrol/sessions` · Integration road-routes · **cấm ERP.*** · **cấm** parent JSON · lane **web** only.
 
 ## Sources
 
-| Source | Path | sha256 |
-|--------|------|--------|
-| Context | `docs/context/features/patrol.md` | `1d25897d8fbcaa2b7be1174adf71f0840253c187980d23b9618bb3251febbcd5` |
-| Control map | `docs/context/_raw/legacy-govone/demo-maps/patrol-control-map.md` | `13c2049d3f90c5835109e0625c1f372521f4d2dbe44a785fdefb534b80e92e8a` |
-| Actions | `docs/context/_raw/legacy-govone/demo-maps/patrol-actions.md` | `3d2557d2d8217c9d89746ced6f6369864a7c0b352e9301d13b4703aa785e86e3` |
+| Source | Path | sha256 / note |
+|--------|------|---------------|
+| Context | `docs/context/features/patrol.md` | `f2761b7dc5b13b1388b9db493b028a10227efd81de142607827c582bc04450b7` |
+| Control map | `docs/context/_raw/legacy-govone/demo-maps/patrol-control-map.md` | prior |
+| Actions | `docs/context/_raw/legacy-govone/demo-maps/patrol-actions.md` | prior |
 | Demo entry | `Linm.RMMS.Demo/src/demo/features/patrol-demo.html` | `dead8bcee1871db1d10ba5d3a1304ff1ffcaf6398b4cff4ebd4065eaccf003d7` |
 | Demo page | `Linm.RMMS.Demo/src/demo/patrol/patrol.html` | `bd9ce13d763c39d04a56a9a24eee73013c09d3679bf0da9fb74ff2d3588bef35` |
-| Shared catalogs | `specs/_data-analy/shared-catalogs/INVESTIGATE-CUC2.md` · `road-route-seed.json` | APPROVED A · 38 tuyến |
-| MFE live (read) | `Linm.Web.RMMS.Field` · `/patrol` · `PatrolListPage` + `PatrolFormPage` | list pack Kind B đã có CRUD |
-| Prior design.md | `specs/patrol/ui/design.md` | **STALE** Slideout + View=`readOnly` vs live full-page `<dl>` |
+| Shared catalogs | `specs/_data-analy/shared-catalogs` · road-route-seed 38 | APPROVED |
+| DOMAIN-MAP | `Linm.RMMS.WebService/docs/DOMAIN-MAP.md` · Patrol · `api/v1/patrol` | cite |
+| MFE | `PatrolListPage` · `PatrolFormPage` · `services/patrol/*` | list pack live · **no media** |
+| Prior design | `specs/patrol/ui/design.md` + prototype | **KEEP** · extend upload zone |
+| Files BFF | `bff/src/RMMS.Service.Bff` · NuGet `Linm.Platform.FileService.Bff` | HARD reuse |
+
+Normalized header (entity + form inventory):
+
+`code|userName|route|zoneOrgCode|vpOrgCode|assigneeCode|routeCode|patrolType|plannedDate|startedAt|checkInCount|coveragePercent|status|offlineQueued|note|mediaIds|updatedAt|search`
 
 ## Kind / zones (handoff Design)
-
-Pack **list** = Kind **B** catalog (MFE Field). Demo HTML = Kind **E** report + Kind **F** map — **không** clone chrome/topnav/user menu vào MFE.
 
 | Zone | Pattern | DoD |
 |------|---------|-----|
 | A | Header | title «Tuần đường / tuần kiểm» — **cấm** Thêm mới trên A |
-| B | Toolbar + filter | SearchTextInput (mã/NV/tuyến) · status SearchInput · **đề xuất** SearchInput tuyến `road-route` · Tạo mới primary · Refresh · Delete · config · History stub · **search must work** |
-| C | `LinCatalogDataGrid` | kéo cột default ON · row menu Xem/Sửa/Copy/Xóa/Lịch sử |
-| D | Footer | `LinCatalogListPagination` 50/100/200/500 — **cấm** footerPagination / pageSizeBar / raw table |
-| Form | Kind B **full-page** (live MFE `PatrolFormPage`) | C/E/V/Copy · View=`<dl>` display (**cấm** Slideout · **cấm** View=`readOnly` Input) · footer Lưu/Hủy · leave-confirm dirty |
-| Map / KPI / report (demo) | Kind E+F | Leaflet live · KPI coverage/offline/tuần đường·kiểm · staff split — **P2** trên MFE list pack |
-| Check-in / tracks / coverage compute | Kind E | API `…/check-ins` · `…/tracks` · `…/coverage` · `…/kpi` — **P2** (context §3) |
+| B | Toolbar + filter | SearchTextInput · status SearchInput · route SearchInput `road-route` · Tạo mới · Refresh · Delete · config · History stub |
+| C | `LinCatalogDataGrid` | kéo cột default ON · row Xem/Sửa/Copy/Xóa/Lịch sử |
+| D | Footer | `LinCatalogListPagination` 50/100/200/500 |
+| Form | Kind B **full-page** | C/E/V/Copy · View=`<dl>` · footer Lưu/Hủy · leave-confirm · **+ media upload zone** |
+| Upload | FileService | ảnh/video · `mediaIds[]` guid · resign GET |
+| Map / KPI / report | Kind E+F | **P2** — không clone vào list pack P1 |
 
-**Skip chrome:** logo · hamburger · user Hồ sơ/Đăng xuất demo · Ban.TK skin · govone/youtube/facebook · đổi mật khẩu · theme/font-size.
+**Skip chrome:** logo · Ban.TK skin · govone/social · đổi mật khẩu · theme.
 
-## Control hint — list filters (Zone B · list pack)
+## Control hint — list filters (Zone B)
 
 | Field key | Label | controlHint | catalogKind | Notes |
 |-----------|-------|-------------|-------------|-------|
-| search | Tìm kiếm | `SearchTextInput` | text | mã · NV · tuyến · loại · status (live MFE) |
-| status | Trạng thái | `SearchInput` | enum | Đang tuần · Hoàn thành · Bỏ sót · Offline queue · (trống = tất cả) — live MFE đã SearchInput |
-| route | Tuyến đường | `SearchInput` | **road-route** | Master 38 · **cấm** free-text; live list **chưa** có filter riêng — GAP |
-| userName | Nhân viên | `Text` | text | **P1** không master user CUC2 · demo `<select id="fCompany">` = org+NV mock |
-| orgUnit | Công ty / Nhân viên | `SearchInput` | **org-unit** | demo `fCompany` TreePicker · **P2** list pack (không block CRUD session) |
-| staffType | Loại nhân viên | `SearchInput` | enum | demo `fStaffType` · **P2** (không field DTO session) |
-| fromDate / toDate | Từ / Đến | `Date` | | demo datetime-local · **P2** Kind E; list P1 lọc theo `plannedDate` nếu SA thêm query |
-| includeNonCheckin | Xuất người không checkin | `Checkbox` | bool | demo export modal · **P2** export |
-| checkAll | Chọn tất cả | `Checkbox` | bool | grid selection SSOT — không persist |
+| search | Tìm kiếm | `SearchTextInput` | text | mã · NV · tuyến · loại · status |
+| status | Trạng thái | `SearchInput` | enum | Đang tuần · Hoàn thành · Bỏ sót · Offline queue |
+| route | Tuyến đường | `SearchInput` | **road-route** | Master 38 · **cấm** free-text · `?route=` exact — **KEEP CLOSED** |
+| userName | Nhân viên | `Text` | text | P1 free · P2 users UNCLEAR |
+| orgUnit | Công ty / NV | `SearchInput` | **org-unit** | **P2** list filter |
+| fromDate / toDate | Từ / Đến | `Date` | | **P2** Kind E |
 
 ## Control hint — form fields (phiên tuần · list pack)
 
 | Field key | Label | controlHint | required | Notes |
 |-----------|-------|-------------|----------|-------|
-| code | Mã phiên tuần | `Text` | auto | IdCode `TD-yyyyMMdd-nnn` readonly |
-| userName | Nhân viên | `Text` | * | P1 free text · **UNCLEAR** P2 `SearchInput` `users` (Integration) — live = `Input` |
-| route | Tuyến đường | `SearchInput` | * | `catalogKind=road-route` · **cấm** Input Text (MFE hiện `Input` — **GAP-DA-PAT-ROUTE**) |
-| patrolType | Loại tuần | `SearchInput` | * | enum Tuần đường · Tuần kiểm — live OK |
-| plannedDate | Ngày kế hoạch | `Date` | * | `type=date` · UTC store / local display |
-| startedAt | Bắt đầu thực tế | `Date` | | datetime-local · ISO offset |
-| checkInCount | Số điểm check-in | `Text` (number) | * | ≥0 · KPI ≥3/ngày = tenant config P2 |
-| coveragePercent | Coverage % | `Text` (number) | | 0–100 decimal |
-| status | Trạng thái | `SearchInput` | * | 4 enum trên — live OK |
-| offlineQueued | Hàng đợi offline | `SearchInput` | | true/false · nhãn Offline queue / Online — live OK |
+| code | Mã phiên tuần | `Text` | auto | IdCode `TD-yyyyMMdd-nnn` · leftover: `readOnly` > `disabled` (GAP-QA-PAT-CODE-DISABLED P2) |
+| userName | Nhân viên | `Text` | * | P1 free text |
+| route | Tuyến đường | `SearchInput` | * | `catalogKind=road-route` · persist **code** — **KEEP** |
+| zoneOrgCode / zoneOrgName | Khu / Chi cục | `SearchInput` | | `RmmsOrgFormFields` · org-unit |
+| vpOrgCode / vpOrgName | VP | `SearchInput` | | org-unit |
+| assigneeCode / assigneeOrgName | Người giao / NV | `SearchInput` | | org / assignee bind live |
+| routeCode | Mã tuyến (org) | derived / SearchInput | | sync với `route` |
+| patrolType | Loại tuần | `SearchInput` | * | Tuần đường · Tuần kiểm |
+| plannedDate | Ngày kế hoạch | `Date` | * | |
+| startedAt | Bắt đầu thực tế | `Date` | | datetime-local |
+| checkInCount | Số điểm check-in | `Text` (number) | * | ≥0 |
+| coveragePercent | Coverage % | `Text` (number) | | 0–100 |
+| status | Trạng thái | `SearchInput` | * | 4 enum VN |
+| offlineQueued | Hàng đợi offline | `SearchInput` | | true/false |
 | note | Ghi chú | `Text` | | |
-| updatedAt | Cập nhật | `Date` | | readonly display View |
+| mediaIds | Ảnh / video hiện trường | `FileMulti` | | **NEW** · FileService ids · image+video · **cấm** persist full URL |
+| updatedAt | Cập nhật | `Date` | | readonly View |
 
-## Control hint — demo monitor / report (Kind E+F · **out of list-pack P1** / P2)
+## Upload HARD (họp 1–5)
 
-| Field key | Label | controlHint | catalogKind | Notes |
-|-----------|-------|-------------|-------------|-------|
-| company | Công ty / NV | `SearchInput` | **org-unit** | demo `#fCompany` · TreePicker legacy |
-| routeId | Đoạn đường | `SearchInput` | **road-route** | demo `#fRoute` |
-| staffType | Loại NV | `SearchInput` | enum | demo `#fStaffType` |
-| from / to | Kỳ | `Date` | | datetime-local |
-| search | Tìm | `SearchTextInput` | text | demo `#fSearch` |
-| basemap | Lớp nền | map switcher | | OSM/Esri/sat · **cấm** clone GOVOne chrome |
-| kpi-* | KPI strip | metric cards | | coverage · offline · tuần đường/kiểm · tốc độ · điểm |
+| Rule | Value |
+|------|-------|
+| Host BFF | `Linm.RMMS.WebService/bff/src/RMMS.Service.Bff` |
+| Route | `web-bff/api/v1/files/*` · NuGet `Linm.Platform.FileService.Bff` |
+| Slash | `/init-bff-file` + `/integrate-file-upload-web` nếu thiếu package |
+| Persist | **file id (guid)** only trên `PatrolSession` / DTO |
+| View | resign mỗi lần xem |
+| Accept | image/* · video/* (Design chốt MIME/size) |
+| **Cấm** | `/implement-file-service` · copy `FilesController` · invent `api/v1/nghiem-thu-files` / `api/v1/patrol-files` · log full presigned URL · mobile lane |
 
-Check-in điểm form (demo «+ Thêm check-in»): **P2** — không mở CRUD list pack.
-
-## Lookup APIs (đề xuất SA — **chưa chốt** trừ CRUD đã DONE)
-
-Domain **Patrol** · prefix `api/v1/patrol` · BFF `web-bff/api/v1/patrol` · repo `D:/AI-QLBD/Linm.RMMS.WebService` · **cấm ERP.*** · **cấm** `api/v1/rmms/*` · **cấm** parent JSON.
+## Lookup / API
 
 | Lookup | API | controlHint consumer | BE |
 |--------|-----|----------------------|-----|
-| list | `GET /api/v1/patrol/sessions?search=&status=&page=&pageSize=` | Zone B + grid | **DONE** |
-| by id | `GET /api/v1/patrol/sessions/{id}` | form View/Edit · XCO | **DONE** |
-| create / update | `POST` / `PUT …/sessions` | form Create/Edit/Copy | **DONE** |
+| list | `GET /api/v1/patrol/sessions?search=&status=&route=&page=&pageSize=` | Zone B+C | **DONE** |
+| by id | `GET …/sessions/{id}` | form | **DONE** |
+| create / update | `POST` / `PUT …/sessions` | form · **+ mediaIds** | **DONE** CRUD · **GAP media column** |
 | soft delete | `DELETE …/sessions/{id}` | toolbar/row | **DONE** |
-| list + route | `GET …/sessions?route=` | Zone B SearchInput tuyến | **MISSING** đề xuất SA (exact code) |
-| road-route | Master `GET /api/v1/integration/road-routes/search` | SearchInput route | master pack |
-| org-unit | Master org-unit search | filter Công ty P2 | master pack |
-| users | Master Integration `users` | SearchInput userName P2 | **UNCLEAR** P1 Text |
-| check-ins | `POST /api/v1/patrol/sessions/{id}/check-ins` | Kind E | **MISSING P2** |
-| tracks | `POST …/{id}/tracks` | Kind F | **MISSING P2** |
-| coverage | `GET …/{id}/coverage` | KPI | **MISSING P2** |
-| kpi | `GET …/{id}/kpi` | KPI | **MISSING P2** |
+| road-route | `GET /api/v1/integration/road-routes/search` | SearchInput route | master |
+| org-unit | Integration org search | RmmsOrgFormFields | master |
+| files | `web-bff/api/v1/files/*` | FileMulti upload/resign | FileService |
+| check-ins / tracks / coverage / kpi | `…/sessions/{id}/…` | Kind E+F | **P2 MISSING** |
 
-Entity: `PatrolSession` · table `rmms_patrol_sessions` · TenantEntity · SHARE=tenant_keep.  
-`Route` column hiện `varchar(64)` free text — SA nên validate ∈ 38 CUC2 khi LKP P1.  
+Entity: `PatrolSession` · `rmms_patrol_sessions` · TenantEntity.  
 Perms: `patrol.sessions.read|create|update|delete`.
 
-## Seed / mock
+## Actions (list pack P1)
 
-- MFE store: `TD-20260808-001…` · Nguyễn Văn A / Trần Thị B · **`QL.1`** (khớp CUC2)
-- Demo HTML: QL.1 · Chi cục QLĐB II.1 · sourceKind=real-seed
-- Import Excel **out of scope**
-- Check-in ≥3/ngày/tuyến = tenant config (DoD context · không field form P1)
-
-## Actions (list pack P1 vs demo)
-
-| id | label | list pack P1 | Notes |
-|----|-------|--------------|-------|
-| refresh | Tải lại | **IN** | toolbar |
-| filter / search | Lọc / Tìm | **IN** | Zone B |
-| create | Tạo mới | **IN** | toolbar primary → `/patrol/new` |
-| view / edit / copy / delete | row + toolbar | **IN** | live MFE |
-| history | Lịch sử | stub | |
-| config | Cấu hình lưới | hint P1 | |
-| export-excel | Xuất excel | **P2** | demo modal from/to · org · includeNonCheckin |
-| sync-all | Sync offline | **P2** | demo queue |
-| create-checkin | + Thêm check-in | **P2** | ≠ Create session |
-| mode-staff/route/history/summary | Giám sát modes | **P2** | sidebar demo |
-| split-toggle | Thu/mở panel | **P2** | map |
-| map-* / basemap-* / zoom | Map | **P2** | skip chrome; `+`/`−` = zoom **≠** Create |
-| nav-tuan-duong / tuan-kiem / cong-viec | Panels Kind E | **P2** | |
-| user-profile / logout / change-pwd | User | **SKIP** chrome | |
+| id | label | P1 | Notes |
+|----|-------|----|-------|
+| refresh / filter / create / view / edit / copy / delete | — | **IN** | KEEP |
+| history / config | — | stub / hint | KEEP |
+| upload-media | Upload ảnh/video | **IN NEW** | form zone · FileService |
+| export / sync / check-in / map-* | — | **P2** | demo only |
 
 ## GAP (data-analy → PO/Design/SA/TL)
 
 | ID | Gap | Severity | Hướng |
 |----|-----|----------|-------|
-| GAP-DA-PAT-ROUTE | Form MFE `route` = `Input` Text; SSOT = SearchInput `road-route` | P0 list | T-UI-LKP · T-UI-FIELD |
-| GAP-DA-PAT-FILTER-ROUTE | List Zone B chưa SearchInput tuyến · API list chưa `?route=` | P1 | Design Zone B · SA query |
-| GAP-DA-PAT-DESIGN-STALE | `ui/design.md` còn Slideout + View=`readOnly`; live = full-page `<dl>` | P0 docs | Design re-chốt Kind B form (list-form-quality) |
-| GAP-DA-PAT-USER | userName Text; demo TreePicker NV không master | P2 | giữ Text P1 |
-| GAP-DA-PAT-MAP | Kind E+F API check-ins/tracks/coverage/kpi MISSING | P2 | không block list CRUD |
-| GAP-F-PAT-01 | Offline conflict merge | Open | context · không control P1 |
-| GAP-REC-PAT | Capture shell | Closed | demo 2026-08-02 |
+| GAP-DA-PAT-MEDIA-01 | Form/DTO **không** media · CTX cần ảnh hiện trường | **P0** this pack | `mediaIds[]` FileMulti · T-FILE-01 · SA column/json |
+| GAP-DA-PAT-FILE-01 | Persist column vs JSON array file ids | P1 | SA chốt schema · **cấm** URL string |
+| GAP-QA-PAT-CODE-DISABLED | `code` Input `disabled` | P2 leftover | `readOnly` constitution |
+| GAP-DA-PAT-USER | userName Text | P2 | giữ Text P1 |
+| GAP-DA-PAT-MAP | Kind E+F API | P2 | không block |
+| GAP-F-PAT-01 | Offline conflict merge | Open | flag only |
+
+## Open / UNCLEAR
+
+| ID | Q | Owner |
+|----|---|-------|
+| GAP-DA-PAT-FILE-01 | `mediaIds` jsonb trên session vs child table? | SA |
+| GAP-DA-PAT-MEDIA-UI | Zone media = section form hay strip View gallery? | Design |
+| MIME/size | Giới hạn MB / số file / video codec | PO+Design |
 
 ## Handoff
 
-→ **PO:** Kind B list+form · inventory bảng trên · Q UNCLEAR user master P2 · **không** mở Excel · **không** Kind E map trong P1  
-→ **Design:** A–D + controlHint · **không** Text cho `route` · **không** Slideout / View=`readOnly` · prototype content-only + reviewUrl · `autoApprove=OFF` → **await_confirm**  
-→ **SA:** Patrol `sessions` (đã có) · Master road-route lookup + optional `?route=` · validate Route ∈ catalog · **cấm** `api/v1/rmms/*` ERP-style · **cấm parent JSON**  
-→ **TL:** T-CTX · T-PERM · T-UI-LIST (A–D) · T-UI-FORM · T-UI-ACT · **T-UI-LKP · T-UI-FIELD · T-UI-PROD · T-UI-UX** · T-BE/BFF (delta route query/validate)  
-→ **Dev:** sau `confirms.beRepo && uiRepo` · MFE `Linm.Web.RMMS.Field` · `/patrol`
+→ **PO:** § Delta leftover + upload DoD · FileService HARD · keep prior GAP-PO CLOSED  
+→ **Design:** full-page + **upload zone** · prototype/reviewUrl · `autoApprove=ON`  
+→ **SA:** giữ `api/v1/patrol/sessions` · thêm mediaIds · FileService reuse · **cấm** invent file path  
+→ **TL/Dev:** enhance mode · T-FILE-01 · **không** greenfield · lane web  
 
-Chain: role này **done**. Roles sau = **pending**. `autoApprove=OFF` → Design/SA/Review dừng `await_confirm` khi tới lượt.
+Chain: role này **done**. Roles sau = **pending**.
 
 ## Version meta (REQUIRED)
 
 | Field | Value |
 |-------|-------|
 | skillId | agent-data-analy |
-| skillVersion | 2026.08.08.20 |
+| skillVersion | 2026.09.05.03 |
 | schemaVersion | 1 |
-| workflowVersion | 2026.08.14.5 |
-| rulesVersion | 2026.08.14.9 |
-| generatedAt | 2026-08-14T17:50:00.000Z |
-| versionGate | rechecked |
+| workflowVersion | 2026.09.05.03 |
+| rulesVersion | 2026.09.06.1 |
+| generatedAt | 2026-09-06T17:45:00.000Z |
+| versionGate | ok |
 | orchestratorSkillVersion | 2026.08.09.02 |
 | orchestratorWorkflowVersion | 2026.08.09.02 |
 | orchestratorRulesVersion | 2026.08.09.02 |
 
 ---
-<!-- Version meta: skillVersion=2026.08.08.20 · schemaVersion=1 · workflowVersion=2026.08.14.5 · rulesVersion=2026.08.14.9 · versionGate=rechecked -->
+<!-- Version meta: skillVersion=2026.09.05.03 · schemaVersion=1 · workflowVersion=2026.09.05.03 · rulesVersion=2026.09.06.1 · versionGate=ok -->

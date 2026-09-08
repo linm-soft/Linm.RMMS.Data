@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "1",
+  "skillId": "agent-review",
+  "skillVersion": "2026.08.25.01",
+  "workflowVersion": "2026.09.05.03",
+  "rulesVersion": "2026.09.05.8",
+  "feature": "traffic-sign-type",
+  "status": "done",
+  "mode": "review_only",
+  "review_confirm": "accept",
+  "verdict": "PASS",
+  "contentHash": "sha256:e3aada6d5b40ee2b06635701491bbf3cca71444f95c42b42bbc1bc9d0f03ddbb",
+  "reviewHash": "sha256:e16f3e9aa16bdb9ce3fb6353447337a9b4dc158827a2ba86b487658fb967bb32",
+  "findingsCounts": {
+    "P0": 0,
+    "P1": 0,
+    "P2": 0,
+    "P3": 2,
+    "query": 0,
+    "security": 0,
+    "uiFn": 2,
+    "beFn": 0
+  },
+  "taskId": "task_d409caea",
+  "generatedAt": "2026-09-06T03:00:00.000Z",
+  "versionGate": "ok"
+}

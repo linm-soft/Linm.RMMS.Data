@@ -1,0 +1,12 @@
+{
+  "feature": "csdl-bieu-13",
+  "status": "confirmed",
+  "review_confirm": "approve",
+  "verdict": "PASS",
+  "taskId": "task_bdbf3809",
+  "writtenAt": "2026-09-05T14:35:00.000Z",
+  "contentHash": "sha256:39a45de0a9b834c65373e6c20d1664ab43144ff60d97bae4f0d886ad09d91e3a",
+  "headerFingerprint": "sha256:31dbc83200b511c9d61333b1cdb94e2880778980a3b21970be414e926db29008",
+  "hashSkip": "unchanged",
+  "autoApprove": true
+}

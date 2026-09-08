@@ -1,0 +1,89 @@
+{
+  "feature": "csdl-so-03",
+  "url": "http://localhost:9301/csdl-so-03",
+  "ok": true,
+  "capturedAt": "2026-09-05T20:05:47.102Z",
+  "method": "playwright-channel-chrome",
+  "gap": "GAP-QA-E2E-PW-01",
+  "cases": [
+    "S0",
+    "S1",
+    "QA-20"
+  ],
+  "results": [
+    {
+      "id": "S0",
+      "ok": true,
+      "result": "PASS",
+      "file": "S0.png",
+      "screenshot": "S0.png",
+      "bytes": 86310,
+      "sha16": "9cf5f1c30e5dec63",
+      "sha256_16": "9cf5f1c30e5dec63",
+      "note": "list Sổ 03 · filter-bar · province/status/road/period · empty/grid",
+      "finalUrl": "http://localhost:9301/csdl-so-03"
+    },
+    {
+      "id": "S1",
+      "ok": true,
+      "result": "PASS",
+      "file": "S1.png",
+      "screenshot": "S1.png",
+      "bytes": 86310,
+      "sha16": "9cf5f1c30e5dec63",
+      "sha256_16": "9cf5f1c30e5dec63",
+      "note": "hub ?resource=duty-incident-logs → redirect /csdl-so-03",
+      "finalUrl": "http://localhost:9301/csdl-so-03"
+    },
+    {
+      "id": "QA-20",
+      "ok": true,
+      "result": "PASS",
+      "file": "QA-20.png",
+      "screenshot": "QA-20.png",
+      "bytes": 101690,
+      "sha16": "4fee2ee566f7834d",
+      "sha256_16": "4fee2ee566f7834d",
+      "note": "Create Slideout · form=create · Z2 header · entries inline_grid · SO-",
+      "finalUrl": "http://localhost:9301/csdl-so-03"
+    }
+  ],
+  "steps": [
+    {
+      "id": "S0",
+      "ok": true,
+      "result": "PASS",
+      "file": "S0.png",
+      "screenshot": "S0.png",
+      "bytes": 86310,
+      "sha16": "9cf5f1c30e5dec63",
+      "sha256_16": "9cf5f1c30e5dec63",
+      "note": "list Sổ 03 · filter-bar · province/status/road/period · empty/grid",
+      "finalUrl": "http://localhost:9301/csdl-so-03"
+    },
+    {
+      "id": "S1",
+      "ok": true,
+      "result": "PASS",
+      "file": "S1.png",
+      "screenshot": "S1.png",
+      "bytes": 86310,
+      "sha16": "9cf5f1c30e5dec63",
+      "sha256_16": "9cf5f1c30e5dec63",
+      "note": "hub ?resource=duty-incident-logs → redirect /csdl-so-03",
+      "finalUrl": "http://localhost:9301/csdl-so-03"
+    },
+    {
+      "id": "QA-20",
+      "ok": true,
+      "result": "PASS",
+      "file": "QA-20.png",
+      "screenshot": "QA-20.png",
+      "bytes": 101690,
+      "sha16": "4fee2ee566f7834d",
+      "sha256_16": "4fee2ee566f7834d",
+      "note": "Create Slideout · form=create · Z2 header · entries inline_grid · SO-",
+      "finalUrl": "http://localhost:9301/csdl-so-03"
+    }
+  ]
+}

@@ -28,3 +28,10 @@ Nguồn danh mục: `Linm.RMMS.Data/data-import/so-hieu-bien-bao/Số hiệu bi�
 | Master list + form icon | `/mas/loai-bien-bao` |
 | API | `api/v1/integration/traffic-sign-types` |
 | Sổ TS form | `TRAFFIC_SIGN` → SearchInput mã biển / nội dung |
+
+## Implement tracking
+
+| lane | phase | status | updatedAt |
+|------|-------|--------|-----------|
+| web | `done` | `done` | `2026-09-06T02:59:47.163Z` |
+| mobile | — | — | — |

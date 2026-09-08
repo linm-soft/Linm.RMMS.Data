@@ -1,0 +1,11 @@
+{
+  "hasZ2": true,
+  "hasZ3": true,
+  "hasRoad": false,
+  "hasShoulderLen": true,
+  "hasSlopeLen": true,
+  "hasFenceKm": true,
+  "hasSave": true,
+  "dataFormCols": "",
+  "hasLeCodeHint": true
+}

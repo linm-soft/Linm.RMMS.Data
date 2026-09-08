@@ -1,5 +1,20 @@
 # RMMS — Security & Rate Limiting
 
+> **Review ATTT VN cấp 1–2:** slash **`/review-data-security-l1-l2`** (alias `/review-attt-l1-l2`) — NĐ 85/2016 + TT 12/2022/TT-BTTTT Phụ lục I (cấp 1) / II (cấp 2) · TCVN 11930:2017.  
+> **Cấp 3+ / CSDL CQNN / GPS / NĐ 13:** `/review-app-vn-map-law`.  
+> Skill: `{RulesRoot}/common/skill/review-data-security-l1-l2/` · map L1 vs L2: `example/tt12-phuluc-map.md`.
+
+## 0. Cấp độ ATTT VN ≠ Layer kỹ thuật trong file này
+
+| Thang | Nghĩa | SSOT |
+|-------|--------|------|
+| **Cấp độ 1 / 2 ATTT** | Phân loại HTTT (NĐ 85). Yêu cầu cơ bản: Phụ lục I = cấp 1 · Phụ lục II = cấp 2 | `/review-data-security-l1-l2` |
+| **Layer 1 / 2 / 3** dưới đây | Defense-in-depth: **mạng / ứng dụng / dữ liệu** — không phải cấp độ luật | File này §1 |
+| **P1 / P2** camera live | Wave sản phẩm JPEG vs HLS/WebRTC | `21-CAMERA-HLS-WEBRTC-GATEWAY.md` |
+
+**Dữ liệu theo phụ lục:** cấp 1 = sao lưu (TCVN 5.2.4.1). Cấp 2 = **bảo mật dữ liệu** (6.2.4.1) **+** sao lưu (6.2.4.2) — password thiết bị AEAD, PII cột, TLS, không trả secret GET.  
+Thiếu hồ sơ phân loại → **không** ghi “đạt cấp 1/2”. Cấp 1–3 dùng chung lớp bảo vệ đã có (không tắt mã hóa vì “mới cấp 1”).
+
 ## 1. Three-Layer Security Model
 
 ```
@@ -88,7 +103,7 @@
 |-------|--------|-----|-------|---------|
 | Access Token | Auth Service (JWT) | 15 min | Full API access within RBAC | Memory only |
 | Refresh Token | Auth Service | 7 days | Obtain new access token | HttpOnly cookie |
-| API Key | Admin Portal | 365 days (rotatable) | Partner REST API access | Partner vault |
+| API Key | **Auth Service** (`X-Api-Key` · hash at rest · introspect) | 365 days (rotatable) | Partner REST + **camera ingest** `camera:ingest` | Auth DB · **cấm** plaintext GET |
 | Embed Token | BFF Gateway | 15 min | iFrame dashboard embed | URL param only |
 | Device Token | IoT Ingestion | 30 days | Edge device authentication | Device secure storage |
 | Citizen Temp Token | Citizen Portal | 24 h | Anonymous incident tracking | LocalStorage |
@@ -106,6 +121,10 @@
 | `/api/v1/copilot/ask` | 10 req | 1 min | Per user | GPT-4o cost control |
 | `/api/v1/report/export` | 5 req | 1 min | Per user | Heavy operation |
 | `/api/v1/citizen/incident` (public) | 5 req | 1 min | Per IP | Public endpoint |
+| **`POST /api/v1/camera-events/ingest`** (+ alias `/cameras/ingest/isapi`) | **120** req | 1 min | Per **API-key** | ANPR ~3 làn · task `camera-ingest-apikey` |
+| same ingest | **60** req | 1 min | Per **IP** | Flood / thiếu key |
+| same ingest **401** | **10** fail | 1 min | Per IP | Brute `X-Api-Key` |
+| same ingest body | **2 MB** | /req | Per request | JPEG/XML |
 | `/api/v1/embed/*` | 100 req | 1 h | Per partner | iFrame dashboard |
 | `/api/v1/upload/presign` | 30 req | 1 min | Per user | Photo upload |
 | Admin endpoints | 100 req | 1 min | Per user | Admin dashboard |
@@ -128,7 +147,7 @@
 ```
 Client Request
   │
-  ├── X-Api-Key: {partner_key}           ← Partner integration
+  ├── X-Api-Key: {partner_key | camera ingest key}  ← Auth introspect (`camera:ingest`)
   │   OR
   ├── Authorization: Bearer {access_token} ← User session
   │

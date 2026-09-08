@@ -10,7 +10,7 @@
 > **Peers:** [`org-unit.md`](org-unit.md) · [`road-route.md`](road-route.md) · [`partner-unit.md`](partner-unit.md) · [`pavement-section.md`](pavement-section.md) · [`users.md`](users.md) · [`login.md`](login.md) · [`import-gov-ssot.md`](import-gov-ssot.md) · form org [`org-route-scope-form-org.md`](org-route-scope-form-org.md)  
 > **SSOT org:** [`../20-ORG-STRUCTURE-DRVN.md`](../20-ORG-STRUCTURE-DRVN.md) · seed 60 [`../seed/org-unit-seed.json`](../seed/org-unit-seed.json)  
 > **LRS:** [`../24-TUAN-DUONG-DUONG-BO.md`](../24-TUAN-DUONG-DUONG-BO.md) §6  
-> **Review data:** `/data-gov-integration` 2026-08-30 — **không** có dump gán Khu↔tuyến km (**GOV-IMP-03**)
+> **Review data:** `/data-gov-integration` 2026-09-05 — dump moc **không** gán Khu↔km (**GOV-IMP-03**); Excel T6 = set `t6-org-scope` (không invented-seed)
 
 ## 0. Chốt user (2026-08-30)
 
@@ -145,7 +145,7 @@ User `CONTRACT`: giữ rule login — `UserRoute` ⊆ `ContractRoute`.
 | Field | Control | Notes |
 |-------|---------|-------|
 | zoneOrgCode | SearchInput tree · kind REG leaf I–IV | `REG-I`…`REG-IV` — không gán trên node `REG` nhóm |
-| routeCode | SearchInput `road-route` | Ưu tiên `QUOC_LO` / `HCM` / `CAO_TOC` — **không** chọn mã `KM0+000-*` làm tuyến chính |
+| routeCode | SearchInput `road-route` | **Cùng slug** `RoadRoute.Code` / Excel T6 (`QL.1`, `QL.HCM`, …) — **không** Guid · **không** IdCode. Ưu tiên `QUOC_LO` / `HCM` / `CAO_TOC` — **không** chọn mã `KM0+000-*` làm tuyến chính |
 | kmFrom · kmTo | Number LRS | ≥ 0 · kmTo > kmFrom · ⊆ extent tuyến khi có |
 | effectiveFrom · effectiveTo | Datetime UTC helpers | Bắt buộc — «sẽ thay đổi» |
 | isActive | Switch | |
@@ -166,11 +166,12 @@ User `CONTRACT`: giữ rule login — `UserRoute` ⊆ `ContractRoute`.
 |---|-------|--------|------|
 | t01 / t34–t36 | `road_routes` | `imported` | Ô KCHT tuyến — **không** asset type |
 | t02 | `pavement_sections` `tbl_rmd` | `imported` | Đoạn **mặt đường** — không zone |
-| Gán Khu↔km | — | `gap-no-source` | **Cấm** seed (**GOV-IMP-01/03**) |
+| Gán Khu↔km (dump moc) | — | `gap-no-source` | **Cấm** suy từ dump / `manage_unit` (**GOV-IMP-03**) |
+| Gán Khu↔km (Excel T6) | `t6-org-scope` `org_route_scopes` | `imported` | File quản trị · Khu trực tiếp · **không** invent VP đoạn |
 | Dropdown «Tuyến» = `Km 0+000…` | `route_kind` NHANH/TRANH/GOM | `mapped-wrong` (UX) | GAP-ROUTE-01/02 — tách tuyến chính vs nhánh |
 | `manage_unit` Sở | pavement CSV | `imported` · sai catalog UI | Dùng `partner-unit` — không nhét vào org tree |
 
-`invented-seed`: **không** — chưa có bảng gán. Recapture dump **không** tạo quan hệ zone.
+`invented-seed`: **không** trên dump. Recapture dump **không** tạo quan hệ zone. Excel T6 → `t6-org-scope` là CSV import (set riêng).
 
 ## 8. Consumers (sau Signed)
 
@@ -185,7 +186,7 @@ User `CONTRACT`: giữ rule login — `UserRoute` ⊆ `ContractRoute`.
 
 | ID | P | Mô tả |
 |----|---|--------|
-| GAP-ORS-01 | P0 | Dump không có gán Khu↔tuyến km — config tay / file quản trị riêng · **cấm** suy từ `manage_unit` Sở |
+| GAP-ORS-01 | P0 | Dump không có gán Khu↔tuyến km — **partial 2026-09-05**: Excel T6 → `t6-org-scope` `org_route_scopes` · **cấm** suy từ `manage_unit` Sở · đoạn vẫn thiếu VP |
 | GAP-ORS-02 | P0 | Tách zone UI: SearchInput org **không** mix `partner-unit` |
 | GAP-ORS-03 | P0 | Tách zone data: bảng gán km trên REG-I…IV · không nhét km vào `OrgUnit` |
 | GAP-ORS-04 | P1 | `RoadRoute` thiếu KmFrom/KmTo — SA: cột catalog vs chỉ trên assignment |
@@ -195,7 +196,7 @@ User `CONTRACT`: giữ rule login — `UserRoute` ⊆ `ContractRoute`.
 | GAP-ORS-08 | P2 | Overlap km cùng tuyến + cửa sổ hiệu lực — rule SA |
 | GAP-ROUTE-01 | — | Mở — segment code vs route (đã có trên `road-route`) |
 | GAP-ORS-LKP-DISPLAY-01 | P0 | SearchInput form/filter — sau chọn fill **mã + tên** (dual-box) — **closed** `/edit-web-feature` 2026-08-30 |
-| GAP-ORS-VP-01 | P0 | Đoạn thiếu `vpOrgCode` — VP không suy đơn vị con — **closed** Schema + form 2026-08-30 |
+| GAP-ORS-VP-01 | P0 | **Schema/form closed** 2026-08-30 (`vpOrgCode` bắt buộc). **Data T6 còn mở:** `route_segments.csv` `import_segment=false` — **cấm** invent VP từ Excel · gán tay `/mas/phan-khu` rồi mới import đoạn |
 | GAP-ORS-CASCADE-01 | P0 | Cây đủ **Cục → Khu → VP → Đơn vị → tuyến → đoạn** — Cục ẩn · Khu+VP+Đơn vị⊆VP **closed** 2026-08-30 · form Create/Edit thứ tự SearchInput **closed** `/rmms-form-input-org-tree` 2026-08-31 · còn thiếu filter/list đoạn; lookup tuyến chưa ⊆ cấp trên |
 
 ## 10. Pipeline
@@ -211,7 +212,7 @@ Downstream (sau SA, **không** enqueue Dev trong task này): edit filter `org-un
 - [x] PO `specs/org-route-scope/po/requirement.md` (`task_70c1a441`) · packKind=`master` · Grid AC · Screens · Leave
 - [x] Design `specs/org-route-scope/ui/design.md` + prototype + reviewUrl (`task_4126a205`) · `design_confirm=approve`
 - [x] SA DOMAIN-MAP + solution `org-route-scopes` · Schema_* = Step 4b Dev (`task_0c95c02f`)
-- [ ] Nguồn danh sách gán km (file quản trị) — **không** invent từ dump
+- [x] Nguồn danh sách gán km — Excel T6.2026 → `data-import/t6-org-scope/` (**không** invent từ dump) · **102** phân khu import được · đoạn thiếu VP = GAP-ORS-VP-01 **data**
 
 ## Implement tracking
 

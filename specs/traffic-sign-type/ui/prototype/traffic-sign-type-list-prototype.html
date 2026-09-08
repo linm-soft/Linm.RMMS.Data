@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Prototype — Loại biển báo (traffic-sign-type)</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
+  <style>
+    :root {
+      --bg:#f5f7fa; --card:#fff; --border:#BABCBE; --soft:#e9ecef; --txt:#1A1A1A;
+      --muted:#6c757d; --primary:#0d6efd; --btn:#EEEEEE; --r:4px;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font:13px/1.4 "Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--txt)}
+    .page{max-width:1200px;margin:0 auto;padding:8px;display:flex;flex-direction:column;gap:8px;min-height:100vh}
+    .zone-a{display:flex;align-items:center;gap:10px}
+    .zone-a h1{margin:0;font-size:22px;font-weight:700;display:flex;align-items:center;gap:10px}
+    .zone-a h1 i{color:var(--primary);font-size:20px}
+    .zone-b{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:8px 0;position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--soft)}
+    .zone-b-left,.zone-b-right{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .tb{display:inline-flex;align-items:center;gap:4px;height:32px;padding:6px 8px;border:0;border-radius:var(--r);background:var(--btn);font-size:12px;font-weight:600;cursor:pointer}
+    .tb:hover{background:#BABCBE}
+    .tb.primary{background:var(--primary);color:#fff}
+    .tb.primary:hover{background:#0b5ed7}
+    .tb:disabled{opacity:.55;cursor:not-allowed}
+    .filter-bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:8px 12px;background:var(--card);border:1px solid var(--soft);border-radius:var(--r)}
+    .filter-bar label{font-size:13px;font-weight:600;color:#37474f}
+    .filter-bar select{height:32px;border:1px solid var(--border);border-radius:var(--r);padding:0 8px;font-size:13px;background:#fff}
+    .filter-bar .search{margin-left:auto;display:flex;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;min-width:260px;height:32px;background:#fff}
+    .filter-bar .search input{border:0;outline:0;padding:6px 10px;flex:1;font-size:13px}
+    .filter-bar .search button{border:0;border-left:1px solid var(--border);background:#f8fafc;padding:0 10px;cursor:pointer;color:var(--muted)}
+    .card{background:var(--card);border:1px solid var(--soft);border-radius:var(--r);flex:1;display:flex;flex-direction:column;min-height:0;overflow:hidden}
+    .grid-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 16px 8px}
+    .grid-title{margin:0;font-size:15px;font-weight:700}
+    .grid-help{margin:4px 0 0;font-size:12px;color:var(--muted)}
+    .table-wrap{overflow:auto;flex:1;min-height:200px;border-top:1px solid var(--soft)}
+    table{width:100%;border-collapse:collapse;table-layout:fixed}
+    th,td{padding:8px 12px;border-bottom:1px solid var(--soft);text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    th{background:#f8fafc;font-size:12px;color:var(--muted);position:sticky;top:0}
+    th.num,td.num{text-align:center;width:48px}
+    tbody tr:nth-child(even){background:#fafbfc}
+    tbody tr:hover,tbody tr.sel{background:#eff6ff}
+    .col-tools{display:inline-flex;gap:4px;margin-left:6px;vertical-align:middle}
+    .col-tools button{border:0;background:transparent;cursor:pointer;color:var(--muted);padding:0 2px;font-size:11px}
+    .col-tools button.on{color:var(--primary)}
+    .filter-pop{display:none;position:absolute;z-index:30;width:260px;background:#fff;border:1px solid var(--soft);border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.12);padding:10px}
+    .filter-pop.on{display:block}
+    .filter-pop input[type=text]{width:100%;margin-bottom:8px;padding:6px 8px;border:1px solid var(--border);border-radius:var(--r)}
+    .filter-field{display:flex;align-items:center;gap:8px;padding:6px 8px;border:1px solid var(--soft);border-radius:6px;margin-bottom:8px}
+    .filter-hint{font-size:12px;color:var(--muted);margin-bottom:8px}
+    .filter-list{max-height:140px;overflow:auto;display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
+    .filter-list label{display:flex;align-items:center;gap:8px;padding:4px 6px;border-radius:4px}
+    .filter-list label.on{background:#eff6ff}
+    .filter-acts{display:flex;justify-content:flex-end;gap:8px}
+    .badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;background:#e3f2fd;color:#0d47a1}
+    .badge.off{background:#eceff1;color:#546e7a}
+    .icon-empty{color:var(--muted);font-style:italic}
+    .zone-d{display:flex;flex-direction:column;align-items:center;gap:10px;padding:12px 16px;border-top:1px solid var(--soft)}
+    .zone-d-total{color:var(--muted)}
+    .zone-d-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center}
+    .pager-btn{width:32px;height:32px;border:1px solid var(--soft);border-radius:var(--r);background:#fff;color:var(--muted);cursor:pointer}
+    .menu{position:relative}
+    .menu summary{list-style:none;cursor:pointer;padding:4px 8px;border:1px solid var(--border);border-radius:var(--r);background:#fff}
+    .menu summary::-webkit-details-marker{display:none}
+    .menu-panel{display:none;position:absolute;right:0;z-index:5;background:#fff;border:1px solid var(--border);border-radius:6px;min-width:140px;box-shadow:0 8px 24px rgba(0,0,0,.12)}
+    .menu[open] .menu-panel{display:block}
+    .menu-panel button{display:block;width:100%;text-align:left;border:0;background:0;padding:8px 12px;cursor:pointer;font-size:13px}
+    .menu-panel button:hover{background:#f1f5f9}
+    .backdrop{display:none;position:fixed;inset:0;background:rgba(15,23,42,.35);z-index:40}
+    .backdrop.on{display:block}
+    .backdrop.center{display:none;align-items:center;justify-content:center}
+    .backdrop.center.on{display:flex}
+    .modal{width:min(420px,94vw);background:#fff;border-radius:8px;border:1px solid var(--soft)}
+    .modal-h{padding:12px 16px;border-bottom:1px solid var(--soft);font-weight:700}
+    .modal-b{padding:16px;font-size:13px;color:var(--muted)}
+    .modal-f{padding:12px 16px;border-top:1px solid var(--soft);display:flex;justify-content:flex-end;gap:8px}
+    .slideout{position:fixed;top:0;right:0;height:100vh;width:min(520px,96vw);background:#fff;z-index:50;display:none;flex-direction:column;box-shadow:-8px 0 32px rgba(0,0,0,.18);border-left:1px solid var(--soft)}
+    .slideout.on{display:flex}
+    .slide-h{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px 16px;border-bottom:1px solid var(--soft)}
+    .slide-h h2{margin:0;font-size:16px}
+    .slide-badge{font-size:11px;padding:2px 8px;border-radius:4px;background:#e3f2fd;color:#0d47a1;font-weight:600}
+    .slide-x{border:0;background:transparent;font-size:18px;cursor:pointer;color:var(--muted)}
+    .slide-b{flex:1;overflow:auto;padding:16px}
+    .fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .fields[data-form-cols="2"]{grid-template-columns:1fr 1fr}
+    .field{display:flex;flex-direction:column;gap:4px}
+    .field.wide{grid-column:1 / -1}
+    .field label{font-size:13px;font-weight:600}
+    .field input,.field select{height:32px;padding:6px 8px;border:1px solid var(--border);border-radius:var(--r);font-size:14px}
+    .field .switch{display:inline-flex;align-items:center;gap:8px;height:32px}
+    .slide-f{padding:12px 16px;border-top:1px solid var(--soft);display:flex;justify-content:flex-end;gap:8px}
+    .ro{background:#f8fafc}
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="zone-a" data-des-id="DES-GRID-A">
+      <h1><i class="fas fa-road" aria-hidden="true"></i> Loại biển báo</h1>
+    </header>
+
+    <div class="zone-b" data-des-id="DES-GRID-B">
+      <div class="zone-b-left">
+        <button type="button" class="tb" data-action="refresh"><i class="fas fa-sync-alt"></i> Làm mới</button>
+        <button type="button" class="tb" data-action="history"><i class="fas fa-history"></i> Lịch sử</button>
+        <button type="button" class="tb" data-action="config"><i class="fas fa-cog"></i> Sửa config</button>
+        <button type="button" class="tb" id="btn-view" disabled><i class="fas fa-eye"></i> Xem</button>
+        <button type="button" class="tb" id="btn-edit" disabled><i class="fas fa-pen"></i> Sửa</button>
+        <button type="button" class="tb" id="btn-del" disabled><i class="fas fa-trash"></i> Xóa</button>
+      </div>
+      <div class="zone-b-right">
+        <button type="button" class="tb primary" data-action="create"><i class="fas fa-plus"></i> Thêm mới</button>
+      </div>
+    </div>
+
+    <div class="filter-bar" data-des-id="DES-GRID-B-FILTER">
+      <label for="groupFilter">Nhóm QCVN</label>
+      <select id="groupFilter" aria-label="Nhóm QCVN">
+        <option value="">Tất cả</option>
+        <option>P</option><option>W</option><option>R</option><option>I</option><option>S</option><option>KHAC</option>
+      </select>
+      <div class="search" data-des-id="DES-GRID-C1">
+        <input type="search" id="q" placeholder="Tìm mã / nội dung…" aria-label="Tìm kiếm" />
+        <button type="button" aria-label="Tìm"><i class="fas fa-search"></i></button>
+      </div>
+    </div>
+
+    <section class="card">
+      <div class="grid-head" data-des-id="DES-GRID-C0">
+        <div>
+          <h2 class="grid-title">Danh sách loại biển báo</h2>
+          <p class="grid-help" data-des-id="DES-GRID-C3-help">Nhấn đúp · Ctrl + chuột phải · giữ chạm (mobile) để mở menu dòng</p>
+        </div>
+      </div>
+
+      <div class="table-wrap" data-des-id="DES-GRID-C2" style="position:relative">
+        <table>
+          <thead>
+            <tr>
+              <th class="num">STT</th>
+              <th class="num"><input type="checkbox" id="chk-all" aria-label="Chọn tất cả trang" /></th>
+              <th>
+                Mã biển
+                <span class="col-tools">
+                  <button type="button" class="on" title="Sắp xếp" data-sort="code"><i class="fas fa-sort-alpha-down"></i></button>
+                  <button type="button" title="Lọc" id="btn-filter-code"><i class="fas fa-filter"></i></button>
+                </span>
+              </th>
+              <th>Nội dung</th>
+              <th>Rộng</th>
+              <th>Dài</th>
+              <th>Nhóm</th>
+              <th>Hình dạng</th>
+              <th>Icon</th>
+              <th>Hiệu lực</th>
+              <th class="num"></th>
+            </tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+        <div class="filter-pop" id="filter-pop" data-des-id="DES-GRID-C2a" style="top:40px;left:180px">
+          <input type="text" id="filter-q" placeholder="Tìm trong danh sách…" />
+          <div class="filter-field">
+            <input type="checkbox" id="filter-select-all" />
+            <label for="filter-select-all" style="flex:1;cursor:pointer">Chọn tất cả</label>
+          </div>
+          <div class="filter-hint" id="filter-count">Đã chọn 0 mục</div>
+          <div class="filter-list" id="filter-list"></div>
+          <div class="filter-acts">
+            <button type="button" class="tb" id="filter-cancel">Hủy</button>
+            <button type="button" class="tb primary" id="filter-ok">Xác nhận</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="zone-d" data-des-id="DES-GRID-D">
+        <div class="zone-d-total">Tổng: <span id="total">5</span> · Trang <span id="page">1</span>/1</div>
+        <div class="zone-d-row">
+          <label>Hiển thị
+            <select id="pageSize"><option>50</option><option>100</option><option>200</option><option>500</option></select>
+          </label>
+          <button type="button" class="pager-btn" disabled><i class="fas fa-angle-double-left"></i></button>
+          <button type="button" class="pager-btn" disabled><i class="fas fa-angle-left"></i></button>
+          <span>1/1</span>
+          <button type="button" class="pager-btn" disabled><i class="fas fa-angle-right"></i></button>
+          <button type="button" class="pager-btn" disabled><i class="fas fa-angle-double-right"></i></button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="backdrop center" id="modal-config" data-des-id="DES-GRID-F">
+    <div class="modal">
+      <div class="modal-h"><i class="fas fa-cog"></i> Sửa cấu hình lưới</div>
+      <div class="modal-b">Kéo cột: <strong>ON</strong> (default) · catalogKind <code>traffic-sign-type</code> · Zone F / ui-schema — mock Design.</div>
+      <div class="modal-f"><button type="button" class="tb" data-close="modal-config">Đóng</button></div>
+    </div>
+  </div>
+  <div class="backdrop center" id="modal-history" data-des-id="DES-GRID-H">
+    <div class="modal">
+      <div class="modal-h"><i class="fas fa-history"></i> Lịch sử</div>
+      <div class="modal-b">Timeline mock theo dòng đã chọn (LinCatalogHistoryModal).</div>
+      <div class="modal-f"><button type="button" class="tb" data-close="modal-history">Đóng</button></div>
+    </div>
+  </div>
+  <div class="backdrop center" id="modal-leave" data-des-id="DES-LEAVE">
+    <div class="modal">
+      <div class="modal-h">Rời form?</div>
+      <div class="modal-b">Dữ liệu chưa lưu sẽ mất. (LeaveConfirmModal — <strong>cấm</strong> native alert/confirm)</div>
+      <div class="modal-f">
+        <button type="button" class="tb" id="leave-stay">Ở lại</button>
+        <button type="button" class="tb primary" id="leave-ok">Rời đi</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="backdrop" id="form-backdrop" data-des-id="DES-GRID-Z"></div>
+  <aside class="slideout" id="slide-form" aria-label="Form loại biển báo" data-form-cols="2">
+    <div class="slide-h">
+      <div style="display:flex;align-items:center;gap:8px">
+        <h2 id="form-title">Thêm mới — Loại biển báo</h2>
+        <span class="slide-badge" id="form-badge">Tạo mới</span>
+      </div>
+      <button type="button" class="slide-x" id="btn-close-x" aria-label="Đóng">×</button>
+    </div>
+    <div class="slide-b">
+      <div class="fields" data-form-cols="2" data-des-id="DES-FORM-Z1">
+        <div class="field"><label>Mã biển *</label><input id="f-code" value="P.102" /></div>
+        <div class="field"><label>Nhóm QCVN 41 *</label>
+          <select id="f-group"><option>P</option><option>W</option><option>R</option><option selected>I</option><option>S</option><option>KHAC</option></select>
+        </div>
+        <div class="field wide"><label>Nội dung biển báo *</label><input id="f-name" value="Cấm đi ngược chiều" /></div>
+        <div class="field wide"><label>Tên tiếng Anh</label><input id="f-nameEn" value="No entry" /></div>
+        <div class="field"><label>Hình dạng</label><input id="f-shape" value="Tròn" /></div>
+        <div class="field"><label>Chiều rộng</label><input id="f-width" value="600" /></div>
+        <div class="field"><label>Chiều dài</label><input id="f-height" value="600" /></div>
+        <div class="field"><label>Icon (URL/path)</label><input id="f-icon" placeholder="NULL — user config · cấm seed pict" /></div>
+        <div class="field"><label>Hiệu lực</label>
+          <div class="switch"><input type="checkbox" id="f-active" checked /> <span>Đang hiệu lực</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-f" data-des-id="DES-FORM-Z3">
+      <button type="button" class="tb" id="btn-cancel">Hủy</button>
+      <button type="button" class="tb primary" id="btn-save">Lưu</button>
+    </div>
+  </aside>
+
+  <script>
+    const rows = [
+      { code: 'P.102', name: 'Cấm đi ngược chiều', width: '600', height: '600', group: 'P', shape: 'Tròn', icon: null, active: true },
+      { code: 'W.201a', name: 'Chỗ ngoặt nguy hiểm bên trái', width: '700', height: '700', group: 'W', shape: 'Tam giác', icon: null, active: true },
+      { code: 'R.301a', name: 'Hướng đi phải theo', width: '600', height: '600', group: 'R', shape: 'Tròn', icon: null, active: true },
+      { code: 'I.414b', name: 'Biển báo chỉ dẫn', width: '800', height: '400', group: 'I', shape: 'Chữ nhật', icon: null, active: true },
+      { code: 'S.501', name: 'Biển phụ', width: '400', height: '300', group: 'S', shape: 'Chữ nhật', icon: null, active: false },
+    ];
+    let selected = null;
+    let formDirty = false;
+    let formMode = 'create';
+    const tbody = document.getElementById('tbody');
+    const filterVals = rows.map(r => r.code);
+    let filterChecked = new Set(filterVals);
+
+    function render() {
+      const q = (document.getElementById('q').value || '').trim().toLowerCase();
+      const g = document.getElementById('groupFilter').value;
+      const list = rows.filter(r => {
+        if (g && r.group !== g) return false;
+        if (!q) return true;
+        return r.code.toLowerCase().includes(q) || r.name.toLowerCase().includes(q);
+      });
+      tbody.innerHTML = list.map((r, i) => `
+        <tr data-code="${r.code}" class="${selected===r.code?'sel':''}">
+          <td class="num">${i + 1}</td>
+          <td class="num"><input type="checkbox" class="row-chk" ${selected===r.code?'checked':''} /></td>
+          <td><button type="button" class="code-link" style="border:0;background:0;color:#0d6efd;text-decoration:underline;cursor:pointer;font:inherit">${r.code}</button></td>
+          <td>${r.name}</td>
+          <td>${r.width}</td>
+          <td>${r.height}</td>
+          <td>${r.group}</td>
+          <td>${r.shape}</td>
+          <td>${r.icon ? r.icon : '<span class="icon-empty">—</span>'}</td>
+          <td>${r.active ? '<span class="badge">Hiệu lực</span>' : '<span class="badge off">Ngừng</span>'}</td>
+          <td class="num" data-des-id="DES-GRID-C3">
+            <details class="menu">
+              <summary>⋮</summary>
+              <div class="menu-panel">
+                <button type="button" data-menu="view">Xem</button>
+                <button type="button" data-menu="edit">Sửa</button>
+                <button type="button" data-menu="copy">Sao chép</button>
+                <button type="button" data-menu="history">Lịch sử</button>
+                <button type="button" data-menu="delete">Xóa</button>
+              </div>
+            </details>
+          </td>
+        </tr>`).join('');
+      document.getElementById('total').textContent = String(list.length);
+      syncSelBtns();
+    }
+
+    function syncSelBtns() {
+      const on = Boolean(selected);
+      ['btn-view','btn-edit','btn-del'].forEach(id => { document.getElementById(id).disabled = !on; });
+    }
+
+    function openModal(id) { document.getElementById(id).classList.add('on'); }
+    function closeModal(id) { document.getElementById(id).classList.remove('on'); }
+
+    function openForm(mode, code) {
+      formMode = mode;
+      formDirty = false;
+      const map = { create: 'Tạo mới', edit: 'Sửa', view: 'Xem', copy: 'Sao chép' };
+      document.getElementById('form-badge').textContent = map[mode] || mode;
+      document.getElementById('form-title').textContent = (map[mode] || mode) + ' — Loại biển báo';
+      const row = rows.find(r => r.code === code) || rows[0];
+      const codeEl = document.getElementById('f-code');
+      codeEl.value = mode === 'create' ? '' : (mode === 'copy' ? '' : row.code);
+      codeEl.readOnly = mode === 'edit' || mode === 'view';
+      codeEl.classList.toggle('ro', codeEl.readOnly);
+      document.getElementById('f-name').value = mode === 'create' ? '' : row.name;
+      document.getElementById('f-nameEn').value = mode === 'create' ? '' : '—';
+      document.getElementById('f-group').value = mode === 'create' ? 'P' : row.group;
+      document.getElementById('f-shape').value = mode === 'create' ? '' : row.shape;
+      document.getElementById('f-width').value = mode === 'create' ? '' : row.width;
+      document.getElementById('f-height').value = mode === 'create' ? '' : row.height;
+      document.getElementById('f-icon').value = '';
+      document.getElementById('f-active').checked = mode === 'create' ? true : row.active;
+      const ro = mode === 'view';
+      document.querySelectorAll('#slide-form input, #slide-form select').forEach(el => {
+        if (el.id === 'f-code' && (mode === 'edit' || mode === 'view')) return;
+        if (el.type === 'checkbox') el.disabled = ro;
+        else el.readOnly = ro;
+        el.classList.toggle('ro', ro && el.type !== 'checkbox');
+      });
+      document.getElementById('btn-save').style.display = ro ? 'none' : '';
+      document.getElementById('form-backdrop').classList.add('on');
+      document.getElementById('slide-form').classList.add('on');
+    }
+
+    function requestCloseForm() {
+      if (formDirty && formMode !== 'view') {
+        openModal('modal-leave');
+        return;
+      }
+      closeForm();
+    }
+    function closeForm() {
+      document.getElementById('form-backdrop').classList.remove('on');
+      document.getElementById('slide-form').classList.remove('on');
+      formDirty = false;
+      closeModal('modal-leave');
+    }
+
+    tbody.addEventListener('click', (e) => {
+      const tr = e.target.closest('tr');
+      if (!tr) return;
+      const code = tr.getAttribute('data-code');
+      if (e.target.closest('[data-menu]')) {
+        const act = e.target.getAttribute('data-menu');
+        selected = code; syncSelBtns(); render();
+        if (act === 'history') openModal('modal-history');
+        else if (act === 'view' || act === 'edit' || act === 'copy') openForm(act, code);
+        return;
+      }
+      if (e.target.classList.contains('code-link') || e.target.classList.contains('row-chk') || e.detail === 2) {
+        selected = code; syncSelBtns(); render();
+      }
+    });
+    tbody.addEventListener('dblclick', (e) => {
+      const tr = e.target.closest('tr');
+      if (!tr) return;
+      selected = tr.getAttribute('data-code'); syncSelBtns(); render();
+      openForm('edit', selected);
+    });
+
+    document.getElementById('q').addEventListener('input', render);
+    document.getElementById('groupFilter').addEventListener('change', render);
+    document.querySelector('[data-action="config"]').addEventListener('click', () => openModal('modal-config'));
+    document.querySelector('[data-action="history"]').addEventListener('click', () => openModal('modal-history'));
+    document.querySelector('[data-action="create"]').addEventListener('click', () => openForm('create'));
+    document.querySelector('[data-action="refresh"]').addEventListener('click', render);
+    document.getElementById('btn-view').addEventListener('click', () => selected && openForm('view', selected));
+    document.getElementById('btn-edit').addEventListener('click', () => selected && openForm('edit', selected));
+    document.querySelectorAll('[data-close]').forEach(btn => {
+      btn.addEventListener('click', () => closeModal(btn.getAttribute('data-close')));
+    });
+    document.getElementById('btn-cancel').addEventListener('click', requestCloseForm);
+    document.getElementById('btn-close-x').addEventListener('click', requestCloseForm);
+    document.getElementById('form-backdrop').addEventListener('click', requestCloseForm);
+    document.getElementById('btn-save').addEventListener('click', () => { formDirty = false; closeForm(); });
+    document.getElementById('leave-stay').addEventListener('click', () => closeModal('modal-leave'));
+    document.getElementById('leave-ok').addEventListener('click', closeForm);
+    document.querySelectorAll('#slide-form input, #slide-form select').forEach(el => {
+      el.addEventListener('input', () => { formDirty = true; });
+      el.addEventListener('change', () => { formDirty = true; });
+    });
+
+    function renderFilterList() {
+      const fq = (document.getElementById('filter-q').value || '').toLowerCase();
+      const visible = filterVals.filter(v => !fq || v.toLowerCase().includes(fq));
+      const box = document.getElementById('filter-list');
+      box.innerHTML = visible.map(v => `
+        <label class="${filterChecked.has(v)?'on':''}">
+          <input type="checkbox" data-fv="${v}" ${filterChecked.has(v)?'checked':''} /> ${v}
+        </label>`).join('');
+      const n = visible.filter(v => filterChecked.has(v)).length;
+      document.getElementById('filter-count').textContent = `Đã chọn ${n} mục`;
+      document.getElementById('filter-select-all').checked = visible.length > 0 && n === visible.length;
+    }
+    document.getElementById('btn-filter-code').addEventListener('click', (e) => {
+      e.stopPropagation();
+      document.getElementById('filter-pop').classList.toggle('on');
+      renderFilterList();
+    });
+    document.getElementById('filter-q').addEventListener('input', renderFilterList);
+    document.getElementById('filter-list').addEventListener('change', (e) => {
+      const t = e.target;
+      if (!t.matches('[data-fv]')) return;
+      if (t.checked) filterChecked.add(t.getAttribute('data-fv'));
+      else filterChecked.delete(t.getAttribute('data-fv'));
+      renderFilterList();
+    });
+    document.getElementById('filter-select-all').addEventListener('change', (e) => {
+      const fq = (document.getElementById('filter-q').value || '').toLowerCase();
+      const visible = filterVals.filter(v => !fq || v.toLowerCase().includes(fq));
+      if (e.target.checked) visible.forEach(v => filterChecked.add(v));
+      else visible.forEach(v => filterChecked.delete(v));
+      renderFilterList();
+    });
+    document.getElementById('filter-cancel').addEventListener('click', () => document.getElementById('filter-pop').classList.remove('on'));
+    document.getElementById('filter-ok').addEventListener('click', () => document.getElementById('filter-pop').classList.remove('on'));
+
+    render();
+  </script>
+</body>
+</html>

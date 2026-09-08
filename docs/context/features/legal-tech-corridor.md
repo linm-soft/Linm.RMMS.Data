@@ -2,7 +2,7 @@
 
 > **Slug:** `legal-tech-corridor` · **Module:** Compliance × Gis × Auth  
 > **Status:** Context (chốt product)  
-> **Skills:** `/review-app-vn-map-law` · `/review-map-release` · `/review-app-submit`  
+> **Skills:** `/review-app-vn-map-law` (cấp 3+ · GPS · NĐ 13) · `/review-data-security-l1-l2` (ATTT **cấp 1–2** dữ liệu · TT 12) · `/review-map-release` · `/review-app-submit`  
 > **Peers:** [`map-service.md`](map-service.md) · [`gis-osm-clip.md`](gis-osm-clip.md) · [`login.md`](login.md) · [`citizen.md`](citizen.md) · [`directions.md`](directions.md)  
 > **Nguồn khách:** [`../../tai-lieu/all-info-app-map.md`](../../tai-lieu/all-info-app-map.md)
 

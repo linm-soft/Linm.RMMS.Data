@@ -1,0 +1,10 @@
+{
+  "feature": "csdl-cuc-2026",
+  "status": "confirmed",
+  "verdict": "PASS",
+  "review_confirm": "approve",
+  "taskId": "task_861ea153",
+  "contentHash": "sha256:8DED37798D5ACEDFA3E106C0308B26152C9DEB7D1977DD7EDF5EB87991834BE2",
+  "writtenAt": "2026-09-07T03:12:00.000Z",
+  "autoApprove": true
+}

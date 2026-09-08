@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Prototype — CSDL Cục · hub KPI 16+10 + Import Excel</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
+  <style>
+    :root {
+      --bg:#f5f7fa; --card:#fff; --border:#BABCBE; --soft:#e9ecef; --txt:#1A1A1A;
+      --muted:#6c757d; --primary:#0d6efd; --btn:#EEEEEE; --r:4px; --ok:#198754; --warn:#b45309;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font:13px/1.4 "Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--txt)}
+    .page{max-width:1200px;margin:0 auto;padding:8px;display:flex;flex-direction:column;gap:8px;min-height:100vh}
+    .note{font-size:11px;color:var(--muted);padding:4px 0}
+    .hub{background:var(--card);border:1px solid var(--soft);border-radius:var(--r);padding:14px 16px}
+    .hub-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap}
+    .hub h1{margin:0;font-size:20px;font-weight:700;display:flex;align-items:center;gap:10px}
+    .hub h1 i{color:var(--primary);font-size:18px}
+    .badge-row{display:flex;gap:8px;flex-wrap:wrap}
+    .badge{height:28px;padding:0 10px;border-radius:var(--r);border:1px solid var(--border);background:#f8fafc;font-weight:700;display:inline-flex;align-items:center;gap:6px}
+    .badge b{color:var(--primary)}
+    .zone-b{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:10px 0;border-bottom:1px solid var(--soft);align-items:center}
+    .zone-b-left,.zone-b-right{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .tabs{display:flex;gap:8px}
+    .tabs button{height:32px;padding:0 12px;border:1px solid var(--border);background:#fff;border-radius:var(--r);font-weight:600;cursor:pointer}
+    .tabs button.on{background:var(--primary);color:#fff;border-color:var(--primary)}
+    .tb{display:inline-flex;align-items:center;gap:4px;height:32px;padding:6px 8px;border:0;border-radius:var(--r);background:var(--btn);font-size:12px;font-weight:600;cursor:pointer}
+    .tb:hover{background:#BABCBE}
+    .tb.primary{background:var(--primary);color:#fff}
+    .tb.primary:hover{background:#0b5ed7}
+    .filter-bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:flex-end;padding:8px 0}
+    .search{display:flex;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;min-width:260px;height:32px;background:#fff}
+    .search input{border:0;outline:0;padding:6px 10px;flex:1;font-size:14px}
+    .search button{border:0;border-left:1px solid var(--border);background:#f8fafc;padding:0 10px;cursor:pointer;color:var(--muted)}
+    .chip{height:28px;padding:0 10px;border-radius:var(--r);border:1px dashed var(--border);background:#fff;color:var(--muted);display:inline-flex;align-items:center;gap:6px;font-size:12px}
+    .chip.on{border-style:solid;border-color:var(--primary);color:var(--primary);background:#eff6ff}
+    .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:10px 0}
+    .kpi{border:1px solid var(--border);border-radius:var(--r);padding:10px;background:#f8fafc}
+    .kpi .l{color:var(--muted);font-size:11px}.kpi .v{font-size:18px;font-weight:700;color:var(--primary);margin-top:4px}
+    .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
+    .card-item{border:1px solid var(--border);border-radius:var(--r);padding:12px;cursor:pointer;background:#fff;min-height:96px}
+    .card-item:hover{border-color:var(--primary)}
+    .card-item .no{font-size:11px;font-weight:700;color:var(--primary)}
+    .card-item .t{font-weight:600;margin:4px 0;font-size:13px}
+    .card-item .m{color:var(--muted);font-size:11px}
+    .empty{display:none;padding:28px;text-align:center;color:var(--muted);border:1px dashed var(--border);border-radius:var(--r);background:#fff}
+    .empty.on{display:block}
+    .toast{position:fixed;right:16px;bottom:16px;background:#111827;color:#fff;padding:10px 14px;border-radius:6px;font-size:12px;display:none;z-index:60;max-width:360px}
+    .toast.on{display:block}
+    .backdrop{display:none;position:fixed;inset:0;background:rgba(15,23,42,.35);z-index:40;align-items:center;justify-content:center}
+    .backdrop.on{display:flex}
+    .modal{width:min(640px,94vw);background:#fff;border-radius:8px;border:1px solid var(--soft);max-height:90vh;overflow:auto}
+    .modal-h{padding:12px 16px;border-bottom:1px solid var(--soft);font-weight:700;display:flex;justify-content:space-between;align-items:center}
+    .modal-b{padding:16px;font-size:13px}
+    .modal-f{padding:12px 16px;border-top:1px solid var(--soft);display:flex;justify-content:flex-end;gap:8px}
+    .map-table{width:100%;border-collapse:collapse;font-size:12px}
+    .map-table th,.map-table td{border-bottom:1px solid var(--soft);padding:6px 8px;text-align:left}
+    .map-table th{color:var(--muted);background:#f8fafc}
+    .skip{color:var(--warn);font-size:12px;margin-top:8px}
+    .ok{color:var(--ok)}
+    @media (max-width:800px){.kpis{grid-template-columns:1fr 1fr}}
+  </style>
+</head>
+<body>
+  <div class="page">
+    <p class="note">SSOT Design · Kind <b>G</b> hub · pack <code>csdl-cuc-2026</code> · route <code>/csdl-cuc-2026</code> ↔ hub live <code>/so-ts/csdl-so-sach</code> · skip chrome · <b>cấm</b> slug trên card · typed deep-link only</p>
+
+    <section class="hub" id="hub" data-des-id="DES-HUB">
+      <!-- Zone A -->
+      <div class="hub-head" data-des-id="DES-HUB-A">
+        <h1><i class="fas fa-database" aria-hidden="true"></i> CSDL Cục — Sổ sách / biểu mẫu</h1>
+        <div class="badge-row">
+          <span class="badge" data-des-id="DES-HUB-KPI-BIEU">Biểu <b id="kpiBieu">16</b></span>
+          <span class="badge" data-des-id="DES-HUB-KPI-SO">Sổ <b id="kpiSo">10</b></span>
+        </div>
+      </div>
+
+      <!-- Zone B toolbar + tabs + filter -->
+      <div class="zone-b" data-des-id="DES-HUB-B">
+        <div class="zone-b-left">
+          <div class="tabs" data-des-id="DES-HUB-TAB" role="tablist">
+            <button type="button" class="on" id="tabBieu" data-tab="bieu">CSDL (16)</button>
+            <button type="button" id="tabSo" data-tab="so">Sổ (10)</button>
+          </div>
+          <span class="chip" id="resourceChip" data-des-id="DES-HUB-RESOURCE" title="QS ?resource=">resource: —</span>
+        </div>
+        <div class="zone-b-right">
+          <button type="button" class="tb" id="btnRefresh" title="Làm mới"><i class="fas fa-sync-alt"></i> Làm mới</button>
+          <button type="button" class="tb primary" id="btnImport" title="Import Excel Cục"><i class="fas fa-file-import"></i> Import Excel</button>
+          <button type="button" class="tb" id="btnExport" title="Export"><i class="fas fa-file-export"></i> Export</button>
+        </div>
+      </div>
+
+      <div class="filter-bar" data-des-id="DES-HUB-FILTER" aria-label="LinErpListFilterBar">
+        <div class="search" title="SearchTextInput — cấm nút Tìm riêng">
+          <input type="search" id="q" placeholder="Tên biểu/sổ · mã resource…" aria-label="Tìm kiếm" />
+          <button type="button" aria-label="Tìm trong ô"><i class="fas fa-search"></i></button>
+        </div>
+      </div>
+
+      <div class="kpis" data-des-id="DES-HUB-KPI">
+        <div class="kpi"><div class="l">Số biểu (API)</div><div class="v">16</div></div>
+        <div class="kpi"><div class="l">Số sổ (API)</div><div class="v">10</div></div>
+        <div class="kpi"><div class="l">Hiển thị</div><div class="v" id="kpiShow">16</div></div>
+        <div class="kpi"><div class="l">Nguồn</div><div class="v">catalog</div></div>
+      </div>
+
+      <!-- Zone C catalog cards -->
+      <div class="cards" id="cards" data-des-id="DES-HUB-C"></div>
+
+      <!-- Zone D empty -->
+      <div class="empty" id="empty" data-des-id="DES-HUB-D">Không có biểu/sổ khớp bộ lọc. Kiểm tra catalog API · <b>cấm</b> mock HasData.</div>
+    </section>
+  </div>
+
+  <!-- Import modal -->
+  <div class="backdrop" id="importModal" data-des-id="DES-MOD-IMPORT" aria-hidden="true">
+    <div class="modal" role="dialog" aria-labelledby="importTitle">
+      <div class="modal-h">
+        <span id="importTitle">Import Excel Cục (16 sheet)</span>
+        <button type="button" class="tb" id="btnCloseImport" aria-label="Đóng">✕</button>
+      </div>
+      <div class="modal-b">
+        <p>Chọn file <code>.xls</code> · 1 sheet ↔ 1 resource · merge header 2–3 dòng · path API = <b>GAP SA</b>.</p>
+        <label class="fld" style="display:flex;flex-direction:column;gap:4px;margin:10px 0">
+          <span style="color:var(--muted)">File Excel</span>
+          <input type="file" id="importFile" accept=".xls,.xlsx" aria-label="Chọn file Excel" />
+        </label>
+        <label style="display:flex;align-items:center;gap:8px;margin:8px 0">
+          <input type="checkbox" id="skipBridge" checked />
+          <span>Skip hàng cầu âm (Biểu 1) · báo cáo số skip</span>
+        </label>
+        <p class="skip" id="skipHint">Rule Biểu 1: skip cầu âm khi import · toast + số skip sau confirm.</p>
+        <table class="map-table" aria-label="Sheet → resource">
+          <thead><tr><th>Sheet</th><th>formNo</th><th>resource</th><th>Preview</th></tr></thead>
+          <tbody id="sheetMap"></tbody>
+        </table>
+      </div>
+      <div class="modal-f">
+        <button type="button" class="tb" id="btnCancelImport">Hủy</button>
+        <button type="button" class="tb primary" id="btnConfirmImport">Xác nhận import</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+
+  <script>
+    const BIEU = [
+      { formNo:'01', resource:'pavement-sections', title:'Phân loại mặt đường', count:120 },
+      { formNo:'02', resource:'bridges', title:'Thống kê cầu', count:48 },
+      { formNo:'03', resource:'road-tunnels', title:'Hầm đường bộ', count:6 },
+      { formNo:'04', resource:'culverts', title:'Cống', count:210 },
+      { formNo:'05', resource:'ditches', title:'Rãnh', count:88 },
+      { formNo:'06', resource:'underpasses', title:'Hầm chui DS + hộp KT', count:14 },
+      { formNo:'07', resource:'shoulders-fences', title:'Lề / taluy / hàng rào', count:55 },
+      { formNo:'08', resource:'traffic-safety', title:'ATGT', count:320 },
+      { formNo:'09', resource:'boundary-markers', title:'Mốc LG / GPMB', count:40 },
+      { formNo:'10', resource:'retaining-walls', title:'Kè, tường chắn', count:22 },
+      { formNo:'11', resource:'lighting-systems', title:'Chiếu sáng', count:31 },
+      { formNo:'12', resource:'green-assets', title:'Cây xanh, thảm cỏ', count:19 },
+      { formNo:'13', resource:'noise-barriers', title:'Tường chống ồn', count:0 },
+      { formNo:'14', resource:'its-systems', title:'ITS', count:0 },
+      { formNo:'15', resource:'ops-facilities', title:'TMC / thu phí / hạt / kho', count:0 },
+      { formNo:'16', resource:'interchanges', title:'Nút giao', count:0 }
+    ];
+    const SO = [
+      { formNo:'S1', resource:'inspection-logs', title:'Nhật ký tuần kiểm', count:12 },
+      { formNo:'S2', resource:'patrol-logs', title:'Nhật ký tuần đường', count:18 },
+      { formNo:'S3', resource:'duty-incident-logs', title:'Trực BĐGT + chốt + SC', count:7 },
+      { formNo:'S4', resource:'traffic-counts', title:'Đếm xe', count:9 },
+      { formNo:'S5', resource:'tngt-blackspots', title:'TNGT + điểm đen', count:0 },
+      { formNo:'S6', resource:'bridge-inspections', title:'QL cầu / phiếu KT', count:4 },
+      { formNo:'S7', resource:'row-violations', title:'HL + GPTC + Dự án', count:3 },
+      { formNo:'S8', resource:'maintenance-work-logs', title:'Kết quả BDTX', count:11 },
+      { formNo:'S9', resource:'its-ops-logs', title:'QL vận hành ITS/ETC', count:0 },
+      { formNo:'S10', resource:'straight-plan-maps', title:'Bình đồ duỗi thẳng', count:0 }
+    ];
+
+    let tab = 'bieu';
+    const cardsEl = document.getElementById('cards');
+    const emptyEl = document.getElementById('empty');
+    const qEl = document.getElementById('q');
+    const toastEl = document.getElementById('toast');
+    const chipEl = document.getElementById('resourceChip');
+
+    function toast(msg) {
+      toastEl.textContent = msg;
+      toastEl.classList.add('on');
+      clearTimeout(toastEl._t);
+      toastEl._t = setTimeout(() => toastEl.classList.remove('on'), 2800);
+    }
+
+    function list() {
+      const src = tab === 'bieu' ? BIEU : SO;
+      const q = (qEl.value || '').trim().toLowerCase();
+      return src.filter((x) => !q || x.title.toLowerCase().includes(q) || x.resource.includes(q) || x.formNo.toLowerCase().includes(q));
+    }
+
+    function render() {
+      const rows = list();
+      document.getElementById('kpiShow').textContent = String(rows.length);
+      document.getElementById('kpiBieu').textContent = '16';
+      document.getElementById('kpiSo').textContent = '10';
+      cardsEl.innerHTML = '';
+      emptyEl.classList.toggle('on', rows.length === 0);
+      rows.forEach((x) => {
+        const el = document.createElement('button');
+        el.type = 'button';
+        el.className = 'card-item';
+        el.setAttribute('data-des-id', 'DES-HUB-CARD');
+        el.innerHTML = '<div class="no">Số TT Cục: ' + x.formNo + '</div>'
+          + '<div class="t">' + x.title + '</div>'
+          + '<div class="m">Bản ghi: ' + x.count + ' · mở typed</div>';
+        el.addEventListener('click', () => {
+          chipEl.textContent = 'resource: ' + x.resource;
+          chipEl.classList.add('on');
+          toast('Deep-link typed · ?resource=' + x.resource + ' · cấm Slideout generic hub');
+        });
+        cardsEl.appendChild(el);
+      });
+    }
+
+    document.getElementById('tabBieu').addEventListener('click', () => {
+      tab = 'bieu';
+      document.getElementById('tabBieu').classList.add('on');
+      document.getElementById('tabSo').classList.remove('on');
+      render();
+    });
+    document.getElementById('tabSo').addEventListener('click', () => {
+      tab = 'so';
+      document.getElementById('tabSo').classList.add('on');
+      document.getElementById('tabBieu').classList.remove('on');
+      render();
+    });
+    qEl.addEventListener('input', render);
+    document.getElementById('btnRefresh').addEventListener('click', () => { render(); toast('Reload catalog + KPI từ API'); });
+    document.getElementById('btnExport').addEventListener('click', () => toast('Export merge cột Excel — GAP SA/Dev'));
+
+    const modal = document.getElementById('importModal');
+    function openImport() {
+      const body = document.getElementById('sheetMap');
+      body.innerHTML = BIEU.map((x) => '<tr><td>Sheet ' + x.formNo + '</td><td>' + x.formNo + '</td><td>' + x.resource + '</td><td class="ok">~' + Math.max(x.count, 3) + ' dòng</td></tr>').join('');
+      modal.classList.add('on');
+      modal.setAttribute('aria-hidden', 'false');
+    }
+    function closeImport() {
+      modal.classList.remove('on');
+      modal.setAttribute('aria-hidden', 'true');
+    }
+    document.getElementById('btnImport').addEventListener('click', openImport);
+    document.getElementById('btnCloseImport').addEventListener('click', closeImport);
+    document.getElementById('btnCancelImport').addEventListener('click', closeImport);
+    document.getElementById('btnConfirmImport').addEventListener('click', () => {
+      const skip = document.getElementById('skipBridge').checked;
+      closeImport();
+      toast(skip ? 'Import queued · skip cầu âm Biểu 1 · toast lỗi dòng nếu lệch cột' : 'Import queued · không skip cầu âm');
+    });
+
+    render();
+  </script>
+</body>
+</html>

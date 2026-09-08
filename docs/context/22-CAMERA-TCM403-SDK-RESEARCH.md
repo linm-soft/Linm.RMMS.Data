@@ -3,7 +3,7 @@
 > **Status:** Research + **P1.5 DONE** (Login_V40 · CaptureJPEG · MFE JPEG UI) · next plate-listen / live gateway  
 > **Product:** [iDS-TCM403-GIR — Urban road ANPR](https://www.hikvision.com/en/products/ITS-Products/traffic-cameras/urban-road-anpr-cameras/ids-tcm403-gir/)  
 > **Datasheet:** API = **ISAPI, SDK, ISUP, ONVIF** (S/G/T/M) · Network TCP/IP · HTTP/HTTPS · RTSP · …  
-> **Ngày:** 2026-08-09 · **Update implement:** 2026-08-09 (P1.5 verified lab)  
+> **Ngày:** 2026-08-09 · **Update implement:** 2026-09-05 (Railway Linux64 CaptureJPEG **kết nối được**)  
 > **Liên quan:** `camera-connect` · `21-CAMERA-HLS-WEBRTC-GATEWAY.md` · `camera-model.md` · `specs/camera-connect/STATUS.md`  
 > **Code:** `CameraModelCatalog` · `HikvisionSdkClient` · `POST …/connect/test` · `…/snapshot` · `GET …/models`
 
@@ -23,15 +23,18 @@ Trên trang sản phẩm / datasheet, **không** ship binary SDK riêng theo SKU
 
 → “SDK” ở đây = **Hikvision Device Network SDK** (`HCNetSDK`) — **không** phải NuGet.
 
-**Download (user confirm trên trang HiTools):**  
-https://www.hikvision.com/en/support/tools/hitools/?type=IP → tab **Integration SDKs** → tải **Device Network SDK_Win64** (API Windows x64). Linux → **Device Network SDK_Linux64**.
+**Download:** [TPP](https://tpp.hikvision.com) Getting Started → **Integration Support** → **Download Integration Resources** → **Device Network SDK Download Info** → **Linux64** (Railway/Docker) hoặc **Win64** (lab host). HiTools cùng gói: https://www.hikvision.com/en/support/tools/hitools/?type=IP  
 
-Cấm hardcode / share direct CDN zip (thường **403** ngoài session trang HiTools).
+Cấm CDN zip 403. Cấm Push SDK / PMS / Digital Signage / Web ActiveX.
 
-**Drop folder (full path — SSOT):**  
-`D:\AI-QLBD\Linm.RMMS.WebService\api\src\RMMS.Service.Api\native\hikvision`
+**Drop folder (SSOT):**
 
-Giải nén → copy `HCNetSDK.dll` + deps vào folder trên (không commit binary). Runtime: `Camera:HikvisionSdk:NativePath` = `native/hikvision` (relative BaseDirectory). Docs sâu / ISAPI: [TPP](https://tpp.hikvision.com) · [open.hikvision.com](https://open.hikvision.com).
+| OS | Path | Keep |
+|----|------|------|
+| Win64 | `D:\AI-QLBD\Linm.RMMS.WebService\api\src\RMMS.Service.Api\native\hikvision` | `HCNetSDK.dll` + `HCNetSDKCom/` — xóa ClientDemo / `.lib` / `.exe` |
+| Linux64 | `…\native\hikvision_linux\lib` | `libhcnetsdk.so` + `HCNetSDKCom/` + deps — xóa QtDemo / consoleDemo / doc / incEn |
+
+Runtime: `Camera:HikvisionSdk:NativePath` = `native/hikvision`. **Railway:** `api/Dockerfile` `COPY hikvision_linux/lib ./native/hikvision`. Docs ISAPI: [TPP](https://tpp.hikvision.com) · [open.hikvision.com](https://open.hikvision.com).
 
 ---
 
@@ -52,8 +55,8 @@ Tham chiếu: [ANPR & ITS Integration Solution](http://www.hikvisioneurope.com/z
 **Đặc điểm:**
 
 - Port điển hình: **8000** (private) — map public kiểu **8100** thường là port này, **không** phải HTTP ISAPI  
-- Native DLL Windows (`HCNetSDK.dll` + deps) · Linux `.so` — **không** chạy trong browser  
-- Phù hợp Windows Service / Edge agent cạnh cam hoặc VPN  
+- Native: Windows `HCNetSDK.dll` · Linux `libhcnetsdk.so` (cdecl P/Invoke) — **không** chạy trong browser  
+- Railway 2026-09-05: Linux64 trong **cùng** API image — **cấm** sidecar Linux cho Win64 DLL  
 - Firmware/SDK version phải khớp (ITS traffic package)
 
 ### B. ISAPI (HTTP) — khuyến nghị RMMS khi mở được HTTP
@@ -106,7 +109,7 @@ Consumer nội bộ: `its-anpr-overload` · Incident HITL.
    Model iDS-TCM403-GIR (preferredProtocol=sdk)
                     ┌─────────────────────────────┐
    1) SDK-first     │ Device Network SDK :8000    │  ← public map :8100
-                    │ TCP probe · Login_V30 (DLL) │
+                    │ TCP probe · Login_V40 (DLL / .so) │
                     ├─────────────────────────────┤
    2) ISAPI         │ HTTP Digest 80/443          │  ← khi mở được
                     │ deviceInfo · snapshot       │
@@ -141,8 +144,8 @@ Consumer nội bộ: `its-anpr-overload` · Incident HITL.
 
 | ID | Câu hỏi | Status |
 |----|---------|--------|
-| GAP-SDK-01 | Site chỉ mở **8100** | **Chốt B-lite:** BE SDK-first + TCP; full Login khi có DLL |
-| GAP-SDK-02 | OS Edge: Windows (DLL) vs Linux (.so)? | **Windows first** (`HCNetSDK.dll`). Linux `.so` **DEFERRED**. Docker Linux **must not** fail compose build (`REQUIRE_HIKVISION_SDK` default false). |
+| GAP-SDK-01 | Site chỉ mở **8100** | **Chốt B-lite:** BE SDK-first + TCP; full Login khi native load. Prod: 8100 phải reachable từ Railway (verified 2026-09-05) |
+| GAP-SDK-02 | OS Edge: Windows (DLL) vs Linux (.so)? | **Cả hai.** Win64 lab host `:5101`. **Railway = Linux64** COPY `hikvision_linux/lib` + `LD_LIBRARY_PATH` + un-defer. DLL trong Linux image → `sdkDllLoaded=false` (`GAP-CAM-SDK-OS`). |
 | GAP-SDK-03 | ISUP có trong scope hợp đồng TPP không? | Mở |
 
-Version meta: research=`tcm403-sdk` · implement=`model-sdk-connect` · date=`2026-08-09`
+Version meta: research=`tcm403-sdk` · implement=`model-sdk-connect` · date=`2026-09-05`

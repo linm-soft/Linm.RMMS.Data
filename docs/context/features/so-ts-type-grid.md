@@ -3,7 +3,7 @@
 > **Slug:** `so-ts-type-grid` · **Module:** Asset · **Phase:** P1  
 > **Status:** Context · **2026-09-01** — mẫu DRVN `docs/img/gov-mau-tai-san/` + `/data-gov-integration`  
 > **Kind:** **B** list `/so-ts?type=` + **D** form Create/Edit (`AssetFormPage`)  
-> **Peer:** [`asset.md`](asset.md) · [`asset-kcht-32.md`](asset-kcht-32.md) · [`import-gov-ssot.md`](import-gov-ssot.md) · [`import-gov-asset-fields.md`](import-gov-asset-fields.md) · [`asset-kcht-dashboard.md`](asset-kcht-dashboard.md)  
+> **Peer:** [`asset.md`](asset.md) · [`asset-kcht-32.md`](asset-kcht-32.md) · [`import-gov-ssot.md`](import-gov-ssot.md) · [`import-gov-asset-fields.md`](import-gov-asset-fields.md) · [`asset-kcht-dashboard.md`](asset-kcht-dashboard.md) · [`csdl-cuc-2026.md`](csdl-cuc-2026.md) (biểu Cục — **ROW riêng**)  
 > **MFE:** `Linm.Web.RMMS.Asset` · `/so-ts` · `LinCatalogDataGrid` + `CatalogFormShell` **5 cột**  
 > **Ảnh mẫu:** `Linm.RMMS.Data/docs/img/gov-mau-tai-san/{n}-{dump}-list.png` + `-detail.png`  
 > **Cấm** seed/invent row (**GOV-IMP-01/03**) · **cấm** clone tab legacy DRVN
@@ -18,6 +18,8 @@
 | Data | Count / ô = CSV `gov-vn` sau import. Type `gap-no-source` → grid 0 + toast, **không** enqueue form giả |
 
 **Hiện trạng (GAP):** `AssetListPage` luôn cùng 12 cột (mã · tên · loại · 3 tầng tuyến · km từ/đến · SL · ĐVT · KT · GPS). Form luôn «Thông tin tài sản» + `dumpSpecs` readonly `<dl>` + GPS — **không** field-per-type như mẫu.
+
+**≠ biểu Cục:** form Sổ TS = hộ chiếu từng `type`. Biểu `csdl-bieu-*` = thống kê in. Deep-link được · **cấm** một form hai chuẩn · LOOKUP `road-route` 3 tầng dùng chung.
 
 ## 2. Section reuse (SSOT form)
 

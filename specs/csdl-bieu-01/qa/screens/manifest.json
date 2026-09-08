@@ -1,0 +1,38 @@
+{
+  "url": "http://localhost:9301/csdl-bieu-01",
+  "method": "playwright channel=chrome headless · contract fallback after yarn e2e-qa playwright install hang",
+  "feature": "csdl-bieu-01",
+  "cases": [
+    "S0",
+    "S1",
+    "QA-20"
+  ],
+  "capturedAt": "2026-09-05T05:45:19.866Z",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "sha256_16": "0e69a1084c62256e",
+      "url": "http://localhost:9301/csdl-bieu-01",
+      "note": "list Biểu 01 · filter-bar · empty/grid"
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "sha256_16": "ea6d34ac329f895c",
+      "url": "http://localhost:9301/so-ts/csdl-so-sach?resource=pavement-sections",
+      "note": "hub deep-link ?resource=pavement-sections → list"
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "sha256_16": "96c481886e15540e",
+      "url": "http://localhost:9301/csdl-bieu-01?form=create",
+      "note": "Create Slideout · form=create"
+    }
+  ],
+  "ok": true
+}

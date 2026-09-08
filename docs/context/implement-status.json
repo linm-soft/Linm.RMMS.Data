@@ -1,20 +1,20 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-03T20:24:25.476Z",
+  "updatedAt": "2026-09-06T20:59:31.810Z",
   "features": {
     "ai-asset-detect": {
       "web": {
-        "phase": "done",
-        "status": "done",
-        "updatedAt": "2026-08-21T03:31:41.240Z",
+        "phase": "qa",
+        "status": "await_confirm",
+        "updatedAt": "2026-09-06T17:40:43.839Z",
         "statusRel": "specs/ai-asset-detect/STATUS.md"
       }
     },
     "ai-vision": {
       "web": {
         "phase": "data_analy",
-        "status": "in_progress",
-        "updatedAt": "2026-08-29T02:12:27.217Z",
+        "status": "draft",
+        "updatedAt": "2026-09-06T15:22:16.112Z",
         "statusRel": "specs/ai-vision/STATUS.md"
       }
     },
@@ -52,9 +52,9 @@
     },
     "camera-connect": {
       "web": {
-        "phase": "done",
-        "status": "done",
-        "updatedAt": "2026-08-21T03:31:41.242Z",
+        "phase": "qa",
+        "status": "await_confirm",
+        "updatedAt": "2026-09-06T15:08:43.792Z",
         "statusRel": "specs/camera-connect/STATUS.md"
       }
     },
@@ -124,9 +124,9 @@
     },
     "gis-draw-live": {
       "web": {
-        "phase": "done",
-        "status": "done",
-        "updatedAt": "2026-09-03T00:00:00.000Z",
+        "phase": "qa",
+        "status": "pending",
+        "updatedAt": "2026-09-06T20:59:31.810Z",
         "statusRel": "specs/gis-draw-live/STATUS.md"
       }
     },
@@ -148,9 +148,9 @@
     },
     "incident": {
       "web": {
-        "phase": "dev",
-        "status": "pending",
-        "updatedAt": "2026-08-29T05:03:52.838Z",
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-06T19:26:16.790Z",
         "statusRel": "specs/incident/STATUS.md"
       }
     },
@@ -252,9 +252,9 @@
     },
     "patrol": {
       "web": {
-        "phase": "dev",
-        "status": "in_progress",
-        "updatedAt": "2026-08-29T02:12:27.243Z",
+        "phase": "qa",
+        "status": "await_confirm",
+        "updatedAt": "2026-09-06T18:30:24.634Z",
         "statusRel": "specs/patrol/STATUS.md"
       }
     },
@@ -342,7 +342,7 @@
       "web": {
         "phase": "done",
         "status": "done",
-        "updatedAt": "2026-09-02T08:31:13.960Z",
+        "updatedAt": "2026-09-06T16:16:00.950Z",
         "statusRel": "specs/rmms-task-integrate/STATUS.md"
       }
     },
@@ -872,6 +872,254 @@
         "status": "in_progress",
         "updatedAt": "2026-09-03T20:24:25.476Z",
         "statusRel": "specs/gis-camera-map/STATUS.md"
+      }
+    },
+    "iot": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-05T04:52:18.055Z",
+        "statusRel": "specs/iot/STATUS.md"
+      }
+    },
+    "csdl-bieu-01": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-05T05:51:30.340Z",
+        "statusRel": "specs/csdl-bieu-01/STATUS.md"
+      }
+    },
+    "csdl-bieu-04": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-05T06:29:50.376Z",
+        "statusRel": "specs/csdl-bieu-04/STATUS.md"
+      }
+    },
+    "csdl-bieu-05": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-05T07:11:48.926Z",
+        "statusRel": "specs/csdl-bieu-05/STATUS.md"
+      }
+    },
+    "csdl-bieu-06": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-05T07:53:28.691Z",
+        "statusRel": "specs/csdl-bieu-06/STATUS.md"
+      }
+    },
+    "csdl-bieu-02": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-05T08:33:57.416Z",
+        "statusRel": "specs/csdl-bieu-02/STATUS.md"
+      }
+    },
+    "csdl-bieu-03": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-05T09:13:05.834Z",
+        "statusRel": "specs/csdl-bieu-03/STATUS.md"
+      }
+    },
+    "csdl-bieu-07": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-05T09:57:18.639Z",
+        "statusRel": "specs/csdl-bieu-07/STATUS.md"
+      }
+    },
+    "csdl-bieu-08": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-05T10:41:25.171Z",
+        "statusRel": "specs/csdl-bieu-08/STATUS.md"
+      }
+    },
+    "csdl-bieu-09": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-05T11:22:36.506Z",
+        "statusRel": "specs/csdl-bieu-09/STATUS.md"
+      }
+    },
+    "csdl-bieu-10": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-05T12:10:00.661Z",
+        "statusRel": "specs/csdl-bieu-10/STATUS.md"
+      }
+    },
+    "csdl-bieu-11": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-05T12:54:56.094Z",
+        "statusRel": "specs/csdl-bieu-11/STATUS.md"
+      }
+    },
+    "csdl-bieu-12": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-05T13:39:44.845Z",
+        "statusRel": "specs/csdl-bieu-12/STATUS.md"
+      }
+    },
+    "csdl-bieu-13": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-05T14:26:35.073Z",
+        "statusRel": "specs/csdl-bieu-13/STATUS.md"
+      }
+    },
+    "csdl-bieu-14": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-05T15:16:16.915Z",
+        "statusRel": "specs/csdl-bieu-14/STATUS.md"
+      }
+    },
+    "csdl-bieu-15": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-05T16:00:11.191Z",
+        "statusRel": "specs/csdl-bieu-15/STATUS.md"
+      }
+    },
+    "csdl-bieu-16": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-05T17:02:51.197Z",
+        "statusRel": "specs/csdl-bieu-16/STATUS.md"
+      }
+    },
+    "csdl-so-02": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-05T17:49:29.240Z",
+        "statusRel": "specs/csdl-so-02/STATUS.md"
+      }
+    },
+    "csdl-so-01": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-05T18:34:57.360Z",
+        "statusRel": "specs/csdl-so-01/STATUS.md"
+      }
+    },
+    "csdl-so-08": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-05T19:22:08.827Z",
+        "statusRel": "specs/csdl-so-08/STATUS.md"
+      }
+    },
+    "csdl-so-03": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-05T20:11:14.255Z",
+        "statusRel": "specs/csdl-so-03/STATUS.md"
+      }
+    },
+    "csdl-so-06": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-05T21:05:15.428Z",
+        "statusRel": "specs/csdl-so-06/STATUS.md"
+      }
+    },
+    "csdl-so-07": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-05T22:04:01.751Z",
+        "statusRel": "specs/csdl-so-07/STATUS.md"
+      }
+    },
+    "csdl-so-04": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-05T22:42:42.855Z",
+        "statusRel": "specs/csdl-so-04/STATUS.md"
+      }
+    },
+    "csdl-so-05": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-05T23:36:29.335Z",
+        "statusRel": "specs/csdl-so-05/STATUS.md"
+      }
+    },
+    "csdl-so-09": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-06T00:22:41.777Z",
+        "statusRel": "specs/csdl-so-09/STATUS.md"
+      }
+    },
+    "csdl-so-10": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-06T04:45:24.955Z",
+        "statusRel": "specs/csdl-so-10/STATUS.md"
+      }
+    },
+    "traffic-sign-type": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-06T02:59:47.163Z",
+        "statusRel": "specs/traffic-sign-type/STATUS.md"
+      }
+    },
+    "ai-vision-service": {
+      "web": {
+        "phase": "draft",
+        "status": "in_progress",
+        "updatedAt": "2026-09-06T15:20:01.601Z",
+        "statusRel": "specs/ai-vision-service/STATUS.md"
+      }
+    },
+    "khu-1-pilot": {
+      "web": {
+        "phase": "dev",
+        "status": "pending",
+        "updatedAt": "2026-09-06T16:15:40.792Z",
+        "statusRel": "specs/khu-1-pilot/STATUS.md"
+      }
+    },
+    "csdl-cuc-2026": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-06T20:15:49.737Z",
+        "statusRel": "specs/csdl-cuc-2026/STATUS.md"
       }
     }
   }

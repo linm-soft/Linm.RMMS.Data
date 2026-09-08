@@ -1,0 +1,41 @@
+{
+  "url": "http://localhost:9301/csdl-bieu-12",
+  "method": "playwright channel=chrome headless · contract fallback after yarn e2e-qa hang (GAP-QA-E2E-PW-01)",
+  "feature": "csdl-bieu-12",
+  "cases": [
+    "S0",
+    "S1",
+    "QA-20"
+  ],
+  "capturedAt": "2026-09-05T13:33:58.075Z",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "sha256_16": "f8c6e6a7283f45ed",
+      "url": "http://localhost:9301/csdl-bieu-12",
+      "note": "list Biểu 12 · filter-bar · side/km · empty/grid · no peer",
+      "httpStatus": 200
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "sha256_16": "f8c6e6a7283f45ed",
+      "url": "http://localhost:9301/so-ts/csdl-so-sach?resource=green-assets",
+      "note": "hub ?resource=green-assets → redirect /csdl-bieu-12",
+      "httpStatus": 200
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "sha256_16": "642f13697329afc7",
+      "url": "http://localhost:9301/csdl-bieu-12?form=create",
+      "note": "Create Slideout · form=create · 2 section khóm+thảm cỏ · CX-",
+      "httpStatus": 200
+    }
+  ],
+  "ok": true
+}

@@ -37,9 +37,9 @@
 | Có nguồn | Cách |
 |----------|------|
 | `GET …/integration/road-routes/search?routeKind=NHANH` (và TRANH/GOM) | Hiển thị **nhãn «Đoạn»** — đây là row dump `Km 0 + 000 – …` (GAP-ORS-05) · **không** đưa vào dropdown Tuyến |
-| Bảng gán `org-route-scope` | **Chưa có** — khi Signed, filter đoạn ⊆ km zone + tuyến · **cấm** seed dump |
+| Bảng gán `org-route-scope` | CSV `t6-org-scope` **102** dòng (Excel T6) — filter đoạn ⊆ km zone + tuyến **sau** import DB · **cấm** seed dump · đoạn VP còn GAP-ORS-VP-01 data |
 
-**Khu P1:** `GET …/integration/org-units/search?kind=REG` (hoặc tree rồi chọn leaf I–IV). Chưa overlap km (GAP-ORS-01).
+**Khu P1:** `GET …/integration/org-units/search?kind=REG` (hoặc tree rồi chọn leaf I–IV). Overlap km trên cùng tuyến trong CSV T6 = **0** (GAP-ORS-01 **partial** — cần ReImport).
 
 **Tuyến P1:** `GET …/integration/road-routes/search` + `routeKind` **không** NHANH/TRANH/GOM. BE list đã có `?routeKind=` — search BFF **phải** forward (T-BE-FILTER-01 nếu thiếu).
 

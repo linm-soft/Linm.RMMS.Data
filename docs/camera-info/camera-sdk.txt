@@ -1,0 +1,1 @@
+Device Network SDK Download Link: https://www.hikvision.com/en/support/tools/hitools/?type=IP

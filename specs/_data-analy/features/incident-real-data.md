@@ -5,24 +5,26 @@
 | feature | `incident` |
 | packKind | `list` |
 | changeScope | `edit_page` |
-| taskId | `task_29a0c673` |
-| prefix | API `api/v1/incident` · BFF `web-bff/api/v1/incident` |
+| taskId | `task_2ed457c2` |
+| contentHash | `sha256:927979e9a8dc3f1491792cc2a87a5e42e0af21842278e65aefcb359f45e021ad` |
+| prefix | API `api/v1/incident` · BFF `web-bff/api/v1/incident` · files `web-bff/api/v1/files` |
 | sourceTables | `rmms_incidents` |
 | beRepo | `D:/AI-QLBD/Linm.RMMS.WebService` · **cấm ERP.*** |
 | uiRepo | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Field` · `/su-co` |
 | map | `none` (MFE list pack) · demo Kind F **tham chiếu only** |
 | progress | status lifecycle `new` → `in_progress` → `closed` |
+| runMode | `full_pipeline` · `qa_fail_rollback` · gap=`bff_init` + `media_upload` |
 
-## § Delta Current vs New (`edit_page` · `task_29a0c673`)
+## § Delta Current vs New (`edit_page` · `task_2ed457c2` · họp 04/09)
 
 | ID | Current | New |
 |----|---------|-----|
-| GAP-DA-REAL | Stub draft empty | §A–§F cite live Controller + Entity + MFE |
-| CRUD | Live FormType CLOSED | **Giữ** path/DTO — không invent |
-| routeName | Text free trên MFE | Bind SearchInput → road-route (**GAP-INC-ROUTE-01**) |
-| Report fields | DurationMin / DefectItem / damage lines **thiếu** | Ghi gap · **cấm** pretend có cột |
-| Demo | zone/action ref | **cấm** demo-json SSOT (**GAP-DA-REAL-03**) |
-| Giao việc | Platform Task integrate | Cite `rmms-task-integrate` · **không** duplicate |
+| GAP-QA-BFF-INIT-01 | BFF init-data **404** · API **200** · FE FALLBACK | Fix BFF proxy → **200** · **cấm** invent path · `qa_fail_rollback` |
+| GAP-INC-MEDIA-01 | Form **không** upload | FileService BFF `web-bff/api/v1/files/*` · `/init-bff-file` + `/integrate-file-upload-web` |
+| GAP-INC-MEDIA-HARD | — | **Cấm** `/implement-file-service` · copy FilesController · persist presigned URL · ERP.* |
+| CRUD | FormType CLOSED | **Giữ** path/DTO |
+| Report fields | DurationMin / DefectItem **thiếu** | **DEFER** · **cấm** pretend |
+| Demo | zone/action ref | **cấm** demo-json SSOT |
 
 ## §A — Nguồn
 
@@ -43,8 +45,10 @@
 | `mfe` · form | `IncidentFormSlideout.tsx` · getById/create/update | — | leave-confirm |
 | `catalog` · ui-schema | catalogKind `incidents` | bootstrap `uiColumns` | schema fail → bootstrap |
 | `domain-map` | `docs/DOMAIN-MAP.md` row Incident | — | prefix SSOT |
-| `integration` · road-route | RoadRoutes search (shared catalog READY) | no match | **GAP-INC-ROUTE-01** chưa wire |
-| `task` · giao việc | Platform Task BFF `POST /tasks` | — | xem real-data `rmms-task-integrate` |
+| `bff` · init-data | `GET web-bff/api/v1/incident/incidents/init-data` | FALLBACK FE | **GAP-QA-BFF-INIT-01** 404 |
+| `bff` · files | `web-bff/api/v1/files/*` · NuGet `Linm.Platform.FileService.Bff` · host `RMMS.Service.Bff` | no files | **GAP-INC-MEDIA-01** |
+| `integration` · road-route | RoadRoutes search (shared catalog READY) | no match | **GAP-INC-ROUTE-01** |
+| `task` · giao việc | Platform Task BFF `POST /tasks` | — | `rmms-task-integrate` |
 
 `sourceCite` = file/controller **có trong repo**. Fallback localStorage `incidentStore` chỉ khi BFF down — **không** SSOT.
 
@@ -72,12 +76,13 @@
 | requestedAt | Ngày YC | Date | — | detail | `requestedAt` | yes | n/a |
 | detectionId | AI DET | Text | — | detail | `detectionId` | yes | n/a |
 | description | Mô tả | Text multiline | — | detail | `description` | yes | n/a |
+| mediaFiles | Ảnh / tệ | FileUpload | FileService | `files/*` upload | fileIds / attachmentKeys | **gap** | n/a |
 | causesCongestion | Gây ùn tắc | Dropdown bool | — | detail | `causesCongestion` | yes | n/a |
 | hasGps | Có GPS | Dropdown bool | — | detail | `hasGps` | yes | n/a |
 | assigneeName | Người XL | Text | — | detail · assign | `assigneeName` | yes | n/a |
-| durationMin | Thời lượng | Number | — | **GAP** entity | `durationMin` | **gap** | n/a |
-| defectItem | HM hư hỏng | Text / SearchInput | — | **GAP** entity | `defectItem` | **gap** | n/a |
-| sourceKind | Nguồn | Dropdown | — | **GAP** entity | `sourceKind` | **gap** | n/a |
+| durationMin | Thời lượng | Number | — | **GAP** entity DEFER | `durationMin` | **gap** | n/a |
+| defectItem | HM hư hỏng | Text / SearchInput | — | **GAP** entity DEFER | `defectItem` | **gap** | n/a |
+| sourceKind | Nguồn | Dropdown | — | **GAP** entity DEFER | `sourceKind` | **gap** | n/a |
 | grid.code…detectionId | cột lưới | dynamic schema | — | list page | — | yes | n/a |
 
 **Prefix map (live cite):**
@@ -91,12 +96,14 @@
 | Soft delete | `DELETE …/incidents/{id}` |
 | Assign | `POST …/incidents/{id}/assign` |
 | Close | `POST …/incidents/{id}/close` |
+| Init-data | `GET …/incidents/init-data` — API **200** · BFF **404** = **GAP-QA-BFF-INIT-01** |
+| Files upload | `web-bff/api/v1/files/*` — FileService.Bff · **GAP-INC-MEDIA-01** |
 | Comments | CTX `POST …/comments` — **DEFER P2** (không live) |
 
 FE cite: `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Field/src/services/incident/incidentService.ts` · endpoint relative `/incident/incidents`.
 
-**BFF:** `web-bff/api/v1/incident/incidents` proxy.  
-**Cấm** ERP.* · Finance paths · invent `api/v1/su-co/*` resource fork (route UI `/su-co` ≠ API segment).
+**BFF:** `web-bff/api/v1/incident/incidents` proxy · files via `Linm.Platform.FileService.Bff` trên `RMMS.Service.Bff`.  
+**Cấm** ERP.* · Finance · invent `api/v1/su-co/*` fork · `/implement-file-service` · copy FilesController · persist presigned URL.
 
 ## §C — Catalog / write rules
 
@@ -139,22 +146,24 @@ Demo Leaflet + basemap = **tham chiếu UX** only · SD-MAP defer · **không** 
 | list empty | empty grid copy VN · totalCount=0 |
 | list fail | catch → [] · toast · **cấm** alert |
 | detail 404 | đóng slideout · toast |
-| init-data fail | fallback FE const statuses/severities |
+| init-data fail | **GAP-QA-BFF-INIT-01** · fallback FE const · target = BFF 200 |
+| files upload fail | toast · **cấm** alert · không block save scalars nếu media optional |
 | lookup route fail | SearchInput empty · save 422 |
 | schema fail | bootstrap `uiColumns` từ list page |
 
 | Role | Dùng packet |
 |------|-------------|
-| PO | DoD «màn mở = data thật BFF» · Ask Q-INC-* |
-| Design | control-map khớp §B |
-| SA | Giữ path cite · gap DurationMin/DefectItem/sourceKind |
-| Dev | Cùng §B web · **cấm** invent API |
-| QA | scenarios CRUD + assign/close — E2E queued `/agent-qa*` only |
+| PO | Delta media + BFF init · keep prior requirement |
+| Design | FileUpload zone trên slideout · reviewUrl |
+| SA | BFF init fix + FileService integrate confirm |
+| Dev | Wire init-data BFF + FileUpload → `files/*` · **cấm** invent API |
+| QA | Re-run sau Dev · init-data 200 + upload smoke — E2E queued `/agent-qa*` only |
 
 ## §G — Cấm
 
 - Invent `api/v1/su-co/incidents` API fork (UI route `/su-co` OK)
 - ERP.* / Finance assets
+- `/implement-file-service` · copy `FilesController` · persist presigned URL
 - Mock localStorage làm SSOT khi BFF available
 - Pretend `DurationMin` / damage child lines đã có trên entity
 - Embed TasksController vào RMMS.WebService (Platform Task package)
@@ -169,9 +178,9 @@ Demo Leaflet + basemap = **tham chiếu UX** only · SD-MAP defer · **không** 
 | schemaVersion | 2 |
 | workflowVersion | 2026.08.25.02 |
 | rulesVersion | 2026.08.28.4 |
-| generatedAt | 2026-08-29T02:20:00.000Z |
+| generatedAt | 2026-09-07T01:30:00.000Z |
 | versionGate | rechecked |
-| contentHash | sha256:adf95ccc3f97b05abb02eb1332959aa4525025c55d876bac9ce18f1a4b003577 |
+| contentHash | sha256:927979e9a8dc3f1491792cc2a87a5e42e0af21842278e65aefcb359f45e021ad |
 
 ---
-<!-- Version meta: skillId=agent-data-analy skillVersion=2026.08.25.01 schemaVersion=2 workflowVersion=2026.08.25.02 rulesVersion=2026.08.28.4 versionGate=rechecked contentHash=sha256:adf95ccc3f97b05abb02eb1332959aa4525025c55d876bac9ce18f1a4b003577 -->
+<!-- Version meta: skillId=agent-data-analy skillVersion=2026.08.25.01 schemaVersion=2 workflowVersion=2026.08.25.02 rulesVersion=2026.08.28.4 versionGate=rechecked contentHash=sha256:927979e9a8dc3f1491792cc2a87a5e42e0af21842278e65aefcb359f45e021ad taskId=task_2ed457c2 -->

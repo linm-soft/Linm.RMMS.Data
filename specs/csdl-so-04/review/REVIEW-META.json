@@ -1,0 +1,15 @@
+{
+  "feature": "csdl-so-04",
+  "role": "review",
+  "status": "confirmed",
+  "review_confirm": "approve",
+  "verdict": "PASS",
+  "taskId": "task_691a1abc",
+  "autoApprove": true,
+  "hashGate": "skip",
+  "contentHash": "sha256:f4b9c168d339477350ba42a03f7ec00e774b38da0ecc6037de8950d9f25e944d",
+  "headerFingerprint": "sha256:202e875ac43d1dd97b8ac8f32d3528ac827776078cde980e7bb6ca9634aff7e2",
+  "blocking": [],
+  "fixGaps": [],
+  "reviewedAt": "2026-09-06T05:45:00.000Z"
+}
