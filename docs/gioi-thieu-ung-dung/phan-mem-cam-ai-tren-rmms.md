@@ -1,257 +1,186 @@
 # THUYẾT MINH CHỨC NĂNG PHẦN MỀM CAMERA TRONG RMMS
 
-**Hệ thống quản lý, bảo trì đường bộ (RMMS)**  
-Tài liệu giới thiệu — Chi cục, Ban QLDA, trực ban trung tâm điều hành / Cục ĐBVN
-
-Tài liệu gồm hai phần:
-
-- **Phần A** — chức năng đã thuyết minh (đếm lưu lượng, biển số / quay đầu, giám sát video tập trung).
-- **Phần B** — tính năng nổi bật **bổ sung** khi Camera AI gắn vào RMMS (kết nối, bản đồ GIS, sự cố, sổ tài sản, AI tuần đường).
+| STT | NỘI DUNG |
+|-----|----------|
+| 1 | Đếm và phân tích lưu lượng AI (có báo cáo theo thời gian và phương tiện) |
+| 2 | Công nghệ trí tuệ nhân tạo AI nhận diện biển số xe, phương tiện quay đầu xe (có báo cáo theo thời gian và theo phương tiện) |
+| 3 | Giám sát video màn hình tập trung tại Cục ĐBVN |
+| 4 | Kết nối và quản lý camera ITS trên phần mềm RMMS |
+| 5 | Tường hình và bản đồ camera trên nền tảng RMMS |
+| 6 | AI nhận diện vi phạm tốc độ, quá tải kết hợp đối chiếu đăng kiểm |
+| 7 | AI nhận diện biển báo, cọc tiêu và đối soát tài sản trên tuyến |
+| 8 | AI kiểm định mặt đường từ hình ảnh camera |
+| 9 | AI phát hiện tài sản, thiết bị mới từ camera tuần đường |
+| 10 | Quản lý camera ITS trên sổ tài sản kết cấu hạ tầng |
 
 ---
 
-# Phần A — Chức năng đã thuyết minh
+## 1. Đếm và phân tích lưu lượng AI (có báo cáo theo thời gian và phương tiện)
 
-## 1. Đếm và phân tích lưu lượng AI
+Đặc điểm:
 
-*(Có báo cáo theo thời gian và theo phương tiện)*
+Nhận diện phương tiện giao thông qua quá trình phân tích hình ảnh đa luồng một cách chi tiết. Phần mềm ứng dụng nhiều thuật toán tiên tiến trong công nghệ trí tuệ nhân tạo AI cho phép các phương tiện riêng lẻ được xác định và phân loại một cách đồng thời với độ chính xác cao, trong khi vẫn duy trì được việc thực thi thời nhằm mục đích phân luồng và điều khiển hệ thống đèn tín hiệu giao thông một cách phù hợp với tình hình giao thông hiện tại. Hệ thống được xây dựng các chức năng có thể tự học trong quá trình hoạt động qua đó liên tục tối ưu được quá trình điều khiển và phân luồng giao thông.
 
-Nhận diện phương tiện giao thông qua phân tích hình ảnh đa luồng. Phần mềm dùng trí tuệ nhân tạo để xác định và phân loại từng phương tiện đồng thời, phục vụ phân luồng và điều khiển đèn tín hiệu phù hợp tình hình thực tế. Hệ thống có khả năng tự học trong quá trình vận hành để tối ưu điều khiển và phân luồng.
+Phần mềm phân tích lưu lượng được xây dựng dựa trên công nghệ trí tuệ nhân tạo, với đầu vào là tất cả luồng video realtime từ các camera được thu thập về máy tính sau đó máy tính tiến hành phân tích song song đa luồng và cho kết quả đầu ra là số lượng, loại phương tiện đang lưu thông qua nút theo các hướng đi thẳng, rẽ phải, rẽ trái của (ô tô, xe máy, xe bus, xe tải, mật độ phương tiện…..) đây là các số liệu cần thiết cho quá trình điều khiển hệ thống đèn tín hiệu giao thông.
 
-Đầu vào: luồng video thời gian thực từ camera. Đầu ra: số lượng và loại phương tiện qua nút theo hướng đi thẳng, rẽ phải, rẽ trái (ô tô, xe máy, xe buýt, xe tải, mật độ…), phục vụ điều khiển đèn tín hiệu.
+Phần mềm truy cập trực tiếp vào khối quan trắc, đo đếm lưu lượng giao thông qua mạng LAN giúp khả năng truy xuất video trực tiếp mà không cần quan tâm đến tốc độ đường truyền internet, hoạt động trao đổi dữ liệu với server là những gói dữ liệu đã được xử lý tại chỗ qua và được mã hóa dưới dạng text vì vậy internet 4G hoàn toàn có thể đáp ứng được nhu cầu liên lạc giữa bộ điều khiển và server trung tâm góp phần giảm tải tài nguyên tính toán cho server, điều này đặc biệt hữu ích tại những nơi gặp nhiều khó khăn trong việc thiết lập đường truyền internet cáp quang hay sự liên kết giữa các cột tín hiệu với nhau gặp nhiều khó khăn trong các hệ thống cũ cần nâng cấp cải tạo.
 
-Phần mềm truy cập khối quan trắc / đo đếm qua mạng nội bộ (LAN), xem video tại chỗ mà không phụ thuộc tốc độ Internet. Gói gửi về máy chủ trung tâm là dữ liệu đã xử lý tại biên (dạng văn bản mã hóa), nên **4G đủ cho liên lạc sự kiện** với trung tâm — hữu ích nơi chưa có cáp quang hoặc liên kết cột tín hiệu khó nâng cấp.
+Hệ thống server cho phép lưu lại dữ liệu trong quá trình vận hành giúp các đơn vị vận hành có thể trích xuất dữ liệu để phân tích, báo cáo, đánh giá về tình hình giao thông của từng nút giao thông.
 
-Máy chủ lưu dữ liệu vận hành để đơn vị trích xuất, phân tích, báo cáo, đánh giá từng nút giao thông.
+---
 
-## 2. AI nhận diện biển số và phát hiện quay đầu xe
+## 2. Công nghệ trí tuệ nhân tạo AI nhận diện biển số xe, phương tiện quay đầu xe (có báo cáo theo thời gian và theo phương tiện)
 
-*(Có báo cáo theo thời gian và theo phương tiện)*
+Đặc điểm:
 
-Giải pháp giám sát giao thông thông minh: nhận diện phương tiện, đọc biển số, theo dõi hướng di chuyển và phát hiện hành vi **quay đầu** tại khu vực được thiết lập.
+Phần mềm AI nhận diện biển số xe và phát hiện phương tiện quay đầu là giải pháp giám sát giao thông thông minh, ứng dụng công nghệ trí tuệ nhân tạo, thị giác máy tính và xử lý hình ảnh để tự động nhận diện phương tiện, đọc biển số, theo dõi hướng di chuyển và phát hiện hành vi quay đầu xe tại khu vực giám sát.
 
-Hệ thống nhận hình từ camera giao thông hoặc camera chuyên dụng. AI phát hiện phương tiện trong khung hình, phân loại và nhận dạng biển số (ô tô, xe tải, xe khách, xe máy và loại khác tùy cấu hình, điều kiện hiện trường).
+Hệ thống tiếp nhận hình ảnh trực tiếp từ camera giao thông hoặc camera chuyên dụng. Công nghệ AI tự động phát hiện phương tiện trong khung hình, phân loại phương tiện và nhận dạng biển số xe. Phần mềm có khả năng ghi nhận biển số của ô tô, xe tải, xe khách, xe máy và các loại phương tiện khác tùy theo cấu hình camera và điều kiện triển khai thực tế.
 
-Theo dõi quỹ đạo từng xe: hướng ban đầu, hướng sau khi chuyển, tự động ghi nhận quay đầu (thời gian, vị trí, làn, hướng, loại xe, biển số, ảnh / video). Có thể lập vùng giám sát, làn, hướng lưu thông, khu vực cấm quay đầu; cảnh báo và lưu ảnh trước / trong / sau sự kiện.
+Thông qua việc theo dõi quỹ đạo di chuyển của từng phương tiện, phần mềm xác định hướng đi ban đầu, hướng đi sau khi chuyển hướng và tự động phát hiện trường hợp phương tiện thực hiện hành vi quay đầu trong khu vực được thiết lập. Khi phát hiện sự kiện quay đầu xe, hệ thống ghi nhận đầy đủ thời gian, vị trí, làn đường, hướng di chuyển, loại phương tiện, biển số xe và hình ảnh hoặc video liên quan.
 
-Người dùng tra cứu lịch sử theo biển số, loại xe, thời gian, vị trí, camera, hướng đi; thống kê lượt quay đầu và tần suất biển số theo ngày, tuần, tháng hoặc khoảng tùy chọn. Xuất báo cáo Excel, PDF hoặc CSV. Phân quyền tài khoản, nhật ký thao tác. Kết nối camera, trung tâm điều hành và phần mềm quản lý giao thông khác.
+Phần mềm cho phép thiết lập các vùng giám sát, làn đường, hướng lưu thông và khu vực cấm quay đầu theo yêu cầu quản lý. Khi phương tiện quay đầu, hệ thống có thể tự động phát cảnh báo, đồng thời lưu trữ hình ảnh trước, trong và sau thời điểm xảy ra sự kiện để phục vụ kiểm tra, đối chiếu và xử lý.
 
-Giảm theo dõi thủ công, tăng khả năng truy xuất. Báo cáo làm cơ sở tổ chức giao thông và phân tích hành vi lưu thông.
+Dữ liệu được tổng hợp thành báo cáo theo thời gian và theo từng phương tiện. Người dùng có thể tra cứu lịch sử theo biển số xe, loại phương tiện, thời gian, vị trí, camera, hướng di chuyển. Hệ thống cũng hỗ trợ thống kê số lượng phương tiện quay đầu, tần suất xuất hiện của từng biển số trong khoảng thời gian được lựa chọn.
 
-**Chức năng chính (tóm tắt):** phát hiện và theo dõi xe; đọc / lưu biển số; phân loại xe máy, ô tô con, xe tải, xe khách; quỹ đạo và hướng; phát hiện quay đầu; vùng được phép / cấm; ghi nhận sự kiện; lưu ảnh toàn cảnh, ảnh xe, ảnh biển, video; cảnh báo; tra cứu; thống kê; xuất báo cáo; phân quyền; tích hợp trung tâm.
+Các chức năng chính của phần mềm bao gồm: Phát hiện và theo dõi phương tiện tự động bằng công nghệ AI; nhận diện, đọc và lưu trữ biển số xe; phân loại phương tiện như xe máy, ô tô con, xe tải và xe khách; theo dõi quỹ đạo và xác định hướng di chuyển của phương tiện; tự động phát hiện hành vi quay đầu xe; thiết lập khu vực được phép hoặc không được phép quay đầu; ghi nhận thời gian, vị trí, làn đường và camera phát hiện sự kiện; lưu hình ảnh toàn cảnh, ảnh phương tiện, ảnh biển số và video sự kiện; phát cảnh báo khi phát hiện phương tiện quay đầu lên biển cảnh báo cho các phương tiện lưu thông trên khu vực đó; tra cứu lịch sử di chuyển và lịch sử sự kiện theo biển số xe; thống kê số lượt quay đầu theo ngày, tuần, tháng hoặc khoảng thời gian tùy chọn; báo cáo theo từng phương tiện, loại phương tiện, biển số, vị trí và hướng di chuyển; xuất báo cáo dưới các định dạng phổ biến như Excel, PDF hoặc CSV; phân quyền người dùng, quản lý tài khoản và ghi nhận lịch sử thao tác; hỗ trợ kết nối với hệ thống camera, trung tâm điều hành và các phần mềm quản lý giao thông khác.
+
+Giải pháp giúp tự động hóa công tác giám sát phương tiện và phát hiện hành vi quay đầu xe, giảm phụ thuộc vào việc theo dõi thủ công, nâng cao độ chính xác và khả năng truy xuất dữ liệu. Các báo cáo theo thời gian và theo phương tiện cung cấp cơ sở phục vụ quản lý giao thông, phân tích hành vi lưu thông và xây dựng phương án tổ chức giao thông phù hợp.
+
+---
 
 ## 3. Giám sát video màn hình tập trung tại Cục ĐBVN
 
-Nền tảng giám sát video: quản lý camera, người dùng, sự kiện, cảnh báo, lưu trữ và khai thác hình ảnh tại trung tâm.
+Đặc điểm:
 
-**Khả năng nhận diện (điều kiện tiêu chuẩn — ban ngày, đủ sáng, không mưa / sương mù, hình rõ, không lóa / mờ; loại trừ xe nối đuôi, biển bẩn / che khuất):**
+Cung cấp các tính năng cơ bản của hệ thống giám sát video, làm nền tảng để quản lý camera, người dùng, sự kiện, cảnh báo, lưu trữ và khai thác hình ảnh.
 
-- Phát hiện phương tiện — độ chính xác lên tới 99%.
-- Phân loại xe tải, xe khách, xe con — lên tới 98%.
-- Đo đếm lưu lượng — sai số không quá ± 2%; tốc độ trung bình — sai số không quá ± 5%.
-- Nhận dạng biển số ô tô — độ chính xác ≥ 98%.
-- Phát hiện sự kiện, sự cố, vi phạm trên cao tốc — tỷ lệ phát hiện lên tới 90%.
-- Sẵn sàng tích hợp phần mềm ITS bên thứ ba.
+Tự động phát hiện phương tiện với độ chính xác lên tới 99% trong điều kiện tiêu chuẩn. Tự động phân loại phương tiện (xe tải, xe khách, xe con) với độ chính xác lên tới 98% trong điều kiện tiêu chuẩn, loại trừ các trường hợp phương tiện nối đuôi nhau. Đo đếm lưu lượng phương tiện với tỷ lệ sai số không quá ± 2% và đo tốc độ trung bình của phương tiện với sai số không quá ± 5%. Tự động nhận dạng biển số phương tiện (ô tô) với độ chính xác ≥ 98% trong điều kiện tiêu chuẩn (loại trừ các trường hợp biển số bị bẩn mờ, cong vênh, bị che khuất 1 phần hoặc hoàn toàn). Tự động phát hiện và ghi nhận các sự kiện, sự cố và các trường hợp vi phạm giao thông xảy ra trên cao tốc với tỷ lệ phát hiện lên tới 90% trong điều kiện tiêu chuẩn. Sẵn sàng tích hợp với phần mềm ITS của bên thứ 3. Ghi chú: Điều kiện tiêu chuẩn: ban ngày, đảm bảo đủ môi trường ánh sáng, không mưa, sương mù, chất lượng hình ảnh tốt, không bị lóa, mờ, mắt thường nhìn rõ.
 
-**Sự kiện bổ sung trên phạm vi camera:** lấn làn / đè vạch; vượt đèn đỏ; quay đầu không đúng quy định; dừng đỗ sai quy định; **vật rơi trên đường** — cảnh báo tuần đường / tuần kiểm.
+Tự động phát hiện phương tiện lấn làn đè vạch, vượt đèn xanh đèn đỏ, quay đầu xe không đúng quy định.
 
-**Nền tảng vận hành tập trung**
+Tự động phát hiện phương tiện đậu xe trong phạm vi có camera nhưng sai quy định dừng đỗ.
 
-| Hạng mục | Nội dung |
-|----------|----------|
-| Mô hình | Độc lập hoặc nền tảng tích hợp module giám sát tập trung |
-| Camera / video | Quản lý thiết bị, xem trực tiếp, xem lại, khai thác theo phân quyền |
-| Lưu trữ | Lưu chính / phụ, ghi hình, xem lại |
-| Cảnh báo | Tiếp nhận và xử lý sự kiện từ thiết bị / hệ thống |
-| Bản đồ | Bản đồ số để quản lý vị trí thiết bị, điểm camera và sự kiện |
-| Bằng chứng | Trích xuất ảnh / video phục vụ xác minh và báo cáo |
-| Người dùng | Phân quyền, nhóm, vai trò theo chức năng và phạm vi |
-| Đồng thời | Nhiều người dùng đăng nhập cùng lúc |
-| Hạ tầng | Vận hành trên máy chủ ảo hóa |
-| Sức khỏe hệ thống | Trạng thái thiết bị, dịch vụ, lịch sử bảo trì |
-| Client | Xem trực tiếp, xem lại, chia cửa sổ, theo dõi trực quan |
-| Tương thích | Camera IP, lưu trữ, giải mã, màn hình ghép |
-| Bảo mật | Tài khoản, phân quyền, nhật ký thao tác |
-| Khai thác | Theo dõi hình, xử lý cảnh báo, truy xuất, bằng chứng, giám sát hệ thống |
+Tự động phát hiện vật rơi trên đường để đưa ra cảnh báo cho tuần đường tuần kiểm trong phạm vi có camera.
 
----
+Mô hình triển khai: Hỗ trợ triển khai độc lập hoặc làm nền tảng tích hợp các module ứng dụng khác trong hệ thống giám sát tập trung.
 
-# Phần B — Tính năng nổi bật bổ sung trên RMMS
+Quản lý camera/video: Hỗ trợ quản lý thiết bị camera, xem trực tiếp, xem lại, khai thác dữ liệu video theo phân quyền.
 
-Phần A mô tả năng lực camera / AI giao thông. Phần B mô tả **cách những năng lực đó gắn vào RMMS**: cùng tài khoản, đúng tuyến / Km, sổ tài sản, sự cố và tuần đường — không đứng như phần mềm NVR tách rời.
+Quản lý lưu trữ: Hỗ trợ lưu trữ chính/phụ, phục vụ ghi hình, xem lại và quản lý dữ liệu video.
 
-## 4. Kết nối camera ITS trong RMMS
+Quản lý cảnh báo: Hỗ trợ quản lý cảnh báo, tiếp nhận và xử lý sự kiện từ thiết bị/hệ thống.
 
-Kỹ thuật khai báo camera đúng hiện trường: mã cam, tên, model, địa chỉ mạng, tuyến đường, lý trình.
+Quản lý bản đồ: Hỗ trợ tích hợp bản đồ Google Map hoặc bản đồ số tương đương để quản lý vị trí thiết bị, điểm camera và sự kiện.
 
-- Thử kết nối trước khi đưa vào vận hành.
-- Xem ảnh hiện trường ngay khi kết nối thành công.
-- Nhận sự kiện từ camera (biển số, tốc độ, loại / màu / hướng xe) vào RMMS.
+Quản lý bằng chứng: Hỗ trợ quản lý dữ liệu bằng chứng, trích xuất hình ảnh/video phục vụ tra cứu, xác minh và báo cáo.
 
-Model ưu tiên tuyến đô thị / ANPR + radar: **Hikvision iDS-TCM403-GIR**. Các model DeepinView khác chọn theo loại tuyến trong danh mục thiết bị.
+Quản lý người dùng: Hỗ trợ phân quyền người dùng, nhóm người dùng, vai trò vận hành theo chức năng và phạm vi khai thác.
 
-## 5. Tường hình trung tâm trên RMMS
+Số lượng người dùng truy cập đồng thời: Hỗ trợ nhiều người dùng đăng nhập đồng thời.
 
-Trực ban xem **nhiều camera cùng lúc** ngay trong phần mềm RMMS:
+Vận hành trên máy ảo: Hỗ trợ triển khai, vận hành trên môi trường máy chủ ảo hóa.
 
-- Kéo-thả camera vào ô, sắp xếp theo ca trực.
-- Bố cục 1 cam lớn, 2×2, 3×2, hoặc thêm ô tự do.
-- Phóng to một camera toàn màn hình khi xử lý tình huống.
+Giám sát tình trạng hệ thống: Hỗ trợ giám sát sức khỏe hệ thống, trạng thái thiết bị, trạng thái dịch vụ và lịch sử bảo trì/dữ liệu vận hành.
 
-Tường hình là màn hình chính tại phòng trực — đúng expect xem tại trung tâm điều hành (bổ sung mục 3 Phần A theo cách vận hành RMMS).
+Quản lý vận hành client: Hỗ trợ các thao tác trên phần mềm client như xem trực tiếp, xem lại, chia cửa sổ tùy chỉnh, theo dõi trực quan và các chức năng vận hành giám sát.
 
-## 6. Bản đồ camera GIS trên RMMS
+Hỗ trợ tích hợp module: Hỗ trợ làm điều kiện nền tảng để tích hợp các module mở rộng theo yêu cầu hệ thống.
 
-Cùng tường hình, bản đồ Việt Nam (lớp nền chuẩn hóa của hệ thống) hiện **pin camera** trên tuyến:
+Yêu cầu tương thích: Tương thích với hệ thống camera IP, thiết bị lưu trữ, thiết bị giải mã, màn hình ghép và các thành phần liên quan theo kiến trúc hệ thống.
 
-- Một lần bấm: đếm xe, sự kiện vượt tốc, xem live / ảnh.
-- Chia màn hình tường hình ↔ bản đồ; ẩn bản đồ khi cần tập trung hình.
-- Tóm tắt: tên, mã, Km, GPS, tuyến, tổng phương tiện, số xe vượt tốc.
+Yêu cầu bảo mật: Hỗ trợ quản lý tài khoản, phân quyền truy cập, ghi nhật ký thao tác người dùng và kiểm soát truy cập theo vai trò.
 
-Trực ban tìm cam theo **tuyến và vị trí**, không phải nhớ địa chỉ từng điểm.
-
-## 7. Vi phạm tốc độ và quá tải — người xác nhận trước khi lập sự cố
-
-Bổ sung so với nhận diện biển số (mục 2): gắn **đăng kiểm / tải trọng** và quy trình sự cố RMMS.
-
-1. Camera gửi biển số + tốc độ (và tải trọng nếu có cầu cân).
-2. Hệ thống tra cứu thông tin phương tiện (số trục, tải trọng cho phép).
-3. Phần mềm **đề xuất** lỗi: vượt tốc, quá tải, không có trong đăng kiểm.
-4. Người vận hành **xác nhận hoặc bỏ qua** — không tự lập sự cố oan.
-
-Sau xác nhận, sự việc vào sự cố RMMS (giao việc, theo dõi, báo cáo).
-
-## 8. Nhận diện biển báo và cọc tiêu — đối soát sổ tài sản
-
-Từ ảnh camera tuần đường hoặc camera cố định, phần mềm đề xuất biển báo, cọc tiêu (và đối tượng cùng nhóm):
-
-- Vị trí chuẩn hóa, tránh tạo trùng khi cùng một cột xuất hiện nhiều lần.
-- Người dùng xác nhận để ghi sổ tài sản.
-- Đối soát chỗ **đã có trên sổ nhưng không còn thấy** → sự cố «mất / hư».
-
-Đây là **tài sản trên hành lang đường**, không phải hư mặt đường.
-
-## 9. AI kiểm định mặt đường
-
-Ảnh tuần đường (và nguồn camera liên quan) nhận diện: ổ gà, nứt dọc / ngang / mai rùa, bong bật, lún vệt, chảy nhựa, vá, sụt lề, hư mép.
-
-Kết quả gồm mức độ, vị trí, gợi ý ưu tiên. Người dùng xác nhận để tạo **vấn đề / sự cố** — giữ quy trình ghi nhận hiện trường, có thêm lớp AI.
-
-## 10. AI phát hiện tài sản mới từ camera xe tuần
-
-Camera trên xe tuần phát hiện đối tượng **chưa có trong cơ sở dữ liệu**:
-
-- Loại tài sản / thiết bị (biển báo, hộ lan, cột Km, …).
-- Tọa độ và tuyến đi kèm chuyến tuần.
-- Xác nhận tạo bản ghi tài sản, hoặc bỏ qua nếu nhận nhầm.
-
-Cảnh báo trùng với điểm đã có (khoảng cách gần). Pin «tài sản mới do AI» phân biệt tài sản đã kiểm kê.
-
-## 11. Sổ tài sản camera ITS
-
-Mỗi camera trên tuyến là một **tài sản kết cấu hạ tầng** trên sổ tài sản RMMS:
-
-- Danh sách / phiếu loại «Hệ thống ITS».
-- Tuyến, lý trình, tọa độ, thông số — cùng chuẩn các loại tài sản khác.
-- Kết nối vận hành (xem hình, sự kiện) gắn đúng bản ghi — không quản lý cam ngoài sổ.
+Yêu cầu khai thác: Cho phép người vận hành tại trung tâm giám sát theo dõi hình ảnh, xử lý cảnh báo, truy xuất dữ liệu, quản lý bằng chứng và giám sát tình trạng hệ thống.
 
 ---
 
-## 12. Luồng nghiệp vụ trên RMMS
+## 4. Kết nối và quản lý camera ITS trên phần mềm RMMS
 
-```
-Camera trên tuyến (cố định hoặc trên xe tuần)
-    → Ảnh / sự kiện (biển số, tốc độ, loại xe, đối tượng, quay đầu, vật rơi…)
-    → Trung tâm: tường hình + bản đồ + feed sự kiện
-    → Người vận hành xác nhận (khi cần lập hồ sơ)
-    → Sự cố  /  Sổ tài sản  /  Báo cáo tuần đường / lưu lượng
-```
+Đặc điểm:
 
-| Nguồn | Việc điển hình |
-|-------|----------------|
-| Camera cố định ITS | Tường hình, ANPR, đếm xe, vượt tốc, quay đầu, vật rơi |
-| Camera xe tuần | Kiểm định mặt đường, tài sản mới, đối soát biển / cọc |
+Phần mềm cho phép đơn vị quản lý đường bộ khai báo, kết nối và vận hành camera ITS ngay trong hệ thống RMMS, không phải mở phần mềm camera độc lập. Người dùng nhập đầy đủ thông tin hiện trường gồm mã camera, tên gọi, model thiết bị, địa chỉ mạng, tuyến đường và lý trình, từ đó mỗi điểm camera được gắn đúng vị trí nghiệp vụ trên tuyến được quản lý.
 
-Sự kiện (ảnh, biển số, tốc độ) **không thay** việc xem tại trung tâm. Expect chính: **trực ban nhìn thấy tuyến trên tường hình**.
+Hệ thống hỗ trợ thử kết nối trước khi đưa camera vào vận hành, cho phép xem ảnh hiện trường ngay sau khi kết nối thành công và tiếp nhận sự kiện do camera gửi về gồm biển số, tốc độ, loại phương tiện, màu sắc và hướng di chuyển. Việc tiếp nhận sự kiện được thực hiện theo kênh riêng, có kiểm soát nguồn gửi, bảo đảm dữ liệu từ hiện trường đi vào đúng đơn vị và đúng tuyến được phân quyền.
+
+Phần mềm lưu danh mục model camera ITS, trong đó ưu tiên các thiết bị ANPR có radar hỗ trợ đo tốc độ và đọc biển số tại biên như dòng camera giao thông đô thị, đồng thời cho phép chọn các model phù hợp quốc lộ, liên tỉnh hoặc khu đô thị hỗn hợp. Việc chọn model giúp kỹ thuật áp dụng đúng cấu hình kết nối mà không phải nhập lại từng thông số mặc định.
+
+Các chức năng chính của phần mềm bao gồm: Khai báo camera theo tuyến và lý trình; thử kết nối và kiểm tra tín hiệu; xem ảnh hiện trường; tiếp nhận sự kiện biển số, tốc độ, loại xe từ camera; quản lý danh mục model thiết bị; phân quyền theo đơn vị và tuyến; mã hóa thông tin đăng nhập thiết bị, người xem tường hình không cần biết mật khẩu camera.
 
 ---
 
-## 13. Triển khai hiện trường
+## 5. Tường hình và bản đồ camera trên nền tảng RMMS
 
-Để trực ban **xem tại trung tâm điều hành**, hiện trường cần:
+Đặc điểm:
 
-- Tủ điện ngoài trời theo trang bị tiêu chuẩn.
-- **Cáp quang hoặc VPN nội bộ** từ tủ camera về trung tâm — đường chính để xem hình.
-- Camera địa chỉ mạng cố định, múi giờ đúng, gửi video và sự kiện về trung tâm.
-- Trụ đỡ, giá camera đúng góc, đúng làn.
-- Máy chủ video + màn hình tường hình tại phòng trực.
+Phần mềm cung cấp màn hình tường hình tại trung tâm điều hành để trực ban theo dõi nhiều camera trên tuyến cùng lúc. Người vận hành kéo thả camera vào các ô hiển thị, sắp xếp theo ca trực, lựa chọn bố cục một camera lớn, lưới hai nhân hai, lưới ba nhân hai hoặc bố cục tự do, đồng thời phóng to một camera toàn màn hình khi cần xử lý tình huống.
 
-**Băng thông (tham khảo):** xem live khoảng 2–4 Mbps mỗi camera (luồng phụ); xem đồng thời ghi hình khoảng 4–8 Mbps mỗi camera.
+Song song với tường hình, phần mềm tích hợp bản đồ số trên nền tảng GIS của RMMS, hiển thị vị trí các camera theo tuyến đường. Người dùng bấm vào điểm camera trên bản đồ để xem đếm phương tiện, sự kiện vượt tốc độ, ảnh hoặc luồng hình tại điểm đó. Màn hình cho phép chia tỷ lệ tường hình và bản đồ, ẩn bản đồ khi cần tập trung theo dõi hình ảnh. Thông tin tóm tắt tại mỗi điểm camera gồm tên, mã, lý trình, tọa độ, tuyến, tổng số phương tiện và số xe vượt tốc độ.
 
-**4G / 5G:** dự phòng gửi **sự kiện và ảnh** (đúng mô hình mục 1 — gói đã xử lý tại biên). Không đủ để xem live nhiều camera tại trung tâm.
+Giải pháp giúp trực ban tìm camera theo tuyến và vị trí trên bản đồ thay vì phải nhớ địa chỉ từng thiết bị, đồng thời gắn hình ảnh hiện trường với đúng đoạn đường đang quản lý trong RMMS.
 
-**Ghi hình tại trung tâm** (kèm theo, không thay live): máy chủ lưu trữ / NVR, số ngày lưu, UPS, đồng bộ giờ (NTP) để clip làm chứng từ. Mất mạng: ghi tại biên, có sóng gửi bù.
+Các chức năng chính của phần mềm bao gồm: Tường hình nhiều camera; kéo thả và lưu bố cục theo người dùng; phóng to toàn màn hình; bản đồ GIS vị trí camera trên tuyến; xem đếm xe và sự kiện vượt tốc tại điểm camera; chia màn hình tường hình và bản đồ; phân quyền khai thác theo đơn vị quản lý.
 
 ---
 
-## 14. Thiết bị camera đề xuất
+## 6. AI nhận diện vi phạm tốc độ, quá tải kết hợp đối chiếu đăng kiểm
 
-Các model có **xử lý AI tại camera** (nhận diện, phân loại, đọc biển tại biên). Sự kiện gửi về RMMS; không bắt buộc máy GPU tại mỗi điểm cam.
+Đặc điểm:
 
-| Loại tuyến | Hướng chọn | Việc nổi bật |
-|-----------|-------------|--------------|
-| Đô thị / ITS tốc độ + biển số | Bullet ANPR có radar (ví dụ iDS-TCM403-GIR) | Đo tốc độ, đọc biển, phủ nhiều làn |
-| Quốc lộ vận tốc cao | DeepinView ANPR thân (bullet) | Biển số và đếm xe tốc độ cao, phân loại xe |
-| Liên tỉnh vận tốc trung bình | ANPR tối ưu đêm | 1–2 làn, chống lóa đèn pha |
-| Khu dân cư / đô thị hỗn hợp | Dome hoặc thân góc rộng | Giám sát hỗn hợp, góc phủ rộng |
+Phần mềm AI nhận diện vi phạm tốc độ và quá tải là giải pháp hỗ trợ tuần tra, thanh tra tải trọng trên tuyến, ứng dụng dữ liệu biển số, tốc độ từ camera ANPR và dữ liệu tải trọng khi có cầu cân, kết hợp đối chiếu thông tin phương tiện để đề xuất lỗi trước khi lập hồ sơ sự cố.
 
-Chọn model theo khảo sát làn, tốc độ thiết kế và điều kiện đêm. RMMS lưu danh mục model để kỹ thuật chọn đúng cấu hình kết nối.
+Hệ thống tiếp nhận biển số và tốc độ do camera gửi về, tra cứu thông tin phương tiện gồm số trục, tải trọng toàn bộ cho phép và tải trọng hàng hóa. Trên cơ sở đó phần mềm đề xuất các nhóm lỗi gồm vượt tốc độ, quá tải trọng toàn bộ, quá tải hàng hóa hoặc không có trong dữ liệu đăng kiểm. Người vận hành xác nhận hoặc bỏ qua từng sự kiện, bảo đảm không tự động lập sự cố khi chưa có sự kiểm tra của con người.
 
----
+Khi được xác nhận, sự việc được đưa vào quy trình sự cố của RMMS để giao việc, theo dõi và báo cáo. Dữ liệu sự kiện gồm thời gian, vị trí camera, lý trình, biển số, tốc độ, loại phương tiện và hình ảnh liên quan, phục vụ tra cứu và xuất báo cáo theo thời gian, theo phương tiện, theo tuyến.
 
-## 15. Bảo mật (mức vận hành)
-
-Bổ sung so với phân quyền mục 3:
-
-- Mật khẩu camera **không để dạng đọc được** trong phần mềm; người xem tường hình không cần biết mật khẩu thiết bị.
-- Camera gửi sự kiện bằng **kênh riêng**, kiểm soát nguồn — không dùng tài khoản người dùng để giả sự kiện.
-- Đường xem hình trên trình duyệt có hạn quyền và thời hạn; màn hình trực ban được cấp quyền xem liên tục theo ca.
-- Phân quyền theo đơn vị / tuyến: Chi cục chỉ thấy camera thuộc phạm vi quản lý.
-
-Hạ tầng (tường lửa, VPN, lưu trữ) theo phương án an toàn thông tin của đơn vị.
+Các chức năng chính của phần mềm bao gồm: Tiếp nhận sự kiện biển số và tốc độ từ camera ANPR; tiếp nhận dữ liệu tải trọng khi có cầu cân; đối chiếu thông tin đăng kiểm phương tiện; đề xuất lỗi vượt tốc, quá tải, không có đăng kiểm; xác nhận hoặc bỏ qua bởi người vận hành; lập sự cố trên RMMS sau khi xác nhận; lưu ảnh và thông tin sự kiện; tra cứu và báo cáo theo thời gian, biển số, tuyến, camera; xuất báo cáo Excel, PDF hoặc CSV.
 
 ---
 
-## 16. Lộ trình gắn RMMS
+## 7. AI nhận diện biển báo, cọc tiêu và đối soát tài sản trên tuyến
 
-Không hứa hình ảnh liên tục khi chưa có đường truyền về trung tâm.
+Đặc điểm:
 
-**Đã gắn vào phần mềm RMMS**
+Phần mềm AI nhận diện biển báo và cọc tiêu là giải pháp hỗ trợ kiểm kê, đối soát tài sản trên hành lang đường bộ từ hình ảnh camera tuần đường hoặc camera cố định. Công nghệ trí tuệ nhân tạo phát hiện đối tượng biển báo, cọc tiêu và các đối tượng giao thông cùng nhóm, chuẩn hóa vị trí theo tuyến và lý trình, tránh tạo trùng khi cùng một cột được ghi nhận nhiều lần ở khoảng cách gần.
 
-- Khai báo và kết nối camera ITS, thử kết nối, xem ảnh hiện trường.
-- Nhận sự kiện từ camera (biển số, tốc độ, loại xe) vào hệ thống.
-- Tường hình nhiều camera, kéo-thả bố cục.
-- Bản đồ camera trên GIS (pin, đếm xe, vượt tốc).
-- Sổ tài sản loại camera ITS.
-- Bảo mật cấu hình kết nối như mục 15.
+Người dùng xem danh sách đề xuất, xác nhận để ghi vào sổ tài sản hoặc bỏ qua trường hợp nhận nhầm. Hệ thống đối soát với tài sản đã có trên sổ: tại vị trí kỳ vọng nếu không còn phát hiện đối tượng, phần mềm đề xuất sự cố mất hoặc hư hỏng để tuần đường, tuần kiểm xử lý. Nhóm chức năng này phục vụ quản lý tài sản trên hành lang đường, không thay thế chức năng kiểm định hư hỏng mặt đường.
 
-**Hạng mục tiếp theo (khi hiện trường đủ quang / VPN)**
-
-- **Video trực tiếp liên tục** trên tường hình RMMS (không chỉ ảnh định kỳ) — hoàn thiện expect mục 3.
-- Gắn xác nhận vi phạm tốc độ / quá tải thành sự cố thật trên quy trình RMMS.
-- Nhận diện biển báo / cọc tiêu và đối soát mất tài sản trên tuyến.
-- AI mặt đường và phát hiện tài sản mới từ camera xe tuần — vận hành rộng sau khi đơn vị chốt quy trình xác nhận.
-
-Năng lực đếm xe, biển số, quay đầu, vật rơi, giám sát tập trung (Phần A) là thuyết minh gốc; Phần B là cách các năng lực đó **đi vào đúng nghiệp vụ quản lý đường** trên RMMS.
+Các chức năng chính của phần mềm bao gồm: Nhận diện biển báo và cọc tiêu từ hình ảnh camera; chuẩn hóa tọa độ và tuyến; cảnh báo trùng vị trí gần; xác nhận ghi sổ tài sản; đối soát tài sản kỳ vọng với kết quả nhận diện; đề xuất sự cố mất hoặc hư khi không còn thấy đối tượng; bản đồ thể hiện điểm đã có, điểm đề xuất mới và điểm đã xác nhận; tra cứu theo tuyến, ngày, loại đối tượng; xuất báo cáo theo thời gian và theo tuyến.
 
 ---
 
-## Tóm tắt gửi lãnh đạo
+## 8. AI kiểm định mặt đường từ hình ảnh camera
 
-> Camera AI trên RMMS đưa **mắt trên tuyến** vào phần mềm quản lý đường: tường hình, bản đồ, sự kiện biển số / tốc độ / quay đầu / lưu lượng, sổ tài sản và sự cố — một hệ, một tài khoản.  
-> Để xem tại trung tâm cần **tủ điện, quang hoặc VPN, camera địa chỉ cố định, máy chủ video và tường hình**. 4G gửi sự kiện và ảnh đã xử lý tại biên, không thay live nhiều camera.  
-> Video live liên tục là bước hoàn thiện khi đường truyền hiện trường đã về trung tâm; kết nối, ảnh, sự kiện, tường hình và bản đồ đã nằm trong RMMS.
+Đặc điểm:
+
+Phần mềm AI kiểm định mặt đường là giải pháp hỗ trợ ghi nhận hiện trường hư hỏng kết cấu mặt đường từ hình ảnh camera tuần đường và các nguồn hình ảnh liên quan. Hệ thống nhận diện các dạng hư gồm ổ gà, nứt dọc, nứt ngang, nứt mai rùa, bong bật, lún vệt bánh xe, chảy nhựa, vá, sụt lề và hư mép, đồng thời đưa ra mức độ, vị trí và gợi ý ưu tiên xử lý.
+
+Kết quả nhận diện được trình bày kèm hình ảnh, khung đối tượng và độ tin cậy để người dùng kiểm tra. Người vận hành xác nhận để tạo vấn đề hoặc sự cố trên RMMS, bảo đảm quy trình ghi nhận hiện trường vẫn do đơn vị quản lý quyết định, có thêm lớp hỗ trợ của trí tuệ nhân tạo. Dữ liệu phục vụ theo dõi tình trạng mặt đường theo đoạn, tuyến và thời gian, hỗ trợ lập kế hoạch bảo trì.
+
+Các chức năng chính của phần mềm bao gồm: Nhận diện các dạng hư mặt đường từ ảnh camera; phân loại và đánh giá mức độ; gắn vị trí theo tuyến và đoạn đường; xác nhận tạo vấn đề hoặc sự cố; tra cứu lịch sử kiểm định theo đoạn và theo thời gian; hiển thị trên bản đồ; xuất báo cáo phục vụ bảo trì; phân quyền theo đơn vị quản lý tuyến.
 
 ---
 
-*Phần A giữ thuyết minh chức năng camera gốc. Phần B bổ sung sau khi rà soát hệ thống RMMS: kết nối camera, GIS, sự cố, sổ tài sản ITS, AI tuần đường.*
+## 9. AI phát hiện tài sản, thiết bị mới từ camera tuần đường
+
+Đặc điểm:
+
+Phần mềm AI phát hiện tài sản và thiết bị mới là giải pháp hỗ trợ bổ sung cơ sở dữ liệu kết cấu hạ tầng từ camera lắp trên xe tuần đường. Trong quá trình tuần, hệ thống phát hiện các đối tượng chưa có trong cơ sở dữ liệu như biển báo, hộ lan, cột Km và các loại thiết bị liên quan, đồng thời ghi nhận loại tài sản, tọa độ và tuyến đường đi kèm chuyến tuần.
+
+Danh sách đề xuất được đưa ra để người dùng xác nhận tạo bản ghi tài sản hoặc bỏ qua khi nhận nhầm. Hệ thống cảnh báo khi đề xuất nằm gần một tài sản cùng loại đã có trên bản đồ, hạn chế tạo trùng. Điểm tài sản mới do AI đề xuất được thể hiện khác với tài sản đã kiểm kê để đơn vị đối soát trước khi chính thức đưa vào sổ.
+
+Các chức năng chính của phần mềm bao gồm: Nhận diện đối tượng mới từ camera xe tuần; xác định loại tài sản, tọa độ, tuyến đường; danh sách đề xuất chờ xác nhận; cảnh báo trùng vị trí gần; xác nhận tạo bản ghi tài sản hoặc bỏ qua; hiển thị trên bản đồ giám sát tài sản; tra cứu theo tuyến, ngày, loại tài sản; liên kết với sổ tài sản RMMS sau khi xác nhận.
+
+---
+
+## 10. Quản lý camera ITS trên sổ tài sản kết cấu hạ tầng
+
+Đặc điểm:
+
+Phần mềm quản lý mỗi camera trên tuyến như một tài sản kết cấu hạ tầng trong sổ tài sản RMMS, thống nhất với các loại tài sản đường bộ khác về tuyến, lý trình, tọa độ và thông số kỹ thuật. Camera không được quản lý tách rời ngoài sổ sách, bảo đảm công tác kiểm kê, báo cáo và vận hành gắn với cùng một bản ghi.
+
+Người dùng khai thác danh sách và phiếu theo loại hệ thống ITS, cập nhật thông tin chung, vị trí trên tuyến và các thuộc tính đặc thù. Kết nối vận hành gồm xem hình, nhận sự kiện và theo dõi trạng thái được gắn với đúng tài sản đã được cấp mã, phục vụ Chi cục, Ban QLDA đối soát thiết bị đang vận hành với hồ sơ tài sản trên tuyến.
+
+Các chức năng chính của phần mềm bao gồm: Danh sách và phiếu tài sản loại hệ thống ITS; gắn tuyến, lý trình, tọa độ; liên kết bản ghi tài sản với kết nối vận hành camera; tìm kiếm, lọc theo tuyến và đơn vị; nhập và cập nhật theo mẫu sổ tài sản; phân quyền theo phạm vi quản lý; phục vụ báo cáo tài sản và giám sát thiết bị trên tuyến.
+
+Ngôn ngữ lập trình:
