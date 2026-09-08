@@ -182,5 +182,3 @@ Phần mềm quản lý mỗi camera trên tuyến như một tài sản kết c
 Người dùng khai thác danh sách và phiếu theo loại hệ thống ITS, cập nhật thông tin chung, vị trí trên tuyến và các thuộc tính đặc thù. Kết nối vận hành gồm xem hình, nhận sự kiện và theo dõi trạng thái được gắn với đúng tài sản đã được cấp mã, phục vụ Chi cục, Ban QLDA đối soát thiết bị đang vận hành với hồ sơ tài sản trên tuyến.
 
 Các chức năng chính của phần mềm bao gồm: Danh sách và phiếu tài sản loại hệ thống ITS; gắn tuyến, lý trình, tọa độ; liên kết bản ghi tài sản với kết nối vận hành camera; tìm kiếm, lọc theo tuyến và đơn vị; nhập và cập nhật theo mẫu sổ tài sản; phân quyền theo phạm vi quản lý; phục vụ báo cáo tài sản và giám sát thiết bị trên tuyến.
-
-Ngôn ngữ lập trình:
