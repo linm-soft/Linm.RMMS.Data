@@ -7,7 +7,8 @@
 | parent | `mnt-list` (primary) · also CTA `incident-create` / `incident-detail` |
 | demo | `#sc-estimate` · `DES-MOB-EST` · mnt-list hub + `#i-sum` · `go('estimate')` |
 | kind | `sheet` (scan / packet) · surface = **screen** |
-| taskId | `task_b0b56370` |
+| taskId | `task_210a31d6` |
+| changeScope | `edit_page` · **GAP-MOB-EDIT-01** labelHeader · **không** enqueue sibling |
 
 ## Tree
 
@@ -41,8 +42,8 @@ incident-create / incident-detail
 |---------|--------|
 | Giao việc | submit · cùng slug + BFF POST work-orders |
 | Lưu nháp | submit draft · cùng slug + BFF draft |
-| Giao cho / Khối lượng / Đơn giá | input · controlHint |
-| Thành tiền / SLA / Hạn | derived display |
+| Giao cho / Khối lượng / Đơn giá | input · controlHint + **labelHeader** (GAP-MOB-EDIT-01) |
+| Thành tiền / SLA / Hạn | derived display + **labelHeader** |
 | Header Từ sự cố / Loại TS | display bind |
 | Toast ok / err | feedback UI |
 | Back «Công việc» | chrome nav `mnt-list` |
@@ -69,12 +70,13 @@ incident-create / incident-detail
 | skillId | agent-data-analy-mobile |
 | skillVersion | 2026.08.25.01 |
 | schemaVersion | 2 |
-| workflowVersion | 2026.08.25.01 |
-| rulesVersion | 2026.08.25.2 |
-| generatedAt | 2026-08-29T04:20:00.000Z |
+| workflowVersion | 2026.08.29.1 |
+| rulesVersion | 2026.08.29.5 |
+| generatedAt | 2026-09-01T14:28:40.000Z |
 | versionGate | rechecked |
 | contentHash | sha256:estimate-mobile-action-tree-20260829 |
-| taskId | `task_b0b56370` |
+| taskId | `task_210a31d6` |
+| note | tree hash-skip · GAP-MOB-EDIT-01 chrome-only |
 
 ---
-<!-- Version meta: skillId=agent-data-analy-mobile skillVersion=2026.08.25.01 schemaVersion=2 workflowVersion=2026.08.25.01 rulesVersion=2026.08.25.2 versionGate=rechecked -->
+<!-- Version meta: skillId=agent-data-analy-mobile skillVersion=2026.08.25.01 schemaVersion=2 workflowVersion=2026.08.29.1 rulesVersion=2026.08.29.5 versionGate=rechecked taskId=task_210a31d6 -->

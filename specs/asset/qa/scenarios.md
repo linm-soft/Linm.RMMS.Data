@@ -1,13 +1,13 @@
 # QA — Scenarios — asset
 
-> Status: **FAIL** · `/agent-qa-mobile` · e2eQa=ON · task `task_4ec34586`  
-> method: `yarn e2e-qa-mobile` · Maestro · sim **iPhone 17 Pro Max** + emulator **Pixel 2** · **cấm** `yarn e2e-qa` / `start:std` / GenerateImage  
-> prior Dev: `task_dc98ed58` · cleanup_mock live-only · handoff `handoff/dev-compact.md`
+> Status: **FAIL** · `/agent-qa-mobile` · e2eQa=ON · task `task_0aaf071e`  
+> method: `yarn e2e-qa-mobile` · Maestro · sim **iPhone 17 Pro Max** + emulator · **cấm** `yarn e2e-qa` / `start:std` / GenerateImage  
+> prior Dev: `task_fa241430` · Appear fix SideEffect+LaunchedEffect(Unit) · handoff `handoff/dev-compact.md`
 
 | | |
 |--|--|
 | Feature | `asset` |
-| Title | [Mobile] List danh mục tài sản · live-only re-QA |
+| Title | [Mobile] List danh mục tài sản · re-QA sau Appear fix |
 | Role | `qa` |
 | packKind | `list` · `#sc-asset-list` · `DES-MOB-ASSET-LIST` |
 | iosPhase | `phase1_iphone` · **A4-IPAD DEFER** |
@@ -25,7 +25,7 @@
 | List `#sc-asset-list` Android | Cùng zone · live rows khi BFF có data | **FAIL** | ![P6-CORE](screens/P6-CORE.png) · EmptyChrome |
 | List fold 2 Android | Row 2 visible | **FAIL** | ![P6-CORE-2](screens/P6-CORE-2.png) · empty |
 | Entry path | Home → hub → `#tile-list` → list | **PASS** | Maestro assert `#sc-asset-list` |
-| API / live-only | GET `asset/road-assets` · empty→EmptyChrome · **cấm** demoRows | **FAIL** And | BFF có ≥50 items · And **0** request `road-assets` từ `10.0.2.2` |
+| API / live-only | GET `asset/road-assets` · empty→EmptyChrome · **cấm** demoRows | **FAIL** And | BFF ≥50 items · And **0** `road-assets` từ `10.0.2.2` |
 | GAP-DEV-MOB-PLACEHOLDER-01 | **Cấm** watermark «Phiên bản Gói» | **PASS** | A3 / P6 |
 | Dual align | iOS↔Android cùng zone + data | **FAIL** Must | iOS rows · Android empty |
 
@@ -47,21 +47,21 @@
 
 | Check | Result | Notes |
 |-------|--------|-------|
-| A3-CORE vs `#sc-asset-list` demo | **Aligned** chrome | Nav Danh sách · search · cube rows · **cấm** watermark |
-| P6-CORE vs demo / A3 | **Not aligned** Must | EmptyChrome «Chưa có tài sản» vs iOS live rows |
-| Live-only | iOS OK · Android GAP | Dev cleanup_mock: fail/empty→EmptyChrome · And không gọi API → false empty |
+| A3-CORE vs `#sc-asset-list` demo | **Aligned** | Nav Danh sách · search · cube rows · live titles · **cấm** watermark |
+| P6-CORE vs demo / A3 | **Not aligned** Must | EmptyChrome «Chưa có tài sản» · hierarchy `asset-list-empty` · **không** `row-asset-0` |
+| Live-only | iOS OK · Android GAP | Appear fix shipped nhưng emulator vẫn **0** GET `road-assets` |
 
 ## GAP
 
 | Id | Sev | Note |
 |----|-----|------|
 | GAP-QA-STORE-03 | **Must** | MAESTRO-AND assert `row-asset-0` FAIL |
-| GAP-MOB-ASSET-AND-FETCH-01 | **Must** | Android list không emit GET `mobile-bff/.../asset/road-assets` (BFF log 0 từ emulator) trong khi iOS/localhost 200 + items · nghi `LaunchedEffect(onBack,onOpenDetail)` cancel trước `Appear` |
+| GAP-MOB-ASSET-AND-FETCH-01 | **Must** | Android list `#sc-asset-list` + EmptyChrome · BFF log **0** `GET .../asset/road-assets` từ `10.0.2.2` (có login/hub/asset-types) · iOS localhost `road-assets` 200+items · Appear fix `task_fa241430` **chưa đóng** gap runtime |
 | GAP-MOB-UX-DUAL-01 | **Must** | Dual iOS rows ↔ Android empty |
 
 ## Verdict
 
-**FAIL** · e2e `ok:false` · **cấm** completed · `qa_fail_rollback` → Dev Android fetch/Appear.
+**FAIL** · e2e `ok:false` · **cấm** completed · `qa_fail_rollback` → Dev Android fetch path (Appear→load→OkHttp) re-verify trên emulator.
 
 ## Version meta
 
@@ -72,6 +72,6 @@
 | schemaVersion | 1 |
 | workflowVersion | 2026.08.29.1 |
 | rulesVersion | 2026.08.29.5 |
-| generatedAt | 2026-09-01T03:51:00.000Z |
-| taskId | task_4ec34586 |
-| contentHash | sha256:asset-mobile-edit-list-20260823 |
+| generatedAt | 2026-09-01T16:22:00.000Z |
+| taskId | task_0aaf071e |
+| contentHash | sha256:asset-qa-fix-appear-20260901 |

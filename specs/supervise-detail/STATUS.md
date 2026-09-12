@@ -3,11 +3,11 @@
 | Field | Value |
 |-------|-------|
 | feature | `supervise-detail` |
-| phase | `dev` |
+| phase | `qa` |
 | status | `await_confirm` |
 | changeScope | `edit_page` |
 | packKind | **`screen`** (PO chốt · đóng GAP-MOB-SUP-DET-PACK-01 · was scan `sheet`) |
-| runMode | `fix_gaps` · gap=`cleanup_mock` · **qaFailFix** |
+| runMode | `fix_gaps` · gap=`cleanup_mock` · **qaFailFix** · re-QA **FAIL** |
 | demo | `specs/supervise-detail/ui/prototype/{ios,android}/index.html` · `#sc-supervise-detail` · `DES-MOB-SUP-DETAIL` · entry parent `#sc-supervise` |
 | context | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/docs/context/features/supervise-detail.md` |
 | mfe | — (native · **cấm** mfeStdUrl) |
@@ -18,10 +18,10 @@
 | bff | `Linm.RMMS.Mobile.Bff` |
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · DOMAIN-MAP Patrol — **cấm ERP.*** |
 | lane | **mobile** · `/agent-qldb-workflow-mobile` |
-| lastRole | `dev` · `/agent-dev-ios`+`/agent-dev-android` · **qaFixPhase=plan** · await `qa_fix_plan` |
+| lastRole | `qa` · `/agent-qa-mobile` · e2e ok:false · handoff Dev rollback |
 | parent | `mobile-cleanup-mock` |
-| autoApprove | `ON` · **cấm** skip `qa_fail_rollback` / `qa_fix_plan` |
-| e2eQa | **ON** · prior FAIL · re-QA sau implement · **cấm** start:std / mfeStdUrl |
+| autoApprove | `ON` · **cấm** skip `qa_fail_rollback` |
+| e2eQa | **ON** · re-QA FAIL · **cấm** start:std / mfeStdUrl |
 | contentHash | `sha256:supervise-detail-cleanup-mock-20260901` |
 | realDataHash | `sha256:supervise-detail-real-data-20260831` |
 | bffContentHash | `sha256:patrol-attendance-logs-getbyid-passthrough` |
@@ -30,9 +30,9 @@
 | designContentHash | `sha256:supervise-detail-design-20260831` |
 | saContentHash | `sha256:supervise-detail-sa-solution-20260831` |
 | tlContentHash | `sha256:supervise-detail-tl-task-20260831` |
-| iosImplementHash | `sha256:supervise-detail-implement-ios-cleanup-20260901` |
-| androidImplementHash | `sha256:supervise-detail-implement-android-cleanup-20260901` |
-| qaContentHash | `sha256:supervise-detail-qa-scenarios-20260901-blocked` |
+| iosImplementHash | `sha256:supervise-detail-qa-fix-ios-verify-20260901` |
+| androidImplementHash | `sha256:supervise-detail-implement-android-qafix-20260901` |
+| qaContentHash | `sha256:supervise-detail-qa-scenarios-20260901-blocked-r2` |
 | qaFixPlanContentHash | `sha256:supervise-detail-qa-fix-plan-20260901` |
 | reviewHash | `sha256:supervise-detail-review-20260831` |
 | skillVersion | `2026.08.19.26` (edit-mobile-feature) |
@@ -40,13 +40,13 @@
 | workflowVersion | `2026.08.31.2` |
 | rulesVersion | `2026.08.31.2` |
 | versionGate | `rechecked` |
-| verifyGate | plan-only · **cấm** code · implement sau Approve phải xcodegen+iPhone 17 Pro · assembleDebug · BFF build |
-| updatedAt | `2026-09-01T09:58:23.851Z` |
+| verifyGate | prior Dev PASS · QA e2e **FAIL** Android list |
+| updatedAt | `2026-09-01T15:53:21.879Z` |
 ## Lock
 
 | agent | scope | id | at |
 |-------|-------|-----|-----|
-| — | — | — | **released** (plan-only · `task_dcfaf100` completed) |
+| — | — | — | **released** (qa blocked · handoff Dev) |
 
 ## Pipeline
 
@@ -57,7 +57,7 @@
 | 2.1 | design | ui/design.md · ui/ux-analy.md · ui/html-to-native-map.md · prototype/ios/index.html · prototype/android/index.html · ui/review/demo-parity.md | **confirmed** |
 | 2.2 | sa | be/solution-discovery.md | **confirmed** |
 | 3 | team-lead | task/supervise-detail.md | **confirmed** |
-| 4 | dev | implement/ios.md · implement/android.md · **`implement/supervise-detail-qa-fix-plan.md`** · handoff/dev-compact.md | **await_confirm** |
+| 4 | dev | implement/ios.md · implement/android.md · implement/supervise-detail-qa-fix-plan.md · handoff/dev-compact.md | **confirmed** |
 | 5 | qa | qa/scenarios.md · qa/store/supervise-detail/CAPTURE.md · ui/review/align-ux.md · handoff/qa-compact.md | **blocked** |
 | 6 | review | review/findings.md · review/REVIEW-META.json | **pending** |
 ## Tasks
@@ -74,30 +74,31 @@
 | task_da5594c4 | supervise-detail | review | qa | **completed** | review_confirm=done · Must 0 · ACT-03 none · pipeline done |
 | task_b9997d8c | supervise-detail | dev | — | **completed** | `/edit-mobile-feature` · cleanup_mock · remove OfflineDemo · VERIFY PASS |
 | task_02d20b55 | supervise-detail | qa | — | **failed** | e2e ok:false · iOS PASS · Android list no GET · GAP-QA-SUP-DET-AND-LIST-01 |
-| task_dcfaf100 | supervise-detail | dev | task_02d20b55 | **pending_confirm** | qaFailFix=1 · qaFixPhase=**plan** · plan written · handoff `dev-compact.md` · **cấm** code · board **`qa_fix_plan`** Approve |
+| task_dcfaf100 | supervise-detail | dev | task_02d20b55 | **completed** | qaFailFix=1 · qaFixPhase=**plan** · `qa_fix_plan` **approved** |
+| task_112638ae | supervise-detail | dev | task_dcfaf100 | **completed** | qaFailFix=1 · qaFixPhase=implement · Android ON_RESUME GET · VERIFY PASS · handoff QA |
+| task_4063c6a2 | supervise-detail | qa | task_112638ae | **failed** | e2e ok:false · iOS A3 Aligned · Android `sup-empty` · BFF 0 GET from 10.0.2.2 |
 
 ## Gates
 
 | Gate | Status |
 |------|--------|
-| qa_fail_rollback | **open** · from `task_02d20b55` |
-| qa_fix_plan | **await_confirm** · `implement/supervise-detail-qa-fix-plan.md` · **cấm** autoApprove skip |
+| qa_fail_rollback | **await_confirm** · `task_4063c6a2` · **cấm** autoApprove skip · Approve → Dev plan |
+| qa_fix_plan | prior approved · implement claim **not closed by re-QA** |
 
 ## Blockers / open questions
 
-- GAP-QA-SUP-DET-AND-LIST-01: **OPEN** — Android `#sc-supervise` no GET attendance-logs after login · blocks detail e2e · qa_fail_rollback
-- GAP-QA-STORE-03: **OPEN** — Maestro-AND / P6 FAIL (depends list)
+- GAP-QA-SUP-DET-AND-LIST-01: **OPEN** — Android `#sc-supervise` `sup-empty` · BFF **0** GET attendance-logs from `10.0.2.2` (seed OK curl) · Dev ON_RESUME claim not proven
+- GAP-QA-STORE-03: **OPEN** — Maestro-AND / P6 FAIL
 - GAP-MOB-SUP-DET-DEMO-01: **closed** — Dev rewire card → push `#sc-supervise-detail`
 - GAP-MOB-SUP-DET-PACK-01: **closed** — packKind **`screen`**
 - GAP-MOB-SUP-DET-ORG-01: **PO chốt** — live `Note` empty → mapper `SuperviseCopy.orgFallback` (không demo payload)
 - Step 4b / T-BE: **N/A** — reuse `GET patrol/attendance-logs/{id}` live · EmptyChrome OK 404/fail
 - cleanup_mock: **done** — **cấm** `SuperviseDetailCopy.demo` / OfflineDemo
-- *(plan ready)* `implement/supervise-detail-qa-fix-plan.md` · await board **`qa_fix_plan`** → Dev `qaFixPhase=implement`
 
 ## Links
 
-- data-analy → po → ui → be → task → implement → **qa blocked** → **dev plan await_confirm** → review pending
-- native: **cấm** mfeStdUrl · **cấm** chain review / e2e ở plan
+- data-analy → po → ui → be → task → implement → **qa FAIL** → qa_fail_rollback → Dev
+- native: **cấm** mfeStdUrl · **cấm** e2e ở Dev
 - BFF: `GET mobile-bff/api/v1/patrol/attendance-logs/{id}` · **cấm** invent path
 - QA fix plan: `specs/supervise-detail/implement/supervise-detail-qa-fix-plan.md`
-- Next: board **`qa_fix_plan`** Approve → Dev implement Plan §1–6 · rồi `/agent-qa*`
+- Next: Dev qaFailFix · prove emulator GET list · then `/agent-qa-mobile` re-QA

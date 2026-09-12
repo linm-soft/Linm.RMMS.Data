@@ -1,17 +1,23 @@
 {
   "feature": "supervise-detail",
-  "role": "qa",
-  "status": "blocked",
-  "e2eQa": true,
-  "iosPhase": "phase1_iphone",
-  "method": "yarn e2e-qa-mobile",
-  "verdict": "fail",
-  "gaps": ["GAP-QA-SUP-DET-AND-LIST-01", "GAP-QA-STORE-03"],
-  "shots": ["A11-LAUNCH.png", "A9-LOGIN.png", "A3-CORE.png", "P6-CORE.png", "P6-CORE-2.png"],
-  "updatedAt": "2026-09-01T03:30:00.000Z",
-  "taskId": "task_02d20b55",
-  "e2eOk": false,
-  "capturedAt": "2026-09-01T03:14:00.000Z",
+  "capturedAt": "2026-09-01T15:47:20.000Z",
   "iosDevice": "iPhone 17 Pro Max",
-  "align": "iOS Aligned · Android blocked"
+  "method": "e2e-qa-mobile",
+  "taskId": "task_4063c6a2",
+  "ok": false,
+  "steps": [
+    { "id": "A10-BFF", "result": "PASS", "store": ["A10", "P11"] },
+    {
+      "id": "MAESTRO-AND",
+      "result": "FAIL",
+      "store": ["P6"],
+      "gap": "GAP-QA-STORE-03",
+      "error": "sup-card seed not visible · sc-supervise shows sup-empty · BFF 0 GET attendance-logs from 10.0.2.2"
+    },
+    { "id": "A11-LAUNCH", "result": "PASS", "screenshot": "A11-LAUNCH.png", "store": ["A11"] },
+    { "id": "A9-LOGIN", "result": "PASS", "screenshot": "A9-LOGIN.png", "store": ["A9", "P10"] },
+    { "id": "A3-CORE", "result": "PASS", "screenshot": "A3-CORE.png", "store": ["A3", "A11"] },
+    { "id": "P6-CORE", "result": "FAIL", "screenshot": "P6-CORE.png", "store": ["P6", "P11"], "gap": "GAP-QA-STORE-03" },
+    { "id": "P6-CORE-2", "result": "FAIL", "screenshot": "P6-CORE-2.png", "store": ["P6"], "gap": "GAP-QA-STORE-03" }
+  ]
 }

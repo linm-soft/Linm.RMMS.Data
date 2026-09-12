@@ -4,62 +4,71 @@ schemaVersion: 1
 feature: estimate
 packKind: sheet
 role: dev
-status: done
+status: confirmed
 skillVersion: 2026.08.29.1
-writtenAt: 2026-09-01T08:57:37.000Z
-taskId: task_8ab3d7ec
+writtenAt: 2026-09-01T14:51:45.000Z
+taskId: task_2b81d5ff
 slash: /agent-dev-ios + /agent-dev-android
-gap: qaFailFix · GAP-QA-E2E-AND-01 · GAP-QA-STORE-03 · GAP-QA-P6-DUP-01
-qaFixPhase: implement
+mode: feature_context
+changeScope: edit_page
 
 ## Decisions
-- changeScope: edit_page
-- formPattern: sheet→screen `#sc-estimate` · DES-MOB-EST
-- mfeStdUrl: none (native · **cấm**)
-- qa_fix_plan: **approved** (board enqueue implement `task_8ab3d7ec`)
-- fix: harden `qa/e2e/android.yaml` login → `id: sc-home` PRIMARY · CTA before/after Enter · **cấm** hideKeyboard
-- native iOS/Android Estimate: **no code change** this turn (tags/nav PRESENT)
-- Step 4b: N/A Signed · **cấm** invent ERP.* / new estimate API
-- e2e: **skipped** · next `/agent-qa-mobile`
-- open questions: none
+- packKind: **sheet** · `#sc-estimate` · DES-MOB-EST · full screen
+- delta HARD: **GAP-MOB-EDIT-01** — labelHeader 13pt/sp ×6 fields dual · **cấm** placeholder-only
+- tasks: `T-IOS-EST-LABEL` · `T-AND-EST-LABEL` **done**
+- iOS: `EstimateView` · `fieldLabel`+`labeledField` · `LinmTextField("")`
+- Android: `EstimateScreen` · `FieldLabel`+`LabeledField` · `LinmTextField(title="")`
+- BFF/API/DTO: **unchanged** · Step 4b **N/A** · mfeStdUrl **none**
+- VERIFY: iOS xcodegen+xcodebuild iPhone 17 Pro **PASS** · Android assembleDebug **PASS** · BFF dotnet build **PASS**
+- e2e/start:std: **skipped** (cấm Dev) · e2eQa queued QA
+- invent / ERP.*: **none**
+- next: **qa** (`/agent-qa-mobile`) · AC-F-13 labelHeader ×6
+
+## Artifacts
+- `implement/ios.md` · `implement/android.md` · task_2b81d5ff
+- prior implement ship **giữ**
 
 ## Inventory (slim)
 | id | label | controlHint | notes |
 |----|-------|-------------|-------|
-| sc-estimate | Giao việc xử lý | TopBar+fields+CTA | sheet→screen |
-| row-from-incident | Từ sự cố | LinmListRow | seed |
-| input-assignee | Giao cho * | LinmTextField | required |
-| btn-assign | Giao việc | Primary | blocked if missing incident |
-| btn-draft | Lưu nháp | Secondary | |
+| sc-estimate | Giao việc xử lý | TopBar+fields+CTA | DES-MOB-EST |
+| input-assignee | Giao cho * | SearchField+labelHeader | required · EDIT-01 |
+| input-qty | Khối lượng | NumberField+labelHeader | EDIT-01 |
+| input-unit-price | Đơn giá | MoneyField+labelHeader | EDIT-01 |
+| input-total | Thành tiền | readonly+labelHeader | EDIT-01 |
+| input-sla | Thời hạn xử lý (giờ) | readonly+labelHeader | 24 · EDIT-01 |
+| input-due | Hạn xử lý | readonly+labelHeader | datetime · EDIT-01 |
+| btn-assign | Giao việc | Primary | WO |
+| btn-draft | Lưu nháp | Secondary | draft |
 
 ## Screens / zones (ids only)
 - DES-MOB-EST / #sc-estimate
-- reviewUrlIos=file://…/prototype/ios/index.html#sc-estimate
-- reviewUrlAndroid=file://…/prototype/android/index.html#sc-estimate
-- peerStdUrl=—
+- entry: mnt-list hub/card + incident CTA · route_a
 
-## API / tasks (ids only)
-- PUT/POST `ai-vision/estimates/*`
-- POST `maintenance/work-orders` · WorkType=`repair` · Status=`new` · SLA 24h · DueAt UTC
-- POST `incident/incidents/{id}/assign`
-- T-BE: N/A (catch-all BFF)
-
-## VERIFY GATE
-- iOS: xcodegen + xcodebuild `-scheme LinmRmms` dest iPhone 17 Pro → **PASS**
-- Android: `./gradlew :app:assembleDebug` → **PASS**
-- BFF: `dotnet build` Linm.RMMS.Mobile.Bff → **PASS**
+## API (ids only · unchanged)
+- POST ai-vision/estimates/from-incident/{id}
+- PUT/POST ai-vision/estimates/{id} · /draft · /confirm
+- POST maintenance/work-orders · WorkType=`repair`
+- POST incident/incidents/{id}/assign
 
 ## Debt
-- GAP-QA-E2E-AND-01 / STORE-03 / P6-DUP → close on re-QA Maestro PASS
-- GAP-MOB-UX-COMP-03 → QA visual after Maestro PASS
-- Prior CLOSED: GAP-MOB-EST-NAV/SIMP/ASSIGNEE/WO/SLA/PACK · **cấm** reopen
+- none P0 · A4-IPAD / offline draft / staff lookup **DEFER** prior
 
-## UNCLEAR
-- none
+## Hashes
+- ctxContentHash: sha256:b67ee5a9cc9b69577496bf04aef9446d483410141ca6c27b98f792841ddb5ece
+- demoContentHash: sha256:394ab44597648f04b25e6d58476378c16141feb53d3b58d39923b3defcff8328
+- contentHash: sha256:estimate-mobile-control-hint-20260901-edit01
+- realDataHash: sha256:estimate-mobile-real-data-20260901-edit01
+- bffContentHash: sha256:estimate-mobile-bff-20260829
+- actionTreeHash: sha256:estimate-mobile-action-tree-20260829
 
-## Full paths (Read only if needed)
-- plan: specs/estimate/implement/estimate-qa-fix-plan.md
-- implement: specs/estimate/implement/ios.md · android.md
-- STATUS: specs/estimate/STATUS.md
-- e2e: specs/estimate/qa/e2e/{ios,android}.yaml
-- task: specs/estimate/task/estimate.md
+## Must-read next (QA)
+- this compact
+- `implement/ios.md` · `implement/android.md`
+- AC-F-13 labelHeader visible ×6 · Maestro slug `estimate`
+
+## Open
+- none P0 · GAP-MOB-EDIT-01 shipped dual → QA
+
+---
+<!-- compact schemaVersion=1 · ≤5KB · task_2b81d5ff -->

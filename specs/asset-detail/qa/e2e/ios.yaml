@@ -71,10 +71,8 @@ appId: org.linmsoft.rmms
     timeout: 25000
 - waitForAnimationToEnd:
     timeout: 2000
-- assertVisible:
-    id: "row-asset-0"
-- tapOn:
-    id: "row-asset-0"
+# Tap seed row by code — list order BFF ≠ row-asset-0 (GAP-QA-STORE-01)
+- tapOn: ".*KM-QL1-NA-461.*"
 - extendedWaitUntil:
     visible:
       id: "sc-asset-detail"

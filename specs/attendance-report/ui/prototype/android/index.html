@@ -1,14 +1,155 @@
-# Design — attendance-report
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RMMS · Báo cáo công · Android</title>
+  <style>
+    :root {
+      --blue: #0C84C0; --deep: #086A9A; --success: #3CB448; --warn: #FCB43C;
+      --surface: #FFFBFE; --card: #fff; --muted: #79747E; --label: #1C1B1F; --sep: #E7E0EC;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; font-family: Roboto, "Noto Sans", sans-serif;
+      background: #1c1c1e; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    }
+    .phone {
+      width: 412px; height: 915px; background: var(--surface); border-radius: 28px;
+      overflow: hidden; position: relative; display: flex; flex-direction: column;
+    }
+    .top-bar {
+      display: flex; align-items: center; gap: 4px;
+      padding: 36px 8px 12px; background: var(--surface); border-bottom: 1px solid var(--sep);
+      min-height: 88px;
+    }
+    .icon-btn {
+      width: 48px; height: 48px; border: 0; border-radius: 24px; background: transparent;
+      color: var(--label); cursor: pointer; display: grid; place-items: center;
+    }
+    .nav-title { font-size: 22px; font-weight: 500; color: var(--label); flex: 1; }
+    .content { flex: 1; overflow: auto; padding: 0 0 96px; }
+    .seg {
+      margin: 12px 16px 8px; display: flex; background: rgba(121,116,126,.12);
+      border-radius: 20px; padding: 4px; gap: 4px;
+    }
+    .seg button {
+      flex: 1; border: 0; background: transparent; font: inherit; font-size: 13px; font-weight: 600;
+      color: var(--label); padding: 8px 0; border-radius: 16px; cursor: pointer;
+    }
+    .seg button.on { background: #fff; color: var(--blue); box-shadow: 0 1px 2px rgba(0,0,0,.08); }
+    .kpi-grid {
+      margin: 8px 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+    }
+    .kpi {
+      background: var(--card); border-radius: 16px; padding: 14px 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,.06);
+    }
+    .kpi-label { font-size: 13px; color: var(--muted); font-weight: 500; }
+    .kpi-value { font-size: 20px; font-weight: 700; color: var(--label); margin-top: 4px; }
+    .section-label {
+      font-size: 13px; font-weight: 600; color: var(--muted);
+      text-transform: uppercase; letter-spacing: .02em; margin: 16px 20px 8px;
+    }
+    .card-group {
+      margin: 0 16px 8px; background: var(--card); border-radius: 16px; overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,.06);
+    }
+    .row {
+      padding: 14px 16px; border-bottom: 1px solid var(--sep); cursor: pointer;
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    }
+    .row:last-child { border-bottom: 0; }
+    .row-main { min-width: 0; }
+    .row-title { font-size: 16px; font-weight: 500; color: var(--label); }
+    .row-sub { font-size: 13px; color: var(--muted); margin-top: 2px; }
+    .badge {
+      font-size: 13px; font-weight: 600; padding: 4px 10px; border-radius: 8px; white-space: nowrap;
+    }
+    .badge.green { background: rgba(60,180,72,.15); color: #1B5E20; }
+    .badge.gray { background: rgba(121,116,126,.15); color: #49454F; }
+    .badge.ok { background: rgba(12,132,192,.12); color: #086A9A; }
+    .empty {
+      margin: 24px 20px; text-align: center; font-size: 15px; color: var(--muted); display: none;
+    }
+    .empty.show { display: block; }
+    .ic { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.75;
+      stroke-linecap: round; stroke-linejoin: round; }
+    .tab {
+      position: absolute; left: 0; right: 0; bottom: 0; height: 80px;
+      background: var(--surface); border-top: 1px solid var(--sep);
+      display: flex; padding: 8px 4px 16px;
+    }
+    .tab b { flex: 1; text-align: center; font-size: 13px; font-weight: 500; color: var(--muted); }
+    .tab b.on { color: var(--blue); }
+    .toast {
+      position: absolute; left: 16px; right: 16px; bottom: 96px; z-index: 20;
+      background: #313033; color: #fff; border-radius: 8px;
+      padding: 14px 16px; font-size: 14px; display: none;
+    }
+    .toast.show { display: block; }
+  </style>
+</head>
+<body>
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+    <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+  </svg>
 
-> Status: **draft** · auto-created 2026-09-01T08:55:46.502Z · task `task_52898ccc`  
-> Agent điền nội dung. **Cấm** xóa file này.
-
-| | |
-|--|--|
-| Feature | `attendance-report` |
-| Title | [Mobile] [Chấm công] -> Báo cáo công |
-| Role | `design` |
-
-## Notes
-
--
+  <div class="phone" id="sc-attendance-report" data-des-id="DES-MOB-ATT-RPT" data-tab="field">
+    <div class="top-bar solid">
+      <button type="button" class="icon-btn" id="attendance-report-back" aria-label="Back" onclick="toast('Chấm công')">
+        <svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg>
+      </button>
+      <div class="nav-title">Báo cáo công</div>
+    </div>
+    <div class="content">
+      <div class="seg" id="attendance-report-period" role="tablist" aria-label="Kỳ báo cáo">
+        <button type="button" class="on" id="period-week" onclick="setPeriod('week')">Tuần</button>
+        <button type="button" id="period-month" onclick="setPeriod('month')">Tháng</button>
+      </div>
+      <div class="kpi-grid" id="attendance-report-kpi">
+        <div class="kpi"><div class="kpi-label">Ngày đủ công</div><div class="kpi-value" id="kpi-days">2</div></div>
+        <div class="kpi"><div class="kpi-label">Số lần chấm</div><div class="kpi-value" id="kpi-checks">4</div></div>
+        <div class="kpi"><div class="kpi-label">% Trong vùng</div><div class="kpi-value" id="kpi-inzone">100%</div></div>
+        <div class="kpi"><div class="kpi-label">Ngoài vùng</div><div class="kpi-value" id="kpi-out">0</div></div>
+      </div>
+      <div class="section-label" id="attendance-report-section">Chi tiết theo ngày</div>
+      <div class="card-group" id="attendance-report-days">
+        <div class="row" id="day-row-t7" onclick="toast('Chi tiết ngày công')">
+          <div class="row-main">
+            <div class="row-title">T7 09/08</div>
+            <div class="row-sub">07:05 – 16:40</div>
+          </div>
+          <span class="badge green">Đủ công</span>
+        </div>
+        <div class="row" id="day-row-t6" onclick="toast('Chi tiết ngày công')">
+          <div class="row-main">
+            <div class="row-title">T6 08/08</div>
+            <div class="row-sub">07:12 – 16:28</div>
+          </div>
+          <span class="badge green">Đủ công</span>
+        </div>
+      </div>
+      <div class="empty" id="attendance-report-empty">Không có dữ liệu kỳ này</div>
+    </div>
+    <div class="tab" data-des-id="DES-MOB-TABBAR">
+      <b>Trang Chủ</b><b class="on" id="tab-field">Tuần đường</b><b>Vấn đề</b><b>Công việc</b><b>Tôi</b>
+    </div>
+    <div class="toast" id="toast"></div>
+  </div>
+  <script>
+    function toast(msg) {
+      var el = document.getElementById('toast');
+      el.textContent = msg;
+      el.classList.add('show');
+      clearTimeout(window.__t);
+      window.__t = setTimeout(function () { el.classList.remove('show'); }, 1800);
+    }
+    function setPeriod(p) {
+      document.getElementById('period-week').classList.toggle('on', p === 'week');
+      document.getElementById('period-month').classList.toggle('on', p === 'month');
+      toast(p === 'week' ? 'Kỳ: Tuần' : 'Kỳ: Tháng');
+    }
+  </script>
+</body>
+</html>

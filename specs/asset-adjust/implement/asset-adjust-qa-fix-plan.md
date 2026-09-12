@@ -1,9 +1,9 @@
 # QA fix plan — asset-adjust
 
-> Status: **await_confirm** · **cấm** Write iOS/Android/BFF/BE trước board Approve `qa_fix_plan`  
+> Status: **implemented** · plan Approved (autopilot chain `task_c02a17d5`→`task_d8ada3bb`) · Dev Write done  
 > Nguồn: `qa/scenarios.md` · `qa/bugs/asset-adjust.md` · `ui/review/align-ux.md` · STATUS blockers  
-> Phase: `qaFixPhase=plan` · taskId=`task_c02a17d5` · qaFailFrom=`task_74581051`  
-> lane: **mobile** · packKind: **`screen`** · `#sc-asset-adjust` · **cấm** mfeStdUrl / yarn start:std / e2e ở phase plan
+> Phase: `qaFixPhase=implement` · taskId=`task_d8ada3bb` · plan=`task_c02a17d5` · qaFailFrom=`task_74581051`  
+> lane: **mobile** · packKind: **`screen`** · `#sc-asset-adjust` · **cấm** mfeStdUrl / yarn start:std / e2e ở Dev
 
 ## Gaps (từ QA `task_74581051`)
 
@@ -72,15 +72,23 @@
 - BE: `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.WebService` · **cấm ERP.***
 - Product: `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data`
 
+## Implement evidence (`task_d8ada3bb`)
+
+| # | Done | Note |
+|---|------|------|
+| 1–3 | **PASS** | Android `AuthInterceptor` + hydrate + refresh · iOS `ApiClient` + `AppContainer` parity |
+| 4 | **PASS** | Keep `LoadFailed` · **cấm** restore OfflineDemo |
+| 5 | **PASS** | iOS xcodegen+iPhone 17 Pro · Android assembleDebug · BFF dotnet |
+| 6 | **PASS** | STATUS + ios.md + android.md + dev-compact |
+| 7 | queued | `/agent-qa-mobile` only |
+
 ## Handoff
 
 | Field | Value |
 |-------|-------|
-| this role | `dev` · `qaFixPhase=plan` · **done** |
-| next gate | board **`qa_fix_plan`** Approve |
-| after Approve | enqueue Dev `qaFixPhase=implement` · Plan §1–6 · **cấm** e2e ở Dev |
-| after implement PASS | `/agent-qa-mobile` · e2eQa ON · Plan §7 |
-| STATUS | Dev plan **await_confirm** · QA vẫn **blocked** (prior fail) · **cấm** review |
+| this role | `dev` · `qaFixPhase=implement` · **done** |
+| next | `/agent-qa-mobile` · e2eQa ON · Plan §7 · **cấm** e2e ở Dev |
+| STATUS | Dev **confirmed** · QA **pending** re-run · **cấm** review trước re-QA |
 
 ## Version meta
 
@@ -91,12 +99,12 @@
 | schemaVersion | 1 |
 | workflowVersion | 2026.08.25.01 |
 | rulesVersion | 2026.08.25.2 |
-| generatedAt | `2026-09-01T09:45:09.000Z` |
+| generatedAt | `2026-09-01T16:05:00.000Z` |
 | versionGate | ok |
-| qaFixPhase | plan |
-| taskId | task_c02a17d5 |
-| dorGate | PASS (plan-only) |
-| contentHash | sha256:asset-adjust-qa-fix-plan-20260901 |
+| qaFixPhase | implement |
+| taskId | task_d8ada3bb |
+| dorGate | PASS |
+| contentHash | sha256:asset-adjust-qa-fix-implement-20260901 |
 
 ---
-<!-- Version meta: skillId=agent-dev-ios+android dorGate=PASS qaFixPhase=plan -->
+<!-- Version meta: skillId=agent-dev-ios+android dorGate=PASS qaFixPhase=implement -->

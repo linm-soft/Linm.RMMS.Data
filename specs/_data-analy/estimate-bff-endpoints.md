@@ -113,6 +113,10 @@ Response `WorkOrderDto.Code` → toast `Đã giao việc · {Code} · thời h�
 
 **Không** chạy ở role data_analy. Schema estimates + work-orders **Signed**. Gaps assignee lookup / WorkType default / SLA policy = handoff PO → SA nếu Signed.
 
+## § Delta (`edit_page` · `task_210a31d6`)
+
+**GAP-MOB-EDIT-01** = UX labelHeader only · **không** đổi path / method / DTO · table trên **giữ** · hash path **unchanged**.
+
 ## Version meta
 
 | Field | Value |
@@ -120,13 +124,14 @@ Response `WorkOrderDto.Code` → toast `Đã giao việc · {Code} · thời h�
 | skillId | agent-data-analy-mobile |
 | skillVersion | 2026.08.25.01 |
 | schemaVersion | 2 |
-| workflowVersion | 2026.08.25.01 |
-| rulesVersion | 2026.08.25.2 |
-| generatedAt | 2026-08-29T04:20:00.000Z |
+| workflowVersion | 2026.08.29.1 |
+| rulesVersion | 2026.08.29.5 |
+| generatedAt | 2026-09-01T14:28:40.000Z |
 | versionGate | rechecked |
 | contentHash | sha256:estimate-mobile-bff-20260829 |
 | bffContentHash | sha256:estimate-mobile-bff-20260829 |
-| taskId | `task_b0b56370` |
+| taskId | `task_210a31d6` |
+| note | paths hash-skip · meta bump only |
 
 ---
-<!-- Version meta: skillId=agent-data-analy-mobile skillVersion=2026.08.25.01 schemaVersion=2 workflowVersion=2026.08.25.01 rulesVersion=2026.08.25.2 versionGate=rechecked -->
+<!-- Version meta: skillId=agent-data-analy-mobile skillVersion=2026.08.25.01 schemaVersion=2 workflowVersion=2026.08.29.1 rulesVersion=2026.08.29.5 versionGate=rechecked taskId=task_210a31d6 -->

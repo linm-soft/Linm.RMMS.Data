@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-01T12:26:04.826Z",
+  "updatedAt": "2026-09-01T17:28:02.707Z",
   "features": {
     "ai-asset-detect": {
       "web": {
@@ -114,7 +114,7 @@
       "mobile": {
         "phase": "done",
         "status": "done",
-        "updatedAt": "2026-09-01T09:27:55.682Z",
+        "updatedAt": "2026-09-01T15:08:51.525Z",
         "statusRel": "specs/estimate/STATUS.md"
       }
     },
@@ -544,9 +544,9 @@
     },
     "asset": {
       "mobile": {
-        "phase": "dev",
+        "phase": "qa",
         "status": "await_confirm",
-        "updatedAt": "2026-09-01T10:01:14.298Z",
+        "updatedAt": "2026-09-01T16:24:14.270Z",
         "statusRel": "specs/asset/STATUS.md"
       }
     },
@@ -650,7 +650,7 @@
       "mobile": {
         "phase": "done",
         "status": "done",
-        "updatedAt": "2026-09-01T11:18:14.280Z",
+        "updatedAt": "2026-09-01T15:10:38.618Z",
         "statusRel": "specs/mnt-progress/STATUS.md"
       }
     },
@@ -698,7 +698,7 @@
       "mobile": {
         "phase": "dev",
         "status": "await_confirm",
-        "updatedAt": "2026-09-01T09:55:19.420Z",
+        "updatedAt": "2026-09-01T16:52:11.961Z",
         "statusRel": "specs/asset-detail/STATUS.md"
       }
     },
@@ -712,9 +712,9 @@
     },
     "asset-adjust": {
       "mobile": {
-        "phase": "dev",
+        "phase": "qa",
         "status": "await_confirm",
-        "updatedAt": "2026-09-01T09:50:50.416Z",
+        "updatedAt": "2026-09-01T16:13:25.494Z",
         "statusRel": "specs/asset-adjust/STATUS.md"
       }
     },
@@ -728,9 +728,9 @@
     },
     "supervise-detail": {
       "mobile": {
-        "phase": "dev",
+        "phase": "qa",
         "status": "await_confirm",
-        "updatedAt": "2026-09-01T09:58:23.851Z",
+        "updatedAt": "2026-09-01T15:53:21.880Z",
         "statusRel": "specs/supervise-detail/STATUS.md"
       }
     },
@@ -752,18 +752,26 @@
     },
     "asset-ai": {
       "mobile": {
-        "phase": "data_analy",
-        "status": "paused",
-        "updatedAt": "2026-09-01T00:41:45.538Z",
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-01T17:28:02.707Z",
         "statusRel": "specs/asset-ai/STATUS.md"
       }
     },
     "attendance-report": {
       "mobile": {
-        "phase": "design",
+        "phase": "sa",
         "status": "pending",
-        "updatedAt": "2026-09-01T08:55:36.301Z",
+        "updatedAt": "2026-09-01T15:17:22.873Z",
         "statusRel": "specs/attendance-report/STATUS.md"
+      }
+    },
+    "mobile-cleanup-mock": {
+      "mobile": {
+        "phase": "dev",
+        "status": "done",
+        "updatedAt": "2026-09-01T14:28:12.459Z",
+        "statusRel": "specs/mobile-cleanup-mock/STATUS.md"
       }
     }
   }

@@ -1,11 +1,8 @@
 {
   "feature": "asset",
-  "capturedAt": "2026-09-01T03:47:10.525Z",
+  "capturedAt": "2026-09-01T16:21:12.465Z",
   "iosDevice": "iPhone 17 Pro Max",
   "method": "e2e-qa-mobile",
-  "taskId": "task_4ec34586",
-  "ok": false,
-  "error": "GAP-QA-STORE-03",
   "steps": [
     {
       "id": "A10-BFF",
@@ -21,8 +18,8 @@
       "store": [
         "P6"
       ],
-      "gap": "GAP-QA-STORE-03",
-      "error": "row-asset-0 missing; Android EmptyChrome; no emulator GET road-assets"
+      "error": "-login\nTap on (Optional) \"Đăng nhập\"... WARNED\n\n\n Warning: Element not found: Text matching regex: Đăng nhập\nAssert that \"Trang Chủ\" is visible... COMPLETED\nAssert that id: sc-home is visible... COMPLETED\nScrolling DOWN until id: tile-asset is visible with speed 40, visibility percentage 100%, timeout 15000 ms, with centering disabled... COMPLETED\nTap on id: tile-asset... COMPLETED\nAssert that id: sc-asset-hub is visible... COMPLETED\nTap on id: tile-list... COMPLETED\nAssert that id: sc-asset-list is visible... COMPLETED\nAssert that id: asset-list-search is visible... COMPLETED\nAssert that id: row-asset-0 is visible... FAILED\n\nAssertion is false: id: row-asset-0 is visible\n\nAssertion 'id: row-asset-0 is visible' failed. Check the UI hierarchy in debug artifacts to verify the element state and properties.\n\nPossible causes:\n- Element selector may be incorrect - check if there are similar elements with slightly different names/properties.\n- Element may be temporarily unavailable due to loading state\n- This could be a real regression that needs to be addressed\n\n==== Debug output (logs & screenshots) ====\n\n/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/asset/qa/screens/_maestro_android",
+      "gap": "GAP-QA-STORE-03"
     },
     {
       "id": "A11-LAUNCH",
@@ -57,8 +54,7 @@
       "store": [
         "P6",
         "P11"
-      ],
-      "visual": "empty"
+      ]
     },
     {
       "id": "P6-CORE-2",
@@ -66,8 +62,8 @@
       "screenshot": "P6-CORE-2.png",
       "store": [
         "P6"
-      ],
-      "visual": "empty"
+      ]
     }
-  ]
+  ],
+  "ok": false
 }

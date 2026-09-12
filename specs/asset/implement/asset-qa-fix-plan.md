@@ -1,9 +1,9 @@
 # QA fix plan — asset
 
-> Status: **await_confirm** · **cấm** Write iOS/Android/BFF/BE trước board Approve `qa_fix_plan`  
+> Status: **approved** · **implemented** (`task_fa241430`) · next `/agent-qa-mobile`  
 > Nguồn: `qa/scenarios.md` · `qa/bugs/task_4ec34586.md` · `handoff/qa-compact.md` · STATUS blockers  
-> Phase: `qaFixPhase=plan` · taskId=`task_7e0b31e2` · qaFailFrom=`task_4ec34586`  
-> lane: **mobile** · packKind: **`list`** · `#sc-asset-list` · **cấm** mfeStdUrl / yarn start:std / e2e ở phase plan
+> Phase: `qaFixPhase=implement` **done** · taskId=`task_fa241430` · plan=`task_7e0b31e2` · qaFailFrom=`task_4ec34586`  
+> lane: **mobile** · packKind: **`list`** · `#sc-asset-list` · **cấm** mfeStdUrl / yarn start:std / e2e ở Dev
 
 ## Gaps (từ QA `task_4ec34586`)
 
@@ -82,11 +82,10 @@
 
 | Field | Value |
 |-------|-------|
-| this role | `dev` · `qaFixPhase=plan` · **done** |
-| next gate | board **`qa_fix_plan`** Approve |
-| after Approve | enqueue Dev `qaFixPhase=implement` · Plan §1–5 · **cấm** e2e ở Dev |
-| after implement PASS | `/agent-qa-mobile` · e2eQa ON · Plan §6 |
-| STATUS | Dev plan **await_confirm** · QA vẫn **blocked** (prior fail) · **cấm** review |
+| this role | `dev` · `qaFixPhase=implement` · **done** |
+| next | `/agent-qa-mobile` · e2eQa ON · Plan §6 |
+| STATUS | Dev implement **confirmed** · QA **pending** · Review pending |
+| code | Android `AssetListScreen` SideEffect + LaunchedEffect(Unit) · iOS no delta |
 
 ## Version meta
 
@@ -97,12 +96,12 @@
 | schemaVersion | 1 |
 | workflowVersion | 2026.08.29.1 |
 | rulesVersion | 2026.08.29.5 |
-| generatedAt | `2026-09-01T09:58:56.000Z` |
+| generatedAt | `2026-09-01T16:15:30.000Z` |
 | versionGate | ok |
-| qaFixPhase | plan |
-| taskId | task_7e0b31e2 |
-| dorGate | PASS (plan-only) |
-| contentHash | sha256:asset-qa-fix-plan-20260901 |
+| qaFixPhase | implement |
+| taskId | task_fa241430 |
+| dorGate | PASS |
+| contentHash | sha256:asset-qa-fix-appear-20260901 |
 
 ---
-<!-- Version meta: skillId=agent-dev-ios+android dorGate=PASS qaFixPhase=plan -->
+<!-- Version meta: skillId=agent-dev-ios+android dorGate=PASS qaFixPhase=implement -->

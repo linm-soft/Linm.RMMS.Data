@@ -27,20 +27,16 @@ Tap on id: tile-list... COMPLETED
 Assert that id: sc-asset-list is visible... COMPLETED
 Assert that ".*KM-QL1-NA-461.*" is visible... COMPLETED
 Wait for animation to end within 2000 ms... COMPLETED
-Assert that id: row-asset-0 is visible... COMPLETED
-Tap on id: row-asset-0... COMPLETED
+Tap on ".*KM-QL1-NA-461.*"... COMPLETED
 Assert that id: sc-asset-detail is visible... COMPLETED
-Assert that id: label-code is visible... FAILED
-
-Assertion is false: id: label-code is visible
-
-Assertion 'id: label-code is visible' failed. Check the UI hierarchy in debug artifacts to verify the element state and properties.
-
-Possible causes:
-- Element selector may be incorrect - check if there are similar elements with slightly different names/properties.
-- Element may be temporarily unavailable due to loading state
-- This could be a real regression that needs to be addressed
-
-==== Debug output (logs & screenshots) ====
-
-/Users/mac/.maestro/tests/2026-08-31_051357
+Assert that id: label-code is visible... COMPLETED
+Assert that id: value-code is visible... COMPLETED
+Assert that id: row-type is visible... COMPLETED
+Assert that id: row-route-km is visible... COMPLETED
+Assert that id: btn-pin-map is visible... COMPLETED
+Assert that "Mã TS" is visible... COMPLETED
+Assert that "Ghim trên bản đồ" is visible... COMPLETED
+Assert that ".*KM-QL1-NA-461.*" is visible... COMPLETED
+Take screenshot A3-CORE... COMPLETED
+Tap on (Optional) id: btn-pin-map... COMPLETED
+Wait for animation to end within 2000 ms... COMPLETED

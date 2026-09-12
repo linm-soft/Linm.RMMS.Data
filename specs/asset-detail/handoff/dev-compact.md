@@ -4,44 +4,45 @@ schemaVersion: 1
 feature: asset-detail
 packKind: screen
 role: dev
-status: await_confirm
+status: pending_confirm
 skillVersion: 2026.08.25.01
-writtenAt: 2026-09-01T09:52:57.000Z
+writtenAt: 2026-09-01T16:55:00.000Z
 qaFixPhase: plan
-taskId: task_24109163
-qaFailFrom: task_cbda6a54
+taskId: task_512c67ce
+qaFailFrom: task_20e8f629
 
 ## Decisions
-- changeScope: new_page (prior shipped) · this turn = **qa-fix-plan only**
-- formPattern: N/A (detail screen · GET by id)
+- changeScope: new_page · qaFailFix round 2 · **Android-only**
+- formPattern: N/A (detail · GET by id)
 - mfeStdUrl: — (native · **cấm**)
-- build PASS: N/A plan-only · implement phải VERIFY iOS xcodegen+iPhone 17 Pro · Android assembleDebug · BFF dotnet
-- open questions: none · board **`qa_fix_plan`** required (**cấm** autoApprove skip)
-- debt: GAP-MOB-E2E-VIS-01 re-QA after implement · gis-map CTA toast P1 OK
+- build: **SKIP** plan turn · implement requires Android+BFF+iOS smoke PASS
+- open questions: Android list empty root — tenant timing vs GET throw
+- debt: iOS PASS freeze · GAP-MOB-E2E-VIS-01 → re-QA after Android fix
+- Step 4b: N/A
 
 ## Inventory (slim)
 | id | label | controlHint | notes |
 |----|-------|-------------|-------|
-| GAP-MOB-ASSET-DET-NAV-02 | iOS nav EmptyChrome | — | isPresented+appear race · fix after Approve |
-| GAP-QA-REAL-01 | live GET by id | — | CORE bind live · cấm demo |
-| GAP-QA-STORE-01 | Maestro iOS | — | EmptyChrome after live row |
-| GAP-QA-STORE-03 | Maestro Android | — | no live KM-QL1 row |
-| GAP-MOB-E2E-VIS-01 | visual harvest | — | re-QA note |
+| GAP-QA-STORE-03 | And Maestro | — | **open** · empty list |
+| GAP-QA-REAL-01 | And live | — | **open** Android |
+| GAP-MOB-E2E-VIS-01 | visual | — | open · Android |
+| GAP-QA-STORE-01 | iOS Maestro | — | **closed** |
+| GAP-MOB-ASSET-DET-NAV-02 | iOS nav | — | **closed** |
+| GAP-QA-REAL-01 | iOS live | — | **closed** |
 
 ## Screens / zones (ids only)
-- `#sc-asset-detail` · `#sc-asset-list` · `row-asset-*` · `label-code` · `value-code` · `btn-pin-map` · `empty-not-found`
+- `#sc-asset-list` · `asset-list-empty` · `row-asset-*` · `#sc-asset-detail` · `label-code` · `value-code` · `btn-pin-map`
 - reviewUrl= `ui/review/align-ux.md` · peerStdUrl= —
 
 ## API / tasks (ids only)
 - GET `asset/road-assets` · GET `asset/road-assets/{id}` · Bearer + `X-Company-Id: LINM`
-- T-IOS-AL-01 · T-IOS-AD-01 · T-AND-AL-01 · T-AND-AD-01 (prior) · implement = Plan §1–6
+- Plan §1–8 · implement pending board Approve
 - Step 4b: N/A
 
 ## UNCLEAR
-- none — hypothesis: iOS appear("")/404 tenant · Android list/company before Maestro assert
+- Android: empty = GET 200 [] vs LoadFailed — diagnose step 1
 
 ## Full paths (Read only if needed)
 - plan: `specs/asset-detail/implement/asset-detail-qa-fix-plan.md`
-- qa: `specs/asset-detail/qa/scenarios.md` · `qa/bugs/asset-detail.md`
-- implement prior: `implement/ios.md` · `implement/android.md`
+- implement: `implement/ios.md` · `implement/android.md`
 - STATUS: `specs/asset-detail/STATUS.md`

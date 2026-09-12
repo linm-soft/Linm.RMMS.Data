@@ -9,16 +9,27 @@
 | packKind | **`sheet`** (PO chốt · GAP-MOB-EST-PACK-01 · surface = **full screen** `#sc-estimate` · **cấm** bottom-sheet chrome) |
 | changeScope | `edit_page` |
 | stack | `native_dual` |
-| taskId | `task_c0fb308d` |
-| priorPo | `po/requirement.md` **confirmed** · task `task_5338c2be` |
+| taskId | `task_18e9655b` |
+| priorPo | `po/requirement.md` **confirmed** · task `task_eadacecf` · GAP-MOB-EDIT-01 |
 | priorDa | `_data-analy/estimate-control-hint.md` + `estimate-real-data.md` **confirmed** · hash skip · **cấm** re-scan (`GAP-DES-DEMO-RESCAN-01`) |
-| contentHash | `sha256:estimate-mobile-control-hint-20260829` |
-| realDataHash | `sha256:estimate-mobile-real-data-20260829` |
+| contentHash | `sha256:estimate-mobile-control-hint-20260901-edit01` |
+| realDataHash | `sha256:estimate-mobile-real-data-20260901-edit01` |
 | actionTreeHash | `sha256:estimate-mobile-action-tree-20260829` |
-| ctxContentHash | `sha256:58cb5c3279c3df7360e1f3f29adccc79fada11ce219853dfce035217e25b7f3d` |
+| bffContentHash | `sha256:estimate-mobile-bff-20260829` |
+| ctxContentHash | `sha256:b67ee5a9cc9b69577496bf04aef9446d483410141ca6c27b98f792841ddb5ece` |
 | demoContentHash | `sha256:394ab44597648f04b25e6d58476378c16141feb53d3b58d39923b3defcff8328` |
 | priorWeb | **giữ** · `ui/design-web.md` (Kind B+D · **OUT** mobile P1) |
-| updatedAt | `2026-08-29T04:26:00.000Z` |
+| priorDesign | **giữ** history `task_c0fb308d` · delta this turn = **GAP-MOB-EDIT-01** labelHeader |
+| updatedAt | `2026-09-01T14:35:44.000Z` |
+
+## § Delta Current vs New (`edit_page` · GAP-MOB-EDIT-01)
+
+| ID | Current (native Review-approved) | New (Design lock) | Surface |
+|----|----------------------------------|-------------------|---------|
+| **GAP-MOB-EDIT-01** | `LinmTextField(title)` = placeholder-only · mất khi có value | **labelHeader** 13pt muted **above** mọi form input · luôn visible khi có value | 6 fields |
+| assignee · qty · unitPrice · total · sla · due | title-as-placeholder | `.field > label` SSOT · native = external `Text`/`label` **hoặc** kit `labelAbove` | dual |
+
+**Demo SSOT** dual proto **đã** có `.field > label` trên 6 field — **không** đổi copy/zones/API/BFF. Dev: **cấm** placeholder-only.
 
 ## reviewUrl (dual — REQUIRED)
 
@@ -48,13 +59,13 @@
 | DES | Zone | iOS | Android | Notes |
 |-----|------|-----|---------|-------|
 | `DES-MOB-EST` | Screen owner `#sc-estimate` | push từ mnt-list / incident CTA | same | `data-tab="work"` |
-| Header card | Từ sự cố · Loại tài sản | `LinmListRow` ×2 readonly | same | SSOT SC-2401 · Mặt đường |
-| Assignee | Giao cho * | `LinmTextField` | same | free text P1 · required |
-| Qty | Khối lượng | NumberField · decimal | same | → `Lines[0].Qty` |
-| UnitPrice | Đơn giá | MoneyField · VND | same | → `Lines[0].UnitPrice` |
-| Total | Thành tiền | TextField readonly | same | qty × unitPrice |
-| SlaHours | Thời hạn xử lý (giờ) | TextField readonly | same | default **24** |
-| DueAt | Hạn xử lý | TextField readonly | same | now + slaHours |
+| Header card | Từ sự cố · Loại tài sản | `LinmListRow` ×2 readonly | same | subtitle-as-label OK |
+| Assignee | Giao cho * | `LinmTextField` + **labelHeader** | same | **GAP-MOB-EDIT-01** · required |
+| Qty | Khối lượng | NumberField + **labelHeader** | same | → `Lines[0].Qty` |
+| UnitPrice | Đơn giá | MoneyField + **labelHeader** | same | → `Lines[0].UnitPrice` |
+| Total | Thành tiền | TextField readonly + **labelHeader** | same | qty × unitPrice |
+| SlaHours | Thời hạn xử lý (giờ) | TextField readonly + **labelHeader** | same | default **24** |
+| DueAt | Hạn xử lý | TextField readonly + **labelHeader** | same | now + slaHours |
 | Primary | Giao việc | `LinmPrimaryButton` | same | POST WO (+ assign) · busy |
 | Secondary | Lưu nháp | `LinmSecondaryButton` | same | POST draft |
 | Toast OK / Draft / Err | banner | `LinmToast` | same | **cấm** system alert · **cấm** fake CV |
@@ -95,7 +106,7 @@
 | Banner missing | **Thiếu sự cố — chặn Giao việc. Mở từ mnt-list / incident.** |
 | Tabs | Trang Chủ · Tuần đường · Vấn đề · Công việc · Tôi |
 
-**Cấm ship:** watermark Gói · device label «iPhone»/«· Android» · «Có mạng» · fake CV khi fail · Kind B list · multi-line grid · bottom-sheet · badge P1/P2 header.
+**Cấm ship:** watermark Gói · device label «iPhone»/«· Android» · «Có mạng» · fake CV khi fail · Kind B list · multi-line grid · bottom-sheet · badge P1/P2 header · placeholder-only label (**GAP-MOB-EDIT-01**).
 
 ## Kit map
 
@@ -103,13 +114,13 @@
 |------|-----------------|-------|
 | `.nav-bar` / `.top-bar` | `LinmTopBar` | leading chevron · iOS back text «Công việc» |
 | `.card-group` `.row` | `LinmListRow` | Từ sự cố · Loại tài sản · label 13 / value ≥16 |
-| `.field` input | `LinmTextField` | text / number / money / readonly |
+| `.field > label` + input | `LinmTextField` + **labelHeader** | HARD · external label / `labelAbove` · **cấm** title-as-placeholder only |
 | `.btn-primary` | `LinmPrimaryButton` | Giao việc |
 | `.btn-secondary` | `LinmSecondaryButton` | Lưu nháp |
 | `#toast` | `LinmToast` | **cấm** UIAlert / AlertDialog |
 | `.tabbar` / `.nav` | `LinmTabBar` | shell Tab 5 · work |
 
-`kit_missing_confirm` = **N/A** — TopBar / ListRow / TextField / Primary / Secondary / Toast đã có dual kit.
+`kit_missing_confirm` = **N/A** — TopBar / ListRow / TextField / Primary / Secondary / Toast đã có dual kit. labelHeader = kit API `labelAbove` **hoặc** local `VStack { Text(label); field }` · Dev lock.
 
 ## Control map (PO §5 · DA · real-data §B)
 
@@ -119,32 +130,34 @@
 | navBack | BackButton | leading | `go('mnt-list')` / pop parent |
 | fromIncident | ListRow readonly | `LinmListRow` | GET incident / nav |
 | assetType | ListRow readonly | `LinmListRow` | incident / asset label |
-| assignee | TextField * | `LinmTextField` | `AssigneeName` · opt `TeamName` |
-| qty | NumberField | `LinmTextField` | `Lines[0].Qty` |
-| unitPrice | MoneyField | `LinmTextField` | `Lines[0].UnitPrice` |
-| totalAmount | TextField readonly | `LinmTextField` | derived / `TotalAmount` |
-| slaHours | TextField readonly | `LinmTextField` | `SlaHours` = 24 |
-| dueAt | TextField readonly | `LinmTextField` | `DueAt` |
+| assignee | TextField * + **labelHeader** | `LinmTextField`+header | `AssigneeName` · opt `TeamName` |
+| qty | NumberField + **labelHeader** | `LinmTextField`+header | `Lines[0].Qty` |
+| unitPrice | MoneyField + **labelHeader** | `LinmTextField`+header | `Lines[0].UnitPrice` |
+| totalAmount | TextField readonly + **labelHeader** | `LinmTextField`+header | derived / `TotalAmount` |
+| slaHours | TextField readonly + **labelHeader** | `LinmTextField`+header | `SlaHours` = 24 |
+| dueAt | TextField readonly + **labelHeader** | `LinmTextField`+header | `DueAt` |
 | btnAssign | PrimaryButton | `LinmPrimaryButton` | `POST maintenance/work-orders` |
 | btnDraft | SecondaryButton | `LinmSecondaryButton` | `POST …/draft` |
+
+**labelHeader (HARD):** Text/`label` **13pt** muted **above** control · luôn visible khi có value · **cấm** chỉ dựa placeholder/floating mất sau focus · AC-F-13 · DoD 16.
 
 ## UX / parity gates
 
 | Artifact | Path | Status |
 |----------|------|--------|
-| ux-analy §1–§9 | `ui/ux-analy.md` | **done** |
-| html-to-native-map | `ui/html-to-native-map.md` | **done** |
-| demo-parity | `ui/review/demo-parity.md` | **PASS** · Must open **0** |
-| dual prototype | `ui/prototype/{ios,android}/index.html` | **done** · `#sc-estimate` |
+| ux-analy §1–§9 | `ui/ux-analy.md` | **done** · GAP-MOB-EDIT-01 |
+| html-to-native-map | `ui/html-to-native-map.md` | **done** · labelHeader |
+| demo-parity | `ui/review/demo-parity.md` | **PASS** · Must open **0** · labelHeader dual |
+| dual prototype | `ui/prototype/{ios,android}/index.html` | **done** · `#sc-estimate` · `.field > label` ×6 |
 
 ## design_confirm
 
 | Gate | Decision |
 |------|----------|
 | autoApprove | **ON** |
-| design_confirm | **approve** (self-confirm · dual + ux-analy + demo-parity PASS) |
-| at | `2026-08-29T04:26:00.000Z` |
-| next | `sa-mobile` · `be/solution-discovery.md` · **không** chain this turn (roleOnly) |
+| design_confirm | **approve** (self-confirm · dual labelHeader + ux-analy + demo-parity PASS) |
+| at | `2026-09-01T14:35:44.000Z` |
+| next | `sa-mobile` · `be/solution-discovery.md` · paths likely skip · **không** chain this turn (roleOnly) |
 
 ## Out of scope (Design)
 
@@ -152,7 +165,7 @@
 - Staff lookup picker · SLA policy API · offline draft queue
 - Invent `api/v1/estimate` / `ai-estimate` · ERP.* · `mfeStdUrl`
 - Re-scan demo HTML (`GAP-DES-DEMO-RESCAN-01`)
-- Dev / e2e / yarn build / start:std
+- Dev / e2e / yarn build / start:std · Step 4b
 
 ## Version meta (REQUIRED)
 
@@ -161,15 +174,15 @@
 | skillId | agent-design-mobile |
 | skillVersion | 2026.08.25.01 |
 | schemaVersion | 2 |
-| workflowVersion | 2026.08.25.01 |
-| rulesVersion | 2026.08.25.2 |
-| generatedAt | 2026-08-29T04:26:00.000Z |
-| versionGate | ok |
-| contentHash | sha256:estimate-mobile-control-hint-20260829 |
-| realDataContentHash | sha256:estimate-mobile-real-data-20260829 |
-| ctxContentHash | sha256:58cb5c3279c3df7360e1f3f29adccc79fada11ce219853dfce035217e25b7f3d |
+| workflowVersion | 2026.08.29.1 |
+| rulesVersion | 2026.08.29.5 |
+| generatedAt | 2026-09-01T14:35:44.000Z |
+| versionGate | rechecked |
+| contentHash | sha256:estimate-mobile-control-hint-20260901-edit01 |
+| realDataContentHash | sha256:estimate-mobile-real-data-20260901-edit01 |
+| ctxContentHash | sha256:b67ee5a9cc9b69577496bf04aef9446d483410141ca6c27b98f792841ddb5ece |
 | demoContentHash | sha256:394ab44597648f04b25e6d58476378c16141feb53d3b58d39923b3defcff8328 |
-| taskId | `task_c0fb308d` |
+| taskId | `task_18e9655b` |
 
 ---
-<!-- Version meta: skillId=agent-design-mobile skillVersion=2026.08.25.01 schemaVersion=2 workflowVersion=2026.08.25.01 rulesVersion=2026.08.25.2 versionGate=ok -->
+<!-- Version meta: skillId=agent-design-mobile skillVersion=2026.08.25.01 schemaVersion=2 workflowVersion=2026.08.29.1 rulesVersion=2026.08.29.5 versionGate=rechecked taskId=task_18e9655b -->

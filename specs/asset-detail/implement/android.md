@@ -8,58 +8,58 @@
 | packKind | `screen` |
 | changeScope | `new_page` |
 | route_confirm | `route_a` |
-| taskId | `task_c6001628` |
-| updatedAt | `2026-08-30T21:50:00.000Z` |
+| taskId | `task_714bba2c` |
+| qaFailFix | `1` · `qaFixPhase=implement` |
+| qaFailFrom | `task_cbda6a54` · plan `task_24109163` |
+| updatedAt | `2026-09-01T16:30:00.000Z` |
 
 ## Tasks
 
 | id | status | notes |
 |----|--------|-------|
-| T-AND-AL-01 | **done** | `AssetListViewModel.RowTap` → `onOpenDetail(id)` · nav `asset-detail/{id}` |
-| T-AND-AD-01 | **done** | `presentation/feature/assetdetail/*` · Compose parity · GET by id |
-| T-BE / T-BFF | **n/a · reuse** | GetById live · proxy catch-all |
+| T-AND-AL-01 | **done** | `RowTap` → `asset-detail/{id}` · live-only list |
+| T-AND-AD-01 | **done** | Compose detail · GET by id · live-only |
+| QA-FIX §2 | **done** | `AuthInterceptor` · cold-start `applyCompanyId` · JWT fallback |
+| QA-FIX §3 | **done** | list LoadFailed → empty + toast · **cấm** demoRows CORE |
+| QA-FIX §4 | **done** | FetchById live-only · EmptyChrome · **cấm** OfflineDemo CORE |
+| T-BE / T-BFF | **n/a · reuse** | GetById live |
 | Step 4b | **N/A** | SA chốt |
+
+## QA gaps closed (this turn)
+
+| ID | Fix |
+|----|-----|
+| GAP-QA-STORE-03 | live list path · company header · trim id navigate |
+| GAP-QA-REAL-01 | live GET by id · no `TS-20260810-*` CORE |
 
 ## Ship summary
 
-- **Screen** `#sc-asset-detail` · frame 412×915 · push (không sheet)
-- **Entry:** list row → `navigate("asset-detail/$id")`
-- **API:** Retrofit `@GET("asset/road-assets/{id}")` · `FetchRoadAssetByIdUseCase` · `AssetRepository.fetchById`
-- **DTO:** `RoadAssetItemDto` + `lat`/`lng` · `BffRoadAssetByIdResponse` · mapper reuse `typeLabel`
-- **Bind:** parity iOS · title **Chi tiết tài sản** · back icon-only · hero code **24**
-- **404** → EmptyChrome · **GET fail** → demo `TS-20260810-014` + toast
-- **CTA** Ghim trên bản đồ → toast P1 (gis-map chưa ship)
-- **DI:** Hilt `@HiltViewModel` · repo bind sẵn `AuthBindModule`
+- **Screen** `#sc-asset-detail` · push `asset-detail/{id}`
+- **API:** Retrofit GET by id · Bearer + `X-Company-Id: LINM`
+- **404** → EmptyChrome · **fail** → EmptyChrome + toast
+- **CTA** pin map → gis-map/{id}
 
 ## VERIFY GATE
 
 | Check | Result |
 |-------|--------|
 | `./gradlew :app:assembleDebug` | **PASS** |
-| BFF `dotnet build` | **PASS** (verify only) |
+| BFF `dotnet build` | **PASS** |
 | e2e / start:std / mfeStdUrl | **SKIP** (cấm role Dev) |
 
-## Files
+## Files (qa-fix)
 
 | Path | Change |
 |------|--------|
-| `presentation/feature/assetdetail/*` | NEW screen |
-| `domain/model/AssetDetailModels.kt` | NEW |
-| `domain/usecase/FetchRoadAssetByIdUseCase.kt` | NEW |
-| `domain/repository/AssetRepository.kt` | +`fetchById` |
-| `data/repository/AssetRepositoryImpl.kt` | +GET by id |
-| `data/remote/AssetListDto.kt` · `ApiService.kt` | +by-id + lat/lng |
-| `data/mapper/AssetDtoMapper.kt` | +detail / routeKm / gps |
-| `presentation/feature/assetlist/*` | push wire |
-| `presentation/navigation/MainTabScreen.kt` | route `asset-detail/{id}` |
-| `presentation/copy/LinmCopy.kt` | `asset.detail.*` |
+| `presentation/navigation/MainTabScreen.kt` | trim non-empty id before navigate detail |
+| (verified) `FetchRoadAssetByIdUseCase` · `AssetListViewModel` · `AuthInterceptor` | live-only + tenant (prior cleanup) |
 
 ## Version meta
 
 | Field | Value |
 |-------|-------|
 | skillId | agent-dev-android |
-| skillVersion | 2026.08.29.1 |
+| skillVersion | 2026.08.25.01 |
 | schemaVersion | 1 |
 | workflowVersion | 2026.08.31.2 |
 | rulesVersion | 2026.08.31.2 |
@@ -68,8 +68,9 @@
 | designContentHash | sha256:asset-detail-design-20260830 |
 | saContentHash | sha256:asset-detail-solution-20260830 |
 | tlContentHash | sha256:asset-detail-tl-task-20260830 |
-| androidContentHash | sha256:asset-detail-implement-android-20260830 |
-| taskId | `task_c6001628` |
+| androidContentHash | sha256:asset-detail-implement-android-20260901-qafix |
+| qaFixPlanContentHash | sha256:asset-detail-qa-fix-plan-20260901 |
+| taskId | `task_714bba2c` |
 
 ---
-<!-- Version meta: skillId=agent-dev-android skillVersion=2026.08.29.1 schemaVersion=1 workflowVersion=2026.08.31.2 rulesVersion=2026.08.31.2 versionGate=rechecked -->
+<!-- Version meta: skillId=agent-dev-android dorGate=PASS qaFixPhase=implement -->

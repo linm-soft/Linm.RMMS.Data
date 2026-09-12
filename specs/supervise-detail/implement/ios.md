@@ -3,64 +3,49 @@
 | Field | Value |
 |-------|-------|
 | feature | `supervise-detail` |
-| role | `dev` · `/edit-mobile-feature` · `/agent-dev-ios` |
-| status | **PASS** |
+| role | `dev` · `/agent-dev-ios` · **qaFixPhase=implement** |
+| status | **PASS** (verify-only) |
 | packKind | **`screen`** |
 | changeScope | `edit_page` |
-| gap | `cleanup_mock` |
-| route_confirm | **route_a** |
-| taskId | `task_b9997d8c` |
-| updatedAt | `2026-09-01T03:00:52.000Z` |
+| gap | `qaFailFix` — **Android-only** · iOS A3 prior PASS |
+| taskId | `task_112638ae` |
+| qaFailFrom | `task_02d20b55` |
+| updatedAt | `2026-09-01T15:25:00.000Z` |
 
 ## Tasks
 
 | id | status | notes |
 |----|--------|-------|
-| T-IOS-SUP-DETAIL cleanup | **done** | remove OfflineDemo · live-only GET by id |
-| T-BE / T-BFF | **n/a · reuse** | `GET patrol/attendance-logs/{id}` · **không** Write BFF/BE |
-| Step 4b | **N/A** | SA chốt · EmptyChrome OK |
+| Code change | **n/a** | Plan: **không** reopen iOS detail/list trừ regression |
+| VERIFY GATE | **PASS** | `xcodegen` + `xcodebuild` scheme `LinmRmms` dest **iPhone 17 Pro** |
+| Step 4b | **N/A** | reuse GetById live |
 
-## Ship summary (cleanup_mock)
+## Ship summary
 
-- **Removed** `SuperviseDetailCopy.demo` / `.withId` / OfflineDemo outcome
-- **UC:** `loaded` · `failed` · `notFound` · `forbidden` only
-- **404** → EmptyChrome `empty-not-found`
-- **GET fail** → EmptyChrome `empty-load-fail` + toast `Không tải được chi tiết check-in.` (**cấm** «Đang dùng dữ liệu mẫu»)
-- **403** → toast + back · **thiếu Id** → toast + back
-- **Org fallback** mapper only (`SuperviseCopy.orgFallback`) khi live Note empty
-- Entry list TapItem → push `#sc-supervise-detail` · CTA map unchanged
+- iOS `#sc-supervise` / `#sc-supervise-detail` giữ prior cleanup_mock + A3 live wire
+- QA fail root = Android list no GET — fixed trên Android repo
 
 ## VERIFY GATE
 
 | Check | Result |
 |-------|--------|
 | `xcodegen generate` | **PASS** |
-| `xcodebuild -scheme LinmRmms -destination 'platform=iOS Simulator,name=iPhone 17 Pro' build` | **PASS** |
-| BFF `dotnet build` | **PASS** |
-| e2e / start:std / mfeStdUrl | **SKIP** (cấm role Dev) |
-
-## Files
-
-| Path | Change |
-|------|--------|
-| `Domain/UseCases/FetchAttendanceLogByIdUseCase.swift` | OfflineDemo → Failed |
-| `Domain/Entities/SuperviseDetailModels.swift` | drop SuperviseDetailCopy |
-| `Presentation/Features/SuperviseDetail/*` | loadFailed · EmptyChrome dual |
-| `Presentation/Shared/LinmCopy.swift` | loadFail toast no demo wording |
+| `xcodebuild -scheme LinmRmms -destination 'platform=iOS Simulator,name=iPhone 17 Pro'` | **PASS** |
+| e2e / mfeStdUrl | **SKIP** (cấm Dev) |
 
 ## Version meta
 
 | Field | Value |
 |-------|-------|
-| skillId | edit-mobile-feature+agent-dev-ios |
+| skillId | agent-dev-ios |
 | skillVersion | 2026.08.19.26 |
 | schemaVersion | 1 |
 | workflowVersion | 2026.08.31.2 |
 | rulesVersion | 2026.08.31.2 |
 | versionGate | rechecked |
-| contentHash | sha256:supervise-detail-cleanup-mock-20260901 |
+| contentHash | sha256:supervise-detail-qa-fix-ios-verify-20260901 |
 | iosContentHash | sha256:supervise-detail-implement-ios-cleanup-20260901 |
-| taskId | `task_b9997d8c` |
+| taskId | `task_112638ae` |
 
 ---
-<!-- Version meta: skillId=edit-mobile-feature+agent-dev-ios skillVersion=2026.08.19.26 schemaVersion=1 workflowVersion=2026.08.31.2 rulesVersion=2026.08.31.2 versionGate=rechecked taskId=task_b9997d8c -->
+<!-- Version meta: skillId=agent-dev-ios skillVersion=2026.08.19.26 schemaVersion=1 qaFixPhase=implement taskId=task_112638ae -->

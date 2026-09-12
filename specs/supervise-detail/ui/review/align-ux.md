@@ -1,22 +1,23 @@
-# Align UX — supervise-detail (live vs demo)
+# Align UX — supervise-detail
 
 | Field | Value |
 |-------|-------|
 | feature | `supervise-detail` |
-| role | `qa` · `/review-align-ux-ios-android` |
-| status | **blocked** (Android) · iOS **Aligned** |
-| Must open | **1** · `GAP-QA-SUP-DET-AND-LIST-01` |
-| taskId | `task_02d20b55` |
-| updatedAt | `2026-09-01T03:30:00.000Z` |
-
-## CORE compare (Read PNG)
-
-| Check | Result |
-|-------|--------|
-| iOS A3 title/hero/code/rows/CTA/tab | **PASS** · live seed SSOT |
-| Android P6 | **blocked** · no live detail |
-| Watermark | **PASS** |
+| method | CORE PNG vs demo `#sc-supervise-detail` · `/review-align-ux-ios-android` |
+| updatedAt | `2026-09-01T15:47:20.000Z` |
+| taskId | `task_4063c6a2` |
 
 ## Verdict
 
-iOS **Aligned**. Android Must **open** — **cấm** handoff Review.
+| Platform | CORE | vs demo | Result |
+|----------|------|---------|--------|
+| iOS | `qa/screens/A3-CORE.png` | `ui/prototype/ios` `#sc-supervise-detail` | **Aligned** · hero Nguyễn Văn A · Mã CC-20260810-001 · rows org/route/time/status/gps/in-zone · CTA map |
+| Android | `qa/screens/P6-CORE.png` | `ui/prototype/android` `#sc-supervise-detail` | **NotAligned** · blocked entry (`sup-empty` · no card) |
+
+## Must open
+
+| ID | Note |
+|----|------|
+| GAP-QA-SUP-DET-AND-LIST-01 | Android list GET not on BFF from emulator → no P6 CORE |
+
+Must count: **1** · Should: 0

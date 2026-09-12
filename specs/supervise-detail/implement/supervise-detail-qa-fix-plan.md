@@ -1,9 +1,9 @@
 # QA fix plan — supervise-detail
 
-> Status: **await_confirm** · **cấm** Write iOS/Android/BFF/BE trước board Approve `qa_fix_plan`  
+> Status: **approved** · **implemented** (`task_112638ae`) · autoApprove `qa_fix_plan`  
 > Nguồn: `qa/scenarios.md` · `qa/bugs/supervise-detail.md` · `ui/review/align-ux.md` · STATUS blockers · `handoff/qa-compact.md`  
-> Phase: `qaFixPhase=plan` · taskId=`task_dcfaf100` · qaFailFrom=`task_02d20b55`  
-> lane: **mobile** · packKind: **`screen`** · `#sc-supervise-detail` · entry `#sc-supervise` · **cấm** mfeStdUrl / yarn start:std / e2e ở phase plan
+> Phase: `qaFixPhase=implement` **done** · planTask=`task_dcfaf100` · implementTask=`task_112638ae` · qaFailFrom=`task_02d20b55`  
+> lane: **mobile** · packKind: **`screen`** · `#sc-supervise-detail` · entry `#sc-supervise` · **cấm** mfeStdUrl / yarn start:std / e2e ở Dev
 
 ## Gaps (từ QA `task_02d20b55`)
 

@@ -44,7 +44,7 @@
 | `road-route` | Tuyến đường | — | support | done | none | [ctx](features/road-route.md) | [ST](../../specs/road-route/STATUS.md) |
 | `asset-type` | Loại TS KCHT | — | support | done | none | [ctx](features/asset-type.md) | [ST](../../specs/asset-type/STATUS.md) |
 | `partner-unit` | Sở / BOT / Cty | — | support | done | none | [ctx](features/partner-unit.md) | [ST](../../specs/partner-unit/STATUS.md) |
-| `asset` | QL tài sản ĐB | 01 | P1-900 | `dev` / `await_confirm` | catalog | [ctx](features/asset.md) | [ST](../../specs/asset/STATUS.md) |
+| `asset` | QL tài sản ĐB | 01 | P1-900 | `qa` / `await_confirm` | catalog | [ctx](features/asset.md) | [ST](../../specs/asset/STATUS.md) |
 | `asset-kcht-32` | 36 loại TS | 01 | P1-900 | design await_confirm | proto mobile-p1 | [ctx](features/asset-kcht-32.md) | [ST](../../specs/asset-kcht-32/STATUS.md) |
 | `csdl-so-sach` | 12 biểu + 8 sổ | 01 | P1-900 | data_analy pending | catalog | [ctx](features/csdl-so-sach.md) | [ST](../../specs/csdl-so-sach/STATUS.md) |
 | `pavement-section` | Biểu 1 mặt đường | 01 | P1-900 | done | catalog | [ctx](features/pavement-section.md) | [ST](../../specs/pavement-section/STATUS.md) |
@@ -116,11 +116,11 @@
 | `me-settings` | Cài đặt | — | support | `done` / `done` | data_analy PASS · handoff PO | [ctx](features/me-settings.md) | [ST](../../specs/me-settings/STATUS.md) |
 | `asset-detail` | Chi tiết tài sản | — | support | `dev` / `await_confirm` | data_analy **PASS** | [ctx](features/asset-detail.md) | [ST](../../specs/asset-detail/STATUS.md) |
 | `asset-collect` | Thủ công | — | support | `done` / `done` | data_analy **PASS** · handoff PO | [ctx](features/asset-collect.md) | [ST](../../specs/asset-collect/STATUS.md) |
-| `asset-adjust` | Cập nhật / bớt | — | support | `dev` / `await_confirm` | none | [ctx](features/asset-adjust.md) | [ST](../../specs/asset-adjust/STATUS.md) |
+| `asset-adjust` | Cập nhật / bớt | — | support | `qa` / `await_confirm` | none | [ctx](features/asset-adjust.md) | [ST](../../specs/asset-adjust/STATUS.md) |
 | `gis-map` | Xem trên bản đồ | — | support | `done` / `done` | data_analy **PASS** · handoff PO | [ctx](features/gis-map.md) | [ST](../../specs/gis-map/STATUS.md) |
-| `asset-ai` | Camera AI | — | support | `data_analy` / `paused` | none | [ctx](features/asset-ai.md) | [ST](../../specs/asset-ai/STATUS.md) |
-| `supervise-detail` | Chi tiết check-in | — | support | `dev` / `await_confirm` | none | [ctx](features/supervise-detail.md) | [ST](../../specs/supervise-detail/STATUS.md) |
-| `attendance-report` | Báo cáo công | — | support | `design` / `in_progress` | none | [ctx](features/attendance-report.md) | [ST](../../specs/attendance-report/STATUS.md) |
+| `asset-ai` | Camera AI | — | support | `done` / `done` | none | [ctx](features/asset-ai.md) | [ST](../../specs/asset-ai/STATUS.md) |
+| `supervise-detail` | Chi tiết check-in | — | support | `qa` / `await_confirm` | none | [ctx](features/supervise-detail.md) | [ST](../../specs/supervise-detail/STATUS.md) |
+| `attendance-report` | Báo cáo công | — | support | `sa` / `in_progress` | none | [ctx](features/attendance-report.md) | [ST](../../specs/attendance-report/STATUS.md) |
 | `attendance-day` | Chi tiết ngày công | — | support | `done` / `done` | data_analy **PASS** | [ctx](features/attendance-day.md) | [ST](../../specs/attendance-day/STATUS.md) |
 | `patrol-history-detail` | Chi tiết ca | — | support | `done` / `done` | none | [ctx](features/patrol-history-detail.md) | [ST](../../specs/patrol-history-detail/STATUS.md) |
 **Báo cáo `rpt-*`:** xem [§ Reports](#17--dashboard--báo-cáo). Pipeline STATUS **done** hết (release: P1 / P1.5 / P2 / P3 theo từng slug).

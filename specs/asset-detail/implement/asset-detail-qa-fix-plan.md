@@ -1,81 +1,89 @@
-# QA fix plan — asset-detail
+# QA fix plan — asset-detail (round 2 · Android-only)
 
-> Status: **await_confirm** · **cấm** Write iOS/Android/BFF/BE trước board Approve `qa_fix_plan`  
+> Status: **pending board Approve** · `qaFixPhase=plan` · **cấm** Write native/BFF trong task này  
 > Nguồn: `qa/scenarios.md` · `qa/bugs/asset-detail.md` · `ui/review/align-ux.md` · STATUS blockers  
-> Phase: `qaFixPhase=plan` · taskId=`task_24109163` · qaFailFrom=`task_cbda6a54`  
-> lane: **mobile** · packKind: **`screen`** · `#sc-asset-detail` · **cấm** mfeStdUrl / yarn start:std / e2e ở phase plan
+> Phase: `qaFixPhase=plan` · planId=`task_512c67ce` · qaFailFrom=`task_20e8f629` · prior implement=`task_714bba2c`  
+> lane: **mobile** · packKind: **`screen`** · `#sc-asset-detail` · **cấm** mfeStdUrl / yarn start:std / e2e ở Dev
 
-## Gaps (từ QA `task_cbda6a54`)
+## Gaps (từ QA `task_20e8f629` · re-QA sau implement round 1)
 
 | ID | Severity | Repro | Surface |
 |----|----------|-------|---------|
-| **GAP-QA-REAL-01** | **P0 / Must** | CORE không bind live GET by id · Android list demo `TS-20260810-*` · iOS EmptyChrome sau live row · BFF seed OK với `X-Company-Id: LINM` | dual `#sc-asset-detail` / list entry |
-| **GAP-QA-STORE-01** | **P0** | Maestro iOS FAIL · `label-code` / EmptyChrome **Không tìm thấy tài sản** sau tap `row-asset-0` (list live `KM-QL1-NA-461` OK) | iOS Maestro |
-| **GAP-QA-STORE-03** | **P0** | Maestro Android FAIL · không thấy live `KM-QL1-NA-461` · stuck demo / mock | Android Maestro |
-| **GAP-MOB-ASSET-DET-NAV-02** | **P0** | List live OK → push detail EmptyChrome · nghi `assetDetailId` stale trên `navigationDestination(isPresented:)` / `appear("")` · hoặc GET by id thiếu tenant → 404 | iOS `AppRouter` + `AssetDetailView` |
-| **GAP-MOB-E2E-VIS-01** | Should · QA note | CLI case PASS ≠ visual Aligned · harvest A3/P6 sau fail không phải detail live | store / align-ux · re-QA |
-| **R-QA-01** | **P0** gate | QA verdict **fail** · queue `failed` · board `qa_fail_rollback` → Dev plan | Workflow |
+| **GAP-QA-STORE-03** | **P0 / Must** | Maestro Android FAIL · `#sc-asset-list` · `asset-list-empty` **Chưa có tài sản** · timeout `.*KM-QL1-NA-461.*` | Android Maestro · P6 |
+| **GAP-QA-REAL-01** | **P0 / Must (Android)** | List không bind GET BFF live trên emulator · P6 harvest = empty list · BFF seed OK host `X-Company-Id: LINM` | Android `#sc-asset-list` |
+| **GAP-MOB-E2E-VIS-01** | Should · QA note | CLI P6 PASS ≠ visual Aligned detail · harvest empty ≠ `#sc-asset-detail` live | store / align-ux · re-QA |
+| **R-QA-02** | **P0** gate | re-QA verdict **fail** · iOS PASS · Android FAIL · `qa_fail_rollback` → Dev plan round 2 | Workflow |
 
-**Không reopen (đã CLOSED prior):** GAP-MOB-ASSET-DET-PACK-01 · TITLE/GPS/TYPE (PO) · Step 4b invent · ERP.* · PUT/DELETE · sibling gis-map CTA ship (toast P1 OK).
+**Closed (không reopen trừ regress):**
+
+| ID | OS | Note |
+|----|-----|------|
+| GAP-MOB-ASSET-DET-NAV-02 | iOS | Detail live GET · hero `KM-QL1-NA-461` · nav item: + onChange |
+| GAP-QA-STORE-01 | iOS | Maestro PASS · YAML tap seed by code |
+| GAP-QA-REAL-01 | iOS | A3-CORE live seed bind |
+| GAP-QA-STORE-03 | iOS | Maestro PASS round 2 |
+
+**Không reopen:** GAP-MOB-ASSET-DET-PACK-01 · PO TITLE/GPS/TYPE · Step 4b · ERP.* · sibling gis-map ship (toast P1 OK).
 
 ## Disk audit (plan turn · 2026-09-01) — verify only · **không** Write code
 
 | Check | Result | Note |
 |-------|--------|------|
-| iOS `#sc-asset-detail` | **PRESENT** | `Presentation/Features/AssetDetail/` · EmptyChrome `empty-not-found` |
-| Android `#sc-asset-detail` | **PRESENT** | `presentation/feature/assetdetail/` · OfflineDemo fallback còn |
-| iOS nav push | **WIRED** · **RISK** | `AppRouter` · `navigationDestination(isPresented: $showAssetDetail)` + `assetId: assetDetailId` · load chỉ `.onAppear` · **không** `onChange(of: assetId)` |
-| Shared VM | **CONFIRMED** | `@StateObject assetDetailViewModel` · list + adjust cùng destination |
-| Empty id → notFound | **CONFIRMED** | `FetchRoadAssetByIdUseCase` `guard !key.isEmpty else { return .notFound }` · **không** GET |
-| iOS `X-Company-Id` | **PRESENT** | `ApiClient` + `CompanyContextStore` · login `applyCompanyId` |
-| Android `X-Company-Id` | **PRESENT** | `AuthInterceptor` · `CompanyContextStore` · `LoginUseCase.applyCompanyId` |
-| Android list | **LIVE-ONLY** (current) | `AssetListViewModel` LoadFailed → empty + toast · **không** inject `demoRows` · `demoRows` vẫn trong `AssetListModels` |
-| Android GetById OfflineDemo | **CONFIRMED** | `FetchRoadAssetByIdUseCase` → `TS-20260810-014` on throw |
-| BFF GetById | **REUSE live** | `asset/road-assets/{id}` · seed `c33e0001-…0001` / `KM-QL1-NA-461` · **cấm** invent |
+| iOS `#sc-asset-detail` | **PASS re-QA** | A3 live `KM-QL1-NA-461` · **cấm** touch trừ regress |
+| Android `#sc-asset-list` | **FAIL runtime** | `asset-list-empty` **Chưa có tài sản** · không thấy `row-asset-*` live |
+| Android `#sc-asset-detail` | **PRESENT** · **BLOCKED** | live-only GetById · không reach từ list empty |
+| Android list VM | **LIVE-ONLY** | `FetchAssetListUseCase` · Loaded empty **hoặc** LoadFailed → `items=[]` |
+| Empty vs fail UI | **SAME chrome** | `AssetListScreen` empty khi `!loading && items.isEmpty()` · LoadFailed thêm toast `asset.list.toast.loadFail` |
+| `AuthInterceptor` | **PRESENT** | `X-Company-Id` từ `CompanyContextStore` · JWT fallback persist |
+| `LoginUseCase` | **PRESENT** | `persist` → `applyCompanyId(accessToken)` |
+| Cold start hydrate | **PRESENT** | `AppSessionViewModel.init` · `applyCompanyId` từ stored token |
+| `bff.base` | **SET** | default `http://10.0.2.2:5202` · cleartext allowlist `10.0.2.2` |
+| GET `asset/road-assets` | **REUSE** | `ApiService.roadAssets` · `AssetRepositoryImpl.fetchList` |
+| BFF seed (host) | **OK** | list 3 rows incl. `KM-QL1-NA-461` với `X-Company-Id: LINM` |
 | Step 4b / BE | **N/A Signed** | SA+TL · GetById reuse · **cấm** ERP.* |
 
-**Root-cause hypothesis (implement verify):**
+**Root-cause hypothesis (implement verify — Android-only):**
 
-1. **iOS EmptyChrome (NAV-02 / STORE-01):** `navigationDestination(isPresented:)` + `appear(assetId)` one-shot → có thể `appear("")` (notFound, no GET) **hoặc** GET 404 khi tenant header miss. Shared VM không reload khi `assetDetailId` đổi sau appear. Fix ưu tiên: `navigationDestination(item:)` **hoặc** `onChange(of: assetId)` → reload GET; đảm bảo mọi GET by id gửi `X-Company-Id: LINM`.
-2. **Android demo / no live row (STORE-03 / REAL-01):** QA harvest thấy demo list; disk hiện list live-only — verify emulator: login → company persist → GET list 200 `KM-QL1-*` trước Maestro assert; nếu LoadFailed/empty vì thiếu company hoặc bff.base → fix session/header/base URL. Detail OfflineDemo `TS-20260810-*` **cấm** CORE PASS.
-3. **Visual (E2E-VIS-01):** sau fix nav+tenant, re-QA harvest A3/P6 phải show live code — không fake PNG.
+1. **GET 200 empty (no tenant):** `X-Company-Id` thiếu/stale trên request list đầu sau login emulator → BFF trả `items=[]` → UI **Chưa có tài sản** (không toast). iOS cùng JWT/BFF **PASS** → nghi timing Android: list `Appear` trước `applyCompanyId` persist hoặc interceptor miss token lần đầu.
+2. **GET throw (LoadFailed):** network/HTTP/parse trên emulator → empty + toast loadFail. QA screenshot P6 chủ yếu empty chrome — verify log có toast hay không.
+3. **Mapper filter all rows:** ít khả năng — seed DTO có `id`+`code` · `AssetDtoMapper.listRow` OK nếu body non-empty.
+4. **Không phải demo regression:** round 1 đã bỏ `demoRows` CORE · empty = live path fail/empty · **cấm** re-introduce demo.
 
 ## Plan (sau board Approve `qa_fix_plan` · `qaFixPhase=implement`)
 
 | # | Việc | Repo | Files | DoD |
 |---|------|------|-------|-----|
-| 1 | Fix iOS detail nav race — `navigationDestination(item: Binding<String?>)` **hoặc** keep isPresented + `onChange(of: assetId)` → `.appear(id)` reload; **cấm** `appear("")` → EmptyChrome | iOS | `App/AppRouter.swift` · `AssetDetailView.swift` · optional VM | Tap live `row-asset-*` → GET by id → hero `value-code` = live · **đóng** GAP-MOB-ASSET-DET-NAV-02 · GAP-QA-STORE-01 |
-| 2 | Dual: verify login → `applyCompanyId` → mọi GET `asset/road-assets*` có `X-Company-Id: LINM` (list + by id) | iOS · Android | `ApiClient` / `AuthInterceptor` · login persist | BFF by-id 200 với seed `c33e…0001` từ app path |
-| 3 | Android list: diagnose emulator GET list throw/empty trước Maestro · fix header/session/`bff.base` nếu cần · **cấm** re-introduce demoRows trên CORE | Android | `AssetListViewModel` · `FetchAssetListUseCase` · `AssetRepositoryImpl` · Auth | P6 list live `KM-QL1-NA-*` · **đóng** GAP-QA-STORE-03 |
-| 4 | Dual detail: GET live bind · OfflineDemo chỉ khi thật offline/HTTP fail — **cấm** AC PASS mock `TS-20260810-*` trên CORE | iOS · Android | `FetchRoadAssetByIdUseCase` · Detail VM/Screen | A3/P6 CORE live code · **đóng** GAP-QA-REAL-01 |
-| 5 | VERIFY GATE builds | iOS · Android · BFF | — | `xcodegen` + `xcodebuild` dest **iPhone 17 Pro** · `./gradlew :app:assembleDebug` · `dotnet build` Mobile.Bff **PASS** |
-| 6 | Sync STATUS + implement notes | Data | `STATUS.md` · `implement/ios.md` · `android.md` · `handoff/dev-compact.md` | blockers closed hoặc còn open rõ · pipeline Dev done · QA pending |
-| 7 | Re-QA (role `/agent-qa-mobile` · **không** chạy ở Dev) | QA | `qa/scenarios.md` · store · screens · align-ux | e2eQa ON · `yarn e2e-qa-mobile` · A3+P6 live · **cấm** EmptyChrome / demo CORE · đóng E2E-VIS-01 |
+| 1 | **Diagnose emulator:** login `linm-soft` → log OkHttp GET `asset/road-assets` — status · `Authorization` · `X-Company-Id` · body item count | Android | `AuthInterceptor` (debug log) · hoặc `adb logcat` filter | Chứng minh empty = 200+0 items vs 4xx/throw vs missing header |
+| 2 | **Fix tenant timing:** đảm bảo `applyCompanyId` chạy đồng bộ trước mọi asset GET — gộp vào `persist()` **hoặc** gate list load on `CompanyContextStore` ready | Android | `AuthRepositoryImpl` · `LoginUseCase` · optional `SessionState` companyReady | Mọi GET list/by-id có `X-Company-Id: LINM` ngay request đầu sau login |
+| 3 | **Retry empty (minimal):** nếu list Loaded `[]` ngay sau login trong window ngắn → retry GET 1 lần sau company persist — **cấm** demo fallback | Android | `AssetListViewModel` · optional | P6 thấy `KM-QL1-NA-461` · **đóng** GAP-QA-STORE-03 |
+| 4 | **Parse/HTTP fix** chỉ nếu step 1 chứng minh throw — **cấm** invent API | Android | `AssetRepositoryImpl` · Retrofit · mapper | GET 200 · ≥1 row live · **đóng** GAP-QA-REAL-01 Android |
+| 5 | **iOS freeze:** **cấm** sửa iOS trừ regress từ step 2–4 shared Auth | iOS | — | A3 re-QA vẫn PASS |
+| 6 | VERIFY GATE builds | Android · BFF (+ iOS smoke) | — | `./gradlew :app:assembleDebug` · `dotnet build` Mobile.Bff · iOS `xcodegen` + dest **iPhone 17 Pro** **PASS** |
+| 7 | Sync STATUS + implement notes | Data | `STATUS.md` · `implement/android.md` · `handoff/dev-compact.md` | blockers closed/open rõ · Dev implement done · QA pending |
+| 8 | Re-QA (role `/agent-qa-mobile` · **không** chạy ở Dev) | QA | `qa/scenarios.md` · store · align-ux | e2eQa ON · Maestro Android P6 live detail · **cấm** empty CORE · đóng E2E-VIS-01 |
 
 ## Peer reference
 
 | Piece | Peer |
 |-------|------|
-| Tenant header | AuthInterceptor / ApiClient · JWT `company_id=LINM` |
-| GetById | BFF catch-all · SA solution-discovery · Step 4b N/A |
-| List entry | `setOnOpenDetail` · T-IOS-AL/AD · T-AND-AL/AD prior ship |
-| Nav pattern | prefer `item:` over stale `isPresented`+empty string |
-| Sibling | asset-adjust QA plan · cùng family company header |
+| Tenant header | asset-adjust QA plan round 1 · `AuthInterceptor` · JWT `company_id=LINM` |
+| List GET | `FetchAssetListUseCase` live-only · BFF catch-all |
+| iOS PASS path | round 1 nav fix · YAML tap `.*KM-QL1-NA-461.*` |
+| Empty chrome | `asset-list-empty` testTag · Maestro `android.yaml` L60–67 |
 
 ## Out of scope / Cấm
 
-- Write iOS/Android/BFF/BE **trong** `qaFixPhase=plan` (task này)
+- Write iOS/Android/BFF/BE **trong** `qaFixPhase=plan` (task `task_512c67ce`)
 - `autoApprove` bỏ `qa_fix_plan` / `qa_fail_rollback`
 - `mfeStdUrl` · `yarn start:std` · web e2e · GenerateImage / fake CORE PNG
-- Invent GetById path · ERP.* · Step 4b migration · PUT/DELETE
-- Ship gis-map sibling (CTA toast P1 OK)
-- Re-run PO→Design→SA→TL · change controlHint không AskQuestion
+- Re-introduce `demoRows` / OfflineDemo CORE · invent GetById · ERP.* · Step 4b
+- iOS nav/detail rework (closed round 1) trừ regress
 - Chain `/agent-qa*` / review trong task plan này
 
 ## Evidence
 
-- Prior FAIL: `qa/scenarios.md` · `qa/bugs/asset-detail.md` · `ui/review/align-ux.md` · A3-CORE-EMPTY / P6-LIST-DEMO · task `task_cbda6a54`
-- iOS: `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS`
+- re-QA FAIL: `qa/scenarios.md` · `qa/bugs/asset-detail.md` · `ui/review/align-ux.md` · `P6-CORE.png` · task `task_20e8f629`
+- Prior implement: `task_714bba2c` · plan round 1 `task_24109163`
 - Android: `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android`
 - BFF: `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Bff`
 - BE: `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.WebService` · **cấm ERP.***
@@ -86,10 +94,9 @@
 | Field | Value |
 |-------|-------|
 | this role | `dev` · `qaFixPhase=plan` · **done** |
-| next gate | board **`qa_fix_plan`** Approve |
-| after Approve | enqueue Dev `qaFixPhase=implement` · Plan §1–6 · **cấm** e2e ở Dev |
-| after implement PASS | `/agent-qa-mobile` · e2eQa ON · Plan §7 |
-| STATUS | Dev plan **await_confirm** · QA vẫn **blocked** (prior fail) · **cấm** review |
+| next | board `pending_confirm` `qa_fix_plan` → implement task → `/agent-qa-mobile` |
+| scope | **Android-only** list live · iOS freeze |
+| STATUS | plan written · Dev implement **pending** · QA **blocked** · **cấm** review |
 
 ## Version meta
 
@@ -98,14 +105,14 @@
 | skillId | agent-dev-ios + agent-dev-android |
 | skillVersion | 2026.08.25.01 |
 | schemaVersion | 1 |
-| workflowVersion | 2026.08.25.01 |
-| rulesVersion | 2026.08.25.2 |
-| generatedAt | `2026-09-01T09:52:57.000Z` |
-| versionGate | ok |
+| workflowVersion | 2026.08.31.2 |
+| rulesVersion | 2026.08.31.2 |
+| generatedAt | `2026-09-01T16:55:00.000Z` |
 | qaFixPhase | plan |
-| taskId | task_24109163 |
-| dorGate | PASS (plan-only) |
-| contentHash | sha256:asset-detail-qa-fix-plan-20260901 |
+| taskId | task_512c67ce |
+| qaFailFrom | task_20e8f629 |
+| dorGate | PASS |
+| contentHash | sha256:asset-detail-qa-fix-plan-20260901-r2 |
 
 ---
-<!-- Version meta: skillId=agent-dev-ios+android dorGate=PASS qaFixPhase=plan -->
+<!-- Version meta: skillId=agent-dev-ios+android dorGate=PASS qaFixPhase=plan taskId=task_512c67ce -->

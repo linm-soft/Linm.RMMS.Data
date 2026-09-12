@@ -2,6 +2,7 @@ appId: org.linmsoft.rmms
 ---
 # supervise-detail · store P6 ×2 · guest → login → tile Giám sát → card → #sc-supervise-detail (Pixel 1080×1920)
 # P6-CORE = detail hero+rows · P6-CORE-2 = scroll CTA fold · cấm hideKeyboard
+# login: tap title + Enter (sibling supervise/patrol-home) — keyboard che btn-login
 - launchApp:
     clearState: true
     clearKeychain: true
@@ -11,6 +12,10 @@ appId: org.linmsoft.rmms
     timeout: 20000
 - tapOn:
     id: "btn-home-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
 - extendedWaitUntil:
     visible:
       id: "f-user"
@@ -24,14 +29,15 @@ appId: org.linmsoft.rmms
     id: "f-pass"
 - eraseText
 - inputText: "Linm@2026"
-# cấm hideKeyboard (drops to launcher) · scroll to btn-login
-- scrollUntilVisible:
-    element:
-      id: "btn-login"
-    direction: DOWN
-    timeout: 8000
+- pressKey: Enter
+- waitForAnimationToEnd:
+    timeout: 4000
 - tapOn:
     id: "btn-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
 - extendedWaitUntil:
     visible: "Trang Chủ"
     timeout: 45000
@@ -41,6 +47,10 @@ appId: org.linmsoft.rmms
     timeout: 15000
 - tapOn:
     id: "tile-supervise"
+    optional: true
+- tapOn:
+    text: "Giám sát"
+    optional: true
 - extendedWaitUntil:
     visible:
       id: "sc-supervise"

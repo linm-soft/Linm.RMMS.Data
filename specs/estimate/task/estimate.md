@@ -6,24 +6,26 @@
 | title | [Mobile] [Công việc] -> Giao việc xử lý |
 | this role | `team_lead` · `/agent-tl-mobile` |
 | status | **confirmed** |
-| changeScope | `edit_page` |
+| changeScope | `edit_page` · **GAP-MOB-EDIT-01** labelHeader UX-only |
 | packKind | **`sheet`** (PO + Design + SA confirm · GAP-MOB-EST-PACK-01 **closed** · surface = **full screen** `#sc-estimate` · **cấm** bottom-sheet) |
 | stack | `native_dual` |
 | thisAction | **Giao việc xử lý** `#sc-estimate` `DES-MOB-EST` only · entry mnt-list hub/card `#i-sum` + incident-create/detail CTA · **cấm** gộp `mnt-chat` / `mnt-progress` / `mnt-log` / web Kind B+D (`GAP-MOB-ACT-01/02`) |
-| route_confirm | **route_a** (autoApprove=ON) · push `#sc-estimate` · pack `tabs: none` · shell Tab 5 **giữ** · tab **`work`** khi entry mnt-list |
-| ios_repo_confirm | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS` · **reuse** (scaffold live · **không** `/mobile-app-architecture`) |
+| deltaThisEdit | **GAP-MOB-EDIT-01** — labelHeader 13pt ×6 fields dual · `T-IOS-EST-LABEL` · `T-AND-EST-LABEL` · prior `T-IOS-EST`/`T-AND-EST` **giữ** · BFF/API **skip** |
+| route_confirm | **route_a** (autoApprove=ON · **giữ**) · push `#sc-estimate` · pack `tabs: none` · shell Tab 5 **giữ** · tab **`work`** khi entry mnt-list |
+| ios_repo_confirm | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS` · **reuse** |
 | android_repo_confirm | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android` · **reuse** |
-| bff | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Bff` · prefix `mobile-bff/api/v1` · catch-all proxy · **cấm** `EstimateController` local |
+| bff | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Bff` · prefix `mobile-bff/api/v1` · catch-all · **paths unchanged** · **cấm** `EstimateController` local |
 | backend | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.WebService` · AiVision + Maintenance + Incident · **cấm ERP.*** |
-| prior · sa | **confirmed** · `be/solution-discovery.md` · `task_9f669577` · solution_confirm=approve · WorkType=`repair` · Step 4b **N/A** |
-| prior · design | **confirmed** · `ui/design.md` · `ui/ux-analy.md` · `ui/html-to-native-map.md` · dual `#sc-estimate` · `ui/review/demo-parity.md` · `task_c0fb308d` · design_confirm=approve |
-| prior · po | **confirmed** · `po/requirement.md` · `task_5338c2be` |
-| prior · data_analy | **confirmed** · `_data-analy/estimate-*.md` · contentHash `sha256:estimate-mobile-control-hint-20260829` · realDataHash `sha256:estimate-mobile-real-data-20260829` · bffContentHash `sha256:estimate-mobile-bff-20260829` · actionTreeHash `sha256:estimate-mobile-action-tree-20260829` |
-| priorWeb | **giữ** · `task/estimate-web.md` (+ `po|ui|be|implement|qa|review` *-web*) · Kind B+D — **OUT** mobile P1 |
+| prior · sa | **confirmed** · `be/solution-discovery.md` § Delta · `task_e5be941e` · solution_confirm=approve · prior `task_9f669577` **giữ** · Step 4b **N/A** |
+| prior · design | **confirmed** · `ui/design.md` § Delta labelHeader · dual · `task_18e9655b` · design_confirm=approve · prior `task_c0fb308d` **giữ** |
+| prior · po | **confirmed** · `po/requirement.md` § Current vs New · `task_eadacecf` · prior `task_5338c2be` **giữ** |
+| prior · data_analy | **confirmed** · `_data-analy/estimate-*.md` · contentHash `sha256:estimate-mobile-control-hint-20260901-edit01` · realDataHash `sha256:estimate-mobile-real-data-20260901-edit01` · bff/action-tree hash-skip `20260829` |
+| priorWeb | **giữ** · `task/estimate-web.md` · Kind B+D — **OUT** mobile P1 |
 | autoApprove | **ON** |
-| e2eQa | ON khi QA · `yarn e2e-qa-mobile` · sim 6.9" + emulator + Maestro · PNG `qa/store/estimate` · **cấm** `yarn start:std` / `mfeStdUrl` / e2e ở role TL |
-| taskId | `task_cc28db20` |
-| updatedAt | `2026-08-29T04:42:00.000Z` |
+| e2eQa | ON queued QA · **cấm** e2e / `yarn start:std` / `mfeStdUrl` ở role TL |
+| taskId | `task_93fd2561` |
+| priorTlTaskId | `task_cc28db20` **giữ** |
+| updatedAt | `2026-09-01T14:44:00.000Z` |
 
 **Cấm:** gộp sibling (`GAP-MOB-ACT-01/02`) · invent `api/v1/estimate` / `ai-estimate/*` · invent `EstimateController` trên Mobile.Bff · invent staff / SLA policy API · ERP.* · WebView HTML · `mfeStdUrl` · system `UIAlert`/`AlertDialog` · watermark Gói · device label · badge P1/P2 header · fake CV / fake 200 khi POST fail · WorkType ngoài live `repair|inspect|emergency` · enqueue Giao việc / Lưu nháp / fields (`GAP-MOB-ACT-07`) · start sibling `pending_confirm` (`GAP-MOB-ACT-06`) · gộp iOS+Android 1 task id · chạy Step 4b / migration / e2e / yarn build ở role TL · implement native code ở role TL.
 
@@ -72,15 +74,58 @@ AskQuestion: `route_confirm=route_a` · `ios_repo_confirm` · `android_repo_conf
 
 | id | platform | deps | skills | summary |
 |----|----------|------|--------|---------|
-| `T-IOS-EST` | iOS | SA confirmed · kit N/A · Design dual · route_a | `/agent-dev-ios` · `/dev-ios-swiftui` · `/ios-new-screen` | Ship `#sc-estimate` · entry wire thay toast · seed/Lines[0]/draft/WO(`repair`)/assign · toast real Code |
-| `T-AND-EST` | Android | SA confirmed · kit N/A · serial after iOS preferred | `/agent-dev-android` · `/dev-android-compose` · `/android-new-screen` · `/android-new-api-call` | Compose parity dual · same BFF bind · entry wire |
-| `T-BE-*` | — | — | — | **N/A** · live Signed · **cấm** invent endpoint / migration |
-| `T-BFF-*` | — | — | — | **N/A** · proxy catch-all |
-| `T-KIT-*` | — | — | — | **N/A** · kit reuse |
-| `T-QA-TAB-01` | QA cite | Dev dual PASS | `/agent-qa-mobile` | Shell Tab 5 **giữ** · pack `tabs: none` · tab **work** when entry mnt-list · **cấm** invent (`GAP-TAB-01`) · cite `tab-index-analy-review.md` |
-| `T-QA-EST` | QA | T-IOS · T-AND | `/agent-qa-mobile` | Maestro slug `estimate` · `yarn e2e-qa-mobile` · store PNG `qa/store/estimate` · **chỉ** `/agent-qa*` |
+| `T-IOS-EST-LABEL` | iOS | SA `task_e5be941e` · Design labelHeader · route_a **giữ** | `/agent-dev-ios` · `/dev-ios-swiftui` | **GAP-MOB-EDIT-01** · labelHeader 13pt ×6 fields · AC-F-13 · **cấm** placeholder-only · **cấm** API/BFF change |
+| `T-AND-EST-LABEL` | Android | SA · Design · serial after iOS preferred | `/agent-dev-android` · `/dev-android-compose` | parity dual labelHeader · same 6 fields |
+| `T-IOS-EST` | iOS | — | — | prior **shipped** · **giữ** · **không** reopen path |
+| `T-AND-EST` | Android | — | — | prior **shipped** · **giữ** |
+| `T-BE-*` | — | — | — | **N/A** · paths hash-skip · **cấm** invent / migration |
+| `T-BFF-*` | — | — | — | **N/A** · proxy catch-all · unchanged |
+| `T-KIT-*` | — | — | — | **N/A** · kit reuse · labelAbove / external label |
+| `T-QA-TAB-01` | QA cite | Dev LABEL dual PASS | `/agent-qa-mobile` | Shell Tab 5 **giữ** · pack `tabs: none` · **cấm** invent (`GAP-TAB-01`) |
+| `T-QA-EST-LABEL` | QA | T-IOS-EST-LABEL · T-AND-EST-LABEL | `/agent-qa-mobile` | AC-F-13 labelHeader visible ×6 · Maestro slug `estimate` · **chỉ** `/agent-qa*` |
+| `T-QA-EST` | QA | — | — | prior **giữ** · re-run after LABEL |
 
-**Serial Dev:** `/agent-dev-ios` (`T-IOS-EST`) → `/agent-dev-android` (`T-AND-EST`) · **cấm** 1 file task gộp hai nền · **cấm** enqueue sibling · **cấm** TL chạy build/e2e.
+**Serial Dev this edit:** `/agent-dev-ios` (`T-IOS-EST-LABEL`) → `/agent-dev-android` (`T-AND-EST-LABEL`) · **cấm** gộp dual 1 task · **cấm** TL build/e2e.
+
+---
+
+## Delta this edit (`task_93fd2561` · GAP-MOB-EDIT-01)
+
+| Concern | Decision |
+|---------|----------|
+| Scope | **UX-only** · labelHeader 13pt above 6 form fields · dual · **cấm** placeholder-only |
+| Fields | assignee · qty · unitPrice · total · slaHours · dueAt — each +labelHeader |
+| Native | `LinmTextField` + external label / kit `labelAbove` · typography label **13** (`GAP-TYP-01`) |
+| BFF / API / DTO | **unchanged** · hash-skip · Step 4b **N/A** |
+| route_confirm | **route_a giữ** · không URL mới |
+| Prior GAP-MOB-EST-* / R-QA-* | **giữ closed** |
+| Invent / ERP.* / mfeStdUrl | **none** |
+
+### Source map — T-IOS-EST-LABEL
+
+| Area | Path |
+|------|------|
+| repo | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS` |
+| UI | `Presentation/Features/Estimate/*` — ensure visible labelHeader trên 6 `LinmTextField` · **cấm** title=placeholder-only |
+| Kit | `LinmTextField` + external label / `labelAbove` · `LinmTokens` 13pt |
+| API / entry / WO | **không đổi** · prior T-IOS-EST **giữ** |
+| ssot | `DES-MOB-EST` · `#sc-estimate` · cite `ui/html-to-native-map.md` |
+
+### Source map — T-AND-EST-LABEL
+
+| Area | Path |
+|------|------|
+| repo | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android` |
+| UI | `presentation/feature/estimate/*` — parity labelHeader ×6 |
+| Kit | same map · Material chrome shell only |
+| API / entry | **không đổi** |
+
+### DoD delta (AC-F-13 · cite PO/Design)
+
+1. Mỗi field trong inventory EDIT-01 có **labelHeader visible** 13pt above control (không chỉ placeholder).
+2. Dual iOS+Android parity copy + layout (`GAP-MOB-ALIGN-01`).
+3. Behavior seed/draft/WO/toast **giữ** prior DoD 1–14 · **không** regress API.
+4. Build gate Dev: iPhone 17 Pro · `assembleDebug` · **cấm** TL chạy.
 
 ---
 
@@ -210,28 +255,27 @@ AskQuestion: `route_confirm=route_a` · `ios_repo_confirm` · `android_repo_conf
 
 | Field | Value |
 |-------|-------|
-| Next | `/agent-dev-ios` (`T-IOS-EST`) rồi `/agent-dev-android` (`T-AND-EST`) |
+| Next | `/agent-dev-ios` (`T-IOS-EST-LABEL`) rồi `/agent-dev-android` (`T-AND-EST-LABEL`) |
 | Chain this turn | **không** (roleOnly=`team_lead` · GAP-PKT-ROLE-01) |
-| implement stubs | Dev ghi `implement/ios.md` · `implement/android.md` khi tới lượt |
-| reviewUrl | dual `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/estimate/ui/prototype/{ios,android}/index.html` · missing `?missing=1` |
-| QA sau Dev | `yarn e2e-qa-mobile` · Maestro slug `estimate` · store PNG `qa/store/estimate` · **chỉ** `/agent-qa*` |
+| implement stubs | Dev append `implement/ios.md` · `implement/android.md` § Delta LABEL |
+| reviewUrl | dual `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/estimate/ui/prototype/{ios,android}/index.html` |
+| QA sau Dev | `yarn e2e-qa-mobile` · AC-F-13 · store PNG `qa/store/estimate` · **chỉ** `/agent-qa*` |
 | Step 4b | **N/A** · T-BE n/a · **cấm** TL chạy |
 | WorkType | **`repair`** (SA) — không `sua-chua` |
 | priorWeb | `task/estimate-web.md` **giữ** |
 
 ---
 
-## VERIFY GATE (roleOnly=`team_lead`)
+## VERIFY GATE (roleOnly=`team_lead` · `task_93fd2561`)
 
 | Check | Result |
 |-------|--------|
-| task/estimate.md | **PASS** · T-IOS-EST · T-AND-EST · T-BE **n/a** · T-BFF **n/a** · route_a · source lock |
-| Prior SA + Design + PO + data-analy | **PASS** · read abs · hashes khớp · **cấm** invent API / control |
-| ios_repo + android_repo + route_confirm | **PASS** · repos có · autoApprove route_a |
-| Kit | **PASS** · reuse map · T-KIT **n/a** |
-| prior web task | **PASS** · moved → `task/estimate-web.md` |
+| task/estimate.md | **PASS** · T-IOS-EST-LABEL · T-AND-EST-LABEL · T-BE **n/a** · route_a **giữ** |
+| Prior SA + Design + PO + data-analy | **PASS** · compact read · GAP-MOB-EDIT-01 |
+| ios_repo + android_repo + route_confirm | **PASS** · reuse · route_a |
+| Kit | **PASS** · TextField+labelHeader · T-KIT **n/a** |
 | Step 4b / migration / e2e | **SKIP** (cấm role TL) |
-| yarn build / start:std / implement native Write | **SKIP** (cấm role TL) |
+| yarn build / start:std / implement native | **SKIP** (cấm role TL) |
 | Chain other role | **SKIP** · GAP-PKT-ROLE-01 |
 
 ---
@@ -245,15 +289,15 @@ AskQuestion: `route_confirm=route_a` · `ios_repo_confirm` · `android_repo_conf
 | schemaVersion | 1 |
 | workflowVersion | 2026.08.29.1 |
 | rulesVersion | 2026.08.29.5 |
-| generatedAt | `2026-08-29T04:42:00.000Z` |
+| generatedAt | `2026-09-01T14:44:00.000Z` |
 | versionGate | rechecked |
-| contentHash | sha256:estimate-mobile-control-hint-20260829 |
-| realDataHash | sha256:estimate-mobile-real-data-20260829 |
+| contentHash | sha256:estimate-mobile-control-hint-20260901-edit01 |
+| realDataHash | sha256:estimate-mobile-real-data-20260901-edit01 |
 | bffContentHash | sha256:estimate-mobile-bff-20260829 |
 | actionTreeHash | sha256:estimate-mobile-action-tree-20260829 |
-| ctxContentHash | sha256:58cb5c3279c3df7360e1f3f29adccc79fada11ce219853dfce035217e25b7f3d |
+| ctxContentHash | sha256:b67ee5a9cc9b69577496bf04aef9446d483410141ca6c27b98f792841ddb5ece |
 | demoContentHash | sha256:394ab44597648f04b25e6d58476378c16141feb53d3b58d39923b3defcff8328 |
-| taskId | `task_cc28db20` |
+| taskId | `task_93fd2561` |
 
 ---
-<!-- Version meta: skillId=agent-tl-mobile skillVersion=2026.08.29.1 schemaVersion=1 workflowVersion=2026.08.29.1 rulesVersion=2026.08.29.5 versionGate=rechecked -->
+<!-- Version meta: skillId=agent-tl-mobile skillVersion=2026.08.29.1 schemaVersion=1 workflowVersion=2026.08.29.1 rulesVersion=2026.08.29.5 versionGate=rechecked · taskId=task_93fd2561 -->

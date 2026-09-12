@@ -8,11 +8,11 @@
 | packKind | **`sheet`** (packet · `_form-type-mobile` · mnt-list tree) · surface = **screen** `#sc-estimate` |
 | changeScope | `edit_page` |
 | status | **confirmed** |
-| taskId | `task_b0b56370` |
+| taskId | `task_210a31d6` |
 | autoApprove | `ON` |
 | demo | `specs/mobile-p1/ui/prototype/{ios,android}/index.html` `#sc-estimate` · `DES-MOB-EST` · entry mnt-list hub/card · incident-create/detail CTA |
 | ctx | `docs/context/features/estimate.md` · `maintenance.md` · `incident.md` · mobile-p1 `mobile/context.md` §estimate |
-| generatedAt | `2026-08-29T04:20:00.000Z` |
+| generatedAt | `2026-09-01T14:28:40.000Z` |
 
 **Cấm:** watermark Gói · invent `api/v1/estimate` / `api/v1/ai-estimate` · gộp web Kind B list + Kind D slideout multi-line vào slug này · ERP.* · mfeStdUrl · fake toast success khi POST fail · gộp `mnt-chat` / `mnt-progress` / `mnt-log`.
 
@@ -27,27 +27,23 @@
 
 ## § Delta Current vs New (`edit_page`)
 
-Giữ PO/Design/SA/QA/Review **web** artifacts đã confirmed (`specs/estimate/*` · `_data-analy/features/estimate-control-hint.md`). Delta **mobile** `task_b0b56370`:
+Giữ PO/Design/SA/QA/Review **mobile + web** artifacts đã confirmed. Delta **này** `task_210a31d6` (user edit HARD):
 
-| ID | Current (native 2026-08-29) | New (SSOT mobile demo + CTX) | Surface |
-|----|-----------------------------|------------------------------|---------|
-| GAP-MOB-EST-NAV-01 | mnt-list hub/card · incident CTA → **toast only** (iOS/Android) | Nav push `#sc-estimate` «Giao việc xử lý» · back → `mnt-list` | mnt-list · estimate |
-| GAP-MOB-EST-SCR-01 | Không màn Giao việc | Full `#sc-estimate` · `DES-MOB-EST` · header SC + fields + CTA | screen |
-| GAP-MOB-EST-HDR-01 | — | Card «Từ sự cố» + «Loại tài sản» readonly | card rows |
-| GAP-MOB-EST-ASSIGN-01 | — | Field «Giao cho *» Text | text * |
-| GAP-MOB-EST-QTY-01 | — | «Khối lượng» · decimal | number |
-| GAP-MOB-EST-PRICE-01 | — | «Đơn giá» · decimal | money |
-| GAP-MOB-EST-TOTAL-01 | — | «Thành tiền» readonly = qty × unitPrice | derived |
-| GAP-MOB-EST-SLA-01 | — | «Thời hạn xử lý (giờ)» + «Hạn xử lý» readonly | derived SLA |
-| GAP-MOB-EST-CTA-01 | — | Primary «Giao việc» → POST WO (+ assign) · toast CV-* | CTA |
-| GAP-MOB-EST-DRAFT-01 | — | Secondary «Lưu nháp» → draft estimate | CTA |
-| GAP-MOB-EST-DATA-01 | — | Mobile.Bff `ai-vision/estimates` · `maintenance/work-orders` · `incident/…/assign` | BFF |
-| GAP-MOB-EST-PACK-01 | Web STATUS `packKind=list` · Kind B+D | Mobile packKind=`sheet` (form giao việc) — Design/PO chốt | meta |
-| GAP-MOB-EST-SIMP-01 | Web multi-line Kind D grid | Mobile **1** qty/price row (demo) — SA/PO chốt map line[0] | meta |
+| ID | Current (native Review-approved) | New (SSOT demo + user delta) | Surface |
+|----|----------------------------------|------------------------------|---------|
+| **GAP-MOB-EDIT-01** | `LinmTextField(title)` · title = **placeholder only** · mất khi có value | **Label header** 13pt **phía trên** mọi input (không chỉ placeholder) · dual iOS+Android · lock design/ux/task/implement cùng turn | form fields |
+| GAP-MOB-EDIT-01 · assignee | placeholder «Giao cho *» | `<label>Giao cho *</label>` + input | TextField * |
+| GAP-MOB-EDIT-01 · qty | placeholder «Khối lượng» | label «Khối lượng» above | NumberField |
+| GAP-MOB-EDIT-01 · unitPrice | placeholder «Đơn giá» | label «Đơn giá» above | MoneyField |
+| GAP-MOB-EDIT-01 · total (field 0) | placeholder «Thành tiền» | label «Thành tiền» above · readonly | derived |
+| GAP-MOB-EDIT-01 · sla (field 24) | placeholder «Thời hạn xử lý (giờ)» | label «Thời hạn xử lý (giờ)» above · readonly | TextField |
+| GAP-MOB-EDIT-01 · due | placeholder «Hạn xử lý» | label «Hạn xử lý» above · datetime VN · readonly | datetime |
 
-**Không** đổi (OUT pack mobile P1): web list Kind B · slideout multi-line toolbar · Excel · Config schema editor · auto WO event `estimate.created` (web DEFER — mobile dùng **explicit** POST WO).
+**Demo SSOT** (mobile-p1 + `specs/estimate/ui/prototype`) **đã** có `.field > label` trên 6 field — **không** đổi copy/zones/API. Native kit hiện `TextField(title)` / Compose title-as-placeholder → **Dev** phải render header ngoài placeholder (kit patch hoặc local `VStack{ Text(label); field }` · Design chốt).
 
-**Reuse web:** domain AiVision estimates + Maintenance work-orders + Incident assign · paths live · **cấm** ERP.*.
+**Giữ closed** (cấm reopen): GAP-MOB-EST-NAV/SCR/HDR/ASSIGN/QTY/PRICE/TOTAL/SLA/CTA/DRAFT/DATA/PACK/SIMP/ASSIGNEE/WO · R-QA-* · Review APPROVE prior.
+
+**Không** đổi: BFF paths · action tree · packKind `sheet` · WorkType=`repair` · tabs none · web Kind B+D artifacts.
 
 ## Tech factors
 
@@ -55,39 +51,41 @@ Giữ PO/Design/SA/QA/Review **web** artifacts đã confirmed (`specs/estimate/*
 |--------|----|-------|
 | GPS | n/a | Không pin trên `#sc-estimate` |
 | Camera | n/a | |
-| Offline | **optional** | Lưu nháp online P1 · offline queue **DEFER** (không invent path) |
+| Offline | **optional** | Lưu nháp online P1 · offline queue **DEFER** |
 | Map | n/a | |
 | Biometric | n/a | |
 | Push | n/a | |
 
 ## § Tab index
 
-`tabs: none` — màn full · demo `data-tab="work"` · **không** segment trên surface (`GAP-TAB-01`). Shell Tab 5 **giữ** (Công việc). Entry từ `mnt-list` / incident CTA (không đổi IA tab).
+`tabs: none` — màn full · demo `data-tab="work"` · **không** segment trên surface (`GAP-TAB-01`). Shell Tab 5 **giữ**.
 
 ## § Demo dual
 
-Cùng copy VN · cùng title «Giao việc xử lý» · cùng SC-2401 · Ổ gà · QL.1 Km 1556+040 · Mặt đường · assignee «Nguyễn Văn A · Tổ tuần đường» · qty `12.5` · đơn giá `850.000` · thành tiền `10.625.000` · SLA `24` · hạn `19/08/2026 08:00` · CTA «Giao việc» / «Lưu nháp» · toast giao việc CV-* · toast nháp. **Cấm** invent icon. Android top-bar icon-btn vs iOS nav-btn text «Công việc» — Design parity chrome (không đổi field).
+Cùng copy VN · title «Giao việc xử lý» · SC-2401 · Ổ gà · QL.1 Km 1556+040 · Mặt đường · assignee «Nguyễn Văn A · Tổ tuần đường» · qty `12.5` · đơn giá `850.000` · thành tiền `10.625.000` · SLA `24` · hạn `19/08/2026 08:00` · CTA «Giao việc» / «Lưu nháp». **HARD:** mỗi field có `<label>` visible phía trên input (iOS + Android prototype).
 
 ## controlHint — `#sc-estimate`
 
 | Field | VN | controlHint | Size | Kit | Notes |
 |-------|----|-------------|------|-----|-------|
 | screenTitle | Giao việc xử lý | TopBar title | 17 | `LinmTopBar` | `DES-MOB-EST` |
-| navBack | Công việc | BackButton | 16 | chevron / icon-btn | `go('mnt-list')` · Android icon-only OK |
-| fromIncident | Từ sự cố | ListRow readonly | 13 / ≥16 | `LinmListRow` | code · defect · route/Km |
-| assetType | Loại tài sản | ListRow readonly | 13 / ≥16 | | e.g. Mặt đường |
-| assignee | Giao cho * | TextField | **13** / ≥16 | `LinmTextField` | required · free text P1 |
-| qty | Khối lượng | NumberField | 13 / ≥16 | decimal `inputmode` | editable |
-| unitPrice | Đơn giá | MoneyField | 13 / ≥16 | decimal | editable · VND display |
-| totalAmount | Thành tiền | TextField readonly | 13 / ≥16 | derived | qty × unitPrice |
-| slaHours | Thời hạn xử lý (giờ) | TextField readonly | 13 / ≥16 | | default **24** P1 |
-| dueAt | Hạn xử lý | TextField readonly | 13 / ≥16 | datetime VN | now + slaHours |
-| btnAssign | Giao việc | PrimaryButton | 17 | `LinmPrimaryButton` | submit flow |
-| btnDraft | Lưu nháp | SecondaryButton | 17 | `LinmSecondaryButton` | draft estimate |
+| navBack | Công việc | BackButton | 16 | chevron / icon-btn | `go('mnt-list')` |
+| fromIncident | Từ sự cố | ListRow readonly | 13 / ≥16 | `LinmListRow` | subtitle = label · OK |
+| assetType | Loại tài sản | ListRow readonly | 13 / ≥16 | | subtitle = label · OK |
+| assignee | Giao cho * | TextField + **labelHeader** | **13** / ≥16 | `LinmTextField`+header | **GAP-MOB-EDIT-01** · required |
+| qty | Khối lượng | NumberField + **labelHeader** | 13 / ≥16 | +header | **GAP-MOB-EDIT-01** |
+| unitPrice | Đơn giá | MoneyField + **labelHeader** | 13 / ≥16 | +header | **GAP-MOB-EDIT-01** |
+| totalAmount | Thành tiền | TextField readonly + **labelHeader** | 13 / ≥16 | +header | **GAP-MOB-EDIT-01** · derived |
+| slaHours | Thời hạn xử lý (giờ) | TextField readonly + **labelHeader** | 13 / ≥16 | +header | **GAP-MOB-EDIT-01** · default 24 |
+| dueAt | Hạn xử lý | TextField readonly + **labelHeader** | 13 / ≥16 | +header | **GAP-MOB-EDIT-01** · datetime VN |
+| btnAssign | Giao việc | PrimaryButton | 17 | `LinmPrimaryButton` | submit |
+| btnDraft | Lưu nháp | SecondaryButton | 17 | `LinmSecondaryButton` | draft |
+
+**labelHeader (HARD):** `Text`/`label` 13pt muted **above** control · luôn visible khi có value · **cấm** chỉ dựa placeholder/floating mất sau focus.
 
 ## Typography (HARD)
 
-Label **13** · field value **≥16** · tab shell **13** — `typography-web-mobile.md`.
+Label header **13** · field value **≥16** · tab shell **13** — `typography-web-mobile.md`.
 
 ## Kit map (iOS + Android)
 
@@ -95,7 +93,7 @@ Label **13** · field value **≥16** · tab shell **13** — `typography-web-mo
 |---------|-----|
 | TopBar / Back | `LinmTopBar` |
 | Card rows | `LinmListRow` / card-group |
-| Text / Number / Money | `LinmTextField` |
+| Text / Number / Money + header | `LinmTextField` **+** external label **hoặc** kit API `labelAbove` (Design/Dev) |
 | Primary / Secondary | Linm buttons |
 | Toast | session toast |
 
@@ -103,22 +101,19 @@ Label **13** · field value **≥16** · tab shell **13** — `typography-web-mo
 
 | ID | Note | Default |
 |----|------|---------|
-| GAP-MOB-EST-NAV-01 | Toast → real screen | **must** |
-| GAP-MOB-EST-SIMP-01 | 1 line mobile vs web grid | map line[0] / single synthetic line |
-| GAP-MOB-EST-ASSIGNEE-01 | Không staff lookup API P1 | free text → `AssigneeName` |
-| GAP-MOB-EST-WO-01 | Web DEFER auto WO · mobile demo tạo CV | explicit `POST maintenance/work-orders` |
-| GAP-MOB-EST-SLA-01 | Không SLA policy API | local default 24h + DueAt |
-| GAP-MOB-EST-PACK-01 | list web vs sheet mobile | PO/Design chốt sheet |
-| GAP-F-EST-01 | Auto WO event | **DEFER** web P2 — không block mobile CTA |
+| **GAP-MOB-EDIT-01** | Label header trên mọi form field `#sc-estimate` | **must** · dual · lock design/ux/task/implement |
+| GAP-MOB-EST-ASSIGNEE-01 | Không staff lookup API P1 | free text → `AssigneeName` · **giữ** |
+| GAP-MOB-EST-SLA-01 | Không SLA policy API | local 24h + DueAt · **giữ** |
+| GAP-F-EST-01 | Auto WO event | **DEFER** web P2 |
 
 ## Sources / hash
 
 | Source | Path | sha256 |
 |--------|------|--------|
-| CTX | `docs/context/features/estimate.md` | `sha256:58cb5c3279c3df7360e1f3f29adccc79fada11ce219853dfce035217e25b7f3d` |
+| CTX | `docs/context/features/estimate.md` | `sha256:b67ee5a9cc9b69577496bf04aef9446d483410141ca6c27b98f792841ddb5ece` |
 | Demo iOS | `specs/mobile-p1/ui/prototype/ios/index.html` `#sc-estimate` | `sha256:394ab44597648f04b25e6d58476378c16141feb53d3b58d39923b3defcff8328` |
 | Demo Android | `specs/mobile-p1/ui/prototype/android/index.html` `#sc-estimate` | `sha256:cbb3af57cc4c8feebf8d80472f926933345acb478c280e55e83214ec125fdb91` |
-| Scan | `_form-type-mobile/ACTION-TREE.md` · `estimate` sheet | pending_confirm → **this turn** |
+| Scan | `_form-type-mobile/ACTION-TREE.md` · `estimate` sheet | confirmed prior · **giữ** |
 | Web analy (giữ) | `_data-analy/features/estimate-control-hint.md` | web Kind B+D — **không** overwrite |
 
 ## Version meta
@@ -128,14 +123,14 @@ Label **13** · field value **≥16** · tab shell **13** — `typography-web-mo
 | skillId | agent-data-analy-mobile |
 | skillVersion | 2026.08.25.01 |
 | schemaVersion | 2 |
-| workflowVersion | 2026.08.25.01 |
-| rulesVersion | 2026.08.25.2 |
-| generatedAt | 2026-08-29T04:20:00.000Z |
+| workflowVersion | 2026.08.29.1 |
+| rulesVersion | 2026.08.29.5 |
+| generatedAt | 2026-09-01T14:28:40.000Z |
 | versionGate | rechecked |
-| contentHash | sha256:estimate-mobile-control-hint-20260829 |
-| ctxContentHash | sha256:58cb5c3279c3df7360e1f3f29adccc79fada11ce219853dfce035217e25b7f3d |
+| contentHash | sha256:estimate-mobile-control-hint-20260901-edit01 |
+| ctxContentHash | sha256:b67ee5a9cc9b69577496bf04aef9446d483410141ca6c27b98f792841ddb5ece |
 | demoContentHash | sha256:394ab44597648f04b25e6d58476378c16141feb53d3b58d39923b3defcff8328 |
-| taskId | `task_b0b56370` |
+| taskId | `task_210a31d6` |
 
 ---
-<!-- Version meta: skillId=agent-data-analy-mobile skillVersion=2026.08.25.01 schemaVersion=2 workflowVersion=2026.08.25.01 rulesVersion=2026.08.25.2 versionGate=rechecked -->
+<!-- Version meta: skillId=agent-data-analy-mobile skillVersion=2026.08.25.01 schemaVersion=2 workflowVersion=2026.08.29.1 rulesVersion=2026.08.29.5 versionGate=rechecked taskId=task_210a31d6 -->

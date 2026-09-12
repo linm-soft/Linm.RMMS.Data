@@ -2,9 +2,10 @@
 
 **Sources:** `ui/prototype/ios/index.html` · `ui/prototype/android/index.html` · `ui/design.md` · PO · DA controlHint + real-data  
 **Gate:** `/mobile-ui-ux-analy` §1–§9 · **REQUIRED** trước Dev  
-**Slash:** `/mobile-ui-ux-analy` · `task_c0fb308d` · `2026-08-29T04:26:00.000Z`  
+**Slash:** `/mobile-ui-ux-analy` · `task_18e9655b` · `2026-09-01T14:35:44.000Z`  
 **Brand tokens:** Primary `#0C84C0` · deep `#086A9A` · success `#34C759` · orange `#FF9500` · surface `#F2F2F7` · label `#1C1C1E` · muted `#8E8E93`  
-**Hash skip:** DA contentHash `sha256:estimate-mobile-control-hint-20260829` · **cấm** re-scan DemoRoot (`GAP-DES-DEMO-RESCAN-01`)
+**Hash skip:** DA contentHash `sha256:estimate-mobile-control-hint-20260901-edit01` · **cấm** re-scan DemoRoot (`GAP-DES-DEMO-RESCAN-01`)  
+**Delta:** **GAP-MOB-EDIT-01** labelHeader 13pt above 6 form fields (prior ux `task_c0fb308d` **giữ** base)
 
 ## 1. IA
 
@@ -15,9 +16,9 @@ Login → Tab Công việc (shell Tab 5 · index work)
   → incident-create / incident-detail CTA «Giao việc xử lý»
        → push #sc-estimate (shared_action · reuse owner)
   → #sc-estimate DES-MOB-EST
-       → card Từ sự cố + Loại tài sản (readonly)
-       → Giao cho * · Khối lượng · Đơn giá
-       → Thành tiền · SLA 24h · Hạn xử lý (derived)
+       → card Từ sự cố + Loại tài sản (readonly · subtitle label OK)
+       → [labelHeader] Giao cho * · Khối lượng · Đơn giá
+       → [labelHeader] Thành tiền · SLA 24h · Hạn xử lý (derived)
        → Primary POST work-orders | Secondary draft
        → missing incidentId → banner · chặn Giao việc
   → back → mnt-list (hoặc pop incident parent)
@@ -41,25 +42,27 @@ Login → Tab Công việc (shell Tab 5 · index work)
 | Header | Công việc · Giao việc xử lý | A `.nav-bar` / `.top-bar` | `LinmTopBar` | same |
 | From SC | Từ sự cố / SC-2401 · Ổ gà · QL.1… | A `.row` | `LinmListRow` | same |
 | Asset | Loại tài sản / Mặt đường | A `.row` | `LinmListRow` | same |
-| Assignee | Giao cho * / Nguyễn Văn A · Tổ… | A `.field` | `LinmTextField` | same |
-| Qty | Khối lượng / 12.5 | A `.field` decimal | `LinmTextField` | same |
-| Price | Đơn giá / 850.000 | A `.field` money | `LinmTextField` | same |
-| Total | Thành tiền / 10.625.000 | A `.field` readonly | `LinmTextField` | same |
-| SLA | Thời hạn xử lý (giờ) / 24 | A `.field` readonly | `LinmTextField` | same |
-| Due | Hạn xử lý / 19/08/2026 08:00 | A `.field` readonly | `LinmTextField` | same |
+| Assignee | **label** Giao cho * + value | A `.field > label` | `LinmTextField`+**labelHeader** | same |
+| Qty | **label** Khối lượng + 12.5 | A `.field > label` | +**labelHeader** | same |
+| Price | **label** Đơn giá + 850.000 | A `.field > label` | +**labelHeader** | same |
+| Total | **label** Thành tiền + 10.625.000 | A `.field > label` readonly | +**labelHeader** | same |
+| SLA | **label** Thời hạn… + 24 | A `.field > label` readonly | +**labelHeader** | same |
+| Due | **label** Hạn xử lý + datetime | A `.field > label` readonly | +**labelHeader** | same |
 | Primary | Giao việc | A `.btn-primary` | `LinmPrimaryButton` | same |
 | Secondary | Lưu nháp | A `.btn-secondary` | `LinmSecondaryButton` | same |
 | Toast | CV-* / nháp / err | D toast | `LinmToast` | same |
 | Banner | Thiếu sự cố… | `.banner` | Text/banner kit | same |
 | Tab | work active | A `.tabbar` / `.nav` | `LinmTabBar` | NavigationBar |
 
-**States:** default (SSOT rows) · loading Giao việc (busy primary) · draft success toast · WO fail toast (**cấm** fake CV) · missing incident banner + disable primary · empty assignee disable/ toast validate · leave dirty confirm (kit — **cấm** system alert) · offline: form mở · POST fail toast · queue DEFER · seed fail → demo fallback rows
+**labelHeader:** `.field > label` 13pt muted always on · **cấm** native title=placeholder only (**GAP-MOB-EDIT-01** · AC-F-13).
+
+**States:** default (SSOT rows) · loading Giao việc (busy primary) · draft success toast · WO fail toast (**cấm** fake CV) · missing incident banner + disable primary · empty assignee disable/ toast validate · leave dirty confirm (kit — **cấm** system alert) · offline: form mở · POST fail toast · queue DEFER · seed fail → demo fallback rows · filled fields vẫn hiện label header
 
 ## 4. Copy SSOT
 
 Nhãn lấy đúng HTML dual — **cấm** invent / lệch iOS↔Android (trừ back chrome: iOS có chữ «Công việc»).
 
-**Cấm trên máy:** watermark «bản Gói N» · device label «iPhone»/«· Android» · «Có mạng» · fake CV · Kind B list · multi-line toolbar · bottom-sheet · badge P1/P2.
+**Cấm trên máy:** watermark «bản Gói N» · device label «iPhone»/«· Android» · «Có mạng» · fake CV · Kind B list · multi-line toolbar · bottom-sheet · badge P1/P2 · placeholder-only field labels.
 
 ## 5. Brand
 
@@ -70,7 +73,7 @@ Nhãn lấy đúng HTML dual — **cấm** invent / lệch iOS↔Android (trừ 
 | Orange | `#FF9500` | banner warn accents |
 | Surface | `#F2F2F7` | nền |
 | Card | `#FFFFFF` | groups · fields |
-| Label / muted | `#1C1C1E` / `#8E8E93` | title / row-sub / labels |
+| Label / muted | `#1C1C1E` / `#8E8E93` | title / row-sub / **field labelHeader** |
 
 **Cấm** skin đỏ Ministry / CCCD (`GAP-MOB-BRAND-01`).
 
@@ -95,6 +98,7 @@ Pack P1: toast fade ~2.4s · primary busy spinner · total recalc on qty/price i
 
 | ID | Demo vs native | Quyết định |
 |----|----------------|------------|
+| **GAP-MOB-EDIT-01** | demo `.field > label` vs native placeholder-only | **must** labelHeader 13 above 6 fields · dual · **cấm** placeholder-only |
 | GAP-MOB-EST-PACK-01 | sheet meta vs full screen | **sheet** packKind · surface **screen** · **cấm** bottom-sheet |
 | GAP-MOB-EST-NAV-01 | toast stub → screen | **must** push `#sc-estimate` |
 | GAP-MOB-EST-SIMP-01 | 1 line vs web grid | map `Lines[0]` |
@@ -109,7 +113,7 @@ Pack P1: toast fade ~2.4s · primary busy spinner · total recalc on qty/price i
 | AC-D-06 | safe area | TopBar + scroll + CTA + tab |
 | AC-D-08 | signal | **N/A** · **cấm** «Có mạng» |
 | AC-D-10 | tab | shell work · in-screen **none** |
-| AC-D-12 | type | label 13 · value ≥16 · title 17 |
+| AC-D-12 | type | label **13** · value ≥16 · title 17 |
 | AC-F-01 | appear / seed | from-incident / GET · fail → demo SSOT |
 | AC-F-02 | back | pop mnt-list / parent |
 | AC-F-03 | prefill header | thiếu incidentId → banner · chặn |
@@ -120,14 +124,15 @@ Pack P1: toast fade ~2.4s · primary busy spinner · total recalc on qty/price i
 | AC-F-08 | Lưu nháp | POST draft · toast nháp |
 | AC-F-09 | entry | mnt-list / incident → push |
 | AC-F-10 | dual parity | cùng copy trừ chrome back |
+| **AC-F-13** | label header | 6 fields label 13 always visible when valued · **GAP-MOB-EDIT-01** |
 | GAP-TAB-01 | tabs none | shell Tab 5 giữ · work |
-| kit_missing | — | **N/A** · kits có sẵn |
+| kit_missing | — | **N/A** · kits có sẵn · labelHeader = kit/`VStack` |
 | DEFER | bezel HTML | chrome native HIG/Material |
 | GAP-F-EST-01 | auto WO event | **DEFER** web P2 |
 
 ## Gate
 
-Must open = **0** · packet §1–§9 đủ · handoff SA (`be/solution-discovery.md` pending).
+Must open = **0** · packet §1–§9 đủ · GAP-MOB-EDIT-01 locked · handoff SA (`be/solution-discovery.md` pending · paths likely skip).
 
 ## Version meta
 
@@ -136,9 +141,12 @@ Must open = **0** · packet §1–§9 đủ · handoff SA (`be/solution-discover
 | skillId | mobile-ui-ux-analy |
 | skillVersion | 2026.08.25.01 |
 | schemaVersion | 2 |
-| generatedAt | 2026-08-29T04:26:00.000Z |
-| contentHash | sha256:estimate-mobile-control-hint-20260829 |
-| taskId | `task_c0fb308d` |
+| workflowVersion | 2026.08.29.1 |
+| rulesVersion | 2026.08.29.5 |
+| generatedAt | 2026-09-01T14:35:44.000Z |
+| versionGate | rechecked |
+| contentHash | sha256:estimate-mobile-control-hint-20260901-edit01 |
+| taskId | `task_18e9655b` |
 
 ---
-<!-- Version meta: skillId=mobile-ui-ux-analy skillVersion=2026.08.25.01 schemaVersion=2 -->
+<!-- Version meta: skillId=mobile-ui-ux-analy skillVersion=2026.08.25.01 schemaVersion=2 versionGate=rechecked taskId=task_18e9655b -->

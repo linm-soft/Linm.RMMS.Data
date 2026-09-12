@@ -1,0 +1,18 @@
+{
+  "feature": "asset-ai",
+  "status": "done",
+  "review_confirm": "approve",
+  "align_confirm": "approve",
+  "post_review": "skip",
+  "packKind": "sheet",
+  "taskId": "task_7bebeca5",
+  "skillId": "agent-review-mobile",
+  "skillVersion": "2026.08.25.01",
+  "schemaVersion": 1,
+  "mustAlignOpen": 0,
+  "p0Open": 0,
+  "autoApprove": true,
+  "priorQaTaskId": "task_d1226fec",
+  "priorDevTaskId": "task_5bdb7bcf",
+  "generatedAt": "2026-09-01T17:27:00.000Z"
+}

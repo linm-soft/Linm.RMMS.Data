@@ -6,8 +6,8 @@
 | title | [Mobile] [Công việc] -> Giao việc xử lý |
 | this role | `sa` · `/agent-sa-mobile` |
 | status | `confirmed` |
-| solution_confirm | **approve** (`autoApprove=ON` · `task_9f669577`) |
-| changeScope | `edit_page` |
+| solution_confirm | **approve** (`autoApprove=ON` · `task_e5be941e`) |
+| changeScope | `edit_page` · **GAP-MOB-EDIT-01** labelHeader UX-only |
 | packKind | **`sheet`** (PO + Design chốt · GAP-MOB-EST-PACK-01 **closed** · surface = **full screen** `#sc-estimate` · **cấm** bottom-sheet) |
 | stack | `native_dual` |
 | Feature Kind | **sheet→screen** · `DES-MOB-EST` · **cấm** Kind B list / Kind D multi-line web / Lin* / Config / Report |
@@ -17,17 +17,18 @@
 | ios | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS` |
 | android | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android` |
 | bff | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Bff` · prefix `mobile-bff/api/v1` |
-| prior · design | **confirmed** · `ui/design.md` · `ui/ux-analy.md` · `ui/html-to-native-map.md` · dual `#sc-estimate` · `ui/review/demo-parity.md` · `task_c0fb308d` · `design_confirm=approve` |
-| prior · po | **confirmed** · `po/requirement.md` · `task_5338c2be` |
-| prior · data_analy | **confirmed** · `_data-analy/estimate-*.md` · contentHash `sha256:estimate-mobile-control-hint-20260829` · realDataHash `sha256:estimate-mobile-real-data-20260829` · bffContentHash `sha256:estimate-mobile-bff-20260829` · actionTreeHash `sha256:estimate-mobile-action-tree-20260829` |
+| prior · design | **confirmed** · `ui/design.md` § Delta · dual labelHeader · `task_18e9655b` · `design_confirm=approve` · prior `task_c0fb308d` **giữ** |
+| prior · po | **confirmed** · `po/requirement.md` § Current vs New · `task_eadacecf` · prior `task_5338c2be` **giữ** |
+| prior · data_analy | **confirmed** · `_data-analy/estimate-*.md` · contentHash `sha256:estimate-mobile-control-hint-20260901-edit01` · realDataHash `sha256:estimate-mobile-real-data-20260901-edit01` · bffContentHash `sha256:estimate-mobile-bff-20260829` (path hash-skip) · actionTreeHash `sha256:estimate-mobile-action-tree-20260829` (tree hash-skip) |
 | priorWeb | **giữ** · `be/solution-discovery-web.md` (Kind B+D · **OUT** mobile P1) |
+| prior SA | **giữ** paths · `task_9f669577` · **this edit** re-confirm path-unchanged |
 | autoApprove | **ON** |
 | e2eQa | ON khi QA · `yarn e2e-qa-mobile` · **cấm** `yarn start:std` / `mfeStdUrl` / e2e ở role SA |
 | versionGate | `rechecked` |
-| requestSource | run packet `task_9f669577` · `/agent-qldb-workflow-mobile` · roleOnly=`sa` · `/agent-sa-mobile` |
-| taskId | `task_9f669577` |
-| confirmedBy | agent autoApprove · `task_9f669577` |
-| updatedAt | `2026-08-29T04:36:00.000Z` |
+| requestSource | run packet `task_e5be941e` · `/agent-qldb-workflow-mobile` · roleOnly=`sa` · `/agent-sa-mobile` |
+| taskId | `task_e5be941e` |
+| confirmedBy | agent autoApprove · `task_e5be941e` |
+| updatedAt | `2026-09-01T14:41:00.000Z` |
 
 **Cấm:** invent `api/v1/estimate` / `ai-estimate/*` · invent `EstimateController` trên Mobile.Bff · fork DTO · clone domain controller · app `:5101` · ERP.* · `mfeStdUrl` / `yarn start:std` · system `UIAlert` / `AlertDialog` · watermark Gói · device label · badge P1/P2 header · fake CV / fake 200 khi POST fail · Write MFE/native ở role SA · chạy Step 4b / migration / e2e / yarn build ở role này · gộp sibling (`GAP-MOB-ACT-01/02/07`) · re-scan demo (`hash skip`) · WorkType string ngoài live enum.
 
@@ -162,7 +163,22 @@ Response `WorkOrderDto.Code` → toast `Đã giao việc · {Code} · thời h�
 | Store | **N/A** new claim | no camera/location/signup trên pack | GAP-SA-STORE-01 | **cấm** `localhost` / LAN IP trong solution listing · family `1` · **cấm** iPad listing claim |
 | Step 4b | **N/A** | endpoints + schema live Signed | — | **không** chạy ở role SA |
 
-AskQuestion (autoApprove=ON · không chờ board): `be_repo_confirm`=`/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.WebService` · `sa_tz_gate=tz_required` · `sa_xco_gate=xco_na` · `sa_shared_table=share_tenant` · `kit_missing_confirm=N/A` · `solution_confirm=approve` · `2026-08-29T04:36:00.000Z`.
+AskQuestion (autoApprove=ON · không chờ board): `be_repo_confirm`=`/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.WebService` · `sa_tz_gate=tz_required` · `sa_xco_gate=xco_na` · `sa_shared_table=share_tenant` · `kit_missing_confirm=N/A` · `solution_confirm=approve` · `2026-09-01T14:41:00.000Z` · `task_e5be941e`.
+
+---
+
+## Delta this edit (`task_e5be941e` · GAP-MOB-EDIT-01)
+
+| Concern | Decision |
+|---------|----------|
+| Scope | **UX-only** · labelHeader 13pt above 6 form fields · dual · **cấm** placeholder-only |
+| BFF / API paths | **unchanged** · hash-skip `estimate-mobile-bff-20260829` · `estimate-mobile-action-tree-20260829` |
+| DTO / persist / Step 4b | **unchanged** · **N/A** migration · **cấm** invent endpoint |
+| TZ / XCO / SHARE | **giữ** `tz_required` · `xco_na` · `share_tenant` |
+| Offline / GPS | **giữ** no queue P1 · GPS n/a |
+| Native kit | `LinmTextField` + external label / kit `labelAbove` · Dev lock same turn dual |
+| Invent path / ERP.* / mfeStdUrl | **none** |
+| Prior GAP-MOB-EST-* / R-QA-* | **giữ closed** · **cấm** reopen |
 
 ---
 
@@ -210,12 +226,12 @@ AskQuestion (autoApprove=ON · không chờ board): `be_repo_confirm`=`/Users/ma
 | navBack | Công việc | — | local | `go('mnt-list')` / pop parent · Android icon-only OK |
 | fromIncident | Từ sự cố | Incident Code·Title·Route / Estimate IncidentId·DefectType·RouteSection | GET incident / nav | ListRow readonly |
 | assetType | Loại tài sản | AssetLabel / incident | nav / GET | ListRow readonly · demo «Mặt đường» |
-| assignee | Giao cho * | `AssigneeName` · opt `TeamName` | form → WO + assign | TextField * · free text P1 |
-| qty | Khối lượng | `Lines[0].Qty` | PUT / draft | NumberField decimal |
-| unitPrice | Đơn giá | `Lines[0].UnitPrice` | PUT / draft | MoneyField VND |
-| totalAmount | Thành tiền | derived / `TotalAmount` / `Lines[0].Amount` | display | qty × unitPrice |
-| slaHours | Thời hạn xử lý (giờ) | `CreateWorkOrderRequest.SlaHours` | local default **24** | readonly |
-| dueAt | Hạn xử lý | `CreateWorkOrderRequest.DueAt` | local now+sla · UTC wire | readonly · TZ |
+| assignee | Giao cho * | `AssigneeName` · opt `TeamName` | form → WO + assign | SearchField+**labelHeader** * · free text P1 · **GAP-MOB-EDIT-01** |
+| qty | Khối lượng | `Lines[0].Qty` | PUT / draft | NumberField+**labelHeader** decimal · **EDIT-01** |
+| unitPrice | Đơn giá | `Lines[0].UnitPrice` | PUT / draft | MoneyField+**labelHeader** VND · **EDIT-01** |
+| totalAmount | Thành tiền | derived / `TotalAmount` / `Lines[0].Amount` | display | readonly+**labelHeader** · qty × unitPrice · **EDIT-01** |
+| slaHours | Thời hạn xử lý (giờ) | `CreateWorkOrderRequest.SlaHours` | local default **24** | readonly+**labelHeader** · **EDIT-01** |
+| dueAt | Hạn xử lý | `CreateWorkOrderRequest.DueAt` | local now+sla · UTC wire | readonly+**labelHeader** · TZ · **EDIT-01** |
 | btnAssign | Giao việc | CreateWorkOrder (+ opt confirm + assign) | POST work-orders | Primary · busy · **chặn** nếu !assignee / !incidentId |
 | btnDraft | Lưu nháp | draft | POST `…/draft` | Secondary · online P1 |
 | toastOk | Đã giao việc · CV-* · thời hạn … giờ | `WorkOrderDto.Code` | after POST WO 200 | `LinmToast` · **cấm** fake |
@@ -266,6 +282,7 @@ AskQuestion (autoApprove=ON · không chờ board): `be_repo_confirm`=`/Users/ma
 | GAP-MOB-ACT-01/02/05/06/07 | 1 slug · không gộp sibling · kit toast · không enqueue |
 | GAP-MOB-ALIGN-01 | iOS + Android cùng copy · Android back icon-only OK |
 | GAP-SA-STORE-01 | No new privacy claim · **cấm** localhost/LAN · no iPad listing claim |
+| **GAP-MOB-EDIT-01** | **must Dev dual** · labelHeader 13pt ×6 fields · **cấm** placeholder-only · **paths unchanged** |
 | Step 4b / T-BE-* | **N/A** — không chạy turn SA |
 
 ---
@@ -287,20 +304,18 @@ AskQuestion (autoApprove=ON · không chờ board): `be_repo_confirm`=`/Users/ma
 
 ### Delta Dev (role sau — không implement turn SA)
 
-1. Ship screen dual theo Design / html-to-native-map / copy VN / ListRow / TextField / Primary / Secondary / Toast.
-2. Wire entry: mnt-list hub/card + incident CTA → push `#sc-estimate` (thay toast stub).
-3. Seed from-incident · bind Lines[0] · derived total/SLA/due · PUT lines · draft · POST WO (`repair`/`new`) · optional assign · toast real Code · **cấm** fake CV.
-4. Banner missing incidentId · chặn primary · dual parity.
-5. Verify builds (Dev role): xcodegen + xcodebuild dest **iPhone 17 Pro** · `assembleDebug` · BFF `dotnet build`.
+1. **This edit (GAP-MOB-EDIT-01):** dual native — `LinmTextField` + external label / kit `labelAbove` trên 6 fields · **cấm** placeholder-only · **cấm** BFF/API change.
+2. Prior ship (giữ): screen dual · entry mnt-list/incident → `#sc-estimate` · seed · Lines[0] · draft · POST WO · toast real Code.
+3. Verify builds (Dev role): xcodegen + xcodebuild dest **iPhone 17 Pro** · `assembleDebug` · BFF `dotnet build` — **không** ở SA.
 
 ### Tasks đề xuất (TL)
 
 | ID | Owner | Note |
 |----|-------|------|
-| `T-IOS-EST` | Dev iOS | screen + entry wire + seed/draft/WO/assign + Lines[0] + toast |
-| `T-AND-EST` | Dev Android | parity dual + entry wire |
-| `T-BE-*` | — | **n/a** · live Signed |
-| `T-BFF-*` | — | **n/a** · proxy catch-all đủ |
+| `T-IOS-EST-LABEL` | Dev iOS | labelHeader ×6 fields · AC-F-13 · **GAP-MOB-EDIT-01** |
+| `T-AND-EST-LABEL` | Dev Android | parity dual labelHeader |
+| `T-IOS-EST` / `T-AND-EST` | — | prior **giữ** · không reopen ship path |
+| `T-BE-*` / `T-BFF-*` | — | **n/a** · path hash-skip |
 
 ---
 
@@ -309,28 +324,28 @@ AskQuestion (autoApprove=ON · không chờ board): `be_repo_confirm`=`/Users/ma
 | Field | Value |
 |-------|-------|
 | feature / packKind | `estimate` / **`sheet`** (surface screen) |
-| solution_confirm | **approve** |
-| BFF | from-incident · get/put/draft/confirm estimates · POST work-orders · GET incident · POST assign · init-data optional · **cấm** invent |
+| solution_confirm | **approve** (`task_e5be941e`) |
+| BFF | **paths unchanged** · from-incident · get/put/draft/confirm · POST work-orders · GET/assign incident · **cấm** invent |
 | WorkType P1 | **`repair`** (live) — không `sua-chua` |
-| Tasks đề xuất | `T-IOS-EST` · `T-AND-EST` |
-| Kit | reuse TopBar / ListRow / TextField / Primary / Secondary / Toast · kit_missing **N/A** |
-| Delta Dev | toast stub → `#sc-estimate` · seed · Lines[0] · draft · POST WO · dual |
+| Tasks đề xuất | `T-IOS-EST-LABEL` · `T-AND-EST-LABEL` |
+| Kit | TopBar / ListRow / TextField+**labelHeader** / Primary / Secondary / Toast · kit_missing **N/A** |
+| Delta Dev | **GAP-MOB-EDIT-01** labelHeader dual · API/BFF skip |
 | Verify (Dev) | iOS `xcodegen` + `xcodebuild` dest **iPhone 17 Pro** · Android `assembleDebug` · BFF `dotnet build` |
 | Next slash | `/agent-tl-mobile` |
 | Chain this turn | **không** (roleOnly=`sa` · GAP-PKT-ROLE-01) |
-| e2eQa | ON khi QA · `yarn e2e-qa-mobile` · **cấm** mfeStdUrl / e2e ở SA |
+| e2eQa | ON khi QA · **cấm** mfeStdUrl / e2e ở SA |
 
 ---
 
-## VERIFY GATE (`task_9f669577` · roleOnly=`sa`)
+## VERIFY GATE (`task_e5be941e` · roleOnly=`sa`)
 
 | Check | Result |
 |-------|--------|
 | Role | sa only · **PASS** |
-| artifact | `be/solution-discovery.md` (mobile) · prior web → `solution-discovery-web.md` · **PASS** |
+| artifact | `be/solution-discovery.md` + `handoff/sa-compact.md` · **PASS** |
 | STATUS | sa **done** · tl **pending** · solution_confirm=approve · **PASS** |
-| control-hint / real-data §B | **read** · hash skip · **cấm** re-scan · **PASS** |
-| Design confirmed | dual + ux-analy + demo-parity · design_confirm=approve · **PASS** |
+| compact priors | data_analy / po / design **read** · full MD skip (paths unchanged) · **PASS** |
+| Design confirmed | dual labelHeader · design_confirm=approve · **PASS** |
 | Invent path / ERP.* | **none** · **PASS** |
 | Write MFE/native | **skipped** (SA) |
 | yarn build / e2e / start:std | **skipped** (roleOnly sa) |
@@ -348,15 +363,15 @@ AskQuestion (autoApprove=ON · không chờ board): `be_repo_confirm`=`/Users/ma
 | schemaVersion | 2 |
 | workflowVersion | 2026.08.29.1 |
 | rulesVersion | 2026.08.29.5 |
-| generatedAt | `2026-08-29T04:36:00.000Z` |
+| generatedAt | `2026-09-01T14:41:00.000Z` |
 | versionGate | rechecked |
-| contentHash | sha256:estimate-mobile-control-hint-20260829 |
-| realDataHash | sha256:estimate-mobile-real-data-20260829 |
+| contentHash | sha256:estimate-mobile-control-hint-20260901-edit01 |
+| realDataHash | sha256:estimate-mobile-real-data-20260901-edit01 |
 | bffContentHash | sha256:estimate-mobile-bff-20260829 |
 | actionTreeHash | sha256:estimate-mobile-action-tree-20260829 |
-| ctxContentHash | sha256:58cb5c3279c3df7360e1f3f29adccc79fada11ce219853dfce035217e25b7f3d |
+| ctxContentHash | sha256:b67ee5a9cc9b69577496bf04aef9446d483410141ca6c27b98f792841ddb5ece |
 | demoContentHash | sha256:394ab44597648f04b25e6d58476378c16141feb53d3b58d39923b3defcff8328 |
-| taskId | `task_9f669577` |
+| taskId | `task_e5be941e` |
 
 ---
-<!-- Version meta: skillId=agent-sa-mobile skillVersion=2026.08.20.03 schemaVersion=2 workflowVersion=2026.08.29.1 rulesVersion=2026.08.29.5 versionGate=rechecked -->
+<!-- Version meta: skillId=agent-sa-mobile skillVersion=2026.08.20.03 schemaVersion=2 workflowVersion=2026.08.29.1 rulesVersion=2026.08.29.5 versionGate=rechecked · taskId=task_e5be941e -->

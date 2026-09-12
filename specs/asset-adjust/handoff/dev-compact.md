@@ -4,25 +4,27 @@ schemaVersion: 1
 feature: asset-adjust
 packKind: screen
 role: dev
-status: await_confirm
+status: confirmed
 skillVersion: 2026.08.25.01
-writtenAt: 2026-09-01T09:45:09.000Z
-qaFixPhase: plan
-taskId: task_c02a17d5
+writtenAt: 2026-09-01T16:05:00.000Z
+qaFixPhase: implement
+taskId: task_d8ada3bb
 qaFailFrom: task_74581051
+planTask: task_c02a17d5
 
 ## Decisions
-- changeScope: new_page (prior shipped) · this turn = **qa-fix-plan only**
+- changeScope: new_page (prior) · this turn = **qa-fix implement** Plan §1–6
 - formPattern: N/A (list + SoftDelete modal)
 - mfeStdUrl: — (native · **cấm**)
-- build PASS: N/A plan-only · implement phải VERIFY iOS xcodegen+iPhone 17 Pro · Android assembleDebug · BFF dotnet
-- open questions: none · board **`qa_fix_plan`** required (**cấm** autoApprove skip)
+- build PASS: iOS xcodegen+iPhone 17 Pro · Android assembleDebug · BFF dotnet — **PASS**
+- Step 4b: N/A (SA+TL Signed · SoftDelete+GetList reuse)
+- open questions: none · GAP-QA-REAL-01 **code closed** · await re-QA
 - debt: GAP-MOB-SEARCH-PLACEHOLDER DEFER kit
 
 ## Inventory (slim)
 | id | label | controlHint | notes |
 |----|-------|-------------|-------|
-| GAP-QA-REAL-01 | Android list real | — | P6 OfflineDemo+toast · fix after Approve |
+| GAP-QA-REAL-01 | Android list real | — | tenant harden dual · LoadFailed keep fail-only |
 | GAP-MOB-SEARCH-PLACEHOLDER | Search | SearchInput | DEFER kit |
 
 ## Screens / zones (ids only)
@@ -30,15 +32,14 @@ qaFailFrom: task_74581051
 - reviewUrl= `ui/review/align-ux.md` · peerStdUrl= —
 
 ## API / tasks (ids only)
-- GET `asset/road-assets` · DELETE soft `asset/road-assets/{id}` · Bearer + `X-Company-Id`
-- T-IOS-ASSET-ADJUST · T-AND-ASSET-ADJUST (prior) · implement = Plan §1–6
-- Step 4b: N/A
+- GET `asset/road-assets` · DELETE soft `asset/road-assets/{id}` · Bearer + **`X-Company-Id: LINM`**
+- Fix: AuthInterceptor/ApiClient JWT fallback · AppSession/AppContainer hydrate applyCompanyId · TokenAuthenticator/ApiClient refresh re-apply
+- T-IOS-ASSET-ADJUST · T-AND-ASSET-ADJUST · Step 4b N/A
 
 ## UNCLEAR
-- none — hypothesis: Android throw/missing company header vs iOS live
+- none — BFF probe: no company → non-LINM rows; `X-Company-Id: LINM` → `KM-QL1-NA-*`
 
 ## Full paths (Read only if needed)
 - plan: `specs/asset-adjust/implement/asset-adjust-qa-fix-plan.md`
-- qa: `specs/asset-adjust/qa/scenarios.md` · `qa/bugs/asset-adjust.md`
-- implement prior: `implement/ios.md` · `implement/android.md`
+- implement: `implement/ios.md` · `implement/android.md`
 - STATUS: `specs/asset-adjust/STATUS.md`

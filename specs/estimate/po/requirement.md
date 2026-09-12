@@ -10,14 +10,14 @@
 | stack | `native_dual` |
 | thisAction | **Giao việc xử lý** `#sc-estimate` only · owner `DES-MOB-EST` · entry mnt-list hub/card `#i-sum` · incident-create/detail CTA · **cấm** gộp web Kind B list / Kind D multi-line · `mnt-chat` / `mnt-progress` / `mnt-log` |
 | status | `confirmed` (autoApprove=ON) |
-| requestSource | run packet `task_5338c2be` · `/agent-qldb-workflow-mobile` · roleOnly=`po` · `/agent-po-mobile` |
+| requestSource | run packet `task_eadacecf` · `/agent-qldb-workflow-mobile` · roleOnly=`po` · `/agent-po-mobile` · delta **GAP-MOB-EDIT-01** (prior PO `task_5338c2be` **giữ**) |
 | autoApprove | **ON** — Design/SA tự confirm **khi tới lượt** · turn này **không** chain |
 | e2eQa | ON khi QA · `yarn e2e-qa-mobile` · sim 6.9" + emulator + Maestro · PNG `qa/screens` + `qa/store/estimate` · **cấm** `yarn e2e-qa` / `yarn start:std` / `mfeStdUrl` / test thủ công thay runtime |
-| prior | data-analy **confirmed** · `specs/_data-analy/estimate-control-hint.md` · `estimate-bff-endpoints.md` · `estimate-action-tree.md` · `estimate-real-data.md` · contentHash `sha256:estimate-mobile-control-hint-20260829` · real-data `sha256:estimate-mobile-real-data-20260829` · action-tree `sha256:estimate-mobile-action-tree-20260829` · ctxContentHash `sha256:58cb5c3279c3df7360e1f3f29adccc79fada11ce219853dfce035217e25b7f3d` · demoContentHash `sha256:394ab44597648f04b25e6d58476378c16141feb53d3b58d39923b3defcff8328` · cluster `specs/estimate/specs/_data-analy/` **không tồn tại** — SSOT = 4 file `_data-analy/estimate-*` · **no Excel** · **hash skip** — **cấm** re-scan demo (`GAP-PO-DEMO-RESCAN-01`) |
+| prior | data-analy **confirmed** `task_210a31d6` · compact `handoff/data_analy-compact.md` · `specs/_data-analy/estimate-control-hint.md` · `estimate-bff-endpoints.md` · `estimate-action-tree.md` · `estimate-real-data.md` · contentHash `sha256:estimate-mobile-control-hint-20260901-edit01` · real-data `sha256:estimate-mobile-real-data-20260901-edit01` · bff/action-tree hash-skip `20260829` · ctxContentHash `sha256:b67ee5a9cc9b69577496bf04aef9446d483410141ca6c27b98f792841ddb5ece` · demoContentHash `sha256:394ab44597648f04b25e6d58476378c16141feb53d3b58d39923b3defcff8328` · SSOT = 4 file `_data-analy/estimate-*` · **no Excel** · **hash skip** — **cấm** re-scan demo (`GAP-PO-DEMO-RESCAN-01`) |
 | priorWeb | **giữ** · `po/requirement-web.md` (+ `ui|be|task|implement|qa|review` web · `_data-analy/features/estimate-control-hint.md`) · Kind B list + Kind D multi-line — **OUT** mobile P1 |
 | `devSlash` | `/agent-dev-ios` + `/agent-dev-android` |
-| updatedAt | `2026-08-29T04:25:00.000Z` |
-| taskId | `task_5338c2be` |
+| updatedAt | `2026-09-01T14:32:22.000Z` |
+| taskId | `task_eadacecf` |
 
 **Cấm:** gộp sibling (`GAP-MOB-ACT-01/02`) · invent `api/v1/estimate` / `api/v1/ai-estimate` · invent `EstimateController` trên Mobile.Bff · Grid AC web / Report AC Lin* · ERP.* · WebView HTML · `mfeStdUrl` · `UIAlert` / `AlertDialog` / `window.alert` · watermark «Phiên bản Gói N» / «gen realapp» · «Có mạng» · device label «iPhone» / «· Android» · badge P1/P2 header · AC tap-cycle tín hiệu · AC implement lại kit đã map (`GAP-MOB-ACT-05`) · start sibling `pending_confirm` (`GAP-MOB-ACT-06`) · enqueue Giao việc / Lưu nháp / fields (`GAP-MOB-ACT-07`) · fake toast CV-* khi POST fail · gộp web Kind B/D · re-scan demo HTML (`GAP-PO-DEMO-RESCAN-01`).
 
@@ -51,7 +51,23 @@ Pack **edit** toast stub native → màn thật (data-analy `changeScope=edit_pa
 | GAP-MOB-EST-PACK-01 | Web STATUS `packKind=list` · Kind B+D | Mobile packKind=`sheet` (form giao việc) · surface screen | meta |
 | GAP-MOB-EST-SIMP-01 | Web multi-line Kind D grid | Mobile **1** qty/price row → map `Lines[0]` | meta |
 
-**Không** đổi (OUT pack mobile P1): web list Kind B · slideout multi-line toolbar · Excel · Config schema editor · auto WO event `estimate.created` (web DEFER — mobile dùng **explicit** POST WO).
+### § Current vs New — edit `task_eadacecf` (GAP-MOB-EDIT-01)
+
+Giữ toàn bộ GAP-MOB-EST-* / R-QA-* / Review prior **closed**. Delta **UX-only** (BFF/action-tree **unchanged** · hash-skip):
+
+| ID | Current (native Review-approved) | New (SSOT demo + user delta) | Surface |
+|----|----------------------------------|------------------------------|---------|
+| **GAP-MOB-EDIT-01** | `LinmTextField(title)` · title = **placeholder only** · mất khi có value | **Label header** 13pt muted **phía trên** mọi form input · luôn visible khi có value · dual iOS+Android · lock design/ux/task/implement cùng turn | form fields |
+| GAP-MOB-EDIT-01 · assignee | placeholder «Giao cho *» | `<label>Giao cho *</label>` + input | TextField * |
+| GAP-MOB-EDIT-01 · qty | placeholder «Khối lượng» | label «Khối lượng» above | NumberField |
+| GAP-MOB-EDIT-01 · unitPrice | placeholder «Đơn giá» | label «Đơn giá» above | MoneyField |
+| GAP-MOB-EDIT-01 · total | placeholder «Thành tiền» | label «Thành tiền» above · readonly | derived |
+| GAP-MOB-EDIT-01 · sla | placeholder «Thời hạn xử lý (giờ)» | label «Thời hạn xử lý (giờ)» above · readonly 24 | TextField |
+| GAP-MOB-EDIT-01 · due | placeholder «Hạn xử lý» | label «Hạn xử lý» above · datetime VN · readonly | datetime |
+
+**Demo SSOT** (mobile-p1 + `specs/estimate/ui/prototype`) **đã** có `.field > label` trên 6 field — **không** đổi copy/zones/API. Native kit hiện title-as-placeholder → Design chốt `labelAbove` / external label · Dev render header ngoài placeholder.
+
+**Không** đổi (OUT pack mobile P1): web list Kind B · slideout multi-line toolbar · Excel · Config schema editor · auto WO event `estimate.created` (web DEFER — mobile dùng **explicit** POST WO) · BFF paths · action tree · packKind `sheet`.
 
 **Không** bảng Current vs New web admin. Prior web artifacts **giữ** · **OUT** mobile P1. SSOT visual = dual HTML `#sc-estimate` (iOS 390×844 · Android 412×915 · **parity copy** trừ chrome: iOS back text «Công việc» + chevron · Android icon-btn chevron only — **OK**).
 
@@ -72,6 +88,7 @@ Pack **edit** toast stub native → màn thật (data-analy `changeScope=edit_pa
 13. Dev (role sau): iOS `xcodegen` + `xcodebuild` dest **iPhone 17 Pro** PASS · Android `assembleDebug` PASS · Mobile.Bff `dotnet build` PASS — **cấm** `yarn start:std` / `yarn build` web.
 14. QA (role sau): Maestro slug `estimate` only · live sim 6.9" + emulator · store PNG `qa/store/estimate` · **cấm** `yarn e2e-qa` web · **cấm** test mnt-chat/progress/log / web Kind B as in-scope.
 15. BE align: **không** invent path — reuse live `AiVisionEstimatesController` · `WorkOrdersController.Create` · `IncidentsController.Assign`. Step 4b **N/A** (schema Signed) · gaps assignee/WorkType/SLA = convention P1 · **cấm** PO chạy migration. **Cấm** dedicated EstimateController trên Mobile.Bff · **cấm** ERP.*.
+16. **GAP-MOB-EDIT-01 (HARD · this edit):** mọi form field trên `#sc-estimate` (assignee · qty · unitPrice · total · slaHours · dueAt) có **label header 13pt** phía trên control · **luôn visible** khi field có value · **cấm** chỉ dựa placeholder/floating mất sau focus · dual iOS+Android · ListRow «Từ sự cố» / «Loại tài sản» giữ subtitle-as-label (đã OK) · **không** đổi §B path / write field.
 
 ## 4. CTX / DEM / DI inventory
 
@@ -112,12 +129,12 @@ Nguồn DA-01 `#sc-estimate` dual + real-data §A+§B. UNCLEAR field = **none**.
 | navBack | Công việc | BackButton | * | `LinmTopBar` leading | `go('mnt-list')` · Android icon-only OK · incident entry → pop parent |
 | fromIncident | Từ sự cố | ListRow readonly | * | `LinmListRow` | code · defect · route/Km · 13 / ≥16 |
 | assetType | Loại tài sản | ListRow readonly | * | `LinmListRow` | e.g. Mặt đường |
-| assignee | Giao cho * | TextField | * | `LinmTextField` | required · free text P1 |
-| qty | Khối lượng | NumberField | * | `LinmTextField` | decimal `inputmode` |
-| unitPrice | Đơn giá | MoneyField | * | `LinmTextField` | decimal · VND display |
-| totalAmount | Thành tiền | TextField readonly | * | `LinmTextField` | qty × unitPrice |
-| slaHours | Thời hạn xử lý (giờ) | TextField readonly | * | `LinmTextField` | default **24** P1 |
-| dueAt | Hạn xử lý | TextField readonly | * | `LinmTextField` | datetime VN · now + slaHours |
+| assignee | Giao cho * | TextField + **labelHeader** | * | `LinmTextField`+header | required · free text · **GAP-MOB-EDIT-01** |
+| qty | Khối lượng | NumberField + **labelHeader** | * | `LinmTextField`+header | decimal · **GAP-MOB-EDIT-01** |
+| unitPrice | Đơn giá | MoneyField + **labelHeader** | * | `LinmTextField`+header | VND · **GAP-MOB-EDIT-01** |
+| totalAmount | Thành tiền | TextField readonly + **labelHeader** | * | `LinmTextField`+header | derived · **GAP-MOB-EDIT-01** |
+| slaHours | Thời hạn xử lý (giờ) | TextField readonly + **labelHeader** | * | `LinmTextField`+header | default **24** · **GAP-MOB-EDIT-01** |
+| dueAt | Hạn xử lý | TextField readonly + **labelHeader** | * | `LinmTextField`+header | datetime VN · **GAP-MOB-EDIT-01** |
 | btnAssign | Giao việc | PrimaryButton | * | `LinmPrimaryButton` | POST WO (+ assign) · busy |
 | btnDraft | Lưu nháp | SecondaryButton | * | `LinmSecondaryButton` | draft estimate |
 | toastOk | Đã giao việc · CV-… · thời hạn … giờ | Toast | * | `LinmToast` | sau POST WO 200 |
@@ -198,6 +215,7 @@ Response `WorkOrderDto.Code` → toast giao việc.
 | Step 4b | New endpoint? | **N/A** — reuse live estimates + work-orders + assign. |
 | Hash skip | contentHash skip analy | **Cấm** re-scan demo HTML / crawl CTX (`GAP-PO-DEMO-RESCAN-01`). |
 | Tab index | analy `tabs: none` | **Confirm none** trên surface · shell tab `work` = entry (`GAP-TAB-01`). |
+| **GAP-MOB-EDIT-01** | Label = placeholder-only khi có value | **Must** labelHeader 13pt above 6 form fields · dual · Design/Dev lock cùng turn · **cấm** placeholder-only. |
 | UNCLEAR fields | — | **none** — không AskQuestion field · hash skip · **cấm** re-crawl. |
 
 ## 8. Screens (REQUIRED)
@@ -240,6 +258,7 @@ Frame: iOS 390×844 · Android 412×915 · safe area · form + CTA + `LinmTabBar
 | AC-F-10 | Dual parity | iOS + Android **cùng** fields + copy SSOT (`GAP-MOB-ALIGN-01`) trừ chrome back |
 | AC-F-11 | Chrome | **Cấm** device label / proto-click / watermark Gói |
 | AC-F-12 | 1 action | **Cấm** gộp chat/progress/log/web list (`GAP-MOB-ACT-01/02`) |
+| AC-F-13 | Label header | 6 form fields: label 13pt **above** luôn visible khi có value · dual · **GAP-MOB-EDIT-01** · **cấm** placeholder-only |
 
 ## 10. Leave / alert (REQUIRED)
 
@@ -279,22 +298,23 @@ Giao việc hiện trường = **một** push `#sc-estimate` sau mnt-list/incide
 | phase_from / phase_to | po **confirmed** → design pending |
 | STATUS | `specs/estimate/STATUS.md` |
 | Context / Demo / DI | CTX-01..05 · DEM dual `#sc-estimate` · no Excel |
-| controlHint / UNCLEAR | §5 · none (GAPs chốt §7) |
+| controlHint / UNCLEAR | §5 · none · **GAP-MOB-EDIT-01** labelHeader chốt |
 | Screens / Pattern / `devSlash` | Screen `#sc-estimate` · `/agent-dev-ios` + `/agent-dev-android` |
 | Grid AC / Report AC | **N/A** — pack sheet native · **cấm** Lin* grid AC |
 | peerStdUrl / reviewUrl | **cấm** `mfeStdUrl` · Design mở dual `file://…/prototype/{ios,android}/index.html#sc-estimate` + reviewUrl **cả hai** |
 | ux-analy | `/mobile-ui-ux-analy` → `ui/ux-analy.md` §1–§9 **REQUIRED** trước `design_confirm` |
-| Kit | reuse map · `kit_missing_confirm` **N/A** (verify dual) · TopBar / ListRow / TextField / Primary / Secondary / Toast |
-| BFF | `estimate-bff-endpoints.md` · estimates + work-orders + assign |
-| Real-data | `estimate-real-data.md` §A+§B |
-| Open questions | §7 đã chốt — Design **không** vẽ Kind B list / multi-line / bottom-sheet · **không** staff picker |
-| Next AskQuestion | autoApprove=ON — `design_confirm` khi Design xong **cả hai** mock + ux-analy + `/review-demo-design-mobile` |
+| Kit | reuse map + **labelHeader** (kit `labelAbove` **hoặc** external `Text`/`label` 13pt) · TopBar / ListRow / TextField / Primary / Secondary / Toast |
+| BFF | `estimate-bff-endpoints.md` · **paths unchanged** this edit |
+| Real-data | `estimate-real-data.md` §A+§B · § Delta GAP-MOB-EDIT-01 UI-only |
+| Open questions | §7 + GAP-MOB-EDIT-01 — Design **lock** labelHeader dual · **không** vẽ Kind B / multi-line / bottom-sheet · **không** staff picker |
+| Next AskQuestion | autoApprove=ON — `design_confirm` khi Design xong **cả hai** mock + ux-analy + `/review-demo-design-mobile` · labelHeader lock |
 | Next slash | `/agent-design-mobile` |
 | Chain this turn | **không** (roleOnly=po · **GAP-PKT-ROLE-01**) |
 | e2eQa | ON khi QA · `yarn e2e-qa-mobile` · **cấm** yarn start:std / mfeStdUrl |
 | priorWeb | `po/requirement-web.md` **giữ** |
+| compact | `handoff/po-compact.md` |
 
-Design: HIG + Material · IA lock Tab 5 · copy VN đúng iOS HTML (skip device label) · **cấm** skin Ministry · **cấm** «Có mạng» · packet `design-demo-ssot.md` · `/review-demo-design-mobile` trước confirm.
+Design: HIG + Material · IA lock Tab 5 · copy VN đúng iOS HTML (skip device label) · **labelHeader 13pt** trên 6 field · **cấm** skin Ministry · **cấm** «Có mạng» · packet `design-demo-ssot.md` · `/review-demo-design-mobile` trước confirm.
 
 ## Version meta (REQUIRED)
 
@@ -303,16 +323,17 @@ Design: HIG + Material · IA lock Tab 5 · copy VN đúng iOS HTML (skip device 
 | skillId | agent-po-mobile |
 | skillVersion | 2026.08.25.01 |
 | schemaVersion | 2 |
-| workflowVersion | 2026.08.25.01 |
-| rulesVersion | 2026.08.25.2 |
-| generatedAt | 2026-08-29T04:25:00.000Z |
+| workflowVersion | 2026.08.29.1 |
+| rulesVersion | 2026.08.29.5 |
+| generatedAt | 2026-09-01T14:32:22.000Z |
 | versionGate | rechecked |
-| contentHash | sha256:estimate-mobile-control-hint-20260829 |
-| realDataContentHash | sha256:estimate-mobile-real-data-20260829 |
+| contentHash | sha256:estimate-mobile-control-hint-20260901-edit01 |
+| realDataContentHash | sha256:estimate-mobile-real-data-20260901-edit01 |
 | actionTreeContentHash | sha256:estimate-mobile-action-tree-20260829 |
-| ctxContentHash | sha256:58cb5c3279c3df7360e1f3f29adccc79fada11ce219853dfce035217e25b7f3d |
+| bffContentHash | sha256:estimate-mobile-bff-20260829 |
+| ctxContentHash | sha256:b67ee5a9cc9b69577496bf04aef9446d483410141ca6c27b98f792841ddb5ece |
 | demoContentHash | sha256:394ab44597648f04b25e6d58476378c16141feb53d3b58d39923b3defcff8328 |
-| taskId | `task_5338c2be` |
+| taskId | `task_eadacecf` |
 
 ---
-<!-- Version meta: skillId=agent-po-mobile skillVersion=2026.08.25.01 schemaVersion=2 workflowVersion=2026.08.25.01 rulesVersion=2026.08.25.2 versionGate=rechecked -->
+<!-- Version meta: skillId=agent-po-mobile skillVersion=2026.08.25.01 schemaVersion=2 workflowVersion=2026.08.29.1 rulesVersion=2026.08.29.5 versionGate=rechecked taskId=task_eadacecf -->

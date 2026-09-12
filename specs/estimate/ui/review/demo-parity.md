@@ -2,8 +2,9 @@
 
 **Slash:** `/review-demo-design-mobile`  
 **DemoRoot:** `specs/estimate/ui/prototype/{ios,android}/index.html`  
-**taskId:** `task_c0fb308d` · `2026-08-29T04:26:00.000Z`  
-**SSOT:** mobile-p1 `#sc-estimate` · DA hash skip · **cấm** re-scan (`GAP-DES-DEMO-RESCAN-01`)
+**taskId:** `task_18e9655b` · `2026-09-01T14:35:44.000Z`  
+**SSOT:** mobile-p1 `#sc-estimate` · DA hash skip · **cấm** re-scan (`GAP-DES-DEMO-RESCAN-01`)  
+**Delta:** **GAP-MOB-EDIT-01** · `.field > label` ×6 dual (prior `task_c0fb308d` **giữ**)
 
 ## Must
 
@@ -13,11 +14,12 @@
 | From **Từ sự cố** / **SC-2401 · Ổ gà · QL.1 Km 1556+040** | yes | yes | OK |
 | Asset **Loại tài sản** / **Mặt đường** | yes | yes | OK |
 | Field **Giao cho *** / **Nguyễn Văn A · Tổ tuần đường** | yes | yes | OK |
-| **Khối lượng** / **12.5** | yes | yes | OK |
-| **Đơn giá** / **850.000** | yes | yes | OK |
-| **Thành tiền** / **10.625.000** readonly | yes | yes | OK |
-| **Thời hạn xử lý (giờ)** / **24** readonly | yes | yes | OK |
-| **Hạn xử lý** / **19/08/2026 08:00** readonly | yes | yes | OK |
+| **`.field > label` Giao cho *** visible above valued input | yes | yes | OK · **EDIT-01** |
+| **Khối lượng** / **12.5** + label above | yes | yes | OK · **EDIT-01** |
+| **Đơn giá** / **850.000** + label above | yes | yes | OK · **EDIT-01** |
+| **Thành tiền** / **10.625.000** readonly + label | yes | yes | OK · **EDIT-01** |
+| **Thời hạn xử lý (giờ)** / **24** readonly + label | yes | yes | OK · **EDIT-01** |
+| **Hạn xử lý** / **19/08/2026 08:00** readonly + label | yes | yes | OK · **EDIT-01** |
 | Primary **Giao việc** | yes | yes | OK |
 | Secondary **Lưu nháp** | yes | yes | OK |
 | Toast OK **Đã giao việc · CV-20260818-0003 · thời hạn 24 giờ** | yes | yes | OK |
@@ -32,6 +34,7 @@
 | Không watermark / device label / «Có mạng» | yes | yes | OK |
 | `data-des-id` DES-MOB-EST | yes | yes | OK |
 | packKind sheet · surface screen (PO) | yes | yes | OK |
+| **GAP-MOB-EDIT-01** / AC-F-13 labelHeader ×6 | yes | yes | OK |
 
 ## Should
 
@@ -65,8 +68,9 @@
 | Field | Value |
 |-------|-------|
 | skillId | review-demo-design-mobile |
-| generatedAt | 2026-08-29T04:26:00.000Z |
-| taskId | `task_c0fb308d` |
+| generatedAt | 2026-09-01T14:35:44.000Z |
+| contentHash | sha256:estimate-mobile-control-hint-20260901-edit01 |
+| taskId | `task_18e9655b` |
 
 ---
-<!-- Version meta: skillId=review-demo-design-mobile -->
+<!-- Version meta: skillId=review-demo-design-mobile taskId=task_18e9655b -->

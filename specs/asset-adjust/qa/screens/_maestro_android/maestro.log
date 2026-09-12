@@ -36,6 +36,12 @@ Take screenshot P6-CORE... COMPLETED
 Swipe from (50%, 75%) to (50%, 35%) in 400 ms... COMPLETED
 Take screenshot P6-CORE-2... COMPLETED
 Assert that id: sc-asset-adjust is visible... COMPLETED
-Tap on (Optional) id: btn-asset-adjust-remove-0... COMPLETED
-Tap on (Optional) id: btn-asset-remove-cancel... COMPLETED
+Tap on (Optional) id: btn-asset-adjust-remove-0... WARNED
+
+
+ Warning: Element not found: Id matching regex: btn-asset-adjust-remove-0
+Tap on (Optional) id: btn-asset-remove-cancel... WARNED
+
+
+ Warning: Element not found: Id matching regex: btn-asset-remove-cancel
 Assert that id: sc-asset-adjust is visible... COMPLETED

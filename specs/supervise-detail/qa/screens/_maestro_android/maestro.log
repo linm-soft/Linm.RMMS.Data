@@ -2,7 +2,8 @@ Running on Pixel_2
  > Flow android
 Launch app "org.linmsoft.rmms" with clear state and clear keychain... COMPLETED
 Assert that id: sc-home is visible... COMPLETED
-Tap on id: btn-home-login... COMPLETED
+Tap on (Optional) id: btn-home-login... COMPLETED
+Tap on (Optional) "Đăng nhập"... COMPLETED
 Assert that id: f-user is visible... COMPLETED
 Tap on id: f-user... COMPLETED
 Erase text... COMPLETED
@@ -23,7 +24,11 @@ Tap on (Optional) "Đăng nhập"... WARNED
  Warning: Element not found: Text matching regex: Đăng nhập
 Assert that "Trang Chủ" is visible... COMPLETED
 Assert that id: sc-home is visible... COMPLETED
-Tap on id: tile-supervise... COMPLETED
+Tap on (Optional) id: tile-supervise... COMPLETED
+Tap on (Optional) "Giám sát"... WARNED
+
+
+ Warning: Element not found: Text matching regex: Giám sát
 Assert that id: sc-supervise is visible... COMPLETED
 Wait for animation to end within 2000 ms... COMPLETED
 Assert that id: sup-card-a0000001-2026-0810-0001-000000000001 is visible... FAILED

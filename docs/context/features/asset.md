@@ -325,4 +325,4 @@ Gen demo: `/qlbd-analy-demo @asset` — load control-map trên + `/erp-form-cont
 | lane | phase | status | updatedAt |
 |------|-------|--------|-----------|
 | web | — | — | — |
-| mobile | `dev` | `await_confirm` | `2026-09-01T10:01:14.298Z` |
+| mobile | `qa` | `await_confirm` | `2026-09-01T16:24:14.270Z` |

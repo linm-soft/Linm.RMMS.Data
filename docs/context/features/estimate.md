@@ -230,4 +230,4 @@ Gen demo: `/qlbd-analy-demo @estimate` — load control-map trên + `/erp-form-c
 | lane | phase | status | updatedAt |
 |------|-------|--------|-----------|
 | web | `done` | `done` | `2026-08-21T03:31:41.244Z` |
-| mobile | `done` | `done` | `2026-09-01T09:27:55.682Z` |
+| mobile | `done` | `done` | `2026-09-01T15:08:51.525Z` |

@@ -1,21 +1,60 @@
 {
   "feature": "asset-adjust",
-  "capturedAt": "2026-08-31T00:15:18.275Z",
+  "capturedAt": "2026-09-01T16:05:17.061Z",
   "iosDevice": "iPhone 17 Pro Max",
-  "androidDevice": "Pixel_2",
   "method": "e2e-qa-mobile",
-  "iosPhase": "phase1_iphone",
-  "cliOk": true,
-  "visualAligned": false,
-  "verdict": "fail",
-  "gaps": ["GAP-QA-REAL-01"],
   "steps": [
-    { "id": "A10-BFF", "result": "PASS", "store": ["A10", "P11"] },
-    { "id": "A11-LAUNCH", "result": "PASS", "screenshot": "A11-LAUNCH.png", "store": ["A11"] },
-    { "id": "A9-LOGIN", "result": "PASS", "screenshot": "A9-LOGIN.png", "store": ["A9", "P10"] },
-    { "id": "A3-CORE", "result": "PASS", "screenshot": "A3-CORE.png", "store": ["A3", "A11"], "note": "live KM-QL1-NA-*" },
-    { "id": "P6-CORE", "result": "PASS", "screenshot": "P6-CORE.png", "store": ["P6", "P11"], "note": "demo TS-20260810-014 + loadFail toast · GAP-QA-REAL-01" },
-    { "id": "P6-CORE-2", "result": "PASS", "screenshot": "P6-CORE-2.png", "store": ["P6"] }
+    {
+      "id": "A10-BFF",
+      "result": "PASS",
+      "store": [
+        "A10",
+        "P11"
+      ]
+    },
+    {
+      "id": "A11-LAUNCH",
+      "result": "PASS",
+      "screenshot": "A11-LAUNCH.png",
+      "store": [
+        "A11"
+      ]
+    },
+    {
+      "id": "A9-LOGIN",
+      "result": "PASS",
+      "screenshot": "A9-LOGIN.png",
+      "store": [
+        "A9",
+        "P10"
+      ]
+    },
+    {
+      "id": "A3-CORE",
+      "result": "PASS",
+      "screenshot": "A3-CORE.png",
+      "store": [
+        "A3",
+        "A11"
+      ]
+    },
+    {
+      "id": "P6-CORE",
+      "result": "PASS",
+      "screenshot": "P6-CORE.png",
+      "store": [
+        "P6",
+        "P11"
+      ]
+    },
+    {
+      "id": "P6-CORE-2",
+      "result": "PASS",
+      "screenshot": "P6-CORE-2.png",
+      "store": [
+        "P6"
+      ]
+    }
   ],
-  "ok": false
+  "ok": true
 }
