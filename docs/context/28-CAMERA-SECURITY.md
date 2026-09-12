@@ -19,4 +19,4 @@
 | S5 | Cùng token với live HLS/WebRTC (plan 21) |
 
 Entry: `/agent-dev-camera-connect` (S1–S2) · `/new-service` (S3).  
-**Ingest inbound:** `X-Api-Key` validate **Auth + bind camera IP** + rate limit — task [`camera-ingest-apikey.md`](../../specs/camera-connect/task/camera-ingest-apikey.md) (`task_c8a1e4b2`). **Cấm** JWT từ cam.
+**Ingest inbound (I0–I2):** `X-Api-Key` = **tên** key Auth (hash at rest · enable/disable · **cấm rotate**) + bind IP + rate limit — [`camera-ingest-apikey.md`](../../specs/camera-connect/task/camera-ingest-apikey.md) · ctx [`features/camera-connect.md`](features/camera-connect.md) § API key ingest. **Cấm** JWT từ cam.

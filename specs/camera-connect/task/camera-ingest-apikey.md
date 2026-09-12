@@ -79,10 +79,11 @@ Camera ITS
 | Quyết định | Chi tiết |
 |------------|----------|
 | Store | Bảng **ApiKeys** (hoặc ServiceClient `KeyKind=api_key`) · **hash** secret (cùng kiểu `ClientSecretHash`) · **cấm** plaintext |
-| Admin | Create / rotate / revoke · TTL mặc định **365 ngày** (`06` §2) · audit |
+| Admin | Create / enable / disable · TTL mặc định **365 ngày** (`06` §2) · audit · **cấm rotate** · secret **= Name** |
 | Scope | `camera:ingest` |
 | IP | Reuse `AllowedIpAddresses` (public + LAN alias, comma) |
-| Introspect | `POST /api/v1/apikeys/introspect` — **chỉ service JWT** (RMMS ServiceClient), body `{ apiKey, sourceIp }` · response `{ active, companyCode, clientId, allowedIps[], scopes[] }` · **cấm** log raw key |
+| Introspect | `POST /api/v1/apikeys/introspect` — **chỉ service JWT** (RMMS ServiceClient), body `{ apiKey, sourceIp }` · response `{ active, companyCode, clientId, allowedIps[], scopes[], sourceIp, message }` · **cấm** log raw key |
+| Ingest 403 | JSON `{ ok, code, message, sourceIp, host }` — `sourceIp` = TCP/CF client (không phải query `host`). **Cấm** `allowedIps` trên response camera. Đổi tên key **không** đổi allowlist. |
 | Seed lab | 1 key `rmms-cam-ingest-lab` **chỉ** Dev/Docker seed · **cấm** Production seed |
 
 ### RMMS system (T-BE-INGEST-*)
@@ -115,7 +116,7 @@ Prod bật limiter **luôn**. Lab có thể nới qua config, default **bật**.
 
 | Wave | IN this Dev task? |
 |------|-------------------|
-| **I0** Auth ApiKey store + introspect + admin rotate | **YES** |
+| **I0** Auth ApiKey store + introspect + admin enable/disable (secret = Name) | **YES** |
 | **I1** RMMS ingest → Auth + bind host/IP · deprecate local prod key | **YES** (deps I0) |
 | **I2** Rate limit + body cap + 401 lockout | **YES** (cùng PR với I1 hoặc ngay sau) |
 | **I3** Docs ops + Railway env · QA abuse | **YES** |
@@ -130,27 +131,27 @@ S3 host `Linm.RMMS.Camera` **OUT** pack này.
 
 | id | role | status | DoD |
 |----|------|--------|-----|
-| **T-AUTH-KEY-01** | Dev | pending | Entity ApiKey (hash · scope · AllowedIpAddresses · expires · revoke) · EF **pair** Schema Auth · **cấm** Write tay Designer |
-| **T-AUTH-KEY-02** | Dev | pending | Admin create/rotate/revoke · **0** plaintext GET |
-| **T-AUTH-INT-01** | Dev | pending | `POST /api/v1/apikeys/introspect` service JWT · IP check · `camera:ingest` · no log key |
-| **T-AUTH-SEED-01** | Dev | pending | Lab seed only Dev/Docker · Production **0** seed key |
+| **T-AUTH-KEY-01** | Dev | **pass** | Entity ApiKey · EF pair `20260909074428_Schema_ApiKeys` |
+| **T-AUTH-KEY-02** | Dev | **pass** | Admin create/enable/disable · secret = Name · rotate **410** · **0** plaintext GET |
+| **T-AUTH-INT-01** | Dev | **pass** | `POST /api/v1/apikeys/introspect` service JWT · IP · `camera:ingest` |
+| **T-AUTH-SEED-01** | Dev | **pass** | Lab seed Full + non-Production only |
 
 ### I1 — RMMS bind
 
 | id | role | status | DoD |
 |----|------|--------|-----|
-| **T-BE-INGEST-01** | Dev | pending | Ingest filter: `X-Api-Key` / query `apiKey` / alias `X-Camera-Api-Key` → Auth introspect |
-| **T-BE-INGEST-02** | Dev | pending | Bind `host` + source IP + `CameraDevice.Host` / aliases · company từ introspect |
-| **T-BE-INGEST-03** | Dev | pending | Prod: Auth bắt buộc · local `Camera:Ingest:ApiKey` **chỉ** Dev/Docker fallback |
-| **T-BFF-INGEST-01** | Dev | pending | BFF **không** so key · forward `X-Api-Key` · comment cam → API direct |
+| **T-BE-INGEST-01** | Dev | **pass** | Ingest: `X-Api-Key` / query `apiKey` / alias `X-Camera-Api-Key` → Auth introspect |
+| **T-BE-INGEST-02** | Dev | **pass** | Bind `host` + source IP + `CameraDevice.Host` / aliases · company từ introspect |
+| **T-BE-INGEST-03** | Dev | **pass** | Prod: Auth bắt buộc · local key **chỉ** Dev/Docker fallback |
+| **T-BFF-INGEST-01** | Dev | **pass** | BFF không so key · forward `X-Api-Key` · cam → API direct |
 
 ### I2 — Rate limit
 
 | id | role | status | DoD |
 |----|------|--------|-----|
-| **T-BE-RL-01** | Dev | pending | `AddRateLimiter` trên `POST …/camera-events/ingest` + alias `…/cameras/ingest/isapi` — đúng bảng § trên |
-| **T-BE-RL-02** | Dev | pending | 401 lockout 10/min/IP · body 2 MB · 429 + `Retry-After` |
-| **T-DOC-RL-01** | Dev | pending | Row SSOT đã có `06` §3 · ops `23` URL + 429/401 |
+| **T-BE-RL-01** | Dev | **pass** | `AddRateLimiter` ingest + alias — 120 key / 60 IP |
+| **T-BE-RL-02** | Dev | **pass** | 401 lockout 10/min/IP · body 2 MB · 429 + `Retry-After` |
+| **T-DOC-RL-01** | Dev | **pass** | `06` §3 · ops `23` URL + 429/401 |
 
 ### I3 — QA
 

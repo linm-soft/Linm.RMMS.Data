@@ -103,7 +103,7 @@ Thiếu hồ sơ phân loại → **không** ghi “đạt cấp 1/2”. Cấp 1
 |-------|--------|-----|-------|---------|
 | Access Token | Auth Service (JWT) | 15 min | Full API access within RBAC | Memory only |
 | Refresh Token | Auth Service | 7 days | Obtain new access token | HttpOnly cookie |
-| API Key | **Auth Service** (`X-Api-Key` · hash at rest · introspect) | 365 days (rotatable) | Partner REST + **camera ingest** `camera:ingest` | Auth DB · **cấm** plaintext GET |
+| API Key | **Auth Service** (`X-Api-Key` · hash at rest · introspect · **secret = Name**) | 365 days · **enable/disable** (no rotate) | Partner REST + **camera ingest** `camera:ingest` | Auth DB · GET list = metadata only |
 | Embed Token | BFF Gateway | 15 min | iFrame dashboard embed | URL param only |
 | Device Token | IoT Ingestion | 30 days | Edge device authentication | Device secure storage |
 | Citizen Temp Token | Citizen Portal | 24 h | Anonymous incident tracking | LocalStorage |

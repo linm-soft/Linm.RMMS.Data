@@ -3,10 +3,14 @@
 > **Feature:** `camera-connect` · Model seed **iDS-TCM403-GIR**  
 > **Ngày:** 2026-08-09  
 > **Mục đích:** Hướng dẫn kỹ thuật ITS cấu hình camera để **đẩy event** (biển · tốc độ · loại xe) về máy chủ RMMS và **đếm số lượng** trên UI.  
-> **Liên quan:** `features/camera-connect.md` · `22-CAMERA-TCM403-SDK-RESEARCH.md` · Cam-HT `08-CAMERA-STANDARD-HIKVISION.md`  
+> **Liên quan:** `features/camera-connect.md` · `22-CAMERA-TCM403-SDK-RESEARCH.md` · [`31-CAMERA-TCM403-LAB-RADAR.md`](31-CAMERA-TCM403-LAB-RADAR.md) · Cam-HT `08-CAMERA-STANDARD-HIKVISION.md`  
 > **Endpoint nhận (SSOT):** `POST /api/v1/camera-events/ingest?host={IP_CAMERA}&apiKey={KEY}`  
 > Alias: `POST /api/v1/cameras/ingest/isapi` (cùng auth). **Không JWT**.  
-> **Next (task `camera-ingest-apikey`):** key do **Auth** cấp · header **`X-Api-Key`** · query `apiKey` = cùng secret (TCM403) · rate limit 120/min/key. Lab hiện tại vẫn env `Camera__Ingest__ApiKey`.
+> **Auth Admin:** `/admin/api-keys` — tạo / bật / tắt key. **Secret = Tên** (`apiKey={Tên}` trên camera). **Không xoay.** Lab seed `rmms-cam-ingest-lab` (SeedMode Full).  
+> Rate limit **120/min/key** · **60/min/IP** · 10× 401/min/IP · body **2 MB**. Lab fallback env `Camera__Ingest__ApiKey` **chỉ** Development/Docker khi Auth down. Production: Auth bắt buộc.  
+> **MFE (2026-09-09):** panel **III. Events** → nút **Info** → slide-out (config trên camera / config trên form). Ô Host notify URL trên form = **copy tay** vào firmware — RMMS **không** ghi ISAPI Listening khi Lưu.  
+> **Lab TCM403 radar (2026-09-10):** Vehicle List có km/h **không** đồng nghĩa XML ingest có `<speed>`. Menu Fused / Calibration: [`31-CAMERA-TCM403-LAB-RADAR.md`](31-CAMERA-TCM403-LAB-RADAR.md).  
+> **Dedup:** plan [`../plan/camera-connect/PLAN-event-dedup.md`](../plan/camera-connect/PLAN-event-dedup.md) · ops tắt **Enable Multi-Way Upload** nếu chỉ một ISAPI Listening.
 
 ---
 
@@ -49,7 +53,7 @@ http://camera-event-api-rmms.vn/api/v1/camera-events/ingest?host={IP_CAMERA}&api
 | Port | **80** (HTTP mặc định) · hoặc `:443` HTTPS · lab local `:5101` |
 | Path | `/api/v1/camera-events/ingest` |
 | Query `host` | IP tĩnh camera (VD `113.179.52.55`) |
-| Query `apiKey` | Secret `Camera__Ingest__ApiKey` — Hikvision không hỗ trợ JWT |
+| Query `apiKey` | Secret Auth (`rmms-cam-ingest-lab` lab) — Hikvision không hỗ trợ JWT · header SSOT `X-Api-Key` |
 | Auth trên form cam | **None** (key nằm URL) hoặc **Base64** với Password = apiKey |
 
 ### Ví dụ điền sẵn — cam lab
@@ -58,7 +62,7 @@ http://camera-event-api-rmms.vn/api/v1/camera-events/ingest?host={IP_CAMERA}&api
 |-------|--------|
 | Full URL | `http://camera-event-api-rmms.vn/api/v1/camera-events/ingest?host=113.179.52.55&apiKey=…` |
 | Method | **POST** |
-| Content-Type cam gửi | `application/json` hoặc `application/xml` (theo firmware) |
+| Content-Type cam gửi | TCM403 lab: **`multipart/form-data`** (XML `EventNotificationAlert` + JPEG). JSON/XML thuần cũng parse được. |
 | Form Auth | **None** |
 
 ### Lab local (dev)
@@ -108,7 +112,7 @@ Menu điển hình (tên lệch theo firmware TCM403):
 | 1 | Enable **ANPR / Vehicle Detection** |
 | 2 | Vẽ / chỉnh **lane** · vùng biển · hướng |
 | 3 | Bật nhận diện biển · loại xe · màu · hướng (theo gói ITS) |
-| 4 | TCM403: bật **radar / speed** nếu có |
+| 4 | TCM403-GIR: **không** có Trigger Mode “Video & Radar”. Radar tab **Lane + Coordinate Calibration** → Fused. Chi tiết [`31-CAMERA-TCM403-LAB-RADAR.md`](31-CAMERA-TCM403-LAB-RADAR.md) |
 
 ### 3.2 Vehicle counting (đếm trên cam — tùy menu)
 
@@ -144,10 +148,11 @@ Menu điển hình:
 | Digest admin/pass cam | **Không** — RMMS ingest không challenge Digest |
 | **API-key + IP camera** | **SSOT** |
 
-- Query `apiKey` (ghi trong Host URL) hoặc header `X-Camera-Api-Key` hoặc form **Base64** (Password = key).
+- Query `apiKey` (ghi trong Host URL) hoặc header **`X-Api-Key`** (alias `X-Camera-Api-Key`) hoặc form **Base64** (Password = key).
 - Query `host` = IP camera.
-- Prod: `RequireSourceIpMatch=true` — TCP source IP phải = `host` hoặc `Camera:Ingest:HostAliases`.
-- Lab: `RequireSourceIpMatch=false` (curl từ máy dev). Env `Camera__Ingest__ApiKey`.
+- Prod: Auth introspect bắt buộc · `RequireSourceIpMatch=true` — TCP source IP phải = `host` hoặc `Camera:Ingest:HostAliases` hoặc `AllowedIpAddresses`.
+- Lab: `RequireSourceIpMatch=false` (curl từ máy dev). Auth Full seed key `rmms-cam-ingest-lab` · fallback env `Camera__Ingest__ApiKey` khi Auth down.
+- HTTP **401** sai key · **403** IP/host lệch (JSON có `sourceIp` + `host`, **không** `allowedIps` — **không** lấy query `host` làm IP allowlist) · **400** thiếu `host` · **429** vượt 120/min/key hoặc 60/min/IP hoặc 10× 401/min/IP (`Retry-After: 60`).
 
 ### 4.1 Bảng điền (SSOT)
 
@@ -212,7 +217,7 @@ Nếu cam chỉ hỗ trợ IP:
 | | |
 |--|--|
 | Method | `POST` |
-| Body | JSON hoặc XML ANPR / Traffic (plate · speed · type · color · direction · ảnh) |
+| Body | TCM403 lab: multipart XML `EventNotificationAlert` (`ANPR` / `AID`) + JPEG. `vehicleInfo/speed` = tốc độ; `0` → RMMS null. Ảnh **chưa** persist. |
 | Query | `host` = IP camera · `apiKey` = ingest key |
 
 RMMS: `CameraConnectService.IngestIsapiAsync` → **EF** `rmms_camera_events` → MFE **Tải events**.
@@ -265,7 +270,10 @@ Mỗi POST thành công → **+1** event (đếm = `length` danh sách / HUD Eve
 | 403 | Source IP ≠ `host` (bật `RequireSourceIpMatch`) — thêm `HostAliases` LAN |
 | 404 | Path thiếu `/api/v1/camera-events/ingest` |
 | Timeout | Cam không ra Internet / NAT; dùng IP LAN Edge |
-| Có POST nhưng thiếu biển | Firmware format khác — xem raw body log API · mở rộng parser |
+| Có POST nhưng thiếu biển | `licensePlate=unknown` → null. AID / pedestrian không có biển. |
+| Tốc độ **—** / `speed=0` | Radar List có số nhưng XML chưa Fused — [`31-CAMERA-TCM403-LAB-RADAR.md`](31-CAMERA-TCM403-LAB-RADAR.md). **Không** hạ Speeding limit. |
+| 2 hàng cùng biển/giờ | Cam POST 2 lần (retry / Multi-Way / ANPR+AID). Tắt Multi-Way. Dedup UUID = plan. |
+| Log chứa `apiKey=` / XML | **Cấm** — rollback 2026-09-10 (`Program` · `CameraIngestAuthFilter` · `CameraConnectService`) |
 | Chỉ SDK 8100 | Host notify **không** chạy qua 8100 — cần HTTP outbound + cấu hình qua LAN |
 
 ---
@@ -304,8 +312,9 @@ Mỗi POST thành công → **+1** event (đếm = `length` danh sách / HUD Eve
 |----------|------|
 | Feature | `docs/context/features/camera-connect.md` |
 | SDK research | `docs/context/22-CAMERA-TCM403-SDK-RESEARCH.md` |
+| Lab radar / speed XML | `docs/context/31-CAMERA-TCM403-LAB-RADAR.md` |
 | Implement | `specs/camera-connect/implement/camera-connect.md` |
 | API code | `RMMS.Service.Api` · `POST api/v1/camera-events/ingest` · alias `POST api/v1/cameras/ingest/isapi` |
 | MFE | `Linm.Web.RMMS.Camera` · zone Events |
 
-Version meta: guide=`camera-host-notify-config` · exampleHost=`camera-event-api-rmms.vn` · date=`2026-08-09`
+Version meta: guide=`camera-host-notify-config` · exampleHost=`camera-event-api-rmms.vn` · date=`2026-09-10` · labRadar=`31-CAMERA-TCM403-LAB-RADAR.md`

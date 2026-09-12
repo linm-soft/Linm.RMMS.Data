@@ -1,8 +1,8 @@
 # 21 — Plan: Camera Live Gateway (RTSP → HLS / WebRTC)
 
-> **Status:** Context Plan · **NEXT** sau P1.5 (JPEG SDK đã live trên UI)  
+> **Status:** P2-G0/G1 **shipped** · **G2b** multi-viewer lease **shipped** (2026-09-09) · WebRTC WHEP **ẩn MFE** (cloud thiếu :8889)  
 > **Feature:** `camera-connect` · MFE `Linm.Web.RMMS.Camera` · Domain **Camera**  
-> **Ngày:** 2026-08-09 · **Update:** 2026-08-09 (P1.5 done → G0 pending confirm)  
+> **Update:** 2026-09-09 — HLS mặc định · N viewer / 1 cam · KPI Đang xem · Events Info slide-out · checklist [`30-CAMERA-LIVE-STREAM-CONFIG.md`](30-CAMERA-LIVE-STREAM-CONFIG.md) · lease [`../plan/camera-live/PLAN-lease-ttl.md`](../plan/camera-live/PLAN-lease-ttl.md)  
 > **Upstream (đã có):** SDK Login_V40 · CaptureJPEG poll · ISAPI Digest/ingest · MFE JPEG UI — `api/v1/cameras/*`  
 > **Nguồn:** `features/camera-connect.md` · `camera-model.md` · Cam-HT `08-CAMERA-STANDARD-HIKVISION.md` · seed **iDS-TCM403-GIR**  
 > **Mục tiêu plan:** Gateway để browser xem **live video** (FPS) — không chỉ snapshot JPEG.  
@@ -16,7 +16,7 @@
 |------------|--------|
 | Browser **không** play RTSP native | Cần chuyển mã / protocol sang HLS và/hoặc WebRTC |
 | Camera LAN thường **không** expose public | Gateway phải chạy cùng mạng với cam (Edge / site agent) hoặc VPN |
-| Lab `113.179.52.55` | SDK **8100** OK · HTTP/RTSP **554** probe closed từ ngoài → POC cần LAN/VPN |
+| Lab `113.179.52.55` / `14.239.20.231` | SDK **8100** OK · RTSP **không** mặc định 554 (TCM403 lab **6554**) · HTTP cam **8086** |
 | Credentials RTSP (user/pass) | **Cấm** nhúng vào URL frontend; chỉ gateway + vault/BE |
 | CORS / mixed content | FE chỉ gọi HTTPS BFF hoặc signed play URL |
 | P1.5 hiện tại | **JPEG poll CaptureJPEG** — đủ “thấy ảnh” · **không** đủ live FPS / TOC wall |
@@ -29,8 +29,9 @@
 |---|------|------|
 | 1 | AskQuestion §12 (engine · mode · deploy · EF) | **REQUIRED** trước code |
 | 2 | **P2-G0** Docker MediaMTX + 1 RTSP sub | cam LAN mở `:554` |
-| 3 | Browser HLS + WebRTC smoke | đo latency/CPU |
-| 4 | **P2-G1** API `live/start|stop` + MFE player · fallback JPEG | |
+| 3 | Browser HLS smoke (WebRTC **defer** — ẩn UI) | đo latency/CPU |
+| 4 | **P2-G1** API `live/start\|stop\|status` + MFE HLS · fallback JPEG | **shipped** |
+| 5 | **P2-G2b** N viewer / 1 path + sweeper TTL | **shipped** — [`PLAN-lease-ttl.md`](../plan/camera-live/PLAN-lease-ttl.md) |
 
 ---
 
@@ -39,8 +40,8 @@
 | # | Quyết định | Giá trị đề xuất | Lý do |
 |---|------------|-----------------|-------|
 | D1 | **Gateway process** | Process riêng `Rmms.Camera.Gateway` (Docker) — **không** nhét FFmpeg vào `RMMS.Service.Api` request thread | CPU/GPU encode · cấm block HTTP API |
-| D2 | **Primary play mode (ops UI)** | **WebRTC** (low latency) cho 1–4 cam đang focus | TOC / giám sát realtime |
-| D3 | **Secondary / fallback** | **HLS** (fMP4 hoặc MPEG-TS) cho wall nhiều cam / mạng kém / Safari đơn giản | Compatibility |
+| D2 | **Primary play mode (ops UI)** | **HLS** (fMP4) — **ops 2026-09-09** | Cloud Railway **một** public port **8888**; WHEP cần **8889** + ICE |
+| D3 | **Secondary / fallback** | JPEG poll (P1.5) khi RTSP không reach · WebRTC WHEP **ẩn form** | Compatibility · không ship UI cloud |
 | D4 | **Engine mặc định** | **[MediaMTX](https://github.com/bluenviron/mediamtx)** (ex rtsp-simple-server) ± FFmpeg path | RTSP in · HLS + WebRTC out · config YAML · mature |
 | D5 | **Alt engine** | WHEP/WHIP stack hoặc `go2rtc` nếu cần nhẹ hơn site | DEFER trừ POC site nhỏ |
 | D6 | **Stream map** | Sub stream `…/Streaming/Channels/102` = preview UI · Main `101` = LPR/AI worker (không gửi full main lên wall) | Bitrate / CPU |
@@ -56,12 +57,12 @@ Hikvision RTSP :554
  │ Rmms.Camera.Gateway  │  MediaMTX (+ optional FFmpeg)
  │  path: cam-{id}/sub  │
  └─────────┬────────────┘
-           │ WHEP / HLS
+           │ HLS (:8888) · WHEP (:8889 ẩn UI)
            ▼
-    BFF / signed URL
+    BFF / JWT live/start
            │
            ▼
-  MFE Camera · video.js / hls.js / WHEP client
+  MFE Camera · hls.js
 ```
 
 ---
@@ -74,34 +75,52 @@ Hikvision RTSP :554
 | Browser | Rất tốt (Safari native HLS) | Cần WHEP client / adapter |
 | Multi-viewer | Scale CDN dễ | SFU / fan-out phức hơn |
 | CPU gateway | Thấp–trung (copy/remux) | Cao hơn (nếu transcode) |
-| Use case RMMS | Wall 8–16 cam · lưu chứng từ clip | Focus 1 cam · xác minh lỗi ANPR |
-| **Khuyến nghị P2** | Fallback + wall | **Default Live button** |
+| Use case RMMS | **Default live** · wall · nhiều máy 1 cam | Defer — khi Hub/VPN publish :8889 |
+| **Khuyến nghị P2 (ship)** | **Default Live button** | Ẩn MFE đến khi ICE/host public MTX |
 
-**P2.1 (sau):** Adaptive — WebRTC khi ≤4 active; auto HLS khi wall / bandwidth thấp.
+**P2.1 (sau):** Bật lại WHEP khi MTX public **8889** + `webrtcAdditionalHosts` ≠ localhost. **Không** implement WebRTC wave này.
 
 ---
 
 ## 3. Luồng nghiệp vụ (sequence)
 
-### 3.1 Start live
+### 3.1 Start live (HLS mặc định)
 
 ```
-User [MFE /camera/:id] → POST BFF /cameras/{id}/live/start { profile: sub|main, mode: webrtc|hls }
-       → API CameraService: load CameraDevice (host, ports, user, passEnc)
-       → Issue playToken (TTL 60–300s) + register session
-       → Call Gateway Admin API: ensure path cam-{id} published from RTSP
-       ← { mode, playUrl, expiresAt }
-User plays:
-  · WebRTC: WHEP POST playUrl
-  · HLS: hls.js / native <video src=m3u8>
+User [MFE /camera/:id] → POST BFF /cameras/{id}/live/start { profile: sub|main, mode: hls }
+       → API CameraLiveService: load CameraDevice (host, rtspPort, user, passEnc)
+       → connectionId = hex Guid **mới** (cấm JWT Token làm lease id)
+       → CameraLiveLeaseStore: lease[connectionId] = now + TTL 45s
+       → viewer 1: MediaMTX Control add path cam_{guid:N} từ RTSP Sub 102
+       → viewer 2+: **reuse** cùng path (không add RTSP mới)
+       ← { mode:hls, hlsUrl, connectionId, viewerCount, heartbeatSeconds, expiresAt }
+User plays: hls.js · seek liveSyncPosition (live − 3×1s) — §3.3
+JPEG: chọn trên form hoặc fallback khi RTSP fail
+WebRTC: **không** gửi mode từ UI (option ẩn)
 ```
 
 ### 3.2 Stop / idle
 
-- User tắt Live · navigate away · TTL hết → Gateway `path remove` / publisher stop  
-- Hard limit: max N concurrent paths / tenant (config)
+**SSOT dọn lease chết:** job API (`CameraLiveLeaseSweeper`) + TTL — plan [`../plan/camera-live/PLAN-lease-ttl.md`](../plan/camera-live/PLAN-lease-ttl.md).
 
-### 3.3 Kết hợp ANPR (đã có)
+- User **Tắt live** (JWT `live/stop` + `connectionId`) → nhả ngay; 0 viewer → MTX `path remove`
+- Kill tab / mất mạng / unmount **không** dựa `pagehide` — hết heartbeat → TTL → sweeper `DeletePath` nếu last viewer
+- Hard limit max N concurrent paths / tenant = **G2** (chưa)
+
+### 3.3 Nhiều máy cùng một cam (G2b)
+
+Không nhầm **wall N cam** (GAP-CAM-WALL-02). Đây là **N browser / N thiết bị** / cùng `CameraDevice`.
+
+| | Chốt |
+|--|------|
+| Path | Một `cam_{id}` MTX · fan-out HLS |
+| Lease | Mỗi Bật live = `connectionId` mới · **cấm** `req.Token` (JWT) = lease key (2 máy / 1 user sẽ đè 1 viewer) |
+| Heartbeat | JWT `POST …/live/heartbeat` ~12s = `(TTL − sweep) / 3` |
+| KPI **Đang xem** | `live/status` poll **~3s** + ngay sau start/heartbeat · bar dưới cạnh Trạng thái · **không** HUD “N kết nối” |
+| Process | In-memory store · **rmms-api Replicas = 1** · Redis/EF lease = OUT |
+| Late join | hls.js `liveSyncPosition` · snap drift >1.25s / 4s · `maxLiveSyncPlaybackRate: 1` · RMMS↔RMMS ~1s · **không** khớp plugin Hikvision |
+
+### 3.4 Kết hợp ANPR (đã có)
 
 | Channel | Vai trò |
 |---------|---------|
@@ -118,22 +137,24 @@ Base: `api/v1/cameras` · BFF `web-bff/api/v1/cameras`
 
 | Method | Path | Mô tả |
 |--------|------|-------|
-| POST | `/{id}/live/start` | Body: `mode=webrtc\|hls`, `profile=sub\|main` → play URL + token |
-| POST | `/{id}/live/stop` | Hủy session |
-| GET | `/{id}/live/status` | publishing · viewers · bitrate · lastError |
-| GET | `/gateway/health` | Gateway reachability (ops) |
+| POST | `/{id}/live/start` | `mode=hls` (UI) · `profile=sub\|main` → `hlsUrl` · `connectionId` · `viewerCount` · `heartbeatSeconds` |
+| POST | `/{id}/live/stop` | Body `connectionId` — nhả 1 lease · 0 viewer → xóa path |
+| POST | `/{id}/live/heartbeat` | JWT gia hạn lease (G2b) |
+| GET | `/{id}/live/status` | publishing · viewers |
+| GET | `/gateway/health` | Gateway reachability (ops) · AllowAnonymous |
 
 ### Response skeleton `live/start`
 
 ```json
 {
   "cameraId": "…",
-  "mode": "webrtc",
+  "mode": "hls",
   "profile": "sub",
-  "playUrl": "https://gw.site.local/whep/cam-ql1-12/sub",
-  "hlsUrl": "https://gw.site.local/hls/cam-ql1-12/sub/index.m3u8",
-  "expiresAt": "2026-08-09T15:00:00Z",
-  "token": "…"
+  "hlsUrl": "https://gw.example/cam_{id}/index.m3u8",
+  "connectionId": "hex-guid",
+  "viewerCount": 2,
+  "heartbeatSeconds": 12,
+  "expiresAt": "2026-09-09T15:00:00Z"
 }
 ```
 
@@ -168,12 +189,12 @@ Secrets: inject từ API lúc `live/start` (dynamic path) — **ưu tiên** hơn
 
 | Component | Việc |
 |-----------|------|
-| Zone Z3 Live | Thay snapshot-only: player WebRTC (WHEP) + fallback HLS |
-| Mode toggle | `WebRTC (thấp trễ)` · `HLS (ổn định)` |
-| HUD | bitrate · latency badge · reconnect |
-| Error | Gateway unreachable → fallback snapshot poll (P1.5) |
+| Zone Z3 Live | Mặc định **HLS** (`hls.js`) · JPEG tùy chọn · **ẩn WebRTC** |
+| KPI | **Đang xem** = `viewerCount` (lease) cạnh Trạng thái |
+| Z4 Events | Nút **Info** → Slideout (config camera / config form) · Host notify URL **copy tay** lên firmware |
+| Error | Gateway / RTSP fail → fallback JPEG poll (P1.5) |
 
-**Libs gợi ý:** `hls.js` · WHEP client nhẹ (hoặc `@eyevinn/webrtc-player`) — chốt lúc Design Confirm.
+**Libs:** `hls.js` (ship). WHEP **không** load trên form cloud.
 
 ---
 
@@ -181,16 +202,16 @@ Secrets: inject từ API lúc `live/start` (dynamic path) — **ưu tiên** hơn
 
 ### P2-G0 — POC (1 cam lab)
 
-- [ ] Docker MediaMTX + 1 RTSP TCM403 (hoặc cam lab)
-- [ ] Browser play HLS **và** WebRTC
-- [ ] Đo latency / CPU
+- [x] Docker MediaMTX + 1 RTSP TCM403 (lab)
+- [x] Browser play **HLS** · WebRTC smoke = **OUT** cloud (ẩn UI)
+- [x] Đo latency HLS (RMMS↔RMMS ~1s OSD; không so plugin Hik)
 
 ### P2-G1 — Integrate RMMS
 
-- [ ] EF `CameraDevice` + encrypt password
-- [ ] `live/start` · `live/stop` · playToken
-- [ ] MFE Z3 wire player
-- [ ] Permission `camera.live.view`
+- [x] EF `CameraDevice` + encrypt password (S1)
+- [x] `live/start` · `live/stop` · `live/status` · `live/heartbeat` (G2b) · playToken HMAC = **G2 S5 chưa**
+- [x] MFE Z3 HLS + JPEG fallback · KPI Đang xem
+- [ ] Permission `camera.live.view` (nếu chưa gắn RBAC)
 
 ### P2-G2 — Ops harden
 
@@ -225,7 +246,7 @@ Secrets: inject từ API lúc `live/start` (dynamic path) — **ưu tiên** hơn
 | GAP-GW-01 | H.265 WebRTC browser kém | Remux/transcode H.264 sub trên gateway |
 | GAP-GW-02 | NAT / firewall giữa Hub API ↔ Site Gateway | Site agent reverse tunnel hoặc deploy API edge |
 | GAP-GW-03 | License / codec patent (nếu commercial encoder) | Ưu tiên remux không re-encode |
-| GAP-GW-04 | Nhiều viewer 1 path | MediaMTX fan-out; monitor |
+| GAP-GW-04 | Nhiều viewer 1 path | **G2b:** reuse path + lease `connectionId` · KPI Đang xem · Replicas=1 |
 | GAP-GW-05 | Token leak playUrl | Short TTL · one-time · HTTPS only |
 
 ---
@@ -262,11 +283,13 @@ Secrets: inject từ API lúc `live/start` (dynamic path) — **ưu tiên** hơn
 **LOCKED 2026-09-06** (`/hey-linm` AskQuestion):
 
 1. **Engine:** MediaMTX  
-2. **Default Live mode:** cả hai + toggle (WebRTC + HLS) · JPEG poll giữ fallback  
+2. **Default Live mode (lock 09-06):** cả hai + toggle (WebRTC + HLS) · JPEG poll giữ fallback  
 3. **Deploy:** Hub + VPN  
 4. **EF CameraDevice:** reuse S1 AEAD — không Schema mới  
 
-Implement SSOT: [`../plan/camera-live/PLAN.md`](../plan/camera-live/PLAN.md)
+**Ops override 2026-09-09:** form **HLS mặc định** · **ẩn WebRTC** (Railway 1 port 8888) · G2b multi-viewer + TTL 45s. Lock 09-06 **không** xóa — WHEP = P2.1 khi có :8889.
+
+Implement SSOT: [`../plan/camera-live/PLAN.md`](../plan/camera-live/PLAN.md) · lease [`../plan/camera-live/PLAN-lease-ttl.md`](../plan/camera-live/PLAN-lease-ttl.md)
 
 ---
 

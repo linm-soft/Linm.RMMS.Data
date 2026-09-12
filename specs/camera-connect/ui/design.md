@@ -76,7 +76,7 @@ Live MFE/BE sau `task_fc29c24c` **đã ship** GAP schema. Design **không** inve
 | Z1 Config | Model Dropdown · mã · tên · IP · HTTP · SDK · RTSP · User · Pass · tuyến · Km · protocolMode |
 | Z2 Protocols | Checkbox RTSP · ONVIF · ISAPI · HTTPS · Text Host notify URL |
 | Z3 Live | JPEG poll SDK CaptureJPEG · Test kết nối · **OUT** MediaMTX HLS/WebRTC |
-| Z4 Events | Feed plate · speed · type · color · direction · timestamp |
+| Z4 Events | Filter default **Hôm nay** · pager server-side · stats loại xe VN theo model · feed plate · speed · type · direction · timestamp |
 | Footer | Lưu · Huỷ · Test kết nối · Bật live (edit) · Sửa (view) · leave-confirm dirty |
 | View | `<dl>` Z1–Z2 · Z3/Z4 still live/events display |
 

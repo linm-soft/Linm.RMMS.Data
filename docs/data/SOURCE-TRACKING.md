@@ -2,7 +2,7 @@
 
 > **Đọc file này trước** mọi `@` / `Read` binary trong `Linm.RMMS.Data/docs`.  
 > Gốc không move. Extract = `analyzed/`. Pipeline feature = [`FEATURE-TRACKING.md`](../context/FEATURE-TRACKING.md).  
-> **Cập nhật:** 2026-08-29
+> **Cập nhật:** 2026-09-08
 
 ## Legend
 
@@ -29,6 +29,7 @@
 | SRC-HDSD | `docs/tai-lieu/Hướng dẫn sử dụng phần mềm.docx` (copy `mobile-legacy/` · `_extract/`) | customer | partial | hub 18 phân hệ · `15-SCREEN-AI-MAP` | [15-SCREEN-AI-MAP.md](../context/15-SCREEN-AI-MAP.md) · features/* |
 | SRC-GIAI-PHAP | `docs/tai-lieu/RMMS_Giaiphap_tinhnang.docx` | customer | partial | backlog 18 PH | [features/README.md](../context/features/README.md) |
 | SRC-TUAN-DC | `docs/tinh-nang/Dự thảo Đề cương Thiết kế Web-App Tuần Đường.pdf` | customer | analyzed | `patrol` · `road-route` | [24-TUAN-DUONG-DUONG-BO.md](../context/24-TUAN-DUONG-DUONG-BO.md) |
+| SRC-PMC-66 | `docs/gioi-thieu-ung-dung/tai-lieu-ky-thuat/5. Danh mục phong may chu_03092026 v2.doc` | customer | analyzed | infra on-prem | [29-ONPREM-SERVER-STT66.md](../context/29-ONPREM-SERVER-STT66.md) · **gửi khách** [danh-gia-phong-may-chu-rmms-gui-khach.md](../gioi-thieu-ung-dung/tai-lieu-ky-thuat/danh-gia-phong-may-chu-rmms-gui-khach.md) |
 | SRC-DEM-XE | `docs/tinh-nang/Đếm xe tự động.docx` | customer | pending | `rpt-dem-xe` · `its-anpr-overload` | — |
 | SRC-HS-01 | `docs/Hồ sơ…/1_Phiếu trình Lãnh đạo Cục xin ý kiến góp ý.docx` | customer | pending | `csdl-so-sach` | — |
 | SRC-HS-02 | `docs/Hồ sơ…/2_Cục. 4930- Xin ý kiến chuẩn hóa mẫu sổ sách.pdf` | customer | pending | `csdl-so-sach` | — |

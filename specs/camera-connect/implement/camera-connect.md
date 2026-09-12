@@ -1,3 +1,25 @@
+# Implement — camera-connect (Dev · Z4 events pagination 2026-09-10)
+
+| Field | Value |
+|-------|-------|
+| feature | `camera-connect` |
+| this role | `dev` · `/edit-web-feature` + `/agent-dev-camera-connect` |
+| status | `completed` |
+| changeScope | `edit_page` |
+| mode | `enhance` |
+| updatedAt | `2026-09-10T01:55:00.000+07:00` |
+
+## Notes — Z4 Events ISAPI
+
+| Layer | What |
+|-------|-------|
+| BE | `GET /cameras/events` + `/camera-events` paged: `page` · `pageSize` (20) · `fromDate`/`toDate` (default hôm nay UTC+7) · `vehicleType` · `modelCode` · `vehicleStats` |
+| Catalog | `CameraVehicleTypeCatalog` — ISAPI `twoWheelVehicle`→Xe máy · `SUVMPV`→SUV/MPV · `vehicle`→Xe con; DeepinView 2CD7A 4 nhóm |
+| MFE | `CameraEventsPanel` default **Hôm nay** · chip stats · pager 20/50/100 · **cấm** load-all + slice client |
+| Demo | `camera-connect-demo.html` parity filter/stats/pager |
+
+---
+
 # Implement — camera-connect (Dev · `task_ba4221ae`)
 
 | Field | Value |

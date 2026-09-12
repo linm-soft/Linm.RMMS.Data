@@ -5,7 +5,7 @@
 | feature | `camera-connect` |
 | phase | `qa` |
 | status | `await_confirm` |
-| securityWave | **S1 done** · ingest-apikey **task confirmed** `task/camera-ingest-apikey.md` `task_c8a1e4b2` |
+| securityWave | **S1 done** · ingest-apikey **I0–I2 done** `task_c8a1e4b2` |
 | changeScope | `edit_page` |
 | packKind | `list` |
 | gap | `camera_security` · `GAP-CAM-SEC-01…07` S1 closed · S2+ open |
@@ -86,10 +86,10 @@
 | T-BE-SEC-S4 | dashboard grant | dev | blocked | deps S2 |
 | T-UI-SEC-S4 | wall kiosk | dev | blocked | deps S2 |
 | T-BE-SEC-S5 | live token | dev | blocked | plan 21 confirm |
-| T-AUTH-KEY-01 | Auth ApiKey store | dev | pending | pack `camera-ingest-apikey` |
-| T-AUTH-INT-01 | Auth introspect | dev | pending | `POST /api/v1/apikeys/introspect` |
-| T-BE-INGEST-01 | RMMS ingest Auth | dev | pending | `X-Api-Key` · query `apiKey` |
-| T-BE-RL-01 | ingest rate limit | dev | pending | 120/min key · 60/min IP · 429 |
+| T-AUTH-KEY-01 | Auth ApiKey store | dev | **pass** | EF pair `20260909074428_Schema_ApiKeys` |
+| T-AUTH-INT-01 | Auth introspect | dev | **pass** | `POST /api/v1/apikeys/introspect` |
+| T-BE-INGEST-01 | RMMS ingest Auth | dev | **pass** | `X-Api-Key` · query `apiKey` · Auth introspect |
+| T-BE-RL-01 | ingest rate limit | dev | **pass** | 120/min key · 60/min IP · 429 |
 | T-QA-INGEST-01 | qa ingest auth | qa | pending | 401/403/429 |
 
 ## Blockers / open questions
@@ -102,7 +102,7 @@
 - **GAP-CAM-LIVE-POLL CLOSED** — chu kỳ snapshot + timeout · sequential JPEG · BFF 120s
 - P2 live gateway **OUT pack** · S5 blocked until `live_gateway_confirm`
 - **Security wave S1 QA FAILED** — Docker runtime plaintext password · e2e hung · `qa_fail_rollback` `task_f921abce`
-- **Ingest Auth+RL** — task `task/camera-ingest-apikey.md` `task_c8a1e4b2` · Auth **chưa** có inbound `X-Api-Key` · limiter ingest **chưa** có · Dev `/agent-dev-camera-connect`
+- **Ingest Auth+RL** — **I0–I2 implemented** `task_c8a1e4b2` · Auth `ApiKeys` + introspect · RMMS limiter 120/60/10 · QA T-QA-INGEST-* remaining
 - P2 live gateway **OUT pack** · S5 blocked until `live_gateway_confirm`
 - Review CRUD `task_de015f02` **approve** · pipeline CRUD **closed**
 - Source DTO has `PasswordSet` · **container image stale** (rebuild TLS fail)

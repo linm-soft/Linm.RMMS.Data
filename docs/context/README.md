@@ -55,15 +55,17 @@
 | [**18-ITS-ANPR-OVERLOAD-SPEC.md**](18-ITS-ANPR-OVERLOAD-SPEC.md) | **P2 Spec** — Camera ANPR+WIM → Cục Đăng kiểm → HITL xác nhận lỗi tốc độ/quá tải | Architect, BE, PM, BA |
 | [`features/ai-its/bb-ct.md`](features/ai-its/bb-ct.md) | Feature ITS — biển báo/cọc · **P2-A train** · cam IP · user/auto gim · sự cố mất (reconcile) · §8–§12 | PM, Dev, AI |
 | [`features/ai-its/toc-do-qt.md`](features/ai-its/toc-do-qt.md) | Feature context ANPR overload · demo `/demo/p/ai-its/toc-do-qt` | PM, Dev |
-| [`features/camera-connect.md`](features/camera-connect.md) | Kết nối camera ITS · model SDK-first TCM403 · `sdkPort`/`httpPort` · ISAPI · MFE `Linm.Web.RMMS.Camera` · **pilot wall+map** | PM, Dev, ITS |
+| [`features/camera-connect.md`](features/camera-connect.md) | Kết nối camera ITS · TCM403 · **P2 HLS multi-viewer G2b** · Events Info slide-out · WebRTC ẩn · **pilot wall+map** | PM, Dev, ITS |
 | [**camera-ops-dashboard-demo.html**](../Linm.RMMS.Demo/src/demo/features/camera-ops-dashboard-demo.html) | **Pilot** wall kéo-thả nhiều cam + GIS 1-click đếm xe/event + slideout live | Stakeholder, Camera, GIS |
-| [**21-CAMERA-HLS-WEBRTC-GATEWAY.md**](21-CAMERA-HLS-WEBRTC-GATEWAY.md) | **Plan P2** — RTSP → HLS/WebRTC gateway (MediaMTX · live session · MFE player) | Architect, BE, FE, Infra |
+| [**30-CAMERA-LIVE-STREAM-CONFIG.md**](30-CAMERA-LIVE-STREAM-CONFIG.md) | **Checklist HLS** — JPEG ≠ RTSP · N viewer / 1 cam · KPI Đang xem · Replicas=1 · Sub H.264 · NAT | ITS ops, Dev, FE |
 | [**22-CAMERA-TCM403-SDK-RESEARCH.md**](22-CAMERA-TCM403-SDK-RESEARCH.md) | SDK vs ISAPI · port 8000/8100 · **P1.5 BE** `CameraModelCatalog` + `HikvisionSdkClient` | Architect, BE |
-| [**23-CAMERA-HOST-NOTIFY-CONFIG.md**](23-CAMERA-HOST-NOTIFY-CONFIG.md) | **Cấu hình cam → Host nhận event** · ví dụ `camera-event-api-rmms.vn` · đếm Events · skill `/agent-dev-camera-connect` | ITS ops, BE, Dev |
+| [**23-CAMERA-HOST-NOTIFY-CONFIG.md**](23-CAMERA-HOST-NOTIFY-CONFIG.md) | **Cam → Host notify** · `apiKey={Tên}` · Admin `/admin/api-keys` bật/tắt **không xoay** · copy URL lên firmware | ITS ops, BE, Dev |
+| [**31-CAMERA-TCM403-LAB-RADAR.md**](31-CAMERA-TCM403-LAB-RADAR.md) | Lab TCM403 **V5.4.0** — radar Vehicle List ≠ XML `<speed>` · Fused · Application Mode · Calibration · Multi-Way duplicate | ITS ops, Architect, Dev |
 | [**camera-model.md**](camera-model.md) | Catalog model Hikvision (TCM403-GIR + DeepinView…) | Architect, Dev |
 | [**27-CAMERA-SITE-INSTALL-BRIEF.md**](27-CAMERA-SITE-INSTALL-BRIEF.md) | **Gửi khách** — expect **xem live tại TTĐH** · tủ điện · quang/VPN · IP tĩnh + RTSP · gateway + tường hình | Khách, PM, ITS |
 | [**28-CAMERA-SECURITY.md**](28-CAMERA-SECURITY.md) | **Camera security** — AEAD 2 chiều · tách `Linm.RMMS.Camera` · resign URL exp / grant dashboard unlimit | Architect, BE, Security |
-| [**plan/camera-live/PLAN.md**](../plan/camera-live/PLAN.md) | **P2-G0/G1 live** — MediaMTX Hub+VPN · live/start · MFE HLS/WebRTC · fallback JPEG | Architect, Dev, ITS |
+| [**29-ONPREM-SERVER-STT66.md**](29-ONPREM-SERVER-STT66.md) | **On-prem STT 66** — API + PG + MQTT/SignalR · Linux OSS · dài hạn · BOM 28/08/2026 · **bản gửi khách** [`danh-gia-phong-may-chu-rmms-gui-khach.md`](../gioi-thieu-ung-dung/tai-lieu-ky-thuat/danh-gia-phong-may-chu-rmms-gui-khach.md) | Infra, PM, Architect, **khách** |
+| [**plan/camera-live/PLAN.md**](../plan/camera-live/PLAN.md) | **P2-G0/G1/G2b live** — MediaMTX HLS · lease TTL · WebRTC ẩn · fallback JPEG | Architect, Dev, ITS |
 | [**19-IP-REGISTRATION-MATRIX.md**](19-IP-REGISTRATION-MATRIX.md) | **Ma trận SHTT VN** — thành phần có thể đăng ký (QTG · NH · GPHI · BMKD) · gói G0–G6 | PM, legal, C-level |
 
 ## Demo standalone (std mode)

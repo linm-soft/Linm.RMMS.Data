@@ -223,7 +223,7 @@ Webhook Host notify → persist `CameraEvent`. **Keep** · not list CRUD.
 
 ### API-11: GET `/api/v1/cameras/events`
 
-Event feed (`?host=` optional). Kind C Z4.
+Paged event feed. Query: `page` · `pageSize` (default 20, max 100) · `host` · `fromDate`/`toDate` (`yyyy-MM-dd`, default hôm nay Asia/Ho_Chi_Minh) · `vehicleType` (canonical key) · `modelCode`. Response: `items` · `totalCount` · `vehicleStats` · `latest`. Kind C Z4. Alias `GET /api/v1/camera-events`.
 
 ### API-12: GET `/api/v1/integration/catalogs/camera-devices/ui-schema`
 

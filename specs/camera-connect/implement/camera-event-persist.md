@@ -20,7 +20,7 @@
 | Migration | `20260812160439_Schema_RmmsCameraEvents` **+.Designer.cs** (CLI) |
 | Service | `IngestIsapiAsync` → `SaveChanges` · resolve `CameraDeviceId` by Host · `ListEventsAsync` from DB |
 | Lifetime | `ICameraConnectService` **Scoped** (was Singleton in-memory) |
-| API | `POST …/ingest/isapi` · `GET …/events?limit=&host=` |
+| API | `POST …/ingest/isapi` · `GET …/events?page=&pageSize=&host=&fromDate=&toDate=` |
 | DTO | `CameraEventDto.CameraDeviceId` optional |
 
 ## Build
