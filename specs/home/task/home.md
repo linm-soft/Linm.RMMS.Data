@@ -10,7 +10,7 @@
 | packKind | **`hub`** (PO + Design + SA confirm) |
 | stack | `native_dual` |
 | Feature Kind | **hub** tab Trang Chủ `#sc-home` · **cấm** Kind A–G web / Lin* list / web `dashboard` |
-| route_confirm | **route_a** — Tab 5 `#sc-home` **không required login** · guest FAQ `#sc-faq` + privacy `#sc-privacy` · `btn-home-login` overlay slug `login` · guest tile/tab → toast needLogin · staff Hồ sơ → tab Tôi · **cấm** `mfeStdUrl` · **cấm** invent FAQ API |
+| route_confirm | **route_a** — `#sc-home` **không required login** · guest **ẩn** `LinmTabBar` · FAQ mid · dock đáy `btn-home-login` + `btn-home-privacy` · overlay slug `login` · staff hiện tab 5 · Hồ sơ guest → login · staff → tab Tôi · **cấm** `mfeStdUrl` · **cấm** invent FAQ API |
 | autoApprove | **ON** |
 | e2eQa | ON khi QA · `yarn e2e-qa-mobile` · sim 6.9" + emulator + Maestro · PNG `qa/screens` + `qa/store/home` · **cấm** `yarn start:std` / `mfeStdUrl` |
 | prior · data_analy | **confirmed** · `_data-analy/home-control-hint.md` · `home-bff-endpoints.md` · `home-action-tree.md` · contentHash `sha256:9f38399aa040cb3e106e719f47c76f67dd252503ca69eaed1d806bad164012ed` · bffContentHash `sha256:ca96af7dda63e5e34998ce57d51d7e76fd2391c0ffbdb39d7fca7abbf39ca581` |
@@ -43,7 +43,7 @@
 
 | Option | Decision |
 |--------|----------|
-| **route_a** (chọn) | Có phiên → Tab 5 · tab **Trang Chủ** = hub `#sc-home` / `DES-MOB-HOME`. Tap **Hồ sơ** → chọn tab **Tôi** `#sc-me` (`reuse=me` đã ship). Sibling chưa ship → `LinmToast` **đúng nhãn control** · **không** mở màn sibling. Tap tín hiệu → toast **Đã làm mới** + refresh profile. |
+| **route_a** (chọn) | Guest → `#sc-home` **không** tab · dock đáy Đăng nhập + privacy. Có phiên → Tab 5 · tab **Trang Chủ** = hub `#sc-home` / `DES-MOB-HOME`. Tap **Hồ sơ** staff → chọn tab **Tôi** `#sc-me` (`reuse=me` đã ship). Sibling chưa ship → `LinmToast` **đúng nhãn control** · **không** mở màn sibling. Tap tín hiệu → toast **Đã làm mới** + refresh profile. |
 | route_b | — không dùng (không deep-link web) |
 | route_c | — không dùng |
 
@@ -61,7 +61,7 @@ IA lock (design §2): `(auth) Login (ngoài tab) → Tab 5 · Trang Chủ = this
 | `GET auth/profile` | Auth BFF 1.26.0 live | app path `auth/profile` only |
 | Role «Khu QLĐB IV» | **không** org field trên profile | **ẩn live** (`GAP-F-HOME-01`) |
 | Wallet | **không** home/wallet API | **static demo** 3 dòng |
-| Notify badge / inbox | proxy live `ops` | **không gọi** trên `home` · `notifyCount=0` ẩn (`GAP-F-HOME-02`) |
+| Notify badge / inbox | proxy live `ops` | Home + Me **cùng** `#sc-ops` · GET overview/inbox guest **AllowAnonymous** (`GAP-MOB-EDIT-GUEST-OPS`) |
 | Tab 5 / `LinmTabBar` | shell shipped · `tabLabel` **13** · `LinmMapPinGlyph` | **giữ** · **cấm** revert 10 / fill Place |
 | `#sc-me` | shipped | tap Hồ sơ → tab Tôi · **cấm** reimplement |
 | New BE endpoint / Schema_* | **không** | **T-BE-API** / **T-BE-MIG** = **n/a** |
@@ -98,7 +98,8 @@ IA lock (design §2): `(auth) Login (ngoài tab) → Tab 5 · Trang Chủ = this
 | Field | Kit | Notes |
 |-------|-----|-------|
 | profileBtn | `LinmProfileButton` trong `LinmHeroTools` | tap → tab **Tôi** · e2e id theo ux-analy |
-| notifyBtn | `LinmNotifyButton` · `LinmNotifyCountBadge` | toast **Thông báo** + `includeNotification` trên `#sc-home` · tap banner iOS → tab Trang Chủ · badge **0 ẩn** · **cấm** GET inbox · **cấm** hardcode `3` · **cấm** push `#sc-ops` |
+| notifyBtn | `LinmNotifyButton` · `LinmNotifyCountBadge` | tap → `#sc-ops` · GET overview guest+staff · badge 0 ẩn · **cấm** hardcode `3` |
+| brandLogo | `AppLogo` | giữa hero `home-brand` · 36 |
 | roleLine | `LinmStatusCapsule` `area` | **ẩn live** (`GAP-F-HOME-01`) |
 | signal | `LinmStatusCapsule` / `LinmNetSignalMark` | OS `NWPathMonitor` · Tốt/TB/Yếu · tap toast **Đã làm mới** + refresh · **cấm** cycle · **cấm** «Có mạng» |
 | who | typography hero | `fullName` trim từ profile · fail → `lastUserName` · **cấm** hardcode production |
@@ -113,7 +114,9 @@ IA lock (design §2): `(auth) Login (ngoài tab) → Tab 5 · Trang Chủ = this
 | tileOffline | `LinmHomeTile` bg `#086A9A` | **Lưu trữ** · `#i-sync` · toast |
 | wallet | `LinmWalletCard` | eyebrow **HỒ SƠ TÀI SẢN** · title **QL.1 · Khu IV** · subtitle **32 loại KCHT · thông số + checklist sự cố** · tap toast **Tài sản** |
 | foot | — | **cấm ship** (`GAP-F-HOME-03`) |
-| tabHome | `LinmTabBar` | selected **Trang Chủ** · label **13** · tabField `LinmMapPinGlyph` |
+| tabHome | `LinmTabBar` | **staff only** · **ẩn guest** (`GAP-MOB-EDIT-GUEST-TAB`) · label **13** · tabField `LinmMapPinGlyph` |
+| loginBtn | Button card | **pin đáy** guest dock · không hero · e2e `btn-home-login` |
+| guestPrivacy | underline | pin đáy dưới login · e2e `btn-home-privacy` |
 | toast | `LinmToast` | sibling nhãn · signal · offline |
 
 **Cấm** `LinmKitGallery` trên tab Trang Chủ production · **cấm** `btn-logout` trên `#sc-home` (Đăng xuất = `#sc-me`).
@@ -130,7 +133,11 @@ IA lock (design §2): `(auth) Login (ngoài tab) → Tab 5 · Trang Chủ = this
 
 ### Router / shell
 
-`AppRouter` / tab Home: thay `PlaceholderHomeView` → `HomeView` (Features/Home). DI `AppContainer` wire `HomeViewModel` + reuse `fetchProfileUseCase`. Tap Hồ sơ → chọn tab Me. **Cấm** WebView HTML.
+`AppRouter` / tab Home: thay `PlaceholderHomeView` → `HomeView` (Features/Home). DI `AppContainer` wire `HomeViewModel` + reuse `fetchProfileUseCase`. Guest **ẩn** `LinmTabBar`. Tap Hồ sơ staff → chọn tab Me. **Cấm** WebView HTML.
+
+**UI notes T-IOS (2026-09-12):** Guest **ẩn** footer tab · pin `btn-home-login` + `btn-home-privacy` đáy · **cấm** revert (`GAP-MOB-EDIT-GUEST-TAB`).
+
+**UI notes T-IOS (2026-09-12):** RMMS logo giữa hero · chuông → `#sc-ops` · GET inbox/overview **không JWT** (`GAP-MOB-EDIT-GUEST-OPS`).
 
 ### Build DoD
 
@@ -155,6 +162,10 @@ Fail → `build_fail_confirm` · **cấm** mark Dev done.
 
 Cùng bảng field + API như T-IOS. Kit dual Compose. Signal bind Connectivity / `NetworkCapabilities` · hạng Tốt/TB/Yếu · **cấm** cycle.  
 `MainTabScreen` Home tab: thay `PlaceholderHomeScreen` → `HomeScreen`. Hilt `HomeViewModel` + reuse `FetchProfileUseCase`. Tap Hồ sơ → tab Me. Offline: fallback `lastUserName` · toast không block.
+
+**UI notes T-AND (2026-09-12):** Guest **ẩn** `LinmTabBar` · pin `btn-home-login` + `btn-home-privacy` đáy · staff hiện tab · dual iOS (`GAP-MOB-EDIT-GUEST-TAB`).
+
+**UI notes T-AND (2026-09-12):** RMMS `app_logo` giữa hero · chuông → `OpsScreen` · guest GET overview/inbox (`GAP-MOB-EDIT-GUEST-OPS`).
 
 ### Build DoD
 

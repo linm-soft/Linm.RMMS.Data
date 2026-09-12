@@ -6,13 +6,12 @@
 ## 1. IA
 
 ```
-Cold start → Tab 5 #sc-home guest
-- .who = Khách · btn-home-login (Đăng nhập / Dành cho cán bộ)
-- Guest: Hỗ trợ người dân · FAQ + privacy (ref layout FAQ pills/search + footer)
+Cold start → #sc-home guest · **ẩn tab 5**
+- .who = Khách · FAQ mid · dock bottom: btn-home-login + btn-home-privacy
 - Overlay #sc-faq / #sc-privacy · **Về Trang Chủ** dismiss về guest Home
 - Overlay login · back về guest Home
-- Staff: .who live · ẩn login/FAQ/privacy · hiện quick + grid + wallet
-- Tile / tab staff khi guest → toast needLogin + overlay
+- Staff: .who live · ẩn login/FAQ/privacy · hiện LinmTabBar + quick + grid + wallet
+- Tile staff khi guest → toast needLogin + overlay
 - Hồ sơ guest → overlay login · staff → tab Tôi
 - Thông báo / tín hiệu = toast (signal guest không GET profile)
 ```
@@ -23,7 +22,7 @@ Cold start → Tab 5 #sc-home guest
 
 | DES / sc-* | Tên VN | iOS chrome | Android chrome | CTA |
 |------------|--------|------------|----------------|-----|
-| DES-MOB-HOME `#sc-home` | Trang Chủ | Hero flush · tab Trang Chủ | Hero flush · tab Trang Chủ | quick + grid + wallet |
+| DES-MOB-HOME `#sc-home` | Trang Chủ | Hero flush · **guest ẩn tab** · staff tab Trang Chủ | Hero flush · **guest ẩn tab** · staff tab Trang Chủ | quick + grid + wallet |
 | DES-MOB-HOME-HELLO | Hero | tools 44 · capsule · who | same | |
 | DES-MOB-HOME-QUICK | Quick 2 | 2 ô title+phụ | same | toast sibling |
 | DES-MOB-HOME-GRID | Grid 3×2 | 6 tile icon+nhãn | same | toast sibling |
@@ -36,22 +35,24 @@ Cold start → Tab 5 #sc-home guest
 
 | Zone | Demo (user thấy) | Map row (`docs/html-to-native-map.md`) | SwiftUI | Compose |
 |------|------------------|----------------------------------------|---------|---------|
-| Hero tools | Hồ sơ · Thông báo (badge 0 ẩn) | A `.vn-hero-tools` · `.hero-ico` | `LinmHeroTools` + `LinmProfileButton` + `LinmNotifyButton` | same |
+| Hero tools | Hồ sơ · logo RMMS giữa · chuông → `#sc-ops` | A `.vn-hero-tools` · `#home-brand` · `.hero-ico` | `LinmHeroTools` + `AppLogo` · `LinmNotifyButton` | same |
 | Status | Role demo + cột sóng + hạng | A `.role` + `data-net-signal` | `LinmStatusCapsule` · area **ẩn live** | same |
 | Who | Tên phiên | A `.who` | Text / title style hero | same |
+| Guest FAQ | Hỗ trợ người dân + FAQ row | A `#section-guest` · `#btn-home-faq` | FAQ card mid | same |
+| Guest dock | Đăng nhập + privacy pin đáy | A `.guest-dock` · `#btn-home-login` · `#btn-home-privacy` | VStack bottom | Column + Spacer |
 | Quick | Điểm tuần · Ghi sự cố + phụ | A `.vn-quick` | `LinmQuickActions` · `LinmQuickItem` | same |
 | Section | Nghiệp vụ thường dùng | A `.section-label` | `LinmSectionLabel` | same |
 | Grid | 6 ô màu + pict | A `.home-grid` / `.home-tile` | `LinmHomeGrid` · `LinmHomeTile` | same |
 | Wallet | HỒ SƠ TÀI SẢN · QL.1 · Khu IV · 32 loại… | A `.wallet-card` | `LinmWalletCard` | same |
 | Foot | Phiên bản Gói… | — | **skip** · **cấm** Text | **skip** |
-| Tab | 5 tab · label **13** · Tuần đường `#i-mappin` | A `.tabbar` | `LinmTabBar` `LinmMapPinGlyph` | same |
+| Tab | 5 tab **staff only** · label **13** · Tuần đường `#i-mappin` | A `.tabbar` | `LinmTabBar` `LinmMapPinGlyph` · **ẩn guest** | same |
 | Feedback | toast nhãn | toast | `LinmToast` | `LinmToast` |
 
 **States:**
 
 | State | Hành vi |
 |-------|---------|
-| default | GET profile · `.who` = `fullName` trim · badge ẩn · wallet static |
+| default | GET profile (staff) · GET `notification/overview` guest+staff · `.who` · badge live 0 ẩn |
 | empty name | fallback login `user.fullName` / JWT `full_name` / `lastUserName` / «Tài khoản» · hub vẫn mở |
 | loading | refresh profile nhẹ · **cấm** full-screen block hub |
 | error / offline | toast in-app · `.who` = `lastUserName` · **cấm** block tab |
@@ -102,14 +103,16 @@ Không `/wf-anim` trên hub `home`.
 | ID | Demo vs native | Quyết định |
 |----|----------------|------------|
 | GAP-F-HOME-01 | Role + wallet không API | Role **ẩn live** · wallet **static demo** 3 dòng · **cấm** invent |
-| GAP-F-HOME-02 | Badge `3` trên mobile-p1 | Hub `notifyCount=0` **ẩn** · **cấm** GET inbox · owner `ops` |
-| GAP-MOB-EDIT-NOTIFY | iOS notify push Ops · không lưu banner | **PASS** toast + `includeNotification` trên `#sc-home` · tap UN → tab Trang Chủ + replay · **cấm** push inbox |
+| GAP-F-HOME-02 | Badge `3` trên mobile-p1 | **supersede** `GAP-MOB-EDIT-GUEST-OPS` · live overview · **cấm** hardcode `3` |
+| GAP-MOB-EDIT-NOTIFY | iOS notify push Ops · không lưu banner | **PASS** Home bell → `#sc-ops` cùng Tôi · guest GET inbox/overview **AllowAnonymous** · mark-read **staff only** |
 | GAP-F-HOME-03 | `.home-foot` Gói | **Cấm** ship · skip zone |
 | GAP-MOB-SIGNAL-01/02 | Proto tap-cycle | OS path + toast **Đã làm mới** · **cấm** cycle |
 | GAP-MOB-ACT-05 | Kit home đã map | reuse · **cấm** raw grid / TabView |
 | GAP-MOB-ALIGN-01 | Dual chrome | Cùng copy + 6 tile + 2 quick + wallet · `LinmTabBar` dual |
 | GAP-MOB-ALIGN-01d | Tab chữ + icon Tuần đường | `tabLabel` **13** · `LinmMapPinGlyph` `#i-mappin` · **cấm** fill |
 | GAP-MOB-UX-07 | design ↔ HTML | Pack proto **không** foot · **không** badge 3 · khớp design.md |
+| GAP-MOB-EDIT-GUEST-TAB | Guest hiện tab 5 + login trong hero | **PASS** ẩn `LinmTabBar` guest · pin `btn-home-login` + `btn-home-privacy` đáy · staff hiện tab · **cấm** revert |
+| GAP-MOB-EDIT-GUEST-OPS | Chuông Home toast-only · cấm inbox guest | **PASS** `#sc-ops` reuse · GET inbox/overview **không JWT** · logo RMMS giữa hero · **cấm** revert |
 | Placeholder gallery | iOS/Android hiện gallery | Dev **thay** bằng hub · **cấm** `btn-logout` trên home |
 
 ## Version meta (REQUIRED)

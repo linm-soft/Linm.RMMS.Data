@@ -1,7 +1,7 @@
 appId: org.linmsoft.rmms
 ---
 # patrol-offline · guest home → login → tab Tôi → #row-offline → #sc-patrol-offline (Pixel 1080×1920)
-# live-only · EmptyChrome (cleanup_mock · cấm demo card assert)
+# Login: Back+scroll btn-login (cấm Enter) · live-only EmptyChrome · cấm demo card assert
 - launchApp:
     clearState: true
     clearKeychain: true
@@ -15,23 +15,24 @@ appId: org.linmsoft.rmms
     visible:
       id: "f-user"
     timeout: 15000
+# Login: Back dismiss IME + scroll btn-login · cấm title-tap/Enter (GAP-QA-STORE-03)
 - tapOn:
     id: "f-user"
 - eraseText
 - inputText: "linm-soft"
+- pressKey: Back
 - tapOn:
     id: "f-pass"
 - eraseText
 - inputText: "Linm@2026"
-- pressKey: Enter
-- waitForAnimationToEnd:
-    timeout: 4000
+- pressKey: Back
+- scrollUntilVisible:
+    element:
+      id: "btn-login"
+    direction: DOWN
+    timeout: 10000
 - tapOn:
     id: "btn-login"
-    optional: true
-- tapOn:
-    text: "Đăng nhập"
-    optional: true
 - extendedWaitUntil:
     visible: "Trang Chủ"
     timeout: 45000

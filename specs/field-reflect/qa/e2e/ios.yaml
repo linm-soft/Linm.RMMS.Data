@@ -121,6 +121,9 @@ appId: org.linmsoft.rmms
     id: "photo-row"
     optional: true
 - assertVisible:
+    text: "Vị trí đã chốt"
+    optional: true
+- assertVisible:
     id: "btn-create"
     optional: true
 - takeScreenshot: A3-CORE

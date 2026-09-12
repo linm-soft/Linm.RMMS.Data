@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nguồn lớp nền — iOS</title>
+  <style>
+    :root { --p:#0C84C0; --bg:#F2F2F7; --card:#fff; --t:#1C1C1E; --muted:#8E8E93; --ok:#34C759; --warn:#FF9500; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif; background:#111; color:var(--t); }
+    .phone { width:390px; height:844px; margin:16px auto; background:var(--bg); border-radius:28px; overflow:hidden; display:flex; flex-direction:column; }
+    .status { height:44px; padding:14px 20px 0; font-size:13px; font-weight:600; display:flex; justify-content:space-between; }
+    .nav { height:44px; display:flex; align-items:center; justify-content:center; background:rgba(242,242,247,.92); border-bottom:1px solid #E5E5EA; font-size:17px; font-weight:600; }
+    .body { flex:1; padding:16px; overflow:auto; }
+    .group { background:var(--card); border-radius:12px; margin-bottom:16px; overflow:hidden; }
+    .row { padding:12px 16px; border-bottom:1px solid #E5E5EA; }
+    .row:last-child { border-bottom:0; }
+    .label { font-size:13px; color:var(--muted); margin-bottom:4px; }
+    .value { font-size:16px; line-height:1.35; word-break:break-all; }
+    .mono { font-family:ui-monospace,Menlo,monospace; font-size:12px; color:#3A3A3C; }
+    .chip { display:inline-block; font-size:13px; padding:4px 10px; border-radius:8px; background:#E5F4FB; color:var(--p); margin-right:6px; }
+    .chip.ok { background:#E8F8ED; color:#1B7A32; }
+    .chip.warn { background:#FFF4E5; color:#A65A00; }
+    .hint { font-size:13px; color:var(--muted); padding:0 4px 8px; }
+    .peer { font-size:16px; padding:12px 16px; }
+    .peer strong { font-weight:600; }
+  </style>
+</head>
+<body>
+  <div class="phone" id="zone-tileurl-note" data-platform="ios">
+    <div class="status" aria-hidden="true"><span>9:41</span><span>●●●</span></div>
+    <div class="nav note-title">Nguồn lớp nền</div>
+    <div class="body">
+      <p class="hint">Cấu hình lớp nền qua Mobile.Bff — không màn bản đồ mới.</p>
+      <div class="group" id="zone-tile-url">
+        <div class="row">
+          <div class="label">Đường dẫn lớp nền</div>
+          <div class="value mono">{Bff}/mobile-bff/api/v1/gis/tiles/{layer}/{z}/{x}/{y}.pbf</div>
+        </div>
+      </div>
+      <div class="group">
+        <div class="row" id="zone-tile-basemap">
+          <div class="label">Lớp nền clip</div>
+          <div class="value"><span class="chip ok">Khách</span> Tải khi không cần đăng nhập</div>
+        </div>
+        <div class="row" id="zone-tile-overlay">
+          <div class="label">Lớp overlay</div>
+          <div class="value"><span class="chip warn">Cần đăng nhập</span> Trống nếu thiếu phiên</div>
+        </div>
+      </div>
+      <p class="hint">Màn dùng lại (không đổi bố cục)</p>
+      <div class="group" id="zone-peer-cite">
+        <div class="peer"><strong>Bản đồ tài sản</strong></div>
+        <div class="peer"><strong>Bản đồ ca</strong></div>
+      </div>
+      <p class="hint">Không dùng CDN bên ngoài. MapKit + MVT từ BFF.</p>
+    </div>
+  </div>
+</body>
+</html>

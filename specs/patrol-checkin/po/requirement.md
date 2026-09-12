@@ -5,236 +5,214 @@
 | feature | `patrol-checkin` |
 | title | [Mobile] [Tuần đường] -> Ghi điểm tuần |
 | this role | `po` · `/agent-po-mobile` |
-| changeScope | `new_page` |
-| packKind | **`sheet`** (PO confirm · data-analy đề xuất) |
+| changeScope | `edit_page` |
+| packKind | **`sheet`** (confirmed · giữ) |
 | stack | `native_dual` |
 | thisAction | **Ghi điểm tuần** `DES-MOB-PAT-CHECKIN-SHEET` only · **không** gộp pin CTA / map |
 | status | `confirmed` (autoApprove=ON) |
-| requestSource | run packet `task_10f5eb97` · `/agent-qldb-workflow-mobile` · roleOnly=`po` · `/agent-po-mobile` |
+| requestSource | run packet `task_07ab9a33` · `/agent-qldb-workflow-mobile` · roleOnly=`po` · `/agent-po-mobile` |
 | autoApprove | **ON** — Design/SA tự confirm **khi tới lượt** · turn này **không** chain |
 | e2eQa | ON khi QA · `yarn e2e-qa-mobile` · sim 6.9" + emulator + Maestro · PNG `qa/screens` + `qa/store/patrol-checkin` · **cấm** `yarn e2e-qa` / `yarn start:std` / `mfeStdUrl` / test thủ công thay runtime |
-| prior | data-analy **confirmed** · `specs/_data-analy/patrol-checkin-control-hint.md` · `patrol-checkin-bff-endpoints.md` · `patrol-checkin-action-tree.md` · `patrol-checkin-real-data.md` · contentHash `sha256:patrol-checkin-control-hint-20260828` · bffContentHash `sha256:patrol-checkin-mobile-bff-20260828` · **no Excel** · **hash skip — cấm re-scan demo** |
+| prior | data-analy **confirmed** `task_7e0ff15b` · `_data-analy/patrol-checkin-{control-hint,bff-endpoints,real-data,action-tree}.md` · contentHash `sha256:patrol-checkin-control-hint-20260912-edit` · compact `handoff/data_analy-compact.md` · **hash skip — cấm re-scan demo** |
+| keep | UI zones / kit / leave / detail · dual prototype · Screens table (không redesign) |
 | `devSlash` | `/agent-dev-ios` + `/agent-dev-android` |
-| updatedAt | `2026-08-28T19:55:30.000Z` |
-| taskId | `task_10f5eb97` |
+| updatedAt | `2026-09-12T12:50:00.000Z` |
+| taskId | `task_07ab9a33` |
 
-**Cấm:** gộp `patrol-pin` CTA/form (`GAP-MOB-ACT-02`) · invent `api/v1/patrol-checkin` · fake lat/lng · ERP.* · native alert · watermark Gói · device label «iPhone» / «· Android» · `mfeStdUrl` · `UIAlert` / `AlertDialog` / `window.alert` · re-scan demo HTML (`GAP-PO-DEMO-RESCAN-01`).
+**Cấm:** gộp `patrol-pin` CTA/form (`GAP-MOB-ACT-02`) · invent `api/v1/patrol-checkin` · invent `api/v1/mobile-files` · fake lat/lng · plan=GPS làm SSOT · ERP.* · native alert · watermark Gói · device label · `mfeStdUrl` · `UIAlert` / `AlertDialog` / `window.alert` · re-scan demo HTML (`GAP-PO-DEMO-RESCAN-01`).
+
+## 0. § Delta Current vs New (`edit_page` · PO confirm)
+
+| ID | Current (native live) | New (DoD edit) | PO decision |
+|----|----------------------|----------------|-------------|
+| GAP-MOB-CI-PHOTO-UP-01 | PhotoRow `photoLocalIds` UUID local · chưa FileService | Capture → upload `files/*` (init→PUT→commit) · body = `attachmentId[]` · preview `GET /files/{id}/object` JWT | **Confirm.** Local UUID **không** đủ DoD. GAP-MOB-BFF-FILE-01 nếu NuGet Mobile.Bff thiếu → queue offline ảnh · **cấm** fake 200 upload. |
+| GAP-MOB-CI-PLAN-BE-01 | `planLat/planLng` = GPS → distance≈0 · banner luôn đúng | Đối soát vs **plan-points BE khi có** · haversine nearest · `matchOk` thật · **cấm** gán plan=GPS SSOT | **Confirm.** Path Kind E `GET …/plan-points` — SA chốt · **cấm** invent path khác DOMAIN-MAP. MISSING → §E interim (label session · stamp GAP · **không** tuyên bố đúng điểm từ plan=GPS). |
+| GAP-MOB-CI-FAKE-GPS-01 | Live GPS OK (cleanup_mock) | Giữ live GPS · **cấm** restore fake / demo Phước Dinh bind live | **Confirm.** Demo rows chỉ prototype SSOT. |
+| GAP-MOB-BFF-01 | Prior POST missing | POST check-ins **live** (analy) | **Confirm closed** cho POST · body field photo = `attachmentId[]` (không chỉ `photoLocalIds`). |
+| — keep | Sheet zones / VN / kit / leave / detail | **Không** đổi controlHint UI | **Confirm keep** · Design dual giữ · delta = data/API bind only. |
+
+**OUT pack:** web Kind B · tracks/coverage/kpi · attendance · invent plan-points ngoài DOMAIN-MAP.
 
 ## 1. Goal
 
-Sheet **Ghi điểm tuần** native dual (iOS SwiftUI + Android Compose): prefill điểm KH / tuyến·lý trình / GPS ghim · banner đúng/sai điểm · Nội dung + ảnh · Lưu / Ghi nhận · leave modal · toast. Persona Tuần đường · hiện trường. App **chỉ** `{BffBase}/mobile-bff/api/v1/…`. **Cấm** ERP.* · `mfeStdUrl`.
+Sheet **Ghi điểm tuần** native dual: prefill điểm KH (BE plan khi có) / tuyến·lý trình / **live GPS** ghim · banner đúng/sai vs **plan BE** · Nội dung + ảnh **FileService** · Lưu / Ghi nhận · leave · toast. Persona Tuần đường. App **chỉ** `{BffBase}/mobile-bff/api/v1/…`. **Cấm** ERP.* · `mfeStdUrl`.
 
-**1 action = 1 feature.** Slug `patrol-checkin` = sheet `#sheet-checkin` `DES-MOB-PAT-CHECKIN-SHEET` (+ read `#sc-checkin-detail` `DES-MOB-CI-DETAIL` cùng slug). Pin CTA / map host **không** in-scope.
+**1 action = 1 feature.** Slug = `#sheet-checkin` `DES-MOB-PAT-CHECKIN-SHEET` (+ read `#sc-checkin-detail`). Pin/map **không** in-scope.
 
-Entry: hub `patrol-home` CTA · map `patrol-map` CTA · handoff `patrol-pin` `openSheet('checkin')` (reuse parents · **không** enqueue sibling mới).
+Entry: `patrol-home` / `patrol-map` CTA · `patrol-pin` `openSheet('checkin')` (reuse · **không** enqueue sibling).
 
-## 2. changeScope `new_page`
+## 2. changeScope `edit_page`
 
-Pack **sheet** mới theo data-analy (`changeScope=new_page`). Visual SSOT = dual HTML `#sheet-checkin` · `DES-MOB-PAT-CHECKIN-SHEET` · `#sc-checkin-detail` · `DES-MOB-CI-DETAIL` · `DES-MOB-LOC-MISMATCH` · `DES-MOB-LEAVE` (iOS 390×844 · Android 412×915 · **parity copy** trừ chrome HIG/Material). Android thiếu `section-label` Ảnh → Design parity thêm label (iOS SSOT).
+Pack **sheet** đã ship · edit = bind FileService + plan-points thật. Visual SSOT = dual HTML giữ zone ids (`#sheet-checkin` · `#sc-checkin-detail` · `DES-MOB-LOC-MISMATCH` · `DES-MOB-LEAVE` · `DES-MOB-GPS-DENY`). Frame iOS 390×844 · Android 412×915 · Tab 5 shell giữ (`GAP-TAB-01` · `tabs: none`).
 
 ## 3. DoD (đo được)
 
-1. Dual native mở sheet **Ghi điểm tuần** (`LinmBottomSheet`): nav **Hủy** / **Lưu** · fields readonly · TextArea · PhotoRow · primary **Ghi nhận điểm tuần** · footer **Hủy**. Frame proto iOS 390×844 · Android 412×915 · Tab 5 shell **giữ** dưới sheet (`GAP-TAB-01` · `tabs: none` · **cấm** invent segment).
-2. Prefill: **Điểm kế hoạch** · **Tuyến / lý trình** từ active session `GET patrol/sessions` (Status=Đang tuần) · fail/empty → demo SSOT `Km 1561+134 · Phước Dinh` / `QL.1 · Km 1561+134`.
-3. **Định vị ghim tự động** + **Cách điểm KH** từ device GPS + haversine vs plan · banner `DES-MOB-LOC-MISMATCH`: đúng (`Đúng điểm · {d} m · định vị ±{a} m · ghim tự động`) / sai (`Sai điểm · …`). **Cấm** fake lat/lng.
-4. `matchOk=false` → disable nav **Lưu** + primary **Ghi nhận** · toast **Chặn — không đúng điểm kế hoạch**.
-5. GPS deny → reuse modal `DES-MOB-GPS-DENY` · **không** submit · **cấm** system alert.
-6. PhotoRow + `#i-camera` → `openCapture('checkin')` · attach local URI P1.
-7. Submit (Lưu / Ghi nhận) khi `matchOk=true`: POST `patrol/sessions/{id}/check-ins` khi BE live · **GAP-MOB-BFF-01** thiếu controller → P1 lưu local + enqueue `patrol-offline` · toast **Đã ghi điểm tuần · …** · **cấm** fake HTTP 200.
-8. Dirty leave (Hủy / swipe) → modal `DES-MOB-LEAVE` (**Bỏ thay đổi?** / **Tiếp tục sửa**) · **cấm** native alert.
-9. Read surface `#sc-checkin-detail` cùng slug: banner **Đã lưu** · rows Điểm KH / Cách điểm · back Ca.
-10. Kit: `LinmBottomSheet` · `LinmTextField` · `LinmTextArea` · `LinmPrimaryButton` · `LinmSecondaryButton` · `LinmToast` · PhotoRow / camera · in-app modals · **cấm** raw M3/HIG alert (`GAP-MOB-ACT-05`).
-11. App chỉ `{BffPrefix}` · Step 4b **pending SA/TL** (GAP check-ins) — **cấm** PO chạy migration / Step 4b.
-12. Dev (role sau): iOS `xcodegen` + `xcodebuild` dest **iPhone 17 Pro** PASS · Android `assembleDebug` PASS · Mobile.Bff `dotnet build` PASS — **cấm** `yarn start:std`.
-13. QA (role sau): Maestro slug `patrol-checkin` only · live sim 6.9" + emulator · store PNG `qa/store/patrol-checkin` · **cấm** `yarn e2e-qa` web.
+1. Dual native sheet **Ghi điểm tuần** giữ zones/kit §5 — **không** redesign.
+2. Prefill **Tuyến / lý trình** từ `GET patrol/sessions` (Đang tuần). **Điểm kế hoạch**: label+coords từ `GET …/plan-points` **khi live** · else label session Route/Note · **cấm** invent coords · **cấm** plan=GPS SSOT.
+3. **Định vị ghim** = live device GPS only. **Cách điểm KH** + banner = haversine(GPS, **plan BE**) khi plan live · `DES-MOB-LOC-MISMATCH`. Plan MISSING → stamp GAP-MOB-CI-PLAN-BE-01 · **không** luôn xanh từ plan=GPS.
+4. `matchOk=false` (khi có plan BE) → disable Lưu + Ghi nhận · toast **Chặn — không đúng điểm kế hoạch**.
+5. GPS deny → `DES-MOB-GPS-DENY` · **không** submit · **cấm** fake · **cấm** system alert.
+6. PhotoRow + `#i-camera` → capture → **FileService** init/PUT/commit → `attachmentId[]` trên POST · detail preview `GET files/{id}/object`. File BFF MISSING → GAP-MOB-BFF-FILE-01 · queue offline · **cấm** fake 200.
+7. Submit khi gate OK: POST `patrol/sessions/{id}/check-ins` **live** · body gồm `attachmentId[]` · fail → enqueue `patrol-offline` · **cấm** fake 200.
+8. Dirty leave → `DES-MOB-LEAVE` · **cấm** native alert.
+9. Detail `#sc-checkin-detail`: banner Đã lưu · rows · photos qua attachmentId khi có.
+10. Kit giữ · **cấm** raw M3/HIG alert (`GAP-MOB-ACT-05`).
+11. App chỉ `{BffPrefix}` · Step 4b plan-points **pending SA/TL** — **cấm** PO migration / Step 4b.
+12. Dev sau: iOS `xcodegen`+`xcodebuild` dest **iPhone 17 Pro** · Android `assembleDebug` · BFF `dotnet build` — **cấm** `yarn start:std`.
+13. QA sau: Maestro `patrol-checkin` · live sim 6.9"+emulator · store PNG — **cấm** `yarn e2e-qa` web.
 
 ## 4. CTX / DEM / DI inventory
 
 | ID | Path | Loại |
 |----|------|------|
-| CTX-01 | `docs/context/features/patrol-checkin.md` | sheet Ghi điểm tuần · §2 UI · §3 API · sibling |
-| CTX-02 | `docs/context/features/patrol.md` | domain · Kind E `…/check-ins` |
-| CTX-03 | `docs/context/features/patrol-home.md` | parent hub entry |
-| CTX-04 | `docs/context/features/patrol-map.md` | map entry CTA |
-| CTX-05 | `docs/context/features/patrol-pin.md` | handoff sau ghim |
-| DEM-01 | `specs/mobile-p1/ui/prototype/ios/index.html` `#sheet-checkin` / `#sc-checkin-detail` | iOS 390×844 · SSOT copy |
-| DEM-02 | `specs/mobile-p1/ui/prototype/android/index.html` cùng DES | Android 412×915 · **cùng copy** (+ parity label Ảnh) |
-| DEM-03 | `specs/patrol-checkin/ui/prototype/{ios,android}/index.html` | pack stub — Design chép dual từ mobile-p1 |
-| MAP | `specs/patrol-checkin/ui/html-to-native-map.md` | kit sheet/fields/banner/photo **map dual** |
+| CTX-01 | `docs/context/features/patrol-checkin.md` | sheet · API |
+| CTX-02 | `docs/context/features/patrol.md` | Kind E · plan-points |
+| CTX-03 | `docs/context/features/mobile-bff-file.md` | FileService sibling |
+| CTX-04 | `docs/context/features/patrol-home.md` · `patrol-map.md` · `patrol-pin.md` | entry / handoff |
+| DEM | `specs/patrol-checkin/ui/prototype/{ios,android}/index.html` | dual · **giữ zone** · hash skip |
+| MAP | `specs/patrol-checkin/ui/html-to-native-map.md` | kit map dual |
 | DI-01 | — | **no Excel** |
-| DA-01 | `specs/_data-analy/patrol-checkin-control-hint.md` | controlHint · packKind `sheet` · contentHash `sha256:patrol-checkin-control-hint-20260828` |
-| DA-02 | `specs/_data-analy/patrol-checkin-bff-endpoints.md` | BFF · GAP-MOB-BFF-01 · bffContentHash `sha256:patrol-checkin-mobile-bff-20260828` |
-| DA-03 | `specs/_data-analy/patrol-checkin-action-tree.md` | 1 sheet + same-slug submit/camera/leave/detail |
-| DA-04 | `specs/_data-analy/patrol-checkin-real-data.md` | §A+§B bind · demo fallback rows |
-| SCAN | — | **hash skip** — **cấm** re-crawl demo/CTX (`GAP-PO-DEMO-RESCAN-01`) |
-| IOS | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS` | native |
-| AND | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android` | native |
-| BFF | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Bff` | `mobile-bff/api/v1` proxy |
-| BE | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.WebService` | DOMAIN-MAP Patrol · **cấm ERP.*** · **không** invent `api/v1/patrol-checkin` |
-| KIT | `Linm.Mobile.Kit.iOS` + `Linm.Mobile.Kit.Android` | BottomSheet / TextField / TextArea / Primary / Secondary / Toast |
+| DA-01…04 | `specs/_data-analy/patrol-checkin-*.md` | hash `20260912-edit` |
+| SCAN | — | **hash skip** · `GAP-PO-DEMO-RESCAN-01` |
+| IOS / AND / BFF / BE | Mobile.iOS · Mobile.Android · Mobile.Bff · WebService | **cấm ERP.*** · **cấm** invent path |
 
-**Cấm** cite `mfeStdUrl` / `http://localhost:9301/` trên artifact native.
+## 5. controlHint (PO chốt — **giữ** UI · delta bind)
 
-## 5. controlHint (PO chốt — Design map kit · SA map API)
-
-Nguồn dual demo + DA-01 + DA-04. UNCLEAR field = **none**. `tabs: none` — **cấm** invent segment (`GAP-TAB-01` · shell Tab 5 **giữ** khi đứng hub/map dưới sheet).
+Nguồn DA-01 + DA-04. UNCLEAR = **none**. `tabs: none`.
 
 ### 5a. Sheet `#sheet-checkin` · `DES-MOB-PAT-CHECKIN-SHEET`
 
-| Field | VN | controlHint | Required | Kit (iOS+Android cùng turn) | Notes |
-|-------|----|-------------|----------|------------------------------|-------|
-| sheetTitle | Ghi điểm tuần | SheetTitle | * | `LinmBottomSheet` nav | size 17 |
-| navCancel | Hủy | TextButton | * | leading | → leave `DES-MOB-LEAVE` |
-| navSave | Lưu | TextButton | * | trailing bold | submit · disable khi sai điểm |
-| matchBanner | Đúng điểm · {d} m · định vị ±{a} m · ghim tự động / Sai điểm · … | Banner | * | ok green / warn red | `DES-MOB-LOC-MISMATCH` · size 13 |
-| planPoint | Điểm kế hoạch | Text (readonly) | * | `LinmTextField` | label 13 / field ≥16 · demo `Km 1561+134 · Phước Dinh` |
-| routeChainage | Tuyến / lý trình | Text (readonly) | * | `LinmTextField` | bind `Route` session |
-| gpsPinned | Định vị ghim tự động | Text (readonly) | * | `LinmTextField` | lat,lng · ±N m · **cấm** fake |
-| distPlan | Cách điểm KH | Text (readonly) | * | `LinmTextField` | `{m} m · Đúng điểm` / `Sai điểm` |
-| content | Nội dung | TextArea | — | `LinmTextArea` | editable · demo `Mặt đường khô, lan can đạt` |
-| photos | Ảnh | PhotoRow | — | slots + camera | section-label parity Android |
-| addPhoto | (camera slot) | CameraButton | — | `LinmIconButton` `#i-camera` | `openCapture('checkin')` |
-| btnSave | Ghi nhận điểm tuần | PrimaryButton | * | `LinmPrimaryButton` | `saveCheckin()` · chặn khi sai điểm · ≥16 |
-| btnCancelFooter | Hủy | SecondaryButton | * | `LinmSecondaryButton` | close / leave |
-| leaveTitle | Bỏ thay đổi? | ModalTitle | * | in-app | `DES-MOB-LEAVE` |
-| leaveBody | Nội dung chưa lưu sẽ mất. | ModalBody | * | in-app | |
-| leaveConfirm | Bỏ thay đổi | PrimaryButton | * | `LinmPrimaryButton` | discard |
-| leaveKeep | Tiếp tục sửa | SecondaryButton | * | `LinmSecondaryButton` | |
-| toastOk | Đã ghi điểm tuần · … | Toast | * | `LinmToast` | sau Lưu / Ghi nhận · 13–16 |
-| toastBlock | Chặn — không đúng điểm kế hoạch | Toast | * | `LinmToast` | warning |
+| Field | VN | controlHint | Required | Kit | Notes (edit bind) |
+|-------|----|-------------|----------|-----|-------------------|
+| sheetTitle | Ghi điểm tuần | SheetTitle | * | `LinmBottomSheet` | 17 |
+| navCancel | Hủy | TextButton | * | leading | → `DES-MOB-LEAVE` |
+| navSave | Lưu | TextButton | * | trailing bold | submit · gate match |
+| matchBanner | Đúng/Sai điểm · {d} m · ±{a} m | Banner | * | ok/warn | vs **BE plan** khi có · `DES-MOB-LOC-MISMATCH` |
+| planPoint | Điểm kế hoạch | Text (readonly) | * | `LinmTextField` | BE plan-points / session · **không** GPS SSOT |
+| routeChainage | Tuyến / lý trình | Text (readonly) | * | `LinmTextField` | `Route` session |
+| gpsPinned | Định vị ghim tự động | Text (readonly) | * | `LinmTextField` | **live GPS only** |
+| distPlan | Cách điểm KH | Text (readonly) | * | `LinmTextField` | haversine vs plan BE |
+| content | Nội dung | TextArea | — | `LinmTextArea` | |
+| photos | Ảnh | PhotoRow | — | + `#i-camera` | upload → `attachmentId` |
+| addPhoto | (camera) | CameraButton | — | `#i-camera` | capture + file commit |
+| btnSave | Ghi nhận điểm tuần | PrimaryButton | * | `LinmPrimaryButton` | chặn khi `matchOk=false` |
+| btnCancelFooter | Hủy | SecondaryButton | * | `LinmSecondaryButton` | |
+| leave* | Bỏ thay đổi? | Modal | * | in-app | `DES-MOB-LEAVE` |
+| toastOk / toastBlock | … | Toast | * | `LinmToast` | |
 
-### 5b. Detail `#sc-checkin-detail` · `DES-MOB-CI-DETAIL` (cùng slug · read)
+### 5b. Detail `#sc-checkin-detail` · `DES-MOB-CI-DETAIL`
 
-| Field | VN | controlHint | Required | Kit | Notes |
-|-------|----|-------------|----------|-----|-------|
-| detailTitle | Ghi điểm tuần | TopBar title | * | `LinmTopBar` | 17 |
-| backCa | Ca | BackButton | * | chevron | `go('patrol-detail')` / hub |
-| savedBanner | Đã lưu · {time} | Banner | * | ok | 13 |
-| planRow | Điểm KH | ListRow | * | | 13 / ≥16 |
-| distRow | Cách điểm | ListRow | * | | 13 / ≥16 |
+| Field | VN | controlHint | Kit | Notes |
+|-------|----|-------------|-----|-------|
+| detailTitle | Ghi điểm tuần | TopBar | `LinmTopBar` | |
+| savedBanner / planRow / distRow | … | Banner / ListRow | | |
+| photos | Ảnh đã lưu | PhotoRow | | preview `GET files/{id}/object` khi có `attachmentId` |
 
-Toast / modal → kit in-app. **Cấm** AC implement raw control khi kit đã map.
+## 6. BFF (PO chốt — **cấm** invent)
 
-## 6. BFF (PO chốt path — **cấm** invent)
+App `{BffBase}/mobile-bff/api/v1`. Nguồn DA compact + real-data §B.
 
-App `ApiClient.base` = `{BffBase}/mobile-bff/api/v1`. Path **không** lặp prefix. Nguồn DA-02 + DA-04 §B.
+| Action / zone | Method | Path | In slug? |
+|---------------|--------|------|----------|
+| Prefill Route / active | GET | `patrol/sessions` | **yes** |
+| Prefill session | GET | `patrol/sessions/{id}` | **yes** |
+| Plan points (match source) | GET | `patrol/sessions/{id}/plan-points` | **yes** khi live · **GAP-MOB-CI-PLAN-BE-01** · SA chốt Kind E · **cấm** invent |
+| Submit | POST | `patrol/sessions/{id}/check-ins` | **yes** · **live** · body `attachmentId[]` |
+| File upload | init/PUT/commit | `files/*` | **yes** · sibling FileService · GAP-MOB-BFF-FILE-01? |
+| File preview | GET | `files/{id}/object` | **yes** detail |
+| GPS / distance | — | Device + plan BE | **cấm** plan=GPS |
+| Invent | — | `patrol-checkin` / `mobile-files` | **cấm** |
 
-| Action / zone | Method | Path | In slug `patrol-checkin`? |
-|---------------|--------|------|----------------------------|
-| Prefill Route / CheckInCount / active | GET | `patrol/sessions` | **yes** — filter «Đang tuần» client P1 |
-| Prefill session detail | GET | `patrol/sessions/{id}` | **yes** |
-| Submit Lưu / Ghi nhận | POST | `patrol/sessions/{id}/check-ins` | **yes** — CTX Kind E · **GAP-MOB-BFF-01** MISSING controller → P1 local + `patrol-offline` · **cấm** fake 200 |
-| GPS / distance / match | — | — | Device · **không** API pin |
-| Camera attach | — | — | Device local URI · upload P2 nếu BE media |
-| Invent check-in API | — | `patrol-checkin` / dedicated controller invent | **cấm invent** |
+Body POST (SA/TL align): `planPointLabel` · `route` · `lat`·`lng`·`accuracyM` · `distanceToPlanM`·`matchOk` · `content` · **`attachmentId[]`** (FileService · supersede local-only SSOT).
 
-**Cấm** `GET/POST patrol-checkin` · DbContext trên Mobile.Bff · app `:5101` · ERP.*. Step 4b **pending SA/TL** (không chạy ở role PO).
-
-Body đề xuất khi SA/TL tạo controller (khớp sheet · **không** fork DTO app-only): `planPointLabel` · `route` · `lat`·`lng`·`accuracyM` · `distanceToPlanM`·`matchOk` · `content` · `photoLocalIds[]`.
+Step 4b plan-points **pending SA/TL** — **cấm** PO chạy.
 
 ## 7. Open questions — PO chốt
 
 | ID | Question | Decision (PO) |
 |----|----------|----------------|
-| packKind | data-analy `sheet` | **Confirm `sheet`.** Overlay · ≠ hub/list/map full. **Cấm** Grid/Report AC. |
-| Match gate | Banner đúng/sai | **Sai điểm → disable Lưu + Ghi nhận + toast chặn.** `DES-MOB-LOC-MISMATCH`. |
-| GPS | Prefill ghim | **Live device GPS.** Deny → `DES-MOB-GPS-DENY` reuse. **Cấm** fake lat/lng. |
-| POST missing | GAP-MOB-BFF-01 | **P1 local save + enqueue `patrol-offline` + toast.** Stamp GAP · SA/TL T-BE. **Cấm** invent path / fake 200. |
-| Pin / map | Sibling entry | **Reuse parents only.** **Cấm** ship pin CTA / map host trên pack này (`GAP-MOB-ACT-02`). |
-| Submit / camera / leave / detail | GAP-MOB-ACT-07 | **Cùng slug** — **cấm** enqueue sibling mới. |
-| Demo rescan | hash skip | **Cấm** re-scan demo / crawl CTX (`GAP-PO-DEMO-RESCAN-01`). Đọc control-hint + real-data. |
-| Android Ảnh label | parity | Design thêm `section-label` Ảnh (iOS SSOT). |
+| packKind | sheet | **Confirm keep `sheet`.** |
+| changeScope | edit_page | **Confirm.** Delta photo+plan only · giữ UI. |
+| Photo DoD | FileService | **Confirm GAP-MOB-CI-PHOTO-UP-01.** Local UUID ≠ done. |
+| Plan match | BE plan-points | **Confirm GAP-MOB-CI-PLAN-BE-01.** **Cấm** plan=GPS SSOT. MISSING → interim §E stamp GAP. |
+| Fake GPS | restore demo | **Cấm** (`GAP-MOB-CI-FAKE-GPS-01`). |
+| File BFF missing | NuGet | GAP-MOB-BFF-FILE-01 · offline queue · **cấm** fake 200. |
+| Match gate | sai điểm | Disable Lưu+Ghi nhận + toast (khi plan BE live). |
+| Pin / map / sibling | | Reuse parents only · `GAP-MOB-ACT-02/07`. |
+| Demo rescan | hash skip | **Cấm** (`GAP-PO-DEMO-RESCAN-01`). |
 
-UNCLEAR field = **none** — không AskQuestion field (autoApprove=ON).
+UNCLEAR = **none**.
 
-## 8. Screens (REQUIRED)
+## 8. Screens (REQUIRED — giữ)
 
-| Surface | Demo | Pattern | FormMode | Actions **this** `{feature}` | `devSlash` |
-|---------|------|---------|----------|------------------------------|------------|
-| Sheet Ghi điểm tuần | `#sheet-checkin` · `DES-MOB-PAT-CHECKIN-SHEET` · iOS + Android | **BottomSheet form** | edit (TextArea + photo) | GET sessions prefill · GPS match · camera · POST check-ins / offline queue · leave modal · toast | `/agent-dev-ios` + `/agent-dev-android` |
-| Match banner | `DES-MOB-LOC-MISMATCH` | Banner ok/warn | — | gate primary | same |
-| Leave modal | `DES-MOB-LEAVE` | In-app modal | — | discard / keep | same |
-| GPS deny | `DES-MOB-GPS-DENY` | In-app modal (reuse) | — | block submit | same |
-| Detail read | `#sc-checkin-detail` · `DES-MOB-CI-DETAIL` | TopBar + rows | read | back Ca | same |
+| Surface | Demo | Pattern | FormMode | Actions **this** feature | `devSlash` |
+|---------|------|---------|----------|--------------------------|------------|
+| Sheet Ghi điểm tuần | `#sheet-checkin` · `DES-MOB-PAT-CHECKIN-SHEET` | BottomSheet form | edit | GET sessions · GET plan-points (khi live) · GPS match · files upload · POST check-ins / offline · leave · toast | `/agent-dev-ios` + `/agent-dev-android` |
+| Match banner | `DES-MOB-LOC-MISMATCH` | Banner | — | gate primary vs BE plan | same |
+| Leave / GPS deny | `DES-MOB-LEAVE` · `DES-MOB-GPS-DENY` | Modal | — | discard / block | same |
+| Detail read | `#sc-checkin-detail` · `DES-MOB-CI-DETAIL` | TopBar + rows | read | file preview · back Ca | same |
 
-**Không** trên pack này: pin CTA · map host · invent check-in path · watermark Gói · attendance form.
+**Không** trên pack: pin CTA · map · invent path · watermark · attendance.
 
-Reuse only: `patrol-home` / `patrol-map` / `patrol-pin` (entry/handoff) · `patrol-offline` (queue khi mất sóng / POST missing) · `DES-MOB-GPS-DENY` (deny chrome).
-
-Frame: iOS 390×844 · Android 412×915 · safe area · sheet/modal không đè notch / home indicator / `LinmTabBar`.
+Reuse: `patrol-home` / `patrol-map` / `patrol-pin` · `patrol-offline` · `mobile-bff-file` · `DES-MOB-GPS-DENY`.
 
 ## 9. Device AC (REQUIRED)
 
 | ID | Behavior | AC |
 |----|----------|-----|
-| AC-GPS-01 | Allow | Prefill Định vị + Cách điểm + banner · **cấm** fake coords |
-| AC-GPS-02 | Deny | Modal `DES-MOB-GPS-DENY` · **không** submit · **cấm** `UIAlert` / `AlertDialog` |
-| AC-GPS-03 | Timeout / unavailable | Toast / giữ sheet · **cấm** fake coords · không crash |
-| AC-MATCH-01 | `matchOk=false` | Banner đỏ · disable Lưu + Ghi nhận · toast chặn |
-| AC-MATCH-02 | `matchOk=true` | Banner xanh · enable submit |
-| AC-CAM-01 | Capture | `#i-camera` → attach PhotoRow · local URI P1 |
-| AC-OFF-01 | Offline / POST MISSING | Sheet mở · local queue `patrol-offline` · toast ok · **cấm** fake 200 · **cấm** full-screen block |
-| AC-D-03 | Leave dirty | Modal `DES-MOB-LEAVE` · Bỏ thay đổi / Tiếp tục sửa · **trên** sheet (không under) · swipe dirty giữ sheet |
-| AC-D-04 | Native alert | **Cấm** mọi system alert · toast/modal in-app only |
-| AC-D-05 | Keyboard | TextArea Nội dung · không đè primary / home indicator |
-| AC-D-06 | Safe area | Sheet + modal + tab không đè notch / home indicator |
-| AC-D-07 | Biometric | **N/A** |
-| AC-D-09 | Token | GET/POST Bearer Keychain / Encrypted · app chỉ `{BffPrefix}` |
-| AC-D-10 | Tab | Shell Tab 5 **giữ** · `tabs: none` trên pack · **cấm** invent tab |
-| AC-TYP-01 | Typography | Label/banner/toast 13 · field/button ≥16 (`GAP-TYP-01`) |
-| AC-SIB-01 | Sibling | **Cấm** ship pin form / map host / invent path |
-| AC-F-05 | Dual parity | iOS + Android **cùng** copy · cùng `#i-camera` · Android thêm label Ảnh · **cấm** lệch chrome (`GAP-MOB-ALIGN-01`) |
+| AC-GPS-01 | Allow | Prefill Định vị · **cấm** fake |
+| AC-GPS-02 | Deny | `DES-MOB-GPS-DENY` · **không** submit · **cấm** system alert |
+| AC-GPS-03 | Timeout | Toast / giữ sheet · **cấm** fake |
+| AC-MATCH-01 | `matchOk=false` (plan live) | Banner đỏ · disable submit · toast chặn |
+| AC-MATCH-02 | `matchOk=true` | Banner xanh · enable |
+| AC-MATCH-03 | plan-points MISSING | Stamp GAP-MOB-CI-PLAN-BE-01 · **không** pretend đúng điểm từ plan=GPS |
+| AC-CAM-01 | Capture | `#i-camera` → FileService commit → `attachmentId` trên PhotoRow |
+| AC-FILE-01 | File BFF MISSING | GAP-MOB-BFF-FILE-01 · queue offline · **cấm** fake 200 |
+| AC-OFF-01 | Offline / POST fail | Queue `patrol-offline` · toast · **cấm** fake 200 |
+| AC-D-03 | Leave dirty | `DES-MOB-LEAVE` · **cấm** native alert |
+| AC-D-04…10 | alert / keyboard / safe / token / tab | Giữ prior · kit in-app · Bearer · Tab 5 giữ |
+| AC-TYP-01 | Typography | 13 / ≥16 |
+| AC-SIB-01 | Sibling | **Cấm** pin/map/invent |
+| AC-F-05 | Dual parity | Cùng copy · `#i-camera` |
 
 ## 10. Leave / alert (REQUIRED)
 
 | Case | UI |
 |------|-----|
-| Dirty leave | Modal `DES-MOB-LEAVE` · **cấm** native alert (`GAP-PO-LEAVE-01`) |
-| Loc deny | Modal `DES-MOB-GPS-DENY` reuse · **cấm** native alert |
-| Sai điểm submit | Toast `Chặn — không đúng điểm kế hoạch` · không đóng sheet |
-| Success save | Toast `Đã ghi điểm tuần · …` · đóng sheet / mở detail |
-| Sessions fail | Prefill demo SSOT · GPS vẫn chạy |
-| POST GAP / offline | Local queue + toast · stamp GAP-MOB-BFF-01 |
+| Dirty leave | `DES-MOB-LEAVE` · **cấm** native alert |
+| Loc deny | `DES-MOB-GPS-DENY` |
+| Sai điểm | Toast chặn · không đóng sheet |
+| Success | Toast Đã ghi · đóng / detail |
+| Plan MISSING | Stamp GAP · không xanh giả từ plan=GPS |
+| File / POST fail | Offline queue · stamp GAP · **cấm** fake 200 |
 
-## 11. Out of scope (this pack)
+## 11. Out of scope
 
-- CTA / form **Ghim vị trí hiện tại** (`patrol-pin`) — handoff only
-- Map host / basemap / tracks / coverage / kpi (`patrol-map` · Kind E OUT)
-- Invent `api/v1/patrol-checkin` · dedicated invent controller ngoài CTX path
-- Fake lat/lng · system GPS/camera alert
-- Watermark Gói / device label / proto-click tín hiệu
-- Chấm công `attendance` · form sự cố
-- Start sibling `pending_confirm` / enqueue CTA mới (`GAP-MOB-ACT-06/07`)
-- Clone ERP.* · `mfeStdUrl` · `yarn start:std` · Step 4b / migration ở role PO
-- Re-scan demo HTML / crawl DemoRoot (`GAP-PO-DEMO-RESCAN-01`)
+- Pin CTA/form · map · tracks/coverage/kpi · attendance
+- Invent `patrol-checkin` / `mobile-files` path
+- Fake lat/lng · plan=GPS SSOT · system alert · watermark
+- ERP.* · `mfeStdUrl` · `yarn start:std` · Step 4b / e2e ở role PO
+- Re-scan demo (`GAP-PO-DEMO-RESCAN-01`) · redesign zone/kit
 
-## 12. KPI (HĐ Gói 1 — action này)
+## 12. KPI
 
-Ghi điểm tuần = sheet hiện trường prefill điểm KH + GPS match gate + nội dung/ảnh + submit (live POST hoặc offline queue). DoD pack: `DES-MOB-PAT-CHECKIN-SHEET` dual + GET sessions + device GPS/camera + leave/match AC — **không** omni-implement pin/map trong 1 slug.
+Edit DoD = FileService `attachmentId` trên check-in + match thật vs BE plan-points khi live · giữ sheet UX đã ship.
 
 ## 13. Handoff → Design
 
 | Field | Value |
 |-------|-------|
-| feature / packKind | `patrol-checkin` / **`sheet`** (confirmed) |
-| phase_from / phase_to | po **confirmed** → design pending |
+| feature / packKind | `patrol-checkin` / **`sheet`** |
+| changeScope | `edit_page` · **giữ** dual mock · delta bind only |
+| phase_from / phase_to | po **confirmed** → design pending (delta confirm) |
 | STATUS | `specs/patrol-checkin/STATUS.md` |
-| Context / Demo / DI | CTX-01 · DEM dual `#sheet-checkin` / `#sc-checkin-detail` · no Excel |
-| controlHint / UNCLEAR | §5 · none |
-| Screens / Pattern / `devSlash` | Sheet + detail · `/agent-dev-ios` + `/agent-dev-android` |
-| Grid AC / Report AC | **N/A** — pack sheet |
-| peerStdUrl / reviewUrl | **cấm** `mfeStdUrl` · Design mở dual `file://…/prototype/{ios,android}/index.html` + reviewUrl **cả hai** |
-| ux-analy | `/mobile-ui-ux-analy` → `ui/ux-analy.md` §1–§9 **REQUIRED** trước `design_confirm` |
-| Kit | reuse BottomSheet / TextField / TextArea / Primary / Secondary / Toast / camera · `kit_missing_confirm` verify dual map |
-| BFF | `patrol-checkin-bff-endpoints.md` · GET sessions live · POST check-ins **GAP-MOB-BFF-01** |
-| Real-data | `patrol-checkin-real-data.md` §A+§B+demo rows |
-| Open questions | §7 đã chốt — Design **không** vẽ pin form · match gate + leave in-app · Android label Ảnh |
-| Next AskQuestion | autoApprove=ON — `design_confirm` khi Design xong **cả hai** mock + ux-analy |
+| controlHint / UNCLEAR | §5 giữ · none |
+| Screens / `devSlash` | Sheet + detail · `/agent-dev-ios` + `/agent-dev-android` |
+| peerStdUrl | **cấm** `mfeStdUrl` · dual `file://…/prototype/{ios,android}/index.html` |
+| DoD edit note | Photo FileService · plan BE · **cấm** fake GPS · Design **không** đổi zone ids |
 | Next slash | `/agent-design-mobile` |
 | Chain this turn | **không** (roleOnly=po) |
-| e2eQa | ON khi QA · `yarn e2e-qa-mobile` · **cấm** yarn start:std / mfeStdUrl |
-
-Design: HIG + Material · copy VN đúng HTML (trừ device label) · **cấm** skin Ministry · packet `design-demo-ssot.md` · **cấm** re-scan demo ngoài SSOT đã cite.
+| e2eQa | ON queued QA · **cấm** e2e ở PO |
 
 ## Version meta (REQUIRED)
 
@@ -245,10 +223,10 @@ Design: HIG + Material · copy VN đúng HTML (trừ device label) · **cấm** 
 | schemaVersion | 1 |
 | workflowVersion | 2026.08.25.01 |
 | rulesVersion | 2026.08.29.4 |
-| generatedAt | 2026-08-28T19:55:30.000Z |
+| generatedAt | `2026-09-12T12:50:00.000Z` |
 | versionGate | rechecked |
-| contentHash | sha256:patrol-checkin-control-hint-20260828 |
-| bffContentHash | sha256:patrol-checkin-mobile-bff-20260828 |
+| contentHash | sha256:patrol-checkin-control-hint-20260912-edit |
+| realDataHash | sha256:patrol-checkin-real-data-20260912-edit |
 
 ---
 <!-- Version meta: skillId=agent-po-mobile skillVersion=2026.08.25.01 schemaVersion=1 workflowVersion=2026.08.25.01 rulesVersion=2026.08.29.4 versionGate=rechecked -->

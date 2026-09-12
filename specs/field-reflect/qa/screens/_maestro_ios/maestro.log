@@ -45,6 +45,7 @@ Assert that id: sc-field-reflect is visible... COMPLETED
 Assert that "Ghi nhận hư hỏng" is visible... COMPLETED
 Assert that (Optional) id: kind-pills is visible... COMPLETED
 Assert that (Optional) id: photo-row is visible... COMPLETED
+Assert that (Optional) "Vị trí đã chốt" is visible... COMPLETED
 Assert that (Optional) id: btn-create is visible... WARNED
 Take screenshot A3-CORE... COMPLETED
 Scroll vertically... COMPLETED

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RMMS · mobile-bff-file · Android</title>
+  <style>
+    :root {
+      --blue: #0C84C0; --green: #34C759; --red: #E53935;
+      --surface: #F2F2F7; --card: #fff; --label: #1C1C1E; --muted: #8E8E93;
+      --sep: rgba(60,60,67,.29);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      font-family: "Roboto", "Noto Sans", sans-serif;
+      background: #121212; color: var(--label);
+    }
+    .phone {
+      width: 412px; height: 915px; background: var(--surface); border-radius: 28px;
+      overflow: hidden; position: relative; box-shadow: 0 20px 60px rgba(0,0,0,.45);
+      display: flex; flex-direction: column;
+    }
+    .status-bar { height: 28px; flex-shrink: 0; background: #0C84C0; }
+    .top-app-bar {
+      display: flex; align-items: center; gap: 8px;
+      padding: 12px 8px; background: #0C84C0; color: #fff;
+      box-shadow: 0 2px 4px rgba(0,0,0,.18);
+    }
+    .top-app-bar .title { font-size: 20px; font-weight: 500; flex: 1; }
+    .icon-btn {
+      width: 40px; height: 40px; border: 0; border-radius: 20px; background: transparent;
+      color: #fff; font-size: 20px; cursor: pointer;
+    }
+    .content { flex: 1; overflow: auto; padding: 16px 0 100px; }
+    .hint { margin: 0 16px 12px; font-size: 13px; color: var(--muted); line-height: 1.35; }
+    .card {
+      margin: 0 16px 16px; background: var(--card); border-radius: 12px; padding: 14px 16px;
+      elevation: 1; box-shadow: 0 1px 3px rgba(0,0,0,.12);
+    }
+    .section-label { font-size: 13px; color: var(--muted); margin-bottom: 10px; }
+    .photo-row { display: flex; gap: 10px; align-items: flex-start; flex-wrap: wrap; }
+    .slot {
+      width: 96px; height: 96px; border-radius: 12px; position: relative;
+      display: flex; align-items: center; justify-content: center; overflow: hidden;
+      background: #E5E5EA;
+    }
+    .slot.empty { border: 1.5px dashed rgba(60,60,67,.35); background: transparent; cursor: pointer; }
+    .slot .cam { width: 28px; height: 28px; color: var(--blue); }
+    .slot img { width: 100%; height: 100%; object-fit: cover; }
+    .slot .progress {
+      position: absolute; inset: 0; background: rgba(0,0,0,.45); color: #fff;
+      display: flex; align-items: center; justify-content: center; font-size: 12px; text-align: center; padding: 6px;
+    }
+    .slot .remove {
+      position: absolute; top: 4px; right: 4px; width: 24px; height: 24px; border-radius: 12px;
+      border: 0; background: rgba(0,0,0,.55); color: #fff; font-size: 14px; cursor: pointer; line-height: 1;
+    }
+    .meta { margin-top: 10px; font-size: 12px; color: var(--muted); word-break: break-all; }
+    .meta code { color: var(--label); font-size: 11px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 16px 12px; }
+    .chip {
+      border: 0; background: #E3F2FD; border-radius: 16px;
+      padding: 6px 10px; font-size: 12px; color: var(--blue); cursor: pointer;
+    }
+    .host-sheet {
+      position: absolute; left: 0; right: 0; bottom: 0; max-height: 70%;
+      background: var(--card); border-radius: 16px 16px 0 0; z-index: 20;
+      display: none; flex-direction: column; box-shadow: 0 -8px 30px rgba(0,0,0,.25);
+    }
+    .host-sheet.open { display: flex; }
+    .sheet-handle { width: 36px; height: 5px; border-radius: 3px; background: rgba(60,60,67,.3); margin: 8px auto 0; }
+    .sheet-nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 8px 8px 12px; border-bottom: 1px solid var(--sep);
+    }
+    .sheet-nav .nav-title { font-size: 17px; font-weight: 600; }
+    .nav-btn { border: 0; background: none; color: var(--blue); font-size: 15px; padding: 8px; cursor: pointer; }
+    .sheet-body { padding: 12px 0 24px; overflow: auto; }
+    .host-form { display: none; margin: 0 16px 16px; }
+    .host-form.open { display: block; }
+    .form-title { font-size: 18px; font-weight: 500; margin-bottom: 8px; }
+    .toast {
+      position: absolute; left: 24px; right: 24px; bottom: 100px; z-index: 40;
+      background: #323232; color: #fff; border-radius: 4px;
+      padding: 12px 14px; font-size: 14px; display: none; text-align: center;
+    }
+    .toast.show { display: block; }
+    .nav {
+      position: absolute; left: 0; right: 0; bottom: 0; height: 72px;
+      background: var(--card); border-top: 1px solid var(--sep);
+      display: flex; padding: 8px 0 12px; justify-content: space-around;
+    }
+    .tab { font-size: 11px; color: var(--muted); text-align: center; width: 68px; }
+    .tab.active { color: var(--blue); }
+    .tab svg { display: block; margin: 0 auto 2px; }
+  </style>
+</head>
+<body>
+  <div class="phone" id="app">
+    <div class="status-bar"></div>
+    <div class="top-app-bar">
+      <button type="button" class="icon-btn" aria-label="Back">←</button>
+      <div class="title">File upload kit</div>
+      <span style="width:40px"></span>
+    </div>
+    <div class="content">
+      <p class="hint">Pack <b>sheet/kit</b> · không #sc-* mới · purpose theo host · preview JWT GET /object · cấm resign URL · parity iOS.</p>
+      <div class="chips" id="state-chips">
+        <button type="button" class="chip" data-state="empty">Empty</button>
+        <button type="button" class="chip" data-state="uploading">Uploading</button>
+        <button type="button" class="chip" data-state="preview">Preview</button>
+        <button type="button" class="chip" data-state="fail">Fail</button>
+        <button type="button" class="chip" data-host="checkin">Host check-in</button>
+        <button type="button" class="chip" data-host="inc-form">Host inc-form</button>
+      </div>
+
+      <div class="card" id="kit-linm-image-upload" data-des="DES-MOB-FILE-KIT">
+        <div class="section-label" id="photo-label">Ảnh hiện trường</div>
+        <div class="photo-row">
+          <div class="slot empty" id="photo-slot" role="button" aria-label="Thêm ảnh">
+            <svg class="cam" id="i-camera" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M4 8h3l2-2h6l2 2h3v11H4V8z"/>
+              <circle cx="12" cy="13" r="3.5"/>
+            </svg>
+            <div class="progress" id="photo-progress" hidden>Đang tải…</div>
+            <img id="photo-thumb" alt="" hidden />
+            <button type="button" class="remove" id="btn-remove" aria-label="Xóa ảnh" hidden>×</button>
+          </div>
+          <button type="button" class="slot empty" id="btn-add" aria-label="Thêm ảnh" title="Add">
+            <svg class="cam" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M4 8h3l2-2h6l2 2h3v11H4V8z"/>
+              <circle cx="12" cy="13" r="3.5"/>
+            </svg>
+          </button>
+        </div>
+        <div class="meta">purpose: <code id="purpose">incident</code><br/>
+          attachmentBind: <code id="attachment-bind">(none)</code></div>
+      </div>
+
+      <div class="host-form" id="sc-inc-form" data-des="DES-MOB-FILE-HOST-INC">
+        <div class="card">
+          <div class="form-title">Ghi sự cố · photos</div>
+          <div class="section-label">Ảnh hiện trường</div>
+          <div class="photo-row" id="inc-photos">
+            <div class="slot" style="background:linear-gradient(135deg,#cde,#9cf)"></div>
+            <div class="slot empty"><svg class="cam" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 8h3l2-2h6l2 2h3v11H4V8z"/><circle cx="12" cy="13" r="3.5"/></svg></div>
+          </div>
+          <div class="meta">P1 body <code>{ attachmentId }</code> · purpose=<code>incident</code></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="host-sheet" id="sheet-checkin" data-des="DES-MOB-FILE-HOST-CHECKIN">
+      <div class="sheet-handle"></div>
+      <div class="sheet-nav">
+        <button type="button" class="nav-btn" id="close-sheet">Hủy</button>
+        <div class="nav-title">Ghi điểm tuần</div>
+        <button type="button" class="nav-btn">Lưu</button>
+      </div>
+      <div class="sheet-body">
+        <div class="card" style="margin-top:8px">
+          <div class="section-label">Ảnh</div>
+          <div class="photo-row" id="ci-photos">
+            <div class="slot" style="background:linear-gradient(135deg,#ded,#9c9)"></div>
+            <div class="slot empty"><svg class="cam" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 8h3l2-2h6l2 2h3v11H4V8z"/><circle cx="12" cy="13" r="3.5"/></svg></div>
+          </div>
+          <div class="meta">shared_action · purpose=<code>patrol-checkin</code> · attachmentId[]</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast-file-fail">Không tải được ảnh</div>
+    <div class="nav" aria-hidden="true">
+      <div class="tab"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M4 10.5L12 4l8 6.5V20h-5v-5H9v5H4z"/></svg>Trang Chủ</div>
+      <div class="tab active"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M6 20V10l6-5 6 5v10h-4v-6H10v6z"/></svg>Tuần đường</div>
+      <div class="tab"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M4 8h3l2-2h6l2 2h3v11H4V8zm8 8.5a3.5 3.5 0 100-7 3.5 3.5 0 000 7z"/></svg>Camera</div>
+      <div class="tab"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M4 7h16v3H4zm0 5h16v7H4z"/></svg>Tài sản</div>
+      <div class="tab"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12a4 4 0 100-8 4 4 0 000 8zm0 2c-4 0-8 2-8 4v2h16v-2c0-2-4-4-8-4z"/></svg>Tôi</div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      var params = new URLSearchParams(location.search);
+      var state = params.get("state") || "empty";
+      var host = params.get("host") || "";
+      var slot = document.getElementById("photo-slot");
+      var progress = document.getElementById("photo-progress");
+      var thumb = document.getElementById("photo-thumb");
+      var remove = document.getElementById("btn-remove");
+      var bind = document.getElementById("attachment-bind");
+      var purpose = document.getElementById("purpose");
+      var toast = document.getElementById("toast-file-fail");
+      var sheet = document.getElementById("sheet-checkin");
+      var form = document.getElementById("sc-inc-form");
+      var cam = slot.querySelector(".cam");
+
+      function applyState(s) {
+        state = s;
+        progress.hidden = true;
+        thumb.hidden = true;
+        remove.hidden = true;
+        toast.classList.remove("show");
+        slot.classList.add("empty");
+        cam.hidden = false;
+        bind.textContent = "(none)";
+        if (s === "uploading") {
+          progress.hidden = false;
+          cam.hidden = true;
+          slot.classList.remove("empty");
+        } else if (s === "preview") {
+          cam.hidden = true;
+          slot.classList.remove("empty");
+          thumb.hidden = false;
+          thumb.src = "data:image/svg+xml," + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#7ec8e3"/><stop offset="1" stop-color="#0C84C0"/></linearGradient></defs><rect width="96" height="96" fill="url(#g)"/><text x="48" y="52" text-anchor="middle" fill="#fff" font-size="11" font-family="sans-serif">preview</text></svg>');
+          remove.hidden = false;
+          bind.textContent = "a1b2c3d4-e5f6-7890-abcd-ef1234567890";
+        } else if (s === "fail") {
+          toast.classList.add("show");
+          bind.textContent = "(none) · no fake id";
+        }
+      }
+
+      function applyHost(h) {
+        host = h || "";
+        sheet.classList.toggle("open", host === "checkin");
+        form.classList.toggle("open", host === "inc-form");
+        purpose.textContent = host === "checkin" ? "patrol-checkin" : (host === "inc-form" ? "incident" : "incident");
+        document.getElementById("photo-label").textContent = host === "checkin" ? "Ảnh" : "Ảnh hiện trường";
+      }
+
+      document.getElementById("state-chips").addEventListener("click", function (e) {
+        var t = e.target.closest("[data-state],[data-host]");
+        if (!t) return;
+        if (t.dataset.state) applyState(t.dataset.state);
+        if (t.dataset.host) applyHost(t.dataset.host === host ? "" : t.dataset.host);
+      });
+      document.getElementById("close-sheet").addEventListener("click", function () { applyHost(""); });
+      document.getElementById("btn-add").addEventListener("click", function () { applyState("uploading"); setTimeout(function () { applyState("preview"); }, 700); });
+      slot.addEventListener("click", function (e) {
+        if (e.target === remove) return;
+        if (state === "empty" || state === "fail") { applyState("uploading"); setTimeout(function () { applyState("preview"); }, 700); }
+      });
+      remove.addEventListener("click", function (e) { e.stopPropagation(); applyState("empty"); });
+
+      applyState(state);
+      applyHost(host);
+    })();
+  </script>
+</body>
+</html>

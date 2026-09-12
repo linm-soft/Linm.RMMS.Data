@@ -1,4 +1,4 @@
-# Review — Findings — cam-patrol (mobile screen · Thu thập camera · cleanup_mock re-check)
+# Review — Findings — cam-patrol (mobile screen · Thu thập camera · FRAME re-check)
 
 | Field | Value |
 |-------|-------|
@@ -6,36 +6,36 @@
 | title | [Mobile] [Tuần đường] -> Thu thập camera |
 | this role | `review` · `/agent-review-mobile` |
 | status | **done** |
-| review_confirm | **done** (autopilot · `task_20cf4fcb` · autoApprove=ON) |
+| review_confirm | **done** (autopilot · `task_503535a1` · autoApprove=ON) |
 | packKind | **`screen`** (`DES-MOB-CAM-PATROL` + finder `DES-MOB-CAM-FINDER`) |
 | lane | `mobile` · **cấm** mfeStdUrl / yarn start:std |
-| changeScope | `edit_page` (cleanup_mock) |
-| prior · qa | `handoff/qa-compact.md` · **confirmed** · e2eQa ON · `ok:true` · visual **Aligned** Must **0** · `task_fb828936` |
-| prior · dev | `handoff/dev-compact.md` · **confirmed** · cleanup_mock · VERIFY builds PASS · `task_e7101ed6` |
-| prior · design/sa/po/tl | **confirmed** (STATUS) · compact missing → rely STATUS + prior findings · scope unchanged |
+| changeScope | `edit_page` · FRAME (`GAP-MOB-CAM-FRAME-01/02/03`) |
+| prior · qa | `handoff/qa-compact.md` · **confirmed** · e2eQa ON · `ok:true` · visual **Aligned** Must **0** · `task_8051fbb6` |
+| prior · dev | `handoff/dev-compact.md` · **confirmed** · T-IOS/AND-CAM-FRAME · builds PASS · `task_2122aa0b` |
+| prior · tl/sa/design/po/da | **confirmed** · compact exists · route_a **giữ** · Step 4b **SKIP** |
 | ios | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS` |
 | android | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android` |
-| bff | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Bff` · catch-all proxy |
+| bff | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Bff` · catch-all · paths unchanged |
 | backend | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.WebService` · **cấm ERP.*** |
 | autoApprove | **ON** |
-| e2eQa | **ON** · prior QA `task_fb828936` · **cấm** re-run e2e/build ở role review |
-| updatedAt | `2026-09-01T06:17:31.000Z` |
-| taskId | `task_20cf4fcb` |
+| e2eQa | **ON** · prior QA `task_8051fbb6` · **cấm** re-run e2e/build ở role review |
+| updatedAt | `2026-09-12T11:47:37.000Z` |
+| taskId | `task_503535a1` |
 
 ## REVIEW-META
 
 | Hash input | Notes |
 |------------|-------|
-| iOS | `CamPatrol/*` · live-only route stamp · **cấm** `demoRouteStamp` / `itemsOrDemo` in CamPatrol VM |
-| Android | `presentation/feature/campatrol/*` · dual parity live-only |
-| BFF | catch-all · **cấm** invent CamPatrolController |
+| iOS | `CamPatrol/*` · capture JPEG → `imageBase64` · fail toast · live route |
+| Android | `presentation/feature/campatrol/*` · CameraX parity |
+| BFF | catch-all · DetectAiVisionBody.ImageBase64 live · **cấm** invent controller |
 | API | `GET patrol/sessions` · `POST ai-vision/detect` · `POST incident/incidents` |
 | QA store | `qa/store/cam-patrol/` A11/A9/A3/P6/P6-2 · manifest **ok:true** · CAPTURE PASS |
-| align | QA Read A3↔P6↔demo **Aligned** · Must **0** · score ẩn · no demoRouteStamp |
+| align | QA Read A3↔P6↔demo **Aligned** · Must **0** · score ẩn · TopBar+finder+Confirm/Skip |
 | skillVersion | agent-review-mobile **2026.08.20.01** |
-| contentHash | `sha256:cam-patrol-control-hint-20260828` · unchanged |
-| realDataHash | `sha256:cam-patrol-real-data-20260828` · unchanged |
-| bffContentHash | `sha256:cam-patrol-mobile-bff-20260828` · unchanged |
+| contentHash | `sha256:cam-patrol-control-hint-20260912-frame` |
+| realDataHash | `sha256:cam-patrol-real-data-20260912-frame` |
+| bffContentHash | `sha256:cam-patrol-mobile-bff-20260912-frame` |
 
 ## Security + permission
 
@@ -49,24 +49,27 @@
 | Fake lat/lng · Confirm `hasGps` gate | **PASS** |
 | Invent cam-patrol slug / fake HTTP 200 | **PASS** |
 | Score % / watermark / mfeStdUrl | **PASS** — score ẩn · none |
-| cleanup_mock demo SSOT stamp | **PASS** — CamPatrol dual live-only · empty=`patrol.empty.active.route` · fail toast=`cam.toast.sessionFail` |
+| Fake class on detect fail | **PASS** — toast detectFail · card nil · **cấm** fake class |
+| Null ImageBase64 on detect POST | **PASS** — FRAME capture → non-null dual |
 
 ## DTO parity (iOS = Android = BE)
 
 | Field | Disposition |
 |-------|-------------|
-| Detect / Detection card / Confirm bodies | **OK** (prior · unchanged) |
-| Route stamp source | **OK** — live `GET patrol/sessions` active only · **cấm** demo fallback in CamPatrol |
+| DetectAiVisionBody.ImageBase64 | **OK** — dual capture JPEG · GAP-MOB-CAM-FRAME-01/03 **CLOSED** |
+| Detection card / Confirm bodies | **OK** (prior · unchanged) |
+| Route stamp source | **OK** — live `GET patrol/sessions` · cleanup_mock giữ |
 | Tab invent | **OK** · pack tabs none · shell Tab field |
 
 ## UI align (vision · prior QA + store)
 
 | Zone | Result |
 |------|--------|
-| A3-CORE vs demo `#sc-cam-patrol` | **PASS** — QA Aligned · live-only route · score ẩn · Confirm/Skip no-icon |
-| P6-CORE / P6-CORE-2 | **PASS** — dual parity · fold2 |
+| A3-CORE vs demo `#sc-cam-patrol` | **PASS** — QA Aligned · finder+Confirm/Skip · score ẩn |
+| P6-CORE / P6-CORE-2 | **PASS** — dual parity |
 | Must align / bugs OPEN | **0** |
-| GAP-MOB-EDIT-DEMO-01 | **CLOSED** |
+| GAP-MOB-CAM-FRAME-01/02/03 | **CLOSED client** |
+| GAP-MOB-EDIT-DEMO-01 | **CLOSED** (prior) |
 
 AskQuestion (autoApprove=ON): `review_confirm=done` · `align_confirm=approve` · `post_review=skip`.
 
@@ -76,26 +79,26 @@ AskQuestion (autoApprove=ON): `review_confirm=done` · `align_confirm=approve` �
 |----|------|-----|---------|-------------|
 | R-01 | Security | — | Keychain/Encrypted · Bearer · tenant · camera/GPS privacy | **OK** |
 | R-02 | API | — | sessions + detect + incident · **cấm ERP.*** · no invent slug | **OK** |
-| R-03 | cleanup_mock | — | CamPatrol dual **cấm** demoRouteStamp/itemsOrDemo · empty/fail copy live | **OK** |
-| R-04 | DTO | — | Dual = BE Detect/CreateIncident | **OK** |
+| R-03 | FRAME | — | Capture → non-null ImageBase64 dual · fail toast sạch | **OK** · FRAME-01/02/03 **CLOSED** |
+| R-04 | DTO | — | DetectAiVisionBody parity dual = BE | **OK** |
 | R-05 | Align | — | A3+P6(+2) vs demo · Must **0** · Aligned | **OK** |
 | R-06 | GPS timing | Should | `GAP-QA-CAM-GPS-TIMING-01` | **Defer** non-block |
-| R-07 | Frame upload | P2 | ImageBase64 optional / media bind | **Accept** |
-| R-08 | QA | — | e2eQa ON · Maestro · store live · `task_fb828936` PASS | **OK** |
+| R-07 | cleanup_mock | — | live-only route · cấm demoRouteStamp (prior giữ) | **OK** |
+| R-08 | QA | — | e2eQa ON · Maestro · store live · `task_8051fbb6` PASS | **OK** |
 | R-09 | Store | P2 | Play Data safety / READY_TO_SUBMIT | **Accept** |
-| R-10 | Step 4b | — | N/A reuse sessions · review skip re-run | **OK** |
+| R-10 | Step 4b | — | SKIP · DTO live · review skip re-run | **OK** |
 
 ## Task gate
 
 | Task | Result |
 |------|--------|
-| T-IOS-CAM-PAT-CLEAN | PASS (prior Dev) |
-| T-AND-CAM-PAT-CLEAN | PASS (prior Dev) |
-| T-BE / T-BFF | n/a |
-| T-QA | PASS (`ok:true` · Must 0) |
-| T-REVIEW-SEC / DTO / ALIGN / CLEANUP | PASS · Must align = **0** |
+| T-IOS-CAM-FRAME | PASS (Dev `task_2122aa0b`) |
+| T-AND-CAM-FRAME | PASS (Dev `task_2122aa0b`) |
+| T-BE / T-BFF | n/a · Step 4b SKIP |
+| T-QA-CAM-FRAME / T-QA-TAB-01 | PASS (`ok:true` · Must 0 · `task_8051fbb6`) |
+| T-REVIEW-SEC / DTO / ALIGN / FRAME | PASS · Must align = **0** |
 
-## VERIFY GATE (`task_20cf4fcb` · roleOnly=`review`)
+## VERIFY GATE (`task_503535a1` · roleOnly=`review`)
 
 | Gate | Result |
 |------|--------|
@@ -106,7 +109,7 @@ AskQuestion (autoApprove=ON): `review_confirm=done` · `align_confirm=approve` �
 
 ## Verdict
 
-Re-review post cleanup_mock: CamPatrol dual live-only route · security/DTO/align Must **0** · prior QA `ok:true` · GAP-MOB-EDIT-DEMO-01 closed · GPS timing Should non-block. **review_confirm=done**. Pipeline **complete**.
+FRAME re-review: capture JPEG → ImageBase64 dual · fail toast sạch · security/DTO/align Must **0** · prior QA `ok:true` · GAP-MOB-CAM-FRAME-01/02/03 closed · GPS timing Should non-block. **review_confirm=done**. Pipeline **complete**.
 
 ## Handoff
 
@@ -114,8 +117,8 @@ Re-review post cleanup_mock: CamPatrol dual live-only route · security/DTO/alig
 |-------|--------|
 | phase_to | `done` |
 | post_review | **skip** |
-| Next | — · epic child #14 cam-patrol **DONE** · **cấm** re-run full pipeline |
-| Should follow-ups | `GAP-QA-CAM-GPS-TIMING-01` · frame media P2 · Play Data safety |
+| Next | — · FRAME epic child **DONE** · **cấm** re-run full pipeline |
+| Should follow-ups | `GAP-QA-CAM-GPS-TIMING-01` · Play Data safety P2 |
 
 ## Version meta (REQUIRED)
 
@@ -126,11 +129,11 @@ Re-review post cleanup_mock: CamPatrol dual live-only route · security/DTO/alig
 | schemaVersion | 1 |
 | workflowVersion | 2026.08.25.01 |
 | rulesVersion | 2026.08.29.4 |
-| generatedAt | 2026-09-01T06:17:31.000Z |
+| generatedAt | 2026-09-12T11:47:37.000Z |
 | versionGate | rechecked |
-| taskId | `task_20cf4fcb` |
-| contentHash | sha256:cam-patrol-control-hint-20260828 |
-| realDataHash | sha256:cam-patrol-real-data-20260828 |
-| bffContentHash | sha256:cam-patrol-mobile-bff-20260828 |
+| taskId | `task_503535a1` |
+| contentHash | sha256:cam-patrol-control-hint-20260912-frame |
+| realDataHash | sha256:cam-patrol-real-data-20260912-frame |
+| bffContentHash | sha256:cam-patrol-mobile-bff-20260912-frame |
 
-<!-- Version meta: skillId=agent-review-mobile skillVersion=2026.08.20.01 schemaVersion=1 workflowVersion=2026.08.25.01 rulesVersion=2026.08.29.4 versionGate=rechecked contentHash=sha256:cam-patrol-control-hint-20260828 -->
+<!-- Version meta: skillId=agent-review-mobile skillVersion=2026.08.20.01 schemaVersion=1 workflowVersion=2026.08.25.01 rulesVersion=2026.08.29.4 versionGate=rechecked contentHash=sha256:cam-patrol-control-hint-20260912-frame -->

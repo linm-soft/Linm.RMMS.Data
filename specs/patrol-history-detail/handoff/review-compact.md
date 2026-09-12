@@ -6,46 +6,53 @@ packKind: sheet
 role: review
 status: done
 skillVersion: 2026.08.31.2
-writtenAt: 2026-09-01T11:25:38.000Z
-taskId: task_96251956
+writtenAt: 2026-09-12T14:25:00.000Z
+taskId: task_8aedde45
+slash: /agent-review-mobile
+autoApprove: ON
+e2eQa: prior QA PASS · cấm e2e ở review
+changeScope: edit_page
 
 ## Decisions
-- changeScope: edit_page (re-review after NAV + OfflineDemo strip)
+- changeScope: edit_page · GAP timeline GET check-ins Live
 - formPattern: Full (`#sc-patrol-detail` · DES-MOB-PAT-DETAIL)
 - review_confirm: **done** (autoApprove ON)
-- align_confirm: approve · Must open **0**
-- findings: P0=0 · MustOpen=0 · Accept=Offline EmptyChrome vs SA demo-fallback · Defer=TimelineRow/map/checkin · PrivacyInfo P2
-- security: Keychain/Encrypted · X-Company-Id · 403/404 · toast End/Share · no invent API
-- NAV: history/today → push + Id **OK** (GAP-NAV-01 closed · QA PASS)
-- DTO: dual GET §B · timeline demo SSOT P1 OK
-- clickables: ACT-03 **0** · cấm crawl re-run
-- REAL-02 / QA-REAL-01: none
-- post_review: skip · phase=done
+- align_confirm: **approve** · Must **0** · A3/P6/P6-2 vs `#sc-patrol-detail`
+- verdict: **PASS** · findingsP0=0 · Must open=0
+- Gaps CLOSED: TIMELINE-01 · TAP-01 · MAP-01 · END-01
+- Security/DTO: PASS · API-01+API-02 Live · cấm ERP.* / invent / timelineDemo / mfeStdUrl
+- Accept: runtime PAT/TL ≠ demo TD-* (design SSOT)
+- Debt P2: ListRow≈TimelineRow · PatrolMap consume Id
+- post_review: **skip** · phase_to: **done**
+- verifyGate: artifact+STATUS PASS · **cấm** yarn build/e2e/start:std
+- hash: contentHash sha256:patrol-history-detail-control-hint-20260912-timeline-live · bffContentHash sha256:patrol-sessions-getbyid-plus-checkins
 - open questions: none
-- autoApprove: ON
+- next: pipeline complete · **cấm** re-run full chain
 
 ## Inventory (slim)
 | id | label | controlHint | notes |
 |----|-------|-------------|-------|
-| R-SEC | token/XCO/IDOR | — | PASS |
-| R-DTO | sessions/{id} | — | PASS |
-| R-ALIGN | CORE vs demo | — | Must 0 |
-| R-NAV | list→detail push | — | PASS |
-| R-CLICK | CLICKABLES | — | ACT-03=0 |
+| codeHero | PAT-* | Text | GET Code · live |
+| badgeStatus | Hoàn thành | Badge | VN |
+| tlItem | Điểm tuần | TimelineRow | GET check-ins Live |
+| btnMap | Mở bản đồ ca | Primary | nav + Id |
+| btnEnd | Kết thúc ca | Secondary | toast P1 |
 
 ## Screens / zones (ids only)
-- DES-MOB-PAT-DETAIL `#sc-patrol-detail`
-- PNG: qa/store/…/{A11,A9,A3,P6,P6-2}.png
-- reviewUrl: dual prototype `#sc-patrol-detail`
+- DES-MOB-PAT-DETAIL `#sc-patrol-detail` · NAV · HERO · INFO · TL · CTA
+- shots: `qa/store/patrol-history-detail/{A3,P6,P6-2}-CORE.png`
+- align: `ui/review/align-ux.md` Must 0
 
 ## API / tasks (ids only)
-- API-01 GET sessions/{id} · verified
-- T-REVIEW-* PASS · T-QA `task_cf2aadc0` PASS · T-BE n/a
-- findings counts: P0=0 · Must=0 · Accept/Defer=3
+- API-01 GET sessions/{id} · API-02 GET …/check-ins Live
+- T-IOS/T-AND/T-QA PASS · T-BE n/a · T-REVIEW PASS
+- Gaps closed: TIMELINE/TAP/MAP/END
 
 ## UNCLEAR
 - none
 
 ## Full paths (Read only if needed)
 - findings: /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/patrol-history-detail/review/findings.md
+- align: /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/patrol-history-detail/ui/review/align-ux.md
+- qa compact: /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/patrol-history-detail/handoff/qa-compact.md
 - STATUS: /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/patrol-history-detail/STATUS.md

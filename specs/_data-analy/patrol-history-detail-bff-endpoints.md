@@ -5,90 +5,83 @@
 | feature | `patrol-history-detail` |
 | bff | `Linm.RMMS.Mobile.Bff` · `MobileApiProxyController` catch-all |
 | prefix | `mobile-bff/api/v1` |
-| downstream | `ApiBase` → `RMMS.Service.Api` · Patrol domain |
-| source | CTX `patrol-history-detail.md` · `patrol-history.md` · `PatrolSessionsController` · DOMAIN-MAP Patrol · demo `#sc-patrol-detail` |
-| **cấm** | invent `api/v1/patrol-history-detail` · invent `GET …/check-ins` list P1 · ERP.* · Report domain · app `:5101` · DbContext trên BFF |
+| downstream | `ApiBase` → `RMMS.Service.Api` · Patrol |
+| changeScope | `edit_page` · `task_dc906824` |
+| source | CTX · `PatrolSessionsController` · DOMAIN-MAP Patrol |
+| **cấm** | invent `patrol-history-detail` path · ERP.* · app `:5101` · DbContext BFF · `timelineDemo` khi live |
 
-App `ApiClient.base` = `{BffBase}/mobile-bff/api/v1`. Path **không** lặp prefix.
+App `ApiClient.base` = `{BffBase}/mobile-bff/api/v1`.
 
-## Như thế nào (skill step 6)
+## Table — `#sc-patrol-detail`
 
-| Tầng | Repo / package | App có biết? |
-|------|----------------|--------------|
-| UI | iOS + Android | Có — `{BffPrefix}` + nav `Id` |
-| BFF host | `Linm.RMMS.Mobile.Bff` | Có — một host |
-| Domain API | `RMMS.Service.Api` · Patrol | **Không** — proxy rewrite |
-| Web BFF | `web-bff/api/v1/patrol/sessions` | **Không** — mobile dùng mobile-bff |
-| Dedicated PatrolHistoryDetailController | **không** | **cấm invent** |
+| Action / zone | Method | `{BffPrefix}` path | BFF | Downstream | Gap |
+|---------------|--------|--------------------|-----|------------|-----|
+| Load chi tiết ca | GET | `patrol/sessions/{id}` | proxy | `GetById` · XCO | hero + info · **Live** |
+| Timeline điểm tuần | GET | `patrol/sessions/{id}/check-ins` | proxy | `GetCheckIns` · `PatrolCheckInDto[]` | **Live** · empty `[]` OK · **cấm** timelineDemo |
+| Nav Mở bản đồ ca | — | — | — | local nav | `go('patrol-map')` + session Id |
+| Nav timeline → check-in | — | — | — | local nav | `go('checkin-detail')` + check-in Id |
+| Nav back | — | — | — | local | pop list |
+| Chia sẻ / Kết thúc ca | — | — | — | toast P1 | **cấm** PUT |
+| Toast / empty | — | — | — | local UI | session 404 · check-ins fail → empty TL |
 
-## Table — detail `#sc-patrol-detail` · `DES-MOB-PAT-DETAIL`
+## DTO — session (không đổi)
 
-| Action / zone | Method | `{BffPrefix}` path | BFF | Downstream | Source | Gap |
-|---------------|--------|--------------------|-----|------------|--------|-----|
-| Load chi tiết ca | GET | `patrol/sessions/{id}` | proxy | `PatrolSessionsController.GetById` · XCO | `api/v1/patrol/sessions/{id}` | hero + info rows |
-| Timeline điểm tuần | — | — | — | demo SSOT | controlHint | **GAP-MOB-PAT-HIST-DET-TIMELINE-01** · **không** GET check-ins list |
-| Nav Mở bản đồ ca | — | — | — | local nav | `go('patrol-map')` | **không** API |
-| Nav timeline → check-in | — | — | — | local nav | `go('checkin-detail')` | owner `patrol-checkin` |
-| Nav back list | — | — | — | local nav | `go('patrol-history')` | **không** API |
-| Chia sẻ trailing | — | — | — | toast P1 | controlHint | **không** API |
-| Kết thúc ca | — | — | — | toast P1 | controlHint | **cấm** PUT P1 |
-| Toast err / empty | — | — | — | local UI | controlHint | **không** API |
+`PatrolSessionDto`: Id · Code · UserName · Route · PatrolType · PlannedDate · StartedAt · CoveragePercent · Status · CheckInCount · OfflineQueued · …
 
-## DTO bind (live `PatrolSessionDto`)
+## DTO — check-in timeline (`PatrolCheckInDto` · **Live**)
 
-| Field | Wire | UI |
-|-------|------|-----|
-| `Id` | yes Guid | route param / nav key |
-| `Code` | yes | codeHero |
-| `UserName` | yes | rowUser |
-| `Route` | yes | rowRoute |
-| `PatrolType` | yes | rowType |
-| `PlannedDate` | yes DateOnly | rowPlanDate (dd/MM/yyyy) |
-| `StartedAt` | yes DateTime? | rowStarted (HH:mm local) |
-| `CoveragePercent` | decimal | rowCoverage + `%` |
-| `Status` | yes | badgeStatus mapped VN |
-| `CheckInCount` | int | timeline subtitle hint · **không** bind timeline rows P1 |
-| `OfflineQueued` | bool | badge override Mất sóng |
-| `Note` | string? | **không** bind P1 UI |
-| `IsActive` · timestamps | yes | **không** bind P1 UI |
+| Field | Wire | UI timeline |
+|-------|------|-------------|
+| `Id` | Guid | item id · tap key |
+| `SessionId` | Guid | assert = route id |
+| `PlanPointLabel` | string | title (điểm / địa danh) |
+| `Route` | string | subtitle chainage / tuyến |
+| `CreatedAt` | DateTime | time `HH:mm` local |
+| `MatchOk` | bool | «định vị đạt» / không đạt |
+| `DistanceToPlanM` | double | optional sub `~{n} m` |
+| `PhotoLocalIds` | string[] | «Ảnh ×{count}» nếu count>0 |
+| `Lat` · `Lng` · `AccuracyM` · `Content` | yes | **không** bind P1 list row (detail owner CI) |
 
-**Cấm** app fork DTO khác BFF table. **Cấm** invent path `patrol-history-detail`.
+**Empty:** `200` + `data: []` → section «Điểm tuần» + empty inline · **không** seed demo.
 
-## Có trên domain — **không** thuộc slug `patrol-history-detail` P1 UI
+**404 session:** check-ins NotFound → treat session missing / back (cùng Id).
+
+## Có trên domain — OUT slug P1 UI
 
 | Method | Path | Ghi |
 |--------|------|-----|
-| GET | `patrol/sessions` | list — owner `patrol-history` |
-| POST | `patrol/sessions` | create — web |
-| PUT | `patrol/sessions/{id}` | update/end — **OUT** P1 (toast only) |
-| DELETE | `patrol/sessions/{id}` | soft delete — **OUT** |
-| POST | `patrol/sessions/{id}/check-ins` | field check-in — owner `patrol-checkin` |
-| GET | `patrol/sessions/{id}/check-ins` | — | **MISSING** · timeline P2 · **cấm invent P1** |
-| GET | `patrol/sessions/{id}/tracks` | coverage/tracks | **P2** — owner `patrol-map` |
-| Web | `web-bff/api/v1/patrol/**` · `td-tk/sessions` | web BFF · mobile = mobile-bff proxy |
+| GET | `patrol/sessions` | owner list |
+| POST | `…/check-ins` | owner `patrol-checkin` create |
+| GET | `…/plan-points` | **OUT** P1 timeline — **không** synth pending |
+| PUT/DELETE | `patrol/sessions/{id}` | **OUT** end toast P1 |
+| tracks | `…/tracks` | owner `patrol-map` P2 |
 
 ## Verify live (không invent)
 
 | Check | Result |
 |-------|--------|
-| `PatrolSessionsController` | `[Route("api/v1/patrol/sessions")]` GetById · 403/404 |
-| `PatrolSessionDto` | Code · UserName · Route · PatrolType · PlannedDate · StartedAt · CoveragePercent · Status · CheckInCount · OfflineQueued |
-| Mobile.Bff `patrol/*` | proxy catch-all `MobileApiProxyController` |
+| `GetById` | **Live** |
+| `GetCheckIns` `[HttpGet("{id}/check-ins")]` | **Live** · `PatrolSessionService.GetCheckInsAsync` |
+| Mobile.Bff | proxy catch-all — path passthrough |
 | DOMAIN-MAP | Patrol · **cấm** ERP.* |
-| `api/v1/patrol-history-detail` | **không** — **cấm invent** |
-| GET check-ins list | **không** — timeline demo SSOT P1 |
-| Step 4b | **N/A** — GetById **DONE** · **cấm** data_analy migration |
+| invent `patrol-history-detail` | **không** |
+| Step 4b | **N/A** — endpoints **DONE** · **cấm** data_analy migration |
+
+## § Delta BFF (`edit_page`)
+
+| ID | Prior P1 | New |
+|----|----------|-----|
+| TIMELINE-01 | MISSING / demo SSOT · **cấm invent** | GET check-ins **Live** · bind · empty OK |
+| — | GetById only | GetById **+** GetCheckIns |
 
 ## Cấm
 
-- App biết RMMS `:5101` trực tiếp  
-- DbContext trên Mobile.Bff  
-- Invent `GET patrol-history-detail` / mobile-only DTO fork  
-- Invent `GET patrol/sessions/{id}/check-ins` P1  
-- Ship detail từ hardcode khi BFF live (`GAP-MOB-REAL-02`)  
-- Gộm POST check-ins / PUT end session vào slug này P1  
+- App `:5101` · invent mobile-only DTO fork  
+- Ship `timelineDemo` khi BFF OK / empty  
+- Fake 200 · enqueue POST/PUT từ detail  
+- Step 4b trong data_analy  
 
-## Version meta (REQUIRED)
+## Version meta
 
 | Field | Value |
 |-------|-------|
@@ -97,11 +90,11 @@ App `ApiClient.base` = `{BffBase}/mobile-bff/api/v1`. Path **không** lặp pref
 | schemaVersion | 2 |
 | workflowVersion | 2026.08.31.2 |
 | rulesVersion | 2026.08.31.2 |
-| generatedAt | `2026-08-31T03:25:00.000Z` |
+| generatedAt | `2026-09-12T13:26:27.000Z` |
 | versionGate | rechecked |
-| contentHash | sha256:patrol-history-detail-bff-20260831 |
-| bffContentHash | sha256:patrol-sessions-getbyid-passthrough |
-| taskId | `task_b2fb1a98` |
+| contentHash | sha256:patrol-history-detail-bff-20260912-checkins-live |
+| bffContentHash | sha256:patrol-sessions-getbyid-plus-checkins |
+| taskId | `task_dc906824` |
 
 ---
 <!-- Version meta: skillId=agent-data-analy-mobile skillVersion=2026.08.31.2 schemaVersion=2 workflowVersion=2026.08.31.2 rulesVersion=2026.08.31.2 versionGate=rechecked -->

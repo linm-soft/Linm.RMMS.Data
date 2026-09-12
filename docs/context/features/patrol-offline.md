@@ -6,11 +6,16 @@
 | slug | `patrol-offline` |
 | screen | `#sc-patrol-offline` · `DES-MOB-PAT-OFFLINE` |
 | packKind | `list` |
-| domain | Integration (sync) · Patrol (check-in P2) · Incident (draft P2) |
+| changeScope | `edit_page` · gap=`offline_sync_apply_checkins` |
+| domain | Integration (receipt) · Patrol (check-in apply) · Incident (draft P2) |
 
 ## Mục đích
 
 Hiện trường QLĐB thường mất sóng — ghi cục bộ cùng dữ liệu Web, đồng bộ khi có mạng. Không được mất nhật ký tuần tra / nháp sự cố.
+
+## GAP (2026-09-12)
+
+`POST integration/sync/offline-batch` chỉ tạo SyncJob `Status=done` — **không** apply điểm tuần vào DB. DoD: replay hàng đợi → `POST patrol/sessions/{id}/check-ins` thật · xóa local chỉ khi 2xx.
 
 ## Entry
 
@@ -22,22 +27,24 @@ Hiện trường QLĐB thường mất sóng — ghi cục bộ cùng dữ liệ
 
 | Action | Path | Note |
 |--------|------|------|
-| Sync batch | `POST mobile-bff/api/v1/integration/sync/offline-batch` | proxy Integration |
-| Queue list | **local** | UserDefaults iOS · Room Android — **cấm invent GET** |
+| Replay check-in | `POST mobile-bff/api/v1/patrol/sessions/{id}/check-ins` | **primary** apply DB |
+| Sync receipt | `POST mobile-bff/api/v1/integration/sync/offline-batch` | optional after OK |
+| Queue list | **local** | UserDefaults iOS · prefs Android — **cấm invent GET** |
 
 ## Permissions
 
 - `patrol.sessions.update` — đồng bộ điểm tuần
-- `incident.incidents.create` — đồng bộ nháp sự cố
+- `incident.incidents.create` — đồng bộ nháp sự cố (P2)
 
 ## SSOT
 
-- Demo: `specs/mobile-p1/ui/prototype/ios/index.html` `#sc-patrol-offline`
+- Demo: `specs/patrol-offline/ui/prototype/{ios,android}/index.html` `#sc-patrol-offline`
 - Strings: `docs/mobile-strings.json` keys `offline.*`
+- Analy: `specs/_data-analy/patrol-offline-*.md`
 
 ## Implement tracking
 
 | lane | phase | status | updatedAt |
 |------|-------|--------|-----------|
 | web | — | — | — |
-| mobile | `done` | `done` | `2026-09-01T11:54:01.579Z` |
+| mobile | `done` | `done` | `2026-09-12T14:52:44.446Z` |

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nguồn lớp nền — Android</title>
+  <style>
+    :root { --p:#0C84C0; --bg:#F5F5F5; --card:#fff; --t:#1C1B1F; --muted:#79747E; --ok:#1B7A32; --warn:#A65A00; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family:Roboto,"Noto Sans",sans-serif; background:#111; color:var(--t); }
+    .phone { width:412px; height:915px; margin:16px auto; background:var(--bg); border-radius:20px; overflow:hidden; display:flex; flex-direction:column; box-shadow:0 8px 24px rgba(0,0,0,.35); }
+    .status { height:28px; padding:6px 16px 0; font-size:12px; display:flex; justify-content:space-between; background:var(--p); color:#fff; }
+    .nav { height:56px; display:flex; align-items:center; padding:0 16px; background:var(--p); color:#fff; font-size:20px; font-weight:500; }
+    .body { flex:1; padding:12px 12px 24px; overflow:auto; }
+    .card { background:var(--card); border-radius:12px; margin-bottom:12px; box-shadow:0 1px 2px rgba(0,0,0,.08); overflow:hidden; }
+    .row { padding:14px 16px; border-bottom:1px solid #E7E0EC; }
+    .row:last-child { border-bottom:0; }
+    .label { font-size:13px; color:var(--muted); margin-bottom:4px; }
+    .value { font-size:16px; line-height:1.35; word-break:break-all; }
+    .mono { font-family:ui-monospace,monospace; font-size:12px; color:#49454F; }
+    .chip { display:inline-block; font-size:13px; padding:4px 10px; border-radius:8px; background:#E8F1F8; color:var(--p); margin-right:6px; }
+    .chip.ok { background:#E8F5E9; color:var(--ok); }
+    .chip.warn { background:#FFF3E0; color:var(--warn); }
+    .hint { font-size:13px; color:var(--muted); padding:4px 8px 10px; }
+    .peer { font-size:16px; padding:14px 16px; }
+    .peer strong { font-weight:500; }
+  </style>
+</head>
+<body>
+  <div class="phone" id="zone-tileurl-note" data-platform="android">
+    <div class="status" aria-hidden="true"><span>9:41</span><span>●●●</span></div>
+    <div class="nav note-title">Nguồn lớp nền</div>
+    <div class="body">
+      <p class="hint">Cấu hình lớp nền qua Mobile.Bff — không màn bản đồ mới.</p>
+      <div class="card" id="zone-tile-url">
+        <div class="row">
+          <div class="label">Đường dẫn lớp nền</div>
+          <div class="value mono">{Bff}/mobile-bff/api/v1/gis/tiles/{layer}/{z}/{x}/{y}.pbf</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="row" id="zone-tile-basemap">
+          <div class="label">Lớp nền clip</div>
+          <div class="value"><span class="chip ok">Khách</span> Tải khi không cần đăng nhập</div>
+        </div>
+        <div class="row" id="zone-tile-overlay">
+          <div class="label">Lớp overlay</div>
+          <div class="value"><span class="chip warn">Cần đăng nhập</span> Trống nếu thiếu phiên</div>
+        </div>
+      </div>
+      <p class="hint">Màn dùng lại (không đổi bố cục)</p>
+      <div class="card" id="zone-peer-cite">
+        <div class="peer"><strong>Bản đồ tài sản</strong></div>
+        <div class="peer"><strong>Bản đồ ca</strong></div>
+      </div>
+      <p class="hint">Không dùng CDN bên ngoài. OSM-style + MVT từ BFF.</p>
+    </div>
+  </div>
+</body>
+</html>

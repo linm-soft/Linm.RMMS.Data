@@ -3,49 +3,48 @@
 | Field | Value |
 |-------|-------|
 | feature | `patrol-home` |
-| task | `T-IOS-PAT-HOME` · `task_488d0e96` |
+| task | `T-IOS-PAT-HOME-SESSION` · `task_523eaa0e` |
 | role | `/agent-dev-ios` |
 | status | **confirmed** |
-| changeScope | `new_page` |
+| changeScope | `edit_page` |
+| packKind | `hub` |
 | route_confirm | **route_a** |
+| updatedAt | `2026-09-12T15:20:00.000Z` |
+| contentHash | `sha256:b5efb555e6c8195ccd93f60d983b57d6b0aa476a919b7f11700157c58241ae0a` |
+| bffContentHash | `sha256:128461fdf9135cf8c168a1b05e92586465d1ef34c117b39bea7d2464a06f55c0` |
 
-## Delta (this turn)
+## Delta (edit_page)
 
-| Surface | Before | After |
-|---------|--------|-------|
-| Fetch sessions | empty/fail → `demoToday`/`demoActive` | **`FetchPatrolSessionsOutcome`** live-only · empty = `emptyActive` + EmptyChrome |
-| Today section | always 2 demo rows | live GET · empty → `patrol-today-empty` |
-| Hero / KPI | demo active session | live active or `emptyActive` |
-| Fail | silent demo | toast `patrol.toast.loadFail` |
+| Gap | Before | After |
+|-----|--------|-------|
+| SESSION-01 | no CTA / no POST | `btn-open-session` → POST `patrol/sessions` · refresh GET |
+| SESSION-02 | detail end toast-only | PUT `patrol/sessions/{id}` Status=Hoàn thành · IsActive=false · back |
+| HERO-01 | mapper fallback QL.1·Km468+200 / Nguyễn Văn A / 07:20 | empty/`—` · no demo sample |
 
 ## Layers
 
 | Layer | Path |
 |-------|------|
-| Presentation | `Presentation/Features/PatrolHome/*` · `PatrolHomeNavBar` |
-| Shell | `AppRouter` field tab · Home `setOpenPatrolHome` |
-| Domain | `PatrolHomeUseCases` · `FetchPatrolSessionsUseCase` · `FetchOfflineQueueCountUseCase` |
-| Data | `PatrolRepositoryImpl` · GET `patrol/sessions` |
+| Presentation | `PatrolHome/*` · `PatrolHistoryDetailViewModel` |
+| Domain | `CreatePatrolSessionUseCase` · `EndPatrolSessionUseCase` · `PatrolSessionBodies` |
+| Data | `PatrolRepositoryImpl` POST/PUT · `PatrolDtoMapper.activeFromSession` |
 
-## Kit zones (verified)
+## APIs
 
-`LinmTopBar` · `LinmLargeTitle` · `LinmSegment` · `LinmHeroCard` · `LinmProgress` · **`LinmPrimaryButton`** · `LinmKpiStrip` · `LinmSectionLabel` · `LinmListRow` · `LinmNetSignalMark` · `LinmToast`
-
-## Behavior (route_a)
-
-- Tab field = `#sc-patrol-home` · nav sync / row Lưu trữ → push `patrol-offline`
-- Home quick/tile → switch tab field
-- GET `patrol/sessions` · client filter «Đang tuần» · demo fallback on fail
-- Bell → toast **Thông báo** · badge **0 ẩn**
-- Segment 1 → toast **Chấm công** · reset idx 0
-- Hero / pin / quick siblings → toast · **cấm** sheet check-in
-- Offline badge → local count · **ẩn khi 0**
+- GET `patrol/sessions` (keep)
+- POST `patrol/sessions` (Create · UserName=auth · Route=QL.1 · Status=Đang tuần)
+- PUT `patrol/sessions/{id}` (end · IsActive=false)
 
 ## Build (VERIFY GATE)
 
 ```bash
 cd /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS && xcodegen generate
-xcodebuild -scheme LinmRmms -destination 'platform=iOS Simulator,name=iPhone 17 Pro' build
+xcodebuild -scheme LinmRmms -destination 'platform=iOS Simulator,name=iPhone 17 Pro Max' build
 ```
 
-**PASS** (`edit-mobile-feature` task_22fa5cba · cleanup_mock live-only).
+**PASS** · BFF `dotnet build` PASS · Step 4b N/A · mfeStdUrl —
+
+## Debt
+
+- Route picker on open (P2) — default `QL.1` catalog
+- Sibling `pending_confirm` — cấm auto start

@@ -123,6 +123,8 @@
 | `attendance-report` | Báo cáo công | — | support | `sa` / `in_progress` | none | [ctx](features/attendance-report.md) | [ST](../../specs/attendance-report/STATUS.md) |
 | `attendance-day` | Chi tiết ngày công | — | support | `done` / `done` | data_analy **PASS** | [ctx](features/attendance-day.md) | [ST](../../specs/attendance-day/STATUS.md) |
 | `patrol-history-detail` | Chi tiết ca | — | support | `done` / `done` | none | [ctx](features/patrol-history-detail.md) | [ST](../../specs/patrol-history-detail/STATUS.md) |
+| `mobile-bff-map` | [Mobile] Mobile.Bff MapService | — | support | `done` / `done` | none | [ctx](features/mobile-bff-map.md) | [ST](../../specs/mobile-bff-map/STATUS.md) |
+| `mobile-bff-file` | [Mobile] Mobile.Bff FileService | — | support | `done` / `done` | none | [ctx](features/mobile-bff-file.md) | [ST](../../specs/mobile-bff-file/STATUS.md) |
 **Báo cáo `rpt-*`:** xem [§ Reports](#17--dashboard--báo-cáo). Pipeline STATUS **done** hết (release: P1 / P1.5 / P2 / P3 theo từng slug).
 
 **Draft mobile (CTX/analy):** `incident-list` — [STATUS](../../specs/). `cam-view` data_analy **PASS** → PO pending. `incident-create` · `field-reflect` · `cam-patrol` · `mnt-list` đã có CTX + data_analy (hoặc done).

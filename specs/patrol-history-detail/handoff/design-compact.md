@@ -4,25 +4,27 @@ schemaVersion: 1
 feature: patrol-history-detail
 packKind: sheet
 role: design
-status: done
+status: confirmed
 skillVersion: 2026.08.31.2
-writtenAt: 2026-09-01T00:56:01.000Z
-taskId: task_5777786c
+writtenAt: 2026-09-12T13:40:00.000Z
+taskId: task_2b169a90
 
 ## Decisions
-- changeScope: new_page
-- formPattern: Full (`#sc-patrol-detail` · DES-MOB-PAT-DETAIL) — sheet meta · surface screen
+- changeScope: edit_page (GAP timeline live)
+- formPattern: Full (`#sc-patrol-detail` · DES-MOB-PAT-DETAIL) — PACK-01 giữ
 - real_view_parity: v1
 - peerStdUrl: N/A · cấm mfeStdUrl
-- TIMELINE: demo SSOT 3 rows P1 · no GET check-ins
-- END/Share: toast P1 · no PUT / share sheet
-- Map CTA: nav patrol-map + Id
-- Parent: list row → push + Id (Dev)
+- TIMELINE-01: GET check-ins live · empty OK · **cấm** timelineDemo · proto 3-row = UI ref only
+- TAP-01: done → nav checkin-detail + Id (≠ toast)
+- MAP-01: nav patrol-map + session Id · no toast khi có Id
+- END/Share: toast P1 · cấm PUT / share sheet
+- fail: session EmptyChrome+toast · CI fail → tl empty+toast
 - kit_missing: N/A
 - design_confirm: approve (autoApprove ON)
+- keep: dual proto layout · Delta runtime ≠ demo
 - open questions: none
 - autoApprove: ON · e2eQa queued `/agent-qa*` only
-- hash skip: contentHash sha256:patrol-history-detail-control-hint-20260831 · **no rescan**
+- hash skip: contentHash sha256:patrol-history-detail-control-hint-20260912-timeline-live · **no rescan**
 
 ## Inventory (slim)
 | id | label | controlHint | notes |
@@ -32,23 +34,26 @@ taskId: task_5777786c
 | navShare | Chia sẻ | IconButton | `#i-ellipsis` toast |
 | codeHero | PAT-* | Text ≥26/28 | GET Code |
 | badgeStatus | trạng thái | Badge | VN map |
-| rowUser…Coverage | info | ListRow | GET §B |
-| tlItem | Điểm tuần | TimelineRow | demo 3 |
-| btnMap | Mở bản đồ ca | PrimaryButton | patrol-map |
+| rowUser…Coverage | info | ListRow | GET session |
+| tlItem | Điểm tuần | TimelineRow | GET check-ins |
+| tlEmpty | empty | Empty | [] OK |
+| tlTap | Xem | tap | → CI-DETAIL |
+| btnMap | Mở bản đồ ca | PrimaryButton | nav map + Id |
 | btnEnd | Kết thúc ca | SecondaryButton | toast |
 
 ## Screens / zones (ids only)
 - DES-MOB-PAT-DETAIL `#sc-patrol-detail` Full — owner
-- DES-MOB-PAT-DETAIL-NAV · HERO · INFO · TL · CTA
+- DES-MOB-PAT-DETAIL-NAV · HERO · INFO · TL · TL-EMPTY · CTA
 - DES-MOB-TABBAR Tuần đường on
 - reviewUrlIos: `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/patrol-history-detail/ui/prototype/ios/index.html#sc-patrol-detail`
 - reviewUrlAndroid: `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/patrol-history-detail/ui/prototype/android/index.html#sc-patrol-detail`
 - peerStdUrl: N/A
 
 ## API / tasks (ids only)
-- FormMode↔API: appear GET sessions/{id} · same-slug
-- OUT: check-ins · session PUT
-- T-*: (team-lead)
+- API-01 GET sessions/{id}
+- API-02 GET sessions/{id}/check-ins · Live
+- Gaps → Dev: TIMELINE-01 · TAP-01 · MAP-01 · END-01 keep
+- OUT: POST CI · PUT · invent · timelineDemo
 
 ## UNCLEAR
 - none
@@ -57,9 +62,8 @@ taskId: task_5777786c
 - design: /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/patrol-history-detail/ui/design.md
 - ux-analy: /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/patrol-history-detail/ui/ux-analy.md
 - html-map: /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/patrol-history-detail/ui/html-to-native-map.md
-- demo-parity: /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/patrol-history-detail/ui/review/demo-parity.md
-- prototype ios: …/ui/prototype/ios/index.html
-- prototype android: …/ui/prototype/android/index.html
+- prototype ios: /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/patrol-history-detail/ui/prototype/ios/index.html
+- prototype android: /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/patrol-history-detail/ui/prototype/android/index.html
 - control-hint: /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/patrol-history-detail-control-hint.md
 - real-data: /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/patrol-history-detail-real-data.md
 - po: /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/patrol-history-detail/po/requirement.md

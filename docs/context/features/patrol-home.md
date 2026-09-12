@@ -13,7 +13,7 @@
 | Mục tiêu | Hub ca tuần đường hiện trường · ca đang chạy · KPI · danh sách hôm nay · thao tác nhanh |
 | Persona | Tuần đường |
 | Entry | Tab **Tuần đường** · Home quick **Điểm tuần** · Home tile **Tuần đường** |
-| DoD P1 | GET sessions · hero ca active · KPI · list hôm nay · nav Đồng bộ → `patrol-offline` · sibling toast |
+| DoD P1 | GET sessions · **POST mở ca · PUT kết ca** · hero live-only · KPI · list hôm nay · nav Đồng bộ → `patrol-offline` · sibling toast |
 
 ## 2. Design / UI
 
@@ -33,9 +33,12 @@
 | Method | `{BffPrefix}` path | Status |
 |--------|-------------------|--------|
 | GET | `patrol/sessions` | **Live** — paged list |
-| GET | `patrol/sessions/{id}` | **Live** — detail (P2 drill) |
+| GET | `patrol/sessions/{id}` | **Live** — detail |
+| POST | `patrol/sessions` | **Live** — mở ca (wire native · edit_page GAP) |
+| PUT | `patrol/sessions/{id}` | **Live** — kết ca (wire native · was toast) |
 
-**Cấm invent:** `api/v1/patrol-home` · ERP.* · app `:5101` trực tiếp.
+**Cấm invent:** `api/v1/patrol-home` · ERP.* · app `:5101` trực tiếp.  
+**Hero:** chỉ field máy chủ · **cấm** sample `QL.1 · Km…` / `Nguyễn Văn A` / `07:20`.
 
 ## 4. Sibling (không gộp slug)
 
@@ -58,4 +61,4 @@ Frame iOS 390×844 · Android 412×915 · copy VN từ `#sc-patrol-home` mobile-
 | lane | phase | status | updatedAt |
 |------|-------|--------|-----------|
 | web | — | — | — |
-| mobile | `done` | `done` | `2026-09-01T05:24:37.336Z` |
+| mobile | `done` | `done` | `2026-09-12T15:31:42.305Z` |

@@ -183,19 +183,20 @@
         <button type="button" class="icon-btn" id="ci-nav-save" style="font-weight:600" onclick="saveCheckin()">Lưu</button>
       </div>
       <div class="sheet-body">
-        <div class="banner ok" data-des-id="DES-MOB-LOC-MISMATCH" id="ci-match-banner">
+        <!-- edit_page delta: banner vs BE plan-points · GPS live · PhotoRow=attachmentId[] (demo SSOT only) -->
+        <div class="banner ok" data-des-id="DES-MOB-LOC-MISMATCH" id="ci-match-banner" data-bind="matchOk-vs-planBE">
           Đúng điểm · 18 m · định vị ±4 m · ghim tự động
         </div>
-        <div class="field"><label>Điểm kế hoạch *</label><input value="Km 1561+134 · Phước Dinh" readonly /></div>
-        <div class="field"><label>Tuyến / lý trình *</label><input value="QL.1 · Km 1561+134" readonly /></div>
-        <div class="field"><label>Định vị ghim tự động *</label><input id="ci-gps" value="11.6030, 109.0160 · ±4 m" readonly /></div>
-        <div class="field"><label>Cách điểm KH *</label><input id="ci-dist" value="18 m · Đúng điểm" readonly /></div>
+        <div class="field"><label>Điểm kế hoạch *</label><input id="ci-plan" value="Km 1561+134 · Phước Dinh" readonly data-bind="plan-points|session" /></div>
+        <div class="field"><label>Tuyến / lý trình *</label><input value="QL.1 · Km 1561+134" readonly data-bind="Route" /></div>
+        <div class="field"><label>Định vị ghim tự động *</label><input id="ci-gps" value="11.6030, 109.0160 · ±4 m" readonly data-bind="live-gps" /></div>
+        <div class="field"><label>Cách điểm KH *</label><input id="ci-dist" value="18 m · Đúng điểm" readonly data-bind="haversine-planBE" /></div>
         <div class="field"><label>Nội dung</label><textarea id="ci-content">Mặt đường khô, lan can đạt</textarea></div>
-        <!-- Parity: section-label Ảnh (iOS SSOT · Android mobile-p1 thiếu) -->
+        <!-- Parity: section-label Ảnh (iOS SSOT) -->
         <div class="section-label">Ảnh</div>
-        <div class="photo-row" id="ci-photos">
-          <div class="photo-slot filled">Ảnh</div>
-          <div class="photo-slot" onclick="openCapture()"><svg viewBox="0 0 24 24"><use href="#i-camera"/></svg></div>
+        <div class="photo-row" id="ci-photos" data-bind="attachmentId[]">
+          <div class="photo-slot filled" data-attachment-id="demo">Ảnh</div>
+          <div class="photo-slot" id="ci-add-photo" onclick="openCapture()"><svg viewBox="0 0 24 24"><use href="#i-camera"/></svg></div>
         </div>
         <div class="sheet-footer">
           <button type="button" class="btn" id="ci-save-btn" onclick="saveCheckin()">Ghi nhận điểm tuần</button>
@@ -244,6 +245,7 @@
   </svg>
 
   <script>
+    /** Demo: ?mismatch=1 · ?deny=1 · ?surface=detail · hash-skip · edit_page bind FileService+planBE */
     let matchOk = !location.search.includes('mismatch=1');
     let locDeny = location.search.includes('deny=1');
     let dirty = true;

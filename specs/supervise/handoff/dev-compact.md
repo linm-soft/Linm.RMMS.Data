@@ -6,44 +6,47 @@ packKind: list
 role: dev
 status: done
 skillVersion: 2026.08.19.26
-writtenAt: 2026-09-01T02:42:00.000Z
-taskId: task_65931a17
-slash: /edit-mobile-feature
-gap: cleanup_mock
+writtenAt: 2026-09-12T10:20:00.000Z
+taskId: task_a7ad9582
+autoApprove: ON
+changeScope: edit_page
 
 ## Decisions
-- changeScope: edit_page
-- formPattern: N/A (list only · tap → detail sibling · filter/map toast P1)
-- mfeStdUrl: none (native)
-- live-only: removed `SuperviseCopy.demoItems` iOS+Android
-- empty: EmptyChrome `sup-empty` (`supervise.empty.*`)
-- fail: empty + toast `supervise.toast.loadFail` (**cấm** «Đang dùng dữ liệu mẫu»)
-- org: mapper `SuperviseCopy.orgFallback` when live Note empty (GAP-MOB-SUP-03)
-- seed: GET `patrol/attendance-logs` · EmptyChrome OK nếu tenant rỗng · Step 4b N/A
-- open questions: supervise-detail OfflineDemo = epic child riêng
+- changeScope: edit_page · filter sheet live + map sibling push dual
+- packKind: list · formPattern: N/A CRUD · owner LinmSheet
+- mfeStdUrl: — (native · **cấm** mfeStdUrl)
+- build: iOS xcodegen+iPhone17Pro **PASS** · Android assembleDebug **PASS** · BFF dotnet **PASS**
+- APIs: GET `patrol/attendance-logs` ±`route` · page/pageSize · date client CheckInAt · Step 4b N/A
+- debt: GAP-MOB-SUP-04 fromDate P2 · iPad smoke DEFER
+- open questions: none
 
 ## Inventory (slim)
 | id | label | controlHint | notes |
 |----|-------|-------------|-------|
-| sc-supervise | Giám sát tuần đường | TopBar+Segment+cards | live GET attendance-logs |
-| sup-empty | Chưa có check-in | EmptyChrome | GET OK empty |
-| btn-sup-filter | Lọc | toast | P1 toast only |
-| sup-segment | Danh sách / Bản đồ | Segment | idx1 → toast reset 0 |
-| sup-card-* | check-in card | composition | tap → detail |
+| btn-sup-filter | Lọc | Text → sheet | live |
+| filterRoute | Tuyến | TextField | query route |
+| filterDate | Ngày | DatePicker | client day |
+| filterApply | Áp dụng | Primary | API-01 |
+| filterClear | Xóa lọc | Ghost | clear+reload |
+| segMap | Bản đồ | Segment 1 | push patrol-map |
+| cards | Rich check-in | feature card | detail keep |
+| empty | EmptyChrome | empty | 0 / fail |
 
 ## Screens / zones (ids only)
-- DES-MOB-SUPERVISE / #sc-supervise
-- reviewUrlIos=file://…/prototype/ios/index.html#sc-supervise
-- reviewUrlAndroid=file://…/prototype/android/index.html#sc-supervise
-- peerStdUrl=—
+- `#sc-supervise` · SUP-FILTER · SUP-LIST · SUP-CARD · `#filter-sheet`
+- navigate: `#sc-patrol-map` · supervise-detail keep
+- peerStdUrl= — · mfeStdUrl= —
 
 ## API / tasks (ids only)
-- GET patrol/attendance-logs · page=1 · pageSize=50
-- FormMode↔API: N/A list
-- T-BE: N/A · reuse Signed AttendanceLogs
-- debt: supervise-detail OfflineDemo · GAP-QA-A11Y-SUP-FILTER-01 · GAP-QA-SUP-TAB-01 Defer
+- API-01 GET `patrol/attendance-logs` ±`route` · client date
+- T-IOS-SUP-FILTER · T-IOS-SUP-MAP-NAV · T-AND-SUP-FILTER · T-AND-SUP-MAP-NAV **done**
+- T-BE n/a · T-QA-* queued
 
-## VERIFY
-- iOS xcodegen + xcodebuild iPhone 17 Pro PASS
-- Android assembleDebug PASS
-- BFF dotnet build PASS
+## UNCLEAR
+- none
+
+## Full paths (Read only if needed)
+- ios: /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/supervise/implement/ios.md
+- android: /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/supervise/implement/android.md
+- ui-review: /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/supervise/ui/review/ui-review.md
+- STATUS: /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/supervise/STATUS.md

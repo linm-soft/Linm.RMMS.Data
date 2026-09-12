@@ -1,37 +1,50 @@
-# Dev — Implement — patrol-offline (iOS)
+# Implement — iOS — patrol-offline
 
 | Field | Value |
 |-------|-------|
 | feature | `patrol-offline` |
-| taskId | `task_4fae30f8` |
-| slash | `/edit-mobile-feature` · cleanup_mock_offline_storage |
-| status | **confirmed** |
-| changeScope | `edit_page` · live-only local queue |
-| updatedAt | `2026-09-01T11:29:32.000Z` |
+| role | `dev` · `/agent-dev-ios` · `/dev-ios-swiftui` |
+| task | **T-IOS-PAT-OFF-APPLY** |
+| changeScope | `edit_page` · gap=`offline_sync_apply_checkins` |
+| status | **done** |
+| taskId | `task_8bf4b63c` |
+| writtenAt | `2026-09-12T14:45:00.000Z` |
+| contentHash | `sha256:patrol-offline-delta-apply-checkins-20260912` |
+| skillVersion | `2026.08.19.29` |
 
-## Cleanup mock residual (this turn)
+## Delta
 
-- **Removed** hardcode `patrol.quick.offlineSub` «3 bản ghi chờ đồng bộ» → empty copy «Chưa có bản ghi chờ gửi»
-- Patrol-home quick Lưu trữ: count>0 → `offlineSubFmt` `%d` live · count=0 → empty copy
-- Me row: count>0 → `me.row.offlineSub` · count=0 → `offline.empty.title` · badge ẩn khi 0
-- `#sc-patrol-offline` EmptyChrome giữ (prior `task_93163b23`) · **cấm** seed demo queue
-- SSOT: `docs/mobile-strings.json` synced
+| Area | Change |
+|------|--------|
+| Enqueue | `SubmitPatrolCheckInUseCase` persist `sessionId` + `CreatePatrolCheckInBody` dual trên `OfflineQueueItem` |
+| Model | `OfflineQueueItem.sessionId` · `.checkInBody` · `CreatePatrolCheckInBody: Codable` |
+| Sync | `OfflineQueueRepositoryImpl.syncPending` replay POST `patrol/sessions/{sessionId}/check-ins` per pending `checkIn` · remove **chỉ** 2xx · incident P2 keep · **không** `clearPending` |
+| Receipt | optional `POST integration/sync/offline-batch` sau ≥1 OK · `RecordCount=synced` · ignore receipt fail |
+| Fail | `attempted>0 && synced==0` → `OfflineSyncError` · toast fail · giữ queue |
+| UI | keep `#sc-patrol-offline` zones · TopBar sync `#btn-sync` unchanged |
+| Wire | `AppContainer` inject `patrol` vào offline repo |
 
-## ACTION WORK
+## VERIFY
 
-| Action | Pair | Status |
-|--------|------|--------|
-| Sync (`btn-sync`) | POST `integration/sync/offline-batch` | **work** · list-only · no search/CRUD |
+| Gate | Result |
+|------|--------|
+| `xcodegen generate` | **PASS** |
+| `xcodebuild` dest **iPhone 17 Pro** | **PASS** |
+| BFF `dotnet build` | **PASS** (shared) |
+| Step 4b | **N/A** — reuse live check-ins + offline-batch |
+| e2e / start:std | **cấm** (queued QA) |
 
-## Layers
+## Files
 
-| Presentation | `PatrolHome` offline subtitle · `Me` subtitleQueue · `PatrolOffline` EmptyChrome |
-| Domain | `pendingCount()` live |
-| Data | `OfflineQueueStore` live-only · no demo seed |
+- `Domain/Entities/PatrolOfflineModels.swift`
+- `Domain/Entities/PatrolCheckInModels.swift`
+- `Domain/UseCases/SubmitPatrolCheckInUseCase.swift`
+- `Domain/UseCases/CamPatrolUseCases.swift` (incident init nil payload)
+- `Data/Repositories/OfflineQueueRepositoryImpl.swift`
+- `App/AppContainer.swift`
 
-## VERIFY GATE
+## Debt
 
-```bash
-xcodegen generate && xcodebuild -scheme LinmRmms -destination 'platform=iOS Simulator,name=iPhone 17 Pro' build
-# ** BUILD SUCCEEDED ** · 2026-09-01
-```
+- Incident sync apply = P2 keep
+- Legacy queue rows thiếu `sessionId`/`checkInBody` → skip (không clear)
+- GAP-MOB-ACT-PAT-OFFLINE-01 patrol-home «Đồng bộ» stub Defer

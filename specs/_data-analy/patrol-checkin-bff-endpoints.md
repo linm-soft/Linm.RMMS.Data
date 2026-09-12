@@ -1,82 +1,71 @@
-# BFF endpoints — patrol-checkin (mobile · Ghi điểm tuần)
+# BFF endpoints — patrol-checkin (mobile · Ghi điểm tuần · edit)
 
 | | |
 |---|---|
 | feature | `patrol-checkin` |
-| bff | `Linm.RMMS.Mobile.Bff` · `MobileApiProxyController` catch-all |
+| bff | `Linm.RMMS.Mobile.Bff` · catch-all + File BFF NuGet (khi init) |
 | prefix | `mobile-bff/api/v1` |
-| downstream | `ApiBase` → `RMMS.Service.Api` · Patrol |
-| source | CTX `patrol-checkin.md` · `patrol.md` §3 · `PatrolSessionsController` |
-| **cấm** | invent `api/v1/patrol-checkin` · ERP.* · app `:5101` · DbContext trên BFF |
+| downstream | `RMMS.Service.Api` · Patrol · `{FileService}/api/v1/files/*` |
+| source | CTX `patrol-checkin.md` · `mobile-bff-file.md` · review GAP 2026-09-12 |
+| changeScope | `edit_page` · `task_7e0ff15b` |
+| **cấm** | invent `api/v1/patrol-checkin` · `api/v1/mobile-files` · ERP.* · DbContext trên BFF |
 
 App `ApiClient.base` = `{BffBase}/mobile-bff/api/v1`.
 
-## Như thế nào (skill step 6)
+## § Delta API (`edit_page`)
 
-| Tầng | Repo / package | App có biết? |
-|------|----------------|--------------|
-| UI | iOS + Android | Có — `{BffPrefix}` |
-| BFF host | `Linm.RMMS.Mobile.Bff` | Có — một host |
-| Domain API | `RMMS.Service.Api` · Patrol | **Không** — proxy rewrite |
-| Dedicated CheckInController | **chưa** | Kind E path CTX — **GAP-MOB-BFF-01** |
+| Gap | Current | New |
+|-----|---------|-----|
+| Photo | POST body `photoLocalIds[]` local UUID · **không** object store | `files/*` lifecycle → `attachmentId` · POST check-ins mang id FileService (map field SA: `photoLocalIds`→attachment guids **hoặc** `mediaIds`/`photoAttachmentIds` khi BE rename — **không** fork app-only) |
+| Plan | Client set plan = GPS | `GET …/plan-points` (Kind E đề xuất) **khi BE live** · else stamp GAP · **cấm** fake coords |
+| Check-ins | POST live (GAP-MOB-BFF-01 **closed**) | Giữ |
 
-## Table — `#sheet-checkin` · `DES-MOB-PAT-CHECKIN-SHEET`
+## Table — `#sheet-checkin`
 
-| Action / zone | Method | `{BffPrefix}` path | BFF | Downstream | Source | Gap |
-|---------------|--------|--------------------|-----|------------|--------|-----|
-| Prefill Route / active / CheckInCount | GET | `patrol/sessions` | proxy | `PatrolSessionsController.GetList` | CTX live | filter «Đang tuần» client |
-| Prefill detail session | GET | `patrol/sessions/{id}` | proxy | `GetById` | CTX live | |
-| Submit Ghi nhận / Lưu | POST | `patrol/sessions/{id}/check-ins` | proxy | **không** action trên controller | CTX Kind E `patrol.md` §3 | **GAP-MOB-BFF-01** · T-BE SA/TL |
-| GPS fix / distance | — | — | — | Device CL / Fused | demo banner | **không** API pin |
-| Camera attach | — | — | — | Device camera · local URI | photo-row | upload P2 nếu BE có media |
-| Offline queue | — | — | — | local → sibling `patrol-offline` | | **không** invent path |
-| Leave / cancel | — | — | — | local UI | `DES-MOB-LEAVE` | **không** API |
+| Action / zone | Method | `{BffPrefix}` path | BFF | Downstream | Gap |
+|---------------|--------|--------------------|-----|------------|-----|
+| Prefill Route / CheckInCount | GET | `patrol/sessions` | proxy | `PatrolSessionsController` | live |
+| Prefill session | GET | `patrol/sessions/{id}` | proxy | `GetById` | live |
+| Plan-points đối soát | GET | `patrol/sessions/{id}/plan-points` | proxy | Patrol Kind E **đề xuất** | **GAP-MOB-CI-PLAN-BE-01** · chưa controller — SA/TL Step 4b |
+| Submit Lưu / Ghi nhận | POST | `patrol/sessions/{id}/check-ins` | proxy | `POST check-ins` | **live** · body photos = File ids |
+| File init | POST | `files` (init) | FileService.Bff NuGet | FileService `:5018` | **GAP-MOB-BFF-FILE-01** nếu chưa NuGet |
+| File PUT bytes | PUT | `files/{id}/object` | same | FileService | same |
+| File commit | POST | `files/{id}/commit` (SSOT file-attach) | same | FileService | same |
+| Preview ảnh | GET | `files/{id}/object` | JWT forward | bytes | **cấm** resign URL làm img src |
+| GPS fix | — | — | — | Device | **cấm** fake · **không** API pin |
+| Offline queue | — | — | — | local → `patrol-offline` | |
 
-## Query (list) — passthrough
+## Body POST check-ins (live + edit)
 
-`search` · `status` · `route` · `page` · `pageSize`  
-Mobile P1: lấy session `Status=Đang tuần` · `page=1` · `pageSize=50`.
+| Field | UI / bind |
+|-------|-----------|
+| `planPointLabel` | Điểm kế hoạch (từ BE plan nearest / session) |
+| `route` | Tuyến / lý trình |
+| `lat` · `lng` · `accuracyM` | **Live GPS only** |
+| `distanceToPlanM` · `matchOk` | haversine vs BE plan (khi có) |
+| `content` | TextArea |
+| `photoLocalIds[]` / attachment guids | Sau File commit — **không** UUID thiết bị thuần |
 
-## DTO (session — bind prefill)
-
-`PatrolSessionDto`: `Id` · `Code` · `Route` · `Status` · `CheckInCount` · `CoveragePercent` · `StartedAt` · `Note` · …
-
-## Body (POST check-ins — CTX Kind E · **chưa** schema live)
-
-Khi SA/TL tạo controller — đề xuất field khớp sheet (**không** ship invent DTO app-only):
-
-| Field | UI |
-|-------|-----|
-| `planPointLabel` | Điểm kế hoạch |
-| `route` / chainage | Tuyến / lý trình |
-| `lat` · `lng` · `accuracyM` | Định vị ghim |
-| `distanceToPlanM` · `matchOk` | Cách điểm KH / banner |
-| `content` | Nội dung |
-| `photoLocalIds[]` | Ảnh (P1 local · sync offline) |
-
-**Cấm** app fork DTO khác BFF table.
-
-## Có trên domain — **không** thuộc slug này
+## Có trên domain — OUT slug
 
 | Method | Path | Ghi |
 |--------|------|-----|
-| POST/PUT/DELETE | `patrol/sessions` | web / list pack CRUD — **OUT** sheet |
-| POST | `patrol/sessions/{id}/tracks` | Kind E map — sibling |
-| GET | `…/coverage` · `…/kpi` | Kind E — **OUT** |
-| POST | `patrol/attendance-logs` | sibling `attendance` |
+| CRUD | `patrol/sessions` | web list — OUT sheet |
+| POST | `…/tracks` · coverage · kpi | Kind E sibling |
+| POST | `patrol/attendance-logs` | `attendance` |
 
-## Verify live
+## Verify live (scan 2026-09-12)
 
 | Check | Result |
 |-------|--------|
-| `GET api/v1/patrol/sessions` | **Live** |
-| `GET api/v1/patrol/sessions/{id}` | **Live** |
-| `POST …/check-ins` | **MISSING** trên `PatrolSessionsController` → **GAP-MOB-BFF-01** |
-| `PatrolCheckInController` / `api/v1/patrol-checkin` | **không** — **cấm invent** |
+| `GET/POST …/check-ins` | **Live** trên `PatrolSessionsController` |
+| `GET …/plan-points` | **MISSING** → GAP-MOB-CI-PLAN-BE-01 |
+| `files/*` qua Mobile.Bff | **GAP** `mobile-bff-file` / GAP-MOB-BFF-FILE-01 |
+| Invent `patrol-checkin` | **cấm** |
 
 ## Step 4b
 
-**Pending SA/TL** — thiếu schema/controller check-ins · **cấm** data-analy chạy migration / Step 4b (roleOnly). Ghi GAP · handoff PO → SA.
+**Cấm** data-analy chạy migration. Handoff SA: (1) plan-points Kind E schema/controller · (2) confirm photo field = FileService attachment ids · (3) `/init-bff-file` nếu NuGet thiếu.
 
 ## Version meta
 
@@ -87,10 +76,10 @@ Khi SA/TL tạo controller — đề xuất field khớp sheet (**không** ship 
 | schemaVersion | 2 |
 | workflowVersion | 2026.08.25.01 |
 | rulesVersion | 2026.08.25.2 |
-| generatedAt | 2026-08-28T19:52:00.000Z |
+| generatedAt | 2026-09-12T12:38:16.000Z |
 | versionGate | rechecked |
-| contentHash | sha256:patrol-checkin-mobile-bff-20260828 |
-| bffContentHash | sha256:patrol-checkin-mobile-bff-20260828 |
+| contentHash | sha256:patrol-checkin-mobile-bff-20260912-edit |
+| bffContentHash | sha256:patrol-checkin-mobile-bff-20260912-edit |
 
 ---
 <!-- Version meta: skillId=agent-data-analy-mobile skillVersion=2026.08.25.01 schemaVersion=2 workflowVersion=2026.08.25.01 rulesVersion=2026.08.25.2 versionGate=rechecked -->

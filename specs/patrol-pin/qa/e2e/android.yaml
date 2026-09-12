@@ -1,7 +1,7 @@
 appId: org.linmsoft.rmms
 ---
 # patrol-pin · store P6 ×2 · guest → login → hub pin CTA · map pin CTA (Pixel 1080×1920)
-# Submit IME Enter trên f-pass · cấm sheet-checkin
+# Login: Back dismiss IME + scroll btn-login · cấm title-tap/Enter (đẩy pass vào f-user)
 - launchApp:
     clearState: true
     clearKeychain: true
@@ -19,20 +19,19 @@ appId: org.linmsoft.rmms
     id: "f-user"
 - eraseText
 - inputText: "linm-soft"
-- tapOn: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
+- pressKey: Back
 - tapOn:
     id: "f-pass"
 - eraseText
 - inputText: "Linm@2026"
-- pressKey: Enter
-- waitForAnimationToEnd:
-    timeout: 4000
+- pressKey: Back
+- scrollUntilVisible:
+    element:
+      id: "btn-login"
+    direction: DOWN
+    timeout: 10000
 - tapOn:
     id: "btn-login"
-    optional: true
-- tapOn:
-    text: "Đăng nhập"
-    optional: true
 - extendedWaitUntil:
     visible: "Trang Chủ"
     timeout: 45000

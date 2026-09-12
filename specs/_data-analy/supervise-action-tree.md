@@ -7,7 +7,16 @@
 | reuse | **home** tile Giám sát · **patrol-home** quick row Giám sát |
 | demo | `#sc-supervise` · `DES-MOB-SUPERVISE` |
 | kind | `list` |
-| taskId | `task_e8ad42d2` |
+| changeScope | `edit_page` |
+| taskId | `task_82b70c41` |
+
+## § Delta Current vs New
+
+| Edge | Current | New |
+|------|---------|-----|
+| Filter | toast dead-end | sheet live · stay on `supervise` |
+| `patrol-map` | toast · pending_confirm only | **navigate** sibling (native screen exists) |
+| `checkin-detail` / supervise-detail | push wired | **giữ** |
 
 ## Tree
 
@@ -15,10 +24,11 @@
 home
 └── supervise              ← tile Giám sát · DES-MOB-SUPERVISE · push
 patrol-home
-└── supervise              ← row Giám sát · push (was pending_confirm)
+└── supervise              ← row Giám sát · push
 supervise
-├── checkin-detail         ← tap card · toast P1 · pending_confirm
-└── patrol-map             ← segment Bản đồ · toast P1 · pending_confirm
+├── [filter sheet]         ← Lọc · route query + date client · **cấm** toast
+├── supervise-detail       ← tap card · push (wired)
+└── patrol-map             ← segment Bản đồ · **push sibling** (cấm toast)
 ```
 
 ## Rows
@@ -27,12 +37,13 @@ supervise
 |---------|--------|--------|---------|------|-------|---------|--------|
 | `supervise` | `home` | Tile Giám sát | `#sc-supervise` | list | shared_action | `LinmHomeTile` | home grid |
 | `supervise` | `patrol-home` | Quick Giám sát | `#sc-supervise` | list | shared_action | `LinmListRow` | patrol quick |
-| `patrol-map` | `supervise` | Segment Bản đồ | `#sc-patrol-map` | map | sibling | `LinmSegment` idx 1 | toast P1 |
-| `checkin-detail` | `supervise` | Tap card | `#sc-checkin-detail` | detail | sibling | `LinmRichCard` | toast P1 |
+| `(filter)` | `supervise` | Sheet Lọc | `#sc-supervise` sheet | sheet | owner | filterRoute/Date | Apply reload |
+| `patrol-map` | `supervise` | Segment Bản đồ | `#sc-patrol-map` | map | sibling | `LinmSegment` idx 1 | **push** |
+| `supervise-detail` | `supervise` | Tap card | `#sc-supervise-detail` | detail | sibling | `LinmRichCard` | push wired |
 
-## Enqueue sibling (pending_confirm · cấm auto start)
+## Enqueue sibling
 
-| feature | status |
-|---------|--------|
-| `checkin-detail` | pending_confirm |
-| `patrol-map` | pending_confirm |
+| feature | status | note |
+|---------|--------|------|
+| `patrol-map` | exists native · STATUS may blocked QA | **wire nav from supervise** this edit · **cấm** auto start full pipeline |
+| `supervise-detail` / `checkin-detail` | wired / pending_confirm | **giữ** · không đổi scope |

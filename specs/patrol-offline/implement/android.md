@@ -1,37 +1,47 @@
-# Dev — Implement — patrol-offline (Android)
+# Implement — Android — patrol-offline
 
 | Field | Value |
 |-------|-------|
 | feature | `patrol-offline` |
-| taskId | `task_4fae30f8` |
-| slash | `/edit-mobile-feature` · cleanup_mock_offline_storage |
-| status | **confirmed** |
-| changeScope | `edit_page` · live-only local queue |
-| updatedAt | `2026-09-01T11:29:32.000Z` |
+| role | `dev` · `/agent-dev-android` · `/dev-android-compose` |
+| task | **T-AND-PAT-OFF-APPLY** |
+| changeScope | `edit_page` · gap=`offline_sync_apply_checkins` |
+| status | **done** |
+| taskId | `task_8bf4b63c` |
+| writtenAt | `2026-09-12T14:45:00.000Z` |
+| contentHash | `sha256:patrol-offline-delta-apply-checkins-20260912` |
+| skillVersion | `2026.08.19.29` |
 
-## Cleanup mock residual (this turn)
+## Delta
 
-- **Removed** hardcode `patrol.quick.offlineSub` «3 bản ghi chờ đồng bộ» → empty copy «Chưa có bản ghi chờ gửi»
-- Patrol-home quick Lưu trữ: count>0 → `offlineSubFmt` · count=0 → empty copy
-- Me row: count>0 → `me.row.offlineSub` · count=0 → `offline.empty.title`
-- EmptyChrome `#sc-patrol-offline` giữ · **cấm** seed
-- SSOT: `docs/mobile-strings.json` synced
+| Area | Change |
+|------|--------|
+| Enqueue | `SubmitPatrolCheckInUseCase` persist `sessionId` + `CreatePatrolCheckInBody` dual |
+| Model | `OfflineQueueItem.sessionId` · `.checkInBody` · Moshi `@Json` kind names |
+| Store | `OfflineQueueStore` v2 JSON Moshi · migrate legacy pipe v1 once |
+| Sync | `OfflineQueueRepositoryImpl.syncPending` replay POST check-ins · remove **chỉ** 2xx · incident P2 keep |
+| Receipt | optional offline-batch sau ≥1 OK · ignore receipt fail |
+| Fail | `OfflineSyncException` khi attempted>0 && synced==0 |
+| UI | keep Compose `#sc-patrol-offline` · `#btn-sync` |
 
-## ACTION WORK
+## VERIFY
 
-| Action | Pair | Status |
-|--------|------|--------|
-| Sync | POST offline-batch | **work** · list Sync-only |
+| Gate | Result |
+|------|--------|
+| `./gradlew :app:assembleDebug` | **PASS** |
+| BFF `dotnet build` | **PASS** (shared) |
+| Step 4b | **N/A** |
+| e2e / start:std | **cấm** (queued QA) |
 
-## Layers
+## Files
 
-| Presentation | `PatrolHomeScreen` quickSubtitle · `MeScreen` · `patroloffline` EmptyChrome |
-| Domain | `pendingCount()` live |
-| Data | `OfflineQueueStore` live-only |
+- `domain/model/PatrolOfflineModels.kt`
+- `domain/usecase/SubmitPatrolCheckInUseCase.kt`
+- `data/local/OfflineQueueStore.kt`
+- `data/repository/OfflineQueueRepositoryImpl.kt`
 
-## VERIFY GATE
+## Debt
 
-```bash
-./gradlew :app:assembleDebug
-# BUILD SUCCESSFUL · 2026-09-01
-```
+- Incident sync = P2
+- Legacy pipe rows không có payload → skip
+- patrol-home «Đồng bộ» stub Defer

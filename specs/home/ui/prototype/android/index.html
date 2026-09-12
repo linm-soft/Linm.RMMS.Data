@@ -19,13 +19,19 @@
       width: 412px; height: 915px; background: var(--surface); border-radius: 28px;
       overflow: hidden; position: relative; display: flex; flex-direction: column;
     }
-    .content { flex: 1; overflow: auto; padding: 0 0 88px; }
+    .content { flex: 1; overflow: auto; padding: 0; display: flex; flex-direction: column; }
     .vn-hero {
       margin: 0 0 14px; padding: 28px 16px 18px;
       background: linear-gradient(165deg, #086A9A 0%, #0C84C0 55%, #2A9AD4 100%);
       color: #fff; border-radius: 0 0 22px 22px;
     }
-    .vn-hero-tools { display: flex; justify-content: space-between; margin-bottom: 10px; }
+    .vn-hero-tools { display: flex; justify-content: space-between; margin-bottom: 10px; position: relative; }
+    .home-brand {
+      position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+      width: 36px; height: 36px; border-radius: 8px; background: #fff;
+      display: grid; place-items: center; font: 800 10px/1 inherit; color: #086A9A;
+      pointer-events: none;
+    }
     .hero-ico {
       width: 44px; height: 44px; border: 0; border-radius: 22px; cursor: pointer;
       background: rgba(255,255,255,.18); color: #fff; display: grid; place-items: center;
@@ -76,15 +82,11 @@
     .wallet-card .k { font-size: 12px; opacity: .85; font-weight: 700; letter-spacing: .04em; }
     .wallet-card .t { font-size: 20px; font-weight: 800; margin: 6px 0 4px; }
     .wallet-card .m { font-size: 13px; opacity: .92; line-height: 1.35; }
-    .tab {
-      position: absolute; left: 0; right: 0; bottom: 0; height: 80px;
-      background: #fff; border-top: 1px solid #E5E5EA;
-      display: flex; padding: 8px 4px 16px;
-    }
-    .tab b { flex: 1; text-align: center; font-size: 13px; font-weight: 500; color: var(--muted); }
-    .tab b.on { color: var(--blue); }
+    .guest-dock { margin-top: auto; padding: 8px 16px 24px; }
+    .guest-dock .btn-home-login { width: 100%; margin-bottom: 0; }
+    .guest-dock .privacy-link { padding: 8px 0 12px; }
     .toast {
-      position: absolute; left: 50%; bottom: 96px; transform: translateX(-50%);
+      position: absolute; left: 50%; bottom: 24px; transform: translateX(-50%);
       background: rgba(28,28,30,.92); color: #fff; padding: 10px 16px; border-radius: 12px;
       font-size: 14px; opacity: 0; pointer-events: none; transition: opacity .2s; white-space: nowrap; z-index: 5;
     }
@@ -135,6 +137,7 @@
       <div class="vn-hero" data-des-id="DES-MOB-HOME-HELLO">
         <div class="vn-hero-tools">
           <button class="hero-ico" type="button" title="Hồ sơ" onclick="toast('Hồ sơ → tab Tôi')">👤</button>
+          <span class="home-brand" id="home-brand">RMMS</span>
           <button class="hero-ico" type="button" title="Thông báo" onclick="toast('Thông báo')">🔔</button>
         </div>
         <!-- Demo SSOT: role+signal. Live: role ẩn · signal OS path · badge notifyCount=0 ẩn -->
@@ -144,16 +147,18 @@
           Tốt
         </span>
         <div class="who" id="home-who">Khách</div>
-        <button class="btn-home-login" id="btn-home-login" type="button" onclick="toast('Đăng nhập')">
-          Đăng nhập<span class="s">Dành cho cán bộ</span>
-        </button>
       </div>
       <div class="section-label" id="section-guest">Hỗ trợ người dân</div>
       <button class="guest-row" id="btn-home-faq" type="button" onclick="openOv('sc-faq')">
         <span><span class="t">Câu hỏi thường gặp</span><span class="s">Tài liệu · thủ tục · cấp phép</span></span>
         <span class="ch">›</span>
       </button>
-      <button class="privacy-link" id="btn-home-privacy" type="button" onclick="openOv('sc-privacy')">Chính sách quyền riêng tư</button>
+      <div class="guest-dock">
+        <button class="btn-home-login" id="btn-home-login" type="button" onclick="toast('Đăng nhập')">
+          Đăng nhập<span class="s">Dành cho cán bộ</span>
+        </button>
+        <button class="privacy-link" id="btn-home-privacy" type="button" onclick="openOv('sc-privacy')">Chính sách quyền riêng tư</button>
+      </div>
       <!-- GAP-F-HOME-03: .home-foot Gói — cấm ship · không vẽ -->
     </div>
     <div class="overlay" id="sc-faq" data-des-id="DES-MOB-HOME-FAQ">
@@ -180,9 +185,7 @@
       </div>
       <div class="privacy-body" id="privacy-body">Khi bạn là Khách, ứng dụng chỉ hiển thị thông tin công khai (FAQ, tài liệu thủ tục). Không gửi hồ sơ cán bộ, không lấy vị trí lúc mở app.</div>
     </div>
-    <nav class="tab" data-des-id="DES-MOB-TABBAR">
-      <b class="on">Trang Chủ</b><b>Tuần đường</b><b>Vấn đề</b><b>Công việc</b><b>Tôi</b>
-    </nav>
+    <!-- GAP-MOB-EDIT-GUEST-TAB: guest ẩn LinmTabBar · staff mới hiện DES-MOB-TABBAR -->
     <div class="toast" id="toast"></div>
   </div>
   <script>

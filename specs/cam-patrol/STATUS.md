@@ -5,9 +5,9 @@
 | feature | `cam-patrol` |
 | phase | `done` |
 | status | `done` |
-| taskId | `task_20cf4fcb` |
-| packKind | **`screen`** (PO + Design chốt · GAP-MOB-CAM-PACK-01 **closed**) |
-| demo | `specs/cam-patrol/ui/prototype/{ios,android}/index.html` `#sc-cam-patrol` · `DES-MOB-CAM-PATROL` |
+| taskId | `task_503535a1` (review **PASS**) · prior qa `task_8051fbb6` · dev `task_2122aa0b` · tl `task_9068a243` · sa `task_0afc45c5` · design `task_0ab8d0f5` · po `task_71013e61` · data_analy `task_9ab16ef2` |
+| packKind | **`screen`** (GAP-MOB-CAM-PACK-01 **closed**) |
+| demo | `specs/cam-patrol/ui/prototype/{ios,android}/index.html` `#sc-cam-patrol` · `DES-MOB-CAM-PATROL` · `?fail=1` |
 | context | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/docs/context/features/cam-patrol.md` |
 | mfe | — (native · **cấm** mfeStdUrl) |
 | mfeStdRoute | — |
@@ -16,31 +16,31 @@
 | android | `Linm.RMMS.Mobile.Android` · e2e-qa-mobile emulator |
 | bff | `Linm.RMMS.Mobile.Bff` |
 | backend | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.WebService` · DOMAIN-MAP — **cấm ERP.*** |
-| changeScope | `edit_page` (cleanup_mock) |
-| verifyGate | roleOnly=`review` · findings+META **PASS** · prior QA ok:true · Dev builds evidence-only · **cấm** yarn build/e2e/start:std · Step 4b **SKIP** · cleanup_mock **PASS** · Must align **0** |
-| updatedAt | `2026-09-01T06:19:06.749Z` |
-| lastRole | `review` · `/agent-review-mobile` · task `task_20cf4fcb` · **PASS** · review_confirm=done |
+| changeScope | `edit_page` · GAP-MOB-CAM-FRAME-01/02/03 **CLOSED client** |
+| verifyGate | roleOnly=`review` · findings **PASS** · review_confirm=**done** · prior QA ok:true · **cấm** start:std/e2e/build |
+| updatedAt | `2026-09-12T11:49:47.609Z` |
+| lastRole | `review` · `/agent-review-mobile` · task `task_503535a1` · **PASS** |
 | autoApprove | `ON` |
-| e2eQa | ON · prior QA `task_fb828936` · Maestro · **ok:true** · Aligned |
+| e2eQa | ON · prior QA **ok:true** · `2026-09-12T11:45:15.411Z` |
 
 ## Lock
 
 | agent | scope | id | at |
 |-------|-------|-----|-----|
-| — | — | — | **released** (review `task_20cf4fcb`) |
+| — | — | — | **released** (review `task_503535a1` PASS) |
 
 ## Pipeline
 
 | Step | Agent | Artifact | Status |
 |------|-------|----------|--------|
-| 0 | data-analy | `_data-analy/cam-patrol-*.md` | **confirmed** |
-| 1 | po | po/requirement.md | **confirmed** |
-| 2.1 | design | ui/* · prototype | **confirmed** |
-| 2.2 | sa | be/solution-discovery.md | **confirmed** |
-| 3 | team-lead | task/cam-patrol.md | **confirmed** |
-| 4 | dev | implement/ios.md · implement/android.md | **confirmed** |
-| 5 | qa | qa/* | **confirmed** |
-| 6 | review | review/findings.md | **done** |
+| 0 | data-analy | `_data-analy/cam-patrol-*.md` · `handoff/data_analy-compact.md` | **confirmed** |
+| 1 | po | po/requirement.md · `handoff/po-compact.md` | **confirmed** |
+| 2.1 | design | ui/* · prototype · `handoff/design-compact.md` | **confirmed** |
+| 2.2 | sa | be/solution-discovery.md · `handoff/sa-compact.md` | **confirmed** |
+| 3 | team-lead | task/cam-patrol.md · `handoff/team_lead-compact.md` | **confirmed** |
+| 4 | dev | implement/ios.md · implement/android.md · `handoff/dev-compact.md` | **confirmed** |
+| 5 | qa | qa/* · `handoff/qa-compact.md` | **confirmed** |
+| 6 | review | review/findings.md · `handoff/review-compact.md` | **done** |
 ## Tasks
 
 | id | page | role | deps | status | notes |
@@ -48,27 +48,39 @@
 | task_6a5668cd | cam-patrol | dev | team_lead | **completed** | initial ship dual + detect expand |
 | task_6ba51c44 | cam-patrol | qa | dev | **completed** | prior e2e ok:true |
 | task_e487ff4f | cam-patrol | review | qa | **completed** | prior review PASS |
-| task_e7101ed6 | cam-patrol | dev | review | **completed** | `/edit-mobile-feature` · cleanup_mock · gỡ `demoRouteStamp` · VERIFY GATE PASS |
-| task_fb828936 | cam-patrol | qa | dev | **completed** | re-e2e post cleanup_mock · ok:true · Aligned · Must 0 |
-| task_20cf4fcb | cam-patrol | review | qa | **completed** | re-review cleanup_mock · review_confirm=done · Must 0 |
-
-### Dev task pack (cleanup_mock)
-
-| id | layer | status | notes |
-|----|-------|--------|-------|
-| T-IOS-CAM-PAT-CLEAN | ios | **completed** | live session route · **cấm** demoRouteStamp / itemsOrDemo |
-| T-AND-CAM-PAT-CLEAN | android | **completed** | dual parity |
-| T-BE / T-BFF | — | **n/a** | reuse GET `patrol/sessions` · BE empty OK |
+| task_e7101ed6 | cam-patrol | dev | review | **completed** | cleanup_mock |
+| task_fb828936 | cam-patrol | qa | dev | **completed** | re-e2e cleanup_mock |
+| task_20cf4fcb | cam-patrol | review | qa | **completed** | re-review cleanup_mock |
+| task_9ab16ef2 | cam-patrol | data_analy | — | **completed** | edit_page · GAP-MOB-CAM-FRAME-01 · real frame DoD · chain→po |
+| task_71013e61 | cam-patrol | po | data_analy | **completed** | keep req · § Delta FRAME · handoff Design |
+| task_0ab8d0f5 | cam-patrol | design | po | **completed** | keep proto · § Delta FRAME · `?fail=1` · handoff SA |
+| task_0afc45c5 | cam-patrol | sa | design | **completed** | edit_page FRAME · Step 4b SKIP · handoff TL |
+| task_9068a243 | cam-patrol | team_lead | sa | **completed** | T-IOS/AND-CAM-FRAME · route_a giữ · handoff Dev |
+| task_2122aa0b | cam-patrol | dev | team_lead | **completed** | T-IOS/AND-CAM-FRAME · capture JPEG dual · build PASS |
+| task_8051fbb6 | cam-patrol | qa | dev | **completed** | FRAME e2e ok:true · Aligned · Must 0 · handoff Review |
+| task_503535a1 | cam-patrol | review | qa | **completed** | FRAME review_confirm=done · Must 0 · pipeline done |
 
 ## Blockers / open questions
 
+- GAP-MOB-CAM-FRAME-01 — **CLOSED client** · capture → ImageBase64 dual
+- GAP-MOB-CAM-FRAME-02 — **CLOSED client** · fail toast · card nil
+- GAP-MOB-CAM-FRAME-03 — **CLOSED client** · DetectAiVisionBody parity
+- GAP-MOB-CAM-DETECT-01 — **CLOSED client** · DTO live · Step 4b **SKIP**
 - GAP-MOB-EDIT-DEMO-01 — **CLOSED**
-- GAP-QA-CAM-GPS-TIMING-01 — Should · non-block (unchanged)
+- GAP-QA-STORE-03 — **CLOSED** this QA · Android IME Enter login
+- GAP-QA-CAM-GPS-TIMING-01 — Should · non-block
 
 ## Links
 
-- epic: `specs/mobile-cleanup-mock` · child #14 `cam-patrol` **DONE**
-- handoff: `handoff/review-compact.md`
+- handoff: `handoff/data_analy-compact.md` · `handoff/po-compact.md` · `handoff/design-compact.md` · `handoff/sa-compact.md` · `handoff/team_lead-compact.md` · `handoff/dev-compact.md` · `handoff/qa-compact.md` · `handoff/review-compact.md`
+- analy: `specs/_data-analy/cam-patrol-{control-hint,real-data,bff-endpoints,action-tree}.md`
+- po: `po/requirement.md`
+- design: `ui/design.md` · `ui/ux-analy.md` · `ui/html-to-native-map.md` · `ui/prototype/{ios,android}/`
+- sa: `be/solution-discovery.md`
+- tl: `task/cam-patrol.md`
+- implement: `implement/ios.md` · `implement/android.md`
+- qa: `qa/scenarios.md` · `qa/store/cam-patrol/` · `qa/screens/`
+- review: `review/findings.md` · `review/REVIEW-META.json`
 - native: **cấm** mfeStdUrl / yarn start:std
 
 ## Handoff → done
@@ -77,9 +89,11 @@
 |-------|-------|
 | feature | `cam-patrol` |
 | lane | `mobile` |
-| from | `review` · review_confirm=done · task `task_20cf4fcb` |
-| Next | — · pipeline complete · **cấm** re-run full PO→Design |
+| from | `review` · PASS · task `task_503535a1` |
+| Next | — · **pipeline complete** · post_review **skip** |
 | changeScope | `edit_page` |
 | packKind | **`screen`** |
-| data | live-only route stamp · empty label · fail toast · Must 0 |
+| data | review_confirm=done · Must 0 · FRAME closed · prior QA ok:true |
 | compact | `handoff/review-compact.md` |
+| route_confirm | **route_a giữ** |
+| Step 4b | **SKIP** |

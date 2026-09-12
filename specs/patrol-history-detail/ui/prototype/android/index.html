@@ -119,6 +119,14 @@
       position: absolute; top: 10px; left: 0; right: 0; text-align: center;
       color: #888; font-size: 11px; pointer-events: none;
     }
+    .tl-empty {
+      display: none; margin: 0 16px 8px; padding: 20px 14px; background: var(--card);
+      border-radius: 16px; text-align: center; font-size: 14px; color: var(--muted);
+    }
+    .tl-empty.show { display: block; }
+    .runtime-hint {
+      margin: 0 16px 8px; font-size: 11px; color: var(--muted); line-height: 1.35;
+    }
   </style>
 </head>
 <body>
@@ -132,8 +140,8 @@
     <symbol id="i-person" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c1.5-3.5 4-5 7-5s5.5 1.5 7 5"/></symbol>
   </svg>
 
-  <div class="note">DES-MOB-PAT-DETAIL · Android 412×915 · patrol-history-detail</div>
-  <div class="phone" id="sc-patrol-detail" data-des-id="DES-MOB-PAT-DETAIL" data-tab="field">
+  <div class="note">DES-MOB-PAT-DETAIL · Android 412×915 · edit_page · runtime ≠ demo TL</div>
+  <div class="phone" id="sc-patrol-detail" data-des-id="DES-MOB-PAT-DETAIL" data-tab="field" data-change-scope="edit_page">
     <div class="top-bar" data-des-id="DES-MOB-PAT-DETAIL-NAV">
       <button class="icon-btn" type="button" id="btn-detail-back" aria-label="Back" onclick="toast('Lịch sử')">
         <svg class="ic ic-md" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg>
@@ -162,24 +170,27 @@
       </div>
 
       <div class="section-label">Điểm tuần</div>
-      <div class="timeline" data-des-id="DES-MOB-PAT-DETAIL-TL">
-        <div class="tl-item" id="tlDone1" onclick="toast('checkin-detail')">
+      <p class="runtime-hint" id="tlRuntimeHint">UI ref · native = GET sessions/{id}/check-ins · [] → empty · cấm timelineDemo</p>
+      <div class="timeline" data-des-id="DES-MOB-PAT-DETAIL-TL" data-runtime="GET check-ins" data-bind="PatrolCheckInDto[]" data-ui-ref-only="true">
+        <div class="tl-item" id="tlDone1" data-can-open="true" onclick="toast('nav:checkin-detail+Id')">
           <div class="tl-title">Km 1551+200 · Xuân Hải</div>
           <div class="tl-sub">07:28 · định vị đạt · Ảnh ×1</div>
           <div class="tl-link">Xem</div>
         </div>
-        <div class="tl-item" id="tlDone2" onclick="toast('checkin-detail')">
+        <div class="tl-item" id="tlDone2" data-can-open="true" onclick="toast('nav:checkin-detail+Id')">
           <div class="tl-title">Km 1556+000 · Cống ngang</div>
           <div class="tl-sub">08:05 · định vị đạt</div>
+          <div class="tl-link">Xem</div>
         </div>
-        <div class="tl-item pending" id="tlPending">
+        <div class="tl-item pending" id="tlPending" data-can-open="false">
           <div class="tl-title">Km 1561+134 · Phước Dinh</div>
           <div class="tl-sub">Đang tới · ~180 m</div>
         </div>
       </div>
+      <div class="tl-empty" id="tlEmpty" data-des-id="DES-MOB-PAT-DETAIL-TL-EMPTY" aria-hidden="true">Chưa có điểm tuần</div>
 
       <div class="cta" data-des-id="DES-MOB-PAT-DETAIL-CTA">
-        <button type="button" class="btn btn-primary" id="btnMap" onclick="toast('patrol-map')">Mở bản đồ ca</button>
+        <button type="button" class="btn btn-primary" id="btnMap" data-nav="patrol-map+sessionId" onclick="toast('nav:patrol-map+Id')">Mở bản đồ ca</button>
         <button type="button" class="btn btn-secondary" id="btnEnd" onclick="toast('Kết thúc ca — xác nhận sau')">Kết thúc ca</button>
       </div>
     </div>

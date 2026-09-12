@@ -4,44 +4,52 @@ schemaVersion: 1
 feature: patrol-checkin
 packKind: sheet
 role: qa
-status: done
+status: confirmed
 skillVersion: 2026.08.25.01
-writtenAt: 2026-09-01T07:15:30.000Z
-taskId: task_753d9648
+writtenAt: 2026-09-12T13:22:00.000Z
+taskId: task_aa684928
 slash: /agent-qa-mobile
-gap: cleanup_mock re-e2e · ok:true
+mode: feature_context
+changeScope: edit_page
+autoApprove: ON
+e2eQa: ON
+contentHash: sha256:patrol-checkin-control-hint-20260912-edit
+bffContentHash: sha256:patrol-checkin-mobile-bff-20260912-edit
 
 ## Decisions
-- changeScope: edit_page (cleanup_mock)
+- edit_page delta QA · FileService+plan-points · e2e **ok:true**
 - formPattern: sheet · `#sheet-checkin`
-- mfeStdUrl: none (native_dual)
-- e2eQa: ON · yarn e2e-qa-mobile · ok:true · A11/A10/A9/A3/P6/P6-2 PASS
+- mfeStdUrl: none (native_dual) · cấm start:std
 - align: Aligned · Must 0 · autoApprove ON
 - data: live session QL.1 · cấm demo Phước Dinh assert
-- open questions: none block · Should GAP-QA-A11Y-SHEET-TAG-01 · GAP-QA-GPS-TIMING-01
+- Android login: Back+scroll btn-login (fix title-tap/Enter → GAP-QA-STORE-03)
+- phase_to: review (/agent-review-mobile)
 
 ## Inventory (slim)
 | id | label | controlHint | notes |
 |----|-------|-------------|-------|
 | sheet-checkin | Ghi điểm tuần | Sheet | A3+P6 |
-| ci-match-banner | Đúng/Sai điểm | Banner | Android green match |
-| plan/route/gps | readonly | Text | live QL.1 |
+| ci-match-banner | plan-BE / match | Banner | live: chưa có plan BE |
+| plan/route/gps | readonly | Text | QL.1 · GPS live |
 | ci-content | Nội dung | TextArea | fill e2e |
 | ci-add-photo | Ảnh | PhotoRow | P6-2 |
-| ci-btn-save | Ghi nhận | Primary | fold2 |
+| ci-btn-save | Ghi nhận | Primary | gated |
 
 ## Screens / zones (ids only)
 - DES-MOB-PAT-CHECKIN-SHEET / #sheet-checkin
 - DES-MOB-CI-DETAIL / #sc-checkin-detail
 - reviewUrlIos=file://…/prototype/ios/index.html#sheet-checkin
 - reviewUrlAndroid=file://…/prototype/android/index.html#sheet-checkin
-- peerStdUrl=—
-- store: qa/store/patrol-checkin/ · screens A11/A9/A3/P6/P6-2
+- store: qa/store/patrol-checkin/ · screens A11/A9/A3/P6/P6-2 · ok:true
 
 ## API / tasks (ids only)
 - A10-BFF `:5202` PASS
-- GET patrol/sessions · POST check-ins (prior T-BE)
+- GET patrol/sessions · GET plan-points · POST check-ins
+- T-QA-TAB-01 PASS
 
 ## Debt / next
 - Next: `/agent-review-mobile` (không chạy trong task này)
-- debt: GAP-QA-A11Y-SHEET-TAG-01 Should · GAP-QA-GPS-TIMING-01 Should · Photo P2
+- Should: GAP-QA-A11Y-SHEET-TAG-01 · GAP-QA-GPS-TIMING-01 · GAP-QA-PLAN-BE-EMPTY-01 · FileService :5018
+
+## UNCLEAR
+- none

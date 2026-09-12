@@ -4,39 +4,49 @@ schemaVersion: 1
 feature: patrol-pin
 packKind: sheet
 role: dev
-status: done
-skillVersion: 2026.08.25.01
-writtenAt: 2026-09-01T07:25:00.000Z
-taskId: task_c9fd5cec
-slash: /edit-mobile-feature
-gap: cleanup_mock · GAP-MOB-EDIT-DEMO-01
+status: confirmed
+skillVersion: 2026.08.20.03
+writtenAt: 2026-09-12T12:20:00.000Z
+taskId: task_f90e803b
+slash: /agent-dev-ios + /agent-dev-android
+gap: GAP-MOB-PIN-PERSIST-01
+changeScope: edit_page
 
 ## Decisions
-- changeScope: edit_page (cleanup_mock parent mobile-cleanup-mock)
-- formPattern: sheet · pin CTA hub+map · GpsDeny modal (no Create/Edit/View/Copy forms)
-- mfeStdUrl: none (native_dual)
-- data: live-only toast route từ GET `patrol/sessions` active · empty = `patrol.empty.active.route` · fail = `cam.toast.sessionFail` · **cấm** `demoRoute` / itemsOrDemo / nextDemoTitle on pin path
-- Step 4b: N/A — reuse sessions · BE empty OK
+- formPattern: Sheet handoff (payload) · FormMode none trên pack
+- Persist: pin OK → real `#sheet-handoff-checkin` · Tiếp tục → sibling check-in `openWithHandoff(sessionId, LocationFix)`
+- pin **không** auto-POST · **cấm** invent `/pins` · form check-in = sibling only
+- Offline: toast queued · không mở handoff sheet
+- Deny/timeout: không handoff
+- Step 4b **N/A** · T-BE n/a · **cấm ERP.*** · **cấm** mfeStdUrl
+- Build: iOS xcodegen+xcodebuild iPhone 17 Pro Max **PASS** · Android assembleDebug **PASS** · BFF dotnet build **PASS**
 - open questions: none
+- next: `/agent-qa-mobile` · roleOnly stop (GAP-PKT-ROLE-01) · e2eQa queued
 
 ## Inventory (slim)
 | id | label | controlHint | notes |
 |----|-------|-------------|-------|
-| DES-MOB-CI-PIN-HERE | Ghim vị trí | Primary+mappin | hub+map CTA |
-| DES-MOB-GPS-DENY | GPS deny | Modal Primary/Secondary | clipboard guide |
-| toast-pin-ok | Pin success | LinmToast | live Route±m |
+| DES-MOB-CI-PIN-HERE | Ghim vị trí hiện tại | Primary+mappin | GET+GPS |
+| DES-MOB-GPS-DENY | Định vị bị tắt | Modal | no handoff |
+| DES-MOB-HANDOFF-CHECKIN | Ghi điểm tuần | Sheet | sessionId+LocationFix |
+| toast-pin-ok | Pin success | LinmToast | trước handoff |
 
 ## Screens / zones (ids only)
-- #sc-patrol-home · #sc-patrol-map · DES-MOB-CI-PIN-HERE · DES-MOB-GPS-DENY
-- reviewUrlIos=file://…/prototype/ios/index.html
-- reviewUrlAndroid=file://…/prototype/android/index.html
-- peerStdUrl=—
+- #sc-patrol-home · #sc-patrol-map · #btn-pin-here · #modal-gps · #sheet-handoff-checkin
+- peerStdUrl / mfeStdUrl: — (native)
 
 ## API / tasks (ids only)
-- GET `mobile-bff/api/v1/patrol/sessions`
-- T-BE: N/A (proxy)
+- API-01 GET mobile-bff/api/v1/patrol/sessions (this pack)
+- API-02 POST …/check-ins (sibling · **không** từ pin)
+- T-IOS-PAT-PIN · T-AND-PAT-PIN · **PASS**
+- contentHash: sha256:patrol-pin-control-hint-20260912-persist
+- bffContentHash: sha256:patrol-pin-mobile-bff-20260912-persist
 
 ## Debt / next
-- Next: QA optional re-e2e · epic child DONE
-- debt: nextDemoTitle const leftover in PatrolMapOverlay (unused pin path) · gis-map sibling owns map demo overlay
-- verify: iOS xcodegen+xcodebuild iPhone 17 Pro PASS · Android assembleDebug PASS · BFF dotnet build PASS
+- debt: none for Dev DoR
+- next: QA scenarios + e2e-qa-mobile · review after
+
+## Full paths (Read only if needed)
+- ios: /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/patrol-pin/implement/ios.md
+- android: /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/patrol-pin/implement/android.md
+- team_lead-compact: /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/patrol-pin/handoff/team_lead-compact.md

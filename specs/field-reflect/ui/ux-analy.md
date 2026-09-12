@@ -2,9 +2,10 @@
 
 **Sources:** `ui/prototype/ios/index.html` · `ui/prototype/android/index.html` · `ui/design.md` · PO · DA controlHint + real-data  
 **Gate:** `/mobile-ui-ux-analy` §1–§9 · **REQUIRED** trước Dev  
-**Slash:** `/mobile-ui-ux-analy` · `task_06d4623f` · `2026-08-28T22:16:32.000Z`  
+**Slash:** `/mobile-ui-ux-analy` · `task_91131e02` · `2026-09-12T10:50:00.000Z`  
 **Brand tokens:** Primary `#0C84C0` · deep `#086A9A` · success `#34C759` · orange `#FF9500` · surface `#F2F2F7` · label `#1C1C1E` · muted `#8E8E93`  
-**Hash skip:** DA contentHash `sha256:field-reflect-control-hint-20260829` · **cấm** re-scan DemoRoot (`GAP-DES-DEMO-RESCAN-01`)
+**Hash skip:** DA contentHash `sha256:43744be6c3dc+field-reflect-sess-live-20260912` · **cấm** re-scan DemoRoot (`GAP-DES-DEMO-RESCAN-01`)  
+**changeScope:** `edit_page` · **GAP-MOB-FIELD-SESS-01** live-only sessions
 
 ## 1. IA
 
@@ -13,6 +14,10 @@ Login → Tab Tuần đường (shell Tab 5 · index field)
   → Hub #sc-patrol-home
        → row «Ghi nhận hư hỏng» #row-reflect #i-camera → push #sc-field-reflect (owner)
   → #sc-field-reflect DES-MOB-FIELD-REFLECT
+       → bootstrap GET patrol/sessions live-only
+            · loaded → bind locationRow
+            · empty/no-active → empty loc + banner + toastSessionsFail (no-active copy)
+            · loadFailed → empty loc + toastSessionsFail (fail copy)
        → kind pills DES-MOB-FIELD-KIND (default Hư)
        → PhotoRow + openCapture('reflect')
        → card Nhận diện / Mức / Vị trí đã chốt
@@ -39,19 +44,20 @@ Login → Tab Tuần đường (shell Tab 5 · index field)
 | Zone | Demo (user thấy) | Map row (html-to-native-map) | SwiftUI | Compose |
 |------|------------------|------------------------------|---------|---------|
 | Header | Tuần đường · Ghi nhận hư hỏng | A `.nav-bar` / `.top-bar` | `LinmTopBar` | same |
-| Banner empty | Không có ca đang tuần | A `.banner` | Text banner | same |
+| Banner empty | Không có ca đang tuần | A `.banner` `#banner-empty` | Text banner | same |
 | Kind | Hư / Mất / Hỏng | A `.kind-pills` | `LinmKindPills` | same |
 | Photo | Ảnh + camera slot | A `.photo-row` | PhotoRow pattern | same |
 | Row detect | Nhận diện / Ổ gà · Mặt đường | A `.row` | `LinmListRow` | same |
 | Row mức | Mức / Cao + badge | A `.row` + `.badge` | `LinmListRow` + Badge | same |
-| Row vị trí | Vị trí đã chốt / QL.1… | A `.row` | `LinmListRow` | same |
+| Row vị trí | Vị trí đã chốt / QL.1… **hoặc** `—` | A `.row` `#row-loc` | `LinmListRow` | same |
 | Checklist | PAVEMENT chk-row | A `.chk-row` | CheckboxList pattern | same |
 | Primary | Tạo vấn đề | A `.btn-primary` | `LinmPrimaryButton` | same |
 | Secondary | Lưu nháp mất sóng | A `.btn-secondary` | `LinmSecondaryButton` | same |
-| Toast | SC-2408 / nháp | D toast | `LinmToast` | same |
+| Toast OK/Draft | SC-2408 / nháp | D toast | `LinmToast` | same |
+| toastSessionsFail | Không tải được ca tuần / Không có ca đang tuần | D toast | `LinmToast` | same |
 | Tab | field active | A `.tabbar` / `.nav` | `LinmTabBar` | NavigationBar |
 
-**States:** default (kind Hư + GPS chốt + demo detect) · loading Create · detect empty/fail toast · offline draft · GPS deny modal · camera deny toast · empty session banner · leave dirty confirm (reuse `DES-MOB-LEAVE` / kit — **cấm** system alert)
+**States:** default (kind Hư + GPS chốt + live detect) · loading Create · detect empty/fail toast · offline draft · GPS deny modal · camera deny toast · **empty session** (`?empty=1`) · **sessions fail** (`?fail=1`) · leave dirty confirm (reuse kit — **cấm** system alert)
 
 ### DES-MOB-FIELD-KIND
 
@@ -77,7 +83,7 @@ Login → Tab Tuần đường (shell Tab 5 · index field)
 
 Nhãn lấy đúng HTML dual — **cấm** invent / lệch iOS↔Android (trừ back chrome: iOS có chữ «Tuần đường»).
 
-**Cấm trên máy:** watermark «bản Gói N» · device label «iPhone»/«· Android» · «Có mạng» · fake lat/lng · loanword Offline/GPS như title · sheet chrome.
+**Cấm trên máy:** watermark «bản Gói N» · device label «iPhone»/«· Android» · «Có mạng» · fake lat/lng · loanword Offline/GPS như title · sheet chrome · demo tuyến khi GET fail.
 
 ## 5. Brand
 
@@ -109,14 +115,15 @@ Không pill mạng trên pack này. Loc = OS permission path only · **cấm** t
 
 ## 8. Motion
 
-Pack P1: toast fade ~2.4s · modal backdrop fade · kind pill select · checklist rebind · Create busy spinner trên primary · **không** bắt buộc `/wf-anim` ship.
+Pack P1: toast fade ~2.4s · modal backdrop fade · kind pill select · checklist rebind · Create busy spinner trên primary · sessions fail/empty toast on appear · **không** bắt buộc `/wf-anim` ship.
 
 ## 9. GAP / Device
 
 | ID | Demo vs native | Quyết định |
 |----|----------------|------------|
+| **GAP-MOB-FIELD-SESS-01** | itemsOrDemo / demo tuyến | **live-only** · empty/fail = empty loc + toastSessionsFail · **cấm** itemsOrDemo |
 | GAP-MOB-FIELD-PACK-01 | sheet meta vs full screen | **screen** · chốt |
-| GAP-MOB-FIELD-MEDIA-01 | Create chưa media[] | P1 optional upload · SA |
+| GAP-MOB-FIELD-MEDIA-01 | Create chưa media[] | Accept Signed deferred |
 | GAP-MOB-FIELD-CHK-01 | checklist local PAVEMENT | **cấm** invent API |
 | GAP-MOB-CAM-DETECT-01 | detect stub | SA · không Design |
 | AC-D-01 | offline | draft + toast nháp · sibling offline |
@@ -125,12 +132,13 @@ Pack P1: toast fade ~2.4s · modal backdrop fade · kind pill select · checklis
 | AC-D-04 | alert | **cấm** system · Toast/modal only |
 | AC-D-06 | safe area | TopBar + scroll + CTA + tab |
 | AC-D-11 | camera deny | toast · **cấm** fake detection |
-| AC-F-01 | appear | sessions + GPS + kind Hư + CHK |
+| AC-F-01 | appear | sessions live + GPS + kind Hư + CHK |
 | AC-F-02 | kind change | filter checklist |
 | AC-F-04 | Create | POST · cần GPS chốt |
 | AC-F-05 | Draft | local · toast nháp |
 | AC-F-06 | dual parity | cùng copy zones |
-| AC-F-08 | empty session | banner · draft OK |
+| AC-F-08 | empty session | banner + toast + empty loc · draft OK |
+| AC-F-09 | sessions fail | toast «Không tải được ca tuần» + empty loc |
 | GAP-TAB-01 | tabs none | shell Tab 5 giữ |
 | kit_missing | PhotoRow · CheckboxList | **approve** compose |
 | DEFER | bezel HTML | chrome native HIG/Material |
@@ -144,10 +152,10 @@ Must open = **0** · packet §1–§9 đủ · handoff SA (`be/solution-discover
 | Field | Value |
 |-------|-------|
 | skillId | mobile-ui-ux-analy |
-| skillVersion | 2026.08.25.01 |
+| skillVersion | 2026.09.05.03 |
 | schemaVersion | 1 |
-| generatedAt | 2026-08-28T22:16:32.000Z |
-| contentHash | sha256:field-reflect-control-hint-20260829 |
+| generatedAt | 2026-09-12T10:50:00.000Z |
+| contentHash | sha256:43744be6c3dc+field-reflect-sess-live-20260912 |
 
 ---
-<!-- Version meta: skillId=mobile-ui-ux-analy skillVersion=2026.08.25.01 schemaVersion=1 -->
+<!-- Version meta: skillId=mobile-ui-ux-analy skillVersion=2026.09.05.03 schemaVersion=1 -->

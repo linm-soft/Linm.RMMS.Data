@@ -15,15 +15,17 @@
 
 ## IA / API
 
-- Tab **Trang Chủ** = `#sc-home` hub · **không required login**. Guest **Khách** + `btn-home-login`.
+- Tab **Trang Chủ** = `#sc-home` hub · **không required login**. Guest **Khách** + FAQ · dock đáy `btn-home-login` + privacy · **ẩn** `LinmTabBar`.
 - Staff GET `auth/profile` · **cấm** GET profile khi guest.
-- Role **ẩn live** · wallet static · badge 0 ẩn · **cấm** GET inbox.
-- Hồ sơ → tab **Tôi**. Notify → toast **Thông báo** + `includeNotification` trên `#sc-home` · **cấm** push inbox. Sibling / signal / wallet = toast nhãn.
+- Role **ẩn live** · wallet static · badge live 0 ẩn · GET overview/inbox guest **AllowAnonymous**.
+- Hồ sơ → tab **Tôi**. Notify → **cùng** `OpsScreen` · mark-read staff only. Sibling / signal / wallet = toast nhãn.
 - Grid 3×2 = 2× `LinmHomeGrid` (kit Row). Foot Gói **cấm ship**.
 - E2E: `sc-home` · `home-who` · `btn-home-login` · `btn-signal` · `tile-*` · `wallet-card` · `tab-home`.
 - `/edit-mobile-feature` 2026-08-29: guest Home + overlay login · `./gradlew :app:assembleDebug` **PASS**.
 - `/edit-mobile-feature` 2026-08-29: guest FAQ + privacy overlays · `btn-home-faq` / `btn-home-privacy`.
 - `/edit-mobile-feature` 2026-08-29: FAQ/privacy back = `login.backHome` **Về Trang Chủ**.
+- `/edit-mobile-feature` 2026-09-12: **GAP-MOB-EDIT-GUEST-TAB** — guest ẩn `LinmTabBar` · pin `btn-home-login` + `btn-home-privacy` đáy · `assembleDebug` **PASS**.
+- `/edit-mobile-feature` 2026-09-12: **GAP-MOB-EDIT-GUEST-OPS** — `app_logo` giữa hero · chuông → `OpsScreen` · guest GET inbox/overview · `assembleDebug` **PASS**.
 
 ## VERIFY GATE
 

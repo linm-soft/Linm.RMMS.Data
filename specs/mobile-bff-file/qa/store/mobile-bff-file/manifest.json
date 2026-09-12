@@ -1,0 +1,60 @@
+{
+  "feature": "mobile-bff-file",
+  "capturedAt": "2026-09-12T16:14:44.481Z",
+  "iosDevice": "iPhone 17 Pro Max",
+  "method": "e2e-qa-mobile",
+  "steps": [
+    {
+      "id": "A10-BFF",
+      "result": "PASS",
+      "store": [
+        "A10",
+        "P11"
+      ]
+    },
+    {
+      "id": "A11-LAUNCH",
+      "result": "PASS",
+      "screenshot": "A11-LAUNCH.png",
+      "store": [
+        "A11"
+      ]
+    },
+    {
+      "id": "A9-LOGIN",
+      "result": "PASS",
+      "screenshot": "A9-LOGIN.png",
+      "store": [
+        "A9",
+        "P10"
+      ]
+    },
+    {
+      "id": "A3-CORE",
+      "result": "PASS",
+      "screenshot": "A3-CORE.png",
+      "store": [
+        "A3",
+        "A11"
+      ]
+    },
+    {
+      "id": "P6-CORE",
+      "result": "PASS",
+      "screenshot": "P6-CORE.png",
+      "store": [
+        "P6",
+        "P11"
+      ]
+    },
+    {
+      "id": "P6-CORE-2",
+      "result": "PASS",
+      "screenshot": "P6-CORE-2.png",
+      "store": [
+        "P6"
+      ]
+    }
+  ],
+  "ok": true
+}

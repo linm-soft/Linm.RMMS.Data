@@ -1,42 +1,46 @@
-# Dev — Implement Android — field-reflect (edit)
+# Dev — Implement Android — field-reflect (GAP-MOB-FIELD-SESS-01)
 
 | Field | Value |
 |-------|-------|
 | feature | `field-reflect` |
 | platform | Android |
-| this role | `dev` · `/agent-dev-android` · `/edit-mobile-feature` |
+| this role | `dev` · `/agent-dev-android` · `/dev-android-compose` · `/dev-ui-review` |
 | status | **confirmed** |
-| changeScope | `edit_page` · gap=`field_reflect_align_incident_create` |
+| changeScope | `edit_page` · gap=`field_reflect_sessions_live_only` · **GAP-MOB-FIELD-SESS-01** |
 | packKind | **`screen`** |
-| taskId | `task_a6f9a7eb` |
-| updatedAt | `2026-09-01T12:10:00.000Z` |
+| taskId | `task_552af9c4` · `T-AND-FIELD-SESS-LIVE` |
+| updatedAt | `2026-09-12T11:00:00.000Z` |
 | autoApprove | ON |
+| prior ship | `T-AND-FIELD-REF` **giữ** |
 
 ## Delta this turn
 
 | Area | Note |
 |------|------|
-| Pick gate | `#sc-field-pick` · KCHT-32 grid · `FetchAssetTypesUseCase` |
-| Form | `#sc-field-reflect` · WalletCard · kind · chk by code · CameraX still · severity · desc · Create/Draft |
-| Reuse | `IncidentCreateChecklist` · `IncidentCreateSeverity` · same BFF paths · **cấm** gộp slug |
-| Entry | hub `field-reflect` giữ |
-| DI | Hilt inject `FetchAssetTypesUseCase` |
+| Sessions | `FieldReflectViewModel.bootstrap` — live-only `FetchPatrolSessionsOutcome` · **cấm** `itemsOrDemo` / `demoToday` |
+| Active | `Loaded` + active → bind `routeStamp` |
+| Empty | `Loaded` + no active → empty · toast `field.banner.empty` |
+| Fail | `LoadFailed` → empty · toast `field.toast.sessionsFail` |
+| Keep | pick→form · kind · photos · detect · severity · CHK · Create/Draft · GPS deny |
+| Copy | `LinmCopy` + `field.toast.sessionsFail` |
+| API | reuse GET `patrol/sessions` · Step 4b **n/a** |
 
 ## Build gate
 
 | Check | Result |
 |-------|--------|
-| `./gradlew :app:assembleDebug` | **PASS** |
-| BFF `dotnet build` | **PASS** (shared) |
-| Invent API | **none** |
+| `./gradlew assembleDebug` | **PASS** |
+| Invent API / BFF write | **none** |
 
-## ACTION WORK
+## Paths
 
-| Action | Pair | Work |
-|--------|------|------|
-| Pick asset | → form | **yes** |
-| Create | POST incident | **yes** |
-| Draft | offline | **yes** |
+- `presentation/feature/fieldreflect/FieldReflectViewModel.kt`
+- `presentation/copy/LinmCopy.kt`
+- `domain/usecase/PatrolHomeUseCases.kt` (comment only)
+
+## UI review (frame)
+
+- Must: 0 · parity iOS · ToastHub · zones `sc-field-pick` / `sc-field-reflect` giữ
 
 ---
-<!-- Version meta: skillId=agent-dev-android skillVersion=2026.08.20.03 schemaVersion=1 workflowVersion=2026.08.25.01 rulesVersion=2026.08.29.4 versionGate=rechecked -->
+<!-- Version meta: skillId=agent-dev-android skillVersion=2026.09.05.03 schemaVersion=1 -->

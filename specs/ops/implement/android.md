@@ -14,7 +14,7 @@
 
 ## Behavior (live-only · **cấm** `OpsCopy.demoItems`)
 
-Parity iOS · GET OK empty = EmptyChrome · GET fail = empty + `ops.toast.loadFail` · Me + Home entry · **cấm** form create / ERP / watermark / `AlertDialog` / demo SSOT.
+Parity iOS · GET OK empty = EmptyChrome · GET fail = empty + `ops.toast.loadFail` · Me + Home entry · guest GET **AllowAnonymous** · mark-read staff only · **cấm** form create / ERP / watermark / `AlertDialog` / demo SSOT.
 
 ## Seed / CRUD
 

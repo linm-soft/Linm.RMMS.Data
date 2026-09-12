@@ -4,36 +4,50 @@ schemaVersion: 1
 feature: patrol-offline
 packKind: list
 role: review
-status: done
+status: confirmed
 skillVersion: 2026.08.19.29
-writtenAt: 2026-09-01T11:52:00.000Z
-taskId: task_94929183
+writtenAt: 2026-09-12T14:55:00.000Z
+taskId: task_0e218573
 slash: /agent-review-mobile
-gap: cleanup_mock_offline_storage re-review · live pendingCount · approve
+mode: feature_context
+changeScope: edit_page
+gap: offline_sync_apply_checkins
+autoApprove: ON
+e2eQa: ON
+contentHash: sha256:patrol-offline-delta-apply-checkins-20260912
+bffContentHash: sha256:patrol-offline-bff-apply-checkins-20260912
+review_confirm: approve
+post_review: skip
+mfeStdUrl: —
 
 ## Decisions
-- review_confirm: **approve** (autoApprove=ON)
-- post_review: **skip**
-- changeScope: edit_page · gap=cleanup_mock_offline_storage · packKind list
-- mfeStdUrl: none · cấm e2e/build ở review
-- alignMustOpen: 0 · chrome Aligned · EmptyChrome intentional
-- data: live pendingCount · no hardcode «3 bản ghi» · no demo seed
-- API: POST integration/sync/offline-batch only · Step 4b N/A
-- security: Keychain / EncryptedPrefs PASS
-- open: GAP-MOB-ACT-PAT-OFFLINE-01 Defer · PrivacyInfo/mappin/hint P2 Accept
-
-## Inventory (slim)
-| id | label | controlHint | notes |
-|----|-------|-------------|-------|
-| sc-patrol-offline | Dữ liệu lưu trữ | Screen | EmptyChrome |
-| offline-empty | EmptyChrome | Empty | iOS title+hint · Android title |
-| btn-sync | Đồng bộ | TopBar trailing | Sync-only |
-| nav-back | Trang Chủ | TopBar leading | text kit |
-| segment | Điểm tuần / Sự cố | LinmSegment | filter |
-| row-offline | Me entry | ListRow | live count |
+- edit_page delta Review · apply-checkins · **approve** (autoApprove ON)
+- Sync DoD dual: replay POST patrol/sessions/{id}/check-ins · remove only 2xx · offline-batch optional receipt
+- Pipeline data_analy→qa all confirmed · hashes aligned · UNCLEAR none
+- Must align 0 · QA ok:true · Dev VERIFY PASS · Review **cấm** build/e2e/start:std
+- Step 4b N/A · cấm ERP.* · cấm GET queue · Incident P2 Accept · GAP-MOB-ACT-PAT-OFFLINE-01 Defer
+- phase_to: **done** · post_review skip
 
 ## Screens / zones (ids only)
 - DES-MOB-PAT-OFFLINE / #sc-patrol-offline
-- evidence: qa/store/patrol-offline/ · A3/P6 EmptyChrome · task_fcc96865
-- full: specs/patrol-offline/review/findings.md
-- next: phase done · cấm full pipeline re-run
+- DES-MOB-PAT-OFFLINE-NAV · #btn-sync (replay)
+- SEG · BANNER · CARD · payload hidden sessionId+body
+- store: qa/store/patrol-offline/ · A11/A9/A3/P6/P6-2 · ok:true
+
+## API / tasks (ids only)
+- POST patrol/sessions/{sessionId}/check-ins (primary apply)
+- POST integration/sync/offline-batch (optional receipt)
+- T-IOS-PAT-OFF-APPLY · T-AND-PAT-OFF-APPLY · T-QA-PAT-OFFLINE · T-REVIEW-* PASS
+- T-BE/T-BFF/T-KIT n/a
+
+## Artifacts
+- review/findings.md · review/REVIEW-META.json
+- full prior: implement/{ios,android}.md · qa/scenarios · qa/store
+
+## Debt / next
+- Pipeline complete · next visual `/edit-mobile-feature` only
+- P2: PrivacyInfo · Android mappin/hint · Incident apply · store submit `/review-app-submit`
+- GAP-MOB-ACT-PAT-OFFLINE-01 Defer
+
+## UNCLEAR
+- none

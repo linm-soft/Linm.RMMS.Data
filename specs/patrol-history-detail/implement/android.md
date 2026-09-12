@@ -5,54 +5,53 @@
 | feature | `patrol-history-detail` |
 | role | `dev` · `/agent-dev-android` · `/dev-android-compose` · `/dev-ui-review` |
 | status | **PASS** |
-| packKind | **`sheet`** meta · surface Full `#sc-patrol-detail` |
-| changeScope | `new_page` |
-| route_confirm | **route_a** |
-| taskId | `task_158bf625` · prior `task_69386cbc` |
-| updatedAt | `2026-09-01T11:10:00.000Z` |
+| packKind | **`sheet`** · Full `#sc-patrol-detail` |
+| changeScope | `edit_page` · GAP timeline live |
+| route_confirm | **route_a** keep |
+| taskId | `task_4d0880f9` · prior TL `task_cacd86c6` |
+| updatedAt | `2026-09-12T14:10:00.000Z` |
 
 ## Tasks
 
 | id | status | notes |
 |----|--------|-------|
-| T-AND-PAT-DETAIL | **done** | dual parity · GET by id · icon-only back · timeline demo · list → push |
-| T-BE / T-BFF | **n/a · reuse** | same path · Retrofit `@GET("patrol/sessions/{id}")` |
-| Step 4b | **N/A** | SA chốt |
+| T-AND-PAT-DETAIL | **done** | strip `timelineDemo` · GET check-ins parallel · tap → `#sc-checkin-detail` Dialog · map Id · end toast |
+| T-BE / T-BFF | **n/a** | API-01+API-02 Live · Step 4b N/A |
+| Gaps | **closed** | TIMELINE-01 · TAP-01 · MAP-01 · END-01 |
 
 ## Ship summary
 
-- **Screen** `#sc-patrol-detail` · `PatrolHistoryDetailScreen` · Compose push
-- **Entry (edit `task_158bf625`):** `patrol-home` today + `patrol-history` row → `patrol-history-detail/{id}` · supersede toast
-- **API:** live-only GetById · fail/404 EmptyChrome+toast · **cấm** OfflineDemo
-- **Chrome / CTA / timeline** — dual parity iOS
-- **Cấm** AlertDialog · invent path · PUT · GET check-ins
+- Appear: `async` GET session + GET check-ins
+- Timeline: live · empty OK (`tl-empty`) · fail → empty + toast
+- Tap: Dialog `PatrolCheckInDetailScreen` từ check-in payload
+- Map: `onOpenMap(sessionId)` · no toast khi có Id
+- End / Share: toast P1
+- **cấm** `timelineDemo` runtime
 
 ## VERIFY GATE
 
 | Check | Result |
 |-------|--------|
-| `./gradlew :app:assembleDebug` | **PASS** (`task_158bf625` re-VERIFY) |
-| BFF `dotnet build` | **PASS** (verify only) |
-| e2e / start:std / mfeStdUrl | **SKIP** (cấm role Dev) |
+| `./gradlew assembleDebug` | **PASS** |
+| BFF `dotnet build` | **PASS** |
+| e2e / mfeStdUrl | **SKIP** (cấm Dev) |
 
 ## Files
 
 | Path | Change |
 |------|--------|
-| `presentation/feature/patrolhistorydetail/*` | NEW Screen · VM · UiState |
-| `domain/model/PatrolHistoryDetailModels.kt` | NEW · demo SSOT |
-| `domain/usecase/FetchPatrolSessionByIdUseCase.kt` | NEW |
-| `domain/repository/PatrolRepository.kt` | +`fetchSessionById` |
-| `data/repository/PatrolRepositoryImpl.kt` | +GET by id |
-| `data/remote/ApiService.kt` · `PatrolDto.kt` | +`patrolSessionById` |
-| `data/mapper/PatrolDtoMapper.kt` | +`detail` |
-| `presentation/feature/patrolhistory/*` | push wire |
-| `presentation/navigation/MainTabScreen.kt` | route detail |
-| `presentation/copy/LinmCopy.kt` | `patrol.detail.*` |
+| `…/patrolhistorydetail/*` | live check-ins · empty TL · CI detail Dialog |
+| `…/FetchPatrolCheckInsUseCase.kt` | NEW |
+| `…/PatrolRepository*.kt` | +`fetchCheckIns` |
+| `…/ApiService.kt` · `PatrolCheckInDto.kt` | GET list + DTO fields |
+| `…/PatrolDtoMapper.kt` | timelineItem |
+| `…/PatrolHistoryDetailModels.kt` | strip demo default |
+| `…/LinmCopy.kt` | empty / timelineFail |
 
 ## Debt
 
-- Same as iOS: ListRow substitute TimelineRow · map Id not consumed · checkin-detail toast
+- PatrolMap chưa consume session Id (nav pass Id OK)
+- Kit thiếu TimelineRow → ListRow
 
 ## Version meta
 
@@ -64,12 +63,12 @@
 | workflowVersion | 2026.08.31.2 |
 | rulesVersion | 2026.08.31.2 |
 | versionGate | rechecked |
-| contentHash | sha256:patrol-history-detail-control-hint-20260831 |
-| realDataHash | sha256:patrol-history-detail-real-data-20260831 |
-| bffContentHash | sha256:patrol-sessions-getbyid-passthrough |
-| actionTreeHash | sha256:patrol-history-detail-action-tree-20260831 |
-| androidContentHash | sha256:patrol-history-detail-implement-android-20260901 |
-| taskId | `task_69386cbc` |
+| contentHash | sha256:patrol-history-detail-control-hint-20260912-timeline-live |
+| realDataHash | sha256:patrol-history-detail-real-data-20260912-timeline-live |
+| bffContentHash | sha256:patrol-sessions-getbyid-plus-checkins |
+| actionTreeHash | sha256:patrol-history-detail-action-tree-20260912-timeline-live |
+| androidContentHash | sha256:patrol-history-detail-implement-android-20260912-timeline-live |
+| taskId | `task_4d0880f9` |
 
 ---
 <!-- Version meta: skillId=agent-dev-android skillVersion=2026.08.31.2 schemaVersion=1 workflowVersion=2026.08.31.2 rulesVersion=2026.08.31.2 versionGate=rechecked -->

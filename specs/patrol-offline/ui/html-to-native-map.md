@@ -1,42 +1,49 @@
-# HTML → Native map — patrol-offline
+# HTML → Native map — patrol-offline (edit_page · replay)
 
 **Feature:** `patrol-offline` · `#sc-patrol-offline` · `DES-MOB-PAT-OFFLINE`  
-**Sources:** `ui/prototype/{ios,android}/index.html` · `docs/html-to-native-map.md` global rows
+**Sources:** `ui/prototype/{ios,android}/index.html` (keep) · `_data-analy` § Delta · hash skip  
+**changeScope:** `edit_page` · gap=`offline_sync_apply_checkins`
 
-## Screen zones
+## Screen zones (unchanged selectors)
 
 | Demo selector | Zone | Kit iOS | Kit Android | Notes |
 |---------------|------|---------|-------------|-------|
-| `.nav-bar` / `.top-bar` | Nav chrome | `LinmTopBar` **implement_kit** text leading + trailing | same | back «Trang Chủ» · title · «Đồng bộ» |
-| `.nav-btn` leading | Back | text + `chevron.left` | text + `ArrowBack` | `nav-back` a11y |
-| `.nav-title` | Title | TopBar center | TopAppBar title | `offline.title` |
-| `.nav-btn` trailing / `.btn` sync | Sync CTA | text button | text button | `btn-sync` |
+| `.nav-bar` / `.top-bar` | Nav chrome | `LinmTopBar` text leading + trailing | same | back «Trang Chủ» · title · «Đồng bộ» |
+| `.nav-btn` leading | Back | text + `chevron.left` | text + `ArrowBack` | `nav-back` |
+| `.nav-title` | Title | TopBar center | TopAppBar | `offline.title` |
+| `#btn-sync` | Sync CTA | text trailing | text | **replay** check-ins · không clear-all |
 | `.seg` | Segment 2 | `LinmSegment` | `LinmSegment` | idx 0 check-in · 1 incident |
 | `.offline-banner` | Weak signal | `LinmBanner` `.warning` | same | `#i-wifi-off` · ẩn empty |
-| `.rich-card` | Card container | custom VStack + card bg | same | map → `LinmListRow` pattern if kit sufficient |
-| `.rc-thumb` | Thumb 56 | RoundedRect gradient | same | demo visual |
-| `.rc-title` | Title | Text subheadline semibold | same | |
-| `.rc-line` + `#i-mappin` | Location | HStack + mappin glyph | same | |
-| `.rc-line` (content) | Extra line | Text caption | card 1 only | |
-| `.rc-line` / `.rc-time` | Timestamp | Text caption2 | | |
-| `.rc-status.warn` | Status strip | warn bg strip + «Chờ gửi» | same | **ngắn** pill |
-| `.toast` | Feedback | `LinmToast` | `LinmToast` | **cấm** alert · app truyền `bottomBarHeight` (đo `LinmTabBar`) |
+| `.rich-card` | Card | custom / `LinmListRow` pattern | same | display |
+| `.rc-thumb` | Thumb 56 | RoundedRect | same | |
+| `.rc-title` / `.rc-line` / `.rc-status.warn` | Body + status | Text + strip | same | «Chờ gửi» ngắn |
+| `.toast` | Feedback | `LinmToast` | `LinmToast` | N = apply OK · **cấm** alert |
+| `[data-payload]` annotate | Hidden | local store | dual | sessionId + CreatePatrolCheckInRequest |
 
-## Entry wiring (reuse — không reimplement hub)
+## Sync bind (Design lock)
+
+| Demo action | Native | API |
+|-------------|--------|-----|
+| `#btn-sync` tap | replay pending `kind=checkIn` | `POST patrol/sessions/{sessionId}/check-ins` |
+| after OK count>0 | optional receipt | `POST integration/sync/offline-batch` · RecordCount = synced |
+| item remove | only HTTP 2xx | **cấm** clear fail / clear-all / clear incident |
+
+## Entry wiring (reuse)
 
 | Entry demo | Native route | Kit |
 |------------|--------------|-----|
-| Home `#sc-home` tile Lưu trữ | push `PatrolOfflineView` | `LinmHomeTile` |
-| Me `#sc-me` row offline | NavigationLink same view | `LinmListRow` + badge local |
-| Patrol-home nav Đồng bộ | reuse slug | sibling wiring |
+| Home tile Lưu trữ | push `PatrolOfflineView` | `LinmHomeTile` |
+| Me row offline | same | `LinmListRow` + badge local |
+| Patrol-home Đồng bộ | reuse slug | sibling · Defer stub OK |
 
 ## kit_missing_confirm
 
 | Gap | Decision |
 |-----|----------|
-| `LinmTopBar` icon-only ≠ SSOT text | **implement_kit** — text leading «Trang Chủ» + trailing «Đồng bộ» dual |
-| Rich card thumb + status | verify against `LinmListRow` — hiện custom card OK nếu thumb 56 + strip present · **cấm** invent `LinmRichCard` tên mới |
+| TopBar text slots | **unchanged** prior implement_kit |
+| Rich card | custom OK · **cấm** invent `LinmRichCard` |
+| Hidden payload | store layer · **không** new UI control |
 
 ## Version meta
 
-skillId=agent-design-mobile · generatedAt=2026-08-19T14:30:00.000Z · feature=patrol-offline
+skillId=agent-design-mobile · skillVersion=2026.08.19.29 · generatedAt=2026-09-12T14:31:03.000Z · contentHash=sha256:patrol-offline-delta-apply-checkins-20260912 · feature=patrol-offline

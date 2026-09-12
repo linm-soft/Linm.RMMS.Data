@@ -30,8 +30,14 @@ Assert that "Danh sách check in" is visible... COMPLETED
 Take screenshot A3-CORE... COMPLETED
 Tap on (Optional) id: btn-sup-filter... WARNED
 Tap on "Lọc"... COMPLETED
-Assert that "Lọc tuyến · ngày" is visible... COMPLETED
+Wait for animation to end within 2500 ms... COMPLETED
+Assert that "Áp dụng" is visible... COMPLETED
+Assert that "Xóa lọc" is visible... COMPLETED
+Assert that "Tuyến" is visible... COMPLETED
+Tap on (Optional) "Huỷ"... COMPLETED
+Tap on (Optional) "Hủy"... WARNED
+Wait for animation to end within 2000 ms... COMPLETED
 Tap on "Bản đồ"... COMPLETED
-Assert that "Bản đồ" is visible... COMPLETED
+Assert that id: sc-patrol-map is visible... COMPLETED
 Tap on (Optional) id: btn-sup-back... WARNED
 Tap on (Optional) "Trang Chủ"... COMPLETED

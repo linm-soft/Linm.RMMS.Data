@@ -1,34 +1,35 @@
 # Dev — Implement — supervise (iOS)
 
-> Status: **done** · `/edit-mobile-feature` · cleanup_mock · `/agent-dev-ios`  
-> task `task_65931a17` · T-IOS-SUPERVISE · parent `mobile-cleanup-mock`
+> Status: **done** · `/agent-dev-ios` · `/dev-ios-swiftui` · `/dev-ui-review`  
+> task `task_a7ad9582` · T-IOS-SUP-FILTER · T-IOS-SUP-MAP-NAV · changeScope=`edit_page`
 
 | Feature | `supervise` |
 | dest | **iPhone 17 Pro** **BUILD SUCCEEDED** · family `1` · A4-IPAD DEFER |
 | xcodegen | **PASS** |
-| Kit | `LinmTopBar` · `LinmSegment` · `LinmToast` · `EmptyChromeView` · `LinmMapPinGlyph` · `LinmBusyOverlay` · card = feature composition |
+| Kit | `LinmTopBar` · `LinmSegment` · `LinmSheet` · `LinmTextField` · `LinmPrimaryButton`/`LinmSecondaryButton` (sheet actions) · `LinmToast` · `EmptyChromeView` · `LinmMapPinGlyph` · `LinmBusyOverlay` · card = feature composition · DatePicker system |
 
 ## Layers
 
-| Presentation | `Presentation/Features/Supervise/SuperviseView.swift` · `SuperviseViewModel.swift` · `SuperviseUiState.swift` · `AppRouter` Home/Field `navigationDestination` |
-| Domain | `FetchSuperviseCheckinsUseCase` → `FetchSuperviseCheckinsOutcome` · `SuperviseCopy.orgFallback` · `SuperviseCopy.loadFailToast` · **no** `demoItems` |
-| Data | `SuperviseRepositoryImpl` · `SuperviseDtoMapper.checkin(from:)` · `GET patrol/attendance-logs` `page`/`pageSize` |
+| Presentation | `SuperviseView` · `SuperviseViewModel` · `SuperviseUiState` · filter sheet `#filter-sheet` · `AppRouter` Home/Field → `#sc-patrol-map` |
+| Domain | `FetchSuperviseCheckinsUseCase` ±`route` + client `CheckInAt` day · `SuperviseCheckinItem.checkInAt` |
+| Data | `SuperviseRepositoryImpl` GET `patrol/attendance-logs` `page`/`pageSize`/`route` · mapper parse Instant/Date |
 
-## Behavior (live-only · **cấm** `SuperviseCopy.demoItems`)
+## Behavior (§ Delta live)
 
-- route_a: Home tile **Giám sát** + patrol-home quick **Giám sát** → push `#sc-supervise` · back **Trang Chủ** = pop.
-- Appear GET `patrol/attendance-logs` Bearer · OK + empty → `EmptyChromeView` (`supervise.empty.*`) · id `sup-empty`.
-- Fail/offline → empty + toast `supervise.toast.loadFail` · **cấm** «Đang dùng dữ liệu mẫu» · list **mở**.
-- Empty `Note` → «Tổ tuần đường · VP-IV.1» (`GAP-MOB-SUP-03` mapper only).
-- Lọc / segment **Bản đồ** → `LinmToast` · tap card → open detail sibling · **cấm** `UIAlert`.
-- E2E: `sc-supervise` · `btn-sup-back` · `btn-sup-filter` · `sup-segment` · `sup-empty` · `sup-card-*`.
+- **Lọc** → owner `LinmSheet` Tuyến+Ngày · Apply GET ±`route` + client day · Clear clear+reload · **cấm** toast fake.
+- Segment **Bản đồ** → push `#sc-patrol-map` (Home `showPatrolMapFromHome` / Field `showPatrolMapFromField`) · reset seg **0** · **cấm** toast/embed.
+- Tap card → keep `supervise-detail` · EmptyChrome live-only · loadFail toast only.
+- Optional `#filter-chip` when appliedRoute/date set.
+- E2E ids: `sc-supervise` · `btn-sup-filter` · `filter-sheet` · `filterRoute` · `filterDate` · `filterApply` · `filterClear` · `sup-segment` · `sup-empty` · `sup-card-*` · `filter-chip`.
 
 ## VERIFY GATE
 
-`xcodegen generate` + `xcodebuild -scheme LinmRmms -destination 'platform=iOS Simulator,name=iPhone 17 Pro' build` **BUILD SUCCEEDED**.
+`xcodegen generate` + `xcodebuild -scheme LinmRmms -destination 'platform=iOS Simulator,name=iPhone 17 Pro' build` **BUILD SUCCEEDED**.  
+BFF `dotnet build` **PASS** (no Write this turn · reuse GET). Step 4b **N/A**.
 
-## Notes
+## Debt
 
-`/edit-mobile-feature` 2026-09-01: **cleanup_mock** · remove demo fallback · dual EmptyChrome + loadFail toast. Step 4b / T-BE **N/A** — reuse live `GET patrol/attendance-logs` · EmptyChrome OK khi tenant rỗng · **cấm** seed hardcode app · **cấm** `mfeStdUrl`.
+- GAP-MOB-SUP-04 BE fromDate **P2**
+- iPad Pro 13" smoke **DEFER** (family `1`)
 
-<!-- Version meta: skillId=edit-mobile-feature+agent-dev-ios skillVersion=2026.08.19.26 schemaVersion=1 workflowVersion=2026.08.31.2 rulesVersion=2026.08.31.2 versionGate=rechecked taskId=task_65931a17 -->
+<!-- Version meta: skillId=agent-dev-ios+dev-ios-swiftui skillVersion=2026.08.19.26 schemaVersion=1 workflowVersion=2026.08.31.2 rulesVersion=2026.08.31.2 versionGate=rechecked taskId=task_a7ad9582 -->

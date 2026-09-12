@@ -4,41 +4,41 @@
 |-------|-------|
 | feature | `cam-patrol` |
 | platform | iOS |
-| this role | `dev` · `/edit-mobile-feature` · `/agent-dev-ios` |
+| this role | `dev` · `/agent-dev-ios` · `/dev-ios-swiftui` |
 | status | **confirmed** |
-| changeScope | `edit_page` (cleanup_mock) |
+| changeScope | `edit_page` · gap=`cam_patrol_capture_frame` · **GAP-MOB-CAM-FRAME-01/02/03** |
 | packKind | **`screen`** |
-| taskId | `task_e7101ed6` |
-| updatedAt | `2026-09-01T06:00:00.000Z` |
+| taskId | `task_2122aa0b` · TL `task_9068a243` · T-IOS-CAM-FRAME |
+| updatedAt | `2026-09-12T11:40:00.000Z` |
 | autoApprove | ON |
-| contentHash | sha256:cam-patrol-control-hint-20260828 |
-| realDataHash | sha256:cam-patrol-real-data-20260828 |
-| bffContentHash | sha256:cam-patrol-mobile-bff-20260828 |
+| contentHash | sha256:cam-patrol-control-hint-20260912-frame |
+| realDataHash | sha256:cam-patrol-real-data-20260912-frame |
+| bffContentHash | sha256:cam-patrol-mobile-bff-20260912-frame |
 
-## Notes (cleanup_mock)
+## Delta this edit (FRAME)
 
-- **GAP-MOB-EDIT-DEMO-01 closed** — gỡ `CamPatrolCopy.demoRouteStamp` / `itemsOrDemo` trên path cam-patrol.
-- Route stamp = live `GET patrol/sessions` active `.route` · empty/no active = `patrol.empty.active.route` · fail = toast `cam.toast.sessionFail` (không claim dữ liệu mẫu).
-- Confirm `routeName` = live stamp / detect.routeLabel · **cấm** invent `QL.1`.
-- Seed: BE empty OK (stamp empty label) · reuse sessions endpoint · Step 4b **N/A**.
+| ID | Done |
+|----|------|
+| GAP-MOB-CAM-FRAME-01 | Finder `AVCapturePhoto` → JPEG → non-null `DetectAiVisionBody.imageBase64` |
+| GAP-MOB-CAM-FRAME-02 | empty/fail capture → toast `cam.toast.detectFail` · `detection=nil` · **cấm** fake class · **không** POST null |
+| GAP-MOB-CAM-FRAME-03 | body Engine·Note·ImageBase64·Lat/Lng/AccuracyM parity |
 
-## Shipped (prior + this edit)
+## Shipped paths
 
-| Area | Path / note |
-|------|-------------|
-| Screen | `Presentation/Features/CamPatrol/*` · `#sc-cam-patrol` |
-| Finder | AVCapture · FOV `#5AC8FA` |
-| Detect / Confirm / Skip | live BFF · GPS gate · offline `.incident` |
-| Live route | `FetchPatrolSessionsOutcome` · **cấm** demo SSOT |
+| Area | Path |
+|------|------|
+| Finder + capture | `Presentation/Features/CamPatrol/CamPatrolFinderPreview.swift` · `CamPatrolFrameCapture` |
+| ViewModel | `CamPatrolViewModel.swift` · `runDetect` capture-before-POST |
+| Keep | screen / GPS / Confirm / Skip / sessions · score ẩn · route_a |
 
 ## Build gate
 
 | Check | Result |
 |-------|--------|
 | `xcodegen generate` | **PASS** |
-| `xcodebuild` iPhone 17 Pro | **PASS** |
-| Invent cam-patrol API | **none** |
-| demoRouteStamp | **removed** |
+| `xcodebuild` dest iPhone 17 Pro | **PASS** |
+| Step 4b / invent API | **SKIP** / none |
+| mfeStdUrl | — |
 
 ## Version meta
 
@@ -49,7 +49,7 @@
 | schemaVersion | 1 |
 | workflowVersion | 2026.08.25.01 |
 | rulesVersion | 2026.08.29.4 |
-| generatedAt | `2026-09-01T06:00:00.000Z` |
+| generatedAt | `2026-09-12T11:40:00.000Z` |
 | versionGate | rechecked |
 
 ---

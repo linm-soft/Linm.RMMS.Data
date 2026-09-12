@@ -1,9 +1,9 @@
 appId: org.linmsoft.rmms
 ---
 # supervise · store A11/A9/A3 · guest home → login Auth seed → tile Giám sát → #sc-supervise
-# live-only (cleanup_mock) · EmptyChrome OK · cấm assert demo names
+# edit_page filter sheet live + map sibling push · live-only · EmptyChrome OK
 # iOS LinmTopBar trailing id không expose XCUITest — tap text Lọc / Trang Chủ
-# cấm shot login-only cho A3 · cấm mfeStdUrl / start:std
+# cấm shot login-only cho A3 · cấm mfeStdUrl / start:std · cấm toast fake filter/map
 - launchApp:
     clearState: true
     clearKeychain: true
@@ -74,14 +74,27 @@ appId: org.linmsoft.rmms
     optional: true
 - tapOn:
     text: "Lọc"
+- waitForAnimationToEnd:
+    timeout: 2500
 - extendedWaitUntil:
-    visible: "Lọc tuyến · ngày"
-    timeout: 8000
+    visible: "Áp dụng"
+    timeout: 10000
+- assertVisible: "Xóa lọc"
+- assertVisible: "Tuyến"
+- tapOn:
+    text: "Huỷ"
+    optional: true
+- tapOn:
+    text: "Hủy"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 2000
 - tapOn:
     text: "Bản đồ"
 - extendedWaitUntil:
-    visible: "Bản đồ"
-    timeout: 8000
+    visible:
+      id: "sc-patrol-map"
+    timeout: 15000
 - tapOn:
     id: "btn-sup-back"
     optional: true

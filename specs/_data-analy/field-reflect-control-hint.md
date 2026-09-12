@@ -5,111 +5,106 @@
 | feature | `field-reflect` |
 | title | [Mobile] [Tuần đường] -> Ghi nhận hư hỏng |
 | role | `data_analy` · `/agent-data-analy-mobile` · mode `feature_context` |
-| packKind | **`sheet`** (STATUS / `_form-type-mobile` scan) · **demo surface** = full screen `#sc-field-reflect` (không `#sheet-*`) |
-| changeScope | `new_page` |
-| status | **confirmed** |
-| taskId | `task_d7dd64c8` |
+| packKind | **`screen`** (STATUS/CTX · GAP-MOB-FIELD-PACK-01 **CLOSED**) · surface `#sc-field-reflect` |
+| changeScope | `edit_page` · gap=`field_reflect_sessions_live_only` |
+| status | **done** |
+| taskId | `task_d6e72d87` |
 | autoApprove | `ON` |
-| demo | `specs/mobile-p1/ui/prototype/{ios,android}/index.html` `#sc-field-reflect` · `DES-MOB-FIELD-REFLECT` · `DES-MOB-FIELD-KIND` · checklist `#ak32-chk-reflect-{ios,and}` |
-| ctx | `docs/context/features/field-reflect.md` · `patrol-home.md` · `cam-patrol.md` · `incident.md` · `asset-kcht-32.md` · design §5b bước 1 |
-| generatedAt | `2026-08-29T05:12:00.000Z` |
+| demo | `specs/field-reflect/ui/prototype/{ios,android}/index.html` `#sc-field-reflect` · `DES-MOB-FIELD-REFLECT` · `DES-MOB-FIELD-KIND` |
+| ctx | `docs/context/features/field-reflect.md` · peers `patrol-home` · `cam-patrol` · `incident` · `asset-kcht-32` |
+| generatedAt | `2026-09-12T10:33:53.000Z` |
+| prior | keep PO/Design/SA · prior analy `task_d7dd64c8` · re-review `task_f7b2133b` |
 
-**Cấm:** watermark Gói · invent `api/v1/field-reflect` · gộp `cam-patrol` / `inc-form` / sheet-incident · fake lat/lng · ERP.* · mfeStdUrl · system alert · badge P1/P2 header.
+**Cấm:** watermark Gói · invent `api/v1/field-reflect` · gộp `cam-patrol` / `inc-form` · fake lat/lng · ERP.* · mfeStdUrl · **`itemsOrDemo` / `demoItems` ship** (`GAP-MOB-REAL-02`).
 
-## Skill packet (`/agent-data-analy-mobile`) — 4 file
+## Skill packet — 4 file
 
 | File | Skill step |
 |------|------------|
-| **file này** | 4–5 controlHint + tech factors |
-| [`field-reflect-bff-endpoints.md`](field-reflect-bff-endpoints.md) | 6 BFF · **cấm invent** |
-| [`field-reflect-action-tree.md`](field-reflect-action-tree.md) | 7 tree + share/reuse |
-| [`field-reflect-real-data.md`](field-reflect-real-data.md) | 6b real-data bind |
+| **file này** | 4–5 controlHint + tech + § Delta |
+| [`field-reflect-bff-endpoints.md`](field-reflect-bff-endpoints.md) | 6 BFF |
+| [`field-reflect-action-tree.md`](field-reflect-action-tree.md) | 7 tree |
+| [`field-reflect-real-data.md`](field-reflect-real-data.md) | 6b real-data |
 
-## § Delta Current vs New (`new_page`)
+## § Delta Current vs New (`edit_page`)
 
-| ID | Current (native) | New (SSOT mobile demo + CTX) | Surface |
-|----|------------------|------------------------------|---------|
-| GAP-MOB-FIELD-SCR-01 | Stub / toast / missing | Full `#sc-field-reflect` «Ghi nhận hư hỏng» · back Tuần đường | screen |
-| GAP-MOB-FIELD-KIND-01 | — | Pill Hư / Mất / Hỏng · `DES-MOB-FIELD-KIND` | pills |
-| GAP-MOB-FIELD-PHOTO-01 | — | PhotoRow + `#i-camera` · `openCapture('reflect')` | camera |
-| GAP-MOB-FIELD-DET-01 | — | Card Nhận diện · Mức · Vị trí đã chốt | list rows |
-| GAP-MOB-FIELD-CHK-01 | — | Checklist theo loại TS (PAVEMENT demo) | checkboxes |
-| GAP-MOB-FIELD-CREATE-01 | — | Primary «Tạo vấn đề» → POST incident | CTA |
-| GAP-MOB-FIELD-DRAFT-01 | — | Secondary «Lưu nháp mất sóng» → offline | CTA |
-| GAP-MOB-FIELD-DATA-01 | — | sessions + detect + incident via Mobile.Bff | BFF |
-| GAP-MOB-FIELD-PACK-01 | — | STATUS packKind=`sheet` vs demo full screen — Design/PO chốt | meta |
+| ID | Current (native 2026-09-12) | New (DoD) | Surface |
+|----|-----------------------------|-----------|---------|
+| **GAP-MOB-FIELD-SESS-01** | `FieldReflectViewModel` bootstrap: `(fetchSessions).itemsOrDemo` — GET fail → `PatrolHomeCopy.demoToday` (mẫu tuyến) | **Live-only** · `FetchPatrolSessionsOutcome` switch: `.loaded` → bind · `.loaded([])` / no active → empty `routeStamp` + toast · `.loadFailed` → empty + toast · **cấm** `itemsOrDemo` | locationRow / bootstrap |
+| GAP-MOB-FIELD-PACK-01 | CLOSED screen | giữ | meta |
+| GAP-MOB-FIELD-MEDIA-01 | Accept Signed deferred | giữ | media |
+| GAP-MOB-FIELD-CHK-01 | local CHK by asset | giữ | checklist |
+| Prior SCR/KIND/PHOTO/DET/CREATE/DRAFT/DATA | shipped dual | **không** đổi UI inventory | — |
 
-**Không** đổi (OUT pack): `cam-patrol` finder · `inc-form` / `#sheet-incident` · `cam-view` · web `camera-connect` · Twin/YOLO local.
+**Không** đổi (OUT): controlHint pills/PhotoRow/checklist/CTA · BFF paths · pick→form · sibling `cam-patrol` / `inc-form`.
 
 ## Tech factors
 
 | Factor | P1 | Notes |
 |--------|----|-------|
-| GPS | **yes** | Vị trí đã chốt · accuracy · deny → `DES-MOB-GPS-DENY` (reuse) · **cấm** fake |
-| Camera | **yes** | Capture slot reflect · PhotoRow |
-| Offline | **yes** | «Lưu nháp mất sóng» → queue / `patrol-offline` · **cấm** fake 200 |
-| Map | n/a | Entry từ hub · không embed map trên màn này |
-| Biometric | n/a | |
-| Push | n/a | |
+| GPS | **yes** | Vị trí đã chốt · deny → `DES-MOB-GPS-DENY` · **cấm** fake |
+| Camera | **yes** | PhotoRow · `openCapture('reflect')` |
+| Offline | **yes** | «Lưu nháp mất sóng» → `patrol-offline` · **cấm** fake 200 |
+| Map | n/a | |
+| Sessions | **live-only** | GET `patrol/sessions` · fail/empty = empty+toast · peer cam-patrol/patrol-checkin |
 
 ## § Tab index
 
-`tabs: none` — màn full trong tab `field` shell · **không** segment riêng trên surface (`GAP-TAB-01`). Shell Tab 5 **giữ**. Entry từ hub `patrol-home` (tab field).
+`tabs: none` — full form trong tab `field` · Shell Tab 5 giữ · entry `patrol-home`.
 
 ## § Demo dual
 
-Cùng copy VN · cùng `#i-camera` · cùng kind pills Hư/Mất/Hỏng · cùng card «Ổ gà · Mặt đường» / «Cao» / «QL.1 · Km 1556+040 · ±4 m» · cùng CTA «Tạo vấn đề» / «Lưu nháp mất sóng» · checklist PAVEMENT. **Cấm** invent icon. Android top-bar icon-btn vs iOS nav-btn text — Design parity chrome (không đổi field).
+Cùng copy VN · `#i-camera` · kind Hư/Mất/Hỏng · card rows · CTA Create/Draft · checklist. Demo copy = **Design SSOT only** · **cấm** bind demo tuyến khi GET fail.
 
 ## controlHint — `#sc-field-reflect`
 
 | Field | VN | controlHint | Size | Kit | Notes |
 |-------|----|-------------|------|-----|-------|
 | screenTitle | Ghi nhận hư hỏng | TopBar title | 17 | `LinmTopBar` | `DES-MOB-FIELD-REFLECT` |
-| navBack | Tuần đường | BackButton | 16 | chevron | `go('patrol-home')` |
+| navBack | Tuần đường / pick | BackButton | 16 | chevron | pick hoặc hub |
 | kindLabel | Loại phản ánh | SectionLabel | **13** | | |
-| kindPills | Hư / Mất / Hỏng | PillSelect (single) | 13–16 | `LinmSegment` / pills | `DES-MOB-FIELD-KIND` · default Hư |
+| kindPills | Hư / Mất / Hỏng | PillSelect | 13–16 | pills | `DES-MOB-FIELD-KIND` |
 | photoLabel | Ảnh hiện trường | SectionLabel | **13** | | |
-| photos | Ảnh | PhotoRow | — | slots + filled | attach |
-| addPhoto | (camera slot) | CameraButton | — | `LinmIconButton` `#i-camera` | `openCapture('reflect')` |
-| detectRow | Nhận diện | ListRow (readonly) | 13 / ≥16 | | bind detect `DefectClass` · demo «Ổ gà · Mặt đường» |
-| severityRow | Mức | ListRow + Badge | 13 / ≥16 | badge orange | bind detect `Severity` · demo «Cao» |
-| locationRow | Vị trí đã chốt | ListRow (readonly) | 13 / ≥16 | | route · Km · ±m · GPS chốt |
-| chkLabel | Checklist theo loại tài sản | SectionLabel | **13** | | |
-| checklist | checklist items | CheckboxList | 13 / ≥16 | `chk-row` | PAVEMENT SSOT · filter by kind pill |
-| btnCreate | Tạo vấn đề | PrimaryButton | 16 | `LinmPrimaryButton` | submit · POST incident · cùng slug |
-| btnDraft | Lưu nháp mất sóng | SecondaryButton | 16 | `LinmSecondaryButton` | offline queue · reuse `patrol-offline` |
-| toastOk | Đã tạo vấn đề SC-… · gắn ca tuần | Toast | 13–16 | `LinmToast` | sau Create |
-| toastDraft | Đã lưu nháp · Lưu trữ | Toast | 13–16 | `LinmToast` | sau draft |
-| gpsDeny | Định vị bị tắt | Modal | 17/13 | `DES-MOB-GPS-DENY` | reuse chrome |
+| photos | Ảnh | PhotoRow | — | | |
+| addPhoto | (camera) | CameraButton | — | `#i-camera` | |
+| detectRow | Nhận diện | ListRow | 13 / ≥16 | | detect DTO · empty OK |
+| severityRow | Mức | ListRow+Badge | 13 / ≥16 | | |
+| locationRow | Vị trí đã chốt | ListRow | 13 / ≥16 | | **live sessions + GPS** · empty nếu fail |
+| chkLabel | Checklist theo loại TS | SectionLabel | **13** | | |
+| checklist | items | CheckboxList | 13 / ≥16 | | by asset code |
+| btnCreate | Tạo vấn đề | PrimaryButton | 16 | | POST incident |
+| btnDraft | Lưu nháp mất sóng | SecondaryButton | 16 | | offline |
+| toastOk | Đã tạo vấn đề… | Toast | 13–16 | | |
+| toastDraft | Đã lưu nháp… | Toast | 13–16 | | |
+| toastSessionsFail | Không tải được ca tuần / Không có ca đang tuần | Toast | 13–16 | | **NEW** · GET fail/empty |
+| gpsDeny | Định vị bị tắt | Modal | 17/13 | | `DES-MOB-GPS-DENY` |
 
 ## UNCLEAR
 
-**none** — demo + design §5b + peers chốt · media/checklist = GAP (không UNCLEAR UI).
+**none**
 
 ## Handoff → PO
 
 | Field | Value |
 |-------|-------|
-| feature / packKind | `field-reflect` / **sheet** (surface screen — GAP-MOB-FIELD-PACK-01) |
+| feature / packKind | `field-reflect` / **screen** |
 | phase_from / phase_to | `data_analy` **done** → `po` |
-| BFF | `field-reflect-bff-endpoints.md` |
-| Action tree | `field-reflect-action-tree.md` |
-| Real-data | `field-reflect-real-data.md` |
-| Next | `/agent-po-mobile` |
-| autoApprove | ON → chain PO (không chờ board) |
+| Delta | **GAP-MOB-FIELD-SESS-01** live-only sessions |
+| Next | `/agent-po-mobile` · keep existing PO · § Delta AC |
+| autoApprove | ON |
 
 ## Version meta
 
 | Field | Value |
 |-------|-------|
 | skillId | agent-data-analy-mobile |
-| skillVersion | 2026.08.25.01 |
+| skillVersion | 2026.09.05.03 |
 | schemaVersion | 2 |
-| workflowVersion | 2026.08.25.01 |
-| rulesVersion | 2026.08.25.2 |
-| generatedAt | 2026-08-29T05:12:00.000Z |
+| workflowVersion | 2026.09.05.03 |
+| rulesVersion | 2026.09.05.8 |
+| generatedAt | 2026-09-12T10:33:53.000Z |
 | versionGate | rechecked |
-| contentHash | sha256:field-reflect-control-hint-20260829 |
+| contentHash | sha256:43744be6c3dc+field-reflect-sess-live-20260912 |
 
 ---
-<!-- Version meta: skillId=agent-data-analy-mobile skillVersion=2026.08.25.01 schemaVersion=2 workflowVersion=2026.08.25.01 rulesVersion=2026.08.25.2 versionGate=rechecked -->
+<!-- Version meta: skillId=agent-data-analy-mobile skillVersion=2026.09.05.03 schemaVersion=2 workflowVersion=2026.09.05.03 rulesVersion=2026.09.05.8 versionGate=rechecked -->

@@ -1,60 +1,54 @@
-# Handoff compact — dev
-
+# Handoff compact — dev → qa
 schemaVersion: 1
 feature: patrol-home
-packKind: hub
 role: dev
-status: done
-skillVersion: 2026.08.25.01
-writtenAt: 2026-09-01T05:12:00.000Z
-taskId: task_22fa5cba
-slash: /edit-mobile-feature
-gap: cleanup_mock · GAP-MOB-EDIT-STATUS-01
+taskId: task_523eaa0e
+packKind: hub
+changeScope: edit_page
+stack: native_dual
+status: PASS
+generatedAt: 2026-09-12T15:20:00.000Z
+skillVersion: 2026.08.19.23
+contentHash: sha256:b5efb555e6c8195ccd93f60d983b57d6b0aa476a919b7f11700157c58241ae0a
+bffContentHash: sha256:128461fdf9135cf8c168a1b05e92586465d1ef34c117b39bea7d2464a06f55c0
 
 ## Decisions
-- changeScope: edit_page (cleanup_mock parent mobile-cleanup-mock)
-- formPattern: hub · hero + today list + quick rows · sibling nav/toast
-- mfeStdUrl: none (native_dual)
-- data: live-only · `FetchPatrolSessionsOutcome` · empty = EmptyChrome today · fail = toast · **cấm** `PatrolHomeCopy.demoToday`/`demoActive` on patrol-home
-- activeSession: `PatrolHomeCopy.emptyActive` when no «Đang tuần»
-- siblings (cam-patrol · field-reflect · …): `itemsOrDemo` extension until their cleanup tasks
-- Step 4b: N/A — reuse GET `patrol/sessions`
+- changeScope: edit_page
+- formPattern: N/A (hub · FormMode=none)
+- packKind: hub
+- mfeStdUrl: — (cấm · native_dual)
+- build: iOS xcodegen+xcodebuild iPhone 17 Pro Max **PASS** · Android assembleDebug **PASS** · BFF dotnet build **PASS**
+- Step 4b: N/A (POST/PUT Live · no BE write)
 - open questions: none
+- keep: segment/pin/kpi/quick/nav · sibling toast · offline badge · GET
 
 ## Inventory (slim)
 | id | label | controlHint | notes |
 |----|-------|-------------|-------|
-| sc-patrol-home | Tuần đường | TopBar+Segment | tab field |
-| patrol-hero | Ca đang chạy | LinmHeroCard | live or emptyActive |
-| patrol-today-empty | Không có phiên hôm nay | EmptyChrome | GET ok empty |
-| row-today-* | Today rows | LinmListRow | GET sessions |
-| row-quick-* | Quick actions | LinmListRow | sibling nav/toast |
+| heroActive | Ca đang chạy | LinmHeroCard | GET · empty=— |
+| emptyActive | Chưa có ca | LinmHeroCard | no active |
+| btn-open-session | Mở ca | LinmPrimaryButton | POST SESSION-01 |
+| btnEndSession | Kết ca | detail CTA | PUT SESSION-02 |
+| todayRows | Hôm nay | LinmListRow | GET |
+| kpiStrip | KPI 3 | LinmKpiStrip | empty=— |
 
 ## Screens / zones (ids only)
-- DES-MOB-PAT-HOME / #sc-patrol-home
-- reviewUrlIos=file://…/prototype/ios/index.html#sc-patrol-home
-- reviewUrlAndroid=file://…/prototype/android/index.html#sc-patrol-home
-- peerStdUrl=—
+- `#sc-patrol-home` DES-MOB-PAT-HOME · Pattern=Hub · FormMode=none
+- zones: heroActive · emptyActive · btn-open-session · pinHere · todayRows · quickRows · btnEndSession(detail)
+- peerStdUrl: cấm mfeStdUrl
 
 ## API / tasks (ids only)
-- GET `mobile-bff/api/v1/patrol/sessions?page=1&pageSize=50`
-- FormMode↔API: hub only · siblings via quick rows
-- T-BE: N/A (proxy passthrough)
-
-## VERIFY GATE
-- iOS: xcodegen + xcodebuild dest iPhone 17 Pro → **BUILD SUCCEEDED**
-- Android: `./gradlew :app:assembleDebug` → **BUILD SUCCESSFUL**
-- BFF: `dotnet build` Linm.RMMS.Mobile.Bff → **0 Error**
-
-## Debt
-- Siblings still use `itemsOrDemo` (cam-patrol · patrol-checkin · …) — pending cleanup_mock P1
-- GAP-QA-A11Y-TAB-FIELD-01 — iOS Maestro tab-field · DEFER non-block
+- FormMode↔API: none↔GET/POST/PUT `patrol/sessions`
+- T-*: T-IOS-PAT-HOME-SESSION · T-AND-PAT-HOME-SESSION **PASS** · T-BE n/a
+- Gaps closed: SESSION-01/02 · HERO-01
+- debt: route picker P2 · sibling pending_confirm
+- Next: /agent-qa-mobile (e2eQa ON · queued)
 
 ## UNCLEAR
 - none
 
 ## Full paths (Read only if needed)
-- implement: specs/patrol-home/implement/ios.md · android.md
+- implement/ios: specs/patrol-home/implement/ios.md
+- implement/android: specs/patrol-home/implement/android.md
+- team_lead-compact: specs/patrol-home/handoff/team_lead-compact.md
 - STATUS: specs/patrol-home/STATUS.md
-- po: specs/patrol-home/po/requirement.md
-- design: specs/patrol-home/ui/design.md · ux-analy.md

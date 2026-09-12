@@ -6,50 +6,50 @@
 | title | [Mobile] [Lịch sử phiên] -> Chi tiết ca |
 | this role | `review` · `/agent-review-mobile` |
 | status | **done** |
-| review_confirm | **done** (autopilot · `task_96251956` · autoApprove=ON) |
+| review_confirm | **done** (autopilot · `task_8aedde45` · autoApprove=ON) |
 | packKind | **`sheet`** meta · surface Full `#sc-patrol-detail` · `DES-MOB-PAT-DETAIL` |
 | lane | `mobile` · **cấm** mfeStdUrl / yarn start:std / e2e ở role này |
-| changeScope | `edit_page` re-review after NAV wire + OfflineDemo strip |
-| prior · qa | `handoff/qa-compact.md` · **confirmed** · `task_cf2aadc0` · e2eQa PASS · align Must **0** · store `ok:true` |
-| prior · dev | `handoff/dev-compact.md` · **confirmed** · `task_158bf625` · push NAV · live GET only · VERIFY PASS |
-| prior · sa | `handoff/sa-compact.md` · **confirmed** · API-01 GetById only |
-| prior · design | `handoff/design-compact.md` · dual proto `#sc-patrol-detail` |
+| changeScope | `edit_page` · GAP timeline GET check-ins **Live** |
+| prior · qa | `handoff/qa-compact.md` · **confirmed** · `task_01ffb168` · e2eQa PASS · align Must **0** · store `ok:true` |
+| prior · dev | `handoff/dev-compact.md` · **confirmed** · `task_4d0880f9` · strip timelineDemo · API-02 Live · TAP/MAP |
+| prior · sa | `handoff/sa-compact.md` · **confirmed** · API-01+API-02 Live |
+| prior · design | `handoff/design-compact.md` · dual proto · runtime ≠ demo TL |
 | ios | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS` |
 | android | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android` |
-| bff | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Bff` · `GET mobile-bff/api/v1/patrol/sessions/{id}` |
+| bff | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Bff` · `GET …/sessions/{id}` + `…/check-ins` |
 | backend | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.WebService` · Patrol · **cấm ERP.*** |
 | autoApprove | **ON** |
-| e2eQa | prior QA `task_cf2aadc0` · **cấm** re-run e2e/build ở review |
-| updatedAt | `2026-09-01T11:25:38.000Z` |
-| taskId | `task_96251956` |
+| e2eQa | prior QA `task_01ffb168` · **cấm** re-run e2e/build ở review |
+| updatedAt | `2026-09-12T14:25:00.000Z` |
+| taskId | `task_8aedde45` |
 
 ## REVIEW-META
 
 | Hash input | Notes |
 |------------|-------|
-| Delta vs prior review `task_1c744554` | NAV toast→push closed · OfflineDemo stripped (fail→EmptyChrome+toast) |
-| iOS | `PatrolHistoryDetail/*` · home/history push + Id · live GET |
-| Android | `patrolhistorydetail/*` · same NAV + live GET |
-| BFF | passthrough GetById · **cấm** invent slug |
-| API | `GET patrol/sessions/{id}` · OUT check-ins / PUT P1 |
-| QA store | `qa/store/patrol-history-detail/` A11/A9/A3/P6/P6-2 · `ok:true` · seed `TD-20260821-001` · `a11e0001-…` |
-| align | `ui/review/align-ux.md` Must **0** · NAV-01 closed |
-| clickables | `qa/e2e/CLICKABLES.md` · ACT-03 open **0** (no crawl re-run) |
+| Delta vs prior review `task_96251956` | TIMELINE Live · TAP CI-DETAIL · MAP + Id · END toast keep |
+| iOS | `PatrolHistoryDetail/*` · parallel GET session+check-ins · **cấm** timelineDemo |
+| Android | `patrolhistorydetail/*` · same · OpenMap(id) · TapTimeline→detail |
+| BFF | GetById + GetCheckIns Live · **cấm** invent |
+| API | API-01 + API-02 · OUT POST CI / PUT / timelineDemo |
+| QA store | `qa/store/patrol-history-detail/` A11/A9/A3/P6/P6-2 · `ok:true` · seed `b33e…0002` / `PAT-20260810-0009` |
+| align | `ui/review/align-ux.md` Must **0** · runtime PAT/TL ≠ demo TD-* Accept |
 | skillVersion | agent-review-mobile **2026.08.31.2** |
-| contentHash | `sha256:patrol-history-detail-control-hint-20260831` · unchanged |
-| realDataHash | `sha256:patrol-history-detail-real-data-20260831` · unchanged |
+| contentHash | `sha256:patrol-history-detail-control-hint-20260912-timeline-live` |
+| realDataHash | `sha256:patrol-history-detail-real-data-20260912-timeline-live` |
+| bffContentHash | `sha256:patrol-sessions-getbyid-plus-checkins` |
 
 ## Security + permission
 
 | Check | Result |
 |-------|--------|
-| Token Keychain / EncryptedSharedPreferences | **PASS** (prior + unchanged edit) |
+| Token Keychain / EncryptedSharedPreferences | **PASS** (unchanged) |
 | Bearer + `X-Company-Id` | **PASS** |
 | IDOR `{id}` | **PASS** — GET by id · 403 toast+back · 404 EmptyChrome |
-| Location / camera | **N/A** — display-only timeline |
+| Location / camera | **N/A** — display-only · no GPS request |
 | Deny / leave · **cấm** system alert | **PASS** — LinmToast only |
-| Invent API / forked path | **PASS** — reuse sessions/{id} only |
-| Fake HTTP 200 on GET fail | **PASS** — EmptyChrome + toast · **cấm** silent 200 (OfflineDemo removed) |
+| Invent API / forked path | **PASS** — reuse sessions/{id} + check-ins |
+| Fake HTTP 200 / timelineDemo | **PASS** — live only · fail→empty TL+toast · **cấm** demo fallback |
 | Plaintext JWT / mfeStdUrl | **PASS** none |
 
 ## DTO parity (iOS = Android = BFF)
@@ -58,28 +58,28 @@
 |-------|-------------|
 | `id` · `code` · `userName` · `route` · `patrolType` | **OK** |
 | `plannedDate` → `dd/MM/yyyy` · `startedAt` → `HH:mm` + `(UTC+7)` | **OK** |
-| `coveragePercent` · `status` + `offlineQueued` badge VN | **OK** |
-| Timeline | **OK** demo SSOT 3 P1 · ListRow≈Timeline debt |
+| `coveragePercent` · `status` + OfflineQueued badge VN | **OK** |
+| Timeline | **OK** Live GET check-ins · empty OK · ListRow≈Timeline debt |
 | Tab / type scale | **OK** · no GAP-TAB-01 / GAP-TYP-01 |
 
 ## UI align (vision · CORE vs demo)
 
 | Zone | Result |
 |------|--------|
-| Source | QA `align-ux.md` + CAPTURE + store manifest (PNG Read tool blocked · rely QA align SSOT) |
-| A3-CORE | **PASS** — CTA/TL fold · Map/End · tab on |
-| P6-CORE | **PASS** — **TD-20260821-001** · Đang tuần · info rows |
-| P6-CORE-2 | **PASS** — 3 TL · Map primary · End secondary |
+| Source | Read A3/P6/P6-2 (store) + QA align · demo `#sc-patrol-detail` |
+| A3-CORE | **PASS** — INFO+TL live 3 rows · Map/End · tab Tuần đường on |
+| P6-CORE | **PASS** — **PAT-20260810-0009** · Hoàn thành · INFO rows |
+| P6-CORE-2 | **PASS** — TL live Km 1551/1552/1553 · Map primary · End secondary |
 | COMP / ICON / COLOR / SCROLL Must | **0** |
-| bugs OPEN Must | **0** (NAV-01 + DEMO-01 closed this cycle) |
+| bugs OPEN Must | **0** (TIMELINE/TAP/MAP/END **CLOSED**) |
 
 ## Real data
 
 | Check | Result |
 |-------|--------|
-| GAP-MOB-REAL-02 | **none** — hero/info GET; timeline demo SSOT = PO P1 |
-| GAP-QA-REAL-01 | **none** — store live `TD-*` · A10-BFF PASS |
-| Offline path | fail→EmptyChrome (edit) · happy-path seed verified · fail path not re-shot |
+| GAP-MOB-REAL-02 | **none** — hero/info/TL from GET · **cấm** timelineDemo |
+| GAP-QA-REAL-01 | **none** — store live `PAT-*` · A10-BFF PASS · 3 check-ins |
+| Offline path | session fail EmptyChrome+toast · CI fail empty TL+toast · happy-path verified |
 
 ## Store gate
 
@@ -97,28 +97,29 @@ AskQuestion (autoApprove=ON): `review_confirm=done` · `align_confirm=approve` �
 | ID | Area | Sev | Finding | Disposition |
 |----|------|-----|---------|-------------|
 | R-01 | Security | — | Keychain/Encrypted · Bearer · XCO · 403/404 | **OK** |
-| R-02 | API | — | GET sessions/{id} only · cấm ERP.* / invent / PUT | **OK** |
-| R-03 | DTO | — | Dual bind §B · TZ · badge | **OK** |
-| R-04 | Align | — | A3+P6(+2) vs demo · Must **0** | **OK** |
-| R-05 | Real | — | Live TD-* · no REAL-02 / QA-REAL-01 | **OK** |
-| R-06 | Click | — | CLICKABLES ACT-03 **0** · toast CTAs intentional | **OK** |
-| R-07 | NAV | — | history/today → push + Id · QA PASS | **OK** (closed GAP-MOB-PAT-HIST-DET-NAV-01) |
-| R-08 | Offline | Should | SA demo-fallback vs Dev EmptyChrome on fail | **Accept** — live-only edit intentional |
-| R-09 | Debt | Should | ListRow≈Timeline · map Id · checkin-detail | **Defer** P2 |
-| R-10 | Store | P2 | PrivacyInfo / Data safety | **Accept** |
-| R-11 | Step 4b | — | N/A · review skip | **OK** |
+| R-02 | API | — | API-01+API-02 Live · cấm ERP.* / invent / PUT / timelineDemo | **OK** |
+| R-03 | DTO | — | Dual bind · TZ · badge VN | **OK** |
+| R-04 | Align | — | A3+P6(+2) vs demo · Must **0** · PAT ≠ demo TD Accept | **OK** |
+| R-05 | Real | — | Live PAT-* + 3 check-ins · no REAL-02 / QA-REAL-01 | **OK** |
+| R-06 | TIMELINE | — | GET check-ins Live · strip timelineDemo | **OK** (CLOSED TIMELINE-01) |
+| R-07 | TAP | — | done → checkin-detail + Id (≠ toast) | **OK** (CLOSED TAP-01) |
+| R-08 | MAP | — | nav map + session Id · no toast khi có Id | **OK** (CLOSED MAP-01) |
+| R-09 | END/Share | — | toast P1 · cấm PUT | **OK** (CLOSED END-01) |
+| R-10 | Debt | Should | ListRow≈TimelineRow kit · PatrolMap consume Id | **Defer** P2 |
+| R-11 | Store | P2 | PrivacyInfo / Data safety | **Accept** |
+| R-12 | Step 4b | — | N/A · review skip | **OK** |
 
 ## Task gate
 
 | Task | Result |
 |------|--------|
-| T-IOS-PAT-DETAIL (+ edit) | PASS |
-| T-AND-PAT-DETAIL (+ edit) | PASS |
+| T-IOS-PAT-DETAIL (edit timeline) | PASS |
+| T-AND-PAT-DETAIL (edit timeline) | PASS |
 | T-BE-* | **n/a** |
-| T-QA-* (`task_cf2aadc0`) | PASS · `ok:true` · Must align 0 · NAV push |
+| T-QA-* (`task_01ffb168`) | PASS · `ok:true` · Must align 0 · TIMELINE Live |
 | T-REVIEW-SEC / DTO / ALIGN | PASS · Must align = **0** |
 
-## VERIFY GATE (`task_96251956` · roleOnly=`review`)
+## VERIFY GATE (`task_8aedde45` · roleOnly=`review`)
 
 | Gate | Result |
 |------|--------|
@@ -129,7 +130,7 @@ AskQuestion (autoApprove=ON): `review_confirm=done` · `align_confirm=approve` �
 
 ## Verdict
 
-Re-review sau edit NAV: dual-native security/DTO PASS · align Must 0 · store live BFF · NAV push verified · OfflineDemo strip Accept. Debt TimelineRow/map/checkin **Defer** P2. **Approve** (autopilot). Pipeline **complete**.
+Re-review edit_page timeline Live: dual-native security/DTO PASS · align Must 0 · store live PAT + 3 check-ins · Gaps TIMELINE/TAP/MAP/END **CLOSED**. Debt TimelineRow/map consume **Defer** P2. **Approve** (autopilot). Pipeline **complete**.
 
 ## Handoff
 
@@ -149,9 +150,9 @@ Re-review sau edit NAV: dual-native security/DTO PASS · align Must 0 · store l
 | schemaVersion | 2 |
 | workflowVersion | 2026.08.31.2 |
 | rulesVersion | 2026.08.31.2 |
-| generatedAt | 2026-09-01T11:25:38.000Z |
+| generatedAt | 2026-09-12T14:25:00.000Z |
 | versionGate | ok |
-| taskId | `task_96251956` |
-| contentHash | sha256:patrol-history-detail-control-hint-20260831 |
+| taskId | `task_8aedde45` |
+| contentHash | sha256:patrol-history-detail-control-hint-20260912-timeline-live |
 
 <!-- Version meta: skillId=agent-review-mobile skillVersion=2026.08.31.2 schemaVersion=2 workflowVersion=2026.08.31.2 rulesVersion=2026.08.31.2 versionGate=ok -->

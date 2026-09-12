@@ -4,40 +4,37 @@
 |-------|-------|
 | feature | `patrol-checkin` |
 | platform | Android |
-| this role | `dev` · `/edit-mobile-feature` · `/agent-dev-android` |
+| this role | `dev` · `/agent-dev-android` · `/dev-android-compose` |
 | status | **confirmed** |
-| changeScope | `edit_page` (cleanup_mock) |
+| changeScope | `edit_page` |
 | packKind | **`sheet`** |
-| taskId | `task_2f18d421` |
-| updatedAt | `2026-09-01T06:40:00.000Z` |
+| taskId | `task_e7e16bae` |
+| updatedAt | `2026-09-12T13:15:00.000Z` |
 | autoApprove | ON |
-| contentHash | sha256:patrol-checkin-control-hint-20260828 |
-| bffContentHash | sha256:patrol-checkin-mobile-bff-20260828 |
+| contentHash | sha256:patrol-checkin-control-hint-20260912-edit |
+| bffContentHash | sha256:patrol-checkin-mobile-bff-20260912-edit |
 
-## Notes (cleanup_mock)
+## Notes (edit_page delta · T-AND-PAT-CI-DELTA)
 
-- **GAP-MOB-EDIT-DEMO-01 closed** — gỡ `PatrolCheckInCopy.demo*` · `demo-session` · `itemsOrDemo` trên path check-in.
-- Prefill = live `GET patrol/sessions` active `.route` · empty = `patrol.empty.active.route` · fail = toast `cam.toast.sessionFail`.
-- Plan lat/lng = live GPS pin · **cấm** invent demo coords / QL.1.
-- Save chặn khi `sessionId` blank hoặc `matchOk=false`.
-- Seed: reuse sessions + POST check-ins · Step 4b **N/A**.
+- Compose parity dual · section-label **Ảnh**.
+- Plan match vs BE `plan-points` · interim session label · **cấm** plan=GPS.
+- GetContent picker → FileService init/PUT/commit → `attachmentId[]` · fail → offline queue.
+- POST check-ins live · GPS / leave / deny parity iOS.
 
-## Shipped (prior + this edit)
+## Shipped
 
 | Area | Path / note |
 |------|-------------|
-| Sheet + leave + detail | `presentation/feature/patrolcheckin/*` · Dialog leave |
-| Entry | `FieldStack` · home/map `onOpenCheckIn` |
-| GPS match | Fused · haversine 50 m · live plan pin |
-| Submit | Retrofit `POST …/check-ins` · offline `CheckIn` |
-| Live session | `FetchPatrolSessionsOutcome` · **cấm** itemsOrDemo |
+| Feature UI | `presentation/feature/patrolcheckin/*` |
+| Plan + File | `PatrolRepository.fetchPlanPoints` · `FileAttachmentRepositoryImpl` |
+| Submit | `SubmitPatrolCheckInUseCase` · attachment ids |
+| DI | `NetworkModule` File bind |
 
 ## Build gate
 
 | Check | Result |
 |-------|--------|
 | `./gradlew assembleDebug` | **PASS** |
-| demo route/plan/latlng | **removed** |
 
 ## Version meta
 
@@ -48,7 +45,7 @@
 | schemaVersion | 1 |
 | workflowVersion | 2026.08.25.01 |
 | rulesVersion | 2026.08.29.4 |
-| generatedAt | `2026-09-01T06:40:00.000Z` |
+| generatedAt | `2026-09-12T13:15:00.000Z` |
 | versionGate | rechecked |
 
 ---

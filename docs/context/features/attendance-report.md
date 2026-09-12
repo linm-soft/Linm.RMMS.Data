@@ -70,4 +70,4 @@ Không publish. Cross-nav: back hub `attendance` · drill `attendance-day`.
 | lane | phase | status | updatedAt |
 |------|-------|--------|-----------|
 | web | — | — | — |
-| mobile | `sa` | `pending` | `2026-09-01T15:17:22.873Z` |
+| mobile | `team_lead` | `pending` | `2026-09-12T06:33:07.975Z` |

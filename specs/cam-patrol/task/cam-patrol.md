@@ -1,30 +1,32 @@
-# TL — Tasks — cam-patrol (Thu thập bằng camera)
+# TL — Tasks — cam-patrol (Thu thập bằng camera · capture frame)
 
 | Field | Value |
 |-------|-------|
 | feature | `cam-patrol` |
-| title | [Mobile] [Tuần đường] -> Thu thập bằng camera |
+| title | [Mobile] [Tuần đường] -> Thu thập bằng camera · capture frame |
 | this role | `team_lead` · `/agent-tl-mobile` |
 | status | **confirmed** |
-| changeScope | `new_page` |
+| changeScope | `edit_page` · gap=`cam_patrol_capture_frame` · **GAP-MOB-CAM-FRAME-01/02/03** |
 | packKind | **`screen`** (PO + Design + SA confirm · GAP-MOB-CAM-PACK-01 **closed**) |
 | stack | `native_dual` |
-| thisAction | **Thu thập bằng camera** `DES-MOB-CAM-PATROL` (+ finder `DES-MOB-CAM-FINDER`) only · **cấm** gộp `field-reflect` / `cam-view` / `vis-capture` / `camera-connect` / `ai-asset-detect` (`GAP-MOB-ACT-01/02`) |
-| route_confirm | **route_a** (autoApprove=ON) · entry hub `#sc-patrol-home` `#i-video` + `#sc-inc-form` secondary · deep link n/a P1 · pack `tabs: none` · shell Tab 5 **giữ** · tab **`field`** active |
-| ios_repo_confirm | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS` · **reuse** (scaffold live · **không** `/mobile-app-architecture`) |
+| thisAction | **Thu thập bằng camera** `DES-MOB-CAM-PATROL` (+ finder `DES-MOB-CAM-FINDER`) only · **cấm** gộp sibling (`GAP-MOB-ACT-01/02`) |
+| deltaThisEdit | **GAP-MOB-CAM-FRAME-01** — finder JPEG → non-null `imageBase64` trên POST detect · **GAP-MOB-CAM-FRAME-02** — fail/empty → toast detectFail · card nil · **cấm** fake class · **GAP-MOB-CAM-FRAME-03** — parity `DetectAiVisionBody` dual · prior screen ship **giữ** |
+| route_confirm | **route_a** (autoApprove=ON · **giữ**) · entry hub `#sc-patrol-home` `#i-video` + `#sc-inc-form` secondary · pack `tabs: none` · shell Tab 5 **giữ** · tab **`field`** · **không** URL mới |
+| ios_repo_confirm | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS` · **reuse** |
 | android_repo_confirm | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android` · **reuse** |
-| bff | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Bff` · prefix `mobile-bff/api/v1` · catch-all proxy · **cấm** `CamPatrolController` local |
-| backend | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.WebService` · DOMAIN-MAP Patrol + AiVision + Incident · **cấm ERP.*** |
-| prior · sa | **confirmed** · `be/solution-discovery.md` · `task_4e92ee1d` · solution_confirm=approve · GAP-MOB-CAM-DETECT-01 |
-| prior · design | **confirmed** · `ui/design.md` · `ui/ux-analy.md` · `ui/html-to-native-map.md` · dual proto · `ui/review/demo-parity.md` · `task_0f0d1974` |
-| prior · po | **confirmed** · `po/requirement.md` · `task_078f6674` |
-| prior · data_analy | **confirmed** · `_data-analy/cam-patrol-*.md` · contentHash `sha256:cam-patrol-control-hint-20260828` · realDataHash `sha256:cam-patrol-real-data-20260828` · bffContentHash `sha256:cam-patrol-mobile-bff-20260828` |
+| bff | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Bff` · prefix `mobile-bff/api/v1` · catch-all · **paths unchanged** · **cấm** `CamPatrolController` local |
+| backend | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.WebService` · DOMAIN-MAP Patrol + AiVision + Incident · **cấm ERP.*** · DTO `ImageBase64` **live** |
+| prior · sa | **confirmed** · `be/solution-discovery.md` · `handoff/sa-compact.md` · `task_0afc45c5` · solution_confirm=approve · Step 4b **SKIP** |
+| prior · design | **confirmed** · `ui/design.md` · dual proto · `handoff/design-compact.md` · `task_0ab8d0f5` · design_confirm=approve |
+| prior · po | **confirmed** · `po/requirement.md` · `handoff/po-compact.md` · `task_71013e61` |
+| prior · data_analy | **confirmed** · `_data-analy/cam-patrol-*.md` · `handoff/data_analy-compact.md` · `task_9ab16ef2` · bffHash `sha256:cam-patrol-mobile-bff-20260912-frame` |
+| priorTlTaskId | `task_8f763f78` **giữ** (full screen ship · T-IOS/AND-CAM-PAT) |
 | autoApprove | **ON** |
-| e2eQa | ON khi QA · `yarn e2e-qa-mobile` · sim 6.9" + emulator + Maestro · **cấm** `yarn start:std` / `mfeStdUrl` / e2e ở role TL |
-| taskId | `task_8f763f78` |
-| updatedAt | `2026-08-28T21:19:30.000Z` |
+| e2eQa | ON queued QA · **cấm** e2e / `yarn start:std` / `mfeStdUrl` / yarn build ở role TL |
+| taskId | `task_9068a243` |
+| updatedAt | `2026-09-12T11:27:00.000Z` |
 
-**Cấm:** gộp sibling (`GAP-MOB-ACT-01/02`) · invent `api/v1/cam-patrol` / `CamPatrolController` · fake lat/lng · fake HTTP 200 / fake SC khi POST fail · ERP.* · system `UIAlert`/`AlertDialog` · watermark Gói · device label · score % ship (`GAP-MOB-CAM-SCORE-01`) · `mfeStdUrl` · gộp iOS+Android 1 task id · enqueue Confirm/Skip/detect/finder (`GAP-MOB-ACT-07`) · chạy Step 4b / migration / e2e ở role TL · implement native code ở role TL.
+**Cấm:** gộp sibling (`GAP-MOB-ACT-01/02/07`) · invent `api/v1/cam-patrol` · fake lat/lng · fake 200 / fake class UI · ERP.* · system alert · watermark Gói · device label · score % ship · `mfeStdUrl` · gộp iOS+Android 1 task id · POST detect với `imageBase64=null` / omit · Step 4b / migration / e2e / implement native ở role TL.
 
 ---
 
@@ -34,172 +36,137 @@
 |------|----------|
 | `ios_repo_confirm` | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS` · reuse |
 | `android_repo_confirm` | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android` · reuse |
-| `route_confirm` | **route_a** — screen owner `cam-patrol` · entry reuse hub + inc-form · không tab mới · không deep link P1 |
-| `kit_skip` / Finder | TopBar / ListRow / Primary / Secondary / Toast / GPS deny **đã map** · Finder = **app native surface** (`kit_missing_confirm` **approve** · **không** invent `LinmCameraFinder` P1) · **cấm** `T-KIT-*` |
-| `T-BE-*` | **yes** — `T-BE-CAM-DETECT-API` (GAP-MOB-CAM-DETECT-01) · `T-BE-CAM-DETECT-MIG` **conditional** · **không** chạy Step 4b / migration ở turn TL |
+| `route_confirm` | **route_a giữ** — screen owner `cam-patrol` · entry hub `#i-video` · không tab mới · không deep link P1 · **không** URL mới |
+| `kit_skip` | **yes** — TopBar / ListRow / Primary / Secondary / Toast / GPS deny / Finder app surface **đã map** · **cấm** `T-KIT-*` |
+| `T-BE-*` | **n/a this edit** — DTO `ImageBase64` live · Step 4b **SKIP** · **cấm** TL chạy |
 | `T-BFF-*` | **n/a** — Mobile.Bff catch-all đủ 3 path |
 
-### route_confirm (autoApprove=ON)
-
-| Option | Decision |
-|--------|----------|
-| **route_a** (chọn) | Có phiên → Tab 5 · tab **`field`** (Tuần đường) → `#sc-patrol-home` → quick **Thu thập bằng camera** `#i-video` → **push** `#sc-cam-patrol` `DES-MOB-CAM-PATROL` (thay toast stub). Secondary từ `#sc-inc-form` → **cùng** route (`shared_action` · **không** enqueue). Back → `go('patrol-home')` (iOS label **Tuần đường** · Android icon-only OK). Detect / Confirm / Skip / finder = **cùng slug**. Pack `tabs: none` · shell Tab 5 **giữ**. |
-| route_b / route_c | — không dùng |
-
-AskQuestion: `route_confirm=route_a` · `ios_repo_confirm` · `android_repo_confirm` · `kit_skip=yes` · `2026-08-28T21:19:30.000Z`.
+AskQuestion: `route_confirm=route_a` · `ios_repo_confirm` · `android_repo_confirm` · `kit_skip=yes` · `T-BE=n/a` · `2026-09-12T11:27:00.000Z`.
 
 ---
 
-## Live gap (TL audit 2026-08-28)
+## Live gap (TL audit 2026-09-12 · edit_page)
 
 | Surface | Live | TL task |
 |---------|------|---------|
-| iOS `#sc-cam-patrol` | **DELTA** — hub quick `cam-patrol` → toast stub · **chưa** feature screen | **T-IOS-CAM-PAT** |
-| Android `#sc-cam-patrol` | **DELTA** — cùng toast/stub entry | **T-AND-CAM-PAT** |
-| `GET patrol/sessions` | BE + Mobile.Bff proxy live | **reuse** · stamp Route/Km |
-| `POST ai-vision/detect` | live stub `Engine?`·`Note?` | **wire P1** · card bind · **GAP-MOB-CAM-DETECT-01** → T-BE |
-| `POST incident/incidents` | live Create | **reuse** · Confirm bind `DetectionId` + GPS |
-| `DetectAiVisionRequest` | chỉ `Engine` · `Note` | **T-BE-CAM-DETECT-API** expand ảnh/GPS/video |
-| Entity `AiVisionDetection` | có `Lat`·`Lng`·`ImageUrl` · **không** `AccuracyM` / `VideoRef` | **T-BE-CAM-DETECT-MIG** conditional |
-| Finder / camera privacy | Info.plist **thiếu** `NSCameraUsageDescription` · Android **thiếu** `CAMERA` | Dev declare (`GAP-SA-STORE-01`) |
-| Offline queue | `OfflineQueueKind.incident` live | Confirm fail → enqueue · sibling `patrol-offline` |
-| Score row | demo 91% | **ship ẩn** (`GAP-MOB-CAM-SCORE-01`) |
-| Kit TopBar/ListRow/Buttons/Toast | dual map | **reuse** · Finder app surface · **cấm** `T-KIT-*` |
-| Sibling field-reflect / cam-view / … | out of pack | **cấm** ship / start |
+| iOS `CamPatrolViewModel.runDetect` | **DELTA** — `imageBase64: nil` → BE heuristic | **T-IOS-CAM-FRAME** |
+| Android `CamPatrolViewModel.runDetect` | **DELTA** — omit `imageBase64` | **T-AND-CAM-FRAME** |
+| fail / empty frame | Design proto `?fail=1` · native **chưa** toast sạch + card nil | wire dual · **GAP-MOB-CAM-FRAME-02** |
+| `POST ai-vision/detect` body | DTO `ImageBase64` live · siblings đã gửi base64 | **parity** · **GAP-MOB-CAM-FRAME-03** · **cấm** invent path |
+| sessions / GPS / Confirm / Skip / finder UI | prior ship | **keep** · prior `T-IOS-CAM-PAT` / `T-AND-CAM-PAT` **giữ** |
+| `T-BE-*` / Step 4b | DTO live · GAP-MOB-CAM-DETECT-01 **CLOSED client** | **n/a** |
+| Kit / route | dual map · route_a | **reuse** · **cấm** `T-KIT-*` |
 
 ---
 
-## Tasks (1 action = 1 feature)
+## Tasks (1 action = 1 feature · this edit)
 
-| id | platform | deps | skills | summary |
-|----|----------|------|--------|---------|
-| `T-IOS-CAM-PAT` | iOS | SA confirmed · kit_skip · Design dual · route_a | `/agent-dev-ios` · `/dev-ios-swiftui` · `/ios-new-screen` | Ship `DES-MOB-CAM-PATROL` + `DES-MOB-CAM-FINDER` · AVCapture · GPS · detect/confirm/skip/offline · privacy camera · wire hub + inc-form |
-| `T-AND-CAM-PAT` | Android | SA confirmed · kit_skip · serial after iOS preferred | `/agent-dev-android` · `/dev-android-compose` · `/android-new-screen` · `/android-new-api-call` | Compose parity dual · CameraX · `CAMERA` permission · same BFF/GPS/offline |
-| `T-BE-CAM-DETECT-API` | BE | SA GAP-MOB-CAM-DETECT-01 | `/new-endpoint` (expand request · **không** invent path) · **cấm** TL chạy | Expand `DetectAiVisionRequest` + Detect service bind ảnh/GPS trên **đúng** `POST api/v1/ai-vision/detect` |
-| `T-BE-CAM-DETECT-MIG` | BE | audit schema | `/database-migration` (chỉ nếu cần cột mới) · **cấm** TL chạy | Conditional · entity đã có Lat/Lng/ImageUrl · AccuracyM/VideoRef nếu Signed cần cột · **cấm** invent `rmms_cam_patrol` |
-| `T-BFF-*` | — | — | — | **N/A** · proxy catch-all |
-| `T-KIT-*` | — | — | — | **N/A** · kit reuse + Finder app surface |
-| `T-QA-TAB-01` | QA cite | Dev dual PASS | `/agent-qa-mobile` | Shell Tab 5 **giữ** · pack `tabs: none` · tab field active · **cấm** invent (`GAP-TAB-01`) · cite `tab-index-analy-review.md` |
-| `T-QA-CAM-PAT` | QA | T-IOS · T-AND | `/agent-qa-mobile` | Maestro slug `cam-patrol` · `yarn e2e-qa-mobile` · store PNG `qa/store/cam-patrol` · **chỉ** `/agent-qa*` |
+| id | platform | deps | skills / `devSlash` | summary |
+|----|----------|------|---------------------|---------|
+| `T-IOS-CAM-FRAME` | iOS | SA `task_0afc45c5` · Design dual · route_a **giữ** | `/agent-dev-ios` · `/dev-ios-swiftui` | **GAP-MOB-CAM-FRAME-01/02/03** · capture finder JPEG → non-null `DetectAiVisionBody.imageBase64` · fail toast · card nil |
+| `T-AND-CAM-FRAME` | Android | SA · Design · serial after iOS preferred | `/agent-dev-android` · `/dev-android-compose` | parity dual capture frame + fail toast |
+| `T-IOS-CAM-PAT` | iOS | — | — | prior **shipped** · **giữ** · **không** reopen full screen |
+| `T-AND-CAM-PAT` | Android | — | — | prior **shipped** · **giữ** |
+| `T-BE-*` / `T-BFF-*` / `T-KIT-*` | — | — | — | **N/A this edit** · Step 4b **SKIP** |
+| `T-QA-TAB-01` | QA cite | Dev FRAME dual PASS | `/agent-qa-mobile` | Shell Tab 5 **giữ** · pack `tabs: none` · **cấm** invent (`GAP-TAB-01`) |
+| `T-QA-CAM-FRAME` | QA | T-IOS · T-AND FRAME | `/agent-qa-mobile` | frame+base64 · fail toast sạch · Maestro slug `cam-patrol` · **chỉ** `/agent-qa*` · **cấm** e2e ở TL |
+| `T-QA-CAM-PAT` | QA | — | — | prior **giữ** · re-run after FRAME |
 
-**Serial Dev:** `/agent-dev-ios` (`T-IOS-CAM-PAT`) → `/agent-dev-android` (`T-AND-CAM-PAT`) · T-BE có thể song song (khác lock scope=be) · **cấm** 1 file task gộp hai nền · **cấm** enqueue sibling.
+**Serial Dev this edit:** `/agent-dev-ios` (`T-IOS-CAM-FRAME`) → `/agent-dev-android` (`T-AND-CAM-FRAME`) · **cấm** gộp dual 1 task · **cấm** TL build/e2e/Step 4b.
+
+---
+
+## Delta this edit (`task_9068a243` · GAP-MOB-CAM-FRAME-01/02/03)
+
+| Concern | Decision |
+|---------|----------|
+| Scope | Client capture frame only · **cấm** API/BFF/DTO invent · Step 4b **SKIP** |
+| Current | iOS `imageBase64: nil` · Android omit → BE heuristic |
+| New DoD | Capture finder JPEG → non-null `imageBase64` trên POST detect · fail/empty → toast detectFail · detection=nil · **cấm** fake class UI |
+| Keep | finder continuous · stamps · Confirm / Skip · GPS deny · sessions · score ẩn · route_a |
+| BFF / API | `GET patrol/sessions` · `POST ai-vision/detect` · `POST incident/incidents` · **giữ** path · body Engine·Note·**ImageBase64**·Lat/Lng/AccuracyM |
+| route_confirm | **route_a giữ** · không URL mới |
+| T-BE | **n/a** · DTO live · GAP-MOB-CAM-DETECT-01 CLOSED client |
+
+### Client outcome matrix (HARD)
+
+| Outcome | UI / API |
+|---------|----------|
+| Camera granted + capture OK | JPEG → base64 · POST detect **có** `imageBase64` non-null · card bind live `DefectClass` |
+| Capture fail / empty / deny camera | toast detectFail · detection card **nil** · **cấm** fake class · **không** POST với null/omit nếu policy = block (SA: fail → toast sạch) |
+| Detect HTTP fail | toast lỗi · card nil · **cấm** fake 200 / fake class |
+| Confirm / Skip / GPS | prior keep · HasGps gate · offline queue incident |
+
+### Shared AC this edit (cite PO AC-F-* + SA + Design)
+
+1. **AC-F-02** — Detect gửi non-null `imageBase64` từ finder frame (dual).
+2. **AC-F-08** — fail/empty frame → toast detectFail · card nil · **cấm** fake class.
+3. **AC-F-06** — score % **ẩn** (keep).
+4. Parity body dual với siblings đã gửi base64 (**GAP-MOB-CAM-FRAME-03**).
+5. **Cấm** redesign UI · **cấm** invent path · **cấm** Step 4b ở Dev client turn này.
 
 ---
 
 ## Source map (cite live paths)
 
-### T-IOS-CAM-PAT
+### T-IOS-CAM-FRAME
 
 | Area | Path |
 |------|------|
 | repo | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS` |
-| Feature UI (NEW) | `Presentation/Features/CamPatrol/*` — screen + finder overlay + detect card + GPS deny · **cấm** WebView HTML |
-| Entry wire | `Presentation/Features/PatrolHome/PatrolHomeViewModel.swift` — quick id `cam-patrol` **thay toast** → push owner · `#sc-inc-form` secondary cùng route |
-| Router | `App/AppRouter.swift` · field tab dưới screen |
-| Use cases | reuse `FetchPatrolSessionsUseCase` · `GetCurrentLocationUseCase` · **new** `DetectAiVisionUseCase` · **new** `CreateIncidentUseCase` · camera session use case |
-| Location | `CoreLocationReader` · `LocationReading` · stamp «đã chốt» · deny → `DES-MOB-GPS-DENY` |
-| Camera | AVCaptureSession + FOV overlay `DES-MOB-CAM-FINDER` · **cấm** static fake khi granted |
-| Repo / offline | `PatrolRepository*` · expand `AiVisionRepository.detect` (hiện chỉ `asset-candidates`) · **new** `IncidentRepository` · `OfflineQueueStore` · `OfflineQueueKind.incident` |
-| Deny | reuse `Presentation/Shared/GpsDenyModal.swift` · **cấm** `UIAlertController` |
-| Copy | VN SSOT Design · **ship ẩn Score** · toast Confirm/Skip |
-| Store privacy | Info.plist `NSCameraUsageDescription` + PrivacyInfo camera · location **đã có** |
-| DI | `App/AppContainer.swift` |
+| ViewModel | `Presentation/Features/CamPatrol/CamPatrolViewModel.swift` — `runDetect` · replace `imageBase64: nil` |
+| Capture | AVCapture finder snapshot JPEG → base64 · **cấm** static fake khi granted |
+| API body | `DetectAiVisionBody` / use case · set `imageBase64` non-null · Lat/Lng/AccuracyM keep |
+| Fail | toast detectFail · `detection = nil` · **cấm** fake class |
+| Keep | screen / finder / GPS / Confirm / Skip / sessions · prior ship |
 | ssot.zones | `DES-MOB-CAM-PATROL` · `DES-MOB-CAM-FINDER` · `DES-MOB-GPS-DENY` · `#sc-cam-patrol` |
-| kit | `LinmTopBar` · `LinmListRow` · `LinmPrimaryButton` · `LinmSecondaryButton` · `LinmToast` · Tab shell · typography `LinmTokens` label **13** · value/button **≥16** (`GAP-TYP-01`) · cite `ui/html-to-native-map.md` |
-| BFF | `GET patrol/sessions` · `POST ai-vision/detect` · `POST incident/incidents` · base `{BffBase}/mobile-bff/api/v1` · **cấm** invent `cam-patrol` path · **cấm** fake 200/SC |
+| BFF | same 3 paths · **cấm** invent |
+| Build (Dev) | `xcodegen` + `xcodebuild` dest **iPhone 17 Pro** · **cấm** TL chạy |
 
-### T-AND-CAM-PAT
+### T-AND-CAM-FRAME
 
 | Area | Path |
 |------|------|
 | repo | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android` |
-| Feature UI (NEW) | `presentation/feature/campatrol/*` — screen + CameraX + card + GPS deny |
-| Entry wire | `presentation/feature/patrolhome/PatrolHomeViewModel.kt` · quick `cam-patrol` thay toast · inc-form secondary |
-| Use cases | same dual · Detect + CreateIncident + location + camera |
-| Location | `AndroidLocationReader` |
-| Camera | CameraX `PreviewView` + FOV · permission `CAMERA` + Play Data safety |
-| Repo / offline | same paths · `OfflineQueueKind.Incident` |
-| Deny | reuse `presentation/feature/shared/GpsDenyDialog.kt` · **cấm** system raw AlertDialog product |
-| Copy | parity VN (`GAP-MOB-ALIGN-01`) · Android back icon-only OK |
-| DI | Hilt |
+| ViewModel | `presentation/feature/campatrol/CamPatrolViewModel.kt` — `runDetect` · stop omit `imageBase64` |
+| Capture | CameraX frame JPEG → base64 · permission CAMERA keep |
+| API body | same Detect body parity |
+| Fail | toast detectFail · card nil · **cấm** fake class |
+| Keep | Compose screen / GPS / Confirm / Skip |
 | ssot.zones | same DES dual |
-| kit | same kit map · Material chrome shell only |
-| BFF | same 3 paths · offline parity |
-
-### T-BE-CAM-DETECT-API
-
-| | |
-|--|--|
-| repo | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.WebService` |
-| Controller | `AiVisionOpsController.Detect` — **giữ** path `POST api/v1/ai-vision/detect` |
-| Request expand | `DetectAiVisionRequest`: giữ `Engine?`·`Note?` + thêm `ImageBase64?` / media ref · `Lat?`·`Lng?`·`AccuracyM?` · optional `VideoRef?` |
-| Service | `DetectStubAsync` / Detect bind frame + GPS vào `AiVisionDetectionDto` / entity · **cấm** invent `POST ai-vision/cam-patrol-detect` |
-| BFF | **không** clone controller — catch-all proxy đủ |
-| Skills (Dev turn) | `/new-endpoint` · api-endpoint · company-field · no-parent-json-field · `/implement-shared-table` (`share_na`) |
-| TL turn | **pack only** · **cấm** Step 4b / implement |
-| P1 app | vẫn gọi stub với `Engine`/`Note` nếu body expand chưa ship — **không** block native P1 card |
-
-### T-BE-CAM-DETECT-MIG
-
-| | |
-|--|--|
-| Status | **conditional** — entity `rmms_ai_vision_detections` **đã có** `Lat`·`Lng`·`ImageUrl` · audit: chỉ MIG nếu Signed cần `AccuracyM` / `VideoRef` (hoặc cột media) · **cấm** invent bảng `rmms_cam_patrol_*` |
-| Skill (Dev turn) | `/database-migration` · **cấm** parent JSON |
-| TL turn | **pack only** · **cấm** chạy migration |
+| Build (Dev) | `./gradlew :app:assembleDebug` · **cấm** TL chạy |
 
 ---
 
-## DoD per task
+## DoD per task (this edit)
 
-### Shared AC (both native · cite PO §3 + SA + Design)
+### T-IOS-CAM-FRAME / T-AND-CAM-FRAME
 
-1. Screen **Thu thập bằng camera** full (`DES-MOB-CAM-PATROL`): nav back → `patrol-home` · title fixed · finder · stamps · detect card · Confirm / Skip · toast · **cấm** bottom-sheet chrome.
-2. Finder live continuous (`DES-MOB-CAM-FINDER`) + FOV · **cấm** fake placeholder khi camera granted · deny camera → toast/block detect.
-3. Stamp tuyến/Km: live `GET patrol/sessions` filter active · fail/empty → `patrol.empty.active.route` + toast fail · **cấm** demo SSOT · GPS **vẫn** chạy.
-4. Stamp GPS device only: `{lat}, {lng} · ±{a} m · đã chốt` · **cấm** fake lat/lng · deny → `DES-MOB-GPS-DENY` · **chặn** Confirm.
-5. Detect: `POST ai-vision/detect` · card bind `DefectClass` (+ surface) · row Hành động cố định · **ship ẩn Score %** (`GAP-MOB-CAM-SCORE-01`) · detect fail → toast lỗi · **cấm** fake card.
-6. Confirm: HasGps → `POST incident/incidents` bind `DetectionId` + stamp · toast **Đã tạo vấn đề {Code} · định vị đã chốt** · fail/offline → `OfflineQueueKind.incident` + toast nháp · **cấm** invent SC · **cấm** fake 200.
-7. Skip: clear detection card local · toast **Đã bỏ · nhận nhầm** · finder tiếp · **không** API.
-8. Entry: hub `#i-video` push (thay toast) · `#sc-inc-form` secondary cùng route · **cấm** reimplement hub/form.
-9. Kit reuse map · Finder app surface · **cấm** system alert · **cấm** watermark Gói / device label.
-10. Dual copy parity · Android back icon-only OK (`GAP-MOB-ALIGN-01`).
-11. Tab 5 shell giữ · pack `tabs: none` · tab field active (`T-QA-TAB-01`).
-12. Store: declare camera privacy iOS + Android trước ship (`GAP-SA-STORE-01`) · **cấm** localhost/LAN in solution · **cấm** iPad listing claim.
-13. **Cấm** ship sibling surfaces trên pack này.
+1. Before each Detect: capture current finder frame → non-null base64 on body.
+2. Fail/empty capture → toast detectFail · clear detection card · **không** fake class.
+3. Detect success → card bind live DTO only · score ẩn.
+4. Confirm / Skip / GPS / sessions / route_a **không** regress.
+5. Dual parity copy + body fields (`GAP-MOB-ALIGN-01` · FRAME-03).
+6. Ghi `implement/ios.md` / `implement/android.md` · build PASS trước Dev done.
+7. **Cấm** sibling ship · **cấm** invent API · **cấm** Step 4b.
 
-### Field / kit parity (cite `ui/html-to-native-map.md`)
+### Build gate (Dev — HARD · **cấm** TL chạy)
 
-| Field | Kit / surface | Notes |
-|-------|---------------|-------|
-| navBack / title | `LinmTopBar` | iOS back **Tuần đường** · Android icon-only |
-| finder + FOV | app AVCapture / CameraX | `DES-MOB-CAM-FINDER` · **không** kit package mới |
-| stampRoute / stampGps | Text 13 overlay | sessions + device GPS |
-| rowDetect / rowAction | `LinmListRow` | label 13 · value ≥16 |
-| rowScore | — | **không map ship** |
-| btnConfirm | `LinmPrimaryButton` | disable khi !HasGps / deny |
-| btnSkip | `LinmSecondaryButton` | local clear |
-| toastOk / toastSkip | `LinmToast` | 13–16 · **cấm** alert |
-| gpsDeny* | modal reuse | `DES-MOB-GPS-DENY` |
-| typography | `LinmTokens` | `GAP-TYP-01` |
+| Platform | Command |
+|----------|---------|
+| iOS | `xcodegen generate` + `xcodebuild -scheme LinmRmms -destination 'platform=iOS Simulator,name=iPhone 17 Pro' build` |
+| Android | `./gradlew :app:assembleDebug` |
+| BFF / BE | **n/a this edit** |
 
-### Build gate (Dev — HARD trước Dev done · **cấm** TL chạy)
+**Cấm** `yarn start:std` / `mfeStdUrl` / `yarn e2e-qa-mobile` / `yarn build` ở TL.
 
-| Platform | Command | Dest |
-|----------|---------|------|
-| iOS | `xcodegen generate` + `xcodebuild -scheme LinmRmms -destination 'platform=iOS Simulator,name=iPhone 17 Pro' build` | **iPhone 17 Pro** (iPad DEFER Phase 2) |
-| Android | `./gradlew :app:assembleDebug` | debug APK |
-| BFF | `dotnet build` `RMMS.Mobile.Bff.csproj` | PASS |
-| BE (T-BE) | `dotnet build` WebService khi API/MIG | PASS |
-
-**Cấm** `yarn start:std` / `mfeStdUrl` / `yarn e2e-qa-mobile` / `yarn build` ở TL · mark Dev done khi build fail.
-
-### API contract (from SA — cite only)
+### API contract (from SA — cite only · unchanged paths)
 
 | Action | App path | Notes |
 |--------|----------|-------|
-| Prefill | `GET patrol/sessions?page=1&pageSize=50` | client filter Đang tuần |
-| Detect | `POST ai-vision/detect` | P1 stub `Engine`/`Note` · T-BE expand body |
-| Confirm | `POST incident/incidents` | `DetectionId` · `HasGps` · Route/Km/Title |
+| Prefill | `GET patrol/sessions?page=1&pageSize=50` | keep |
+| Detect | `POST ai-vision/detect` | Engine · Note · **ImageBase64** · Lat/Lng/AccuracyM |
+| Confirm | `POST incident/incidents` | DetectionId · HasGps · keep |
 | Skip / GPS / camera | — | device / local |
 
 **Cấm** invent `api/v1/cam-patrol`.
@@ -210,14 +177,12 @@ AskQuestion: `route_confirm=route_a` · `ios_repo_confirm` · `android_repo_conf
 
 | Item | Owner |
 |------|-------|
-| Ghi nhận hư hỏng tay | sibling `field-reflect` |
-| cam-view / vis-capture / camera-connect / ai-asset-detect | siblings · **cấm** gộp |
-| Offline sync UI | sibling `patrol-offline` (reuse queue only) |
-| Invent `CamPatrolController` / `api/v1/cam-patrol` | **cấm** |
-| New kit chrome package | **cấm** `T-KIT-*` (Finder = app surface) |
-| Score % ship chrome | **cấm** (`GAP-MOB-CAM-SCORE-01`) |
-| Step 4b / migration / e2e | **không** ở TL · T-BE/Dev/QA khi tới lượt |
-| Watermark Gói / device label / proto-click | **cấm** |
+| Full redesign / new zones | **cấm** |
+| Sibling field-reflect / cam-view / vis-capture | **cấm** gộp |
+| T-BE expand / Step 4b / migration | **n/a this edit** · DTO live |
+| Invent CamPatrolController | **cấm** |
+| Score % / watermark / device label | **cấm** |
+| e2e / yarn build ở TL | **cấm** · queued QA |
 
 ---
 
@@ -225,12 +190,12 @@ AskQuestion: `route_confirm=route_a` · `ios_repo_confirm` · `android_repo_conf
 
 | Field | Value |
 |-------|-------|
-| Next | `/agent-dev-ios` (`T-IOS-CAM-PAT`) rồi `/agent-dev-android` (`T-AND-CAM-PAT`) · T-BE `T-BE-CAM-DETECT-API` (+ MIG nếu cần) khi tới lượt |
+| Next | `/agent-dev-ios` (`T-IOS-CAM-FRAME`) rồi `/agent-dev-android` (`T-AND-CAM-FRAME`) |
 | Chain this turn | **không** (roleOnly=`team_lead` · GAP-PKT-ROLE-01) |
 | implement stubs | Dev ghi `implement/ios.md` · `implement/android.md` khi tới lượt |
-| reviewUrl | dual `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/cam-patrol/ui/prototype/{ios,android}/index.html` · ship `?ship=1` · deny `?deny=1` |
+| reviewUrl | dual `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/cam-patrol/ui/prototype/{ios,android}/index.html` · `?fail=1` · `?ship=1` · `?deny=1` |
 | QA sau Dev | `yarn e2e-qa-mobile` · Maestro slug `cam-patrol` · store PNG `qa/store/cam-patrol` · **chỉ** `/agent-qa*` |
-| Step 4b | **Pending T-BE** — pack `T-BE-CAM-DETECT-API` / `T-BE-CAM-DETECT-MIG` · **cấm** TL chạy |
+| Step 4b | **SKIP** · DTO live |
 
 ---
 
@@ -238,10 +203,10 @@ AskQuestion: `route_confirm=route_a` · `ios_repo_confirm` · `android_repo_conf
 
 | Check | Result |
 |-------|--------|
-| task/cam-patrol.md | **PASS** · T-IOS-CAM-PAT · T-AND-CAM-PAT · T-BE-CAM-DETECT-API · T-BE-CAM-DETECT-MIG conditional · route_a · source lock |
-| Prior SA + Design + PO + data-analy | **PASS** · read abs · hashes khớp · **cấm** invent API / control |
-| ios_repo + android_repo + route_confirm | **PASS** · repos có · autoApprove route_a |
-| Kit | **PASS** · reuse map · Finder app surface · T-KIT **n/a** |
+| task/cam-patrol.md | **PASS** · T-IOS-CAM-FRAME · T-AND-CAM-FRAME · T-BE n/a · route_a giữ |
+| Prior SA + Design + PO + data-analy | **PASS** · compact abs · **cấm** invent API |
+| ios_repo + android_repo + route_confirm | **PASS** · reuse · autoApprove route_a giữ |
+| Kit | **PASS** · reuse · T-KIT **n/a** |
 | Step 4b / migration / e2e | **SKIP** (cấm role TL) |
 | yarn build / start:std / implement native Write | **SKIP** (cấm role TL) |
 | Chain other role | **SKIP** · GAP-PKT-ROLE-01 |
@@ -253,15 +218,15 @@ AskQuestion: `route_confirm=route_a` · `ios_repo_confirm` · `android_repo_conf
 | Field | Value |
 |-------|-------|
 | skillId | agent-tl-mobile |
-| skillVersion | 2026.08.20.03 |
+| skillVersion | 2026.09.05.03 |
 | schemaVersion | 1 |
 | workflowVersion | 2026.08.25.01 |
 | rulesVersion | 2026.08.29.4 |
-| generatedAt | `2026-08-28T21:19:30.000Z` |
+| generatedAt | `2026-09-12T11:27:00.000Z` |
 | versionGate | rechecked |
-| contentHash | sha256:cam-patrol-control-hint-20260828 |
-| realDataHash | sha256:cam-patrol-real-data-20260828 |
-| bffContentHash | sha256:cam-patrol-mobile-bff-20260828 |
+| bffContentHash | sha256:cam-patrol-mobile-bff-20260912-frame |
+| contentHash | sha256:cam-patrol-control-hint-20260912-frame |
+| realDataHash | sha256:cam-patrol-real-data-20260912-frame |
 
 ---
-<!-- Version meta: skillId=agent-tl-mobile skillVersion=2026.08.20.03 schemaVersion=1 workflowVersion=2026.08.25.01 rulesVersion=2026.08.29.4 versionGate=rechecked -->
+<!-- Version meta: skillId=agent-tl-mobile skillVersion=2026.09.05.03 schemaVersion=1 workflowVersion=2026.08.25.01 rulesVersion=2026.08.29.4 versionGate=rechecked -->

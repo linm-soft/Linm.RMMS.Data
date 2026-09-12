@@ -4,39 +4,40 @@
 |-------|-------|
 | feature | `cam-patrol` |
 | platform | Android |
-| this role | `dev` · `/edit-mobile-feature` · `/agent-dev-android` |
+| this role | `dev` · `/agent-dev-android` · `/dev-android-compose` |
 | status | **confirmed** |
-| changeScope | `edit_page` (cleanup_mock) |
+| changeScope | `edit_page` · gap=`cam_patrol_capture_frame` · **GAP-MOB-CAM-FRAME-01/02/03** |
 | packKind | **`screen`** |
-| taskId | `task_e7101ed6` |
-| updatedAt | `2026-09-01T06:00:00.000Z` |
+| taskId | `task_2122aa0b` · TL `task_9068a243` · T-AND-CAM-FRAME |
+| updatedAt | `2026-09-12T11:40:00.000Z` |
 | autoApprove | ON |
-| contentHash | sha256:cam-patrol-control-hint-20260828 |
-| realDataHash | sha256:cam-patrol-real-data-20260828 |
-| bffContentHash | sha256:cam-patrol-mobile-bff-20260828 |
+| contentHash | sha256:cam-patrol-control-hint-20260912-frame |
+| realDataHash | sha256:cam-patrol-real-data-20260912-frame |
+| bffContentHash | sha256:cam-patrol-mobile-bff-20260912-frame |
 
-## Notes (cleanup_mock)
+## Delta this edit (FRAME)
 
-- **GAP-MOB-EDIT-DEMO-01 closed** — dual parity iOS · gỡ `CamPatrolCopy.demoRouteStamp` / `itemsOrDemo`.
-- Route stamp = live active session `.route` · empty = `patrol.empty.active.route` · fail = toast `cam.toast.sessionFail`.
-- Confirm `routeName` live-only · **cấm** invent `QL.1`.
-- Seed: BE empty OK · Step 4b **N/A**.
+| ID | Done |
+|----|------|
+| GAP-MOB-CAM-FRAME-01 | CameraX `ImageCapture` → JPEG → non-null `DetectAiVisionBody.imageBase64` |
+| GAP-MOB-CAM-FRAME-02 | empty/fail → toast `cam.toast.detectFail` · card nil · **cấm** fake class · **không** omit body |
+| GAP-MOB-CAM-FRAME-03 | dual parity iOS body fields |
 
-## Shipped (prior + this edit)
+## Shipped paths
 
-| Area | Path / note |
-|------|-------------|
-| Screen | `presentation/feature/campatrol/*` · dual parity |
-| Finder | CameraX · FOV |
-| Detect / Confirm / Skip | same BFF · GpsDenyDialog · offline |
-| Live route | `FetchPatrolSessionsOutcome` · **cấm** demo SSOT |
+| Area | Path |
+|------|------|
+| Screen + finder | `presentation/feature/campatrol/CamPatrolScreen.kt` · ImageCapture bind |
+| ViewModel | `CamPatrolViewModel.kt` · `CamPatrolFrameCapturer` · `runDetect` |
+| Keep | GPS / Confirm / Skip / sessions · score ẩn · route_a |
 
 ## Build gate
 
 | Check | Result |
 |-------|--------|
 | `./gradlew :app:assembleDebug` | **PASS** |
-| demoRouteStamp | **removed** |
+| BFF `dotnet build` | **PASS** (paths unchanged) |
+| Step 4b / invent API | **SKIP** / none |
 
 ## Version meta
 
@@ -47,7 +48,7 @@
 | schemaVersion | 1 |
 | workflowVersion | 2026.08.25.01 |
 | rulesVersion | 2026.08.29.4 |
-| generatedAt | `2026-09-01T06:00:00.000Z` |
+| generatedAt | `2026-09-12T11:40:00.000Z` |
 | versionGate | rechecked |
 
 ---

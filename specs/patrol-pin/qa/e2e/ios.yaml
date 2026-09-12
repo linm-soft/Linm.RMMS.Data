@@ -1,7 +1,7 @@
 appId: org.linmsoft.rmms
 ---
 # patrol-pin · store A11/A9/A3 · guest home → login → #sc-patrol-home · btn-pin-here + glyph
-# cấm sheet-checkin · cấm mfeStdUrl / start:std
+# handoff sheet real · cấm submit check-in form trên pack · cấm mfeStdUrl / start:std
 - launchApp:
     clearState: true
     clearKeychain: true

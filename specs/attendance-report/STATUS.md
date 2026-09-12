@@ -3,7 +3,7 @@
 | Field | Value |
 |-------|-------|
 | feature | `attendance-report` |
-| phase | `sa` |
+| phase | `team_lead` |
 | status | `in_progress` |
 | packKind | `screen` (PO chốt · was scan `sheet`) |
 | demo | /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Demo/src/demo/ios/index.html · mobile-p1 `specs/mobile-p1/ui/prototype/{ios,android}/index.html` · entry `#sc-attendance` · target `#sc-attendance-report` |
@@ -15,7 +15,7 @@
 | android | `Linm.RMMS.Mobile.Android` · e2e-qa-mobile emulator |
 | bff | `Linm.RMMS.Mobile.Bff` |
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · DOMAIN-MAP — **cấm ERP.*** |
-| updatedAt | `2026-09-01T15:17:33.114Z` |
+| updatedAt | `2026-09-12T06:33:13.582Z` |
 | taskId | `task_52898ccc` |
 | data_analy | **PASS** · autoApprove=ON · handoff `handoff/data_analy-compact.md` |
 | po | **PASS** · autoApprove=ON · handoff `handoff/po-compact.md` · requirement `po/requirement.md` |
@@ -34,8 +34,8 @@
 | 0 | data-analy | _data-analy/attendance-report-control-hint.md · attendance-report-bff-endpoints.md · attendance-report-real-data.md · attendance-report-action-tree.md | **confirmed** |
 | 1 | po | po/requirement.md | **confirmed** |
 | 2.1 | design | ui/design.md · ui/ux-analy.md · ui/html-to-native-map.md · prototype/ios/index.html · prototype/android/index.html · ui/review/demo-parity.md | **confirmed** |
-| 2.2 | sa | be/solution-discovery.md | **in_progress** |
-| 3 | team-lead | task/attendance-report.md | pending |
+| 2.2 | sa | be/solution-discovery.md | **confirmed** |
+| 3 | team-lead | task/attendance-report.md | **in_progress** |
 | 4 | dev | implement/ios.md · implement/android.md | pending |
 | 5 | qa | qa/scenarios.md · qa/store/attendance-report/CAPTURE.md | pending |
 | 6 | review | review/findings.md | pending |

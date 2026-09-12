@@ -6,48 +6,53 @@ packKind: list
 role: review
 status: done
 skillVersion: 2026.08.19.26
-writtenAt: 2026-09-01T03:00:00.000Z
-taskId: task_ae0b11d0
+writtenAt: 2026-09-12T10:29:46.000Z
+taskId: task_a995a011
 slash: /agent-review-mobile
-review_confirm: approve
-post_review: skip
 autoApprove: ON
+changeScope: edit_page
+review_confirm: approve
 
 ## Decisions
-- changeScope: edit_page · gap=cleanup_mock
-- formPattern: N/A (list only · toast siblings P1)
-- mfeStdUrl: none (native)
-- verdict: approve · Must 0 · Aligned EmptyChrome live-only
-- live-only: no demoItems / mock banner (spot-check dual)
-- empty: EmptyChrome sup-empty · fail: loadFail toast
-- org: SuperviseCopy.orgFallback (GAP-MOB-SUP-03 Closed)
-- seed: GET patrol/attendance-logs · EmptyChrome OK · Step 4b N/A
-- store: PrivacyInfo.xcprivacy Accept P2 → /review-app-submit
-- open questions: patrol-map · checkin-detail pending_confirm · A11y/TAB Defer
+- changeScope: edit_page · gap=`filter_live_map_sibling`
+- findings: Must open **0** · P0 security **0** · align **Aligned**
+- review_confirm: **approve** (autoApprove)
+- post_review: **skip**
+- security: Keychain / EncryptedPrefs · Bearer · X-Company-Id · **PASS**
+- DTO: dual GET `patrol/attendance-logs` ±`route` · client date · live-only **PASS**
+- UX: filter sheet + map push · **cấm** toast fake · GAP-MOB-SUP-01/02 **Closed**
+- real-data: no demoItems · A10-BFF PASS · GAP-MOB-REAL-02/QA-REAL-01 **closed**
+- crawl 5d: **SKIP** roleOnly · no GAP-MOB-ACT-03 open
+- debt: GAP-MOB-SUP-04 P2 · GAP-QA-SUP-EMPTY-AND-01 · GAP-QA-SUP-TAB-01 Defer
+- mfeStdUrl: — · **cấm** start:std / e2e this role
+- open questions: none
 
 ## Inventory (slim)
 | id | label | controlHint | notes |
 |----|-------|-------------|-------|
-| sc-supervise | Giám sát tuần đường | TopBar+Segment+empty/cards | live GET |
-| sup-empty | Chưa có check-in | EmptyChrome | QA A3/P6 PASS |
-| btn-sup-filter | Lọc | toast | P6-2 |
-| sup-segment | Danh sách / Bản đồ | Segment | toast map |
-| sup-card-* | check-in card | composition | toast detail |
+| findings | review counts | — | Must 0 · approve |
+| btn-sup-filter | Lọc | sheet | live PASS |
+| filterApply/Clear | Áp dụng/Xóa | Primary/Ghost | PASS |
+| segMap | Bản đồ | push map | sc-patrol-map |
+| empty | EmptyChrome | empty | live-only |
 
 ## Screens / zones (ids only)
-- DES-MOB-SUPERVISE / #sc-supervise
-- shots: qa/store/supervise/ · manifest ok:true
-- reviewUrlIos=file://…/prototype/ios/index.html#sc-supervise
-- reviewUrlAndroid=file://…/prototype/android/index.html#sc-supervise
-- peerStdUrl=—
+- `#sc-supervise` · `#filter-sheet` · `#sc-patrol-map`
+- shots: `qa/store/supervise/{A3-CORE,P6-CORE,P6-CORE-2}.png`
+- reviewUrlIos=`file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/supervise/ui/prototype/ios/index.html#sc-supervise`
+- reviewUrlAndroid=`file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/supervise/ui/prototype/android/index.html#sc-supervise`
 
 ## API / tasks (ids only)
-- GET patrol/attendance-logs · page=1 · pageSize=50
-- FormMode↔API: N/A list
-- T-BE: N/A · T-REVIEW-SEC/DTO/ALIGN/CLEANUP PASS
-- debt: GAP-QA-A11Y-SUP-FILTER-01 · GAP-QA-SUP-TAB-01 Defer · PrivacyInfo P2
+- API-01 GET `patrol/attendance-logs` ±`route` · client date
+- T-REVIEW-SEC/DTO/ALIGN/REAL **PASS**
+- T-IOS/AND-SUP-FILTER · MAP-NAV **PASS** (prior Dev)
+- T-QA e2e **PASS** (`task_cf8f4bfe`) · T-BE n/a
 
-## VERIFY
-- prior Dev iOS/Android/BFF PASS (task_65931a17)
-- prior QA e2e-qa-mobile ok:true · Aligned Must 0 (task_16b5d063)
-- Review: no re-run build/e2e · approve · phase done
+## UNCLEAR
+- none
+
+## Full paths (Read only if needed)
+- findings: /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/supervise/review/findings.md
+- REVIEW-META: /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/supervise/review/REVIEW-META.json
+- qa-compact: /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/supervise/handoff/qa-compact.md
+- STATUS: /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/supervise/STATUS.md

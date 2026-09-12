@@ -1,7 +1,7 @@
 appId: org.linmsoft.rmms
 ---
 # field-reflect · store P6 ×2 · guest → login → tab field → #sc-field-reflect (Pixel 1080×1920)
-# pattern: cam-patrol android · cấm mfeStdUrl / start:std
+# Android login: IME Enter/Next · cấm eraseText · cấm hideKeyboard · live-only sessions
 - launchApp:
     clearState: true
     clearKeychain: true
@@ -18,30 +18,22 @@ appId: org.linmsoft.rmms
     timeout: 15000
 - tapOn:
     id: "f-user"
-- eraseText
 - inputText: "linm-soft"
-- tapOn: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
-- tapOn:
-    id: "f-pass"
-- eraseText
+- pressKey: Enter
+- waitForAnimationToEnd:
+    timeout: 1500
 - inputText: "Linm@2026"
 - takeScreenshot: A9-LOGIN
 - pressKey: Enter
 - waitForAnimationToEnd:
-    timeout: 4000
+    timeout: 3000
 - tapOn:
     id: "btn-login"
     optional: true
-- tapOn:
-    text: "Đăng nhập"
-    optional: true
-- extendedWaitUntil:
-    visible: "Trang Chủ"
-    timeout: 45000
 - extendedWaitUntil:
     visible:
       id: "sc-home"
-    timeout: 15000
+    timeout: 45000
 - tapOn:
     id: "tab-field"
 - extendedWaitUntil:
@@ -106,6 +98,9 @@ appId: org.linmsoft.rmms
 - assertVisible: "Ghi nhận hư hỏng"
 - assertVisible:
     id: "kind-pills"
+    optional: true
+- assertVisible:
+    text: "Vị trí đã chốt"
     optional: true
 - takeScreenshot: P6-CORE
 - scroll

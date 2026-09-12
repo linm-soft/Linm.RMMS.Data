@@ -1,9 +1,19 @@
 # UX analy — patrol-checkin
 
-**Sources:** `ui/prototype/ios/index.html` · `ui/prototype/android/index.html` · `ui/design.md` · PO · DA controlHint + real-data (hash skip · **cấm** re-scan DemoRoot)  
+**Sources:** `ui/prototype/ios/index.html` · `ui/prototype/android/index.html` · `ui/design.md` · PO compact · DA controlHint + real-data (hash skip · **cấm** re-scan DemoRoot)  
 **Gate:** `/mobile-ui-ux-analy` §1–§9 · **REQUIRED** trước Dev  
-**Slash:** `/mobile-ui-ux-analy` · `task_34eb58bb` · `2026-08-28T20:05:00.000Z`  
+**Slash:** `/mobile-ui-ux-analy` · `task_e4a48d29` · `changeScope=edit_page` · `2026-09-12T12:55:00.000Z`  
 **Brand tokens:** Primary `#0C84C0` · success `#34C759` · danger `#FF3B30` / `#E53935` · surface `#F2F2F7` · label `#1C1C1E` · muted `#8E8E93`
+
+## § Delta (`edit_page`)
+
+| Bind | UX impact | Note |
+|------|-----------|------|
+| Photo → FileService | capture flow unchanged · slot filled = `attachmentId` sau commit | **cấm** SSOT = local UUID only |
+| Detail photos | preview JWT `files/{id}/object` | khi có attachmentId |
+| Banner / dist | vs BE plan-points khi live | interim: session label · stamp GAP · **cấm** plan=GPS |
+| GPS | live only | **cấm** fake / demo Phước Dinh bind live |
+| Zones/kit/copy | **không** đổi | dual prototype keep |
 
 ## 1. IA
 
@@ -11,11 +21,12 @@
 Login → Tab Tuần đường (shell Tab 5 · index giữ)
   → Hub patrol-home / Map patrol-map / handoff patrol-pin
        → openSheet('checkin') · DES-MOB-PAT-CHECKIN-SHEET
-            → GPS allow + matchOk → Lưu / Ghi nhận → toast · DES-MOB-CI-DETAIL
+            → GPS allow + matchOk(BE plan) → upload files → POST check-ins(attachmentId[]) → toast · DES-MOB-CI-DETAIL
             → matchOk=false → banner đỏ · disable primary · toast chặn
             → GPS deny → DES-MOB-GPS-DENY (reuse)
             → dirty leave → DES-MOB-LEAVE
-            → camera → openCapture('checkin') · PhotoRow
+            → camera → openCapture('checkin') · FileService commit · PhotoRow
+            → file BFF MISSING → offline queue · GAP-MOB-BFF-FILE-01
 ```
 
 `tabs: none` trên pack · **cấm** invent segment (`GAP-TAB-01`). Demo states: `?mismatch=1` · `?deny=1` · `?surface=detail`.
@@ -25,10 +36,10 @@ Login → Tab Tuần đường (shell Tab 5 · index giữ)
 | DES / sc-* | Tên VN | iOS chrome | Android chrome | CTA |
 |------------|--------|------------|----------------|-----|
 | DES-MOB-PAT-CHECKIN-SHEET / `#sheet-checkin` | Ghi điểm tuần | Bottom sheet nav Hủy/Lưu | Modal bottom sheet | Ghi nhận điểm tuần |
-| DES-MOB-LOC-MISMATCH | Banner đúng/sai | Banner 13 | same | gate |
+| DES-MOB-LOC-MISMATCH | Banner đúng/sai | Banner 13 | same | gate vs BE plan |
 | DES-MOB-LEAVE / `#modal-leave` | Bỏ thay đổi? | in-app card | Material dialog | Bỏ / Tiếp tục sửa |
 | DES-MOB-GPS-DENY / `#modal-gps` | Định vị bị tắt | in-app (reuse) | same | Sao chép / Để sau |
-| DES-MOB-CI-DETAIL / `#sc-checkin-detail` | Ghi điểm tuần | TopBar + back Ca | TopAppBar | back |
+| DES-MOB-CI-DETAIL / `#sc-checkin-detail` | Ghi điểm tuần | TopBar + back Ca | TopAppBar | back · photo object |
 
 ## 3. Zone
 
@@ -37,15 +48,15 @@ Login → Tab Tuần đường (shell Tab 5 · index giữ)
 | Zone | Demo (user thấy) | Map row | SwiftUI | Compose |
 |------|------------------|---------|---------|---------|
 | Nav | Hủy · Ghi điểm tuần · Lưu | `.sheet-nav` | `LinmBottomSheet` trailing | same |
-| Banner | Đúng/Sai điểm · … | `#ci-match-banner` | Banner view | same |
+| Banner | Đúng/Sai điểm · … | `#ci-match-banner` | Banner · vs BE plan | same |
 | Fields | Điểm KH · Tuyến · GPS · Cách điểm | `.field` readonly | `LinmTextField` | same |
-| Nội dung | TextArea | `textarea` | `LinmTextArea` | same |
-| Ảnh | section-label + PhotoRow + `#i-camera` | `.section-label` · `.photo-row` | PhotoRow + icon | same · **parity label** |
+| Nội dung | TextArea | `#ci-content` | `LinmTextArea` | same |
+| Ảnh | section-label + PhotoRow + `#i-camera` | `#ci-photos` · `data-bind=attachmentId[]` | PhotoRow + file upload | same · **parity label** |
 | Primary | Ghi nhận điểm tuần | `#ci-save-btn` | `LinmPrimaryButton` | same |
 | Secondary | Hủy | `.btn.secondary` | `LinmSecondaryButton` | same |
 | Toast | Đã ghi… / Chặn… | `#toast` | `LinmToast` | same |
 
-**States:** default matchOk · mismatch · GPS deny · offline/POST GAP (queue) · dirty leave · loading GPS · empty photo · after-save detail
+**States:** default matchOk · mismatch · GPS deny · plan-points MISSING (interim label) · file BFF MISSING (queue) · dirty leave · loading GPS · empty photo · after-save detail
 
 ### DES-MOB-CI-DETAIL
 
@@ -55,23 +66,24 @@ Login → Tab Tuần đường (shell Tab 5 · index giữ)
 | Back | Ca | chevron | Back | `ArrowBack` |
 | Banner | Đã lưu · {time} | `.banner.ok` | Banner | same |
 | Rows | Điểm KH · Cách điểm | `.row` | ListRow | same |
+| Photos | Ảnh đã lưu | PhotoRow | preview object JWT | same |
 
 ### DES-MOB-LEAVE / DES-MOB-GPS-DENY
 
 | Zone | Demo | SwiftUI | Compose |
 |------|------|---------|---------|
-| Title / body / 2 CTA | copy SSOT dual | **in-sheet** overlay (+ `interactiveDismissDisabled` dirty) | `Dialog` window trên `ModalBottomSheet` · `LinmSheet.dismissEnabled=false` dirty |
+| Title / body / 2 CTA | copy SSOT dual | **in-sheet** overlay (+ `interactiveDismissDisabled` dirty) | `Dialog` trên `ModalBottomSheet` · `dismissEnabled=false` dirty |
 
-**GAP-MOB-EDIT-LEAVE-01 (fixed):** leave/GPS **không** gắn overlay parent — under sheet → không tap/close được.  
-`matchOk=false` / toast chặn → **không** mở leave (chỉ toast). Leave chỉ Hủy/swipe dirty.
+**GAP-MOB-EDIT-LEAVE-01 (fixed):** leave/GPS **không** gắn overlay parent.  
+`matchOk=false` / toast chặn → **không** mở leave. Leave chỉ Hủy/swipe dirty.
 
 **Cấm** `UIAlertController` / `AlertDialog` hệ thống (`AC-D-04`).
 
 ## 4. Copy SSOT
 
-Nhãn lấy đúng HTML dual + PO §5 — **cấm** invent / lệch iOS↔Android (trừ chrome HIG/Material).
+Nhãn lấy đúng HTML dual + PO — **cấm** invent / lệch iOS↔Android (trừ chrome HIG/Material). Demo Phước Dinh = **prototype only**.
 
-**Cấm trên máy:** watermark «bản Gói N» · device label · «Có mạng» · pin form · invent path label.
+**Cấm trên máy:** watermark · device label · «Có mạng» · pin form · invent path · fake GPS · plan=GPS SSOT.
 
 ## 5. Brand
 
@@ -87,7 +99,7 @@ Nhãn lấy đúng HTML dual + PO §5 — **cấm** invent / lệch iOS↔Androi
 
 ## 6. Signal
 
-Không pill mạng trên pack. Loc / match = OS GPS + haversine · **cấm** tap-cycle proto · **cấm** «Có mạng» · **cấm** fake lat/lng.
+Không pill mạng trên pack. Loc / match = OS GPS + haversine(BE plan) · **cấm** tap-cycle proto · **cấm** fake lat/lng · **cấm** plan=GPS.
 
 ## 7. Pictogram
 
@@ -109,19 +121,23 @@ Không `/wf-anim` trên pack. Sheet slide-up · toast fade ~2.4s · modal backdr
 | AC-GPS-01 | allow → GPS + dist + banner | Live CL/Fused · **cấm** fake |
 | AC-GPS-02 | deny → modal | in-app only |
 | AC-GPS-03 | timeout | toast / giữ sheet · **cấm** fake |
-| AC-MATCH-01/02 | mismatch gate | disable Lưu + Ghi nhận |
-| AC-CAM-01 | `#i-camera` attach | local URI P1 |
-| AC-OFF-01 | POST MISSING | local queue `patrol-offline` · stamp GAP-MOB-BFF-01 |
+| AC-MATCH-01/02/03 | mismatch gate | vs BE plan khi live · disable Lưu + Ghi nhận |
+| AC-CAM-01 | `#i-camera` attach | capture → FileService |
+| AC-FILE-01 | attachmentId[] | init/PUT/commit · preview object |
+| AC-OFF-01 | offline / file MISSING | queue `patrol-offline` · **cấm** fake 200 |
 | AC-D-03 | dirty leave | DES-MOB-LEAVE |
 | AC-D-04 | native alert | **cấm** |
 | AC-TYP-01 | label 13 · field/btn ≥16 · title 17 | giữ |
 | GAP-TAB-01 | tabs none | shell Tab 5 giữ |
 | AC-F-05 | Android Ảnh label | parity iOS SSOT |
+| GAP-MOB-CI-PHOTO-UP-01 | FileService | DoD edit |
+| GAP-MOB-CI-PLAN-BE-01 | plan-points MISSING | interim session label · SA Kind E |
+| GAP-MOB-BFF-FILE-01 | NuGet thiếu | offline queue |
 | DEFER | bezel HTML | chrome native HIG/Material |
 
 ## Gate
 
-Must open = **0** · packet §1–§9 đủ · handoff SA (`be/solution-discovery.md` pending).
+Must open = **0** · packet §1–§9 đủ · handoff SA (`be/solution-discovery.md` pending) · dual prototype keep.
 
 ## Version meta
 
@@ -129,8 +145,8 @@ Must open = **0** · packet §1–§9 đủ · handoff SA (`be/solution-discover
 |-------|-------|
 | skillId | mobile-ui-ux-analy |
 | skillVersion | 2026.08.25.01 |
-| generatedAt | 2026-08-28T20:05:00.000Z |
-| contentHash | sha256:patrol-checkin-control-hint-20260828 |
+| generatedAt | `2026-09-12T12:55:00.000Z` |
+| contentHash | sha256:patrol-checkin-control-hint-20260912-edit |
 
 ---
-<!-- Version meta: skillId=mobile-ui-ux-analy skillVersion=2026.08.25.01 -->
+<!-- Version meta: skillId=mobile-ui-ux-analy skillVersion=2026.08.25.01 contentHash=sha256:patrol-checkin-control-hint-20260912-edit -->

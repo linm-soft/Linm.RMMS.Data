@@ -16,6 +16,7 @@
 ## Behavior (live-only · **cấm** `OpsCopy.demoItems`)
 
 - Me `row-ops` + Home notify → push `#sc-ops`
+- Guest Home bell: GET inbox/overview **AllowAnonymous** · mark-read **staff only**
 - Appear: GET inbox page=1 pageSize=50
   - OK + items → bind live
   - OK + empty → `EmptyChromeView` (`ops.empty.*`) · id `ops-empty`

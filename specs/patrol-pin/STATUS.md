@@ -16,15 +16,15 @@
 | android | `Linm.RMMS.Mobile.Android` · e2e-qa-mobile emulator |
 | bff | `Linm.RMMS.Mobile.Bff` |
 | backend | `Linm.RMMS.WebService` · DOMAIN-MAP — **cấm ERP.*** |
-| updatedAt | `2026-09-01T07:46:33.445Z` |
-| designConfirm | **approved** · autoApprove=ON · `task_463367a8` |
-| solutionConfirm | **approved** · autoApprove=ON · `task_688fe507` |
-| route_confirm | **route_a** · autoApprove=ON · `task_018ad2c4` |
+| updatedAt | `2026-09-12T12:37:04.262Z` |
+| designConfirm | **approved** · autoApprove=ON · `task_4e8a5d46` · edit_page real handoff |
+| solutionConfirm | **approved** · autoApprove=ON · `task_44e11065` · edit_page persist |
+| route_confirm | **route_a** · autoApprove=ON · `task_181e8784` · sheet in-flow · no new tab |
 | ios_repo_confirm | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS` · reuse |
 | android_repo_confirm | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android` · reuse |
-| ios_test_phase | **phase1_iphone** · autoApprove=ON · dest **iPhone 17 Pro Max** · A4-IPAD DEFER |
-| align_confirm | **approve** · autoApprove=ON · Must **0** · `ui/review/align-ux.md` |
-| review_confirm | **approve** · autoApprove=ON · `task_08d8cb4b` · `review/findings.md` |
+| ios_test_phase | **phase1_iphone** · dest **iPhone 17 Pro Max** · A4-IPAD DEFER |
+| align_confirm | **approve** · autoApprove=ON · `task_9a00d2c5` · Must 0 |
+| review_confirm | **approve** · autoApprove=ON · `task_d184527a` · edit_page persist · Must 0 |
 
 ## Lock
 
@@ -36,29 +36,34 @@
 
 | Step | Agent | Artifact | Status |
 |------|-------|----------|--------|
-| 0 | data-analy | _data-analy/patrol-pin-*.md | **confirmed** |
-| 1 | po | po/requirement.md | **confirmed** |
-| 2.1 | design | ui/design.md · ui/ux-analy.md · prototype dual · demo-parity | **confirmed** |
-| 2.2 | sa | be/solution-discovery.md | **confirmed** |
-| 3 | team-lead | task/patrol-pin.md | **confirmed** |
-| 4 | dev | implement/ios.md · implement/android.md | **confirmed** |
-| 5 | qa | qa/scenarios.md · qa/store/patrol-pin/CAPTURE.md · ui/review/align-ux.md | **confirmed** |
+| 0 | data-analy | _data-analy/patrol-pin-*.md · handoff/data_analy-compact.md | **confirmed** |
+| 1 | po | po/requirement.md · handoff/po-compact.md | **confirmed** |
+| 2.1 | design | ui/design.md · ui/ux-analy.md · prototype dual · handoff/design-compact.md | **confirmed** |
+| 2.2 | sa | be/solution-discovery.md · handoff/sa-compact.md | **confirmed** |
+| 3 | team-lead | task/patrol-pin.md · handoff/team_lead-compact.md | **confirmed** |
+| 4 | dev | implement/ios.md · implement/android.md · handoff/dev-compact.md | **confirmed** |
+| 5 | qa | qa/scenarios.md · store · align-ux | **confirmed** |
 | 6 | review | review/findings.md · handoff/review-compact.md | **done** |
 ## Tasks
 
 | id | page | role | deps | status | notes |
 |----|------|------|------|--------|-------|
-| task_5b298c0a | patrol-pin | full_pipeline | — | completed | GPS pin hub+map · deny modal · BFF GET sessions only |
-| task_6bd56781 | patrol-pin | po | data_analy confirmed | completed | roleOnly=po · autoApprove · requirement confirmed |
-| task_19519750 | patrol-pin | design | po confirmed | superseded | superseded by task_463367a8 |
-| task_463367a8 | patrol-pin | design | po confirmed | completed | roleOnly=design · dual proto + ux-analy + demo-parity Must=0 · design_confirm approve |
-| task_688fe507 | patrol-pin | sa | design confirmed | completed | roleOnly=sa · solution_confirm approve · GET sessions only · Step 4b N/A · VERIFY Dev gate role sau |
-| task_018ad2c4 | patrol-pin | team_lead | sa confirmed | completed | roleOnly=team_lead · route_a · T-IOS/T-AND · T-BE n/a · kit_skip · chain Dev **không** |
-| task_5bb83877 | patrol-pin | dev | TL confirmed | completed | roleOnly=dev · dual iOS+Android · VERIFY PASS · Step 4b N/A |
-| task_3a68f8d3 | patrol-pin | qa | Dev confirmed | completed | roleOnly=qa · prior e2e (superseded capture) |
-| task_ff84d158 | patrol-pin | review | QA confirmed | completed | roleOnly=review · prior · re-queue after cleanup_mock |
-| task_c5415843 | patrol-pin | qa | Dev confirmed · cleanup_mock | completed | roleOnly=qa · e2eQa ON · yarn e2e-qa-mobile ok=true · align Must 0 · yaml guest→login fix |
-| task_08d8cb4b | patrol-pin | review | QA confirmed · cleanup_mock | completed | roleOnly=review · review_confirm approve · Must 0 · post_review skip |
+| task_5b298c0a | patrol-pin | full_pipeline | — | completed | GPS pin hub+map · prior P1 toast-only |
+| task_6bd56781 | patrol-pin | po | data_analy confirmed | completed | prior requirement · new_page toast-only |
+| task_463367a8 | patrol-pin | design | po confirmed | completed | prior dual proto · superseded persist |
+| task_688fe507 | patrol-pin | sa | design confirmed | completed | prior GET-only · superseded by persist GAP |
+| task_018ad2c4 | patrol-pin | team_lead | sa confirmed | completed | prior |
+| task_5bb83877 | patrol-pin | dev | TL confirmed | completed | prior toast-only |
+| task_c5415843 | patrol-pin | qa | Dev confirmed | completed | prior |
+| task_08d8cb4b | patrol-pin | review | QA confirmed | completed | prior approve · GAP persist opened |
+| task_48f136ed | patrol-pin | data_analy | GAP-MOB-PIN-PERSIST-01 | **completed** | edit_page · handoff+POST check-ins · compact PASS |
+| task_cf3ce7eb | patrol-pin | po | data_analy confirmed | **completed** | edit_page · § Delta persist · requirement+compact PASS |
+| task_4e8a5d46 | patrol-pin | design | po confirmed | **completed** | edit_page · real handoff sheet · dual proto+compact PASS |
+| task_44e11065 | patrol-pin | sa | design confirmed | **completed** | edit_page · solution+compact PASS · FormMode↔API · tz/xco/share_na |
+| task_181e8784 | patrol-pin | team_lead | sa confirmed | **completed** | edit_page · T-IOS/T-AND · real handoff · T-BE n/a · compact PASS |
+| task_f90e803b | patrol-pin | dev | TL confirmed | **completed** | edit_page · real handoff dual · build PASS · compact PASS |
+| task_9a00d2c5 | patrol-pin | qa | Dev confirmed | **completed** | edit_page re-QA · e2e PASS · align Must 0 · compact PASS |
+| task_d184527a | patrol-pin | review | QA confirmed | **completed** | edit_page re-review · approve · GAP persist closed · compact PASS |
 
 ## Blockers / open questions
 
@@ -66,14 +71,16 @@
 
 ## Links
 
-- data-analy → po → ui → be → task → implement → qa → review → **done**
-- native: e2eQa ON → `yarn e2e-qa-mobile` — **cấm** mfeStdUrl
-- VERIFY Review `2026-09-01T07:46:00Z`: artifact+STATUS **PASS** · yarn build/e2e **SKIP** (roleOnly=review) · prior Dev iOS/Android/BFF PASS · Step 4b **N/A**
-- E2E: A11/A10/A9/A3/P6/P6-2 **PASS** · `task_c5415843` · px 1320×2868 (iOS 6.9") · 1080×1920 (Play) · Maestro ON · capturedAt `2026-09-01T07:41:09.032Z`
-- Align: `ui/review/align-ux.md` · Must **0** · align_confirm **approve** · QA re-Read CORE
-- Design reviewUrl: `file://…/prototype/ios/index.html` · `file://…/prototype/android/index.html` (+ `?surface=map` · `?deny=1` · `?timeout=1`)
-- SA: `be/solution-discovery.md` · BFF `GET patrol/sessions` only · Step 4b **N/A**
-- TL: `task/patrol-pin.md` · `T-IOS-PAT-PIN` · `T-AND-PAT-PIN` · `T-BE-PAT-PIN` n/a
-- Dev: `implement/ios.md` · `implement/android.md` · cleanup_mock `task_c9fd5cec` · live-only pin toast
-- QA: `qa/scenarios.md` · `qa/e2e/{ios,android}.yaml` · `qa/bugs/patrol-pin.md` CLOSED · handoff `qa-compact.md`
-- Review: `review/findings.md` · `handoff/review-compact.md` · Must **0** · `review_confirm` **approve** · `task_08d8cb4b`
+- data-analy **confirmed** → po **confirmed** → design **confirmed** → sa **confirmed** → tl **confirmed** → dev **confirmed** (edit_page) → qa **confirmed** → review **confirmed** · pipeline **done**
+- GAP: DoD persist via sibling POST `patrol/sessions/{id}/check-ins` (BE Live) · pin handoff only · **cấm** auto-POST / invent `/pins`
+- contentHash `sha256:patrol-pin-control-hint-20260912-persist` · bffContentHash `sha256:patrol-pin-mobile-bff-20260912-persist`
+- native: e2eQa ON when QA · **cấm** mfeStdUrl
+- VERIFY design `task_4e8a5d46`: artifact+STATUS **PASS** · yarn build/e2e **SKIP** · Step 4b **N/A** · roleOnly=design
+- Design reviewUrl: `file://…/prototype/ios/index.html` · `file://…/prototype/android/index.html`
+- compact: `handoff/data_analy-compact.md` · `handoff/po-compact.md` · `handoff/design-compact.md` · `handoff/sa-compact.md` · `handoff/team_lead-compact.md` · `handoff/dev-compact.md` · `handoff/qa-compact.md` · `handoff/review-compact.md`
+- VERIFY sa `task_44e11065`: artifact+STATUS **PASS** · yarn build/e2e **SKIP** · Step 4b **N/A** · roleOnly=sa
+- VERIFY team_lead `task_181e8784`: artifact+STATUS **PASS** · yarn build/e2e **SKIP** · Step 4b **N/A** · roleOnly=team_lead · route_a · T-IOS-PAT-PIN · T-AND-PAT-PIN · T-BE n/a
+- VERIFY dev `task_f90e803b`: iOS xcodegen+xcodebuild iPhone 17 Pro Max **PASS** · Android assembleDebug **PASS** · BFF dotnet build **PASS** · Step 4b **N/A** · roleOnly=dev · real `#sheet-handoff-checkin` · **cấm** e2e this role
+- VERIFY qa `task_9a00d2c5`: e2e-qa-mobile **PASS** · BFF build **PASS** · align Must **0** · store px OK · Step 4b **N/A** · roleOnly=qa · compact `handoff/qa-compact.md`
+- VERIFY review `task_d184527a`: artifact+STATUS **PASS** · yarn build/e2e **SKIP** · Step 4b **N/A** · roleOnly=review · review_confirm **approve** · GAP-MOB-PIN-PERSIST-01 **closed**
+- Links chain: … → qa **confirmed** → review **confirmed** · done

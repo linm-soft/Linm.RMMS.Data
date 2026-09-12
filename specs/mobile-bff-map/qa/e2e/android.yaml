@@ -1,0 +1,89 @@
+appId: org.linmsoft.rmms
+---
+# mobile-bff-map · peer #sc-gis-map · TileUrl BFF · store P6 ×2 · Pixel 1080×1920
+# Android login: IME Enter/Next chuyển f-user→f-pass · Enter submit · cấm hideKeyboard · cấm eraseText
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 20000
+- tapOn:
+    id: "btn-home-login"
+- extendedWaitUntil:
+    visible:
+      id: "f-user"
+    timeout: 15000
+- tapOn:
+    id: "f-user"
+- inputText: "linm-soft"
+- pressKey: Enter
+- waitForAnimationToEnd:
+    timeout: 1500
+- inputText: "Linm@2026"
+- pressKey: Enter
+- waitForAnimationToEnd:
+    timeout: 3000
+- tapOn:
+    id: "btn-login"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 45000
+- scrollUntilVisible:
+    element:
+      id: "tile-asset"
+    direction: DOWN
+    timeout: 15000
+- tapOn:
+    id: "tile-asset"
+- extendedWaitUntil:
+    visible:
+      id: "sc-asset-hub"
+    timeout: 20000
+- tapOn:
+    id: "tile-map"
+- extendedWaitUntil:
+    visible:
+      id: "sc-gis-map"
+    timeout: 30000
+- waitForAnimationToEnd:
+    timeout: 5000
+- assertVisible:
+    text: "Bản đồ tài sản"
+- assertVisible:
+    id: "mb-osm"
+- assertVisible:
+    id: "mb-esri"
+- assertVisible:
+    id: "mb-sat"
+- assertVisible:
+    id: "mb-fit"
+- assertVisible:
+    id: "lg-all"
+- assertVisible:
+    id: "lg-ts"
+- assertVisible:
+    id: "lg-sc"
+- assertVisible:
+    id: "btn-gis-back"
+- assertVisible:
+    id: "btn-gis-list"
+- waitForAnimationToEnd:
+    timeout: 4000
+- takeScreenshot: P6-CORE
+- tapOn:
+    id: "mb-esri"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 2000
+- tapOn:
+    id: "lg-ts"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 2000
+- takeScreenshot: P6-CORE-2
+- assertVisible:
+    id: "sc-gis-map"

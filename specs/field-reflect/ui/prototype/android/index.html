@@ -219,9 +219,10 @@
   </svg>
 
   <script>
-    /** Pack proto: ?deny=1 → GPS deny · ?empty=1 → no active session banner · SSOT mobile-p1 #sc-field-reflect */
+    /** Pack proto: ?deny=1 GPS · ?empty=1 no-active · ?fail=1 GET fail · GAP-MOB-FIELD-SESS-01 live-only */
     let gpsOk = !location.search.includes('deny=1');
     const emptySession = location.search.includes('empty=1');
+    const sessionsFail = location.search.includes('fail=1');
 
     const CHK = {
       Hư: [['hư', 'Ổ gà'], ['hư', 'Nứt dọc / ngang'], ['hư', 'Lún · sóng']],
@@ -235,6 +236,12 @@
 
     if (emptySession) {
       document.getElementById('banner-empty').classList.remove('hidden');
+      document.getElementById('row-loc').textContent = '—';
+      setTimeout(function () { toast('Không có ca đang tuần'); }, 400);
+    }
+    if (sessionsFail) {
+      document.getElementById('row-loc').textContent = '—';
+      setTimeout(function () { toast('Không tải được ca tuần'); }, 400);
     }
     if (!gpsOk) {
       document.getElementById('row-loc').textContent = '— · chưa chốt';

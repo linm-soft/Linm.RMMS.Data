@@ -1,246 +1,219 @@
-# PO — Requirement — patrol-offline (mobile list)
+# PO — Requirement — patrol-offline (mobile list · delta apply check-ins)
 
 | Field | Value |
 |-------|-------|
 | feature | `patrol-offline` |
 | title | [Mobile] Hàng đợi mất sóng |
 | this role | `po` · `/agent-po-mobile` |
-| changeScope | `new_page` |
-| packKind | **`list`** (PO confirm · data-analy đề xuất · offline queue local-first) |
+| changeScope | **`edit_page`** · gap=`offline_sync_apply_checkins` |
+| packKind | **`list`** (confirm keep · offline queue local-first + **replay check-in**) |
 | stack | `native_dual` |
-| thisAction | **List Dữ liệu lưu trữ** `#sc-patrol-offline` only · owner Me **Hàng đợi mất sóng** · reuse Home tile **Lưu trữ** + patrol nav Đồng bộ · **cấm** gộp check-in live / incident form |
+| thisAction | **List Dữ liệu lưu trữ** `#sc-patrol-offline` only · sync = **replay** pending `checkIn` → POST check-ins · **cấm** gộp check-in live / incident form |
 | status | `confirmed` (autoApprove=ON) |
-| requestSource | run packet `task_eefc9116` · `/agent-qldb-workflow-mobile` · roleOnly=`po` · `/agent-po-mobile` |
-| autoApprove | **ON** — Design/SA tự confirm **khi tới lượt** · turn này **không** chain |
-| e2eQa | ON khi QA · `yarn e2e-qa-mobile` · sim 6.9" + emulator + Maestro · PNG `qa/screens` + `qa/store/patrol-offline` · **cấm** `yarn e2e-qa` / `yarn start:std` / `mfeStdUrl` / test thủ công thay runtime |
-| prior | data-analy **confirmed** · `specs/_data-analy/patrol-offline-control-hint.md` · `patrol-offline-bff-endpoints.md` · `patrol-offline-action-tree.md` · contentHash `sha256:2f2cf6976914278da294ed00a6d1eeecb50364201812335d6852c0f4e46ccaad` · bffContentHash `sha256:10d525fc95cdd32c9e4ede818499041f44341c7481d1d44e0fde6bec5738f403` · cluster `specs/patrol-offline/specs/_data-analy/` **không tồn tại** — SSOT = 3 file `_data-analy/patrol-offline-*` · **no Excel** · **không** file `*-real-data.md` (list = local store) |
+| requestSource | run packet `task_d268d5b7` · `/agent-qldb-workflow-mobile` · roleOnly=`po` · `/agent-po-mobile` |
+| autoApprove | **ON** — Design/SA/Review tự confirm khi tới lượt · turn này **không** chain |
+| e2eQa | ON khi QA · `yarn e2e-qa-mobile` · **cấm** e2e / start:std ở role PO |
+| prior | data_analy **confirmed** · compact `handoff/data_analy-compact.md` · control-hint + real-data + bff + action-tree · contentHash `sha256:patrol-offline-delta-apply-checkins-20260912` · bffContentHash `sha256:patrol-offline-bff-apply-checkins-20260912` · **hash skip** · **cấm** re-scan demo |
+| priorRequirement | keep UI/zones/entry/kit từ `task_eefc9116` · **delta** sync + payload + enqueue |
 | `devSlash` | `/agent-dev-ios` + `/agent-dev-android` |
-| updatedAt | `2026-08-19T13:50:00.000Z` |
-| taskId | `task_eefc9116` |
+| updatedAt | `2026-09-12T14:30:00.000Z` |
+| taskId | `task_d268d5b7` |
 
-**Cấm:** gộp sibling (`GAP-MOB-ACT-01/02`) · invent `GET …/queue` / `PatrolOfflineController` · Grid AC web / Report AC Lin* · ERP.* · WebView HTML · `mfeStdUrl` · `UIAlert` / `AlertDialog` / `window.alert` · watermark «Phiên bản Gói N» / «gen realapp» · «Có mạng» · device label «iPhone» / «· Android» · AC tap-cycle tín hiệu · AC implement lại kit đã map (`GAP-MOB-ACT-05`) · start sibling `pending_confirm` (`GAP-MOB-ACT-06`) · re-seed demo sau sync thành công (`GAP-F-OFFLINE-01`).
+**Cấm:** invent `GET …/queue` / `PatrolOfflineController` · clear queue sau offline-batch không verify DB · ERP.* · `mfeStdUrl` · WebView HTML · native alert · re-seed demo sau sync · start sibling `pending_confirm` · Step 4b `/new-endpoint` · clear incident khi chưa có API replay.
 
 ## 1. Goal
 
-Màn **Dữ liệu lưu trữ** native dual (iOS SwiftUI + Android Compose): hàng đợi điểm tuần / sự cố ghi cục bộ khi mất sóng, đồng bộ batch khi có mạng. Persona: Tuần đường · hiện trường. App **chỉ** `{BffBase}/mobile-bff/api/v1/…`. **Cấm** ERP.* · clone controller · WebView bọc HTML demo · `mfeStdUrl`.
+Màn **Dữ liệu lưu trữ** native dual: xem hàng đợi local khi mất sóng; khi có mạng **replay** từng điểm tuần pending → `POST …/patrol/sessions/{sessionId}/check-ins` (apply DB thật). Optional `POST …/integration/sync/offline-batch` = **receipt** sau replay OK — **không** thay thế apply. Persona: Tuần đường. App chỉ `{BffBase}/mobile-bff/api/v1/…`.
 
-**1 action = 1 feature.** Slug `patrol-offline` = list `#sc-patrol-offline` `DES-MOB-PAT-OFFLINE`. **Cấm** gộp `#sc-patrol-home` check-in live · `#sc-inc-form` · conflict UI (`GAP-MOB-ACT-01`). `#sc-patrol-offline` **không** child form/sheet (`GAP-MOB-ACT-02` = none). **Không** enqueue submit (`GAP-MOB-ACT-07`).
+**1 action = 1 feature.** Slug `patrol-offline` = list `#sc-patrol-offline` `DES-MOB-PAT-OFFLINE`. **Cấm** gộp `#sc-patrol-home` / `#sc-inc-form` (`GAP-MOB-ACT-01`). **Không** child form/sheet (`GAP-MOB-ACT-02`=none).
 
-## 2. changeScope `new_page`
+## 2. changeScope `edit_page` · Current vs New
 
-Pack **list mới** theo data-analy. Native đã có scaffold prior `task_6e4103ce` (screen + local store + POST proxy) — **không** đổi `changeScope` thành `edit_page`. Delta Design/Dev = khớp PO này (dual copy · kit nav · seed policy · Android demo parity). Không bảng Current vs New web. SSOT visual = dual HTML `#sc-patrol-offline` — **iOS 390×844 là copy/card SSOT**; Android 412×915 **phải** cùng copy + 2 card (HTML Android hiện thiếu card 2 / `#i-mappin` / dòng nội dung — **GAP-MOB-DEMO-COPY-01** · Design sửa prototype Android).
+| Aspect | Current (shipped) | New (DoD) |
+|--------|-------------------|-----------|
+| changeScope | list + cleanup_mock | `edit_page` · gap `offline_sync_apply_checkins` |
+| Tap **Đồng bộ** | `POST offline-batch` → `clearPending` | Replay từng `kind=checkIn` → `POST patrol/sessions/{sessionId}/check-ins` · xóa item **chỉ khi** 2xx · **không mất** fail |
+| OfflineBatch | stub Apply N · không ghi PatrolCheckIns | Optional receipt **sau** OK · `RecordCount` = số apply 2xx · **không** thay apply |
+| Queue payload | display-only | **+** `sessionId` + wire `CreatePatrolCheckInRequest` fields |
+| Enqueue (sibling writer) | mất sessionId/body | Persist full payload dual iOS/Android |
+| Incident rows | filter · sync cùng clear | **P2** keep pending · **cấm** clear khi chưa replay incident |
+| UI zones | `#sc-patrol-offline` | **unchanged** — no layout redesign |
+| Step 4b | N/A | **N/A** — reuse live endpoints · **cấm** invent |
+
+PackKind **list** keep. Visual SSOT = dual HTML `#sc-patrol-offline` — Design **keep** prototype (zones unchanged).
 
 ## 3. DoD (đo được)
 
-1. Dual native: iOS SwiftUI + Android Compose — **cùng** zone `#sc-patrol-offline`: nav back **Trang Chủ** · title **Dữ liệu lưu trữ** · trailing **Đồng bộ** · segment 2 · banner yếu sóng · rich cards. Frame proto iOS 390×844 · Android 412×915.
-2. Segment index **0** **Điểm tuần mất sóng** · **1** **Sự cố mất sóng** — **cấm** đổi thứ tự (`GAP-TAB-01`).
-3. Banner copy đúng `offline.banner.weak`: **Tín hiệu yếu — ghi cục bộ, đồng bộ khi tín hiệu tốt** · `#i-wifi-off` · hiện khi **có** bản ghi pending trên tab đang chọn · **ẩn** khi list rỗng.
-4. Card SSOT (iOS HTML — Dual phải khớp):
-
-   | # | title | location | extra | time | status |
-   |---|-------|----------|-------|------|--------|
-   | 1 | Điểm tuần · Km 1556+000 | QL.1 · Xuân Hải · `#i-mappin` | Nội dung: mặt đường khô | 2026-08-10 08:40:12 | **Chờ gửi** (pill) |
-   | 2 | Điểm tuần · Km 1561+134 | QL.1 · Phước Dinh · `#i-mappin` | — | 2026-08-10 09:12:44 | **Chờ gửi** |
-
-   Production status pill = **Chờ gửi** (`offline.status.pending` có thể dài hơn trên card 1 HTML — **PO chốt ngắn «Chờ gửi»** trên mọi card; helper nằm ở banner — **cấm** lệch iOS↔Android).
-5. Tap **Đồng bộ** → `POST mobile-bff/api/v1/integration/sync/offline-batch` body `Partner` · `DeviceId` · `BatchId` · `RecordCount` · `Note` · toast **Đã đồng bộ N bản ghi** (`offline.toast.synced`) · xóa pending đã gửi · **cấm** native alert.
-6. Segment **Sự cố mất sóng** + queue incident rỗng → toast info **Sự cố mất sóng · chưa có bản ghi** (`offline.toast.incidentEmpty`) · **không** toast proto «1 bản ghi» khi empty.
-7. Entry (reuse, **cấm** reimplement hub/me):
-   - Home tile **Lưu trữ** (`home.tile.offline` · `#i-sync`) → push `#sc-patrol-offline`
-   - Me row **Hàng đợi mất sóng** (`me.row.offline`) → push cùng màn
-   - Patrol-home nav Đồng bộ → **cùng** route `reuse=patrol-offline`
-8. Badge Me: `offlineCount` local · subtitle `me.row.offlineSub` «N chờ đồng bộ» · badge **ẩn khi 0**. Home tile HTML **không** numeric badge — **cấm** invent badge trên tile. **Cấm** GET queue API cho badge.
-9. Local store: UserDefaults iOS · SharedPreferences/Room Android — **cấm** invent `GET patrol-offline/queue`.
-10. **GAP-F-OFFLINE-01 (HARD):** First launch (store key **chưa** ghi) → seed SSOT 2 card check-in **một lần**. Sau sync **thành công** → persist **rỗng** + cờ initialized · Appear sau đó **không** `seedDemoIfEmpty` / **không** fallback `demoItems`. Writer thật = sibling `patrol-home` / `incident-create` (P2 enqueue).
-11. Kit reuse: `LinmSegment` · `LinmBanner` warning · `LinmToast` · `LinmListRow` (Me). Nav: demo = text **Trang Chủ** + **Đồng bộ**. `LinmTopBar` kit hiện **icon-only** ≠ SSOT text — Design `kit_missing_confirm` **implement_kit** text leading/trailing (hoặc slot text trên TopBar) · **cấm** `kit_skip` im lặng · **cấm** icon-only back khi SSOT có chữ (`GAP-MOB-DEMO-COPY-02`). Rich card: map `.rich-card` → `LinmListRow`; visual có thumb 56 + status strip — Design verify; thiếu → `kit_missing_confirm` · **cấm** invent `LinmRichCard` tên mới nếu chưa có trên map.
-12. App chỉ `{BffPrefix}` · **cấm** biết RMMS `:5101` · token Keychain / Encrypted.
-13. Permissions (gọi API): reuse Integration signed `POST …/sync/offline-batch`. CTX `patrol.sessions.update` / `incident.incidents.create` = **writer sibling** — pack này **không** invent permission mới / **không** `[RequirePermission]` mới trên BFF.
-14. Dev (role sau): iOS `xcodegen` + `xcodebuild` dest **iPhone 17 Pro** PASS · Android `assembleDebug` PASS · Mobile.Bff `dotnet build` PASS — **cấm** `yarn start:std`.
-15. QA (role sau): Maestro slug `patrol-offline` · live sim 6.9" + emulator · store PNG `qa/store/patrol-offline` · **cấm** `yarn e2e-qa` web.
-16. BE align: **không** endpoint mới — reuse `POST api/v1/integration/sync/offline-batch`. Step 4b `/new-endpoint` **N/A** pack này. **Cấm** `PatrolOfflineController` trên Mobile.Bff.
+1. Dual native cùng zone `#sc-patrol-offline`: nav **Trang Chủ** · title **Dữ liệu lưu trữ** · trailing **Đồng bộ** · segment 2 · banner yếu sóng · rich cards — **không** redesign layout.
+2. Segment **0** Điểm tuần · **1** Sự cố — **cấm** đổi thứ tự (`GAP-TAB-01`).
+3. Banner `offline.banner.weak` khi pending>0 trên tab · ẩn khi empty.
+4. Card display (title · location · status **Chờ gửi** · time · content) keep prior SSOT copy dual.
+5. **Sync (HARD delta):** Tap **Đồng bộ** khi online → for each pending `checkIn` có `sessionId` + body: `POST mobile-bff/api/v1/patrol/sessions/{sessionId}/check-ins` body PascalCase `CreatePatrolCheckInRequest` · remove local item **chỉ** khi HTTP 2xx · toast **Đã đồng bộ N bản ghi** với N = số apply OK · **cấm** clear-all · **cấm** native alert.
+6. Sync offline / fail network → toast lỗi · **giữ** toàn bộ queue · **cấm** clear.
+7. Partial fail → giữ item lỗi · tiếp tục item còn lại (hoặc stop-on-fail OK nếu Dev chọn — **cấm** xóa fail).
+8. Optional sau ≥1 apply OK: `POST integration/sync/offline-batch` receipt (`Partner` · `DeviceId` · `BatchId` · `RecordCount`=N synced · `Note`) — fail receipt **không** rollback local đã xóa OK · **không** clear thêm.
+9. Segment Sự cố: filter only · sync **không** xóa incident (P2 · `incident.incidents.create` chưa apply).
+10. Entry reuse (cấm reimplement hub): Home tile **Lưu trữ** · Me **Hàng đợi mất sóng** · patrol-home nav Đồng bộ → cùng `#sc-patrol-offline` (nav stub OK P1 · GAP-MOB-ACT-PAT-OFFLINE-01 Defer).
+11. Badge Me: `offlineCount` local · **cấm** GET queue.
+12. Local store UserDefaults / SharedPreferences|Room — payload **đầy đủ** cho replay (§5).
+13. Enqueue writer (sibling `SubmitPatrolCheckInUseCase` / Android parity): persist `sessionId` + planPointLabel · route · lat · lng · accuracyM · distanceToPlanM · matchOk · content · photoLocalIds — **in scope Dev delta** của pack này (cùng feature slug · không start sibling confirm).
+14. Kit: `LinmSegment` · `LinmBanner` · `LinmToast` · TopBar text leading/trailing keep prior `implement_kit` · **cấm** invent LinmRichCard tên mới.
+15. App chỉ `{BffPrefix}` · Bearer Keychain / Encrypted · **cấm** `:5101` · ERP.*.
+16. Permissions: replay = `patrol.sessions.update` · incident P2 = `incident.incidents.create` · **không** invent BFF permission mới.
+17. Step 4b **N/A** · **cấm** `PatrolOfflineController` · **cấm** invent GET queue.
+18. Dev/QA (role sau): build + Maestro — **cấm** ở PO.
 
 ## 4. CTX / DEM / DI inventory
 
 | ID | Path | Loại |
 |----|------|------|
-| CTX-01 | `docs/context/features/patrol-offline.md` | list · local queue · POST batch |
-| CTX-02 | `docs/context/features/integration.md` | `POST /api/v1/integration/sync/offline-batch` |
-| DEM-01 | `specs/mobile-p1/ui/prototype/ios/index.html` `#sc-patrol-offline` | iOS 390×844 · `DES-MOB-PAT-OFFLINE` · **copy SSOT** 2 card |
-| DEM-02 | `specs/mobile-p1/ui/prototype/android/index.html` `#sc-patrol-offline` | Android 412×915 · **thiếu** card 2 / mappin / nội dung — Design align |
-| DEM-03 | `specs/patrol-offline/ui/prototype/` | pack stub — Design chép dual từ mobile-p1 **sau khi** Android = iOS copy |
-| STR | `docs/mobile-strings.json` keys `offline.*` · `home.tile.offline` · `me.row.offline*` | VN SSOT |
-| MAP | `docs/html-to-native-map.md` | `LinmSegment` · `LinmBanner`/`LinmToast` · `.rich-card`→`LinmListRow` · `LinmTopBar` icon chrome |
-| DI-01 | — | **no Excel** |
-| DA-01 | `specs/_data-analy/patrol-offline-control-hint.md` | controlHint |
-| DA-02 | `specs/_data-analy/patrol-offline-bff-endpoints.md` | BFF · **chỉ** POST offline-batch |
-| DA-03 | `specs/_data-analy/patrol-offline-action-tree.md` | owner me · reuse home |
-| SCAN | `specs/_form-type-mobile/ACTION-TREE.md` · `BY-ACTION.md` | verify share/reuse |
-| IOS | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS` | native |
-| AND | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android` | native |
-| BFF | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Bff` | proxy `mobile-bff/api/v1` |
-| BE | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.WebService` | `IntegrationEndpointsController.OfflineBatch` · **cấm ERP.*** |
-| KIT | `Linm.Mobile.Kit.iOS` + `Linm.Mobile.Kit.Android` | Segment / Banner / Toast / ListRow **đã có** · TopBar text **thiếu** |
+| CTX-01 | `docs/context/features/patrol-offline.md` | list · local queue |
+| DEM | `specs/patrol-offline/ui/prototype/{ios,android}/index.html` `#sc-patrol-offline` | **keep** zones · `DES-MOB-PAT-OFFLINE` |
+| STR | `docs/mobile-strings.json` `offline.*` | VN SSOT |
+| MAP | `docs/html-to-native-map.md` | Segment / Banner / Toast / ListRow / TopBar |
+| DI | — | **no Excel** |
+| DA-01 | `specs/_data-analy/patrol-offline-control-hint.md` | § Delta · controlHint |
+| DA-02 | `specs/_data-analy/patrol-offline-real-data.md` | samples · anti-patterns |
+| DA-03 | `specs/_data-analy/patrol-offline-bff-endpoints.md` | check-ins + offline-batch |
+| DA-04 | `specs/_data-analy/patrol-offline-action-tree.md` | owner me · reuse home |
+| IOS / AND / BFF / BE | abs paths STATUS | native_dual · proxy · WebService Patrol+Integration |
 
-**Cấm** cite `mfeStdUrl` / `http://localhost:9301/` trên artifact native.
+## 5. controlHint (PO chốt — UI unchanged · payload NEW)
 
-## 5. controlHint (PO chốt — Design map kit · SA map API)
+| Field | VN | controlHint | Required | Kit | Notes |
+|-------|----|-------------|----------|-----|-------|
+| navBack | Trang Chủ | Back text | * | `LinmTopBar` text leading | pop |
+| title | Dữ liệu lưu trữ | Text | * | TopBar title | |
+| syncBtn | Đồng bộ | TextButton | * | TopBar text trailing | **replay** |
+| segCheckIn | Điểm tuần mất sóng | Segment | * | `LinmSegment` 0 | filter checkIn |
+| segIncident | Sự cố mất sóng | Segment | * | `LinmSegment` 1 | filter incident |
+| offlineBanner | Tín hiệu yếu — … | Banner warn | * | `LinmBanner` | ẩn khi empty |
+| cardTitle / location / time / status | … | display | * | rich→ListRow | keep |
+| items[].sessionId | — | Hidden | * checkIn | local | **NEW** replay key |
+| items[].planPointLabel | — | Hidden | * checkIn | local | body |
+| items[].route | — | Hidden | * checkIn | local | body |
+| items[].lat / lng | — | Hidden | * checkIn | local | body |
+| items[].accuracyM | — | Hidden | * checkIn | local | body |
+| items[].distanceToPlanM | — | Hidden | * checkIn | local | body |
+| items[].matchOk | — | Hidden | * checkIn | local | body |
+| items[].content | — | Hidden | | local | body |
+| items[].photoLocalIds | — | Hidden | | local | guids |
+| toastSync | Đã đồng bộ N bản ghi | Toast | * | `LinmToast` | N = apply OK |
 
-Nguồn `#sc-patrol-offline` iOS dual-target + DA-01. UNCLEAR field = **none**.
+UNCLEAR field = **none**.
 
-| Field | VN | controlHint | Required | Kit (iOS+Android cùng turn) | Notes |
-|-------|----|-------------|----------|------------------------------|-------|
-| navBack | Trang Chủ | BackButton text | * | `LinmTopBar` **text leading** (kit gap) | `go('home')` / pop · `#i-chevron-left` |
-| title | Dữ liệu lưu trữ | Text | * | TopBar title | `offline.title` |
-| syncBtn | Đồng bộ | TextButton | * | TopBar **text trailing** (kit gap) | POST batch |
-| segCheckIn | Điểm tuần mất sóng | Segment tab | * | `LinmSegment` index **0** | filter `checkIn` |
-| segIncident | Sự cố mất sóng | Segment tab | * | `LinmSegment` index **1** | filter `incident` |
-| offlineBanner | Tín hiệu yếu — ghi cục bộ, đồng bộ khi tín hiệu tốt | Banner warn | * | `LinmBanner` warning · `#i-wifi-off` | ẩn khi empty |
-| cardThumb | (visual) | Image slot | | rich card thumb 56 | demo gradient · **cấm** watermark |
-| cardTitle | Điểm tuần · Km … | Text | * | rich card | local |
-| cardLocation | QL.1 · … | Text | * | rich card + `#i-mappin` | dual |
-| cardContent | Nội dung: … | Text | | rich card | card 1 only |
-| cardTime | 2026-08-10 … | Text | * | rich card | local timestamp |
-| cardStatus | Chờ gửi | Badge warn | * | status strip | **cùng** 2 OS |
-| toastSync | Đã đồng bộ N bản ghi | Toast | * | `LinmToast` success | sau POST OK |
-| toastIncidentEmpty | Sự cố mất sóng · chưa có bản ghi | Toast | * | `LinmToast` info | tab 1 empty |
+## 6. BFF (PO chốt — **cấm** invent)
 
-Toast / banner → `LinmToast` / `LinmBanner`. **Cấm** AC implement raw `TabView` / M3 `NavigationBar` cho segment.
+| Action | Method | Path | In slug? |
+|--------|--------|------|----------|
+| Replay check-in | POST | `patrol/sessions/{sessionId}/check-ins` | **yes** — apply DB · **primary** |
+| Sync receipt | POST | `integration/sync/offline-batch` | **yes** — optional after OK |
+| Queue list / badge | — | — | **no** — local · **cấm** GET |
+| Check-in live / incident form | — | sibling | **no** |
 
-## 6. BFF (PO chốt path — **cấm** invent)
-
-App `ApiClient.base` = `{BffBase}/mobile-bff/api/v1`. Path **không** lặp prefix.
-
-| Action | Method | Path | In slug `patrol-offline`? |
-|--------|--------|------|---------------------------|
-| Sync batch | POST | `integration/sync/offline-batch` | **yes** — proxy → `IntegrationEndpointsController.OfflineBatch` · DTO `OfflineBatchRequest` |
-| Queue list | — | — | **no** — local store · **cấm** invent GET |
-| Badge count | — | — | **no** — `pendingCount()` local |
-| Check-in live | — | `patrol/*` | **no** — sibling `patrol-home` |
-| Incident create | — | `incident/*` | **no** — sibling `incident-create` |
-| Profile | GET | `auth/profile` | **no** — `home` / `me` |
-
-Downstream đã có: `POST api/v1/integration/sync/offline-batch`. Mobile.Bff = **proxy catch-all only**.
+Wire body (PascalCase): `PlanPointLabel` · `Route` · `Lat` · `Lng` · `AccuracyM` · `DistanceToPlanM` · `MatchOk` · `Content` · `PhotoLocalIds`.
 
 ## 7. Open questions — PO chốt
 
-| ID | Question | Decision (PO) |
-|----|----------|----------------|
-| GAP-F-OFFLINE-01 | Empty store vs empty sau sync | **Seed demo 1 lần** khi key chưa tồn tại. Sync OK → persist [] + initialized. **Cấm** `seedDemoIfEmpty`/`ifEmpty { demoItems }` sau sync. |
-| GAP-F-OFFLINE-02 | Android HTML 1 card / back icon-only / status «Chờ gửi» vs iOS 2 card + «Trang Chủ» | **iOS HTML = copy SSOT.** Design align Android prototype **cùng** 2 card · mappin · nội dung · back **Trang Chủ** · sync text. Native dual = SSOT đó (`GAP-MOB-DEMO-COPY-01/02`). |
-| GAP-F-OFFLINE-03 | Status dài card 1 iOS | Production pill **Chờ gửi**. Helper = banner. Strings dài `offline.status.pending` **không** bắt buộc in card nếu lệch dual. |
-| GAP-F-OFFLINE-04 | Toast segment Sự cố demo «1 bản ghi» | **Empty →** `offline.toast.incidentEmpty`. Có item → list, không toast count giả. |
-| Queue GET | analy cấm | **Confirm cấm.** SA không invent controller. |
-| packKind | data-analy `list` | **Confirm `list`.** ≠ web catalog Grid AC. |
-| Kit TopBar text | `LinmTopBar` icon-only | **`kit_missing_confirm` = implement_kit** text slots. **Cấm** `kit_skip`. |
-| Rich card kit | map `LinmListRow` | Design verify thumb+status. Thiếu → `kit_missing_confirm`. **Cấm** raw card nếu kit đủ. |
-| Badge Home tile | CTX vs HTML | HTML tile **không** badge số → **không** invent. Me row badge + subtitle **có**. |
-| Permission sync | CTX patrol/incident vs Integration signed | Pack này gọi Integration batch. Writer permission = sibling. **Không** thêm BFF permission turn này. |
-| GAP-PO-STORE-01 | signup / xóa tài khoản | **N/A** — không signup. |
-| Sibling patrol-home / incident-create | enqueue writers | **Không** start `pending_confirm` (`GAP-MOB-ACT-06`). |
-| Cluster web path | `specs/patrol-offline/specs/_data-analy/` | **N/A.** Dùng `_data-analy/patrol-offline-*.md`. |
-| Prior stub design/sa/task/implement | files tồn tại | Role sau **viết lại/khớp** PO này khi tới lượt — PO **không** `design_confirm` / `solution_confirm` turn này. |
+| ID | Decision |
+|----|----------|
+| GAP-OFFLINE-APPLY-01 | Sync = replay check-ins 2xx-only remove · **không** clear-all sau offline-batch stub |
+| GAP-OFFLINE-APPLY-02 | offline-batch = optional receipt · RecordCount = synced · **không** apply DB |
+| GAP-OFFLINE-APPLY-03 | Enqueue persist full sessionId+body dual |
+| GAP-OFFLINE-APPLY-04 | Incident keep pending P2 · **cấm** clear trên sync |
+| GAP-OFFLINE-APPLY-05 | UI zones unchanged · Design keep prototype |
+| GAP-F-OFFLINE-01 | Keep: **cấm** re-seed demo sau sync OK · anti-pattern real-data |
+| Queue GET / Step 4b / ERP.* | **Confirm cấm** |
+| packKind | **Confirm `list`** |
+| GAP-MOB-ACT-PAT-OFFLINE-01 | patrol-home nav Đồng bộ wire Defer P1 stub OK |
 
-UNCLEAR field = **none** — không AskQuestion field.
+UNCLEAR = **none** — không AskQuestion.
 
 ## 8. Screens (REQUIRED)
 
 | Surface | Demo | Pattern | FormMode | Actions **this** `{feature}` | `devSlash` |
 |---------|------|---------|----------|------------------------------|------------|
-| List Dữ liệu lưu trữ | `#sc-patrol-offline` `DES-MOB-PAT-OFFLINE` · iOS + Android | **List** (nav + segment + cards · không Modal/Sheet) | none (không form) | Appear local · filter segment · POST sync · toast | `/agent-dev-ios` + `/agent-dev-android` |
+| List Dữ liệu lưu trữ | `#sc-patrol-offline` `DES-MOB-PAT-OFFLINE` | **List** | none | Appear local · filter · **replay** POST check-ins · optional receipt · toast | `/agent-dev-ios` + `/agent-dev-android` |
 
-**Không** trên pack này: `#sc-home` hub · `#sc-me` (trừ wiring row + badge) · `#sc-patrol-home` check-in · `#sc-inc-form` · xóa từng bản ghi · conflict UI · watermark.
-
-Cùng `go('patrol-offline')` từ Home tile / Me row / patrol nav = **một** slug — Design 3 entry, **một** màn owner.
-
-Frame: iOS 390×844 · Android 412×915 · safe area · content không đè notch / home indicator.
+**Không** trên pack: check-in live · incident form · conflict UI · invent queue API · layout redesign.
 
 ## 9. Device AC (REQUIRED)
 
 | ID | Behavior | AC |
 |----|----------|-----|
-| AC-D-01 | Offline | Màn **mở** từ local queue · banner yếu sóng khi có pending · Sync khi **không** mạng → `LinmToast` lỗi in-app · **giữ** bản ghi · **cấm** full-screen block · **cấm** native alert |
-| AC-D-02 | GPS deny | **N/A** — list không GPS (sibling patrol-home) |
-| AC-D-03 | Leave dirty | **N/A** — không form |
-| AC-D-04 | Native alert | **Cấm** `UIAlert` / `AlertDialog` / `window.alert`. Mọi phản hồi = `LinmToast` / `LinmBanner` |
-| AC-D-05 | Keyboard | **N/A** — không input |
-| AC-D-06 | Safe area | Nav + segment + cards không đè notch / home indicator / gesture inset |
+| AC-D-01 | Offline | Mở local · Sync không mạng → toast lỗi · **giữ** queue · **cấm** clear · **cấm** native alert |
+| AC-D-02 | GPS | **N/A** list (payload đã có từ enqueue) |
+| AC-D-03 | Leave dirty | **N/A** |
+| AC-D-04 | Native alert | **Cấm** UIAlert / AlertDialog / window.alert |
+| AC-D-05 | Keyboard | **N/A** |
+| AC-D-06 | Safe area | Nav + segment + cards không đè inset |
 | AC-D-07 | Biometric | **N/A** |
-| AC-D-08 | Signal | Banner hạng yếu **copy SSOT** · **cấm** «Có mạng» · **cấm** tap-cycle proto · **không** bắt tap tín hiệu trên màn này |
-| AC-D-09 | Token | POST batch Bearer Keychain / Encrypted · app chỉ `{BffPrefix}` |
-| AC-D-10 | Tab / swipe | Shell tab **không** đổi (IA 5). In-screen segment 0→1 như §3.2. iOS swipe-back pop · Android predictive back |
-| AC-D-11 | Camera / push | **N/A** |
-| AC-T-01 | Type | Segment/label **13** · **cấm** tab 10 / label 12 (`GAP-TYP-01`). Không field input → field ≥16 **N/A** |
-| AC-F-01 | Appear | Load local · first-run seed §3.10 · **không** GET queue |
-| AC-F-02 | Sync OK | Toast N bản ghi · clear pending · initialized · **không** re-seed |
-| AC-F-03 | Sync fail | Toast lỗi · **giữ** queue |
-| AC-F-04 | Entry | Home tile + Me row + patrol nav → **cùng** `#sc-patrol-offline` |
-| AC-F-05 | Dual parity | iOS + Android **cùng** copy + 2 card SSOT · `#i-chevron-left` · `#i-wifi-off` · `#i-mappin` · `#i-sync` entry (`GAP-MOB-ALIGN-01`) |
-| AC-F-06 | Watermark | **Cấm** «bản Gói N» / «gen realapp» / device label |
+| AC-D-08 | Signal | Banner yếu sóng SSOT · **cấm** «Có mạng» |
+| AC-D-09 | Token | Bearer Keychain/Encrypted · chỉ `{BffPrefix}` |
+| AC-D-10 | Tab/swipe | Shell tab không đổi · segment 0↔1 · swipe-back / predictive back |
+| AC-D-11 | Camera/push | **N/A** |
+| AC-T-01 | Type | Segment/label **13** (`GAP-TYP-01`) |
+| AC-F-01 | Appear | Load local pending · EmptyChrome khi 0 · **không** GET queue |
+| AC-F-02 | Sync OK | Per-item POST check-ins 2xx → remove · toast N · optional receipt · **không** re-seed |
+| AC-F-03 | Sync fail / partial | Toast · **giữ** fail items · **cấm** clear-all |
+| AC-F-04 | Incident tab | Filter only · sync **không** xóa incident |
+| AC-F-05 | Payload | Missing sessionId/body → item **không** silent-drop as success · toast/keep fail |
+| AC-F-06 | Dual parity | iOS+Android cùng behavior + zones |
+| AC-F-07 | Watermark | **Cấm** Gói N / gen realapp / device label |
 
-## 10. Leave / alert (REQUIRED)
+## 10. Leave / alert
 
 | Case | UI |
 |------|-----|
-| Dirty leave | **Không áp dụng** |
-| Sync fail / offline POST | `LinmToast` · **cấm** native alert (`GAP-PO-LEAVE-01`) |
-| Sync success | Toast **Đã đồng bộ N bản ghi** |
-| Incident tab empty | Toast **Sự cố mất sóng · chưa có bản ghi** |
-| Back | pop → Home / Me (parent entry) |
+| Dirty leave | N/A |
+| Sync fail / offline | `LinmToast` · giữ queue |
+| Sync success | Toast **Đã đồng bộ N bản ghi** (N=apply OK) |
+| Back | pop |
 
-## 11. Out of scope (this pack)
+## 11. Out of scope
 
-- Check-in live / map ca / kết thúc ca (`patrol-home`)
-- Ghi sự cố form (`incident-create`) / list vấn đề
-- Xóa từng bản ghi (P2)
-- Conflict resolution UI (P2)
-- Invent GET queue / `PatrolOfflineController` / `HomeController`
-- Numeric badge trên Home tile (HTML không có)
-- Web Integration hub / Lin* grid / Kind A–G
-- GPS / camera / map / biometric / push request
-- Start sibling `pending_confirm`
-- Clone Auth/Integration controller · ERP.* · `mfeStdUrl`
-- Watermark Gói / device label / proto-click tín hiệu
+- Layout redesign / new zones
+- Invent GET queue / new BE endpoint / ERP.*
+- Incident replay API (P2 keep pending)
+- Conflict UI · per-item delete UI (P2)
+- Check-in live / incident form screens
+- `mfeStdUrl` · yarn start:std · e2e ở PO
+- PrivacyInfo / store submit (`/review-app-submit`)
 
-## 12. KPI (HĐ Gói 1 — màn này)
+## 12. KPI
 
-Hiện trường mất sóng không mất nhật ký tuần / nháp: xem hàng đợi + đồng bộ batch. DoD = list dual + local store + **một** POST Integration đã có — **không** omni-implement patrol/incident trong 1 slug.
+Mất sóng không mất nhật ký: queue local + replay apply thật vào PatrolCheckIns. DoD = N toast = số POST 2xx — **không** clear mù sau stub offline-batch.
 
 ## 13. Handoff → Design
 
 | Field | Value |
 |-------|-------|
-| feature / packKind | `patrol-offline` / **`list`** (confirmed) |
-| phase_from / phase_to | po **confirmed** → design pending |
+| feature / packKind | `patrol-offline` / **`list`** |
+| phase_from / phase_to | po **confirmed** → design pending (keep prototype) |
 | STATUS | `specs/patrol-offline/STATUS.md` |
-| Context / Demo / DI | CTX-01 · DEM dual `#sc-patrol-offline` · no Excel |
+| compact | `handoff/po-compact.md` |
 | controlHint / UNCLEAR | §5 · none |
-| Screens / Pattern / `devSlash` | List `#sc-patrol-offline` · `/agent-dev-ios` + `/agent-dev-android` |
-| Grid AC / Report AC | **N/A** — không list/report web |
-| peerStdUrl / reviewUrl | **cấm** `mfeStdUrl` · Design mở dual `file://…/prototype/{ios,android}/index.html#sc-patrol-offline` + reviewUrl **cả hai** · chép vào `specs/patrol-offline/ui/prototype/{ios,android}/` |
-| ux-analy | `/mobile-ui-ux-analy` → `ui/ux-analy.md` §1–§9 **REQUIRED** trước `design_confirm` |
-| Kit | `LinmSegment` / `LinmBanner` / `LinmToast` reuse · TopBar **text** = `kit_missing_confirm` implement_kit · rich-card verify map |
-| BFF | `patrol-offline-bff-endpoints.md` · **chỉ** `POST integration/sync/offline-batch` |
-| Open questions | GAP-F-OFFLINE-01…04 đã chốt §7 — Design **align Android HTML** · **không** vẽ GET queue · **không** vẽ conflict UI |
-| Next AskQuestion | autoApprove=ON — `design_confirm` khi Design xong **cả hai** mock + ux-analy |
+| Screens | List `#sc-patrol-offline` · zones **unchanged** |
+| Delta note | Design **keep** UI · annotate sync = replay (toast N=apply OK) · **không** vẽ GET queue |
 | Next slash | `/agent-design-mobile` |
 | Chain this turn | **không** (roleOnly=po) |
-| e2eQa | ON khi QA · `yarn e2e-qa-mobile` · **cấm** yarn start:std / mfeStdUrl |
-
-Design: HIG + Material · copy VN đúng iOS HTML (trừ status pill ngắn §3.4) · **cấm** skin Ministry · **cấm** «Có mạng» · packet `design-demo-ssot.md` · `/review-demo-design-mobile` trước confirm.
+| autoApprove | ON khi Design tới lượt |
+| e2eQa | queued QA · **cấm** e2e PO |
 
 ## Version meta (REQUIRED)
 
 | Field | Value |
 |-------|-------|
 | skillId | agent-po-mobile |
-| skillVersion | 2026.08.19.23 |
+| skillVersion | 2026.08.19.29 |
 | schemaVersion | 1 |
 | workflowVersion | 2026.08.19.29 |
 | rulesVersion | 2026.08.19.34 |
-| generatedAt | 2026-08-19T13:50:00.000Z |
+| generatedAt | 2026-09-12T14:30:00.000Z |
 | versionGate | rechecked |
-| contentHash | sha256:2f2cf6976914278da294ed00a6d1eeecb50364201812335d6852c0f4e46ccaad |
-| bffContentHash | sha256:10d525fc95cdd32c9e4ede818499041f44341c7481d1d44e0fde6bec5738f403 |
+| contentHash | sha256:patrol-offline-delta-apply-checkins-20260912 |
+| bffContentHash | sha256:patrol-offline-bff-apply-checkins-20260912 |
+| realDataHash | sha256:patrol-offline-real-data-apply-checkins-20260912 |
 
 ---
-<!-- Version meta: skillId=agent-po-mobile skillVersion=2026.08.19.23 schemaVersion=1 workflowVersion=2026.08.19.29 rulesVersion=2026.08.19.34 versionGate=rechecked -->
+<!-- Version meta: skillId=agent-po-mobile skillVersion=2026.08.19.29 schemaVersion=1 workflowVersion=2026.08.19.29 rulesVersion=2026.08.19.34 versionGate=rechecked -->

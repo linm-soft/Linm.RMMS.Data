@@ -93,15 +93,16 @@
     <symbol id="i-mappin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-4.5 7-10a7 7 0 1 0-14 0c0 5.5 7 10 7 10z"/><circle cx="12" cy="11" r="2.5"/></symbol>
   </svg>
 
-  <div class="note">DES-MOB-PAT-OFFLINE · Android 412×915 · patrol-offline</div>
+  <!-- Design annotate: gap=offline_sync_apply_checkins · sync=replay POST check-ins · UI zones keep · hash skip -->
+  <div class="note">DES-MOB-PAT-OFFLINE · Android 412×915 · patrol-offline · replay annotate</div>
   <div class="phone">
-    <div id="sc-patrol-offline" data-des-id="DES-MOB-PAT-OFFLINE">
+    <div id="sc-patrol-offline" data-des-id="DES-MOB-PAT-OFFLINE" data-sync-mode="replay-checkins">
       <div class="top-bar" data-des-id="DES-MOB-PAT-OFFLINE-NAV">
         <button class="nav-btn" type="button" id="nav-back" onclick="toast('Quay Trang Chủ')">
           <svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg> Trang Chủ
         </button>
         <div class="nav-title">Dữ liệu lưu trữ</div>
-        <button class="btn-sync" type="button" id="btn-sync" onclick="onSync()">Đồng bộ</button>
+        <button class="btn-sync" type="button" id="btn-sync" data-action="replay-checkins" onclick="onSync()" title="Replay → POST patrol/sessions/{id}/check-ins">Đồng bộ</button>
       </div>
       <div class="seg" data-des-id="DES-MOB-PAT-OFFLINE-SEG">
         <button class="on" type="button" data-seg="0" onclick="selectSeg(0)">Điểm tuần mất sóng</button>
@@ -113,7 +114,7 @@
             <svg class="ic" viewBox="0 0 24 24"><use href="#i-wifi-off"/></svg>
             Tín hiệu yếu — ghi cục bộ, đồng bộ khi tín hiệu tốt
           </div>
-          <div class="rich-card" data-des-id="DES-MOB-PAT-OFFLINE-CARD">
+          <div class="rich-card" data-des-id="DES-MOB-PAT-OFFLINE-CARD" data-kind="checkIn" data-payload="sessionId+CreatePatrolCheckInRequest" data-session-id="demo-session-1">
             <div class="rc-main">
               <div class="rc-thumb"></div>
               <div class="rc-body">
@@ -125,7 +126,7 @@
             </div>
             <div class="rc-status warn">Chờ gửi</div>
           </div>
-          <div class="rich-card">
+          <div class="rich-card" data-kind="checkIn" data-payload="sessionId+CreatePatrolCheckInRequest" data-session-id="demo-session-1">
             <div class="rc-main">
               <div class="rc-thumb alt"></div>
               <div class="rc-body">
@@ -158,6 +159,8 @@
       document.getElementById('panel-incident').classList.toggle('hidden', i !== 1);
       if (i === 1) toast('Sự cố mất sóng · chưa có bản ghi');
     }
+    // Native: replay each checkIn → POST …/check-ins · remove only 2xx · N = apply OK · optional offline-batch receipt
+    // Incident tab: P2 keep · cấm clear-all / clear incident
     function onSync() {
       if (seg === 0) toast('Đã đồng bộ 2 bản ghi');
       else toast('Sự cố mất sóng · chưa có bản ghi');

@@ -16,14 +16,14 @@
 | Mục tiêu | Hạt trưởng / giám sát xem **danh sách check-in** tuần đường · lọc tuyến/ngày · chuyển bản đồ (P2) |
 | Persona | Hạt trưởng giám sát · quản lý ca |
 | App hiện có | Mobile **Giám sát** (list) · Web **Giám sát hoạt động** — giữ UX legacy |
-| DoD | List check-in card · segment Danh sách/Bản đồ · filter toast P1 · GET attendance-logs + demo fallback |
+| DoD | List check-in card · segment Danh sách/Bản đồ · **filter sheet live** tuyến/ngày · map = sibling push · GET attendance-logs · **cấm** toast giả lập filter |
 
 ## 2. Design / UI
 
 | Screen | Pattern | Zones |
 |--------|---------|-------|
 | Giám sát list | Full List push from home | Nav back · filter · segment · rich-card rows |
-| Giám sát bản đồ | sibling `patrol-map` | toast P1 |
+| Giám sát bản đồ | sibling `patrol-map` | push native (cấm toast) |
 
 **Shell:** `#sc-supervise` · tab Trang Chủ context · **không** tab bar on push screen.
 
@@ -41,9 +41,10 @@ BFF: `mobile-bff/api/v1/patrol/attendance-logs` proxy catch-all.
 
 | ID | Default | Status |
 |----|---------|--------|
-| GAP-MOB-SUP-01 | Filter sheet / route picker | P1 toast only |
-| GAP-MOB-SUP-02 | Map segment live | P1 toast · sibling `patrol-map` |
-| GAP-MOB-SUP-03 | Org unit on card | demo fallback when BE lacks field |
+| GAP-MOB-SUP-01 | Filter sheet live tuyến/ngày | **Must** · task_82b70c41 · cấm toast |
+| GAP-MOB-SUP-02 | Map segment → sibling push | **Must** · PatrolMap native exists |
+| GAP-MOB-SUP-03 | Org unit on card | Note / fallback when BE lacks field |
+| GAP-MOB-SUP-04 | BE fromDate/toDate | P2 · P1 = client day filter |
 
 ## 5. Demo checklist
 
@@ -57,4 +58,4 @@ BFF: `mobile-bff/api/v1/patrol/attendance-logs` proxy catch-all.
 | lane | phase | status | updatedAt |
 |------|-------|--------|-----------|
 | web | — | — | — |
-| mobile | `done` | `done` | `2026-09-01T02:58:18.605Z` |
+| mobile | `done` | `done` | `2026-09-12T10:32:11.381Z` |

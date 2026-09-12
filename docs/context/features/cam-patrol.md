@@ -70,7 +70,9 @@ App base: `{BffBase}/mobile-bff/api/v1`. **Cấm** app `:5101` · invent `api/v1
 |----|---------|
 | GAP-MOB-CAM-PACK-01 | **CLOSED** PO · packKind=`screen` · demo full `#sc-cam-patrol` |
 | GAP-MOB-CAM-SCORE-01 | Design **cấm** score chrome · demo hiện 91% — Design ẩn % |
-| GAP-MOB-CAM-DETECT-01 | `DetectAiVisionRequest` stub (Engine/Note) — SA mở rộng body ảnh/GPS/video khi Signed |
+| GAP-MOB-CAM-DETECT-01 | DTO `ImageBase64`/`Lat`/`Lng` **đã live** — supersede bởi FRAME client |
+| GAP-MOB-CAM-FRAME-01 | **OPEN** · cam-patrol POST detect `imageBase64=null` → BE heuristic · DoD: frame thật |
+| GAP-MOB-CAM-FRAME-02 | **OPEN** · fail = toast · **cấm** fallback class giả UI |
 | GAP-MOB-BFF-01 | Không — proxy catch-all đủ path domain đã có |
 
 ## Implement tracking
@@ -78,4 +80,4 @@ App base: `{BffBase}/mobile-bff/api/v1`. **Cấm** app `:5101` · invent `api/v1
 | lane | phase | status | updatedAt |
 |------|-------|--------|-----------|
 | web | — | — | — |
-| mobile | `done` | `done` | `2026-09-01T06:19:06.751Z` |
+| mobile | `done` | `done` | `2026-09-12T11:49:47.610Z` |

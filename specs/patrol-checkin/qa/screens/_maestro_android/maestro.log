@@ -7,20 +7,13 @@ Assert that id: f-user is visible... COMPLETED
 Tap on id: f-user... COMPLETED
 Erase text... COMPLETED
 Input text linm-soft... COMPLETED
-Tap on "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"... COMPLETED
+Press Back key... COMPLETED
 Tap on id: f-pass... COMPLETED
 Erase text... COMPLETED
 Input text Linm@2026... COMPLETED
-Press Enter key... COMPLETED
-Wait for animation to end within 4000 ms... COMPLETED
-Tap on (Optional) id: btn-login... WARNED
-
-
- Warning: Element not found: Id matching regex: btn-login
-Tap on (Optional) "Đăng nhập"... WARNED
-
-
- Warning: Element not found: Text matching regex: Đăng nhập
+Press Back key... COMPLETED
+Scrolling DOWN until id: btn-login is visible with speed 40, visibility percentage 100%, timeout 10000 ms, with centering disabled... COMPLETED
+Tap on id: btn-login... COMPLETED
 Assert that "Trang Chủ" is visible... COMPLETED
 Assert that id: sc-home is visible... COMPLETED
 Tap on id: tab-field... COMPLETED

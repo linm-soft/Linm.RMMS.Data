@@ -13,7 +13,8 @@
 | Mục tiêu | Sheet **Ghi điểm tuần** · prefill điểm KH / lý trình / GPS ghim · banner đúng/sai điểm · nội dung + ảnh · Lưu / Ghi nhận |
 | Persona | Tuần đường |
 | Entry | Hub `patrol-home` CTA · map `patrol-map` · handoff `patrol-pin` `openSheet('checkin')` |
-| DoD P1 | Sheet dual parity · GPS live · match banner · camera attach · submit toast · GET session prefill · POST check-ins khi BE live (GAP nếu thiếu) |
+| DoD P1 | Sheet dual parity · GPS live · match banner · camera · submit · GET session · POST check-ins |
+| DoD edit `task_7e0ff15b` | Upload ảnh FileService `files/*` · đối soát điểm KH từ BE plan-points **khi có** · **cấm** fake lat/lng · **cấm** plan=GPS làm SSOT |
 
 ## 2. Design / UI
 
@@ -34,8 +35,10 @@
 |--------|-------------------|--------|
 | GET | `patrol/sessions` | **Live** — active session Route / CheckInCount |
 | GET | `patrol/sessions/{id}` | **Live** — detail prefill |
-| POST | `patrol/sessions/{id}/check-ins` | CTX Kind E · **MISSING** controller → **GAP-MOB-BFF-01** |
-| — | GPS / Camera | **Device** |
+| POST | `patrol/sessions/{id}/check-ins` | **Live** (GAP-MOB-BFF-01 closed) |
+| GET | `patrol/sessions/{id}/plan-points` | Kind E đề xuất · **GAP-MOB-CI-PLAN-BE-01** |
+| `files/*` | FileService qua Mobile.Bff | **GAP-MOB-BFF-FILE-01** / `mobile-bff-file` |
+| — | GPS | **Device live** · **cấm** fake |
 
 **Cấm invent:** `api/v1/patrol-checkin` · ERP.* · app `:5101` · gộp `patrol-pin` form.
 
@@ -58,4 +61,4 @@ Frame iOS 390×844 · Android 412×915 · copy VN từ `#sheet-checkin` · banne
 | lane | phase | status | updatedAt |
 |------|-------|--------|-----------|
 | web | — | — | — |
-| mobile | `done` | `done` | `2026-09-01T07:21:22.137Z` |
+| mobile | `done` | `done` | `2026-09-12T13:25:30.060Z` |

@@ -84,6 +84,51 @@
       max-width: calc(100% - 32px); text-align: center; transition: .25s ease;
     }
     .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .nav-cue {
+      position: absolute; left: 16px; right: 16px; top: 110px; z-index: 45;
+      background: rgba(12,132,192,.95); color: #fff; font-size: 13px; font-weight: 600;
+      padding: 10px 12px; border-radius: 10px; text-align: center;
+      opacity: 0; pointer-events: none; transition: .2s ease;
+    }
+    .nav-cue.show { opacity: 1; }
+    .sheet-mask {
+      position: absolute; inset: 0; background: rgba(0,0,0,.35); z-index: 50;
+      display: none; align-items: flex-end; justify-content: center;
+    }
+    .sheet-mask.open { display: flex; }
+    .sheet {
+      width: 100%; background: var(--card); border-radius: 16px 16px 0 0;
+      padding: 12px 16px 28px; box-shadow: 0 -8px 24px rgba(0,0,0,.18);
+    }
+    .sheet-handle {
+      width: 36px; height: 5px; border-radius: 3px; background: rgba(60,60,67,.18);
+      margin: 0 auto 12px;
+    }
+    .sheet-title { font-size: 17px; font-weight: 700; text-align: center; margin-bottom: 14px; }
+    .field-label { font-size: 13px; color: var(--muted); margin: 0 0 6px; }
+    .field-input {
+      width: 100%; min-height: 44px; border-radius: 10px; border: 0.5px solid rgba(60,60,67,.18);
+      background: var(--surface); padding: 10px 12px; font-size: 16px; font-family: inherit;
+      color: var(--label); margin-bottom: 12px;
+    }
+    .sheet-actions { display: flex; gap: 10px; margin-top: 8px; }
+    .btn-primary {
+      flex: 1; min-height: 44px; border: 0; border-radius: 12px; background: var(--blue);
+      color: #fff; font-size: 16px; font-weight: 600; font-family: inherit; cursor: pointer;
+    }
+    .btn-ghost {
+      flex: 1; min-height: 44px; border: 0; border-radius: 12px; background: transparent;
+      color: var(--blue); font-size: 16px; font-weight: 600; font-family: inherit; cursor: pointer;
+    }
+    .filter-chip {
+      display: none; margin: 0 16px 10px; padding: 8px 12px; border-radius: 10px;
+      background: rgba(12,132,192,.10); color: var(--blue); font-size: 13px; font-weight: 600;
+    }
+    .filter-chip.on { display: block; }
+    .empty {
+      display: none; margin: 24px 16px; text-align: center; color: var(--muted); font-size: 15px;
+    }
+    .empty.on { display: block; }
     .home-indicator {
       position: absolute; left: 50%; bottom: 8px; transform: translateX(-50%);
       width: 134px; height: 5px; background: #000; border-radius: 3px; opacity: .35;
@@ -102,14 +147,15 @@
         <svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg> Trang Chủ
       </button>
       <div class="nav-title">Giám sát tuần đường</div>
-      <button class="nav-btn" type="button" id="btn-sup-filter" onclick="toast('Lọc tuyến · ngày')">Lọc</button>
+      <button class="nav-btn" type="button" id="btn-sup-filter" onclick="openFilter()">Lọc</button>
     </div>
     <div class="seg" id="sup-segment" data-des-id="DES-MOB-SUP-SEG">
       <button class="on" type="button" id="seg-list">Danh sách check in</button>
       <button type="button" id="seg-map" onclick="onMap()">Bản đồ</button>
     </div>
-    <div class="content" data-des-id="DES-MOB-SUP-LIST">
-      <div class="rich-card" id="sup-card-demo-1" data-des-id="DES-MOB-SUP-CARD" onclick="toast('Chi tiết check-in')">
+    <div class="filter-chip" id="filter-chip" data-des-id="DES-MOB-SUP-FILTER-CHIP"></div>
+    <div class="content" data-des-id="DES-MOB-SUP-LIST" id="sup-list">
+      <div class="rich-card" id="sup-card-demo-1" data-des-id="DES-MOB-SUP-CARD" data-route="QL.1" data-day="2026-08-10" onclick="onCard()">
         <div class="rc-main">
           <div class="rc-body">
             <div class="rc-title">Nguyễn Văn A</div>
@@ -121,7 +167,7 @@
         </div>
         <div class="rc-status">Trạng thái: Đã ghi điểm tuần</div>
       </div>
-      <div class="rich-card" id="sup-card-demo-2" data-des-id="DES-MOB-SUP-CARD" onclick="toast('Chi tiết check-in')">
+      <div class="rich-card" id="sup-card-demo-2" data-des-id="DES-MOB-SUP-CARD" data-route="QL.1" data-day="2026-08-10" onclick="onCard()">
         <div class="rc-main">
           <div class="rc-body">
             <div class="rc-title">Trần Khánh</div>
@@ -133,11 +179,28 @@
         </div>
         <div class="rc-status">Trạng thái: Đã ghi điểm tuần</div>
       </div>
+      <div class="empty" id="sup-empty">Không có check-in · thử đổi lọc</div>
     </div>
+    <div class="nav-cue" id="nav-cue" role="status"></div>
     <div class="toast" id="toast" role="status"></div>
+    <div class="sheet-mask" id="filter-sheet" data-des-id="DES-MOB-SUP-FILTER" onclick="onMask(event)">
+      <div class="sheet" role="dialog" aria-labelledby="filter-title" onclick="event.stopPropagation()">
+        <div class="sheet-handle"></div>
+        <div class="sheet-title" id="filter-title">Lọc</div>
+        <label class="field-label" for="filterRoute">Tuyến</label>
+        <input class="field-input" id="filterRoute" type="text" placeholder="VD: QL.1" autocomplete="off" />
+        <label class="field-label" for="filterDate">Ngày</label>
+        <input class="field-input" id="filterDate" type="date" value="2026-08-10" />
+        <div class="sheet-actions">
+          <button class="btn-ghost" type="button" id="filterClear" onclick="clearFilter()">Xóa lọc</button>
+          <button class="btn-primary" type="button" id="filterApply" onclick="applyFilter()">Áp dụng</button>
+        </div>
+      </div>
+    </div>
     <div class="home-indicator"></div>
   </div>
   <script>
+    var state = { route: '', date: '' };
     function toast(msg) {
       var el = document.getElementById('toast');
       el.textContent = msg;
@@ -145,10 +208,65 @@
       clearTimeout(window.__toastTimer);
       window.__toastTimer = setTimeout(function () { el.classList.remove('show'); }, 2200);
     }
+    function navCue(msg) {
+      var el = document.getElementById('nav-cue');
+      el.textContent = msg;
+      el.classList.add('show');
+      clearTimeout(window.__navTimer);
+      window.__navTimer = setTimeout(function () { el.classList.remove('show'); }, 1600);
+    }
+    function openFilter() {
+      document.getElementById('filterRoute').value = state.route;
+      document.getElementById('filterDate').value = state.date || '';
+      document.getElementById('filter-sheet').classList.add('open');
+    }
+    function closeFilter() {
+      document.getElementById('filter-sheet').classList.remove('open');
+    }
+    function onMask(e) {
+      if (e.target === document.getElementById('filter-sheet')) closeFilter();
+    }
+    function applyFilter() {
+      state.route = (document.getElementById('filterRoute').value || '').trim();
+      state.date = document.getElementById('filterDate').value || '';
+      closeFilter();
+      refreshList();
+    }
+    function clearFilter() {
+      state.route = '';
+      state.date = '';
+      document.getElementById('filterRoute').value = '';
+      document.getElementById('filterDate').value = '';
+      closeFilter();
+      refreshList();
+    }
+    function refreshList() {
+      var cards = document.querySelectorAll('.rich-card');
+      var shown = 0;
+      cards.forEach(function (c) {
+        var okRoute = !state.route || (c.getAttribute('data-route') || '').indexOf(state.route) !== -1;
+        var okDate = !state.date || c.getAttribute('data-day') === state.date;
+        var ok = okRoute && okDate;
+        c.style.display = ok ? '' : 'none';
+        if (ok) shown++;
+      });
+      document.getElementById('sup-empty').classList.toggle('on', shown === 0);
+      var chip = document.getElementById('filter-chip');
+      if (state.route || state.date) {
+        chip.classList.add('on');
+        chip.textContent = 'Lọc: ' + (state.route || 'mọi tuyến') + (state.date ? ' · ' + state.date : '');
+      } else {
+        chip.classList.remove('on');
+        chip.textContent = '';
+      }
+    }
     function onMap() {
-      toast('Bản đồ');
       document.getElementById('seg-list').classList.add('on');
       document.getElementById('seg-map').classList.remove('on');
+      navCue('Push sibling #sc-patrol-map');
+    }
+    function onCard() {
+      navCue('Push supervise-detail');
     }
   </script>
 </body>

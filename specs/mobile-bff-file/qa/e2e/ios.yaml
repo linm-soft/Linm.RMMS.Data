@@ -1,0 +1,129 @@
+appId: org.linmsoft.rmms
+---
+# mobile-bff-file · P1 incident-create · LinmImageUpload kit · store A11/A9/A3
+# guest → login → Ghi sự cố → pick → #sc-inc-form · #inc-photos · #kit-linm-image-upload
+# cấm A3 trước login · cấm mfeStdUrl / start:std
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 20000
+- takeScreenshot: A11-LAUNCH
+- tapOn:
+    id: "btn-home-login"
+- extendedWaitUntil:
+    visible:
+      id: "f-user"
+    timeout: 15000
+- tapOn:
+    id: "f-user"
+- eraseText
+- inputText: "linm-soft"
+- tapOn:
+    text: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
+    optional: true
+- tapOn:
+    id: "f-pass"
+- eraseText
+- inputText: "Linm@2026"
+- tapOn:
+    text: "Not Now"
+    optional: true
+- takeScreenshot: A9-LOGIN
+- tapOn:
+    id: "btn-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
+- tapOn:
+    text: "Not Now"
+    optional: true
+- pressKey: Enter
+- waitForAnimationToEnd:
+    timeout: 4000
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 45000
+- assertVisible:
+    id: "home-quick"
+    optional: true
+- tapOn:
+    text: "Ghi sự cố"
+- extendedWaitUntil:
+    visible:
+      id: "sc-inc-pick"
+    timeout: 25000
+- assertVisible:
+    id: "banner-pick"
+    optional: true
+- assertVisible:
+    id: "asset-grid"
+    optional: true
+- scrollUntilVisible:
+    element:
+      text: "Cầu"
+    direction: DOWN
+    timeout: 20000
+    optional: true
+- tapOn:
+    id: "ak32-CULVERT_X"
+    optional: true
+- tapOn:
+    text: "Cống thoát nước ngang"
+    optional: true
+- tapOn:
+    id: "ak32-BRIDGE"
+    optional: true
+- tapOn:
+    text: "Cầu"
+    optional: true
+- tapOn:
+    text: "Allow"
+    optional: true
+- tapOn:
+    text: "OK"
+    optional: true
+- tapOn:
+    text: "While Using the App"
+    optional: true
+- tapOn:
+    text: "Allow While Using App"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-inc-form"
+    timeout: 25000
+- assertVisible: "Ghi sự cố"
+- assertVisible:
+    id: "inc-photos"
+    optional: true
+- assertVisible:
+    id: "photo-row"
+    optional: true
+- assertVisible:
+    id: "kit-linm-image-upload"
+    optional: true
+- assertVisible:
+    id: "photo-slot"
+    optional: true
+- assertVisible:
+    id: "btn-add"
+    optional: true
+- assertVisible:
+    id: "attachment-bind"
+    optional: true
+- takeScreenshot: A3-CORE
+- scroll
+- scroll
+- assertVisible:
+    id: "btn-create"
+    optional: true
+- assertVisible:
+    id: "btn-draft"
+    optional: true
+- takeScreenshot: P6-CORE
+- takeScreenshot: P6-CORE-2

@@ -1,7 +1,8 @@
 appId: org.linmsoft.rmms
 ---
 # cam-patrol · store P6 ×2 · guest → login → tab field → #sc-cam-patrol (Pixel 1080×1920)
-# pattern: patrol-checkin android (eraseText · pressKey Enter) · cấm mfeStdUrl / start:std
+# Android login: IME Enter/Next · cấm eraseText · cấm hideKeyboard (GAP-QA-STORE-03)
+# pattern: supervise android · cấm mfeStdUrl / start:std
 - launchApp:
     clearState: true
     clearKeychain: true
@@ -18,17 +19,15 @@ appId: org.linmsoft.rmms
     timeout: 15000
 - tapOn:
     id: "f-user"
-- eraseText
 - inputText: "linm-soft"
-- tapOn: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
-- tapOn:
-    id: "f-pass"
-- eraseText
-- inputText: "Linm@2026"
-- takeScreenshot: A9-LOGIN
 - pressKey: Enter
 - waitForAnimationToEnd:
-    timeout: 4000
+    timeout: 1500
+- inputText: "Linm@2026"
+- pressKey: Enter
+- waitForAnimationToEnd:
+    timeout: 3000
+- takeScreenshot: A9-LOGIN
 - tapOn:
     id: "btn-login"
     optional: true
@@ -36,12 +35,9 @@ appId: org.linmsoft.rmms
     text: "Đăng nhập"
     optional: true
 - extendedWaitUntil:
-    visible: "Trang Chủ"
-    timeout: 45000
-- extendedWaitUntil:
     visible:
       id: "sc-home"
-    timeout: 15000
+    timeout: 45000
 - tapOn:
     id: "tab-field"
 - extendedWaitUntil:

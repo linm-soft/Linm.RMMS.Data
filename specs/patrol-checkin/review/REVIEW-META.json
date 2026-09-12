@@ -4,15 +4,28 @@
   "review_confirm": "done",
   "align_confirm": "approve",
   "post_review": "skip",
-  "taskId": "task_370526d9",
+  "taskId": "task_3469fb59",
   "packKind": "sheet",
   "changeScope": "edit_page",
   "mustAlignOpen": 0,
-  "contentHash": "sha256:patrol-checkin-control-hint-20260828",
-  "bffContentHash": "sha256:patrol-checkin-mobile-bff-20260828",
+  "contentHash": "sha256:patrol-checkin-control-hint-20260912-edit",
+  "bffContentHash": "sha256:patrol-checkin-mobile-bff-20260912-edit",
   "skillId": "agent-review-mobile",
-  "skillVersion": "2026.08.20.01",
+  "skillVersion": "2026.08.25.01",
   "workflowVersion": "2026.08.25.01",
   "rulesVersion": "2026.08.29.4",
-  "updatedAt": "2026-09-01T07:19:03.000Z"
+  "updatedAt": "2026-09-12T13:30:00.000Z",
+  "closedGaps": [
+    "GAP-MOB-CI-PHOTO-UP-01",
+    "GAP-MOB-CI-PLAN-BE-01",
+    "GAP-MOB-BFF-FILE-01",
+    "GAP-MOB-BFF-01"
+  ],
+  "shouldOpen": [
+    "GAP-QA-A11Y-SHEET-TAG-01",
+    "GAP-QA-GPS-TIMING-01",
+    "GAP-QA-PLAN-BE-EMPTY-01"
+  ],
+  "priorQaTaskId": "task_aa684928",
+  "priorDevTaskId": "task_e7e16bae"
 }

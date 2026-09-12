@@ -1,43 +1,48 @@
-# Dev — Implement iOS — field-reflect (edit)
+# Dev — Implement iOS — field-reflect (GAP-MOB-FIELD-SESS-01)
 
 | Field | Value |
 |-------|-------|
 | feature | `field-reflect` |
 | platform | iOS |
-| this role | `dev` · `/agent-dev-ios` · `/edit-mobile-feature` |
+| this role | `dev` · `/agent-dev-ios` · `/dev-ios-swiftui` · `/dev-ui-review` |
 | status | **confirmed** |
-| changeScope | `edit_page` · gap=`field_reflect_align_incident_create` |
+| changeScope | `edit_page` · gap=`field_reflect_sessions_live_only` · **GAP-MOB-FIELD-SESS-01** |
 | packKind | **`screen`** |
-| taskId | `task_a6f9a7eb` |
-| updatedAt | `2026-09-01T12:10:00.000Z` |
+| taskId | `task_552af9c4` · `T-IOS-FIELD-SESS-LIVE` |
+| updatedAt | `2026-09-12T11:00:00.000Z` |
 | autoApprove | ON |
+| prior ship | `T-IOS-FIELD-REF` **giữ** |
 
 ## Delta this turn
 
 | Area | Note |
 |------|------|
-| Pick gate | `#sc-field-pick` · KCHT-32 grid · `FetchAssetTypesUseCase` (+ catalog fallback) |
-| Form | `#sc-field-reflect` · asset card · kind · checklist by asset code · PhotoRow · detect/loc · severity select · mô tả · Create/Draft |
-| Reuse | `IncidentCreateChecklist` · `IncidentCreateSeverity` · `CreateIncidentUseCase` · **cấm** invent path · **cấm** gộp slug incident-create |
-| Entry | hub `field-reflect` giữ |
-| DI | `AppRouter` + `fetchAssetTypesUseCase` |
+| Sessions | `FieldReflectViewModel.bootstrap` — live-only `FetchPatrolSessionsOutcome` · **cấm** `itemsOrDemo` / `demoToday` |
+| Active | `.loaded` + active «Đang tuần» → bind `routeStamp` / `locationRow` |
+| Empty | `.loaded` + no active → `routeStamp=""` · toast `field.banner.empty` «Không có ca đang tuần» · banner pick giữ |
+| Fail | `.loadFailed` → empty · toast `field.toast.sessionsFail` «Không tải được ca tuần» |
+| Keep | pick→form · kind · PhotoRow · detect · severity · CHK · Create/Draft · GPS deny |
+| Copy | `LinmCopy` + `field.toast.sessionsFail` |
+| API | reuse GET `patrol/sessions` · **cấm** invent · Step 4b **n/a** |
 
 ## Build gate
 
 | Check | Result |
 |-------|--------|
 | `xcodegen generate` | **PASS** |
-| `xcodebuild` iPhone 17 Pro | **PASS** |
+| `xcodebuild` iPhone 17 Pro Max (`518BFF77…` · OS 26.2) | **PASS** |
 | Invent `field-reflect` API | **none** |
-| Step 4b | **n/a** · reuse existing endpoints |
+| Step 4b / BFF write | **n/a this edit** |
 
-## ACTION WORK
+## Paths
 
-| Action | Pair | Work |
-|--------|------|------|
-| Pick asset | → form | **yes** |
-| Create | POST incident | **yes** · GPS gate |
-| Draft | offline queue | **yes** |
+- `Presentation/Features/FieldReflect/FieldReflectViewModel.swift`
+- `Presentation/Shared/LinmCopy.swift`
+- `Domain/UseCases/PatrolHomeUseCases.swift` (comment only)
+
+## UI review (frame)
+
+- Must: 0 · live-only sessions · toast kit (no `UIAlertController`) · zones `#sc-field-pick` / `#sc-field-reflect` giữ
 
 ---
-<!-- Version meta: skillId=agent-dev-ios skillVersion=2026.08.20.03 schemaVersion=1 workflowVersion=2026.08.25.01 rulesVersion=2026.08.29.4 versionGate=rechecked -->
+<!-- Version meta: skillId=agent-dev-ios skillVersion=2026.09.05.03 schemaVersion=1 -->

@@ -3,37 +3,35 @@
 | Field | Value |
 |-------|-------|
 | feature | `patrol-home` |
-| task | `T-AND-PAT-HOME` · `task_488d0e96` |
+| task | `T-AND-PAT-HOME-SESSION` · `task_523eaa0e` |
 | role | `/agent-dev-android` |
 | status | **confirmed** |
-| changeScope | `new_page` |
+| changeScope | `edit_page` |
+| packKind | `hub` |
 | route_confirm | **route_a** |
+| updatedAt | `2026-09-12T15:20:00.000Z` |
+| contentHash | `sha256:b5efb555e6c8195ccd93f60d983b57d6b0aa476a919b7f11700157c58241ae0a` |
+| bffContentHash | `sha256:128461fdf9135cf8c168a1b05e92586465d1ef34c117b39bea7d2464a06f55c0` |
 
-## Delta (this turn)
+## Delta (edit_page)
 
-| Surface | Before | After |
-|---------|--------|-------|
-| Fetch sessions | empty/fail → `demoToday`/`demoActive` | **`FetchPatrolSessionsOutcome`** live-only · empty = `emptyActive` + EmptyChrome |
-| Today section | always 2 demo rows | live GET · empty → `patrol-today-empty` |
-| Hero / KPI | demo active session | live active or `emptyActive` |
-| Fail | silent demo | toast `patrol.toast.loadFail` |
+| Gap | Before | After |
+|-----|--------|-------|
+| SESSION-01 | no CTA / no POST | `btn-open-session` → POST `patrol/sessions` · refresh GET |
+| SESSION-02 | detail end toast-only | PUT `patrol/sessions/{id}` · back |
+| HERO-01 | mapper sample fallback | empty/`—` · dual parity iOS |
 
 ## Layers
 
 | Layer | Path |
 |-------|------|
-| Presentation | `presentation/feature/patrolhome/*` |
-| Shell | `MainTabScreen` field tab · Home → select field tab |
-| Domain | `FetchPatrolSessionsUseCase` · `FetchOfflineQueueCountUseCase` |
-| Data | `PatrolRepositoryImpl` · GET `patrol/sessions` |
+| Presentation | `patrolhome/*` · `patrolhistorydetail/PatrolHistoryDetailViewModel` |
+| Domain | `CreatePatrolSessionUseCase` · `EndPatrolSessionUseCase` · `PatrolSessionBodies` |
+| Data | `ApiService` POST/PUT · `PatrolRepositoryImpl` · `PatrolDtoMapper` |
 
-## Kit zones (verified)
+## APIs
 
-`LinmTopBar` · `LinmLargeTitle` · `LinmSegment` · `LinmHeroCard` · `LinmProgress` · **`LinmPrimaryButton`** · `LinmKpiStrip` · `LinmSectionLabel` · `LinmListRow` · `LinmToast`
-
-## Behavior (route_a)
-
-Dual parity iOS — toast siblings · badge 0 ẩn · nav sync/Lưu trữ → `patrol-offline` · **cấm** `AlertDialog` · **cấm** push ops on bell.
+- GET/POST/PUT `patrol/sessions` (+ `{id}`) via BFF proxy · **cấm** PatrolHomeController
 
 ## Build (VERIFY GATE)
 
@@ -41,4 +39,9 @@ Dual parity iOS — toast siblings · badge 0 ẩn · nav sync/Lưu trữ → `p
 cd /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android && ./gradlew :app:assembleDebug
 ```
 
-**PASS** (`edit-mobile-feature` task_22fa5cba · cleanup_mock live-only).
+**PASS** · BFF `dotnet build` PASS · Step 4b N/A · mfeStdUrl —
+
+## Debt
+
+- Route picker on open (P2) — default `QL.1`
+- Sibling `pending_confirm` — cấm auto start

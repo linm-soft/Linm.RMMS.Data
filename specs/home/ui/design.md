@@ -31,7 +31,7 @@
 
 ## 1. Pattern
 
-| Surface | Tab 5 · selected **Trang Chủ** · hero + quick 2 · grid 3×2 · wallet · **không** Modal/Sheet |
+| Surface | Tab 5 **staff** · guest **ẩn** `LinmTabBar` · hero + FAQ · **Đăng nhập + privacy pin bottom** · staff quick 2 · grid 3×2 · wallet · **không** Modal/Sheet |
 | Action this slug | Display `.who` · tap chrome/tiles theo PO §3 (toast sibling / Hồ sơ → tab Tôi) |
 | Frame | iOS 390×844 · Android 412×915 |
 | BFF | **chỉ** `GET auth/profile` · **cấm** invent `api/v1/home` / wallet / org |
@@ -41,23 +41,24 @@
 | DES / sc-* | Tên VN | CTA / hành vi |
 |------------|--------|---------------|
 | `DES-MOB-HOME` `#sc-home` | Trang Chủ | hero · quick · grid · wallet |
-| `DES-MOB-HOME-HELLO` | Hero chào | tools + signal + who + login guest / quick staff |
+| `DES-MOB-HOME-HELLO` | Hero chào | tools + signal + who · login **không** trong hero (guest dock) / quick staff |
 | `DES-MOB-HOME-FAQ` `#sc-faq` | Câu hỏi thường gặp | back · pills · search · list chevron · expand answer · static |
 | `DES-MOB-HOME-PRIVACY` `#sc-privacy` | Chính sách quyền riêng tư | back · body static |
+| `DES-MOB-HOME-GUEST-DOCK` | Guest bottom | `btn-home-login` + `btn-home-privacy` pin đáy · **cấm** tab |
 | `DES-MOB-HOME-QUICK` | Quick 2 | Điểm tuần · Ghi sự cố |
 | `DES-MOB-HOME-GRID` | Lưới 6 | Giám sát · Tuần đường · Công việc · Vấn đề · Tài sản · Lưu trữ |
 | `DES-MOB-HOME-WALLET` | Ví tuyến | static demo → sibling `asset-hub` |
-| `DES-MOB-TABBAR` | Tab 5 | chrome `shell-tabs` · `LinmTabBar` dual · label **`tabLabel` 13** · Tuần đường **`LinmMapPinGlyph`** `#i-mappin` · **cấm** `TabView` / fill Place / `location.fill` |
+| `DES-MOB-TABBAR` | Tab 5 | chrome `shell-tabs` · `LinmTabBar` dual · **ẩn guest** · staff label **`tabLabel` 13** · Tuần đường **`LinmMapPinGlyph`** `#i-mappin` · **cấm** `TabView` / fill Place / `location.fill` |
 
 ### IA lock
 
 ```
-Cold start → Tab 5 #sc-home guest (Khách + btn-home-login)
-  Guest body: FAQ + privacy (ref legacy FAQ list + footer)
+Cold start → #sc-home guest (Khách + FAQ) · **ẩn** DES-MOB-TABBAR
+  Guest body: FAQ mid · dock bottom = Đăng nhập + Chính sách quyền riêng tư
   btn-home-faq → #sc-faq · btn-home-privacy → #sc-privacy · back về guest Home
   Đăng nhập tách → overlay login (slug login)
-  Staff → .who live · ẩn login/FAQ/privacy · hiện quick + grid + wallet
-  Tile / tab khác khi guest → toast needLogin + overlay
+  Staff → .who live · ẩn login/FAQ/privacy · hiện tab 5 + quick + grid + wallet
+  Tile khi guest → toast needLogin + overlay (tab staff **không** hiện)
   Tôi / Tuần đường / … ← sibling · staff only
 ```
 
@@ -68,13 +69,14 @@ Cold start → Tab 5 #sc-home guest (Khách + btn-home-login)
 | Field | VN | Kit dual | SF ↔ Material | Notes |
 |-------|----|----------|---------------|-------|
 | profileBtn | Hồ sơ | `LinmProfileButton` trong `LinmHeroTools` | `person` ↔ `Person` / `AccountCircle` | tap → tab **Tôi** |
-| notifyBtn | Thông báo | `LinmNotifyButton` · `LinmNotifyCountBadge` | `bell` ↔ `Notifications` | toast **Thông báo** + `includeNotification` (ở `#sc-home`) · tap banner iOS → tab Trang Chủ + replay toast · badge **0 ẩn** · **cấm** GET inbox · **cấm** push `#sc-ops` |
+| notifyBtn | Thông báo | `LinmNotifyButton` · `LinmNotifyCountBadge` | `bell` ↔ `Notifications` | tap → **cùng** `#sc-ops` (Tôi → Thông báo) · GET `notification/overview` badge · guest **không** JWT · **cấm** toast-only · **cấm** hardcode `3` |
+| brandLogo | RMMS | `AppLogo` / `app_logo` | — | giữa `LinmHeroTools` · `home-brand` · 36 · **cấm** kit bump |
 | roleLine | Khu QLĐB IV | `LinmStatusCapsule` `area` | — | **ẩn live** (GAP-F-HOME-01) · demo SSOT only |
 | signal | Tín hiệu | `LinmStatusCapsule` / `LinmNetSignalMark` | bars only | Tốt/TB/Yếu · OS path · tap toast **Đã làm mới** · **cấm** cycle |
 | who | Khách / FullName | typography hero | — | guest copy · staff GET profile · **cấm** hardcode production |
-| loginBtn | Đăng nhập | Button card | — | `btn-home-login` · phụ Dành cho cán bộ · ẩn staff |
+| loginBtn | Đăng nhập | Button card | — | `btn-home-login` · phụ Dành cho cán bộ · **pin bottom** guest · ẩn staff |
 | guestFaq | Câu hỏi thường gặp | row card | chevron | `btn-home-faq` · guest only · overlay `#sc-faq` |
-| guestPrivacy | Chính sách quyền riêng tư | underline link | — | `btn-home-privacy` · guest only · overlay `#sc-privacy` |
+| guestPrivacy | Chính sách quyền riêng tư | underline link | — | `btn-home-privacy` · guest only · **pin bottom dưới login** · overlay `#sc-privacy` |
 | quickPatrol | Điểm tuần | `LinmQuickItem` | `mappin` ↔ `Place` | phụ **Ghim định vị · lý trình** · toast |
 | quickIncident | Ghi sự cố | `LinmQuickItem` | `exclamationmark.triangle` ↔ `Warning` | phụ **Chọn tài sản · mẫu sự cố** · toast |
 | sectionBiz | Nghiệp vụ thường dùng | `LinmSectionLabel` | — | không route |
@@ -86,7 +88,7 @@ Cold start → Tab 5 #sc-home guest (Khách + btn-home-login)
 | tileOffline | Lưu trữ | `LinmHomeTile` bg `#086A9A` | `arrow.triangle.2.circlepath` ↔ `Sync` | toast |
 | wallet | HỒ SƠ TÀI SẢN | `LinmWalletCard` | — | static: **QL.1 · Khu IV** · **32 loại KCHT · thông số + checklist sự cố** |
 | foot | Phiên bản Gói… | — | — | **cấm ship** (GAP-F-HOME-03) |
-| tabHome | Trang Chủ | `LinmTabBar` | `house` ↔ `Home` | selected · label **13** |
+| tabHome | Trang Chủ | `LinmTabBar` | `house` ↔ `Home` | **staff only** · selected · label **13** · **ẩn guest** |
 | tabField | Tuần đường | `LinmTabBar` | **`LinmMapPinGlyph`** `#i-mappin` | outline + vòng trong · **cấm** fill |
 
 Toast / banner → `LinmToast`. **Cấm** raw `LazyVGrid` / `LazyVerticalGrid` / `TabView` / M3 `NavigationBar`.
@@ -109,6 +111,9 @@ Toast / banner → `LinmToast`. **Cấm** raw `LazyVGrid` / `LazyVerticalGrid` /
 
 - WebView HTML · `mfeStdUrl` · `yarn start:std`
 - Invent tab / «Có mạng» / foot Gói / badge `3` / `btn-logout` trên `#sc-home`
+- Hiện `LinmTabBar` khi guest (`GAP-MOB-EDIT-GUEST-TAB`)
+- Login trong hero khi guest — pin đáy cùng privacy
+- Toast-only trên chuông Home — **cùng** `#sc-ops` · guest GET inbox (`GAP-MOB-EDIT-GUEST-OPS`)
 - `UIAlert` / `AlertDialog` / `window.alert`
 - Gộp sibling screens · start `pending_confirm`
 - Ship `LinmKitGallery` trên production Trang Chủ

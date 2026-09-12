@@ -12,7 +12,9 @@
 iOS device: iPhone 17 Pro Max
 iPad device: DEFER Phase 1
 method: e2e runtime · yarn e2e-qa-mobile · Maestro ON
+capturedAt: 2026-09-12T13:21:00.964Z
+ok: true
 
-CLI PASS = capture+px only. Visual = `/review-align-ux-ios-android` Read CORE vs demo HTML.
+CLI PASS = capture+px only. Visual = `/review-align-ux-ios-android` Read CORE vs demo HTML → **Aligned** · Must 0.
 
 Listing official → `/store-image-capture` confirm file live (cấm AI vẽ).

@@ -73,19 +73,25 @@ App base: `{BffBase}/mobile-bff/api/v1`. **Cấm** app `:5101` · invent `api/v1
 | ID | Default |
 |----|---------|
 | GAP-MOB-FIELD-PACK-01 | **CLOSED** PO — packKind=`screen` full `#sc-field-reflect` (scan `sheet` = mislabel) |
-| GAP-MOB-FIELD-MEDIA-01 | `CreateIncidentRequest` chưa có media[] — P1: upload/detect optional · Description/AssetLabel bind · SA mở rộng nếu Signed |
+| GAP-MOB-FIELD-MEDIA-01 | `CreateIncidentRequest` chưa có media[] — P1: upload/detect optional · Description/AssetLabel bind · SA mở rộng nếu Signed · **Accept** |
 | GAP-MOB-FIELD-CHK-01 | Checklist taxonomy = demo `asset-kcht-32.js` / CTX — **không** invent endpoint checklist riêng |
 | GAP-MOB-CAM-DETECT-01 | Reuse detect stub body (ảnh/GPS) — SA cùng path `ai-vision/detect` |
 | GAP-MOB-BFF-01 | Không — proxy catch-all đủ path domain đã có |
+| **GAP-MOB-FIELD-SESS-01** | **OPEN** (code review 2026-09-12) — GET `patrol/sessions` fail vẫn `itemsOrDemo` / demo tuyến · DoD: **live-only** · fail/empty = empty + toast · **cấm** `itemsOrDemo` (peer cam-patrol / patrol-checkin) |
 
 ## Implement tracking
 
 | lane | phase | status | updatedAt |
 |------|-------|--------|-----------|
 | web | — | — | — |
-| mobile | `done` | `done` | `2026-09-01T12:26:04.826Z` |
+| mobile | `done` | `done` | `2026-09-12T11:16:17.682Z` |
 
 ## Edit 2026-09-01
 
 - gap=`field_reflect_align_incident_create` · pick asset → fill detail (align incident-create flow · keep slug `field-reflect`)
 - APIs: `GET integration/asset-types` · reuse detect/incident/sessions · checklist local by asset code
+
+## Edit 2026-09-12
+
+- gap=`field_reflect_sessions_live_only` · **GAP-MOB-FIELD-SESS-01** · changeScope=`edit_page` · task `task_d6e72d87`
+- DoD: bootstrap sessions live-only · fail/empty → empty locationRow + toast · **cấm** itemsOrDemo

@@ -2,7 +2,7 @@
   "feature": "supervise",
   "status": "done",
   "review_confirm": "approve",
-  "taskId": "task_ae0b11d0",
+  "taskId": "task_a995a011",
   "skillId": "agent-review-mobile",
   "skillVersion": "2026.08.19.26",
   "workflowVersion": "2026.08.31.2",
@@ -13,20 +13,22 @@
   "post_review": "skip",
   "packKind": "list",
   "changeScope": "edit_page",
-  "gap": "cleanup_mock",
+  "gap": "filter_live_map_sibling",
   "alignMustOpen": 0,
   "align": "Aligned",
+  "contentHash": "sha256:supervise-mobile-filter-live-20260912",
   "verifyGate": {
     "ios": "PASS",
     "android": "PASS",
     "bff": "PASS",
     "step4b": "N/A",
     "e2ePriorQa": "PASS",
-    "cleanupMock": "PASS"
+    "filterLiveMap": "PASS",
+    "crawl": "SKIP_roleOnly"
   },
   "prior": {
-    "dev": "task_65931a17",
-    "qa": "task_16b5d063"
+    "dev": "task_a7ad9582",
+    "qa": "task_cf8f4bfe"
   },
-  "updatedAt": "2026-09-01T03:00:00.000Z"
+  "updatedAt": "2026-09-12T10:29:46.000Z"
 }

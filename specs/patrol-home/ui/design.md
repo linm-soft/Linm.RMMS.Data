@@ -6,216 +6,177 @@
 | title | [Design] [Mobile] Tuần đường |
 | this role | `design` · `/agent-design-mobile` |
 | status | `confirmed` (autoApprove=ON) |
-| design_confirm | **approve** (`task_e73de8f1`) |
-| changeScope | `new_page` |
-| packKind | **`hub`** (PO confirm) |
+| design_confirm | **approve** (`task_77ea403c`) |
+| changeScope | `edit_page` |
+| packKind | **`hub`** (PO re-confirm) |
 | stack | `native_dual` |
-| kit_missing_confirm | **N/A** — reuse map hub kit dual (`LinmHeroCard` / `LinmKpiStrip` / `LinmSegment` / `LinmListRow` / …) |
+| kit_missing_confirm | **N/A** — reuse map hub kit dual |
 | reviewUrlIos | `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/patrol-home/ui/prototype/ios/index.html#sc-patrol-home` |
 | reviewUrlAndroid | `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/patrol-home/ui/prototype/android/index.html#sc-patrol-home` |
+| peerStdUrl | **cấm** `mfeStdUrl` |
+| real_view_parity | `v1` · native_dual |
 | ux-analy | `ui/ux-analy.md` §1–§9 |
 | demo-parity | `ui/review/demo-parity.md` |
-| prior | PO `confirmed` · `po/requirement.md` · contentHash `sha256:7ad6e12c43d77ffc6133f5e3063b85200a6d18d6bd1f8ff91a265b989dcd3b9c` · bffContentHash `sha256:bcf39a561ac6a4ecf60df85f6c8526b926a1c33a3b3f34628aeaa9b9d6d36ead` |
+| prior | PO `confirmed` · contentHash `sha256:b5efb555e6c8195ccd93f60d983b57d6b0aa476a919b7f11700157c58241ae0a` · bffContentHash `sha256:128461fdf9135cf8c168a1b05e92586465d1ef34c117b39bea7d2464a06f55c0` |
 | autoApprove | **ON** |
-| e2eQa | ON khi QA · `yarn e2e-qa-mobile` · **cấm** `yarn start:std` / `mfeStdUrl` |
-| updatedAt | `2026-08-19T14:25:09.000Z` |
-| taskId | `task_e73de8f1` |
+| e2eQa | ON queued QA · **cấm** e2e / `yarn start:std` ở Design |
+| updatedAt | `2026-09-12T15:15:00.000Z` |
+| taskId | `task_77ea403c` |
 
-## 0. Context & Demo
+## § Delta (edit_page — keep layout)
 
-| ID | Path | Notes |
-|----|------|-------|
-| CTX-01 | `docs/context/features/patrol-home.md` | hub field tab |
-| CTX-02 | `docs/context/features/patrol.md` | sessions domain |
-| CTX-03 | `docs/context/features/home.md` | entry quick/tile |
-| CTX-04 | `docs/context/features/patrol-offline.md` | reuse sync / Lưu trữ |
-| DEM-P1 | `specs/mobile-p1/ui/prototype/{ios,android}/index.html` `#sc-patrol-home` | visual SSOT copy · **không** board (sheet / badge `3` / Android `go('ops')`) |
-| DEM | `specs/patrol-home/ui/prototype/{ios,android}/index.html` `#sc-patrol-home` | board dual · PO toast / badge 0 |
-| MAP | `docs/html-to-native-map.md` + `ui/html-to-native-map.md` | kit hub |
-| STR | `docs/mobile-strings.json` keys `patrol.*` | VN SSOT |
-| DA | `_data-analy/patrol-home-control-hint.md` · `patrol-home-bff-endpoints.md` · `patrol-home-action-tree.md` | |
-| PO | `po/requirement.md` | §5 controlHint · §7 chốt |
+| Zone / behavior | Design DoD |
+|-----------------|------------|
+| OPEN | `emptyActive` + CTA **`btn-open-session`** **Mở ca** → POST `patrol/sessions` · reload · ẩn khi có active |
+| END | Detail CTA **`btnEndSession`** → PUT `patrol/sessions/{id}` · **không** toast-only · (không vẽ lại detail layout) |
+| HERO | Live fields only · trống → `—` · **cấm** fallback `QL.1·Km468+200` / `Nguyễn Văn A` / `07:20` / row `QL.1` |
+| KEEP | segment · pin · kpi · quick · nav · sibling toast · offline badge |
 
-**Cấm** `mfeStdUrl` / `yarn start:std` / WebView HTML-as-app.
+**Cấm** redesign layout · **cấm** re-scan demo HTML (hash skip).
+
+## Prototype (REQUIRED)
+
+| | |
+|--|--|
+| Artifact | `ui/prototype/ios/index.html` · `ui/prototype/android/index.html` |
+| Form zones | N/A (hub · FormMode=none) |
+| Hub zones | nav · title · seg · **heroActive / emptyActive** · pin · kpi · today · quick · tab |
+| SSOT | `artifact-prefix.md` · `design-prototype-review.md` · control-hint |
+| **reviewUrl** | iOS + Android file:// … `#sc-patrol-home` |
+| **peerStdUrl** | cấm mfeStdUrl |
+| **real_view_parity** | `v1` |
+
+### Wire (hub)
+
+```
+[Nav] sync · bell(badge 0 ẩn)
+[Title] Tuần đường
+[Seg] idx0 Tuần đường · idx1 Chấm công
+[Hero active] eyebrow+signal · route · meta · progress · map/check-in
+[Hero empty] «Chưa có ca» · — · CTA Mở ca (#btn-open-session)
+[Pin] Ghim vị trí hiện tại
+[KPI] Đã ghi · Còn lại · Độ phủ (empty → —)
+[Today] rows GET · empty route=—
+[Quick] 6 rows · Lưu trữ → offline
+```
 
 ## 1. Pattern
 
 | | |
 |--|--|
-| Surface | Tab field hub · nav + large title + segment 2 + hero + pin + KPI + 2 sections · **không** Modal/Sheet |
-| FormMode | none |
-| Action this slug | Appear GET sessions · display · toast siblings · push offline |
-| `devSlash` | `/agent-dev-ios` + `/agent-dev-android` |
-| Frame | iOS 390×844 · Android 412×915 · safe area |
+| Surface | Tab field hub · **không** Modal/Sheet |
+| FormMode | none · formPattern **N/A** |
+| Action this slug | GET sessions · POST mở ca · display · toast siblings · push offline · END trên detail |
+| Frame | iOS 390×844 · Android 412×915 |
 
 ## 2. Screens / DES-MOB-*
 
 | DES / sc-* | Tên VN | Zones | CTA |
 |------------|--------|-------|-----|
-| `DES-MOB-PAT-HOME` `#sc-patrol-home` | Tuần đường | Nav · title · seg · hero · pin · KPI · hôm nay · quick · tab | toast / push offline |
-| `DES-MOB-PAT-HOME-NAV` | Nav | sync icon · bell icon | push offline / toast Thông báo |
-| `DES-MOB-PAT-SEG` | Segment 2 | idx **0** Tuần đường · **1** Chấm công | owner / toast |
-| `DES-MOB-PAT-ACTIVE` | Hero ca | eyebrow+signal · title · meta · progress · 2 hero actions | toast P1 |
-| `DES-MOB-CI-PIN-HERE` | Pin CTA | Primary | toast P1 · GPS P2 |
-| `DES-MOB-PAT-KPI` | KPI 3 | Đã ghi · Còn lại · Độ phủ | bind session |
-| `DES-MOB-PAT-TODAY` | Hôm nay | 2 rows + badge | toast mã P1 |
+| `DES-MOB-PAT-HOME` `#sc-patrol-home` | Tuần đường | Nav · title · seg · heroActive/emptyActive · pin · KPI · hôm nay · quick · tab | POST mở ca / toast / push offline |
+| `DES-MOB-PAT-ACTIVE` | Hero ca | live bind | sibling toast |
+| `DES-MOB-PAT-EMPTY` | Hero empty | CTA Mở ca | POST |
+| `DES-MOB-CI-PIN-HERE` | Pin | Primary | toast P1 |
+| `DES-MOB-PAT-KPI` | KPI 3 | session / — | bind |
+| `DES-MOB-PAT-TODAY` | Hôm nay | rows + badge | tap → detail (END PUT) |
 | `DES-MOB-PAT-QUICK` | Thao tác nhanh | 6 rows | toast · Lưu trữ push |
-| `DES-MOB-TABBAR` | Tab 5 | Trang Chủ · **Tuần đường** · Vấn đề · Công việc · Tôi | shell |
+| `DES-MOB-TABBAR` | Tab 5 | shell | — |
 
 ### IA lock
 
 ```
-(auth) Login → Tab 5
-  Trang Chủ · Home quick «Điểm tuần» / tile «Tuần đường» → switch tab field
-  Tuần đường (selected) → #sc-patrol-home DES-MOB-PAT-HOME
-  Vấn đề · Công việc · Tôi (shell)
 #sc-patrol-home
-  → nav sync / row Lưu trữ = push #sc-patrol-offline (reuse)
-  → bell = toast «Thông báo» · badge 0 ẩn · cấm push ops
-  → segment 1 = toast «Chấm công»
-  → hero / pin / today / quick siblings = toast nhãn · cấm sheet check-in
-  → không child form / sheet
+  → no active: emptyActive + btn-open-session → POST → reload
+  → has active: heroActive live · ẩn mở ca
+  → today/detail: btnEndSession → PUT Hoàn thành
+  → nav sync / Lưu trữ = push #sc-patrol-offline
+  → keep segment/pin/kpi/quick · sibling toast · cấm sheet
 ```
-
-**Cấm** invent tab · reorder segment (`GAP-TAB-01`) · «Có mạng» · watermark Gói · device label · native alert · hardcode badge `3`.
 
 ## 3. Field inventory (kit dual)
 
 | Field | VN | controlHint | Required | Kit dual | Notes |
 |-------|----|-------------|----------|----------|-------|
-| navSync | Đồng bộ | IconButton | * | `LinmTopBar` leading | `#i-sync` · push `patrol-offline` |
-| navNotify | Thông báo | IconButton | * | `LinmTopBar` trailing | toast · badge **0 ẩn** |
+| navSync | Đồng bộ | IconButton | * | `LinmTopBar` | push offline |
+| navNotify | Thông báo | IconButton | * | `LinmTopBar` | toast · badge 0 ẩn |
 | title | Tuần đường | LargeTitle | * | `LinmLargeTitle` | fixed |
 | segPatrol | Tuần đường | Segment | * | `LinmSegment` idx **0** | owner |
 | segAttendance | Chấm công | Segment | * | `LinmSegment` idx **1** | toast |
-| heroEyebrow | Ca đang chạy · {signal} | Text + signal | * | `LinmHeroCard` · `LinmNetSignalMark` | OS path · hạng Tốt/TB/Yếu |
-| heroTitle | QL.1 · Km 1556+000 | Text | * | `LinmHeroCard` | session.route |
-| heroMeta | PAT-* · user · điểm/coverage | Text | * | `LinmHeroCard` | demo / live |
-| heroProgress | 67% | Progress | * | `LinmProgress` | coverage |
-| heroMap | Tiếp tục bản đồ | HeroAction | * | `LinmHeroAction` | toast P1 · `#i-map` |
-| heroCheckin | Ghi điểm tuần | HeroAction | * | `LinmHeroAction` | toast P1 · **cấm** sheet · `#i-plus` |
-| pinHere | Ghim vị trí hiện tại | PrimaryButton | * | `LinmPrimaryButton` | toast P1 · `#i-mappin` |
-| kpiChecked | Đã ghi điểm tuần | KPI | * | `LinmKpiStrip` | 2 |
-| kpiRemaining | Còn lại | KPI | * | `LinmKpiStrip` | 1 |
-| kpiCoverage | Độ phủ | KPI | * | `LinmKpiStrip` | 67% |
-| sectionToday | Hôm nay | SectionLabel | * | `LinmSectionLabel` | |
-| todayRows | PAT-* | ListRow + `.row-icon` + badge | * | `LinmListRow` `leading:` `LinmRowIcon` | GET sessions · `#i-walk`/`#i-check` |
-| sectionQuick | Thao tác nhanh | SectionLabel | * | `LinmSectionLabel` | |
-| quickRows | 6 rows | ListRow + `.row-icon` | * | `LinmListRow` `leading:` `LinmRowIcon` | toast / Lưu trữ push |
-| offlineBadge | N | Badge | | `LinmListRow` badge | local count · **ẩn 0** |
-| tab | Tuần đường | TabBar | * | `LinmTabBar` | label **13** · glyph 22 |
+| heroActive | Ca đang chạy | LinmHeroCard | * | live fields only | empty → `—` |
+| emptyActive / btn-open-session | Mở ca | LinmPrimaryButton | * | POST | id `btn-open-session` |
+| heroMap / heroCheckin | sibling | HeroAction | * | toast P1 | ẩn khi empty |
+| pinHere | Ghim vị trí hiện tại | PrimaryButton | * | keep | |
+| kpiStrip | KPI 3 | LinmKpiStrip | * | session / — | |
+| todayRows | Hôm nay | LinmListRow | * | GET · route trống=`—` | |
+| btnEndSession | Kết ca | detail CTA | * | PUT | not hub chrome |
+| quickRows | 6 rows | LinmListRow | * | keep | |
+| offlineBadge | N | Badge | | ẩn 0 | |
 
-Toast → `LinmToast`. **Cấm** raw `TabView` / M3 `NavigationBar` (`GAP-MOB-ACT-05`).
+Toast → `LinmToast`. **Cấm** alert · **cấm** demo bind khi API fail.
 
-### Demo rows SSOT (Hôm nay)
+## 4. SF ↔ Material (giữ prior)
 
-| code | sub | badge |
-|------|-----|-------|
-| PAT-20260810-0014 | Tuần đường · QL.1 · 07:20 | **Đang tuần** |
-| PAT-20260810-0009 | Tuần kiểm · HCM · Hoàn thành | **Xong** |
-
-### Quick rows SSOT
-
-| Title | Sub | Tap |
-|-------|-----|-----|
-| Ghi nhận hư hỏng | Chụp · hư / mất / hỏng · nhận diện | toast |
-| Thu thập bằng camera | Tự nhận diện theo tọa độ · tạo vấn đề | toast |
-| Bản đồ ca | Ghim điểm tuần · hành trình | toast |
-| Lịch sử phiên | Lọc tuyến · trạng thái | toast |
-| Giám sát | Lịch sử điểm tuần · bản đồ · thông báo | toast |
-| Lưu trữ | Bản ghi chờ đồng bộ | push `patrol-offline` |
-
-## 4. SF ↔ Material (chrome lệch OK · nghĩa khớp)
-
-| Demo `#i-*` | Ý nghĩa | iOS (SF / kit) | Android (Material / kit) |
-|-------------|---------|----------------|---------------------------|
-| `#i-sync` | Đồng bộ / Lưu trữ | `LinmStrokeGlyph` `.sync` · row `LinmRowIcon` orange | cùng `d=` `LinmStrokeKind.Sync` |
-| `#i-bell` | Thông báo | `bell` | `Notifications` |
-| `#i-map` | Bản đồ | `LinmStrokeGlyph` `.map` · hero + row | cùng `d=` |
-| `#i-plus` | Ghi điểm | `LinmStrokeGlyph` `.plus` | cùng `d=` |
-| `#i-mappin` | Pin / tab Tuần đường | `LinmMapPinGlyph` | `LinmMapPinGlyph` |
-| `#i-walk` | Ca đang tuần | `LinmRowIcon` `.walk` primary | cùng `d=` circle+path |
-| `#i-check` | Xong | `LinmRowIcon` `.check` success | cùng `d=` |
-| `#i-camera` | Hư hỏng | `LinmRowIcon` `.camera` danger | cùng `d=` |
-| `#i-video` | Camera tuần | `LinmRowIcon` `.video` accentCam | cùng `d=` |
-| `#i-list` | Lịch sử / Giám sát | `LinmRowIcon` `.list` muted / accentTeal | cùng `d=` |
-| `#i-chevron-right` | Row chevron (iOS) | `chevron.right` | optional / none |
-| `#i-house` | Tab Trang Chủ | `LinmHouseGlyph` | same |
-| `#i-warning` | Tab Vấn đề | `LinmWarningGlyph` | same |
-| `#i-wrench` | Tab Công việc | `LinmWrenchGlyph` | same |
-| `#i-person` | Tab Tôi | `LinmPersonGlyph` | same |
+| Demo `#i-*` | iOS / Android kit |
+|-------------|-------------------|
+| `#i-sync` · `#i-bell` · `#i-map` · `#i-plus` · `#i-mappin` · `#i-walk` · `#i-check` · `#i-camera` · `#i-video` · `#i-list` | cùng `d=` dual prior |
 
 ## 5. Brand tokens
 
-| Token | Hex | Dùng |
-|-------|------|------|
-| primary | `#0C84C0` | hero · pin · tab selected · KPI accent |
-| success | `#34C759` / `#3CB448` | KPI đã ghi · badge Xong |
-| warn | `#FF9500` / `#FCB43C` | KPI còn lại · Lưu trữ icon |
-| surface iOS | `#F2F2F7` | nền |
-| surface Android | `#FFFBFE` | nền |
-| card | `#FFFFFF` | groups / KPI |
+primary `#0C84C0` · success `#34C759`/`#3CB448` · warn `#FF9500`/`#FCB43C` · surface iOS `#F2F2F7` · Android `#FFFBFE` · card `#FFFFFF`.
 
-**Cấm** skin Ministry / CCCD · **cấm** M3 tím tab selected.
-
-## 6. Behaviors (parity demo ↔ native)
+## 6. Behaviors
 
 | Case | UI |
 |------|-----|
-| Appear | GET `patrol/sessions` · map «Đang tuần» · fail → demo SSOT · hub **mở** |
-| Nav sync / Lưu trữ | push `patrol-offline` · **cấm** reimplement offline |
-| Bell | toast **Thông báo** · **cấm** alert · **cấm** push ops |
-| Segment 1 | toast **Chấm công** |
-| Hero map / check-in / pin | toast nhãn · **cấm** sheet / map live P1 |
-| Today row | toast mã · drill P2 |
-| Quick sibling | toast nhãn · **cấm** start `pending_confirm` |
-| Offline badge | local count · **ẩn khi 0** |
-| Home entry | switch tab field |
-| Signal | OS path hạng · **cấm** «Có mạng» · **cấm** tap-cycle |
+| Appear | GET sessions · map «Đang tuần» · **cấm** demo fallback |
+| No active | emptyActive + **Mở ca** → POST → reload |
+| Has active | hero live · ẩn CTA mở ca |
+| Kết ca (detail) | PUT → toast success · pop/reload hub |
+| API fail | toast + empty/`—` · **cấm** alert · **cấm** demo bind |
+| GPS | N/A mở/kết ca · pin toast P1 |
+| Keep | segment · pin · kpi · quick · nav · sibling toast |
 
-## 7. BFF (Design lock — cấm invent)
+## 7. BFF (Design lock)
 
-App `{BffBase}/mobile-bff/api/v1`:
+| Method | Path | Wire |
+|--------|------|------|
+| GET | `patrol/sessions` | live hub |
+| GET | `patrol/sessions/{id}` | detail |
+| POST | `patrol/sessions` | **mở ca** |
+| PUT | `patrol/sessions/{id}` | **kết ca** |
 
-| Method | Path | Slug? |
-|--------|------|-------|
-| GET | `patrol/sessions` | **yes** |
-| GET | `patrol/sessions/{id}` | **no** P1 (toast) |
-
-**Cấm** `GET patrol-home` · `PatrolHomeController` · Step 4b endpoint mới · ERP.*.
+Step 4b **N/A**. **Cấm** invent `patrol-home` · ERP.*.
 
 ## 8. Cấm
 
-- WebView HTML · `mfeStdUrl` · `yarn start:std`
-- Gộp sibling screens · `openSheet('checkin')` · hardcode badge `3`
-- `UIAlert` / `AlertDialog` / `window.alert`
-- «Có mạng» · watermark Gói · device label «iPhone» / «· Android»
-- Board prototype **không** prefix `ios/` · `android/` (`GAP-MOB-DES-PFX-01`)
+- Redesign layout · re-scan demo (GAP-DES-DEMO-RESCAN-01)
+- WebView / mfeStdUrl / yarn start:std / e2e ở Design
+- Native alert · «Có mạng» · watermark · badge hardcode `3`
+- Board thiếu prefix `ios/` · `android/`
 
 ## 9. Handoff → SA
 
 | Field | Value |
 |-------|-------|
-| Next slash | `/agent-sa-mobile` |
-| BFF | reuse `GET patrol/sessions` · Step 4b **N/A** |
-| Open Q | PO §7 đã chốt — SA **không** invent hub API |
-| kit_missing_confirm | **N/A** |
-| Chain | roleOnly=`design` · **không** chain SA turn này |
-| e2eQa | ON khi QA · `yarn e2e-qa-mobile` |
+| Next | `/agent-sa-mobile` |
+| BFF | GET/POST/PUT `patrol/sessions` · Step 4b N/A |
+| Gaps → Dev | GAP-PAT-HOME-SESSION-01/02 · HERO-01 |
+| Chain | roleOnly=`design` · không start SA cùng task |
+| design_confirm | **approve** (autoApprove) |
 
 ## Version meta (REQUIRED)
 
 | Field | Value |
 |-------|-------|
 | skillId | agent-design-mobile |
-| skillVersion | 2026.08.19.23 |
+| skillVersion | 2026.08.25.01 |
 | schemaVersion | 1 |
-| workflowVersion | 2026.08.19.29 |
-| rulesVersion | 2026.08.19.34 |
-| generatedAt | 2026-08-19T14:25:09.000Z |
+| workflowVersion | 2026.08.31.2 |
+| rulesVersion | 2026.08.31.2 |
+| generatedAt | 2026-09-12T15:15:00.000Z |
 | versionGate | rechecked |
-| contentHash | sha256:7ad6e12c43d77ffc6133f5e3063b85200a6d18d6bd1f8ff91a265b989dcd3b9c |
-| bffContentHash | sha256:bcf39a561ac6a4ecf60df85f6c8526b926a1c33a3b3f34628aeaa9b9d6d36ead |
+| contentHash | sha256:b5efb555e6c8195ccd93f60d983b57d6b0aa476a919b7f11700157c58241ae0a |
+| bffContentHash | sha256:128461fdf9135cf8c168a1b05e92586465d1ef34c117b39bea7d2464a06f55c0 |
 
 ---
-<!-- Version meta: skillId=agent-design-mobile skillVersion=2026.08.19.23 schemaVersion=1 workflowVersion=2026.08.19.29 rulesVersion=2026.08.19.34 versionGate=rechecked -->
+<!-- Version meta: skillId=agent-design-mobile skillVersion=2026.08.25.01 schemaVersion=1 -->

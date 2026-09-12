@@ -2,14 +2,29 @@
   "feature": "patrol-pin",
   "status": "done",
   "review_confirm": "approve",
-  "taskId": "task_ff84d158",
+  "taskId": "task_d184527a",
+  "changeScope": "edit_page",
+  "gap": "GAP-MOB-PIN-PERSIST-01",
+  "gapDisposition": "closed",
   "autoApprove": true,
-  "updatedAt": "2026-08-21T04:02:45.000Z",
+  "contentHash": "sha256:patrol-pin-control-hint-20260912-persist",
+  "bffContentHash": "sha256:patrol-pin-mobile-bff-20260912-persist",
+  "skillVersion": "2026.08.25.01",
+  "schemaVersion": "1",
+  "updatedAt": "2026-09-12T12:35:08.000Z",
   "verify": {
     "ios": "PASS",
     "android": "PASS",
     "bff": "PASS",
-    "step4b": "N/A"
+    "qa": "PASS",
+    "step4b": "N/A",
+    "e2eThisRole": "SKIP"
   },
-  "mustAlign": 0
+  "mustAlign": 0,
+  "findingsCounts": {
+    "ok": 10,
+    "acceptP2": 1,
+    "openP0": 0,
+    "openMust": 0
+  }
 }

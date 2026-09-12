@@ -1,7 +1,8 @@
 appId: org.linmsoft.rmms
 ---
 # patrol-history-detail · store A11/A9/A3 · guest → login → tile-patrol → history → #sc-patrol-detail
-# Seed BFF session a11e0001-0001-4a01-8a01-000000000001 · TD-20260821-001
+# Seed live RMMS company: b33e0001-0001-4c01-8c01-000000000002 · PAT-20260810-0009
+# (a11e/TD-* LINM company — không hiện với user linm-soft / X-Company-Id RMMS)
 # iOS tab ids often merge under tab-bar — dùng tile-patrol · scroll CTA below fold
 - launchApp:
     clearState: true
@@ -80,7 +81,7 @@ appId: org.linmsoft.rmms
     timeout: 20000
 - assertVisible: "Lịch sử ca"
 - tapOn:
-    id: "row-history-a11e0001-0001-4a01-8a01-000000000001"
+    id: "row-history-b33e0001-0001-4c01-8c01-000000000002"
 - waitForAnimationToEnd:
     timeout: 3000
 - extendedWaitUntil:
@@ -91,7 +92,7 @@ appId: org.linmsoft.rmms
     visible: "Chi tiết ca"
     timeout: 15000
 - assertVisible: "Mã phiên"
-- assertVisible: "TD-20260821-001"
+- assertVisible: "PAT-20260810-0009"
 - assertVisible: "Thông tin"
 - assertVisible:
     id: "value-code"
@@ -101,6 +102,7 @@ appId: org.linmsoft.rmms
     direction: DOWN
     timeout: 15000
 - assertVisible: "Điểm tuần"
+- assertVisible: "Km 1551+200 · Xuân Hải"
 - scrollUntilVisible:
     element: "Kết thúc ca"
     direction: DOWN

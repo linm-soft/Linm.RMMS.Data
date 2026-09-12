@@ -4,40 +4,42 @@
 |-------|-------|
 | feature | `patrol-pin` |
 | platform | Android |
-| this role | `dev` · `/edit-mobile-feature` · `/agent-dev-android` |
+| this role | `dev` · `/agent-dev-android` · `/dev-android-compose` |
 | status | **confirmed** |
-| changeScope | `edit_page` (cleanup_mock) |
+| changeScope | `edit_page` (GAP-MOB-PIN-PERSIST-01) |
 | packKind | **`sheet`** |
-| taskId | `task_c9fd5cec` |
-| updatedAt | `2026-09-01T07:25:00.000Z` |
+| taskId | `task_f90e803b` |
+| updatedAt | `2026-09-12T12:20:00.000Z` |
 | autoApprove | ON |
-| contentHash | sha256:patrol-pin-control-hint-20260821 |
-| bffContentHash | sha256:patrol-pin-mobile-bff-20260821 |
+| contentHash | sha256:patrol-pin-control-hint-20260912-persist |
+| bffContentHash | sha256:patrol-pin-mobile-bff-20260912-persist |
 
-## Notes (cleanup_mock)
+## Notes (edit_page · persist handoff)
 
-- **GAP-MOB-EDIT-DEMO-01 closed** — dual parity iOS · gỡ `PatrolPinCopy.demoRoute` · map **cấm** `itemsOrDemo` / `nextDemoTitle`.
-- Toast route = live `GET patrol/sessions` active · empty = `patrol.empty.active.route` (resolve copy key) · fail = `cam.toast.sessionFail`.
-- GPS pin local OK offline · **cấm** invent `QL.1 · Km 1561+134`.
-- Seed: reuse sessions · Step 4b **N/A** · BE empty OK.
-- Action gate: sheet CTA pin + GpsDenyDialog · list/search N/A · CRUD forms N/A.
+- Dual parity iOS — real `#sheet-handoff-checkin` (`PinHandoffSheet`) · payload `sessionId`+`LocationFix`.
+- **Tiếp tục** → `PatrolCheckInIntent.OpenWithHandoff` · apply fix · **cấm** pin auto-POST.
+- Deny / timeout → **không** handoff · Offline → `patrol.pin.queued`.
+- Permission launcher hub+map giữ · Step 4b **N/A**.
 
-## Shipped (prior + this edit)
+## Shipped
 
 | Area | Path / note |
 |------|-------------|
-| Domain | `domain/model/PatrolPinCopy.kt` · **no** demoRoute |
-| Hub CTA | `PatrolHomeViewModel.pinHere` · resolve live route label |
-| Map CTA | `PatrolMapViewModel` live sessions · nextTitle empty-label |
-| Deny | `GpsDenyDialog` · **cấm** system AlertDialog |
-| BFF | `GET patrol/sessions` only |
+| Payload | `domain/model/PatrolPinCopy.kt` · `PatrolPinHandoffPayload` |
+| Sheet | `presentation/feature/shared/PinHandoffSheet.kt` |
+| Hub | `PatrolHomeViewModel.pinHere` → handoff · `activeSessionId` |
+| Map | `PatrolMapViewModel` + network · pin + follow + handoff |
+| Sibling | `OpenWithHandoff` · `applyFix` |
+| Wire | `MainTabScreen` FieldStack continue callbacks |
+| Copy | `patrol.handoff.*` · `patrol.pin.queued` |
 
 ## Build gate
 
 | Check | Result |
 |-------|--------|
-| `./gradlew :app:assembleDebug` | **PASS** |
-| demoRoute / nextDemoTitle pin path | **removed** |
+| `./gradlew assembleDebug` | **PASS** |
+| BFF `dotnet build` | **PASS** (reuse) |
+| pin auto-POST / invent `/pins` | **none** |
 
 ## Version meta
 

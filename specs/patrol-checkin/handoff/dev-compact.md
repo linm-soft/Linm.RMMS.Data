@@ -4,46 +4,52 @@ schemaVersion: 1
 feature: patrol-checkin
 packKind: sheet
 role: dev
-status: done
-skillVersion: 2026.08.25.01
-writtenAt: 2026-09-01T06:40:00.000Z
-taskId: task_2f18d421
-slash: /edit-mobile-feature
-gap: cleanup_mock · GAP-MOB-EDIT-DEMO-01
+status: confirmed
+skillVersion: 2026.08.20.03
+writtenAt: 2026-09-12T13:15:00.000Z
+taskId: task_e7e16bae
+slash: /agent-dev-ios + /agent-dev-android
+mode: feature_context
+changeScope: edit_page
+autoApprove: ON
+e2eQa: ON
+contentHash: sha256:patrol-checkin-control-hint-20260912-edit
+bffContentHash: sha256:patrol-checkin-mobile-bff-20260912-edit
 
 ## Decisions
-- changeScope: edit_page (cleanup_mock parent mobile-cleanup-mock)
-- formPattern: sheet · Ghi điểm tuần + leave + detail
-- mfeStdUrl: none (native_dual)
-- data: live-only GET `patrol/sessions` active `.route` · empty = `patrol.empty.active.route` · fail = toast `cam.toast.sessionFail` · plan lat/lng = live GPS pin · **cấm** demoRoute/demoPlan*/demo-session/itemsOrDemo
-- Step 4b: N/A — reuse sessions + POST check-ins · BE empty OK (empty stamp)
-- open questions: none · GAP-QA-A11Y-SHEET-TAG-01 Still Should · Photo upload P2
-
-## Inventory (slim)
-| id | label | controlHint | notes |
-|----|-------|-------------|-------|
-| sheet-checkin | Ghi điểm tuần | Sheet | hub/map entry |
-| ci-match-banner | Đúng/Sai điểm | Banner | GPS vs plan |
-| plan/route/gps/dist | readonly fields | Text | live stamp |
-| ci-content | Nội dung | TextArea | editable |
-| ci-add-photo | Ảnh | PhotoRow | local ids |
-| ci-btn-save | Ghi nhận | Primary | matchOk + sessionId |
-| sc-checkin-detail | Chi tiết | detail | after save |
+- edit_page delta dual PASS · kit_skip · UI zones giữ
+- T-IOS-PAT-CI-DELTA · T-AND-PAT-CI-DELTA PASS
+- T-BE-PAT-PLAN-PTS · Kind E GET plan-points + table `rmms_patrol_plan_points` + seed
+- T-BE-PAT-CI-PHOTO · photoLocalIds = FileService guids (+ attachmentIds alias)
+- T-BFF-FILE-INIT · NuGet FileService.Bff 1.1.0 · rewrite mobile→web files · GAP-MOB-BFF-FILE-01 **closed**
+- T-BE-PAT-CI-MIG · plan-points migration shipped
+- cấm plan=GPS · cấm fake 200 · MATCH_RADIUS_M=50
+- mfeStdUrl: — (native)
+- phase_to: qa (/agent-qa-mobile)
 
 ## Screens / zones (ids only)
 - DES-MOB-PAT-CHECKIN-SHEET / #sheet-checkin
 - DES-MOB-CI-DETAIL / #sc-checkin-detail
-- DES-MOB-LEAVE / DES-MOB-LOC-MISMATCH / DES-MOB-GPS-DENY
-- reviewUrlIos=file://…/prototype/ios/index.html#sheet-checkin
-- reviewUrlAndroid=file://…/prototype/android/index.html#sheet-checkin
-- peerStdUrl=—
+- DES-MOB-LOC-MISMATCH · DES-MOB-LEAVE · DES-MOB-GPS-DENY
+- #ci-match-banner · #ci-plan · #ci-gps · #ci-dist · #ci-content · #ci-photos · #ci-add-photo · #ci-save-btn
 
-## API / tasks (ids only)
-- GET `mobile-bff/api/v1/patrol/sessions`
-- POST `mobile-bff/api/v1/patrol/sessions/{id}/check-ins`
-- T-BE: N/A (prior GAP-MOB-BFF-01 closed)
+## APIs
+- GET patrol/sessions · GET sessions/{id}
+- GET sessions/{id}/plan-points (**live**)
+- POST sessions/{id}/check-ins (live · attachment ids)
+- files/init · PUT files/{id}/object · files/commit · GET files/{id}/object
 
-## Debt / next
-- Next: QA optional re-e2e · Review re-check
-- debt: GAP-QA-A11Y-SHEET-TAG-01 Should · Photo capture/upload P2 · plan-points BE P2
-- verify: iOS xcodegen+xcodebuild iPhone 17 Pro PASS · Android assembleDebug PASS · BFF dotnet build PASS
+## VERIFY
+- iOS xcodegen + xcodebuild iPhone 17 Pro **PASS**
+- Android assembleDebug **PASS**
+- Mobile.Bff dotnet build **PASS**
+- WebService Api dotnet build **PASS**
+- cấm mfeStdUrl / yarn start:std / e2e ở Dev
+- next: /agent-qa-mobile · T-QA-TAB-01
+
+## Debt
+- Apply migration `20260912140000_Schema_RmmsPatrolPlanPoints` on target DB before E2E
+- FileService `:5018` must be up for live photo upload (else offline queue)
+
+## UNCLEAR
+- none

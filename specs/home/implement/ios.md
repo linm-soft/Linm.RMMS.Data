@@ -16,10 +16,10 @@
 
 ## IA / API
 
-- Tab **Trang Chủ** = `#sc-home` hub · **không required login**. Guest `.who` **Khách** + `btn-home-login`.
+- Tab **Trang Chủ** = `#sc-home` hub · **không required login**. Guest `.who` **Khách** + FAQ · dock đáy `btn-home-login` + privacy · **ẩn** `LinmTabBar`.
 - Staff GET `auth/profile` · `.who` = `fullName` · **cấm** GET profile khi guest.
 - Role **ẩn live** (GAP-F-HOME-01) · wallet static demo · `notifyCount=0` ẩn · **cấm** GET inbox.
-- Hồ sơ → tab **Tôi**. Notify → toast **Thông báo** + `includeNotification` trên `#sc-home` · tap UN → tab Trang Chủ + replay · **cấm** push `#sc-ops`. Sibling / signal / wallet = `LinmToast` nhãn.
+- Hồ sơ → tab **Tôi**. Notify → **cùng** `#sc-ops` (Tôi → Thông báo) · GET overview/inbox guest **AllowAnonymous** · mark-read staff only. Sibling / signal / wallet = `LinmToast` nhãn.
 - Foot Gói **cấm ship** (GAP-F-HOME-03).
 - E2E: `sc-home` · `home-who` · `btn-home-login` · `btn-signal` · `tile-*` · `wallet-card` · `tab-home`.
 
@@ -40,3 +40,7 @@ Step 4b / T-BE **N/A** — reuse Auth profile only.
 `/edit-mobile-feature` 2026-08-29: guest FAQ + privacy overlays · `btn-home-faq` / `btn-home-privacy`.
 
 `/edit-mobile-feature` 2026-08-29: FAQ/privacy back = `login.backHome` **Về Trang Chủ** · tap 44 · dismiss overlay.
+
+`/edit-mobile-feature` 2026-09-12: **GAP-MOB-EDIT-GUEST-TAB** — guest ẩn `LinmTabBar` · pin `btn-home-login` + `btn-home-privacy` đáy · staff hiện tab · dest **iPhone 17 Pro Max** **PASS**.
+
+`/edit-mobile-feature` 2026-09-12: **GAP-MOB-EDIT-GUEST-OPS** — RMMS `AppLogo` giữa hero · chuông → `#sc-ops` · GET inbox/overview **AllowAnonymous** · dest **iPhone 17 Pro Max** **PASS**.

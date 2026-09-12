@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-01T17:28:02.707Z",
+  "updatedAt": "2026-09-12T16:21:48.516Z",
   "features": {
     "ai-asset-detect": {
       "web": {
@@ -274,7 +274,7 @@
       "mobile": {
         "phase": "done",
         "status": "done",
-        "updatedAt": "2026-09-01T05:24:37.336Z",
+        "updatedAt": "2026-09-12T15:31:42.305Z",
         "statusRel": "specs/patrol-home/STATUS.md"
       }
     },
@@ -290,7 +290,7 @@
       "mobile": {
         "phase": "done",
         "status": "done",
-        "updatedAt": "2026-09-01T11:54:01.579Z",
+        "updatedAt": "2026-09-12T14:52:44.446Z",
         "statusRel": "specs/patrol-offline/STATUS.md"
       }
     },
@@ -298,7 +298,7 @@
       "mobile": {
         "phase": "done",
         "status": "done",
-        "updatedAt": "2026-09-01T07:46:33.446Z",
+        "updatedAt": "2026-09-12T12:37:04.262Z",
         "statusRel": "specs/patrol-pin/STATUS.md"
       }
     },
@@ -530,7 +530,7 @@
       "mobile": {
         "phase": "done",
         "status": "done",
-        "updatedAt": "2026-09-01T02:58:18.605Z",
+        "updatedAt": "2026-09-12T10:32:11.381Z",
         "statusRel": "specs/supervise/STATUS.md"
       }
     },
@@ -562,7 +562,7 @@
       "mobile": {
         "phase": "done",
         "status": "done",
-        "updatedAt": "2026-09-01T06:19:06.751Z",
+        "updatedAt": "2026-09-12T11:49:47.610Z",
         "statusRel": "specs/cam-patrol/STATUS.md"
       }
     },
@@ -570,7 +570,7 @@
       "mobile": {
         "phase": "done",
         "status": "done",
-        "updatedAt": "2026-09-01T12:26:04.826Z",
+        "updatedAt": "2026-09-12T11:16:17.682Z",
         "statusRel": "specs/field-reflect/STATUS.md"
       }
     },
@@ -586,7 +586,7 @@
       "mobile": {
         "phase": "done",
         "status": "done",
-        "updatedAt": "2026-09-01T07:21:22.137Z",
+        "updatedAt": "2026-09-12T13:25:30.060Z",
         "statusRel": "specs/patrol-checkin/STATUS.md"
       }
     },
@@ -650,7 +650,7 @@
       "mobile": {
         "phase": "done",
         "status": "done",
-        "updatedAt": "2026-09-01T15:10:38.618Z",
+        "updatedAt": "2026-09-12T09:13:44.564Z",
         "statusRel": "specs/mnt-progress/STATUS.md"
       }
     },
@@ -746,7 +746,7 @@
       "mobile": {
         "phase": "done",
         "status": "done",
-        "updatedAt": "2026-09-01T11:27:33.767Z",
+        "updatedAt": "2026-09-12T14:24:11.836Z",
         "statusRel": "specs/patrol-history-detail/STATUS.md"
       }
     },
@@ -772,6 +772,22 @@
         "status": "done",
         "updatedAt": "2026-09-01T14:28:12.459Z",
         "statusRel": "specs/mobile-cleanup-mock/STATUS.md"
+      }
+    },
+    "mobile-bff-map": {
+      "mobile": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-12T09:45:27.545Z",
+        "statusRel": "specs/mobile-bff-map/STATUS.md"
+      }
+    },
+    "mobile-bff-file": {
+      "mobile": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-12T16:21:48.516Z",
+        "statusRel": "specs/mobile-bff-file/STATUS.md"
       }
     }
   }

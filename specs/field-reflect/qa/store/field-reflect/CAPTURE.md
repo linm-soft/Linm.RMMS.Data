@@ -9,15 +9,12 @@
 | P6-CORE | P6 · P11 | **PASS** | ![P6-CORE](P6-CORE.png) |
 | P6-CORE-2 | P6 | **PASS** | ![P6-CORE-2](P6-CORE-2.png) |
 
-iOS device: iPhone 17 Pro Max
-iPad device: DEFER Phase 1
-method: e2e runtime · yarn e2e-qa-mobile · Maestro ON
-capturedAt: 2026-09-01T12:17:51.598Z
-taskId: task_26b1db16
-ok: true
+iOS device: iPhone 17 Pro Max  
+iPad device: DEFER Phase 1  
+method: e2e runtime · yarn e2e-qa-mobile · Maestro ON  
+capturedAt: `2026-09-12T11:11:32.196Z`  
+gap: `field_reflect_sessions_live_only` · T-QA-FIELD-SESS-LIVE **PASS**
 
-CLI PASS = capture+px only. Visual = `/review-align-ux-ios-android` Read CORE vs demo HTML · **Aligned** · Must **0**.
-
-Flow: hub → `#sc-field-pick` → asset → `#sc-field-reflect`.
+CLI PASS = capture+px only. Visual = `/review-align-ux-ios-android` Read CORE vs demo HTML.
 
 Listing official → `/store-image-capture` confirm file live (cấm AI vẽ).

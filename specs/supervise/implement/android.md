@@ -1,29 +1,33 @@
 # Dev — Implement — supervise (Android)
 
-> Status: **done** · `/edit-mobile-feature` · cleanup_mock · `/agent-dev-android`  
-> task `task_65931a17` · T-AND-SUPERVISE · parent `mobile-cleanup-mock`
+> Status: **done** · `/agent-dev-android` · `/dev-android-compose` · `/dev-ui-review`  
+> task `task_a7ad9582` · T-AND-SUP-FILTER · T-AND-SUP-MAP-NAV · changeScope=`edit_page`
 
 | Feature | `supervise` |
 | assembleDebug | **PASS** |
-| Kit | `LinmTopBar` · `LinmSegment` · `LinmToast` (via `LoginToastHub`) · `EmptyChrome` · `LinmMapPinGlyph` · `LinmBusyOverlay` · card = feature composition |
+| Kit | `LinmTopBar` · `LinmSegment` · `LinmSheet` · `LinmToast`/`LoginToastHub` · `EmptyChrome` · `LinmMapPinGlyph` · `LinmBusyOverlay` · card = feature composition · Material3 `DatePickerDialog` |
 
 ## Layers
 
-| Presentation | `presentation/feature/supervise/SuperviseScreen.kt` · `SuperviseViewModel.kt` · `SuperviseUiState.kt` · `MainTabScreen` `navigate("supervise")` |
-| Domain | `FetchSuperviseCheckinsUseCase` → `FetchSuperviseCheckinsOutcome` · `SuperviseCopy.orgFallback` · `SuperviseCopy.loadFailToast` · **no** `demoItems` |
-| Data | `SuperviseRepositoryImpl` · `SuperviseDtoMapper.checkin` · `ApiService.attendanceLogs` · `GET patrol/attendance-logs` |
+| Presentation | `SuperviseScreen` · `SuperviseViewModel` · `SuperviseUiState` · filter sheet · `MainTabScreen` Home→Field `pendingPatrolMap` / Field `navigate("patrol-map")` |
+| Domain | `FetchSuperviseCheckinsUseCase` ±`route` + client `CheckInAt` day · `SuperviseCheckinItem.checkInAt` |
+| Data | `ApiService.attendanceLogs(…, route)` · `SuperviseRepositoryImpl` · mapper Instant |
 
-## Behavior (live-only · **cấm** `SuperviseCopy.demoItems`)
+## Behavior (§ Delta live)
 
-Parity iOS · GET OK empty = EmptyChrome `sup-empty` · GET fail = empty + `supervise.toast.loadFail` · org fallback mapper · **cấm** `AlertDialog` · **cấm** invent kit `LinmRichCheckinCard`.  
-E2E tags: `sc-supervise` · `btn-sup-back` · `btn-sup-filter` · `sup-segment` · `sup-empty` · `sup-card-*`.
+- **Lọc** → owner `LinmSheet` Tuyến+Ngày · Apply GET ±`route` + client day · Clear · **cấm** toast fake.
+- Segment **Bản đồ** → push `#sc-patrol-map` · reset seg **0** · **cấm** toast/embed.
+- Tap card → keep `supervise-detail` · EmptyChrome live-only · loadFail toast only.
+- Optional `#filter-chip` when filtered.
+- E2E tags: `sc-supervise` · `btn-sup-filter` · `filter-sheet` · `filterRoute` · `filterDate` · `filterApply` · `filterClear` · `sup-segment` · `sup-empty` · `sup-card-*` · `filter-chip`.
 
 ## VERIFY GATE
 
-`./gradlew :app:assembleDebug` **BUILD SUCCESSFUL**.
+`./gradlew :app:assembleDebug` **BUILD SUCCESSFUL**.  
+BFF `dotnet build` **PASS**. Step 4b **N/A**.
 
-## Notes
+## Debt
 
-`/edit-mobile-feature` 2026-09-01: **cleanup_mock** · remove demo fallback · dual EmptyChrome + loadFail toast. Step 4b / T-BE **N/A** — reuse attendance-logs · EmptyChrome OK khi tenant rỗng · **cấm** `mfeStdUrl`.
+- GAP-MOB-SUP-04 BE fromDate **P2**
 
-<!-- Version meta: skillId=edit-mobile-feature+agent-dev-android skillVersion=2026.08.19.26 schemaVersion=1 workflowVersion=2026.08.31.2 rulesVersion=2026.08.31.2 versionGate=rechecked taskId=task_65931a17 -->
+<!-- Version meta: skillId=agent-dev-android+dev-android-compose skillVersion=2026.08.19.26 schemaVersion=1 workflowVersion=2026.08.31.2 rulesVersion=2026.08.31.2 versionGate=rechecked taskId=task_a7ad9582 -->

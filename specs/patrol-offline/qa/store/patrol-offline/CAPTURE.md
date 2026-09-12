@@ -13,9 +13,10 @@ iOS device: iPhone 17 Pro Max
 iPad device: DEFER Phase 1
 Android: emulator-5554
 method: e2e runtime · yarn e2e-qa-mobile · Maestro ON
-capturedAt: 2026-09-01T11:46:02.050Z
-taskId: task_fcc96865
-note: post cleanup_mock_offline_storage · live EmptyChrome · cấm hardcode «3 bản ghi» · cấm demo cards
+capturedAt: 2026-09-12T14:47:59.841Z
+taskId: task_53265cb6
+gap: offline_sync_apply_checkins
+note: live EmptyChrome · Sync=replay check-ins · cấm hardcode «3 bản ghi» · cấm demo cards · Android login Back+scroll btn-login
 
 CLI PASS = capture+px only. Visual = `/review-align-ux-ios-android` Read CORE vs demo HTML · chrome **Aligned** · list delta expected.
 

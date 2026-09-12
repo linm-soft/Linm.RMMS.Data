@@ -176,13 +176,19 @@
   </svg>
 
   <script>
-    /** Demo: ?deny=1 → GPS deny · ?ship=1 → ẩn score (GAP-MOB-CAM-SCORE-01) */
+    /** Demo: ?deny=1 GPS · ?ship=1 ẩn score · ?fail=1 frame/detect fail (GAP-MOB-CAM-FRAME-02) */
     let gpsOk = !location.search.includes('deny=1');
     const shipMode = location.search.includes('ship=1');
+    const failMode = location.search.includes('fail=1');
 
     if (shipMode) {
       const score = document.getElementById('row-score');
       if (score) score.classList.add('hidden');
+    }
+    if (failMode) {
+      document.getElementById('detect-card').classList.add('hidden');
+      document.getElementById('btn-confirm').disabled = true;
+      setTimeout(() => toast('Không nhận diện được. Thử lại.'), 200);
     }
     if (!gpsOk) {
       document.getElementById('stamp-gps').textContent = '— · chưa chốt';

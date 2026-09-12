@@ -1,7 +1,8 @@
 # html-to-native-map — field-reflect
 
-**Sources:** dual `#sc-field-reflect` · DA controlHint · PO §5 · map skill `docs/html-to-native-map.md`  
-**Cấm** WebView bọc HTML · invent `field-reflect` API · ERP.*
+**Sources:** dual `#sc-field-reflect` · DA controlHint · PO § Delta · map skill `docs/html-to-native-map.md`  
+**changeScope:** `edit_page` · **GAP-MOB-FIELD-SESS-01**  
+**Cấm** WebView bọc HTML · invent `field-reflect` API · ERP.* · `itemsOrDemo`
 
 | Demo | Zone | HTML / token | iOS kit | Android kit | Notes |
 |------|------|--------------|---------|-------------|-------|
@@ -16,12 +17,13 @@
 | Detect card | Group | `.card-group` | inset grouped | `Card` + column | |
 | detectRow | List | `.row` · row-sub/title | `LinmListRow` | same | label 13 · value ≥16 |
 | severityRow | List | `.row` + `.badge.orange` | `LinmListRow` + Badge | same | bind Severity |
-| locationRow | List | `.row` | `LinmListRow` | same | GPS chốt · **cấm** fake |
+| locationRow | List | `.row` `#row-loc` | `LinmListRow` | same | **live** sessions+GPS · empty `—` nếu fail/empty · **cấm** fake |
 | Chk label | Section | `.section-label` | Text 13 | same | |
 | checklist | List | `.chk-row` · `.chk-k` · `.chk-t` | CheckboxList pattern | same | PAVEMENT SSOT |
 | Create | CTA | `.btn-primary` | `LinmPrimaryButton` | same | POST `incident/incidents` |
 | Draft | CTA | `.btn-secondary` | `LinmSecondaryButton` | same | offline queue |
 | Toast OK/Draft | Banner | `#toast` | `LinmToast` | same | **cấm** alert |
+| **toastSessionsFail** | Toast | `#toast` | `LinmToast` | same | **NEW** · `?fail=1` / `?empty=1` · **cấm** system alert |
 | DES-MOB-GPS-DENY | Modal | `#modal-gps` | feature overlay | Material dialog card | chặn Create |
 | Deny primary | Button | Sao chép hướng dẫn | `LinmPrimaryButton` | same | clipboard + toast |
 | Deny secondary | Button | Để sau | `LinmSecondaryButton` | same | dismiss |
@@ -49,14 +51,15 @@
 | kind pill click → `renderChk` | filter CHK by kind enum |
 | `openCapture` | camera permission · PhotoRow append |
 | `?deny=1` modal · disable Create | CoreLocation / Fused deny → modal |
-| `?empty=1` banner | empty `GET patrol/sessions` «Đang tuần» |
+| `?empty=1` banner + empty loc + toast | empty `GET patrol/sessions` «Đang tuần» · **cấm** itemsOrDemo |
+| `?fail=1` empty loc + toastSessionsFail | `.loadFailed` → toast «Không tải được ca tuần» |
 | `goBack` | pop `NavigationStack` / `NavController` |
 
 ## BFF bind (Design note · SA chi tiết)
 
 | Zone | Method · Path |
 |------|----------------|
-| Prefill ca / tuyến | `GET patrol/sessions` |
+| Prefill ca / tuyến | `GET patrol/sessions` · **live-only** |
 | Catalog loại TS (optional) | `GET integration/asset-types` |
 | Optional media | `POST ai-vision/uploads` (+ PUT object) |
 | Detect | `POST ai-vision/detect` |
@@ -70,8 +73,8 @@
 | Field | Value |
 |-------|-------|
 | skillId | mobile-ui-ux-analy |
-| generatedAt | 2026-08-28T22:16:32.000Z |
-| contentHash | sha256:field-reflect-control-hint-20260829 |
+| generatedAt | 2026-09-12T10:50:00.000Z |
+| contentHash | sha256:43744be6c3dc+field-reflect-sess-live-20260912 |
 
 ---
 <!-- Version meta: skillId=mobile-ui-ux-analy schemaVersion=1 -->

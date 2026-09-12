@@ -1,41 +1,53 @@
-# handoff-compact · dev · field-reflect
+# Handoff compact — dev
+
 schemaVersion: 1
-role: dev
 feature: field-reflect
-taskId: task_a6f9a7eb
-slash: /edit-mobile-feature
-mode: fix_gaps · field_reflect_align_incident_create
-updatedAt: 2026-09-01T12:10:00.000Z
-status: confirmed
+packKind: screen
+role: dev
+status: done
+skillVersion: 2026.09.05.03
+writtenAt: 2026-09-12T11:00:00.000Z
+taskId: task_552af9c4
+slash: /agent-dev-ios + /agent-dev-android
+changeScope: edit_page
+autoApprove: ON
 
-## DoR
-- changeScope: edit_page · packKind: screen
-- mfeStdUrl: — (cấm)
-- flow: pick KCHT-32 (`#sc-field-pick`) → form (`#sc-field-reflect`) kind·chk·ảnh·GPS·mức·mô tả·Create/Draft
-- entry: patrol-home `field-reflect` giữ · cấm gộp slug incident-create
-- APIs: GET integration/asset-types · GET patrol/sessions · POST ai-vision/detect · POST incident/incidents
-- checklist: AssetKcht32Catalog by asset code (reuse IncidentCreateChecklist) · cấm invent API
+## Decisions
+- gap=`field_reflect_sessions_live_only` · **GAP-MOB-FIELD-SESS-01** · **CLOSED** dual
+- Live-only GET `patrol/sessions` · empty → toast `field.banner.empty` · fail → `field.toast.sessionsFail` · **cấm** itemsOrDemo/demoToday
+- T-IOS-FIELD-SESS-LIVE · T-AND-FIELD-SESS-LIVE **PASS** · prior T-IOS/AND-FIELD-REF **giữ**
+- T-BE / T-BFF / Step 4b: **n/a** · mfeStdUrl: none · ERP.*: none
+- VERIFY: iOS xcodegen+xcodebuild iPhone 17 Pro Max **PASS** · Android assembleDebug **PASS** · BFF `dotnet build` **PASS**
+- e2eQa: ON queued · **cấm** e2e ở Dev · next: **qa** (`/agent-qa-mobile`)
+- UNCLEAR: none · debt: none
 
-## VERIFY GATE
-| gate | result |
-|------|--------|
-| iOS xcodegen + xcodebuild iPhone 17 Pro | PASS |
-| Android assembleDebug | PASS |
-| BFF dotnet build | PASS |
-| Step 4b | n/a (reuse live endpoints) |
+## Inventory (slim)
+| id | label | controlHint | notes |
+|----|-------|-------------|-------|
+| locationRow | Vị trí đã chốt | ListRow | live+GPS · empty if fail/empty |
+| toastSessionsFail | Không tải được ca tuần | Toast | wired `field.toast.sessionsFail` |
+| kindPills / photos / detect / severity / checklist | … | keep | unchanged |
+| btnCreate / btnDraft | CTA | Primary/Secondary | keep |
 
-## ACTION WORK
-| action | pair | work |
-|--------|------|------|
-| Pick asset | → form | yes |
-| Create | incident POST | yes · GPS gate |
-| Draft | offline queue | yes |
+## Screens / zones (ids only)
+- `#sc-field-reflect` · `#sc-field-pick` · `DES-MOB-FIELD-REFLECT` · `DES-MOB-FIELD-KIND` · `DES-MOB-GPS-DENY`
+- entry `#row-reflect` · mfeStdUrl: N/A
 
-## Debt
-- GAP-MOB-FIELD-MEDIA-01 media[] Signed deferred
-- GAP-QA-FIELD-GPS-TIMING-01 Defer
+## API / tasks (ids only)
+- GET `patrol/sessions` live-only · POST detect · POST incident · GET asset-types
+- T-IOS/AND-FIELD-SESS-LIVE: **done**
+- T-QA-FIELD-SESS-LIVE · T-QA-TAB-01: pending QA
 
-## Paths
-- iOS: Presentation/Features/FieldReflect/*
-- Android: presentation/feature/fieldreflect/*
-- implement: specs/field-reflect/implement/{ios,android}.md
+## UNCLEAR
+- none
+
+## Full paths (Read only if needed)
+- implement ios: /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/field-reflect/implement/ios.md
+- implement android: /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/field-reflect/implement/android.md
+- STATUS: /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/field-reflect/STATUS.md
+
+## Next
+role: qa
+artifact: specs/field-reflect/qa/*
+slash: /agent-qa-mobile
+task: T-QA-FIELD-SESS-LIVE

@@ -6,14 +6,15 @@
 | this role | `qa` · `/agent-qa-mobile` |
 | status | **confirmed** |
 | packKind | **`list`** |
-| taskId | `task_fcc96865` |
+| taskId | `task_53265cb6` |
+| changeScope | `edit_page` · gap=`offline_sync_apply_checkins` |
 | e2eQa | **ON** · `yarn e2e-qa-mobile` · `ios_test_phase=phase1_iphone` · **A4-IPAD DEFER** |
 | store_qa | **run_store** |
-| e2e result | **ok:true** · `2026-09-01T11:46:02.050Z` · dest **iPhone 17 Pro Max** · AVD **emulator-5554** |
+| e2e result | **ok:true** · `2026-09-12T14:47:59.841Z` · dest **iPhone 17 Pro Max** · AVD **emulator-5554** |
 | method | e2e runtime · yarn e2e-qa-mobile · Maestro + simctl/adb · **cấm** GenerateImage · **cấm** yarn start:std / mfeStdUrl |
-| align | dual proto `#sc-patrol-offline` · chrome/kit **Aligned** · list body live EmptyChrome vs demo 2-card (cleanup_mock_offline_storage intentional) |
-| gap | post `cleanup_mock_offline_storage` · live pendingCount only · **cấm** hardcode «3 bản ghi» |
-| updatedAt | `2026-09-01T11:48:50.000Z` |
+| align | dual proto `#sc-patrol-offline` · chrome/kit **Aligned** · list body live EmptyChrome vs demo 2-card (cleanup_mock · intentional) |
+| gap | `offline_sync_apply_checkins` · Sync = replay POST `patrol/sessions/{id}/check-ins` · offline-batch optional receipt · live pendingCount only |
+| updatedAt | `2026-09-12T14:48:06.000Z` |
 
 **Scope:** slug `patrol-offline` list `#sc-patrol-offline` only. **Cấm** AC sibling (patrol-home check-in live · incident form).
 
@@ -21,11 +22,11 @@
 
 | Gate | Result |
 |------|--------|
-| iOS prior `xcodegen` + `xcodebuild` iPhone 17 Pro | **PASS** (dev `task_4fae30f8`) |
+| iOS prior `xcodegen` + `xcodebuild` iPhone 17 Pro | **PASS** (dev `task_8bf4b63c`) |
 | Android prior `assembleDebug` | **PASS** (dev) |
 | Mobile.Bff prior `dotnet build` | **PASS** (dev) |
 | Maestro iOS + Android | **PASS** · guest → login → Me `row-offline` → `#sc-patrol-offline` · EmptyChrome |
-| API :5101 + BFF :5202 | **PASS** (docker · `API_HOST_PORT=5101`) |
+| API :5101 + BFF :5202 | **PASS** (docker · healthy) |
 
 ## Device AC
 
@@ -48,7 +49,7 @@
 | AC-F-01 | Live-only · **cấm** demo seed / hardcode «3 bản ghi» | **PASS** · EmptyChrome · live pendingCount |
 | AC-F-02 | Me `row-offline` → `#sc-patrol-offline` | **PASS** (Maestro iOS+Android) |
 | AC-F-03 | Home `tile-offline` → `#sc-patrol-offline` | **PASS** (code · route_a) |
-| AC-F-04 | Sync POST offline-batch + toast N | **PASS** (code · BFF proxy) |
+| AC-F-04 | Sync replay POST check-ins · remove only 2xx · offline-batch optional receipt | **PASS** (code · BFF proxy · gap apply) |
 | AC-F-05 | Sync fail toast · giữ queue | **PASS** (code) |
 | AC-F-06 | A11y Maestro ids | **PASS** · `sc-patrol-offline` · `row-offline` · `btn-sync` |
 | AC-F-07 | Cấm watermark Gói | **PASS** |
@@ -73,14 +74,14 @@
 | Flow | Path | Result |
 |------|------|--------|
 | iOS | `qa/e2e/ios.yaml` | **PASS** · guest → login → Me → EmptyChrome + hint |
-| Android | `qa/e2e/android.yaml` | **PASS** · EmptyChrome title-only (hint optional P2) |
+| Android | `qa/e2e/android.yaml` | **PASS** · Back+scroll `btn-login` (GAP-QA-STORE-03 fix) · EmptyChrome title |
 
 ## Visual align (`/review-align-ux-ios-android`)
 
 | Zone | Demo | Live A3 / P6 | Verdict |
 |------|------|--------------|---------|
 | TopBar | «Trang Chủ» · title · «Đồng bộ» | same | **Aligned** |
-| Segment | 2 tabs Điểm tuần / Sự cố | same | **Aligned** |
+| Segment | 2 tabs Điểm tuần / Sự cố mất sóng | same | **Aligned** |
 | List body | 2 SSOT cards + weak banner | EmptyChrome live-only | **Expected delta** (cleanup_mock · **cấm** Must-fix seed) |
 | Shell tabs | 5 tabs · Me active context | same | **Aligned** |
 
@@ -92,6 +93,7 @@ Must align: **0** · autoApprove=ON
 |----|------|-----------------|
 | GAP-MOB-ACT-PAT-OFFLINE-01 | Patrol-home nav «Đồng bộ» wire khi sibling ship (stub OK P1) | **No** |
 | note | Android EmptyChrome title-only · iOS title+hint (parity optional P2) | **No** |
+| Incident apply | P2 keep pending | **No** |
 
 ## E2E screenshots
 
@@ -110,4 +112,4 @@ CLI **PASS** = Maestro + PNG + store px only — **not** visual vs demo. QA **Re
 
 ## Version meta
 
-skillId=agent-qa-mobile · skillVersion=2026.08.19.29 · workflowVersion=2026.08.19.29 · generatedAt=2026-09-01T11:48:50.000Z · taskId=task_fcc96865
+skillId=agent-qa-mobile · skillVersion=2026.08.19.29 · workflowVersion=2026.08.19.29 · generatedAt=2026-09-12T14:48:06.000Z · taskId=task_53265cb6 · contentHash=sha256:patrol-offline-delta-apply-checkins-20260912

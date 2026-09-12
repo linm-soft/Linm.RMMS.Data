@@ -6,18 +6,19 @@ packKind: sheet
 role: po
 status: done
 skillVersion: 2026.08.31.2
-writtenAt: 2026-09-01T00:50:00.000Z
-taskId: task_74ed698b
+writtenAt: 2026-09-12T13:45:00.000Z
+taskId: task_eef3894e
 
 ## Decisions
-- changeScope: new_page
-- formPattern: Full (`#sc-patrol-detail` · DES-MOB-PAT-DETAIL) — PACK-01: sheet meta · surface screen
-- Grid AC: N/A · Report AC: N/A
-- Leave-dirty: N/A (readonly)
-- TIMELINE-01: demo SSOT 3 rows P1 · no GET check-ins
-- END/Share: toast P1 · no PUT / share sheet
-- mfe / be: native dual · GET `mobile-bff/api/v1/patrol/sessions/{id}` · Step 4b N/A · cấm ERP.* / mfeStdUrl
-- parent: rewire list toast → push + Id
+- changeScope: edit_page (GAP review timeline)
+- formPattern: Full (`#sc-patrol-detail` · DES-MOB-PAT-DETAIL) — PACK-01 giữ
+- Grid AC: N/A · Report AC: N/A · Leave-dirty: N/A
+- TIMELINE-01: GET check-ins live · empty OK · **cấm** timelineDemo
+- TAP-01: done → nav checkin-detail + Id (≠ toast)
+- MAP-01: nav patrol-map + session Id · no toast khi có Id
+- END/Share: toast P1 · **cấm** PUT / share sheet
+- mfe / be: native dual · GET sessions/{id} + GET …/check-ins Live · Step 4b N/A · cấm ERP.* / mfeStdUrl
+- keep: prior Design dual proto · PO § Delta only
 - open questions: none
 - autoApprove: ON · e2eQa queued `/agent-qa*` only
 - devSlash: /agent-dev-ios + /agent-dev-android
@@ -25,34 +26,36 @@ taskId: task_74ed698b
 ## Inventory (slim)
 | id | label | controlHint | notes |
 |----|-------|-------------|-------|
-| navBack | Lịch sử | BackButton | pop list · dual chrome |
+| navBack | Lịch sử | BackButton | pop list |
 | title | Chi tiết ca | TopBar title | fixed |
 | navShare | Chia sẻ | IconButton | toast P1 |
-| codeHero | PAT-* | Text display ≥26 | GET Code |
-| badgeStatus | trạng thái | Badge | Status VN map |
-| rowUser…Coverage | info | ListRow | GET bind §B |
-| tlItem | Điểm tuần | TimelineRow | demo SSOT P1 |
-| btnMap | Mở bản đồ ca | PrimaryButton | nav patrol-map + Id |
-| btnEnd | Kết thúc ca | SecondaryButton | toast · no PUT |
+| codeHero | PAT-* | Text ≥26 | GET Code |
+| badgeStatus | trạng thái | Badge | Status VN |
+| rowUser…Coverage | info | ListRow | GET session |
+| tlItem | Điểm tuần | TimelineRow | GET check-ins |
+| tlEmpty | empty | Empty | [] OK |
+| tlTap | Xem | tap | → CI-DETAIL |
+| btnMap | Mở bản đồ ca | Primary | nav map + Id |
+| btnEnd | Kết thúc ca | Secondary | toast · no PUT |
 
 ## Screens / zones (ids only)
 - DES-MOB-PAT-DETAIL `#sc-patrol-detail` Full — owner
-- entry `#sc-patrol-history` row → push + Id
-- reuse: patrol-map CTA · patrol-checkin timeline tap (≠ save)
-- reviewUrl: (Design)
+- entry `#sc-patrol-history` / today → push + Id
+- reuse: patrol-map CTA · patrol-checkin tap (≠ save)
+- reviewUrl: dual prototype `#sc-patrol-detail`
 - peerStdUrl: N/A · cấm mfeStdUrl
 
 ## API / tasks (ids only)
-- FormMode↔API: appear GET sessions/{id} · same-slug
-- OUT: check-ins list/POST · session PUT · invent path
-- T-*: (team-lead)
+- API-01 GET sessions/{id}
+- API-02 GET sessions/{id}/check-ins · Live
+- Gaps: TIMELINE-01 · TAP-01 · MAP-01 · END-01 keep
+- OUT: POST CI · PUT · invent · timelineDemo
 
 ## UNCLEAR
 - none
 
 ## Full paths (Read only if needed)
+- requirement: /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/patrol-history-detail/po/requirement.md
 - control-hint: /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/patrol-history-detail-control-hint.md
 - real-data: /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/patrol-history-detail-real-data.md
-- action-tree: /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/patrol-history-detail-action-tree.md
-- po: /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/patrol-history-detail/po/requirement.md
 - STATUS: /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/patrol-history-detail/STATUS.md

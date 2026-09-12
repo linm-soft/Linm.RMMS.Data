@@ -3,10 +3,10 @@
 | Field | Value |
 |-------|-------|
 | feature | `cam-patrol` |
-| taskId | `task_fb828936` |
+| taskId | `task_8051fbb6` |
 | status | **CLOSED** (Must) |
 | Must open | **0** |
-| updatedAt | `2026-09-01T06:13:32.000Z` |
+| updatedAt | `2026-09-12T11:45:15.411Z` |
 
 ## Must
 
@@ -22,4 +22,5 @@ _None._
 
 | ID | Note |
 |----|------|
-| — | e2e ok:true · visual Aligned · cleanup_mock recheck PASS |
+| GAP-QA-STORE-03 | Android login eraseText misfocus → IME Enter pattern (supervise) · e2e ok:true |
+| — | e2e ok:true · visual Aligned · FRAME recheck PASS · task_8051fbb6 |

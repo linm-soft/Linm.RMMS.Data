@@ -4,33 +4,33 @@
 |-------|-------|
 | feature | `patrol-checkin` |
 | platform | iOS |
-| this role | `dev` · `/edit-mobile-feature` · `/agent-dev-ios` |
+| this role | `dev` · `/agent-dev-ios` · `/dev-ios-swiftui` |
 | status | **confirmed** |
-| changeScope | `edit_page` (cleanup_mock) |
+| changeScope | `edit_page` |
 | packKind | **`sheet`** |
-| taskId | `task_2f18d421` |
-| updatedAt | `2026-09-01T06:40:00.000Z` |
+| taskId | `task_e7e16bae` |
+| updatedAt | `2026-09-12T13:15:00.000Z` |
 | autoApprove | ON |
-| contentHash | sha256:patrol-checkin-control-hint-20260828 |
-| bffContentHash | sha256:patrol-checkin-mobile-bff-20260828 |
+| contentHash | sha256:patrol-checkin-control-hint-20260912-edit |
+| bffContentHash | sha256:patrol-checkin-mobile-bff-20260912-edit |
 
-## Notes (cleanup_mock)
+## Notes (edit_page delta · T-IOS-PAT-CI-DELTA)
 
-- **GAP-MOB-EDIT-DEMO-01 closed** — gỡ `PatrolCheckInCopy.demoRoute/demoPlan*/demoContent` · `demo-session` · `itemsOrDemo` trên path check-in.
-- Prefill = live `GET patrol/sessions` active `.route` · empty/no active = `patrol.empty.active.route` · fail = toast `cam.toast.sessionFail`.
-- Plan lat/lng = live GPS pin (chưa có BE plan-points) · **cấm** invent `QL.1` / Km demo.
-- Save chặn khi `sessionId` trống hoặc `matchOk=false`.
-- Seed: reuse sessions + POST check-ins · Step 4b **N/A**.
+- Plan match vs BE `GET …/plan-points` · nearest + haversine `MATCH_RADIUS_M=50` · interim session label · **cấm** plan=GPS SSOT.
+- PhotoRow → PhotosPicker → FileService `files/init`→PUT→`commit` → `attachmentId[]` on POST · preview local bytes + detail ids · fail → offline queue (**cấm** fake 200).
+- Submit `POST …/check-ins` live · body `photoLocalIds` = FileService guids · pending photo → queue.
+- GPS live · deny modal · leave in-app.
+- Zones giữ · kit_skip.
 
-## Shipped (prior + this edit)
+## Shipped
 
 | Area | Path / note |
 |------|-------------|
-| Sheet + leave + detail | `Presentation/Features/PatrolCheckIn/*` · `LinmSheet` · DES-MOB-LEAVE |
-| Entry | Hub/map `.checkIn` + pin handoff |
-| GPS match | Live GPS · haversine 50 m · **cấm** demo plan coords |
-| Submit | `POST …/check-ins` · else offline queue |
-| Live session | `FetchPatrolSessionsOutcome` · **cấm** itemsOrDemo |
+| Sheet + leave + detail | `Presentation/Features/PatrolCheckIn/*` |
+| Plan points | `FetchPatrolPlanPointsUseCase` · `PatrolRepository.fetchPlanPoints` |
+| File upload | `FileAttachmentRepositoryImpl` · `UploadFileAttachmentUseCase` |
+| Submit | `SubmitPatrolCheckInUseCase` · attachment ids |
+| DI | `AppContainer` · `AppRouter` |
 
 ## Build gate
 
@@ -38,7 +38,8 @@
 |-------|--------|
 | `xcodegen generate` | **PASS** |
 | `xcodebuild` iPhone 17 Pro | **PASS** |
-| demo route/plan/latlng | **removed** |
+| plan=GPS | **removed** |
+| File fake 200 | **none** |
 
 ## Version meta
 
@@ -49,7 +50,7 @@
 | schemaVersion | 1 |
 | workflowVersion | 2026.08.25.01 |
 | rulesVersion | 2026.08.29.4 |
-| generatedAt | `2026-09-01T06:40:00.000Z` |
+| generatedAt | `2026-09-12T13:15:00.000Z` |
 | versionGate | rechecked |
 
 ---

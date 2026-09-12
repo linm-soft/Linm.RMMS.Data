@@ -37,7 +37,7 @@
 | rulesVersion | `2026.08.29.5` |
 | versionGate | `rechecked` |
 | verifyGate | iOS xcodegen · Android assembleDebug · BFF dotnet build **PASS** · e2e-qa-mobile **ok:true** · review artifact **PASS** · roleOnly=`review` · **cấm** start:std |
-| updatedAt | `2026-09-01T15:10:38.617Z` |
+| updatedAt | `2026-09-12T09:13:44.560Z` |
 ## Lock
 
 | agent | scope | id | at |

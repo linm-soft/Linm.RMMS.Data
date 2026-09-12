@@ -1,16 +1,16 @@
 # QA bugs — patrol-pin
 
-STATUS: **CLOSED** · Must **0** · Should **0**  
-Handoff: Review `/agent-review-mobile`  
-align_confirm: **approve** (autoApprove=ON · QA `task_3a68f8d3`)
+| Field | Value |
+|-------|-------|
+| feature | `patrol-pin` |
+| taskId | `task_9a00d2c5` |
+| Must | **0** |
+| updatedAt | `2026-09-12T12:29:00.000Z` |
 
-| ID | Zone | Demo | iOS | Android | SSOT | Lệch | Owner |
-|----|------|------|-----|---------|------|------|-------|
-| — | — | — | — | — | — | none | — |
+## Open
 
-**Cấm** PASS khi Must > 0 — Must = **0** · QA **confirmed**.
+- none
 
-## Notes (resolved during QA)
+## Notes
 
-- Lần 1 auto-gen Maestro YAML chụp A3 trước login → đã thay `qa/e2e/{ios,android}.yaml` (login seed → hub/map pin) · AutoCode default `maestroFlowYaml` cũng sửa để **cấm** A3 trước login.
-- Android: submit login qua `pressKey: Enter` trên `f-pass` (ImeAction) — tap `btn-login` khi IME mở dễ miss.
+- Android Maestro login flaky với title-tap/Enter — fixed in `qa/e2e/android.yaml` (Back + scroll) · không phải app defect.

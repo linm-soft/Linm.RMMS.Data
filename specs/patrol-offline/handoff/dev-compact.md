@@ -1,32 +1,52 @@
-# handoff-compact · dev · patrol-offline
+# Handoff compact — dev
+
 schemaVersion: 1
-role: dev
 feature: patrol-offline
-taskId: task_4fae30f8
-slash: /edit-mobile-feature
-mode: fix_gaps · cleanup_mock_offline_storage
-updatedAt: 2026-09-01T11:31:00.000Z
+packKind: list
+role: dev
 status: confirmed
+skillVersion: 2026.08.19.29
+writtenAt: 2026-09-12T14:45:00.000Z
+taskId: task_8bf4b63c
+slash: /agent-dev-ios + /agent-dev-android
+mode: feature_context
+changeScope: edit_page
+gap: offline_sync_apply_checkins
+autoApprove: ON
+e2eQa: ON
+contentHash: sha256:patrol-offline-delta-apply-checkins-20260912
+bffContentHash: sha256:patrol-offline-bff-apply-checkins-20260912
+mfeStdUrl: —
 
-## DoR
-- changeScope: edit_page · packKind: list · live pendingCount only
-- mfeStdUrl: — (cấm)
-- gap: gỡ hardcode «3 bản ghi chờ đồng bộ» (`patrol.quick.offlineSub`)
-- subtitle: count>0 → fmt `%d` · count=0 → empty copy / EmptyChrome
-- Me row: same · badge ẩn khi 0
-- ACTION: Sync only · no search/CRUD form · btn-sync → POST offline-batch **work**
+## Decisions
+- Dual enqueue sessionId + CreatePatrolCheckInBody
+- Sync = replay POST patrol/sessions/{id}/check-ins · remove only 2xx
+- offline-batch = optional receipt after OK · RecordCount=synced
+- Incident P2 keep · no clear-all · no GET queue · no ERP.* · Step 4b N/A
+- UI zones keep · T-IOS-PAT-OFF-APPLY · T-AND-PAT-OFF-APPLY done
+- phase_to: qa (/agent-qa-mobile)
 
-## VERIFY GATE
-| gate | result |
-|------|--------|
-| iOS xcodegen + xcodebuild iPhone 17 Pro | PASS |
-| Android assembleDebug | PASS |
-| BFF dotnet build | PASS (unchanged) |
+## Screens / zones (ids only)
+- DES-MOB-PAT-OFFLINE / #sc-patrol-offline
+- DES-MOB-PAT-OFFLINE-NAV · #btn-sync (replay)
+- SEG · BANNER · CARD · payload hidden sessionId+body
 
-## Debt
-- Sibling writers enqueue still P2 (GAP-MOB-ACT-PAT-OFFLINE-01)
-- Parent epic `mobile-cleanup-mock` residual Lưu trữ → DONE this task
+## API (ids only)
+- POST patrol/sessions/{sessionId}/check-ins (primary apply)
+- POST integration/sync/offline-batch (optional receipt)
+- queue = local only
 
 ## Artifacts
 - implement/ios.md · implement/android.md
-- SSOT docs/mobile-strings.json
+- full: ios OfflineQueueRepositoryImpl · android OfflineQueueRepositoryImpl
+
+## VERIFY
+- xcodegen + xcodebuild iPhone 17 Pro PASS
+- assembleDebug PASS · BFF dotnet build PASS
+- cấm e2e / start:std / mfeStdUrl · next: /agent-qa-mobile
+
+## Debt
+- Incident apply P2 · legacy no-payload skip · patrol-home sync stub Defer
+
+## UNCLEAR
+- none

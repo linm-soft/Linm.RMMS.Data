@@ -4,41 +4,44 @@
 |-------|-------|
 | feature | `patrol-pin` |
 | platform | iOS |
-| this role | `dev` · `/edit-mobile-feature` · `/agent-dev-ios` |
+| this role | `dev` · `/agent-dev-ios` · `/dev-ios-swiftui` |
 | status | **confirmed** |
-| changeScope | `edit_page` (cleanup_mock) |
+| changeScope | `edit_page` (GAP-MOB-PIN-PERSIST-01) |
 | packKind | **`sheet`** |
-| taskId | `task_c9fd5cec` |
-| updatedAt | `2026-09-01T07:25:00.000Z` |
+| taskId | `task_f90e803b` |
+| updatedAt | `2026-09-12T12:20:00.000Z` |
 | autoApprove | ON |
-| contentHash | sha256:patrol-pin-control-hint-20260821 |
-| bffContentHash | sha256:patrol-pin-mobile-bff-20260821 |
+| contentHash | sha256:patrol-pin-control-hint-20260912-persist |
+| bffContentHash | sha256:patrol-pin-mobile-bff-20260912-persist |
 
-## Notes (cleanup_mock)
+## Notes (edit_page · persist handoff)
 
-- **GAP-MOB-EDIT-DEMO-01 closed** — gỡ `PatrolPinCopy.demoRoute` · map pin path **cấm** `itemsOrDemo` / `nextDemoTitle`.
-- Toast route = live `GET patrol/sessions` active · empty/no active = `patrol.empty.active.route` · fail = toast `cam.toast.sessionFail`.
-- GPS pin local vẫn OK khi offline · **cấm** invent `QL.1 · Km 1561+134`.
-- Seed: reuse sessions · Step 4b **N/A** · BE empty OK.
-- Action gate: sheet CTA pin + GpsDenyModal · **không** list/search · Create/Edit/View/Copy N/A.
+- **GAP-MOB-PIN-PERSIST-01** — sau pin OK → real `#sheet-handoff-checkin` (`PinHandoffSheet`) payload `sessionId`+`LocationFix`.
+- **Tiếp tục** → sibling `PatrolCheckIn` via `.openWithHandoff` (apply fix · **cấm** re-GPS) · **cấm** pin auto-POST.
+- Deny / timeout → **không** handoff · Offline → toast `patrol.pin.queued` · **không** mở sheet.
+- Hero **Ghi điểm tuần** vẫn `.open` (form sibling · không payload pin).
+- Step 4b **N/A** · BFF reuse `GET patrol/sessions` only.
 
-## Shipped (prior + this edit)
+## Shipped
 
 | Area | Path / note |
 |------|-------------|
-| Domain | `Domain/Entities/PatrolPinModels.swift` · **no** demoRoute |
-| Hub CTA | `PatrolHomeViewModel.pinHere` · live `activeSession.routeKm` |
-| Map CTA | `PatrolMapViewModel` live sessions · nextTitle empty-label |
-| Deny | `GpsDenyModal` · **cấm** UIAlert |
-| BFF | `GET patrol/sessions` only |
+| Payload | `Domain/Entities/PatrolPinModels.swift` · `PatrolPinHandoffPayload` |
+| Sheet | `Presentation/Shared/PinHandoffSheet.swift` · `DES-MOB-HANDOFF-CHECKIN` |
+| Hub | `PatrolHomeViewModel.pinHere` → handoff · `activeSessionId` |
+| Map | `PatrolMapViewModel.pinHere` → `.here`+follow + handoff · network inject |
+| Sibling | `PatrolCheckInIntent.openWithHandoff` · applyFix |
+| Wire | `AppRouter` `setContinuePinHandoff` |
+| Copy | `patrol.handoff.*` · `patrol.pin.queued` |
 
 ## Build gate
 
 | Check | Result |
 |-------|--------|
 | `xcodegen generate` | **PASS** |
-| `xcodebuild` iPhone 17 Pro | **PASS** |
-| demoRoute / nextDemoTitle pin path | **removed** |
+| `xcodebuild` iPhone 17 Pro Max | **PASS** |
+| BFF `dotnet build` | **PASS** (reuse · no pin controller) |
+| pin auto-POST / invent `/pins` | **none** |
 
 ## Version meta
 
