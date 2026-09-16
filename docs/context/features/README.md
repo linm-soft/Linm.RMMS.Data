@@ -45,6 +45,7 @@
 | 4t-m | `mobile-bff-task` | Mobile.Bff TaskService | Platform | P1 BFF | mnt-list = WO **giữ** | Context | [mobile-bff-task.md](mobile-bff-task.md) · P1 sau Map+File |
 | 2t | `gis-osm-clip` | GIS prod: OSM clip + overlay MapService | Gis | P1 | MFE clip BFF · chip **Tiêu chuẩn / Vệ tinh** · mobile copy web live [`patrol-map.md`](patrol-map.md) · **iOS gis-map shipped** | Context | [gis-osm-clip.md](gis-osm-clip.md) · `/implement-gis-map` |
 | 2u | `legal-tech-corridor` | Luật VN + Store (GPS/vẽ TS/guest) | Compliance | P1 | — | Context | [legal-tech-corridor.md](legal-tech-corridor.md) · `/review-app-vn-map-law` |
+| 2u-s | `ios-store-submit` | iOS Archive / Invalid Binary / 90717 | Compliance | P1 | ASC 1.0.7 | Context | [ios-store-submit.md](ios-store-submit.md) · [`IOS-SUBMIT-GUIDE.md`](../../plan/release-mobile/store/IOS-SUBMIT-GUIDE.md) |
 | 2v | `directions` | Chỉ đường / HD điện tử guest | Integration | P1 | — (chưa OSRM Signed) | Context | [directions.md](directions.md) · `/implement-directions-app` |
 | 2a | `gis-draw-google` | Vẽ tài sản trên Google Map | Gis+Asset | P1 | GOVOne `1-ban-do.png` | Demo | [gis-draw-google.md](gis-draw-google.md) |
 | 2b | `gis-draw-live` | Vẽ tài sản live (Leaflet rút gọn) | Gis+Asset | P1 | HĐ PL01 mã 02 | Demo | [gis-draw-live.md](gis-draw-live.md) |

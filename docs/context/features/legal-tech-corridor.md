@@ -53,7 +53,8 @@ N/A.
 
 ## 7. Khách chuẩn bị (Store 1.0)
 
-Wave + toggle (không xóa code): [`docs/plan/release-mobile/PLAN.md`](../../plan/release-mobile/PLAN.md) · `/plan-release-mobile` · Submit = `/review-app-submit`.
+Wave + toggle (không xóa code): [`docs/plan/release-mobile/PLAN.md`](../../plan/release-mobile/PLAN.md) · `/plan-release-mobile` · Submit = `/review-app-submit`.  
+Binary iOS (Invalid Binary / 90717): [`ios-store-submit.md`](ios-store-submit.md).
 
 1. Tài khoản Organization Apple+Play  
 2. Landing Privacy/Support HTTPS  

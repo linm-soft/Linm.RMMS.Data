@@ -11,6 +11,9 @@ appId: org.linmsoft.rmms
 - tapOn:
     id: "btn-home-login"
     optional: true
+- tapOn:
+    text: "Dành cho cán bộ"
+    optional: true
 - extendedWaitUntil:
     visible:
       id: "f-user"
@@ -18,7 +21,7 @@ appId: org.linmsoft.rmms
 - tapOn:
     id: "f-user"
 - eraseText
-- inputText: "linm-soft"
+- inputText: "rmms-admin"
 - tapOn:
     text: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
     optional: true
@@ -28,7 +31,7 @@ appId: org.linmsoft.rmms
 - tapOn:
     id: "f-pass"
 - eraseText
-- inputText: "Linm@2026"
+- inputText: "RMMS@2026"
 - tapOn:
     text: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
     optional: true

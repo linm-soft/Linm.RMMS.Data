@@ -1,0 +1,64 @@
+yarn run v1.22.22
+$ tsx src/index.ts e2e-qa-mobile --feature=login-forgot --product-root=/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data --ios-root=/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS --ios-phase=phase1_iphone --bundle-id=com.drvn.rmms --cases=A11-LAUNCH,A10-BFF,A9-LOGIN,A3-CORE --skip-start --skip-build --crawl
+{
+  "ok": false,
+  "outDir": "/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/login-forgot/qa/screens",
+  "storeDir": "/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/login-forgot/qa/store/login-forgot",
+  "iosDevice": "iPhone 17 Pro Max",
+  "steps": [
+    {
+      "id": "A10-BFF",
+      "result": "PASS",
+      "store": [
+        "A10",
+        "P11"
+      ]
+    },
+    {
+      "id": "MAESTRO-IOS",
+      "result": "FAIL",
+      "store": [
+        "A3",
+        "A9",
+        "A11"
+      ],
+      "error": "445)\n\tat maestro.cli.session.MaestroSessionManager.createMaestro(MaestroSessionManager.kt:217)\n\tat maestro.cli.session.MaestroSessionManager.newSession(MaestroSessionManager.kt:108)\n\tat maestro.cli.session.MaestroSessionManager.newSession$default(MaestroSessionManager.kt:66)\n\tat maestro.cli.command.TestCommand.runShardSuite(TestCommand.kt:477)\n\tat maestro.cli.command.TestCommand.access$runShardSuite(TestCommand.kt:81)\n\tat maestro.cli.command.TestCommand$handleSessions$1$results$1$1.invokeSuspend(TestCommand.kt:438)\n\tat kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)\n\tat kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)\n\tat kotlinx.coroutines.internal.LimitedDispatcher$Worker.run(LimitedDispatcher.kt:124)\n\tat kotlinx.coroutines.scheduling.TaskImpl.run(Tasks.kt:89)\n\tat kotlinx.coroutines.scheduling.CoroutineScheduler.runSafely(CoroutineScheduler.kt:586)\n\tat kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.executeTask(CoroutineScheduler.kt:820)\n\tat kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.runWorker(CoroutineScheduler.kt:717)\n\tat kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run(CoroutineScheduler.kt:704)",
+      "gap": "GAP-MOB-ACT-03"
+    },
+    {
+      "id": "CRAWL",
+      "result": "FAIL",
+      "store": [],
+      "error": "r.kt:93)\n\tat maestro.utils.Metrics.measured(Metrics.kt:48)\n\tat maestro.utils.Metrics.measured$default(Metrics.kt:42)\n\tat maestro.drivers.IOSDriver.open(IOSDriver.kt:92)\n\tat maestro.Maestro$Companion.ios(Maestro.kt:785)\n\tat maestro.cli.session.MaestroSessionManager.createIOS(MaestroSessionManager.kt:445)\n\tat maestro.cli.session.MaestroSessionManager.createMaestro(MaestroSessionManager.kt:217)\n\tat maestro.cli.session.MaestroSessionManager.newSession(MaestroSessionManager.kt:108)\n\tat maestro.cli.session.MaestroSessionManager.newSession$default(MaestroSessionManager.kt:66)\n\tat maestro.cli.command.TestCommand.runShardSuite(TestCommand.kt:477)\n\tat maestro.cli.command.TestCommand.access$runShardSuite(TestCommand.kt:81)\n\tat maestro.cli.command.TestCommand$handleSessions$1$results$1$1.invokeSuspend(TestCommand.kt:438)\n\tat kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)\n\tat kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)\n\tat kotlinx.coroutines.internal.LimitedDispatcher$Worker.run(LimitedDispatcher.kt:124)\n\tat kotlinx.coroutines.scheduling.TaskImpl.run(Tasks.kt:89)\n\tat kotlinx.coroutines.scheduling.CoroutineScheduler.runSafely(CoroutineScheduler.kt:586)\n\tat kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.executeTask(CoroutineScheduler.kt:820)\n\tat kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.runWorker(CoroutineScheduler.kt:717)\n\tat kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run(CoroutineScheduler.kt:704)",
+      "gap": "GAP-MOB-ACT-03"
+    },
+    {
+      "id": "A11-LAUNCH",
+      "result": "PASS",
+      "screenshot": "A11-LAUNCH.png",
+      "store": [
+        "A11"
+      ]
+    },
+    {
+      "id": "A9-LOGIN",
+      "result": "PASS",
+      "screenshot": "A9-LOGIN.png",
+      "store": [
+        "A9",
+        "P10"
+      ]
+    },
+    {
+      "id": "A3-CORE",
+      "result": "PASS",
+      "screenshot": "A3-CORE.png",
+      "store": [
+        "A3",
+        "A11"
+      ]
+    }
+  ],
+  "error": "GAP-MOB-ACT-03; GAP-MOB-ACT-03"
+}
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.

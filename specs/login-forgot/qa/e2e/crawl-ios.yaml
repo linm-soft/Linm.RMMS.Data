@@ -1,6 +1,6 @@
-appId: org.linmsoft.rmms
+appId: com.drvn.rmms
 ---
-# crawl · login-forgot · contact-admin
+# crawl · login-forgot
 - launchApp:
     clearState: true
     clearKeychain: true
@@ -10,10 +10,26 @@ appId: org.linmsoft.rmms
     timeout: 15000
 - tapOn:
     id: "btn-home-login"
+    optional: true
+- tapOn:
+    text: "Dành cho cán bộ"
+    optional: true
 - tapOn:
     id: "btn-forgot"
+    optional: true
+- tapOn:
+    text: "Quên mật khẩu"
+    optional: true
+
+- tapOn:
+    id: "btn-forgot"
+    optional: true
+- tapOn:
+    text: "Quên mật khẩu"
+    optional: true
 - extendedWaitUntil:
     visible:
       id: "forgot-contact"
     timeout: 8000
 - takeScreenshot: CRAWL-forgot
+

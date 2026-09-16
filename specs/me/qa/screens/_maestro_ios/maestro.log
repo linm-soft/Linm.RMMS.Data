@@ -1,17 +1,18 @@
 Running on iPhone 17 Pro Max - iOS 26.2 - 518BFF77-0941-448B-8D37-67678F4506C7
  > Flow crawl-ios
-Launch app "org.linmsoft.rmms" with clear state and clear keychain... COMPLETED
+Launch app "com.drvn.rmms" with clear state and clear keychain... COMPLETED
 Assert that id: sc-home is visible... COMPLETED
-Tap on (Optional) id: btn-home-login... COMPLETED
+Tap on (Optional) id: btn-home-login... WARNED
+Tap on (Optional) "Dành cho cán bộ"... COMPLETED
 Assert that id: f-user is visible... COMPLETED
 Tap on id: f-user... COMPLETED
 Erase text... COMPLETED
-Input text linm-soft... COMPLETED
+Input text rmms-admin... COMPLETED
 Tap on (Optional) "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"... COMPLETED
 Tap on (Optional) "RMMS"... COMPLETED
 Tap on id: f-pass... COMPLETED
 Erase text... COMPLETED
-Input text Linm@2026... COMPLETED
+Input text RMMS@2026... COMPLETED
 Tap on (Optional) "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"... COMPLETED
 Tap on (Optional) "RMMS"... COMPLETED
 Tap on (Optional) id: btn-login... COMPLETED
@@ -20,12 +21,21 @@ Tap on (Optional) "Not Now"... WARNED
 Assert that id: home-who is visible... COMPLETED
 Tap on "Hồ sơ"... COMPLETED
 Assert that id: title-me is visible... COMPLETED
-Tap on id: row-profile... COMPLETED
-Assert that id: sc-me-profile is visible... FAILED
+Tap on (Optional) id: row-profile... COMPLETED
+Tap on (Optional) "Hồ sơ"... COMPLETED
+Assert that id: sc-me-profile is visible... COMPLETED
+Take screenshot CRAWL-profile... COMPLETED
+Tap on (Optional) id: nav-back... WARNED
+Tap on (Optional) id: btn-faq-back... WARNED
+Tap on (Optional) id: btn-privacy-back... WARNED
+Tap on (Optional) "Về Trang Chủ"... WARNED
+Tap on (Optional) id: row-offline... WARNED
+Tap on (Optional) "Hàng đợi"... WARNED
+Assert that id: sc-patrol-offline is visible... FAILED
 
-Assertion is false: id: sc-me-profile is visible
+Assertion is false: id: sc-patrol-offline is visible
 
-Assertion 'id: sc-me-profile is visible' failed. Check the UI hierarchy in debug artifacts to verify the element state and properties.
+Assertion 'id: sc-patrol-offline is visible' failed. Check the UI hierarchy in debug artifacts to verify the element state and properties.
 
 Possible causes:
 - Element selector may be incorrect - check if there are similar elements with slightly different names/properties.
@@ -34,4 +44,4 @@ Possible causes:
 
 ==== Debug output (logs & screenshots) ====
 
-/Users/mac/.maestro/tests/2026-08-31_020056
+/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/me/qa/screens/_maestro_ios
