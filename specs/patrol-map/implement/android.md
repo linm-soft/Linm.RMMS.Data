@@ -29,6 +29,8 @@
 - Pin-here: FINE **hoặc** COARSE · fused/network · **cấm** SecurityException crash khi đã cấp (**GAP-MOB-EDIT-PERM-01**)
 - **cấm** OSM.org / Esri / Google tile CDN
 
+**GAP-MOB-EDIT-SIL-01 (dual):** skip map hide = `if (ReleaseFlags.staffPatrolMap)` quanh `composable("patrol-map")` · **không** Binding. iOS SIL bug không áp dụng Compose.
+
 ## Build (VERIFY GATE)
 
 **PASS** — `./gradlew :app:assembleDebug` · `2026-09-16` (OSRM Debug `OSRM_BASE` public · GAP-MAP-OSRM-CONFIG-01).

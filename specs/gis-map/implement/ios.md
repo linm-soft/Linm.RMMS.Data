@@ -29,6 +29,7 @@
 - Zoom idle 450ms · skip khi coverage còn (`shouldReloadOverlay`) · cancel pinch **không** toast · **cấm** `geojson/all`
 - iOS **Lớp** = `LinmSheet` + `LinmAssetKchtPict` + toggle · Android chip **Lớp** + trailing **Danh sách**
 - Empty hint `gis.map.layersEmpty`
+- **GAP-MOB-EDIT-SIL-01:** skip map hide = `guard ReleaseFlags.allowsClipMap` trên handler · `navigationDestination(isPresented: $showGisMap)` · **cấm** `Binding(get: { flag && showGisMap })` — Swift SIL `invalid reuse after initialization failure`. dest **iPhone 17 Pro Max** `xcodebuild` **PASS**.`
 
 ## Verify
 

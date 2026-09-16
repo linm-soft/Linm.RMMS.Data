@@ -28,6 +28,8 @@ Màn **Bản đồ tài sản** native dual (iOS SwiftUI + Android Compose): ful
 
 Entry (shared_action reuse · **không** re-enqueue):
 - `asset-hub` tile **Xem trên bản đồ** `#i-scope` · row **Bản đồ tài sản** `#i-scope`
+
+Store wave skip map: **ẩn** các entry trên khi `guest.directions` + `staff.patrolMap` false — **không** xóa màn.
 - `asset-detail` CTA **Ghim trên bản đồ** · pass Id (+ Lat/Lng nếu có)
 - `incident-list` seg / `incident-detail` CTA **Bản đồ** / **Xem trên bản đồ**
 

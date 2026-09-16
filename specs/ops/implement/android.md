@@ -3,7 +3,7 @@
 > Status: **done** · `/edit-mobile-feature` · task `task_708dcc0b` · cleanup_mock · VERIFY PASS
 
 | Feature | `ops` |
-| build | `assembleDebug` **PASS** |
+| build | `assembleDebug` **PASS** 2026-09-16 empty chrome parity |
 | Kit | `LinmTopBar` · `LinmListRow` · `LinmBadge` · `LinmToast` · `EmptyChrome` |
 
 ## Layers
@@ -14,7 +14,9 @@
 
 ## Behavior (live-only · **cấm** `OpsCopy.demoItems`)
 
-Parity iOS · GET OK empty = EmptyChrome · GET fail = empty + `ops.toast.loadFail` · Me + Home entry · guest GET **AllowAnonymous** · mark-read staff only · **cấm** form create / ERP / watermark / `AlertDialog` / demo SSOT.
+Parity iOS · GET OK empty = `EmptyChrome` dashed rect + `ops.empty.title` + `ops.empty.hint` (cùng `ContentUnavailableView`) · GET fail = empty + `ops.toast.loadFail` · Me + Home entry · guest GET **AllowAnonymous** · mark-read staff only · **cấm** form create / ERP / watermark / `AlertDialog` / demo SSOT · **cấm** Text-only empty.
+
+`/edit-mobile-feature` 2026-09-16: **empty chrome parity** · Android `EmptyChrome` = iOS dashed + title + hint (`GAP-MOB-EDIT-EMPTY-01` CLOSED).
 
 ## Seed / CRUD
 

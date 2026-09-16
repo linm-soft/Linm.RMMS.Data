@@ -115,7 +115,7 @@ Reuse live GET/POST `api/v1/patrol/attendance-logs` via BFF proxy. **Cấm** inv
 |---------|----------|
 | Patrol seg Chấm công | push `#sc-attendance` |
 | Seg Tuần đường | pop patrol-home |
-| Chấm vào | GPS → POST |
+| Chấm vào | GPS usable → POST 2xx success · lastWho JWT · offline toast `common.offline` · **cấm** fail vì decode body |
 | Báo cáo | toast **Báo cáo công** |
 | Tap day | toast **Chi tiết ngày công** |
 

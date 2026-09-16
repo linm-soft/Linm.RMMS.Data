@@ -14,7 +14,7 @@
 | sectionEvents | Label | `.section-label` «Sự kiện» | SectionLabel 13 | same | dual **bắt buộc** |
 | rowEventSpeed | List | `.row` · row-title / row-sub | `LinmListRow` | same | SpeedKmh · time · lane |
 | rowEventPlate | List | `.row` | `LinmListRow` | same · **2nd row bắt buộc** | Plate · dual GAP CLOSED |
-| emptyCam | Empty | `.empty-state` | EmptyState | same | no Online |
+| emptyCam | Empty | `.empty-state` | `EmptyChromeView` / `EmptyChrome` dashed+title+hint | same | no Online |
 | Toast OK / fail | Banner | `#toast` | `LinmToast` | same | **cấm** alert |
 | Shell Tab 5 | Chrome | `.tabbar` / `.nav` · `data-tab=me` | `LinmTabBar` | NavigationBar | **giữ** · không invent |
 | Entry row / chip | — | `me` `#i-video` · ops chip | reuse | reuse | **không** reimplement trên pack |

@@ -112,8 +112,11 @@ AskQuestion (autoApprove=ON · không chờ board): `ios_repo_confirm` · `andro
 | logSub | `LinmListRow` subtitle | `{Route} · {Status} · {InZone VN}` |
 | logBadge | `LinmBadge` optional | Trong vùng / Ngoài vùng · `InZone` |
 | emptyDay | `LinmEmptyChrome` | «Không có lần chấm trong ngày» · badge Nghỉ |
-| toast | `LinmToast` | GET fail · tap log · thiếu dayKey · **cấm** `UIAlert` |
+| toast | `LinmToast` | GET fail · thiếu dayKey · **cấm** tap-log toast-only · **cấm** `UIAlert` |
+| tapLog | `LinmListRow` onTap | pass live `Id` (`attendanceId`) · iOS `navigationDestination(item:)` · **cấm** fake UUID GET · **cấm** `isPresented` + empty String |
 | tabField | `LinmTabBar` | shell selected **Tuần đường** · label **13** · **cấm** invent |
+
+**UI notes Dev (2026-09-16 `/edit-mobile-feature`):** Tap log **push** `#sc-attendance-log` với Guid `Id` từ list DTO. iOS **cấm** `isPresented` + `attendanceLogId=""` (GAP-MOB-ATT-LOG-ID-01 — capture empty → toast «Thiếu mã lần chấm»). Mapper **cấm** `UUID()` làm GET key. Empty id → toast + stay day.
 
 **Cấm** raw `NavigationBar` / `TabView` product chrome · **cấm** ship foot Gói / device label · **cấm** «Có mạng» · **cấm** bottom-sheet chrome · **cấm** CTA bản đồ / embed map.
 
@@ -158,7 +161,7 @@ AskQuestion (autoApprove=ON · không chờ board): `ios_repo_confirm` · `andro
 |-------|----------|
 | Hub day row / `tapDay` | **thay** toast → push `#sc-attendance-day` + `dayKey` + `dayTitle` |
 | Back | `go('attendance')` · **cấm** reimplement hub |
-| log row tap | toast P1 · **cấm** supervise-detail |
+| log row tap | **push** `#sc-attendance-log` + live `Id` · iOS `navigationDestination(item: $attendanceLogId)` · **cấm** toast-only · **cấm** supervise-detail · **cấm** fake UUID GET |
 | DI | `AppContainer` wire `AttendanceDayViewModel` + use case + repo → `ApiClient` path `patrol/attendance-logs` |
 | Shell | `LinmTabBar` giữ tab **field** (Tuần đường) · **không** segment trên detail |
 
@@ -196,7 +199,7 @@ Hero: Display **24** bold. Copy VN còn lại **parity** iOS (`GAP-MOB-ALIGN-01`
 |-------|----------|
 | Hub day tap | **thay** toast → navigate `#sc-attendance-day` + `dayKey` + `dayTitle` |
 | Back | pop → hub · `attendance` reuse |
-| log row tap | **push** `#sc-attendance-log` · **cấm** GetById supervise |
+| log row tap | **push** `attendance-log/{id}` + live `Id` (`attendanceId`) · **cấm** fake UUID GET · **cấm** GetById supervise |
 | DI | Hilt `AttendanceDayViewModel` · use case · repo → Retrofit/`ApiService` `@GET("patrol/attendance-logs")` |
 
 ### Build DoD

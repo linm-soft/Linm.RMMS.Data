@@ -49,4 +49,8 @@
 
 - Legacy queue rows thiếu `sessionId`/`checkInBody`/`incidentBody` → skip (không clear)
 - GAP-MOB-ACT-PAT-OFFLINE-01 patrol-home «Đồng bộ» stub Defer
-- **Cấm revert:** auto-reconnect · incident replay · mutex
+- **Cấm revert:** auto-reconnect · incident replay · mutex · `EmptyChromeView` dashed+title+hint
+
+## Notes (`/edit-mobile-feature` 2026-09-16)
+
+- Empty chrome SSOT stays `EmptyChromeView` `offline.empty.*` · Android now matches (`GAP-MOB-EDIT-EMPTY-01`).

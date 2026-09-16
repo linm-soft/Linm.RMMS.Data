@@ -60,6 +60,7 @@
 | error / offline | demo fallback · optional toast · screen **mở** |
 | checked-in | hero title **Đã chấm vào** after POST |
 | GPS deny | toast locDeny · no POST |
+| offline | toast `common.offline` · no POST apply |
 | leave dirty | **N/A** |
 
 ## 4. Copy SSOT
@@ -110,6 +111,7 @@ Không `/wf-anim` trên hub `attendance`. Segment pop instant · toast fade · h
 | GAP-MOB-ATT-01 | Báo cáo live | **closed** — `/edit-mobile-feature` 2026-09-16 · **push** `#sc-attendance-report` |
 | GAP-MOB-ATT-02 | Day detail live | **closed** — **push** `#sc-attendance-day` |
 | GAP-MOB-ATT-03 | GPS deny | **closed** — toast · no POST |
+| GAP-MOB-ATT-CHECKIN-01 | Toast «Không chấm được» sau Chấm vào · 7 ngày trống | **closed** `/edit-mobile-feature` 2026-09-16 — POST 2xx = OK (bỏ decode body) · lat/lng `Double` (Moshi BigDecimal fail GET/POST) · `lastWho` JWT fallback · GPS invalid → locTimeout · offline → `common.offline` |
 | GAP-MOB-ACT-01 | 1 hub action | **closed** — không gộp sibling |
 | GAP-MOB-ACT-02 | child form | **none** on hub |
 | GAP-MOB-ACT-05 | kit map | reuse LargeTitle/Segment/Hero/ListRow/Toast |

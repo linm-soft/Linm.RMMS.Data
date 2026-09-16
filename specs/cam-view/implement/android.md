@@ -37,6 +37,7 @@
 
 - Event load **parity web** Kết nối camera ITS: `BffCameraEventsResponse` `data.items` \| `items` — **cấm** `List<CameraEventDto>` root.
 - Query: `page` · `pageSize` · `fromDate`/`toDate` hôm nay · `host`.
+- Empty cam: `EmptyChrome` `cam.view.empty.title` + `.hint` dashed = iOS `EmptyChromeView` (`GAP-MOB-EDIT-EMPTY-01`).
 - `assembleDebug` dest.
 
 ## Build gate

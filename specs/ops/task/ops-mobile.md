@@ -57,7 +57,7 @@ IA lock (design §2 / ux-analy §1): `me → push ops → pop me` · `home → p
 | Surface | Live | TL task |
 |---------|------|---------|
 | iOS `#sc-ops` | **SHIPPED** — `Presentation/Features/Ops/*` · kit parity · **live-only** · EmptyChrome | **T-IOS-OPS** · cleanup_mock `task_708dcc0b` |
-| Android `#sc-ops` | **SHIPPED** — `presentation/feature/ops/*` · cùng copy VN | **T-AND-OPS** · **DELTA verify** |
+| Android `#sc-ops` | **SHIPPED** — `presentation/feature/ops/*` · EmptyChrome dashed+title+hint = iOS | **T-AND-OPS** · `/edit-mobile-feature` empty chrome 2026-09-16 |
 | Me `row-ops` entry | **SHIPPED** — push `#sc-ops` | **verify** a11y id · **cấm** reimplement Me hub |
 | Home `LinmNotifyButton` | **SHIPPED** — push `#sc-ops` cùng slug | **verify** hittable `hero-tools` / `btn-notify` |
 | `GET notification/inbox` | **SHIPPED** — `NotificationRepositoryImpl` · page=1 · pageSize=50 | **verify** bind · fail → empty+toast · empty → EmptyChrome |

@@ -117,6 +117,7 @@ Push/pop nav standard · không `/wf-anim` trên list `ops`.
 | GAP-MOB-UX-07 | design ↔ HTML | Pack proto khớp design-mobile.md |
 | GAP-MOB-DES-PFX-01 | Board prefix | `ios/index.html` · `android/index.html` |
 | GAP-QA-OPS-IOS-01 | Maestro iOS nav | **non-block** · fix = Dev/QA follow-up |
+| GAP-MOB-EDIT-EMPTY-01 | Android empty = Text-only | **CLOSED** `/edit-mobile-feature` 2026-09-16 · `EmptyChrome` dashed+title+hint = iOS |
 
 ## Version meta (REQUIRED)
 

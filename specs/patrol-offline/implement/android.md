@@ -49,4 +49,9 @@
 
 - Legacy pipe rows không có payload → skip
 - patrol-home «Đồng bộ» stub Defer
-- **Cấm revert:** auto-reconnect · incident replay · mutex
+- **Cấm revert:** auto-reconnect · incident replay · mutex · EmptyChrome dashed+title+hint (parity iOS)
+
+## Notes (`/edit-mobile-feature` 2026-09-16)
+
+- Empty chrome: `EmptyChrome` title `offline.empty.title` + hint `offline.empty.hint` + dashed rect = iOS `ContentUnavailableView` (`GAP-MOB-EDIT-EMPTY-01` CLOSED).
+- `assembleDebug` dest.

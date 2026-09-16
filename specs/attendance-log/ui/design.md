@@ -23,7 +23,7 @@
 Tuần đường → #sc-attendance → #sc-attendance-day
   → tap log row → push #sc-attendance-log DES-MOB-ATT-LOG  ← this pack
   Back → go('attendance-day')
-  Appear → GET patrol/attendance-logs/{id}
+  Appear → GET patrol/attendance-logs/{id} · id từ day `attendanceId` (live Guid) · iOS `navigationDestination(item:)`
   GET fail → EmptyChrome + toast · cấm fake 200 · cấm demo
   404 → EmptyChrome
   **cấm** map CTA / supervise-detail chrome

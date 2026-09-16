@@ -23,6 +23,9 @@
 | updatedAt | `2026-09-16T12:00:00.000Z` |
 | thisAction | **Bản đồ tài sản** `#sc-gis-map` only · GET `gis/geojson/*` + focus `asset/road-assets/{id}` · MapKit/OSM composition · basemap/legend · dual chrome · **cấm** gộp list / draw / heatmap / Twin / patrol-map |
 
+**T-IOS (edit 2026-09-16):** skip map = handler `guard ReleaseFlags.allowsClipMap` · `$showGisMap` · **cấm** `Binding(get:set:)` flag (**GAP-MOB-EDIT-SIL-01** · xcodebuild dest iPhone 17 Pro Max **PASS**).
+**T-AND:** `if (ReleaseFlags.allowsClipMap)` quanh `composable("gis-map")` — không Binding.
+
 **Cấm:** gộp list / draw / heatmap / Twin / camera ITS / patrol-map (`GAP-MOB-ACT-01/02`) · invent `api/v1/gis-map` / `GisMapMobileController` · pin từ `incident/incidents` · WebView HTML Leaflet · `ERP.*` · `mfeStdUrl` · `UIAlert` / `AlertDialog` · raw `TabView` / M3 `NavigationBar` · ship hardcode `GIS_ASSETS` khi BFF live (`GAP-MOB-REAL-02`) · enqueue basemap/legend/fit/search (`GAP-MOB-ACT-07`) · start sibling hub/list/detail/incident (`GAP-MOB-ACT-06`) · `scaffold_new` / `/mobile-app-architecture` · `T-KIT-*` · e2e / `yarn start:std` ở role TL · Step 4b / migration · Write native code (trừ task MD).
 
 ---

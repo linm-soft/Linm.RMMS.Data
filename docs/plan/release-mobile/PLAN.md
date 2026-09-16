@@ -4,7 +4,7 @@
 > **Gate Submit:** `/review-app-submit` (fail closed · **cấm** READY_TO_SUBMIT từ PLAN này)  
 > **Law:** `/review-app-vn-map-law` · [`legal-tech-corridor.md`](../../context/features/legal-tech-corridor.md)  
 > **Flags SSOT:** [`flags.json`](flags.json) — hand-sync `ReleaseFlags` iOS + Android  
-> **Chốt wave hiện tại:** **3** (`w3_camera`) · ifs wired **2026-09-16** (`ReleaseFlags` + Release `STORE_W0…W3` · WhenInUse + Camera)  
+> **Chốt wave hiện tại:** **3** (`w3_camera`) · **skip map** submit 2026-09-16 (`guest.directions` + `staff.patrolMap` OFF · camera + GPS ON)  
 > **OTP quên MK:** `guest.forgotOtp` = **false** đến khi SMS OTP prod gửi được — màn forgot chỉ dòng liên hệ admin, **không** xóa code · **cấm** public OSRM (`net.osrmPublic` = false)
 
 ## HARD
@@ -29,7 +29,7 @@ Gaps: `GAP-REL-DELETE-01` · `GAP-REL-LEAK-01` · `GAP-REL-SHOT-01` · `GAP-REL-
 | **0** Store 1.0 | Guest home (Khách, login CTA, FAQ, privacy) · staff lists sau JWT (supervise, history, offline, mnt-*, incident-list, asset-hub **list**, feedback, me, ops) | **login-forgot / OTP quên MK** · patrol-map/pin · attendance GPS · cam-* · field-reflect · directions · guest lat/lng · asset map/AI · public OSRM/OSM CDN | Landing HTTPS · `PrivacyInfo.xcprivacy` · demo [`store/REVIEW-ACCOUNTS.md`](store/REVIEW-ACCOUNTS.md) `rmms-001` / `rmms-002` |
 | **1** Map guest | + clip map + directions | Field GPS / cam · (forgot OTP vẫn OFF nếu SMS chưa live) | gis.vn 34 tỉnh · self-host tile/OSRM |
 | **2** Field | + WhenInUse patrol / attendance | Always location · cam AI vận hành | Văn bản GTVT |
-| **3** Camera | + cam + GPS field | — | DPIA A05 |
+| **3** Camera | + cam + GPS field | **Submit 2026-09-16 skip map:** clip GIS / patrol-map / directions | DPIA A05 |
 
 `guest.forgotOtp` **không** gắn wave map/GPS — bật **true** khi SMS OTP prod gửi được (có thể cùng W0 sau patch), không đợi W1–W3.
 
@@ -42,8 +42,9 @@ Gaps: `GAP-REL-DELETE-01` · `GAP-REL-LEAK-01` · `GAP-REL-SHOT-01` · `GAP-REL-
 | `guest.home` / `guest.faq` / `guest.privacy` / `guest.login` | true | Guest + login password |
 | `guest.forgotOtp` | **false** | OTP quên MK **OFF** đến SMS live · màn contact-admin |
 | `staff.lists` | true | List staff |
-| `guest.directions` | true | Clip map (`allowsClipMap`) · **không** màn dân chỉ đường riêng |
-| `staff.patrolMap` / `staff.attendanceGps` | true | Map tuần + GPS WhenInUse |
+| `guest.directions` | **false** | Skip map hôm nay — clip GIS OFF |
+| `staff.patrolMap` | **false** | Skip map hôm nay — patrol-map OFF · **không** xóa code |
+| `staff.attendanceGps` | true | GPS WhenInUse (chấm công / pin-here) |
 | `staff.camera` | true | Cam + field AI |
 | `net.osrmPublic` / `net.osmCdn` | **false** | Đến self-host `OsrmBase` · overlay nét thẳng tạm |
 
@@ -53,11 +54,11 @@ Gaps: `GAP-REL-DELETE-01` · `GAP-REL-LEAK-01` · `GAP-REL-SHOT-01` · `GAP-REL-
 
 | # | Task | DoD |
 |---|------|-----|
-| 0.1 | Khóa `flags.json` wave 3 | File committed · wave = 3 · map/GPS/cam ON · `guest.forgotOtp` = false · `net.osrmPublic` = false |
+| 0.1 | Khóa `flags.json` wave 3 skip map | File committed · wave = 3 · map OFF · GPS/cam ON · `guest.forgotOtp` = false · `net.osrmPublic` = false |
 | 0.1b | Wire ẩn OTP quên MK dual OS | Màn forgot contact-admin · code OTP còn · hand-sync `ReleaseFlags` |
 | 0.2 | `/plan-release-mobile` review + wire `#if` / flavor | Dual OS · **cấm** Delete · Release `STORE_W0…W3` · WhenInUse + Camera plist · Android release **giữ** FINE/CAMERA · OSRM **cấm** `project-osrm.org` |
 | 0.3 | `/build-release-app` | AskQuestion platform + phase · Archive / AAB StoreW3 |
-| 0.4 | e2e + screenshot **chỉ** ON | `/run-mobile-e2e` `store_wave=w3_camera` trên artifact 0.3 · shot map/GPS/cam · **không** shot OTP |
+| 0.4 | e2e + screenshot **chỉ** ON | `/run-mobile-e2e` `store_wave=w3_camera` trên artifact 0.3 · shot GPS/cam · **không** shot map / OTP |
 | 0.5 | Submit | `/review-app-submit` — còn `GAP-SUBMIT-*` / `GAP-REL-*` → **cấm** Submit |
 
 `0.2`–`0.3` = skill (chưa wire native / chưa có flavor StoreWn trên repo).

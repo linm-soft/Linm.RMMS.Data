@@ -48,8 +48,8 @@ SSOT visual = dual HTML `#sc-attendance` (iOS 390×844 · Android 412×915 · **
 1. Dual native: iOS SwiftUI + Android Compose — **cùng** zone `#sc-attendance`: large title **Chấm công** · segment 2 · green hero · section **7 ngày gần đây** · ≥3 day rows (demo SSOT). Frame proto iOS 390×844 · Android 412×915.
 2. Segment idx **0** **Tuần đường** → pop `#sc-patrol-home` · idx **1** **Chấm công** owner — **cấm** reorder (`GAP-TAB-01`).
 3. Appear: GET `patrol/attendance-logs` · aggregate 7-day · fail/empty/offline → demo SSOT · screen **vẫn mở**.
-4. Tap **Chấm vào** → GPS fix → POST body · success toast · hero → **Đã chấm vào** · refresh days · **cấm** native alert.
-5. GPS deny → toast locDeny · **không** POST.
+4. Tap **Chấm vào** → GPS usable → POST body · HTTP **2xx = success** (không fail vì decode body) · `userName` = `lastWho()` (display · login id · JWT `full_name`) · success toast · hero → **Đã chấm vào** · refresh days · **cấm** native alert.
+5. GPS deny → toast locDeny · **không** POST. GPS invalid/timeout → locTimeout. Offline → `common.offline`. HTTP fail → checkInFail.
 6. Tap **Báo cáo** → **push** `#sc-attendance-report` · **cấm** toast-only · **cấm** invent report API.
 7. Tap day row → **push** `#sc-attendance-day` + `dayKey`.
 8. Patrol-home seg **Chấm công** → push `#sc-attendance` (`reuse` entry · **cấm** reimplement patrol-home).

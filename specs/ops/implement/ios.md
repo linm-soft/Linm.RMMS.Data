@@ -3,7 +3,7 @@
 > Status: **done** · `/edit-mobile-feature` · task `task_708dcc0b` · cleanup_mock · VERIFY PASS
 
 | Feature | `ops` |
-| dest | **iPhone 17 Pro** **BUILD SUCCEEDED** |
+| dest | **iPhone 17 Pro** **BUILD SUCCEEDED** 2026-09-16 empty chrome lock |
 | xcodegen | **PASS** |
 | Kit | `LinmTopBar` · `LinmListRow` · `LinmBadge` · `LinmToast` · `EmptyChromeView` |
 
@@ -36,3 +36,5 @@
 `sc-ops` · `nav-back` · `ops-empty` · `row-ops-*` · `row-ops` (Me)
 
 `/edit-mobile-feature` 2026-09-01: **cleanup_mock** · remove demo fallback · dual EmptyChrome + loadFail toast.
+
+`/edit-mobile-feature` 2026-09-16: EmptyChromeView dashed+`ops.empty.*` stays SSOT · Android now matches (`GAP-MOB-EDIT-EMPTY-01`). ErrorChrome title = `chrome.error` (cấm literal «Lỗi»).

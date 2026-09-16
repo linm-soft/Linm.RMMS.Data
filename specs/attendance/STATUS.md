@@ -94,8 +94,9 @@
 | task_242d0372 | attendance | dev | — | **completed** | `/edit-mobile-feature` · cleanup_mock · gỡ `demoUser` · lastWho · VERIFY GATE PASS |
 | task_b96fb3d7 | attendance | qa | dev | **completed** | `/agent-qa-mobile` · e2e-qa-mobile **ok:true** · store PNG live · visual Must 0 · roleOnly |
 | task_946698fe | attendance | review | qa | **completed** | `/agent-review-mobile` · review_confirm=approve · Must **0** · post cleanup_mock · roleOnly |
-| T-IOS-ATTENDANCE | attendance | ios | SA | **completed** | AttendanceView · GET/POST · xcodegen+xcodebuild PASS · cleanup_mock |
-| T-AND-ATTENDANCE | attendance | android | SA | **completed** | AttendanceScreen · assembleDebug PASS · cleanup_mock |
+| task_att_checkin_01 | attendance | dev | — | **completed** | `/edit-mobile-feature` · GAP-MOB-ATT-CHECKIN-01 · POST 2xx skip body · lat/lng Double · lastWho JWT · VERIFY GATE PASS |
+| T-IOS-ATTENDANCE | attendance | ios | SA | **completed** | AttendanceView · GET/POST · xcodegen+xcodebuild PASS · GAP-MOB-ATT-CHECKIN-01 |
+| T-AND-ATTENDANCE | attendance | android | SA | **completed** | AttendanceScreen · assembleDebug PASS · GAP-MOB-ATT-CHECKIN-01 |
 | T-BE-* | attendance | be | — | **n/a** | Step 4b N/A |
 
 ## Blockers / open questions
@@ -109,6 +110,7 @@
 - mfeStdRoute: `/patrol/attendance`
 
 - data-analy → po **confirmed** → design **confirmed** → sa → tl → dev **confirmed** → cleanup_mock **done** → qa **confirmed** → review **confirmed** (`task_946698fe`)
+- closeout Dev check-in: `task_att_checkin_01` · `/edit-mobile-feature` · GAP-MOB-ATT-CHECKIN-01 closed · POST 2xx = OK · lat/lng `Double` · `lastWho` JWT · GPS invalid → locTimeout · offline toast · iOS xcodebuild iPhone 17 Pro PASS · Android assembleDebug `--no-daemon` PASS · Step 4b **N/A** · at: `2026-09-16T15:00:00.000Z`
 - closeout Review: `task_946698fe` · `/agent-review-mobile` · roleOnly=`review` · autoApprove=ON · `review_confirm=approve` · Must **0** · live-only post cleanup_mock · VERIFY GATE artifact PASS · Step 4b **N/A** · post_review **skip** · at: `2026-09-01T08:55:00.000Z`
 - closeout QA: `task_b96fb3d7` · `/agent-qa-mobile` · roleOnly=`qa` · autoApprove=ON · ios_test_phase **phase1_iphone** · docker API :5111 + BFF :5202 · `yarn e2e-qa-mobile` **ok:true** · iPhone 17 Pro Max · Pixel_2 · Maestro iOS+Android PASS · PNG `qa/screens` + `qa/store/attendance` · visual Must **0** · at: `2026-09-01T08:47:20.000Z`
 - closeout Dev cleanup_mock: `task_242d0372` · `/edit-mobile-feature` · roleOnly=`dev` · autoApprove=ON · gỡ `demoUser` · VERIFY GATE PASS · Step 4b **N/A** · at: `2026-09-01T08:34:20.000Z`
@@ -127,9 +129,9 @@
 
 | Check | Result |
 |-------|--------|
-| iOS xcodegen | **PASS** (`task_242d0372`) |
-| iOS xcodebuild iPhone 17 Pro | **BUILD SUCCEEDED** (`task_242d0372` · scheme LinmRmms) |
-| Android assembleDebug | **BUILD SUCCESSFUL** (`task_242d0372`) |
+| iOS xcodegen | **PASS** (`task_att_checkin_01`) |
+| iOS xcodebuild iPhone 17 Pro | **BUILD SUCCEEDED** (`task_att_checkin_01` · scheme LinmRmms · 2026-09-16) |
+| Android assembleDebug | **BUILD SUCCESSFUL** (`task_att_checkin_01` · `--no-daemon` · 2026-09-16) |
 | Mobile.Bff dotnet build | **Build succeeded** · 0W 0E (`task_242d0372`) |
 | cleanup_mock | **PASS** — `demoUser` removed · `lastWho` live |
 | yarn e2e-qa-mobile | **PASS** (`ok: true` · `task_b96fb3d7` · 2026-09-01T08:47:11.949Z) |

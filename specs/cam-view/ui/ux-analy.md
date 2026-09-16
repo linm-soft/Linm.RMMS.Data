@@ -43,7 +43,7 @@ Login → Tab Tôi (shell Tab 5 · index me)
 | Section | Sự kiện | A `.section-label` | SectionLabel 13 | same · **parity** |
 | Row speed | Tốc độ 72 km/h · 08:41 · làn 2 | A `.row` | `LinmListRow` | same |
 | Row plate | Phát hiện biển P.127 · 08:36 | A `.row` | `LinmListRow` | same · **bắt buộc** |
-| Empty | Chưa có camera Online | A `.empty-state` | EmptyState | same |
+| Empty | Chưa có camera Online | A `.empty-state` | `EmptyChromeView` dashed+title+hint | `EmptyChrome` same |
 | Toast | Đã làm mới ảnh / lỗi | D toast | `LinmToast` | same |
 | Tab | me active | A `.tabbar` / `.nav` | `LinmTabBar` | NavigationBar |
 

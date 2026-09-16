@@ -21,7 +21,7 @@
 - Appear GET list + filter `dayKey` · bind hero/badge/range/route/count/logs per real-data §B.
 - Fail/offline → empty chrome + toast · screen **vẫn mở** · **cấm** demo T7/CN · **cấm** fake 200 · **cấm** `UIAlert`.
 - Empty count=0 (GET OK) → `EmptyChromeView` · badge Nghỉ · **cấm** mock.
-- Tap log row → **push** `#sc-attendance-log` + id · **cấm** toast-only · **cấm** supervise-detail.
+- Tap log row → **push** `#sc-attendance-log` + live Guid `Id` (`attendanceId`) · iOS `navigationDestination(item: $attendanceLogId)` · **cấm** toast-only · **cấm** supervise-detail · **cấm** fake UUID GET.
 - 403 XCO / thiếu dayKey → toast · back hub.
 - E2E: `sc-attendance-day` · `btn-att-day-back` · `attendance-day-*`.
 
@@ -31,6 +31,6 @@
 
 ## Notes
 
-`/edit-mobile-feature` **chi tiết chấm công** 2026-09-16 — tap log **push** `#sc-attendance-log` (sibling) · **cấm** toast-only. Step 4b / T-BE **N/A** — reuse live GET `patrol/attendance-logs` + client filter. **Cấm** invent `api/v1/attendance-day` · **cấm** `mfeStdUrl`.
+`/edit-mobile-feature` **GAP-MOB-ATT-LOG-ID-01** 2026-09-16 — live tap «Thiếu mã lần chấm» do nested `isPresented` capture `attendanceLogId=""`. Fix: `navigationDestination(item:)` + mapper `attendanceId` = live `Id` · **cấm** fake UUID GET.
 
 <!-- Version meta: skillId=agent-dev-ios skillVersion=2026.08.20.03 schemaVersion=1 workflowVersion=2026.08.31.2 rulesVersion=2026.08.31.2 versionGate=rechecked taskId=task_94e812e1 -->

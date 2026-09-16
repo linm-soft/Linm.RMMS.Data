@@ -37,7 +37,9 @@
 | DA | `_data-analy/gis-map-control-hint.md` · `gis-map-bff-endpoints.md` · `gis-map-action-tree.md` · `gis-map-real-data.md` | hash skip |
 | PO | `po/requirement.md` | §5 controlHint · §7 dual chrome chốt |
 
-**Cấm** `mfeStdUrl` / `yarn start:std` / WebView HTML-as-app / ERP.* / watermark Gói / device label.  
+**Cấm** `mfeStdUrl` / `yarn start:std` / WebView HTML-as-app / ERP.* / watermark Gói / device label.
+
+**Store skip map:** entry tile/row/CTA ẩn khi `allowsClipMap` false · màn `#sc-gis-map` không present. iOS router: **cấm** inline `Binding` flag trên `navigationDestination` (**GAP-MOB-EDIT-SIL-01**).  
 **Hash skip:** inventory + controlHint + real-data §A+§B từ DA — **cấm** re-scan demo HTML / crawl CTX (`GAP-DES-DEMO-RESCAN-01`).
 
 ## 1. Pattern
