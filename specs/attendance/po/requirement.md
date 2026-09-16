@@ -50,8 +50,8 @@ SSOT visual = dual HTML `#sc-attendance` (iOS 390×844 · Android 412×915 · **
 3. Appear: GET `patrol/attendance-logs` · aggregate 7-day · fail/empty/offline → demo SSOT · screen **vẫn mở**.
 4. Tap **Chấm vào** → GPS fix → POST body · success toast · hero → **Đã chấm vào** · refresh days · **cấm** native alert.
 5. GPS deny → toast locDeny · **không** POST.
-6. Tap **Báo cáo** → toast **Báo cáo công** P1 · **cấm** push report · **cấm** invent report API.
-7. Tap day row → toast **Chi tiết ngày công** P1 · **cấm** push day-detail.
+6. Tap **Báo cáo** → **push** `#sc-attendance-report` · **cấm** toast-only · **cấm** invent report API.
+7. Tap day row → **push** `#sc-attendance-day` + `dayKey`.
 8. Patrol-home seg **Chấm công** → push `#sc-attendance` (`reuse` entry · **cấm** reimplement patrol-home).
 9. Kit **reuse map**: `LinmLargeTitle` · `LinmSegment` · `LinmHeroCard` / `LinmHeroAction` · `LinmSectionLabel` · `LinmListRow` · `LinmToast`. **Cấm** raw List / M3 NavBar (`GAP-MOB-ACT-05`).
 10. App chỉ `{BffPrefix}` · token Keychain / Encrypted.
@@ -118,8 +118,8 @@ App `ApiClient.base` = `{BffBase}/mobile-bff/api/v1`.
 |---------------|--------|------|----------|
 | History 7d | GET | `patrol/attendance-logs` | **yes** |
 | Chấm vào | POST | `patrol/attendance-logs` | **yes** — GPS body |
-| Báo cáo | — | — | toast only · API **MISSING** P2 |
-| Day detail | GET | `patrol/attendance-logs/{id}` | **no** P1 — toast |
+| Báo cáo | — | — | **push** sibling `attendance-report` · GET list client aggregate · **cấm** invent `/attendance/report` |
+| Day detail | GET | `patrol/attendance-logs` | sibling `attendance-day` |
 
 POST body P1: `userName` · `route`=`QL.1` · `checkInAt` · `lat`/`lng` · `inZone`=`true` · `status`=`Đúng tuyến`.
 
@@ -129,8 +129,8 @@ POST body P1: `userName` · `route`=`QL.1` · `checkInAt` · `lat`/`lng` · `inZ
 
 | ID | Question | Decision (PO) |
 |----|----------|----------------|
-| GAP-MOB-ATT-01 | Báo cáo live | **P1 toast** «Báo cáo công» · sibling `attendance-report` `pending_confirm` |
-| GAP-MOB-ATT-02 | Day detail live | **P1 toast** «Chi tiết ngày công» · sibling `attendance-day-detail` `pending_confirm` |
+| GAP-MOB-ATT-01 | Báo cáo live | **closed** 2026-09-16 · push `#sc-attendance-report` |
+| GAP-MOB-ATT-02 | Day detail live | **closed** · push `#sc-attendance-day` |
 | GAP-MOB-ATT-03 | GPS deny | toast locDeny · **không** POST |
 | packKind | data-analy `list` · UI hub | **Confirm `list`.** UI = hub DES-MOB-ATT |
 | Step 4b | New endpoint? | **N/A** — reuse GET+POST |
@@ -166,8 +166,8 @@ UNCLEAR field = **none**.
 | AC-F-01 | Appear | GET logs · map days · fallback demo |
 | AC-F-02 | Seg 0 | Pop `#sc-patrol-home` |
 | AC-F-03 | Chấm vào | GPS → POST → toast · hero Đã chấm |
-| AC-F-04 | Báo cáo | Toast **Báo cáo công** |
-| AC-F-05 | Tap day | Toast **Chi tiết ngày công** |
+| AC-F-04 | Báo cáo | **Push** `#sc-attendance-report` |
+| AC-F-05 | Tap day | **Push** `#sc-attendance-day` |
 | AC-F-06 | Dual parity | iOS + Android **cùng** copy zones |
 | AC-F-07 | Entry | Patrol seg → push `#sc-attendance` |
 

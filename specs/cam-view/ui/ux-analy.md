@@ -15,7 +15,7 @@ Login → Tab Tôi (shell Tab 5 · index me)
   → (reuse) ops/home chip «Camera tuyến» → cùng route (shared_action · không enqueue)
   → #sc-cam-view DES-MOB-CAM-VIEW
        → GET cameras · pick first Online∧IsActive
-       → POST snapshot → JPEG card · GET events → rows tốc độ + biển
+       → POST snapshot → JPEG card · GET cameras/events paged `items` (web ITS) → rows tốc độ + biển (+ loại xe)
        → Làm mới → re-snapshot + re-events · toast
        → empty / fail → EmptyState / toast · cấm fake
   → back → me
@@ -106,7 +106,8 @@ Pack P1: toast fade ~2.4s · JPEG placeholder ↔ Base64 bind · refresh rebind 
 | AC-D-01 | offline | toast · giữ placeholder · **cấm** fake |
 | AC-D-04 | alert | **cấm** · chỉ `LinmToast` / EmptyState |
 | AC-D-11 | device cam | **N/A** — JPEG domain only |
-| GAP-MOB-REAL-01 | bind §B | cameras + snapshot + events |
+| GAP-MOB-REAL-01 | bind §B | cameras + snapshot + events paged `items` |
+| GAP-MOB-CAMVIEW-EVT-PAGE-01 | decode events as JSON array | **CLOSED** · paged `items` like web ITS `listEventsPaged` |
 | GAP-DES-DEMO-RESCAN-01 | hash skip | **không** re-scan |
 
 ## Version meta

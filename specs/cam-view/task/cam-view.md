@@ -87,7 +87,7 @@ AskQuestion (autoApprove=ON · không chờ board): `ios_repo_confirm` · `andro
 | Android `#sc-cam-view` | **DELTA** — **không** `presentation/feature/camview/*` · `MeIntent.CamView` = toast stub | **T-AND-CAM-VIEW** |
 | `GET cameras` | BE + Mobile.Bff proxy **live** · app **chưa** `CameraRepository*` | **reuse** path · Dev new repo/use cases · **cấm** invent `cam-view` |
 | `POST cameras/{id}/snapshot` | live SnapshotById | **reuse** · JPEG Base64 bind · gate `Ok` |
-| `GET cameras/events` | live | **reuse** · dual speed + plate rows + lane sub |
+| `GET cameras/events` | live | **reuse** · decode **paged `items`** (web `listEventsPaged`) · dual speed + plate + other · `fromDate`/`toDate` hôm nay |
 | Pick cam P1 | — | client first `Online=true` ∧ `IsActive=true` · EmptyState · **không** picker (`GAP-MOB-CAMVIEW-PICK-01` CLOSED) |
 | Dual Android events | Design CLOSED | **2 rows** + lane · **cấm** 1-row Android (`GAP-MOB-CAMVIEW-DUAL-01`) |
 | Entry `me` row | toast stub dual | **thay** toast → push owner |
@@ -216,7 +216,7 @@ AskQuestion (autoApprove=ON · không chờ board): `ios_repo_confirm` · `andro
 | Pick cam | `GET cameras?page=1&pageSize=20` | client first Online∧IsActive · optional `online=true` |
 | Optional reload | `GET cameras/{id}` | optional |
 | JPEG / Làm mới | `POST cameras/{id}/snapshot` | gate `Ok` · bind Base64 · ContentType · CapturedAt |
-| Events | `GET cameras/events?limit=20` | optional `host=` = Host cam đang xem |
+| Events | `GET cameras/events?page=1&pageSize=20&fromDate=&toDate=` | optional `host=` · decode **`items`** paged (web ITS) |
 | Invent | `cam-view` / CamViewController | **cấm** |
 
 ### Demo fallback SSOT (Design mock only — **không** ship fake API)

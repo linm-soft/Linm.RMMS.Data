@@ -5,7 +5,7 @@
 | feature | `mnt-chat` |
 | thisAction | Trao đổi công việc · `#i-chat` |
 | status | **confirmed** |
-| updatedAt | `2026-08-29T17:10:00.000Z` |
+| updatedAt | `2026-09-16T14:25:00.000Z` |
 
 ## Route
 
@@ -25,4 +25,6 @@
 
 - Kit chrome · tokens · `LinmCopy.t("mnt.chat.*")`  
 - **Cấm** `showToast(mnt.list.toast.chat)` làm entry  
-- Demo id: local bubble fallback · live Guid: HTTP
+- Demo id: local bubble fallback · live Guid: HTTP  
+- **T-IOS / T-AND:** **1 header** = `LinmTopBar` (`GAP-MOB-CHAT-HDR-01`) · iOS ẩn system nav · Android không thêm `TopAppBar`  
+- **T-IOS / T-AND:** Composer **trên IME** (`GAP-MOB-CHAT-IME-01`) · Android `imePadding` + `LinmChatImeLock` · iOS `safeAreaInset(edge: .bottom)`

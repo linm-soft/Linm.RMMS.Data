@@ -116,7 +116,7 @@ Khớp PO §5 / DA controlHint — UNCLEAR=**none**. Pick P1 = first `Online∧I
 |------|----------------|
 | Pick cam / ModelCode | `GET cameras` · first Online ∧ IsActive |
 | JPEG preview / Làm mới | `POST cameras/{id}/snapshot` |
-| Sự kiện | `GET cameras/events` · `limit` · optional `host=` |
+| Sự kiện | `GET cameras/events` · **paged `items`** (web Camera ITS `listEventsPaged`) · `page=1` · `pageSize=20` · `fromDate`/`toDate` = hôm nay `yyyy-MM-dd` · optional `host=` |
 | Toast / Empty / pick | local · device |
 
 **Cấm** invent `api/v1/cam-view` · `CamViewController` · ERP.* · `mfeStdUrl` · credentials `connect/snapshot`.

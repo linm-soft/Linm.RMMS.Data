@@ -20,7 +20,7 @@
 | prior · sa | **confirmed** · `be/solution-discovery.md` · `sa-compact.md` · `solution_confirm=approve` · `task_c7ddb8a3` |
 | taskId | `task_1618aef2` |
 | updatedAt | `2026-09-12T14:36:20.000Z` |
-| thisAction | **Delta sync DoD** — replay `checkIn` → POST `patrol/sessions/{sessionId}/check-ins` · remove **only** 2xx · optional offline-batch receipt · enqueue dual sessionId+body · keep UI |
+| thisAction | **Delta reconnect + incident replay** — auto `syncPending` khi `isOnline` về · checkIn → POST check-ins · incident → POST incident/incidents · remove **only** 2xx · optional offline-batch receipt · mutex · keep UI |
 
 **Cấm:** invent `GET` queue / `PatrolOfflineController` · clear-all / clear incident · treat offline-batch as apply DB · `ERP.*` · WebView HTML · `mfeStdUrl` · `UIAlert` / `AlertDialog` · re-seed demo sau sync · gộp sibling writers · Step 4b / migration ở TL · implement code ở TL.
 
@@ -43,7 +43,7 @@
 
 | Option | Decision |
 |--------|----------|
-| **route_a** (chọn) | 3 entry cùng slug · segment 0/1 local filter · tap Đồng bộ = **replay apply** khi online · sibling wire Defer P1 |
+| **route_a** (chọn) | 3 entry cùng slug · segment 0/1 local filter · tap Đồng bộ **và** reconnect = **replay apply** khi online · sibling wire Defer P1 |
 | route_b / route_c | không dùng |
 
 IA: `home|me|patrol-home → push patrol-offline → pop parent`. **Cấm** Modal/Sheet child · **cấm** GET queue API.
@@ -55,11 +55,12 @@ IA: `home|me|patrol-home → push patrol-offline → pop parent`. **Cấm** Moda
 | Surface | Live | TL task |
 |---------|------|---------|
 | UI `#sc-patrol-offline` zones | **keep** · prior TopBar text / segment / banner / cards | **unchanged** · verify only |
-| Sync tap `#btn-sync` | **GAP** — phải replay từng `checkIn` → POST check-ins · **không** chỉ offline-batch apply | **T-IOS-PAT-OFF-APPLY** · **T-AND-PAT-OFF-APPLY** |
-| Local queue payload | **GAP** — enqueue phải persist `sessionId` + `CreatePatrolCheckInRequest` dual | cùng T-IOS / T-AND |
-| Remove policy | **GAP** — remove item **chỉ** khi 2xx · partial fail giữ fail | cùng |
+| Sync tap `#btn-sync` | replay từng `checkIn` + `incident` · **không** chỉ offline-batch apply | **T-IOS-PAT-OFF-APPLY** · **T-AND-PAT-OFF-APPLY** |
+| Auto reconnect | **GAP CLOSED** — `OfflineReconnectSync` khi `isOnline` về · mutex join | cùng |
+| Local queue payload | enqueue persist `sessionId` + checkIn body + `incidentBody` dual | cùng T-IOS / T-AND |
+| Remove policy | remove item **chỉ** khi 2xx · partial fail giữ fail | cùng |
 | offline-batch | **optional** receipt after OK · `RecordCount=synced` · **không** apply DB | cùng · optional call |
-| Incident segment | **P2 keep** · không sync clear · không invent incident apply | **out** |
+| Incident segment | replay `POST incident/incidents` · legacy skip | cùng |
 | Entry Home/Me | **shipped** | reuse |
 | Entry patrol-home Đồng bộ | stub OK P1 · GAP-MOB-ACT-PAT-OFFLINE-01 Defer | **không** block DoD |
 | New BE / Schema_* | **không** | **T-BE-*** = **n/a** |
@@ -71,8 +72,8 @@ IA: `home|me|patrol-home → push patrol-offline → pop parent`. **Cấm** Moda
 
 | id | layer | deps | status | skills | DoD |
 |----|-------|------|--------|--------|-----|
-| **T-IOS-PAT-OFF-APPLY** | ios | SA · route_a | pending | `/agent-dev-ios` · `/dev-ios-swiftui` | Delta store+sync: enqueue dual payload · Appear load local · tap sync replay POST `patrol/sessions/{sessionId}/check-ins` per checkIn · remove **only** 2xx · optional offline-batch receipt · toast N · partial keep fail · **cấm** re-seed · UI zones keep · `xcodegen` + `xcodebuild` dest **iPhone 17 Pro** PASS · `implement/ios.md` |
-| **T-AND-PAT-OFF-APPLY** | android | SA · route_a · prefer after T-IOS | pending | `/agent-dev-android` · `/dev-android-compose` | Same field/API/DoD dual · `./gradlew :app:assembleDebug` PASS · `implement/android.md` |
+| **T-IOS-PAT-OFF-APPLY** | ios | SA · route_a | done | `/agent-dev-ios` · `/dev-ios-swiftui` · `/edit-mobile-feature` | Delta store+sync: enqueue dual payload · Appear load local · tap **và** reconnect replay POST `patrol/sessions/{sessionId}/check-ins` + `POST incident/incidents` · remove **only** 2xx · optional offline-batch receipt · toast N · auto toast chỉ N>0 · mutex · partial keep fail · **cấm** re-seed · UI zones keep · `xcodegen` + `xcodebuild` dest **iPhone 17 Pro** PASS · `implement/ios.md` |
+| **T-AND-PAT-OFF-APPLY** | android | SA · route_a · prefer after T-IOS | done | `/agent-dev-android` · `/dev-android-compose` · `/edit-mobile-feature` | Same field/API/DoD dual · `./gradlew :app:assembleDebug` PASS · `implement/android.md` |
 | **T-KIT-TOPBAR-TEXT** | kit | — | **n/a** | — | prior implement_kit · unchanged UI |
 | **T-BE-API** | be | — | **n/a** | — | **không** `/new-endpoint` — check-ins + offline-batch **live** · Step 4b **N/A** |
 | **T-BE-MIG** | be | — | **n/a** | — | **không** `/database-migration` |

@@ -14,7 +14,7 @@
 |--|--|
 | Mục tiêu | Mobile xem báo cáo công theo kỳ (tuần/tháng) từ log chấm · KPI + danh sách ngày |
 | Persona | Tuần đường · Hạt trưởng |
-| Entry | Hub `#sc-attendance` · `LinmHeroAction` ghost «Báo cáo» · toast → **wire push** |
+| Entry | Hub `#sc-attendance` · `LinmHeroAction` ghost «Báo cáo» · **push** `#sc-attendance-report` |
 | DoD ngắn | Push màn riêng · period filter · KPI derived · day rows · tap → `attendance-day` · GET live · **cấm** ship mock-only |
 
 ## 2. Design / UI (mobile)
@@ -57,11 +57,11 @@ Không publish. Cross-nav: back hub `attendance` · drill `attendance-day`.
 
 ## 7. Demo checklist
 
-- [ ] Toast «Báo cáo» → push `#sc-attendance-report`
-- [ ] Segment Tuần / Tháng
-- [ ] KPI + day list từ GET
-- [ ] Tap ngày → `attendance-day`
-- [ ] Dual iOS/Android cùng copy VN
+- [x] Toast «Báo cáo» → push `#sc-attendance-report`
+- [x] Segment Tuần / Tháng
+- [x] KPI + day list từ GET
+- [x] Tap ngày → `attendance-day`
+- [x] Dual iOS/Android cùng copy VN
 
 **sourceKind:** `api` + `derived` · peer synthetic attendance
 
@@ -70,4 +70,4 @@ Không publish. Cross-nav: back hub `attendance` · drill `attendance-day`.
 | lane | phase | status | updatedAt |
 |------|-------|--------|-----------|
 | web | — | — | — |
-| mobile | `team_lead` | `pending` | `2026-09-12T06:33:07.975Z` |
+| mobile | `done` | `done` | `2026-09-16T12:51:00.000Z` |

@@ -14,7 +14,7 @@ Login (ngoài tab) → Tab 5
   → Appear = GET patrol/attendance-logs · filter dayKey · bind hero + summary + logs
   → Empty count=0 = EmptyChrome · badge Nghỉ · **cấm** demo SSOT / mock
   → GET fail = empty chrome + toast · screen mở · **cấm** demo T7/CN · cấm fake 200
-  → Tap log row = toast «Chi tiết lần chấm» · cấm push supervise-detail
+  → Tap log row = push `#sc-attendance-log` + id · cấm toast-only · cấm push supervise-detail
   → không child form / sheet / segment
 ```
 
@@ -54,7 +54,7 @@ Surface: `tabs: none` · shell tab `field` (Tuần đường) giữ (`GAP-TAB-01
 | permission | GPS request **N/A** — Lat/Lng readonly nếu bind sub |
 | leave dirty | **N/A** — không form dirty |
 | missing dayKey | back hub + toast · **cấm** blank invent |
-| tap log row | toast «Chi tiết lần chấm» · **cấm** GetById push |
+| tap log row | **push** `#sc-attendance-log` + id · **cấm** toast-only · **cấm** GetById supervise-detail |
 
 ## 4. Copy SSOT
 

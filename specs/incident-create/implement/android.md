@@ -31,6 +31,16 @@
 
 `/edit-mobile-feature` 2026-08-29: **GAP-MOB-INC-PICK-ALIGN-01** — pick `IntrinsicSize.Min` + `fillMaxHeight` · label 3 dòng · `LinmAssetKchtPict` 36 · **cấm** `Icons.Filled.GridView` · kit local **không** bump · `assembleDebug` **PASS**.
 
+## Notes (`/edit-mobile-feature` · 2026-09-16 · detect after Dùng ảnh)
+
+- Dual parity iOS: bind `result.detection` after Use · fallback detect `imageFileId` · **cấm** toast `inc.toast.detectFail` khi BE 200 · GAP-MOB-INC-DETECT-URL-01 CLOSED.
+- VERIFY: `./gradlew :app:assembleDebug` **PASS**.
+
+## Notes (`/edit-mobile-feature` · 2026-09-16 · tạo vấn đề POST BE)
+
+- Dual **GAP-MOB-INC-CREATE-QUEUE-01 CLOSED** — `CreateIncidentUseCase` POST catalog codes · queue **chỉ** mất sóng · replay `incidentBody`.
+- VERIFY: `./gradlew :app:assembleDebug` **PASS**.
+
 ## VERIFY GATE
 
 | Check | Result |
@@ -45,7 +55,7 @@ Same as iOS — reuse live Create/Detect/asset-types · media Signed **SKIP** P1
 
 ## AC map
 
-Dual parity with iOS implement · Create `POST incident/incidents` · offline `OfflineQueueKind.Incident` · **cấm** invent `incident-create` API.
+Dual parity with iOS implement · Create `POST incident/incidents` catalog codes · queue **chỉ** mất sóng `OfflineQueueKind.Incident` · **cấm** invent `incident-create` API.
 
 ## Version meta
 

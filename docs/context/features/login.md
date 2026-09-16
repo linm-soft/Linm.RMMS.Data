@@ -50,6 +50,8 @@ Auth: JWT `company_id` · `[RequirePermission]`.
 
 **E2E / docker seed:** Auth `SeedDefaults` khi `docker compose up` — username `linm-soft` · password `Linm@2026`. Maestro fill `#f-user` / `#f-pass` / `#btn-login` (`qa/e2e/{ios,android}.yaml`). Override `QLBD_DEMO_USER` / `QLBD_DEMO_PASS`. **Cấm** tap `Email`.
 
+**Store review (Guideline 2.1):** `rmms-001` (iOS) · `rmms-002` (Android) · password `RMMS@2026` · package `MANAGER-RMMS` · [`docs/plan/release-mobile/store/REVIEW-ACCOUNTS.md`](../../plan/release-mobile/store/REVIEW-ACCOUNTS.md). **Cấm** dán `linm-soft` vào store notes.
+
 ## 4. Database
 
 | Entity | Key columns | Host |

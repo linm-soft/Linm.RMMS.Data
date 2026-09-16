@@ -34,7 +34,7 @@
 | rulesVersion | `2026.08.29.5` |
 | skillVersions | review-mobile=`2026.08.25.01` · qa-mobile=`2026.08.25.01` · dev-ios=`2026.08.29.1` · tl-mobile=`2026.08.29.1` · sa-mobile=`2026.08.20.03` · design-mobile=`2026.08.25.01` · po-mobile=`2026.08.25.01` · data-analy-mobile=`2026.08.25.01` · prior roles **giữ** |
 | versionGate | `rechecked` |
-| updatedAt | `2026-09-01T15:08:51.524Z` |
+| updatedAt | `2026-09-16T13:55:00.000Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -122,6 +122,12 @@
 | ID | Issue | Decision / next |
 |----|-------|-----------------|
 | **GAP-MOB-EDIT-01** | Label header trên mọi input `#sc-estimate` | **Review closed** · AC-F-13 · approve |
+| **GAP-MOB-EST-WO-02** | Giao việc submit fail | **closed this edit** · PUT/confirm best-effort · POST WO primary |
+| **GAP-MOB-EST-NAV-04** | list assign nhảy tab / drop id | **closed this edit** · `#btn-inc-assign` → `#sc-estimate` + `item.id` |
+| **GAP-MOB-EST-NAV-02** | iOS incident CTA nhảy tab | **closed this edit** · push cùng parent stack |
+| **GAP-MOB-EST-NAV-03** | create CTA empty incidentId | **closed this edit** · postedIncidentId |
+| **GAP-MOB-EST-SEED-02** | seed fail empty lines | **closed this edit** · demo SSOT qty/giá |
+| **GAP-MOB-EST-RO-01** | Android derived editable | **closed this edit** · enabled=false |
 | Prior CLOSED | GAP-MOB-EST-* · R-QA-* · Review prior | **giữ closed** · **cấm** reopen |
 | DEFER | A4-IPAD · offline draft · staff lookup | Phase 1 / P2 |
 
@@ -148,7 +154,7 @@
 - Dual prototype: `specs/estimate/ui/prototype/{ios,android}/index.html`
 - Demo SSOT cite: `specs/mobile-p1/ui/prototype/{ios,android}/index.html` `#sc-estimate`
 - CTX: `docs/context/features/estimate.md`
-- **Next:** — · mobile edit pipeline **closed**
+- **Next:** — · `/edit-mobile-feature` · WO-02 Giao việc submit locked
 - **Queue:** `task_eb9d2de5` review → **completed**
 
 ## Handoff → close (`task_eb9d2de5` review done)

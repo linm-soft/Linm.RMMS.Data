@@ -31,6 +31,17 @@
 
 **Demo SSOT** dual proto **đã** có `.field > label` trên 6 field — **không** đổi copy/zones/API/BFF. Dev: **cấm** placeholder-only.
 
+### § Delta complete 2026-09-16
+
+| ID | Current | New |
+|----|---------|-----|
+| **GAP-MOB-EST-NAV-02** | iOS incident CTA → tab work | push cùng home/incident stack · back parent |
+| **GAP-MOB-EST-NAV-03** | create CTA empty id | `postedIncidentId` after POST |
+| **GAP-MOB-EST-SEED-02** | seed fail empty qty | demo `12.5` / `850.000` |
+| **GAP-MOB-EST-RO-01** | Android derived editable | `enabled=false` |
+| **GAP-MOB-EST-NAV-04** | list `#btn-inc-assign` → tab Công việc · drop id | push `#sc-estimate` với `item.id` · back list |
+| **GAP-MOB-EST-WO-02** | Giao việc toast err · PUT estimate chặn WO | PUT/confirm best-effort · POST `maintenance/work-orders` primary · DueAt ISO · line id UUID only |
+
 ## reviewUrl (dual — REQUIRED)
 
 | Platform | Path | reviewUrl |

@@ -27,7 +27,7 @@ App `ApiClient.base` = `{BffBase}/mobile-bff/api/v1`.
 | Load cam mặc định | GET | `cameras` | proxy | `CamerasController.GetList` | camera-connect · live | filter Online client · **GAP-MOB-CAMVIEW-PICK-01** |
 | Optional by id | GET | `cameras/{id}` | proxy | GetById | live | optional |
 | JPEG preview / Làm mới | POST | `cameras/{id}/snapshot` | proxy | `SnapshotById` | live · CaptureJPEG | **preferred** — stored device |
-| Sự kiện list | GET | `cameras/events` | proxy | `Events` | live · `CameraEventDto` | `limit` · optional `host` |
+| Sự kiện list | GET | `cameras/events` | proxy | `Events` | live · **`CameraEventPagedResult.items`** (web ITS `listEventsPaged`) | `page` · `pageSize` · `fromDate`/`toDate` hôm nay · optional `host` |
 | Toast refresh | — | — | — | local UI | demo toast | **không** API |
 | Device camera stream | — | — | — | — | — | **không** — OUT finder |
 
@@ -40,10 +40,16 @@ Mobile P1: `page=1` · `pageSize=20` · client pick first `Online=true` · `IsAc
 
 ### GET `cameras/events`
 
+Peer web `Linm.Web.RMMS.Camera` `cameraService.listEventsPaged` / `CameraEventsPanel` (Kết nối camera ITS · III. Events ISAPI).
+
 | Param | P1 |
 |-------|-----|
-| `limit` | `40` (default BE) · mobile có thể `20` |
+| `page` | `1` |
+| `pageSize` | `20` (web default; BE also accepts `limit`) |
+| `fromDate` / `toDate` | hôm nay `yyyy-MM-dd` (BE `CameraEventDateRange` · empty = hôm nay) |
 | `host` | optional = `CameraDeviceDto.Host` của cam đang xem |
+
+**Decode:** `CameraEventPagedResult` `{ items, totalCount, page, pageSize, totalPages, latest, vehicleStats }` · envelope `{ data.items }` OK · **cấm** expect JSON array root (`GAP-MOB-CAMVIEW-EVT-PAGE-01`). Mobile P1 **không** ship pager/filter UI web (period · vehicleStats chips) — bind `items` vào `LinmListRow`.
 
 ## DTO bind (live)
 
@@ -57,7 +63,7 @@ Mobile P1: `page=1` · `pageSize=20` · client pick first `Online=true` · `IsAc
 
 ### CameraEventDto
 
-`Id` · `At` · `Plate` · `SpeedKmh` · `VehicleType` · `Color` · `Direction` · `Source` · `CameraHost` · `RawKind` · `CameraDeviceId?`
+`Id` · `At` · `Plate` · `SpeedKmh` · `VehicleType` · `VehicleTypeLabel` · `Color` · `Direction` · `DirectionLabel` · `Source` · `CameraHost` · `RawKind` · `CameraDeviceId?`
 
 **Cấm** app fork DTO khác BFF table.
 

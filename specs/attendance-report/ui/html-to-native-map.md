@@ -29,7 +29,7 @@ Cite SSOT `docs/html-to-native-map.md`. Feature deltas (`#sc-attendance-report`)
 | kpiOut | count out-of-zone |
 | day rows | sort dayKey desc · badge hub map · tap → attendance-day |
 | empty | GET ok + 0 in window → EmptyChrome |
-| GET fail | toast + demo SSOT · **cấm** fake 200 |
+| GET fail | toast + EmptyChrome live-only · **cấm** fake 200 · **cấm** demo rows |
 | write | **—** toàn bộ (read-only) |
 | API | GET `patrol/attendance-logs` · **cấm** invent `/attendance/report` |
 

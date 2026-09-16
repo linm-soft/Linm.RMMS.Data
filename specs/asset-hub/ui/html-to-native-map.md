@@ -5,7 +5,8 @@ Cite SSOT `docs/html-to-native-map.md`. Feature deltas (`#sc-asset-hub`):
 | Demo | Kit dual | Notes |
 |------|----------|-------|
 | `.nav-bar` / `.top-bar` · title **Tài sản** | `LinmTopBar` | Back «Trang Chủ» → `home` · tap 44 |
-| `.wallet-card` · DES-MOB-ASSET-WALLET | `LinmWalletCard` | display only trên hub · **không** tap nav · iOS line 3 patrol demo |
+| `.wallet-card` · DES-MOB-ASSET-WALLET | `LinmWalletCard` | tap → `#sc-asset-kcht` hang-mục (web `/so-ts/hang-muc`) · title rỗng nếu route API không có nhãn |
+| `#sc-asset-kcht` 40 ô | `LinmAssetKchtPict` + label + count | SSOT `KCHT_TILES` web · GET `asset/road-assets/summary-by-type` · 1 cột phone |
 | `.hub-grid` / `.hub-tile` | `LinmHubTile` | icon + `iconColor`/`background` hex · title + subtitle · hàng 2 cột **stretch cùng height** · subtitle **2 dòng** · iOS `HStack` + `maxHeight: .infinity` · Android `LinmHomeGrid` `IntrinsicSize.Min` + `fillMaxHeight` · **cấm** raw grid · **cấm** revert height-auto per tile (`GAP-MOB-AHUB-ALIGN-01`) |
 | `.section-label` | `LinmSectionLabel` | Thu thập · Quản lý · Chờ xác nhận AI |
 | `.card-group` / `.row` (map) | `LinmListRow` | Bản đồ tài sản · cùng slug `gis-map` |

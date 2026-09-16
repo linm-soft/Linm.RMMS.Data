@@ -15,7 +15,7 @@ Login (ngoài tab) → Tab 5
   → Appear = GET patrol/attendance-logs · period filter · KPI + day rows
   → Period Tuần|Tháng = client re-filter (default Tuần)
   → Empty = EmptyChrome «Không có dữ liệu kỳ này»
-  → GET fail = toast + demo SSOT UI · cấm fake 200
+  → GET fail = toast + EmptyChrome live-only · cấm fake 200 · cấm demo rows
   → Tap day = go('attendance-day') + dayKey · cấm re-enqueue
   → không Excel / map / child form / sheet
 ```
@@ -52,7 +52,7 @@ Surface: `tabs: none` · shell tab `field` giữ (`GAP-TAB-01`).
 | default | GET list · period Tuần · bind KPI + days (SSOT demo 2/4/100%/0 · T7/T6) |
 | empty period | count=0 · EmptyChrome · hide section |
 | loading | nhẹ · **cấm** full-screen block tab |
-| error / offline | toast lỗi · demo SSOT fallback · **cấm** fake 200 |
+| error / offline | toast lỗi · EmptyChrome live-only · **cấm** fake 200 · **cấm** demo rows |
 | permission | GPS **N/A** trên report |
 | leave dirty | **N/A** |
 | period change | client re-filter · không bắt buộc re-GET nếu cache đủ |
@@ -90,9 +90,9 @@ Primary `#0C84C0` · deep `#086A9A` · success `#3CB448`/`#34C759` · warn `#FCB
 
 | ID | Demo vs native | Quyết định |
 |----|----------------|------------|
-| GAP-MOB-ATT-RPT-NAV-01 | toast → push | Wire hub Báo cáo |
-| GAP-MOB-ATT-RPT-SCR-01 | own report screen | Dual `#sc-attendance-report` |
-| GAP-MOB-ATT-RPT-DATA-01 | GetList aggregate | Bind KPI + days |
+| GAP-MOB-ATT-RPT-NAV-01 | toast → push | **closed** 2026-09-16 · hub Báo cáo push |
+| GAP-MOB-ATT-RPT-SCR-01 | own report screen | **closed** · dual `#sc-attendance-report` |
+| GAP-MOB-ATT-RPT-DATA-01 | GetList aggregate | **closed** · bind KPI + days · fail live-only |
 | GAP-MOB-ATT-RPT-API-01 | report MISSING | P1 aggregate · P2 only |
 | GAP-MOB-ATT-RPT-PACK-01 | sheet→screen | packKind **screen** |
 | GAP-MOB-ATT-RPT-DEMO-01 | dual proto | Dev rewire + ship |

@@ -5,7 +5,7 @@
 | feature | `patrol-offline` |
 | phase | `done` |
 | status | `done` |
-| changeScope | `edit_page` · gap=`offline_sync_apply_checkins` |
+| changeScope | `edit_page` · gap=`offline_sync_reconnect` |
 | packKind | `list` (**PO confirmed · keep**) |
 | stack | `native_dual` |
 | demo | `specs/patrol-offline/ui/prototype/{ios,android}/index.html` `#sc-patrol-offline` · `DES-MOB-PAT-OFFLINE` |
@@ -17,7 +17,7 @@
 | reviewUrlAndroid | `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/patrol-offline/ui/prototype/android/index.html#sc-patrol-offline` |
 | ios | `Linm.RMMS.Mobile.iOS` · `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS` · e2e-qa-mobile sim 6.9" |
 | android | `Linm.RMMS.Mobile.Android` · `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android` · e2e-qa-mobile emulator |
-| bff | `Linm.RMMS.Mobile.Bff` · proxy `patrol/sessions/{id}/check-ins` + `integration/sync/offline-batch` |
+| bff | `Linm.RMMS.Mobile.Bff` · proxy `patrol/sessions/{id}/check-ins` + `incident/incidents` + `integration/sync/offline-batch` |
 | backend | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.WebService` · DOMAIN-MAP Patrol + Integration — **cấm ERP.*** |
 | dataAnaly | `specs/_data-analy/patrol-offline-control-hint.md` · `patrol-offline-real-data.md` · `patrol-offline-bff-endpoints.md` · `patrol-offline-action-tree.md` · handoff `data_analy-compact.md` |
 | po | `specs/patrol-offline/po/requirement.md` · handoff `po-compact.md` (**confirmed**) |
@@ -33,10 +33,10 @@
 | workflowVersion | `2026.08.19.29` |
 | rulesVersion | `2026.08.19.34` |
 | versionGate | `rechecked` |
-| contentHash | `sha256:patrol-offline-delta-apply-checkins-20260912` |
+| contentHash | `sha256:patrol-offline-reconnect-sync-20260916` |
 | bffContentHash | `sha256:patrol-offline-bff-apply-checkins-20260912` |
-| verifyGate | iOS xcodegen+xcodebuild iPhone 17 Pro **PASS** · Android assembleDebug **PASS** · BFF dotnet build **PASS** · e2e-qa-mobile **ok:true** · Review artifact **PASS** · Step 4b **N/A** · **cấm** start:std/mfeStdUrl |
-| updatedAt | `2026-09-12T14:52:44.446Z` |
+| verifyGate | iOS xcodegen+xcodebuild iPhone 17 Pro **PASS** · Android assembleDebug **PASS** · Step 4b **N/A** · **cấm** start:std/mfeStdUrl |
+| updatedAt | `2026-09-16T14:00:00.000Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -59,7 +59,7 @@
 
 | Gate | Value |
 |------|-------|
-| change_scope | `edit_page` · gap=`offline_sync_apply_checkins` |
+| change_scope | `edit_page` · gap=`offline_sync_reconnect` |
 | packKind | **`list`** |
 | stack_confirm | `native_dual` |
 | be_repo_confirm | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.WebService` |
@@ -76,7 +76,7 @@
 | qa_confirm | **confirmed** (autoApprove ON · e2e ok:true · qa-compact · Must 0) |
 | review_confirm | **confirmed** (user Approve board) |
 | post_review | **skip** |
-| Step 4b | **N/A** — reuse `POST patrol/sessions/{id}/check-ins` + optional offline-batch |
+| Step 4b | **N/A** — reuse `POST patrol/sessions/{id}/check-ins` + `POST incident/incidents` + optional offline-batch |
 
 ## Tasks
 
@@ -94,13 +94,13 @@
 
 ## Blockers / open questions
 
-- Incident sync replay API — P2 keep pending
+- Incident replay **CLOSED** — `POST incident/incidents` khi có `incidentBody` · GAP-MOB-OFF-RECONNECT-01 auto-sync **CLOSED**
 - Patrol-home nav «Đồng bộ» wire khi sibling ship (stub OK P1 · GAP-MOB-ACT-PAT-OFFLINE-01 · **Defer**)
 - P2: `PrivacyInfo.xcprivacy` · Android mappin icon · store submit → `/review-app-submit`
 
 ## Links
 
-- closeout review: `task_0e218573` · `/agent-review-mobile` · roleOnly=`review` · gap=`offline_sync_apply_checkins` · review_confirm=approve · Must 0 · at: `2026-09-12T14:55:00.000Z`
+- edit-mobile-feature reconnect: `/edit-mobile-feature` · gap=`offline_sync_reconnect` · dual `OfflineReconnectSync` · at: `2026-09-16T14:00:00.000Z`
 - closeout qa: `task_53265cb6` · `/agent-qa-mobile` · roleOnly=`qa` · gap=`offline_sync_apply_checkins` · e2e **ok:true** · align Aligned · Must 0 · at: `2026-09-12T14:48:06.000Z`
 - closeout dev: `task_8bf4b63c` · `/agent-dev-ios`+`/agent-dev-android` · roleOnly=`dev` · gap=`offline_sync_apply_checkins` · T-IOS-PAT-OFF-APPLY · T-AND-PAT-OFF-APPLY · VERIFY PASS · at: `2026-09-12T14:45:00.000Z`
 - closeout team_lead: `task_1618aef2` · `/agent-tl-mobile` · roleOnly=`team_lead`

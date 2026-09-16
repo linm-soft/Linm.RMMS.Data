@@ -83,7 +83,7 @@
 - Sibling check-in sheet — **pending_confirm** · P1 toast only trên map
 - Kind E tracks/coverage — **P2** · overlay demo SSOT P1
 - Step 4b — **N/A**
-- **EDIT LOCK** pin-here = loc + **snap tim đường** + zoom + pin tip neo đáy · OSRM corridor/track · chips wrap · **cấm** revert polyline thẳng / pin raw (`GAP-MOB-EDIT-01` · `GAP-MAP-OSRM-ROUTE` · `GAP-MAP-OSRM-SNAP`)
+- **EDIT LOCK** pin-here = loc + **snap tim đường** + zoom + pin tip neo đáy · OSRM corridor/track · Debug `OsrmBase` public · chips wrap · **cấm** revert polyline thẳng / pin raw / empty Debug base (`GAP-MOB-EDIT-01` · `GAP-MAP-OSRM-ROUTE` · `GAP-MAP-OSRM-SNAP` · `GAP-MAP-OSRM-CONFIG-01`)
 - **GAP-MOB-IOS-MAP-HOST-01** — **closed** · patrol + HITL reuse `GisClipMapView` · chips Tiêu chuẩn/Vệ tinh
 - **GAP-MOB-AND-MAP-LOAD-01** — **closed** 2026-09-16 · Android MapLibre `GisClipMapView` (osmdroid PBF raster fail)
 

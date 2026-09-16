@@ -18,7 +18,7 @@
 
 | Screen | Pattern | Zones |
 |--------|---------|-------|
-| `#sc-mnt-chat` | Full screen | TopBar title · subtitle WO · thread bubbles (mine/theirs) · composer paper-plane |
+| `#sc-mnt-chat` | Full screen | **1** TopBar (`LinmTopBar`) · subtitle WO · thread bubbles (mine/theirs) · composer paper-plane · **cấm** 2 header |
 | Entry | Parent list | `mnt-list` card `#i-chat` / `btn-mnt-chat-{id}` |
 
 ## 3. API

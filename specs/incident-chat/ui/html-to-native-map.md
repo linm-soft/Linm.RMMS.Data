@@ -10,10 +10,10 @@
 | Demo / zone | iOS kit | Android kit | App |
 |-------------|---------|-------------|-----|
 | `#sc-incident-chat` | `IncidentChatView` | `IncidentChatScreen` | VM + BFF |
-| TopBar | `LinmTopBar` | `LinmTopBar` | `inc.chat.title` |
+| TopBar | `LinmTopBar` · `.toolbar(.hidden)` + `.navigationBarBackButtonHidden` | `LinmTopBar` · **không** Scaffold `topBar` | `inc.chat.title` · **1** bar (`GAP-MOB-CHAT-HDR-01`) |
 | Thread | `LinmChatThread` | `LinmChatThread` | map DTO → `LinmChatMessage` |
 | Bubble mine/theirs | `LinmChatBubble` | `LinmChatBubble` | `isMine` |
-| Composer | `LinmChatComposer` `paperplane.fill` | `LinmChatComposer` Send | `onSend` |
+| Composer | `LinmChatComposer` `paperplane.fill` · `safeAreaInset` IME | `LinmChatComposer` Send · `imePadding` + `LinmChatImeLock` | `onSend` · **GAP-MOB-CHAT-IME-01** |
 | Entry `#i-chat` | `bubble.left` | `ChatBubbleOutline` | `btn-inc-chat-{id}` |
 
 **Cấm** VM/API trong kit.

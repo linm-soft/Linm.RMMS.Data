@@ -13,8 +13,8 @@
 #sc-attendance DES-MOB-ATT   ← this pack
   → segment idx 0 «Tuần đường» → pop #sc-patrol-home
   → Chấm vào → GPS + POST patrol/attendance-logs
-  → Báo cáo → toast «Báo cáo công» (cấm push report)
-  → tap day → toast «Chi tiết ngày công» (cấm push detail)
+  → Báo cáo → push `#sc-attendance-report` (sibling shipped)
+  → tap day → push `#sc-attendance-day` (sibling shipped)
   → không child form / sheet (GAP-MOB-ACT-02 = none)
 ```
 
@@ -76,7 +76,7 @@
 | CN 10/08 · T7 09/08 · T6 08/08 | invent day titles |
 | — · 07:05 – 16:40 · 07:12 – 16:55 | invent times |
 | Nghỉ · Đủ công | invent badge EN |
-| Báo cáo công · Chi tiết ngày công | `AlertDialog` · push sibling |
+| Báo cáo công · Chi tiết ngày công | toast-only (đã **push** sibling) |
 | — | «Có mạng» · watermark Gói · «· Android» |
 
 ## 5. Brand
@@ -107,8 +107,8 @@ Không `/wf-anim` trên hub `attendance`. Segment pop instant · toast fade · h
 
 | ID | Demo vs native | Quyết định |
 |----|----------------|------------|
-| GAP-MOB-ATT-01 | Báo cáo live | **closed** — P1 toast only |
-| GAP-MOB-ATT-02 | Day detail live | **closed** — P1 toast only |
+| GAP-MOB-ATT-01 | Báo cáo live | **closed** — `/edit-mobile-feature` 2026-09-16 · **push** `#sc-attendance-report` |
+| GAP-MOB-ATT-02 | Day detail live | **closed** — **push** `#sc-attendance-day` |
 | GAP-MOB-ATT-03 | GPS deny | **closed** — toast · no POST |
 | GAP-MOB-ACT-01 | 1 hub action | **closed** — không gộp sibling |
 | GAP-MOB-ACT-02 | child form | **none** on hub |

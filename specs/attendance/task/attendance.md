@@ -11,14 +11,14 @@
 | packKind | **`list`** (PO + Design + SA confirm · UI hub DES-MOB-ATT) |
 | stack | `native_dual` |
 | Feature Kind | **hub/list** push `#sc-attendance` · **cấm** Kind A–G web |
-| route_confirm | **route_a** (autoApprove=ON) — Tab field → `#sc-patrol-home` → segment **Chấm công** → push `#sc-attendance` / `DES-MOB-ATT` · seg **Tuần đường** = pop · Chấm vào = GPS+POST · Báo cáo / day = toast · **cấm** invent tab / `mfeStdUrl` / push sibling |
+| route_confirm | **route_a** — Tab field → `#sc-patrol-home` → segment **Chấm công** → push `#sc-attendance` · seg **Tuần đường** = pop · Chấm vào = GPS+POST · Báo cáo = **push report** · day = **push day-detail** · **cấm** invent tab / `mfeStdUrl` / invent `/attendance/report` |
 | autoApprove | **ON** |
 | e2eQa | ON khi QA · `yarn e2e-qa-mobile` · **cấm** `mfeStdUrl` |
 | prior · data_analy | **confirmed** · contentHash `sha256:attendance-mobile-hub-20260819` · bffContentHash `sha256:attendance-mobile-bff-20260819` |
 | prior · po / design / sa | **confirmed** |
 | taskId | `task_53a68d8f` |
 | updatedAt | `2026-08-20T03:50:00.000Z` |
-| thisAction | **Chấm công hub** `#sc-attendance` only · GET+POST · toast siblings · **cấm** gộp report / day-detail |
+| thisAction | **Chấm công hub** `#sc-attendance` · GET+POST · **push** report / day siblings (shipped) |
 
 **Cấm:** gộp sibling · invent report API · ERP.* · WebView · `mfeStdUrl` · native alert · start sibling `pending_confirm` · `scaffold_new`.
 

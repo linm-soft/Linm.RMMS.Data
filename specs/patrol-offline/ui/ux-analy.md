@@ -14,8 +14,10 @@ Tab 5 shell (IA 5 — không đổi)
 #sc-patrol-offline
   → Back «Trang Chủ» = pop parent
   → «Đồng bộ» = replay checkIn → POST patrol/sessions/{id}/check-ins
+       · incident → POST incident/incidents
        · optional POST integration/sync/offline-batch receipt
-  → Segment 0 = điểm tuần pending · 1 = sự cố pending (P2 · không clear)
+  → Mất sóng về = auto cùng replay (observe `isOnline` · **cấm** đợi tap · **cấm** grade `.yeu` làm offline)
+  → Segment 0 = điểm tuần pending · 1 = sự cố pending (replay khi có incidentBody)
   → không child form / sheet / xóa từng bản ghi / conflict UI
 ```
 
@@ -57,10 +59,11 @@ Tab 5 shell (IA 5 — không đổi)
 | default | segment 0 · pending cards · banner |
 | segment 1 empty | list rỗng · banner ẩn · toast incidentEmpty |
 | first launch | seed 1 lần (`GAP-F-OFFLINE-01`) · production = real enqueue |
-| sync OK full | toast N · remove all checkIn OK · optional receipt |
+| sync OK full | toast N · remove checkIn + incident 2xx · optional receipt |
 | sync partial | toast N OK · **giữ** fail items |
 | sync fail/offline | toast lỗi · **giữ** queue · **cấm** alert / clear |
-| sync incident tab | **không** xóa incident (P2) |
+| reconnect | `isOnline` false→true · auto replay · toast chỉ N>0 |
+| sync incident tab | replay `POST incident/incidents` · legacy no-body skip |
 | post-sync | persist remaining · **cấm** re-seed |
 | leave dirty | **N/A** (không form) |
 
@@ -105,11 +108,13 @@ Không `/wf-anim`. Segment = instant filter · toast fade.
 | GAP-F-OFFLINE-01 | Seed vs post-sync | Seed 1 lần · sync OK → không re-seed |
 | GAP-DES-REPLAY-01 | Sync = offline-batch clear | **edit_page** · replay POST check-ins · remove chỉ 2xx |
 | GAP-DES-PAYLOAD-01 | Display-only queue | Persist sessionId + body dual enqueue |
-| GAP-DES-INCIDENT-01 | Sync clears incident | P2 keep · **cấm** clear incident |
+| GAP-DES-INCIDENT-01 | Sync clears incident | **CLOSED** · replay `POST incident/incidents` · remove 2xx · legacy skip |
+| GAP-MOB-OFF-RECONNECT-01 | Sync chỉ khi tap Đồng bộ | **CLOSED** · auto `syncPending` khi `isOnline` về · mutex · đúng endpoint domain |
 | GAP-DES-DEMO-RESCAN-01 | Hash skip | **cấm** re-scan demo |
 | GAP-MOB-ACT-PAT-OFFLINE-01 | Patrol-home Đồng bộ | Defer stub OK P1 |
 | GAP-TAB-01 | Segment order | idx 0 check-in · 1 incident — locked |
 | GAP-MOB-ALIGN-01 | Dual parity | Cùng zones + copy |
+| GAP-MOB-EDIT-01 | Context lock | **CLOSED** · `/edit-mobile-feature` reconnect 2026-09-16 |
 
 ## Version meta (REQUIRED)
 

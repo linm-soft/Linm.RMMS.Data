@@ -52,7 +52,7 @@
 
 ## Notes (`/edit-mobile-feature` · 2026-09-16 · update-image detect)
 
-- After HITL + files commit, optional detect uses same `POST ai-vision/detect` · BE **hard-default 200** · `didAttachDetect=true` on 200 · dual parity iOS.
+- After HITL + files commit + **Dùng ảnh**, always `POST ai-vision/detect` with `imageFileId` · BE **hard-default 200** · `detection` DTO on result · dual parity iOS.
 - Native detect client **không** đổi path/DTO.
 
 ---

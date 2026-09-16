@@ -61,7 +61,8 @@ appId: org.linmsoft.rmms
     text: "Báo cáo"
     optional: true
 - extendedWaitUntil:
-    visible: "Báo cáo công"
+    visible:
+      id: "sc-attendance-report"
     timeout: 8000
     optional: true
 - tapOn:

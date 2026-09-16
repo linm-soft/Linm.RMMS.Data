@@ -59,7 +59,7 @@
   Appear → GET patrol/attendance-logs · filter dayKey · bind summary + log rows
   Empty count=0 → EmptyChrome · badge Nghỉ · **cấm** demo SSOT / mock
   GET fail → empty chrome + LinmToast · screen vẫn mở · **cấm** demo T7/CN · cấm fake 200
-  Tap log row → toast «Chi tiết lần chấm» · cấm push supervise-detail
+  Tap log row → push `#sc-attendance-log` + id · **cấm** toast-only · cấm push supervise-detail
   không child form / sheet / segment trên detail
 ```
 
@@ -82,7 +82,7 @@
 | logBadge | Trong vùng / Ngoài vùng | `LinmBadge` optional | — | `InZone` |
 | emptyDay | Không có lần chấm trong ngày | `LinmEmptyChrome` | — | badge Nghỉ · count=0 |
 | toastErr | (lỗi mạng) | `LinmToast` | — | GET fail · **cấm** fake ok |
-| toastLogTap | Chi tiết lần chấm | `LinmToast` | — | tap log row P1 · **cấm** GetById push |
+| toastLogTap | Chi tiết lần chấm | `LinmToast` | — | **superseded** 2026-09-16 · **push** `#sc-attendance-log` |
 | tabField | Tuần đường | `LinmTabBar` | map ↔ Route | selected · label **13** |
 
 ### Entry (parent — không control riêng slug)

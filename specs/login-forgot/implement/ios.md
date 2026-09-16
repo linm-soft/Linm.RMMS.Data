@@ -8,7 +8,7 @@
 | Feature | `login-forgot` |
 | Title | [Mobile] Quên mật khẩu |
 | Role | `dev` · iOS |
-| dest | **iPhone 17 Pro** **BUILD SUCCEEDED** · family `1` — **cấm** iPad listing |
+| dest | **iPhone 17 Pro Max** **BUILD SUCCEEDED** 2026-09-16 · family `1` — **cấm** iPad listing |
 | xcodegen | **PASS** |
 | Kit | `LinmTextField` · `LinmSecureTextField` · `LinmPrimaryButton` · `LinmToast`/`LinmToastHost` · `LinmBusyOverlay` · **`LinmLeaveConfirm`** |
 
@@ -23,12 +23,8 @@
 
 ## IA / API
 
-- `#sc-login` **Quên mật khẩu?** → full-page `#sc-forgot` step Request · **cấm** toast-only.
-- POST `auth/forgot-password` `{ phoneNumber }` · toast Auth `message` → step Reset · giữ SĐT VM.
-- POST `auth/reset-password` `{ phoneNumber, resetToken, newPassword }` · toast **Đặt lại mật khẩu thành công** → pop Login · **không** auto-login · **ignore** `temporaryPassword`.
-- Client: empty phone / OTP+MK / mismatch / min 6 · offline **Không có mạng** · **cấm** queue.
-- Back step 1 / step 2 sạch → Login. Step 2 dirty → **`LinmLeaveConfirm`** (`btn-leave-cancel` / `btn-leave-ok`).
-- Busy = overlay only · **cấm** spinner nút + overlay.
-- E2E: `btn-back` · `f-phone` · `btn-forgot-send` · `f-otp` · `f-new-pass` · `f-confirm-pass` · `btn-forgot-reset`.
-- **Cấm** watermark · `UIAlert` · invent `auth/forgot` · `mfeStdUrl`.
-- `/edit-mobile-feature` 2026-08-19: **GAP-MOB-THEME-01** / **GAP-MOB-COPY-01** — `LinmCopy.t` · toast BFF `message` giữ.
+- `#sc-login` **Quên mật khẩu?** → full-page `#sc-forgot` · **cấm** toast-only.
+- **LIVE LOCK 2026-09-16:** ẩn phone/OTP/MK. Body = `LinmCopy.t("forgot.contactAdmin")` · e2e `forgot-contact`. Back `btn-back` → Login · **không** leave modal.
+- Use-case `ForgotPasswordUseCase` / `ResetPasswordUseCase` **giữ** (không xóa) · **không** gọi từ View.
+- **Cấm** watermark · `UIAlert` · invent `auth/forgot` · `mfeStdUrl` · restore OTP input.
+- `/edit-mobile-feature` 2026-09-16: GAP-MOB-EDIT-FORGOT-01 · dest iPhone 17 Pro Max.

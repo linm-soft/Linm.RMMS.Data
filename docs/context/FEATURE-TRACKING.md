@@ -123,8 +123,9 @@
 | `gis-map` | Xem trên bản đồ | — | support | `done` / `done` · clip iOS shipped · twins MapKit **pending** | data_analy **PASS** · host `GisClipMapView` | [ctx](features/gis-map.md) | [ST](../../specs/gis-map/STATUS.md) |
 | `asset-ai` | Camera AI | — | support | `done` / `done` | none | [ctx](features/asset-ai.md) | [ST](../../specs/asset-ai/STATUS.md) |
 | `supervise-detail` | Chi tiết check-in | — | support | `qa` / `await_confirm` | none | [ctx](features/supervise-detail.md) | [ST](../../specs/supervise-detail/STATUS.md) |
-| `attendance-report` | Báo cáo công | — | support | `sa` / `in_progress` | none | [ctx](features/attendance-report.md) | [ST](../../specs/attendance-report/STATUS.md) |
+| `attendance-report` | Báo cáo công | — | support | `done` / `done` | none | [ctx](features/attendance-report.md) | [ST](../../specs/attendance-report/STATUS.md) |
 | `attendance-day` | Chi tiết ngày công | — | support | `done` / `done` | data_analy **PASS** | [ctx](features/attendance-day.md) | [ST](../../specs/attendance-day/STATUS.md) |
+| `attendance-log` | Chi tiết chấm công | — | support | `done` / `done` | `/edit-mobile-feature` 2026-09-16 | [ctx](features/attendance-log.md) | [ST](../../specs/attendance-log/STATUS.md) |
 | `patrol-history-detail` | Chi tiết ca | — | support | `done` / `done` | none | [ctx](features/patrol-history-detail.md) | [ST](../../specs/patrol-history-detail/STATUS.md) |
 | `mobile-bff-map` | [Mobile] Mobile.Bff MapService | — | support | `done` / `done` | none | [ctx](features/mobile-bff-map.md) | [ST](../../specs/mobile-bff-map/STATUS.md) |
 | `mobile-bff-file` | [Mobile] Mobile.Bff FileService | — | support | `done` / `done` | none | [ctx](features/mobile-bff-file.md) | [ST](../../specs/mobile-bff-file/STATUS.md) |

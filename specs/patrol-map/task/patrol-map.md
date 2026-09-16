@@ -115,7 +115,7 @@ IA lock (design §2 / ux-analy §1): `(auth) Login → Tab 5 · Tuần đường
 | Active | `PatrolDtoMapper.active(from:)` filter «Đang tuần» |
 | nextTitle | `active?.routeKm` non-empty else `PatrolMapOverlay.nextDemoTitle` |
 | Fail / offline | demo overlay SSOT · map **vẫn mở** · **cấm** block · **cấm** native alert |
-| Overlay geometry | Waypoints `PatrolMapOverlay` · **paint OSRM** `routeAlongStreets` · pin `projectToPath` / `snapPointToStreet` · **cấm** polyline thẳng · **cấm** tracks API P1 |
+| Overlay geometry | Waypoints plan-points · **paint OSRM** `routeAlongStreets` (`OsrmBase` Debug public) · pin `projectToPath` / `snapPointToStreet` · **cấm** empty Debug base (**GAP-MAP-OSRM-CONFIG-01**) · **cấm** tracks API P1 |
 
 ### Router / shell
 

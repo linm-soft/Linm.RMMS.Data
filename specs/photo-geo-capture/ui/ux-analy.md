@@ -130,7 +130,7 @@ Khớp `ui/design.md` Copy VN — dual parity. Demo numbers: ±6 m · 18 m · sh
 |-------|-------|
 | design | **confirmed** |
 | next | `/agent-solution-mobile` (SA) |
-| GAP open | GAP-PGC-BE-01 · GAP-PGC-DETECT-01 **CLOSED P1** · detect BE hard-default 200 |
+| GAP open | GAP-PGC-BE-01 · GAP-PGC-DETECT-01 **CLOSED P1** · detect BE hard-default 200 · GAP-MOB-INC-DETECT-URL-01 **CLOSED** (sau Dùng ảnh luôn 200) |
 | e2e | queued `/agent-qa*` |
 
 ## Version meta

@@ -1,5 +1,7 @@
 # STATUS — login-forgot
 
+> **LIVE LOCK 2026-09-16** `/edit-mobile-feature` — UI contact-admin only. OTP yaml **stale**.
+
 | Field | Value |
 |-------|-------|
 | feature | `login-forgot` |

@@ -116,7 +116,7 @@ AskQuestion (autoApprove=ON · không chờ board): `ios_repo_confirm` · `andro
 3. Gim 1 pin → on-device object geo (pinhole ∩ mặt đường) · **≠** photographer EXIF.
 4. MapPinSheet HITL confirm object lat/lng.
 5. Files init→PUT→commit `purpose=photo-geo-capture` · JWT GET object · **cấm** client objectKey.
-6. Optional detect: Lat/Lng = object HITL · conf>30m → skip detect attach · BE P1 **hard-default 200** trên `POST ai-vision/detect` (skip AiService HTTP · **cấm** toast detectFail khi 200).
+6. After HITL + files commit + **Dùng ảnh**: always `POST ai-vision/detect` (`imageFileId` · Lat/Lng = object HITL) · BE P1 **hard-default 200** · return DTO to host · **cấm** toast detectFail khi 200 · **cấm** skip vì conf>30m sau user đã Use.
 7. Dismiss → host binds MediaIds + sidecar coords · offline queue OK.
 8. Demo states cite: `?deny=1` · `?conf=45` · `?compass=1` · `?step=map` · `?fail=1`.
 

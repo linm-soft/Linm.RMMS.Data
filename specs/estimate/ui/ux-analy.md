@@ -13,8 +13,8 @@
 Login → Tab Công việc (shell Tab 5 · index work)
   → mnt-list hub «Giao việc xử lý» / card #i-sum
        → push #sc-estimate (owner DES-MOB-EST)
-  → incident-create / incident-detail CTA «Giao việc xử lý»
-       → push #sc-estimate (shared_action · reuse owner)
+  → incident-list `#btn-inc-assign` / detail / create CTA
+       → push #sc-estimate + incidentId (shared_action · reuse owner)
   → #sc-estimate DES-MOB-EST
        → card Từ sự cố + Loại tài sản (readonly · subtitle label OK)
        → [labelHeader] Giao cho * · Khối lượng · Đơn giá
@@ -99,10 +99,16 @@ Pack P1: toast fade ~2.4s · primary busy spinner · total recalc on qty/price i
 | ID | Demo vs native | Quyết định |
 |----|----------------|------------|
 | **GAP-MOB-EDIT-01** | demo `.field > label` vs native placeholder-only | **must** labelHeader 13 above 6 fields · dual · **cấm** placeholder-only |
+| **GAP-MOB-EST-NAV-04** | list assign nhảy tab / drop id | **must** push `#sc-estimate` + `item.id` |
+| **GAP-MOB-EST-NAV-02** | iOS incident CTA nhảy tab work | **must** push cùng stack · back parent |
+| **GAP-MOB-EST-NAV-03** | create CTA empty id | pass postedIncidentId |
+| **GAP-MOB-EST-SEED-02** | seed fail empty qty | demo SSOT lines |
+| **GAP-MOB-EST-RO-01** | Android derived editable | enabled=false |
 | GAP-MOB-EST-PACK-01 | sheet meta vs full screen | **sheet** packKind · surface **screen** · **cấm** bottom-sheet |
 | GAP-MOB-EST-NAV-01 | toast stub → screen | **must** push `#sc-estimate` |
 | GAP-MOB-EST-SIMP-01 | 1 line vs web grid | map `Lines[0]` |
 | GAP-MOB-EST-ASSIGNEE-01 | no staff API | free text |
+| **GAP-MOB-EST-WO-02** | Giao việc fail · PUT chặn WO | **must** POST WO dù PUT/confirm fail |
 | GAP-MOB-EST-WO-01 | auto WO vs explicit | explicit `POST maintenance/work-orders` |
 | GAP-MOB-EST-SLA-01 | no SLA API | local 24h + DueAt |
 | AC-D-01 | offline | form mở · fail toast · queue DEFER |
@@ -125,6 +131,11 @@ Pack P1: toast fade ~2.4s · primary busy spinner · total recalc on qty/price i
 | AC-F-09 | entry | mnt-list / incident → push |
 | AC-F-10 | dual parity | cùng copy trừ chrome back |
 | **AC-F-13** | label header | 6 fields label 13 always visible when valued · **GAP-MOB-EDIT-01** |
+| **AC-F-14** | seed fail | fail / empty line → demo qty 12.5 · ĐG 850.000 · **GAP-MOB-EST-SEED-02** |
+| **AC-F-15** | incident entry | push cùng stack · back pop parent · **GAP-MOB-EST-NAV-02** |
+| **AC-F-16** | create CTA | pass postedIncidentId (unsaved → POST then open) · **GAP-MOB-EST-NAV-03** |
+| **AC-F-18** | list assign | `#btn-inc-assign` → `#sc-estimate` + `item.id` · **GAP-MOB-EST-NAV-04** |
+| **AC-F-17** | readonly | total / SLA / due not editable · **GAP-MOB-EST-RO-01** |
 | GAP-TAB-01 | tabs none | shell Tab 5 giữ · work |
 | kit_missing | — | **N/A** · kits có sẵn · labelHeader = kit/`VStack` |
 | DEFER | bezel HTML | chrome native HIG/Material |

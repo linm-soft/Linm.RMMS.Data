@@ -55,7 +55,7 @@
 
 ## Notes (`/edit-mobile-feature` · 2026-09-16 · update-image detect)
 
-- After HITL + files commit, optional detect uses same `POST ai-vision/detect` · BE **hard-default 200** (skip AiService HTTP) · `didAttachDetect=true` on 200 · host vis/field/incident bind rows.
+- After HITL + files commit + **Dùng ảnh**, always `POST ai-vision/detect` with `imageFileId` (omit JPEG base64) · BE **hard-default 200** · return DTO `detection` to host vis/field/incident · **cấm** skip vì conf>30m sau Use.
 - iOS client path/DTO **không** đổi.
 
 ---

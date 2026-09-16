@@ -62,7 +62,7 @@ AskQuestion: `route_confirm=route_a` · `ios_repo_confirm` · `android_repo_conf
 | `POST ai-vision/uploads` (+ object) | live | **optional** P1 trước detect khi ready |
 | `POST incident/incidents` | live Create · **không** `media[]` trên `CreateIncidentRequest` | **reuse** · Create bind asset + GPS + kind + Severity + Description · **GAP-MOB-INC-CREATE-MEDIA-01** → T-BE optional |
 | Checklist API | **không** | Local `asset-kcht-32` by asset `code` · **cấm** invent · **GAP-MOB-INC-CREATE-CHK-01** |
-| Offline queue | `OfflineQueueKind.incident` live | Create fail / Draft → enqueue · sibling `patrol-offline` |
+| Offline queue | `OfflineQueueKind.incident` live | **chỉ** mất sóng · payload `incidentBody` · replay POST · **cấm** queue khi online 4xx |
 | Camera / location privacy | Info.plist `NSCameraUsageDescription` + location **đã có** · Android `CAMERA` + `ACCESS_FINE_LOCATION` **đã có** | Dev verify PrivacyInfo / Play (`GAP-SA-STORE-01`) |
 | Kit TopBar/WalletCard/Segment/ListRow/Select/TextArea/Buttons/Toast/GPS deny | dual map | **reuse** · PhotoRow + CheckboxList compose · **cấm** `T-KIT-*` |
 | Detect/Create use cases | live từ peer `cam-patrol` / `field-reflect` | **reuse** `DetectAiVisionUseCase` · `CreateIncidentUseCase` · **cấm** fork DTO |
@@ -167,11 +167,11 @@ AskQuestion: `route_confirm=route_a` · `ios_repo_confirm` · `android_repo_conf
 4. Kind pills Hư/Mất/Hỏng (`DES-MOB-INC-KIND`) · single select · default **Hư** · filter checklist · **cấm** invent loại ngoài closed set 3.
 5. Checklist local by asset `code` từ `asset-kcht-32` (+ optional host asset-types) · ticks + mô tả → Create `Description` join · **cấm** invent checklist API (`GAP-MOB-INC-CREATE-CHK-01`).
 6. PhotoRow + still camera `#i-camera` · permission deny → toast/block detect · **cấm** fake detection · **không** continuous finder (`cam-patrol`).
-7. aiRow: empty SSOT OK · optional `POST ai-vision/detect` sau ảnh · bind `DetectionId` / DefectClass · fail → toast · **cấm** fake «Ổ gà».
+7. aiRow: empty SSOT OK · sau Dùng ảnh `POST ai-vision/detect` **200** P1 stub · bind `DetectionId` / DefectClass · **cấm** toast detectFail khi 200 · real Vision P2.
 8. Loc: device GPS «đã chốt» · optional sessions Route/Km · deny → `DES-MOB-GPS-DENY` · **chặn** Create · **cấm** fake lat/lng.
 9. Severity select closed 4 · default **Cao** · **cấm** invent severity API.
-10. Create: asset + HasGps → `POST incident/incidents` bind kind + GPS + Severity + Description (+ DetectionId) · toast **Đã tạo vấn đề {Code} · gắn tài sản đã chọn** · fail/offline → `OfflineQueueKind.incident` + toast nháp · **cấm** invent SC · **cấm** fake 200.
-11. Draft: enqueue incident · toast **Nháp mất sóng** · reuse sibling `patrol-offline` · **cấm** fake 200/SC.
+10. Create: asset + HasGps → `POST incident/incidents` bind kind + GPS + Severity + Description (+ DetectionId) · map catalog `status=new` · `incidentType` o-ga/…/khac · `severity` low/medium/high/critical · `mediaIds` từ attachmentId · toast **Đã tạo vấn đề {Code} · gắn tài sản đã chọn** · **queue chỉ khi mất sóng** (transport offline) · online 4xx/5xx → toast lỗi **không** enqueue · **cấm** invent SC · **cấm** fake 200.
+11. Draft: **chỉ** enqueue incident khi mất sóng · toast **Nháp mất sóng** · khi còn mạng = cùng POST Create · reuse sibling `patrol-offline` replay `incidentBody` · **cấm** fake 200/SC.
 12. Secondary: **Thu thập bằng camera** → `cam-patrol` · **Giao việc xử lý** → `estimate` · **cấm** enqueue / reimplement sibling.
 13. Entry Home quick (thay toast) · FAB / asset CTA cùng owner · **cấm** reimplement Home chrome.
 14. Kit reuse map · PhotoRow/Checkbox compose · **cấm** system alert · **cấm** watermark Gói / device label.
@@ -217,7 +217,7 @@ AskQuestion: `route_confirm=route_a` · `ios_repo_confirm` · `android_repo_conf
 | Catalog | `GET integration/asset-types` | pick + AssetLabel + optional host CHK |
 | Prefill (optional) | `GET patrol/sessions?page=1&pageSize=50` | client filter Đang tuần |
 | Media (optional) | `POST ai-vision/uploads` · `PUT …/uploads/{id}/object` | trước detect khi ready |
-| Detect | `POST ai-vision/detect` | ImageBase64/Lat/Lng khi có · stub LIVE |
+| Detect | `POST ai-vision/detect` | `imageFileId` sau files commit · BE hard-default 200 · ImageUrl stub |
 | Create | `POST incident/incidents` | Title/AssetLabel · IncidentType · Severity · Route/Km · HasGps · DetectionId · Description · Status · RequestedAt |
 | Draft / GPS / camera / kind / checklist | — | device / local · queue |
 

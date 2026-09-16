@@ -49,7 +49,7 @@ Pack này **thêm** hub kit sau login tab flow · parent `home` cập nhật nav
 
    | Control | Toast |
    |---------|-------|
-   | 32 loại tài sản | **32 loại tài sản** |
+   | 32 loại tài sản | **push** `#sc-asset-kcht` hang-mục (web `/so-ts/hang-muc`) |
    | Xem trên bản đồ | **Xem trên bản đồ** |
    | Bản đồ tài sản (row) | **Bản đồ tài sản** |
    | Thủ công | **Thủ công** |

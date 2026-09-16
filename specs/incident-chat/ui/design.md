@@ -17,13 +17,14 @@ Full screen `#sc-incident-chat` (không bottom-sheet chrome — composer phải 
 
 | Zone | Control | Token / copy |
 |------|---------|--------------|
-| Nav | `LinmTopBar` back + title | `inc.chat.title` · `inc.chat.back` |
+| Nav | **1** `LinmTopBar` back + title | `inc.chat.title` · `inc.chat.back` · **cấm** system nav chồng (`GAP-MOB-CHAT-HDR-01`) |
 | Sub | Incident title · code | API / seed — **cấm** `t()` |
 | Thread | `LinmChatThread` · `LinmChatBubble` | mine = `primary`/`onPrimary` · theirs = `card`/`onSurface` · time `metaFont`/`muted` |
 | Empty | | `inc.chat.empty` |
-| Composer | `LinmChatComposer` paper-plane | `inc.chat.placeholder` · `inc.chat.send` |
+| Composer | `LinmChatComposer` paper-plane | `inc.chat.placeholder` · `inc.chat.send` · pin trên IME (`GAP-MOB-CHAT-IME-01`) |
 | Entry | parent `#i-chat` | `btn-inc-chat-{id}` · **cấm** toast |
 
 ## Cấm revert
 
-Worker **cấm** ghi lại toast-only / `session.showToast(inc.chat.toast)` / `inc.list.toast.chat` làm hành vi chính.
+Worker **cấm** ghi lại toast-only / `session.showToast(inc.chat.toast)` / `inc.list.toast.chat` làm hành vi chính.  
+Worker **cấm** để composer chìm dưới bàn phím (`GAP-MOB-CHAT-IME-01`).

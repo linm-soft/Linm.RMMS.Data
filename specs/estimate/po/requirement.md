@@ -71,6 +71,21 @@ Giữ toàn bộ GAP-MOB-EST-* / R-QA-* / Review prior **closed**. Delta **UX-on
 
 **Không** bảng Current vs New web admin. Prior web artifacts **giữ** · **OUT** mobile P1. SSOT visual = dual HTML `#sc-estimate` (iOS 390×844 · Android 412×915 · **parity copy** trừ chrome: iOS back text «Công việc» + chevron · Android icon-btn chevron only — **OK**).
 
+### § Current vs New — `/edit-mobile-feature` complete (2026-09-16)
+
+Giữ GAP-MOB-EDIT-01 / GAP-MOB-EST-* **closed**. Delta complete end-to-end (BFF paths **unchanged**):
+
+| ID | Current | New | Surface |
+|----|---------|-----|---------|
+| **GAP-MOB-EST-NAV-02** | iOS incident-create/detail CTA → switch tab Công việc · back ≠ parent | Push `#sc-estimate` **cùng stack** (home create / incident parent) · back pop parent · **cấm** nhảy tab | iOS nav |
+| **GAP-MOB-EST-NAV-03** | incident-create CTA luôn `incidentId=""` | Pass `postedIncidentId` sau POST create/draft · thiếu id → banner **giữ** | create CTA |
+| **GAP-MOB-EST-SEED-02** | Seed fail → form trống qty/giá · toast danger | Fail / line 0 → demo SSOT `12.5` · `850.000` · BTN · toast warning · **cấm** fake CV | seed |
+| **GAP-MOB-EST-RO-01** | Android total/SLA/due vẫn gõ được | `LinmTextField(enabled=false)` readonly · dual | 3 fields |
+| **GAP-MOB-EST-NAV-04** | list `#btn-inc-assign` → tab Công việc · drop `item.id` | Push `#sc-estimate` với incident id · back list · **cấm** nhảy tab | incident-list |
+| **GAP-MOB-EST-WO-02** | `#btn-assign` toast **Không giao được việc** | PUT/confirm **best-effort** · `POST maintenance/work-orders` primary (WorkType=`repair` · Status=`new` · DueAt ISO UTC · RouteName/Title non-empty) · line id UUID-only | CTA |
+
+**Cấm** invent staff lookup / SLA API / EstimateController. Staff lookup **DEFER**.
+
 ## 3. DoD (đo được)
 
 1. Dual native: iOS SwiftUI + Android Compose — **cùng** zone `#sc-estimate` `DES-MOB-EST`: nav back → `mnt-list` (entry từ incident → pop incident parent OK) · title **Giao việc xử lý** · card «Từ sự cố» + «Loại tài sản» · fields Giao cho / Khối lượng / Đơn giá / Thành tiền / SLA / Hạn · primary **Giao việc** · secondary **Lưu nháp** · toast. Frame proto iOS 390×844 · Android 412×915. Tab 5 shell **giữ** · tab **`work`** khi entry từ mnt-list · `tabs: none` trên surface (`GAP-TAB-01`). **Cấm** badge P1/P2 trên header.
@@ -89,6 +104,7 @@ Giữ toàn bộ GAP-MOB-EST-* / R-QA-* / Review prior **closed**. Delta **UX-on
 14. QA (role sau): Maestro slug `estimate` only · live sim 6.9" + emulator · store PNG `qa/store/estimate` · **cấm** `yarn e2e-qa` web · **cấm** test mnt-chat/progress/log / web Kind B as in-scope.
 15. BE align: **không** invent path — reuse live `AiVisionEstimatesController` · `WorkOrdersController.Create` · `IncidentsController.Assign`. Step 4b **N/A** (schema Signed) · gaps assignee/WorkType/SLA = convention P1 · **cấm** PO chạy migration. **Cấm** dedicated EstimateController trên Mobile.Bff · **cấm** ERP.*.
 16. **GAP-MOB-EDIT-01 (HARD · this edit):** mọi form field trên `#sc-estimate` (assignee · qty · unitPrice · total · slaHours · dueAt) có **label header 13pt** phía trên control · **luôn visible** khi field có value · **cấm** chỉ dựa placeholder/floating mất sau focus · dual iOS+Android · ListRow «Từ sự cố» / «Loại tài sản» giữ subtitle-as-label (đã OK) · **không** đổi §B path / write field.
+17. **Complete (2026-09-16):** incident CTA push **cùng stack** · back pop parent (`GAP-MOB-EST-NAV-02`) · create CTA pass `postedIncidentId` (`GAP-MOB-EST-NAV-03`) · list `#btn-inc-assign` pass `item.id` (`GAP-MOB-EST-NAV-04`) · Giao việc POST WO không bị PUT chặn (`GAP-MOB-EST-WO-02`) · seed fail/empty line → demo `12.5` / `850.000` (`GAP-MOB-EST-SEED-02`) · total/SLA/due readonly dual (`GAP-MOB-EST-RO-01`).
 
 ## 4. CTX / DEM / DI inventory
 
@@ -254,7 +270,7 @@ Frame: iOS 390×844 · Android 412×915 · safe area · form + CTA + `LinmTabBar
 | AC-F-06 | SLA / Due | Default 24h · DueAt derived · bind WO |
 | AC-F-07 | Giao việc | POST work-orders (+ opt assign) · toast CV-* · **cấm** fake code |
 | AC-F-08 | Lưu nháp | POST draft · toast nháp · **cấm** fake 200 |
-| AC-F-09 | Entry | mnt-list hub/`#i-sum` · incident CTA → **push** `#sc-estimate` (thay toast) |
+| AC-F-09 | Entry | mnt-list hub/`#i-sum` · incident-list `#btn-inc-assign` + id · incident CTA → **push** `#sc-estimate` (thay toast) |
 | AC-F-10 | Dual parity | iOS + Android **cùng** fields + copy SSOT (`GAP-MOB-ALIGN-01`) trừ chrome back |
 | AC-F-11 | Chrome | **Cấm** device label / proto-click / watermark Gói |
 | AC-F-12 | 1 action | **Cấm** gộp chat/progress/log/web list (`GAP-MOB-ACT-01/02`) |

@@ -9,8 +9,8 @@
 | changeScope | `edit_page` · **GAP-MOB-EDIT-01** labelHeader UX-only |
 | packKind | **`sheet`** (PO + Design + SA confirm · GAP-MOB-EST-PACK-01 **closed** · surface = **full screen** `#sc-estimate` · **cấm** bottom-sheet) |
 | stack | `native_dual` |
-| thisAction | **Giao việc xử lý** `#sc-estimate` `DES-MOB-EST` only · entry mnt-list hub/card `#i-sum` + incident-create/detail CTA · **cấm** gộp `mnt-chat` / `mnt-progress` / `mnt-log` / web Kind B+D (`GAP-MOB-ACT-01/02`) |
-| deltaThisEdit | **GAP-MOB-EDIT-01** — labelHeader 13pt ×6 fields dual · `T-IOS-EST-LABEL` · `T-AND-EST-LABEL` · prior `T-IOS-EST`/`T-AND-EST` **giữ** · BFF/API **skip** |
+| thisAction | **Giao việc xử lý** `#sc-estimate` `DES-MOB-EST` only · entry mnt-list hub/card `#i-sum` + incident-list `#btn-inc-assign` + incident-create/detail CTA · **cấm** gộp `mnt-chat` / `mnt-progress` / `mnt-log` / web Kind B+D (`GAP-MOB-ACT-01/02`) |
+| deltaThisEdit | **GAP-MOB-EDIT-01** labelHeader · **complete 2026-09-16** NAV-02/03/04 · WO-02 · SEED-02 · RO-01 |
 | route_confirm | **route_a** (autoApprove=ON · **giữ**) · push `#sc-estimate` · pack `tabs: none` · shell Tab 5 **giữ** · tab **`work`** khi entry mnt-list |
 | ios_repo_confirm | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS` · **reuse** |
 | android_repo_confirm | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android` · **reuse** |
@@ -25,7 +25,18 @@
 | e2eQa | ON queued QA · **cấm** e2e / `yarn start:std` / `mfeStdUrl` ở role TL |
 | taskId | `task_93fd2561` |
 | priorTlTaskId | `task_cc28db20` **giữ** |
-| updatedAt | `2026-09-01T14:44:00.000Z` |
+| updatedAt | `2026-09-16T13:20:00.000Z` |
+
+**UI notes Dev (complete 2026-09-16)**
+
+| ID | T-IOS | T-AND |
+|----|-------|-------|
+| NAV-02 | Estimate destination nested trên home create + incident create/detail · **cấm** `tab = .work` | NavHost cùng stack **giữ** |
+| NAV-03 | `setOpenEstimate(String)` · `postedIncidentId` · unsaved create → POST then open | same |
+| NAV-04 | list `#btn-inc-assign` → `onOpenEstimate(item.id)` · **cấm** `onOpenMnt` / `tab = .work` | `estimate/{id}` từ list |
+| WO-02 | PUT/confirm `try?` · POST WO primary · DueAt ISO `XXXXX` · line id UUID-only · RouteName/Title non-empty | same · `utcWire` `XXX` |
+| SEED-02 | `fillEmptyLineDefaults` qty 12.5 / 850000 | same |
+| RO-01 | `.disabled(true)` **giữ** | `LinmTextField(enabled=false)` |
 
 **Cấm:** gộp sibling (`GAP-MOB-ACT-01/02`) · invent `api/v1/estimate` / `ai-estimate/*` · invent `EstimateController` trên Mobile.Bff · invent staff / SLA policy API · ERP.* · WebView HTML · `mfeStdUrl` · system `UIAlert`/`AlertDialog` · watermark Gói · device label · badge P1/P2 header · fake CV / fake 200 khi POST fail · WorkType ngoài live `repair|inspect|emergency` · enqueue Giao việc / Lưu nháp / fields (`GAP-MOB-ACT-07`) · start sibling `pending_confirm` (`GAP-MOB-ACT-06`) · gộp iOS+Android 1 task id · chạy Step 4b / migration / e2e / yarn build ở role TL · implement native code ở role TL.
 

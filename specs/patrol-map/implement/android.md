@@ -25,9 +25,10 @@
 - Root cause closed: osmdroid decode MVT PBF as raster → blank map
 - Chips **Tiêu chuẩn** (`mb-clip`) / **Vệ tinh** (`mb-sat`) + Toàn tuyến · **cấm** Đường/Phố OSM.org · **cấm** Esri/Google imagery
 - Overlay pin/track = **live plan-points + check-ins** · corridor **dưới** pin (`GAP-MOB-PIN-OVER-LINE-01`) · stop pin **số trên badge** · tap → popup `patrol-pin-popup` · **cấm** `PatrolMapOverlay` mock (`GAP-MOB-PAT-MAP-LIVE-01`)
+- OSRM: Debug `OSRM_BASE` = public (`build.gradle.kts` debug default) · Release empty until self-host · fail = nét đứt + toast (`GAP-MAP-OSRM-CONFIG-01`)
 - Pin-here: FINE **hoặc** COARSE · fused/network · **cấm** SecurityException crash khi đã cấp (**GAP-MOB-EDIT-PERM-01**)
 - **cấm** OSM.org / Esri / Google tile CDN
 
 ## Build (VERIFY GATE)
 
-**PASS** — `./gradlew :app:assembleDebug` · `2026-09-16` (live plan-points overlay).
+**PASS** — `./gradlew :app:assembleDebug` · `2026-09-16` (OSRM Debug `OSRM_BASE` public · GAP-MAP-OSRM-CONFIG-01).

@@ -61,7 +61,7 @@
   Appear → GET patrol/attendance-logs · filter period · bind KPI + day rows
   Period Tuần|Tháng → client re-filter (default Tuần)
   Empty count=0 → EmptyChrome · hide section
-  GET fail → toast + demo SSOT fallback UI · **cấm** fake 200
+  GET fail → toast + EmptyChrome live-only · **cấm** fake 200 · **cấm** demo rows
   Tap dayRow → go('attendance-day') + dayKey · **cấm** re-enqueue attendance-day
   không Excel / map / POST hub
 ```

@@ -1,5 +1,7 @@
 # QA — Scenarios — login-forgot (mobile)
 
+> **LIVE LOCK 2026-09-16** — Core shot = dòng contact admin. AC OTP (`AC-F-02`…`AC-F-06`) **N/A**. Re-run Maestro yaml mới (`forgot-contact`).
+
 | Field | Value |
 |-------|-------|
 | feature | `login-forgot` |

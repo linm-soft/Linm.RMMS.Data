@@ -15,7 +15,7 @@ Tuần đường (selected) → #sc-patrol-home
     ← back → pop patrol-home
     → Ghi điểm tuần = toast P1 · cấm sheet (GAP-MOB-ACT-02)
     → Ghim = loc live + **snap tim đường** + zoom + pin here tip neo đáy · toast · deny copy · cấm fake lat/lng
-    → Hành trình = OSRM `routeAlongStreets` (corridor + track) · **cấm** nối thẳng waypoint
+    → Hành trình = OSRM `routeAlongStreets` (corridor + track) · Debug `OsrmBase` public · **cấm** nối thẳng waypoint khi route OK
     → basemap ×4 · legend ×4 wrap (flex-wrap) = filter cùng slug
 ```
 
@@ -69,7 +69,7 @@ Pict: `#i-mappin` pin · `#i-chevron-left` back — **cấm** invent.
 
 ## 8. Dual parity
 
-Cùng copy zones · cùng `#i-mappin` · cùng 2 basemap clip + 4 legend wrap · cùng pin-here loc+**snap**+zoom · cùng OSRM tim đường · **điểm tuần overlay trên nét hành trình**. **Cấm** worker revert polyline thẳng / pin raw / chip Đường-Phố OSM / pin under line (**GAP-MOB-EDIT-01** · **GAP-MAP-OSRM-ROUTE** · **GAP-MAP-OSRM-SNAP** · **GAP-MOB-AND-CHIP-01** · **GAP-MOB-PIN-OVER-LINE-01**).  
+Cùng copy zones · cùng `#i-mappin` · cùng 2 basemap clip + 4 legend wrap · cùng pin-here loc+**snap**+zoom · cùng OSRM tim đường · **điểm tuần overlay trên nét hành trình**. **Cấm** worker revert polyline thẳng / pin raw / chip Đường-Phố OSM / pin under line / empty `OsrmBase` Debug (**GAP-MOB-EDIT-01** · **GAP-MAP-OSRM-ROUTE** · **GAP-MAP-OSRM-SNAP** · **GAP-MAP-OSRM-CONFIG-01** · **GAP-MOB-AND-CHIP-01** · **GAP-MOB-PIN-OVER-LINE-01**).  
 DEFER platform-OK: iOS back text vs Android icon.
 
 Must: `/review-demo-design-mobile` → `ui/review/demo-parity.md`.

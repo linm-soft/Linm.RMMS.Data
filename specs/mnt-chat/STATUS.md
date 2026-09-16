@@ -59,7 +59,7 @@
 | **GAP-SA-CTX-01** | CTX MISSING | **CLOSED** |
 | **GAP-MOB-UX-01** | ux/proto stub | **CLOSED** |
 | VERIFY GATE | iOS · Android · BFF | **PASS** `2026-09-01T09:30Z` |
-| **GAP-MOB-EDIT-01** | Lock chat screen | **Cấm** worker revert `#i-chat` → toast · **CLOSED** (review) |
+| **GAP-MOB-CHAT-IME-01** | Composer chìm dưới IME (Android) | **CLOSED** · `/edit-mobile-feature` 2026-09-16 · `imePadding` + iOS `safeAreaInset` |
 | **GAP-MSG-HUB-01** | SignalR | **DEFER** · Notification owns hub · non-block |
 
 **Lock 2026-08-29 `/edit-mobile-feature` + `/integrate-message-service`:** `#sc-mnt-chat` chat style · kit composer/thread · GET/POST `maintenance/work-orders/{id}/messages`. **Cấm** worker revert toast-only.

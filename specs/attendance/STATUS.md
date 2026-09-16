@@ -7,7 +7,7 @@
 | status | `done` |
 | taskIdActive | — |
 | changeScope | `edit_page` |
-| editScope | `cleanup_mock` · `task_242d0372` · `/edit-mobile-feature` |
+| editScope | `complete_cham_cong` · `/edit-mobile-feature` · wire report · 2026-09-16 |
 | packKind | `list` (**PO confirm** · UI hub DES-MOB-ATT) |
 | stack | `native_dual` |
 | demo | `specs/attendance/ui/prototype/ios/index.html` `#sc-attendance` · `specs/attendance/ui/prototype/android/index.html` `#sc-attendance` · `DES-MOB-ATT` |
@@ -77,7 +77,7 @@
 | review_confirm | **confirmed** (user Approve board) |
 | post_review | **skip** |
 | Step 4b | **N/A** — reuse `GET`+`POST` `patrol/attendance-logs` |
-| sibling_assign | `attendance-report` · `attendance-day-detail` · **pending_confirm** (**cấm** auto start) |
+| sibling_assign | `attendance-report` · `attendance-day` · **shipped** |
 
 ## Tasks
 
@@ -100,7 +100,7 @@
 
 ## Blockers / open questions
 
-- Sibling `attendance-report` — **pending_confirm**
+- Sibling `attendance-report` — **shipped** `/edit-mobile-feature` 2026-09-16 · hub Báo cáo push `#sc-attendance-report`
 - P2: `PrivacyInfo.xcprivacy` · store submit → `/review-app-submit`
 - BFF build tracked separately (proxy reuse · no new endpoint)
 

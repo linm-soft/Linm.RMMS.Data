@@ -9,7 +9,7 @@
 | changeScope | `new_page` |
 | packKind | **`screen`** · `#sc-cam-view` · `DES-MOB-CAM-VIEW` |
 | taskId | `task_47ef238f` |
-| updatedAt | `2026-08-30T00:55:00.000Z` |
+| updatedAt | `2026-09-16T12:40:00.000Z` |
 | autoApprove | ON |
 | contentHash | sha256:cam-view-control-hint-20260829 |
 | realDataHash | sha256:cam-view-real-data-20260829 |
@@ -23,22 +23,28 @@
 | Screen | `Presentation/Features/CamView/*` · TopBar **Tôi** + **Camera xem** + **Làm mới** · JPEG card · section **Sự kiện** · EmptyState · toast |
 | Entry | Me `#row-cam` toast → **push** · `MeViewModel.setOpenCamView` · `AppRouter.showCamViewFromMe` |
 | JPEG | Bind `POST cameras/{id}/snapshot` Base64 · caption ModelCode · Cập nhật HH:mm · placeholder `video.fill` · **cấm** AVCapture / fake Base64 |
-| Events | Dual row types speed + plate · lane sub optional · `GET cameras/events?limit=20` ± `host=` |
+| Events | Dual row types speed + plate · other = loại xe · lane sub optional · `GET cameras/events` **paged `items`** (web ITS) `page=1` `pageSize=20` `fromDate`/`toDate` hôm nay ± `host=` · **GAP-MOB-CAMVIEW-EVT-PAGE-01** |
 | Pick | `GET cameras` page=1 pageSize=20 · first Online∧IsActive · EmptyState khi none |
 | Refresh | re-POST snapshot + re-GET events · toast **Đã làm mới ảnh** / fail toast |
 | Use cases | `FetchCamerasUseCase` · `FetchCameraSnapshotUseCase` · `FetchCameraEventsUseCase` |
 | Repo | `CameraRepository` / `CameraRepositoryImpl` · paths `cameras*` only · **cấm** invent `cam-view` |
 | DI | `AppContainer` camera use cases |
 | Kit | `LinmTopBar` · `LinmSectionLabel` · `LinmListRow` · `EmptyChromeView` · `LinmToast` · Tab 5 giữ · tab **me** |
-| Copy | `cam.view.*` keys VN SSOT · **cấm** watermark Gói / device label |
+| Copy | `cam.view.*` keys VN SSOT · `cam.view.event.other` · **cấm** watermark Gói / device label |
 | Step 4b | **Skip** · T-BE n/a · T-BFF reuse |
+
+## Notes (`/edit-mobile-feature` 2026-09-16)
+
+- Event load **parity web** Kết nối camera ITS: decode `CameraEventPagedResult.items` (envelope/`items`/legacy array) — **cấm** `[CameraEventDto]` root.
+- Query: `page` · `pageSize` · `fromDate`/`toDate` hôm nay · `host`.
+- Dest: **iPhone 17 Pro** (`xcodegen` + `xcodebuild`).
 
 ## Build gate
 
 | Check | Result |
 |-------|--------|
 | `xcodegen generate` | **PASS** |
-| `xcodebuild` dest `iPhone 17 Pro` | **PASS** |
+| `xcodebuild` dest `iPhone 17 Pro` | **PASS** (2026-09-16 event paged bind) |
 | Invent `api/v1/cam-view` | **none** |
 | Step 4b / CamViewController BFF | **n/a** · cameras* live · catch-all |
 | E2E / start:std / mfeStdUrl | **SKIP** (cấm Dev · queued QA) |

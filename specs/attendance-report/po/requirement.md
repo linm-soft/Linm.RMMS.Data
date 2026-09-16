@@ -26,17 +26,17 @@ Màn **Báo cáo công** native dual (iOS SwiftUI + Android Compose): period seg
 
 **1 action = 1 feature.** Slug `attendance-report` = màn báo cáo `#sc-attendance-report` `DES-MOB-ATT-RPT`. **Cấm** gộp hub check-in POST / day detail owner / web Kind E (`GAP-MOB-ACT-01/02`). GET list + client period aggregate + display bind = **cùng slug** — **không** enqueue (`GAP-MOB-ACT-07`).
 
-Entry: `#sc-attendance` hero **Báo cáo** (live P1 toast `attendance.toast.report` → **wire** push report).
+Entry: `#sc-attendance` hero **Báo cáo** → **push** `#sc-attendance-report`.
 
 ## 2. changeScope `new_page`
 
-Pack **screen mới** theo data-analy (`changeScope=new_page`). Native hiện: hub Báo cáo toast-only / **chưa** màn `#sc-attendance-report` shipped → **không** đổi thành `edit_page`. Delta Design/Dev = ship full report dual + GET list + client period filter + KPI/day derived + wire hero → push · demo tạo `#sc-attendance-report` + rewire `go('attendance-report')`. SSOT visual = dual HTML `#sc-attendance-report` (iOS 390×844 · Android 412×915 · **parity copy** trừ chrome: iOS back text «Chấm công» + chevron · Android icon-only · title dual «Báo cáo công»).
+Pack **screen mới** (`changeScope=new_page`). Native: hub Báo cáo **push** `#sc-attendance-report` (shipped `/edit-mobile-feature` 2026-09-16) · GET list + client period + KPI/day derived. SSOT visual = dual HTML `#sc-attendance-report` (iOS 390×844 · Android 412×915 · **parity copy** trừ chrome: iOS back text «Chấm công» + chevron · Android icon-only · title dual «Báo cáo công»).
 
 ## 3. DoD (đo được)
 
 1. Dual native push `#sc-attendance-report` `DES-MOB-ATT-RPT`: nav back → `#sc-attendance` · title **Báo cáo công** · `periodSeg` Tuần/Tháng (default **Tuần**) · KPI `kpiDays` · `kpiChecks` · `kpiInZone` · `kpiOut` · section **Chi tiết theo ngày** · `dayRow` list · `emptyPeriod` khi 0. Frame proto iOS 390×844 · Android 412×915. Shell Tab **Tuần đường** giữ parent · `tabs: none` trên surface · period = **segment filter** không Tab shell (`GAP-TAB-01`).
 2. Back → `go('attendance')` / pop hub (`reuse` parent · **cấm** reimplement hub).
-3. Appear: GET `patrol/attendance-logs` · client filter period window · bind KPI + day buckets · empty → EmptyChrome · network fail → toast + demo SSOT fallback UI · **cấm** fake 200 · **cấm** mock-only ship khi BFF OK (`GAP-MOB-REAL-02`).
+3. Appear: GET `patrol/attendance-logs` · client filter period window · bind KPI + day buckets · empty → EmptyChrome · network fail → toast + EmptyChrome live-only · **cấm** fake 200 · **cấm** demo rows (`GAP-MOB-REAL-02`).
 4. Period rules:
 
    | Segment | Window (local) |

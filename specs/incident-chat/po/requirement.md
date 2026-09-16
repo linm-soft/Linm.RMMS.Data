@@ -20,7 +20,9 @@ Thay toast «Trao đổi sự cố» bằng màn chat style: bubble + composer g
 2. Thread empty copy `inc.chat.empty` khi chưa có tin.  
 3. Gửi → bubble mine xuất hiện · POST `…/incidents/{id}/messages`.  
 4. Live incident: GET load lịch sử. Demo id: composer local fallback (không fake «Đã gửi» toast).  
-5. Back → list. Dual iOS + Android.
+5. Back → list. Dual iOS + Android.  
+6. **1 header** trên `#sc-incident-chat`: chỉ `LinmTopBar`. **Cấm** system nav chồng (`GAP-MOB-CHAT-HDR-01`).  
+7. Focus ô nhắn tin → composer **trên** bàn phím (`GAP-MOB-CHAT-IME-01`).
 
 ## DoD
 

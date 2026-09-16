@@ -47,7 +47,7 @@
 |------|----------------|
 | Pick / ModelCode | `GET cameras` |
 | JPEG | `POST cameras/{id}/snapshot` |
-| Events | `GET cameras/events` |
+| Events | `GET cameras/events` · decode `CameraEventPagedResult.items` (peer web `CameraEventsPanel` / `listEventsPaged`) · `page`+`pageSize` · `fromDate`/`toDate` hôm nay · optional `host=` · **cấm** decode raw array-only (BE paged) |
 | Toast / Empty | local |
 
 **Cấm** invent `api/v1/cam-view` · `CamViewController` · `POST cameras/connect/snapshot` credentials.

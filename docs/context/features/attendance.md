@@ -65,7 +65,8 @@ BackendRoot: `D:/AI-QLBD/Linm.RMMS.WebService` · domain **Patrol** · **cấm**
 | GET | `/attendance/zones?routeId=` | Geo-fence | **MISSING** (P2) |
 
 Auth: JWT · tenant · perms `patrol.attendance-logs.read|create|update|delete` (BE `[RequirePermission]` stub P1).  
-MFE fallback demo store khi BFF down (web). **Mobile hub** `#sc-attendance`: live GET only · empty → `[]` / unchecked hero «—» · **cấm** `demoDays` / `demoHero` fallback.
+MFE fallback demo store khi BFF down (web). **Mobile hub** `#sc-attendance`: live GET only · empty → `[]` / unchecked hero «—» · **cấm** `demoDays` / `demoHero` fallback.  
+Hero **Báo cáo** → push `#sc-attendance-report` (sibling shipped 2026-09-16). Tap day → `#sc-attendance-day`. Tap lần chấm → `#sc-attendance-log`.
 
 ## 4. Database
 

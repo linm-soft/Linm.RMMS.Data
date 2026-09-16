@@ -12,7 +12,7 @@
 
 | | |
 |--|--|
-| Mục tiêu | Chọn loại tài sản (KCHT-32) → form **Ghi sự cố**: loại Hư/Mất/Hỏng · checklist theo loại · ảnh · (tuỳ) nhận diện · GPS chốt · mức · mô tả → **Tạo vấn đề** gắn tài sản · hoặc nháp offline |
+| Mục tiêu | Chọn loại tài sản (KCHT-32) → form **Ghi sự cố**: loại Hư/Mất/Hỏng · checklist theo loại · ảnh · (tuỳ) nhận diện · GPS chốt · mức · mô tả → **Tạo vấn đề** gắn tài sản (POST BE) · hàng đợi **chỉ** khi mất sóng |
 | Persona | Tuần đường · hiện trường |
 | Entry | Home quick «Ghi sự cố» `startIncidentPick()` · FAB `#sc-incident-list` · CTA «Ghi sự cố» trên `#sc-asset-type` |
 | DoD P1 | Dual `#sc-inc-form` · pick asset → form · kind pills · checklist · PhotoRow · loc readonly · severity · mô tả · POST incident · offline draft · **cấm** fake GPS · **cấm** mfeStdUrl |
@@ -43,14 +43,14 @@
 |--------|-------------------|------------|--------|
 | GET | `integration/asset-types` | `AssetTypesController` | **Live** — catalog pick / loại TS |
 | GET | `patrol/sessions` | `PatrolSessionsController` | **Live** — optional gắn ca / Route-Km |
-| POST | `ai-vision/detect` | `AiVisionOpsController.Detect` | **Live stub** — sau ảnh |
+| POST | `ai-vision/detect` | `AiVisionOpsController.Detect` | **Live** — sau Dùng ảnh · P1 **hard-default 200** (skip AiService · ImageUrl stub · real Vision P2) |
 | POST | `ai-vision/uploads` | `AiVisionUploadsController` | **Live** — optional media |
 | POST | `incident/incidents` | `IncidentsController.Create` | **Live** — Tạo vấn đề |
 | GPS / camera | — | Device | **không** API |
 
 App base: `{BffBase}/mobile-bff/api/v1`. **Cấm** app `:5101` · invent `api/v1/incident-create`.
 
-Required Create body (live validate): `Title` · `RouteName` · `IncidentType` · `Status` · `RequestedAt`.
+Required Create body (live validate): `Title` · `RouteName` · `IncidentType` (`o-ga`/`sat-taluy`/`bien-bao`/`ngap-ung`/`un-tac`/`khac`) · `Status` (`new`) · `Severity` (`low`/`medium`/`high`/`critical`) · `RequestedAt` · optional `MediaIds`. App maps UI Hư/Cao → catalog · **cấm** send `Draft`.
 
 ## 4. Sibling (không gộp slug)
 
@@ -86,6 +86,7 @@ Required Create body (live validate): `Title` · `RouteName` · `IncidentType` �
 | GAP-MOB-INC-CREATE-MEDIA-01 | `CreateIncidentRequest` chưa media[] — P1 upload/detect optional · SA nếu Signed |
 | GAP-MOB-INC-CREATE-CHK-01 | Checklist = `asset-kcht-32` demo/local — **không** invent checklist API |
 | GAP-MOB-INC-CREATE-SHEET-01 | `#sheet-incident` OUT — không ship trong slug này |
+| GAP-MOB-INC-CREATE-QUEUE-01 | **CLOSED** · Tạo vấn đề POST BE · queue **chỉ** mất sóng |
 | GAP-MOB-BFF-01 | Không — proxy catch-all đủ path domain đã có |
 
 ## Implement tracking

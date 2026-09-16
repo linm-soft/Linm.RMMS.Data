@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RMMS · Chi tiết chấm công · iOS</title>
+  <style>
+    :root {
+      --blue: #0C84C0; --success: #34C759; --warn: #FCB43C;
+      --surface: #F2F2F7; --card: #fff; --muted: #8E8E93; --label: #1C1C1E; --sep: #C7C7CC;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+      background: #1c1c1e; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    }
+    .phone {
+      width: 390px; height: 844px; background: var(--surface); border-radius: 44px;
+      overflow: hidden; position: relative; display: flex; flex-direction: column;
+    }
+    .nav-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 54px 8px 10px; background: rgba(255,255,255,.92); border-bottom: 0.5px solid var(--sep);
+      min-height: 96px;
+    }
+    .nav-btn {
+      min-width: 44px; min-height: 44px; border: 0; background: transparent; color: var(--blue);
+      font: inherit; font-size: 17px; font-weight: 500; cursor: pointer;
+      display: flex; align-items: center; gap: 2px; padding: 0 8px;
+    }
+    .nav-title { font-size: 17px; font-weight: 600; color: var(--label); }
+    .nav-spacer { width: 88px; }
+    .content { flex: 1; overflow: auto; padding: 0 0 100px; }
+    .hero { padding: 16px 20px 12px; }
+    .hero-time { font-size: 28px; font-weight: 700; color: var(--label); }
+    .badge {
+      display: inline-block; margin-top: 8px; font-size: 13px; font-weight: 650;
+      padding: 4px 10px; border-radius: 8px; background: rgba(52,199,89,.18); color: #1B5E20;
+    }
+    .code-label { font-size: 13px; font-weight: 500; color: var(--muted); margin-top: 8px; }
+    .code-value { font-size: 16px; color: var(--label); margin-top: 2px; }
+    .card-group {
+      margin: 8px 16px; background: var(--card); border-radius: 12px; overflow: hidden;
+    }
+    .row { padding: 12px 16px; border-bottom: 0.5px solid #EFEFF4; }
+    .row:last-child { border-bottom: 0; }
+    .row-sub { font-size: 13px; color: var(--muted); }
+    .row-title { font-size: 16px; font-weight: 600; color: var(--label); margin-top: 2px; }
+    .ic-sm { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.75; }
+    .tab {
+      position: absolute; left: 0; right: 0; bottom: 0; height: 83px;
+      background: rgba(255,255,255,.92); border-top: 0.5px solid var(--sep);
+      display: flex; padding: 6px 4px 28px;
+    }
+    .tab b { flex: 1; text-align: center; font-size: 13px; font-weight: 500; color: var(--muted); }
+    .tab b.on { color: var(--blue); }
+  </style>
+</head>
+<body>
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+    <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+  </svg>
+  <div class="phone" id="sc-attendance-log" data-des-id="DES-MOB-ATT-LOG" data-tab="field">
+    <div class="nav-bar">
+      <button type="button" class="nav-btn" aria-label="Back" id="btn-att-log-back">
+        <svg class="ic-sm" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg> Ngày công
+      </button>
+      <div class="nav-title">Chi tiết chấm công</div>
+      <div class="nav-spacer"></div>
+    </div>
+    <div class="content">
+      <div class="hero">
+        <div class="hero-time" id="attendance-log-hero">07:05</div>
+        <span class="badge" id="attendance-log-badge">Trong vùng</span>
+        <div class="code-label" id="attendance-log-code-label">Mã</div>
+        <div class="code-value" id="attendance-log-code">CC-20260809-001</div>
+      </div>
+      <div class="card-group">
+        <div class="row" id="attendance-log-time"><div class="row-sub">Thời điểm</div><div class="row-title">2026-08-09 07:05:00</div></div>
+        <div class="row" id="attendance-log-route"><div class="row-sub">Tuyến</div><div class="row-title">QL.1</div></div>
+        <div class="row" id="attendance-log-km"><div class="row-sub">Lý trình</div><div class="row-title">Km 1556+000</div></div>
+        <div class="row" id="attendance-log-status"><div class="row-sub">Trạng thái</div><div class="row-title">ok</div></div>
+        <div class="row" id="attendance-log-gps"><div class="row-sub">Tọa độ</div><div class="row-title">11.5300, 109.0040</div></div>
+        <div class="row" id="attendance-log-in-zone"><div class="row-sub">Trong vùng</div><div class="row-title">Trong vùng</div></div>
+        <div class="row" id="attendance-log-note"><div class="row-sub">Ghi chú</div><div class="row-title">—</div></div>
+      </div>
+    </div>
+    <div class="tab"><b>Trang Chủ</b><b class="on">Tuần đường</b><b>Vấn đề</b><b>Công việc</b><b>Tôi</b></div>
+  </div>
+</body>
+</html>

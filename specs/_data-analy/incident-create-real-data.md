@@ -55,7 +55,7 @@ Skill: `example/real-data-bind.md` · **GAP-MOB-REAL-01**
 | stateField | Nguồn | Ai đổi | API | UI |
 |------------|-------|--------|-----|-----|
 | Incident `Status` | `rmms_incidents` | user Create | POST incidents | toast SC-* · nav detail |
-| Offline draft | local store | user «Lưu nháp» | sync qua `patrol-offline` | toast nháp |
+| Offline draft | local store **chỉ mất sóng** | user «Lưu nháp» khi offline / transport drop | sync `incidentBody` → POST incidents | toast nháp |
 | Detection | AiVision | after photo | POST detect | aiRow |
 | Pick mode | local `pickInc` | `startIncidentPick` | — | banner + asset-types |
 

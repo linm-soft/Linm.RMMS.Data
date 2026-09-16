@@ -760,9 +760,9 @@
     },
     "attendance-report": {
       "mobile": {
-        "phase": "team_lead",
-        "status": "in_progress",
-        "updatedAt": "2026-09-12T17:19:15.407Z",
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-16T12:51:00.000Z",
         "statusRel": "specs/attendance-report/STATUS.md"
       }
     },

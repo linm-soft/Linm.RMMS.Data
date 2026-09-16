@@ -56,7 +56,7 @@ Login → Tab Trang Chủ (shell Tab 5 · index home)
 | Toast | SC-2418 / nháp / pick | D toast | `LinmToast` | same |
 | Tab | home active | A `.tabbar` / `.nav` | `LinmTabBar` | NavigationBar |
 
-**States:** default (BRIDGE + kind Hư + severity Cao + GPS chốt + AI empty) · loading Create · detect empty/fail toast · offline draft · GPS deny modal · camera deny toast · pick thiếu toast · leave dirty confirm (reuse `DES-MOB-LEAVE` / kit — **cấm** system alert) · Create blocked nếu thiếu asset / GPS
+**States:** default (BRIDGE + kind Hư + severity Cao + GPS chốt + AI empty) · loading Create · detect empty/fail toast · **offline-only** draft queue · GPS deny modal · camera deny toast · pick thiếu toast · leave dirty confirm (reuse `DES-MOB-LEAVE` / kit — **cấm** system alert) · Create blocked nếu thiếu asset / GPS · online POST fail = toast lỗi **không** enqueue
 
 ### DES-MOB-INC-KIND
 
@@ -123,7 +123,8 @@ Pack P1: toast fade ~2.4s · modal backdrop fade · kind pill select · checklis
 | GAP-MOB-INC-CREATE-SHEET-01 | `#sheet-incident` | **OUT pack** |
 | GAP-MOB-INC-CREATE-MEDIA-01 | Create chưa media[] | P1 optional upload · SA |
 | GAP-MOB-INC-CREATE-CHK-01 | checklist local BRIDGE | **cấm** invent API |
-| AC-D-01 | offline | draft + toast nháp · sibling offline |
+| GAP-MOB-INC-CREATE-QUEUE-01 | Create/Draft enqueue khi còn mạng | **CLOSED** · queue **chỉ** mất sóng · online POST catalog |
+| AC-D-01 | offline | draft + toast nháp **chỉ** khi mất sóng · sibling offline · online POST BE |
 | AC-D-02 | GPS deny | modal · chặn Create |
 | AC-D-03 | leave dirty | in-app confirm · **cấm** native alert |
 | AC-D-04 | alert | **cấm** system · Toast/modal only |
@@ -142,7 +143,7 @@ Pack P1: toast fade ~2.4s · modal backdrop fade · kind pill select · checklis
 | GAP-TAB-01 | tabs none | shell Tab 5 giữ · home |
 | kit_missing | PhotoRow · CheckboxList | **approve** compose |
 | DEFER | bezel HTML | chrome native HIG/Material |
-| GAP-MOB-INC-PICK-ALIGN-01 | Pick card height + 1 icon GridView | 3 cột stretch cùng height · label 3 dòng · pict 36 theo `code` · lock `/edit-mobile-feature` |
+| GAP-MOB-INC-DETECT-URL-01 | Toast **Không nhận diện được** sau Dùng ảnh | **CLOSED** · BE never echo ImageBase64 into ImageUrl (1024) · always 200 · photo-geo gửi `imageFileId` · host bind DTO · real Vision P2 |
 
 ## Gate
 

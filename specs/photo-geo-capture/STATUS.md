@@ -61,6 +61,7 @@
 ## Blockers / open questions
 
 - GAP-PGC-BE-01 / GAP-PGC-DETECT-01 → **CLOSED P1** (sidecar · detect object Lat/Lng) · `POST ai-vision/detect` **hard-default 200** · Step 4b N/A
+- GAP-MOB-INC-DETECT-URL-01 → **CLOSED** · ImageUrl stub ≤1024 · `imageFileId` after Dùng ảnh · BFF timeout 120s
 - Demo packet missing — Design dual proto PASS · **cấm** re-scan
 - QA Should (carry): GAP-QA-PGC-AX-01 · GAP-QA-PGC-TAB-01 · A4-IPAD DEFER — **non-block**
 - Review **PASS** · pipeline complete · **cấm** mfeStdUrl / yarn start:std

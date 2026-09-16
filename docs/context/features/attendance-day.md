@@ -20,7 +20,7 @@
 |--|--|
 | Mục tiêu | Màn **Chi tiết ngày công**: tóm tắt 1 ngày (badge · khoảng giờ · tuyến/ca) + danh sách các lần chấm trong ngày |
 | Persona | Tuần đường · NV chấm công |
-| Entry | Hub `#sc-attendance` section **7 ngày gần đây** — tap row (live = toast `attendance.toast.dayDetail` P1) |
+| Entry | Hub `#sc-attendance` section **7 ngày gần đây** — tap row → `#sc-attendance-day`. Tap lần chấm → `#sc-attendance-log`. |
 | DoD P1 | Dual `#sc-attendance-day` · GET list + filter `dayKey` · wire list toast → push · **live-only** (no mock) · **cấm** mfeStdUrl · **cấm** invent `attendance-day` path BE |
 
 ## 2. Design / UI

@@ -33,6 +33,7 @@
 | versionGate | `rechecked` |
 | verifyGate | roleOnly=review · findings **PASS** · Must align 0 · ACT-03 none · REAL-02 closed · **cấm** yarn build/e2e/start:std · Step 4b N/A |
 | updatedAt | `2026-08-31T03:17:50.875Z` |
+| editScope | `attendance_log_detail` · `/edit-mobile-feature` · tap log **push** `#sc-attendance-log` · 2026-09-16 |
 ## Lock
 
 | agent | scope | id | at |

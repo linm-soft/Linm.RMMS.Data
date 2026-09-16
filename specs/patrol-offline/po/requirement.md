@@ -36,7 +36,8 @@ Màn **Dữ liệu lưu trữ** native dual: xem hàng đợi local khi mất s�
 | OfflineBatch | stub Apply N · không ghi PatrolCheckIns | Optional receipt **sau** OK · `RecordCount` = số apply 2xx · **không** thay apply |
 | Queue payload | display-only | **+** `sessionId` + wire `CreatePatrolCheckInRequest` fields |
 | Enqueue (sibling writer) | mất sessionId/body | Persist full payload dual iOS/Android |
-| Incident rows | filter · sync cùng clear | **P2** keep pending · **cấm** clear khi chưa replay incident |
+| Incident rows | filter · sync cùng clear | Replay `POST incident/incidents` khi có `incidentBody` · **cấm** clear-all / clear fail |
+| Auto reconnect | chỉ tap Đồng bộ | `observeOnline` false→true + cold start + login → `syncPending` đúng endpoint domain |
 | UI zones | `#sc-patrol-offline` | **unchanged** — no layout redesign |
 | Step 4b | N/A | **N/A** — reuse live endpoints · **cấm** invent |
 
@@ -48,18 +49,18 @@ PackKind **list** keep. Visual SSOT = dual HTML `#sc-patrol-offline` — Design 
 2. Segment **0** Điểm tuần · **1** Sự cố — **cấm** đổi thứ tự (`GAP-TAB-01`).
 3. Banner `offline.banner.weak` khi pending>0 trên tab · ẩn khi empty.
 4. Card display (title · location · status **Chờ gửi** · time · content) keep prior SSOT copy dual.
-5. **Sync (HARD delta):** Tap **Đồng bộ** khi online → for each pending `checkIn` có `sessionId` + body: `POST mobile-bff/api/v1/patrol/sessions/{sessionId}/check-ins` body PascalCase `CreatePatrolCheckInRequest` · remove local item **chỉ** khi HTTP 2xx · toast **Đã đồng bộ N bản ghi** với N = số apply OK · **cấm** clear-all · **cấm** native alert.
+5. **Sync (HARD delta):** Tap **Đồng bộ** **hoặc** `isOnline` false→true (cold start leftover / login / scene active) khi online → for each pending `checkIn` có `sessionId` + body: `POST mobile-bff/api/v1/patrol/sessions/{sessionId}/check-ins` · for each pending `incident` có `incidentBody`: `POST mobile-bff/api/v1/incident/incidents` catalog prepare · remove local item **chỉ** khi HTTP 2xx · toast **Đã đồng bộ N bản ghi** với N = số apply OK · toast auto **chỉ** khi N>0 · mutex join tap+auto · **cấm** clear-all · **cấm** native alert · **cấm** coi `offline-batch` là apply.
 6. Sync offline / fail network → toast lỗi · **giữ** toàn bộ queue · **cấm** clear.
 7. Partial fail → giữ item lỗi · tiếp tục item còn lại (hoặc stop-on-fail OK nếu Dev chọn — **cấm** xóa fail).
 8. Optional sau ≥1 apply OK: `POST integration/sync/offline-batch` receipt (`Partner` · `DeviceId` · `BatchId` · `RecordCount`=N synced · `Note`) — fail receipt **không** rollback local đã xóa OK · **không** clear thêm.
-9. Segment Sự cố: filter only · sync **không** xóa incident (P2 · `incident.incidents.create` chưa apply).
+9. Segment Sự cố: filter + replay `POST incident/incidents` khi có `incidentBody` · legacy thiếu body = skip keep.
 10. Entry reuse (cấm reimplement hub): Home tile **Lưu trữ** · Me **Hàng đợi mất sóng** · patrol-home nav Đồng bộ → cùng `#sc-patrol-offline` (nav stub OK P1 · GAP-MOB-ACT-PAT-OFFLINE-01 Defer).
 11. Badge Me: `offlineCount` local · **cấm** GET queue.
 12. Local store UserDefaults / SharedPreferences|Room — payload **đầy đủ** cho replay (§5).
 13. Enqueue writer (sibling `SubmitPatrolCheckInUseCase` / Android parity): persist `sessionId` + planPointLabel · route · lat · lng · accuracyM · distanceToPlanM · matchOk · content · photoLocalIds — **in scope Dev delta** của pack này (cùng feature slug · không start sibling confirm).
 14. Kit: `LinmSegment` · `LinmBanner` · `LinmToast` · TopBar text leading/trailing keep prior `implement_kit` · **cấm** invent LinmRichCard tên mới.
 15. App chỉ `{BffPrefix}` · Bearer Keychain / Encrypted · **cấm** `:5101` · ERP.*.
-16. Permissions: replay = `patrol.sessions.update` · incident P2 = `incident.incidents.create` · **không** invent BFF permission mới.
+16. Permissions: replay = `patrol.sessions.update` · incident replay = `incident.incidents.create` · **không** invent BFF permission mới.
 17. Step 4b **N/A** · **cấm** `PatrolOfflineController` · **cấm** invent GET queue.
 18. Dev/QA (role sau): build + Maestro — **cấm** ở PO.
 
@@ -120,7 +121,7 @@ Wire body (PascalCase): `PlanPointLabel` · `Route` · `Lat` · `Lng` · `Accura
 | GAP-OFFLINE-APPLY-01 | Sync = replay check-ins 2xx-only remove · **không** clear-all sau offline-batch stub |
 | GAP-OFFLINE-APPLY-02 | offline-batch = optional receipt · RecordCount = synced · **không** apply DB |
 | GAP-OFFLINE-APPLY-03 | Enqueue persist full sessionId+body dual |
-| GAP-OFFLINE-APPLY-04 | Incident keep pending P2 · **cấm** clear trên sync |
+| GAP-OFFLINE-APPLY-04 | Incident replay `POST incident/incidents` · **cấm** clear fail / clear-all |
 | GAP-OFFLINE-APPLY-05 | UI zones unchanged · Design keep prototype |
 | GAP-F-OFFLINE-01 | Keep: **cấm** re-seed demo sau sync OK · anti-pattern real-data |
 | Queue GET / Step 4b / ERP.* | **Confirm cấm** |
@@ -174,7 +175,7 @@ UNCLEAR = **none** — không AskQuestion.
 
 - Layout redesign / new zones
 - Invent GET queue / new BE endpoint / ERP.*
-- Incident replay API (P2 keep pending)
+- Auto-reconnect **in scope** — **cấm** revert về chỉ tap Đồng bộ
 - Conflict UI · per-item delete UI (P2)
 - Check-in live / incident form screens
 - `mfeStdUrl` · yarn start:std · e2e ở PO
@@ -182,7 +183,7 @@ UNCLEAR = **none** — không AskQuestion.
 
 ## 12. KPI
 
-Mất sóng không mất nhật ký: queue local + replay apply thật vào PatrolCheckIns. DoD = N toast = số POST 2xx — **không** clear mù sau stub offline-batch.
+Mất sóng không mất nhật ký: queue local + replay apply thật vào PatrolCheckIns **và** Incidents khi sóng về (không đợi tap). DoD = N toast = số POST 2xx — **không** clear mù sau stub offline-batch.
 
 ## 13. Handoff → Design
 

@@ -39,10 +39,11 @@
 | Aspect | Prior design | New (DoD) |
 |--------|--------------|-----------|
 | Layout zones | `#sc-patrol-offline` | **unchanged** — no redesign |
-| Tap **Đồng bộ** | POST `offline-batch` → clear all | **Replay** mỗi `kind=checkIn` → `POST patrol/sessions/{sessionId}/check-ins` · remove **chỉ** 2xx · toast N = apply OK |
+| Tap **Đồng bộ** | POST `offline-batch` → clear all | **Replay** mỗi `kind=checkIn` → `POST patrol/sessions/{sessionId}/check-ins` · `kind=incident` → `POST incident/incidents` · remove **chỉ** 2xx · toast N = apply OK |
+| Auto reconnect | chỉ tap `#btn-sync` | `isOnline` false→true (và cold start / login / scene active) → cùng `syncPending` · toast **chỉ** khi N>0 · mutex join tap+auto · **cấm** chỉ `offline-batch` |
 | offline-batch | primary sync | Optional receipt **sau** OK · RecordCount = synced · **không** apply DB |
-| Queue payload | display fields | **+** hidden `sessionId` + CreatePatrolCheckInRequest fields (enqueue sibling) |
-| Incident tab | filter · sync cleared | Filter only · sync **không** xóa incident (P2) · **cấm** clear-all |
+| Queue payload | display fields | **+** hidden `sessionId` + CreatePatrolCheckInRequest · `incidentBody` dual |
+| Incident tab | filter · sync cleared | Filter · sync **replay** incident có `incidentBody` · legacy thiếu body = skip keep · **cấm** clear-all |
 | Partial fail | n/a | Giữ item lỗi · toast N OK · **cấm** alert |
 
 ## 1. Pattern
@@ -72,8 +73,9 @@ Tab 5 shell (không đổi)
   Home tile «Lưu trữ» · Me row · Patrol-home «Đồng bộ» → push #sc-patrol-offline
 #sc-patrol-offline
   → Back «Trang Chủ» = pop
-  → «Đồng bộ» = replay checkIn → POST …/check-ins (optional offline-batch receipt)
-  → Segment 0 = check-in pending · 1 = incident pending (P2 no clear)
+  → «Đồng bộ» = replay checkIn → POST …/check-ins · incident → POST incident/incidents (optional offline-batch receipt)
+  → Mất sóng về = auto cùng replay (không đợi tap)
+  → Segment 0 = check-in pending · 1 = incident pending (replay khi có incidentBody)
   → không child form / sheet / conflict UI
 ```
 
@@ -140,10 +142,11 @@ Segment 1 demo = **empty** → toast `offline.toast.incidentEmpty`.
 | Appear | load local pending · EmptyChrome khi 0 · **không** GET queue |
 | Segment 0 | pending checkIn cards + banner |
 | Segment 1 empty | toast incidentEmpty · **không** fake count |
-| Tap Đồng bộ · online | for each checkIn: POST check-ins · remove 2xx · keep fail · toast N OK · optional offline-batch receipt |
+| Tap Đồng bộ · online | for each pending: checkIn → POST check-ins · incident → POST incident/incidents · remove 2xx · keep fail · toast N OK · optional offline-batch receipt |
 | Tap Đồng bộ · offline | toast lỗi · **giữ** queue · **cấm** clear |
+| Mất sóng về / cold start / login | auto `syncPending` cùng endpoint · toast **chỉ** N>0 · mutex join `#btn-sync` |
 | Partial fail | giữ item lỗi · **cấm** clear-all |
-| Sync incident | **không** xóa incident (P2) |
+| Sync incident | replay `POST incident/incidents` khi có `incidentBody` · legacy skip keep |
 | Back | pop |
 | Post-sync | **cấm** re-seed demo (`GAP-F-OFFLINE-01`) |
 
@@ -153,7 +156,8 @@ App `{BffBase}/mobile-bff/api/v1`:
 
 | Method | Path | Role |
 |--------|------|------|
-| POST | `patrol/sessions/{sessionId}/check-ins` | **primary apply** (replay) |
+| POST | `patrol/sessions/{sessionId}/check-ins` | **primary apply** (replay checkIn) |
+| POST | `incident/incidents` | **primary apply** (replay incident) |
 | POST | `integration/sync/offline-batch` | **optional receipt** after OK · RecordCount = synced |
 
 **Cấm** `GET …/queue` · `PatrolOfflineController` · Step 4b endpoint mới · ERP.*.
@@ -173,8 +177,8 @@ App `{BffBase}/mobile-bff/api/v1`:
 | Field | Value |
 |-------|-------|
 | Next slash | `/agent-sa-mobile` |
-| BFF | replay `POST …/check-ins` + optional offline-batch · Step 4b **N/A** |
-| Open Q | Incident replay P2 · GAP-MOB-ACT-PAT-OFFLINE-01 Defer |
+| BFF | replay `POST …/check-ins` + `POST incident/incidents` + optional offline-batch · Step 4b **N/A** |
+| Open Q | GAP-MOB-ACT-PAT-OFFLINE-01 Defer · **cấm** revert auto-reconnect / incident replay |
 | kit_missing_confirm | TopBar text · unchanged |
 | Chain | roleOnly=design · **không** chain SA turn này |
 | e2eQa | ON khi `/agent-qa*` |

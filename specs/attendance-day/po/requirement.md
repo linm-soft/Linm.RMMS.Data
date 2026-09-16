@@ -49,7 +49,7 @@ Pack **screen mới** theo data-analy (`changeScope=new_page`). Native hiện: h
    | any `InZone=false` | Lệch zone · warn (optional P1) |
 
 6. Hub entry: day row tap → **push** `#sc-attendance-day` + `dayKey` + `dayTitle` · **cấm** toast-only khi pack này ship (`GAP-MOB-ATT-DAY-NAV-01` · `GAP-MOB-ATT-DAY-DEMO-01`).
-7. Tap log row → toast **Chi tiết lần chấm** P1 · **cấm** push `supervise-detail` / GetById P1 (`GAP-MOB-ACT-07`).
+7. Tap log row → **push** `#sc-attendance-log` + `id` · **cấm** toast-only · **cấm** push `supervise-detail`.
 8. Kit **reuse map**: `LinmTopBar` · Text hero · `LinmBadge` · `LinmListRow` · `LinmSectionLabel` · `LinmEmptyChrome` · `LinmToast`. **Cấm** raw `NavigationBar` / M3 bar / `TabView` (`GAP-MOB-ACT-05` · `GAP-MOB-ALIGN-01`).
 9. Typography: label/section **13** · hero **≥24 / 28** bold · row value ≥**16** (`GAP-TYP-01`).
 10. App chỉ `{BffPrefix}` · token Keychain / Encrypted · **cấm** biết RMMS `:5101`.
@@ -199,7 +199,7 @@ Frame: iOS 390×844 · Android 412×915 · safe area · nav + hero + summary + l
 | AC-F-01 | Appear | GET `patrol/attendance-logs` · filter `dayKey` · fail → demo SSOT · empty → EmptyChrome |
 | AC-F-02 | Back | `go('attendance')` · **cấm** reimplement hub |
 | AC-F-03 | Bind rows | hero · badge · range · route · count · logs per §6 |
-| AC-F-04 | Tap log | toast **Chi tiết lần chấm** · **cấm** GetById push |
+| AC-F-04 | Tap log | **Push** `#sc-attendance-log` · **cấm** toast-only · **cấm** supervise-detail |
 | AC-F-05 | Entry | Hub day row → push detail + `dayKey` · **cấm** toast-only |
 | AC-F-06 | Dual parity | iOS + Android **cùng** zones + copy SSOT (trừ back chrome) (`GAP-MOB-ALIGN-01`) |
 | AC-F-07 | Badge | aggregate §3.5 khớp hub |

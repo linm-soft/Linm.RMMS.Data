@@ -25,4 +25,5 @@
 
 - Kit chrome · tokens · `LinmCopy.t("inc.chat.*")`  
 - **Cấm** `showToast(inc.chat.toast)` / `inc.list.toast.chat` làm entry  
-- Demo id: local bubble fallback · live Guid: HTTP
+- **T-IOS / T-AND:** **1 header** = `LinmTopBar` (`GAP-MOB-CHAT-HDR-01`)  
+- **T-IOS / T-AND:** Composer trên IME (`GAP-MOB-CHAT-IME-01`)

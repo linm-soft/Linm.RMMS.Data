@@ -86,6 +86,10 @@
 | Next | `/edit-mobile-feature` — **cấm** re-run full pipeline |
 
 `/edit-mobile-feature` 2026-08-29: **GAP-MOB-INC-PICK-ALIGN-01** pick stretch + pict 36 — lock design/ux/map/task/implement.
+
+`/edit-mobile-feature` 2026-09-16: **GAP-MOB-INC-DETECT-URL-01** Dùng ảnh → detect always 200 · bind AI row · **cấm** toast detectFail khi 200.
+
+`/edit-mobile-feature` 2026-09-16: **GAP-MOB-INC-CREATE-QUEUE-01** Tạo vấn đề POST BE · hàng đợi **chỉ** khi mất sóng · catalog `new`/`khac`/`high` · `mediaIds` · replay `incidentBody`.
 | autoApprove | ON |
 | changeScope | `new_page` |
 | packKind | **`screen`** |

@@ -41,12 +41,12 @@ SSOT web: `docs/context/features/camera-connect.md` · `CamerasController`.
 | GET | `cameras` | List devices (paged) | **yes** — chọn cam Online mặc định |
 | GET | `cameras/{id}` | GetById | optional |
 | POST | `cameras/{id}/snapshot` | JPEG by stored device | **yes** — Làm mới / load |
-| GET | `cameras/events` | Event feed (`limit` · `host?`) | **yes** — section Sự kiện |
+| GET | `cameras/events` | Event feed paged (`page` · `pageSize` · `fromDate`/`toDate` · `host?`) → **`items`** | **yes** — section Sự kiện · peer web ITS |
 | POST | `cameras/connect/snapshot` | Snapshot bằng body credentials | **OUT** mobile — **cấm** đưa pass lên app |
 | POST/PUT/DELETE | `cameras` · `cameras/{id}` | CRUD / connect test / wall | **OUT** — owner `camera-connect` web |
 | POST | `cameras/{id}/live/start` | RTSP gateway | **OUT** P2 |
 
-DTO bind: `CameraDeviceDto` (`ModelCode` · `Online` · `Host` · `RoadRouteCode` · `KmMark`) · `CameraSnapshotResponse` (`Base64` · `CapturedAt` · `Ok`) · `CameraEventDto` (`At` · `SpeedKmh` · `Plate` · `RawKind` · `CameraHost`).
+DTO bind: `CameraDeviceDto` (`ModelCode` · `Online` · `Host` · `RoadRouteCode` · `KmMark`) · `CameraSnapshotResponse` (`Base64` · `CapturedAt` · `Ok`) · `CameraEventPagedResult.items` → `CameraEventDto` (`At` · `SpeedKmh` · `Plate` · `VehicleTypeLabel` · `DirectionLabel` · `RawKind` · `CameraHost`).
 
 ## 4. Database (reuse — không migration ở role này)
 

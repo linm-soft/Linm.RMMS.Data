@@ -38,4 +38,6 @@ Live-only wallet: gỡ `demoTitle`/`demoCount` fallback. GET OK = route title + 
 
 ## Notes
 
-Prior: GAP-MOB-AHUB-ALIGN-01 tile stretch · GAP-MOB-THEME-01 copy. Dual parity iOS.
+`/edit-mobile-feature` 2026-09-16: wallet + tile **32 loại** → `#sc-asset-kcht` hang-mục 40 ô (web `/so-ts/hang-muc`). Dual Android.
+
+`./gradlew :app:assembleDebug` — xem log turn này.

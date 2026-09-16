@@ -63,7 +63,7 @@
 |------|----------------|
 | Upload | `POST files/init` · `PUT files/{id}/object` · `POST files/commit` · purpose=`photo-geo-capture` |
 | Preview host | `GET files/{id}/object` JWT |
-| Detect optional | `POST ai-vision/detect` · Lat/Lng=object HITL · BE P1 hard-default 200 |
+| Detect optional | `POST ai-vision/detect` · Lat/Lng=object HITL · sau Dùng ảnh always · `imageFileId` · BE P1 hard-default 200 |
 | Sessions optional | `GET patrol/sessions` |
 | Host | `POST incident/incidents` MediaIds |
 | Object geo | device + HITL — **no** photo-geo endpoint |

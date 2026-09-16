@@ -20,7 +20,7 @@
 - Appear GET list + filter `dayKey` · bind hero/badge/range/route/count/logs per real-data §B.
 - Fail/offline → empty chrome + toast · screen **vẫn mở** · **cấm** demo T7/CN · **cấm** fake 200 · **cấm** `AlertDialog`.
 - Empty count=0 (GET OK) → `EmptyChrome` · badge Nghỉ · **cấm** mock.
-- Tap log row → toast **Chi tiết lần chấm** · **cấm** supervise-detail GetById.
+- Tap log row → **push** `#sc-attendance-log` + id · **cấm** toast-only · **cấm** supervise-detail GetById.
 - 403 XCO / thiếu dayKey → toast · back hub.
 - E2E: `sc-attendance-day` · `btn-att-day-back` · `attendance-day-*`.
 
@@ -30,6 +30,6 @@
 
 ## Notes
 
-`/edit-mobile-feature` **no-mock BE-only** — `LoadFailed` empty detail + toast · hub `emptyList()` not `demoDays` · mapper no invent QL.1/Ca sáng. Step 4b / T-BE **N/A** — reuse live GET `patrol/attendance-logs` + client filter. **Cấm** invent `api/v1/attendance-day` · **cấm** `mfeStdUrl`.
+`/edit-mobile-feature` **chi tiết chấm công** 2026-09-16 — tap log **push** `attendance-log/{id}` · **cấm** toast-only. Step 4b / T-BE **N/A** — reuse live GET `patrol/attendance-logs` + client filter. **Cấm** invent `api/v1/attendance-day` · **cấm** `mfeStdUrl`.
 
 <!-- Version meta: skillId=agent-dev-android skillVersion=2026.08.20.03 schemaVersion=1 workflowVersion=2026.08.31.2 rulesVersion=2026.08.31.2 versionGate=rechecked taskId=task_94e812e1 -->

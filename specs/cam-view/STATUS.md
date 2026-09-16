@@ -79,6 +79,7 @@
 
 ## Blockers / open questions
 
+- GAP-MOB-CAMVIEW-EVT-PAGE-01 — decode paged `items` like web Camera ITS Events panel — **CLOSED** `/edit-mobile-feature` 2026-09-16
 - GAP-MOB-CAMVIEW-DUAL-01 — Design dual parity Android (2 rows + lane) — **CLOSED** Design · **shipped** Dev · **OK** Review
 - GAP-MOB-CAMVIEW-PICK-01 — P1 first Online cam — **CLOSED** · **shipped** Dev · **OK** Review
 - GAP-MOB-CAMVIEW-LIVE-01 — RTSP/WebRTC OUT P2 — **PO chốt** · Review Accept

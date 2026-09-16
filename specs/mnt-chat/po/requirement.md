@@ -8,7 +8,7 @@
 | packKind | `screen` |
 | stack | `native_dual` |
 | status | **confirmed** |
-| updatedAt | `2026-08-29T17:10:00.000Z` |
+| updatedAt | `2026-09-16T14:25:00.000Z` |
 
 ## Goal
 
@@ -20,7 +20,9 @@ Thay toast «Trao đổi công việc» bằng màn chat style: bubble + compose
 2. Thread empty copy `mnt.chat.empty` khi chưa có tin.  
 3. Gửi → bubble mine xuất hiện · POST `…/work-orders/{id}/messages`.  
 4. Live WO: GET load lịch sử. Demo id: composer local fallback (không fake «Đã gửi» toast).  
-5. Back → list. Dual iOS + Android.
+5. Back → list. Dual iOS + Android.  
+6. **1 header** trên `#sc-mnt-chat`: chỉ `LinmTopBar` (back «Công việc» + title). **Cấm** system NavigationStack / Scaffold TopAppBar chồng (`GAP-MOB-CHAT-HDR-01`). Subtitle WO không phải header thứ 2.  
+7. Focus ô «Nhập tin nhắn» → composer **nằm trên** bàn phím (không bị che). Dual. **GAP-MOB-CHAT-IME-01**.
 
 ## DoD
 

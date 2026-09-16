@@ -40,7 +40,7 @@ Pack **map mới** theo data-analy. Visual SSOT = dual HTML `#sc-patrol-map` (iO
 4. **Ghim vị trí hiện tại** → quyền vị trí · **snap tim đường** (`snapPointToStreet` else `projectToPath`) · pin `.here` tip neo đáy · zoom/follow · toast **Ghim vị trí hiện tại**. Deny → toast `patrol.map.locDeny`. Timeout → `patrol.map.locTimeout`. **Cấm** fake lat/lng · **cấm** sheet.
 5. Basemap chips: **Tiêu chuẩn** default on · **Vệ tinh** (cùng clip MVT) · **Toàn tuyến** fit overlay polyline. **Cấm** Đường/Phố OSM.org / Esri / Google.
 6. Legend isolate: **Tất cả** · **Hành trình** · **Đã ghi điểm tuần** · **Điểm kế tiếp** — filter overlay client-side P1.
-7. Overlay QL.1 Xuân Hải → Phước Dinh **vẽ OSRM tim đường** (corridor + track) · pin check-in **projectToPath** · next **Km 1561+134 · Phước Dinh** (GET fail → demo title). OSRM fail → nét đứt + toast `patrol.map.osrmFallback`. GET `patrol/sessions` bind Route/Status khi có. **Cấm** polyline thẳng seed (**GAP-MAP-OSRM-ROUTE**).
+7. Overlay QL.1 Xuân Hải → Phước Dinh **vẽ OSRM tim đường** (corridor + track) · pin check-in **projectToPath** · next **Km 1561+134 · Phước Dinh** (GET fail → demo title). Debug `OsrmBase` = public OSRM (cùng GIS `OsrmUrl`). Empty base / HTTP fail → nét đứt + toast `patrol.map.osrmFallback`. GET `patrol/sessions` bind Route/Status khi có. **Cấm** polyline thẳng seed (**GAP-MAP-OSRM-ROUTE** · **GAP-MAP-OSRM-CONFIG-01**).
 8. Kit reuse: `LinmTopBar` · `LinmPrimaryButton` · `LinmChip` · `LinmMapPinGlyph` `#i-mappin` · `LinmToast` · `LinmTabBar` shell. Map host = feature MapKit/OSM · **cấm** WebView HTML demo · **cấm** raw M3 `NavigationBar` / `TabView` (`GAP-MOB-ACT-05`).
 9. App chỉ `{BffPrefix}` · Step 4b **N/A** (reuse `GET patrol/sessions` · **cấm** Kind E invent tracks/coverage/check-ins P1).
 10. Dev (role sau): iOS `xcodegen` + `xcodebuild` dest **iPhone 17 Pro** PASS · Android `assembleDebug` PASS · Mobile.Bff `dotnet build` PASS — **cấm** `yarn start:std`.
@@ -102,7 +102,7 @@ App `ApiClient.base` = `{BffBase}/mobile-bff/api/v1`. Path **không** lặp pref
 |---------------|--------|------|------------------------|
 | Ca active / next copy | GET | `patrol/sessions` | **yes** — filter «Đang tuần» client-side P1 |
 | Detail drill | GET | `patrol/sessions/{id}` | **no P1** — P2 |
-| Overlay geometry | GET public | `router.project-osrm.org` route/nearest | waypoints `PatrolMapOverlay` · **paint OSRM** · pin snap/project · Kind E tracks **P2** |
+| Overlay geometry | GET OSRM | `{OsrmBase}/route` + `/nearest` (Debug public · Release empty until self-host) | waypoints plan-points · **paint OSRM** · pin snap/project · Kind E tracks **P2** |
 | Check-in POST | POST | `patrol/sessions/{id}/check-ins` | **no** — toast P1 · **cấm** gọi |
 | Tracks POST | POST | `patrol/sessions/{id}/tracks` | **no P1** — **P2** · Step 4b **N/A** |
 | Coverage GET | GET | `patrol/sessions/{id}/coverage` | **no P1** — **P2** |

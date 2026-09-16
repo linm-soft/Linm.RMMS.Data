@@ -37,10 +37,11 @@ Pack **screen mới** theo data-analy (`changeScope=new_page`). Native hiện: s
 1. Dual native: iOS SwiftUI + Android Compose — **cùng** zone `#sc-cam-view` `DES-MOB-CAM-VIEW`: nav back → `me` · title **Camera xem** · trailing **Làm mới** · JPEG card (model + Cập nhật HH:mm) · section **Sự kiện** · event rows · toast. Frame proto iOS 390×844 · Android 412×915. Tab 5: tab **`me`** (Tôi) active (`data-tab="me"`) · `tabs: none` trên surface (`GAP-TAB-01`).
 2. JPEG card: bind `Base64` + `ContentType` từ `POST cameras/{id}/snapshot` · caption «Ảnh JPEG · {ModelCode}» · «Cập nhật {HH:mm}» từ `CapturedAt` local TZ · placeholder `#i-video` khi chưa có / fail. **Cấm** AVCapture / CameraX / fake Base64.
 3. Cam pick P1 (**GAP-MOB-CAMVIEW-PICK-01**): `GET cameras` page=1 pageSize=20 · client chọn **first** `Online=true` ∧ `IsActive=true` · **không** picker UI P1. Empty / không Online → EmptyState · **cấm** fake TCM403 JPEG.
-4. Section **Sự kiện**: `GET cameras/events` (`limit` 20 · optional `host=` = Host cam đang xem) · rows bind:
-   - «Tốc độ {n} km/h» ← `SpeedKmh` · sub `{HH:mm}` · optional «làn …» / `Direction`
-   - «Phát hiện biển {Plate}» ← `Plate` / `RawKind` · sub time  
-   Empty list OK (không invent tốc độ/biển). Fail → toast · giữ list cũ nếu có.
+4. Section **Sự kiện**: `GET cameras/events` — **cùng** web Kết nối camera ITS (`cameraService.listEventsPaged` / `CameraEventsPanel`): bind **`items`** của `CameraEventPagedResult` (không decode `[CameraEventDto]` array-only). Query P1: `page=1` · `pageSize=20` · `fromDate`/`toDate` = hôm nay `yyyy-MM-dd` (VN calendar · BE `CameraEventDateRange`) · optional `host=` = Host cam đang xem. Rows bind:
+   - «Tốc độ {n} km/h» ← `SpeedKmh` · sub `{HH:mm}` · optional biển · «làn …» / `DirectionLabel`/`Direction`
+   - «Phát hiện biển {Plate}» ← `Plate` / `RawKind` · sub time · `VehicleTypeLabel`
+   - Không tốc độ/biển → title `VehicleTypeLabel` (API) hoặc copy «Sự kiện» · **cấm** drop row  
+   Empty list OK (không invent tốc độ/biển). Fail → toast · giữ list cũ nếu có. **GAP-MOB-CAMVIEW-EVT-PAGE-01** CLOSED.
 5. Trailing **Làm mới** → re-POST snapshot + re-GET events · toast **Đã làm mới ảnh** khi OK · fail → toast lỗi · **cấm** fake 200 JPEG.
 6. Dual parity (**GAP-MOB-CAMVIEW-DUAL-01**): Android **phải** ship cùng 2 kiểu row (tốc độ + biển) + sub lane như iOS — **cấm** ship 1-row Android.
 7. Offline / Ok=false: toast lỗi · giữ placeholder · **cấm** fake JPEG / events (`GAP-MOB-REAL-01` §E).

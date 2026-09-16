@@ -21,7 +21,7 @@
 | Toast OK/Draft/Err | Banner | `#toast` | `LinmToast` | same | **cấm** alert · **cấm** fake CV |
 | Banner missing | Warn | `.banner` · `#banner-missing` | Text / banner | same | `?missing=1` · chặn primary |
 | Shell Tab 5 | Chrome | `.tabbar` / `.nav` · `data-tab=work` | `LinmTabBar` | NavigationBar | **giữ** · không invent |
-| Entry mnt-list / incident | — | hub / CTA | navigate push | reuse | **không** reimplement trên pack |
+| Entry mnt-list / incident | — | hub / `#i-sum` / `#btn-inc-assign` / CTA | navigate push | reuse | **pass incidentId** · **không** reimplement trên pack |
 
 ## labelHeader map (HARD · GAP-MOB-EDIT-01)
 
@@ -55,6 +55,9 @@
 | `goBack` | pop `NavigationStack` / `NavController` → mnt-list / parent |
 | seed appear | `POST …/from-incident/{id}` / GET estimate · fail → SSOT fallback |
 | labels always in DOM | labels always visible when valued |
+| incident CTA | push cùng parent stack · **cấm** iOS nhảy tab work |
+| create CTA | pass postedIncidentId · empty → banner |
+| total / SLA / due | readonly · Android `enabled=false` |
 
 ## BFF bind (Design note · SA chi tiết)
 
@@ -65,7 +68,7 @@
 | Resume | `GET ai-vision/estimates/{id}` |
 | Update lines | `PUT ai-vision/estimates/{id}` · `Lines[0]` |
 | Lưu nháp | `POST ai-vision/estimates/{id}/draft` |
-| Giao việc | `POST maintenance/work-orders` |
+| Giao việc | `POST maintenance/work-orders` · PUT/confirm **không** chặn CTA |
 | Assign sync | `POST incident/incidents/{id}/assign` |
 | Init (opt) | `GET ai-vision/estimates/init-data` · `GET maintenance/work-orders/init-data` |
 | Total / SLA / Due | local derived |

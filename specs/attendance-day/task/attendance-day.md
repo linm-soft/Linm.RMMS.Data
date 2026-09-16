@@ -149,7 +149,7 @@ AskQuestion (autoApprove=ON · không chờ board): `ios_repo_confirm` · `andro
 | Empty day | `LinmEmptyChrome` · badge Nghỉ |
 | 403 XCO | toast · back hub |
 | Thiếu dayKey | back hub + toast · **cấm** blank invent |
-| Tap log row | toast **Chi tiết lần chấm** · **cấm** GetById push |
+| Tap log row | **push** `#sc-attendance-log` + id · **cấm** toast-only · **cấm** GetById supervise-detail |
 | Sibling API | **cấm** POST/PUT/DELETE attendance / report APIs trên slug này |
 
 ### Router / shell
@@ -196,7 +196,7 @@ Hero: Display **24** bold. Copy VN còn lại **parity** iOS (`GAP-MOB-ALIGN-01`
 |-------|----------|
 | Hub day tap | **thay** toast → navigate `#sc-attendance-day` + `dayKey` + `dayTitle` |
 | Back | pop → hub · `attendance` reuse |
-| log row tap | toast **Chi tiết lần chấm** · **cấm** GetById |
+| log row tap | **push** `#sc-attendance-log` · **cấm** GetById supervise |
 | DI | Hilt `AttendanceDayViewModel` · use case · repo → Retrofit/`ApiService` `@GET("patrol/attendance-logs")` |
 
 ### Build DoD
@@ -264,7 +264,7 @@ DTO bind P1 per log: `Id` · `CheckInAt` · `Route` · `Status` · `InZone`.
 | AC-F-01 | Appear GET list + filter · fail → demo · empty → EmptyChrome |
 | AC-F-02 | Back → `attendance` · **cấm** reimplement hub |
 | AC-F-03 | Bind hero · badge · range · route · count · log rows per §B |
-| AC-F-04 | Tap log → toast **Chi tiết lần chấm** · **cấm** supervise-detail push |
+| AC-F-04 | Tap log → **push** `#sc-attendance-log` · **cấm** toast-only · **cấm** supervise-detail push |
 | AC-F-05 | Entry hub day row → push + `dayKey` + `dayTitle` · **cấm** toast-only khi ship |
 | AC-F-06 | Dual parity copy SSOT (trừ back chrome) (`GAP-MOB-ALIGN-01`) |
 | AC-F-07 | Badge aggregate khớp hub (`GAP-MOB-ATT-DAY-DATA-01`) |

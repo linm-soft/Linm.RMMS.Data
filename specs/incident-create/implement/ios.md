@@ -31,6 +31,19 @@
 
 `/edit-mobile-feature` 2026-08-29: **GAP-MOB-INC-PICK-ALIGN-01** — pick grid 3 cột stretch · label 3 dòng · `LinmAssetKchtPict` 36 SSOT `asset-kcht-icons.js` · **cấm** `square.grid.2x2` · kit local **không** bump · dest **iPhone 17 Pro Max** `xcodebuild` **PASS**.
 
+## Notes (`/edit-mobile-feature` · 2026-09-16 · detect after Dùng ảnh)
+
+- Toast **Không nhận diện được** sau Use = BE persist JPEG `data:` vào `ImageUrl` varchar(1024) + BFF timeout 15s → **GAP-MOB-INC-DETECT-URL-01 CLOSED**.
+- After photo-geo Use: bind `result.detection` · fallback `POST ai-vision/detect` với `imageFileId` · **cấm** GPS skip · **cấm** toast `inc.toast.detectFail` khi BE 200.
+- Real Vision engine = P2 later.
+- VERIFY: `xcodegen` + `xcodebuild` dest **iPhone 17 Pro Max** **PASS**.
+
+## Notes (`/edit-mobile-feature` · 2026-09-16 · tạo vấn đề POST BE)
+
+- **GAP-MOB-INC-CREATE-QUEUE-01 CLOSED** — Create/Draft queue **chỉ** khi mất sóng (NWPath / transport). Online 4xx/5xx → toast `inc.toast.createFail` · **cấm** enqueue.
+- Catalog map `CreateIncidentCatalog`: UI Hư/Cao/`Draft` → BE `khac`/`high`/`new` · `mediaIds` từ attachmentId · replay `incidentBody` khi có mạng.
+- dest A4 `xcodebuild` **iPhone 17 Pro** **PASS**.
+
 ## VERIFY GATE
 
 | Check | Result |
@@ -54,7 +67,7 @@
 
 1. Full form WalletCard · kind · checklist · PhotoRow · AI · loc · severity · desc · Create/Draft/secondary — **PASS**
 2. Pick banner + grid → openForm(code) — **PASS**
-3. Create requires asset + HasGps · offline queue on fail/draft — **PASS**
+3. Create requires asset + HasGps · POST BE online · queue **chỉ** mất sóng — **PASS**
 4. Tab 5 giữ · pack `tabs: none` · home active — **PASS**
 
 ## Version meta

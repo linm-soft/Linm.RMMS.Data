@@ -194,7 +194,7 @@ Khớp DA controlHint + PO · UNCLEAR=**none**. Object lat/lng ≠ photographer 
 |------|----------------|
 | Upload | `POST files/init` → `PUT files/{id}/object` → `POST files/commit` · purpose=`photo-geo-capture` |
 | Preview | `GET files/{id}/object` JWT · **cấm** resign URL |
-| Detect optional | `POST ai-vision/detect` · Lat/Lng = **object HITL** · BE P1 **hard-default 200** (skip AiService) |
+| Detect optional | `POST ai-vision/detect` · Lat/Lng = **object HITL** · sau Dùng ảnh **luôn** gọi · BE P1 **hard-default 200** (skip AiService · **cấm** persist `data:` ImageUrl) |
 | Sessions optional | `GET patrol/sessions` |
 | Host media | host `POST incident/incidents` MediaIds |
 | Object geo | on-device + HITL — **no** photo-geo API |

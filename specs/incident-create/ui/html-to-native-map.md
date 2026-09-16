@@ -19,10 +19,10 @@
 | location | Field | `.field` · `[data-inc-loc]` readonly | TextField | same | GPS chốt · **cấm** fake |
 | severity | Field | `.field` · `select` | `LinmSelect` | same | 4 options · default Cao |
 | description | Field | `.field` · `textarea` | `LinmTextArea` | same | placeholder SSOT |
-| Create | CTA | `.btn-primary` | `LinmPrimaryButton` | same | POST `incident/incidents` |
+| Create | CTA | `.btn-primary` | `LinmPrimaryButton` | same | POST `incident/incidents` · catalog `new`/`khac`/`high` · queue **chỉ** mất sóng |
 | Cam | CTA | `.btn-secondary` | `LinmSecondaryButton` | same | `go('cam-patrol')` |
 | Assign | CTA | `.btn-secondary` | `LinmSecondaryButton` | same | `go('estimate')` |
-| Draft | CTA | `.btn-secondary` | `LinmSecondaryButton` | same | offline queue |
+| Draft | CTA | `.btn-secondary` | `LinmSecondaryButton` | same | queue **chỉ** mất sóng |
 | Toast OK/Draft/Pick | Banner | `#toast` | `LinmToast` | same | **cấm** alert |
 | DES-MOB-GPS-DENY | Modal | `#modal-gps` | feature overlay | Material dialog card | chặn Create |
 | Deny primary | Button | Sao chép hướng dẫn | `LinmPrimaryButton` | same | clipboard + toast |
@@ -50,7 +50,7 @@
 | `startIncidentPick` → toast pick + asset-types | nav pick mode · banner |
 | `openIncidentForm(code)` → fill wallet + CHK | bind asset · load checklist by code |
 | `submitIncident` → toast SC-2418 | UseCase CreateIncident → `LinmToast` |
-| draft → toast **Nháp mất sóng** | local queue · `patrol-offline` |
+| draft → toast **Nháp mất sóng** | local queue **chỉ** khi mất sóng · `patrol-offline` · online = POST |
 | kind pill click | local IncidentType enum |
 | `openCapture('inc-form')` | camera permission · PhotoRow append |
 | `go('cam-patrol')` / `go('estimate')` | navigate reuse |
@@ -65,7 +65,7 @@
 | Catalog loại TS | `GET integration/asset-types` |
 | Prefill ca / tuyến | `GET patrol/sessions` (optional) |
 | Optional media | `POST ai-vision/uploads` (+ PUT object) |
-| Detect | `POST ai-vision/detect` |
+| Detect | `POST ai-vision/detect` · sau Dùng ảnh · BE P1 hard-default 200 · `imageFileId` sau files commit · **cấm** toast detectFail khi 200 |
 | Create | `POST incident/incidents` |
 | GPS / camera / Kind / Checklist / Draft | device · local |
 

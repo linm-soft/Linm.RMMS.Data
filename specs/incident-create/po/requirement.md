@@ -40,15 +40,15 @@ Pack **screen mới** theo data-analy (`changeScope=new_page`). Native hiện: H
 4. Kind pills **Hư / Mất / Hỏng** (`DES-MOB-INC-KIND`) · single select · default **Hư** · **cấm** invent loại ngoài closed set 3.
 5. Checklist theo loại TS — P1 local CHK by asset `code` từ `asset-kcht-32` (`GAP-MOB-INC-CREATE-CHK-01`) · optional host `GET integration/asset-types` · **cấm** invent `api/v1/.../checklist`.
 6. PhotoRow + camera slot `#i-camera` · `openCapture('inc-form')` · permission deny → toast/in-app · **không** crash · **cấm** fake detection khi no camera.
-7. AI row «Nhận diện từ ảnh» · empty SSOT **Chưa có ảnh — chụp để phân loại** · optional `POST ai-vision/detect` sau ảnh · fail → toast · giữ empty · **cấm** fake nhận diện.
+7. AI row «Nhận diện từ ảnh» · empty SSOT **Chưa có ảnh — chụp để phân loại** · sau chụp + **Dùng ảnh** → `POST ai-vision/detect` · BE P1 **luôn 200** (stub signed · real Vision P2) · bind class/severity · **cấm** toast detectFail khi 200 · **cấm** fake khi chưa có ảnh.
 8. Loc readonly **Vị trí đã chốt *** · demo **QL.1 · Km 1556+080 · định vị ±5 m** · device GPS · optional `GET patrol/sessions` prefill Route/Km · deny → modal `DES-MOB-GPS-DENY` · **chặn** Create · **cấm** fake lat/lng.
 9. Severity select: Nghiêm trọng · **Cao** (default) · Trung bình · Thấp · closed set 4 · **cấm** invent severity API.
 10. Description textarea · placeholder **Mô tả hiện trường…**.
-11. Primary **Tạo vấn đề** → `POST incident/incidents` bind asset + kind + GPS + checklist/mô tả · toast **Đã tạo vấn đề SC-* · gắn tài sản đã chọn** (demo SC-2418) · nav detail OK · **cấm** native alert · **cấm** invent SC khi fail · **chặn** Create nếu thiếu asset / GPS chưa chốt / deny.
+11. Primary **Tạo vấn đề** → `POST incident/incidents` bind asset + kind + GPS + checklist/mô tả · catalog `status=new` · toast **Đã tạo vấn đề SC-* · gắn tài sản đã chọn** (demo SC-2418) · nav detail OK · **cấm** native alert · **cấm** invent SC khi fail · **chặn** Create nếu thiếu asset / GPS chưa chốt / deny · **queue chỉ khi mất sóng** · online fail = toast lỗi không enqueue.
 12. Secondary (reuse · **không** enqueue):
     - **Thu thập bằng camera** → `cam-patrol` (`shared_action`)
     - **Giao việc xử lý** → `estimate` (sibling)
-    - **Lưu nháp mất sóng** → local queue · reuse `patrol-offline` · toast **Nháp mất sóng** · **cấm** fake 200 / fake SC
+    - **Lưu nháp mất sóng** → local queue **chỉ khi mất sóng** · còn mạng = `POST incident/incidents` · reuse `patrol-offline` · toast **Nháp mất sóng** khi queued · **cấm** fake 200 / fake SC
 13. Kit reuse map: `LinmTopBar` · `LinmWalletCard` · `LinmSegment`/pills · PhotoRow · `LinmListRow` · CheckboxList · `LinmSelect` · `LinmTextArea` · `LinmPrimaryButton` · `LinmSecondaryButton` · `LinmToast` · GPS deny modal reuse `DES-MOB-GPS-DENY` · `LinmQuickItem` / FAB entry. **Cấm** invent tên kit mới nếu chưa có trên `html-to-native-map` · Design `kit_missing_confirm` nếu cần (`GAP-MOB-ACT-05`).
 14. App chỉ `{BffPrefix}` · **cấm** biết RMMS `:5101` · token Keychain / Encrypted.
 15. Dev (role sau): iOS `xcodegen` + `xcodebuild` dest **iPhone 17 Pro** PASS · Android `assembleDebug` PASS · Mobile.Bff `dotnet build` PASS — **cấm** `yarn start:std`.
@@ -200,9 +200,9 @@ Frame: iOS 390×844 · Android 412×915 · safe area · content không đè notc
 | AC-D-12 | Push | **N/A** |
 | AC-F-01 | Appear | Sau pick asset · bind WalletCard · start GPS · default kind Hư · severity Cao · load checklist theo code |
 | AC-F-02 | Kind change | Update local state · **cấm** invent kind |
-| AC-F-03 | Photo / detect | Capture → optional upload → POST detect · bind aiRow · fail → toast · **cấm** fake nhận diện |
-| AC-F-04 | Create | POST `incident/incidents` · toast SC-* · **cấm** Create khi thiếu asset / GPS chưa chốt / deny |
-| AC-F-05 | Draft | Local queue · toast **Nháp mất sóng** · reuse `patrol-offline` |
+| AC-F-03 | Photo / detect | Capture → Dùng ảnh → POST detect **200** P1 stub · bind aiRow · **cấm** toast detectFail khi 200 · real Vision P2 |
+| AC-F-04 | Create | POST `incident/incidents` · toast SC-* · catalog codes · **cấm** Create khi thiếu asset / GPS chưa chốt / deny · queue **chỉ** mất sóng |
+| AC-F-05 | Draft | Local queue **chỉ** mất sóng · toast **Nháp mất sóng** · online = POST · reuse `patrol-offline` |
 | AC-F-06 | Dual parity | iOS + Android **cùng** copy zones (trừ back chrome) · **cấm** lệch (`GAP-MOB-ALIGN-01`) |
 | AC-F-07 | Entry | Home/FAB/asset CTA → pick → push owner · **cấm** toast-only sau ship |
 | AC-F-08 | Empty catalog | Banner/toast pick · **cấm** fake asset · **cấm** Create không TS |
@@ -217,7 +217,7 @@ Typography: label/tab **13** · field value **≥16** (`typography-analy-qa.md`)
 | Dirty leave | In-app confirm (kit) · **cấm** native alert (`GAP-PO-LEAVE-01`) |
 | GPS deny | Modal `DES-MOB-GPS-DENY` · **cấm** native alert |
 | Detect / Create fail | `LinmToast` lỗi · **cấm** alert |
-| Offline POST | Queue + toast nháp · sibling offline |
+| Offline POST | Queue + toast nháp **chỉ** khi mất sóng · online 4xx/5xx = toast lỗi |
 | Draft success | Toast **Nháp mất sóng** |
 | Create success | Toast **Đã tạo vấn đề SC-* · gắn tài sản đã chọn** |
 | Pick thiếu TS | Toast **Chọn loại tài sản để ghi sự cố** |

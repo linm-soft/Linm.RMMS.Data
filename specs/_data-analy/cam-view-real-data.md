@@ -27,8 +27,9 @@ CTX `cam-view.md` · peer `camera-connect.md` · BFF table `cam-view-bff-endpoin
 | JPEG card image | `Base64` · `ContentType` | `POST cameras/{id}/snapshot` |
 | Caption model | `ModelCode` (device) | same GET / device |
 | Cập nhật HH:mm | `CapturedAt` | snapshot response |
-| Sự kiện tốc độ | `SpeedKmh` · `At` · optional lane/`Direction` | `GET cameras/events` |
-| Sự kiện biển | `Plate` · `At` · `RawKind` | same events |
+| Sự kiện tốc độ | `SpeedKmh` · `At` · optional lane/`DirectionLabel` | `GET cameras/events` → **`items[]`** |
+| Sự kiện biển | `Plate` · `At` · `RawKind` · `VehicleTypeLabel` | same paged `items` |
+| Sự kiện loại xe (không biển/tốc độ) | `VehicleTypeLabel` · `At` · `DirectionLabel` | same — **cấm** drop |
 | Làm mới | re-POST snapshot + re-GET events | same paths |
 | Toast OK | local | — · **không** API |
 

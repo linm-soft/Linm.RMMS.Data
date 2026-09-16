@@ -20,7 +20,7 @@
 | Zone | Pattern | Notes |
 |------|---------|-------|
 | Nav | Back + title **Ca đang chạy** + **Ghi điểm tuần** | iOS leading text Tuần đường · Android icon back |
-| Map | Full-page clip | **Host dual = `GisClipMapView`** (clip gis.vn · MapLibre BFF MVT · **cấm** MapKit world · **cấm** osmdroid PBF raster · **cấm** OSM.org/Esri/Google) · polyline **OSRM tim đường** · pin đã ghi / kế tiếp `projectToPath` · **GAP-MOB-AND-MAP-LOAD-01 closed** |
+| Map | Full-page clip | **Host dual = `GisClipMapView`** (clip gis.vn · MapLibre BFF MVT · **cấm** MapKit world · **cấm** osmdroid PBF raster · **cấm** OSM.org/Esri/Google) · polyline **OSRM tim đường** (`OsrmBase` Debug public) · pin đã ghi / kế tiếp `projectToPath` · **GAP-MOB-AND-MAP-LOAD-01 closed** · **GAP-MAP-OSRM-CONFIG-01 closed** |
 | Next card | Overlay | **Điểm tiếp theo · OSRM** · Km 468+200 · Vinh |
 | Pin | Primary | **Ghim vị trí hiện tại** · loc live · **snap tim đường** · zoom follow · pin `.here` tip neo đáy · deny/timeout toast · **cấm** fake lat/lng |
 | Map bar | Chips wrap | **Tiêu chuẩn** · **Vệ tinh** (cùng clip) · Toàn tuyến · **cấm** Đường/Phố OSM.org |

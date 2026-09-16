@@ -8,7 +8,7 @@
 | Feature | `login-forgot` |
 | Title | [Mobile] Quên mật khẩu |
 | Role | `dev` · Android |
-| dest | `./gradlew :app:assembleDebug` **PASS** · apk `app-debug.apk` |
+| dest | `./gradlew :app:assembleDebug` **PASS** 2026-09-16 · apk `app-debug.apk` |
 | Kit | `LinmTextField` · `LinmSecureTextField` · `LinmPrimaryButton` · `LinmToast` · `LinmBusyOverlay` · **`LinmLeaveConfirm`** |
 
 ## Layers
@@ -22,8 +22,8 @@
 
 ## IA / API
 
-Parity iOS: 2 steps cùng `#sc-forgot` · API-01/02 · toast PO reset · **cấm** `AlertDialog` · **cấm** queue.
-- System back + `#btn-back` → cùng `LoginForgotIntent.Back`.
-- Step 2 dirty → `LinmLeaveConfirm` · testTags `btn-leave-cancel` · `btn-leave-ok`.
-- testTags: `btn-back` · `f-phone` · `btn-forgot-send` · `f-otp` · `f-new-pass` · `f-confirm-pass` · `btn-forgot-reset`.
-- `/edit-mobile-feature` 2026-08-19: **GAP-MOB-THEME-01** / **GAP-MOB-COPY-01** — `LinmCopy.t` · toast BFF `message` giữ.
+Parity iOS **LIVE LOCK 2026-09-16:** contact-admin line · **cấm** `AlertDialog` · **cấm** OTP input.
+- System back + `#btn-back` → `LoginForgotIntent.Back` · pop Login.
+- testTags: `btn-back` · `forgot-contact`.
+- Use-case Retrofit **giữ** · **không** bind UI.
+- `/edit-mobile-feature` 2026-09-16: GAP-MOB-EDIT-FORGOT-01 · `assembleDebug`.

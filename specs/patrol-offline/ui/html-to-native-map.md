@@ -24,9 +24,10 @@
 
 | Demo action | Native | API |
 |-------------|--------|-----|
-| `#btn-sync` tap | replay pending `kind=checkIn` | `POST patrol/sessions/{sessionId}/check-ins` |
+| `#btn-sync` tap | replay pending `kind=checkIn` + `kind=incident` | `POST patrol/sessions/{sessionId}/check-ins` · `POST incident/incidents` |
+| mất sóng về | `OfflineReconnectSync` · `observeOnline` | cùng `syncPending` · toast N>0 |
 | after OK count>0 | optional receipt | `POST integration/sync/offline-batch` · RecordCount = synced |
-| item remove | only HTTP 2xx | **cấm** clear fail / clear-all / clear incident |
+| item remove | only HTTP 2xx | **cấm** clear fail / clear-all |
 
 ## Entry wiring (reuse)
 

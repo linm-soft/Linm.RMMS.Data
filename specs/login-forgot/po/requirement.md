@@ -1,5 +1,7 @@
 # PO — Requirement — login-forgot (mobile)
 
+> **LIVE LOCK 2026-09-16** `/edit-mobile-feature` — Store 2.1: **ẩn** input SĐT/OTP/MK. AC live = Login → `#sc-forgot` hiện **Liên hệ admin để được cung cấp** (`forgot.contactAdmin`) · Back → Login. OTP DoD §3.3–3.8 **N/A** đến khi SMS live. **Cấm** worker restore form.
+
 | Field | Value |
 |-------|-------|
 | feature | `login-forgot` |
@@ -9,7 +11,7 @@
 | packKind | **`shell`** (PO confirm · data-analy) |
 | stack | `native_dual` |
 | parent | `login` |
-| thisAction | **Quên mật khẩu?** hyperlink `#sc-login` `.login-meta a` → full-page `#sc-forgot` (request OTP + đặt lại MK) · **không** toast-only · **không** gộp vào slug `login` |
+| thisAction | **Quên mật khẩu?** hyperlink `#sc-login` → full-page `#sc-forgot` **contact-admin only** · **không** toast-only · **không** gộp vào slug `login` |
 | status | `confirmed` (autoApprove=ON) |
 | requestSource | run packet `task_7b4f79ea` · `/agent-qldb-workflow-mobile` · roleOnly=`po` · `/agent-po-mobile` |
 | autoApprove | **ON** — Design/SA tự confirm **khi tới lượt** · turn này **không** chain |

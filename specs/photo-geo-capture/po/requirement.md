@@ -145,7 +145,7 @@ host PhotoRow (field-reflect | vis-capture | incident-create)
 | rowDistance / rowObjectCoord | distanceM · objectLat/Lng | derived → HITL |
 | mapConfirm | confirmed objectLat/Lng | hitl |
 | upload / rowKey | attachmentId | files/* |
-| detectOpt | Lat/Lng = object HITL | optional · BE **hard-default 200** detect (skip AiService HTTP) |
+| detectOpt | Lat/Lng = object HITL | sau Dùng ảnh **always** · BE **hard-default 200** detect (skip AiService HTTP · ImageUrl stub ≤1024) |
 | hostMedia | MediaIds | host Create |
 
 §A/§B analy **PASS** · UNCLEAR: none · hash skip · **cấm** re-scan demo.

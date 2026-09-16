@@ -81,7 +81,14 @@ IA lock (design §2 / ux-analy §1): `home → push asset-hub → pop home`. **C
 | **T-BE-MIG** | be | — | **n/a** | — | **không** `/database-migration` |
 | T-QA-ASSET-HUB | qa | T-IOS · T-AND | pending | `/agent-qa-mobile` | AC slug `asset-hub` only · `yarn e2e-qa-mobile` · live sim 6.9" + emulator · store PNG `qa/store/asset-hub` · **cấm** sibling screens in-scope · **cấm** `yarn e2e-qa` web |
 
-**1 action = 1 feature.** **Cấm** gộp sibling (`asset-types` · `asset-list` · `asset-collect` · `asset-adjust` · `asset-ai` · `gis-map` · `det-hitl`) vào task file này như in-scope implement. Sibling giữ `pending_confirm` — **cấm** auto start (`GAP-MOB-ACT-06`).
+**1 action = 1 feature.** Sibling `asset-kcht-dashboard` mobile **shipped** từ hub wallet / tile 32 loại (`/edit-mobile-feature` 2026-09-16). Còn lại `asset-collect` · `asset-adjust` · `asset-ai` đã ship riêng.
+
+### UI notes Dev (`/edit-mobile-feature` 2026-09-16)
+
+| OS | Note |
+|----|------|
+| T-IOS | Wallet + tile types → `AssetKchtDashboardView` · 40 ô `LinmAssetKchtPict` · GET `summary-by-type` |
+| T-AND | Same · `AssetKchtDashboardScreen` · route `asset-kcht` · list `asset-list/type/{type}` |
 
 ---
 

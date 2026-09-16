@@ -54,10 +54,10 @@
 | Loc field | Vị trí đã chốt * | TextField readonly | same | GPS · **cấm** fake |
 | Severity | Mức độ | `LinmSelect` | same | 4 options · default **Cao** |
 | Description | Mô tả | `LinmTextArea` | same | placeholder SSOT |
-| Create | Tạo vấn đề | `LinmPrimaryButton` | same | POST incident · toast SC-* |
+| Create | Tạo vấn đề | `LinmPrimaryButton` | same | POST incident · toast SC-* · queue **chỉ** mất sóng |
 | Cam | Thu thập bằng camera | `LinmSecondaryButton` | same | `go('cam-patrol')` · shared |
 | Assign | Giao việc xử lý | `LinmSecondaryButton` | same | `go('estimate')` · sibling |
-| Draft | Lưu nháp mất sóng | `LinmSecondaryButton` | same | offline · reuse `patrol-offline` |
+| Draft | Lưu nháp mất sóng | `LinmSecondaryButton` | same | **chỉ** queue khi mất sóng · online = POST BE |
 | Toast OK / Draft / Pick | banner | `LinmToast` | same | **cấm** system alert |
 | `DES-MOB-GPS-DENY` | `#modal-gps` | in-app modal | Material dialog card | deny · **chặn** Create |
 | Entry pick | banner + asset grid | reuse asset-types | same | `startIncidentPick()` · **không** slug riêng · 3 cột **stretch cùng height** · pict 36 `LinmAssetKchtPict` (`asset-kcht-icons.js`) · **cấm** GridView / `square.grid.2x2` mọi ô |
@@ -141,7 +141,7 @@ Khớp PO §5 / DA controlHint — UNCLEAR=**none**. Create = POST incident · D
 | Catalog loại TS (pick + checklist host) | `GET integration/asset-types` |
 | Prefill ca / tuyến (loc Route-Km) | `GET patrol/sessions` (optional) |
 | Optional media | `POST ai-vision/uploads` (+ PUT object) |
-| Detect | `POST ai-vision/detect` |
+| Detect | `POST ai-vision/detect` · sau **Dùng ảnh** · BE P1 **hard-default 200** (skip AiService · **cấm** persist JPEG `data:` vào ImageUrl varchar 1024) · bind `DefectClass`/`Severity` · **cấm** toast `inc.toast.detectFail` khi 200 · real Vision = P2 |
 | Create | `POST incident/incidents` |
 | GPS / camera / Kind / Checklist / Draft | device · local · `patrol-offline` |
 
