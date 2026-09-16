@@ -37,7 +37,7 @@ Surface: `tabs: none` · shell tab `field`.
 | loading | busy overlay |
 | 404 | EmptyChrome |
 | fail | EmptyChrome + toast |
-| missing id | toast + pop day |
+| missing id | toast + pop day · **cấm** appear với `""` vì `isPresented` capture |
 | 403 | toast + pop |
 
 ## 4. Copy SSOT
@@ -48,4 +48,4 @@ Chi tiết chấm công · Ngày công · Mã · Thời điểm · Tuyến · L�
 
 ## 5–9
 
-Brand token kit. Signal N/A. Pictogram back `#i-chevron-left`. Hover = focus N/A (no IME). GAP: GAP-MOB-ATT-LOG-NAV-01 toast→push **closed**.
+GAP: GAP-MOB-ATT-LOG-NAV-01 toast→push **closed**. GAP-MOB-ATT-LOG-ID-01 empty id toast **closed** 2026-09-16 · iOS `item:` binding · **cấm** fake UUID GET.

@@ -15,6 +15,9 @@
 | hero | Text `heroWho` + `LinmBadge` | `attendance-log-hero` |
 | rows | `LinmListRow` | time/route/km/status/gps/inZone/note |
 | empty | `LinmEmptyChrome` | 404 / fail |
+| nav id | — | **T-IOS:** `navigationDestination(item: $attendanceLogId)` · **cấm** `isPresented` + `""` · mapper `attendanceId` = live `Id` |
+
+**UI notes Dev (2026-09-16):** GAP-MOB-ATT-LOG-ID-01 — live toast «Thiếu mã lần chấm. Quay lại ngày công.» vì nested `isPresented` capture empty id. Fix dual: iOS `item:` + `attendanceId` từ list `Id` · Android route `{id}` cùng key · **cấm** fake UUID GET.
 
 ## Tasks
 

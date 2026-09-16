@@ -3,7 +3,7 @@
   "wave": 3,
   "waveName": "w3_camera",
   "updated": "2026-09-16",
-  "note": "Submit hôm nay: skip map (W1). guest.directions + staff.patrolMap OFF — ẩn clip/GIS/patrol-map, không xóa code. Camera + GPS WhenInUse ON. guest.forgotOtp=false. net.osrmPublic=false until self-host OsrmBase (cấm project-osrm.org). Hand-sync → iOS/Android ReleaseFlags. Do not invent REST.",
+  "note": "Submit hôm nay: skip map (W1) trên **Release Store**. Debug lab show-all: Android DEBUG_SHOW_ALL=true · iOS Debug.xcconfig STORE_W1. guest.directions + staff.patrolMap OFF trên Store — ẩn clip/GIS/patrol-map, không xóa code. Camera + GPS WhenInUse ON. guest.forgotOtp=false. net.osrmPublic=false until self-host OsrmBase. Hand-sync → iOS/Android ReleaseFlags. Do not invent REST.",
   "flags": {
     "guest.home": true,
     "guest.faq": true,

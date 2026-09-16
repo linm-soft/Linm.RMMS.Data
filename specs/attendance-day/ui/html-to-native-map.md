@@ -12,7 +12,7 @@ Cite SSOT `docs/html-to-native-map.md`. Feature deltas (`#sc-attendance-day`):
 | `.row` Tuyến · ca | `LinmListRow` | first log `Route` · empty → «—» · **cấm** invent Ca sáng |
 | `.row` Số lần chấm | `LinmListRow` | `{n} lần chấm` |
 | `.section-label` Các lần chấm | `LinmSectionLabel` | hidden khi count=0 |
-| `.row` log time + sub | `LinmListRow` | title `CheckInAt` HH:mm · sub `{Route} · {Status} · {InZone VN}` · onTap **push** `#sc-attendance-log` |
+| `.row` log time + sub | `LinmListRow` | title `CheckInAt` HH:mm · sub `{Route} · {Status} · {InZone VN}` · onTap **push** `#sc-attendance-log` + live `Id` · **cấm** fake UUID |
 | `.badge` log InZone optional | `LinmBadge` | Trong vùng / Ngoài vùng |
 | empty day | `LinmEmptyChrome` | «Không có lần chấm trong ngày» · badge Nghỉ |
 | toast | `LinmToast` | GET fail → empty chrome + toast · **cấm** demo fallback · tap log **push** `#sc-attendance-log` · **cấm** `window.alert` |
@@ -30,7 +30,7 @@ Cite SSOT `docs/html-to-native-map.md`. Feature deltas (`#sc-attendance-day`):
 | log row | sort `CheckInAt` asc · sub = `{Route} · {Status} · {InZone VN}` |
 | inZone | `true` → «Trong vùng» · `false` → «Ngoài vùng» |
 | nav key | `dayKey` (epoch) · `dayTitle` (VN) |
-| tap log | **push** `#sc-attendance-log` + id · **cấm** toast-only · **cấm** supervise-detail |
+| tap log | **push** `#sc-attendance-log` + live Guid `Id` · iOS `navigationDestination(item:)` · **cấm** toast-only · **cấm** fake UUID GET · **cấm** supervise-detail |
 
 **Verify dual kit:** `Linm.Mobile.Kit.iOS` + `Linm.Mobile.Kit.Android` — `kit_missing_confirm` **N/A**.
 

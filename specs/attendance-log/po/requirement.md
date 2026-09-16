@@ -19,7 +19,7 @@ Màn **Chi tiết chấm công** dual: hero giờ + badge in-zone · mã · rows
 ## 2. DoD
 
 1. Dual push `#sc-attendance-log` `DES-MOB-ATT-LOG` · title **Chi tiết chấm công** · back iOS text «Ngày công» · Android icon-only.
-2. Entry: day log row → **push** + `id` · **cấm** toast-only.
+2. Entry: day log row → **push** + live Guid `id` · iOS `navigationDestination(item:)` · **cấm** toast-only · **cấm** fake UUID GET.
 3. Appear: GET `patrol/attendance-logs/{id}` · bind BE · missing → «—» · **cấm** invent QL.1 / Ca sáng / Đúng tuyến / Đã ghi điểm tuần.
 4. Fail → EmptyChrome + toast · 404 empty · 403 toast + pop · **cấm** fake 200.
 5. GPS readonly · **không** request location · **không** CTA bản đồ P1.
@@ -38,7 +38,7 @@ Màn **Chi tiết chấm công** dual: hero giờ + badge in-zone · mã · rows
 |----|-----|
 | AC-F-01 | Appear GET by id · bind |
 | AC-F-02 | Back → `attendance-day` |
-| AC-F-03 | Tap log day → push · **cấm** toast-only |
+| AC-F-03 | Tap log day → push live `Id` · **cấm** toast-only · **cấm** empty `isPresented` capture |
 | AC-F-04 | Dual parity copy (trừ back chrome) |
 | AC-D-02 | GPS readonly · không request |
 | AC-D-04 | Cấm native alert |

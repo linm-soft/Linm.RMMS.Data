@@ -11,7 +11,7 @@ Cite SSOT `docs/html-to-native-map.md`. Feature deltas (`#sc-attendance-log`):
 | `.code` | Text `label` + `fieldText` | `Code` · «—» |
 | `.row` Thời điểm / Tuyến / Lý trình / Trạng thái / Tọa độ / Trong vùng / Ghi chú | `LinmListRow` | bind BE · **cấm** invent |
 | empty | `LinmEmptyChrome` | |
-| toast | `LinmToast` | GET fail · **cấm** `window.alert` |
+| toast | `LinmToast` | GET fail · missing id **chỉ** khi list thật sự thiếu `Id` · **cấm** empty capture · **cấm** `window.alert` |
 | `.tab` | `LinmTabBar` | shell Tuần đường |
 
 **Cấm:** map CTA · `LinmPrimaryButton` map · reuse supervise-detail title.

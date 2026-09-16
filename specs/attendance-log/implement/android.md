@@ -15,6 +15,8 @@
 
 ## Notes
 
-Route `attendance-log/{id}` · back pop day. Same bind/fail rules as iOS. **Cấm** map CTA · **cấm** `AlertDialog`.
+Route `attendance-log/{id}` · `id` = live Guid từ `attendanceId` · back pop day. **Cấm** fake UUID GET · **cấm** map CTA · **cấm** `AlertDialog`.
+
+GAP-MOB-ATT-LOG-ID-01 **closed** 2026-09-16.
 
 VERIFY: `./gradlew :app:assembleDebug`.

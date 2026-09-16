@@ -49,7 +49,7 @@ Pack **screen mới** theo data-analy (`changeScope=new_page`). Native hiện: h
    | any `InZone=false` | Lệch zone · warn (optional P1) |
 
 6. Hub entry: day row tap → **push** `#sc-attendance-day` + `dayKey` + `dayTitle` · **cấm** toast-only khi pack này ship (`GAP-MOB-ATT-DAY-NAV-01` · `GAP-MOB-ATT-DAY-DEMO-01`).
-7. Tap log row → **push** `#sc-attendance-log` + `id` · **cấm** toast-only · **cấm** push `supervise-detail`.
+7. Tap log row → **push** `#sc-attendance-log` + live Guid `Id` · iOS `navigationDestination(item:)` · **cấm** toast-only · **cấm** fake UUID GET · **cấm** push `supervise-detail`.
 8. Kit **reuse map**: `LinmTopBar` · Text hero · `LinmBadge` · `LinmListRow` · `LinmSectionLabel` · `LinmEmptyChrome` · `LinmToast`. **Cấm** raw `NavigationBar` / M3 bar / `TabView` (`GAP-MOB-ACT-05` · `GAP-MOB-ALIGN-01`).
 9. Typography: label/section **13** · hero **≥24 / 28** bold · row value ≥**16** (`GAP-TYP-01`).
 10. App chỉ `{BffPrefix}` · token Keychain / Encrypted · **cấm** biết RMMS `:5101`.
@@ -125,7 +125,7 @@ App `ApiClient.base` = `{BffBase}/mobile-bff/api/v1`. Path **không** lặp pref
 | Summary aggregate | — | — | **local** · badge/range/count derived |
 | Nav back hub | — | — | **local** · `go('attendance')` |
 | Toast err / empty | — | — | **local UI** | |
-| Tap log row | — | — | toast P1 · **cấm** GetById push |
+| Tap log row | — | — | **push** `#sc-attendance-log` + live `Id` · **cấm** toast-only · **cấm** GetById supervise |
 | POST check-in | POST | `patrol/attendance-logs` | **OUT** — owner `attendance` |
 | GetById | GET | `patrol/attendance-logs/{id}` | **OUT** P1 — owner `supervise-detail` |
 | Report APIs | GET | `/attendance/report` · `/attendance/summary` | **OUT** — owner `attendance-report` |
@@ -157,7 +157,7 @@ Query list reuse: `search` · `status` · `route` · `onlyOutZone` · `page` · 
 | GAP-MOB-ATT-DAY-DATA-01 | GET + filter | **P1:** GET list live · client filter `CheckInAt` local day = `dayKey` · fail → demo SSOT · **cấm** mock-only khi BFF OK. |
 | GAP-MOB-ATT-DAY-TITLE-01 | Chrome title dual | Title dual «Chi tiết ngày công» · back iOS text «Chấm công» / Android icon-only — Design parity chrome only. |
 | GAP-MOB-ATT-DAY-SCR-01 | Thiếu màn detail | **Design** ship dual `#sc-attendance-day` `DES-MOB-ATT-DAY`. |
-| Tap log row | enqueue supervise-detail? | **Không** — toast P1 only (`GAP-MOB-ACT-07`). GetById = P2 optional. |
+| Tap log row | enqueue supervise-detail? | **Không** — **push** `#sc-attendance-log` + live `Id` (`GAP-MOB-ATT-LOG-ID-01`). GetById supervise = OUT. |
 | GET load | enqueue? | **Không** — cùng slug (`GAP-MOB-ACT-07`). |
 | Kit | map dual | **`kit_missing_confirm` N/A** — reuse map. Design **verify** dual. |
 | Sibling | `attendance-report` · `supervise-detail` · hub POST | **Không** start (`GAP-MOB-ACT-06`). **Không** enqueue mới. |
@@ -213,7 +213,7 @@ Frame: iOS 390×844 · Android 412×915 · safe area · nav + hero + summary + l
 | Dirty leave | **Không áp dụng** |
 | Load fail / offline | Demo fallback §3.4 + toast · **cấm** native alert (`GAP-PO-LEAVE-01`) |
 | Empty day | EmptyChrome «Không có lần chấm trong ngày» · badge Nghỉ |
-| Tap log row | Toast **Chi tiết lần chấm** · **cấm** system alert · **cấm** push supervise-detail |
+| Tap log row | **Push** `#sc-attendance-log` + live Guid `Id` · **cấm** toast-only · **cấm** fake UUID GET · **cấm** push supervise-detail |
 | Back | Pop hub · không confirm |
 | Success load | Không toast bắt buộc · bind UI |
 

@@ -14,7 +14,7 @@
 | bff | reuse `GET patrol/attendance-logs/{id}` |
 | lane | **mobile** · `/edit-mobile-feature` |
 | lastRole | `dev` · `/edit-mobile-feature` · implement chi tiết chấm công |
-| editScope | `attendance_log_detail` · `/edit-mobile-feature` · 2026-09-16 |
+| editScope | `attendance_log_id` · `/edit-mobile-feature` · GAP-MOB-ATT-LOG-ID-01 **closed** · 2026-09-16 |
 | updatedAt | `2026-09-16` |
 
 ## Lock

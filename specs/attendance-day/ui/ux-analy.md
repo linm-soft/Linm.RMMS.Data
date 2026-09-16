@@ -14,7 +14,7 @@ Login (ngoài tab) → Tab 5
   → Appear = GET patrol/attendance-logs · filter dayKey · bind hero + summary + logs
   → Empty count=0 = EmptyChrome · badge Nghỉ · **cấm** demo SSOT / mock
   → GET fail = empty chrome + toast · screen mở · **cấm** demo T7/CN · cấm fake 200
-  → Tap log row = push `#sc-attendance-log` + id · cấm toast-only · cấm push supervise-detail
+  → Tap log row = push `#sc-attendance-log` + live Guid `Id` · iOS `navigationDestination(item:)` · **cấm** toast-only · **cấm** fake UUID GET · **cấm** push supervise-detail
   → không child form / sheet / segment
 ```
 
@@ -54,7 +54,7 @@ Surface: `tabs: none` · shell tab `field` (Tuần đường) giữ (`GAP-TAB-01
 | permission | GPS request **N/A** — Lat/Lng readonly nếu bind sub |
 | leave dirty | **N/A** — không form dirty |
 | missing dayKey | back hub + toast · **cấm** blank invent |
-| tap log row | **push** `#sc-attendance-log` + id · **cấm** toast-only · **cấm** GetById supervise-detail |
+| tap log row | **push** `#sc-attendance-log` + live `Id` · iOS `item:` binding · **cấm** toast-only · **cấm** fake UUID GET · **cấm** GetById supervise-detail |
 
 ## 4. Copy SSOT
 
@@ -102,7 +102,7 @@ Không `/wf-anim` trên detail `attendance-day`.
 | GAP-TAB-01 | Tab index | shell `field` · `tabs: none` surface |
 | GAP-TYP-01 | Type | caption/section **13** · hero ≥**24/28** · rows ≥**16** |
 | GAP-DES-DEMO-RESCAN-01 | Hash skip | **Cấm** re-scan · dùng control-hint + real-data |
-| GAP-MOB-UX-07 | design ↔ HTML | Pack proto khớp design.md · **không** foot Gói |
+| GAP-MOB-ATT-LOG-ID-01 | Tap log empty id toast «Thiếu mã lần chấm» | **closed** 2026-09-16 · iOS `navigationDestination(item: $attendanceLogId)` · mapper live `Id` · **cấm** fake UUID GET |
 
 ## Version meta (REQUIRED)
 
