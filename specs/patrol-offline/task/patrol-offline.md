@@ -182,7 +182,7 @@ cd /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android && ./gradlew :app:assemb
 | Đồng bộ OK | toast N · remove 2xx only |
 | Đồng bộ partial | toast · **giữ** fail items |
 | Đồng bộ fail | toast lỗi · **giữ** queue |
-| Segment 1 empty | toast incident empty (keep) |
+| Segment 1 empty | toast incident empty (keep) · EmptyChrome dashed+hint dual |
 
 ---
 

@@ -57,7 +57,8 @@ Tab 5 shell (IA 5 — không đổi)
 | State | Hành vi |
 |-------|---------|
 | default | segment 0 · pending cards · banner |
-| segment 1 empty | list rỗng · banner ẩn · toast incidentEmpty |
+| empty live (0 pending) | EmptyChrome dashed + `offline.empty.title` + `offline.empty.hint` · id `offline-empty` · **parity Android = iOS** |
+| segment 1 empty | list rỗng · banner ẩn · toast incidentEmpty · cùng EmptyChrome visual |
 | first launch | seed 1 lần (`GAP-F-OFFLINE-01`) · production = real enqueue |
 | sync OK full | toast N · remove checkIn + incident 2xx · optional receipt |
 | sync partial | toast N OK · **giữ** fail items |
@@ -115,6 +116,7 @@ Không `/wf-anim`. Segment = instant filter · toast fade.
 | GAP-TAB-01 | Segment order | idx 0 check-in · 1 incident — locked |
 | GAP-MOB-ALIGN-01 | Dual parity | Cùng zones + copy |
 | GAP-MOB-EDIT-01 | Context lock | **CLOSED** · `/edit-mobile-feature` reconnect 2026-09-16 |
+| GAP-MOB-EDIT-EMPTY-01 | Android EmptyChrome title-only | **CLOSED** `/edit-mobile-feature` 2026-09-16 · dashed+title+hint = iOS |
 
 ## Version meta (REQUIRED)
 

@@ -35,4 +35,6 @@
 
 ## Notes (2026-09-16)
 
-Android host now matches this packet: `GisClipMapView` MapLibre + BFF MVT. **Cấm** revert iOS MapKit world. GAP-MOB-PIN-OVER-LINE-01: corridor GeoJSON line **below** pin layers (cấm MLNPolyline annotation trên pin). **GAP-MAP-OSRM-CONFIG-01:** Debug `OsrmBase` public · router no longer requires `netOsrmPublic` when base is set · fail = dashed corridor. `assembleDebug` **PASS**. Full iOS scheme currently fails on pre-existing `AssetKchtDashboardViewModel` missing from pbxproj (not this OSRM edit).
+Android host now matches this packet: `GisClipMapView` MapLibre + BFF MVT. **Cấm** revert iOS MapKit world. GAP-MOB-PIN-OVER-LINE-01: corridor GeoJSON line **below** pin layers (cấm MLNPolyline annotation trên pin). **GAP-MAP-OSRM-CONFIG-01:** Debug `OsrmBase` public · router no longer requires `netOsrmPublic` when base is set · fail = dashed corridor.
+
+**GAP-MOB-EDIT-SIL-01:** `AppRouter` `$showPatrolMapFromField` / `$showPatrolMapFromHome` — **cấm** `Binding(get: { staffPatrolMap && state })`. Hide = `guard staffPatrolMap`. dest iPhone 17 Pro Max **PASS**.

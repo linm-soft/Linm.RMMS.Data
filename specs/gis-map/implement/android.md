@@ -29,6 +29,7 @@
 - Chip **Lớp** + sheet `LinmAssetKchtPict` + toggle · trailing **Danh sách** giữ
 - Tick loại → `geojson/{type}` + `lod`/`bbox` · zoom skip `shouldReloadOverlay` · cancel không toast
 - Empty hint `gis.map.layersEmpty`
+- Skip map: `if (ReleaseFlags.allowsClipMap)` quanh `composable("gis-map")` · **không** Binding (iOS-only SIL bug). Dual hide giữ.`
 
 ## Verify
 

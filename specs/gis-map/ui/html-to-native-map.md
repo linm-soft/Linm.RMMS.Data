@@ -24,9 +24,10 @@ Nguồn inventory: DA controlHint + real-data §B + PO §5 · board `ui/prototyp
 | hub tile `#i-scope` Xem trên bản đồ | `LinmHubTile` | `go('gis-map')` |
 | hub row Bản đồ tài sản | `LinmListRow` | cùng slug |
 | detail Ghim trên bản đồ | `LinmPrimaryButton` | pass Id (+ Lat/Lng) |
-| incident Bản đồ / Xem trên bản đồ | Segment / Secondary | shared_action |
+| incident Bản đồ / Xem trên bản đồ | Segment / Secondary | shared_action · **ẩn** khi `allowsClipMap` false |
 
 **Cấm** raw M3 `NavigationBar` / `TabView` / `AlertDialog` / `UIAlert` khi kit đã map (`GAP-MOB-ACT-05`).
+**GAP-MOB-EDIT-SIL-01:** iOS `AppRouter` dùng `$showGisMap` — **cấm** `Binding(get: { flag && state })`.
 
 ## Version meta
 

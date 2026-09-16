@@ -116,8 +116,11 @@ Toast → `LinmToast`. **Cấm** invent kit.
 |------|-----|
 | Appear | GET `patrol/attendance-logs` · map days · fail → demo SSOT · **mở** |
 | Seg 0 | pop `#sc-patrol-home` |
-| Chấm vào | GPS → POST · toast success · hero Đã chấm |
+| Chấm vào | GPS usable → POST · HTTP 2xx = success (không phụ thuộc decode body) · `userName` = `lastWho()` (Keychain · JWT `full_name` / login id) · toast success · hero Đã chấm |
 | GPS deny | toast locDeny · no POST |
+| GPS invalid / timeout | toast locTimeout · no POST |
+| Offline POST | toast `common.offline` · **cấm** «Không chấm được» generic |
+| POST 4xx/5xx | toast checkInFail |
 | Báo cáo | **push** `#sc-attendance-report` |
 | Tap day | **push** `#sc-attendance-day` |
 | Entry | patrol seg → push `#sc-attendance` |

@@ -104,7 +104,7 @@ Nguồn `#sc-ops` dual + DA-01. UNCLEAR field = **none**.
 | badgeUnread | Mới | Badge | * | `LinmBadge` info | khi `isUnread` |
 | badgeRead | Đã đọc | Badge | * | `LinmBadge` neutral | `isUnread=false` |
 | rowTap | — | ListRow action | * | `LinmListRow` onTap | mark-read nếu unread |
-| empty | (trống) | EmptyChrome | | **required** | GET OK empty · **cấm** demo fallback |
+| empty | (trống) | EmptyChrome | | **required** | GET OK empty · dashed+title+hint dual · **cấm** demo fallback · **cấm** Android title-only |
 | toastRead | Đã đọc chỉ đạo | Toast | * | `LinmToast` | tap unread OK |
 | entryMe | Thông báo | ListRow | * | `LinmListRow` Me | `row-ops` · **cấm** reimplement Me hub |
 | entryHome | Thông báo | NotifyButton | * | `LinmNotifyButton` | `reuse=home` · **cấm** reimplement Home |

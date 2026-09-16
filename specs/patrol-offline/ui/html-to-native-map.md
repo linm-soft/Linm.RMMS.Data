@@ -15,6 +15,7 @@
 | `.seg` | Segment 2 | `LinmSegment` | `LinmSegment` | idx 0 check-in · 1 incident |
 | `.offline-banner` | Weak signal | `LinmBanner` `.warning` | same | `#i-wifi-off` · ẩn empty |
 | `.rich-card` | Card | custom / `LinmListRow` pattern | same | display |
+| empty queue | EmptyChrome | `EmptyChromeView` dashed + `offline.empty.*` | `EmptyChrome` same motif + hint | `offline-empty` · **cấm** title-only |
 | `.rc-thumb` | Thumb 56 | RoundedRect | same | |
 | `.rc-title` / `.rc-line` / `.rc-status.warn` | Body + status | Text + strip | same | «Chờ gửi» ngắn |
 | `.toast` | Feedback | `LinmToast` | `LinmToast` | N = apply OK · **cấm** alert |

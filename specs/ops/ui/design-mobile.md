@@ -42,7 +42,7 @@
 
 | DES / sc-* | Tên VN | CTA / hành vi |
 |------------|--------|---------------|
-| `DES-MOB-OPS` `#sc-ops` | Thông báo | nav · live inbox rows · EmptyChrome khi empty · badge Mới/Đã đọc · tap unread → toast |
+| `DES-MOB-OPS` `#sc-ops` | Thông báo | nav · live inbox rows · EmptyChrome dashed+title+hint khi empty · badge Mới/Đã đọc · tap unread → toast |
 
 ### IA lock
 

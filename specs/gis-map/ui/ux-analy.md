@@ -21,6 +21,9 @@ Trang Chủ (selected) → #sc-asset-hub
 
 Entry shared_action (không re-enqueue): hub tile/row · detail Ghim · incident Bản đồ / Xem trên bản đồ.
 
+**Store skip map (2026-09-16):** `ReleaseFlags.allowsClipMap` false → **không vẽ** entry + **không push** `#sc-gis-map`. Code màn giữ. **GAP-MOB-EDIT-SIL-01:** iOS **cấm** `Binding(get:set:)` trên `navigationDestination` (capture `@State` + flag) — Swift SIL `invalid reuse after initialization failure`. Hide = handler `guard` + `$showGisMap`. Android: `if (flag)` quanh `composable("gis-map")`.
+
+
 ## 2. Màn
 
 | DES / sc-* | Tên VN | iOS chrome | Android chrome | CTA |

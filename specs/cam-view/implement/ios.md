@@ -38,6 +38,7 @@
 - Event load **parity web** Kết nối camera ITS: decode `CameraEventPagedResult.items` (envelope/`items`/legacy array) — **cấm** `[CameraEventDto]` root.
 - Query: `page` · `pageSize` · `fromDate`/`toDate` hôm nay · `host`.
 - Dest: **iPhone 17 Pro** (`xcodegen` + `xcodebuild`).
+- Empty cam stays `EmptyChromeView` `cam.view.empty.*` · Android `EmptyChrome` now matches (`GAP-MOB-EDIT-EMPTY-01`).
 
 ## Build gate
 

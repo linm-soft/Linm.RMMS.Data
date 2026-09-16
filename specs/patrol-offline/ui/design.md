@@ -139,7 +139,7 @@ Segment 1 demo = **empty** → toast `offline.toast.incidentEmpty`.
 | Case | UI |
 |------|-----|
 | Entry Home / Me / patrol nav | push cùng `#sc-patrol-offline` |
-| Appear | load local pending · EmptyChrome khi 0 · **không** GET queue |
+| Appear | load local pending · EmptyChrome dashed+title+hint khi 0 · **không** GET queue · **cấm** Android title-only |
 | Segment 0 | pending checkIn cards + banner |
 | Segment 1 empty | toast incidentEmpty · **không** fake count |
 | Tap Đồng bộ · online | for each pending: checkIn → POST check-ins · incident → POST incident/incidents · remove 2xx · keep fail · toast N OK · optional offline-batch receipt |

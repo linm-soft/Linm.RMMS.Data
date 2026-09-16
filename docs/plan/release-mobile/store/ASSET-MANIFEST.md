@@ -8,7 +8,7 @@
 | ss-iphone-69-02 | ss-iphone-1320x2868-02.png | 1320×2868 | image/png | no | — | vi | pending user |
 | ss-iphone-69-03 | ss-iphone-1320x2868-03.png | 1320×2868 | image/png | no | — | vi | pending user |
 
-**ON surfaces (W3):** guest home · FAQ · privacy · login · forgot contact-admin · clip map · patrol map/GPS WhenInUse · camera/field. **OFF:** OTP quên MK · public OSRM (`net.osrmPublic=false` → nét thẳng tạm).
+**ON surfaces (W3 skip map):** guest home · FAQ · privacy · login · forgot contact-admin · staff lists · GPS WhenInUse · camera/field. **OFF:** clip GIS · patrol-map · directions · OTP quên MK · public OSRM (`net.osrmPublic=false`). **Cấm** screenshot màn map.
 
 Family `1` — **cấm** iPad 13" listing (`GAP-SUBMIT-IMG-08`).
 
