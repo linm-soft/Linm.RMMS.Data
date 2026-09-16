@@ -27,13 +27,13 @@
 | Step | Agent | Artifact | Status |
 |------|-------|----------|--------|
 | 0 | data-analy | _data-analy/field-reflect-control-hint.md · field-reflect-bff-endpoints.md · field-reflect-real-data.md · field-reflect-action-tree.md | **blocked** (failed) |
-| 1 | po | po/requirement.md | pending |
-| 2.1 | design | ui/design.md · ui/ux-analy.md · prototype/ios/index.html · prototype/android/index.html | pending |
-| 2.2 | sa | be/solution-discovery.md | pending |
-| 3 | team-lead | task/field-reflect.md | pending |
-| 4 | dev | implement/ios.md · implement/android.md | pending |
-| 5 | qa | qa/scenarios.md · qa/store/field-reflect/CAPTURE.md | pending |
-| 6 | review | review/findings.md | pending |
+| 1 | po | po/requirement.md | **pending** |
+| 2.1 | design | ui/design.md · ui/ux-analy.md · prototype/ios/index.html · prototype/android/index.html | **pending** |
+| 2.2 | sa | be/solution-discovery.md | **pending** |
+| 3 | team-lead | task/field-reflect.md | **pending** |
+| 4 | dev | implement/ios.md · implement/android.md | **pending** |
+| 5 | qa | qa/scenarios.md · qa/store/field-reflect/CAPTURE.md | **pending** |
+| 6 | review | review/findings.md | **pending** |
 ## Tasks
 
 | id | page | role | deps | status | notes |

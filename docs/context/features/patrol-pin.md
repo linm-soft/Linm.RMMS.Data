@@ -51,4 +51,4 @@ Frame iOS 390×844 · Android 412×915 · copy VN từ `pinHereCheckin()` + `DES
 | lane | phase | status | updatedAt |
 |------|-------|--------|-----------|
 | web | — | — | — |
-| mobile | `review` | `pending` | `2026-08-21T04:00:55.288Z` |
+| mobile | `done` | `done` | `2026-08-21T04:03:52.268Z` |
