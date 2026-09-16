@@ -4,7 +4,7 @@
 |-------|-------|
 | feature | `gis-draw-live` |
 | phase | `qa` |
-| status | `in_progress` |
+| status | `await_confirm` |
 | taskId | `task_c44629a3` |
 | priorTaskId | `task_b9cb81b3` |
 | changeScope | `edit_page` |
@@ -20,7 +20,7 @@
 | workflowVersion | `2026.08.25.02` |
 | versionGate | `rechecked` |
 | contentHash | `sha256:24f695fc96706b7876dffb8960f4186e34b439fb0d5b519d0fa282a01760de02` |
-| updatedAt | `2026-09-06T21:02:53.720Z` |
+| updatedAt | `2026-09-12T05:40:02.550Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -52,8 +52,8 @@
 | 2.2 | sa | be/solution-discovery.md + `handoff/sa-compact.md` | **confirmed** |
 | 3 | team-lead | task/gis-draw-live.md + `handoff/team_lead-compact.md` | **confirmed** |
 | 4 | dev | implement/gis-draw-live.md + `handoff/dev-compact.md` | **confirmed** |
-| 5 | qa | qa/scenarios.md | **in_progress** |
-| 6 | review | review/findings.md | pending |
+| 5 | qa | qa/scenarios.md | **blocked** |
+| 6 | review | review/findings.md | **pending** |
 ## Tasks
 
 | id | page | role | deps | status | notes |

@@ -1,0 +1,100 @@
+{
+  "url": "http://localhost:9301/ai-vision",
+  "method": "chrome-channel fallback · yarn e2e-qa playwright ERR_MODULE_NOT_FOUND",
+  "capturedAt": "2026-09-12T08:52:56.999Z",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "FAIL",
+      "screenshot": "S0.png",
+      "sha16": "9aa15ffdc7244823",
+      "error": "page.waitForSelector: Timeout 25000ms exceeded.\nCall log:\n  - waiting for locator('[data-testid=\"rmms-ai-vision-list-page\"]') to be visible\n",
+      "note": "packet mfeStdUrl /ai-vision · list page testid"
+    },
+    {
+      "id": "S1",
+      "result": "FAIL",
+      "screenshot": "S1.png",
+      "sha16": "9aa15ffdc7244823",
+      "error": "page.waitForSelector: Timeout 25000ms exceeded.\nCall log:\n  - waiting for locator('[data-testid=\"rmms-ai-vision-list-page\"]') to be visible\n",
+      "note": "list shell Zone A detect + grid on mfeStdUrl"
+    },
+    {
+      "id": "QA-20",
+      "result": "FAIL",
+      "screenshot": "QA-20.png",
+      "sha16": "9aa15ffdc7244823",
+      "error": "page.waitForSelector: Timeout 25000ms exceeded.\nCall log:\n  - waiting for locator('[data-testid=\"rmms-ai-vision-list-field-attachFrame\"]') to be visible\n",
+      "note": "Upload+detect controls on mfeStdUrl"
+    },
+    {
+      "id": "S0-root",
+      "result": "PASS",
+      "screenshot": "S0-root.png",
+      "sha16": "df48cba85acca094",
+      "http": 200,
+      "title": "RMMS AI Vision — Standalone Dev",
+      "testids": [
+        "sidebar-logo-home",
+        "standalone-mock-topbar",
+        "dev-company-picker",
+        "dev-company-picker-select",
+        "dev-company-picker-apply"
+      ],
+      "note": "standalone root · MemoryRouter redirect",
+      "bodyPreview": "RMMS · AI Vision AI Vision DS Dev Standalone Developer RMMS AI Vision /dev Dev Navigation DEV ONLY RMMS AI Vision · 8 routes · 1 nhóm · Click để mở trang GET FORM DETAIL REPORT MANAGE Đơn vị cơ sở (X-Company-Id) — Chọn đơn vị cơ sở — RMMS — RMMS Áp dụng Chọn công ty rồi bấm Áp dụng — mọi request tenant dùng header X-Company-Id AI Vision 8 Hub AI Vision GET /ai-vision-service Danh sách detecti"
+    },
+    {
+      "id": "S0-vn",
+      "result": "PASS",
+      "screenshot": "S0-vn.png",
+      "sha16": "df32c5a3cdd0ec99",
+      "http": 200,
+      "title": "RMMS AI Vision — Standalone Dev",
+      "testids": [
+        "sidebar-logo-home",
+        "standalone-mock-topbar",
+        "rmms-ai-vision-list-page",
+        "rmms-ai-vision-list-page",
+        "rmms-ai-vision-list-page-header",
+        "rmms-ai-vision-list-list-toolbar",
+        "rmms-ai-vision-list-refresh-btn",
+        "rmms-ai-vision-list-create-btn",
+        "rmms-ai-vision-list-table-card",
+        "rmms-ai-vision-list-list-title-help",
+        "rmms-ai-vision-list-filters",
+        "rmms-ai-vision-list-detect-zone",
+        "rmms-ai-vision-list-field-attachFrame",
+        "rmms-ai-vision-list-attachFrame",
+        "rmms-ai-vision-list-field-engineDetect",
+        "rmms-ai-vision-list-btn-runDetect",
+        "rmms-ai-vision-list-field-search",
+        "rmms-ai-vision-list-search",
+        "rmms-ai-vision-list-search-search-btn",
+        "rmms-ai-vision-list-field-section",
+        "rmms-ai-vision-list-field-class",
+        "rmms-ai-vision-list-field-severity",
+        "rmms-ai-vision-list-field-status",
+        "rmms-ai-vision-list-field-engine",
+        "rmms-ai-vision-list-view-btn"
+      ],
+      "note": "VN route /ai-kd deep-link probe",
+      "bodyPreview": "RMMS · AI Vision AI Vision Hub AI Vision Danh sách detections Phát hiện tài sản Ước lượng sửa chữa Dự báo bảo trì ITS bien bao / coc tieu ITS ANPR Tạo mới DS Dev Standalone Developer RMMS AI Vision /dev AI kiểm định mặt đường Làm mới Tạo mới Danh sách phát hiện Menu dòng: nhấn đúp · Ctrl + chuột phải · nhấn giữ dòng Ảnh hiện trạng Kéo thả ảnh hiện trạng Chọn tệp từ thiết bị của bạn JPEG/PNG/Web"
+    },
+    {
+      "id": "S1-vn",
+      "result": "PASS",
+      "screenshot": "S1-vn.png",
+      "sha16": "df32c5a3cdd0ec99",
+      "note": "in-app nav to /ai-kd · Zone A upload/detect",
+      "hasDetect": true,
+      "hasAttach": true
+    }
+  ],
+  "ok": false,
+  "gaps": [
+    "GAP-QA-STD-01",
+    "GAP-QA-E2E-PW-01"
+  ],
+  "note": "packet mfeStdUrl /ai-vision no Route · live VN /ai-kd PASS Zone A"
+}

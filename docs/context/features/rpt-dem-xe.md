@@ -45,6 +45,8 @@ Base Report domain · BFF `web-bff/api/v1/...` · **cấm ERP.***
 
 Query đọc TrafficCountSummary — không bảng báo cáo riêng bắt buộc P1 (read-model P2 nếu nặng).
 
+Loại xe từ camera ITS = taxonomy **hãng** (9 type TCM403) — [`camera-vehicle-type.md`](camera-vehicle-type.md) · **cấm** giả 19 hạng TCVN / 16 ô Sổ 04 từ ISAPI.
+
 Auth: JWT · tenant · perm `report.dem-xe.read`.
 
 ## 4. Database

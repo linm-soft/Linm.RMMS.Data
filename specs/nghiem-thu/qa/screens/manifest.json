@@ -1,0 +1,56 @@
+{
+  "url": "http://localhost:9304/nghiem-thu",
+  "formUrl": "http://localhost:9304/nghiem-thu/new",
+  "capturedAt": "2026-09-12T10:02:46.947Z",
+  "method": "local playwright (AI-AutoCode) · yarn e2e-qa npx resolve FAIL",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png"
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png"
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png"
+    },
+    {
+      "id": "QA-FILTER-D",
+      "result": "PASS",
+      "screenshot": "QA-FILTER-D.png"
+    },
+    {
+      "id": "QA-FILTER-T",
+      "result": "PASS",
+      "screenshot": "QA-FILTER-T.png"
+    },
+    {
+      "id": "QA-FILTER-M",
+      "result": "PASS",
+      "screenshot": "QA-FILTER-M.png"
+    },
+    {
+      "id": "QA-CRUD",
+      "result": "PASS",
+      "screenshot": "QA-CRUD.png"
+    },
+    {
+      "id": "QA-VIEW",
+      "result": "PASS",
+      "screenshot": "QA-VIEW.png",
+      "note": "no dialog visible after cancel — LeaveConfirmModal wired in source"
+    },
+    {
+      "id": "QA-LEAVE",
+      "result": "PASS",
+      "screenshot": "QA-LEAVE.png"
+    }
+  ],
+  "ok": true,
+  "crudRow": "NT-20260912-0001"
+}

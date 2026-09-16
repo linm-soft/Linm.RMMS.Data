@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Prototype — ai-vision-service (stack Wave 2–4)</title>
+  <style>
+    :root { --bg:#f1f5f9; --card:#fff; --border:#e2e8f0; --txt:#0f172a; --muted:#64748b; --ok:#0f766e; --warn:#b45309; --done:#166534; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:"Segoe UI",system-ui,sans-serif; background:var(--bg); color:var(--txt); }
+    .note { background:#ecfdf5; color:#065f46; padding:8px 16px; font-size:13px; border-bottom:1px solid #a7f3d0; }
+    .page { max-width:1100px; margin:0 auto; padding:16px; }
+    h1 { margin:0 0 4px; font-size:1.25rem; }
+    .sub { color:var(--muted); font-size:13px; margin-bottom:16px; }
+    .grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    @media (max-width:800px) { .grid { grid-template-columns:1fr; } }
+    .card { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:14px; }
+    .card h2 { margin:0 0 8px; font-size:14px; }
+    .card ul { margin:0; padding-left:18px; font-size:13px; }
+    .tag { display:inline-block; font-size:11px; font-weight:700; padding:2px 8px; border-radius:999px; margin-right:6px; }
+    .tag.done { background:#dcfce7; color:var(--done); }
+    .tag.pend { background:#ffedd5; color:var(--warn); }
+    .wire { font-family:ui-monospace,Consolas,monospace; font-size:12px; background:#0f172a; color:#e2e8f0; padding:12px; border-radius:8px; white-space:pre-wrap; margin-top:8px; }
+    a { color:var(--ok); }
+    table { width:100%; border-collapse:collapse; font-size:13px; }
+    th, td { text-align:left; padding:6px 8px; border-bottom:1px solid var(--border); }
+    th { color:var(--muted); font-size:12px; }
+    .chrome-ban { color:#b91c1c; font-weight:700; font-size:12px; }
+  </style>
+</head>
+<body>
+  <div class="note" data-des-id="DES-NOTE">
+    Design prototype · <strong>ai-vision-service</strong> · packKind <code>ai</code> · stack hub (không clone DemoRoot) ·
+    <span class="chrome-ban">GAP-AI-DETECT-CHROME: 0 badge AI / P1 / P2 / score trên header/toolbar</span>
+  </div>
+  <div class="page">
+    <h1 data-des-id="DES-HOST-A">Vision stack — Wave 2–4</h1>
+    <p class="sub">Host <code>Linm.RMMS.Vision</code> :5311 · MFE <code>Linm.Web.RMMS.AiVision</code> · BFF <code>web-bff/api/v1/ai-vision/**</code> · peerStdUrl <code>http://localhost:9301/ai-vision-service</code></p>
+
+    <div class="grid">
+      <div class="card" data-des-id="DES-WAVE">
+        <h2>Wave board</h2>
+        <ul>
+          <li><span class="tag done">done</span> S-HOST · Wave 0p+1 API + schema</li>
+          <li><span class="tag pend">W2</span> S-BFF-WEB · retarget → :5311 · cấm lộ :5311 MFE</li>
+          <li><span class="tag pend">W3</span> S-CUTOVER · 0 :5301 · migrate-out WebService</li>
+          <li><span class="tag pend">W4</span> S-UPLOAD · S-HITL · FileUpload + confirm/dismiss</li>
+        </ul>
+      </div>
+      <div class="card" data-des-id="DES-CHROME">
+        <h2>Chrome skip (HARD)</h2>
+        <ul>
+          <li>Header = title nghiệp vụ + toolbar only</li>
+          <li>engine P1/P2 persist OK · <strong>cấm</strong> badge</li>
+          <li>score chỉ form/detail · <strong>cấm</strong> toolbar</li>
+          <li>Leave dirty = LeaveConfirmModal · cấm native confirm</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:12px" data-des-id="DES-PEER">
+      <h2>Peer list prototypes (review — Q-AVS-03 · không gen demo mới)</h2>
+      <table>
+        <thead><tr><th>Zone</th><th>Peer</th><th>review path</th></tr></thead>
+        <tbody>
+          <tr><td>DES-LIST-AIV</td><td>ai-vision</td><td><a href="../../ai-vision/ui/prototype/ai-vision-list-prototype.html">ai-vision-list-prototype.html</a></td></tr>
+          <tr><td>DES-LIST-AAD</td><td>ai-asset-detect</td><td><a href="../../ai-asset-detect/ui/prototype/ai-asset-detect-list-prototype.html">ai-asset-detect-list-prototype.html</a></td></tr>
+          <tr><td>DES-LIST-ITS</td><td>its-traffic-detect</td><td><a href="../../its-traffic-detect/ui/prototype/its-traffic-detect-list-prototype.html">its-traffic-detect-list-prototype.html</a></td></tr>
+          <tr><td>DES-LIST-ANPR / PRED / EST</td><td>peer analy</td><td>live MFE <code>/ai-vision/*</code> · filter-bar peer</td></tr>
+        </tbody>
+      </table>
+      <p class="sub" style="margin:8px 0 0">Peer HTML cũ có thể còn badge — Wave 4 Dev strip theo chrome skip; hub này = SSOT chốt.</p>
+    </div>
+
+    <div class="card" style="margin-top:12px" data-des-id="DES-LIST-WIRE">
+      <h2>Wire peer list A–D (grid_standard=yes · chrome skip)</h2>
+      <div class="wire">[A] icon + title nghiệp vụ  (**no** Thêm trên title · **no** badge AI/P1/P2/score)
+[B] Làm mới · Lịch sử · fa-cog · View/Edit · Export | [+ Thêm mới] (nếu CRUD peer)
+[FILTER] LinErpListFilterBar · 1 hàng wrap · lấp rồi wrap · 🔍 mép phải
+[C] card: list title · row-menu help · grid sort/filter · Ctrl+RMB
+[D] LinCatalogListPagination — Tổng · pageSize · FA pager</div>
+    </div>
+
+    <div class="grid" style="margin-top:12px">
+      <div class="card" data-des-id="DES-FORM-AIV">
+        <h2>S-FORM-AIV · Full page (5 cột)</h2>
+        <div class="wire">[Quay lại | Hủy Lưu] Title
+data-form-cols=5 · cấm footer Lưu
+FileUpload frame · classCode · status · score(form) · routeId · sectionId · note
+engine = hidden</div>
+      </div>
+      <div class="card" data-des-id="DES-UPLOAD-HITL">
+        <h2>S-UPLOAD · S-HITL (Wave 4)</h2>
+        <div class="wire">upload: init → PUT object → complete | abort
+HITL: confirm | dismiss (Modal)
+score / status trên form only
+LeaveConfirmModal khi dirty / upload in-flight</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:12px" data-des-id="DES-API">
+      <h2>API path (cấm invent)</h2>
+      <ul>
+        <li>Client: <code>web-bff/api/v1/ai-vision/**</code> only</li>
+        <li>Host: <code>api/v1/ai-vision/**</code> on Vision · internal <code>POST /api/v1/vision/detect</code> cấm MFE</li>
+        <li>Cấm <code>ai-vision-service/*</code> · ERP.* · MFE→:5311 · :5301 sau cutover</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

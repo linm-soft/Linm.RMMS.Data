@@ -1,11 +1,12 @@
 # Prototype — gis-patrol-map
 
-Design gate: **prototype + reviewUrl** — board Approve (**không auto**).
-Repo confirm: user tick BE+UI trên `/qldb-workflow` Progress trước Dev (**không auto** · cấm ERP.*).
+| | |
+|--|--|
+| Artifact | `gis-patrol-map-prototype.html` |
+| reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/gis-patrol-map/ui/prototype/gis-patrol-map-prototype.html` |
+| peerStdUrl | `http://localhost:9301/gis-patrol-map` |
+| liveRoute | `/gis/tuan-duong` |
+| packKind | `map` |
+| design_confirm | `approve` (autoApprove ON) |
 
-- Demo SSOT: `N/A (packKind=master)`
-- Title: Bản đồ tuần đường — leftover + ảnh trên map
-- Pack kind: `map`
-- MFE: `Linm.Web.RMMS.Gis`
-
-Put HTML prototype / screenshot link here; update `ui/design.md` with a browser-openable **reviewUrl**.
+Zones: NAV-GIS · TAB-* · LIST-PERSON · MAP-HOST · MAP-BAR · MAP-POPUP-INSPECT · GALLERY-PATROL.

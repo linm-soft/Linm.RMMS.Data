@@ -59,3 +59,10 @@ QL.1 Km 461+000–468+200 Bến Thủy → Vinh · Nghệ An. Waypoints SSOT `ma
 | GAP-MAP-PATROL-SNAP-01 | Track = `routeDrivingTrack` (highway → `{OsrmRoute}` driving · bake `{LineIndex}`) · **cấm** `/match` 100m · **cấm** chord thẳng = xong · skill `/gis-tai-san-snap` |
 | GAP-MAP-PATROL-PIN-01 | Pin đã check-in = badge **xanh** + giờ · chưa = badge **đỏ** «Chưa» |
 | GAP-MAP-CLICK-ZOOM | Click pin check-in = `{MapPopup}` · **cấm** title-only / `setView` |
+
+## Implement tracking
+
+| lane | phase | status | updatedAt |
+|------|-------|--------|-----------|
+| web | `done` | `done` | `2026-09-12T07:00:04.393Z` |
+| mobile | — | — | — |

@@ -1,0 +1,23 @@
+{
+  "url": "http://localhost:9301/gis-patrol-map",
+  "liveUrl": "http://localhost:9301/gis/tuan-duong",
+  "capturedAt": "2026-09-12T06:51:56.997Z",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png"
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png"
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png"
+    }
+  ],
+  "ok": true
+}

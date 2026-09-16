@@ -39,3 +39,10 @@ Reuse FileService đang có — **không** API file mới.
 | `nghiem-thu-create` | sheet | `#sc-nghiem-thu-create` |
 
 Chờ API web `nghiem-thu`. Queue `qlbd-mobile` · slash `/agent-qldb-workflow-mobile`.
+
+## Implement tracking
+
+| lane | phase | status | updatedAt |
+|------|-------|--------|-----------|
+| web | `done` | `done` | `2026-09-12T10:10:11.580Z` |
+| mobile | — | — | — |

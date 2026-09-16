@@ -1,11 +1,13 @@
 # Prototype — nghiem-thu
 
-Design gate: **prototype + reviewUrl** — board Approve (**không auto**).
-Repo confirm: user tick BE+UI trên `/qldb-workflow` Progress trước Dev (**không auto** · cấm ERP.*).
+| | |
+|--|--|
+| reviewUrl | `index.html` (open in browser) |
+| list | `list.html` — DES-GRID-A…D · LinErpListFilterBar |
+| form | `form.html` — Full page `data-form-cols=5` · LeaveConfirmModal · upload |
+| peerStdUrl | `http://localhost:9304/patrol` |
+| mfeStdUrl | `http://localhost:9301/nghiem-thu` |
+| packKind | `list` |
+| demo | N/A |
 
-- Demo SSOT: `N/A (packKind=master)`
-- Title: Công tác nghiệm thu — clone tuần kiểm + 10 mẫu
-- Pack kind: `list`
-- MFE: `Linm.Web.RMMS.Field`
-
-Put HTML prototype / screenshot link here; update `ui/design.md` with a browser-openable **reviewUrl**.
+**Cấm** ERP.* · yarn build/e2e ở role Design.

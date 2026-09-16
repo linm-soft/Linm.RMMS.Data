@@ -11,11 +11,15 @@
     .page { max-width:1280px; margin:0 auto; padding:16px; }
     .head { display:flex; align-items:center; gap:10px; margin-bottom:12px; flex-wrap:wrap; }
     .head h1 { margin:0; font-size:1.25rem; }
-    .badge { font-size:11px; font-weight:700; background:#ccfbf1; color:#115e59; padding:2px 8px; border-radius:999px; }
-    .badge.ai { background:#ede9fe; color:#5b21b6; }
+    .badge { font-size:11px; font-weight:700; background:#e2e8f0; color:#334155; padding:2px 8px; border-radius:4px; }
     .shell { background:var(--card); border:1px solid var(--border); border-radius:10px; overflow:hidden; }
-    .toolbar { display:flex; gap:8px; padding:10px 14px; border-bottom:1px solid var(--border); background:#f8fafc; flex-wrap:wrap; }
+    .toolbar { display:flex; gap:8px; padding:10px 14px; border-bottom:1px solid var(--border); background:#f8fafc; flex-wrap:wrap; align-items:center; }
+    .detect-cluster { display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-left:auto; padding-left:12px; border-left:1px solid var(--border); }
+    .detect-cluster .hint { font-size:12px; color:var(--muted); }
+    .thumb { width:40px; height:40px; object-fit:cover; border:1px solid var(--border); border-radius:4px; background:#f8fafc; display:none; }
+    .thumb.on { display:block; }
     .btn { border:1px solid var(--border); background:#fff; padding:7px 12px; border-radius:6px; cursor:pointer; font-size:13px; }
+    .btn:disabled { opacity:.45; cursor:not-allowed; }
     .btn-primary { background:var(--primary); border-color:var(--primary); color:#fff; }
     .filters { display:flex; gap:10px; padding:12px 14px; border-bottom:1px solid var(--border); flex-wrap:wrap; align-items:end; }
     .field { display:flex; flex-direction:column; gap:4px; min-width:140px; }
@@ -33,7 +37,10 @@
     .panel { display:none; position:absolute; right:0; z-index:2; background:#fff; border:1px solid var(--border); border-radius:6px; min-width:140px; box-shadow:0 8px 24px rgba(15,23,42,.12); }
     .menu[open] .panel { display:block; }
     .panel button { display:block; width:100%; text-align:left; border:0; background:transparent; padding:8px 12px; cursor:pointer; font-size:13px; }
-    .footer { display:flex; justify-content:flex-end; padding:10px 14px; color:var(--muted); font-size:12px; }
+    .footer { display:flex; justify-content:space-between; align-items:center; padding:10px 14px; color:var(--muted); font-size:12px; gap:12px; flex-wrap:wrap; }
+    .pager { display:flex; gap:6px; align-items:center; }
+    .toast { position:fixed; bottom:20px; right:20px; background:#0f172a; color:#fff; padding:10px 14px; border-radius:8px; font-size:13px; display:none; z-index:9; }
+    .toast.on { display:block; }
     .modal-backdrop { display:none; position:fixed; inset:0; background:rgba(15,23,42,.35); align-items:center; justify-content:center; }
     .modal-backdrop.on { display:flex; }
     .modal { width:min(720px,94vw); background:#fff; border-radius:10px; border:1px solid var(--border); max-height:90vh; overflow:auto; }
@@ -43,145 +50,287 @@
     .modal-b .span2 { grid-column:span 2; }
     .ro { background:#f8fafc; }
     .modal-f { padding:12px 16px; border-top:1px solid var(--border); display:flex; gap:8px; justify-content:flex-end; }
+    .preview { max-width:160px; max-height:90px; border:1px solid var(--border); border-radius:4px; display:none; }
+    .preview.on { display:block; }
   </style>
 </head>
 <body>
-  <div class="banner">Design prototype · feature <strong>ai-vision</strong> · Kind B catalog · reviewUrl gate · P1 online (khong hua mAP)</div>
+  <div class="banner">Design prototype · ai-vision · Kind B · edit_page Upload/detect · reviewUrl · <strong>cấm</strong> AI chrome header</div>
   <div class="page">
     <div class="head">
-      <h1>AI kiem dinh mat duong</h1>
+      <h1>AI kiểm định mặt đường</h1>
       <span class="badge">Kind B</span>
-      <span class="badge ai">P1 online</span>
     </div>
-    <div class="shell" data-catalog-list-page>
-      <div class="toolbar">
-        <button class="btn btn-primary" type="button" id="btnAdd">+ Tao moi</button>
-        <button class="btn" type="button" id="btnRefresh">Lam moi</button>
-      </div>
-      <div class="filters">
-        <div class="field"><label>Tim kiem</label><input id="search" placeholder="DET / class / section..." /></div>
-        <div class="field"><label>Class</label>
-          <select id="cls"><option value="">Tat ca</option><option>O ga</option><option>Nut mai rua</option><option>Va duong</option><option>Bong bat</option></select>
+    <div class="shell" data-catalog-list-page data-zone="A-D">
+      <!-- Zone A -->
+      <div class="toolbar" data-zone="A">
+        <button class="btn btn-primary" type="button" id="btnAdd">+ Thêm</button>
+        <button class="btn" type="button" id="btnRefresh">Làm mới</button>
+        <button class="btn" type="button" title="Lịch sử">History</button>
+        <button class="btn" type="button" title="Cấu hình">⚙</button>
+        <div class="detect-cluster" id="detectCluster">
+          <label class="btn" for="attachFrame">Ảnh hiện trạng</label>
+          <input type="file" id="attachFrame" accept="image/*" hidden />
+          <img class="thumb" id="frameThumb" alt="preview" />
+          <select id="engineDetect" title="Engine detect">
+            <option value="P1" selected>P1</option>
+            <option value="P2">P2</option>
+          </select>
+          <button class="btn btn-primary" type="button" id="runDetect" disabled>Chạy detect</button>
+          <span class="hint" id="detectHint">Chọn ảnh hiện trạng</span>
         </div>
-        <div class="field"><label>Severity</label>
-          <select id="sev"><option value="">Tat ca</option><option>Critical</option><option>High</option><option>Medium</option><option>Low</option></select>
+      </div>
+      <!-- Zone B -->
+      <div class="filters" data-zone="B">
+        <div class="field"><label>Tìm kiếm</label><input id="search" placeholder="DET / class / section / incident..." /></div>
+        <div class="field"><label>Loại hư hỏng</label>
+          <select id="cls">
+            <option value="">Tất cả</option>
+            <option>Ổ gà</option><option>Nứt mai rùa</option><option>Nứt dọc</option><option>Nứt ngang</option>
+            <option>Vá đường</option><option>Bong bật</option><option>Lún</option><option>Sóng</option>
+            <option>Chảy nhựa</option><option>Hư mép</option>
+          </select>
+        </div>
+        <div class="field"><label>Mức độ</label>
+          <select id="sev"><option value="">Tất cả</option><option>Critical</option><option>High</option><option>Medium</option><option>Low</option></select>
+        </div>
+        <div class="field"><label>Trạng thái</label>
+          <select id="st">
+            <option value="">Tất cả</option>
+            <option value="Draft">Nháp</option>
+            <option value="IncidentCreated">Đã tạo Vấn đề</option>
+            <option value="Dismissed">Đã bỏ</option>
+          </select>
         </div>
         <div class="field"><label>Engine</label>
-          <select id="eng"><option value="">Tat ca</option><option>P1</option><option>P2</option></select>
+          <select id="eng"><option value="">Tất cả</option><option>P1</option><option>P2</option></select>
         </div>
-        <button class="btn btn-primary" type="button" id="btnSearch">Tim</button>
+        <div class="field"><label>Đoạn đường</label>
+          <select id="sec">
+            <option value="">Tất cả</option>
+            <option>SEC-QL1-286-316</option>
+            <option>SEC-QL1-316-321</option>
+            <option>SEC-QL1-321-368</option>
+          </select>
+        </div>
+        <button class="btn btn-primary" type="button" id="btnSearch">Tìm</button>
       </div>
-      <div class="list-title">Danh sach phat hien</div>
-      <div class="list-help">Menu: Xem / Sua / Sao chep / Tao Van de (Critical)</div>
+      <!-- Zone C -->
+      <div class="list-title" data-zone="C">Danh sách phát hiện</div>
+      <div class="list-help">Menu: Xem / Sửa / Sao chép / Tạo Vấn đề (Critical + Nháp) · taxonomy MD only</div>
       <table>
         <thead>
           <tr>
-            <th>STT</th><th>Ma</th><th>Class</th><th>Score</th><th>Severity</th>
+            <th>STT</th><th>Mã</th><th>Class</th><th>Score</th><th>Severity</th>
             <th>Section</th><th>Route</th><th>Status</th><th>Engine</th><th>Incident</th><th></th>
           </tr>
         </thead>
         <tbody id="tbody"></tbody>
       </table>
-      <div class="footer" id="footer">-</div>
+      <!-- Zone D -->
+      <div class="footer" data-zone="D" id="footer">
+        <span id="footerTotal">Tổng: 0</span>
+        <div class="pager">
+          <label>pageSize <select id="pageSize"><option selected>50</option><option>20</option><option>100</option></select></label>
+          <button class="btn" type="button" disabled>«</button>
+          <button class="btn" type="button" disabled>‹</button>
+          <span>1 / 1</span>
+          <button class="btn" type="button" disabled>›</button>
+          <button class="btn" type="button" disabled>»</button>
+        </div>
+      </div>
     </div>
   </div>
+  <div class="toast" id="toast"></div>
   <div class="modal-backdrop" id="modal">
     <div class="modal" role="dialog">
       <div class="modal-h"><strong id="modalTitle">Xem detection</strong><span class="badge" id="modeBadge">view</span></div>
       <div class="modal-b">
-        <div class="field"><label>Ma</label><input id="fCode" class="ro" readonly /></div>
-        <div class="field"><label>Status *</label><input id="fStatus" /></div>
-        <div class="field"><label>Class *</label><input id="fClass" /></div>
-        <div class="field"><label>Score *</label><input id="fScore" /></div>
-        <div class="field"><label>Severity *</label><input id="fSev" /></div>
-        <div class="field"><label>Engine *</label><input id="fEng" /></div>
-        <div class="field"><label>Section *</label><input id="fSec" /></div>
-        <div class="field"><label>Route</label><input id="fRoute" /></div>
-        <div class="field span2"><label>Note</label><input id="fNote" /></div>
+        <div class="field"><label>Mã</label><input id="fCode" class="ro" readonly /></div>
+        <div class="field"><label>Trạng thái *</label>
+          <select id="fStatus"><option>Draft</option><option>IncidentCreated</option><option>Dismissed</option></select>
+        </div>
+        <div class="field"><label>Loại hư hỏng *</label>
+          <select id="fClass">
+            <option>Ổ gà</option><option>Nứt mai rùa</option><option>Nứt dọc</option><option>Nứt ngang</option>
+            <option>Vá đường</option><option>Bong bật</option><option>Lún</option><option>Sóng</option>
+            <option>Chảy nhựa</option><option>Hư mép</option>
+          </select>
+        </div>
+        <div class="field"><label>Score *</label><input id="fScore" type="number" step="0.01" min="0" max="1" /></div>
+        <div class="field"><label>Mức độ *</label>
+          <select id="fSev"><option>Critical</option><option>High</option><option>Medium</option><option>Low</option></select>
+        </div>
+        <div class="field"><label>Engine *</label>
+          <select id="fEng"><option>P1</option><option>P2</option></select>
+        </div>
+        <div class="field"><label>Đoạn *</label>
+          <select id="fSec">
+            <option>SEC-QL1-286-316</option>
+            <option>SEC-QL1-316-321</option>
+            <option>SEC-QL1-321-368</option>
+          </select>
+        </div>
+        <div class="field"><label>Tuyến</label><input id="fRoute" /></div>
+        <div class="field span2"><label>Ảnh hiện trạng (FileUpload → imageFileId)</label>
+          <input type="file" id="fAttach" accept="image/*" />
+          <input type="hidden" id="fImageFileId" />
+          <img class="preview" id="fPreview" alt="preview" />
+        </div>
+        <div class="field span2"><label>Preview URL (derived resign · cấm persist)</label><input id="fImageUrl" class="ro" readonly placeholder="resign on read" /></div>
+        <div class="field span2"><label>Ghi chú</label><input id="fNote" /></div>
         <div class="field span2"><label>Incident</label><input id="fInc" class="ro" readonly /></div>
       </div>
       <div class="modal-f">
-        <button class="btn" type="button" id="btnClose">Dong</button>
-        <button class="btn btn-primary" type="button" id="btnSave">Luu</button>
+        <button class="btn" type="button" id="btnClose">Đóng</button>
+        <button class="btn btn-primary" type="button" id="btnSave">Lưu</button>
       </div>
     </div>
   </div>
   <script>
+    const STATUS_VI = { Draft: 'Nháp', IncidentCreated: 'Đã tạo Vấn đề', Dismissed: 'Đã bỏ' };
     const ROWS = [
-      { code:'DET-901', defectClass:'O ga', score:0.91, severity:'Critical', sectionId:'SEC-QL1-286-316', routeLabel:'QL.1 · Km287', status:'Draft', engine:'P1', incidentCode:null },
-      { code:'DET-902', defectClass:'Nut mai rua', score:0.84, severity:'High', sectionId:'SEC-QL1-286-316', routeLabel:'QL.1 · Km297', status:'Draft', engine:'P1', incidentCode:null },
-      { code:'DET-903', defectClass:'Va duong', score:0.77, severity:'Medium', sectionId:'SEC-QL1-316-321', routeLabel:'QL.1 · Km316', status:'Draft', engine:'P1', incidentCode:null },
-      { code:'DET-904', defectClass:'Bong bat', score:0.88, severity:'High', sectionId:'SEC-QL1-321-368', routeLabel:'QL.1 · Km349', status:'Draft', engine:'P2', incidentCode:null },
+      { code:'DET-901', defectClass:'Ổ gà', score:0.91, severity:'Critical', sectionId:'SEC-QL1-286-316', routeLabel:'QL.1 · Km287', status:'Draft', engine:'P1', incidentCode:null, imageFileId:null },
+      { code:'DET-902', defectClass:'Nứt mai rùa', score:0.84, severity:'High', sectionId:'SEC-QL1-286-316', routeLabel:'QL.1 · Km297', status:'Draft', engine:'P1', incidentCode:null, imageFileId:null },
+      { code:'DET-903', defectClass:'Vá đường', score:0.77, severity:'Medium', sectionId:'SEC-QL1-316-321', routeLabel:'QL.1 · Km316', status:'Draft', engine:'P1', incidentCode:null, imageFileId:null },
+      { code:'DET-904', defectClass:'Bong bật', score:0.88, severity:'High', sectionId:'SEC-QL1-321-368', routeLabel:'QL.1 · Km349', status:'Draft', engine:'P2', incidentCode:null, imageFileId:null },
     ];
     let view = ROWS.slice();
+    let frameFileId = null;
+    let frameObjectUrl = null;
     const tbody = document.getElementById('tbody');
-    const footer = document.getElementById('footer');
+    const toast = document.getElementById('toast');
     const modal = document.getElementById('modal');
+    function showToast(msg) {
+      toast.textContent = msg;
+      toast.classList.add('on');
+      setTimeout(function () { toast.classList.remove('on'); }, 2200);
+    }
+    function syncDetect() {
+      var ok = !!frameFileId;
+      document.getElementById('runDetect').disabled = !ok;
+      document.getElementById('detectHint').textContent = ok ? ('fileId=' + frameFileId.slice(0, 8) + '…') : 'Chọn ảnh hiện trạng';
+      var thumb = document.getElementById('frameThumb');
+      if (frameObjectUrl) { thumb.src = frameObjectUrl; thumb.classList.add('on'); }
+      else { thumb.removeAttribute('src'); thumb.classList.remove('on'); }
+    }
     function render() {
-      tbody.innerHTML = view.map((r, i) => '<tr>' +
-        '<td>' + (i + 1) + '</td>' +
-        '<td><span class="code" data-i="' + i + '">' + r.code + '</span></td>' +
-        '<td>' + r.defectClass + '</td><td>' + r.score.toFixed(2) + '</td>' +
-        '<td class="' + (r.severity === 'Critical' ? 'sev-crit' : '') + '">' + r.severity + '</td>' +
-        '<td>' + r.sectionId + '</td><td>' + r.routeLabel + '</td><td>' + r.status + '</td>' +
-        '<td><span class="badge ai">' + r.engine + '</span></td><td>' + (r.incidentCode || '—') + '</td>' +
-        '<td><details class="menu"><summary>...</summary><div class="panel">' +
-        '<button type="button" data-act="view" data-i="' + i + '">Xem</button>' +
-        '<button type="button" data-act="edit" data-i="' + i + '">Sua</button>' +
-        '<button type="button" data-act="copy" data-i="' + i + '">Sao chep</button>' +
-        (r.severity === 'Critical' && r.status === 'Draft' ? '<button type="button" data-act="inc" data-i="' + i + '">Tao Van de</button>' : '') +
-        '</div></details></td></tr>').join('');
-      footer.textContent = '1-' + view.length + ' / ' + view.length + ' ban ghi';
+      if (!view.length) {
+        tbody.innerHTML = '<tr><td colspan="11">Không tìm thấy phát hiện phù hợp</td></tr>';
+      } else {
+        tbody.innerHTML = view.map(function (r, i) {
+          return '<tr>' +
+            '<td>' + (i + 1) + '</td>' +
+            '<td><span class="code" data-i="' + i + '">' + r.code + '</span></td>' +
+            '<td>' + r.defectClass + '</td><td>' + r.score.toFixed(2) + '</td>' +
+            '<td class="' + (r.severity === 'Critical' ? 'sev-crit' : '') + '">' + r.severity + '</td>' +
+            '<td>' + r.sectionId + '</td><td>' + r.routeLabel + '</td>' +
+            '<td>' + (STATUS_VI[r.status] || r.status) + '</td><td>' + r.engine + '</td>' +
+            '<td>' + (r.incidentCode || '—') + '</td>' +
+            '<td><details class="menu"><summary>…</summary><div class="panel">' +
+            '<button type="button" data-act="view" data-i="' + i + '">Xem</button>' +
+            '<button type="button" data-act="edit" data-i="' + i + '">Sửa</button>' +
+            '<button type="button" data-act="copy" data-i="' + i + '">Sao chép</button>' +
+            (r.severity === 'Critical' && r.status === 'Draft' ? '<button type="button" data-act="inc" data-i="' + i + '">Tạo Vấn đề</button>' : '') +
+            '</div></details></td></tr>';
+        }).join('');
+      }
+      document.getElementById('footerTotal').textContent = 'Tổng: ' + view.length + ' · pageSize ' + document.getElementById('pageSize').value;
     }
     function openForm(m, row) {
       document.getElementById('modeBadge').textContent = m;
       document.getElementById('modalTitle').textContent = m + ' — ' + row.code;
-      const ro = m === 'view';
-      const set = (id, val, forceRo) => {
-        const el = document.getElementById(id);
+      var ro = m === 'view';
+      function set(id, val, forceRo) {
+        var el = document.getElementById(id);
         el.value = val == null ? '' : val;
-        el.readOnly = !!(forceRo || ro);
+        if ('readOnly' in el) el.readOnly = !!(forceRo || ro);
+        if ('disabled' in el && el.tagName === 'SELECT') el.disabled = !!(forceRo || ro);
         el.classList.toggle('ro', !!(forceRo || ro));
-      };
+      }
       set('fCode', (m === 'create' || m === 'copy') ? 'DET-NEW' : row.code, true);
       set('fStatus', row.status); set('fClass', row.defectClass); set('fScore', row.score);
       set('fSev', row.severity); set('fEng', row.engine); set('fSec', row.sectionId);
       set('fRoute', row.routeLabel); set('fNote', ''); set('fInc', row.incidentCode || '', true);
+      document.getElementById('fImageFileId').value = row.imageFileId || '';
+      document.getElementById('fImageUrl').value = row.imageFileId ? ('resign://' + row.imageFileId) : '';
+      document.getElementById('fAttach').disabled = ro;
+      document.getElementById('fPreview').classList.remove('on');
       document.getElementById('btnSave').style.display = ro ? 'none' : '';
       modal.classList.add('on');
     }
+    document.getElementById('attachFrame').onchange = function (e) {
+      var f = e.target.files && e.target.files[0];
+      if (!f) { frameFileId = null; frameObjectUrl = null; syncDetect(); return; }
+      if (!f.type || f.type.indexOf('image/') !== 0) { showToast('Upload fail · chỉ image/*'); e.target.value = ''; return; }
+      frameFileId = 'file-' + Math.random().toString(16).slice(2, 10);
+      if (frameObjectUrl) URL.revokeObjectURL(frameObjectUrl);
+      frameObjectUrl = URL.createObjectURL(f);
+      syncDetect();
+      showToast('Upload OK · imageFileId persisted (FileService)');
+    };
+    document.getElementById('runDetect').onclick = function () {
+      if (!frameFileId) { showToast('Chọn ảnh hiện trạng'); return; }
+      var eng = document.getElementById('engineDetect').value || 'P1';
+      var row = {
+        code: 'DET-' + (900 + ROWS.length + 1),
+        defectClass: 'Ổ gà', score: 0.86, severity: 'Critical',
+        sectionId: 'SEC-QL1-321-368', routeLabel: 'QL.1', status: 'Draft', engine: eng,
+        incidentCode: null, imageFileId: frameFileId
+      };
+      ROWS.unshift(row);
+      view = ROWS.slice();
+      render();
+      showToast('POST …/detect · Draft tạo từ imageFileId');
+    };
+    document.getElementById('fAttach').onchange = function (e) {
+      var f = e.target.files && e.target.files[0];
+      if (!f) return;
+      var id = 'file-' + Math.random().toString(16).slice(2, 10);
+      document.getElementById('fImageFileId').value = id;
+      document.getElementById('fImageUrl').value = 'resign://' + id;
+      var prev = document.getElementById('fPreview');
+      prev.src = URL.createObjectURL(f);
+      prev.classList.add('on');
+    };
     document.getElementById('btnSearch').onclick = function () {
       var q = document.getElementById('search').value.trim().toLowerCase();
       var cls = document.getElementById('cls').value;
       var sev = document.getElementById('sev').value;
+      var st = document.getElementById('st').value;
       var eng = document.getElementById('eng').value;
+      var sec = document.getElementById('sec').value;
       view = ROWS.filter(function (r) {
         if (cls && r.defectClass !== cls) return false;
         if (sev && r.severity !== sev) return false;
+        if (st && r.status !== st) return false;
         if (eng && r.engine !== eng) return false;
+        if (sec && r.sectionId !== sec) return false;
         if (!q) return true;
-        return [r.code, r.defectClass, r.sectionId, r.routeLabel, r.status, r.engine].join(' ').toLowerCase().indexOf(q) >= 0;
+        return [r.code, r.defectClass, r.sectionId, r.routeLabel, r.status, r.engine, r.incidentCode || ''].join(' ').toLowerCase().indexOf(q) >= 0;
       });
       render();
     };
     document.getElementById('btnRefresh').onclick = function () { view = ROWS.slice(); render(); };
     document.getElementById('btnAdd').onclick = function () {
-      openForm('create', { code:'DET-NEW', defectClass:'O ga', score:0.8, severity:'Critical', sectionId:'SEC-QL1-321-368', routeLabel:'QL.1', status:'Draft', engine:'P1', incidentCode:null });
+      openForm('create', { code:'DET-NEW', defectClass:'Ổ gà', score:0.8, severity:'Critical', sectionId:'SEC-QL1-321-368', routeLabel:'QL.1', status:'Draft', engine:'P1', incidentCode:null, imageFileId:null });
     };
     document.getElementById('btnClose').onclick = function () { modal.classList.remove('on'); };
-    document.getElementById('btnSave').onclick = function () { modal.classList.remove('on'); };
+    document.getElementById('btnSave').onclick = function () { modal.classList.remove('on'); showToast('Lưu (wireframe)'); };
+    document.getElementById('pageSize').onchange = function () { render(); };
     tbody.addEventListener('click', function (e) {
       var t = e.target;
       if (t.classList.contains('code') || t.dataset.act === 'view') openForm('view', view[+t.dataset.i]);
       if (t.dataset.act === 'edit') openForm('edit', view[+t.dataset.i]);
-      if (t.dataset.act === 'copy') openForm('copy', Object.assign({}, view[+t.dataset.i], { incidentCode:null }));
+      if (t.dataset.act === 'copy') openForm('copy', Object.assign({}, view[+t.dataset.i], { incidentCode:null, imageFileId:null }));
       if (t.dataset.act === 'inc') {
         var r = view[+t.dataset.i];
         r.status = 'IncidentCreated';
-        r.incidentCode = 'VI-20260808-0001';
+        r.incidentCode = 'VI-20260912-0001';
         render();
       }
     });
+    syncDetect();
     render();
   </script>
 </body>

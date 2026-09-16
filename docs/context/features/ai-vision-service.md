@@ -57,3 +57,10 @@ Giữ contract feature: `defect.detected` · `asset.candidate.detected` — emit
 - [x] Host health `:5311`
 - [ ] BFF cùng path
 - [ ] P2 không đổi route MFE
+
+## Implement tracking
+
+| lane | phase | status | updatedAt |
+|------|-------|--------|-----------|
+| web | `qa` | `await_confirm` | `2026-09-12T08:18:57.623Z` |
+| mobile | — | — | — |

@@ -1,0 +1,22 @@
+{
+  "url": "http://localhost:9301/ai-vision-service",
+  "capturedAt": "2026-09-12T08:13:03.667Z",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png"
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png"
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png"
+    }
+  ],
+  "ok": true
+}

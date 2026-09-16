@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "1",
+  "feature": "gis-patrol-map",
+  "skillId": "agent-review",
+  "skillVersion": "2026.09.05.03",
+  "workflowVersion": "2026.09.05.03",
+  "rulesVersion": "2026.09.12.2",
+  "contentHash": "sha256:e1d043dbf402977a2d0e888df1d32d0e542b2792b22076e2dc5fc482e8a7c287",
+  "reviewHash": "sha256:f2ab1a14889d9ec2a9de6e514a19bc00b2728901e49b6c73abac84f83d67a788",
+  "status": "done",
+  "review_confirm": "done",
+  "verdict": "PASS",
+  "packKind": "map",
+  "changeScope": "edit_page",
+  "taskId": "task_3a72c9b1",
+  "autoApprove": true,
+  "hashSkip": false,
+  "findingsCount": {
+    "P0": 0,
+    "P1": 0,
+    "P2": 1,
+    "info": 1
+  },
+  "generatedAt": "2026-09-12T07:00:00.000Z",
+  "versionGate": "ok"
+}

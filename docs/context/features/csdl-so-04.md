@@ -11,7 +11,7 @@
 
 ## 1. Tổng quan
 
-16 hạng xe TCVN · tách TNGT
+16 hạng xe TCVN · tách TNGT · **≠** 9 type camera ITS — [`camera-vehicle-type.md`](camera-vehicle-type.md) · **cấm** bind ingest vào `class01`…`class16`
 
 Mở từ hub `/so-ts/csdl-so-sach?resource=traffic-counts` · alias `/csdl-so-04`. **≠** Sổ TS `so-ts-*` (deep-link).
 

@@ -1,0 +1,41 @@
+{
+  "ok": true,
+  "steps": [
+    {
+      "id": "T-QA-AI-01",
+      "result": "PASS",
+      "screenshot": "T-QA-AI-01.png"
+    },
+    {
+      "id": "T-QA-FILTER-01",
+      "result": "PASS",
+      "screenshot": "T-QA-FILTER-01.png"
+    },
+    {
+      "id": "T-QA-CRUD-01",
+      "result": "PASS",
+      "screenshot": "T-QA-CRUD-01.png"
+    },
+    {
+      "id": "T-QA-FORM-01",
+      "result": "PASS",
+      "screenshot": "T-QA-FORM-01.png"
+    },
+    {
+      "id": "T-QA-FILTER-02-D",
+      "result": "PASS",
+      "screenshot": "T-QA-FILTER-02-D.png"
+    },
+    {
+      "id": "T-QA-FILTER-02-T",
+      "result": "PASS",
+      "screenshot": "T-QA-FILTER-02-T.png"
+    },
+    {
+      "id": "T-QA-FILTER-02-M",
+      "result": "PASS",
+      "screenshot": "T-QA-FILTER-02-M.png"
+    }
+  ],
+  "capturedAt": "2026-09-12T08:15:42.678Z"
+}

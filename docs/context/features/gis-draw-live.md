@@ -104,5 +104,5 @@ Live-specific:
 
 | lane | phase | status | updatedAt |
 |------|-------|--------|-----------|
-| web | `qa` | `pending` | `2026-09-06T20:59:31.810Z` |
+| web | `qa` | `await_confirm` | `2026-09-12T05:40:02.554Z` |
 | mobile | — | — | — |
