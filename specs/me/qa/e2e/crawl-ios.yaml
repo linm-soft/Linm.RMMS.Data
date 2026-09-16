@@ -1,4 +1,4 @@
-appId: org.linmsoft.rmms
+appId: com.drvn.rmms
 ---
 # crawl · me
 - launchApp:
@@ -11,6 +11,9 @@ appId: org.linmsoft.rmms
 - tapOn:
     id: "btn-home-login"
     optional: true
+- tapOn:
+    text: "Dành cho cán bộ"
+    optional: true
 - extendedWaitUntil:
     visible:
       id: "f-user"
@@ -18,7 +21,7 @@ appId: org.linmsoft.rmms
 - tapOn:
     id: "f-user"
 - eraseText
-- inputText: "linm-soft"
+- inputText: "rmms-admin"
 - tapOn:
     text: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
     optional: true
@@ -28,7 +31,7 @@ appId: org.linmsoft.rmms
 - tapOn:
     id: "f-pass"
 - eraseText
-- inputText: "Linm@2026"
+- inputText: "RMMS@2026"
 - tapOn:
     text: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
     optional: true
@@ -58,6 +61,10 @@ appId: org.linmsoft.rmms
 
 - tapOn:
     id: "row-profile"
+    optional: true
+- tapOn:
+    text: "Hồ sơ"
+    optional: true
 - extendedWaitUntil:
     visible:
       id: "sc-me-profile"
@@ -66,9 +73,22 @@ appId: org.linmsoft.rmms
 - tapOn:
     id: "nav-back"
     optional: true
+- tapOn:
+    id: "btn-faq-back"
+    optional: true
+- tapOn:
+    id: "btn-privacy-back"
+    optional: true
+- tapOn:
+    text: "Về Trang Chủ"
+    optional: true
 
 - tapOn:
     id: "row-offline"
+    optional: true
+- tapOn:
+    text: "Hàng đợi"
+    optional: true
 - extendedWaitUntil:
     visible:
       id: "sc-patrol-offline"
@@ -93,6 +113,10 @@ appId: org.linmsoft.rmms
 
 - tapOn:
     id: "row-feedback"
+    optional: true
+- tapOn:
+    text: "Góp ý"
+    optional: true
 - extendedWaitUntil:
     visible:
       id: "sc-feedback"
@@ -117,6 +141,10 @@ appId: org.linmsoft.rmms
 
 - tapOn:
     id: "row-cam"
+    optional: true
+- tapOn:
+    text: "Camera xem"
+    optional: true
 - extendedWaitUntil:
     visible:
       id: "sc-cam-view"
@@ -141,6 +169,10 @@ appId: org.linmsoft.rmms
 
 - tapOn:
     id: "row-ops"
+    optional: true
+- tapOn:
+    text: "Thông báo"
+    optional: true
 - extendedWaitUntil:
     visible:
       id: "sc-ops"
@@ -165,6 +197,10 @@ appId: org.linmsoft.rmms
 
 - tapOn:
     id: "row-settings"
+    optional: true
+- tapOn:
+    text: "Cài đặt"
+    optional: true
 - extendedWaitUntil:
     visible:
       id: "sc-me-settings"
@@ -172,4 +208,13 @@ appId: org.linmsoft.rmms
 - takeScreenshot: CRAWL-settings
 - tapOn:
     id: "nav-back"
+    optional: true
+- tapOn:
+    id: "btn-faq-back"
+    optional: true
+- tapOn:
+    id: "btn-privacy-back"
+    optional: true
+- tapOn:
+    text: "Về Trang Chủ"
     optional: true

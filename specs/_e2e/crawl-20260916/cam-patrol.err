@@ -1,0 +1,2 @@
+warning From Yarn 1.0 onwards, scripts don't require "--" for options to be forwarded. In a future version, any explicit "--" will be forwarded as-is to the scripts.
+error Command failed with exit code 1.

@@ -3,7 +3,8 @@
 > **SSOT theo dõi.** Backlog mô tả: [`features/README.md`](features/README.md). Pipeline scan: [`implement-status.json`](implement-status.json) (có thể lệch — **ưu tiên** `specs/{slug}/STATUS.md`).  
 > **HĐ:** `37001-08/2026-LIC/LINM-JNET` · PL01 P1 CAPEX 900tr (A 450 + B 300 + C 150). Spec: [`Linm.RMMS.Contract/analy/PROMPT-SPEC-P1-P2-PHU-LUC-RELEASE.md`](../../../Linm.RMMS.Contract/analy/PROMPT-SPEC-P1-P2-PHU-LUC-RELEASE.md).  
 > **Demo hub:** `Linm.RMMS.Demo` · `npm run start:std` → http://localhost:5180 · catalog [`demoCatalog.ts`](../../../Linm.RMMS.Demo/src/demoCatalog.ts).  
-> **Cập nhật:** 2026-09-16 · queue `qlbd-mobile` `task_1f6d86c4` `/implement-gis-map` `ios_replace_all_maps` (`patrol-map` + HITL `photo-geo-capture`) · /hey-linm `autocode_hub`
+> **Cập nhật:** 2026-09-17 · /hey-linm `feature_context` `ios-store-submit` (Invalid Binary CA92.1 · 90717 RGB)  
+> **Prior:** 2026-09-16 · queue `qlbd-mobile` `task_1f6d86c4` `/implement-gis-map` `ios_replace_all_maps` (`patrol-map` + HITL `photo-geo-capture`) · /hey-linm `autocode_hub`
 > **Prior:** 2026-09-12 · `photo-geo-capture` (chụp + key FileService + gim vật thể → lat/lng) · /hey-linm · queue `qlbd-mobile`  
 > **Prior:** 2026-09-01 · epic `mobile-cleanup-mock` (clean-up mock + seed CRUD) · /hey-linm
 > **Prior:** 2026-08-28 · skill **`/gen-feature-tracking`** — thêm feature / implement (queue + chat) **phải** upsert file này. Nguồn STATUS đọc cùng ngày.  
@@ -59,6 +60,7 @@
 | `map-service` | gis.vn + clip OSM | — | support | `draft` / `pending` | none | [ctx](features/map-service.md) | [ST](../../specs/map-service/STATUS.md) |
 | `gis-osm-clip` | OSM overlay prod | — | support | no STATUS · GAP-MOB-IOS-MAP-HOST-01 | none | [ctx](features/gis-osm-clip.md) | — |
 | `legal-tech-corridor` | Luật VN + Store | — | support | no STATUS | none | [ctx](features/legal-tech-corridor.md) | — |
+| `ios-store-submit` | iOS ASC Invalid Binary / 90717 | — | support | context / live | none | [ctx](features/ios-store-submit.md) | — |
 | `directions` | Chỉ đường guest | — | support | no STATUS | none | [ctx](features/directions.md) | — |
 | `ai-vision` | AI kiểm định MD | 03 / 03-P2 | P1-900 online · P2-CR local | `done` / `in_progress` | catalog | [ctx](features/ai-vision.md) | [ST](../../specs/ai-vision/STATUS.md) |
 | `ai-asset-detect` | AI phát hiện TS | 03b / 03b-P2 | P1-900 · edge P2-CR | done | catalog | [ctx](features/ai-asset-detect.md) | [ST](../../specs/ai-asset-detect/STATUS.md) |
@@ -159,7 +161,7 @@
 | P3-CR | `inventory` | Dev · be/ui repo confirm |
 | CR-Khu-IV | `kcht-cong-trinh` | data_analy draft · công văn 08/2026 · 5 PH |
 | support | `feedback` · `master` hub · `patrol-checkin` | draft |
-| support | `map-service` · `gis-osm-clip` · `directions` · `legal-tech-corridor` · `toc` | `map-service` `draft`/`pending` (Wave 4 ios+android done · web pending) · còn lại context |
+| support | `map-service` · `gis-osm-clip` · `directions` · `legal-tech-corridor` · `ios-store-submit` · `toc` | `map-service` `draft`/`pending` (Wave 4 ios+android done · web pending) · còn lại context |
 
 ---
 
@@ -289,7 +291,16 @@ Rule: `packKind=master` **không** gen demo — context + Design prototype.
 
 #### GIS platform
 
-`gis-osm-clip` · `legal-tech-corridor` · `directions` — context · skill `/implement-gis-map` · `/review-app-vn-map-law` · `/implement-directions-app`.
+`gis-osm-clip` · `legal-tech-corridor` · `ios-store-submit` · `directions` — context · skill `/implement-gis-map` · `/review-app-vn-map-law` · `/fill-build-ios-info` · `/implement-directions-app`.
+
+#### `ios-store-submit`
+
+| | |
+|--|--|
+| Release / implement | support · Archive Apple |
+| Demo | none |
+| Pipeline | context / live (RMMS 1.0.7) |
+| Next | `/fill-build-ios-info` · UserDefaults **CA92.1** · AppIcon 1024 RGB · [`IOS-SUBMIT-GUIDE.md`](../plan/release-mobile/store/IOS-SUBMIT-GUIDE.md) |
 
 **GAP-MOB-IOS-MAP-HOST-01:** iOS `#sc-gis-map` = SSOT host clip. `#sc-patrol-map` + sheet HITL `photo-geo-capture` **phải** reuse `GisClipMapView` (cùng tile BFF · HS/TS · pict QCVN). Slash: `/implement-gis-map` `ios_replace_all_maps`. Queue hub **đã ingest** `qlbd-mobile` **`task_1f6d86c4`** (hey_apply target = autocode_hub).
 

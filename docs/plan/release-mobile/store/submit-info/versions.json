@@ -1,0 +1,21 @@
+{
+  "domain": "rmms",
+  "stores": ["apple"],
+  "currentVersion": "1.0.7",
+  "wave": "w3_camera",
+  "waveSkip": ["guest.directions", "staff.patrolMap", "guest.forgotOtp"],
+  "generatedAt": "2026-09-16",
+  "copyAngle": "layout_ui_features",
+  "landingUrl": "https://app.rmms.vn/privacy",
+  "landingLive": false,
+  "landingCheck": "GET https://app.rmms.vn/privacy - HTTP 500 (2026-09-16) - deploy Root RMMS trước Submit",
+  "versions": [
+    {
+      "version": "1.0.7",
+      "file": "v1.0.7.html",
+      "wave": "w3_camera",
+      "generatedAt": "2026-09-16",
+      "copyAngle": "layout_ui_features"
+    }
+  ]
+}

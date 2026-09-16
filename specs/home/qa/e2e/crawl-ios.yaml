@@ -1,4 +1,4 @@
-appId: org.linmsoft.rmms
+appId: com.drvn.rmms
 ---
 # crawl · home guest then staff
 - launchApp:
@@ -10,6 +10,10 @@ appId: org.linmsoft.rmms
     timeout: 15000
 - tapOn:
     id: "btn-home-faq"
+    optional: true
+- tapOn:
+    text: "Câu hỏi thường gặp"
+    optional: true
 - extendedWaitUntil:
     visible:
       id: "sc-faq"
@@ -18,9 +22,22 @@ appId: org.linmsoft.rmms
 - tapOn:
     id: "nav-back"
     optional: true
+- tapOn:
+    id: "btn-faq-back"
+    optional: true
+- tapOn:
+    id: "btn-privacy-back"
+    optional: true
+- tapOn:
+    text: "Về Trang Chủ"
+    optional: true
 
 - tapOn:
     id: "btn-home-privacy"
+    optional: true
+- tapOn:
+    text: "Chính sách quyền riêng tư"
+    optional: true
 - extendedWaitUntil:
     visible:
       id: "sc-privacy"
@@ -28,6 +45,15 @@ appId: org.linmsoft.rmms
 - takeScreenshot: CRAWL-privacy
 - tapOn:
     id: "nav-back"
+    optional: true
+- tapOn:
+    id: "btn-faq-back"
+    optional: true
+- tapOn:
+    id: "btn-privacy-back"
+    optional: true
+- tapOn:
+    text: "Về Trang Chủ"
     optional: true
 
 - extendedWaitUntil:
@@ -37,6 +63,9 @@ appId: org.linmsoft.rmms
 - tapOn:
     id: "btn-home-login"
     optional: true
+- tapOn:
+    text: "Dành cho cán bộ"
+    optional: true
 - extendedWaitUntil:
     visible:
       id: "f-user"
@@ -44,7 +73,7 @@ appId: org.linmsoft.rmms
 - tapOn:
     id: "f-user"
 - eraseText
-- inputText: "linm-soft"
+- inputText: "rmms-admin"
 - tapOn:
     text: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
     optional: true
@@ -54,7 +83,7 @@ appId: org.linmsoft.rmms
 - tapOn:
     id: "f-pass"
 - eraseText
-- inputText: "Linm@2026"
+- inputText: "RMMS@2026"
 - tapOn:
     text: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
     optional: true
@@ -77,6 +106,10 @@ appId: org.linmsoft.rmms
 
 - tapOn:
     id: "tile-supervise"
+    optional: true
+- tapOn:
+    text: "Giám sát"
+    optional: true
 - extendedWaitUntil:
     visible:
       id: "sc-supervise"
@@ -101,6 +134,10 @@ appId: org.linmsoft.rmms
 
 - tapOn:
     id: "tile-patrol"
+    optional: true
+- tapOn:
+    text: "Tuần đường"
+    optional: true
 - extendedWaitUntil:
     visible:
       id: "sc-patrol-home"
@@ -125,6 +162,10 @@ appId: org.linmsoft.rmms
 
 - tapOn:
     id: "tile-mnt"
+    optional: true
+- tapOn:
+    text: "Công việc"
+    optional: true
 - extendedWaitUntil:
     visible:
       id: "sc-mnt-list"
@@ -149,6 +190,10 @@ appId: org.linmsoft.rmms
 
 - tapOn:
     id: "tile-incident"
+    optional: true
+- tapOn:
+    text: "Vấn đề"
+    optional: true
 - extendedWaitUntil:
     visible:
       id: "sc-incident-list"
@@ -173,6 +218,10 @@ appId: org.linmsoft.rmms
 
 - tapOn:
     id: "tile-asset"
+    optional: true
+- tapOn:
+    text: "Tài sản"
+    optional: true
 - extendedWaitUntil:
     visible:
       id: "sc-asset-hub"
@@ -197,6 +246,10 @@ appId: org.linmsoft.rmms
 
 - tapOn:
     id: "tile-offline"
+    optional: true
+- tapOn:
+    text: "Lưu trữ"
+    optional: true
 - extendedWaitUntil:
     visible:
       id: "sc-patrol-offline"
@@ -221,6 +274,10 @@ appId: org.linmsoft.rmms
 
 - tapOn:
     id: "wallet-card"
+    optional: true
+- tapOn:
+    text: "Ví"
+    optional: true
 - extendedWaitUntil:
     visible:
       id: "sc-asset-hub"
@@ -245,6 +302,10 @@ appId: org.linmsoft.rmms
 
 - tapOn:
     id: "quick-patrol"
+    optional: true
+- tapOn:
+    text: "Điểm tuần"
+    optional: true
 - extendedWaitUntil:
     visible:
       id: "sc-patrol-home"
@@ -269,6 +330,10 @@ appId: org.linmsoft.rmms
 
 - tapOn:
     id: "quick-incident"
+    optional: true
+- tapOn:
+    text: "Ghi sự cố"
+    optional: true
 - extendedWaitUntil:
     visible:
       id: "sc-inc-pick"

@@ -1,0 +1,64 @@
+yarn run v1.22.22
+$ tsx src/index.ts e2e-qa-mobile --feature=mnt-list --product-root=/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data --ios-root=/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS --ios-phase=phase1_iphone --bundle-id=com.drvn.rmms --cases=A11-LAUNCH,A10-BFF,A9-LOGIN,A3-CORE --skip-start --skip-build --crawl
+{
+  "ok": false,
+  "outDir": "/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/mnt-list/qa/screens",
+  "storeDir": "/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/mnt-list/qa/store/mnt-list",
+  "iosDevice": "iPhone 17 Pro Max",
+  "steps": [
+    {
+      "id": "A10-BFF",
+      "result": "PASS",
+      "store": [
+        "A10",
+        "P11"
+      ]
+    },
+    {
+      "id": "MAESTRO-IOS",
+      "result": "FAIL",
+      "store": [
+        "A3",
+        "A9",
+        "A11"
+      ],
+      "error": "se text... COMPLETED\nInput text RMMS@2026... COMPLETED\nTap on (Optional) \"QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ\"... COMPLETED\nTap on (Optional) \"RMMS\"... COMPLETED\nTap on (Optional) id: btn-login... COMPLETED\nTap on (Optional) \"Đăng nhập\"... WARNED\nTap on (Optional) \"Not Now\"... WARNED\nAssert that id: home-who is visible... COMPLETED\nTap on (Optional) id: tab-work... WARNED\nTap on (Optional) \"Công việc\"... COMPLETED\nTap on point (70%,96%)... COMPLETED\nAssert that id: sc-mnt-list is visible... COMPLETED\nTap on (Optional) id: row-mnt-hub... COMPLETED\nTap on (Optional) \"Giao việc\"... COMPLETED\nAssert that id: sc-estimate is visible... FAILED\n\nAssertion is false: id: sc-estimate is visible\n\nAssertion 'id: sc-estimate is visible' failed. Check the UI hierarchy in debug artifacts to verify the element state and properties.\n\nPossible causes:\n- Element selector may be incorrect - check if there are similar elements with slightly different names/properties.\n- Element may be temporarily unavailable due to loading state\n- This could be a real regression that needs to be addressed\n\n==== Debug output (logs & screenshots) ====\n\n/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/mnt-list/qa/screens/_maestro_ios",
+      "gap": "GAP-MOB-ACT-03"
+    },
+    {
+      "id": "CRAWL",
+      "result": "FAIL",
+      "store": [],
+      "error": ") \"Dành cho cán bộ\"... COMPLETED\nAssert that id: f-user is visible... COMPLETED\nTap on id: f-user... COMPLETED\nErase text... COMPLETED\nInput text rmms-admin... COMPLETED\nTap on (Optional) \"QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ\"... COMPLETED\nTap on (Optional) \"RMMS\"... COMPLETED\nTap on id: f-pass... COMPLETED\nErase text... COMPLETED\nInput text RMMS@2026... COMPLETED\nTap on (Optional) \"QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ\"... COMPLETED\nTap on (Optional) \"RMMS\"... COMPLETED\nTap on (Optional) id: btn-login... COMPLETED\nTap on (Optional) \"Đăng nhập\"... WARNED\nTap on (Optional) \"Not Now\"... WARNED\nAssert that id: home-who is visible... COMPLETED\nTap on (Optional) id: tab-work... WARNED\nTap on (Optional) \"Công việc\"... COMPLETED\nTap on point (70%,96%)... COMPLETED\nAssert that id: sc-mnt-list is visible... COMPLETED\nTap on (Optional) id: row-mnt-hub... COMPLETED\nTap on (Optional) \"Giao việc\"... COMPLETED\nAssert that id: sc-estimate is visible... FAILED\n\nAssertion is false: id: sc-estimate is visible\n\nAssertion 'id: sc-estimate is visible' failed. Check the UI hierarchy in debug artifacts to verify the element state and properties.\n\nPossible causes:\n- Element selector may be incorrect - check if there are similar elements with slightly different names/properties.\n- Element may be temporarily unavailable due to loading state\n- This could be a real regression that needs to be addressed\n\n==== Debug output (logs & screenshots) ====\n\n/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/mnt-list/qa/screens/_maestro_ios",
+      "gap": "GAP-MOB-ACT-03"
+    },
+    {
+      "id": "A11-LAUNCH",
+      "result": "PASS",
+      "screenshot": "A11-LAUNCH.png",
+      "store": [
+        "A11"
+      ]
+    },
+    {
+      "id": "A9-LOGIN",
+      "result": "PASS",
+      "screenshot": "A9-LOGIN.png",
+      "store": [
+        "A9",
+        "P10"
+      ]
+    },
+    {
+      "id": "A3-CORE",
+      "result": "PASS",
+      "screenshot": "A3-CORE.png",
+      "store": [
+        "A3",
+        "A11"
+      ]
+    }
+  ],
+  "error": "GAP-MOB-ACT-03; GAP-MOB-ACT-03"
+}
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
