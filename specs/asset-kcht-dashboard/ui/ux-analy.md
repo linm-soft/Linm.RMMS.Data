@@ -5,7 +5,7 @@
 | feature | `asset-kcht-dashboard` |
 | this role | `design` · `/edit-web-feature` |
 | changeScope | `edit_page` — count từ DB (`BRIDGE`/`TUNNEL` + summary-by-type) · pict GIS giữ |
-| updatedAt | `2026-08-30T01:31:00.000Z` |
+| updatedAt | `2026-09-16T21:40:00.000Z` · `/edit-mobile-feature` native hang-mục |
 
 ## Zones (không đổi)
 
@@ -33,3 +33,19 @@ Tile không 1:1 GIS → **closest** (bảng design §6) · **cấm** invent pict
 - Host `/dashboard`: Authen size+parcel · ẩn ERP placeholder · Lối tắt nhanh gated `dashboard:widget:quick-links:read`.
 - L0 **Bảng điều khiển** → `/dashboard` (flatten group `#` · **cấm** `#` → `/` → packageDefaultUrl `/so-ts`).
 - Không AskQuestion `design_confirm` (user scoped Design + TL).
+
+## Mobile native (`/edit-mobile-feature` 2026-09-16)
+
+| Zone | Copy | GAP |
+|------|------|-----|
+| A | `LinmTopBar` «Hạng mục KCHT» | Dual `#sc-asset-kcht` · back hub |
+| GRID | 40 ô 1 cột phone · icon + nhãn + count | SSOT `KCHT_TILES` web · **cấm** pick-grid 32 loại cũ |
+| CARD | display-only | icon + nhãn + count · **cấm** tap / drill |
+| Hub entry | wallet + tile 32 loại | GAP-MOB-AHUB-KCHT-01 **closed** |
+
+| ID | Issue | Fix |
+|----|-------|-----|
+| GAP-MOB-AHUB-KCHT-01 | Hồ sơ / 32 loại chỉ toast | Dual hang-mục 40 ô stats · wallet+tile push |
+| GAP-MOB-KCHT-STATS-01 | Card có tap drill | **closed** · stats only · back TopBar only |
+| GAP-MOB-EDIT-01 | Packet web 4-col / widget làm SSOT phone | design §11 + `html-to-native-map.md` · 1 cột · kit tokens |
+| GAP-WEB-EDIT-SEED | API lỗi hiện 0 | Count nguồn lỗi «—» · **cấm** seed 0 |

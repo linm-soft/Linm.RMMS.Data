@@ -23,7 +23,7 @@
 |------|--------|-----|---------------|
 | Nav back | — | `LinmTopBar` / nav chrome | `home` |
 | Ví hồ sơ | `DES-MOB-ASSET-WALLET` | `LinmWalletCard` | display · tap **không** nav (đã ở hub) |
-| Grid 32 loại + bản đồ | hub-grid | `LinmHubTile` ×2 | `asset-types` · `gis-map` |
+| Grid 32 loại + bản đồ | hub-grid | `LinmHubTile` ×2 **cùng height hàng** | `asset-types` · `gis-map` |
 | Thu thập | section + grid | `LinmSectionLabel` · `LinmHubTile` ×2 | `asset-collect` · `asset-ai` |
 | Quản lý | section + grid | `LinmSectionLabel` · `LinmHubTile` ×2 | `asset-list` · `asset-adjust` |
 | Row bản đồ | card-group | `LinmListRow` | `gis-map` (cùng slug tile) |
@@ -61,3 +61,10 @@ Sibling screens gọi CRUD riêng — xem `asset-hub-bff-endpoints.md`.
 - ERP.* prefix
 
 <!-- context: asset-hub mobile hub P1 · data_analy 2026-08-19 -->
+
+## Implement tracking
+
+| lane | phase | status | updatedAt |
+|------|-------|--------|-----------|
+| web | — | — | — |
+| mobile | `done` | `done` | `2026-09-01T04:09:38.940Z` |

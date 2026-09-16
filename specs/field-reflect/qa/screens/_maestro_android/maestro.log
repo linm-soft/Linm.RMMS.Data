@@ -1,0 +1,80 @@
+Running on Pixel_2
+ > Flow android
+Launch app "org.linmsoft.rmms" with clear state and clear keychain... COMPLETED
+Assert that id: sc-home is visible... COMPLETED
+Take screenshot A11-LAUNCH... COMPLETED
+Tap on id: btn-home-login... COMPLETED
+Assert that id: f-user is visible... COMPLETED
+Tap on id: f-user... COMPLETED
+Input text linm-soft... COMPLETED
+Press Enter key... COMPLETED
+Wait for animation to end within 1500 ms... COMPLETED
+Input text Linm@2026... COMPLETED
+Take screenshot A9-LOGIN... COMPLETED
+Press Enter key... COMPLETED
+Wait for animation to end within 3000 ms... COMPLETED
+Tap on (Optional) id: btn-login... WARNED
+
+
+ Warning: Element not found: Id matching regex: btn-login
+Assert that id: sc-home is visible... COMPLETED
+Tap on id: tab-field... COMPLETED
+Assert that id: sc-patrol-home is visible... COMPLETED
+Assert that id: patrol-hero is visible... COMPLETED
+Scroll vertically... COMPLETED
+Scroll vertically... COMPLETED
+Scroll vertically... COMPLETED
+Assert that id: row-quick-field-reflect is visible... COMPLETED
+Tap on id: row-quick-field-reflect... COMPLETED
+Tap on (Optional) "Ghi nhận hư hỏng"... WARNED
+
+
+ Warning: Element not found: Text matching regex: Ghi nhận hư hỏng
+Tap on (Optional) "While using the app"... WARNED
+
+
+ Warning: Element not found: Text matching regex: While using the app
+Tap on (Optional) "Allow"... WARNED
+
+
+ Warning: Element not found: Text matching regex: Allow
+Tap on (Optional) "ONLY THIS TIME"... WARNED
+
+
+ Warning: Element not found: Text matching regex: ONLY THIS TIME
+Tap on (Optional) "While using the app"... WARNED
+
+
+ Warning: Element not found: Text matching regex: While using the app
+Tap on (Optional) "Allow"... WARNED
+
+
+ Warning: Element not found: Text matching regex: Allow
+Assert that id: sc-field-pick is visible... COMPLETED
+Assert that (Optional) id: banner-pick is visible... COMPLETED
+Assert that (Optional) id: asset-grid is visible... COMPLETED
+Tap on (Optional) id: ak32-PAVEMENT... WARNED
+
+
+ Warning: Element not found: Id matching regex: ak32-PAVEMENT
+Tap on (Optional) "Mặt đường"... WARNED
+
+
+ Warning: Element not found: Text matching regex: Mặt đường
+Tap on (Optional) id: ak32-BRIDGE... COMPLETED
+Tap on (Optional) "Cầu"... COMPLETED
+Assert that id: sc-field-reflect is visible... COMPLETED
+Assert that "Ghi nhận hư hỏng" is visible... COMPLETED
+Assert that (Optional) id: kind-pills is visible... COMPLETED
+Assert that (Optional) "Vị trí đã chốt" is visible... WARNED
+
+
+ Warning: Assertion is false: "Vị trí đã chốt" is visible
+Take screenshot P6-CORE... COMPLETED
+Scroll vertically... COMPLETED
+Assert that (Optional) id: btn-create is visible... COMPLETED
+Assert that (Optional) id: btn-draft is visible... WARNED
+
+
+ Warning: Assertion is false: id: btn-draft is visible
+Take screenshot P6-CORE-2... COMPLETED

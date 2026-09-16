@@ -4,14 +4,14 @@
 |-------|-------|
 | feature | `patrol-history` |
 | zone | `#sc-patrol-history` · DES-MOB-PAT-LIST |
-| this role | `/review-align-ux-ios-android` · QA `task_7ecfbf20` |
+| this role | `/review-align-ux-ios-android` · QA `task_203672b2` |
 | verdict | **Aligned** · Must **0** |
 | align_confirm | **approve** (autoApprove=ON · QA) |
 | TokenFile | `docs/mobile-tokens.json` |
 | MapFile | list kit dual · `LinmListRow` leadingSlot 0 |
 | shots | live `qa/screens/A3-CORE.png` · `P6-CORE.png` · `P6-CORE-2.png` vs proto `ui/prototype/{ios,android}/index.html#sc-patrol-history` |
-| live capturedAt | `2026-08-19T21:49:16.649Z` · iPhone 17 Pro Max · wm **1080×1920** |
-| updatedAt | `2026-08-20T05:00:00.000Z` |
+| live capturedAt | `2026-09-01T05:48:28.371Z` · iPhone 17 Pro Max · wm **1080×1920** |
+| updatedAt | `2026-09-01T05:50:00.000Z` |
 
 ## Must — PASS (3-up `#sc-patrol-history`)
 

@@ -107,4 +107,4 @@ Object storage: MinIO raw images.
 | lane | phase | status | updatedAt |
 |------|-------|--------|-----------|
 | web | `qa` | `await_confirm` | `2026-09-12T08:54:29.225Z` |
-| mobile | — | — | — |
+| mobile | `done` | `in_progress` | `2026-09-01T00:42:01.265Z` |

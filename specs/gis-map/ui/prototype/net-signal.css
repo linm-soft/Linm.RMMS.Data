@@ -1,0 +1,49 @@
+/* Tín hiệu hạng — iOS + Android. Cấm «Có mạng» / «Không mạng». */
+.vn-hero-tools {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 10px;
+}
+.hero-ico {
+  width: 32px; height: 32px; border: 0; border-radius: 50%; padding: 0;
+  background: rgba(255,255,255,.22); color: #fff;
+  display: grid; place-items: center; cursor: pointer; position: relative;
+}
+.hero-ico .ic { width: 18px; height: 18px; font-size: 18px; }
+.hero-ico .dot {
+  position: absolute; top: -4px; right: -4px;
+  min-width: 22px; height: 22px; padding: 0 5px; box-sizing: border-box;
+  background: #F03C30; color: #fff; border-radius: 999px; border: 1.5px solid #fff;
+  font-size: 11px; font-weight: 700; line-height: 19px; text-align: center;
+}
+.vn-hero .role {
+  display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700;
+  background: rgba(255,255,255,.18); border-radius: 999px; padding: 4px 10px;
+}
+.role .net-sep { width: 1px; height: 11px; background: rgba(255,255,255,.4); flex-shrink: 0; }
+.net-sig {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 11px; font-weight: 750; letter-spacing: .01em; cursor: pointer;
+  user-select: none; line-height: 1;
+}
+.net-wifi {
+  width: 14px; height: 14px; fill: none; stroke: currentColor;
+  stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0;
+}
+.net-wifi circle { fill: currentColor; stroke: none; }
+.net-bars { display: inline-flex; align-items: flex-end; gap: 1.5px; height: 11px; }
+.net-bars i {
+  display: block; width: 2.5px; border-radius: 1px; background: currentColor; opacity: .28;
+}
+.net-bars i:nth-child(1) { height: 4px; }
+.net-bars i:nth-child(2) { height: 6px; }
+.net-bars i:nth-child(3) { height: 8px; }
+.net-bars i:nth-child(4) { height: 11px; }
+.net-bars i.on { opacity: 1; }
+.net-lab { white-space: nowrap; }
+.net-sig--tot { color: #BBF7D0; }
+.net-sig--tb { color: #FDE68A; }
+.net-sig--yeu { color: #FECACA; }
+.net-sig.on-light.net-sig--tot { color: #15803D; }
+.net-sig.on-light.net-sig--tb { color: #B45309; }
+.net-sig.on-light.net-sig--yeu { color: #B91C1C; }
+.hero-eyebrow .net-sig { text-transform: none; letter-spacing: 0; }

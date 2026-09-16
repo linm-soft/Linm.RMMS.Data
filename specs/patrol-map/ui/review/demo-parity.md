@@ -28,7 +28,7 @@ Ngày: 2026-08-20 · `task_4ba10fbc` · autoApprove=ON
 | Token | iOS | Android |
 |-------|-----|---------|
 | Back | text Tuần đường + chevron | icon back |
-| Map engine | MapKit (native) | OSM tiles (native) |
+| Map engine | `GisClipMapView` MapLibre clip | same |
 | Pin done hex | `#34C759` | `#1B8A4A` |
 | Next hex | `#FF9500` | `#E67E00` |
 | Frame | 390×844 | 412×915 |

@@ -139,6 +139,17 @@
       position: absolute; top: 10px; left: 0; right: 0; text-align: center;
       color: #888; font-size: 11px; pointer-events: none;
     }
+    .state-bar {
+      position: absolute; top: 28px; left: 50%; transform: translateX(-50%);
+      display: flex; gap: 6px; z-index: 2;
+    }
+    .state-bar button {
+      border: 0; border-radius: 8px; padding: 6px 10px; font-size: 11px;
+      cursor: pointer; background: #333; color: #ccc; font-family: inherit;
+    }
+    .state-bar button.on { background: var(--primary); color: #fff; font-weight: 600; }
+    .is-hidden { display: none !important; }
+    .hero-empty .hero-title { opacity: .85; }
   </style>
 </head>
 <body>
@@ -159,7 +170,11 @@
     <symbol id="i-person" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c1.5-3.5 4-5 7-5s5.5 1.5 7 5"/></symbol>
   </svg>
 
-  <div class="note">DES-MOB-PAT-HOME · Android 412×915 · patrol-home</div>
+  <div class="note">DES-MOB-PAT-HOME · Android 412×915 · patrol-home · edit_page</div>
+  <div class="state-bar" aria-label="Hub state preview">
+    <button type="button" id="st-active" class="on" onclick="setHubState('active')">Có ca</button>
+    <button type="button" id="st-empty" onclick="setHubState('empty')">Chưa có ca</button>
+  </div>
   <div class="phone">
     <div id="sc-patrol-home" data-des-id="DES-MOB-PAT-HOME" data-tab="field">
       <div class="top-bar" data-des-id="DES-MOB-PAT-HOME-NAV">
@@ -178,12 +193,13 @@
         <button type="button" id="seg-attendance" onclick="toast('Chấm công')">Chấm công</button>
       </div>
       <div class="content">
-        <div class="hero-card" data-des-id="DES-MOB-PAT-ACTIVE">
+        <div class="hero-card" id="hero-active" data-zone="heroActive" data-des-id="DES-MOB-PAT-ACTIVE">
           <div class="hero-eyebrow">
             Ca đang chạy ·
             <span class="bars" aria-label="Tín hiệu Tốt" data-net-signal="tot"><i></i><i></i><i></i><i></i></span>
             Tốt
           </div>
+          <!-- live bind only · empty field → — · cấm mapper fallback sample -->
           <div class="hero-title">QL.1 · Km 1556+000</div>
           <div class="hero-meta">PAT-20260810-0014 · Nguyễn Văn A<br/>Điểm tuần 2/3 · Độ phủ 67%</div>
           <div class="progress" data-des-id="DES-MOB-PAT-PROGRESS"><span></span></div>
@@ -198,14 +214,24 @@
             </button>
           </div>
         </div>
+        <div class="hero-card hero-empty is-hidden" id="hero-empty" data-zone="emptyActive" data-des-id="DES-MOB-PAT-EMPTY">
+          <div class="hero-eyebrow">Chưa có ca đang chạy</div>
+          <div class="hero-title">—</div>
+          <div class="hero-meta">Chạm Mở ca để bắt đầu phiên tuần đường</div>
+          <div class="hero-actions" style="margin-top:12px">
+            <button class="btn btn-white" type="button" id="btn-open-session" onclick="toast('Mở ca · POST patrol/sessions')">
+              Mở ca
+            </button>
+          </div>
+        </div>
         <button type="button" class="btn btn-primary" id="pin-here" data-des-id="DES-MOB-CI-PIN-HERE" onclick="toast('Ghim vị trí hiện tại')">
           <svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-mappin"/></svg>
           Ghim vị trí hiện tại
         </button>
-        <div class="kpi-strip" data-des-id="DES-MOB-PAT-KPI">
-          <div class="kpi"><div class="v" style="color:var(--success)">2</div><div class="l">Đã ghi điểm tuần</div></div>
-          <div class="kpi"><div class="v" style="color:var(--warn)">1</div><div class="l">Còn lại</div></div>
-          <div class="kpi"><div class="v">67%</div><div class="l">Độ phủ</div></div>
+        <div class="kpi-strip" id="kpi-strip" data-des-id="DES-MOB-PAT-KPI">
+          <div class="kpi"><div class="v" style="color:var(--success)" id="kpi-checked">2</div><div class="l">Đã ghi điểm tuần</div></div>
+          <div class="kpi"><div class="v" style="color:var(--warn)" id="kpi-remaining">1</div><div class="l">Còn lại</div></div>
+          <div class="kpi"><div class="v" id="kpi-coverage">67%</div><div class="l">Độ phủ</div></div>
         </div>
         <div class="section-label">Hôm nay</div>
         <div class="card-group" data-des-id="DES-MOB-PAT-TODAY">
@@ -291,6 +317,16 @@
       el.classList.add('on');
       clearTimeout(t);
       t = setTimeout(() => el.classList.remove('on'), 1600);
+    }
+    function setHubState(mode) {
+      const empty = mode === 'empty';
+      document.getElementById('hero-active').classList.toggle('is-hidden', empty);
+      document.getElementById('hero-empty').classList.toggle('is-hidden', !empty);
+      document.getElementById('st-active').classList.toggle('on', !empty);
+      document.getElementById('st-empty').classList.toggle('on', empty);
+      document.getElementById('kpi-checked').textContent = empty ? '—' : '2';
+      document.getElementById('kpi-remaining').textContent = empty ? '—' : '1';
+      document.getElementById('kpi-coverage').textContent = empty ? '—' : '67%';
     }
   </script>
 </body>

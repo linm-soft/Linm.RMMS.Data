@@ -41,7 +41,7 @@
 |--|--|
 | Surface | Push hub · large title · segment 2 · green hero · section + list rows · **không** Modal/Sheet / invent tab |
 | FormMode | none |
-| Action this slug | Appear GET · Chấm vào POST+GPS · toast report/day |
+| Action this slug | Appear GET · Chấm vào POST+GPS · **push** report / day |
 | `devSlash` | `/agent-dev-ios` + `/agent-dev-android` |
 | Frame | iOS 390×844 · Android 412×915 · safe area |
 
@@ -63,8 +63,8 @@
 #sc-attendance  DES-MOB-ATT  ← this pack
   → segment 0 = pop #sc-patrol-home
   → Chấm vào = GPS + POST patrol/attendance-logs
-  → Báo cáo = toast «Báo cáo công» · cấm push report
-  → tap day = toast «Chi tiết ngày công» · cấm push detail
+  → Báo cáo = push `#sc-attendance-report` (sibling `attendance-report` shipped)
+  → tap day = push `#sc-attendance-day` (sibling shipped)
   → không child form / sheet
 ```
 
@@ -81,7 +81,7 @@
 | heroTitle | Chưa chấm vào | Text | * | same | → Đã chấm vào |
 | heroMeta | Vị trí: Văn phòng QLĐB IV.1 · Khu IV · ±6 m / Ca sáng · 10/08/2026 | Text | * | same | demo SSOT |
 | checkIn | Chấm vào | Button white | * | `LinmHeroAction` | GPS+POST |
-| report | Báo cáo | Button ghost | * | `LinmHeroAction` | toast |
+| report | Báo cáo | Button ghost | * | `LinmHeroAction` | **push** `#sc-attendance-report` |
 | section7d | 7 ngày gần đây | Section | * | `LinmSectionLabel` | |
 | day1 | CN 10/08 · — · Nghỉ | Row + badge | * | `LinmListRow` | |
 | day2 | T7 09/08 · 07:05 – 16:40 · Đủ công | Row | * | same | |
@@ -118,8 +118,8 @@ Toast → `LinmToast`. **Cấm** invent kit.
 | Seg 0 | pop `#sc-patrol-home` |
 | Chấm vào | GPS → POST · toast success · hero Đã chấm |
 | GPS deny | toast locDeny · no POST |
-| Báo cáo | toast **Báo cáo công** |
-| Tap day | toast **Chi tiết ngày công** |
+| Báo cáo | **push** `#sc-attendance-report` |
+| Tap day | **push** `#sc-attendance-day` |
 | Entry | patrol seg → push `#sc-attendance` |
 | Signal | **N/A** · **cấm** «Có mạng» |
 
@@ -129,14 +129,14 @@ Toast → `LinmToast`. **Cấm** invent kit.
 |--------|------|-------|
 | GET | `patrol/attendance-logs` | **yes** |
 | POST | `patrol/attendance-logs` | **yes** |
-| Report / day detail | — | toast P1 |
+| Report / day detail | sibling screens | **push** · **cấm** invent `/attendance/report` |
 
 **Cấm** invent report/zones · Step 4b endpoint mới · ERP.*.
 
 ## 8. Cấm
 
 - WebView · `mfeStdUrl` · `yarn start:std`
-- Gộp sibling · push report/detail P1
+- Gộp POST hub với report screen · invent `/attendance/report`
 - `UIAlert` / `AlertDialog` / `window.alert`
 - Watermark Gói · device label
 - Board **không** prefix `ios/` · `android/` (`GAP-MOB-DES-PFX-01`)

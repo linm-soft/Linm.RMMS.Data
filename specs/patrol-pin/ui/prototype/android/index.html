@@ -91,6 +91,22 @@
     }
     .nav button.on { color: var(--blue); }
     .nav svg { width: 24px; height: 24px; fill: currentColor; }
+    .sheet-backdrop {
+      position: absolute; inset: 0; background: rgba(0,0,0,.4); display: none;
+      align-items: flex-end; z-index: 25;
+    }
+    .sheet-backdrop.open { display: flex; }
+    .sheet {
+      width: 100%; background: var(--card); border-radius: 28px 28px 0 0;
+      padding: 12px 20px 32px; box-shadow: 0 -4px 24px rgba(0,0,0,.14);
+    }
+    .sheet .grab {
+      width: 36px; height: 5px; border-radius: 3px; background: var(--sep);
+      margin: 0 auto 14px;
+    }
+    .sheet h3 { font-size: 17px; font-weight: 600; margin: 0 0 6px; }
+    .sheet .meta { font-size: 13px; color: var(--muted); margin: 0 0 4px; line-height: 1.35; }
+    .sheet .btn { width: 100%; margin: 12px 0 0; }
   </style>
 </head>
 <body>
@@ -108,7 +124,7 @@
         <svg viewBox="0 0 24 24"><use href="#i-mappin"/></svg>
         Ghim vị trí hiện tại
       </button>
-      <p class="hint">Live GPS · toast lý trình · handoff Ghi điểm tuần (sibling · không form trên pack này).</p>
+      <p class="hint">Sau khi ghim, mở Ghi điểm tuần với vị trí vừa lấy.</p>
     </div>
 
     <!-- Map · #sc-patrol-map · reuse CTA -->
@@ -137,6 +153,18 @@
         <p>Cần vị trí để chấm công / chấm điểm tuần. Mở Cài đặt → Quyền vị trí cho RMMS.</p>
         <button type="button" class="btn" onclick="copyGuide()">Sao chép hướng dẫn</button>
         <button type="button" class="btn secondary" onclick="closeModal()">Để sau</button>
+      </div>
+    </div>
+
+    <!-- Real handoff sheet · DES-MOB-HANDOFF-CHECKIN · payload only · cấm form fields -->
+    <div class="sheet-backdrop" id="sheet-handoff-checkin" data-des-id="DES-MOB-HANDOFF-CHECKIN" onclick="if(event.target===this)closeHandoff()">
+      <div class="sheet" role="dialog" aria-labelledby="handoff-title">
+        <div class="grab" aria-hidden="true"></div>
+        <h3 id="handoff-title">Ghi điểm tuần</h3>
+        <p class="meta" id="handoff-route">Lý trình · QL.1 · Km 1561+134</p>
+        <p class="meta" id="handoff-fix">Vị trí · ±4 m</p>
+        <button type="button" class="btn" onclick="continueHandoff()">Tiếp tục</button>
+        <button type="button" class="btn secondary" onclick="closeHandoff()">Để sau</button>
       </div>
     </div>
 
@@ -170,6 +198,8 @@
 
     const ROUTE = 'QL.1 · Km 1561+134';
     const ACC_M = 4;
+    const SESSION_ID = 'demo-session-active';
+    const OFFLINE = location.search.includes('offline=1');
 
     function toast(msg) {
       const el = document.getElementById('toast');
@@ -184,6 +214,22 @@
       document.getElementById('sc-patrol-map').classList.toggle('active', map);
     })();
 
+    function openHandoff() {
+      document.getElementById('handoff-route').textContent = 'Lý trình · ' + ROUTE;
+      document.getElementById('handoff-fix').textContent = 'Vị trí · ±' + ACC_M + ' m';
+      document.getElementById('sheet-handoff-checkin').classList.add('open');
+    }
+
+    function closeHandoff() {
+      document.getElementById('sheet-handoff-checkin').classList.remove('open');
+    }
+
+    function continueHandoff() {
+      closeHandoff();
+      // Native: openSheet/navigate patrol-checkin with sessionId + LocationFix · form = sibling
+      toast('Đã mở Ghi điểm tuần');
+    }
+
     function pinHereCheckin() {
       if (locMode === 'deny') {
         document.getElementById('modal-gps').classList.add('open');
@@ -196,8 +242,13 @@
       const pin = document.getElementById('pin-here');
       if (pin) pin.hidden = false;
       toast('Đã ghim vị trí hiện tại · ' + ROUTE + ' · ±' + ACC_M + ' m');
-      // Handoff sibling patrol-checkin — stub toast only · cấm open check-in form
-      setTimeout(() => toast('Handoff · Ghi điểm tuần (sibling)'), 2600);
+      // Real handoff · payload sessionId+LocationFix · cấm form trên pack pin · cấm auto-POST
+      window.__pinHandoff = { sessionId: SESSION_ID, route: ROUTE, accuracyM: ACC_M };
+      if (OFFLINE) {
+        setTimeout(() => toast('Đã lưu ghim · sẽ mở Ghi điểm tuần khi có mạng'), 2600);
+        return;
+      }
+      setTimeout(openHandoff, 2600);
     }
 
     function copyGuide() {

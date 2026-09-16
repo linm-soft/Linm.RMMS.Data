@@ -2,7 +2,7 @@
   "feature": "asset-hub",
   "status": "done",
   "review_confirm": "approve",
-  "taskId": "task_0cf68cc3",
+  "taskId": "task_042eeb65",
   "skillId": "agent-review-mobile",
   "skillVersion": "2026.08.19.22",
   "workflowVersion": "2026.08.19.23",
@@ -12,6 +12,9 @@
   "autoApprove": true,
   "post_review": "skip",
   "alignMustOpen": 0,
+  "priorQaTaskId": "task_4e062d1e",
+  "priorDevTaskId": "task_9c9293d2",
+  "cleanupMock": true,
   "verifyGate": {
     "ios": "PASS",
     "android": "PASS",
@@ -19,5 +22,5 @@
     "step4b": "N/A",
     "e2ePriorQa": "PASS"
   },
-  "updatedAt": "2026-08-19T10:09:09.000Z"
+  "updatedAt": "2026-09-01T04:15:00.000Z"
 }

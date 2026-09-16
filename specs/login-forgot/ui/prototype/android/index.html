@@ -114,100 +114,12 @@
         <div class="logo"><img src="../assets/app-logo.png" alt="RMMS" width="96" height="96" /></div>
         <p>Quản lý bảo trì đường bộ</p>
       </div>
-      <div id="step-request" data-des-id="DES-MOB-FORGOT-REQUEST">
-        <div class="field">
-          <input id="f-phone" type="tel" placeholder="Số điện thoại" autocomplete="tel" />
-        </div>
-        <div class="actions">
-          <button class="btn-primary" type="button" id="btn-forgot-send" onclick="sendCode()">Gửi mã</button>
-        </div>
-        <p class="hint">Nhập số điện thoại đã đăng ký. Nếu tồn tại, mã xác thực sẽ được gửi đến bạn.</p>
-      </div>
-      <div id="step-reset" data-des-id="DES-MOB-FORGOT-RESET" style="display:none">
-        <div class="field">
-          <input id="f-otp" type="text" placeholder="Mã xác thực" autocomplete="one-time-code" />
-        </div>
-        <div class="field">
-          <span class="lead" id="i-lock" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24"><use href="#i-lock"/></svg></span>
-          <input id="f-new-pass" type="password" placeholder="Mật khẩu mới" autocomplete="new-password" />
-          <button type="button" class="trail" id="i-eye-new" onclick="toggleEye('f-new-pass', this)" aria-label="Hiện mật khẩu"><svg class="ic" viewBox="0 0 24 24"><use href="#i-eye" class="eyeUse"/></svg></button>
-        </div>
-        <div class="field">
-          <span class="lead" id="i-lock-confirm" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24"><use href="#i-lock"/></svg></span>
-          <input id="f-confirm-pass" type="password" placeholder="Xác nhận mật khẩu" autocomplete="new-password" />
-          <button type="button" class="trail" id="i-eye-confirm" onclick="toggleEye('f-confirm-pass', this)" aria-label="Hiện mật khẩu"><svg class="ic" viewBox="0 0 24 24"><use href="#i-eye" class="eyeUse"/></svg></button>
-        </div>
-        <div class="actions">
-          <button class="btn-primary" type="button" id="btn-forgot-reset" onclick="resetPass()">Đặt lại mật khẩu</button>
-        </div>
-      </div>
-    </div>
-    <div class="toast" id="toast"></div>
-    <div class="modal-scrim" id="leave-modal" role="dialog" aria-modal="true">
-      <div class="modal">
-        <p>Bạn có thay đổi chưa lưu. Rời khỏi màn hình?</p>
-        <div class="row">
-          <button type="button" class="cancel" id="btn-leave-cancel" onclick="closeLeave()">Hủy</button>
-          <button type="button" class="ok" id="btn-leave-ok" onclick="confirmLeave()">Đồng ý</button>
-        </div>
-      </div>
+      <p class="hint" id="forgot-contact" data-des-id="DES-MOB-FORGOT-CONTACT">Liên hệ admin để được cung cấp</p>
     </div>
   </div>
   <script>
-    function toast(msg) {
-      const el = document.getElementById('toast');
-      el.textContent = msg;
-      el.classList.add('on');
-      clearTimeout(toast._t);
-      toast._t = setTimeout(() => el.classList.remove('on'), 2000);
-    }
-    function isDirtyReset() {
-      const step = document.getElementById('sc-forgot').dataset.step;
-      if (step !== 'reset') return false;
-      const otp = document.getElementById('f-otp').value.trim();
-      const a = document.getElementById('f-new-pass').value;
-      const b = document.getElementById('f-confirm-pass').value;
-      return !!(otp || a || b);
-    }
     function onBack() {
-      if (isDirtyReset()) {
-        document.getElementById('leave-modal').classList.add('on');
-        return;
-      }
-      toast('→ Login');
-    }
-    function closeLeave() {
-      document.getElementById('leave-modal').classList.remove('on');
-    }
-    function confirmLeave() {
-      closeLeave();
-      toast('→ Login');
-    }
-    function toggleEye(inputId, btn) {
-      const input = document.getElementById(inputId);
-      const use = btn.querySelector('.eyeUse');
-      const show = input.type === 'password';
-      input.type = show ? 'text' : 'password';
-      if (use) use.setAttribute('href', show ? '#i-eye-off' : '#i-eye');
-      btn.setAttribute('aria-label', show ? 'Ẩn mật khẩu' : 'Hiện mật khẩu');
-    }
-    function sendCode() {
-      const phone = document.getElementById('f-phone').value.trim();
-      if (!phone) { toast('Nhập số điện thoại'); return; }
-      toast('Nếu số điện thoại tồn tại, mã xác thực sẽ được gửi đến bạn.');
-      document.getElementById('step-request').style.display = 'none';
-      document.getElementById('step-reset').style.display = 'block';
-      document.getElementById('sc-forgot').dataset.step = 'reset';
-    }
-    function resetPass() {
-      const otp = document.getElementById('f-otp').value.trim();
-      const a = document.getElementById('f-new-pass').value;
-      const b = document.getElementById('f-confirm-pass').value;
-      if (!otp || !a) { toast('Nhập mã và mật khẩu mới'); return; }
-      if (a !== b) { toast('Mật khẩu xác nhận không khớp'); return; }
-      if (a.length < 6) { toast('Mật khẩu tối thiểu 6 ký tự'); return; }
-      toast('Đặt lại mật khẩu thành công');
-      setTimeout(() => toast('→ Login'), 400);
+      /* pop Login — no OTP form, no leave modal */
     }
   </script>
 </body>

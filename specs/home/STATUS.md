@@ -102,10 +102,20 @@
 
 `/edit-mobile-feature` 2026-08-19: notify stay `#sc-home` · toast **Thông báo** + `includeNotification` · iOS tap UN → tab Trang Chủ + replay · **cấm** push `#sc-ops`.
 
+`/edit-mobile-feature` 2026-08-29: Home **không required login** · guest **Khách** + `btn-home-login` · overlay slug `login` · context lock dual.
+
+`/edit-mobile-feature` 2026-08-29: guest FAQ `#sc-faq` + privacy `#sc-privacy` · ref legacy layout · static catalog · **cấm** invent API.
+
+`/edit-mobile-feature` 2026-09-12: **GAP-MOB-EDIT-GUEST-TAB** — guest ẩn tab 5 · pin Đăng nhập + Chính sách quyền riêng tư đáy.
+
+`/edit-mobile-feature` 2026-09-12: **GAP-MOB-EDIT-GUEST-OPS** — logo RMMS giữa hero · chuông Home = Tôi → Thông báo · GET inbox guest không JWT.
+
+`/edit-mobile-feature` 2026-09-12: **GAP-MOB-EDIT-PRIVACY-COPY** — `#sc-privacy` copy user-facing khớp app · **cấm** placeholder Store/landing · **cấm** invent HTTPS.
+
 ## Blockers / open questions
 
 - GAP-F-HOME-01 — SA/TL/Dev/QA/Review: role **ẩn live** · wallet **static demo** · **verified**
-- GAP-F-HOME-02 — badge 0 ẩn · **cấm** GET inbox trên `home` · **verified**
+- GAP-F-HOME-02 — **supersede** `GAP-MOB-EDIT-GUEST-OPS` · live overview · Home → `#sc-ops`
 - GAP-F-HOME-03 — **cấm** ship foot Gói · **verified**
 - R-07 P2 — thiếu `PrivacyInfo.xcprivacy` / Play Data safety / landing HTTPS → **Accept** đến `post_review`/`app_submit` (**không** chặn hub done)
 - Sibling **không** start đến khi board Approve (`GAP-MOB-ACT-06`)

@@ -11,7 +11,7 @@ me                            ← kind=hub · tab Tôi · DES-MOB-ME · **this t
 ├── feedback                  ← Góp ý · go('feedback') · enqueue sibling
 ├── cam-view                  ← Camera xem · go('cam-view') · enqueue sibling
 ├── ops                       ← Thông báo · go('ops') · enqueue sibling
-├── me-settings               ← Cài đặt iOS toast · Android thiếu · gap · **không** enqueue
+├── me-settings               ← Cài đặt · go('me-settings') · owner task_43c37168 · **không** gộp
 └── login-logout              ← Đăng xuất · reuse=login-logout · **không** enqueue
 ```
 
@@ -27,7 +27,7 @@ Home `.hero-ico` Hồ sơ `go('me')` = nav vào hub này — **không** slug m�
 | `feedback` | `me` | Góp ý | `go('feedback')` | sheet | unique | — | `LinmListRow` `#i-info` | **pending_confirm** |
 | `cam-view` | `me` | Camera xem | `go('cam-view')` | sheet | unique | — | `LinmListRow` `#i-video` | **pending_confirm** |
 | `ops` | `me` | Thông báo | `go('ops')` | list | shared_action owner | — | `LinmListRow` `#i-bell` | **pending_confirm** |
-| `me-settings` | `me` | Cài đặt | iOS toast · Android thiếu | sheet | unique | — | `LinmListRow` `#i-gear` | **không** (thiếu màn) |
+| `me-settings` | `me` | Cài đặt | `#sc-me-settings` · `row-settings` | sheet | unique | — | `LinmListRow` `#i-gear` | **task_43c37168** (pipeline riêng) |
 | `login-logout` | `me` | Đăng xuất | `logout()` | shell | shared_action | `login-logout` | `LinmListRow` danger | **không** (reuse) |
 
 ## Chrome (không enqueue)

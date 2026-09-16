@@ -1,0 +1,13 @@
+{
+  "feature": "estimate",
+  "status": "done",
+  "schemaVersion": "1",
+  "reviewHash": "sha256:est-rev-4d8efb95-8f59b71b-2abaf41c",
+  "rulesVersion": "2026.08.16.05",
+  "skillVersion": "2026.08.15.17",
+  "workflowVersion": "2026.08.18.02",
+  "review_confirm": "approve",
+  "taskId": "task_f699faf1",
+  "generatedAt": "2026-08-17T17:28:23.648Z",
+  "versionGate": "ok"
+}

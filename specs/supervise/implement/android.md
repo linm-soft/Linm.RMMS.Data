@@ -1,28 +1,33 @@
 # Dev — Implement — supervise (Android)
 
-> Status: **done** · `/agent-dev-android` · `/dev-android-compose` · `/android-new-screen` · `/android-new-api-call` · `/dev-ui-review` · `/convert-web-icon-to-mobile`  
-> task `task_e29847e6` · T-AND-SUPERVISE
+> Status: **done** · `/agent-dev-android` · `/dev-android-compose` · `/dev-ui-review`  
+> task `task_a7ad9582` · T-AND-SUP-FILTER · T-AND-SUP-MAP-NAV · changeScope=`edit_page`
 
 | Feature | `supervise` |
 | assembleDebug | **PASS** |
-| Kit | `LinmTopBar` · `LinmSegment` · `LinmToast` (via `LoginToastHub`) · `LinmMapPinGlyph` · `LinmBusyOverlay` · card = feature composition |
+| Kit | `LinmTopBar` · `LinmSegment` · `LinmSheet` · `LinmToast`/`LoginToastHub` · `EmptyChrome` · `LinmMapPinGlyph` · `LinmBusyOverlay` · card = feature composition · Material3 `DatePickerDialog` |
 
 ## Layers
 
-| Presentation | `presentation/feature/supervise/SuperviseScreen.kt` · `SuperviseViewModel.kt` · `SuperviseUiState.kt` · `MainTabScreen` `navigate("supervise")` |
-| Domain | `FetchSuperviseCheckinsUseCase` · `SuperviseCopy.orgFallback` · `SuperviseCopy.demoItems` |
-| Data | `SuperviseRepositoryImpl` · `SuperviseDtoMapper.checkin` · `ApiService.attendanceLogs` · `GET patrol/attendance-logs` |
+| Presentation | `SuperviseScreen` · `SuperviseViewModel` · `SuperviseUiState` · filter sheet · `MainTabScreen` Home→Field `pendingPatrolMap` / Field `navigate("patrol-map")` |
+| Domain | `FetchSuperviseCheckinsUseCase` ±`route` + client `CheckInAt` day · `SuperviseCheckinItem.checkInAt` |
+| Data | `ApiService.attendanceLogs(…, route)` · `SuperviseRepositoryImpl` · mapper Instant |
 
-## IA / API
+## Behavior (§ Delta live)
 
-Dual parity iOS · route_a push · demo fallback.  
-**DELTA:** gỡ `Icons.Default.Business` / `Place` (Filled) → `#i-building` Path `d=` + `LinmMapPinGlyph` (`GAP-MOB-ICON-02`). Empty `Note` → «Tổ tuần đường · VP-IV.1».  
-E2E tags: `sc-supervise` · `btn-sup-back` · `btn-sup-filter` · `sup-segment` · `sup-card-*`.
+- **Lọc** → owner `LinmSheet` Tuyến+Ngày · Apply GET ±`route` + client day · Clear · **cấm** toast fake.
+- Segment **Bản đồ** → push `#sc-patrol-map` · reset seg **0** · **cấm** toast/embed.
+- Tap card → keep `supervise-detail` · EmptyChrome live-only · loadFail toast only.
+- Optional `#filter-chip` when filtered.
+- E2E tags: `sc-supervise` · `btn-sup-filter` · `filter-sheet` · `filterRoute` · `filterDate` · `filterApply` · `filterClear` · `sup-segment` · `sup-empty` · `sup-card-*` · `filter-chip`.
 
 ## VERIFY GATE
 
-`./gradlew :app:assembleDebug` **BUILD SUCCESSFUL**.
+`./gradlew :app:assembleDebug` **BUILD SUCCESSFUL**.  
+BFF `dotnet build` **PASS**. Step 4b **N/A**.
 
-## Notes
+## Debt
 
-Step 4b / T-BE **N/A** — reuse attendance-logs. **Cấm** `AlertDialog` · **cấm** invent kit `LinmRichCheckinCard`.
+- GAP-MOB-SUP-04 BE fromDate **P2**
+
+<!-- Version meta: skillId=agent-dev-android+dev-android-compose skillVersion=2026.08.19.26 schemaVersion=1 workflowVersion=2026.08.31.2 rulesVersion=2026.08.31.2 versionGate=rechecked taskId=task_a7ad9582 -->

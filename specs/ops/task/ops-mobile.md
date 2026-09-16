@@ -56,12 +56,12 @@ IA lock (design §2 / ux-analy §1): `me → push ops → pop me` · `home → p
 
 | Surface | Live | TL task |
 |---------|------|---------|
-| iOS `#sc-ops` | **SHIPPED** — `Presentation/Features/Ops/*` · kit parity · demo 2 rows SSOT | **T-IOS-OPS** · **DELTA verify** parity PO/Design/SA mới |
+| iOS `#sc-ops` | **SHIPPED** — `Presentation/Features/Ops/*` · kit parity · **live-only** · EmptyChrome | **T-IOS-OPS** · cleanup_mock `task_708dcc0b` |
 | Android `#sc-ops` | **SHIPPED** — `presentation/feature/ops/*` · cùng copy VN | **T-AND-OPS** · **DELTA verify** |
 | Me `row-ops` entry | **SHIPPED** — push `#sc-ops` | **verify** a11y id · **cấm** reimplement Me hub |
 | Home `LinmNotifyButton` | **SHIPPED** — push `#sc-ops` cùng slug | **verify** hittable `hero-tools` / `btn-notify` |
-| `GET notification/inbox` | **SHIPPED** — `NotificationRepositoryImpl` · page=1 · pageSize=50 | **verify** bind · fail → demo |
-| `POST …/mark-read` | **SHIPPED** — tap unread only · demo id prefix `demo-` local | **verify** toast · POST fail giữ unread |
+| `GET notification/inbox` | **SHIPPED** — `NotificationRepositoryImpl` · page=1 · pageSize=50 | **verify** bind · fail → empty+toast · empty → EmptyChrome |
+| `POST …/mark-read` | **SHIPPED** — tap unread only · live id | **verify** toast · POST fail giữ unread |
 | `GET notification/overview` | repo có `unreadCount()` · **optional P2** Me/Home badge | **không** DoD P1 ops list |
 | BFF proxy catch-all | **live** — **cấm** `OpsController` | **T-BFF-OPS** verify passthrough |
 | New BE endpoint / Schema_* | **không** | **T-BE-API** / **T-BE-MIG** = **n/a** |
@@ -116,8 +116,8 @@ IA lock (design §2 / ux-analy §1): `me → push ops → pop me` · `home → p
 |------|------|
 | Appear | `GET notification/inbox?page=1&pageSize=50` |
 | Bind | `title` · `sender`+`sentAt` → subtitle · `isUnread` → badge |
-| Fail / offline | demo 2 rows SSOT · list **vẫn mở** · toast optional · **cấm** block Me/Home |
-| Mark-read | POST `notification/inbox/{id}/mark-read` · demo id `demo-*` local only |
+| Fail / offline | empty + toast loadFail · list **vẫn mở** · **cấm** demo · **cấm** block Me/Home |
+| Mark-read | POST `notification/inbox/{id}/mark-read` · live id only |
 | Overview | **không** gọi bắt buộc trên `#sc-ops` P1 |
 
 ### Router / shell

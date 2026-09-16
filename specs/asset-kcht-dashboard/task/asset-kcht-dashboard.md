@@ -8,7 +8,7 @@
 | status | `confirmed` |
 | changeScope | `edit_page` (icon SSOT `/edit-web-feature` · **design + team-lead** only) |
 | packKind | **`dashboard`** (Kind **E** hub tiles · count cards) — **cấm** Kind B catalog list/CRUD · **cấm** gộp slug `dashboard` KPI Report |
-| updatedAt | `2026-08-23T22:10:00.000Z` |
+| updatedAt | `2026-09-16T21:40:00.000Z` · `/edit-mobile-feature` dual native |
 | Feature Kind | **E** · hub 4×10 count cards · read-only navigate |
 | mfeStdRoute | `/so-ts/hang-muc` |
 | mfeStdUrl | `http://localhost:9301/so-ts/hang-muc` |
@@ -156,6 +156,7 @@ Audit `Linm.Web.RMMS.Asset` + `Linm.Web.Dashboard` `WidgetArea.tsx` + `RoadAsset
 | S-STANDALONE | Hub KCHT full page | Kind E A + GRID | `/so-ts/hang-muc` | A · GRID | display counts · click drill |
 | S-WIDGET | Dashboard widget slot | Kind E body only | `@linm/rmms-asset-kcht-widget` size 3 | GRID | same drill · host title **Tổng quan tài sản** |
 | S-FORM | Form CRUD | — | — | — | **OUT P1** |
+| S-MOBILE | `#sc-asset-kcht` iOS+Android | Kind E 1-col cards | hub wallet / tile 32 loại | A · GRID | display counts only · **cấm** tap |
 
 ## T-CTX · T-PERM · T-UI-* · T-BE/BFF · T-HOST
 
@@ -176,6 +177,8 @@ Audit `Linm.Web.RMMS.Asset` + `Linm.Web.Dashboard` `WidgetArea.tsx` + `RoadAsset
 | **T-QA-ICON-01** | hub + widget | qa | T-UI-ICON-01 | **open** | 40 ô SVG GIS · không `fas fa-*` trên tile · chrome H1 FA OK |
 | **T-UI-SEED-01** | hub + catalog | ui | T-UI-TILE-01 | **done** | **cấm** `withFallback` demo · hub fail «—» · GAP-WEB-EDIT-SEED |
 | **T-RV-01** | asset-kcht-dashboard | review | T-QA-HUB-01 | pending Review | findings.md |
+| **T-IOS-01** | `#sc-asset-kcht` | ios | T-BE-01 | **done** | stats-only 40 ô · **cấm** tap · dest iPhone 17 Pro Max |
+| **T-AND-01** | `#sc-asset-kcht` | android | T-BE-01 | **done** | stats-only · route `asset-kcht` · `assembleDebug` |
 
 **Cấm** T-UI-LIST · T-UI-CFG · Kind B schema seed · `buildDynamicGridColumns`.
 

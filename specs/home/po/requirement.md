@@ -22,7 +22,7 @@
 
 ## 1. Goal
 
-Tab **Trang Chủ** native dual (iOS SwiftUI + Android Compose): hero chào tên phiên · quick 2 ô · lưới 6 nghiệp vụ · ví tuyến. Persona: Tuần đường · Hạt · hiện trường. App **chỉ** `{BffBase}/mobile-bff/api/v1/…`. **Cấm** ERP.* · clone controller · WebView bọc HTML demo · `mfeStdUrl`.
+Tab **Trang Chủ** native dual: **không required login**. Cold start = guest (`.who` **Khách** · FAQ mid · logo RMMS giữa khoảng trống · **Đăng nhập** + **Chính sách quyền riêng tư** pin đáy · **ẩn tab 5**). Guest body = **Câu hỏi thường gặp** + `home-brand` + dock **Đăng nhập** / **Dành cho cán bộ** `btn-home-login` + `btn-home-privacy`. Staff sau login mới GET profile + **hiện** `LinmTabBar` + lưới nghiệp vụ. Tile nghiệp vụ khi guest → toast **Đăng nhập để dùng nghiệp vụ** + overlay login. Persona: Khách Store · Tuần đường · Hạt. App **chỉ** `{BffBase}/mobile-bff/api/v1/…`. **Cấm** ERP.* · clone controller · WebView · `mfeStdUrl`. **Cấm** invent FAQ/privacy API.
 
 **1 action = 1 feature.** Slug `home` = màn hub `#sc-home` `DES-MOB-HOME`. **Cấm** gộp Giám sát / Tuần đường / Công việc / Vấn đề / Tài sản / Lưu trữ / Ghi sự cố / Hồ sơ / Thông báo (`GAP-MOB-ACT-01`). `#sc-home` **không** child form/sheet (`GAP-MOB-ACT-02` = none). **Không** enqueue submit (`GAP-MOB-ACT-07`).
 
@@ -34,12 +34,12 @@ Pack này **thay** placeholder gallery bằng hub kit. **Cấm** ship `LinmKitGa
 
 ## 3. DoD (đo được)
 
-1. Dual native: iOS SwiftUI + Android Compose — **cùng** zone `#sc-home`: hero tools · status+tín hiệu · `.who` · quick 2 · section **Nghiệp vụ thường dùng** · grid 3×2 · wallet. Frame proto iOS 390×844 · Android 412×915. Tab 5 IA lock: **Trang Chủ** · Tuần đường · Vấn đề · Công việc · Tôi. Login **ngoài** tab.
-2. `.who` live = `fullName` trim từ `GET mobile-bff/api/v1/auth/profile` (reuse `FetchProfileUseCase`) · **cấm** hardcode «Nguyễn Văn A» production.
+1. Dual native: **cùng** zone `#sc-home` + guest CTA `btn-home-login` **pin đáy**. Guest: `btn-home-faq` → `#sc-faq` · `btn-home-privacy` → `#sc-privacy` (cùng dock đáy). Tab 5: **ẩn guest** · staff sau login mới hiện. Login = overlay · **không** cổng bắt buộc.
+2. Guest `.who` = copy `home.guest.who` **Khách** · **cấm** GET `auth/profile` khi chưa phiên. Staff `.who` = `fullName` từ `GET auth/profile` · lúc in-flight + `.who` empty = bone pulse `home-who-skeleton` · **cấm** flash **Khách** · **cấm** `LinmBusyOverlay` hub · **cấm** hardcode «Nguyễn Văn A» production.
 3. Profile fail / offline: `.who` = `lastUserName` · hub **vẫn mở** · toast in-app **không** chặn màn / tab · **cấm** block Trang Chủ.
 4. Role «Khu QLĐB IV»: **ẩn live** (không field org trên profile DTO) · **cấm** invent org-unit API (`GAP-F-HOME-01`). Tín hiệu **vẫn** hiện (`LinmStatusCapsule` / mark) bind OS path · hạng **Tốt / Trung bình / Yếu** · **cấm** «Có mạng».
 5. Wallet chrome **static demo** (không API): eyebrow **HỒ SƠ TÀI SẢN** · title **QL.1 · Khu IV** · subtitle **32 loại KCHT · thông số + checklist sự cố** · **cấm** invent wallet / `api/v1/home` (`GAP-F-HOME-01`). Live số liệu = sibling `asset-hub`.
-6. Notify badge: `notifyCount=0` → **ẩn** (`LinmNotifyCountBadge`) · **cấm** GET `notification/inbox` trên slug `home` (`GAP-F-HOME-02` · owner `ops`). **Cấm** hardcode badge `3` từ HTML.
+6. Notify: tap chuông Home → **cùng** `#sc-ops` (Tôi → Thông báo). GET `notification/overview` + GET `notification/inbox` **AllowAnonymous** (thông báo chung all user · guest không JWT). Badge 0 **ẩn**. **Cấm** hardcode `3`. Mark-read **chỉ staff**.
 7. Tap **Hồ sơ** → chuyển tab **Tôi** `#sc-me` (đã ship · `reuse=me`) · **cấm** reimplement `MeView` / `MeScreen`.
 8. Tap sibling **chưa** ship → `LinmToast` **đúng nhãn control** · **không** mở màn sibling trong pack `home` · **không** start `pending_confirm` (`GAP-MOB-ACT-06`):
 
@@ -97,7 +97,10 @@ Nguồn `#sc-home` dual + DA-01. UNCLEAR field = **none**.
 | notifyBtn | Thông báo | NotifyButton | * | `LinmNotifyButton` · `LinmNotifyCountBadge` | toast **Thông báo** + `includeNotification` trên `#sc-home` · badge 0 ẩn · **cấm** push inbox |
 | roleLine | Khu QLĐB IV | Text display | | `LinmStatusCapsule` `area` | **ẩn live** · không invent org |
 | signal | Tín hiệu | SignalQuality | * | `LinmStatusCapsule` / `LinmNetSignalMark` | `shared_kit` `me-signal` · OS path · **cấm** cycle |
-| who | (live FullName) | Text display | * | typography hero | GET `auth/profile` · fallback `lastUserName` |
+| who | Khách / FullName | Text display | * | typography hero | guest `home.guest.who` · staff GET `auth/profile` |
+| brandLogo | RMMS | Image | guest | giữa khoảng trống FAQ ↔ dock | `home-brand` · `brandLogoSm` · **cấm** hero · **GAP-MOB-EDIT-GUEST-BRAND** |
+| loginBtn | Đăng nhập | Button | guest | card **pin đáy** (không hero) | `btn-home-login` · phụ **Dành cho cán bộ** · ẩn khi staff · **GAP-MOB-EDIT-GUEST-TAB** |
+| guestPrivacy | Chính sách quyền riêng tư | Link | guest | underline pin đáy dưới login | `btn-home-privacy` · overlay `#sc-privacy` · body user-facing `home.privacy.body` · **cấm** invent HTTPS |
 | quickPatrol | Điểm tuần | QuickItem | * | `LinmQuickItem` trong `LinmQuickActions` | phụ **Ghim định vị · lý trình** · sibling `patrol-home` |
 | quickIncident | Ghi sự cố | QuickItem | * | `LinmQuickItem` | phụ **Chọn tài sản · mẫu sự cố** · sibling `incident-create` |
 | sectionBiz | Nghiệp vụ thường dùng | SectionLabel | * | `LinmSectionLabel` | không route |
@@ -137,7 +140,7 @@ App `ApiClient.base` = `{BffBase}/mobile-bff/api/v1`. Path **không** lặp pref
 | ID | Question | Decision (PO) |
 |----|----------|----------------|
 | GAP-F-HOME-01 | Role «Khu QLĐB IV» / wallet «QL.1 · Khu IV» không API | **Không invent.** Role **ẩn live**. Wallet **static demo copy** (3 dòng HTML) đến khi `asset-hub`. Không block DoD hub. |
-| GAP-F-HOME-02 | Badge count inbox | Owner `ops`. Hub `notifyCount=0` (ẩn) · tap toast **Thông báo** + `includeNotification` trên `#sc-home` · **cấm** gọi inbox / push `#sc-ops` turn `home`. |
+| GAP-F-HOME-02 | Badge count inbox | **supersede** `GAP-MOB-EDIT-GUEST-OPS` · live overview · Home bell → `#sc-ops` · guest AllowAnonymous |
 | GAP-F-HOME-03 | Foot Gói 1 | **Cấm** ship. Design skip zone. |
 | Tap sibling vs nav stub | data-analy để PO chốt | **Hồ sơ** → tab Tôi (reuse shipped). Còn lại **toast nhãn** đến khi sibling Approve + implement. TL **không** nav stub giả màn. |
 | packKind | data-analy `hub` | **Confirm `hub`.** **≠** web `dashboard`. **Cấm** Grid/Report AC. |
@@ -178,6 +181,7 @@ Frame: iOS 390×844 · Android 412×915 · safe area · content không đè notc
 | AC-D-10 | Tab / swipe | Tab **Trang Chủ** → `#sc-home` · `LinmTabBar` 5 · **cấm** `TabView` / M3 `NavigationBar` |
 | AC-D-11 | Camera / push | **N/A** trên hub (Ghi sự cố / badge = sibling) |
 | AC-F-01 | Appear | GET `auth/profile` · bind `.who` |
+| AC-F-06 | Profile loading | Staff GET in-flight + `.who` empty → bone `home-who-skeleton` dual · hub tiles/tab **tap được** · **cấm** flash Khách · **cấm** `LinmBusyOverlay` (`GAP-MOB-EDIT-HOME-WHO-SKEL`) |
 | AC-F-02 | Hồ sơ | Tab **Tôi** `#sc-me` · **cấm** reimplement me |
 | AC-F-03 | Sibling khác | Toast nhãn §3.8 · **cấm** push màn sibling |
 | AC-F-04 | Watermark / gallery | **Cấm** foot Gói · **cấm** `LinmKitGallery` · **cấm** `btn-logout` trên home |

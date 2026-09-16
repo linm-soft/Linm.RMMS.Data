@@ -1,0 +1,12 @@
+{
+  "feature": "mnt-chat",
+  "status": "done",
+  "review_confirm": "done",
+  "post_review": "skip",
+  "taskId": "task_ae161e19",
+  "skillVersion": "2026.08.20.01",
+  "updatedAt": "2026-09-01T09:45:00.000Z",
+  "mustAlign": 0,
+  "p0": 0,
+  "autoApprove": true
+}

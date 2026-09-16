@@ -61,6 +61,7 @@ Align:
 11. Dev: `yarn build` MFE PASS · `dotnet build` BE PASS khi đụng API.
 12. **Cấm** `LinCatalogDataGrid` / list CRUD trên hub · **cấm** ERP.* · **cấm** bind API trên `@linm/dashboard`.
 13. **Icon SSOT** (`/edit-web-feature` 2026-08-23): 40 ô tile dùng `iconCode` + GIS `assetIconBareHtml` — **cấm** Font Awesome / emoji / copy SVG trên pict tài sản. Closest-code khi không 1:1. H1 chrome FA OK.
+14. **Mobile** (`/edit-mobile-feature` 2026-09-16): hub wallet **HỒ SƠ TÀI SẢN** + tile **32 loại tài sản** mở `#sc-asset-kcht` 40 ô stats parity web `KCHT_TILES`. Dual iOS+Android. **Cấm** tap card / drill / toast gap-soon. Count nguồn lỗi «—». Back TopBar only. **Cấm** WebView · **cấm** invent hub API.
 
 ## 4. CTX / DEM / DI inventory
 

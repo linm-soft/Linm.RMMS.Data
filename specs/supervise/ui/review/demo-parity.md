@@ -1,59 +1,42 @@
-# Demo parity — supervise (list · Giám sát)
+# Demo parity — supervise (iOS ↔ Android)
 
-Nguồn: `specs/supervise/ui/prototype/ios/index.html` · `android/index.html` `#sc-supervise`  
-Slash: `/review-demo-design-mobile` · gate `ios-android-demo-parity.md`  
-Ngày: 2026-08-19 · task `task_b163f3ae`
+| Field | Value |
+|-------|-------|
+| feature | `supervise` |
+| changeScope | `edit_page` |
+| review | `/review-demo-design-mobile` |
+| taskId | `task_69283465` |
+| status | **PASS** · Must open = **0** |
+| generatedAt | `2026-09-12T09:55:00.000Z` |
 
-## Verdict
+## Compare
 
-**Must đóng** — dual HTML cùng copy zones · `#i-*` motif · toast PO · 2 cards SSOT.  
-`design_confirm` **approve** (autoApprove=ON).
+| Check | iOS | Android | Verdict |
+|-------|-----|---------|---------|
+| Prefix board | `prototype/ios/index.html` | `prototype/android/index.html` | PASS `GAP-MOB-DES-PFX-01` |
+| `#sc-supervise` · DES-MOB-SUPERVISE | yes | yes | PASS |
+| Title / Lọc / segment copy | same VN | same VN | PASS |
+| Filter sheet Tuyến·Ngày·Áp dụng·Xóa lọc | yes | yes | PASS |
+| Map seg → push cue · reset idx 0 · **no** toast map | yes | yes | PASS |
+| Card tap → detail cue · **no** toast filter | yes | yes | PASS |
+| Icons `#i-*` same `d=` | yes | yes | PASS |
+| Seg chrome | pill | underline | OK chrome lệch |
+| Frame | 390×844 | 412×915 | OK |
+| Watermark / device label / «Có mạng» | none | none | PASS |
+| Toast only for loadFail (not filter/map) | reserved | reserved | PASS |
 
-## Must — verified
+## Must open
 
-| Id | Check |
-|----|-------|
-| GAP-MOB-DEMO-COPY-01 | Title **Giám sát tuần đường** dual same |
-| GAP-MOB-DEMO-COPY-02 | Back **Trang Chủ** + trailing **Lọc** dual (Android pack **không** icon-only) |
-| GAP-MOB-DEMO-COPY-03 | Segment **Danh sách check in** / **Bản đồ** · idx 0/1 lock |
-| GAP-MOB-DEMO-COPY-04 | Card 1 **Nguyễn Văn A** · Tổ tuần đường · VP-IV.1 · QL.1 Km 1556+000 · Xuân Hải · 2026-08-10 08:40:12 |
-| GAP-MOB-DEMO-COPY-05 | Card 2 **Trần Khánh** · Chi cục II.2 · QL.1 Km 1561+134 · Phước Dinh · 2026-08-10 09:12:44 |
-| GAP-MOB-DEMO-COPY-06 | Status dual **Trạng thái: Đã ghi điểm tuần** |
-| GAP-MOB-DEMO-COPY-07 | Toast **Lọc tuyến · ngày** · **Bản đồ** · **Chi tiết check-in** · **cấm** `go(sibling)` / `window.alert` |
-| GAP-MOB-DEMO-ICON-01 | `#i-chevron-left` · `#i-building` · `#i-mappin` dual **cùng `d=`** |
-| GAP-MOB-DEMO-TYPE-01 | Segment **13** · title **16/17** · org/loc/status **13** |
-| GAP-MOB-ALIGN-01 | Dual lệch Must **closed** (copy + icons) |
-| GAP-MOB-DES-PFX-01 | Board `ios/` · `android/` |
+**none**
 
-## Should — OK
+## Notes
 
-| Item | Note |
-|------|------|
-| Segment chrome | iOS pill · Android underline — HIG vs M3 |
-| Card title size | iOS 17 · Android 16 — field ≥16 |
-| Thumb 56 | dual placeholder gradient |
-
-## DEFER (platform-OK)
-
-| Token | iOS | Android | Note |
-|-------|-----|---------|------|
-| Frame | 390×844 | 412×915 | Device chrome |
-| Surface | `#F2F2F7` | `#FFFBFE` | HIG vs M3 |
-| Seg style | pill | underline | chrome only |
-| Home indicator | bar | gesture | chrome only |
-
-## A11y ids (Maestro)
-
-| Id | Element |
-|----|---------|
-| `sc-supervise` | screen root |
-| `btn-sup-back` | back Trang Chủ |
-| `btn-sup-filter` | Lọc |
-| `sup-segment` | segment host |
-| `seg-list` | segment 0 |
-| `seg-map` | segment 1 |
-| `sup-card-demo-1` / `sup-card-demo-2` | cards |
+- Proto demo filter client-side on sample cards; native binds GET `route` + client day.
+- Nav cue strings are design affordances — Dev wires NavigationLink / NavController.
 
 ## Version meta
 
-skillId=review-demo-design-mobile · generatedAt=2026-08-19T15:25:00.000Z · taskId=task_b163f3ae
+| Field | Value |
+|-------|-------|
+| skillVersion | 2026.08.19.26 |
+| contentHash | sha256:supervise-mobile-filter-live-20260912 |

@@ -1,0 +1,292 @@
+appId: org.linmsoft.rmms
+---
+# crawl · home guest then staff
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 15000
+- tapOn:
+    id: "btn-home-faq"
+- extendedWaitUntil:
+    visible:
+      id: "sc-faq"
+    timeout: 8000
+- takeScreenshot: CRAWL-faq
+- tapOn:
+    id: "nav-back"
+    optional: true
+
+- tapOn:
+    id: "btn-home-privacy"
+- extendedWaitUntil:
+    visible:
+      id: "sc-privacy"
+    timeout: 8000
+- takeScreenshot: CRAWL-privacy
+- tapOn:
+    id: "nav-back"
+    optional: true
+
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 15000
+- tapOn:
+    id: "btn-home-login"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "f-user"
+    timeout: 15000
+- tapOn:
+    id: "f-user"
+- eraseText
+- inputText: "linm-soft"
+- tapOn:
+    text: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
+    optional: true
+- tapOn:
+    text: "RMMS"
+    optional: true
+- tapOn:
+    id: "f-pass"
+- eraseText
+- inputText: "Linm@2026"
+- tapOn:
+    text: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
+    optional: true
+- tapOn:
+    text: "RMMS"
+    optional: true
+- tapOn:
+    id: "btn-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
+- tapOn:
+    text: "Not Now"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "home-who"
+    timeout: 40000
+
+- tapOn:
+    id: "tile-supervise"
+- extendedWaitUntil:
+    visible:
+      id: "sc-supervise"
+    timeout: 8000
+- takeScreenshot: CRAWL-tile-supervise
+- tapOn:
+    id: "tab-home"
+    optional: true
+- tapOn:
+    text: "Trang Chủ"
+    optional: true
+- tapOn:
+    point: "10%,96%"
+    optional: true
+- tapOn:
+    text: "Trang Chủ"
+    optional: true
+- tapOn:
+    point: "10%,96%"
+    optional: true
+
+
+- tapOn:
+    id: "tile-patrol"
+- extendedWaitUntil:
+    visible:
+      id: "sc-patrol-home"
+    timeout: 8000
+- takeScreenshot: CRAWL-tile-patrol
+- tapOn:
+    id: "tab-home"
+    optional: true
+- tapOn:
+    text: "Trang Chủ"
+    optional: true
+- tapOn:
+    point: "10%,96%"
+    optional: true
+- tapOn:
+    text: "Trang Chủ"
+    optional: true
+- tapOn:
+    point: "10%,96%"
+    optional: true
+
+
+- tapOn:
+    id: "tile-mnt"
+- extendedWaitUntil:
+    visible:
+      id: "sc-mnt-list"
+    timeout: 8000
+- takeScreenshot: CRAWL-tile-mnt
+- tapOn:
+    id: "tab-home"
+    optional: true
+- tapOn:
+    text: "Trang Chủ"
+    optional: true
+- tapOn:
+    point: "10%,96%"
+    optional: true
+- tapOn:
+    text: "Trang Chủ"
+    optional: true
+- tapOn:
+    point: "10%,96%"
+    optional: true
+
+
+- tapOn:
+    id: "tile-incident"
+- extendedWaitUntil:
+    visible:
+      id: "sc-incident-list"
+    timeout: 8000
+- takeScreenshot: CRAWL-tile-incident
+- tapOn:
+    id: "tab-home"
+    optional: true
+- tapOn:
+    text: "Trang Chủ"
+    optional: true
+- tapOn:
+    point: "10%,96%"
+    optional: true
+- tapOn:
+    text: "Trang Chủ"
+    optional: true
+- tapOn:
+    point: "10%,96%"
+    optional: true
+
+
+- tapOn:
+    id: "tile-asset"
+- extendedWaitUntil:
+    visible:
+      id: "sc-asset-hub"
+    timeout: 8000
+- takeScreenshot: CRAWL-tile-asset
+- tapOn:
+    id: "tab-home"
+    optional: true
+- tapOn:
+    text: "Trang Chủ"
+    optional: true
+- tapOn:
+    point: "10%,96%"
+    optional: true
+- tapOn:
+    text: "Trang Chủ"
+    optional: true
+- tapOn:
+    point: "10%,96%"
+    optional: true
+
+
+- tapOn:
+    id: "tile-offline"
+- extendedWaitUntil:
+    visible:
+      id: "sc-patrol-offline"
+    timeout: 8000
+- takeScreenshot: CRAWL-tile-offline
+- tapOn:
+    id: "tab-home"
+    optional: true
+- tapOn:
+    text: "Trang Chủ"
+    optional: true
+- tapOn:
+    point: "10%,96%"
+    optional: true
+- tapOn:
+    text: "Trang Chủ"
+    optional: true
+- tapOn:
+    point: "10%,96%"
+    optional: true
+
+
+- tapOn:
+    id: "wallet-card"
+- extendedWaitUntil:
+    visible:
+      id: "sc-asset-hub"
+    timeout: 8000
+- takeScreenshot: CRAWL-wallet
+- tapOn:
+    id: "tab-home"
+    optional: true
+- tapOn:
+    text: "Trang Chủ"
+    optional: true
+- tapOn:
+    point: "10%,96%"
+    optional: true
+- tapOn:
+    text: "Trang Chủ"
+    optional: true
+- tapOn:
+    point: "10%,96%"
+    optional: true
+
+
+- tapOn:
+    id: "quick-patrol"
+- extendedWaitUntil:
+    visible:
+      id: "sc-patrol-home"
+    timeout: 8000
+- takeScreenshot: CRAWL-quick-patrol
+- tapOn:
+    id: "tab-home"
+    optional: true
+- tapOn:
+    text: "Trang Chủ"
+    optional: true
+- tapOn:
+    point: "10%,96%"
+    optional: true
+- tapOn:
+    text: "Trang Chủ"
+    optional: true
+- tapOn:
+    point: "10%,96%"
+    optional: true
+
+
+- tapOn:
+    id: "quick-incident"
+- extendedWaitUntil:
+    visible:
+      id: "sc-inc-pick"
+    timeout: 8000
+- takeScreenshot: CRAWL-quick-incident
+- tapOn:
+    id: "tab-home"
+    optional: true
+- tapOn:
+    text: "Trang Chủ"
+    optional: true
+- tapOn:
+    point: "10%,96%"
+    optional: true
+- tapOn:
+    text: "Trang Chủ"
+    optional: true
+- tapOn:
+    point: "10%,96%"
+    optional: true
+

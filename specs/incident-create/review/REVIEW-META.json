@@ -1,0 +1,19 @@
+{
+  "feature": "incident-create",
+  "schemaVersion": "1",
+  "status": "done",
+  "reviewHash": "sha256:incident-create-review-20260829T012025",
+  "rulesVersion": "2026.08.29.4",
+  "skillId": "agent-review-mobile",
+  "skillVersion": "2026.08.20.01",
+  "workflowVersion": "2026.08.25.01",
+  "contentHash": "sha256:incident-create-control-hint-20260829",
+  "realDataHash": "sha256:incident-create-real-data-20260829",
+  "bffContentHash": "sha256:incident-create-mobile-bff-20260829",
+  "review_confirm": "done",
+  "align_confirm": "approve",
+  "post_review": "skip",
+  "mustAlignOpen": 0,
+  "taskId": "task_a2abb578",
+  "generatedAt": "2026-08-29T01:20:25.000Z"
+}

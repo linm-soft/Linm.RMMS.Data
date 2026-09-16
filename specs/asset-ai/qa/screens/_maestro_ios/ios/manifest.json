@@ -1,0 +1,45 @@
+{
+  "$schema" : "https://storage.googleapis.com/maestro-schemas/artifact-manifest/v1.schema.json",
+  "entries" : [ {
+    "kind" : "MAESTRO_LOG",
+    "format" : "TXT",
+    "relativePath" : "logs/maestro.log",
+    "sizeBytes" : 214560
+  }, {
+    "kind" : "TAKE_SCREENSHOT",
+    "format" : "PNG",
+    "relativePath" : "takeScreenshot",
+    "count" : 3
+  }, {
+    "kind" : "SCREEN_HIERARCHY",
+    "format" : "JSON",
+    "relativePath" : "screen-hierarchy",
+    "count" : 7
+  }, {
+    "kind" : "SCREENSHOT",
+    "format" : "PNG",
+    "relativePath" : "screenshots",
+    "count" : 7
+  }, {
+    "kind" : "COMMAND_METADATA",
+    "format" : "JSON",
+    "relativePath" : "commands.json",
+    "sizeBytes" : 28903
+  }, {
+    "kind" : "DEVICE_LOG",
+    "format" : "TXT",
+    "relativePath" : "logs/device-simulator.log",
+    "sizeBytes" : 30673883,
+    "metadata" : {
+      "source" : "simulator"
+    }
+  }, {
+    "kind" : "DEVICE_LOG",
+    "format" : "TXT",
+    "relativePath" : "logs/device-xctest.log",
+    "sizeBytes" : 518223,
+    "metadata" : {
+      "source" : "xctest"
+    }
+  } ]
+}

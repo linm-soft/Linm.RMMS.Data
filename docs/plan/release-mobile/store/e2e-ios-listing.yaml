@@ -1,0 +1,121 @@
+appId: com.drvn.rmms
+---
+# Live listing 6.9" — Release W3 · tap copy (iOS a11y id often swallowed by sc-home)
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 20000
+- takeScreenshot: ss-iphone-1320x2868-01
+- tapOn: "Dành cho cán bộ"
+- extendedWaitUntil:
+    visible:
+      id: "f-user"
+    timeout: 20000
+- tapOn:
+    id: "f-user"
+- eraseText
+- inputText: "rmms-admin"
+- tapOn:
+    id: "f-pass"
+- eraseText
+- inputText: "RMMS@2026"
+- tapOn:
+    id: "btn-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
+- tapOn:
+    text: "Not Now"
+    optional: true
+- pressKey: Enter
+- waitForAnimationToEnd:
+    timeout: 4000
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 45000
+- waitForAnimationToEnd:
+    timeout: 3000
+- takeScreenshot: ss-iphone-1320x2868-02
+- tapOn: "Tài sản"
+- extendedWaitUntil:
+    visible:
+      id: "sc-asset-hub"
+    timeout: 20000
+- tapOn:
+    id: "tile-map"
+    optional: true
+- tapOn:
+    text: "Xem trên bản đồ"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-gis-map"
+    timeout: 30000
+- waitForAnimationToEnd:
+    timeout: 6000
+- takeScreenshot: ss-iphone-1320x2868-03
+- tapOn:
+    id: "nav-back"
+    optional: true
+- tapOn:
+    text: "Trang chủ"
+    optional: true
+- tapOn: "Tuần đường"
+- extendedWaitUntil:
+    visible:
+      id: "sc-patrol-home"
+    timeout: 25000
+- tapOn:
+    id: "row-quick-patrol-map"
+    optional: true
+- tapOn:
+    text: "Bản đồ ca"
+    optional: true
+- tapOn:
+    text: "Tiếp tục bản đồ"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-patrol-map"
+    timeout: 30000
+- waitForAnimationToEnd:
+    timeout: 5000
+- takeScreenshot: ss-iphone-1320x2868-04
+- tapOn:
+    id: "nav-back"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-patrol-home"
+    timeout: 20000
+- scroll
+- tapOn:
+    id: "row-quick-cam-patrol"
+    optional: true
+- tapOn:
+    text: "Thu thập bằng camera"
+    optional: true
+- tapOn:
+    text: "Allow"
+    optional: true
+- tapOn:
+    text: "OK"
+    optional: true
+- tapOn:
+    text: "While Using the App"
+    optional: true
+- tapOn:
+    text: "Allow While Using App"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-cam-patrol"
+    timeout: 25000
+- waitForAnimationToEnd:
+    timeout: 3000
+- takeScreenshot: ss-iphone-1320x2868-05

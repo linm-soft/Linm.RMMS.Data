@@ -1,430 +1,332 @@
-# Team lead — tasks — asset
+# Team lead — Task — asset (mobile list · Danh mục tài sản)
 
 | Field | Value |
 |-------|-------|
 | feature | `asset` |
-| status | `done` |
+| title | [Mobile] List danh mục tài sản |
+| this role | `team_lead` · `/agent-tl-mobile` |
+| status | `confirmed` |
 | changeScope | `edit_page` |
-| packKind | `list` (Kind B · catalog A–D + **full-page** form) |
-| solution_confirm | **approve** (autoApprove ON · `task_86f45a3c`) |
-| design_confirm | **approve** (autoApprove ON · Design 2026-08-14 full-page) |
-| updatedAt | `2026-08-14T16:15:00.000Z` |
-| taskId | `task_31557cdc` |
-| TL SSOT | `form-type-task-pack` · `list-form-quality-gates` · `tl-retry-ssot-rereview` · `tl-list-shell-height` · `tl-catalog-list-parity` · `ssot-no-duplicate` |
-| **Supersedes** | `task/asset.md` 2026-08-10 (`task_adea150b`) — Slideout · Select 8 nhãn · filter chỉ search+type · **cấm** coi T-UI-* = done |
+| packKind | **`list`** (PO + Design + SA confirm) |
+| stack | `native_dual` |
+| Feature Kind | **list** push `#sc-asset-list` `DES-MOB-ASSET-LIST` · **cấm** Kind B web / Lin* catalog / Report / full-page form / `mfeStdUrl` |
+| route_confirm | **route_a** — `asset-hub` tile **Danh sách** → `#sc-asset-list` · Back → pop `#sc-asset-hub` · **cấm** `mfeStdUrl` |
+| autoApprove | **ON** |
+| e2eQa | ON khi QA · `yarn e2e-qa-mobile` · sim 6.9" + emulator + Maestro · PNG `qa/screens` + `qa/store/asset` · **cấm** `yarn start:std` / `mfeStdUrl` / `yarn e2e-qa` web |
+| prior · data_analy | **confirmed** · `_data-analy/features/asset-control-hint.md` · `asset-real-data.md` · `asset-hub-bff-endpoints.md` · `asset-hub-action-tree.md` · cluster `clusters/cluster-asset-header-v1.md` · contentHash `sha256:asset-mobile-edit-list-20260823` · bffContentHash `sha256:asset-mobile-list-road-assets-proxy-20260823` |
+| prior · po | **confirmed** · `po/requirement-mobile.md` · `task_d5c147af` |
+| prior · design | **confirmed** · `ui/design.md` · `ui/ux-analy.md` · `ui/html-to-native-map.md` · dual `#sc-asset-list` · `ui/review/demo-parity.md` · `task_179e1510` |
+| prior · sa | **confirmed** · `be/solution-discovery-mobile.md` · `solution_confirm=approve` · Step 4b **N/A** · `task_657c2239` |
+| prior web TL | `task/asset.md` 2026-08-14 Kind B web (`task_31557cdc`) — **superseded** trên mobile chain · web pipeline **done** |
+| taskId | `task_217f2173` |
+| updatedAt | `2026-08-29T16:52:38.000Z` |
+| thisAction | **List danh mục TS** `#sc-asset-list` only · GET `asset/road-assets` · search · demo fallback · toast detail · hub tile push · **cấm** gộp form/detail/collect |
 
-## from design / solution (scope gate)
+**Cấm:** gộp sibling `asset-detail` / `asset-collect` / `asset-adjust` / `asset-form` / `gis-map` (`GAP-MOB-ACT-01/02`) · invent `api/v1/asset-list` / `AssetListController` · ERP.* · Finance `api/v1/assets` · WebView HTML · `mfeStdUrl` · `UIAlert` / `AlertDialog` · raw `List` / `LazyColumn` product chrome / M3 `SearchBar` · watermark Gói / device label / «Có mạng» · badge Ghim P1 · filter type/route/km P1 · pagination footer P1 · start sibling `pending_confirm` (`GAP-MOB-ACT-06`) · enqueue POST/PUT/DELETE (`GAP-MOB-ACT-07`) · `scaffold_new` / `/mobile-app-architecture` · Step 4b / migration · TL chạy e2e / `yarn build` / `yarn start:std` · implement native Write.
 
-| Source | Path | Task dùng |
-|--------|------|-----------|
-| Design | `specs/asset/ui/design.md` + reviewUrl | T-UI-LIST A–D · T-UI-FORM Z1–Z3 · T-CTX — **cấm** Slideout · SearchInput 23/38 |
-| Solution | `specs/asset/be/solution-discovery.md` | T-BE · T-BE-INIT · T-BFF · T-PERM — API-01…06 · API-LKP-01…03 · `RoadAssetEntity` · **cấm** parent JSON |
-| Prototype | `ui/prototype/asset-list-prototype.html` | UI DoD parity |
-| controlHint | `specs/_data-analy/features/asset-control-hint.md` | T-UI-LKP · T-UI-FIELD |
+---
 
-## Platform SSOT (REQUIRED)
+## Source lock
 
-| Layer | Package / repo | Consume |
-|-------|----------------|---------|
-| **UI** | `MFE-COMMON/Linm.Web.Common.Components` | npm `@linm-soft-org/linm-web-common-components` |
-| **BE** | `API-LIB/Linm.Platform.CommonLib` | NuGet · ApiResponse · `[RequirePermission]` (stub đến ≥1.4.0) |
-| **Auth** | `API-CORE/Linm.Platform.Authentication` | `asset.road-assets.read\|create\|update\|delete` |
+| Key | Value |
+|-----|-------|
+| ios | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS` · `ios_repo_confirm` |
+| android | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android` · `android_repo_confirm` |
+| bff | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Bff` · prefix `mobile-bff/api/v1` |
+| be | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.WebService` · `be_repo_confirm` · Asset `RoadAssetsController` · **cấm ERP.*** |
+| app base | `{BffBase}/mobile-bff/api/v1` — path **không** lặp prefix |
+| API P1 | **chỉ** `GET asset/road-assets?page=1&pageSize=50&search=` Bearer |
+| kit | reuse map dual — `LinmTopBar` · `LinmSearchField` · `LinmSearchGlyph` · `LinmListRow` · `LinmRowIcon` · `LinmToast` · map `ui/html-to-native-map.md` + `docs/html-to-native-map.md` · **không** `T-KIT-*` · `kit_missing_confirm` **N/A** |
+| entry | `reuse=asset-hub` tile **Danh sách** (`tile-list`) · **cấm** reimplement hub |
+| scaffold | repos **đã có** — **không** `scaffold_new` · **không** `/mobile-app-architecture` trước Dev |
+| Step 4b | **N/A** — reuse live `GET asset/road-assets` · **không** `/new-endpoint` / `/database-migration` / `/create-bff-api-feature` |
 
-## Implement HOW (TL — Kind B list + full-page form)
+### route_confirm (autoApprove=ON)
 
-| Topic | Decision (asset pack 2026-08-14) |
-|-------|----------------------------------|
-| **Wire** | Page → `services/asset/endpoint.ts` → `apiClient` → `web-bff/api/v1/asset/road-assets` → `api/v1/asset/road-assets` |
-| **Lookups** | MFE → BFF Integration `web-bff/api/v1/integration/{asset-types,road-routes,org-units}` — **không** clone master dưới Asset |
-| **List state** | Page hooks + common reducers — **không** local auth/ui slice |
-| **Form state** | Full-page `AssetFormPage` local/controller — **cấm** Slideout/Resource |
-| **Redux common** | `authReducer` / toast từ common-components |
-| **Skills** | `/erp-form-context` · catalog toolbar · review-grid · leave-confirm · `tl-retry-ssot-rereview` |
+| Option | Decision |
+|--------|----------|
+| **route_a** (chọn) | Entry: `asset-hub` `#sc-asset-hub` tile **Danh sách** (`tile-list`) → push `#sc-asset-list` `DES-MOB-ASSET-LIST`. Back / leading → pop `#sc-asset-hub` (reuse hub · **cấm** reimplement). Search apply → GET `search=` page=1. Tap row → `LinmToast` **Chi tiết tài sản** · **cấm** push `#sc-asset-detail` P1. Sibling collect/adjust/map/AI tiles giữ toast / backlog · **cấm** start sibling turn Dev (`GAP-MOB-ACT-06`). **Không** tab bar trên màn list. |
+| route_b | — không dùng (không deep-link web / `mfeStdUrl`) |
+| route_c | — không dùng |
 
-### ssot.reuse (REQUIRED mọi T-UI / T-BE)
+IA lock (design · ux-analy · SA):
 
-| Concern | Reuse | Cấm (→ GAP-TL-DUP-*) |
-|---------|-------|----------------------|
-| UI | common-components `Lin*` / `Erp*` | local Button/Input/Modal/Table/Pager |
-| HTTP | `apiClient` re-export | `class ApiClient` · local `apiErrorNavigation` |
-| State | page-hooks + common reducers | local `authSlice` / `uiSlice` / toast fork |
-| BE | CommonLib ApiResponse | ad-hoc envelope DTO |
-| Auth | `[RequirePermission]` + Auth codes | custom perm attribute |
-| Persist | flat entity columns | parent `*LinesJson` / `PhotosJson` |
-| BFF | proxy only | business logic in BFF |
-| Master | Integration APIs | Asset-domain duplicate catalog · FE enum 8 nhãn |
+```
+home → #sc-asset-hub (reuse) → tile Danh sách → #sc-asset-list ← this pack
+#sc-asset-list → back = pop asset-hub · search = GET · row = toast detail
+```
 
-**Cấm** fork component/envelope · `ERP.*` · parent `*Json` · Dev tự invent wire/state.
+AskQuestion (autoApprove=ON · không chờ board): `ios_repo_confirm` · `android_repo_confirm` · `route_confirm=route_a` · `2026-08-29T16:52:38.000Z`.
 
-## Source assignment (`be_repo_confirm` · `ui_repo_confirm`)
+---
 
-| Field | Value |
-|-------|-------|
-| `source.mfe` | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Asset` |
-| `source.routes` | List `/asset` · form `/asset/new` · `/asset/:id` · `/asset/:id/edit` · `/asset/:id/copy` |
-| `source.backend` | `D:/AI-QLBD/Linm.RMMS.WebService` |
-| `source.domain` | **Asset** (`asset`) |
-| `source.api` | `api/src/RMMS.Service.Api/Domains/Asset/` · `api/domains/asset/LINM.RMMS.Asset.Models/` |
-| `source.bff` | `bff/domains/asset/LINM.RMMS.Asset.Bff/` |
-| `source.layout` | `micro-src` |
-| `source.persistence` | `api/shared/RMMS.Service.Persistence/` |
-| `source.migrations` | `api/shared/RMMS.Service.Migrations/` (delta indexes only nếu thiếu) |
-| Demo | `Linm.RMMS.Demo/src/demo/asset/` |
-| Context | `Linm.RMMS.Data/docs/context/features/asset.md` |
-| reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/asset/ui/prototype/asset-list-prototype.html` |
-| `mfeStdRoute` | `/asset` (**route_confirm** locked) |
-| `mfeStdUrl` | `http://localhost:9301/asset` |
+## Live gap (TL audit 2026-08-29)
 
-## API contract (from solution)
+| Surface | Live | TL task |
+|---------|------|---------|
+| iOS `#sc-asset-list` | **DELTA** — **chưa** `AssetList*` · hub `tileList` = toast **Danh sách** | **T-IOS-LIST-01** |
+| Android `#sc-asset-list` | **DELTA** — **chưa** list feature · `AssetHubIntent.TileList` = toast | **T-AND-LIST-01** |
+| `GET asset/road-assets` | BE `RoadAssetsController` + Mobile.Bff `MobileApiProxyController` catch-all **live** · app **chưa** repo/DTO list | **reuse** path · Dev thêm `AssetRepository` + mapper · **cấm** invent `asset-list` |
+| Hub tile Danh sách | toast stub | wire push list · **cấm** reimplement `#sc-asset-hub` |
+| Type label | DTO `Type` = code | client `AssetDtoMapper.typeLabel` + demo SSOT labels · **không** lookup API P1 |
+| Quantity / UnitCode | live on DTO | bind only · **không** hiện list P1 (`GAP-MOB-ASSET-SL-01`) |
+| Filter type/route/km | BE query live | **OUT P1** — search only (`GAP-F-ASSET-MOB-01`) |
+| Pagination footer | BE paged | **OUT P1** — page 1 size 50 (`GAP-F-ASSET-MOB-04`) |
+| Badge Ghim | demo alias | **P2 Nice** — **không** DoD P1 |
+| Sibling detail/collect/adjust | `pending_confirm` | toast / hub tiles · **cấm** API + **cấm** start |
+| Demo parity dual 2 rows | Design closed | fallback SSOT 2 rows |
+| New BE endpoint / Schema_* | **không** | **T-BE-API** / **T-BE-MIG** = **n/a** |
+| Kit list | dual map shipped | Dev **cấm** raw List/SearchBar · **cấm** `T-KIT-*` |
+| Foot «Phiên bản Gói…» / device label | demo chrome | **cấm ship** |
 
-| id | Method | Path |
-|----|--------|------|
-| API-01 | GET | `/api/v1/asset/road-assets` query `search,type,route,kmFrom,kmTo,orgUnit,page,pageSize` |
-| API-02 | GET | `/api/v1/asset/road-assets/{id}` (XCO) |
-| API-03 | POST | `/api/v1/asset/road-assets` |
-| API-04 | PUT | `/api/v1/asset/road-assets/{id}` (+ `source`) |
-| API-05 | DELETE | `/api/v1/asset/road-assets/{id}` (soft · optional UI) |
-| API-06 | GET | `/api/v1/asset/road-assets/init-data` |
-| API-LKP-01 | GET | `/api/v1/integration/asset-types/search` |
-| API-LKP-02 | GET | `/api/v1/integration/road-routes/search` |
-| API-LKP-03 | GET | `/api/v1/integration/org-units/tree` |
+---
 
-BFF: `web-bff/api/v1/asset/road-assets/**` (+ init-data). Lookups: `web-bff/api/v1/integration/**` (existing). FE BASE list/CRUD: **`/asset/road-assets`**.
+## Tasks
 
-## Implement gates (from solution — REQUIRED)
+| id | layer | deps | status | skills | DoD |
+|----|-------|------|--------|--------|-----|
+| T-KIT-ASSET-LIST | kit | — | **n/a** | — | Kit list **đã map dual** · Design `kit_missing_confirm` **N/A** — **không** giao Dev kit |
+| **T-IOS-LIST-01** | ios | SA · route_a | **done** | `/agent-dev-ios` · `/ios-new-screen` · `/dev-ios-swiftui` · `/mobile-ui-ux-analy` packet · MVVM | New `Presentation/Features/AssetList/*` · hub tile push · GET `asset/road-assets` · typeLabel mapper · demo 2 rows · toast row · `xcodegen` + `xcodebuild` dest **iPhone 17 Pro** PASS · ghi `implement/ios.md` |
+| **T-AND-LIST-01** | android | SA · route_a | **done** | `/agent-dev-android` · `/android-new-screen` · `/dev-android-compose` · `/android-new-api-call` · cùng ux packet | Same field/API/DoD dual · `presentation/feature/assetlist/*` · `./gradlew :app:assembleDebug` PASS · ghi `implement/android.md` |
+| **T-BE-API** | be | — | **n/a** | — | **không** `/new-endpoint` — GET road-assets **live** · Step 4b **N/A** |
+| **T-BE-MIG** | be | — | **n/a** | — | **không** `/database-migration` |
+| **T-BFF-01** | bff | — | **reuse** | — | Mobile.Bff proxy catch-all **live** · **cấm** `AssetListController` local · optional Dev verify `dotnet build` (không TL) |
+| T-QA-01 | qa | T-IOS · T-AND | pending | `/agent-qa-mobile` | AC slug `asset` only · `yarn e2e-qa-mobile` · live sim 6.9" + emulator · store PNG `qa/store/asset` · **cấm** sibling screens in-scope · **cấm** `yarn e2e-qa` web |
 
-| Gate | Decision | Apply | Skill / DoD |
-|------|----------|-------|-------------|
-| TZ | **n/a** | — | không date filter P1 · `updatedAt` display UTC→local |
-| XCO | **required** (`get_only`) | API-02 · T-BE-01 | `/implement-view-cross-company` |
-| SHARE | **tenant_keep** | `RoadAssetEntity` | master type/route/org = Integration Type A |
+**1 action = 1 feature.** **Cấm** gộp sibling (`asset-detail` · `asset-collect` · `asset-adjust` · form · gis) vào task file này như in-scope implement. Sibling giữ `pending_confirm` — **cấm** auto start (`GAP-MOB-ACT-06`).
 
-## System design
+---
 
-| ID | Flag | Note |
-|----|------|------|
-| SD-LIB-UI | **required** | common-components only |
-| SD-LIB-BE | **required** | CommonLib ApiResponse + RequirePermission (stub OK) |
-| SD-AUTH | gap/stub | Align codes khi NuGet sẵn — không block CRUD |
-| SD-BFF | **required** | Proxy only |
-| SD-HEADER | **required** | `X-Company-Id` |
-| SD-TENANT | **required** | `CompanyCode` · **tenant_keep** |
-| SD-NO-JSON | **required** | Flat scalars · **cấm** PhotosJson |
-| SD-SEARCH | **required** | search (code/name/qr/route/type) · pageSize 50/100/200/500 |
-| SD-TZ | **n/a** | |
-| SD-XCO | **required** | GetById cross-company |
-| SD-SHARE | **n/a** | tenant_keep (entity) |
+## T-IOS-LIST-01 — detail
 
-## Retry SSOT re-review (HARD — live MFE 2026-08-14 · trước Dev Write)
+| | |
+|--|--|
+| `source.repo` | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS` |
+| `ssot.zones` | `DES-MOB-ASSET-LIST` · `DES-MOB-ASSET-LIST-NAV` · `DES-MOB-ASSET-LIST-SEARCH` · `DES-MOB-ASSET-LIST-ROWS` · `#sc-asset-list` |
+| Pattern | List push từ hub · **không** Modal/Sheet filter · **không** tab bar · frame proto 390×844 |
 
-Live: `AssetListPage.tsx` + `AssetFormPage.tsx` + `lookups.ts` + `roadAssetStore.ts` + `index.tsx`.
+### UI (kit cite — `ui/html-to-native-map.md`)
 
-| # | Check | Live | Verdict |
-|---|-------|------|---------|
-| 1 | 1× `LinPageLayout` kind=catalog — cấm nested `CatalogListShell` | List: 1× `LinPageLayout` · không CatalogListShell | **PASS** |
-| 2 | Footer `LinCatalogListPagination` — cấm `footerPagination` / `pageSizeBar` / raw table | `LinCatalogListPagination` only | **PASS** |
-| 3 | Flex root + `useServerPagedListLoading` + LAYOUT-06 | `.page` flex column height 100% · skeletonRows=8 | **PASS** |
-| 4 | Toolbar catalog: refresh · history · config `fa-cog` · +Tạo mới trên **B** · row actions | catalogToolbar present | **PASS** (verify labels vs Design) |
-| 5 | Filter Zone B: SearchInput text + type + route + km Text + org tree + Xóa điều kiện — **cấm** nút Tìm · **cấm** Select 8 | Chỉ `SearchTextInput` + type `SearchInput` FE `ASSET_TYPES` 8 nhãn · **thiếu** route/km/org/clear | **GAP-TL-LIST-FILTER-01** |
-| 6 | Grid `LinCatalogDataGrid` · kéo cột default ON | `tableConfig` + schema | **PASS** |
-| 7 | Zone F: `LinCatalogUiSchemaEditorModal` | present | **PASS** |
-| 8 | History: `LinCatalogHistoryModal` stub | present | **PASS** |
-| 9 | tree_master? | n/a list · org-unit tree = filter only | n/a |
-| 10 | Form Create/Edit/View/Copy **full-page** — cấm Slideout | `AssetFormPage` routes `/asset/new` · `/asset/:id` — **không** Slideout trên asset list | **PASS** shell · **GAP** fields/routes dưới |
-| 11 | Type/route SearchInput master 23/38 | `TYPE_LOOKUP` = demo 8 VN labels · form `route` = `Input` free-text | **GAP-TL-LKP-01** |
-| 12 | Dropdown status/source từ init-data | status = SearchInput FE enum VN · **thiếu** source | **GAP-TL-FIELD-01** |
-| 13 | View = readOnly (không disabled xám toàn form) | View `<dl>` | **PASS** view · code edit dùng `disabled` → **GAP-TL-UX-CODE-01** |
-| 14 | Photos mock · valueVnd Money · note multiline | thiếu photos · note Input 1 dòng | **GAP-TL-FIELD-02** |
-| 15 | Dedicated form routes `/edit` `/copy` | copy via `?copyFrom=` · edit via `?mode=edit` · **thiếu** `/asset/:id/edit` · `/asset/:id/copy` | **GAP-TL-ROUTE-01** |
+| Field | Kit | Notes |
+|-------|-----|-------|
+| navBack | `LinmTopBar` leading `#i-chevron-left` | label **Tài sản** + chevron · pop `#sc-asset-hub` |
+| title | `LinmTopBar` title | **Danh sách** fixed |
+| search | `LinmSearchField` · `LinmSearchGlyph` `#i-search` | placeholder **Tìm mã TS, tuyến, loại…** · debounce/submit → GET `search=` page=1 · placeholder **13** · field ≥**16** |
+| rowIcon | `LinmRowIcon` `#i-cube` | indigo row1 · gray row2 (parity demo) |
+| rowTitle | `LinmListRow` title | `{code} · {name}` ≥**16** |
+| rowSub | `LinmListRow` subtitle | `{route} · Km {kmFrom} · {typeLabel}` · subtitle **13** |
+| rowChev | `LinmListRow` `showsChevron` | `#i-chevron-right` iOS primary |
+| rowTap | `LinmListRow` onTap | toast **Chi tiết tài sản** · pass `Id` khi sibling ship · **cấm** push detail P1 |
+| empty | optional `LinmEmptyChrome` | fail/empty → demo 2 rows (list **vẫn mở**) |
+| toast | `LinmToast` | detail · offline optional |
 
-**implement.list_parity.layout** = `flex-root + GAP-P2-LAYOUT-06 smoke`.  
-**Cấm** Dev chỉ patch 1 chỗ user nêu nếu còn GAP cùng surface (list filter + lookups + form fields cùng pack).
+**Cấm** raw `List` / `LazyVStack` product chrome · **cấm** ship foot Gói / device label · **cấm** «Có mạng» · **cấm** badge Ghim P1 · **cấm** filter sheet.
 
-`retry.ssot_rereview` (stamp Dev implement MD): copy bảng trên + re-audit sau Write.
+### Demo / fallback SSOT (**2** rows — **cấm** rút 1)
 
-## Live GAP → task map
+| code | title line | subtitle | icon bg |
+|------|------------|----------|---------|
+| TS-20260810-014 | TS-20260810-014 · Cống ngang | QL.1 · Km 1556+000 · Cống | indigo |
+| TS-20260809-088 | TS-20260809-088 · Biển P.127 | HCM · Biển báo | gray |
 
-| ID | Gap | Task |
-|----|-----|------|
-| GAP-SA-LIST-FILTER-01 | GET list thiếu `route,kmFrom,kmTo,orgUnit` | T-BE-CRUD-01 · T-BFF-01 · T-UI-LIST-01 |
-| GAP-SA-SEARCH-01 | search thiếu qr + type ILIKE | T-BE-CRUD-01 |
-| GAP-SA-INIT-01 | không `GET …/init-data` | T-BE-INIT-01 · T-BFF-01 · T-UI-FIELD-01 |
-| GAP-SA-LKP-EXISTS-01 | POST/PUT không 422 type/route master | T-BE-CRUD-01 |
-| GAP-SA-UPD-SOURCE-01 | PUT thiếu `source` | T-BE-CRUD-01 · T-UI-FIELD-01 |
-| GAP-SA-TYPE-CODE-01 | data cũ 8 nhãn VN | T-UI-LKP-01 alias-map display · **cấm** persist nhãn mới |
-| GAP-TL-LIST-FILTER-01 | Zone B thiếu route/km/org/clear · type = 8 demo | T-UI-LIST-01 · T-UI-LKP-01 |
-| GAP-TL-LKP-01 | lookups FE-only · route Text | T-UI-LKP-01 |
-| GAP-TL-FIELD-01 | status/source không init-data | T-UI-FIELD-01 |
-| GAP-TL-FIELD-02 | thiếu photos mock · source · note multiline | T-UI-FORM-01 · T-UI-FIELD-01 |
-| GAP-TL-ROUTE-01 | thiếu `/asset/:id/edit` `/copy` | T-UI-FORM-01 |
-| GAP-TL-UX-CODE-01 | code `disabled` vs readonly | T-UI-UX-01 |
-| GAP-TL-PROD-01 | `ASSET_TYPES` 8 nhãn demo còn trên production lookup | T-UI-PROD-01 |
+### Type label mapper (client P1)
 
-## Task pack
+| `Type` code (examples) | Display label |
+|------------------------|---------------|
+| `CULVERT_X` | Cống |
+| `GANTRY_SIGN` | Biển báo |
+| `KM_POST` | Cột Km |
+| `GUARDRAIL` | Hộ lan |
+| `LIGHTING` | Đèn |
+| `SLOPE_PROTECT` | Taluy |
+| unknown | fallback = raw `Type` code |
 
-### T-CTX-01
-**layer:** docs  
-**status:** pending  
-**DoD:**
-- [ ] `docs/context/features/asset.md` khớp Design 2026-08-14 (full-page · SearchInput 23/38 · cấm Slideout)
-- [ ] control-map / readonly-lock: View readOnly · code/updatedAt all-mode readonly
-- [ ] **cấm ERP.*** · **cấm** Finance `api/v1/assets`
+Demo rows SSOT dùng label cố định. Production: mapper + fallback — **cấm** Dropdown 8 nhãn demo làm persist SSOT · **cấm** GET lookup P1.
 
-### T-BE-01
-**layer:** api  
-**status:** pending (verify + delta)  
-**from_solution:** API-01…06 · `RoadAssetEntity` · route `api/v1/asset/road-assets`  
-**source:** backend=`Linm.RMMS.WebService` · domain=`Asset`  
-**ssot.platform_be:** `Linm.Platform.CommonLib`  
-**ssot.platform_auth:** `Linm.Platform.Authentication` — codes `asset.road-assets.*`  
-**skills:** `/create-bff-api-feature` · `/new-endpoint` · `/review-query` · `/implement-view-cross-company`  
-**DoD:**
-- [ ] ApiResponse / paged envelope · XCO GetById giữ · no ERP · `dotnet build` API PASS
-- [ ] **cấm** `ERP.Service.*` · `Domains/Master` · `api/v1/rmms/*`
+### Row bind (SA · real-data mobile)
 
-### T-BE-CRUD-01
-**layer:** api  
-**status:** pending  
-**DoD:**
-- [ ] API-01: query `search,type,route,kmFrom,kmTo,orgUnit,page,pageSize` · default pageSize **50** · sizes 50/100/200/500
-- [ ] Search ILIKE: code · name · **qr** · route · type (**GAP-SA-SEARCH-01**)
-- [ ] `orgUnit` P1: filter `CompanyCode` khớp node đơn vị; node tuyến → map `route` — **cấm** invent `org_unit_code` JSON
-- [ ] API-02 XCO GetById giữ
-- [ ] API-03 create: không nhận `code` · IdCode `TS-yyyyMMdd-nnn` · type/route = master **code**
-- [ ] API-04 update: + `source` (**GAP-SA-UPD-SOURCE-01**)
-- [ ] API-05 soft delete `IsActive=false`
-- [ ] **GAP-SA-LKP-EXISTS-01:** POST/PUT 422 nếu type/route không tồn tại Integration
-- [ ] Compat đọc list: chấp nhận value code **và** nhãn VN cũ — display qua alias-map / init-data (**GAP-SA-TYPE-CODE-01**)
-- [ ] `dotnet build` API PASS · ghi implement § Build
+| Line | Rule |
+|------|------|
+| title | `"{Code} · {Name}"` |
+| subtitle | `"{Route} · Km {KmFrom} · {typeLabel}"` · optional `KmTo` nếu Design/mapper cần · **cấm** Quantity/UnitCode trên UI P1 |
+| Id | nav key → detail (toast P1) |
+| Status | bind optional · **không** bắt buộc hiển thị P1 |
 
-### T-BE-INIT-01
-**layer:** api  
-**status:** pending  
-**DoD:**
-- [ ] API-06 `GET /api/v1/asset/road-assets/init-data`
-- [ ] Body `{ statuses: [{value,label}], sources: [{value,label}] }`
-- [ ] status: `tot`→Tốt · `theo_doi`→Theo dõi · `can_bao_tri`→Cần bảo trì
-- [ ] source: `manual`→Nhập tay · `ai`→AI
-- [ ] **cấm** FE-only KIND_LABEL làm SSOT Dropdown
-- [ ] `dotnet build` API PASS
+### API / store
 
-### T-BE-02
-**layer:** api (migration)  
-**status:** pending (delta only)  
-**DoD:**
-- [ ] Table `rmms_road_assets` **exists** — không tạo bảng mới
-- [ ] Delta indexes CI search name/code/route/qr/type **nếu thiếu** — pair `.cs` + `.Designer.cs`
-- [ ] **cấm** cột JSON / PhotosJson / PostGIS P1
-- [ ] Nếu không thiếu index: ghi `n/a` trên implement · không fake migration
+| Step | Spec |
+|------|------|
+| Appear / refresh | `FetchAssetListUseCase` → `GET asset/road-assets?page=1&pageSize=50` Bearer (+ `search=` khi apply) |
+| Repo | new `AssetRepository` + `AssetRepositoryImpl` → `ApiClient` path `asset/road-assets` · **cấm** invent `asset-list` · **cấm** URLSession trong View |
+| Mapper | `AssetDtoMapper.listRow(from:)` + `typeLabel(from:)` → `AssetListItem` |
+| Bind | Code · Name · Type · Route · KmFrom · (KmTo) · Id · Status · Quantity/UnitCode bind-only |
+| Fail / empty / offline | demo SSOT **2** rows · screen **vẫn mở** · optional toast · **cấm** native alert · **cấm** block hub |
+| Search | server `search=` · page=1 · **không** gửi type/route/km/org P1 |
+| Sibling API | **cấm** GET `/{id}` / POST/PUT/DELETE / init-data trên slug list P1 |
 
-### T-BFF-01
-**layer:** bff  
-**status:** pending  
-**DoD:**
-- [ ] Proxy `web-bff/api/v1/asset/road-assets/**` gồm list QS mới + **GET init-data**
-- [ ] Lookups **không** proxy qua Asset BFF — dùng Integration BFF sẵn
-- [ ] proxy only · `dotnet build` BFF PASS
+### Router / shell
 
-### T-PERM-01
-**layer:** ui+api  
-**status:** pending  
-**DoD:**
-- [ ] FE toolbar/form gated `asset.road-assets.read|create|update|delete`
-- [ ] Tạo mới ẩn nếu `!canCreate` · Edit/Delete theo perm
-- [ ] BE `[RequirePermission]` TODO documented nếu CommonLib <1.4.0 — không block CRUD
+| Entry | Behavior |
+|-------|----------|
+| Hub `tileList` / `tile-list` | **thay** toast → push `#sc-asset-list` (`AssetListView`) |
+| Back | pop `#sc-asset-hub` · **cấm** reimplement hub |
+| Other hub tiles | giữ toast / sibling backlog · **không** đổi trong pack này trừ wire list |
+| DI | `AppContainer` wire `AssetListViewModel` + use case + repo |
+| Accessibility | root `sc-asset-list` · search · rows |
 
-### T-UI-LIST-01
-**layer:** ui  
-**status:** pending  
-**page:** `/asset`  
-**from_design:** zones **A,B,C,D**  
-**implement.wire:** ui → `services/asset/endpoint.ts` → apiClient → BFF → API  
-**implement.state:** list=page-hooks · redux_common=yes  
-**implement.page_shell:** 1× `LinPageLayout` kind=catalog · no nested CatalogListShell · flex root · `data-catalog-list-page`  
-**implement.grid:** `LinCatalogDataGrid` · dynamic cols · `tableConfig` resizable default ON  
-**ssot.platform_ui:** `@linm-soft-org/linm-web-common-components`  
-**skills:** `/erp-form-context` · `/implement-catalog-list-toolbar` · `/review-grid` · `tl-grid-ssot` · `tl-catalog-list-parity` · **`tl-retry-ssot-rereview`**  
-**APIs:** API-01  
-**deps:** T-BE-CRUD-01 · T-UI-LKP-01  
-**implement.list_parity:**
-  pilot_ux: Kind B catalog
-  layout: flex-root + GAP-P2-LAYOUT-06 smoke
-  tree: n/a (org tree = filter SearchInput)
-  filter: SearchInput search + type + route + orgTree · Text kmFrom/kmTo · **Xóa điều kiện** · **no Tìm btn** (GAP-P2-87)
-  loading: useServerPagedListLoading
-  footer: LinCatalogListPagination (common ONLY) `[50,100,200,500]`
-  row_menu: LinCatalogRowActionMenu · Xem · Sửa · Sao chép · Lịch sử (stub) · Delete nếu `canDelete` (Design không bắt buộc Xóa)
-  zone_f: LinCatalogUiSchemaEditorModal
-  history: LinCatalogHistoryModal stub
-  grid_resize: resizable default ON
-  perm: asset.road-assets.*
-**DoD:**
-- [ ] Dev re-review checklist § HARD trước Write — ghi `retry.ssot_rereview` trên implement MD
-- [ ] Zone A: `fa-road` + title **Sổ tài sản kết cấu hạ tầng đường bộ** — **cấm** Thêm mới trên A
-- [ ] Zone B: đủ filter Design §2 · Tạo mới **chỉ trên B** · Làm mới · `fa-cog` · filter đổi → page=1
-- [ ] Zone C: cột STT · □ · Mã · Tên · Loại · Tuyến · Lý trình từ · đến · Tình trạng KT · Tọa độ GPS · ⋯ — loại/tuyến `code — name`
-- [ ] Click mã → View full-page
-- [ ] **Cấm** Select 8 nhãn demo · **cấm** `ASSET_TYPES` làm production lookup
-- [ ] BASE=`/asset/road-assets` · query `route,kmFrom,kmTo,orgUnit`
-- [ ] MFE `yarn build` PASS
+**Cấm** WebView HTML · VM→URLSession trực tiếp.
 
-### T-UI-FORM-01
-**layer:** ui  
-**status:** pending  
-**from_design:** Full page Z1 · Z1h · Z2 · Z3 · 15 fields · View `<dl>` / readOnly  
-**skills:** `/erp-form-context` · `/implement-show-leave-confirm` · `dev-form-review-checklist`  
-**deps:** T-BE-CRUD-01 · T-BE-INIT-01 · T-UI-LKP-01 · T-UI-FIELD-01  
-**DoD:**
-- [ ] Routes: `/asset/new` · `/asset/:id` (view) · `/asset/:id/edit` · `/asset/:id/copy` (**GAP-TL-ROUTE-01**)
-- [ ] FormMode Create/Edit/View/Copy · Copy = POST new · IdCode mới
-- [ ] Z1 actions: Quay lại · Sao chép · Sửa · Hủy · Lưu — Z3 Hủy/Lưu ẩn khi view
-- [ ] Dirty leave-confirm khi Hủy / Quay lại
-- [ ] **Cấm** Slideout / Resource trên surface asset form
-- [ ] MFE `yarn build` PASS
+### Build DoD
 
-### T-UI-ACT-01
-**layer:** ui  
-**status:** pending  
-**DoD:** action inventory → handler + API (bảng dưới) wired live
+```bash
+cd /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS && xcodegen generate
+xcodebuild -scheme LinmRmms -destination 'platform=iOS Simulator,name=iPhone 17 Pro' build
+```
 
-| Action | Surface | Handler | API |
-|--------|---------|---------|-----|
-| Search | S-LIST B | SearchInput text → applyFilters page=1 | GET `/` `?search=` |
-| Type filter | S-LIST B | SearchInput asset-type | GET `?type=` (code) |
-| Route filter | S-LIST B | SearchInput road-route | GET `?route=` (code) |
-| kmFrom / kmTo | S-LIST B | Text | GET `?kmFrom=&kmTo=` |
-| orgTree | S-LIST B | SearchInput tree org-unit | GET `?orgUnit=` |
-| Xóa điều kiện | S-LIST B | clear all → page=1 | GET `/` |
-| Refresh | toolbar | reloadAll | GET `/` |
-| +Tạo mới | toolbar B | navigate `/asset/new` | POST `/` |
-| Config `fa-cog` | toolbar | `LinCatalogUiSchemaEditorModal` | ui-schema |
-| History | toolbar / row | `LinCatalogHistoryModal` stub | DEFER |
-| Row / click mã View | C | `/asset/:id` | GET `/{id}` |
-| Row Sửa | C | `/asset/:id/edit` | GET · PUT |
-| Row Sao chép | C | `/asset/:id/copy` | GET · POST |
-| Form Lưu | S-FORM | create/update | POST / PUT |
-| Form Hủy / Back | S-FORM | leave-confirm | — |
-| Delete | optional nếu `canDelete` | soft delete | DELETE `/{id}` |
+Fail → `build_fail_confirm` · **cấm** mark Dev done. Ghi `implement/ios.md` (và/hoặc `implement/asset.md` theo Dev skill).
 
-### T-UI-LKP-01
-**layer:** ui  
-**status:** pending  
-**DoD:**
-- [ ] List + form **type**: SearchInput → API-LKP-01 (23) display `code — name` persist **code**
-- [ ] List + form **route**: SearchInput → API-LKP-02 (38) — **cấm** `Input` free-text
-- [ ] List **orgTree**: SearchInput tree → API-LKP-03
-- [ ] Alias demo 8: **chỉ** display map (GANTRY_SIGN…) — **cấm** persist «Mặt đường»/`BRIDGE`
-- [ ] **Cấm** `ASSET_TYPES` 8 nhãn làm `TYPE_LOOKUP_CONFIG` production
-- [ ] Seed Integration 23+38 **trước** consumer (nếu empty → empty SearchInput, không fallback 8)
+Optional Dest (skill TL): **iPad Pro 13-inch (M5)** khi team yêu cầu — **không** claim family `1` store.
 
-### T-UI-FIELD-01
-**layer:** ui  
-**status:** pending  
-**control-map ↔ DTO**
+---
 
-| uiField | Control | dtoField | Required | Notes |
-|---------|---------|----------|----------|-------|
-| code | Text readonly IdCode | Code | auto | all-mode readonly |
-| name | Text | Name | * | view=readOnly |
-| type | SearchInput asset-type | Type | * | code 23 |
-| route | SearchInput road-route | Route | * | code 38 |
-| kmFrom | Text | KmFrom | * | |
-| kmTo | Text | KmTo | | |
-| status | **Dropdown** init-data | Status | * | **cấm** SearchInput FE enum |
-| source | **Dropdown** init-data | Source | | `manual` \| `ai` |
-| lat / lng | Text number | Lat / Lng | | |
-| qr | Text display | Qr | | P1 |
-| photos | Text mock | — | | **không** persist |
-| valueVnd | Text Money | ValueVnd | | |
-| note | Text multiline | Note | | |
-| updatedAt | Date readonly | UpdatedAt | | UTC→local display |
+## T-AND-LIST-01 — detail
 
-**DoD:**
-- [ ] `getInitData` client · Dropdown bind API-06
-- [ ] Create body **không** gửi code
-- [ ] Update gửi `source`
-- [ ] **cấm** parent JSON trên field
+| | |
+|--|--|
+| `source.repo` | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android` |
+| `ssot.zones` | cùng iOS · `#sc-asset-list` · frame 412×915 |
+| Pattern | List · **không** Modal/Sheet filter · Material chrome OK (back = icon `#i-chevron-left` / ArrowBack) |
 
-### T-UI-PROD-01
-**layer:** ui  
-**status:** pending  
-**DoD:**
-- [ ] **Cấm** Resource / Slideout trên `/asset*` form
-- [ ] View = `readOnly` / `<dl>` — **cấm** disabled xám toàn form
-- [ ] **Cấm** Dropdown 8 nhãn demo production
-- [ ] Excel / Leaflet / AI confirm **out of pack** — không invent UI
+### UI / API
 
-### T-UI-UX-01
-**layer:** ui  
-**status:** pending  
-**skills:** `dev-ui-ux-constitution`  
-**DoD:**
-- [ ] spacing 4/8/16 · Lin* · no `filterMaxWidthPx`
-- [ ] Input pad 6×10 · min-height 32 · focus shadow (GAP-P2-CSS-*)
-- [ ] Checkbox grid 24×24 · cột 48px · ellipsis cột
-- [ ] AppLayout definite height · title không clip (GAP-P2-LAYOUT-06)
-- [ ] code field **readonly** không `disabled` xám (GAP-TL-UX-CODE-01)
-- [ ] SearchInput dropdown portal ON
+Cùng bảng field · typeLabel · demo 2 rows · bind · toast · kit cite như T-IOS.  
+Nav back: **icon-only** OK (HIG vs M3) · title **Danh sách** · copy VN **parity** iOS (`GAP-MOB-ALIGN-01`).
 
-### T-UI-MAP-FORM
-**layer:** —  
-**status:** n/a  
-**note:** packKind=`list` — không map OMS / không `/agent-dev-oms-map`
+### Router / shell
 
-### T-QA-01
-**layer:** qa  
-**status:** pending (QA role — **không** làm ở Dev)  
-**deps:** T-UI-LIST-01 · T-UI-FORM-01 · T-BFF-01 · T-PERM-01  
-**DoD:**
-- [ ] `qa/scenarios.md` — A–D · SearchInput 23/38 · full-page form · mfeStdUrl · no ERP
+| Entry | Behavior |
+|-------|----------|
+| `AssetHubIntent.TileList` / `tile-list` | **thay** toast → navigate `asset-list` / `#sc-asset-list` |
+| Back | `popBackStack` → `asset-hub` reuse |
+| DI | Hilt `AssetListViewModel` · use case · repo → Retrofit/`ApiService` `@GET("asset/road-assets")` |
 
-### T-QA-CRUD-01
-**layer:** qa  
-**status:** pending  
-**deps:** T-UI-ACT-01 · T-BE-CRUD-01 · T-BE-INIT-01 · T-UI-LKP-01  
-**DoD:**
-- [ ] Smoke Create→Edit→View→Copy→(optional Delete) + filter route/km/org + init-data Dropdown
-- [ ] QA-CRUD + LKP/PROD/UX rows
+### Build DoD
+
+```bash
+cd /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android && ./gradlew :app:assembleDebug
+```
+
+Fail → `build_fail_confirm` · **cấm** mark Dev done. Ghi `implement/android.md`.
+
+Optional verify (Dev, **không** TL): Mobile.Bff `dotnet build` PASS.
+
+---
+
+## T-BE-* / T-BFF — n/a · reuse
+
+| id | Decision |
+|----|----------|
+| T-BE-API | **n/a** — SA `solution_confirm=approve` · reuse `GET api/v1/asset/road-assets` · **cấm** `AssetListController` / invent path |
+| T-BE-MIG | **n/a** — không bảng mới · `share_tenant` existing · **cấm** `/database-migration` |
+| T-BFF-01 | **reuse** — Mobile.Bff catch-all proxy · **cấm** clone controller |
+| Step 4b | **N/A** — **cấm** TL/Dev chạy migration / `/new-endpoint` cho pack này |
+
+---
+
+## Device / field AC (Dev + QA cite)
+
+| ID | AC |
+|----|-----|
+| AC-D-01 | Offline → list mở · demo 2 rows · toast in-app · **cấm** full-screen block |
+| AC-D-04 | **Cấm** `UIAlert` / `AlertDialog` — mọi phản hồi = `LinmToast` |
+| AC-D-05 | Search focus · field ≥16 · keyboard không đè chrome |
+| AC-D-06 | Safe area · nav + search + rows |
+| AC-D-10 | **Không** tab bar trên `#sc-asset-list` |
+| AC-D-12 | search placeholder **13** · title/row ≥**16** (`GAP-TYP-01`) |
+| AC-F-01 | Appear GET road-assets · fail/empty → demo 2 |
+| AC-F-02 | Back → `asset-hub` |
+| AC-F-03 | Hub tile Danh sách → push list (không toast stub) |
+| AC-F-04 | Search → GET `search=` page=1 |
+| AC-F-05 | Tap row → toast **Chi tiết tài sản** · **cấm** push detail |
+| AC-F-06 | Dual **2** rows + copy SSOT |
+| AC-F-07 | **Cấm** filter type/route/km · badge Ghim · Quantity UI P1 |
+| AC-F-08 | **Cấm** device label / proto-click / watermark Gói |
+| AC-F-09 | Type code → typeLabel mapper · **cấm** lookup API P1 |
+| AC-F-10 | App path **chỉ** `asset/road-assets` qua Mobile.Bff |
+
+---
+
+## Sibling backlog (cấm start)
+
+| feature | status | note |
+|---------|--------|------|
+| `asset-detail` | `pending_confirm` | row tap sau ship → push · P1 = toast |
+| `asset-collect` | `pending_confirm` | hub tile Thủ công / Camera AI |
+| `asset-adjust` | `pending_confirm` | hub tile Cập nhật / bớt |
+| `gis-map` / asset map | reuse / pending | hub map tiles |
+| `asset-hub` | reuse shipped | entry only · **cấm** reimplement |
+
+**GAP-MOB-ACT-06:** board Approve riêng · **cấm** auto start từ TL/Dev `asset`.
+
+---
 
 ## Deps
 
 ```
-T-CTX-01
-T-BE-01 → T-BE-CRUD-01 → T-BE-INIT-01 → T-BFF-01
-                ↘ T-PERM-01
-T-BE-CRUD-01 + T-BE-INIT-01 + T-BFF-01
-        → T-UI-LKP-01 → T-UI-FIELD-01
-        → T-UI-LIST-01 → T-UI-FORM-01 → T-UI-ACT-01
-        → T-UI-PROD-01 → T-UI-UX-01
-T-UI-* → T-QA-01 · T-QA-CRUD-01  (QA role)
+T-KIT-ASSET-LIST (n/a)
+T-BE-API / T-BE-MIG (n/a) · T-BFF-01 (reuse)
+route_a + SA
+  → T-IOS-LIST-01
+  → T-AND-LIST-01
+T-IOS + T-AND → T-QA-01 (QA role)
 ```
+
+---
 
 ## Handoff → Dev
 
 | Field | Value |
 |-------|-------|
-| Next | `/agent-dev` · **toàn bộ** T-BE-* delta + T-UI-* (list filter + full-page field/lookup) |
-| `devSlash` | `/agent-dev` — **không** `/agent-dev-oms-map` / `/agent-dev-ai-detect` |
-| Anti-dup | `ssot-no-duplicate.md` — reuse only |
-| UI SSOT | `MFE-COMMON/Linm.Web.Common.Components` |
-| BE SSOT | `Linm.RMMS.WebService` domain Asset · Integration lookups |
-| HARD | `tl-retry-ssot-rereview` · cấm patch mù 1 chỗ · đóng GAP-SA-* + GAP-TL-* cùng surface |
-| Build | MFE `yarn build` PASS · BE `dotnet build` API+BFF PASS · ghi implement § Build |
-| **cấm** | `ERP.*` · parent JSON · 8 nhãn demo persist · Slideout form |
+| feature / packKind | `asset` / **`list`** |
+| route_confirm | **route_a** (autoApprove) |
+| Tasks | `T-IOS-LIST-01` · `T-AND-LIST-01` · T-BE **n/a** · T-BFF **reuse** · T-KIT **n/a** |
+| BFF | **chỉ** `GET asset/road-assets` |
+| Real-data | `_data-analy/features/asset-real-data.md` + SA field map mobile |
+| UX packet | `ui/ux-analy.md` · `ui/design.md` · dual proto · map |
+| Next slash | `/agent-dev-ios` rồi `/agent-dev-android` (serial / scoped locks) |
+| Chain this turn | **không** (roleOnly=`team_lead` · **GAP-PKT-ROLE-01**) |
+| e2eQa | ON queued QA · **cấm** TL chạy e2e |
+
+---
+
+## VERIFY GATE (roleOnly=`team_lead`)
+
+| Check | Result |
+|-------|--------|
+| task/asset.md | **PASS** · T-IOS-LIST-01 · T-AND-LIST-01 · T-BE n/a · T-BFF reuse · route_a · source lock |
+| Prior SA + Design + PO + data-analy | **PASS** · read · **cấm** invent API / control |
+| ios_repo + android_repo + route_confirm | **PASS** · repos có trên host · autoApprove route_a |
+| Kit | **PASS** · reuse map · T-KIT **n/a** |
+| Step 4b / migration / e2e | **SKIP** (cấm role TL) |
+| yarn build / start:std / implement native Write | **SKIP** (cấm role TL) |
+| Chain other role | **SKIP** · GAP-PKT-ROLE-01 |
+
+---
 
 ## Version meta (REQUIRED)
 
 | Field | Value |
 |-------|-------|
-| skillId | agent-team-lead |
-| skillVersion | 2026.08.14.5 |
-| schemaVersion | 2 |
-| workflowVersion | 2026.08.14.5 |
-| rulesVersion | 2026.08.14.9 |
-| generatedAt | 2026-08-14T16:15:00.000Z |
-| versionGate | rechecked (`recheck_new` · SSOT workflow **2026.08.14.5**) |
-| taskId | `task_31557cdc` |
-| contentHashPriorSa | `task_86f45a3c` |
-| contentHashPriorDesign | `task_52b245e2` |
-| contentHashPriorPo | `task_9ab7f74a` |
-| contentHashPriorDataAnaly | sha256:b21de98e21ce800f30383fb452770f85aa87d5be969e4bf0ccd5387c2acd17af |
+| skillId | agent-tl-mobile |
+| skillVersion | 2026.08.29.1 |
+| schemaVersion | 1 |
+| workflowVersion | 2026.08.29.1 |
+| rulesVersion | 2026.08.29.5 |
+| generatedAt | 2026-08-29T16:52:38.000Z |
+| versionGate | rechecked |
+| contentHash | sha256:asset-mobile-edit-list-20260823 |
+| bffContentHash | sha256:asset-mobile-list-road-assets-proxy-20260823 |
+| taskId | `task_217f2173` |
+
+---
+<!-- Version meta: skillId=agent-tl-mobile skillVersion=2026.08.29.1 schemaVersion=1 workflowVersion=2026.08.29.1 rulesVersion=2026.08.29.5 versionGate=rechecked -->

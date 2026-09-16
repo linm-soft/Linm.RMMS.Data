@@ -6,16 +6,17 @@
 ## 1. IA
 
 ```
-(auth) Login shell (#sc-login)
-  → toast «Đăng nhập thành công»
-  → Home demo (kit gallery · DES-MOB-HOME-DEMO)
-  → chrome **Đăng xuất** (`#btn-logout`)
-  → toast «Đã đăng xuất» · clear session
-  → Login `#sc-login`
+Cold start → #sc-home guest (Khách + Đăng nhập tách)
+  → btn-home-login → overlay #sc-login
+  → btn-login-back → #sc-home guest
+  → toast «Đăng nhập thành công» → #sc-home staff
+  → kill / reopen / foreground → restore phiên (Root tryRefreshToken · exp−60s) → staff Home
+  → refresh 401 → #sc-home guest (không overlay login)
+  → #sc-me Đăng xuất → #sc-home guest
 ```
 
-- Login **không** nằm trong TabView / NavigationBar 5.
-- **Cấm** invent tab · **cấm** swipe-back ra Home khi chưa phiên.
+- Login = overlay · **không** cổng bắt buộc.
+- **Cấm** invent tab · guest **được** về Home.
 - Child backlog (không vẽ form `#sc-me`): `login-forgot` (link) · `login-logout` BFF.  
 - Demo Home **Đăng xuất** = chrome test login · local clear · **không** POST `auth/logout`.
 
@@ -35,8 +36,8 @@
 | Zone | Demo (user thấy) | Map row (html-to-native-map) | SwiftUI | Compose |
 |------|------------------|------------------------------|---------|---------|
 | Brand | `app-logo.png` · «Quản lý bảo trì đường bộ» | B `img` · A static text | Logo 192 tĩnh top · **alpha** trên surface · **cấm** tile `#000`/`#fff` · **cấm** band 1/3 | same |
-| Body user | placeholder **Tài khoản** · lead person · value mẫu · Enter nếu MK có giá trị → login | B `input type=text` | `LinmTextField` (+ lead · `onSubmit`) | `LinmTextField` (+ lead · `onSubmit` `ImeAction.Go`) |
-| Body pass | placeholder **Mật khẩu** · lead lock · eye trail · Enter → login | B `input type=password` + `.trail` eye | **`LinmSecureTextField`** `onSubmit` | **`LinmSecureTextField`** `onSubmit` `ImeAction.Go` |
+| Body user | placeholder **Tài khoản** · lead person · value mẫu · Enter nếu MK có giá trị → login · chữ typed `onSurface` | B `input type=text` | `LinmTextField` (+ lead · `onSubmit` · `LinmPlainInput` light UI) | `LinmTextField` (+ lead · `onSubmit` `ImeAction.Go` · `textStyle` `onSurface`) |
+| Body pass | placeholder **Mật khẩu** · lead lock · eye trail · Enter → login · chữ typed `onSurface` | B `input type=password` + `.trail` eye | **`LinmSecureTextField`** `onSubmit` · `LinmFieldChrome` | **`LinmSecureTextField`** `onSubmit` `ImeAction.Go` · `cursorBrush` primary |
 | CTA | **Đăng nhập** full width | A `.btn-ok` / B `button` primary | `LinmPrimaryButton` | `LinmPrimaryButton` |
 | Meta | «Tín hiệu» + hạng · link **Quên mật khẩu?** · **đáy giữa** (`.login-meta` `margin-top: auto`) | A `data-net-signal` · B `a` | `LinmNetSignalMark` overlay `alignment: .bottom` · ẩn khi IME · **cấm** tap cycle · **cấm** «bản Gói 1» | `Box` `Alignment.BottomCenter` · ẩn khi `WindowInsets.ime` |
 | Toast | success / lỗi / forgot / đã đăng xuất | A toast / banner | `LinmToast` | `LinmToast` |
@@ -55,11 +56,11 @@
 | State | Hành vi |
 |-------|---------|
 | default | `#f-user` last id (nếu đã login) · `#f-pass` **rỗng** · **cấm** prefill MK native |
-| after submit | password **reset** · username giữ |
-| empty | field trống · CTA vẫn bấm (validate Dev) |
-| loading | `LinmBusyOverlay` full page · blur nền `busyBlur` 12 · spinner giữa · CTA giữ title — **cấm** spinner trong nút + overlay cùng lúc · **cấm** block system alert |
-| error | `LinmToast` sai MK / Inactive / HĐ |
-| offline | **không** submit · toast/banner · **cấm** queue login |
+| after submit OK | password **reset** · username giữ · vào Home |
+| error | `LinmToast` sai MK / Inactive / HĐ · **giữ `#f-user` + `#f-pass`** · **cấm** wipe form |
+| empty | field trống · CTA vẫn bấm (validate Dev) · **cấm** xóa field đã gõ |
+| loading | `LinmBusyOverlay` full page · blur nền `busyBlur` 12 · spinner giữa · CTA giữ title — **cấm** spinner trong nút + overlay cùng lúc · **cấm** wipe field lúc loading |
+| offline | **không** submit · toast/banner · **giữ field** · **cấm** queue login |
 | permission | N/A (không GPS/camera) |
 | leave dirty | N/A (SPEC §7.1) |
 
@@ -111,6 +112,7 @@ Không `/wf-anim` trên pack này.
 Brand **tĩnh** top: logo **192** **alpha** trên surface + title + user/pass + CTA. **Cấm** tile `#000`/`#fff` · **cấm** band 1/3 · **cấm** animation / 2 layout IME. Footer `.login-meta` **pin đáy giữa** khi IME ẩn (signal + Quên mật khẩu?). IME hiện → ẩn footer. Mắt giữ IME. **cấm** ×3. (`GAP-MOB-EDIT-LOGO-BG` · `GAP-MOB-EDIT-FOOTER-01`)  
 IME: `LinmKeyboardAwareScroll` — field focus **pin** trên bàn phím (`imeFocusGap` 12). **Cấm** `ignoresSafeArea(.keyboard)` / che `#f-user` `#f-pass`. (`GAP-MOB-EDIT-IME`)  
 IME Enter (`GAP-MOB-EDIT-IME-ENTER`): `#f-user` Enter/`Go` **chỉ login khi `#f-pass` có giá trị** · `#f-pass` Enter/`Go` **luôn login** (cùng CTA / validate). `#f-user` Enter + MK rỗng → **focus `#f-pass`** · **không** toast / **không** POST.  
+Field ink (`GAP-MOB-EDIT-FIELD-INK`): typed text `onSurface` trên `card` · iOS `UIUserInterfaceStyle` Light + `LinmFieldChrome` · Android `forceDarkAllowed=false` + `textStyle`/`cursorBrush`. **Cấm** chữ trắng khi IME trên máy thật.  
 Success: toast → navigate Home ~350 ms (parity `loginOk`).
 
 ## 9. GAP
@@ -125,9 +127,12 @@ Success: toast → navigate Home ~350 ms (parity `loginOk`).
 | GAP-MOB-EDIT-LOGO-BG | logo nền đen/trắng (AppIcon plate + elevation) | **closed** — punch plate → alpha · Fit · **cấm** tile |
 | GAP-MOB-EDIT-DEMO-LOGOUT | sau login không về được `#sc-login` | **closed** — demo Home `btn-logout` local clear · **không** slug `login-logout` |
 | GAP-MOB-EDIT-IME | Android IME che `#f-user` / pass / CTA (`ADJUST_NOTHING` không scroll) | **closed** — kit `LinmKeyboardAwareScroll` dual · focus pin trên IME · logo 192 tĩnh |
-| GAP-MOB-EDIT-PASS | sau login / logout `#f-pass` còn nhớ | **closed** — submit reset MK · giữ last `#f-user` · **cấm** persist MK |
+| GAP-MOB-EDIT-PASS | sau login / logout `#f-pass` còn nhớ | **closed** — **chỉ** reset MK khi login **OK** · giữ last `#f-user` · **cấm** persist MK · **cấm** reset khi fail |
+| GAP-MOB-EDIT-FAIL-FIELDS | login fail tự wipe `#f-user` / `#f-pass` | **closed** — fail / offline / HĐ **giữ** cả hai field · reset MK chỉ sau toast success |
 | GAP-MOB-EDIT-FOOTER-01 | Footer `.login-meta` dính dưới CTA · trống đáy (Android) | **closed** — pin `BottomCenter` / `.bottom` · giữa ngang · ẩn khi IME |
 | GAP-MOB-EDIT-IME-ENTER | Enter `#f-user` / `#f-pass` không login | **closed** — kit `onSubmit` dual · user Enter + MK có giá trị → login · user Enter + MK rỗng → focus pass · pass Enter → login |
+| GAP-MOB-EDIT-FIELD-INK | `#f-user` / `#f-pass` chữ trắng trên máy thật khi IME (Dark Mode / Force Dark · `card` trắng + system primary) | **closed** — kit lock `onSurface` · iOS `LinmPlainInput` + `LinmFieldChrome` · Android `textStyle` + `forceDarkAllowed=false` · app light |
+| GAP-MOB-EDIT-SESSION-REFRESH | Kill/reopen chỉ hydrate access · không `tryRefreshToken` / exp−60s · 401 fail logout cả khi mất mạng | **PASS** Root parity: single-flight `POST auth/refresh-token` · pre-emptive exp−60s (clamp 30s…1h) · cold start + foreground restore · 401 → guest Home · **cấm** `/session-expired` · **cấm** logout khi IOException · **cấm** `auth/refresh` · **cấm** revert |
 
 ## Version meta (REQUIRED)
 

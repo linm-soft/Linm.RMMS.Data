@@ -1,32 +1,35 @@
 # Dev — Implement — supervise (iOS)
 
-> Status: **done** · `/agent-dev-ios` · `/dev-ios-swiftui` · `/ios-new-screen` · `/ios-new-api-call` · `/dev-ui-review` · `/convert-web-icon-to-mobile`  
-> task `task_e29847e6` · T-IOS-SUPERVISE
+> Status: **done** · `/agent-dev-ios` · `/dev-ios-swiftui` · `/dev-ui-review`  
+> task `task_a7ad9582` · T-IOS-SUP-FILTER · T-IOS-SUP-MAP-NAV · changeScope=`edit_page`
 
 | Feature | `supervise` |
 | dest | **iPhone 17 Pro** **BUILD SUCCEEDED** · family `1` · A4-IPAD DEFER |
 | xcodegen | **PASS** |
-| Kit | `LinmTopBar` · `LinmSegment` · `LinmToast` · `LinmMapPinGlyph` · `LinmBusyOverlay` · card = feature composition (`LinmCard` title+pad 16 **không** khớp thumb + status strip) |
+| Kit | `LinmTopBar` · `LinmSegment` · `LinmSheet` · `LinmTextField` · `LinmPrimaryButton`/`LinmSecondaryButton` (sheet actions) · `LinmToast` · `EmptyChromeView` · `LinmMapPinGlyph` · `LinmBusyOverlay` · card = feature composition · DatePicker system |
 
 ## Layers
 
-| Presentation | `Presentation/Features/Supervise/SuperviseView.swift` · `SuperviseViewModel.swift` · `SuperviseUiState.swift` · `AppRouter` Home/Field `navigationDestination` |
-| Domain | `FetchSuperviseCheckinsUseCase` · `SuperviseCopy.orgFallback` · `SuperviseCopy.demoItems` |
-| Data | `SuperviseRepositoryImpl` · `SuperviseDtoMapper.checkin(from:)` · `GET patrol/attendance-logs` `page`/`pageSize` |
+| Presentation | `SuperviseView` · `SuperviseViewModel` · `SuperviseUiState` · filter sheet `#filter-sheet` · `AppRouter` Home/Field → `#sc-patrol-map` |
+| Domain | `FetchSuperviseCheckinsUseCase` ±`route` + client `CheckInAt` day · `SuperviseCheckinItem.checkInAt` |
+| Data | `SuperviseRepositoryImpl` GET `patrol/attendance-logs` `page`/`pageSize`/`route` · mapper parse Instant/Date |
 
-## IA / API
+## Behavior (§ Delta live)
 
-- route_a: Home tile **Giám sát** + patrol-home quick **Giám sát** → push `#sc-supervise` · back **Trang Chủ** = pop.
-- Appear GET `patrol/attendance-logs` Bearer · empty/fail/offline → demo SSOT 2 rows · list **mở**.
-- Empty `Note` → «Tổ tuần đường · VP-IV.1» (`GAP-MOB-SUP-03`).
-- Lọc / segment **Bản đồ** / tap card → `LinmToast` · **cấm** push sibling · **cấm** `UIAlert`.
-- `#i-building` Path `d=` · `#i-mappin` `LinmMapPinGlyph` · type 17/13/13.
-- E2E: `sc-supervise` · `btn-sup-back` · `btn-sup-filter` · `sup-segment` · `sup-card-demo-1` / `sup-card-demo-2`.
+- **Lọc** → owner `LinmSheet` Tuyến+Ngày · Apply GET ±`route` + client day · Clear clear+reload · **cấm** toast fake.
+- Segment **Bản đồ** → push `#sc-patrol-map` (Home `showPatrolMapFromHome` / Field `showPatrolMapFromField`) · reset seg **0** · **cấm** toast/embed.
+- Tap card → keep `supervise-detail` · EmptyChrome live-only · loadFail toast only.
+- Optional `#filter-chip` when appliedRoute/date set.
+- E2E ids: `sc-supervise` · `btn-sup-filter` · `filter-sheet` · `filterRoute` · `filterDate` · `filterApply` · `filterClear` · `sup-segment` · `sup-empty` · `sup-card-*` · `filter-chip`.
 
 ## VERIFY GATE
 
-`xcodegen generate` + `xcodebuild -scheme LinmRmms -destination 'platform=iOS Simulator,name=iPhone 17 Pro' build` **BUILD SUCCEEDED**.
+`xcodegen generate` + `xcodebuild -scheme LinmRmms -destination 'platform=iOS Simulator,name=iPhone 17 Pro' build` **BUILD SUCCEEDED**.  
+BFF `dotnet build` **PASS** (no Write this turn · reuse GET). Step 4b **N/A**.
 
-## Notes
+## Debt
 
-Step 4b / T-BE **N/A** — reuse live `GET patrol/attendance-logs`. **Cấm** `GET supervise` / sibling map-detail.
+- GAP-MOB-SUP-04 BE fromDate **P2**
+- iPad Pro 13" smoke **DEFER** (family `1`)
+
+<!-- Version meta: skillId=agent-dev-ios+dev-ios-swiftui skillVersion=2026.08.19.26 schemaVersion=1 workflowVersion=2026.08.31.2 rulesVersion=2026.08.31.2 versionGate=rechecked taskId=task_a7ad9582 -->

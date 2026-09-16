@@ -32,3 +32,5 @@ data-import/
 local-script/its-public-pilot/data/
 local-script/its-public-pilot/out/
 _archive/
+specs/asset-hub/qa/screens/_maestro_android/android/logs
+*.log

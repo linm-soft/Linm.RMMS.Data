@@ -19,13 +19,25 @@
       width: 390px; height: 844px; background: var(--surface); border-radius: 44px;
       overflow: hidden; position: relative; display: flex; flex-direction: column;
     }
-    .content { flex: 1; overflow: auto; padding: 0 0 90px; }
+    .content { flex: 1; overflow: auto; padding: 0; display: flex; flex-direction: column; }
     .vn-hero {
       margin: 0 0 14px; padding: 54px 16px 18px;
       background: linear-gradient(165deg, #086A9A 0%, #0C84C0 55%, #2A9AD4 100%);
       color: #fff; border-radius: 0 0 22px 22px;
     }
     .vn-hero-tools { display: flex; justify-content: space-between; margin-bottom: 10px; }
+    .guest-mid {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 96px;
+    }
+    .home-brand {
+      width: 96px; height: 96px; border-radius: 16px; background: #fff;
+      display: grid; place-items: center; font: 800 18px/1 inherit; color: #086A9A;
+      box-shadow: 0 1px 8px rgba(0,0,0,.06);
+    }
     .hero-ico {
       width: 44px; height: 44px; border: 0; border-radius: 22px; cursor: pointer;
       background: rgba(255,255,255,.18); color: #fff; display: grid; place-items: center;
@@ -40,6 +52,12 @@
     .bars i:nth-child(1) { height: 4px; } .bars i:nth-child(2) { height: 7px; }
     .bars i:nth-child(3) { height: 10px; } .bars i:nth-child(4) { height: 12px; }
     .who { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; margin: 8px 0 12px; }
+    .btn-home-login {
+      display: block; width: 100%; border: 0; border-radius: 14px; padding: 12px 14px;
+      text-align: left; cursor: pointer; background: #fff; color: #086A9A;
+      font: 700 15px/1.25 inherit; box-shadow: 0 4px 12px rgba(0,0,0,.12); margin-bottom: 12px;
+    }
+    .btn-home-login .s { display: block; font-size: 13px; font-weight: 500; color: #5a6a80; margin-top: 4px; }
     .vn-quick { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
     .vn-quick button {
       border: 0; border-radius: 14px; padding: 14px 12px; text-align: left; cursor: pointer;
@@ -70,19 +88,53 @@
     .wallet-card .k { font-size: 12px; opacity: .85; font-weight: 700; letter-spacing: .04em; }
     .wallet-card .t { font-size: 20px; font-weight: 800; margin: 6px 0 4px; }
     .wallet-card .m { font-size: 13px; opacity: .92; line-height: 1.35; }
-    .tab {
-      position: absolute; left: 0; right: 0; bottom: 0; height: 83px;
-      background: rgba(255,255,255,.92); border-top: 0.5px solid #C7C7CC;
-      display: flex; padding: 6px 4px 28px;
-    }
-    .tab b { flex: 1; text-align: center; font-size: 13px; font-weight: 500; color: var(--muted); }
-    .tab b.on { color: var(--blue); }
+    .guest-dock { margin-top: auto; padding: 8px 16px 28px; }
+    .guest-dock .btn-home-login { width: 100%; margin-bottom: 0; }
+    .guest-dock .privacy-link { padding: 8px 0 12px; }
     .toast {
-      position: absolute; left: 50%; bottom: 100px; transform: translateX(-50%);
+      position: absolute; left: 50%; bottom: 24px; transform: translateX(-50%);
       background: rgba(28,28,30,.92); color: #fff; padding: 10px 16px; border-radius: 12px;
       font-size: 14px; opacity: 0; pointer-events: none; transition: opacity .2s; white-space: nowrap; z-index: 5;
     }
     .toast.on { opacity: 1; }
+    .guest-row {
+      display: flex; align-items: flex-start; justify-content: space-between; gap: 10px;
+      margin: 0 16px 10px; padding: 14px; border: 0; width: calc(100% - 32px);
+      background: var(--card); border-radius: 16px; text-align: left; cursor: pointer;
+      font-family: inherit; color: var(--label); box-shadow: 0 1px 4px rgba(0,0,0,.05);
+    }
+    .guest-row .t { font-size: 15px; font-weight: 650; }
+    .guest-row .s { display: block; font-size: 13px; font-weight: 500; color: var(--muted); margin-top: 2px; }
+    .guest-row .ch { color: var(--muted); font-size: 16px; }
+    .privacy-link {
+      display: block; width: 100%; border: 0; background: none; cursor: pointer;
+      color: var(--blue); font: 500 13px inherit; text-decoration: underline; padding: 8px 16px 12px;
+    }
+    .overlay {
+      position: absolute; inset: 0; background: var(--surface); z-index: 8;
+      display: none; flex-direction: column;
+    }
+    .overlay.on { display: flex; }
+    .ov-bar { display: flex; align-items: center; padding: 16px 16px 8px; }
+    .ov-bar button { border: 0; background: none; color: var(--blue); font: 500 13px inherit; cursor: pointer; }
+    .ov-bar h1 { flex: 1; text-align: center; font-size: 15px; margin: 0; }
+    .chips { display: flex; gap: 8px; overflow-x: auto; padding: 0 16px 12px; }
+    .chips button {
+      border: 0; border-radius: 999px; padding: 8px 14px; cursor: pointer;
+      background: var(--card); color: var(--label); font: 600 13px inherit; white-space: nowrap;
+    }
+    .chips button.on { background: var(--blue); color: #fff; }
+    .faq-search {
+      margin: 0 16px 8px; height: 44px; border-radius: 999px; background: var(--card);
+      display: flex; align-items: center; padding: 0 14px;
+    }
+    .faq-search input { flex: 1; border: 0; outline: none; font: 15px inherit; background: transparent; }
+    .faq-list { flex: 1; overflow: auto; background: var(--card); }
+    .faq-row { width: 100%; border: 0; border-bottom: 1px solid var(--surface); background: none; text-align: left; padding: 14px 16px; cursor: pointer; font-family: inherit; }
+    .faq-row .q { font-size: 15px; font-weight: 650; color: var(--label); }
+    .faq-row .a { display: none; font-size: 13px; color: var(--muted); margin-top: 8px; }
+    .faq-row.open .a { display: block; }
+    .privacy-body { padding: 16px; font-size: 15px; line-height: 1.45; color: var(--label); overflow: auto; white-space: pre-wrap; }
   </style>
 </head>
 <body>
@@ -99,31 +151,72 @@
           <span class="bars" aria-label="Tín hiệu Tốt"><i></i><i></i><i></i><i></i></span>
           Tốt
         </span>
-        <div class="who">Nguyễn Văn A</div>
-        <div class="vn-quick" data-des-id="DES-MOB-HOME-QUICK">
-          <button type="button" onclick="toast('Điểm tuần')">Điểm tuần<span class="s">Ghim định vị · lý trình</span></button>
-          <button type="button" onclick="toast('Ghi sự cố')">Ghi sự cố<span class="s">Chọn tài sản · mẫu sự cố</span></button>
-        </div>
+        <div class="who" id="home-who">Khách</div>
       </div>
-      <div class="section-label">Nghiệp vụ thường dùng</div>
-      <div class="home-grid" data-des-id="DES-MOB-HOME-GRID">
-        <button type="button" class="home-tile" onclick="toast('Giám sát')"><div class="hi" style="background:#FCB43C">☰</div><div class="t">Giám sát</div></button>
-        <button type="button" class="home-tile" onclick="toast('Tuần đường')"><div class="hi" style="background:#F03C30">📍</div><div class="t">Tuần đường</div></button>
-        <button type="button" class="home-tile" onclick="toast('Công việc')"><div class="hi" style="background:#3CB448">🔧</div><div class="t">Công việc</div></button>
-        <button type="button" class="home-tile" onclick="toast('Vấn đề')"><div class="hi" style="background:#FCB43C">⚠</div><div class="t">Vấn đề</div></button>
-        <button type="button" class="home-tile" onclick="toast('Tài sản')"><div class="hi" style="background:#0C84C0">▣</div><div class="t">Tài sản</div></button>
-        <button type="button" class="home-tile" onclick="toast('Lưu trữ')"><div class="hi" style="background:#086A9A">↻</div><div class="t">Lưu trữ</div></button>
+      <div class="section-label" id="section-guest">Hỗ trợ người dân</div>
+      <button class="guest-row" id="btn-home-faq" type="button" onclick="openOv('sc-faq')">
+        <span><span class="t">Câu hỏi thường gặp</span><span class="s">Tài liệu · thủ tục · cấp phép</span></span>
+        <span class="ch">›</span>
+      </button>
+      <div class="guest-mid">
+        <span class="home-brand" id="home-brand">RMMS</span>
       </div>
-      <div class="wallet-card" data-des-id="DES-MOB-HOME-WALLET" onclick="toast('Tài sản')">
-        <div class="k">HỒ SƠ TÀI SẢN</div>
-        <div class="t">QL.1 · Khu IV</div>
-        <div class="m">32 loại KCHT · thông số + checklist sự cố</div>
+      <div class="guest-dock">
+        <button class="btn-home-login" id="btn-home-login" type="button" onclick="toast('Đăng nhập')">
+          Đăng nhập<span class="s">Dành cho cán bộ</span>
+        </button>
+        <button class="privacy-link" id="btn-home-privacy" type="button" onclick="openOv('sc-privacy')">Chính sách quyền riêng tư</button>
       </div>
       <!-- GAP-F-HOME-03: .home-foot Gói — cấm ship · không vẽ -->
     </div>
-    <nav class="tab" data-des-id="DES-MOB-TABBAR">
-      <b class="on">Trang Chủ</b><b>Tuần đường</b><b>Vấn đề</b><b>Công việc</b><b>Tôi</b>
-    </nav>
+    <div class="overlay" id="sc-faq" data-des-id="DES-MOB-HOME-FAQ">
+      <div class="ov-bar">
+        <button type="button" id="btn-faq-back" onclick="closeOv()">Về Trang Chủ</button>
+        <h1>Câu hỏi thường gặp</h1>
+      </div>
+      <div class="chips">
+        <button type="button" class="on" id="chip-faq-docs">Tài liệu</button>
+        <button type="button" id="chip-faq-proc">Thủ tục</button>
+        <button type="button" id="chip-faq-permit">Cấp phép</button>
+        <button type="button" id="chip-faq-app">Ứng dụng</button>
+      </div>
+      <div class="faq-search"><input id="f-faq-search" placeholder="Tìm kiếm câu hỏi" /></div>
+      <div class="faq-list">
+        <button class="faq-row" type="button" onclick="this.classList.toggle('open')"><div class="q">Open data Bộ GTVT là gì?</div><div class="a">Bộ tài liệu công khai về cấp phép và thủ tục hành chính đường bộ. Người dân xem và tải miễn phí, không cần đăng nhập.</div></button>
+        <button class="faq-row" type="button" onclick="this.classList.toggle('open')"><div class="q">Tài liệu thủ tục có mất phí không?</div><div class="a">Không. Tài liệu open data trong danh mục này dùng miễn phí.</div></button>
+      </div>
+    </div>
+    <div class="overlay" id="sc-privacy" data-des-id="DES-MOB-HOME-PRIVACY">
+      <div class="ov-bar">
+        <button type="button" id="btn-privacy-back" onclick="closeOv()">Về Trang Chủ</button>
+        <h1>Chính sách quyền riêng tư</h1>
+      </div>
+      <div class="privacy-body" id="privacy-body">RMMS — Quản lý bảo trì đường bộ. Ứng dụng do Công ty Cổ phần Công nghệ và Thương mại Miền Trung phát hành. Chính sách này cho biết dữ liệu nào được xử lý khi bạn dùng app.
+
+Khi bạn là Khách
+Bạn không cần tài khoản. App chỉ hiện thông tin công khai: câu hỏi thường gặp, tài liệu thủ tục, cấp phép và thông báo chung. Không nộp hồ sơ cán bộ, không tạo tài khoản trên cửa hàng, không lấy vị trí hay camera lúc mở app.
+
+Khi cán bộ đăng nhập
+Cán bộ đăng nhập bằng tài khoản đơn vị cấp. App lưu phiên trên máy (khoá hệ thống) để dùng nghiệp vụ bảo trì đường bộ: giám sát, tuần đường, sự cố, công việc, tài sản, góp ý, thông báo, hàng đợi mất sóng. Hồ sơ hiển thị tên theo tài khoản đơn vị.
+
+Quyền trên máy
+Vị trí: ghim điểm tuần và chốt tọa độ khi thu thập hiện trường — chỉ khi bạn cho phép, khi đang dùng tính năng đó. Không theo dõi vị trí lúc mở Trang Chủ.
+Camera: chụp hiện trường, nhận diện hư hỏng mặt đường — chỉ khi bạn cho phép.
+Thông báo hệ thống: tin chung hoặc tin nghiệp vụ, nếu bạn bật.
+Bạn tắt quyền trong Cài đặt hệ thống (Tôi → Cài đặt).
+
+Dữ liệu gửi đi đâu
+Phiên đăng nhập và dữ liệu nghiệp vụ gửi tới hệ thống RMMS của đơn vị. Không bán dữ liệu, không quảng cáo, không theo dõi ngoài chức năng app. Danh mục câu hỏi thường gặp nằm sẵn trong app.
+
+Lưu trên máy và tài khoản
+Phiên đăng nhập và bản ghi chờ đồng bộ khi mất sóng được lưu trên máy. Đăng xuất hoặc gỡ app sẽ gỡ phiên trên thiết bị. Tài khoản cán bộ do đơn vị cấp — liên hệ quản trị đơn vị nếu cần khoá hoặc thu hồi quyền.
+
+Liên hệ
+CÔNG TY CỔ PHẦN CÔNG NGHỆ VÀ THƯƠNG MẠI MIỀN TRUNG
+Số 18/43A, đường Phan Chu Trinh, Khu đô thị SaigonSky, Tỉnh Nghệ An
+Điện thoại: 0238 358 8668</div>
+    </div>
+    <!-- GAP-MOB-EDIT-GUEST-TAB: guest ẩn LinmTabBar · staff mới hiện DES-MOB-TABBAR -->
     <div class="toast" id="toast"></div>
   </div>
   <script>
@@ -134,6 +227,11 @@
       el.classList.add('on');
       clearTimeout(t);
       t = setTimeout(() => el.classList.remove('on'), 1400);
+    }
+    function openOv(id) { document.getElementById(id).classList.add('on'); }
+    function closeOv() {
+      document.getElementById('sc-faq').classList.remove('on');
+      document.getElementById('sc-privacy').classList.remove('on');
     }
   </script>
 </body>

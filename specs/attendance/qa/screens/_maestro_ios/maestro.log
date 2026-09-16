@@ -1,0 +1,31 @@
+Running on iPhone 17 Pro Max - iOS 26.2 - 518BFF77-0941-448B-8D37-67678F4506C7
+ > Flow ios
+Launch app "org.linmsoft.rmms" with clear state and clear keychain... COMPLETED
+Assert that id: sc-home is visible... COMPLETED
+Take screenshot A11-LAUNCH... COMPLETED
+Tap on id: btn-home-login... COMPLETED
+Assert that id: f-user is visible... COMPLETED
+Tap on (Optional) id: f-user... COMPLETED
+Tap on (Optional) "Tài khoản"... COMPLETED
+Input text linm-soft... COMPLETED
+Tap on (Optional) id: f-pass... COMPLETED
+Tap on (Optional) "Mật khẩu"... COMPLETED
+Input text Linm@2026... COMPLETED
+Tap on (Optional) "RMMS"... COMPLETED
+Tap on (Optional) "Not Now"... WARNED
+Take screenshot A9-LOGIN... COMPLETED
+Tap on (Optional) id: btn-login... COMPLETED
+Tap on (Optional) "Đăng nhập"... WARNED
+Tap on (Optional) "Not Now"... WARNED
+Assert that id: sc-home is visible... COMPLETED
+Tap on (Optional) id: tab-field... WARNED
+Tap on (Optional) "Tuần đường"... COMPLETED
+Assert that id: sc-patrol-home is visible... COMPLETED
+Tap on "Chấm công"... COMPLETED
+Assert that id: sc-attendance is visible... COMPLETED
+Assert that "Chấm công" is visible... COMPLETED
+Assert that "Chấm vào" is visible... COMPLETED
+Assert that "7 ngày gần đây" is visible... COMPLETED
+Take screenshot A3-CORE... COMPLETED
+Tap on (Optional) "Báo cáo"... COMPLETED
+Assert that (Optional) "Báo cáo công" is visible... COMPLETED

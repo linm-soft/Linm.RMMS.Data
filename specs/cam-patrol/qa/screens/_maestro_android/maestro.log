@@ -1,0 +1,60 @@
+Running on Pixel_2
+ > Flow android
+Launch app "org.linmsoft.rmms" with clear state and clear keychain... COMPLETED
+Assert that id: sc-home is visible... COMPLETED
+Take screenshot A11-LAUNCH... COMPLETED
+Tap on id: btn-home-login... COMPLETED
+Assert that id: f-user is visible... COMPLETED
+Tap on id: f-user... COMPLETED
+Input text linm-soft... COMPLETED
+Press Enter key... COMPLETED
+Wait for animation to end within 1500 ms... COMPLETED
+Input text Linm@2026... COMPLETED
+Press Enter key... COMPLETED
+Wait for animation to end within 3000 ms... COMPLETED
+Take screenshot A9-LOGIN... COMPLETED
+Tap on (Optional) id: btn-login... WARNED
+
+
+ Warning: Element not found: Id matching regex: btn-login
+Tap on (Optional) "Đăng nhập"... WARNED
+
+
+ Warning: Element not found: Text matching regex: Đăng nhập
+Assert that id: sc-home is visible... COMPLETED
+Tap on id: tab-field... COMPLETED
+Assert that id: sc-patrol-home is visible... COMPLETED
+Assert that id: patrol-hero is visible... COMPLETED
+Scroll vertically... COMPLETED
+Scroll vertically... COMPLETED
+Scroll vertically... COMPLETED
+Assert that id: row-quick-cam-patrol is visible... COMPLETED
+Tap on id: row-quick-cam-patrol... COMPLETED
+Tap on (Optional) "Thu thập bằng camera"... COMPLETED
+Tap on (Optional) "While using the app"... WARNED
+
+
+ Warning: Element not found: Text matching regex: While using the app
+Tap on (Optional) "Allow"... WARNED
+
+
+ Warning: Element not found: Text matching regex: Allow
+Tap on (Optional) "ONLY THIS TIME"... WARNED
+
+
+ Warning: Element not found: Text matching regex: ONLY THIS TIME
+Tap on (Optional) "While using the app"... WARNED
+
+
+ Warning: Element not found: Text matching regex: While using the app
+Tap on (Optional) "Allow"... WARNED
+
+
+ Warning: Element not found: Text matching regex: Allow
+Assert that id: sc-cam-patrol is visible... COMPLETED
+Assert that "Thu thập bằng camera" is visible... COMPLETED
+Take screenshot P6-CORE... COMPLETED
+Scroll vertically... COMPLETED
+Assert that (Optional) id: btn-confirm is visible... COMPLETED
+Assert that (Optional) id: btn-skip is visible... COMPLETED
+Take screenshot P6-CORE-2... COMPLETED

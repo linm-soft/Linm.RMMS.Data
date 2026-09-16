@@ -4,7 +4,7 @@
 > **Status:** Context — **MFE web clip BFF** (Wave 4 web) · **P2 streets** OpenMapTiles trên `basemap` · Tiêu chuẩn **OSM Carto muted** (`tone_plan=osm_muted` · 2026-09-01) · **clip-mask** invert dưới nhãn (`GAP-MAP-MASK-ALIGN` · `GAP-MAP-LABEL-CLIP` · 2026-09-03) · tile **Live/Cache** + zoom **+/- = wheel** (`GAP-MAP-TILE-EMPTY-ZOOM` · `GAP-MAP-ZOOM-STEP` · 2026-09-03) · demo HTML / native vẫn OSM.org/Google  
 > **Skills:** `/implement-gis-map` · `/agent-dev-oms-map` · `/map-inspect-popup` · `/review-map-release`  
 > **Parent:** [`gis.md`](gis.md) · data [`map-service.md`](map-service.md) · law [`legal-tech-corridor.md`](legal-tech-corridor.md)  
-> **MFE:** `Linm.Web.RMMS.Gis` · **Mobile:** [`patrol-map.md`](patrol-map.md)  
+> **MFE:** `Linm.Web.RMMS.Gis` · **Mobile iOS SSOT:** [`gis-map.md`](gis-map.md) `GisClipMapView` · twins [`patrol-map.md`](patrol-map.md) · [`photo-geo-capture.md`](photo-geo-capture.md)  
 > **Clip pack:** [`../../gis-vn-map/`](../../gis-vn-map/) — SSOT [`map-service.md`](map-service.md) § Clip SSOT
 
 ## 1. Tổng quan
@@ -13,7 +13,7 @@
 |--|--|
 | Mục tiêu | Một basemap **clip gis.vn** (OSM **imagery**) + chi tiết KCHT/tuần **từ GIS/MapService** |
 | Persona | Inspector (JWT) · Guest (không overlay nội bộ) |
-| App hiện có | Leaflet clip BFF (Tiêu chuẩn / Vệ tinh) · patrol native **chrome lock** · tiles MapKit/OSM **pending** Wave 4 |
+| App hiện có | MFE clip MapLibre (`vnClipBasemap.ts`) · Leaflet clip BFF (Tiêu chuẩn / Vệ tinh) · **iOS `#sc-gis-map`** `GisClipMapView` (shipped) · **iOS `#sc-patrol-map` + HITL** reuse cùng host (**GAP-MOB-IOS-MAP-HOST-01 closed**) |
 | DoD P1 | Default tile tự host · mask HS/TS từ union 34 tỉnh · maxBounds VN (gồm đảo) · JWT overlays · guest không lat/lng TS |
 
 ## 2. Design / UI
@@ -109,13 +109,14 @@ Xem [`map-service.md`](map-service.md). Client không giữ polygon chủ quyề
 | GAP-MAP-ROUTE-BLUE | **CLOSED 2026-09-03 web** — overlay Tuyến `guideBlue`/`routeBlueCase` · **cấm** peach `#fcd6a4` overlay |
 | GAP-MAP-INDEX-PAINT | **CLOSED 2026-09-03 web** — overlay bake/index **mọi zoom** (cache `national`) · **cấm** refetch bbox thay bake · **cấm** `clipPathToView` ẩn nét **đã ghim** |
 | GAP-MAP-DRAW-STREET-01 | **CLOSED 2026-09-03 web** — overlay = `{HighwayPath}` dense · **cấm** dump GPS thưa (`isSparseGpsChord`) · fail = **nét đứt** không chord biển / lưới phố |
-| GAP-MAP-PARITY-01 | Native **tiles** ≠ web clip BFF (Wave 4 pending) · **chrome+popup LOCKED** = web `/gis/live` · **cấm** fake native tiles done |
+| GAP-MAP-PARITY-01 | Native **tiles** Wave 4: iOS gis/patrol/HITL **đã** clip BFF · web CLOSED · **cấm** fake Android/web leftover |
 | GAP-MAP-LOCATE-POPUP-01 | **CLOSED web** — `buildMyLocationPopupHtml` · native **pending** · **cấm** title-only |
 | GAP-MAP-PANE-ALIVE | **CLOSED 2026-09-03 web** — `isVnClipMapAlive` + clear clip timers on `unload` · **cấm** `setMaxBounds` sau `remove()` |
 | GAP-MAP-PIN-ZOOM | **CLOSED 2026-09-03 web** — plugin `padding: 0` · **cấm** `0.1`/`0.15` (canvas lệch / map trống khi zoom) |
 | GAP-MAP-TILE-EMPTY-ZOOM | **CLOSED 2026-09-03 web** — empty PBF cache + overzoom in-memory → map trống / Network trống. Live bust `?v=` · OSM miss z≤12 **200 no-store** · z>12 **404** |
 | GAP-MAP-ZOOM-STEP | **CLOSED 2026-09-03 web** — +/- và lăn chuột cùng bước `VN_CLIP_ZOOM_DELTA=1` · **cấm** wheel `delta/wheelPx` |
 | GAP-MAP-MVT-SIMP | **CLOSED 2026-09-03** — `ST_Simplify` mịn + clip pad + MVT buffer **256** (GL z = Leaflet−1 · **cấm** simp thô bậc thang bờ biển) |
+| GAP-MOB-IOS-MAP-HOST-01 | **closed** `task_1f6d86c4` — patrol + HITL reuse `GisClipMapView` |
 | GAP-F-GIS-02 | Google draw parity — **không** dùng làm nền Store |
 
 ## 7. Demo checklist

@@ -1,5 +1,7 @@
 # Design — login-forgot (mobile)
 
+> **LIVE LOCK 2026-09-16** `/edit-mobile-feature` — **cấm** vẽ lại SĐT / OTP / MK. Body = 1 dòng `LinmCopy.t("forgot.contactAdmin")` = «Liên hệ admin để được cung cấp». Entry Login **Quên mật khẩu?** vẫn push `#sc-forgot`. API forgot/reset **giữ** trong VM/BFF, **không** gọi từ UI.
+
 | Field | Value |
 |-------|-------|
 | feature | `login-forgot` |
@@ -47,21 +49,18 @@
 
 | DES / sc-* | Tên VN | Zones | CTA |
 |------------|--------|-------|-----|
-| `DES-MOB-FORGOT` `#sc-forgot` | Quên mật khẩu | Nav · Brand · step body · toast · leave modal | Gửi mã / Đặt lại |
+| `DES-MOB-FORGOT` `#sc-forgot` | Quên mật khẩu | Nav · Brand · contact line | Back |
 | `DES-MOB-FORGOT-BRAND` | Brand | Logo AppIcon 96 · title uppercase | — |
-| `DES-MOB-FORGOT-REQUEST` | Request OTP | phone · hint | **Gửi mã** `#btn-forgot-send` |
-| `DES-MOB-FORGOT-RESET` | Reset MK | otp · new · confirm | **Đặt lại mật khẩu** `#btn-forgot-reset` |
+| `DES-MOB-FORGOT-CONTACT` | Contact admin | Static copy · **không** input | — |
 
 ### IA lock
 
 ```
-Login (#sc-login) → Quên mật khẩu? → #sc-forgot (request)
-  → Gửi mã OK → #sc-forgot (reset) cùng màn
-  → Đặt lại OK → toast → pop Login
-Back (#btn-back) → Login (step 2 dirty → LinmLeaveConfirm)
+Login (#sc-login) → Quên mật khẩu? → #sc-forgot (contact line only)
+Back (#btn-back) → Login (không leave modal)
 ```
 
-**Cấm** invent tab · signup · biometric · companyCode · ô SĐT trên step Reset · tín hiệu trên forgot · watermark / device label trên product UI.
+**Cấm** invent tab · signup · biometric · companyCode · ô SĐT / OTP / MK · tín hiệu trên forgot · watermark / device label trên product UI. **Cấm** Gửi mã / Đặt lại trên live UI (SMS OTP chưa ship).
 
 ## 3. Field inventory (Design chốt kit)
 
@@ -70,16 +69,8 @@ Back (#btn-back) → Login (step 2 dirty → LinmLeaveConfirm)
 | brand | Logo | Image | * | AppIcon / mipmap | `DES-MOB-FORGOT-BRAND` · demo 96 · native scale dest · **alpha** · **cấm** `rmms.png` · **cấm** tile đen/trắng |
 | productTitle | QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ | Static | * | Text | 22 · 700 · uppercase · **cấm** «Hiện trường · iPhone» |
 | navTitle | Quên mật khẩu | Static | * | Nav title | header title only |
-| phoneNumber | Số điện thoại | Text (tel) | * step 1 | `LinmTextField` | e2e `f-phone` · `formFieldHeight` 52 · **ẩn** step 2 |
-| submitRequest | Gửi mã | Button primary | * step 1 | `LinmPrimaryButton` | POST `auth/forgot-password` · e2e `btn-forgot-send` · `isBusy` |
-| hint | Nhập số điện thoại đã đăng ký… | Static | | Text | copy demo step 1 |
-| resetToken | Mã xác thực | Text | * step 2 | `LinmTextField` | e2e `f-otp` · `autocomplete=one-time-code` |
-| newPassword | Mật khẩu mới | SecureText | * step 2 | `LinmSecureTextField` | min 6 · eye chrome · e2e `f-new-pass` |
-| confirmPassword | Xác nhận mật khẩu | SecureText | * step 2 | `LinmSecureTextField` | client only · e2e `f-confirm-pass` |
-| submitReset | Đặt lại mật khẩu | Button primary | * step 2 | `LinmPrimaryButton` | POST `auth/reset-password` · e2e `btn-forgot-reset` · `isBusy` |
+| contactAdmin | Liên hệ admin để được cung cấp | Static | * | Text muted | e2e `forgot-contact` · **LIVE LOCK** · **cấm** SĐT/OTP/MK |
 | backLogin | Quay lại | Text / Back | | Nav chrome | e2e `btn-back` · **không** BFF |
-| leave | Dirty leave | Leave modal | step 2 dirty | `LinmLeaveConfirm` | Hủy = stay · Đồng ý = pop Login · **cấm** `UIAlert` / `AlertDialog` |
-| toast | Thông báo | Toast | | `LinmToast` | Auth / client / offline · **cấm** system alert |
 
 Eye hiện/ẩn MK = chrome `LinmSecureTextField` — **không** slug (`GAP-MOB-ACT` chrome skip). Proto `.note` = reviewer only — **cấm** ship (`GAP-DEV-MOB-PLACEHOLDER-01`).
 
@@ -109,19 +100,8 @@ Eye hiện/ẩn MK = chrome `LinmSecureTextField` — **không** slug (`GAP-MOB-
 
 | Case | UI |
 |------|-----|
-| Entry from Login | Push/navigate `#sc-forgot` step Request · **cấm** toast-only |
-| Empty phone | `LinmToast` **Nhập số điện thoại** · no BFF |
-| Send online OK | Toast Auth copy · chuyển step Reset · giữ `phoneNumber` VM |
-| Empty OTP/MK | Toast **Nhập mã và mật khẩu mới** · no BFF |
-| MK ≠ confirm | Toast **Mật khẩu xác nhận không khớp** |
-| MK &lt; 6 | Toast **Mật khẩu tối thiểu 6 ký tự** |
-| Reset 200 | Toast **Đặt lại mật khẩu thành công** → pop Login · **không** auto-login |
-| Reset 400/422 | Toast Auth · stay |
-| Offline | Toast **Không có mạng** · **cấm** queue / local hash |
-| Back step 1 | pop Login · không modal |
-| Back step 2 dirty | `LinmLeaveConfirm` · Hủy stay · Đồng ý pop |
-| Eye | toggle secure · **giữ IME** · không slug |
-| Busy POST | `LinmBusyOverlay` / button `isBusy` — **cấm** spinner nút + overlay cùng lúc |
+| Entry from Login | Push/navigate `#sc-forgot` · contact line · **cấm** toast-only · **cấm** input OTP |
+| Back | pop Login · không modal (không dirty form) |
 | Signal | **Không** vẽ trên `#sc-forgot` |
 
 ## 7. reviewUrl (dual — REQUIRED)

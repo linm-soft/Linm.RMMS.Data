@@ -1,7 +1,7 @@
 # MapService — dữ liệu gis.vn / CSDL nhà nước
 
 > **Slug:** `map-service` · **Module:** Platform GIS · **Phase:** P1 (ingest+clip) / P1.5 (tile prod)  
-> **Status:** Stack Wave 1 **done** · Wave 2 **web BFF done** (mobile pending) · Wave 4 **web done** (iOS/Android pending) · mobile tab 44px + collapse body · **P2 streets done** (`streetTilesReady`) · MBTiles **`api/data/map/cache/vietnam.mbtiles`** · Docker `Map__OsmTileCacheRoot=/cache` · OSM miss z≤12 **200 no-store** · z>12 **404** (`GAP-MAP-TILE-EMPTY-ZOOM`) · MFE chip **Tiêu chuẩn / Vệ tinh** OSM Carto muted (`tone_plan=osm_muted` · 2026-09-01) — **cấm** Default/Streets EN — **clip-mask** invert **dưới** nhãn (`GAP-MAP-MASK-ALIGN` · `GAP-MAP-LABEL-CLIP` · 2026-09-03) — host **`Linm.Platform.MapService`** (`API-CORE`) · Docker `:5021` · Web BFF NuGet **1.1.0** tiles `web-bff/api/v1/gis/tiles/…` · MFE clip BFF MVT + OpenMapTiles roads/names  
+> **Status:** Stack Wave 1 **done** · Wave 2 **web BFF done** · Wave 2–4 **mobile done** · Wave 4 **web done** · mobile tab 44px + collapse body · **P2 streets done** (`streetTilesReady`) · MBTiles **`api/data/map/cache/vietnam.mbtiles`** · Docker `Map__OsmTileCacheRoot=/cache` · OSM miss z≤12 **200 no-store** · z>12 **404** (`GAP-MAP-TILE-EMPTY-ZOOM`) · MFE chip **Tiêu chuẩn / Vệ tinh** OSM Carto muted (`tone_plan=osm_muted` · 2026-09-01) — **cấm** Default/Streets EN — **clip-mask** invert **dưới** nhãn (`GAP-MAP-MASK-ALIGN` · `GAP-MAP-LABEL-CLIP` · 2026-09-03) — host **`Linm.Platform.MapService`** (`API-CORE`) · Docker `:5021` · Web BFF NuGet **1.1.0** tiles `web-bff/api/v1/gis/tiles/…` · MFE clip BFF MVT + OpenMapTiles roads/names · native host `GisClipMapView`  
 > **Confirmed (2026-09-01):** `svc_host=new_svc` · `service_kind=api` · `src_style=micro_src` · **platform service** (không RMMS domain)  
 > **Skills:** `/implement-map-stack` (entry) · `/implement-map-service` · `/data-gov-integration` · `/new-service` · next Wave 2 mobile BFF · Wave 3 `/implement-map-stack` integrate · Wave 4 native `/implement-gis-map`  
 > **Implement plan (BE→BFF→UI):** [`../../plan/map-service/README.md`](../../plan/map-service/README.md)  
@@ -29,7 +29,7 @@
 
 ## 2. Design / UI
 
-Không MFE riêng. Admin ingest = hosted `Map:IngestOnStartup` (file mount `/clip/vietnam-34.geojson`). User map → [`gis-osm-clip.md`](gis-osm-clip.md) — MFE Gis*Page **clip BFF** (MapLibre MVT) · **0** OSM.org · chip **Tiêu chuẩn / Vệ tinh** = **OSM Carto muted** (đất `#e8e4dc` · biển `#8eb8c8` · nước `#aad3df` · đường **nền + biên**) · stack sea-fill → water (ocean/`sea`=`theme.sea`) → vn-land → landcover → **clip-mask** → vn-line → **labels** — **cấm** Default/Streets EN · **cấm** clip-mask trên symbol · **cấm** đổi sang CDN. Native chrome copy [`patrol-map.md`](patrol-map.md) (tiles Wave 4 **pending**).
+Không MFE riêng. Admin ingest = hosted `Map:IngestOnStartup` (file mount `/clip/vietnam-34.geojson`). User map → [`gis-osm-clip.md`](gis-osm-clip.md) — MFE Gis*Page **clip BFF** (MapLibre MVT) · **0** OSM.org · chip **Tiêu chuẩn / Vệ tinh** = **OSM Carto muted** (đất `#e8e4dc` · biển `#8eb8c8` · nước `#aad3df` · đường **nền + biên**) · stack sea-fill → water (ocean/`sea`=`theme.sea`) → vn-land → landcover → **clip-mask** → vn-line → **labels** — **cấm** Default/Streets EN · **cấm** clip-mask trên symbol · **cấm** đổi sang CDN. Native chrome copy [`patrol-map.md`](patrol-map.md). **iOS/Android:** host clip = [`gis-map.md`](gis-map.md) `GisClipMapView` — **mọi** map native reuse (GAP-MOB-IOS-MAP-HOST-01 · Wave 4 ios+android **done**).
 
 ## 3. API
 

@@ -1,0 +1,112 @@
+appId: org.linmsoft.rmms
+---
+# mobile-bff-file · P1 incident-create · LinmImageUpload kit · store P6 ×2 (Pixel 1080×1920)
+# guest → login → Ghi sự cố → pick (scroll Cầu) → #sc-inc-form · #kit-linm-image-upload
+# cấm mfeStdUrl / start:std
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 20000
+- takeScreenshot: A11-LAUNCH
+- tapOn:
+    id: "btn-home-login"
+- extendedWaitUntil:
+    visible:
+      id: "f-user"
+    timeout: 15000
+- tapOn:
+    id: "f-user"
+- eraseText
+- inputText: "linm-soft"
+- tapOn: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
+- tapOn:
+    id: "f-pass"
+- eraseText
+- inputText: "Linm@2026"
+- takeScreenshot: A9-LOGIN
+- pressKey: Enter
+- waitForAnimationToEnd:
+    timeout: 4000
+- tapOn:
+    id: "btn-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
+- extendedWaitUntil:
+    visible: "Trang Chủ"
+    timeout: 45000
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 15000
+- assertVisible:
+    id: "home-quick"
+    optional: true
+- tapOn:
+    text: "Ghi sự cố"
+- extendedWaitUntil:
+    visible:
+      id: "sc-inc-pick"
+    timeout: 25000
+- assertVisible:
+    id: "banner-pick"
+    optional: true
+- scrollUntilVisible:
+    element:
+      text: "Cầu"
+    direction: DOWN
+    timeout: 20000
+- tapOn:
+    text: "Cầu"
+- tapOn:
+    id: "ak32-BRIDGE"
+    optional: true
+- tapOn:
+    text: "While using the app"
+    optional: true
+- tapOn:
+    text: "Allow"
+    optional: true
+- tapOn:
+    text: "ONLY THIS TIME"
+    optional: true
+- tapOn:
+    text: "While using the app"
+    optional: true
+- tapOn:
+    text: "Allow"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-inc-form"
+    timeout: 30000
+- assertVisible: "Ghi sự cố"
+- assertVisible:
+    id: "inc-photos"
+    optional: true
+- assertVisible:
+    id: "kit-linm-image-upload"
+    optional: true
+- assertVisible:
+    id: "photo-slot"
+    optional: true
+- assertVisible:
+    id: "btn-add"
+    optional: true
+- assertVisible:
+    id: "attachment-bind"
+    optional: true
+- takeScreenshot: P6-CORE
+- scroll
+- scroll
+- assertVisible:
+    id: "btn-create"
+    optional: true
+- assertVisible:
+    id: "btn-draft"
+    optional: true
+- takeScreenshot: P6-CORE-2

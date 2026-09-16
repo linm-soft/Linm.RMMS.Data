@@ -1,49 +1,53 @@
-# Dev — Implement — patrol-pin (iOS)
+# Dev — Implement iOS — patrol-pin
 
 | Field | Value |
 |-------|-------|
 | feature | `patrol-pin` |
-| task | `T-IOS-PAT-PIN` · `task_5bb83877` |
-| role | `/agent-dev-ios` · `/dev-ios-swiftui` · `/dev-ui-review` |
+| platform | iOS |
+| this role | `dev` · `/agent-dev-ios` · `/dev-ios-swiftui` |
 | status | **confirmed** |
-| changeScope | `new_page` |
-| packKind | `sheet` |
-| updatedAt | `2026-08-21T03:41:21.000Z` |
+| changeScope | `edit_page` (GAP-MOB-PIN-PERSIST-01) |
+| packKind | **`sheet`** |
+| taskId | `task_f90e803b` |
+| updatedAt | `2026-09-12T12:20:00.000Z` |
+| autoApprove | ON |
+| contentHash | sha256:patrol-pin-control-hint-20260912-persist |
+| bffContentHash | sha256:patrol-pin-mobile-bff-20260912-persist |
 
-## Layers
+## Notes (edit_page · persist handoff)
 
-| Layer | Path |
-|-------|------|
-| Domain | `Domain/Entities/PatrolPinModels.swift` (`PatrolPinCopy`) · `GetCurrentLocationUseCase` · `LocationReading` |
-| Data | `Data/Location/CoreLocationReader.swift` · timeout 8s · **cấm** fake lat/lng |
-| Presentation | `PatrolHomeView*` · `PatrolMapView*` · `GpsDenyModal` (`LinmPrimaryButton` + `LinmSecondaryButton`) |
-| Copy | `LinmCopy` keys `patrol.pinHere` / `patrol.gpsDeny.*` / `patrol.map.locTimeout` |
-| DI | `AppContainer` · `AppRouter.setOpenCheckIn` sibling stub toast |
-| BFF | **chỉ** `GET patrol/sessions` via `FetchPatrolSessionsUseCase` · Step 4b **N/A** |
+- **GAP-MOB-PIN-PERSIST-01** — sau pin OK → real `#sheet-handoff-checkin` (`PinHandoffSheet`) payload `sessionId`+`LocationFix`.
+- **Tiếp tục** → sibling `PatrolCheckIn` via `.openWithHandoff` (apply fix · **cấm** re-GPS) · **cấm** pin auto-POST.
+- Deny / timeout → **không** handoff · Offline → toast `patrol.pin.queued` · **không** mở sheet.
+- Hero **Ghi điểm tuần** vẫn `.open` (form sibling · không payload pin).
+- Step 4b **N/A** · BFF reuse `GET patrol/sessions` only.
 
-## Behavior (DoD)
+## Shipped
 
-1. Hub + map CTA **Ghim vị trí hiện tại** (`LinmPrimaryButton` + `LinmMapPinGlyph` `#i-mappin`) → live GPS → toast `Đã ghim vị trí hiện tại · {route} · ±N m` (active Route / demo `QL.1 · Km 1561+134`).
-2. Map: pin `.here` + camera follow (`followToken`) · **cấm** fake coords.
-3. Deny → in-app `GpsDenyModal` · Sao chép → `UIPasteboard` + toast · Để sau dismiss · **cấm** `UIAlertController`.
-4. Timeout/unavailable → `patrol.map.locTimeout` toast.
-5. Offline: GPS local OK · GET fail → demo route toast · **cấm** full-screen block.
-6. Handoff `patrol-checkin` = stub toast only · **cấm** form / POST check-ins.
-7. Tab 5 shell giữ · pack `tabs: none`.
+| Area | Path / note |
+|------|-------------|
+| Payload | `Domain/Entities/PatrolPinModels.swift` · `PatrolPinHandoffPayload` |
+| Sheet | `Presentation/Shared/PinHandoffSheet.swift` · `DES-MOB-HANDOFF-CHECKIN` |
+| Hub | `PatrolHomeViewModel.pinHere` → handoff · `activeSessionId` |
+| Map | `PatrolMapViewModel.pinHere` → `.here`+follow + handoff · network inject |
+| Sibling | `PatrolCheckInIntent.openWithHandoff` · applyFix |
+| Wire | `AppRouter` `setContinuePinHandoff` |
+| Copy | `patrol.handoff.*` · `patrol.pin.queued` |
 
-## Build (VERIFY GATE)
+## Build gate
 
-```bash
-cd /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS && xcodegen generate
-xcodebuild -scheme LinmRmms -destination 'platform=iOS Simulator,name=iPhone 17 Pro' build
-```
-
-**PASS** — `2026-08-21T03:41:21.000Z` · dest **iPhone 17 Pro**.
+| Check | Result |
+|-------|--------|
+| `xcodegen generate` | **PASS** |
+| `xcodebuild` iPhone 17 Pro Max | **PASS** |
+| BFF `dotnet build` | **PASS** (reuse · no pin controller) |
+| pin auto-POST / invent `/pins` | **none** |
 
 ## Version meta
 
 | Field | Value |
 |-------|-------|
 | skillId | agent-dev-ios |
-| contentHash | sha256:patrol-pin-control-hint-20260821 |
-| bffContentHash | sha256:patrol-pin-mobile-bff-20260821 |
+| skillVersion | 2026.08.20.03 |
+| schemaVersion | 1 |
+| workflowVersion | 2026.08.25.01 |

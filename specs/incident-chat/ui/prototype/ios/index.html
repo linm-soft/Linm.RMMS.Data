@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RMMS · Trao đổi sự cố · iOS</title>
+  <style>
+    :root {
+      --blue: #0C84C0; --deep: #086A9A; --success: #3CB448; --warn: #FCB43C;
+      --surface: #F2F2F7; --card: #fff; --muted: #8E8E93; --label: #1C1C1E;
+      --sep: #C7C7CC; --warn-bg: #FFF6E5; --ok-bg: #E8F8EC;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+      background: #1c1c1e; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    }
+    .phone {
+      width: 390px; height: 844px; background: var(--surface); border-radius: 44px;
+      overflow: hidden; position: relative; display: flex; flex-direction: column;
+    }
+    .nav-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 54px 8px 10px; background: rgba(255,255,255,.92); border-bottom: 0.5px solid var(--sep);
+      min-height: 96px;
+    }
+    .nav-btn {
+      min-width: 44px; min-height: 44px; border: 0; background: transparent; color: var(--blue);
+      font: inherit; font-size: 17px; font-weight: 500; cursor: pointer;
+      display: grid; place-items: center; padding: 0 8px;
+    }
+    .nav-title { font-size: 17px; font-weight: 600; color: var(--label); letter-spacing: -0.2px; }
+    .seg {
+      display: flex; margin: 10px 16px 0; padding: 3px; background: #E5E5EA; border-radius: 9px; gap: 2px;
+    }
+    .seg button {
+      flex: 1; border: 0; border-radius: 7px; padding: 7px 8px; font: inherit; font-size: 13px;
+      font-weight: 600; background: transparent; color: var(--label); cursor: pointer;
+    }
+    .seg button.on { background: #fff; box-shadow: 0 1px 2px rgba(0,0,0,.08); }
+    .search {
+      margin: 10px 16px; background: #E5E5EA; border-radius: 10px; padding: 10px 12px;
+      display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 16px;
+    }
+    .content { flex: 1; overflow: auto; padding: 0 0 100px; }
+    .vn-banner {
+      margin: 0 16px 10px; width: calc(100% - 32px); display: flex; align-items: center; gap: 12px;
+      padding: 12px 14px; border: 0; border-radius: 12px; background: var(--card); cursor: pointer;
+      text-align: left; font: inherit; color: inherit; box-shadow: 0 1px 3px rgba(0,0,0,.04);
+    }
+    .vb-icon {
+      width: 40px; height: 40px; border-radius: 10px; background: var(--blue); color: #fff;
+      display: grid; place-items: center; flex: 0 0 40px;
+    }
+    .vb-t { font-size: 16px; font-weight: 600; color: var(--label); }
+    .vb-s { font-size: 13px; color: var(--muted); margin-top: 2px; }
+    .chev { margin-left: auto; color: var(--sep); display: grid; place-items: center; }
+    .rich-card {
+      margin: 0 16px 10px; background: var(--card); border-radius: 14px; overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,.04); cursor: pointer;
+    }
+    .rc-main { display: flex; gap: 10px; padding: 14px 14px 10px; }
+    .rc-body { flex: 1; min-width: 0; }
+    .rc-title { font-size: 17px; font-weight: 700; color: var(--label); letter-spacing: -0.3px; }
+    .rc-line {
+      font-size: 13px; color: var(--muted); margin-top: 4px; line-height: 1.35;
+      display: flex; align-items: flex-start; gap: 6px;
+    }
+    .rc-time { font-size: 13px; color: var(--muted); margin-top: 6px; }
+    .rc-thumb {
+      width: 64px; height: 64px; border-radius: 10px; background: #E5E5EA; flex: 0 0 64px;
+    }
+    .rc-status {
+      font-size: 13px; font-weight: 600; padding: 8px 14px; border-top: 0.5px solid #EFEFF4;
+    }
+    .rc-status.warn { color: #B86B00; background: var(--warn-bg); }
+    .rc-status.ok { color: #1B7A2E; background: var(--ok-bg); }
+    .rc-actions {
+      display: flex; gap: 8px; padding: 6px 8px 10px; border-top: 0.5px solid #EFEFF4;
+    }
+    .rc-actions button {
+      flex: 1; height: 44px; border: 0; border-radius: 10px; background: transparent;
+      color: var(--blue); cursor: pointer; display: grid; place-items: center;
+    }
+    .rc-actions button[data-slug="incident-chat"] { outline: 1.5px solid rgba(12,132,192,.35); outline-offset: -2px; }
+    .fab {
+      position: absolute; right: 20px; bottom: 100px; width: 56px; height: 56px; border: 0;
+      border-radius: 28px; background: var(--blue); color: #fff; cursor: pointer;
+      display: grid; place-items: center; box-shadow: 0 4px 12px rgba(12,132,192,.35); z-index: 5;
+    }
+    .ic { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.75;
+      stroke-linecap: round; stroke-linejoin: round; }
+    .ic-sm { width: 18px; height: 18px; }
+    .ic-lg { width: 26px; height: 26px; }
+    .tab {
+      position: absolute; left: 0; right: 0; bottom: 0; height: 83px;
+      background: rgba(255,255,255,.92); border-top: 0.5px solid var(--sep);
+      display: flex; padding: 6px 4px 28px;
+    }
+    .tab b { flex: 1; text-align: center; font-size: 13px; font-weight: 500; color: var(--muted); }
+    .tab b.on { color: var(--blue); }
+    .toast {
+      position: absolute; left: 16px; right: 16px; bottom: 100px; z-index: 20;
+      background: rgba(28,28,30,.92); color: #fff; border-radius: 12px;
+      padding: 12px 14px; font-size: 15px; display: none;
+    }
+    .toast.show { display: block; }
+  </style>
+</head>
+<body>
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+    <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+    <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16.5 16.5 21 21"/></symbol>
+    <symbol id="i-list" viewBox="0 0 24 24"><path d="M8 7h12M8 12h12M8 17h12"/><path d="M4 7h.01M4 12h.01M4 17h.01"/></symbol>
+    <symbol id="i-camera" viewBox="0 0 24 24"><path d="M4 8h3l2-2h6l2 2h3v11H4V8z"/><circle cx="12" cy="13" r="3.5"/></symbol>
+    <symbol id="i-warning" viewBox="0 0 24 24"><path d="M12 3.5 22 20H2L12 3.5z"/><path d="M12 10v5"/><path d="M12 17.5h.01"/></symbol>
+    <symbol id="i-mappin" viewBox="0 0 24 24"><path d="M12 21s7-5.2 7-11a7 7 0 1 0-14 0c0 5.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.2"/></symbol>
+    <symbol id="i-person" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 19.5c1.8-3.2 4.2-4.5 7-4.5s5.2 1.3 7 4.5"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M5 6h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H9l-4 3v-3H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"/></symbol>
+    <symbol id="i-briefcase" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M8 8V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  </svg>
+
+  <!-- Entry chrome = parent incident-list (reuse) · this pack owns #i-chat → toast only · no sheet P1 -->
+  <div class="phone" id="sc-incident-list" data-des-id="DES-MOB-INC-CHAT-TOAST" data-tab="incident" data-feature="incident-chat">
+    <div class="nav-bar solid">
+      <button type="button" class="nav-btn" aria-label="Back" onclick="toastOos('Trang Chủ')">
+        <svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg>
+      </button>
+      <div class="nav-title">Quản lý vấn đề</div>
+      <button type="button" class="nav-btn" onclick="toastOos('Lọc tuyến · loại · trạng thái')">Lọc</button>
+    </div>
+    <div class="seg">
+      <button class="on" type="button">Danh sách</button>
+      <button type="button" onclick="toastOos('Bản đồ')">Bản đồ</button>
+    </div>
+    <div class="search">
+      <svg class="ic" viewBox="0 0 24 24"><use href="#i-search"/></svg>
+      <span>Tìm kiếm vấn đề…</span>
+    </div>
+    <div class="content" style="padding-top:0">
+      <button type="button" class="vn-banner" onclick="toastOos('Nhận diện mặt đường')">
+        <div class="vb-icon"><svg class="ic" viewBox="0 0 24 24"><use href="#i-camera"/></svg></div>
+        <div class="vb-body">
+          <div class="vb-t">Nhận diện mặt đường</div>
+          <div class="vb-s">Chụp + định vị → gắn sự cố</div>
+        </div>
+        <span class="chev"><svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-chevron-right"/></svg></span>
+      </button>
+      <div class="rich-card" onclick="toastOos('Chi tiết vấn đề')">
+        <div class="rc-main">
+          <div class="rc-body">
+            <div class="rc-title">Nứt mặt đường</div>
+            <div class="rc-line"><svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-warning"/></svg> Sự cố nhanh · SC-2401</div>
+            <div class="rc-line"><svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-mappin"/></svg> QL.1 Km 1556+080 · Xuân Hải</div>
+            <div class="rc-line"><svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-person"/></svg> Nguyễn Văn A · Tổ tuần đường VP-IV.1</div>
+            <div class="rc-time">2026-08-10 08:12:40</div>
+          </div>
+          <div class="rc-thumb"></div>
+        </div>
+        <div class="rc-status warn">Trạng thái: Đợi phân công giám sát</div>
+        <div class="rc-actions">
+          <button type="button" id="act-chat-1" data-slug="incident-chat" title="Trao đổi" aria-label="Trao đổi" onclick="event.stopPropagation();toastChat()"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chat"/></svg></button>
+          <button type="button" title="Giao việc" onclick="event.stopPropagation();toastOos('Giao việc')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-briefcase"/></svg></button>
+          <button type="button" title="Chi tiết" onclick="event.stopPropagation();toastOos('Chi tiết vấn đề')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-list"/></svg></button>
+          <button type="button" title="Bản đồ" onclick="event.stopPropagation();toastOos('Bản đồ')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-mappin"/></svg></button>
+        </div>
+      </div>
+      <div class="rich-card" onclick="toastOos('Chi tiết vấn đề')">
+        <div class="rc-main">
+          <div class="rc-body">
+            <div class="rc-title">Cống tắc</div>
+            <div class="rc-line"><svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-warning"/></svg> Hệ thống an toàn · SC-2398</div>
+            <div class="rc-line"><svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-mappin"/></svg> HCM · Km 12+400</div>
+            <div class="rc-line"><svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-person"/></svg> Trần Khánh · Chi cục II.2</div>
+            <div class="rc-time">2026-08-09 14:40:13</div>
+          </div>
+          <div class="rc-thumb" style="background:linear-gradient(145deg,#f0c27a,#c77800)"></div>
+        </div>
+        <div class="rc-status ok">Trạng thái: Đang được giám sát</div>
+        <div class="rc-actions">
+          <button type="button" id="act-chat-2" data-slug="incident-chat" title="Trao đổi" aria-label="Trao đổi" onclick="event.stopPropagation();toastChat()"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chat"/></svg></button>
+          <button type="button" title="Giao việc" onclick="event.stopPropagation();toastOos('Giao việc')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-briefcase"/></svg></button>
+          <button type="button" title="Chi tiết" onclick="event.stopPropagation();toastOos('Chi tiết vấn đề')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-list"/></svg></button>
+          <button type="button" title="Bản đồ" onclick="event.stopPropagation();toastOos('Bản đồ')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-mappin"/></svg></button>
+        </div>
+      </div>
+    </div>
+    <button class="fab" onclick="toastOos('Ghi sự cố')" title="Ghi sự cố" aria-label="Ghi sự cố">
+      <svg class="ic ic-lg" viewBox="0 0 24 24"><use href="#i-plus"/></svg>
+    </button>
+    <nav class="tab" data-des-id="DES-MOB-TABBAR" id="tab-incident">
+      <b>Trang Chủ</b><b>Tuần đường</b><b class="on">Vấn đề</b><b>Công việc</b><b>Tôi</b>
+    </nav>
+    <div id="toast-incident-chat" class="toast" role="status" data-des-id="DES-MOB-INC-CHAT-TOAST"></div>
+  </div>
+  <script>
+    let t;
+    function showToast(msg) {
+      const el = document.getElementById('toast-incident-chat');
+      el.textContent = msg;
+      el.classList.add('show');
+      clearTimeout(t);
+      t = setTimeout(() => el.classList.remove('show'), 2200);
+    }
+    function toastChat() { showToast('Trao đổi sự cố'); }
+    function toastOos(msg) { showToast(msg); }
+  </script>
+</body>
+</html>

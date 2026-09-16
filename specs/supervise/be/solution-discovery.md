@@ -1,35 +1,48 @@
-# SA — Solution — supervise (mobile list · Giám sát)
+# SA — Solution — supervise (mobile list · Giám sát · edit filter/map)
 
 | Field | Value |
 |-------|-------|
 | feature | `supervise` |
-| title | [Mobile] Giám sát |
+| title | [Mobile] Giám sát — filter live + map sibling |
 | this role | `sa` · `/agent-sa-mobile` |
 | status | `confirmed` |
-| solution_confirm | **approve** (`autoApprove=ON` · `task_761211bf`) |
-| changeScope | `new_page` |
+| solution_confirm | **approve** (`autoApprove=ON` · `task_2ac8625f`) |
+| changeScope | `edit_page` |
 | packKind | **`list`** (PO + Design confirm) |
 | stack | `native_dual` |
-| Feature Kind | **list** push `#sc-supervise` · **cấm** Kind A–G web / Lin* grid / Report |
+| Feature Kind | **list** `#sc-supervise` · **cấm** Kind A–G web / Lin* grid / Report |
 | domain | **Patrol** attendance-logs read · **cấm** `SuperviseController` / invent `api/v1/supervise` |
 | BackendRoot | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.WebService` · **cấm ERP.*** |
 | ios | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS` |
 | android | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android` |
 | bff | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Bff` · prefix `mobile-bff/api/v1` |
-| prior · design | **confirmed** · `ui/design.md` · `ui/ux-analy.md` · `ui/review/demo-parity.md` · dual `#sc-supervise` · `task_b163f3ae` |
-| prior · po | **confirmed** · `po/requirement.md` · `task_bdca2ab2` |
-| prior · data_analy | **confirmed** · `_data-analy/supervise-control-hint.md` · `supervise-bff-endpoints.md` · `supervise-action-tree.md` · contentHash `sha256:supervise-mobile-list-20260819` · bffContentHash `sha256:supervise-mobile-bff-20260819` |
+| prior · design | **confirmed** · `handoff/design-compact.md` · `task_69283465` |
+| prior · po | **confirmed** · `handoff/po-compact.md` · `task_d7e615af` |
+| prior · data_analy | **confirmed** · `handoff/data_analy-compact.md` · `_data-analy/supervise-*` · contentHash `sha256:supervise-mobile-filter-live-20260912` · bffContentHash `sha256:supervise-mobile-bff-filter-20260912` |
 | autoApprove | **ON** |
-| e2eQa | ON khi QA · `yarn e2e-qa-mobile` · **cấm** `yarn start:std` / `mfeStdUrl` |
+| e2eQa | ON queued QA · **cấm** `yarn start:std` / e2e this role · **cấm** `mfeStdUrl` |
 | versionGate | `rechecked` |
-| taskId | `task_761211bf` |
-| confirmedBy | agent autoApprove · `task_761211bf` |
-| updatedAt | `2026-08-19T15:24:26.000Z` |
-| thisAction | **Giám sát list** `#sc-supervise` only · GET attendance-logs · toast filter/map/card · **cấm** gộp sibling map / checkin detail |
+| taskId | `task_2ac8625f` |
+| confirmedBy | agent autoApprove · `task_2ac8625f` |
+| updatedAt | `2026-09-12T10:00:00.000Z` |
+| thisAction | **§ Delta** live filter sheet (`route` GET + date client) · push `#sc-patrol-map` · keep detail · EmptyChrome live · **cấm** toast fake filter/map |
 
-**Cấm:** invent `GET supervise` / `SuperviseController` · clone `AttendanceLogsController` trên Mobile.Bff · app `:5101` trực tiếp · gộp sibling screens (`GAP-MOB-ACT-01/02`) · filter sheet / map live / detail drill P1 · ERP.* · `mfeStdUrl` / `yarn start:std` · native alert · `UIAlert` / `AlertDialog` · start sibling `pending_confirm`.
+**Cấm:** invent `GET supervise` / `SuperviseController` · clone controller trên Mobile.Bff · app `:5101` trực tiếp · embed map · invent `fromDate` BFF P1 · ERP.* · `mfeStdUrl` · native alert · auto-start sibling pipeline.
 
-Standards: api-endpoint · bff-api-structure · company-field · no-parent-json-field · sa-implement-gates · ios networking · android api-client · offline-sync (list = demo fallback · **cấm** block screen).
+Standards: api-endpoint · bff-api-structure · company-field · no-parent-json-field · sa-implement-gates · ios networking · android api-client · offline-sync.
+
+---
+
+## § Delta Current vs New (edit_page)
+
+| Surface | Current (prior SA `task_761211bf`) | New (this pack) |
+|---------|-----------------------------------|-----------------|
+| Filter Lọc | toast only · **không** query | owner sheet Tuyến+Ngày · Apply → GET ±`route` · date client on `CheckInAt` |
+| Segment Bản đồ | toast · reset 0 | **push** sibling `#sc-patrol-map` · reset seg 0 · **cấm** toast · **cấm** embed |
+| Card tap | toast | **keep** push supervise-detail (prior wire) |
+| Empty | demo fallback open | EmptyChrome live 0/fail · toast fail only · **cấm** native alert |
+| BE fromDate/toDate | absent | **P2** GAP-MOB-SUP-04 · **không** Step 4b this turn |
+| Endpoint | GET attendance-logs page/pageSize | **same** + optional `route` · **cấm** invent path |
 
 ---
 
@@ -38,25 +51,24 @@ Standards: api-endpoint · bff-api-structure · company-field · no-parent-json-
 | Layer | Choice |
 |-------|--------|
 | BackendRoot | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.WebService` · `be_repo_confirm` |
-| Domain | Patrol `AttendanceLogsController` · **không** RMMS `supervise` controller |
-| API downstream | `AttendanceLogsController.GetList` → `GET api/v1/patrol/attendance-logs` |
-| BFF mobile | `Linm.RMMS.Mobile.Bff` · `MobileApiProxyController` catch-all → `ApiBase` |
-| App | iOS `SuperviseRepositoryImpl` · Android `SuperviseRepositoryImpl` + `ApiService` · base `{BffBase}/mobile-bff/api/v1` |
-| Org unit | Live `Note` nếu có · else demo fallback «Tổ tuần đường · VP-IV.1» (`GAP-MOB-SUP-03`) · **cấm** invent org-unit API |
+| Domain | Patrol `AttendanceLogsController` · **không** RMMS supervise controller |
+| API downstream | `GetList` → `GET api/v1/patrol/attendance-logs` |
+| BFF mobile | `MobileApiProxyController` catch-all → `ApiBase` |
+| App | iOS/Android `SuperviseRepositoryImpl` · base `{BffBase}/mobile-bff/api/v1` |
 | Persist BE | **không** bảng mới · **không** `/database-migration` · **không** `/new-endpoint` |
-| Out of pack | map live · checkin detail · filter sheet / API filter UI · camera media · GPS trên list |
+| Sibling | `patrol-map` nav wire only · `supervise-detail` keep · **cấm** auto-start pipelines |
 
 ### Route decision
 
 | | Choice |
 |--|--------|
-| Slug | `supervise` → **list** · 1 màn `#sc-supervise` |
+| Slug | `supervise` → **list** `#sc-supervise` |
 | App prefix | `mobile-bff/api/v1` |
-| App path | **chỉ** `GET patrol/attendance-logs` (Bearer) · query `page` · `pageSize` P1 |
-| Downstream | `AttendanceLogsController.GetList` · query `search` · `status` · `route` · `onlyOutZone` · `page` · `pageSize` |
-| Detail drill | `GET patrol/attendance-logs/{id}` — **P2** · P1 toast card |
-| Step 4b | **N/A** — endpoint live · không BE align delta · **cấm** `/new-endpoint` |
-| Rationale | Live Patrol attendance-logs đủ list rich-card P1 · **cấm** invent supervise aggregate |
+| App path | `GET patrol/attendance-logs` · query `page` · `pageSize` · optional **`route`** |
+| Date filter | **client** local day on `CheckInAt` · **không** BE fromDate P1 |
+| Detail | `GET patrol/attendance-logs/{id}` — keep owner detail slug |
+| Step 4b | **N/A** — reuse live GET · **cấm** `/new-endpoint` |
+| Rationale | BFF `route` live · date P2 · **cấm** invent supervise aggregate |
 
 ---
 
@@ -65,64 +77,80 @@ Standards: api-endpoint · bff-api-structure · company-field · no-parent-json-
 | Concern | Package / rule | Note |
 |---------|----------------|------|
 | BFF HTTP | `MobileApiProxyController` catch-all | **cấm** `SuperviseController` local |
-| BE HTTP | `AttendanceLogsController` | live `GET/POST/PUT/DELETE api/v1/patrol/attendance-logs` |
-| Web BFF (ref) | `AttendanceLogsBffController` `web-bff/…` | mobile **không** gọi web-bff |
-| Response DTO | `ApiResponse<AttendanceLogPagedResult>` → `AttendanceLogDto[]` | app decode `data.items` |
-| DTO fields | `Id` · `Code` · `UserName` · `Route` · `CheckInAt` · `KmPoint` · `Lat` · `Lng` · `InZone` · `Status` · `Note` | map card zones |
-| HTTP app | `SuperviseRepositoryImpl` iOS · Android | **cấm** URLSession/OkHttp trong View |
-| Token | Keychain / EncryptedSharedPreferences | Bearer + company headers interceptor |
-| Mapper | `SuperviseDtoMapper.checkin(from:)` | status ok/warn · time local · org from Note |
-| Demo fallback | `SuperviseCopy.demoItems` (2 rows SSOT) | GET fail/empty → demo · list **vẫn mở** |
-| Kit | `LinmTopBar` · `LinmSegment` · `LinmCard` feature composition · `LinmToast` | Design `kit_missing_confirm` **N/A** · **cấm** invent `LinmRichCheckinCard` |
+| BE HTTP | `AttendanceLogsController` | live GET list + `route` |
+| Response DTO | `AttendanceLogPagedResult` → `AttendanceLogDto[]` | decode `data.items` |
+| DTO fields | `Id` · `Code` · `UserName` · `Route` · `CheckInAt` · `KmPoint` · `Lat` · `Lng` · `InZone` · `Status` · `Note` | card + client date |
+| HTTP app | `SuperviseRepositoryImpl` dual | **cấm** URLSession/OkHttp in View |
+| Token | Keychain / EncryptedSharedPreferences | Bearer + company headers |
+| Mapper | `SuperviseDtoMapper` | status · time local · org Note fallback |
+| Empty / fail | EmptyChrome | GET fail/0 → empty + toast · list opens · **cấm** full-screen block pretending success |
+| Kit | TopBar · Segment · Card · Sheet · Toast · EmptyChrome | **cấm** invent RichCheckinCard type |
 
 ---
 
-## BFF / API contract (live audit 2026-08-19)
+## BFF / API contract
 
 | Action | App path | BFF | Downstream | Live |
 |--------|----------|-----|------------|------|
-| List check-in | `GET patrol/attendance-logs` | proxy | `GET api/v1/patrol/attendance-logs` | **PASS** |
-| Detail drill | `GET patrol/attendance-logs/{id}` | proxy | `GetById` | live · **no P1** |
-| Filter nav | — | — | toast only | **N/A** API P1 |
-| Map segment | — | — | toast only · sibling `patrol-map` | **N/A** |
-| Card tap | — | — | toast · sibling `checkin-detail` | **N/A** |
+| List check-in | `GET patrol/attendance-logs` | proxy | `GetList` | **PASS** |
+| Filter tuyến | same + `?route=` | proxy | `route` exact | **PASS** |
+| Filter ngày | same GET → client | — | `CheckInAt` day | client P1 |
+| Detail drill | `GET …/{id}` | proxy | `GetById` | keep |
+| Map segment | — | — | push `patrol-map` | **N/A** API |
+
+### API-01: GET /mobile-bff/api/v1/patrol/attendance-logs
+
+| | |
+|--|--|
+| Purpose | List check-in cho Giám sát · optional filter tuyến |
+| Permission | `patrol.attendance-logs.read` (reuse · **cấm** invent) |
+| Tenant | X-Company-Id · companyCode interceptor |
+| Request | query: `page` (int) · `pageSize` (int, default 50) · `route` (string, omit if empty) · optional passthrough `search`/`status`/`onlyOutZone` unused UI |
+| Response | `ApiResponse<AttendanceLogPagedResult>` · `items[]` = `AttendanceLogDto` |
+| Errors | 401 · 403 · network → EmptyChrome + toast · **cấm** alert |
+| Form surfaces | list + owner filter sheet Apply/Clear |
+| Field map | see § Form data |
+| Context | `docs/context/features/supervise.md` |
+| Demo | `#sc-supervise` · zones SUP-FILTER · SUP-LIST · SUP-CARD |
+| data-import | **n/a** — transaction list live |
+| Migration | **none** |
+| Sample | `route=QL.1` → items matching Route |
 
 ### Query params (list)
 
-`search` · `status` · `route` · `onlyOutZone` · `page` (default 1) · `pageSize` (default 50)
-
-**P1 app gửi:** `page` · `pageSize` only. Filter UI toast — **không** bind query filter P1 (`GAP-MOB-SUP-01`).
-
-### Response shape
-
-`ApiResponse<AttendanceLogPagedResult>` where `Items[]` = `AttendanceLogDto`. App maps to `SuperviseCheckinItem`.
+| Param | P1 | Note |
+|-------|----|------|
+| `route` | **yes** | Trim · omit empty |
+| `page` / `pageSize` | yes | AllowedPageSizes BE |
+| `search` / `status` / `onlyOutZone` | unused UI | passthrough OK |
+| `fromDate` / `toDate` | **no** | GAP-MOB-SUP-04 P2 |
 
 ### Permissions
 
-| Permission | Scope | Pack này |
-|------------|-------|----------|
-| `patrol.attendance-logs.read` | GET list/detail | **reuse** · BE `[RequirePermission]` TODO debt P1 |
-| `patrol.attendance-logs.create/update/delete` | Writer siblings | **không** gọi turn này |
+| Permission | Scope | Pack |
+|------------|-------|------|
+| `patrol.attendance-logs.read` | GET list/detail | **reuse** |
+| create/update/delete | writers | **không** gọi |
 
-**Cấm** thêm `[RequirePermission]` mới trên Mobile.Bff · **cấm** invent permission slug mới.
+**Cấm** thêm `[RequirePermission]` mới trên Mobile.Bff · **cấm** invent permission slug.
 
 ---
 
 ## Implement gates (confirm)
 
-| Gate | Decision | Endpoints / surfaces | Skill | Note |
-|------|----------|----------------------|-------|------|
-| TZ | **tz_na** | GET list — **không** form date input | `/review-timezone-implement` | `CheckInAt` UTC store · display local |
-| XCO | **xco_na** | list current-company logs | `/implement-view-cross-company` | BE company filter live · GetById XCO P2 |
-| SHARE | **n/a** | **không** bảng RMMS mới | `/implement-shared-table` | read existing `rmms_attendance_logs` |
-| Offline | **demo fallback** · list **vẫn mở** | GET fail → demo SSOT | offline-sync | **cấm** full-screen block · **cấm** native alert |
-| GPS | **n/a** | list không GPS | — | map = sibling toast |
-| Camera | **n/a** | thumb gradient P1 | — | camera P2 |
-| Push | **n/a** | không signup / push URL | — | |
-| Store | **n/a** list | không signup / xóa TK | `GAP-SA-STORE-01` | **cấm** localhost trong solution claim |
-| Step 4b | **N/A** | không endpoint mới | — | reuse Patrol live |
+| Gate | Decision | Endpoints / surfaces | Note |
+|------|----------|----------------------|------|
+| TZ | **tz_client_filter** | filterDate client day on `CheckInAt` | store UTC · display local · **không** BE date param P1 |
+| XCO | **xco_na** | list current-company | BE company filter live |
+| SHARE | **n/a** | không bảng RMMS mới | read `rmms_attendance_logs` |
+| Offline | **empty + toast** | GET fail → EmptyChrome · **cấm** block | demo SSOT optional debt — **không** toast fake “đã lọc” |
+| GPS | **n/a** list | map = sibling | **không** GPS on list |
+| Camera | **n/a** | thumb placeholder | |
+| Push | **n/a** | | |
+| Store | **n/a** list | GAP-SA-STORE-01 · PrivacyInfo P2 review | **cấm** localhost claim |
+| Step 4b | **N/A** | không endpoint mới | fromDate = P2 only |
 
-AskQuestion (autoApprove=ON · không chờ board): `sa_tz_gate=tz_na` · `sa_xco_gate=xco_na` · `sa_shared_table=share_na` · `solution_confirm=approve` · `2026-08-19T15:24:26.000Z`.
+AskQuestion (autoApprove=ON): `sa_tz_gate=tz_client_filter` · `sa_xco_gate=xco_na` · `sa_shared_table=share_na` · `solution_confirm=approve` · `2026-09-12T10:00:00.000Z`.
 
 ---
 
@@ -130,27 +158,11 @@ AskQuestion (autoApprove=ON · không chờ board): `sa_tz_gate=tz_na` · `sa_xc
 
 | | |
 |--|--|
-| Parent JSON string inventory (BE) | **none** |
-| Child tables this pack (BE) | **n/a** — read existing `AttendanceLogEntity` / `rmms_attendance_logs` |
-| Client store | **không** persist list state · demo in-memory only |
-| Migration | **không** `Schema_*` · **không** `/database-migration` |
+| Parent JSON string inventory | **none** |
+| Child tables | **n/a** — read existing |
+| Client store | filter draft in sheet state only · **không** persist inventory blob |
+| Migration | **không** Schema_* · **không** `/database-migration` |
 | T-BE-API / T-BE-MIG | **n/a** |
-
----
-
-## Live vs delta (audit 2026-08-19)
-
-| Surface | Live | SA chốt P1 |
-|---------|------|------------|
-| `GET …/patrol/attendance-logs` | BE `AttendanceLogsController` + Mobile.Bff proxy live | **Giữ** · app path `patrol/attendance-logs` |
-| `SuperviseController` / `GET supervise` | **không** | **Cấm** tạo |
-| Native `#sc-supervise` | scaffold prior (`SuperviseView` / `SuperviseScreen` + GET + demo) | **DELTA UI** dual copy · kit zones · toast siblings · org fallback SSOT |
-| `SuperviseRepository` / UseCase | GET + demo fallback wired | **Giữ** · verify Design kit + mapper delta |
-| Org empty `Note` | mapper fallback «Tổ tuần đường» | **Chốt** fallback «Tổ tuần đường · VP-IV.1» dual (`GAP-MOB-SUP-03`) |
-| Android `#i-building` | `Icons.Default.Business` | **DELTA** outline building motif · **cấm** Filled Business (`GAP-MOB-ICON-02`) |
-| Home tile / patrol-home quick | wired push | **Giữ** · `reuse` entry · **cấm** reimplement hubs |
-| Segment Bản đồ / tap card / Lọc | toast wired prior | **Giữ** · **cấm** push sibling |
-| `#sc-patrol-map` / `#sc-checkin-detail` | sibling `pending_confirm` | **cấm** start (`GAP-MOB-ACT-06`) |
 
 ---
 
@@ -158,41 +170,53 @@ AskQuestion (autoApprove=ON · không chờ board): `sa_tz_gate=tz_na` · `sa_xc
 
 | Screen / FormMode | Fields (UI) | Source type | Entity |
 |-------------------|-------------|-------------|--------|
-| `#sc-supervise` list | nav · segment · rich-cards | GET attendance-logs + demo fallback | **không** RMMS form entity · FormMode **none** |
+| `#sc-supervise` list | nav · segment · cards · empty | GET ± route + client date | FormMode **none** CRUD |
+| owner filter sheet | filterRoute · filterDate · Apply · Clear | query `route` + client day | — |
+
+### FormMode ↔ API
+
+| FormMode / surface | API | Notes |
+|--------------------|-----|-------|
+| List load / pull | API-01 GET | page/pageSize |
+| Filter Apply | API-01 GET ±`route` | then client filter date |
+| Filter Clear | API-01 GET no route | clear date · reload |
+| Detail push | GET `…/{id}` | sibling/keep |
+| Map segment | — | nav push `#sc-patrol-map` |
 
 ### Field map (ui → dto → store)
 
 | uiField | Label VN | dtoField | Wire | Notes |
 |---------|----------|----------|------|-------|
-| navBack | Trang Chủ | — | local pop | `LinmTopBar` |
-| navTitle | Giám sát tuần đường | — | fixed | |
-| navFilter | Lọc | — | toast | **không** API P1 |
+| btn-sup-filter | Lọc | — | open sheet | Must live |
+| filterRoute | Tuyến | `Route` | query `route` | TextField |
+| filterDate | Ngày | `CheckInAt` | client day | DatePicker · **không** BE P1 |
+| filterApply | Áp dụng | — | reload API-01 | Primary |
+| filterClear | Xóa lọc | — | clear+reload | Ghost |
 | segList | Danh sách check in | — | idx 0 | owner |
-| segMap | Bản đồ | — | toast · reset 0 | sibling |
-| cardTitle | Nguyễn Văn A | `UserName` | GET | required map |
-| cardOrg | Tổ tuần đường · VP-IV.1 | `Note` | GET / demo | empty Note → SSOT fallback |
-| cardLoc | QL.1 Km 1556+000 · Xuân Hải | `Route` + `KmPoint` | GET | demo may append place |
-| cardTime | 2026-08-10 08:40:12 | `CheckInAt` | GET | local display |
-| cardStatus | Trạng thái: Đã ghi điểm tuần | `Status` | GET | map «Đúng tuyến»→«Đã ghi điểm tuần» · ok/warn |
-| cardThumb | (placeholder) | — | gradient | **cấm** camera P1 |
+| segMap | Bản đồ | — | push patrol-map · reset 0 | **cấm** toast |
+| cardTitle | … | `UserName` | GET | |
+| cardOrg | … | `Note` | GET / fallback SSOT | GAP-MOB-SUP-03 |
+| cardLoc | … | `Route` + `KmPoint` | GET | |
+| cardTime | … | `CheckInAt` | GET local | |
+| cardStatus | … | `Status` | GET | ok/warn map |
+| empty | EmptyChrome | — | 0 / fail | live-only |
 
-**Cấm** invent DTO supervise / org-unit API on this slug.
+**Cấm** invent DTO supervise / org-unit / fromDate BFF P1.
 
 ---
 
 ## Navigation / action (this pack)
 
-| Control | Behavior P1 | Owner slug |
-|---------|-------------|------------|
-| Home tile Giám sát | push `#sc-supervise` | `reuse` entry `home` |
-| patrol-home quick Giám sát | push `#sc-supervise` | `reuse` entry `patrol-home` |
-| Nav back Trang Chủ | pop home stack | owner |
-| Lọc | toast **Lọc tuyến · ngày** | owner · **cấm** sheet |
-| Segment 0 | list owner | owner |
-| Segment 1 Bản đồ | toast **Bản đồ** · reset idx 0 | `patrol-map` pending |
-| Tap card | toast **Chi tiết check-in** | `checkin-detail` pending |
+| Control | Behavior P1 | Owner |
+|---------|-------------|-------|
+| Home / patrol-home → Giám sát | push `#sc-supervise` | reuse entry |
+| Nav back | pop | owner |
+| Lọc | open sheet · Apply live | owner |
+| Segment 0 | list | owner |
+| Segment 1 Bản đồ | push `#sc-patrol-map` · reset 0 | sibling wire · **cấm** auto-start feature pipeline |
+| Tap card | push supervise-detail | keep |
 
-**Cấm** nav stub giả sibling form · **cấm** start `pending_confirm` · **cấm** `UIAlert` / `AlertDialog`.
+**Cấm** toast fake filter/map · **cấm** UIAlert / AlertDialog · **cấm** embed map.
 
 ---
 
@@ -200,17 +224,14 @@ AskQuestion (autoApprove=ON · không chờ board): `sa_tz_gate=tz_na` · `sa_xc
 
 | ID | Decision |
 |----|----------|
-| GAP-MOB-SUP-01 | Filter **P1 toast only** · **cấm** sheet / API filter UI |
-| GAP-MOB-SUP-02 | Map segment **P1 toast** · reset idx 0 · sibling `patrol-map` `pending_confirm` |
-| GAP-MOB-SUP-03 | Org = live `Note` / demo fallback «Tổ tuần đường · VP-IV.1» · **cấm** invent org API · Dev align mapper empty-Note |
-| GAP-TAB-01 | Segment idx **0** list · **1** map toast · **cấm** reorder |
-| GAP-MOB-ACT-01/02 | **none** — 1 list · **cấm** child form/sheet |
-| GAP-MOB-ACT-05 | Kit reuse map · **cấm** raw List / M3 NavBar / TabView |
-| GAP-MOB-ACT-06 | 2 sibling giữ `pending_confirm` |
-| GAP-MOB-ACT-07 | **cấm** enqueue submit turn này |
-| GAP-MOB-ICON-02 | Dual outline building / mappin · **cấm** Android `Icons.Filled.Business` / Place lệch |
-| GAP-MOB-ALIGN-01 | iOS + Android **cùng** copy zones |
-| GAP-SA-STORE-01 | list · **n/a** signup · **cấm** localhost claim |
+| GAP-MOB-SUP-01 | Filter **live sheet** · Apply GET ±`route` · **cấm** toast fake |
+| GAP-MOB-SUP-02 | Map **push** `patrol-map` · reset seg 0 · **cấm** toast · **cấm** embed |
+| GAP-MOB-SUP-03 | Org = `Note` / fallback «Tổ tuần đường · VP-IV.1» · **cấm** invent org API |
+| GAP-MOB-SUP-04 | BE fromDate/toDate = **P2** · client date P1 · **không** Step 4b now |
+| GAP-TAB-01 | Segment 0 list · 1 map push · **cấm** reorder |
+| GAP-MOB-ACT-01/02 | list owner + sheet · detail/map = sibling slugs · **cấm** gộp solution |
+| GAP-MOB-ACT-06 | sibling assign nav only · **cấm** auto-start |
+| GAP-SA-STORE-01 | list · PrivacyInfo P2 · **cấm** localhost |
 | Step 4b / T-BE-* | **N/A** |
 
 ---
@@ -220,15 +241,14 @@ AskQuestion (autoApprove=ON · không chờ board): `sa_tz_gate=tz_na` · `sa_xc
 | Layer | iOS | Android |
 |-------|-----|---------|
 | Feature | `Presentation/Features/Supervise/*` | `presentation/feature/supervise/*` |
-| Use case | `FetchSuperviseCheckinsUseCase` | same |
-| Repo | `SuperviseRepositoryImpl` → `GET patrol/attendance-logs` | `SuperviseRepositoryImpl` + `ApiService` |
-| Mapper | `SuperviseDtoMapper` | `SuperviseDtoMapper` |
-| State | `SuperviseUiState` · segment · items · toast | same |
-| Shell | `AppRouter` push · Home / PatrolHome wire | `MainTabScreen` navigate `supervise` |
-| Demo | `SuperviseCopy.demoItems` | same |
+| Use case | `FetchSuperviseCheckinsUseCase` (± route) | same |
+| Repo | `SuperviseRepositoryImpl` GET ±`route` | + `ApiService` |
+| Mapper | `SuperviseDtoMapper` + client date filter | same |
+| State | segment · filter draft · items · empty · toast | same |
+| Shell | router push map/detail | navigate same |
 | DI | `AppContainer` | Hilt |
 
-**Cấm** WebView HTML · watermark Gói · device label · native alert · invent supervise API.
+**Cấm** WebView HTML · invent supervise API · mfeStdUrl.
 
 ---
 
@@ -238,14 +258,16 @@ AskQuestion (autoApprove=ON · không chờ board): `sa_tz_gate=tz_na` · `sa_xc
 |-------|-------|
 | feature / packKind | `supervise` / **`list`** |
 | solution_confirm | **approve** |
-| BFF | **chỉ** `GET patrol/attendance-logs` · Step 4b **N/A** |
-| Tasks đề xuất | `T-IOS-SUPERVISE` · `T-AND-SUPERVISE` · `T-BE` **n/a** |
-| Kit | reuse map list · verify dual parity Design |
-| Delta Dev | org fallback SSOT · Android building glyph · dual copy §Design · **cấm** push sibling |
-| Verify (Dev) | iOS `xcodegen` + `xcodebuild` dest **iPhone 17 Pro** · Android `assembleDebug` · BFF `dotnet build` |
+| changeScope | `edit_page` |
+| BFF | API-01 GET ±`route` · Step 4b **N/A** · fromDate P2 |
+| FormMode↔API | List/Apply/Clear → API-01 · Map=nav · Detail=keep GET by id |
+| TZ/XCO/SHARE | tz_client_filter · xco_na · share_na |
+| entity/migration | **none** |
+| Tasks đề xuất | `T-IOS-SUP-FILTER` · `T-AND-SUP-FILTER` · `T-IOS-SUP-MAP-NAV` · `T-AND-SUP-MAP-NAV` · `T-UI-FILTER-01` · `T-BE` **n/a** |
+| Sibling | wire `patrol-map` · keep detail · **cấm** auto-start |
 | Next slash | `/agent-tl-mobile` |
 | Chain this turn | **không** (roleOnly=`sa`) |
-| e2eQa | ON khi QA · `yarn e2e-qa-mobile` · **cấm** mfeStdUrl |
+| e2eQa | ON queued `/agent-qa*` · **cấm** e2e this role |
 
 ---
 
@@ -254,14 +276,14 @@ AskQuestion (autoApprove=ON · không chờ board): `sa_tz_gate=tz_na` · `sa_xc
 | Field | Value |
 |-------|-------|
 | skillId | agent-sa-mobile |
-| skillVersion | 2026.08.19.22 |
+| skillVersion | 2026.08.19.26 |
 | schemaVersion | 1 |
-| workflowVersion | 2026.08.19.29 |
-| rulesVersion | 2026.08.19.34 |
-| generatedAt | 2026-08-19T15:24:26.000Z |
+| workflowVersion | 2026.08.31.2 |
+| rulesVersion | 2026.08.31.2 |
+| generatedAt | 2026-09-12T10:00:00.000Z |
 | versionGate | rechecked |
-| contentHash | sha256:supervise-mobile-list-20260819 |
-| bffContentHash | sha256:supervise-mobile-bff-20260819 |
+| contentHash | sha256:supervise-mobile-filter-live-20260912 |
+| bffContentHash | sha256:supervise-mobile-bff-filter-20260912 |
 
 ---
-<!-- Version meta: skillId=agent-sa-mobile skillVersion=2026.08.19.22 schemaVersion=1 workflowVersion=2026.08.19.29 rulesVersion=2026.08.19.34 versionGate=rechecked -->
+<!-- Version meta: skillId=agent-sa-mobile skillVersion=2026.08.19.26 schemaVersion=1 workflowVersion=2026.08.31.2 rulesVersion=2026.08.31.2 versionGate=rechecked -->

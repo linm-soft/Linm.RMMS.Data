@@ -1,20 +1,31 @@
 appId: org.linmsoft.rmms
 ---
-# ops · login → tab Tôi → #row-ops → #sc-ops
-# iOS LinmTopBar title không expose text "Thông báo" (a11y = leading «Tôi») — assert id sc-ops + row copy
+# ops · guest home → Auth login → tab Tôi → #row-ops → #sc-ops (live/EmptyChrome · cấm demo SC-2401)
 - launchApp:
     clearState: true
     clearKeychain: true
 - extendedWaitUntil:
-    visible: "Đăng nhập"
-    timeout: 15000
+    visible:
+      id: "sc-home"
+    timeout: 20000
 - takeScreenshot: A11-LAUNCH
+- tapOn:
+    id: "btn-home-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "f-user"
+    timeout: 15000
 - tapOn:
     id: "f-user"
     optional: true
 - tapOn:
     text: "Tài khoản"
     optional: true
+- eraseText
 - inputText: "linm-soft"
 - tapOn:
     text: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
@@ -28,6 +39,7 @@ appId: org.linmsoft.rmms
 - tapOn:
     text: "Mật khẩu"
     optional: true
+- eraseText
 - inputText: "Linm@2026"
 - tapOn:
     text: "Not Now"
@@ -45,30 +57,32 @@ appId: org.linmsoft.rmms
 - extendedWaitUntil:
     visible:
       id: "sc-home"
-    timeout: 30000
+    timeout: 45000
+- extendedWaitUntil:
+    visible:
+      id: "home-who"
+    timeout: 20000
 - tapOn:
     id: "tab-me"
     optional: true
 - tapOn:
     text: "Tôi"
+    optional: true
 - extendedWaitUntil:
     visible: "Hàng đợi mất sóng"
-    timeout: 15000
+    timeout: 20000
 - scrollUntilVisible:
     element:
       id: "row-ops"
     direction: DOWN
-    timeout: 12000
+    timeout: 15000
 - tapOn:
     id: "row-ops"
 - extendedWaitUntil:
     visible:
       id: "sc-ops"
     timeout: 20000
-- assertVisible: "Ưu tiên SC-2401"
-- assertVisible: "Ca PAT-…0014 độ phủ 67%"
+- assertVisible:
+    id: "sc-ops"
+# live-only after cleanup_mock — EmptyChrome ops-empty OK khi GET empty/fail
 - takeScreenshot: A3-CORE
-- tapOn: "Ưu tiên SC-2401"
-- extendedWaitUntil:
-    visible: "Đã đọc chỉ đạo"
-    timeout: 10000

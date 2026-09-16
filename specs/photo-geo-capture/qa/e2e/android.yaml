@@ -1,0 +1,145 @@
+appId: org.linmsoft.rmms
+---
+# photo-geo-capture · sheet #sheet-pgc · host field-reflect PhotoRow · Pixel 1080×1920
+# Android login: IME Enter/Next · cấm eraseText · cấm hideKeyboard · live-only sessions
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 20000
+- takeScreenshot: A11-LAUNCH
+- tapOn:
+    id: "btn-home-login"
+- extendedWaitUntil:
+    visible:
+      id: "f-user"
+    timeout: 15000
+- tapOn:
+    id: "f-user"
+- inputText: "linm-soft"
+- pressKey: Enter
+- waitForAnimationToEnd:
+    timeout: 1500
+- inputText: "Linm@2026"
+- takeScreenshot: A9-LOGIN
+- pressKey: Enter
+- waitForAnimationToEnd:
+    timeout: 3000
+- tapOn:
+    id: "btn-login"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 45000
+- tapOn:
+    id: "tab-field"
+- extendedWaitUntil:
+    visible:
+      id: "sc-patrol-home"
+    timeout: 20000
+- assertVisible:
+    id: "patrol-hero"
+- scroll
+- scroll
+- scroll
+- extendedWaitUntil:
+    visible:
+      id: "row-quick-field-reflect"
+    timeout: 15000
+    optional: true
+- tapOn:
+    id: "row-quick-field-reflect"
+    optional: true
+- tapOn:
+    text: "Ghi nhận hư hỏng"
+    optional: true
+- tapOn:
+    text: "While using the app"
+    optional: true
+- tapOn:
+    text: "Allow"
+    optional: true
+- tapOn:
+    text: "OK"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-field-pick"
+    timeout: 25000
+- assertVisible:
+    id: "asset-grid"
+    optional: true
+- tapOn:
+    id: "ak32-PAVEMENT"
+    optional: true
+- tapOn:
+    text: "Mặt đường"
+    optional: true
+- tapOn:
+    id: "ak32-BRIDGE"
+    optional: true
+- tapOn:
+    text: "Cầu"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-field-reflect"
+    timeout: 25000
+- assertVisible: "Ghi nhận hư hỏng"
+- assertVisible:
+    id: "photo-row"
+    optional: true
+- scroll
+- tapOn:
+    id: "i-camera"
+- tapOn:
+    text: "While using the app"
+    optional: true
+- tapOn:
+    text: "Allow"
+    optional: true
+- tapOn:
+    text: "Only this time"
+    optional: true
+- tapOn:
+    text: "Để sau"
+    optional: true
+- tapOn:
+    text: "Sao chép hướng dẫn"
+    optional: true
+- tapOn:
+    text: "Để sau"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "btn-shutter"
+    timeout: 25000
+- assertVisible: "Chụp ảnh kèm tọa độ"
+- assertVisible:
+    id: "capture-preview"
+    optional: true
+- assertVisible:
+    id: "sheet-pgc"
+    optional: true
+- assertVisible:
+    id: "btn-use"
+    optional: true
+- assertVisible:
+    id: "btn-cancel"
+    optional: true
+- assertVisible:
+    id: "row-photog"
+    optional: true
+- takeScreenshot: A3-CORE
+- takeScreenshot: P6-CORE
+- scroll
+- assertVisible:
+    id: "row-distance"
+    optional: true
+- assertVisible:
+    id: "row-object"
+    optional: true
+- takeScreenshot: P6-CORE-2

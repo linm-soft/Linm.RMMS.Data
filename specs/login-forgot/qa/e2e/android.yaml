@@ -1,8 +1,14 @@
 appId: org.linmsoft.rmms
 ---
-# login-forgot — Pixel_2 · stay on reset step (core job)
+# login-forgot — Pixel_2 · contact-admin only (cấm OTP input)
 - launchApp:
     clearState: true
+- extendedWaitUntil:
+    visible:
+      id: "btn-home-login"
+    timeout: 15000
+- tapOn:
+    id: "btn-home-login"
 - extendedWaitUntil:
     visible:
       id: "btn-forgot"
@@ -12,16 +18,10 @@ appId: org.linmsoft.rmms
     id: "btn-forgot"
 - assertVisible:
     text: "Quên mật khẩu"
-- tapOn:
-    id: "f-phone"
-- inputText: "0900000000"
-- hideKeyboard
-- tapOn:
-    id: "btn-forgot-send"
-- extendedWaitUntil:
-    visible:
-      id: "f-otp"
-    timeout: 20000
+- assertVisible:
+    id: "forgot-contact"
+- assertVisible:
+    text: "Liên hệ admin để được cung cấp"
 - takeScreenshot: A9-LOGIN
 - takeScreenshot: A3-CORE
 - takeScreenshot: P6-CORE

@@ -11,16 +11,23 @@
 
 | Presentation | `presentation/feature/home/HomeScreen.kt` · `HomeViewModel.kt` · `HomeUiState.kt` · `MainTabScreen` Home → `HomeScreen` |
 | Domain | reuse `FetchProfileUseCase` · `UserProfile` · `AuthRepository.lastUserName` · `NetworkStatusRepository` |
-| Data | `GET auth/profile` · **cấm** invent home/wallet/inbox |
+| Data | `GET auth/profile` · wallet live `searchRoutes` + types count · **cấm** invent `api/v1/home` |
 
 ## IA / API
 
-- Tab **Trang Chủ** = `#sc-home` hub. **Gỡ** `PlaceholderHome*` / `LinmKitGallery` / `btn-logout`.
-- GET `auth/profile` · `.who` = `fullName` trim · fallback `lastUserName` · hub không block.
-- Role **ẩn live** · wallet static · badge 0 ẩn · **cấm** GET inbox.
-- Hồ sơ → tab **Tôi**. Notify → toast **Thông báo** + `includeNotification` trên `#sc-home` · **cấm** push inbox. Sibling / signal / wallet = toast nhãn.
+- Tab **Trang Chủ** = `#sc-home` hub · **không required login**. Guest **Khách** + FAQ · dock đáy `btn-home-login` + privacy · **ẩn** `LinmTabBar`.
+- Staff GET `auth/profile` · **cấm** GET profile khi guest.
+- Role **ẩn live** · wallet **live** `searchRoutes` + count · fail/empty trống · badge live 0 ẩn · GET overview/inbox guest **AllowAnonymous**.
+- Hồ sơ → tab **Tôi**. Notify → **cùng** `OpsScreen` · mark-read staff only. Sibling / signal / wallet = toast nhãn.
 - Grid 3×2 = 2× `LinmHomeGrid` (kit Row). Foot Gói **cấm ship**.
-- E2E: `sc-home` · `home-who` · `btn-signal` · `tile-*` · `wallet-card` · `tab-home`.
+- E2E: `sc-home` · `home-who` · `btn-home-login` · `btn-signal` · `tile-*` · `wallet-card` · `tab-home`.
+- `/edit-mobile-feature` 2026-08-29: guest Home + overlay login · `./gradlew :app:assembleDebug` **PASS**.
+- `/edit-mobile-feature` 2026-08-29: guest FAQ + privacy overlays · `btn-home-faq` / `btn-home-privacy`.
+- `/edit-mobile-feature` 2026-08-29: FAQ/privacy back = `login.backHome` **Về Trang Chủ**.
+- `/edit-mobile-feature` 2026-09-12: **GAP-MOB-EDIT-GUEST-TAB** — guest ẩn `LinmTabBar` · pin `btn-home-login` + `btn-home-privacy` đáy · `assembleDebug` **PASS**.
+- `/edit-mobile-feature` 2026-09-12: **GAP-MOB-EDIT-GUEST-OPS** — `app_logo` giữa hero · chuông → `OpsScreen` · guest GET inbox/overview · `assembleDebug` **PASS**.
+- `/edit-mobile-feature` 2026-09-12: **GAP-MOB-EDIT-PRIVACY-COPY** — `#sc-privacy` `home.privacy.body` user-facing dual iOS · `fieldText` · **cấm** invent HTTPS.
+- `/edit-mobile-feature` 2026-09-16: **GAP-MOB-EDIT-HOME-WHO-SKEL** — staff GET `auth/profile` · `.who` empty = bone pulse `home-who-skeleton` · **cấm** flash Khách · **cấm** `LinmBusyOverlay` hub · `assembleDebug` **PASS**.
 
 ## VERIFY GATE
 
@@ -33,3 +40,5 @@ Step 4b / T-BE **N/A** — reuse Auth profile only. Dual parity iOS.
 `/edit-mobile-feature` 2026-08-19: **GAP-MOB-THEME-01** / **GAP-MOB-COPY-01** — `LinmCopy.t` chrome · `state.who` giữ khi API có tên.
 
 `/edit-mobile-feature` 2026-08-19: notify `#sc-home` toast + local notify · `assembleDebug`.
+
+`/edit-mobile-feature` 2026-09-16: **GAP-MOB-EDIT-HOME-WHO-SKEL** — dual iOS · `assembleDebug`.

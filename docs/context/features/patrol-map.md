@@ -13,12 +13,12 @@
 
 | | |
 |--|--|
-| Mục tiêu | Bản đồ ca đang chạy · hành trình · pin điểm tuần · nền **cùng style web** · overlay kế tiếp |
+| Mục tiêu | Bản đồ ca đang chạy · hành trình · pin điểm tuần · nền **cùng style web** · **nền = cùng clip Bản đồ tài sản** (`GisClipMapView`) · overlay kế tiếp |
 | Persona | Tuần đường |
 | Entry | Hub `patrol-home` hero **Tiếp tục bản đồ** · row **Bản đồ ca** |
-| DoD P1 | Push `#sc-patrol-map` · GET sessions bind header · demo OMS overlay · check-in **toast** (sheet = sibling) · **Vị trí của tôi** loc + zoom + pin · map-bar **Tiêu chuẩn \| Vệ tinh** · họp 5: inspect **ảnh TS** + **ảnh mặt cắt ngang** trên popup |
+| DoD P1 | Push `#sc-patrol-map` · **reuse `GisClipMapView`** (clip gis.vn · chips Tiêu chuẩn/Vệ tinh · **cấm** MapKit world · **cấm** OSM.org/Esri/Google) · GET sessions bind header · demo OMS overlay · check-in **toast** (sheet = sibling) · **Vị trí của tôi** loc + zoom + pin · map-bar **Tiêu chuẩn \| Vệ tinh** · họp 5: inspect **ảnh TS** + **ảnh mặt cắt ngang** trên popup |
 | DoD chrome | **Cùng** web `/gis/live` **đã implement** — 2 chip · locate pin+vùng · card **Tên: Vị trí của bạn** + **GPS:** · **cấm** Đường/Phố/Default/Streets/Sat EN · **cấm** Fit / Toàn tuyến · **cấm** MapKit title-only |
-| Tiles | Wave 4 native **pending** (`GAP-MAP-PARITY-01`) — **cấm** fake clip BFF done · demo HTML được OSM/Esri |
+| Tiles | Wave 4 native: iOS/Android clip host **done** (`GAP-MAP-PARITY-01` · `GisClipMapView`) · demo HTML được OSM/Esri |
 | Scan | `/scan-mobile-feature` · họp 5 · **enqueue_later** |
 
 ## 2. Design / UI
@@ -26,10 +26,10 @@
 | Zone | Pattern | Notes |
 |------|---------|-------|
 | Nav | Back + title **Ca đang chạy** + **Ghi điểm tuần** | iOS leading text Tuần đường · Android icon back |
-| Map | Full-page OMS | polyline **OSRM tim đường** (corridor + track) · pin đã ghi / kế tiếp `projectToPath` |
+| Map | Full-page clip | **Host dual = `GisClipMapView`** (clip gis.vn · MapLibre BFF MVT · **cấm** MapKit world · **cấm** osmdroid PBF raster · **cấm** OSM.org/Esri/Google) · polyline **OSRM tim đường** (`OsrmBase` Debug public) · pin đã ghi / kế tiếp `projectToPath` · **GAP-MOB-AND-MAP-LOAD-01 closed** · **GAP-MAP-OSRM-CONFIG-01 closed** |
 | Next card | Overlay | **Điểm tiếp theo · OSRM** · Km 468+200 · Vinh |
-| Pin / locate | Primary map-bar | **Vị trí của tôi** — GPS · vòng vùng accuracy · pin teal neo đáy · zoom vùng · deny/timeout **toast** (cấm `alert`) · **cấm** fake lat/lng · tuần: **snap tim đường** (khác GIS web inspect) · **click pin** → card **Tên: Vị trí của bạn** · **GPS:** (`/map-inspect-popup`) |
-| Map bar | 2 chip + locate | **Tiêu chuẩn \| Vệ tinh** (paint clip khi tile Wave 4; P1 demo = cùng **nhãn**) · **Vị trí của tôi** · **cấm** Đường · Phố · Sat EN · **cấm** Toàn tuyến · **cấm** Fit |
+| Pin / locate | Primary map-bar | **Vị trí của tôi** — GPS · vòng vùng accuracy · pin teal neo đáy · zoom vùng · deny/timeout **toast** (cấm `alert`) · **cấm** fake lat/lng · tuần: **snap tim đường** (khác GIS web inspect) · **click pin** → card **Tên: Vị trí của bạn** · **GPS:** (`/map-inspect-popup`) · **Ghim vị trí hiện tại** |
+| Map bar | 2 chip + locate | **Tiêu chuẩn \| Vệ tinh** (paint clip `GisClipMapView`) · **Vị trí của tôi** · **cấm** Đường · Phố · Sat EN · **cấm** Toàn tuyến · **cấm** Fit |
 | Legend | Chips wrap | Tất cả · Hành trình · Đã ghi điểm tuần · Điểm kế tiếp |
 
 ### 2b. Parity web `/gis/live` (HARD — copy live, không proto cũ)
@@ -76,12 +76,19 @@ P1 geometry = demo SSOT `map-oms.js` (QL.1 Bến Thủy → Vinh · Nghệ An) k
 
 ## 5. Demo SSOT
 
-Frame iOS 390×844 · Android 412×915. Proto `#sc-patrol-map` Đường/Phố/Toàn tuyến + popup title-only = **GAP** — Dev copy **web `/gis/live`**, không HTML cũ.
+Frame iOS 390×844 · Android 412×915. Proto `#sc-patrol-map` Đường/Phố/Toàn tuyến + popup title-only = **GAP** — Dev copy **web `/gis/live`**, không HTML cũ. Host dual = `GisClipMapView`.
 
 ## 6. Gaps
 
 | ID | Default |
 |----|---------|
-| GAP-MAP-PARITY-01 | Native **tiles** ≠ web clip BFF — Wave 4 `/implement-gis-map` · **cấm** fake done |
-| GAP-MAP-CHROME-01 | Chrome+popup **LOCKED 2026-09-01** = web live · native UI **pending** `/edit-mobile-feature` |
-| GAP-MAP-LOCATE-POPUP-01 | **CLOSED web** (`buildMyLocationPopupHtml`) · native **pending** — card **Tên: Vị trí của bạn** + **GPS:** · **cấm** title-only |
+| GAP-MAP-PARITY-01 | Native tiles Wave 4: iOS/Android **clip BFF done** · chrome+popup **LOCKED 2026-09-01** = web live |
+| GAP-MAP-CHROME-01 | Chrome+popup **LOCKED 2026-09-01** = web live |
+| GAP-MAP-LOCATE-POPUP-01 | **CLOSED web** (`buildMyLocationPopupHtml`) · native card **Tên: Vị trí của bạn** + **GPS:** · **cấm** title-only |
+
+## Implement tracking
+
+| lane | phase | status | updatedAt |
+|------|-------|--------|-----------|
+| web | — | — | — |
+| mobile | `done` | `done` | `2026-09-16T04:44:53.117Z` |

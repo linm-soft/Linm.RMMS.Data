@@ -1,0 +1,24 @@
+{
+  "feature": "incident-chat",
+  "capturedAt": "2026-08-29T11:14:51.000Z",
+  "iosDevice": "iPhone 17 Pro Max",
+  "androidDevice": "Pixel 2",
+  "iosPx": "1320x2868",
+  "androidPx": "1080x1920",
+  "method": "e2e-qa-mobile",
+  "verdict": "PASS",
+  "dorGate": "PASS",
+  "taskId": "task_52378a1c",
+  "iosPhase": "phase1_iphone",
+  "steps": [
+    { "id": "A10-BFF", "result": "PASS", "store": ["A10", "P11"] },
+    { "id": "A11-LAUNCH", "result": "PASS", "store": ["A11"], "screenshot": "A11-LAUNCH.png" },
+    { "id": "A9-LOGIN", "result": "PASS", "store": ["A9", "P10"], "screenshot": "A9-LOGIN.png" },
+    { "id": "A3-CORE", "result": "PASS", "store": ["A3", "A11"], "screenshot": "A3-CORE.png" },
+    { "id": "P6-CORE", "result": "PASS", "store": ["P6", "P11"], "screenshot": "P6-CORE.png" },
+    { "id": "P6-CORE-2", "result": "PASS", "store": ["P6"], "screenshot": "P6-CORE-2.png" }
+  ],
+  "align": "Aligned",
+  "mustOpen": 0,
+  "gaps": []
+}

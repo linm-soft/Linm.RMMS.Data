@@ -1,0 +1,85 @@
+appId: org.linmsoft.rmms
+---
+# asset-adjust · store P6 ×2 · guest → login → hub → #tile-adjust → #sc-asset-adjust (Pixel 1080×1920)
+# Pattern asset-collect · cấm hideKeyboard · P6-CORE list · P6-CORE-2 after swipe fold
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 20000
+- tapOn:
+    id: "btn-home-login"
+- extendedWaitUntil:
+    visible:
+      id: "f-user"
+    timeout: 15000
+- tapOn:
+    id: "f-user"
+- eraseText
+- inputText: "linm-soft"
+- tapOn: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
+- tapOn:
+    id: "f-pass"
+- eraseText
+- inputText: "Linm@2026"
+- pressKey: Enter
+- waitForAnimationToEnd:
+    timeout: 4000
+- tapOn:
+    id: "btn-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
+- extendedWaitUntil:
+    visible: "Trang Chủ"
+    timeout: 45000
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 15000
+- scrollUntilVisible:
+    element:
+      id: "tile-asset"
+    direction: DOWN
+    timeout: 15000
+- tapOn:
+    id: "tile-asset"
+- extendedWaitUntil:
+    visible:
+      id: "sc-asset-hub"
+    timeout: 20000
+- scrollUntilVisible:
+    element:
+      id: "tile-adjust"
+    direction: DOWN
+    timeout: 12000
+- tapOn:
+    id: "tile-adjust"
+- extendedWaitUntil:
+    visible:
+      id: "sc-asset-adjust"
+    timeout: 25000
+- assertVisible:
+    id: "asset-adjust-search"
+- assertVisible:
+    text: "Cập nhật / bớt"
+- waitForAnimationToEnd:
+    timeout: 3000
+- takeScreenshot: P6-CORE
+- swipe:
+    start: "50%, 75%"
+    end: "50%, 35%"
+- takeScreenshot: P6-CORE-2
+- assertVisible:
+    id: "sc-asset-adjust"
+- tapOn:
+    id: "btn-asset-adjust-remove-0"
+    optional: true
+- tapOn:
+    id: "btn-asset-remove-cancel"
+    optional: true
+- assertVisible:
+    id: "sc-asset-adjust"

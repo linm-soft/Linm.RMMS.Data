@@ -1,5 +1,7 @@
 # Team lead — Task — login-forgot (mobile)
 
+> **LIVE LOCK 2026-09-16** — T-IOS/T-AND live UI = contact line. **Cấm** Dev restore `f-phone` / `f-otp`. Use-case BFF **giữ** code, **không** bind UI.
+
 | Field | Value |
 |-------|-------|
 | feature | `login-forgot` |
@@ -19,7 +21,7 @@
 | prior · sa | **confirmed** · `be/solution-discovery.md` · `task_4b1d6de2` |
 | taskId | `task_8814e09a` |
 | updatedAt | `2026-08-18T21:47:00.000Z` |
-| thisAction | **Quên mật khẩu?** hyperlink only · OTP + reset = steps **cùng** `#sc-forgot` · **không** gộp `login` |
+| thisAction | **Quên mật khẩu?** → contact-admin line · **không** gộp `login` · **không** OTP input |
 
 **Cấm:** `ERP.Service.*` · invent `auth/forgot` · clone `AuthController` · app `:5001` · queue forgot/reset · auto-login sau reset · `UIAlert`/`AlertDialog` · raw `SecureField`/`OutlinedTextField` · `mfeStdUrl` · watermark/device label · admin `users/{id}/reset-password`.
 

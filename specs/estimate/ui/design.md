@@ -1,260 +1,199 @@
-# Design — estimate (AI ước lượng sửa chữa)
+# Design — estimate (mobile sheet → screen · Giao việc xử lý)
 
 | Field | Value |
 |-------|-------|
 | feature | `estimate` |
-| this role | `design` · `/agent-design` |
-| Feature Kind | **B** catalog list + **D** slideout form |
-| changeScope | `new_page` |
-| packKind | `ai` |
-| featureClass | `ai` (Kind B list + Kind D slideout) |
-| status | `done` · design_confirm=`approve` |
-| design_confirm | **approve** (board APPROVE→CHAIN · task_ecb4792c) |
-| autoApprove | **OFF** (SA/Review vẫn await_confirm) |
-| mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.AiVision` · route `/ai-vision/estimate` |
-| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/ai-vision/estimates` · **cấm ERP.*** |
-| domain | **AiVision** |
-| prior | PO `done` · `po/requirement.md` · controlHint hash `sha256:f49800a01d06c3df4ab4058c5b2b6ecde131fe8362a040481a88daa4897e8983` |
-| skillVersion | `2026.08.15.16` |
-| schemaVersion | `1` |
-| workflowVersion | `2026.08.16.02` |
-| rulesVersion | `2026.08.15.25` |
-| versionGate | `ok` · keep_current (khớp STATUS/PO chain) |
-| shared_grid_example | `v1` |
-| slideout_layout | `footer_actions_only` |
-| leave_standard | `LeaveConfirmModal` · `/implement-show-leave-confirm` |
-| list_config | **FULL** · `LinCatalogUiSchemaEditorModal` · **cấm** Zone F-only / `configHint` / `LinListTableConfigModal` |
-| real_view_parity | `v1` |
-| peerStdUrl | `http://localhost:9303/ai-vision/ai-asset-detect` |
-| mfeStdUrl | `http://localhost:9303/ai-vision/estimate` |
-| taskId | `task_c88d66ca` |
-| updatedAt | `2026-08-17T09:09:02.000Z` |
+| title | [Mobile] [Công việc] -> Giao việc xử lý |
+| role | `/agent-design-mobile` |
+| status | **confirmed** (autoApprove=ON · `design_confirm`) |
+| packKind | **`sheet`** (PO chốt · GAP-MOB-EST-PACK-01 · surface = **full screen** `#sc-estimate` · **cấm** bottom-sheet chrome) |
+| changeScope | `edit_page` |
+| stack | `native_dual` |
+| taskId | `task_18e9655b` |
+| priorPo | `po/requirement.md` **confirmed** · task `task_eadacecf` · GAP-MOB-EDIT-01 |
+| priorDa | `_data-analy/estimate-control-hint.md` + `estimate-real-data.md` **confirmed** · hash skip · **cấm** re-scan (`GAP-DES-DEMO-RESCAN-01`) |
+| contentHash | `sha256:estimate-mobile-control-hint-20260901-edit01` |
+| realDataHash | `sha256:estimate-mobile-real-data-20260901-edit01` |
+| actionTreeHash | `sha256:estimate-mobile-action-tree-20260829` |
+| bffContentHash | `sha256:estimate-mobile-bff-20260829` |
+| ctxContentHash | `sha256:b67ee5a9cc9b69577496bf04aef9446d483410141ca6c27b98f792841ddb5ece` |
+| demoContentHash | `sha256:394ab44597648f04b25e6d58476378c16141feb53d3b58d39923b3defcff8328` |
+| priorWeb | **giữ** · `ui/design-web.md` (Kind B+D · **OUT** mobile P1) |
+| priorDesign | **giữ** history `task_c0fb308d` · delta this turn = **GAP-MOB-EDIT-01** labelHeader |
+| updatedAt | `2026-09-01T14:35:44.000Z` |
 
-## 0. Context & Demo (from PO)
+## § Delta Current vs New (`edit_page` · GAP-MOB-EDIT-01)
 
-| ID | Path | Notes |
-|----|------|-------|
-| CTX-01 | `docs/context/features/estimate.md` | Goal · GAP · legacy `/ai-estimate` → reconcile AiVision |
-| CTX-02 | `demo-maps/estimate-control-map.md` | Kind D · 20f · 13a |
-| CTX-03 | `demo-maps/estimate-actions.md` | ACTION WORK GATE |
-| DEM-01 | `Linm.RMMS.Demo/.../ai-vision/estimate.html` | host + slideout — **không** clone chrome |
-| DEM-02 | `…/js/estimate-data.js` · `estimate-app.js` | INC-441 · 3 lines · EST code |
-| controlHint | `specs/_data-analy/features/estimate-control-hint.md` | Design **chốt** §5 |
-| PO | `specs/estimate/po/requirement.md` | Config FULL · Leave · no AI badge · no auto WO |
+| ID | Current (native Review-approved) | New (Design lock) | Surface |
+|----|----------------------------------|-------------------|---------|
+| **GAP-MOB-EDIT-01** | `LinmTextField(title)` = placeholder-only · mất khi có value | **labelHeader** 13pt muted **above** mọi form input · luôn visible khi có value | 6 fields |
+| assignee · qty · unitPrice · total · sla · due | title-as-placeholder | `.field > label` SSOT · native = external `Text`/`label` **hoặc** kit `labelAbove` | dual |
 
-Persona: Điều phối · nhà thầu · Ban QLDA. Pack **không** clone chrome GOVOne / note demo.
+**Demo SSOT** dual proto **đã** có `.field > label` trên 6 field — **không** đổi copy/zones/API/BFF. Dev: **cấm** placeholder-only.
 
-## 1. Kind + UI pattern
+### § Delta complete 2026-09-16
 
-| | |
-|--|--|
-| Feature Kind | **B** + **D** |
-| List | **1×** `LinPageLayout` kind=`catalog` — **cấm** nested `CatalogListShell` |
-| Grid | `LinCatalogDataGrid` · kéo cột **default ON** |
-| Footer | **`LinCatalogListPagination`** — **cấm** footerPagination / pageSizeBar / raw table |
-| Form | Kind **D Slideout** · **footer actions only** (`slideout-form-layout`) |
-| Header chrome | **NO AI badge** (`ai-chrome-skip`) — hint P1 chỉ trong Z1h form |
-| Tree | **Không** |
-| Toolbar icons | `erp-control-icon-map` · config = **`fas fa-cog`** |
-| View | `readOnly` display — **cấm** Input disabled xám toàn form |
-| Leave | **`LeaveConfirmModal`** — **cấm** native `confirm`/`alert` |
+| ID | Current | New |
+|----|---------|-----|
+| **GAP-MOB-EST-NAV-02** | iOS incident CTA → tab work | push cùng home/incident stack · back parent |
+| **GAP-MOB-EST-NAV-03** | create CTA empty id | `postedIncidentId` after POST |
+| **GAP-MOB-EST-SEED-02** | seed fail empty qty | demo `12.5` / `850.000` |
+| **GAP-MOB-EST-RO-01** | Android derived editable | `enabled=false` |
+| **GAP-MOB-EST-NAV-04** | list `#btn-inc-assign` → tab Công việc · drop id | push `#sc-estimate` với `item.id` · back list |
+| **GAP-MOB-EST-WO-02** | Giao việc toast err · PUT estimate chặn WO | PUT/confirm best-effort · POST `maintenance/work-orders` primary · DueAt ISO · line id UUID only |
 
-## 2. Screens (expand PO)
+## reviewUrl (dual — REQUIRED)
 
-| id | Surface | Pattern | Open | FormMode | Actions |
-|----|---------|---------|------|----------|---------|
-| S-LIST | Danh sách ước lượng | Kind B A–D + F + H | `/ai-vision/estimate` | — | search · clear · create · from-incident · from-defects · refresh · export-stub · history · **config FULL** |
-| S-FORM | Form ước lượng | Kind D Slideout Z1–Z3 | toolbar / row / `?form=` | C/E/V | **footer only**: Hủy · Lưu nháp · Xác nhận · Gắn CV · Đóng/Sửa (View) |
-| S-MOD-CONFIRM | Xác nhận số liệu | Modal stacked | footer / row | — | Hủy · Xác nhận |
-| S-MOD-LEAVE | Rời form dirty | `LeaveConfirmModal` | Đóng/Hủy/route | — | Ở lại · Rời đi |
-| S-MOD-CONFIG | Cấu hình hiển thị | `LinCatalogUiSchemaEditorModal` | fa-cog | — | List/width/filter/sort/Thêm cột |
-| S-MOD-HIST | Lịch sử | `LinCatalogHistoryModal` | toolbar / row | — | stub OK P1 |
+| Platform | Path | reviewUrl |
+|----------|------|-----------|
+| iOS | `ui/prototype/ios/index.html` | `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/estimate/ui/prototype/ios/index.html` |
+| iOS missing SC | same + `?missing=1` | `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/estimate/ui/prototype/ios/index.html?missing=1` |
+| Android | `ui/prototype/android/index.html` | `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/estimate/ui/prototype/android/index.html` |
+| Android missing SC | same + `?missing=1` | `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/estimate/ui/prototype/android/index.html?missing=1` |
+| Workflow (ref) | mobile-p1 `#sc-estimate` | cite only · hash skip · **cấm** re-scan |
 
-**devSlash:** `/agent-dev` · **cấm** `/agent-dev-ai-detect`.
+**Cấm** `mfeStdUrl` / `yarn start:std` / port 9301 · **cấm** board path chỉ `index.html` (`GAP-MOB-DES-PFX-01`).
 
-## 3. Prototype + reviewUrl (REQUIRED)
+## Frame / chrome
 
-| | |
-|--|--|
-| Base | `agent-design/example/shared-grid-example.html` |
-| Artifact | [`ui/prototype/estimate-list-prototype.html`](./prototype/estimate-list-prototype.html) |
-| Scope | **content-only** — skip note/sidebar/menu/chrome demo |
-| Zones | DES-GRID-A · B · FILTER · C0–C3 · C2a · D · **F (ui-schema FULL)** · H · Z (Z1–Z3) · DES-MOD-CONFIRM · DES-MOD-LEAVE |
-| TL map | `tl-design-grid-component-map.md` |
-| SSOT | `list-shell-prototype` · `po-design-grid-standard` · `slideout-form-layout` · `design-real-view-parity` |
-| **reviewUrl** | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/estimate/ui/prototype/estimate-list-prototype.html` |
-| **peerStdUrl** | `http://localhost:9303/ai-vision/ai-asset-detect` |
-| **real_view_parity** | `v1` — cùng shell peer Kind B AiVision (`LinPageLayout` · toolbar · filter · grid · pager) |
+| | iOS | Android |
+|--|-----|---------|
+| Frame | 390×844 | 412×915 |
+| Back | `#i-chevron-left` + label **Công việc** | icon-btn chevron only (parity OK) |
+| Title | inline **Giao việc xử lý** 17 | TopAppBar **Giao việc xử lý** ~20 |
+| Shell | Tab 5 · tab **`work`** (Công việc) active | NavigationBar 5 · cùng index |
+| pack tabs | **none** — **cấm** invent segment (`GAP-TAB-01`) | same |
+| Surface | **full screen** `#sc-estimate` — **cấm** bottom-sheet | same |
 
-### Wire (list A–D)
+## DES table
 
-```
-[A] fa-calculator + «AI ước lượng sửa chữa»  (NO AI badge · no Thêm trên A)
-[B] Làm mới · Lịch sử · fa-cog · Xem/Sửa · Từ sự cố · Từ detections · Export | [+ Tạo ước lượng]
-[FILTER] Dropdown status · Dropdown nguồn · Date from/to · Xóa lọc
-[C] title · row-menu help · SearchTextInput (search must work) · grid STT·□·Mã·Sự cố·Nguồn·Tuyến·Loại·Tổng·TT·Model·Ngày·⋮
-[D] LinCatalogListPagination — Tổng · Trang · Hiển thị [50|100|200|500] · FA ««‹›»»
-[F] LinCatalogUiSchemaEditorModal «Cấu hình hiển thị danh mục» — List/width/filter/sort/Thêm cột
-[H] LinCatalogHistoryModal (stub)
-```
+| DES | Zone | iOS | Android | Notes |
+|-----|------|-----|---------|-------|
+| `DES-MOB-EST` | Screen owner `#sc-estimate` | push từ mnt-list / incident CTA | same | `data-tab="work"` |
+| Header card | Từ sự cố · Loại tài sản | `LinmListRow` ×2 readonly | same | subtitle-as-label OK |
+| Assignee | Giao cho * | `LinmTextField` + **labelHeader** | same | **GAP-MOB-EDIT-01** · required |
+| Qty | Khối lượng | NumberField + **labelHeader** | same | → `Lines[0].Qty` |
+| UnitPrice | Đơn giá | MoneyField + **labelHeader** | same | → `Lines[0].UnitPrice` |
+| Total | Thành tiền | TextField readonly + **labelHeader** | same | qty × unitPrice |
+| SlaHours | Thời hạn xử lý (giờ) | TextField readonly + **labelHeader** | same | default **24** |
+| DueAt | Hạn xử lý | TextField readonly + **labelHeader** | same | now + slaHours |
+| Primary | Giao việc | `LinmPrimaryButton` | same | POST WO (+ assign) · busy |
+| Secondary | Lưu nháp | `LinmSecondaryButton` | same | POST draft |
+| Toast OK / Draft / Err | banner | `LinmToast` | same | **cấm** system alert · **cấm** fake CV |
+| Banner missing | thiếu incidentId | in-app banner | same | chặn Giao việc · `?missing=1` |
+| Shell Tab 5 | chrome | `LinmTabBar` | NavigationBar | **giữ** · work active |
 
-### Wire (slideout DES-GRID-Z · footer only)
+## SF ↔ Material icon
 
-```
-[Z1] title · mode badge · dirty · hint (ước lượng từ AI · xác nhận thủ công) — cấm top Quay lại/Hủy/Lưu
-[Z2a] validation banner
-[Z2b] header fields (control-map §5.2)
-[Z2d] lines grid pattern_inline_grid · Thêm/Sửa/Xóa dòng
-[Z3] total LabelMoney
-     View: Đóng / Sửa
-     C/E: Hủy / Lưu nháp / Xác nhận / Gắn Công việc
-```
+| `#i-*` | Motif (SSOT mobile-p1) | SF Symbol | Material |
+|--------|------------------------|-----------|----------|
+| `#i-chevron-left` | `M15 5l-7 7 7 7` | `chevron.left` | `ArrowBack` |
+| `#i-home` | house path | `house` | `Home` |
+| `#i-mappin` | pin + circle r=2.2 | kit / `mappin` | `Place` |
+| `#i-warning` | triangle | `exclamationmark.triangle` | `Warning` |
+| `#i-wrench` | wrench path | `wrench` | `Build` |
+| `#i-person` | person | `person` | `Person` |
 
-## 4. DES-GRID → Lin* map
+**Cấm** invent `#i-*` · **cấm** lệch `d=` dual (`GAP-MOB-ICON-*`).
 
-| Zone | Design | Component |
-|------|--------|-----------|
-| A | DES-GRID-A | `LinPageLayout` / `LinPageHeader` |
-| B | DES-GRID-B | `catalogToolbar` · `ERP_LIST_TOOLBAR_ACTIONS` |
-| FILTER | DES-GRID-FILTER | Zone B filters (`ErpListHeaderFilters` / filter bar) |
-| C0 | DES-GRID-C0 | grid card title + help |
-| C1 | DES-GRID-C1 | `SearchTextInput` — **search must work** |
-| C2 | DES-GRID-C2 | `LinCatalogDataGrid` · `buildDynamicGridColumns` · kéo cột ON |
-| C2a | DES-GRID-C2a | column filter panel |
-| C3 | DES-GRID-C3 | `LinCatalogRowActionMenu` |
-| D | DES-GRID-D | **`LinCatalogListPagination`** |
-| F | DES-GRID-F | **`LinCatalogUiSchemaEditorModal`** · `useCatalogUiSchema` · catalogKind=`ai-estimates` |
-| H | DES-GRID-H | `LinCatalogHistoryModal` |
-| Z | DES-GRID-Z | Kind D slideout footer-only |
-| — | shell | **1×** `LinPageLayout` |
+## Copy VN (SSOT — parity dual)
 
-**Config FULL (HARD):** title «Cấu hình hiển thị danh mục» · bảng cột List/width/filter/sort/Thêm cột · BE `CatalogUiSchemaRegistry` + Seed `ai-estimates` · **cấm** `LinListTableConfigModal` · **cấm** leftover `const columns` / `LinCatalogDataColumn` · **cấm** `configHint` / Zone F-only height modal (**GAP-P2-CC-06** / **GAP-DEV-CONFIG-PLACEHOLDER-01**).
+| Key | Copy |
+|-----|------|
+| Title | **Giao việc xử lý** |
+| Back (iOS) | **Công việc** |
+| From incident label / value | **Từ sự cố** / **SC-2401 · Ổ gà · QL.1 Km 1556+040** |
+| Asset type label / value | **Loại tài sản** / **Mặt đường** |
+| Assignee | **Giao cho *** / **Nguyễn Văn A · Tổ tuần đường** |
+| Qty | **Khối lượng** / **12.5** |
+| Unit price | **Đơn giá** / **850.000** |
+| Total | **Thành tiền** / **10.625.000** |
+| SLA | **Thời hạn xử lý (giờ)** / **24** |
+| Due | **Hạn xử lý** / **19/08/2026 08:00** |
+| Primary | **Giao việc** |
+| Secondary | **Lưu nháp** |
+| Toast OK | **Đã giao việc · CV-20260818-0003 · thời hạn 24 giờ** |
+| Toast draft | **Đã lưu nháp ước lượng** |
+| Banner missing | **Thiếu sự cố — chặn Giao việc. Mở từ mnt-list / incident.** |
+| Tabs | Trang Chủ · Tuần đường · Vấn đề · Công việc · Tôi |
 
-## 5. Control-map (chốt từ controlHint)
+**Cấm ship:** watermark Gói · device label «iPhone»/«· Android» · «Có mạng» · fake CV khi fail · Kind B list · multi-line grid · bottom-sheet · badge P1/P2 header · placeholder-only label (**GAP-MOB-EDIT-01**).
 
-### 5.1 List filters
+## Kit map
 
-| Field key | Label | Control (chốt) | catalogKind | Notes |
-|-----------|-------|----------------|-------------|-------|
-| search | Tìm kiếm | `SearchTextInput` (C1) | text | EST · incident · tuyến · model · detectionIds — **must work** |
-| status | Trạng thái | `Dropdown` | enum | draft / confirmed · trống = Tất cả |
-| sourceType | Nguồn | `Dropdown` | enum | from-incident / from-defects |
-| fromDate / toDate | Từ / Đến ngày | `Date` | — | `createdAt` |
+| Demo | Kit iOS+Android | Notes |
+|------|-----------------|-------|
+| `.nav-bar` / `.top-bar` | `LinmTopBar` | leading chevron · iOS back text «Công việc» |
+| `.card-group` `.row` | `LinmListRow` | Từ sự cố · Loại tài sản · label 13 / value ≥16 |
+| `.field > label` + input | `LinmTextField` + **labelHeader** | HARD · external label / `labelAbove` · **cấm** title-as-placeholder only |
+| `.btn-primary` | `LinmPrimaryButton` | Giao việc |
+| `.btn-secondary` | `LinmSecondaryButton` | Lưu nháp |
+| `#toast` | `LinmToast` | **cấm** UIAlert / AlertDialog |
+| `.tabbar` / `.nav` | `LinmTabBar` | shell Tab 5 · work |
 
-### 5.2 Form fields
+`kit_missing_confirm` = **N/A** — TopBar / ListRow / TextField / Primary / Secondary / Toast đã có dual kit. labelHeader = kit API `labelAbove` **hoặc** local `VStack { Text(label); field }` · Dev lock.
 
-| Field key | Label | Control | Required | FormMode lock | Notes |
-|-----------|-------|---------|----------|---------------|-------|
-| code | Mã ước lượng | `Text` | auto | all readonly | `EST-YYYYMMDD-NNNN` |
-| incidentId | Sự cố / Vấn đề | `SearchInput` | * | view display | incident lookup |
-| sourceType | Nguồn | `Dropdown` | * | view display | init-data |
-| detectionIds | Detection IDs | `Text` | | view display | CSV |
-| routeSection | Tuyến / đoạn | `Text` | | view display | free P1 |
-| defectType | Loại hư hỏng | `Dropdown` | * | view display | init-data |
-| defectArea | Diện tích (m²) | `Text` (number) | * | view display | |
-| severity | Mức độ | `Dropdown` | * | view display | Critical/High/Medium/Low |
-| model | Model AI | `Text` | | all readonly | `gpt-4o` |
-| laborHours | Giờ nhân công | `Text` (number) | | view display | |
-| equipment | Thiết bị | `Text` | | view display | |
-| durationDays | Thời gian thi công (ngày) | `Text` (number) | | view display | |
-| totalAmount | Tổng chi phí | `LabelMoney` | | computed footer | qty×price |
-| status | Trạng thái | `Dropdown` | * | locked sau confirm | draft / confirmed |
+## Control map (PO §5 · DA · real-data §B)
 
-### 5.3 Lines grid (`pattern_inline_grid`)
+| Field | controlHint | Kit | Bind |
+|-------|-------------|-----|------|
+| screenTitle | TopBar title | `LinmTopBar` | — |
+| navBack | BackButton | leading | `go('mnt-list')` / pop parent |
+| fromIncident | ListRow readonly | `LinmListRow` | GET incident / nav |
+| assetType | ListRow readonly | `LinmListRow` | incident / asset label |
+| assignee | TextField * + **labelHeader** | `LinmTextField`+header | `AssigneeName` · opt `TeamName` |
+| qty | NumberField + **labelHeader** | `LinmTextField`+header | `Lines[0].Qty` |
+| unitPrice | MoneyField + **labelHeader** | `LinmTextField`+header | `Lines[0].UnitPrice` |
+| totalAmount | TextField readonly + **labelHeader** | `LinmTextField`+header | derived / `TotalAmount` |
+| slaHours | TextField readonly + **labelHeader** | `LinmTextField`+header | `SlaHours` = 24 |
+| dueAt | TextField readonly + **labelHeader** | `LinmTextField`+header | `DueAt` |
+| btnAssign | PrimaryButton | `LinmPrimaryButton` | `POST maintenance/work-orders` |
+| btnDraft | SecondaryButton | `LinmSecondaryButton` | `POST …/draft` |
 
-| Field key | Label | Control | Required | Notes |
-|-----------|-------|---------|----------|-------|
-| lineItem | Hạng mục | `Text` | * | BTN/BOC/NC… · UnitPriceCatalog **DEFER P2** |
-| lineQty | Khối lượng | `Text` (number) | * | |
-| lineUnit | Đơn vị | `Text` | * | m2 / m3 / công |
-| lineUnitPrice | Đơn giá | `LabelMoney` | * | P1 manual |
-| lineAmount | Thành tiền | `LabelMoney` | | readonly = qty × unitPrice |
-| lineNote | Ghi chú dòng | `Text` | | |
+**labelHeader (HARD):** Text/`label` **13pt** muted **above** control · luôn visible khi có value · **cấm** chỉ dựa placeholder/floating mất sau focus · AC-F-13 · DoD 16.
 
-**Lines toolbar:** Thêm dòng · Xóa dòng · inline edit · **không** cột TT trên header lines.
+## UX / parity gates
 
-### List columns (kéo cột ON)
+| Artifact | Path | Status |
+|----------|------|--------|
+| ux-analy §1–§9 | `ui/ux-analy.md` | **done** · GAP-MOB-EDIT-01 |
+| html-to-native-map | `ui/html-to-native-map.md` | **done** · labelHeader |
+| demo-parity | `ui/review/demo-parity.md` | **PASS** · Must open **0** · labelHeader dual |
+| dual prototype | `ui/prototype/{ios,android}/index.html` | **done** · `#sc-estimate` · `.field > label` ×6 |
 
-STT · □ · Mã · Sự cố · Nguồn · Tuyến · Loại hư hỏng · Tổng · TT · Model · Ngày · ⋮
+## design_confirm
 
-### Row menu
+| Gate | Decision |
+|------|----------|
+| autoApprove | **ON** |
+| design_confirm | **approve** (self-confirm · dual labelHeader + ux-analy + demo-parity PASS) |
+| at | `2026-09-01T14:35:44.000Z` |
+| next | `sa-mobile` · `be/solution-discovery.md` · paths likely skip · **không** chain this turn (roleOnly) |
 
-Xem · Sửa · Xác nhận · Xóa (draft) · Lịch sử (stub OK)
+## Out of scope (Design)
 
-## 6. Leave / alert (REQUIRED · GAP-DES-LEAVE-01)
-
-| Case | Control | Cấm |
-|------|---------|-----|
-| Dirty form / Đóng / Hủy / route leave | **`LeaveConfirmModal`** | native `window.confirm` / `beforeunload` only |
-| Xóa draft / chặn confirm | **`useAlert` / `Modal`** | `window.alert` / `prompt` |
-| Confirm số liệu trên Slideout | **Modal stacked** | native confirm |
-| History | `LinCatalogHistoryModal` | custom history dialog ad-hoc |
-
-## 7. Seed / DoD (prototype mock)
-
-- `EST-20260817-0001` · INC-441 · 3 dòng BOC/BTN/NC · draft · tổng ~5.625.000 ₫
-- Confirm modal · leave-confirm dirty
-- Config modal FULL (mock cột schema)
-- **Không** auto WO · **không** AI badge header
-- Search C1 lọc mã/sự cố/tuyến/model
-
-## 8. APIs (handoff SA — chốt path)
-
-Domain **AiVision** · `api/v1/ai-vision/estimates` · BFF proxy · **cấm ERP.*** · **cấm** legacy `/ai-estimate`.
-
-| Op | Method | Path |
-|----|--------|------|
-| list | GET | `/api/v1/ai-vision/estimates` |
-| init-data | GET | `/api/v1/ai-vision/estimates/init-data` |
-| get | GET | `/api/v1/ai-vision/estimates/{id}` |
-| from-incident | POST | `/api/v1/ai-vision/estimates/from-incident/{incidentId}` |
-| from-defects | POST | `/api/v1/ai-vision/estimates/from-defects` |
-| update | PUT | `/api/v1/ai-vision/estimates/{id}` |
-| draft/save | POST | `/api/v1/ai-vision/estimates/{id}/draft` |
-| confirm | POST | `/api/v1/ai-vision/estimates/{id}/confirm` |
-| delete | DELETE | `/api/v1/ai-vision/estimates/{id}` |
-
-Entity: `EstimateAuditEntity` + `EstimateLineEntity` · **no** parent `*LinesJson`. UnitPriceCatalog **DEFER P2**.
-
-## 9. Out of scope (align PO)
-
-- Auto WorkOrder / `estimate.created` → Maintenance — **DEFER P2**
-- UnitPriceCatalog tenant UI — **DEFER P2**
-- Legacy `/api/v1/ai-estimate/*`
-- ERP.* / `Domains/Master` / `api/v1/rmms/*`
-- AI badge trên header
-
-## Confirm
-
-`design_confirm` = **approve** (board APPROVE→CHAIN · task_ecb4792c).
-
-## Handoff → SA
-
-| Field | Value |
-|-------|-------|
-| Kind / pattern | B list A–D + D slideout footer-only · Config **FULL** |
-| Field inventory / control-map | §5 |
-| Prototype · reviewUrl | §3 |
-| Leave | §6 `LeaveConfirmModal` |
-| APIs | §8 — SA chốt |
-| Domain | **AiVision** · BE `Linm.RMMS.WebService` · **cấm ERP.*** |
-| Entity | `EstimateAuditEntity` + `EstimateLineEntity` · no `*LinesJson` |
-| catalogKind | `ai-estimates` (ui-schema seed) |
-| Next | `/agent-sa` done · SA `await_confirm` (autoApprove=OFF) · TL sau Approve `solution_confirm` |
+- Web Kind B list + Kind D multi-line (`design-web.md` **giữ**)
+- Staff lookup picker · SLA policy API · offline draft queue
+- Invent `api/v1/estimate` / `ai-estimate` · ERP.* · `mfeStdUrl`
+- Re-scan demo HTML (`GAP-DES-DEMO-RESCAN-01`)
+- Dev / e2e / yarn build / start:std · Step 4b
 
 ## Version meta (REQUIRED)
 
 | Field | Value |
 |-------|-------|
-| skillId | agent-design |
-| skillVersion | 2026.08.15.16 |
-| schemaVersion | 1 |
-| workflowVersion | 2026.08.16.02 |
-| rulesVersion | 2026.08.15.25 |
-| generatedAt | 2026-08-17T09:09:02.000Z |
-| versionGate | ok |
-| contentHash | sha256:f49800a01d06c3df4ab4058c5b2b6ecde131fe8362a040481a88daa4897e8983 |
-| taskId | task_c88d66ca |
+| skillId | agent-design-mobile |
+| skillVersion | 2026.08.25.01 |
+| schemaVersion | 2 |
+| workflowVersion | 2026.08.29.1 |
+| rulesVersion | 2026.08.29.5 |
+| generatedAt | 2026-09-01T14:35:44.000Z |
+| versionGate | rechecked |
+| contentHash | sha256:estimate-mobile-control-hint-20260901-edit01 |
+| realDataContentHash | sha256:estimate-mobile-real-data-20260901-edit01 |
+| ctxContentHash | sha256:b67ee5a9cc9b69577496bf04aef9446d483410141ca6c27b98f792841ddb5ece |
+| demoContentHash | sha256:394ab44597648f04b25e6d58476378c16141feb53d3b58d39923b3defcff8328 |
+| taskId | `task_18e9655b` |
 
 ---
-<!-- Version meta: skillVersion=2026.08.15.16 · schemaVersion=1 · workflowVersion=2026.08.16.02 · versionGate=ok -->
+<!-- Version meta: skillId=agent-design-mobile skillVersion=2026.08.25.01 schemaVersion=2 workflowVersion=2026.08.29.1 rulesVersion=2026.08.29.5 versionGate=rechecked taskId=task_18e9655b -->

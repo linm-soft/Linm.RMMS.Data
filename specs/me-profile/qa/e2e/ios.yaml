@@ -1,0 +1,117 @@
+appId: org.linmsoft.rmms
+---
+# me-profile · sheet→screen #sc-me-profile
+# guest home → btn-home-login → login → tab Tôi → row-profile → form + Lưu
+# pattern: feedback · cấm A3 trước login · cấm đổi MK seed · cấm mfeStdUrl
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 20000
+- takeScreenshot: A11-LAUNCH
+- tapOn:
+    id: "btn-home-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "f-user"
+    timeout: 15000
+- tapOn:
+    id: "f-user"
+- eraseText
+- inputText: "linm-soft"
+- tapOn:
+    text: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
+    optional: true
+- tapOn:
+    text: "RMMS"
+    optional: true
+- tapOn:
+    id: "f-pass"
+- eraseText
+- inputText: "Linm@2026"
+- tapOn:
+    text: "Not Now"
+    optional: true
+- takeScreenshot: A9-LOGIN
+- tapOn:
+    id: "btn-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
+- tapOn:
+    text: "Not Now"
+    optional: true
+- pressKey: Enter
+- waitForAnimationToEnd:
+    timeout: 4000
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 45000
+- tapOn:
+    id: "tab-me"
+    optional: true
+- tapOn:
+    text: "Tôi"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "row-profile"
+    timeout: 20000
+- tapOn:
+    id: "row-profile"
+- extendedWaitUntil:
+    visible:
+      id: "sc-me-profile"
+    timeout: 25000
+- assertVisible: "Hồ sơ"
+- assertVisible:
+    id: "avatar-person"
+- assertVisible:
+    id: "f-fullName"
+- assertVisible:
+    id: "f-phone"
+- assertVisible:
+    id: "f-email"
+- assertVisible:
+    id: "f-userName"
+- assertVisible:
+    id: "btn-save"
+- tapOn:
+    id: "f-phone"
+    optional: true
+- eraseText
+- inputText: "0901234567"
+- tapOn:
+    text: "Hồ sơ"
+    optional: true
+- tapOn:
+    id: "btn-save"
+    optional: true
+- extendedWaitUntil:
+    visible: "Đã cập nhật hồ sơ"
+    timeout: 20000
+    optional: true
+- assertVisible:
+    id: "sc-me-profile"
+- takeScreenshot: A3-CORE
+- takeScreenshot: P6-CORE
+- scroll
+- assertVisible:
+    id: "section-pwd"
+- assertVisible:
+    id: "f-curPwd"
+- assertVisible:
+    id: "f-newPwd"
+- assertVisible:
+    id: "f-confirmPwd"
+- assertVisible:
+    id: "btn-change-pwd"
+- takeScreenshot: P6-CORE-2

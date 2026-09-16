@@ -1,11 +1,14 @@
 # Prototype — incident-create
 
-Design gate: **prototype + reviewUrl** — board Approve (**không auto**).
-Repo confirm: user tick BE+UI trên `/qldb-workflow` Progress trước Dev (**không auto** · cấm ERP.*).
+Dual pack mock · **screen** `#sc-inc-form` · `DES-MOB-INC-FORM` · `DES-MOB-INC-KIND`.
 
-- Demo SSOT: `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/mobile-p1/ui/prototype/ios/index.html`
-- Title: Ghi sự cố
-- Pack kind: `sheet`
-- MFE: `Linm.RMMS.Mobile.iOS`
+| Platform | Path | Frame |
+|----------|------|-------|
+| iOS | `ios/index.html` | 390×844 |
+| Android | `android/index.html` | 412×915 |
 
-Put HTML prototype / screenshot link here; update `ui/design.md` with a browser-openable **reviewUrl**.
+**reviewUrl:** xem `ui/design.md` · Query: `?deny=1` GPS deny · `?pick=1` toast pick.
+
+**Cấm** `mfeStdUrl` · `yarn start:std` · watermark Gói · `#sheet-incident`.
+
+Hash skip: SSOT copy từ DA + PO + mobile-p1 `#sc-inc-form` — **cấm** re-scan.

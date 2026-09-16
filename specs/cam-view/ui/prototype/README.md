@@ -1,11 +1,22 @@
 # Prototype — cam-view
 
-Design gate: **prototype + reviewUrl** — board Approve (**không auto**).
-Repo confirm: user tick BE+UI trên `/qldb-workflow` Progress trước Dev (**không auto** · cấm ERP.*).
+Design gate: **prototype + reviewUrl** · autoApprove=ON → `design_confirm` **approve**.
 
-- Demo SSOT: `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/mobile-p1/ui/prototype/ios/index.html`
-- Title: Camera xem
-- Pack kind: `sheet`
-- MFE: `Linm.RMMS.Mobile.iOS`
+| | |
+|--|--|
+| Feature | `cam-view` |
+| Title | Camera xem |
+| Pack kind | **`screen`** |
+| DES | `DES-MOB-CAM-VIEW` · `#sc-cam-view` |
+| Hash skip | DA confirmed · **cấm** re-scan mobile-p1 |
 
-Put HTML prototype / screenshot link here; update `ui/design.md` with a browser-openable **reviewUrl**.
+## reviewUrl
+
+| Platform | URL |
+|----------|-----|
+| iOS | `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/cam-view/ui/prototype/ios/index.html` |
+| Android | `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/cam-view/ui/prototype/android/index.html` |
+
+Query: `?empty=1` · `?fail=1`
+
+**Cấm** `mfeStdUrl` / `yarn start:std`.

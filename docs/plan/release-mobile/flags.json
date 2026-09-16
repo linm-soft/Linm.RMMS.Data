@@ -1,0 +1,21 @@
+{
+  "name": "linm-mobile-release-flags",
+  "wave": 3,
+  "waveName": "w3_camera",
+  "updated": "2026-09-16",
+  "note": "Hand-sync → iOS/Android ReleaseFlags. Do not invent REST. Do not delete feature code when false. guest.forgotOtp=false: live UI ẩn phone/OTP — chỉ dòng «Liên hệ admin để được cung cấp». net.osrmPublic=false until self-host OsrmBase (cấm project-osrm.org).",
+  "flags": {
+    "guest.home": true,
+    "guest.faq": true,
+    "guest.privacy": true,
+    "guest.login": true,
+    "guest.forgotOtp": false,
+    "guest.directions": true,
+    "staff.lists": true,
+    "staff.patrolMap": true,
+    "staff.attendanceGps": true,
+    "staff.camera": true,
+    "net.osrmPublic": false,
+    "net.osmCdn": false
+  }
+}

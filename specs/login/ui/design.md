@@ -50,17 +50,24 @@
 | `DES-MOB-LOGIN` `#sc-login` | Đăng nhập | Brand · Form · Actions · Meta | **Đăng nhập** |
 | `DES-MOB-LOGIN-BRAND` | Brand | Logo AppIcon 96 · tagline | — |
 | `DES-MOB-LOGIN-FORM` | Form | Tài khoản · Mật khẩu+eye | — |
-| `DES-MOB-HOME-DEMO` | Home demo (kit gallery) | Gallery + chrome **Đăng xuất** đáy | **Đăng xuất** · e2e `btn-logout` · **không** `#sc-me` |
+| `DES-MOB-HOME-HELLO` | Home guest | `.who` **Khách** + `btn-home-login` | **Đăng nhập** tách · e2e `btn-home-login` |
+| `DES-MOB-LOGIN-BACK` | Back overlay | `btn-login-back` **Về Trang Chủ** | pin **trên** scroll · tap 44 · dismiss · **không** submit |
 
 ### IA lock
 
 ```
-(auth) Login shell  →  success toast  →  Home demo (kit gallery)
-Home demo **Đăng xuất**  →  clear local session  →  Login `#sc-login`
+Cold start → #sc-home guest (Khách + btn-home-login)
+btn-home-login / Dành cho cán bộ → overlay #sc-login
+btn-login-back → #sc-home guest
+success toast → #sc-home staff (ẩn nút login)
+Kill / reopen / foreground (còn refresh) → restore phiên Root (`tryRefreshToken` + exp−60s) → `#sc-home` staff
+Refresh 401 / revoked → `#sc-home` guest (không overlay `#sc-login` · không `/session-expired`)
+#sc-me Đăng xuất → #sc-home guest (không ép #sc-login)
 ```
 
-**Cấm** invent tab · swipe-back ra Home khi chưa login · toolbar Hồ sơ / Đổi MK trên login.  
-Demo Home: `LinmSecondaryButton` **Đăng xuất** · clear Keychain/Encrypted store · **không** POST `auth/logout` · **không** `#sc-me` (slug `login-logout` backlog).
+**Cấm** invent tab · **cấm** cổng login bắt buộc lúc launch · toolbar Hồ sơ / Đổi MK trên login.  
+**Cấm** màn `/session-expired` · **cấm** logout khi restore mất mạng / 5xx · **cấm** `auth/refresh` (`GAP-MOB-EDIT-SESSION-REFRESH`).  
+Logout production = `#sc-me` · **không** POST `auth/logout` P1 · **không** kit gallery `btn-logout` trên Home.
 
 ## 3. Field inventory (Design chốt kit)
 
@@ -68,8 +75,8 @@ Demo Home: `LinmSecondaryButton` **Đăng xuất** · clear Keychain/Encrypted s
 |-------|----|-------------|----------|----------|-------|
 | brand | Logo | Image | * | AppIcon / mipmap | **Tĩnh** top · logo **192** · **alpha** trên surface · **cấm** tile `#000`/`#fff` · **cấm** clip+shadow card · gap title **24** · **cấm** band 1/3 · **cấm** animation / compact IME · **cấm** ×3 |
 | tagline | QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ | Static | | Text | `/agent-design` DES-GRID-A: **22px · 700 · uppercase · onSurface** · title only · **cấm** «Hiện trường · iPhone» / «· Android» |
-| userName | Tài khoản | Text | * | `LinmTextField` + lead | username hoặc SĐT · **cùng** `formFieldHeight` 52 · **giữ** last id sau login · IME Enter/`Go` · **nếu `#f-pass` có giá trị → login** · **cấm** mã đơn vị |
-| password | Mật khẩu | SecureText | * | **`LinmSecureTextField`** | eye + lead lock · IME Enter/`Go` → **login** · **reset rỗng** khi submit login · **cấm** persist · **cấm** raw SecureField |
+| userName | Tài khoản | Text | * | `LinmTextField` + lead | username hoặc SĐT · **cùng** `formFieldHeight` 52 · **giữ** last id sau login · IME Enter/`Go` · **nếu `#f-pass` có giá trị → login** · typed `LinmTokens.onSurface` trên `card` · **cấm** chữ trắng Dark Mode / Force Dark · **cấm** mã đơn vị |
+| password | Mật khẩu | SecureText | * | **`LinmSecureTextField`** | eye + lead lock · IME Enter/`Go` → **login** · **reset rỗng** khi submit login · typed `onSurface` lock light UI · **cấm** persist · **cấm** raw SecureField |
 | submit | Đăng nhập | Button primary | * | `LinmPrimaryButton` | 1 action = `login` |
 | forgot | Quên mật khẩu? | Text link | | chrome Text | child `login-forgot` · toast only P1 |
 | signal | Tín hiệu | SignalQuality | | `LinmNetSignalMark` | Tốt / TB / Yếu |
@@ -107,9 +114,10 @@ Toast success/error → `LinmToast`. **Cấm** `UIAlert` / `AlertDialog` / `wind
 | Case | UI |
 |------|-----|
 | Submit online OK | `LinmToast` **Đăng nhập thành công** → Home ~350 ms · `#f-pass` **reset** · giữ `#f-user` |
-| Về `#sc-login` (logout / lỗi) | Tài khoản = last id · Mật khẩu **rỗng** · **cấm** nhớ MK |
+| Submit fail / offline / HĐ | Toast in-app · **giữ `#f-user` + `#f-pass`** · **cấm** reset form khi lỗi (`GAP-MOB-EDIT-FAIL-FIELDS`) |
+| Về `#sc-login` (logout) | Tài khoản = last id · Mật khẩu **rỗng** · **cấm** nhớ MK |
 | Demo Home **Đăng xuất** | `LinmToast` **Đã đăng xuất** · clear token · về `#sc-login` · **cấm** BFF logout |
-| Sai MK / Inactive / HĐ | `LinmToast` in-app |
+| Sai MK / Inactive / HĐ | `LinmToast` in-app · **giữ** user + pass |
 | Offline | **không** submit · toast/banner |
 | Forgot tap | toast **Quên mật khẩu → hệ thống xác thực** · **không** BFF |
 | Eye | toggle `isSecureTextEntry` / VisualTransformation · **giữ IME** · **cấm** swap SecureField↔TextField · không slug |
@@ -117,6 +125,9 @@ Toast success/error → `LinmToast`. **Cấm** `UIAlert` / `AlertDialog` / `wind
 | Brand motion | **Tĩnh** top stack · logo **192** · **alpha** trên surface · **cấm** tile đen/trắng · **cấm** band 1/3 · **cấm** animation / compact IME · mắt giữ IME |
 | IME focus | Focus `#f-user` / `#f-pass` **pin** ngay trên bàn phím · kit `LinmKeyboardAwareScroll` · **cấm** che input · footer meta **pin đáy giữa** khi IME ẩn · IME hiện thì ẩn footer |
 | IME Enter | `#f-user` Enter/`Go`: **nếu `#f-pass` có giá trị → cùng `loginOk`** · `#f-pass` Enter/`Go` → **luôn login** · `#f-user` Enter khi MK rỗng → **focus `#f-pass`** · **không** toast / **không** POST |
+| Field ink | Typed `#f-user` / `#f-pass` = `onSurface` `#1C1C1E` trên `card` `#FFFFFF` · caret `primary` · placeholder `muted` · **cấm** `Color.primary` / OEM Force Dark invert chữ trắng trên máy thật |
+| Close / reopen | Silent restore · POST `auth/refresh-token` nếu JWT `exp` ≤ 60s · fresh access skip POST · offline **giữ** staff nếu còn access · 401 → guest Home · **cấm** overlay `#sc-login` · **cấm** `/session-expired` (`GAP-MOB-EDIT-SESSION-REFRESH`) |
+| API 401 | Single-flight refresh → retry 1 lần · fail + hết token → guest Home · **cấm** logout khi IOException |
 
 ## 7. reviewUrl (dual — REQUIRED)
 

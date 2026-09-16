@@ -1,0 +1,35 @@
+Running on iPhone 17 Pro Max - iOS 26.2 - 518BFF77-0941-448B-8D37-67678F4506C7
+ > Flow ios
+Launch app "org.linmsoft.rmms" with clear state and clear keychain... COMPLETED
+Assert that id: sc-home is visible... COMPLETED
+Take screenshot A11-LAUNCH... COMPLETED
+Tap on id: btn-home-login... COMPLETED
+Assert that id: f-user is visible... COMPLETED
+Tap on id: f-user... COMPLETED
+Erase text... COMPLETED
+Input text linm-soft... COMPLETED
+Tap on (Optional) "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"... COMPLETED
+Tap on id: f-pass... COMPLETED
+Erase text... COMPLETED
+Input text Linm@2026... COMPLETED
+Tap on (Optional) "Not Now"... WARNED
+Take screenshot A9-LOGIN... COMPLETED
+Tap on (Optional) id: btn-login... COMPLETED
+Tap on (Optional) "Đăng nhập"... WARNED
+Tap on (Optional) "Not Now"... WARNED
+Press Enter key... COMPLETED
+Wait for animation to end within 4000 ms... COMPLETED
+Assert that id: sc-home is visible... COMPLETED
+Scrolling DOWN until id: tile-asset is visible with speed 40, visibility percentage 100%, timeout 15000 ms, with centering disabled... COMPLETED
+Tap on id: tile-asset... COMPLETED
+Assert that id: sc-asset-hub is visible... COMPLETED
+Scrolling DOWN until id: tile-adjust is visible with speed 40, visibility percentage 100%, timeout 12000 ms, with centering disabled... COMPLETED
+Tap on id: tile-adjust... COMPLETED
+Assert that id: sc-asset-adjust is visible... COMPLETED
+Assert that id: asset-adjust-search is visible... COMPLETED
+Assert that "Cập nhật / bớt" is visible... COMPLETED
+Wait for animation to end within 3000 ms... COMPLETED
+Take screenshot A3-CORE... COMPLETED
+Tap on (Optional) id: btn-asset-adjust-remove-0... WARNED
+Tap on (Optional) id: btn-asset-remove-cancel... WARNED
+Assert that id: sc-asset-adjust is visible... COMPLETED

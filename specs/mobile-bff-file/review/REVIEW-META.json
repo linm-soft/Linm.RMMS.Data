@@ -1,0 +1,25 @@
+{
+  "feature": "mobile-bff-file",
+  "status": "done",
+  "role": "review",
+  "slash": "/agent-review-mobile",
+  "taskId": "task_8da2ff6f",
+  "review_confirm": "approve",
+  "align_confirm": "approve",
+  "post_review": "skip",
+  "autoApprove": true,
+  "e2eQa": true,
+  "mustOpen": 0,
+  "findingsOk": 10,
+  "findingsAccept": 3,
+  "contentHash": "sha256:mobile-bff-file-review-20260912",
+  "contentHashPrior": "sha256:mobile-bff-file-qa-20260912",
+  "skillVersion": "2026.08.25.01",
+  "rulesVersion": "2026.08.25.2",
+  "updatedAt": "2026-09-12T16:20:30.000Z",
+  "debt": [
+    "FileService :5018 DOWN — BFF files/* live 404",
+    "Multi-photo form binds first attachmentId (singular P1)",
+    "Play Data safety / landing listing P2"
+  ]
+}

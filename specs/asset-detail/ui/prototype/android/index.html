@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RMMS · Chi tiết tài sản · Android</title>
+  <style>
+    :root {
+      --blue: #0C84C0; --deep: #086A9A; --success: #3CB448; --warn: #FCB43C; --danger: #B3261E;
+      --surface: #FFFBFE; --card: #fff; --muted: #79747E; --label: #1C1B1F; --sep: #E7E0EC;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; font-family: Roboto, "Noto Sans", sans-serif;
+      background: #1c1c1e; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    }
+    .phone {
+      width: 412px; height: 915px; background: var(--surface); border-radius: 28px;
+      overflow: hidden; position: relative; display: flex; flex-direction: column;
+    }
+    .top-bar {
+      display: flex; align-items: center; gap: 4px;
+      padding: 36px 8px 12px; background: var(--surface); border-bottom: 1px solid var(--sep);
+      min-height: 88px;
+    }
+    .icon-btn {
+      width: 48px; height: 48px; border: 0; border-radius: 24px; background: transparent;
+      color: var(--label); cursor: pointer; display: grid; place-items: center;
+    }
+    .nav-title { font-size: 22px; font-weight: 500; color: var(--label); flex: 1; }
+    .content { flex: 1; overflow: auto; padding: 0 0 96px; }
+    .hero { padding: 16px 20px 8px; }
+    .code-label { font-size: 13px; color: var(--muted); }
+    .code-value { font-size: 24px; font-weight: 700; color: var(--label); margin-top: 2px; }
+    .card-group {
+      margin: 8px 16px; background: var(--card); border-radius: 16px; overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,.06);
+    }
+    .row { padding: 14px 16px; border-bottom: 1px solid var(--sep); }
+    .row:last-child { border-bottom: 0; }
+    .row-sub { font-size: 13px; color: var(--muted); }
+    .row-title { font-size: 16px; font-weight: 500; color: var(--label); margin-top: 2px; }
+    .cta { padding: 16px; display: flex; flex-direction: column; gap: 8px; }
+    .btn {
+      width: 100%; min-height: 48px; border: 0; border-radius: 24px; font: inherit;
+      font-size: 14px; font-weight: 600; letter-spacing: .1px; cursor: pointer;
+    }
+    .btn-primary { background: var(--blue); color: #fff; }
+    .ic { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.75;
+      stroke-linecap: round; stroke-linejoin: round; }
+    .tab {
+      position: absolute; left: 0; right: 0; bottom: 0; height: 80px;
+      background: var(--surface); border-top: 1px solid var(--sep);
+      display: flex; padding: 8px 4px 16px;
+    }
+    .tab b { flex: 1; text-align: center; font-size: 13px; font-weight: 500; color: var(--muted); }
+    .tab b.on { color: var(--blue); }
+    .toast {
+      position: absolute; left: 16px; right: 16px; bottom: 96px; z-index: 20;
+      background: #313033; color: #fff; border-radius: 8px;
+      padding: 14px 16px; font-size: 14px; display: none;
+    }
+    .toast.show { display: block; }
+  </style>
+</head>
+<body>
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+    <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+  </svg>
+
+  <div class="phone" id="sc-asset-detail" data-des-id="DES-MOB-ASSET-DETAIL" data-tab="home">
+    <div class="top-bar solid">
+      <button type="button" class="icon-btn" aria-label="Back" onclick="toast('Tài sản')">
+        <svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg>
+      </button>
+      <div class="nav-title">Chi tiết tài sản</div>
+    </div>
+    <div class="content">
+      <div class="hero">
+        <div class="code-label">Mã TS</div>
+        <div class="code-value" id="asset-detail-code">TS-20260810-014</div>
+      </div>
+      <div class="card-group">
+        <div class="row"><div class="row-sub">Loại</div><div class="row-title">Cống</div></div>
+        <div class="row"><div class="row-sub">Tuyến · lý trình</div><div class="row-title">QL.1 · Km 1556+000</div></div>
+        <div class="row" id="row-gps"><div class="row-sub">Tọa độ</div><div class="row-title">11.5300, 109.0040</div></div>
+      </div>
+      <div class="cta">
+        <button type="button" class="btn btn-primary" id="asset-detail-map" onclick="toast('Ghim trên bản đồ')">Ghim trên bản đồ</button>
+      </div>
+    </div>
+    <div class="tab" data-des-id="DES-MOB-TABBAR">
+      <b class="on">Trang Chủ</b><b>Tuần đường</b><b>Vấn đề</b><b>Công việc</b><b>Tôi</b>
+    </div>
+    <div class="toast" id="toast"></div>
+  </div>
+  <script>
+    function toast(msg) {
+      var el = document.getElementById('toast');
+      el.textContent = msg;
+      el.classList.add('show');
+      clearTimeout(window.__t);
+      window.__t = setTimeout(function () { el.classList.remove('show'); }, 1800);
+    }
+  </script>
+</body>
+</html>

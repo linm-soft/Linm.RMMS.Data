@@ -240,3 +240,24 @@ CSS: .widgetBody stretch when parcelName set (GAP-AKD-WIDGET-CSS)
 
 ---
 <!-- Version meta: skillId=agent-design skillVersion=2026.08.15.19 schemaVersion=1 workflowVersion=2026.08.18.02 rulesVersion=2026.08.16.05 versionGate=keep_current -->
+
+## 11. Mobile native (`/edit-mobile-feature` 2026-09-16)
+
+Entry: hub `#sc-asset-hub` wallet **HỒ SƠ TÀI SẢN** + tile **32 loại tài sản** → `#sc-asset-kcht`. Web 4-col collapses to **1 cột card** phone. SSOT tiles = live `KCHT_TILES` (not design §6 GAP rows that web already bound).
+
+| Token | Native |
+|-------|--------|
+| Surface | `#sc-asset-kcht` · `DES-MOB-ASSET-KCHT` |
+| Chrome | `LinmTopBar` · title `asset.kcht.title` «Hạng mục KCHT» · back hub |
+| Card | min-height 64 · radius 8 · `LinmTokens.card` · border 1 · pict 40×40 circle `LinmAssetKchtPict` |
+| Label | `LinmCopy.t(asset.kcht.t01…t40)` · `LinmTokens.label` medium |
+| Count | `vi_VN` decimal · fail source → `asset.kcht.countUnknown` «—» · gap/report → **0** |
+| Motion | **none** · card display-only · **cấm** tap / Button / clickable |
+| Loading | `LinmBusyOverlay` |
+| Toast | `LinmToast` chỉ khi load partial fail `asset.kcht.toast.loadFail` |
+
+### Drill (mobile **OUT**)
+
+Cards **không** navigate · **không** toast gap/soon khi tap. Hub **Danh sách** vẫn mở list riêng. Web `/so-ts/hang-muc` giữ click drill.
+
+**Cấm** WebView MFE · invent `api/v1/asset-hub` / `dashboard/kcht` · hex/VN const per-screen.

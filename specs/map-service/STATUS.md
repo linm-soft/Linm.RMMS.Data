@@ -14,16 +14,17 @@
 | mfe | `Linm.Web.RMMS.Gis` — clip BFF MVT · OpenMapTiles streets + place · maxBounds 6.8–23.5 · **0** OSM.org trên Gis*Page |
 | mfeStdRoute | `/map-service` |
 | mfeStdUrl | `http://localhost:9301/map-service` |
-| updatedAt | `2026-09-03T19:50:00+07:00` |
+| mobileBff | `specs/mobile-bff-map/STATUS.md` |
+| updatedAt | `2026-09-16T15:55:00.000Z` |
 
 ## Stack waves
 
 | Wave | Name | Confirm | Status | at |
 |------|------|---------|--------|-----|
 | 1 | map_service | `new_svc` · `wave1_pin=clusters_rmms` | **done** | verify 2026-09-01: Schema pair + 34 + HS/TS + mask + MVT + guest 401 overlay · **P2 street MBTiles** `streetTilesReady=true` |
-| 2 | bff_service | web=**done** · mobile=pending | pending | `wave2_host=web_bff` · NuGet `1.1.0` · tiles same-origin · guest overlay 401 · Docker `:5201` proxy **200** after MapService SQLite fix |
-| 3 | integrate_bff | `both` · `viewport_lod` | pending | web=**done** · mobile=pending (Wave 2 mobile BFF chưa có · repo `Linm.RMMS.Mobile.Bff` không trong workspace) |
-| 4 | map_ui | web=**done** · ios=pending · android=pending | pending | `wave4_host=web` · MapLibre + BFF `{TileUrl}` · mask layer · maxBounds SSOT · tsc 0 · 0 `openstreetmap.org` trên Gis*Page · **mobile stack:** tab 44px + ẩn/hiện nội dung |
+| 2 | bff_service | web=**done** · **mobile=done** `wave2_host=mobile_bff` | **done** | `wave2_host=web_bff` · NuGet `1.1.0` · tiles same-origin · guest overlay 401 · Docker `:5201` proxy **200** · mobile 2026-09-12T18:53:46.000Z |
+| 3 | integrate_bff | `both` · `viewport_lod` · web=**done** · **mobile=done** `wave3_client=mobile` | **done** | web clusters + bbox · mobile 2026-09-12T19:39:36.000Z |
+| 4 | map_ui | web=**done** · **ios=done** `wave4_host=ios` · **android=done** `wave4_host=android` | **done** | web MapLibre + BFF `{TileUrl}` · ios+android 2026-09-16T15:55:00.000Z |
 
 ## Confirms
 
@@ -34,11 +35,11 @@
 | src_style | `micro_src` |
 | host | platform `Linm.Platform.MapService` (không RMMS domain) |
 | wave1_pin | `clusters_rmms` — `GET /gis/clusters` RMMS · không chuyển MapService |
-| wave2_host | `web_bff` |
+| wave2_host | `web_bff` · `mobile_bff` **done** |
 | bff_route_gap | `publish_bump` — GitHub Packages `Linm.Platform.MapService.Bff` **1.1.0** |
-| wave3_client | `both` — web verify PASS · mobile blocked Wave 2 |
+| wave3_client | `both` — web verify PASS · **mobile done** |
 | wave3_pin | `viewport_lod` |
-| wave4_host | `web` |
+| wave4_host | `web` **done** · `ios` **done** · `android` **done** |
 
 ### Follow-up — QL.Nghi Sơn–Bãi Trành pin lệch thôn (`GAP-MAP-NSBT-01`) — 2026-09-04
 
@@ -413,10 +414,20 @@ View vùng (vd. `pin 788`) có data, zoom vào góc **trống**. Detail dừng ~
 
 | Slash | Việc |
 |-------|------|
-| `/implement-map-stack` Wave 2 | Mobile BFF `AddLinmMapServiceBff` (`wave2_host=mobile_bff`) — **chặn** Wave 3 mobile |
-| `/implement-map-stack` Wave 3 | web **done** · mobile sau Wave 2 |
-| `/implement-map-stack` Wave 4 | iOS / Android (`wave4_host`) |
 | `/data-gov-integration` | overlay routes/assets |
 | P2 z14 | `pwsh ./local-script/render-osm-mvt.ps1 -MaxZoom 14` nếu cần phố nhỏ (hiện z12) |
+| `/review-map-release` | Store law — **không** auto-done |
+
+## Notes (mobile Wave 2–4 · auto-dev 2026-09-16)
+
+- Clip crop fix 2026-09-13: MapService mask SQL `ST_Subdivide` nested SRF → Postgres `0A000` empty mask. `CROSS JOIN LATERAL ST_Subdivide` + empty-land = full tile sea. Verify mask z8 Đà Nẵng **3117 B**.
+- Wave 4 **Android** verify PASS: MapLibre `android-sdk:11.13.1` · `GisClipMapView` `{TileUrl}` BFF MVT · chips **Tiêu chuẩn \| Vệ tinh** · maxBounds **97.0–118.0 / 6.8–23.5** · `assembleDebug` **BUILD SUCCESSFUL** · **0** OSM.org/Esri/Google. Patrol + HITL reuse same host.
+- Wave 4 **iOS** verify PASS: MapLibre SPM `MapLibre` 6.31.0 · `GisClipMapView` · dest **iPhone 17 Pro Max** **BUILD SUCCEEDED**.
+- Wave 3 **mobile** verify PASS: TileUrl BFF clip · `GET gis/clusters?bbox=&zoom=` z11 **200** · overlay no JWT **401**.
+- Wave 2 **mobile** verify PASS: `GisTilesController` → MapService `:5021` · guest `basemap` z5 **200** MVT.
+- Patrol overlay live bugs 2026-09-16: iOS first-load style-ready miss (`GAP-MOB-IOS-FIRST-OVERLAY-01`) + Android numbered clickable stops (`GAP-MOB-AND-STOP-PIN-01`) — **fixed** in `GisClipMapView` / `#sc-patrol-map`.
+- iOS implement: `specs/map-service/implement/ios.md`.
+- Android implement: `specs/map-service/implement/android.md`.
+- Mobile BFF tasks: `specs/mobile-bff-map/task/mobile-bff-map.md`.
 
 **Cấm** duplicate `VietnamBoundaries` trên `Linm.RMMS.WebService`.

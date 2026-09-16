@@ -3,133 +3,149 @@
 | Field | Value |
 |-------|-------|
 | feature | `supervise` |
-| title | [Mobile] Giám sát |
+| title | [Mobile] Giám sát tuần đường |
 | this role | `review` · `/agent-review-mobile` |
 | status | **done** |
-| review_confirm | **approve** (autopilot · `task_33077a59` · autoApprove=ON) |
+| review_confirm | **approve** (autopilot · `task_a995a011` · autoApprove=ON) |
 | packKind | **`list`** |
 | lane | `mobile` · **cấm** mfeStdUrl / yarn start:std |
-| prior · qa | `task_45c8bd53` · `qa/scenarios.md` · **confirmed** · e2e `ok: true` |
-| prior · dev | `task_e29847e6` · `implement/{ios,android}.md` · **confirmed** |
-| prior · sa | `task_761211bf` · `be/solution-discovery.md` · **confirmed** · Step 4b **N/A** |
+| changeScope | `edit_page` · gap=`filter_live_map_sibling` |
+| prior · qa | `task_cf8f4bfe` · **confirmed** · e2e `ok:true` · filter sheet + map · Aligned |
+| prior · dev | `task_a7ad9582` · **confirmed** · dual filter+map build PASS |
+| prior · sa | `task_2ac8625f` · **confirmed** · API-01 ±route · Step 4b **N/A** |
 | ios | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS` |
 | android | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android` |
-| bff | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Bff` · proxy `GET patrol/attendance-logs` |
+| bff | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Bff` · proxy `GET patrol/attendance-logs` ±`route` |
 | backend | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.WebService` · **cấm ERP.*** |
 | autoApprove | **ON** |
-| e2eQa | **ON** · prior QA runtime PASS · Review **không** re-run Maestro |
-| updatedAt | `2026-08-19T16:10:00.000Z` |
+| e2eQa | **ON** · prior QA PASS · Review **không** re-run Maestro / crawl |
+| updatedAt | `2026-09-12T10:29:46.000Z` |
 
 ## REVIEW-META
 
 | Hash input | Notes |
 |------------|-------|
-| iOS | `SuperviseView` · `SuperviseViewModel` · `SuperviseRepositoryImpl` · `FetchSuperviseCheckinsUseCase` · `SuperviseDtoMapper` |
-| Android | `SuperviseScreen` · `SuperviseViewModel` · `SuperviseRepositoryImpl` · `SuperviseDtoMapper` · same use case |
-| BFF | `MobileApiProxyController` catch-all → `GET patrol/attendance-logs` · **cấm** `SuperviseController` |
-| API | `GET patrol/attendance-logs` Bearer · demo fallback SSOT 2 rows |
-| skillVersion | agent-review-mobile **2026.08.19.29** |
-| live re-audit | 2026-08-19 after QA `task_45c8bd53` · VERIFY GATE recheck `task_33077a59` |
+| iOS | `SuperviseView` · `SuperviseViewModel` · LinmSheet filter · `onOpenMap` · `SuperviseRepositoryImpl` ±`route` |
+| Android | `SuperviseScreen` · `SuperviseViewModel` · LinmSheet · same API-01 |
+| BFF | catch-all → `GET patrol/attendance-logs` · **cấm** `SuperviseController` |
+| API | Bearer · live-only · client day `CheckInAt` · fromDate **P2** |
+| skillVersion | agent-review-mobile **2026.08.19.26** |
+| contentHash | `sha256:supervise-mobile-filter-live-20260912` |
+| live re-audit | 2026-09-12 after QA `task_cf8f4bfe` · Dev `task_a7ad9582` · Review `task_a995a011` |
 
 ## Security + permission
 
 | Check | Result |
 |-------|--------|
 | Token store iOS Keychain (`KeychainTokenStore`) · **cấm** UserDefaults JWT | **PASS** |
-| Token store Android `EncryptedSharedPreferences` (AuthInterceptor) | **PASS** |
-| Interceptor Bearer + company/timezone headers (ApiClient / AuthInterceptor) | **PASS** |
-| IDOR / invent permission | **N/A** — read-only attendance list · no per-record mutation |
-| Location / camera Info.plist + Manifest | **N/A** — list P1 thumb placeholder · no live GPS |
-| `alert` / `UIAlert` / `AlertDialog` trên Supervise | **PASS** — `LinmToast` / session toast only |
+| Token store Android `EncryptedSharedPreferences` | **PASS** |
+| Interceptor Bearer + `X-Company-Id` (ApiClient / AuthInterceptor) | **PASS** |
+| IDOR / invent permission | **N/A** — read-only attendance list · detail GET `{id}` keep |
+| Location / camera Info.plist + Manifest | **N/A** — list · no live GPS this scope |
+| `alert` / `UIAlert` / `AlertDialog` trên Supervise | **PASS** — `LinmToast` loadFail only |
 | Plaintext token / invent `GET supervise` / `SuperviseController` | **PASS** — proxy `patrol/attendance-logs` only |
-| Foot «Phiên bản Gói» / WebView | **PASS** — không ship |
-| Watermark / device label | **PASS** — không ship |
+| Foot «Phiên bản Gói» / watermark / device label | **PASS** — không ship |
+| Mock banner / `demoItems` | **PASS** — live-only EmptyChrome |
 
 ## DTO parity (iOS = Android = BFF)
 
 | Field | iOS | Android | Disposition |
 |-------|-----|---------|-------------|
-| Attendance list | `SuperviseRepositoryImpl` GET `patrol/attendance-logs` | same Retrofit path | **OK** |
-| Org fallback | `SuperviseCopy.orgFallback` khi `Note` empty | same SSOT | **OK** — GAP-MOB-SUP-03 |
-| Demo fallback | `SuperviseCopy.demoItems` 2 rows | same SSOT | **OK** — Nguyễn Văn A · Trần Khánh |
-| Location bind | `route` + `kmPoint` join | same | **OK** |
-| Status map | «Đúng tuyến» → «Đã ghi điểm tuần» | same | **OK** |
-| Time format | `yyyy-MM-dd HH:mm:ss` vi_VN | same pattern | **OK** |
+| Attendance list | GET `patrol/attendance-logs` ±`route` | same Retrofit | **OK** |
+| Date filter | client `CheckInAt` day | same | **OK** — GAP-MOB-SUP-04 P2 |
+| Empty / fail | EmptyChrome · loadFail toast | same | **OK** |
+| Location bind | `route` + `kmPoint` | same | **OK** |
 | Page params | `page=1` · `pageSize=50` | same | **OK** |
+| Filter sheet | Tuyến · Ngày · Áp dụng · Xóa lọc | same ids | **OK** |
+| Map seg | idx 1 → `onOpenMap` · reset 0 | same | **OK** |
 
-## UI align (QA shots 2 OS)
+## UI align (QA shots 2 OS · filter_live)
 
 | Zone | iOS | Android | Result |
 |------|-----|---------|--------|
-| `#sc-supervise` list · segment · cards | `A3-CORE` | `P6-CORE` | **PASS** — cùng zone · Must **0** |
-| Title **Giám sát tuần đường** · back **Trang Chủ** | same | same | **PASS** |
-| Segment idx 0 **Danh sách check in** · idx 1 toast **Bản đồ** | same | same | **PASS** |
-| Rich-card Nguyễn Văn A · Trần Khánh | same zones | same (P6 fold) | **PASS** |
-| Org «Tổ tuần đường · VP-IV.1» card 1 | same | same | **PASS** — GAP-MOB-SUP-03 |
-| Lọc toast **Lọc tuyến · ngày** | Maestro text **Lọc** | `btn-sup-filter` testTag | **PASS** |
-| Tap card toast **Chi tiết check-in** | same | same | **PASS** |
+| `#sc-supervise` TopBar · segment · EmptyChrome | `A3-CORE` | `P6-CORE` | **PASS** — Aligned · Must **0** |
+| Title **Giám sát tuần đường** · Lọc · back Trang Chủ | same | same | **PASS** |
+| Empty **Chưa có check-in** | icon+subtitle | thinner chrome | **PASS** Must · GAP-QA-SUP-EMPTY-AND-01 **Defer** Should |
+| Filter sheet `#filter-sheet` Tuyến·Ngày·Áp dụng·Xóa lọc | — | `P6-CORE-2` | **PASS** |
+| Map seg → push `#sc-patrol-map` · **cấm** toast | Dev+QA | Dev+QA | **PASS** |
 | Tab 5 home context under push | same | same | **PASS** — GAP-QA-SUP-TAB-01 Should |
-| Entry Home `tile-supervise` / patrol-home quick | Maestro PASS | Maestro PASS | **PASS** — route_a |
 | Must align mở | — | — | **0** → `align_confirm` **approve** |
 
-Evidence: `qa/store/supervise/{A3-CORE,P6-CORE,P6-CORE-2,A11-LAUNCH,A9-LOGIN}.png` · CAPTURE.md · manifest `ok: true`.
+Evidence: `qa/store/supervise/{A3-CORE,P6-CORE,P6-CORE-2,A11-LAUNCH,A9-LOGIN}.png` · 1320×2868 / 1080×1920 · CAPTURE.md · manifest `ok: true` · visual Read CORE vs design zones.
 
-## Store gate (Review note — **không** `READY_TO_SUBMIT` ở role này)
+## E2E crawl / clickables (5d)
+
+| Check | Result |
+|-------|--------|
+| `/run-mobile-e2e --crawl` | **SKIP** — VERIFY GATE roleOnly=`review` · **cấm** yarn e2e |
+| Prior QA e2e | **PASS** · filter Apply/Clear · map push · A11/A10/A9/A3/P6/P6-2 |
+| Action tree | filter sheet · map push · detail push — **wired** · no toast dead-end Must |
+| `GAP-MOB-ACT-03` | **none open** — siblings `patrol-map` exists · `supervise-detail` keep · **cấm** auto-start |
+| CLICKABLES.md | **N/A** this turn (no crawl) · covered by QA scenarios |
+
+## Real data (5e)
+
+| Check | Result |
+|-------|--------|
+| `GAP-MOB-REAL-02` demoItems/hardcode source | **PASS** — none on Supervise* dual |
+| `GAP-QA-REAL-01` BFF/DB proof | **PASS** — A10-BFF :5202 · API :5101/:5111 |
+
+## Store gate (Review note — **không** `READY_TO_SUBMIT`)
 
 | Check | Result | Disposition |
 |-------|--------|-------------|
-| `PrivacyInfo.xcprivacy` | **thiếu** file app iOS | **Accept** P2 → `post_review` / `/review-app-submit` — **không** chặn list `done` |
-| Play Data safety form | deferred store submit | **Accept** P2 |
-| Landing HTTPS live | deferred | **Accept** P2 |
-| family `1` → **cấm** listing A4 | `TARGETED_DEVICE_FAMILY=1` · A4-IPAD **DEFER** | **OK** |
-| Store PNG live (QA) | A11/A9/A3/P6 **PASS** · px 1320×2868 / 1080×1920 | **OK** for Review · listing official → `/store-image-capture` |
+| `PrivacyInfo.xcprivacy` | **present** at iOS root | **OK** for list Review · full store → `/review-app-submit` |
+| Play Data safety / landing HTTPS | deferred store submit | **Accept** P2 |
+| family `1` → **cấm** listing A4 | A4-IPAD **DEFER** | **OK** |
+| Store PNG live (QA) | A11/A9/A3/P6 **PASS** | **OK** for Review |
 
-AskQuestion (autoApprove=ON): `review_confirm=approve` · `post_review=skip` (Recommended — chưa store submit).
+AskQuestion (autoApprove=ON): `review_confirm=approve` · `post_review=skip`.
 
 ## Findings
 
 | ID | Area | Sev | Finding | Disposition |
 |----|------|-----|---------|-------------|
-| R-01 | Security | — | Keychain / EncryptedPrefs · Bearer · read-only list only | **OK** |
-| R-02 | API | — | Chỉ `GET patrol/attendance-logs` proxy · **cấm** `SuperviseController` / invent endpoint | **OK** |
-| R-03 | DTO | — | Attendance list dual parity · org fallback · demo fallback SSOT | **OK** |
-| R-04 | UX | P2 | Sibling CTA (map · check-in detail · filter sheet) toast-only P1 | **Accept** — scope list · QA Must 0 |
-| R-05 | Align | — | iOS↔Android zone kit parity · segment · cards · toast | **OK** |
-| R-06 | QA | — | e2e-qa-mobile PASS · cases A11,A10,A9,A3,P6,P6-2 | **OK** |
-| R-07 | Store | P2 | thiếu `PrivacyInfo.xcprivacy` + Data safety / landing | **Accept** — chặn chỉ khi `app_submit` |
-| R-08 | Scope | — | patrol-map · checkin-detail implement **OUT** P1 | **OK** |
-| R-09 | Step 4b | — | T-BE / migration **N/A** · reuse `GET patrol/attendance-logs` | **OK** |
-| R-10 | Gap | — | GAP-MOB-SUP-03 org fallback SSOT | **Closed** — shipped dual |
-| R-11 | Gap | — | GAP-MOB-ICON-02 outline building/mappin `d=` | **Closed** — shipped dual |
-| R-12 | Gap | — | GAP-QA-A11Y-SUP-FILTER-01 iOS `btn-sup-filter` XCUITest | **Defer** — kit follow-up · non-block |
-| R-13 | Nav | — | GAP-QA-SUP-TAB-01 tab bar visible on push | **Defer** — Should · non-block |
-| R-14 | Scope | — | Sibling `patrol-map` · `checkin-detail` **pending_confirm** · **cấm** auto start | **Defer** — non-block |
+| R-01 | Security | — | Keychain / EncryptedPrefs · Bearer · X-Company-Id | **OK** |
+| R-02 | API | — | Chỉ `GET patrol/attendance-logs` ±`route` · **cấm** invent supervise | **OK** |
+| R-03 | DTO | — | Dual parity · client date · live-only | **OK** |
+| R-04 | UX | — | Filter sheet live + map push (closed prior toast-only) | **OK** — GAP-MOB-SUP-01/02 Closed |
+| R-05 | Align | — | A3↔P6↔P6-2 vs `#sc-supervise` / `#filter-sheet` · Must 0 | **OK** |
+| R-06 | QA | — | e2e-qa-mobile PASS · `task_cf8f4bfe` | **OK** |
+| R-07 | Store | P2 | Data safety / landing / A4 listing | **Accept** — app_submit only |
+| R-08 | BE | P2 | GAP-MOB-SUP-04 fromDate | **Accept** P2 |
+| R-09 | Step 4b | — | T-BE / migration **N/A** | **OK** |
+| R-10 | Empty AND | Should | GAP-QA-SUP-EMPTY-AND-01 thinner empty | **Defer** — non-block |
+| R-11 | Nav | Should | GAP-QA-SUP-TAB-01 tab bar on push | **Defer** — non-block |
+| R-12 | Sibling | — | `patrol-map` STATUS may blocked QA · nav OK | **OK** · **cấm** auto start |
+| R-13 | Crawl | — | 5d crawl SKIP roleOnly · no GAP-MOB-ACT-03 open | **OK** |
 
 ## Task gate
 
 | Task | Result |
 |------|--------|
-| T-IOS-SUPERVISE | PASS (prior Dev + Review re-audit) |
-| T-AND-SUPERVISE | PASS |
+| T-IOS-SUP-FILTER · T-IOS-SUP-MAP-NAV | PASS |
+| T-AND-SUP-FILTER · T-AND-SUP-MAP-NAV | PASS |
 | T-BE-* | **n/a** |
-| T-QA (e2e store) | PASS (`task_45c8bd53`) |
+| T-QA (e2e store) | PASS (`task_cf8f4bfe`) |
 | T-REVIEW-SEC | PASS |
 | T-REVIEW-DTO | PASS |
 | T-REVIEW-ALIGN | PASS · Must align = 0 |
+| T-REVIEW-REAL | PASS · no demoItems · A10-BFF |
 
-## VERIFY GATE (`task_33077a59` recheck)
+## VERIFY GATE (`task_a995a011` · **cấm** re-run build/e2e ở role review)
 
 | Gate | Result |
 |------|--------|
-| iOS `xcodegen generate` + `xcodebuild` dest **iPhone 17 Pro** | **PASS** · BUILD SUCCEEDED |
-| Android `./gradlew :app:assembleDebug` | **PASS** · BUILD SUCCESSFUL |
-| BFF `dotnet build` | **PASS** · 0 Warning(s) · 0 Error(s) |
+| iOS / Android / BFF build | prior Dev **PASS** (`task_a7ad9582`) |
 | Step 4b BE align | **N/A** |
-| `yarn e2e-qa-mobile` | prior QA **PASS** (`ok: true`) — Review không re-run |
+| `yarn e2e-qa-mobile` | prior QA **PASS** (`ok:true` · `2026-09-12T10:24:06.642Z`) |
+| Visual A3↔P6↔demo | **Aligned** · Must **0** |
+| Code spot-check | filter sheet + map push + live-only dual |
+| yarn e2e / start:std / mfeStdUrl | **SKIP** (**cấm**) |
 
 ## Verdict
 
-List Giám sát dual-native: security token/API scope PASS · GAP-MOB-SUP-03 org fallback **Closed** · GAP-MOB-ICON-02 icon parity **Closed** · UI align 0 Must · QA store live PASS · VERIFY GATE native+BFF PASS. P2 PrivacyInfo/sibling toast-only **Accept** đến `post_review`/`app_submit`. GAP-QA-A11Y-SUP-FILTER-01 · GAP-QA-SUP-TAB-01 **Defer** P1. **Approve** (autopilot). Pipeline **complete**.
+List Giám sát dual-native post-`filter_live_map_sibling`: security PASS · DTO/API-01 ±route PASS · filter sheet + map push PASS · real-data live-only PASS · UI align Must **0** · QA store PASS · crawl SKIP (roleOnly) với không GAP-MOB-ACT-03 mở. P2 fromDate / empty-AND / tab Should **Accept/Defer**. **Approve** (autopilot). Pipeline **complete**.
 
 ## Handoff
 
@@ -145,20 +161,21 @@ List Giám sát dual-native: security token/API scope PASS · GAP-MOB-SUP-03 org
 | Field | Value |
 |-------|-------|
 | skillId | agent-review-mobile |
-| skillVersion | 2026.08.19.29 |
+| skillVersion | 2026.08.19.26 |
 | schemaVersion | 1 |
-| workflowVersion | 2026.08.19.29 |
-| rulesVersion | 2026.08.19.34 |
-| generatedAt | 2026-08-19T16:10:00.000Z |
+| workflowVersion | 2026.08.31.2 |
+| rulesVersion | 2026.08.31.2 |
+| generatedAt | 2026-09-12T10:29:46.000Z |
 | versionGate | rechecked |
-| taskId | `task_33077a59` |
-| contentHashPriorQa | `task_45c8bd53` |
-| dataAnalySkillVersion | 2026.08.19.27 |
-| poSkillVersion | 2026.08.19.23 |
-| designSkillVersion | 2026.08.19.24 |
-| saSkillVersion | 2026.08.19.22 |
-| teamLeadSkillVersion | 2026.08.19.22 |
-| devSkillVersion | 2026.08.19.24 |
-| qaSkillVersion | 2026.08.19.28 |
+| taskId | `task_a995a011` |
+| contentHashPriorQa | `task_cf8f4bfe` |
+| contentHash | `sha256:supervise-mobile-filter-live-20260912` |
+| dataAnalySkillVersion | 2026.08.19.26 |
+| poSkillVersion | 2026.08.19.26 |
+| designSkillVersion | 2026.08.19.26 |
+| saSkillVersion | 2026.08.19.26 |
+| teamLeadSkillVersion | 2026.08.19.26 |
+| devSkillVersion | 2026.08.19.26 |
+| qaSkillVersion | 2026.08.19.26 |
 
-<!-- Version meta: skillId=agent-review-mobile skillVersion=2026.08.19.29 schemaVersion=1 workflowVersion=2026.08.19.29 rulesVersion=2026.08.19.34 versionGate=rechecked -->
+<!-- Version meta: skillId=agent-review-mobile skillVersion=2026.08.19.26 schemaVersion=1 workflowVersion=2026.08.31.2 rulesVersion=2026.08.31.2 versionGate=rechecked taskId=task_a995a011 -->

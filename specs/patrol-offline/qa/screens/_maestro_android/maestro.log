@@ -1,0 +1,28 @@
+Running on Pixel_2
+ > Flow android
+Launch app "org.linmsoft.rmms" with clear state and clear keychain... COMPLETED
+Assert that id: sc-home is visible... COMPLETED
+Tap on id: btn-home-login... COMPLETED
+Assert that id: f-user is visible... COMPLETED
+Tap on id: f-user... COMPLETED
+Erase text... COMPLETED
+Input text linm-soft... COMPLETED
+Press Back key... COMPLETED
+Tap on id: f-pass... COMPLETED
+Erase text... COMPLETED
+Input text Linm@2026... COMPLETED
+Press Back key... COMPLETED
+Scrolling DOWN until id: btn-login is visible with speed 40, visibility percentage 100%, timeout 10000 ms, with centering disabled... COMPLETED
+Tap on id: btn-login... COMPLETED
+Assert that "Trang Chủ" is visible... COMPLETED
+Assert that id: sc-home is visible... COMPLETED
+Tap on id: tab-me... COMPLETED
+Assert that id: row-offline is visible... COMPLETED
+Tap on id: row-offline... COMPLETED
+Assert that id: sc-patrol-offline is visible... COMPLETED
+Assert that "Dữ liệu lưu trữ" is visible... COMPLETED
+Assert that id: offline-empty is visible... COMPLETED
+Take screenshot P6-CORE... COMPLETED
+Assert that "Chưa có bản ghi chờ gửi" is visible... COMPLETED
+Take screenshot P6-CORE-2... COMPLETED
+Assert that id: sc-patrol-offline is visible... COMPLETED

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RMMS · Danh sách công việc · iOS</title>
+  <style>
+    :root {
+      --blue: #0C84C0; --deep: #086A9A; --success: #3CB448; --warn: #FCB43C;
+      --surface: #F2F2F7; --card: #fff; --muted: #8E8E93; --label: #1C1C1E;
+      --sep: #C7C7CC; --warn-bg: #FFF6E5; --ok-bg: #E8F8EC;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+      background: #1c1c1e; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    }
+    .phone {
+      width: 390px; height: 844px; background: var(--surface); border-radius: 44px;
+      overflow: hidden; position: relative; display: flex; flex-direction: column;
+    }
+    .nav-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 54px 8px 10px; background: rgba(255,255,255,.92); border-bottom: 0.5px solid var(--sep);
+      min-height: 96px;
+    }
+    .nav-btn {
+      min-width: 44px; min-height: 44px; border: 0; background: transparent; color: var(--blue);
+      font: inherit; font-size: 17px; font-weight: 500; cursor: pointer;
+      display: grid; place-items: center; padding: 0 8px;
+    }
+    .nav-title { font-size: 17px; font-weight: 600; color: var(--label); letter-spacing: -0.2px; }
+    .search {
+      margin: 10px 16px; background: #E5E5EA; border-radius: 10px; padding: 10px 12px;
+      display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 16px;
+    }
+    .content { flex: 1; overflow: auto; padding: 0 0 90px; }
+    .card-group { margin: 0 16px 10px; background: var(--card); border-radius: 12px; overflow: hidden; }
+    .row {
+      display: flex; align-items: center; gap: 12px; padding: 12px 14px; cursor: pointer;
+      border: 0; background: transparent; width: 100%; text-align: left; font: inherit; color: inherit;
+    }
+    .row-icon {
+      width: 36px; height: 36px; border-radius: 8px; color: #fff;
+      display: grid; place-items: center; flex: 0 0 36px;
+    }
+    .row-title { font-size: 16px; font-weight: 600; color: var(--label); }
+    .row-sub { font-size: 13px; color: var(--muted); margin-top: 2px; }
+    .chev { margin-left: auto; color: var(--sep); display: grid; place-items: center; }
+    .rich-card {
+      margin: 0 16px 10px; background: var(--card); border-radius: 14px; overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,.04);
+    }
+    .rc-body { padding: 14px 14px 10px; }
+    .rc-title { font-size: 17px; font-weight: 700; color: var(--label); letter-spacing: -0.3px; }
+    .rc-line { font-size: 13px; color: var(--muted); margin-top: 4px; line-height: 1.35; }
+    .rc-status {
+      font-size: 13px; font-weight: 600; padding: 8px 14px; border-top: 0.5px solid #EFEFF4;
+    }
+    .rc-status.warn { color: #B86B00; background: var(--warn-bg); }
+    .rc-status.ok { color: #1B7A2E; background: var(--ok-bg); }
+    .rc-actions {
+      display: flex; gap: 8px; padding: 6px 8px 10px; border-top: 0.5px solid #EFEFF4;
+    }
+    .rc-actions button {
+      flex: 1; height: 44px; border: 0; border-radius: 10px; background: transparent;
+      color: var(--blue); cursor: pointer; display: grid; place-items: center;
+    }
+    .ic { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.75;
+      stroke-linecap: round; stroke-linejoin: round; }
+    .ic-sm { width: 18px; height: 18px; }
+    .tab {
+      position: absolute; left: 0; right: 0; bottom: 0; height: 83px;
+      background: rgba(255,255,255,.92); border-top: 0.5px solid var(--sep);
+      display: flex; padding: 6px 4px 28px;
+    }
+    .tab b { flex: 1; text-align: center; font-size: 13px; font-weight: 500; color: var(--muted); }
+    .tab b.on { color: var(--blue); }
+    .toast {
+      position: absolute; left: 16px; right: 16px; bottom: 100px; z-index: 20;
+      background: rgba(28,28,30,.92); color: #fff; border-radius: 12px;
+      padding: 12px 14px; font-size: 15px; display: none;
+    }
+    .toast.show { display: block; }
+  </style>
+</head>
+<body>
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+    <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+    <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16.5 16.5 21 21"/></symbol>
+    <symbol id="i-sum" viewBox="0 0 24 24"><path d="M6 6h12L10 12l8 6H6"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M5 6h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H9l-4 3v-3H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"/></symbol>
+    <symbol id="i-sync" viewBox="0 0 24 24"><path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0 1 15.5-6.4L21 8"/><path d="M3 22v-6h6"/><path d="M21 12a9 9 0 0 1-15.5 6.4L3 16"/></symbol>
+    <symbol id="i-list" viewBox="0 0 24 24"><path d="M8 7h12M8 12h12M8 17h12"/><path d="M4 7h.01M4 12h.01M4 17h.01"/></symbol>
+  </svg>
+
+  <div class="phone" id="sc-mnt-list" data-des-id="DES-MOB-MNT-LIST" data-tab="work">
+    <div class="nav-bar solid">
+      <button type="button" class="nav-btn" aria-label="Back" onclick="toast('Trang Chủ')">
+        <svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg>
+      </button>
+      <div class="nav-title">Danh sách công việc</div>
+      <button type="button" class="nav-btn" onclick="toast('Bộ lọc · tuyến đường')">Lọc</button>
+    </div>
+    <div class="search">
+      <svg class="ic" viewBox="0 0 24 24"><use href="#i-search"/></svg>
+      <span>Tìm kiếm công việc…</span>
+    </div>
+    <div class="content" style="padding-top:0">
+      <div class="card-group" style="margin-bottom:10px">
+        <button type="button" class="row" onclick="toast('Giao việc xử lý')">
+          <div class="row-icon" style="background:var(--success)"><svg class="ic" viewBox="0 0 24 24"><use href="#i-sum"/></svg></div>
+          <div class="row-body">
+            <div class="row-title">Giao việc xử lý</div>
+            <div class="row-sub">Khối lượng · thời hạn · giao việc</div>
+          </div>
+          <span class="chev"><svg class="ic ic-sm" viewBox="0 0 24 24"><use href="#i-chevron-right"/></svg></span>
+        </button>
+      </div>
+      <div class="rich-card" data-wo="1">
+        <div class="rc-main">
+          <div class="rc-body">
+            <div class="rc-title">Vá mặt đường</div>
+            <div class="rc-line">Hạt trưởng VP-IV.1 giao việc cho Nguyễn Văn A · Tổ tuần đường</div>
+            <div class="rc-line">2026-08-10 08:30 — 2026-08-12 17:00</div>
+            <div class="rc-line">Từ sự cố SC-2401 · QL.1 Km 1556+080</div>
+          </div>
+        </div>
+        <div class="rc-status warn">Tình trạng xử lý: Chờ xử lý</div>
+        <div class="rc-actions">
+          <button type="button" title="Trao đổi" onclick="toast('Trao đổi công việc')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chat"/></svg></button>
+          <button type="button" title="Cập nhật trạng thái" onclick="toast('Cập nhật trạng thái · ảnh + định vị')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-sync"/></svg></button>
+          <button type="button" title="Giao việc" onclick="toast('Giao việc xử lý')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-sum"/></svg></button>
+        </div>
+      </div>
+      <div class="rich-card" data-wo="2">
+        <div class="rc-main">
+          <div class="rc-body">
+            <div class="rc-title">Nạo cống</div>
+            <div class="rc-line">Hạt trưởng giao việc cho Trần Khánh · Chi cục II.2</div>
+            <div class="rc-line">2026-08-09 07:00 — 2026-08-09 16:00</div>
+            <div class="rc-line">Tuyến HCM</div>
+          </div>
+        </div>
+        <div class="rc-status ok">Tình trạng xử lý: Đã hoàn thành</div>
+        <div class="rc-actions">
+          <button type="button" title="Trao đổi" onclick="toast('Trao đổi công việc')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chat"/></svg></button>
+          <button type="button" title="Nhật ký" onclick="toast('Nhật ký xử lý')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-list"/></svg></button>
+          <button type="button" title="Giao việc" onclick="toast('Giao việc xử lý')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-sum"/></svg></button>
+        </div>
+      </div>
+    </div>
+    <nav class="tab" data-des-id="DES-MOB-TABBAR">
+      <b>Trang Chủ</b><b>Tuần đường</b><b>Vấn đề</b><b class="on">Công việc</b><b>Tôi</b>
+    </nav>
+    <div id="toast" class="toast" role="status"></div>
+  </div>
+  <script>
+    let t;
+    function toast(msg) {
+      const el = document.getElementById('toast');
+      el.textContent = msg;
+      el.classList.add('show');
+      clearTimeout(t);
+      t = setTimeout(() => el.classList.remove('show'), 2200);
+    }
+  </script>
+</body>
+</html>

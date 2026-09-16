@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RMMS · Hồ sơ · Android</title>
+  <style>
+    :root {
+      --md-primary: #0C84C0; --md-on-primary: #fff; --danger: #B3261E;
+      --surface: #F2F2F7; --card: #fff; --label: #1C1C1E; --muted: #8E8E93;
+      --sep: rgba(60,60,67,.22); --nav: #F9F9F9;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      font-family: "Roboto", "Noto Sans", system-ui, sans-serif;
+      background: #121212; color: var(--label);
+    }
+    .phone {
+      width: 412px; height: 915px; background: var(--surface); border-radius: 28px;
+      overflow: hidden; position: relative; box-shadow: 0 20px 60px rgba(0,0,0,.5);
+      display: flex; flex-direction: column;
+    }
+    .status-bar { height: 36px; flex-shrink: 0; }
+    .top-bar {
+      display: flex; align-items: center; gap: 4px; min-height: 56px; padding: 0 4px 0 4px;
+      background: var(--card); border-bottom: 1px solid var(--sep);
+    }
+    .icon-btn {
+      width: 48px; height: 48px; border: 0; background: none; border-radius: 24px;
+      color: var(--label); cursor: pointer; display: grid; place-items: center;
+    }
+    .icon-btn svg { width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .nav-title { flex: 1; font-size: 20px; font-weight: 500; padding-right: 48px; }
+    .content { flex: 1; overflow: auto; padding-bottom: 88px; }
+    .avatar-wrap { display: flex; justify-content: center; padding: 20px 0 8px; }
+    .avatar {
+      width: 40px; height: 40px; border-radius: 20px; background: #E5E5EA;
+      display: grid; place-items: center; color: var(--muted);
+    }
+    .avatar svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .field { margin: 12px 16px 0; }
+    .field label {
+      display: block; font-size: 13px; color: var(--muted); margin: 0 0 8px 4px;
+    }
+    .field input {
+      width: 100%; border: 1px solid var(--sep); border-radius: 12px; padding: 14px 16px;
+      font-size: 16px; font-family: inherit; color: var(--label); background: var(--card);
+      outline: none;
+    }
+    .field input:focus { border-color: var(--md-primary); }
+    .field input::placeholder { color: var(--muted); }
+    .field .readonly {
+      width: 100%; border: 1px solid var(--sep); border-radius: 12px; padding: 14px 16px;
+      font-size: 16px; color: var(--muted); background: #EBEBF0;
+    }
+    .section-label {
+      font-size: 13px; font-weight: 600; color: var(--muted);
+      margin: 24px 16px 8px 20px;
+    }
+    .cta-col { padding: 12px 16px 8px; display: flex; flex-direction: column; gap: 10px; }
+    .btn {
+      width: 100%; border: 0; border-radius: 24px; padding: 14px 16px;
+      font-size: 16px; font-weight: 600; cursor: pointer;
+    }
+    .btn-primary { background: var(--md-primary); color: var(--md-on-primary); }
+    .btn-primary:disabled { opacity: .45; cursor: not-allowed; }
+    .btn-primary.busy { opacity: .7; }
+    .btn-secondary {
+      background: var(--card); color: var(--md-primary);
+      border: 1px solid rgba(12,132,192,.4);
+    }
+    .btn-secondary:disabled { opacity: .45; cursor: not-allowed; }
+    .btn-secondary.busy { opacity: .7; }
+    .nav-bar {
+      position: absolute; left: 0; right: 0; bottom: 0; height: 80px;
+      background: var(--nav); border-top: 1px solid var(--sep);
+      display: flex; padding: 8px 0 12px; z-index: 5;
+    }
+    .tab {
+      flex: 1; border: 0; background: none; font-size: 11px; color: var(--muted);
+      display: flex; flex-direction: column; align-items: center; gap: 2px; cursor: default;
+    }
+    .tab.active { color: var(--md-primary); }
+    .tab .ti { width: 24px; height: 24px; }
+    .tab svg { width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .toast {
+      position: absolute; left: 24px; right: 24px; bottom: 100px; z-index: 20;
+      background: #323232; color: #fff; font-size: 14px;
+      padding: 12px 14px; border-radius: 8px; opacity: 0; transition: opacity .2s;
+      pointer-events: none; text-align: center;
+    }
+    .toast.on { opacity: 1; }
+    .modal-scrim {
+      position: absolute; inset: 0; background: rgba(0,0,0,.45); z-index: 30;
+      display: none; align-items: center; justify-content: center; padding: 24px;
+    }
+    .modal-scrim.on { display: flex; }
+    .modal {
+      background: #fff; border-radius: 28px; width: 100%; max-width: 320px;
+      padding: 24px 20px 16px; text-align: center;
+    }
+    .modal h3 { margin: 0 0 8px; font-size: 20px; font-weight: 500; }
+    .modal p { margin: 0 0 20px; font-size: 14px; color: var(--muted); line-height: 1.4; }
+    .modal .row { display: flex; gap: 8px; }
+    .modal .row button {
+      flex: 1; border: 0; border-radius: 20px; min-height: 44px; font-size: 14px; font-weight: 600; cursor: pointer;
+    }
+    .modal .cancel { background: #E8E8ED; color: var(--label); }
+    .modal .ok { background: var(--md-primary); color: #fff; }
+    .entry-hint {
+      margin: 12px 16px 0; padding: 10px 12px; border-radius: 12px; background: var(--card);
+      font-size: 13px; color: var(--muted); display: none;
+    }
+    .entry-hint.on { display: block; }
+    .gesture { height: 16px; }
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+    <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5V21H14v-6H10v6H3z"/></symbol>
+    <symbol id="i-mappin" viewBox="0 0 24 24"><path d="M12 21s7-5.2 7-11a7 7 0 1 0-14 0c0 5.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.2"/></symbol>
+    <symbol id="i-warning" viewBox="0 0 24 24"><path d="M12 3 22 20H2L12 3z"/><path d="M12 9v5"/><path d="M12 16.5h.01"/></symbol>
+    <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.5 6.5a4 4 0 0 0-5.6 5.6L3 18v3h3l5.9-5.9a4 4 0 0 0 5.6-5.6l-2.5 2.5-2.5-2.5 2.5-2.5z"/></symbol>
+    <symbol id="i-person" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c1.5-3.5 4-5 7-5s5.5 1.5 7 5"/></symbol>
+  </svg>
+
+  <div class="phone">
+    <div class="status-bar"></div>
+    <div class="screen" id="sc-me-profile" data-des-id="DES-MOB-ME-PROFILE" data-tab="me">
+      <div class="top-bar solid">
+        <button type="button" class="icon-btn" id="btn-back" aria-label="Quay lại" onclick="onBack()">
+          <svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg>
+        </button>
+        <div class="nav-title">Hồ sơ</div>
+      </div>
+      <div class="content">
+        <div class="entry-hint" id="entry-hint">Entry Me · row-profile · #i-person · push Hồ sơ</div>
+        <div class="avatar-wrap">
+          <div class="avatar" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-person"/></svg></div>
+        </div>
+        <div class="field">
+          <label for="f-fullName">Họ và tên</label>
+          <input id="f-fullName" type="text" autocomplete="name" value="Nguyễn Văn A" />
+        </div>
+        <div class="field">
+          <label for="f-phone">Số điện thoại</label>
+          <input id="f-phone" type="tel" inputmode="tel" value="0901234567" />
+        </div>
+        <div class="field">
+          <label for="f-email">Email</label>
+          <input id="f-email" type="email" inputmode="email" value="a.nguyen@example.com" />
+        </div>
+        <div class="field">
+          <label for="f-userName">Tên đăng nhập</label>
+          <div class="readonly" id="f-userName">nguyenvana</div>
+        </div>
+        <div class="field" id="row-citizen">
+          <label for="f-citizenId">CCCD/CMND</label>
+          <div class="readonly" id="f-citizenId">001234567890</div>
+        </div>
+        <div class="cta-col">
+          <button type="button" class="btn btn-primary" id="btn-save" onclick="onSave()">Lưu</button>
+        </div>
+        <div class="section-label">Đổi mật khẩu</div>
+        <div class="field">
+          <label for="f-curPwd">Mật khẩu hiện tại</label>
+          <input id="f-curPwd" type="password" autocomplete="current-password" />
+        </div>
+        <div class="field">
+          <label for="f-newPwd">Mật khẩu mới</label>
+          <input id="f-newPwd" type="password" autocomplete="new-password" />
+        </div>
+        <div class="field">
+          <label for="f-confirmPwd">Xác nhận mật khẩu mới</label>
+          <input id="f-confirmPwd" type="password" autocomplete="new-password" />
+        </div>
+        <div class="cta-col">
+          <button type="button" class="btn btn-secondary" id="btn-pwd" onclick="onChangePwd()">Đổi mật khẩu</button>
+        </div>
+      </div>
+    </div>
+
+    <nav class="nav-bar" id="tabBar" data-des-id="DES-MOB-TABBAR">
+      <button type="button" class="tab" data-tab="home"><div class="ti"><svg class="ic" viewBox="0 0 24 24"><use href="#i-home"/></svg></div>Trang Chủ</button>
+      <button type="button" class="tab" data-tab="field"><div class="ti"><svg class="ic" viewBox="0 0 24 24"><use href="#i-mappin"/></svg></div>Tuần đường</button>
+      <button type="button" class="tab" data-tab="incident"><div class="ti"><svg class="ic" viewBox="0 0 24 24"><use href="#i-warning"/></svg></div>Vấn đề</button>
+      <button type="button" class="tab" data-tab="work"><div class="ti"><svg class="ic" viewBox="0 0 24 24"><use href="#i-wrench"/></svg></div>Công việc</button>
+      <button type="button" class="tab active" data-tab="me"><div class="ti"><svg class="ic" viewBox="0 0 24 24"><use href="#i-person"/></svg></div>Tôi</button>
+    </nav>
+    <div class="gesture"></div>
+
+    <div class="toast" id="toast" role="status"></div>
+    <div class="modal-scrim" id="leave-modal" data-des-id="DES-MOB-LEAVE">
+      <div class="modal">
+        <h3>Rời màn?</h3>
+        <p>Thay đổi chưa lưu sẽ mất.</p>
+        <div class="row">
+          <button type="button" class="cancel" onclick="closeLeave(false)">Ở lại</button>
+          <button type="button" class="ok" onclick="closeLeave(true)">Rời</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const fullName = document.getElementById('f-fullName');
+    const phone = document.getElementById('f-phone');
+    const email = document.getElementById('f-email');
+    const curPwd = document.getElementById('f-curPwd');
+    const newPwd = document.getElementById('f-newPwd');
+    const confirmPwd = document.getElementById('f-confirmPwd');
+    const btnSave = document.getElementById('btn-save');
+    const btnPwd = document.getElementById('btn-pwd');
+    const toastEl = document.getElementById('toast');
+    const leaveModal = document.getElementById('leave-modal');
+    const params = new URLSearchParams(location.search);
+    let busySave = false;
+    let busyPwd = false;
+    let toastTimer;
+    const baseline = {
+      fullName: fullName.value,
+      phone: phone.value,
+      email: email.value
+    };
+
+    if (params.get('entry') === '1') {
+      document.getElementById('entry-hint').classList.add('on');
+    }
+    if (params.get('nocitizen') === '1') {
+      document.getElementById('row-citizen').classList.add('hidden');
+    }
+    if (params.get('offline') === '1') {
+      toast('Không tải được hồ sơ · dùng tên đã lưu');
+    }
+
+    function toast(msg) {
+      clearTimeout(toastTimer);
+      toastEl.textContent = msg;
+      toastEl.classList.add('on');
+      toastTimer = setTimeout(() => toastEl.classList.remove('on'), 2400);
+    }
+
+    function isDirty() {
+      return fullName.value !== baseline.fullName
+        || phone.value !== baseline.phone
+        || email.value !== baseline.email
+        || curPwd.value || newPwd.value || confirmPwd.value;
+    }
+
+    function syncSave() {
+      const empty = !fullName.value.trim();
+      btnSave.disabled = empty || busySave;
+    }
+    function syncPwd() {
+      const ready = curPwd.value && newPwd.value && confirmPwd.value;
+      btnPwd.disabled = !ready || busyPwd;
+    }
+    [fullName, phone, email].forEach(el => el.addEventListener('input', syncSave));
+    [curPwd, newPwd, confirmPwd].forEach(el => el.addEventListener('input', syncPwd));
+    syncSave();
+    syncPwd();
+
+    function onSave() {
+      if (busySave) return;
+      if (!fullName.value.trim()) {
+        toast('Nhập họ và tên');
+        return;
+      }
+      busySave = true;
+      btnSave.classList.add('busy');
+      btnSave.textContent = 'Đang lưu…';
+      syncSave();
+      setTimeout(() => {
+        busySave = false;
+        btnSave.classList.remove('busy');
+        btnSave.textContent = 'Lưu';
+        syncSave();
+        if (params.get('fail') === '1' || params.get('offline') === '1') {
+          toast('Không lưu được · kiểm tra mạng');
+          return;
+        }
+        baseline.fullName = fullName.value;
+        baseline.phone = phone.value;
+        baseline.email = email.value;
+        toast('Đã cập nhật hồ sơ');
+      }, 700);
+    }
+
+    function onChangePwd() {
+      if (busyPwd) return;
+      if (!curPwd.value || !newPwd.value) {
+        toast('Nhập đủ mật khẩu hiện tại và mật khẩu mới');
+        return;
+      }
+      if (newPwd.value !== confirmPwd.value) {
+        toast('Mật khẩu xác nhận không khớp');
+        return;
+      }
+      busyPwd = true;
+      btnPwd.classList.add('busy');
+      btnPwd.textContent = 'Đang đổi…';
+      syncPwd();
+      setTimeout(() => {
+        busyPwd = false;
+        btnPwd.classList.remove('busy');
+        btnPwd.textContent = 'Đổi mật khẩu';
+        if (params.get('fail') === '1' || params.get('offline') === '1') {
+          syncPwd();
+          toast('Không đổi được mật khẩu · kiểm tra mạng');
+          return;
+        }
+        curPwd.value = '';
+        newPwd.value = '';
+        confirmPwd.value = '';
+        syncPwd();
+        toast('Đã đổi mật khẩu');
+      }, 700);
+    }
+
+    function onBack() {
+      if (isDirty()) {
+        leaveModal.classList.add('on');
+        return;
+      }
+      toast('← Tôi (Me)');
+    }
+    function closeLeave(leave) {
+      leaveModal.classList.remove('on');
+      if (leave) {
+        fullName.value = baseline.fullName;
+        phone.value = baseline.phone;
+        email.value = baseline.email;
+        curPwd.value = '';
+        newPwd.value = '';
+        confirmPwd.value = '';
+        syncSave();
+        syncPwd();
+        toast('← Tôi (Me)');
+      }
+    }
+  </script>
+</body>
+</html>

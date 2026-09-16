@@ -1,0 +1,101 @@
+appId: org.linmsoft.rmms
+---
+# me-profile · Android · guest home → login → tab Tôi → row-profile → #sc-me-profile
+# P6 shots trên màn Hồ sơ · cấm P6 = Me hub · cấm đổi MK seed · cấm mfeStdUrl
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 20000
+- takeScreenshot: A11-LAUNCH
+- tapOn:
+    id: "btn-home-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "f-user"
+    timeout: 15000
+- tapOn:
+    id: "f-user"
+- eraseText
+- inputText: "linm-soft"
+- tapOn: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
+- tapOn:
+    id: "f-pass"
+- eraseText
+- inputText: "Linm@2026"
+- pressKey: Enter
+- waitForAnimationToEnd:
+    timeout: 4000
+- takeScreenshot: A9-LOGIN
+- tapOn:
+    id: "btn-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 45000
+- tapOn:
+    id: "tab-me"
+    optional: true
+- tapOn:
+    text: "Tôi"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "row-profile"
+    timeout: 20000
+- tapOn:
+    id: "row-profile"
+- extendedWaitUntil:
+    visible:
+      id: "sc-me-profile"
+    timeout: 25000
+- assertVisible: "Hồ sơ"
+- assertVisible:
+    id: "avatar-person"
+- assertVisible:
+    id: "f-fullName"
+- assertVisible:
+    id: "f-phone"
+- assertVisible:
+    id: "f-email"
+- assertVisible:
+    id: "btn-save"
+- tapOn:
+    id: "f-phone"
+- eraseText
+- inputText: "0901234567"
+- pressKey: Enter
+- waitForAnimationToEnd:
+    timeout: 2000
+- tapOn:
+    id: "btn-save"
+    optional: true
+- tapOn:
+    text: "Lưu"
+    optional: true
+- extendedWaitUntil:
+    visible: "Đã cập nhật hồ sơ"
+    timeout: 20000
+    optional: true
+- assertVisible:
+    id: "sc-me-profile"
+- takeScreenshot: A3-CORE
+- takeScreenshot: P6-CORE
+- scroll
+- assertVisible:
+    id: "section-pwd"
+- assertVisible:
+    id: "f-curPwd"
+- assertVisible:
+    id: "btn-change-pwd"
+- takeScreenshot: P6-CORE-2

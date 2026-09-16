@@ -1,6 +1,6 @@
 {
   "feature": "home",
-  "capturedAt": "2026-08-19T06:18:26.982Z",
+  "capturedAt": "2026-08-30T18:59:29.792Z",
   "iosDevice": "iPhone 17 Pro Max",
   "method": "e2e-qa-mobile",
   "steps": [
@@ -11,6 +11,33 @@
         "A10",
         "P11"
       ]
+    },
+    {
+      "id": "MAESTRO-IOS",
+      "result": "FAIL",
+      "store": [
+        "A3",
+        "A9",
+        "A11"
+      ],
+      "error": "Running on iPhone 17 Pro Max - iOS 26.2 - 518BFF77-0941-448B-8D37-67678F4506C7\n > Flow crawl-ios\nLaunch app \"org.linmsoft.rmms\" with clear state and clear keychain... COMPLETED\nAssert that id: sc-home is visible... COMPLETED\nTap on id: btn-home-faq... COMPLETED\nAssert that id: sc-faq is visible... COMPLETED\nTake screenshot CRAWL-faq... COMPLETED\nTap on (Optional) id: nav-back... WARNED\nTap on id: btn-home-privacy... COMPLETED\nAssert that id: sc-privacy is visible... FAILED\n\nAssertion is false: id: sc-privacy is visible\n\nAssertion 'id: sc-privacy is visible' failed. Check the UI hierarchy in debug artifacts to verify the element state and properties.\n\nPossible causes:\n- Element selector may be incorrect - check if there are similar elements with slightly different names/properties.\n- Element may be temporarily unavailable due to loading state\n- This could be a real regression that needs to be addressed\n\n==== Debug output (logs & screenshots) ====\n\n/Users/mac/.maestro/tests/2026-08-31_015824",
+      "gap": "GAP-MOB-ACT-03"
+    },
+    {
+      "id": "CRAWL",
+      "result": "FAIL",
+      "store": [],
+      "error": "Running on iPhone 17 Pro Max - iOS 26.2 - 518BFF77-0941-448B-8D37-67678F4506C7\n > Flow crawl-ios\nLaunch app \"org.linmsoft.rmms\" with clear state and clear keychain... COMPLETED\nAssert that id: sc-home is visible... COMPLETED\nTap on id: btn-home-faq... COMPLETED\nAssert that id: sc-faq is visible... COMPLETED\nTake screenshot CRAWL-faq... COMPLETED\nTap on (Optional) id: nav-back... WARNED\nTap on id: btn-home-privacy... COMPLETED\nAssert that id: sc-privacy is visible... FAILED\n\nAssertion is false: id: sc-privacy is visible\n\nAssertion 'id: sc-privacy is visible' failed. Check the UI hierarchy in debug artifacts to verify the element state and properties.\n\nPossible causes:\n- Element selector may be incorrect - check if there are similar elements with slightly different names/properties.\n- Element may be temporarily unavailable due to loading state\n- This could be a real regression that needs to be addressed\n\n==== Debug output (logs & screenshots) ====\n\n/Users/mac/.maestro/tests/2026-08-31_015824; AND: ap on id: btn-home-faq... COMPLETED\nAssert that id: sc-faq is visible... COMPLETED\nTake screenshot CRAWL-faq... COMPLETED\nTap on (Optional) id: nav-back... WARNED\n\n\n Warning: Element not found: Id matching regex: nav-back\nTap on id: btn-home-privacy... FAILED\n\nElement not found: Id matching regex: btn-home-privacy\n\nElement with Id matching regex: btn-home-privacy not found. Check the UI hierarchy in debug artifacts to verify if the element exists.\n\nPossible causes:\n- Element selector may be incorrect - check if there are similar elements with slightly different names/properties.\n- Element may be temporarily unavailable due to loading state.\n- This could be a real regression that needs to be addressed.\n\n==== Debug output (logs & screenshots) ====\n\n/Users/mac/.maestro/tests/2026-08-31_015858",
+      "gap": "GAP-MOB-ACT-03"
+    },
+    {
+      "id": "MAESTRO-AND",
+      "result": "FAIL",
+      "store": [
+        "P6"
+      ],
+      "error": "Running on Pixel_2\n > Flow crawl-android\nLaunch app \"org.linmsoft.rmms\" with clear state and clear keychain... COMPLETED\nAssert that id: sc-home is visible... COMPLETED\nTap on id: btn-home-faq... COMPLETED\nAssert that id: sc-faq is visible... COMPLETED\nTake screenshot CRAWL-faq... COMPLETED\nTap on (Optional) id: nav-back... WARNED\n\n\n Warning: Element not found: Id matching regex: nav-back\nTap on id: btn-home-privacy... FAILED\n\nElement not found: Id matching regex: btn-home-privacy\n\nElement with Id matching regex: btn-home-privacy not found. Check the UI hierarchy in debug artifacts to verify if the element exists.\n\nPossible causes:\n- Element selector may be incorrect - check if there are similar elements with slightly different names/properties.\n- Element may be temporarily unavailable due to loading state.\n- This could be a real regression that needs to be addressed.\n\n==== Debug output (logs & screenshots) ====\n\n/Users/mac/.maestro/tests/2026-08-31_015858",
+      "gap": "GAP-MOB-ACT-03"
     },
     {
       "id": "A11-LAUNCH",
@@ -56,5 +83,5 @@
       ]
     }
   ],
-  "ok": true
+  "ok": false
 }

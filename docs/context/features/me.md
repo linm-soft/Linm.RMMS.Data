@@ -28,7 +28,7 @@
 | Cập nhật thông tin | Góp ý · Camera xem · Thông báo · Cài đặt · Đăng xuất | Sibling route / reuse logout |
 | Tab | Tôi | `DES-MOB-TABBAR` chrome · **không** enqueue |
 
-Dual hàng **Cài đặt** = toast · **không** màn → **không** enqueue `me-settings`. **Cấm** thiếu Android.
+Hàng **Cài đặt** → sibling slug `me-settings` (`#sc-me-settings` · task `task_43c37168`) — **cấm** gộp vào hub `me`. **Cấm** thiếu Android.
 
 ## 3. API (cấm invent)
 

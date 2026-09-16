@@ -1,14 +1,5 @@
 # Capture — asset-hub
 
-| Field | Value |
-|-------|-------|
-| feature | `asset-hub` |
-| method | e2e runtime · yarn e2e-qa-mobile · Maestro ON |
-| iosDevice | iPhone 17 Pro Max (6.9") · **1320×2868** RGB |
-| androidDevice | Pixel 2 · **1080×1920** RGB |
-| iPad | **DEFER** Phase 1 |
-| capturedAt | 2026-08-19T09:59:51.980Z |
-
 | Case | Store | Result | Evidence |
 |------|-------|--------|----------|
 | A10-BFF | A10 · P11 | **PASS** | — |
@@ -18,4 +9,10 @@
 | P6-CORE | P6 · P11 | **PASS** | ![P6-CORE](P6-CORE.png) |
 | P6-CORE-2 | P6 | **PASS** | ![P6-CORE-2](P6-CORE-2.png) |
 
-Listing official → `/store-image-capture` confirm file live (**cấm** AI vẽ).
+iOS device: iPhone 17 Pro Max
+iPad device: DEFER Phase 1
+method: e2e runtime · yarn e2e-qa-mobile · Maestro ON
+
+CLI PASS = capture+px only. Visual = `/review-align-ux-ios-android` Read CORE vs demo HTML.
+
+Listing official → `/store-image-capture` confirm file live (cấm AI vẽ).

@@ -1,37 +1,43 @@
 # Dev — Implement — asset-hub (Android)
 
-> Status: **done** · `/agent-dev-android` · `/dev-android-compose` · `/android-new-screen` · `/android-new-api-call` · `/dev-ui-review`  
-> task `task_746238de`
+> Status: **PASS** · `/edit-mobile-feature` · cleanup_mock · task `task_9c9293d2`
 
 | Feature | `asset-hub` |
 | assembleDebug | **PASS** |
+| changeScope | `edit_page` |
 | Kit | `LinmTopBar` · `LinmWalletCard` · `LinmHubTile` · `LinmSectionLabel` · `LinmListRow` · `LinmPrimaryButton` · `LinmToast` · `LinmHomeGrid` (2-col Row) |
 | Frame | 412×915 |
 
-## Layers
+## Summary
 
-| Presentation | `presentation/feature/assethub/*` · `MainTabScreen` Home `NavHost` push `asset-hub` |
-| Domain | cùng use case iOS · Hilt bind Integration + AiVision |
-| Data | Retrofit `ApiService` 3 GET · **cấm** invent hub aggregate |
+Live-only wallet: gỡ `demoTitle`/`demoCount` fallback. GET OK = route title + types count · GET fail = empty wallet + toast `asset.hub.toast.loadFail` (**cấm** demo SSOT). AI pending ẩn khi empty. Step 4b **N/A**.
 
-## IA / API
+## Files
 
-- Entry: Home `TileAsset` / `Wallet` → navigate AssetHub (thay toast).
-- Back icon `nav-back` → pop. Wallet hub no-op. Sibling = toast nhãn.
-- Appear parallel GET · fail → demo wallet · ẩn AI · **không** block hub · **không** AlertDialog.
-- Camera AI indigo `#6750A4` · Cập nhật warn `#E8A317` · AI sub rút gọn `{pct}% · {routeLabel}`.
-- Patrol line **không** P1. **Cấm** POST / `LazyVerticalGrid` raw / watermark Gói.
+| Path | Change |
+|------|--------|
+| `domain/usecase/FetchAssetTypesCountUseCase.kt` | Outcome live-only |
+| `domain/usecase/SearchRoadRoutesUseCase.kt` | Outcome live-only |
+| `domain/model/AssetHubModels.kt` | remove demoTitle/demoCount |
+| `presentation/feature/assethub/AssetHubViewModel.kt` | fail toast · no demo fallback |
+| `presentation/feature/assethub/AssetHubUiState.kt` | empty defaults |
+| `presentation/copy/LinmCopy.kt` | `asset.hub.toast.loadFail` |
+| `presentation/feature/assetcollect/AssetCollectViewModel.kt` | SearchRoadRoutesOutcome adapter |
 
-## E2E ids
+## ACTION WORK GATE
 
-`sc-asset-hub` · `nav-back` · `wallet-asset` · `tile-*` · `row-map` · `sec-ai` · `ai-pending` · `btn-confirm-ai`
+| Action | Result |
+|--------|--------|
+| Hub tiles | sibling nav / toast · **work** |
+| wallet | live GET · **work** |
+| Create / Edit / View / Copy | **N/A** hub · **không** GAP-P2-ACT |
 
 ## VERIFY GATE
 
-`./gradlew :app:assembleDebug` **PASS**.
+`./gradlew :app:assembleDebug` **PASS** · BFF `dotnet build` **PASS**.
 
 ## Notes
 
-Step 4b / T-BE **N/A**. Dual parity iOS. BFF `dotnet build` **PASS**.
+`/edit-mobile-feature` 2026-09-16: wallet + tile **32 loại** → `#sc-asset-kcht` hang-mục 40 ô (web `/so-ts/hang-muc`). Dual Android.
 
-`/edit-mobile-feature` 2026-08-19: **GAP-MOB-THEME-01** / **GAP-MOB-COPY-01** — `LinmCopy.t` chrome · `walletTitle` / AI candidate giữ.
+`./gradlew :app:assembleDebug` — xem log turn này.

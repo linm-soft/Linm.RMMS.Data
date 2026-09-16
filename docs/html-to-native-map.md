@@ -25,9 +25,11 @@ Map **ý nghĩa**. Cấm clone `px` / `class`. Cấm 1 binary UI 2 OS.
 | `.seg` · DES-MOB-PAT-SEG | Segment | `LinmSegment` | `LinmSegment` |
 | `.badge` | Status pill · cấm P1/P2 | `LinmBadge` | `LinmBadge` |
 | `.kpi` / `.kpi-strip` · DES-MOB-PAT-KPI | KPI | `LinmKpi` / `LinmKpiStrip` | same |
-| `.hub-tile` | Hub card · app truyền `icon` + `iconColor` + `background` | `LinmHubTile` | `LinmHubTile` |
+| `.hub-tile` | Hub card · app truyền `icon` + `iconColor` + `background` · hàng 2 cột **stretch cùng height** · subtitle slot 2 dòng | `LinmHubTile` | `LinmHubTile` |
+| `.ak32-tile` / `.ak32-ico` | Ô chọn loại TS · pict 36 QCVN `code`→`LinmAssetKchtPict` · 3 cột stretch · label 3 dòng | `LinmAssetKchtPict` | `LinmAssetKchtPict` |
 | `.home-grid` · DES-MOB-HOME-GRID | 3-col | `LinmHomeGrid` | `LinmHomeGrid` |
 | `.fab` | Primary overlay | `LinmFab` (HIG: toolbar + ưu tiên) | `LinmFab` (FAB) |
+| `.in-app-capture` | Live still capture chrome · pinch + ± zoom 1…8 · chữ thập · expand slot · **cấm** kit đọc camera/GPS | `LinmInAppCapture` | `LinmInAppCapture` |
 | kit gallery | Local catalog (test) | `LinmKitGallery` | `LinmKitGallery` |
 | Home demo **Đăng xuất** | Chrome retest login · e2e `btn-logout` · **không** `#sc-me` | `LinmSecondaryButton` (app `LogoutUseCase`) | same |
 | `.hero-ico` hồ sơ | Nút tròn profile · tap 44 · vòng 36 | `LinmProfileButton` | `LinmProfileButton` |
@@ -45,14 +47,15 @@ Map **ý nghĩa**. Cấm clone `px` / `class`. Cấm 1 binary UI 2 OS.
 | `.hero-card` · DES-MOB-PAT-ACTIVE | Thẻ ca + CTA trắng/ghost | `LinmHeroCard` · `LinmHeroAction` | same |
 | `.large-title` | Tiêu đề lớn | `LinmLargeTitle` | same |
 | `.kind-pills` · DES-MOB-INC-KIND | 3 pill loại | `LinmKindPills` | same |
+| `.empty-state` / EmptyChrome | List/detail trống | dashed rect + title + hint · iOS `ContentUnavailableView` `rectangle.dashed` · Android `EmptyChrome` cùng motif · copy `*.empty.title` + `*.empty.hint` · **cấm** Text-only title | `EmptyChromeView` | `EmptyChrome` |
 
 ## B — HTML
 
 | HTML | Ý nghĩa | SwiftUI | Compose |
 |------|---------|---------|---------|
 | `button` primary | Action chính · busy = spinner giữa · **cấm** overlay màn | `LinmPrimaryButton` `isBusy` | `LinmPrimaryButton` `isBusy` |
-| `input type=text` | Text · cùng `formFieldHeight` 52 · lead khi demo có · IME pin · optional Enter/`Go` | `LinmTextField` (+ `leading` · `onSubmit`) trong `LinmKeyboardAwareScroll` | same · `ImeAction.Go` khi `onSubmit` |
-| `input type=password` + `.trail` eye (`#i-eye` / `#i-eye-off`) | SecureText · hiện/ẩn MK · **giữ IME** · optional Enter/`Go` | `LinmSecureTextField` (`UITextField` + `isSecureTextEntry` · `onSubmit`) · `LinmEyeGlyph` / `LinmEyeOffGlyph` | `LinmSecureTextField` · VisualTransformation · `onSubmit` · eye `canFocus=false` |
+| `input type=text` | Text · cùng `formFieldHeight` 52 · lead khi demo có · IME pin · optional Enter/`Go` · typed `onSurface` trên `card` · **cấm** chữ trắng Dark Mode | `LinmTextField` (+ `leading` · `onSubmit` · `LinmPlainInput` / `LinmFieldChrome`) trong `LinmKeyboardAwareScroll` | same · `ImeAction.Go` khi `onSubmit` · `textStyle` `onSurface` · `cursorBrush` primary · `forceDarkAllowed=false` |
+| `input type=password` + `.trail` eye (`#i-eye` / `#i-eye-off`) | SecureText · hiện/ẩn MK · **giữ IME** · optional Enter/`Go` · typed `onSurface` | `LinmSecureTextField` (`UITextField` + `isSecureTextEntry` · `LinmFieldChrome` · `onSubmit`) · `LinmEyeGlyph` / `LinmEyeOffGlyph` | `LinmSecureTextField` · VisualTransformation · `onSubmit` · eye `canFocus=false` · `cursorBrush` |
 | `input type=search` / `.search` / `#i-search` | Tìm · vòng + cán · **cấm** `⌕` / SF-M3 lệch nét | `LinmSearchField` · `LinmSearchGlyph` | same |
 | `input type=checkbox` | On/off | `LinmToggle` | `LinmToggle` |
 
@@ -70,6 +73,8 @@ Map **ý nghĩa**. Cấm clone `px` / `class`. Cấm 1 binary UI 2 OS.
 | tab slot / label / field | `64` × `32` tap · **cấm pill nền** · label **13** · field **16** | `tabIndicatorWidth` · `tabIndicatorHeight` · `tabLabel` · `label` · `fieldText` |
 | hero circle / capsule / badge / wifi / toast | `36` / `28` / `22` / `11` / `1.5` / `14` / `5000` / `20` / `64` | `iconCircle` / `statusCapsuleHeight` / `notifyBadge` / `notifyBadgeFont` / `notifyBadgeRing` / `signalWifi` / `toastAutoDismissMs` / `toastBottomGap` / `tabBarContentHeight` |
 | home tile / progress / large title / quick | `48` / `6` / `34` / `14` / `#FFF8E8` | `iconHomeTile` / `progressHeight` / `largeTitle` / `quickRadius` / `quickStart` |
+| card / field row | `#FFFFFF` | `LinmTokens.card` |
+| onSurface / field ink | `#1C1C1E` | `LinmTokens.onSurface` · typed input · **cấm** system primary Dark Mode |
 | header | `#086A9A` → `#0C84C0` | `headerStart` / `headerEnd` |
 | success | `#3CB448` | `LinmTokens.success` |
 | warning | `#FCB43C` | `LinmTokens.warning` |

@@ -12,5 +12,9 @@
 iOS device: iPhone 17 Pro Max
 iPad device: DEFER Phase 1
 method: e2e runtime · yarn e2e-qa-mobile · Maestro ON
+harvest: re-copied from `_maestro_ios/ios-2` + `_maestro_android/android-3` (CLI stale `~/.maestro` · GAP-QA-E2E-HARVEST-01)
+core visual: `#sc-ops` EmptyChrome + toast loadFail · **cấm** demo rows / watermark mẫu
+
+CLI PASS = capture+px only. Visual = `/review-align-ux-ios-android` Read CORE vs demo HTML.
 
 Listing official → `/store-image-capture` confirm file live (cấm AI vẽ).

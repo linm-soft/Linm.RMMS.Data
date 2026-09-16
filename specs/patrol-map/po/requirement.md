@@ -30,7 +30,7 @@ Entry: `patrol-home` hero **Tiếp tục bản đồ** · row **Bản đồ ca**
 
 ## 2. changeScope `new_page`
 
-Pack **map mới** theo data-analy. Visual SSOT = dual HTML `#sc-patrol-map` (iOS 390×844 · Android 412×915 · **parity copy** trừ chrome HIG/Material). Map = **feature composition** (MapKit iOS · OSM tiles Android) · **cấm** kit `LinmMap` · **cấm** WebView demo HTML.
+Pack **map mới** theo data-analy. Visual SSOT = dual HTML `#sc-patrol-map` (iOS 390×844 · Android 412×915 · **parity copy** trừ chrome HIG/Material). Map = **feature composition** (`GisClipMapView` MapLibre dual · BFF `{TileUrl}` MVT) · **cấm** kit `LinmMap` · **cấm** osmdroid PBF-as-raster · **cấm** WebView demo HTML.
 
 ## 3. DoD (đo được)
 
@@ -38,9 +38,9 @@ Pack **map mới** theo data-analy. Visual SSOT = dual HTML `#sc-patrol-map` (iO
 2. Back → pop `patrol-home` (`reuse` · **cấm** reimplement hub).
 3. **Ghi điểm tuần** (nav trailing + card CTA) P1 → toast **Ghi điểm tuần** · **cấm** sheet check-in.
 4. **Ghim vị trí hiện tại** → quyền vị trí · **snap tim đường** (`snapPointToStreet` else `projectToPath`) · pin `.here` tip neo đáy · zoom/follow · toast **Ghim vị trí hiện tại**. Deny → toast `patrol.map.locDeny`. Timeout → `patrol.map.locTimeout`. **Cấm** fake lat/lng · **cấm** sheet.
-5. Basemap chips: **Đường** default on · **Phố** · **Vệ tinh** · **Toàn tuyến** fit overlay polyline.
+5. Basemap chips: **Tiêu chuẩn** default on · **Vệ tinh** (cùng clip MVT) · **Toàn tuyến** fit overlay polyline. **Cấm** Đường/Phố OSM.org / Esri / Google.
 6. Legend isolate: **Tất cả** · **Hành trình** · **Đã ghi điểm tuần** · **Điểm kế tiếp** — filter overlay client-side P1.
-7. Overlay QL.1 Xuân Hải → Phước Dinh **vẽ OSRM tim đường** (corridor + track) · pin check-in **projectToPath** · next **Km 1561+134 · Phước Dinh** (GET fail → demo title). OSRM fail → nét đứt + toast `patrol.map.osrmFallback`. GET `patrol/sessions` bind Route/Status khi có. **Cấm** polyline thẳng seed (**GAP-MAP-OSRM-ROUTE**).
+7. Overlay QL.1 Xuân Hải → Phước Dinh **vẽ OSRM tim đường** (corridor + track) · pin check-in **projectToPath** · next **Km 1561+134 · Phước Dinh** (GET fail → demo title). Debug `OsrmBase` = public OSRM (cùng GIS `OsrmUrl`). Empty base / HTTP fail → nét đứt + toast `patrol.map.osrmFallback`. GET `patrol/sessions` bind Route/Status khi có. **Cấm** polyline thẳng seed (**GAP-MAP-OSRM-ROUTE** · **GAP-MAP-OSRM-CONFIG-01**).
 8. Kit reuse: `LinmTopBar` · `LinmPrimaryButton` · `LinmChip` · `LinmMapPinGlyph` `#i-mappin` · `LinmToast` · `LinmTabBar` shell. Map host = feature MapKit/OSM · **cấm** WebView HTML demo · **cấm** raw M3 `NavigationBar` / `TabView` (`GAP-MOB-ACT-05`).
 9. App chỉ `{BffPrefix}` · Step 4b **N/A** (reuse `GET patrol/sessions` · **cấm** Kind E invent tracks/coverage/check-ins P1).
 10. Dev (role sau): iOS `xcodegen` + `xcodebuild` dest **iPhone 17 Pro** PASS · Android `assembleDebug` PASS · Mobile.Bff `dotnet build` PASS — **cấm** `yarn start:std`.
@@ -79,14 +79,13 @@ Nguồn `#sc-patrol-map` dual + DA-01. UNCLEAR field = **none**.
 | navBack | Tuần đường | IconButton / text+chevron | * | `LinmTopBar` leading | reuse `patrol-home` pop |
 | title | Ca đang chạy | NavTitle | * | `LinmTopBar` | fixed |
 | navCheckin | Ghi điểm tuần | TextButton | * | `LinmTopBar` trailing | toast P1 · **cấm** sheet |
-| mapHost | Bản đồ tuần tra OMS | Map | * | feature MapKit / OSM | OSRM `routeAlongStreets` · **cấm** WebView HTML demo · **cấm** polyline thẳng |
+| mapHost | Bản đồ tuần tra OMS | Map | * | feature `GisClipMapView` MapLibre | OSRM `routeAlongStreets` · **cấm** WebView HTML demo · **cấm** polyline thẳng · **cấm** osmdroid PBF |
 | nextEyebrow | Điểm tiếp theo · OSRM | Text | * | overlay card | demo SSOT |
 | nextTitle | Km 1561+134 · Phước Dinh | Text | * | overlay card | bind session.route P1 fallback demo |
 | nextCheckin | Ghi điểm tuần | PrimaryButton | * | `LinmPrimaryButton` | toast P1 |
 | pinHere | Ghim vị trí hiện tại | PrimaryButton | * | `LinmPrimaryButton` + `LinmMapPinGlyph` `#i-mappin` | loc live · **snap tim đường** · zoom · pin here tip neo đáy · toast · deny `patrol.map.locDeny` |
-| baseOsm | Đường | Chip | * | `LinmChip` | default on |
-| baseEsri | Phố | Chip | * | `LinmChip` | iOS ≈ standard muted / Android Esri |
-| baseSat | Vệ tinh | Chip | * | `LinmChip` | imagery |
+| baseClip | Tiêu chuẩn | Chip | * | `LinmChip` | default on · clip MVT |
+| baseSat | Vệ tinh | Chip | * | `LinmChip` | sat tone · **cấm** Esri/Google imagery |
 | fitAll | Toàn tuyến | Chip | * | `LinmChip` | fit overlay |
 | lgAll | Tất cả | Chip | * | `LinmChip` | isolate all |
 | lgTrack | Hành trình | Chip | * | `LinmChip` | polyline |
@@ -103,7 +102,7 @@ App `ApiClient.base` = `{BffBase}/mobile-bff/api/v1`. Path **không** lặp pref
 |---------------|--------|------|------------------------|
 | Ca active / next copy | GET | `patrol/sessions` | **yes** — filter «Đang tuần» client-side P1 |
 | Detail drill | GET | `patrol/sessions/{id}` | **no P1** — P2 |
-| Overlay geometry | GET public | `router.project-osrm.org` route/nearest | waypoints `PatrolMapOverlay` · **paint OSRM** · pin snap/project · Kind E tracks **P2** |
+| Overlay geometry | GET OSRM | `{OsrmBase}/route` + `/nearest` (Debug public · Release empty until self-host) | waypoints plan-points · **paint OSRM** · pin snap/project · Kind E tracks **P2** |
 | Check-in POST | POST | `patrol/sessions/{id}/check-ins` | **no** — toast P1 · **cấm** gọi |
 | Tracks POST | POST | `patrol/sessions/{id}/tracks` | **no P1** — **P2** · Step 4b **N/A** |
 | Coverage GET | GET | `patrol/sessions/{id}/coverage` | **no P1** — **P2** |

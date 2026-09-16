@@ -32,7 +32,7 @@
 ## 1. Pattern
 
 | Surface | Push từ `home` · **không** Modal/Sheet · **không** tab riêng |
-| Action this slug | Display wallet summary · load AI pending Draft · tap tiles/row → toast sibling (chưa ship) |
+| Action this slug | Display wallet summary · load AI pending Draft · wallet / tile **32 loại** → push `#sc-asset-kcht` (web hang-mục) · sibling còn lại toast/nav đã ship |
 | Frame | iOS 390×844 · Android 412×915 |
 | BFF | `GET integration/asset-types` · optional `GET integration/road-routes/search` · `GET ai-vision/asset-candidates` · **cấm** invent `api/v1/asset-hub` |
 
@@ -41,8 +41,9 @@
 | DES / sc-* | Tên VN | CTA / hành vi |
 |------------|--------|---------------|
 | `DES-MOB-ASSET-HUB` `#sc-asset-hub` | Tài sản | nav · wallet · hub-grid ×3 · row bản đồ · AI pending |
-| `DES-MOB-ASSET-WALLET` | Ví hồ sơ TS | display only · **không** tap nav |
-| `DES-MOB-ASSET-GRID` | Hub tiles | 32 loại · bản đồ · thu thập · quản lý |
+| `DES-MOB-ASSET-WALLET` | Ví hồ sơ TS | tap → push `#sc-asset-kcht` hang-mục (web `/so-ts/hang-muc`) |
+| `DES-MOB-ASSET-GRID` | Hub tiles | **32 loại** → kcht dashboard · bản đồ · thu thập · quản lý |
+| `DES-MOB-ASSET-KCHT` `#sc-asset-kcht` | Hạng mục KCHT | 40 ô icon+nhãn+count · **display-only** · **cấm** tap |
 | `DES-MOB-ASSET-MAP-ROW` | Bản đồ tài sản | cùng slug sibling `gis-map` |
 | `DES-MOB-ASSET-AI` | Chờ xác nhận AI | ẩn khi 0 Draft · row đầu + **Xác nhận** |
 
@@ -52,8 +53,10 @@
 home (tab Trang Chủ)
   → tile/wallet Tài sản → push #sc-asset-hub DES-MOB-ASSET-HUB   ← this pack
   → back «Trang Chủ» → pop home
-  → sibling taps → LinmToast nhãn · **không** push sibling (GAP-MOB-ACT-06)
-  → không child form / sheet (GAP-MOB-ACT-02 = none)
+  → wallet / tile 32 loại → push #sc-asset-kcht DES-MOB-ASSET-KCHT (web hang-mục)
+  → back «Tài sản» → pop hub
+  → sibling khác đã ship = push · chưa ship = LinmToast
+  → không child form / sheet trên hub (GAP-MOB-ACT-02 = none)
 ```
 
 **Cấm** invent tab · watermark Gói · device label «iPhone»/«Android» trên title · submit Lưu/Tạo trên hub.
@@ -63,11 +66,11 @@ home (tab Trang Chủ)
 | Field | VN | Kit dual | SF ↔ Material | Notes |
 |-------|----|----------|---------------|-------|
 | navBack | Trang Chủ | `LinmTopBar` | `chevron.left` ↔ `ArrowBack` | `go('home')` |
-| walletK | HỒ SƠ TÀI SẢN | `LinmWalletCard` eyebrow | — | display |
+| walletK | HỒ SƠ TÀI SẢN | `LinmWalletCard` eyebrow | — | tap → `#sc-asset-kcht` |
 | walletT | QL.1 · Khu IV | `LinmWalletCard` title | — | optional route search · fail → demo |
 | walletM | 32 loại KCHT… | `LinmWalletCard` subtitle | — | live count `asset-types` · fail → «32» |
 | walletPatrol | Cột Km… đang tuần | `LinmWalletCard` line 3 | — | **iOS demo P1** · Android optional |
-| tileTypes | 32 loại tài sản | `LinmHubTile` | `cube` ↔ `ViewInAr` | bg `#0C84C0` · toast |
+| tileTypes | 32 loại tài sản | `LinmHubTile` | `cube` ↔ `ViewInAr` | bg `#0C84C0` · push kcht · **cùng height hàng** |
 | tileMap | Xem trên bản đồ | `LinmHubTile` | `scope` / binoculars ↔ `MyLocation`/`TravelExplore` | bg teal `#1B8A4A` · toast |
 | secCollect | Thu thập | `LinmSectionLabel` | — | không route |
 | tileCollect | Thủ công | `LinmHubTile` | `plus` ↔ `Add` | bg `#0C84C0` · toast |
@@ -83,11 +86,13 @@ home (tab Trang Chủ)
 
 Toast / banner → `LinmToast`. **Cấm** raw `LazyVGrid` / `LazyVerticalGrid` khi kit đã map.
 
+**Hub tile align (GAP-MOB-AHUB-ALIGN-01):** mỗi hàng 2 cột **cùng height** — stretch theo ô cao nhất (CSS `align-items: stretch`) · subtitle slot **2 dòng** (`min-height` 32 / `2.6em`) · content `topLeading` · **cấm** card thấp hơn sibling vì wrap 1 dòng.
+
 ### Toast sibling (P1 — chưa ship)
 
 | Control | Toast |
 |---------|-------|
-| 32 loại tài sản | **32 loại tài sản** |
+| 32 loại tài sản | **push** `#sc-asset-kcht` (web hang-mục) — **không** toast |
 | Xem trên bản đồ | **Xem trên bản đồ** |
 | Bản đồ tài sản | **Bản đồ tài sản** |
 | Thủ công | **Thủ công** |

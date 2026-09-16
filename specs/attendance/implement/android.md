@@ -1,29 +1,30 @@
 # Dev — Implement — attendance (Android)
 
-> Status: **done** · `/agent-dev-android` · `/dev-android-compose` · `/android-new-screen` · `/android-new-api-call`  
-> task `task_a728ce1a` · T-AND-ATTENDANCE
+> Status: **confirmed** · `/edit-mobile-feature` · complete chấm công (wire report)  
+> `assembleDebug` **BUILD SUCCESSFUL**
 
 | Feature | `attendance` |
 | assembleDebug | **PASS** · **BUILD SUCCESSFUL** |
 | Kit | `LinmLargeTitle` · `LinmSegment` · `LinmHeroCard` / `LinmHeroAction` · `LinmSectionLabel` · `LinmListRow` · `LinmToast` · `LinmBusyOverlay` |
 
+## Notes (complete chấm công)
+
+- Hero **Báo cáo** → `navigate("attendance-report")` · **cấm** toast-only dual iOS.
+- Tap day → `attendance-day/{dayKey}/{dayTitle}`.
+- POST `userName` = `auth.lastWho()` · GET live-only.
+
 ## Layers
 
-| Presentation | `presentation/feature/attendance/AttendanceScreen.kt` · `AttendanceViewModel.kt` · `AttendanceUiState.kt` · `MainTabScreen` `navigate("attendance")` · `PatrolHomeViewModel.setOpenAttendance` |
-| Domain | `domain/usecase/AttendanceUseCases.kt` · `domain/model/AttendanceModels.kt` · `domain/repository/AttendanceRepository.kt` |
-| Data | `data/repository/AttendanceRepositoryImpl.kt` · `data/mapper/AttendanceDtoMapper.kt` · `ApiService` GET/POST `patrol/attendance-logs` |
-| DI | Hilt `NetworkModule` |
+| Presentation | `AttendanceScreen` · `AttendanceViewModel` · `MainTabScreen` `attendance` + `attendance-report` |
+| Domain | `AttendanceUseCases` · `FetchAttendanceReportLogsUseCase` |
+| Data | GET/POST `patrol/attendance-logs` |
 
 ## IA / API
 
-Dual parity iOS · route_a push from patrol-home segment · demo fallback.  
-GPS check-in POST · toast report/day · **cấm** `AlertDialog` · **cấm** push sibling.  
-E2E tags: `sc-attendance` · `att-segment` · `att-hero` · `att-day-*`.
+Dual parity iOS · route_a · live-only.  
+GPS check-in POST · **push report** · day push sibling · **cấm** `AlertDialog` · **cấm** `mfeStdUrl`.  
+E2E tags: `sc-attendance` · `att-segment` · `att-hero` · `att-day-*` · `sc-attendance-report`.
 
 ## VERIFY GATE
 
-`./gradlew :app:assembleDebug` **BUILD SUCCESSFUL**.
-
-## Notes
-
-Step 4b / T-BE **N/A** — reuse attendance-logs GET+POST. **Cấm** invent report/zones · **cấm** `mfeStdUrl`.
+`./gradlew :app:assembleDebug` **BUILD SUCCESSFUL** (`/edit-mobile-feature` 2026-09-16).

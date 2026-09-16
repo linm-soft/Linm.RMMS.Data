@@ -1,0 +1,85 @@
+appId: org.linmsoft.rmms
+---
+# me-settings · Android · guest home → login → tab Tôi → row-settings → #sc-me-settings
+# P6 shots trên màn Cài đặt · cấm P6 = Me hub · cấm mfeStdUrl
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 20000
+- takeScreenshot: A11-LAUNCH
+- tapOn:
+    id: "btn-home-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "f-user"
+    timeout: 15000
+- tapOn:
+    id: "f-user"
+- eraseText
+- inputText: "linm-soft"
+- tapOn: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
+- tapOn:
+    id: "f-pass"
+- eraseText
+- inputText: "Linm@2026"
+- pressKey: Enter
+- waitForAnimationToEnd:
+    timeout: 4000
+- takeScreenshot: A9-LOGIN
+- tapOn:
+    id: "btn-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 45000
+- tapOn:
+    id: "tab-me"
+    optional: true
+- tapOn:
+    text: "Tôi"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "row-settings"
+    timeout: 20000
+- tapOn:
+    id: "row-settings"
+- extendedWaitUntil:
+    visible:
+      id: "sc-me-settings"
+    timeout: 25000
+- assertVisible: "Cài đặt"
+- assertVisible: "Quyền ứng dụng"
+- assertVisible:
+    id: "row-location"
+- assertVisible:
+    id: "row-camera"
+- assertVisible:
+    id: "row-notify-os"
+- assertVisible:
+    id: "btn-open-os"
+- assertVisible: "Đồng bộ"
+- assertVisible:
+    id: "row-offline"
+- takeScreenshot: A3-CORE
+- takeScreenshot: P6-CORE
+- scroll
+- scroll
+- assertVisible: "Thông tin"
+- assertVisible:
+    id: "row-version"
+- assertVisible: "Phiên bản"
+- assertVisible:
+    id: "row-privacy"
+- takeScreenshot: P6-CORE-2

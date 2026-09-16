@@ -11,8 +11,8 @@ Login → Tab 5 (Trang Chủ selected)
     → Tài sản tile / wallet → push #sc-asset-hub DES-MOB-ASSET-HUB   ← this pack
 #sc-asset-hub
   → back «Trang Chủ» = pop home
-  → wallet = display only (không re-nav self)
-  → hub tiles / map row / AI CTA (sibling chưa ship) = LinmToast nhãn PO §3.7
+  → wallet / tile 32 loại → push #sc-asset-kcht (web hang-mục 40 ô)
+  → back «Tài sản» = pop hub
   → không child form / sheet
 ```
 
@@ -23,7 +23,8 @@ Login → Tab 5 (Trang Chủ selected)
 | DES / sc-* | Tên VN | iOS chrome | Android chrome | CTA |
 |------------|--------|------------|----------------|-----|
 | DES-MOB-ASSET-HUB `#sc-asset-hub` | Tài sản | nav solid · back text | top-bar · icon back | wallet + grids + AI |
-| DES-MOB-ASSET-WALLET | Ví hồ sơ | gradient card | same | display |
+| DES-MOB-ASSET-WALLET | Ví hồ sơ | gradient card | same | tap → kcht |
+| DES-MOB-ASSET-KCHT `#sc-asset-kcht` | Hạng mục KCHT | 1 cột card 40 ô | same | count live · **cấm** tap |
 | DES-MOB-ASSET-GRID | Hub tiles | 2×2 ×3 section | same | toast sibling |
 | DES-MOB-ASSET-MAP-ROW | Bản đồ tài sản | list row + chevron | list row | toast **Bản đồ tài sản** |
 | DES-MOB-ASSET-AI | Chờ xác nhận AI | section + row + btn | same | toast **Xác nhận AI** · ẩn empty |
@@ -35,8 +36,8 @@ Login → Tab 5 (Trang Chủ selected)
 | Zone | Demo (user thấy) | Map row (`docs/html-to-native-map.md`) | SwiftUI | Compose |
 |------|------------------|----------------------------------------|---------|---------|
 | Nav | Back Trang Chủ · title **Tài sản** | top bar / `.nav-bar` · `.top-bar` | `LinmTopBar` | `LinmTopBar` |
-| Wallet | HỒ SƠ TÀI SẢN · QL.1 · Khu IV · 32 loại… (+ iOS patrol) | A `.wallet-card` · DES-MOB-ASSET-WALLET | `LinmWalletCard` | same |
-| Grid primary | 32 loại · Xem trên bản đồ | A `.hub-grid` / `.hub-tile` | `LinmHubTile` ×2 | same |
+| Wallet | HỒ SƠ TÀI SẢN · title tuyến live · 32/N loại… | A `.wallet-card` · DES-MOB-ASSET-WALLET | `LinmWalletCard` tap → kcht | same |
+| Grid primary | 32 loại · Xem trên bản đồ · **cùng height hàng** | A `.hub-grid` / `.hub-tile` | `LinmHubTile` ×2 stretch | same |
 | Sec Thu thập | Thu thập | A `.section-label` | `LinmSectionLabel` | same |
 | Grid collect | Thủ công · Camera AI | A `.hub-tile` | `LinmHubTile` ×2 | same |
 | Sec Quản lý | Quản lý | A `.section-label` | `LinmSectionLabel` | same |
@@ -103,6 +104,8 @@ Không `/wf-anim` trên hub `asset-hub`.
 | GAP-MOB-ALIGN-01 | Dual chrome | Cùng tiles/sections/wallet core · patrol iOS-only OK |
 | GAP-MOB-UX-07 | design ↔ HTML | Pack proto khớp design.md · toast labels PO |
 | GAP-MOB-DES-PFX-01 | Board prefix | `ios/index.html` · `android/index.html` |
+| GAP-MOB-AHUB-ALIGN-01 | Card 32 loại cao hơn «Xem trên bản đồ» vì subtitle wrap | Hàng 2 cột **stretch cùng height** · subtitle slot 2 dòng · **cấm** height theo content từng ô · lock `/edit-mobile-feature` |
+| GAP-MOB-AHUB-KCHT-01 | Hồ sơ / 32 loại chỉ toast · web đã có hang-mục 40 ô | Dual `#sc-asset-kcht` stats-only · wallet+tile push · **cấm** drill tap |
 
 ## Version meta (REQUIRED)
 

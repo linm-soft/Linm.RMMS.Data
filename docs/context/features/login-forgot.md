@@ -9,7 +9,7 @@
 
 | | |
 |--|--|
-| Mục tiêu | Tap **Quên mật khẩu?** → màn `#sc-forgot` (request OTP → reset MK) |
+| Mục tiêu | Tap **Quên mật khẩu?** → màn `#sc-forgot` hiện **Liên hệ admin để được cung cấp** (SMS OTP chưa live · **cấm** form) |
 | Demo | `specs/login-forgot/ui/prototype/{ios,android}/index.html` |
 | Parent | `#sc-login` link |
 
@@ -26,4 +26,5 @@ Body: `{ phoneNumber }` · `{ phoneNumber, resetToken, newPassword }`.
 
 - Dual native + BFF build PASS
 - Navigate from login (không toast-only)
+- Live: `forgot-contact` · **không** `f-phone` / `f-otp`
 - e2eQa Maestro ids shipped

@@ -1,0 +1,11 @@
+{
+  "feature": "photo-geo-capture",
+  "status": "confirmed",
+  "review_confirm": "done",
+  "taskId": "task_772cce7c",
+  "writtenAt": "2026-09-13T01:20:00.000Z",
+  "skillVersion": "2026.08.29.1",
+  "verdict": "PASS",
+  "blockingMust": 0,
+  "autoApprove": true
+}

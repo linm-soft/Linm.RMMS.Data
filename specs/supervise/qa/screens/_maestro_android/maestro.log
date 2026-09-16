@@ -1,0 +1,46 @@
+Running on Pixel_2
+ > Flow android
+Launch app "org.linmsoft.rmms" with clear state and clear keychain... COMPLETED
+Assert that id: sc-home is visible... COMPLETED
+Tap on id: btn-home-login... COMPLETED
+Assert that id: f-user is visible... COMPLETED
+Tap on id: f-user... COMPLETED
+Input text linm-soft... COMPLETED
+Press Enter key... COMPLETED
+Wait for animation to end within 1500 ms... COMPLETED
+Input text Linm@2026... COMPLETED
+Press Enter key... COMPLETED
+Wait for animation to end within 3000 ms... COMPLETED
+Tap on (Optional) id: btn-login... WARNED
+
+
+ Warning: Element not found: Id matching regex: btn-login
+Assert that id: sc-home is visible... COMPLETED
+Tap on (Optional) id: tile-supervise... COMPLETED
+Tap on (Optional) "Giám sát"... WARNED
+
+
+ Warning: Element not found: Text matching regex: Giám sát
+Assert that id: sc-supervise is visible... COMPLETED
+Assert that "Giám sát tuần đường" is visible... COMPLETED
+Assert that "Danh sách check in" is visible... COMPLETED
+Take screenshot P6-CORE... COMPLETED
+Tap on (Optional) id: btn-sup-filter... COMPLETED
+Tap on (Optional) "Lọc"... COMPLETED
+Wait for animation to end within 2500 ms... COMPLETED
+Assert that "Áp dụng" is visible... COMPLETED
+Assert that "Xóa lọc" is visible... COMPLETED
+Assert that "Tuyến" is visible... COMPLETED
+Take screenshot P6-CORE-2... COMPLETED
+Tap on (Optional) "Huỷ"... COMPLETED
+Tap on (Optional) "Hủy"... WARNED
+
+
+ Warning: Element not found: Text matching regex: Hủy
+Wait for animation to end within 2500 ms... COMPLETED
+Tap on "Bản đồ"... COMPLETED
+Assert that id: sc-patrol-map is visible... COMPLETED
+Tap on (Optional) id: btn-sup-back... WARNED
+
+
+ Warning: Element not found: Id matching regex: btn-sup-back

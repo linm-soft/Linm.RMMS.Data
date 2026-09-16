@@ -17,13 +17,14 @@
 | Layer | Files |
 |-------|--------|
 | Presentation | `Presentation/Features/Login/LoginView.swift` · `LoginViewModel.swift` · `LoginUiState.swift` · `LoginIntent.swift` |
-| Domain | `LoginUseCase` · `AuthRepository` · `NetworkStatusRepository` · `AuthSession` · `SessionWindow` |
-| Data | `AuthRepositoryImpl` · `AuthDto` · `AuthDtoMapper` · `ApiClient` (401 → `auth/refresh-token` 1 lần) · `KeychainTokenStore` access+refresh · `JwtCompanyClaims` |
+| Domain | `LoginUseCase` · `RestoreSessionUseCase` · `AuthRepository` · `NetworkStatusRepository` · `AuthSession` · `SessionWindow` |
+| Data | `AuthRepositoryImpl` · `AuthDto` · `AuthDtoMapper` · `ApiClient` (401 → `auth/refresh-token` single-flight) · `TokenRefreshCoordinator` · `RestoreSessionUseCase` · `KeychainTokenStore` access+refresh · `JwtCompanyClaims` `exp` |
 
 ## IA / API
 
-- Cold start không access token → `LoginView` ngoài `TabView`. Có token → Home placeholder (kit gallery).
-- Demo Home **Đăng xuất** (`btn-logout`) → `LogoutUseCase` clear Keychain + company → toast **Đã đăng xuất** → `#sc-login`. **Cấm** POST `auth/logout` · **cấm** `#sc-me`.
+- Cold start **không** token → tab 5 `#sc-home` guest. Overlay `LoginView` khi `showLogin` (`btn-home-login` / tile staff). Có token → Home staff.
+- `btn-login-back` → `dismissLogin()` · **cấm** cổng bắt buộc.
+- `#sc-me` Đăng xuất → guest Home · **cấm** POST `auth/logout`.
 - POST `auth/login` body `{ id, password }` — **omit** `activeCompanyId`. Root `token`/`refreshToken`/`user.id`.
 - GET `contract-accounts/session-window?authUserId=` sau login · `allowed=false` / 403 `CONTRACT_WINDOW_CLOSED` → clear token · toast Web copy · ở lại Login.
 - Offline: **không** POST · toast **Không có mạng**.
@@ -35,10 +36,15 @@
 - Rebuild local XCFramework sau kit `formFieldHeight` 52 + `LinmTextField(leading:)`.
 - Layout **tĩnh** top: logo **192** **alpha** (`scaledToFit` · **cấm** `Color.black` tile) + title + form + CTA · footer `.login-meta` **pin `.bottom` giữa** khi IME ẩn (`GAP-MOB-EDIT-FOOTER-01`) · IME hiện thì ẩn footer · `LinmKeyboardAwareScroll` · **cấm** `ignoresSafeArea(.keyboard)` · focus field pin trên IME. **cấm** band 1/3 · **cấm** animation / compact IME. Mắt giữ IME. **cấm** ×3.
 - Signal: bind `NWPath` · **cấm** tap cycle (GAP-MOB-SIGNAL-01/02).
-- Field: user + pass cùng 52 + lead (GAP-MOB-FIELD-CHROME-01). Submit **reset `#f-pass`** · giữ last `userName` (Keychain `lastUserName` · **không** xóa khi logout) · **cấm** persist MK.
+- Field: user + pass cùng 52 + lead (GAP-MOB-FIELD-CHROME-01). Submit **OK reset `#f-pass`** · fail **giữ `#f-user` + `#f-pass`** (`GAP-MOB-EDIT-FAIL-FIELDS`) · giữ last `userName` (Keychain `lastUserName` · **không** xóa khi logout) · **cấm** persist MK.
 - E2E: `accessibilityIdentifier` `f-user` / `f-pass` / `btn-login` · demo Home `btn-logout` · Maestro `qa/e2e/ios.yaml` · Auth docker seed `linm-soft` / `Linm@2026`.
 - `/edit-mobile-feature` 2026-08-19: IME pin `LinmKeyboardAwareScroll` · **cấm** `ignoresSafeArea(.keyboard)` · `xcodegen` + `xcodebuild` dest **iPhone 17 Pro Max** **PASS**.
 - `/edit-mobile-feature` 2026-08-19: **GAP-MOB-EDIT-FOOTER-01** footer pin `.bottom` giữa · ẩn khi IME · `xcodebuild` dest **iPhone 17 Pro Max** **PASS**.
 - `/edit-mobile-feature` 2026-08-19: **GAP-MOB-EDIT-PASS** submit reset `#f-pass` · giữ last user · `xcodebuild` dest **iPhone 17 Pro Max** **PASS**.
 - `/edit-mobile-feature` 2026-08-19: **GAP-MOB-EDIT-IME-ENTER** `#f-user` Enter + MK có giá trị → login · Enter + MK rỗng → focus `#f-pass` · `#f-pass` Enter → login · kit `onSubmit` · `xcodebuild` dest **iPhone 17 Pro Max** **PASS** · **iPad Pro 13-inch (M5)** **PASS**.
 - `/edit-mobile-feature` 2026-08-19: **GAP-MOB-THEME-01** / **GAP-MOB-COPY-01** — `LinmTokens` + `LinmCopy.t` · **cấm** hex/VN literal · API `userMessage` giữ.
+- `/edit-mobile-feature` 2026-08-29: guest Home + overlay login · `btn-home-login` / `btn-login-back` · copy `home.guest.who` · **cấm** required login lúc launch · `xcodegen` + `xcodebuild` scheme **LinmRmms** dest **iPhone 17 Pro Max** **PASS**.
+- `/edit-mobile-feature` 2026-08-29: **GAP-MOB-EDIT-BACK** `btn-login-back` pin **trên** `LinmKeyboardAwareScroll` · tap 44 · dismiss về guest Home.
+- `/edit-mobile-feature` 2026-09-13: **GAP-MOB-EDIT-FIELD-INK** typed `#f-user`/`#f-pass` `onSurface` trên `card` · kit `LinmPlainInput` + `LinmFieldChrome` · `UIUserInterfaceStyle` Light · `preferredColorScheme(.light)` · **cấm** SwiftUI `TextField` raw (Dark Mode chữ trắng) · `xcodegen` + `xcodebuild` dest **iPhone 17 Pro Max** **PASS** · **iPad Pro 13-inch (M5)** **PASS**.
+- `/edit-mobile-feature` 2026-09-13: **GAP-MOB-EDIT-FAIL-FIELDS** fail giữ `#f-user`+`#f-pass` · reset MK chỉ khi login OK · `xcodebuild` dest **iPhone 17 Pro Max** **PASS**.
+- `/edit-mobile-feature` 2026-09-16: **GAP-MOB-EDIT-SESSION-REFRESH** — Root `tryRefreshToken` · cold start + `scenePhase.active` restore · pre-emptive exp−60s · 401 → guest Home · **cấm** `/session-expired` · **cấm** logout khi URLError · dest **iPhone 17 Pro** **PASS**.

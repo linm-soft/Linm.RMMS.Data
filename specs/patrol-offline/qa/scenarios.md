@@ -6,13 +6,15 @@
 | this role | `qa` · `/agent-qa-mobile` |
 | status | **confirmed** |
 | packKind | **`list`** |
-| taskId | `task_694706b6` |
+| taskId | `task_53265cb6` |
+| changeScope | `edit_page` · gap=`offline_sync_apply_checkins` |
 | e2eQa | **ON** · `yarn e2e-qa-mobile` · `ios_test_phase=phase1_iphone` · **A4-IPAD DEFER** |
 | store_qa | **run_store** |
-| e2e result | **ok:true** · `2026-08-19T14:09:49.945Z` · dest **iPhone 17 Pro Max** · AVD **Pixel_2** 1080×1920 |
+| e2e result | **ok:true** · `2026-09-12T14:47:59.841Z` · dest **iPhone 17 Pro Max** · AVD **emulator-5554** |
 | method | e2e runtime · yarn e2e-qa-mobile · Maestro + simctl/adb · **cấm** GenerateImage · **cấm** yarn start:std / mfeStdUrl |
-| align | dual proto `#sc-patrol-offline` · SSOT 2 card check-in · **Aligned** |
-| updatedAt | `2026-08-19T14:10:00.000Z` |
+| align | dual proto `#sc-patrol-offline` · chrome/kit **Aligned** · list body live EmptyChrome vs demo 2-card (cleanup_mock · intentional) |
+| gap | `offline_sync_apply_checkins` · Sync = replay POST `patrol/sessions/{id}/check-ins` · offline-batch optional receipt · live pendingCount only |
+| updatedAt | `2026-09-12T14:48:06.000Z` |
 
 **Scope:** slug `patrol-offline` list `#sc-patrol-offline` only. **Cấm** AC sibling (patrol-home check-in live · incident form).
 
@@ -20,21 +22,20 @@
 
 | Gate | Result |
 |------|--------|
-| iOS `xcodegen` | **PASS** |
-| iOS `xcodebuild` dest **iPhone 17 Pro** | **PASS** |
-| Android `./gradlew :app:assembleDebug` | **PASS** |
-| Mobile.Bff `dotnet build` | **PASS** (0 warning · 0 error) |
-| Maestro iOS + Android | **PASS** · Me `row-offline` → `#sc-patrol-offline` |
-| API :5101 + BFF :5202 | **PASS** (docker) |
+| iOS prior `xcodegen` + `xcodebuild` iPhone 17 Pro | **PASS** (dev `task_8bf4b63c`) |
+| Android prior `assembleDebug` | **PASS** (dev) |
+| Mobile.Bff prior `dotnet build` | **PASS** (dev) |
+| Maestro iOS + Android | **PASS** · guest → login → Me `row-offline` → `#sc-patrol-offline` · EmptyChrome |
+| API :5101 + BFF :5202 | **PASS** (docker · healthy) |
 
 ## Device AC
 
 | ID | Expect | Result |
 |----|--------|--------|
-| AC-D-01 | Offline · list mở · seed 2 card SSOT | **PASS** (Maestro assert card copy live) |
+| AC-D-01 | Offline · list mở · live queue (empty OK) | **PASS** · EmptyChrome |
 | AC-D-02 | GPS deny | **N/A** |
 | AC-D-03 | Leave dirty | **N/A** |
-| AC-D-04 | Cấm native alert · toast only | **PASS** (code · sync/incidentEmpty toast) |
+| AC-D-04 | Cấm native alert · toast only | **PASS** (code) |
 | AC-D-05 | Keyboard | **N/A** |
 | AC-D-06 | Safe area TopBar + list | **PASS** (shots A3/P6) |
 | AC-D-07 | Biometric | **N/A** |
@@ -42,19 +43,19 @@
 | AC-D-09 | Bearer BFF prefix | **PASS** (BFF :5202) |
 | AC-D-10 | tabs none trên patrol-offline | **PASS** (shell tab only) |
 | AC-D-11 | Camera / push | **N/A** |
-| AC-D-12 | Type 13 / ≥16 | **PASS** (visual + SSOT parity) |
+| AC-D-12 | Type 13 / ≥16 | **PASS** |
 | AC-D-13 | Dual copy VN | **PASS** |
 | AC-D-14 | Cấm watermark / device label | **PASS** |
-| AC-F-01 | First launch seed 2 card · cấm re-seed | **PASS** (code + live cards) |
+| AC-F-01 | Live-only · **cấm** demo seed / hardcode «3 bản ghi» | **PASS** · EmptyChrome · live pendingCount |
 | AC-F-02 | Me `row-offline` → `#sc-patrol-offline` | **PASS** (Maestro iOS+Android) |
-| AC-F-03 | Home `tile-offline` → `#sc-patrol-offline` | **PASS** (code · route_a · ids shipped) |
-| AC-F-04 | Sync POST offline-batch + toast N | **PASS** (code · BFF proxy) |
+| AC-F-03 | Home `tile-offline` → `#sc-patrol-offline` | **PASS** (code · route_a) |
+| AC-F-04 | Sync replay POST check-ins · remove only 2xx · offline-batch optional receipt | **PASS** (code · BFF proxy · gap apply) |
 | AC-F-05 | Sync fail toast · giữ queue | **PASS** (code) |
-| AC-F-06 | A11y Maestro ids | **PASS** · `sc-patrol-offline` · `row-offline` · `nav-back` · `btn-sync` |
+| AC-F-06 | A11y Maestro ids | **PASS** · `sc-patrol-offline` · `row-offline` · `btn-sync` |
 | AC-F-07 | Cấm watermark Gói | **PASS** |
-| AC-F-08 | Segment filter checkIn/incident | **PASS** (code · LinmSegment index 0/1) |
-| AC-F-09 | Banner weak khi có pending | **PASS** (code · `offline-banner`) |
-| AC-F-10 | Status pill «Chờ gửi» ngắn | **PASS** (Maestro assert) |
+| AC-F-08 | Segment filter checkIn/incident | **PASS** (shots · LinmSegment) |
+| AC-F-09 | Banner weak khi có pending | **N/A** empty queue |
+| AC-F-10 | Status pill «Chờ gửi» | **N/A** empty |
 
 ## Store Must
 
@@ -72,18 +73,33 @@
 
 | Flow | Path | Result |
 |------|------|--------|
-| iOS | `qa/e2e/ios.yaml` | **PASS** · Me `tab-me` → `row-offline` → `#sc-patrol-offline` |
-| Android | `qa/e2e/android.yaml` | **PASS** |
+| iOS | `qa/e2e/ios.yaml` | **PASS** · guest → login → Me → EmptyChrome + hint |
+| Android | `qa/e2e/android.yaml` | **PASS** · Back+scroll `btn-login` (GAP-QA-STORE-03 fix) · EmptyChrome title |
+
+## Visual align (`/review-align-ux-ios-android`)
+
+| Zone | Demo | Live A3 / P6 | Verdict |
+|------|------|--------------|---------|
+| TopBar | «Trang Chủ» · title · «Đồng bộ» | same | **Aligned** |
+| Segment | 2 tabs Điểm tuần / Sự cố mất sóng | same | **Aligned** |
+| List body | 2 SSOT cards + weak banner | EmptyChrome live-only | **Expected delta** (cleanup_mock · **cấm** Must-fix seed) |
+| Shell tabs | 5 tabs · Me active context | same | **Aligned** |
+
+Must align: **0** · autoApprove=ON
 
 ## Gaps
 
 | ID | Note | Block complete? |
 |----|------|-----------------|
 | GAP-MOB-ACT-PAT-OFFLINE-01 | Patrol-home nav «Đồng bộ» wire khi sibling ship (stub OK P1) | **No** |
+| note | Android EmptyChrome title-only · iOS title+hint (parity optional P2) | **No** |
+| Incident apply | P2 keep pending | **No** |
 
 ## E2E screenshots
 
 Viewer: `/api/qldb/artifact?id=&rel=qa/scenarios.md` rewrite `screens/{caseId}.png`.
+
+CLI **PASS** = Maestro + PNG + store px only — **not** visual vs demo. QA **Read** A3-CORE + P6-CORE vs prototype (`/review-align-ux-ios-android`).
 
 | Case | Store | Result | Evidence |
 |------|-------|--------|----------|
@@ -96,4 +112,4 @@ Viewer: `/api/qldb/artifact?id=&rel=qa/scenarios.md` rewrite `screens/{caseId}.p
 
 ## Version meta
 
-skillId=agent-qa-mobile · skillVersion=2026.08.19.28 · workflowVersion=2026.08.19.29 · generatedAt=2026-08-19T14:10:00.000Z · taskId=task_694706b6
+skillId=agent-qa-mobile · skillVersion=2026.08.19.29 · workflowVersion=2026.08.19.29 · generatedAt=2026-09-12T14:48:06.000Z · taskId=task_53265cb6 · contentHash=sha256:patrol-offline-delta-apply-checkins-20260912

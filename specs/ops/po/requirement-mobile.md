@@ -38,7 +38,7 @@ Nguồn SSOT: data-analy `2026-08-19T11:50:00.000Z` + native live sau `task_f2c9
 | GAP-MOB-OPS-NAV-01 | Me `row-ops` + Home `LinmNotifyButton` → **push** `#sc-ops` · back pop | **keep** · AC a11y `row-ops` · `hero-tools`/`btn-notify` · `sc-ops` · `nav-back` | me · home · ops |
 | GAP-MOB-OPS-LIST-01 | List title · sub · badge Mới/Đã đọc · kit `LinmListRow` + `LinmBadge` | **keep** · dual copy SSOT 2 hàng demo | ops list |
 | GAP-MOB-OPS-READ-01 | Tap unread → POST mark-read · toast **Đã đọc chỉ đạo** · badge Đã đọc | **keep** · tap already-read = no-op | ops list |
-| GAP-MOB-OPS-DATA-01 | GET `notification/inbox` · fail/empty → demo 2 rows | **keep** · list **vẫn mở** · **cấm** crash / block Me | ops · BFF |
+| GAP-MOB-OPS-DATA-01 | GET `notification/inbox` · fail → empty+toast · empty → EmptyChrome | **keep** · list **vẫn mở** · **cấm** demo SSOT / crash / block Me | ops · BFF |
 | GAP-MOB-OPS-DEMO-01 | Dual 2 rows cùng VN copy | **keep** | prototype dual |
 | PO artifact | `requirement-mobile.md` thin (thiếu Device AC / Screens / Version meta) | **this turn** full `/agent-po-mobile` AC | po |
 | GAP-QA-OPS-IOS-01 | Maestro iOS nav **FAIL** (non-block) | **OUT expand** — lock a11y ids · sửa runtime = `/edit-mobile-feature` khi Dev/QA | qa follow-up |
@@ -56,7 +56,7 @@ Nguồn SSOT: data-analy `2026-08-19T11:50:00.000Z` + native live sau `task_f2c9
    - Ưu tiên SC-2401 · Hạt trưởng · 08:12 · Mới
    - Ca PAT-…0014 độ phủ 67% · Hệ thống · 07:50 · Đã đọc
 5. GET `mobile-bff/api/v1/notification/inbox` (`page=1` · `pageSize=50`) · bind `title` · `sender`+`sentAt` · `isUnread`. **Cấm** invent `api/v1/ops` · **cấm** app gọi RMMS `:5101`.
-6. GET fail / offline / empty live → demo 2 rows §3.4 · list **mở** · toast info **optional** · **cấm** crash · **cấm** block tab Tôi / Trang Chủ.
+6. GET fail / offline → empty + toast lỗi · GET OK empty → EmptyChrome · list **mở** · **cấm** demo SSOT · **cấm** crash · **cấm** block tab Tôi / Trang Chủ.
 7. Tap unread → POST `notification/inbox/{id}/mark-read` · toast in-app **Đã đọc chỉ đạo** · badge → **Đã đọc**. POST fail → toast error in-app · **giữ** unread UI.
 8. Tap already-read → no-op · **không** toast bắt buộc.
 9. Kit **reuse map**: `LinmTopBar` · `LinmListRow` · `LinmBadge` · `LinmToast` · entry `LinmNotifyButton`. **Cấm** raw `List`/`LazyColumn` row chrome · **cấm** M3 `Badge` · **cấm** native alert.
@@ -104,7 +104,7 @@ Nguồn `#sc-ops` dual + DA-01. UNCLEAR field = **none**.
 | badgeUnread | Mới | Badge | * | `LinmBadge` info | khi `isUnread` |
 | badgeRead | Đã đọc | Badge | * | `LinmBadge` neutral | `isUnread=false` |
 | rowTap | — | ListRow action | * | `LinmListRow` onTap | mark-read nếu unread |
-| empty | (trống) | EmptyChrome | | optional | 0 live + no demo — **không** bắt buộc P1 (fail → demo) |
+| empty | (trống) | EmptyChrome | | **required** | GET OK empty · **cấm** demo fallback |
 | toastRead | Đã đọc chỉ đạo | Toast | * | `LinmToast` | tap unread OK |
 | entryMe | Thông báo | ListRow | * | `LinmListRow` Me | `row-ops` · **cấm** reimplement Me hub |
 | entryHome | Thông báo | NotifyButton | * | `LinmNotifyButton` | `reuse=home` · **cấm** reimplement Home |
@@ -157,7 +157,7 @@ Frame: iOS 390×844 · Android 412×915 · safe area · content không đè notc
 
 | ID | Behavior | AC |
 |----|----------|-----|
-| AC-D-01 | Offline | List **mở** · demo 2 rows SSOT · toast info optional · **cấm** full-screen block · **cấm** block Me/Home |
+| AC-D-01 | Offline | List **mở** · empty + toast loadFail · **cấm** demo SSOT · **cấm** full-screen block · **cấm** block Me/Home |
 | AC-D-02 | GPS deny | **N/A** — ops không GPS |
 | AC-D-03 | Leave dirty | **N/A** — không form |
 | AC-D-04 | Native alert | **Cấm** `UIAlert` / `AlertDialog` / `window.alert`. Mọi phản hồi = `LinmToast` |
@@ -171,7 +171,7 @@ Frame: iOS 390×844 · Android 412×915 · safe area · content không đè notc
 | AC-D-12 | Type | Tab/label **13** · row title ≥ **16** · **cấm** GAP-TYP-01 |
 | AC-D-13 | Dual parity | Cùng copy VN 2 rows + title **Thông báo** + toast **Đã đọc chỉ đạo** · `#i-chevron-left` · **cấm** lệch text (`GAP-MOB-DEMO-COPY-*`) |
 | AC-D-14 | Chrome skip | **Cấm** device label «iPhone» / «· Android» · **cấm** watermark Gói |
-| AC-F-01 | Appear | GET `notification/inbox` · bind rows · fail → demo |
+| AC-F-01 | Appear | GET `notification/inbox` · bind live · fail → empty+toast · empty → EmptyChrome |
 | AC-F-02 | Entry Me | `row-ops` → `#sc-ops` · **cấm** toast-only (supersede Home/Me stub) |
 | AC-F-03 | Entry Home | `LinmNotifyButton` → `#sc-ops` · **cấm** reimplement Home |
 | AC-F-04 | Mark-read | Unread tap → POST · toast **Đã đọc chỉ đạo** · read tap no-op |

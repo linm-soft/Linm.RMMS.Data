@@ -1,0 +1,40 @@
+Running on Pixel_2
+ > Flow android
+Launch app "org.linmsoft.rmms" with clear state and clear keychain... COMPLETED
+Assert that id: sc-home is visible... COMPLETED
+Tap on id: btn-home-login... COMPLETED
+Assert that id: f-user is visible... COMPLETED
+Tap on id: f-user... COMPLETED
+Erase text... COMPLETED
+Input text linm-soft... COMPLETED
+Tap on "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"... COMPLETED
+Tap on id: f-pass... COMPLETED
+Erase text... COMPLETED
+Input text Linm@2026... COMPLETED
+Press Enter key... COMPLETED
+Wait for animation to end within 4000 ms... COMPLETED
+Tap on (Optional) id: btn-login... WARNED
+
+
+ Warning: Element not found: Id matching regex: btn-login
+Tap on (Optional) "Đăng nhập"... WARNED
+
+
+ Warning: Element not found: Text matching regex: Đăng nhập
+Assert that "Trang Chủ" is visible... COMPLETED
+Assert that id: sc-home is visible... COMPLETED
+Scrolling DOWN until id: tile-incident is visible with speed 40, visibility percentage 100%, timeout 15000 ms, with centering disabled... COMPLETED
+Tap on (Optional) id: tile-incident... COMPLETED
+Tap on (Optional) id: tab-incident... COMPLETED
+Assert that id: sc-incident-list is visible... COMPLETED
+Assert that "Quản lý vấn đề" is visible... COMPLETED
+Assert that "Danh sách" is visible... COMPLETED
+Assert that "Bản đồ" is visible... COMPLETED
+Assert that "Nhận diện mặt đường" is visible... COMPLETED
+Assert that id: inc-list-search is visible... COMPLETED
+Assert that id: row-inc-banner-vis is visible... COMPLETED
+Assert that id: fab-inc-create is visible... COMPLETED
+Take screenshot P6-CORE... COMPLETED
+Scroll vertically... COMPLETED
+Assert that id: sc-incident-list is visible... COMPLETED
+Take screenshot P6-CORE-2... COMPLETED

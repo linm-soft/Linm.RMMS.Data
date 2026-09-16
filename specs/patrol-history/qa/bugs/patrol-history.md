@@ -3,11 +3,11 @@
 | Field | Value |
 |-------|-------|
 | feature | `patrol-history` |
-| taskId | `task_7ecfbf20` |
+| taskId | `task_203672b2` |
 | status | **CLOSED** |
 | Must open | **0** |
 | align_confirm | **approve** (autoApprove=ON · QA) |
-| updatedAt | `2026-08-20T05:00:00.000Z` |
+| updatedAt | `2026-09-01T05:50:00.000Z` |
 
 ## Must
 

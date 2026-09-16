@@ -5,158 +5,207 @@
 | feature | `estimate` |
 | phase | `done` |
 | status | `done` |
-| changeScope | `new_page` |
-| packKind | `list` |
-| featureClass | `ai` (Kind B list + Kind D slideout) |
-| runMode | Autopilot ON · autoApprove **ON** · roleOnly=`review` · e2eQa **ON** · taskId=`task_f699faf1` · **closed** |
-| qaFixPhase | **closed** · re-QA **PASS** |
-| demo | `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/ai-kd/uoc-luong-sc.html` |
-| context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/estimate.md` |
-| mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.AiVision` |
-| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/ai-kd/uoc-luong-scs` · ui-schema `api/v1/open-api/catalogs/ai-estimates/ui-schema` · **cấm ERP.*** |
-| domain | **AiVision** (+ Integration CatalogUiSchema) |
-| prototype.artifact | `specs/estimate/ui/prototype/estimate-list-prototype.html` |
-| prototype.reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/estimate/ui/prototype/estimate-list-prototype.html` |
-| reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/estimate/ui/prototype/estimate-list-prototype.html` |
-| peerStdUrl | `http://localhost:9303/ai-kd/phat-hien-ts` |
-| real_view_parity | `v1` |
-| mfeStdRoute | `/ai-kd/uoc-luong-sc` |
-| mfeStdUrl | `http://localhost:9303/ai-kd/uoc-luong-sc` |
-| taskId | `task_f699faf1` |
-| contentHash | `sha256:f49800a01d06c3df4ab4058c5b2b6ecde131fe8362a040481a88daa4897e8983` |
-| skillVersion | `2026.08.18.02` |
-| schemaVersion | `4` |
-| workflowVersion | `2026.08.18.02` |
-| rulesVersion | `2026.08.16.05` |
-| skillVersions | data-analy=`2026.08.15.19` · po=`2026.08.17.02` · design=`2026.08.17.02` · sa=`2026.08.17.02` · team-lead=`2026.08.17.02` · dev=`2026.08.17.03` · qa=`2026.08.17.04` · review=`2026.08.15.17` · orchestrator=`2026.08.18.02` |
-| versionGate | `ok` |
-| updatedAt | `2026-08-17T17:31:22.012Z` |
+| changeScope | `edit_page` |
+| packKind | **`sheet`** (PO/Design/SA/TL/Dev/QA/Review prior **giữ** · surface `#sc-estimate` · `DES-MOB-EST`) · ≠ web `list` |
+| featureClass | mobile form · web prior `ai` Kind B+D **giữ** |
+| runMode | Autopilot ON · autoApprove **ON** · roleOnly=`review` **done** · review_confirm=**approve** · e2eQa **PASS** (prior QA) · taskId=`task_eb9d2de5` |
+| mode | `feature_context` · **NEW** edit · GAP-MOB-EDIT-01 labelHeader |
+| lane | **mobile** · `/agent-qldb-workflow-mobile` |
+| demo | `specs/estimate/ui/prototype/{ios,android}/index.html` `#sc-estimate` · SSOT cite mobile-p1 (demo hash **unchanged**) |
+| context | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/docs/context/features/estimate.md` |
+| mfe | — (native · **cấm** mfeStdUrl) · prior web MFE **giữ** |
+| ios | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS` |
+| android | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android` |
+| bff | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Bff` |
+| backend | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.WebService` · `api/v1/ai-vision/estimates` · `api/v1/maintenance/work-orders` · `api/v1/incident/incidents/{id}/assign` · **cấm ERP.*** |
+| domain | **AiVision** + **Maintenance** + **Incident** |
+| taskId | `task_eb9d2de5` |
+| roleOnly | `review` · `/agent-review-mobile` · **done** |
+| contentHash | `sha256:estimate-mobile-control-hint-20260901-edit01` |
+| realDataHash | `sha256:estimate-mobile-real-data-20260901-edit01` |
+| bffContentHash | `sha256:estimate-mobile-bff-20260829` (path hash-skip) |
+| actionTreeHash | `sha256:estimate-mobile-action-tree-20260829` (tree hash-skip) |
+| ctxContentHash | `sha256:b67ee5a9cc9b69577496bf04aef9446d483410141ca6c27b98f792841ddb5ece` |
+| demoContentHash | `sha256:394ab44597648f04b25e6d58476378c16141feb53d3b58d39923b3defcff8328` |
+| reviewHash | `sha256:est-mob-rev-20260901-taskeb9d2de5` |
+| skillVersion | `2026.08.29.1` |
+| schemaVersion | `2` |
+| workflowVersion | `2026.08.29.1` |
+| rulesVersion | `2026.08.29.5` |
+| skillVersions | review-mobile=`2026.08.25.01` · qa-mobile=`2026.08.25.01` · dev-ios=`2026.08.29.1` · tl-mobile=`2026.08.29.1` · sa-mobile=`2026.08.20.03` · design-mobile=`2026.08.25.01` · po-mobile=`2026.08.25.01` · data-analy-mobile=`2026.08.25.01` · prior roles **giữ** |
+| versionGate | `rechecked` |
+| updatedAt | `2026-09-16T13:55:00.000Z` |
 ## Lock
 
 | agent | scope | id | at |
 |-------|-------|-----|-----|
 | — | — | — | — |
 
-## Confirms (packet HARD — autoApprove=ON design/sa/review · be/ui **không auto** · **cấm** autoApprove `qa_fail_rollback` / `qa_fix_plan`)
+## Confirms (packet HARD — autoApprove=ON design/sa/review · **cấm** autoApprove `qa_fail_rollback` / `qa_fix_plan`)
 
 | Key | Value | Notes |
 |-----|-------|-------|
-| beRepo | **confirmed** | prior Dev · `Linm.RMMS.WebService` · **cấm ERP.*** |
-| uiRepo | **confirmed** | prior Dev · MFE `Linm.Web.RMMS.AiVision` |
-| autoApprove | **ON** | design/sa/review only · **không** skip qa_fix_plan |
-| design_confirm | **approve** | prior board |
-| solution_confirm | **approve** | autoApprove=ON |
-| route_confirm | **route_a** | `/ai-kd/uoc-luong-sc` (locked) |
-| review_confirm | **approve** | `/agent-review` · `task_f699faf1` · Config FULL + QA PASS |
-| qa_fail_rollback | **approved** | prior · Config fix done |
-| qa_fix_plan | **approved** | implemented + re-QA PASS |
-| e2eQa | **ON** | std + docker + screenshot · **PASS** |
+| beRepo | **confirmed** | prior · `Linm.RMMS.WebService` · **cấm ERP.*** |
+| uiRepo | **confirmed** Design dual | prior |
+| autoApprove | **ON** | design/sa/review only |
+| design_confirm | **approve** | dual labelHeader lock · GAP-MOB-EDIT-01 · `task_18e9655b` · prior history **giữ** |
+| solution_confirm | **approve** | `task_e5be941e` · paths **unchanged** · GAP-MOB-EDIT-01 UX-only |
+| ios_repo_confirm | **confirmed** | reuse |
+| android_repo_confirm | **confirmed** | reuse |
+| route_confirm | **route_a** | mnt-list + incident CTA → `#sc-estimate` · **giữ** this edit |
+| qa_fail_rollback | **approved** | prior |
+| qa_fix_plan | **approved** | prior |
+| review_confirm | **approve** | `task_eb9d2de5` · GAP-MOB-EDIT-01 · prior `task_0d408356` **giữ** |
+| align_confirm | **approve** | Must 0 · QA Aligned · AC-F-13 |
+| e2eQa | **PASS** | `yarn e2e-qa-mobile` ok:true · `2026-09-01T15:00:18.091Z` · visual Aligned · AC-F-13 |
+| version_mismatch_action | **recheck_new** | applied |
+| sa_tz_gate | **tz_required** | DueAt UTC wire · display VN |
+| sa_xco_gate | **xco_na** | |
+| sa_shared_table | **share_tenant** | reuse Estimate/Line/WO/Incident |
 
-### SA implement gates (confirmed stamp)
+### Prior web confirms (giữ — closed `task_f699faf1`)
 
 | Gate | Decision |
 |------|----------|
-| sa_tz_gate | `tz_required` |
-| sa_xco_gate | `xco_get_only` |
-| sa_shared_table | `share_tenant` |
+| design_confirm (web) | approve |
+| solution_confirm (web) | approve |
+| review_confirm (web) | approve |
+| route_confirm (web) | `/ai-kd/uoc-luong-sc` |
 
 ## Pipeline
 
 | Step | Agent | Artifact | Status | skillVer | versionGate |
 |------|-------|----------|--------|----------|-------------|
-| 0b | data-analy | `_data-analy/features/estimate-control-hint.md` | **done** · confirmed | 2026.08.15.19 | ok |
-| 1 | po | po/requirement.md | **done** | 2026.08.17.02 | ok |
-| 2.1 | design | ui/design.md + prototype + reviewUrl | **done** · design_confirm=approve | 2026.08.17.02 | ok |
-| 2.2 | sa | be/solution-discovery.md | **done** · solution_confirm=approve | 2026.08.17.02 | ok |
-| 3 | team-lead | task/estimate.md | **done** · confirmed | 2026.08.17.02 | ok |
-| 4 | dev | implement/estimate.md | **done** · Config FULL | 2026.08.17.03 | ok |
-| 4b | dev | implement/estimate-qa-fix-plan.md | **done** · approved + implemented | 2026.08.17.03 | ok |
-| 5 | qa | qa/scenarios.md | **done** · **PASS** · e2e 21/21 | 2026.08.17.04 | ok |
-| 6 | review | review/findings.md | **done** · **approve** | 2026.08.15.17 | ok |
+| 0b | data-analy-mobile | `_data-analy/estimate-{control-hint,bff,real-data,action-tree}.md` + compact | **done** | 2026.08.25.01 | ok |
+| 1 | po-mobile | `po/requirement.md` § Current vs New (GAP-MOB-EDIT-01) · compact | **done** | 2026.08.25.01 | ok |
+| 2.1 | design-mobile | ui/design + prototype dual + ux · labelHeader lock | **done** | 2026.08.25.01 | ok |
+| 2.2 | sa-mobile | be/solution-discovery · paths skip · GAP-MOB-EDIT-01 | **done** | 2026.08.20.03 | ok |
+| 3 | tl-mobile | task/estimate.md · T-IOS/AND-LABEL · compact | **done** | 2026.08.29.1 | ok |
+| 4 | dev-ios+android | implement labelHeader dual | **done** | 2026.08.29.1 | ok |
+| 4b–4c | — | — | **n/a** this edit (UX) | — | — |
+| 5 | qa-mobile | scenarios + e2e · AC-F-13 | **done** | 2026.08.25.01 | ok |
+| 6 | review-mobile | findings + compact · approve | **done** | 2026.08.25.01 | ok |
+
+### Prior web pipeline (giữ — **không** xóa)
+
+| Step | Agent | Artifact | Status |
+|------|-------|----------|--------|
+| 0b→6 | web | `specs/estimate/{po→requirement-web,…}` · `_data-analy/features/estimate-control-hint.md` | **done** · closed `task_f699faf1` |
 
 ## Tasks
 
 | id | page | role | deps | status | notes |
 |----|------|------|------|--------|-------|
-| task_8e7c2042 | estimate | po | data-analy | **completed** | roleOnly=po · requirement.md done |
-| task_c88d66ca | estimate | design | po | **completed** | roleOnly=design · design_confirm=approve |
-| task_ecb4792c | estimate | sa | design | **completed** | roleOnly=sa · solution-discovery · solution_confirm=approve |
-| task_a88111e4 | estimate | team-lead | sa | **completed** | roleOnly=team_lead · task/estimate.md |
-| task_674bb928 | estimate | dev | TL | **completed** | roleOnly=dev · implement · Config stub |
-| task_482fbe3a | estimate | qa | Dev | **failed** | e2eQa ON · **GAP-P2-CC-06** · trả Dev |
-| task_e4f4dd95 | estimate | review | QA | **failed** | reject P0 Config · trả Dev |
-| task_552b72f8 | estimate | dev | task_482fbe3a | **completed** | qaFailFix=1 · qaFixPhase=plan · estimate-qa-fix-plan.md |
-| task_5554ab03 | estimate | dev | qa_fix_plan Approve | **completed** | qaFixPhase=implement · Config FULL · BE seed `ai-estimates` · build PASS |
-| task_1c6c0433 | estimate | qa | task_5554ab03 | **completed** | e2eQa ON · QA-CFG **PASS** · 21 screens · verdict PASS |
-| task_f699faf1 | estimate | review | task_1c6c0433 | **completed** | autoApprove=ON · review_confirm=approve · Config FULL closed |
+| task_eb9d2de5 | estimate | review | task_0a79076c | **completed** | roleOnly · `/agent-review-mobile` · approve · GAP-MOB-EDIT-01 |
+| task_0a79076c | estimate | qa | task_2b81d5ff | **completed** | roleOnly · `/agent-qa-mobile` · e2e PASS · visual Aligned · AC-F-13 |
+| task_2b81d5ff | estimate | dev | tl | **completed** | roleOnly · `/agent-dev-ios`+`/agent-dev-android` · **GAP-MOB-EDIT-01** labelHeader dual |
+| task_93fd2561 | estimate | tl | sa | **completed** | roleOnly · `/agent-tl-mobile` · edit_page · **GAP-MOB-EDIT-01** · T-IOS/AND-LABEL |
+| task_e5be941e | estimate | sa | design | **completed** | roleOnly · `/agent-sa-mobile` · edit_page · **GAP-MOB-EDIT-01** · paths skip |
+| task_18e9655b | estimate | design | po | **completed** | roleOnly · `/agent-design-mobile` · edit_page · **GAP-MOB-EDIT-01** labelHeader |
+| task_eadacecf | estimate | po | data_analy | **completed** | roleOnly · `/agent-po-mobile` · edit_page · **GAP-MOB-EDIT-01** |
+| task_210a31d6 | estimate | data_analy | — | **completed** | roleOnly · `/agent-data-analy-mobile` · edit_page · **GAP-MOB-EDIT-01** |
+| task_b0b56370 | estimate | data_analy | — | **completed** | prior mobile sheet · **giữ** |
+| task_5338c2be | estimate | po | data_analy | **completed** | prior · **giữ** · re-open chain via new PO task |
+| task_c0fb308d | estimate | design | po | **completed** | prior · **giữ** |
+| task_9f669577 | estimate | sa | design | **completed** | prior · **giữ** |
+| task_cc28db20 | estimate | tl | sa | **completed** | prior · **giữ** |
+| task_59d13884 | estimate | dev | tl | **completed** | prior · **giữ** |
+| task_a89bc544 | estimate | qa | dev | **failed** | prior · closed via re-QA |
+| task_bb0c0524 | estimate | dev | task_a89bc544 | **completed** | qaFix plan · **giữ** |
+| task_8ab3d7ec | estimate | dev | task_bb0c0524 | **completed** | qaFix implement · **giữ** |
+| task_992add79 | estimate | qa | task_8ab3d7ec | **completed** | prior PASS · **giữ** |
+| task_0d408356 | estimate | review | task_992add79 | **completed** | prior approve · **giữ** · superseded confirm by `task_eb9d2de5` |
+| task_f699faf1 | estimate | review (web) | — | **completed** | prior web · **giữ** |
 
 ## Blockers / open questions
 
-- **P0 Config FULL:** **CLOSED** (Review approve) — `LinCatalogUiSchemaEditorModal` + `useCatalogUiSchema` + BE seed `ai-estimates` · **no** `configHint`
-- **T-UI-FILTER-01 / T-QA-FILTER-01:** **PASS**
-- **GAP-QA-MIG-EST-01 (P2):** hand migration Estimates thiếu Designer → EF skip · SQL applied in QA env · accept
-- UnitPriceCatalog **DEFER P2**
-- Auto WO / `estimate.created` **DEFER P2**
-- `[RequirePermission]` when CommonLib ready · accept P2
-- Lab `.env` `RMMS_API_BASE=host…:5101` breaks BFF→API — use `http://linm-rmms-api:8080` for compose E2E
+| ID | Issue | Decision / next |
+|----|-------|-----------------|
+| **GAP-MOB-EDIT-01** | Label header trên mọi input `#sc-estimate` | **Review closed** · AC-F-13 · approve |
+| **GAP-MOB-EST-WO-02** | Giao việc submit fail | **closed this edit** · PUT/confirm best-effort · POST WO primary |
+| **GAP-MOB-EST-NAV-04** | list assign nhảy tab / drop id | **closed this edit** · `#btn-inc-assign` → `#sc-estimate` + `item.id` |
+| **GAP-MOB-EST-NAV-02** | iOS incident CTA nhảy tab | **closed this edit** · push cùng parent stack |
+| **GAP-MOB-EST-NAV-03** | create CTA empty incidentId | **closed this edit** · postedIncidentId |
+| **GAP-MOB-EST-SEED-02** | seed fail empty lines | **closed this edit** · demo SSOT qty/giá |
+| **GAP-MOB-EST-RO-01** | Android derived editable | **closed this edit** · enabled=false |
+| Prior CLOSED | GAP-MOB-EST-* · R-QA-* · Review prior | **giữ closed** · **cấm** reopen |
+| DEFER | A4-IPAD · offline draft · staff lookup | Phase 1 / P2 |
 
 ## Links
 
-- Control hint: `specs/_data-analy/features/estimate-control-hint.md`
-- PO: `specs/estimate/po/requirement.md`
-- Design: `specs/estimate/ui/design.md`
-- Prototype / reviewUrl: `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/estimate/ui/prototype/estimate-list-prototype.html`
-- SA: `specs/estimate/be/solution-discovery.md`
-- TL: `specs/estimate/task/estimate.md`
-- Dev: `specs/estimate/implement/estimate.md`
-- **QA fix plan:** `specs/estimate/implement/estimate-qa-fix-plan.md`
-- QA: `specs/estimate/qa/scenarios.md`
-- QA screens: `specs/estimate/qa/screens/`
-- Review: `specs/estimate/review/findings.md`
-- DOMAIN-MAP: `D:/AI-QLBD/Linm.RMMS.WebService/docs/DOMAIN-MAP.md`
-- peerStdUrl: `http://localhost:9303/ai-kd/phat-hien-ts`
-- mfeStdUrl: `http://localhost:9303/ai-kd/uoc-luong-sc`
-- mfeStdRoute: `/ai-kd/uoc-luong-sc`
+- **Handoff review:** `specs/estimate/handoff/review-compact.md`
+- **Handoff qa:** `specs/estimate/handoff/qa-compact.md`
+- **Handoff dev:** `specs/estimate/handoff/dev-compact.md`
+- **Handoff tl:** `specs/estimate/handoff/team_lead-compact.md`
+- **Handoff sa:** `specs/estimate/handoff/sa-compact.md`
+- **Handoff design:** `specs/estimate/handoff/design-compact.md`
+- **Handoff po:** `specs/estimate/handoff/po-compact.md`
+- **Handoff data_analy:** `specs/estimate/handoff/data_analy-compact.md`
+- Review: `specs/estimate/review/findings.md` · `REVIEW-META.json`
+- QA: `specs/estimate/qa/scenarios.md` · `qa/store/estimate/`
+- Implement: `specs/estimate/implement/{ios,android}.md`
+- Mobile control hint: `specs/_data-analy/estimate-control-hint.md`
+- Mobile BFF: `specs/_data-analy/estimate-bff-endpoints.md`
+- Mobile real-data: `specs/_data-analy/estimate-real-data.md`
+- Mobile action-tree: `specs/_data-analy/estimate-action-tree.md`
+- Solution: `specs/estimate/be/solution-discovery.md`
+- Task: `specs/estimate/task/estimate.md`
+- Design: `specs/estimate/ui/design.md` · ux · html-to-native-map · demo-parity
+- Dual prototype: `specs/estimate/ui/prototype/{ios,android}/index.html`
+- Demo SSOT cite: `specs/mobile-p1/ui/prototype/{ios,android}/index.html` `#sc-estimate`
+- CTX: `docs/context/features/estimate.md`
+- **Next:** — · `/edit-mobile-feature` · WO-02 Giao việc submit locked
+- **Queue:** `task_eb9d2de5` review → **completed**
 
-## Handoff → closed (`task_f699faf1` done)
+## Handoff → close (`task_eb9d2de5` review done)
 
 | Field | Value |
 |-------|-------|
 | feature | `estimate` |
-| this role | `review` · `/agent-review` · **approve** (`task_f699faf1`) |
-| next | **none** · pipeline closed |
-| must-verified | Config FULL · QA-CFG · list parity · no ERP.* · build PASS |
-| Review | `specs/estimate/review/findings.md` · review_confirm=approve |
-| QA | `specs/estimate/qa/scenarios.md` · screens 21/21 · PASS |
-| BE | `Linm.RMMS.WebService` · AiVision + Integration · **cấm ERP.*** |
-| MFE | `Linm.Web.RMMS.AiVision` |
+| this role | `review` · **done** |
+| next | — · pipeline closed |
+| must-read | `handoff/review-compact.md` · `review/findings.md` |
+| delta | review_confirm=**approve** · align_confirm=**approve** · GAP-MOB-EDIT-01 closed |
+| priorWeb | web artifacts **giữ** |
 
-## Verify
+## Verify (review phase)
 
 | Gate | Result |
 |------|--------|
-| Role | review · after QA PASS |
-| Gaps P0 | **none open** · R-CFG-* / R-QA-01 closed |
+| Role | review-mobile only · **PASS** |
+| artifact | `review/findings.md` · `REVIEW-META.json` · `handoff/review-compact.md` · **PASS** |
+| review_confirm | **approve** |
+| align_confirm | **approve** · Must 0 |
+| e2e / yarn build / start:std | **none** (cấm Review) |
+| Step 4b / migration | **none** |
 | ERP.* | **none** |
-| MFE typecheck | **PASS** |
-| MFE build | **PASS** (size warnings only) |
-| Prior QA e2e | **PASS** 21/21 · QA-CFG |
+| Chain other role | **không** (GAP-PKT-ROLE-01) |
 
 ## Resume / closeout
 
-- closeout Review: `task_f699faf1` · roleOnly=`review` · review_confirm **approve** · pipeline **closed** · at: `2026-08-17T17:28:23.648Z`
+- closeout review (edit): `task_eb9d2de5` · roleOnly=`review` · review_confirm=approve · align_confirm=approve · GAP-MOB-EDIT-01 · at: `2026-09-01T15:10:00.000Z`
+- closeout qa (edit): `task_0a79076c` · roleOnly=`qa` · e2e PASS · visual Aligned · AC-F-13 · at: `2026-09-01T15:03:00.000Z`
+- closeout dev (edit): `task_2b81d5ff` · roleOnly=`dev` · GAP-MOB-EDIT-01 labelHeader dual · VERIFY PASS · at: `2026-09-01T14:51:45.000Z`
+- closeout tl (edit): `task_93fd2561` · roleOnly=`team_lead` · GAP-MOB-EDIT-01 · T-IOS/AND-LABEL · at: `2026-09-01T14:44:00.000Z`
+- closeout sa (edit): `task_e5be941e` · roleOnly=`sa` · GAP-MOB-EDIT-01 · paths skip · at: `2026-09-01T14:41:00.000Z`
+- closeout design (edit): `task_18e9655b` · roleOnly=`design` · GAP-MOB-EDIT-01 · at: `2026-09-01T14:35:44.000Z`
+- closeout po (edit): `task_eadacecf` · roleOnly=`po` · GAP-MOB-EDIT-01 · at: `2026-09-01T14:32:22.000Z`
+- closeout data_analy (edit): `task_210a31d6` · roleOnly=`data_analy` · GAP-MOB-EDIT-01 · at: `2026-09-01T14:28:40.000Z`
+- closeout Review mobile (prior): `task_0d408356` · review_confirm=approve · at: `2026-09-01T09:26:00.000Z`
+- closeout data_analy (prior): `task_b0b56370` · at: `2026-08-29T04:20:00.000Z`
 
 ## Version meta (REQUIRED)
 
 | Field | Value |
 |-------|-------|
-| skillId | orchestrator |
-| skillVersion | 2026.08.18.02 |
-| schemaVersion | 4 |
-| workflowVersion | 2026.08.18.02 |
-| rulesVersion | 2026.08.16.05 |
-| generatedAt | 2026-08-17T17:28:23.648Z |
-| versionGate | ok |
+| skillId | agent-review-mobile |
+| skillVersion | 2026.08.25.01 |
+| schemaVersion | 2 |
+| workflowVersion | 2026.08.29.1 |
+| rulesVersion | 2026.08.29.5 |
+| generatedAt | 2026-09-01T15:10:00.000Z |
+| versionGate | rechecked |
+| taskId | task_eb9d2de5 |
 
 ---
-<!-- Version meta: skillVersion=2026.08.18.02 · schemaVersion=4 · workflowVersion=2026.08.18.02 · versionGate=ok -->
+<!-- Version meta: skillVersion=2026.08.25.01 · schemaVersion=2 · workflowVersion=2026.08.29.1 · versionGate=rechecked · skillId=agent-review-mobile · taskId=task_eb9d2de5 -->

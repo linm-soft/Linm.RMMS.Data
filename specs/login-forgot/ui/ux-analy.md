@@ -1,5 +1,7 @@
 # UX analy — login-forgot
 
+> **LIVE LOCK 2026-09-16** — `#sc-forgot` = nav + brand + **1 dòng** «Liên hệ admin để được cung cấp». **Cấm** worker restore phone/OTP/MK từ packet cũ.
+
 **Sources:** `ui/prototype/ios` · `ui/prototype/android` · `ui/design.md` · entry parent `specs/login/ui/prototype/{ios,android}#sc-login`  
 **Brand tokens:** primary `#0C84C0` · success `#3CB448` · danger `#F03C30` · surface iOS `#F2F2F7` · surface Android `#FFFBFE`
 
@@ -8,10 +10,8 @@
 ```
 (auth) Login shell (#sc-login)
   → tap «Quên mật khẩu?»
-  → Forgot full-page (#sc-forgot) step request
-  → CTA «Gửi mã» OK → step reset (cùng màn · cùng slug)
-  → CTA «Đặt lại mật khẩu» 200 → toast → pop Login
-Back / leave confirm Đồng ý → Login
+  → Forgot full-page (#sc-forgot) contact line
+Back → Login
 ```
 
 - Forgot **không** nằm trong TabView / NavigationBar 5.
@@ -23,10 +23,9 @@ Back / leave confirm Đồng ý → Login
 
 | DES / sc-* | Tên VN | iOS chrome | Android chrome | CTA |
 |------------|--------|------------|----------------|-----|
-| DES-MOB-FORGOT `#sc-forgot` | Quên mật khẩu | Nav inline + back · no tab | Top bar + back · no nav bar | Gửi mã / Đặt lại |
+| DES-MOB-FORGOT `#sc-forgot` | Quên mật khẩu | Nav inline + back · no tab | Top bar + back · no nav bar | Back |
 | DES-MOB-FORGOT-BRAND | Brand | Logo 96 + title | Same | — |
-| DES-MOB-FORGOT-REQUEST | Request | phone 52 · hint | phone 52 · hint | **Gửi mã** |
-| DES-MOB-FORGOT-RESET | Reset | otp · secure×2 + eye | Same | **Đặt lại mật khẩu** |
+| DES-MOB-FORGOT-CONTACT | Contact | Static muted | Same | — |
 
 ## 3. Zone
 
@@ -36,16 +35,8 @@ Back / leave confirm Đồng ý → Login
 |------|------------------|------------------------------|---------|---------|
 | Header | «Quên mật khẩu» · **Quay lại** | A top bar / nav | Nav title + back | TopAppBar + back |
 | Brand | `app-logo.png` · «Quản lý bảo trì đường bộ» | B `img` · A static text | Logo AppIcon · title uppercase | same |
-| Body phone (step 1) | placeholder **Số điện thoại** · tel | B `input type=tel` / text | `LinmTextField` | `LinmTextField` |
-| CTA send | **Gửi mã** full width | A `.btn-ok` / B `button` primary | `LinmPrimaryButton` `isBusy` | same |
-| Hint | copy demo step 1 | A static | Text secondary | Text |
-| Body otp (step 2) | placeholder **Mã xác thực** | B `input type=text` | `LinmTextField` | same |
-| Body new pass | **Mật khẩu mới** · lead lock · eye | B `input type=password` + `.trail` | **`LinmSecureTextField`** | **`LinmSecureTextField`** |
-| Body confirm | **Xác nhận mật khẩu** · lead · eye | B password + eye | **`LinmSecureTextField`** | same |
-| CTA reset | **Đặt lại mật khẩu** | A `.btn-ok` | `LinmPrimaryButton` `isBusy` | same |
-| Toast | client / Auth / offline | A toast | `LinmToast` | `LinmToast` |
-| Leave | dirty step 2 Back | A leave modal | `LinmLeaveConfirm` | `LinmLeaveConfirm` |
-| Busy | POST in-flight | A loading full page | `LinmBusyOverlay` | `LinmBusyOverlay` |
+| Body contact | **Liên hệ admin để được cung cấp** | A static | Text muted `forgot-contact` | Text |
+| Toast / leave / OTP fields | **không** trên live | — | — | — |
 
 **Không** zone: tín hiệu · «bản Gói N» · device label · ô SĐT step 2 · tab 5.
 
@@ -53,13 +44,11 @@ Back / leave confirm Đồng ý → Login
 
 | State | Hành vi |
 |-------|---------|
-| default | step request · phone trống |
-| empty | validate toast · no BFF |
-| loading | busy overlay / button `isBusy` khi POST |
-| error | `LinmToast` Auth 4xx · stay |
-| offline | toast **Không có mạng** · **cấm** queue |
+| default | contact line · không input |
+| empty | N/A — không form |
+| loading | N/A — không POST từ UI |
 | permission | N/A (không GPS/camera) |
-| leave dirty | step 2 đã gõ OTP hoặc MK → `LinmLeaveConfirm` · step 1 pop thẳng |
+| leave dirty | N/A — Back pop Login |
 
 ## 4. Copy SSOT
 
@@ -69,7 +58,7 @@ Nhãn lấy từ HTML — không invent.
 |---------|-----------------|
 | Quản lý bảo trì đường bộ | Hiện trường · iPhone / · Android |
 | Quên mật khẩu | Forgot password |
-| Số điện thoại · Gửi mã | Phone / Send code EN |
+| Liên hệ admin để được cung cấp | Số điện thoại · Gửi mã · OTP live |
 | Mã xác thực · Mật khẩu mới · Xác nhận mật khẩu | OTP / New password EN |
 | Đặt lại mật khẩu · Quay lại | Reset / Back EN only |
 | Nhập số điện thoại | invent empty copy khác |
@@ -118,7 +107,7 @@ Brand **tĩnh**. Eye **giữ IME**. **Cấm** brand animation / watermark motion
 
 | ID | Demo vs native | Quyết định |
 |----|----------------|------------|
-| GAP-MOB-BFF-01 | Auth package thiếu forgot/reset | **Đóng pack này** — BFF thin proxy (SA/Dev) · UI path `auth/forgot-password` / `auth/reset-password` |
+| GAP-MOB-EDIT-FORGOT-01 | OTP form vs Store 2.1 (SMS chưa live) | **closed 2026-09-16** — ẩn input · 1 dòng contact admin |
 | GAP-MOB-ACT-01/02 | gộp login / 2 slug steps | **Không** — 1 hyperlink = 1 slug · steps cùng `#sc-forgot` |
 | GAP-MOB-ACT-05 | kit text/password/button/toast | **reuse map** · `kit_missing_confirm` N/A |
 | GAP-MOB-UX-07 | design stub vs HTML | **closed** — design.md khớp dual `#sc-forgot` + leave + eye |

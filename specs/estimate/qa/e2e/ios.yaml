@@ -1,0 +1,121 @@
+appId: org.linmsoft.rmms
+---
+# estimate · store A11/A9/A3 · guest → login → tile-mnt → hub/card → #sc-estimate
+# packKind sheet→screen · cấm A3 trước login · cấm mfeStdUrl / start:std · cấm sibling chat/progress/log
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 20000
+- takeScreenshot: A11-LAUNCH
+- tapOn:
+    id: "btn-home-login"
+- extendedWaitUntil:
+    visible:
+      id: "f-user"
+    timeout: 15000
+- tapOn:
+    id: "f-user"
+- eraseText
+- inputText: "linm-soft"
+- tapOn:
+    text: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
+    optional: true
+- tapOn:
+    id: "f-pass"
+- eraseText
+- inputText: "Linm@2026"
+- tapOn:
+    text: "Not Now"
+    optional: true
+- takeScreenshot: A9-LOGIN
+- tapOn:
+    id: "btn-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
+- tapOn:
+    text: "Not Now"
+    optional: true
+- pressKey: Enter
+- waitForAnimationToEnd:
+    timeout: 4000
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 45000
+- scrollUntilVisible:
+    element:
+      id: "tile-mnt"
+    direction: DOWN
+    timeout: 15000
+    optional: true
+- tapOn:
+    id: "tile-mnt"
+    optional: true
+- tapOn:
+    id: "tab-work"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-mnt-list"
+    timeout: 25000
+- assertVisible: "Danh sách công việc"
+- assertVisible:
+    id: "row-mnt-hub"
+- tapOn:
+    id: "btn-mnt-sum-demo-wo-1"
+    optional: true
+- tapOn:
+    id: "row-mnt-hub"
+    optional: true
+- tapOn:
+    text: "Giao việc xử lý"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-estimate"
+    timeout: 25000
+- assertVisible: "Giao việc xử lý"
+- assertVisible:
+    id: "row-from-incident"
+- assertVisible:
+    id: "row-asset-type"
+- assertVisible:
+    id: "input-assignee"
+- assertVisible:
+    id: "input-qty"
+- assertVisible:
+    id: "input-unit-price"
+- assertVisible:
+    id: "input-total"
+- assertVisible:
+    id: "btn-assign"
+- assertVisible:
+    id: "btn-draft"
+- tapOn:
+    id: "input-assignee"
+- eraseText
+- inputText: "Nguyễn Văn A · Tổ tuần đường"
+- tapOn:
+    id: "input-qty"
+- eraseText
+- inputText: "12.5"
+- tapOn:
+    id: "input-unit-price"
+- eraseText
+- inputText: "850000"
+- tapOn:
+    text: "Giao việc xử lý"
+    optional: true
+- assertVisible:
+    id: "sc-estimate"
+- takeScreenshot: A3-CORE
+- scroll
+- assertVisible:
+    id: "btn-draft"
+- assertVisible:
+    id: "btn-assign"
