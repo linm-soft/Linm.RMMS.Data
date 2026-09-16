@@ -1,6 +1,6 @@
 # Dev — Implement — asset-kcht-dashboard (iOS)
 
-> Status: **in_progress** · `/edit-mobile-feature` · hồ sơ tài sản hang-mục parity web
+> Status: **done** · `/edit-mobile-feature` · hồ sơ tài sản hang-mục parity web
 
 | Feature | `asset-kcht-dashboard` (mobile) · entry `asset-hub` |
 | dest | **iPhone 17 Pro Max** |
@@ -10,7 +10,7 @@
 
 ## Summary
 
-Màn `#sc-asset-kcht` **Hạng mục KCHT**: 40 ô (icon tròn · nhãn · count vi-VN) khớp web `KCHT_TILES` `/so-ts/hang-muc`. Entry: hub wallet **HỒ SƠ TÀI SẢN** + tile **32 loại tài sản**. Count live: `GET asset/road-assets/summary-by-type` + `integration/road-routes` + `asset/pavement-sections`. Tap loại TS → `asset-list?type=`. Gap/report/tuyến/đoạn → toast. Step 4b **N/A**.
+Màn `#sc-asset-kcht` **Hạng mục KCHT**: 40 ô stats (icon tròn · nhãn · count vi-VN) khớp web `KCHT_TILES` `/so-ts/hang-muc`. Entry: hub wallet **HỒ SƠ TÀI SẢN** + tile **32 loại tài sản**. Count live: `GET asset/road-assets/summary-by-type` + `integration/road-routes` + `asset/pavement-sections`. **Cấm** tap card. Back TopBar only. Step 4b **N/A**.
 
 ## Files
 
@@ -24,4 +24,6 @@ Màn `#sc-asset-kcht` **Hạng mục KCHT**: 40 ô (icon tròn · nhãn · count
 
 ## Notes
 
-Build dest **iPhone 17 Pro Max** — xem log turn này.
+`xcodegen generate && xcodebuild -scheme LinmRmms -destination 'platform=iOS Simulator,name=iPhone 17 Pro Max' build` → **PASS** 2026-09-16.
+
+Hành vi: hub wallet/tile push `#sc-asset-kcht` · 40 card 1 cột **display-only** · count live / «—» khi nguồn lỗi · **cấm** tap / drill.

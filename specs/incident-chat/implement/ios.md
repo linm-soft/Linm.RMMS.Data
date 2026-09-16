@@ -13,7 +13,7 @@
 - Entry: `IncidentListViewModel.chat` → `setOnOpenChat` · **không** toast  
 - Dest A4 iPhone 17 Pro Max · `xcodebuild` **BUILD SUCCEEDED**  
 - **GAP-MOB-CHAT-HDR-01:** `.toolbar(.hidden, for: .navigationBar)` + `.navigationBarBackButtonHidden(true)` — **1** `LinmTopBar`  
-- **GAP-MOB-CHAT-IME-01:** composer `.safeAreaInset(edge: .bottom)` — pin trên IME  
+- **GAP-MOB-CHAT-IME-01:** `linmChatImeFlush()` — extra = keyboard − consumedBottom  
 
 ## Cấm revert
 

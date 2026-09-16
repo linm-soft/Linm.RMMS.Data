@@ -9,7 +9,7 @@
 | packKind | `screen` (chat) |
 | stack | `native_dual` |
 | status | **confirmed** · DES-MOB-MNT-CHAT |
-| updatedAt | `2026-09-16T14:25:00.000Z` |
+| updatedAt | `2026-09-16T14:45:00.000Z` |
 
 ## DES-MOB-MNT-CHAT
 
@@ -21,11 +21,11 @@ Full screen `#sc-mnt-chat` (không bottom-sheet chrome — composer phải pin �
 | Sub | WO title · code | API / seed — **cấm** `t()` · **không** đếm là header thứ 2 |
 | Thread | `LinmChatThread` · `LinmChatBubble` | mine = `primary`/`onPrimary` · theirs = `card`/`onSurface` · time `metaFont`/`muted` |
 | Empty | | `mnt.chat.empty` |
-| Composer | `LinmChatComposer` paper-plane | `mnt.chat.placeholder` · `mnt.chat.send` · **pin trên IME** (`GAP-MOB-CHAT-IME-01`) — Android `imePadding` + `ADJUST_NOTHING` · iOS `safeAreaInset(edge: .bottom)` · **cấm** `ignoresSafeArea(.keyboard)` |
+| Composer | `LinmChatComposer` paper-plane | `mnt.chat.placeholder` · `mnt.chat.send` · **flush IME** (`GAP-MOB-CHAT-IME-01`) — extra = `max(0, ime − consumedBottom)` (tab/nav đã trừ) · Android `linmChatImeFlush` · iOS `linmChatImeFlush` · **cấm** raw `imePadding` / `safeAreaInset` đếm trùng tab |
 | Entry | parent `#i-chat` | `btn-mnt-chat-{id}` · **cấm** toast |
 
 ## Cấm revert
 
 Worker **cấm** ghi lại toast-only / `session.showToast(mnt.list.toast.chat)` làm hành vi chính.  
 Worker **cấm** hiện 2 header (system back + `LinmTopBar`) — iOS `.toolbar(.hidden, for: .navigationBar)` + `.navigationBarBackButtonHidden(true)` · Android **không** `topBar` trên Scaffold cha.  
-Worker **cấm** để composer chìm dưới bàn phím (`GAP-MOB-CHAT-IME-01`).
+Worker **cấm** để composer chìm dưới bàn phím **hoặc** cách IME một khoảng tab bar (`GAP-MOB-CHAT-IME-01`).

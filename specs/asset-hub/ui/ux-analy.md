@@ -24,7 +24,7 @@ Login → Tab 5 (Trang Chủ selected)
 |------------|--------|------------|----------------|-----|
 | DES-MOB-ASSET-HUB `#sc-asset-hub` | Tài sản | nav solid · back text | top-bar · icon back | wallet + grids + AI |
 | DES-MOB-ASSET-WALLET | Ví hồ sơ | gradient card | same | tap → kcht |
-| DES-MOB-ASSET-KCHT `#sc-asset-kcht` | Hạng mục KCHT | 1 cột card 40 ô | same | count live · drill loại → list |
+| DES-MOB-ASSET-KCHT `#sc-asset-kcht` | Hạng mục KCHT | 1 cột card 40 ô | same | count live · **cấm** tap |
 | DES-MOB-ASSET-GRID | Hub tiles | 2×2 ×3 section | same | toast sibling |
 | DES-MOB-ASSET-MAP-ROW | Bản đồ tài sản | list row + chevron | list row | toast **Bản đồ tài sản** |
 | DES-MOB-ASSET-AI | Chờ xác nhận AI | section + row + btn | same | toast **Xác nhận AI** · ẩn empty |
@@ -105,7 +105,7 @@ Không `/wf-anim` trên hub `asset-hub`.
 | GAP-MOB-UX-07 | design ↔ HTML | Pack proto khớp design.md · toast labels PO |
 | GAP-MOB-DES-PFX-01 | Board prefix | `ios/index.html` · `android/index.html` |
 | GAP-MOB-AHUB-ALIGN-01 | Card 32 loại cao hơn «Xem trên bản đồ» vì subtitle wrap | Hàng 2 cột **stretch cùng height** · subtitle slot 2 dòng · **cấm** height theo content từng ô · lock `/edit-mobile-feature` |
-| GAP-MOB-AHUB-KCHT-01 | Hồ sơ / 32 loại chỉ toast · web đã có hang-mục 40 ô | Dual `#sc-asset-kcht` parity `KCHT_TILES` · wallet+tile push · drill `asset-type` → list `?type=` · report/tuyến/đoạn toast P1 |
+| GAP-MOB-AHUB-KCHT-01 | Hồ sơ / 32 loại chỉ toast · web đã có hang-mục 40 ô | Dual `#sc-asset-kcht` stats-only · wallet+tile push · **cấm** drill tap |
 
 ## Version meta (REQUIRED)
 

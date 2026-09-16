@@ -87,8 +87,8 @@ IA lock (design §2 / ux-analy §1): `home → push asset-hub → pop home`. **C
 
 | OS | Note |
 |----|------|
-| T-IOS | Wallet + tile types → `AssetKchtDashboardView` · 40 ô `LinmAssetKchtPict` · GET `summary-by-type` |
-| T-AND | Same · `AssetKchtDashboardScreen` · route `asset-kcht` · list `asset-list/type/{type}` |
+| T-IOS | Wallet + tile types → `AssetKchtDashboardView` · 40 ô stats-only · **cấm** tap |
+| T-AND | Same · `AssetKchtDashboardScreen` · route `asset-kcht` |
 
 ---
 

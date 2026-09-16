@@ -47,6 +47,7 @@ Map **ý nghĩa**. Cấm clone `px` / `class`. Cấm 1 binary UI 2 OS.
 | `.hero-card` · DES-MOB-PAT-ACTIVE | Thẻ ca + CTA trắng/ghost | `LinmHeroCard` · `LinmHeroAction` | same |
 | `.large-title` | Tiêu đề lớn | `LinmLargeTitle` | same |
 | `.kind-pills` · DES-MOB-INC-KIND | 3 pill loại | `LinmKindPills` | same |
+| `.empty-state` / EmptyChrome | List/detail trống | dashed rect + title + hint · iOS `ContentUnavailableView` `rectangle.dashed` · Android `EmptyChrome` cùng motif · copy `*.empty.title` + `*.empty.hint` · **cấm** Text-only title | `EmptyChromeView` | `EmptyChrome` |
 
 ## B — HTML
 

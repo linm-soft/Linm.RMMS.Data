@@ -47,7 +47,7 @@ Login → Tab 5
 | default | GET inbox · bind live rows · **cấm** demo fallback |
 | loading | refresh nhẹ · **cấm** full-screen block list |
 | error / offline | empty list + toast `ops.toast.loadFail` · **cấm** demo SSOT · **cấm** block Me/Home |
-| empty live | EmptyChrome `ops.empty.*` · id `ops-empty` |
+| empty live | EmptyChrome dashed + title `ops.empty.title` + hint `ops.empty.hint` · id `ops-empty` · **parity Android = iOS** |
 | permission | GPS/camera **N/A** trên ops |
 | leave dirty | **N/A** (không form) |
 

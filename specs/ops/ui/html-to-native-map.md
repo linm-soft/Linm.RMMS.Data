@@ -20,6 +20,7 @@
 | `.badge blue` | status pill info | `LinmBadge` info | `LinmBadge` info | — |
 | `.badge gray` | status pill neutral | `LinmBadge` neutral | `LinmBadge` neutral | — |
 | toast mark-read | A toast / banner | `LinmToast` | `LinmToast` | — |
+| empty live | EmptyChrome | `EmptyChromeView` dashed + `ops.empty.*` | `EmptyChrome` same motif + hint | `ops-empty` |
 | Me entry row | parent reuse | `MeView` row | `MeScreen` row | `row-ops` |
 | Home notify | hero tools | `LinmNotifyButton` | `LinmNotifyButton` | `btn-notify` / `hero-tools` |
 

@@ -43,7 +43,7 @@
 | `DES-MOB-ASSET-HUB` `#sc-asset-hub` | Tài sản | nav · wallet · hub-grid ×3 · row bản đồ · AI pending |
 | `DES-MOB-ASSET-WALLET` | Ví hồ sơ TS | tap → push `#sc-asset-kcht` hang-mục (web `/so-ts/hang-muc`) |
 | `DES-MOB-ASSET-GRID` | Hub tiles | **32 loại** → kcht dashboard · bản đồ · thu thập · quản lý |
-| `DES-MOB-ASSET-KCHT` `#sc-asset-kcht` | Hạng mục KCHT | 40 ô icon+nhãn+count · tap loại TS → `asset-list?type=` |
+| `DES-MOB-ASSET-KCHT` `#sc-asset-kcht` | Hạng mục KCHT | 40 ô icon+nhãn+count · **display-only** · **cấm** tap |
 | `DES-MOB-ASSET-MAP-ROW` | Bản đồ tài sản | cùng slug sibling `gis-map` |
 | `DES-MOB-ASSET-AI` | Chờ xác nhận AI | ẩn khi 0 Draft · row đầu + **Xác nhận** |
 

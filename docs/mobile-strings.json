@@ -343,6 +343,7 @@
     "chrome.offlineHint": "Kiểm tra kết nối rồi thử lại.",
     "chrome.empty": "Chưa có màn hình",
     "chrome.emptyHint": "Nội dung sẽ có ở bước tiếp theo.",
+    "chrome.error": "Lỗi",
     "chrome.updating": "Đang cập nhật",
     "mnt.list.title": "Danh sách công việc",
     "mnt.list.filter": "Lọc",

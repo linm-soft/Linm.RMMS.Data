@@ -27,4 +27,4 @@
 - **Cấm** `showToast(mnt.list.toast.chat)` làm entry  
 - Demo id: local bubble fallback · live Guid: HTTP  
 - **T-IOS / T-AND:** **1 header** = `LinmTopBar` (`GAP-MOB-CHAT-HDR-01`) · iOS ẩn system nav · Android không thêm `TopAppBar`  
-- **T-IOS / T-AND:** Composer **trên IME** (`GAP-MOB-CHAT-IME-01`) · Android `imePadding` + `LinmChatImeLock` · iOS `safeAreaInset(edge: .bottom)`
+- **T-IOS / T-AND:** Composer **flush IME** (`GAP-MOB-CHAT-IME-01`) · extra = `max(0, ime − consumedBottom)` · **cấm** raw `imePadding` / `safeAreaInset`

@@ -22,7 +22,7 @@ Thay toast «Trao đổi công việc» bằng màn chat style: bubble + compose
 4. Live WO: GET load lịch sử. Demo id: composer local fallback (không fake «Đã gửi» toast).  
 5. Back → list. Dual iOS + Android.  
 6. **1 header** trên `#sc-mnt-chat`: chỉ `LinmTopBar` (back «Công việc» + title). **Cấm** system NavigationStack / Scaffold TopAppBar chồng (`GAP-MOB-CHAT-HDR-01`). Subtitle WO không phải header thứ 2.  
-7. Focus ô «Nhập tin nhắn» → composer **nằm trên** bàn phím (không bị che). Dual. **GAP-MOB-CHAT-IME-01**.
+7. Focus ô «Nhập tin nhắn» → composer **dính mép trên** bàn phím (không chìm, không cách tab-bar). Dual. **GAP-MOB-CHAT-IME-01**.
 
 ## DoD
 

@@ -14,7 +14,7 @@
 | GAP-QA-STORE-01 / 03 | P0 | **CLOSED** | A3 + P6 live |
 | GAP-QA-NO-IMPLEMENT-01 | P0 | **CLOSED** | prior Dev |
 | GAP-MOB-CHAT-HDR-01 | P1 | **CLOSED** | live: 2 header (system back + `LinmTopBar`) · `/edit-mobile-feature` ẩn system nav · 1 `LinmTopBar` |
-| GAP-MOB-CHAT-IME-01 | P1 | **CLOSED** | Android composer chìm dưới IME · `imePadding` + `LinmChatImeLock` · iOS `safeAreaInset` |
+| GAP-MOB-CHAT-IME-01 | P1 | **CLOSED** | flush IME · extra = ime − consumedBottom (không còn khoảng trống tab) |
 | GAP-MSG-HUB-01 | P2 | **DEFER** | SignalR · Notification owns hub |
 
 No new Must from visual align (empty vs demo seed = Accept).

@@ -4,7 +4,7 @@
 |-------|-------|
 | feature | `mnt-chat` |
 | status | **done** · `/edit-mobile-feature` GAP-MOB-CHAT-HDR-01 · GAP-MOB-CHAT-IME-01 |
-| updatedAt | `2026-09-16T14:25:00.000Z` |
+| updatedAt | `2026-09-16T14:45:00.000Z` |
 | retry.ssot_rereview | stamped · plan §1–7 · no toast revert |
 
 ## Notes
@@ -15,7 +15,7 @@
 - Copy `mnt.chat.*` · empty/placeholder/send · **cấm** watermark
 - Analy backfill: control-hint · real-data · bff-endpoints · action-tree **confirmed**
 - **GAP-MOB-CHAT-HDR-01:** `.navigationBarBackButtonHidden(true)` + `.toolbar(.hidden, for: .navigationBar)` trên view + `AppRouter` destination — **1** header = `LinmTopBar` (back «Công việc» + title). Subtitle WO giữ dưới bar.
-- **GAP-MOB-CHAT-IME-01:** `LinmChatComposer` trong `.safeAreaInset(edge: .bottom)` · background `ignoresSafeArea(edges: .top)` only — **cấm** ignore keyboard. Composer pin trên IME.
+- **GAP-MOB-CHAT-IME-01:** `linmChatImeFlush()` — extra = `max(0, keyboardOverlap − consumedBottom)`. Composer **flush** IME. **Cấm** `safeAreaInset` đếm trùng tab.
 
 ## VERIFY GATE
 
@@ -29,7 +29,7 @@
 
 Không ghi lại toast-only cho `#i-chat`.  
 Không bỏ `.toolbar(.hidden)` — worker **cấm** hiện lại system back chồng `LinmTopBar`.  
-Không bỏ `safeAreaInset` composer — worker **cấm** chìm dưới bàn phím.
+Không bỏ `linmChatImeFlush` — worker **cấm** chìm dưới IME hoặc cách tab-bar.
 
 ## Version meta
 

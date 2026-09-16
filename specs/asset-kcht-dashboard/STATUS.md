@@ -16,7 +16,7 @@
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/asset/road-assets/summary-by-type` |
 | sourceFormReady | **yes** |
 | taskId | `task_9f83afbd` |
-| updatedAt | `2026-08-23T15:27:44.573Z` |
+| updatedAt | `2026-09-16T21:40:00.000Z` · `/edit-mobile-feature` native hang-mục |
 ## Lock
 
 | agent | scope | id | at |
@@ -60,6 +60,8 @@
 | T-UI-PAGE-01 | ui | dev | T-BE-01 | **done** | /so-ts/hang-muc |
 | T-UI-WIDGET-01 | ui | dev | T-UI-PAGE-01 | **done** | widget entry |
 | T-HOST-01 | dashboard | dev | T-UI-WIDGET-01 | **done** | WIDGET_REGISTRY |
+| T-IOS-01 | mobile | dev | T-BE-01 | **done** | `#sc-asset-kcht` dest iPhone 17 Pro Max **PASS** |
+| T-AND-01 | mobile | dev | T-BE-01 | **done** | `assembleDebug` **PASS** |
 
 ## Blockers / open questions
 
@@ -81,6 +83,8 @@
 | MFE `yarn build` | **PASS** (`task_9f83afbd` · 2026-08-23) |
 | BE `dotnet build` API | **PASS** (`task_9f83afbd` · 2026-08-23) |
 | BE `dotnet build` BFF | **PASS** (`task_9f83afbd` · 2026-08-23) |
+| iOS dest iPhone 17 Pro Max | **PASS** (`/edit-mobile-feature` · 2026-09-16) |
+| Android `assembleDebug` | **PASS** (`/edit-mobile-feature` · 2026-09-16) |
 
 
 ## Retry

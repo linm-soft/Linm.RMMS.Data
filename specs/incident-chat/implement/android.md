@@ -13,7 +13,7 @@
 - GET/POST `incident/incidents/{id}/messages`  
 - `assembleDebug` **BUILD SUCCESSFUL**  
 - **GAP-MOB-CHAT-HDR-01:** **1** `LinmTopBar` · **cấm** Scaffold `topBar`  
-- **GAP-MOB-CHAT-IME-01:** `LinmChatImeLock` + `imePadding` — composer pin trên IME  
+- **GAP-MOB-CHAT-IME-01:** `linmChatImeFlush()` — extra = ime − Scaffold.bottom  
 
 ## Cấm revert
 
