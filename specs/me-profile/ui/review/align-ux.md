@@ -21,7 +21,7 @@
 | fullName | TextField | **Linm Soft Admin** | **Linm Soft Admin** | — |
 | phone | TextField | **0901234567** (filled) | filled | — |
 | email | TextField | empty OK (EMAIL-01) | empty OK | — |
-| userName | readonly | **linm-soft** muted | **linm-soft** muted | — |
+| userName | readonly | **linm-soft** muted · **cấm** GUID `Id` (`GAP-MOB-MEPROF-USERNAME-01`) | **linm-soft** muted | — |
 | citizenId | display-only nếu GET | hidden (GET thiếu) | hidden | — (CITIZEN-01 OK) |
 | CTA Lưu | primary | present | present | — |
 | Section pwd | **Đổi mật khẩu** | below fold (keyboard) | visible + P6-2 | — |

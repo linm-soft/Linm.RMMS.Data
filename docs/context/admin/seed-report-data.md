@@ -2,7 +2,7 @@
 
 **Slash:** `/add-dummy-endpoint`  
 **API:** `POST api/v1/patrol/demo-seed` · BFF `POST web-bff/api/v1/patrol/demo-seed`  
-**Page:** Demo standalone `http://localhost:9315/admin/report-seed` (Admin MFE chưa có trong workspace QLBD mobile)
+**Page:** `Linm.Web.Admin` `/admin/report-seed` (`yarn start:std` → :8603)
 
 ## Channel
 
@@ -12,7 +12,7 @@
 | `mobile` | Cùng list + inbox `NOTI-DEMO` + chat WO/sự cố (App Review) |
 | `both` | Cả hai (API default nếu omit) |
 
-Admin page mặc định **mobile**.
+Admin page mặc định **mobile**. Result list bind `items[].label` từ BE (`title` / `summary` / `periodLabel`) — **cấm** hardcode tên family trên page.
 
 ## Mobile = task?
 

@@ -75,7 +75,7 @@ Standards: api-endpoint · bff-api-structure · company-field · no-parent-json-
 | Write | `POST patrol/sessions/{id}/check-ins` — **live** · body `attachmentId[]` (map `photoLocalIds`→File guids **hoặc** BE rename `mediaIds`/`photoAttachmentIds` — **không** fork app-only) |
 | Files | `POST files` · `PUT files/{id}/object` · `POST files/{id}/commit` · `GET files/{id}/object` |
 | Downstream | `PatrolSessionsController` + FileService · **không** invent dedicated check-in controller |
-| Match gate | Client haversine vs BE plan nearest · `matchOk = distanceToPlanM ≤ 50` |
+| Match gate | Client haversine vs BE plan nearest · `matchOk = distanceToPlanM ≤ MatchRadiusM` · **POST allow sai điểm** unless `Patrol:RequirePlanPointMatch=true` |
 | Step 4b | **Pending TL/T-BE** — (1) Kind E plan-points schema/controller · (2) confirm photo field = FileService ids · (3) `/init-bff-file` nếu NuGet thiếu · **cấm** SA chạy |
 | Rationale | Prefill live · submit live · plan SSOT = BE · photos = FileService · offline-safe khi GAP |
 
@@ -220,7 +220,7 @@ AskQuestion (autoApprove=ON): `be_repo_confirm`=WebService · `sa_tz_gate=tz_na`
 | dist `#ci-dist` | `distanceToPlanM` · `matchOk` | haversine |
 | content `#ci-content` | `content` | POST |
 | photos `#ci-photos` / `#ci-add-photo` | attachment ids | FileService |
-| save `#ci-save-btn` | POST | disable `!matchOk` (khi có plan coords) |
+| save `#ci-save-btn` | POST | disable only when BE `RequirePlanPointMatch` + `!matchOk` |
 
 ---
 
@@ -229,7 +229,7 @@ AskQuestion (autoApprove=ON): `be_repo_confirm`=WebService · `sa_tz_gate=tz_na`
 | Control | Behavior | Owner |
 |---------|----------|-------|
 | Hub/map/pin → sheet | entry reuse | owner |
-| Lưu / Ghi nhận | matchOk → File commit → POST · else queue | owner |
+| Lưu / Ghi nhận | GPS + session → File commit → POST · chặn match chỉ khi BE require | owner |
 | Camera | capture → File lifecycle | owner |
 | Hủy dirty / GPS deny | leave / deny modals | owner |
 | Detail preview | JWT object GET | owner |

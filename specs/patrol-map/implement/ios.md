@@ -3,15 +3,18 @@
 | Field | Value |
 |-------|-------|
 | feature | `patrol-map` |
-| task | `T-IOS-PAT-MAP` · `/edit-mobile-feature` · `/agent-dev-oms-map` |
+| task | `T-IOS-PAT-MAP` · `/implement-gis-map` `ios_replace_all_maps` · GAP-MOB-IOS-MAP-HOST-01 |
 | role | `/agent-dev-ios` |
+| changeScope | `edit_page` · gap=`ios_map_host_clip` · mode=`fix_gaps` |
 | status | **confirmed** |
+| taskId | `task_1f6d86c4` |
 
 ## Layers
 
 | Layer | Path |
 |-------|------|
-| Presentation | `Presentation/Features/PatrolMap/*` |
+| Presentation | `Presentation/Features/PatrolMap/*` · HITL `PhotoGeoCaptureView` |
+| Map host SSOT | `GisClipMapView` · `VnClipStyle` · `MapTileUrl` (reuse `#sc-gis-map`) |
 | Domain | `RoutePatrolOverlayUseCase` · `SnapMapPinUseCase` · `PathProjection` · `StreetRouting` |
 | Data | `OsrmStreetRouter` · `PolylineDecoder` · `CoreLocationReader` |
 | Shell | `AppContainer` · `AppRouter` |
@@ -19,16 +22,17 @@
 ## Behavior (EDIT LOCK — **cấm** revert)
 
 - Hub hero **Tiếp tục bản đồ** + quick **Bản đồ ca** → push `#sc-patrol-map`
-- MapKit live · **OSRM** `routeAlongStreets` corridor teal + track `#0A84FF` · pin check-in `projectToPath` · isolate legend
-- OSRM fail → nét đứt tạm + toast `patrol.map.osrmFallback`
-- Basemap / legend chips: `ChipWrap` (wrap như demo `flex-wrap`)
-- **Ghi điểm tuần** → toast · **cấm** sheet
-- **Ghim vị trí hiện tại** → `GetCurrentLocationUseCase` · **`SnapMapPinUseCase`** (`snapPointToStreet` else `projectToPath`) · pin `.here` tip neo đáy · camera follow span `0.006` · toast success
-- Deny → `patrol.map.locDeny` · timeout → `patrol.map.locTimeout` · **cấm** fake lat/lng
-- `NSLocationWhenInUseUsageDescription` · **cấm** chữ «GPS» trên máy
-- **Appear** → `FetchPatrolSessionsUseCase` · `PatrolDtoMapper.active(from:)` → `routeKm` non-empty else `PatrolMapOverlay.nextDemoTitle`
-- **Cấm** `MapPolyline` thẳng từ `PatrolMapOverlay.track` · **cấm** Annotation title nhân đôi số · **GAP-MAP-OSRM-ROUTE** · **GAP-MAP-OSRM-SNAP**
+- **Host** = `GisClipMapView` (MapLibre clip BFF MVT) · **0** `Map()` / MapKit world basemap · **cấm** OSM.org/Esri/Google tile
+- Chips: **Tiêu chuẩn** / **Vệ tinh** (`PatrolMapBase.clip|sat`) + Fit · legend isolate giữ
+- Overlay: **GET** `patrol/sessions/{id}/plan-points` + `check-ins` (OSRM) · pin done/next **số trên badge** · tap → popup `patrol-pin-popup` · pin-here snap · follow `focusToken`
+- **Cấm** `PatrolMapOverlay` mock track/pins (cleanup_mock · GAP-MOB-PAT-MAP-LIVE-01)
+- First open: seed track/pins ngay, re-apply overlay khi MapLibre `didFinishLoading` (GAP-MOB-IOS-FIRST-OVERLAY-01)
+- HITL `photo-geo-capture` confirm map → cùng `GisClipMapView` · pin focus kéo HITL
+- OSRM fail → nét đứt tạm + toast `patrol.map.osrmFallback` (track path vẫn live)
+- **Ghim vị trí hiện tại** → snap · pin `.here` · toast · deny modal **chỉ khi chưa cấp**
+- CoreLocation: services off / authorized+error → `unavailable` (**GAP-MOB-EDIT-PERM-01**)
+- **Cấm** fork `VnClipStyle` / tile URL khác `#sc-gis-map`
 
-## Build (VERIFY GATE)
+## Notes (2026-09-16)
 
-**PASS** — `xcodegen` + `xcodebuild` dest **iPhone 17 Pro** (`/edit-mobile-feature` · OMS pin + tim đường · `2026-08-21`).
+Android host now matches this packet: `GisClipMapView` MapLibre + BFF MVT. **Cấm** revert iOS MapKit world. GAP-MOB-PIN-OVER-LINE-01: corridor GeoJSON line **below** pin layers (cấm MLNPolyline annotation trên pin).

@@ -57,7 +57,7 @@
 | fullName | Họ và tên | `LinmTextField` | same | required · GET/PUT `FullName` · label 13 / ≥16 |
 | phoneNumber | Số điện thoại | `LinmTextField` phone | same | GET/PUT `PhoneNumber` |
 | email | Email | `LinmTextField` | same | PUT `Email` · GET thiếu → empty |
-| userName | Tên đăng nhập | Text display | same | readonly · GET `UserName` |
+| userName | Tên đăng nhập | Text display | same | readonly · GET `UserName` · empty/GUID → `lastUserName` · **cấm** `Id` GUID (**GAP-MOB-MEPROF-USERNAME-01**) |
 | citizenId | CCCD/CMND | Text display | same | **chỉ nếu** GET có · **cấm** PUT |
 | Save | Primary **Lưu** | `LinmPrimaryButton` | same | PUT · busy · toast |
 | sectionPwd | **Đổi mật khẩu** | `LinmSectionLabel` 13 | same | |

@@ -19,7 +19,7 @@
 | prior · data_analy | `confirmed` · `_data-analy/gis-map-control-hint.md` · `gis-map-real-data.md` · **hash skip** · **cấm** re-scan (`GAP-DES-DEMO-RESCAN-01`) |
 | autoApprove | **ON** |
 | e2eQa | ON khi QA · `yarn e2e-qa-mobile` · **cấm** `yarn start:std` / `mfeStdUrl` |
-| updatedAt | `2026-08-31T00:40:00.000Z` |
+| updatedAt | `2026-09-16T12:00:00.000Z` |
 | taskId | `task_81ce36d6` |
 
 ## 0. Context & Demo
@@ -44,9 +44,9 @@
 
 | | |
 |--|--|
-| Surface | Push map full · nav + OMS host + basemap bar + legend · **không** Modal/Sheet |
+| Surface | Push map full · nav + OMS host + basemap bar + legend · **Lớp sheet** loại tài sản (web parity) |
 | FormMode | none |
-| Action this slug | Appear GET `gis/geojson/*` · focus GetById · basemap/legend filter · search iOS · toast Lớp / nav list |
+| Action this slug | Appear GET `gis/summary-by-type` · overlay **chỉ** loại đã tick · zoom bbox+lod · focus GetById · search iOS · Android Danh sách |
 | `devSlash` | `/agent-dev-ios` + `/agent-dev-android` |
 | Frame | iOS 390×844 · Android 412×915 · safe area · Tab 5 **giữ** dưới map (`data-tab="home"`) |
 
@@ -67,7 +67,8 @@
     asset-detail Ghim trên bản đồ → push + focus Id
     incident seg/CTA → push cùng slug
       ← back pop asset-hub
-      → iOS Lớp = toast P1 · Android Danh sách = go('asset-list') reuse
+      → iOS Lớp = sheet loại tài sản (default off) · Android Danh sách + chip Lớp
+      → overlay **chỉ** khi tick loại · zoom lod/bbox web-parity
       → basemap ×4 · legend isolate = filter cùng slug
   Tab 5 shell giữ (home selected)
 ```
@@ -82,13 +83,14 @@ Nguồn: DA controlHint + real-data §B + PO §5 · UNCLEAR = **none**.
 |-------|----|-------------|----------|----------|-------|
 | navBack | Tài sản | BackButton | * | `LinmTopBar` leading `#i-chevron-left` | iOS text+chevron · Android icon-only · pop `asset-hub` |
 | title | Bản đồ tài sản | NavTitle | * | `LinmTopBar` | fixed · dual same |
-| navLayers | Lớp | TextButton | * | `LinmTopBar` trailing | **iOS only** · toast «Lớp tài sản / sự cố · chú giải» P1 · sheet **P2** |
+| navLayers | Lớp | TextButton | * | `LinmTopBar` trailing / Android `LinmChip` | sheet `LinmToggle` loại · default **off** · `#btn-gis-layers` |
 | navList | Danh sách | TextButton | * | `LinmTopBar` trailing | **Android only** · `go('asset-list')` reuse |
+| typeFilter | Loại tài sản | Toggle | * | `LinmSheet` + `LinmAssetKchtPict` + Switch | GET `gis/summary-by-type` · pict 28×34 cùng pin bản đồ · tick → `geojson/{type}` |
+| emptyHint | Chọn loại tài sản để hiển thị trên bản đồ | Hint | | overlay | khi chưa tick loại |
 | searchHint | Tìm tài sản, sự cố… | SearchField | | overlay glass `#i-search` | **iOS only P1** · local filter / toast · **cấm invent** search API |
-| mapHost | Bản đồ GIS overlay OMS | Map | * | MapKit / OSM · `DES-MOB-OMS-GIS` | **cấm** WebView HTML · **cấm** `LinmMap` kit |
-| baseOsm | Đường | Chip | * | `LinmChip` | default on · OSM |
-| baseEsri | Phố | Chip | * | `LinmChip` | Esri Streets |
-| baseSat | Vệ tinh | Chip | * | `LinmChip` | imagery |
+| mapHost | Bản đồ GIS overlay OMS | Map | * | `GisClipMapView` MapLibre · `DES-MOB-OMS-GIS` | **cấm** WebView HTML · **cấm** `LinmMap` kit · **cấm** osmdroid PBF |
+| baseClip | Tiêu chuẩn | Chip | * | `LinmChip` | default on · clip MVT · `mb-clip` |
+| baseSat | Vệ tinh | Chip | * | `LinmChip` | sat tone · `mb-sat` · **cấm** Esri/Google imagery |
 | fitAll | Toàn tuyến | Chip | * | `LinmChip` | fit overview |
 | lgAll | Tất cả | Chip | * | `LinmChip` | isolate all |
 | lgTs | Tài sản | Chip | * | `LinmChip` | isolate `ts` |
@@ -118,9 +120,7 @@ Legend dots (demo): All `#0C84C0` · TS iOS `#5856D6` / Android `#6750A4` · SC 
 
 ## 5. Copy VN (SSOT máy)
 
-Bản đồ tài sản · Tài sản · Lớp · Danh sách · Tìm tài sản, sự cố… · Đường · Phố · Vệ tinh · Toàn tuyến · Tất cả · Tài sản (legend) · Sự cố · Hành lang · Xem trên bản đồ · Ghim trên bản đồ.
-
-Toast iOS Lớp: **Lớp tài sản / sự cố · chú giải**.
+Bản đồ tài sản · Tài sản · Lớp · Loại tài sản · Chọn loại tài sản để hiển thị trên bản đồ · Xong · Bỏ chọn · Danh sách · Tìm tài sản, sự cố… · Tiêu chuẩn · Vệ tinh · Toàn tuyến · Tất cả · Tài sản (legend) · Sự cố · Hành lang · Xem trên bản đồ · Ghim trên bản đồ.
 
 Popup fallback SSOT: **TS-20260810-014 · Cống ngang · QL.1 Km 1556+000** · **SC-2401 · Nứt mặt đường · QL.1 Km 1556+080**.
 
@@ -151,11 +151,11 @@ Safe area: nav + map + chips + tab không đè notch / home indicator.
 
 | State | UI |
 |-------|-----|
-| default | overlay live-only · empty OK · Đường on · Tất cả on · **cấm** demo OMS native (cleanup_mock) |
+| default | map clip · **không** overlay đến khi tick loại · **cấm** `geojson/all` on appear |
 | isolate ts/sc/corridor | legend filter client (corridor isolate **iOS only**) |
-| GET geojson fail / offline | map **mở** · demo `GIS_ASSETS` + corridor · `LinmToast` · **cấm** blank dead map · **cấm** mock-only ship khi live OK |
+| GET geojson fail / offline | map **mở** · pins trống/partial · `LinmToast` · **cấm** blank dead map |
 | focus từ detail | GetById Lat/Lng → center + highlight · thiếu/fail → fit all · toast optional · **cấm** fake lat/lng |
-| Lớp tap (iOS) | toast in-app · **cấm** sheet P1 · **cấm** alert |
+| Lớp | sheet loại tài sản · tick → load `geojson/{type}` + `lod`/`bbox` · zoom-in skip nếu bbox covers |
 | search (iOS) | local filter pin/popup hoặc toast · **cấm** crash · **cấm invent** API |
 | Danh sách (Android) | `go('asset-list')` reuse · **cấm** reimplement list |
 | back | pop hub · không confirm |
@@ -166,11 +166,12 @@ App `{BffBase}/mobile-bff/api/v1` · path **không** lặp prefix. Khớp DA-02 
 
 | Zone | Method | Path |
 |------|--------|------|
-| Overlay TS / all | GET | `gis/geojson/all` |
+| Overlay types | GET | `gis/geojson/{type}` + `lod` + `bbox` — **cấm** `geojson/all` on zoom |
 | Overlay SC | GET | `gis/geojson/incidents` — **cấm** `incident/incidents` pin |
-| Corridor | GET | `gis/geojson/tuyen-duong` |
+| Corridor | GET | `gis/geojson/tuyen-duong` khi tick tuyến |
+| Type catalog | GET | `gis/summary-by-type` · default **off** |
+| Clusters | GET | `gis/clusters?layer={type}&zoom=` khi loại lớn + z&lt;14 |
 | Focus | GET | `asset/road-assets/{id}` |
-| Layers catalog | GET | `gis/layers` — toast P1 · sheet **P2** |
 | Basemap / fit / legend | — | local |
 
 **Cấm** invent `gis-map` controller · Step 4b **N/A** (GIS GET + Asset GetById **DONE**).

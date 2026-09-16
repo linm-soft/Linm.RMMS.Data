@@ -10,20 +10,20 @@
 
 | | |
 |--|--|
-| Mục tiêu | Bản đồ ca đang chạy · hành trình · pin điểm tuần · nền OSM/Esri · overlay kế tiếp |
+| Mục tiêu | Bản đồ ca đang chạy · hành trình · pin điểm tuần · **nền = cùng clip Bản đồ tài sản** (`GisClipMapView`) · overlay kế tiếp |
 | Persona | Tuần đường |
 | Entry | Hub `patrol-home` hero **Tiếp tục bản đồ** · row **Bản đồ ca** |
-| DoD P1 | Push `#sc-patrol-map` · live MapKit/OSM · GET sessions bind header · demo OMS overlay · check-in **toast** (sheet = sibling) · pin-here **loc + zoom + pin here** |
+| DoD P1 | Push `#sc-patrol-map` · **reuse `GisClipMapView`** (clip gis.vn · chips Tiêu chuẩn/Vệ tinh · **cấm** MapKit world · **cấm** OSM.org/Esri/Google) · GET sessions bind header · overlay ca · check-in **toast** (sheet = sibling) · pin-here **loc + zoom + pin here** |
 
 ## 2. Design / UI
 
 | Zone | Pattern | Notes |
 |------|---------|-------|
 | Nav | Back + title **Ca đang chạy** + **Ghi điểm tuần** | iOS leading text Tuần đường · Android icon back |
-| Map | Full-page OMS | polyline **OSRM tim đường** (corridor + track) · pin đã ghi / kế tiếp `projectToPath` |
+| Map | Full-page clip | **Host dual = `GisClipMapView`** (clip gis.vn · MapLibre BFF MVT · **cấm** MapKit world · **cấm** osmdroid PBF raster · **cấm** OSM.org/Esri/Google) · polyline **OSRM tim đường** · pin đã ghi / kế tiếp `projectToPath` · **GAP-MOB-AND-MAP-LOAD-01 closed** |
 | Next card | Overlay | **Điểm tiếp theo · OSRM** · Km 468+200 · Vinh |
 | Pin | Primary | **Ghim vị trí hiện tại** · loc live · **snap tim đường** · zoom follow · pin `.here` tip neo đáy · deny/timeout toast · **cấm** fake lat/lng |
-| Map bar | Chips wrap | Đường · Phố · Vệ tinh · Toàn tuyến |
+| Map bar | Chips wrap | **Tiêu chuẩn** · **Vệ tinh** (cùng clip) · Toàn tuyến · **cấm** Đường/Phố OSM.org |
 | Legend | Chips wrap | Tất cả · Hành trình · Đã ghi điểm tuần · Điểm kế tiếp |
 
 ## 3. API (mobile BFF)
@@ -49,3 +49,16 @@ P1 geometry = demo SSOT `map-oms.js` (QL.1 Bến Thủy → Vinh · Nghệ An) k
 ## 5. Demo SSOT
 
 Frame iOS 390×844 · Android 412×915 · copy VN từ `#sc-patrol-map`.
+
+## 6. Cấm / next
+
+- MapKit world / OSM.org / Esri / Google làm nền  
+- Fork style clip khác `#sc-gis-map`  
+- Next: `/implement-gis-map` `ios_replace_all_maps` (reuse `GisClipMapView`)
+
+## Implement tracking
+
+| lane | phase | status | updatedAt |
+|------|-------|--------|-----------|
+| web | — | — | — |
+| mobile | `done` | `done` | `2026-09-16T04:44:53.117Z` |

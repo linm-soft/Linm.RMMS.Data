@@ -19,7 +19,7 @@
 | prior · sa | **confirmed** · `handoff/sa-compact.md` · `solution_confirm=approve` · `task_57e24d09` |
 | taskId | `task_ab790c73` |
 | updatedAt | `2026-09-12T15:10:25.000Z` |
-| thisAction | **Delta hub** `#sc-patrol-home` only · wire **POST/PUT** `patrol/sessions` · hero **server-only** (empty=`—`) · keep GET + pin/kpi/quick/nav |
+| thisAction | **Delta hub** `#sc-patrol-home` only · wire **POST/PUT** `patrol/sessions` · hero **server-only** (empty=`—`) · keep GET + pin/kpi/quick/nav · **GAP-MOB-EDIT-PERM-01** pin-here FINE/COARSE |
 
 **Cấm:** gộp sibling / check-in sheet (`GAP-MOB-ACT-01/02`) · invent hub API / `PatrolHomeController` · demo hero sample (`QL.1·Km468+200` / `Nguyễn Văn A` / `07:20`) · toast-only kết ca · `ERP.*` · `mfeStdUrl` · `UIAlert` / `AlertDialog` · start sibling `pending_confirm` (`GAP-MOB-ACT-06`) · Step 4b / migration · scaffold_new.
 

@@ -69,9 +69,7 @@ appId: org.linmsoft.rmms
 - assertVisible:
     text: "Bản đồ tài sản"
 - assertVisible:
-    text: "Đường"
-- assertVisible:
-    text: "Phố"
+    text: "Tiêu chuẩn"
 - assertVisible:
     text: "Vệ tinh"
 - assertVisible:

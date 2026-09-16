@@ -59,4 +59,7 @@
 | tlContentHash | sha256:me-settings-tl-task-20260830 |
 
 ---
+
+**Notes (2026-09-12):** `/edit-mobile-feature` **GAP-MOB-EDIT-PRIVACY-COPY** — privacy panel reuse `home.privacy.body` user-facing dual iOS · `fieldText` · **cấm** invent HTTPS.
+
 <!-- Version meta: skillId=agent-dev-android skillVersion=2026.08.20.03 schemaVersion=1 workflowVersion=2026.08.31.2 rulesVersion=2026.08.31.2 versionGate=rechecked -->

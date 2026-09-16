@@ -78,7 +78,8 @@
 - GAP-MOB-CI-PHOTO-UP-01 **closed** — FileService files/* → attachmentId[] · offline queue if File down.
 - GAP-MOB-CI-PLAN-BE-01 **closed** — `GET …/plan-points` live · table + seed · **cấm** plan=GPS SSOT.
 - GAP-MOB-BFF-FILE-01 **closed** — NuGet FileService.Bff 1.1.0 + rewrite.
-- GAP-MOB-BFF-01 **closed** (POST check-ins live).
+- GAP-MOB-CI-MATCH-ALLOW-01 **closed** — BE `Patrol:RequirePlanPointMatch=false` default · allow sai điểm · flip `true` later.
+- GAP-MOB-EDIT-DIST-KM-01 **closed** — dist / banner / detail **> 1000 m → km** dual `DistanceDisplay`.
 - Should non-block: GAP-QA-A11Y-SHEET-TAG-01 · GAP-QA-GPS-TIMING-01 · GAP-QA-PLAN-BE-EMPTY-01 · FileService `:5018`.
 
 ## Links

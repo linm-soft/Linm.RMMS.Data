@@ -4,15 +4,15 @@ Cite SSOT `docs/html-to-native-map.md`. Feature deltas (`#sc-home`):
 
 | Demo | Kit dual | Notes |
 |------|----------|-------|
-| `.vn-hero-tools` | `LinmHeroTools` | Profile trái · **AppLogo** giữa `home-brand` · Notify phải · tap 44 |
+| `.vn-hero-tools` | `LinmHeroTools` | Profile trái · Notify phải · tap 44 · **không** logo hero |
 | `.hero-ico` person | `LinmProfileButton` | `reuse=me` · tab Tôi |
 | `.hero-ico` bell | `LinmNotifyButton` · `LinmNotifyCountBadge` | tap → `#sc-ops` cùng Me `row-ops` · GET `notification/overview` · guest **AllowAnonymous** · **cấm** hardcode `3` |
-| `#home-brand` | `AppLogo` / `app_logo` | 36 · giữa hero · a11y `brand.appName` |
+| `.guest-mid` · `#home-brand` | `AppLogo` / `app_logo` | `brandLogoSm` 96 · giữa FAQ ↔ dock · a11y `brand.appName` |
 | `.role` + `data-net-signal` | `LinmStatusCapsule` · `LinmNetSignalMark` | role **ẩn live** · 4 cột · Tốt/TB/Yếu · **cấm** wifi glyph · **cấm** «Có mạng» |
-| `.who` | typography hero | guest `home.guest.who` · staff GET profile |
+| `.who` | typography hero | guest `home.guest.who` · staff GET profile · loading empty = `home-who-skeleton` bone (`brandLogo`×`heroWho`) · **cấm** `LinmBusyOverlay` |
 | `#btn-home-login` | Button card **guest dock** (không hero) | `home.login` + `home.login.sub` · ẩn staff · e2e `btn-home-login` · pin đáy |
 | `#btn-home-faq` / `#sc-faq` | overlay FAQ | pills `chip-faq-*` · `f-faq-search` · `row-faq-*` · static `LinmCopy` · **cấm** invent API |
-| `#btn-home-privacy` / `#sc-privacy` | overlay privacy | `privacy-body` · static `home.privacy.body` · pin đáy dưới login |
+| `#btn-home-privacy` / `#sc-privacy` | overlay privacy | `privacy-body` · static `home.privacy.body` user-facing (Khách · cán bộ · quyền máy · liên hệ pháp nhân) · `fieldText` 1.45 · pin đáy dưới login · **cấm** invent HTTPS |
 | `.guest-dock` | VStack / Column bottom | login + privacy · **cấm** tab guest |
 | `.vn-quick` / quick buttons | `LinmQuickActions` · `LinmQuickItem` | 2 ô title + phụ |
 | `.section-label` | `LinmSectionLabel` | Nghiệp vụ thường dùng |

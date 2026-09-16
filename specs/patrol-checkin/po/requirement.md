@@ -50,7 +50,7 @@ Pack **sheet** đã ship · edit = bind FileService + plan-points thật. Visual
 1. Dual native sheet **Ghi điểm tuần** giữ zones/kit §5 — **không** redesign.
 2. Prefill **Tuyến / lý trình** từ `GET patrol/sessions` (Đang tuần). **Điểm kế hoạch**: label+coords từ `GET …/plan-points` **khi live** · else label session Route/Note · **cấm** invent coords · **cấm** plan=GPS SSOT.
 3. **Định vị ghim** = live device GPS only. **Cách điểm KH** + banner = haversine(GPS, **plan BE**) khi plan live · `DES-MOB-LOC-MISMATCH`. Plan MISSING → stamp GAP-MOB-CI-PLAN-BE-01 · **không** luôn xanh từ plan=GPS.
-4. `matchOk=false` (khi có plan BE) → disable Lưu + Ghi nhận · toast **Chặn — không đúng điểm kế hoạch**.
+4. Match gate = BE `Patrol:RequirePlanPointMatch` (default **false** — cho phép Lưu sai điểm / mọi điểm KH). Khi **true**: `matchOk=false` → disable Lưu + Ghi nhận · toast **Chặn — không đúng điểm kế hoạch**.
 5. GPS deny → `DES-MOB-GPS-DENY` · **không** submit · **cấm** fake · **cấm** system alert.
 6. PhotoRow + `#i-camera` → capture → **FileService** init/PUT/commit → `attachmentId[]` trên POST · detail preview `GET files/{id}/object`. File BFF MISSING → GAP-MOB-BFF-FILE-01 · queue offline · **cấm** fake 200.
 7. Submit khi gate OK: POST `patrol/sessions/{id}/check-ins` **live** · body gồm `attachmentId[]` · fail → enqueue `patrol-offline` · **cấm** fake 200.
@@ -87,11 +87,11 @@ Nguồn DA-01 + DA-04. UNCLEAR = **none**. `tabs: none`.
 | sheetTitle | Ghi điểm tuần | SheetTitle | * | `LinmBottomSheet` | 17 |
 | navCancel | Hủy | TextButton | * | leading | → `DES-MOB-LEAVE` |
 | navSave | Lưu | TextButton | * | trailing bold | submit · gate match |
-| matchBanner | Đúng/Sai điểm · {d} m · ±{a} m | Banner | * | ok/warn | vs **BE plan** khi có · `DES-MOB-LOC-MISMATCH` |
+| matchBanner | Đúng/Sai điểm · {d} · ±{a} m | Banner | * | ok/warn | vs **BE plan** khi có · `{d}` m nếu ≤ 1000 m else km · `DES-MOB-LOC-MISMATCH` |
 | planPoint | Điểm kế hoạch | Text (readonly) | * | `LinmTextField` | BE plan-points / session · **không** GPS SSOT |
 | routeChainage | Tuyến / lý trình | Text (readonly) | * | `LinmTextField` | `Route` session |
 | gpsPinned | Định vị ghim tự động | Text (readonly) | * | `LinmTextField` | **live GPS only** |
-| distPlan | Cách điểm KH | Text (readonly) | * | `LinmTextField` | haversine vs plan BE |
+| distPlan | Cách điểm KH | Text (readonly) | * | `LinmTextField` | haversine vs plan BE · **> 1000 m hiện km** (1 decimal, strip `.0`) |
 | content | Nội dung | TextArea | — | `LinmTextArea` | |
 | photos | Ảnh | PhotoRow | — | + `#i-camera` | upload → `attachmentId` |
 | addPhoto | (camera) | CameraButton | — | `#i-camera` | capture + file commit |
@@ -137,7 +137,7 @@ Step 4b plan-points **pending SA/TL** — **cấm** PO chạy.
 | Plan match | BE plan-points | **Confirm GAP-MOB-CI-PLAN-BE-01.** **Cấm** plan=GPS SSOT. MISSING → interim §E stamp GAP. |
 | Fake GPS | restore demo | **Cấm** (`GAP-MOB-CI-FAKE-GPS-01`). |
 | File BFF missing | NuGet | GAP-MOB-BFF-FILE-01 · offline queue · **cấm** fake 200. |
-| Match gate | sai điểm | Disable Lưu+Ghi nhận + toast (khi plan BE live). |
+| Match gate | sai điểm | **Hiện tại:** cho phép Lưu (BE `RequirePlanPointMatch=false`). **Sau:** set `true` → disable Lưu+Ghi nhận + toast. Banner vẫn hiện Sai điểm. |
 | Pin / map / sibling | | Reuse parents only · `GAP-MOB-ACT-02/07`. |
 | Demo rescan | hash skip | **Cấm** (`GAP-PO-DEMO-RESCAN-01`). |
 
@@ -163,9 +163,11 @@ Reuse: `patrol-home` / `patrol-map` / `patrol-pin` · `patrol-offline` · `mobil
 | AC-GPS-01 | Allow | Prefill Định vị · **cấm** fake |
 | AC-GPS-02 | Deny | `DES-MOB-GPS-DENY` · **không** submit · **cấm** system alert |
 | AC-GPS-03 | Timeout | Toast / giữ sheet · **cấm** fake |
-| AC-MATCH-01 | `matchOk=false` (plan live) | Banner đỏ · disable submit · toast chặn |
+| AC-MATCH-01 | `matchOk=false` · `RequirePlanPointMatch=false` (default) | Banner warn · **enable** submit · persist `MatchOk=false` |
+| AC-MATCH-01b | `matchOk=false` · `RequirePlanPointMatch=true` | Banner đỏ · disable submit · toast chặn |
 | AC-MATCH-02 | `matchOk=true` | Banner xanh · enable |
 | AC-MATCH-03 | plan-points MISSING | Stamp GAP-MOB-CI-PLAN-BE-01 · **không** pretend đúng điểm từ plan=GPS |
+| AC-DIST-KM-01 | distPlan / banner / detail | ≤ 1000 m hiện `{n} m` · **> 1000 m** hiện km (1 decimal, strip `.0`) · dual |
 | AC-CAM-01 | Capture | `#i-camera` → FileService commit → `attachmentId` trên PhotoRow |
 | AC-FILE-01 | File BFF MISSING | GAP-MOB-BFF-FILE-01 · queue offline · **cấm** fake 200 |
 | AC-OFF-01 | Offline / POST fail | Queue `patrol-offline` · toast · **cấm** fake 200 |

@@ -11,7 +11,7 @@
 
 ## 1. Mục tiêu
 
-Gỡ mock/demo fallback trên app iOS + Android; **review từng màn**; **seed CRUD data** tương ứng qua Mobile BFF để UI bind live.
+Gỡ mock/demo fallback trên app iOS + Android; **review từng màn**; **seed CRUD data** tương ứng qua Mobile BFF / Admin `POST …/demo-seed` (`/add-dummy-endpoint`) để UI bind live. **Cấm** fail/empty → SSOT in-app.
 
 ## 2. Pattern (SSOT = attendance-day)
 

@@ -45,3 +45,7 @@ cd /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android && ./gradlew :app:assemb
 
 - Route picker on open (P2) — default `QL.1`
 - Sibling `pending_confirm` — cấm auto start
+
+## Notes (`/edit-mobile-feature` 2026-09-16)
+
+**GAP-MOB-EDIT-PERM-01** — Pin-here `RequestMultiplePermissions` FINE+COARSE · `AndroidLocationReader` fused/network · **cấm** GPS_PROVIDER SecurityException khi đã cấp. `assembleDebug` **PASS**.

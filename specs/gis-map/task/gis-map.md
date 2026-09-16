@@ -20,7 +20,7 @@
 | prior · design | **confirmed** · `ui/design.md` · `ui/ux-analy.md` · `ui/html-to-native-map.md` · `ui/review/demo-parity.md` · dual `#sc-gis-map` · `task_81ce36d6` · `kit_missing_confirm` **N/A** |
 | prior · sa | **confirmed** · `be/solution-discovery.md` · `solution_confirm=approve` · Step 4b **N/A** · `task_e39b336c` |
 | taskId | `task_ee5c8ae2` |
-| updatedAt | `2026-08-31T00:41:09.000Z` |
+| updatedAt | `2026-09-16T12:00:00.000Z` |
 | thisAction | **Bản đồ tài sản** `#sc-gis-map` only · GET `gis/geojson/*` + focus `asset/road-assets/{id}` · MapKit/OSM composition · basemap/legend · dual chrome · **cấm** gộp list / draw / heatmap / Twin / patrol-map |
 
 **Cấm:** gộp list / draw / heatmap / Twin / camera ITS / patrol-map (`GAP-MOB-ACT-01/02`) · invent `api/v1/gis-map` / `GisMapMobileController` · pin từ `incident/incidents` · WebView HTML Leaflet · `ERP.*` · `mfeStdUrl` · `UIAlert` / `AlertDialog` · raw `TabView` / M3 `NavigationBar` · ship hardcode `GIS_ASSETS` khi BFF live (`GAP-MOB-REAL-02`) · enqueue basemap/legend/fit/search (`GAP-MOB-ACT-07`) · start sibling hub/list/detail/incident (`GAP-MOB-ACT-06`) · `scaffold_new` / `/mobile-app-architecture` · `T-KIT-*` · e2e / `yarn start:std` ở role TL · Step 4b / migration · Write native code (trừ task MD).
@@ -122,8 +122,8 @@ AskQuestion (autoApprove=ON · không chờ board): `ios_repo_confirm=path` · `
 | navLayers | `LinmTopBar` trailing | **Lớp** · toast «Lớp tài sản / sự cố · chú giải» P1 · sheet **P2** · e2e `btn-gis-layers` · **cấm** invent layer UX P1 |
 | searchHint | SearchField overlay glass | placeholder **Tìm tài sản, sự cố…** · `#i-search` · local filter pins **hoặc** `?search=` · **cấm invent** dedicated search API · e2e `gis-search` |
 | mapHost | MapKit `Map` | OMS tiles · pins + corridor · e2e `map-gis-host` · **cấm** WebView · **cấm** `LinmMap` |
-| baseOsm | `ChipWrap` + `LinmChip` | **Đường** default on · e2e `mb-osm` |
-| baseEsri | `LinmChip` | **Phố** · e2e `mb-esri` |
+| baseClip | `ChipWrap` + `LinmChip` | **Tiêu chuẩn** default on · e2e `mb-clip` |
+| baseSat | `LinmChip` | **Vệ tinh** · e2e `mb-sat` · **cấm** Esri/Google |
 | baseSat | `LinmChip` | **Vệ tinh** · e2e `mb-sat` |
 | fitAll | `LinmChip` | **Toàn tuyến** fit overview · e2e `mb-fit` |
 | lgAll | `LinmChip` | **Tất cả** · e2e `lg-all` |
@@ -141,15 +141,15 @@ AskQuestion (autoApprove=ON · không chờ board): `ios_repo_confirm=path` · `
 
 | Step | Spec |
 |------|------|
-| Appear | Parallel GET: `gis/geojson/all` · `gis/geojson/incidents` · `gis/geojson/tuyen-duong` (Bearer) |
-| Overlay TS | FeatureCollection Points · isolate client `properties.layer` / non-incident → `ts` |
-| Overlay SC | **chỉ** `gis/geojson/incidents` · **cấm** `incident/incidents` pin (`GAP-MOB-GIS-SC-01`) |
-| Corridor | LineString từ `tuyen-duong` · vẽ khi Tất cả / Hành lang |
+| Appear | GET `gis/summary-by-type` · **cấm** parallel `geojson/all` |
+| Overlay TS | `gis/geojson/{type}` + `lod`/`bbox` khi tick · clusters khi loại lớn z&lt;14 |
+| Overlay SC | **chỉ** `gis/geojson/incidents` nếu tick · **cấm** `incident/incidents` pin (`GAP-MOB-GIS-SC-01`) |
+| Corridor | LineString từ `tuyen-duong` khi tick tuyến |
+| Zoom | debounce 450ms · skip `shouldReloadOverlay` · **cấm** `geojson/all` · **cấm** toast khi pinch cancel |
 | Focus | nav `assetId` → `GET asset/road-assets/{id}` · center Lat/Lng · fail/missing → fit all · toast optional |
-| Search | local filter pin/popup **hoặc** `?search=` trên geojson · **cấm invent** search API |
-| Fail / offline | map trống/partial live · toast lỗi · map **vẫn mở** · **cấm** GisMapDemoOverlay · **cấm** fake 200 · **cấm** ship mock-only khi live OK |
-| Persist / OfflineQueue | **không** P1 |
-| Layers sheet | **P2** · `GET gis/layers` optional |
+| Search | local filter pin/popup **hoặc** `?search=` trên geojson loại đã chọn · **cấm invent** search API |
+| Fail / offline | map trống/partial live · toast lỗi · map **vẫn mở** · **cấm** GisMapDemoOverlay |
+| Layers sheet | `LinmSheet` + `LinmAssetKchtPict` + Switch · default off · tick → load |
 
 ### Router / shell / entry wire
 
@@ -242,15 +242,14 @@ App paths (`{BffPrefix}` · **không** lặp prefix):
 
 | ID | Method | Path |
 |----|--------|------|
-| API-01 | GET | `gis/geojson/all` |
-| API-02 | GET | `gis/geojson/incidents` |
+| API-01 | GET | `gis/summary-by-type` |
+| API-02 | GET | `gis/geojson/{type}?lod=&bbox=` |
 | API-03 | GET | `gis/geojson/tuyen-duong` |
 | API-04 | GET | `asset/road-assets/{id}` |
-| API-05 | GET | `gis/geojson/*?search=` (optional iOS) |
-| API-06 | GET | `gis/layers` (P2) |
-| API-07 | GET | `gis/basemap-config` (optional · OMS local P1 OK) |
+| API-05 | GET | `gis/clusters?layer={type}&zoom=` |
+| API-06 | GET | `gis/geojson/*?search=` (optional iOS) |
 
-**OUT P1:** `gis/clusters` · `heatmap/pci` · `gis/drawings*` · invent `gis-map`.
+**OUT:** `geojson/all` on every zoom · heatmap/drawings · invent `gis-map`.
 
 ---
 

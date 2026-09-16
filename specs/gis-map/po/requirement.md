@@ -15,7 +15,7 @@
 | e2eQa | ON khi QA · `yarn e2e-qa-mobile` · sim 6.9" + emulator + Maestro · PNG `qa/screens` + `qa/store/gis-map` · **cấm** `yarn e2e-qa` / `yarn start:std` / `mfeStdUrl` / test thủ công thay runtime |
 | prior | data-analy **confirmed** · `specs/_data-analy/gis-map-control-hint.md` · `gis-map-bff-endpoints.md` · `gis-map-action-tree.md` · `gis-map-real-data.md` · contentHash `sha256:gis-map-control-hint-20260831` · bffContentHash `sha256:gis-geojson-proxy-passthrough-20260831` · real-data `sha256:gis-map-real-data-20260831` · **hash skip** · **cấm** re-scan demo · **no Excel** |
 | `devSlash` | `/agent-dev-ios` + `/agent-dev-android` |
-| updatedAt | `2026-08-31T00:45:00.000Z` |
+| updatedAt | `2026-09-16T12:00:00.000Z` |
 | taskId | `task_76dabc8f` |
 
 **Cấm:** gộp list / draw / heatmap / Twin / camera ITS / patrol-map (`GAP-MOB-ACT-01/02`) · invent `api/v1/gis-map` · invent lat trên Incident · WebView HTML Leaflet · ERP.* · native alert · watermark Gói · device label «iPhone» / «· Android» · `mfeStdUrl` · `UIAlert` / `AlertDialog` / `window.alert` · ship hardcode `GIS_ASSETS` khi BFF live (`GAP-MOB-REAL-02`) · enqueue basemap/legend/fit/search (`GAP-MOB-ACT-07`) · start sibling hub/list/detail/incident (`GAP-MOB-ACT-06`).
@@ -57,19 +57,20 @@ Delta Current vs New (analy):
 1. Dual native push `#sc-gis-map`: nav · map full · basemap chips · legend chips · overlay TS/SC/corridor. Frame proto iOS 390×844 · Android 412×915 · Tab 5 shell **giữ** dưới map (`GAP-TAB-01` · **cấm** invent tab / segment trên map).
 2. Back → pop `asset-hub` (`reuse` · **cấm** reimplement hub). Label iOS **Tài sản** + chevron · Android icon-only chevron `#i-chevron-left`.
 3. Title **Bản đồ tài sản** fixed.
-4. Trailing **dual chrome** (PO chốt §7):
-   - **iOS:** **Lớp** → toast P1 «Lớp tài sản / sự cố · chú giải» · sheet layers **P2** · **cấm** invent layer UX P1.
-   - **Android:** **Danh sách** → `go('asset-list')` (`reuse` list · **cấm** start list pack).
+4. Trailing **dual chrome**:
+   - **iOS:** **Lớp** → sheet loại tài sản (`GET gis/summary-by-type`) default **off** · tick mới load.
+   - **Android:** **Danh sách** → `go('asset-list')` · chip **Lớp** cùng sheet.
 5. **Search (iOS only P1):** overlay glass placeholder **Tìm tài sản, sự cố…** `#i-search` · local filter pin/popup **hoặc** toast nhãn · **cấm invent** dedicated search API. Android **không** search overlay P1 (dual chrome).
-6. Basemap chips (cả hai): **Đường** default on · **Phố** · **Vệ tinh** · **Toàn tuyến** fit overview.
+6. Basemap chips (cả hai): **Tiêu chuẩn** default on · **Vệ tinh** (cùng clip MVT) · **Toàn tuyến** fit overview. **Cấm** Đường/Phố OSM.org / Esri / Google.
 7. Legend isolate:
    - **Cả hai:** **Tất cả** · **Tài sản** · **Sự cố**
    - **iOS thêm:** **Hành lang** · Android **không** chip Hành lang P1 (corridor vẫn vẽ khi «Tất cả» / load; isolate corridor chỉ iOS).
-8. Overlay live on appear:
-   - TS: `GET gis/geojson/all` (isolate `ts` client)
-   - SC: `GET gis/geojson/incidents` (**cấm** `incident/incidents` pin — no Lat/Lng · **GAP-MOB-GIS-SC-01**)
-   - Corridor: `GET gis/geojson/tuyen-duong` (hoặc `lod=corridor`)
-   - Fail / empty → map trống (live-only) · toast lỗi khi fail · map **vẫn mở** · **cấm** GisMapDemoOverlay / demo SSOT native (`cleanup_mock`) · **cấm** ship mock-only khi live OK (`GAP-MOB-REAL-02`)
+8. Overlay **web-parity**:
+   - Appear: `GET gis/summary-by-type` · **không** fetch overlay đến khi tick loại
+   - Tick loại: `GET gis/geojson/{type}?lod=&bbox=` (full / z≥14) hoặc `gis/clusters?layer={type}` (loại lớn z&lt;14)
+   - Corridor: `GET gis/geojson/tuyen-duong` khi tick tuyến
+   - Zoom: skip nếu cùng LOD + bbox covers (web `shouldReloadDetail`) · **cấm** `geojson/all` mỗi idle
+   - Fail / empty → map trống (live-only) · toast lỗi khi fail · map **vẫn mở**
 9. Focus từ detail (**GAP-MOB-GIS-FOCUS-01**): nav args Id → `GET asset/road-assets/{id}` · center + highlight Lat/Lng · thiếu coords / fail / OfflineDemo → fit all · toast · **cấm** fake lat/lng · **cấm** OfflineDemo focus.
 10. Popup SSOT demo (fallback): **TS-20260810-014 · Cống ngang · QL.1 Km 1556+000** · **SC-2401 · Nứt mặt đường · QL.1 Km 1556+080**. Live bind `properties.code` / `name` / `route` / km.
 11. Kit reuse: `LinmTopBar` · `LinmChip` · `LinmToast` · `LinmTabBar` shell · pin glyph `#i-scope` / map pin. Map host = feature MapKit/OSM · **cấm** WebView HTML · **cấm** raw M3 `NavigationBar` / `TabView` (`GAP-MOB-ACT-05`).
@@ -115,10 +116,9 @@ Nguồn `#sc-gis-map` dual + DA-01 + real-data §B. UNCLEAR field = **none**.
 | navLayers | Lớp | TextButton | * | `LinmTopBar` trailing | **iOS only** · toast P1 · sheet **P2** |
 | navList | Danh sách | TextButton | * | `LinmTopBar` trailing | **Android only** · `go('asset-list')` |
 | searchHint | Tìm tài sản, sự cố… | SearchField | | overlay glass `#i-search` | **iOS only P1** · local filter / toast · **cấm invent** search API |
-| mapHost | Bản đồ GIS overlay OMS | Map | * | MapKit / OSM · `DES-MOB-OMS-GIS` | **cấm** WebView HTML |
-| baseOsm | Đường | Chip | * | `LinmChip` | default on · OSM |
-| baseEsri | Phố | Chip | * | `LinmChip` | Esri Streets |
-| baseSat | Vệ tinh | Chip | * | `LinmChip` | imagery |
+| mapHost | Bản đồ GIS overlay OMS | Map | * | `GisClipMapView` MapLibre · `DES-MOB-OMS-GIS` | **cấm** WebView HTML · **cấm** osmdroid PBF |
+| baseClip | Tiêu chuẩn | Chip | * | `LinmChip` | default on · clip MVT |
+| baseSat | Vệ tinh | Chip | * | `LinmChip` | sat tone · **cấm** Esri/Google imagery |
 | fitAll | Toàn tuyến | Chip | * | `LinmChip` | fit overview |
 | lgAll | Tất cả | Chip | * | `LinmChip` | isolate all |
 | lgTs | Tài sản | Chip | * | `LinmChip` | isolate `ts` |

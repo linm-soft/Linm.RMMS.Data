@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "1",
+  "feature": "patrol-map",
+  "skillId": "agent-review-mobile",
+  "skillVersion": "session",
+  "status": "done",
+  "review_confirm": "approve",
+  "taskId": "task_b2f08c4b",
+  "qaTaskId": "task_92c6486b",
+  "mustOpen": 0,
+  "deferGaps": ["GAP-MOB-AND-CHIP-01"],
+  "reviewedAt": "2026-09-16T04:42:21.000Z",
+  "autoApprove": true
+}

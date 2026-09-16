@@ -46,8 +46,10 @@ Native chưa có màn Login (không file `*Login*` trên iOS/Android). Không b�
 14. QA (role sau): AC slug `login` only · live capture sim/adb · **cấm** test sibling `login-forgot` / `login-logout` (`#sc-me`) như in-scope.
 15. Demo Home (kit gallery): chrome **Đăng xuất** `btn-logout` · clear local session → `#sc-login` · toast **Đã đăng xuất** · **cấm** POST `auth/logout` · **cấm** coi đây là slug `login-logout`.
 16. IME: focus `#f-user` / `#f-pass` **luôn trên** bàn phím (iOS + Android) · kit `LinmKeyboardAwareScroll` · logo **192 tĩnh** · **cấm** che input · **cấm** compact logo.
-17. Submit login → **reset `#f-pass`** · **giữ `#f-user`** (last id, kể cả sau Đăng xuất) · **cấm** persist mật khẩu.
+17. Submit **OK** → **reset `#f-pass`** · **giữ `#f-user`**. Submit **fail** / offline / HĐ → **giữ `#f-user` và `#f-pass`** · **cấm** wipe form (`GAP-MOB-EDIT-FAIL-FIELDS`) · **cấm** persist mật khẩu.
 18. IME Enter: `#f-user` Enter/`Go` **nếu `#f-pass` có giá trị → cùng CTA login** · `#f-pass` Enter/`Go` → **login** · `#f-user` Enter + MK rỗng → **focus `#f-pass`** · **không** toast / **không** POST.
+19. Typed `#f-user` / `#f-pass` trên máy thật (kể cả Dark Mode / OEM Force Dark) = `onSurface` trên `card` trắng · **cấm** chữ trắng khi IME (`GAP-MOB-EDIT-FIELD-INK`).
+20. Kill / reopen / foreground: restore phiên Root-parity — skip POST nếu access còn `exp−60s` · else `POST auth/refresh-token` single-flight · 401/revoked → `#sc-home` guest · **cấm** tự mở `#sc-login` · **cấm** `/session-expired` · **cấm** logout khi mất mạng / 5xx (`GAP-MOB-EDIT-SESSION-REFRESH`).
 
 ## 4. CTX / DEM / DI inventory
 
@@ -148,6 +150,7 @@ Frame: iOS 390×844 · Android 412×915 · safe area · keyboard không đè inp
 | AC-D-09 | Token | Keychain / Encrypted store · app chỉ `{BffPrefix}` |
 | AC-D-10 | Tab / swipe | Overlay login **không** tab 5. Guest **được** về Home (`btn-login-back`). **Cấm** cổng login bắt buộc lúc launch |
 | AC-D-11 | Camera / push | **N/A** |
+| AC-D-12 | Session restore | Kill/reopen staff → silent refresh (Root) · guest Home nếu refresh 401 · **cấm** logout khi offline restore (`GAP-MOB-EDIT-SESSION-REFRESH`) |
 
 ## 10. Leave / alert (REQUIRED)
 

@@ -24,7 +24,7 @@ Tuần đường (selected) → #sc-patrol-home
 | DES / sc-* | Tên VN | iOS chrome | Android chrome | CTA |
 |------------|--------|------------|----------------|-----|
 | DES-MOB-PAT-MAP `#sc-patrol-map` | Ca đang chạy | Nav text back **Tuần đường** | Icon back | Ghi điểm tuần · Ghim |
-| DES-MOB-OMS-PATROL | OMS | MapKit | OSM tiles | Basemap · isolate |
+| DES-MOB-OMS-PATROL | OMS | `GisClipMapView` | same MapLibre clip | Basemap · isolate |
 | DES-MOB-CI-PIN-HERE | Ghim | `LinmPrimaryButton` + `#i-mappin` | same | loc + zoom + pin here · toast · deny `patrol.map.locDeny` |
 | DES-MOB-TABBAR | Tab 5 | shell | shell | **cấm** invent |
 
@@ -35,10 +35,10 @@ Tuần đường (selected) → #sc-patrol-home
 | Zone | Demo | Map | SwiftUI | Compose |
 |------|------|-----|---------|---------|
 | Nav | Ca đang chạy · Ghi điểm tuần | A `.nav-bar` / `.top-bar` | `LinmTopBar` | same |
-| Map | Leaflet live + OSRM | A `#map-patrol-host` / `#map-patrol` | MapKit `Map` + OSRM path | osmdroid `MapView` + OSRM path |
+| Map | Leaflet live + OSRM | A `#map-patrol-host` / `#map-patrol` | `GisClipMapView` MapLibre + OSRM path | same (`GisClipMapView`) |
 | Next | Điểm tiếp theo · OSRM · Km… | A `.map-next-card` | overlay + `LinmPrimaryButton` | same |
 | Pin | Ghim vị trí hiện tại | A `#btn-pin-here` `#i-mappin` | `LinmPrimaryButton` + `LinmMapPinGlyph` | same · **live loc** → snap/project · pin `.here` tip neo đáy |
-| Bar | Đường Phố Vệ tinh Toàn tuyến | A `#mb-osm`…`#mb-fit` wrap | `ChipWrap` + `LinmChip` | `FlowRow` + `LinmChip` |
+| Bar | Tiêu chuẩn Vệ tinh Toàn tuyến | A `#mb-clip` `#mb-sat` `#mb-fit` wrap | `ChipWrap` + `LinmChip` | `FlowRow` + `LinmChip` |
 | Legend | 4 isolate | A `#lg-all`…`#lg-next` wrap | `ChipWrap` + `LinmChip` | `FlowRow` + `LinmChip` |
 | Tab | Tab 5 field | shell | `LinmTabBar` | same |
 
@@ -46,7 +46,7 @@ Tuần đường (selected) → #sc-patrol-home
 
 ## 4. Copy SSOT
 
-Ca đang chạy · Tuần đường · Ghi điểm tuần · Điểm tiếp theo · OSRM · Km 1561+134 · Phước Dinh · Ghim vị trí hiện tại · Đường · Phố · Vệ tinh · Toàn tuyến · Tất cả · Hành trình · Đã ghi điểm tuần · Điểm kế tiếp.
+Ca đang chạy · Tuần đường · Ghi điểm tuần · Điểm tiếp theo · OSRM · Km 1561+134 · Phước Dinh · Ghim vị trí hiện tại · Tiêu chuẩn · Vệ tinh · Toàn tuyến · Tất cả · Hành trình · Đã ghi điểm tuần · Điểm kế tiếp.
 
 Toast: **Ghi điểm tuần** · **Ghim vị trí hiện tại** (ok) · deny `patrol.map.locDeny` · timeout `patrol.map.locTimeout`. **Cấm** chữ «GPS» trên máy.
 
@@ -69,8 +69,8 @@ Pict: `#i-mappin` pin · `#i-chevron-left` back — **cấm** invent.
 
 ## 8. Dual parity
 
-Cùng copy zones · cùng `#i-mappin` · cùng 4 basemap + 4 legend wrap · cùng pin-here loc+**snap**+zoom · cùng OSRM tim đường. **Cấm** worker revert polyline thẳng / pin raw (**GAP-MOB-EDIT-01** · **GAP-MAP-OSRM-ROUTE** · **GAP-MAP-OSRM-SNAP**).  
-DEFER platform-OK: iOS MapKit vs Android OSM · iOS back text vs Android icon · pin done/next hex platform tint.
+Cùng copy zones · cùng `#i-mappin` · cùng 2 basemap clip + 4 legend wrap · cùng pin-here loc+**snap**+zoom · cùng OSRM tim đường · **điểm tuần overlay trên nét hành trình**. **Cấm** worker revert polyline thẳng / pin raw / chip Đường-Phố OSM / pin under line (**GAP-MOB-EDIT-01** · **GAP-MAP-OSRM-ROUTE** · **GAP-MAP-OSRM-SNAP** · **GAP-MOB-AND-CHIP-01** · **GAP-MOB-PIN-OVER-LINE-01**).  
+DEFER platform-OK: iOS back text vs Android icon.
 
 Must: `/review-demo-design-mobile` → `ui/review/demo-parity.md`.
 
@@ -84,7 +84,7 @@ Must: `/review-demo-design-mobile` → `ui/review/demo-parity.md`.
 | `map-patrol-host` | map |
 | `btn-next-checkin` | card CTA |
 | `btn-pin-here` | pin |
-| `mb-osm` `mb-esri` `mb-sat` `mb-fit` | bar |
+| `mb-clip` `mb-sat` `mb-fit` | bar |
 | `lg-all` `lg-track` `lg-done` `lg-next` | legend |
 
 ## Version meta

@@ -29,7 +29,7 @@
 |------|------|
 | Finder + capture | `Presentation/Features/CamPatrol/CamPatrolFinderPreview.swift` · `CamPatrolFrameCapture` |
 | ViewModel | `CamPatrolViewModel.swift` · `runDetect` capture-before-POST |
-| Keep | screen / GPS / Confirm / Skip / sessions · score ẩn · route_a |
+| Keep | screen / GPS / Confirm / Skip / sessions · score ẩn · route_a · **GAP-MOB-EDIT-PERM-01** `.authorized` session retry |
 
 ## Build gate
 

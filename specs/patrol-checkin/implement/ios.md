@@ -16,9 +16,10 @@
 
 ## Notes (edit_page delta · T-IOS-PAT-CI-DELTA)
 
-- Plan match vs BE `GET …/plan-points` · nearest + haversine `MATCH_RADIUS_M=50` · interim session label · **cấm** plan=GPS SSOT.
+- Plan match vs BE `GET …/plan-points` · nearest + haversine `MatchRadiusM` from `GET patrol/check-in-policy` · **default allow sai điểm** (`RequirePlanPointMatch=false`) · interim session label · **cấm** plan=GPS SSOT.
 - PhotoRow → PhotosPicker → FileService `files/init`→PUT→`commit` → `attachmentId[]` on POST · preview local bytes + detail ids · fail → offline queue (**cấm** fake 200).
-- Submit `POST …/check-ins` live · body `photoLocalIds` = FileService guids · pending photo → queue.
+- **2026-09-16** `/edit-mobile-feature`: GET `patrol/check-in-policy` · allow Lưu sai điểm unless BE `RequirePlanPointMatch`.
+- **2026-09-16** `/edit-mobile-feature`: Cách điểm KH / banner / detail **> 1000 m → km** (`DistanceDisplay` · `checkin.dist.km`) · 264384 m → **264.4 km**.
 - GPS live · deny modal · leave in-app.
 - Zones giữ · kit_skip.
 
@@ -36,8 +37,9 @@
 
 | Check | Result |
 |-------|--------|
-| `xcodegen generate` | **PASS** |
-| `xcodebuild` iPhone 17 Pro | **PASS** |
+| `xcodegen generate` | **PASS** (2026-09-16 · dist km) |
+| `xcodebuild` iPhone 17 Pro Max | **PASS** (2026-09-16 · dist km) |
+| `xcodebuild` iPad Pro 13-inch (M5) | **PASS** (2026-09-16 · dest A4) |
 | plan=GPS | **removed** |
 | File fake 200 | **none** |
 

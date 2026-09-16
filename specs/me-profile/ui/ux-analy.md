@@ -43,7 +43,7 @@ Login → Tab Tôi (shell Tab 5 · index me)
 | fullName | Họ và tên | B `input type=text` | `LinmTextField` | same |
 | phoneNumber | Số điện thoại | B `input type=tel` | `LinmTextField` phonePad | same |
 | email | Email | B `input type=email` | `LinmTextField` email | same |
-| userName | Tên đăng nhập | A `.readonly` | Text display | same |
+| userName | Tên đăng nhập | A `.readonly` | Text display | same | GET `UserName` · **cấm** GUID `Id` |
 | citizenId | CCCD/CMND | A `.readonly` optional | Text display if GET | same |
 | Primary | Lưu | A `.btn-primary` | `LinmPrimaryButton` | same |
 | Section | Đổi mật khẩu | A `.section-label` | `LinmSectionLabel` 13 | same |
@@ -114,6 +114,7 @@ Pack P1: toast fade ~2.4s · leave modal backdrop · primary/secondary busy · k
 | GAP-MOB-MEPROF-EMAIL-01 | GET thiếu Email | empty OK · vẫn PUT |
 | GAP-MOB-MEPROF-ORG-01 | org subtitle | **không** invent · ẩn phụ |
 | GAP-MOB-MEPROF-CITIZEN-01 | CCCD | display-only nếu GET · **cấm** PUT |
+| GAP-MOB-MEPROF-USERNAME-01 | `#f-userName` hiện GUID `Id` | **CLOSED** · bind `UserName` · empty/GUID → `lastUserName` · **cấm** `Id` |
 | AC-D-01 | offline | toast lỗi · fallback lastName · **cấm** fake 200 |
 | AC-D-03 | leave dirty | DES-MOB-LEAVE · **cấm** native alert |
 | AC-D-04 | alert | **cấm** system · Toast/modal only |

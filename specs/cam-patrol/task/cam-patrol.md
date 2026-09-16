@@ -10,7 +10,7 @@
 | packKind | **`screen`** (PO + Design + SA confirm · GAP-MOB-CAM-PACK-01 **closed**) |
 | stack | `native_dual` |
 | thisAction | **Thu thập bằng camera** `DES-MOB-CAM-PATROL` (+ finder `DES-MOB-CAM-FINDER`) only · **cấm** gộp sibling (`GAP-MOB-ACT-01/02`) |
-| deltaThisEdit | **GAP-MOB-CAM-FRAME-01** — finder JPEG → non-null `imageBase64` trên POST detect · **GAP-MOB-CAM-FRAME-02** — fail/empty → toast detectFail · card nil · **cấm** fake class · **GAP-MOB-CAM-FRAME-03** — parity `DetectAiVisionBody` dual · prior screen ship **giữ** |
+| deltaThisEdit | **GAP-MOB-CAM-FRAME-01** — finder JPEG → non-null `imageBase64` trên POST detect · **GAP-MOB-CAM-FRAME-02** — fail/empty → toast detectFail · card nil · **cấm** fake class · **GAP-MOB-CAM-FRAME-03** — parity `DetectAiVisionBody` dual · **GAP-MOB-EDIT-PERM-01** granted ≠ deny · prior screen ship **giữ** |
 | route_confirm | **route_a** (autoApprove=ON · **giữ**) · entry hub `#sc-patrol-home` `#i-video` + `#sc-inc-form` secondary · pack `tabs: none` · shell Tab 5 **giữ** · tab **`field`** · **không** URL mới |
 | ios_repo_confirm | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS` · **reuse** |
 | android_repo_confirm | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android` · **reuse** |

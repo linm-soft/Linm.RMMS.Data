@@ -10,7 +10,7 @@
 | DES-MOB-CAM-PATROL | Back | `.nav-btn` + `#i-chevron-left` · «Tuần đường» (iOS) | leading | `icon-btn` chevron | `go('patrol-home')` |
 | DES-MOB-CAM-FINDER | Preview | `.finder` | AVCapture overlay | CameraX Preview | app surface |
 | DES-MOB-CAM-FINDER | FOV | `.finder .box` | overlay `#5AC8FA` | same | |
-| DES-MOB-CAM-FINDER | Frame capture | (native · không HTML widget) | JPEG session → base64 | ImageCapture → base64 | **GAP-MOB-CAM-FRAME-01** trước POST |
+| DES-MOB-CAM-FINDER | Frame capture | (native · không HTML widget) | JPEG session → base64 | ImageCapture → base64 | **GAP-MOB-CAM-FRAME-01** · granted CAMERA ≠ cameraDeny |
 | OverlayStamp | Route + GPS | `.finder .stamp` | Text 13 | same | live sessions + GPS · **cấm** demoRouteStamp ship |
 | Detect card | Group | `.card-group` `#detect-card` | inset grouped | `Card` | fail → **hidden** / nil |
 | rowDetect | List | `.row` | `LinmListRow` | same | **chỉ** sau ok+frame |

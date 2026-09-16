@@ -115,7 +115,7 @@ Pack P1: toast fade ~2.4s · privacy panel push · **không** bắt buộc `/wf-
 | GAP-MOB-MESET-OS-01 | deep-link OS | openAppSettings · toast fail |
 | GAP-MOB-MESET-STATUS-01 | status quyền | Đã cấp / Chưa cấp / Không xác định · **không** request |
 | GAP-MOB-MESET-VER-01 | version | Bundle `x.y.z (build)` · empty «—» |
-| GAP-MOB-MESET-PRIVACY-01 | Privacy URL | static `home.privacy.*` · HTTPS khi khách giao |
+| GAP-MOB-MESET-PRIVACY-01 | Privacy URL | static `home.privacy.body` user-facing · HTTPS Store khi khách giao · **cấm** invent |
 | GAP-MOB-MESET-API-01 | prefs server | **P1 skip** · **cấm invent** |
 | AC-D-01 | offline | màn local mở · **cấm** fake save |
 | AC-D-02 / AC-D-11 | GPS/Camera | status-only · tap → OS |

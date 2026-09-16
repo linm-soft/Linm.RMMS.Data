@@ -13,7 +13,7 @@
 | demo | `ui/prototype/{ios,android}/index.html` `#sheet-checkin` |
 | live capturedAt | `2026-09-01T07:12:56.182Z` · iPhone 17 Pro Max · AVD 1080×1920 |
 | updatedAt | `2026-09-01T07:15:30.000Z` |
-| edit note | cleanup_mock live-only · plan/route = session `QL.1` (không demo Phước Dinh) |
+| edit note | cleanup_mock live-only · plan/route = session `QL.1` · **2026-09-16** allow sai điểm unless BE `RequirePlanPointMatch` · **dist > 1000 m → km** |
 
 ## Vision CORE (Read PNG)
 

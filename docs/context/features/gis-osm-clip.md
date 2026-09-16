@@ -4,7 +4,7 @@
 > **Status:** Context (target) — **demo hiện tại lệch** (OSM.org/Google)  
 > **Skills:** `/implement-gis-map` · `/agent-dev-oms-map` · `/review-map-release`  
 > **Parent:** [`gis.md`](gis.md) · data [`map-service.md`](map-service.md) · law [`legal-tech-corridor.md`](legal-tech-corridor.md)  
-> **MFE:** `Linm.Web.RMMS.Gis` · **Mobile:** [`patrol-map.md`](patrol-map.md)
+> **MFE:** `Linm.Web.RMMS.Gis` · **Mobile iOS SSOT:** [`gis-map.md`](gis-map.md) `GisClipMapView` · twins [`patrol-map.md`](patrol-map.md) · [`photo-geo-capture.md`](photo-geo-capture.md)
 
 ## 1. Tổng quan
 
@@ -12,7 +12,7 @@
 |--|--|
 | Mục tiêu | Một basemap **clip gis.vn** (OSM **imagery**) + chi tiết KCHT/tuần **từ GIS/MapService** |
 | Persona | Inspector (JWT) · Guest (không overlay nội bộ) |
-| App hiện có | Leaflet OSM/Esri/Carto/Google · patrol MapKit + OSM chips |
+| App hiện có | MFE clip MapLibre (`vnClipBasemap.ts`) · **iOS `#sc-gis-map`** `GisClipMapView` (shipped) · **iOS `#sc-patrol-map` + HITL** reuse cùng host (**GAP-MOB-IOS-MAP-HOST-01 closed**) |
 | DoD P1 | Default tile tự host · mask HS/TS · maxBounds · JWT overlays · guest không lat/lng TS |
 
 ## 2. Design / UI
@@ -49,7 +49,8 @@ Xem [`map-service.md`](map-service.md). Client không giữ polygon chủ quyề
 | GAP-MAP-OSM-CDN-01 | `GisListPage` / draw pages CDN |
 | GAP-MAP-BOUNDS-01 | Chưa maxBounds VN |
 | GAP-MAP-MASK-01 | Chưa invert mask |
-| GAP-MAP-PARITY-01 | Mobile ≠ web tiles |
+| GAP-MAP-PARITY-01 | Mobile ≠ web tiles — iOS gis/patrol/HITL **đã** clip BFF |
+| GAP-MOB-IOS-MAP-HOST-01 | **closed** `task_1f6d86c4` — patrol + HITL reuse `GisClipMapView` |
 | GAP-F-GIS-02 | Google draw parity — **không** dùng làm nền Store |
 
 ## 7. Demo checklist

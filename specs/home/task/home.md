@@ -99,7 +99,7 @@ IA lock (design §2): `(auth) Login (ngoài tab) → Tab 5 · Trang Chủ = this
 |-------|-----|-------|
 | profileBtn | `LinmProfileButton` trong `LinmHeroTools` | tap → tab **Tôi** · e2e id theo ux-analy |
 | notifyBtn | `LinmNotifyButton` · `LinmNotifyCountBadge` | tap → `#sc-ops` · GET overview guest+staff · badge 0 ẩn · **cấm** hardcode `3` |
-| brandLogo | `AppLogo` | giữa hero `home-brand` · 36 |
+| brandLogo | `AppLogo` | giữa khoảng trống guest `home-brand` · `brandLogoSm` |
 | roleLine | `LinmStatusCapsule` `area` | **ẩn live** (`GAP-F-HOME-01`) |
 | signal | `LinmStatusCapsule` / `LinmNetSignalMark` | OS `NWPathMonitor` · Tốt/TB/Yếu · tap toast **Đã làm mới** + refresh · **cấm** cycle · **cấm** «Có mạng» |
 | who | typography hero | `fullName` trim từ profile · fail → `lastUserName` · **cấm** hardcode production |
@@ -116,7 +116,7 @@ IA lock (design §2): `(auth) Login (ngoài tab) → Tab 5 · Trang Chủ = this
 | foot | — | **cấm ship** (`GAP-F-HOME-03`) |
 | tabHome | `LinmTabBar` | **staff only** · **ẩn guest** (`GAP-MOB-EDIT-GUEST-TAB`) · label **13** · tabField `LinmMapPinGlyph` |
 | loginBtn | Button card | **pin đáy** guest dock · không hero · e2e `btn-home-login` |
-| guestPrivacy | underline | pin đáy dưới login · e2e `btn-home-privacy` |
+| guestPrivacy | underline | pin đáy dưới login · e2e `btn-home-privacy` · body user-facing `home.privacy.body` |
 | toast | `LinmToast` | sibling nhãn · signal · offline |
 
 **Cấm** `LinmKitGallery` trên tab Trang Chủ production · **cấm** `btn-logout` trên `#sc-home` (Đăng xuất = `#sc-me`).
@@ -127,6 +127,7 @@ IA lock (design §2): `(auth) Login (ngoài tab) → Tab 5 · Trang Chủ = this
 |------|------|
 | Appear / refresh | `FetchProfileUseCase` → `GET auth/profile` Bearer |
 | Bind | `.who` = `fullName` trim · ignore `id` / `phoneNumber` trên UI hub |
+| Loading | `isProfileLoading` + `.who` empty → `home-who-skeleton` bone pulse · **cấm** flash Khách · **cấm** `LinmBusyOverlay` (`GAP-MOB-EDIT-HOME-WHO-SKEL`) |
 | Fail / offline | `.who` = `auth.lastUserName()` · hub **vẫn mở** · toast không block tab · **cấm** enqueue «home» |
 | Inbox | **không** gọi |
 | Wallet / org | **không** API |
@@ -137,7 +138,13 @@ IA lock (design §2): `(auth) Login (ngoài tab) → Tab 5 · Trang Chủ = this
 
 **UI notes T-IOS (2026-09-12):** Guest **ẩn** footer tab · pin `btn-home-login` + `btn-home-privacy` đáy · **cấm** revert (`GAP-MOB-EDIT-GUEST-TAB`).
 
+**UI notes T-IOS (2026-09-12):** `#sc-privacy` `home.privacy.body` user-facing (Khách · cán bộ · quyền · liên hệ pháp nhân) · `fieldText` · **cấm** invent HTTPS (`GAP-MOB-EDIT-PRIVACY-COPY`).
+
 **UI notes T-IOS (2026-09-12):** RMMS logo giữa hero · chuông → `#sc-ops` · GET inbox/overview **không JWT** (`GAP-MOB-EDIT-GUEST-OPS`).
+
+**UI notes T-IOS (2026-09-12):** Logo RMMS **giữa page** (không hero) · guest `#sc-ops` fullScreenCover · back **không** hiện tab (`GAP-MOB-EDIT-GUEST-BRAND`).
+
+**UI notes T-IOS (2026-09-16):** GET `auth/profile` · `.who` empty → bone `home-who-skeleton` (`brandLogo`×`heroWho`) · hub không block · **cấm** revert flash Khách (`GAP-MOB-EDIT-HOME-WHO-SKEL`).
 
 ### Build DoD
 
@@ -165,7 +172,13 @@ Cùng bảng field + API như T-IOS. Kit dual Compose. Signal bind Connectivity 
 
 **UI notes T-AND (2026-09-12):** Guest **ẩn** `LinmTabBar` · pin `btn-home-login` + `btn-home-privacy` đáy · staff hiện tab · dual iOS (`GAP-MOB-EDIT-GUEST-TAB`).
 
+**UI notes T-AND (2026-09-12):** `#sc-privacy` `home.privacy.body` user-facing dual iOS · `fieldText` · **cấm** invent HTTPS (`GAP-MOB-EDIT-PRIVACY-COPY`).
+
 **UI notes T-AND (2026-09-12):** RMMS `app_logo` giữa hero · chuông → `OpsScreen` · guest GET overview/inbox (`GAP-MOB-EDIT-GUEST-OPS`).
+
+**UI notes T-AND (2026-09-12):** `app_logo` giữa page · ẩn `LinmTabBar` khi route `ops` · guest back **không** hiện tab (`GAP-MOB-EDIT-GUEST-BRAND`).
+
+**UI notes T-AND (2026-09-16):** GET `auth/profile` · `.who` empty → bone `home-who-skeleton` dual iOS · hub không block · **cấm** revert (`GAP-MOB-EDIT-HOME-WHO-SKEL`).
 
 ### Build DoD
 

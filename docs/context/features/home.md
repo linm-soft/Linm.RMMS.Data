@@ -27,7 +27,7 @@
 | Who | Khách / tên phiên | Guest copy **Khách** · staff `fullName` `auth/profile` |
 | Login CTA | Đăng nhập · Dành cho cán bộ | `btn-home-login` · overlay slug `login` · ẩn khi staff |
 | Guest FAQ | Câu hỏi thường gặp | `btn-home-faq` → `#sc-faq` · pills + search + list · static `LinmCopy` · **cấm** invent API |
-| Guest privacy | Chính sách quyền riêng tư | `btn-home-privacy` → `#sc-privacy` · static body |
+| Guest privacy | Chính sách quyền riêng tư | `btn-home-privacy` → `#sc-privacy` · static `home.privacy.body` user-facing · **cấm** invent HTTPS |
 | Quick | Điểm tuần · Ghi sự cố | **staff only** · `LinmQuickActions` → `patrol-home` · `incident-create` |
 | Section | Nghiệp vụ thường dùng | `LinmSectionLabel` · không route |
 | Grid 6 ô | Giám sát · Tuần đường · Công việc · Vấn đề · Tài sản · Lưu trữ | `LinmHomeGrid` / `LinmHomeTile` |

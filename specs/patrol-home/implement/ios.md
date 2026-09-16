@@ -48,3 +48,7 @@ xcodebuild -scheme LinmRmms -destination 'platform=iOS Simulator,name=iPhone 17 
 
 - Route picker on open (P2) — default `QL.1` catalog
 - Sibling `pending_confirm` — cấm auto start
+
+## Notes (`/edit-mobile-feature` 2026-09-16)
+
+**GAP-MOB-EDIT-PERM-01** — CoreLocation: services off / authorized+CLError.denied → `unavailable` (không nhầm chưa cấp). Camera session retry khi `.authorized`. `xcodebuild` dest **iPhone 17 Pro** **PASS**.

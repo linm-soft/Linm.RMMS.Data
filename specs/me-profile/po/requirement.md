@@ -53,7 +53,7 @@ Pack **screen mới** theo data-analy (`changeScope=new_page`). Native hiện: h
 2. Appear → GET `auth/profile` · bind `FullName` / `PhoneNumber` / `UserName` (± `Email` nếu GET có · ± `CitizenId` display-only nếu có) · fail → fallback `lastUserName` + toast lỗi · **cấm** hardcode «Nguyễn Văn A» production · **cấm** fake profile.
 3. Primary **Lưu** → PUT `auth/profile` body `MobileAuthProfileUpdateRequest` (`FullName` * trim non-empty · `PhoneNumber` · `Email`) · busy · toast **Đã cập nhật hồ sơ** khi 200 · refresh hub tên · **cấm** native alert · **cấm** toast ok khi fail / 422 / mạng. Empty `fullName` → disable Lưu **hoặc** validation toast · **cấm** PUT trống tên.
 4. Section **Đổi mật khẩu**: `currentPassword` + `newPassword` + `confirmPassword` (local match only · **không** wire Confirm) · CTA **Đổi mật khẩu** → POST `auth/change-password` `{ CurrentPassword, NewPassword }` · toast **Đã đổi mật khẩu** khi 200 · clear secure fields · mismatch / thiếu → toast validation · **cấm** POST · **cấm** fake ok.
-5. Readonly: `userName` / Id display · `citizenId` **chỉ nếu** GET có · **cấm** PUT invent CCCD/DOB (`GAP-MOB-MEPROF-CITIZEN-01`).
+5. Readonly: `userName` = GET `UserName` · empty/GUID → `lastUserName` · **cấm** hiện `Id` GUID (`GAP-MOB-MEPROF-USERNAME-01`) · `citizenId` **chỉ nếu** GET có · **cấm** PUT invent CCCD/DOB (`GAP-MOB-MEPROF-CITIZEN-01`).
 6. Avatar: circle `#i-person` display · **không** upload P1.
 7. Entry (reuse Me, **cấm** reimplement hub): Me **row-profile** → **push** `#sc-me-profile` (thay no-op) · live FullName · phụ **ẩn** nếu không field live (`GAP-MOB-MEPROF-ORG-01`) · iOS chevron · Android **không** chevron (peer GAP-MOB-UX-04b) · back «Tôi» / chevron → `me`.
 8. Kit reuse: `LinmTopBar` · `LinmTextField` · `LinmSecureField` · `LinmPrimaryButton` · `LinmSecondaryButton` · `LinmSectionLabel` · `LinmToast` · Me `LinmListRow` `#i-person`. **Cấm** invent tên kit · Design `kit_missing_confirm` nếu thiếu (`GAP-MOB-ACT-05`).
@@ -114,7 +114,7 @@ Nguồn DA-01 `#sc-me-profile`. UNCLEAR field = **none**.
 | fullName | Họ và tên | TextField | * | `LinmTextField` | label **13** / field **≥16** · GET/PUT `FullName` |
 | phoneNumber | Số điện thoại | TextField phone | | `LinmTextField` | GET/PUT `PhoneNumber` |
 | email | Email | TextField | | `LinmTextField` | PUT `Email` · GET thiếu → empty (**GAP-MOB-MEPROF-EMAIL-01**) |
-| userName | Tên đăng nhập | Text display | * | | readonly · GET `UserName` / Id · **không** PUT |
+| userName | Tên đăng nhập | Text display | * | | readonly · GET `UserName` · empty/GUID → `lastUserName` · **cấm** bind `Id` GUID (**GAP-MOB-MEPROF-USERNAME-01**) · **không** PUT |
 | citizenId | CCCD/CMND | Text display | | | **chỉ nếu** GET có · **cấm** PUT |
 | btnSave | Lưu | PrimaryButton | * | `LinmPrimaryButton` | PUT · toast ok · busy |
 | sectionPwd | Đổi mật khẩu | SectionLabel | * | `LinmSectionLabel` | **13** |
@@ -159,7 +159,7 @@ App `ApiClient.base` = `{BffBase}/mobile-bff/api/v1`. Path **không** lặp pref
 | fullName | GET/PUT `FullName` * |
 | phoneNumber | GET/PUT `PhoneNumber` |
 | email | PUT `Email` · GET optional |
-| userName | GET `UserName` / Id · readonly |
+| userName | GET `UserName` · fallback `lastUserName` · **cấm** `Id` GUID |
 | citizenId | GET optional · display-only |
 | currentPassword | POST `CurrentPassword` * |
 | newPassword | POST `NewPassword` * |

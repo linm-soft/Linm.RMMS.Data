@@ -11,7 +11,7 @@
 | fullName | Text | `input#f-fullName` + label | `LinmTextField` | same | label 13 / ≥16 · required · PUT `FullName` |
 | phoneNumber | Tel | `input#f-phone` type=tel | `LinmTextField` | same | PUT `PhoneNumber` |
 | email | Email | `input#f-email` type=email | `LinmTextField` | same | PUT `Email` · GET optional |
-| userName | Readonly | `#f-userName` `.readonly` | Text | same | GET only |
+| userName | Readonly | `#f-userName` `.readonly` | Text | same | GET `UserName` · empty/GUID → `lastUserName` · **cấm** `Id` GUID |
 | citizenId | Readonly opt | `#f-citizenId` `.readonly` | Text if GET | same | **cấm** PUT |
 | Save | CTA | `.btn-primary` | `LinmPrimaryButton` | same | PUT `auth/profile` · `isBusy` |
 | sectionPwd | Section | `.section-label` | `LinmSectionLabel` | same | **13** |

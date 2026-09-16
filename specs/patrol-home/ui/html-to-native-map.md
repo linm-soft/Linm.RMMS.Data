@@ -10,7 +10,7 @@
 | `#btn-open-session` | Mở ca | `LinmPrimaryButton` | same | POST `patrol/sessions` |
 | `.progress` | Coverage | `LinmProgress` | same | active only |
 | `.hero-actions` `.btn` | Hero CTA | `LinmHeroAction` + `#i-map` / `#i-plus` | same | ẩn khi empty |
-| `#pin-here` · DES-MOB-CI-PIN-HERE | Pin | `LinmPrimaryButton` + `#i-mappin` | same | keep |
+| `#pin-here` · DES-MOB-CI-PIN-HERE | Pin | `LinmPrimaryButton` + `#i-mappin` | same | keep · Android FINE **hoặc** COARSE · **GAP-MOB-EDIT-PERM-01** |
 | `.kpi-strip` · DES-MOB-PAT-KPI | KPI 3 | `LinmKpiStrip` | same | empty → `—` |
 | `.section-label` | Section | `LinmSectionLabel` | same | Hôm nay / Thao tác nhanh |
 | `.row` · DES-MOB-PAT-TODAY / QUICK | List | `LinmListRow` + `LinmRowIcon` + `LinmBadge` | same | route trống=`—` |

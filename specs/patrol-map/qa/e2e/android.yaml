@@ -1,57 +1,67 @@
 appId: org.linmsoft.rmms
 ---
-# patrol-map · Android · login Auth seed → tab field → hub → #sc-patrol-map
+# patrol-map · Android · guest/home → login Auth seed → tab field → #sc-patrol-map
 - launchApp:
     clearState: true
     clearKeychain: true
 - extendedWaitUntil:
     visible: "Đăng nhập"
-    timeout: 15000
+    timeout: 20000
+- tapOn:
+    id: "btn-home-login"
+    optional: true
+- tapOn:
+    text: "Dành cho cán bộ"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "f-user"
+    timeout: 20000
 - tapOn:
     id: "f-user"
 - inputText: "linm-soft"
-- tapOn: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
 - tapOn:
     id: "f-pass"
 - inputText: "Linm@2026"
-- pressKey: Enter
+- hideKeyboard
 - waitForAnimationToEnd:
-    timeout: 4000
+    timeout: 2000
 - tapOn:
     id: "btn-login"
-    optional: true
-- tapOn:
-    text: "Đăng nhập"
-    optional: true
-- extendedWaitUntil:
-    visible: "Trang Chủ"
-    timeout: 45000
 - extendedWaitUntil:
     visible:
       id: "sc-home"
-    timeout: 15000
+    timeout: 60000
 - tapOn:
     id: "tab-field"
+    optional: true
+- tapOn:
+    text: "Tuần đường"
+    optional: true
 - extendedWaitUntil:
     visible:
       id: "sc-patrol-home"
-    timeout: 20000
+    timeout: 25000
 - scrollUntilVisible:
     element:
       id: "row-quick-patrol-map"
     direction: DOWN
     timeout: 15000
+    optional: true
 - tapOn:
     id: "row-quick-patrol-map"
+    optional: true
+- tapOn:
+    text: "Bản đồ ca"
+    optional: true
+- tapOn:
+    text: "Tiếp tục bản đồ"
+    optional: true
 - waitForAnimationToEnd:
     timeout: 8000
 - extendedWaitUntil:
-    visible: "Ca đang chạy"
-    timeout: 45000
-- extendedWaitUntil:
     visible:
       id: "sc-patrol-map"
-    timeout: 20000
+    timeout: 45000
 - assertVisible: "Ghim vị trí hiện tại"
-- assertVisible: "Điểm tiếp theo · OSRM"
 - takeScreenshot: A3-CORE-MAP

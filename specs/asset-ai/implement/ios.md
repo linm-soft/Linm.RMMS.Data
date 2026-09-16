@@ -27,7 +27,7 @@
 
 - `POST ai-vision/uploads/init` → `PUT …/uploads/{id}/object` (or presign) → `POST …/uploads/complete` → ImageUrl
 - `POST ai-vision/detect-assets` → bind AssetClass / Score% / Code / Id
-- Prefill: `GET patrol/sessions` · `GET integration/road-routes/search`
+- Prefill: `GET patrol/sessions` live-only (fail = toast + empty · **cấm** itemsOrDemo) · `GET integration/road-routes/search`
 - **cấm** invent `api/v1/asset-ai` · mock:// · fake GPS
 
 ## Verify

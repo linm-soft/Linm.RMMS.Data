@@ -12,7 +12,7 @@
 | priorPo | `po/requirement.md` + `handoff/po-compact.md` **confirmed** · `task_07ab9a33` |
 | priorDa | `_data-analy/patrol-checkin-control-hint.md` + `patrol-checkin-real-data.md` **confirmed** · contentHash `sha256:patrol-checkin-control-hint-20260912-edit` |
 | hashSkip | **yes** · **cấm** re-scan demo (`GAP-DES-DEMO-RESCAN-01`) · inventory từ controlHint + real-data §A+§B |
-| updatedAt | `2026-09-12T12:55:00.000Z` |
+| updatedAt | `2026-09-16T08:35:00.000Z` |
 
 ## § Delta Current vs New (`edit_page`)
 
@@ -54,7 +54,7 @@
 | DES | Zone | iOS | Android | Notes |
 |-----|------|-----|---------|-------|
 | `DES-MOB-PAT-CHECKIN-SHEET` | `#sheet-checkin` | `LinmBottomSheet` | same | Hủy / Lưu · fields · PhotoRow · primary |
-| `DES-MOB-LOC-MISMATCH` | `#ci-match-banner` | Banner ok/warn | same | gate primary · vs **BE plan** khi có |
+| `DES-MOB-LOC-MISMATCH` | `#ci-match-banner` | Banner ok/warn | same | vs **BE plan** khi có · gate primary **chỉ** khi `RequirePlanPointMatch` |
 | `DES-MOB-LEAVE` | `#modal-leave` | in-sheet overlay | `Dialog` trên sheet | **cấm** system · **cấm** under-sheet |
 | `DES-MOB-GPS-DENY` | `#modal-gps` | reuse in-sheet | `Dialog` wrap | **cấm** `UIAlert` / `AlertDialog` |
 | `DES-MOB-CI-DETAIL` | `#sc-checkin-detail` | `LinmTopBar` + rows | same | photo preview JWT object |
@@ -76,13 +76,15 @@
 | sheetTitle / detailTitle | **Ghi điểm tuần** |
 | navCancel / btnCancelFooter | **Hủy** |
 | navSave | **Lưu** |
-| matchOk | **Đúng điểm · {d} m · định vị ±{a} m · ghim tự động** |
-| matchBad | **Sai điểm · 86 m · gần Km 1556+000 — chặn Lưu** |
+| matchOk | **Đúng điểm · {d} · định vị ±{a} m · ghim tự động** (`{d}` = m nếu ≤ 1000 m, else km) |
+| matchBad | **Sai điểm · {d} · gần {label}** (không «chặn Lưu» khi BE allow) |
+| matchBadBlock | **Sai điểm · {d} · gần {label} — chặn Lưu** (khi `RequirePlanPointMatch=true`) |
 | planPoint | **Km 1561+134 · Phước Dinh** (demo SSOT · native = BE plan / session label) |
 | routeChainage | **QL.1 · Km 1561+134** |
 | gpsPinned | **11.6030, 109.0160 · ±4 m** (demo · native = **live GPS only**) |
-| distOk | **18 m · Đúng điểm** |
-| distBad | **86 m · Sai điểm** |
+| distOk | **18 m · Đúng điểm** (≤ 1000 m) |
+| distBad | **86 m · Sai điểm** (≤ 1000 m) |
+| distKm | **> 1000 m → km** (1 decimal, strip `.0`) · `#ci-dist` · detail · banner · vd. 264384 m → **264.4 km · Sai điểm** |
 | content | **Mặt đường khô, lan can đạt** |
 | photos label | **Ảnh** (Android parity section-label) |
 | btnSave | **Ghi nhận điểm tuần** |

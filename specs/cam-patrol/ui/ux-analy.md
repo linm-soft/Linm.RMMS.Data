@@ -19,7 +19,7 @@ Login → Tab Tuần đường (shell Tab 5 · index field)
        → finder DES-MOB-CAM-FINDER + stamp + **capture frame**
        → POST detect + ImageBase64 → card | fail → toast detectFail · card nil
        → Confirm POST incident | Skip local
-       → GPS deny → DES-MOB-GPS-DENY (chặn Confirm)
+       → GPS deny → DES-MOB-GPS-DENY (chặn Confirm) · **không** khi đã cấp FINE/COARSE
   → back → patrol-home
 ```
 

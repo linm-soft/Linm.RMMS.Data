@@ -19,7 +19,7 @@
 
 ## 2. Design / UI
 
-Không MFE riêng. Admin ingest = job/internal (sau). User map → [`gis-osm-clip.md`](gis-osm-clip.md).
+Không MFE riêng. Admin ingest = job/internal (sau). User map → [`gis-osm-clip.md`](gis-osm-clip.md). **iOS:** host clip = [`gis-map.md`](gis-map.md) `GisClipMapView` — **mọi** map native reuse (GAP-MOB-IOS-MAP-HOST-01).
 
 ## 3. API
 

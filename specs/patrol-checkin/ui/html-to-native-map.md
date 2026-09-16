@@ -4,13 +4,13 @@
 |------|------|--------------|---------|-------------|-------|
 | DES-MOB-PAT-CHECKIN-SHEET | sheet | `#sheet-checkin` | `LinmBottomSheet` | same | pack owner · edit_page giữ |
 | Sheet nav cancel | leading | Hủy · `.nav-btn` | TextButton | `TextButton` | → leave |
-| Sheet nav save | trailing | Lưu bold | TextButton | same | disable khi sai điểm |
+| Sheet nav save | trailing | Lưu bold | TextButton | same | disable khi BE `RequirePlanPointMatch` + sai điểm |
 | Sheet title | center | Ghi điểm tuần 17 | sheet title | same | |
 | DES-MOB-LOC-MISMATCH | banner | `#ci-match-banner` | Banner ok/warn | same | vs **BE plan** khi live |
 | planPoint | field | `#ci-plan` · readonly | `LinmTextField` | same | BE plan-points / session label · **cấm** invent coords |
 | routeChainage | field | Tuyến / lý trình | `LinmTextField` | same | bind `Route` · `GET patrol/sessions` |
 | gpsPinned | field | `#ci-gps` | `LinmTextField` | same | **live GPS only** · **cấm** fake |
-| distPlan | field | `#ci-dist` | `LinmTextField` | same | haversine(GPS, planBE) |
+| distPlan | field | `#ci-dist` | `LinmTextField` | same | haversine(GPS, planBE) · **> 1000 m → `checkin.dist.km`** (`DistanceDisplay`) |
 | content | textarea | `#ci-content` | `LinmTextArea` | same | → POST `content` |
 | photos label | section | `.section-label` Ảnh | Text 13 | same | Android parity |
 | photos | PhotoRow | `#ci-photos` · `data-bind=attachmentId[]` | PhotoRow | same | FileService commit · **không** local UUID SSOT |
@@ -24,7 +24,7 @@
 | Detail photos | PhotoRow | filled slots | preview `GET files/{id}/object` JWT | same | khi có attachmentId |
 | Detail back | leading | Ca + chevron | BackButton | `IconButton` | `go('patrol-detail')` |
 | Detail banner | ok | Đã lưu · {time} | Banner | same | |
-| Detail rows | list | Điểm KH · Cách điểm | ListRow | same | |
+| Detail rows | list | Điểm KH · Cách điểm | ListRow | same | dist > 1000 m → km · cùng `DistanceDisplay` |
 | Shell Tab 5 | chrome | `.tabbar` / `.nav` | `LinmTabBar` | NavigationBar | **giữ** · không invent |
 | Pin CTA / map | — | — | — | — | sibling · **không map** |
 
@@ -33,7 +33,8 @@
 | UI | Method · Path | Status |
 |----|---------------|--------|
 | Tuyến / prefill | `GET patrol/sessions` · `GET sessions/{id}` | live |
-| Điểm KH / match | `GET sessions/{id}/plan-points` | **GAP-MOB-CI-PLAN-BE-01** · SA Kind E |
+| Điểm KH / match | `GET sessions/{id}/plan-points` | live |
+| Match policy | `GET patrol/check-in-policy` | **live** · default `requirePlanPointMatch=false` |
 | Save | `POST sessions/{id}/check-ins` body `attachmentId[]` | **live** (GAP-MOB-BFF-01 closed) |
 | Ảnh upload / preview | `files` init/PUT/commit · `files/{id}/object` | FileService · GAP-MOB-BFF-FILE-01 nếu NuGet thiếu |
 

@@ -130,7 +130,7 @@ Khớp PO §5 / DA controlHint — UNCLEAR=**none**. Attach = POST create + Dete
 | Zone | Method · Path |
 |------|----------------|
 | Optional upload | `POST ai-vision/uploads/init` · PUT object · complete |
-| Detect | `POST ai-vision/detect` · gate AccuracyM ≤ 30 |
+| Detect | `POST ai-vision/detect` · gate AccuracyM ≤ 30 · **BE P1 hard-default 200** (skip AiService HTTP · SourceKind=`detect-signed`) · bind `DefectClass` / `Severity` live |
 | Prefill Loc | optional `GET patrol/sessions` |
 | Attach | `POST incident/incidents` + `DetectionId` |
 | GPS / camera / Skip | device · local |
@@ -143,7 +143,7 @@ Khớp PO §5 / DA controlHint — UNCLEAR=**none**. Attach = POST create + Dete
 |------|-------|
 | `cam-patrol` continuous finder · `det-hitl` · `incident-create` form · `cam-view` | sibling · **cấm** gộp |
 | Score % row | **cấm** P1 (khác cam-patrol demo) |
-| Detect engine harden | SA · GAP-MOB-VIS-DETECT-01 · Step 4b |
+| Detect engine harden | **CLOSED P1** · hard-default success · real Vision = P2 |
 | Bottom-sheet chrome | **cấm** (pack = screen) |
 
 ## Gates
@@ -166,7 +166,7 @@ Khớp PO §5 / DA controlHint — UNCLEAR=**none**. Attach = POST create + Dete
 | Field | Value |
 |-------|-------|
 | next | `/agent-sa-mobile` · `be/solution-discovery.md` |
-| note | GAP-MOB-VIS-DETECT-01 detect engine · giữ path AiVision + Incident · **cấm** invent vis-capture |
+| note | GAP-MOB-VIS-DETECT-01 **CLOSED P1** hard-default 200 · giữ path AiVision + Incident · **cấm** invent vis-capture |
 | e2eQa | queued `/agent-qa*` — **cấm** e2e ở design |
 
 ## Version meta

@@ -20,7 +20,7 @@
 |------|------|
 | Feature UI | `Presentation/Features/IncidentCreate/*` — pick gate + form `DES-MOB-INC-FORM` / `DES-MOB-INC-KIND` |
 | Catalog + CHK | `Domain/Entities/AssetKcht32Catalog.swift` · `IncidentCreateModels.swift` (local · **cấm** invent CHK API) |
-| Fetch types | `FetchAssetTypesUseCase` · `GET integration/asset-types` · fallback local 32 |
+| Fetch types | `FetchAssetTypesUseCase` · `GET integration/asset-types` · fail/empty = [] + toast · **cấm** catalog fallback |
 | Create body | `CreateIncidentBody.assetLabel` bind Title/Kind/Severity/GPS/Description/DetectionId |
 | Entry | `HomeViewModel` quickIncident + tileIncident → `setOpenIncidentCreate` |
 | Router | `AppRouter` `showIncidentCreateFromHome` · secondary cam → Field/`CamPatrol` · estimate toast |

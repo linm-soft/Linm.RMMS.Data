@@ -61,6 +61,7 @@
 | no active | emptyActive + **Mở ca** → POST |
 | loading | refresh nhẹ · **cấm** block tab |
 | error / offline | toast + empty/`—` · **cấm** demo bind |
+| pin-here GPS | Android FINE **hoặc** COARSE · **cấm** deny khi Approximate granted (**GAP-MOB-EDIT-PERM-01**) |
 | empty fields | `—` · **cấm** QL.1 / Nguyễn Văn A / 07:20 fallback |
 | leave dirty | **N/A** |
 

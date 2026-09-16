@@ -38,13 +38,18 @@
 |-------|--------|
 | `./gradlew :app:assembleDebug` | **PASS** |
 | Invent `vis-capture` API | **none** |
-| Step 4b Signed detect | **done** BE (shared) |
+| Step 4b Signed detect | **done** BE (shared) · P1 hard-default 200 · skip AiService HTTP |
 | BFF | proxy · `dotnet build` PASS |
 
 ## Notes (cleanup_mock · `task_4dc20e00`)
 
 - Removed `VisCaptureCopy.DEMO_LOC` · dual parity iOS · live session route only.
 - Attach `routeName` = live stamp / detect.routeLabel · **cấm** invent `QL.1`.
+
+## Notes (`/edit-mobile-feature` · 2026-09-16 · update-image detect)
+
+- BE `POST ai-vision/detect` **hard-default success** — skip HTTP AiService · Android bind live `DefectClass`/`Severity` · dual parity iOS · **không** toast `vis.toast.detectFail` khi BE 200.
+- Native detect client **không** đổi path/DTO.
 
 ## Version meta
 

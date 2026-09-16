@@ -95,6 +95,13 @@ AskQuestion (autoApprove=ON · không chờ board): `ios_repo_confirm` · `andro
 | Avatar upload / invent org API | — | **OUT** P1 |
 | Watermark Gói / device label / badge P1/P2 | demo chrome | **cấm ship** |
 
+## UI notes Dev (edit-mobile-feature · 2026-09-13)
+
+| Task | Note |
+|------|-------|
+| T-IOS-MP-01 | `#f-userName` = `UserName` · reject UUID · fallback `lastUserName` · **cấm** `profile.id` |
+| T-AND-MP-01 | same bind dual |
+
 ---
 
 ## Tasks (1 action = 1 feature)
@@ -128,7 +135,7 @@ AskQuestion (autoApprove=ON · không chờ board): `ios_repo_confirm` · `andro
 | Router | `App/AppRouter.swift` — pattern peer Feedback/CamView: `@State showMeProfileFromMe` + `navigationDestination` + `meViewModel.setOpenMeProfile` |
 | Use cases | **reuse** `FetchProfileUseCase` · **NEW** `UpdateProfileUseCase` · **NEW** `ChangePasswordUseCase` |
 | Repo | `Domain/Repositories/AuthRepository.swift` + `Data/Repositories/AuthRepositoryImpl.swift` — add `updateProfile` · `changePassword` → BFF `PUT auth/profile` · `POST auth/change-password` · **cấm** URLSession trong View |
-| DTO / entity | extend `UserProfile` / `UserProfileDto` / `AuthDtoMapper.profile` — `email` · `userName` · optional `citizenId` display · **cấm** invent org fields |
+| DTO / entity | extend `UserProfile` / `UserProfileDto` / `AuthDtoMapper.profile` — `email` · `userName` (reject UUID/`Id`) · optional `citizenId` display · **cấm** invent org fields · UI fallback `lastUserName` |
 | Request DTOs (NEW) | `MobileAuthProfileUpdateRequest` flat `FullName`/`PhoneNumber`/`Email` · `MobileAuthChangePasswordRequest` `CurrentPassword`/`NewPassword` only |
 | Copy | `MeProfileCopy` / LinmCopy keys VN SSOT Design |
 | State | form fields · secure ephemeral · busySave · busyPwd · toast · dirty · leaveConfirm |
@@ -171,7 +178,7 @@ AskQuestion (autoApprove=ON · không chờ board): `ios_repo_confirm` · `andro
 2. Appear: GET `auth/profile` → bind `FullName` / `PhoneNumber` / `UserName` (± `Email` nếu GET có · ± `CitizenId` display-only nếu có) · fail → fallback `lastWho`/`lastUserName` + toast lỗi · **cấm** hardcode «Nguyễn Văn A» production · **cấm** fake profile.
 3. Primary **Lưu** → PUT `auth/profile` body `FullName`* (trim non-empty) · `PhoneNumber` · `Email` · busy · toast **Đã cập nhật hồ sơ** khi 200 · refresh hub tên · **cấm** native alert · **cấm** toast ok khi fail. Empty `fullName` → disable Lưu **hoặc** validation toast · **cấm** PUT trống tên.
 4. Section **Đổi mật khẩu**: current + new + confirm (local match only · **không** wire Confirm) · CTA → POST `{ CurrentPassword, NewPassword }` · toast **Đã đổi mật khẩu** khi 200 · clear secure · mismatch/thiếu → toast · **cấm** POST · **cấm** fake ok.
-5. Readonly: `userName` / Id display · `citizenId` **chỉ nếu** GET có · **cấm** PUT invent CCCD/DOB (`GAP-MOB-MEPROF-CITIZEN-01`).
+5. Readonly: `userName` = GET `UserName` · empty/GUID → `lastUserName` · **cấm** `Id` GUID (`GAP-MOB-MEPROF-USERNAME-01`) · `citizenId` **chỉ nếu** GET có · **cấm** PUT invent CCCD/DOB (`GAP-MOB-MEPROF-CITIZEN-01`).
 6. Avatar: circle `#i-person` display · **không** upload P1.
 7. Entry (reuse Me): `#row-profile` → **push** `#sc-me-profile` (thay no-op) · live FullName · phụ **ẩn** nếu không field (`GAP-MOB-MEPROF-ORG-01`) · iOS chevron · Android **không** chevron · back «Tôi» / chevron → `me`.
 8. Kit reuse map · **cấm** system alert · **cấm** watermark Gói / device label.
@@ -193,7 +200,7 @@ AskQuestion (autoApprove=ON · không chờ board): `ios_repo_confirm` · `andro
 | fullName | `LinmTextField` | label **13** / ≥**16** · required · PUT `FullName` |
 | phoneNumber | `LinmTextField` phone | PUT `PhoneNumber` |
 | email | `LinmTextField` | PUT `Email` · GET optional empty OK |
-| userName | Text readonly | GET only |
+| userName | Text readonly | GET `UserName` · empty/GUID → `lastUserName` · **cấm** `Id` GUID |
 | citizenId | Text readonly opt | hide nếu thiếu · **cấm** PUT |
 | btnSave | `LinmPrimaryButton` | PUT · busy · toast |
 | sectionPwd | `LinmSectionLabel` **13** | **Đổi mật khẩu** |

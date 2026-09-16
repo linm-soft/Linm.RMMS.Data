@@ -164,7 +164,7 @@ Reuse: `patrol-home` · `patrol-offline` · `DES-MOB-GPS-DENY` · `inc-form` ent
 | ID | Behavior | AC |
 |----|----------|-----|
 | AC-D-01 | Offline | Queue / toast nháp · **cấm** fake SC |
-| AC-D-02 | GPS deny | Modal deny · **không** Confirm · **cấm** fake lat/lng |
+| AC-D-02 | GPS deny | Modal deny **khi chưa cấp** · **không** Confirm · **cấm** fake lat/lng · **cấm** deny khi FINE/COARSE đã cấp |
 | AC-D-03 | Leave dirty | N/A · Skip clears · back OK |
 | AC-D-04 | Native alert | **Cấm** · chỉ Toast / in-app modal |
 | AC-D-05 | Keyboard | N/A |

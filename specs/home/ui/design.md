@@ -13,7 +13,7 @@
 | reviewUrlIos | `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/home/ui/prototype/ios/index.html#sc-home` |
 | reviewUrlAndroid | `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/home/ui/prototype/android/index.html#sc-home` |
 | ux-analy | `ui/ux-analy.md` §1–§9 |
-| updatedAt | `2026-08-19T05:45:00.000Z` |
+| updatedAt | `2026-09-16T08:33:00.000Z` |
 | taskId | `task_41cb12f0` |
 
 ## 0. Context & Demo
@@ -31,10 +31,10 @@
 
 ## 1. Pattern
 
-| Surface | Tab 5 **staff** · guest **ẩn** `LinmTabBar` · hero + FAQ · **Đăng nhập + privacy pin bottom** · staff quick 2 · grid 3×2 · wallet · **không** Modal/Sheet |
+| Surface | Tab 5 **staff** · guest **ẩn** `LinmTabBar` · hero + FAQ · logo giữa page · **Đăng nhập + privacy pin bottom** · staff quick 2 · grid 3×2 · wallet · **không** Modal/Sheet |
 | Action this slug | Display `.who` · tap chrome/tiles theo PO §3 (toast sibling / Hồ sơ → tab Tôi) |
 | Frame | iOS 390×844 · Android 412×915 |
-| BFF | **chỉ** `GET auth/profile` · **cấm** invent `api/v1/home` / wallet / org |
+| BFF | `GET auth/profile` · wallet reuse `GET` road-routes search + asset-types count (cùng AssetHub · **cấm** invent `api/v1/home`) |
 
 ## 2. Screens / DES-MOB-*
 
@@ -43,7 +43,7 @@
 | `DES-MOB-HOME` `#sc-home` | Trang Chủ | hero · quick · grid · wallet |
 | `DES-MOB-HOME-HELLO` | Hero chào | tools + signal + who · login **không** trong hero (guest dock) / quick staff |
 | `DES-MOB-HOME-FAQ` `#sc-faq` | Câu hỏi thường gặp | back · pills · search · list chevron · expand answer · static |
-| `DES-MOB-HOME-PRIVACY` `#sc-privacy` | Chính sách quyền riêng tư | back · body static |
+| `DES-MOB-HOME-PRIVACY` `#sc-privacy` | Chính sách quyền riêng tư | back · body static user-facing (Khách · cán bộ · quyền · liên hệ) · `fieldText` · **cấm** invent HTTPS |
 | `DES-MOB-HOME-GUEST-DOCK` | Guest bottom | `btn-home-login` + `btn-home-privacy` pin đáy · **cấm** tab |
 | `DES-MOB-HOME-QUICK` | Quick 2 | Điểm tuần · Ghi sự cố |
 | `DES-MOB-HOME-GRID` | Lưới 6 | Giám sát · Tuần đường · Công việc · Vấn đề · Tài sản · Lưu trữ |
@@ -70,13 +70,13 @@ Cold start → #sc-home guest (Khách + FAQ) · **ẩn** DES-MOB-TABBAR
 |-------|----|----------|---------------|-------|
 | profileBtn | Hồ sơ | `LinmProfileButton` trong `LinmHeroTools` | `person` ↔ `Person` / `AccountCircle` | tap → tab **Tôi** |
 | notifyBtn | Thông báo | `LinmNotifyButton` · `LinmNotifyCountBadge` | `bell` ↔ `Notifications` | tap → **cùng** `#sc-ops` (Tôi → Thông báo) · GET `notification/overview` badge · guest **không** JWT · **cấm** toast-only · **cấm** hardcode `3` |
-| brandLogo | RMMS | `AppLogo` / `app_logo` | — | giữa `LinmHeroTools` · `home-brand` · 36 · **cấm** kit bump |
+| brandLogo | RMMS | `AppLogo` / `app_logo` | — | giữa khoảng trống guest (FAQ ↔ dock) · `home-brand` · `brandLogoSm` 96 · **cấm** hero · **cấm** kit bump |
 | roleLine | Khu QLĐB IV | `LinmStatusCapsule` `area` | — | **ẩn live** (GAP-F-HOME-01) · demo SSOT only |
 | signal | Tín hiệu | `LinmStatusCapsule` / `LinmNetSignalMark` | bars only | Tốt/TB/Yếu · OS path · tap toast **Đã làm mới** · **cấm** cycle |
-| who | Khách / FullName | typography hero | — | guest copy · staff GET profile · **cấm** hardcode production |
+| who | Khách / FullName | typography hero | — | guest copy · staff GET profile · loading `.who` empty = bone pulse `home-who-skeleton` (`brandLogo`×`heroWho`) · **cấm** flash Khách · **cấm** `LinmBusyOverlay` hub · **cấm** hardcode production |
 | loginBtn | Đăng nhập | Button card | — | `btn-home-login` · phụ Dành cho cán bộ · **pin bottom** guest · ẩn staff |
 | guestFaq | Câu hỏi thường gặp | row card | chevron | `btn-home-faq` · guest only · overlay `#sc-faq` |
-| guestPrivacy | Chính sách quyền riêng tư | underline link | — | `btn-home-privacy` · guest only · **pin bottom dưới login** · overlay `#sc-privacy` |
+| guestPrivacy | Chính sách quyền riêng tư | underline link | — | `btn-home-privacy` · guest only · **pin bottom dưới login** · overlay `#sc-privacy` · body `home.privacy.body` user-facing · **cấm** invent HTTPS |
 | quickPatrol | Điểm tuần | `LinmQuickItem` | `mappin` ↔ `Place` | phụ **Ghim định vị · lý trình** · toast |
 | quickIncident | Ghi sự cố | `LinmQuickItem` | `exclamationmark.triangle` ↔ `Warning` | phụ **Chọn tài sản · mẫu sự cố** · toast |
 | sectionBiz | Nghiệp vụ thường dùng | `LinmSectionLabel` | — | không route |
@@ -86,7 +86,7 @@ Cold start → #sc-home guest (Khách + FAQ) · **ẩn** DES-MOB-TABBAR
 | tileIncident | Vấn đề | `LinmHomeTile` bg `#FCB43C` | `exclamationmark.triangle` ↔ `Warning` | toast |
 | tileAsset | Tài sản | `LinmHomeTile` bg `#0C84C0` | `cube` ↔ `ViewInAr` | toast |
 | tileOffline | Lưu trữ | `LinmHomeTile` bg `#086A9A` | `arrow.triangle.2.circlepath` ↔ `Sync` | toast |
-| wallet | HỒ SƠ TÀI SẢN | `LinmWalletCard` | — | static: **QL.1 · Khu IV** · **32 loại KCHT · thông số + checklist sự cố** |
+| wallet | HỒ SƠ TÀI SẢN | `LinmWalletCard` | — | **live** `walletTitle`/`walletSubtitle` · fail/empty = trống · **cấm** QL.1 / 32 loại cứng |
 | foot | Phiên bản Gói… | — | — | **cấm ship** (GAP-F-HOME-03) |
 | tabHome | Trang Chủ | `LinmTabBar` | `house` ↔ `Home` | **staff only** · selected · label **13** · **ẩn guest** |
 | tabField | Tuần đường | `LinmTabBar` | **`LinmMapPinGlyph`** `#i-mappin` | outline + vòng trong · **cấm** fill |
@@ -111,12 +111,12 @@ Toast / banner → `LinmToast`. **Cấm** raw `LazyVGrid` / `LazyVerticalGrid` /
 
 - WebView HTML · `mfeStdUrl` · `yarn start:std`
 - Invent tab / «Có mạng» / foot Gói / badge `3` / `btn-logout` trên `#sc-home`
-- Hiện `LinmTabBar` khi guest (`GAP-MOB-EDIT-GUEST-TAB`)
-- Login trong hero khi guest — pin đáy cùng privacy
-- Toast-only trên chuông Home — **cùng** `#sc-ops` · guest GET inbox (`GAP-MOB-EDIT-GUEST-OPS`)
+- Hiện `LinmTabBar` khi guest · trên `#sc-ops` guest · sau back guest (`GAP-MOB-EDIT-GUEST-TAB` · `GAP-MOB-EDIT-GUEST-BRAND`)
+- Logo RMMS trong hero — giữa khoảng trống page (`GAP-MOB-EDIT-GUEST-BRAND`)
 - `UIAlert` / `AlertDialog` / `window.alert`
 - Gộp sibling screens · start `pending_confirm`
 - Ship `LinmKitGallery` trên production Trang Chủ
+- Flash **Khách** lúc staff GET `auth/profile` · `LinmBusyOverlay` trên hub (`GAP-MOB-EDIT-HOME-WHO-SKEL`) — loading = bone `home-who-skeleton` dual
 
 ## 6. Handoff → SA
 

@@ -29,7 +29,7 @@
 |------|------|
 | Screen + finder | `presentation/feature/campatrol/CamPatrolScreen.kt` · ImageCapture bind |
 | ViewModel | `CamPatrolViewModel.kt` · `CamPatrolFrameCapturer` · `runDetect` |
-| Keep | GPS / Confirm / Skip / sessions · score ẩn · route_a |
+| Keep | GPS / Confirm / Skip / sessions · score ẩn · route_a · **GAP-MOB-EDIT-PERM-01** granted CAMERA/GPS ≠ deny |
 
 ## Build gate
 

@@ -18,10 +18,10 @@
 
 | | |
 |--|--|
-| Mục tiêu | Màn **Bản đồ tài sản**: OMS basemap · overlay ghim TS + SC · hành lang tuyến · isolate legend · fit toàn tuyến · entry hub / detail / incident |
+| Mục tiêu | Màn **Bản đồ tài sản**: clip gis.vn (MapLibre `GisClipMapView`) · overlay ghim TS QCVN + SC · hành lang · isolate legend · fit · entry hub / detail / incident |
 | Persona | Tuần đường · Hạt QLĐB IV |
 | Entry | Hub tile **Xem trên bản đồ** `#i-scope` · hub row · detail **Ghim trên bản đồ** · incident seg/CTA |
-| DoD P1 | Dual `#sc-gis-map` · native MapKit/OSM (**cấm** WebView HTML) · GET `gis/geojson/*` · live-only · fail/empty → map trống + toast · map **vẫn mở** · **cấm** GisMapDemoOverlay · **cấm** mfeStdUrl · **cấm** invent `api/v1/gis-map` |
+| DoD P1 | Dual `#sc-gis-map` · **iOS MapLibre clip** `{TileUrl}` BFF MVT (**cấm** MapKit world · **cấm** WebView HTML · **cấm** OSM.org/Esri/Google tile) · GET `gis/tiles/{layer}/{z}/{x}/{y}.pbf` · `gis/clusters` · `gis/geojson/*` · live-only · fail/empty → map trống + toast · map **vẫn mở** · **cấm** GisMapDemoOverlay · **cấm** mfeStdUrl · **cấm** invent `api/v1/gis-map` |
 
 ## 2. Design / UI (`#sc-gis-map`)
 
@@ -31,8 +31,8 @@
 | Trailing iOS | TextButton **Lớp** | — | toast P1 «Lớp tài sản / sự cố · chú giải» |
 | Trailing Android | TextButton **Danh sách** | — | `go('asset-list')` |
 | Search (iOS) | overlay glass | — | placeholder **Tìm tài sản, sự cố…** · `#i-search` · filter/toast P1 |
-| Map host | full Map | `DES-MOB-OMS-GIS` | MapKit iOS · OSM Android · **cấm** Leaflet WebView |
-| Basemap bar | Chip ×3 + Fit | — | **Đường** · **Phố** · **Vệ tinh** · **Toàn tuyến** |
+| Map host | full Map | `DES-MOB-OMS-GIS` | **iOS SSOT** `GisClipMapView` (MapLibre · clip 97–118 / 6.8–23.5 · HS/TS) · Android OSM/clip **cùng tile BFF** · **cấm** Leaflet WebView · **cấm** MapKit world |
+| Basemap bar | Chip ×2 + Fit | — | **Tiêu chuẩn** · **Vệ tinh** (cùng MVT clip) · **Toàn tuyến** (mobile) · **cấm** chip Đường/Phố OSM.org |
 | Legend | Chip isolate | — | **Tất cả** · **Tài sản** · **Sự cố** · (**Hành lang** iOS only — dual GAP) |
 
 **Không** gộp: web Kind F sidebar 20 actions · heatmap PCI · Cesium Twin · gis-draw · camera ITS slideout.
@@ -45,7 +45,9 @@
 | GET | `gis/geojson/tuyen-duong` / `lod=corridor` | corridor polylines | **Live** |
 | GET | `gis/layers` | layer catalog | **Live** · Lớp sheet **P2** · toast P1 |
 | GET | `gis/basemap-config` | basemap hints | **Live** · OMS tiles local P1 OK |
-| GET | `gis/clusters` · `gis/heatmap/pci` | cluster / PCI | **OUT** P1 mobile |
+| GET | `gis/tiles/{layer}/{z}/{x}/{y}.pbf` | MapService clip MVT (`basemap`/`boundaries`/`mask`) | **Live** — nền clip |
+| GET | `gis/clusters` | cụm viewport / national z≤8 | **Live** — pin + pict QCVN (`LinmAssetKchtPict`) |
+| GET | `gis/heatmap/pci` | PCI | **OUT** P1 mobile |
 | GET | `asset/road-assets/{id}` | focus pin from detail | **Live** |
 | POST/PUT/DELETE | `gis/drawings*` | draw CRUD | **OUT** — owner web `gis-draw-*` |
 
@@ -84,6 +86,7 @@ App base: `{BffBase}/mobile-bff/api/v1`. **Cấm** app `:5101` · invent `api/v1
 | GAP-MOB-GIS-CORRIDOR-LEGEND-01 | iOS legend **Hành lang** · Android thiếu — Design dual |
 | GAP-MOB-GIS-SC-01 | Incident domain no Lat/Lng · SC overlay = `gis/geojson/incidents` · demo fallback |
 | GAP-MOB-GIS-FOCUS-01 | Nav từ detail pass Id → GET by id center · thiếu coords → fit all |
+| GAP-MOB-IOS-MAP-HOST-01 | **closed** — mọi map iOS reuse `GisClipMapView` · `#sc-patrol-map` + HITL `photo-geo-capture` · `task_1f6d86c4` |
 
 ## 7. Cấm
 
@@ -91,7 +94,8 @@ App base: `{BffBase}/mobile-bff/api/v1`. **Cấm** app `:5101` · invent `api/v1
 - ERP.* · `mfeStdUrl` · WebView HTML Leaflet-as-app  
 - Watermark Gói · device label · ship `GIS_ASSETS` hardcode khi BFF live (`GAP-MOB-REAL-02`)  
 - Gộp draw / heatmap / Twin / camera live vào slug  
-- Start sibling list/detail/incident (`GAP-MOB-ACT-06`) · enqueue basemap/legend/fit (`GAP-MOB-ACT-07`)
+- Start sibling list/detail/incident (`GAP-MOB-ACT-06`) · enqueue basemap/legend/fit (`GAP-MOB-ACT-07`)  
+- MapKit / OSM.org / Esri / Google làm nền iOS · fork style clip khác `#sc-gis-map`
 
 <!-- context: gis-map mobile P1 · data_analy 2026-08-31 -->
 
@@ -100,4 +104,4 @@ App base: `{BffBase}/mobile-bff/api/v1`. **Cấm** app `:5101` · invent `api/v1
 | lane | phase | status | updatedAt |
 |------|-------|--------|-----------|
 | web | — | — | — |
-| mobile | `done` | `done` | `2026-09-01T08:03:53.090Z` |
+| mobile | `done` | `done` | `2026-09-13T04:06:00.000Z` |

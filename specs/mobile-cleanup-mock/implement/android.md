@@ -15,6 +15,10 @@
 
 Mirror iOS live-only: `FetchRoadAssetById` / `FetchAssetAdjustList` / `FetchIncidents` · Estimate no `demoFromIncident` · toast strip «dữ liệu mẫu».
 
+## Notes (2026-09-13)
+
+Mirror iOS: `itemsOrDemo` gone · types live-only · Supervise mapper empty=`—` · Home wallet live · estimate no `demoFallback`/`BTN`.
+
 ## ACTION WORK GATE
 
 | Action | Result |

@@ -45,8 +45,8 @@
 
 | id | platform | deps | skills | summary |
 |----|----------|------|--------|---------|
-| `T-IOS-PAT-CI-DELTA` | iOS | SA approve · kit_skip · prior sheet live | `/agent-dev-ios` · `/dev-ios-swiftui` | Delta bind: FileService photo → `attachmentId[]` · match vs BE `plan-points` · live GPS · POST check-ins body ids · offline queue · **cấm** plan=GPS SSOT |
-| `T-AND-PAT-CI-DELTA` | Android | serial after iOS preferred | `/agent-dev-android` · `/dev-android-compose` | Compose parity dual · label **Ảnh** · same File/plan/GPS/POST |
+| `T-IOS-PAT-CI-DELTA` | iOS | SA approve · kit_skip · prior sheet live | `/agent-dev-ios` · `/dev-ios-swiftui` | Delta bind: FileService photo → `attachmentId[]` · match vs BE `plan-points` · **honor `GET check-in-policy`** · live GPS · POST check-ins body ids · offline queue · **cấm** plan=GPS SSOT · **UI:** dist > 1000 m → km (`DistanceDisplay`) |
+| `T-AND-PAT-CI-DELTA` | Android | serial after iOS preferred | `/agent-dev-android` · `/dev-android-compose` | Compose parity dual · label **Ảnh** · same File/plan/GPS/POST · **UI:** dist > 1000 m → km (`DistanceDisplay`) |
 | `T-BE-PAT-PLAN-PTS` | BE | GAP-MOB-CI-PLAN-BE-01 | `/new-endpoint` (Dev/T-BE) · **cấm** TL chạy | Kind E `GET api/v1/patrol/sessions/{id}/plan-points` trên `PatrolSessionsController` |
 | `T-BE-PAT-CI-PHOTO` | BE | GAP-MOB-CI-PHOTO-UP-01 | `/new-endpoint` / field align (Dev/T-BE) | Confirm POST check-ins photos = FileService attachment ids (`attachmentId[]` / BE rename · **không** fork app-only) |
 | `T-BFF-FILE-INIT` | BFF | GAP-MOB-BFF-FILE-01 nếu NuGet thiếu | `/init-bff-file` (Dev) | Wire File NuGet `files/*` · **cấm** fake 200 · else N/A nếu đã có |
@@ -128,7 +128,7 @@
 6. PhotoRow → FileService → `attachmentId[]` trên POST · preview object JWT · thiếu File → offline queue + GAP · **cấm** fake 200.
 7. Submit `matchOk`: POST check-ins live · else offline queue + toast ok.
 8. Dirty leave `DES-MOB-LEAVE` in-app · **cấm** system alert.
-9. Detail `#sc-checkin-detail` banner Đã lưu · file preview ids.
+9. Detail `#sc-checkin-detail` banner Đã lưu · file preview ids · **Cách điểm KH > 1000 m hiện km**.
 10. Dual + Android **Ảnh** · Tab 5 giữ · **cấm** ship pin/map host.
 
 ### Build gate (Dev — **cấm** TL chạy)

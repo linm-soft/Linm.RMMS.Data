@@ -98,8 +98,8 @@ IA lock (ux-analy §1): `(auth) Login → toast → Home`. **Cấm** swipe-back 
 |-------|-----|-------|
 | brand | AppIcon / asset | **alpha** trên surface · **cấm** tile `#000`/`#fff` · **cấm** `rmms.png` |
 | tagline | Text | `/agent-design` 22/700/uppercase · logo **192 tĩnh** · **cấm** band 1/3 · **cấm** «Hiện trường · iPhone» |
-| userName | `LinmTextField` + `LinmPersonGlyph` | cùng `formFieldHeight` 52 · IME pin `LinmKeyboardAwareScroll` · Enter/`Go` **nếu `#f-pass` có giá trị → login** · Enter + MK rỗng → **focus `#f-pass`** · e2e id `f-user` · Auth seed `linm-soft` · **cấm** mã đơn vị · **cấm** `ignoresSafeArea(.keyboard)` |
-| password | **`LinmSecureTextField`** | eye chrome · e2e id `f-pass` · Enter/`Go` → **login** · **reset rỗng khi submit** · giữ `userName` · **cấm** persist MK · Auth seed `Linm@2026` · **cấm** raw `SecureField` |
+| userName | `LinmTextField` + `LinmPersonGlyph` | cùng `formFieldHeight` 52 · IME pin `LinmKeyboardAwareScroll` · Enter/`Go` **nếu `#f-pass` có giá trị → login** · Enter + MK rỗng → **focus `#f-pass`** · e2e id `f-user` · Auth seed `linm-soft` · typed `onSurface` (`GAP-MOB-EDIT-FIELD-INK`) · **cấm** mã đơn vị · **cấm** `ignoresSafeArea(.keyboard)` |
+| password | **`LinmSecureTextField`** | eye chrome · e2e id `f-pass` · Enter/`Go` → **login** · **reset rỗng khi login OK** · **giữ MK khi fail** (`GAP-MOB-EDIT-FAIL-FIELDS`) · giữ `userName` · `LinmFieldChrome` light UI · **cấm** persist MK · Auth seed `Linm@2026` · **cấm** raw `SecureField` |
 | submit | `LinmPrimaryButton` | **Đăng nhập** · e2e id `btn-login` |
 | forgot | Text/Button link | toast **Quên mật khẩu → hệ thống xác thực** · **không** BFF · `.login-meta` **pin đáy giữa** khi IME ẩn (`GAP-MOB-EDIT-FOOTER-01`) |
 | signal | `LinmNetSignalMark` | Display Tốt / TB / Yếu · bind NWPath · **cấm** tap cycle · cùng footer đáy giữa |
@@ -118,7 +118,8 @@ IA lock (ux-analy §1): `(auth) Login → toast → Home`. **Cấm** swipe-back 
 | Window fail | clear tokens · toast Web copy · **ở lại** Login |
 | Success | toast **Đăng nhập thành công** → Home ~350 ms |
 | Refresh infra | `POST auth/refresh-token` `{ refreshToken }` · **cấm** `auth/refresh` |
-| 401 retry | một lần refresh → clear + Login |
+| 401 retry | single-flight refresh → retry 1 lần · fail + hết token → **guest Home** · **cấm** overlay `#sc-login` · **cấm** logout khi mất mạng (`GAP-MOB-EDIT-SESSION-REFRESH`) |
+| Close / reopen | `RestoreSessionUseCase` · skip POST nếu access fresh (`exp−60s`) · offline giữ access · 401 → guest Home |
 
 ### Router
 
@@ -134,6 +135,8 @@ xcodebuild -scheme LinmRmms -destination 'platform=iOS Simulator,name=iPhone 17 
 
 Fail → `build_fail_confirm` · **cấm** mark Dev done.
 
+**UI notes T-IOS (2026-09-16):** Root `tryRefreshToken` · `scenePhase.active` + `onAppear` restore · pre-emptive exp−60s · 401 → guest Home · **cấm** `/session-expired` · **cấm** logout khi URLError (`GAP-MOB-EDIT-SESSION-REFRESH`).
+
 ---
 
 ## T-AND-LOGIN — detail
@@ -146,7 +149,7 @@ Fail → `build_fail_confirm` · **cấm** mark Dev done.
 
 ### UI / API
 
-Cùng bảng field + API-01/02/03 như T-IOS. Kit: `LinmTextField` + lead · **`LinmSecureTextField`** · `onSubmit` IME Enter (`GAP-MOB-EDIT-IME-ENTER`) · `LinmKeyboardAwareScroll` (IME pin · **cấm** che field) · `LinmPrimaryButton` · `LinmToast` · `LinmNetSignalMark` display (bind NetworkCapabilities · **cấm** signal button / tap cycle). Footer `.login-meta` **pin `Alignment.BottomCenter`** khi IME ẩn (`GAP-MOB-EDIT-FOOTER-01`). Submit **reset `#f-pass`** · giữ last `userName`. Tagline: «Quản lý bảo trì đường bộ» only · **cấm** «Hiện trường · Android».
+Cùng bảng field + API-01/02/03 như T-IOS. Kit: `LinmTextField` + lead · **`LinmSecureTextField`** · `onSubmit` IME Enter (`GAP-MOB-EDIT-IME-ENTER`) · typed `onSurface` + `forceDarkAllowed=false` (`GAP-MOB-EDIT-FIELD-INK`) · `LinmKeyboardAwareScroll` (IME pin · **cấm** che field) · `LinmPrimaryButton` · `LinmToast` · `LinmNetSignalMark` display (bind NetworkCapabilities · **cấm** signal button / tap cycle). Footer `.login-meta` **pin `Alignment.BottomCenter`** khi IME ẩn (`GAP-MOB-EDIT-FOOTER-01`). Submit **OK reset `#f-pass`** · fail **giữ user+pass** (`GAP-MOB-EDIT-FAIL-FIELDS`) · giữ last `userName`. Tagline: «Quản lý bảo trì đường bộ» only · **cấm** «Hiện trường · Android».
 
 `TokenStore`: thêm encrypted key refresh · clear cả access+refresh. `ApiService`: Retrofit POST login · POST refresh-token · GET session-window — **cấm** OkHttp trong Composable. Nav: chưa token → Login · sau allowed → Home.  
 Demo Home: `LinmSecondaryButton` **Đăng xuất** (`btn-logout`) → `LogoutUseCase` clear Encrypted store → `SessionState.setLoggedIn(false)` → Login. **Cấm** POST `auth/logout`.
@@ -156,6 +159,8 @@ Demo Home: `LinmSecondaryButton` **Đăng xuất** (`btn-logout`) → `LogoutUse
 ```bash
 cd /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android && ./gradlew :app:assembleDebug
 ```
+
+**UI notes T-AND (2026-09-16):** Root `tryRefreshToken` · `repeatOnLifecycle(STARTED)` restore · `SessionTokenRefresher` single-flight · pre-emptive exp−60s · 401 → guest Home · **cấm** logout khi `IOException` (`GAP-MOB-EDIT-SESSION-REFRESH`).
 
 ---
 

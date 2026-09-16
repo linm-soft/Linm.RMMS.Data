@@ -35,10 +35,11 @@ Cold start → #sc-home guest · **ẩn tab 5**
 
 | Zone | Demo (user thấy) | Map row (`docs/html-to-native-map.md`) | SwiftUI | Compose |
 |------|------------------|----------------------------------------|---------|---------|
-| Hero tools | Hồ sơ · logo RMMS giữa · chuông → `#sc-ops` | A `.vn-hero-tools` · `#home-brand` · `.hero-ico` | `LinmHeroTools` + `AppLogo` · `LinmNotifyButton` | same |
+| Hero tools | Hồ sơ · chuông → `#sc-ops` | A `.vn-hero-tools` · `.hero-ico` | `LinmHeroTools` · `LinmNotifyButton` | same |
 | Status | Role demo + cột sóng + hạng | A `.role` + `data-net-signal` | `LinmStatusCapsule` · area **ẩn live** | same |
 | Who | Tên phiên | A `.who` | Text / title style hero | same |
 | Guest FAQ | Hỗ trợ người dân + FAQ row | A `#section-guest` · `#btn-home-faq` | FAQ card mid | same |
+| Guest brand | Logo RMMS giữa khoảng trống | A `.guest-mid` · `#home-brand` | `AppLogo` `brandLogoSm` | `app_logo` |
 | Guest dock | Đăng nhập + privacy pin đáy | A `.guest-dock` · `#btn-home-login` · `#btn-home-privacy` | VStack bottom | Column + Spacer |
 | Quick | Điểm tuần · Ghi sự cố + phụ | A `.vn-quick` | `LinmQuickActions` · `LinmQuickItem` | same |
 | Section | Nghiệp vụ thường dùng | A `.section-label` | `LinmSectionLabel` | same |
@@ -54,7 +55,7 @@ Cold start → #sc-home guest · **ẩn tab 5**
 |-------|---------|
 | default | GET profile (staff) · GET `notification/overview` guest+staff · `.who` · badge live 0 ẩn |
 | empty name | fallback login `user.fullName` / JWT `full_name` / `lastUserName` / «Tài khoản» · hub vẫn mở |
-| loading | refresh profile nhẹ · **cấm** full-screen block hub |
+| loading | staff GET `auth/profile` · `.who` empty = bone pulse `home-who-skeleton` (`brandLogo`×`heroWho` · `onPrimary` × `overlayScrim`) · **cấm** flash Khách · **cấm** `LinmBusyOverlay` / full-screen block hub · refresh khi đã có tên: giữ `.who` (không bone) |
 | error / offline | toast in-app · `.who` = `lastUserName` · **cấm** block tab |
 | permission | GPS/camera **N/A** trên hub |
 | leave dirty | **N/A** (không form) |
@@ -63,7 +64,9 @@ Cold start → #sc-home guest · **ẩn tab 5**
 
 Trang Chủ · Hồ sơ · Thông báo · Điểm tuần · Ghim định vị · lý trình · Ghi sự cố · Chọn tài sản · mẫu sự cố · Nghiệp vụ thường dùng · Giám sát · Tuần đường · Công việc · Vấn đề · Tài sản · Lưu trữ · HỒ SƠ TÀI SẢN · QL.1 · Khu IV · 32 loại KCHT · thông số + checklist sự cố · Tốt / Trung bình / Yếu · Đã làm mới · (toast sibling đúng nhãn control)
 
-**Cấm trên máy:** «Có mạng» · «Hiện trường · iPhone» · «· Android» title · «Phiên bản Gói N» / foot Gói · badge hardcode `3` · device label · proto tap-cycle tín hiệu · «gen realapp».
+**Copy `#sc-privacy` (2026-09-12):** `home.privacy.body` user-facing — Khách (FAQ + thông báo chung, không GPS/cam lúc mở) · cán bộ tài khoản đơn vị · quyền vị trí/camera/thông báo khi dùng tính năng · không bán/quảng cáo · liên hệ pháp nhân Miền Trung + SĐT. **Cấm** ghi chú nội bộ landing HTTPS / Store URL. GAP-MOB-MESET-PRIVACY-01 Store HTTPS **vẫn** chờ khách giao — **không** invent URL in-app.
+
+**Cấm trên máy:** «Có mạng» · «Hiện trường · iPhone» · «· Android» title · «Phiên bản Gói N» / foot Gói · badge hardcode `3` · device label · proto tap-cycle tín hiệu · «gen realapp» · «URL Privacy / Support Store sẽ gắn khi khách giao landing HTTPS».
 
 ## 5. Brand
 
@@ -112,8 +115,10 @@ Không `/wf-anim` trên hub `home`.
 | GAP-MOB-ALIGN-01d | Tab chữ + icon Tuần đường | `tabLabel` **13** · `LinmMapPinGlyph` `#i-mappin` · **cấm** fill |
 | GAP-MOB-UX-07 | design ↔ HTML | Pack proto **không** foot · **không** badge 3 · khớp design.md |
 | GAP-MOB-EDIT-GUEST-TAB | Guest hiện tab 5 + login trong hero | **PASS** ẩn `LinmTabBar` guest · pin `btn-home-login` + `btn-home-privacy` đáy · staff hiện tab · **cấm** revert |
-| GAP-MOB-EDIT-GUEST-OPS | Chuông Home toast-only · cấm inbox guest | **PASS** `#sc-ops` reuse · GET inbox/overview **không JWT** · logo RMMS giữa hero · **cấm** revert |
-| Placeholder gallery | iOS/Android hiện gallery | Dev **thay** bằng hub · **cấm** `btn-logout` trên home |
+| GAP-MOB-EDIT-GUEST-OPS | Chuông Home toast-only · cấm inbox guest | **PASS** `#sc-ops` reuse · GET inbox/overview **không JWT** · **cấm** revert |
+| GAP-MOB-EDIT-GUEST-BRAND | Logo hero nhỏ · back `#sc-ops` hiện tab guest | **PASS** `home-brand` giữa page · guest `#sc-ops` fullScreenCover · ẩn tab khi ops · back **không** hiện `LinmTabBar` · **cấm** revert |
+| GAP-MOB-EDIT-PRIVACY-COPY | Body privacy ghi chú nội bộ Store/landing | **PASS** `home.privacy.body` user-facing khớp app (Khách · cán bộ · quyền · liên hệ) · **cấm** invent HTTPS · **cấm** revert placeholder |
+| GAP-MOB-EDIT-HOME-WHO-SKEL | Staff `.who` flash **Khách** lúc GET profile | **PASS** bone pulse dual · hub không block · **cấm** revert |
 
 ## Version meta (REQUIRED)
 

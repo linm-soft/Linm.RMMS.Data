@@ -10,7 +10,7 @@
 | packKind | **map** |
 | changeScope | `edit_page` (cleanup_mock) |
 | route_confirm | **route_a** |
-| updatedAt | `2026-09-01T07:50:00.000Z` |
+| updatedAt | `2026-09-16T12:00:00.000Z` |
 
 ## Shipped
 
@@ -22,13 +22,15 @@
 | Focus | `FetchRoadAssetByIdUseCase` · **chỉ** `.loaded` · **cấm** OfflineDemo focus |
 | Wire | hub/detail/incident → push (prior) |
 
-## Notes (cleanup_mock)
+## Notes (edit-mobile-feature 2026-09-16)
 
-- Removed `GisMapDemoOverlay` · `usedDemo` → `loadFailed`
-- Fail → empty/partial live + toast `gis.map.loadFallback` («…bản đồ trống») · map **vẫn mở**
-- Empty GET OK → map trống · **cấm** demo SSOT pins
-- Search (iOS) → `loadOverlay.execute(search:)` live filter
-- Step 4b **N/A** · **cấm** mfeStdUrl
+- Appear: `GET gis/summary-by-type` · loại **default off** (web `layersVisible`)
+- Tick loại → `geojson/{type}` + `lod=detail` + padded bbox · loại lớn z&lt;14 = `gis/clusters?layer=`
+- Zoom idle 450ms · skip khi coverage còn (`shouldReloadOverlay`) · cancel pinch **không** toast · **cấm** `geojson/all`
+- iOS **Lớp** = `LinmSheet` + `LinmAssetKchtPict` + toggle · Android chip **Lớp** + trailing **Danh sách**
+- Empty hint `gis.map.layersEmpty`
+
+## Verify
 
 ## Verify
 
@@ -39,7 +41,7 @@ xcodebuild -scheme LinmRmms -destination 'platform=iOS Simulator,name=iPhone 17 
 
 | Gate | Result |
 |------|--------|
-| xcodegen + xcodebuild iPhone 17 Pro | **PASS** |
+| xcodegen + xcodebuild iPhone 17 Pro | **PASS** (2026-09-16 type-filter + lod) |
 | Step 4b | **N/A** |
 | e2e / start:std / mfeStdUrl | **skipped** |
 | ERP.* | **none** |

@@ -25,6 +25,7 @@
 ## APIs (parity iOS)
 
 - uploads init + object (+ complete → ImageUrl) · `POST ai-vision/detect-assets`
+- Prefill sessions **live-only** · fail = toast + empty · **cấm** itemsOrDemo
 - CameraX still · GPS deny · offline toast · Score% show
 
 ## Verify

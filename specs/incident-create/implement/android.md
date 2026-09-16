@@ -20,7 +20,7 @@
 |------|------|
 | Feature UI | `presentation/feature/incidentcreate/*` — pick + `#sc-inc-form` |
 | Catalog + CHK | `domain/model/AssetKcht32Catalog.kt` · `IncidentCreateModels.kt` |
-| Fetch types | `FetchAssetTypesUseCase` · Integration `assetTypes` · local fallback |
+| Fetch types | `FetchAssetTypesUseCase` · Integration `assetTypes` · fail/empty = [] + toast · **cấm** catalog fallback |
 | Create body | `CreateIncidentBody.assetLabel` · FieldReflect/CamPatrol `null` |
 | Entry | `HomeViewModel` QuickIncident / TileIncident → navigate |
 | Nav | `MainTabScreen` route `incident-create` · cam → Field/`cam-patrol` · estimate toast |

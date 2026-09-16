@@ -103,10 +103,13 @@
 - Native: user mở Xcode + Android Studio và test thủ công · **cấm** cite `mfeStdUrl` / localhost MFE · BFF `mobile-bff/api/v1`
 - `/edit-mobile-feature` 2026-08-19: demo Home **Đăng xuất** (`btn-logout`) local clear → retest `#sc-login` · **không** slug `login-logout` · context lock design/ux/map/task/po/implement
 - `/edit-mobile-feature` 2026-08-19: **GAP-MOB-EDIT-IME** — kit `LinmKeyboardAwareScroll` dual · focus field pin trên IME · logo 192 tĩnh · context lock
-- `/edit-mobile-feature` 2026-08-19: **GAP-MOB-EDIT-PASS** — submit reset `#f-pass` · giữ last `#f-user` · **cấm** persist MK · context lock
+- `/edit-mobile-feature` 2026-08-19: **GAP-MOB-EDIT-PASS** — **chỉ** reset `#f-pass` khi login **OK** · giữ last `#f-user` · **cấm** persist MK · context lock
+- `/edit-mobile-feature` 2026-09-13: **GAP-MOB-EDIT-FAIL-FIELDS** — login fail / offline / HĐ **giữ** `#f-user` + `#f-pass` · **cấm** wipe lúc submit
 - `/edit-mobile-feature` 2026-08-19: **GAP-MOB-EDIT-FOOTER-01** — `.login-meta` pin đáy giữa (Android `BottomCenter` · iOS `.bottom`) · ẩn khi IME · context lock dual
 - `/edit-mobile-feature` 2026-08-19: **GAP-MOB-EDIT-IME-ENTER** — `#f-user` Enter + MK có giá trị → login · Enter + MK rỗng → focus `#f-pass` · `#f-pass` Enter → login · kit `onSubmit` dual · context lock
 - `/edit-mobile-feature` 2026-08-29: Home **không required login** · overlay `#sc-login` từ `btn-home-login` · `btn-login-back` · context lock dual
+- `/edit-mobile-feature` 2026-09-13: **GAP-MOB-EDIT-FIELD-INK** — typed login field `onSurface` trên `card` · kit light chrome dual · context lock
+- `/edit-mobile-feature` 2026-09-16: **GAP-MOB-EDIT-SESSION-REFRESH** — Root `tryRefreshToken` + exp−60s + restore kill/reopen · 401 → guest Home · **cấm** `/session-expired` · **cấm** logout khi mất mạng · context lock dual
 - Review R-LOGIN-03 — BE `session-window` bind JWT `sub` ↔ `authUserId` (backlog · không block)
 - Review R-LOGIN-08 — `PrivacyInfo.xcprivacy` + landing HTTPS · **cấm** READY_TO_SUBMIT
 

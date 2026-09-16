@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-12T16:21:48.516Z",
+  "updatedAt": "2026-09-16T04:44:53.117Z",
   "features": {
     "ai-asset-detect": {
       "web": {
@@ -280,9 +280,9 @@
     },
     "patrol-map": {
       "mobile": {
-        "phase": "dev",
-        "status": "blocked",
-        "updatedAt": "2026-08-28T18:29:41.772Z",
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-16T04:44:53.117Z",
         "statusRel": "specs/patrol-map/STATUS.md"
       }
     },
@@ -650,7 +650,7 @@
       "mobile": {
         "phase": "done",
         "status": "done",
-        "updatedAt": "2026-09-12T09:13:44.564Z",
+        "updatedAt": "2026-09-16T03:20:49.793Z",
         "statusRel": "specs/mnt-progress/STATUS.md"
       }
     },
@@ -760,9 +760,9 @@
     },
     "attendance-report": {
       "mobile": {
-        "phase": "sa",
-        "status": "pending",
-        "updatedAt": "2026-09-01T15:17:22.873Z",
+        "phase": "team_lead",
+        "status": "in_progress",
+        "updatedAt": "2026-09-12T17:19:15.407Z",
         "statusRel": "specs/attendance-report/STATUS.md"
       }
     },
@@ -788,6 +788,22 @@
         "status": "done",
         "updatedAt": "2026-09-12T16:21:48.516Z",
         "statusRel": "specs/mobile-bff-file/STATUS.md"
+      }
+    },
+    "map-service": {
+      "web": {
+        "phase": "draft",
+        "status": "pending",
+        "updatedAt": "2026-09-12T17:19:15.415Z",
+        "statusRel": "specs/map-service/STATUS.md"
+      }
+    },
+    "photo-geo-capture": {
+      "mobile": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-12T19:09:04.703Z",
+        "statusRel": "specs/photo-geo-capture/STATUS.md"
       }
     }
   }

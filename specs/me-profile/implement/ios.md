@@ -9,7 +9,7 @@
 | changeScope | `new_page` |
 | packKind | **`sheet`** (surface full screen `#sc-me-profile`) |
 | taskId | `task_bd696c31` |
-| updatedAt | `2026-08-31T02:35:00.000Z` |
+| updatedAt | `2026-09-13T01:20:00.000Z` |
 | autoApprove | ON |
 | contentHash | sha256:me-profile-control-hint-20260830 |
 | realDataHash | sha256:me-profile-real-data-20260830 |
@@ -33,6 +33,7 @@
 | Use cases | reuse `FetchProfileUseCase` · **NEW** `UpdateProfileUseCase` · **NEW** `ChangePasswordUseCase` |
 | Repo | `AuthRepository.updateProfile` / `changePassword` · PUT/POST Auth via BFF |
 | DTO | extend `UserProfile` / `UserProfileDto` / mapper · `email` · `userName` · optional `citizenId` |
+| userName bind | `AuthDtoMapper.loginName` · **cấm** `profile.id` GUID · fallback `lastUserName` (`GAP-MOB-MEPROF-USERNAME-01`) |
 | Copy | `LinmCopy` `me.profile.*` VN SSOT |
 | DI | `AppContainer` update/change use cases · `AppRouter` StateObject + navigationDestination |
 | Kit | TopBar / TextField / SecureTextField / Primary / Secondary / SectionLabel / Toast · **cấm** invent kit · **cấm** WebView |
@@ -47,6 +48,10 @@
 | Invent `me-profile` / RMMS `users/me` API | **none** |
 | Step 4b / MeProfileController BFF | **n/a** · Auth rewrite live |
 | E2E / start:std / mfeStdUrl | **SKIP** (cấm Dev · queued QA) |
+
+## Notes (edit-mobile-feature · GAP-MOB-MEPROF-USERNAME-01)
+
+`#f-userName` bind login id: GET `UserName` nếu không UUID · **không** `Id` · fallback `TokenStore.lastUserName`. Auth `UserProfileMapper` phải set `UserName` (parity `UserInfoDtoFactory`).
 
 ## Version meta
 

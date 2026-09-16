@@ -17,7 +17,7 @@
 | sectionAbout | Section | `.section-label` | `LinmSectionLabel` | same | Thông tin |
 | appVersion | Display | `#row-version` · `#app-version` | Text | same | Bundle `x.y.z (build)` · empty «—» |
 | rowPrivacy | ListRow nav | `#row-privacy` · `#i-info` | `LinmListRow` | same | push privacy · `home.privacy.*` |
-| Privacy panel | Content | `#privacy-panel` · `#privacy-body` | scroll Text | same | **cấm** invent HTTPS |
+| Privacy panel | Content | `#privacy-panel` · `#privacy-body` | scroll Text `fieldText` | same | `home.privacy.body` user-facing · **cấm** invent HTTPS |
 | Toast OS fail | Banner | `#toast` | `LinmToast` | same | **cấm** alert · **cấm** fake ok |
 | Shell Tab 5 | Chrome | `.tab-bar` / `.nav-bar` · `data-tab=me` | `LinmTabBar` | NavigationBar | **giữ** · không invent |
 | Entry hub | — | Me `row-settings` `#i-gear` | `LinmListRow` reuse | reuse · no chevron Android | **không** reimplement trên pack |

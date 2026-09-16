@@ -24,8 +24,8 @@
 
 - **Screen** `#sc-asset-collect` · `DES-MOB-ASSET-COLLECT` · push under HomeStack
 - **Entry:** hub `TileCollect` → `navigate("asset-collect")` (toast stub removed)
-- **API:** same BFF paths · `ApiService.roadAssetInitData` + `createRoadAsset`
-- **Bind:** type/status Select · name · routeKm · GPS · PhotoRow CameraX · CTA **Thêm tài sản**
+- **API:** same BFF paths · `ApiService.roadAssetInitData` + `createRoadAsset` · init fail = empty statuses + toast · **cấm** Tốt/Theo dõi cứng
+- **Bind:** type/status Select · name · routeKm · GPS · PhotoRow CameraX · CTA **Thêm tài sản** · sessions prefill live-only
 - **Android:** back icon-only OK · Status Select + photo label **bắt buộc** (STATUS-01)
 - **GPS deny / leave:** `GpsDenyDialog` + in-app leave · **cấm** system AlertDialog
 

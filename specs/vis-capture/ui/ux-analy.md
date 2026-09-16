@@ -116,7 +116,7 @@ Pack P1: toast fade ~2.4s · modal backdrop fade · PhotoRow fill after capture 
 | GAP-MOB-VIS-PACK-01 | sheet meta vs full screen | **screen** · chốt PO · **CLOSED** |
 | GAP-MOB-VIS-DUAL-01 | Android thiếu section + Bỏ qua | **CLOSED** · dual proto có đủ |
 | GAP-MOB-VIS-GPS-01 | gate ≤ 30 m | toastGpsBlock · chặn detect · `?acc=35` |
-| GAP-MOB-VIS-DETECT-01 | detect stub | SA · không Design |
+| GAP-MOB-VIS-DETECT-01 | detect stub | **CLOSED P1** · BE hard-default 200 · skip HTTP AiService · **cấm** toast detectFail khi BE 200 |
 | AC-D-01 | offline | queue + toast · sibling patrol-offline |
 | AC-D-02 | GPS deny | modal · chặn detect + Gắn |
 | AC-D-03 | leave dirty | confirm in-app nếu ảnh/detection · Skip không bắt buộc |

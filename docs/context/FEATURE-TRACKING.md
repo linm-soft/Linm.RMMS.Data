@@ -3,7 +3,9 @@
 > **SSOT theo dõi.** Backlog mô tả: [`features/README.md`](features/README.md). Pipeline scan: [`implement-status.json`](implement-status.json) (có thể lệch — **ưu tiên** `specs/{slug}/STATUS.md`).  
 > **HĐ:** `37001-08/2026-LIC/LINM-JNET` · PL01 P1 CAPEX 900tr (A 450 + B 300 + C 150). Spec: [`Linm.RMMS.Contract/analy/PROMPT-SPEC-P1-P2-PHU-LUC-RELEASE.md`](../../../Linm.RMMS.Contract/analy/PROMPT-SPEC-P1-P2-PHU-LUC-RELEASE.md).  
 > **Demo hub:** `Linm.RMMS.Demo` · `npm run start:std` → http://localhost:5180 · catalog [`demoCatalog.ts`](../../../Linm.RMMS.Demo/src/demoCatalog.ts).  
-> **Cập nhật:** 2026-09-01 · epic `mobile-cleanup-mock` (clean-up mock + seed CRUD) · /hey-linm
+> **Cập nhật:** 2026-09-16 · queue `qlbd-mobile` `task_1f6d86c4` `/implement-gis-map` `ios_replace_all_maps` (`patrol-map` + HITL `photo-geo-capture`) · /hey-linm `autocode_hub`
+> **Prior:** 2026-09-12 · `photo-geo-capture` (chụp + key FileService + gim vật thể → lat/lng) · /hey-linm · queue `qlbd-mobile`  
+> **Prior:** 2026-09-01 · epic `mobile-cleanup-mock` (clean-up mock + seed CRUD) · /hey-linm
 > **Prior:** 2026-08-28 · skill **`/gen-feature-tracking`** — thêm feature / implement (queue + chat) **phải** upsert file này. Nguồn STATUS đọc cùng ngày.  
 > **Changelog:** 28/08/2026 — `incident` (`/su-co`) upsert Pipeline `data_analy` / `pending` + task **T-PILOT-01** (e2e + HDSD + guide). · 27/08/2026 — upsert `kcht-cong-trinh` (công văn KQLĐB IV · 5 phân hệ CT KCHT · ngoài PL01 900tr) · `/hey-linm` + plan.
 
@@ -54,8 +56,8 @@
 | `gis-draw-live` | Vẽ Leaflet | 02 | P1-900 | done | catalog | [ctx](features/gis-draw-live.md) | [ST](../../specs/gis-draw-live/STATUS.md) |
 | `gis-draw-google` | Vẽ Google proxy | 02 | P1-900 | done (JWT leftover) | catalog | [ctx](features/gis-draw-google.md) | [ST](../../specs/gis-draw-google/STATUS.md) |
 | `gis-3d-twin` | Twin 3D Cesium | 02-P2 | P2-CR | no STATUS | catalog | — | — |
-| `map-service` | gis.vn + clip OSM | — | support | no STATUS | none | [ctx](features/map-service.md) | — |
-| `gis-osm-clip` | OSM overlay prod | — | support | no STATUS | none | [ctx](features/gis-osm-clip.md) | — |
+| `map-service` | gis.vn + clip OSM | — | support | `draft` / `pending` | none | [ctx](features/map-service.md) | [ST](../../specs/map-service/STATUS.md) |
+| `gis-osm-clip` | OSM overlay prod | — | support | no STATUS · GAP-MOB-IOS-MAP-HOST-01 | none | [ctx](features/gis-osm-clip.md) | — |
 | `legal-tech-corridor` | Luật VN + Store | — | support | no STATUS | none | [ctx](features/legal-tech-corridor.md) | — |
 | `directions` | Chỉ đường guest | — | support | no STATUS | none | [ctx](features/directions.md) | — |
 | `ai-vision` | AI kiểm định MD | 03 / 03-P2 | P1-900 online · P2-CR local | `done` / `in_progress` | catalog | [ctx](features/ai-vision.md) | [ST](../../specs/ai-vision/STATUS.md) |
@@ -96,7 +98,7 @@
 | `patrol-home` | Patrol home | 04 | P1-900 | `done` / `done` | proto | [ctx](features/patrol-home.md) | [ST](../../specs/patrol-home/STATUS.md) |
 | `patrol-history` | Lịch sử tuần | 04 | P1-900 | `done` / `done` | proto | [ctx](features/patrol-history.md) | [ST](../../specs/patrol-history/STATUS.md) |
 | `patrol-offline` | Offline tuần | 04 | P1-900 | `done` / `done` | proto | [ctx](features/patrol-offline.md) | [ST](../../specs/patrol-offline/STATUS.md) |
-| `patrol-map` | Bản đồ tuần | 04 | P1-900 | Dev pending | proto | [ctx](features/patrol-map.md) | [ST](../../specs/patrol-map/STATUS.md) |
+| `patrol-map` | Bản đồ tuần | 04 | P1-900 | `done` / `done` | proto | [ctx](features/patrol-map.md) | [ST](../../specs/patrol-map/STATUS.md) |
 | `patrol-pin` | GPS pin sheet | 04 | P1-900 | `done` / `done` | proto | [ctx](features/patrol-pin.md) | [ST](../../specs/patrol-pin/STATUS.md) |
 | `patrol-checkin` | Check-in | 05 | P1-900 | `done` / `done` | none | — | [ST](../../specs/patrol-checkin/STATUS.md) |
 
@@ -104,6 +106,7 @@
 | `cam-view` | [Mobile] Camera xem | — | support | `done` / `done` | data_analy PASS · handoff PO | [ctx](features/cam-view.md) | [ST](../../specs/cam-view/STATUS.md) |
 | `cam-patrol` | [Mobile] [Tuần đường] -> Thu thập camera | — | support | `done` / `done` | none | [ctx](features/cam-patrol.md) | [ST](../../specs/cam-patrol/STATUS.md) |
 | `field-reflect` | [Mobile] [Tuần đường] -> Ghi nhận hư hỏng | — | support | `done` / `done` | none | [ctx](features/field-reflect.md) | [ST](../../specs/field-reflect/STATUS.md) |
+| `photo-geo-capture` | [Mobile] [Tuần đường] -> Chụp ảnh kèm tọa độ | — | support | `done` / `done` | none | [ctx](features/photo-geo-capture.md) | [ST](../../specs/photo-geo-capture/STATUS.md) |
 | `mnt-chat` | Trao đổi công việc | — | support | `done` / `done` | none | [ctx](features/mnt-chat.md) | [ST](../../specs/mnt-chat/STATUS.md) |
 | `mnt-progress` | Cập nhật trạng thái | — | support | `done` / `done` | none | [ctx](features/mnt-progress.md) | [ST](../../specs/mnt-progress/STATUS.md) |
 | `mnt-log` | Nhật ký xử lý | — | support | `done` / `done` | none | [ctx](features/mnt-log.md) | [ST](../../specs/mnt-log/STATUS.md) |
@@ -117,7 +120,7 @@
 | `asset-detail` | Chi tiết tài sản | — | support | `dev` / `await_confirm` | data_analy **PASS** | [ctx](features/asset-detail.md) | [ST](../../specs/asset-detail/STATUS.md) |
 | `asset-collect` | Thủ công | — | support | `done` / `done` | data_analy **PASS** · handoff PO | [ctx](features/asset-collect.md) | [ST](../../specs/asset-collect/STATUS.md) |
 | `asset-adjust` | Cập nhật / bớt | — | support | `qa` / `await_confirm` | none | [ctx](features/asset-adjust.md) | [ST](../../specs/asset-adjust/STATUS.md) |
-| `gis-map` | Xem trên bản đồ | — | support | `done` / `done` | data_analy **PASS** · handoff PO | [ctx](features/gis-map.md) | [ST](../../specs/gis-map/STATUS.md) |
+| `gis-map` | Xem trên bản đồ | — | support | `done` / `done` · clip iOS shipped · twins MapKit **pending** | data_analy **PASS** · host `GisClipMapView` | [ctx](features/gis-map.md) | [ST](../../specs/gis-map/STATUS.md) |
 | `asset-ai` | Camera AI | — | support | `done` / `done` | none | [ctx](features/asset-ai.md) | [ST](../../specs/asset-ai/STATUS.md) |
 | `supervise-detail` | Chi tiết check-in | — | support | `qa` / `await_confirm` | none | [ctx](features/supervise-detail.md) | [ST](../../specs/supervise-detail/STATUS.md) |
 | `attendance-report` | Báo cáo công | — | support | `sa` / `in_progress` | none | [ctx](features/attendance-report.md) | [ST](../../specs/attendance-report/STATUS.md) |
@@ -148,13 +151,14 @@
 | P1-900 | `dashboard` | thiếu STATUS |
 | P1-900 | `camera-connect` | đưa vào `demoCatalog.ts` (HTML đã có) |
 | Gói B | `mobile-p1` | design_confirm |
-| Gói B | `patrol-map` | Dev → QA → Review |
+| Gói B | `patrol-map` | Dev pending **`task_1f6d86c4`** · replace MapKit → `GisClipMapView` (`/implement-gis-map` `ios_replace_all_maps`) |
 | Gói B | `patrol-pin` | Review findings |
+| Gói B | `photo-geo-capture` | done · live HUD + fullscreen · `task_b6a752b4` `/edit-mobile-feature` |
 | Gói B | `asset` mobile | TL · iOS/Android/BFF **BLOCKED** |
 | P3-CR | `inventory` | Dev · be/ui repo confirm |
 | CR-Khu-IV | `kcht-cong-trinh` | data_analy draft · công văn 08/2026 · 5 PH |
 | support | `feedback` · `master` hub · `patrol-checkin` | draft |
-| support | `map-service` · `gis-osm-clip` · `directions` · `legal-tech-corridor` · `toc` | chưa STATUS |
+| support | `map-service` · `gis-osm-clip` · `directions` · `legal-tech-corridor` · `toc` | `map-service` `draft`/`pending` (Wave 4 ios+android done · web pending) · còn lại context |
 
 ---
 
@@ -273,9 +277,20 @@ Rule: `packKind=master` **không** gen demo — context + Design prototype.
 | Demo | catalog [`gis-3d-twin.html`](../../../Linm.RMMS.Demo/src/demo/gis/gis-3d-twin.html) |
 | STATUS | không có — implement demo only |
 
-#### GIS platform (chưa STATUS)
+#### `map-service`
 
-`map-service` · `gis-osm-clip` · `legal-tech-corridor` · `directions` — context only · skill `/implement-map-service` · `/implement-gis-map` · `/review-app-vn-map-law` · `/implement-directions-app`.
+| | |
+|--|--|
+| Release / implement | support · `/implement-map-stack` |
+| Demo | none |
+| Pipeline | `draft` / `pending` |
+| Next | Wave 4 **ios + android gis-map clip done** · Wave 4 `web` clip UI |
+
+#### GIS platform
+
+`gis-osm-clip` · `legal-tech-corridor` · `directions` — context · skill `/implement-gis-map` · `/review-app-vn-map-law` · `/implement-directions-app`.
+
+**GAP-MOB-IOS-MAP-HOST-01:** iOS `#sc-gis-map` = SSOT host clip. `#sc-patrol-map` + sheet HITL `photo-geo-capture` **phải** reuse `GisClipMapView` (cùng tile BFF · HS/TS · pict QCVN). Slash: `/implement-gis-map` `ios_replace_all_maps`. Queue hub **đã ingest** `qlbd-mobile` **`task_1f6d86c4`** (hey_apply target = autocode_hub).
 
 Ref demo: `asset-icons-legend` · `gis-draw-live-ref` · `patrol-centerline-ref` — [`/demo/p/`](../../../Linm.RMMS.Demo/src/demo/p/README.md).
 
@@ -528,11 +543,21 @@ Blocked / later — [STATUS](../../specs/rmms-task-integrate/STATUS.md) · [RMMS
 | Slug | Pipeline | Context |
 |------|----------|---------|
 | `patrol-home` · `patrol-history` · `patrol-offline` | done | [home](features/patrol-home.md) · [history](features/patrol-history.md) · [offline](features/patrol-offline.md) |
-| `patrol-map` | Dev pending | [patrol-map.md](features/patrol-map.md) |
+| `patrol-map` | Dev pending · MapKit → clip host | [patrol-map.md](features/patrol-map.md) |
 | `patrol-pin` | Review in_progress | [patrol-pin.md](features/patrol-pin.md) |
 | `patrol-checkin` | draft | STATUS only |
+| `photo-geo-capture` | done · live HUD + in-app fullscreen | [photo-geo-capture.md](features/photo-geo-capture.md) |
 
 `home` · `me` · `login` · `login-forgot` · `supervise` · `asset-hub` · `attendance` (mobile lane) — STATUS **done**.
+
+#### `photo-geo-capture`
+
+| | |
+|--|--|
+| Release / implement | support · P1 native · implement đủ phase |
+| Demo | none (proto sau Design) |
+| Pipeline | `done` / `done` |
+| Next | leaf `/edit-mobile-feature` live HUD + fullscreen **done** `task_b6a752b4` · **cấm** invent `api/v1/photo-geo` |
 
 ---
 

@@ -98,8 +98,8 @@
 | segList | Danh sách check in | Segment | * | `LinmSegment` idx **0** | owner |
 | segMap | Bản đồ | Segment | * | `LinmSegment` idx **1** | **push** patrol-map |
 | cardTitle | Nguyễn Văn A | Text | * | `LinmCard` composition | `UserName` |
-| cardOrg | Tổ tuần đường · VP-IV.1 | Text + `#i-building` | | same | `Note` · GAP-MOB-SUP-03 |
-| cardLoc | QL.1 Km 1556+000 · Xuân Hải | Text + `#i-mappin` | * | same | `Route` + `KmPoint` |
+| cardOrg | Tổ tuần đường · VP-IV.1 | Text + `#i-building` | | same | `Note` · empty = trống · **cấm** invent VP-IV.1 |
+| cardLoc | QL.1 Km 1556+000 · Xuân Hải | Text + `#i-mappin` | * | same | `Route` + `KmPoint` · empty = `—` |
 | cardTime | 2026-08-10 08:40:12 | Text muted | * | same | `CheckInAt` local |
 | cardStatus | Trạng thái: Đã ghi điểm tuần | Status strip | * | same | `Status` ok/warn |
 | cardThumb | (placeholder) | Thumb 56 | | same | gradient P1 |

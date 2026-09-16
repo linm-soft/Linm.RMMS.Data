@@ -161,7 +161,7 @@ App `ApiClient.base` = `{BffBase}/mobile-bff/api/v1`. Path **không** lặp pref
 |----|----------|----------------|
 | GAP-MOB-VIS-PACK-01 | STATUS/scan `sheet` vs demo full screen | **Chốt surface = screen** full `#sc-vis-capture`. Design cập nhật STATUS packKind → `screen`. **Cấm** bottom-sheet chrome / `#sheet-*`. |
 | GAP-MOB-VIS-DUAL-01 | Android thiếu section «Ảnh hiện trường» + «Bỏ qua» | **Design dual parity** — Android **phải** có section-label + Secondary «Bỏ qua» cùng iOS. Chrome back icon-only Android OK. |
-| GAP-MOB-VIS-DETECT-01 | Detect engine stub | **P1 wire** path live hiện tại. SA harden engine khi Signed · Step 4b **không** ở PO. |
+| GAP-MOB-VIS-DETECT-01 | Detect engine stub | **CLOSED P1** · path `POST ai-vision/detect` · **hard-default return success** (skip AiService HTTP) · real engine P2. |
 | GAP-MOB-VIS-GPS-01 | Gate accuracy | **Chốt ≤ 30 m** trước POST detect · toastGpsBlock nếu thiếu / > 30 m · **cấm** fake / gõ tay. |
 | Design rule | Tên thuật toán trên UI? | **Cấm** — chỉ Loc / Acc / Phân loại / Mức. |
 | Sibling enqueue | Gắn / Bỏ qua / detect / camera / GPS | **none** — cùng slug (`GAP-MOB-ACT-06/07`). OUT: `cam-patrol` · `det-hitl` · `incident-create`. |

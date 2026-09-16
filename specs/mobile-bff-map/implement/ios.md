@@ -14,8 +14,10 @@
 
 - `Data/Network/MapTileUrl.swift` — TileUrl SSOT = `{BffBase}/{BffPrefix}/gis/tiles/{layer}/{z}/{x}/{y}.pbf`
 - Peer `GisMap` / `PatrolMap`: `tileUrlTemplate` on appear · accessibilityValue on map host
+- Wave 3 LOD: `gis/clusters` z≤13 · `gis/geojson?bbox=&take=100` z≥14 · camera `onMapCameraChange` debounce 350ms · cap 2000
 - **0** `openstreetmap.org` / Esri / Google tile URL in Swift
-- Host chrome MapKit Apple styles kept (Wave 4 = MVT clip render) — **cấm** reimplement map UI
+- Host chrome **GisMap** = MapLibre clip `{TileUrl}` (Wave 4 iOS) — Patrol còn MapKit Apple styles
+
 
 ## Build
 
@@ -27,8 +29,8 @@
 
 ## Debt
 
-- Wave 4 peer: MapKit cannot paint MVT `.pbf` — clip basemap render deferred (`gis-osm-clip` / map UI)
-- Overlay JWT hop on tile requests deferred with MVT renderer
+- Wave 4 GisMap iOS: MapLibre paints BFF MVT clip — Patrol MapKit decode still deferred
+- Overlay JWT hop on tile requests deferred (guest basemap/boundaries/mask)
 
 ## Version meta
 

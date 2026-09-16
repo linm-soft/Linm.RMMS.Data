@@ -73,7 +73,7 @@
 
 ## Blockers / open questions
 
-- GAP-MOB-MESET-PRIVACY-01 — Privacy HTTPS URL khi khách giao · P1 static `home.privacy.*` (SA closed ship static; URL vẫn chờ khách) · **non-block** Review
+- GAP-MOB-MESET-PRIVACY-01 — Privacy HTTPS URL khi khách giao · P1 static `home.privacy.body` user-facing (SA closed ship static; URL vẫn chờ khách) · **non-block** Review
 
 ## Links
 

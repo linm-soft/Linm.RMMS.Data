@@ -17,9 +17,10 @@
 ## Notes (edit_page delta · T-AND-PAT-CI-DELTA)
 
 - Compose parity dual · section-label **Ảnh**.
-- Plan match vs BE `plan-points` · interim session label · **cấm** plan=GPS.
+- Plan match vs BE `plan-points` · honor `GET patrol/check-in-policy` (default allow sai điểm) · interim session label · **cấm** plan=GPS.
 - GetContent picker → FileService init/PUT/commit → `attachmentId[]` · fail → offline queue.
-- POST check-ins live · GPS / leave / deny parity iOS.
+- **2026-09-16** `/edit-mobile-feature`: honor BE check-in-policy · allow sai điểm by default.
+- **2026-09-16** `/edit-mobile-feature`: Cách điểm KH / banner / detail **> 1000 m → km** (`DistanceDisplay` · `checkin.dist.km`) · 264384 m → **264.4 km**.
 
 ## Shipped
 
@@ -34,7 +35,7 @@
 
 | Check | Result |
 |-------|--------|
-| `./gradlew assembleDebug` | **PASS** |
+| `./gradlew assembleDebug` | **PASS** (2026-09-16 · dist km) |
 
 ## Version meta
 

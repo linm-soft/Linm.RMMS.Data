@@ -24,7 +24,7 @@
 
 - **Screen** `#sc-asset-collect` · `DES-MOB-ASSET-COLLECT` · push (không sheet)
 - **Entry:** hub tile Thủ công → `setOnOpenCollect` → `showAssetCollect` (toast stub removed)
-- **API:** `GET integration/asset-types` (live only) · `GET asset/road-assets/init-data` · `POST asset/road-assets` · optional sessions/routes prefill
+- **API:** `GET integration/asset-types` (live only) · `GET asset/road-assets/init-data` (fail = empty statuses + toast · **cấm** Tốt/Theo dõi cứng) · `POST asset/road-assets` · optional sessions/routes prefill live-only
 - **Bind:** type Select · name · routeKm parse `Route`+`KmFrom` · GPS pin · status default `tot` · PhotoRow local · CTA **Thêm tài sản**
 - **Toast OK:** `Đã thêm tài sản · {Code}` · fail giữ form · **cấm** invent Code
 - **GPS deny / leave dirty:** in-app modals · CTA off khi deny

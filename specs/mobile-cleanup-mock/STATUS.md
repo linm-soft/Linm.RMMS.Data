@@ -12,7 +12,7 @@
 | lane | `mobile` |
 | epic | **YES** — parent of P0/P1 cleanup child tasks |
 | createdAt | `2026-09-01T00:56:00.000Z` |
-| updatedAt | `2026-09-01T10:10:00.000Z` |
+| updatedAt | `2026-09-13T02:20:00.000Z` |
 | source | `/hey-linm` · Clean-up mock data · review từng màn + CRUD seed |
 | lastRole | `dev` · `/edit-mobile-feature` · `task_a33dfede` |
 | mfeStdUrl | — (native · **cấm**) |
@@ -85,8 +85,7 @@
 
 - Auth/BFF/API **đã ready** (probe 2026-09-01).  
 - Epic Dev sweep `task_a33dfede` (2026-09-01): closed residual P0 mock on `asset-detail` · `asset-adjust` · `incident-list` + P1 `estimate` demoFromIncident · toast «dữ liệu mẫu» stripped dual.  
-- **Debt (non-blocking D6):** `patrol-history-detail` vẫn `OfflineDemo` (sibling detail · **không** trong P0 matrix list). `itemsOrDemo` còn cho field-reflect / incident-create / asset-collect stamp.  
-- VERIFY: iOS `LinmRmms` iPhone 17 Pro · Android `assembleDebug` · BFF `dotnet build` — **PASS**.  
+- **2026-09-13 `/edit-mobile-feature`:** dummy = BE `POST …/demo-seed` (`/add-dummy-endpoint`). App **cấm** fail/empty → SSOT demo. Gỡ `itemsOrDemo` · catalog fallback types · Supervise org/location invent · Home wallet live `searchRoutes`+count · estimate `demoFallback`/`BTN` defaults. `patrol-history-detail` đã live-only (debt STATUS cũ).  
 - **Cấm** e2e / mfeStdUrl / start:std ở role Dev.
 
 ## Enqueued tasks

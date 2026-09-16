@@ -16,21 +16,21 @@
 | Layer | Files |
 |-------|--------|
 | presentation | `presentation/feature/login/LoginScreen.kt` · `LoginViewModel.kt` · `LoginUiState.kt` · `LoginToastHub.kt` |
-| domain | `LoginUseCase` · `AuthRepository` · `NetworkStatusRepository` |
-| data | `AuthRepositoryImpl` · `ApiService` login/refresh-token/session-window · `TokenStore` access+refresh encrypted · `TokenAuthenticator` · `AuthInterceptor` skip `/auth/login`+`/auth/refresh-token` · `JwtCompanyClaims` |
+| domain | `LoginUseCase` · `RestoreSessionUseCase` · `AuthRepository` · `NetworkStatusRepository` |
+| data | `AuthRepositoryImpl` · `ApiService` login/refresh-token/session-window · `TokenStore` access+refresh encrypted · `SessionTokenRefresher` single-flight · `TokenAuthenticator` · `RestoreSessionUseCase` · `AuthInterceptor` skip `/auth/login`+`/auth/refresh-token` · `JwtCompanyClaims` `exp` |
 
 ## IA / API
 
 Cùng iOS: body `{ id, password }` · GET session-window · forceLogout copy · offline no-queue · forgot toast only · **cấm** `auth/refresh` · **cấm** `AlertDialog` · **cấm** `bản Gói 1`.
 
-Nav: `AppNavHost` — cold start `MainTabScreen` guest · `showLogin` → `LoginScreen` overlay · `btn-login-back` `dismissLogin()`. **Không** NavigationBar 5 trên overlay.
+Nav: `AppNavHost` — cold start `MainTabScreen` guest · `showLogin` → `LoginScreen` overlay · `btn-login-back` `dismissLogin()`. `repeatOnLifecycle(STARTED)` restore phiên. **Không** NavigationBar 5 trên overlay.
 Logout `#sc-me` → guest Home · **cấm** POST `auth/logout`.
 
 ## Notes
 
 - Layout **tĩnh** top: logo **192** **alpha** (`ContentScale.Fit` · **cấm** `Color.Black` tile / Material elevation) + title + form + CTA · footer `.login-meta` **pin `Alignment.BottomCenter`** khi IME ẩn (`GAP-MOB-EDIT-FOOTER-01`) · IME hiện thì ẩn footer · kit `ADJUST_NOTHING` + `imePadding` · focus field pin trên IME (`imeFocusGap` 12). **cấm** band 1/3 · **cấm** animation / compact IME. Eye `canFocus=false`. **cấm** ×3 · **cấm** «Hiện trường · Android».
 - Signal: bind `NetworkCapabilities` · **cấm** tap cycle.
-- Field: user + pass cùng `formFieldHeight` 52 + lead person/lock. Submit **reset `#f-pass`** · giữ last `userName` (`TokenStore.lastUserName` · **không** xóa khi logout) · **cấm** persist MK.
+- Field: user + pass cùng `formFieldHeight` 52 + lead person/lock. Submit **OK reset `#f-pass`** · fail **giữ user+pass** (`GAP-MOB-EDIT-FAIL-FIELDS`) · giữ last `userName` (`TokenStore.lastUserName` · **không** xóa khi logout) · **cấm** persist MK.
 - E2E: `testTag` `f-user` / `f-pass` / `btn-login` · demo Home `btn-logout` · `testTagsAsResourceId` trên `RmmsTheme` · Maestro `qa/e2e/android.yaml` · Auth docker seed `linm-soft` / `Linm@2026`.
 - `/edit-mobile-feature` 2026-08-19: IME pin `LinmKeyboardAwareScroll` · demo Home **Đăng xuất** overlay đáy trên `LinmKitGallery` (`btn-logout`) · `./gradlew :app:assembleDebug` **PASS**.
 - `/edit-mobile-feature` 2026-08-19: **GAP-MOB-EDIT-FOOTER-01** footer pin `BottomCenter` · ẩn khi IME · `./gradlew :app:assembleDebug` **PASS**.
@@ -38,6 +38,9 @@ Logout `#sc-me` → guest Home · **cấm** POST `auth/logout`.
 - `/edit-mobile-feature` 2026-08-19: **GAP-MOB-EDIT-IME-ENTER** `#f-user` Enter + MK có giá trị → login · Enter + MK rỗng → focus `#f-pass` · `#f-pass` Enter → login · kit `onSubmit` `ImeAction.Next`/`Go` · `./gradlew :app:assembleDebug` **PASS**.
 - `/edit-mobile-feature` 2026-08-29: guest Home + overlay login · `btn-home-login` / `btn-login-back` · **cấm** required login lúc launch · `./gradlew :app:assembleDebug` **PASS**.
 - `/edit-mobile-feature` 2026-08-29: **GAP-MOB-EDIT-BACK** `btn-login-back` pin **trên** scroll · `dismissLogin()` về guest Home.
+- `/edit-mobile-feature` 2026-09-13: **GAP-MOB-EDIT-FIELD-INK** typed `onSurface` + `cursorBrush` primary · `android:forceDarkAllowed=false` theme + application + `decorView` · **cấm** OEM invert chữ trắng trên máy thật · `./gradlew :app:assembleDebug` **PASS**.
+- `/edit-mobile-feature` 2026-09-13: **GAP-MOB-EDIT-FAIL-FIELDS** fail giữ user+pass · reset MK chỉ khi login OK · `./gradlew :app:assembleDebug` **PASS**.
+- `/edit-mobile-feature` 2026-09-16: **GAP-MOB-EDIT-SESSION-REFRESH** — Root `tryRefreshToken` · `STARTED` restore · pre-emptive exp−60s · 401 → guest Home · **cấm** logout khi `IOException` · `assembleDebug` **PASS**.
 - Pack kit local `ui:0.1.0` trước assemble (leading + height 52).
 - Emulator Pixel_9a `adb` **offline** lúc capture `/dev-ui-review` (qemu 100% CPU) — QA live `adb` khi emulator sẵn.
 - Cleartext `10.0.2.2` / localhost cho BFF Debug.

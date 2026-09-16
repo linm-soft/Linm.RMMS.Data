@@ -11,9 +11,9 @@
 |------|-----------|------|
 | Photo → FileService | capture flow unchanged · slot filled = `attachmentId` sau commit | **cấm** SSOT = local UUID only |
 | Detail photos | preview JWT `files/{id}/object` | khi có attachmentId |
-| Banner / dist | vs BE plan-points khi live | interim: session label · stamp GAP · **cấm** plan=GPS |
+| Banner / dist | vs BE plan-points khi live · **> 1000 m hiện km** (1 decimal) | interim: session label · stamp GAP · **cấm** plan=GPS |
 | GPS | live only | **cấm** fake / demo Phước Dinh bind live |
-| Zones/kit/copy | **không** đổi | dual prototype keep |
+| Zones/kit | **không** đổi zone id / kit | dual prototype keep · copy dist km rule |
 
 ## 1. IA
 
@@ -21,8 +21,9 @@
 Login → Tab Tuần đường (shell Tab 5 · index giữ)
   → Hub patrol-home / Map patrol-map / handoff patrol-pin
        → openSheet('checkin') · DES-MOB-PAT-CHECKIN-SHEET
-            → GPS allow + matchOk(BE plan) → upload files → POST check-ins(attachmentId[]) → toast · DES-MOB-CI-DETAIL
-            → matchOk=false → banner đỏ · disable primary · toast chặn
+            → GPS allow → GET `check-in-policy` · match vs BE plan
+                 → `RequirePlanPointMatch=false` (default) → Lưu OK kể cả sai điểm (`MatchOk` vẫn ghi)
+                 → `RequirePlanPointMatch=true` + matchOk=false → banner đỏ · disable primary · toast chặn
             → GPS deny → DES-MOB-GPS-DENY (reuse)
             → dirty leave → DES-MOB-LEAVE
             → camera → openCapture('checkin') · FileService commit · PhotoRow
@@ -49,7 +50,7 @@ Login → Tab Tuần đường (shell Tab 5 · index giữ)
 |------|------------------|---------|---------|---------|
 | Nav | Hủy · Ghi điểm tuần · Lưu | `.sheet-nav` | `LinmBottomSheet` trailing | same |
 | Banner | Đúng/Sai điểm · … | `#ci-match-banner` | Banner · vs BE plan | same |
-| Fields | Điểm KH · Tuyến · GPS · Cách điểm | `.field` readonly | `LinmTextField` | same |
+| Fields | Điểm KH · Tuyến · GPS · Cách điểm | `.field` readonly | `LinmTextField` | same · dist > 1000 m → km |
 | Nội dung | TextArea | `#ci-content` | `LinmTextArea` | same |
 | Ảnh | section-label + PhotoRow + `#i-camera` | `#ci-photos` · `data-bind=attachmentId[]` | PhotoRow + file upload | same · **parity label** |
 | Primary | Ghi nhận điểm tuần | `#ci-save-btn` | `LinmPrimaryButton` | same |
@@ -65,7 +66,7 @@ Login → Tab Tuần đường (shell Tab 5 · index giữ)
 | Title | Ghi điểm tuần | `.nav-title` | `LinmTopBar` | same |
 | Back | Ca | chevron | Back | `ArrowBack` |
 | Banner | Đã lưu · {time} | `.banner.ok` | Banner | same |
-| Rows | Điểm KH · Cách điểm | `.row` | ListRow | same |
+| Rows | Điểm KH · Cách điểm | `.row` | ListRow | same · dist > 1000 m → km |
 | Photos | Ảnh đã lưu | PhotoRow | preview object JWT | same |
 
 ### DES-MOB-LEAVE / DES-MOB-GPS-DENY
@@ -133,7 +134,7 @@ Không `/wf-anim` trên pack. Sheet slide-up · toast fade ~2.4s · modal backdr
 | GAP-MOB-CI-PHOTO-UP-01 | FileService | DoD edit |
 | GAP-MOB-CI-PLAN-BE-01 | plan-points MISSING | interim session label · SA Kind E |
 | GAP-MOB-BFF-FILE-01 | NuGet thiếu | offline queue |
-| DEFER | bezel HTML | chrome native HIG/Material |
+| GAP-MOB-EDIT-DIST-KM-01 | Live «264384 m» khó đọc | **> 1000 m → km** dual `#ci-dist` + detail + banner |
 
 ## Gate
 

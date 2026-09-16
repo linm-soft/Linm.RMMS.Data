@@ -57,15 +57,13 @@ appId: org.linmsoft.rmms
     visible:
       id: "sc-gis-map"
     timeout: 30000
-# map-gis-host = OsmDroid AndroidView · semantics invisibleToUser → assert chrome/title
+# map-gis-host = MapLibre GisClipMapView · assert chrome/title
 - waitForAnimationToEnd:
     timeout: 5000
 - assertVisible:
     text: "Bản đồ tài sản"
 - assertVisible:
-    id: "mb-osm"
-- assertVisible:
-    id: "mb-esri"
+    id: "mb-clip"
 - assertVisible:
     id: "mb-sat"
 - assertVisible:
@@ -84,7 +82,7 @@ appId: org.linmsoft.rmms
     timeout: 4000
 - takeScreenshot: P6-CORE
 - tapOn:
-    id: "mb-esri"
+    id: "mb-sat"
     optional: true
 - waitForAnimationToEnd:
     timeout: 2000

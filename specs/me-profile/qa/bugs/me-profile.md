@@ -11,7 +11,7 @@
 
 | id | severity | status | note |
 |----|----------|--------|------|
-| — | — | — | Visual Aligned · no GAP-MOB-UX-COMP-03 / GAP-MOB-E2E-VIS-01 |
+| GAP-MOB-MEPROF-USERNAME-01 | Must | **CLOSED** | `#f-userName` hiện GUID `Id` · bind `UserName` / `lastUserName` · **cấm** `Id` |
 
 ## Note (resolved during QA harness)
 

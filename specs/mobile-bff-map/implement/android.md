@@ -15,6 +15,7 @@
 - `data/remote/MapTileUrl.kt` — TileUrl SSOT BFF clip MVT
 - `GisMapScreen` / `PatrolMapScreen`: removed MAPNIK + Esri CDN · `BffClipBasemap` → `MapTileUrl.basemapUrl`
 - Chip chrome reuse (osm/esri/sat) → same BFF `basemap` layer (Wave 4 tones)
+- Wave 3 LOD: `gis/clusters` z≤13 · geojson bbox take 100 z≥14 · MapListener debounce 350ms · cap 2000
 - **0** `openstreetmap.org` / `arcgisonline` / Google tile URL in release sources
 
 ## Build

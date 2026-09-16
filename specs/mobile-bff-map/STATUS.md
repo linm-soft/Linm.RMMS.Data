@@ -16,7 +16,7 @@
 | android | `Linm.RMMS.Mobile.Android` |
 | bff | `Linm.RMMS.Mobile.Bff` · `mobile-bff/api/v1/gis/tiles` |
 | backend | MapService `:5021` + RMMS Gis `{AssetDb}` — **cấm ERP.*** |
-| updatedAt | `2026-09-12T09:45:27.541Z` |
+| updatedAt | `2026-09-12T18:53:46.000Z` |
 | lastRole | `review` · **confirmed** · `task_35db1343` · `/agent-review-mobile` · autoApprove · `review_confirm=approve` · Must=0 |
 | contentHash | `sha256:b04a50005f77e99fc2c564e39ac3a438cce8742996899ef2aaa47b698f7e0131` |
 | prototype.reviewUrlIos | `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/mobile-bff-map/ui/prototype/ios/index.html#zone-tileurl-note` |
@@ -64,11 +64,11 @@
 
 ## Blockers / open questions
 
-- MapService `:5021` **DOWN** at QA — tile curl 404 · **debt** (clone `{ApiCore}/Linm.Platform.MapService`) · Review **Accept**.
+- MapService `:5021` **UP** 2026-09-12T18:53Z (clone `{ApiCore}/Linm.Platform.MapService` · compose healthy) · guest tile BFF **200** · overlay no JWT **401** · **closed** prior DOWN debt.
 - **Cấm** `AddLinmMapServiceBffControllers`.
 - `gis-map` pipeline **done** = overlay RMMS — **không** = clip MapService.
 - Gaps closed Wave 2–3: GAP-MOB-BFF-MAP-01 · GAP-MOB-BFF-MAP-02 · GAP-MAP-OSM-CDN-01 (TileUrl).
-- Debt: MVT paint Wave 4 · osmdroid/MapKit decode · live MapService clip · overlay JWT hop.
+- Debt: Patrol MapKit / Android osmdroid MVT paint · overlay JWT hop.
 - SA: TZ/XCO/SHARE = na · migration N/A · API-01 NEW tile proxy · API-02..04 keep.
 - TL: `route_confirm=route_reuse` · repos path · **không** scaffold.
 - QA: e2e `ok:true` · visual Must 0 · peer `#sc-gis-map` · Android IME Enter login.

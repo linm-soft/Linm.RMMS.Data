@@ -37,7 +37,7 @@
 | Method | `{BffPrefix}` path | Downstream | Status |
 |--------|-------------------|------------|--------|
 | GET | `patrol/sessions` | `PatrolSessionsController` | **Live** — ca / tuyến gắn vấn đề |
-| POST | `ai-vision/detect` | `AiVisionOpsController.Detect` | **Live stub** — nhận diện sau ảnh |
+| POST | `ai-vision/detect` | `AiVisionOpsController.Detect` | **Live** — P1 hard-default 200 (skip AiService HTTP) |
 | POST | `ai-vision/uploads` (init/object) | `AiVisionUploadsController` | **Live** — optional media trước detect |
 | GET | `integration/asset-types` | `AssetTypesController` | **Live** — catalog loại TS |
 | POST | `incident/incidents` | `IncidentsController.Create` | **Live** — Tạo vấn đề |

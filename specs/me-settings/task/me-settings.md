@@ -178,7 +178,7 @@ AskQuestion (autoApprove=ON · không chờ board): `ios_repo_confirm` · `andro
 2. Appear / onResume → đọc OS location + camera auth → phụ «Đã cấp / Chưa cấp / Không xác định» · **không** request permission từ settings · **không** BFF.
 3. Tap row Vị trí / Camera / Thông báo hệ thống **hoặc** CTA → openAppSettings · fail → toast **Không mở được Cài đặt hệ thống** · **cấm** fake success · **cấm** native alert.
 4. **Phiên bản** readonly Bundle format `x.y.z (build)` · empty → «—» · **không** API.
-5. Row **Chính sách quyền riêng tư** → push/sheet `home.privacy.title` / `home.privacy.body` · **cấm** invent HTTPS (`GAP-MOB-MESET-PRIVACY-01` open tới khách · P1 static ship).
+5. Row **Chính sách quyền riêng tư** → push/sheet `home.privacy.title` / `home.privacy.body` user-facing · **cấm** invent HTTPS (`GAP-MOB-MESET-PRIVACY-01` open tới khách · P1 static ship).
 6. Row **Hàng đợi mất sóng** → nav `reuse=patrol-offline` · **cấm** reimplement queue · **cấm** enqueue.
 7. Entry (reuse Me): `#row-settings` → **push** `#sc-me-settings` (thay toast) · `#i-gear` · iOS chevron · Android **không** chevron · back «Tôi» / chevron → `me`.
 8. Kit reuse map · typography section 13 · row 16/13 · CTA 16 · title 17 · **cấm** invent kit · **cấm** watermark Gói / device label.

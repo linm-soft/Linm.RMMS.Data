@@ -64,7 +64,7 @@
 | rowOffline | **Hàng đợi mất sóng** | `LinmListRow` `#i-sync` | same | `reuse=patrol-offline` |
 | sectionAbout | **Thông tin** | `LinmSectionLabel` 13 | same | |
 | appVersion | **Phiên bản** | Text display | same | Bundle `x.y.z (build)` · empty «—» |
-| rowPrivacy | **Chính sách quyền riêng tư** | `LinmListRow` `#i-info` | same | `home.privacy.*` · **cấm** invent URL |
+| rowPrivacy | **Chính sách quyền riêng tư** | `LinmListRow` `#i-info` | same | `home.privacy.*` user-facing · **cấm** invent URL |
 | Privacy panel | push/sheet nội dung | local copy | same | DES-MOB-ME-SETTINGS-PRIVACY |
 | toastOsFail | **Không mở được Cài đặt hệ thống** | `LinmToast` | same | **cấm** fake ok |
 | Entry (reuse) | Me `#row-settings` `#i-gear` | `LinmListRow` | same · **không** chevron Android hub | **không** reimplement hub |

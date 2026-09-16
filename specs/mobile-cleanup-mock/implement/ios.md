@@ -25,6 +25,10 @@ Epic residual cleanup: gỡ OfflineDemo / empty→demo trên `asset-detail` · `
 | `EstimateViewModel.swift` | no demo fallback rows |
 | `LinmCopy.swift` | loadFail + empty keys |
 
+## Notes (2026-09-13)
+
+Dummy = BE `demo-seed`. Gỡ `itemsOrDemo` · `FetchAssetTypes` catalog fallback · Supervise invent org/location · Home wallet live `searchRoutes`+count · estimate `demoFallback`. Fail/empty = empty + toast.
+
 ## ACTION WORK GATE
 
 | Action | Result |

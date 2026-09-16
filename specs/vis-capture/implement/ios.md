@@ -41,7 +41,7 @@
 | `xcodegen generate` | **PASS** |
 | `xcodebuild` dest iPhone 17 Pro | **PASS** |
 | Invent `vis-capture` API | **none** |
-| Step 4b Signed detect | **done** BE `DetectAsync` · SourceKind=`detect-signed` |
+| Step 4b Signed detect | **done** BE `DetectAsync` · P1 **hard-default 200** · skip AiService HTTP · SourceKind=`detect-signed` |
 | BFF | proxy catch-all · **n/a** Write · `dotnet build` PASS |
 
 ## Notes (cleanup_mock · `task_4dc20e00`)
@@ -49,6 +49,11 @@
 - Removed `VisCaptureCopy.demoLoc` · UiState default `""` · bootstrap uses live active `route` only.
 - Attach `routeName` = live stamp / detect.routeLabel · **cấm** invent `QL.1`.
 - HTML demo Loc `QL.1 · Km 1556+050` = prototype SSOT only · **không** seed app.
+
+## Notes (`/edit-mobile-feature` · 2026-09-16 · update-image detect)
+
+- BE `POST ai-vision/detect` **hard-default success** — skip HTTP AiService (`127.0.0.1:9` 45s hang) · persist `DefectClass`/`Severity` · iOS bind live rows · **không** fake class khi HTTP fail (BE luôn 200).
+- Native detect client **không** đổi path/DTO · reuse `DetectAiVisionUseCase`.
 
 ## Version meta
 

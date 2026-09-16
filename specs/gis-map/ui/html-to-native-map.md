@@ -5,13 +5,13 @@ Nguồn inventory: DA controlHint + real-data §B + PO §5 · board `ui/prototyp
 | Demo | Ý nghĩa | SwiftUI | Compose | Notes |
 |------|---------|---------|---------|-------|
 | `.nav-bar` / `.top-bar` | Nav | `LinmTopBar` | `LinmTopBar` | iOS leadingText **Tài sản** · Android icon back `#i-chevron-left` |
-| `#gis-layer-hint` / trailing Lớp | Trailing iOS | `LinmTopBar` trailing TextButton | — | toast **Lớp tài sản / sự cố · chú giải** P1 · sheet **P2** · **cấm** invent layer UX P1 |
+| `#gis-layer-hint` / trailing Lớp | Trailing iOS / Android chip | `LinmTopBar` trailing TextButton | `LinmChip` `#btn-gis-layers` | sheet loại: `LinmAssetKchtPict` + tên · count · toggle · default off · tick → load |
 | trailing Danh sách | Trailing Android | — | `LinmTopBar` trailing TextButton | `go('asset-list')` reuse · **cấm** reimplement list |
 | `.map-next-card` search glass | Search overlay | SearchField + `#i-search` | **N/A P1** | placeholder **Tìm tài sản, sự cố…** · local filter / toast · **cấm invent** search API |
-| `#map-gis-host` / `#map-gis` | Live map OMS | MapKit `Map` | osmdroid / Esri `MapView` | GET `gis/geojson/*` · fail/empty → trống + toast · **cấm** GisMapDemoOverlay · **cấm** WebView HTML · **cấm** `LinmMap` kit |
-| `#map-gis-bar` `.mb` | Basemap wrap | `ChipWrap` + `LinmChip` | `FlowRow` + `LinmChip` | Đường default on · Phố · Vệ tinh · Toàn tuyến fit |
+| `#map-gis-host` / `#map-gis` | Live map OMS | `GisClipMapView` MapLibre | same | GET `gis/geojson/*` · BFF MVT `{TileUrl}` · **cấm** osmdroid PBF raster · **cấm** GisMapDemoOverlay · **cấm** WebView HTML · **cấm** `LinmMap` kit |
+| `#map-gis-bar` `.mb` | Basemap wrap | `ChipWrap` + `LinmChip` | `FlowRow` + `LinmChip` | Tiêu chuẩn default · Vệ tinh cùng clip · Toàn tuyến fit · **cấm** Đường/Phố OSM.org |
 | `#map-gis-legend` `.lg` | Legend wrap | `ChipWrap` + `LinmChip` | `FlowRow` + `LinmChip` | Tất cả · Tài sản · Sự cố · **iOS + Hành lang** |
-| pin TS / SC | Map pins | Map annotation + pin glyph | same | TS từ `gis/geojson/all` · SC từ `gis/geojson/incidents` · **cấm** `incident/incidents` pin |
+| pin TS / SC | Map pins | Map annotation + pin glyph | same | TS từ `gis/geojson/{type}` đã tick · **cấm** `geojson/all` on zoom · **cấm** `incident/incidents` pin |
 | corridor polyline | Hành lang | MapPolyline | Polyline overlay | `gis/geojson/tuyen-duong` · load cả hai khi Tất cả |
 | focus pin | Ghim từ detail | highlight annotation | same | `GET asset/road-assets/{id}` Lat/Lng · fail → fit all · **cấm** fake coords |
 | toast | Feedback | `LinmToast` | same | GET fail · Lớp · **cấm** alert |

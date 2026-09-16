@@ -14,7 +14,7 @@
 | autoApprove | **ON** — Design/SA tự confirm **khi tới lượt** · turn này **không** chain |
 | e2eQa | ON khi QA · `yarn e2e-qa-mobile` · **cấm** `yarn e2e-qa` / `yarn start:std` / `mfeStdUrl` |
 | prior | data_analy **confirmed** · `handoff/data_analy-compact.md` · control-hint + real-data · contentHash `sha256:b5efb555e6c8195ccd93f60d983b57d6b0aa476a919b7f11700157c58241ae0a` · bffContentHash `sha256:128461fdf9135cf8c168a1b05e92586465d1ef34c117b39bea7d2464a06f55c0` · **hash skip** · **cấm** re-scan demo |
-| keep | segment · pin-here · KPI strip · quick 6 · nav sync/notify · sibling toast · offline badge local · kit map dual |
+| keep | segment · pin-here (FINE **hoặc** COARSE) · KPI strip · quick 6 · nav sync/notify · sibling toast · offline badge local · kit map dual |
 | `devSlash` | `/agent-dev-ios` + `/agent-dev-android` |
 | updatedAt | `2026-09-12T15:00:00.000Z` |
 | taskId | `task_d032b4d9` |

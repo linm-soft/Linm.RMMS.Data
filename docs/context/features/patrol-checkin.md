@@ -21,7 +21,7 @@
 | Zone | Pattern | Notes |
 |------|---------|-------|
 | Sheet | `LinmBottomSheet` | `DES-MOB-PAT-CHECKIN-SHEET` · title **Ghi điểm tuần** |
-| Match banner | Banner ok/warn | `DES-MOB-LOC-MISMATCH` · đúng / sai điểm · chặn Lưu khi sai |
+| Match banner | Banner ok/warn | `DES-MOB-LOC-MISMATCH` · đúng / sai điểm · **Lưu chặn chỉ khi BE `RequirePlanPointMatch=true`** |
 | Prefill fields | Readonly Text | Điểm KH · Tuyến/lý trình · Định vị · Cách điểm KH |
 | Nội dung | TextArea | editable |
 | Ảnh | PhotoRow + Camera | `#i-camera` · `openCapture('checkin')` |
@@ -36,7 +36,8 @@
 | GET | `patrol/sessions` | **Live** — active session Route / CheckInCount |
 | GET | `patrol/sessions/{id}` | **Live** — detail prefill |
 | POST | `patrol/sessions/{id}/check-ins` | **Live** (GAP-MOB-BFF-01 closed) |
-| GET | `patrol/sessions/{id}/plan-points` | Kind E đề xuất · **GAP-MOB-CI-PLAN-BE-01** |
+| GET | `patrol/sessions/{id}/plan-points` | **Live** · GAP-MOB-CI-PLAN-BE-01 closed |
+| GET | `patrol/check-in-policy` | **Live** — `requirePlanPointMatch` (default **false**) · `matchRadiusM` |
 | `files/*` | FileService qua Mobile.Bff | **GAP-MOB-BFF-FILE-01** / `mobile-bff-file` |
 | — | GPS | **Device live** · **cấm** fake |
 

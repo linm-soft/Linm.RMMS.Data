@@ -50,7 +50,7 @@
 | Zone | Method · Path |
 |------|----------------|
 | Optional media | `POST ai-vision/uploads/init` · PUT · complete |
-| Detect | `POST ai-vision/detect` |
+| Detect | `POST ai-vision/detect` · BE P1 hard-default 200 · bind live `DefectClass`/`Severity` |
 | Prefill Loc | live `GET patrol/sessions` active · empty/fail → empty chrome · **cấm** demoLoc |
 | Attach | `POST incident/incidents` |
 | GPS / camera / Skip | device · local |

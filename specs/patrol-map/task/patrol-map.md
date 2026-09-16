@@ -21,7 +21,7 @@
 | updatedAt | `2026-08-19T19:10:00.000Z` |
 | thisAction | **Bản đồ ca** `#sc-patrol-map` only · GET `patrol/sessions` bind next copy · MapKit/OSM composition · basemap/legend filter · toast CTAs · **cấm** check-in sheet |
 
-**Cấm:** gộp check-in sheet / GPS form (`GAP-MOB-ACT-01/02`) · invent `GET patrol-map` / `PatrolMapController` · Kind E tracks/coverage P1 · WebView HTML · `ERP.*` · `mfeStdUrl` · `UIAlert` / `AlertDialog` · raw `TabView` / M3 `NavigationBar` · start sibling `pending_confirm` (`GAP-MOB-ACT-06/07`) · revert pin-here toast-only (`GAP-MOB-EDIT-01`).
+**Cấm:** gộp check-in sheet / GPS form (`GAP-MOB-ACT-01/02`) · invent `GET patrol-map` / `PatrolMapController` · Kind E tracks/coverage P1 · WebView HTML · `ERP.*` · `mfeStdUrl` · `UIAlert` / `AlertDialog` · raw `TabView` / M3 `NavigationBar` · start sibling `pending_confirm` (`GAP-MOB-ACT-06/07`) · revert pin-here toast-only / pin under corridor (`GAP-MOB-EDIT-01` · **GAP-MOB-PIN-OVER-LINE-01**).
 
 ---
 
@@ -34,7 +34,7 @@
 | bff | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Bff` · prefix `mobile-bff/api/v1` |
 | be | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.WebService` · `be_repo_confirm` · **cấm ERP.*** |
 | app base | `{BffBase}/mobile-bff/api/v1` — path **không** lặp prefix |
-| kit | reuse chrome · map = **feature** MapKit / osmdroid · `LinmTopBar` · `LinmPrimaryButton` · `LinmChip` · `LinmMapPinGlyph` · `LinmToast` · `LinmTabBar` · map `ui/html-to-native-map.md` · **không** `T-KIT-*` · **cấm** `LinmMap` kit |
+| kit | reuse chrome · map = **feature** `GisClipMapView` MapLibre dual · `LinmTopBar` · `LinmPrimaryButton` · `LinmChip` · `LinmMapPinGlyph` · `LinmToast` · `LinmTabBar` · map `ui/html-to-native-map.md` · **không** `T-KIT-*` · **cấm** `LinmMap` kit · **cấm** osmdroid PBF |
 | scaffold | repos **đã có** prior `task_eae07681` VERIFY PASS — **không** `scaffold_new` |
 | Step 4b | **N/A** — reuse `GET patrol/sessions` · **không** `/new-endpoint` / `/database-migration` / `/create-bff-api-feature` |
 
@@ -74,7 +74,7 @@ IA lock (design §2 / ux-analy §1): `(auth) Login → Tab 5 · Tuần đường
 |----|-------|------|--------|--------|-----|
 | T-KIT | kit | — | **n/a** | — | Chrome kit **đã map dual** · map = feature composition · Design `kit_missing_confirm` **N/A** |
 | **T-IOS-PAT-MAP** | ios | SA · route_a | pending | `/agent-dev-ios` · `/ios-new-screen` · `/dev-ios-swiftui` · ux packet | Delta `#sc-patrol-map`: bind `nextTitle` từ active session `Route` else demo · verify dual copy/kit zones §Design · toast CTAs · pin-here loc+zoom+pin · basemap/legend · **cấm** sheet · `xcodegen` + `xcodebuild` dest **iPhone 17 Pro** PASS · ghi `implement/ios.md` |
-| **T-AND-PAT-MAP** | android | SA · route_a | pending | `/agent-dev-android` · `/android-new-screen` · `/dev-android-compose` · cùng ux packet | Same field/API/DoD dual · bind `nextTitle` · `./gradlew :app:assembleDebug` PASS · ghi `implement/android.md` |
+| **T-AND-PAT-MAP** | android | SA · route_a | **done** (2026-09-16 MapLibre clip host · GAP-MOB-AND-MAP-LOAD-01) | `/agent-dev-android` · `/dev-android-compose` · cùng ux packet | Host = `GisClipMapView` MapLibre BFF MVT · **cấm** osmdroid PBF raster · bind `nextTitle` · `./gradlew :app:assembleDebug` PASS · ghi `implement/android.md` |
 | **T-BE-API** | be | — | **n/a** | — | **không** `/new-endpoint` — `GET patrol/sessions` **live** · Step 4b **N/A** |
 | **T-BE-MIG** | be | — | **n/a** | — | **không** `/database-migration` |
 | T-QA-PAT-MAP | qa | T-IOS · T-AND | pending | `/agent-qa-mobile` | AC slug `patrol-map` only · `yarn e2e-qa-mobile` **ok:true** · live sim 6.9" + emulator · store PNG `qa/store/patrol-map` · **cấm** sibling in-scope · **cấm** `yarn e2e-qa` web |
@@ -103,7 +103,7 @@ IA lock (design §2 / ux-analy §1): `(auth) Login → Tab 5 · Tuần đường
 | nextTitle | overlay card | **DELTA** bind active `Route` else demo · label 16 |
 | nextCheckin | `LinmPrimaryButton` | toast **Ghi điểm tuần** · e2e `btn-next-checkin` |
 | pinHere | `LinmPrimaryButton` + `LinmMapPinGlyph` | loc live · camera follow span `0.006` · pin `.here` · toast · deny `patrol.map.locDeny` · e2e `btn-pin-here` |
-| baseOsm/Esri/Sat/fitAll | `ChipWrap` + `LinmChip` | Đường default · e2e `mb-osm`…`mb-fit` |
+| baseClip/Sat/fitAll | `ChipWrap` + `LinmChip` | Tiêu chuẩn default · e2e `mb-clip` `mb-sat` `mb-fit` |
 | lgAll/Track/Done/Next | `ChipWrap` + `LinmChip` | isolate filter · e2e `lg-all`…`lg-next` |
 | toast | `LinmToast` via `SessionController` | **cấm** `UIAlert` |
 

@@ -28,6 +28,7 @@
     "fab": 56,
     "topBarHeight": 56,
     "iconTap": 44,
+    "overlayScrim": 0.45,
     "iconGlyph": 22,
     "iconHubBox": 36,
     "iconAk32Width": 28,

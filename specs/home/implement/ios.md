@@ -18,7 +18,7 @@
 
 - Tab **Trang Chủ** = `#sc-home` hub · **không required login**. Guest `.who` **Khách** + FAQ · dock đáy `btn-home-login` + privacy · **ẩn** `LinmTabBar`.
 - Staff GET `auth/profile` · `.who` = `fullName` · **cấm** GET profile khi guest.
-- Role **ẩn live** (GAP-F-HOME-01) · wallet static demo · `notifyCount=0` ẩn · **cấm** GET inbox.
+- Role **ẩn live** (GAP-F-HOME-01) · wallet **live** `searchRoutes` + types count · fail/empty trống · `notifyCount=0` ẩn · **cấm** GET inbox.
 - Hồ sơ → tab **Tôi**. Notify → **cùng** `#sc-ops` (Tôi → Thông báo) · GET overview/inbox guest **AllowAnonymous** · mark-read staff only. Sibling / signal / wallet = `LinmToast` nhãn.
 - Foot Gói **cấm ship** (GAP-F-HOME-03).
 - E2E: `sc-home` · `home-who` · `btn-home-login` · `btn-signal` · `tile-*` · `wallet-card` · `tab-home`.
@@ -44,3 +44,7 @@ Step 4b / T-BE **N/A** — reuse Auth profile only.
 `/edit-mobile-feature` 2026-09-12: **GAP-MOB-EDIT-GUEST-TAB** — guest ẩn `LinmTabBar` · pin `btn-home-login` + `btn-home-privacy` đáy · staff hiện tab · dest **iPhone 17 Pro Max** **PASS**.
 
 `/edit-mobile-feature` 2026-09-12: **GAP-MOB-EDIT-GUEST-OPS** — RMMS `AppLogo` giữa hero · chuông → `#sc-ops` · GET inbox/overview **AllowAnonymous** · dest **iPhone 17 Pro Max** **PASS**.
+
+`/edit-mobile-feature` 2026-09-12: **GAP-MOB-EDIT-PRIVACY-COPY** — `#sc-privacy` `home.privacy.body` user-facing (Khách · cán bộ · quyền · liên hệ pháp nhân) · `fieldText` · **cấm** invent HTTPS.
+
+`/edit-mobile-feature` 2026-09-16: **GAP-MOB-EDIT-HOME-WHO-SKEL** — staff GET `auth/profile` · `.who` empty = bone pulse `home-who-skeleton` · **cấm** flash Khách · **cấm** `linmBusyOverlay` hub · dest **iPhone 17 Pro** **PASS**.

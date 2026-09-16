@@ -37,7 +37,7 @@
 | POST | `ai-vision/uploads/init` | `AiVisionUploadsController` | **Live** — optional media |
 | PUT | `ai-vision/uploads/{id}/object` | uploads Put | **Live** — optional |
 | POST | `ai-vision/uploads/complete` | uploads Complete | **Live** — optional |
-| POST | `ai-vision/detect` | `AiVisionOpsController.Detect` | **Live** — `DetectAiVisionRequest` (ImageBase64 · Lat · Lng · AccuracyM · Engine · Note) |
+| POST | `ai-vision/detect` | `AiVisionOpsController.Detect` | **Live** — P1 **hard-default 200** (skip AiService HTTP) · `DetectAiVisionRequest` (ImageBase64 · Lat · Lng · AccuracyM · Engine · Note) |
 | GET | `ai-vision/detections/{id}` | detections GetById | **Live** — optional reload |
 | GET | `patrol/sessions` | Patrol sessions | **Live** — optional stamp tuyến/Km |
 | POST | `incident/incidents` | `IncidentsController.Create` | **Live** — Gắn sự cố |
@@ -73,7 +73,7 @@ App base: `{BffBase}/mobile-bff/api/v1`. **Cấm** app `:5101` · invent `api/v1
 |----|---------|
 | GAP-MOB-VIS-PACK-01 | **CLOSED** PO · packKind=`screen` · surface `#sc-vis-capture` · **cấm** sheet chrome |
 | GAP-MOB-VIS-DUAL-01 | Android thiếu section «Ảnh hiện trường» + CTA «Bỏ qua» vs iOS — Design dual |
-| GAP-MOB-VIS-DETECT-01 | **SA chốt** · path giữ `POST ai-vision/detect` · P1 stub + body live · Signed engine harden → T-BE pending TL · Step 4b **không** ở SA |
+| GAP-MOB-VIS-DETECT-01 | **CLOSED P1** · path `POST ai-vision/detect` · **hard-default success** (skip AiService HTTP) · SourceKind=`detect-signed` · real Vision = P2 |
 | GAP-MOB-VIS-GPS-01 | **CLOSED** · client gate AccuracyM ≤ 30 m trước POST detect |
 | GAP-MOB-BFF-01 | Không — proxy catch-all đủ path domain đã có |
 

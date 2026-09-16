@@ -105,7 +105,7 @@ Nguồn: `_data-analy/me-profile-bff-endpoints.md` + Mobile.Bff `AuthOpenApiDocu
 |-------|------|---------|-------|
 | `Id` | yes | readonly / bind | |
 | `FullName` | yes | `fullName` | required trim on PUT |
-| `UserName` | yes (overlay) | display readonly | app DTO **thiếu** → Dev extend decode |
+| `UserName` | yes (overlay) | display readonly | **GAP-MOB-MEPROF-USERNAME-01** · empty/GUID → `lastUserName` · **cấm** bind `Id` |
 | `PhoneNumber` | yes | `phoneNumber` | |
 | `Email` | **có thể thiếu** trên GET overlay | `email` empty OK | **GAP-MOB-MEPROF-EMAIL-01** · PUT vẫn gửi |
 | `CitizenId` | optional (app decode nếu Auth trả) | display-only nếu có | **cấm** PUT · **GAP-MOB-MEPROF-CITIZEN-01** |
@@ -203,7 +203,7 @@ AskQuestion (autoApprove=ON · không chờ board): `be_repo_confirm`=`/Users/ma
 | fullName | Họ và tên | `FullName` | GET/PUT | `LinmTextField` · required |
 | phoneNumber | Số điện thoại | `PhoneNumber` | GET/PUT | `LinmTextField` phone |
 | email | Email | `Email` | PUT (+ GET nếu có) | empty OK nếu GET thiếu |
-| userName | Tên đăng nhập | `UserName` / Id | GET | readonly · **không** PUT |
+| userName | Tên đăng nhập | `UserName` | GET | readonly · empty/GUID → `lastUserName` · **cấm** `Id` GUID · **không** PUT |
 | citizenId | CCCD/CMND | `CitizenId` | GET optional | display-only · **cấm** PUT |
 | btnSave | Lưu | `MobileAuthProfileUpdateRequest` | PUT | `LinmPrimaryButton` · busy · cùng slug |
 | sectionPwd | Đổi mật khẩu | — | local | `LinmSectionLabel` 13 |
@@ -252,6 +252,7 @@ AskQuestion (autoApprove=ON · không chờ board): `be_repo_confirm`=`/Users/ma
 | GAP-MOB-MEPROF-EMAIL-01 | **CLOSED** · GET thiếu → empty · PUT vẫn gửi Email |
 | GAP-MOB-MEPROF-ORG-01 | **CLOSED** · **không** invent org/role API · ẩn phụ |
 | GAP-MOB-MEPROF-CITIZEN-01 | **CLOSED** · display-only nếu GET có · **cấm** PUT |
+| GAP-MOB-MEPROF-USERNAME-01 | **CLOSED** · GET `UserName` · empty/GUID → `lastUserName` · **cấm** bind `Id` GUID |
 | GAP-MOB-MEPROF-CONFIRM-01 | **CLOSED** · Confirm local · body 2 field |
 | GAP-MOB-BFF-01 | **Không** — Auth rewrite đủ |
 | GAP-MOB-REAL-01 | §B = BFF table only |

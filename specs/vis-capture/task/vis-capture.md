@@ -63,7 +63,7 @@ AskQuestion (autoApprove=ON · không chờ board): `ios_repo_confirm` · `andro
 | `POST incident/incidents` | Create live + DetectionId · `CreateIncidentUseCase` reuse | **reuse** · Gắn bind |
 | `GET patrol/sessions` | live · optional Loc Route/Km | **reuse** optional |
 | Mobile.Bff proxy | catch-all đủ | **T-BFF n/a** |
-| Detect engine Signed | stub `DetectStubAsync` | **T-BE-VIS-DETECT-ENGINE** pending · **GAP-MOB-VIS-DETECT-01** · P1 client ship trên stub OK |
+| Detect engine Signed | **P1 hard-default success** · skip HTTP AiService · SourceKind=`detect-signed` | **T-BE-VIS-DETECT-ENGINE** **done** · **GAP-MOB-VIS-DETECT-01 CLOSED P1** |
 | Schema / MIG | AccuracyM request-only | **T-BE-VIS-DETECT-MIG n/a** |
 | Kit dual | map Design · kit_missing **none** | **T-KIT n/a** · **cấm** raw chrome |
 | Entry banner / hub | toast P1 | Dev đổi toast → **push** VisCapture · **cấm** reimplement list/hub |
@@ -79,7 +79,7 @@ AskQuestion (autoApprove=ON · không chờ board): `ios_repo_confirm` · `andro
 | T-KIT-VIS-CAP | kit | — | **n/a** | — | Kit **đã map dual** · Design `kit_missing_confirm` **none** — **không** giao Dev kit |
 | **T-IOS-VIS-CAP** | ios | SA · route_a | **pending** | `/agent-dev-ios` · `/ios-new-screen` · `/dev-ios-swiftui` · `/mobile-ui-ux-analy` packet · MVVM | Ship `Presentation/Features/VisCapture/*` · PhotoRow still · GPS gate ≤ 30 · detect/attach/offline · entry wire · `xcodegen` + `xcodebuild` dest **iPhone 17 Pro** PASS · ghi `implement/ios.md` |
 | **T-AND-VIS-CAP** | android | SA · route_a · serial sau iOS preferred | **pending** | `/agent-dev-android` · `/android-new-screen` · `/dev-android-compose` · `/android-new-api-call` · cùng ux packet | Same field/API/DoD dual · `presentation/feature/viscapture/*` · section «Ảnh hiện trường» + «Bỏ qua» **bắt buộc** · `./gradlew :app:assembleDebug` PASS · ghi `implement/android.md` |
-| **T-BE-VIS-DETECT-ENGINE** | be | SA GAP-MOB-VIS-DETECT-01 | **pending** | `/agent-dev` BE · Step 4b khi tới Dev/BE · **không** TL | Harden `DetectStubAsync` → Signed engine trên **đúng** `POST api/v1/ai-vision/detect` · **cấm** invent path/DTO · DoD **`dotnet build`** `{BackendRoot}` (**GAP-MOB-BE-BUILD-01**) |
+| **T-BE-VIS-DETECT-ENGINE** | be | SA GAP-MOB-VIS-DETECT-01 | **done** | `/edit-mobile-feature` · `/agent-dev` BE | P1 **hard-default 200** trên `POST api/v1/ai-vision/detect` · skip AiService HTTP · **cấm** invent path/DTO · DoD **`dotnet build`** `{BackendRoot}` |
 | **T-BE-VIS-DETECT-MIG** | be | — | **n/a** | — | **không** `/database-migration` P1 · AccuracyM request-only · **cấm** invent `rmms_vis_capture` |
 | T-BFF-VIS-CAP | bff | — | **n/a** | — | proxy catch-all đủ · **cấm** `VisCaptureController` |
 | T-QA-VIS-CAP | qa | T-IOS · T-AND | pending | `/agent-qa-mobile` | AC slug `vis-capture` only · `yarn e2e-qa-mobile` · live sim 6.9" + emulator · store PNG `qa/store/vis-capture` · **cấm** sibling in-scope · **cấm** `yarn e2e-qa` web |

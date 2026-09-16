@@ -19,7 +19,7 @@
 
 | ID | Design DoD | Surface |
 |----|------------|---------|
-| GAP-MOB-CAM-FRAME-01 | Finder capture JPEG → non-null `imageBase64` trước POST detect · **không** đổi layout zones | `DES-MOB-CAM-FINDER` → detect |
+| GAP-MOB-CAM-FRAME-01 | Finder capture JPEG → non-null `imageBase64` trước POST detect · bind sau CAMERA granted · **không** đổi layout zones | `DES-MOB-CAM-FINDER` → detect |
 | GAP-MOB-CAM-FRAME-02 | Capture/HTTP fail → toast `cam.toast.detectFail` = **Không nhận diện được. Thử lại.** · card nil · **cấm** fake «Ổ gà» | toast + `#detect-card` |
 | GAP-MOB-CAM-FRAME-03 | Parity body `DetectAiVisionBody.imageBase64` với siblings · Design ghi bind note · Dev dual | iOS+Android |
 

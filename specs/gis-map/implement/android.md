@@ -10,7 +10,7 @@
 | packKind | **map** |
 | changeScope | `edit_page` (cleanup_mock) |
 | route_confirm | **route_a** |
-| updatedAt | `2026-09-01T07:50:00.000Z` |
+| updatedAt | `2026-09-16T12:00:00.000Z` |
 
 ## Shipped
 
@@ -21,13 +21,16 @@
 | Data | Gis geojson DTO · `GET gis/geojson/{layer}` |
 | Focus | `FetchRoadAssetByIdUseCase` · **chỉ** Loaded · **cấm** OfflineDemo focus |
 | Chrome | TopBar Danh sách · basemap · legend (không search / không Hành lang — dual) |
+| Map host | **`GisClipMapView` MapLibre** + `VnClipStyle` BFF MVT · chips **Tiêu chuẩn/Vệ tinh** · **cấm** osmdroid PBF · **cấm** Đường/Phố OSM.org |
 
-## Notes (cleanup_mock)
+## Notes (edit-mobile-feature 2026-09-16)
 
-- Removed `GisMapDemoOverlay` · `usedDemo` → `loadFailed`
-- Fail → empty/partial live + toast `gis.map.loadFallback` · map **vẫn mở**
-- Empty GET OK → map trống · **cấm** demo SSOT
-- Step 4b **N/A** · **cấm** mfeStdUrl
+- Appear: `GET gis/summary-by-type` · **không** load `geojson/all` Overview
+- Chip **Lớp** + sheet `LinmAssetKchtPict` + toggle · trailing **Danh sách** giữ
+- Tick loại → `geojson/{type}` + `lod`/`bbox` · zoom skip `shouldReloadOverlay` · cancel không toast
+- Empty hint `gis.map.layersEmpty`
+
+## Verify
 
 ## Verify
 
@@ -37,7 +40,7 @@ cd /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android && ./gradlew :app:assemb
 
 | Gate | Result |
 |------|--------|
-| assembleDebug | **PASS** |
+| assembleDebug | **PASS** (2026-09-16 type-filter + lod) |
 | Step 4b | **N/A** |
 | e2e / start:std / mfeStdUrl | **skipped** |
 | ERP.* | **none** |

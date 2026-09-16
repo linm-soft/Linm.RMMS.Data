@@ -25,12 +25,18 @@
       background: linear-gradient(165deg, #086A9A 0%, #0C84C0 55%, #2A9AD4 100%);
       color: #fff; border-radius: 0 0 22px 22px;
     }
-    .vn-hero-tools { display: flex; justify-content: space-between; margin-bottom: 10px; position: relative; }
+    .vn-hero-tools { display: flex; justify-content: space-between; margin-bottom: 10px; }
+    .guest-mid {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 96px;
+    }
     .home-brand {
-      position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
-      width: 36px; height: 36px; border-radius: 8px; background: #fff;
-      display: grid; place-items: center; font: 800 10px/1 inherit; color: #086A9A;
-      pointer-events: none;
+      width: 96px; height: 96px; border-radius: 16px; background: #fff;
+      display: grid; place-items: center; font: 800 18px/1 inherit; color: #086A9A;
+      box-shadow: 0 1px 8px rgba(0,0,0,.06);
     }
     .hero-ico {
       width: 44px; height: 44px; border: 0; border-radius: 22px; cursor: pointer;
@@ -128,7 +134,7 @@
     .faq-row .q { font-size: 15px; font-weight: 650; color: var(--label); }
     .faq-row .a { display: none; font-size: 13px; color: var(--muted); margin-top: 8px; }
     .faq-row.open .a { display: block; }
-    .privacy-body { padding: 16px; font-size: 15px; line-height: 1.45; color: var(--label); overflow: auto; }
+    .privacy-body { padding: 16px; font-size: 15px; line-height: 1.45; color: var(--label); overflow: auto; white-space: pre-wrap; }
   </style>
 </head>
 <body>
@@ -137,7 +143,6 @@
       <div class="vn-hero" data-des-id="DES-MOB-HOME-HELLO">
         <div class="vn-hero-tools">
           <button class="hero-ico" type="button" title="Hồ sơ" onclick="toast('Hồ sơ → tab Tôi')">👤</button>
-          <span class="home-brand" id="home-brand">RMMS</span>
           <button class="hero-ico" type="button" title="Thông báo" onclick="toast('Thông báo')">🔔</button>
         </div>
         <!-- Demo SSOT: role+signal. Live: role ẩn · signal OS path · badge notifyCount=0 ẩn -->
@@ -153,6 +158,9 @@
         <span><span class="t">Câu hỏi thường gặp</span><span class="s">Tài liệu · thủ tục · cấp phép</span></span>
         <span class="ch">›</span>
       </button>
+      <div class="guest-mid">
+        <span class="home-brand" id="home-brand">RMMS</span>
+      </div>
       <div class="guest-dock">
         <button class="btn-home-login" id="btn-home-login" type="button" onclick="toast('Đăng nhập')">
           Đăng nhập<span class="s">Dành cho cán bộ</span>
@@ -183,7 +191,30 @@
         <button type="button" id="btn-privacy-back" onclick="closeOv()">Về Trang Chủ</button>
         <h1>Chính sách quyền riêng tư</h1>
       </div>
-      <div class="privacy-body" id="privacy-body">Khi bạn là Khách, ứng dụng chỉ hiển thị thông tin công khai (FAQ, tài liệu thủ tục). Không gửi hồ sơ cán bộ, không lấy vị trí lúc mở app.</div>
+      <div class="privacy-body" id="privacy-body">RMMS — Quản lý bảo trì đường bộ. Ứng dụng do Công ty Cổ phần Công nghệ và Thương mại Miền Trung phát hành. Chính sách này cho biết dữ liệu nào được xử lý khi bạn dùng app.
+
+Khi bạn là Khách
+Bạn không cần tài khoản. App chỉ hiện thông tin công khai: câu hỏi thường gặp, tài liệu thủ tục, cấp phép và thông báo chung. Không nộp hồ sơ cán bộ, không tạo tài khoản trên cửa hàng, không lấy vị trí hay camera lúc mở app.
+
+Khi cán bộ đăng nhập
+Cán bộ đăng nhập bằng tài khoản đơn vị cấp. App lưu phiên trên máy (khoá hệ thống) để dùng nghiệp vụ bảo trì đường bộ: giám sát, tuần đường, sự cố, công việc, tài sản, góp ý, thông báo, hàng đợi mất sóng. Hồ sơ hiển thị tên theo tài khoản đơn vị.
+
+Quyền trên máy
+Vị trí: ghim điểm tuần và chốt tọa độ khi thu thập hiện trường — chỉ khi bạn cho phép, khi đang dùng tính năng đó. Không theo dõi vị trí lúc mở Trang Chủ.
+Camera: chụp hiện trường, nhận diện hư hỏng mặt đường — chỉ khi bạn cho phép.
+Thông báo hệ thống: tin chung hoặc tin nghiệp vụ, nếu bạn bật.
+Bạn tắt quyền trong Cài đặt hệ thống (Tôi → Cài đặt).
+
+Dữ liệu gửi đi đâu
+Phiên đăng nhập và dữ liệu nghiệp vụ gửi tới hệ thống RMMS của đơn vị. Không bán dữ liệu, không quảng cáo, không theo dõi ngoài chức năng app. Danh mục câu hỏi thường gặp nằm sẵn trong app.
+
+Lưu trên máy và tài khoản
+Phiên đăng nhập và bản ghi chờ đồng bộ khi mất sóng được lưu trên máy. Đăng xuất hoặc gỡ app sẽ gỡ phiên trên thiết bị. Tài khoản cán bộ do đơn vị cấp — liên hệ quản trị đơn vị nếu cần khoá hoặc thu hồi quyền.
+
+Liên hệ
+CÔNG TY CỔ PHẦN CÔNG NGHỆ VÀ THƯƠNG MẠI MIỀN TRUNG
+Số 18/43A, đường Phan Chu Trinh, Khu đô thị SaigonSky, Tỉnh Nghệ An
+Điện thoại: 0238 358 8668</div>
     </div>
     <!-- GAP-MOB-EDIT-GUEST-TAB: guest ẩn LinmTabBar · staff mới hiện DES-MOB-TABBAR -->
     <div class="toast" id="toast"></div>

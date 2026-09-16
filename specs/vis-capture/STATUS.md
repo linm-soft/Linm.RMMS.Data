@@ -70,7 +70,7 @@
 |----|-------|--------|-------|
 | T-IOS-VIS-CAP | ios | **done** | cleanup_mock · live stamp · no demoLoc |
 | T-AND-VIS-CAP | android | **done** | dual parity · live stamp · no DEMO_LOC |
-| T-BE-VIS-DETECT-ENGINE | be | **done** | Signed harden `POST ai-vision/detect` · SourceKind=`detect-signed` |
+| T-BE-VIS-DETECT-ENGINE | be | **done** | P1 hard-default 200 `POST ai-vision/detect` · skip AiService HTTP · SourceKind=`detect-signed` |
 | T-BE-VIS-DETECT-MIG | be | **n/a** | AccuracyM request-only |
 | T-BFF-VIS-CAP | bff | **n/a** | proxy catch-all |
 | T-KIT-VIS-CAP | kit | **n/a** | kit_missing none |
@@ -81,7 +81,7 @@
 
 - GAP-MOB-VIS-DUAL-01 — **CLOSED** Design · Android section «Ảnh hiện trường» + CTA «Bỏ qua»
 - GAP-MOB-VIS-PACK-01 — **CLOSED** PO · packKind=`screen` · surface `#sc-vis-capture`
-- GAP-MOB-VIS-DETECT-01 — **CLOSED** Dev · Signed engine trên `POST ai-vision/detect` · HTTP AiService + local fallback · SourceKind=`detect-signed`
+- GAP-MOB-VIS-DETECT-01 — **CLOSED P1** · `POST ai-vision/detect` **hard-default 200** · skip HTTP AiService · SourceKind=`detect-signed` · real Vision P2
 - GAP-MOB-VIS-GPS-01 — **CLOSED** SA · client gate AccuracyM ≤ 30 m trước detect
 - GAP-MOB-A11Y-VIS-01 — **OPEN Should** · Maestro text «±»/«đã chốt» NFC·NFD · không block · Review Defer
 - GAP-MOB-EDIT-DEMO-01 — **CLOSED** Dev · cleanup_mock live session stamp · **cấm** demoLoc/DEMO_LOC/itemsOrDemo

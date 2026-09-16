@@ -10,7 +10,7 @@
 | changeScope | `new_page` |
 | packKind | **`map`** (PO confirm) |
 | stack | `native_dual` |
-| kit_missing_confirm | **N/A** — chrome kit đã có · map = feature MapKit / OSM composition (**cấm** `LinmMap` kit · **cấm** WebView HTML) |
+| kit_missing_confirm | **N/A** — chrome kit đã có · map = feature `GisClipMapView` MapLibre dual (**cấm** `LinmMap` kit · **cấm** WebView HTML · **cấm** osmdroid PBF) |
 | reviewUrlIos | `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/patrol-map/ui/prototype/ios/index.html#sc-patrol-map` |
 | reviewUrlAndroid | `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/patrol-map/ui/prototype/android/index.html#sc-patrol-map` |
 | ux-analy | `ui/ux-analy.md` §1–§9 |
@@ -78,14 +78,13 @@
 | navBack | Tuần đường | IconButton / text+chevron | * | `LinmTopBar` leading | iOS text · Android icon · pop hub |
 | title | Ca đang chạy | NavTitle | * | `LinmTopBar` | fixed |
 | navCheckin | Ghi điểm tuần | TextButton | * | `LinmTopBar` trailing | toast **Ghi điểm tuần** · **cấm** sheet |
-| mapHost | Bản đồ tuần tra OMS | Map | * | feature MapKit / OSM | **OSRM** `routeAlongStreets` + corridor/track · pin `projectToPath` / `snapPointToStreet` · tip neo đáy · **cấm** polyline thẳng seed · **cấm** WebView HTML |
+| mapHost | Bản đồ tuần tra OMS | Map | * | feature `GisClipMapView` MapLibre dual | **OSRM** `routeAlongStreets` + **GET plan-points/check-ins** · pin `projectToPath` / `snapPointToStreet` · **pin above line** · **cấm** `PatrolMapOverlay` mock · **cấm** osmdroid PBF-as-raster · **cấm** WebView HTML |
 | nextEyebrow | Điểm tiếp theo · OSRM | Text | * | overlay card | label **13** |
-| nextTitle | Km 1561+134 · Phước Dinh | Text | * | overlay card | field **16** · bind route P1 fallback demo |
+| nextTitle | Km 1561+134 · Phước Dinh | Text | * | overlay card | field **16** · bind first **next** pin caption từ GET plan-points · empty nếu chưa có ca |
 | nextCheckin | Ghi điểm tuần | PrimaryButton | * | `LinmPrimaryButton` | toast P1 |
 | pinHere | Ghim vị trí hiện tại | PrimaryButton | * | `LinmPrimaryButton` + `LinmMapPinGlyph` `#i-mappin` | loc live · zoom follow · pin `.here` · toast · deny `patrol.map.locDeny` · **cấm** fake lat/lng |
-| baseOsm | Đường | Chip | * | `LinmChip` wrap bar | default on · `ChipWrap` / `FlowRow` |
-| baseEsri | Phố | Chip | * | `LinmChip` wrap bar | |
-| baseSat | Vệ tinh | Chip | * | `LinmChip` wrap bar | |
+| baseClip | Tiêu chuẩn | Chip | * | `LinmChip` wrap bar | default on · `mb-clip` · cùng clip MVT |
+| baseSat | Vệ tinh | Chip | * | `LinmChip` wrap bar | `mb-sat` · **cấm** Esri/Google imagery |
 | fitAll | Toàn tuyến | Chip | * | `LinmChip` wrap bar | fit overlay |
 | lgAll | Tất cả | Chip | * | `LinmChip` wrap legend | isolate all |
 | lgTrack | Hành trình | Chip | * | `LinmChip` wrap legend | polyline |
@@ -103,7 +102,7 @@ Track line `#0A84FF`. Pin done iOS `#34C759` / Android `#1B8A4A`. Next iOS `#FF9
 
 ## 5. Copy VN (SSOT máy)
 
-Ca đang chạy · Tuần đường · Ghi điểm tuần · Điểm tiếp theo · OSRM · Km 1561+134 · Phước Dinh · Ghim vị trí hiện tại · Đường · Phố · Vệ tinh · Toàn tuyến · Tất cả · Hành trình · Đã ghi điểm tuần · Điểm kế tiếp.
+Ca đang chạy · Tuần đường · Ghi điểm tuần · Điểm tiếp theo · OSRM · Km 1561+134 · Phước Dinh · Ghim vị trí hiện tại · Tiêu chuẩn · Vệ tinh · Toàn tuyến · Tất cả · Hành trình · Đã ghi điểm tuần · Điểm kế tiếp.
 
 **Cấm trên máy:** Check-in (EN) · Có mạng · GPS label · Offline chrome · P1/P2 · watermark Gói · «· iPhone» / «· Android».
 
@@ -130,9 +129,9 @@ Safe area: nav + map + overlay + tab không đè notch / home indicator.
 
 | State | UI |
 |-------|-----|
-| default | overlay demo OMS · Đường on · Tất cả on |
+| default | overlay live GET plan-points/check-ins · Tiêu chuẩn on · Tất cả on |
 | isolate track/done/next | legend filter client |
-| GET sessions fail / offline | map **mở** · demo overlay · optional toast · **cấm** full-screen block |
+| GET sessions fail / offline | map **mở** · overlay empty · toast sessionFail · **cấm** mock · **cấm** full-screen block |
 | check-in tap | `LinmToast` **Ghi điểm tuần** · **cấm** sheet / alert |
 | pin-here ok | loc live · **snap tim đường** (`snapPointToStreet` else `projectToPath`) · camera follow zoom · pin `.here` primary **tip neo đáy** · toast **Ghim vị trí hiện tại** |
 | pin-here deny / timeout | toast `patrol.map.locDeny` / `patrol.map.locTimeout` · **cấm** fake pin |
@@ -140,7 +139,7 @@ Safe area: nav + map + overlay + tab không đè notch / home indicator.
 
 ## 9. BFF (Design cite — SA map)
 
-App `{BffBase}/mobile-bff/api/v1` · **chỉ** `GET patrol/sessions` P1 (+ detail P2). Overlay waypoints = `PatrolMapOverlay` · **paint** = public OSRM `routeAlongStreets` (corridor + track) · pin = `projectToPath` / `snapPointToStreet`. Fail OSRM → nét đứt tạm + toast `patrol.map.osrmFallback`. **Cấm** invent `patrol-map` API · Kind E tracks/coverage P1.
+App `{BffBase}/mobile-bff/api/v1` · `GET patrol/sessions` + `GET patrol/sessions/{id}/plan-points` + `GET …/check-ins`. Overlay waypoints = plan-points · **paint** = public OSRM `routeAlongStreets` · pin done/next từ check-in label · pin = `projectToPath` / `snapPointToStreet`. Fail OSRM → nét đứt tạm + toast `patrol.map.osrmFallback`. **Cấm** `PatrolMapOverlay` mock · **cấm** invent `patrol-map` API.
 
 ## 10. Out of scope (board)
 

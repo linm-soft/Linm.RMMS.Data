@@ -14,11 +14,9 @@ Login → Tab 5 · Trang Chủ / asset-hub → **push** Bản đồ tài sản `
 Trang Chủ (selected) → #sc-asset-hub
   push → #sc-gis-map DES-MOB-GIS   ← this pack
     ← back → pop asset-hub
-    → iOS Lớp = toast P1 · cấm sheet P1
-    → Android Danh sách = go('asset-list') reuse · cấm reimplement
-    → iOS search overlay local filter/toast · Android không search P1
-    → basemap ×4 · legend (iOS +Hành lang · Android 3 chip) = filter cùng slug
-    → appear GET gis/geojson/* · focus GetById · fail/empty → map trống + toast (cleanup_mock · **cấm** demo OMS)
+    → iOS Lớp = sheet loại + pict KCHT cùng pin bản đồ · default off · cấm toast-only
+    → Android Danh sách + chip Lớp cùng sheet
+    → appear GET gis/summary-by-type · overlay khi tick loại · zoom lod/bbox · **cấm** geojson/all
 ```
 
 Entry shared_action (không re-enqueue): hub tile/row · detail Ghim · incident Bản đồ / Xem trên bản đồ.
@@ -40,7 +38,7 @@ Entry shared_action (không re-enqueue): hub tile/row · detail Ghim · incident
 | Nav | Bản đồ tài sản · Lớp / Danh sách | A `.nav-bar` / `.top-bar` | `LinmTopBar` | same |
 | Search | Tìm tài sản, sự cố… `#i-search` | A `.map-next-card` glass | overlay SearchField | **N/A P1** |
 | Map | Leaflet demo host `#map-gis` | A `#map-gis-host` | MapKit `Map` | osmdroid / Esri `MapView` |
-| Bar | Đường Phố Vệ tinh Toàn tuyến | A `#map-gis-bar` | `ChipWrap` + `LinmChip` | `FlowRow` + `LinmChip` |
+| Bar | Tiêu chuẩn Vệ tinh Toàn tuyến | A `#map-gis-bar` | `ChipWrap` + `LinmChip` | `FlowRow` + `LinmChip` |
 | Legend | Tất cả · Tài sản · Sự cố · (+Hành lang iOS) | A `#map-gis-legend` | `ChipWrap` + `LinmChip` | `FlowRow` + `LinmChip` (3 chip) |
 | Tab | Tab 5 home | shell | `LinmTabBar` | same |
 
@@ -48,7 +46,7 @@ Entry shared_action (không re-enqueue): hub tile/row · detail Ghim · incident
 
 ## 4. Copy SSOT
 
-Bản đồ tài sản · Tài sản · Lớp · Danh sách · Tìm tài sản, sự cố… · Đường · Phố · Vệ tinh · Toàn tuyến · Tất cả · Tài sản · Sự cố · Hành lang · Xem trên bản đồ · Ghim trên bản đồ.
+Bản đồ tài sản · Tài sản · Lớp · Danh sách · Tìm tài sản, sự cố… · Tiêu chuẩn · Vệ tinh · Toàn tuyến · Tất cả · Tài sản · Sự cố · Hành lang · Xem trên bản đồ · Ghim trên bản đồ.
 
 Toast: **Lớp tài sản / sự cố · chú giải** (iOS) · network err via `LinmToast`.  
 Popup fallback: **TS-20260810-014 · Cống ngang · QL.1 Km 1556+000** · **SC-2401 · Nứt mặt đường · QL.1 Km 1556+080**.

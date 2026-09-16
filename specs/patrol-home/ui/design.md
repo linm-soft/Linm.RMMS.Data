@@ -133,7 +133,7 @@ primary `#0C84C0` · success `#34C759`/`#3CB448` · warn `#FF9500`/`#FCB43C` · 
 | Has active | hero live · ẩn CTA mở ca |
 | Kết ca (detail) | PUT → toast success · pop/reload hub |
 | API fail | toast + empty/`—` · **cấm** alert · **cấm** demo bind |
-| GPS | N/A mở/kết ca · pin toast P1 |
+| GPS | N/A mở/kết ca · pin toast P1 · **GAP-MOB-EDIT-PERM-01** FINE/COARSE granted = pin-here ok |
 | Keep | segment · pin · kpi · quick · nav · sibling toast |
 
 ## 7. BFF (Design lock)

@@ -110,6 +110,8 @@
 
 `/edit-mobile-feature` 2026-09-12: **GAP-MOB-EDIT-GUEST-OPS** — logo RMMS giữa hero · chuông Home = Tôi → Thông báo · GET inbox guest không JWT.
 
+`/edit-mobile-feature` 2026-09-12: **GAP-MOB-EDIT-PRIVACY-COPY** — `#sc-privacy` copy user-facing khớp app · **cấm** placeholder Store/landing · **cấm** invent HTTPS.
+
 ## Blockers / open questions
 
 - GAP-F-HOME-01 — SA/TL/Dev/QA/Review: role **ẩn live** · wallet **static demo** · **verified**
