@@ -1,83 +1,68 @@
-# handoff-compact — review · csdl-bieu-07
+# Handoff compact — review
 
-| | |
-|--|--|
-| schemaVersion | `1` |
-| role | `review` |
-| feature | `csdl-bieu-07` |
-| title | CSDL Biểu 07 — Lề / taluy / hàng rào |
-| packKind | `list` |
-| changeScope | `new_page` |
-| status | `done` |
-| verdict | **PASS** |
-| review_confirm | **done** (autoApprove ON) |
-| taskId | `task_0af14e10` |
-| priorQaTaskId | `task_526941ca` |
-| resource | `shoulders-fences` |
-| formNo | `07` |
-| columns | `20` |
-| IdCode | `LE-` |
-| peerSoTs | `SHOULDER` |
-| formPattern | **Kind D Slideout** 2col · **3 section** |
-| Kind | **B** A–D+F · **D** Slideout Z1–Z3 |
-| route_confirm | `route_a` |
-| mfeStdUrl | `http://localhost:9301/csdl-bieu-07` |
-| hubDeepLink | `/so-ts/csdl-so-sach?resource=shoulders-fences` |
-| domain | **Asset** · `api/v1/asset/csdl-records` |
-| entity | shell + `CsdlBieu7Entity` · `Schema_CsdlBieu7` |
-| e2eQa | ON · QA runtime PASS (reuse) |
-| contentHashPrior | `sha256:5634091e7ce3e5272c090320398a76d75f84ed7326366e93e088ff2154e8bf44` |
-| hashGate | **skip** (unchanged) |
-| skillVersion | `2026.08.29.03` |
-| workflowVersion | `2026.09.01.02` |
-| rulesVersion | `2026.08.31.2` |
-| writtenAt | `2026-09-05T09:56:30.000Z` |
+schemaVersion: 1
+feature: csdl-bieu-07
+packKind: list
+role: review
+status: done
+verdict: PASS
+review_confirm: done
+skillVersion: 2026.09.05.03
+workflowVersion: 2026.09.05.03
+rulesVersion: 2026.09.17.3
+contentHash: sha256:1250b5799e9174b21429e60e57abef17cb7d6c568ae417840c57b598f204a69a
+hashGate: skip
+writtenAt: 2026-09-18T04:55:00.000Z
+taskId: task_a4e8f967
+qaTaskId: task_c04c6ac3
+resource: shoulders-fences
+columns: 20
+IdCode: LE-
+changeScope: edit_page
+formPattern: Slideout
+autoApprove: ON
+e2eQa: ON (prior QA PASS · cấm re-e2e)
 
 ## Decisions
+- changeScope: edit_page (T-XLS-S07) · CRUD KEEP · **cấm** reopen 20-col
+- review_confirm: **done** (autoApprove ON) · QUERY/SEC/UI-FN/BE-FN **PASS**
+- export: catalogToolbar · BFF binary · filter-all · `Bieu07_LeTaluyHangRao_{yyyyMMdd}.xls` · sheet «Biểu 7»
+- Import: DEFER P1 ẩn · filter: **cấm** Xuất on LinErpListFilterBar
+- peer: **cấm** merge SHOULDER · **cấm** ERP.* · hash skip
+- open questions: none · gaps: none
 
-- QUERY/SEC/UI-FN/BE-FN **PASS** · **không** ERP.* · typed 20 · LE- · FenceLengthKm↔m · SlopeClearingM
-- QA S0/S1/QA-20 evidence reuse · **cấm** e2e/start:std ở Review
-- Debt accepted: Auth DEFER · org P2 · XLS OUT · FencePanelCount P2 · GAP-QA-E2E-PW-01 · migrate ops
-- open Q: **none** · fix_gaps: **none**
-- pipeline Review **confirmed** · phase=`done`
+## Inventory (slim)
+| id | label | controlHint | notes |
+|----|-------|-------------|-------|
+| exportExcel | Xuất Excel | ToolbarButton | filtered · PASS |
+| importExcel | Nhập Excel | ToolbarButton+file | DEFER P1 · ẩn · PASS |
+| (form 20) | typed prior | keep | KEEP |
 
-## Gates (ids)
+## Screens / zones (ids only)
+- S-LIST · S-XLS-EXPORT · S-XLS-IMPORT (hidden) · S-FORM-C KEEP · S-HUB-ENTRY
+- testid=`rmms-csdl-bieu-07-list-page` · `…-export-excel-btn`
 
+## API / tasks (ids only)
+- API-XLS-01 PASS · CRUD KEEP · Import DEFER
+- T-XLS-* done · T-XLS-QA-01 PASS
+- Gates: QUERY/SEC/UI-FN/BE-FN PASS
+
+## Evidence (ids)
 | Gate | Result |
 |------|--------|
 | QUERY | PASS |
 | SEC | PASS |
 | UI-FN | PASS |
 | BE-FN | PASS |
-| QA evidence | PASS (reuse) |
-
-## Artifacts
-
-| Kind | Path |
-|------|------|
-| findings | `specs/csdl-bieu-07/review/findings.md` |
-| STATUS | `specs/csdl-bieu-07/STATUS.md` |
-| prior QA compact | `handoff/qa-compact.md` |
-
-## Screens / zones (ids only)
-
-- S-LIST · S-FORM-C · S-HUB-ENTRY · S-PEER-SOTS
-- testid=`rmms-csdl-bieu-07-list-page` · form=`rmms-csdl-bieu-07-form-slideout`
+| QA S0/S1/QA-20/XLS | PASS |
 
 ## Debt
-
-- Auth DEFER · GAP-CSDL-ORG-01 P2 · GAP-CSDL-XLS-01 OUT · FencePanelCount P2 · GAP-QA-E2E-PW-01 P2 · form-assert hasRoad P3 · section grouping P3 · migrate apply ops
-
-## Next
-
-| Role | Need |
-|------|------|
-| — | pipeline complete · **không** start role khác |
+- Import P1 · T-PERM-01 · GAP-QA-E2E-PW-01 P2
 
 ## UNCLEAR
-
 - none
 
-## Cấm (compact)
-
-ERP.* · re-e2e/start:std ở Review · invent API · merge Sổ TS · FencePanelCount P1 · start role khác · re-hash demo nếu unchanged
+## Full paths (Read only if needed)
+- findings: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-07/review/findings.md
+- STATUS: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-07/STATUS.md
+- prior: handoff/qa-compact.md

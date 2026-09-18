@@ -1,15 +1,18 @@
 {
+  "schemaVersion": "1",
   "feature": "csdl-bieu-01",
   "status": "confirmed",
   "review_confirm": "done",
   "verdict": "PASS",
-  "taskId": "task_c53d69d9",
+  "taskId": "task_f77bd354",
+  "changeScope": "edit_page",
   "autoApprove": true,
   "fixGaps": 0,
-  "reviewHash": "sha256:a7c2e91f4b8d3056",
-  "contentHashPrior": "sha256:3545960f4006740c9dfe57b5f004fa4a1cd1b7befbcd51e35e2168e16821b65e",
-  "skillVersion": "2026.08.29.03",
-  "workflowVersion": "2026.09.01.02",
-  "rulesVersion": "2026.08.31.2",
-  "generatedAt": "2026-09-05T05:52:00.000Z"
+  "reviewHash": "sha256:c9e4f1a82b7d6053",
+  "contentHashPrior": "sha256:b48e58e637a1dd4fc9e14298a0063d34c89eadb1ea02ba756b561b4648d4b085",
+  "skillId": "agent-review",
+  "skillVersion": "2026.09.05.03",
+  "workflowVersion": "2026.09.05.03",
+  "rulesVersion": "2026.09.17.3",
+  "generatedAt": "2026-09-18T01:41:00.000Z"
 }

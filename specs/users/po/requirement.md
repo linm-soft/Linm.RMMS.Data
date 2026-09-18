@@ -5,158 +5,160 @@
 | feature | `users` |
 | changeScope | `edit_page` |
 | packKind | `list` |
-| Feature Kind | **B** — Catalog list A–D + **tree master** + **full-page** form (`UsersFormPage`) · **cấm** Slideout |
+| Feature Kind | **B** — Catalog list A–D + tree master + **full-page** form · **cấm** Slideout |
 | status | `done` |
-| requestSource | run packet `task_45437e12` · `/agent-qldb-workflow` · roleOnly=`po` · `/agent-po` |
-| autoApprove | **OFF** (Design gate → `await_confirm` khi tới lượt) |
-| prior | data-analy `done` (`confirmed`) · controlHint `specs/_data-analy/features/users-control-hint.md` · contentHash `sha256:0e46bf2c8b232a40f403e2777ef387f8cdea1b04edafa0c04edbca1bb07024b1` · cluster `specs/users/specs/_data-analy/clusters/users.md` **không tồn tại** — SSOT = feature controlHint · **no Excel** |
-| updatedAt | `2026-08-15T08:30:00.000Z` |
-| taskId | `task_45437e12` |
+| requestSource | run packet `task_e3d2b6f8` · `/agent-qldb-workflow` · roleOnly=`po` · `/agent-po` |
+| autoApprove | **ON** |
+| e2eQa | **ON** (queued `/agent-qa*` only) |
+| prior | data_analy `confirmed` · compact `handoff/data_analy-compact.md` · controlHint + real-data · contentHash `sha256:8bd9897e1ab2483fdb96e9a37492d87c38c7e709c2e3df118c7b884f5d4bb257` · **hash skip** · **cấm** re-scan demo |
+| priorPO | **KEEP** baseline route/org SearchInput (task_45437e12) · **delta only** chức vụ |
+| cite | `job-title.md` §5b · GAP-F-USR-05 |
+| analyTaskId | `task_8c25b03b` |
+| updatedAt | `2026-09-18T16:10:00.000Z` |
+| taskId | `task_e3d2b6f8` |
 
 ## 1. Goal
 
-Chỉnh trang **Quản lý người dùng / tổ chức** Kind B catalog list + form **full-page**: shell A–D · cây tổ chức lọc user · toolbar · **search must work** · row menu · View = display (`<dl>`) · Create/Edit/Copy · đổi mật khẩu modal · phân tuyến / cán bộ QL (SearchInput, không CSV thuần). Align demo → MFE `Linm.Web.RMMS.Integration` `/integration/users` · BE `Linm.RMMS.WebService` domain **Integration** · `api/v1/integration/users`. IdCode `USR-YYYYMMDD-NNNN`. **Cấm ERP.*** · **cấm** `api/v1/rmms/*` · **cấm** parent JSON.
+**KEEP** Kind B catalog list + form full-page `/integration/users` (shell A–D · tree org · SearchInput role/status/route · routesCsv multi · Đổi MK · Phân tuyến / Cán bộ QL) — **đã live**.
+
+**Delta this task (GAP-F-USR-05):** consumer **chức vụ** = catalog `job-title` trên list + form + Profile/switch — persist `jobTitleCode` · hiển thị catalog `name` · **≠** `roleCode`. Align MFE `Linm.Web.RMMS.Integration` · BE `Linm.RMMS.WebService` Integration · LKP `api/v1/integration/job-titles`. **Cấm ERP.*** · **cấm** `api/v1/rmms/*` · **cấm** open-api · **cấm** invent package Cục/VP · **cấm** `new_page` typed CRUD staff · **cấm** master CRUD `job-title` trên pack này.
 
 Persona: Admin hạt/công ty.
 
-Pack P1 **không** clone chrome demo (Ban.TK · Hồ sơ · Đăng xuất · VỀ TRANG CHỦ). List CRUD + tree + form full-page **đã live** — PO chốt **controlHint + GAP** sau data-analy (`routesCsv` Text · filter tuyến thiếu · `design.md` stale Slideout/Select/View=`readOnly`).
+## 2. Current → New (edit_page · delta)
 
-Auth host tách = **GAP-F-USR-01** — **không block P1** (host tạm Integration).
+| Layer | Current (KEEP live / prior) | New (this task) |
+|-------|----------------------------|-----------------|
+| List Zone C | Không cột JobTitle · «Vai trò / Cấp» = `roleCode` | **+** cột **Chức vụ** = `lookupLabel(job-titles, jobTitleCode)` — **≠** roleCode |
+| Zone B filter | search · role · status · route · org tree | **+** SearchInput filter `job-title` (`jobTitleCode`) |
+| Form C/E/V | Org/role/status SearchInput · **không** chức vụ | **+** SearchInput **Chức vụ** peer `orgCode` · persist `jobTitleCode` · View `<dl>` resolve `name` · **cấm** Input text |
+| Profile / switch | Auth `Position` free text · risk placeholder «Chuyên viên IT» | SearchInput cùng catalog · **cấm** placeholder «Chuyên viên IT» |
+| Persist | missing / free JobTitle text (GAP-JOB-02) | `jobTitleCode` · denormalize `JobTitle`/`Position` = catalog `name` |
+| Lookup | org / road-route / users DONE | **+** `GET api/v1/integration/job-titles` (+ `/search`) · BFF same |
+| Scope | route/org SearchInput DONE | **Không** invent package · **không** new_page CRUD · master `/mas/chuc-vu` = pack riêng |
 
-## 2. Current → New (edit_page)
+## 3. DoD (đo được · delta + KEEP)
 
-| Layer | Current | New (delta) |
-|-------|---------|-------------|
-| Demo | Kind B + user-chrome 7 actions · localStorage | Giữ visual SSOT demo; pack **không** clone chrome / Ban.TK skin |
-| MFE list | Kind B `/integration/users` · tree org · SearchText + SearchInput role/status | 1× `LinPageLayout` · Zone A–D · tree master Zone C · `LinCatalogDataGrid` kéo cột default ON · footer `LinCatalogListPagination` — **cấm** nested CatalogListShell · footerPagination · pageSizeBar · raw table · **đề xuất** SearchInput tuyến `road-route` |
-| MFE form | `UsersFormPage` full-page · View `<dl>` · org/role/status SearchInput · `routesCsv` = **Input** | Giữ full-page `/integration/users/new` · `/:id` · View = **`<dl>`** (**cấm** Slideout · **cấm** Resource · **cấm** View=`readOnly` Input) · `routesCsv` = **SearchInput multi `road-route`** · footer-only Lưu/Hủy · leave-confirm dirty |
-| Filter | search free-text · role/status SearchInput · org tree | + SearchInput tuyến `catalogKind=road-route` (GAP-DA-USR-FILTER-ROUTE) · **cấm** native Select |
-| Assign modals | CSV `Input` tuyến / cán bộ | SearchInput multi `road-route` / `users` |
-| Đổi MK | Modal 3 password | **IN P1** row/toolbar trên user đang chọn — **≠** shell user menu |
-| API | CRUD + init-data + change-password + assign-routes + managed-users **DONE** | Giữ · **delta** `GET …/users?route=` · validate `RoutesCsv` ∈ 38 CUC2 · **không** parent JSON |
-| BE | `Linm.RMMS.WebService` · Integration · `AppUser` / `rmms_users` | SHARE=`tenant_keep` · **cấm ERP.*** |
+**KEEP (prior DoD vẫn đúng):**
+1–11 prior: list search · Zone A–D · form full-page · View `<dl>` · SearchInput org/role/status/route/managed · Đổi MK · build Dev ghi · live shell không blank.
 
-## 3. DoD (đo được)
-
-1. List load + **search work** (mã · họ tên · username · tuyến) — page=1 khi filter đổi.
-2. Zone A: title «Quản lý người dùng» — **cấm** Thêm mới trên A.
-3. Zone B: SearchTextInput · SearchInput vai trò · SearchInput trạng thái · SearchInput tuyến `road-route` · tree org chọn node → `?orgCode=` · Tạo mới **primary trên B** · Làm mới · Delete · config `fa-cog` · History stub.
-4. Zone C: tree org + grid STT · □ · Mã · Họ tên · Tổ chức · Vai trò / Cấp · Tuyến · Trạng thái · SĐT · actions; row menu **Xem · Sửa · Sao chép · Xóa · Đổi MK · Phân tuyến · Cán bộ QL**.
-5. Zone D: `LinCatalogListPagination` pageSize **50 / 100 / 200 / 500**.
-6. Form full-page: validate + save · leave-confirm dirty · Copy → POST new · IdCode `USR-YYYYMMDD-NNNN` readonly · footer-only Lưu/Hủy.
-7. View = **display `<dl>`** (không Input `readOnly` xám).
-8. Lookup: orgCode / roleCode / status / routesCsv / managedUserIdsCsv = **SearchInput** — **cấm** native Select · **cấm** free-text cho tuyến.
-9. Đổi mật khẩu: 3 field password + submit (label Title Case, **cấm** ALL CAPS GOVOne).
-10. FE `yarn build` (+ typecheck nếu có) PASS · BE `dotnet build` PASS khi đụng API — Dev ghi implement § Build.
-11. Live shell: title + toolbar + grid/empty **không** blank/title-clip.
+**Delta DoD (this task):**
+1. List cột **Chức vụ** hiển thị catalog `name` từ `jobTitleCode` (sample: `HAT-TRUONG`→Hạt trưởng · `CHUYEN-VIEN`→Chuyên viên · `TUAN-DUONG`→Tuần đường).
+2. Zone B: SearchInput filter chức vụ `catalogKind=job-title` · apply → page=1 · optional QS `?jobTitleCode=`.
+3. Form: SearchInput `jobTitleCode` peer `orgCode` · create/edit persist code · View `<dl>` «Chức vụ» = resolved name · **cấm** Text/Input free.
+4. `roleCode` cột/field **giữ** — **không** thay / trộn với chức vụ.
+5. ProfileTab / switch user: SearchInput catalog · **cấm** placeholder «Chuyên viên IT».
+6. LKP wire `job-titles` (stub OK nếu GAP-JOB-05 soft-block) · **cấm** open-api · **cấm** `api/v1/rmms/*`.
+7. Seed resolve 19 mã `job-title-seed.json` — **cấm** invent mã ngoài seed.
 
 ## 4. CTX / DEM / DI inventory
 
 | ID | Path | Loại |
 |----|------|------|
-| CTX-01 | `docs/context/features/users.md` | feature |
-| CTX-02 | `docs/context/_raw/legacy-govone/demo-maps/users-control-map.md` | control-map (legacy chrome — **SKIP** clone) |
-| CTX-03 | `docs/context/_raw/legacy-govone/demo-maps/users-actions.md` | 7 actions — 3 nghiệp vụ IN + chrome SKIP |
-| DEM-01 | `Linm.RMMS.Demo/src/demo/features/users-demo.html` | demo entry |
-| DEM-02 | `Linm.RMMS.Demo/src/demo/integration/users.html` | page |
-| DI-01 | — | **no Excel cluster** |
-| DI-02 | `specs/_data-analy/features/users-control-hint.md` | controlHint |
-| DI-03 | `specs/_data-analy/shared-catalogs/INVESTIGATE-CUC2.md` · `org-unit-seed.json` · `road-route-seed.json` | 60 org · 38 tuyến APPROVED A |
-| MFE | `Linm.Web.RMMS.Integration` `/integration/users` · `/new` · `/:id` | UI |
-| BE | `D:/AI-QLBD/Linm.RMMS.WebService` · DOMAIN-MAP Integration | API |
+| CTX-01 | `docs/context/features/users.md` | feature · GAP-F-USR-05 |
+| CTX-02 | `docs/context/features/job-title.md` §5b | consumer SSOT |
+| SEED-01 | `docs/context/seed/job-title-seed.json` | 19 mã · titleGroup LEAD/TECH/PATROL |
+| DEM-01 | `Linm.RMMS.Demo/.../users-demo.html` | hash skip · không re-scan |
+| DI-01 | `specs/_data-analy/features/users-control-hint.md` | controlHint done |
+| DI-02 | `specs/_data-analy/features/users-real-data.md` | real-data done |
+| MFE | `Linm.Web.RMMS.Integration` `/integration/users` | UI consumer |
+| BE | `D:/AI-QLBD/Linm.RMMS.WebService` · Integration | users + LKP job-titles |
 
-## 5. controlHint (PO chốt từ data-analy — Design map UI · SA map API)
+## 5. controlHint (PO chốt · KEEP + delta)
 
 ### List filters (Zone B)
 
 | Field key | Label | controlHint | catalogKind |
 |-----------|-------|-------------|-------------|
-| search | Tìm đoạn đường / tuyến / người dùng | `SearchTextInput` | text (mã · họ tên · username · tuyến) |
-| role | Vai trò | `SearchInput` | enum init-data `roles` |
-| status | Trạng thái | `SearchInput` | enum init-data `statuses` |
-| orgCode | Tổ chức | tree + filter | **org-unit** · chọn node → `?orgCode=` |
-| route | Tuyến / đoạn đường | `SearchInput` | **road-route** · **IN P1** (GAP-DA-USR-FILTER-ROUTE) |
-| checkAll | Chọn tất cả | `Checkbox` | grid selection — không persist |
+| search | Tìm… | `SearchTextInput` | text |
+| role | Vai trò | `SearchInput` | enum · **≠** chức vụ |
+| status | Trạng thái | `SearchInput` | enum |
+| orgCode | Tổ chức | tree + filter | **org-unit** |
+| route | Tuyến | `SearchInput` | **road-route** |
+| **jobTitleCode** | **Chức vụ** | **`SearchInput`** | **job-title** · **NEW** |
+| checkAll | Chọn tất cả | `Checkbox` | grid |
 
-### Form fields
+### Form fields (delta highlight)
 
 | Field key | Label | controlHint | required |
 |-----------|-------|-------------|----------|
-| code | Mã người dùng | `Text` readonly IdCode `USR-YYYYMMDD-NNNN` | auto |
+| code | Mã người dùng | `Text` readonly IdCode | auto |
 | username | Tên đăng nhập | `Text` unique | * |
 | fullName | Họ và tên | `Text` | * |
-| email | Email | `Text` (email) | * |
-| phone | Số điện thoại | `Text` (tel) | |
+| email | Email | `Text` | * |
+| phone | Số điện thoại | `Text` | |
 | orgCode | Tổ chức | `SearchInput` `org-unit` | * |
-| roleCode | Vai trò / Cấp | `SearchInput` enum init-data | |
+| **jobTitleCode** | **Chức vụ** | **`SearchInput` `job-title`** | | **NEW** · View `<dl>` · **cấm** Text |
+| roleCode | Vai trò / Cấp | `SearchInput` enum | · **≠** jobTitleCode |
 | status | Trạng thái | `SearchInput` enum | |
-| routesCsv | Tuyến được phân | `SearchInput` multi `road-route` | persist CSV codes ∈ 38 CUC2 |
-| password | Mật khẩu khởi tạo | `Text` (password) | create / copy only |
-| updatedAt | Cập nhật | `Date` | View display |
+| routesCsv | Tuyến được phân | `SearchInput` multi `road-route` | |
+| password | Mật khẩu khởi tạo | `Text` (password) | create/copy |
+| updatedAt | Cập nhật | `Date` | View |
 
-### Password modal
+### Password / Assign modals
 
-| Field key | Label | controlHint | required |
-|-----------|-------|-------------|----------|
-| currentPassword | Mật khẩu cũ | `Text` (password) | * |
-| newPassword | Mật khẩu mới | `Text` (password) | * |
-| confirmPassword | Xác nhận mật khẩu mới | `Text` (password) | * khớp new |
+**KEEP** prior: Đổi MK 3 password · Phân tuyến `road-route` · Cán bộ QL `users`.
 
-### Assign modals
+### Profile / switch
 
-| Field key | Label | controlHint | catalogKind |
-|-----------|-------|-------------|-------------|
-| routesCsv | Phân tuyến | `SearchInput` multi | **road-route** |
-| managedUserIdsCsv | Cán bộ thuộc QL | `SearchInput` multi | **users** (self) |
+| Field key | Label | controlHint | Notes |
+|-----------|-------|-------------|-------|
+| jobTitleCode / Position | Chức vụ | `SearchInput` `job-title` | sync name · **cấm** «Chuyên viên IT» |
 
-## 6. Open questions — PO chốt (UNCLEAR / GAP data-analy)
+## 6. Open questions — PO chốt
 
 | ID | Question | Decision (PO) |
 |----|----------|----------------|
-| GAP-PO-USR-01 · GAP-DA-USR-DESIGN-STALE | design.md Slideout + View=`readOnly` vs live full-page `<dl>` | **Full-page** `UsersFormPage`. **Cấm** Slideout · **cấm** Resource. Design **regen** prototype A–D + form + reviewUrl. |
-| GAP-PO-USR-02 · GAP-DA-USR-SELECT | design.md Select role/status/org | **SearchInput**. **Cấm** native Select. Live MFE đã SearchInput — Design control-map khớp live + SSOT. |
-| GAP-PO-USR-03 · GAP-DA-USR-ROUTE | `routesCsv` Input Text | **IN P1:** SearchInput multi `catalogKind=road-route`. **Cấm** free-text. SA validate ∈ 38 CUC2. |
-| GAP-PO-USR-04 · GAP-DA-USR-MANAGED | `managedUserIdsCsv` CSV text | **IN P1:** SearchInput multi `users`. **Cấm** CSV thuần trên UI. |
-| GAP-PO-USR-05 · GAP-DA-USR-FILTER-ROUTE | Zone B chưa filter tuyến · list API chưa `?route=` | **IN P1:** SearchInput tuyến + SA query `?route=`. |
-| GAP-PO-USR-06 · GAP-REC-USR | Capture 7 actions chrome | **SKIP** Ban.TK · Hồ sơ · Đăng xuất · VỀ TRANG CHỦ (mfe-run-modes). **IN:** Thêm · Đổi MK **row** · Phân tuyến · Cán bộ QL · CRUD. |
-| GAP-PO-USR-07 · GAP-F-USR-01 | Auth service tách | **P2 / UNCLEAR** — không block P1. Host Integration. |
-| GAP-PO-USR-08 | Thêm tổ chức trên page users | **Navigate/master org-unit** — không duplicate CRUD org trên pack này. |
-| GAP-PO-USR-09 | parent JSON / ERP path | **Cấm** parent JSON. **Cấm** `ERP.*` · `api/v1/rmms/*`. BE = `D:/AI-QLBD/Linm.RMMS.WebService`. |
+| GAP-F-USR-05 | chức vụ list+form+Profile | **IN P1** SearchInput + persist `jobTitleCode` · cite §5b |
+| GAP-DA-USR-JOBTITLE-UI | MFE thiếu field/cột | **IN** Design control-map · Dev T-UI-LIST/FORM |
+| GAP-DA-USR-JOBTITLE-API | DTO/LKP thiếu | **IN** SA LKP + users DTO · soft-block GAP-JOB-05 stub OK |
+| GAP-JOB-05/02/06 | master API · migrate · Profile | peer job-title pack · **không** invent package · Profile IN nếu cùng MFE boundary |
+| GAP-F-USR-01 | Auth tách | **P2 không block** |
+| GAP-PO-USR-01…09 | prior route/org/Slideout | **KEEP** decisions prior requirement |
 
 ## 7. Grid AC (REQUIRED · list)
 
 | ID | AC |
 |----|-----|
-| AC-G-01 | Zones **A Header · B Toolbar · C Tree+Grid · D Pagination** |
-| AC-G-02 | Search + role/status/org/route apply → page=1 |
+| AC-G-01 | Zones **A · B · C Tree+Grid · D Pagination** |
+| AC-G-02 | Search + role/status/org/route/**jobTitle** apply → page=1 |
 | AC-G-03 | Row menu Xem / Sửa / Copy / Xóa / Đổi MK / Phân tuyến / Cán bộ QL |
 | AC-G-04 | `LinCatalogDataGrid` + kéo cột default ON |
 | AC-G-05 | Footer `LinCatalogListPagination` 50/100/200/500 |
 | AC-G-06 | 1× `LinPageLayout` — **cấm** nested CatalogListShell |
-| AC-G-07 | Flex + skeleton load — **cấm** blank body |
-| AC-G-08 | Tree master org-unit — chọn node lọc user |
+| AC-G-07 | Flex + skeleton — **cấm** blank body |
+| AC-G-08 | Tree master org-unit lọc user |
+| **AC-G-09** | **Cột Chức vụ** = catalog name(`jobTitleCode`) · **≠** cột Vai trò |
 
-## 8. Out of scope (this pack)
+## 8. Screens / Leave (packKind=list)
 
-- Auth service tách / IAM JWT production (GAP-F-USR-01)
-- Clone chrome demo (logo · hamburger · Ban.TK · Hồ sơ · Đăng xuất · VỀ TRANG CHỦ)
-- Clone skin GOVOne · ALL CAPS labels
-- Excel import users
-- Duplicate org-unit master CRUD trên page này
-- Events `user.updated` platform bus (optional P2 Patrol cache)
-- Invent org/route codes ngoài CUC2 seed
+| Screen | Rule |
+|--------|------|
+| List | Kind B A–D · delta cột + filter chức vụ |
+| Form Create/Edit | full-page · SearchInput `jobTitleCode` · leave-confirm dirty **KEEP** |
+| Form View | `<dl>` «Chức vụ» resolved · **cấm** readOnly Input |
+| Profile/switch | SearchInput catalog (boundary SA nếu repo Home khác) |
 
-## 9. Handoff → Design
+## 9. Out of scope (this pack)
+
+- Master CRUD `job-title` (`/mas/chuc-vu`)
+- Auth IAM tách (GAP-F-USR-01)
+- Clone chrome demo / GOVOne skin
+- Invent mã chức vụ / package Cục/VP ngoài seed
+- `new_page` typed CRUD staff
+- Excel import users (alias map = peer job-title pack)
+
+## 10. Handoff → Design
 
 | Field | Value |
 |-------|-------|
-| Kind | B catalog list A–D + tree master + **full-page** form |
-| Prototype | content-only zones A–D · `list-shell-prototype.md` · **skip** note/sidebar/menu/chrome demo |
-| reviewUrl | bắt buộc · `autoApprove=OFF` → **await_confirm** (user Approve board) |
-| controlHint | bảng §5 — **không** Select · **không** Text cho `routesCsv` · **không** Slideout / View=`readOnly` Input |
-| Demo visual | `users-demo.html` → `integration/users.html` |
-| BE | `api/v1/integration/users` · lookup org-unit + road-route · query `?route=` |
-| Next roles | design → sa → team-lead → dev → qa → review = **pending** đến lượt |
+| Kind | B · **KEEP** shell + **delta** Zone B/C + Form + Profile |
+| Prototype | content-only · patch list col + form field · reviewUrl |
+| autoApprove | **ON** → Design gate auto-confirm |
+| controlHint | §5 · SearchInput `job-title` · **cấm** Text chức vụ · **cấm** Slideout |
+| real-data | seed 19 · resolve samples § real-data |
+| BE | users + `jobTitleCode` · LKP `job-titles` · **cấm** ERP.* |
+| Next | design → sa → team-lead → dev → qa → review = **pending** |
 
 ## Version meta (REQUIRED)
 
@@ -167,10 +169,10 @@ Auth host tách = **GAP-F-USR-01** — **không block P1** (host tạm Integrati
 | schemaVersion | 2 |
 | workflowVersion | 2026.08.09.02 |
 | rulesVersion | 2026.08.09.3 |
-| generatedAt | 2026-08-15T08:30:00.000Z |
+| generatedAt | 2026-09-18T16:10:00.000Z |
 | versionGate | rechecked |
 | version_mismatch_action | recheck_new (STATUS) |
-| contentHashPriorDataAnaly | sha256:0e46bf2c8b232a40f403e2777ef387f8cdea1b04edafa0c04edbca1bb07024b1 |
+| contentHashPriorDataAnaly | sha256:8bd9897e1ab2483fdb96e9a37492d87c38c7e709c2e3df118c7b884f5d4bb257 |
 | orchestratorSkillVersion | 2026.08.08.21 |
 | orchestratorWorkflowVersion | 2026.08.09.02 |
 | orchestratorRulesVersion | 2026.08.09.3 |

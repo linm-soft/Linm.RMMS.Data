@@ -5,21 +5,28 @@
 | feature | `csdl-bieu-08` |
 | phase | `done` |
 | status | `done` |
+| qaTaskId | `task_0bd98d56` |
+| reviewTaskId | `task_5844adb2` |
+| qa_verdict | `PASS` |
+| review_confirm | `done` |
 | packKind | `list` |
-| demo | D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/csdl-so-sach-demo.html |
+| changeScope | `edit_page` |
+| epic | `csdl-export-print` · Wave 1 `T-XLS-S08` |
+| demo | N/A (packet) · prior hub demo zone-only |
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/csdl-bieu-08.md` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Asset` |
-| mfeStdRoute | `/csdl-bieu-08` |
-| mfeStdUrl | `http://localhost:9301/csdl-bieu-08` |
+| mfeStdRoute | `/so-ts/csdl-so-sach` · alias `/csdl-bieu-08` |
+| mfeStdUrl | `http://localhost:9301/so-ts/csdl-so-sach` |
 | hubRoute | `/so-ts/csdl-so-sach?resource=traffic-safety` |
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · DOMAIN-MAP — **cấm ERP.*** |
-| contentHash | `sha256:f972c82727726d256754d076435f9ef97c993b4f9844dc79e50b6415fcaf54be` |
-| updatedAt | `2026-09-05T10:41:25.169Z` |
+| contentHash | `sha256:639566df4ddccc3927311d5618bf4e7c1dbad0dac80962c414f861dacc9d5e9c` |
+| headerFingerprint | `sha256:ba8b8db4f7637ee32cfd4a882b6abdc774c538f6c9812c3ecd1d13f6151cdd6f` |
+| updatedAt | `2026-09-17T22:29:42.392Z` |
 ## Lock
 
 | agent | scope | id | at |
 |-------|-------|-----|-----|
-| — | — | — | unlocked (review done) |
+| — | — | — | unlocked · Review DoR PASS · phase=done |
 
 ## Pipeline
 
@@ -45,19 +52,34 @@
 | task_96940f90 | csdl-bieu-08 | dev | team_lead | **PASS** | FE alias+hub · BE Schema_CsdlBieu8 · yarn+dotnet build PASS · handoff compact |
 | task_e0d8a853 | csdl-bieu-08 | qa | dev | **PASS** | e2e S0/S1/QA-20 · typecheck · docker · GAP-QA-E2E-PW-01 fallback · handoff compact |
 | task_fdb010e9 | csdl-bieu-08 | review | qa | **PASS** | review_confirm=approve · QUERY/SEC/UI-FN/BE-FN PASS · handoff compact |
+| task_774ebbde | csdl-bieu-08 | data_analy | — | **PASS** | changeScope=edit_page · T-XLS-S08 · Xuất Excel catalogToolbar · golden Cục 16-sheet · GAP-FILTER-BAR-08 |
+| task_c7498ca2 | csdl-bieu-08 | po | data_analy | **PASS** | edit_page · Q-XLS-* chốt · filtered · import_now · one_sheet_45 · handoff Design |
+| task_b2622193 | csdl-bieu-08 | design | po | **PASS** | edit_page · design_confirm=approve · +Xuất/Nhập catalogToolbar · reviewUrl · handoff SA |
+| task_72b0354c | csdl-bieu-08 | sa | design | **PASS** | edit_page · solution_confirm=approve · API-XLS-01..03 · Schema KEEP · no migration · handoff TL |
+| task_21f9b30c | csdl-bieu-08 | team_lead | sa | **PASS** | edit_page · route_a keep · T-XLS-* pack · team_lead_confirm=approve · handoff Dev |
+| task_ed6e77ce | csdl-bieu-08 | dev | team_lead | **PASS** | edit_page · T-XLS-BE/BFF/FE · yarn+dotnet PASS · handoff QA |
+| task_0bd98d56 | csdl-bieu-08 | qa | dev | **PASS** | edit_page · T-XLS-QA-01 · e2e S0/S1/QA-20 · export/import · GAP-QA-E2E-PW-01 fallback · handoff Review |
+| task_5844adb2 | csdl-bieu-08 | review | qa | **PASS** | edit_page · review_confirm=done · QUERY/SEC/UI-FN/BE-FN PASS · handoff compact · phase=done |
 
 ## Blockers / open questions
 
-- none (Review DoR PASS · pipeline complete · P2 debt only)
+- none (Review PASS · pipeline complete)
 
 ## Links
 
 - data-analy → po → ui → be → task → implement → qa → review
-- mfeStdUrl: `http://localhost:9301/csdl-bieu-08`
-- mfeStdRoute: `/csdl-bieu-08`
+- mfeStdUrl: `http://localhost:9301/so-ts/csdl-so-sach`
+- mfeStdRoute: `/so-ts/csdl-so-sach` · alias `/csdl-bieu-08`
 - hub: `/so-ts/csdl-so-sach?resource=traffic-safety`
+- epic: `docs/context/features/csdl-export-print.md` · `T-XLS-S08`
 - reviewUrl: `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-08/ui/prototype/csdl-bieu-08-list-prototype.html`
 - handoff: `specs/csdl-bieu-08/handoff/review-compact.md`
 - findings: `specs/csdl-bieu-08/review/findings.md`
 - scenarios: `specs/csdl-bieu-08/qa/scenarios.md`
-- screens: `specs/csdl-bieu-08/qa/screens/{S0,S1,QA-20}.png`
+- implement: `specs/csdl-bieu-08/implement/csdl-bieu-08.md`
+- task: `specs/csdl-bieu-08/task/csdl-bieu-08.md`
+- solution: `specs/csdl-bieu-08/be/solution-discovery.md`
+- design: `specs/csdl-bieu-08/ui/design.md`
+- requirement: `specs/csdl-bieu-08/po/requirement.md`
+- control-hint: `specs/_data-analy/features/csdl-bieu-08-control-hint.md`
+- real-data: `specs/_data-analy/features/csdl-bieu-08-real-data.md`

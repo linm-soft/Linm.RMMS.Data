@@ -1,0 +1,79 @@
+{
+  "url": "http://localhost:9311/bao-cao/dashboard",
+  "capturedAt": "2026-09-17T17:29:04.824Z",
+  "method": "e2e runtime · yarn start:std :9311 + docker + playwright",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "sha16": "7af90a9d82fa3a41"
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "sha16": "0fb5a60095e96761"
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "sha16": "fa36c618735f4da1"
+    }
+  ],
+  "ok": true,
+  "live": {
+    "hasPage": true,
+    "filterBar": true,
+    "map": true,
+    "top": true,
+    "configModal": true,
+    "configTitle": true,
+    "kpis": [
+      {
+        "id": "rmms-dashboard-kpi-tuan-duong",
+        "text": "Tuần đường 0"
+      },
+      {
+        "id": "rmms-dashboard-kpi-tuan-kiem",
+        "text": "Tuần kiểm 0"
+      },
+      {
+        "id": "rmms-dashboard-kpi-bao-lu",
+        "text": "Bão lũ 0"
+      },
+      {
+        "id": "rmms-dashboard-kpi-tai-nan",
+        "text": "TNGT 0"
+      },
+      {
+        "id": "rmms-dashboard-kpi-vi-pham",
+        "text": "Vi phạm HL 0"
+      },
+      {
+        "id": "rmms-dashboard-kpi-cong-viec",
+        "text": "Công việc 0"
+      },
+      {
+        "id": "rmms-dashboard-kpi-inc-open",
+        "text": "Sự cố mở 0"
+      },
+      {
+        "id": "rmms-dashboard-kpi-coverage",
+        "text": "Coverage 0"
+      },
+      {
+        "id": "rmms-dashboard-kpi-road-len",
+        "text": "Chiều dài QL 0"
+      },
+      {
+        "id": "rmms-dashboard-kpi-pci",
+        "text": "PCI TB 0"
+      }
+    ],
+    "hasDigitAfterView": true,
+    "bodyHasCreateBadge": false
+  },
+  "note": "QA-20 config FULL modal open"
+}

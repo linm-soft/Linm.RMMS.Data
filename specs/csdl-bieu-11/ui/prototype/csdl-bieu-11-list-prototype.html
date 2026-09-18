@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Prototype — Biểu 11 Hệ thống chiếu sáng (DES-GRID + Slideout typed 24)</title>
+  <title>Prototype — Biểu 11 Hệ thống chiếu sáng (edit_page T-XLS-S11 · Xuất/Nhập Excel)</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
   <style>
     :root {
@@ -90,7 +90,7 @@
 </head>
 <body>
   <div class="page">
-    <p class="note" id="note">SSOT Design · <code>shared_grid_example v1</code> · pack <code>csdl-bieu-11</code> · resource <code>lighting-systems</code> · formNo <code>11</code> · mfeStdUrl <code>/csdl-bieu-11</code> · hub <code>?resource=lighting-systems</code> · peer toolbar <code>so-ts-lighting</code> · skip chrome · <strong>cấm</strong> detail* only · map none · Q-GRID-STATUS align_status · Q-LED-ZERO allow_zero · Q-SOLAR-REQ optional · Q-CABINET split · Q-LIST-COLS subset · Q-PEER toolbar · Q-TITLE keep_demo</p>
+    <p class="note" id="note">SSOT Design · <code>shared_grid_example v1</code> · pack <code>csdl-bieu-11</code> · edit_page T-XLS-S11 · resource <code>lighting-systems</code> · formNo <code>11</code> · mfeStdUrl <code>/so-ts/csdl-so-sach</code> alias <code>/csdl-bieu-11</code> · hub <code>?resource=lighting-systems</code> · catalogToolbar <strong>Xuất/Nhập Excel</strong> · filter <strong>không</strong> XLS (GAP-FILTER-BAR-08) · Q-XLS filtered · import_now · one_sheet · filename Bieu11_ChieuSang_{yyyyMMdd}.xls · peer toolbar <code>so-ts-lighting</code> · skip chrome · typed 24/2 keep</p>
 
     <section id="list" style="display:flex;flex-direction:column;gap:8px;flex:1;min-height:0">
       <div class="zone-a" data-des-id="DES-GRID-A">
@@ -104,8 +104,9 @@
           <button type="button" class="tb" data-action="history" title="Lịch sử"><i class="fas fa-history"></i></button>
           <button type="button" class="tb" data-action="config" title="Cấu hình"><i class="fas fa-cog"></i></button>
           <button type="button" class="tb" id="btn-del" disabled title="Xóa"><i class="fas fa-trash"></i></button>
-          <button type="button" class="tb" data-action="import" title="Import stub OUT Biểu 11"><i class="fas fa-file-import"></i></button>
-          <button type="button" class="tb" data-action="export" title="Export stub OUT Biểu 11"><i class="fas fa-file-export"></i></button>
+          <button type="button" class="tb" data-action="import" title="Nhập Excel"><i class="fas fa-file-import" aria-hidden="true"></i> Nhập Excel</button>
+          <button type="button" class="tb" data-action="export" title="Xuất Excel"><i class="fas fa-file-excel" aria-hidden="true"></i> Xuất Excel</button>
+          <input type="file" id="importFile" accept=".xls,.xlsx" hidden />
           <button type="button" class="tb" data-action="peer" title="Sổ TS chiếu sáng — deep-link · cấm merge"><i class="fas fa-book"></i> Sổ TS</button>
         </div>
         <div class="zone-b-right">
@@ -480,7 +481,6 @@
       if (t.dataset.action === "refresh") render();
       if (t.dataset.action === "history" || t.dataset.hist) toast("History modal stub P2");
       if (t.dataset.action === "config") toast("UiSchema editor · catalogKind lighting-systems");
-      if (t.dataset.action === "import" || t.dataset.action === "export") toast("XLS Biểu 11 OUT stub");
       if (t.dataset.action === "peer") toast("Navigate → /so-ts-lighting · cấm merge form · qty ≠ điểm");
       if (t.dataset.view) {
         const row = rows.find((r) => String(r.id) === t.dataset.view);
@@ -502,6 +502,33 @@
     });
 
     $("#btnBack").addEventListener("click", () => toast("Navigate → /so-ts/csdl-so-sach"));
+    const importInput = $("#importFile");
+    document.querySelector('[data-action="import"]').addEventListener("click", () => importInput.click());
+    importInput.addEventListener("change", () => {
+      const f = importInput.files && importInput.files[0];
+      if (!f) return;
+      $("#note").textContent =
+        "Nhập Excel (mock): " + f.name + " · skip-bridge áp dụng · POST …/csdl-records/import?resource=lighting-systems";
+      importInput.value = "";
+    });
+    document.querySelector('[data-action="export"]').addEventListener("click", () => {
+      const d = new Date();
+      const ymd = d.getFullYear() + String(d.getMonth() + 1).padStart(2, "0") + String(d.getDate()).padStart(2, "0");
+      const name = "Bieu11_ChieuSang_" + ymd + ".xls";
+      const prov = ($("#fProv") && $("#fProv").value) || "(all)";
+      const st = ($("#fStatus") && $("#fStatus").value) || "(all)";
+      const blob = new Blob(
+        ["Biểu 11 — Hệ thống chiếu sáng (prototype mock · filtered QS · province=" + prov + " · status=" + st + " · sheet Biểu 11 · 24 cột · 1 sheet · LED+NLMT cùng hàng · qty bucket · cấm dump điểm)\n"],
+        { type: "application/vnd.ms-excel" }
+      );
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = name;
+      a.click();
+      URL.revokeObjectURL(a.href);
+      $("#note").textContent =
+        "Xuất Excel (mock filtered): " + name + " · GET …/csdl-records/export?resource=lighting-systems · province=" + prov + " · status=" + st;
+    });
     $("#btn-del").addEventListener("click", () => { if (selected.size) $("#delModal").classList.add("on"); });
     $("#delCancel").addEventListener("click", () => $("#delModal").classList.remove("on"));
     $("#delOk").addEventListener("click", () => {

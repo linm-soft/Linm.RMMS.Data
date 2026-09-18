@@ -4,198 +4,147 @@
 |-------|-------|
 | feature | `csdl-bieu-08` |
 | packKind | `list` |
-| mode | `feature_context` (new_page · CTX + cluster analy + hub demo · synthetic) |
-| changeScope | `new_page` |
+| mode | `feature_context` (edit_page · T-XLS-S08 · keep typed CRUD) |
+| changeScope | `edit_page` |
 | status | `done` |
 | skillId | `agent-data-analy` |
-| skillVersion | `2026.08.25.01` |
+| skillVersion | `2026.09.05.03` |
 | schemaVersion | `1` |
-| workflowVersion | `2026.09.01.02` |
-| rulesVersion | `2026.08.31.2` |
-| versionGate | `ok` (first fill stubs · CTX+demo hash recorded · autoApprove queue) |
-| contentHash | `sha256:f972c82727726d256754d076435f9ef97c993b4f9844dc79e50b6415fcaf54be` |
+| workflowVersion | `2026.09.05.03` |
+| rulesVersion | `2026.09.17.3` |
+| versionGate | `ok` (CTX hash change + export delta Wave 1 · autoApprove queue · **không** AskQuestion) |
+| contentHash | `sha256:639566df4ddccc3927311d5618bf4e7c1dbad0dac80962c414f861dacc9d5e9c` |
 | headerFingerprint | `sha256:ba8b8db4f7637ee32cfd4a882b6abdc774c538f6c9812c3ecd1d13f6151cdd6f` |
-| analyzedAt | `2026-09-05T16:58:08.958Z` |
-| cluster | `csdl-cuc-2026` · Excel sheet Biểu 8 · **45 cột** · **11 nhóm** · live hub **Biểu 7** renumber |
-| taskId | `task_a21c4937` |
+| analyzedAt | `2026-09-18T04:55:00.000Z` |
+| cluster | `csdl-cuc-2026` · Excel sheet Biểu 8 · **45 cột** · **11 nhóm** · Wave 1 `T-XLS-S08` |
+| taskId | `task_774ebbde` |
+| priorTask | `task_a21c4937` → pipeline review `task_fdb010e9` (typed CRUD **done** — **cấm** re-run new_page typed) |
 | autoApprove | `ON` (queue) |
 | realData | `specs/_data-analy/features/csdl-bieu-08-real-data.md` |
-| beRepo | `D:/AI-QLBD/Linm.RMMS.WebService` · domain **Asset** · `api/v1/asset/csdl-records?resource=traffic-safety` · **cấm ERP.*** · **cấm** invent `api/v1/infra/*` |
+| beRepo | `D:/AI-QLBD/Linm.RMMS.WebService` · domain **Asset** · `api/v1/asset/csdl-records` · **cấm ERP.*** · **cấm** invent `api/v1/infra/*` |
 | uiRepo | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Asset` |
-| mfeStdUrl | `http://localhost:9301/csdl-bieu-08` · hub deep-link `/so-ts/csdl-so-sach?resource=traffic-safety` |
+| mfeStdUrl | `http://localhost:9301/so-ts/csdl-so-sach` · alias `/csdl-bieu-08` · hub `?resource=traffic-safety` |
 | resource | `traffic-safety` |
-| formNo | `08` · title VN **Hệ thống ATGT** · live label còn **Biểu 7** |
-| peerSoTs | `TRAFFIC_SIGN` · `KM_POST` · `DELINEATOR` · `CONVEX_MIRROR` · `GUARDRAIL` · `MEDIAN` (+ ATGT thiếu typed) — deep-link OK · **cấm** merge 1 form · **≠** Sổ TS |
-| runMode | `new_page` · typed child/`type=` · **cấm** 1 hàng wide 45 cột · **cấm** chỉ 3 ô `detail*` |
+| formNo | `08` · title VN **Hệ thống ATGT** |
+| peerSoTs | ATGT types deep-link OK · **cấm** merge 1 form · **≠** Sổ TS |
+| runMode | `edit_page` · export/import Excel đúng mẫu Cục · **cấm** new_page typed CRUD |
+| epicCite | `docs/context/features/csdl-export-print.md` Wave 1 · `T-XLS-S08` |
+| devSlashExport | `/implement-export-import-excel` · BFF binary |
 
-> Data-analy **đề xuất** controlHint. Design **chốt** control-map. SA **chốt** typed DTO + child tables / migration.  
+> Data-analy **đề xuất** controlHint. Design **chốt** control-map (giữ prototype typed · **chỉ** delta toolbar export). SA **chốt** binary export path.  
 > Typography: label **13** · input D14 / M16 (**GAP-TYP-01**).  
-> `sourceKind=synthetic` — demo = zone/field **tham chiếu** · **cấm** demo-json / localStorage SSOT.  
-> **Cấm** chỉ 3 ô `detailPrimary`/`detailSpec`/`detailExtra` — form = đủ cột Excel theo `assetType` (cite analy).  
-> CTX: Live hub Biểu 7 → renumber **formNo=8** · resource key **giữ** `traffic-safety`.  
-> **GAP-CSDL-01 / GAP-CSDL-CUC-08:** child tables hoặc `?type=` — **cấm** 1 entity wide.
+> **Giữ** PO/Design/SA artifacts typed — analy **chỉ** § Delta export.  
+> Toast stub / typed STATUS done **≠** export xong.  
+> **Cấm** 1 hàng kéo ngang 45 cột trên grid/export layout lệch mẫu (**T-XLS-S08**).
 
 ## Sources
 
 | Source | Path | sha256 / note |
 |--------|------|---------------|
-| Context | `docs/context/features/csdl-bieu-08.md` | `f972c82727726d256754d076435f9ef97c993b4f9844dc79e50b6415fcaf54be` |
+| Context | `docs/context/features/csdl-bieu-08.md` | `639566df4ddccc3927311d5618bf4e7c1dbad0dac80962c414f861dacc9d5e9c` |
+| Export epic | `docs/context/features/csdl-export-print.md` | `2ca7ea0a7f1cfe4d3caf05688cc08ca2546457b09ed388671b58c3a769492c14` |
 | Parent hub | `docs/context/features/csdl-so-sach.md` | cite hub Kind G · resource `traffic-safety` |
-| Cluster analy | `specs/_data-analy/csdl-cuc-2026/ANALYSIS-AND-TASKS.md` | Biểu 8 · 45 cột · 11 nhóm · T-REN-01 · GAP-CSDL-CUC-08 |
-| DB API SSOT | `docs/context/11-CSDL-SO-SACH-DATABASE-API.md` | § Biểu 7 `TrafficSafetyAsset` (+ children) · map typed Biểu **8** |
-| Demo entry | `Linm.RMMS.Demo/src/demo/features/csdl-so-sach-demo.html` | `c2c9f8194cb104b3202bcaa46a589c9baba5cf8062aa12e7d0872a9e96eba7ae` |
-| Demo page | `Linm.RMMS.Demo/src/demo/asset/csdl-so-sach.html` | hub+list+slideout chrome tham chiếu · prefix `AT` |
-| Demo data | `Linm.RMMS.Demo/src/demo/asset/js/csdl-so-sach-data.js` | `traffic-safety` · formNo **7** (cũ) · labels Chủng loại / Mã biển / SL |
-| DOMAIN-MAP | `Linm.RMMS.WebService/docs/DOMAIN-MAP.md` | `csdl-so-sach` → Asset · `asset` |
-| Live API | `CsdlCatalogRecordsController` | `api/v1/asset/csdl-records` (polymorphic shell) |
-| Live MFE | `CsdlSoSachPage` · `CsdlFormSlideout` | generic 3-field — **GAP-BIEU08-TYPED-01** |
-| Excel | `data-import/Sổ sách, biểu mẫu trình LĐ Cục/1. Biểu mẫu CSDL.xls` sheet Biểu 8 | real source · import OUT Dev/XLS task |
-| Peer | `so-ts-type-grid` · cluster `atgt_point` + guardrail/median | deep-link only · **≠** biểu Cục |
+| Cluster analy | `specs/_data-analy/csdl-cuc-2026/ANALYSIS-AND-TASKS.md` | Biểu 8 · 45 cột · 11 nhóm |
+| Demo | N/A (packet) · prior hub demo zone-only | **cấm** demo SSOT |
+| DOMAIN-MAP | `Linm.RMMS.WebService/docs/DOMAIN-MAP.md` | Asset · `csdl-records` |
+| Live MFE | `CsdlBieu08Page` · `fromCatalogToolbar` | typed list+slideout **shipped** · **thiếu** Xuất Excel |
+| Live API | `CsdlCatalogRecordsController` | CRUD live · export/import **gap** |
+| Golden Excel | `data-import/…/1. Biểu mẫu CSDL.xls` sheet Biểu 8 | Cục **16-sheet** · **cấm** hồ sơ 12+8 làm golden |
 
-Normalized header (45 — Excel flatten · runtime = shared + child theo `assetType`):
+Normalized header (unchanged · 45 — Excel flatten · runtime = shared + child theo `assetType`):
 
 `code|roadCode|roadName|province|kmFrom|kmTo|side|assetType|signCode|signSize|signPoleCount|signPoleHeightM|markerKind|markerQty|markerStructure|markerAreaM2|medianKind|medianStructure|medianLengthM|medianHeightM|antiGlareKind|antiGlareStructure|antiGlareQty|antiGlareLengthM|islandType|islandStructure|islandAreaM2|studSize|studQty|guardrailKind|guardrailStructure|guardrailLengthM|guardrailReflector|markCode|markLengthM|markWidthM|markAreaM2|cushionQty|mirrorQty|signalPoleKind|signalHeightM|lampKind|lampQty|builtYear|status`
 
 Form trail extras (không đếm 45): `manageUnit` · `notes`.
 
-## § Delta Current vs New (`new_page` · `task_a21c4937`)
+## § Delta Current vs New (`edit_page` · `task_774ebbde` · **T-XLS-S08**)
 
-| ID | Current | New (this analy) | Surface |
-|----|---------|------------------|---------|
-| GAP-BIEU08-TYPED-01 | Hub list `traffic-safety` + form 3 ô `detail*` | Typed **45 cột / 11 nhóm** · Slideout 2col · discriminator `assetType` + child section | form + list cols |
-| GAP-BIEU08-CHILD-01 | 1 hàng wide / generic detail | Child tables **hoặc** `?type=` · **cấm** 1 entity wide · **GAP-CSDL-01** · **GAP-CSDL-CUC-08** | SA + form |
-| GAP-BIEU08-REN-01 | Demo/live formNo **7** · title «Hệ thống ATGT» | Renumber **formNo=8** · giữ `?resource=traffic-safety` · **T-REN-01** | hub card + list A |
-| GAP-BIEU08-ROUTE-01 | Chỉ deep-link hub `?resource=traffic-safety` | Alias mfeStd `/csdl-bieu-08` · giữ hub entry | shell / Design |
-| GAP-BIEU08-TYPE-01 | detailPrimary = «Chủng loại ATGT» free | `assetType` LOOKUP 11 giá trị · filter list | filter + form |
-| GAP-BIEU08-SIGN-01 | detail* gộp mã/biển | Child biển: `signCode` · `signSize` · `signPoleCount` · `signPoleHeightM` | form |
-| GAP-BIEU08-MARKER-01 | — | Child cọc/Km/H/dẻo/thủy chí: `markerKind` · qty · KC · DT | form |
-| GAP-BIEU08-MEDIAN-01 | — | Child GPC: kind · KC · dài · cao | form |
-| GAP-BIEU08-AG-01 | — | Child chống chói: kind · KC · SL · dài | form |
-| GAP-BIEU08-ISLAND-01 | — | Child đảo: type · KC · DT | form |
-| GAP-BIEU08-STUD-01 | — | Child đinh PQ: size · qty | form |
-| GAP-BIEU08-GR-01 | seed «Hộ lan sóng» trong detail* | Child hộ lan: kind · KC · dài · mắt PQ | form + list |
-| GAP-BIEU08-MARK-01 | — | Child vạch sơn: markCode · dài · rộng · DT | form |
-| GAP-BIEU08-CUSH-01 | — | Child thùng giảm chấn: `cushionQty` | form |
-| GAP-BIEU08-MIRROR-01 | — | Child gương cầu: `mirrorQty` | form |
-| GAP-BIEU08-SIGNAL-01 | — | Child đèn: poleKind · cao · lampKind · qty | form |
-| GAP-CSDL-ROAD-01 | `roadName` Text free (hub) | `SearchInput` `road-route` + `roadCode` | filter + form |
-| GAP-CSDL-PROV-01 | LOOKUP_STATIC 5 tỉnh | giữ P1 **hoặc** master province — PO chốt | filter + form |
-| GAP-CSDL-ORG-01 | `manageUnit` Text | SearchInput tree `org-unit` · DEFER P2 OK | form |
-| GAP-CSDL-CUC-03 | Form generic không đủ cột | Đóng gap cho Biểu 8 khi typed PASS | form |
-| GAP-CSDL-XLS-01 | Import/export stub | Sheet Biểu 8 đúng 45 cột / merge — OUT pack Dev/XLS | toolbar |
-| GAP-BIEU08-PEER-01 | so-ts ATGT typed riêng | Deep-link OK · **cấm** 1 form hai chuẩn · **GAP-CSDL-CUC-11** | nav |
+| ID | Current (live / prior analy) | New (this analy) | Surface |
+|----|------------------------------|------------------|---------|
+| GAP-BIEU08-XLS-01 | Typed CRUD + 45/11 nhóm **PASS** · toolbar **không** Xuất/Import binary | **Xuất Excel** (+ Import P1) đúng sheet Biểu 8 · merge-header · 45 cột | `catalogToolbar` / `report-toolbar-actions` |
+| GAP-BIEU08-XLS-02 | Toast / stub action coi «có nút» | File binary qua BFF · `/implement-export-import-excel` · **cấm** toast-only done | FE + BFF + BE |
+| GAP-BIEU08-XLS-03 | — / hồ sơ 12+8 STALE | Golden = Cục **16-sheet** xls sheet Biểu 8 · **cấm** 12+8 golden | SA/Dev checksum |
+| GAP-BIEU08-XLS-04 | Filter bar chỉ field + 🔍 | **Cấm** đặt Xuất/Import trên `LinErpListFilterBar` (**GAP-FILTER-BAR-08**) | Zone B filter vs toolbar |
+| GAP-BIEU08-XLS-05 | API CRUD only | `GET …/csdl-records/export?resource=traffic-safety` · `POST …/import?resource=` (cite epic · SA chốt) | BE Asset |
+| GAP-BIEU08-XLS-06 | Risk flatten 1 hàng wide 45 | Export map shared+child theo `assetType` · **cấm** 1 hàng kéo ngang lệch mẫu Cục | export engine |
+| — | Typed form/list/route | **Không đổi** · **cấm** new_page typed CRUD re-open | form / list |
 
-**Không** đổi: API prefix `api/v1/asset/csdl-records` · resource key `traffic-safety` · Kind B list A–D · Kind D Slideout · `LinPageLayout kind="catalog"` · **cấm ERP.*** · IdCode **cấm** Guid · prefix **`AT`**.
+**Không** đổi: API prefix `api/v1/asset/csdl-records` · resource `traffic-safety` · Kind B A–D · Kind D Slideout · filter slots · **cấm ERP.*** · IdCode `AT` · peer Sổ TS no-merge · formNo `08`.
 
-## Kind / zones (handoff Design)
+**Closed / keep (prior new_page — không reopen):** GAP-BIEU08-TYPED-01 · CHILD · REN · ROUTE · TYPE · 11 child sections · PEER · ROAD/PROV/ORG P2 debt · GAP-CSDL-CUC-08/11.
 
-| Zone / surface | Pattern | DoD |
-|----------------|---------|-----|
-| Entry | Hub card **hoặc** `/csdl-bieu-08` | Title VN · back hub · **cấm** slug trên card |
-| List A | Header | «Biểu 08 — Hệ thống ATGT» · back hub |
-| List B | Toolbar + filter | SearchTextInput · province · status · road SearchInput · kmFrom/kmTo · side · **assetType** · Tạo mới · Refresh · Delete · History · SchemaConfig · Import/Export stub · **search must work** · **cấm** nút Tìm riêng |
-| List C | `LinCatalogDataGrid` | Cột typed theo type (không chỉ 3 detail) · STT · row menu Xem/Sửa/Copy/Xóa/Lịch sử · kéo cột ON · **cấm** hiện đủ 45 cột cùng lúc |
-| List D | Footer | `LinCatalogListPagination` 50/100/200/500 |
-| Form | Kind **D** Slideout Z1–Z3 · 2col | C/E/V/Copy · View=`readOnly` · LeaveConfirmModal dirty · footer Lưu/Hủy · section shared + **1 child** theo `assetType` |
-| Map | none | deep-link gis only · **cấm** invent map canvas |
+## Kind / zones (handoff Design — delta only)
 
-**Skip chrome:** GOVOne logo/bell/user · demo skin.
+| Zone / surface | Pattern | DoD this edit |
+|----------------|---------|----------------|
+| List A | Header | Giữ «Biểu 08 — Hệ thống ATGT» · back hub |
+| List B toolbar | `catalogToolbar` | **Thêm** Xuất Excel (+ Import P1) · icon `erp-control-icon-map` · **cấm** filter |
+| List B filter | `LinErpListFilterBar` | **Unchanged** · 0 action Xuất (**GAP-FILTER-BAR-08**) |
+| List C/D | Grid + pagination | Unchanged · subset_by_type · **cấm** hiện đủ 45 cột |
+| Form | Kind D Slideout | Unchanged · shared + 1 child theo `assetType` |
+| Map | none | — |
 
-## Control hint — list filters (Zone B)
+## Control hint — list filters (Zone B) — **unchanged**
 
 | Field key | Label | controlHint | catalogKind | Notes |
 |-----------|-------|-------------|-------------|-------|
 | search | Tìm kiếm | `SearchTextInput` | text | mã · đường · signCode · ghi chú |
-| province | Tỉnh/TP | `Dropdown` | LOOKUP_STATIC | **GAP-CSDL-PROV-01** |
+| province | Tỉnh/TP | `Dropdown` | LOOKUP_STATIC | |
 | status | Tình trạng | `Dropdown` | LOOKUP_STATIC | tot/tb/kem/hong |
-| roadCode | Đường | `SearchInput` | **road-route** | **GAP-CSDL-ROAD-01** |
-| kmFrom / kmTo | Lý trình từ–đến | `Number` | — | Point/Line geom |
+| roadCode | Đường | `SearchInput` | **road-route** | |
+| kmFrom / kmTo | Lý trình từ–đến | `Number` | — | |
 | side | Vị trí (T/P/C) | `Dropdown` | LOOKUP_STATIC | L/R/C/Both |
-| assetType | Chủng loại ATGT | `Dropdown` | LOOKUP_STATIC | 11 nhóm · **GAP-BIEU08-TYPE-01** · map `?type=` |
+| assetType | Chủng loại ATGT | `Dropdown` | LOOKUP_STATIC | 11 nhóm · map `?type=` |
 
-## Control hint — form fields (Slideout · shared + child)
+## Control hint — form fields — **unchanged** (cite prior · 45/11 typed)
 
-### Shared (mọi type)
+Giữ bảng form prior `task_a21c4937` (shared + 11 child theo `assetType`). **Cấm** đổi controlHint form trong pack này.
 
-| # | Field key | Label | controlHint | required | Notes |
-|---|-----------|-------|-------------|----------|-------|
-| — | code | Mã | `Text` readonly | auto | IdCode prefix `AT` · **cấm** Guid |
-| 1–2 | roadCode / roadName | Mã/Tên đường | `SearchInput` | * | catalogKind `road-route` |
-| 3 | province | Địa danh | `Dropdown` | * | LOOKUP_STATIC P1 |
-| 4–5 | kmFrom / kmTo | Lý trình từ–đến (Km) | `Number` | * | decimal |
-| 6 | side | Vị trí | `Dropdown` | * | L/R/C/Both |
-| 7 | assetType | Chủng loại | `Dropdown` | * | 11 enum · đổi type → đổi child section · **Q-TYPE-UX** |
-| 8 | builtYear | Năm XD/SD | `Number` | | year |
-| 9 | status | Tình trạng | `Dropdown` | * | LOOKUP_STATIC |
-| — | manageUnit | ĐV QL | `Text` → SearchInput | | **GAP-CSDL-ORG-01** · trail |
-| — | notes | Ghi chú | `Textarea` | | trail |
-
-### Child sections (1 visible · theo `assetType`)
-
-| assetType | Fields | controlHint notes |
-|-----------|--------|-------------------|
-| `TRAFFIC_SIGN` | signCode · signSize · signPoleCount · signPoleHeightM | QCVN mã biển · Number cao cột |
-| `MARKER_POST` | markerKind · markerQty · markerStructure · markerAreaM2 | cọc tiêu/H/Km/dẻo/thủy chí · **Q-MARKER-KIND** |
-| `MEDIAN` | medianKind · medianStructure · medianLengthM · medianHeightM | GPC |
-| `ANTI_GLARE` | antiGlareKind · antiGlareStructure · antiGlareQty · antiGlareLengthM | tấm chống chói |
-| `TRAFFIC_ISLAND` | islandType · islandStructure · islandAreaM2 | đảo GT |
-| `ROAD_STUD` | studSize · studQty | đinh phản quang |
-| `GUARDRAIL` | guardrailKind · guardrailStructure · guardrailLengthM · guardrailReflector | hộ lan + mắt PQ |
-| `ROAD_MARKING` | markCode · markLengthM · markWidthM · markAreaM2 | vạch sơn |
-| `CRASH_CUSHION` | cushionQty | thùng giảm chấn |
-| `CONVEX_MIRROR` | mirrorQty | gương cầu |
-| `TRAFFIC_SIGNAL` | signalPoleKind · signalHeightM · lampKind · lampQty | đèn tín hiệu |
-
-## Control hint — actions
+## Control hint — actions (**delta**)
 
 | Action | Surface | Notes |
 |--------|---------|-------|
-| back-hub | List A | về `/so-ts/csdl-so-sach` |
-| create / view / edit / copy / delete | Toolbar + row | soft-delete API |
-| save / cancel | Form footer | LeaveConfirmModal dirty |
-| import / export | Toolbar | stub · XLS Biểu 8 OUT pack · merge-header |
-| history | Toolbar / row | stub modal OK P2 |
-| schema-config | Toolbar | UiSchema typed `traffic-safety` (+ per-type) |
-| peer-sots | Toolbar / row (opt) | deep-link so-ts type khớp assetType · **cấm** merge form |
+| export-excel | **catalogToolbar** | Label **Xuất Excel** · binary download · sheet Biểu 8 · filter QS áp dụng nếu SA chốt |
+| import-excel | **catalogToolbar** (P1) | Template Cục · merge-header 45 · **cấm** filter bar · **cấm** wide-row invent |
+| create / view / edit / copy / delete / history / schema-config / refresh | Toolbar (keep) | Unchanged |
+| save / cancel | Form footer | Unchanged |
+| peer-sots | Toolbar / row (opt) | Deep-link keep · **cấm** merge |
+| print-pdf | — | **OUT** Biểu (sổ Word) · không Wave 1 S08 |
 
 ## Open questions (PO trước Design)
 
 | ID | Q | Options |
 |----|---|---------|
-| Q-ROUTE | Alias `/csdl-bieu-08` Navigate ngay hay DEFER hub-only? | alias_now · hub_only |
-| Q-PROV | Province static vs master? | keep_static · master_province |
-| Q-CHILD | SA model: bảng con / JSON typed / polymorphic row + `type=`? | child_tables · json_typed · poly_row |
-| Q-TYPE-UX | Đổi `assetType` khi edit: clear child · block · confirm? | clear · block · confirm |
-| Q-MARKER-KIND | `markerKind` enum set (cọc tiêu/H/Km/dẻo/thủy chí) seed đâu? | excel_seed · lookup_static |
-| Q-LIST-COLS | Grid mặc định: shared + type-specific subset hay schema-config only? | subset_by_type · schema_only |
-| Q-REN-LABEL | Đổi label hub card «Biểu 7» → «Biểu 08» cùng release typed? | with_typed · label_first |
-| Q-PEER | Peer deep-link bắt buộc P1 hay optional? | optional · required_map |
+| Q-XLS-SCOPE | Export = **filtered set** (gồm `assetType`/road/…) hay **all tenant resource**? | filtered · all_resource (**SA/PO**) |
+| Q-XLS-IMPORT | Import P1 cùng task hay DEFER sau export-only? | import_now · export_only_p0 |
+| Q-XLS-FILENAME | Tên file download? | `Bieu08_HeThongATGT_{yyyyMMdd}.xls(x)` · SA chốt |
+| Q-XLS-TYPE | Export 1 sheet gộp 11 nhóm hay sheet/filter theo `assetType`? | one_sheet_45 · filter_type_only (**cấm** 11 sheet invent) |
 
 ## Handoff
 
 | Role | Dùng packet |
 |------|-------------|
-| **PO** | § Delta + open Q → `requirement.md` |
-| **Design** | control-map khớp bảng · prototype list+slideout · **1 child section** · reviewUrl |
-| **SA** | path `api/v1/asset/csdl-records` · typed DTO/UiSchema · Schema_CsdlBieu8 (+ children) · renumber formNo · **cấm** wide table |
-| **TL/Dev** | Wire controlHint · **cấm** đoán Text vs SearchInput |
+| **PO** | § Delta T-XLS-S08 · DoD binary ≠ toast · giữ Grid AC typed |
+| **Design** | **Giữ** prototype typed · **chỉ** thêm nút Xuất (+Import) trên toolbar · reviewUrl cập nhật zone |
+| **SA** | Path export/import · BFF binary · golden 16-sheet · **cấm** đổi typed entity trừ gap · **cấm** wide-row |
+| **TL/Dev** | `/implement-export-import-excel` · **cấm** filter-bar export · **cấm** re-CRUD typed |
 
 ## Version meta (REQUIRED)
 
 | Field | Value |
 |-------|-------|
 | skillId | agent-data-analy |
-| skillVersion | 2026.08.25.01 |
+| skillVersion | 2026.09.05.03 |
 | schemaVersion | 1 |
-| workflowVersion | 2026.09.01.02 |
-| rulesVersion | 2026.08.31.2 |
-| contentHash | `sha256:f972c82727726d256754d076435f9ef97c993b4f9844dc79e50b6415fcaf54be` |
+| workflowVersion | 2026.09.05.03 |
+| rulesVersion | 2026.09.17.3 |
+| contentHash | `sha256:639566df4ddccc3927311d5618bf4e7c1dbad0dac80962c414f861dacc9d5e9c` |
 | headerFingerprint | `sha256:ba8b8db4f7637ee32cfd4a882b6abdc774c538f6c9812c3ecd1d13f6151cdd6f` |
-| generatedAt | 2026-09-05T16:58:08.958Z |
+| generatedAt | 2026-09-18T04:55:00.000Z |
 | versionGate | ok |
-| taskId | task_a21c4937 |
+| taskId | task_774ebbde |
 | packKind | list |
-| changeScope | new_page |
+| changeScope | edit_page |
 
 ---
-<!-- Version meta: skillId=agent-data-analy skillVersion=2026.08.25.01 schemaVersion=1 workflowVersion=2026.09.01.02 rulesVersion=2026.08.31.2 versionGate=ok contentHash=sha256:f972c82727726d256754d076435f9ef97c993b4f9844dc79e50b6415fcaf54be -->
+<!-- Version meta: skillId=agent-data-analy skillVersion=2026.09.05.03 schemaVersion=1 workflowVersion=2026.09.05.03 rulesVersion=2026.09.17.3 versionGate=ok contentHash=sha256:639566df4ddccc3927311d5618bf4e7c1dbad0dac80962c414f861dacc9d5e9c changeScope=edit_page taskId=task_774ebbde -->

@@ -1,0 +1,26 @@
+{
+  "catalogKind": "job-title",
+  "source": "cuc-01/ds-nhan-su-rmms/Danh sách nhân sự số hóa 10.9.2026.xlsx",
+  "note": "Canonical rows. Excel variants → legacyAliases. Data-analy may merge more.",
+  "items": [
+    { "code": "TRUONG-VP", "name": "Trưởng Văn phòng", "titleGroup": "LEAD", "packageHint": "MANAGER-RMMS", "legacyAliases": ["Trưởng Văn phòng QLĐBI.3"] },
+    { "code": "PHO-TRUONG-VP", "name": "Phó trưởng Văn phòng", "titleGroup": "LEAD", "packageHint": "MANAGER-RMMS", "legacyAliases": ["Phó Trưởng Văn phòng QLĐBI.3"] },
+    { "code": "DOI-TRUONG", "name": "Đội trưởng", "titleGroup": "LEAD", "packageHint": "MANAGER-RMMS", "legacyAliases": ["Đội trưởng Đội bảo trì số 01", "Đội trưởng Đội bảo trì số 03", "Đội trưởng Đội bảo trì số 05"] },
+    { "code": "DOI-PHO", "name": "Đội phó", "titleGroup": "LEAD", "packageHint": "MANAGER-RMMS", "legacyAliases": ["Đội phó Đội bảo trì số 01"] },
+    { "code": "PHU-TRACH-DOI", "name": "Phụ trách đội", "titleGroup": "LEAD", "packageHint": "MANAGER-RMMS", "legacyAliases": ["PT Đội QLĐBI.3-1 Chuyên viên", "PT Đội QLĐBI.3-2 Chuyên viên", "PT Đội QLĐBI.3-3 Chuyên viên", "PT Đội QLĐBI.3-4 Chuyên viên"] },
+    { "code": "HAT-TRUONG", "name": "Hạt trưởng", "titleGroup": "LEAD", "packageHint": "MANAGER-RMMS", "legacyAliases": ["Hạt Trưởng", "P Hạt trưởng"] },
+    { "code": "HAT-PHO", "name": "Hạt phó", "titleGroup": "LEAD", "packageHint": "MANAGER-RMMS", "legacyAliases": ["Hạt Phó", "Hạt phó + Tuần đường", "Hạt phó kiêm tuần đường"] },
+    { "code": "GIAM-DOC", "name": "Giám đốc", "titleGroup": "LEAD", "packageHint": "MANAGER-RMMS", "legacyAliases": ["Giám đốc điều hành", "Giám đốc xí nghiệp", "Giám đốc BĐH QLĐB38"] },
+    { "code": "PHO-GIAM-DOC", "name": "Phó giám đốc", "titleGroup": "LEAD", "packageHint": "MANAGER-RMMS", "legacyAliases": ["Phó Giám đốc", "Phó GĐ điều hành", "Phó Giám đốc điều hành", "Phó Giám đốc điều hành", "Phó Giám đốc Xí nghiệp", "Phó GĐ Ban điều hành", "PGĐ", "Phó Tổng giám đốc"] },
+    { "code": "TRUONG-PHONG", "name": "Trưởng phòng", "titleGroup": "LEAD", "packageHint": "MANAGER-RMMS", "legacyAliases": ["Trưởng phòng QLBT&ATGT", "Trưởng Phòng Kế hoạch kỹ thuật", "Trưởng phòng KH-KT (phụ trách chung)", "TP. QLGT", "TP. QLBT"] },
+    { "code": "PHO-PHONG", "name": "Phó phòng", "titleGroup": "LEAD", "packageHint": "MANAGER-RMMS", "legacyAliases": ["Phó phòng Phòng QLBT&ATGT", "Phó phòng QLGT - Hạt trưởng", "Phó Phòng KHKT", "Phó Trưởng phòng", "Phó Trưởng Phòng BTĐB"] },
+    { "code": "TO-TRUONG", "name": "Tổ trưởng", "titleGroup": "LEAD", "packageHint": "MANAGER-RMMS", "legacyAliases": ["Tổ trưởng tổ tuần đường số 1", "Tổ trưởng tổ tuần đường số 2", "Tổ trưởng tổ tuần đường số 3", "Phụ trách Tổ Tổng Hợp"] },
+    { "code": "TRUONG-CA", "name": "Trưởng ca điều hành", "titleGroup": "LEAD", "packageHint": "MANAGER-RMMS", "legacyAliases": [] },
+    { "code": "CHUYEN-VIEN", "name": "Chuyên viên", "titleGroup": "TECH", "packageHint": "RMMS-TDTK", "legacyAliases": ["CV phòng QL-KT/ Tuần đường"] },
+    { "code": "KY-SU", "name": "Kỹ sư", "titleGroup": "TECH", "packageHint": "RMMS-TDTK", "legacyAliases": ["Kỹ thuật"] },
+    { "code": "CAN-BO-KT", "name": "Cán bộ kỹ thuật", "titleGroup": "TECH", "packageHint": "RMMS-TDTK", "legacyAliases": ["cán bộ KT", "Cán bộ kỹ thuật Đội bảo trì số 01", "Cán bộ kỹ thuật Đội bảo trì số 03", "Cán bộ kỹ thuật Đội bảo trì số 05", "Phụ trách kỹ thuật bảo trì", "Phụ trách kỹ thuật an toàn giao thông"] },
+    { "code": "TUAN-DUONG", "name": "Tuần đường", "titleGroup": "PATROL", "packageHint": "RMMS-TDTK", "legacyAliases": ["Tuần Đường", "Nhân viên tuần đường", "Tuần đường/QL3", "Tuần đường Đội bảo trì số 01", "Tuần đường Đội bảo trì số 05"] },
+    { "code": "TUAN-KIEM", "name": "Tuần kiểm", "titleGroup": "PATROL", "packageHint": "RMMS-TDTK", "legacyAliases": ["Tuần kiềm", "Nhân viên tuần Kiểm", "Tuần kiểm viên/Phụ trách BDTX", "Phụ trách chung/ Tuần kiểm"] },
+    { "code": "NHAN-VIEN", "name": "Nhân viên", "titleGroup": "PATROL", "packageHint": "RMMS-TDTK", "legacyAliases": ["Nhân viên Phòng QLBT&ATGT", "Nhân viên Ban bảo trì", "Nhân viên phòng KH-KT", "Cán bộ nội nghiệp"] }
+  ]
+}

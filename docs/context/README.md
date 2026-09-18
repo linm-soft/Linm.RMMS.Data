@@ -58,6 +58,7 @@
 | [`features/ai-its/toc-do-qt.md`](features/ai-its/toc-do-qt.md) | Feature context ANPR overload · demo `/demo/p/ai-its/toc-do-qt` | PM, Dev |
 | [`features/camera-connect.md`](features/camera-connect.md) | Kết nối camera ITS · TCM403 · **P2 HLS multi-viewer G2b** · Events Info slide-out · WebRTC ẩn · **pilot wall+map** | PM, Dev, ITS |
 | [`features/camera-vehicle-type.md`](features/camera-vehicle-type.md) | **Map loại xe** datasheet TCM403 (9 type + ISAPI → nhãn RMMS) · **cấm** 1:1 TCVN 14182 | ITS, BA, Dev |
+| [`features/its-anco-signal.md`](features/its-anco-signal.md) | **Nút đèn Anco** — list + camera live + chi tiết đếm xe · Config_* / phân luồng **DEFER** | ITS, BA, Dev |
 | [**camera-ops-dashboard-demo.html**](../Linm.RMMS.Demo/src/demo/features/camera-ops-dashboard-demo.html) | **Pilot** wall kéo-thả nhiều cam + GIS 1-click đếm xe/event + slideout live | Stakeholder, Camera, GIS |
 | [**30-CAMERA-LIVE-STREAM-CONFIG.md**](30-CAMERA-LIVE-STREAM-CONFIG.md) | **Checklist HLS** — JPEG ≠ RTSP · N viewer / 1 cam · KPI Đang xem · Replicas=1 · Sub H.264 · NAT | ITS ops, Dev, FE |
 | [**22-CAMERA-TCM403-SDK-RESEARCH.md**](22-CAMERA-TCM403-SDK-RESEARCH.md) | SDK vs ISAPI · port 8000/8100 · **P1.5 BE** `CameraModelCatalog` + `HikvisionSdkClient` | Architect, BE |

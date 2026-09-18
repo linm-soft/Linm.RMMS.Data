@@ -1,84 +1,70 @@
-# handoff-compact — review · csdl-bieu-01
+# Handoff compact — review
 
-| | |
-|--|--|
-| schemaVersion | `1` |
-| role | `review` |
-| feature | `csdl-bieu-01` |
-| title | CSDL Biểu 01 — Phân loại mặt đường |
-| packKind | `list` |
-| changeScope | `new_page` |
-| status | `done` |
-| verdict | **PASS** |
-| review_confirm | **done** (accept · 0 fix_gaps) |
-| autoApprove | `ON` |
-| taskId | `task_c53d69d9` |
-| priorQaTaskId | `task_79534771` |
-| priorDevTaskId | `task_aefea7f3` |
-| resource | `pavement-sections` |
-| formNo | `01` |
-| columns | `38` |
-| IdCode | `MD-` |
-| peerSoTs | `pavement-section` |
-| formPattern | **Kind D Slideout** 2col |
-| Kind | **B** A–D+F · **D** Slideout Z1–Z3 |
-| route_confirm | `route_a` |
-| mfeStdUrl | `http://localhost:9301/csdl-bieu-01` |
-| hubDeepLink | `/so-ts/csdl-so-sach?resource=pavement-sections` |
-| domain | **Asset** · `api/v1/asset/csdl-records` |
-| entity | shell + `CsdlBieu1Entity` · `Schema_CsdlBieu1` |
-| e2eQa | prior **PASS** · **cấm** re-run this role |
-| contentHashPrior | `sha256:3545960f4006740c9dfe57b5f004fa4a1cd1b7befbcd51e35e2168e16821b65e` |
-| reviewHash | `sha256:a7c2e91f4b8d3056` |
-| skillVersion | `2026.08.29.03` |
-| workflowVersion | `2026.09.01.02` |
-| rulesVersion | `2026.08.31.2` |
-| writtenAt | `2026-09-05T05:52:00.000Z` |
+schemaVersion: 1
+feature: csdl-bieu-01
+packKind: list
+role: review
+status: done
+verdict: PASS
+review_confirm: done
+skillVersion: 2026.09.05.03
+workflowVersion: 2026.09.05.03
+rulesVersion: 2026.09.17.3
+contentHash: sha256:b48e58e637a1dd4fc9e14298a0063d34c89eadb1ea02ba756b561b4648d4b085
+reviewHash: sha256:c9e4f1a82b7d6053
+writtenAt: 2026-09-18T01:41:00.000Z
+taskId: task_f77bd354
+priorQaTaskId: task_795fd15b
+resource: pavement-sections
+columns: 38
+IdCode: MD-
+changeScope: edit_page
+formPattern: Slideout
+fixGaps: 0
+autoApprove: ON
+mfeStdUrl: http://localhost:9301/so-ts/csdl-so-sach
+alias: /csdl-bieu-01
 
 ## Decisions
-
-- review_confirm **done** · autoApprove ON · accept · **0** fix_gaps
-- SSOT: route_a + typed 38 · four_buckets · one_enum · csdl-records · **cấm** ERP.* · **cấm** detail*-only
-- QA S0/S1/QA-20 + Dev yarn/dotnet PASS (prior) · Review static only
-- open Q: **none** Review-blocking
-- pipeline leaf → **phase=done**
+- changeScope: edit_page (T-XLS-S01) · typed CRUD KEEP · **cấm** reopen 38-col
+- review_confirm: **done** (autoApprove) · verdict **PASS** · **0** fix_gaps
+- export: filtered · filename `Bieu01_PhanLoaiMatDuong_{yyyyMMdd}.xls` · catalogToolbar
+- import: import_now · sheet Biểu 1 · skipBridge
+- filter: **0** Xuất on LinErpListFilterBar (GAP-FILTER-BAR-08)
+- QA prior PASS · **cấm** e2e this role · **cấm** ERP.*
+- open questions: none
 
 ## Findings counts
+| Class | P0 | P1 | P2/Info | Blocking |
+|-------|----|----|---------|----------|
+| query | 0 | 0 | 0 | 0 |
+| security | 0 | 0 | 1 (Auth DEFER) | 0 |
+| ui-fn | 0 | 0 | 0 | 0 |
+| be-fn | 0 | 0 | 0 | 0 |
+| note/debt | 0 | 0 | 3 | 0 |
 
-| Class | PASS | P0 | P1 | P2 debt |
-|-------|------|----|----|---------|
-| QUERY | yes | 0 | 0 | 0 |
-| SEC | yes | 0 | 0 | Auth stub |
-| UI-FN | yes | 0 | 0 | — |
-| BE-FN | yes | 0 | 0 | migrate apply · legacy ctrl |
+## Inventory (slim)
+| id | label | controlHint | notes |
+|----|-------|-------------|-------|
+| exportExcel | Xuất Excel | ToolbarButton | filtered · PASS |
+| importExcel | Nhập Excel | ToolbarButton+file | import_now · PASS |
+| (form 38) | typed prior | keep | KEEP |
 
-## Artifacts
+## Screens / zones (ids only)
+- S-LIST · S-XLS-EXPORT · S-XLS-IMPORT · S-FORM-* KEEP
+- testid=`rmms-csdl-bieu-01-list-page` · `…-export-excel-btn` · `…-import-excel-btn`
 
-| Kind | Path |
-|------|------|
-| findings | `specs/csdl-bieu-01/review/findings.md` |
-| STATUS | `specs/csdl-bieu-01/STATUS.md` |
-| prior qa | `handoff/qa-compact.md` |
-
-## Screens / zones
-
-- S-LIST · S-FORM-C/E/V/Copy · S-HUB-ENTRY · S-PEER-SOTS
-- PNG prior: `qa/screens/{S0,S1,QA-20}.png`
+## API / tasks (ids only)
+- API-XLS-01/02/03 · T-XLS-* done · T-XLS-QA-01 PASS
+- CRUD KEEP
 
 ## Debt
-
-- Auth RequirePermission DEFER · migrate DB apply · GAP-QA-E2E-PW-01 · org/XLS OUT
-
-## Next
-
-| Role | Need |
-|------|------|
-| — | pipeline **done** · no further role |
+- Auth DEFER · getBlob CD strip · BIFF N/A · GAP-QA-E2E-PW-01 P2
 
 ## UNCLEAR
-
 - none
 
-## Cấm (compact)
-
-ERP.* · implement · e2e/start:std/build · Step 4b · invent API · merge Sổ TS · start role khác
+## Full paths (Read only if needed)
+- findings: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-01/review/findings.md
+- STATUS: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-01/STATUS.md
+- prior: handoff/qa-compact.md

@@ -1,85 +1,72 @@
-# handoff-compact — design · csdl-bieu-12
+# Handoff compact — design
 
-| | |
-|--|--|
-| schemaVersion | `1` |
-| role | `design` |
-| feature | `csdl-bieu-12` |
-| title | CSDL Biểu 12 — Cây xanh, thảm cỏ |
-| packKind | `list` |
-| changeScope | `new_page` |
-| status | `done` |
-| taskId | `task_8d909c44` |
-| resource | `green-assets` |
-| formNo | `12` |
-| columns | `15` · 2 section khóm + thảm cỏ |
-| IdCode | `CX-` |
-| peerSoTs | — (không peer · **cấm** invent so-ts-green) |
-| autoApprove | `ON` |
-| e2eQa | `ON` |
-| design_confirm | `approve` |
-| shared_grid_example | `v1` |
-| real_view_parity | `v1` |
-| contentHashPrior | `sha256:6da498be3a84192c6f3e3c30a7e8032bf2753359591a9aabd3ad36d809f4c457` |
-| headerFingerprintPrior | `sha256:54aef0c755530d138ecefa7a303b22c78c32ca1b6ae3555d5bb33492799b5af9` |
-| skillVersion | `2026.08.29.03` |
-| workflowVersion | `2026.09.01.02` |
-| rulesVersion | `2026.08.31.2` |
-| writtenAt | `2026-09-05T13:15:00.000Z` |
+schemaVersion: 1
+feature: csdl-bieu-12
+packKind: list
+role: design
+status: done
+skillVersion: 2026.09.05.03
+workflowVersion: 2026.09.05.03
+rulesVersion: 2026.09.17.3
+contentHash: sha256:f42502cee520105fb0a7f618c17b8b0f582884d7f779f638ec7310c26346e77a
+headerFingerprint: sha256:b6a541f8adc60a5badc72fc92c606631e5a1457fc119b9a6a546eb1f0acc437a
+writtenAt: 2026-09-18T00:35:00.000Z
+taskId: task_5391dd50
+resource: green-assets
+columns: 15
+IdCode: CX-
+peerSoTs: —
+design_confirm: approve
+shared_grid_example: v1
+real_view_parity: v1
+formPattern: Slideout
+changeScope: edit_page
 
 ## Decisions
-
-- Kind **B** A–D+F + Kind **D** Slideout · `data-form-cols=2` · footer_actions_only · **2 section** Khóm cây + Thảm cỏ · **cấm** Full-page
-- form typed **15** · **cấm** detail* only · Control = controlHint
-- Q-ROUTE **alias_now** `/csdl-bieu-12` · Q-PROV **keep_static** · Q-OTHER-CLUMP **keep_other** · Q-GRASS-REQ **allow_either** · Q-TALUY **side_only** · Q-LIST-COLS **subset** · Q-TITLE **keep_demo** · Q-DMAP **add_now**
-- GAP-BIEU12-TYPED/ROUTE/CLUMP/GRASS/SIDE/DMAP P1 · GAP-CSDL-ROAD-01 SearchInput P1 · ORG DEFER P2 · XLS OUT stub
-- peer **none** · map none · **cấm** invent so-ts-green
-- API giữ `api/v1/asset/csdl-records` · catalogKind `green-assets` · **cấm** ERP.*
-- design_confirm **approve** (autoApprove ON) · open Q: **none**
-- Report DES-RPT **N/A** · Grid AC YES · Leave YES
+- changeScope: edit_page (T-XLS-S12) · **cấm** new_page typed reopen
+- formPattern: Slideout · data-form-cols=2 · footer_actions_only · 2 section khóm+cỏ (keep)
+- Kind B A–D+F keep · toolbar **+Xuất Excel** · Import **DEFER P1 ẩn**
+- Q-XLS-SCOPE: filtered · Q-XLS-IMPORT: export_only_p0 · Q-XLS-FILENAME: Bieu12_CayXanh_{yyyyMMdd}.xlsx (SA chốt ext) · Q-XLS-SHEET: one_sheet
+- export: catalogToolbar · BFF binary · `/implement-export-import-excel`
+- golden: Cục 16-sheet sheet Biểu 12 · 15 cột · **cấm** 12+8 · **cấm** 2 sheet
+- filter: **cấm** Xuất trên LinErpListFilterBar (GAP-FILTER-BAR-08)
+- peer: none · **cấm** invent so-ts-green
+- design_confirm: approve (autoApprove ON) · open Q Design: none
+- Report DES-RPT: N/A
+- mfe: Linm.Web.RMMS.Asset · be: Linm.RMMS.WebService · **cấm ERP.***
 
 ## Inventory (slim)
-
 | id | label | controlHint | notes |
 |----|-------|-------------|-------|
-| search | Tìm | SearchTextInput | Zone B · 🔍 cụm phải |
-| province/status/side | Tỉnh/TT/Vị trí | Dropdown | LOOKUP_STATIC · side_only |
-| roadCode | Đường | SearchInput | road-route |
-| kmFrom/kmTo | Km | Number | Line/Polygon |
-| code | Mã | Text ro | CX- |
-| oleander/ngau/palm/otherClumps | Khóm SL | Number | keep_other |
-| grassAreaM2 | Thảm cỏ m² | Number | allow_either |
-| manageUnit/notes/status | … | Text/Textarea/Dropdown | org P2 |
+| (form 15/2) | typed prior | keep | khóm+cỏ · **cấm** reopen |
+| exportExcel | Xuất Excel | ToolbarButton | fa-file-excel · filtered · P0 |
+| importExcel | Nhập Excel | ToolbarButton+file | DEFER P1 · ẩn |
 
 ## Screens / zones (ids only)
+- S-LIST DES-GRID-A/B/B-FILTER/C/D/F/H keep · toolbar +export
+- S-XLS-EXPORT · S-XLS-IMPORT (hidden P1)
+- S-FORM-* DES-GRID-Z keep · LeaveConfirmModal
+- reviewUrl=file:///D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-12/ui/prototype/csdl-bieu-12-list-prototype.html
+- mfeStdUrl=http://localhost:9301/so-ts/csdl-so-sach · alias /csdl-bieu-12
+- hubUrl=http://localhost:9301/so-ts/csdl-so-sach?resource=green-assets
+- prototype=specs/csdl-bieu-12/ui/prototype/csdl-bieu-12-list-prototype.html
 
-- S-LIST DES-GRID-A · B · B-FILTER · C · D · F · H
-- S-FORM-* DES-GRID-Z · DES-FORM-Z1–Z3 · Z2b Thảm cỏ · LeaveConfirmModal
-- S-HUB-ENTRY · S-SKIP-MAP · S-SKIP-PEER
-- reviewUrl=`file:///D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-12/ui/prototype/csdl-bieu-12-list-prototype.html`
-- mfeStdUrl=`http://localhost:9301/csdl-bieu-12`
-- hubUrl=`http://localhost:9301/so-ts/csdl-so-sach?resource=green-assets`
-- prototype=`specs/csdl-bieu-12/ui/prototype/csdl-bieu-12-list-prototype.html`
-
-## API / next
-
-- CRUD BFF `…/asset/csdl-records` · resource=green-assets · typed DTO **SA**
-- road-route `…/integration/road-routes/search`
-- Next: **SA** Schema_CsdlBieu12 · UiSchema typed · Oleander*/GrassAreaM2 · DOMAIN-MAP slug
-- e2e: queued `/agent-qa*` only · **cấm** e2e/start:std ở Design
+## API / tasks (ids only)
+- CRUD keep: …/csdl-records?resource=green-assets
+- Export: GET …/csdl-records/export?resource=green-assets (+ filter QS)
+- Import: POST …/import — DEFER P1
+- T-XLS-S12 · GAP-BIEU12-XLS-01..07
+- Next: SA path/BFF/golden · filename ext
 
 ## UNCLEAR
-
-- none
+- none (Design) · SA: ext .xls vs .xlsx · page-all vs streaming
 
 ## Full paths (Read only if needed)
-
-- design: `D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-12/ui/design.md`
-- control-hint: `D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/csdl-bieu-12-control-hint.md`
-- real-data: `D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/csdl-bieu-12-real-data.md`
-- prior po: `D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-12/handoff/po-compact.md`
-- STATUS: `D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-12/STATUS.md`
+- design: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-12/ui/design.md
+- control-hint: D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/csdl-bieu-12-control-hint.md
+- real-data: D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/csdl-bieu-12-real-data.md
+- prior po: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-12/handoff/po-compact.md
+- STATUS: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-12/STATUS.md
 
 ## Cấm (compact)
-
-Demo/LS SSOT · ERP.* · Guid IdCode · form 3 ô only · invent map · invent so-ts-green · yarn build/e2e/start:std · re-scan demo · paste HTML vào compact
+ERP.* · toast=done · filter-bar export · golden 12+8 · 2 sheet · invent so-ts-green · new_page typed re-CRUD · yarn build/e2e · re-scan demo · paste HTML

@@ -1,25 +1,27 @@
 {
   "feature": "csdl-so-02",
   "ok": true,
-  "capturedAt": "2026-09-05T17:43:05.230Z",
-  "method": "playwright-channel-chrome",
+  "cr": "nktd-pdf-20260917",
+  "wave": "A",
+  "capturedAt": "2026-09-18T04:06:10.676Z",
+  "method": "playwright channel=chrome · yarn e2e-qa playwright resolve fail → AutoCode createRequire fallback · skip-start · Wave A locationText",
   "gap": "GAP-QA-E2E-PW-01",
   "results": [
     {
       "id": "S0",
       "ok": true,
       "file": "S0.png",
-      "bytes": 108515,
-      "sha16": "9f44ea2753bd21c4",
-      "note": "list Sổ 02 · filter-bar · province/status/road/period · empty/grid",
+      "bytes": 85984,
+      "sha16": "c12b2a18392a66a7",
+      "note": "list Sổ 02 · filter-bar · cột Vị trí G-11/G-12 · Wave A",
       "finalUrl": "http://localhost:9301/csdl-so-02"
     },
     {
       "id": "S1",
       "ok": true,
       "file": "S1.png",
-      "bytes": 108515,
-      "sha16": "9f44ea2753bd21c4",
+      "bytes": 85984,
+      "sha16": "c12b2a18392a66a7",
       "note": "hub ?resource=patrol-logs → redirect /csdl-so-02",
       "finalUrl": "http://localhost:9301/csdl-so-02"
     },
@@ -27,9 +29,9 @@
       "id": "QA-20",
       "ok": true,
       "file": "QA-20.png",
-      "bytes": 110275,
-      "sha16": "591d838db676d7e8",
-      "note": "Create Slideout · form=create · Z2 header · entries inline_grid · SO-",
+      "bytes": 102140,
+      "sha16": "928baf1b8f3aed7f",
+      "note": "Create · locationText + locationKm + weather Textarea · 2col",
       "finalUrl": "http://localhost:9301/csdl-so-02"
     }
   ]

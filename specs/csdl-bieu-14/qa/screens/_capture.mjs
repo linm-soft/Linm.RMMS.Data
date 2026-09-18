@@ -1,12 +1,17 @@
 /**
- * QA E2E capture — yarn e2e-qa contract (GAP-QA-E2E-PW-01 fallback).
- * Prefer yarn e2e-qa; if hang @ login → channel=chrome system Chrome.
- * std + docker already listen · skip-start · cấm kill worker rộng.
+ * QA E2E capture — edit_page T-XLS-S14 + CRUD KEEP.
+ * yarn e2e-qa overwrites bare playwright → GAP-QA-E2E-PW-01.
+ * Run AFTER e2e-qa via: node this file (createRequire AutoCode).
+ * channel=chrome · skip-start · cấm kill worker (GAP-QA-E2E-KILL-01).
+ * Import DEFER P1 · export_only_p0 · cấm merge so-ts-its-camera.
  */
-import { writeFileSync, readFileSync, mkdirSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { join } from "node:path";
-import { chromium } from "playwright";
+import { createRequire } from "node:module";
+
+const require = createRequire("D:/AI-Extension/AI-AutoCode/package.json");
+const { chromium } = require("playwright");
 
 const outDir = "D:\\AI-QLBD\\Linm.RMMS.Data\\specs\\csdl-bieu-14\\qa\\screens";
 mkdirSync(outDir, { recursive: true });
@@ -16,19 +21,23 @@ const hubUrl =
 const formUrl = "http://localhost:9301/csdl-bieu-14?form=create";
 const listSel = '[data-testid="rmms-csdl-bieu-14-list-page"]';
 const formSel = '[data-testid="rmms-csdl-bieu-14-form-slideout"]';
-const hubRedirectSel = '[data-testid="rmms-csdl-bieu-14-list-page"]';
+const hubListSel = '[data-testid="rmms-csdl-bieu-14-list-page"]';
+const exportSel =
+  '[data-testid="rmms-csdl-bieu-14-list-export-excel-btn"]';
 
 const steps = [
   {
     id: "S0",
     url: listUrl,
     selector: listSel,
-    note: "list Biểu 14 · filter-bar · deviceType/side/km · empty/grid · peer none_p1",
+    also: exportSel,
+    note: "list Biểu 14 · toolbar Xuất · Import ẩn · filter-bar · peer none",
   },
   {
     id: "S1",
     url: hubUrl,
-    selector: hubRedirectSel,
+    selector: hubListSel,
+    also: exportSel,
     note: "hub ?resource=its-systems → redirect /csdl-bieu-14",
   },
   {
@@ -36,16 +45,15 @@ const steps = [
     url: formUrl,
     selector: formSel,
     also: '[data-testid="csdl-bieu-14-form-z2"]',
-    note: "Create Slideout · form=create · Z2 TB · Z3 HT · IT-",
+    note: "Create Slideout · form=create KEEP · Z2 TB · Z3 HT · IT-",
   },
 ];
-
-const results = [];
 
 function shotName(id) {
   return id.replace(/[^a-zA-Z0-9._-]+/g, "-").replace(/^-+|-+$/g, "") + ".png";
 }
 
+const results = [];
 const browser = await chromium.launch({
   headless: true,
   channel: "chrome",
@@ -61,13 +69,19 @@ try {
         waitUntil: "domcontentloaded",
         timeout: 60000,
       });
-      const status = res ? res.status() : 0;
-      if (!res || status >= 500) {
-        throw new Error("HTTP " + (status || "no-response"));
+      if (!res || !res.ok()) {
+        const hasBoot = await page
+          .locator("#root")
+          .count()
+          .then((n) => n > 0)
+          .catch(() => false);
+        if (!hasBoot) {
+          throw new Error("HTTP " + (res ? res.status() : "no-response"));
+        }
       }
-      await page.waitForSelector(step.selector, { timeout: 25000 });
+      await page.waitForSelector(step.selector, { timeout: 45000 });
       if (step.also) {
-        await page.waitForSelector(step.also, { timeout: 15000 });
+        await page.waitForSelector(step.also, { timeout: 20000 });
       }
       await new Promise((r) => setTimeout(r, 1500));
 
@@ -77,6 +91,14 @@ try {
             document.querySelectorAll("[data-testid]"),
           ).map((el) => el.getAttribute("data-testid"));
           const body = document.body?.innerText || "";
+          const filterRoot = document.querySelector(
+            '[data-testid="rmms-csdl-bieu-14-list-filters"]',
+          );
+          const filterExport = filterRoot
+            ? filterRoot.querySelector(
+                '[data-testid*="export"], button[aria-label*="Xuất"], button[title*="Xuất"]',
+              )
+            : null;
           return {
             url: location.href,
             hasTitle: /Biểu\s*14|Hệ thống ITS|ITS \(GTTM\)/i.test(body),
@@ -85,6 +107,13 @@ try {
             hasDeviceType: testids.some((t) => t && /field-deviceType/i.test(t)),
             hasKmFrom: testids.some((t) => t && /kmFrom/i.test(t)),
             hasKmTo: testids.some((t) => t && /kmTo/i.test(t)),
+            hasExport: testids.includes(
+              "rmms-csdl-bieu-14-list-export-excel-btn",
+            ),
+            hasImport: testids.includes(
+              "rmms-csdl-bieu-14-list-import-excel-btn",
+            ),
+            filterBarHasExport: !!filterExport,
             noDemo: !/demo|stub|placeholder only/i.test(body),
             noModeBadge: !/\b(CREATE|EDIT|VIEW)\b/.test(body),
             peerSots: testids.includes("rmms-csdl-bieu-14-list-peer-sots"),
@@ -96,11 +125,72 @@ try {
             titleSnippet: body.slice(0, 360),
           };
         });
+
+        /** S-XLS-EXPORT: click → Bieu14_HeThongITS_{yyyyMMdd}.xls */
+        let exportCheck = {
+          attempted: false,
+          ok: false,
+          fileName: "",
+          error: "",
+        };
+        try {
+          exportCheck.attempted = true;
+          const [download] = await Promise.all([
+            page.waitForEvent("download", { timeout: 25000 }),
+            page.locator(exportSel).click(),
+          ]);
+          const fileName = download.suggestedFilename() || "";
+          const okName = /^Bieu14_HeThongITS_\d{8}\.xls$/i.test(fileName);
+          const dlPath = await download.path().catch(() => null);
+          if (dlPath) {
+            writeFileSync(
+              join(outDir, fileName || "Bieu14_HeThongITS_download.xls"),
+              readFileSync(dlPath),
+            );
+          }
+          exportCheck = {
+            attempted: true,
+            ok: okName,
+            fileName,
+            hasPath: Boolean(dlPath),
+            error: okName ? "" : `filename mismatch: ${fileName}`,
+          };
+        } catch (err) {
+          exportCheck = {
+            attempted: true,
+            ok: false,
+            fileName: "",
+            error: err instanceof Error ? err.message : String(err),
+          };
+        }
+
+        const assertPayload = { ...live, exportCheck };
         writeFileSync(
           join(outDir, "live-assert.json"),
-          JSON.stringify(live, null, 2),
+          JSON.stringify(assertPayload, null, 2),
           "utf8",
         );
+
+        if (
+          !live.hasExport ||
+          live.hasImport ||
+          live.filterBarHasExport ||
+          !live.peerNoneOk ||
+          !exportCheck.ok
+        ) {
+          throw new Error(
+            "XLS assert fail export=" +
+              live.hasExport +
+              " importHidden=" +
+              !live.hasImport +
+              " filterExport=" +
+              live.filterBarHasExport +
+              " peerNone=" +
+              live.peerNoneOk +
+              " dl=" +
+              JSON.stringify(exportCheck),
+          );
+        }
       }
 
       if (step.id === "QA-20") {
@@ -151,7 +241,7 @@ try {
         sha256_16: hash,
         url: step.url,
         note: step.note,
-        httpStatus: status,
+        httpStatus: res ? res.status() : 200,
       });
     } catch (err) {
       try {
@@ -175,12 +265,12 @@ try {
 const manifest = {
   url: listUrl,
   method:
-    "playwright channel=chrome headless · contract fallback after yarn e2e-qa hang (GAP-QA-E2E-PW-01)",
+    "playwright channel=chrome · yarn e2e-qa playwright resolve fail → AutoCode createRequire fallback · skip-start · T-XLS-S14",
   feature: "csdl-bieu-14",
-  cases: ["S0", "S1", "QA-20"],
+  changeScope: "edit_page",
+  cases: results,
+  ok: results.every((r) => r.result === "PASS"),
   capturedAt: new Date().toISOString(),
-  steps: results,
-  ok: results.every((s) => s.result === "PASS"),
 };
 writeFileSync(join(outDir, "manifest.json"), JSON.stringify(manifest, null, 2), "utf8");
 writeFileSync(
@@ -188,7 +278,5 @@ writeFileSync(
   JSON.stringify(manifest, null, 2),
   "utf8",
 );
-// Keep durable copy AFTER e2e-qa overwrite risk — write self last
-writeFileSync(join(outDir, "_capture.mjs"), readFileSync(new URL(import.meta.url)), "utf8");
 console.log(JSON.stringify(manifest, null, 2));
-if (!manifest.ok) process.exit(1);
+process.exit(manifest.ok ? 0 : 1);

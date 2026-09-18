@@ -1,37 +1,38 @@
 {
   "url": "http://localhost:9301/csdl-bieu-03",
-  "method": "playwright channel=chrome headless · contract fallback after yarn e2e-qa hang (GAP-QA-E2E-PW-01)",
+  "method": "playwright channel=chrome · yarn e2e-qa overwrite→createRequire fallback · skip-start · cấm kill",
   "feature": "csdl-bieu-03",
   "cases": [
     "S0",
     "S1",
     "QA-20"
   ],
-  "capturedAt": "2026-09-05T09:08:36.784Z",
+  "changeScope": "edit_page",
+  "capturedAt": "2026-09-17T19:50:56.619Z",
   "steps": [
     {
       "id": "S0",
       "result": "PASS",
       "screenshot": "S0.png",
-      "sha256_16": "45d1ef17df8e67ef",
+      "sha256_16": "29ed0039a7fdb213",
       "url": "http://localhost:9301/csdl-bieu-03",
-      "note": "list Biểu 03 · filter-bar · empty/grid · peer Sổ TS"
+      "note": "list Biểu 03 · toolbar Xuất · filter-bar · 0 filter export · Import ẩn"
     },
     {
       "id": "S1",
       "result": "PASS",
       "screenshot": "S1.png",
-      "sha256_16": "d3e7c32e7f3ec999",
+      "sha256_16": "29ed0039a7fdb213",
       "url": "http://localhost:9301/so-ts/csdl-so-sach?resource=road-tunnels",
-      "note": "hub deep-link ?resource=road-tunnels → list"
+      "note": "hub deep-link ?resource=road-tunnels → Biểu 03 list"
     },
     {
       "id": "QA-20",
       "result": "PASS",
       "screenshot": "QA-20.png",
-      "sha256_16": "7bef2502656791dc",
+      "sha256_16": "6433be237a4a124c",
       "url": "http://localhost:9301/csdl-bieu-03?form=create",
-      "note": "Create Slideout · form=create · GPS×6 · TN-"
+      "note": "Create Slideout · form=create KEEP · GPS×6 · TN-"
     }
   ],
   "ok": true

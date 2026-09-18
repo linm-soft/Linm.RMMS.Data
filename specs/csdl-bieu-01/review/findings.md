@@ -1,135 +1,115 @@
-# Review — Findings — csdl-bieu-01
+# Review — Findings — csdl-bieu-01 (edit_page · T-XLS-S01)
 
 | Field | Value |
 |-------|-------|
 | feature | `csdl-bieu-01` |
-| title | CSDL Biểu 01 — Phân loại mặt đường |
+| title | CSDL Biểu 01 — Phân loại mặt đường · Xuất/Nhập Excel |
 | this role | `review` · `/agent-review` |
 | mode | `review_only` |
 | status | **confirmed** |
 | review_confirm | **done** (autoApprove=ON · accept · **0** fix_gaps) |
-| changeScope | `new_page` |
+| changeScope | `edit_page` |
 | packKind | `list` · Kind B A–D+F · Kind D Slideout 2col |
 | resource | `pavement-sections` · formNo `01` · columns `38` · IdCode `MD-` |
 | productRoot | `D:/AI-QLBD/Linm.RMMS.Data` |
 | MFE | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Asset` |
-| mfeStdRoute | `/csdl-bieu-01` |
-| mfeStdUrl | `http://localhost:9301/csdl-bieu-01` |
+| mfeStdRoute | `/so-ts/csdl-so-sach` · alias `/csdl-bieu-01` |
+| mfeStdUrl | `http://localhost:9301/so-ts/csdl-so-sach` |
 | hubDeepLink | `/so-ts/csdl-so-sach?resource=pavement-sections` |
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/asset/csdl-records` |
 | BFF | `web-bff/api/v1/asset/csdl-records` |
 | autoApprove | **ON** |
-| e2eQa | prior QA **PASS** · **cấm** e2e/start:std this role |
+| e2eQa | prior QA **PASS** (`task_795fd15b`) · **cấm** e2e/start:std this role |
 | chain | **ON** · pipeline leaf · GAP-PKT-ROLE-01 |
-| prior · qa | **confirmed** · `handoff/qa-compact.md` · `task_79534771` |
-| prior · dev | **confirmed** · `handoff/dev-compact.md` · `task_aefea7f3` |
-| taskId | `task_c53d69d9` |
-| contentHashPrior | `sha256:3545960f4006740c9dfe57b5f004fa4a1cd1b7befbcd51e35e2168e16821b65e` |
-| updatedAt | `2026-09-05T05:52:00.000Z` |
+| prior · qa | **confirmed** · `handoff/qa-compact.md` · `task_795fd15b` |
+| prior · dev | **confirmed** · `handoff/dev-compact.md` · `task_742f5820` |
+| taskId | `task_f77bd354` |
+| contentHashPrior | `sha256:b48e58e637a1dd4fc9e14298a0063d34c89eadb1ea02ba756b561b4648d4b085` |
+| reviewHash | `sha256:c9e4f1a82b7d6053` |
+| updatedAt | `2026-09-18T01:41:00.000Z` |
 
-**Method:** static re-audit FE (`CsdlBieu01Page` / `CsdlBieu01FormSlideout` / `csdlSoSach` service / route `csdl-bieu-01`) + BE (`CsdlCatalogService` typed `CsdlBieu1` / `Schema_CsdlBieu1` / DOMAIN-MAP) + prior compact chain (analy→qa) + QA evidence (scenarios + screens S0/S1/QA-20 · manifest `ok=true`). **No** FE/BE write. **FORBIDDEN** yarn build / e2e / start:std / Step 4b / migration (VERIFY GATE roleOnly=review). **FORBIDDEN** ERP.*.
+**Method:** static re-audit delta XLS — FE (`CsdlBieu01Page` catalogToolbar export/import · `csdlSoSach/endpoint` getBlob+filename fallback · filter bar **0** Xuất) + BE (`CsdlCatalogExcelService` OOXML Biểu 1 · filtered Export · import_now skipBridge) + BFF forward + prior compact chain (analy→qa) + QA evidence (S0/S1/QA-20 + S-XLS-EXPORT/IMPORT · manifest ok). **No** FE/BE write. **FORBIDDEN** yarn build / e2e / start:std / Step 4b / migration. **FORBIDDEN** ERP.*.
 
-**Hash:** contentHashPrior unchanged across chain · first review draft → full audit (no SKIP).
+**Hash:** prior REVIEW-META `new_page` / hash `3545960f…` ≠ current `b48e58e6…` → **NO SKIP** · full delta audit T-XLS.
 
-## SSOT surface (live code + QA evidence)
+## SSOT surface (code + QA evidence)
 
 | # | Gate | Live | Verdict |
 |---|------|------|---------|
-| 1 | Route alias `route_a` `/csdl-bieu-01` + hub | `index.tsx` Route + hub `?resource=pavement-sections` | **PASS** |
-| 2 | Kind B list · `LinPageLayout` + FilterBar | `LinPageLayout` · `LinErpListFilterBar` · `fromCatalogToolbar` | **PASS** |
-| 3 | Dynamic grid + schema | `buildDynamicGridColumns` · catalogKind `pavement-sections` | **PASS** |
-| 4 | Kind D Slideout 2col · footer_only | `data-form-cols=2` · LeaveConfirmModal · **0** Full-page | **PASS** |
-| 5 | Typed 38 · **cấm** detail*-only | form fields surfW*×4 + structureType · no detail*-only write | **PASS** |
-| 6 | Q-WIDTH four_buckets · Q-STRUCT one_enum | FE + `CsdlBieu1Entity` + structure enum normalize | **PASS** |
-| 7 | API Asset csdl-records · **cấm** ERP.* | FE `/asset/csdl-records` · BE Asset controller · DOMAIN-MAP | **PASS** |
-| 8 | IdCode `MD-` · soft DELETE | shell MD- · `SoftDeleteAsync` | **PASS** |
-| 9 | road-route SearchInput P1 | filter+form LKP | **PASS** |
-| 10 | Peer Sổ TS deep-link · **cấm** merge | QA-26 + live peer-sots | **PASS** |
-| 11 | QA E2E S0/S1/QA-20 | manifest ok · sha16 evidence | **PASS** (prior) |
-| 12 | yarn/dotnet build | prior Dev/QA | **PASS** (not re-run) |
+| 1 | Route `route_a` hub + alias | `/so-ts/csdl-so-sach` · `/csdl-bieu-01` | **PASS** (prior KEEP) |
+| 2 | Kind B list + FilterBar | `LinPageLayout` · `LinErpListFilterBar` · **0** Xuất trên bar | **PASS** · GAP-FILTER-BAR-08 |
+| 3 | Toolbar Xuất/Nhập | `catalogToolbar` `onExportExcel`/`onImportExcel` · testid `…-export-excel-btn` / `…-import-excel-btn` | **PASS** |
+| 4 | Export filtered + filename | QS = list filters · FE/BE `Bieu01_PhanLoaiMatDuong_{yyyyMMdd}.xls` | **PASS** |
+| 5 | Import import_now | hidden file + `importCommit` sheet `Biểu 1` · `skipBridge` | **PASS** |
+| 6 | Golden sheet Biểu 1 · **cấm** 12+8 | `CsdlCatalogExcelService` `Bieu1SheetName` | **PASS** |
+| 7 | Kind D Slideout 2col KEEP | `data-form-cols=2` · LeaveConfirmModal | **PASS** (prior) |
+| 8 | Typed 38 · **cấm** reopen | compact chain · **cấm** new_page | **PASS** |
+| 9 | API Asset · **cấm** ERP.* | FE `/asset/csdl-records` · BE Asset · BFF | **PASS** |
+| 10 | Gaps EXP/IMP/UI closed | Dev compact · QA PASS | **PASS** |
+| 11 | QA E2E S0/S1/QA-20 + XLS | qa-compact verdict PASS · sha16 evidence | **PASS** (prior · not re-run) |
+| 12 | yarn/dotnet build | Dev `task_742f5820` | **PASS** (not re-run) |
 
 ## Findings
 
-No P0 / P1 blocking. **review_confirm = done** · accept.
+No P0 / P1 blocking. **review_confirm = done** · accept · **0** fix_gaps.
 
 | ID | Class | Sev | Where | Repro | Disposition |
 |----|-------|-----|-------|-------|-------------|
-| REV-BIEU01-01 | be-fn | Info | shell + `CsdlBieu1Entity` 1:1 `rmms_csdl_bieu1` | Schema_CsdlBieu1 | Accept · typed SSOT |
-| REV-BIEU01-02 | query | — | List QS resource/search/province/status/road/km/page | BFF GET 200 (QA) | **PASS** |
-| REV-BIEU01-03 | security | P2 | RequirePermission TODO CommonLib | Controller comments · T-PERM stub | Accept · Auth DEFER |
-| REV-BIEU01-04 | security | — | ERP.* / invent infra | Grep FE page + Asset API | **None** |
-| REV-BIEU01-05 | security | — | Company claim get-by-id | `AllowedCompanyIdsClaim` | **PASS** (xco_get_only) |
-| REV-BIEU01-06 | ui-fn | — | LeaveConfirm · **0** window.confirm | Form + delete useAlert | **PASS** |
-| REV-BIEU01-07 | ui-fn | — | FilterBar · **0** nút Tìm invent | S0 live | **PASS** |
-| REV-BIEU01-08 | be-fn | P2 | Migration apply runtime DB | deploy | Accept · deploy debt |
-| REV-BIEU01-09 | note | P2 | GAP-QA-E2E-PW-01 chrome fallback | QA compact | Accept · non-blocking |
-| REV-BIEU01-10 | note | P2 | org SearchInput / XLS / province master | OUT/DEFER | Accept · pack scope |
-| REV-BIEU01-11 | note | Info | Legacy `pavement-sections` controller | separate route | Accept · live SSOT = csdl-records |
-| QUERY-* / SEC-IDOR P0 | query/sec | P0 | list/get | — | **None** blocking |
+| REV-XLS-01 | be-fn | — | `CsdlCatalogExcelService.ExportAsync` | filename + sheet Biểu 1 + filtered | **PASS** |
+| REV-XLS-02 | be-fn | — | Import Commit multipart | import_now upsert · skipBridge | **PASS** |
+| REV-XLS-03 | ui-fn | — | catalogToolbar Xuất/Nhập | testid export/import · **0** filter Xuất | **PASS** |
+| REV-XLS-04 | query | — | Export QS = list filters | FE endpoint QS mirror | **PASS** |
+| REV-XLS-05 | security | — | ERP.* / invent path | FE page + Asset API/BFF | **None** |
+| REV-XLS-06 | security | P2 | Auth/permission | RequirePermission DEFER | Accept · Auth DEFER |
+| REV-XLS-07 | note | P2 | getBlob strips CD | FE fallback filename = PO lock | Accept · debt |
+| REV-XLS-08 | note | P2 | BIFF .xls read | OOXML OK · BIFF N/A | Accept · debt |
+| REV-XLS-09 | note | P2 | GAP-QA-E2E-PW-01 | chrome createRequire | Accept · non-blocking |
+| REV-BIEU01-KEEP | ui/be | — | prior typed CRUD review | `task_c53d69d9` | **PASS** KEEP |
+| QUERY-* / SEC-IDOR P0 | query/sec | P0 | list/export/import | — | **None** blocking |
 
 ## Query (/review-query)
 
-- List: `resource=pavement-sections` + search/province/status/roadCode/kmFrom/kmTo/page/pageSize · BFF proxy QS as-is.
-- GetById: typed join `Bieu1` · company claim gate · 404 missing.
-- Soft DELETE on API · FE live BFF only · **0** demo/localStorage SSOT.
-- Create/Update: typed DTO → `CsdlBieu1` · structureType enum validate · **stop** detail* write for pavement-sections.
-- N+1: list batch load Bieu1 by CatalogRecordId · accept.
+- List KEEP: `resource=pavement-sections` + search/province/status/roadCode/km/fromDate/toDate/page.
+- Export: same filter QS → OOXML Biểu 1 · empty = headers-only + toast.
+- Import: multipart · sheetMap Biểu 1 → shell+typed upsert by code · skipBridge.
+- N+1: export batch typed join accept · **0** ERP.*.
 
 ## Security
 
-- FE permission: `rmms-asset:csdl-records:read|write`.
-- BFF proxy-only · forwards auth headers.
-- BE RequirePermission attribute debt (DEFER) — not P0 DoD block.
-- DOMAIN-MAP: `csdl-bieu-01` → Asset.
-- **0** ERP.* · **0** secrets in feature paths.
+- FE perms gate export `canRead` · import `canCreate`.
+- BFF binary/multipart forward only · **0** secrets in repo delta.
+- Auth CommonLib TODO = DEFER P2 (unchanged).
+- IDOR: company claim get-by-id KEEP · export scoped by list filters + tenant share_tenant.
 
 ## UI / BE function
 
-- Alias list Kind B + Slideout C/E/V/Copy/Delete · hub peer entry · Config schema editor wired (Dev).
-- Typed four_buckets + one_enum match PO/SA/Design decisions.
-- QA E2E S0/S1/QA-20 PASS — Review did not re-run e2e; used screens + manifest.
-- Verify builds: PASS at Dev/QA — Review did not re-run yarn/dotnet.
-
-## Gates
-
-| Gate | Result |
-|------|--------|
-| Design prototype + reviewUrl | confirmed |
-| SA solution · Schema_CsdlBieu1 | confirmed |
-| TL route_a · T-* matrix | confirmed |
-| Dev implement · yarn/dotnet | PASS (prior) |
-| QA e2e S0/S1/QA-20 | PASS (prior) |
-| VERIFY yarn build this role | n/a · FORBIDDEN |
-| BE write / Step 4b this role | n/a · review_only |
-| review_confirm | **done** · accept |
+- Toolbar SSOT via `fromCatalogToolbar` · VN labels Xuất/Nhập Excel.
+- Filter bar: SearchTextInput **no** onSearch invent · 🔍 bar `onSearch` · **cấm** Xuất trên bar.
+- Form Slideout KEEP · LeaveConfirmModal · **0** `window.confirm`.
+- BE: API-XLS-01/02/03 · BFF export/import · migration none @ XLS.
 
 ## Confirm
 
-review_confirm = **done** — autoApprove=ON · **accept** (no fix_gaps / no abort).
+`review_confirm` = **done** (autoApprove ON) · accept · **cấm** fix_gaps.
 
-## Verdict
+## Handoff → Dev
 
-**PASS** — typed Biểu 01 list+Slideout closes DoD pack. Residual P2 auth / migrate-apply / e2e-pw / org-XLS do not block accept. Pipeline → **done**.
+| Gap | Task hint |
+|-----|-----------|
+| — | none |
 
 ## Version meta (REQUIRED)
 
 | Field | Value |
 |-------|-------|
 | skillId | agent-review |
-| skillVersion | 2026.08.29.03 |
+| skillVersion | 2026.09.05.03 |
 | schemaVersion | 1 |
-| workflowVersion | 2026.09.01.02 |
-| rulesVersion | 2026.08.31.2 |
-| reviewHash | `sha256:a7c2e91f4b8d3056` |
-| generatedAt | 2026-09-05T05:52:00.000Z |
-| versionGate | ok · contentHashPrior match |
-| formTypePack | list |
-| changeScope | new_page |
-| contentHashPriorDataAnaly | sha256:3545960f4006740c9dfe57b5f004fa4a1cd1b7befbcd51e35e2168e16821b65e |
-| route_confirm | route_a |
-| taskId | `task_c53d69d9` |
-| priorQaTaskId | `task_79534771` |
-| priorDevTaskId | `task_aefea7f3` |
-
----
-<!-- Version meta: skillId=agent-review skillVersion=2026.08.29.03 schemaVersion=1 workflowVersion=2026.09.01.02 rulesVersion=2026.08.31.2 versionGate=ok taskId=task_c53d69d9 route_confirm=route_a -->
+| workflowVersion | 2026.09.05.03 |
+| rulesVersion | 2026.09.17.3 |
+| reviewHash | sha256:c9e4f1a82b7d6053 |
+| contentHashPrior | sha256:b48e58e637a1dd4fc9e14298a0063d34c89eadb1ea02ba756b561b4648d4b085 |
+| generatedAt | 2026-09-18T01:41:00.000Z |
+| versionGate | ok |
+| changeScope | edit_page |
+| taskId | task_f77bd354 |

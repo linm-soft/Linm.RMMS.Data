@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Prototype — Biểu 12 Cây xanh, thảm cỏ (DES-GRID + Slideout typed 15)</title>
+  <title>Prototype — Biểu 12 Cây xanh, thảm cỏ (edit_page · T-XLS-S12 Xuất Excel)</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
   <style>
     :root {
@@ -90,7 +90,7 @@
 </head>
 <body>
   <div class="page">
-    <p class="note" id="note">SSOT Design · <code>shared_grid_example v1</code> · pack <code>csdl-bieu-12</code> · resource <code>green-assets</code> · formNo <code>12</code> · mfeStdUrl <code>/csdl-bieu-12</code> · hub <code>?resource=green-assets</code> · peer <strong>none</strong> · skip chrome · <strong>cấm</strong> detail* only · map none · Q-OTHER-CLUMP keep_other · Q-GRASS-REQ allow_either · Q-TALUY side_only · Q-LIST-COLS subset · Q-TITLE keep_demo · Q-DMAP add_now</p>
+    <p class="note" id="note">SSOT Design · <code>shared_grid_example v1</code> · pack <code>csdl-bieu-12</code> · edit_page T-XLS-S12 · resource <code>green-assets</code> · formNo <code>12</code> · mfeStdUrl hub · Xuất Excel catalogToolbar · Import DEFER P1 · <strong>cấm</strong> XLS trên filter · peer none · map none · typed 15/2 keep</p>
 
     <section id="list" style="display:flex;flex-direction:column;gap:8px;flex:1;min-height:0">
       <div class="zone-a" data-des-id="DES-GRID-A">
@@ -104,8 +104,7 @@
           <button type="button" class="tb" data-action="history" title="Lịch sử"><i class="fas fa-history"></i></button>
           <button type="button" class="tb" data-action="config" title="Cấu hình"><i class="fas fa-cog"></i></button>
           <button type="button" class="tb" id="btn-del" disabled title="Xóa"><i class="fas fa-trash"></i></button>
-          <button type="button" class="tb" data-action="import" title="Import stub OUT Biểu 12"><i class="fas fa-file-import"></i></button>
-          <button type="button" class="tb" data-action="export" title="Export stub OUT Biểu 12"><i class="fas fa-file-export"></i></button>
+          <button type="button" class="tb" data-action="export" title="Xuất Excel" id="btn-export"><i class="fas fa-file-excel" aria-hidden="true"></i> Xuất Excel</button>
         </div>
         <div class="zone-b-right">
           <button type="button" class="tb primary" data-action="create"><i class="fas fa-plus"></i> Tạo mới</button>
@@ -440,7 +439,25 @@
       if (t.dataset.action === "refresh") render();
       if (t.dataset.action === "history" || t.dataset.hist) toast("History modal stub P2");
       if (t.dataset.action === "config") toast("UiSchema editor · catalogKind green-assets");
-      if (t.dataset.action === "import" || t.dataset.action === "export") toast("XLS Biểu 12 OUT stub");
+      if (t.dataset.action === "export") {
+        const btn = t;
+        btn.disabled = true;
+        const d = new Date();
+        const ymd = d.getFullYear().toString() + String(d.getMonth() + 1).padStart(2, "0") + String(d.getDate()).padStart(2, "0");
+        const name = "Bieu12_CayXanh_" + ymd + ".xlsx";
+        const blob = new Blob(
+          ["Biểu 12 mock · filtered QS · 15 cols · khóm+cỏ cùng hàng · golden Cục 16-sheet · cấm invent so-ts-green\n"],
+          { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" }
+        );
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = name;
+        a.click();
+        URL.revokeObjectURL(a.href);
+        $("#note").textContent =
+          "Xuất Excel (mock filtered): " + name + " · GET …/csdl-records/export?resource=green-assets · Import DEFER P1 · peer none";
+        setTimeout(() => { btn.disabled = false; }, 400);
+      }
       if (t.dataset.view) {
         const row = rows.find((r) => String(r.id) === t.dataset.view);
         if (row) openSlide("view", row);

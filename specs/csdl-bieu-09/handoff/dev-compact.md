@@ -1,75 +1,66 @@
-# handoff-compact — dev · csdl-bieu-09
+# Handoff compact — dev
 
-| | |
-|--|--|
-| schemaVersion | `1` |
-| role | `dev` |
-| feature | `csdl-bieu-09` |
-| title | CSDL Biểu 09 — Mốc lộ giới / GPMB |
-| packKind | `list` |
-| changeScope | `new_page` |
-| status | `done` |
-| taskId | `task_b449f5f6` |
-| resource | `boundary-markers` |
-| formNo | `09` |
-| columns | `17` · **2 section kind** |
-| IdCode | `MK-` |
-| formPattern | Kind D Slideout 2col · 2 section kind |
-| Kind | B A–D+F · D Slideout Z1–Z3 |
-| mfeStdUrl | `http://localhost:9301/csdl-bieu-09` |
-| hub | `/so-ts/csdl-so-sach?resource=boundary-markers` → `/csdl-bieu-09` |
-| peerSoTs | — (none) |
-| domain | Asset · `api/v1/asset/csdl-records` |
-| entity | shell + `CsdlBieu9Entity` · `Schema_CsdlBieu9` |
-| buildMfe | **PASS** |
-| buildBe | **PASS** |
-| autoApprove | ON |
-| e2eQa | ON (queued `/agent-qa*` only) |
-| contentHashPrior | `sha256:863490daf95d2c19ddad660fc05f901eaeb0248fb65961f9e96747ebcf5b04e4` |
-| skillVersion | `2026.08.25.01` |
-| workflowVersion | `2026.09.01.02` |
-| rulesVersion | `2026.08.31.2` |
-| writtenAt | `2026-09-05T18:25:00.000Z` |
+schemaVersion: 1
+feature: csdl-bieu-09
+packKind: list
+role: dev
+status: done
+skillVersion: 2026.09.05.03
+workflowVersion: 2026.09.05.03
+rulesVersion: 2026.09.17.3
+contentHash: sha256:58c012cef8ad07ae7a6d5e8ab513668c51dc0755d1f209783beb41ba1c4ccc01
+headerFingerprint: sha256:765521dee151f2ded36c582ca1a0b7ec048237b88cfc5b27481f09e6787e9a77
+writtenAt: 2026-09-18T06:00:00.000Z
+taskId: task_6056af24
+tlTaskId: task_a915ae19
+resource: boundary-markers
+columns: 17
+blocks: 2
+IdCode: MK-
+formNo: 09
+changeScope: edit_page
+formPattern: Slideout
+mfeStdUrl: http://localhost:9301/so-ts/csdl-so-sach
+hubRoute: /so-ts/csdl-so-sach?resource=boundary-markers
+alias: /csdl-bieu-09
 
 ## Decisions
+- changeScope: edit_page T-XLS-S09 · typed 17/2 KEEP · Schema_CsdlBieu9 KEEP · **cấm** reopen
+- export: GET …/export?resource=boundary-markers (+filter+markerKind) · sheet Biểu 9 · 17 cols · `Bieu09_MocLoGioiGPMB_{yyyyMMdd}.xls`
+- import: POST …/import multipart · sheetMap Biểu 9 · upsert by code · import_now
+- Q-XLS: filtered · respect_filter · **cấm** filter-bar export · **cấm** 12+8 · **cấm** 2-sheet
+- BFF: proxy keep · binary
+- migration: none
+- build: yarn build+typecheck PASS · dotnet build PASS
+- e2e: queued QA only
 
-- Typed alias `/csdl-bieu-09` + hub redirect · formNo **09**
-- Persist shell + `rmms_csdl_bieu9` 1:1 · migration `20260905180000_Schema_CsdlBieu9`
-- markerKind RoadLimit/GPMB · structure Excel seed · L/W/Area optional · Qty default 1 · completedYear required
-- 2 section kind (title switch) · LeaveConfirm · road-route P1 · peer **none** · XLS OUT
-- API keep `asset/csdl-records` · BFF proxy · UiSchema seed · **cấm ERP.***
+## Inventory (slim)
+| id | label | controlHint | notes |
+|----|-------|-------------|-------|
+| (form 17/2) | typed prior | keep | unchanged |
+| exportExcel | Xuất Excel | ToolbarButton | filtered+markerKind |
+| importExcel | Nhập Excel | ToolbarButton+file | import_now |
 
-## APIs
+## Screens / zones (ids only)
+- S-LIST · S-FORM-* KEEP · S-XLS-EXPORT · S-XLS-IMPORT
+- mfeStdUrl=http://localhost:9301/so-ts/csdl-so-sach · alias /csdl-bieu-09
 
-- GET/POST/PUT/DELETE `/api/v1/asset/csdl-records` · resource=`boundary-markers` · filter `markerKind`
-- LKP road-route `/integration/road-routes/search`
-- BFF `/web-bff/api/v1/asset/csdl-records` proxy
+## API / tasks (ids only)
+- API-XLS-01 GET export · API-XLS-02 POST import · CRUD KEEP
+- T-XLS-BE-01/02/03 · T-XLS-BFF-01 · T-XLS-FE-01/02 **done** · T-XLS-QA-01 queued
+- FE BASE /asset/csdl-records · BFF web-bff mirror
 
-## Artifacts
-
-| Kind | Path |
-|------|------|
-| implement | `specs/csdl-bieu-09/implement/csdl-bieu-09.md` |
-| FE | `Linm.Web.RMMS.Asset/src/pages/CsdlBieu09Page/*` |
-| BE entity | `…/Entities/CsdlBieu9Entity.cs` |
-| migration | `…/Migrations/20260905180000_Schema_CsdlBieu9.cs` |
-| STATUS | `specs/csdl-bieu-09/STATUS.md` |
-
-## Debt
-
-- DB migrate apply · Auth wire DEFER · org/province P2 · XLS OUT
-
-## Next
-
-| Role | Need |
-|------|------|
-| **QA** | e2e `/agent-qa*` · T-QA-* |
-| Review | after QA |
+## Build
+- MFE yarn build PASS · typecheck PASS
+- BE dotnet build PASS
+- debt: Auth stub · QA e2e
 
 ## UNCLEAR
-
 - none
 
-## Cấm (compact)
+## Full paths
+- implement: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-09/implement/csdl-bieu-09.md
+- STATUS: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-09/STATUS.md
 
-ERP.* · e2e/start:std @ Dev · invent API · detail* only · Guid IdCode · merge Sổ TS
+## Cấm (compact)
+ERP.* · e2e @ Dev · start:std @ Dev · filter-bar export · 12+8 · 2-sheet · reopen typed

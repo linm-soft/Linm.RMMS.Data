@@ -5,20 +5,21 @@
 | schemaVersion | `1` |
 | role | `po` |
 | feature | `csdl-so-02` |
-| title | CSDL Sổ 02 — Nhật ký tuần đường |
+| title | CSDL Sổ 02 — Nhật ký tuần đường (CR PDF Wave A) |
 | packKind | `list` |
-| changeScope | `new_page` |
+| changeScope | `edit_page` |
 | status | `done` |
-| taskId | `task_0da1b0a3` |
+| taskId | `task_a2fc4833` |
+| cr | `nktd-pdf-20260917` · `SRC-NKTD-PDF` |
 | resource | `patrol-logs` |
 | formNo | `02` |
 | IdCode | `SO-` |
-| contentHash | `sha256:70538d9c9588d335aa43fd5a1fe28433d1138960d5954c5a7ef4cff33a5bd1c3` |
-| headerFingerprint | `sha256:5da56778e38ecc53807d424082520372c7bbed355257bdacfa0457dba0036e3c` |
+| contentHash | `sha256:3ddc42d7c4404f439925322953f28ffc9d3b263726ac6cf5216065751c19b4d6` |
+| headerFingerprint | `sha256:1b032f04f5154622239e0e2bdbebe6923ec76ba9ca33d283b51ebe0062c0d471` |
 | skillVersion | `2026.08.25.01` |
 | workflowVersion | `2026.09.01.02` |
 | rulesVersion | `2026.08.31.2` |
-| updatedAt | `2026-09-05T17:20:00.000Z` |
+| updatedAt | `2026-09-18T03:40:00.000Z` |
 | autoApprove | `ON` |
 | e2eQa | `ON` (queued `/agent-qa*`) |
 
@@ -30,48 +31,50 @@
 | control-hint | `specs/_data-analy/features/csdl-so-02-control-hint.md` |
 | real-data | `specs/_data-analy/features/csdl-so-02-real-data.md` |
 | prior compact | `specs/csdl-so-02/handoff/data_analy-compact.md` |
+| prior po new_page | `task_0da1b0a3` · **giữ** |
+| CR task | `specs/_cr/nktd-pdf-20260917/task-csdl-so-02.md` |
 | CTX | `docs/context/features/csdl-so-02.md` |
 
 ## Live bind (1-liner)
 
-- API: `api/v1/asset/csdl-records?resource=patrol-logs` (+ BFF) · **cấm ERP.***
+- API: `api/v1/asset/csdl-records?resource=patrol-logs` · **giữ** · **cấm** invent patrol-logs / ERP.*
 - Entry: `/csdl-so-02` + hub `?resource=patrol-logs`
-- Form: Kind D Slideout · typed T-SO-02 header + entries · FileService sketch/media
-- IdCode `SO-yyyyMMdd-nnnn` · formNo `02` · label «Sổ 02 — Nhật ký tuần đường»
+- Form: Kind D · **+** `entries.locationText` Text · weatherEvent Textarea · OR Km\|Text
+- BE: `LocationText` · migration `Schema_CsdlSo02LocationText` CLI (Dev)
+- File: **GAP-SO02-FILE-01** text-id · Report Wave B **park**
 
 ## Open Q — resolved
 
 | Q | Decision |
 |---|----------|
-| Q-FORMNO | Label Sổ 02 P1 · key patrol-logs giữ |
-| Q-STATUS | tot\|tb\|kem\|hong LOOKUP_STATIC P1 |
-| Q-SKETCH | sketch/media optional · max 10/entry |
-| Q-PROV | keep_static 5 tỉnh · master P2 |
-| Q-CONTRACTOR | Text P1 · partner-unit P2 |
+| Q-LOC-REQ | OR-rule: eventAt + (Km OR text) + weather · View no-req |
+| Q-WEATHER | Textarea rows=3 · maxLength=2000 |
+| Q-FILE | text-id P1 · no invent file API |
+| Q-LIST-COL | luôn cột «Vị trí» trên grid |
 
-## GAP P1 / DEFER / OUT
+## GAP P1 / debt / OUT
 
 | ID | P1 |
 |----|-----|
-| GAP-SO02-TYPED-01 · ROUTE-01 · FORMNO-01 · SKETCH-01 | YES |
-| GAP-CSDL-ROAD-01 · PROV-01 · CUC-03 | YES |
-| GAP-RPT-SRC-CSDL-01 | form READY · report riêng |
-| GAP-CSDL-ORG-01 | DEFER P2 |
-| GAP-CSDL-XLS-01 | OUT |
+| **GAP-NKTD-LOC-01** | YES |
+| GAP-NKTD-WEATHER-01 | YES |
+| **GAP-SO02-FILE-01** | YES debt |
+| GAP-NKTD-HDR-01 · STATUS-01 | YES (giữ) |
+| GAP-NKTD-RPT-PARK | OUT Wave A |
 
 ## Zones / AC
 
-List A/B/C/D Kind B · Form Kind D Z1–Z3 · entries inline_grid · map none · Grid AC G-01…G-10 · LeaveConfirm dirty
+List A/B/C/D · Form Kind D · entries + locationText · map none · Grid G-01…G-12 · LeaveConfirm dirty
 
 ## Next
 
 | Role | Need |
 |------|------|
-| **Design** | control-map · prototype typed · reviewUrl · filter-bar HARD |
-| SA | Schema_CsdlSo02 · typed DTO · file bind |
-| TL/Dev | alias page + typed form · reuse BASE |
-| QA | Grid+form AC · e2e queued |
+| **Design** | control-map · prototype locationText · reviewUrl |
+| SA | LocationText DTO · Schema_CsdlSo02LocationText |
+| TL | T-* từ CR task · **cấm** overwrite new_page task |
+| Dev/QA | form OR + list col · e2e queued |
 
 ## Cấm (compact)
 
-Demo/LS SSOT · ERP.* · Guid IdCode · detail*/col1–3 only · invent map/file API · yarn build/e2e/start:std ở PO · re-scan demo
+Wipe new_page · invent api/v1/patrol-logs · ERP.* · enqueue report Wave B · re-scan demo · yarn build/e2e/start:std ở PO · migration Step 4b ở PO

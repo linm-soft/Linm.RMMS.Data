@@ -1,5 +1,7 @@
 # Team lead — tasks — csdl-so-02
 
+> **CR 2026-09-17 PDF:** pack delta [`csdl-so-02-cr-pdf.md`](./csdl-so-02-cr-pdf.md) · **cấm** overwrite pack `new_page` này.
+
 | Field | Value |
 |-------|-------|
 | feature | `csdl-so-02` |

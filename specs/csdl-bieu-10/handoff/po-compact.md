@@ -1,83 +1,74 @@
-# handoff-compact — po · csdl-bieu-10
+# Handoff compact — po
 
-| | |
-|--|--|
-| schemaVersion | `1` |
-| role | `po` |
-| feature | `csdl-bieu-10` |
-| title | CSDL Biểu 10 — Kè, tường chắn |
-| packKind | `list` |
-| changeScope | `new_page` |
-| status | `confirmed` |
-| taskId | `task_c6ef9738` |
-| autoApprove | `ON` |
-| resource | `retaining-walls` |
-| formNo | `10` |
-| columns | `21` |
-| IdCode | `KE-` |
-| peerSoTs | `so-ts-retaining` (toolbar deep-link · ≠ merge) |
-| contentHash | `sha256:56715ebbcfffd0589eab296a31137e79a82b49c672dc14582fc554f4ed262346` |
-| headerFingerprint | `sha256:100df2f2285c57a909981f9248564af4f788a1ea653fd261122e9a64064773ad` |
-| skillVersion | `2026.08.25.01` |
-| workflowVersion | `2026.09.01.02` |
-| rulesVersion | `2026.08.31.2` |
-| confirmedAt | `2026-09-05T11:30:00.000Z` |
+schemaVersion: 1
+feature: csdl-bieu-10
+packKind: list
+role: po
+status: done
+skillVersion: 2026.09.05.03
+workflowVersion: 2026.09.05.03
+rulesVersion: 2026.09.17.3
+contentHash: sha256:49ea64d3b8f51e899c4bb36ae444444b4c0a805e64349f8e1f52677909ab0302
+headerFingerprint: sha256:9d4863dcab46439966e526cc7696f137695022911a3edc5066c852dc779fa598
+writtenAt: 2026-09-18T06:14:00.000Z
+taskId: task_f96b7dc8
+priorAnaly: task_0fb02546
+priorTyped: task_faf3807e
+resource: retaining-walls
+columns: 21
+blocks: 2
+IdCode: KE-
+formNo: 10
+peerSoTs: so-ts-retaining
 
-## Artifacts
+## Decisions
+- changeScope: edit_page (T-XLS-S10 · Wave 1)
+- formPattern: Slideout (keep typed · **cấm** new_page CRUD)
+- packKind: list (PO confirm)
+- Grid AC: keep + toolbar Xuất/Nhập · Leave: LeaveConfirmModal · Report AC: N/A
+- Q-XLS-SCOPE: filtered · Q-XLS-IMPORT: import_now · Q-XLS-FILENAME: Bieu10_KeTuongChan_{yyyyMMdd}.xls · Q-XLS-HEIGHT: height_alias
+- export: catalogToolbar · BFF binary · `/implement-export-import-excel`
+- golden: Cục 16-sheet sheet Biểu 10 · **cấm** 12+8
+- filter: **cấm** Xuất trên LinErpListFilterBar (GAP-FILTER-BAR-08)
+- layout: 1 sheet 21 · crest* cùng hàng · **cấm** 2 sheet invent
+- map: heightM↔WidthM giữ SA typed
+- keep: typed 21/2 · Schema_CsdlBieu10 · peer deep-link
+- mfe: D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Asset · be: D:/AI-QLBD/Linm.RMMS.WebService
+- open questions: none (autopilot chốt)
 
-| Kind | Path |
-|------|------|
-| requirement | `specs/csdl-bieu-10/po/requirement.md` |
-| prior compact | `specs/csdl-bieu-10/handoff/data_analy-compact.md` |
-| control-hint | `specs/_data-analy/features/csdl-bieu-10-control-hint.md` |
-| real-data | `specs/_data-analy/features/csdl-bieu-10-real-data.md` |
+## Inventory (slim)
+| id | label | controlHint | notes |
+|----|-------|-------------|-------|
+| (form 21/2) | typed prior | keep | **cấm** reopen |
+| exportExcel | Xuất Excel | ToolbarButton | catalogToolbar · filtered |
+| importExcel | Nhập Excel | ToolbarButton+file | P1 import_now |
 
-## Live bind (1-liner)
+## Screens / zones (ids only)
+- DES-GRID-A/B/C/D keep · toolbar **+export+import** · filter unchanged
+- Form Kind D Slideout keep · 2 section tường + rãnh đỉnh
+- S-XLS-EXPORT / S-XLS-IMPORT
+- reviewUrl= prior prototype (Design delta nút)
+- peerStdUrl= http://localhost:9301/so-ts/csdl-so-sach?resource=retaining-walls
+- mfeStdUrl= http://localhost:9301/so-ts/csdl-so-sach · alias /csdl-bieu-10
+- Leave: LeaveConfirmModal · **cấm** native alert
+- controlHint cite: specs/_data-analy/features/csdl-bieu-10-control-hint.md
 
-- API: `api/v1/asset/csdl-records?resource=retaining-walls` (+ BFF) · **cấm ERP.***
-- Entry: `/csdl-bieu-10` (**alias_now**) · hub `?resource=retaining-walls`
-- Form: Kind D Slideout 2col · 2 section tường + rãnh đỉnh · typed 21 · **cấm** detail*
-- Import: XLS Biểu 10 stub P1 · peer toolbar deep-link
+## API / tasks (ids only)
+- CRUD keep: …/csdl-records?resource=retaining-walls
+- Export: GET …/csdl-records/export?resource=retaining-walls (+ filter QS)
+- Import: POST …/csdl-records/import?resource=retaining-walls
+- T-XLS-S10 · GAP-BIEU10-XLS-01…07 · real-data §A+§B PASS
+- Grid AC flags: PASS · Report AC: N/A
 
-## Header (21)
+## UNCLEAR
+- none
 
-`code|roadCode|roadName|province|kmFrom|kmTo|side|wallKind|structure|material|lengthM|heightM|areaM2|crestDitchKind|crestDitchStructure|crestDitchShape|crestDitchLengthM|inServiceYear|status|manageUnit|notes`
-
-## PO decisions (autoApprove)
-
-| Q | Decision |
-|---|----------|
-| Q-ROUTE | alias_now |
-| Q-PROV | keep_static |
-| Q-KIND | label_vn (+ stable EN codes) |
-| Q-STRUCT | excel_seed |
-| Q-MAT | lookup |
-| Q-HEIGHT | height_alias (UI heightM ↔ DB WidthM) |
-| Q-CREST | optional_flat |
-| Q-AREA | optional |
-| Q-LIST-COLS | subset |
-| Q-REN-LABEL | with_typed |
-| Q-PEER | toolbar |
-
-## Zones / AC
-
-- List A/B/C/D Kind B · search must work · **cấm** nút Tìm · paginate 50/100/200/500
-- Form Kind D · LeaveConfirm dirty · View readOnly · IdCode KE auto
-- Grid subset: shared + kind/dim/year/status · map: none
-- Empty: «Chưa có kè / tường chắn»
-
-## GAP (Design/SA)
-
-TYPED · REN · ROUTE · KIND/STRUCT/MAT/DIM/CREST/YEAR/BLOCK · ROAD · PROV static · ORG P2 · XLS stub · CUC-11 peer ≠ merge
-
-## Next
-
-| Role | Need |
-|------|------|
-| **Design** | control-map · prototype 21 · 2 section · reviewUrl · filter-bar HARD |
-| SA | typed DTO/UiSchema · Schema_CsdlBieu10 · heightM↔WidthM · formNo=10 |
-| TL/Dev | wire controlHint · **cấm** guess Text vs SearchInput |
+## Full paths (Read only if needed)
+- requirement: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-10/po/requirement.md
+- control-hint: D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/csdl-bieu-10-control-hint.md
+- real-data: D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/csdl-bieu-10-real-data.md
+- epic: docs/context/features/csdl-export-print.md
+- keep Design/SA: specs/csdl-bieu-10/ui|be (delta only)
 
 ## Cấm (compact)
-
-ERP.* · invent infra · detail* form · merge so-ts-retaining · Guid IdCode · demo SSOT · child CrestDitch P1 · yarn build/e2e @ po
+ERP.* · invent infra · toast=done · filter-bar export · golden 12+8 · 2-sheet invent · new_page typed re-CRUD · yarn build/e2e/start:std @ PO

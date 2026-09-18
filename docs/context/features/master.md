@@ -24,6 +24,7 @@
 | 2 | [`road-route`](road-route.md) | road-route | `gov/raw` tuyáº¿n Khu 2 | **P0** |
 | 3 | [`asset-type`](asset-type.md) | asset-type | `gov/raw` cáº§u/háº§m + catalog | **P0** |
 | 4 | [`partner-unit`](partner-unit.md) | partner-unit | 13 Sá»Ÿ/BOT/Cty | **P1** |
+| 5 | [`job-title`](job-title.md) | job-title | Excel nhân sự cuc-01 chức danh | **P1** |
 
 ## 3. UI routes
 
@@ -33,6 +34,7 @@
 | `/mas/tuyen-duong` | list + form |
 | `/mas/loai-ts` | list + form |
 | `/mas/doi-tac` | list + form |
+| `/mas/chuc-vu` | list + form (`job-title`) |
 
 ## 4. API prefix
 
@@ -46,6 +48,7 @@
 | road-route | `routeCode` | **SearchInput** |
 | asset-type | `assetTypeCode` | **SearchInput** (nhiá»u alias) |
 | partner-unit | `partnerUnitCode` | **SearchInput** |
+| job-title | `jobTitleCode` | **SearchInput** |
 | Ghi chÃº / mÃ´ táº£ / sá»‘ Ä‘o thÃ´ | â€” | **Text** / Number (free-style) |
 | Enum nhá» á»•n Ä‘á»‹nh (náº¿u xuáº¥t hiá»‡n trong sheet) | â€” | **Dropdown** |
 
@@ -59,6 +62,7 @@ SSOT rule: Linm `example/data-analy-control-hint.md` â€” Design chá»‘t 
 | road-route | `specs/road-route/STATUS.md` |
 | asset-type | `specs/asset-type/STATUS.md` |
 | partner-unit | `specs/partner-unit/STATUS.md` |
+| job-title | `specs/job-title/STATUS.md` |
 
 ## Implement tracking
 

@@ -1,7 +1,22 @@
 {
   "url": "http://localhost:9301/csdl-bieu-01",
+  "changeScope": "edit_page",
   "hasTitle": true,
   "hasFilter": true,
+  "hasExportToolbar": true,
+  "hasImportToolbar": true,
+  "filterBarHasNoExport": true,
+  "filterBarMeta": {
+    "foundFilter": true,
+    "hasXuat": false
+  },
+  "exportCheck": {
+    "attempted": true,
+    "ok": true,
+    "fileName": "Bieu01_PhanLoaiMatDuong_20260918.xls",
+    "hasPath": true,
+    "error": ""
+  },
   "noDemo": true,
   "noModeBadge": true,
   "testids": [
@@ -14,6 +29,8 @@
     "rmms-csdl-bieu-01-list-peer-sots",
     "rmms-csdl-bieu-01-list-list-toolbar",
     "rmms-csdl-bieu-01-list-refresh-btn",
+    "rmms-csdl-bieu-01-list-import-excel-btn",
+    "rmms-csdl-bieu-01-list-export-excel-btn",
     "rmms-csdl-bieu-01-list-create-btn",
     "rmms-csdl-bieu-01-list-table-card",
     "rmms-csdl-bieu-01-list-list-title-help",
@@ -32,6 +49,7 @@
     "rmms-csdl-bieu-01-list-date-range-date-expand-btn",
     "rmms-csdl-bieu-01-list-view-btn",
     "rmms-csdl-bieu-01-list-grid-wrap",
-    "rmms-csdl-bieu-01-list-empty"
+    "rmms-csdl-bieu-01-list-empty",
+    "rmms-csdl-bieu-01-list-import-file"
   ]
 }

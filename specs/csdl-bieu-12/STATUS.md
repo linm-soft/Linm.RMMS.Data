@@ -5,39 +5,46 @@
 | feature | `csdl-bieu-12` |
 | phase | `done` |
 | status | `done` |
+| qaTaskIdXls | `task_96b70a9a` |
 | packKind | `list` |
-| changeScope | `new_page` |
-| qaTaskId | `task_d2312fac` |
-| qaVerdict | **PASS** |
-| reviewTaskId | `task_9d0c01b9` |
-| reviewVerdict | **PASS** |
-| review_confirm | `done` (autoApprove ON · `task_9d0c01b9`) |
-| demo | D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/csdl-so-sach-demo.html |
+| changeScope | `edit_page` |
+| epic | `csdl-export-print` · Wave 1 `T-XLS-S12` |
+| qaTaskId | `task_d2312fac` (prior typed) · XLS `task_96b70a9a` |
+| qaVerdict | **PASS** (typed + XLS · `task_96b70a9a`) |
+| reviewTaskId | `task_9d0c01b9` (prior typed) · XLS `task_acb2eabe` |
+| reviewVerdict | **PASS** (typed + XLS · `task_acb2eabe`) |
+| review_confirm | `done` (typed · `task_9d0c01b9` · XLS · `task_acb2eabe` · autoApprove ON) |
+| demo | N/A (packet) · prior hub demo zone-only |
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/csdl-bieu-12.md` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Asset` |
-| mfeStdRoute | `/csdl-bieu-12` |
-| mfeStdUrl | `http://localhost:9301/csdl-bieu-12` |
+| mfeStdRoute | `/so-ts/csdl-so-sach` · alias `/csdl-bieu-12` |
+| mfeStdUrl | `http://localhost:9301/so-ts/csdl-so-sach` |
 | hubRoute | `/so-ts/csdl-so-sach?resource=green-assets` |
 | resource | `green-assets` |
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · DOMAIN-MAP — **cấm ERP.*** |
-| contentHash | `sha256:6da498be3a84192c6f3e3c30a7e8032bf2753359591a9aabd3ad36d809f4c457` |
-| headerFingerprint | `sha256:54aef0c755530d138ecefa7a303b22c78c32ca1b6ae3555d5bb33492799b5af9` |
-| updatedAt | `2026-09-05T13:39:44.844Z` |
-| design_confirm | `approve` (autoApprove ON · `task_8d909c44`) |
-| solution_confirm | `approve` (autoApprove ON · `task_a36be038`) |
-| route_confirm | `route_a` (autoApprove ON · `task_04119979`) |
-| team_lead_confirm | `approve` (autoApprove ON · `task_04119979`) |
-| yarnBuild | **PASS** |
-| yarnTypecheck | **PASS** |
-| dotnetBuild | **PASS** |
-| e2eQa | **PASS** · S0/S1/QA-20 · manifest `ok=true` |
+| contentHash | `sha256:f42502cee520105fb0a7f618c17b8b0f582884d7f779f638ec7310c26346e77a` |
+| headerFingerprint | `sha256:b6a541f8adc60a5badc72fc92c606631e5a1457fc119b9a6a546eb1f0acc437a` |
+| updatedAt | `2026-09-18T00:52:51.731Z` |
+| dataAnaly | `PASS` · edit_page T-XLS-S12 · control-hint + real-data + compact · `task_619ea74c` |
+| po | `PASS` · requirement + compact · Q-XLS-* chốt · `task_3c0db9bf` |
+| design | `PASS` · design.md + prototype + compact · `task_5391dd50` |
+| design_confirm | `approve` (autoApprove ON · `task_5391dd50`) |
+| solution | `PASS` · solution-discovery + sa-compact · `task_b183ffe0` |
+| solution_confirm | `approve` (autoApprove ON · `task_b183ffe0`) · XLS re-confirm **done** |
+| route_confirm | `route_a` (keep · hub + alias `/csdl-bieu-12`) |
+| team_lead | `PASS` · task + compact · T-XLS-S12-* · `task_f750c146` |
+| team_lead_confirm | `approve` (autoApprove ON · XLS · `task_f750c146`) |
+| yarnBuild | **PASS** (XLS · `task_051369c1`) |
+| yarnTypecheck | **PASS** (prior typed) |
+| dotnetBuild | **PASS** (Api + Asset.Bff · XLS · `task_051369c1`) |
+| e2eQa | **PASS** (XLS · S0/S1/QA-20 + export `Bieu12_CayXanh_20260918.xls` · `task_96b70a9a`) |
 | reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-12/ui/prototype/csdl-bieu-12-list-prototype.html` |
 
 ## Lock
 
 | agent | scope | id | at |
 |-------|-------|-----|----|
-| — | — | — | unlocked (review done) |
+| — | — | — | unlocked (review XLS done · chain end) |
 
 ## Pipeline
 
@@ -63,15 +70,29 @@
 | task_b5ce8177 | csdl-bieu-12 | dev | team_lead | **completed** | FE+BE typed · Schema_CsdlBieu12 · yarn/dotnet PASS · no peer |
 | task_d2312fac | csdl-bieu-12 | qa | dev | **completed** | e2e S0/S1/QA-20 PASS · typecheck fix · no peer |
 | task_9d0c01b9 | csdl-bieu-12 | review | qa | **completed** | review_confirm=done · QUERY/SEC/UI-FN/BE-FN PASS · hash-skip |
+| task_619ea74c | csdl-bieu-12 | data_analy | — | **completed** | changeScope=edit_page · T-XLS-S12 · § Delta export · keep typed |
+| task_3c0db9bf | csdl-bieu-12 | po | data_analy | **completed** | edit_page XLS · Q-XLS-* chốt · export_only_p0 · filtered · one_sheet |
+| task_5391dd50 | csdl-bieu-12 | design | po | **completed** | edit_page XLS · +Xuất Excel · Import DEFER P1 · design_confirm=approve |
+| task_b183ffe0 | csdl-bieu-12 | sa | design | **completed** | edit_page XLS · .xls · filter-all · export_only_p0 · Schema_CsdlBieu12 keep · solution_confirm=approve |
+| task_f750c146 | csdl-bieu-12 | team_lead | sa | **completed** | edit_page XLS · T-XLS-S12-BE/BFF/FE/QA · route_a keep · team_lead_confirm=approve · Import OUT P1 |
+| task_051369c1 | csdl-bieu-12 | dev | team_lead | **completed** | edit_page XLS · BE+BFF+FE export · Import ẩn · yarn/dotnet PASS · no peer |
+| task_96b70a9a | csdl-bieu-12 | qa | dev | **completed** | edit_page XLS · e2e S0/S1/QA-20 + export PASS · Import ẩn · no peer |
+| task_acb2eabe | csdl-bieu-12 | review | qa | **completed** | edit_page XLS · review_confirm=done · QUERY/SEC/UI-FN/BE-FN PASS · no fix_gaps |
 
 ## Blockers / open questions
 
-- (none) — Review PASS · chain end · apply migration on DB before live CRUD · GAP-QA-E2E-PW-01 accepted P2
+- Q-XLS-* **chốt** PO+Design+SA+TL+Dev+QA+Review: filtered · export_only_p0 · `Bieu12_CayXanh_{yyyyMMdd}.xls` · one_sheet · filter-all · **cấm** streaming
+- Typed CRUD **done** · XLS export **done** · Review XLS **done** · **cấm** reopen new_page · toast stub ≠ export done
+- Import Excel **DEFER P1** (không P0 DoD)
+- SA open Q **closed**: ext `.xls` · filter-all (no streaming)
+- Chain **end** — no further qldb role
 
 ## Links
 
-- data-analy → po → ui → be → task → implement → qa → review **done**
-- mfeStdUrl: `http://localhost:9301/csdl-bieu-12`
+- review (XLS) **done** → chain end
+- findings: `specs/csdl-bieu-12/review/findings.md`
+- handoff: `specs/csdl-bieu-12/handoff/review-compact.md`
+- mfeStdUrl: `http://localhost:9301/so-ts/csdl-so-sach`
 - hub: `http://localhost:9301/so-ts/csdl-so-sach?resource=green-assets`
 - reviewUrl: `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-12/ui/prototype/csdl-bieu-12-list-prototype.html`
-- handoff: `specs/csdl-bieu-12/handoff/review-compact.md`
+- epic: `docs/context/features/csdl-export-print.md` · `T-XLS-S12`

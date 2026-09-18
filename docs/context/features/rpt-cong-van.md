@@ -29,6 +29,7 @@
 **Grid:** số CV · ngày · trích yếu · chiều · đơn vị  
 **Export:** Excel  
 **Config:** `LinReportTableConfigModal` FULL — cấm stub/configHint.  
+**Print:** scoped GAP-P2-PRINT-01 — title page · filter đã apply (kỳ · chiều/org/q nếu có) · **chỉ grid** — cấm in sidebar/toolbar/filter UI.  
 **Filter layout:** title trái · input + tìm cụm phải — GAP-FILTER-BAR-*.  
 **Mock:** 8–15 dòng mẫu từ domain OfficialDocument (P3).
 
@@ -70,4 +71,5 @@ Không publish. Subscribe tùy domain nguồn (P2 push). Dashboard KPI không g�
 - [ ] Drill dòng về MFE nguồn
 - [ ] Excel cột đúng (nếu P1 export)
 - [ ] Config cột FULL
+- [ ] In: title + filter snapshot + grid only
 - [ ] Không chrome GOVOne · không alert native

@@ -1,84 +1,79 @@
-# handoff-compact — team_lead · csdl-bieu-12
+# Handoff compact — team_lead
 
-| | |
-|--|--|
-| schemaVersion | `1` |
-| role | `team_lead` |
-| feature | `csdl-bieu-12` |
-| title | CSDL Biểu 12 — Cây xanh, thảm cỏ |
-| packKind | `list` |
-| changeScope | `new_page` |
-| status | `done` |
-| taskId | `task_04119979` |
-| saTaskId | `task_a36be038` |
-| resource | `green-assets` |
-| formNo | `12` |
-| columns | `15` · **2 section** khóm + thảm cỏ |
-| IdCode | `CX-` |
-| peerSoTs | — (không peer · **cấm** invent so-ts-green) |
-| formPattern | **Kind D Slideout** 2col · **2 section** · **cấm** Full-page |
-| Kind | **B** A–D+F · **D** Slideout Z1–Z3 · Z2b Thảm cỏ |
-| clumps | keep_other 4× ≥0 · grass **allow_either** · side **side_only** |
-| route_confirm | **`route_a`** `/csdl-bieu-12` + hub |
-| team_lead_confirm | **approve** (autoApprove ON) |
-| design_confirm | approve |
-| solution_confirm | approve |
-| autoApprove | `ON` |
-| e2eQa | `ON` (queued `/agent-qa*` only) |
-| domain | **Asset** · `api/v1/asset/csdl-records` |
-| entity | shell + `CsdlBieu12Entity` · `Schema_CsdlBieu12` |
-| gates | tz_na · xco_get_only · share_tenant |
-| contentHashPrior | `sha256:6da498be3a84192c6f3e3c30a7e8032bf2753359591a9aabd3ad36d809f4c457` |
-| headerFingerprintPrior | `sha256:54aef0c755530d138ecefa7a303b22c78c32ca1b6ae3555d5bb33492799b5af9` |
-| skillVersion | `2026.08.25.01` |
-| workflowVersion | `2026.09.01.02` |
-| rulesVersion | `2026.08.31.2` |
-| writtenAt | `2026-09-05T13:30:00.000Z` |
+schemaVersion: 1
+feature: csdl-bieu-12
+packKind: list
+role: team_lead
+status: done
+skillVersion: 2026.09.05.03
+workflowVersion: 2026.09.05.03
+rulesVersion: 2026.09.17.3
+contentHash: sha256:f42502cee520105fb0a7f618c17b8b0f582884d7f779f638ec7310c26346e77a
+headerFingerprint: sha256:b6a541f8adc60a5badc72fc92c606631e5a1457fc119b9a6a546eb1f0acc437a
+writtenAt: 2026-09-18T00:45:00.000Z
+taskId: task_f750c146
+saTaskId: task_b183ffe0
+resource: green-assets
+columns: 15
+blocks: 2
+IdCode: CX-
+formNo: 12
+peerSoTs: —
+changeScope: edit_page
+formPattern: Slideout
+route_confirm: route_a
+team_lead_confirm: approve
+design_confirm: approve
+solution_confirm: approve
+autoApprove: ON
+e2eQa: ON
+epic: csdl-export-print · T-XLS-S12
 
 ## Decisions
-
-- changeScope=`new_page` · packKind=`list` · typed **15 cột** · 2 section khóm+thảm cỏ · **cấm** detail* only · **cấm** 2 entity
-- route_confirm **route_a** alias `/csdl-bieu-12` + hub `?resource=green-assets`
-- Q-ROUTE alias_now · Q-PROV keep_static · Q-OTHER-CLUMP keep_other · Q-GRASS-REQ allow_either · Q-TALUY side_only · Q-LIST-COLS subset · Q-TITLE keep_demo · Q-DMAP add_now
-- Persist shell + Schema_CsdlBieu12 1:1 · clumps/grass flat · migration **Dev/4b** · **cấm** parent *Json
-- API **giữ** `asset/csdl-records` · BFF proxy · **cấm ERP.***
-- road-route SearchInput P1 · org/XLS **OUT/DEFER** · peer **none** · **cấm** invent so-ts-green · map none · GAP-CSDL-CUC-11
-- Grid AC YES · Leave YES · Report N/A
-- open Q: **none**
+- changeScope: edit_page (T-XLS-S12) · **cấm** reopen typed new_page CRUD
+- keep: Schema_CsdlBieu12 · 15/2 · Kind B+D Slideout · route_a hub+alias · no peer
+- export P0: GET …/csdl-records/export?resource=green-assets · BFF binary · filter-all · **cấm** streaming
+- filename: Bieu12_CayXanh_{yyyyMMdd}.xls · one_sheet 15 · khóm+cỏ cùng hàng · **cấm** 2 sheet · **cấm** 12+8
+- Q-XLS-SCOPE filtered · Q-XLS-IMPORT export_only_p0 · Import DEFER P1 ẩn
+- toolbar +Xuất · **cấm** filter-bar export · toast stub ≠ done
+- entity/migration: **none** · gates tz_na/xco_get_only/share_tenant keep
+- domain Asset · **cấm ERP.*** · **cấm** invent so-ts-green
+- team_lead_confirm: approve (autoApprove ON) · open Q: none
+- mfe: Linm.Web.RMMS.Asset · be: Linm.RMMS.WebService
+- devSlash: /implement-export-import-excel
 
 ## Artifacts
-
 | Kind | Path |
 |------|------|
-| task | `specs/csdl-bieu-12/task/csdl-bieu-12.md` |
-| solution | `specs/csdl-bieu-12/be/solution-discovery.md` |
-| design | `specs/csdl-bieu-12/ui/design.md` |
-| STATUS | `specs/csdl-bieu-12/STATUS.md` |
+| task | specs/csdl-bieu-12/task/csdl-bieu-12.md |
+| solution | specs/csdl-bieu-12/be/solution-discovery.md |
+| design | specs/csdl-bieu-12/ui/design.md |
+| STATUS | specs/csdl-bieu-12/STATUS.md |
 
 ## Task matrix (ids)
-
-T-DM-01 · T-CTX-01 · T-BE-01..06 · T-BFF-01 · T-PERM-01 · T-BE-UISCHEMA-01 · T-UI-LIST/FILTER/CFG/FORM/LEAVE/ACT/LKP/FIELD/PROD/UX/RESP · T-OUT-01/02 · T-QA-CRUD/FORM/FILTER/CLUMP/GRASS/TYP/TAB/ROUTE
-
-SA map: T-FE-01→LIST · 02→FILTER · 03→FORM · 04→LKP · 05→PROD · 06→LEAVE+ACT · T-BE-01 entity · 02 migr · 03 DTO · 04 IdCode · 05 list · 06 soft/UiSchema
+T-XLS-S12-BE-01 · BFF-01 · FE-01 · FE-02 · QA-01 · BE-02 OUT/P1
+GAP-BIEU12-XLS-01…08 · typed T-* prior **done** · **cấm** reopen
 
 ## Screens / zones (ids only)
+- S-LIST keep · S-XLS-EXPORT · S-XLS-IMPORT (hidden) · S-FORM-* keep
+- mfeStdUrl=http://localhost:9301/so-ts/csdl-so-sach · alias /csdl-bieu-12
+- hub=?resource=green-assets
+- reviewUrl=file:///D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-12/ui/prototype/csdl-bieu-12-list-prototype.html
 
-- S-LIST · S-FORM-C/E/V/Copy · S-ACT-DELETE · S-HUB-ENTRY · S-SKIP-PEER · S-SKIP-MAP
-- mfeStdUrl=`http://localhost:9301/csdl-bieu-12`
-- hub=`http://localhost:9301/so-ts/csdl-so-sach?resource=green-assets`
+## Live bind (1-liner)
+- CRUD keep: api/v1/asset/csdl-records?resource=green-assets
+- Export: GET …/export?resource=green-assets (+ filter QS · no page)
+- Import: POST …/import — DEFER P1
 
 ## Next
-
 | Role | Need |
 |------|------|
-| **Dev** | implement · T-* · Schema_CsdlBieu12 @ 4b · typed 15 · 2 section |
-| QA | e2e queued `/agent-qa*` |
-| Review | after QA |
+| **Dev** | implement § XLS · T-XLS-S12-* · /implement-export-import-excel |
+| QA | T-XLS-S12-QA-01 e2e queued /agent-qa* |
+| Review | after QA XLS |
 
 ## UNCLEAR
-
 - none
 
 ## Cấm (compact)
-
-ERP.* · invent API · detail* only · Guid IdCode · invent so-ts-green · parent *Json · 2 entity · implement code ở TL · Step 4b/migration/e2e/build/start:std ở TL · start role khác
+ERP.* · invent infra/so-ts-green · toast=done · filter-bar export · golden 12+8 · 2-sheet · streaming P0 · Import P0 · reopen typed CRUD · migration @ TL · implement code @ TL · e2e/build/start:std @ TL · start role khác

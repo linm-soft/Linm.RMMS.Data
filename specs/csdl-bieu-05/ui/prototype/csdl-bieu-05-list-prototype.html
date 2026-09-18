@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Prototype — Biểu 05 Rãnh các loại (DES-GRID + Slideout typed)</title>
+  <title>Prototype — Biểu 05 Rãnh các loại (edit_page · T-XLS-S05 Xuất Excel)</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
   <style>
     :root {
@@ -90,7 +90,7 @@
 </head>
 <body>
   <div class="page">
-    <p class="note" id="note">SSOT Design · <code>shared_grid_example v1</code> · pack <code>csdl-bieu-05</code> · resource <code>ditches</code> · mfeStdUrl <code>/csdl-bieu-05</code> · peer hub <code>?resource=ditches</code> · skip chrome · <strong>cấm</strong> detail* only · map none · Q-SHAPE rect_trap_round · Q-APERTURE/DRAIN free_text</p>
+    <p class="note" id="note">SSOT Design · <code>shared_grid_example v1</code> · pack <code>csdl-bieu-05</code> · edit_page T-XLS-S05 · resource <code>ditches</code> · mfeStdUrl hub · Xuất Excel catalogToolbar · Import DEFER P1 · <strong>cấm</strong> XLS trên filter · peer no-merge · map none · typed 18 keep</p>
 
     <section id="list" style="display:flex;flex-direction:column;gap:8px;flex:1;min-height:0">
       <div class="zone-a" data-des-id="DES-GRID-A">
@@ -104,8 +104,8 @@
           <button type="button" class="tb" data-action="history" title="Lịch sử"><i class="fas fa-history"></i></button>
           <button type="button" class="tb" data-action="config" title="Cấu hình"><i class="fas fa-cog"></i></button>
           <button type="button" class="tb" id="btn-del" disabled title="Xóa"><i class="fas fa-trash"></i></button>
-          <button type="button" class="tb" data-action="import" title="Import stub OUT Biểu 5"><i class="fas fa-file-import"></i></button>
-          <button type="button" class="tb" data-action="export" title="Export stub OUT Biểu 5"><i class="fas fa-file-export"></i></button>
+          <button type="button" class="tb" data-action="export" title="Xuất Excel" id="btn-export"><i class="fas fa-file-excel" aria-hidden="true"></i> Xuất Excel</button>
+          <!-- importExcel DEFER P1 · ẩn P0 (Q-XLS-IMPORT=export_only_p0) -->
           <button type="button" class="tb" data-action="peer" title="Sổ TS rãnh"><i class="fas fa-link"></i> Sổ TS</button>
         </div>
         <div class="zone-b-right">
@@ -388,10 +388,28 @@
     document.querySelector('[data-action="history"]').onclick = function(){ openModal('modal-history'); };
     document.querySelector('[data-action="create"]').onclick = function(){ openSlide('create'); };
     document.querySelector('[data-action="create-empty"]').onclick = function(){ openSlide('create'); };
-    document.querySelector('[data-action="import"]').onclick = function(){ /* OUT XLS Biểu 5 stub */ };
-    document.querySelector('[data-action="export"]').onclick = function(){ /* OUT XLS Biểu 5 stub */ };
+    document.getElementById('btn-export').onclick = function(){
+      var btn = document.getElementById('btn-export');
+      if (btn.disabled) return;
+      btn.disabled = true;
+      var d = new Date();
+      var ymd = d.getFullYear().toString() + String(d.getMonth()+1).padStart(2,'0') + String(d.getDate()).padStart(2,'0');
+      var name = 'Bieu05_RanhCacLoai_' + ymd + '.xlsx';
+      var blob = new Blob(
+        ['Biểu 05 mock · filtered QS · 18 cols · golden Cục 16-sheet · cấm merge so-ts-ditch\n'],
+        { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' }
+      );
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = name;
+      a.click();
+      URL.revokeObjectURL(a.href);
+      document.getElementById('note').textContent =
+        'Xuất Excel (mock filtered): ' + name + ' · GET …/csdl-records/export?resource=ditches · Import DEFER P1 · peer no-merge';
+      setTimeout(function(){ btn.disabled = false; }, 400);
+    };
     document.querySelector('[data-action="peer"]').onclick = function(){
-      document.getElementById('note').textContent += ' · peer → /so-ts-ditch (cấm merge form)';
+      document.getElementById('note').textContent += ' · peer → /so-ts-ditch (cấm merge form/export)';
     };
     document.querySelector('[data-action="refresh"]').onclick = renderRows;
     document.getElementById('btn-del').onclick = function(){ if(selected) openModal('modal-delete'); };

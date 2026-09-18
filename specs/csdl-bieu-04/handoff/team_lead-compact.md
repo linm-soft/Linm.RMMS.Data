@@ -1,84 +1,70 @@
-# handoff-compact — team_lead · csdl-bieu-04
+# Handoff compact — team_lead
 
-| | |
-|--|--|
-| schemaVersion | `1` |
-| role | `team_lead` |
-| feature | `csdl-bieu-04` |
-| title | CSDL Biểu 04 — Cống các loại |
-| packKind | `list` |
-| changeScope | `new_page` |
-| status | `done` |
-| taskId | `task_53096e25` |
-| saTaskId | `task_c8366fab` |
-| resource | `culverts` |
-| formNo | `04` |
-| columns | `17` |
-| IdCode | `CG-` |
-| peerSoTs | `so-ts-culvert-x` |
-| formPattern | **Kind D Slideout** 2col · **cấm** Full-page |
-| Kind | **B** A–D+F+H · **D** Slideout Z1–Z3 |
-| route_confirm | **`route_a`** `/csdl-bieu-04` + hub |
-| team_lead_confirm | **approve** (autoApprove ON) |
-| design_confirm | approve |
-| solution_confirm | approve |
-| autoApprove | `ON` |
-| e2eQa | `ON` (queued `/agent-qa*` only) |
-| domain | **Asset** · `api/v1/asset/csdl-records` |
-| entity | shell + `CsdlBieu4Entity` · `Schema_CsdlBieu4` |
-| gates | tz_na · xco_get_only · share_tenant |
-| contentHashPrior | `sha256:7498ad6644d0e599bc40afb7589db5335c18adb4b92f1573de3c1fae2e17d3d6` |
-| headerFingerprintPrior | `sha256:155df2db0952d6e139fbedac748878ecd5c607d506fdf5fccc172f5b0f937024` |
-| skillVersion | `2026.08.25.01` |
-| workflowVersion | `2026.09.01.02` |
-| rulesVersion | `2026.08.31.2` |
-| writtenAt | `2026-09-05T06:15:00.000Z` |
+schemaVersion: 1
+feature: csdl-bieu-04
+packKind: list
+role: team_lead
+status: done
+skillVersion: 2026.09.05.03
+workflowVersion: 2026.09.05.03
+rulesVersion: 2026.09.17.3
+contentHash: sha256:eef182add5b68de5b3e27ec36ed9c099689831aeb77742814aa296bf286243f9
+headerFingerprint: sha256:8b98f7a22739bdad37b67a7ef869d6c465edc38061f0d5853fe2e69758d4ccea
+writtenAt: 2026-09-18T03:30:00.000Z
+taskId: task_7925d902
+saTaskId: task_2c8beb5b
+resource: culverts
+columns: 17
+IdCode: CG-
+changeScope: edit_page
+formPattern: Slideout
+team_lead_confirm: approve
+route_confirm: keep
+design_confirm: approve
+solution_confirm: approve
+autoApprove: ON
+e2eQa: ON
+peerSoTs: so-ts-culvert-x
 
 ## Decisions
+- changeScope: edit_page (T-XLS-S04) · typed CRUD **KEEP** · **cấm** reopen 17-col
+- route_confirm: **keep** `/csdl-bieu-04` + hub · no new URL
+- export: catalogToolbar Xuất Excel · BFF binary · filter-all · `/implement-export-import-excel`
+- Q-XLS-SCOPE: filtered · FILENAME: `Bieu04_CongCacLoai_{yyyyMMdd}.xls` · Import **DEFER P1**
+- golden: Cục 16-sheet · Biểu 4 · 17 cols · GPS four_xy · **cấm** 12+8
+- filter: **cấm** Xuất trên LinErpListFilterBar (GAP-FILTER-BAR-08)
+- peer: **cấm** gộp so-ts-culvert-x vào sheet (GAP-BIEU04-XLS-PEER)
+- migration: **none** @ XLS · gates tz_na · xco_get_only · share_tenant
+- API: GET `…/csdl-records/export?resource=culverts` · **cấm ERP.***
+- team_lead_confirm: approve (autoApprove ON) · open Q: none
 
-- changeScope=`new_page` · packKind=`list` · typed **17 cột** · **cấm** detail* only
-- route_confirm **route_a** alias `/csdl-bieu-04` + hub `?resource=culverts`
-- Q-GPS **four_xy** · Q-SHAPE hộp/tròn · Q-LOAD **free_text** · Q-PROV **keep_static** P1
-- Persist shell + Schema_CsdlBieu4 · migration **Dev/4b** · **cấm** parent *Json
-- API **giữ** `asset/csdl-records` · BFF proxy · **cấm ERP.***
-- road-route SearchInput P1 · org/XLS/skip-bridge **OUT/DEFER**
-- Peer deep-link · **cấm** merge Sổ TS · map none
-- Grid AC YES · Leave YES · Report N/A
-- open Q: **none**
-
-## Artifacts
-
-| Kind | Path |
-|------|------|
-| task | `specs/csdl-bieu-04/task/csdl-bieu-04.md` |
-| solution | `specs/csdl-bieu-04/be/solution-discovery.md` |
-| design | `specs/csdl-bieu-04/ui/design.md` |
-| STATUS | `specs/csdl-bieu-04/STATUS.md` |
-
-## Task matrix (ids)
-
-T-DM-01 · T-CTX-01 · T-BE-01..05 · T-BFF-01 · T-PERM-01 · T-BE-UISCHEMA-01 · T-UI-LIST/FILTER/CFG/FORM/LEAVE/ACT/LKP/FIELD/PROD/UX/RESP · T-OUT-01 · T-QA-CRUD/FORM/FILTER/TYP/TAB/ROUTE
-
-SA map: T-FE-01→LIST · 02→FORM · 03→FILTER+LKP · 04→LEAVE+ACT · 05→PROD · 06→UISCHEMA
+## Inventory (slim)
+| id | label | controlHint | notes |
+|----|-------|-------------|-------|
+| (form 17) | typed prior | keep | GPS four_xy · **cấm** reopen |
+| exportExcel | Xuất Excel | ToolbarButton | P0 · filtered · binary |
+| importExcel | Nhập Excel | ToolbarButton+file | DEFER P1 · ẩn |
 
 ## Screens / zones (ids only)
+- S-LIST DES-GRID KEEP · toolbar +export · S-XLS-EXPORT · S-XLS-IMPORT hidden
+- S-FORM-* KEEP · mfeStdUrl=http://localhost:9301/so-ts/csdl-so-sach · hub=?resource=culverts
 
-- S-LIST · S-FORM-C/E/V/Copy · S-ACT-DELETE · S-HUB-ENTRY · S-PEER-SOTS · S-SKIP-MAP
-- mfeStdUrl=`http://localhost:9301/csdl-bieu-04`
-- hub=`http://localhost:9301/so-ts/csdl-so-sach?resource=culverts`
+## Task matrix (ids)
+- T-CTX-XLS-01 · T-OUT-01 · T-XLS-BE-01..02 · T-XLS-BFF-01 · T-XLS-FE-01..02 · T-XLS-QA-01 · T-REG-GRID/PEER
+- AC-XLS-01..09 · AC-GRID-01..05 regression · GAP-BIEU04-XLS-01..05 · GAP-BIEU04-XLS-PEER
 
 ## Next
-
 | Role | Need |
 |------|------|
-| **Dev** | implement · T-* · Schema_CsdlBieu4 @ 4b |
-| QA | e2e queued `/agent-qa*` |
+| Dev | implement T-XLS-* · handoff/dev-compact.md |
+| QA | queued `/agent-qa*` · T-XLS-QA-01 |
 | Review | after QA |
 
 ## UNCLEAR
-
 - none
 
-## Cấm (compact)
-
-ERP.* · invent API · detail* only · Guid IdCode · merge Sổ TS · parent *Json · implement code ở TL · Step 4b/migration/e2e/build/start:std ở TL · start role khác
+## Full paths
+- task: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-04/task/csdl-bieu-04.md
+- solution: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-04/be/solution-discovery.md
+- design: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-04/ui/design.md
+- STATUS: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-04/STATUS.md

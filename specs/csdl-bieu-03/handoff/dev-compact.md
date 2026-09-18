@@ -1,76 +1,59 @@
-# handoff-compact — dev · csdl-bieu-03
+# Handoff compact — dev
 
-| | |
-|--|--|
-| schemaVersion | `1` |
-| role | `dev` |
-| feature | `csdl-bieu-03` |
-| title | CSDL Biểu 03 — Hầm đường bộ |
-| packKind | `list` |
-| changeScope | `new_page` |
-| status | `done` |
-| taskId | `task_8650b573` |
-| resource | `road-tunnels` |
-| formNo | `03` |
-| columns | `42` |
-| IdCode | `TN-` |
-| formPattern | **Kind D Slideout** 2col sectioned |
-| Kind | **B** A–D+F · **D** Slideout Z1–Z3 |
-| mfeStdUrl | `http://localhost:9301/csdl-bieu-03` |
-| mfeStdRoute | `/csdl-bieu-03` |
-| hubDeepLink | `/so-ts/csdl-so-sach?resource=road-tunnels` |
-| domain | **Asset** · `api/v1/asset/csdl-records` |
-| entity | shell + `CsdlBieu3Entity` · `Schema_CsdlBieu3` |
-| yarnBuild | **PASS** |
-| dotnetBuild | **PASS** |
-| e2eQa | `ON` (queued `/agent-qa*` only — **cấm** e2e ở Dev) |
-| contentHashPrior | `sha256:2c03537918bbda56c29e1e1ef98cc081cc4e72c94447a1ac2f87f06bd6f9310e` |
-| skillVersion | `2026.08.25.01` |
-| workflowVersion | `2026.09.01.02` |
-| rulesVersion | `2026.08.31.2` |
-| writtenAt | `2026-09-05T09:20:00.000Z` |
+schemaVersion: 1
+feature: csdl-bieu-03
+packKind: list
+role: dev
+status: done
+skillVersion: 2026.09.05.03
+workflowVersion: 2026.09.05.03
+rulesVersion: 2026.09.17.3
+contentHash: sha256:57fc9dab0df1bc69fa444e65b543c8bc14b7ef9b2f12d92f72b12fa40e5cc1d9
+headerFingerprint: sha256:3574a45ea4cc36f0f01b6cff9e5a7577f52fdb7a7b79508685c1038b473564d8
+writtenAt: 2026-09-18T02:50:00.000Z
+taskId: task_310ad88c
+tlTaskId: task_28ddf784
+resource: road-tunnels
+columns: 42
+IdCode: TN-
+changeScope: edit_page
+formPattern: Slideout
+yarnBuild: PASS
+dotnetBuild: PASS
+mfeStdUrl: http://localhost:9301/so-ts/csdl-so-sach
+alias: /csdl-bieu-03
 
 ## Decisions
+- changeScope: edit_page (T-XLS-S03) · typed CRUD KEEP · **cấm** reopen 42-col
+- export: OOXML sheet Biểu 3 · 42 cols · GPS×3 · XLS-TUBE 1row/ống · filtered QS · filter-all · `Bieu03_HamDuongBo_{yyyyMMdd}.xls` · empty=headers-only
+- Import: DEFER P1 · UI ẩn · T-OUT-01
+- toolbar: catalogToolbar Xuất only · **cấm** filter-bar export (GAP-FILTER-BAR-08)
+- migration: none @ XLS · BFF binary KEEP
+- Gaps closed: GAP-BIEU03-XLS-01 · 02 · 04 · 05 · 03 deferred
+- mfe: Linm.Web.RMMS.Asset · be: Linm.RMMS.WebService · **cấm ERP.***
+- open questions: none
 
-- Typed 42 cột · GPS six_numbers · TUBE two_rows · VENT text · sectioned · alias `/csdl-bieu-03`
-- List FULL UiSchema + `buildDynamicGridColumns` · **cấm** `const columns`/`configHint`
-- Persist shell + Schema_CsdlBieu3 · stop detail* write road-tunnels · **cấm** ERP.*
-- DOMAIN-MAP `csdl-bieu-03`→Asset · BFF proxy ok
+## Inventory (slim)
+| id | label | controlHint | notes |
+|----|-------|-------------|-------|
+| (form 42) | typed prior | keep | GPS×3 · tube · KEEP |
+| exportExcel | Xuất Excel | ToolbarButton | filtered · filter-all · binary |
+| importExcel | Nhập Excel | ToolbarButton+file | DEFER P1 · ẩn |
 
-## APIs
+## Screens / zones (ids only)
+- S-LIST · S-FORM-* KEEP · S-XLS-EXPORT · S-XLS-IMPORT (hidden)
+- mfeStdUrl=http://localhost:9301/so-ts/csdl-so-sach · alias /csdl-bieu-03
+- hub=?resource=road-tunnels
 
-| ID | Method | Path |
-|----|--------|------|
-| API-01..05 | GET/POST/PUT/DELETE | `/api/v1/asset/csdl-records` (+ `?resource=road-tunnels`) |
-| API-LKP-01 | GET | `/api/v1/integration/road-routes/search` |
-| BFF | proxy | `/web-bff/api/v1/asset/csdl-records` |
-
-## Artifacts
-
-| Kind | Path |
-|------|------|
-| implement | `specs/csdl-bieu-03/implement/csdl-bieu-03.md` |
-| FE | `Linm.Web.RMMS.Asset/src/pages/CsdlBieu03Page/` |
-| BE entity | `…/Entities/CsdlBieu3Entity.cs` |
-| migration | `…/Migrations/20260905085812_Schema_CsdlBieu3.cs` |
-| STATUS | `specs/csdl-bieu-03/STATUS.md` |
-
-## Debt
-
-- ef database update Schema_CsdlBieu3 (deploy)
-- legacy detail* backfill optional · org SearchInput P2 · XLS OUT · Auth wire DEFER
-
-## Next
-
-| Role | Need |
-|------|------|
-| **QA** | T-QA-* · e2e `/agent-qa*` · mfeStdUrl |
-| Review | after QA |
+## API / tasks (ids only)
+- API-XLS-01 GET …/csdl-records/export?resource=road-tunnels (+ filter QS · tunnelClass · tubeCount)
+- T-XLS-BE-01/02 · BFF-01 · FE-01/02 **done** · T-XLS-QA-01 pending QA
+- debt: getBlob strips Content-Disposition · Auth DEFER · Import P1
 
 ## UNCLEAR
-
 - none
 
-## Cấm (compact)
-
-ERP.* · e2e/start:std ở Dev · invent API · detail* only · Guid IdCode · merge Sổ 6 · 1 row 2 GPS · start role khác
+## Full paths (Read only if needed)
+- implement: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-03/implement/csdl-bieu-03.md
+- STATUS: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-03/STATUS.md
+- prior: handoff/team_lead-compact.md

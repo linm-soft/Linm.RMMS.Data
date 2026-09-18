@@ -1,85 +1,70 @@
-# handoff-compact — review · csdl-bieu-15
+# Handoff compact — review
 
-| | |
-|--|--|
-| schemaVersion | `1` |
-| role | `review` |
-| feature | `csdl-bieu-15` |
-| title | CSDL Biểu 15 — TMC / thu phí / hạt / kho |
-| packKind | `list` |
-| changeScope | `new_page` |
-| status | `done` |
-| verdict | **PASS** |
-| review_confirm | **approve** |
-| taskId | `task_0c28671f` |
-| priorQaTaskId | `task_cb969365` |
-| resource | `ops-facilities` |
-| formNo | `15` |
-| columns | `20` · Z2 công trình · Z3 TB+QL |
-| IdCode | `OF-` |
-| peerSoTs | `so-ts-toll` · `so-ts-rest-area` · `so-ts-station-house` · **cấm** merge · none_p1 |
-| formPattern | **Kind D Slideout** 2col · Z2 công trình · Z3 TB+QL |
-| Kind | **B** A–D+F · **D** Slideout Z1–Z3 |
-| route_confirm | `route_a` |
-| mfeStdUrl | `http://localhost:9301/csdl-bieu-15` |
-| hubDeepLink | `/so-ts/csdl-so-sach?resource=ops-facilities` |
-| domain | **Asset** · `api/v1/asset/csdl-records` |
-| entity | shell + `CsdlBieu15Entity` · `Schema_CsdlBieu15` |
-| yarnBuild | **PASS** |
-| yarnTypecheck | **PASS** |
-| dotnetBuild | **PASS** |
-| e2eQa | **PASS** (S0/S1/QA-20) |
-| qa_verdict | **PASS** |
-| hashGate | **SKIP** unchanged |
-| contentHashPrior | `sha256:3bf356f00182dd6c0864bf5b88ae4d460ef8da73e5521f1b14756b7168dc20a7` |
-| headerFingerprintPrior | `sha256:0064a4903777f7ea8d51c7423d8451a20daf77a5934929001905edaa380f4fe4` |
-| skillVersion | `2026.08.29.03` |
-| workflowVersion | `2026.09.01.02` |
-| rulesVersion | `2026.08.31.2` |
-| writtenAt | `2026-09-05T16:05:00.000Z` |
+schemaVersion: 1
+feature: csdl-bieu-15
+packKind: list
+role: review
+status: done
+verdict: PASS
+review_confirm: approve
+skillVersion: 2026.08.29.03
+workflowVersion: 2026.09.01.02
+rulesVersion: 2026.09.17.3
+contentHash: sha256:8a85d68eaef24cf98c312f83a3a100de25b1212e8a751d6f1f42005d38dd0fc8
+headerFingerprint: sha256:0064a4903777f7ea8d51c7423d8451a20daf77a5934929001905edaa380f4fe4
+hashGate: SKIP
+writtenAt: 2026-09-18T02:50:00.000Z
+taskId: task_9dc96940
+priorQa: task_2d0725d3 · PASS
+priorDev: task_88a1f9c1 · PASS
+priorTypedReview: task_0c28671f · keep
+resource: ops-facilities
+columns: 20
+IdCode: OF-
+formNo: 15
+changeScope: edit_page
+formPattern: Slideout
+autoApprove: ON
+epic: csdl-export-print · T-XLS-S15
+mfeStdUrl: http://localhost:9301/so-ts/csdl-so-sach
+alias: /csdl-bieu-15
+hubDeepLink: /so-ts/csdl-so-sach?resource=ops-facilities
+peerSoTs: so-ts-toll · so-ts-rest-area · so-ts-station-house · cấm merge
 
 ## Decisions
+- changeScope: edit_page T-XLS-S15 · typed 20 KEEP · Schema_CsdlBieu15 KEEP
+- review_confirm: **approve** (autoApprove ON) · fix_gaps: none
+- QUERY/SEC/UI-FN/BE-FN: **PASS** · 0 blocker · 0 major
+- export: GET …/export?resource=ops-facilities · toolbar Xuất · filtered · `Bieu15_TMC_Tram_Hat_{yyyyMMdd}.xls` · sheet Biểu 15 · 20 flat
+- import: DEFER P1 ẩn · export_only_p0
+- GAP-BIEU15-XLS-01..07: **CLOSED**
+- filter-bar export: **0** (GAP-FILTER-BAR-08)
+- hashGate SKIP · cấm reopen typed / ERP.* / merge peer
+- debt: Auth DEFER · Import P1 · GAP-QA-E2E-PW-01 P2 · ROAD-TESTID P3
 
-- review_confirm **approve** (autoApprove ON) · verdict **PASS**
-- QUERY/SEC/UI-FN/BE-FN: 0 blocker · 0 major
-- Typed 20 · keep_5 · OF- · route_a · hub redirect · **cấm** ERP.* · **cấm** detail*-only · **cấm** merge so-ts-*
-- Hash skip · QA cite S0/S1/QA-20 · **cấm** e2e/start:std @ Review
-- Debt: Auth DEFER · org P2 · XLS OUT · GAP-QA-E2E-PW-01 P2 · GAP-QA-ROAD-TESTID P3
-- open Q: **none** · fix_gaps: **none**
-- phase **done** (Review last)
-
-## Findings (ids)
-
-| Gate | Result |
-|------|--------|
-| QUERY Q-01..06 | PASS (+ Auth debt) |
-| SEC S-01..05 | PASS (+ Auth debt) |
-| UI-FN U-01..07 | PASS (+ P3 testid) |
-| BE-FN B-01..06 | PASS |
-
-## Artifacts
-
-| Kind | Path |
-|------|------|
-| findings | `specs/csdl-bieu-15/review/findings.md` |
-| STATUS | `specs/csdl-bieu-15/STATUS.md` |
-| prior qa | `handoff/qa-compact.md` |
+## Inventory (slim)
+| id | label | controlHint | notes |
+|----|-------|-------------|-------|
+| (form 20) | typed keep | — | CRUD KEEP |
+| exportExcel | Xuất Excel | ToolbarButton | P0 · PASS |
+| importExcel | — | — | DEFER P1 ẩn |
 
 ## Screens / zones (ids only)
+- S-LIST · S-FORM-* KEEP · S-XLS-EXPORT PASS · S-XLS-IMPORT hidden
+- mfeStdUrl=http://localhost:9301/so-ts/csdl-so-sach · alias /csdl-bieu-15
 
-- S-LIST · S-FORM-C · S-HUB-ENTRY · S-SKIP-PEER · S-SKIP-MAP
-- testid=`rmms-csdl-bieu-15-list-page` · form=`rmms-csdl-bieu-15-form-slideout`
+## Evidence
+- QA S0/S1/QA-20 + export PASS · fileName=Bieu15_TMC_Tram_Hat_20260918.xls
+- yarn+dotnet PASS (Dev) · e2eQa PASS · **cấm** re-run @ Review
+
+## Full paths
+- findings: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-15/review/findings.md
+- STATUS: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-15/STATUS.md
 
 ## Next
-
 | Role | Need |
 |------|------|
-| — | Pipeline complete · **không** start role khác |
-
-## UNCLEAR
-
-- none
+| — | pipeline **done** · T-XLS-S15 closed |
 
 ## Cấm (compact)
-
-ERP.* · invent API · detail*-only · Guid IdCode · merge so-ts-toll/rest/station/road-assets · e2e/start:std/build @ Review · start role khác · re-scan demo
+ERP.* · invent infra · reopen typed · filter-bar export · Import P0 · merge peer · toast stub=done · yarn build/e2e/start:std @ Review · phase reopen

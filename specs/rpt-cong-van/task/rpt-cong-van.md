@@ -200,7 +200,7 @@ Audit `Linm.Web.RMMS.Report` `OfficialDocsReportPage.tsx` + `OfficialDocsFilterB
 | Enter trên Input tìm | B | = Xem | same |
 | Làm mới | toolbar | nếu viewed reload applied; chưa viewed = apply+view | same |
 | Biểu đồ | toolbar | SoCai modal | client `items` |
-| In | toolbar | print scope modal (OK) hoặc stub toast | — |
+| In | toolbar | `LinReportPrintScopeModal` → `triggerErpReportPrint` · print summary title + filter applied + grid | — |
 | Sửa config | toolbar | FULL modal | — |
 | **Xuất Excel** | toolbar | **chỉ** viewed · applied filters · cột hiện | API-02 |
 | Mở công văn | C | top window `/ops?id=` | — (không Report GetById) |

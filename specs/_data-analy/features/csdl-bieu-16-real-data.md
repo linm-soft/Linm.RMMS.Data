@@ -1,166 +1,129 @@
-# Real-data bind — csdl-bieu-16 (Kind B list + Kind D Slideout · interchanges)
+# Real-data bind — csdl-bieu-16 (edit_page · T-XLS-S16 export/import)
 
 | | |
 |---|---|
 | feature | `csdl-bieu-16` |
 | packKind | `list` |
-| changeScope | `new_page` |
+| changeScope | `edit_page` |
 | status | `done` |
-| taskId | `task_70fe1d76` |
+| taskId | `task_e344020d` |
+| priorTask | `task_70fe1d76` → review `task_628c95a5` (typed CRUD **done** · **cấm** reopen new_page) |
 | resource | `interchanges` |
-| prefix | **live shell** `api/v1/asset/csdl-records` · BFF `web-bff/api/v1/asset/csdl-records` · typed DTO **SA** |
-| beRepo | `D:/AI-QLBD/Linm.RMMS.WebService` · **cấm ERP.*** · **cấm** `api/v1/rmms/*` · **cấm** invent `api/v1/infra/*` |
+| prefix | **live** `api/v1/asset/csdl-records` · BFF `web-bff/api/v1/asset/csdl-records` |
+| beRepo | `D:/AI-QLBD/Linm.RMMS.WebService` · **cấm ERP.*** · **cấm** `api/v1/infra/*` |
 | uiRepo | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Asset` |
-| mfeStdUrl | `http://localhost:9301/csdl-bieu-16` · hub `http://localhost:9301/so-ts/csdl-so-sach?resource=interchanges` |
-| map | `none` · **cấm** invent map canvas |
-| contentHash | `sha256:56e2fb16e9bcde21f17d7e9639b72660666778f5393b1270cecc49d123beba4b` |
+| mfeStdUrl | `http://localhost:9301/so-ts/csdl-so-sach` · alias `/csdl-bieu-16` · hub `?resource=interchanges` |
+| map | `none` |
+| contentHash | `sha256:c71543b66c4f1d28f5dbae1743c1042e0bb9f12ab9c0efc55d9668af2a38e072` |
 | headerFingerprint | `sha256:ec787bf2008ae89f1b6c085fe238f1b0d50b048f5c672b90b68d9ea102cf8fcc` |
-| sourceTables | shell `rmms_csdl_catalog_records` · typed `Schema_CsdlBieu16` / `Interchange` + `InterchangeBranch` (**SA/migration**) |
-| catalogKind UI schema | `interchanges` (typed) · fallback hub `csdl-records` |
-| IdCode prefix | `IX` (**Q-PREFIX**) |
-| peerSoTs | `so-ts-interchange` · **cấm** merge so-ts-* · **cấm** reuse `road-assets` / dumpSpecs làm SSOT biểu |
+| sourceTables | typed `Schema_CsdlBieu16` / `Interchange` + `InterchangeBranch` · **không** bảng report store P1 |
+| catalogKind UI schema | `interchanges` |
+| IdCode prefix | `IX` |
+| peerSoTs | `so-ts-interchange` · **cấm** merge so-ts-* / `road-assets` vào export |
+| epicCite | `docs/context/features/csdl-export-print.md` · Wave 1 `T-XLS-S16` |
+| golden | Cục `1. Biểu mẫu CSDL.xls` sheet Biểu 16 · **cấm** hồ sơ 12+8 |
+| devSlash | `/implement-export-import-excel` · BFF binary |
 
-## § Delta Current vs New (`new_page` · `task_70fe1d76`)
+## § Delta Current vs New (`edit_page` · `task_e344020d`)
 
 | ID | Current live | New (this analy) |
 |----|--------------|------------------|
-| Hub | 12 biểu · **MISSING** Biểu 16 | NEW card · resource `interchanges` · formNo **16** |
-| Form | N/A / 3 ô `detail*` nếu bootstrap | Typed **39 cột** · header + `branches[]` + ATGT |
-| List cols | generic | Shared + name / interchangeType / kmMain / status |
-| formNo | — | **16** · title «Nút giao» |
-| API | shell `csdl-records` · resource chưa đăng ký | **giữ prefix** · register `interchanges` + typed payload — SA |
-| DB SSOT | Doc chỉ Biểu 1–12 | Schema_CsdlBieu16 · **GAP-BIEU16-DB-01** |
-| Child | — | `branches[]` 1–n · **GAP-CSDL-CUC-09** |
-| Import | stub | Sheet 39 cột merge — OUT XLS |
-| Peer | so-ts-interchange · `road-assets?type=INTERCHANGE` | **cấm** merge · ROW riêng · **GAP-CSDL-CUC-11** |
+| Form / list | Typed 39 · header + `branches[]` + ATGT · Slideout + grid **shipped** | **Unchanged** |
+| Toolbar | Refresh · Add · History · Schema · View/Edit/Delete — **không** Xuất | **Xuất Excel** (+ Import P1) trên `catalogToolbar` |
+| Filter | `LinErpListFilterBar` field+🔍 | **Unchanged** · **cấm** action Xuất (**GAP-FILTER-BAR-08**) |
+| Export API | Missing / stub | `GET …/csdl-records/export?resource=interchanges` → binary (epic cite · SA) |
+| Import API | Missing / stub | `POST …/csdl-records/import?resource=interchanges` (P1) |
+| Golden | — | Cục 16-sheet · sheet Biểu 16 · checksum 39 cột · flatten 1 row/nhánh |
+| Peer | so-ts-interchange cite | **cấm** merge/dump `road-assets` vào file · **GAP-CSDL-CUC-11** |
+| Done gate | Typed STATUS done | **≠** export xong · cần file mở được cạnh mẫu |
 
 ## §A — Nguồn
 
 | sourceKind | sourceCite | empty | error |
 |------------|------------|-------|-------|
-| `context` | `docs/context/features/csdl-bieu-16.md` | — | version mismatch → gate |
-| `analy` | `specs/_data-analy/csdl-cuc-2026/ANALYSIS-AND-TASKS.md` § Biểu 16 | — | 39 cột · MISSING hub · child nhánh |
-| `db-ssot` | `docs/context/11-CSDL-SO-SACH-DATABASE-API.md` | **thiếu** § Biểu 16 | **GAP-BIEU16-DB-01** · SA viết entity |
-| `demo` | `Linm.RMMS.Demo/.../csdl-so-sach.html` (+ redirect · `csdl-so-sach-data.js`) | hub thiếu card | **UI only** · **cấm** SSOT data |
-| `api` · list | `GET …/csdl-records?resource=interchanges&…` | empty grid VN | 422 thiếu resource · toast |
-| `api` · detail | `GET …/csdl-records/{id}` | — | 404 → đóng slideout · toast |
-| `api` · CRUD | `POST` / `PUT` / soft `DELETE` | — | validation toast · payload gồm `branches[]` |
-| `entity` | `CsdlCatalogRecordEntity` (shell) | — | tenant `CompanyCode` |
-| `entity` | typed Biểu 16 / `Interchange` + Branch (**SA**) | — | Schema_CsdlBieu16 pair |
-| `mfe` | hub `CsdlSoSachPage` · form `CsdlFormSlideout` | generic / missing card | typed + hub card + child grid |
-| `catalog` | Integration ui-schema `interchanges` | bootstrap cols | toast |
-| `excel` | `1. Biểu mẫu CSDL.xls` sheet Biểu 16 | — | import cite · not runtime SSOT |
-| `peer` | so-ts-interchange · `api/v1/asset/road-assets` | — | **cite only** · **cấm** bind runtime |
-| `derived` | IdCode `IX-yyyyMMdd-nnnn` · `branchCount` | — | BE generate · **Q-PREFIX** |
-
-`sourceCite` = path/controller **có trong repo** hoặc analy Excel cite. **Cấm** invent `api/v1/so-ts/*` · **cấm** ERP.* · **cấm** invent `api/v1/infra/*` (doc legacy) · **cấm** bind peer `road-assets` làm list biểu.
+| `context` | `docs/context/features/csdl-bieu-16.md` | — | version gate |
+| `context` | `docs/context/features/csdl-export-print.md` § Wave 1 · API | — | golden / toolbar rules |
+| `analy` | `specs/_data-analy/csdl-cuc-2026/ANALYSIS-AND-TASKS.md` Biểu 16 | — | 39 cột · nhánh 1–n |
+| `db-ssot` | `docs/context/11-CSDL-SO-SACH-DATABASE-API.md` § Interchange / Schema_CsdlBieu16 | — | header + Branch |
+| `api` · list/CRUD | `GET/POST/PUT/DELETE …/csdl-records?resource=interchanges` | empty grid VN | toast 4xx |
+| `api` · **export** | `GET …/csdl-records/export?resource=interchanges` (epic · SA chốt) | file 0 row OK | toast · **cấm** fake blob |
+| `api` · **import** | `POST …/csdl-records/import?resource=interchanges` | — | validation · map `branches[]` |
+| `entity` | `Schema_CsdlBieu16` / Interchange + InterchangeBranch | — | CompanyCode tenant |
+| `mfe` | `CsdlBieu16Page` · `fromCatalogToolbar` | — | wire export action |
+| `excel` | `1. Biểu mẫu CSDL.xls` sheet Biểu 16 | — | golden · not runtime SSOT |
+| `excel` | Hồ sơ `4.1. In_Mẫu…xlsx` 12 biểu | — | **STALE** · so sánh only |
+| `peer` | so-ts-interchange · `api/v1/asset/road-assets` | — | **cite only** · **cấm** bind export |
 
 ## §B — Bind field (HARD)
 
-| uiField | Label | controlHint | catalogKind | GET | write field | sameMfe |
-|---------|-------|-------------|-------------|-----|-------------|---------|
-| resource | Resource | QS / const | — | required `interchanges` | `resource` | yes |
-| search | Tìm | SearchTextInput | — | `?search=` | — | yes |
-| province | Tỉnh | Dropdown | LOOKUP_STATIC | `?province=` | `province` | yes |
-| interchangeType | Loại nút | Dropdown | LOOKUP_STATIC | `?interchangeType=` | `interchangeType` | yes · **GAP-BIEU16-TYPE-01** |
-| status | TT | Dropdown | LOOKUP_STATIC | `?status=` | `status` | yes |
-| roadCode | Đường | SearchInput | road-route | `?roadCode=` / detail | `roadCode` (+ display `roadName`) | yes · **GAP-CSDL-ROAD-01** |
-| kmMain | Km chính | Number | — | filter / detail | `kmMain` | yes · **GAP-BIEU16-KM-01** |
-| kmAux | Km phụ | Number | — | detail | `kmAux` | yes |
-| code | Mã | Text ro | — | detail `code` | auto | yes |
-| name | Tên nút | Text | — | detail / list | `name` | yes |
-| side | Vị trí | Dropdown | LOOKUP_STATIC | detail | `side` | yes |
-| trafficOrg | Tổ chức GT | Dropdown/Text | — | detail | `trafficOrg` | yes |
-| mainBedWidth | B nền chính | Number | — | detail / list | `mainBedWidth` | yes · **GAP-BIEU16-MAIN-01** |
-| mainSurfaceWidth | B mặt chính | Number | — | detail / list | `mainSurfaceWidth` | yes |
-| mainMedianWidth | KC chính | Number | — | detail / list | `mainMedianWidth` | yes |
-| mainLaneCount | Số làn | Number | — | detail / list | `mainLaneCount` | yes |
-| atgtSign | ATGT biển | Number/Text | — | detail | `atgtSign` | yes · **GAP-BIEU16-ATGT-01** |
-| atgtMarking | ATGT vạch | Number/Text | — | detail | `atgtMarking` | yes |
-| atgtIsland | ATGT đảo | Number/Text | — | detail | `atgtIsland` | yes |
-| atgtLight | ATGT đèn | Number/Text | — | detail | `atgtLight` | yes |
-| branches | Nhánh | child grid | — | detail `branches[]` | `branches[]` | yes · **GAP-CSDL-CUC-09** |
-| branchName … branchRadius | (trong child) | Text/Number/Dropdown | — | nested | nested | yes · **GAP-BIEU16-BRANCH-01** |
-| yearBuilt | Năm | Number | — | detail / list | `yearBuilt` | yes |
-| manageUnit | ĐV QL | Text | — | detail / list | `manageUnit` | yes · **GAP-CSDL-ORG-01** |
-| notes | Ghi chú | Textarea | — | detail | `notes` | yes |
-| lat / lng | GPS | Number | — | detail | `lat` / `lng` | yes |
-| branchCount | Số nhánh | Number ro | — | detail / list | derived | yes |
-| formNo | Biểu | const | — | — | `16` | yes |
-| isActive | Active | — | — | detail | soft-delete | yes |
-| updatedAt / updatedBy | Cập nhật | DateTime/Text ro | — | detail | — | yes |
+### B1 — CRUD fields (**unchanged** — keep prior bind)
 
-**Prefix map:**
+Reuse prior §B (`task_70fe1d76`): `resource` · filters · typed 39 · soft-delete · `branches[]` · ATGT · main* widths. **Cấm** đổi write paths typed trong pack này.
+
+### B2 — Export / import (**delta**)
+
+| uiField / action | Label | controlHint | catalogKind | GET / POST | write field | sameMfe |
+|------------------|-------|-------------|-------------|------------|-------------|---------|
+| exportExcel | Xuất Excel | ToolbarButton | — | `GET …/export?resource=interchanges` (+ filter QS nếu Q-XLS-SCOPE=filtered) | — (download) | **gap** (thiếu nút) |
+| importExcel | Nhập Excel | ToolbarButton + file | — | `POST …/import?resource=interchanges` multipart | upsert typed + `branches[]` | **gap** P1 |
+| exportFileName | — | derived | — | Content-Disposition | — | SA |
+| branch flatten | — | engine | — | export rows = 1 / nhánh | Excel `branch*` cols | SA · **GAP-BIEU16-XLS-06** |
+
+**Prefix map (keep + delta):**
 
 | Operation | Path |
 |-----------|------|
-| List | `GET /web-bff/api/v1/asset/csdl-records?resource=interchanges` |
-| Detail | `GET /web-bff/api/v1/asset/csdl-records/{id}` |
-| Create | `POST /web-bff/api/v1/asset/csdl-records` body `resource=interchanges` + typed fields + `branches[]` |
-| Update | `PUT /web-bff/api/v1/asset/csdl-records/{id}` |
-| Delete | `DELETE /web-bff/api/v1/asset/csdl-records/{id}` (soft) |
+| List / Detail / CRUD | `/web-bff/api/v1/asset/csdl-records` (+ `/{id}`) — **keep** |
+| **Export** | `GET /web-bff/api/v1/asset/csdl-records/export?resource=interchanges` |
+| **Import** | `POST /web-bff/api/v1/asset/csdl-records/import?resource=interchanges` |
+| API mirror | `api/v1/asset/csdl-records[/export|/import]` · **cấm** invent `/infra/` |
 
-API mirror: `api/v1/asset/csdl-records`. FE cite hub: `services/csdlSoSach/endpoint.ts` `BASE=/asset/csdl-records` — typed page **reuse** cùng BASE.
-
-DB đề xuất map: `Name`↔`name` · `KmMain`/`KmAux` · `InterchangeType` · `TrafficOrg` · `MainBedWidth`/`MainSurfaceWidth`/`MainMedianWidth`/`MainLaneCount` · ATGT cols · child `InterchangeBranch` (Name/KmFrom/KmTo/Side/Direction/Length/Bed/Surface/Median/Radius) — **SA** confirm Excel · **Q-CHILD-API**.
-
-**Cấm** bind: `api/v1/asset/road-assets?type=INTERCHANGE` · dumpSpecs peer · invent `api/v1/infra/interchanges` · so-ts-interchange form APIs làm list biểu.
+DB SSOT map (export row): header `Name`↔`name` · `KmMain`/`KmAux` · `InterchangeType` · `TrafficOrg` · `MainBedWidth`/`MainSurfaceWidth`/`MainMedianWidth`/`MainLaneCount` · ATGT · child Branch → Excel flatten `branchName`…`branchRadius` — **SA** giữ typed · **Q-XLS-BRANCH**.
 
 ## §C — Catalog / lookup
 
-| catalogKind | search/list API | seed/import cite | Cấm |
-|-------------|-----------------|------------------|------|
-| LOOKUP_STATIC province | FE `PROVINCES` P1 | demo align | Dropdown demo-only làm SSOT quốc gia |
-| LOOKUP_STATIC interchangeType | cite Excel · **Q-TYPE-SET** | analy § Biểu 16 | expand không confirm |
-| LOOKUP_STATIC trafficOrg | nếu lookup · **Q-TRAFFIC-ORG** | — | invent set không cite |
-| LOOKUP_STATIC status | tot/tb/kem/hong hoặc align hub | — | invent set không cite Excel |
-| LOOKUP_STATIC side | L / R / C | shared hub | invent |
-| road-route | `GET /integration/road-routes/search` | shared catalog READY | free-text khi đã chốt SearchInput |
-| org-unit | `GET /integration/org-units/search` | shared org · P2 | hardcode ĐV |
-| ui-schema | Integration `interchanges` | Schema editor | generic 3-col only |
-| asset-type peer | — | — | **cấm** dùng làm SSOT biểu Cục |
+Unchanged prior LOOKUP_STATIC (province/interchangeType/status/side) + `road-route` + `org-unit` P2. Export **không** thêm catalogKind.
 
 ## §D — Map / vẽ
 
-`none` — list pack. Toolbar map → gis deep-link only (`nut-giao` optional cite peer). **Cấm** invent map canvas trên list.
+`none`
 
-## §E — Empty / error / permission
+## §E — Empty / error / permission / export
 
 | Case | UX |
 |------|-----|
-| Empty list | Grid copy VN «Chưa có nút giao» · CTA Tạo mới |
-| 422 thiếu resource | toast · không alert |
-| 404 detail | đóng slideout · toast |
-| Soft-delete | row biến mất · list refresh |
-| Child empty | theo **Q-BRANCH-MIN** · toast validate |
-| Permission | CommonLib Auth debt · **cấm** invent path |
+| Empty list export | File vẫn tải · 0 data row · header merge đúng mẫu · toast info OK |
+| Export fail | toast · **cấm** silent · **cấm** CSV generic lưới |
+| Import invalid typed / branch | toast · giữ map SA · **cấm** đổi entity |
+| 0 nhánh | theo **Q-XLS-BRANCH** |
+| Permission | Auth debt · **cấm** invent path |
+| Toast stub only | **FAIL** DoD · **GAP-BIEU16-XLS-02** |
 
 ## §F — Cấm
 
 - Demo / localStorage / seed giả làm SSOT runtime  
 - ERP.* / Domains/Master / `api/v1/infra/*` / invent `api/v1/so-ts/*`  
-- Form chỉ 3 ô `detail*`  
-- Flatten-only 1 nhánh · bỏ child grid (**GAP-CSDL-CUC-09**)  
-- Merge / reuse so-ts-interchange form · `road-assets` · dumpSpecs làm list biểu  
-- Guid làm IdCode  
-- yarn build / e2e ở role data_analy  
+- Toast stub = export done · filter-bar export (**GAP-FILTER-BAR-08**)  
+- Golden hồ sơ 12+8 · invent sheet riêng nhánh  
+- Flatten-only 1 nhánh mất data · merge peer so-ts-interchange / `road-assets` vào export  
+- Re-open new_page typed CRUD · yarn build / e2e @ data_analy  
 
 ## Version meta (REQUIRED)
 
 | Field | Value |
 |-------|-------|
 | skillId | agent-data-analy |
-| skillVersion | 2026.08.25.01 |
+| skillVersion | 2026.09.05.03 |
 | schemaVersion | 1 |
-| workflowVersion | 2026.09.01.02 |
-| rulesVersion | 2026.08.31.2 |
-| contentHash | `sha256:56e2fb16e9bcde21f17d7e9639b72660666778f5393b1270cecc49d123beba4b` |
+| workflowVersion | 2026.09.05.03 |
+| rulesVersion | 2026.09.17.3 |
+| contentHash | `sha256:c71543b66c4f1d28f5dbae1743c1042e0bb9f12ab9c0efc55d9668af2a38e072` |
 | headerFingerprint | `sha256:ec787bf2008ae89f1b6c085fe238f1b0d50b048f5c672b90b68d9ea102cf8fcc` |
-| generatedAt | 2026-09-05T16:01:30.000Z |
+| generatedAt | 2026-09-18T02:50:00.000Z |
 | versionGate | ok |
-| taskId | task_70fe1d76 |
+| taskId | task_e344020d |
 | packKind | list |
-| changeScope | new_page |
+| changeScope | edit_page |
 
 ---
-<!-- Version meta: skillId=agent-data-analy skillVersion=2026.08.25.01 schemaVersion=1 workflowVersion=2026.09.01.02 rulesVersion=2026.08.31.2 versionGate=ok contentHash=sha256:56e2fb16e9bcde21f17d7e9639b72660666778f5393b1270cecc49d123beba4b -->
+<!-- Version meta: skillId=agent-data-analy skillVersion=2026.09.05.03 schemaVersion=1 workflowVersion=2026.09.05.03 rulesVersion=2026.09.17.3 versionGate=ok contentHash=sha256:c71543b66c4f1d28f5dbae1743c1042e0bb9f12ab9c0efc55d9668af2a38e072 -->

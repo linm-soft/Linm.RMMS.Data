@@ -1,86 +1,93 @@
-# handoff-compact — team_lead · csdl-bieu-14
+# Handoff compact — team_lead
 
-| | |
-|--|--|
-| schemaVersion | `1` |
-| role | `team_lead` |
-| feature | `csdl-bieu-14` |
-| title | CSDL Biểu 14 — Hệ thống ITS (GTTM) |
-| packKind | `list` |
-| changeScope | `new_page` |
-| status | `done` |
-| taskId | `task_b21db737` |
-| saTaskId | `task_c534e53a` |
-| resource | `its-systems` |
-| formNo | `14` |
-| columns | `21` · section vị trí + TB ITS + HT gắn kèm |
-| IdCode | `IT-` |
-| peerSoTs | `so-ts-its-camera` · **cấm** merge · none_p1 · **cấm** AiVision |
-| formPattern | **Kind D Slideout** 2col · Z2 TB · Z3 HT · **cấm** Full-page |
-| Kind | **B** A–D+F · **D** Slideout Z1–Z3 |
-| device | keep_5 · brand · techSpec · qtyOrLength ≥0 · operatingStatus |
-| infra | keep_3 · clearanceM · infraQty · systemStatus · yearBuilt |
-| gps | gpsLat/gpsLng · direction LOOKUP |
-| route_confirm | **`route_a`** `/csdl-bieu-14` + hub NEW |
-| team_lead_confirm | **approve** (autoApprove ON) |
-| design_confirm | approve |
-| solution_confirm | approve |
-| autoApprove | `ON` |
-| e2eQa | `ON` (queued `/agent-qa*` only) |
-| domain | **Asset** · `api/v1/asset/csdl-records` |
-| entity | shell + `CsdlBieu14Entity` · `Schema_CsdlBieu14` |
-| gates | tz_na · xco_get_only · share_tenant |
-| contentHashPrior | `sha256:6cfdefa3baaffcf2bd97c7a429bb5043e7f9d77b96bbb77eafaa34689007b112` |
-| headerFingerprintPrior | `sha256:14cd156a898dcc971a072dd1cd1b92460a8b597558a90dc9854fead9d4c4de5c` |
-| skillVersion | `2026.08.25.01` |
-| workflowVersion | `2026.09.01.02` |
-| rulesVersion | `2026.08.31.2` |
-| writtenAt | `2026-09-05T15:20:00.000Z` |
+schemaVersion: 1
+feature: csdl-bieu-14
+packKind: list
+role: team_lead
+status: done
+changeScope: edit_page
+skillVersion: 2026.08.25.01
+workflowVersion: 2026.09.01.02
+rulesVersion: 2026.09.17.3
+contentHash: sha256:e9a062f1f9eecd6bf98748db0c3f839e2247a74ecb9bcd56273d4e48d729fa0a
+headerFingerprint: sha256:14cd156a898dcc971a072dd1cd1b92460a8b597558a90dc9854fead9d4c4de5c
+writtenAt: 2026-09-18T02:00:00.000Z
+taskId: task_bb5bd3be
+priorTyped: task_b21db737 · keep
+saTaskId: task_5dc0c863
+priorSa: task_5dc0c863
+priorDesign: task_7d1a980f
+priorPo: task_23c0d73d
+priorAnaly: task_b92db6a6
+resource: its-systems
+columns: 21
+IdCode: IT-
+formNo: 14
+peerSoTs: so-ts-its-camera · cấm merge
+autoApprove: ON
+e2eQa: ON (queued QA)
+team_lead_confirm: approve
+route_confirm: route_a (keep · no new URL)
+design_confirm: approve
+solution_confirm: approve
+epic: csdl-export-print · T-XLS-S14
+devSlash: /implement-export-import-excel
+domain: Asset
 
 ## Decisions
-
-- changeScope=`new_page` · packKind=`list` · typed **21 cột** · Z2 TB · Z3 HT · **cấm** detail* only · **cấm** 2 entity
-- route_confirm **route_a** alias `/csdl-bieu-14` + hub NEW `?resource=its-systems`
-- Q-ROUTE alias_now · Q-PROV keep_static · Q-DIR lookup · Q-QTY-UNIT number · Q-DEVICE-SET keep_5 · Q-INFRA-SET keep_3 · Q-MANAGE trail_p2 · Q-PREFIX IT · Q-LIST-COLS subset · Q-TITLE ctx_its · Q-DMAP add_now · Q-PEER-LINK none_p1 · Q-SO09 none_p1
-- Persist shell + Schema_CsdlBieu14 1:1 · Device*/Infra*/Gps* flat · migration **Dev/4b** · **cấm** parent *Json
-- API **giữ** `asset/csdl-records` · BFF proxy · **cấm ERP.***
-- road-route SearchInput P1 · org/XLS **OUT/DEFER** · peer cite only · **cấm** merge/AiVision · map none · GAP-CSDL-CUC-11 · GAP-BIEU14-HUB-01
-- Grid AC YES · Leave YES · Report N/A
-- open Q: **none**
-
-## Artifacts
-
-| Kind | Path |
-|------|------|
-| task | `specs/csdl-bieu-14/task/csdl-bieu-14.md` |
-| solution | `specs/csdl-bieu-14/be/solution-discovery.md` |
-| design | `specs/csdl-bieu-14/ui/design.md` |
-| STATUS | `specs/csdl-bieu-14/STATUS.md` |
+- changeScope: edit_page (T-XLS-S14) · typed CRUD/Schema_CsdlBieu14 **keep** · **cấm** reopen new_page
+- route_confirm route_a **keep** · không URL mới
+- Export P0: GET …/csdl-records/export?resource=its-systems (+ filter QS · no page) · BFF binary · `.xls`
+- Filename: Bieu14_HeThongITS_{yyyyMMdd}.xls · 1 sheet 21 · device+infra+GPS cùng hàng
+- Q-XLS-SCOPE=filtered · IMPORT=export_only_p0 (Import ẩn) · SHEET=one_sheet
+- Toolbar Xuất catalogToolbar · **cấm** filter-bar export · toast stub ≠ done · golden Cục · cấm 12+8
+- Peer cite only · **cấm** merge so-ts-its-camera/road-assets/AiVision · **cấm** ERP.*
+- team_lead_confirm approve (autoApprove ON) · open Q: **none**
+- migration: **none** @ XLS · Schema keep
 
 ## Task matrix (ids)
+- KEEP typed T-* **done** (T-DM/BE/UI/QA prior)
+- NEW: T-XLS-S14-BE-01 · BFF-01 · FE-01 · FE-02 · QA-01
+- OUT: T-XLS-S14-BE-02 (import P1)
 
-T-DM-01 · T-CTX-01 · T-BE-01..06 · T-BFF-01 · T-PERM-01 · T-BE-UISCHEMA-01 · T-UI-LIST/FILTER/CFG/FORM/LEAVE/ACT/LKP/FIELD/PROD/UX/RESP · T-OUT-01/02 · T-QA-CRUD/FORM/FILTER/DEV/INFRA/GPS/TYP/TAB/ROUTE
+## Artifacts
+| Kind | Path |
+|------|------|
+| task | specs/csdl-bieu-14/task/csdl-bieu-14.md |
+| solution | specs/csdl-bieu-14/be/solution-discovery.md |
+| design | specs/csdl-bieu-14/ui/design.md |
+| STATUS | specs/csdl-bieu-14/STATUS.md |
 
-SA map: T-FE-01→LIST · 02→FILTER · 03→FORM · 04→LKP · 05→PROD · 06→LEAVE+ACT · T-BE-01 entity · 02 migr · 03 DTO · 04 IdCode · 05 list · 06 soft/UiSchema
+## Screens / zones (ids)
+- S-LIST DES-GRID keep · toolbar +DES-EXPORT · B-FILTER unchanged
+- S-XLS-EXPORT · S-XLS-IMPORT hidden · S-SKIP-PEER/MAP
+- mfeStdUrl= http://localhost:9301/so-ts/csdl-so-sach · alias /csdl-bieu-14 · hub ?resource=its-systems
 
-## Screens / zones (ids only)
+## Live bind
+- CRUD keep: …/csdl-records?resource=its-systems
+- Export: GET …/csdl-records/export?resource=its-systems (+ filter QS)
+- Import DEFER · cấm ERP.* · toast-stub=done · merge peer
 
-- S-LIST · S-FORM-C/E/V/Copy · S-ACT-DELETE · S-HUB-ENTRY · S-SKIP-PEER · S-SKIP-MAP
-- mfeStdUrl=`http://localhost:9301/csdl-bieu-14`
-- hub=`http://localhost:9301/so-ts/csdl-so-sach?resource=its-systems`
+## GAP → task
+| ID | Task |
+|----|------|
+| GAP-BIEU14-XLS-01 | FE-01+BE-01 |
+| GAP-BIEU14-XLS-02 | FE-02 |
+| GAP-BIEU14-XLS-03 | BE-01+QA-01 |
+| GAP-BIEU14-XLS-04 | FE-02 |
+| GAP-BIEU14-XLS-05 | BE-01+BFF-01 |
+| GAP-BIEU14-XLS-06 | BE-01 |
+| GAP-BIEU14-XLS-07 | BE-01+FE-01 |
 
 ## Next
-
 | Role | Need |
 |------|------|
-| **Dev** | implement · T-* · Schema_CsdlBieu14 @ 4b · typed 21 · hub NEW |
-| QA | e2e queued `/agent-qa*` |
+| **Dev** | /implement-export-import-excel · T-XLS-S14-* · implement MD |
+| QA | T-XLS-S14-QA-01 · e2e /agent-qa* only |
 | Review | after QA |
 
 ## UNCLEAR
-
 - none
 
 ## Cấm (compact)
-
-ERP.* · invent API/infra · detail* only · Guid IdCode · merge so-ts-its-camera/road-assets/AiVision · parent *Json · 2 entity · implement code ở TL · Step 4b/migration/e2e/build/start:std ở TL · start role khác
+ERP.* · invent infra · toast=done · filter-bar export · golden 12+8 · merge peer · new_page typed re-CRUD · migration @ TL · implement code @ TL · yarn build/e2e/start:std @ TL · Import wire P0

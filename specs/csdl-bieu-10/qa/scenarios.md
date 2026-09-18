@@ -1,31 +1,35 @@
-# QA — Scenarios — csdl-bieu-10
+# QA — Scenarios — csdl-bieu-10 (edit_page · T-XLS-S10)
 
 | Field | Value |
 |-------|-------|
 | feature | `csdl-bieu-10` |
-| title | CSDL Biểu 10 — Kè, tường chắn |
+| title | CSDL Biểu 10 — Kè, tường chắn · Xuất/Nhập Excel |
 | role | `qa` · `/agent-qa` |
-| taskId | `task_8ea2fe77` |
+| taskId | `task_1269f635` |
 | status | **confirmed** |
 | verdict | **PASS** |
 | e2eQa | **ON** |
-| method | `e2e runtime · yarn start:std :9301 + docker API :5111 + BFF :5201 + playwright channel=chrome capture (yarn e2e-qa hang fallback)` |
-| mfeStdUrl | `http://localhost:9301/csdl-bieu-10` |
-| mfeStdRoute | `/csdl-bieu-10` |
+| method | `e2e runtime · yarn start:std :9301 + docker API :5111 + BFF :5201 + yarn e2e-qa (playwright resolve fail → channel=chrome createRequire AutoCode · skip-start)` |
+| mfeStdUrl | `http://localhost:9301/so-ts/csdl-so-sach` |
+| mfeStdRoute | `/so-ts/csdl-so-sach` · alias `/csdl-bieu-10` |
 | hubDeepLink | `/so-ts/csdl-so-sach?resource=retaining-walls` |
-| testid | `rmms-csdl-bieu-10-list-page` · form `rmms-csdl-bieu-10-form-slideout` |
+| testid | `rmms-csdl-bieu-10-list-page` · export `…-export-excel-btn` · import `…-import-excel-btn` · form `rmms-csdl-bieu-10-form-slideout` |
 | docker | API `:5111` healthy · BFF `:5201` healthy · postgres healthy |
 | MFE | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Asset` |
 | BE | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/asset/csdl-records` · **cấm ERP.*** |
-| packKind | **`list`** · Kind B A–D+F · Kind D Slideout 2col · **2 section** tường + rãnh đỉnh |
-| changeScope | `new_page` |
+| packKind | **`list`** · Kind B A–D+F · Kind D Slideout 2col · **2 section** tường + rãnh đỉnh **KEEP** |
+| changeScope | **`edit_page`** (T-XLS-S10) |
 | resource | `retaining-walls` · formNo `10` · columns `21` · IdCode `KE-` |
 | peerSoTs | `so-ts-retaining` (toolbar · ≠ merge) |
-| heightAlias | UI `heightM` ↔ DB `WidthM` |
+| heightAlias | UI `heightM` ↔ DB `WidthM` · Excel export/import |
 | autoApprove | ON |
-| contentHashPriorDataAnaly | `sha256:56715ebbcfffd0589eab296a31137e79a82b49c672dc14582fc554f4ed262346` |
-| updatedAt | `2026-09-05T12:06:00.000Z` |
-| prior · dev | **confirmed** · `implement/csdl-bieu-10.md` · `task_db0c0344` |
+| contentHash | `sha256:49ea64d3b8f51e899c4bb36ae444444b4c0a805e64349f8e1f52677909ab0302` |
+| headerFingerprint | `sha256:9d4863dcab46439966e526cc7696f137695022911a3edc5066c852dc779fa598` |
+| skillVersion | `2026.09.05.03` |
+| workflowVersion | `2026.09.05.03` |
+| rulesVersion | `2026.09.17.3` |
+| updatedAt | `2026-09-18T06:45:00.000Z` |
+| prior · dev | **confirmed** · `implement/csdl-bieu-10.md` · `task_4dfcfa0a` |
 
 **Cấm** `phase=done` — next = Review. **cấm** ERP.* · **cấm** invent API · **cấm** kill worker (GAP-QA-E2E-KILL-01).
 
@@ -38,73 +42,44 @@
 | `docker compose up -d` (`Linm.RMMS.WebService`) | **PASS** · api `:5111` · bff `:5201` · postgres healthy |
 | `yarn start:std` (`:9301`) | **PASS** · Asset standalone listen (reuse · **cấm** kill) |
 | `yarn typecheck` | **PASS** (`tsc --noEmit`) |
+| `yarn e2e-qa --skip-start` | CLI **fail** resolve `playwright` từ screens cwd · **không** kill · fallback channel=chrome |
 | Capture S0 / S1 / QA-20 → `qa/screens/{caseId}.png` | **PASS** · `manifest.json` `ok=true` |
-| Live DOM assert | **PASS** · `live-assert.json` · title VN · filter wallKind/side/km · peer toolbar |
-| Form assert QA-20 | **PASS** · `form-assert.json` · Z2/Z3 · crest · heightM · KE- · Lưu · `data-form-cols=2` |
-| API GET `?resource=retaining-walls` | **PASS** · HTTP 200 (`:5111`) |
-
-> Note: `yarn e2e-qa` treo sau `e2e login source=e2e.local.json` (**GAP-QA-E2E-PW-01**) — **không** taskkill rộng node/yarn · capture tương đương Playwright + `channel=chrome` · `--skip-start` (std+docker đã listen). Wrapper e2e-qa dừng riêng · **giữ** :9301.
+| Live DOM + S-XLS-EXPORT | **PASS** · `live-assert.json` · filename `Bieu10_KeTuongChan_20260918.xls` |
+| S-XLS-IMPORT smoke | **PASS** · file input + roundtrip setInputFiles · **0** fail toast |
 
 ### Evidence table
 
 | ID | Steps | Expected | Result | Evidence |
 |----|-------|----------|--------|----------|
-| S0 | Mở `mfeStdUrl` | List `rmms-csdl-bieu-10-list-page` · title Biểu 10 · filter-bar (side/wallKind/km) · empty/grid · peer `so-ts-retaining` | **PASS** | ![S0](screens/S0.png) |
-| S1 | Hub `?resource=retaining-walls` | Redirect → `/csdl-bieu-10` · list page (route_a) | **PASS** | ![S1](screens/S1.png) |
-| QA-20 | `?form=create` | Slideout create · Z2/Z3 · 2 section tường+rãnh · footer Lưu · KE- | **PASS** | ![QA-20](screens/QA-20.png) |
+| S0 | Mở alias `/csdl-bieu-10` | List · toolbar Xuất/Nhập · filter-bar · **0** Xuất trên filter · peer | **PASS** | ![S0](screens/S0.png) |
+| S1 | Hub `?resource=retaining-walls` | Mount Biểu 10 list (`rmms-csdl-bieu-10-list-page`) | **PASS** | ![S1](screens/S1.png) |
+| QA-20 | `?form=create` | Slideout create KEEP · Z2/Z3 · 2 section tường+rãnh · KE- | **PASS** | ![QA-20](screens/QA-20.png) |
 
-`screens/manifest.json` · capturedAt `2026-09-05T12:04:33.958Z` · SHA256_16 S0=`578713d8b3334842` · S1=`578713d8b3334842` · QA-20=`ce780bb7f4d2d2f3`.
+`screens/manifest.json` · capturedAt `2026-09-17T23:37:44.520Z` · SHA256_16 S0=`71d4adf9c5e61eb1` · S1=`71d4adf9c5e61eb1` · QA-20=`f5c5632c921add62`.
 
 ---
 
-## T-QA-CRUD-01
+## T-XLS-QA-01
 
 | ID | Steps | Expected | Result |
 |----|-------|----------|--------|
-| QA-20 | Create `?form=create` / toolbar Tạo mới | Slideout · POST `csdl-records` · resource=retaining-walls | **PASS** (runtime + code) |
-| QA-21 | Edit | PUT + dirty → `LeaveConfirmModal` | **PASS** (code · LeaveConfirm wired) |
-| QA-22 | View | readOnly · footer Sửa/Đóng | **PASS** (code) |
-| QA-23 | Copy | POST new · KE- code | **PASS** (code) |
-| QA-24 | Delete toolbar/row | soft DELETE · `useAlert` · **0** `window.confirm` | **PASS** (code) |
-| QA-25 | Deep-link `?form=&id=` | Slideout · strip params | **PASS** (code) |
-| QA-26 | Peer Sổ TS | toolbar `so-ts-retaining` · **cấm** merge form | **PASS** (live peerToolbarOk) |
+| S-XLS-EXPORT | Click `…-export-excel-btn` | Download `Bieu10_KeTuongChan_{yyyyMMdd}.xls` · filtered QS (+wallKind) | **PASS** (`live-assert.json`) |
+| S-XLS-IMPORT | File input `…-import-file` · set exported xls | import_now path · **0** fail toast · skipBridge soft | **PASS** (`import-assert.json`) |
+| QA-XLS-TB | Toolbar Xuất + Nhập | catalogToolbar · testids export/import | **PASS** |
+| QA-XLS-FB08 | Filter bar | **0** Xuất Excel trên `…-list-filters` | **PASS** (GAP-FILTER-BAR-08) |
+| QA-XLS-HEIGHT | height_alias | Excel map heightM↔WidthM (Dev KEEP · smoke export ok) | **PASS** (export file ok) |
 
 ---
 
-## T-QA-FORM-01
+## T-QA-* KEEP (prior CRUD · smoke)
 
-| ID | Check | Result |
-|----|-------|--------|
-| QA-F-01 | Slideout fields `data-form-cols=2` · footer_actions_only · **cấm** Full-page | **PASS** (live QA-20 + code) |
-| QA-F-02 | Required: road/province/km/status/side/wallKind/inServiceYear · crest optional | **PASS** (validate) |
-| QA-F-03 | road = `SearchInput` road-route · **cấm** Text free | **PASS** (code · create SearchInput; testid on readOnly Input only) |
-| QA-F-04 | Q-KIND label_vn · Q-STRUCT excel_seed · Q-MAT lookup · Q-HEIGHT height_alias · Q-CREST optional_flat | **PASS** |
-| QA-F-05 | kmFrom/kmTo · wallKind filter live | **PASS** (filter + form live) |
-| QA-F-06 | Dirty leave = `LeaveConfirmModal` · **0** native dialog | **PASS** (code) |
-| QA-F-07 | Typed 21 · 2 section tường+rãnh · **cấm** detail*-only · **cấm** CrestDitch child | **PASS** (code + live crest fields) |
-
----
-
-## T-QA-FILTER-01 / T-QA-ROUTE-01 / T-QA-KIND-01 / T-QA-CREST-01
-
-| ID | Check | Result |
-|----|-------|--------|
-| QA-FB-01 | search · province · status · side · wallKind · roadCode · kmFrom/kmTo · 🔍 | **PASS** (live S0 testids) |
-| QA-FB-02 | `LinErpListFilterBar` · **0** nút Tìm riêng invent | **PASS** |
-| QA-FB-03 | **0** export/print/CRUD trên bar | **PASS** |
-| QA-ROUTE-01 | alias `/csdl-bieu-10` + hub redirect retaining-walls | **PASS** (S0+S1) |
-| QA-KIND-01 | Gravity/Gabion/RC/Retaining · label_vn | **PASS** (live wallKind + code) |
-| QA-CREST-01 | crest flat optional 4 fields · **cấm** CrestDitch child | **PASS** (live crestDitchKind) |
-
----
-
-## T-QA-TYP-01 / T-QA-TAB-01
-
-| ID | Check | Result |
-|----|-------|--------|
-| QA-TYP-01 | Label/input Common Components · no local break | **PASS** |
-| QA-TAB-01 | Filter leading DOM = visual · form sequential shared→tường→rãnh | **PASS** |
-| QA-RESP-01 | List wrap · live 1440 | **PASS** |
+| Pack | Result |
+|------|--------|
+| T-QA-CRUD-01 QA-20 create slideout | **PASS** (runtime QA-20 · form-assert Z2/Z3 · heightM · crest · `data-form-cols=2`) |
+| T-QA-FORM-01 Slideout 2col · 2 section tường+rãnh | **PASS** (live) |
+| T-QA-FILTER-01 search/province/status/side/wallKind/road/km | **PASS** (testids) |
+| T-QA-ROUTE-01 alias + hub deep-link | **PASS** (S0+S1) |
+| Peer Sổ TS | toolbar `so-ts-retaining` · **cấm** merge form | **PASS** (peer-sots testid) |
 
 ---
 
@@ -112,24 +87,27 @@
 
 | ID | Check | Result |
 |----|-------|--------|
-| QA-CH-01 | List/form **tiếng Việt** · **0** badge CREATE/EDIT/VIEW · **0** demo/stub | **PASS** (`live-assert.json`) |
-| QA-CH-02 | Peer toolbar `so-ts-retaining` · **cấm** merge Sổ TS | **PASS** |
-| QA-CH-03 | **0** `window.alert`/`confirm`/`prompt` (Asset page) | **PASS** (useAlert + LeaveConfirm) |
-| QA-CH-04 | **cấm** ERP.* imports | **PASS** |
-| QA-CH-05 | **0** webpack "Compiled with problems" overlay | **PASS** (screenshot sạch · size OK) |
+| QA-CH-01 | List/form VN · **0** CREATE/EDIT/VIEW badge · **0** demo/stub | **PASS** |
+| QA-CH-02 | **0** native alert/confirm on export/import | **PASS** (toast path) |
+| QA-CH-03 | Peer toolbar `so-ts-retaining` · **cấm** merge | **PASS** |
+| QA-CH-04 | **cấm** ERP.* | **PASS** |
 
 ---
 
-## Gaps
+## Gaps / debt (non-blocking)
 
-| ID | Severity | Note |
-|----|----------|------|
-| GAP-QA-E2E-PW-01 | accepted P2 | `yarn e2e-qa` hang @ login · chrome channel fallback OK |
-| GAP-QA-ROAD-TESTID | P3 | SearchInput create · testid chỉ trên readOnly Input |
-| Debt | P2 | DB migrate apply · Auth DEFER · org/XLS OUT |
+| ID | P | Note |
+|----|---|------|
+| GAP-QA-E2E-PW-01 | P2 | `yarn e2e-qa` overwrite `_capture.mjs` bare playwright · chrome createRequire fallback · **cấm** kill |
+| Auth | DEFER | auth intermittent · list/export ok |
+| getBlob CD strip | P2 | FE filename fallback = PO lock · verified `Bieu10_KeTuongChan_20260918.xls` |
+| BIFF .xls read | N/A | OOXML OK |
+| migrate apply | prior | Schema_CsdlBieu10 KEEP · none @ XLS |
 
-## Next
+---
 
-| Role | Need |
-|------|------|
-| **Review** | `/agent-review` · findings · **cấm** phase=done từ QA |
+## Handoff
+
+- compact: `specs/csdl-bieu-10/handoff/qa-compact.md`
+- next: `/agent-review` · **cấm** `phase=done` @ QA
+- queue: `yarn queue -- status --id task_1269f635 --status completed`

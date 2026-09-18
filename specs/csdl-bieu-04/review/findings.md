@@ -1,27 +1,29 @@
 # Review — Findings — csdl-bieu-04
 
-> Status: **confirmed** · `review_confirm=approve` (autoApprove ON) · task `task_140e0d17`  
-> Verdict: **PASS** · hash skip (contentHash unchanged) · **cấm** implement / e2e / start:std
+> Status: **confirmed** · `review_confirm=approve` (autoApprove ON) · task `task_87c39169`  
+> Verdict: **PASS** · changeScope=`edit_page` · T-XLS-S04 · **cấm** implement / e2e / start:std
 
 | | |
 |--|--|
 | Feature | `csdl-bieu-04` |
-| Title | CSDL Biểu 04 — Cống các loại |
+| Title | CSDL Biểu 04 — Cống các loại · Xuất Excel |
 | Role | `review` · `/agent-review` |
 | packKind | `list` |
-| changeScope | `new_page` |
+| changeScope | `edit_page` |
 | resource | `culverts` · formNo `04` · columns `17` · IdCode `CG-` |
 | peerSoTs | `so-ts-culvert-x` |
-| contentHash | `sha256:7498ad6644d0e599bc40afb7589db5335c18adb4b92f1573de3c1fae2e17d3d6` |
-| prior QA | **confirmed** · verdict PASS · e2e S0/S1/QA-20 |
-| yarnBuild / typecheck / dotnetBuild / e2eQa | **PASS** (STATUS) |
-| mfeStdUrl | `http://localhost:9301/csdl-bieu-04` |
+| contentHash | `sha256:eef182add5b68de5b3e27ec36ed9c099689831aeb77742814aa296bf286243f9` |
+| headerFingerprint | `sha256:8b98f7a22739bdad37b67a7ef869d6c465edc38061f0d5853fe2e69758d4ccea` |
+| prior QA | **confirmed** · verdict PASS · e2e S0/S1/QA-20 · T-XLS-QA-01 PASS |
+| yarnBuild / typecheck / dotnetBuild / e2eQa | **PASS** (STATUS · prior Dev/QA) |
+| mfeStdUrl | `http://localhost:9301/so-ts/csdl-so-sach` |
 | hubDeepLink | `/so-ts/csdl-so-sach?resource=culverts` |
 | domain | **Asset** · `api/v1/asset/csdl-records` · **cấm ERP.*** |
-| skillVersion | `2026.08.29.03` |
-| workflowVersion | `2026.09.01.02` |
-| rulesVersion | `2026.08.31.2` |
-| reviewedAt | `2026-09-05T06:35:00.000Z` |
+| skillVersion | `2026.09.05.03` |
+| workflowVersion | `2026.09.05.03` |
+| rulesVersion | `2026.09.17.3` |
+| reviewedAt | `2026-09-18T03:35:00.000Z` |
+| priorReviewTask | `task_140e0d17` (typed new_page · hash `7498…` — **superseded** by XLS hash) |
 
 ---
 
@@ -29,12 +31,12 @@
 
 | Layer | Verdict | Notes |
 |-------|---------|-------|
-| QUERY | **PASS** | Asset `csdl-records` · resource=`culverts` · typed `CsdlBieu4*` · **0** ERP.* · **0** invent infra |
-| SEC | **PASS** (debt noted) | Auth `RequirePermission` stub DEFER (T-PERM-01) · soft DELETE · share_tenant · xco_get_only |
-| UI-FN | **PASS** | Kind B list + Kind D Slideout 2col · 17 typed · four_xy · shape hộp/tròn · loadClass free_text · peer deep-link |
-| BE-FN | **PASS** | shell + `Schema_CsdlBieu4` / `rmms_csdl_bieu4` · CRUD + shape normalize · road-route LKP |
-| QA evidence | **PASS** | manifest `ok=true` · live-assert · scenarios T-QA-* |
-| Hash | **skip** | contentHash == all prior compact · không re-open data-analy |
+| QUERY | **PASS** | GET `…/csdl-records/export?resource=culverts` · filter QS · BFF binary · **0** ERP.* |
+| SEC | **PASS** (debt) | T-PERM-01 RequirePermission stub DEFER · share_tenant · xco_get_only |
+| UI-FN | **PASS** | catalogToolbar Xuất · Import DEFER ẩn · **0** Xuất trên LinErpListFilterBar · CRUD KEEP |
+| BE-FN | **PASS** | `ExportAsync` culverts · sheet «Biểu 4» · filter-all · GPS four_xy · **cấm** peer merge |
+| QA evidence | **PASS** | S0/S1/QA-20 · T-XLS-QA-01 · sha16 qa-compact |
+| Hash | **re-review** | contentHash `eef182…` ≠ prior typed `7498…` · chain analy→qa compact **aligned** |
 
 **review_confirm:** `approve` → **done** (autoApprove ON) · **0** fix_gaps blocking
 
@@ -44,13 +46,13 @@
 
 | ID | Check | Result | Evidence |
 |----|-------|--------|----------|
-| Q-01 | API SSOT `api/v1/asset/csdl-records` · BFF proxy | **PASS** | Controller route · qa GET 200 · sa/dev compact |
-| Q-02 | `resource=culverts` · formNo `04` | **PASS** | FE PAGE_ID · STATUS · live title |
-| Q-03 | Typed 17 · **cấm** detail*-only / parent *Json | **PASS** | `CsdlBieu4Entity` + FormSlideout fields · **0** detailJson in page |
-| Q-04 | IdCode `CG-` (không Guid raw) | **PASS** | form placeholder `(tự sinh CG-)` · SA/dev |
-| Q-05 | **cấm ERP.*** FE/BE feature surface | **PASS** | Grep page **0** ERP · domain Asset |
-| Q-06 | Peer Sổ TS deep-link only · **cấm** merge | **PASS** | testid peer-sots · QA-26 |
-| Q-07 | contentHash chain | **PASS** | `7498ad66…` matches analy→qa compact |
+| Q-01 | API SSOT `api/v1/asset/csdl-records/export` · BFF proxy | **PASS** | Controller `Export` · BFF `BuildExportPath` · FE `endpoint.exportExcel` |
+| Q-02 | `resource=culverts` · formNo `04` | **PASS** | FE RESOURCE · STATUS · branch CulvertsResource |
+| Q-03 | Filter QS parity list · ignore page | **PASS** | FE passes search/province/status/roadCode/kmPoint/dates · BE filter-all page=1 cap |
+| Q-04 | Filename `Bieu04_CongCacLoai_{yyyyMMdd}.xls` | **PASS** | BE `b4Name` · FE fallback culverts |
+| Q-05 | **cấm ERP.*** FE/BE feature surface | **PASS** | Asset domain only · prior Grep / compact |
+| Q-06 | Peer Sổ TS · **cấm** merge sheet | **PASS** | GAP-BIEU04-XLS-PEER comment · sheet Biểu 4 only |
+| Q-07 | contentHash chain analy→qa | **PASS** | `eef182…` matches all prior compact |
 
 ---
 
@@ -58,10 +60,10 @@
 
 | ID | Check | Result | Evidence |
 |----|-------|--------|----------|
-| S-01 | Permission codes documented · wire DEFER | **PASS** (debt) | Controller TODO RequirePermission · T-PERM-01 |
-| S-02 | Soft DELETE · no hard wipe | **PASS** | QA-24 · CsdlCatalogService pattern |
+| S-01 | Permission codes documented · wire DEFER | **PASS** (debt) | Controller TODO · T-PERM-01 |
+| S-02 | Soft DELETE · CRUD KEEP | **PASS** | prior typed + QA KEEP |
 | S-03 | Gates tz_na · xco_get_only · share_tenant | **PASS** | STATUS · sa-compact |
-| S-04 | **0** `window.confirm/alert` on Asset page | **PASS** | Grep page **0** · useAlert + LeaveConfirm |
+| S-04 | Export auth = read surface | **PASS** | `canExportExcel: perms.canRead` · no invent elev |
 | S-05 | Tenant share · no cross-tenant invent | **PASS** | sa_shared_table=share_tenant |
 
 ---
@@ -70,15 +72,14 @@
 
 | ID | Check | Result | Evidence |
 |----|-------|--------|----------|
-| U-01 | Route alias `/csdl-bieu-04` + hub entry | **PASS** | `index.tsx` Route · S0+S1 |
-| U-02 | Kind B A–D+F · LinErpListFilterBar · **0** nút Tìm invent | **PASS** | live-assert filters · QA-FB-* |
-| U-03 | Kind D Slideout `data-form-cols=2` · footer_actions_only | **PASS** | QA-20 · QA-F-01 |
-| U-04 | Q-GPS four_xy gpsCulvert*/gpsRoad* | **PASS** | FormSlideout fields · entity decimal(18,6) |
-| U-05 | Q-SHAPE Dropdown hộp/tròn · Q-LOAD free_text | **PASS** | shapeOptions · loadClass Text · BE Allowed |
-| U-06 | road SearchInput · manageUnit Text P2 | **PASS** | QA-F-03 · GAP-CSDL-ORG-01 DEFER |
-| U-07 | LeaveConfirm · C/E/V/Copy | **PASS** | QA-21..25 code+runtime |
-| U-08 | Chrome VN · **0** mode badge · **0** demo | **PASS** | live-assert noDemo/noModeBadge |
-| U-09 | XLS OUT stub OK | **PASS** | GAP-CSDL-XLS-01 OUT |
+| U-01 | Route keep `/csdl-bieu-04` + hub | **PASS** | route_confirm keep · S0/S1 QA |
+| U-02 | catalogToolbar +Xuất Excel · testid export btn | **PASS** | `onExportExcel` · `buildRmmsGenericToolbar` · `…-export-excel-btn` |
+| U-03 | Import DEFER P1 · **0** onImportExcel | **PASS** | comment DEFER · no canImportExcel |
+| U-04 | **cấm** Xuất trên LinErpListFilterBar | **PASS** | GAP-FILTER-BAR-08 · export only toolbar |
+| U-05 | Filter QS → export · toast success/fail · empty OK | **PASS** | `handleExportExcel` · empty headers toast · QA AC-XLS |
+| U-06 | Typed 17 + Slideout KEEP · **cấm** reopen cols | **PASS** | form KEEP · QA-20 |
+| U-07 | LeaveConfirm · **0** native alert | **PASS** | prior + useAlert pattern |
+| U-08 | Peer deep-link only | **PASS** | GAP-BIEU04-XLS-PEER |
 
 ---
 
@@ -86,13 +87,13 @@
 
 | ID | Check | Result | Evidence |
 |----|-------|--------|----------|
-| B-01 | `Schema_CsdlBieu4` · table `rmms_csdl_bieu4` 1:1 | **PASS** | Migration `20260905061652_Schema_CsdlBieu4` · Entity |
-| B-02 | DTO join catalog + typed fields | **PASS** | `CsdlBieu4Dto` · CsdlCatalogService map |
-| B-03 | Shape normalize/allowlist hộp\|tròn | **PASS** | `CsdlBieu4Shapes` |
-| B-04 | CRUD list/get/create/update/soft-delete | **PASS** | Controller + Service · QA CRUD |
-| B-05 | road-routes/search LKP | **PASS** | API-LKP-01 · form SearchInput |
-| B-06 | DOMAIN-MAP Asset · **cấm** invent so-ts API | **PASS** | sa T-DM-01 · compact |
-| B-07 | Migrate apply = deploy/4b (not Review) | **N/A** | noted debt · **cấm** Step 4b ở review |
+| B-01 | `ExportAsync` culverts branch · OOXML | **PASS** | `CsdlCatalogExcelService` · BuildXlsx |
+| B-02 | Sheet name «Biểu 4» · headers GPS four_xy | **PASS** | `Bieu4SheetName` · `Bieu4ExportHeaders` · gpsCulvert*/gpsRoad* |
+| B-03 | filter-all · ignore client page/pageSize | **PASS** | page=1 · ExportPageSizeCap |
+| B-04 | kmPoint QS bind | **PASS** | Controller + service param |
+| B-05 | BFF binary proxy KEEP | **PASS** | `BuildExportPath` · no invent |
+| B-06 | Import API DEFER · **0** new migration @ XLS | **PASS** | API-XLS-02 DEFER · migration none |
+| B-07 | DOMAIN-MAP Asset · **cấm** invent so-ts export | **PASS** | sa T-DM · compact |
 
 ---
 
@@ -100,11 +101,12 @@
 
 | Case | Result | sha16 |
 |------|--------|-------|
-| S0 list | PASS | `d6e9f19589ae80d0` |
-| S1 hub | PASS | `63c4bf383d9c23ad` |
-| QA-20 create | PASS | `1640ba4607f56a43` |
+| S0 list | PASS | `7711d52bfb8f8a33` |
+| S1 hub | PASS | `7711d52bfb8f8a33` |
+| QA-20 create | PASS | `f05a1b2dcc83eeb0` |
+| T-XLS-QA-01 | PASS | qa-compact · AC-XLS-01..09 |
 
-PNG Read: permission denied (sandbox) — rely manifest + live-assert + scenarios (ok=true).
+PNG: rely manifest + qa-compact (role **cấm** e2e / start:std).
 
 ---
 
@@ -112,11 +114,11 @@ PNG Read: permission denied (sandbox) — rely manifest + live-assert + scenario
 
 | ID | Sev | Note |
 |----|-----|------|
-| GAP-QA-E2E-PW-01 | P2 | `yarn e2e-qa` hang playwright install · chrome channel fallback · **cấm** kill |
-| T-PERM-01 Auth | DEFER | RequirePermission stub until CommonLib |
+| GAP-QA-E2E-PW-01 | P2 | playwright resolve · chrome createRequire · **cấm** kill |
+| T-PERM-01 Auth | DEFER | RequirePermission stub |
 | GAP-CSDL-ORG-01 | P2 | manageUnit SearchInput org-unit |
-| GAP-CSDL-XLS-01 | OUT | Import/export Biểu 4 |
-| migrate DB apply | deploy | Schema present in code · apply at Dev/4b/deploy |
+| Import Excel | P1 | DEFER · UI ẩn |
+| docker rebuild | ops | API+BFF rebuild for XLS ship (QA note) |
 
 ---
 
@@ -124,7 +126,7 @@ PNG Read: permission denied (sandbox) — rely manifest + live-assert + scenario
 
 - `review_confirm` = **approve** (autoApprove ON)
 - **0** fix_gaps blocking · pipeline review **confirmed**
-- phase stays pipeline-complete for this feature lane · **không** reopen prior roles
+- Typed CRUD KEEP · XLS export P0 closed · Import stays P1
 - open Q: **none**
 
 ## Artifacts
@@ -138,5 +140,5 @@ PNG Read: permission denied (sandbox) — rely manifest + live-assert + scenario
 
 ## Next
 
-- Chain complete for roleOnly=review · task mark **completed**
-- E2E already PASS under QA · no further role in this packet
+- roleOnly=review **done** · mark `task_87c39169` completed
+- **cấm** start role khác trong task này (GAP-PKT-ROLE-01)

@@ -27,6 +27,7 @@
 | 0c | `asset-type` | Loại tài sản KCHT | Master | P1 | `Sau-sat-nhap/gov` (catalog) | Context | [asset-type.md](asset-type.md) |
 | 0c2 | `traffic-sign-type` | Loại biển báo (mã QCVN) | Master | P1 | Excel số hiệu biển + dump `gov-vn` | Context | [traffic-sign-type.md](traffic-sign-type.md) |
 | 0d | `partner-unit` | Sở / BOT / Cty | Master | P1 | Seed 13 + Excel T6 `t6-org-scope` · CUC 2 = demo | Context | [partner-unit.md](partner-unit.md) |
+| 0d2 | `job-title` | Danh mục chức vụ | Master | P1 | Excel nhân sự cuc-01 · `/mas/chuc-vu` | Context | [job-title.md](job-title.md) |
 | 0e | `org-route-scope` | Zone km Khu ↔ tuyến / đoạn | Master | P1 | Cây DRVN + Excel T6 `t6-org-scope` · **không** dump moc gán | Context | [org-route-scope.md](org-route-scope.md) |
 | 0f | `khu-1-pilot` | Pilot dữ liệu Khu I | Data | P1 | Họp 04/09 hạng 3 | Draft | [khu-1-pilot.md](khu-1-pilot.md) · [org-route-scope.md](org-route-scope.md) |
 | 1 | `asset` | Quản lý tài sản đường bộ | Asset | P1 | Mobile Tài sản · Web KCHT · Giám sát TS | Demo | [asset.md](asset.md) |
@@ -35,6 +36,7 @@
 | 1b2 | `csdl-cuc-2026` | Epic typed **16 biểu + 10 sổ** · hai lớp LOOKUP chung / ROW riêng | Asset·Patrol·Maint | P1 | Excel+Word trình LĐ Cục | Context | [csdl-cuc-2026.md](csdl-cuc-2026.md) · [analy](../../../specs/_data-analy/csdl-cuc-2026/ANALYSIS-AND-TASKS.md) |
 | 1b3 | `csdl-bieu-01`…`16` | Từng biểu CSDL (1 nút=1 feature) | Asset | P1 | sheet 01–16 `.xls` | Context | [csdl-bieu-01.md](csdl-bieu-01.md) … [csdl-bieu-16.md](csdl-bieu-16.md) |
 | 1b4 | `csdl-so-01`…`10` | Từng sổ BDTX (Sổ 10 = map) | Patrol·Maint | P1 | Word mẫu 1–10 | Context | [csdl-so-01.md](csdl-so-01.md) … [csdl-so-10.md](csdl-so-10.md) |
+| 1b5 | `csdl-export-print` | In/xuất PDF+Excel đúng mẫu (16+10 · `rpt-*` · KCHT GN) | Asset·Report·QLDA | P1–P3 | QĐ 08/2026 + GOVOne + SRC-KCT-GN03 | Draft | [csdl-export-print.md](csdl-export-print.md) |
 | 1c | `pavement-section` | Phân loại mặt đường (Biểu 1) | Asset | P1 | Hồ sơ CSDL biểu 1 | Demo | [pavement-section.md](pavement-section.md) |
 | 1d | `asset-kcht-dashboard` | Hub Hạng mục KCHT (40 ô) · `/so-ts/hang-muc` · **≠** `csdl-so-sach` | Asset | P1 | GOVOne lưới hạng mục | Context | [asset-kcht-dashboard.md](asset-kcht-dashboard.md) |
 | 1e | `so-ts-type-grid` | Sổ TS grid/form theo loại (reuse section) | Asset | P1 | DRVN `docs/img/gov-mau-tai-san` | Context | [so-ts-type-grid.md](so-ts-type-grid.md) · `/data-gov-integration` |
@@ -57,6 +59,7 @@
 | 3d | `its-anpr-overload` | ITS ANPR biển số · Cục Đăng kiểm · xác nhận lỗi tốc độ/quá tải | AiVision×Iot×Incident | **P2 core** (demo P1) | Camera+WIM → registry trục·GVW → HITL Confirm | Demo | [its-anpr-overload.md](its-anpr-overload.md) · [../18-…](../18-ITS-ANPR-OVERLOAD-SPEC.md) |
 | 3e | `camera-connect` | Kết nối camera ITS / **HĐ `camera-gtvt`** (PL01 03c · gói C) | **Camera** | P1 Demo / P2 BE | Seed **iDS-TCM403-GIR** · BE defer | Demo | [camera-connect.md](camera-connect.md) · [../camera-model.md](../camera-model.md) · map loại [camera-vehicle-type.md](camera-vehicle-type.md) · alias HĐ=`camera-gtvt` · **pilot wall+map** [camera-ops-dashboard-demo.html](../../../Linm.RMMS.Demo/src/demo/features/camera-ops-dashboard-demo.html) |
 | 3e2 | `camera-vehicle-type` | Map loại xe Hikvision → RMMS | Camera | support | Datasheet TCM403 9 type · ISAPI lab | Context | [camera-vehicle-type.md](camera-vehicle-type.md) · **cấm** page mới · **cấm** 16 class Sổ 04 |
+| 3e3 | `its-anco-signal` | Nút đèn Anco + camera + đếm xe | Camera×Integration | P1 display | Anco Get_List/Cycle · **≠** `toc` | Context | [its-anco-signal.md](its-anco-signal.md) · extract [SRC-ANCO-ITS](../../data/analyzed/anco-its-integrate.md) · Wave 1 **cấm** phân luồng / Config_* |
 | 4 | `patrol` | Tuần đường / tuần kiểm | Field | P1 | Check-in · Giám sát · Lưu trữ | Demo | [patrol.md](patrol.md) · [đề cương 24](../24-TUAN-DUONG-DUONG-BO.md) · demo web/mobile mới |
 | 4g | `photo-geo-capture` | Chụp ảnh kèm tọa độ vật thể | Field×File | P1 native | Camera · FileService key · gim trong ảnh · HITL map | Context | [photo-geo-capture.md](photo-geo-capture.md) · queue `qlbd-mobile` |
 | 4n | `nghiem-thu` | Công tác nghiệm thu (clone tuần kiểm + 10 mẫu) | Field | P1 | Họp 04/09 hạng 1 | Draft | [nghiem-thu.md](nghiem-thu.md) |

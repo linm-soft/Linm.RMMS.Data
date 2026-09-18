@@ -1,135 +1,109 @@
-# Real-data bind — csdl-bieu-10 (Kind B list + Kind D Slideout · retaining-walls)
+﻿# Real-data bind — csdl-bieu-10 (edit_page · T-XLS-S10 export/import)
 
 | | |
 |---|---|
 | feature | `csdl-bieu-10` |
 | packKind | `list` |
-| changeScope | `new_page` |
+| changeScope | `edit_page` |
 | status | `done` |
-| taskId | `task_6b4b8a1b` |
+| taskId | `task_0fb02546` |
+| priorTask | `task_6b4b8a1b` → review `task_faf3807e` (typed CRUD **done** · **cấm** reopen new_page) |
 | resource | `retaining-walls` |
-| prefix | **live shell** `api/v1/asset/csdl-records` · BFF `web-bff/api/v1/asset/csdl-records` · typed DTO **SA** |
-| beRepo | `D:/AI-QLBD/Linm.RMMS.WebService` · **cấm ERP.*** · **cấm** `api/v1/rmms/*` · **cấm** invent `api/v1/infra/*` |
+| prefix | **live** `api/v1/asset/csdl-records` · BFF `web-bff/api/v1/asset/csdl-records` |
+| beRepo | `D:/AI-QLBD/Linm.RMMS.WebService` · **cấm ERP.*** · **cấm** `api/v1/infra/*` |
 | uiRepo | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Asset` |
-| mfeStdUrl | `http://localhost:9301/csdl-bieu-10` · hub `http://localhost:9301/so-ts/csdl-so-sach?resource=retaining-walls` |
-| map | `none` · **cấm** invent map canvas |
-| contentHash | `sha256:56715ebbcfffd0589eab296a31137e79a82b49c672dc14582fc554f4ed262346` |
-| headerFingerprint | `sha256:100df2f2285c57a909981f9248564af4f788a1ea653fd261122e9a64064773ad` |
-| sourceTables | shell `rmms_csdl_catalog_records` · typed `Schema_CsdlBieu10` / `RetainingWall` (+ optional `CrestDitch`) (**SA/migration**) |
-| catalogKind UI schema | `retaining-walls` (typed) · fallback hub `csdl-records` |
+| mfeStdUrl | `http://localhost:9301/so-ts/csdl-so-sach` · alias `/csdl-bieu-10` · hub `?resource=retaining-walls` |
+| map | `none` |
+| contentHash | `sha256:49ea64d3b8f51e899c4bb36ae444444b4c0a805e64349f8e1f52677909ab0302` |
+| headerFingerprint | `sha256:9d4863dcab46439966e526cc7696f137695022911a3edc5066c852dc779fa598` |
+| sourceTables | typed `Schema_CsdlBieu10` / `RetainingWall` · **không** bảng report store P1 |
+| catalogKind UI schema | `retaining-walls` |
 | IdCode prefix | `KE` |
 | peerSoTs | `so-ts-retaining` · type `RETAINING` · deep-link only |
+| epicCite | `docs/context/features/csdl-export-print.md` · Wave 1 `T-XLS-S10` |
+| golden | Cục `1. Biểu mẫu CSDL.xls` sheet Biểu 10 · **cấm** hồ sơ 12+8 |
+| devSlash | `/implement-export-import-excel` · BFF binary |
 
-## § Delta Current vs New (`new_page` · `task_6b4b8a1b`)
+## § Delta Current vs New (`edit_page` · `task_0fb02546`)
 
 | ID | Current live | New (this analy) |
 |----|--------------|------------------|
-| Form | 3 ô `detail*` polymorphic | Typed 21 cột · wallKind + KC/VL/dài/cao/DT · rãnh đỉnh 4 field · năm SD |
-| List cols | generic road/km/detail | Shared + typed wall/crest fields · filter `wallKind` |
-| formNo | Demo/live **9** | Renumber **10** · giữ resource key · **T-REN-01** |
-| API | `GET/POST/PUT/DELETE …/csdl-records?resource=retaining-walls` | **giữ prefix** · widen typed payload — SA |
-| Import | stub | Sheet 21 cột merge — OUT XLS |
-| Peer | `so-ts-retaining` | **≠** road-assets / merge form · **GAP-CSDL-CUC-11** |
+| Form / list | Typed 21 · 2 section tường+rãnh · Slideout + grid **shipped** | **Unchanged** |
+| Toolbar | Refresh · Add · History · Schema · View/Edit/Delete — **không** Xuất | **Xuất Excel** (+ Import P1) trên `catalogToolbar` |
+| Filter | `LinErpListFilterBar` field+🔍 (+ `wallKind`) | **Unchanged** · **cấm** action Xuất (**GAP-FILTER-BAR-08**) |
+| Export API | Missing / stub | `GET …/csdl-records/export?resource=retaining-walls` → binary (epic cite · SA) |
+| Import API | Missing / stub | `POST …/csdl-records/import?resource=retaining-walls` (P1) |
+| Golden | — | Cục 16-sheet · sheet Biểu 10 · checksum 21 cột · 1 sheet (crest* cùng hàng) |
+| heightM | UI heightM ↔ DB WidthM typed | Export/import giữ map · **cấm** đổi entity |
+| Done gate | Typed STATUS done | **≠** export xong · cần file mở được cạnh mẫu |
 
 ## §A — Nguồn
 
 | sourceKind | sourceCite | empty | error |
 |------------|------------|-------|-------|
-| `context` | `docs/context/features/csdl-bieu-10.md` | — | version mismatch → gate |
-| `analy` | `specs/_data-analy/csdl-cuc-2026/ANALYSIS-AND-TASKS.md` § Biểu 10 | — | 21 cột · chủng · rãnh đỉnh · năm SD |
-| `db-ssot` | `docs/context/11-CSDL-SO-SACH-DATABASE-API.md` § RetainingWall | — | WallKind · Structure · Material · LengthM · WidthM · AreaM2 · CrestDitch* · InServiceYear (số biểu cũ 9) |
-| `demo` | `Linm.RMMS.Demo/.../csdl-so-sach.html` (+ redirect demo · `csdl-so-sach-data.js`) | — | **UI only** · **cấm** SSOT data |
-| `api` · list | `GET …/csdl-records?resource=retaining-walls&…` | empty grid VN | 422 thiếu resource · toast |
-| `api` · detail | `GET …/csdl-records/{id}` | — | 404 → đóng slideout · toast |
-| `api` · CRUD | `POST` / `PUT` / soft `DELETE` | — | validation toast |
-| `entity` | `CsdlCatalogRecordEntity` (shell) | — | tenant `CompanyCode` |
-| `entity` | typed Biểu 10 / `RetainingWall` (**SA**) | — | Schema_CsdlBieu10 pair |
-| `mfe` | hub `CsdlSoSachPage` · form `CsdlFormSlideout` | generic | typed replace |
-| `catalog` | Integration ui-schema `retaining-walls` | bootstrap cols | toast |
-| `excel` | `1. Biểu mẫu CSDL.xls` sheet Biểu 10 | — | import cite · not runtime SSOT |
-| `peer` | `so-ts-retaining` / type `RETAINING` | — | deep-link · **cấm** share ROW |
-| `derived` | IdCode `KE-yyyyMMdd-nnnn` | — | BE generate |
-
-`sourceCite` = path/controller **có trong repo** hoặc analy Excel cite. **Cấm** invent `api/v1/so-ts/*` · **cấm** ERP.*.
+| `context` | `docs/context/features/csdl-bieu-10.md` | — | version gate |
+| `context` | `docs/context/features/csdl-export-print.md` § Wave 1 · API | — | golden / toolbar rules |
+| `analy` | `specs/_data-analy/csdl-cuc-2026/ANALYSIS-AND-TASKS.md` Biểu 10 | — | 21 cột · tường + rãnh đỉnh |
+| `db-ssot` | `docs/context/11-CSDL-SO-SACH-DATABASE-API.md` § RetainingWall | — | WidthM↔heightM |
+| `api` · list/CRUD | `GET/POST/PUT/DELETE …/csdl-records?resource=retaining-walls` | empty grid VN | toast 4xx |
+| `api` · **export** | `GET …/csdl-records/export?resource=retaining-walls` (epic · SA chốt) | file 0 row OK | toast · **cấm** fake blob |
+| `api` · **import** | `POST …/csdl-records/import?resource=retaining-walls` | — | validation · wallKind / crest* |
+| `entity` | `Schema_CsdlBieu10` / RetainingWall | — | CompanyCode tenant |
+| `mfe` | `CsdlBieu10Page` / hub retaining-walls · `fromCatalogToolbar` | — | wire export action |
+| `excel` | `1. Biểu mẫu CSDL.xls` sheet Biểu 10 | — | golden · not runtime SSOT |
+| `excel` | Hồ sơ `4.1. In_Mẫu…xlsx` 12 biểu | — | **STALE** · so sánh only |
+| `peer` | `so-ts-retaining` | — | deep-link · **≠** road-assets · **GAP-CSDL-CUC-11** |
 
 ## §B — Bind field (HARD)
 
-| uiField | Label | controlHint | catalogKind | GET | write field | sameMfe |
-|---------|-------|-------------|-------------|-----|-------------|---------|
-| resource | Resource | QS / const | — | required `retaining-walls` | `resource` | yes |
-| search | Tìm | SearchTextInput | — | `?search=` | — | yes |
-| province | Tỉnh | Dropdown | LOOKUP_STATIC | `?province=` | `province` | yes |
-| status | TT | Dropdown | LOOKUP_STATIC | `?status=` | `status` | yes |
-| roadCode | Đường | SearchInput | road-route | `?roadCode=` / detail | `roadCode` (+ display `roadName`) | yes · **GAP-CSDL-ROAD-01** |
-| kmFrom / kmTo | Km từ–đến | Number | — | filter / detail | `kmFrom` / `kmTo` | yes |
-| side | Vị trí | Dropdown | LOOKUP_STATIC | filter / detail / list | `side` (↔ WallSide) | yes |
-| wallKind | Loại kè/tường | Dropdown | LOOKUP_STATIC | `?wallKind=` / detail / list | `wallKind` | yes · **GAP-BIEU10-KIND-01** |
-| code | Mã | Text ro | — | detail `code` | auto | yes |
-| structure | Kết cấu | Dropdown | LOOKUP_STATIC | detail / list | `structure` | yes |
-| material | Vật liệu | Dropdown | LOOKUP_STATIC | detail / list | `material` | yes |
-| lengthM | Dài (m) | Number | — | detail / list | `lengthM` | yes |
-| heightM | Cao (m) | Number | — | detail / list | `heightM` (DB WidthM · **Q-HEIGHT**) | yes |
-| areaM2 | DT (m²) | Number | — | detail / list | `areaM2` | yes |
-| crestDitchKind | Rãnh đỉnh — loại | Dropdown | LOOKUP_STATIC | detail | `crestDitchKind` | yes |
-| crestDitchStructure | Rãnh đỉnh — KC | Dropdown | LOOKUP_STATIC | detail | `crestDitchStructure` | yes |
-| crestDitchShape | Rãnh đỉnh — hình | Dropdown | LOOKUP_STATIC | detail | `crestDitchShape` | yes |
-| crestDitchLengthM | Rãnh đỉnh — dài | Number | — | detail | `crestDitchLengthM` | yes |
-| inServiceYear | Năm SD | Number | — | detail / list | `inServiceYear` | yes |
-| manageUnit | ĐV QL | Text | — | detail / list | `manageUnit` | yes · **GAP-CSDL-ORG-01** |
-| notes | Ghi chú | Textarea | — | detail | `notes` | yes |
-| isActive | Active | — | — | detail | soft-delete | yes |
-| updatedAt | Cập nhật | DateTime ro | — | detail | — | yes |
+### B1 — CRUD fields (**unchanged** — keep prior bind)
 
-**Prefix map:**
+Reuse prior §B (`task_6b4b8a1b`): `resource` · filters · typed 21 · soft-delete · heightM↔WidthM. **Cấm** đổi write paths typed trong pack này.
+
+### B2 — Export / import (**delta**)
+
+| uiField / action | Label | controlHint | catalogKind | GET / POST | write field | sameMfe |
+|------------------|-------|-------------|-------------|------------|-------------|---------|
+| exportExcel | Xuất Excel | ToolbarButton | — | `GET …/export?resource=retaining-walls` (+ filter QS nếu Q-XLS-SCOPE=filtered) | — (download) | **gap** (thiếu nút) |
+| importExcel | Nhập Excel | ToolbarButton + file | — | `POST …/import?resource=retaining-walls` multipart | upsert typed | **gap** P1 |
+| exportFileName | — | derived | — | Content-Disposition | — | SA |
+| heightMap | heightM | derived | — | row map ↔ WidthM | same typed | Q-XLS-HEIGHT |
+
+**Prefix map (keep + delta):**
 
 | Operation | Path |
 |-----------|------|
-| List | `GET /web-bff/api/v1/asset/csdl-records?resource=retaining-walls` |
-| Detail | `GET /web-bff/api/v1/asset/csdl-records/{id}` |
-| Create | `POST /web-bff/api/v1/asset/csdl-records` body `resource=retaining-walls` + typed fields |
-| Update | `PUT /web-bff/api/v1/asset/csdl-records/{id}` |
-| Delete | `DELETE /web-bff/api/v1/asset/csdl-records/{id}` (soft) |
-
-API mirror: `api/v1/asset/csdl-records`. FE cite hub: `services/csdlSoSach/endpoint.ts` `BASE=/asset/csdl-records` — typed page **reuse** cùng BASE.
-
-DB SSOT map (số biểu cũ 9 → typed Biểu 10): `WallKind`↔`wallKind` · `Structure`↔`structure` · `Material`↔`material` · `LengthM`↔`lengthM` · `WidthM`↔`heightM` (**Q-HEIGHT**) · `AreaM2`↔`areaM2` · `CrestDitchKind/Structure/LengthM`↔ crest* · `InServiceYear`↔`inServiceYear`. `crestDitchShape` = Excel widen — SA confirm.
+| List / Detail / CRUD | `/web-bff/api/v1/asset/csdl-records` (+ `/{id}`) — **keep** |
+| **Export** | `GET /web-bff/api/v1/asset/csdl-records/export?resource=retaining-walls` |
+| **Import** | `POST /web-bff/api/v1/asset/csdl-records/import?resource=retaining-walls` |
+| API mirror | `api/v1/asset/csdl-records[/export|/import]` · **cấm** invent `/infra/` |
 
 ## §C — Catalog / lookup
 
-| catalogKind | search/list API | seed/import cite | Cấm |
-|-------------|-----------------|------------------|------|
-| LOOKUP_STATIC province | FE `PROVINCES` P1 | demo align | Dropdown demo-only làm SSOT quốc gia |
-| LOOKUP_STATIC status | tot/tb/kem/hong | — | — |
-| LOOKUP_STATIC side | L / R / C / Both | demo `sides` | invent side set |
-| LOOKUP_STATIC wallKind | trọng lực / rọ / BTCT / tường chắn | analy · Excel · **Q-KIND** | free-text loại kè |
-| LOOKUP_STATIC structure | Excel seed | Excel · **Q-STRUCT** | invent khi đã LOOKUP |
-| LOOKUP_STATIC material | Excel / demo «BT đá hộc»… | Excel · **Q-MAT** | invent set mù |
-| LOOKUP_STATIC crestDitch* | loại / KC / hình | Excel · **Q-CREST** | bắt buộc khi optional |
-| road-route | `GET /integration/road-routes/search` | shared catalog READY | free-text khi đã chốt SearchInput |
-| org-unit | `GET /integration/org-units/search` | shared org · P2 | hardcode ĐV |
-| ui-schema | Integration `retaining-walls` | Schema editor | generic 3-col only |
+Unchanged prior LOOKUP_STATIC (province/status/side/wallKind/structure/material/crestDitch*) + `road-route` + `org-unit` P2. Export **không** thêm catalogKind.
 
 ## §D — Map / vẽ
 
-`none` — list pack. Toolbar map → gis deep-link only. **Cấm** invent map canvas.
+`none`
 
-## §E — Empty / error / permission
+## §E — Empty / error / permission / export
 
 | Case | UX |
 |------|-----|
-| Empty list | Grid copy VN «Chưa có kè / tường chắn» · CTA Tạo mới |
-| 422 thiếu resource | toast · không alert |
-| 404 detail | đóng slideout · toast |
-| Soft-delete | row biến mất · list refresh |
-| Permission | CommonLib Auth debt · **cấm** invent path |
+| Empty list export | File vẫn tải · 0 data row · header merge đúng mẫu · toast info OK |
+| Export fail | toast · **cấm** silent · **cấm** CSV generic lưới |
+| Import height/Width mismatch | toast · giữ map SA · **cấm** đổi entity |
+| Permission | Auth debt · **cấm** invent path |
+| Toast stub only | **FAIL** DoD · **GAP-BIEU10-XLS-02** |
 
 ## §F — Cấm
 
-- Demo / localStorage / seed giả làm SSOT runtime  
-- ERP.* / Domains/Master / `api/v1/infra/*` / invent `api/v1/so-ts/*`  
-- Form chỉ 3 ô `detail*`  
-- Merge form Sổ TS `so-ts-retaining` / bind `road-assets` vào biểu Cục  
-- Guid làm IdCode  
+- Re-run typed CRUD `new_page` / đổi form 21/2 không gap  
+- Toast stub = done · STATUS typed done = export xong  
+- Xuất/Import trên filter bar (**GAP-FILTER-BAR-08**)  
+- Golden = hồ sơ 12+8  
+- Invent 2 sheet theo section tường/rãnh  
+- Demo/localStorage SSOT · ERP.* · invent `infra` · merge so-ts-retaining  
 - yarn build / e2e ở role data_analy  
 
 ## Version meta (REQUIRED)
@@ -137,17 +111,17 @@ DB SSOT map (số biểu cũ 9 → typed Biểu 10): `WallKind`↔`wallKind` · 
 | Field | Value |
 |-------|-------|
 | skillId | agent-data-analy |
-| skillVersion | 2026.08.25.01 |
-| schemaVersion | 1 |
-| workflowVersion | 2026.09.01.02 |
-| rulesVersion | 2026.08.31.2 |
-| contentHash | `sha256:56715ebbcfffd0589eab296a31137e79a82b49c672dc14582fc554f4ed262346` |
-| headerFingerprint | `sha256:100df2f2285c57a909981f9248564af4f788a1ea653fd261122e9a64064773ad` |
-| generatedAt | 2026-09-05T11:25:00.000Z |
+| skillVersion | 2026.09.05.03 |
+| schemaVersion | 2 |
+| workflowVersion | 2026.09.05.03 |
+| rulesVersion | 2026.09.17.3 |
+| contentHash | `sha256:49ea64d3b8f51e899c4bb36ae444444b4c0a805e64349f8e1f52677909ab0302` |
+| headerFingerprint | `sha256:9d4863dcab46439966e526cc7696f137695022911a3edc5066c852dc779fa598` |
+| generatedAt | 2026-09-18T06:05:57.248Z |
 | versionGate | ok |
-| taskId | task_6b4b8a1b |
+| taskId | task_0fb02546 |
 | packKind | list |
-| changeScope | new_page |
+| changeScope | edit_page |
 
 ---
-<!-- Version meta: skillId=agent-data-analy skillVersion=2026.08.25.01 schemaVersion=1 workflowVersion=2026.09.01.02 rulesVersion=2026.08.31.2 versionGate=ok contentHash=sha256:56715ebbcfffd0589eab296a31137e79a82b49c672dc14582fc554f4ed262346 -->
+<!-- Version meta: skillId=agent-data-analy skillVersion=2026.09.05.03 schemaVersion=2 workflowVersion=2026.09.05.03 rulesVersion=2026.09.17.3 versionGate=ok contentHash=sha256:49ea64d3b8f51e899c4bb36ae444444b4c0a805e64349f8e1f52677909ab0302 changeScope=edit_page taskId=task_0fb02546 -->

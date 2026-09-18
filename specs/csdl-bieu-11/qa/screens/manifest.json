@@ -1,39 +1,39 @@
 {
   "url": "http://localhost:9301/csdl-bieu-11",
-  "method": "playwright channel=chrome headless · contract fallback after yarn e2e-qa hang (GAP-QA-E2E-PW-01)",
+  "method": "playwright channel=chrome · yarn e2e-qa playwright resolve fail → AutoCode createRequire fallback · skip-start",
   "feature": "csdl-bieu-11",
   "cases": [
     "S0",
     "S1",
     "QA-20"
   ],
-  "capturedAt": "2026-09-05T12:50:30.964Z",
+  "capturedAt": "2026-09-18T00:13:08.528Z",
   "steps": [
     {
       "id": "S0",
       "result": "PASS",
       "screenshot": "S0.png",
-      "sha256_16": "4c7adb31b6e963ca",
+      "sha256_16": "eb9095e8f2a9561a",
       "url": "http://localhost:9301/csdl-bieu-11",
-      "note": "list Biểu 11 · filter-bar · gridStatus · empty/grid · peer so-ts-lighting",
+      "note": "list Biểu 11 · toolbar Xuất/Nhập · filter-bar · empty/grid · peer",
       "httpStatus": 200
     },
     {
       "id": "S1",
       "result": "PASS",
       "screenshot": "S1.png",
-      "sha256_16": "4c7adb31b6e963ca",
+      "sha256_16": "eb9095e8f2a9561a",
       "url": "http://localhost:9301/so-ts/csdl-so-sach?resource=lighting-systems",
-      "note": "hub ?resource=lighting-systems → redirect /csdl-bieu-11",
+      "note": "hub deep-link ?resource=lighting-systems → Biểu 11 list",
       "httpStatus": 200
     },
     {
       "id": "QA-20",
       "result": "PASS",
       "screenshot": "QA-20.png",
-      "sha256_16": "65da20993bf4b641",
+      "sha256_16": "36c894b5eb9d6271",
       "url": "http://localhost:9301/csdl-bieu-11?form=create",
-      "note": "Create Slideout · form=create · 2 section lưới+NLMT · LT-",
+      "note": "Create Slideout · form=create KEEP · 2 section lưới+NLMT · LT-",
       "httpStatus": 200
     }
   ],

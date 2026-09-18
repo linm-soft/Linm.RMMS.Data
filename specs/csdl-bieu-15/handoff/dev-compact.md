@@ -1,77 +1,67 @@
-# handoff-compact — dev · csdl-bieu-15
+# Handoff compact — dev
 
-| | |
-|--|--|
-| schemaVersion | `1` |
-| role | `dev` |
-| feature | `csdl-bieu-15` |
-| title | CSDL Biểu 15 — TMC / thu phí / hạt / kho |
-| packKind | `list` |
-| changeScope | `new_page` |
-| status | `done` |
-| taskId | `task_e6ad9bf7` |
-| resource | `ops-facilities` |
-| formNo | `15` |
-| columns | `20` · Z2 công trình · Z3 TB+QL |
-| IdCode | `OF-` |
-| peerSoTs | `so-ts-toll` · `so-ts-rest-area` · `so-ts-station-house` · cite only · none_p1 |
-| formPattern | Kind D Slideout 2col · footer_actions_only |
-| Kind | B A–D+F · D Slideout |
-| facility | keep_5 tmc/toll/rest/station/warehouse |
-| mfeStdUrl | `http://localhost:9301/csdl-bieu-15` |
-| hub | `/so-ts/csdl-so-sach?resource=ops-facilities` |
-| domain | Asset · `api/v1/asset/csdl-records` |
-| entity | shell + `CsdlBieu15Entity` · `Schema_CsdlBieu15` |
-| yarnBuild | **PASS** |
-| dotnetBuild | **PASS** |
-| e2eQa | ON · queued `/agent-qa*` only |
-| contentHashPrior | `sha256:3bf356f00182dd6c0864bf5b88ae4d460ef8da73e5521f1b14756b7168dc20a7` |
-| headerFingerprintPrior | `sha256:0064a4903777f7ea8d51c7423d8451a20daf77a5934929001905edaa380f4fe4` |
-| skillVersion | `2026.08.25.01` |
-| workflowVersion | `2026.09.01.02` |
-| rulesVersion | `2026.08.31.2` |
-| writtenAt | `2026-09-05T15:45:00.000Z` |
+schemaVersion: 1
+feature: csdl-bieu-15
+packKind: list
+role: dev
+status: done
+skillVersion: 2026.09.05.03
+workflowVersion: 2026.09.05.03
+rulesVersion: 2026.09.17.3
+contentHash: sha256:8a85d68eaef24cf98c312f83a3a100de25b1212e8a751d6f1f42005d38dd0fc8
+headerFingerprint: sha256:0064a4903777f7ea8d51c7423d8451a20daf77a5934929001905edaa380f4fe4
+writtenAt: 2026-09-18T02:40:00.000Z
+taskId: task_88a1f9c1
+tlTaskId: task_ad295ce2
+priorTyped: task_e6ad9bf7 · keep
+resource: ops-facilities
+columns: 20
+IdCode: OF-
+formNo: 15
+changeScope: edit_page
+formPattern: Slideout
+mfeStdUrl: http://localhost:9301/so-ts/csdl-so-sach
+hubRoute: /so-ts/csdl-so-sach?resource=ops-facilities
+alias: /csdl-bieu-15
+peerSoTs: so-ts-toll · so-ts-rest-area · so-ts-station-house · cấm merge
+devSlash: /implement-export-import-excel
 
 ## Decisions
+- changeScope: edit_page T-XLS-S15 · typed 20 KEEP · Schema_CsdlBieu15 KEEP · **cấm** reopen
+- export: GET …/export?resource=ops-facilities (+filter+facilityKind) · sheet Biểu 15 · 20 cols · `Bieu15_TMC_Tram_Hat_{yyyyMMdd}.xls`
+- import: **DEFER P1 ẩn** · export_only_p0
+- Q-XLS: filtered · filter-all · one_sheet · facility+area+equipment cùng hàng · **cấm** filter-bar export · **cấm** 12+8 · **cấm** sheet CT/TB · **cấm** streaming
+- migration: none · BFF proxy reuse
+- build: yarn build PASS · dotnet Api+Bff PASS
+- e2e: queued QA only
 
-- route_a `/csdl-bieu-15` + hub NEW card formNo 15
-- typed Facility*/Area*/Equipment* flat · **cấm** detail* / parent *Json / ERP.*
-- facilityKind keep_5 · equipmentKind free_text · area/qty ≥0 · status→shell Status
-- list subset: shared + facilityKind/facilityName/status/yearBuilt
-- UiSchema catalogKind `ops-facilities` · buildDynamicGridColumns · Zone F full
-- BFF proxy unchanged · migration `20260905160000_Schema_CsdlBieu15`
+## Inventory (slim)
+| id | label | controlHint | notes |
+|----|-------|-------------|-------|
+| (form 20) | typed prior | keep | unchanged |
+| exportExcel | Xuất Excel | ToolbarButton | filtered · P0 |
+| importExcel | Nhập Excel | ToolbarButton+file | DEFER P1 ẩn |
 
-## Artifacts
+## Screens / zones (ids only)
+- S-LIST · S-FORM-* KEEP · S-XLS-EXPORT · S-XLS-IMPORT (hidden)
+- mfeStdUrl=http://localhost:9301/so-ts/csdl-so-sach · alias /csdl-bieu-15
 
-| Kind | Path |
-|------|------|
-| implement | `specs/csdl-bieu-15/implement/csdl-bieu-15.md` |
-| FE | `Linm.Web.RMMS.Asset/src/pages/CsdlBieu15Page/` |
-| BE entity | `…/Entities/CsdlBieu15Entity.cs` |
-| migration | `…/Migrations/20260905160000_Schema_CsdlBieu15.cs` |
-| STATUS | `specs/csdl-bieu-15/STATUS.md` |
+## API / tasks (ids only)
+- API-XLS-01 GET export · API-XLS-02 import OUT P1 · CRUD KEEP
+- T-XLS-S15-BE-01 · BFF-01 · FE-01/02 **done** · QA-01 queued · BE-02 OUT
+- FE BASE /asset/csdl-records · BFF web-bff mirror
 
-## APIs
-
-- CRUD `…/asset/csdl-records?resource=ops-facilities`
-- filter: search/province/status/facilityKind/roadCode/km*
-- LKP road-routes/search
-
-## Debt
-
-- Auth wire DEFER · org P2 · XLS OUT · peer/map skip · e2e → QA · apply migration runtime
-
-## Next
-
-| Role | Need |
-|------|------|
-| **QA** | e2e `/agent-qa*` · scenarios |
-| Review | after QA |
+## Build
+- MFE yarn build PASS
+- BE dotnet build PASS (Api + Asset.Bff)
+- debt: Import P1 · Auth stub · QA e2e
 
 ## UNCLEAR
-
 - none
 
-## Cấm (compact)
+## Full paths
+- implement: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-15/implement/csdl-bieu-15.md
+- STATUS: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-15/STATUS.md
 
-ERP.* · invent infra API · merge so-ts-toll/rest/station/road-assets · e2e/start:std @ Dev · Guid IdCode
+## Cấm (compact)
+ERP.* · invent so-ts-toll/rest/station · reopen typed · toast stub=done · filter-bar export · sheet CT/TB · streaming · Import P0 · e2e @ Dev · merge peer

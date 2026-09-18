@@ -63,6 +63,7 @@ Không publish. Subscribe tùy domain nguồn (P2 push). Dashboard KPI không g�
 | GAP-P2-REPORT-API-01 | Endpoint stub tới Dev BE |
 | GAP-FILTER-BAR | LinErpListFilterBar 1 hàng wrap |
 | Demo HTML leaf | Design prototype — không bắt demo trước data-analy |
+| **GAP-NKTD-SRC-01** (CR 2026-09-17) | Report đọc `csdl-so-02` / `CsdlBookEntry` — **cấm** seed + check-in làm SSOT · [CR](../../../specs/_cr/nktd-pdf-20260917/README.md) |
 
 ## 7. Demo checklist (chốt khách)
 
@@ -71,3 +72,10 @@ Không publish. Subscribe tùy domain nguồn (P2 push). Dashboard KPI không g�
 - [ ] Excel cột đúng (nếu P1 export)
 - [ ] Config cột FULL
 - [ ] Không chrome GOVOne · không alert native
+
+## Implement tracking
+
+| lane | phase | status | updatedAt |
+|------|-------|--------|-----------|
+| web | `qa` | `pending` | `2026-09-18T17:39:19.524Z` |
+| mobile | — | — | — |

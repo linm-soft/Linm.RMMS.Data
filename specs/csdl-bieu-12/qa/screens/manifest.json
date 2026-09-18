@@ -1,28 +1,29 @@
 {
   "url": "http://localhost:9301/csdl-bieu-12",
-  "method": "playwright channel=chrome headless · contract fallback after yarn e2e-qa hang (GAP-QA-E2E-PW-01)",
+  "method": "playwright channel=chrome · yarn e2e-qa playwright resolve fail → AutoCode createRequire fallback · skip-start · T-XLS-S12",
   "feature": "csdl-bieu-12",
+  "changeScope": "edit_page",
   "cases": [
     "S0",
     "S1",
     "QA-20"
   ],
-  "capturedAt": "2026-09-05T13:33:58.075Z",
+  "capturedAt": "2026-09-18T00:47:21.684Z",
   "steps": [
     {
       "id": "S0",
       "result": "PASS",
       "screenshot": "S0.png",
-      "sha256_16": "f8c6e6a7283f45ed",
+      "sha256_16": "18767d8e8e7ee899",
       "url": "http://localhost:9301/csdl-bieu-12",
-      "note": "list Biểu 12 · filter-bar · side/km · empty/grid · no peer",
+      "note": "list Biểu 12 · toolbar Xuất · Import ẩn · filter-bar · no peer",
       "httpStatus": 200
     },
     {
       "id": "S1",
       "result": "PASS",
       "screenshot": "S1.png",
-      "sha256_16": "f8c6e6a7283f45ed",
+      "sha256_16": "88f10ceeaf59cdd7",
       "url": "http://localhost:9301/so-ts/csdl-so-sach?resource=green-assets",
       "note": "hub ?resource=green-assets → redirect /csdl-bieu-12",
       "httpStatus": 200
@@ -31,9 +32,9 @@
       "id": "QA-20",
       "result": "PASS",
       "screenshot": "QA-20.png",
-      "sha256_16": "642f13697329afc7",
+      "sha256_16": "692baca13e55ae1d",
       "url": "http://localhost:9301/csdl-bieu-12?form=create",
-      "note": "Create Slideout · form=create · 2 section khóm+thảm cỏ · CX-",
+      "note": "Create Slideout · form=create KEEP · 2 section khóm+thảm cỏ · CX-",
       "httpStatus": 200
     }
   ],

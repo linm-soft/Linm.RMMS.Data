@@ -90,7 +90,7 @@
 </head>
 <body>
   <div class="page">
-    <p class="note" id="note">SSOT Design · <code>shared_grid_example v1</code> · pack <code>csdl-bieu-15</code> · resource <code>ops-facilities</code> · formNo <code>15</code> · mfeStdUrl <code>/csdl-bieu-15</code> · hub NEW card <code>?resource=ops-facilities</code> · peer so-ts-toll/rest/station · <strong>cấm</strong> merge · skip chrome · <strong>cấm</strong> detail* only · map none · Q-KIND-SET keep_5 · Q-EQ-SET free_text · Q-AREA-UNIT number_m2 · Q-MANAGE in_20 · Q-LIST-COLS subset · Q-TITLE ctx_tmc · Q-DMAP add_now · Q-PEER-LINK none_p1 · Q-KM range</p>
+    <p class="note" id="note">SSOT Design · edit_page <code>T-XLS-S15</code> · <code>shared_grid_example v1</code> · pack <code>csdl-bieu-15</code> · resource <code>ops-facilities</code> · formNo <code>15</code> · mfeStdUrl <code>/so-ts/csdl-so-sach</code> · alias <code>/csdl-bieu-15</code> · hub <code>?resource=ops-facilities</code> · peer so-ts-toll/rest/station · <strong>cấm</strong> merge · typed CRUD <strong>keep</strong> · delta <strong>Xuất Excel</strong> catalogToolbar · Import ẩn P0 · Q-XLS-SCOPE filtered · Q-XLS-SHEET one_sheet 20 · filename <code>Bieu15_TMC_Tram_Hat_{yyyyMMdd}</code> · <strong>cấm</strong> filter-bar export · golden Cục 16-sheet</p>
 
     <section id="list" style="display:flex;flex-direction:column;gap:8px;flex:1;min-height:0">
       <div class="zone-a" data-des-id="DES-GRID-A">
@@ -104,8 +104,8 @@
           <button type="button" class="tb" data-action="history" title="Lịch sử"><i class="fas fa-history"></i></button>
           <button type="button" class="tb" data-action="config" title="Cấu hình"><i class="fas fa-cog"></i></button>
           <button type="button" class="tb" id="btn-del" disabled title="Xóa"><i class="fas fa-trash"></i></button>
-          <button type="button" class="tb" data-action="import" title="Import stub OUT Biểu 15"><i class="fas fa-file-import"></i></button>
-          <button type="button" class="tb" data-action="export" title="Export stub OUT Biểu 15"><i class="fas fa-file-export"></i></button>
+          <!-- Import DEFER P1 · Q-XLS-IMPORT=export_only_p0 · cấm mount P0 -->
+          <button type="button" class="tb" data-action="export" data-des-id="DES-EXPORT" title="Xuất Excel · Bieu15_TMC_Tram_Hat_{yyyyMMdd} · 1 sheet 20 · catalogToolbar · cấm filter-bar"><i class="fas fa-file-excel"></i> Xuất Excel</button>
         </div>
         <div class="zone-b-right">
           <button type="button" class="tb primary" data-action="create"><i class="fas fa-plus"></i> Tạo mới</button>
@@ -461,7 +461,14 @@
       if (t.dataset.action === "refresh") render();
       if (t.dataset.action === "history" || t.dataset.hist) toast("History modal stub P2");
       if (t.dataset.action === "config") toast("UiSchema editor · catalogKind ops-facilities");
-      if (t.dataset.action === "import" || t.dataset.action === "export") toast("XLS Biểu 15 OUT stub");
+      if (t.dataset.action === "export") {
+        /* Prototype sim binary download · ≠ toast-stub done · Dev wires GET …/export */
+        const a = document.createElement("a");
+        a.href = "data:application/vnd.ms-excel," + encodeURIComponent("Biểu 15 · 20 cột · facility+area+equipment · filtered · golden Cục 16-sheet");
+        a.download = "Bieu15_TMC_Tram_Hat_" + new Date().toISOString().slice(0, 10).replace(/-/g, "") + ".xls";
+        a.click();
+        toast("Xuất Excel · download sim · empty=0 row OK · fail→toast · cấm filter-bar");
+      }
       if (t.dataset.view) {
         const row = rows.find((r) => String(r.id) === t.dataset.view);
         if (row) openSlide("view", row);

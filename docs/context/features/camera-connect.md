@@ -7,6 +7,7 @@
 > **Demo HTML:** `Linm.RMMS.Demo/src/demo/features/camera-connect-demo.html` · **pilot wall+map:** [`camera-ops-dashboard-demo.html`](../../../Linm.RMMS.Demo/src/demo/features/camera-ops-dashboard-demo.html)  
 > **MFE:** `Linm.Web.RMMS.Camera` · route `/camera` · ports **9216** / **9316** (`yarn start:std` → `http://localhost:9316/camera`)  
 > **GIS wall+map:** `Linm.Web.RMMS.Gis` · **`/gis/camera`** (`gis-camera-map`) — Kind F · clip stack · **không** `/camera/wall` MFE Camera  
+> **Peer Anco nút đèn:** [`its-anco-signal.md`](its-anco-signal.md) — list Anco + pane live/đếm · **cấm** gộp slug / Config_* Wave 1  
 > **Pilot HTML:** [`camera-ops-dashboard-demo.html`](../../../Linm.RMMS.Demo/src/demo/features/camera-ops-dashboard-demo.html)  
 > **BE:** `api/v1/cameras` · CRUD `CameraDevice` · SDK-first TCM403 · CaptureJPEG · ISAPI Digest · ingest · `Linm.RMMS.WebService`  
 > **Specs:** `specs/camera-connect/STATUS.md` · `task/camera-connect.md` · `implement/camera-connect.md`  

@@ -5,68 +5,67 @@
 | schemaVersion | `1` |
 | role | `dev` |
 | feature | `csdl-so-02` |
-| title | CSDL Sổ 02 — Nhật ký tuần đường |
+| title | CSDL Sổ 02 — Nhật ký tuần đường (CR PDF Wave A) |
 | packKind | `list` |
-| changeScope | `new_page` |
+| changeScope | `edit_page` |
 | status | `done` |
-| taskId | `task_d4e4f9fe` |
+| taskId | `task_00facaea` |
+| cr | `nktd-pdf-20260917` · Wave A |
 | resource | `patrol-logs` |
 | formNo | `02` |
 | IdCode | `SO-` |
-| formPattern | **Kind D Slideout** 2col · entries `inline_grid` |
-| Kind | **B** A–D+F+H · **D** Slideout Z1–Z3 |
-| route_confirm | **`route_a`** `/csdl-so-02` + hub |
+| route_confirm | `route_a` |
+| autoApprove | `ON` |
+| e2eQa | `ON` (queued `/agent-qa*` only) |
 | mfeStdUrl | `http://localhost:9301/csdl-so-02` |
 | hubDeepLink | `/so-ts/csdl-so-sach?resource=patrol-logs` |
-| domain | **Asset** · `api/v1/asset/csdl-records` |
-| bff | proxy · `web-bff/api/v1/asset/csdl-records` |
-| entity | shell + `CsdlSo02Entity` · `Schema_CsdlSo02` · widen entries |
 | yarnBuild | **PASS** |
 | dotnetBuild | **PASS** |
-| e2eQa | `ON` (queued `/agent-qa*` only) |
-| contentHashPrior | `sha256:70538d9c9588d335aa43fd5a1fe28433d1138960d5954c5a7ef4cff33a5bd1c3` |
-| skillVersion | `2026.08.25.01` |
+| domain | **Asset** · `api/v1/asset/csdl-records?resource=patrol-logs` |
+| contentHashPrior | `sha256:3ddc42d7c4404f439925322953f28ffc9d3b263726ac6cf5216065751c19b4d6` |
+| headerFingerprintPrior | `sha256:1b032f04f5154622239e0e2bdbebe6923ec76ba9ca33d283b51ebe0062c0d471` |
+| skillVersion | `2026.09.05.03` |
 | workflowVersion | `2026.09.01.02` |
-| rulesVersion | `2026.08.31.2` |
-| writtenAt | `2026-09-06T00:36:00.000Z` |
+| rulesVersion | `2026.09.17.2` |
+| writtenAt | `2026-09-18T04:15:00.000Z` |
 
 ## Decisions
 
-- Implemented typed So02 page + BE Schema_CsdlSo02 · **cấm** detail*/col1–3 SSOT
-- API **giữ** `asset/csdl-records` · BFF proxy · **cấm ERP.***
-- List FULL UiSchema `patrol-logs` · filter road-route + period TZ
-- Label «Sổ 02» · hub redirect patrol-logs → `/csdl-so-02`
-- File sketch/media: ids text P1 · max 10 validated BE
-- open Q: **none**
-
-## APIs
-
-| ID | Method | Path |
-|----|--------|------|
-| API-01..05 | GET/POST/PUT/DELETE | `/api/v1/asset/csdl-records` (+ BFF) |
-| API-LKP-01 | GET | `/integration/road-routes/search` |
+- T-BE-LOC-01: `LocationText` nvarchar(512) · DTO 1:1 · OR BE · migration `Schema_CsdlSo02LocationText` pair
+- T-FE-LOC-01/02/03: form Text + weather Textarea · list cột «Vị trí» · OR soft
+- T-BE-LOC-02: UiSchema seed `locationText`
+- API **giữ** · **cấm** ERP.* · **cấm** reuse `Location`
+- filter-bar.md written từ live
 
 ## Artifacts
 
 | Kind | Path |
 |------|------|
 | implement | `specs/csdl-so-02/implement/csdl-so-02.md` |
-| FE | `Linm.Web.RMMS.Asset/src/pages/CsdlSo02Page/` |
-| BE | `CsdlSo02Entity` · `Schema_CsdlSo02` · `CsdlCatalogService` |
+| filter-bar | `docs/context/features/csdl-so-02-filter-bar.md` |
+| migration | `…/Migrations/20260918035504_Schema_CsdlSo02LocationText(.Designer).cs` |
+| FE | `CsdlSo02Page` · `CsdlSo02FormSlideout` · csdlSoSach DTOs |
 | STATUS | `specs/csdl-so-02/STATUS.md` |
+
+## APIs
+
+- GET/POST/PUT/DELETE `…/asset/csdl-records` · `resource=patrol-logs` · body `entries[].locationText`
+- List projection record.`locationText` (prefer text else Km)
 
 ## Debt
 
-- FileRef/FileMulti UI → text ids P1
-- duty-logs hub formNo collision display
-- Auth wire / org-partner / XLS DEFER|OUT
+| ID | Note |
+|----|------|
+| GAP-SO02-FILE-01 | sketch/media text-id |
+| GAP-NKTD-RPT-PARK | Wave B report |
+| UiSchema DB | may need Config reset for seed col |
 
 ## Next
 
 | Role | Need |
 |------|------|
-| **QA** | e2e · CRUD · typed form · filter · route alias |
-| Review | after QA |
+| **QA** | e2e `/agent-qa*` · G-11/G-12 · OR form · filter V10 |
+| Review | after QA · Wave B park |
 
 ## UNCLEAR
 
@@ -74,4 +73,4 @@
 
 ## Cấm (compact)
 
-ERP.* · invent API · e2e/start:std ở Dev · start role khác · merge Sổ TS
+ERP.* · invent patrol-logs path · reuse `Location` · e2e/start:std @ Dev · Wave B report

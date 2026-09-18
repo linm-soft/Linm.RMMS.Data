@@ -3,8 +3,21 @@
   "status": "confirmed",
   "verdict": "PASS",
   "review_confirm": "done",
-  "taskId": "task_575d1ba6",
-  "contentHash": "sha256:70538d9c9588d335aa43fd5a1fe28433d1138960d5954c5a7ef4cff33a5bd1c3",
-  "reviewedAt": "2026-09-06T00:47:09.122Z",
+  "changeScope": "edit_page",
+  "cr": "nktd-pdf-20260917",
+  "wave": "A",
+  "taskId": "task_635f47f8",
+  "priorQaTaskId": "task_2472bc94",
+  "priorDevTaskId": "task_00facaea",
+  "contentHash": "sha256:3ddc42d7c4404f439925322953f28ffc9d3b263726ac6cf5216065751c19b4d6",
+  "headerFingerprint": "sha256:1b032f04f5154622239e0e2bdbebe6923ec76ba9ca33d283b51ebe0062c0d471",
+  "hashGate": "skip",
+  "gates": {
+    "QUERY": "PASS",
+    "SEC": "PASS",
+    "UI-FN": "PASS",
+    "BE-FN": "PASS"
+  },
+  "reviewedAt": "2026-09-18T04:10:30.000Z",
   "autoApprove": true
 }

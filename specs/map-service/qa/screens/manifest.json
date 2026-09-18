@@ -1,0 +1,27 @@
+{
+  "url": "http://localhost:9302/ → /gis/tai-san (dev click)",
+  "capturedAt": "2026-09-16T19:06:50.200Z",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "path": "http://localhost:9302/gis/tai-san",
+      "body": "RMMS · GIS & Digital Twin GIS & Digital Twin Bản đồ tài sản Bản đồ Tuần đường Bản đồ camera DS Dev Standalone Developer RMMS GIS & Digital Twin /dev Lớp Chú giải Thuộc tính Kết qu"
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "body": "RMMS · GIS & Digital Twin GIS & Digital Twin Bản đồ tài sản Bản đồ Tuần đường Bản đồ camera DS Dev Standalone Developer RMMS GIS & Digital Twin /dev Lớp Chú giải Thuộc tính Kết qu"
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "osrmHits": [],
+      "publicOsrm": 0
+    }
+  ],
+  "ok": true
+}

@@ -1,92 +1,69 @@
-# handoff-compact — design · csdl-bieu-04
+# Handoff compact — design
 
-| | |
-|--|--|
-| schemaVersion | `1` |
-| role | `design` |
-| feature | `csdl-bieu-04` |
-| title | CSDL Biểu 04 — Cống các loại |
-| packKind | `list` |
-| changeScope | `new_page` |
-| status | `done` |
-| taskId | `task_95985c62` |
-| resource | `culverts` |
-| formNo | `04` |
-| columns | `17` |
-| IdCode | `CG-` |
-| peerSoTs | `so-ts-culvert-x` |
-| autoApprove | `ON` |
-| e2eQa | `ON` |
-| design_confirm | `approve` |
-| shared_grid_example | `v1` |
-| real_view_parity | `v1` |
-| contentHashPrior | `sha256:7498ad6644d0e599bc40afb7589db5335c18adb4b92f1573de3c1fae2e17d3d6` |
-| headerFingerprintPrior | `sha256:155df2db0952d6e139fbedac748878ecd5c607d506fdf5fccc172f5b0f937024` |
-| skillVersion | `2026.08.29.03` |
-| workflowVersion | `2026.09.01.02` |
-| rulesVersion | `2026.08.31.2` |
-| writtenAt | `2026-09-05T13:05:00.000Z` |
+schemaVersion: 1
+feature: csdl-bieu-04
+packKind: list
+role: design
+status: done
+skillVersion: 2026.09.05.03
+workflowVersion: 2026.09.05.03
+rulesVersion: 2026.09.17.3
+contentHash: sha256:eef182add5b68de5b3e27ec36ed9c099689831aeb77742814aa296bf286243f9
+headerFingerprint: sha256:8b98f7a22739bdad37b67a7ef869d6c465edc38061f0d5853fe2e69758d4ccea
+writtenAt: 2026-09-18T03:10:00.000Z
+taskId: task_394a88a3
+resource: culverts
+columns: 17
+IdCode: CG-
+peerSoTs: so-ts-culvert-x
+design_confirm: approve
+shared_grid_example: v1
+real_view_parity: v1
+formPattern: Slideout
+changeScope: edit_page
 
 ## Decisions
-
-- Kind **B** A–D+F + Kind **D** Slideout · `data-form-cols=2` · footer_actions_only · **cấm** Full-page
-- form typed **17 cột** · **cấm** detail* only · Control = controlHint
-- Q-GPS **four_xy** · Q-ROUTE **alias_now** `/csdl-bieu-04` · Q-PROV **keep_static** · Q-LOAD **free_text**
-- GAP-CSDL-ROAD-01 SearchInput road-route P1 · GAP-BIEU04-SHAPE-01 Dropdown hộp/tròn
-- GAP-CSDL-ORG-01 DEFER P2 · GAP-CSDL-XLS-01 OUT stub · peer deep-link · **cấm** merge Sổ TS · map none
-- API giữ `api/v1/asset/csdl-records` · catalogKind `culverts` · **cấm** ERP.*
-- design_confirm **approve** (autoApprove ON) · open Q: **none**
-- Report DES-RPT **N/A**
+- changeScope: edit_page (T-XLS-S04) · **cấm** new_page typed reopen
+- formPattern: Slideout · data-form-cols=2 · footer_actions_only (keep)
+- Kind B A–D+F keep · toolbar **+Xuất Excel** · Import **DEFER P1 ẩn**
+- Q-XLS-SCOPE: filtered · Q-XLS-IMPORT: export_only_p0 · Q-XLS-FILENAME: Bieu04_CongCacLoai_{yyyyMMdd}.xlsx (SA chốt ext)
+- export: catalogToolbar · BFF binary · `/implement-export-import-excel`
+- golden: Cục 16-sheet sheet Biểu 4 · 17 cột · **cấm** 12+8
+- filter: **cấm** Xuất trên LinErpListFilterBar (GAP-FILTER-BAR-08)
+- peer: **cấm** gộp so-ts-culvert-x vào sheet (GAP-BIEU04-XLS-PEER)
+- design_confirm: approve (autoApprove ON) · open Q Design: none
+- Report DES-RPT: N/A
+- mfe: Linm.Web.RMMS.Asset · be: Linm.RMMS.WebService · **cấm ERP.***
 
 ## Inventory (slim)
-
 | id | label | controlHint | notes |
 |----|-------|-------------|-------|
-| search | Tìm | SearchTextInput | Zone B · 🔍 cụm phải |
-| province/status | Tỉnh/TT | Dropdown | LOOKUP_STATIC |
-| roadCode | Đường | SearchInput | road-route |
-| kmPoint | Km điểm | Number | filter+form |
-| code | Mã | Text ro | CG- |
-| gps* ×4 | GPS cống/đường | Number | Q-GPS four_xy |
-| apertureM | Khẩu độ | Number | * |
-| shape | Hình | Dropdown | hộp/tròn |
-| bodyMaterial | Thân | Dropdown | |
-| inlet/outlet | Đầu TL/HL | Text | |
-| lengthM | Cdài | Number | * |
-| loadClass | Tải | Text | Q-LOAD |
-| builtYear | Năm | Number | |
-| manageUnit | ĐV QL | Text | P2 SearchInput |
-| notes/side/status | … | Textarea/Dropdown | |
+| (form 17) | typed prior | keep | GPS four_xy · **cấm** reopen |
+| exportExcel | Xuất Excel | ToolbarButton | fa-file-excel · filtered · P0 |
+| importExcel | Nhập Excel | ToolbarButton+file | DEFER P1 · ẩn |
 
 ## Screens / zones (ids only)
+- S-LIST DES-GRID-A/B/C/D/F/H keep · toolbar +export
+- S-XLS-EXPORT · S-XLS-IMPORT (hidden P1)
+- S-FORM-* DES-GRID-Z keep · LeaveConfirmModal
+- reviewUrl=file:///D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-04/ui/prototype/csdl-bieu-04-list-prototype.html
+- peerStdUrl=http://localhost:9301/so-ts/csdl-so-sach?resource=culverts
+- mfeStdUrl=http://localhost:9301/so-ts/csdl-so-sach · alias /csdl-bieu-04
+- prototype=specs/csdl-bieu-04/ui/prototype/csdl-bieu-04-list-prototype.html
 
-- S-LIST DES-GRID-A · B · B-FILTER · C0–C3 · D · F · H
-- S-FORM-* DES-GRID-Z · DES-FORM-Z1–Z3 · LeaveConfirmModal
-- S-HUB-ENTRY · S-PEER-SOTS · S-SKIP-MAP
-- reviewUrl=`file:///D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-04/ui/prototype/csdl-bieu-04-list-prototype.html`
-- mfeStdUrl=`http://localhost:9301/csdl-bieu-04`
-- peerStdUrl=`http://localhost:9301/so-ts/csdl-so-sach?resource=culverts`
-- prototype=`specs/csdl-bieu-04/ui/prototype/csdl-bieu-04-list-prototype.html`
-
-## API / next
-
-- CRUD BFF `…/asset/csdl-records` · resource=culverts · typed DTO **SA**
-- road-route `…/integration/road-routes/search`
-- Next: **SA** Schema_CsdlBieu4 · GPS four_xy CRS · UiSchema typed
-- e2e: queued `/agent-qa*` only · **cấm** e2e/start:std ở Design
+## API / tasks (ids only)
+- CRUD keep: …/csdl-records?resource=culverts
+- Export: GET …/csdl-records/export?resource=culverts (+ filter QS)
+- Import: POST …/import — DEFER P1
+- T-XLS-S04 · AC-XLS-01..09 · GAP-BIEU04-XLS-01..05 · GAP-BIEU04-XLS-PEER
+- Next: SA path/BFF/golden · filename ext
 
 ## UNCLEAR
-
-- none
+- none (Design) · SA: ext .xls vs .xlsx · page-all vs streaming
 
 ## Full paths (Read only if needed)
-
-- design: `D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-04/ui/design.md`
-- control-hint: `D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/csdl-bieu-04-control-hint.md`
-- real-data: `D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/csdl-bieu-04-real-data.md`
-- prior po: `D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-04/handoff/po-compact.md`
-- STATUS: `D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-04/STATUS.md`
-
-## Cấm (compact)
-
-Demo/LS SSOT · ERP.* · Guid IdCode · form 3 ô only · invent map · merge Sổ TS · yarn build/e2e/start:std · re-scan demo · paste HTML vào compact
+- design: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-04/ui/design.md
+- control-hint: D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/csdl-bieu-04-control-hint.md
+- real-data: D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/csdl-bieu-04-real-data.md
+- prior po: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-04/handoff/po-compact.md
+- STATUS: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-04/STATUS.md

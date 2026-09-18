@@ -104,8 +104,8 @@
           <button type="button" class="tb" data-action="history" title="Lịch sử"><i class="fas fa-history"></i></button>
           <button type="button" class="tb" data-action="config" title="Cấu hình"><i class="fas fa-cog"></i></button>
           <button type="button" class="tb" id="btn-del" disabled title="Xóa"><i class="fas fa-trash"></i></button>
-          <button type="button" class="tb" data-action="import" title="Import stub OUT Biểu 14"><i class="fas fa-file-import"></i></button>
-          <button type="button" class="tb" data-action="export" title="Export stub OUT Biểu 14"><i class="fas fa-file-export"></i></button>
+          <!-- Import DEFER P1 · Q-XLS-IMPORT=export_only_p0 · cấm mount P0 -->
+          <button type="button" class="tb" data-action="export" data-des-id="DES-EXPORT" title="Xuất Excel · Bieu14_HeThongITS_{yyyyMMdd} · 1 sheet 21 · catalogToolbar · cấm filter-bar"><i class="fas fa-file-excel"></i> Xuất Excel</button>
         </div>
         <div class="zone-b-right">
           <button type="button" class="tb primary" data-action="create"><i class="fas fa-plus"></i> Tạo mới</button>
@@ -481,7 +481,14 @@
       if (t.dataset.action === "refresh") render();
       if (t.dataset.action === "history" || t.dataset.hist) toast("History modal stub P2");
       if (t.dataset.action === "config") toast("UiSchema editor · catalogKind its-systems");
-      if (t.dataset.action === "import" || t.dataset.action === "export") toast("XLS Biểu 14 OUT stub");
+      if (t.dataset.action === "export") {
+        /* Prototype sim binary download · ≠ toast-stub done · Dev wires GET …/export */
+        const a = document.createElement("a");
+        a.href = "data:application/vnd.ms-excel," + encodeURIComponent("Biểu 14 · 21 cột · device+infra+GPS · filtered · golden Cục 16-sheet");
+        a.download = "Bieu14_HeThongITS_" + new Date().toISOString().slice(0, 10).replace(/-/g, "") + ".xls";
+        a.click();
+        toast("Xuất Excel · download sim · empty=0 row OK · fail→toast · cấm filter-bar");
+      }
       if (t.dataset.view) {
         const row = rows.find((r) => String(r.id) === t.dataset.view);
         if (row) openSlide("view", row);

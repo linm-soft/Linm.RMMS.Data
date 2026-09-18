@@ -211,7 +211,7 @@ BFF: **proxy only** · forward `Request.QueryString` (**T-BFF-KCT-02**).
 | GAP-PO-SO-ROUTE-01 | 1 URL `/giai-ngan` | **T-UI-ROUTE-PH2-01** · **T-UI-KCT-PH4-01** |
 | GAP-PO-KBNN-01 | Cấm API KBNN | **T-UI-KCT-PH4-KBN-01** · Excel import only |
 | GAP-DES-FORM-SURFACE-01 | 5 cột forms NEW | **T-UI-FORM-SEG-01** · **T-UI-FORM-WEEK-01** |
-| GAP-KCT-PH5-01 | PARK | **cấm** enqueue |
+| GAP-KCT-PH5-01 | PARK dashboard login 10 KPI (D5) | **cấm** enqueue Kind E · **cấm** slug `kcht-dashboard` · family FEATURE-TRACKING §17 |
 
 ---
 
@@ -440,6 +440,15 @@ BFF: **proxy only** · forward `Request.QueryString` (**T-BFF-KCT-02**).
 - [ ] GET/PUT kbn-compare · POST import Excel
 - [ ] **cấm** call API KBNN
 
+### T-UI-KCT-PH5-DASH — PARK D5 (dashboard login 10 KPI)
+**layer:** ui  
+**status:** **park**  
+**deps:** PH4 STATUS `done` + `sourceFormReady=yes`  
+**DoD (khi unpark — không Dev P1):**
+- [ ] 10 KPI công văn: tổng CT · đang TC · đã HT · đang BH · đã hết BH · chậm tiến độ · sắp hết hạn HĐ · KH vốn · đã GN · tỷ lệ GN
+- [ ] Aggregate PH1–4 trên `/kcht-cong-trinh` · **cấm** slug `kcht-dashboard` · **cấm** `GET /api/v1/dashboard/kpis`
+- [ ] **cấm** enqueue Kind E / `packKind=dashboard` trước gate trên
+
 ### T-UI-CFG-02
 **layer:** ui  
 **status:** **pending**  
@@ -585,6 +594,7 @@ T-BFF-KCT-02 + T-UI-ROUTE-PH2-01 → T-UI-LIST-SEG-01 · T-UI-FORM-SEG-01 · T-U
 T-UI-ROUTE-PH2-01 → T-UI-NAV-01
 T-BE-SCHEMA-KCT-02 → T-UI-CFG-02
 T-UI-KCT-PH4-01 → T-UI-KCT-PH4-LINE-01 · T-UI-KCT-PH4-KBN-01
+T-UI-KCT-PH4-* done + sourceFormReady=yes → T-UI-KCT-PH5-DASH (PARK)
 T-UI-FILTER-* parallel with lists
 (all UI) → T-UI-ACT-02 · T-UI-LEAVE-01 · T-UI-LKP-02 · T-UI-FIELD-02 · T-UI-HIST-01 · T-UI-PROD-01 · T-UI-UX-01 · T-UI-RESP-01 · T-UI-SVC-02
 (all Dev) → T-QA-CRUD-02 · T-QA-FILTER-01 · T-QA-FORM-01

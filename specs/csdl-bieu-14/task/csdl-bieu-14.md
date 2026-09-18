@@ -1,66 +1,65 @@
-# Team lead — tasks — csdl-bieu-14
+# Team lead — tasks — csdl-bieu-14 (XLS · edit_page)
 
 | Field | Value |
 |-------|-------|
 | feature | `csdl-bieu-14` |
-| title | CSDL Biểu 14 — Hệ thống ITS (GTTM) |
+| title | CSDL Biểu 14 — Xuất Excel (T-XLS-S14) |
 | this role | `team_lead` · `/agent-team-lead` |
 | status | **confirmed** |
-| changeScope | **`new_page`** |
-| packKind | **`list`** (Kind **B** A–D+F · Kind **D** Slideout 2col · section vị trí + TB ITS + HT gắn kèm) |
+| changeScope | **`edit_page`** |
+| packKind | **`list`** |
 | formType | `list` |
 | resource | `its-systems` |
 | formNo | `14` |
-| columns | `21` · section vị trí + TB ITS + HT gắn kèm |
-| IdCode | `IT-yyyyMMdd-nnnn` |
-| peerSoTs | `so-ts-its-camera` · **cấm** merge · **none_p1** · **cấm** AiVision |
-| device | deviceType keep_5 · brand · techSpec · qtyOrLength number ≥0 · operatingStatus |
-| infra | infraKind keep_3 · clearanceM · infraQty · systemStatus · yearBuilt |
-| gps | gpsLat/gpsLng Number · direction LOOKUP |
-| solution_confirm | **approve** (`task_c534e53a`) |
-| design_confirm | **approve** (`task_d302ab8a`) |
+| columns | `21` · keep typed · export 1 sheet flat |
+| IdCode | `IT-` · keep |
+| peerSoTs | `so-ts-its-camera` · **cấm** merge vào export |
+| epic | `csdl-export-print` · Wave 1 `T-XLS-S14` |
+| solution_confirm | **approve** (`task_5dc0c863`) |
+| design_confirm | **approve** (`task_7d1a980f`) |
 | autoApprove | **ON** |
 | e2eQa | **ON** (queued — chỉ `/agent-qa*`) |
-| route_confirm | **`route_a`** (autoApprove) — **`/csdl-bieu-14`** + hub NEW card |
-| team_lead_confirm | **approve** (autoApprove ON) |
+| route_confirm | **`route_a`** **keep** · `/csdl-bieu-14` + hub · **không** URL mới |
+| team_lead_confirm | **approve** (autoApprove ON · XLS) |
 | productRoot | `D:/AI-QLBD/Linm.RMMS.Data` |
 | reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-14/ui/prototype/csdl-bieu-14-list-prototype.html` |
-| prior · data_analy | **confirmed** · contentHash `sha256:6cfdefa3baaffcf2bd97c7a429bb5043e7f9d77b96bbb77eafaa34689007b112` |
-| prior · po | **confirmed** · `po/requirement.md` · `handoff/po-compact.md` |
-| prior · design | **confirmed** · `ui/design.md` · `handoff/design-compact.md` |
-| prior · sa | **confirmed** · `be/solution-discovery.md` · `handoff/sa-compact.md` |
-| taskId | `task_b21db737` |
-| saTaskId | `task_c534e53a` |
-| contentHashPrior | `sha256:6cfdefa3baaffcf2bd97c7a429bb5043e7f9d77b96bbb77eafaa34689007b112` |
+| prior · data_analy | **confirmed** · `handoff/data_analy-compact.md` · `task_b92db6a6` |
+| prior · po | **confirmed** · `handoff/po-compact.md` · `task_23c0d73d` |
+| prior · design | **confirmed** · `handoff/design-compact.md` · `task_7d1a980f` |
+| prior · sa | **confirmed** · `handoff/sa-compact.md` · `task_5dc0c863` |
+| priorTyped | `task_b21db737` · task pack typed **keep** · CRUD **done** |
+| taskId | `task_bb5bd3be` |
+| saTaskId | `task_5dc0c863` |
+| contentHashPrior | `sha256:e9a062f1f9eecd6bf98748db0c3f839e2247a74ecb9bcd56273d4e48d729fa0a` |
 | headerFingerprintPrior | `sha256:14cd156a898dcc971a072dd1cd1b92460a8b597558a90dc9854fead9d4c4de5c` |
-| updatedAt | `2026-09-05T15:20:00.000Z` |
-| TL SSOT | `form-type-task-pack` · `agent-dev-assign` · `tl-grid-task-template` · `tl-design-grid-component-map` · `tl-filter-bar-task` · `tl-list-shell-height` · `tl-route-vn-abbrev-confirm` · `list-form-quality-gates` · `filter-bar-layout-hard` · `po-design-grid-standard` |
+| updatedAt | `2026-09-18T02:00:00.000Z` |
+| TL SSOT | `form-type-task-pack` · `agent-dev-assign` · `list-form-quality-gates` · `filter-bar-layout-hard` · `/implement-export-import-excel` |
+| `devSlash` (XLS) | **`/implement-export-import-excel`** · + `/agent-dev` verify |
 
-**Cấm:** implement product code (trừ template task) · e2e · `yarn build` / `start:std` · Step 4b/migration · ERP.* · invent `infra` API · merge `so-ts-its-camera` / `road-assets` / AiVision · start role khác (**GAP-PKT-ROLE-01**) · form 3 ô `detail*` only · 2 entity · Guid IdCode · parent `*Json`.
+**Cấm:** implement product code @ TL · e2e · `yarn build` / `start:std` · Step 4b/migration @ TL · ERP.* · toast-stub=done · filter-bar export (GAP-FILTER-BAR-08) · golden 12+8 · merge peer/road-assets/AiVision · reopen typed `new_page` CRUD · Import wire P0 · start role khác (**GAP-PKT-ROLE-01**).
 
 ---
 
-## § Delta Current vs New (`new_page` · TL)
+## § Delta Current vs New (`edit_page` · T-XLS-S14)
 
-| Area | Current (hub generic / MISSING) | New (Biểu 14 typed) | Action |
-|------|----------------------------------|---------------------|--------|
-| Route | hub MISSING / generic | **alias** `/csdl-bieu-14` + hub NEW card | **route_confirm=route_a** · **T-FE-01** / **T-UI-LIST-01** |
-| Form | 3 ô `detail*` / missing | Typed **21** Kind D Slideout · Z2 TB · Z3 HT | **T-FE-03** / **T-UI-FORM-01** · **GAP-BIEU14-TYPED-01** |
-| Persist | shell detail* only | shell + **`Schema_CsdlBieu14`** 1:1 · Device*/Infra*/Gps* flat | **T-BE-01/02** · migration Dev/4b · **cấm** parent `*Json` |
-| Device | missing / generic | deviceType keep_5 · brand · techSpec · qtyOrLength ≥0 · operatingStatus | **GAP-BIEU14-DEV-01** · Q-DEVICE-SET |
-| Infra | missing | infraKind keep_3 · clearanceM · infraQty · systemStatus · yearBuilt | **GAP-BIEU14-INFRA-01** · Q-INFRA-SET |
-| GPS / Dir | missing | gpsLat/gpsLng Number · direction LOOKUP | **GAP-BIEU14-GPS-01** · **GAP-BIEU14-DIR-01** |
-| List cols | generic | **subset** shared+deviceType/brand/operatingStatus/infraKind | **T-FE-02/05** · Q-LIST-COLS |
-| road | Text | SearchInput `road-route` | **T-UI-LKP-01** · **GAP-CSDL-ROAD-01** |
-| province | LOOKUP_STATIC | **keep_static** P1 | **T-UI-FILTER-01** |
-| manageUnit | Text | Text P1 · SearchInput P2 | **DEFER P2** · **GAP-CSDL-ORG-01** |
-| XLS | stub | **OUT** pack Biểu 14 | **T-OUT-01** |
-| Peer Sổ TS | so-ts-its-camera | cite only · **none_p1** · **cấm** merge / AiVision | **T-FE-05** · **GAP-CSDL-CUC-11** · **GAP-BIEU14-PEER-ITS-01** |
-| Hub | thiếu card formNo 14 | NEW card `?resource=its-systems` | **GAP-BIEU14-HUB-01** · **T-UI-PROD-01** |
-| DOMAIN-MAP | thiếu slug `14` | add `csdl-bieu-14`→Asset | **T-DM-01** · Q-DMAP add_now |
-| Title | — | ctx_its «Biểu 14 — Hệ thống ITS (GTTM)» | Q-TITLE |
+| Area | Current (typed keep) | New (XLS P0) | Action |
+|------|----------------------|--------------|--------|
+| Typed CRUD / Schema | done · Schema_CsdlBieu14 | **keep** | **cấm** reopen · **T-KEEP-*** |
+| Route / hub | `/csdl-bieu-14` + hub | **keep** | route_confirm=`route_a` · **no** `route_confirm` mới |
+| Toolbar | peer cite / CRUD | **+Xuất Excel** catalogToolbar | **T-XLS-S14-FE-01** · DES-EXPORT |
+| Filter bar | V1–V5 keep | **không** nút export | **GAP-FILTER-BAR-08** · **cấm** |
+| Export API | missing / stub | GET `…/csdl-records/export?resource=its-systems` (+ filter QS · no page) | **T-XLS-S14-BE-01** · API-XLS-01 |
+| BFF | CRUD proxy | binary proxy export | **T-XLS-S14-BFF-01** |
+| File | — | `Bieu14_HeThongITS_{yyyyMMdd}.xls` · 1 sheet 21 · device+infra+GPS cùng hàng | Q-XLS-FILENAME/SHEET |
+| Empty | — | file OK (headers only) | G-05 |
+| Fail | — | toast error · **≠** stub success | G-06 · GAP-BIEU14-XLS-02 |
+| Golden | — | Cục 16-sheet Biểu 14 · **cấm** 12+8 | G-07 · GAP-BIEU14-XLS-03 |
+| Scope | — | filtered (QS = list filters · empty=all tenant) | G-08 · Q-XLS-SCOPE |
+| Import | — | **DEFER P1** · nút ẩn | **T-XLS-S14-BE-02 OUT** · Q-XLS-IMPORT |
+| Peer | cite only | **cấm** merge vào export rows | GAP-BIEU14-XLS-07 |
+| Leave | dirty CRUD | export **không** dirty Leave | keep |
 
-**Không đổi:** API prefix `api/v1/asset/csdl-records` · BFF proxy · soft-delete · pageSize 50/100/200/500 · LeaveConfirm · filter-bar-layout-hard · IdCode prefix `IT` · **cấm** ERP.*.
+**Không đổi:** API prefix `api/v1/asset/csdl-records` · Schema_CsdlBieu14 · Kind B+D Slideout 21 · IdCode `IT-` · soft-delete · pageSize · filter layout · **cấm** ERP.*.
 
 ---
 
@@ -68,263 +67,141 @@
 
 | Field | Value |
 |-------|-------|
-| `source.mfe` | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Asset` · `ui_repo_confirm` |
-| `source.routes` | **`/csdl-bieu-14`** · `route_confirm=route_a` (autoApprove · PO/Design/SA) |
-| `mfeStdRoute` | `/csdl-bieu-14` |
-| `mfeStdUrl` | `http://localhost:9301/csdl-bieu-14` |
+| `source.mfe` | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Asset` |
+| `source.routes` | **keep** `/csdl-bieu-14` · hub `?resource=its-systems` · mfeStd also `/so-ts/csdl-so-sach` |
+| `mfeStdRoute` | `/so-ts/csdl-so-sach` · alias `/csdl-bieu-14` |
+| `mfeStdUrl` | `http://localhost:9301/so-ts/csdl-so-sach` |
 | `hubDeepLink` | `/so-ts/csdl-so-sach?resource=its-systems` |
-| `peerStdUrl` | cite only `so-ts-its-camera` · **cấm** merge toolbar P1 · **cấm** AiVision |
-| `source.backend` | `D:/AI-QLBD/Linm.RMMS.WebService` · `be_repo_confirm` |
-| `source.domain` | **Asset** (`asset`) · DOMAIN-MAP |
-| `source.api` | `api/src/RMMS.Service.Api/Domains/Asset/` · `CsdlCatalogRecordsController` |
-| `source.bff` | `bff/domains/asset/` · **proxy only** |
-| `source.layout` | `micro-src` |
-| FE BASE | `/asset/csdl-records` (apiClient → BFF) |
-| API prefix | **`api/v1/asset/csdl-records`** · **cấm** invent |
-| catalogKind | `its-systems` (typed UiSchema) |
-| entity | shell `CsdlCatalogRecordEntity` + `CsdlBieu14Entity` · `rmms_csdl_bieu14` |
-| migration | `Schema_CsdlBieu14` · **Dev / Step 4b only** |
-| `devSlash` (default UI) | **`/agent-dev`** · + `/dev-web-responsive` · `/dev-ui-review` · **cấm** OMS/ai-detect (map=none) |
+| `source.backend` | `D:/AI-QLBD/Linm.RMMS.WebService` |
+| `source.domain` | **Asset** |
+| `source.api` | `CsdlCatalogRecordsController` · export action |
+| `source.bff` | `bff/domains/asset/` · **binary proxy** |
+| FE BASE | `/asset/csdl-records` |
+| API export | **`GET api/v1/asset/csdl-records/export?resource=its-systems`** (+ filter QS) |
+| entity | **keep** shell + `CsdlBieu14Entity` · **cấm** migration @ XLS |
+| `devSlash` | **`/implement-export-import-excel`** |
 
-### Route confirm (autoApprove)
+### Route confirm
 
 | Option | Path | Decision |
 |--------|------|----------|
-| A | `/csdl-bieu-14` (+ hub NEW card) | **SELECTED** — Q-ROUTE `alias_now` · Design/SA locked |
-| B | hub-only `?resource=its-systems` | rejected — thiếu alias P1 |
-| C | custom / invent so-ts / infra API | n/a · **cấm** |
+| A | `/csdl-bieu-14` + hub | **KEEP** — không URL mới |
+| B/C | invent / change alias | **n/a** |
 
 ---
 
-## DES-GRID → Lin* map (`tl-design-grid-component-map` · PASS)
+## DES-GRID → Lin* map (delta only)
 
-| Zone | Component |
-|------|-----------|
-| DES-GRID-A | `LinPageLayout` header · title «Biểu 14 — Hệ thống ITS (GTTM)» |
-| DES-GRID-B | `catalogToolbar` / `buildCatalogListToolbarActions` · peer cite only · **cấm** merge so-ts-its-camera / AiVision |
-| DES-GRID-C0 | listTitle · `listRowMenuHelp` |
-| DES-GRID-C1 / FILTER | `LinErpListFilterBar` · **T-UI-FILTER-01** · 🔍 cụm phải · **cấm** nút Tìm riêng |
-| DES-GRID-C2 | `LinCatalogDataGrid` · **subset** shared+deviceType/brand/operatingStatus/infraKind |
-| DES-GRID-C2a | `useLinCatalogColumnFilterSort` |
-| DES-GRID-C3 | `LinCatalogRowActionMenu` + `buildCatalogRowMenuItems` |
-| DES-GRID-D | `LinCatalogListPagination` 50/100/200/500 |
-| DES-GRID-F | `LinCatalogUiSchemaEditorModal` · catalogKind `its-systems` |
-| DES-GRID-H | History — **n/a P1** · optional verify reuse |
-| DES-GRID-Z | Slideout · `data-form-cols="2"` · footer_actions_only · Z1–Z3 · Z2 Thiết bị ITS · Z3 Hạ tầng gắn kèm |
-| Tree / Map | **n/a** — map=none · gis deep-link only |
+| Zone | Component | XLS note |
+|------|-----------|----------|
+| DES-GRID-A/C/D/F/H/Z | keep typed | **cấm** reopen |
+| DES-GRID-B | `catalogToolbar` / `buildCatalogListToolbarActions` | **+DES-EXPORT** Xuất Excel ToolbarButton |
+| DES-GRID-B-FILTER | `LinErpListFilterBar` | **unchanged** · **cấm** export button |
+| S-XLS-EXPORT | binary download | API-XLS-01 |
+| S-XLS-IMPORT | hidden | DEFER P1 |
 
 ---
 
-## API contract (cite SA)
+## API contract (XLS · cite SA)
 
 | id | Method | Path | Notes |
 |----|--------|------|-------|
-| API-01 | GET | `/api/v1/asset/csdl-records?resource=its-systems&…` | list paged · filters |
-| API-02 | GET | `/api/v1/asset/csdl-records/{id}` | shell+typed join · XCO |
-| API-03 | POST | `/api/v1/asset/csdl-records` | create · typed · IdCode `IT-` |
-| API-04 | PUT | `/api/v1/asset/csdl-records/{id}` | update typed 1:1 |
-| API-05 | DELETE | `/api/v1/asset/csdl-records/{id}` | soft |
-| API-LKP-01 | GET | `/api/v1/integration/road-routes/search` | SearchInput road-route |
-| API-LKP-02 | GET | `/api/v1/integration/org-units/search` | **DEFER P2** |
+| API-01..05 | * | `…/csdl-records` | **keep** typed CRUD |
+| **API-XLS-01** | **GET** | `/api/v1/asset/csdl-records/export?resource=its-systems&…` | BFF binary · `.xls` · filter QS · **no** page/pageSize |
+| API-XLS-02 | POST | `…/import` | **DEFER P1** · OUT |
 
-BFF mirror: `/web-bff/api/v1/asset/…` · **proxy only**. Permissions: `asset.csdl-records.read|create|update|delete` (reuse · Auth debt DEFER).
+BFF: `/web-bff/api/v1/asset/csdl-records/export` · stream/binary · **cấm** JSON toast-only.  
+Gates keep: `tz_na` · `xco_get_only` · `share_tenant` (export inherit list XCO).
 
-Gates (SA recorded): `sa_tz_gate=tz_na` · `sa_xco_gate=xco_get_only` · `sa_shared_table=share_tenant`.
+### Export query keys (align list filter)
 
-### FormMode ↔ API
+`resource` · `search` · `province` · `operatingStatus` · `deviceType` · `side` · `roadCode` · `kmFrom`/`kmTo` · **cấm** `page`/`pageSize`
 
-| FormMode | Load | Save |
-|----------|------|------|
-| list | GET list + filters | — |
-| create | empty typed · Z2 TB · Z3 HT | POST · `IT-` · qty≥0 · GPS pair |
-| edit | GET `/{id}` | PUT |
-| view | GET `/{id}` | — readOnly |
-| copy | GET → clear id/code | POST (new `IT-`) |
-| delete | — | DELETE soft |
+### Sheet / filename
 
-### List filter query keys
-
-`resource` · `search` · `province` · `operatingStatus` · `deviceType` · `side` · `roadCode` · `kmFrom`/`kmTo` · `page`/`pageSize`
-
-### Header (21) SSOT
-
-`code|roadCode|roadName|province|kmFrom|kmTo|side|direction|gpsLat|gpsLng|deviceType|brand|techSpec|qtyOrLength|operatingStatus|infraKind|clearanceM|infraQty|systemStatus|yearBuilt|notes`
-
-### List subset (Q-LIST-COLS)
-
-`code` · `roadCode`/`roadName` · `province` · `kmFrom`–`kmTo` · `side` · `deviceType` · `brand` · `operatingStatus` · `infraKind`
-
-### Validation device/infra/GPS (BE)
-
-- deviceType ∈ keep_5 (cáp/CCTV/ANPR/VMS/tủ) · qtyOrLength number ≥0
-- infraKind ∈ keep_3 (cần vươn/long môn/đế BT)
-- gpsLat/gpsLng pair · direction LOOKUP
-- Reject 422 khi qty âm / deviceType|infraKind ngoài set / GPS không hợp lệ
+- Filename: `Bieu14_HeThongITS_{yyyyMMdd}.xls`
+- 1 sheet · 21 cột header SSOT (typed keep) · device+infra+GPS cùng hàng
+- Golden: Cục 16-sheet Biểu 14 · **cấm** hồ sơ 12+8
 
 ---
 
-## System design checklist
+## FormType pack — task matrix (`edit_page` · XLS)
 
-| ID | Value |
-|----|-------|
-| SD-JOB | n/a |
-| SD-BFF | **required** · proxy only |
-| SD-AUTH | **gap** · reuse codes · wire DEFER |
-| SD-TOKEN | required (BFF) |
-| SD-HEADER | required · X-Company-Id |
-| SD-SPLIT | Asset ownership |
-| SD-NO-JSON | **required** · shell+typed 1:1 · **cấm** parent `*Json` / detail* SSOT · **cấm** 2 entity |
-| SD-LIB-UI | Common.Components only |
-| SD-LIB-BE | CommonLib envelope |
+### KEEP (typed prior · **done** · cấm reopen)
 
----
+| Task id | Status | Notes |
+|---------|--------|-------|
+| T-DM-01 · T-CTX-01 · T-BE-01..06 · T-BFF-01 · T-PERM-01 · T-BE-UISCHEMA-01 | **done keep** | Schema_CsdlBieu14 · typed 21 |
+| T-UI-LIST/FILTER/CFG/FORM/LEAVE/ACT/LKP/FIELD/PROD/UX/RESP | **done keep** | route_a · hub · Slideout |
+| T-QA-CRUD/FORM/FILTER/DEV/INFRA/GPS/TYP/TAB/ROUTE | **done keep** | prior typed QA |
+| T-OUT-02 | **OUT/P2** | org SearchInput keep defer |
 
-## FormType pack — task matrix (`list` · §2a)
+### NEW — T-XLS-S14-*
 
 | Task id | Role | Status | deps | `devSlash` | Notes |
 |---------|------|--------|------|------------|-------|
-| T-DM-01 | Dev | **pending** | — | `/agent-dev` | DOMAIN-MAP `csdl-bieu-14`→Asset |
-| T-CTX-01 | Dev | **pending** | — | `/agent-dev` | context sync feature page |
-| T-BE-01 | Dev | **pending** | T-DM-01 | `/agent-dev` | `CsdlBieu14Entity` + EF · Device*/Infra*/Gps* flat |
-| T-BE-02 | Dev | **pending** | T-BE-01 | `/agent-dev` | Migration `Schema_CsdlBieu14` · **Step 4b only** |
-| T-BE-03 | Dev | **pending** | T-BE-01 | `/agent-dev` | DTO typed + `CsdlCatalogService` branch `its-systems` · stop detail* · qty≥0 · GPS pair |
-| T-BE-04 | Dev | **pending** | T-BE-03 | `/agent-dev` | IdCode `IT-` generator · **cấm** Guid · validate keep_5/keep_3 |
-| T-BE-05 | Dev | **pending** | T-BE-03 | `/agent-dev` | list filter + subset projection join typed |
-| T-BE-06 | Dev | **pending** | T-BE-03 | `/agent-dev` | soft-delete + tenant · UiSchema seed `its-systems` |
-| T-BFF-01 | Dev | **pending** | T-BE-03 | `/agent-dev` | verify proxy (no logic) |
-| T-PERM-01 | Dev | **pending** | T-BE-03 | `/agent-dev` | reuse `asset.csdl-records.*` stub |
-| T-BE-UISCHEMA-01 | Dev | **pending** | T-BE-06 | `/agent-dev` | alias T-BE-06 / T-FE-06 |
-| T-BE-INIT-01 | — | **n/a P1** | — | — | LOOKUP_STATIC · **cấm** invent init-data |
-| T-UI-LIST-01 | Dev | **pending** | T-BFF-01 | `/agent-dev` | = **T-FE-01** route alias + Kind B shell |
-| T-UI-FILTER-01 | Dev | **pending** | T-BE-05 | `/agent-dev` | = **T-FE-02** FilterBar + deviceType/side/operatingStatus + road-route |
-| T-UI-CFG-01 | Dev | **pending** | T-BE-UISCHEMA-01 | `/agent-dev` | Zone F full typed · **cấm** Zone F-only SSOT |
-| T-UI-FORM-01 | Dev | **pending** | T-UI-LIST-01 | `/agent-dev` | = **T-FE-03** Slideout 21 · Z2 TB · Z3 HT |
-| T-UI-LEAVE-01 | Dev | **pending** | T-UI-FORM-01 | `/agent-dev` | = part **T-FE-06** LeaveConfirmModal |
-| T-UI-ACT-01 | Dev | **pending** | T-UI-LIST-01 | `/agent-dev` | C/E/V/Copy/Delete · = **T-FE-06** |
-| T-UI-LKP-01 | Dev | **pending** | API-LKP-01 | `/agent-dev` | **GAP-CSDL-ROAD-01** SearchInput · = **T-FE-04** |
-| T-UI-FIELD-01 | Dev | **pending** | T-UI-FORM-01 | `/agent-dev` | controlHint 1:1 · device/infra/GPS · **cấm** detail* |
-| T-UI-PROD-01 | Dev | **pending** | T-UI-LIST-01 | `/agent-dev` | = **T-FE-05** hub NEW card · **cấm** peer/AiVision merge |
-| T-UI-UX-01 | Dev | **pending** | T-UI-FORM-01 | `/agent-dev` | constitution · 2col · footer_only · Z2/Z3 |
-| T-UI-RESP-01 | Dev | **pending** | T-UI-LIST-01 | `/dev-web-responsive` | 1280/768/375 |
-| T-UI-HIST-01 | — | **n/a P1** | — | — | no HIST GAP |
-| T-UI-MAP-FORM | — | **n/a** | — | — | map=none |
-| T-OUT-01 | — | **OUT** | — | — | XLS / skip-bridge · không block P1 |
-| T-OUT-02 | — | **OUT/P2** | — | — | org SearchInput · province master |
-| T-QA-CRUD-01 | QA | **pending** | T-UI-* | `/agent-qa` | CRUD + soft delete |
-| T-QA-FORM-01 | QA | **pending** | T-UI-FORM-01 | `/agent-qa` | 21 typed · Z2 TB · Z3 HT · **cấm** detail* |
-| T-QA-FILTER-01 | QA | **pending** | T-UI-FILTER-01 | `/agent-qa` | V1–V5 + deviceType/side/operatingStatus/road |
-| T-QA-DEV-01 | QA | **pending** | T-UI-FORM-01 | `/agent-qa` | deviceType keep_5 · qty≥0 · brand/techSpec |
-| T-QA-INFRA-01 | QA | **pending** | T-UI-FORM-01 | `/agent-qa` | infraKind keep_3 · clearanceM/infraQty/systemStatus/yearBuilt |
-| T-QA-GPS-01 | QA | **pending** | T-UI-FORM-01 | `/agent-qa` | gpsLat/gpsLng · direction LOOKUP |
-| T-QA-TYP-01 | QA | **pending** | T-UI-UX-01 | `/agent-qa` | typography |
-| T-QA-TAB-01 | QA | **pending** | T-UI-UX-01 | `/agent-qa` | tab index |
-| T-QA-ROUTE-01 | QA | **pending** | T-UI-LIST-01 | `/agent-qa` | alias `/csdl-bieu-14` + hub NEW · **cấm** peer/AiVision merge |
-| T-LIB-01 | — | **n/a** | — | — | Common đã export |
+| **T-XLS-S14-BE-01** | Dev | **pending** | typed keep | `/implement-export-import-excel` | GET export binary · 21 flat · filtered · filename `.xls` · empty OK · **cấm** ERP.* / merge peer |
+| **T-XLS-S14-BFF-01** | Dev | **pending** | BE-01 | `/implement-export-import-excel` | BFF binary proxy · Content-Disposition · **cấm** buffer-to-JSON |
+| **T-XLS-S14-FE-01** | Dev | **pending** | BFF-01 | `/implement-export-import-excel` | catalogToolbar **Xuất Excel** · wire GET + current filters · binary download · busy state |
+| **T-XLS-S14-FE-02** | Dev | **pending** | FE-01 | `/implement-export-import-excel` | fail toast · **cấm** toast-stub success · **cấm** filter-bar export · Import ẩn · export ≠ Leave dirty |
+| **T-XLS-S14-BE-02** | — | **OUT P1** | — | — | POST import · DEFER |
+| **T-XLS-S14-QA-01** | QA | **pending** | FE-01/02 | `/agent-qa` | G-04..G-08 · golden 21 · filtered · empty · fail · **cấm** e2e @ Dev/TL |
 
-**SA id map:** T-FE-01→T-UI-LIST-01 · T-FE-02→T-UI-FILTER-01 · T-FE-03→T-UI-FORM-01 · T-FE-04→T-UI-LKP-01 · T-FE-05→T-UI-PROD-01 · T-FE-06→T-UI-LEAVE+ACT · T-BE-01 entity · T-BE-02 migration · T-BE-03 DTO/service · T-BE-04 IdCode · T-BE-05 list · T-BE-06 soft-delete/UiSchema. (SA compact gộp entity+migr ở T-BE-01 / DTO ở T-BE-02 — TL split theo form-type-task-pack.)
+**SA id map:** API-XLS-01→BE-01 · BFF→BFF-01 · FE toolbar→FE-01 · UX/guard→FE-02 · QA→QA-01 · BE-02 OUT.
 
 ---
 
-### T-DM-01 — DOMAIN-MAP
+### T-XLS-S14-BE-01 — Export service
 
-- Add row `csdl-bieu-14` → **Asset** in `DOMAIN-MAP.md`.
-- DoD: slug resolve Asset · **cấm** ERP.* / invent domain.
+- Implement `GET …/export?resource=its-systems` (+ filter QS · no paging).
+- Build 1 sheet 21 cột flat (shell+typed join) · Content-Type Excel · filename `Bieu14_HeThongITS_{yyyyMMdd}.xls`.
+- Empty result → file with headers only (OK).
+- **Cấm:** ERP.* · invent infra · merge so-ts-its-camera/road-assets/AiVision · streaming P0 optional · change Schema_CsdlBieu14.
+- DoD: binary bytes · checksum/header 21 · XCO/tenant same as list.
 
-### T-BE-01 / T-BE-02 — Entity + migration
+### T-XLS-S14-BFF-01 — BFF binary proxy
 
-- Typed `CsdlBieu14Entity` · table `rmms_csdl_bieu14` · FK `CatalogRecordId` unique 1:1.
-- Typed cols: DeviceType · Brand · TechSpec · QtyOrLength · OperatingStatus · InfraKind · ClearanceM · InfraQty · SystemStatus · YearBuilt · Direction · GpsLat · GpsLng.
-- Shell: RoadCode · KmFrom/KmTo · Side · Province · Notes · CompanyCode (+ shared).
-- Migration name **`Schema_CsdlBieu14`** — **chỉ Dev / Step 4b** · **cấm** TL chạy.
-- DoD: EF config · unique FK · flat Device*/Infra*/Gps* · **cấm** parent `*Json` · **cấm** 2 entity.
+- Proxy export path · forward query · pass-through binary + disposition.
+- DoD: FE downloads via BFF · no business reshape.
 
-### T-BE-03 / T-BE-04 / T-BE-05 / T-BE-06 — Service + IdCode + filters + UiSchema
+### T-XLS-S14-FE-01 — Toolbar Xuất
 
-- Widen DTO typed · join shell↔typed 1:1 · **stop** writing detail* for `its-systems`.
-- IdCode `IT-yyyyMMdd-nnnn` BE generate.
-- List filters: `roadCode`, `kmFrom`/`kmTo`, `side`, `deviceType`, `operatingStatus`, search, province · subset projection.
-- qtyOrLength ≥0 · deviceType keep_5 · infraKind keep_3 · GPS pair · direction LOOKUP.
-- UiSchema seed catalogKind `its-systems` typed 21 · Z2 TB · Z3 HT.
-- Soft-delete + tenant `CompanyCode` · Gates: TZ **n/a** · XCO on GET detail.
-- DoD: FormMode↔API green · typed 21 · no detail* SSOT.
+- Add ToolbarButton **Xuất Excel** on `catalogToolbar` (DES-EXPORT) · **not** on FilterBar.
+- Call export with **current** list filter QS · trigger browser download.
+- Busy/disabled while in-flight.
+- DoD: button visible on list · binary file downloads · filename matches.
 
-### T-BFF-01 — BFF proxy
+### T-XLS-S14-FE-02 — Guards / UX
 
-- Forward only · no business logic.
-- DoD: path parity `/web-bff/api/v1/asset/csdl-records`.
+- On HTTP error → error toast · **cấm** success stub/toast-only “done”.
+- Import control **hidden** (export_only_p0).
+- Export action **does not** set form dirty / LeaveConfirm.
+- DoD: fail path toast · no filter-bar export · Import absent.
 
-### T-UI-LIST-01 (= T-FE-01) — List page
+### T-XLS-S14-QA-01 — queued QA only
 
-- Register route **`/csdl-bieu-14`**.
-- Kind B A–D+F · peer cite only · `tl-grid-task-template` · LAYOUT-06 shell height.
-- Grid AC YES · pageSize 50/100/200/500 · **subset** columns · empty «Chưa có hệ thống ITS».
-- DoD: mfeStdUrl opens · DES-GRID zones mapped · **cấm** demo chrome · **cấm** merge peer/AiVision.
-
-### T-UI-FILTER-01 + T-UI-LKP-01 (= T-FE-02 / T-FE-04)
-
-- `LinErpListFilterBar` 1 hàng wrap · 🔍 cụm phải · **cấm** nút Tìm riêng.
-- Controls: search · province · operatingStatus · deviceType · side · roadCode SearchInput · kmFrom/kmTo Line.
-- road-route → API-LKP-01.
-- DoD: filter-bar-layout-hard V1–V5 · page=1 on change.
-
-### T-UI-FORM-01 + T-UI-FIELD-01 (= T-FE-03)
-
-- Kind D Slideout · `data-form-cols=2` · Z1–Z3 · Z2 Thiết bị ITS · Z3 Hạ tầng gắn kèm · footer_actions_only · **cấm** Full-page.
-- Z1 Vị trí: roadCode · roadName · province · kmFrom/kmTo · side · direction · gpsLat/gpsLng (+ shared shell).
-- Z2 TB ITS: deviceType · brand · techSpec · qtyOrLength · operatingStatus.
-- Z3 HT: infraKind · clearanceM · infraQty · systemStatus · yearBuilt · notes · manageUnit P2.
-- FormMode create/edit/view/copy ↔ API · LOOKUP sets only · **cấm** invent options.
-- DoD: all write fields bind typed DTO · view not disabled-grey · **cấm** detail* only.
-
-### T-UI-LEAVE-01 + T-UI-ACT-01 (= T-FE-06)
-
-- LeaveConfirmModal dirty.
-- Row/toolbar: Create · Edit · View · Copy · soft Delete confirm.
-- DoD: leave gate · copy clears id/code · reload list after delete.
-
-### T-UI-PROD-01 (= T-FE-05)
-
-- Hub **NEW** card formNo 14 · `?resource=its-systems` · title ctx_its.
-- Peer: cite only · **none_p1** · **cấm** merge so-ts-its-camera · **cấm** AiVision · **GAP-CSDL-CUC-11** · **GAP-BIEU14-PEER-ITS-01**.
-- Map: toolbar → gis deep-link only · **cấm** invent map.
-- DoD: alias + hub both list same resource · hub card visible.
-
-### T-UI-CFG-01 / T-BE-UISCHEMA-01 (= T-FE-06 / T-BE-06)
-
-- catalogKind `its-systems` typed UiSchema (21 + Z2 TB + Z3 HT).
-- DoD: editor full typed · **cấm** generic 3-col SSOT.
-
-### T-OUT-01 / T-OUT-02 — OUT / P2
-
-- XLS import/export Biểu 14 + skip-bridge · **không block P1**.
-- org SearchInput · province master · **DEFER P2**.
-
-### T-QA-* (queued `/agent-qa*` only)
-
-- Cover CRUD · 21 form · Z2/Z3 · device keep_5 / qty≥0 · infra keep_3 · GPS/dir · filter V1–V5 · route alias+hub NEW · leave · copy · soft delete · **cấm** detail*-only / peer/AiVision merge regression.
-- **Cấm** e2e ở TL/Dev trừ QA role.
+- G-04 toolbar Xuất · G-05 empty file OK · G-06 fail toast · G-07 golden 21 / Cục · G-08 filtered scope.
+- Regression: typed CRUD keep · no peer merge · no filter export button.
+- **Cấm** run e2e at TL/Dev.
 
 ---
 
-## Inventory (slim · controlHint)
+## Inventory (slim · delta)
 
 | id | controlHint | notes |
 |----|-------------|-------|
-| search | SearchTextInput | filter |
-| province/operatingStatus/deviceType/side | Dropdown | LOOKUP_STATIC |
-| roadCode | SearchInput | road-route P1 |
-| kmFrom/kmTo | Number | Line |
-| code | Text ro | IT- |
-| direction/gpsLat/gpsLng | Dropdown/Number | Z1 |
-| deviceType/brand/techSpec/qtyOrLength/operatingStatus | Dropdown/Text/Textarea/Number | Z2 · qty≥0 · keep_5 |
-| infraKind/clearanceM/infraQty/systemStatus/yearBuilt/notes | Dropdown/Number/Textarea | Z3 · keep_3 · manageUnit P2 |
+| (form/list 21) | — | typed **keep** |
+| exportExcel | ToolbarButton | catalogToolbar · binary |
+| importExcel | — | DEFER P1 · ẩn |
 
 ---
 
 ## Screens / zones (ids)
 
-- S-LIST · S-FORM-C/E/V/Copy · S-ACT-DELETE · S-HUB-ENTRY · S-SKIP-PEER · S-SKIP-MAP
-- reviewUrl prototype · mfeStdUrl `/csdl-bieu-14`
+- S-LIST DES-GRID keep · toolbar **+DES-EXPORT** · B-FILTER unchanged
+- S-XLS-EXPORT · S-XLS-IMPORT hidden · S-SKIP-PEER/MAP
+- mfeStdUrl=`http://localhost:9301/so-ts/csdl-so-sach` · alias `/csdl-bieu-14` · hub `?resource=its-systems`
+- reviewUrl= prototype (Design +Xuất)
 
 ---
 
@@ -332,44 +209,54 @@ Gates (SA recorded): `sa_tz_gate=tz_na` · `sa_xco_gate=xco_get_only` · `sa_sha
 
 | Lane | Slash | Scope |
 |------|-------|-------|
-| BE | `/agent-dev` | T-DM · T-BE-* · T-BFF · T-PERM · Schema_CsdlBieu14 @ 4b |
-| FE | `/agent-dev` | T-UI-* · typed page · FilterBar · Slideout 21 · hub NEW · **cấm** peer/AiVision merge |
-| Responsive | `/dev-web-responsive` | T-UI-RESP-01 |
-| UI review | `/dev-ui-review` | after FE DoD |
-| QA | `/agent-qa` | T-QA-* · e2e only here |
+| BE+BFF+FE (XLS) | **`/implement-export-import-excel`** | T-XLS-S14-BE-01 · BFF-01 · FE-01/02 |
+| Verify shell | `/agent-dev` | ensure typed keep / no regression only if needed |
+| QA | `/agent-qa` | T-XLS-S14-QA-01 · e2e **only here** |
 
-**Parallel OK:** T-DM-01 ∥ T-CTX-01 · T-BE-* after T-DM · T-UI-LIST after T-BFF · T-UI-FORM after LIST.
+**Parallel OK:** BE-01 first · BFF after BE contract · FE after BFF · QA after FE DoD.
 
 ---
 
-## Quality gates (list-form)
+## Quality gates (list · XLS delta)
 
 | Gate | Expect |
 |------|--------|
-| Grid AC | YES |
-| Leave | YES |
-| Report AC | N/A |
-| Filter HARD | V1–V5 pass |
-| Form | Slideout 2col · typed 21 · Z2 TB · Z3 HT · **cấm** Full-page / detail* only |
-| Route | alias + hub NEW · **cấm** peer/AiVision merge |
-| Persist | shell+typed 1:1 · Device*/Infra*/Gps* flat · **cấm** parent JSON · **cấm** 2 entity |
-| List cols | subset shared+deviceType/brand/operatingStatus/infraKind |
-| Device/Infra/GPS | keep_5 · keep_3 · qty≥0 · GPS pair · direction LOOKUP |
-| API | keep `asset/csdl-records` · **cấm** ERP.* |
+| Grid AC typed | KEEP |
+| G-04..G-08 | Xuất toolbar · empty OK · fail toast · golden 21 · filtered |
+| Leave | export **không** dirty |
+| Filter HARD | V1–V5 keep · **cấm** export on bar |
+| Import | hidden P0 |
+| Persist | Schema keep · **cấm** migration XLS |
+| API | GET export · **cấm** ERP.* |
+| Peer | **cấm** merge export |
+
+---
+
+## GAP → task map
+
+| GAP | Task |
+|-----|------|
+| GAP-BIEU14-XLS-01 | FE-01 + BE-01 |
+| GAP-BIEU14-XLS-02 | FE-02 |
+| GAP-BIEU14-XLS-03 | BE-01 + QA-01 |
+| GAP-BIEU14-XLS-04 | FE-02 (filter ban) |
+| GAP-BIEU14-XLS-05 | BE-01 + BFF-01 |
+| GAP-BIEU14-XLS-06 | BE-01 |
+| GAP-BIEU14-XLS-07 | BE-01 + FE-01 |
 
 ---
 
 ## Open questions
 
-- **none** (Q-ROUTE · Q-PROV · Q-DIR · Q-QTY-UNIT · Q-DEVICE-SET · Q-INFRA-SET · Q-MANAGE · Q-PREFIX · Q-LIST-COLS · Q-TITLE · Q-DMAP · Q-PEER-LINK · Q-SO09 chốt · autoApprove)
+- **none** (Q-XLS-* chốt · design_confirm/solution_confirm approve · typed Q-* keep)
 
 ## Next
 
 | Role | Need |
 |------|------|
-| **Dev** | implement/csdl-bieu-14.md · T-* theo matrix · migration @ 4b · typed 21 · hub NEW |
-| QA | scenarios + e2e queued `/agent-qa*` |
-| Review | findings after QA |
+| **Dev** | `/implement-export-import-excel` · T-XLS-S14-BE/BFF/FE-* · write `implement/csdl-bieu-14.md` |
+| QA | T-XLS-S14-QA-01 · e2e queued `/agent-qa*` |
+| Review | after QA |
 
 ## Version meta (REQUIRED)
 
@@ -378,12 +265,15 @@ Gates (SA recorded): `sa_tz_gate=tz_na` · `sa_xco_gate=xco_get_only` · `sa_sha
 | skillId | agent-team-lead |
 | skillVersion | 2026.08.25.01 |
 | workflowVersion | 2026.09.01.02 |
-| rulesVersion | 2026.08.31.2 |
+| rulesVersion | 2026.09.17.3 |
 | packKind | list |
-| changeScope | new_page |
-| route_confirm | route_a |
+| changeScope | edit_page |
+| route_confirm | route_a (keep) |
 | team_lead_confirm | approve |
-| writtenAt | 2026-09-05T15:20:00.000Z |
-| contentHashPrior | sha256:6cfdefa3baaffcf2bd97c7a429bb5043e7f9d77b96bbb77eafaa34689007b112 |
+| writtenAt | 2026-09-18T02:00:00.000Z |
+| contentHashPrior | sha256:e9a062f1f9eecd6bf98748db0c3f839e2247a74ecb9bcd56273d4e48d729fa0a |
 | headerFingerprintPrior | sha256:14cd156a898dcc971a072dd1cd1b92460a8b597558a90dc9854fead9d4c4de5c |
-| taskId | task_b21db737 |
+| taskId | task_bb5bd3be |
+| priorTypedTaskId | task_b21db737 |
+| saTaskId | task_5dc0c863 |
+| epicTask | T-XLS-S14 |

@@ -4,180 +4,144 @@
 |-------|-------|
 | feature | `csdl-bieu-06` |
 | packKind | `list` |
-| mode | `feature_context` (new_page · CTX + cluster analy + hub demo · synthetic) |
-| changeScope | `new_page` |
+| mode | `feature_context` (edit_page · T-XLS-S06 · keep typed CRUD) |
+| changeScope | `edit_page` |
 | status | `done` |
 | skillId | `agent-data-analy` |
-| skillVersion | `2026.08.25.01` |
+| skillVersion | `2026.09.05.03` |
 | schemaVersion | `1` |
-| workflowVersion | `2026.09.01.02` |
-| rulesVersion | `2026.08.31.2` |
-| versionGate | `ok` (first fill stubs · CTX+demo hash recorded · autoApprove queue) |
-| contentHash | `sha256:ffc5c8381b04dcec3f0376df87187012f34b16bf211a3e3fb7311a8375a386f0` |
+| workflowVersion | `2026.09.05.03` |
+| rulesVersion | `2026.09.17.3` |
+| versionGate | `ok` (export epic delta · CTX+hash pair · autoApprove queue · **không** AskQuestion) |
+| contentHash | `sha256:e32c48126fa0edbd02e612b7bd917a9ae07e53ec8629dbe01e1bcdcf82759fa3` |
 | headerFingerprint | `sha256:3b2f5c531f0538509147846466d92090a3c8f5adc05a4be6d1dbb80ad73ff2a7` |
-| analyzedAt | `2026-09-05T07:12:53.176Z` |
-| cluster | `csdl-cuc-2026` · Excel sheet Biểu 6 · **19 cột** |
-| taskId | `task_b6ef926c` |
+| analyzedAt | `2026-09-18T04:14:00.000Z` |
+| cluster | `csdl-cuc-2026` · Excel sheet Biểu 6 · **19 cột** · Wave 1 `T-XLS-S06` |
+| taskId | `task_4f26a959` |
+| priorTask | `task_b6ef926c` (typed CRUD pipeline **done** — **cấm** re-run new_page typed) |
 | autoApprove | `ON` (queue) |
 | realData | `specs/_data-analy/features/csdl-bieu-06-real-data.md` |
-| beRepo | `D:/AI-QLBD/Linm.RMMS.WebService` · domain **Asset** · `api/v1/asset/csdl-records?resource=underpasses` · **cấm ERP.*** · **cấm** invent `api/v1/infra/*` |
+| beRepo | `D:/AI-QLBD/Linm.RMMS.WebService` · domain **Asset** · `api/v1/asset/csdl-records` · **cấm ERP.*** · **cấm** invent `api/v1/infra/*` |
 | uiRepo | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Asset` |
-| mfeStdUrl | `http://localhost:9301/csdl-bieu-06` · hub deep-link `/so-ts/csdl-so-sach?resource=underpasses` |
+| mfeStdUrl | `http://localhost:9301/so-ts/csdl-so-sach` · alias `/csdl-bieu-06` · hub `?resource=underpasses` |
 | resource | `underpasses` |
 | formNo | `06` · title VN **Hầm chui DS + hộp KT** |
-| peerSoTs | `so-ts-underpass` (UNDERPASS) — deep-link OK · **cấm** merge 1 form hai chuẩn · **≠** Sổ TS |
-| runMode | `new_page` · typed form thay generic 3 ô `detail*` |
+| peerSoTs | `so-ts-underpass` (UNDERPASS) — deep-link OK · **cấm** merge 1 form / 1 sheet hai chuẩn · **≠** Sổ TS |
+| IdCode prefix | `HC` |
+| runMode | `edit_page` · export/import Excel đúng mẫu Cục · **cấm** new_page typed CRUD |
+| epicCite | `docs/context/features/csdl-export-print.md` Wave 1 · `T-XLS-S06` |
+| devSlashExport | `/implement-export-import-excel` · BFF binary |
 
-> Data-analy **đề xuất** controlHint. Design **chốt** control-map. SA **chốt** typed DTO + migration.  
+> Data-analy **đề xuất** controlHint. Design **chốt** control-map (giữ prototype typed · **chỉ** delta toolbar export). SA **chốt** binary export path.  
 > Typography: label **13** · input D14 / M16 (**GAP-TYP-01**).  
-> `sourceKind=synthetic` — demo = zone/field **tham chiếu** · **cấm** demo-json / localStorage SSOT.  
-> **Cấm** chỉ 3 ô `detailPrimary`/`detailSpec`/`detailExtra` — form = đủ cột Excel (cite analy).  
-> CTX: **Thêm hộp kỹ thuật** → `underpassKind` phân loại hầm chui DS / hộp KT.
+> **Giữ** PO/Design/SA artifacts typed — analy **chỉ** § Delta export.  
+> Toast stub / typed STATUS done **≠** export xong.
 
 ## Sources
 
 | Source | Path | sha256 / note |
 |--------|------|---------------|
-| Context | `docs/context/features/csdl-bieu-06.md` | `ffc5c8381b04dcec3f0376df87187012f34b16bf211a3e3fb7311a8375a386f0` |
-| Parent hub | `docs/context/features/csdl-so-sach.md` | cite hub Kind G · resource `underpasses` |
+| Context | `docs/context/features/csdl-bieu-06.md` | `e32c48126fa0edbd02e612b7bd917a9ae07e53ec8629dbe01e1bcdcf82759fa3` |
+| Export epic | `docs/context/features/csdl-export-print.md` | `2ca7ea0a7f1cfe4d3caf05688cc08ca2546457b09ed388671b58c3a769492c14` |
+| Parent hub | `docs/context/features/csdl-so-sach.md` | cite hub Kind G · `resource=underpasses` |
 | Cluster analy | `specs/_data-analy/csdl-cuc-2026/ANALYSIS-AND-TASKS.md` | Biểu 6 · 19 cột · peer `so-ts-underpass` · hộp KT |
-| DB API SSOT | `docs/context/11-CSDL-SO-SACH-DATABASE-API.md` | § Biểu 6 `Underpass` |
-| Demo entry | `Linm.RMMS.Demo/src/demo/features/csdl-so-sach-demo.html` | `c2c9f8194cb104b3202bcaa46a589c9baba5cf8062aa12e7d0872a9e96eba7ae` |
-| Demo page | `Linm.RMMS.Demo/src/demo/asset/csdl-so-sach.html` | hub+list+slideout chrome tham chiếu · prefix `HC` |
-| Demo data | `Linm.RMMS.Demo/src/demo/asset/js/csdl-so-sach-data.js` | `underpasses` · formNo 6 · labels khẩu độ / dài |
-| DOMAIN-MAP | `Linm.RMMS.WebService/docs/DOMAIN-MAP.md` | `csdl-so-sach` → Asset · `asset` |
-| Live API | `CsdlCatalogRecordsController` | `api/v1/asset/csdl-records` (polymorphic shell) |
-| Live MFE | `CsdlSoSachPage` · `CsdlFormSlideout` | generic 3-field — **GAP-BIEU06-TYPED-01** |
-| Excel | `data-import/Sổ sách, biểu mẫu trình LĐ Cục/1. Biểu mẫu CSDL.xls` sheet Biểu 6 | real source · import OUT Dev/XLS task |
-| Peer CTX | `docs/context/features/so-ts-underpass.md` | Sổ TS deep-link only · **≠** biểu Cục · API `road-assets` |
+| Demo | N/A (packet) · prior hub demo zone-only | **cấm** demo SSOT |
+| DOMAIN-MAP | `Linm.RMMS.WebService/docs/DOMAIN-MAP.md` | Asset · `csdl-records` · slug `csdl-bieu-06` |
+| Live MFE | `CsdlBieu06Page` · `fromCatalogToolbar` | typed list+slideout **shipped** · **thiếu** Xuất Excel |
+| Live API | `CsdlCatalogRecordsController` · `CsdlCatalogExcelService` | CRUD live · peer Biểu 1–5 typed XLS · **Biểu 6 export gap** |
+| Golden Excel | `data-import/…/1. Biểu mẫu CSDL.xls` sheet Biểu 6 | Cục **16-sheet** · **cấm** hồ sơ 12+8 làm golden |
+| Peer CTX | `docs/context/features/so-ts-underpass.md` | Sổ TS deep-link only · **cấm** gộp sheet export |
 
-Normalized header (19):
+Normalized header (unchanged · 19):
 
 `code|roadCode|roadName|province|kmPoint|underpassKind|apertureM|pipeCount|bodyStructure|portalStructure|lengthM|designLoad|pavementInside|lighting|drainage|builtYear|status|manageUnit|notes`
 
-## § Delta Current vs New (`new_page` · `task_b6ef926c`)
+## § Delta Current vs New (`edit_page` · `task_4f26a959` · **T-XLS-S06**)
 
-| ID | Current | New (this analy) | Surface |
-|----|---------|------------------|---------|
-| GAP-BIEU06-TYPED-01 | Hub list `underpasses` + form 3 ô `detail*` | Typed **19 cột** Excel Biểu 6 · Slideout 2col | form + list cols |
-| GAP-BIEU06-ROUTE-01 | Chỉ deep-link hub `?resource=underpasses` | Alias mfeStd `/csdl-bieu-06` · giữ hub entry | shell / Design |
-| GAP-BIEU06-KIND-01 | Demo title chỉ «Hầm chui dân sinh» | `underpassKind` hầm chui DS / hộp KT LOOKUP · **CTX thêm hộp KT** | form + filter + list |
-| GAP-BIEU06-PIPE-01 | — | `pipeCount` số ống / ngăn | form / list |
-| GAP-BIEU06-STRUCT-01 | — | `bodyStructure` thân + `portalStructure` cửa typed | form |
-| GAP-BIEU06-LOAD-01 | — | `designLoad` tải thiết kế (HL93 / …) | form / list |
-| GAP-BIEU06-PAVE-01 | — | `pavementInside` mặt trong BTXM/BTN LOOKUP | form |
-| GAP-BIEU06-LIGHT-01 | — | `lighting` chiếu sáng | form |
-| GAP-BIEU06-DRAIN-01 | — | `drainage` thoát nước | form |
-| GAP-BIEU06-POINT-01 | Demo km generic | `kmPoint` Point (geom Underpass) · **không** ép kmTo | filter + form |
-| GAP-CSDL-ROAD-01 | `roadName` Text free (hub) | `SearchInput` `road-route` + `roadCode` | filter + form |
-| GAP-CSDL-PROV-01 | LOOKUP_STATIC 5 tỉnh | giữ P1 **hoặc** master province — PO chốt | filter + form |
-| GAP-CSDL-ORG-01 | `manageUnit` Text | SearchInput tree `org-unit` · DEFER P2 OK | form |
-| GAP-CSDL-CUC-03 | Form generic không đủ cột | Đóng gap cho Biểu 6 khi typed PASS | form |
-| GAP-CSDL-XLS-01 | Import/export stub | Sheet Biểu 6 đúng 19 cột — OUT pack Dev/XLS | toolbar |
-| GAP-BIEU06-PEER-01 | Peer Sổ TS `so-ts-underpass` | Deep-link OK · **cấm** 1 form hai chuẩn · **GAP-CSDL-CUC-11** · **≠** `road-assets` API | nav |
+| ID | Current (live / prior analy) | New (this analy) | Surface |
+|----|------------------------------|------------------|---------|
+| GAP-BIEU06-XLS-01 | Typed CRUD + grid 19 cột **PASS** · toolbar **không** Xuất/Import binary | **Xuất Excel** (+ Import P1) đúng sheet Biểu 6 · merge-header · **19 cột** · gồm hộp KT | `catalogToolbar` / `report-toolbar-actions` |
+| GAP-BIEU06-XLS-02 | Toast / stub action coi «có nút» · T-OUT-01 | File binary qua BFF · `/implement-export-import-excel` · **cấm** toast-only done | FE + BFF + BE |
+| GAP-BIEU06-XLS-03 | — / hồ sơ 12+8 STALE · prior GAP-CSDL-XLS-01 OUT | Golden = Cục **16-sheet** xls sheet Biểu 6 · **cấm** 12+8 golden | SA/Dev checksum |
+| GAP-BIEU06-XLS-04 | Filter bar chỉ field + 🔍 | **Cấm** đặt Xuất/Import trên `LinErpListFilterBar` (**GAP-FILTER-BAR-08**) | Zone B filter vs toolbar |
+| GAP-BIEU06-XLS-05 | API CRUD only · ExcelService peer Biểu 1–5 | `GET …/csdl-records/export?resource=underpasses` · `POST …/import?resource=` (cite epic · SA chốt) | BE Asset |
+| GAP-BIEU06-XLS-PEER | Peer Sổ TS `so-ts-underpass` / UNDERPASS | Export **chỉ** sheet Biểu 6 Cục · **cấm** gộp cột/row Sổ TS vào file | XLS engine |
+| — | Typed form/list/route · underpassKind · Schema_CsdlBieu6 | **Không đổi** · **cấm** new_page typed CRUD re-open | form / list |
 
-**Không** đổi: API prefix `api/v1/asset/csdl-records` · resource key `underpasses` · Kind B list A–D · Kind D Slideout · `LinPageLayout kind="catalog"` · **cấm ERP.*** · IdCode **cấm** Guid · prefix **`HC`**.
+**Không** đổi: API prefix `api/v1/asset/csdl-records` · resource `underpasses` · Kind B A–D · Kind D Slideout · filter slots · **cấm ERP.*** · IdCode `HC` · underpassKind/hộp KT đã chốt · peer Sổ TS no-merge.
 
-## Kind / zones (handoff Design)
+**Closed / keep (prior new_page — không reopen):** GAP-BIEU06-TYPED/ROUTE/KIND/PIPE/STRUCT/LOAD/PAVE/LIGHT/DRAIN/POINT · ROAD/PROV · ORG P2 debt · PEER/CUC-11 · prior GAP-CSDL-XLS-01 supersede bởi GAP-BIEU06-XLS-*.
 
-| Zone / surface | Pattern | DoD |
-|----------------|---------|-----|
-| Entry | Hub card **hoặc** `/csdl-bieu-06` | Title VN · back hub · **cấm** slug trên card |
-| List A | Header | «Biểu 06 — Hầm chui DS + hộp KT» · back hub |
-| List B | Toolbar + filter | SearchTextInput · province · status · road SearchInput · kmPoint · underpassKind · Tạo mới · Refresh · Delete · History · SchemaConfig · Import/Export stub · **search must work** · **cấm** nút Tìm riêng |
-| List C | `LinCatalogDataGrid` | Cột typed (không chỉ 3 detail) · STT · row menu Xem/Sửa/Copy/Xóa/Lịch sử · kéo cột ON |
-| List D | Footer | `LinCatalogListPagination` 50/100/200/500 |
-| Form | Kind **D** Slideout Z1–Z3 · 2col | C/E/V/Copy · View=`readOnly` · LeaveConfirmModal dirty · footer Lưu/Hủy |
-| Map | none | deep-link gis only · **cấm** invent map canvas |
+## Kind / zones (handoff Design — delta only)
 
-**Skip chrome:** GOVOne logo/bell/user · demo skin.
+| Zone / surface | Pattern | DoD this edit |
+|----------------|---------|----------------|
+| List A | Header | Giữ «Biểu 06 — Hầm chui DS + hộp KT» · back hub |
+| List B toolbar | `catalogToolbar` | **Thêm** Xuất Excel (+ Import P1) · icon `erp-control-icon-map` · **cấm** filter |
+| List B filter | `LinErpListFilterBar` | **Unchanged** · 0 action Xuất (**GAP-FILTER-BAR-08**) |
+| List C/D | Grid + pagination | Unchanged typed cols |
+| Form | Kind D Slideout | Unchanged typed 19 · underpassKind · hộp KT |
+| Map | none | — |
 
-## Control hint — list filters (Zone B)
+## Control hint — list filters (Zone B) — **unchanged**
 
 | Field key | Label | controlHint | catalogKind | Notes |
 |-----------|-------|-------------|-------------|-------|
 | search | Tìm kiếm | `SearchTextInput` | text | mã · đường · ghi chú |
-| province | Tỉnh/TP | `Dropdown` | LOOKUP_STATIC | **GAP-CSDL-PROV-01** |
+| province | Tỉnh/TP | `Dropdown` | LOOKUP_STATIC | |
 | status | Tình trạng | `Dropdown` | LOOKUP_STATIC | tot/tb/kem/hong |
-| roadCode | Đường | `SearchInput` | **road-route** | **GAP-CSDL-ROAD-01** |
-| kmPoint | Lý trình (Km) | `Number` | — | Point · **GAP-BIEU06-POINT-01** |
-| underpassKind | Loại | `Dropdown` | LOOKUP_STATIC | hầm chui DS / hộp KT · **GAP-BIEU06-KIND-01** |
+| roadCode | Đường | `SearchInput` | **road-route** | |
+| kmPoint | Lý trình (Km) | `Number` | — | Point |
+| underpassKind | Loại | `Dropdown` | LOOKUP_STATIC | hầm chui DS / hộp KT |
 
-## Control hint — form fields (Slideout · Excel Biểu 6 · 19 cột)
+## Control hint — form fields — **unchanged** (cite prior · 19 cột typed)
 
-| # | Field key | Label | controlHint | required | Notes |
-|---|-----------|-------|-------------|----------|-------|
-| — | code | Mã | `Text` readonly | auto | IdCode prefix `HC` · **cấm** Guid |
-| 1–2 | roadCode / roadName | Mã/Tên đường | `SearchInput` | * | catalogKind `road-route` |
-| 3 | province | Địa danh | `Dropdown` | * | LOOKUP_STATIC P1 |
-| 4 | kmPoint | Lý trình (Km) | `Number` | * | decimal Point · **GAP-BIEU06-POINT-01** |
-| 5 | underpassKind | Loại CT | `Dropdown` | * | hầm chui DS / hộp KT · **GAP-BIEU06-KIND-01** |
-| 6 | apertureM | Khẩu độ (m) | `Number` | * | DB `ApertureM` · **Q-APERTURE** |
-| 7 | pipeCount | Số ống / ngăn | `Number` | | integer ≥1 · **GAP-BIEU06-PIPE-01** · **Q-PIPE** |
-| 8 | bodyStructure | Kết cấu thân | `Dropdown` hoặc `Text` | | BT / BTCT / … · **GAP-BIEU06-STRUCT-01** |
-| 9 | portalStructure | Kết cấu cửa | `Dropdown` hoặc `Text` | | DB `PortalStructure` |
-| 10 | lengthM | Chiều dài (m) | `Number` | * | |
-| 11 | designLoad | Tải thiết kế | `Dropdown` hoặc `Text` | | HL93 / H30 / … · **GAP-BIEU06-LOAD-01** · **Q-LOAD** |
-| 12 | pavementInside | Mặt trong | `Dropdown` | | BTXM / BTN · **GAP-BIEU06-PAVE-01** |
-| 13 | lighting | Chiếu sáng | `Text` hoặc `Dropdown` | | có/không hoặc mô tả · **GAP-BIEU06-LIGHT-01** · **Q-LIGHT** |
-| 14 | drainage | Thoát nước | `Text` hoặc `Dropdown` | | **GAP-BIEU06-DRAIN-01** · **Q-DRAIN** |
-| 15 | builtYear | Năm XD/SD | `Number` | | year |
-| 16 | status | Tình trạng | `Dropdown` | * | LOOKUP_STATIC |
-| 17 | manageUnit | ĐV QL | `Text` → SearchInput | | **GAP-CSDL-ORG-01** |
-| 18–19 | notes (+ code) | Ghi chú | `Textarea` | | header 19 keys = `code` + 18 field rows trên |
+Giữ bảng form prior `task_b6ef926c` (road · province · kmPoint · underpassKind · aperture · pipeCount · body/portal · length · designLoad · pavement · lighting · drainage · year · status · manageUnit · notes). **Cấm** đổi controlHint form trong pack này.
 
-Optional form extras (không đếm Excel 19): `side` Dropdown L/R/C · `ownerUnit` Text — Design/PO.
-
-## Control hint — actions
+## Control hint — actions (**delta**)
 
 | Action | Surface | Notes |
 |--------|---------|-------|
-| back-hub | List A | về `/so-ts/csdl-so-sach` |
-| create / view / edit / copy / delete | Toolbar + row | soft-delete API |
-| save / cancel | Form footer | LeaveConfirmModal dirty |
-| import / export | Toolbar | stub · XLS Biểu 6 OUT pack |
-| history | Toolbar / row | stub modal OK P2 |
-| schema-config | Toolbar | UiSchema typed `underpasses` |
-| peer-sots | Toolbar / row (opt) | deep-link `/so-ts?type=UNDERPASS` · **cấm** merge form |
+| export-excel | **catalogToolbar** | Label **Xuất Excel** · binary download · sheet Biểu 6 · filter QS nếu SA chốt |
+| import-excel | **catalogToolbar** (P1) | Template Cục · 19 cột · **cấm** filter bar · **cấm** gộp Sổ TS |
+| create / view / edit / copy / delete / history / schema-config / refresh | Toolbar (keep) | Unchanged |
+| save / cancel | Form footer | Unchanged |
+| peer-sots | Toolbar / row (opt) | deep-link `/so-ts?type=UNDERPASS` · **cấm** merge form/export |
+| print-pdf | — | **OUT** Biểu (sổ Word) · không Wave 1 S06 |
 
 ## Open questions (PO trước Design)
 
 | ID | Q | Options |
 |----|---|---------|
-| Q-ROUTE | Alias `/csdl-bieu-06` Navigate ngay hay DEFER hub-only? | alias_now · hub_only |
-| Q-PROV | Province static vs master? | keep_static · master_province |
-| Q-APERTURE | `apertureM` Number m (DB) vs free-text WxH? | number_m · free_text |
-| Q-PIPE | `pipeCount` bắt buộc khi hộp KT? | optional · required_when_box |
-| Q-LOAD | `designLoad` LOOKUP (HL93/H30/…) vs free-text? | lookup_hl · free_text |
-| Q-LIGHT | `lighting` Dropdown có/không vs Text mô tả? | yes_no · free_text |
-| Q-DRAIN | `drainage` Dropdown vs Text? | yes_no · free_text |
-| Q-KIND | Seed LOOKUP `underpassKind`? | hc_ds_hop_kt · excel_seed |
+| Q-XLS-SCOPE | Export = **filtered set** hay **all tenant resource**? | filtered · all_resource (**SA/PO**) |
+| Q-XLS-IMPORT | Import P1 cùng task hay DEFER sau export-only? | import_now · export_only_p0 |
+| Q-XLS-FILENAME | Tên file download? | `Bieu06_HamChuiHopKT_{yyyyMMdd}.xls(x)` · SA chốt |
 
 ## Handoff
 
 | Role | Dùng packet |
 |------|-------------|
-| **PO** | § Delta + open Q → `requirement.md` |
-| **Design** | control-map khớp bảng · prototype list+slideout 19 cột · reviewUrl |
-| **SA** | path `api/v1/asset/csdl-records` · typed DTO/UiSchema · Schema_CsdlBieu6 |
-| **TL/Dev** | Wire controlHint · **cấm** đoán Text vs SearchInput |
+| **PO** | § Delta XLS + open Q → delta `requirement.md` (**giữ** typed prior) |
+| **Design** | control-map **chỉ** toolbar Xuất · giữ prototype 19 · reviewUrl |
+| **SA** | path export/import binary · sheet Biểu 6 · checksum 19 · **cấm** 12+8 golden |
+| **TL/Dev** | `/implement-export-import-excel` · wire `catalogToolbar` · **cấm** filter bar |
 
 ## Version meta (REQUIRED)
 
 | Field | Value |
 |-------|-------|
 | skillId | agent-data-analy |
-| skillVersion | 2026.08.25.01 |
+| skillVersion | 2026.09.05.03 |
 | schemaVersion | 1 |
-| workflowVersion | 2026.09.01.02 |
-| rulesVersion | 2026.08.31.2 |
-| contentHash | `sha256:ffc5c8381b04dcec3f0376df87187012f34b16bf211a3e3fb7311a8375a386f0` |
+| workflowVersion | 2026.09.05.03 |
+| rulesVersion | 2026.09.17.3 |
+| contentHash | `sha256:e32c48126fa0edbd02e612b7bd917a9ae07e53ec8629dbe01e1bcdcf82759fa3` |
 | headerFingerprint | `sha256:3b2f5c531f0538509147846466d92090a3c8f5adc05a4be6d1dbb80ad73ff2a7` |
-| generatedAt | 2026-09-05T07:12:53.176Z |
+| generatedAt | 2026-09-18T04:14:00.000Z |
 | versionGate | ok |
-| taskId | task_b6ef926c |
+| taskId | task_4f26a959 |
 | packKind | list |
-| changeScope | new_page |
+| changeScope | edit_page |
 
 ---
-<!-- Version meta: skillId=agent-data-analy skillVersion=2026.08.25.01 schemaVersion=1 workflowVersion=2026.09.01.02 rulesVersion=2026.08.31.2 versionGate=ok contentHash=sha256:ffc5c8381b04dcec3f0376df87187012f34b16bf211a3e3fb7311a8375a386f0 -->
+<!-- Version meta: skillId=agent-data-analy skillVersion=2026.09.05.03 schemaVersion=1 workflowVersion=2026.09.05.03 rulesVersion=2026.09.17.3 versionGate=ok contentHash=sha256:e32c48126fa0edbd02e612b7bd917a9ae07e53ec8629dbe01e1bcdcf82759fa3 -->

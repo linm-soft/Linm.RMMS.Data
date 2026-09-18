@@ -3,9 +3,17 @@
   "status": "confirmed",
   "verdict": "PASS",
   "review_confirm": "done",
-  "taskId": "task_0af14e10",
+  "taskId": "task_a4e8f967",
+  "qaTaskId": "task_c04c6ac3",
+  "changeScope": "edit_page",
   "autoApprove": true,
-  "contentHashPrior": "sha256:5634091e7ce3e5272c090320398a76d75f84ed7326366e93e088ff2154e8bf44",
+  "contentHash": "sha256:1250b5799e9174b21429e60e57abef17cb7d6c568ae417840c57b598f204a69a",
   "hashGate": "skip",
-  "confirmedAt": "2026-09-05T09:56:30.000Z"
+  "gates": {
+    "QUERY": "PASS",
+    "SEC": "PASS",
+    "UI-FN": "PASS",
+    "BE-FN": "PASS"
+  },
+  "confirmedAt": "2026-09-18T04:55:00.000Z"
 }

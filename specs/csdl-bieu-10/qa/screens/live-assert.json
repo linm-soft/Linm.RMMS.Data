@@ -1,15 +1,25 @@
 {
   "url": "http://localhost:9301/csdl-bieu-10",
+  "changeScope": "edit_page",
   "hasTitle": true,
   "hasFilter": true,
-  "hasSide": true,
-  "hasWallKind": true,
-  "hasKmFrom": true,
-  "hasKmTo": true,
+  "hasExportToolbar": true,
+  "hasImportToolbar": true,
+  "peerSots": true,
+  "filterBarHasNoExport": true,
+  "filterBarMeta": {
+    "foundFilter": true,
+    "hasXuat": false
+  },
+  "exportCheck": {
+    "attempted": true,
+    "ok": true,
+    "fileName": "Bieu10_KeTuongChan_20260918.xls",
+    "hasPath": true,
+    "error": ""
+  },
   "noDemo": true,
   "noModeBadge": true,
-  "peerSots": true,
-  "peerToolbarOk": true,
   "testids": [
     "sidebar-logo-home",
     "standalone-mock-topbar",
@@ -20,6 +30,8 @@
     "rmms-csdl-bieu-10-list-peer-sots",
     "rmms-csdl-bieu-10-list-list-toolbar",
     "rmms-csdl-bieu-10-list-refresh-btn",
+    "rmms-csdl-bieu-10-list-import-excel-btn",
+    "rmms-csdl-bieu-10-list-export-excel-btn",
     "rmms-csdl-bieu-10-list-create-btn",
     "rmms-csdl-bieu-10-list-table-card",
     "rmms-csdl-bieu-10-list-list-title-help",
@@ -40,7 +52,7 @@
     "rmms-csdl-bieu-10-list-date-range-date-expand-btn",
     "rmms-csdl-bieu-10-list-view-btn",
     "rmms-csdl-bieu-10-list-grid-wrap",
-    "rmms-csdl-bieu-10-list-empty"
-  ],
-  "titleSnippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nCSDL Biểu 01 — Phân loại mặt đường\nCSDL Biểu 02 — Thống kê cầu\nCSDL Biểu 03 — Hầm đường bộ\nCSDL Biểu 04 — Cống các loại\nCSDL Biểu 05 — Rãnh các loại\nCSDL Biểu 06 — Hầm chui DS / hộp KT\nCSDL Biểu 07 — Lề đường / taluy / hàng rào\nCSDL Biểu 08 — Hệ thống ATGT\nCSDL Biểu 09 — Mốc lộ giớ"
+    "rmms-csdl-bieu-10-list-empty",
+    "rmms-csdl-bieu-10-list-import-file"
+  ]
 }

@@ -90,7 +90,7 @@
 </head>
 <body>
   <div class="page">
-    <p class="note" id="note">SSOT Design · <code>shared_grid_example v1</code> · pack <code>csdl-bieu-09</code> · resource <code>boundary-markers</code> · formNo <code>09</code> · mfeStdUrl <code>/csdl-bieu-09</code> · hub <code>?resource=boundary-markers</code> · skip chrome · <strong>cấm</strong> detail* only · 2 entity · map none · Q-KIND code_en · Q-STRUCT excel_seed · Q-DIM full_dim · Q-QTY show_always · Q-LIST-COLS subset · Q-REN with_typed · peer none</p>
+    <p class="note" id="note">SSOT Design · <code>shared_grid_example v1</code> · pack <code>csdl-bieu-09</code> · edit_page T-XLS-S09 · resource <code>boundary-markers</code> · formNo <code>09</code> · mfeStdUrl <code>/so-ts/csdl-so-sach</code> alias <code>/csdl-bieu-09</code> · peer hub <code>?resource=boundary-markers</code> · catalogToolbar <strong>Xuất/Nhập Excel</strong> · filter <strong>không</strong> XLS (GAP-FILTER-BAR-08) · Q-XLS filtered · import_now · respect_filter · filename Bieu09_MocLoGioiGPMB_{yyyyMMdd}.xls · skip chrome · typed 17/2 keep · peer none</p>
 
     <section id="list" style="display:flex;flex-direction:column;gap:8px;flex:1;min-height:0">
       <div class="zone-a" data-des-id="DES-GRID-A">
@@ -104,8 +104,9 @@
           <button type="button" class="tb" data-action="history" title="Lịch sử"><i class="fas fa-history"></i></button>
           <button type="button" class="tb" data-action="config" title="Cấu hình"><i class="fas fa-cog"></i></button>
           <button type="button" class="tb" id="btn-del" disabled title="Xóa"><i class="fas fa-trash"></i></button>
-          <button type="button" class="tb" data-action="import" title="Import stub OUT Biểu 9"><i class="fas fa-file-import"></i></button>
-          <button type="button" class="tb" data-action="export" title="Export stub OUT Biểu 9"><i class="fas fa-file-export"></i></button>
+          <button type="button" class="tb" data-action="import" title="Nhập Excel"><i class="fas fa-file-import" aria-hidden="true"></i> Nhập Excel</button>
+          <button type="button" class="tb" data-action="export" title="Xuất Excel"><i class="fas fa-file-excel" aria-hidden="true"></i> Xuất Excel</button>
+          <input type="file" id="importFile" accept=".xls,.xlsx" hidden />
         </div>
         <div class="zone-b-right">
           <button type="button" class="tb primary" data-action="create"><i class="fas fa-plus"></i> Tạo mới</button>
@@ -474,7 +475,6 @@
       if (t.dataset.action === "refresh") render();
       if (t.dataset.action === "history" || t.dataset.hist) toast("History modal stub P2");
       if (t.dataset.action === "config") toast("UiSchema editor · catalogKind boundary-markers");
-      if (t.dataset.action === "import" || t.dataset.action === "export") toast("XLS Biểu 9 OUT stub");
       if (t.dataset.view) {
         const row = rows.find((r) => String(r.id) === t.dataset.view);
         if (row) openSlide("view", row);
@@ -495,6 +495,32 @@
     });
 
     $("#btnBack").addEventListener("click", () => toast("Navigate → /so-ts/csdl-so-sach"));
+    const importInput = $("#importFile");
+    document.querySelector('[data-action="import"]').addEventListener("click", () => importInput.click());
+    importInput.addEventListener("change", () => {
+      const f = importInput.files && importInput.files[0];
+      if (!f) return;
+      $("#note").textContent =
+        "Nhập Excel (mock): " + f.name + " · skip-bridge áp dụng · POST …/csdl-records/import?resource=boundary-markers";
+      importInput.value = "";
+    });
+    document.querySelector('[data-action="export"]').addEventListener("click", () => {
+      const d = new Date();
+      const ymd = d.getFullYear() + String(d.getMonth() + 1).padStart(2, "0") + String(d.getDate()).padStart(2, "0");
+      const name = "Bieu09_MocLoGioiGPMB_" + ymd + ".xls";
+      const kind = ($("#fKind") && $("#fKind").value) || "(all)";
+      const blob = new Blob(
+        ["Biểu 09 — Mốc lộ giới / GPMB (prototype mock · filtered QS · markerKind=" + kind + " · sheet Biểu 9 · 17 cột · 1 sheet)\n"],
+        { type: "application/vnd.ms-excel" }
+      );
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = name;
+      a.click();
+      URL.revokeObjectURL(a.href);
+      $("#note").textContent =
+        "Xuất Excel (mock filtered): " + name + " · GET …/csdl-records/export?resource=boundary-markers · markerKind=" + kind;
+    });
     $("#btn-del").addEventListener("click", () => { if (selected.size) $("#delModal").classList.add("on"); });
     $("#delCancel").addEventListener("click", () => $("#delModal").classList.remove("on"));
     $("#delOk").addEventListener("click", () => {

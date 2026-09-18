@@ -1,9 +1,23 @@
 {
   "url": "http://localhost:9301/csdl-bieu-02",
+  "changeScope": "edit_page",
   "hasTitle": true,
   "hasFilter": true,
-  "hasBeamType": true,
-  "hasKmFrom": true,
+  "hasExportToolbar": true,
+  "hasImportToolbar": false,
+  "importDeferredHidden": true,
+  "filterBarHasNoExport": true,
+  "filterBarMeta": {
+    "foundFilter": true,
+    "hasXuat": false
+  },
+  "exportCheck": {
+    "attempted": true,
+    "ok": true,
+    "fileName": "Bieu02_ThongKeCau_20260918.xls",
+    "hasPath": true,
+    "error": ""
+  },
   "noDemo": true,
   "noModeBadge": true,
   "testids": [
@@ -16,6 +30,7 @@
     "rmms-csdl-bieu-02-list-peer-sots",
     "rmms-csdl-bieu-02-list-list-toolbar",
     "rmms-csdl-bieu-02-list-refresh-btn",
+    "rmms-csdl-bieu-02-list-export-excel-btn",
     "rmms-csdl-bieu-02-list-create-btn",
     "rmms-csdl-bieu-02-list-table-card",
     "rmms-csdl-bieu-02-list-list-title-help",
@@ -36,7 +51,5 @@
     "rmms-csdl-bieu-02-list-view-btn",
     "rmms-csdl-bieu-02-list-grid-wrap",
     "rmms-csdl-bieu-02-list-empty"
-  ],
-  "titleSnippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nCSDL Biểu 01 — Phân loại mặt đường\nCSDL Biểu 02 — Thống kê cầu\nCSDL Biểu 04 — Cống các loại\nCSDL Biểu 05 — Rãnh các loại\nCSDL Biểu 06 — Hầm chui DS / hộp KT\nHạng mục KCHT\nDS\nDev Standalone\nDeveloper\nBiểu 02 — Thống kê cầu\n← HubBiểu 02 — Thống kê cầuSổ TS cầu\nLàm mới\nTạo mới\nBiểu 02",
-  "peerSots": true
+  ]
 }

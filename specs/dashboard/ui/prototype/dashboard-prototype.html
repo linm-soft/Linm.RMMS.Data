@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Prototype — Dashboard điều hành KPI BDTX</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    :root {
+      --bg: #f5f7fa; --card: #fff; --border: #BABCBE; --soft: #e9ecef;
+      --txt: #1A1A1A; --muted: #6c757d; --primary: #0f766e;
+      --toolbar-bg: #f8fafc; --r: 4px; --focus: 0 0 4px #BABCBE;
+      --label: 13px; --input: 14px; --title: 22px; --btn-h: 32px;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: "Segoe UI", system-ui, sans-serif; background: var(--bg); color: var(--txt); font-size: var(--label); }
+    .page { max-width: 1440px; margin: 0 auto; padding: 8px; display: flex; flex-direction: column; gap: 8px; min-height: 100vh; }
+    .zone-a { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .zone-a h1 { margin: 0; font-size: var(--title); font-weight: 700; display: flex; align-items: center; gap: 10px; }
+    .zone-a h1 i { color: var(--primary); }
+    .badge { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: #ccfbf1; color: #115e59; }
+    .zone-toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 8px 12px; background: var(--toolbar-bg); border: 1px solid var(--soft); border-radius: var(--r); }
+    .btn { height: var(--btn-h); padding: 0 12px; border: 1px solid var(--border); border-radius: var(--r); background: #fff; cursor: pointer; font-size: 12px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
+    .btn:hover { background: #f1f5f9; }
+    .btn-search { width: 32px; height: 32px; padding: 0; justify-content: center; background: var(--primary); color: #fff; border: 1px solid var(--primary); border-radius: var(--r); cursor: pointer; flex: 0 0 32px; display: inline-flex; align-items: center; }
+    .filter-header { display: grid; grid-template-columns: 1fr auto; gap: 8px 12px; align-items: start; padding: 10px 12px; background: var(--card); border: 1px solid var(--soft); border-radius: var(--r); }
+    @media (max-width: 900px) { .filter-header { grid-template-columns: 1fr; } .filter-bar { justify-self: end; } }
+    .filter-title { font-size: 15px; font-weight: 700; padding-top: 6px; }
+    .filter-title small { display: block; font-size: 10px; font-weight: 700; color: var(--primary); margin-top: 2px; }
+    .filter-bar { display: flex; flex-wrap: wrap; justify-content: flex-end; align-items: flex-end; gap: 8px; max-width: 100%; }
+    .leading-frag { display: contents; }
+    .field { display: flex; flex-direction: column; gap: 4px; width: 180px; min-width: 180px; flex: 0 0 180px; }
+    .field label { font-size: var(--label); color: var(--muted); font-weight: 500; }
+    input[type="date"] { padding: 6px 10px; border: 1px solid var(--border); border-radius: var(--r); font-size: var(--input); min-height: 32px; background: #fff; width: 100%; }
+    input:focus { outline: none; border-color: var(--primary); box-shadow: var(--focus); }
+    .kpi-row { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; }
+    .kpi-row.four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    @media (max-width: 1100px) { .kpi-row, .kpi-row.four { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+    @media (max-width: 700px) { .kpi-row, .kpi-row.four { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    .kpi { background: var(--card); border: 1px solid var(--soft); border-radius: var(--r); padding: 12px; cursor: pointer; text-align: left; min-height: 88px; display: flex; flex-direction: column; gap: 6px; }
+    .kpi:hover, .kpi.on { border-color: var(--primary); box-shadow: var(--focus); }
+    .kpi .lbl { font-size: 12px; color: var(--muted); font-weight: 600; }
+    .kpi .val { font-size: 22px; font-weight: 700; letter-spacing: 0.02em; }
+    .kpi .hint { font-size: 11px; color: #b45309; }
+    .kpi.gap .val { color: var(--muted); }
+    .main-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 8px; }
+    @media (max-width: 1000px) { .main-grid { grid-template-columns: 1fr; } }
+    .card { background: var(--card); border: 1px solid var(--soft); border-radius: var(--r); padding: 12px; min-height: 220px; }
+    .card h2 { margin: 0 0 8px; font-size: 14px; font-weight: 700; }
+    .tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+    .tab { height: 32px; padding: 0 12px; border: 1px solid var(--soft); border-radius: var(--r); background: #fff; font-size: 12px; font-weight: 600; cursor: pointer; }
+    .tab.on { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .panel-body { display: grid; grid-template-columns: 200px 1fr; gap: 10px; min-height: 160px; }
+    @media (max-width: 700px) { .panel-body { grid-template-columns: 1fr; } }
+    .tree { border: 1px solid var(--soft); border-radius: var(--r); background: #fafbfc; padding: 8px; overflow: auto; max-height: 200px; }
+    .tree-item { padding: 4px 6px; border-radius: 4px; cursor: pointer; font-size: 12px; }
+    .tree-item:hover, .tree-item.on { background: #ecfdf5; color: var(--primary); font-weight: 600; }
+    .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+    .chip { font-size: 11px; padding: 2px 8px; border-radius: 999px; background: #f1f5f9; color: #475569; border: 1px solid var(--soft); }
+    .panel-empty { color: var(--muted); font-size: 12px; padding: 12px 0; }
+    .map-box { height: 200px; border: 1px dashed var(--border); border-radius: var(--r); background: linear-gradient(135deg, #e2e8f0, #f8fafc); display: flex; align-items: center; justify-content: center; color: var(--muted); flex-direction: column; gap: 6px; }
+    .map-box i { font-size: 28px; color: var(--primary); }
+    table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+    th, td { padding: 8px 10px; border-bottom: 1px solid var(--soft); text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 12px; }
+    th { background: #f8fafc; color: var(--muted); font-weight: 600; }
+    tbody tr { cursor: pointer; } tbody tr:hover { background: #ecfdf5; }
+    .nav-row { display: flex; flex-wrap: wrap; gap: 8px; }
+    .nav-row .btn { background: #fff; }
+    .toast { position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%); background: #0f172a; color: #e2e8f0; padding: 10px 16px; border-radius: 999px; font-size: 13px; display: none; z-index: 70; }
+    .toast.on { display: block; }
+    .backdrop { display: none; position: fixed; inset: 0; background: rgba(15,23,42,.35); z-index: 80; align-items: center; justify-content: center; }
+    .backdrop.on { display: flex; }
+    .modal { width: min(420px, 94vw); background: #fff; border-radius: 8px; border: 1px solid var(--soft); }
+    .modal-h { display: flex; align-items: center; gap: 8px; padding: 12px 16px; border-bottom: 1px solid var(--soft); font-weight: 700; }
+    .modal-h .x { margin-left: auto; border: 0; background: 0; cursor: pointer; color: var(--muted); font-size: 16px; }
+    .modal-b { padding: 16px; font-size: 13px; color: var(--muted); }
+    .modal-f { padding: 12px 16px; border-top: 1px solid var(--soft); display: flex; justify-content: flex-end; gap: 8px; }
+    .config-list { margin: 0; padding-left: 18px; font-size: 13px; color: var(--txt); }
+  </style>
+</head>
+<body>
+  <div class="page" data-kind="dashboard" data-form-pattern="full" data-testid="rmms-dashboard-prototype">
+    <header class="zone-a" data-des-id="DES-DSH-HDR" data-des-rpt="DES-RPT-HEADER">
+      <h1><i class="fas fa-gauge-high" aria-hidden="true"></i> Tổng hợp công tác QL &amp; BDTX</h1>
+    </header>
+
+    <div class="zone-toolbar" data-des-id="DES-DSH-TB" data-des-rpt="DES-RPT-A" data-testid="rmms-dashboard-report-toolbar" role="toolbar" aria-label="Thanh công cụ báo cáo">
+      <button type="button" class="btn" id="btnRefresh" title="Làm mới"><i class="fas fa-sync-alt" aria-hidden="true"></i> Làm mới</button>
+      <button type="button" class="btn" id="btnExport" title="Xuất Excel check-in"><i class="fas fa-file-excel" aria-hidden="true"></i> Xuất Excel</button>
+      <button type="button" class="btn" id="btnPrint" title="In"><i class="fas fa-print" aria-hidden="true"></i> In</button>
+      <button type="button" class="btn" id="btnConfig" title="Sửa config"><i class="fas fa-cog" aria-hidden="true"></i> Sửa config</button>
+    </div>
+
+    <div class="filter-header" data-des-id="DES-DSH-FILTER" data-des-rpt="DES-RPT-C">
+      <div class="filter-title">Bộ lọc<small>LinErpListFilterBar · Xem = 🔍</small></div>
+      <div class="filter-bar" data-lin-list-layout="erp-filter-bar" data-testid="rmms-dashboard-filters">
+        <div class="leading-frag">
+          <div class="field" data-testid="rmms-dashboard-field-asof">
+            <label for="asOf">Ngày tổng hợp</label>
+            <input id="asOf" type="date" value="2026-09-17" />
+          </div>
+        </div>
+        <button type="button" class="btn-search" id="btnView" aria-label="Xem" title="Xem"><i class="fas fa-search" aria-hidden="true"></i></button>
+      </div>
+    </div>
+
+    <section class="kpi-row" data-des-id="DES-DSH-KPI6" aria-label="KPI chính">
+      <button type="button" class="kpi on" data-tile="tuan-duong"><span class="lbl">Tuần đường</span><span class="val" data-bind="tuan-duong.count">—</span><span class="hint">soft-degrade patrol</span></button>
+      <button type="button" class="kpi" data-tile="tuan-kiem"><span class="lbl">Tuần kiểm</span><span class="val" data-bind="tuan-kiem.count">—</span><span class="hint">soft-degrade patrol</span></button>
+      <button type="button" class="kpi" data-tile="bao-lu"><span class="lbl">Bão lũ</span><span class="val" data-bind="bao-lu.count">—</span></button>
+      <button type="button" class="kpi" data-tile="tai-nan"><span class="lbl">TNGT</span><span class="val" data-bind="tai-nan.count">—</span></button>
+      <button type="button" class="kpi" data-tile="vi-pham"><span class="lbl">Vi phạm HL</span><span class="val" data-bind="vi-pham.count">—</span></button>
+      <button type="button" class="kpi" data-tile="cong-viec"><span class="lbl">Công việc</span><span class="val" data-bind="cong-viec.count">—</span></button>
+    </section>
+
+    <section class="kpi-row four" data-des-id="DES-DSH-KPI4" aria-label="KPI phụ">
+      <button type="button" class="kpi" data-tile="inc-open" data-drill="incident"><span class="lbl">Sự cố mở</span><span class="val" data-bind="inc-open.count">—</span></button>
+      <button type="button" class="kpi gap" data-tile="coverage"><span class="lbl">Coverage</span><span class="val" data-bind="coverage.count">0</span><span class="hint">GAP lock</span></button>
+      <button type="button" class="kpi gap" data-tile="road-len"><span class="lbl">Chiều dài QL</span><span class="val" data-bind="road-len.count">0</span><span class="hint">GAP lock</span></button>
+      <button type="button" class="kpi" data-tile="pci"><span class="lbl">PCI TB</span><span class="val" data-bind="pci.count">—</span></button>
+    </section>
+
+    <div class="main-grid">
+      <section class="card" data-des-id="DES-DSH-PANEL">
+        <div class="tabs" data-des-id="DES-DSH-TABS" role="tablist">
+          <button type="button" class="tab on" data-tab="0" role="tab" aria-selected="true">Tuần đường</button>
+          <button type="button" class="tab" data-tab="1" role="tab" aria-selected="false">Tuần kiểm</button>
+          <button type="button" class="tab" data-tab="2" role="tab" aria-selected="false">Công việc</button>
+        </div>
+        <div class="chips"><span class="chip">Đang lọc theo ngày tổng hợp</span><span class="chip">Panel focus</span></div>
+        <div class="panel-body">
+          <div class="tree" aria-label="Cây đơn vị / tuyến">
+            <div class="tree-item on">Tất cả đơn vị</div>
+            <div class="tree-item">Khu QLĐB 1</div>
+            <div class="tree-item">QL.1A</div>
+            <div class="tree-item">QL.14</div>
+          </div>
+          <div>
+            <p class="panel-empty" id="panelHint">Chọn KPI hoặc tab để xem cây phiên / check-in. Nguồn patrol soft-degrade khi chưa sẵn.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" data-des-id="DES-DSH-MAP">
+        <h2>Bản đồ sự cố mở</h2>
+        <div class="map-box" role="img" aria-label="Mini map Leaflet">
+          <i class="fas fa-map-marked-alt" aria-hidden="true"></i>
+          <span>Leaflet · OSM/Esri · markers từ sự cố mở</span>
+        </div>
+      </section>
+    </div>
+
+    <section class="card" data-des-id="DES-DSH-TOP">
+      <h2>Top sự cố mở</h2>
+      <div style="overflow:auto">
+        <table>
+          <thead>
+            <tr>
+              <th>Mã</th><th>Loại</th><th>Tuyến</th><th>Km</th><th>Mức</th><th>Trạng thái</th>
+            </tr>
+          </thead>
+          <tbody id="topBody">
+            <tr><td colspan="6" style="color:var(--muted);text-align:center">Chưa Xem — skeleton sau khi tải live</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <nav class="nav-row card" data-des-id="DES-DSH-NAV" aria-label="Điều hướng nhanh">
+      <button type="button" class="btn" data-nav="reports"><i class="fas fa-chart-bar" aria-hidden="true"></i> Báo cáo</button>
+      <button type="button" class="btn" data-nav="gis"><i class="fas fa-map" aria-hidden="true"></i> GIS</button>
+      <button type="button" class="btn" data-nav="incident"><i class="fas fa-triangle-exclamation" aria-hidden="true"></i> Sự cố</button>
+      <button type="button" class="btn" data-nav="patrol"><i class="fas fa-route" aria-hidden="true"></i> Tuần tra</button>
+    </nav>
+
+    <div data-des-id="DES-DSH-P2" aria-hidden="true" style="display:none"></div>
+  </div>
+
+  <!-- DES-RPT-F Config FULL mock -->
+  <div class="backdrop" id="configModal" data-des-rpt="DES-RPT-F" role="dialog" aria-modal="true" aria-labelledby="cfgTitle">
+    <div class="modal">
+      <div class="modal-h"><span id="cfgTitle">Sửa config báo cáo</span><button type="button" class="x" id="cfgClose" aria-label="Đóng">✕</button></div>
+      <div class="modal-b">
+        <p>LinReportTableConfigModal — FULL (grid · footer · chart slot).</p>
+        <ul class="config-list">
+          <li>Cột Top sự cố (mã · loại · tuyến · Km · mức · TT)</li>
+          <li>Footer phân trang theo config</li>
+          <li>Biểu đồ: P1 chart_none — slot giữ, không stub toast</li>
+        </ul>
+      </div>
+      <div class="modal-f">
+        <button type="button" class="btn" id="cfgCancel">Hủy</button>
+        <button type="button" class="btn" id="cfgSave" style="background:var(--primary);color:#fff;border-color:var(--primary)"><i class="fas fa-save" aria-hidden="true"></i> Lưu</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- LeaveConfirmModal -->
+  <div class="backdrop" id="leaveModal" role="dialog" aria-modal="true" aria-labelledby="leaveTitle">
+    <div class="modal">
+      <div class="modal-h"><span id="leaveTitle">Rời trang?</span><button type="button" class="x" id="leaveClose" aria-label="Đóng">✕</button></div>
+      <div class="modal-b">Bộ lọc chưa áp dụng (chưa Xem). Bạn có muốn rời đi không?</div>
+      <div class="modal-f">
+        <button type="button" class="btn" id="leaveStay">Ở lại</button>
+        <button type="button" class="btn" id="leaveGo" style="background:#b91c1c;color:#fff;border-color:#b91c1c">Rời đi</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+
+  <script>
+    (function () {
+      var dirty = false;
+      var applied = false;
+      var toastEl = document.getElementById("toast");
+      var asOf = document.getElementById("asOf");
+      function toast(msg) {
+        toastEl.textContent = msg;
+        toastEl.classList.add("on");
+        setTimeout(function () { toastEl.classList.remove("on"); }, 2200);
+      }
+      function openModal(id) { document.getElementById(id).classList.add("on"); }
+      function closeModal(id) { document.getElementById(id).classList.remove("on"); }
+
+      asOf.addEventListener("change", function () { dirty = true; applied = false; });
+
+      document.getElementById("btnView").addEventListener("click", function () {
+        dirty = false; applied = true;
+        document.querySelectorAll("[data-bind]").forEach(function (el) {
+          if (el.closest(".kpi.gap")) return;
+          el.textContent = "…";
+        });
+        setTimeout(function () {
+          document.querySelectorAll("[data-bind]").forEach(function (el) {
+            if (el.closest(".kpi.gap")) { el.textContent = "0"; return; }
+            el.textContent = "—";
+          });
+          document.getElementById("topBody").innerHTML =
+            '<tr><td colspan="6" style="color:var(--muted);text-align:center">Prototype · Dev bind totalCount live (không mock số ship)</td></tr>';
+          toast("Đã áp dụng Ngày tổng hợp — chờ API live");
+        }, 400);
+      });
+
+      document.getElementById("btnRefresh").addEventListener("click", function () {
+        if (!applied) { document.getElementById("btnView").click(); return; }
+        toast("Làm mới");
+      });
+      document.getElementById("btnExport").addEventListener("click", function () {
+        toast("Xuất Excel check-in — soft-degrade nếu patrol chưa sẵn");
+      });
+      document.getElementById("btnPrint").addEventListener("click", function () { toast("In"); });
+      document.getElementById("btnConfig").addEventListener("click", function () { openModal("configModal"); });
+      document.getElementById("cfgClose").addEventListener("click", function () { closeModal("configModal"); });
+      document.getElementById("cfgCancel").addEventListener("click", function () { closeModal("configModal"); });
+      document.getElementById("cfgSave").addEventListener("click", function () { closeModal("configModal"); toast("Đã lưu config (proto)"); });
+
+      document.querySelectorAll(".kpi").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          document.querySelectorAll(".kpi").forEach(function (k) { k.classList.remove("on"); });
+          btn.classList.add("on");
+          var tile = btn.getAttribute("data-tile");
+          if (btn.classList.contains("gap")) {
+            toast(tile + ": GAP lock 0");
+            return;
+          }
+          if (tile === "tuan-duong") document.querySelector('.tab[data-tab="0"]').click();
+          if (tile === "tuan-kiem") document.querySelector('.tab[data-tab="1"]').click();
+          if (tile === "cong-viec") document.querySelector('.tab[data-tab="2"]').click();
+          if (btn.getAttribute("data-drill") === "incident") toast("Drill → sự cố");
+          document.getElementById("panelHint").textContent = "Focus panel: " + (btn.querySelector(".lbl").textContent || tile);
+        });
+      });
+
+      document.querySelectorAll(".tab").forEach(function (tab) {
+        tab.addEventListener("click", function () {
+          document.querySelectorAll(".tab").forEach(function (t) {
+            t.classList.remove("on");
+            t.setAttribute("aria-selected", "false");
+          });
+          tab.classList.add("on");
+          tab.setAttribute("aria-selected", "true");
+        });
+      });
+
+      document.querySelectorAll("[data-nav]").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          if (dirty && !applied) { openModal("leaveModal"); return; }
+          toast("Điều hướng: " + btn.getAttribute("data-nav"));
+        });
+      });
+
+      document.getElementById("leaveStay").addEventListener("click", function () { closeModal("leaveModal"); });
+      document.getElementById("leaveClose").addEventListener("click", function () { closeModal("leaveModal"); });
+      document.getElementById("leaveGo").addEventListener("click", function () {
+        dirty = false; closeModal("leaveModal"); toast("Đã rời (proto)");
+      });
+    })();
+  </script>
+</body>
+</html>

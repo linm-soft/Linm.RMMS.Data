@@ -1,129 +1,107 @@
-# Real-data bind — csdl-bieu-04 (Kind B list + Kind D Slideout · culverts)
+# Real-data bind — csdl-bieu-04 (edit_page · T-XLS-S04 export/import)
 
 | | |
 |---|---|
 | feature | `csdl-bieu-04` |
 | packKind | `list` |
-| changeScope | `new_page` |
+| changeScope | `edit_page` |
 | status | `done` |
-| taskId | `task_ea0d8d57` |
+| taskId | `task_584ba7e8` |
+| priorTask | `task_ea0d8d57` (typed CRUD **done** · **cấm** reopen new_page) |
 | resource | `culverts` |
-| prefix | **live shell** `api/v1/asset/csdl-records` · BFF `web-bff/api/v1/asset/csdl-records` · typed DTO **SA** |
-| beRepo | `D:/AI-QLBD/Linm.RMMS.WebService` · **cấm ERP.*** · **cấm** `api/v1/rmms/*` · **cấm** invent `api/v1/infra/*` |
+| prefix | **live** `api/v1/asset/csdl-records` · BFF `web-bff/api/v1/asset/csdl-records` |
+| beRepo | `D:/AI-QLBD/Linm.RMMS.WebService` · **cấm ERP.*** · **cấm** `api/v1/infra/*` |
 | uiRepo | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Asset` |
-| mfeStdUrl | `http://localhost:9301/csdl-bieu-04` · hub `http://localhost:9301/so-ts/csdl-so-sach?resource=culverts` |
-| map | `none` · **cấm** invent map canvas |
-| contentHash | `sha256:7498ad6644d0e599bc40afb7589db5335c18adb4b92f1573de3c1fae2e17d3d6` |
-| headerFingerprint | `sha256:155df2db0952d6e139fbedac748878ecd5c607d506fdf5fccc172f5b0f937024` |
-| sourceTables | shell `rmms_csdl_catalog_records` · typed `Schema_CsdlBieu4` (**SA/migration**) |
-| catalogKind UI schema | `culverts` (typed) · fallback hub `csdl-records` |
+| mfeStdUrl | `http://localhost:9301/so-ts/csdl-so-sach` · alias `/csdl-bieu-04` · hub `?resource=culverts` |
+| map | `none` |
+| contentHash | `sha256:eef182add5b68de5b3e27ec36ed9c099689831aeb77742814aa296bf286243f9` |
+| headerFingerprint | `sha256:8b98f7a22739bdad37b67a7ef869d6c465edc38061f0d5853fe2e69758d4ccea` |
+| sourceTables | typed `Schema_CsdlBieu4` / `rmms_csdl_bieu4` · **không** bảng report store P1 |
+| catalogKind UI schema | `culverts` |
 | IdCode prefix | `CG` |
+| peerSoTs | `so-ts-culvert-x` · deep-link only · **cấm** gộp export |
+| epicCite | `docs/context/features/csdl-export-print.md` · Wave 1 `T-XLS-S04` |
+| golden | Cục `1. Biểu mẫu CSDL.xls` sheet Biểu 4 · **cấm** hồ sơ 12+8 |
+| devSlash | `/implement-export-import-excel` · BFF binary |
 
-## § Delta Current vs New (`new_page` · `task_ea0d8d57`)
+## § Delta Current vs New (`edit_page` · `task_584ba7e8`)
 
 | ID | Current live | New (this analy) |
 |----|--------------|------------------|
-| Form | 3 ô `detail*` polymorphic | Typed 17 cột Excel Biểu 4 |
-| List cols | generic road/km/detail | Cột typed km · khẩu độ · hình · dài · tải · năm · TT |
-| API | `GET/POST/PUT/DELETE …/csdl-records?resource=culverts` | **giữ prefix** · widen payload / typed table — SA |
-| Import | stub | Sheet 17 cột — OUT XLS |
-| Peer | `so-ts-culvert-x` Sổ TS | Deep-link · **cấm** merge form |
+| Form / list | Typed 17 cột Slideout + grid **shipped** · GPS/shape chốt | **Unchanged** |
+| Toolbar | Refresh · Add · History · Schema · View/Edit/Delete — **không** Xuất | **Xuất Excel** (+ Import P1) trên `catalogToolbar` |
+| Filter | `LinErpListFilterBar` field+🔍 | **Unchanged** · **cấm** action Xuất (**GAP-FILTER-BAR-08**) |
+| Export API | Missing / stub · ExcelService Biểu 1–3 | `GET …/csdl-records/export?resource=culverts` → binary (epic · SA) |
+| Import API | Missing / stub for Biểu 4 | `POST …/csdl-records/import?resource=culverts` (P1) |
+| Golden | prior OUT XLS | Cục 16-sheet · sheet Biểu 4 · checksum **17** cột |
+| Peer | `so-ts-culvert-x` deep-link | **Cấm** gộp cột/row Sổ TS vào file Biểu 4 |
+| Done gate | Typed STATUS done | **≠** export xong · cần file mở được cạnh mẫu |
 
 ## §A — Nguồn
 
 | sourceKind | sourceCite | empty | error |
 |------------|------------|-------|-------|
-| `context` | `docs/context/features/csdl-bieu-04.md` | — | version mismatch → gate |
-| `analy` | `specs/_data-analy/csdl-cuc-2026/ANALYSIS-AND-TASKS.md` § Biểu 4 | — | 17 cột SSOT |
-| `demo` | `Linm.RMMS.Demo/.../csdl-so-sach.html` (+ redirect demo) | — | **UI only** · **cấm** SSOT data |
-| `api` · list | `GET …/csdl-records?resource=culverts&…` | empty grid VN | 422 thiếu resource · toast |
-| `api` · detail | `GET …/csdl-records/{id}` | — | 404 → đóng slideout · toast |
-| `api` · CRUD | `POST` / `PUT` / soft `DELETE` | — | validation toast |
-| `entity` | `CsdlCatalogRecordEntity` (shell) | — | tenant `CompanyCode` |
-| `entity` | typed Biểu 4 (**SA**) | — | Schema_CsdlBieu4 pair |
-| `mfe` | hub `CsdlSoSachPage` · form `CsdlFormSlideout` | generic | typed replace |
-| `catalog` | Integration ui-schema `culverts` | bootstrap cols | toast |
-| `excel` | `1. Biểu mẫu CSDL.xls` sheet Biểu 4 | — | import cite · not runtime SSOT |
-| `peer` | `so-ts-culvert-x` · type `CULVERT_X` | — | deep-link only |
-| `derived` | IdCode `CG-yyyyMMdd-nnnn` | — | BE generate |
-
-`sourceCite` = path/controller **có trong repo** hoặc analy Excel cite. **Cấm** invent `api/v1/so-ts/*` · **cấm** ERP.*.
+| `context` | `docs/context/features/csdl-bieu-04.md` | — | version gate |
+| `context` | `docs/context/features/csdl-export-print.md` § Wave 1 · API | — | golden / toolbar rules |
+| `analy` | `specs/_data-analy/csdl-cuc-2026/ANALYSIS-AND-TASKS.md` Biểu 4 | — | 17 cột |
+| `api` · list/CRUD | `GET/POST/PUT/DELETE …/csdl-records?resource=culverts` | empty grid VN | toast 4xx |
+| `api` · **export** | `GET …/csdl-records/export?resource=culverts` (epic · SA chốt) | file 0 row OK | toast · **cấm** fake blob |
+| `api` · **import** | `POST …/csdl-records/import?resource=culverts` | — | validation · 17 cột |
+| `entity` | typed Biểu 4 / `Schema_CsdlBieu4` | — | CompanyCode tenant |
+| `mfe` | `CsdlBieu04Page` · `fromCatalogToolbar` | — | wire export action |
+| `excel` | `1. Biểu mẫu CSDL.xls` sheet Biểu 4 | — | golden · not runtime SSOT |
+| `excel` | Hồ sơ `4.1. In_Mẫu…xlsx` 12 biểu | — | **STALE** · so sánh only |
+| `peer` | `so-ts-culvert-x` · type `CULVERT_X` | — | deep-link only · **cấm** merge export |
 
 ## §B — Bind field (HARD)
 
-| uiField | Label | controlHint | catalogKind | GET | write field | sameMfe |
-|---------|-------|-------------|-------------|-----|-------------|---------|
-| resource | Resource | QS / const | — | required `culverts` | `resource` | yes |
-| search | Tìm | SearchTextInput | — | `?search=` | — | yes |
-| province | Tỉnh | Dropdown | LOOKUP_STATIC | `?province=` | `province` | yes |
-| status | TT | Dropdown | LOOKUP_STATIC | `?status=` | `status` | yes |
-| roadCode | Đường | SearchInput | road-route | `?roadCode=` / detail | `roadCode` (+ display `roadName`) | yes · **GAP-CSDL-ROAD-01** |
-| kmPoint | Km điểm | Number | — | filter / detail | `kmPoint` | yes |
-| code | Mã | Text ro | — | detail `code` | auto | yes |
-| gpsCulvertX | GPS cống X | Number | — | detail | `gpsCulvertX` | yes · **GAP-BIEU04-GPS-01** |
-| gpsCulvertY | GPS cống Y | Number | — | detail | `gpsCulvertY` | yes |
-| gpsRoadX | GPS đường X | Number | — | detail | `gpsRoadX` | yes |
-| gpsRoadY | GPS đường Y | Number | — | detail | `gpsRoadY` | yes |
-| apertureM | Khẩu độ | Number | — | detail / list | `apertureM` | yes |
-| shape | Hình | Dropdown | LOOKUP_STATIC | detail / list | `shape` | yes · **GAP-BIEU04-SHAPE-01** |
-| bodyMaterial | Thân | Dropdown/Text | LOOKUP_STATIC | detail | `bodyMaterial` | yes |
-| inletUpstream | Đầu T.Lưu | Text/Dropdown | — | detail | `inletUpstream` | yes |
-| outletDownstream | Đầu H.Lưu | Text/Dropdown | — | detail | `outletDownstream` | yes |
-| lengthM | Cdài | Number | — | detail / list | `lengthM` | yes |
-| loadClass | Tải | Text/Dropdown | — | detail / list | `loadClass` | yes · **Q-LOAD** |
-| builtYear | Năm | Number | — | detail / list | `builtYear` | yes |
-| manageUnit | ĐV QL | Text | — | detail / list | `manageUnit` | yes · **GAP-CSDL-ORG-01** |
-| notes | Ghi chú | Textarea | — | detail | `notes` | yes |
-| side | Bên | Dropdown | LOOKUP_STATIC | detail | `side` | yes |
-| isActive | Active | — | — | detail | soft-delete | yes |
-| updatedAt | Cập nhật | DateTime ro | — | detail | — | yes |
+### B1 — CRUD fields (**unchanged** — keep prior bind)
 
-**Prefix map:**
+Reuse prior §B (`task_ea0d8d57`): `resource` · filters · typed 17 form fields · GPS four_xy · shape · soft-delete. **Cấm** đổi write paths typed trong pack này.
+
+### B2 — Export / import (**delta**)
+
+| uiField / action | Label | controlHint | catalogKind | GET / POST | write field | sameMfe |
+|------------------|-------|-------------|-------------|------------|-------------|---------|
+| exportExcel | Xuất Excel | ToolbarButton | — | `GET …/export?resource=culverts` (+ filter QS nếu Q-XLS-SCOPE=filtered) | — (download) | **gap** (thiếu nút) |
+| importExcel | Nhập Excel | ToolbarButton + file | — | `POST …/import?resource=culverts` multipart | upsert typed rows | **gap** P1 |
+| exportFileName | — | derived | — | Content-Disposition | — | SA |
+
+**Prefix map (keep + delta):**
 
 | Operation | Path |
 |-----------|------|
-| List | `GET /web-bff/api/v1/asset/csdl-records?resource=culverts` |
-| Detail | `GET /web-bff/api/v1/asset/csdl-records/{id}` |
-| Create | `POST /web-bff/api/v1/asset/csdl-records` body `resource=culverts` + typed fields |
-| Update | `PUT /web-bff/api/v1/asset/csdl-records/{id}` |
-| Delete | `DELETE /web-bff/api/v1/asset/csdl-records/{id}` (soft) |
-
-API mirror: `api/v1/asset/csdl-records`. FE cite hub: `services/csdlSoSach/endpoint.ts` `BASE=/asset/csdl-records` — typed page **reuse** cùng BASE.
+| List / Detail / CRUD | `/web-bff/api/v1/asset/csdl-records` (+ `/{id}`) — **keep** |
+| **Export** | `GET /web-bff/api/v1/asset/csdl-records/export?resource=culverts` |
+| **Import** | `POST /web-bff/api/v1/asset/csdl-records/import?resource=culverts` |
+| API mirror | `api/v1/asset/csdl-records[/export|/import]` · **cấm** invent `/infra/` |
 
 ## §C — Catalog / lookup
 
-| catalogKind | search/list API | seed/import cite | Cấm |
-|-------------|-----------------|------------------|------|
-| LOOKUP_STATIC province | FE `PROVINCES` P1 | demo align | Dropdown demo-only làm SSOT quốc gia |
-| LOOKUP_STATIC status | tot/tb/kem/hong | — | — |
-| LOOKUP_STATIC side | L/R/C/Both | — | — |
-| LOOKUP_STATIC shape | hộp / tròn | Excel Biểu 4 | free-text hình dạng |
-| LOOKUP_STATIC bodyMaterial | BT / BTCT / thép / khác | Excel | — |
-| road-route | `GET /integration/road-routes/search` | shared catalog READY | free-text khi đã chốt SearchInput |
-| org-unit | `GET /integration/org-units/search` | shared org · P2 | hardcode ĐV |
-| ui-schema | Integration `culverts` | Schema editor | generic 3-col only |
+Unchanged prior LOOKUP_STATIC + `road-route` + `org-unit` P2. Export **không** thêm catalogKind.
 
 ## §D — Map / vẽ
 
-`none` — list pack. Toolbar map → gis deep-link only. GPS fields = số liệu form · **không** canvas.
+`none`
 
-## §E — Empty / error / permission
+## §E — Empty / error / permission / export
 
 | Case | UX |
 |------|-----|
-| Empty list | Grid copy VN «Chưa có cống» · CTA Tạo mới |
-| 422 thiếu resource | toast · không alert |
-| 404 detail | đóng slideout · toast |
-| Soft-delete | row biến mất · list refresh |
-| Permission | CommonLib Auth debt · **cấm** invent path |
+| Empty list export | File vẫn tải · 0 data row · header merge đúng mẫu · toast info OK |
+| Export fail | toast · **cấm** silent · **cấm** CSV generic lưới |
+| Peer Sổ TS | **cấm** mix row/cột CULVERT_X vào file Biểu 4 |
+| Permission | Auth debt · **cấm** invent path |
+| Toast stub only | **FAIL** DoD · **GAP-BIEU04-XLS-02** |
 
 ## §F — Cấm
 
-- Demo / localStorage / seed giả làm SSOT runtime  
-- ERP.* / Domains/Master / `api/v1/infra/*` / `api/v1/so-ts/*` invent  
-- Form chỉ 3 ô `detail*`  
-- Merge form Sổ TS `so-ts-culvert-x` vào biểu Cục  
-- Guid làm IdCode  
+- Re-run typed CRUD `new_page` / đổi form 17 cột không gap  
+- Toast stub = done · STATUS typed done = export xong  
+- Xuất/Import trên filter bar (**GAP-FILTER-BAR-08**)  
+- Golden = hồ sơ 12+8  
+- Gộp Sổ TS `so-ts-culvert-x` vào sheet Biểu 4  
+- Demo/localStorage SSOT · ERP.* · invent `infra`  
 - yarn build / e2e ở role data_analy  
 
 ## Version meta (REQUIRED)
@@ -131,17 +109,17 @@ API mirror: `api/v1/asset/csdl-records`. FE cite hub: `services/csdlSoSach/endpo
 | Field | Value |
 |-------|-------|
 | skillId | agent-data-analy |
-| skillVersion | 2026.08.25.01 |
-| schemaVersion | 1 |
-| workflowVersion | 2026.09.01.02 |
-| rulesVersion | 2026.08.31.2 |
-| contentHash | `sha256:7498ad6644d0e599bc40afb7589db5335c18adb4b92f1573de3c1fae2e17d3d6` |
-| headerFingerprint | `sha256:155df2db0952d6e139fbedac748878ecd5c607d506fdf5fccc172f5b0f937024` |
-| generatedAt | 2026-09-05T05:52:43.665Z |
+| skillVersion | 2026.09.05.03 |
+| schemaVersion | 2 |
+| workflowVersion | 2026.09.05.03 |
+| rulesVersion | 2026.09.17.3 |
+| contentHash | `sha256:eef182add5b68de5b3e27ec36ed9c099689831aeb77742814aa296bf286243f9` |
+| headerFingerprint | `sha256:8b98f7a22739bdad37b67a7ef869d6c465edc38061f0d5853fe2e69758d4ccea` |
+| generatedAt | 2026-09-17T19:56:36.427Z |
 | versionGate | ok |
-| taskId | task_ea0d8d57 |
+| taskId | task_584ba7e8 |
 | packKind | list |
-| changeScope | new_page |
+| changeScope | edit_page |
 
 ---
-<!-- Version meta: skillId=agent-data-analy skillVersion=2026.08.25.01 schemaVersion=1 workflowVersion=2026.09.01.02 rulesVersion=2026.08.31.2 versionGate=ok contentHash=sha256:7498ad6644d0e599bc40afb7589db5335c18adb4b92f1573de3c1fae2e17d3d6 -->
+<!-- Version meta: skillId=agent-data-analy skillVersion=2026.09.05.03 schemaVersion=2 workflowVersion=2026.09.05.03 rulesVersion=2026.09.17.3 versionGate=ok contentHash=sha256:eef182add5b68de5b3e27ec36ed9c099689831aeb77742814aa296bf286243f9 changeScope=edit_page taskId=task_584ba7e8 -->

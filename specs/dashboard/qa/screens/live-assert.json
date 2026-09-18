@@ -1,0 +1,52 @@
+{
+  "hasPage": true,
+  "filterBar": true,
+  "map": true,
+  "top": true,
+  "configModal": true,
+  "configTitle": true,
+  "kpis": [
+    {
+      "id": "rmms-dashboard-kpi-tuan-duong",
+      "text": "Tuần đường 0"
+    },
+    {
+      "id": "rmms-dashboard-kpi-tuan-kiem",
+      "text": "Tuần kiểm 0"
+    },
+    {
+      "id": "rmms-dashboard-kpi-bao-lu",
+      "text": "Bão lũ 0"
+    },
+    {
+      "id": "rmms-dashboard-kpi-tai-nan",
+      "text": "TNGT 0"
+    },
+    {
+      "id": "rmms-dashboard-kpi-vi-pham",
+      "text": "Vi phạm HL 0"
+    },
+    {
+      "id": "rmms-dashboard-kpi-cong-viec",
+      "text": "Công việc 0"
+    },
+    {
+      "id": "rmms-dashboard-kpi-inc-open",
+      "text": "Sự cố mở 0"
+    },
+    {
+      "id": "rmms-dashboard-kpi-coverage",
+      "text": "Coverage 0"
+    },
+    {
+      "id": "rmms-dashboard-kpi-road-len",
+      "text": "Chiều dài QL 0"
+    },
+    {
+      "id": "rmms-dashboard-kpi-pci",
+      "text": "PCI TB 0"
+    }
+  ],
+  "hasDigitAfterView": true,
+  "bodyHasCreateBadge": false
+}

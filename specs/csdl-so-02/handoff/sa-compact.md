@@ -5,87 +5,78 @@
 | schemaVersion | `1` |
 | role | `sa` |
 | feature | `csdl-so-02` |
-| title | CSDL Sổ 02 — Nhật ký tuần đường |
+| title | CSDL Sổ 02 — Nhật ký tuần đường (CR PDF Wave A) |
 | packKind | `list` |
-| changeScope | `new_page` |
+| changeScope | `edit_page` |
 | status | `done` |
-| taskId | `task_c4f160af` |
+| taskId | `task_e5236699` |
+| cr | `nktd-pdf-20260917` · `SRC-NKTD-PDF` |
 | resource | `patrol-logs` |
 | formNo | `02` |
 | IdCode | `SO-` |
-| formPattern | **Kind D Slideout** 2col · entries `inline_grid` · **cấm** Full-page |
-| Kind | **B** A–D+F+H · **D** Slideout Z1–Z3 |
-| solution_confirm | **approve** (autoApprove ON) |
-| domain | **Asset** · `api/v1/asset/csdl-records` |
-| bff | proxy only · `web-bff/api/v1/asset/csdl-records` |
-| entity | shell `CsdlCatalogRecordEntity` + typed `CsdlSo02Entity` · `rmms_csdl_so02` · widen `CsdlBookEntryEntity` · Schema_CsdlSo02 |
+| solution_confirm | `approve` |
+| autoApprove | `ON` |
+| e2eQa | `ON` (queued `/agent-qa*`) |
 | sa_tz_gate | `tz_list_and_form` |
 | sa_xco_gate | `xco_get_only` |
 | sa_shared_table | `share_tenant` |
-| contentHashPrior | `sha256:70538d9c9588d335aa43fd5a1fe28433d1138960d5954c5a7ef4cff33a5bd1c3` |
-| headerFingerprintPrior | `sha256:5da56778e38ecc53807d424082520372c7bbed355257bdacfa0457dba0036e3c` |
+| domain | `Asset` |
+| contentHashPrior | `sha256:3ddc42d7c4404f439925322953f28ffc9d3b263726ac6cf5216065751c19b4d6` |
+| headerFingerprintPrior | `sha256:1b032f04f5154622239e0e2bdbebe6923ec76ba9ca33d283b51ebe0062c0d471` |
 | skillVersion | `2026.08.25.01` |
 | workflowVersion | `2026.09.01.02` |
 | rulesVersion | `2026.08.31.2` |
-| writtenAt | `2026-09-06T00:16:00.000Z` |
+| writtenAt | `2026-09-18T03:50:00.000Z` |
+
+## Artifacts
+
+| Kind | Path |
+|------|------|
+| solution | `specs/csdl-so-02/be/solution-discovery.md` |
+| design compact | `specs/csdl-so-02/handoff/design-compact.md` |
+| po compact | `specs/csdl-so-02/handoff/po-compact.md` |
+| data_analy compact | `specs/csdl-so-02/handoff/data_analy-compact.md` |
+| prior SA new_page | `task_c4f160af` · **giữ** |
+| CR task | `specs/_cr/nktd-pdf-20260917/task-csdl-so-02.md` |
+
+## Live bind (1-liner)
+
+- API: `api/v1/asset/csdl-records?resource=patrol-logs` · **giữ** · widen `locationText` · **cấm** invent patrol-logs / ERP.*
+- Entry: **+** `LocationText` nvarchar(512) on `CsdlBookEntryEntity` · **cấm** reuse Sổ01 `Location`
+- Migration: **`Schema_CsdlSo02LocationText`** CLI pair (Dev/4b only)
+- Validation: eventAt + (Km **OR** text) + weather · View no-req
+- UI: locationText Text · weather Textarea · list cột «Vị trí»
+- File: **GAP-SO02-FILE-01** · Report Wave B **park**
+- BFF: proxy only · gates TZ/XCO/SHARE **giữ**
 
 ## Decisions
 
-- changeScope=`new_page` · packKind=`list` · Kind B+D Slideout · typed T-SO-02 · **cấm** detail*/col1–3 only
-- API **giữ** `api/v1/asset/csdl-records` · BFF proxy · **cấm ERP.*** · **cấm** invent infra/so-ts
-- Persist: shell + **Schema_CsdlSo02** 1:1 + widen entries · FileService sketch/media max 10 · **cấm** parent *Json
-- Q-FORMNO label Sổ 02 · Q-STATUS tot/tb/kem/hong · Q-PROV keep_static · Q-CONTRACTOR Text P1 · Q-SKETCH optional
-- Alias `/csdl-so-02` + hub · road-route SearchInput P1 · org/partner **DEFER P2** · XLS **OUT** · map none
-- Gates: tz_list_and_form · xco_get_only · share_tenant
-- DOMAIN-MAP add `csdl-so-02`→Asset (T-DM-01)
-- open questions: **none**
+- changeScope `edit_page` · solution_confirm **approve** (autoApprove)
+- FormMode↔API: list/create/edit/view/copy/delete **giữ** · body + `entries[].locationText`
+- OR-rule FE+BE soft · list prefer text else Km
+- **giữ** new_page ownership/routes/IdCode · **cấm** wipe
 
-## Inventory (slim)
+## GAP / debt / OUT
 
-| id | label | controlHint | write |
-|----|-------|-------------|-------|
-| search | Tìm | SearchTextInput | filter |
-| province/status | Tỉnh/TT | Dropdown | shell LOOKUP_STATIC |
-| roadCode | Đường | SearchInput | shell + road-route |
-| fromDate/toDate | Kỳ | Date | filter period · TZ |
-| code | Mã | Text ro | shell SO- |
-| bookNo/contractor | Số quyển/NT | Text | shell req |
-| roadCode/roadName | Đường | SearchInput+display | shell req |
-| kmFrom/kmTo | Km | Number | shell |
-| patrolStaff | NV tuần | Text | typed req |
-| periodStart/End | Kỳ sổ | Date | typed · TZ |
-| manageUnit/notes | ĐV/GC | Text/Textarea | shell |
-| entries.* | Dòng NK | DateTime/Text/Textarea/File | entry widen · FileService |
-
-## Screens / zones (ids only)
-
-- S-LIST · S-FORM-C/E/V/Copy · S-ENTRIES · S-ACT-DELETE · S-HUB-ENTRY · S-SKIP-MAP
-- mfeStdUrl=`http://localhost:9301/csdl-so-02`
-- hub=`http://localhost:9301/so-ts/csdl-so-sach?resource=patrol-logs`
-
-## API / tasks (ids only)
-
-- FormMode↔API: list/C/E/V/Copy ↔ GET/POST/PUT · soft DELETE · LKP road-route · FileService
-- T-DM-01 · T-BE-01..06 · T-BFF-01 · T-FE-01..07 · T-OUT-01 → TL
-
-## UNCLEAR
-
-- none
-
-## Full paths
-
-- solution: `specs/csdl-so-02/be/solution-discovery.md`
-- design: `specs/csdl-so-02/ui/design.md`
-- prior compact: `handoff/design-compact.md` · `po-compact.md` · `data_analy-compact.md`
+| ID | SA |
+|----|-----|
+| **GAP-NKTD-LOC-01** | LocationText DTO + schema + OR |
+| GAP-NKTD-WEATHER-01 | Textarea UI · field giữ |
+| **GAP-SO02-FILE-01** | text-id debt |
+| GAP-NKTD-RPT-PARK | OUT Wave A |
 
 ## Next
 
 | Role | Need |
 |------|------|
-| **TL** | task/csdl-so-02.md · T-* · gates |
-| Dev | Schema_CsdlSo02 · typed DTO · alias page · Slideout + entries |
-| QA | e2e queued `/agent-qa*` |
+| **TL** | T-BE-LOC-* · T-FE-LOC-* từ CR task · **cấm** overwrite `task/csdl-so-02.md` |
+| Dev | entity+migration+DTO+OR · form+list · UiSchema seed |
+| QA | e2e queued `/agent-qa*` only |
+
+## UNCLEAR
+
+- none
 
 ## Cấm (compact)
 
-ERP.* · invent API · detail*/col1–3 only · Guid IdCode · merge Sổ TS · parent *Json · Step 4b/migration/e2e/build/start:std ở SA · Write MFE · re-scan demo
+ERP.* · invent patrol-logs API · reuse `Location` · wipe new_page · invent file API · report Wave B · Write MFE · yarn build/e2e/start:std · Step 4b/migration @ SA

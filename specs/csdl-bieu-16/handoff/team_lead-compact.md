@@ -1,84 +1,90 @@
-# handoff-compact — team_lead · csdl-bieu-16
+# Handoff compact — team_lead
 
-| | |
-|--|--|
-| schemaVersion | `1` |
-| role | `team_lead` |
-| feature | `csdl-bieu-16` |
-| title | CSDL Biểu 16 — Nút giao |
-| packKind | `list` |
-| changeScope | `new_page` |
-| status | `done` |
-| taskId | `task_4dfa0ca5` |
-| saTaskId | `task_5c3d4c6b` |
-| resource | `interchanges` |
-| formNo | `16` |
-| columns | `39` · header + child branches[] + ATGT |
-| IdCode | `IX-` |
-| peerSoTs | `so-ts-interchange` · **cấm** merge · none_p1 |
-| child | `branches[]` embed · **min_1** · replace-all · **cấm** flatten-only |
-| formPattern | **Kind D Slideout** 2col · 5 section + BRANCH · **cấm** Full-page |
-| Kind | **B** A–D+F · **D** Slideout Z1–Z3 + BRANCH |
-| route_confirm | **`route_a`** `/csdl-bieu-16` + hub NEW |
-| team_lead_confirm | **approve** (autoApprove ON) |
-| design_confirm | approve |
-| solution_confirm | approve |
-| autoApprove | `ON` |
-| e2eQa | `ON` (queued `/agent-qa*` only) |
-| domain | **Asset** · `api/v1/asset/csdl-records` |
-| entity | shell + `CsdlBieu16Entity` + Branch · `Schema_CsdlBieu16` |
-| gates | tz_na · xco_get_only · share_tenant |
-| contentHashPrior | `sha256:56e2fb16e9bcde21f17d7e9639b72660666778f5393b1270cecc49d123beba4b` |
-| headerFingerprintPrior | `sha256:ec787bf2008ae89f1b6c085fe238f1b0d50b048f5c672b90b68d9ea102cf8fcc` |
-| skillVersion | `2026.08.25.01` |
-| workflowVersion | `2026.09.01.02` |
-| rulesVersion | `2026.08.31.2` |
-| writtenAt | `2026-09-05T17:05:00.000Z` |
+schemaVersion: 1
+feature: csdl-bieu-16
+packKind: list
+role: team_lead
+status: done
+changeScope: edit_page
+skillVersion: 2026.08.25.01
+workflowVersion: 2026.09.01.02
+rulesVersion: 2026.09.17.3
+contentHash: sha256:c71543b66c4f1d28f5dbae1743c1042e0bb9f12ab9c0efc55d9668af2a38e072
+headerFingerprint: sha256:ec787bf2008ae89f1b6c085fe238f1b0d50b048f5c672b90b68d9ea102cf8fcc
+writtenAt: 2026-09-18T03:30:00.000Z
+taskId: task_1793bfbe
+priorTyped: task_4dfa0ca5 · keep · review task_628c95a5 PASS
+priorSa: task_17aa79d5
+priorDesign: task_4db008e6
+priorPo: task_de6499fc
+priorAnaly: task_e344020d
+resource: interchanges
+columns: 39
+IdCode: IX-
+formNo: 16
+peerSoTs: so-ts-interchange · cấm merge
+autoApprove: ON
+e2eQa: ON (queued QA)
+route_confirm: route_a (keep)
+team_lead_confirm: approve
+design_confirm: approve
+solution_confirm: approve
+epic: csdl-export-print · T-XLS-S16
+devSlash: /implement-export-import-excel
+gates: tz_na · xco_get_only · share_tenant
 
 ## Decisions
+- changeScope: edit_page (T-XLS-S16) · typed CRUD **keep** · **cấm** reopen new_page
+- export: GET …/csdl-records/export?resource=interchanges · BFF binary · filename `Bieu16_NutGiao_{yyyyMMdd}.xls`
+- Q-XLS-SCOPE=filtered · IMPORT=export_only_p0 · SHEET=name_cuc «Biểu 16» · BRANCH=header_blank · flatten 1 row/nhánh
+- toolbar Xuất · Import ẩn · **cấm** filter-bar export · toast stub ≠ done · golden Cục 16-sheet · cấm 12+8
+- Schema_CsdlBieu16+Branch keep · **cấm** migration/entity change @ XLS · **cấm** ERP.* · **cấm** merge peer/road-assets
+- route_a keep · mfeStdUrl hub/alias keep · **cấm** invent URL
+- open questions: **none**
 
-- changeScope=`new_page` · packKind=`list` · typed **39** · child `branches[]` **min_1** · **cấm** detail* only · **cấm** 2 catalog entity · **cấm** flatten-only
-- route_confirm **route_a** alias `/csdl-bieu-16` + hub NEW `?resource=interchanges`
-- Q-ROUTE alias_now · Q-PROV keep_static · Q-TYPE-SET cite_excel · Q-TRAFFIC-ORG lookup · Q-ATGT qty · Q-BRANCH-MIN min_1 · Q-KM point_main · Q-MANAGE in_39 · Q-PREFIX IX · Q-LIST-COLS subset · Q-TITLE nut_giao · Q-DMAP add_now · Q-PEER-LINK none_p1 · Q-CHILD-API embed
-- Persist shell + Schema_CsdlBieu16 1:1 + Branch 1–n · migration **Dev/4b** · **cấm** parent *Json · **cấm** nested branch API P1
-- API **giữ** `asset/csdl-records` · BFF proxy · **cấm ERP.***
-- road-route SearchInput P1 · org/XLS **OUT/DEFER** · peer cite only · **cấm** merge so-ts-interchange · map none · GAP-CSDL-CUC-09/11 · GAP-BIEU16-HUB-01
-- Grid AC YES · Leave YES · Report N/A
-- open Q: **none**
+## Tasks (ids)
+| ID | Owner | Notes |
+|----|-------|-------|
+| T-XLS-S16-BE-01 | BE | GET export binary · filtered · 39 · flatten · header_blank |
+| T-XLS-S16-BFF-01 | BFF | proxy binary · QS forward |
+| T-XLS-S16-FE-01 | FE | catalogToolbar Xuất · cấm filter-bar · Import ẩn |
+| T-XLS-S16-FE-02 | FE | download `.xls` · empty/fail · cấm stub done |
+| T-XLS-S16-QA-01 | QA | golden 39 flatten · filtered · 0-row · queued e2e |
+| T-XLS-S16-BE-02 | BE | POST import — OUT / DEFER P1 |
 
 ## Artifacts
-
 | Kind | Path |
 |------|------|
-| task | `specs/csdl-bieu-16/task/csdl-bieu-16.md` |
-| solution | `specs/csdl-bieu-16/be/solution-discovery.md` |
-| design | `specs/csdl-bieu-16/ui/design.md` |
-| STATUS | `specs/csdl-bieu-16/STATUS.md` |
+| task | specs/csdl-bieu-16/task/csdl-bieu-16.md |
+| prior sa compact | specs/csdl-bieu-16/handoff/sa-compact.md |
+| solution | specs/csdl-bieu-16/be/solution-discovery.md |
 
-## Task matrix (ids)
+## Screens / zones (ids)
+- DES-GRID-A/B/C/D/F/Z keep · B **+DES-EXPORT** · B-FILTER unchanged · DES-FORM-BRANCH keep
+- S-XLS-EXPORT · S-XLS-IMPORT hidden · S-SKIP-PEER/MAP
+- mfeStdUrl= http://localhost:9301/so-ts/csdl-so-sach · alias /csdl-bieu-16 · hub ?resource=interchanges
 
-T-DM-01 · T-CTX-01 · T-BE-01..06 · T-BFF-01 · T-PERM-01 · T-BE-UISCHEMA-01 · T-UI-LIST/FILTER/CFG/FORM/LEAVE/ACT/LKP/FIELD/PROD/UX/RESP · T-OUT-01/02 · T-QA-CRUD/FORM/FILTER/BRANCH/MAIN/ATGT/TYP/TAB/ROUTE
+## Live bind
+- CRUD keep: api/v1/asset/csdl-records?resource=interchanges · branches[] embed
+- Export: GET …/csdl-records/export?resource=interchanges (+ filter QS · no page)
+- Import DEFER · cấm ERP.* · toast-stub=done · merge peer
 
-SA map: T-FE-01→LIST · 02→FILTER · 03→FORM · 04→LKP · 05→PROD · 06→LEAVE+ACT · T-BE-01 entity+Branch · 02 migr · 03 DTO/embed · 04 IdCode/min_1 · 05 list · 06 soft/UiSchema
-
-## Screens / zones (ids only)
-
-- S-LIST · S-FORM-C/E/V/Copy · S-ACT-DELETE · S-HUB-ENTRY · S-SKIP-PEER · S-SKIP-MAP · DES-FORM-BRANCH
-- mfeStdUrl=`http://localhost:9301/csdl-bieu-16`
-- hub=`http://localhost:9301/so-ts/csdl-so-sach?resource=interchanges`
+## GAP
+| ID | One-liner |
+|----|-----------|
+| GAP-BIEU16-XLS-01 | Toolbar Xuất binary |
+| GAP-BIEU16-XLS-02 | Toast stub ≠ done |
+| GAP-BIEU16-XLS-03 | Golden Cục 16-sheet · cấm 12+8 |
+| GAP-BIEU16-XLS-04 | Cấm filter-bar export |
+| GAP-BIEU16-XLS-05 | GET export (+ QS) |
+| GAP-BIEU16-XLS-06 | 1 sheet 39 · flatten · header_blank |
+| GAP-BIEU16-XLS-07 | Cấm merge peer/road-assets |
 
 ## Next
-
 | Role | Need |
 |------|------|
-| **Dev** | implement · T-* · Schema_CsdlBieu16 @ 4b · typed 39 + Branch · hub NEW |
-| QA | e2e queued `/agent-qa*` |
-| Review | after QA |
-
-## UNCLEAR
-
-- none
+| **Dev** | /implement-export-import-excel · T-XLS-S16-BE/BFF/FE · flatten branches |
+| QA | queued /agent-qa* · T-XLS-S16-QA-01 |
 
 ## Cấm (compact)
-
-ERP.* · invent API/infra · detail* only · Guid IdCode · flatten-only · merge so-ts-interchange/road-assets · parent *Json · 2 catalog entity · nested branch API P1 · implement code ở TL · Step 4b/migration/e2e/build/start:std ở TL · start role khác
+ERP.* · invent infra · toast=done · filter-bar export · golden 12+8 · merge peer · new_page reopen · Import P0 · yarn build/e2e/start:std @ TL · implement code @ TL

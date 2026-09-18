@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "1",
+  "feature": "map-service",
+  "skillId": "agent-review",
+  "skillVersion": "2026.09.05.03",
+  "workflowVersion": "2026.09.05.03",
+  "rulesVersion": "2026.09.17.2",
+  "reviewHash": "f59c7fa5afb6b70a28290c66773fb3e7bf3235a6e025bc84735d6fc234ea1512",
+  "status": "done",
+  "versionGate": "ok",
+  "mode": "review_only",
+  "reviewConfirm": "accept",
+  "changeScope": "edit_page",
+  "gap": "osrm_self_host",
+  "packKind": "map",
+  "findings": {
+    "P0": 0,
+    "P1": 0,
+    "P3": 3
+  },
+  "generatedAt": "2026-09-17T02:20:00+07:00",
+  "taskId": "task_1028a7b7",
+  "hashInputs": [
+    "specs/map-service/handoff/dev-compact.md",
+    "specs/map-service/handoff/qa-compact.md",
+    "specs/map-service/qa/scenarios.md",
+    "Linm.Web.RMMS.Gis/src/shared/map/osrmCenterline.ts",
+    "Linm.Platform.MapService/docker-compose.yml"
+  ]
+}

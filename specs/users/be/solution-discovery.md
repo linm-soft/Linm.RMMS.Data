@@ -5,18 +5,20 @@
 | feature | `users` |
 | changeScope | `edit_page` |
 | packKind | `list` |
-| Feature Kind | **B** — catalog A–D + tree master + **full-page** form (`UsersFormPage`) · **cấm** Slideout |
+| Feature Kind | **B** — catalog A–D + tree + **full-page** form · **cấm** Slideout |
 | status | `confirmed` |
-| solution_confirm | **approve** (`autoApprove=ON` · `task_810854fa`) |
-| design_confirm | **approve** (cùng autopilot — Design regen A–D + reviewUrl) |
+| solution_confirm | **approve** (`autoApprove=ON` · `task_9e90aa92`) |
+| design_confirm | **approve** (prior Design · `task_141a68a1`) |
 | domain | **Integration** (DOMAIN-MAP slug `users`) |
-| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · **`api/v1/integration/users`** |
+| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · **`api/v1/integration/users`** + LKP **`job-titles`** |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Integration` · `/integration/users` |
-| prior | PO `confirmed` · Design `confirmed` · data-analy `sha256:0e46bf2c8b232a40f403e2777ef387f8cdea1b04edafa0c04edbca1bb07024b1` |
-| updatedAt | `2026-08-15T08:41:00.000Z` |
-| taskId | `task_810854fa` |
+| prior | data_analy `confirmed` · PO `confirmed` · Design `confirmed` · contentHash `sha256:8bd9897e1ab2483fdb96e9a37492d87c38c7e709c2e3df118c7b884f5d4bb257` |
+| priorSa | `task_810854fa` KEEP (CRUD · `?route=` · validate Routes/Org/Managed) |
+| updatedAt | `2026-09-18T16:17:00.000Z` |
+| taskId | `task_9e90aa92` |
+| title | Users — chức vụ lookup (job-title) |
 
-**Cấm:** `ERP.Service.*` · `ERP.WebService` · `Domains/Master` · `api/v1/rmms/*` · parent JSON / `*Json` blob · invent domain ngoài Integration.
+**Cấm:** `ERP.Service.*` · `ERP.WebService` · `Domains/Master` · `api/v1/rmms/*` · open-api · parent JSON · invent package Cục/VP · invent domain ngoài Integration · master CRUD job-title trong pack này.
 
 Standards: api-endpoint · bff-api-structure · company-field · database-migration · api-permission-gate · repo-path-guard · **no-parent-json-field** · **ssot-no-duplicate** · **sa-implement-gates** (TZ · XCO · SHARE).
 
@@ -26,23 +28,24 @@ Standards: api-endpoint · bff-api-structure · company-field · database-migrat
 
 | Layer | Path |
 |-------|------|
-| API | `api/src/RMMS.Service.Api/Domains/Integration/` · `AppUsersController` |
-| Service | `Domains/Integration/Services/AppUserService` · `IAppUserService` |
-| Models | `api/domains/integration/LINM.RMMS.Integration.Models/DTOs/AppUserDtos.cs` |
+| API | `Domains/Integration/` · `AppUsersController` |
+| Service | `AppUserService` · `IAppUserService` |
+| Models | `LINM.RMMS.Integration.Models/DTOs/AppUserDtos.cs` |
 | Persistence | `rmms_users` · `AppUserEntity` · tenant `CompanyCode` |
-| Migrations | `api/shared/RMMS.Service.Migrations/` — Schema_RmmsUsers **DONE** (không bảng mới) |
-| BFF | `bff/domains/integration/LINM.RMMS.Integration.Bff/Controllers/AppUsersBffController.cs` · **proxy-only** |
-| MFE | `Linm.Web.RMMS.Integration` |
-| Lookups reuse | org-units · road-routes (master packs, cùng domain Integration) |
+| Migrations | `RMMS.Service.Migrations/` — Schema_RmmsUsers **DONE** + **DELTA** cột `job_title_code` |
+| BFF | `AppUsersBffController` + **DELTA** proxy LKP `job-titles` (khi master live / stub) |
+| MFE | `Linm.Web.RMMS.Integration` · UsersList/Form |
+| LKP peer | `api/v1/integration/job-titles` · soft **GAP-JOB-05** stub OK |
 
 ### Route decision (DOMAIN-MAP)
 
 | | Choice |
 |--|--------|
 | Slug | `users` → **Integration** |
-| API prefix | `api/v1/integration/users` |
-| BFF prefix | `web-bff/api/v1/integration/users` |
-| Rationale | Live controller đã đúng DOMAIN-MAP — **không** đổi prefix |
+| API | `api/v1/integration/users` |
+| BFF | `web-bff/api/v1/integration/users` |
+| LKP | `api/v1/integration/job-titles` (+ `/search`) · BFF same · **cấm** ERP / `rmms/*` |
+| Rationale | Live users đúng DOMAIN-MAP; job-title = peer Integration catalog (master pack) |
 
 ---
 
@@ -50,29 +53,29 @@ Standards: api-endpoint · bff-api-structure · company-field · database-migrat
 
 | Gate | Decision | Note |
 |------|----------|------|
-| sa_tz_gate | **tz_na** | Không DATE range filter. `CreatedAt`/`UpdatedAt` UTC store · FE display local |
-| sa_xco_gate | **xco_na** | GET/{id} cùng tenant `CompanyCode` — không cross-company view P1 |
+| sa_tz_gate | **tz_na** | Không DATE range filter job-title |
+| sa_xco_gate | **xco_na** | GET/{id} cùng tenant — không cross-company P1 |
 | sa_shared_table | **tenant_a** (`tenant_keep`) | `AppUserEntity` : `TenantEntity` · filter `CompanyCode` |
-| Org tree | **Reuse** `api/v1/integration/org-units/tree` (`share_a` master) — **không** duplicate schema org |
-| Road-route | **Reuse** `api/v1/integration/road-routes/search` (`share_a`) |
-| Auth host | GAP-F-USR-01 **P2 không block** — host tạm Integration |
+| job-title catalog | **share_a** (reuse master) | **không** duplicate schema job-title trên users |
+| Org / road-route | **Reuse** prior SA | KEEP |
+| Auth / ProfileTab | GAP-F-USR-01 / GAP-JOB-06 | **boundary** · P1 **không block** staff list/form |
 
 ---
 
-## 3. Live vs delta (audit 2026-08-15)
+## 3. Live vs delta (audit 2026-09-18)
 
 | Surface | Live BE | SA chốt P1 |
 |---------|---------|------------|
-| CRUD list/get/create/update/soft-delete | **DONE** | Giữ |
-| init-data roles/statuses/orgs | **DONE** | Giữ · **enum value SSOT = live BE** (§5) |
-| change-password / assign-routes / managed-users | **DONE** body CSV | Giữ persist CSV · UI SearchInput (Dev) |
-| `GET …/users?search=&status=&role=&orgCode=` | **DONE** | Giữ; `search` đã match `RoutesCsv` |
-| `GET …/users?route=` | **MISSING** | **DELTA** filter exact/contains code trong `RoutesCsv` |
-| Validate `RoutesCsv` ∈ 38 CUC2 | **MISSING** (free string) | **DELTA** 422 nếu code không thuộc `rmms_road_routes` active |
-| Validate `OrgCode` ∈ org-units | **MISSING** (free string) | **DELTA** 422 nếu không thuộc catalog org |
-| Validate `ManagedUserIdsCsv` ∈ users cùng tenant | **MISSING** | **DELTA** 422 id lạ / self-id |
-| BFF querystring forward | **DONE** (`BuildListPath`) | Delta `?route=` **không** cần endpoint BFF mới |
-| Form pattern | — | **Full-page** — **cấm** Slideout (sửa handoff SA cũ) |
+| CRUD · init-data · change-password · assign-routes · managed-users | **DONE** (prior) | **KEEP** |
+| `GET ?route=` · validate RoutesCsv / OrgCode / ManagedUserIdsCsv | **DONE** (prior) | **KEEP** |
+| Free-text `JobTitle` string on entity/DTO | **DONE** | **KEEP cột** · **đổi semantics** = denormalize catalog `name` |
+| `JobTitleCode` / `job_title_code` | **MISSING** | **DELTA** persist code · FK logical → job-titles |
+| List DTO expose `jobTitleCode` (+ resolved name) | **MISSING** | **DELTA** |
+| `GET …/users?jobTitleCode=` | **MISSING** | **DELTA** Zone B filter exact code |
+| Validate `jobTitleCode` ∈ catalog active | **MISSING** | **DELTA** 422 khi LKP live; stub skip soft |
+| LKP `job-titles` list/search | **GAP-JOB-05 soft** | Stub OK · contract chốt dưới |
+| BFF QS forward `jobTitleCode` | list BFF raw QS | **không** endpoint BFF users mới |
+| ProfileTab / Auth Position | free text | **out of pack P1** · boundary GAP-JOB-06 |
 
 ---
 
@@ -80,209 +83,143 @@ Standards: api-endpoint · bff-api-structure · company-field · database-migrat
 
 | Screen / FormMode | Fields (UI) | Source type | Entity |
 |-------------------|-------------|-------------|--------|
-| List Zone B | search · role · status · route · orgCode (tree) · page · pageSize | query | — |
-| List Zone C | grid + tree | master + tenant users | `AppUserEntity` + org tree |
-| Create / Edit / Copy | § field map | tenant | `AppUserEntity` |
-| View | same · **`<dl>` display** | tenant | `AppUserEntity` |
-| Password modal | current/new/confirm | command | `PasswordHash` |
-| Assign routes modal | routesCsv SearchInput multi | command | `RoutesCsv` |
-| Managed users modal | managedUserIdsCsv SearchInput multi | command | `ManagedUserIdsCsv` |
+| List Zone B | KEEP + **`jobTitleCode`** SearchInput `catalogKind=job-title` | query | — |
+| List Zone C | KEEP + cột **Chức vụ** = name(`jobTitleCode`) · **≠** roleCode | tenant + LKP | `AppUserEntity` |
+| Create / Edit / Copy | KEEP + **`jobTitleCode`** SearchInput peer `orgCode` | tenant + LKP | `AppUserEntity` |
+| View | same · **`<dl>`** Chức vụ = name | tenant | `AppUserEntity` |
+| Password / Assign routes / Managed | KEEP | command | prior |
+| Profile / switch | SearchInput catalog | Auth boundary | **P1 skip** · GAP-JOB-06 |
 
-### Field map (ui → dto → db)
+### Field map — delta (ui → dto → db)
 
 | uiField | Label VN | dtoField | dbColumn | Notes |
 |---------|----------|----------|----------|-------|
-| code | Mã người dùng | Code | `code` | IdCode `USR-YYYYMMDD-NNNN` server-gen · unique/company |
-| username | Tên đăng nhập | Username | `username` | unique/company · required |
-| fullName | Họ và tên | FullName | `full_name` | required |
-| email | Email | Email | `email` | required |
-| phone | Số điện thoại | Phone | `phone` | nullable |
-| orgCode | Tổ chức | OrgCode | `org_code` | SearchInput `org-unit` · **cấm** Select · validate catalog |
-| roleCode | Vai trò / Cấp | RoleCode | `role_code` | SearchInput enum init-data |
-| status | Trạng thái | Status | `status` | `active` \| `locked` |
-| routesCsv | Tuyến được phân | RoutesCsv | `routes_csv` | persist **CSV codes** · UI SearchInput multi `road-route` · **cấm** parent JSON |
-| managedUserIdsCsv | Cán bộ thuộc QL | ManagedUserIdsCsv | `managed_user_ids_csv` | persist **CSV Guid** · UI SearchInput multi `users` |
-| password | Mật khẩu khởi tạo | Password | `password_hash` | create/copy only · không trả GET |
-| updatedAt | Cập nhật | UpdatedAt | `updated_at` | UTC · View display |
-| — | tenant | CompanyCode | `company_code` | header `X-Company-Id` |
-| — | soft delete | IsActive | `is_active` | DELETE → false |
+| jobTitleCode | Chức vụ | JobTitleCode | `job_title_code` | string code · **cấm** Guid · MaxLength 64 · SearchInput LKP |
+| jobTitle (display) | Chức vụ (name) | JobTitle | `job_title` | **denormalize** = catalog `name` at write · grid/View fallback |
+| roleCode | Vai trò | RoleCode | `role_code` | **KEEP** · **≠** chức vụ |
 
-**Persist:** flat scalars only — **cấm** `RoutesJson` / nested parent JSON.
+**Persist write rule:** client gửi `jobTitleCode` → BE resolve name từ LKP (hoặc stub seed) → set `JobTitle` = name · **cấm** nhận free-text JobTitle thay code trên form P1.  
+**Cấm** parent JSON / `*Json` blob.
 
----
+### FormMode ↔ API
 
-## 5. Enum SSOT (API — chốt live BE)
-
-Design prototype dùng kebab (`admin` / `ban-tk`). **SA chốt value persist = live `AppUserService` init-data** (đã có data). TL/Dev **map label VN**, không đổi code sang kebab.
-
-**roleCode**
-
-| value (API) | Label VN |
-|-------------|----------|
-| `Admin` | Admin |
-| `Ban.TK` | Ban.TK |
-| `KyThuat` | Kỹ thuật |
-| `VanPhong` | Văn phòng |
-
-**status**
-
-| value (API) | Label VN (Design) | Live init-data label |
-|-------------|-------------------|----------------------|
-| `active` | Đang dùng | Hoạt động — **TL chốt 1 label** = Design «Đang dùng» trên UI; API value giữ `active` |
-| `locked` | Khóa | Đang khóa — UI «Khóa» |
-
-**GAP-SA-USR-ENUM:** prototype kebab **không** persist. Dev bind SearchInput `value` = bảng trên.
+| FormMode | HTTP | Path | Body / QS notes |
+|----------|------|------|-----------------|
+| List | GET | `/users?…&jobTitleCode=` | + filter exact code · page=1 khi đổi filter |
+| Create / Copy | POST | `/users` | body + `jobTitleCode` · server denorm `JobTitle` |
+| Edit | PUT | `/users/{id}` | body + `jobTitleCode` |
+| View / load | GET | `/users/{id}` | response `jobTitleCode` + `jobTitle` |
+| LKP typeahead | GET | `/job-titles/search?search=` | SearchInput Zone B + form |
+| LKP page | GET | `/job-titles?search=&titleGroup=` | optional |
 
 ---
 
-## 6. API catalog
+## 5. Enum / catalog SSOT
 
-Base: `api/v1/integration/users` · BFF `web-bff/api/v1/integration/users`.  
-Permission (Auth stub): `integration.users.read|create|update|delete`.  
-Tenant: filter `CompanyCode` từ `X-Company-Id`.  
+**roleCode / status** — KEEP prior SA (live init-data values).
+
+**jobTitleCode** — seed SSOT `docs/context/seed/job-title-seed.json` (19):
+
+`TRUONG-VP` · `PHO-TRUONG-VP` · `DOI-TRUONG` · `DOI-PHO` · `PHU-TRACH-DOI` · `HAT-TRUONG` · `HAT-PHO` · `GIAM-DOC` · `PHO-GIAM-DOC` · `TRUONG-PHONG` · `PHO-PHONG` · `TO-TRUONG` · `TRUONG-CA` · `CHUYEN-VIEN` · `KY-SU` · `CAN-BO-KT` · `TUAN-DUONG` · `TUAN-KIEM` · `NHAN-VIEN`
+
+Sample resolve: `HAT-TRUONG`→Hạt trưởng · `CHUYEN-VIEN`→Chuyên viên · `TUAN-DUONG`→Tuần đường.
+
+`packageHint` trên seed = **gợi ý** · **cấm** invent package Cục/VP trong users.
+
+---
+
+## 6. API catalog (delta)
+
+Base users: `api/v1/integration/users` · BFF `web-bff/api/v1/integration/users`.  
+Permission KEEP: `integration.users.read|create|update|delete`.  
+Tenant: `X-Company-Id` → `CompanyCode`.  
 Errors: 401 · 403 · 404 · 422 `{ success:false, message }`.
 
-### API-01: GET /api/v1/integration/users
+### DELTA API-01: GET /users — filter `jobTitleCode`
 
 | | |
 |--|--|
-| Purpose | Paged list Zone C + search must work |
-| Permission | `integration.users.read` |
-| Status | **DONE** + **delta `route`** |
-| Request | `search?` · `status?` · `role?` · `orgCode?` · **`route?`** · `page` · `pageSize` (50/100/200/500) |
-| `route` semantics | Trim; match user nếu `RoutesCsv` chứa code (split `,` trim, CI). Empty = no extra filter |
-| `search` | code · username · fullName · email · phone · orgCode · RoutesCsv (đã live) |
-| `orgCode` | exact node (tree). P1 **không** auto descendant — TL ghi T-BE nếu cần subtree |
-| Response | `AppUserPagedResult` |
+| Status | **DELTA** |
+| Request | KEEP + **`jobTitleCode?`** exact match entity code |
+| Response | `AppUserDto` + **`jobTitleCode`** · `jobTitle` (name) |
 | Filter đổi | FE page=1 |
-| gates | tz n/a · xco n/a · tenant_a |
 
-### API-02: GET /api/v1/integration/users/init-data
-
-| | |
-|--|--|
-| Purpose | SearchInput role/status + org seed for form |
-| Permission | `integration.users.read` |
-| Status | **DONE** |
-| Response | `{ statuses, roles, orgs }` |
-
-### API-03: GET /api/v1/integration/users/{id}
+### DELTA API-04/05: POST/PUT body
 
 | | |
 |--|--|
-| Purpose | Form View/Edit/Copy |
-| Permission | `integration.users.read` |
-| Status | **DONE** |
-| 404 | không tồn tại / soft-deleted |
+| Status | **DELTA** |
+| Body | KEEP + **`jobTitleCode?`** |
+| Write | resolve name → `JobTitle` · empty code → clear JobTitle (nullable semantics: empty string OK live) |
+| 422 | code không ∈ catalog active **khi LKP live**; stub: accept seed set / skip soft |
 
-### API-04: POST /api/v1/integration/users
-
-| | |
-|--|--|
-| Purpose | Create · Copy (FE POST new) |
-| Permission | `integration.users.create` |
-| Status | **DONE** + **delta validate RoutesCsv / OrgCode** |
-| Body | `CreateAppUserRequest` — **không** client `code` |
-| IdCode | server `USR-YYYYMMDD-NNNN` |
-| 422 | username trùng · thiếu required · org/route invalid |
-
-### API-05: PUT /api/v1/integration/users/{id}
-
-| | |
-|--|--|
-| Purpose | Edit |
-| Permission | `integration.users.update` |
-| Status | **DONE** + cùng validate RoutesCsv / OrgCode |
-
-### API-06: DELETE /api/v1/integration/users/{id}
-
-| | |
-|--|--|
-| Purpose | Soft delete (`IsActive=false`) |
-| Permission | `integration.users.delete` |
-| Status | **DONE** |
-
-### API-07: POST /api/v1/integration/users/{id}/change-password
-
-| | |
-|--|--|
-| Purpose | Modal đổi MK |
-| Permission | `integration.users.update` |
-| Status | **DONE** (stub hash) |
-| Body | `currentPassword` · `newPassword` · `confirmPassword` |
-| 422 | không khớp confirm · MK cũ sai |
-
-### API-08: POST /api/v1/integration/users/{id}/assign-routes
-
-| | |
-|--|--|
-| Purpose | Modal phân tuyến |
-| Permission | `integration.users.update` |
-| Status | **DONE** + **delta validate ∈ road-routes** |
-| Body | `{ routesCsv }` — CSV codes, **không** JSON array |
-
-### API-09: POST /api/v1/integration/users/{id}/managed-users
-
-| | |
-|--|--|
-| Purpose | Modal cán bộ QL |
-| Permission | `integration.users.update` |
-| Status | **DONE** + **delta validate Guid ∈ users cùng company, ≠ self** |
-| Body | `{ managedUserIdsCsv }` |
-
-### Lookup — reuse (không invent)
+### Lookup — job-titles (peer · soft GAP-JOB-05)
 
 | Lookup | API | Consumer | BE |
 |--------|-----|----------|-----|
-| org tree | `GET /api/v1/integration/org-units/tree` | Zone C | **DONE** |
-| org SearchInput | `GET /api/v1/integration/org-units/search` | form orgCode | **DONE** master |
-| road-route SearchInput | `GET /api/v1/integration/road-routes/search` | filter `route` · form/modal `routesCsv` | **DONE** master |
-| users SearchInput | `GET /api/v1/integration/users?search=&page=&pageSize=` | modal managed | **DONE** self (không endpoint `/search` riêng P1) |
+| job-title SearchInput | `GET /api/v1/integration/job-titles/search` | Zone B · form | **stub OK** until master |
+| job-title list | `GET /api/v1/integration/job-titles?search=&titleGroup=` | optional | stub OK |
+| BFF | `web-bff/api/v1/integration/job-titles` | same | proxy-only |
 
-BFF mirror mọi path trên; list BFF đã forward raw querystring → `?route=` tự qua sau API delta.
+**Cấm** invent `/users/job-titles` riêng · **cấm** open-api · **cấm** `api/v1/rmms/*`.
 
----
-
-## 7. Schema — `rmms_users`
-
-Giữ cột live `AppUserEntity`. **Không** migration bảng mới. Optional: index `(CompanyCode, RoutesCsv)` **không** bắt buộc P1 (filter `Contains` / split in-memory OK với volume tenant).
-
-Indexes live: `(CompanyCode, Code)` unique · `(CompanyCode, Username)` unique · `(CompanyCode, OrgCode, IsActive)` · `(CompanyCode, Status, IsActive)`.
+Lookups KEEP: org-units tree/search · road-routes/search · users list (managed).
 
 ---
 
-## 8. Validate rules (Dev T-BE)
+## 7. Schema — `rmms_users` delta
 
-1. `RoutesCsv`: split `,` · trim · bỏ empty · **mỗi code** phải tồn tại `RoadRoute` active (CUC2 38). Duplicate collapse. Persist canonical `"code1,code2"`.
-2. `OrgCode`: phải tồn tại org-unit active.
-3. `ManagedUserIdsCsv`: Guid parse · user `IsActive` cùng `CompanyCode` · **cấm** id = chính mình.
-4. **Cấm** nhận JSON object/array cho routes/managed.
+| Change | Detail |
+|--------|--------|
+| ADD | `job_title_code` `nvarchar(64)` nullable/empty · logical FK code |
+| KEEP | `job_title` denormalized name |
+| Migration | **T-BE-JOB-01** · Schema delta (không bảng mới) |
+| Index P1 | optional `(CompanyCode, JobTitleCode, IsActive)` — **không bắt buộc** volume thấp |
+
+**GAP-JOB-02:** migrate free-text JobTitle → code via `legacyAliases` — **out of pack** / peer import; P1 UI+persist code đủ.
+
+---
+
+## 8. Validate rules (Dev T-BE-JOB-01)
+
+1. `jobTitleCode`: trim · empty = clear · **cấm** Guid.
+2. Khi LKP live: code phải ∈ job-titles active → else **422**.
+3. Soft GAP-JOB-05: stub SearchInput + accept seed codes · **không** block staff ship.
+4. On write: `JobTitle` = catalog `name` (seed hoặc LKP) · **không** tin client free-text name thay code.
+5. List filter `jobTitleCode`: exact CI trim.
+6. **Cấm** JSON object cho chức vụ.
 
 ---
 
 ## 9. Out of pack
 
-- Auth service tách / IAM JWT production (GAP-F-USR-01)
-- Duplicate org-unit CRUD trên page users (GAP-PO-USR-08 → navigate master)
-- Excel import · chrome Ban.TK / Hồ sơ / Đăng xuất
-- `user.updated` event bus
-- Subtree org filter (chỉ exact `orgCode` P1)
-- Dedicated `GET …/users/search` (list API đủ SearchInput)
+- Master CRUD job-title page (peer pack)
+- Auth service tách (GAP-F-USR-01)
+- ProfileTab / switch Position wire (GAP-JOB-06) — **boundary** ghi TL note
+- Bulk migrate legacy JobTitle strings (GAP-JOB-02) trừ khi import peer chạy
+- Excel import alias map — peer job-title / cuc-01
 
 ---
 
 ## 10. Handoff → TL
 
-Emit: T-CTX · T-PERM · T-UI-LIST (A–D + tree) · T-UI-FORM (full-page `<dl>`) · T-UI-ACT (Đổi MK · Phân tuyến · Cán bộ QL) · **T-UI-LKP · T-UI-FIELD · T-UI-PROD · T-UI-UX** · T-BE (`?route=` + validate) · T-BE-CRUD (đã phần lớn DONE) · T-BFF (query forward — verify `route`).
+Emit / update tasks:
+
+| Task | Scope |
+|------|-------|
+| T-BE-JOB-01 | Migration `job_title_code` · DTO · POST/PUT denorm · GET list/detail · `?jobTitleCode=` · validate soft/stub |
+| T-BFF-JOB-01 | Forward QS `jobTitleCode` · proxy LKP job-titles khi có |
+| T-UI-JOB-01 | Zone B SearchInput · col Chức vụ · form SearchInput · View `<dl>` · **cấm** Text |
+| T-UI-LKP-JOB | wire `job-titles` search (stub OK) |
+| KEEP | prior T-BE/T-UI DONE không reopen trừ regression |
 
 | Field | Value |
 |-------|-------|
-| Kind | B catalog A–D + tree + full-page form |
-| API delta | `GET ?route=` · validate RoutesCsv/OrgCode/ManagedUserIdsCsv |
-| Lookups | org-units tree/search · road-routes/search · users list |
-| Entity | `AppUser` · `rmms_users` · SHARE=`tenant_keep` |
-| UI cấm | Resource · Slideout · View=`readOnly` Input · native Select · CSV thuần trên UI |
-| Next | team-lead **pending** đến lượt (chain ON) |
+| Kind | B KEEP + delta job-title |
+| API delta | `jobTitleCode` persist · list filter · LKP contract |
+| Entity | `AppUser` · ADD `JobTitleCode` · SHARE=`tenant_keep` |
+| UI cấm | Text JobTitle · invent package · Slideout |
+| Next | team-lead **pending** đến lượt (chain ON · e2eQa queued QA) |
 
 ## Version meta (REQUIRED)
 
@@ -293,16 +230,17 @@ Emit: T-CTX · T-PERM · T-UI-LIST (A–D + tree) · T-UI-FORM (full-page `<dl>`
 | schemaVersion | 2 |
 | workflowVersion | 2026.08.09.02 |
 | rulesVersion | 2026.08.09.3 |
-| generatedAt | 2026-08-15T08:41:00.000Z |
+| generatedAt | 2026-09-18T16:17:00.000Z |
 | versionGate | rechecked |
 | version_mismatch_action | recheck_new (STATUS) |
 | orchestratorSkillVersion | 2026.08.08.21 |
 | orchestratorWorkflowVersion | 2026.08.09.02 |
 | orchestratorRulesVersion | 2026.08.09.3 |
 | dataAnalySkillVersion | 2026.08.08.20 |
+| dataAnalyContentHash | sha256:8bd9897e1ab2483fdb96e9a37492d87c38c7e709c2e3df118c7b884f5d4bb257 |
 | poSkillVersion | 2026.08.08.30 |
 | designSkillVersion | 2026.08.08.31 |
-| priorSaSkillVersion | 2026.08.08.17 (artifact cũ schema 1 — regen `recheck_new`) |
+| priorSaSkillVersion | 2026.08.08.21 (KEEP route/CRUD · regen delta job-title) |
 
 ---
 <!-- Version meta: skillVersion=2026.08.08.21 · schemaVersion=2 · workflowVersion=2026.08.09.02 · rulesVersion=2026.08.09.3 · versionGate=rechecked -->

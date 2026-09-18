@@ -14,7 +14,7 @@
 | workflowVersion | `2026.08.15.5` |
 | rulesVersion | `2026.08.15.8` |
 | versionGate | `keep_current` |
-| updatedAt | `2026-08-15T23:20:00.000Z` |
+| updatedAt | `2026-09-17T16:50:00.000Z` |
 
 ## retry.ssot_rereview (HARD · trước Write)
 
@@ -41,6 +41,7 @@ Live `OfficialDocsReportPage` + FilterBar + Report API — Dev **không** chỉ 
 - `ReportQueryParams` + `qs()` / export QS: `direction`, `q`.
 - `OfficialDocsReportPage`: list/export dùng applied (`direction`/`orgUnitId`/`from`/`to`/`q`) · `canExport: viewed` · `formatDayVi` · `resizable: true` · CSV column subset.
 - Route `/bao-cao/cong-van` · **không** CRUD form.
+- **In (GAP-P2-PRINT-01):** `RmmsReportPrintSummary` + `triggerErpReportPrint` — title page · filter đã apply · chỉ grid (ẩn sidebar/toolbar/filter/pager).
 
 ## BE (`Linm.RMMS.WebService` · domain Report)
 
@@ -62,6 +63,7 @@ Live `OfficialDocsReportPage` + FilterBar + Report API — Dev **không** chỉ 
 
 - QA pending · mfeStdUrl `http://localhost:9311/bao-cao/cong-van`
 - Xem → Excel gated · query direction/q · form OUT · day vi-VN · resize cột
+- **Notes 2026-09-17:** In scoped — title «Công văn đi — đến» · filter snapshot (kỳ luôn; chiều/org/q nếu đã chọn) · chỉ grid (ẩn shell/toolbar/filter/pager/checkbox/drill)
 
 ---
 <!-- Version meta: skillVersion=2026.08.15.5 · schemaVersion=1 · workflowVersion=2026.08.15.5 · rulesVersion=2026.08.15.8 · versionGate=keep_current -->

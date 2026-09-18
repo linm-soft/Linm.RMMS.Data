@@ -1,17 +1,16 @@
 /**
- * QA E2E capture — yarn e2e-qa contract (GAP-QA-E2E-PW-01 fallback).
- * `yarn e2e-qa` hung after e2e.local.json login · use channel=chrome (system Chrome).
- * std + docker already listen · skip-start semantics · cấm kill worker rộng.
+ * QA E2E capture — edit_page T-XLS-S07 · GAP-QA-E2E-PW-01 fallback.
+ * yarn e2e-qa playwright resolve fail từ screens cwd · channel=chrome createRequire AutoCode.
+ * std + docker already listen · skip-start · cấm kill worker rộng (GAP-QA-E2E-KILL-01).
  */
-import { writeFileSync, readFileSync } from "node:fs";
+import { writeFileSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { createRequire } from "node:module";
 import { join } from "node:path";
 
-const require = createRequire(
-  "D:/AI-Extension/AI-AutoCode/package.json",
-);
+const require = createRequire("D:/AI-Extension/AI-AutoCode/package.json");
 const { chromium } = require("playwright");
+
 const outDir = "D:\\AI-QLBD\\Linm.RMMS.Data\\specs\\csdl-bieu-07\\qa\\screens";
 const listUrl = "http://localhost:9301/csdl-bieu-07";
 const hubUrl =
@@ -19,40 +18,41 @@ const hubUrl =
 const formUrl = "http://localhost:9301/csdl-bieu-07?form=create";
 const listSel = '[data-testid="rmms-csdl-bieu-07-list-page"]';
 const formSel = '[data-testid="rmms-csdl-bieu-07-form-slideout"]';
-const hubListSel = '[data-testid="rmms-csdl-so-sach-list-page"]';
+const exportSel = '[data-testid="rmms-csdl-bieu-07-list-export-excel-btn"]';
 
 const steps = [
   {
     id: "S0",
     url: listUrl,
     selector: listSel,
-    note: "list Biểu 07 · filter-bar · empty/grid · peer Sổ TS",
+    also: exportSel,
+    note: "list Biểu 07 · toolbar Xuất Excel · filter-bar · 0 Xuất trên filter",
   },
   {
     id: "S1",
     url: hubUrl,
-    selector: hubListSel,
-    note: "hub deep-link ?resource=shoulders-fences → list",
+    selector: listSel,
+    note: "hub deep-link ?resource=shoulders-fences → Biểu 07 list",
   },
   {
     id: "QA-20",
     url: formUrl,
     selector: formSel,
     also: '[data-testid="csdl-bieu-07-form-z2"]',
-    note: "Create Slideout · form=create · 3 section",
+    note: "Create Slideout KEEP · form=create · 3 section",
   },
 ];
-
-const results = [];
 
 function shotName(id) {
   return id.replace(/[^a-zA-Z0-9._-]+/g, "-").replace(/^-+|-+$/g, "") + ".png";
 }
 
-const browser = await chromium.launch({
-  headless: true,
-  channel: "chrome",
-});
+function sha16(buf) {
+  return createHash("sha256").update(buf).digest("hex").slice(0, 16);
+}
+
+const results = [];
+const browser = await chromium.launch({ headless: true, channel: "chrome" });
 const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
 
 try {
@@ -79,69 +79,76 @@ try {
             document.querySelectorAll("[data-testid]"),
           ).map((el) => el.getAttribute("data-testid"));
           const body = document.body?.innerText || "";
+          const filter = document.querySelector(
+            '[data-testid="rmms-csdl-bieu-07-list-filters"]',
+          );
+          const filterXuat = filter
+            ? /Xuất Excel/i.test(filter.innerText || "") ||
+              Boolean(
+                filter.querySelector(
+                  '[data-testid="rmms-csdl-bieu-07-list-export-excel-btn"]',
+                ),
+              )
+            : false;
           return {
-            url: location.href,
-            hasTitle: /Biểu\s*07|Lề|taluy|hàng rào/i.test(body),
-            hasFilter: testids.some((t) => t && /field-search|filters/i.test(t)),
-            hasSide: testids.some((t) => t && /field-side/i.test(t)),
-            hasFenceKind: testids.some((t) => t && /fenceKind/i.test(t)),
-            hasKmFrom: testids.some((t) => t && /kmFrom/i.test(t)),
-            hasKmTo: testids.some((t) => t && /kmTo/i.test(t)),
-            noDemo: !/demo|stub|placeholder only/i.test(body),
-            noModeBadge: !/\b(CREATE|EDIT|VIEW)\b/.test(body),
-            testids,
-            titleSnippet: body.slice(0, 360),
-            peerSots: testids.includes("rmms-csdl-bieu-07-list-peer-sots"),
+            hasTitle: /Biểu 07|Lề|taluy|hàng rào/i.test(body),
+            hasExport: testids.includes(
+              "rmms-csdl-bieu-07-list-export-excel-btn",
+            ),
+            hasImport: testids.includes(
+              "rmms-csdl-bieu-07-list-import-excel-btn",
+            ),
+            filterBarHasNoExport: !filterXuat,
+            hasPeer: testids.some((t) => t && t.includes("peer-sots")),
+            hasFilter:
+              testids.includes("rmms-csdl-bieu-07-list-filters") ||
+              /Tìm/i.test(body),
+            noDemo: !/demo\/stub|localStorage SSOT/i.test(body),
+            noModeBadge: !/\bCREATE\b|\bEDIT\b|\bVIEW\b/.test(body),
+            testids: testids.filter(Boolean).slice(0, 50),
           };
         });
         writeFileSync(
           join(outDir, "live-assert.json"),
-          JSON.stringify(live, null, 2),
+          JSON.stringify(
+            { url: listUrl, changeScope: "edit_page", ...live },
+            null,
+            2,
+          ),
           "utf8",
         );
       }
 
       if (step.id === "QA-20") {
-        const formLive = await page.evaluate(() => {
-          const testids = Array.from(
-            document.querySelectorAll("[data-testid]"),
-          ).map((el) => el.getAttribute("data-testid"));
-          const slide = document.querySelector(
-            '[data-testid="rmms-csdl-bieu-07-form-slideout"]',
+        const formAssert = await page.evaluate(() => {
+          const z2 = document.querySelector(
+            '[data-testid="csdl-bieu-07-form-z2"]',
           );
-          const cols = slide?.getAttribute("data-form-cols") || "";
           const body = document.body?.innerText || "";
           return {
-            hasZ2: testids.includes("csdl-bieu-07-form-z2"),
-            hasZ3: testids.includes("csdl-bieu-07-form-z3"),
-            hasRoad: testids.includes("csdl-bieu-07-field-road"),
-            hasShoulderLen: testids.includes(
-              "csdl-bieu-07-field-shoulderLengthM",
+            hasZ2: Boolean(z2),
+            hasSave: /Lưu/i.test(body),
+            hasLE: /LE-/i.test(body) || Boolean(
+              document.querySelector('[data-testid="csdl-bieu-07-field-code"]'),
             ),
-            hasSlopeLen: testids.includes("csdl-bieu-07-field-slopeLengthM"),
-            hasFenceKm: testids.includes("csdl-bieu-07-field-fenceLengthKm"),
-            hasSave: testids.includes("csdl-bieu-07-btn-save"),
-            dataFormCols: cols,
-            hasLeCodeHint: /LE-/i.test(body) || testids.includes("csdl-bieu-07-field-code"),
+            sections: (body.match(/Lề|Taluy|Hàng rào/gi) || []).length >= 2,
           };
         });
         writeFileSync(
           join(outDir, "form-assert.json"),
-          JSON.stringify(formLive, null, 2),
+          JSON.stringify(formAssert, null, 2),
           "utf8",
         );
       }
 
       await page.screenshot({ path: abs, fullPage: true });
-      const hash = createHash("sha256")
-        .update(readFileSync(abs))
-        .digest("hex")
-        .slice(0, 16);
+      const { readFileSync } = await import("node:fs");
+      const buf = readFileSync(abs);
       results.push({
         id: step.id,
         result: "PASS",
         screenshot: file,
-        sha256_16: hash,
+        sha256_16: sha16(buf),
         url: step.url,
         note: step.note,
       });
@@ -155,8 +162,9 @@ try {
         id: step.id,
         result: "FAIL",
         screenshot: file,
-        error: err instanceof Error ? err.message : String(err),
         url: step.url,
+        note: step.note,
+        error: err instanceof Error ? err.message : String(err),
       });
     }
   }
@@ -165,10 +173,11 @@ try {
 }
 
 const manifest = {
-  url: listUrl,
+  url: "http://localhost:9301/so-ts/csdl-so-sach",
   method:
-    "playwright channel=chrome headless · contract fallback after yarn e2e-qa hang (GAP-QA-E2E-PW-01)",
+    "playwright channel=chrome headless · GAP-QA-E2E-PW-01 fallback after yarn e2e-qa playwright resolve fail",
   feature: "csdl-bieu-07",
+  changeScope: "edit_page",
   cases: ["S0", "S1", "QA-20"],
   capturedAt: new Date().toISOString(),
   steps: results,

@@ -1,111 +1,102 @@
-import { chromium } from "playwright";
-import { writeFileSync } from "node:fs";
+/**
+ * QA E2E capture — edit_page T-XLS-S04 + CRUD KEEP · Import DEFER.
+ * yarn e2e-qa overwrites bare playwright import → recreate via createRequire.
+ * skip-start · cấm kill worker (GAP-QA-E2E-KILL-01).
+ */
+import { readFileSync, writeFileSync } from "node:fs";
+import { createHash } from "node:crypto";
 import { join } from "node:path";
+import { createRequire } from "node:module";
 
-const cfg = {"url":"http://localhost:9301/csdl-bieu-04","outDir":"D:\\AI-QLBD\\Linm.RMMS.Data\\specs\\csdl-bieu-04\\qa\\screens","loginPage":"http://localhost:9100/login","company":"RMMS","headless":false,"pagesWait":null,"testid":"rmms-csdl-bieu-04-list-page","steps":[{"id":"S0","action":"goto","selector":"[data-testid=\"rmms-csdl-bieu-04-list-page\"]"}]};
-const results = [];
+const require = createRequire("D:/AI-Extension/AI-AutoCode/package.json");
+const { chromium } = require("playwright");
+
+const outDir = "D:\\AI-QLBD\\Linm.RMMS.Data\\specs\\csdl-bieu-04\\qa\\screens";
+const listUrl = "http://localhost:9301/csdl-bieu-04";
+const hubUrl = "http://localhost:9301/so-ts/csdl-so-sach?resource=culverts";
+const formUrl = "http://localhost:9301/csdl-bieu-04?form=create";
+const listSel = '[data-testid="rmms-csdl-bieu-04-list-page"]';
+const formSel = '[data-testid="rmms-csdl-bieu-04-form-slideout"]';
+const hubListSel = '[data-testid="rmms-csdl-bieu-04-list-page"]';
+const exportSel = '[data-testid="rmms-csdl-bieu-04-list-export-excel-btn"]';
+
+const steps = [
+  {
+    id: "S0",
+    url: listUrl,
+    selector: listSel,
+    also: exportSel,
+    note: "list Biểu 04 · toolbar Xuất · filter-bar · 0 filter export · Import ẩn",
+  },
+  {
+    id: "S1",
+    url: hubUrl,
+    selector: hubListSel,
+    also: exportSel,
+    note: "hub deep-link ?resource=culverts → Biểu 04 list",
+  },
+  {
+    id: "QA-20",
+    url: formUrl,
+    selector: formSel,
+    also: '[data-testid="csdl-bieu-04-form-z2"]',
+    note: "Create Slideout · form=create KEEP · GPS four_xy · CG-",
+  },
+];
 
 function shotName(id) {
   return id.replace(/[^a-zA-Z0-9._-]+/g, "-").replace(/^-+|-+$/g, "") + ".png";
 }
 
-const user = process.env.QLBD_USER || process.env.E2E_USER || process.env.QLBD_DEMO_USER || "";
-const password = process.env.QLBD_PASSWORD || process.env.E2E_PASSWORD || process.env.QLBD_DEMO_PASS || "";
-if (!user || !password) throw new Error("GAP-QA-E2E-03 missing QLBD_USER/PASSWORD");
-
-async function fillLogin(page) {
-  const userSel = [
-    'input[name="username"]', 'input[name="userName"]', 'input[autocomplete="username"]',
-    'input[placeholder*="tài khoản" i]', 'input[placeholder*="đăng nhập" i]',
-    'input[type="text"]', 'input[type="email"]',
-  ];
-  const passSel = ['input[name="password"]', 'input[type="password"]'];
-  const submitSel = ['button[type="submit"]', 'button:has-text("Đăng nhập")', 'button:has-text("Login")'];
-  await page.goto(cfg.loginPage, { waitUntil: "domcontentloaded", timeout: 60000 }).catch(() => {});
-  try { await page.waitForSelector('input[type="password"]', { timeout: 12000 }); } catch { return; }
-  for (const s of userSel) {
-    const el = page.locator(s).first();
-    if (await el.count()) { await el.fill(user); break; }
-  }
-  for (const s of passSel) {
-    const el = page.locator(s).first();
-    if (await el.count()) { await el.fill(password); break; }
-  }
-  if (cfg.company) {
-    const c = page.locator('input[name="company"], input[placeholder*="đơn vị" i]').first();
-    if (await c.count()) await c.fill(cfg.company);
-  }
-  for (const s of submitSel) {
-    const el = page.locator(s).first();
-    if (await el.count()) {
-      await Promise.all([page.waitForLoadState("networkidle").catch(() => {}), el.click()]);
-      return;
-    }
-  }
-  await page.keyboard.press("Enter");
-  await page.waitForLoadState("networkidle").catch(() => {});
-}
-
-const browser = await chromium.launch({ headless: cfg.headless !== false });
+const results = [];
+const browser = await chromium.launch({
+  headless: true,
+  channel: "chrome",
+});
 const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+
 try {
-  await fillLogin(page);
-  if (cfg.pagesWait) {
-    const origin = new URL(cfg.url).origin;
-    const deadline = Date.now() + 120000;
-    let switched = false;
-    let last = "";
-    while (Date.now() < deadline) {
-      const json = await page.evaluate(async (u) => {
-        const r = await fetch(u, { cache: "no-store" });
-        if (!r.ok) return null;
-        return r.json();
-      }, origin + "/_manifest.json?t=" + Date.now());
-      const map = json && (json.microfrontends || json.microfrontends);
-      const entry = map && map[cfg.pagesWait.mfeKey];
-      last = entry ? ((entry.version || "") + " " + (entry.url || "")) : "missing";
-      if (entry
-        && (!cfg.pagesWait.expectVersion || entry.version === cfg.pagesWait.expectVersion)
-        && (!cfg.pagesWait.expectUrl || entry.url === cfg.pagesWait.expectUrl)) {
-        switched = true;
-        break;
-      }
-      await new Promise((x) => setTimeout(x, 1500));
-    }
-    if (!switched) throw new Error("GAP-QA-PAGES-01 manifest not switched: " + last);
-  }
-  for (const step of cfg.steps) {
+  for (const step of steps) {
     const file = shotName(step.id);
-    const abs = join(cfg.outDir, file);
+    const abs = join(outDir, file);
     try {
-      if (step.action === "goto") {
-        const res = await page.goto(cfg.url, { waitUntil: "domcontentloaded", timeout: 60000 });
-        if (!res || !res.ok()) throw new Error("HTTP " + (res ? res.status() : "no-response"));
-        if (step.selector) {
-          await page.waitForSelector(step.selector, { timeout: 20000 });
-        }
-        await new Promise((r) => setTimeout(r, 800));
-      } else if (step.action === "click") {
-        const loc = step.selector
-          ? page.locator(step.selector).first()
-          : page.getByRole("button", { name: step.text || "Xem" }).first();
-        if (await loc.count()) {
-          await loc.click({ timeout: 15000 });
-          await new Promise((r) => setTimeout(r, 1200));
-        }
-      } else if (step.action === "assertText") {
-        const needle = step.text || "";
-        const body = await page.locator("body").innerText();
-        if (needle && !body.includes(needle)) throw new Error("missing text: " + needle);
+      const res = await page.goto(step.url, {
+        waitUntil: "domcontentloaded",
+        timeout: 60000,
+      });
+      if (!res || !res.ok()) {
+        throw new Error("HTTP " + (res ? res.status() : "no-response"));
       }
+      await page.waitForSelector(step.selector, { timeout: 25000 });
+      if (step.also) {
+        await page.waitForSelector(step.also, { timeout: 15000 });
+      }
+      await new Promise((r) => setTimeout(r, 1500));
       await page.screenshot({ path: abs, fullPage: true });
-      results.push({ id: step.id, result: "PASS", screenshot: file });
+      const hash = createHash("sha256")
+        .update(readFileSync(abs))
+        .digest("hex")
+        .slice(0, 16);
+      results.push({
+        id: step.id,
+        result: "PASS",
+        screenshot: file,
+        sha256_16: hash,
+        url: step.url,
+        note: step.note,
+      });
     } catch (err) {
-      try { await page.screenshot({ path: abs, fullPage: true }); } catch { /* ignore */ }
+      try {
+        await page.screenshot({ path: abs, fullPage: true });
+      } catch {
+        /* ignore */
+      }
       results.push({
         id: step.id,
         result: "FAIL",
         screenshot: file,
+        url: step.url,
+        note: step.note,
         error: err instanceof Error ? err.message : String(err),
       });
     }
@@ -113,10 +104,18 @@ try {
 } finally {
   await browser.close();
 }
-writeFileSync(join(cfg.outDir, "manifest.json"), JSON.stringify({
-  url: cfg.url,
+
+const ok = results.length === 3 && results.every((r) => r.result === "PASS");
+const manifest = {
+  url: listUrl,
+  method:
+    "playwright channel=chrome headless · createRequire AutoCode · skip-start after yarn e2e-qa playwright resolve fail",
+  feature: "csdl-bieu-04",
+  cases: ["S0", "S1", "QA-20"],
   capturedAt: new Date().toISOString(),
   steps: results,
-  ok: results.every((s) => s.result === "PASS"),
-}, null, 2), "utf8");
-if (results.some((s) => s.result === "FAIL")) process.exit(1);
+  ok,
+};
+writeFileSync(join(outDir, "manifest.json"), JSON.stringify(manifest, null, 2), "utf8");
+console.log(JSON.stringify(manifest, null, 2));
+process.exit(ok ? 0 : 1);

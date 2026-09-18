@@ -1,11 +1,12 @@
 {
   "url": "http://localhost:9301/csdl-bieu-07",
+  "changeScope": "edit_page",
   "hasTitle": true,
+  "hasExport": true,
+  "hasImport": false,
+  "filterBarHasNoExport": true,
+  "hasPeer": true,
   "hasFilter": true,
-  "hasSide": true,
-  "hasFenceKind": true,
-  "hasKmFrom": true,
-  "hasKmTo": true,
   "noDemo": true,
   "noModeBadge": true,
   "testids": [
@@ -18,6 +19,7 @@
     "rmms-csdl-bieu-07-list-peer-sots",
     "rmms-csdl-bieu-07-list-list-toolbar",
     "rmms-csdl-bieu-07-list-refresh-btn",
+    "rmms-csdl-bieu-07-list-export-excel-btn",
     "rmms-csdl-bieu-07-list-create-btn",
     "rmms-csdl-bieu-07-list-table-card",
     "rmms-csdl-bieu-07-list-list-title-help",
@@ -40,6 +42,18 @@
     "rmms-csdl-bieu-07-list-grid-wrap",
     "rmms-csdl-bieu-07-list-empty"
   ],
-  "titleSnippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nCSDL Biểu 01 — Phân loại mặt đường\nCSDL Biểu 02 — Thống kê cầu\nCSDL Biểu 03 — Hầm đường bộ\nCSDL Biểu 04 — Cống các loại\nCSDL Biểu 05 — Rãnh các loại\nCSDL Biểu 06 — Hầm chui DS / hộp KT\nCSDL Biểu 07 — Lề đường / taluy / hàng rào\nHạng mục KCHT\nDS\nDev Standalone\nDeveloper\nBiểu 07 — Lề",
-  "peerSots": true
+  "hasExportToolbar": true,
+  "hasImportToolbar": false,
+  "importHiddenP1": true,
+  "filterBarMeta": {
+    "foundFilter": true,
+    "hasXuat": false
+  },
+  "exportCheck": {
+    "attempted": true,
+    "ok": true,
+    "fileName": "Bieu07_LeTaluyHangRao_20260918.xls",
+    "hasPath": true,
+    "error": ""
+  }
 }

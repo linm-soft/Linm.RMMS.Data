@@ -1,12 +1,12 @@
 ﻿# Biểu 09 — Mốc lộ giới / GPMB
 
 > **Slug:** `csdl-bieu-09` · parent [`csdl-cuc-2026.md`](csdl-cuc-2026.md) · hub [`csdl-so-sach.md`](csdl-so-sach.md)  
-> **Status:** Context (typed **chưa** implement) · Pipeline `data_analy` / `draft`  
-> **packKind:** `list` · Kind B list + Kind D Slideout  
+> **Status:** Context · typed CRUD **done** · Wave 1 export `T-XLS-S09` · Pipeline `design` / `pending` · PO PASS  
+> **packKind:** `list` · Kind B list + Kind D Slideout · **changeScope:** `edit_page`  
 > **resource:** `boundary-markers` · cột/layout: 17  
-> **devSlash:** `/agent-dev`  
-> **Analy:** [`ANALYSIS-AND-TASKS.md`](../../../specs/_data-analy/csdl-cuc-2026/ANALYSIS-AND-TASKS.md)  
-> **API:** `api/v1/asset/csdl-records?resource=boundary-markers` đến SA typed · **cấm** invent `infra` / ERP.*
+> **devSlash:** `/implement-export-import-excel` (export) · typed keep  
+> **Analy:** [`ANALYSIS-AND-TASKS.md`](../../../specs/_data-analy/csdl-cuc-2026/ANALYSIS-AND-TASKS.md) · epic [`csdl-export-print.md`](csdl-export-print.md)  
+> **API:** `api/v1/asset/csdl-records?resource=boundary-markers` (+ `/export` `/import`) · **cấm** invent `infra` / ERP.*
 
 ## 1. Tổng quan
 
@@ -29,5 +29,5 @@ Xem `GAP-CSDL-CUC-*` trên analy. Schema entity → `/database-migration` pair.
 
 | lane | phase | status | updatedAt |
 |------|-------|--------|-----------|
-| web | `done` | `done` | `2026-09-05T11:22:36.506Z` |
+| web | `done` | `done` | `2026-09-17T23:04:55.062Z` |
 | mobile | — | — | — |

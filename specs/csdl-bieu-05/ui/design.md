@@ -1,28 +1,28 @@
-# Design — csdl-bieu-05 (Biểu 05 — Rãnh các loại)
+# Design — csdl-bieu-05 (edit_page · T-XLS-S05 Xuất Excel)
 
 | Field | Value |
 |-------|-------|
 | feature | `csdl-bieu-05` |
-| title | CSDL Biểu 05 — Rãnh các loại |
+| title | CSDL Biểu 05 — Rãnh các loại · **Xuất Excel** |
 | this role | `design` · `/agent-design` |
-| Feature Kind | **B** catalog A–D+F · **D** Slideout Z1–Z3 · **`data-form-cols="2"`** |
-| formSurface | **slideout** · `slideout_layout: footer_actions_only` · **cấm** Full-page / Modal form |
-| status | `confirmed` (`design_confirm=approve` · autoApprove ON · `task_8881f84f`) |
-| changeScope | `new_page` |
+| Feature Kind | **B** catalog A–D+F · **D** Slideout Z1–Z3 · **`data-form-cols="2"`** (**keep typed**) |
+| formSurface | **slideout** · `footer_actions_only` · **cấm** Full-page / Modal form · **cấm** new_page typed reopen |
+| status | `confirmed` (`design_confirm=approve` · autoApprove ON · `task_8d9445b7`) |
+| changeScope | **`edit_page`** (Wave 1 `T-XLS-S05`) |
 | packKind | `list` |
 | resource | `ditches` |
 | formNo | `05` · title VN **Rãnh các loại** |
-| columns | **18** (Excel Biểu 5 typed) |
-| IdCode | prefix **`RN`** · `RN-yyyyMMdd-nnnn` · **cấm** Guid |
-| peerSoTs | `so-ts-ditch` — deep-link only · **cấm** merge form (**GAP-BIEU05-PEER-01**) |
-| prior · po | `confirmed` · `po/requirement.md` · `handoff/po-compact.md` · `task_0ccf0f40` |
-| prior · data_analy | `confirmed`/`done` · hash skip · `_data-analy/features/csdl-bieu-05-control-hint.md` · `csdl-bieu-05-real-data.md` · contentHash `sha256:fd4e6899790aa98d6bc4cb628dc9c0bc5efc90acb3abf03a7b157cf123590117` · headerFingerprint `sha256:008898723c0a5b94fae7de8810903b1dcc39ccfd0dfa5d4a36dd398eb088ac2f` · **cấm** re-scan demo (**GAP-DES-DEMO-RESCAN-01**) |
+| columns | **18** (Excel Biểu 5 · **unchanged**) |
+| IdCode | prefix **`RN`** · **cấm** Guid |
+| peerSoTs | `so-ts-ditch` — deep-link only · **cấm** merge form/export (**GAP-BIEU05-XLS-PEER**) |
+| prior · po | `confirmed` · `handoff/po-compact.md` · `task_95f9a16f` |
+| prior · data_analy | `confirmed`/`done` · hash skip · contentHash `sha256:9e3e8cf8e90fb3a3e8252d1725b78ea2494b171d3b7507d0a57b13c7052da728` · headerFingerprint `sha256:008898723c0a5b94fae7de8810903b1dcc39ccfd0dfa5d4a36dd398eb088ac2f` · **cấm** re-scan demo (**GAP-DES-DEMO-RESCAN-01**) |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Asset` |
-| mfeStdRoute | **`/csdl-bieu-05`** (alias Navigate **now**) · hub `/so-ts/csdl-so-sach?resource=ditches` |
-| mfeStdUrl | `http://localhost:9301/csdl-bieu-05` |
+| mfeStdRoute | `/so-ts/csdl-so-sach` · alias `/csdl-bieu-05` |
+| mfeStdUrl | `http://localhost:9301/so-ts/csdl-so-sach` |
 | peerStdUrl / hub | `http://localhost:9301/so-ts/csdl-so-sach?resource=ditches` |
-| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · domain **Asset** · `api/v1/asset/csdl-records` · BFF `web-bff/api/v1/asset/csdl-records` — **cấm ERP.*** · **cấm** invent `api/v1/infra/*` |
-| catalogKind UI schema | **`ditches`** (typed) |
+| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · **Asset** · `api/v1/asset/csdl-records` · BFF `web-bff/api/v1/asset/csdl-records` — **cấm ERP.*** |
+| catalogKind UI schema | **`ditches`** (keep) |
 | ui_repo_confirm | `approve` (`Linm.Web.RMMS.Asset`) |
 | be_repo_confirm | `approve` (`Linm.RMMS.WebService`) — Design không chạy BE |
 | design_confirm | **approve** (autoApprove ON · reviewUrl mở được) |
@@ -30,248 +30,217 @@
 | real_view_parity | `v1` |
 | autoApprove | **ON** |
 | e2eQa | **ON** — queued `/agent-qa*` · **cấm** e2e/start:std ở Design |
-| taskId | `task_8881f84f` · po `task_0ccf0f40` · analy `task_fdcb7c28` |
-| updatedAt | `2026-09-05T13:37:00.000Z` |
+| taskId | `task_8d9445b7` · po `task_95f9a16f` · analy `task_a1caeb3f` |
+| epicCite | `docs/context/features/csdl-export-print.md` · Wave 1 `T-XLS-S05` |
+| updatedAt | `2026-09-18T03:44:00.000Z` |
 
-**Cấm:** re-scan demo · form chỉ 3 ô `detail*` · Full-page form · invent map canvas · merge Sổ TS form · ERP.* · invent API · native alert/confirm · yarn build/e2e/start:std · start role SA/Dev trong task này (**GAP-PKT-ROLE-01**).
+**Cấm:** re-scan demo · toast-only «export done» · Xuất trên `LinErpListFilterBar` (**GAP-FILTER-BAR-08**) · golden hồ sơ 12+8 · invent map · merge Sổ TS `so-ts-ditch` · ERP.* · native alert · yarn build/e2e/start:std · start role SA/Dev (**GAP-PKT-ROLE-01**).
 
-## 0. Context & inventory (hash skip — **cấm** re-scan demo)
+## 0. Context & inventory (hash skip)
 
 | ID | Path | Notes |
 |----|------|-------|
 | CTX-01 | `docs/context/features/csdl-bieu-05.md` | feature |
-| DEM-01 | `…/csdl-so-sach-demo.html` → `…/asset/csdl-so-sach.html` | zone ref only · **cấm** SSOT data |
-| DA-HINT | `specs/_data-analy/features/csdl-bieu-05-control-hint.md` | controlHint SSOT |
-| DA-REAL | `specs/_data-analy/features/csdl-bieu-05-real-data.md` | §A+§B bind |
-| PO-01 | `specs/csdl-bieu-05/po/requirement.md` | Q chốt · DoD |
-| MFE | hub `CsdlSoSachPage` · form `CsdlFormSlideout` | generic → typed replace |
-| SVC | `services/csdlSoSach/endpoint.ts` | `BASE=/asset/csdl-records` |
-| DOMAIN | `Linm.RMMS.WebService/docs/DOMAIN-MAP.md` | Asset · `csdl-so-sach` · peer `so-ts-ditch` |
+| EPIC | `docs/context/features/csdl-export-print.md` | Wave 1 T-XLS-S05 |
+| DA-HINT | `specs/_data-analy/features/csdl-bieu-05-control-hint.md` | controlHint SSOT · delta toolbar |
+| DA-REAL | `specs/_data-analy/features/csdl-bieu-05-real-data.md` | §A+§B · export bind |
+| PO-01 | `specs/csdl-bieu-05/po/requirement.md` | Q-XLS-* chốt |
+| PRIOR-DES | prior `ui/design.md` typed | **keep** A–D · Slideout 18 · **chỉ** delta toolbar |
+| MFE | `CsdlBieu05Page` · `fromCatalogToolbar` | typed shipped · thiếu binary Xuất |
+| GOLDEN | Cục `1. Biểu mẫu CSDL.xls` sheet Biểu 5 | **cấm** 12+8 |
 
 Persona: Khu QLĐB · Văn phòng Cục · Ban QLDA (web).
 
-**≠** Sổ TS `so-ts-ditch` · ≠ hub generic 3 ô `detail*`.
+### § Delta Current vs New (`edit_page`)
 
-### § Delta Current vs New (`new_page`)
+| Area | Current (live / prior Design) | New (this Design) | GAP |
+|------|-------------------------------|-------------------|-----|
+| Toolbar | Refresh · History · Config · Delete · Import/Export **stub OUT** · Create · peer | **Xuất Excel** binary trên `catalogToolbar` · icon+text+title SSOT · Import **ẩn DEFER P1** | GAP-BIEU05-XLS-01/02 |
+| Filter | `LinErpListFilterBar` field+🔍 | **Unchanged** · **0** action Xuất/Nhập | GAP-BIEU05-XLS-04 · GAP-FILTER-BAR-08 |
+| Export scope | — | **filtered** (active filter QS · empty=all visible) | Q-XLS-SCOPE |
+| Import | stub OUT | **export_only_p0** · Import **DEFER P1** (ẩn · không AC P0) | Q-XLS-IMPORT |
+| Filename | — | `Bieu05_RanhCacLoai_{yyyyMMdd}.xlsx` (SA chốt ext) | Q-XLS-FILENAME |
+| Golden | — | Cục **16-sheet** sheet Biểu 5 · **18 cột** | GAP-BIEU05-XLS-03 |
+| Peer export | deep-link only | Export **chỉ** sheet Biểu 5 · **cấm** gộp DITCH | GAP-BIEU05-XLS-PEER |
+| Form / grid / route | Typed 18 · Slideout · alias | **Unchanged** · **cấm** reopen typed CRUD | — |
+| Print PDF | — | **OUT** Wave 1 S05 | — |
 
-| Area | Current (live) | New (this Design) | GAP |
-|------|----------------|-------------------|-----|
-| Entry | Hub-only `?resource=ditches` | Alias **`/csdl-bieu-05`** + hub entry | GAP-BIEU05-ROUTE-01 |
-| List cols | generic road/km/detail* | Typed từ–đến · hở/kín · KC · hình · khẩu độ · dài · thoát · năm · TT | GAP-BIEU05-TYPED-01 |
-| Form | 3 ô `detail*` | Typed **18 cột** Slideout 2col | GAP-BIEU05-TYPED-01 / GAP-CSDL-CUC-03 |
-| ditchKind | — | Dropdown hở/kín LOOKUP | GAP-BIEU05-KIND-01 |
-| shape + aperture + structure | — | Dropdown hình · Text khẩu độ · Dropdown KC | GAP-BIEU05-SHAPE-01 |
-| drainageCapacity | — | Text free P1 | GAP-BIEU05-DRAIN-01 · Q-DRAIN |
-| kmFrom/kmTo | demo range | filter + form Number | GAP-BIEU05-RANGE-01 |
-| road | Text free | **SearchInput** `road-route` filter+form | GAP-CSDL-ROAD-01 |
-| province | LOOKUP_STATIC | **keep_static** P1 | GAP-CSDL-PROV-01 |
-| manageUnit | Text | Text P1 · SearchInput **DEFER P2** | GAP-CSDL-ORG-01 |
-| Import/Export | stub | stub OUT Biểu 5 · skip-bridge locked | GAP-CSDL-XLS-01 |
-| Peer | deep-link | deep-link only · **cấm** merge | GAP-BIEU05-PEER-01 |
+**Không đổi:** Kind B A–D · Kind D Slideout · filter slots · pagination 50/100/200/500 · API prefix CRUD · resource `ditches` · IdCode `RN` · ditchKind/shape/range · map=`none` · peer deep-link · **cấm ERP.***.
 
-**Không đổi:** Kind B A–D · Kind D Slideout · `LinPageLayout kind="catalog"` · pagination 50/100/200/500 · API prefix · resource key · IdCode **cấm** Guid · map=`none` · **cấm ERP.***.
+**PO chốt (Design khóa):** Q-XLS-SCOPE=`filtered` · Q-XLS-IMPORT=`export_only_p0` · Q-XLS-FILENAME=`Bieu05_RanhCacLoai_{yyyyMMdd}.xlsx` · open Q Design = **none** · SA: ext `.xls` vs `.xlsx` · page-all vs streaming.
 
-**PO chốt (Design khóa):** Q-ROUTE=`alias_now` · Q-PROV=`keep_static` · Q-APERTURE=`free_text` · Q-DRAIN=`free_text` · Q-SHAPE=`rect_trap_round` · open Q = **none**.
-
-## 1. Kind + UI pattern (HARD)
+## 1. Kind + UI pattern (HARD — keep)
 
 | | |
 |--|--|
 | Feature Kind | **B+D** |
-| List pattern | **1×** `LinPageLayout` kind=`catalog` — **cấm** nested `CatalogListShell` |
-| Grid | `LinCatalogDataGrid` · kéo cột **default ON** |
-| Filter | **`LinErpListFilterBar`** **1 hàng wrap** · **input + 🔍 cụm phải** — **cấm** nút Tìm riêng · **cấm** stack (**filter-bar-layout-hard**) |
+| List pattern | **1×** `LinPageLayout` kind=`catalog` |
+| Grid | `LinCatalogDataGrid` · kéo cột ON |
+| Filter | **`LinErpListFilterBar`** 1 hàng wrap · 🔍 mép phải · **cấm** Xuất trên bar |
 | Footer | `LinCatalogListPagination` **50 / 100 / 200 / 500** |
-| Form pattern | **Slideout** · `formSurface: slideout` · **`data-form-cols="2"`** · `footer_actions_only` |
-| Zone F | `LinCatalogUiSchemaEditorModal` catalogKind **`ditches`** — **cấm** `LinListTableConfigModal` |
-| Zone H | `LinCatalogHistoryModal` — stub OK P2 · **cấm** invent History API |
-| Leave | Dirty → **`LeaveConfirmModal`** — **cấm** native alert/confirm (**GAP-DES-LEAVE-01**) |
-| Typography | label **13** · input D14/M16 (**GAP-TYP-01**) |
-| Toolbar icons | `erp-control-icon-map` §0 · config=`fa-cog` |
-| Map | `map: none` — gis deep-link only · **cấm** invent canvas |
-| Skip chrome | GOVOne · demo sidebar/note |
-| Report | **N/A** — packKind `list` · DES-RPT skip |
+| Form | **Slideout** · `data-form-cols="2"` · `footer_actions_only` |
+| Zone F / H | UiSchema + History — keep |
+| Leave | Dirty → **`LeaveConfirmModal`** |
+| Map | `none` |
+| Report | **N/A** · DES-RPT skip |
+| Export | **`catalogToolbar`** · `/implement-export-import-excel` · BFF binary |
 
-### Routes (Design chốt)
+### Routes (keep)
 
 | Surface | Path |
 |---------|------|
-| Alias list | `/csdl-bieu-05` → same page as hub resource list |
+| Alias list | `/csdl-bieu-05` |
 | Hub entry | `/so-ts/csdl-so-sach?resource=ditches` |
-| Form | overlay Slideout · **cấm** Full-page |
-| Peer Sổ TS | navigate `/so-ts-ditch` only · **cấm** merge |
-| Map | deep-link gis only |
+| Form | Slideout overlay |
+| Peer Sổ TS | deep-link `/so-ts-ditch` only |
+| Export | same list surface · no new route |
 
 ## 2. Screens / zones
 
 | Screen | FormMode | Zones | Controls / notes |
 |--------|----------|-------|------------------|
-| S-LIST | list | **DES-GRID-A · B · C0–C3 · D · F · H** | Filter + toolbar FULL · typed grid |
-| S-FORM-CREATE | create | **DES-GRID-Z** Slideout 2col Z1–Z3 | footer Hủy/Lưu · leave |
-| S-FORM-EDIT | edit | DES-GRID-Z | footer Hủy/Lưu · leave dirty |
-| S-FORM-VIEW | view | DES-GRID-Z | readOnly · **cấm** disabled xám · footer Đóng/Sửa/Copy |
-| S-FORM-COPY | create | DES-GRID-Z | clear id · new `RN-` code |
-| S-ACT-DELETE | — | Confirm modal | soft delete |
-| S-HIST | — | DES-GRID-H | `LinCatalogHistoryModal` |
-| S-HUB-ENTRY | — | — | hub card title VN · open resource |
-| S-PEER-SOTS | — | — | deep-link `/so-ts-ditch` |
+| S-LIST | list | **DES-GRID-A · B · C0–C3 · D · F · H** | Filter keep · toolbar **+Xuất** |
+| S-XLS-EXPORT | — | DES-GRID-B toolbar | ToolbarButton Xuất · filtered QS · binary download |
+| S-XLS-IMPORT | — | DES-GRID-B toolbar | **DEFER P1** · hidden / không ship AC |
+| S-FORM-* | C/E/V/Copy | DES-GRID-Z | **Unchanged** typed 18 · ditchKind · shape · range |
+| S-ACT-DELETE | — | Confirm | soft delete keep |
+| S-HIST / S-HUB / S-PEER | — | — | keep |
 | S-SKIP-MAP | — | — | **Cấm** map canvas |
 
-**devSlash:** `/agent-dev` (list + Slideout typed · **không** map / e2e ở Design).
+**devSlash:** `/implement-export-import-excel` (delta) · typed CRUD **không** reopen.
 
-### Zone A — Header
+### Zone A — Header (keep)
 
-- Back hub `/so-ts/csdl-so-sach` · title «Biểu 05 — Rãnh các loại» · **cấm** Thêm mới trên A · **cấm** slug trên title
+- Back hub · title «Biểu 05 — Rãnh các loại» · **cấm** Thêm mới trên A
 
-### Zone B — Toolbar + filter (`LinErpListFilterBar`)
+### Zone B — Toolbar + filter
 
-| key | Label | Control | catalogKind |
-|-----|-------|---------|-------------|
-| search | Tìm kiếm | `SearchTextInput` | text · mã · đường · ghi chú · **🔍 cụm phải** |
-| province | Tỉnh/TP | `Dropdown` | LOOKUP_STATIC P1 |
-| status | Tình trạng | `Dropdown` | LOOKUP_STATIC tot/tb/kem/hong |
-| roadCode | Đường | `SearchInput` | **road-route** |
-| kmFrom | Km từ | `Number` | filter range |
-| kmTo | Km đến | `Number` | filter range |
-| ditchKind | Loại rãnh | `Dropdown` | LOOKUP hở/kín · **GAP-BIEU05-KIND-01** |
-| — | Làm mới / Lịch sử / Cấu hình / Xóa / Import·Export stub | `fa-sync-alt` · `fa-history` · `fa-cog` · `fa-trash` · stub toast OUT | |
-| — | **Tạo mới** | primary Zone B phải | |
+**Toolbar (`catalogToolbar`) — delta:**
 
-Filter đổi → page=1 · **search must work** · **cấm** nút Tìm riêng.
+| Action | Label | Icon (SSOT) | Title | Notes |
+|--------|-------|-------------|-------|-------|
+| refresh | — | `fa-sync-alt` | Làm mới | keep |
+| history | — | `fa-history` | Lịch sử | keep |
+| config | — | `fa-cog` | Cấu hình | keep |
+| delete | — | `fa-trash` | Xóa | keep |
+| peer-sots | Sổ TS | `fa-link` | Sổ TS rãnh | keep · deep-link only |
+| **exportExcel** | **Xuất Excel** | `fa-file-excel` | Xuất Excel | binary · filtered · filename PO · disable khi in-flight |
+| importExcel | Nhập Excel | `fa-file-import` | Nhập Excel | **DEFER P1** · **ẩn** prototype/UI P0 |
+| create | Tạo mới | `fa-plus` | Tạo mới | primary phải · keep |
 
-### Zone C — Grid columns (typed · **cấm** chỉ 3 detail)
+**Filter (`LinErpListFilterBar`) — unchanged:** search · province · status · roadCode · kmFrom · kmTo · ditchKind · 🔍 cụm phải · **cấm** nút Tìm riêng · **cấm** Xuất/Nhập trên bar (**GAP-FILTER-BAR-08**).
+
+### Zone C / D — Grid + pagination (keep typed)
 
 STT · □ · **Mã** · **Đường** · **Tỉnh** · **Km từ** · **Km đến** · **Hở/Kín** · **KC** · **Hình** · **Khẩu độ** · **Cdài** · **Thoát** · **Năm** · **TT** · **ĐV QL** · ⋯  
-Row menu: Xem / Sửa / Copy / Xóa / Lịch sử · kéo cột ON.
+Pagination 50/100/200/500.
 
-Empty: «Chưa có rãnh» · CTA Tạo mới.
+## 3. Field inventory
 
-### Zone D — Pagination
+### 3.1 Form Slideout — **unchanged** (cite prior · controlHint)
 
-`LinCatalogListPagination` 50/100/200/500.
+Typed 18 cột · ditchKind · shape · aperture · drainage · kmFrom/kmTo — Control = controlHint prior. **Cấm** đổi form control trong pack này. Cite: `specs/_data-analy/features/csdl-bieu-05-control-hint.md` + prior Design §3.1.
 
-## 3. Field inventory (Control = controlHint · **cấm** đoán)
+### 3.2 Actions control-map (**delta** · Design chốt)
 
-### 3.1 Form Slideout — typed Biểu 5 (18 cột)
+| Surface | Action | Control | Notes |
+|---------|--------|---------|-------|
+| catalogToolbar | exportExcel | `ToolbarButton` | Label **Xuất Excel** · `fas fa-file-excel` · filtered QS |
+| catalogToolbar | importExcel | — | **DEFER P1** · ẩn · không AC P0 |
+| Filter bar | — | — | **0** export/import actions |
+| Form footer | save / cancel | keep | unchanged |
 
-| # | uiField | Label VN | Control | Required | FormMode | Notes |
-|---|---------|----------|---------|----------|----------|-------|
-| — | code | Mã | Text readonly | auto | all ro | IdCode `RN-` · **cấm** Guid |
-| 1–2 | roadCode / roadName | Mã/Tên đường | **SearchInput** | * | view=ro | catalogKind `road-route` · **GAP-CSDL-ROAD-01** |
-| 3 | province | Địa danh | Dropdown | * | view=ro | LOOKUP_STATIC P1 · **Q-PROV** keep_static |
-| 4–5 | kmFrom / kmTo | Km từ–đến | Number | * | view=ro | decimal · **GAP-BIEU05-RANGE-01** |
-| 6 | side | Vị trí L/R | Dropdown | * | view=ro | L/R/C/Both |
-| 7 | ditchKind | Hở / Kín | Dropdown | * | view=ro | LOOKUP · **GAP-BIEU05-KIND-01** |
-| 8 | structure | Kết cấu (KC) | Dropdown | | view=ro | BT / BTCT / đá xây / khác |
-| 9 | shape | Hình dạng | Dropdown | | view=ro | chữ nhật / thang / tròn · **Q-SHAPE** |
-| 10 | apertureSize | Khẩu độ | Text | | view=ro | WxH/m · **Q-APERTURE** free_text |
-| 11 | lengthM | Chiều dài (m) | Number | * | view=ro | |
-| 12 | drainageCapacity | Khả năng thoát | Text | | view=ro | **Q-DRAIN** free_text P1 |
-| 13 | builtYear | Năm XD/SD | Number | | view=ro | year |
-| 14 | status | Tình trạng | Dropdown | * | view=ro | LOOKUP_STATIC |
-| 15 | manageUnit | ĐV QL | Text | | view=ro | **GAP-CSDL-ORG-01** DEFER SearchInput P2 |
-| 16 | ownerUnit | ĐV sở hữu | Text | | view=ro | free-text P1 |
-| 17–18 | notes | Ghi chú | Textarea | | view=ro | full row |
-| — | updatedAt | Cập nhật | DateTime ro | | readonly | audit |
-
-**Cấm** mount `detailPrimary` / `detailSpec` / `detailExtra` làm form chính.
-
-### 3.2 controlHint map (Design chốt)
-
-| Surface | Field | Control | catalogKind |
-|---------|-------|---------|-------------|
-| List B | search | SearchTextInput | — |
-| List B | province / status / ditchKind | Dropdown | LOOKUP_STATIC |
-| List B | roadCode | SearchInput | road-route |
-| List B | kmFrom / kmTo | Number | — |
-| Form | roadCode/roadName | SearchInput | road-route |
-| Form | province / status / side / ditchKind / structure / shape | Dropdown | LOOKUP_STATIC |
-| Form | kmFrom / kmTo / lengthM / builtYear | Number | — |
-| Form | apertureSize / drainageCapacity / manageUnit / ownerUnit | Text | — |
-| Form | notes | Textarea | — |
-
-## 4. Real-data bind (cite DA-REAL · **cấm** invent)
+## 4. Real-data bind (cite DA-REAL)
 
 | Operation | Path |
 |-----------|------|
-| List | `GET /web-bff/api/v1/asset/csdl-records?resource=ditches` |
-| Detail | `GET /web-bff/api/v1/asset/csdl-records/{id}` |
-| Create | `POST /web-bff/api/v1/asset/csdl-records` body `resource=ditches` + typed |
-| Update | `PUT /web-bff/api/v1/asset/csdl-records/{id}` |
-| Delete | `DELETE /web-bff/api/v1/asset/csdl-records/{id}` (soft) |
-| road-route | `GET /integration/road-routes/search` |
+| CRUD | keep `…/asset/csdl-records?resource=ditches` |
+| **Export** | `GET /web-bff/api/v1/asset/csdl-records/export?resource=ditches` (+ filter QS) |
+| **Import** | `POST …/import?resource=ditches` — **DEFER P1** |
+| Download name | `Bieu05_RanhCacLoai_{yyyyMMdd}.xlsx` (Content-Disposition · SA chốt ext) |
+| Golden | Cục 16-sheet sheet Biểu 5 · **18 cột** · **cấm** gộp Sổ TS |
 
-API mirror: `api/v1/asset/csdl-records`. FE reuse `services/csdlSoSach/endpoint.ts` `BASE=/asset/csdl-records`.  
-Entity shell: `CsdlCatalogRecordEntity` · typed `Schema_CsdlBieu5` — **SA**.  
-**Cấm** ERP.* · invent `api/v1/so-ts/*` · invent `api/v1/infra/*` · demo-json / LS SSOT.
+**Cấm** fake blob done · toast-only · ERP.* · invent `/infra/`.
 
 ## Prototype (REQUIRED)
 
 | | |
 |--|--|
-| Base | `shared_grid_example v1` + Slideout Z `data-form-cols="2"` |
+| Base | prior typed prototype · **delta** toolbar Xuất Excel + mock download |
 | Artifact | `ui/prototype/csdl-bieu-05-list-prototype.html` |
-| Zones | **DES-GRID-A · B · C0–C3 · D · F · H · Z** · content-only · **skip** GOVOne |
-| Filter mock | `LinErpListFilterBar` 1 hàng wrap · input cụm phải · road SearchInput · kmFrom/kmTo · ditchKind |
-| Form | Slideout typed 18 cột · Q-SHAPE/APERTURE/DRAIN · footer Hủy/Lưu · LeaveConfirmModal |
+| Zones | **DES-GRID-A · B · C0–C3 · D · F · H · Z** · content-only |
+| Filter mock | `LinErpListFilterBar` · **không** Xuất trên bar |
+| Toolbar | **Xuất Excel** text+icon+title · Import **ẩn** P1 · mock filtered download |
+| Form | Slideout typed keep · LeaveConfirmModal |
 | SSOT | `shared_grid_example: v1` · `real_view_parity: v1` · `erp-control-icon-map` |
 | **reviewUrl** | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-05/ui/prototype/csdl-bieu-05-list-prototype.html` |
 | **peerStdUrl** | `http://localhost:9301/so-ts/csdl-so-sach?resource=ditches` |
-| **mfeStdUrl** | `http://localhost:9301/csdl-bieu-05` |
+| **mfeStdUrl** | `http://localhost:9301/so-ts/csdl-so-sach` · alias `/csdl-bieu-05` |
 
 ### Wire
 
 ```
-[S-LIST] DES-GRID-A…D · F · H — filter + toolbar FULL + typed grid
-[S-FORM] DES-GRID-Z Slideout data-form-cols=2 · typed 18 cột · footer only
-[Leave] LeaveConfirmModal · toast mock — cấm native dialog
-[Peer] deep-link Sổ TS so-ts-ditch · map none
+[S-LIST] DES-GRID-A…D — toolbar FULL + Xuất · filter unchanged · Import hidden P1
+[S-XLS-EXPORT] catalogToolbar → mock .xlsx download (filtered note · peer no-merge)
+[S-FORM] DES-GRID-Z Slideout data-form-cols=2 · typed keep
+[Leave] LeaveConfirmModal · cấm native dialog
 ```
 
-## 5. Leave / alert
+## 5. Leave / alert (keep + XLS)
 
 | Case | Control | Cấm |
 |------|---------|-----|
-| Dirty đóng slideout / back-hub | `LeaveConfirmModal` | `window.confirm` |
-| API 4xx/5xx | `useAppToast` | `window.alert` |
-| detail 404 | toast · đóng slideout | silent fail |
-| Delete | Confirm modal | native `confirm` |
-| History | `LinCatalogHistoryModal` | invent API path |
-| Lookup road no match | SearchInput empty | free-text substitute |
-| Empty list | VN «Chưa có rãnh» + CTA Tạo mới | fake demo rows SSOT |
+| Dirty slideout | `LeaveConfirmModal` | native confirm |
+| Export 4xx/5xx | `useAppToast` | silent / fake success |
+| Empty export | file 0-row + header OK · toast info OK | fake demo rows SSOT |
+| Export in-flight | Disable nút / loading | double-fire |
+| Peer Sổ TS | deep-link only | mix row/cột DITCH vào file |
 
 ## 6. Grid AC (Design confirm · PO)
 
-AC-G list Kind B **PASS**. Report AC **N/A** — packKind `list` · DES-RPT skip.
+Keep AC-GRID-01..05 (typed regression). Report AC **N/A**.
 
-## 7. Open questions (PO closed — Design không re-open)
+### Delta export AC (Design confirm)
+
+| ID | AC | Pass |
+|----|-----|------|
+| AC-XLS-01 | Nút **Xuất Excel** trên catalogToolbar (không filter bar) | ✅ prototype |
+| AC-XLS-02 | Click → binary download · **cấm** toast-only | ✅ mock blob |
+| AC-XLS-03 | Sheet Biểu 5 · **18 cột** | SA/Dev golden |
+| AC-XLS-04 | Filter → export filtered | ✅ wire note |
+| AC-XLS-05 | Empty → file 0-row OK | ✅ |
+| AC-XLS-06 | Fail → toast | Dev |
+| AC-XLS-07 | Filename `Bieu05_RanhCacLoai_{yyyyMMdd}.*` | ✅ mock |
+| AC-XLS-08 | Golden 16-sheet · **cấm** 12+8 | SA/Dev |
+| AC-XLS-09 | Peer Sổ TS **không** merge vào sheet | ✅ wire note |
+
+**OUT P0:** Import AC · print-pdf.
+
+## 7. Open questions
 
 | ID | Decision |
 |----|----------|
-| Q-ROUTE | **alias_now** `/csdl-bieu-05` + hub |
-| Q-PROV | **keep_static** P1 · master P2 |
-| Q-APERTURE | **free_text** (WxH/m) · Number m DEFER |
-| Q-DRAIN | **free_text** P1 · number_cms DEFER |
-| Q-SHAPE | **rect_trap_round** (chữ nhật / thang / tròn) |
-| GAP-CSDL-ORG-01 | **DEFER P2** Text |
-| GAP-CSDL-XLS-01 | **OUT** pack · toolbar stub OK |
+| Q-XLS-SCOPE | **filtered** |
+| Q-XLS-IMPORT | **export_only_p0** · Import DEFER P1 |
+| Q-XLS-FILENAME | **`Bieu05_RanhCacLoai_{yyyyMMdd}.xlsx`** · SA chốt ext |
+| GAP-FILTER-BAR-08 | **Cấm** Xuất trên filter |
+| GAP-BIEU05-XLS-PEER | **Cấm** gộp so-ts-ditch |
 | GAP-DES-DEMO-RESCAN-01 | **Cấm** re-scan · hash skip |
+| SA residual | ext `.xls` vs `.xlsx` · page-all vs streaming |
 
 ## Confirm
 
-`design_confirm` = **approve** — autoApprove **ON** · agent tự confirm (`task_8881f84f`). Chain **SA** enqueue (roles sau = pending đến lượt). **Cấm** Dev/BE/e2e trong task này.
+`design_confirm` = **approve** — autoApprove **ON** · agent tự confirm (`task_8d9445b7`). Chain **SA** enqueue (roles sau = pending đến lượt). **Cấm** Dev/BE/e2e trong task này.
 
 ## Handoff → SA
 
 | Field | Value |
 |-------|-------|
-| Kind / pattern | B A–D+F + D Slideout `data-form-cols="2"` footer_only |
-| Field inventory | §3 · Control khớp controlHint · typed 18 cột |
-| Filters | LinErpListFilterBar · road SearchInput · kmFrom/kmTo · ditchKind · page=1 |
+| Kind / pattern | B A–D+F + D Slideout keep · **chỉ** export delta |
+| Control-map | exportExcel ToolbarButton · Import DEFER |
 | Prototype · reviewUrl | § Prototype |
-| API | **giữ** `api/v1/asset/csdl-records` · widen typed DTO/UiSchema · road-routes search |
-| Entity | shell + **Schema_CsdlBieu5** · aperture/drain free_text |
-| Lookups | road-route P1 · province static · ditchKind/shape/structure static · org DEFER P2 |
+| API | `GET …/csdl-records/export?resource=ditches` (+ filter QS) · BFF binary |
+| Filename / golden | PO pattern · SA chốt ext · Cục 16-sheet Biểu 5 · 18 cột · peer no-merge |
 | Next | SA **pending** đến lượt · chain ON |
 
 ## DES-GRID map → Lin\*
@@ -279,53 +248,41 @@ AC-G list Kind B **PASS**. Report AC **N/A** — packKind `list` · DES-RPT skip
 | Zone | DES-GRID | Component |
 |------|----------|-----------|
 | A | DES-GRID-A | `LinPageLayout` header + back hub |
-| B | DES-GRID-B | `catalogToolbar` + `LinErpListFilterBar` |
-| C | DES-GRID-C0–C3 | `LinCatalogDataGrid` + row menu |
+| B | DES-GRID-B | `catalogToolbar` (**+Xuất**) + `LinErpListFilterBar` (no XLS) |
+| C | DES-GRID-C0–C3 | `LinCatalogDataGrid` keep |
 | D | DES-GRID-D | `LinCatalogListPagination` |
-| F | DES-GRID-F | `LinCatalogUiSchemaEditorModal` · `ditches` |
-| H | DES-GRID-H | `LinCatalogHistoryModal` |
-| Z | DES-GRID-Z | Slideout 2 cột · footer Hủy/Lưu |
-| Leave | — | `LeaveConfirmModal` |
+| F / H / Z | keep | UiSchema · History · Slideout |
 
 ## DoR checklist (PASS)
 
 | Check | Pass |
 |-------|------|
-| Kind B+D + Form Slideout + `data-form-cols="2"` | ✅ |
-| Screens list/C/E/V/Copy/delete/hist · hub entry · peer deep-link | ✅ |
-| DES-GRID-A…D (+ C2a/C3/F/H/Z) | ✅ |
-| Toolbar FULL · icons §0 | ✅ |
-| Filter LinErpListFilterBar · input cụm phải · road SearchInput · kmFrom/kmTo · ditchKind | ✅ |
-| Control-map = controlHint · typed 18 · **cấm** detail* only | ✅ |
-| Q-ROUTE alias_now · Q-APERTURE/DRAIN free_text · Q-SHAPE rect_trap_round | ✅ |
-| Prototype + reviewUrl | ✅ |
-| LeaveConfirmModal | ✅ |
-| real_view_parity v1 + peerStdUrl + mfeStdUrl | ✅ |
+| Kind B+D keep · **cấm** new_page reopen | ✅ |
+| Toolbar **Xuất Excel** · Import ẩn P1 | ✅ |
+| Filter **0** XLS (**GAP-FILTER-BAR-08**) | ✅ |
+| Control-map = controlHint delta | ✅ |
+| Prototype + reviewUrl · mock binary | ✅ |
+| AC-XLS-01..09 Design confirm (SA/Dev golden) | ✅ |
 | Hash skip analy · **cấm** re-scan | ✅ |
 | Report DES-RPT N/A | ✅ |
-| PO Grid AC | ✅ |
+| design_confirm approve · compact | ✅ |
 
 ## Version meta (REQUIRED)
 
 | Field | Value |
 |-------|-------|
 | skillId | agent-design |
-| skillVersion | 2026.08.29.03 |
+| skillVersion | 2026.09.05.03 |
 | schemaVersion | 1 |
-| workflowVersion | 2026.09.01.02 |
-| rulesVersion | 2026.08.31.2 |
-| generatedAt | 2026-09-05T13:37:00.000Z |
+| workflowVersion | 2026.09.05.03 |
+| rulesVersion | 2026.09.17.3 |
+| generatedAt | 2026-09-18T03:44:00.000Z |
 | versionGate | ok |
-| contentHashPriorDataAnaly | sha256:fd4e6899790aa98d6bc4cb628dc9c0bc5efc90acb3abf03a7b157cf123590117 |
+| contentHashPriorDataAnaly | sha256:9e3e8cf8e90fb3a3e8252d1725b78ea2494b171d3b7507d0a57b13c7052da728 |
 | headerFingerprintPrior | sha256:008898723c0a5b94fae7de8810903b1dcc39ccfd0dfa5d4a36dd398eb088ac2f |
-| orchestratorSkillVersion | 2026.09.01.02 |
-| orchestratorWorkflowVersion | 2026.09.01.02 |
-| orchestratorSchemaVersion | qldb-workflow-skill-v1 |
-| dataAnalySkillVersion | 2026.08.25.01 |
-| poSkillVersion | 2026.08.25.02 |
-| taskId | `task_8881f84f` |
+| taskId | `task_8d9445b7` |
 | packKind | list |
-| changeScope | new_page |
+| changeScope | edit_page |
 
 ---
-<!-- Version meta: skillId=agent-design skillVersion=2026.08.29.03 schemaVersion=1 workflowVersion=2026.09.01.02 rulesVersion=2026.08.31.2 versionGate=ok contentHashPrior=sha256:fd4e6899790aa98d6bc4cb628dc9c0bc5efc90acb3abf03a7b157cf123590117 -->
+<!-- Version meta: skillId=agent-design skillVersion=2026.09.05.03 schemaVersion=1 workflowVersion=2026.09.05.03 rulesVersion=2026.09.17.3 versionGate=ok contentHashPrior=sha256:9e3e8cf8e90fb3a3e8252d1725b78ea2494b171d3b7507d0a57b13c7052da728 changeScope=edit_page taskId=task_8d9445b7 -->

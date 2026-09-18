@@ -1,134 +1,106 @@
-# Real-data bind — csdl-bieu-08 (Kind B list + Kind D Slideout · traffic-safety)
+# Real-data bind — csdl-bieu-08 (edit_page · T-XLS-S08 export/import)
 
 | | |
 |---|---|
 | feature | `csdl-bieu-08` |
 | packKind | `list` |
-| changeScope | `new_page` |
+| changeScope | `edit_page` |
 | status | `done` |
-| taskId | `task_a21c4937` |
+| taskId | `task_774ebbde` |
+| priorTask | `task_a21c4937` → review `task_fdb010e9` (typed CRUD **done** · **cấm** reopen new_page) |
 | resource | `traffic-safety` |
-| prefix | **live shell** `api/v1/asset/csdl-records` · BFF `web-bff/api/v1/asset/csdl-records` · typed DTO **SA** |
-| beRepo | `D:/AI-QLBD/Linm.RMMS.WebService` · **cấm ERP.*** · **cấm** `api/v1/rmms/*` · **cấm** invent `api/v1/infra/*` |
+| prefix | **live** `api/v1/asset/csdl-records` · BFF `web-bff/api/v1/asset/csdl-records` |
+| beRepo | `D:/AI-QLBD/Linm.RMMS.WebService` · **cấm ERP.*** · **cấm** `api/v1/infra/*` |
 | uiRepo | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Asset` |
-| mfeStdUrl | `http://localhost:9301/csdl-bieu-08` · hub `http://localhost:9301/so-ts/csdl-so-sach?resource=traffic-safety` |
-| map | `none` · **cấm** invent map canvas |
-| contentHash | `sha256:f972c82727726d256754d076435f9ef97c993b4f9844dc79e50b6415fcaf54be` |
+| mfeStdUrl | `http://localhost:9301/so-ts/csdl-so-sach` · alias `/csdl-bieu-08` · hub `?resource=traffic-safety` |
+| map | `none` |
+| contentHash | `sha256:639566df4ddccc3927311d5618bf4e7c1dbad0dac80962c414f861dacc9d5e9c` |
 | headerFingerprint | `sha256:ba8b8db4f7637ee32cfd4a882b6abdc774c538f6c9812c3ecd1d13f6151cdd6f` |
-| sourceTables | shell `rmms_csdl_catalog_records` · typed `Schema_CsdlBieu8` + children (**SA/migration**) |
-| catalogKind UI schema | `traffic-safety` (typed) · fallback hub `csdl-records` |
+| sourceTables | typed `Schema_CsdlBieu8` + 11 children · **không** bảng report store P1 |
+| catalogKind UI schema | `traffic-safety` |
 | IdCode prefix | `AT` |
+| epicCite | `docs/context/features/csdl-export-print.md` · Wave 1 `T-XLS-S08` |
+| golden | Cục `1. Biểu mẫu CSDL.xls` sheet Biểu 8 · **cấm** hồ sơ 12+8 |
+| devSlash | `/implement-export-import-excel` · BFF binary |
 
-## § Delta Current vs New (`new_page` · `task_a21c4937`)
+## § Delta Current vs New (`edit_page` · `task_774ebbde`)
 
 | ID | Current live | New (this analy) |
 |----|--------------|------------------|
-| Form | 3 ô `detail*` polymorphic | Typed 45 cột / 11 nhóm · `assetType` + child · **cấm** wide 1 row |
-| List cols | generic road/km/detail | Shared + subset theo type · filter `assetType` / `?type=` |
-| formNo | Demo/live **7** | Renumber **8** · giữ resource key · **T-REN-01** |
-| API | `GET/POST/PUT/DELETE …/csdl-records?resource=traffic-safety` | **giữ prefix** · widen payload / child tables — SA |
-| Import | stub | Sheet 45 cột merge — OUT XLS |
-| Peer | so-ts ATGT types | Deep-link · **cấm** merge form · **≠** road-assets |
+| Form / list | Typed 45/11 · Slideout + grid **shipped** | **Unchanged** |
+| Toolbar | Refresh · Add · History · Schema · View/Edit/Delete — **không** Xuất | **Xuất Excel** (+ Import P1) trên `catalogToolbar` |
+| Filter | `LinErpListFilterBar` field+🔍 | **Unchanged** · **cấm** action Xuất (**GAP-FILTER-BAR-08**) |
+| Export API | Missing / stub | `GET …/csdl-records/export?resource=traffic-safety` → binary (epic cite · SA) |
+| Import API | Missing / stub | `POST …/csdl-records/import?resource=traffic-safety` (P1) |
+| Golden | — | Cục 16-sheet · sheet Biểu 8 · checksum 45 cột · **cấm** 1 hàng kéo ngang lệch mẫu |
+| Done gate | Typed STATUS done | **≠** export xong · cần file mở được cạnh mẫu |
 
 ## §A — Nguồn
 
 | sourceKind | sourceCite | empty | error |
 |------------|------------|-------|-------|
-| `context` | `docs/context/features/csdl-bieu-08.md` | — | version mismatch → gate |
-| `analy` | `specs/_data-analy/csdl-cuc-2026/ANALYSIS-AND-TASKS.md` § Biểu 8 | — | 45 cột · 11 nhóm · GAP-CSDL-CUC-08 |
-| `db-ssot` | `docs/context/11-CSDL-SO-SACH-DATABASE-API.md` § TrafficSafetyAsset | — | children entities (số biểu cũ 7) |
-| `demo` | `Linm.RMMS.Demo/.../csdl-so-sach.html` (+ redirect demo · `csdl-so-sach-data.js`) | — | **UI only** · **cấm** SSOT data |
-| `api` · list | `GET …/csdl-records?resource=traffic-safety&type=&…` | empty grid VN | 422 thiếu resource · toast |
-| `api` · detail | `GET …/csdl-records/{id}` | — | 404 → đóng slideout · toast |
-| `api` · CRUD | `POST` / `PUT` / soft `DELETE` | — | validation toast |
-| `entity` | `CsdlCatalogRecordEntity` (shell) | — | tenant `CompanyCode` |
-| `entity` | typed Biểu 8 + children (**SA**) | — | Schema_CsdlBieu8 pair · **cấm** wide |
-| `mfe` | hub `CsdlSoSachPage` · form `CsdlFormSlideout` | generic | typed replace |
-| `catalog` | Integration ui-schema `traffic-safety` | bootstrap cols | toast |
-| `excel` | `1. Biểu mẫu CSDL.xls` sheet Biểu 8 | — | import cite · not runtime SSOT |
-| `peer` | so-ts ATGT types · type-grid | — | deep-link only · **cấm** bind biểu Cục vào road-assets |
-| `derived` | IdCode `AT-yyyyMMdd-nnnn` | — | BE generate |
-
-`sourceCite` = path/controller **có trong repo** hoặc analy Excel cite. **Cấm** invent `api/v1/so-ts/*` · **cấm** ERP.*.
+| `context` | `docs/context/features/csdl-bieu-08.md` | — | version gate |
+| `context` | `docs/context/features/csdl-export-print.md` § Wave 1 · API | — | golden / toolbar rules |
+| `analy` | `specs/_data-analy/csdl-cuc-2026/ANALYSIS-AND-TASKS.md` Biểu 8 | — | 45 cột · 11 nhóm |
+| `api` · list/CRUD | `GET/POST/PUT/DELETE …/csdl-records?resource=traffic-safety` (+ `type=`) | empty grid VN | toast 4xx |
+| `api` · **export** | `GET …/csdl-records/export?resource=traffic-safety` (epic · SA chốt) | file 0 row OK | toast · **cấm** fake blob |
+| `api` · **import** | `POST …/csdl-records/import?resource=traffic-safety` | — | validation · child/`type=` |
+| `entity` | `CsdlBieu8*` + 11 children | — | CompanyCode tenant · **cấm** wide |
+| `mfe` | `CsdlBieu08Page` · `fromCatalogToolbar` | — | wire export action |
+| `excel` | `1. Biểu mẫu CSDL.xls` sheet Biểu 8 | — | golden · not runtime SSOT |
+| `excel` | Hồ sơ `4.1. In_Mẫu…xlsx` 12 biểu | — | **STALE** · so sánh only |
+| `peer` | so-ts ATGT types | — | deep-link only · **cấm** bind export vào road-assets |
 
 ## §B — Bind field (HARD)
 
-| uiField | Label | controlHint | catalogKind | GET | write field | sameMfe |
-|---------|-------|-------------|-------------|-----|-------------|---------|
-| resource | Resource | QS / const | — | required `traffic-safety` | `resource` | yes |
-| search | Tìm | SearchTextInput | — | `?search=` | — | yes |
-| province | Tỉnh | Dropdown | LOOKUP_STATIC | `?province=` | `province` | yes |
-| status | TT | Dropdown | LOOKUP_STATIC | `?status=` | `status` | yes |
-| roadCode | Đường | SearchInput | road-route | `?roadCode=` / detail | `roadCode` (+ display `roadName`) | yes · **GAP-CSDL-ROAD-01** |
-| kmFrom / kmTo | Km từ–đến | Number | — | filter / detail | `kmFrom` / `kmTo` | yes |
-| side | Vị trí | Dropdown | LOOKUP_STATIC | filter / detail / list | `side` | yes |
-| assetType | Chủng loại | Dropdown | LOOKUP_STATIC | `?type=` / detail / list | `assetType` | yes · **GAP-BIEU08-TYPE-01** |
-| code | Mã | Text ro | — | detail `code` | auto | yes |
-| signCode … signPoleHeightM | Biển | Text/Number | — | detail / list | child fields | yes · type=TRAFFIC_SIGN |
-| markerKind … markerAreaM2 | Cọc/Km | Dropdown/Number | LOOKUP_STATIC | detail / list | child | yes · MARKER_POST |
-| medianKind … medianHeightM | GPC | Dropdown/Number | — | detail / list | child | yes · MEDIAN |
-| antiGlareKind … antiGlareLengthM | Chống chói | Dropdown/Number | — | detail / list | child | yes · ANTI_GLARE |
-| islandType … islandAreaM2 | Đảo | Dropdown/Number | — | detail / list | child | yes · TRAFFIC_ISLAND |
-| studSize / studQty | Đinh PQ | Text/Number | — | detail / list | child | yes · ROAD_STUD |
-| guardrailKind … guardrailReflector | Hộ lan | Dropdown/Number | — | detail / list | child | yes · GUARDRAIL |
-| markCode … markAreaM2 | Vạch sơn | Text/Number | — | detail / list | child | yes · ROAD_MARKING |
-| cushionQty | Thùng GC | Number | — | detail / list | child | yes · CRASH_CUSHION |
-| mirrorQty | Gương | Number | — | detail / list | child | yes · CONVEX_MIRROR |
-| signalPoleKind … lampQty | Đèn | Dropdown/Number | — | detail / list | child | yes · TRAFFIC_SIGNAL |
-| builtYear | Năm | Number | — | detail / list | `builtYear` | yes |
-| manageUnit | ĐV QL | Text | — | detail / list | `manageUnit` | yes · **GAP-CSDL-ORG-01** |
-| notes | Ghi chú | Textarea | — | detail | `notes` | yes |
-| isActive | Active | — | — | detail | soft-delete | yes |
-| updatedAt | Cập nhật | DateTime ro | — | detail | — | yes |
+### B1 — CRUD fields (**unchanged** — keep prior bind)
 
-**Prefix map:**
+Reuse prior §B (`task_a21c4937`): `resource` · filters · shared + 11 child · soft-delete. **Cấm** đổi write paths typed trong pack này.
+
+### B2 — Export / import (**delta**)
+
+| uiField / action | Label | controlHint | catalogKind | GET / POST | write field | sameMfe |
+|------------------|-------|-------------|-------------|------------|-------------|---------|
+| exportExcel | Xuất Excel | ToolbarButton | — | `GET …/export?resource=traffic-safety` (+ filter QS nếu Q-XLS-SCOPE=filtered) | — (download) | **gap** (thiếu nút) |
+| importExcel | Nhập Excel | ToolbarButton + file | — | `POST …/import?resource=traffic-safety` multipart | upsert typed + child | **gap** P1 |
+| exportFileName | — | derived | — | Content-Disposition | — | SA |
+| typeScope | assetType | derived | — | QS / row map | child columns | Q-XLS-TYPE |
+
+**Prefix map (keep + delta):**
 
 | Operation | Path |
 |-----------|------|
-| List | `GET /web-bff/api/v1/asset/csdl-records?resource=traffic-safety` (+ optional `type=`) |
-| Detail | `GET /web-bff/api/v1/asset/csdl-records/{id}` |
-| Create | `POST /web-bff/api/v1/asset/csdl-records` body `resource=traffic-safety` + typed/child fields |
-| Update | `PUT /web-bff/api/v1/asset/csdl-records/{id}` |
-| Delete | `DELETE /web-bff/api/v1/asset/csdl-records/{id}` (soft) |
-
-API mirror: `api/v1/asset/csdl-records`. FE cite hub: `services/csdlSoSach/endpoint.ts` `BASE=/asset/csdl-records` — typed page **reuse** cùng BASE.
-
-DB SSOT child map (SA · số biểu cũ 7): `TrafficSign`↔TRAFFIC_SIGN · `RoadMarkerPost`↔MARKER_POST · `MedianBarrier`↔MEDIAN · `AntiGlarePanel`↔ANTI_GLARE · `TrafficIsland`↔TRAFFIC_ISLAND · `RoadStud`↔ROAD_STUD · `Guardrail`↔GUARDRAIL · `RoadMarking`↔ROAD_MARKING · `CrashCushion`↔CRASH_CUSHION · `ConvexMirror`↔CONVEX_MIRROR · `TrafficSignal`↔TRAFFIC_SIGNAL.
+| List / Detail / CRUD | `/web-bff/api/v1/asset/csdl-records` (+ `/{id}`) — **keep** |
+| **Export** | `GET /web-bff/api/v1/asset/csdl-records/export?resource=traffic-safety` |
+| **Import** | `POST /web-bff/api/v1/asset/csdl-records/import?resource=traffic-safety` |
+| API mirror | `api/v1/asset/csdl-records[/export|/import]` · **cấm** invent `/infra/` |
 
 ## §C — Catalog / lookup
 
-| catalogKind | search/list API | seed/import cite | Cấm |
-|-------------|-----------------|------------------|------|
-| LOOKUP_STATIC province | FE `PROVINCES` P1 | demo align | Dropdown demo-only làm SSOT quốc gia |
-| LOOKUP_STATIC status | tot/tb/kem/hong | — | — |
-| LOOKUP_STATIC side | L / R / C / Both | demo `sides` | invent side set |
-| LOOKUP_STATIC assetType | 11 enum trên | analy · Excel Biểu 8 | free-text chủng loại |
-| LOOKUP_STATIC markerKind | cọc tiêu / H / Km / dẻo / thủy chí | Excel · **Q-MARKER-KIND** | invent khi đã LOOKUP |
-| road-route | `GET /integration/road-routes/search` | shared catalog READY | free-text khi đã chốt SearchInput |
-| org-unit | `GET /integration/org-units/search` | shared org · P2 | hardcode ĐV |
-| ui-schema | Integration `traffic-safety` | Schema editor | generic 3-col only |
+Unchanged prior LOOKUP_STATIC (province/status/side/assetType/…) + `road-route` + `org-unit` P2. Export **không** thêm catalogKind.
 
 ## §D — Map / vẽ
 
-`none` — list pack. Toolbar map → gis deep-link only. **Cấm** invent map canvas.
+`none`
 
-## §E — Empty / error / permission
+## §E — Empty / error / permission / export
 
 | Case | UX |
 |------|-----|
-| Empty list | Grid copy VN «Chưa có hệ thống ATGT» · CTA Tạo mới |
-| 422 thiếu resource | toast · không alert |
-| 404 detail | đóng slideout · toast |
-| Soft-delete | row biến mất · list refresh |
-| Permission | CommonLib Auth debt · **cấm** invent path |
+| Empty list export | File vẫn tải · 0 data row · header merge đúng mẫu · toast info OK |
+| Export fail | toast · **cấm** silent · **cấm** CSV generic lưới |
+| Import child mismatch | toast · **cấm** ép 1 entity wide 45 |
+| Permission | Auth debt · **cấm** invent path |
+| Toast stub only | **FAIL** DoD · **GAP-BIEU08-XLS-02** |
 
 ## §F — Cấm
 
-- Demo / localStorage / seed giả làm SSOT runtime  
-- ERP.* / Domains/Master / `api/v1/infra/*` / invent `api/v1/so-ts/*`  
-- Form chỉ 3 ô `detail*` · **1 entity wide 45 cột**  
-- Merge form Sổ TS ATGT / bind `road-assets` vào biểu Cục  
-- Guid làm IdCode  
+- Re-run typed CRUD `new_page` / đổi form 45/11 không gap  
+- Toast stub = done · STATUS typed done = export xong  
+- Xuất/Import trên filter bar (**GAP-FILTER-BAR-08**)  
+- Golden = hồ sơ 12+8  
+- 1 hàng kéo ngang lệch mẫu Cục · invent 11 sheet  
+- Demo/localStorage SSOT · ERP.* · invent `infra`  
 - yarn build / e2e ở role data_analy  
 
 ## Version meta (REQUIRED)
@@ -136,17 +108,17 @@ DB SSOT child map (SA · số biểu cũ 7): `TrafficSign`↔TRAFFIC_SIGN · `Ro
 | Field | Value |
 |-------|-------|
 | skillId | agent-data-analy |
-| skillVersion | 2026.08.25.01 |
-| schemaVersion | 1 |
-| workflowVersion | 2026.09.01.02 |
-| rulesVersion | 2026.08.31.2 |
-| contentHash | `sha256:f972c82727726d256754d076435f9ef97c993b4f9844dc79e50b6415fcaf54be` |
+| skillVersion | 2026.09.05.03 |
+| schemaVersion | 2 |
+| workflowVersion | 2026.09.05.03 |
+| rulesVersion | 2026.09.17.3 |
+| contentHash | `sha256:639566df4ddccc3927311d5618bf4e7c1dbad0dac80962c414f861dacc9d5e9c` |
 | headerFingerprint | `sha256:ba8b8db4f7637ee32cfd4a882b6abdc774c538f6c9812c3ecd1d13f6151cdd6f` |
-| generatedAt | 2026-09-05T16:58:08.958Z |
+| generatedAt | 2026-09-18T04:55:00.000Z |
 | versionGate | ok |
-| taskId | task_a21c4937 |
+| taskId | task_774ebbde |
 | packKind | list |
-| changeScope | new_page |
+| changeScope | edit_page |
 
 ---
-<!-- Version meta: skillId=agent-data-analy skillVersion=2026.08.25.01 schemaVersion=1 workflowVersion=2026.09.01.02 rulesVersion=2026.08.31.2 versionGate=ok contentHash=sha256:f972c82727726d256754d076435f9ef97c993b4f9844dc79e50b6415fcaf54be -->
+<!-- Version meta: skillId=agent-data-analy skillVersion=2026.09.05.03 schemaVersion=2 workflowVersion=2026.09.05.03 rulesVersion=2026.09.17.3 versionGate=ok contentHash=sha256:639566df4ddccc3927311d5618bf4e7c1dbad0dac80962c414f861dacc9d5e9c changeScope=edit_page taskId=task_774ebbde -->

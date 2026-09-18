@@ -1,7 +1,16 @@
 {
   "url": "http://localhost:9301/csdl-bieu-05",
+  "changeScope": "edit_page",
   "hasTitle": true,
   "hasFilter": true,
+  "hasExportToolbar": true,
+  "hasImportToolbar": false,
+  "importDeferredHidden": true,
+  "filterBarHasNoExport": true,
+  "filterBarMeta": {
+    "foundFilter": true,
+    "hasXuat": false
+  },
   "noDemo": true,
   "noModeBadge": true,
   "testids": [
@@ -14,6 +23,7 @@
     "rmms-csdl-bieu-05-list-peer-sots",
     "rmms-csdl-bieu-05-list-list-toolbar",
     "rmms-csdl-bieu-05-list-refresh-btn",
+    "rmms-csdl-bieu-05-list-export-excel-btn",
     "rmms-csdl-bieu-05-list-create-btn",
     "rmms-csdl-bieu-05-list-table-card",
     "rmms-csdl-bieu-05-list-list-title-help",
@@ -35,6 +45,12 @@
     "rmms-csdl-bieu-05-list-grid-wrap",
     "rmms-csdl-bieu-05-list-empty"
   ],
-  "titleSnippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nCSDL Biểu 01 — Phân loại mặt đường\nCSDL Biểu 04 — Cống các loại\nCSDL Biểu 05 — Rãnh các loại\nHạng mục KCHT\nDS\nDev Standalone\nDeveloper\nBiểu 05 — Rãnh các loại\n← HubBiểu 05 — Rãnh các loạiSổ TS rãnh\nLàm mới\nTạo mới\nBiểu 05 — Rãnh các loại\nMenu",
-  "peerSots": true
+  "peerSots": true,
+  "exportCheck": {
+    "attempted": true,
+    "ok": true,
+    "fileName": "Bieu05_RanhCacLoai_20260918.xls",
+    "hasPath": true,
+    "error": ""
+  }
 }

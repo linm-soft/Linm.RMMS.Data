@@ -1,185 +1,152 @@
-# Data-analy — controlHint — csdl-bieu-13 (Kind B list + Kind D Slideout · Biểu 13)
+﻿# Data-analy — controlHint — csdl-bieu-13 (Kind B list + Kind D Slideout · Biểu 13)
 
 | Field | Value |
 |-------|-------|
 | feature | `csdl-bieu-13` |
 | packKind | `list` |
-| mode | `feature_context` (new_page · CTX + cluster analy + hub demo · synthetic) |
-| changeScope | `new_page` |
+| mode | `feature_context` (edit_page · T-XLS-S13 · keep typed CRUD) |
+| changeScope | `edit_page` |
 | status | `done` |
 | skillId | `agent-data-analy` |
-| skillVersion | `2026.08.25.01` |
+| skillVersion | `2026.09.05.03` |
 | schemaVersion | `1` |
-| workflowVersion | `2026.09.01.02` |
-| rulesVersion | `2026.08.31.2` |
-| versionGate | `ok` (first fill stubs · CTX+demo hash recorded · autoApprove queue) |
-| contentHash | `sha256:39a45de0a9b834c65373e6c20d1664ab43144ff60d97bae4f0d886ad09d91e3a` |
+| workflowVersion | `2026.09.05.03` |
+| rulesVersion | `2026.09.17.3` |
+| versionGate | `ok` (CTX hash change + export delta Wave 1 · autoApprove queue · **không** AskQuestion) |
+| contentHash | `sha256:800386bb8f86bfcc815b9c7d3a6dc246dc58b0a95b5132a317c5a094d0b4194f` |
 | headerFingerprint | `sha256:31dbc83200b511c9d61333b1cdb94e2880778980a3b21970be414e926db29008` |
-| analyzedAt | `2026-09-05T13:50:00.000Z` |
-| cluster | `csdl-cuc-2026` · Excel sheet Biểu 13 · **13 cột** · dài · cao · DT · **NEW card** |
-| taskId | `task_3cec1103` |
+| analyzedAt | `2026-09-18T00:53:47.050Z` |
+| cluster | `csdl-cuc-2026` · Excel sheet Biểu 13 · **13 cột** · dài · cao · DT · Wave 1 `T-XLS-S13` |
+| taskId | `task_4fec1f3f` |
+| priorTask | `task_3cec1103` → pipeline review `task_bdbf3809` (typed CRUD **done** — **cấm** re-run new_page typed) |
 | autoApprove | `ON` (queue) |
 | realData | `specs/_data-analy/features/csdl-bieu-13-real-data.md` |
-| beRepo | `D:/AI-QLBD/Linm.RMMS.WebService` · domain **Asset** · `api/v1/asset/csdl-records?resource=noise-barriers` · **cấm ERP.*** · **cấm** invent `api/v1/infra/*` |
+| beRepo | `D:/AI-QLBD/Linm.RMMS.WebService` · domain **Asset** · `api/v1/asset/csdl-records` · **cấm ERP.*** · **cấm** invent `api/v1/infra/*` |
 | uiRepo | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Asset` |
-| mfeStdUrl | `http://localhost:9301/csdl-bieu-13` · hub deep-link `/so-ts/csdl-so-sach?resource=noise-barriers` |
+| mfeStdUrl | `http://localhost:9301/so-ts/csdl-so-sach` · alias `/csdl-bieu-13` · hub `?resource=noise-barriers` |
 | resource | `noise-barriers` |
 | formNo | `13` · title VN **Tường chống ồn** |
 | peerSoTs | `so-ts-noise-barrier` (peer type `NOISE_BARRIER`) · **≠** merge form so-ts-* · **GAP-CSDL-CUC-11** |
-| runMode | `new_page` · typed form 13 cột · dài/cao/DT · **cấm** chỉ 3 ô `detail*` |
+| runMode | `edit_page` · export/import Excel đúng mẫu Cục · **cấm** new_page typed CRUD |
+| epicCite | `docs/context/features/csdl-export-print.md` Wave 1 · `T-XLS-S13` |
+| devSlashExport | `/implement-export-import-excel` · BFF binary |
 
-> Data-analy **đề xuất** controlHint. Design **chốt** control-map. SA **chốt** typed DTO + migration.  
+> Data-analy **đề xuất** controlHint. Design **chốt** control-map (giữ prototype typed · **chỉ** delta toolbar export). SA **chốt** binary export path.  
 > Typography: label **13** · input D14 / M16 (**GAP-TYP-01**).  
-> `sourceKind=synthetic` — demo = zone/field **tham chiếu** · **cấm** demo-json / localStorage SSOT.  
-> **Cấm** chỉ 3 ô `detailPrimary`/`detailSpec`/`detailExtra` — form = đủ cột Excel (cite analy).  
-> Analy: Từ–đến · vị trí · dài · cao · DT · **NEW card** hub.  
-> DB SSOT doc hiện **1–12 only** — entity `NoiseBarrier` / Schema_CsdlBieu13 = **SA + migration** (**GAP-BIEU13-DB-01**).  
-> Peer Sổ TS `so-ts-noise-barrier` = inventory `road-assets` — **ROW riêng** CSDL Cục · **cấm** reuse dumpSpecs / merge form.
+> **Giữ** PO/Design/SA artifacts typed — analy **chỉ** § Delta export.  
+> Toast stub / typed STATUS done **≠** export xong.  
+> Golden = Cục **16-sheet** xls · **cấm** hồ sơ 12+8.
 
 ## Sources
 
 | Source | Path | sha256 / note |
 |--------|------|---------------|
-| Context | `docs/context/features/csdl-bieu-13.md` | `39a45de0a9b834c65373e6c20d1664ab43144ff60d97bae4f0d886ad09d91e3a` |
-| Parent hub | `docs/context/features/csdl-so-sach.md` | cite hub Kind G · **thiếu** card `noise-barriers` |
-| Cluster analy | `specs/_data-analy/csdl-cuc-2026/ANALYSIS-AND-TASKS.md` | Biểu 13 · 13 cột · § Biểu 13 · **MISSING hub** · **GAP-CSDL-CUC-05** |
-| DB API SSOT | `docs/context/11-CSDL-SO-SACH-DATABASE-API.md` | chỉ Biểu **1–12** · **GAP-BIEU13-DB-01** · live path = `asset/csdl-records` (doc §2.1 `infra` = legacy · **cấm** invent) |
-| Peer CTX | `docs/context/features/so-ts-noise-barrier.md` | peer type `NOISE_BARRIER` · **cấm** merge |
-| Demo entry | `Linm.RMMS.Demo/src/demo/features/csdl-so-sach-demo.html` | `c2c9f8194cb104b3202bcaa46a589c9baba5cf8062aa12e7d0872a9e96eba7ae` |
-| Demo page | `Linm.RMMS.Demo/src/demo/asset/csdl-so-sach.html` | hub+list+slideout chrome · **chưa** card Biểu 13 |
-| Demo data | `Linm.RMMS.Demo/src/demo/asset/js/csdl-so-sach-data.js` | `csdlResources` **12** biểu · **thiếu** `noise-barriers` · **GAP-BIEU13-HUB-01** |
-| DOMAIN-MAP | `Linm.RMMS.WebService/docs/DOMAIN-MAP.md` | `csdl-so-sach` → Asset · **GAP-BIEU13-DMAP-01** thiếu slug `csdl-bieu-13` |
-| Live API | `CsdlCatalogRecordsController` | `api/v1/asset/csdl-records` (polymorphic shell) · resource **chưa** đăng ký |
-| Live MFE | `CsdlSoSachPage` · `CsdlFormSlideout` | generic 3-field — **GAP-BIEU13-TYPED-01** |
-| Excel | `data-import/Sổ sách, biểu mẫu trình LĐ Cục/1. Biểu mẫu CSDL.xls` sheet Biểu 13 | real source · import OUT Dev/XLS task |
-| Peer Sổ TS | `so-ts-noise-barrier` · `api/v1/asset/road-assets?type=NOISE_BARRIER` | peer only · **cấm** merge |
+| Context | `docs/context/features/csdl-bieu-13.md` | `800386bb8f86bfcc815b9c7d3a6dc246dc58b0a95b5132a317c5a094d0b4194f` |
+| Export epic | `docs/context/features/csdl-export-print.md` | `2ca7ea0a7f1cfe4d3caf05688cc08ca2546457b09ed388671b58c3a769492c14` |
+| Parent hub | `docs/context/features/csdl-so-sach.md` | cite hub Kind G · resource `noise-barriers` |
+| Cluster analy | `specs/_data-analy/csdl-cuc-2026/ANALYSIS-AND-TASKS.md` | Biểu 13 · 13 cột · § Biểu 13 |
+| DB API SSOT | `docs/context/11-CSDL-SO-SACH-DATABASE-API.md` | Schema_CsdlBieu13 / NoiseBarrier · LengthM · HeightM · AreaM2 |
+| Demo | N/A (packet) · prior hub demo zone-only | **cấm** demo SSOT |
+| DOMAIN-MAP | `Linm.RMMS.WebService/docs/DOMAIN-MAP.md` | Asset · `csdl-records` · slug `csdl-bieu-13` |
+| Live MFE | `CsdlBieu13Page` · `fromCatalogToolbar` | typed list+slideout **shipped** · **thiếu** Xuất Excel |
+| Live API | `CsdlCatalogRecordsController` | CRUD live · export/import **gap** |
+| Golden Excel | `data-import/…/1. Biểu mẫu CSDL.xls` sheet Biểu 13 | Cục **16-sheet** · **cấm** hồ sơ 12+8 làm golden |
+| Peer Sổ TS | `so-ts-noise-barrier` · `road-assets?type=NOISE_BARRIER` | cite only · **cấm** merge vào export |
 
-Normalized header (13 — Excel flatten + shared trail):
+Normalized header (unchanged · 13 — Excel flatten):
 
 `code|roadCode|roadName|province|kmFrom|kmTo|side|lengthM|heightM|areaM2|status|manageUnit|notes`
 
 Form trail (đã trong 13): `manageUnit` · `notes`. **Không** thêm cột ngoài 13.  
-DB đề xuất: `LengthM` · `HeightM` · `AreaM2` (+ optional `BarrierType` nếu Excel có — **Q-BARRIER-TYPE** · **cấm** nhét ngoài 13 không confirm).
+DB SSOT: `LengthM` · `HeightM` · `AreaM2` ↔ camelCase (**SA** giữ map typed).
 
-## § Delta Current vs New (`new_page` · `task_3cec1103`)
+## § Delta Current vs New (`edit_page` · `task_4fec1f3f` · **T-XLS-S13**)
 
-| ID | Current | New (this analy) | Surface |
-|----|---------|------------------|---------|
-| GAP-BIEU13-HUB-01 | Hub demo/live **12** biểu · **MISSING** card Biểu 13 | NEW card «Tường chống ồn» · `?resource=noise-barriers` · formNo **13** | hub Kind G |
-| GAP-BIEU13-TYPED-01 | Không resource / form generic nếu bootstrap | Typed **13 cột** · Slideout 2col · dài/cao/DT | form + list cols |
-| GAP-BIEU13-ROUTE-01 | Chưa alias | Alias mfeStd `/csdl-bieu-13` · giữ hub entry | shell / Design |
-| GAP-BIEU13-DIM-01 | — | `lengthM` · `heightM` · `areaM2` Number · **cấm** nhét 3 ô detail* | filter + form + list |
-| GAP-BIEU13-SIDE-01 | — | `side` LOOKUP L/R/C/Both · vị trí | filter + form |
-| GAP-BIEU13-DB-01 | DB SSOT doc chỉ Biểu 1–12 | Schema_CsdlBieu13 / `NoiseBarrier` + resource registry | SA / migration |
-| GAP-BIEU13-DMAP-01 | DOMAIN-MAP thiếu `csdl-bieu-13` | Thêm slug → Asset (cùng `csdl-so-sach`) | SA / Dev |
-| GAP-CSDL-CUC-05 | Biểu 13–16 chưa có resource | Đóng gap Biểu 13 khi hub+API PASS | hub + API |
-| GAP-CSDL-ROAD-01 | — | `SearchInput` `road-route` + `roadCode` | filter + form |
-| GAP-CSDL-PROV-01 | LOOKUP_STATIC 5 tỉnh (hub peers) | giữ P1 **hoặc** master province — PO chốt | filter + form |
-| GAP-CSDL-ORG-01 | `manageUnit` Text | SearchInput tree `org-unit` · DEFER P2 OK | form |
-| GAP-CSDL-CUC-03 | Form generic không đủ cột | Đóng gap Biểu 13 khi typed PASS | form |
-| GAP-CSDL-XLS-01 | Import/export stub | Sheet Biểu 13 đúng 13 cột / merge — OUT pack Dev/XLS | toolbar |
-| GAP-CSDL-CUC-11 | Peer `so-ts-noise-barrier` tồn tại | **≠** Sổ TS · LOOKUP `road-route` chung · ROW riêng · **cấm** merge dumpSpecs / form so-ts | nav |
+| ID | Current (live / prior analy) | New (this analy) | Surface |
+|----|------------------------------|------------------|---------|
+| GAP-BIEU13-XLS-01 | Typed CRUD + 13 cột + section kích thước **PASS** · toolbar **không** Xuất/Import binary | **Xuất Excel** (+ Import P1) đúng sheet Biểu 13 · merge-header · 13 cột | `catalogToolbar` / `report-toolbar-actions` |
+| GAP-BIEU13-XLS-02 | Toast / stub action coi «có nút» | File binary qua BFF · `/implement-export-import-excel` · **cấm** toast-only done | FE + BFF + BE |
+| GAP-BIEU13-XLS-03 | — / hồ sơ 12+8 STALE | Golden = Cục **16-sheet** xls sheet Biểu 13 · **cấm** 12+8 golden | SA/Dev checksum |
+| GAP-BIEU13-XLS-04 | Filter bar chỉ field + 🔍 | **Cấm** đặt Xuất/Import trên `LinErpListFilterBar` (**GAP-FILTER-BAR-08**) | Zone B filter vs toolbar |
+| GAP-BIEU13-XLS-05 | API CRUD only | `GET …/csdl-records/export?resource=noise-barriers` · `POST …/import?resource=` (cite epic · SA chốt) | BE Asset |
+| GAP-BIEU13-XLS-06 | Section kích thước UX form | Export **1 sheet** 13 cột · dài/cao/DT cùng hàng · **cấm** invent sheet riêng kích thước | export engine |
+| GAP-BIEU13-XLS-07 | Peer `so-ts-noise-barrier` tồn tại | Export qty/m² biểu Cục · **cấm** merge/dump Sổ TS `road-assets` vào file | export bind |
+| — | Typed form/list/route/hub | **Không đổi** · **cấm** new_page typed CRUD re-open | form / list / hub |
 
-**Không** đổi: API prefix `api/v1/asset/csdl-records` · resource key `noise-barriers` (CTX) · Kind B list A–D · Kind D Slideout · `LinPageLayout kind="catalog"` · **cấm ERP.*** · IdCode **cấm** Guid · prefix đề xuất **`TC`** (khớp GIS peer · **Q-PREFIX**).
+**Không** đổi: API prefix `api/v1/asset/csdl-records` · resource `noise-barriers` · Kind B A–D · Kind D Slideout · filter slots · **cấm ERP.*** · IdCode `TC` · formNo `13` · section kích thước · peer cite-only.
 
-## Kind / zones (handoff Design)
+**Closed / keep (prior new_page — không reopen):** GAP-BIEU13-HUB/TYPED/ROUTE/DIM/SIDE/DB/DMAP · ROAD/PROV/ORG P2 debt · GAP-CSDL-CUC-11 · prior GAP-CSDL-XLS-01 stub → **supersede** bằng GAP-BIEU13-XLS-*.
 
-| Zone / surface | Pattern | DoD |
-|----------------|---------|-----|
-| Entry | Hub card **mới** **hoặc** `/csdl-bieu-13` | Title VN · back hub · **cấm** slug trên card |
-| List A | Header | «Biểu 13 — Tường chống ồn» · back hub |
-| List B | Toolbar + filter | SearchTextInput · province · status · road SearchInput · kmFrom/kmTo · side · Tạo mới · Refresh · Delete · History · SchemaConfig · Import/Export stub · **search must work** · **cấm** nút Tìm riêng |
-| List C | `LinCatalogDataGrid` | Cột typed (không chỉ 3 detail) · STT · row menu Xem/Sửa/Copy/Xóa/Lịch sử · kéo cột ON |
-| List D | Footer | `LinCatalogListPagination` 50/100/200/500 |
-| Form | Kind **D** Slideout Z1–Z3 · 2col | C/E/V/Copy · View=`readOnly` · LeaveConfirmModal dirty · footer Lưu/Hủy · section kích thước dài/cao/DT |
-| Map | none | deep-link gis only · **cấm** invent map canvas |
+## Kind / zones (handoff Design — delta only)
 
-**Skip chrome:** GOVOne logo/bell/user · demo skin.
+| Zone / surface | Pattern | DoD this edit |
+|----------------|---------|----------------|
+| List A | Header | Giữ «Biểu 13 — Tường chống ồn» · back hub |
+| List B toolbar | `catalogToolbar` | **Thêm** Xuất Excel (+ Import P1) · icon `erp-control-icon-map` · **cấm** filter |
+| List B filter | `LinErpListFilterBar` | **Unchanged** · 0 action Xuất (**GAP-FILTER-BAR-08**) |
+| List C/D | Grid + pagination | Unchanged · typed 13 |
+| Form | Kind D Slideout | Unchanged · section kích thước dài/cao/DT |
+| Map | none | — |
 
-## Control hint — list filters (Zone B)
+## Control hint — list filters (Zone B) — **unchanged**
 
 | Field key | Label | controlHint | catalogKind | Notes |
 |-----------|-------|-------------|-------------|-------|
 | search | Tìm kiếm | `SearchTextInput` | text | mã · đường · ghi chú |
-| province | Tỉnh/TP | `Dropdown` | LOOKUP_STATIC | **GAP-CSDL-PROV-01** |
+| province | Tỉnh/TP | `Dropdown` | LOOKUP_STATIC | |
 | status | Tình trạng | `Dropdown` | LOOKUP_STATIC | tot/tb/kem/hong |
-| roadCode | Đường | `SearchInput` | **road-route** | **GAP-CSDL-ROAD-01** |
-| kmFrom / kmTo | Lý trình từ–đến | `Number` | — | Line geom |
+| roadCode | Đường | `SearchInput` | **road-route** | |
+| kmFrom / kmTo | Lý trình từ–đến | `Number` | — | |
 | side | Vị trí (T/P/C) | `Dropdown` | LOOKUP_STATIC | L/R/C/Both |
 
-## Control hint — form fields (Slideout)
+## Control hint — form fields — **unchanged** (cite prior · 13 typed)
 
-| # | Field key | Label | controlHint | required | Notes |
-|---|-----------|-------|-------------|----------|-------|
-| — | code | Mã | `Text` readonly | auto | IdCode prefix `TC` · **cấm** Guid · **Q-PREFIX** |
-| 1–2 | roadCode / roadName | Mã/Tên đường | `SearchInput` | * | catalogKind `road-route` |
-| 3 | province | Địa danh | `Dropdown` | * | LOOKUP_STATIC P1 |
-| 4–5 | kmFrom / kmTo | Lý trình từ–đến (Km) | `Number` | * | decimal · Line |
-| 6 | side | Vị trí | `Dropdown` | * | L/R/C/Both |
-| 7 | lengthM | Chiều dài (m) | `Number` | * | decimal ≥0 · **GAP-BIEU13-DIM-01** |
-| 8 | heightM | Chiều cao (m) | `Number` | | decimal ≥0 |
-| 9 | areaM2 | Diện tích (m²) | `Number` | | decimal ≥0 · DT |
-| 10 | status | Tình trạng | `Dropdown` | * | LOOKUP_STATIC |
-| — | manageUnit | ĐV QL | `Text` → SearchInput | | **GAP-CSDL-ORG-01** · trail |
-| — | notes | Ghi chú | `Textarea` | | trail |
+Giữ bảng form prior `task_3cec1103` (shared + section kích thước lengthM/heightM/areaM2). **Cấm** đổi controlHint form trong pack này.
 
-### Form sections
-
-| Section | Fields | Notes |
-|---------|--------|-------|
-| Vị trí tuyến | roadCode · roadName · province · kmFrom · kmTo · side | shared đầu form |
-| Kích thước tường | lengthM · heightM · areaM2 | **cấm** gộp 1 text detail* · **Q-AREA-DERIVE** |
-
-## Control hint — actions
+## Control hint — actions (**delta**)
 
 | Action | Surface | Notes |
 |--------|---------|-------|
-| back-hub | List A | về `/so-ts/csdl-so-sach` |
-| create / view / edit / copy / delete | Toolbar + row | soft-delete API |
-| save / cancel | Form footer | LeaveConfirmModal dirty |
-| import / export | Toolbar | stub · XLS Biểu 13 OUT pack · merge-header |
-| history | Toolbar / row | stub modal OK P2 |
-| schema-config | Toolbar | UiSchema typed `noise-barriers` |
+| export-excel | **catalogToolbar** | Label **Xuất Excel** · binary download · sheet Biểu 13 · filter QS áp dụng nếu SA chốt |
+| import-excel | **catalogToolbar** (P1) | Template Cục · merge-header 13 · **cấm** filter bar |
+| create / view / edit / copy / delete / history / schema-config / refresh | Toolbar (keep) | Unchanged |
+| save / cancel | Form footer | Unchanged |
+| print-pdf | — | **OUT** Biểu (sổ Word) · không Wave 1 S13 |
 
 ## Open questions (PO trước Design)
 
 | ID | Q | Options |
 |----|---|---------|
-| Q-ROUTE | Alias `/csdl-bieu-13` Navigate ngay hay DEFER hub-only? | alias_now · hub_only |
-| Q-PROV | Province static vs master? | keep_static · master_province |
-| Q-BARRIER-TYPE | Excel có cột «loại tường» (peer `type_noise_barrier_id`) ngoài 13? | no_type_keep_13 · add_type_recount |
-| Q-AREA-DERIVE | `areaM2` nhập tay hay derive `lengthM×heightM`? | manual · derive_readonly · either |
-| Q-PREFIX | IdCode prefix `TC` (GIS peer) vs prefix Cục riêng? | TC · other |
-| Q-LIST-COLS | Grid mặc định: shared + dài/cao/DT hay schema-config only? | subset · schema_only |
-| Q-TITLE | Title hub «Tường chống ồn» vs peer «Rào chắn ồn»? | ctx_tuong · peer_rao |
-| Q-DMAP | Thêm `csdl-bieu-13` vào DOMAIN-MAP khi Dev? | add_now · hub_only_map |
-| Q-PEER-LINK | Deep-link sang Sổ TS `?type=NOISE_BARRIER` từ row? | none_p1 · optional_link |
+| Q-XLS-SCOPE | Export = **filtered set** (road/province/status/…) hay **all tenant resource**? | filtered · all_resource (**SA/PO**) |
+| Q-XLS-IMPORT | Import P1 cùng task hay DEFER sau export-only? | import_now · export_only_p0 |
+| Q-XLS-FILENAME | Tên file download? | `Bieu13_TuongChongOn_{yyyyMMdd}.xls(x)` · SA chốt |
+| Q-XLS-SHEET | 1 sheet 13 cột (dài/cao/DT cùng hàng) hay split? | one_sheet · split (**cấm** split trừ Excel Cục yêu cầu) |
 
 ## Handoff
 
 | Role | Dùng packet |
 |------|-------------|
-| **PO** | § Delta + open Q → `requirement.md` |
-| **Design** | control-map khớp bảng · prototype list+slideout · section kích thước · reviewUrl |
-| **SA** | path `api/v1/asset/csdl-records` · typed DTO/UiSchema · Schema_CsdlBieu13 · register `noise-barriers` · **cấm** `infra` · DOMAIN-MAP slug · **cấm** merge road-assets |
-| **TL/Dev** | Wire controlHint · hub card mới · **cấm** đoán Text vs SearchInput · **cấm** 3 ô detail* · **cấm** merge so-ts-noise-barrier |
+| **PO** | § Delta T-XLS-S13 · DoD binary ≠ toast · giữ Grid AC typed |
+| **Design** | **Giữ** prototype typed · **chỉ** thêm nút Xuất (+Import) trên toolbar · reviewUrl cập nhật zone |
+| **SA** | Path export/import · BFF binary · golden 16-sheet · 13 cột checksum · **cấm** đổi typed entity trừ gap |
+| **TL/Dev** | `/implement-export-import-excel` · **cấm** filter-bar export · **cấm** re-CRUD typed · **cấm** merge so-ts-noise-barrier |
 
 ## Version meta (REQUIRED)
 
 | Field | Value |
 |-------|-------|
 | skillId | agent-data-analy |
-| skillVersion | 2026.08.25.01 |
+| skillVersion | 2026.09.05.03 |
 | schemaVersion | 1 |
-| workflowVersion | 2026.09.01.02 |
-| rulesVersion | 2026.08.31.2 |
-| contentHash | `sha256:39a45de0a9b834c65373e6c20d1664ab43144ff60d97bae4f0d886ad09d91e3a` |
+| workflowVersion | 2026.09.05.03 |
+| rulesVersion | 2026.09.17.3 |
+| contentHash | `sha256:800386bb8f86bfcc815b9c7d3a6dc246dc58b0a95b5132a317c5a094d0b4194f` |
 | headerFingerprint | `sha256:31dbc83200b511c9d61333b1cdb94e2880778980a3b21970be414e926db29008` |
-| generatedAt | 2026-09-05T13:50:00.000Z |
+| generatedAt | 2026-09-18T00:53:47.050Z |
 | versionGate | ok |
-| taskId | task_3cec1103 |
+| taskId | task_4fec1f3f |
 | packKind | list |
-| changeScope | new_page |
+| changeScope | edit_page |
 
 ---
-<!-- Version meta: skillId=agent-data-analy skillVersion=2026.08.25.01 schemaVersion=1 workflowVersion=2026.09.01.02 rulesVersion=2026.08.31.2 versionGate=ok contentHash=sha256:39a45de0a9b834c65373e6c20d1664ab43144ff60d97bae4f0d886ad09d91e3a -->
+<!-- Version meta: skillId=agent-data-analy skillVersion=2026.09.05.03 schemaVersion=1 workflowVersion=2026.09.05.03 rulesVersion=2026.09.17.3 versionGate=ok contentHash=sha256:800386bb8f86bfcc815b9c7d3a6dc246dc58b0a95b5132a317c5a094d0b4194f changeScope=edit_page taskId=task_4fec1f3f -->

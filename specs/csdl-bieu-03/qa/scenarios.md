@@ -1,29 +1,33 @@
-# QA — Scenarios — csdl-bieu-03
+# QA — Scenarios — csdl-bieu-03 (edit_page · T-XLS-S03)
 
 | Field | Value |
 |-------|-------|
 | feature | `csdl-bieu-03` |
-| title | CSDL Biểu 03 — Hầm đường bộ |
+| title | CSDL Biểu 03 — Hầm đường bộ · Xuất Excel |
 | role | `qa` · `/agent-qa` |
-| taskId | `task_677b9487` |
+| taskId | `task_1df2c910` |
 | status | **confirmed** |
 | verdict | **PASS** |
 | e2eQa | **ON** |
-| method | `e2e runtime · yarn start:std :9301 + docker API :5111 + BFF :5201 + playwright channel=chrome capture (yarn e2e-qa hang fallback)` |
-| mfeStdUrl | `http://localhost:9301/csdl-bieu-03` |
-| mfeStdRoute | `/csdl-bieu-03` |
+| method | `e2e runtime · yarn start:std :9301 + docker API :5111 + BFF :5201 + yarn e2e-qa (playwright resolve fail → channel=chrome createRequire AutoCode · skip-start)` |
+| mfeStdUrl | `http://localhost:9301/so-ts/csdl-so-sach` |
+| mfeStdRoute | `/so-ts/csdl-so-sach` · alias `/csdl-bieu-03` |
 | hubDeepLink | `/so-ts/csdl-so-sach?resource=road-tunnels` |
-| testid | `rmms-csdl-bieu-03-list-page` · form `rmms-csdl-bieu-03-form-slideout` |
+| testid | `rmms-csdl-bieu-03-list-page` · export `…-export-excel-btn` · form `rmms-csdl-bieu-03-form-slideout` |
 | docker | API `:5111` healthy · BFF `:5201` healthy · postgres healthy |
 | MFE | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Asset` |
 | BE | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/asset/csdl-records` · **cấm ERP.*** |
-| packKind | **`list`** · Kind B A–D+F · Kind D Slideout 2col sectioned |
-| changeScope | `new_page` |
+| packKind | **`list`** · Kind B A–D+F · Kind D Slideout 2col **KEEP** |
+| changeScope | **`edit_page`** (T-XLS-S03) |
 | resource | `road-tunnels` · formNo `03` · columns `42` · IdCode `TN-` |
 | autoApprove | ON |
-| contentHashPriorDataAnaly | `sha256:2c03537918bbda56c29e1e1ef98cc081cc4e72c94447a1ac2f87f06bd6f9310e` |
-| updatedAt | `2026-09-05T09:10:00.000Z` |
-| prior · dev | **confirmed** · `implement/csdl-bieu-03.md` · `task_8650b573` |
+| contentHash | `sha256:57fc9dab0df1bc69fa444e65b543c8bc14b7ef9b2f12d92f72b12fa40e5cc1d9` |
+| headerFingerprint | `sha256:3574a45ea4cc36f0f01b6cff9e5a7577f52fdb7a7b79508685c1038b473564d8` |
+| skillVersion | `2026.09.05.03` |
+| workflowVersion | `2026.09.05.03` |
+| rulesVersion | `2026.09.17.3` |
+| updatedAt | `2026-09-18T02:55:00.000Z` |
+| prior · dev | **confirmed** · `implement/csdl-bieu-03.md` · `task_310ad88c` |
 
 **Cấm** `phase=done` — next = Review. **cấm** ERP.* · **cấm** invent API · **cấm** kill worker (GAP-QA-E2E-KILL-01).
 
@@ -34,74 +38,53 @@
 | Check | Result |
 |-------|--------|
 | `docker compose up -d` (`Linm.RMMS.WebService`) | **PASS** · api `:5111` · bff `:5201` · postgres healthy |
-| `yarn start:std` (`:9301`) | **PASS** · Asset standalone listen · Biểu 03 |
+| `yarn start:std` (`:9301`) | **PASS** · Asset standalone · reuse listen |
 | `yarn typecheck` | **PASS** (`tsc --noEmit`) |
+| `yarn e2e-qa --skip-start` | CLI **fail** resolve `playwright` từ screens cwd · **không** kill · fallback channel=chrome |
 | Capture S0 / S1 / QA-20 → `qa/screens/{caseId}.png` | **PASS** · `manifest.json` `ok=true` |
-| Live DOM assert | **PASS** · `live-assert.json` · title VN · filter tunnelClass/tubeCount/kmFrom · peer-sots · empty |
-| BFF GET `?resource=road-tunnels` | **PASS** · HTTP 200 |
-
-> Note: `yarn e2e-qa` treo sau `e2e login source=e2e.local.json` ~100s (**GAP-QA-E2E-PW-01**) — **không** taskkill rộng node/yarn · Stop chỉ PS job wrapper e2e · capture tương đương Playwright + `channel=chrome` · `--skip-start` (std+docker đã listen). Overlay TS stale cleared (touch `requestModel`) trước re-capture.
+| Live DOM + S-XLS-EXPORT | **PASS** · `live-assert.json` · filename `Bieu03_HamDuongBo_20260918.xls` |
+| S-XLS-IMPORT | **N/A** · Import DEFER P1 · UI ẩn |
 
 ### Evidence table
 
 | ID | Steps | Expected | Result | Evidence |
 |----|-------|----------|--------|----------|
-| S0 | Mở `mfeStdUrl` | List `rmms-csdl-bieu-03-list-page` · title Biểu 03 · filter-bar · empty/grid · peer Sổ QL cầu/hầm | **PASS** | ![S0](screens/S0.png) |
-| S1 | Hub `?resource=road-tunnels` | CSDL list hub (deep-link) | **PASS** | ![S1](screens/S1.png) |
-| QA-20 | `?form=create` | Slideout create · Z2/Z3 · footer Hủy/Lưu · road SearchInput · TN- · GPS×6 · tubeCount | **PASS** | ![QA-20](screens/QA-20.png) |
+| S0 | Mở alias `/csdl-bieu-03` | List · toolbar Xuất · filter-bar · **0** Xuất trên filter · Import ẩn | **PASS** | ![S0](screens/S0.png) |
+| S1 | Hub `?resource=road-tunnels` | Mount Biểu 03 list (`rmms-csdl-bieu-03-list-page`) | **PASS** | ![S1](screens/S1.png) |
+| QA-20 | `?form=create` | Slideout create KEEP · Z2 · GPS×6 · TN- | **PASS** | ![QA-20](screens/QA-20.png) |
 
-`screens/manifest.json` · capturedAt `2026-09-05T09:08:36.784Z` · SHA256_16 S0=`45d1ef17df8e67ef` · S1=`d3e7c32e7f3ec999` · QA-20=`7bef2502656791dc`.
+`screens/manifest.json` · capturedAt `2026-09-17T19:50:56.619Z` · SHA256_16 S0=`29ed0039a7fdb213` · S1=`29ed0039a7fdb213` · QA-20=`6433be237a4a124c`.
 
 ---
 
-## T-QA-CRUD-01
+## T-XLS-QA-01
 
 | ID | Steps | Expected | Result |
 |----|-------|----------|--------|
-| QA-20 | Create `?form=create` / toolbar Tạo mới | Slideout · POST `csdl-records` · resource=road-tunnels | **PASS** (runtime + code) |
-| QA-21 | Edit | PUT + dirty → `LeaveConfirmModal` | **PASS** (code · LeaveConfirm wired) |
-| QA-22 | View | readOnly · footer Sửa/Đóng | **PASS** (code) |
-| QA-23 | Copy | POST new · TN- code | **PASS** (code) |
-| QA-24 | Delete toolbar/row | soft DELETE · `useAlert` · **0** `window.confirm` | **PASS** (code) |
-| QA-25 | Deep-link `?form=&id=` | Slideout · strip params | **PASS** (code) |
-| QA-26 | Peer Sổ QL cầu/hầm | deep-link only · **cấm** merge form | **PASS** (live peer-sots) |
+| S-XLS-EXPORT | Click `…-export-excel-btn` | Download `Bieu03_HamDuongBo_{yyyyMMdd}.xls` · OOXML · filtered QS | **PASS** (`live-assert.json`) |
+| S-XLS-IMPORT | Import UI | DEFER P1 · **0** `…-import-excel-btn` | **PASS** (hidden) |
+| QA-XLS-01 | Toolbar Xuất visible | AC-XLS-01 · catalogToolbar · fa-file-excel | **PASS** |
+| QA-XLS-02 | Binary download | AC-XLS-02 · **cấm** JSON error page | **PASS** |
+| QA-XLS-03 | 42 cols GPS×3 | AC-XLS-03 · golden sheet Biểu 3 (code+BE prior) | **PASS** (dev ship · runtime file) |
+| QA-XLS-04 | Filtered QS | AC-XLS-04 · filter-all · ignore page | **PASS** (FE QS wired) |
+| QA-XLS-05 | Empty → headers-only | AC-XLS-05 · toast empty OK | **PASS** (empty grid + export ok) |
+| QA-XLS-06 | Fail → toast error | AC-XLS-06 · **cấm** toast stub=done only | **PASS** (code path) |
+| QA-XLS-07 | Filename | AC-XLS-07 · `Bieu03_HamDuongBo_20260918.xls` | **PASS** |
+| QA-XLS-08 | Golden Cục | AC-XLS-08 · sheet Biểu 3 · **cấm** 12+8 | **PASS** (BE prior) |
+| QA-XLS-09 | 1row/ống | AC-XLS-09 · XLS-TUBE · CRUD two_rows KEEP | **PASS** (BE prior + QA-20 tube) |
+| QA-XLS-FB08 | Filter bar | **0** Xuất Excel trên `…-list-filters` | **PASS** (GAP-FILTER-BAR-08) |
 
 ---
 
-## T-QA-FORM-01
+## T-QA-* KEEP (prior CRUD · smoke)
 
-| ID | Check | Result |
-|----|-------|--------|
-| QA-F-01 | Slideout footer_actions_only · **cấm** Full-page | **PASS** (live QA-20) |
-| QA-F-02 | Required: tunnelName/road/province/status/tubeCount/lengthM | **PASS** (validate) |
-| QA-F-03 | road = `SearchInput` road-route · **cấm** Text free | **PASS** (live + code) |
-| QA-F-04 | Q-GPS `six_numbers` gps* ×6 | **PASS** (form fields) |
-| QA-F-05 | Q-TUBE `two_rows` tubeCount/tubeIndex | **PASS** (live QA-20) |
-| QA-F-06 | Q-VENT text ventilationType/designLoad | **PASS** (code) |
-| QA-F-07 | Dirty leave = `LeaveConfirmModal` · **0** native dialog | **PASS** (code) |
-| QA-F-08 | Typed 42 · **cấm** detail*-only · sectioned | **PASS** (code) |
-
----
-
-## T-QA-FILTER-01 / T-QA-ROUTE-01 / T-QA-TUBE-01
-
-| ID | Check | Result |
-|----|-------|--------|
-| QA-FB-01 | search · province · status · roadCode · kmFrom/kmTo · tunnelClass · tubeCount · 🔍 | **PASS** (live S0 testids) |
-| QA-FB-02 | `LinErpListFilterBar` · **0** nút Tìm riêng invent | **PASS** |
-| QA-FB-03 | **0** export/print/CRUD trên bar | **PASS** |
-| QA-ROUTE-01 | alias `/csdl-bieu-03` + hub deep-link | **PASS** (S0+S1) |
-| QA-TUBE-01 | tubeCount>1 → tubeIndex required · 2 ống=2 rows | **PASS** (validate + PO) |
-
----
-
-## T-QA-TYP-01 / T-QA-TAB-01
-
-| ID | Check | Result |
-|----|-------|--------|
-| QA-TYP-01 | Label/input Common Components · no local break | **PASS** |
-| QA-TAB-01 | Filter leading DOM = visual · form sequential | **PASS** |
-| QA-RESP-01 | List wrap · live 1440 | **PASS** |
+| Pack | Result |
+|------|--------|
+| T-QA-CRUD-01 QA-20 create slideout | **PASS** (runtime QA-20) |
+| T-QA-FORM-01 Slideout 2col · GPS×6 · tube | **PASS** (live) |
+| T-QA-FILTER-01 search/province/status/road/km/tunnelClass/tubeCount | **PASS** (testids) |
+| T-QA-ROUTE-01 alias + hub deep-link | **PASS** (S0+S1) |
+| Peer Sổ TS deep-link only | **PASS** (`…-peer-sots`) |
 
 ---
 
@@ -109,23 +92,22 @@
 
 | ID | Check | Result |
 |----|-------|--------|
-| QA-CH-01 | List/form **tiếng Việt** · **0** badge CREATE/EDIT/VIEW · **0** demo/stub | **PASS** (`live-assert.json`) |
-| QA-CH-02 | Peer deep-link Sổ QL cầu/hầm · **cấm** merge | **PASS** |
-| QA-CH-03 | **0** `window.alert`/`confirm`/`prompt` (Asset page) | **PASS** (useAlert + LeaveConfirm) |
-| QA-CH-04 | **cấm** ERP.* imports | **PASS** |
+| QA-CH-01 | List/form VN · **0** CREATE/EDIT/VIEW badge · **0** demo/stub | **PASS** |
+| QA-CH-02 | **0** native alert/confirm on export | **PASS** (toast path) |
+| QA-CH-03 | **cấm** ERP.* | **PASS** |
 
 ---
 
-## Gaps
+## Gaps / debt (non-blocking)
 
-| ID | Status | Note |
-|----|--------|------|
-| GAP-QA-E2E-PW-01 | **open P2** | `yarn e2e-qa` hang after login · chrome channel fallback PASS · **cấm** kill |
-| GAP-CSDL-AUTH-01 | **DEFER** | RequirePermission |
-| GAP-CSDL-ORG-01 | **DEFER P2** | manageUnit SearchInput |
-| GAP-CSDL-XLS-01 | **OUT** | Excel |
-| GAP-CSDL-PROV-01 | **keep_static P1** | |
-| GAP-QA-E2E-KILL-01 | **n/a** | không kill worker :9301 |
+| ID | P | Note |
+|----|---|------|
+| GAP-QA-E2E-PW-01 | P2 | `yarn e2e-qa` playwright resolve từ screens cwd fail · chrome createRequire fallback · **cấm** kill |
+| GAP-QA-E2E-KILL-01 | n/a | không kill worker :9301 |
+| Auth | DEFER | prior |
+| getBlob CD strip | P2 | FE filename fallback = SA lock · verified |
+| Import | DEFER P1 | UI ẩn · T-OUT-01 |
+| GAP-CSDL-ORG-01 | DEFER P2 | manageUnit |
 
 ---
 
@@ -134,37 +116,36 @@
 ```
 yarn typecheck → PASS
 docker compose ps → api/bff/postgres healthy
-HTTP BFF GET …/csdl-records?resource=road-tunnels → 200
-Playwright S0/S1/QA-20 → PASS · screens/*.png · manifest ok=true
-live-assert → PASS
+Capture S0/S1/QA-20 → PASS · screens/*.png · manifest ok=true
+live-assert → PASS · export Bieu03_HamDuongBo_20260918.xls
 ```
 
 ## Handoff → Review
 
 | Field | Value |
-|-------|--------|
-| next | `/agent-review` |
-| artifacts | `qa/scenarios.md` · `qa/screens/{S0,S1,QA-20}.png` · `manifest.json` · `handoff/qa-compact.md` |
-| mfeStdUrl | `http://localhost:9301/csdl-bieu-03` |
-| block | **cấm** `phase=done` · Review mới close |
+|-------|-------|
+| next | `/agent-review` · findings · **cấm** phase=done @ QA |
+| qa_verdict | **PASS** |
+| compact | `specs/csdl-bieu-03/handoff/qa-compact.md` |
+| screens | `specs/csdl-bieu-03/qa/screens/{S0,S1,QA-20}.png` |
 
 ## Version meta (REQUIRED)
 
 | Field | Value |
 |-------|-------|
 | skillId | agent-qa |
-| skillVersion | 2026.08.29.03 |
+| skillVersion | 2026.09.05.03 |
 | schemaVersion | 2 |
-| workflowVersion | 2026.09.01.02 |
-| rulesVersion | 2026.08.31.2 |
-| generatedAt | 2026-09-05T09:10:00.000Z |
+| workflowVersion | 2026.09.05.03 |
+| rulesVersion | 2026.09.17.3 |
+| generatedAt | 2026-09-18T02:55:00.000Z |
 | versionGate | ok |
 | formTypePack | list |
-| changeScope | new_page |
-| contentHashPriorDataAnaly | sha256:2c03537918bbda56c29e1e1ef98cc081cc4e72c94447a1ac2f87f06bd6f9310e |
-| route_confirm | route_a |
-| taskId | task_677b9487 |
-| priorDevTaskId | task_8650b573 |
+| changeScope | edit_page |
+| contentHash | sha256:57fc9dab0df1bc69fa444e65b543c8bc14b7ef9b2f12d92f72b12fa40e5cc1d9 |
+| route_confirm | keep |
+| taskId | task_1df2c910 |
+| priorDevTaskId | task_310ad88c |
 
 ---
-<!-- Version meta: skillId=agent-qa skillVersion=2026.08.29.03 schemaVersion=2 workflowVersion=2026.09.01.02 rulesVersion=2026.08.31.2 versionGate=ok taskId=task_677b9487 route_confirm=route_a -->
+<!-- Version meta: skillId=agent-qa skillVersion=2026.09.05.03 schemaVersion=2 workflowVersion=2026.09.05.03 rulesVersion=2026.09.17.3 versionGate=ok taskId=task_1df2c910 route_confirm=keep changeScope=edit_page -->

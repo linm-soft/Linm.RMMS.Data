@@ -1,131 +1,106 @@
-# Real-data bind — csdl-bieu-07 (Kind B list + Kind D Slideout · shoulders-fences)
+# Real-data bind — csdl-bieu-07 (edit_page · T-XLS-S07 export/import)
 
 | | |
 |---|---|
 | feature | `csdl-bieu-07` |
 | packKind | `list` |
-| changeScope | `new_page` |
+| changeScope | `edit_page` |
 | status | `done` |
-| taskId | `task_480d8882` |
+| taskId | `task_9ab3979a` |
+| priorTask | `task_480d8882` (typed CRUD **done** · **cấm** reopen new_page) |
 | resource | `shoulders-fences` |
-| prefix | **live shell** `api/v1/asset/csdl-records` · BFF `web-bff/api/v1/asset/csdl-records` · typed DTO **SA** |
-| beRepo | `D:/AI-QLBD/Linm.RMMS.WebService` · **cấm ERP.*** · **cấm** `api/v1/rmms/*` · **cấm** invent `api/v1/infra/*` |
+| prefix | **live** `api/v1/asset/csdl-records` · BFF `web-bff/api/v1/asset/csdl-records` |
+| beRepo | `D:/AI-QLBD/Linm.RMMS.WebService` · **cấm ERP.*** · **cấm** `api/v1/infra/*` |
 | uiRepo | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Asset` |
-| mfeStdUrl | `http://localhost:9301/csdl-bieu-07` · hub `http://localhost:9301/so-ts/csdl-so-sach?resource=shoulders-fences` |
-| map | `none` · **cấm** invent map canvas |
-| contentHash | `sha256:5634091e7ce3e5272c090320398a76d75f84ed7326366e93e088ff2154e8bf44` |
+| mfeStdUrl | `http://localhost:9301/so-ts/csdl-so-sach` · alias `/csdl-bieu-07` · hub `?resource=shoulders-fences` |
+| map | `none` |
+| contentHash | `sha256:1250b5799e9174b21429e60e57abef17cb7d6c568ae417840c57b598f204a69a` |
 | headerFingerprint | `sha256:ba33856d00d23440b05be8c78c8b8a5462662c96a1067e702b791eb5020d64cf` |
-| sourceTables | shell `rmms_csdl_catalog_records` · typed `Schema_CsdlBieu7` (**SA/migration**) |
-| catalogKind UI schema | `shoulders-fences` (typed) · fallback hub `csdl-records` |
+| sourceTables | typed `Schema_CsdlBieu7` / `rmms_csdl_bieu7` · **không** bảng report store P1 |
+| catalogKind UI schema | `shoulders-fences` |
 | IdCode prefix | `LE` |
+| peerSoTs | type `SHOULDER` · deep-link only · **cấm** gộp export |
+| epicCite | `docs/context/features/csdl-export-print.md` · Wave 1 `T-XLS-S07` |
+| golden | Cục `1. Biểu mẫu CSDL.xls` sheet Biểu 7 · **cấm** hồ sơ 12+8 |
+| devSlash | `/implement-export-import-excel` · BFF binary |
 
-## § Delta Current vs New (`new_page` · `task_480d8882`)
+## § Delta Current vs New (`edit_page` · `task_9ab3979a`)
 
 | ID | Current live | New (this analy) |
 |----|--------------|------------------|
-| Form | 3 ô `detail*` polymorphic | Typed 20 cột Excel Biểu 7 · 3 khối lề / taluy / HR |
-| List cols | generic road/km/detail | Cột typed KC lề · dài/rộng/DT · taluy · fenceKind · số cột · dài km |
-| formNo | Demo/live **10** | Renumber **7** · giữ resource key · **T-REN-01** |
-| API | `GET/POST/PUT/DELETE …/csdl-records?resource=shoulders-fences` | **giữ prefix** · widen payload / typed table — SA |
-| Import | stub | Sheet 20 cột — OUT XLS |
-| Peer | type `SHOULDER` (chưa enqueue so-ts) | Deep-link · **cấm** merge form · **≠** road-assets |
+| Form / list | Typed 20 cột Slideout + grid **shipped** · 3 khối chốt | **Unchanged** |
+| Toolbar | Refresh · Add · History · Schema · View/Edit/Delete — **không** Xuất binary | **Xuất Excel** (+ Import P1) trên `catalogToolbar` |
+| Filter | `LinErpListFilterBar` field+🔍 | **Unchanged** · **cấm** action Xuất (**GAP-FILTER-BAR-08**) |
+| Export API | Missing / stub · peer Biểu 1–6 ExcelService | `GET …/csdl-records/export?resource=shoulders-fences` → binary (epic · SA) |
+| Import API | Missing / stub for Biểu 7 | `POST …/csdl-records/import?resource=shoulders-fences` (P1) |
+| Golden | prior OUT XLS | Cục 16-sheet · sheet Biểu 7 · checksum **20** cột |
+| Peer | type `SHOULDER` deep-link | **Cấm** gộp cột/row Sổ TS vào file Biểu 7 |
+| Done gate | Typed STATUS done | **≠** export xong · cần file mở được cạnh mẫu |
 
 ## §A — Nguồn
 
 | sourceKind | sourceCite | empty | error |
 |------------|------------|-------|-------|
-| `context` | `docs/context/features/csdl-bieu-07.md` | — | version mismatch → gate |
-| `analy` | `specs/_data-analy/csdl-cuc-2026/ANALYSIS-AND-TASKS.md` § Biểu 7 | — | 20 cột SSOT · 3 khối |
-| `db-ssot` | `docs/context/11-CSDL-SO-SACH-DATABASE-API.md` § ShoulderFence | — | field names (số biểu cũ 10) |
-| `demo` | `Linm.RMMS.Demo/.../csdl-so-sach.html` (+ redirect demo · `csdl-so-sach-data.js`) | — | **UI only** · **cấm** SSOT data |
-| `api` · list | `GET …/csdl-records?resource=shoulders-fences&…` | empty grid VN | 422 thiếu resource · toast |
-| `api` · detail | `GET …/csdl-records/{id}` | — | 404 → đóng slideout · toast |
-| `api` · CRUD | `POST` / `PUT` / soft `DELETE` | — | validation toast |
-| `entity` | `CsdlCatalogRecordEntity` (shell) | — | tenant `CompanyCode` |
-| `entity` | typed Biểu 7 (**SA**) | — | Schema_CsdlBieu7 pair |
-| `mfe` | hub `CsdlSoSachPage` · form `CsdlFormSlideout` | generic | typed replace |
-| `catalog` | Integration ui-schema `shoulders-fences` | bootstrap cols | toast |
-| `excel` | `1. Biểu mẫu CSDL.xls` sheet Biểu 7 | — | import cite · not runtime SSOT |
-| `peer` | type `SHOULDER` · so-ts-type-grid | — | deep-link only · **cấm** bind biểu Cục vào road-assets |
-| `derived` | IdCode `LE-yyyyMMdd-nnnn` | — | BE generate |
-
-`sourceCite` = path/controller **có trong repo** hoặc analy Excel cite. **Cấm** invent `api/v1/so-ts/*` · **cấm** ERP.*.
+| `context` | `docs/context/features/csdl-bieu-07.md` | — | version gate |
+| `context` | `docs/context/features/csdl-export-print.md` § Wave 1 · API | — | golden / toolbar rules |
+| `analy` | `specs/_data-analy/csdl-cuc-2026/ANALYSIS-AND-TASKS.md` Biểu 7 | — | 20 cột · 3 khối |
+| `api` · list/CRUD | `GET/POST/PUT/DELETE …/csdl-records?resource=shoulders-fences` | empty grid VN | toast 4xx |
+| `api` · **export** | `GET …/csdl-records/export?resource=shoulders-fences` (epic · SA chốt) | file 0 row OK | toast · **cấm** fake blob |
+| `api` · **import** | `POST …/csdl-records/import?resource=shoulders-fences` | — | validation · 20 cột |
+| `entity` | typed Biểu 7 / `Schema_CsdlBieu7` | — | CompanyCode tenant |
+| `mfe` | `CsdlBieu07Page` · `fromCatalogToolbar` | — | wire export action |
+| `excel` | `1. Biểu mẫu CSDL.xls` sheet Biểu 7 | — | golden · not runtime SSOT |
+| `excel` | Hồ sơ `4.1. In_Mẫu…xlsx` 12 biểu | — | **STALE** · so sánh only |
+| `peer` | type `SHOULDER` · so-ts-type-grid | — | deep-link only · **cấm** merge export |
 
 ## §B — Bind field (HARD)
 
-| uiField | Label | controlHint | catalogKind | GET | write field | sameMfe |
-|---------|-------|-------------|-------------|-----|-------------|---------|
-| resource | Resource | QS / const | — | required `shoulders-fences` | `resource` | yes |
-| search | Tìm | SearchTextInput | — | `?search=` | — | yes |
-| province | Tỉnh | Dropdown | LOOKUP_STATIC | `?province=` | `province` | yes |
-| status | TT | Dropdown | LOOKUP_STATIC | `?status=` | `status` | yes |
-| roadCode | Đường | SearchInput | road-route | `?roadCode=` / detail | `roadCode` (+ display `roadName`) | yes · **GAP-CSDL-ROAD-01** |
-| kmFrom / kmTo | Km từ–đến | Number | — | filter / detail | `kmFrom` / `kmTo` | yes |
-| side | Vị trí | Dropdown | LOOKUP_STATIC | filter / detail / list | `side` | yes · **Q-SIDE** |
-| fenceKind | Loại HR | Dropdown/Text | LOOKUP_STATIC | filter / detail / list | `fenceKind` | yes · **GAP-BIEU07-FENCE-01** |
-| code | Mã | Text ro | — | detail `code` | auto | yes |
-| shoulderStructure | KC lề | Dropdown/Text | LOOKUP_STATIC | detail / list | `shoulderStructure` | yes |
-| shoulderLengthM | Dài lề | Number | — | detail / list | `shoulderLengthM` | yes |
-| shoulderWidthM | Rộng lề | Number | — | detail / list | `shoulderWidthM` | yes |
-| shoulderAreaM2 | DT lề | Number | — | detail / list | `shoulderAreaM2` | yes |
-| slopeLengthM | Dài taluy | Number | — | detail / list | `slopeLengthM` | yes · map `SlopeClearingM` · **Q-SLOPE** |
-| slopeAreaM2 | DT taluy | Number | — | detail / list | `slopeAreaM2` | yes |
-| fencePostCount | Số cột | Number | — | detail / list | `fencePostCount` | yes |
-| fenceLengthKm | Dài HR km | Number | — | detail / list | `fenceLengthKm` | yes · **Q-FENCE-LEN** |
-| builtYear | Năm | Number | — | detail / list | `builtYear` | yes |
-| manageUnit | ĐV QL | Text | — | detail / list | `manageUnit` | yes · **GAP-CSDL-ORG-01** |
-| notes | Ghi chú | Textarea | — | detail | `notes` | yes |
-| isActive | Active | — | — | detail | soft-delete | yes |
-| updatedAt | Cập nhật | DateTime ro | — | detail | — | yes |
+### B1 — CRUD fields (**unchanged** — keep prior bind)
 
-**Prefix map:**
+Reuse prior §B (`task_480d8882`): `resource` · filters · typed 20 form fields · 3 khối · soft-delete. **Cấm** đổi write paths typed trong pack này.
+
+### B2 — Export / import (**delta**)
+
+| uiField / action | Label | controlHint | catalogKind | GET / POST | write field | sameMfe |
+|------------------|-------|-------------|-------------|------------|-------------|---------|
+| exportExcel | Xuất Excel | ToolbarButton | — | `GET …/export?resource=shoulders-fences` (+ filter QS nếu Q-XLS-SCOPE=filtered) | — (download) | **gap** (thiếu nút) |
+| importExcel | Nhập Excel | ToolbarButton + file | — | `POST …/import?resource=shoulders-fences` multipart | upsert typed rows | **gap** P1 |
+| exportFileName | — | derived | — | Content-Disposition | — | SA |
+
+**Prefix map (keep + delta):**
 
 | Operation | Path |
 |-----------|------|
-| List | `GET /web-bff/api/v1/asset/csdl-records?resource=shoulders-fences` |
-| Detail | `GET /web-bff/api/v1/asset/csdl-records/{id}` |
-| Create | `POST /web-bff/api/v1/asset/csdl-records` body `resource=shoulders-fences` + typed fields |
-| Update | `PUT /web-bff/api/v1/asset/csdl-records/{id}` |
-| Delete | `DELETE /web-bff/api/v1/asset/csdl-records/{id}` (soft) |
-
-API mirror: `api/v1/asset/csdl-records`. FE cite hub: `services/csdlSoSach/endpoint.ts` `BASE=/asset/csdl-records` — typed page **reuse** cùng BASE.
-
-DB SSOT map (SA): `ShoulderStructure`↔`shoulderStructure` · `ShoulderLengthM`↔`shoulderLengthM` · `ShoulderWidthM`↔`shoulderWidthM` · `ShoulderAreaM2`↔`shoulderAreaM2` · `SlopeClearingM`↔`slopeLengthM` (**Q-SLOPE**) · `FenceKind`↔`fenceKind` · `FencePostCount`↔`fencePostCount` · `FenceLengthM`↔`fenceLengthKm` (**Q-FENCE-LEN**) · `FencePanelCount` optional (**Q-PANEL**).
+| List / Detail / CRUD | `/web-bff/api/v1/asset/csdl-records` (+ `/{id}`) — **keep** |
+| **Export** | `GET /web-bff/api/v1/asset/csdl-records/export?resource=shoulders-fences` |
+| **Import** | `POST /web-bff/api/v1/asset/csdl-records/import?resource=shoulders-fences` |
+| API mirror | `api/v1/asset/csdl-records[/export|/import]` · **cấm** invent `/infra/` |
 
 ## §C — Catalog / lookup
 
-| catalogKind | search/list API | seed/import cite | Cấm |
-|-------------|-----------------|------------------|------|
-| LOOKUP_STATIC province | FE `PROVINCES` P1 | demo align | Dropdown demo-only làm SSOT quốc gia |
-| LOOKUP_STATIC status | tot/tb/kem/hong | — | — |
-| LOOKUP_STATIC side | L / R / Both | demo `side` | invent side set |
-| LOOKUP_STATIC shoulderStructure | cứng / mềm / khác | Excel Biểu 7 · **Q-STRUCT** | free-text khi đã LOOKUP |
-| LOOKUP_STATIC fenceKind | lưới / tôn / bê tông / khác | Excel · **Q-STRUCT** | invent fence set khi đã LOOKUP |
-| road-route | `GET /integration/road-routes/search` | shared catalog READY | free-text khi đã chốt SearchInput |
-| org-unit | `GET /integration/org-units/search` | shared org · P2 | hardcode ĐV |
-| ui-schema | Integration `shoulders-fences` | Schema editor | generic 3-col only |
+Unchanged prior LOOKUP_STATIC + `road-route` + `org-unit` P2. Export **không** thêm catalogKind.
 
 ## §D — Map / vẽ
 
-`none` — list pack. Toolbar map → gis deep-link only. **Cấm** invent map canvas.
+`none`
 
-## §E — Empty / error / permission
+## §E — Empty / error / permission / export
 
 | Case | UX |
 |------|-----|
-| Empty list | Grid copy VN «Chưa có lề / taluy / hàng rào» · CTA Tạo mới |
-| 422 thiếu resource | toast · không alert |
-| 404 detail | đóng slideout · toast |
-| Soft-delete | row biến mất · list refresh |
-| Permission | CommonLib Auth debt · **cấm** invent path |
+| Empty list export | File vẫn tải · 0 data row · header merge đúng mẫu · toast info OK |
+| Export fail | toast · **cấm** silent · **cấm** CSV generic lưới |
+| Peer Sổ TS | **cấm** mix row/cột SHOULDER vào file Biểu 7 |
+| Permission | Auth debt · **cấm** invent path |
+| Toast stub only | **FAIL** DoD · **GAP-BIEU07-XLS-02** |
 
 ## §F — Cấm
 
-- Demo / localStorage / seed giả làm SSOT runtime  
-- ERP.* / Domains/Master / `api/v1/infra/*` / invent `api/v1/so-ts/*`  
-- Form chỉ 3 ô `detail*`  
-- Merge form Sổ TS `SHOULDER` / bind `road-assets` vào biểu Cục  
-- Guid làm IdCode  
+- Re-run typed CRUD `new_page` / đổi form 20 cột không gap  
+- Toast stub = done · STATUS typed done = export xong  
+- Filter-bar export (**GAP-FILTER-BAR-08**)  
+- Golden hồ sơ 12+8 · invent `api/v1/infra/*` · ERP.*  
+- Gộp Sổ TS `SHOULDER` / `road-assets` vào sheet Biểu 7  
 - yarn build / e2e ở role data_analy  
 
 ## Version meta (REQUIRED)
@@ -133,17 +108,17 @@ DB SSOT map (SA): `ShoulderStructure`↔`shoulderStructure` · `ShoulderLengthM`
 | Field | Value |
 |-------|-------|
 | skillId | agent-data-analy |
-| skillVersion | 2026.08.25.01 |
+| skillVersion | 2026.09.05.03 |
 | schemaVersion | 1 |
-| workflowVersion | 2026.09.01.02 |
-| rulesVersion | 2026.08.31.2 |
-| contentHash | `sha256:5634091e7ce3e5272c090320398a76d75f84ed7326366e93e088ff2154e8bf44` |
+| workflowVersion | 2026.09.05.03 |
+| rulesVersion | 2026.09.17.3 |
+| contentHash | `sha256:1250b5799e9174b21429e60e57abef17cb7d6c568ae417840c57b598f204a69a` |
 | headerFingerprint | `sha256:ba33856d00d23440b05be8c78c8b8a5462662c96a1067e702b791eb5020d64cf` |
-| generatedAt | 2026-09-05T09:14:17.821Z |
+| generatedAt | 2026-09-18T04:22:00.000Z |
 | versionGate | ok |
-| taskId | task_480d8882 |
+| taskId | task_9ab3979a |
 | packKind | list |
-| changeScope | new_page |
+| changeScope | edit_page |
 
 ---
-<!-- Version meta: skillId=agent-data-analy skillVersion=2026.08.25.01 schemaVersion=1 workflowVersion=2026.09.01.02 rulesVersion=2026.08.31.2 versionGate=ok contentHash=sha256:5634091e7ce3e5272c090320398a76d75f84ed7326366e93e088ff2154e8bf44 -->
+<!-- Version meta: skillId=agent-data-analy skillVersion=2026.09.05.03 schemaVersion=1 workflowVersion=2026.09.05.03 rulesVersion=2026.09.17.3 versionGate=ok contentHash=sha256:1250b5799e9174b21429e60e57abef17cb7d6c568ae417840c57b598f204a69a -->

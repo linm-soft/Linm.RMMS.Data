@@ -224,3 +224,10 @@ Subscribe: `patrol.*` · `incident.*` · `defect.detected` · `predict.updated` 
 
 Gen demo: `/qlbd-analy-demo @dashboard` — load control-map trên + `/erp-form-context` rules (2a-K · 2g · common controls).
 <!-- DEMO-MFE-MODERN:END -->
+
+## Implement tracking
+
+| lane | phase | status | updatedAt |
+|------|-------|--------|-----------|
+| web | `done` | `done` | `2026-09-17T17:36:16.421Z` |
+| mobile | — | — | — |

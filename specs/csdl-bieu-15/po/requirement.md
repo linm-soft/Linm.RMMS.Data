@@ -1,189 +1,173 @@
-# PO requirement — csdl-bieu-15 (CSDL Biểu 15 — TMC / thu phí / hạt / kho)
+# PO Requirement — csdl-bieu-15 (edit_page · T-XLS-S15)
 
 | Field | Value |
 |-------|-------|
 | feature | `csdl-bieu-15` |
-| title | CSDL Biểu 15 — TMC / thu phí / hạt / kho |
+| title | CSDL Biểu 15 — TMC / thu phí / hạt / kho · **Xuất Excel** |
 | packKind | `list` |
-| changeScope | `new_page` |
+| changeScope | `edit_page` |
+| epic | `csdl-export-print` · Wave 1 `T-XLS-S15` |
 | status | `confirmed` |
-| taskId | `task_a73f1c50` |
-| autoApprove | `ON` |
-| resource | `ops-facilities` |
-| formNo | `15` |
-| IdCode prefix | `OF` |
-| columns | `20` |
-| peerSoTs | `so-ts-toll` · `so-ts-rest-area` · `so-ts-station-house` · **cấm** merge |
-| mfeStdRoute | `/csdl-bieu-15` |
-| mfeStdUrl | `http://localhost:9301/csdl-bieu-15` |
-| hub | `/so-ts/csdl-so-sach?resource=ops-facilities` |
-| API | `api/v1/asset/csdl-records?resource=ops-facilities` (+ BFF) |
-| contentHash | `sha256:3bf356f00182dd6c0864bf5b88ae4d460ef8da73e5521f1b14756b7168dc20a7` |
-| headerFingerprint | `sha256:0064a4903777f7ea8d51c7423d8451a20daf77a5934929001905edaa380f4fe4` |
 | skillId | `agent-po` |
 | skillVersion | `2026.08.25.01` |
-| workflowVersion | `2026.09.01.02` |
-| rulesVersion | `2026.08.31.2` |
 | schemaVersion | `1` |
-| confirmedAt | `2026-09-05T15:20:30.000Z` |
-| prior | data_analy `confirmed` · control-hint + real-data · hash skip |
+| workflowVersion | `2026.09.01.02` |
+| rulesVersion | `2026.09.17.3` |
+| contentHash | `sha256:8a85d68eaef24cf98c312f83a3a100de25b1212e8a751d6f1f42005d38dd0fc8` |
+| headerFingerprint | `sha256:0064a4903777f7ea8d51c7423d8451a20daf77a5934929001905edaa380f4fe4` |
+| confirmedAt | `2026-09-18T02:13:10.000Z` |
+| taskId | `task_18337e1c` |
+| priorTyped | `task_a73f1c50` · requirement **keep** · **cấm** reopen new_page CRUD |
+| priorAnaly | `task_4b6f0c6e` · control-hint + real-data · hash skip |
+| autoApprove | `ON` |
+| e2eQa | `ON` (queued `/agent-qa*`) |
+| resource | `ops-facilities` |
+| formNo | `15` |
+| columns | `20` |
+| IdCode | `OF-` |
+| peerSoTs | `so-ts-toll` · `so-ts-rest-area` · `so-ts-station-house` · **cấm** merge |
+| mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Asset` |
+| be | `D:/AI-QLBD/Linm.RMMS.WebService` · **cấm ERP.*** |
+| mfeStdUrl | `http://localhost:9301/so-ts/csdl-so-sach` · alias `/csdl-bieu-15` |
+| hubRoute | `/so-ts/csdl-so-sach?resource=ops-facilities` |
+| formPattern | Kind D Slideout (**keep**) |
+| listPattern | Kind B A–D (**keep**) |
+| map | `none` |
 
-> **Cấm** ERP.* · invent `api/v1/infra/*` · form chỉ 3 ô `detail*` · merge so-ts-toll / rest-area / station-house / `road-assets` · Guid IdCode · demo SSOT.  
-> Typography: label **13** · input D14 / M16 (**GAP-TYP-01**).
+> Typed CRUD (list + Slideout + hub + Schema_CsdlBieu15) **đã PASS** (`task_0c28671f`). Pack này **chỉ** delta **Xuất Excel** binary đúng mẫu Cục. Toast stub ≠ done.
 
-## Goal
+## 1. Goal
 
-Trang CSDL Biểu 15 (list Kind B + form Kind D Slideout) cho cơ sở TMC / thu phí / dừng chân / nhà hạt / kho: typed **20 cột** Excel, resource `ops-facilities`, formNo **15**, alias `/csdl-bieu-15` + **NEW** hub card. Section vị trí + công trình + thiết bị — **≠** Sổ TS peer · ROW riêng CSDL Cục.
+Cho phép người dùng tải file Excel **Biểu 15 — TMC / thu phí / hạt / kho** từ toolbar catalog: binary BFF, **1 sheet**, **20 cột** (facility+area+equipment cùng hàng), khớp golden Cục 16-sheet — **không** đổi typed CRUD.
 
-## Open Q — PO decisions (autoApprove)
+## 2. Keep (typed — cấm reopen)
+
+| Area | Keep |
+|------|------|
+| Route / hub | `/csdl-bieu-15` alias · hub card `ops-facilities` |
+| List Kind B | Zones A/B/C/D · filter slots · paginate 50/100/200/500 |
+| Form Kind D | Slideout 2col · 4 section (Vị trí · Cơ sở/công trình · Thiết bị · Quản lý) · LeaveConfirm · View readOnly · IdCode `OF` |
+| Header 20 | `code\|roadCode\|roadName\|province\|kmFrom\|kmTo\|facilityKind\|facilityName\|courtyardAreaM2\|buildingQty\|buildingAreaM2\|otherStructQty\|otherStructAreaM2\|status\|yearBuilt\|equipmentKind\|equipmentQty\|equipmentStatus\|manageUnit\|notes` |
+| API CRUD | `api/v1/asset/csdl-records?resource=ops-facilities` |
+| Entity | `Schema_CsdlBieu15` / OpsFacility · FacilityKind · area/qty · equipment* |
+| Peer | cite `so-ts-toll` / `so-ts-rest-area` / `so-ts-station-house` only |
+| Prior Q | Q-ROUTE…Q-KM (`task_a73f1c50`) **keep** |
+
+## 3. § Delta — T-XLS-S15 (this pack)
+
+| ID | Requirement | DoD |
+|----|-------------|-----|
+| GAP-BIEU15-XLS-01 | Nút **Xuất Excel** trên `catalogToolbar` (icon `erp-control-icon-map`) | Click → download binary · mở được cạnh mẫu Cục |
+| GAP-BIEU15-XLS-02 | Binary qua BFF `/implement-export-import-excel` | **FAIL** nếu chỉ toast/stub |
+| GAP-BIEU15-XLS-03 | Golden = Cục **16-sheet** xls sheet Biểu 15 | **Cấm** hồ sơ 12+8 làm golden |
+| GAP-BIEU15-XLS-04 | **Cấm** Xuất/Import trên `LinErpListFilterBar` | GAP-FILTER-BAR-08 |
+| GAP-BIEU15-XLS-05 | `GET …/csdl-records/export?resource=ops-facilities` (+ QS filter) | SA chốt path exact · **cấm** invent `/infra/` |
+| GAP-BIEU15-XLS-06 | **1 sheet** 20 cột · facility+area+equipment cùng hàng | **Cấm** invent sheet riêng công trình/thiết bị |
+| GAP-BIEU15-XLS-07 | Export qty/m biểu Cục | **Cấm** merge so-ts-toll/rest/station / `road-assets` |
+| GAP-DEV-VI-ENC-01 | Title/nav live UTF-8 «Biểu 15 — TMC / thu phí / hạt / kho» | **FAIL** `Biá»ƒu` / `â€"` trên sidebar/topbar |
+
+**Import:** P1 DEFER (`Q-XLS-IMPORT=export_only_p0`) — không AC bắt buộc Wave 1 S15; Design ẩn hoặc disable Import.
+
+**Print PDF:** OUT (không Wave 1 S15).
+
+**Supersede:** prior GAP-CSDL-XLS-01 stub → GAP-BIEU15-XLS-*.
+
+## 4. PO decisions (autoApprove · Q-XLS-*)
 
 | ID | Decision | Rationale |
 |----|----------|-----------|
-| Q-ROUTE | **`alias_now`** | Ship Navigate `/csdl-bieu-15` cùng release; giữ hub deep-link |
-| Q-PROV | **`keep_static`** | P1 LOOKUP_STATIC 5 tỉnh (hub peers); master province DEFER |
-| Q-KIND-SET | **`keep_5`** | LOOKUP: TMC / trạm thu phí / dừng chân / nhà hạt / kho — đủ analy |
-| Q-EQ-SET | **`free_text`** | `equipmentKind` Text P1 · LOOKUP chỉ khi Excel confirm |
-| Q-AREA-UNIT | **`number_m2`** | DT = Number ≥0 (m²) · **cấm** Text kèm đơn vị |
-| Q-MANAGE | **`in_20`** | `manageUnit` trong 20 header · Text P1 → org SearchInput DEFER P2 |
-| Q-PREFIX | **`OF`** | IdCode `OF-yyyyMMdd-nnnn` · **cấm** Guid |
-| Q-LIST-COLS | **`subset`** | Grid mặc định: shared + facilityKind/name/status/yearBuilt · đủ 20 qua schema-config |
-| Q-TITLE | **`ctx_tmc`** | Title «Biểu 15 — TMC / thu phí / hạt / kho» (CTX) |
-| Q-DMAP | **`add_now`** | SA/Dev thêm slug `csdl-bieu-15` → Asset (cùng `csdl-so-sach`) |
-| Q-PEER-LINK | **`none_p1`** | Không deep-link Sổ TS theo facilityKind P1 · optional P2 |
-| Q-KM | **`range`** | `kmFrom`–`kmTo` Line · **cấm** điểm Km đơn P1 |
+| **Q-XLS-SCOPE** | **`filtered`** | Export áp dụng filter hiện tại (road/province/facilityKind/status/km/search) qua QS · empty filter = all visible tenant resource |
+| **Q-XLS-IMPORT** | **`export_only_p0`** | Wave 1 P0 = Xuất only · Import P1 DEFER |
+| **Q-XLS-FILENAME** | **`Bieu15_TMC_Tram_Hat_{yyyyMMdd}.xls(x)`** | SA chốt extension theo engine (.xls vs .xlsx) · Content-Disposition |
+| **Q-XLS-SHEET** | **`one_sheet`** | 20 cột 1 hàng · facility+area+equipment cùng hàng · **cấm** split |
 
-## Pack confirm
+## 5. Pack confirm
 
 | Item | Value |
 |------|-------|
 | packKind | `list` |
-| List | Kind **B** zones A/B/C/D |
-| Form | Kind **D** Slideout 2col Z1–Z3 · **4 section** (Vị trí tuyến · Cơ sở/công trình · Thiết bị · Quản lý) |
+| List | Kind **B** A/B/C/D **keep** · toolbar **+export** |
+| Form | Kind **D** Slideout **keep** · 4 section |
 | Map | `none` |
-| Layout | `LinPageLayout kind="catalog"` |
+| Layout | `LinPageLayout kind="catalog"` **keep** |
 
-## Header (20 — không thêm ngoài)
-
-`code|roadCode|roadName|province|kmFrom|kmTo|facilityKind|facilityName|courtyardAreaM2|buildingQty|buildingAreaM2|otherStructQty|otherStructAreaM2|status|yearBuilt|equipmentKind|equipmentQty|equipmentStatus|manageUnit|notes`
-
-## § Screens
+## 6. § Screens (delta only)
 
 ### S1 — List (Kind B)
 
-| Zone | AC |
-|------|----|
-| A Header | Title «Biểu 15 — TMC / thu phí / hạt / kho» · back hub `/so-ts/csdl-so-sach` · **cấm** slug trên card |
-| B Toolbar+filter | SearchTextInput (mã · tên CS · đường · ghi chú) · province · status · facilityKind · road SearchInput · kmFrom/kmTo · Tạo mới · Refresh · Delete · History · SchemaConfig · Import/Export stub · **search must work** · **cấm** nút Tìm riêng |
-| C Grid | `LinCatalogDataGrid` typed subset · STT · row menu Xem/Sửa/Copy/Xóa/Lịch sử · kéo cột ON · empty «Chưa có cơ sở TMC / thu phí / hạt / kho» |
-| D Footer | `LinCatalogListPagination` 50/100/200/500 |
+| Zone | AC (delta) |
+|------|------------|
+| A Header | **Keep** «Biểu 15 — TMC / thu phí / hạt / kho» · back hub |
+| B Toolbar | **Thêm** Xuất Excel · **cấm** filter-bar export · CRUD actions **keep** · Import ẩn/disable P0 |
+| B Filter | **Unchanged** · 0 action Xuất (**GAP-FILTER-BAR-08**) |
+| C/D Grid+page | **Unchanged** · typed 20 |
 
-### S1b — Hub card (Kind G entry)
+### S2 — Form Slideout
 
-| Item | AC |
-|------|----|
-| Card | NEW «TMC / thu phí / hạt / kho» · formNo **15** · `?resource=ops-facilities` · **cấm** slug trên card |
-| Close | Đóng **GAP-BIEU15-HUB-01** / **GAP-CSDL-CUC-05** (Biểu 15) khi hub+API PASS |
+**Unchanged** — không AC form mới cho XLS.
 
-### S2 — Form Slideout (Kind D)
+## 7. Grid AC (list · keep + delta)
 
-| Item | AC |
-|------|----|
-| Modes | Create / Edit / View(`readOnly`) / Copy |
-| Layout | 2col Z1–Z3 · footer Lưu/Hủy · LeaveConfirmModal dirty |
-| Section 1 — Vị trí tuyến | road SearchInput* · province* · kmFrom/kmTo* (range) |
-| Section 2 — Cơ sở / công trình | facilityKind* · facilityName* · courtyardAreaM2 · buildingQty · buildingAreaM2 · otherStructQty · otherStructAreaM2 · status* · yearBuilt — **cấm** gộp 1 text detail* |
-| Section 3 — Thiết bị | equipmentKind (Text) · equipmentQty · equipmentStatus |
-| Section 4 — Quản lý | manageUnit (Text P1 → org SearchInput P2) · notes · code |
-| code | readonly auto IdCode `OF-yyyyMMdd-nnnn` · **cấm** Guid |
-| road | SearchInput `road-route` + roadCode/roadName |
+| ID | AC |
+|----|----|
+| G-keep | Filter+search · subset cột · pagination · row CRUD · empty «Chưa có cơ sở TMC / thu phí / hạt / kho» — **keep** typed |
+| G-04 | Toolbar **Xuất Excel** → binary download (không toast-only) |
+| G-05 | Empty list → file vẫn tải · 0 data row · header merge đúng mẫu · toast info OK |
+| G-06 | Export fail → toast VN · **cấm** silent · **cấm** CSV generic lưới |
+| G-07 | File mở cạnh golden Cục · checksum 20 cột |
+| G-08 | Export tôn trọng filter QS (`Q-XLS-SCOPE=filtered`) |
 
-## Grid AC (list)
-
-1. Filter+search client/server theo controlHint · không nút Tìm riêng.  
-2. Cột mặc định = subset (Q-LIST-COLS); schema-config bật đủ 20.  
-3. Pagination 50/100/200/500 · soft-delete refresh.  
-4. Row actions + toolbar CRUD · history/import stub.  
-5. Empty/error toast VN · 404 đóng slideout.
-
-## Report AC
+## 8. Report AC
 
 N/A — packKind=`list`.
 
-## § Leave
+## 9. § Leave
 
 | Case | Behavior |
 |------|----------|
-| Dirty form | LeaveConfirmModal trước đóng/navigate |
-| Cancel clean | đóng slideout không confirm |
-| After save | đóng · list refresh · toast OK |
+| Dirty form | LeaveConfirmModal **keep** (typed) |
+| Export click | **Không** trigger Leave · không dirty form |
+| After export | giữ list · không đóng slideout |
 
-## Filter bar (HARD)
+## 10. GAP accept (PO → Design/SA)
 
-| Control | Rule |
-|---------|------|
-| SearchTextInput | live filter · **cấm** nút Tìm riêng |
-| Dropdowns | province · facilityKind · status · clearable |
-| road | SearchInput `road-route` |
-| kmFrom / kmTo | Number range Line |
-| Layout | 1 hàng ưu tiên · wrap ≤2 · gap 8–12 |
+| GAP | PO |
+|-----|-----|
+| GAP-BIEU15-XLS-01 | Accept — toolbar Xuất binary |
+| GAP-BIEU15-XLS-02 | Accept — toast stub ≠ done |
+| GAP-BIEU15-XLS-03 | Accept — golden Cục 16-sheet |
+| GAP-BIEU15-XLS-04 | Accept — cấm filter-bar export |
+| GAP-BIEU15-XLS-05 | Accept — GET export (+ QS) |
+| GAP-BIEU15-XLS-06 | Accept — 1 sheet 20 · facility+area+equipment |
+| GAP-BIEU15-XLS-07 | Accept — cấm merge peer / road-assets |
+| Typed GAP-* prior | **Keep** · **cấm** reopen |
 
-## Lookup sets (P1)
-
-| Key | Values |
-|-----|--------|
-| facilityKind | `tmc` · `toll_station` · `rest_area` · `station_house` · `warehouse` |
-| status | align hub peers (tot/tb/kem/hong) |
-| equipmentStatus | align status set |
-| province | LOOKUP_STATIC 5 tỉnh |
-
-## Bind (cite real-data)
+## 11. Live bind (cite real-data)
 
 | Op | Path |
 |----|------|
-| List | `GET /web-bff/api/v1/asset/csdl-records?resource=ops-facilities` |
-| CRUD | same BASE · soft DELETE |
-| FE | `services/csdlSoSach/endpoint.ts` `BASE=/asset/csdl-records` |
+| CRUD | `…/csdl-records?resource=ops-facilities` — **keep** |
+| **Export** | `GET /web-bff/api/v1/asset/csdl-records/export?resource=ops-facilities` (+ filter QS) |
+| Import | `POST …/import` — **DEFER P1** |
 
-**Cấm** bind `road-assets?type=…` · invent `api/v1/infra/*` · ERP.*.
+**Cấm** ERP.* · invent `api/v1/infra/*` · bind `road-assets` / so-ts-toll/rest/station · fake blob.
 
-## GAP close (when PASS)
+## 12. Handoff Design
 
-| GAP | Close when |
-|-----|------------|
-| GAP-BIEU15-HUB-01 | NEW hub card live |
-| GAP-BIEU15-TYPED-01 | Form typed 20 cột |
-| GAP-BIEU15-ROUTE-01 | Alias `/csdl-bieu-15` Navigate |
-| GAP-BIEU15-KIND-01 · AREA-01 · EQ-01 · STATUS-01 | controls live |
-| GAP-BIEU15-DB-01 · DMAP-01 | SA/Dev |
-| GAP-CSDL-CUC-05 (15) · CUC-03 · CUC-11 | hub+API · typed · ≠ so-ts |
-| GAP-CSDL-ROAD-01 · PROV-01 · ORG-01 · XLS-01 | SearchInput · static · Text P1 · stub OUT |
+- **Giữ** prototype typed · **chỉ** thêm nút Xuất trên `catalogToolbar` · Import ẩn/disable.
+- Filter bar **unchanged** · reviewUrl cập nhật zone toolbar.
+- Icon `erp-control-icon-map` · typography GAP-TYP-01.
 
-## Non-goals / Cấm
+## 13. Handoff SA
 
-- ERP.* · Domains/Master · invent `api/v1/infra/*` · invent `api/v1/so-ts/*`  
-- Form chỉ 3 ô `detailPrimary`/`detailSpec`/`detailExtra`  
-- Merge so-ts-toll / rest-area / station-house form · dumpSpecs · `road-assets` làm list biểu  
-- Guid IdCode · demo/localStorage SSOT · map canvas trên list  
-- yarn build / e2e / start:std ở role PO  
+- BFF binary path · golden 16-sheet Biểu 15 · checksum 20 cột.
+- Filename `Bieu15_TMC_Tram_Hat_{yyyyMMdd}` · ext SA.
+- **Cấm** đổi typed entity / Schema_CsdlBieu15 trừ gap export map.
+- Filter QS ↔ export scope.
 
-## Handoff Design
+## 14. Non-goals (P1 / this pack)
 
-| Need | Detail |
-|------|--------|
-| control-map | Khớp controlHint list+form · 20 keys |
-| prototype | List A–D + Slideout 4 section + hub card Biểu 15 |
-| reviewUrl | Prototype review |
-| typography | label 13 · input D14/M16 |
-| **cấm** | 3 ô detail* · merge so-ts chrome · invent map |
-
-## Handoff SA (next after Design)
-
-| Need | Detail |
-|------|--------|
-| DTO/UiSchema | typed `ops-facilities` · Schema_CsdlBieu15 / OpsFacility |
-| API | register resource · **giữ** `csdl-records` prefix |
-| DOMAIN-MAP | slug `csdl-bieu-15` → Asset |
-| **cấm** | invent `infra` · merge road-assets |
+- Import Excel · Print PDF · reopen typed CRUD · map · merge peer · yarn build/e2e @ po · demo rescan.
 
 ## Version meta (REQUIRED)
 
@@ -193,14 +177,14 @@ N/A — packKind=`list`.
 | skillVersion | 2026.08.25.01 |
 | schemaVersion | 1 |
 | workflowVersion | 2026.09.01.02 |
-| rulesVersion | 2026.08.31.2 |
-| contentHash | `sha256:3bf356f00182dd6c0864bf5b88ae4d460ef8da73e5521f1b14756b7168dc20a7` |
+| rulesVersion | 2026.09.17.3 |
+| contentHash | `sha256:8a85d68eaef24cf98c312f83a3a100de25b1212e8a751d6f1f42005d38dd0fc8` |
 | headerFingerprint | `sha256:0064a4903777f7ea8d51c7423d8451a20daf77a5934929001905edaa380f4fe4` |
-| generatedAt | 2026-09-05T15:20:30.000Z |
+| generatedAt | 2026-09-18T02:13:10.000Z |
 | versionGate | ok |
-| taskId | task_a73f1c50 |
+| taskId | task_18337e1c |
 | packKind | list |
-| changeScope | new_page |
+| changeScope | edit_page |
 
 ---
-<!-- Version meta: skillId=agent-po skillVersion=2026.08.25.01 schemaVersion=1 workflowVersion=2026.09.01.02 rulesVersion=2026.08.31.2 versionGate=ok contentHash=sha256:3bf356f00182dd6c0864bf5b88ae4d460ef8da73e5521f1b14756b7168dc20a7 -->
+<!-- Version meta: skillId=agent-po skillVersion=2026.08.25.01 schemaVersion=1 workflowVersion=2026.09.01.02 rulesVersion=2026.09.17.3 versionGate=ok contentHash=sha256:8a85d68eaef24cf98c312f83a3a100de25b1212e8a751d6f1f42005d38dd0fc8 changeScope=edit_page taskId=task_18337e1c -->

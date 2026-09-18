@@ -71,10 +71,27 @@
     .chart-legend { font-size: 12px; color: var(--muted); }
     .cfg-row { display: flex; align-items: center; gap: 8px; padding: 6px 0; }
     .modal-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 12px; }
+    .print-summary { display: none; }
+    @media print {
+      body * { visibility: hidden; }
+      [data-report-list-page], [data-report-list-page] * { visibility: visible; }
+      .zone-a, .hint, .zone-b, .grid-head, .zone-d, .toast, .modal-backdrop, .drill { display: none !important; visibility: hidden !important; }
+      .print-summary { display: block !important; visibility: visible !important; margin: 0 0 12px; padding: 0 0 8px; border-bottom: 1px solid #dee2e6; }
+      .print-summary h2 { margin: 0 0 8px; font-size: 18px; text-align: center; }
+      .print-summary ul { margin: 0; padding: 0; list-style: none; font-size: 13px; }
+      .print-summary li span:first-child { font-weight: 600; }
+      .page { max-width: none; margin: 0; padding: 0; }
+      .zone-c { border: 0; min-height: 0; }
+      .table-wrap { overflow: visible; }
+    }
   </style>
 </head>
 <body>
-  <div class="page" data-catalog-list-page data-zones="A-B-C-D" data-kind="report" data-testid="rmms-official-docs-report-prototype">
+  <div class="page" data-catalog-list-page data-report-list-page data-zones="A-B-C-D" data-kind="report" data-testid="rmms-official-docs-report-prototype">
+    <div class="print-summary" data-lin-report-print-summary data-testid="rmms-official-docs-report-print-summary">
+      <h2 data-testid="rmms-official-docs-report-print-title">Công văn đi — đến</h2>
+      <ul data-testid="rmms-official-docs-report-print-filter-lines" id="printFilters"></ul>
+    </div>
     <header class="zone-a" data-zone="A">
       <h1><i class="fas fa-envelope-open-text" aria-hidden="true"></i> Công văn đi — đến</h1>
       <span class="badge">Kind E</span>
@@ -294,7 +311,20 @@
     document.getElementById("btnView").addEventListener("click", view);
     document.getElementById("btnRefresh").addEventListener("click", () => { state.viewed = true; render(); toast("Làm mới"); });
     document.getElementById("btnExport").addEventListener("click", () => toast(state.viewed ? "Xuất official-docs.csv UTF-8 BOM (GET /api/v1/report/official-docs/export)" : "Nhấn Xem trước khi xuất Excel"));
-    document.getElementById("btnPrint").addEventListener("click", () => toast(state.viewed ? "In stub P1 — chưa print engine" : "Nhấn Xem trước khi in"));
+    document.getElementById("btnPrint").addEventListener("click", () => {
+      if (!state.viewed) { toast("Nhấn Xem trước khi in"); return; }
+      const lines = [];
+      const from = document.getElementById("fromDate").value;
+      const to = document.getElementById("toDate").value;
+      if (from || to) lines.push("<li><span>Từ ngày / Đến ngày: </span><span>" + from + " → " + to + "</span></li>");
+      if (state.direction) lines.push("<li><span>Chiều: </span><span>" + document.getElementById("directionDisplay").value + "</span></li>");
+      if (state.orgUnitId) lines.push("<li><span>Đơn vị: </span><span>" + document.getElementById("orgDisplay").value + "</span></li>");
+      if (state.q) lines.push("<li><span>Tìm kiếm: </span><span>" + state.q + "</span></li>");
+      document.getElementById("printFilters").innerHTML = lines.join("");
+      document.documentElement.setAttribute("data-lin-report-print", "");
+      window.addEventListener("afterprint", () => document.documentElement.removeAttribute("data-lin-report-print"), { once: true });
+      window.print();
+    });
     document.getElementById("btnChart").addEventListener("click", () => {
       if (!state.viewed) { toast("Nhấn Xem trước khi mở biểu đồ"); return; }
       const rows = filtered();

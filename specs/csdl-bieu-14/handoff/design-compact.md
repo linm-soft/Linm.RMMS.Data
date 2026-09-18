@@ -1,85 +1,91 @@
-# handoff-compact — design · csdl-bieu-14
+# Handoff compact — design
 
-| | |
-|--|--|
-| schemaVersion | `1` |
-| role | `design` |
-| feature | `csdl-bieu-14` |
-| title | CSDL Biểu 14 — Hệ thống ITS (GTTM) |
-| packKind | `list` |
-| changeScope | `new_page` |
-| status | `done` |
-| taskId | `task_d302ab8a` |
-| resource | `its-systems` |
-| formNo | `14` |
-| columns | `21` · section vị trí + TB ITS + HT gắn kèm |
-| IdCode | `IT-` |
-| peerSoTs | `so-ts-its-camera` · **cấm** merge · none_p1 |
-| autoApprove | `ON` |
-| e2eQa | `ON` |
-| design_confirm | `approve` |
-| shared_grid_example | `v1` |
-| real_view_parity | `v1` |
-| contentHashPrior | `sha256:6cfdefa3baaffcf2bd97c7a429bb5043e7f9d77b96bbb77eafaa34689007b112` |
-| headerFingerprintPrior | `sha256:14cd156a898dcc971a072dd1cd1b92460a8b597558a90dc9854fead9d4c4de5c` |
-| skillVersion | `2026.08.29.03` |
-| workflowVersion | `2026.09.01.02` |
-| rulesVersion | `2026.08.31.2` |
-| writtenAt | `2026-09-05T14:55:00.000Z` |
+schemaVersion: 1
+feature: csdl-bieu-14
+packKind: list
+role: design
+status: confirmed
+changeScope: edit_page
+skillVersion: 2026.08.29.03
+workflowVersion: 2026.09.01.02
+rulesVersion: 2026.09.17.3
+contentHash: sha256:e9a062f1f9eecd6bf98748db0c3f839e2247a74ecb9bcd56273d4e48d729fa0a
+headerFingerprint: sha256:14cd156a898dcc971a072dd1cd1b92460a8b597558a90dc9854fead9d4c4de5c
+writtenAt: 2026-09-18T08:45:00.000Z
+taskId: task_7d1a980f
+priorTyped: task_d302ab8a · keep
+priorPo: task_23c0d73d
+priorAnaly: task_b92db6a6
+resource: its-systems
+columns: 21
+IdCode: IT-
+formNo: 14
+peerSoTs: so-ts-its-camera · cấm merge
+autoApprove: ON
+e2eQa: ON (queued QA)
+design_confirm: approve
+epic: csdl-export-print · T-XLS-S14
+shared_grid_example: v1
+real_view_parity: v1
 
 ## Decisions
+- Kind B+D keep · Slideout 21 · **chỉ** delta toolbar Xuất Excel
+- Q-XLS-SCOPE=filtered · IMPORT=export_only_p0 (Import ẩn) · FILENAME=Bieu14_HeThongITS_{yyyyMMdd} · SHEET=one_sheet
+- exportExcel=ToolbarButton trên catalogToolbar · **cấm** filter-bar (GAP-FILTER-BAR-08)
+- binary download ≠ toast-stub · empty file OK · fail toast · golden Cục 16-sheet · cấm 12+8
+- typed CRUD/form/hub/route **keep** · cấm new_page reopen
+- design_confirm approve (autoApprove ON) · open Q: none
 
-- Kind **B** A–D+F + Kind **D** Slideout · `data-form-cols=2` · footer_actions_only · section Vị trí tuyến + Thiết bị ITS + Hạ tầng gắn kèm · **cấm** Full-page
-- form typed **21** · **cấm** detail* only · Control = controlHint · device keep_5 · infra keep_3
-- Q-ROUTE **alias_now** `/csdl-bieu-14` · Q-PROV **keep_static** · Q-DIR **lookup** · Q-QTY-UNIT **number** · Q-DEVICE-SET **keep_5** · Q-INFRA-SET **keep_3** · Q-MANAGE **trail_p2** · Q-PREFIX **IT** · Q-LIST-COLS **subset** · Q-TITLE **ctx_its** · Q-DMAP **add_now** · Q-PEER-LINK **none_p1** · Q-SO09 **none_p1**
-- GAP-BIEU14-HUB/TYPED/ROUTE/DEV/INFRA/GPS/DIR/DMAP P1 · GAP-CSDL-ROAD-01 SearchInput P1 · ORG DEFER P2 · XLS OUT stub
-- peer cite only · map none · hub NEW card formNo 14 «Hệ thống ITS (GTTM)»
-- API giữ `api/v1/asset/csdl-records` · catalogKind `its-systems` · **cấm** ERP.* · **cấm** invent infra · **cấm** road-assets / ITS AiVision
-- design_confirm **approve** (autoApprove ON) · open Q: **none**
-- Report DES-RPT **N/A** · Grid AC YES · Leave YES
+## Artifacts
+| Kind | Path |
+|------|------|
+| design | specs/csdl-bieu-14/ui/design.md |
+| prototype | specs/csdl-bieu-14/ui/prototype/csdl-bieu-14-list-prototype.html |
+| reviewUrl | file:///D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-14/ui/prototype/csdl-bieu-14-list-prototype.html |
+| prior po compact | specs/csdl-bieu-14/handoff/po-compact.md |
 
-## Inventory (slim)
-
+## Inventory / delta
 | id | label | controlHint | notes |
 |----|-------|-------------|-------|
-| search | Tìm | SearchTextInput | Zone B · 🔍 cụm phải |
-| province/operatingStatus/deviceType/side | Tỉnh/TT HĐ/Loại TB/Vị trí | Dropdown | LOOKUP_STATIC |
-| roadCode | Đường | SearchInput | road-route |
-| kmFrom/kmTo | Km | Number | Line |
-| code | Mã | Text ro | IT- |
-| direction/gpsLat/gpsLng | Hướng/GPS | Dropdown/Number | Z1 |
-| deviceType/brand/techSpec/qtyOrLength/operatingStatus | TB ITS | Dropdown/Text/Textarea/Number | Z2 |
-| infraKind/clearanceM/infraQty/systemStatus/yearBuilt/notes | HT | Dropdown/Number/Textarea | Z3 · manageUnit P2 |
+| (form/list 21) | typed keep | — | cấm reopen CRUD |
+| exportExcel | Xuất Excel | ToolbarButton | catalogToolbar · binary |
+| importExcel | — | — | DEFER P1 · ẩn |
 
-## Screens / zones (ids only)
+## Screens / zones (ids)
+- DES-GRID-A/B/C/D/F/H keep · B **+DES-EXPORT** · B-FILTER unchanged
+- DES-GRID-Z Z1–Z3 keep · S-SKIP-IMPORT · S-SKIP-MAP/PEER
+- reviewUrl= file:///D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-14/ui/prototype/csdl-bieu-14-list-prototype.html
+- mfeStdUrl= http://localhost:9301/so-ts/csdl-so-sach · alias /csdl-bieu-14 · hub ?resource=its-systems
 
-- S-LIST DES-GRID-A · B · B-FILTER · C · D · F · H
-- S-FORM-* DES-GRID-Z · DES-FORM-Z1–Z3 · Z2 Thiết bị ITS · Z3 Hạ tầng gắn kèm · LeaveConfirmModal
-- S-HUB-ENTRY · S-SKIP-MAP · S-SKIP-PEER
-- reviewUrl=`file:///D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-14/ui/prototype/csdl-bieu-14-list-prototype.html`
-- mfeStdUrl=`http://localhost:9301/csdl-bieu-14`
-- hubUrl=`http://localhost:9301/so-ts/csdl-so-sach?resource=its-systems`
-- prototype=`specs/csdl-bieu-14/ui/prototype/csdl-bieu-14-list-prototype.html`
+## Live bind
+- CRUD keep: …/csdl-records?resource=its-systems
+- Export: GET …/csdl-records/export?resource=its-systems (+ filter QS)
+- Import DEFER · cấm ERP.* · toast-stub=done · merge peer
 
-## API / next
+## Grid AC (slim)
+- G keep typed · G-04 Xuất toolbar · G-05 empty OK · G-06 fail toast · G-07 golden 21 · G-08 filtered
+- Leave YES · export không dirty · Report N/A
 
-- CRUD BFF `…/asset/csdl-records` · resource=its-systems · typed DTO **SA**
-- road-route `…/integration/road-routes/search`
-- Next: **SA** Schema_CsdlBieu14 · UiSchema typed · Device*/Infra*/Gps* · DOMAIN-MAP slug · **cấm** invent infra · **cấm** merge road-assets/ITS AiVision
-- e2e: queued `/agent-qa*` only · **cấm** e2e/start:std ở Design
+## GAP (SA/Dev)
+| ID | One-liner |
+|----|-----------|
+| GAP-BIEU14-XLS-01 | Toolbar Xuất binary sheet Biểu 14 |
+| GAP-BIEU14-XLS-02 | Toast stub ≠ done |
+| GAP-BIEU14-XLS-03 | Golden Cục 16-sheet · cấm 12+8 |
+| GAP-BIEU14-XLS-04 | Cấm filter-bar export |
+| GAP-BIEU14-XLS-05 | GET export path (+ QS) |
+| GAP-BIEU14-XLS-06 | 1 sheet 21 · device+infra+GPS |
+| GAP-BIEU14-XLS-07 | Cấm merge so-ts-its-camera/road-assets/AiVision |
+
+## Next
+| Role | Need |
+|------|------|
+| **SA** | BFF binary · checksum 21 · filename · cấm đổi entity |
+| TL/Dev | /implement-export-import-excel · cấm filter export |
+| QA | e2e queued /agent-qa* only |
 
 ## UNCLEAR
-
 - none
 
-## Full paths (Read only if needed)
-
-- design: `D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-14/ui/design.md`
-- control-hint: `D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/csdl-bieu-14-control-hint.md`
-- real-data: `D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/csdl-bieu-14-real-data.md`
-- prior po: `D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-14/handoff/po-compact.md`
-- STATUS: `D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-14/STATUS.md`
-
 ## Cấm (compact)
-
-Demo/LS SSOT · ERP.* · Guid IdCode · form 3 ô only · invent map · invent infra API · merge so-ts-its-camera/road-assets/ITS AiVision · yarn build/e2e/start:std · re-scan demo · paste HTML vào compact
+ERP.* · invent infra · toast=done · filter-bar export · golden 12+8 · new_page typed re-CRUD · merge peer · yarn build/e2e/start:std · re-scan demo · paste HTML

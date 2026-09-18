@@ -1,0 +1,173 @@
+[
+  {
+    "file": "Bản sao của Tổng hợp QL T6.2026.xlsx",
+    "size": 162483,
+    "sheetNames": [
+      "Theo 6 vùng Kinh tế",
+      "Tổng số QL",
+      "Tổng Hợp",
+      "QL đã phân cấp",
+      "QL không phân cấp",
+      "QL trong BOT, XDCB",
+      "Tổng cac tốc hết năm 2025",
+      "Cao tốc Bô, Cục trực tiếp q.lý",
+      "2268 km đương cao tốc T8.25",
+      "BOT",
+      "Khu I T.6",
+      "Khu II T.6",
+      "Khu III T.6",
+      "Khu IV T6.26",
+      "Số liệu 6 tháng đầu năm 2026"
+    ],
+    "sheets": [
+      {
+        "name": "Theo 6 vùng Kinh tế",
+        "ref": "A1:O12",
+        "rows": 12,
+        "cols": 15
+      },
+      {
+        "name": "Tổng số QL",
+        "ref": "A1:G22",
+        "rows": 22,
+        "cols": 7
+      },
+      {
+        "name": "Tổng Hợp",
+        "ref": "A1:K17",
+        "rows": 17,
+        "cols": 11
+      },
+      {
+        "name": "QL đã phân cấp",
+        "ref": "A1:P397",
+        "rows": 397,
+        "cols": 16
+      },
+      {
+        "name": "QL không phân cấp",
+        "ref": "A1:K17",
+        "rows": 17,
+        "cols": 11
+      },
+      {
+        "name": "QL trong BOT, XDCB",
+        "ref": "A1:H10",
+        "rows": 10,
+        "cols": 8
+      },
+      {
+        "name": "Tổng cac tốc hết năm 2025",
+        "ref": "A1:G69",
+        "rows": 69,
+        "cols": 7
+      },
+      {
+        "name": "Cao tốc Bô, Cục trực tiếp q.lý",
+        "ref": "A1:H41",
+        "rows": 41,
+        "cols": 8
+      },
+      {
+        "name": "2268 km đương cao tốc T8.25",
+        "ref": "A1:M70",
+        "rows": 70,
+        "cols": 13
+      },
+      {
+        "name": "BOT",
+        "ref": "A1:T134",
+        "rows": 134,
+        "cols": 20
+      },
+      {
+        "name": "Khu I T.6",
+        "ref": "A1:N57",
+        "rows": 57,
+        "cols": 14
+      },
+      {
+        "name": "Khu II T.6",
+        "ref": "A1:I43",
+        "rows": 43,
+        "cols": 9
+      },
+      {
+        "name": "Khu III T.6",
+        "ref": "A1:P38",
+        "rows": 38,
+        "cols": 16
+      },
+      {
+        "name": "Khu IV T6.26",
+        "ref": "A1:L43",
+        "rows": 43,
+        "cols": 12
+      },
+      {
+        "name": "Số liệu 6 tháng đầu năm 2026",
+        "ref": "A1",
+        "rows": 1,
+        "cols": 1
+      }
+    ]
+  },
+  {
+    "file": "ds-nhan-su-rmms\\Danh sách nhân sự số hóa 10.9.2026.xlsx",
+    "size": 59611,
+    "sheetNames": [
+      "Sheet1",
+      "Sheet2"
+    ],
+    "sheets": [
+      {
+        "name": "Sheet1",
+        "ref": "A2:AM279",
+        "rows": 278,
+        "cols": 39
+      },
+      {
+        "name": "Sheet2",
+        "ref": "A1",
+        "rows": 1,
+        "cols": 1
+      }
+    ]
+  },
+  {
+    "file": "phan-cong-doan-tuyen-gộp 4 văn phòng.xlsx",
+    "size": 64878,
+    "sheetNames": [
+      "VP I.1",
+      "VP I.2",
+      "VPI.3",
+      "VP I.4"
+    ],
+    "sheets": [
+      {
+        "name": "VP I.1",
+        "ref": "A1:K165",
+        "rows": 165,
+        "cols": 11
+      },
+      {
+        "name": "VP I.2",
+        "ref": "A1:K184",
+        "rows": 184,
+        "cols": 11
+      },
+      {
+        "name": "VPI.3",
+        "ref": "A1:K167",
+        "rows": 167,
+        "cols": 11
+      },
+      {
+        "name": "VP I.4",
+        "ref": "A1:L91",
+        "rows": 91,
+        "cols": 12
+      }
+    ]
+  }
+]

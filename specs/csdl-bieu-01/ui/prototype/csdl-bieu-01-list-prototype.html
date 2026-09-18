@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Prototype — Biểu 01 Phân loại mặt đường (DES-GRID + Slideout typed)</title>
+  <title>Prototype — Biểu 01 · typed + Xuất/Nhập Excel (DES-GRID + Slideout)</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
   <style>
     :root {
@@ -105,11 +105,12 @@
           <button type="button" class="tb" data-action="history" title="Lịch sử"><i class="fas fa-history"></i></button>
           <button type="button" class="tb" data-action="config" title="Cấu hình"><i class="fas fa-cog"></i></button>
           <button type="button" class="tb" id="btn-del" disabled title="Xóa"><i class="fas fa-trash"></i></button>
-          <button type="button" class="tb" data-action="import" title="Import stub OUT"><i class="fas fa-file-import"></i></button>
-          <button type="button" class="tb" data-action="export" title="Export stub OUT"><i class="fas fa-file-export"></i></button>
+          <button type="button" class="tb" data-action="import" title="Nhập Excel"><i class="fas fa-file-import" aria-hidden="true"></i> Nhập Excel</button>
+          <button type="button" class="tb" data-action="export" title="Xuất Excel"><i class="fas fa-file-excel" aria-hidden="true"></i> Xuất Excel</button>
+          <input type="file" id="importFile" accept=".xls,.xlsx,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" hidden />
         </div>
         <div class="zone-b-right">
-          <button type="button" class="tb primary" data-action="create"><i class="fas fa-plus"></i> Tạo mới</button>
+          <button type="button" class="tb primary" data-action="create" title="Tạo mới"><i class="fas fa-plus" aria-hidden="true"></i> Tạo mới</button>
         </div>
       </div>
 
@@ -392,8 +393,34 @@
     document.querySelector('[data-action="history"]').onclick = function(){ openModal('modal-history'); };
     document.querySelector('[data-action="create"]').onclick = function(){ openSlide('create'); };
     document.querySelector('[data-action="create-empty"]').onclick = function(){ openSlide('create'); };
-    document.querySelector('[data-action="import"]').onclick = function(){ /* OUT XLS stub */ };
-    document.querySelector('[data-action="export"]').onclick = function(){ /* OUT XLS stub */ };
+    /* S-XLS-IMPORT / S-XLS-EXPORT — catalogToolbar only · cấm filter bar (GAP-FILTER-BAR-08) */
+    var importInput = document.getElementById('importFile');
+    document.querySelector('[data-action="import"]').onclick = function(){ importInput.click(); };
+    importInput.onchange = function(){
+      var f = importInput.files && importInput.files[0];
+      if (!f) return;
+      document.querySelector('.note').textContent =
+        'Nhập Excel (mock): ' + f.name + ' · skip-bridge áp dụng · POST …/csdl-records/import?resource=pavement-sections';
+      importInput.value = '';
+    };
+    document.querySelector('[data-action="export"]').onclick = function(){
+      var d = new Date();
+      var ymd = d.getFullYear().toString() +
+        String(d.getMonth()+1).padStart(2,'0') +
+        String(d.getDate()).padStart(2,'0');
+      var name = 'Bieu01_PhanLoaiMatDuong_' + ymd + '.xls';
+      var blob = new Blob(
+        ['Biểu 01 — Phân loại mặt đường (prototype mock · filtered QS · sheet Biểu 1 · 38 cột)\n'],
+        { type: 'application/vnd.ms-excel' }
+      );
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = name;
+      a.click();
+      URL.revokeObjectURL(a.href);
+      document.querySelector('.note').textContent =
+        'Xuất Excel (mock filtered): ' + name + ' · GET …/csdl-records/export?resource=pavement-sections';
+    };
     document.querySelector('[data-action="refresh"]').onclick = renderRows;
     document.getElementById('btn-del').onclick = function(){ if(selected) openModal('modal-delete'); };
     document.querySelectorAll('[data-close]').forEach(function(btn){

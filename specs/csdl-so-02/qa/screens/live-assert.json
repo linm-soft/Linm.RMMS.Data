@@ -5,9 +5,11 @@
   "hasProvince": true,
   "hasStatus": true,
   "hasRoad": true,
+  "isEmpty": true,
+  "hasLocationCol": true,
+  "locationColNote": "empty_grid_headers_hidden · col in DEFAULT_COLUMNS locationText (code+QA-20)",
   "noDemo": true,
   "noModeBadge": true,
-  "peerSots": false,
   "peerNoneOk": true,
   "emptyOrGrid": true,
   "testids": [
@@ -37,5 +39,6 @@
     "rmms-csdl-so-02-list-grid-wrap",
     "rmms-csdl-so-02-list-empty"
   ],
-  "titleSnippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nCSDL Biểu 01 — Phân loại mặt đường\nCSDL Biểu 02 — Thống kê cầu\nCSDL Biểu 03 — Hầm đường bộ\nCSDL Biểu 04 — Cống các loại\nCSDL Biểu 05 — Rãnh các loại\nCSDL Biểu 06 — Hầm chui DS / hộp KT\nCSDL Biểu 07 — Lề đường / taluy / hàng rào\nCSDL Biểu 08 — Hệ thống ATGT\nCSDL Biểu 09 — Mốc lộ giớ"
+  "titleSnippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nCSDL Biểu 01 — Phân loại mặt đường\nCSDL Biểu 02 — Thống kê cầu\nCSDL Biểu 03 — Hầm đường bộ\nCSDL Biểu 04 — Cống các loại\nCSDL Biểu 05 — Rãnh các loại\nCSDL Biểu 06 — Hầm chui DS / hộp KT\nCSDL Biểu 07 — Lề đường / taluy / hàng rào\nCSDL Biểu 08 — Hệ thống ATGT\nCSDL Biểu 09 — Mốc lộ giớ",
+  "configOpened": false
 }

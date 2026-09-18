@@ -3,63 +3,62 @@
 | Field | Value |
 |-------|-------|
 | feature | `csdl-bieu-16` |
-| title | CSDL Biểu 16 — Nút giao |
-| this role | `dev` · `/agent-dev` |
+| title | CSDL Biểu 16 — Nút giao · T-XLS-S16 export |
+| this role | `dev` · `/agent-dev` · `/implement-export-import-excel` |
 | status | **done** |
-| changeScope | `new_page` |
+| changeScope | `edit_page` |
 | packKind | `list` |
 | resource | `interchanges` |
 | formNo | `16` |
-| columns | `39` · header + child `branches[]` + ATGT |
+| columns | `39` · flatten 1 row/nhánh |
 | IdCode | `IX-` |
-| child | `branches[]` embed · **min_1** · replace-all PUT |
-| mfeStdUrl | `http://localhost:9301/csdl-bieu-16` |
+| mfeStdUrl | `http://localhost:9301/so-ts/csdl-so-sach` |
+| alias | `/csdl-bieu-16` |
 | hub | `/so-ts/csdl-so-sach?resource=interchanges` |
-| taskId | `task_71eac21e` |
-| contentHashPrior | `sha256:56e2fb16e9bcde21f17d7e9639b72660666778f5393b1270cecc49d123beba4b` |
-| headerFingerprintPrior | `sha256:ec787bf2008ae89f1b6c085fe238f1b0d50b048f5c672b90b68d9ea102cf8fcc` |
-| updatedAt | `2026-09-05T17:45:00.000Z` |
+| taskId | `task_ba6998df` |
+| priorTyped | `task_71eac21e` / review `task_628c95a5` **keep** |
+| tlTaskId | `task_1793bfbe` |
+| contentHash | `sha256:c71543b66c4f1d28f5dbae1743c1042e0bb9f12ab9c0efc55d9668af2a38e072` |
+| headerFingerprint | `sha256:ec787bf2008ae89f1b6c085fe238f1b0d50b048f5c672b90b68d9ea102cf8fcc` |
+| updatedAt | `2026-09-18T03:15:00.000Z` |
 | yarnBuild | **PASS** |
-| dotnetBuild | **PASS** |
+| dotnetBuild | **PASS** (Api + Asset.Bff) |
 
-## Done (T-*)
+## Done (T-XLS-S16-*)
 
 | id | Result |
 |----|--------|
-| T-DM-01 | DOMAIN-MAP `csdl-bieu-16` → Asset |
-| T-CTX-01 | context sync (lane web · phase implement) |
-| T-BE-01 | `CsdlBieu16Entity` + `CsdlBieu16BranchEntity` + EF 1:1 / 1–n |
-| T-BE-02 | Migration `Schema_CsdlBieu16` (`rmms_csdl_bieu16` + `rmms_csdl_bieu16_branch`) |
-| T-BE-03..06 | Service `interchanges` · DTO typed + `branches[]` · IdCode `IX-` · min_1 · filters · soft-delete · UiSchema seed |
-| T-BFF-01 | proxy only (`CsdlCatalogRecordsBffController` verified) |
-| T-PERM-01 | reuse `asset.csdl-records.*` |
-| T-UI-* | Kind B list + Kind D Slideout 5 section + BRANCH · FilterBar · `buildDynamicGridColumns` · LeaveConfirm · hub NEW formNo 16 |
+| T-XLS-S16-BE-01 | `CsdlCatalogExcelService` branch `interchanges` · sheet **Biểu 16** · **39** cols · flatten 1 row/nhánh · `header_blank` · filter QS `interchangeType`/`kmMain` · filename `Bieu16_NutGiao_{yyyyMMdd}.xls` |
+| T-XLS-S16-BFF-01 | BFF export proxy reuse (`BuildExportPath` + QS) · no new logic |
+| T-XLS-S16-FE-01 | `CsdlBieu16Page` catalogToolbar **Xuất Excel** · binary download · filter QS |
+| T-XLS-S16-FE-02 | Import **ẩn** · **cấm** filter-bar export · toast success/fail (không stub) · empty-file OK toast |
+| typed KEEP | Schema_CsdlBieu16+Branch · CRUD · Slideout · **cấm** reopen · **cấm** migration |
+
+## Headers SSOT (39)
+
+`code|name|roadCode|roadName|province|kmMain|kmAux|interchangeType|trafficOrg|mainBedWidth|mainSurfaceWidth|mainMedianWidth|mainLaneCount|branchName|branchKmFrom|branchKmTo|branchSide|branchDirection|branchLength|branchBedWidth|branchSurfaceWidth|branchMedianWidth|branchRadius|atgtSign|atgtMarking|atgtIsland|atgtLight|status|yearBuilt|manageUnit|notes|lat|lng|updatedBy|updatedAt|isActive|branchCount|formNo|side`
 
 ## APIs
 
-- `GET/POST/PUT/DELETE` `/api/v1/asset/csdl-records` · `resource=interchanges`
-- BFF `/web-bff/api/v1/asset/csdl-records` proxy
-- LKP `GET /api/v1/integration/road-routes/search`
-- list filter: `interchangeType` · `kmMain` (+ search/province/status/roadCode)
-- create/update embed `branches[]` · PUT replace-all · list `branchCount`
+- CRUD keep: `GET/POST/PUT/DELETE` `/api/v1/asset/csdl-records?resource=interchanges`
+- Export: `GET /api/v1/asset/csdl-records/export?resource=interchanges` (+ filter QS · no page)
+- BFF: `/web-bff/api/v1/asset/csdl-records/export` proxy binary
 
-## FE
+## Files touched
 
-- Alias page `CsdlBieu16Page` · route `/csdl-bieu-16`
-- Hub card `interchanges` → alias · TYPED_RESOURCE_ROUTES
-- Form: Định danh · Đặc trưng nút · Nhánh child min_1 · ATGT qty · Quản lý
-- catalogKind `interchanges` · Zone F `LinCatalogUiSchemaEditorModal`
+| Layer | Path |
+|-------|------|
+| BE | `…/Services/CsdlCatalogExcelService.cs` · `…/Controllers/CsdlCatalogRecordsController.cs` |
+| FE | `src/pages/CsdlBieu16Page/CsdlBieu16Page.tsx` · `src/services/csdlSoSach/endpoint.ts` · `csdlService.ts` |
 
 ## Debt / defer
 
-- Auth RequirePermission wire DEFER
-- org SearchInput manageUnit P2
-- XLS OUT · peer toolbar none_p1 · map none
-- Apply migration DB runtime (Step 4b artifact ready)
+- Import P1 (`T-XLS-S16-BE-02` OUT)
+- Auth RequirePermission stub
 - e2e → `/agent-qa*` only
 
 ## Verify
 
-- MFE `yarn build` PASS · chunk `csdl-bieu-16`
-- BE `dotnet build Linm.RMMS.WebService.sln` PASS · 0 errors
+- MFE `yarn build` PASS
+- BE `dotnet build` Api + Asset.Bff PASS · 0 errors
 - **cấm** e2e / start:std @ Dev (queued QA)

@@ -1,82 +1,66 @@
-# handoff-compact — qa · csdl-bieu-01
+# Handoff compact — qa
 
-| | |
-|--|--|
-| schemaVersion | `1` |
-| role | `qa` |
-| feature | `csdl-bieu-01` |
-| title | CSDL Biểu 01 — Phân loại mặt đường |
-| packKind | `list` |
-| changeScope | `new_page` |
-| status | `done` |
-| verdict | **PASS** |
-| taskId | `task_79534771` |
-| priorDevTaskId | `task_aefea7f3` |
-| resource | `pavement-sections` |
-| formNo | `01` |
-| columns | `38` |
-| IdCode | `MD-` |
-| peerSoTs | `pavement-section` |
-| formPattern | **Kind D Slideout** 2col |
-| Kind | **B** A–D+F · **D** Slideout Z1–Z3 |
-| route_confirm | `route_a` |
-| mfeStdUrl | `http://localhost:9301/csdl-bieu-01` |
-| hubDeepLink | `/so-ts/csdl-so-sach?resource=pavement-sections` |
-| domain | **Asset** · `api/v1/asset/csdl-records` |
-| e2eQa | **ON** · runtime PASS |
-| yarnTypecheck | **PASS** |
-| docker | api `:5111` · bff `:5201` healthy |
-| contentHashPrior | `sha256:3545960f4006740c9dfe57b5f004fa4a1cd1b7befbcd51e35e2168e16821b65e` |
-| skillVersion | `2026.08.29.03` |
-| workflowVersion | `2026.09.01.02` |
-| rulesVersion | `2026.08.31.2` |
-| writtenAt | `2026-09-05T05:46:00.000Z` |
+schemaVersion: 1
+feature: csdl-bieu-01
+packKind: list
+role: qa
+status: done
+verdict: PASS
+skillVersion: 2026.09.05.03
+workflowVersion: 2026.09.05.03
+rulesVersion: 2026.09.17.3
+contentHash: sha256:b48e58e637a1dd4fc9e14298a0063d34c89eadb1ea02ba756b561b4648d4b085
+writtenAt: 2026-09-17T18:40:00.000Z
+taskId: task_795fd15b
+priorDevTaskId: task_742f5820
+resource: pavement-sections
+columns: 38
+IdCode: MD-
+changeScope: edit_page
+formPattern: Slideout
+e2eQa: ON
+mfeStdUrl: http://localhost:9301/so-ts/csdl-so-sach
+alias: /csdl-bieu-01
 
 ## Decisions
+- changeScope: edit_page (T-XLS-S01) · CRUD KEEP · **cấm** reopen 38-col
+- T-XLS-QA-01 **PASS**: export filename `Bieu01_PhanLoaiMatDuong_{yyyyMMdd}.xls` · import_now file input · toolbar Xuất/Nhập
+- filter: **0** Xuất on LinErpListFilterBar (GAP-FILTER-BAR-08)
+- E2E S0/S1/QA-20 **PASS** · PNG + manifest ok=true
+- yarn e2e-qa playwright resolve fail → chrome createRequire · **cấm** kill (GAP-QA-E2E-KILL-01)
+- **cấm** phase=done · handoff Review
+- open questions: none
 
-- E2E S0/S1/QA-20 **PASS** · PNG + manifest `ok=true`
-- `yarn e2e-qa` hang install → chrome channel fallback (**GAP-QA-E2E-PW-01**) · **cấm** kill
-- T-QA-CRUD/FORM/FILTER/ROUTE **PASS** (runtime + code)
-- **cấm** `phase=done` · handoff Review
-- open Q: **none**
+## Inventory (slim)
+| id | label | controlHint | notes |
+|----|-------|-------------|-------|
+| exportExcel | Xuất Excel | ToolbarButton | filtered · PASS |
+| importExcel | Nhập Excel | ToolbarButton+file | import_now · PASS |
+| (form 38) | typed prior | keep | KEEP QA-20 |
 
-## Artifacts
+## Screens / zones (ids only)
+- S-LIST · S-XLS-EXPORT · S-XLS-IMPORT · S-FORM-C KEEP · S-HUB-ENTRY
+- testid=`rmms-csdl-bieu-01-list-page` · `…-export-excel-btn` · `…-import-excel-btn`
 
-| Kind | Path |
-|------|------|
-| scenarios | `specs/csdl-bieu-01/qa/scenarios.md` |
-| screens | `specs/csdl-bieu-01/qa/screens/{S0,S1,QA-20}.png` |
-| manifest | `specs/csdl-bieu-01/qa/screens/manifest.json` |
-| live-assert | `specs/csdl-bieu-01/qa/screens/live-assert.json` |
-| STATUS | `specs/csdl-bieu-01/STATUS.md` |
+## API / tasks (ids only)
+- T-XLS-QA-01 **PASS** · T-QA-* KEEP smoke
+- API-XLS-01/02 runtime via FE blob/file
 
 ## Evidence (ids)
-
 | Case | Result | sha16 |
 |------|--------|-------|
-| S0 | PASS | `0e69a1084c62256e` |
-| S1 | PASS | `ea6d34ac329f895c` |
-| QA-20 | PASS | `96c481886e15540e` |
-
-## Screens / zones
-
-- S-LIST · S-FORM-C · S-HUB-ENTRY · S-PEER-SOTS
-- testid=`rmms-csdl-bieu-01-list-page` · form=`rmms-csdl-bieu-01-form-slideout`
+| S0 | PASS | 71467080520a8a78 |
+| S1 | PASS | 71467080520a8a78 |
+| QA-20 | PASS | fb8cfa7afc10a991 |
 
 ## Debt
-
-- GAP-QA-E2E-PW-01 P2 · Auth DEFER · org/XLS OUT/DEFER
-
-## Next
-
-| Role | Need |
-|------|------|
-| **Review** | `/agent-review` · findings · **cấm** phase=done ở QA |
+- GAP-QA-E2E-PW-01 P2 · Auth DEFER · getBlob CD strip · BIFF N/A
 
 ## UNCLEAR
-
 - none
 
-## Cấm (compact)
-
-ERP.* · phase=done · kill worker · invent API · merge Sổ TS · start role khác
+## Full paths (Read only if needed)
+- scenarios: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-01/qa/scenarios.md
+- screens: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-01/qa/screens/
+- STATUS: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-01/STATUS.md
+- prior: handoff/dev-compact.md

@@ -93,7 +93,7 @@
 </head>
 <body>
   <div class="page">
-    <p class="note" id="note">SSOT Design · <code>shared_grid_example v1</code> · pack <code>csdl-bieu-02</code> · resource <code>bridges</code> · mfeStdUrl <code>/csdl-bieu-02</code> · hub <code>?resource=bridges</code> · Q-GPS six_numbers · Q-SECTION sectioned · skip chrome · <strong>cấm</strong> detail* only · map none</p>
+    <p class="note" id="note">SSOT Design · <code>shared_grid_example v1</code> · pack <code>csdl-bieu-02</code> · edit_page T-XLS-S02 · resource <code>bridges</code> · mfeStdUrl hub · Xuất Excel catalogToolbar · Import DEFER P1 · <strong>cấm</strong> XLS trên filter · map none</p>
 
     <section id="list" style="display:flex;flex-direction:column;gap:8px;flex:1;min-height:0">
       <div class="zone-a" data-des-id="DES-GRID-A">
@@ -107,11 +107,11 @@
           <button type="button" class="tb" data-action="history" title="Lịch sử"><i class="fas fa-history"></i></button>
           <button type="button" class="tb" data-action="config" title="Cấu hình"><i class="fas fa-cog"></i></button>
           <button type="button" class="tb" id="btn-del" disabled title="Xóa"><i class="fas fa-trash"></i></button>
-          <button type="button" class="tb" data-action="import" title="Import stub OUT"><i class="fas fa-file-import"></i></button>
-          <button type="button" class="tb" data-action="export" title="Export stub OUT"><i class="fas fa-file-export"></i></button>
+          <button type="button" class="tb" data-action="export" title="Xuất Excel" id="btn-export"><i class="fas fa-file-excel" aria-hidden="true"></i> Xuất Excel</button>
+          <!-- importExcel DEFER P1 · ẩn P0 (Q-XLS-IMPORT=export_only_p0) -->
         </div>
         <div class="zone-b-right">
-          <button type="button" class="tb primary" data-action="create"><i class="fas fa-plus"></i> Tạo mới</button>
+          <button type="button" class="tb primary" data-action="create" title="Tạo mới"><i class="fas fa-plus" aria-hidden="true"></i> Tạo mới</button>
         </div>
       </div>
 
@@ -425,8 +425,27 @@
     document.querySelector('[data-action="history"]').onclick = function(){ openModal('modal-history'); };
     document.querySelector('[data-action="create"]').onclick = function(){ openSlide('create'); };
     document.querySelector('[data-action="create-empty"]').onclick = function(){ openSlide('create'); };
-    document.querySelector('[data-action="import"]').onclick = function(){ /* OUT XLS stub */ };
-    document.querySelector('[data-action="export"]').onclick = function(){ /* OUT XLS stub */ };
+    document.querySelector('[data-action="export"]').onclick = function(){
+      var btn = document.getElementById('btn-export');
+      if (btn) btn.disabled = true;
+      var d = new Date();
+      var ymd = d.getFullYear().toString() +
+        String(d.getMonth()+1).padStart(2,'0') +
+        String(d.getDate()).padStart(2,'0');
+      var name = 'Bieu02_ThongKeCau_' + ymd + '.xlsx';
+      var blob = new Blob(
+        ['Biểu 02 — Thống kê cầu (prototype mock · filtered QS · sheet Biểu 2 · 48 cột · GPS 3 điểm)\n'],
+        { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' }
+      );
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = name;
+      a.click();
+      URL.revokeObjectURL(a.href);
+      document.querySelector('.note').textContent =
+        'Xuất Excel (mock filtered): ' + name + ' · GET …/csdl-records/export?resource=bridges · Import DEFER P1';
+      if (btn) btn.disabled = false;
+    };
     document.querySelector('[data-action="refresh"]').onclick = renderRows;
     document.getElementById('btn-del').onclick = function(){ if(selected) openModal('modal-delete'); };
     document.querySelectorAll('[data-close]').forEach(function(btn){

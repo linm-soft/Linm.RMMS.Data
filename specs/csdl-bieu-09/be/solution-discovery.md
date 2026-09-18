@@ -1,349 +1,239 @@
-# SA — Solution discovery — csdl-bieu-09 (CSDL Biểu 09 — Mốc lộ giới / GPMB)
+# SA — Solution discovery — csdl-bieu-09 (edit_page · T-XLS-S09 export/import)
 
-> Status: **confirmed** (`solution_confirm=approve` · autoApprove=ON · `task_fe29c657`)  
-> Standards: api-endpoint · bff-api-structure · company-field · database-migration · api-permission-gate · repo-path-guard · **no-parent-json-field** · **ssot-no-duplicate** · **sa-implement-gates** · **form-type-task-pack** (`list`) · **filter-bar-layout-hard** · **slideout-form-layout**  
-> Requires: Design **confirmed** · controlHint + real-data §B · **cấm** re-scan demo · **cấm** invent API  
-> **Cấm:** Write MFE/native · ERP.* · `api/v1/so-ts/*` · `api/v1/infra/*` · `api/v1/rmms/*` · parent `*Json` · yarn build/e2e/start:std · Step 4b/migration ở role SA
+> Status: **confirmed** (`solution_confirm=approve` · autoApprove=ON · `task_8ad5cfc2`)  
+> Standards: api-endpoint · bff-api-structure · company-field · api-permission-gate · repo-path-guard · **ssot-no-duplicate** · **sa-implement-gates** · **form-type-task-pack** (`list`) · **filter-bar-layout-hard** · `/implement-export-import-excel`  
+> Requires: Design **confirmed** · data_analy/po compact · real-data §B · **cấm** invent API · **cấm** re-scan demo  
+> **Cấm:** Write MFE/native · ERP.* · invent `api/v1/infra/*` · toast stub=done · filter-bar export · golden 12+8 · 2-sheet invent · yarn build/e2e/start:std · Step 4b/migration @ SA · reopen typed new_page CRUD
 
 | Field | Value |
 |-------|-------|
 | feature | `csdl-bieu-09` |
-| title | CSDL Biểu 09 — Mốc lộ giới / GPMB |
+| title | CSDL Biểu 09 — Xuất/Nhập Excel (Mốc lộ giới / GPMB) |
 | this role | `sa` · `/agent-sa` |
-| changeScope | **`new_page`** |
-| packKind | **`list`** (Kind **B** A–D+F · Kind **D** Slideout 2col · **2 section kind**) |
+| changeScope | **`edit_page`** |
+| packKind | **`list`** (Kind **B** keep · Kind **D** Slideout keep · **+toolbar** Xuất/Nhập) |
 | status | `confirmed` |
-| design_confirm | approve (`task_0eed32b7`) |
-| solution_confirm | **approve** (autoApprove=ON · `task_fe29c657`) |
-| domain_map | **Asset** (`csdl-bieu-09` → `asset` · **T-DM-01** add slug — live map có `csdl-bieu-01`…`08` · `csdl-so-sach`) |
-| sa_tz_gate | **`tz_na`** |
-| sa_xco_gate | **`xco_get_only`** |
-| sa_shared_table | **`share_tenant`** |
+| design_confirm | approve (`task_a8101a28`) |
+| solution_confirm | **approve** (autoApprove=ON · `task_8ad5cfc2`) |
+| domain_map | **Asset** · `csdl-bieu-09` → `asset` · **keep** (typed prior) |
+| sa_tz_gate | **`tz_na`** (keep) |
+| sa_xco_gate | **`xco_get_only`** (keep · export inherits list XCO filter) |
+| sa_shared_table | **`share_tenant`** (keep · no new table) |
 | be_repo_confirm | `Linm.RMMS.WebService` |
 | ui_repo_confirm | `Linm.Web.RMMS.Asset` |
 | productRoot | `D:/AI-QLBD/Linm.RMMS.Data` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Asset` |
-| mfeStdRoute | `/csdl-bieu-09` |
-| mfeStdUrl | `http://localhost:9301/csdl-bieu-09` |
+| mfeStdRoute | `/so-ts/csdl-so-sach` · alias `/csdl-bieu-09` |
+| mfeStdUrl | `http://localhost:9301/so-ts/csdl-so-sach` |
 | hubDeepLink | `/so-ts/csdl-so-sach?resource=boundary-markers` |
-| peerSoTs | **none** · **cấm** merge Sổ TS · **≠** `road-assets` · **GAP-CSDL-CUC-11** |
+| peerSoTs | **none** · **≠** `road-assets` · **GAP-CSDL-CUC-11** |
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · prefix **live** `api/v1/asset/csdl-records` |
 | domain | **Asset** |
 | resource | `boundary-markers` |
-| formNo | `09` (renumber 8→9 · T-REN-01) |
-| columns | `17` · **2 section** theo `markerKind` |
-| IdCode | `MK-yyyyMMdd-nnnn` (BE generate · **cấm** Guid) |
-| catalogKind | `boundary-markers` (typed UiSchema · subset list) |
+| formNo | `09` |
+| columns | `17` · **1 sheet** cả RoadLimit+GPMB · **cấm** 2 sheet invent |
+| IdCode | `MK-` (keep · import upsert) |
+| catalogKind | `boundary-markers` (keep) |
 | controlHint | `specs/_data-analy/features/csdl-bieu-09-control-hint.md` |
 | realData | `specs/_data-analy/features/csdl-bieu-09-real-data.md` |
 | design | `specs/csdl-bieu-09/ui/design.md` (confirmed) |
-| contentHashPriorDataAnaly | `sha256:863490daf95d2c19ddad660fc05f901eaeb0248fb65961f9e96747ebcf5b04e4` |
-| headerFingerprintPrior | `sha256:18fb135f880ed55afa6e9277e8980fd0458a24d85d87e69a753b805424f396bb` |
-| analyReuse | **hash skip** — **cấm** re-scan demo / invent API |
+| priorSaTyped | `specs/csdl-bieu-09/be/solution-discovery.md` prior `task_fe29c657` · **keep** Schema_CsdlBieu9 |
+| contentHashPriorDataAnaly | `sha256:58c012cef8ad07ae7a6d5e8ab513668c51dc0755d1f209783beb41ba1c4ccc01` |
+| headerFingerprintPrior | `sha256:765521dee151f2ded36c582ca1a0b7ec048237b88cfc5b27481f09e6787e9a77` |
+| analyReuse | **hash match** · **cấm** invent API / re-CRUD typed |
 | autoApprove | **ON** |
 | e2eQa | **ON** (queued — chỉ `/agent-qa*`) |
-| taskId | `task_fe29c657` |
-| priorTask | `task_0eed32b7` (design completed) |
-| updatedAt | `2026-09-05T18:00:00.000Z` |
+| taskId | `task_8ad5cfc2` |
+| priorTask | `task_a8101a28` (design completed) |
+| epic | `docs/context/features/csdl-export-print.md` · Wave 1 **`T-XLS-S09`** |
+| updatedAt | `2026-09-18T05:50:00.000Z` |
 | versionGate | `aligned` (contentHash match prior compact) |
 
-## § Delta Current vs New (`new_page`)
+## § Delta Current vs New (`edit_page` · T-XLS-S09)
 
-| Area | Current live (hub generic) | New (Biểu 09 typed) | Action |
-|------|----------------------------|---------------------|--------|
-| Form | 3 ô `detail*` polymorphic | Typed **17 cột** · Kind D Slideout · **2 section kind** | **GAP-BIEU09-TYPED-01** |
-| Persist | shell `detail*` only | shell + **Schema_CsdlBieu9** 1:1 · **cấm** `DetailJson` | migration Dev |
-| formNo / title | hub Biểu **8** | formNo **09** · title mốc LG/GPMB | **GAP-BIEU09-REN-01** / T-REN-01 |
-| markerKind | free / detailPrimary | LOOKUP `RoadLimit`/`GPMB` · code_en · UI label VN | **GAP-BIEU09-KIND-01** |
-| markerStructure | free | LOOKUP_STATIC Excel seed | **GAP-BIEU09-STRUCT-01** |
-| Dim / Qty | missing / generic | L/W/Area optional · Qty show_always default 1 | **GAP-BIEU09-DIM-01** / Q-QTY |
-| completedYear | missing | Number required | **GAP-BIEU09-YEAR-01** |
-| Section UX | flat | 2 khối LG/GPMB theo `markerKind` | **GAP-BIEU09-BLOCK-01** |
-| List cols | generic | **subset** shared+marker · schema-config | Q-LIST-COLS |
-| Route | hub-only `?resource=` | **alias_now** `/csdl-bieu-09` + hub | **GAP-BIEU09-ROUTE-01** |
-| API prefix | `api/v1/asset/csdl-records` | **giữ** · widen typed DTO | keep |
-| road | Text / roadName | SearchInput `road-route` · `roadCode` | **GAP-CSDL-ROAD-01** |
-| province | FE LOOKUP_STATIC | **keep_static** P1 · master P2 | Q-PROV |
-| manageUnit | Text | Text P1 · SearchInput org P2 | **GAP-CSDL-ORG-01** DEFER |
-| Import/XLS | stub | OUT pack · skip-bridge | **GAP-CSDL-XLS-01** |
-| Peer Sổ TS | — | **none** · ROW riêng | **GAP-CSDL-CUC-11** |
-| Map | none | none · gis deep-link only | **cấm** invent |
+| Area | Current (typed shipped) | New (this SA) | Action |
+|------|-------------------------|---------------|--------|
+| Form / list typed | 17 cột · 2 section · Schema_CsdlBieu9 | **Unchanged** | **cấm** reopen |
+| Toolbar | Refresh/Add/History/Schema/CRUD | **+Xuất Excel +Nhập Excel** | GAP-BIEU09-XLS-01 |
+| Filter bar | LinErpListFilterBar | Unchanged · **cấm** Xuất | GAP-FILTER-BAR-08 |
+| Export | Missing / stub | `GET …/export?resource=boundary-markers` binary | GAP-BIEU09-XLS-05 |
+| Import | Missing / stub | `POST …/import?resource=boundary-markers` multipart P1 | Q-XLS-IMPORT=import_now |
+| Scope | — | **filtered** (+ current filter QS) | Q-XLS-SCOPE |
+| Kind rows | — | **respect_filter** · 1 sheet 17 cols | Q-XLS-KIND |
+| Filename | — | `Bieu09_MocLoGioiGPMB_{yyyyMMdd}.xls` | Q-XLS-FILENAME |
+| Golden | — | Cục 16-sheet · sheet Biểu 9 · checksum **17** | GAP-BIEU09-XLS-03 |
+| Done gate | Typed CRUD done | File mở được · **≠** toast stub | GAP-BIEU09-XLS-02 |
+| Entity / migration | Schema_CsdlBieu9 | **No new table** | keep |
+| BFF | proxy CRUD | proxy **binary** stream | T-BFF-XLS |
 
-**Không đổi:** BFF proxy · soft-delete · tenant `CompanyCode` · pageSize 50/100/200/500 · LeaveConfirm · filter-bar-layout-hard · **cấm** ERP.*.
+**Không đổi:** typed DTO · shell+child 1:1 · soft-delete · tenant `CompanyCode` · pageSize · LeaveConfirm · filter-bar-layout-hard · Slideout · **cấm** ERP.*.
 
 ---
 
-## 1. Ownership
+## 1. Ownership (delta)
 
 | Layer | Repo / module |
 |-------|---------------|
-| MFE | `Linm.Web.RMMS.Asset` · route alias `/csdl-bieu-09` · hub reuse `CsdlSoSachPage` entry |
+| MFE | `Linm.Web.RMMS.Asset` · `CsdlBieu09Page` · `fromCatalogToolbar` + export/import actions |
 | **BackendRoot** | `D:/AI-QLBD/Linm.RMMS.WebService` |
-| API domain | **Asset** — `api/src/RMMS.Service.Api/Domains/Asset/` |
-| Controller | `CsdlCatalogRecordsController` · `[Route("api/v1/asset/csdl-records")]` · **giữ** |
-| Service | `CsdlCatalogService` · branch `resource=boundary-markers` → typed map |
-| Models / DTO | `CsdlCatalogDtos.cs` + **`CsdlBieu9Dtos.cs`** (typed create/update/detail) |
-| Persistence shell | `CsdlCatalogRecordEntity` · `rmms_csdl_catalog_records` |
-| Persistence typed | **`CsdlBieu9Entity`** · table **`rmms_csdl_bieu9`** · FK `CatalogRecordId` 1:1 |
-| Schema name | **`Schema_CsdlBieu9`** (migration Dev / Step 4b — **không** chạy ở SA) |
-| BFF | `CsdlCatalogRecordsBffController` · **proxy only = yes** |
-| FE service | `services/csdlSoSach/endpoint.ts` `BASE=/asset/csdl-records` · typed page **reuse** BASE |
-| DOMAIN-MAP | add row `csdl-bieu-09` → Asset |
-| Lookup | Integration `GET /integration/road-routes/search` |
+| API domain | **Asset** — `Domains/Asset/` |
+| Controller | `CsdlCatalogRecordsController` · **widen** `export` / `import` · **giữ** route prefix |
+| Service | `CsdlCatalogService` · branch `resource=boundary-markers` → typed map → Excel Biểu 9 |
+| Persist | **keep** `CsdlBieu9Entity` / `rmms_csdl_bieu9` / **`Schema_CsdlBieu9`** · **no** migration this pack |
+| BFF | `CsdlCatalogRecordsBffController` · **proxy only = yes** · stream binary |
+| FE | `services/csdlSoSach/endpoint.ts` BASE `/asset/csdl-records` · +`/export` · +`/import` |
+| Dev slash | **`/implement-export-import-excel`** |
 
-**Cấm** `ERP.Service.*` · invent `api/v1/infra/*` · invent parallel host · merge Sổ TS form · bind biểu Cục vào `road-assets`.
+**Cấm** invent parallel host · invent `api/v1/infra/*` · ERP.* · filter-bar export button · 2 workbook sheets by kind.
 
 ### Route / domain
 
 | Surface | Path |
 |---------|------|
-| UI alias | `/csdl-bieu-09` |
-| UI hub | `/so-ts/csdl-so-sach?resource=boundary-markers` |
-| Peer Sổ TS | **none** |
-| API | `api/v1/asset/csdl-records` |
-| BFF | `web-bff/api/v1/asset/csdl-records` |
+| UI hub / alias | `/so-ts/csdl-so-sach?resource=boundary-markers` · `/csdl-bieu-09` |
+| CRUD (keep) | `api/v1/asset/csdl-records` · BFF `web-bff/api/v1/asset/csdl-records` |
+| **Export** | `GET api/v1/asset/csdl-records/export?resource=boundary-markers` (+ filter QS) |
+| **Import** | `POST api/v1/asset/csdl-records/import?resource=boundary-markers` (multipart) |
+| BFF mirror | `web-bff/api/v1/asset/csdl-records[/export|/import]` |
 | FE BASE | `/asset/csdl-records` |
-| road-route | `GET /integration/road-routes/search` |
 
 ---
 
-## Architecture (repo SSOT)
+## Architecture
 
 | Layer | Choice |
 |-------|--------|
-| BackendRoot | `Linm.RMMS.WebService` · be_repo_confirm |
+| BackendRoot | `Linm.RMMS.WebService` |
 | Domain | **Asset** / `asset` |
-| API host | `Domains/Asset/` · widen existing controller |
-| BFF | proxy only = yes |
-| MFE | `Linm.Web.RMMS.Asset` · new list page alias + typed Slideout 2 section kind |
-| Persist | shell + typed child 1:1 · **cấm** parent `*Json` · **cấm** chỉ 3 ô detail* runtime · **cấm** 2 entity |
-| Auth perm | `asset.csdl-records.read\|create\|update\|delete` (reuse hub · Auth debt) |
-| Out of pack | XLS import/export OUT · org SearchInput P2 · map canvas · Step 4b @ SA |
+| API | Widen existing `CsdlCatalogRecordsController` |
+| BFF | proxy only · **pass-through binary** (no re-encode JSON) |
+| MFE | catalogToolbar Xuất/Nhập · download blob · file picker import |
+| Persist | **reuse** Schema_CsdlBieu9 · import upsert by IdCode/tenant |
+| Auth | `asset.csdl-records.read` (export) · `create|update` (import) · Auth debt keep |
+| Excel engine | BE generate/parse · golden Cục sheet Biểu 9 · **cấm** CSV grid dump |
 
-## SSOT / anti-duplicate
-
-| Concern | Package / rule | Note |
-|---------|----------------|------|
-| UI | `@linm-soft-org/linm-web-common-components` | LinErpListFilterBar · LinCatalogDataGrid · LeaveConfirmModal · SearchInput — **cấm** local Lin* clone |
-| HTTP | `apiClient` SSOT | BFF only |
-| Persist | `no-parent-json-field` | typed table · **không** nhét 17 cột vào DetailSpec JSON |
-| BFF | proxy only | no business logic |
-| Filter | `filter-bar-layout-hard` | 1 hàng wrap · 🔍 cụm phải · **cấm** nút Tìm riêng |
-| Form | `slideout-form-layout` | footer_actions_only · `data-form-cols=2` · 2 section kind · **cấm** Full-page |
+---
 
 ## Implement gates (confirm) — RECORDED
 
-| Gate | Decision | Endpoints / surfaces | Note |
-|------|----------|----------------------|------|
-| TZ | **`tz_na`** | **không** filter `fromDate`/`toDate` business · UpdatedAt display-only | PO inventory không có date range |
-| XCO | **`xco_get_only`** | GET `/{id}` · View Slideout | AllowedCompanyIds |
-| SHARE | **`share_tenant`** | shell + `CsdlBieu9Entity` : tenant via parent | `CompanyCode` · **không** Type A master |
+| Gate | Decision | Note |
+|------|----------|------|
+| TZ | **`tz_na`** | Export **không** thêm fromDate/toDate |
+| XCO | **`xco_get_only`** | Export rows = same XCO as list GET |
+| SHARE | **`share_tenant`** | No new entity · tenant via shell |
 
-AskQuestion (autoApprove=ON · agent confirm): `sa_tz_gate=tz_na` · `sa_xco_gate=xco_get_only` · `sa_shared_table=share_tenant` · `2026-09-05T18:00:00.000Z`
+AskQuestion (autoApprove=ON · agent confirm): `sa_tz_gate=tz_na` · `sa_xco_gate=xco_get_only` · `sa_shared_table=share_tenant` · `2026-09-18T05:50:00.000Z`
 
 ---
 
-## FormType pack (`list`)
+## FormType pack (`list`) — keep + XLS surfaces
 
 | Surface | Pattern | FormMode | API |
 |---------|---------|----------|-----|
-| S-LIST | Kind B A–D+F+H | list | API-01 list `?resource=boundary-markers` |
-| S-FORM-CREATE | Kind D Slideout Z1–Z3 · 2 section kind | create | API-03 POST |
-| S-FORM-EDIT | Kind D Slideout | edit | API-02 GET + API-04 PUT |
-| S-FORM-VIEW | Kind D Slideout | view | API-02 GET |
-| S-FORM-COPY | Kind D Slideout | create | API-02 GET + API-03 POST (clear id · new MK- code) |
-| S-ACT-DELETE | Confirm modal | — | API-05 DELETE soft |
-| S-HUB-ENTRY | hub card | — | same list API · QS resource · label Biểu 09 |
-| S-SKIP-MAP | toolbar → gis | — | deep-link only · **cấm** invent canvas |
-| Lookup road | SearchInput | filter + form | API-LKP-01 |
+| S-LIST | Kind B keep · toolbar +Xuất/Nhập | list | API-01 keep |
+| S-FORM-* | Kind D Slideout keep | create/edit/view/copy | API-02..05 keep |
+| **S-XLS-EXPORT** | catalogToolbar button | — (action) | **API-XLS-01** GET export |
+| **S-XLS-IMPORT** | catalogToolbar + file | — (action) | **API-XLS-02** POST import |
 
 ### FormMode ↔ API (REQUIRED)
 
-| FormMode | Load | Save / action | Notes |
-|----------|------|---------------|-------|
-| list | GET list `?resource=boundary-markers` + filters | — | page=1 on filter change · subset cols |
-| create | empty typed form · Qty default 1 | POST body `resource` + typed fields | IdCode `MK-` BE · Point kmFrom≈kmTo |
-| edit | GET `/{id}` (shell+typed join) | PUT `/{id}` | replace typed row 1:1 |
-| view | GET `/{id}` | — | readOnly · **không** disabled xám |
-| copy | GET → clear id/code | POST | new IdCode |
-| delete | — | DELETE soft | confirm · reload list |
+| FormMode / action | Load | Save / action | Notes |
+|-------------------|------|---------------|-------|
+| list / CRUD | **keep** prior typed | **keep** | **cấm** đổi DTO 17 |
+| **exportExcel** | current filter QS | GET `/export?resource=boundary-markers` + same QS as list | binary · Content-Disposition filename |
+| **importExcel** | file multipart | POST `/import?resource=boundary-markers` | upsert typed · toast errors · reload list |
 
-### List filter query keys (`LinErpListFilterBar`)
+### Export query keys (mirror list filter)
 
-| Query key | UI control | Source |
-|-----------|------------|--------|
-| `resource` | const / QS | required `boundary-markers` |
-| `search` | SearchTextInput | mã · đường · notes |
-| `province` | Dropdown LOOKUP_STATIC | FE PROVINCES P1 |
-| `status` | Dropdown LOOKUP_STATIC | tot/tb/kem/hong |
-| `roadCode` | SearchInput road-route | Integration search |
-| `kmFrom` / `kmTo` | Number | Point range filter |
-| `side` | Dropdown LOOKUP_STATIC | L / R / C / Both |
-| `markerKind` | Dropdown LOOKUP_STATIC | RoadLimit / GPMB |
-| `page` / `pageSize` | pagination | 50/100/200/500 |
+`resource` (required) · `search` · `province` · `status` · `roadCode` · `kmFrom` · `kmTo` · `side` · `markerKind` · (**cấm** invent extra date QS)
+
+Q-XLS-SCOPE=**filtered** · Q-XLS-KIND=**respect_filter** → nếu filter `markerKind` set thì chỉ rows kind đó; vẫn **1 sheet** 17 cột.
 
 ---
 
-## 2. Form data analysis (marker · kind · dim · qty)
+## 2. Excel contract (Biểu 9)
 
-### Header (17) — SSOT
-
-`code|roadCode|roadName|province|kmFrom|kmTo|side|markerKind|markerStructure|markerLengthM|markerWidthM|markerAreaM2|markerQty|completedYear|status|manageUnit|notes`
-
-### Q-KIND-LABEL → **code_en**
-
-| uiField | DB column | Type | Values / note |
-|---------|-----------|------|---------------|
-| `markerKind` | `MarkerKind` | `varchar(16)` | `RoadLimit` · `GPMB` · UI label VN · drives **2 section** visibility |
-
-### Q-STRUCT → **excel_seed**
-
-| uiField | DB column | Type | Note |
-|---------|-----------|------|------|
-| `markerStructure` | `MarkerStructure` | `varchar(64)` | LOOKUP_STATIC Excel Biểu 9 seed · **cấm** free-text khi đã LOOKUP |
-
-### Q-DIM → **full_dim** + Q-QTY → **show_always**
-
-| uiField | DB column | Type | Note |
-|---------|-----------|------|------|
-| `markerLengthM` | `MarkerLengthM` | `decimal(18,3)?` | optional m |
-| `markerWidthM` | `MarkerWidthM` | `decimal(18,3)?` | optional m |
-| `markerAreaM2` | `MarkerAreaM2` | `decimal(18,3)?` | optional m² |
-| `markerQty` | `MarkerQty` | `int` | **show_always** · default **1** · ≥1 |
-
-### GAP-BIEU09-YEAR-01
-
-| uiField | DB column | Type | Note |
-|---------|-----------|------|------|
-| `completedYear` | `CompletedYear` | `int` | required · năm hoàn thành |
-
-### Q-SIDE
-
-| uiField | DB column | Type | Values |
-|---------|-----------|------|--------|
-| `side` | `Side` | `varchar(8)` | `L` · `R` · `C` · `Both` |
-
-### Shell vs typed split
-
-| Store on shell (`rmms_csdl_catalog_records`) | Store on typed (`rmms_csdl_bieu9`) |
-|---------------------------------------------|-------------------------------------|
-| Resource, Code, RoadName (+ RoadCode), Province, KmFrom, KmTo, Status, ManageUnit, Notes, IsActive, timestamps | Side, MarkerKind, MarkerStructure, MarkerLengthM, MarkerWidthM, MarkerAreaM2, MarkerQty, CompletedYear |
-| DetailPrimary/Spec/Extra | **deprecated for this resource** — stop writing runtime; migrate legacy → typed when present |
-
-### Typed DTO shape (API body / response widen)
-
-`CsdlBieu9Dto` fields = real-data §B write fields (resource + 17-col inventory). List projection (subset): code, roadCode/roadName, province, kmFrom, kmTo, side, markerKind, markerStructure, markerQty, completedYear, status, manageUnit, updatedAt.
-
-### UiSchema
-
-catalogKind `boundary-markers` typed — **cấm** generic 3-col-only schema làm SSOT form · 2 section kind theo `markerKind`.
+| Item | Decision |
+|------|----------|
+| Workbook | `.xls` · filename `Bieu09_MocLoGioiGPMB_{yyyyMMdd}.xls` |
+| Sheets | **1** sheet · header merge theo mẫu Cục Biểu 9 |
+| Columns | **17** SSOT: `code|roadCode|roadName|province|kmFrom|kmTo|side|markerKind|markerStructure|markerLengthM|markerWidthM|markerAreaM2|markerQty|completedYear|status|manageUnit|notes` |
+| Kind | RoadLimit + GPMB trên **cùng** sheet · **cấm** 2 sheet invent |
+| Golden | Cục `1. Biểu mẫu CSDL.xls` sheet Biểu 9 · checksum 17 · **cấm** hồ sơ 12+8 |
+| Empty export | File tải · 0 data row · header OK · toast info |
+| Fail | toast · **cấm** silent · **cấm** fake blob / CSV generic |
+| Import | P1 import_now · validate markerKind/LOOKUP · tenant share_tenant |
 
 ---
 
-## 3. API catalog
+## 3. API catalog (delta)
 
-| ID | Method | Path | Notes |
-|----|--------|------|-------|
-| API-01 | GET | `/web-bff/api/v1/asset/csdl-records?resource=boundary-markers&…` | list paged |
-| API-02 | GET | `/web-bff/api/v1/asset/csdl-records/{id}` | shell+typed |
-| API-03 | POST | `/web-bff/api/v1/asset/csdl-records` | body resource + typed |
-| API-04 | PUT | `/web-bff/api/v1/asset/csdl-records/{id}` | update shell+typed |
-| API-05 | DELETE | `/web-bff/api/v1/asset/csdl-records/{id}` | soft |
-| API-LKP-01 | GET | `/web-bff/api/v1/integration/road-routes/search` | SearchInput |
-| API-LKP-02 | GET | `/web-bff/api/v1/integration/org-units/search` | **DEFER P2** |
+| Id | Method | Path | Response | Gate |
+|----|--------|------|----------|------|
+| API-XLS-01 | GET | `/api/v1/asset/csdl-records/export?resource=boundary-markers` + filter QS | `application/vnd.ms-excel` (or octet-stream) + Content-Disposition | read + XCO list |
+| API-XLS-02 | POST | `/api/v1/asset/csdl-records/import?resource=boundary-markers` | JSON summary (created/updated/errors) | create/update |
+| BFF-XLS-01/02 | same | `/web-bff/api/v1/asset/csdl-records/export|import` | proxy binary / JSON | proxy only |
 
-API mirror: `api/v1/asset/…`. **Cấm** invent mới prefix.
+CRUD API-01..05 · LKP road-route: **unchanged** (prior SA).
 
 ---
 
-## 4. Entity / migration (plan only — Dev/Step 4b)
-
-| Item | Spec |
-|------|------|
-| Table | `rmms_csdl_bieu9` |
-| PK | Guid Id |
-| FK | `CatalogRecordId` unique → `rmms_csdl_catalog_records.Id` CASCADE soft via parent |
-| Indexes | (CatalogRecordId) unique · list filters via shell + typed MarkerKind / Side |
-| Migration name | `Schema_CsdlBieu9` |
-| Backfill | optional: parse legacy detail* → typed when resource=boundary-markers |
-| **SA** | document only · **cấm** chạy migration |
-
-### Typed columns (plan)
-
-| Column | CLR / SQL | Required |
-|--------|-----------|----------|
-| Side | varchar(8) | yes |
-| MarkerKind | varchar(16) | yes · RoadLimit/GPMB |
-| MarkerStructure | varchar(64) | yes (*) |
-| MarkerLengthM | decimal(18,3)? | no |
-| MarkerWidthM | decimal(18,3)? | no |
-| MarkerAreaM2 | decimal(18,3)? | no |
-| MarkerQty | int | yes · default 1 · ≥1 |
-| CompletedYear | int | yes |
-
-### Shell columns (reuse / widen if missing — Dev)
-
-| Column | CLR / SQL | Note |
-|--------|-----------|------|
-| KmFrom / KmTo | decimal(18,3)? | Point · thường bằng nhau |
-| RoadCode | varchar | SearchInput road-route |
-
----
-
-## 5. BFF vs API
+## 4. BFF vs API
 
 | Concern | Decision |
 |---------|----------|
-| BFF | **proxy only** — forward query/body · no remap business |
-| Validation | API service (required resource, markerKind, markerStructure, completedYear, markerQty≥1, IdCode) |
-| Permissions | reuse `asset.csdl-records.*` |
-| Errors | 422 thiếu resource · 404 detail · toast FE · **cấm** alert |
+| Business Excel map | **API** (`CsdlCatalogService` · Schema_CsdlBieu9 join) |
+| BFF | **proxy only** · forward QS · stream body · **cấm** FE→API direct |
+| MFE | blob download · `a[download]` · filename từ header hoặc fallback Q-XLS-FILENAME |
+
+---
+
+## 5. Entity / migration
+
+| Item | Decision |
+|------|----------|
+| New entity | **none** |
+| Schema_CsdlBieu9 | **keep** |
+| Migration / Step 4b | **skip** @ SA · **không** cần Dev migration cho XLS pack |
+| Parent *Json | **cấm** |
 
 ---
 
 ## 6. Tasks for Team Lead (ids)
 
-| ID | Scope |
-|----|-------|
-| T-DM-01 | DOMAIN-MAP add `csdl-bieu-09` → Asset |
-| T-REN-01 | hub formNo 8→09 · title Biểu 09 mốc LG/GPMB (cùng typed) |
-| T-BE-01 | Entity `CsdlBieu9Entity` + EF config |
-| T-BE-02 | Migration `Schema_CsdlBieu9` (Dev/4b) |
-| T-BE-03 | DTO typed + service map join shell↔typed · stop detail* write |
-| T-BE-04 | IdCode `MK-` generator |
-| T-BE-05 | List filter `roadCode` + kmFrom/kmTo + side + markerKind |
-| T-BFF-01 | verify proxy (no logic) |
-| T-FE-01 | route alias `/csdl-bieu-09` + page Kind B |
-| T-FE-02 | typed Slideout 17 cột · 2 section kind · FormMode↔API |
-| T-FE-03 | FilterBar · SearchInput road-route · LOOKUP_STATIC (kind/struct/side/prov/status) |
-| T-FE-04 | LeaveConfirm · Copy · soft delete · Qty default 1 |
-| T-FE-05 | hub deep-link Biểu 09 · **cấm** peer Sổ TS merge |
-| T-FE-06 | UiSchema catalogKind `boundary-markers` typed · list subset |
-| T-OUT-01 | XLS / skip-bridge — OUT pack (không block P1) |
-| T-OUT-02 | org SearchInput — P2 |
+| Id | Owner | One-liner |
+|----|-------|-----------|
+| T-XLS-S09-BE-01 | BE | GET export binary Biểu 9 · filtered · 17 cols · 1 sheet |
+| T-XLS-S09-BE-02 | BE | POST import multipart · upsert typed · validation toast |
+| T-XLS-S09-BFF-01 | BFF | proxy export/import binary |
+| T-XLS-S09-FE-01 | FE | catalogToolbar Xuất/Nhập · wire QS · **cấm** filter-bar |
+| T-XLS-S09-FE-02 | FE | download filename · empty/fail toast · **cấm** stub done |
+| T-XLS-S09-QA-01 | QA | golden checksum 17 · filtered · 0-row · import_now (queued e2e) |
+| T-OUT-01 | — | org SearchInput P2 · map · **keep OUT** |
 
 ---
 
-## 7. Open questions
+## 7. GAP / Cấm
 
-- **none** (Q-ROUTE · Q-PROV · Q-KIND-LABEL · Q-STRUCT · Q-DIM · Q-QTY · Q-LIST-COLS · Q-REN-LABEL chốt · autoApprove)
+| ID | Note |
+|----|------|
+| GAP-BIEU09-XLS-01…06 | Toolbar · toast≠done · golden Cục · filter-bar · path · 1 sheet |
+| GAP-FILTER-BAR-08 | **cấm** Xuất trên LinErpListFilterBar |
+| GAP-CSDL-CUC-11 | peer Sổ TS none |
 
-## 8. Cấm (SA)
+**Cấm:** ERP.* · invent infra · toast=done · golden 12+8 · 2-sheet · re-CRUD typed new_page · Write MFE @ SA · yarn build/e2e/start:std @ SA.
 
-- ERP.* · invent API · invent map · form 3 ô only · Guid IdCode · merge Sổ TS · bind `road-assets` · 2 entity  
-- Write MFE/native · yarn build/e2e/start:std · Step 4b/migration/e2e ở role SA  
-- parent `*Json` · re-scan demo · DOMAIN invent ngoài Asset  
+---
 
-## Version meta (REQUIRED)
+## Confirm gate
 
-| Field | Value |
-|-------|-------|
-| skillId | agent-sa |
-| skillVersion | 2026.08.24.01 |
-| workflowVersion | 2026.09.01.02 |
-| rulesVersion | 2026.08.31.2 |
-| packKind | list |
-| changeScope | new_page |
-| solution_confirm | approve |
-| writtenAt | 2026-09-05T18:00:00.000Z |
-| contentHashPrior | sha256:863490daf95d2c19ddad660fc05f901eaeb0248fb65961f9e96747ebcf5b04e4 |
+| Gate | Value |
+|------|-------|
+| solution_confirm | **approve** |
+| autoApprove | ON |
+| confirmedAt | `2026-09-18T05:50:00.000Z` |
+| confirmedBy | agent-sa · `task_8ad5cfc2` |
+| next | team-lead · `pending` |
+
+---
+<!-- Version meta: skillId=agent-sa skillVersion=2026.09.05.03 schemaVersion=1 workflowVersion=2026.09.05.03 rulesVersion=2026.09.17.3 versionGate=ok contentHash=sha256:58c012cef8ad07ae7a6d5e8ab513668c51dc0755d1f209783beb41ba1c4ccc01 changeScope=edit_page taskId=task_8ad5cfc2 -->

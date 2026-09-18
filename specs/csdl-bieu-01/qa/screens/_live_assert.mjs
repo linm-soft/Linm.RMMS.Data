@@ -1,12 +1,13 @@
+/**
+ * Live DOM assert — T-XLS-QA-01 + chrome KEEP.
+ * cấm kill worker · channel=chrome.
+ */
 import { writeFileSync } from "node:fs";
-import { pathToFileURL } from "node:url";
+import { createRequire } from "node:module";
 
-const pw = await import(
-  pathToFileURL(
-    "D:/AI-Extension/AI-AutoCode/node_modules/playwright/index.mjs",
-  ).href,
-);
-const { chromium } = pw;
+const require = createRequire("D:/AI-Extension/AI-AutoCode/package.json");
+const { chromium } = require("playwright");
+
 const b = await chromium.launch({ channel: "chrome", headless: true });
 const p = await b.newPage({ viewport: { width: 1440, height: 900 } });
 await p.goto("http://localhost:9301/csdl-bieu-01", {
@@ -16,21 +17,84 @@ await p.goto("http://localhost:9301/csdl-bieu-01", {
 await p.waitForSelector('[data-testid="rmms-csdl-bieu-01-list-page"]', {
   timeout: 25000,
 });
-await new Promise((r) => setTimeout(r, 800));
+await p.waitForSelector(
+  '[data-testid="rmms-csdl-bieu-01-list-export-excel-btn"]',
+  { timeout: 15000 },
+);
+await new Promise((r) => setTimeout(r, 1000));
+
 const body = await p.locator("body").innerText();
+
+const hasExportBtn = (await p
+  .locator('[data-testid="rmms-csdl-bieu-01-list-export-excel-btn"]')
+  .count()) > 0;
+const hasImportBtn = (await p
+  .locator('[data-testid="rmms-csdl-bieu-01-list-import-excel-btn"]')
+  .count()) > 0;
+
+/** filter bar must NOT host Xuất (GAP-FILTER-BAR-08) */
+const filterBarExport = await p.evaluate(() => {
+  const filter = document.querySelector(
+    '[data-testid="rmms-csdl-bieu-01-list-filters"]',
+  );
+  if (!filter) return { foundFilter: false, hasXuat: false };
+  const text = filter.innerText || "";
+  const btn = filter.querySelector(
+    '[data-testid="rmms-csdl-bieu-01-list-export-excel-btn"]',
+  );
+  return {
+    foundFilter: true,
+    hasXuat: /Xuất Excel/i.test(text) || Boolean(btn),
+  };
+});
+
+/** S-XLS-EXPORT: click export → filename PO lock */
+let exportCheck = { attempted: false, ok: false, fileName: "", error: "" };
+try {
+  exportCheck.attempted = true;
+  const [download] = await Promise.all([
+    p.waitForEvent("download", { timeout: 25000 }),
+    p.locator('[data-testid="rmms-csdl-bieu-01-list-export-excel-btn"]').click(),
+  ]);
+  const fileName = download.suggestedFilename() || "";
+  const okName = /^Bieu01_PhanLoaiMatDuong_\d{8}\.xls$/i.test(fileName);
+  const path = await download.path().catch(() => null);
+  exportCheck = {
+    attempted: true,
+    ok: okName,
+    fileName,
+    hasPath: Boolean(path),
+    error: okName ? "" : `filename mismatch: ${fileName}`,
+  };
+} catch (err) {
+  exportCheck = {
+    attempted: true,
+    ok: false,
+    fileName: "",
+    error: err instanceof Error ? err.message : String(err),
+  };
+}
+
 const assert = {
   url: "http://localhost:9301/csdl-bieu-01",
-  hasTitle: /Phân loại mặt đường|Biểu 01/i.test(body),
-  hasFilter: body.includes("Tìm") || body.includes("Tỉnh"),
+  changeScope: "edit_page",
+  hasTitle: /Phân loại mặt đường|Biểu 01|mặt đường/i.test(body),
+  hasFilter: body.includes("Tìm") || /Tỉnh/i.test(body),
+  hasExportToolbar: hasExportBtn,
+  hasImportToolbar: hasImportBtn,
+  filterBarHasNoExport: !filterBarExport.hasXuat,
+  filterBarMeta: filterBarExport,
+  exportCheck,
   noDemo: !/demo\/stub|localStorage SSOT/i.test(body),
   noModeBadge: !/\bCREATE\b|\bEDIT\b|\bVIEW\b/.test(body),
   testids: await p.evaluate(() =>
     [...document.querySelectorAll("[data-testid]")]
       .map((e) => e.getAttribute("data-testid"))
       .filter(Boolean)
-      .slice(0, 30),
+      .slice(0, 40),
   ),
 };
+
 writeFileSync(
   "D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-01/qa/screens/live-assert.json",
   JSON.stringify(assert, null, 2),
@@ -38,4 +102,10 @@ writeFileSync(
 );
 console.log(JSON.stringify(assert, null, 2));
 await b.close();
-if (!assert.hasTitle || !assert.hasFilter) process.exit(1);
+
+const pass =
+  assert.hasExportToolbar &&
+  assert.hasImportToolbar &&
+  assert.filterBarHasNoExport &&
+  assert.exportCheck.ok;
+if (!pass) process.exit(1);

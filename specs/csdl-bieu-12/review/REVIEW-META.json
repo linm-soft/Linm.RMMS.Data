@@ -3,16 +3,20 @@
   "status": "confirmed",
   "verdict": "PASS",
   "review_confirm": "done",
-  "taskId": "task_9d0c01b9",
-  "contentHash": "sha256:6da498be3a84192c6f3e3c30a7e8032bf2753359591a9aabd3ad36d809f4c457",
-  "headerFingerprint": "sha256:54aef0c755530d138ecefa7a303b22c78c32ca1b6ae3555d5bb33492799b5af9",
-  "hashSkip": true,
+  "taskId": "task_acb2eabe",
+  "priorTypedTaskId": "task_9d0c01b9",
+  "changeScope": "edit_page",
+  "epic": "T-XLS-S12",
+  "contentHash": "sha256:f42502cee520105fb0a7f618c17b8b0f582884d7f779f638ec7310c26346e77a",
+  "headerFingerprint": "sha256:b6a541f8adc60a5badc72fc92c606631e5a1457fc119b9a6a546eb1f0acc437a",
+  "hashSkip": false,
+  "hashNote": "changed vs typed — full XLS re-review",
   "gates": {
     "QUERY": "PASS",
     "SEC": "PASS",
     "UI-FN": "PASS",
     "BE-FN": "PASS"
   },
-  "reviewedAt": "2026-09-05T13:40:00.000Z",
+  "reviewedAt": "2026-09-18T01:05:00.000Z",
   "autoApprove": true
 }

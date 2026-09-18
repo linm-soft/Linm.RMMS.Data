@@ -1,94 +1,83 @@
-# Review — users
+# Review — users (KEEP + delta job-title)
 
 | Field | Value |
 |-------|-------|
 | feature | `users` |
 | this role | `review` · `/agent-review` |
 | status | **done** |
-| review_confirm | **approve** (autopilot · `task_d7246ce9` · autoApprove=ON) |
-| prior QA | `task_2710faa2` · `qa/scenarios.md` · **confirmed** |
+| review_confirm | **approve** (autopilot · `task_e4c84ce6` · autoApprove=ON) |
+| changeScope | `edit_page` |
+| packKind | `list` |
+| prior QA | `task_9d0370d3` · `qa/scenarios.md` · **confirmed** · e2e S0/S1/QA-20 **PASS** |
+| prior Dev | `task_a49a5149` · implement **confirmed** |
 | mfeStdUrl | `http://localhost:9314/integration/users` |
-| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/integration/users` |
-| bff | `web-bff/api/v1/integration/users` |
-| lookup | `GET /integration/road-routes/search` · `GET /integration/org-units` · `GET /integration/users?search=` |
+| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/integration/users` + LKP `job-titles` |
+| bff | `web-bff/api/v1/integration/users` · `…/job-titles` |
+| cite | `job-title.md` §5b · GAP-F-USR-05 |
+| contentHashAnaly | `sha256:8bd9897e1ab2483fdb96e9a37492d87c38c7e709c2e3df118c7b884f5d4bb257` |
 | autoApprove | ON |
-| updatedAt | `2026-08-15T09:15:00.000Z` |
+| updatedAt | `2026-09-18T16:55:00.000Z` |
 
 ## REVIEW-META
 
 | Hash input | Notes |
 |------------|-------|
-| MFE | `UsersListPage` + `UsersFormPage` + `MultiSearchCsvField` · `/integration/users` |
-| BE | `api/v1/integration/users` · Integration · BFF QS passthrough |
-| skillVersion | 2026.08.08.21 (orchestrator STATUS) |
-| gap | Kind B list-form-quality + `?route=` SearchInput + MultiSearchCsv |
+| MFE | `UsersListPage` + `UsersFormPage` + `JOB_TITLE_LOOKUP_CONFIG` · `/integration/users` |
+| BE | `JobTitleCode` col · `?jobTitleCode=` · soft denorm · LKP stub |
+| skillVersion | 2026.08.08.21 |
+| gap | Kind B KEEP + delta chức vụ · AC-G-09 |
 
-## Live re-audit (Integration MFE + API)
+## Audit matrix (QUERY / SEC / UI-FN / BE-FN)
 
-| Check | Result |
-|-------|--------|
-| 1× `LinPageLayout` kind=catalog · **không** nested `CatalogListShell` | **PASS** |
-| `LinCatalogDataGrid` `resizable: true` (config force) | **PASS** |
-| Footer `LinCatalogListPagination` · **cấm** footerPagination / pageSizeBar / raw table | **PASS** |
-| flex + skeletonRows=8 · `data-catalog-list-page` | **PASS** |
-| Zone A `fa-user-shield` · «Quản lý người dùng» · **cấm** Thêm mới trên A | **PASS** |
-| Zone B `filterCols=4` SearchTextInput + role/status SearchInput + tuyến `ROAD_ROUTE_LOOKUP_CONFIG` · **không** `filterMaxWidthPx` · **không** nút Tìm | **PASS** |
-| Zone C org tree exact `orgCode` + grid cột Mã/Họ tên/Tổ chức/Vai trò/Tuyến/Trạng thái/SĐT | **PASS** |
-| Form full-page Z1–Z3 · View `<dl data-testid=…-view>` · `LeaveConfirmModal` · **cấm** Resource/Slideout · code `readOnly` chỉ IdCode | **PASS** |
-| `routesCsv` / Phân tuyến / Cán bộ QL `MultiSearchCsvField` (không Text CSV) | **PASS** |
-| FE BASE `/integration/users` · **cấm** `ERP.*` · **cấm** `api/v1/rmms/*` | **PASS** |
-| BFF `BuildListPath` `Request.QueryString` · no business logic | **PASS** |
-| DOMAIN-MAP `users` → Integration | **PASS** |
-| Delete / Đổi MK Lin `Modal` · **không** `window.confirm` trên surface users | **PASS** |
+| Area | Check | Result |
+|------|-------|--------|
+| QUERY | List `GET …/users?jobTitleCode=` · BFF QS passthrough | **PASS** (`AppUsersController` + `AppUserService` filter · BFF `Request.QueryString`) |
+| QUERY | LKP `GET …/job-titles` + `/search` · **cấm** ERP.* / `api/v1/rmms/*` | **PASS** (Integration route · FE seed fallback GAP-JOB-05) |
+| SEC | Soft validate unknown code · no invent master CRUD | **PASS** |
+| SEC | `[RequirePermission]` / Auth host tách | **Accept** GAP-F-USR-01 P2 |
+| UI-FN | Zone B SearchInput Chức vụ · `catalogKind=job-title` · **cấm** nút Tìm | **PASS** (`…-field-jobTitle` · QA S1) |
+| UI-FN | Zone C cột **Chức vụ** = `jobTitleDisplay(code, denorm)` · **≠** roleCode · AC-G-09 | **PASS** |
+| UI-FN | Form SearchInput `jobTitleCode` peer org · View `<dl>` · **cấm** Text free-form | **PASS** (QA-20) |
+| UI-FN | 1× LinPageLayout catalog · resize grid · LinCatalogListPagination · **cấm** ERP.* | **PASS** (KEEP prior) |
+| BE-FN | Migration `JobTitleCode` + denorm `JobTitle` · DTO expose · soft resolve | **PASS** (`Schema_AppUserJobTitleCode`) |
+| BE-FN | FormMode↔API Create/Edit/View + code · **cấm** rewrite A–D | **PASS** |
+| BE-FN | ProfileTab catalog (GAP-JOB-06) | **out P1** — boundary Accept |
 
 ## Findings
 
 | ID | Area | Sev | Finding | Disposition |
 |----|------|-----|---------|-------------|
-| R-USR-01 | Auth | P2 | `[RequirePermission]` stub CommonLib ≥1.4.0 | **Accept** (GAP-F-USR-01) |
-| R-USR-02 | Auth | P2 | Auth host tách — Integration tạm | **Accept** |
-| R-USR-03 | FE | low | Org tree local seed (không live org-units tree) | **Accept** P1 — filter `orgCode` OK |
-| R-USR-04 | UI SSOT | — | 1× LinPageLayout · grid resize · LinCatalogListPagination | **OK** |
-| R-USR-05 | BE | — | Domain Integration · `?route=` · VAL org/route/managed · cấm ERP.* | **OK** |
-| R-USR-06 | FormType | — | C/E/V/Copy/Delete + assign + pwd · footer Lưu/Hủy | **OK** |
-| R-USR-07 | LKP/FIELD | — | SearchInput master · MultiSearchCsv persist | **OK** |
-| R-USR-08 | History | P1 | `LinCatalogHistoryModal` stub document-history | **Accept** (QA debt) |
-| R-USR-09 | QA | — | T-QA-01 · QA-CRUD **PASS** (static + build) | **OK** |
-| R-USR-10 | Build | — | typecheck + webpack PASS this role | **OK** |
+| R-USR-01 | Auth | P2 | Permission stub / Auth tách | **Accept** (GAP-F-USR-01) |
+| R-USR-02 | LKP | soft | Catalog API stub + FE seed 19 | **Accept** (GAP-JOB-05) |
+| R-USR-03 | Profile | P1 | ProfileTab job-title out staff P1 | **Accept** (GAP-JOB-06 boundary) |
+| R-USR-04 | History | P1 | document-history stub | **Accept** |
+| R-USR-05 | Data | — | Empty seed live · CRUD persist = API/code (QA) | **Accept** — không P0 |
+| R-USR-06 | UI-FN | — | Zone B/C/Form job-title SearchInput + AC-G-09 | **OK** |
+| R-USR-07 | BE-FN | — | `job_title_code` · filter · denorm · LKP Integration | **OK** |
+| R-USR-08 | QUERY | — | `?jobTitleCode=` + BFF forward | **OK** |
+| R-USR-09 | QA | — | T-QA-JOB-01 · QA-JOB-CRUD · S0/S1/QA-20 **PASS** | **OK** |
+| R-USR-10 | KEEP | — | Prior A–D / CRUD / `?route=` / MultiSearchCsv | **OK** |
 
-## Task gate
+## Task gate (delta + KEEP)
 
 | Task | Result |
 |------|--------|
-| T-CTX-01 | PASS |
-| T-PERM-01 | PASS FE · P2 BE stub |
-| T-BE-01 | PASS |
-| T-BE-02 | n/a |
-| T-BFF-01 | PASS |
-| T-UI-LIST-01 | PASS |
-| T-UI-FORM-01 | PASS |
-| T-UI-ACT-01 | PASS |
-| T-UI-MAP-FORM | PASS |
-| T-UI-LKP-01 | PASS |
-| T-UI-FIELD-01 | PASS |
-| T-UI-PROD-01 | PASS |
-| T-UI-UX-01 | PASS |
-| T-BE-CRUD-01 | PASS |
-| T-QA-01 | PASS |
-| QA-CRUD | PASS |
+| T-*-JOB (BE/BFF/UI/LKP) | **PASS** |
+| T-QA-JOB-01 / QA-JOB-CRUD | **PASS** |
+| Prior T-* (route/CRUD/list/form) | **KEEP PASS** |
+| GAP-F-USR-05 | **CLOSED** (staff path) |
 
-## Build gate (`task_d7246ce9`)
+## Verify gate (roleOnly=review)
 
 | Check | Result |
 |-------|--------|
-| `yarn typecheck` (MFE Integration) | **PASS** (`tsc --noEmit` exit 0) |
-| `LINM_RUN_DEV_LOCAL_BUNDLE=1 yarn build` | **PASS** (webpack 5.109.2 · 3 size warnings only) |
-| BE write this role | **n/a** — Review không đụng API / migration / BFF |
-| Prior Dev/QA `dotnet` API + Integration BFF | **PASS** (`task_438be5dc` / `task_2710faa2`) |
+| artifact findings + compact | **PASS** |
+| yarn build / e2e / start:std | **cấm** this role — inherit Dev/QA **PASS** |
+| Step 4b / migration | **cấm** this role |
 
 ## Verdict
 
-Kind B catalog + full-page form + filter tuyến + MultiSearchCsv + Integration API/BFF khớp QA. Open items P1/P2 không block. **Approve** (autopilot).
+KEEP Kind B + delta chức vụ khớp PO/Design/SA/TL/Dev/QA. **P0: none**. Open P1/P2/soft không block. **`review_confirm=approve`** (autoApprove=ON).
 
 ## Handoff
 
@@ -103,12 +92,13 @@ Pipeline **complete** · không role sau Review · STATUS `completed`.
 | schemaVersion | 2 |
 | workflowVersion | 2026.08.09.02 |
 | rulesVersion | 2026.08.09.3 |
-| generatedAt | 2026-08-15T09:15:00.000Z |
-| versionGate | rechecked (`recheck_new` · STATUS orchestrator **2026.08.08.21** / workflow **2026.08.09.02**) |
+| generatedAt | 2026-09-18T16:55:00.000Z |
+| versionGate | rechecked (`recheck_new`) |
 | version_mismatch_action | recheck_new |
 | orchestratorSkillVersion | 2026.08.08.21 |
-| taskId | `task_d7246ce9` |
-| contentHashPriorQa | `task_2710faa2` |
+| taskId | `task_e4c84ce6` |
+| contentHashAnaly | sha256:8bd9897e1ab2483fdb96e9a37492d87c38c7e709c2e3df118c7b884f5d4bb257 |
+| priorQaTaskId | `task_9d0370d3` |
 | dataAnalySkillVersion | 2026.08.08.20 |
 | poSkillVersion | 2026.08.08.30 |
 | designSkillVersion | 2026.08.08.31 |

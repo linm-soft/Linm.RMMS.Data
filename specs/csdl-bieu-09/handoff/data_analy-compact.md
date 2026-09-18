@@ -1,83 +1,78 @@
-# handoff-compact — data_analy · csdl-bieu-09
+# Handoff compact — data_analy
 
-| | |
-|--|--|
-| schemaVersion | `1` |
-| role | `data_analy` |
-| feature | `csdl-bieu-09` |
-| title | CSDL Biểu 09 — Mốc lộ giới / GPMB |
-| packKind | `list` |
-| changeScope | `new_page` |
-| status | `done` |
-| taskId | `task_b7a89508` |
-| resource | `boundary-markers` |
-| formNo | `09` (live hub còn **8** · renumber) |
-| columns | `17` |
-| IdCode | `MK-` |
-| peerSoTs | — |
-| contentHash | `sha256:863490daf95d2c19ddad660fc05f901eaeb0248fb65961f9e96747ebcf5b04e4` |
-| headerFingerprint | `sha256:18fb135f880ed55afa6e9277e8980fd0458a24d85d87e69a753b805424f396bb` |
-| skillVersion | `2026.08.25.01` |
-| workflowVersion | `2026.09.01.02` |
-| rulesVersion | `2026.08.31.2` |
-| analyzedAt | `2026-09-05T10:50:00.000Z` |
+schemaVersion: 1
+feature: csdl-bieu-09
+packKind: list
+role: data_analy
+status: done
+skillVersion: 2026.09.05.03
+workflowVersion: 2026.09.05.03
+rulesVersion: 2026.09.17.3
+contentHash: sha256:58c012cef8ad07ae7a6d5e8ab513668c51dc0755d1f209783beb41ba1c4ccc01
+headerFingerprint: sha256:765521dee151f2ded36c582ca1a0b7ec048237b88cfc5b27481f09e6787e9a77
+writtenAt: 2026-09-18T05:30:00.000Z
+taskId: task_f4041b8e
+priorTask: task_b7a89508
+resource: boundary-markers
+columns: 17
+blocks: 2
+IdCode: MK-
+formNo: 09
+
+## Decisions
+- changeScope: edit_page (T-XLS-S09 · Wave 1)
+- formPattern: Slideout (keep typed · **cấm** new_page CRUD)
+- mfe: D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Asset · be: D:/AI-QLBD/Linm.RMMS.WebService
+- export: catalogToolbar Xuất Excel · BFF binary · `/implement-export-import-excel`
+- golden: Cục 16-sheet xls Biểu 9 · **cấm** hồ sơ 12+8
+- filter: **cấm** export trên LinErpListFilterBar (GAP-FILTER-BAR-08)
+- layout: 1 sheet 17 cột · cả RoadLimit+GPMB · **cấm** 2 sheet invent
+- keep: PO/Design/SA typed artifacts · only § Delta export
+- open questions: Q-XLS-SCOPE · Q-XLS-IMPORT · Q-XLS-FILENAME · Q-XLS-KIND
 
 ## Artifacts
-
 | Kind | Path |
 |------|------|
-| control-hint | `specs/_data-analy/features/csdl-bieu-09-control-hint.md` |
-| real-data | `specs/_data-analy/features/csdl-bieu-09-real-data.md` |
-| CTX | `docs/context/features/csdl-bieu-09.md` |
-| cluster | `specs/_data-analy/csdl-cuc-2026/ANALYSIS-AND-TASKS.md` |
-| demo | `Linm.RMMS.Demo/src/demo/features/csdl-so-sach-demo.html` → `…/asset/csdl-so-sach.html` |
+| control-hint | specs/_data-analy/features/csdl-bieu-09-control-hint.md |
+| real-data | specs/_data-analy/features/csdl-bieu-09-real-data.md |
+| CTX | docs/context/features/csdl-bieu-09.md |
+| epic | docs/context/features/csdl-export-print.md |
+
+## Inventory (slim)
+| id | label | controlHint | notes |
+|----|-------|-------------|-------|
+| (form 17/2) | typed prior | keep | **cấm** reopen |
+| exportExcel | Xuất Excel | ToolbarButton | catalogToolbar |
+| importExcel | Nhập Excel | ToolbarButton+file | P1 · Q-XLS-IMPORT |
+
+## Screens / zones (ids only)
+- DES-GRID-A/B/C/D keep · toolbar **+export** · filter unchanged
+- Form Kind D Slideout keep · 2 section markerKind
+- reviewUrl= prior prototype (Design cập nhật nút)
+- peerStdUrl= http://localhost:9301/so-ts/csdl-so-sach?resource=boundary-markers
+- mfeStdUrl= http://localhost:9301/so-ts/csdl-so-sach · alias /csdl-bieu-09
 
 ## Live bind (1-liner)
-
-- API: `api/v1/asset/csdl-records?resource=boundary-markers` (+ BFF) · **cấm ERP.*** · **cấm** invent `infra`
-- Entry: mfeStd `/csdl-bieu-09` · hub `/so-ts/csdl-so-sach?resource=boundary-markers`
-- Form: Kind D Slideout typed 17 cột · 2 khối LG/GPMB theo `markerKind` · **cấm** chỉ 3 ô `detail*`
-- Import: XLS OUT pack Biểu 9
-- Peer: none · **≠** road-assets · **GAP-CSDL-CUC-11**
-
-## Header (17)
-
-`code|roadCode|roadName|province|kmFrom|kmTo|side|markerKind|markerStructure|markerLengthM|markerWidthM|markerAreaM2|markerQty|completedYear|status|manageUnit|notes`
+- CRUD keep: api/v1/asset/csdl-records?resource=boundary-markers
+- Export: GET …/csdl-records/export?resource=boundary-markers · Import POST …/import
+- **cấm** ERP.* · invent infra · toast-stub=done
 
 ## GAP (PO must see)
-
 | ID | One-liner |
 |----|-----------|
-| GAP-BIEU09-TYPED-01 | Typed 17 cột thay generic detail* |
-| GAP-BIEU09-REN-01 | formNo 8→9 · title mốc LG/GPMB · T-REN-01 |
-| GAP-BIEU09-ROUTE-01 | Alias `/csdl-bieu-09` vs hub-only |
-| GAP-BIEU09-KIND-01 | markerKind RoadLimit/GPMB LOOKUP |
-| GAP-BIEU09-STRUCT-01 | markerStructure LOOKUP Excel seed |
-| GAP-BIEU09-DIM-01 | Length/Width/Area/Qty typed |
-| GAP-BIEU09-YEAR-01 | completedYear Number |
-| GAP-BIEU09-BLOCK-01 | 2 section UX theo kind |
-| GAP-CSDL-ROAD-01 | SearchInput road-route |
-| GAP-CSDL-PROV-01 | Province static vs master |
-| GAP-CSDL-ORG-01 | manageUnit SearchInput org-unit P2 |
-| GAP-CSDL-XLS-01 | Import/export sheet Biểu 9 OUT |
-| GAP-CSDL-CUC-11 | ≠ Sổ TS · ROW riêng |
-
-## Open Q
-
-Q-ROUTE · Q-PROV · Q-KIND-LABEL · Q-STRUCT · Q-DIM · Q-QTY · Q-LIST-COLS · Q-REN-LABEL
-
-## Zones
-
-List A/B/C/D Kind B · Form Kind D Slideout 2col Z1–Z3 · 2 section kind · map: none
+| GAP-BIEU09-XLS-01 | Toolbar Xuất Excel binary sheet Biểu 9 |
+| GAP-BIEU09-XLS-02 | Toast stub ≠ done |
+| GAP-BIEU09-XLS-03 | Golden Cục 16-sheet · cấm 12+8 |
+| GAP-BIEU09-XLS-04 | GAP-FILTER-BAR-08 · cấm filter export |
+| GAP-BIEU09-XLS-05 | GET export / POST import path |
+| GAP-BIEU09-XLS-06 | 1 sheet cả 2 kind · cấm 2 sheet invent |
 
 ## Next
-
 | Role | Need |
 |------|------|
-| **PO** | requirement từ Delta + open Q |
-| Design | control-map · prototype 17 cột · reviewUrl |
-| SA | typed DTO/UiSchema · Schema_CsdlBieu9 · renumber |
+| **PO** | requirement từ § Delta T-XLS-S09 · chốt Q-XLS-* · giữ AC typed |
+| Design | giữ prototype · +nút Xuất trên catalogToolbar · reviewUrl |
+| SA | BFF binary path · golden checksum 17 · cấm đổi typed entity |
 
 ## Cấm (compact)
-
-ERP.* · invent `infra` · demo SSOT · form 3 ô detail* · Guid IdCode · yarn build/e2e @ data_analy
+ERP.* · invent infra · toast=done · filter-bar export · golden 12+8 · new_page typed re-CRUD · yarn build/e2e @ data_analy
