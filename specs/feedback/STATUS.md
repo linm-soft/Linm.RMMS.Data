@@ -110,6 +110,7 @@
 | GAP-MOB-FB-PACK-01 | **closed** | packKind `sheet` · surface screen |
 | GAP-MOB-FB-CAT-01 | **closed (P1)** | default `de-xuat` · no pill UI |
 | GAP-MOB-FB-CTX-PATH-01 | **closed** | T-CTX-01 done |
+| GAP-MOB-EDIT-FIELD-CHROME | **closed** | `LinmTextArea` `textAreaTallHeight` dual · **cấm** raw `TextEditor` / `onSurface 0.12` |
 | GAP-DES-DEMO-RESCAN-01 | **closed** | hash skip |
 
 ## Blockers / open questions

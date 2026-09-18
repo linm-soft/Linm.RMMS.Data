@@ -41,6 +41,8 @@
 - Dual **GAP-MOB-INC-CREATE-QUEUE-01 CLOSED** — `CreateIncidentUseCase` POST catalog codes · queue **chỉ** mất sóng · replay `incidentBody`.
 - VERIFY: `./gradlew :app:assembleDebug` **PASS**.
 
+`/edit-mobile-feature` 2026-09-18: **GAP-MOB-EDIT-FIELD-CHROME** — description `LinmTextArea` · **cấm** raw `BasicTextField` `onSurface 0.12` · `assembleW0Debug` **PASS**.
+
 ## VERIFY GATE
 
 | Check | Result |

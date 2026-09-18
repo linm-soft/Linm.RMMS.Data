@@ -109,6 +109,7 @@ Không `/wf-anim` trên list `asset`. Toast fade in-app · push/pop hub standard
 | GAP-TYP-01 | Type size | search hint **13** · row title **≥16** · row sub **13** |
 | GAP-MOB-DES-PFX-01 | Board prefix | `ios/index.html` · `android/index.html` |
 | GAP-MOB-UX-07 | design ↔ HTML | Pack proto khớp `design.md` |
+| GAP-MOB-COPY | list search «Tìm» | **PASS** placeholder `LinmCopy.t("asset.list.search")` dual · **cấm** kit default |
 | GAP-F-ASSET-MOB-01 | Filter toolbar | **OUT P1** — search only |
 | GAP-F-ASSET-MOB-03 | Ghim badge | **P2 Nice** — **cấm** board P1 |
 

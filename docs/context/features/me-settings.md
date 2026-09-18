@@ -34,7 +34,7 @@ Greenfield — **chưa** có HTML `#sc-me-settings` trên mobile-p1. ControlHint
 | sectionSync | Đồng bộ | SectionLabel |
 | rowOffline | Hàng đợi mất sóng | ListRow nav · `reuse=patrol-offline` · **cấm** enqueue |
 | sectionAbout | Thông tin | SectionLabel |
-| appVersion | Phiên bản | Text display · Bundle/versionName · **không** API |
+| appVersion | Phiên bản | Text display · marketing `x.y.z` only · **cấm** build · **không** API |
 | rowPrivacy | Chính sách quyền riêng tư | ListRow · reuse copy `home.privacy.*` · **cấm** invent landing URL |
 
 **Entry parent (`#sc-me`):** hàng **Cài đặt** · `#i-gear` · iOS chevron · Android **không** chevron (peer GAP-MOB-UX-04b) · `go('me-settings')` (thay toast).

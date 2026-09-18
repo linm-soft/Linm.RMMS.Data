@@ -1,14 +1,21 @@
 # Dev — Implement — attendance (iOS)
 
-> Status: **confirmed** · `/edit-mobile-feature` · GAP-MOB-ATT-CHECKIN-01  
-> dest **iPhone 17 Pro** · A4-IPAD DEFER
+> Status: **confirmed** · `/edit-mobile-feature` · GAP-MOB-ATT-03  
+> dest **iPhone 17 Pro Max** · A4-IPAD DEFER
 
 | Feature | `attendance` |
-| dest | **iPhone 17 Pro** · family `1` · A4-IPAD DEFER |
+| dest | **iPhone 17 Pro Max** · family `1` · A4-IPAD DEFER |
 | xcodegen | **PASS** |
-| Kit | `LinmLargeTitle` · `LinmSegment` · `LinmHeroCard` / `LinmHeroAction` · `LinmSectionLabel` · `LinmListRow` · `LinmToast` · `LinmBusyOverlay` |
+| Kit | `LinmLargeTitle` · `LinmSegment` · `LinmHeroCard` / `LinmHeroAction` · `LinmSectionLabel` · `LinmListRow` · `LinmToast` · `LinmBusyOverlay` · `GpsDenyModal` |
 
-## Notes (check-in fail)
+## Notes (GPS deny confirm)
+
+- **Chấm vào** deny → overlay `GpsDenyModal` `DES-MOB-GPS-DENY` (title/body copy/Để sau) · **không** POST.
+- `notDetermined` → CoreLocation `requestWhenInUseAuthorization` (OS confirm) rồi mới POST.
+- **Cấm** toast `patrol.map.locDeny`. Timeout / offline / HTTP fail vẫn `LinmToast`.
+- Copy guide → pasteboard `patrol.gpsDeny.body` · toast `patrol.gpsDeny.copied`.
+
+## Notes (check-in fail · prior)
 
 - **Chấm vào** POST `patrol/attendance-logs` · HTTP **2xx = success** (`postRaw`) · **cấm** fail vì decode `AttendanceLogItemDto`.
 - `userName` = `auth.lastWho()` · display · login id · JWT `full_name` / name claim.
@@ -26,9 +33,9 @@
 ## IA / API
 
 - route_a: Tab field → patrol-home seg **Chấm công** → push `#sc-attendance`.
-- Chấm vào → GPS usable → POST 2xx · Báo cáo → **push report** · Tap day → push day-detail.
-- E2E: `sc-attendance` · `att-segment` · `att-hero` · `att-day-*` · `sc-attendance-report`.
+- Chấm vào → GPS usable → POST 2xx · deny → `GpsDenyModal` · Báo cáo → **push report** · Tap day → push day-detail.
+- E2E: `sc-attendance` · `att-segment` · `att-hero` · `att-day-*` · `sc-attendance-report` · `modal-gps-deny`.
 
 ## VERIFY GATE
 
-`xcodegen generate` + `xcodebuild -scheme LinmRmms -destination 'platform=iOS Simulator,name=iPhone 17 Pro' build` (`/edit-mobile-feature` 2026-09-16 · GAP-MOB-ATT-CHECKIN-01).
+`xcodegen generate` + `xcodebuild -scheme LinmRmms -destination 'platform=iOS Simulator,name=iPhone 17 Pro Max' build` **BUILD SUCCEEDED** (`/edit-mobile-feature` 2026-09-18 · GAP-MOB-ATT-03).

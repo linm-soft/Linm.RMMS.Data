@@ -2,9 +2,10 @@
 
 > Runbook tay trên **Xcode + App Store Connect**. Slash chain: `/fill-build-ios-info` → `/plan-release-mobile` → `/build-release-app` → `/review-app-submit` · orchestrator `/submit-store-ios`.  
 > **Cấm** agent bấm Submit hộ. **Cấm** dán mật khẩu demo vào file này — xem [`REVIEW-ACCOUNTS.md`](REVIEW-ACCOUNTS.md).  
-> **Context SSOT (app mới):** [`../../context/features/ios-store-submit.md`](../../context/features/ios-store-submit.md)
+> **Context SSOT (app mới):** [`../../context/features/ios-store-submit.md`](../../context/features/ios-store-submit.md)  
+> **Android / CH Play:** [`ANDROID-SUBMIT-GUIDE.md`](ANDROID-SUBMIT-GUIDE.md) · Studio: [`ANDROID-STUDIO-RELEASE.md`](ANDROID-STUDIO-RELEASE.md)
 
-Listing copy: [`submit-info.html`](submit-info.html). Screenshot 6.9": [`ASSET-MANIFEST.md`](ASSET-MANIFEST.md) + `store/out/`. Flags: [`../flags.json`](../flags.json).
+Listing copy: [`submit-info.html`](submit-info.html). Screenshot 6.9": [`ASSET-MANIFEST.md`](ASSET-MANIFEST.md) + `store/out/ios/`. Flags: [`../flags.json`](../flags.json).
 
 ---
 
@@ -183,7 +184,7 @@ Sửa **không** cần Archive nếu Apple chỉ phàn nàn metadata:
 5. Tab **iPad** / **Apple Watch**: **xóa hết** (family `1`)
 6. Description / What’s New / Review Notes khớp [`submit-info.html`](submit-info.html) — **không** claim map / OTP SMS
 
-Pack: `store/out/ss-iphone-1320x2868-01` … `06` (guest, FAQ, staff, GPS tuần, chấm công, camera). **Không** GIS / patrol-map.
+Pack: `store/out/ios/ss-iphone-1320x2868-01` … `06` (guest, FAQ, staff, GPS tuần, chấm công, camera). **Không** GIS / patrol-map.
 
 Acc chụp local: `rmms-admin`. Acc **Review Notes** ASC: `rmms-001` — [`REVIEW-ACCOUNTS.md`](REVIEW-ACCOUNTS.md).
 
@@ -231,6 +232,7 @@ Tiếp: **In Review** → **Pending Developer Release** / **Ready for Sale** (t�
 | Unable to Add for Review · age ratings | Questionnaire mới | App Information → Age Ratings → Edit |
 | 2.3.3 | Shot/mô tả lệch app | View Submission → thay 6.9" · xóa iPad |
 | Privacy URL 500 | Landing chưa live | Deploy Root RMMS `/privacy` trước Submit |
+| Version **Ready for Distribution** nhưng Search / `apps.apple.com` **404** | App **Custom** (ABM) — Apple case `102965490286` | §13–§14. **Không** đổi được Public trên record cũ |
 
 ---
 
@@ -243,3 +245,90 @@ Tiếp: **In Review** → **Pending Developer Release** / **Ready for Sale** (t�
 5. User **Submit / Update Review**
 
 Slash: `/submit-store-ios` (full chain) hoặc `/build-release-app` (chỉ binary).
+
+---
+
+## 13. Q&A — Store public / Cannot Sell Vietnam
+
+> Check khi 1.0.7 (hoặc version sau) đã Approved mà khách không thấy app. Acc: [`../../context/thong-tin-cty-mien-trung.md`](../../context/thong-tin-cty-mien-trung.md).
+
+### Đã xảy ra (2026-09-17)
+
+| | |
+|--|--|
+| App | **RMMS (VN)** · Bundle `com.drvn.rmms` · Apple ID **`1510513131`** |
+| Version | iOS **1.0.7** · ASC **Ready for Distribution** |
+| Catalog | `https://apps.apple.com/vn/app/id1510513131` → 404 · `itunes.apple.com/lookup?id=1510513131&country=vn` → `resultCount: 0` |
+| Availability | **0** countries · **174** Not Available · **1 Cannot Sell** = **Vietnam** (tooltip: contact Apple Developer Support) |
+| Business (đã Active) | Free Apps + Paid Apps (All Countries, 12 Sep–13 Nov 2026) · Vietcombank · W-8BEN-E + Certificate of Foreign Status · DSA (EU, không liên quan VN) |
+| Banner banking (nếu còn) | Account Holder **Address** và/hoặc **Type** trên Vietcombank — tự điền; Type = Organization, địa chỉ khớp D-U-N-S |
+| Support | [developer.apple.com/contact](https://developer.apple.com/contact/) → **Distribution** → **Other Distribution Questions** |
+| **Case ID** | **`102965490286`** (gửi 17 Sep 2026, ~02:08 ICT · Account Holder Phuc Le) |
+
+### Check nhanh
+
+1. ASC → **Pricing and Availability** → **Manage Availability** → dòng **Vietnam** còn đỏ **Cannot Sell** không.
+2. **Business** → Agreements / Bank / Tax đều **Active**? Banner vàng Address/Type còn không.
+3. Lookup: `curl -sS 'https://itunes.apple.com/lookup?id=1510513131&country=vn'` — hết 404 khi `resultCount ≥ 1`.
+4. Chloe (case `102965490286`): record `1510513131` = **custom app / ABM**. Public Store = **app record mới** (§14). **Không** Archive vào `com.drvn.rmms`.
+
+### Case status — không có URL tracker
+
+Apple **không** có trang `…/case/102965490286`. Trạng thái = **email** Case ID.
+
+| Làm | Không làm |
+|-----|-----------|
+| Inbox **Account Holder** (`lephucjcnet@gmail.com`) + Spam · reply **cùng thread** để hỏi status / gửi thêm ảnh | Gửi ticket mới (trừ khi Apple bảo vậy) |
+| [developer.apple.com/contact](https://developer.apple.com/contact/) chỉ **mở case mới** | Đợi Search index trước khi catalog có bản ghi (`resultCount: 0` ≠ trễ Search) |
+
+Auto-reply Apple: *If you would like a status update on your case, please reply back to this email.*
+
+### Screenshot / metadata khi đang Waiting for Review
+
+Đổi **ảnh listing** → phải **remove this version from review** (Apple khóa upload screenshot). Đổi **build** mới cũng remove. Description / keywords / URL thường sửa được khi còn Waiting. Sau Approved: đổi ảnh = **version mới**.
+
+---
+
+## 14. App record mới — Public App Store
+
+> Apple: **sau Approved không đổi** Custom → Public. Record cũ `1510513131` / `com.drvn.rmms` **giữ ABM**. Public = record **khác** + Bundle ID **khác** + nộp binary lại.  
+> **Cấm** agent bấm Create/Submit hộ. **Cấm** invent Bundle ID vào xcconfig — user tạo Identifier trên Apple rồi `/fill-build-ios-info` dán.
+
+### 14.0 Trước khi bấm +
+
+| Giữ | Đổi |
+|-----|-----|
+| Team `H2T7CM4NFF` · BFF `https://rmms-mobile-bff.linm-soft.com` · listing [`submit-info.html`](submit-info.html) · shot 6.9" [`ASSET-MANIFEST.md`](ASSET-MANIFEST.md) · Review Notes `rmms-001` | Public **đã tạo:** Bundle `com.drvn.rmms.store` · SKU `rmms-vn-public` · Apple ID **`6812959209`** · Name `RMMS` |
+
+1. [developer.apple.com](https://developer.apple.com/account/resources/identifiers/list) → **Identifiers** → **+** → App IDs → App.
+2. Description: `RMMS VN Public`. Bundle ID: **Explicit** — **không** `com.drvn.rmms`. Gợi ý user tự chọn: `com.drvn.rmms.store` (chỉ dùng sau khi Identifier **đã** Register).
+3. Capabilities khớp bản cũ (Push / Associated Domains nếu đang dùng). **Register**.
+4. (Tuỳ chọn) ASC app cũ đổi tên thành `RMMS (VN) Business` để **giải phóng** tên `RMMS (VN)` cho record public.
+
+### 14.1 Create app trên ASC
+
+1. [appstoreconnect.apple.com](https://appstoreconnect.apple.com) → **Apps** → **+** → **New App**.
+2. Platform **iOS**.
+3. Name: `RMMS (VN)` (hoặc tên đã giải phóng).
+4. Primary Language: **Vietnamese**.
+5. Bundle ID: chọn Identifier **mới** (dropdown). Không thấy → chưa Register / sai Team.
+6. SKU: duy nhất, vd. `rmms-vn-public` (chỉ trên ASC, không trong Xcode).
+7. User Access: **Full Access** (Account Holder).
+8. **App Distribution Methods** → **Public**. **Cấm** Private / Custom / “available privately as a custom app”.
+9. Create.
+
+### 14.2 Trước Archive (Must)
+
+| Ô | RMMS public |
+|---|-------------|
+| Pricing and Availability | **Manage Availability** → **Vietnam** (và nước cần) → Available. **Không** Custom orgs |
+| Age Ratings | §7 (Messaging YES · còn lại NONE → 4+) |
+| Privacy / Support / Marketing | `https://rmms.vn/privacy` |
+| Screenshots | iPhone 6.9" pack `store/out/ios/` · **cấm** iPad |
+| Version | Marketing **`1.0.0`** · Build **`1`** (đã fill xcconfig) |
+
+Dán Bundle ID từ **App Information** record **mới** → `/fill-build-ios-info` (AskQuestion `app_id_confirm`) → `/plan-release-mobile` → `/build-release-app`. **Không** Archive khi xcconfig còn `com.drvn.rmms`.
+
+### 14.3 Nộp
+
+Upload IPA → gắn build → copy [`submit-info.html`](submit-info.html) → user **Add for Review**. Chuỗi cũ §5–§10. App cũ ABM **không** xóa trừ khi chốt bỏ custom.

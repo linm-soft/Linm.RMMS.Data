@@ -42,5 +42,7 @@
 
 - Must: 0 · parity iOS · ToastHub · zones `sc-field-pick` / `sc-field-reflect` giữ
 
+`/edit-mobile-feature` 2026-09-18: **GAP-MOB-EDIT-FIELD-CHROME** — `#input-desc` `LinmTextArea` · **cấm** raw `BasicTextField` `onSurface 0.12` · `assembleW0Debug` **PASS**.
+
 ---
 <!-- Version meta: skillId=agent-dev-android skillVersion=2026.09.05.03 schemaVersion=1 -->

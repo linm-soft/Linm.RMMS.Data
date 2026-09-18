@@ -100,6 +100,7 @@ Nguồn `#sc-home` dual + DA-01. UNCLEAR field = **none**.
 | who | Khách / FullName | Text display | * | typography hero | guest `home.guest.who` · staff GET `auth/profile` |
 | brandLogo | RMMS | Image | guest | giữa khoảng trống FAQ ↔ dock | `home-brand` · `brandLogoSm` · **cấm** hero · **GAP-MOB-EDIT-GUEST-BRAND** |
 | loginBtn | Đăng nhập | Button | guest | card **pin đáy** (không hero) | `btn-home-login` · phụ **Dành cho cán bộ** · ẩn khi staff · **GAP-MOB-EDIT-GUEST-TAB** |
+| faqSearch | Tìm kiếm câu hỏi | Search capsule | guest | overlay `#sc-faq` `#f-faq-search` | `LinmSearchGlyph` trailing · `fieldText` · **cấm** M3 `TextField` · **GAP-MOB-EDIT-FAQ-SEARCH** |
 | guestPrivacy | Chính sách quyền riêng tư | Link | guest | underline pin đáy dưới login | `btn-home-privacy` · overlay `#sc-privacy` · body user-facing `home.privacy.body` · **cấm** invent HTTPS |
 | quickPatrol | Điểm tuần | QuickItem | * | `LinmQuickItem` trong `LinmQuickActions` | phụ **Ghim định vị · lý trình** · sibling `patrol-home` |
 | quickIncident | Ghi sự cố | QuickItem | * | `LinmQuickItem` | phụ **Chọn tài sản · mẫu sự cố** · sibling `incident-create` |

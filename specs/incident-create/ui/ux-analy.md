@@ -124,6 +124,7 @@ Pack P1: toast fade ~2.4s · modal backdrop fade · kind pill select · checklis
 | GAP-MOB-INC-CREATE-MEDIA-01 | Create chưa media[] | P1 optional upload · SA |
 | GAP-MOB-INC-CREATE-CHK-01 | checklist local BRIDGE | **cấm** invent API |
 | GAP-MOB-INC-CREATE-QUEUE-01 | Create/Draft enqueue khi còn mạng | **CLOSED** · queue **chỉ** mất sóng · online POST catalog |
+| GAP-MOB-EDIT-FIELD-CHROME | raw textarea 0.12 | **PASS** `LinmTextArea` dual · **cấm** revert |
 | AC-D-01 | offline | draft + toast nháp **chỉ** khi mất sóng · sibling offline · online POST BE |
 | AC-D-02 | GPS deny | modal · chặn Create |
 | AC-D-03 | leave dirty | in-app confirm · **cấm** native alert |

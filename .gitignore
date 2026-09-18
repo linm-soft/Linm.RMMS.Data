@@ -34,3 +34,4 @@ local-script/its-public-pilot/out/
 _archive/
 specs/asset-hub/qa/screens/_maestro_android/android/logs
 *.log
+docs/plan/release-mobile/store/out

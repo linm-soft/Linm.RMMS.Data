@@ -91,7 +91,7 @@
 | navBack | Trang Chủ | Text+icon leading | * | `LinmTopBar` | `#i-chevron-left` · pop |
 | navTitle | Giám sát tuần đường | Text title | * | `LinmTopBar` | fixed |
 | navFilter | Lọc | Text trailing | * | `LinmTopBar` | **open sheet** · a11y `btn-sup-filter` |
-| filterRoute | Tuyến | TextField | | Modal/sheet field | → query `route` |
+| filterRoute | Tuyến | `LinmTextField` | same | Modal/sheet field · placeholder `supervise.filter.routePlaceholder` · **cấm** M3 `TextField` / raw `BasicTextField` · **GAP-MOB-EDIT-FIELD-CHROME** · → query `route` |
 | filterDate | Ngày | DatePicker | | Modal/sheet field | client `CheckInAt` day |
 | filterApply | Áp dụng | Primary | * | Primary button | dismiss · reload |
 | filterClear | Xóa lọc | Ghost | * | Ghost/text | clear · reload |

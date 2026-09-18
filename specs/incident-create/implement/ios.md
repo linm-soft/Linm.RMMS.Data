@@ -44,6 +44,8 @@
 - Catalog map `CreateIncidentCatalog`: UI Hư/Cao/`Draft` → BE `khac`/`high`/`new` · `mediaIds` từ attachmentId · replay `incidentBody` khi có mạng.
 - dest A4 `xcodebuild` **iPhone 17 Pro** **PASS**.
 
+`/edit-mobile-feature` 2026-09-18: **GAP-MOB-EDIT-FIELD-CHROME** — description `LinmTextArea` · **cấm** raw `TextEditor` · dest **iPhone 17 Pro Max** + **iPad Pro 13-inch (M5)** **PASS**.
+
 ## VERIFY GATE
 
 | Check | Result |

@@ -7,7 +7,7 @@
 | status | `done` |
 | taskIdActive | — |
 | changeScope | `edit_page` |
-| editScope | `complete_cham_cong` · `/edit-mobile-feature` · wire report · 2026-09-16 |
+| editScope | `gps_deny_confirm` · `/edit-mobile-feature` · GAP-MOB-ATT-03 · 2026-09-18 |
 | packKind | `list` (**PO confirm** · UI hub DES-MOB-ATT) |
 | stack | `native_dual` |
 | demo | `specs/attendance/ui/prototype/ios/index.html` `#sc-attendance` · `specs/attendance/ui/prototype/android/index.html` `#sc-attendance` · `DES-MOB-ATT` |

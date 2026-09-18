@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>RMMS 1.0.0 - Copy listing Google Play</title>
+  <style>
+    :root {
+      --blue: #0C84C0;
+      --deep: #086A9A;
+      --sky: #2A9AD4;
+      --surface: #F2F2F7;
+      --card: #fff;
+      --muted: #8E8E93;
+      --label: #1C1C1E;
+      --warn: #9a5b00;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      font-size: 16px;
+      line-height: 1.45;
+      color: var(--label);
+      background: var(--surface);
+    }
+    header {
+      background: linear-gradient(165deg, #086A9A 0%, #0C84C0 55%, #2A9AD4 100%);
+      color: #fff;
+      padding: 28px 20px 32px;
+    }
+    .wrap { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+    header h1 { margin: 0 0 8px; font-size: 22px; letter-spacing: -0.3px; }
+    header p { margin: 0; opacity: .95; font-size: 15px; }
+    .meta { margin-top: 12px; font-size: 13px; opacity: .9; }
+    .banner {
+      margin: 16px 20px 0;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+      background: #fff8e8;
+      color: var(--warn);
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-size: 14px;
+    }
+    section {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 16px;
+      margin: 16px 0;
+      box-shadow: 0 1px 4px rgba(0,0,0,.05);
+    }
+    h2 { margin: 0 0 4px; font-size: 16px; }
+    h2 small { color: var(--muted); font-weight: 600; }
+    .hint { margin: 0 0 10px; color: var(--muted); font-size: 13px; }
+    textarea {
+      width: 100%;
+      min-height: 72px;
+      font: 15px/1.45 ui-monospace, SFMono-Regular, Menlo, monospace;
+      border: 1px solid #e5e5ea;
+      border-radius: 10px;
+      padding: 10px 12px;
+      resize: vertical;
+      background: #fafafa;
+    }
+    textarea.tall { min-height: 180px; }
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    button {
+      min-height: 44px;
+      padding: 8px 16px;
+      border: 0;
+      border-radius: 10px;
+      background: var(--deep);
+      color: #fff;
+      font: 700 15px inherit;
+      cursor: pointer;
+    }
+    button:active { opacity: .85; }
+    .count { color: var(--muted); font-size: 13px; margin: 0; }
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--deep);
+      color: #fff;
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-weight: 600;
+      display: none;
+    }
+    footer { padding: 8px 0 40px; color: var(--muted); font-size: 13px; }
+    .store-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+    .store-tabs a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 8px 16px;
+      border-radius: 10px;
+      background: rgba(255,255,255,.18);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .store-tabs a.is-on {
+      background: #fff;
+      color: var(--deep);
+    }
+    .limits {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    .limits th, .limits td {
+      text-align: left;
+      padding: 8px 6px;
+      border-bottom: 1px solid #e5e5ea;
+      vertical-align: top;
+    }
+    .limits th { color: var(--muted); font-weight: 600; }
+    .ds-yes { font-weight: 700; color: #086A9A; }
+    .ds-no { color: var(--muted); }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <h1>RMMS 1.0.0 - Copy sang Google Play Console</h1>
+      <p>App Public: package com.drvn.rmms.store. Copy tung o - dan Store listing / Internal release. Khong bam Send for review ho.</p>
+      <p class="meta">Snapshot <strong>v1.0.0</strong> Play · 2026-09-18 · khop iOS fill com.drvn.rmms.store 1.0.0 (1) · file rieng, khong ghi de Apple</p>
+      <nav class="store-tabs" aria-label="Store">
+        <a href="submit-info.html">Apple / iOS</a>
+        <a class="is-on" href="submit-info-play.html">Google Play</a>
+      </nav>
+    </div>
+  </header>
+  <p class="banner">Privacy / Support: https://rmms.vn/privacy (HTTPS 200). Khong dung app.rmms.vn (DNS khong resolve). Dan len app Play <code>com.drvn.rmms.store</code>. Wave 3: GPS + camera ON, khong map / OTP SMS. Internal testing khong bat buoc.</p>
+  <main class="wrap">
+    <section>
+      <h2>Chuan Google Play - min / max</h2>
+      <p class="hint">Store listing: <a href="https://support.google.com/googleplay/android-developer/answer/9859152">Create and set up your app</a>. Release notes: <a href="https://support.google.com/googleplay/android-developer/answer/9859348">Prepare and roll out a release</a>. Khong promo, khong keu danh gia trong ghi chu.</p>
+      <table class="limits">
+        <thead>
+          <tr>
+            <th>O Console</th>
+            <th>Min</th>
+            <th>Max</th>
+            <th>Ghi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>App name (listing)</td>
+            <td>1</td>
+            <td>30</td>
+            <td>Mot ten / ngon ngu. Khong 50.</td>
+          </tr>
+          <tr>
+            <td>Short description</td>
+            <td>1 (bat buoc listing)</td>
+            <td>80</td>
+            <td>Hien tren trang chi tiet Play</td>
+          </tr>
+          <tr>
+            <td>Full description</td>
+            <td>1</td>
+            <td>4000</td>
+            <td>Khong lap lai short</td>
+          </tr>
+          <tr>
+            <td>Ten ban phat hanh</td>
+            <td>1 (bat *)</td>
+            <td>50</td>
+            <td>Noi bo Console. Sau AAB tu dien versionName</td>
+          </tr>
+          <tr>
+            <td>Ghi chu phat hanh / ngon ngu</td>
+            <td>0 (khong bat)</td>
+            <td>500 Unicode</td>
+            <td>Chi dem chu GIUA the. The &lt;vi&gt; / &lt;/vi&gt; moi cai mot dong</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section data-field="play_title">
+      <h2>App name <small>30</small></h2>
+      <p class="hint">Play Console - Main store listing - App name. Max 30 (khong phai 50).</p>
+      <textarea id="play_title" maxlength="30" readonly>RMMS</textarea>
+      <div class="row">
+        <button type="button" data-copy="play_title">Copy</button>
+        <p class="count"><span data-count-for="play_title">0</span>/30</p>
+      </div>
+    </section>
+
+    <section data-field="play_short">
+      <h2>Short description <small>80</small></h2>
+      <p class="hint">Play Console - Store listing - Mo ta ngan. Min 1 / max 80. Bat buoc de publish listing.</p>
+      <textarea id="play_short" maxlength="80" readonly>RMMS: FAQ khách. Cán bộ tuần đường, sự cố, tài sản, hiện trường GPS và camera.</textarea>
+      <div class="row">
+        <button type="button" data-copy="play_short">Copy</button>
+        <p class="count"><span data-count-for="play_short">0</span>/80</p>
+      </div>
+    </section>
+
+    <section data-field="play_full">
+      <h2>Full description <small>4000</small></h2>
+      <p class="hint">Play Console - Store listing - Mo ta day du. Max 4000. Khong lap short description.</p>
+      <textarea id="play_full" class="tall" maxlength="4000" readonly>Ứng dụng di động RMMS (Hệ thống quản lý bảo trì đường bộ) do CÔNG TY CỔ PHẦN CÔNG NGHỆ VÀ THƯƠNG MẠI MIỀN TRUNG (Việt Nam) phát hành. Dành cho cán bộ được đơn vị cấp tài khoản.
+
+Phiên bản đầu trên Google Play, với các tính năng chi tiết trên app:
+
+• Khách - không cần tài khoản. Trang Chủ, câu hỏi thường gặp, tài liệu thủ tục, cấp phép và chính sách quyền riêng tư. Không lấy vị trí hay camera lúc mở app.
+
+• Cán bộ - đăng nhập bằng tài khoản đơn vị. Lưới nghiệp vụ: giám sát, tuần đường, sự cố, công việc, tài sản, góp ý, thông báo, hàng đợi mất sóng. Mở nhanh Điểm tuần và Ghi sự cố từ Trang Chủ.
+
+• Hiện trường - ghim tọa độ, chấm công GPS, chụp hiện trường và nhận diện hư hỏng mặt đường. GPS và camera chỉ khi bạn cho phép, khi đang dùng tính năng đó.
+
+Không bán dữ liệu, không quảng cáo. Quên mật khẩu: liên hệ quản trị đơn vị (không gửi OTP SMS trên cửa hàng).
+
+Hỗ trợ: CÔNG TY CỔ PHẦN CÔNG NGHỆ VÀ THƯƠNG MẠI MIỀN TRUNG, Số 18/43A đường Phan Chu Trinh, Khu đô thị SaigonSky, Tỉnh Nghệ An. Điện thoại 0238 358 8668.</textarea>
+      <div class="row">
+        <button type="button" data-copy="play_full">Copy</button>
+        <p class="count"><span data-count-for="play_full">0</span>/4000</p>
+      </div>
+    </section>
+
+    <section data-field="play_privacy">
+      <h2>Privacy policy URL</h2>
+      <p class="hint">Play Console - Store listing / App content - Chinh sach quyen rieng tu - HTTPS</p>
+      <textarea id="play_privacy" readonly>https://rmms.vn/privacy</textarea>
+      <div class="row">
+        <button type="button" data-copy="play_privacy">Copy</button>
+      </div>
+    </section>
+
+    <section data-field="play_support">
+      <h2>Support URL</h2>
+      <p class="hint">Play Console - Store listing - Website ho tro - cung trang HTTPS</p>
+      <textarea id="play_support" readonly>https://rmms.vn/privacy</textarea>
+      <div class="row">
+        <button type="button" data-copy="play_support">Copy</button>
+      </div>
+    </section>
+
+    <section data-field="play_release_name">
+      <h2>Release name <small>50</small></h2>
+      <p class="hint">Play Console - Tao ban phat hanh chinh thuc - Ten ban phat hanh. Min 1 / max 50. Noi bo, khong hien tren CH Play. Co AAB thi Console tu dien versionName.</p>
+      <textarea id="play_release_name" maxlength="50" readonly>1.0.0 (1)</textarea>
+      <div class="row">
+        <button type="button" data-copy="play_release_name">Copy</button>
+        <p class="count"><span data-count-for="play_release_name">0</span>/50</p>
+      </div>
+    </section>
+
+    <section data-field="play_release_notes">
+      <h2>Release notes (vi) <small>500 Unicode giua the</small></h2>
+      <p class="hint">Play Console - Tao ban phat hanh - Ghi chu phat hanh. Copy CA KHOI, thay placeholder. The &lt;vi&gt; va &lt;/vi&gt; dung mot minh mot dong (chuan Google). Max 500 Unicode / ngon ngu cho PHAN GIUA. Min 0. Khong mat khau, khong promo, khong keu danh gia.</p>
+      <textarea id="play_release_notes" class="tall" readonly><vi>
+Trang Chủ khách: FAQ, đăng nhập, chính sách quyền riêng tư.
+Cán bộ: lưới nghiệp vụ, tuần đường, sự cố, tài sản.
+Hiện trường: GPS và camera khi bạn cho phép.
+Không gồm bản đồ trong app.
+</vi></textarea>
+      <div class="row">
+        <button type="button" data-copy="play_release_notes">Copy</button>
+        <p class="count"><span data-count-for="play_release_notes">0</span>/500 (giua the)</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Data safety — khớp binary w3Release 1.0.0 (2)</h2>
+      <p class="hint">Play Console → Nội dung ứng dụng → Bảo mật dữ liệu. Nguồn: AndroidManifest w3 (FINE+COARSE+CAMERA) · MeProfile · chat sự cố/công việc · FileService JPEG. Không tick loại chưa có trên AAB.</p>
+      <table class="limits">
+        <thead>
+          <tr>
+            <th>Nhóm</th>
+            <th>Loại</th>
+            <th>Tick</th>
+            <th>Trong app thật</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Vị trí</td>
+            <td>Vị trí gần đúng + chính xác</td>
+            <td class="ds-yes">Có</td>
+            <td>ACCESS_COARSE + FINE</td>
+          </tr>
+          <tr>
+            <td>Thông tin cá nhân</td>
+            <td>Tên, email, User ID, SĐT, Thông tin khác (CCCD)</td>
+            <td class="ds-yes">Có</td>
+            <td>MeProfile · CCCD chỉ đọc</td>
+          </tr>
+          <tr>
+            <td>Tin nhắn</td>
+            <td>Tin nhắn khác trong ứng dụng</td>
+            <td class="ds-yes">Có</td>
+            <td>Chat sự cố + phiếu bảo trì</td>
+          </tr>
+          <tr>
+            <td>Ảnh và video</td>
+            <td>Ảnh (không Video)</td>
+            <td class="ds-yes">Có</td>
+            <td>CameraX JPEG</td>
+          </tr>
+          <tr>
+            <td>Hoạt động</td>
+            <td>Nội dung khác do người dùng tạo</td>
+            <td class="ds-yes">Có</td>
+            <td>Sự cố, góp ý</td>
+          </tr>
+          <tr>
+            <td>Lịch · Danh bạ · SMS · Video · Tài chính · Sức khỏe · Ads</td>
+            <td>Mọi loại</td>
+            <td class="ds-no">Không</td>
+            <td>Không permission / SDK</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section data-field="play_review_notes">
+      <h2>App access / Review notes</h2>
+      <p class="hint">Play Console - App content - App access. Khong dan len Store listing cong khai.</p>
+      <textarea id="play_review_notes" class="tall" readonly>Public Google Play listing.
+Package name: com.drvn.rmms.store
+Version 1.0.0 (versionCode 1)
+
+Demo login (staff):
+Android: username rmms-002 / password RMMS@2026
+
+Open the app - Dang nhap - use the account above.
+Guest home is available without login (FAQ / privacy).
+Staff lists (patrol, incidents, work orders) appear after login.
+Forgot-password is contact-admin only (no SMS).
+When prompted, allow Location (precise) and Camera for field features.
+This version does not include in-app map or turn-by-turn directions.</textarea>
+      <div class="row">
+        <button type="button" data-copy="play_review_notes">Copy</button>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <div class="wrap">RMMS · snapshot v1.0.0 Play · com.drvn.rmms.store · pack noi bo · khong deploy lam landing khach</div>
+  </footer>
+  <div class="toast" id="toast">Da copy</div>
+  <script>
+    (function () {
+      var toast = document.getElementById('toast');
+      var hide;
+      function show() {
+        toast.style.display = 'block';
+        clearTimeout(hide);
+        hide = setTimeout(function () { toast.style.display = 'none'; }, 1400);
+      }
+      function countableLen(el) {
+        if (el.id === 'play_release_notes') {
+          var m = el.value.match(/<vi>\s*([\s\S]*?)\s*<\/vi>/i);
+          return m ? m[1].length : el.value.length;
+        }
+        return el.value.length;
+      }
+      document.querySelectorAll('textarea[id]').forEach(function (el) {
+        var span = document.querySelector('[data-count-for="' + el.id + '"]');
+        if (span) span.textContent = String(countableLen(el));
+      });
+      document.querySelectorAll('[data-copy]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var id = btn.getAttribute('data-copy');
+          var el = document.getElementById(id);
+          if (!el) return;
+          var text = el.value;
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(show).catch(function () {
+              el.select();
+              document.execCommand('copy');
+              show();
+            });
+          } else {
+            el.select();
+            document.execCommand('copy');
+            show();
+          }
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

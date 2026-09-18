@@ -55,5 +55,7 @@
 | versionGate | rechecked |
 | contentHash | sha256:feedback-mobile-android-implement-20260829 |
 
+`/edit-mobile-feature` 2026-09-18: **GAP-MOB-EDIT-FIELD-CHROME** — body `LinmTextArea` `textAreaTallHeight` · **cấm** raw `Box`/`BasicTextField` `onSurface 0.12` · `assembleW0Debug` **PASS**.
+
 ---
 <!-- Version meta: skillId=agent-dev-android skillVersion=2026.08.20.03 schemaVersion=1 workflowVersion=2026.08.25.01 rulesVersion=2026.08.25.2 versionGate=rechecked -->

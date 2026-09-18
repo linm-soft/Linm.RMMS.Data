@@ -20,6 +20,7 @@
 | locationRow | List | `.row` `#row-loc` | `LinmListRow` | same | **live** sessions+GPS · empty `—` nếu fail/empty · **cấm** fake |
 | Chk label | Section | `.section-label` | Text 13 | same | |
 | checklist | List | `.chk-row` · `.chk-k` · `.chk-t` | CheckboxList pattern | same | PAVEMENT SSOT |
+| Desc | Field | `.field` textarea · `#input-desc` | `LinmTextArea` | same | placeholder `field.desc.placeholder` · `textAreaMinHeight` · **cấm** raw `TextEditor` / `onSurface 0.12` border · **GAP-MOB-EDIT-FIELD-CHROME** |
 | Create | CTA | `.btn-primary` | `LinmPrimaryButton` | same | POST `incident/incidents` |
 | Draft | CTA | `.btn-secondary` | `LinmSecondaryButton` | same | offline queue |
 | Toast OK/Draft | Banner | `#toast` | `LinmToast` | same | **cấm** alert |

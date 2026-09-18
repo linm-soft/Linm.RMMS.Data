@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>RMMS 1.0.0 - Copy listing Google Play</title>
+  <style>
+    :root {
+      --blue: #0C84C0;
+      --deep: #086A9A;
+      --sky: #2A9AD4;
+      --surface: #F2F2F7;
+      --card: #fff;
+      --muted: #8E8E93;
+      --label: #1C1C1E;
+      --warn: #9a5b00;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      font-size: 16px;
+      line-height: 1.45;
+      color: var(--label);
+      background: var(--surface);
+    }
+    header {
+      background: linear-gradient(165deg, #086A9A 0%, #0C84C0 55%, #2A9AD4 100%);
+      color: #fff;
+      padding: 28px 20px 32px;
+    }
+    .wrap { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+    header h1 { margin: 0 0 8px; font-size: 22px; letter-spacing: -0.3px; }
+    header p { margin: 0; opacity: .95; font-size: 15px; }
+    .meta { margin-top: 12px; font-size: 13px; opacity: .9; }
+    .banner {
+      margin: 16px 20px 0;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+      background: #fff8e8;
+      color: var(--warn);
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-size: 14px;
+    }
+    section {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 16px;
+      margin: 16px 0;
+      box-shadow: 0 1px 4px rgba(0,0,0,.05);
+    }
+    h2 { margin: 0 0 4px; font-size: 16px; }
+    h2 small { color: var(--muted); font-weight: 600; }
+    .hint { margin: 0 0 10px; color: var(--muted); font-size: 13px; }
+    textarea {
+      width: 100%;
+      min-height: 72px;
+      font: 15px/1.45 ui-monospace, SFMono-Regular, Menlo, monospace;
+      border: 1px solid #e5e5ea;
+      border-radius: 10px;
+      padding: 10px 12px;
+      resize: vertical;
+      background: #fafafa;
+    }
+    textarea.tall { min-height: 180px; }
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    button {
+      min-height: 44px;
+      padding: 8px 16px;
+      border: 0;
+      border-radius: 10px;
+      background: var(--deep);
+      color: #fff;
+      font: 700 15px inherit;
+      cursor: pointer;
+    }
+    button:active { opacity: .85; }
+    .count { color: var(--muted); font-size: 13px; margin: 0; }
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--deep);
+      color: #fff;
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-weight: 600;
+      display: none;
+    }
+    footer { padding: 8px 0 40px; color: var(--muted); font-size: 13px; }
+    .store-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+    .store-tabs a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 8px 16px;
+      border-radius: 10px;
+      background: rgba(255,255,255,.18);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .store-tabs a.is-on {
+      background: #fff;
+      color: var(--deep);
+    }
+    .page-tabs, .sub-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .page-tabs {
+      max-width: 760px;
+      margin: 16px auto 0;
+      padding: 0 20px;
+    }
+    .page-tabs .tab, .sub-tabs .tab {
+      min-height: 44px;
+      padding: 8px 16px;
+      border: 0;
+      border-radius: 10px;
+      background: #e5e5ea;
+      color: var(--label);
+      font: 700 14px inherit;
+      cursor: pointer;
+    }
+    .page-tabs .tab.is-on, .sub-tabs .tab.is-on {
+      background: var(--deep);
+      color: #fff;
+    }
+    .sub-tabs { margin: 16px 0 0; }
+    .panel[hidden], .sub-panel[hidden] { display: none !important; }
+    .steps { margin: 8px 0 0; padding-left: 1.2em; }
+    .steps li { margin: 6px 0; }
+    .limits {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    .limits th, .limits td {
+      text-align: left;
+      padding: 8px 6px;
+      border-bottom: 1px solid #e5e5ea;
+      vertical-align: top;
+    }
+    .limits th { color: var(--muted); font-weight: 600; }
+    .ds-yes { font-weight: 700; color: #086A9A; }
+    .ds-no { color: var(--muted); }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <h1>RMMS 1.0.0 - Copy sang Google Play Console</h1>
+      <p>Gói công khai <code>com.drvn.rmms.store</code> · 1.0.0 (3). Tab 1 chỉ phần mới của bản này. Tab 2 là toàn bộ cấu hình đã gộp từ các bản trước. Không gửi thêm khi đang xem xét.</p>
+      <p class="meta">Snapshot <strong>v1.0.0</strong> Play · 18/09/2026 · versionCode 3 · targetSdk 36 · đang xem xét: phát hành đầy đủ, Việt Nam</p>
+      <nav class="store-tabs" aria-label="Cửa hàng">
+        <a href="submit-info.html">Apple / iOS</a>
+        <a class="is-on" href="submit-info-play.html">Google Play</a>
+      </nav>
+    </div>
+  </header>
+  <p class="banner">Quyền riêng tư / hỗ trợ: https://rmms.vn/privacy (HTTPS 200). Không dùng app.rmms.vn. Wave 3: GPS + camera bật, không bản đồ / OTP SMS. Data safety và listing nằm ở Tab 2.</p>
+  <nav class="page-tabs" aria-label="Trang Play">
+    <button type="button" class="tab is-on" data-tab="release">Tab 1 - Release</button>
+    <button type="button" class="tab" data-tab="overview">Tab 2 - Tổng quan và cấu hình</button>
+  </nav>
+  <main class="wrap panel" id="tab-release">
+    <section>
+      <h2>Phần mới của bản 1.0.0 (3)</h2>
+      <p class="hint">Chỉ cấu hình bắt buộc vì đổi versionCode. Listing, Data safety, App access không đổi: xem Tab 2. Đang xem xét: không sửa binary.</p>
+      <ul class="steps">
+        <li>Play đã khóa versionCode 2 nên AAB mới phải là mã 3 (versionName vẫn 1.0.0).</li>
+        <li>Gửi xem xét: phát hành công khai đầy đủ, quốc gia Việt Nam, thử nghiệm kín Alpha (nhóm email LINH), trang listing RMMS-VN.</li>
+        <li>Không tạo bản phát hành mới khi 1.0.0 (3) đã là Gần đây nhất.</li>
+        <li>Icon, feature, ảnh điện thoại: không đổi so với 1.0.0-2.</li>
+        <li>Data safety: không đổi so với bản đã khai trên Tab 2.</li>
+      </ul>
+    </section>
+    <section data-field="play_version">
+      <h2>versionName / versionCode</h2>
+      <p class="hint">Play Console - bản phát hành đang gửi. Gradle defaultConfig.</p>
+      <textarea id="play_version" readonly>1.0.0 (3)</textarea>
+      <div class="row">
+        <button type="button" data-copy="play_version">Copy</button>
+      </div>
+    </section>
+    <section data-field="play_aab_path">
+      <h2>AAB tải lên (mã 3)</h2>
+      <p class="hint">Kéo file này. Không tải lại 1.0.0-2. Không dán đường dẫn này vào listing cửa hàng.</p>
+      <textarea id="play_aab_path" readonly>docs/plan/release-mobile/store/out/android/1.0.0-3/rmms-w3-release-1.0.0-3.aab</textarea>
+      <div class="row">
+        <button type="button" data-copy="play_aab_path">Copy</button>
+      </div>
+    </section>
+    <section data-field="play_release_name">
+      <h2>Tên bản phát hành <small>50</small></h2>
+      <p class="hint">Play Console - Tạo bản phát hành - Tên bản phát hành. Tối đa 50. Nội bộ Console.</p>
+      <textarea id="play_release_name" maxlength="50" readonly>1.0.0 (3)</textarea>
+      <div class="row">
+        <button type="button" data-copy="play_release_name">Copy</button>
+        <p class="count"><span data-count-for="play_release_name">0</span>/50</p>
+      </div>
+    </section>
+    <section data-field="play_release_notes">
+      <h2>Ghi chú phát hành (vi) <small>500 Unicode giữa thẻ</small></h2>
+      <p class="hint">Play Console - Ghi chú phát hành. Copy cả khối. Thẻ &lt;vi&gt; và &lt;/vi&gt; mỗi cái một dòng. Không mật khẩu, không kêu đánh giá.</p>
+      <textarea id="play_release_notes" class="tall" readonly><vi>
+Bản 1.0.0 (3): AAB mới vì Play đã dùng mã 2.
+Trang Chủ khách: FAQ, đăng nhập, chính sách quyền riêng tư.
+Cán bộ: lưới nghiệp vụ, tuần đường, sự cố, tài sản.
+Hiện trường: GPS và camera khi bạn cho phép.
+</vi></textarea>
+      <div class="row">
+        <button type="button" data-copy="play_release_notes">Copy</button>
+        <p class="count"><span data-count-for="play_release_notes">0</span>/500 (giữa thẻ)</p>
+      </div>
+    </section>
+  </main>
+  <div class="wrap panel" id="tab-overview" hidden>
+    <nav class="sub-tabs" aria-label="Config">
+      <button type="button" class="tab is-on" data-sub="studio">Android Studio</button>
+      <button type="button" class="tab" data-sub="store">Cấu hình cửa hàng</button>
+    </nav>
+    <div class="sub-panel" id="sub-studio">
+      <section>
+        <h2>Android Studio - binary cửa hàng</h2>
+        <p class="hint">Repo Linm.RMMS.Mobile.Android, module :app (không Kit). Flavor w3Release. Chi tiết: ANDROID-STUDIO-RELEASE.md</p>
+        <ul class="steps">
+          <li>Mở :app - Build Variants: w3Release (không w3Debug: bản đồ bật)</li>
+          <li>Thiếu flavor: Settings - Experimental - Configure all Gradle tasks - Sync</li>
+          <li>Ký: keystore.properties + rmms-upload.jks (không debug key)</li>
+          <li>AAB: Generate Bundles hoặc ./gradlew :app:bundleW3Release</li>
+          <li>Output Gradle: app/build/outputs/bundle/w3Release/*.aab</li>
+          <li>BFF Release: https://rmms-mobile-bff.linm-soft.com - STORE_W1=false - targetSdk 36</li>
+          <li>versionCode +1 mỗi lần tải lên Play (đã dùng 1 và 2; hiện 3; lần sau 4). Build local / chụp màn không bắt buộc tăng</li>
+          <li>Chụp listing: emulator-5554 1080x1920, ANDROID_SERIAL một máy, tài khoản rmms-admin (không rmms-002)</li>
+        </ul>
+      </section>
+    </div>
+    <div class="sub-panel" id="sub-store" hidden>
+      <section>
+        <h2>Cấu hình đã gộp (các bản trước + listing)</h2>
+        <p class="hint">Đây là SSOT sau khi merge Tab Release của 1.0.0 (2) và listing đã gửi. Bản 1.0.0 (3) không đổi các ô dưới. Data safety khớp binary w3Release.</p>
+      </section>
+<section data-field="play_package">
+        <h2>Tên gói</h2>
+      <p class="hint">Play Console - Định danh ứng dụng. Khớp Gradle applicationId. Khóa sau AAB đầu.</p>
+      <textarea id="play_package" readonly>com.drvn.rmms.store</textarea>
+      <div class="row">
+        <button type="button" data-copy="play_package">Copy</button>
+      </div>
+    </section>
+
+    <section>
+      <h2>Chuẩn Google Play - tối thiểu / tối đa</h2>
+      <p class="hint">Store listing: <a href="https://support.google.com/googleplay/android-developer/answer/9859152">Create and set up your app</a>. Ghi chú phát hành: <a href="https://support.google.com/googleplay/android-developer/answer/9859348">Prepare and roll out a release</a>. Không khuyến mãi, không kêu đánh giá trong ghi chú.</p>
+      <table class="limits">
+        <thead>
+          <tr>
+            <th>Ô Console</th>
+            <th>Tối thiểu</th>
+            <th>Tối đa</th>
+            <th>Ghi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>App name (listing)</td>
+            <td>1</td>
+            <td>30</td>
+            <td>Một tên / ngôn ngữ. Không dùng 50.</td>
+          </tr>
+          <tr>
+            <td>Short description</td>
+            <td>1 (bắt buộc listing)</td>
+            <td>80</td>
+            <td>Hiện trên trang chi tiết Play</td>
+          </tr>
+          <tr>
+            <td>Full description</td>
+            <td>1</td>
+            <td>4000</td>
+            <td>Không lặp mô tả ngắn</td>
+          </tr>
+          <tr>
+            <td>Tên bản phát hành</td>
+            <td>1 (bắt *)</td>
+            <td>50</td>
+            <td>Nội bộ Console. Có AAB thì tự điền versionName</td>
+          </tr>
+          <tr>
+            <td>Ghi chú phát hành / ngôn ngữ</td>
+            <td>0 (không bắt)</td>
+            <td>500 Unicode</td>
+            <td>Chỉ đếm chữ GIỮA thẻ. Thẻ &lt;vi&gt; / &lt;/vi&gt; mỗi cái một dòng</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section data-field="play_title">
+      <h2>Tên ứng dụng <small>30</small></h2>
+      <p class="hint">Play Console - Trang thông tin cửa hàng chính - Tên ứng dụng. Tối đa 30 (không phải 50).</p>
+      <textarea id="play_title" maxlength="30" readonly>RMMS</textarea>
+      <div class="row">
+        <button type="button" data-copy="play_title">Copy</button>
+        <p class="count"><span data-count-for="play_title">0</span>/30</p>
+      </div>
+    </section>
+
+    <section data-field="play_short">
+      <h2>Mô tả ngắn <small>80</small></h2>
+      <p class="hint">Play Console - Trang thông tin cửa hàng - Mô tả ngắn. Tối thiểu 1 / tối đa 80. Bắt buộc để xuất bản listing.</p>
+      <textarea id="play_short" maxlength="80" readonly>RMMS: FAQ khách. Cán bộ tuần đường, sự cố, tài sản, hiện trường GPS và camera.</textarea>
+      <div class="row">
+        <button type="button" data-copy="play_short">Copy</button>
+        <p class="count"><span data-count-for="play_short">0</span>/80</p>
+      </div>
+    </section>
+
+    <section data-field="play_full">
+      <h2>Mô tả đầy đủ <small>4000</small></h2>
+      <p class="hint">Play Console - Trang thông tin cửa hàng - Mô tả đầy đủ. Tối đa 4000. Không lặp mô tả ngắn.</p>
+      <textarea id="play_full" class="tall" maxlength="4000" readonly>Ứng dụng di động RMMS (Hệ thống quản lý bảo trì đường bộ) do CÔNG TY CỔ PHẦN CÔNG NGHỆ VÀ THƯƠNG MẠI MIỀN TRUNG (Việt Nam) phát hành. Dành cho cán bộ được đơn vị cấp tài khoản.
+
+Phiên bản đầu trên Google Play, với các tính năng chi tiết trên app:
+
+• Khách - không cần tài khoản. Trang Chủ, câu hỏi thường gặp, tài liệu thủ tục, cấp phép và chính sách quyền riêng tư. Không lấy vị trí hay camera lúc mở app.
+
+• Cán bộ - đăng nhập bằng tài khoản đơn vị. Lưới nghiệp vụ: giám sát, tuần đường, sự cố, công việc, tài sản, góp ý, thông báo, hàng đợi mất sóng. Mở nhanh Điểm tuần và Ghi sự cố từ Trang Chủ.
+
+• Hiện trường - ghim tọa độ, chấm công GPS, chụp hiện trường và nhận diện hư hỏng mặt đường. GPS và camera chỉ khi bạn cho phép, khi đang dùng tính năng đó.
+
+Không bán dữ liệu, không quảng cáo. Quên mật khẩu: liên hệ quản trị đơn vị (không gửi OTP SMS trên cửa hàng).
+
+Hỗ trợ: CÔNG TY CỔ PHẦN CÔNG NGHỆ VÀ THƯƠNG MẠI MIỀN TRUNG, Số 18/43A đường Phan Chu Trinh, Khu đô thị SaigonSky, Tỉnh Nghệ An. Điện thoại 0238 358 8668.</textarea>
+      <div class="row">
+        <button type="button" data-copy="play_full">Copy</button>
+        <p class="count"><span data-count-for="play_full">0</span>/4000</p>
+      </div>
+    </section>
+
+    <section data-field="play_privacy">
+      <h2>URL chính sách quyền riêng tư</h2>
+      <p class="hint">Play Console - Trang thông tin / Nội dung ứng dụng - Chính sách quyền riêng tư - HTTPS</p>
+      <textarea id="play_privacy" readonly>https://rmms.vn/privacy</textarea>
+      <div class="row">
+        <button type="button" data-copy="play_privacy">Copy</button>
+      </div>
+    </section>
+
+    <section data-field="play_support">
+      <h2>URL hỗ trợ</h2>
+      <p class="hint">Play Console - Trang thông tin cửa hàng - Website hỗ trợ - cùng trang HTTPS</p>
+      <textarea id="play_support" readonly>https://rmms.vn/privacy</textarea>
+      <div class="row">
+        <button type="button" data-copy="play_support">Copy</button>
+      </div>
+    </section>
+
+    <section data-field="play_access_user">
+      <h2>Quyền truy cập ứng dụng - tên đăng nhập</h2>
+      <p class="hint">Play Console - Nội dung ứng dụng - Quyền truy cập ứng dụng. Android = rmms-002. Không rmms-001 (Apple). Không rmms-admin (chỉ chụp máy local).</p>
+      <textarea id="play_access_user" readonly>rmms-002</textarea>
+      <div class="row">
+        <button type="button" data-copy="play_access_user">Copy</button>
+      </div>
+    </section>
+
+    <section data-field="play_access_pass">
+      <h2>Quyền truy cập ứng dụng - mật khẩu</h2>
+      <p class="hint">Cùng form quyền truy cập - ô mật khẩu. Không dán lên listing công khai. SSOT REVIEW-ACCOUNTS.md</p>
+      <textarea id="play_access_pass" readonly>RMMS@2026</textarea>
+      <div class="row">
+        <button type="button" data-copy="play_access_pass">Copy</button>
+      </div>
+    </section>
+
+    <section data-field="play_access_extra">
+      <h2>Quyền truy cập ứng dụng - thông tin khác <small>500</small></h2>
+      <p class="hint">Play Console - Mọi thông tin cần thiết khác. Tối đa 500 Unicode. Tick toàn quyền. Chỉ mô tả tính năng đang có.</p>
+      <textarea id="play_access_extra" maxlength="500" class="tall" readonly>Trang Chủ khách (FAQ, chính sách quyền riêng tư) dùng được trước khi đăng nhập. Sau Đăng nhập: Trang Chủ cán bộ - tuần đường, sự cố, tài sản, chấm công. Khi hệ thống hỏi, cho phép Vị trí chính xác và Camera cho chấm công và thu thập hiện trường. Quên mật khẩu: liên hệ admin trên màn hình.</textarea>
+      <div class="row">
+        <button type="button" data-copy="play_access_extra">Copy</button>
+        <p class="count"><span data-count-for="play_access_extra">0</span>/500</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Bảo mật dữ liệu - khớp binary w3Release</h2>
+      <p class="hint">Play Console - Nội dung ứng dụng - Bảo mật dữ liệu. Nguồn: AndroidManifest w3 (FINE+COARSE+CAMERA), Hồ sơ, chat sự cố/công việc, ảnh JPEG, BFF HTTPS. Không tick loại chưa có trên AAB. Không đổi ở bản 1.0.0 (3).</p>
+      <table class="limits">
+        <thead>
+          <tr>
+            <th>Nhóm</th>
+            <th>Loại</th>
+            <th>Tick</th>
+            <th>Trong app thật</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Vị trí</td>
+            <td>Vị trí gần đúng</td>
+            <td class="ds-yes">Có</td>
+            <td>ACCESS_COARSE · chấm công / ghim hiện trường</td>
+          </tr>
+          <tr>
+            <td>Vị trí</td>
+            <td>Vị trí chính xác</td>
+            <td class="ds-yes">Có</td>
+            <td>ACCESS_FINE · cùng luồng GPS</td>
+          </tr>
+          <tr>
+            <td>Thông tin cá nhân</td>
+            <td>Tên</td>
+            <td class="ds-yes">Có</td>
+            <td>fullName - login + Hồ sơ, sửa được</td>
+          </tr>
+          <tr>
+            <td>Thông tin cá nhân</td>
+            <td>Địa chỉ email</td>
+            <td class="ds-yes">Có</td>
+            <td>email - Hồ sơ, sửa được</td>
+          </tr>
+          <tr>
+            <td>Thông tin cá nhân</td>
+            <td>Mã nhận dạng người dùng</td>
+            <td class="ds-yes">Có</td>
+            <td>id / userName - bắt buộc cán bộ đăng nhập</td>
+          </tr>
+          <tr>
+            <td>Thông tin cá nhân</td>
+            <td>Số điện thoại</td>
+            <td class="ds-yes">Có</td>
+            <td>phoneNumber - Hồ sơ + quên mật khẩu (BFF, không SMS)</td>
+          </tr>
+          <tr>
+            <td>Thông tin cá nhân</td>
+            <td>Thông tin khác</td>
+            <td class="ds-yes">Có</td>
+            <td>CCCD/CMND chỉ đọc trên Hồ sơ khi server trả về</td>
+          </tr>
+          <tr>
+            <td>Thông tin cá nhân</td>
+            <td>Địa chỉ · chủng tộc · tôn giáo · xu hướng tình dục</td>
+            <td class="ds-no">Không</td>
+            <td>Không có field</td>
+          </tr>
+          <tr>
+            <td>Tin nhắn</td>
+            <td>Tin nhắn khác trong ứng dụng</td>
+            <td class="ds-yes">Có</td>
+            <td>Chat sự cố + chat phiếu bảo trì</td>
+          </tr>
+          <tr>
+            <td>Tin nhắn</td>
+            <td>Email · SMS/MMS</td>
+            <td class="ds-no">Không</td>
+            <td>App không gửi SMS / email</td>
+          </tr>
+          <tr>
+            <td>Ảnh và video</td>
+            <td>Ảnh</td>
+            <td class="ds-yes">Có</td>
+            <td>CameraX ImageCapture JPEG · upload FileService</td>
+          </tr>
+          <tr>
+            <td>Ảnh và video</td>
+            <td>Video</td>
+            <td class="ds-no">Không</td>
+            <td>Không quay video</td>
+          </tr>
+          <tr>
+            <td>Hoạt động trong ứng dụng</td>
+            <td>Nội dung khác do người dùng tạo</td>
+            <td class="ds-yes">Có</td>
+            <td>Mô tả sự cố, góp ý, ghi chú hiện trường</td>
+          </tr>
+          <tr>
+            <td>Hoạt động trong ứng dụng</td>
+            <td>Tương tác ứng dụng · lịch sử tìm kiếm · ứng dụng đã cài</td>
+            <td class="ds-no">Không</td>
+            <td>Không analytics / Firebase</td>
+          </tr>
+          <tr>
+            <td>Tài chính · Sức khỏe · Âm thanh · Tệp · Lịch · Danh bạ · Duyệt web · Hiệu suất · Mã thiết bị</td>
+            <td>Mọi loại trong các nhóm này</td>
+            <td class="ds-no">Không</td>
+            <td>Không READ_CONTACTS / CALENDAR / RECORD_AUDIO / AD_ID · DeviceId sync luôn null</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Bảo mật dữ liệu - mỗi loại đã tick</h2>
+      <p class="hint">Sau khi tick loại, Console hỏi từng loại. Điền giống nhau trừ Cần thiết / Tùy chọn.</p>
+      <table class="limits">
+        <thead>
+          <tr>
+            <th>Câu</th>
+            <th>Chọn</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Thu thập / chia sẻ</td>
+            <td>Chỉ <strong>Thu thập</strong> (BFF first-party). Không chia sẻ bên thứ ba. Không bán.</td>
+          </tr>
+          <tr>
+            <td>Xử lý tạm thời (ephemeral)</td>
+            <td><strong>Không</strong> - lưu trên máy chủ đơn vị để nghiệp vụ</td>
+          </tr>
+          <tr>
+            <td>Mã hóa khi truyền</td>
+            <td><strong>Có</strong> - HTTPS · cleartextTrafficPermitted=false (đã khai ở overview)</td>
+          </tr>
+          <tr>
+            <td>Người dùng yêu cầu xóa</td>
+            <td><strong>Không</strong> - khóa/thu hồi qua admin, không xóa 90 ngày</td>
+          </tr>
+          <tr>
+            <td>Mục đích</td>
+            <td>Chức năng ứng dụng. Thêm Quản lý tài khoản cho Tên / Email / User ID / SĐT. Không Analytics, không Quảng cáo.</td>
+          </tr>
+          <tr>
+            <td>Vị trí gần đúng + chính xác</td>
+            <td><strong>Tùy chọn</strong> - runtime permission, khách không cần</td>
+          </tr>
+          <tr>
+            <td>Ảnh</td>
+            <td><strong>Tùy chọn</strong> - CAMERA khi thu thập hiện trường</td>
+          </tr>
+          <tr>
+            <td>Tin nhắn trong app · UGC</td>
+            <td><strong>Tùy chọn</strong> - chỉ khi cán bộ gửi</td>
+          </tr>
+          <tr>
+            <td>Tên · User ID</td>
+            <td><strong>Bắt buộc</strong> với tính năng cán bộ (tài khoản đơn vị cấp)</td>
+          </tr>
+          <tr>
+            <td>Email · SĐT · Thông tin khác (CCCD)</td>
+            <td><strong>Tùy chọn</strong> - CCCD chỉ hiện nếu server có; không bắt nhập trên app</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section data-field="play_data_safety_notes">
+      <h2>Bảo mật dữ liệu - ghi chú nội bộ (không dán listing)</h2>
+      <p class="hint">Wave 3 bỏ bản đồ: STORE_W1=false - không khai OSRM. Click-to-call / danh bạ / lịch = bản sau, khai lại khi có quyền.</p>
+      <textarea id="play_data_safety_notes" class="tall" readonly>Thu thập (không chia sẻ, không bán): vị trí gần đúng + chính xác; tên; email; user ID; số điện thoại; thông tin khác (CCCD chỉ đọc); tin nhắn trong ứng dụng; ảnh JPEG; nội dung do người dùng tạo (sự cố, góp ý).
+
+Mục đích: chức năng ứng dụng. Tên / email / user ID / SĐT thêm quản lý tài khoản.
+
+Tùy chọn: vị trí, ảnh, chat, UGC, email, SĐT, CCCD.
+Bắt buộc (cán bộ): tên, user ID.
+
+Không: video, SMS, lịch, danh bạ, âm thanh, tài chính, sức khỏe, quảng cáo, analytics, mã thiết bị, map/OSRM.</textarea>
+      <div class="row">
+        <button type="button" data-copy="play_data_safety_notes">Copy</button>
+      </div>
+    </section>
+
+    <section data-field="play_review_notes">
+      <h2>Ghi chú quyền truy cập (reviewer)</h2>
+      <p class="hint">Play Console - Nội dung ứng dụng - Quyền truy cập. Không dán lên listing công khai.</p>
+      <textarea id="play_review_notes" class="tall" readonly>Public Google Play listing.
+Package name: com.drvn.rmms.store
+Version 1.0.0 (versionCode 3)
+
+Demo login (staff):
+Android: username rmms-002 / password RMMS@2026
+
+Open the app - Dang nhap - use the account above.
+Guest home: FAQ and privacy before login.
+After login: staff home (patrol, incidents, assets, attendance).
+When prompted, allow Location (precise) and Camera for attendance and field capture.
+Forgot password: use the contact-admin line on that screen.</textarea>
+      <div class="row">
+        <button type="button" data-copy="play_review_notes">Copy</button>
+      </div>
+    </section>
+      <section>
+        <h2>Play Console - menu</h2>
+        <p class="hint">Kiểm tra và phát hành. Bản 1.0.0 (3) = versionName 1.0.0 + versionCode 3.</p>
+        <table class="limits">
+          <thead>
+            <tr><th>Muốn</th><th>Menu trái</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Đợi xem xét / chế độ xuất bản</td><td>Tổng quan về việc xuất bản</td></tr>
+            <tr><td>Tester nội bộ / kín / mở</td><td>Thử nghiệm</td></tr>
+            <tr><td>CH Play cho mọi người</td><td>Phát hành công khai</td></tr>
+          </tbody>
+        </table>
+      </section>
+      <section>
+        <h2>Chế độ xuất bản có quản lý</h2>
+        <p class="hint">Tổng quan về việc xuất bản - menu thả trên đầu trang.</p>
+        <ul class="steps">
+          <li>Tắt (hiện tại): Google duyệt xong là lên cửa hàng luôn</li>
+          <li>Bật: duyệt xong giữ; bạn tự bấm phát hành</li>
+        </ul>
+      </section>
+      <section>
+        <h2>Lỗi đã gặp phiên này</h2>
+        <ul class="steps">
+          <li>Mã phiên bản 2 đã dùng: tải AAB 1.0.0-3, không kéo lại file -2</li>
+          <li>Cần tải APK/AAB + không thêm gói: bản phát hành trống - quay bước 1, Thêm từ thư viện mã 3</li>
+          <li>Thử nghiệm mở không tự kéo gói từ kín - Thêm từ thư viện hoặc Promote</li>
+          <li>Không bấm Tạo bản phát hành mới khi 1.0.0 (3) đã là Gần đây nhất</li>
+          <li>Cảnh báo R8 / native symbols: không cần sửa wave này (minify đang tắt)</li>
+          <li>DEX ưu hóa: hạn 02/2027 - bỏ qua</li>
+        </ul>
+      </section>
+      <section>
+        <h2>Tài khoản: cửa hàng so với chụp màn</h2>
+        <p class="hint">Không dán mật khẩu lên listing công khai. Copy ô bên trên.</p>
+        <ul class="steps">
+          <li>Play - quyền truy cập: rmms-002</li>
+          <li>Chụp listing local: rmms-admin</li>
+          <li>Ghi chú Apple: rmms-001 (không dùng trên Play)</li>
+        </ul>
+      </section>
+      <section data-field="play_graphics_path">
+        <h2>Icon / feature / ảnh điện thoại</h2>
+        <p class="hint">SSOT đã gộp. Bản 1.0.0 (3) không đổi ảnh. Không tải folder _bk.</p>
+        <textarea id="play_graphics_path" class="tall" readonly>Icon + feature: docs/plan/release-mobile/store/out/android/play-icon-512x512.png
+docs/plan/release-mobile/store/out/android/play-feature-1024x500.png
+Điện thoại: docs/plan/release-mobile/store/out/android/1.0.0-2/play-phone-1080x1920-01.png đến 04.png</textarea>
+        <div class="row">
+          <button type="button" data-copy="play_graphics_path">Copy</button>
+        </div>
+      </section>
+    </div>
+  </div>
+  <footer>
+    <div class="wrap">RMMS · snapshot v1.0.0 Play · com.drvn.rmms.store · gói nội bộ · không đưa lên landing khách</div>
+  </footer>
+  <div class="toast" id="toast">Đã copy</div>
+  <script>
+    (function () {
+      var toast = document.getElementById('toast');
+      var hide;
+      function show() {
+        toast.style.display = 'block';
+        clearTimeout(hide);
+        hide = setTimeout(function () { toast.style.display = 'none'; }, 1400);
+      }
+      function countableLen(el) {
+        if (el.id === 'play_release_notes') {
+          var m = el.value.match(/<vi>\s*([\s\S]*?)\s*<\/vi>/i);
+          return m ? m[1].length : el.value.length;
+        }
+        return el.value.length;
+      }
+      document.querySelectorAll('textarea[id]').forEach(function (el) {
+        var span = document.querySelector('[data-count-for="' + el.id + '"]');
+        if (span) span.textContent = String(countableLen(el));
+      });
+      document.querySelectorAll('[data-copy]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var id = btn.getAttribute('data-copy');
+          var el = document.getElementById(id);
+          if (!el) return;
+          var text = el.value;
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(show).catch(function () {
+              el.select();
+              document.execCommand('copy');
+              show();
+            });
+          } else {
+            el.select();
+            document.execCommand('copy');
+            show();
+          }
+        });
+      });
+      document.querySelectorAll('.page-tabs [data-tab]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var id = btn.getAttribute('data-tab');
+          document.querySelectorAll('.page-tabs [data-tab]').forEach(function (b) {
+            b.classList.toggle('is-on', b === btn);
+          });
+          document.getElementById('tab-release').hidden = id !== 'release';
+          document.getElementById('tab-overview').hidden = id !== 'overview';
+        });
+      });
+      document.querySelectorAll('.sub-tabs [data-sub]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var id = btn.getAttribute('data-sub');
+          document.querySelectorAll('.sub-tabs [data-sub]').forEach(function (b) {
+            b.classList.toggle('is-on', b === btn);
+          });
+          document.getElementById('sub-studio').hidden = id !== 'studio';
+          document.getElementById('sub-store').hidden = id !== 'store';
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

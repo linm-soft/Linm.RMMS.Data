@@ -16,6 +16,8 @@
 
 QA-FIX implement: **không** đổi iOS list code / controlHint — prior A3-CORE live rows OK. Gap là Android Appear race only. Re-VERIFY `xcodegen` + `xcodebuild` dest **iPhone 17 Pro** PASS. Dual GAP-MOB-UX-DUAL-01 đóng sau Android fix (re-QA e2e).
 
+`/edit-mobile-feature` 2026-09-18: **GAP-MOB-COPY** — `LinmSearchField` placeholder `LinmCopy.t("asset.list.search")` · **cấm** kit default «Tìm».
+
 ## Notes (qa fix)
 
 | Item | Result |

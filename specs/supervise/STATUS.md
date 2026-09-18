@@ -95,6 +95,7 @@
 
 - GAP-MOB-SUP-01 / 02 — closed Dev · filter sheet + map nav wired
 - GAP-MOB-SUP-04 BE fromDate — **P2**
+- `/edit-mobile-feature` 2026-09-18: **GAP-MOB-EDIT-FIELD-CHROME** `#filterRoute` `LinmTextField` dual
 - Sibling `patrol-map` STATUS may blocked QA — native screen exists → nav OK
 - GAP-QA-SUP-EMPTY-AND-01 · GAP-QA-SUP-TAB-01 — Defer Should
 - P2 store submit → `/review-app-submit` (PrivacyInfo present · Data safety deferred)

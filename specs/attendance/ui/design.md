@@ -10,7 +10,7 @@
 | changeScope | `edit_page` |
 | packKind | **`list`** (PO confirm · UI = hub DES-MOB-ATT) |
 | stack | `native_dual` |
-| kit_missing_confirm | **N/A** — reuse map dual `LinmLargeTitle` / `LinmSegment` / `LinmHeroCard` / `LinmListRow` / `LinmToast` |
+| kit_missing_confirm | **N/A** — reuse map dual `LinmLargeTitle` / `LinmSegment` / `LinmHeroCard` / `LinmListRow` / `LinmToast` / in-app `GpsDenyModal` `DES-MOB-GPS-DENY` |
 | reviewUrlIos | `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/attendance/ui/prototype/ios/index.html#sc-attendance` |
 | reviewUrlAndroid | `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/attendance/ui/prototype/android/index.html#sc-attendance` |
 | ux-analy | `ui/ux-analy.md` §1–§9 |
@@ -19,7 +19,7 @@
 | autoApprove | **ON** |
 | e2eQa | ON khi QA · `yarn e2e-qa-mobile` · **cấm** `yarn start:std` / `mfeStdUrl` |
 | requestSource | run packet `task_a59566c2` · `/agent-qldb-workflow-mobile` · roleOnly=`design` · `/agent-design-mobile` |
-| updatedAt | `2026-08-19T20:48:00.000Z` |
+| updatedAt | `2026-09-18T10:00:00.000Z` |
 | taskId | `task_a59566c2` |
 
 ## 0. Context & Demo
@@ -87,7 +87,7 @@
 | day2 | T7 09/08 · 07:05 – 16:40 · Đủ công | Row | * | same | |
 | day3 | T6 08/08 · 07:12 – 16:55 · Đủ công | Row | * | same | |
 
-Toast → `LinmToast`. **Cấm** invent kit.
+Toast → `LinmToast` (success / timeout / offline / HTTP fail). GPS deny → in-app `GpsDenyModal` `DES-MOB-GPS-DENY` · **cấm** toast locDeny · **cấm** `UIAlert` / `AlertDialog`.
 
 ## 4. SF ↔ Material
 
@@ -117,7 +117,7 @@ Toast → `LinmToast`. **Cấm** invent kit.
 | Appear | GET `patrol/attendance-logs` · map days · fail → demo SSOT · **mở** |
 | Seg 0 | pop `#sc-patrol-home` |
 | Chấm vào | GPS usable → POST · HTTP 2xx = success (không phụ thuộc decode body) · `userName` = `lastWho()` (Keychain · JWT `full_name` / login id) · toast success · hero Đã chấm |
-| GPS deny | toast locDeny · no POST |
+| GPS deny | OS permission confirm (notDetermined) · đã deny → in-app `GpsDenyModal` `DES-MOB-GPS-DENY` (copy / Để sau) · **không** POST · **cấm** toast locDeny |
 | GPS invalid / timeout | toast locTimeout · no POST |
 | Offline POST | toast `common.offline` · **cấm** «Không chấm được» generic |
 | POST 4xx/5xx | toast checkInFail |

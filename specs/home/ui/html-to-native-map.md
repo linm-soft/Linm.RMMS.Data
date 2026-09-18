@@ -11,7 +11,8 @@ Cite SSOT `docs/html-to-native-map.md`. Feature deltas (`#sc-home`):
 | `.role` + `data-net-signal` | `LinmStatusCapsule` · `LinmNetSignalMark` | role **ẩn live** · 4 cột · Tốt/TB/Yếu · **cấm** wifi glyph · **cấm** «Có mạng» |
 | `.who` | typography hero | guest `home.guest.who` · staff GET profile · loading empty = `home-who-skeleton` bone (`brandLogo`×`heroWho`) · **cấm** `LinmBusyOverlay` |
 | `#btn-home-login` | Button card **guest dock** (không hero) | `home.login` + `home.login.sub` · ẩn staff · e2e `btn-home-login` · pin đáy |
-| `#btn-home-faq` / `#sc-faq` | overlay FAQ | pills `chip-faq-*` · `f-faq-search` · `row-faq-*` · static `LinmCopy` · **cấm** invent API |
+| `#btn-home-faq` / `#sc-faq` | overlay FAQ | pills `chip-faq-*` · `row-faq-*` · static `LinmCopy` · **cấm** invent API |
+| `.faq-search` / `#f-faq-search` | capsule search | height `controlHeight` · pad 14 · `card` · `fieldText` · trailing `LinmSearchGlyph` `#i-search` · Android `BasicTextField` · iOS `TextField` + glyph · **cấm** M3 `TextField` / SF `magnifyingglass` / list `LinmSearchField` (leading + surface + «Tìm») · **GAP-MOB-EDIT-FAQ-SEARCH** |
 | `#btn-home-privacy` / `#sc-privacy` | overlay privacy | `privacy-body` · static `home.privacy.body` user-facing (Khách · cán bộ · quyền máy · liên hệ pháp nhân) · `fieldText` 1.45 · pin đáy dưới login · **cấm** invent HTTPS |
 | `.guest-dock` | VStack / Column bottom | login + privacy · **cấm** tab guest |
 | `.vn-quick` / quick buttons | `LinmQuickActions` · `LinmQuickItem` | 2 ô title + phụ |

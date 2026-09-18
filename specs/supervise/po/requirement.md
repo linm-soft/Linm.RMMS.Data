@@ -63,7 +63,7 @@ Entry **giữ**: Home tile / patrol-home quick → push `#sc-supervise`.
 7. Tap card → push `supervise-detail` (**giữ** wire) · **cấm** toast «Chi tiết check-in» dead-end.
 8. Appear: GET `patrol/attendance-logs?page=1&pageSize=50` · map cards. 0 items / 0 after filter → **EmptyChrome**. Fail → empty + toast loadFail · **cấm** demoItems ship · list **vẫn mở**.
 9. Home tile / patrol-home quick **Giám sát** → push `#sc-supervise` (`reuse` · **cấm** reimplement hubs).
-10. Kit **reuse map**: `LinmTopBar` · `LinmSegment` · `LinmRichCheckinCard` (hoặc feature card cùng zone) · sheet controls · `LinmToast` (error only). **Cấm** raw List / M3 bar / `TabView` (`GAP-MOB-ACT-05`).
+10. Kit **reuse map**: `LinmTopBar` · `LinmSegment` · `LinmTextField` (`#filterRoute`) · `LinmRichCheckinCard` (hoặc feature card cùng zone) · sheet controls · `LinmToast` (error only). **Cấm** raw List / M3 bar / `TabView` / M3 `TextField` (`GAP-MOB-ACT-05` · **GAP-MOB-EDIT-FIELD-CHROME**).
 11. App chỉ `{BffPrefix}` · token Keychain / Encrypted · **cấm** biết `:5101`.
 12. Typography: label/tab **13** · field ≥**16** (`GAP-TYP-01`) · dual copy/`#i-*` parity.
 13. Dev (role sau): iOS `xcodegen` + `xcodebuild` dest **iPhone 17 Pro** PASS · Android `assembleDebug` PASS · Mobile.Bff `dotnet build` PASS — **cấm** `yarn start:std`.

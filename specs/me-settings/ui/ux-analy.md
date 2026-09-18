@@ -17,7 +17,7 @@ Login → Tab Tôi (shell Tab 5 · index me)
        → ListRow Vị trí / Camera / Thông báo hệ thống → openAppSettings
        → Secondary «Mở Cài đặt hệ thống» → openAppSettings
        → Section «Đồng bộ» → row Hàng đợi mất sóng → reuse patrol-offline
-       → Section «Thông tin» → Phiên bản (Bundle) · Chính sách → privacy panel
+       → Section «Thông tin» → Phiên bản (marketing `x.y.z` only) · Chính sách → privacy panel
        → toast fail OS
   → back → me
 ```
@@ -114,7 +114,8 @@ Pack P1: toast fade ~2.4s · privacy panel push · **không** bắt buộc `/wf-
 | GAP-MOB-MESET-SCR-01 | thiếu màn | **IN** · DES-MOB-ME-SETTINGS |
 | GAP-MOB-MESET-OS-01 | deep-link OS | openAppSettings · toast fail |
 | GAP-MOB-MESET-STATUS-01 | status quyền | Đã cấp / Chưa cấp / Không xác định · **không** request |
-| GAP-MOB-MESET-VER-01 | version | Bundle `x.y.z (build)` · empty «—» |
+| GAP-MOB-MESET-VER-01 | version | marketing `x.y.z` only · **cấm** build · empty «—» |
+| GAP-MOB-EDIT-VER-DISPLAY | live showed `1.0.0 (2)` | **IN** · hide build · 2026-09-18 |
 | GAP-MOB-MESET-PRIVACY-01 | Privacy URL | static `home.privacy.body` user-facing · HTTPS Store khi khách giao · **cấm** invent |
 | GAP-MOB-MESET-API-01 | prefs server | **P1 skip** · **cấm invent** |
 | AC-D-01 | offline | màn local mở · **cấm** fake save |
@@ -128,7 +129,7 @@ Pack P1: toast fade ~2.4s · privacy panel push · **không** bắt buộc `/wf-
 | AC-D-12 | push | OS only ≠ ops inbox |
 | AC-F-01 | appear/resume | refresh OS status |
 | AC-F-02 | openAppSettings | rows + CTA · fail toast |
-| AC-F-03 | version | Bundle readonly |
+| AC-F-03 | version | marketing `x.y.z` only · **cấm** build · empty «—» |
 | AC-F-04 | privacy | reuse copy |
 | AC-F-05 | offline nav | → patrol-offline |
 | AC-F-06 | dual parity | cùng copy zones |

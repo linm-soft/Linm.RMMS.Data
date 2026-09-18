@@ -53,7 +53,7 @@
 |-----|------|-----|---------|-------|
 | `DES-MOB-FEEDBACK` | Screen owner `#sc-feedback` | push từ Me | same | `data-tab="me"` |
 | FieldLabel | **Nội dung góp ý** | Text 13 | same | |
-| Body | MultilineText | `LinmTextArea` | same | placeholder SSOT · value ≥16 · required |
+| Body | MultilineText | `LinmTextArea` | same | placeholder SSOT · `textAreaTallHeight` 160 · `card` + `border` · `fieldText` 16 · **cấm** raw `Box`/`BasicTextField` `onSurface 0.12` · **GAP-MOB-EDIT-FIELD-CHROME** |
 | Send | Primary | `LinmPrimaryButton` | same | POST create · `isBusy` |
 | Toast OK | **Đã gửi góp ý** | `LinmToast` | same | sau 200 · **cấm** fake |
 | Toast Err | lỗi mạng / 422 | `LinmToast` | same | giữ form |

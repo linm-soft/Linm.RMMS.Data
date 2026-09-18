@@ -29,6 +29,8 @@
 - `/edit-mobile-feature` 2026-09-12: **GAP-MOB-EDIT-PRIVACY-COPY** — `#sc-privacy` `home.privacy.body` user-facing dual iOS · `fieldText` · **cấm** invent HTTPS.
 - `/edit-mobile-feature` 2026-09-16: **GAP-MOB-EDIT-HOME-WHO-SKEL** — staff GET `auth/profile` · `.who` empty = bone pulse `home-who-skeleton` · **cấm** flash Khách · **cấm** `LinmBusyOverlay` hub · `assembleDebug` **PASS**.
 
+`/edit-mobile-feature` 2026-09-18: **GAP-MOB-EDIT-FAQ-SEARCH** — `#f-faq-search` `BasicTextField` capsule · `LinmSearchGlyph` trailing · **cấm** M3 `TextField` / Material Search · `assembleW0Debug` **PASS**.
+
 ## VERIFY GATE
 
 `./gradlew :app:assembleDebug` **PASS**.
@@ -42,3 +44,5 @@ Step 4b / T-BE **N/A** — reuse Auth profile only. Dual parity iOS.
 `/edit-mobile-feature` 2026-08-19: notify `#sc-home` toast + local notify · `assembleDebug`.
 
 `/edit-mobile-feature` 2026-09-16: **GAP-MOB-EDIT-HOME-WHO-SKEL** — dual iOS · `assembleDebug`.
+
+`/edit-mobile-feature` 2026-09-18: **GAP-MOB-EDIT-FAQ-SEARCH** — `#f-faq-search` `BasicTextField` capsule `card` · `fieldText` · trailing `LinmSearchGlyph` · **cấm** M3 `TextField` · `./gradlew :app:assembleW0Debug` **PASS**.

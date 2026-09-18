@@ -7,7 +7,7 @@ Cite SSOT `docs/html-to-native-map.md`. Feature deltas (`#sc-mnt-list`):
 | `.nav-bar` / `.top-bar` | `LinmTopBar` | title **Danh sách công việc** · leading back · trailing Lọc |
 | `.nav-btn` / `.icon-btn` back `#i-chevron-left` | `LinmTopBar` leading | pop `home` · **cấm** reimplement hub |
 | trailing «Lọc» / `#i-list` | `LinmTopBar` trailing | iOS text · Android icon · toast **Bộ lọc · tuyến đường** · **cấm** sheet |
-| `.search` / `#i-search` | `LinmSearchField` · `LinmSearchGlyph` | placeholder **Tìm kiếm công việc…** · client filter |
+| `.search` / `#i-search` | `LinmSearchField` · `LinmSearchGlyph` | placeholder `LinmCopy.t("mnt.list.search")` · client filter · **cấm** kit default «Tìm» · **GAP-MOB-COPY** |
 | `.row` hub · `.row-icon` `#i-sum` green | `LinmListRow` `leading:` · `LinmRowIcon` + stroke glyph | title + sub · toast P1 / later estimate |
 | `.rich-card` · `.rc-title` / `.rc-line` | rich card / `LinmListRow` | title · assign · range · meta |
 | `.rc-status.warn` / `.ok` | status bar text only | VN map new→Chờ xử lý · done→Đã hoàn thành · **cấm** `LinmBadge` trùng prefix (**GAP-MOB-EDIT-STATUS-01**) |

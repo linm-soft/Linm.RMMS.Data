@@ -126,6 +126,7 @@ Pack P1: toast fade ~2.4s · modal backdrop fade · kind pill select · checklis
 | GAP-MOB-FIELD-MEDIA-01 | Create chưa media[] | Accept Signed deferred |
 | GAP-MOB-FIELD-CHK-01 | checklist local PAVEMENT | **cấm** invent API |
 | GAP-MOB-CAM-DETECT-01 | detect stub | SA · không Design |
+| GAP-MOB-EDIT-FIELD-CHROME | raw textarea 0.12 | **PASS** `LinmTextArea` `#input-desc` dual · **cấm** revert |
 | AC-D-01 | offline | draft + toast nháp · sibling offline |
 | AC-D-02 | GPS deny | modal · chặn Create |
 | AC-D-03 | leave dirty | in-app confirm · **cấm** native alert |

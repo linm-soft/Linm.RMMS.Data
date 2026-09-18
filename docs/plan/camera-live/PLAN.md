@@ -2,7 +2,8 @@
 
 > **Status:** Confirmed 2026-09-06 · **G0/G1 shipped** · **G2b shipped** 2026-09-09 · HLS mặc định · WebRTC **ẩn MFE** · RTSP port thiết bị (lab **6554**) · Sub **H.264** · MTX `hlsVariant: fmp4`  
 > **G2b lease:** [`PLAN-lease-ttl.md`](PLAN-lease-ttl.md) — job + TTL = nguồn sạch · `connectionId` ≠ JWT · **cấm** `pagehide` · **Replicas = 1**  
-> **Ops checklist:** [`../../context/30-CAMERA-LIVE-STREAM-CONFIG.md`](../../context/30-CAMERA-LIVE-STREAM-CONFIG.md)  
+> **G3 push 5G:** [`PLAN-push-ingest.md`](PLAN-push-ingest.md) — RTSP **publish** :8554 · HLS fMP4 playback · H.264 trên máy nhúng  
+> **Ops checklist:** [`../../context/30-CAMERA-LIVE-STREAM-CONFIG.md`](../../context/30-CAMERA-LIVE-STREAM-CONFIG.md) · khách 5G [`../../context/32-CAMERA-RTSP-PUBLISH-INGEST.md`](../../context/32-CAMERA-RTSP-PUBLISH-INGEST.md)  
 
 > **Feature:** `camera-connect` · MFE `Linm.Web.RMMS.Camera` Z3  
 > **Parent SSOT:** [`../../context/21-CAMERA-HLS-WEBRTC-GATEWAY.md`](../../context/21-CAMERA-HLS-WEBRTC-GATEWAY.md)  
@@ -67,6 +68,7 @@ Hikvision RTSP: `rtsp://{user}:{pass}@{host}:{rtspPort}/Streaming/Channels/{101\
 | **G1** | `CameraLiveService` · start/stop/status · MFE HLS + JPEG | Bật live HLS **hoặc** fallback JPEG + message RTSP · WebRTC ẩn |
 | **G2** | S5 playToken HMAC · idle stop · max concurrent · multi-gateway | HMAC OUT · max path / tenant — **sau G2b** |
 | **G2b** | Job + TTL · N viewer / 1 path | [`PLAN-lease-ttl.md`](PLAN-lease-ttl.md) · TTL **45s** · sweep **8s** · heartbeat **12s** · KPI Đang xem · `connectionId` ≠ Token |
+| **G3** | RTSP **publish** 5G (không IP tĩnh) | [`PLAN-push-ingest.md`](PLAN-push-ingest.md) · MTX :8554 · `source=publisher` · **cấm** xóa path publisher |
 
 ---
 

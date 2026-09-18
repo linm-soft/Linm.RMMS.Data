@@ -1,0 +1,137 @@
+appId: com.drvn.rmms.store
+---
+# Play phone listing 1080×1920 · StoreW3 skip-map · acc rmms-admin · KHÔNG GIS / patrol-map
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 20000
+- waitForAnimationToEnd:
+    timeout: 2000
+- takeScreenshot: play-phone-1080x1920-01
+- tapOn:
+    id: "btn-home-faq"
+    optional: true
+- tapOn:
+    text: "Câu hỏi thường gặp"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-faq"
+    timeout: 8000
+- waitForAnimationToEnd:
+    timeout: 1500
+- takeScreenshot: play-phone-1080x1920-02
+- tapOn:
+    id: "nav-back"
+    optional: true
+- tapOn:
+    text: "Về Trang Chủ"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 15000
+- tapOn:
+    id: "btn-home-login"
+    optional: true
+- tapOn:
+    text: "Dành cho cán bộ"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "f-user"
+    timeout: 20000
+- tapOn:
+    id: "f-user"
+- eraseText
+- inputText: "rmms-admin"
+- tapOn:
+    text: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
+    optional: true
+- tapOn:
+    id: "f-pass"
+- eraseText
+- inputText: "RMMS@2026"
+- hideKeyboard
+- tapOn:
+    text: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
+    optional: true
+- tapOn:
+    id: "btn-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
+- tapOn:
+    text: "Not Now"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 4000
+- extendedWaitUntil:
+    visible:
+      id: "home-who"
+    timeout: 45000
+- waitForAnimationToEnd:
+    timeout: 2500
+- takeScreenshot: play-phone-1080x1920-03
+- tapOn:
+    id: "tab-field"
+    optional: true
+- tapOn:
+    text: "Tuần đường"
+    optional: true
+- tapOn:
+    point: "30%,96%"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-patrol-home"
+    timeout: 25000
+- waitForAnimationToEnd:
+    timeout: 2500
+- takeScreenshot: play-phone-1080x1920-04
+- tapOn:
+    text: "Chấm công"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-attendance"
+    timeout: 15000
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 2000
+- takeScreenshot: play-phone-1080x1920-05
+- tapOn:
+    text: "Tuần đường"
+    optional: true
+- tapOn:
+    id: "tab-field"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 1500
+- scroll
+- scroll
+- tapOn:
+    id: "row-quick-cam-patrol"
+    optional: true
+- tapOn:
+    text: "Thu thập bằng camera"
+    optional: true
+- tapOn:
+    text: "Allow"
+    optional: true
+- tapOn:
+    text: "While using the app"
+    optional: true
+- tapOn:
+    text: "Allow only while using the app"
+    optional: true
+- tapOn:
+    text: "OK"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 3000
+- takeScreenshot: play-phone-1080x1920-06

@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="robots" content="noindex,nofollow" />
-  <title>RMMS 1.0.7 - Copy listing Apple</title>
+  <title>RMMS 1.0.0 - Copy listing Apple</title>
   <style>
     :root {
       --blue: #0C84C0;
@@ -98,22 +98,48 @@
       display: none;
     }
     footer { padding: 8px 0 40px; color: var(--muted); font-size: 13px; }
+    .store-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+    .store-tabs a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 8px 16px;
+      border-radius: 10px;
+      background: rgba(255,255,255,.18);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .store-tabs a.is-on {
+      background: #fff;
+      color: var(--deep);
+    }
   </style>
 </head>
 <body>
   <header>
     <div class="wrap">
-      <h1>RMMS (VN) 1.0.7 - Copy sang App Store Connect</h1>
-      <p>Lần đầu: layout + giao diện mới, tính năng chi tiết trên app. Copy từng ô → dán Version Information. Không bấm Submit hộ.</p>
-      <p class="meta">Snapshot <strong>v1.0.7</strong> · 2026-09-16 · so sánh lần sau: thư mục <code>submit-info/v*.html</code></p>
+      <h1>RMMS 1.0.0 - Copy sang App Store Connect</h1>
+      <p>App Public: Bundle com.drvn.rmms.store. Copy tung o - dan Version Information. Khong bam Submit ho.</p>
+      <p class="meta">Snapshot <strong>v1.0.0</strong> · 2026-09-17 · <code>submit-info/v*.html</code> · khong dung record Custom 1510513131</p>
+      <nav class="store-tabs" aria-label="Store">
+        <a class="is-on" href="submit-info.html">Apple / iOS</a>
+        <a href="submit-info-play.html">Google Play</a>
+      </nav>
     </div>
   </header>
-  <p class="banner">Support / Privacy / Marketing dùng https://app.rmms.vn/privacy - trang này hiện chưa phục vụ (HTTP 500). Deploy Root RMMS rồi kiểm tra URL trước khi nộp.</p>
+  <p class="banner">Support / Privacy / Marketing: https://rmms.vn/privacy (HTTPS 200). Khong dung app.rmms.vn (DNS khong resolve). Dán len app Public <code>com.drvn.rmms.store</code>, khong app Custom ABM.</p>
   <main class="wrap">
     <section data-field="promo">
       <h2>Promotional text <small>170</small></h2>
       <p class="hint">App Store Connect → Version Information → Promotional text</p>
-      <textarea id="promo" maxlength="170" readonly>Cập nhật layout và giao diện mới. Khách xem FAQ. Cán bộ: tuần đường, sự cố, tài sản, hiện trường GPS và camera.</textarea>
+      <textarea id="promo" maxlength="170" readonly>RMMS trên App Store. Khách xem FAQ. Cán bộ: tuần đường, sự cố, tài sản, hiện trường GPS và camera.</textarea>
       <div class="row">
         <button type="button" data-copy="promo">Copy</button>
         <p class="count"><span data-count-for="promo">0</span>/170</p>
@@ -125,7 +151,7 @@
       <p class="hint">App Store Connect → Version Information → Description</p>
       <textarea id="description" class="tall" maxlength="4000" readonly>Ứng dụng di động RMMS (Hệ thống quản lý bảo trì đường bộ) do CÔNG TY CỔ PHẦN CÔNG NGHỆ VÀ THƯƠNG MẠI MIỀN TRUNG (Việt Nam) phát hành. Dành cho cán bộ được đơn vị cấp tài khoản.
 
-Phiên bản này làm mới layout và giao diện, với các tính năng chi tiết trên app:
+Phiên bản đầu trên App Store, với các tính năng chi tiết trên app:
 
 • Khách - không cần tài khoản. Trang Chủ, câu hỏi thường gặp, tài liệu thủ tục, cấp phép và chính sách quyền riêng tư. Không lấy vị trí hay camera lúc mở app.
 
@@ -144,8 +170,8 @@ Hỗ trợ: CÔNG TY CỔ PHẦN CÔNG NGHỆ VÀ THƯƠNG MẠI MIỀN TRUNG, S
 
     <section data-field="whats_new">
       <h2>What's New in This Version <small>4000</small></h2>
-      <p class="hint">App Store Connect → Version Information → What's New - layout / giao diện / tính năng chi tiết</p>
-      <textarea id="whats_new" maxlength="4000" readonly>Làm mới layout và giao diện: Trang Chủ cho khách (FAQ, đăng nhập, chính sách quyền riêng tư), lưới nghiệp vụ cán bộ, danh sách tuần đường - sự cố - tài sản. Hiện trường: GPS và camera khi cán bộ cho phép.</textarea>
+      <p class="hint">App Store Connect → Version Information → What's New</p>
+      <textarea id="whats_new" maxlength="4000" readonly>Phiên bản đầu trên App Store: Trang Chủ cho khách (FAQ, đăng nhập, chính sách quyền riêng tư), lưới nghiệp vụ cán bộ, danh sách tuần đường - sự cố - tài sản. Hiện trường: GPS và camera khi cán bộ cho phép.</textarea>
       <div class="row">
         <button type="button" data-copy="whats_new">Copy</button>
         <p class="count"><span data-count-for="whats_new">0</span>/4000</p>
@@ -155,7 +181,7 @@ Hỗ trợ: CÔNG TY CỔ PHẦN CÔNG NGHỆ VÀ THƯƠNG MẠI MIỀN TRUNG, S
     <section data-field="keywords">
       <h2>Keywords <small>100</small></h2>
       <p class="hint">App Store Connect → Version Information → Keywords</p>
-      <textarea id="keywords" maxlength="100" readonly>RMMS,giaodien,baotri,duongbo,tuanduong,suco,taisan,hientruong</textarea>
+      <textarea id="keywords" maxlength="100" readonly>RMMS,baotri,duongbo,tuanduong,suco,taisan,hientruong,canbo</textarea>
       <div class="row">
         <button type="button" data-copy="keywords">Copy</button>
         <p class="count"><span data-count-for="keywords">0</span>/100</p>
@@ -165,7 +191,7 @@ Hỗ trợ: CÔNG TY CỔ PHẦN CÔNG NGHỆ VÀ THƯƠNG MẠI MIỀN TRUNG, S
     <section data-field="support_url">
       <h2>Support URL</h2>
       <p class="hint">App Store Connect → Version Information → Support URL · HTTPS</p>
-      <textarea id="support_url" readonly>https://app.rmms.vn/privacy</textarea>
+      <textarea id="support_url" readonly>https://rmms.vn/privacy</textarea>
       <div class="row">
         <button type="button" data-copy="support_url">Copy</button>
       </div>
@@ -173,8 +199,8 @@ Hỗ trợ: CÔNG TY CỔ PHẦN CÔNG NGHỆ VÀ THƯƠNG MẠI MIỀN TRUNG, S
 
     <section data-field="marketing_url">
       <h2>Marketing URL</h2>
-      <p class="hint">App Store Connect → Version Information → Marketing URL · cùng trang HTTPS</p>
-      <textarea id="marketing_url" readonly>https://app.rmms.vn/privacy</textarea>
+      <p class="hint">App Store Connect → Version Information → Marketing URL · cung trang HTTPS</p>
+      <textarea id="marketing_url" readonly>https://rmms.vn/privacy</textarea>
       <div class="row">
         <button type="button" data-copy="marketing_url">Copy</button>
       </div>
@@ -183,7 +209,7 @@ Hỗ trợ: CÔNG TY CỔ PHẦN CÔNG NGHỆ VÀ THƯƠNG MẠI MIỀN TRUNG, S
     <section data-field="privacy_url">
       <h2>Privacy Policy URL</h2>
       <p class="hint">App Store Connect → App Privacy / App Information → Privacy Policy URL</p>
-      <textarea id="privacy_url" readonly>https://app.rmms.vn/privacy</textarea>
+      <textarea id="privacy_url" readonly>https://rmms.vn/privacy</textarea>
       <div class="row">
         <button type="button" data-copy="privacy_url">Copy</button>
       </div>
@@ -191,11 +217,17 @@ Hỗ trợ: CÔNG TY CỔ PHẦN CÔNG NGHỆ VÀ THƯƠNG MẠI MIỀN TRUNG, S
 
     <section data-field="review_notes">
       <h2>Review Notes</h2>
-      <p class="hint">App Store Connect → App Review Information → Notes (không dán lên Product Page)</p>
-      <textarea id="review_notes" class="tall" readonly>Demo login (staff):
+      <p class="hint">App Store Connect → App Review Information → Notes (khong dan len Product Page)</p>
+      <textarea id="review_notes" class="tall" readonly>Public App Store listing (not Apple Business Manager custom app).
+Bundle ID: com.drvn.rmms.store
+Apple ID: 6812959209
+SKU: rmms-vn-public
+Version 1.0.0
+
+Demo login (staff):
 iOS: username rmms-001 / password RMMS@2026
 
-Open the app → Đăng nhập → use the account above.
+Open the app - Dang nhap - use the account above.
 Guest home is available without login (FAQ / privacy).
 Staff lists (patrol, incidents, work orders) appear after login.
 Forgot-password is contact-admin only (no SMS).
@@ -207,9 +239,9 @@ This version does not include in-app map or turn-by-turn directions.</textarea>
     </section>
   </main>
   <footer>
-    <div class="wrap">RMMS · snapshot v1.0.7 · pack nội bộ · không deploy làm landing khách</div>
+    <div class="wrap">RMMS · snapshot v1.0.0 · com.drvn.rmms.store · pack noi bo · khong deploy lam landing khach</div>
   </footer>
-  <div class="toast" id="toast">Đã copy</div>
+  <div class="toast" id="toast">Da copy</div>
   <script>
     (function () {
       var toast = document.getElementById('toast');

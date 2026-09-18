@@ -1,13 +1,19 @@
 # Dev — Implement — attendance (Android)
 
-> Status: **confirmed** · `/edit-mobile-feature` · GAP-MOB-ATT-CHECKIN-01  
+> Status: **confirmed** · `/edit-mobile-feature` · GAP-MOB-ATT-03  
 > `assembleDebug`
 
 | Feature | `attendance` |
 | assembleDebug | **PASS** |
-| Kit | `LinmLargeTitle` · `LinmSegment` · `LinmHeroCard` / `LinmHeroAction` · `LinmSectionLabel` · `LinmListRow` · `LinmToast` · `LinmBusyOverlay` |
+| Kit | `LinmLargeTitle` · `LinmSegment` · `LinmHeroCard` / `LinmHeroAction` · `LinmSectionLabel` · `LinmListRow` · `LinmToast` · `LinmBusyOverlay` · `GpsDenyDialog` |
 
-## Notes (check-in fail)
+## Notes (GPS deny confirm)
+
+- **Chấm vào** → `rememberAskLocationPermission` (OS runtime confirm) · granted → POST.
+- Deny / already denied → `GpsDenyDialog` `DES-MOB-GPS-DENY` · **không** POST · **cấm** toast `patrol.map.locDeny`.
+- Copy guide → clipboard `patrol.gpsDeny.body` · toast `patrol.gpsDeny.copied`.
+
+## Notes (check-in fail · prior)
 
 - **Chấm vào** POST `ResponseBody` · HTTP **2xx = success** · **cấm** Moshi decode create envelope (BigDecimal lat/lng từng nuốt GET + POST).
 - GET/POST DTO `lat`/`lng` = `Double`.
@@ -24,9 +30,9 @@
 ## IA / API
 
 Dual parity iOS · route_a · live-only.  
-GPS check-in POST 2xx · **push report** · day push sibling · **cấm** `AlertDialog` · **cấm** `mfeStdUrl`.  
-E2E tags: `sc-attendance` · `att-segment` · `att-hero` · `att-day-*` · `sc-attendance-report`.
+GPS check-in POST 2xx · deny modal · **push report** · day push sibling · **cấm** `AlertDialog` · **cấm** `mfeStdUrl`.  
+E2E tags: `sc-attendance` · `att-segment` · `att-hero` · `att-day-*` · `sc-attendance-report` · `modal-gps-deny`.
 
 ## VERIFY GATE
 
-`./gradlew :app:assembleDebug --no-daemon` **BUILD SUCCESSFUL** (`/edit-mobile-feature` 2026-09-16 · GAP-MOB-ATT-CHECKIN-01). First daemon run crashed KSP; retry `--no-daemon` PASS.
+`./gradlew :app:assembleDebug --no-daemon` **BUILD SUCCESSFUL** (`/edit-mobile-feature` 2026-09-18 · GAP-MOB-ATT-03).

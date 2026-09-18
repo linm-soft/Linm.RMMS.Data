@@ -8,6 +8,8 @@
 
 JPEG poll (SDK) **khác** HLS (RTSP → MediaMTX). KPI **Online** không chứng minh video stream. KPI **Đang xem** = số lease in-memory (1 process API).
 
+**Tủ 5G / không IP tĩnh:** không pull RTSP từ tủ. Máy nhúng **publish RTSP/TCP :8554** — [`32-CAMERA-RTSP-PUBLISH-INGEST.md`](32-CAMERA-RTSP-PUBLISH-INGEST.md). Web vẫn **HLS fMP4**.
+
 ---
 
 ## I. Hai lớp kết nối
@@ -16,7 +18,8 @@ JPEG poll (SDK) **khác** HLS (RTSP → MediaMTX). KPI **Online** không chứng
 |-----|------------|-------------------|
 | SDK / JPEG | **8000** (WAN map **8100**) | Ảnh live, **Online** |
 | HTTP / ISAPI | 80 hoặc **8086** | Test ISAPI · Host notify |
-| **RTSP / HLS** | **554** hoặc firmware **6554** | `<video>` HLS, không fallback JPEG |
+| **RTSP pull / HLS** | **554** hoặc firmware **6554** | Hub **kéo** cam WAN · `<video>` HLS |
+| **RTSP publish / HLS** | MTX **8554** (server) | Tủ 5G **đẩy** vào MTX · cùng HLS |
 
 Lab TCM403: WAN chỉ mở **8100** thì JPEG OK, HLS fallback. RTSP public phải **cùng số** trên form RMMS và NAT router (lab: **6554** OPEN, **554** đóng).
 

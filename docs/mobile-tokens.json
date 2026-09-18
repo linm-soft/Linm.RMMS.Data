@@ -24,6 +24,9 @@
   "size": {
     "controlHeight": 44,
     "formFieldHeight": 52,
+    "textAreaMinHeight": 110,
+    "textAreaCompactHeight": 88,
+    "textAreaTallHeight": 160,
     "buttonHeight": 44,
     "fab": 56,
     "topBarHeight": 56,

@@ -32,4 +32,6 @@ BFF `dotnet build` **PASS** (no Write this turn · reuse GET). Step 4b **N/A**.
 - GAP-MOB-SUP-04 BE fromDate **P2**
 - iPad Pro 13" smoke **DEFER** (family `1`)
 
+`/edit-mobile-feature` 2026-09-18: **GAP-MOB-EDIT-FIELD-CHROME** — `#filterRoute` `LinmTextField` · dest **iPhone 17 Pro Max** + **iPad Pro 13-inch (M5)** **PASS**.
+
 <!-- Version meta: skillId=agent-dev-ios+dev-ios-swiftui skillVersion=2026.08.19.26 schemaVersion=1 workflowVersion=2026.08.31.2 rulesVersion=2026.08.31.2 versionGate=rechecked taskId=task_a7ad9582 -->

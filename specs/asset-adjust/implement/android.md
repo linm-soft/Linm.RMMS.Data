@@ -19,6 +19,8 @@
 - `FetchAssetAdjustListUseCase` live/empty/`LoadFailed` · SoftDelete
 - Demo OfflineDemo removed (cleanup_mock)
 
+`/edit-mobile-feature` 2026-09-18: **GAP-MOB-COPY** — `LinmSearchField` placeholder `LinmCopy.t("asset.adjust.search")` · **cấm** kit default «Tìm».
+
 ## QA-FIX (`task_d8ada3bb` · Plan §1–6)
 
 | # | Change | Result |

@@ -55,5 +55,7 @@
 | generatedAt | `2026-09-12T13:15:00.000Z` |
 | versionGate | rechecked |
 
+`/edit-mobile-feature` 2026-09-18: **GAP-MOB-EDIT-FIELD-CHROME** — `#ci-content` `LinmTextArea` `textAreaCompactHeight` · placeholder `checkin.content.placeholder` · **cấm** raw `TextEditor` · dest **iPhone 17 Pro Max** + **iPad Pro 13-inch (M5)** **PASS**.
+
 ---
 <!-- Version meta: skillId=agent-dev-ios skillVersion=2026.08.20.03 schemaVersion=1 workflowVersion=2026.08.25.01 rulesVersion=2026.08.29.4 versionGate=rechecked -->

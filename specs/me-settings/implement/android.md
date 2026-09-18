@@ -26,7 +26,7 @@
 | OS status | `ContextCompat.checkSelfPermission` location + camera · **cấm** request · refresh `ON_RESUME` |
 | CTA OS | `LinmSecondaryButton` · `ACTION_APPLICATION_DETAILS_SETTINGS` · fail toast |
 | Sync | row **Hàng đợi mất sóng** → nav `"patrol-offline"` reuse |
-| About | `BuildConfig.VERSION_NAME (VERSION_CODE)` · empty «—» · privacy panel `home.privacy.*` |
+| About | `BuildConfig.VERSION_NAME` only · **cấm** `VERSION_CODE` · empty «—» · privacy panel `home.privacy.*` |
 | Toast | OS fail only · `LoginToastHub` / `LinmBanner` · **cấm** AlertDialog · **cấm** fake save |
 | HTTP / BFF | **none P1** · **cấm** invent preferences |
 | Kit | TopBar / SectionLabel / ListRow / Secondary · **cấm** invent kit |
@@ -61,5 +61,7 @@
 ---
 
 **Notes (2026-09-12):** `/edit-mobile-feature` **GAP-MOB-EDIT-PRIVACY-COPY** — privacy panel reuse `home.privacy.body` user-facing dual iOS · `fieldText` · **cấm** invent HTTPS.
+
+**Notes (2026-09-18):** `/edit-mobile-feature` **GAP-MOB-EDIT-VER-DISPLAY** — Phiên bản shows `BuildConfig.VERSION_NAME` `x.y.z` only · **cấm** `VERSION_CODE` / `(build)` · empty «—». `./gradlew :app:assembleW3Debug` PASS (default flavor).
 
 <!-- Version meta: skillId=agent-dev-android skillVersion=2026.08.20.03 schemaVersion=1 workflowVersion=2026.08.31.2 rulesVersion=2026.08.31.2 versionGate=rechecked -->

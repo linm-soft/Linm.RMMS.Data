@@ -63,7 +63,7 @@
 | sectionSync | **Đồng bộ** | `LinmSectionLabel` 13 | same | |
 | rowOffline | **Hàng đợi mất sóng** | `LinmListRow` `#i-sync` | same | `reuse=patrol-offline` |
 | sectionAbout | **Thông tin** | `LinmSectionLabel` 13 | same | |
-| appVersion | **Phiên bản** | Text display | same | Bundle `x.y.z (build)` · empty «—» |
+| appVersion | **Phiên bản** | Text display | same | marketing `x.y.z` only · **cấm** build (`CFBundleVersion` / `versionCode`) · empty «—» |
 | rowPrivacy | **Chính sách quyền riêng tư** | `LinmListRow` `#i-info` | same | `home.privacy.*` user-facing · **cấm** invent URL |
 | Privacy panel | push/sheet nội dung | local copy | same | DES-MOB-ME-SETTINGS-PRIVACY |
 | toastOsFail | **Không mở được Cài đặt hệ thống** | `LinmToast` | same | **cấm** fake ok |

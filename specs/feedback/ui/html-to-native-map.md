@@ -8,7 +8,7 @@
 | DES-MOB-FEEDBACK | Header | `.nav-bar` / `.top-bar` · `.nav-title` | `LinmTopBar` | same | title 17 / ~20 · **cấm** badge P1/P2 |
 | DES-MOB-FEEDBACK | Back | `.nav-btn` + `#i-chevron-left` · text «Tôi» (iOS) | leading | `icon-btn` chevron only | `go('me')` |
 | Body label | Section | `.field label` | FieldLabel Text 13 | same | **Nội dung góp ý** |
-| Body | Multiline | `textarea` | `LinmTextArea` | same | placeholder SSOT · value ≥16 · required |
+| Body | Multiline | `textarea` | `LinmTextArea` | same | placeholder SSOT · `textAreaTallHeight` 160 · `card` + `border` · `fieldText` 16 · **cấm** raw `Box`/`BasicTextField` `onSurface 0.12` · **GAP-MOB-EDIT-FIELD-CHROME** |
 | Send | CTA | `.btn-primary` | `LinmPrimaryButton` | same | POST `integration/feedbacks` · `isBusy` |
 | Toast OK/Err | Banner | `#toast` | `LinmToast` | same | **cấm** alert · **cấm** fake ok |
 | DES-MOB-LEAVE | Modal | `#leave-modal` | feature overlay | Material dialog card | dirty back |

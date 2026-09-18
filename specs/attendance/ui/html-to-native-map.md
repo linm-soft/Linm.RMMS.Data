@@ -11,9 +11,10 @@ Cite SSOT `docs/html-to-native-map.md`. Feature deltas (`#sc-attendance`):
 | Báo cáo | `LinmHeroAction` ghost | **push** `#sc-attendance-report` · **cấm** toast-only |
 | `.section-label` 7 ngày gần đây | `LinmSectionLabel` | |
 | `.row` day | `LinmListRow` + badge | tap → `#sc-attendance-day` |
-| `.toast` | `LinmToast` | checkInOk · locDeny · locTimeout · `common.offline` · checkInFail |
+| `.toast` | `LinmToast` | checkInOk · locTimeout · `common.offline` · checkInFail |
+| GPS deny | `GpsDenyModal` / `GpsDenyDialog` | `DES-MOB-GPS-DENY` · Android OS confirm `rememberAskLocationPermission` · **cấm** toast `patrol.map.locDeny` |
 
-**Cấm:** raw List / M3 NavBar · invent `/attendance/report` · `mfeStdUrl` · native alert.
+**Cấm:** raw List / M3 NavBar · invent `/attendance/report` · `mfeStdUrl` · `UIAlert` / `AlertDialog`.
 
 ## Version meta
 

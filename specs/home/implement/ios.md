@@ -48,3 +48,5 @@ Step 4b / T-BE **N/A** — reuse Auth profile only.
 `/edit-mobile-feature` 2026-09-12: **GAP-MOB-EDIT-PRIVACY-COPY** — `#sc-privacy` `home.privacy.body` user-facing (Khách · cán bộ · quyền · liên hệ pháp nhân) · `fieldText` · **cấm** invent HTTPS.
 
 `/edit-mobile-feature` 2026-09-16: **GAP-MOB-EDIT-HOME-WHO-SKEL** — staff GET `auth/profile` · `.who` empty = bone pulse `home-who-skeleton` · **cấm** flash Khách · **cấm** `linmBusyOverlay` hub · dest **iPhone 17 Pro** **PASS**.
+
+`/edit-mobile-feature` 2026-09-18: **GAP-MOB-EDIT-FAQ-SEARCH** — `#f-faq-search` capsule `card` · `fieldText` · trailing `LinmSearchGlyph` · **cấm** SF `magnifyingglass` · dest **iPhone 17 Pro Max** **PASS**.

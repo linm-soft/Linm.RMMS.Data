@@ -105,6 +105,7 @@ Không `/wf-anim` trên list `mnt-list`.
 | GAP-TYP-01 | Type | tab/label **13** · search/card **≥16** |
 | GAP-DES-DEMO-RESCAN-01 | Hash skip | **Cấm** re-scan · dùng control-hint + real-data |
 | GAP-MOB-UX-07 | design ↔ HTML | Pack proto khớp design.md · **không** foot Gói |
+| GAP-MOB-COPY | list search «Tìm» | **PASS** placeholder `LinmCopy.t("mnt.list.search")` dual · **cấm** kit default |
 | GAP-MOB-EDIT-STATUS-01 | Live status + badge trùng prefix | Status = **1** text `Tình trạng xử lý: {label}` · **cấm** `LinmBadge` cạnh prefix · cùng lock `incident-list` |
 | GAP-MOB-EDIT-ACT-01 | Nút action dồn trái | `.rc-actions` **flex:1** / `weight(1)` dàn đều full card · tap 44 · **cấm** `Spacer` đẩy trái |
 

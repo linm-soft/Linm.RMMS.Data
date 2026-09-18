@@ -25,7 +25,7 @@
 | sectionSync | **Đồng bộ** | present | present | — |
 | rowOffline | `#i-sync` teal/orange tile | sync glyph | sync glyph | — |
 | sectionAbout | **Thông tin** | present | present (P6 / P6-2) | — |
-| appVersion | **Phiên bản** + Bundle | present (empty «—» OK) | **0.1.0 (1)** | — |
+| appVersion | **Phiên bản** + marketing `x.y.z` | present (empty «—» OK) | **0.1.0** | — |
 | rowPrivacy | `#i-info` tile | info glyph | info glyph (P6-2) | — |
 | Tabs | 5 · **me** active | me active | me active | — |
 | Watermark | — | none | none | — |
@@ -40,7 +40,7 @@
 | Android TopBar overflow `…` | kit default · not in HTML demo · **không** block P1 (peer me-profile) |
 | Demo `entry-hint` | Design only · **không** trên live |
 | Section label casing | Android may render uppercase via SectionLabel · copy SSOT OK |
-| iOS version empty | Bundle empty → «—» per DoD · Android shows `0.1.0 (1)` |
+| iOS version empty | Bundle empty → «—» per DoD · Android shows marketing `x.y.z` only · **cấm** `(build)` |
 | GAP-MOB-MESET-PRIVACY-01 | HTTPS URL chờ khách · static privacy copy · **không** Must block QA |
 
 ## Result

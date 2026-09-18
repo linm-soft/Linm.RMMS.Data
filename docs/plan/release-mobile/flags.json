@@ -2,7 +2,7 @@
   "name": "linm-mobile-release-flags",
   "wave": 3,
   "waveName": "w3_camera",
-  "updated": "2026-09-16",
+  "updated": "2026-09-18",
   "note": "Submit hôm nay: skip map (W1) trên **Release Store**. Debug lab show-all: Android `BuildConfig.DEBUG` · iOS Debug.xcconfig STORE_W1. guest.directions + staff.patrolMap OFF trên Store — ẩn clip/GIS/patrol-map, không xóa code. Camera + GPS WhenInUse ON. guest.forgotOtp=false. net.osrmPublic=false until self-host OsrmBase. Hand-sync → iOS/Android ReleaseFlags. Do not invent REST.",
   "flags": {
     "guest.home": true,

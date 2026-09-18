@@ -28,7 +28,7 @@
 | Form | % field + slider · note TextEditor · PhotoRow + `FieldReflectCameraPicker` · GPS ListRow · leave / GPS deny modals |
 | Bind | body `{ progressPercent, note? }` · GPS embed → Note · **không** MediaUrl / lat-lng DTO · @100 → complete + pop list |
 | Copy | `mnt.progress.*` · status VN = mnt-list map · toast `Đã cập nhật tiến độ · {n}%` |
-| Kit | `LinmTopBar` · `LinmListRow` · `LinmTextField` · `LinmPrimaryButton` · `LinmToast` · `GpsDenyModal` |
+| Kit | `LinmTopBar` · `LinmListRow` · `LinmTextArea` · `LinmPrimaryButton` · `LinmToast` · `GpsDenyModal` |
 | Shell | Tab 5 **giữ** · tab **work** · in-screen tabs **none** |
 
 ## VERIFY GATE
@@ -41,6 +41,8 @@
 | Step 4b / new-endpoint | **N/A** · progress+complete live |
 | e2e / mfeStdUrl / start:std | **skipped** (role Dev · queued QA) |
 | ERP.* | **none** |
+
+`/edit-mobile-feature` 2026-09-18: **GAP-MOB-EDIT-FIELD-CHROME** — `#note` `LinmTextArea` · **cấm** raw `TextEditor` · dest **iPhone 17 Pro Max** + **iPad Pro 13-inch (M5)** **PASS**.
 
 ## Version meta
 

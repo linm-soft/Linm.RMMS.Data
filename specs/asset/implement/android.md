@@ -15,6 +15,8 @@
 
 QA-FIX GAP-MOB-ASSET-AND-FETCH-01 / GAP-QA-STORE-03: tách Appear khỏi unstable lambda keys. `SideEffect` set handlers · `LaunchedEffect(Unit) { Appear }` — **cấm** `LaunchedEffect(onBack, onOpenDetail)` cancel trước `load()`. Live-only giữ (EmptyChrome / toast · **cấm** demoRows). Dual wire claim: Android rows sau Appear once như peer IncidentList/Ops.
 
+`/edit-mobile-feature` 2026-09-18: **GAP-MOB-COPY** — `LinmSearchField` placeholder `LinmCopy.t("asset.list.search")` · **cấm** kit default «Tìm».
+
 ## Notes (qa fix)
 
 | Before | After |

@@ -18,7 +18,7 @@
 | aiRow | List | `.row` · row-sub/title · `[data-inc-ai]` | `LinmListRow` | same | label 13 · value ≥16 |
 | location | Field | `.field` · `[data-inc-loc]` readonly | TextField | same | GPS chốt · **cấm** fake |
 | severity | Field | `.field` · `select` | `LinmSelect` | same | 4 options · default Cao |
-| description | Field | `.field` · `textarea` | `LinmTextArea` | same | placeholder SSOT |
+| description | Field | `.field` · `textarea` | `LinmTextArea` | same | placeholder SSOT · `textAreaMinHeight` · **cấm** raw `TextEditor` / `onSurface 0.12` · **GAP-MOB-EDIT-FIELD-CHROME** |
 | Create | CTA | `.btn-primary` | `LinmPrimaryButton` | same | POST `incident/incidents` · catalog `new`/`khac`/`high` · queue **chỉ** mất sóng |
 | Cam | CTA | `.btn-secondary` | `LinmSecondaryButton` | same | `go('cam-patrol')` |
 | Assign | CTA | `.btn-secondary` | `LinmSecondaryButton` | same | `go('estimate')` |

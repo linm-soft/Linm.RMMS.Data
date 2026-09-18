@@ -14,6 +14,7 @@
 
 - **GAP-MOB-EDIT-STATUS-01:** status = 1 text `Trạng thái: {label}` full width dưới `.rc-main` · **cấm** `LinmBadge` trùng · dual iOS.
 - **GAP-MOB-EDIT-ACT-01:** 4 action `Modifier.weight(1f)` dàn đều · tap 44 · **cấm** left-pack.
+- **GAP-MOB-COPY:** `LinmSearchField` placeholder `LinmCopy.t("inc.list.search")` · **cấm** kit default «Tìm».
 
 ## Summary
 

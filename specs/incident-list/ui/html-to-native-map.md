@@ -8,7 +8,7 @@ Cite SSOT `docs/html-to-native-map.md`. Feature deltas (`#sc-incident-list`):
 | `.nav-btn` / `.icon-btn` back `#i-chevron-left` | `LinmTopBar` leading | pop `home` · **cấm** reimplement hub |
 | trailing «Lọc» / `#i-list` | `LinmTopBar` trailing | iOS text · Android icon · toast **Lọc tuyến · loại · trạng thái** · **cấm** sheet |
 | `.seg` Danh sách / Bản đồ | `LinmSegment` | selected Danh sách · Bản đồ → `go('gis-map')` · label **13** |
-| `.search` / `#i-search` | `LinmSearchField` · `LinmSearchGlyph` | placeholder **Tìm kiếm vấn đề…** · client filter |
+| `.search` / `#i-search` | `LinmSearchField` · `LinmSearchGlyph` | placeholder `LinmCopy.t("inc.list.search")` · client filter · **cấm** kit default «Tìm» · **GAP-MOB-COPY** |
 | `.vn-banner` `#i-camera` | banner / `LinmListRow` | title + sub · toast P1 / later `vis-capture` |
 | `.rich-card` · `.rc-title` / `.rc-line` / `.rc-time` | rich card / `LinmListRow` | title · typeCode · loc · person · time |
 | `.rc-thumb` | Image / placeholder | media **DEFER** · empty OK |

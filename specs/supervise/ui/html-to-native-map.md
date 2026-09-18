@@ -7,7 +7,7 @@
 | `#btn-sup-filter` | Open filter | trailingText | same | **cấm** toast filter |
 | `.seg` · DES-MOB-SUP-SEG | Segment 2 | `LinmSegment` | same | idx 0 owner · idx 1 → push `patrol-map` |
 | `#filter-sheet` · DES-MOB-SUP-FILTER | Sheet Lọc | `.sheet` / Modal | BottomSheet | route + date + Apply/Clear |
-| `#filterRoute` | Tuyến | TextField | OutlinedTextField | → GET `route` |
+| `#filterRoute` | Tuyến | `LinmTextField` | `LinmTextField` | placeholder `supervise.filter.routePlaceholder` · **cấm** M3 `TextField` |
 | `#filterDate` | Ngày | DatePicker | DatePicker | client `CheckInAt` day |
 | `#filterApply` | Áp dụng | Primary button | FilledButton | dismiss · reload |
 | `#filterClear` | Xóa lọc | Ghost | TextButton | clear · reload |

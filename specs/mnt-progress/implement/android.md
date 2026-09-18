@@ -27,7 +27,7 @@
 | Form | % TextField + Slider · note BasicTextField · PhotoRow + TakePicturePreview · GPS ListRow · leave / GpsDenyDialog |
 | Bind | body `{ progressPercent, note? }` · GPS embed → Note · MediaUrl DEFER · @100 → complete + pop |
 | Copy | `mnt.progress.*` parity iOS · status VN mnt-list map |
-| Kit | `LinmTopBar` (icon-only back) · `LinmListRow` · `LinmTextField` · `LinmPrimaryButton` · Toast hub |
+| Kit | `LinmTopBar` (icon-only back) · `LinmListRow` · `LinmTextArea` · `LinmPrimaryButton` · Toast hub |
 | Shell | Tab 5 **giữ** · tab **work** · in-screen tabs **none** |
 
 ## VERIFY GATE
@@ -39,6 +39,8 @@
 | Step 4b / new-endpoint | **N/A** · progress+complete live |
 | e2e / mfeStdUrl / start:std | **skipped** (role Dev · queued QA) |
 | ERP.* | **none** |
+
+`/edit-mobile-feature` 2026-09-18: **GAP-MOB-EDIT-FIELD-CHROME** — `#note` `LinmTextArea` · **cấm** raw `BasicTextField` `onSurface 0.12` · `assembleW0Debug` **PASS**.
 
 ## Version meta
 

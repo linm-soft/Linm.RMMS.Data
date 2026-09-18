@@ -14,6 +14,7 @@
 
 - **GAP-MOB-EDIT-STATUS-01:** status = 1 text `Trạng thái: {label}` full width dưới `.rc-main` · **cấm** `LinmBadge` trùng · **cấm** nhét bar vào cột meta cạnh thumb.
 - **GAP-MOB-EDIT-ACT-01:** 4 `LinmIconButton` `frame(maxWidth: .infinity)` dàn đều · tap 44 · **cấm** `Spacer` đẩy trái.
+- **GAP-MOB-COPY:** `LinmSearchField` placeholder `LinmCopy.t("inc.list.search")` · **cấm** kit default «Tìm».
 
 ## Summary
 

@@ -39,7 +39,7 @@ Pack **screen mới** theo data-analy (`changeScope=new_page`). Native hiện: h
 | Me entry | `row-settings` toast `me.row.settings` | **Push** `#sc-me-settings` «Cài đặt» · back → Me |
 | Screen | Không màn Cài đặt | Full `#sc-me-settings` · `DES-MOB-ME-SETTINGS` · quyền + about |
 | OS deep-link | Deny modals copy «Mở Cài đặt → …» only | openAppSettings từ màn + CTA |
-| Version | — | Bundle version display `x.y.z (build)` |
+| Version | — | marketing version display `x.y.z` · **cấm** build |
 | Privacy | Privacy chỉ guest Home | Row reuse `home.privacy.*` |
 | Offline | Me / Home entry riêng | Row nav `reuse=patrol-offline` |
 | Demo screen | Chỉ entry toast trên `#sc-me` | Design dual `#sc-me-settings` (**GAP-MOB-MESET-DEMO-01**) |
@@ -53,7 +53,7 @@ Pack **screen mới** theo data-analy (`changeScope=new_page`). Native hiện: h
 1. Dual native: iOS SwiftUI + Android Compose — **cùng** zone `#sc-me-settings` `DES-MOB-ME-SETTINGS`: nav back → `me` · title **Cài đặt** · section **Quyền ứng dụng** · rows Vị trí / Camera / Thông báo hệ thống · CTA **Mở Cài đặt hệ thống** · section **Đồng bộ** · row **Hàng đợi mất sóng** · section **Thông tin** · **Phiên bản** · row **Chính sách quyền riêng tư** · toast lỗi OS. Frame proto iOS 390×844 · Android 412×915. Tab 5: tab **`me`** active · `tabs: none` trên surface (`GAP-TAB-01`). **Cấm** badge P1/P2 trên header · **cấm** segment.
 2. Appear / onResume → đọc OS permission status (Vị trí · Camera) → phụ ListRow «Đã cấp / Chưa cấp / Không xác định» · **không** request permission từ settings (request thuộc attendance/patrol) · **không** BFF.
 3. Tap row Vị trí / Camera / Thông báo hệ thống **hoặc** CTA **Mở Cài đặt hệ thống** → `openAppSettings` (iOS `UIApplication.openSettingsURLString` · Android `ACTION_APPLICATION_DETAILS_SETTINGS`) · fail → toast **Không mở được Cài đặt hệ thống** · **cấm** fake success · **cấm** native alert.
-4. **Phiên bản** readonly từ Bundle (`CFBundleShortVersionString` + build / `versionName` + `versionCode`) format `x.y.z (build)` · empty → «—» · **không** API.
+4. **Phiên bản** readonly từ Bundle (`CFBundleShortVersionString` / `versionName`) format `x.y.z` · **cấm** show build (`CFBundleVersion` / `versionCode`) · empty → «—» · **không** API.
 5. Row **Chính sách quyền riêng tư** → push/sheet nội dung local `LinmCopy` `home.privacy.title` / `home.privacy.body` · **cấm** invent HTTPS landing URL (URL khi khách giao — **GAP-MOB-MESET-PRIVACY-01**).
 6. Row **Hàng đợi mất sóng** → nav `reuse=patrol-offline` · **cấm** reimplement queue · **cấm** enqueue sibling.
 7. Entry (reuse Me, **cấm** reimplement hub): Me **row-settings** → **push** `#sc-me-settings` (thay toast) · `#i-gear` · iOS chevron · Android **không** chevron (peer GAP-MOB-UX-04b) · `testTag`/`accessibilityId` `row-settings` · back «Tôi» / chevron → `me`.
@@ -123,7 +123,7 @@ Nguồn DA-01 `#sc-me-settings`. UNCLEAR field = **none**.
 | sectionSync | Đồng bộ | SectionLabel | * | `LinmSectionLabel` | **13** |
 | rowOffline | Hàng đợi mất sóng | ListRow nav | * | `LinmListRow` `#i-sync` | `reuse=patrol-offline` |
 | sectionAbout | Thông tin | SectionLabel | * | `LinmSectionLabel` | **13** |
-| appVersion | Phiên bản | Text display | * | | Bundle · format `x.y.z (build)` · readonly |
+| appVersion | Phiên bản | Text display | * | | Bundle · format `x.y.z` · **cấm** build · readonly |
 | rowPrivacy | Chính sách quyền riêng tư | ListRow nav | * | `LinmListRow` `#i-info` | reuse `home.privacy.*` · **cấm** invent URL |
 | toastOsFail | Không mở được Cài đặt hệ thống | Toast | * | `LinmToast` | **cấm** fake ok |
 
@@ -176,7 +176,7 @@ App `ApiClient.base` = `{BffBase}/mobile-bff/api/v1`. **Slug này không gọi**
 | GAP-MOB-MESET-SCR-01 | Thiếu màn | **IN P1:** full `#sc-me-settings` `DES-MOB-ME-SETTINGS` |
 | GAP-MOB-MESET-OS-01 | Deep-link OS | **IN P1:** iOS `openSettingsURLString` · Android `ACTION_APPLICATION_DETAILS_SETTINGS` · toast fail · **cấm** fake ok |
 | GAP-MOB-MESET-STATUS-01 | Status quyền | **IN P1:** phụ «Đã cấp / Chưa cấp / Không xác định» từ OS · **không** request từ settings · **không** BFF |
-| GAP-MOB-MESET-VER-01 | Version | **IN P1:** Bundle `x.y.z (build)` display |
+| GAP-MOB-MESET-VER-01 | Version | **IN P1:** marketing `x.y.z` only · **cấm** build |
 | GAP-MOB-MESET-PRIVACY-01 | Privacy URL Store | **IN P1:** reuse static `home.privacy.*` · HTTPS URL **khi khách giao** — **không** invent |
 | GAP-MOB-MESET-DEMO-01 | Chưa dual HTML | **IN Design:** tạo dual `#sc-me-settings` + reviewUrl **cả hai** trước Approve · **không** block PO DoR |
 | GAP-MOB-MESET-API-01 | Preference sync server | **P1 skip** · **cấm invent** path |
@@ -218,7 +218,7 @@ Frame: iOS 390×844 · Android 412×915 · safe area · content không đè notc
 | AC-D-12 | Push | OS only «Thông báo hệ thống» · **≠** inbox `ops` |
 | AC-F-01 | Appear / resume | Refresh OS permission status phụ rows |
 | AC-F-02 | openAppSettings | Rows + CTA cùng deep-link · fail → toast «Không mở được Cài đặt hệ thống» · **cấm** fake ok |
-| AC-F-03 | Version | Bundle `x.y.z (build)` · empty «—» · readonly |
+| AC-F-03 | Version | marketing `x.y.z` only · **cấm** build · empty «—» · readonly |
 | AC-F-04 | Privacy | Reuse `home.privacy.*` · **cấm** invent HTTPS |
 | AC-F-05 | Offline nav | Row → `patrol-offline` · **cấm** reimplement |
 | AC-F-06 | Dual parity | iOS + Android **cùng** copy zones (trừ back chrome / Android no entry chevron) · **cấm** lệch (`GAP-MOB-ALIGN-01`) |

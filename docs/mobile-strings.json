@@ -27,7 +27,8 @@
     "capture.zoomOut": "Thu nhỏ",
     "capture.expand": "Toàn màn hình",
     "capture.collapse": "Thu nhỏ khung",
-    "capture.shutter": "Chụp"
+    "capture.shutter": "Chụp",
+    "search.placeholder": "Tìm"
   },
   "app": {
     "brand.appName": "RMMS",
@@ -241,6 +242,7 @@
     "patrol.history.toast.loadFail": "Không tải được lịch sử ca tuần đường.",
     "patrol.history.empty.title": "Chưa có lịch sử ca",
     "patrol.history.empty.hint": "Khi có phiên tuần đường trên hệ thống, danh sách sẽ hiện tại đây.",
+    "patrol.history.search": "Tìm mã phiên, tuyến…",
     "patrol.history.activeSub": "%s · %s · %d/3 điểm",
     "patrol.history.doneSub": "%s · %s · %d%%",
     "patrol.history.missedSub": "%s · Thiếu điểm tuần",
@@ -269,6 +271,7 @@
     "checkin.field.gps": "Định vị ghim tự động",
     "checkin.field.dist": "Cách điểm KH",
     "checkin.field.content": "Nội dung",
+    "checkin.content.placeholder": "Mô tả hiện trường…",
     "checkin.photos": "Ảnh",
     "checkin.btn.save": "Ghi nhận điểm tuần",
     "checkin.btn.cancel": "Hủy",
@@ -345,6 +348,7 @@
     "chrome.emptyHint": "Nội dung sẽ có ở bước tiếp theo.",
     "chrome.error": "Lỗi",
     "chrome.updating": "Đang cập nhật",
+    "mnt.list.search": "Tìm kiếm công việc…",
     "mnt.list.title": "Danh sách công việc",
     "mnt.list.filter": "Lọc",
     "mnt.list.toast.chat": "Trao đổi công việc",

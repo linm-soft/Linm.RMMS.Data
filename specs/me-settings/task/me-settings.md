@@ -87,7 +87,7 @@ AskQuestion (autoApprove=ON · không chờ board): `ios_repo_confirm` · `andro
 | Entry `me` `#row-settings` | iOS toast · Android toast · `testTag`/`accessibilityId` `row-settings` live | **thay** → push owner |
 | openAppSettings helper | **chưa** trên Me/settings | **Ship** iOS `openSettingsURLString` · Android `ACTION_APPLICATION_DETAILS_SETTINGS` · fail → toast |
 | Location / Camera status | dùng request+check ở feature khác | **Read-only** status trên settings · **cấm** request · reuse `CoreLocationReader` / `AVCaptureDevice.authorizationStatus` patterns |
-| Bundle version | Info.plist / versionName live | **Display** `x.y.z (build)` · empty «—» |
+| Bundle version | Info.plist / versionName live | **Display** marketing `x.y.z` only · **cấm** build · empty «—» |
 | Privacy copy | `home.privacy.*` + `HomePrivacyView` live | **Reuse** push/sheet · **cấm** invent HTTPS |
 | Offline row | `patrol-offline` owner live | **Nav reuse** · **cấm** reimplement queue |
 | BFF/BE settings | **không** | **T-BE-*** / **T-BFF-*** = **n/a** · Step 4b **Skip** · **cấm invent** |
@@ -129,7 +129,7 @@ AskQuestion (autoApprove=ON · không chờ board): `ios_repo_confirm` · `andro
 | Router | `App/AppRouter.swift` — pattern peer Feedback/MeProfile: `@State showMeSettingsFromMe` + `navigationDestination` + `meViewModel.setOpenMeSettings` |
 | OS status | read-only — `CLLocationManager.authorizationStatus` / reuse `CoreLocationReader` pattern · `AVCaptureDevice.authorizationStatus(for: .video)` · map «Đã cấp / Chưa cấp / Không xác định» · **cấm** `requestWhenInUse` / `requestAccess` từ settings |
 | openAppSettings | `UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)` · catch fail → toast |
-| Version | `Bundle.main` `CFBundleShortVersionString` + `CFBundleVersion` → `x.y.z (build)` · empty «—» |
+| Version | `Bundle.main` `CFBundleShortVersionString` → `x.y.z` · **cấm** `CFBundleVersion` · empty «—» |
 | Privacy | reuse `HomePrivacyView` / `LinmCopy` `home.privacy.title` / `home.privacy.body` · push/sheet · **cấm** invent HTTPS |
 | Offline | callback `setOpenPatrolOffline` / nav owner `patrol-offline` · **cấm** reimplement queue |
 | HTTP / ApiClient | **không** call trên slug · **cấm** invent repository settings · **cấm** URLSession trong View |
@@ -149,7 +149,7 @@ AskQuestion (autoApprove=ON · không chờ board): `ios_repo_confirm` · `andro
 | Router | `presentation/navigation/MainTabScreen.kt` — `navController.navigate("me-settings")` + composable peer Feedback/MeProfile · `onOpenMeSettings` |
 | OS status | `ContextCompat.checkSelfPermission` / location + camera · map phụ SSOT · **cấm** request từ settings · refresh `onResume` |
 | openAppSettings | `Settings.ACTION_APPLICATION_DETAILS_SETTINGS` + `Uri.fromParts("package", …)` · fail → toast |
-| Version | `BuildConfig.VERSION_NAME` + `VERSION_CODE` → `x.y.z (build)` · empty «—» |
+| Version | `BuildConfig.VERSION_NAME` → `x.y.z` · **cấm** `VERSION_CODE` · empty «—» |
 | Privacy | reuse Home privacy copy keys · push/sheet · **cấm** invent HTTPS |
 | Offline | nav `patrol-offline` reuse · **cấm** reimplement |
 | HTTP | **không** ApiService settings · **cấm** invent |
@@ -177,7 +177,7 @@ AskQuestion (autoApprove=ON · không chờ board): `ios_repo_confirm` · `andro
 1. Screen **Cài đặt** full (`DES-MOB-ME-SETTINGS`): nav back → `me` · title **Cài đặt** · section **Quyền ứng dụng** · rows Vị trí / Camera / Thông báo hệ thống · CTA **Mở Cài đặt hệ thống** · section **Đồng bộ** · row **Hàng đợi mất sóng** · section **Thông tin** · **Phiên bản** · row **Chính sách quyền riêng tư** · toast OS fail · **cấm** bottom-sheet chrome · **cấm** badge P1/P2 header.
 2. Appear / onResume → đọc OS location + camera auth → phụ «Đã cấp / Chưa cấp / Không xác định» · **không** request permission từ settings · **không** BFF.
 3. Tap row Vị trí / Camera / Thông báo hệ thống **hoặc** CTA → openAppSettings · fail → toast **Không mở được Cài đặt hệ thống** · **cấm** fake success · **cấm** native alert.
-4. **Phiên bản** readonly Bundle format `x.y.z (build)` · empty → «—» · **không** API.
+4. **Phiên bản** readonly Bundle format `x.y.z` · **cấm** show build · empty → «—» · **không** API.
 5. Row **Chính sách quyền riêng tư** → push/sheet `home.privacy.title` / `home.privacy.body` user-facing · **cấm** invent HTTPS (`GAP-MOB-MESET-PRIVACY-01` open tới khách · P1 static ship).
 6. Row **Hàng đợi mất sóng** → nav `reuse=patrol-offline` · **cấm** reimplement queue · **cấm** enqueue.
 7. Entry (reuse Me): `#row-settings` → **push** `#sc-me-settings` (thay toast) · `#i-gear` · iOS chevron · Android **không** chevron · back «Tôi» / chevron → `me`.
@@ -203,7 +203,7 @@ AskQuestion (autoApprove=ON · không chờ board): `ios_repo_confirm` · `andro
 | sectionSync | `LinmSectionLabel` **13** | **Đồng bộ** |
 | rowOffline | `LinmListRow` `#i-sync` | nav `patrol-offline` reuse |
 | sectionAbout | `LinmSectionLabel` **13** | **Thông tin** |
-| appVersion | Text display | Bundle `x.y.z (build)` · empty «—» |
+| appVersion | Text display | marketing `x.y.z` only · **cấm** build · empty «—» |
 | rowPrivacy | `LinmListRow` `#i-info` | privacy panel `home.privacy.*` |
 | toastOsFail | `LinmToast` | **Không mở được Cài đặt hệ thống** · **cấm** alert · **cấm** fake ok |
 | meRow | `LinmListRow` `#i-gear` | reuse Me · `row-settings` · iOS chevron · Android **không** |
@@ -264,7 +264,7 @@ Runtime: **bind OS/Bundle/copy/nav** — **cấm** fake «Đã lưu cài đặt�
 | AC-D-11 | Camera — **status-only** · openAppSettings · **cấm** request |
 | AC-F-01 | Appear/onResume → refresh location + camera status phụ |
 | AC-F-02 | Rows/CTA → openAppSettings · fail toast SSOT |
-| AC-F-03 | Version Bundle `x.y.z (build)` · empty «—» |
+| AC-F-03 | Version marketing `x.y.z` only · **cấm** build · empty «—» |
 | AC-F-04 | Privacy → `home.privacy.*` · **cấm** invent URL |
 | AC-F-05 | Offline → nav `patrol-offline` · **cấm** reimplement |
 | AC-F-06 | Entry `me` → push owner · **cấm** toast stub sau ship |

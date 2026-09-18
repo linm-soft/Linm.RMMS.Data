@@ -105,7 +105,7 @@ AskQuestion (autoApprove=ON): `route_confirm=route_a` · `2026-09-12T10:05:00.00
 | navBack | `LinmTopBar` | **Trang Chủ** · pop · `btn-sup-back` |
 | navTitle | `LinmTopBar` | **Giám sát tuần đường** |
 | btn-sup-filter | trailing text | open sheet · **cấm** toast fake |
-| filterRoute | TextField | query `route` |
+| filterRoute | `LinmTextField` | query `route` · **cấm** M3 `TextField` · **GAP-MOB-EDIT-FIELD-CHROME** |
 | filterDate | DatePicker | client day on `CheckInAt` |
 | filterApply | Primary | reload API-01 ±`route` + client date |
 | filterClear | Ghost | clear state + reload |

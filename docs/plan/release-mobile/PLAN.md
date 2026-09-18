@@ -6,7 +6,8 @@
 > **Flags SSOT:** [`flags.json`](flags.json) — hand-sync `ReleaseFlags` iOS + Android  
 > **Chốt wave hiện tại:** **3** (`w3_camera`) · **skip map** submit 2026-09-16 (`guest.directions` + `staff.patrolMap` OFF · camera + GPS ON)  
 > **OTP quên MK:** `guest.forgotOtp` = **false** đến khi SMS OTP prod gửi được — màn forgot chỉ dòng liên hệ admin, **không** xóa code · **cấm** public OSRM (`net.osrmPublic` = false)  
-> **iOS ASC (Archive → Review):** [`store/IOS-SUBMIT-GUIDE.md`](store/IOS-SUBMIT-GUIDE.md) · context [`ios-store-submit.md`](../../context/features/ios-store-submit.md)
+> **iOS ASC (Archive → Review):** [`store/IOS-SUBMIT-GUIDE.md`](store/IOS-SUBMIT-GUIDE.md) · context [`ios-store-submit.md`](../../context/features/ios-store-submit.md)  
+> **CH Play (AAB → Review):** [`store/ANDROID-SUBMIT-GUIDE.md`](store/ANDROID-SUBMIT-GUIDE.md) · Studio: [`store/ANDROID-STUDIO-RELEASE.md`](store/ANDROID-STUDIO-RELEASE.md) · context [`android-store-submit.md`](../../context/features/android-store-submit.md)
 
 ## HARD
 
@@ -60,7 +61,7 @@ Gaps: `GAP-REL-DELETE-01` · `GAP-REL-LEAK-01` · `GAP-REL-SHOT-01` · `GAP-REL-
 | 0.2 | `/plan-release-mobile` review + wire `#if` / flavor | Dual OS · **cấm** Delete · Release `STORE_W0…W3` · WhenInUse + Camera plist · Android release **giữ** FINE/CAMERA · OSRM **cấm** `project-osrm.org` |
 | 0.3 | `/build-release-app` | AskQuestion platform + phase · Archive / AAB StoreW3 |
 | 0.4 | e2e + screenshot **chỉ** ON | `/run-mobile-e2e` `store_wave=w3_camera` trên artifact 0.3 · shot GPS/cam · **không** shot map / OTP |
-| 0.5 | Submit | `/review-app-submit` — còn `GAP-SUBMIT-*` / `GAP-REL-*` → **cấm** Submit · tay ASC: [`store/IOS-SUBMIT-GUIDE.md`](store/IOS-SUBMIT-GUIDE.md) |
+| 0.5 | Submit | `/review-app-submit` — còn `GAP-SUBMIT-*` / `GAP-REL-*` → **cấm** Submit · tay ASC: [`store/IOS-SUBMIT-GUIDE.md`](store/IOS-SUBMIT-GUIDE.md) · tay CH Play: [`store/ANDROID-SUBMIT-GUIDE.md`](store/ANDROID-SUBMIT-GUIDE.md) |
 
 `0.2`–`0.3` = skill (chưa wire native / chưa có flavor StoreWn trên repo).
 

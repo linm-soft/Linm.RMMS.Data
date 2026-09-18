@@ -11,7 +11,7 @@
 | routeChainage | field | Tuyến / lý trình | `LinmTextField` | same | bind `Route` · `GET patrol/sessions` |
 | gpsPinned | field | `#ci-gps` | `LinmTextField` | same | **live GPS only** · **cấm** fake |
 | distPlan | field | `#ci-dist` | `LinmTextField` | same | haversine(GPS, planBE) · **> 1000 m → `checkin.dist.km`** (`DistanceDisplay`) |
-| content | textarea | `#ci-content` | `LinmTextArea` | same | → POST `content` |
+| content | textarea | `#ci-content` | `LinmTextArea` | same | placeholder `checkin.content.placeholder` · `textAreaCompactHeight` 88 · **cấm** raw `TextEditor` / `onSurface 0.12` · **GAP-MOB-EDIT-FIELD-CHROME** · → POST `content` |
 | photos label | section | `.section-label` Ảnh | Text 13 | same | Android parity |
 | photos | PhotoRow | `#ci-photos` · `data-bind=attachmentId[]` | PhotoRow | same | FileService commit · **không** local UUID SSOT |
 | addPhoto | camera | `#i-camera` · `openCapture('checkin')` | `LinmIconButton` | same | capture → files init/PUT/commit |

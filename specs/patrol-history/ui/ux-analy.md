@@ -116,6 +116,7 @@ Không `/wf-anim` trên list `patrol-history`. Toast fade in-app · push/pop hub
 | GAP-TYP-01 | Type size | label/tab **13** · title/search/row **≥16** |
 | GAP-MOB-DES-PFX-01 | Board prefix | `ios/index.html` · `android/index.html` |
 | GAP-MOB-UX-07 | design ↔ HTML | Pack proto khớp `design.md` |
+| GAP-MOB-COPY | list search «Tìm» | **PASS** placeholder `LinmCopy.t("patrol.history.search")` dual · **cấm** kit default |
 
 ## Version meta (REQUIRED)
 

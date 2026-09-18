@@ -146,6 +146,8 @@ IA lock (design §2): `(auth) Login (ngoài tab) → Tab 5 · Trang Chủ = this
 
 **UI notes T-IOS (2026-09-16):** GET `auth/profile` · `.who` empty → bone `home-who-skeleton` (`brandLogo`×`heroWho`) · hub không block · **cấm** revert flash Khách (`GAP-MOB-EDIT-HOME-WHO-SKEL`).
 
+**UI notes T-IOS (2026-09-18):** `#f-faq-search` capsule `card` · `fieldText` · trailing `LinmSearchGlyph` · **cấm** SF `magnifyingglass` (`GAP-MOB-EDIT-FAQ-SEARCH`).
+
 ### Build DoD
 
 ```bash
@@ -179,6 +181,8 @@ Cùng bảng field + API như T-IOS. Kit dual Compose. Signal bind Connectivity 
 **UI notes T-AND (2026-09-12):** `app_logo` giữa page · ẩn `LinmTabBar` khi route `ops` · guest back **không** hiện tab (`GAP-MOB-EDIT-GUEST-BRAND`).
 
 **UI notes T-AND (2026-09-16):** GET `auth/profile` · `.who` empty → bone `home-who-skeleton` dual iOS · hub không block · **cấm** revert (`GAP-MOB-EDIT-HOME-WHO-SKEL`).
+
+**UI notes T-AND (2026-09-18):** `#f-faq-search` `BasicTextField` capsule `card` · `fieldText` 16 · placeholder `muted` (no M3 alpha) · trailing `LinmSearchGlyph` · **cấm** M3 `TextField` / Material Search (`GAP-MOB-EDIT-FAQ-SEARCH`).
 
 ### Build DoD
 

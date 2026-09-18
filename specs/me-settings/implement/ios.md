@@ -26,7 +26,7 @@
 | OS status | read-only `CLLocationManager.authorizationStatus` · `AVCaptureDevice.authorizationStatus` · **cấm** request |
 | CTA OS | `LinmSecondaryButton` **Mở Cài đặt hệ thống** · `UIApplication.openSettingsURLString` · fail toast |
 | Sync | row **Hàng đợi mất sóng** → nav `PatrolOfflineView` reuse |
-| About | Bundle `x.y.z (build)` · empty «—» · privacy panel `home.privacy.*` |
+| About | marketing `x.y.z` only · **cấm** `CFBundleVersion` · empty «—» · privacy panel `home.privacy.*` |
 | Toast | OS fail only · `LinmToast` · **cấm** fake «Đã lưu» · **cấm** UIAlert |
 | HTTP / BFF | **none P1** · **cấm** invent preferences / MeSettingsController |
 | Kit | TopBar / SectionLabel / ListRow / Secondary / Toast · **cấm** invent kit · **cấm** WebView |
@@ -61,5 +61,7 @@
 ---
 
 **Notes (2026-09-12):** `/edit-mobile-feature` **GAP-MOB-EDIT-PRIVACY-COPY** — privacy panel reuse `home.privacy.body` user-facing · `fieldText` · **cấm** invent HTTPS.
+
+**Notes (2026-09-18):** `/edit-mobile-feature` **GAP-MOB-EDIT-VER-DISPLAY** — Phiên bản shows marketing `CFBundleShortVersionString` `x.y.z` only · **cấm** `CFBundleVersion` / `(build)` · empty «—». Build dest **iPhone 17 Pro Max** PASS · A4 iPad **DEFER** (`TARGETED_DEVICE_FAMILY=1`).
 
 <!-- Version meta: skillId=agent-dev-ios skillVersion=2026.08.20.03 schemaVersion=1 workflowVersion=2026.08.31.2 rulesVersion=2026.08.31.2 versionGate=rechecked -->

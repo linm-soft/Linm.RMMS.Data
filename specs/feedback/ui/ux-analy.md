@@ -104,6 +104,7 @@ Pack P1: toast fade ~2.4s · leave modal backdrop · primary busy spinner · key
 | GAP-MOB-FB-DATA-01 | API | `POST integration/feedbacks` |
 | GAP-MOB-FB-CAT-01 | category UI | **P1** default `de-xuat` · **không** pill · P2 optional |
 | GAP-MOB-FB-CTX-PATH-01 | CTX alias | cite live · SA |
+| GAP-MOB-EDIT-FIELD-CHROME | raw Box+BasicTextField 0.12 | **PASS** `LinmTextArea` `textAreaTallHeight` dual · **cấm** revert |
 | AC-D-01 | offline | toast lỗi · **cấm** fake 200 |
 | AC-D-03 | leave dirty | DES-MOB-LEAVE · **cấm** native alert |
 | AC-D-04 | alert | **cấm** system · Toast/modal only |

@@ -119,6 +119,7 @@ Không `/wf-anim` trên list `incident-list`.
 | GAP-MOB-UX-07 | design ↔ HTML | Pack proto khớp design.md · **không** foot Gói |
 | GAP-MOB-EDIT-STATUS-01 | Live status lệch + badge trùng prefix | Status = **1** text `Trạng thái: {label}` full width dưới `.rc-main` · **cấm** `LinmBadge` · **cấm** nhét bar vào cột meta cạnh thumb |
 | GAP-MOB-EDIT-ACT-01 | 4 nút action dồn trái | `.rc-actions` **flex:1** / `weight(1)` dàn đều full card · tap 44 · **cấm** `Spacer` đẩy trái |
+| GAP-MOB-COPY | list search «Tìm» | **PASS** placeholder `LinmCopy.t("inc.list.search")` dual · **cấm** kit default |
 
 ## Version meta (REQUIRED)
 

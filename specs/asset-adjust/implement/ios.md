@@ -18,6 +18,8 @@
 - Hub wire · SoftDelete · `FetchAssetAdjustListUseCase` live/empty/`loadFailed`
 - OfflineDemo removed (cleanup_mock)
 
+`/edit-mobile-feature` 2026-09-18: **GAP-MOB-COPY** — `LinmSearchField` placeholder `LinmCopy.t("asset.adjust.search")` · **cấm** kit default «Tìm».
+
 ## QA-FIX (`task_d8ada3bb` · Plan §1–6 parity)
 
 | # | Change | Result |

@@ -38,7 +38,7 @@
 | GET empty | AttendanceCopy.demoDays (3 rows DES-MOB-ATT) |
 | GET fail / offline | same demo · screen **mở** |
 | POST fail | toast error · keep Chưa chấm |
-| GPS deny | toast locDeny · no POST |
+| GPS deny | `GpsDenyModal` `DES-MOB-GPS-DENY` · no POST · **cấm** toast locDeny |
 
 ## §E Progress
 

@@ -15,6 +15,7 @@
 - **cleanup_mock** (`task_53934dab`): live-only · `FetchWorkOrdersOutcome` · GET OK empty = `[]` + `EmptyChrome` · fail = toast `mnt.list.toast.loadFail` · **cấm** `MntListCopy.demoItems`.
 - **GAP-MOB-EDIT-STATUS-01:** status = 1 text `Tình trạng xử lý: {label}` · **cấm** `LinmBadge` trùng · dual iOS.
 - **GAP-MOB-EDIT-ACT-01:** action `Modifier.weight(1f)` dàn đều · tap 44 · **cấm** left-pack. Cùng pattern `incident-list`.
+- **GAP-MOB-COPY:** `LinmSearchField` placeholder `LinmCopy.t("mnt.list.search")` · **cấm** kit default «Tìm».
 
 ## Summary
 

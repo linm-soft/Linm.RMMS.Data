@@ -47,7 +47,8 @@
 | Báo cáo | ghost btn | A `.btn-ghost` | `LinmHeroAction` | same |
 | Section | 7 ngày gần đây | A `.section-label` | `LinmSectionLabel` | same |
 | Day rows | CN/T7/T6 + badge | A `.row` | `LinmListRow` | same |
-| Toast | Báo cáo công / Chi tiết ngày công / locDeny | A `.toast` | `LinmToast` | same |
+| Toast | checkInOk · locTimeout · offline · checkInFail | A `.toast` | `LinmToast` | same |
+| GPS deny | Định vị bị tắt · copy / Để sau | `DES-MOB-GPS-DENY` | `GpsDenyModal` | `GpsDenyDialog` |
 
 **Không** zone: report screen · day detail · tab invent · «Có mạng» · watermark Gói · device label.
 
@@ -59,7 +60,7 @@
 | loading | overlay nhẹ · **cấm** full-screen block |
 | error / offline | demo fallback · optional toast · screen **mở** |
 | checked-in | hero title **Đã chấm vào** after POST |
-| GPS deny | toast locDeny · no POST |
+| GPS deny | OS confirm nếu chưa hỏi · đã deny → `GpsDenyModal` `DES-MOB-GPS-DENY` · no POST · **cấm** toast locDeny |
 | offline | toast `common.offline` · no POST apply |
 | leave dirty | **N/A** |
 
@@ -110,7 +111,7 @@ Không `/wf-anim` trên hub `attendance`. Segment pop instant · toast fade · h
 |----|----------------|------------|
 | GAP-MOB-ATT-01 | Báo cáo live | **closed** — `/edit-mobile-feature` 2026-09-16 · **push** `#sc-attendance-report` |
 | GAP-MOB-ATT-02 | Day detail live | **closed** — **push** `#sc-attendance-day` |
-| GAP-MOB-ATT-03 | GPS deny | **closed** — toast · no POST |
+| GAP-MOB-ATT-03 | GPS deny | **closed** `/edit-mobile-feature` 2026-09-18 — in-app `GpsDenyModal` `DES-MOB-GPS-DENY` (Android `rememberAskLocationPermission` trước POST) · **cấm** toast locDeny · no POST |
 | GAP-MOB-ATT-CHECKIN-01 | Toast «Không chấm được» sau Chấm vào · 7 ngày trống | **closed** `/edit-mobile-feature` 2026-09-16 — POST 2xx = OK (bỏ decode body) · lat/lng `Double` (Moshi BigDecimal fail GET/POST) · `lastWho` JWT fallback · GPS invalid → locTimeout · offline → `common.offline` |
 | GAP-MOB-ACT-01 | 1 hub action | **closed** — không gộp sibling |
 | GAP-MOB-ACT-02 | child form | **none** on hub |

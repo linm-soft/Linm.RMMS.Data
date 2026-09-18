@@ -73,7 +73,7 @@
 | sectionSync | Đồng bộ | SectionLabel | **13** | `LinmSectionLabel` | |
 | rowOffline | Hàng đợi mất sóng | ListRow nav | 13 / ≥16 | `LinmListRow` `#i-sync` | `reuse=patrol-offline` |
 | sectionAbout | Thông tin | SectionLabel | **13** | `LinmSectionLabel` | |
-| appVersion | Phiên bản | Text display | 13 / ≥16 | | Bundle · format `x.y.z (build)` |
+| appVersion | Phiên bản | Text display | 13 / ≥16 | | Bundle · format `x.y.z` · **cấm** build |
 | rowPrivacy | Chính sách quyền riêng tư | ListRow nav | 13 / ≥16 | `LinmListRow` `#i-info` | reuse `home.privacy.*` · **cấm** invent URL |
 | toastOsFail | Không mở được Cài đặt hệ thống | Toast | 13–16 | `LinmToast` | **cấm** fake ok |
 

@@ -78,7 +78,7 @@
 | Patrol seg idx 1 | push `#sc-attendance` · **cấm** toast-only |
 | Appear | GET `patrol/attendance-logs` · build 7-day · fallback demo |
 | Tap Chấm vào | GPS → POST body · success toast · refresh hero |
-| GPS deny | toast locDeny · **không** POST |
+| GPS deny | `GpsDenyModal` `DES-MOB-GPS-DENY` · **không** POST · **cấm** toast locDeny |
 | Tap Báo cáo | toast «Báo cáo công» P1 |
 | Segment 0 | pop patrol-home |
 | Tap day row | toast «Chi tiết ngày công» P1 |

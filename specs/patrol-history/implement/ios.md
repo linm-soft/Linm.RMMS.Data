@@ -14,6 +14,7 @@
 
 - **cleanup_mock** (`task_430bde31`): live-only · `FetchPatrolHistoryOutcome` · GET OK empty = `[]` + `EmptyChromeView` · fail = toast `patrol.history.toast.loadFail` · **cấm** `PatrolHistoryCopy.demoItems`.
 - **GAP-MOB-EDIT-DEMO-01:** removed ≥3 demo fallback · removed `PatrolHistoryCopy.demoItems` SSOT.
+- **GAP-MOB-COPY:** `LinmSearchField` placeholder `LinmCopy.t("patrol.history.search")` · **cấm** kit default «Tìm».
 
 ## Delta (prior TL GAP fixes · task_c3705a2f)
 

@@ -116,6 +116,7 @@ Không `/wf-anim` trên adjust `asset-adjust`. Modal open/close + toast auto-dis
 | GAP-TYP-01 | Type | tab/sub **13** · row ≥**16** · modal title **17** |
 | GAP-DES-DEMO-RESCAN-01 | Hash skip | **Cấm** re-scan · dùng control-hint + real-data |
 | GAP-MOB-UX-07 | design ↔ HTML | Pack proto khớp design.md · search dài dual · **không** foot Gói |
+| GAP-MOB-COPY | list search «Tìm» | **PASS** placeholder `LinmCopy.t("asset.adjust.search")` dual · **cấm** kit default |
 
 ## Version meta (REQUIRED)
 

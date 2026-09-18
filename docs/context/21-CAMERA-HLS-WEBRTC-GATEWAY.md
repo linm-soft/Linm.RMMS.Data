@@ -4,6 +4,7 @@
 > **Feature:** `camera-connect` · MFE `Linm.Web.RMMS.Camera` · Domain **Camera**  
 > **Update:** 2026-09-09 — HLS mặc định · N viewer / 1 cam · KPI Đang xem · Events Info slide-out · checklist [`30-CAMERA-LIVE-STREAM-CONFIG.md`](30-CAMERA-LIVE-STREAM-CONFIG.md) · lease [`../plan/camera-live/PLAN-lease-ttl.md`](../plan/camera-live/PLAN-lease-ttl.md)  
 > **Upstream (đã có):** SDK Login_V40 · CaptureJPEG poll · ISAPI Digest/ingest · MFE JPEG UI — `api/v1/cameras/*`  
+> **G3 5G push:** [`PLAN-push-ingest.md`](../plan/camera-live/PLAN-push-ingest.md) · ops [`32-CAMERA-RTSP-PUBLISH-INGEST.md`](32-CAMERA-RTSP-PUBLISH-INGEST.md) — RTSP **publish :8554** · playback vẫn HLS fMP4  
 > **Nguồn:** `features/camera-connect.md` · `camera-model.md` · Cam-HT `08-CAMERA-STANDARD-HIKVISION.md` · seed **iDS-TCM403-GIR**  
 > **Mục tiêu plan:** Gateway để browser xem **live video** (FPS) — không chỉ snapshot JPEG.  
 > **Specs:** `specs/camera-connect/STATUS.md` · `implement/camera-connect.md`

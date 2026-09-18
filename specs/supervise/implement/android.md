@@ -5,7 +5,7 @@
 
 | Feature | `supervise` |
 | assembleDebug | **PASS** |
-| Kit | `LinmTopBar` · `LinmSegment` · `LinmSheet` · `LinmToast`/`LoginToastHub` · `EmptyChrome` · `LinmMapPinGlyph` · `LinmBusyOverlay` · card = feature composition · Material3 `DatePickerDialog` |
+| Kit | `LinmTopBar` · `LinmSegment` · `LinmSheet` · `LinmTextField` · `LinmToast`/`LoginToastHub` · `EmptyChrome` · `LinmMapPinGlyph` · `LinmBusyOverlay` · card = feature composition · Material3 `DatePickerDialog` |
 
 ## Layers
 
@@ -29,5 +29,7 @@ BFF `dotnet build` **PASS**. Step 4b **N/A**.
 ## Debt
 
 - GAP-MOB-SUP-04 BE fromDate **P2**
+
+`/edit-mobile-feature` 2026-09-18: **GAP-MOB-EDIT-FIELD-CHROME** — `#filterRoute` `LinmTextField` · **cấm** M3 `TextField` / raw `BasicTextField` · `./gradlew :app:assembleW0Debug` **PASS**.
 
 <!-- Version meta: skillId=agent-dev-android+dev-android-compose skillVersion=2026.08.19.26 schemaVersion=1 workflowVersion=2026.08.31.2 rulesVersion=2026.08.31.2 versionGate=rechecked taskId=task_a7ad9582 -->

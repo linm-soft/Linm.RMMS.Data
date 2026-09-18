@@ -49,5 +49,7 @@
 | generatedAt | `2026-09-12T13:15:00.000Z` |
 | versionGate | rechecked |
 
+`/edit-mobile-feature` 2026-09-18: **GAP-MOB-EDIT-FIELD-CHROME** — `#ci-content` `LinmTextArea` `textAreaCompactHeight` · placeholder `checkin.content.placeholder` · **cấm** raw `BasicTextField` `onSurface 0.12` · `assembleW0Debug` **PASS**.
+
 ---
 <!-- Version meta: skillId=agent-dev-android skillVersion=2026.08.20.03 schemaVersion=1 workflowVersion=2026.08.25.01 rulesVersion=2026.08.29.4 versionGate=rechecked -->

@@ -105,6 +105,7 @@ Pack P1: toast fade ~2.4s · primary busy ~350ms · slider↔number sync · leav
 | GAP-MOB-MNT-PROG-GPS-01 | no lat/lng API | device + Note embed · **cấm** fake |
 | GAP-MOB-MNT-PROG-LABEL-01 | init-data vs list VN | **giữ mnt-list** Chờ xử lý / Đang xử lý / … |
 | GAP-MOB-MNT-PROG-DONE-01 | complete vs @100 | cùng slug · POST complete |
+| GAP-MOB-EDIT-FIELD-CHROME | raw textarea 0.12 | **PASS** `LinmTextArea` `#note` dual · **cấm** revert |
 | AC-D-01 | offline | form mở · fail toast · queue DEFER |
 | AC-D-02 | GPS deny | modal · submit không GPS · **cấm** fake |
 | AC-D-03 | leave dirty | in-app confirm · **cấm** native alert |

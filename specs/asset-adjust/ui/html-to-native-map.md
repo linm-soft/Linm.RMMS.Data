@@ -6,7 +6,7 @@ Cite SSOT `docs/html-to-native-map.md`. Feature deltas (`#sc-asset-adjust` · `#
 |------|----------|-------|
 | `.nav-bar` / `.top-bar` | `LinmTopBar` | title **Cập nhật / bớt** dual same · leading back |
 | `.nav-btn` / `.icon-btn` back `#i-chevron-left` | `LinmTopBar` leading | `go('asset-hub')` · iOS text «Tài sản» + chevron · Android icon-only · **cấm** reimplement hub |
-| `.search` `#i-search` | `LinmSearchField` | placeholder **Tìm mã TS cần sửa hoặc bớt…** dual · debounce GET `?search=` |
+| `.search` `#i-search` | `LinmSearchField` | placeholder `LinmCopy.t("asset.adjust.search")` dual · debounce GET `?search=` · **cấm** kit default «Tìm» · **GAP-MOB-COPY** |
 | `.card-group` `.row` title | `LinmListRow` | `Code · typeLabel(Type)` · ≥**16** |
 | `.row-sub` | ListRow subtitle | `Route · Km {KmFrom}` · **13** |
 | `.btn-secondary` / text Sửa | SecondaryButton / TextButton | `go('asset-detail')` + Id · **cấm** PUT · thiếu Id → toast |

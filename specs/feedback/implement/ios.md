@@ -56,5 +56,7 @@
 | versionGate | rechecked |
 | contentHash | sha256:feedback-mobile-ios-implement-20260829 |
 
+`/edit-mobile-feature` 2026-09-18: **GAP-MOB-EDIT-FIELD-CHROME** — body `LinmTextArea` `textAreaTallHeight` · **cấm** raw `TextEditor` · dest **iPhone 17 Pro Max** + **iPad Pro 13-inch (M5)** **PASS**.
+
 ---
 <!-- Version meta: skillId=agent-dev-ios skillVersion=2026.08.20.03 schemaVersion=1 workflowVersion=2026.08.25.01 rulesVersion=2026.08.25.2 versionGate=rechecked -->

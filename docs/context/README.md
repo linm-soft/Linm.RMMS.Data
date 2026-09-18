@@ -23,6 +23,7 @@
 | [**features/gis-osm-clip.md**](features/gis-osm-clip.md) | GIS prod: OSM clip + overlay MapService | GIS, FE, Mobile |
 | [**features/legal-tech-corridor.md**](features/legal-tech-corridor.md) | Luật VN + Store (GPS / vẽ TS / guest) | Pháp chế, PM Store |
 | [**features/ios-store-submit.md**](features/ios-store-submit.md) | **iOS ASC** — Invalid Binary · CA92.1 · icon 1024 RGB · ATS · 2.3.3 | PM Store, Dev native |
+| [**features/android-store-submit.md**](features/android-store-submit.md) | **CH Play** — AAB · Studio Generate Bundles · Data safety · 1080×1920 | PM Store, Dev native |
 | [**features/directions.md**](features/directions.md) | Chỉ đường / HD điện tử guest | Product, Mobile |
 | [**features/import-gov-ssot.md**](features/import-gov-ssot.md) | **SSOT data dự án** — set `gov-vn` (429 tuyến · 642k KCHT · 2.920 đoạn) · hub 40 ô vs live DRVN · recapture dump. `Mẫu import` / `RMMS CUC 2` = demo | PM, Dev, Data |
 | [**implement-status.json**](implement-status.json) | **Pipeline implement theo feature+lane** (git) — scan/enqueue skip cùng status khi đổi máy | AutoCode scan · Dev |
@@ -67,7 +68,8 @@
 | [**27-CAMERA-SITE-INSTALL-BRIEF.md**](27-CAMERA-SITE-INSTALL-BRIEF.md) | **Gửi khách** — expect **xem live tại TTĐH** · tủ điện · quang/VPN · IP tĩnh + RTSP · gateway + tường hình | Khách, PM, ITS |
 | [**28-CAMERA-SECURITY.md**](28-CAMERA-SECURITY.md) | **Camera security** — AEAD 2 chiều · tách `Linm.RMMS.Camera` · resign URL exp / grant dashboard unlimit | Architect, BE, Security |
 | [**29-ONPREM-SERVER-STT66.md**](29-ONPREM-SERVER-STT66.md) | **On-prem STT 66** — API + PG + MQTT/SignalR · Linux OSS · dài hạn · BOM 28/08/2026 · **bản gửi khách** [`danh-gia-phong-may-chu-rmms-gui-khach.md`](../gioi-thieu-ung-dung/tai-lieu-ky-thuat/danh-gia-phong-may-chu-rmms-gui-khach.md) | Infra, PM, Architect, **khách** |
-| [**plan/camera-live/PLAN.md**](../plan/camera-live/PLAN.md) | **P2-G0/G1/G2b live** — MediaMTX HLS · lease TTL · WebRTC ẩn · fallback JPEG | Architect, Dev, ITS |
+| [**plan/camera-live/PLAN.md**](../plan/camera-live/PLAN.md) | **P2-G0/G1/G2b live** — MediaMTX HLS · lease TTL · WebRTC ẩn · fallback JPEG · **G3** [`PLAN-push-ingest.md`](../plan/camera-live/PLAN-push-ingest.md) RTSP publish 5G | Architect, Dev, ITS |
+| [**32-CAMERA-RTSP-PUBLISH-INGEST.md**](32-CAMERA-RTSP-PUBLISH-INGEST.md) | **URL publish** gửi khách (máy nhúng 5G → MTX :8554 · H.264) | ITS, Dev, khách |
 | [**19-IP-REGISTRATION-MATRIX.md**](19-IP-REGISTRATION-MATRIX.md) | **Ma trận SHTT VN** — thành phần có thể đăng ký (QTG · NH · GPHI · BMKD) · gói G0–G6 | PM, legal, C-level |
 
 ## Demo standalone (std mode)

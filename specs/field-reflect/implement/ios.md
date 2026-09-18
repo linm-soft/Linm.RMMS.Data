@@ -44,5 +44,7 @@
 
 - Must: 0 · live-only sessions · toast kit (no `UIAlertController`) · zones `#sc-field-pick` / `#sc-field-reflect` giữ
 
+`/edit-mobile-feature` 2026-09-18: **GAP-MOB-EDIT-FIELD-CHROME** — desc `LinmTextArea` · **cấm** raw `TextEditor` · dest **iPhone 17 Pro Max** + **iPad Pro 13-inch (M5)** **PASS**.
+
 ---
 <!-- Version meta: skillId=agent-dev-ios skillVersion=2026.09.05.03 schemaVersion=1 -->

@@ -112,6 +112,8 @@
 
 `/edit-mobile-feature` 2026-09-12: **GAP-MOB-EDIT-PRIVACY-COPY** — `#sc-privacy` copy user-facing khớp app · **cấm** placeholder Store/landing · **cấm** invent HTTPS.
 
+`/edit-mobile-feature` 2026-09-18: **GAP-MOB-EDIT-FAQ-SEARCH** — `#f-faq-search` capsule `card` · `BasicTextField` / iOS `TextField` · `LinmSearchGlyph` trailing · **cấm** M3 `TextField` / SF `magnifyingglass`.
+
 ## Blockers / open questions
 
 - GAP-F-HOME-01 — SA/TL/Dev/QA/Review: role **ẩn live** · wallet **static demo** · **verified**

@@ -49,7 +49,7 @@ SSOT visual = dual HTML `#sc-attendance` (iOS 390×844 · Android 412×915 · **
 2. Segment idx **0** **Tuần đường** → pop `#sc-patrol-home` · idx **1** **Chấm công** owner — **cấm** reorder (`GAP-TAB-01`).
 3. Appear: GET `patrol/attendance-logs` · aggregate 7-day · fail/empty/offline → demo SSOT · screen **vẫn mở**.
 4. Tap **Chấm vào** → GPS usable → POST body · HTTP **2xx = success** (không fail vì decode body) · `userName` = `lastWho()` (display · login id · JWT `full_name`) · success toast · hero → **Đã chấm vào** · refresh days · **cấm** native alert.
-5. GPS deny → toast locDeny · **không** POST. GPS invalid/timeout → locTimeout. Offline → `common.offline`. HTTP fail → checkInFail.
+5. GPS deny → in-app `GpsDenyModal` `DES-MOB-GPS-DENY` (OS confirm nếu chưa hỏi) · **không** POST · **cấm** toast locDeny. GPS invalid/timeout → locTimeout. Offline → `common.offline`. HTTP fail → checkInFail.
 6. Tap **Báo cáo** → **push** `#sc-attendance-report` · **cấm** toast-only · **cấm** invent report API.
 7. Tap day row → **push** `#sc-attendance-day` + `dayKey`.
 8. Patrol-home seg **Chấm công** → push `#sc-attendance` (`reuse` entry · **cấm** reimplement patrol-home).
@@ -131,7 +131,7 @@ POST body P1: `userName` · `route`=`QL.1` · `checkInAt` · `lat`/`lng` · `inZ
 |----|----------|----------------|
 | GAP-MOB-ATT-01 | Báo cáo live | **closed** 2026-09-16 · push `#sc-attendance-report` |
 | GAP-MOB-ATT-02 | Day detail live | **closed** · push `#sc-attendance-day` |
-| GAP-MOB-ATT-03 | GPS deny | toast locDeny · **không** POST |
+| GAP-MOB-ATT-03 | GPS deny | in-app `DES-MOB-GPS-DENY` · **không** POST · **cấm** toast locDeny |
 | packKind | data-analy `list` · UI hub | **Confirm `list`.** UI = hub DES-MOB-ATT |
 | Step 4b | New endpoint? | **N/A** — reuse GET+POST |
 | Sibling 2 × `pending_confirm` | GAP-MOB-ACT-06 | **Không** start |
@@ -152,9 +152,9 @@ UNCLEAR field = **none**.
 | ID | Behavior | AC |
 |----|----------|-----|
 | AC-D-01 | Offline | Screen **mở** · demo SSOT days · toast in-app · **cấm** full-screen block |
-| AC-D-02 | GPS deny | Toast locDeny · **không** POST |
+| AC-D-02 | GPS deny | OS permission confirm nếu chưa hỏi · đã deny → `GpsDenyModal` `DES-MOB-GPS-DENY` · **không** POST · **cấm** toast locDeny |
 | AC-D-03 | Leave dirty | **N/A** — không form |
-| AC-D-04 | Native alert | **Cấm** · mọi phản hồi = `LinmToast` |
+| AC-D-04 | Native alert | **Cấm** `UIAlert` / `AlertDialog` · GPS deny = in-app modal · còn lại `LinmToast` |
 | AC-D-05 | Keyboard | **N/A** |
 | AC-D-06 | Safe area | Large title + segment + hero + rows không đè notch / home indicator |
 | AC-D-07 | Biometric | **N/A** |
@@ -177,7 +177,7 @@ UNCLEAR field = **none**.
 |------|-----|
 | Dirty leave | **Không áp dụng** |
 | Logs fail / offline | Demo fallback + optional toast · **cấm** native alert |
-| GPS deny / POST fail | Toast · keep Chưa chấm |
+| GPS deny / POST fail | Deny = `GpsDenyModal` · POST fail = toast · keep Chưa chấm |
 | Báo cáo / day | Toast §3 |
 | Seg 0 | Pop · không confirm |
 

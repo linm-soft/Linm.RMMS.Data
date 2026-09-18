@@ -11,7 +11,7 @@
 | woCode | List | `.row` · `#wo-code` | `LinmListRow` | same | CV-* / WO-* |
 | woStatus | List + badge | `.row` · `#wo-status-text` · `#wo-status-badge` | `LinmListRow` + badge | same | VN mnt-list map |
 | progressPct | Field | `.field` · `#progress-pct` · `#progress-slider` | `LinmTextField` / slider | same | 0–100 → `ProgressPercent` |
-| note | Field | `.field` textarea · `#note` | `LinmTextArea` | same | → `Note` · + GPS text |
+| note | Field | `.field` textarea · `#note` | `LinmTextArea` | same | `textAreaMinHeight` · `card` + `border` · **cấm** raw `TextEditor` / `onSurface 0.12` · **GAP-MOB-EDIT-FIELD-CHROME** · → `Note` · + GPS text |
 | photoLabel | Section | `.section-label` | SectionLabel | same | **Ảnh hiện trường** |
 | photos / addPhoto | Photo | `.photo-row` · `#i-camera` | PhotoRow · `LinmIconButton` | same | device · không progress body P1 |
 | locationRow | List | `.row` · `#location-row` | `LinmListRow` | same | device GPS · **cấm** map |

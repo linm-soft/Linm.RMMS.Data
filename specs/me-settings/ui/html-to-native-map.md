@@ -15,7 +15,7 @@
 | sectionSync | Section | `.section-label` | `LinmSectionLabel` | same | Đồng bộ |
 | rowOffline | ListRow nav | `#row-offline` · `#i-sync` | `LinmListRow` | same | `reuse=patrol-offline` |
 | sectionAbout | Section | `.section-label` | `LinmSectionLabel` | same | Thông tin |
-| appVersion | Display | `#row-version` · `#app-version` | Text | same | Bundle `x.y.z (build)` · empty «—» |
+| appVersion | Display | `#row-version` · `#app-version` | Text | same | marketing `x.y.z` only · **cấm** build · empty «—» |
 | rowPrivacy | ListRow nav | `#row-privacy` · `#i-info` | `LinmListRow` | same | push privacy · `home.privacy.*` |
 | Privacy panel | Content | `#privacy-panel` · `#privacy-body` | scroll Text `fieldText` | same | `home.privacy.body` user-facing · **cấm** invent HTTPS |
 | Toast OS fail | Banner | `#toast` | `LinmToast` | same | **cấm** alert · **cấm** fake ok |
@@ -42,7 +42,7 @@
 | `openOsSettings()` | iOS `UIApplication.openSettingsURLString` · Android `ACTION_APPLICATION_DETAILS_SETTINGS` |
 | `?fail=1` → toast «Không mở được Cài đặt hệ thống» | catch open fail → `LinmToast` · **cấm** fake ok |
 | `?unknown=1` → «Không xác định» | OS undetermined / restricted |
-| `#app-version` Bundle mock | `CFBundleShortVersionString` + build / `versionName` + `versionCode` |
+| `#app-version` Bundle mock | `CFBundleShortVersionString` / `versionName` only · **cấm** `CFBundleVersion` / `versionCode` |
 | `?emptyver=1` → «—» | empty fallback |
 | `goOffline()` | nav `patrol-offline` · **cấm** reimplement queue |
 | `openPrivacy()` | push/sheet `home.privacy.title` / `home.privacy.body` |

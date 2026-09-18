@@ -135,6 +135,7 @@ Không `/wf-anim` trên pack. Sheet slide-up · toast fade ~2.4s · modal backdr
 | GAP-MOB-CI-PLAN-BE-01 | plan-points MISSING | interim session label · SA Kind E |
 | GAP-MOB-BFF-FILE-01 | NuGet thiếu | offline queue |
 | GAP-MOB-EDIT-DIST-KM-01 | Live «264384 m» khó đọc | **> 1000 m → km** dual `#ci-dist` + detail + banner |
+| GAP-MOB-EDIT-FIELD-CHROME | raw textarea 0.12 | **PASS** `LinmTextArea` `#ci-content` `textAreaCompactHeight` · placeholder `checkin.content.placeholder` · **cấm** revert |
 
 ## Gate
 

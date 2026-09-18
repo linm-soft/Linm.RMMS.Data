@@ -4,7 +4,7 @@
 |------------|------|---------|-------------|-------|
 | `.nav-bar` / `.top-bar` · DES-MOB-PAT-LIST-NAV | Nav | `LinmTopBar` | `LinmTopBar` | leading **Tuần đường** · trailing **Lọc** |
 | `.large-title` | Title | `LinmLargeTitle` | same | **Lịch sử ca** |
-| `.search` + `#i-search` · DES-MOB-PAT-LIST-SEARCH | Search | `LinmSearchField` · `LinmSearchGlyph` | same | native placeholder **Tìm** |
+| `.search` + `#i-search` · DES-MOB-PAT-LIST-SEARCH | Search | `LinmSearchField` · `LinmSearchGlyph` | same | placeholder `LinmCopy.t("patrol.history.search")` · **cấm** kit default «Tìm» · **GAP-MOB-COPY** |
 | `.row.no-icon` · DES-MOB-PAT-LIST-ROWS | List row | `LinmListRow` `leadingSlot: 0` | same | **cấm** leading icon |
 | `.row-title` | Code | title ≥16 | same | PAT-* |
 | `.row-sub` | Subtitle | subtitle 13 | same | status-aware |

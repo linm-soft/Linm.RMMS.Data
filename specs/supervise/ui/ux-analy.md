@@ -109,6 +109,7 @@ Touch targets ≥44 iOS / ≥48 Android trên Lọc · Apply · Clear · seg.
 | GAP-MOB-SUP-02 map sibling push | **closed** in design proto |
 | GAP-MOB-SUP-04 BE fromDate | **P2** open |
 | GAP-MOB-SUP-03 org | keep |
+| GAP-MOB-EDIT-FIELD-CHROME | **PASS** `#filterRoute` `LinmTextField` dual · **cấm** M3 `TextField` / raw `BasicTextField` · **cấm** revert |
 
 ## Version meta
 

@@ -78,6 +78,7 @@ AskQuestion: `route_confirm=route_a` · `2026-08-19T20:40:00.000Z`.
 | `source.repo` | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS` |
 | `ssot.zones` | `DES-MOB-ATT` · `#sc-attendance` |
 | Files | `Presentation/Features/Attendance/AttendanceView.swift` · `AttendanceViewModel.swift` · `Domain/UseCases/AttendanceUseCases.swift` · `Domain/Entities/AttendanceModels.swift` · `Data/Repositories/AttendanceRepositoryImpl.swift` · `AppRouter` `showAttendanceFromField` · `AppContainer` DI |
+| UI notes | GPS deny = overlay `GpsDenyModal` `DES-MOB-GPS-DENY` (copy / Để sau) · CoreLocation `requestWhenInUseAuthorization` nếu notDetermined · **cấm** toast `patrol.map.locDeny` |
 
 ### Build DoD
 
@@ -94,6 +95,7 @@ xcodebuild -scheme LinmRmms -destination 'platform=iOS Simulator,name=iPhone 17 
 |--|--|
 | `source.repo` | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android` |
 | Files | `presentation/feature/attendance/AttendanceScreen.kt` · `AttendanceViewModel.kt` · `AttendanceUiState.kt` · domain/data attendance · `MainTabScreen` route `attendance` |
+| UI notes | **Chấm vào** → `rememberAskLocationPermission` (OS confirm) · deny → `GpsDenyDialog` `DES-MOB-GPS-DENY` · **cấm** toast locDeny |
 
 ### Build DoD
 
@@ -115,7 +117,7 @@ Reuse live GET/POST `api/v1/patrol/attendance-logs` via BFF proxy. **Cấm** inv
 |---------|----------|
 | Patrol seg Chấm công | push `#sc-attendance` |
 | Seg Tuần đường | pop patrol-home |
-| Chấm vào | GPS usable → POST 2xx success · lastWho JWT · offline toast `common.offline` · **cấm** fail vì decode body |
+| Chấm vào | GPS usable → POST 2xx success · lastWho JWT · GPS deny = `GpsDenyModal` `DES-MOB-GPS-DENY` (Android OS confirm trước) · **cấm** toast locDeny · offline toast `common.offline` · **cấm** fail vì decode body |
 | Báo cáo | toast **Báo cáo công** |
 | Tap day | toast **Chi tiết ngày công** |
 

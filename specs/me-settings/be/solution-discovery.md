@@ -151,7 +151,7 @@ AskQuestion (autoApprove=ON · không chờ board): `be_repo_confirm`=`/Users/ma
 | Screen `#sc-me-settings` | **không** | **Ship** dual Design kit |
 | openAppSettings | **chưa** helper chung trên Me | **Ship** iOS `openSettingsURLString` · Android `ACTION_APPLICATION_DETAILS_SETTINGS` · fail → toast |
 | Location / Camera status | dùng ở feature khác (request + check) | **Read-only** status trên settings · **cấm** request |
-| Bundle version | Info.plist / versionName | **Display** `x.y.z (build)` · empty «—» |
+| Bundle version | Info.plist / versionName | **Display** marketing `x.y.z` only · **cấm** build · empty «—» |
 | Privacy copy | `home.privacy.*` + `HomePrivacyView` | **Reuse** push/sheet · **cấm** invent URL |
 | Offline row | `patrol-offline` owner | **Nav reuse** |
 | BFF/BE settings | **không** | **Cấm invent** · Step 4b Skip |
@@ -181,7 +181,7 @@ AskQuestion (autoApprove=ON · không chờ board): `be_repo_confirm`=`/Users/ma
 | sectionSync | Đồng bộ | — | local | `LinmSectionLabel` **13** |
 | rowOffline | Hàng đợi mất sóng | — | nav `patrol-offline` | `LinmListRow` `#i-sync` · reuse |
 | sectionAbout | Thông tin | — | local | `LinmSectionLabel` **13** |
-| appVersion | Phiên bản | — | Bundle / BuildConfig | Text display · `x.y.z (build)` · empty «—» |
+| appVersion | Phiên bản | — | Bundle / BuildConfig | Text display · `x.y.z` · **cấm** build · empty «—» |
 | rowPrivacy | Chính sách quyền riêng tư | — | local copy `home.privacy.*` | `LinmListRow` `#i-info` |
 | toastOsFail | Không mở được Cài đặt hệ thống | — | after OS open fail | `LinmToast` · **cấm** fake ok |
 | rowSettings | Cài đặt (hub) | — | local nav | reuse Me · `#i-gear` · `row-settings` · iOS chevron · Android **không** chevron |
@@ -217,7 +217,7 @@ AskQuestion (autoApprove=ON · không chờ board): `be_repo_confirm`=`/Users/ma
 | GAP-MOB-MESET-SCR-01 | **CLOSED** · ship screen dual Design |
 | GAP-MOB-MESET-OS-01 | **CLOSED** · iOS `openSettingsURLString` · Android `ACTION_APPLICATION_DETAILS_SETTINGS` · fail toast · **cấm** fake ok |
 | GAP-MOB-MESET-STATUS-01 | **CLOSED** · OS read-only «Đã cấp / Chưa cấp / Không xác định» · **không** request · **không** BFF |
-| GAP-MOB-MESET-VER-01 | **CLOSED** · Bundle `x.y.z (build)` · empty «—» |
+| GAP-MOB-MESET-VER-01 | **CLOSED** · marketing `x.y.z` only · **cấm** build · empty «—» |
 | GAP-MOB-MESET-PRIVACY-01 | **OPEN** (P1 static `home.privacy.*` ship) · HTTPS URL khi khách giao · **cấm invent** |
 | GAP-MOB-MESET-DEMO-01 | **CLOSED** (Design dual) · SA **cấm** re-scan |
 | GAP-MOB-MESET-DATA-01 | **CLOSED** · §B bind OS/Bundle/copy/nav |

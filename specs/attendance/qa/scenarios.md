@@ -34,9 +34,9 @@
 | ID | Expect | Result |
 |----|--------|--------|
 | AC-D-01 | Offline / empty GET → empty days (no demoDays) | **PASS** (live-only post cleanup_mock) |
-| AC-D-02 | GPS deny → toast · no POST | **PASS** (code path) |
+| AC-D-02 | GPS deny → OS confirm / `GpsDenyModal` · no POST · **cấm** toast locDeny | **OPEN** — `/edit-mobile-feature` 2026-09-18 code path |
 | AC-D-03 | Leave dirty | **N/A** |
-| AC-D-04 | Cấm native alert · toast only | **PASS** |
+| AC-D-04 | Cấm `UIAlert`/`AlertDialog` · GPS deny = in-app modal | **OPEN** — code path 2026-09-18 |
 | AC-D-05 | Keyboard | **N/A** |
 | AC-D-06 | Safe area | **PASS** |
 | AC-D-07 | Biometric | **N/A** |

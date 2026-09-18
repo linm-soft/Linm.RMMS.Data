@@ -76,6 +76,7 @@ Cold start → #sc-home guest (Khách + FAQ) · **ẩn** DES-MOB-TABBAR
 | who | Khách / FullName | typography hero | — | guest copy · staff GET profile · loading `.who` empty = bone pulse `home-who-skeleton` (`brandLogo`×`heroWho`) · **cấm** flash Khách · **cấm** `LinmBusyOverlay` hub · **cấm** hardcode production |
 | loginBtn | Đăng nhập | Button card | — | `btn-home-login` · phụ Dành cho cán bộ · **pin bottom** guest · ẩn staff |
 | guestFaq | Câu hỏi thường gặp | row card | chevron | `btn-home-faq` · guest only · overlay `#sc-faq` |
+| faqSearch | Tìm kiếm câu hỏi | capsule `card` + `LinmSearchGlyph` | **cấm** M3 `TextField` / SF `magnifyingglass` | `#f-faq-search` · height `controlHeight` 44 · pad 14 · `fieldText` 16 · placeholder `muted` (no extra alpha) · trailing `#i-search` glyph · IME Search · **GAP-MOB-EDIT-FAQ-SEARCH** |
 | guestPrivacy | Chính sách quyền riêng tư | underline link | — | `btn-home-privacy` · guest only · **pin bottom dưới login** · overlay `#sc-privacy` · body `home.privacy.body` user-facing · **cấm** invent HTTPS |
 | quickPatrol | Điểm tuần | `LinmQuickItem` | `mappin` ↔ `Place` | phụ **Ghim định vị · lý trình** · toast |
 | quickIncident | Ghi sự cố | `LinmQuickItem` | `exclamationmark.triangle` ↔ `Warning` | phụ **Chọn tài sản · mẫu sự cố** · toast |
@@ -117,6 +118,7 @@ Toast / banner → `LinmToast`. **Cấm** raw `LazyVGrid` / `LazyVerticalGrid` /
 - Gộp sibling screens · start `pending_confirm`
 - Ship `LinmKitGallery` trên production Trang Chủ
 - Flash **Khách** lúc staff GET `auth/profile` · `LinmBusyOverlay` trên hub (`GAP-MOB-EDIT-HOME-WHO-SKEL`) — loading = bone `home-who-skeleton` dual
+- `#f-faq-search` M3 `TextField` / SF `magnifyingglass` / Material Search (`GAP-MOB-EDIT-FAQ-SEARCH`) — capsule `BasicTextField` + `LinmSearchGlyph` dual
 
 ## 6. Handoff → SA
 
