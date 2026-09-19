@@ -6,11 +6,13 @@
 | title | [Mobile] [Công việc] → Nhật ký xử lý |
 | this role | `review` · `/agent-review-mobile` |
 | status | **done** |
-| review_confirm | **approve** (autopilot · `task_0d2f0ee6` · autoApprove=ON) |
+| review_confirm | **approve** (autopilot · `task_c4e19273` · autoApprove=ON) |
+| align_confirm | **approve** |
+| post_review | **skip** |
 | packKind | **`sheet`** (surface full screen `#sc-mnt-log` · `DES-MOB-MNT-LOG`) |
 | lane | `mobile` · **cấm** mfeStdUrl / yarn start:std |
-| prior · qa | `qa/scenarios.md` · **confirmed** · e2eQa ON · `ok:true` · align **Aligned** · Must **0** |
-| prior · dev | `implement/{ios,android}.md` · **confirmed** · builds PASS |
+| prior · qa | `qa/scenarios.md` · **confirmed** · e2eQa ON · `ok:true` · align **Aligned** · Must **0** · `task_83b15fda` |
+| prior · dev | `implement/{ios,android}.md` · **confirmed** · VERIFY 3/3 · A11Y-01 **CLOSED** |
 | prior · sa | `be/solution-discovery.md` · **confirmed** · Step 4b **N/A** |
 | prior · design | `ui/design.md` · `demo-parity.md` · **confirmed** |
 | ios | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS` |
@@ -18,9 +20,9 @@
 | bff | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Bff` · catch-all proxy `maintenance/*` |
 | backend | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.WebService` · **cấm ERP.*** |
 | autoApprove | **ON** |
-| e2eQa | **ON** (prior QA · **cấm** re-run e2e ở role Review) |
-| updatedAt | `2026-08-29T08:25:39.000Z` |
-| taskId | `task_0d2f0ee6` |
+| e2eQa | **ON** (prior QA · **cấm** re-run e2e / crawl ở role Review) |
+| updatedAt | `2026-09-19T15:30:00.000Z` |
+| taskId | `task_c4e19273` |
 
 ## REVIEW-META
 
@@ -32,8 +34,8 @@
 | API | GET GetById only · client derive timeline · **cấm** `…/logs` / history invent |
 | QA store | `qa/store/mnt-log/` A11/A9/A3/P6/P6-2 live PNG · `ok:true` |
 | align | `ui/review/align-ux.md` · Must **0** · `demo-parity.md` Must closed |
-| skillVersion | agent-review-mobile **2026.08.20.01** |
-| contentHash | `sha256:mnt-log-mobile-control-hint-20260829` · unchanged |
+| skillVersion | agent-review-mobile **2026.08.31.2** |
+| contentHash | `sha256:5c74f801620d6dabea7e29b3591c3298a358205a64070a14c4d371d3098a3dd3` · recheck_new |
 
 ## Security + permission
 
@@ -41,12 +43,14 @@
 |-------|--------|
 | Token store iOS Keychain · Android EncryptedSharedPreferences | **PASS** |
 | Interceptor Bearer + `X-Company-Id` | **PASS** (`ApiClient` / `AuthInterceptor`) |
-| IDOR `{id}` | **PASS** — path `maintenance/work-orders/{id}` · tenant header + Bearer · missing id → banner + **no API** |
+| IDOR `{id}` | **PASS** — path `maintenance/work-orders/{id}` · tenant header + Bearer · empty id → banner + **no API** |
 | Location / camera Info.plist · Manifest | **N/A** — readonly nhật ký · không capture GPS/camera |
 | `alert` / `UIAlert` / `AlertDialog` trên mnt-log | **PASS** — toast + banner only · không system alert |
 | Invent `…/logs` / `mnt-log` API / `mfeStdUrl` / watermark | **PASS** — không ship |
 | Plaintext token / UserDefaults JWT | **PASS** — Keychain / Encrypted only |
 | Write CTA / composer | **PASS** — readonly · none |
+| `demoItems` làm nguồn màn | **PASS** — **không** GAP-MOB-REAL-02 · live GetById |
+| QA BFF/DB chứng | **PASS** — WO-DEMO LIVE · **không** GAP-QA-REAL-01 |
 
 ## DTO parity (iOS = Android = Web)
 
@@ -63,13 +67,14 @@
 
 | Zone | Result |
 |------|--------|
-| A3-CORE (1320×2868) vs demo `#sc-mnt-log` | **PASS** — title **Nhật ký xử lý** · back **Công việc** · WO Nạo cống / WO-DEMO-2 / Đã hoàn thành · section **Nhật ký** · empty **Chưa có nhật ký** · toast **Không tải được nhật ký** · tab **work** |
-| P6-CORE / P6-CORE-2 (1080×1920) vs demo | **PASS** — same zones · Material back chevron · overflow `…` Accept · empty fits fold |
-| Demo code `CV-…` vs live `WO-DEMO-2` | **Accept** — demoItems / seed SSOT |
-| WO `.row-icon` / timeline `#i-*` invent | n/a (`no-icon` · CSS dots) · **không** GAP-MOB-UX-COMP-03 |
+| A3-CORE (1320×2868) vs demo `#sc-mnt-log` | **PASS** — title **Nhật ký xử lý** · back **Công việc** · WO header · section **Nhật ký** · timeline colored dots · tab **work** · LIVE `WO-DEMO-202609-002` |
+| P6-CORE / P6-CORE-2 (1080×1920) vs demo | **PASS** — same zones · Material back chevron · overflow `…` Accept · scroll timeline · LIVE `WO-DEMO-202609-001` |
+| Demo code `CV-…` vs live `WO-DEMO-*` | **Accept** — seed SSOT / GAP-QA-REAL-01 |
+| WO `.row-icon` / timeline `#i-*` invent | n/a (CSS/native dots) · **không** GAP-MOB-UX-COMP-03 |
 | Watermark / device label | **PASS** — none |
-| GET fail → empty + toast · **cấm** fake timeline | **PASS** (live demo-wo-2) |
+| GET fail → empty + toast · **cấm** fake timeline | **PASS** (code path · happy path LIVE) |
 | Must align / demo-parity / COLOR / COMP / E2E-VIS | **0** open |
+| A11Y glyph `mnt.log.a11y` | **CLOSED** (Dev dual) · Should ROW-01 only non-block |
 
 ## Store gate
 
@@ -78,6 +83,15 @@
 | Store PNG A11/A9/A3 1320×2868 RGB · P6/P6-2 1080×1920 RGB | **PASS** |
 | `PrivacyInfo.xcprivacy` (app-level) | **Accept** P2 → `/review-app-submit` (feature không thêm location/camera) |
 | A4-IPAD | **DEFER** family `1` · `GAP-SUBMIT-IMG-08` N/A Phase 1 |
+
+## E2E crawl (Step 5d)
+
+| Check | Result |
+|-------|--------|
+| `/run-mobile-e2e --crawl` | **SKIP** — roleOnly=review VERIFY · **cấm** e2e this turn |
+| Prior QA Maestro | **PASS** · `qa/e2e/{ios,android}.yaml` · entry `#btn-mnt-log-{uuid}` |
+| `CLICKABLES.md` | **N/A** this turn · cite QA flows |
+| GAP-MOB-ACT-03 | **none** open · bugs Must **0** · **cấm** enqueue sibling (`GAP-MOB-ACT-06`) |
 
 AskQuestion (autoApprove=ON): `review_confirm=approve` · `align_confirm=approve` · `post_review=skip`.
 
@@ -90,11 +104,22 @@ AskQuestion (autoApprove=ON): `review_confirm=approve` · `align_confirm=approve
 | R-03 | DTO | — | Dual derive parity · Status VN map | **OK** |
 | R-04 | IDOR | — | `{id}` + tenant · empty id → no call | **OK** |
 | R-05 | Align | — | A3 + P6 + P6-2 Read vs demo · Must **0** | **OK** |
-| R-06 | A11y | Should | GAP-MOB-A11Y-01 iOS log glyph a11y id (QA) | **Accept** · không block · `/edit-mobile-feature` |
+| R-06 | A11y | — | GAP-MOB-A11Y-01 **CLOSED** · `mnt.log.a11y` dual | **OK** |
 | R-07 | History | — | HIST-01 CLOSED P1 · derive GetById | **Defer** API · P1 OK |
 | R-08 | QA | — | e2eQa ON · Maestro · store live · Aligned | **OK** |
 | R-09 | Store | P2 | PrivacyInfo / Data safety submit | **Accept** |
 | R-10 | Step 4b | — | T-BE **n/a** | **OK** |
+| R-11 | Real | — | no demoItems source · LIVE WO-DEMO | **OK** |
+| R-12 | Crawl | — | e2e crawl skip roleOnly · ACT-03 none | **OK** |
+
+## Counts
+
+| Metric | Value |
+|--------|-------|
+| Must open | **0** |
+| Should open | **1** (GAP-MOB-A11Y-ROW-01 non-block) |
+| P0 security | **0** |
+| review_confirm | **approve** |
 
 ## Task gate
 
@@ -103,10 +128,10 @@ AskQuestion (autoApprove=ON): `review_confirm=approve` · `align_confirm=approve
 | T-IOS-MNT-LOG | PASS (prior Dev) |
 | T-AND-MNT-LOG | PASS (prior Dev) |
 | T-BE-* | **n/a** |
-| T-QA | PASS (`ok:true` · `task_4e998908`) |
+| T-QA | PASS (`ok:true` · `task_83b15fda`) |
 | T-REVIEW-SEC / DTO / ALIGN | PASS · Must align = **0** |
 
-## VERIFY GATE (`task_0d2f0ee6` · roleOnly=`review`)
+## VERIFY GATE (`task_c4e19273` · roleOnly=`review`)
 
 | Gate | Result |
 |------|--------|
@@ -118,7 +143,7 @@ AskQuestion (autoApprove=ON): `review_confirm=approve` · `align_confirm=approve
 
 ## Verdict
 
-mnt-log dual-native sheet→screen readonly: security + DTO + UI align Must **0** · VERIFY GATE artifact PASS · Step 4b N/A · Should A11Y Accept · HIST DEFER API. **Approve** (autopilot). Pipeline **complete**.
+mnt-log dual-native sheet→screen readonly: security + DTO + UI align Must **0** · VERIFY GATE artifact PASS · Step 4b N/A · A11Y CLOSED · HIST DEFER API · crawl skip roleOnly. **Approve** (autopilot). Pipeline **complete**.
 
 ## Handoff
 
@@ -128,24 +153,25 @@ mnt-log dual-native sheet→screen readonly: security + DTO + UI align Must **0*
 | post_review | **skip** |
 | Next | `/edit-mobile-feature` — **cấm** re-run full pipeline |
 | Sibling | mnt-chat / mnt-progress / estimate — **không** start (`GAP-MOB-ACT-06`) |
+| compact | `handoff/review-compact.md` |
 
 ## Version meta (REQUIRED)
 
 | Field | Value |
 |-------|-------|
 | skillId | agent-review-mobile |
-| skillVersion | 2026.08.20.01 |
+| skillVersion | 2026.08.31.2 |
 | schemaVersion | 1 |
-| workflowVersion | 2026.08.25.01 |
-| rulesVersion | 2026.08.25.2 |
-| generatedAt | 2026-08-29T08:25:39.000Z |
-| versionGate | rechecked |
-| taskId | `task_0d2f0ee6` |
-| contentHash | sha256:mnt-log-mobile-control-hint-20260829 |
-| realDataHash | sha256:mnt-log-mobile-real-data-20260829 |
-| bffContentHash | sha256:mnt-log-mobile-bff-20260829 |
-| actionTreeHash | sha256:mnt-log-mobile-action-tree-20260829 |
-| ctxContentHash | sha256:87761a7752a493d6ad176d96d76ccaf6116ea407ec5ec5513b6e12372a58d701 |
-| demoContentHash | sha256:394ab44597648f04b25e6d58476378c16141feb53d3b58d39923b3defcff8328 |
+| workflowVersion | 2026.09.19.2 |
+| rulesVersion | 2026.09.19.6 |
+| generatedAt | 2026-09-19T15:30:00.000Z |
+| versionGate | recheck_new |
+| taskId | `task_c4e19273` |
+| contentHash | sha256:5c74f801620d6dabea7e29b3591c3298a358205a64070a14c4d371d3098a3dd3 |
+| realDataHash | sha256:5c74f801620d6dabea7e29b3591c3298a358205a64070a14c4d371d3098a3dd3 |
+| bffContentHash | sha256:maintenance-work-orders-getbyid-proxy-passthrough |
+| actionTreeHash | sha256:5c74f801620d6dabea7e29b3591c3298a358205a64070a14c4d371d3098a3dd3 |
+| ctxContentHash | sha256:5c74f801620d6dabea7e29b3591c3298a358205a64070a14c4d371d3098a3dd3 |
+| demoContentHash | sha256:d3ecd6203f20b49c25a282887298b7cf657385f1d610b3304da5a5bb393323d0 |
 
-<!-- Version meta: skillId=agent-review-mobile skillVersion=2026.08.20.01 schemaVersion=1 workflowVersion=2026.08.25.01 rulesVersion=2026.08.25.2 versionGate=rechecked -->
+<!-- Version meta: skillId=agent-review-mobile skillVersion=2026.08.31.2 schemaVersion=1 workflowVersion=2026.09.19.2 rulesVersion=2026.09.19.6 versionGate=recheck_new -->

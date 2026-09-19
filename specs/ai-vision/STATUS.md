@@ -3,8 +3,8 @@
 | Field | Value |
 |-------|-------|
 | feature | `ai-vision` |
-| phase | `qa` (web) · `done` (mobile lane) |
-| status | `await_confirm` (web QA) · `in_progress` (mobile) |
+| phase | `done` |
+| status | `await_confirm` |
 | changeScope | `edit_page` |
 | packKind | `ai` |
 | demo | `D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/ai-vision-demo.html` → `ai-vision/ai-vision.html` |
@@ -19,7 +19,7 @@
 | versionGate | `ok` |
 | mfeStdRoute | `/ai-vision` |
 | mfeStdUrl | `http://localhost:9301/ai-vision` |
-| updatedAt | `2026-09-12T08:54:29.222Z` |
+| updatedAt | `2026-09-19T06:04:35.047Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -46,8 +46,8 @@
 | 2.2 | sa | be/solution-discovery.md + `handoff/sa-compact.md` | **confirmed** |
 | 3 | team-lead | task/ai-vision.md + `handoff/team_lead-compact.md` | **confirmed** |
 | 4 | dev | implement/ai-vision.md + `handoff/dev-compact.md` | **confirmed** |
-| 5 | qa | qa/scenarios.md + `handoff/qa-compact.md` | **blocked** (web GAP-QA-STD-01) |
-| 6 | review | review/findings.md | **pending** (web) · mobile prior **confirmed** |
+| 5 | qa | qa/scenarios.md + `handoff/qa-compact.md` | **done** |
+| 6 | review | review/findings.md | **confirmed** |
 ## Tasks
 
 | id | page | role | deps | status | notes |

@@ -9,7 +9,7 @@
 | queue | `qlbd-mobile` |
 | demo | `specs/mobile-p1/ui/prototype/{ios,android}/index.html` |
 | generated | 2026-08-19T01:55:00.000Z |
-| meeting seed | `MEETING-1-5.md` · **enqueue_later** · `/scan-mobile-feature` |
+| meeting seed | `MEETING-1-5.md` · NT **run_selected** 19/09 · leftover họp 3–5 enqueue_later |
 
 ## Tree — home / Trang Chủ (pilot hub)
 
@@ -74,8 +74,9 @@ patrol-home                   ← kind=hub · tab Tuần đường · DES-MOB-PA
 ├── attendance                ← segment Chấm công · màn mới
 ├── patrol-map                ← hero Tiếp tục bản đồ · row Bản đồ ca
 ├── field-reflect             ← row Ghi nhận hư hỏng · họp 4
-├── nghiem-thu                ← row Công tác nghiệm thu · họp 1 · enqueue_later
-│   └── nghiem-thu-create     ← nav Tạo · sheet · enqueue_later
+├── nghiem-thu                ← row Công tác nghiệm thu · họp 1 · run_selected 19/09
+│   ├── nghiem-thu-create     ← nav Tạo · sheet
+│   └── nghiem-thu-detail     ← row tap Xem/Sửa · sheet · plus_detail (chưa HTML)
 ├── cam-patrol                ← row Thu thập camera
 ├── patrol-history            ← row Lịch sử phiên
 ├── patrol-pin                ← CTA Ghim vị trí hiện tại · hub job (P1 toast ≠ skip)
@@ -95,8 +96,9 @@ Họp 04/09 seed [`MEETING-1-5.md`](MEETING-1-5.md) — **enqueue_later** (chưa
 | `attendance` | `patrol-home` | Chấm công | `#sc-patrol-home` `.seg` | list | new | unique | — | `LinmSegment` idx 1 | patrol segment |
 | `patrol-map` | `patrol-home` | Tiếp tục bản đồ | `#sc-patrol-home` `#row-map` · hero | map | new | unique | — | `LinmListRow` `#i-map` | quick · hero · họp 5 |
 | `field-reflect` | `patrol-home` | Ghi nhận hư hỏng | `#row-reflect` | sheet | new | unique | — | `LinmListRow` `#i-camera` | quick · họp 4 |
-| `nghiem-thu` | `patrol-home` | Công tác nghiệm thu | `#row-nghiem-thu` · `#sc-nghiem-thu` | list | new | unique | — | `LinmListRow` `#i-check` | quick · họp 1 · **enqueue_later** |
-| `nghiem-thu-create` | `nghiem-thu` | Tạo nghiệm thu | `#sc-nghiem-thu` nav Tạo | sheet | new | unique | — | `LinmPrimaryButton` | NT form · họp 1 · **enqueue_later** |
+| `nghiem-thu` | `patrol-home` | Công tác nghiệm thu | `#row-nghiem-thu` · `#sc-nghiem-thu` | list | new | unique | — | `LinmListRow` `#i-check` | quick · họp 1 · **run_selected** `pending_confirm` |
+| `nghiem-thu-create` | `nghiem-thu` | Tạo nghiệm thu | `#sc-nghiem-thu` nav Tạo | sheet | new | unique | — | `LinmPrimaryButton` | NT form · họp 1 · **run_selected** `pending_confirm` |
+| `nghiem-thu-detail` | `nghiem-thu` | Chi tiết nghiệm thu | row tap `#sc-nghiem-thu` (HTML toast) · web `/{id}` | sheet | new | unique | — | `LinmListRow` | plus_detail · **run_selected** `pending_confirm` |
 | `cam-patrol` | `patrol-home` | Thu thập camera | `#row-cam` | sheet | new | unique | — | `LinmListRow` `#i-video` | quick |
 | `patrol-history` | `patrol-home` | Lịch sử phiên | `#row-history` | list | new | unique | — | `LinmListRow` `#i-list` | quick |
 | `patrol-pin` | `patrol-home` | Ghim vị trí hiện tại | `.btn-primary.pin-here` | sheet | new | unique | — | `LinmPrimaryButton` `#i-mappin` | hub CTA |

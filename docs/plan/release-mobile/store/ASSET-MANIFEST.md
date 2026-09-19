@@ -35,7 +35,7 @@ Capture live emulator **1080×1920** · PNG RGB **no alpha**. Acc chụp **`rmms
 | aab-w3-3 | rmms-w3-release-1.0.0-3.aab | Store binary **in review** | — | AAB | — | `b9d336c71df71676d4c43c227441c0035af84ad2fb21300676de07979de81b6b` | — | 2026-09-18 |
 | aab-w3-4 | rmms-w3-release-1.0.0-4.aab | Store binary **next** (R8 + AGP 9.0.1) | — | AAB | — | `2da3f8dda6e6c72d0c130ec22d1aa4625408b38855064863d1bd2f433f5120be` | — | 2026-09-18 |
 
-Upload AAB tiếp: `store/out/android/1.0.0-4/rmms-w3-release-1.0.0-4.aab` (sau khi 3 xong). Screenshots listing: `1.0.0-2/play-phone-01`…`04`. Listing: [`submit-info-play.html`](submit-info-play.html). Play notes: `rmms-002`.
+Upload AAB tiếp: `store/out/android/1.0.0-4/rmms-w3-release-1.0.0-4.aab` (sau khi 3 xong). Screenshots listing: `1.0.0-2/play-phone-01`…`04`. Listing: [`submit-info-play.html`](submit-info-play.html). Bài học: [`review-lessons/README.md`](review-lessons/README.md). Play notes: `rmms-002`.
 
 ## Play Dashboard pack (`/store-image-capture` Step 0b)
 

@@ -5,50 +5,58 @@ feature: nghiem-thu
 packKind: list
 role: dev
 status: done
-skillVersion: 2026.09.05.03
-writtenAt: 2026-09-12T09:45:00.000Z
-changeScope: new_page
-taskId: task_dda12f30
-contentHash: sha256:41b14359b00a0bacbd2f5e88ab9ed8f7604f962c4e4e58219bf9c1145b5ef4ea
-featureKind: B
-formPattern: Full page
-mfeStdUrl: http://localhost:9301/nghiem-thu
-build: PASS
+skillVersion: 2026.08.25.01
+writtenAt: 2026-09-19T16:05:00.000Z
+taskId: task_00546351
+autoApprove: ON
+changeScope: edit_page
+contentHash: sha256:a635f3f55a8bedd952c4449056cf072a8eda890eda2b30a45e84bda5d7bf3859
+formPattern: N/A
+featureKind: list-screen
 
 ## Decisions
-- changeScope: new_page · Kind B list · Full page `data-form-cols=5`
-- mfe: `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Field` · routes `/nghiem-thu` · `/new` · `/:id`
-- be: `D:/AI-QLBD/Linm.RMMS.WebService` · Patrol · `api/v1/patrol/nghiem-thu` · BFF proxy · **cấm ERP.***
-- migration: Schema_NghiemThu · NghiemThu + NghiemThuMedia · mediaIds guid[]
-- files: FileService `web-bff/api/v1/files/*`
-- filter: LinErpListFilterBar · search·status·route·templateType·from/to
-- Leave: LeaveConfirmModal · useFormLeaveGuard
-- config: LinCatalogUiSchemaEditorModal · buildDynamicGridColumns · **0** configHint
-- build: MFE yarn build PASS · BE Api+Bff dotnet build PASS
-- autoApprove ON · e2eQa queued QA only
-- next: `/agent-qa`
+- changeScope: edit_page · native list `#sc-nghiem-thu` dual iOS+Android · keep web
+- formPattern: N/A list · create/detail siblings pending_confirm → toast only
+- route_a: hub `#row-nghiem-thu` → list · Back patrol-home · tab field
+- API: `GET mobile-bff/api/v1/patrol/nghiem-thu` + `init-data` · live-only · **cấm** demoItems
+- BFF: catch-all keep · **no** NT controller invent · Step 4b **SKIP** · T-BE **n/a**
+- Build: iOS xcodegen+xcodebuild iPhone 17 Pro **PASS** · Android assembleDebug **PASS** · BFF dotnet **PASS**
+- e2eQa: queued `/agent-qa*` only · **cấm** mfeStdUrl / start:std this role
+- open questions: none
 
 ## Inventory (slim)
 | id | label | controlHint | notes |
 |----|-------|-------------|-------|
-| search/status/route/templateType/fromDate/toDate | filter | Search*·Date | wired |
-| code…mediaIds | form | Text·SearchInput·FileMulti | Full 5col |
-| updatedAt | Cập nhật | Date | readonly |
+| navBack | Tuần đường | BackButton | pop hub |
+| title | Công tác nghiệm thu | TopBar | fixed |
+| navCreate | Tạo | TextButton | toast pending sibling |
+| search | Tìm mẫu nghiệm thu… | SearchField | ?search= |
+| rowCode | NT-* | Text | Code |
+| rowSub | Mẫu · tuyến · Km | Text | Template·Route·Km |
+| rowStatus | Nháp/… | Badge | init-data |
+| rowTap | Chi tiết | ListRow | toast pending sibling |
+| empty/toast | — | EmptyChrome/Toast | 0 / fail |
 
 ## Screens / zones (ids only)
-- DES-GRID-A…D · C2a · C3 · F · H · Z · DES-NT-UPLOAD · DES-LEAVE
-- mfeStdUrl=`http://localhost:9301/nghiem-thu`
-- peerStdUrl=`http://localhost:9304/patrol`
+- DES-MOB-NGHIEM-THU · `#sc-nghiem-thu` · DES-MOB-NT-SEARCH · hub `#row-nghiem-thu`
+- reviewUrlIos=`…/prototype/ios/index.html` · reviewUrlAndroid=`…/prototype/android/index.html`
+- peerStdUrl=`http://localhost:9304/patrol` · **cấm** mfeStdUrl native
 
 ## API / tasks (ids only)
-- FormMode↔API: List→01 · V/E/Copy→02 · C→03 · E-save→04 · Del→05 · init→00 · Files→FILE
-- T-* Dev: T-PERM…T-UI-HIST **done** · T-QA-* pending
-- debt: Auth RequirePermission stub · assignee BE 422 soft · live responsive QA · migrate apply env
+- List→API-01 · Lookups→API-00 · C/E/V/D→OUT siblings
+- T-IOS-NGHIEM-THU · T-AND-NGHIEM-THU **done**
+- T-BE/T-BFF/T-KIT: **n/a**
+- next: `/agent-qa*` · T-QA-NGHIEM-THU
+
+## Debt
+- create/detail screens pending_confirm
+- Auth RequirePermission stub (KEEP web)
+- Android assembleDebug may need ↑ heap on low-RAM hosts
 
 ## UNCLEAR
-- none blocking Dev→QA
+- none
 
 ## Full paths (Read only if needed)
-- implement: `D:/AI-QLBD/Linm.RMMS.Data/specs/nghiem-thu/implement/nghiem-thu.md`
-- task: `D:/AI-QLBD/Linm.RMMS.Data/specs/nghiem-thu/task/nghiem-thu.md`
-- STATUS: `D:/AI-QLBD/Linm.RMMS.Data/specs/nghiem-thu/STATUS.md`
+- ios: /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/nghiem-thu/implement/ios.md
+- android: /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/nghiem-thu/implement/android.md
+- STATUS: /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/nghiem-thu/STATUS.md

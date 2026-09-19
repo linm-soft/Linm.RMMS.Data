@@ -3,7 +3,8 @@
 > **SSOT theo dõi.** Backlog mô tả: [`features/README.md`](features/README.md). Pipeline scan: [`implement-status.json`](implement-status.json) (có thể lệch — **ưu tiên** `specs/{slug}/STATUS.md`).  
 > **HĐ:** `37001-08/2026-LIC/LINM-JNET` · PL01 P1 CAPEX 900tr (A 450 + B 300 + C 150). Spec: [`Linm.RMMS.Contract/analy/PROMPT-SPEC-P1-P2-PHU-LUC-RELEASE.md`](../../../Linm.RMMS.Contract/analy/PROMPT-SPEC-P1-P2-PHU-LUC-RELEASE.md).  
 > **Demo hub:** `Linm.RMMS.Demo` · `npm run start:std` → http://localhost:5180 · catalog [`demoCatalog.ts`](../../../Linm.RMMS.Demo/src/demoCatalog.ts).  
-> **Cập nhật:** 2026-09-18 · /hey-linm `feature_context` `camera-connect` G3 RTSP publish 5G (HLS fMP4 playback)  
+> **Cập nhật:** 2026-09-19 · `/scan-mobile-feature` `run_selected` Công tác nghiệm thu · `nghiem-thu` + `nghiem-thu-create` + `nghiem-thu-detail` · queue `qlbd-mobile` `pending_confirm`  
+> **Prior:** 2026-09-18 · /hey-linm `feature_context` `camera-connect` G3 RTSP publish 5G (HLS fMP4 playback)  
 > **Prior:** 2026-09-18 · /hey-linm `runbook`+`feature_context` `android-store-submit` (CH Play AAB runbook)  
 > **Prior:** 2026-09-17 · /hey-linm `feature_context` `ios-store-submit` (Invalid Binary CA92.1 · 90717 RGB)  
 > **Prior:** 2026-09-16 · queue `qlbd-mobile` `task_1f6d86c4` `/implement-gis-map` `ios_replace_all_maps` (`patrol-map` + HITL `photo-geo-capture`) · /hey-linm `autocode_hub` · skill **`/gen-feature-tracking`**.  
@@ -99,7 +100,7 @@
 | `android-store-submit` | Android CH Play AAB / listing | — | support | context / lab (chưa AAB Store) | none | [ctx](features/android-store-submit.md) | — |
 | `directions` | Chỉ đường guest | — | support | no STATUS | none | [ctx](features/directions.md) | — |
 | `ai-vision-service` | Host `Linm.RMMS.Vision` | 03 / 03-P2 | support | `qa` / `await_confirm` | none | [ctx](features/ai-vision-service.md) · [plan](../plan/ai-vision-service/README.md) | [ST](../../specs/ai-vision-service/STATUS.md) |
-| `ai-vision` | AI kiểm định MD | 03 / 03-P2 | P1-900 online · P2-CR local | `data_analy` / `draft` | catalog | [ctx](features/ai-vision.md) · [host](features/ai-vision-service.md) | [ST](../../specs/ai-vision/STATUS.md) |
+| `ai-vision` | AI kiểm định MD | 03 / 03-P2 | P1-900 online · P2-CR local | `done` / `await_confirm` | catalog | [ctx](features/ai-vision.md) · [host](features/ai-vision-service.md) | [ST](../../specs/ai-vision/STATUS.md) |
 | `ai-asset-detect` | AI phát hiện TS | 03b / 03b-P2 | P1-900 · edge P2-CR | `qa` / `await_confirm` | catalog | [ctx](features/ai-asset-detect.md) | [ST](../../specs/ai-asset-detect/STATUS.md) |
 | `its-traffic-detect` | ITS biển/cọc | 03c-P2 | P2-CR | done | catalog | [ctx](features/its-traffic-detect.md) | [ST](../../specs/its-traffic-detect/STATUS.md) |
 | `its-anpr-overload` | ITS ANPR/WIM | 03c-P2 | P2-CR | done | catalog | [ctx](features/its-anpr-overload.md) | [ST](../../specs/its-anpr-overload/STATUS.md) |
@@ -131,7 +132,7 @@
 | `integration` | Open API | 18 / 18-P2 | P1-900 khung · P2-CR | done | catalog | [ctx](features/integration.md) | [ST](../../specs/integration/STATUS.md) |
 | `feedback` | Góp ý nội bộ | — | support P1 | data_analy draft | catalog | [ctx](features/feedback.md) | [ST](../../specs/feedback/STATUS.md) |
 | `users` | QL user / TC | — | support P1 | Dev in_progress | catalog | [ctx](features/users.md) | [ST](../../specs/users/STATUS.md) |
-| `login` | Login + HĐ TK | — | P1 / P1.5 | done · run L0–L6 done | none | [ctx](features/login.md) | [ST](../../specs/login/STATUS.md) |
+| `login` | Login + HĐ TK | — | P1 / P1.5 | `data_analy` / `draft` | none | [ctx](features/login.md) | [ST](../../specs/login/STATUS.md) |
 | `login-forgot` | Quên MK | — | P1-900 | done | none | [ctx](features/login-forgot.md) | [ST](../../specs/login-forgot/STATUS.md) |
 | `home` | Home mobile | B | P1-900 | done | none | [ctx](features/home.md) | [ST](../../specs/home/STATUS.md) |
 | `me` | Profile mobile | B | P1-900 | done | none | [ctx](features/me.md) | [ST](../../specs/me/STATUS.md) |
@@ -179,7 +180,9 @@
 | `so-ts-rescue-vehicle` | Sổ TS — Xe cứu hộ | — | support | `sa` / `pending` | none | [ctx](features/so-ts-rescue-vehicle.md) | [ST](../../specs/so-ts-rescue-vehicle/STATUS.md) |
 | `field-reflect` | [Mobile] [Tuần đường] -> Ghi nhận hư hỏng | — | support | `done` / `done` | none | [ctx](features/field-reflect.md) | [ST](../../specs/field-reflect/STATUS.md) |
 | `khu-1-pilot` | Pilot dữ liệu Khu I | — | support | `dev` / `pending` | none | [ctx](features/khu-1-pilot.md) | [ST](../../specs/khu-1-pilot/STATUS.md) |
-| `nghiem-thu` | Công tác nghiệm thu — clone tuần kiểm + 10 mẫu | — | support | `done` / `done` | none | [ctx](features/nghiem-thu.md) | [ST](../../specs/nghiem-thu/STATUS.md) |
+| `nghiem-thu` | Công tác nghiệm thu — clone tuần kiểm + 10 mẫu | — | support | `qa` / `in_progress` | proto | [ctx](features/nghiem-thu.md) | [ST](../../specs/nghiem-thu/STATUS.md) |
+| `nghiem-thu-create` | [Mobile] [Công tác nghiệm thu] -> Tạo nghiệm thu | — | support | `data_analy` / `pending_confirm` | proto | [ctx](features/nghiem-thu-create.md) | [ST](../../specs/nghiem-thu-create/STATUS.md) |
+| `nghiem-thu-detail` | [Mobile] [Công tác nghiệm thu] -> Chi tiết nghiệm thu | — | support | `data_analy` / `pending_confirm` | none | [ctx](features/nghiem-thu-detail.md) | [ST](../../specs/nghiem-thu-detail/STATUS.md) |
 | `mnt-list` | [Mobile] Công việc | — | support | `done` / `done` | none | [ctx](features/mnt-list.md) | [ST](../../specs/mnt-list/STATUS.md) |
 | `cam-view` | [Mobile] Camera xem | — | support | `done` / `done` | data_analy PASS · handoff PO | [ctx](features/cam-view.md) | [ST](../../specs/cam-view/STATUS.md) |
 | `cam-patrol` | [Mobile] [Tuần đường] -> Thu thập camera | — | support | `done` / `done` | none | [ctx](features/cam-patrol.md) | [ST](../../specs/cam-patrol/STATUS.md) |
@@ -742,7 +745,7 @@ Blocked / later — [STATUS](../../specs/rmms-task-integrate/STATUS.md) · [RMMS
 | `patrol-map` | `done` · reuse `GisClipMapView` · copy **web live** locked · họp 5 inspect ảnh **enqueue_later** | [patrol-map.md](features/patrol-map.md) |
 | `patrol-pin` | Review in_progress | [patrol-pin.md](features/patrol-pin.md) |
 | `patrol-checkin` | draft · họp 4 upload/AI **enqueue_later** | STATUS only |
-| `nghiem-thu` · `nghiem-thu-create` | scan seed họp 1 · **enqueue_later** `/scan-mobile-feature` | [nghiem-thu.md](features/nghiem-thu.md) |
+| `nghiem-thu` · `nghiem-thu-create` · `nghiem-thu-detail` | scan 19/09 `run_selected` · **pending_confirm** `/agent-qldb-workflow-mobile` | [nghiem-thu.md](features/nghiem-thu.md) · [create](features/nghiem-thu-create.md) · [detail](features/nghiem-thu-detail.md) |
 | `photo-geo-capture` | done · live HUD + in-app fullscreen | [photo-geo-capture.md](features/photo-geo-capture.md) |
 
 `home` · `me` · `login` · `login-forgot` · `supervise` · `asset-hub` · `attendance` (mobile lane) — STATUS **done**.

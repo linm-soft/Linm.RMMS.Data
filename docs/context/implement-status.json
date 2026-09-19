@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-16T04:44:53.117Z",
+  "updatedAt": "2026-09-19T16:06:10.110Z",
   "features": {
     "ai-asset-detect": {
       "web": {
@@ -12,15 +12,15 @@
     },
     "ai-vision": {
       "web": {
-        "phase": "qa",
+        "phase": "done",
         "status": "await_confirm",
-        "updatedAt": "2026-09-12T08:54:29.225Z",
+        "updatedAt": "2026-09-19T06:06:37.586Z",
         "statusRel": "specs/ai-vision/STATUS.md"
       },
       "mobile": {
         "phase": "done",
-        "status": "in_progress",
-        "updatedAt": "2026-09-01T00:42:01.265Z",
+        "status": "await_confirm",
+        "updatedAt": "2026-09-19T06:04:35.052Z",
         "statusRel": "specs/ai-vision/STATUS.md"
       }
     },
@@ -35,8 +35,8 @@
     "asset": {
       "mobile": {
         "phase": "qa",
-        "status": "await_confirm",
-        "updatedAt": "2026-09-01T16:24:14.270Z",
+        "status": "blocked",
+        "updatedAt": "2026-09-19T06:01:55.453Z",
         "statusRel": "specs/asset/STATUS.md"
       }
     },
@@ -674,7 +674,7 @@
       "mobile": {
         "phase": "done",
         "status": "done",
-        "updatedAt": "2026-08-29T08:26:55.146Z",
+        "updatedAt": "2026-09-19T15:28:19.991Z",
         "statusRel": "specs/mnt-log/STATUS.md"
       }
     },
@@ -682,7 +682,7 @@
       "mobile": {
         "phase": "done",
         "status": "done",
-        "updatedAt": "2026-09-16T03:20:49.793Z",
+        "updatedAt": "2026-09-19T16:00:40.784Z",
         "statusRel": "specs/mnt-progress/STATUS.md"
       }
     },
@@ -724,6 +724,28 @@
         "status": "done",
         "updatedAt": "2026-09-12T10:10:11.580Z",
         "statusRel": "specs/nghiem-thu/STATUS.md"
+      },
+      "mobile": {
+        "phase": "qa",
+        "status": "pending",
+        "updatedAt": "2026-09-19T16:06:10.110Z",
+        "statusRel": "specs/nghiem-thu/STATUS.md"
+      }
+    },
+    "nghiem-thu-create": {
+      "mobile": {
+        "phase": "data_analy",
+        "status": "draft",
+        "updatedAt": "2026-09-19T13:51:16.768Z",
+        "statusRel": "specs/nghiem-thu-create/STATUS.md"
+      }
+    },
+    "nghiem-thu-detail": {
+      "mobile": {
+        "phase": "data_analy",
+        "status": "draft",
+        "updatedAt": "2026-09-19T13:51:16.806Z",
+        "statusRel": "specs/nghiem-thu-detail/STATUS.md"
       }
     },
     "ops": {
@@ -1364,6 +1386,14 @@
         "status": "done",
         "updatedAt": "2026-09-01T06:33:22.265Z",
         "statusRel": "specs/vis-capture/STATUS.md"
+      }
+    },
+    "attendance-log": {
+      "mobile": {
+        "phase": "dev",
+        "status": "done",
+        "updatedAt": "2026-09-19T06:01:55.457Z",
+        "statusRel": "specs/attendance-log/STATUS.md"
       }
     }
   }

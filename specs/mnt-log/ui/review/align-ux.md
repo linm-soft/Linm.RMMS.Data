@@ -3,39 +3,25 @@
 | Field | Value |
 |-------|-------|
 | feature | `mnt-log` |
-| slash | `/review-align-ux-ios-android` |
-| status | **Aligned** |
+| verdict | **Aligned** |
 | Must open | **0** |
-| updatedAt | `2026-08-29T08:20:00.000Z` |
+| method | Read A3-CORE + P6-CORE vs `ui/prototype/{ios,android}/index.html` `#sc-mnt-log` |
+| taskId | `task_83b15fda` |
+| updatedAt | `2026-09-19T15:15:46.000Z` |
 
-## Vision CORE (Read PNG)
+## Zone check
 
-| Shot | Zone | vs demo `#sc-mnt-log` |
-|------|------|------------------------|
-| A3-CORE (iOS) | TopBar **Nhật ký xử lý** · WO card Nạo cống / WO-DEMO-2 / Đã hoàn thành · section **Nhật ký** · empty **Chưa có nhật ký** · toast fail · tab `work` | **match** empty/fail path |
-| P6-CORE (Android) | same zones · Material back chevron · overflow chrome OK | **match** |
-| P6-CORE-2 | same fold (empty fits 1 viewport) | **match** |
+| Zone | Demo | A3 iOS | P6 Android | Result |
+|------|------|--------|------------|--------|
+| `#sc-mnt-log` title Nhật ký xử lý | ✓ | ✓ | ✓ | **Aligned** |
+| `#wo-header` title/code/status+badge | ✓ | ✓ | ✓ | **Aligned** |
+| `#section-log` NHẬT KÝ | ✓ | ✓ | ✓ | **Aligned** |
+| `#timeline` newest-first colored dots | ✓ | ✓ | ✓ | **Aligned** |
+| no composer / Primary write | ✓ | ✓ | ✓ | **Aligned** |
+| back chrome (iOS text / And chevron) | ✓ | ✓ | ✓ | **Aligned** |
+| watermark | none | none | none | **PASS** |
 
-## `#i-*` / `.row-icon` checklist
-
-| Demo | Live iOS | Live Android | Gap |
-|------|----------|--------------|-----|
-| WO header `.row.no-icon` | no leading tile | no leading tile | — |
-| Timeline CSS dots (not invent `#i-*`) | empty path (GET fail) | empty path | — |
-| Tab `#i-home` / mappin / warning / wrench / person | glyphs visible | glyphs visible | — |
-| `#i-chevron-left` back | text+chevron **Công việc** | icon-btn ArrowBack | chrome OK |
-
-**Không** GAP-MOB-UX-COMP-03 · **không** GAP-MOB-E2E-VIS-01 (đã Read PNG).
-
-## Form
-
-Readonly · **không** submit CTA → form-field e2e **N/A**.
-
-## Must / Should
-
-| Sev | ID | Note |
-|-----|-----|------|
-| Should | GAP-MOB-A11Y-01 | iOS log glyph id · Maestro point-tap |
-| — | Must | **none** |
-
-autoApprove=ON → `align_confirm=approve` · handoff Review.
+## Notes
+- LIVE seed `WO-DEMO-*` (GAP-QA-REAL-01) · dual OS cùng structure.
+- Should: iOS ListRow a11y ids không expose (GAP-MOB-A11Y-ROW-01) — không block.
+- autoApprove=ON → `align_confirm` accepted.

@@ -9,17 +9,17 @@
 | packKind | **`sheet`** (PO chốt · GAP-MOB-MNT-LOG-PACK-01 · surface = **full screen** `#sc-mnt-log` · **cấm** bottom-sheet chrome) |
 | changeScope | `new_page` |
 | stack | `native_dual` |
-| taskId | `task_bda2e253` |
-| priorPo | `po/requirement.md` **confirmed** · task `task_d21ff1dc` |
+| taskId | `task_7451543a` |
+| priorPo | `po/requirement.md` **confirmed** · compact `handoff/po-compact.md` · task `task_5751a874` |
 | priorDa | `_data-analy/mnt-log-control-hint.md` + `mnt-log-real-data.md` **confirmed** · hash skip · **cấm** re-scan (`GAP-DES-DEMO-RESCAN-01`) |
-| contentHash | `sha256:mnt-log-mobile-control-hint-20260829` |
-| realDataHash | `sha256:mnt-log-mobile-real-data-20260829` |
-| actionTreeHash | `sha256:mnt-log-mobile-action-tree-20260829` |
-| bffContentHash | `sha256:mnt-log-mobile-bff-20260829` |
-| ctxContentHash | `sha256:87761a7752a493d6ad176d96d76ccaf6116ea407ec5ec5513b6e12372a58d701` |
-| demoContentHash | `sha256:394ab44597648f04b25e6d58476378c16141feb53d3b58d39923b3defcff8328` |
+| contentHash | `sha256:5c74f801620d6dabea7e29b3591c3298a358205a64070a14c4d371d3098a3dd3` |
+| realDataHash | `sha256:5c74f801620d6dabea7e29b3591c3298a358205a64070a14c4d371d3098a3dd3` |
+| actionTreeHash | `sha256:5c74f801620d6dabea7e29b3591c3298a358205a64070a14c4d371d3098a3dd3` |
+| bffContentHash | `sha256:maintenance-work-orders-getbyid-proxy-passthrough` |
+| ctxContentHash | `sha256:5c74f801620d6dabea7e29b3591c3298a358205a64070a14c4d371d3098a3dd3` |
+| demoContentHash | `sha256:d3ecd6203f20b49c25a282887298b7cf657385f1d610b3304da5a5bb393323d0` |
 | priorWeb | — (mobile-first · không design-web bắt buộc) |
-| updatedAt | `2026-08-29T07:22:00.000Z` |
+| updatedAt | `2026-09-19T13:45:28.000Z` |
 
 ## reviewUrl (dual — REQUIRED)
 
@@ -146,15 +146,15 @@ Demo SSOT default (Design gate fallback): done · progress 100% · due · create
 | ux-analy §1–§9 | `ui/ux-analy.md` | **done** |
 | html-to-native-map | `ui/html-to-native-map.md` | **done** |
 | demo-parity | `ui/review/demo-parity.md` | **PASS** · Must open **0** |
-| dual prototype | `ui/prototype/{ios,android}/index.html` | **done** · `#sc-mnt-log` |
+| dual prototype | `ui/prototype/{ios,android}/index.html` | **done** · `#sc-mnt-log` · demoContentHash khớp DA |
 
 ## design_confirm
 
 | Gate | Decision |
 |------|----------|
 | autoApprove | **ON** |
-| design_confirm | **approve** (self-confirm · dual + ux-analy + demo-parity PASS) |
-| at | `2026-08-29T07:22:00.000Z` |
+| design_confirm | **approve** (self-confirm · dual + ux-analy + demo-parity PASS · hash skip) |
+| at | `2026-09-19T13:45:28.000Z` |
 | next | `sa-mobile` · `be/solution-discovery.md` · **không** chain this turn (roleOnly · GAP-PKT-ROLE-01) |
 
 ## Out of scope (Design)
@@ -173,14 +173,14 @@ Demo SSOT default (Design gate fallback): done · progress 100% · due · create
 | skillId | agent-design-mobile |
 | skillVersion | 2026.08.25.01 |
 | schemaVersion | 2 |
-| workflowVersion | 2026.08.25.01 |
-| rulesVersion | 2026.08.25.2 |
-| generatedAt | 2026-08-29T07:22:00.000Z |
-| versionGate | rechecked |
-| contentHash | sha256:mnt-log-mobile-control-hint-20260829 |
-| realDataContentHash | sha256:mnt-log-mobile-real-data-20260829 |
-| demoContentHash | sha256:394ab44597648f04b25e6d58476378c16141feb53d3b58d39923b3defcff8328 |
-| taskId | `task_bda2e253` |
+| workflowVersion | 2026.09.19.2 |
+| rulesVersion | 2026.09.19.5 |
+| generatedAt | 2026-09-19T13:45:28.000Z |
+| versionGate | recheck_new |
+| contentHash | sha256:5c74f801620d6dabea7e29b3591c3298a358205a64070a14c4d371d3098a3dd3 |
+| realDataContentHash | sha256:5c74f801620d6dabea7e29b3591c3298a358205a64070a14c4d371d3098a3dd3 |
+| demoContentHash | sha256:d3ecd6203f20b49c25a282887298b7cf657385f1d610b3304da5a5bb393323d0 |
+| taskId | `task_7451543a` |
 
 ---
-<!-- Version meta: skillId=agent-design-mobile skillVersion=2026.08.25.01 schemaVersion=2 workflowVersion=2026.08.25.01 rulesVersion=2026.08.25.2 versionGate=rechecked -->
+<!-- Version meta: skillId=agent-design-mobile skillVersion=2026.08.25.01 schemaVersion=2 workflowVersion=2026.09.19.2 rulesVersion=2026.09.19.5 versionGate=recheck_new -->

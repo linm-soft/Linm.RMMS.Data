@@ -198,7 +198,8 @@ Manifest: [`ASSET-MANIFEST.md`](ASSET-MANIFEST.md).
 2. `/fill-build-android-info` nếu version/BFF đổi.  
 3. Studio Sync → **`w3Release`** → Generate Bundles.  
 4. `/store-image-capture` pack folder **mới** `{versionName}-{versionCode}`.  
-5. Cùng upload `.jks`.
+5. `/gen-submit-info` Ask **current_version** + ghi `review-lessons/{Store}-{VersionFolder}.md`.  
+6. Cùng upload `.jks`.
 
 ---
 

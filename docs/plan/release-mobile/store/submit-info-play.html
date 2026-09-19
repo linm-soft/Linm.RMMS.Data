@@ -168,7 +168,7 @@
   <header>
     <div class="wrap">
       <h1>RMMS 1.0.0 - Copy sang Google Play Console</h1>
-      <p>Gói công khai <code>com.drvn.rmms.store</code> · 1.0.0 (3) đang xem xét. Tab 1 là bản tiếp 1.0.0 (4) R8/AGP 9. Tab 2 là cấu hình đã gộp. Không gửi 4 khi 3 còn In review trừ khi hủy bản 3.</p>
+      <p>Gói công khai <code>com.drvn.rmms.store</code> · 1.0.0 (3) đang xem xét. Tab 1 là bản tiếp 1.0.0 (4) R8/AGP 9. Tab 2 là cấu hình đã gộp. Tab 3 là bài học lỗi theo version. Không gửi 4 khi 3 còn In review trừ khi hủy bản 3.</p>
       <p class="meta">Snapshot <strong>v1.0.0</strong> Play · 18/09/2026 · Gradle versionCode 4 · targetSdk 36 · AGP 9.0.1 · 3 đang xem xét</p>
       <nav class="store-tabs" aria-label="Cửa hàng">
         <a href="submit-info.html">Apple / iOS</a>
@@ -180,6 +180,7 @@
   <nav class="page-tabs" aria-label="Trang Play">
     <button type="button" class="tab is-on" data-tab="release">Tab 1 - Release</button>
     <button type="button" class="tab" data-tab="overview">Tab 2 - Tổng quan và cấu hình</button>
+    <button type="button" class="tab" data-tab="lessons">Tab 3 - Bài học theo version</button>
   </nav>
   <main class="wrap panel" id="tab-release">
     <section>
@@ -655,6 +656,38 @@ docs/plan/release-mobile/store/out/android/play-feature-1024x500.png
       </section>
     </div>
   </div>
+  <div class="wrap panel" id="tab-lessons" hidden>
+    <section>
+      <h2>Bài học review (nội bộ)</h2>
+      <p class="hint">Đọc trước lần nộp sau. Không dán lên listing. File SSOT: review-lessons/README.md</p>
+      <ul class="steps">
+        <li>Play 1.0.0-2: mã 2 khóa, target 36, chỉ w3Release, ANDROID_SERIAL một máy</li>
+        <li>Play 1.0.0-3: In review, không sửa AAB, không Next release trống</li>
+        <li>Play 1.0.0-4: R8 + AGP 9, keep Moshi, chờ 3 xong rồi kéo AAB 4</li>
+      </ul>
+    </section>
+    <section data-field="play_lessons_index">
+      <h2>Index file</h2>
+      <textarea id="play_lessons_index" class="tall" readonly>review-lessons/README.md
+review-lessons/play-1.0.0-2.md
+review-lessons/play-1.0.0-3.md
+review-lessons/play-1.0.0-4.md</textarea>
+      <div class="row">
+        <button type="button" data-copy="play_lessons_index">Copy</button>
+      </div>
+    </section>
+    <section data-field="play_lessons_4">
+      <h2>1.0.0 (4) - không làm lại</h2>
+      <textarea id="play_lessons_4" class="tall" readonly>Không sửa AAB 1.0.0 (3) đang In review.
+Không Next bản phát hành trống (chưa gắn AAB).
+Không minify thiếu keep Moshi (crash ArrayList).
+Không copy icon/feature vào folder 1.0.0-4 trước released_success.
+Không tải 4 khi 3 còn duyệt, trừ khi hủy 3.</textarea>
+      <div class="row">
+        <button type="button" data-copy="play_lessons_4">Copy</button>
+      </div>
+    </section>
+  </div>
   <footer>
     <div class="wrap">RMMS · snapshot v1.0.0 Play · com.drvn.rmms.store · gói nội bộ · không đưa lên landing khách</div>
   </footer>
@@ -706,6 +739,7 @@ docs/plan/release-mobile/store/out/android/play-feature-1024x500.png
           });
           document.getElementById('tab-release').hidden = id !== 'release';
           document.getElementById('tab-overview').hidden = id !== 'overview';
+          document.getElementById('tab-lessons').hidden = id !== 'lessons';
         });
       });
       document.querySelectorAll('.sub-tabs [data-sub]').forEach(function (btn) {

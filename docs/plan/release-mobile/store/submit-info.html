@@ -120,6 +120,31 @@
       background: #fff;
       color: var(--deep);
     }
+    .page-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      max-width: 760px;
+      margin: 16px auto 0;
+      padding: 0 20px;
+    }
+    .page-tabs .tab {
+      min-height: 44px;
+      padding: 8px 16px;
+      border: 0;
+      border-radius: 10px;
+      background: #e5e5ea;
+      color: var(--label);
+      font: 700 14px inherit;
+      cursor: pointer;
+    }
+    .page-tabs .tab.is-on {
+      background: var(--deep);
+      color: #fff;
+    }
+    .panel[hidden] { display: none !important; }
+    .steps { margin: 8px 0 0; padding-left: 1.2em; }
+    .steps li { margin: 6px 0; }
   </style>
 </head>
 <body>
@@ -134,8 +159,12 @@
       </nav>
     </div>
   </header>
-  <p class="banner">Guideline 3.2: dan copy vao version <strong>1.0.0 Rejected</strong> (Version Information + Review Notes), khong tab App Information. Reply o <strong>App Review</strong>. Privacy: https://rmms.vn/privacy. Record public <code>com.drvn.rmms.store</code>, khong Custom 1510513131.</p>
-  <main class="wrap">
+  <p class="banner">Guideline 3.2: dan copy vao version <strong>1.0.0 Rejected</strong> (Version Information + Review Notes), khong tab App Information. Reply o <strong>App Review</strong>. Privacy: https://rmms.vn/privacy. Record public <code>com.drvn.rmms.store</code>, khong Custom 1510513131. Bai hoc: Tab 2 + review-lessons/apple-1.0.0-1.md</p>
+  <nav class="page-tabs" aria-label="Trang Apple">
+    <button type="button" class="tab is-on" data-tab="listing">Tab 1 - Listing</button>
+    <button type="button" class="tab" data-tab="lessons">Tab 2 - Bai hoc theo version</button>
+  </nav>
+  <main class="wrap panel" id="tab-listing">
     <section data-field="promo">
       <h2>Promotional text <small>170</small></h2>
       <p class="hint">App Store Connect → Version Information → Promotional text</p>
@@ -254,6 +283,34 @@ Thank you.</textarea>
       </div>
     </section>
   </main>
+  <div class="wrap panel" id="tab-lessons" hidden>
+    <section>
+      <h2>Bai hoc Apple 1.0.0 (1)</h2>
+      <p class="hint">Noi bo. Khong dan len Product Page. SSOT: review-lessons/apple-1.0.0-1.md</p>
+      <ul class="steps">
+        <li>Guideline 3.2: lead guest truoc, login tuy chon</li>
+        <li>Reply o App Review, khong tab App Information</li>
+        <li>Khong dung record Custom 1510513131</li>
+      </ul>
+    </section>
+    <section data-field="apple_lessons_index">
+      <h2>Index file</h2>
+      <textarea id="apple_lessons_index" class="tall" readonly>review-lessons/README.md
+review-lessons/apple-1.0.0-1.md</textarea>
+      <div class="row">
+        <button type="button" data-copy="apple_lessons_index">Copy</button>
+      </div>
+    </section>
+    <section data-field="apple_lessons_1">
+      <h2>1.0.0 (1) - khong lam lai</h2>
+      <textarea id="apple_lessons_1" class="tall" readonly>Khong mo dau Description bang danh cho can bo / mot don vi.
+Khong dan Description vao tab App Information khi reject 3.2.
+Khong dung URL HTTP hoac app.rmms.vn. Dung https://rmms.vn/privacy.</textarea>
+      <div class="row">
+        <button type="button" data-copy="apple_lessons_1">Copy</button>
+      </div>
+    </section>
+  </div>
   <footer>
     <div class="wrap">RMMS · snapshot v1.0.0 · com.drvn.rmms.store · pack noi bo · khong deploy lam landing khach</div>
   </footer>
@@ -288,6 +345,16 @@ Thank you.</textarea>
             document.execCommand('copy');
             show();
           }
+        });
+      });
+      document.querySelectorAll('.page-tabs [data-tab]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var id = btn.getAttribute('data-tab');
+          document.querySelectorAll('.page-tabs [data-tab]').forEach(function (b) {
+            b.classList.toggle('is-on', b === btn);
+          });
+          document.getElementById('tab-listing').hidden = id !== 'listing';
+          document.getElementById('tab-lessons').hidden = id !== 'lessons';
         });
       });
     })();

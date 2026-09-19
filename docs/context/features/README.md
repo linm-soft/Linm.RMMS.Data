@@ -60,7 +60,9 @@
 | 3e2 | `camera-vehicle-type` | Map loại xe Hikvision → RMMS | Camera | support | Datasheet TCM403 9 type · ISAPI lab | Context | [camera-vehicle-type.md](camera-vehicle-type.md) · **cấm** page mới · **cấm** 16 class Sổ 04 |
 | 4 | `patrol` | Tuần đường / tuần kiểm | Field | P1 | Check-in · Giám sát · Lưu trữ | Demo | [patrol.md](patrol.md) · [đề cương 24](../24-TUAN-DUONG-DUONG-BO.md) · demo web/mobile mới |
 | 4g | `photo-geo-capture` | Chụp ảnh kèm tọa độ vật thể | Field×File | P1 native | Camera · FileService key · gim trong ảnh · HITL map | Context | [photo-geo-capture.md](photo-geo-capture.md) · queue `qlbd-mobile` |
-| 4n | `nghiem-thu` | Công tác nghiệm thu (clone tuần kiểm + 10 mẫu) | Field | P1 | Họp 04/09 hạng 1 | Draft | [nghiem-thu.md](nghiem-thu.md) |
+| 4n | `nghiem-thu` | Công tác nghiệm thu (clone tuần kiểm + 10 mẫu) | Field | P1 | Web done · mobile `pending_confirm` | Demo | [nghiem-thu.md](nghiem-thu.md) |
+| 4n1 | `nghiem-thu-create` | Tạo nghiệm thu (mobile sheet) | Field | P1 | scan 19/09 | Draft | [nghiem-thu-create.md](nghiem-thu-create.md) |
+| 4n2 | `nghiem-thu-detail` | Chi tiết / Sửa nghiệm thu (mobile) | Field | P1 | plus_detail | Draft | [nghiem-thu-detail.md](nghiem-thu-detail.md) |
 | 4t | `platform-task` | Công việc (platform) | Platform | P1 demo | Medical QLCV | Demo · **queue pending** | [platform-task.md](platform-task.md) · [25](../25-PLATFORM-TASK.md) · [PLAN](../../plan/platform-task/PLAN.md) · [RMMS](../../plan/platform-task/RMMS-TUAN-DUONG.md) |
 | 4m | `platform-message` | Chat / inbox parcel | Platform | P1 SSOT | `@linm/message` | Context · **queue pending first** | [platform-message.md](platform-message.md) · [26](../26-MESSAGE-PARCEL.md) |
 | 4r | `rmms-task-integrate` | Gắn Task vào tuần đường/sự cố | Platform×Field | P2 later | — | **blocked** | [RMMS-TUAN-DUONG.md](../../plan/platform-task/RMMS-TUAN-DUONG.md) |

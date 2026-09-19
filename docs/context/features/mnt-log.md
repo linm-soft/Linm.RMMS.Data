@@ -82,4 +82,4 @@ Sort newest-first hoặc oldest-first — Design chốt; default **newest-first*
 | lane | phase | status | updatedAt |
 |------|-------|--------|-----------|
 | web | — | — | — |
-| mobile | `done` | `done` | `2026-08-29T08:26:55.146Z` |
+| mobile | `done` | `done` | `2026-09-19T15:28:19.991Z` |

@@ -1,183 +1,167 @@
-# Design — nghiem-thu
+# Design — nghiem-thu (mobile list)
 
 | Field | Value |
 |-------|-------|
 | feature | `nghiem-thu` |
-| title | Công tác nghiệm thu — clone tuần kiểm + 10 mẫu |
-| Role | `design` |
-| status | **confirmed** (autoApprove ON · `design_confirm=approve`) |
-| packKind | `list` |
-| changeScope | `new_page` |
-| Feature Kind | **B** — Catalog list A–D + **Full page** form |
-| formPattern | **Full page** · `data-form-cols="5"` |
-| demo | **N/A** · `continue_no_demo` · **cấm** re-scan (**GAP-DES-DEMO-RESCAN-01**) |
-| mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Field` · route `/nghiem-thu` |
-| mfeStdUrl | `http://localhost:9301/nghiem-thu` |
-| peerStdUrl | `http://localhost:9304/patrol` |
-| be | `D:/AI-QLBD/Linm.RMMS.WebService` · **cấm ERP.*** |
-| taskId | `task_16791ccc` |
-| contentHash | `sha256:41b14359b00a0bacbd2f5e88ab9ed8f7604f962c4e4e58219bf9c1145b5ef4ea` |
-| updatedAt | `2026-09-12T09:20:00.000Z` |
+| title | [Mobile] [Tuần đường] -> Công tác nghiệm thu |
+| role | `/agent-design-mobile` |
+| status | **confirmed** (autoApprove=ON · `design_confirm=approve`) |
+| packKind | **`list`** |
+| changeScope | `edit_page` · delta = native list only · **keep** web Full-page Kind B |
+| formPattern | **N/A** on list slug · create/detail = sibling sheets (`pending_confirm`) |
+| taskId | `task_059c4327` |
+| priorPo | `po/requirement.md` **done** · `handoff/po-compact.md` |
+| priorDa | `_data-analy/nghiem-thu-control-hint.md` + `nghiem-thu-real-data.md` **done** · hash skip · **cấm** re-scan (`GAP-DES-DEMO-RESCAN-01`) |
+| contentHash | `sha256:a635f3f55a8bedd952c4449056cf072a8eda890eda2b30a45e84bda5d7bf3859` |
+| real_view_parity | `v1` |
+| updatedAt | `2026-09-19T15:50:00.000Z` |
 
-## Kind / Pattern
+## § Keep web (confirmed · không đổi)
 
-| | |
-|--|--|
-| Kind | B (list + form pair) |
-| Form surface | **Full page** — URL `/nghiem-thu/new` · `/nghiem-thu/:id` · Copy/View |
-| `data-form-cols` | **5** · **cấm** `.fields { 1fr 1fr }` / footer Lưu (**GAP-DES-FORM-SURFACE-01**) |
-| Leave | **LeaveConfirmModal** · **cấm** native `confirm` (**GAP-DES-LEAVE-01**) |
-| Tree | none |
-| Report | n/a |
+Web MFE Kind B A–D + Full page `data-form-cols=5` · LeaveConfirmModal · FileMulti · route `/nghiem-thu` — **giữ** (task_16791ccc…). Lane này **chỉ** native dual list.
 
-## Zones (list)
+## § Delta Current vs New (`edit_page` · mobile)
 
-| Zone | `data-des-id` | Wire |
-|------|---------------|------|
-| A Header | `DES-GRID-A` | icon + title «Công tác nghiệm thu» · **cấm** Thêm mới trên A |
-| B Toolbar | `DES-GRID-B` | Làm mới · Lịch sử · Sửa config (`fa-cog`) · Xem/Sửa/Xóa · **+ Thêm mới** |
-| C Grid card | `DES-GRID-C` | title · row-menu help · grid |
-| C2a Filter | `DES-GRID-C2a` | mock **`LinErpListFilterBar`** · leading fields + date · 🔍 **mép phải** · lấp hàng rồi wrap |
-| C2 Table | `DES-GRID-C2` | sort · filter cột · chọn dòng |
-| C3 Menu | `DES-GRID-C3` | Xem/Sửa/Sao chép/Lịch sử/Xóa |
-| D Pagination | `DES-GRID-D` | 50/100/200/500 · Tổng · pager |
-| F Config | `DES-GRID-F` | kéo cột default ON |
-| H History | `DES-GRID-H` | stub modal |
-| Z Form | `DES-GRID-Z` | **Full page** (không Modal Z) |
-| Upload | `DES-NT-UPLOAD` | FileMulti · FileService guid |
-| Leave | `DES-LEAVE` | LeaveConfirmModal |
+| ID | Current | New (Design DoD) | Surface |
+|----|---------|------------------|---------|
+| GAP-MOB-NT-LIST-01 | Native list chưa ship | Dual `#sc-nghiem-thu` `DES-MOB-NGHIEM-THU` | list |
+| GAP-MOB-NT-DATA-01 | Demo toast rows | Proto rows = preview only · ship GET BFF · empty/fail chrome | list |
+| GAP-MOB-NT-ROW-01 | toast code | Row tap → `nghiem-thu-detail` + `Id` | nav |
+| GAP-MOB-NT-CREATE-01 | CTA Tạo demo | Trailing **Tạo** → `nghiem-thu-create` | nav |
+| GAP-MOB-NT-FILTER-01 | placeholder search | `LinmSearchField` · `?search=` | filter |
 
-`shared_grid_example: v1` · `real_view_parity: v1` · peer = patrol Kind B.
+## reviewUrl (dual — REQUIRED)
 
-### Wire (list)
+| Platform | Path | reviewUrl |
+|----------|------|-----------|
+| iOS | `ui/prototype/ios/index.html` | `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/nghiem-thu/ui/prototype/ios/index.html` |
+| iOS empty | same + `?empty=1` | `…/ios/index.html?empty=1` |
+| iOS fail | same + `?fail=1` | `…/ios/index.html?fail=1` |
+| Android | `ui/prototype/android/index.html` | `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/nghiem-thu/ui/prototype/android/index.html` |
+| Android empty | same + `?empty=1` | `…/android/index.html?empty=1` |
+| Android fail | same + `?fail=1` | `…/android/index.html?fail=1` |
 
-```
-[A] icon + title (no Thêm mới)
-[B] Làm mới · Lịch sử · config · View/Edit/Delete  |  [+ Thêm mới]
-[C] card: list title · row-menu help · LinErpListFilterBar · grid
-[D] pageSize · Tổng · «‹ ‹ x/y › ›»
-```
+**peerStdUrl:** `http://localhost:9304/patrol` (web clone ref only · **cấm** `mfeStdUrl` native) · **cấm** `yarn start:std` / e2e ở role này.
 
-### Wire (form)
+## Frame / chrome
 
-```
-Full page: [Quay lại | Hủy Lưu] Title · 5 cột data-form-cols=5 · cấm footer Lưu
-View: <dl> + gallery resign · no dirty
-Dirty leave → LeaveConfirmModal
-```
+| | iOS | Android |
+|--|-----|---------|
+| Frame | 390×844 | 412×915 |
+| Back | `#i-chevron-left` + **Tuần đường** | icon-btn chevron only |
+| Title | **Công tác nghiệm thu** 17 | TopAppBar ~20 |
+| Trailing | TextButton **Tạo** | same |
+| Shell | Tab 5 · tab **`field`** active | Nav 5 · cùng index |
+| pack tabs | **none** · **cấm** invent (`GAP-TAB-01`) | same |
 
-## Screens
+## DES table
 
-| Screen | Pattern | FormMode | Actions | Leave | devSlash |
-|--------|---------|----------|---------|-------|----------|
-| List `/nghiem-thu` | Kind B A–D | — | Toolbar + filter + grid | n/a | `/agent-dev` |
-| Create `/nghiem-thu/new` | Full page | Create | header Lưu/Hủy · upload · chọn mẫu | dirty → LeaveConfirmModal | `/agent-dev` |
-| Edit `/nghiem-thu/:id` | Full page | Edit | Lưu/Hủy · upload | dirty → LeaveConfirmModal | `/agent-dev` |
-| View `/nghiem-thu/:id` | Full page | View | `<dl>` + gallery · Đóng | no dirty | `/agent-dev` |
-| Copy | Full page | Copy | prefill · new code | dirty → LeaveConfirmModal | `/agent-dev` |
+| DES | Zone | iOS | Android | Notes |
+|-----|------|-----|---------|-------|
+| `DES-MOB-NGHIEM-THU` | `#sc-nghiem-thu` | push từ hub `#row-nghiem-thu` | same | `data-tab="field"` |
+| `DES-MOB-NT-SEARCH` | SearchField | `LinmSearchField` `#i-search` | same | placeholder **Tìm mẫu nghiệm thu…** · `?search=` |
+| Row | `LinmListRow` | `#i-check` + Code ≥16 · sub 13 · Badge · `#i-chevron-right` | same | bind `Code` · `TemplateType`/`Route`/`KmFrom` · `Status` |
+| EmptyChrome | empty | «Chưa có phiếu nghiệm thu» | same | 0 Items + OK · `?empty=1` |
+| Toast fail | `#toast` | `LinmToast` | Snackbar-style | 4xx/offline · `?fail=1` · **cấm** alert |
+| Hub entry | `#row-nghiem-thu` | trên `patrol-home` | same | **không** reimplement trên pack |
 
-## Control-map (Design chốt = controlHint)
+## SF ↔ Material icon
 
-### List filters (Zone C2a)
+| `#i-*` | Motif | SF Symbol | Material |
+|--------|-------|-----------|----------|
+| `#i-chevron-left` | `M15 5l-7 7 7 7` | `chevron.left` | `ArrowBack` |
+| `#i-chevron-right` | `M9 5l7 7-7 7` | `chevron.right` | `ChevronRight` |
+| `#i-search` | circle + stem | `magnifyingglass` | `Search` |
+| `#i-check` | check path | `checkmark` | `Check` |
+| `#i-home` / `#i-mappin` / `#i-warning` / `#i-wrench` / `#i-person` | shell Tab 5 | same motif dual | same |
 
-| Field key | Label | Control | catalogKind |
-|-----------|-------|---------|-------------|
-| search | Tìm kiếm | `SearchTextInput` | text |
-| status | Trạng thái | `SearchInput` | enum VN |
-| route | Tuyến đường | `SearchInput` | road-route |
-| templateType | Mẫu NT | `SearchInput` | LOOKUP_STATIC 10 |
-| fromDate / toDate | Từ / Đến | `Date` | — |
+**Cấm** invent `#i-*` · **cấm** lệch `d=` dual.
 
-### Form fields
+## Copy VN (SSOT — parity dual)
 
-| Field key | Label | Control | required |
-|-----------|-------|---------|----------|
-| code | Mã nghiệm thu | `Text` (auto NT-*) | auto |
-| templateType | Mẫu nghiệm thu | `SearchInput` | * |
-| route | Tuyến đường | `SearchInput` | * |
-| zoneOrgCode / zoneOrgName | Khu / Chi cục | `SearchInput` | |
-| vpOrgCode / vpOrgName | VP | `SearchInput` | |
-| assigneeCode / assigneeName | Cán bộ NT | `SearchInput` | * |
-| inspectedAt | Ngày nghiệm thu | `Date` | * |
-| kmFrom / kmTo | Km đầu / cuối | `Text` (number) | |
-| fieldInfo | Thông tin hiện trường | `Text` multiline | * |
-| status | Trạng thái | `SearchInput` | * |
-| note | Ghi chú | `Text` | |
-| mediaIds | Ảnh / video | `FileMulti` | |
-| updatedAt | Cập nhật | `Date` readonly | |
+| Key | Copy |
+|-----|------|
+| Title | **Công tác nghiệm thu** |
+| Back (iOS) | **Tuần đường** |
+| Trailing | **Tạo** |
+| Search placeholder | **Tìm mẫu nghiệm thu…** |
+| Empty title | **Chưa có phiếu nghiệm thu** |
+| Empty hint | **Nhấn Tạo để lập phiếu mới** |
+| Toast fail | **Không tải được danh sách nghiệm thu** |
+| Badge | **Nháp** / **Đang NT** / **Hoàn thành** / **Hủy** (demo «Xong» → ship **Hoàn thành**) |
+| Proto rows (preview only) | `NT-20260906-0001` · `NT-20260905-0012` |
+| Tabs | Trang Chủ · Tuần đường · Vấn đề · Công việc · Tôi |
 
-### LOOKUP (PO CLOSED)
+**Cấm ship:** watermark Gói · device label · «Có mạng» · `demoItems` SSOT · ERP.* · gộp create/detail.
 
-- templateType: `mau-01`…`mau-10` · label Mẫu nghiệm thu 01…10
-- status: Nháp · Đang NT · Hoàn thành · Hủy
+## Kit map
+
+| Demo | Kit | Notes |
+|------|-----|-------|
+| `.nav-bar` / `.top-bar` | `LinmTopBar` | trailing TextButton Tạo |
+| `.search-wrap` | `LinmSearchField` | query `search` |
+| `.list-row` | `LinmListRow` | tap → detail |
+| `.badge` | StatusBadge | init-data map |
+| `.empty` | EmptyChrome | 0 items |
+| `#toast` | `LinmToast` | fail/offline |
+| `.tabbar` / `.nav` | `LinmTabBar` | field active |
+
+## States
+
+| State | Query / trigger | UI |
+|-------|-----------------|-----|
+| default | — | 2 proto rows (preview) · ship = live Items |
+| empty | `?empty=1` | EmptyChrome · giữ shell + Tạo |
+| fail | `?fail=1` | empty list + toast fail |
+| search | input | filter local proto · ship = `?search=` |
+| loading | appear | Progress (Dev) · proto N/A |
 
 ## Prototype (REQUIRED)
 
 | | |
 |--|--|
-| Artifact | `ui/prototype/index.html` · `list.html` · `form.html` |
-| List zones | **A–D** + C2a/C3/F/H · grid standard FULL |
-| Form zones | Full · `data-form-cols="5"` · DES-NT-UPLOAD · DES-LEAVE |
-| SSOT | `shared-grid-example` · `list-shell-prototype` · `form-full-page-prototype` · `po-design-grid-standard` · `design-real-view-parity` · `filter-bar-layout-hard` |
-| **reviewUrl** | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/nghiem-thu/ui/prototype/index.html` |
+| Artifact | `ui/prototype/ios/index.html` · `ui/prototype/android/index.html` |
+| List zones | TopBar · Search · ListRow · Empty · Toast · Tab 5 |
+| Form zones | **N/A** list |
+| SSOT | control-hint · real-data §A+§B · `artifact-prefix.md` |
+| **reviewUrlIos** | `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/nghiem-thu/ui/prototype/ios/index.html` |
+| **reviewUrlAndroid** | `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/nghiem-thu/ui/prototype/android/index.html` |
 | **peerStdUrl** | `http://localhost:9304/patrol` |
 | **real_view_parity** | `v1` |
-| **shared_grid_example** | `v1` |
 
-## Filter-bar HARD
+### Wire (list)
 
-- mock `LinErpListFilterBar` · `data-lin-list-layout="erp-filter-bar"`
-- leading = từng `div` field (`display:contents`) · **cấm** wrap cả leading
-- `flex: 1 1 180px` · lấp hàng rồi wrap · 🔍 **cuối mép phải**
-- **cấm** nút Tìm riêng · **cấm** `ErpListHeaderFilters` · **GAP-FILTER-WRAP-02**
+```
+[TopBar] ← Tuần đường | Công tác nghiệm thu | Tạo
+[Search] LinmSearchField «Tìm mẫu nghiệm thu…»
+[List]   #i-check · Code · sub · Badge · chevron → detail
+[Empty]  Chưa có phiếu · hint Tạo
+[Toast]  fail GET
+[Tab]    field active
+```
 
-## Upload HARD
+## Gate
 
-- `web-bff/api/v1/files/*` · FileService · persist guid · resign
-- MIME image ≤10MB · video ≤50MB · max 10
-- **cấm** invent `api/v1/nghiem-thu-files` · persist full URL
+| Gate | Result |
+|------|--------|
+| `ux-analy.md` §1–§9 | PASS |
+| `html-to-native-map.md` | PASS |
+| `ui/review/demo-parity.md` Must | PASS |
+| `design_confirm` | **approve** (autoApprove ON) |
+| e2e / start:std | **cấm** this role |
 
-## API (proposed · SA)
-
-| Method | Path |
-|--------|------|
-| GET/POST | `api/v1/patrol/nghiem-thu` |
-| GET/PUT/DELETE | `api/v1/patrol/nghiem-thu/{id}` |
-| BFF | `web-bff/api/v1/patrol/nghiem-thu` |
-| Files | `web-bff/api/v1/files/*` |
-
-**OPEN → SA:** GAP-DA-NT-DOMAIN-01 / API-01
-
-## Cấm
-
-| ❌ | ✅ |
-|----|-----|
-| Modal/Slideout P1 form | Full page 5 cột |
-| re-scan demo | control-hint + real-data |
-| ERP.* / maintenance WO | RMMS Field + Patrol sibling |
-| footer Lưu / native confirm | header chrome + LeaveConfirmModal |
-| yarn build/e2e ở role design | Dev/QA only |
-
-## design_confirm
-
-| | |
-|--|--|
-| autoApprove | **ON** |
-| decision | **approve** |
-| at | `2026-09-12T09:20:00.000Z` |
-| next | SA · `be/solution-discovery.md` |
-
-## Handoff → SA
+## Version meta
 
 | Field | Value |
 |-------|-------|
-| zone ids | DES-GRID-A…D · C2a · C3 · F · H · Z · DES-NT-UPLOAD · DES-LEAVE |
-| Screens | § Screens · Full page · `/agent-dev` |
-| control-map | § Control-map |
-| reviewUrl | prototype `index.html` |
-| peerStdUrl | `http://localhost:9304/patrol` |
-| APIs | proposed patrol/nghiem-thu + FileService |
-| Open | DOMAIN/API → SA |
+| skillId | agent-design-mobile |
+| skillVersion | 2026.08.25.01 |
+| schemaVersion | 1 |
+| workflowVersion | 2026.09.19.3 |
+| rulesVersion | 2026.09.19.6 |
+| generatedAt | 2026-09-19T15:50:00.000Z |
+| versionGate | ok |
+| contentHash | sha256:a635f3f55a8bedd952c4449056cf072a8eda890eda2b30a45e84bda5d7bf3859 |
 
 ---
-<!-- Version meta: skillId=agent-design · skillVersion=2026.09.05.03 · schemaVersion=1 · workflowVersion=2026.09.05.03 · rulesVersion=2026.09.12.2 · versionGate=ok · shared_grid_example=v1 · real_view_parity=v1 · contentHash=sha256:41b14359b00a0bacbd2f5e88ab9ed8f7604f962c4e4e58219bf9c1145b5ef4ea · taskId=task_16791ccc · design_confirm=approve -->
+<!-- Version meta: skillId=agent-design-mobile skillVersion=2026.08.25.01 schemaVersion=1 workflowVersion=2026.09.19.3 rulesVersion=2026.09.19.6 versionGate=ok -->

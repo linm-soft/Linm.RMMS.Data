@@ -1,199 +1,228 @@
-# PO — nghiem-thu (Công tác nghiệm thu)
+# PO — Requirement — nghiem-thu (mobile list · Công tác nghiệm thu)
 
 | Field | Value |
 |-------|-------|
 | feature | `nghiem-thu` |
-| changeScope | `new_page` |
-| packKind | `list` (**PO confirm**) |
-| Feature Kind | **B** — Catalog list A–D + **full-page** form (clone patrol) |
-| status | `confirmed` (autopilot · `task_8d642b15`) |
-| requestSource | run packet · `/agent-qldb-workflow` · roleOnly=`po` · `/agent-po` |
-| autoApprove | **ON** |
-| e2eQa | **ON** (queued `/agent-qa*` only — **cấm** e2e/start:std ở role này) |
-| prior | data-analy `confirmed` · hash `sha256:41b14359b00a0bacbd2f5e88ab9ed8f7604f962c4e4e58219bf9c1145b5ef4ea` · compact `handoff/data_analy-compact.md` · **cấm** re-scan demo (**GAP-PO-DEMO-RESCAN-01**) |
-| demo | **N/A** · `continue_no_demo` (autopilot) · peer clone `patrol` |
-| mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Field` · route `/nghiem-thu` |
-| mfeStdUrl | `http://localhost:9301/nghiem-thu` |
-| peerStdUrl | `http://localhost:9304/patrol` |
-| be | `D:/AI-QLBD/Linm.RMMS.WebService` · **cấm ERP.*** |
-| taskId | `task_8d642b15` |
-| updatedAt | `2026-09-12T09:05:00.000Z` |
+| title | [Mobile] [Tuần đường] -> Công tác nghiệm thu |
+| this role | `po` · `/agent-po-mobile` |
+| changeScope | **`edit_page`** |
+| packKind | **`list`** (PO confirm · data-analy) |
+| stack | `native_dual` |
+| thisAction | **List** `#sc-nghiem-thu` `DES-MOB-NGHIEM-THU` — live GET + search · row → sibling detail · CTA **Tạo** → sibling create · **cấm** gộp form |
+| status | `confirmed` (autoApprove=ON) |
+| requestSource | run packet `task_da538308` · `/agent-qldb-workflow-mobile` · roleOnly=`po` · `/agent-po-mobile` |
+| autoApprove | **ON** — Design/SA/Review tự confirm **khi tới lượt** · turn này **không** chain |
+| e2eQa | ON · queued `/agent-qa*` · `yarn e2e-qa-mobile` · **cấm** `yarn e2e-qa` / `yarn start:std` / `mfeStdUrl` this role |
+| prior | data_analy **done** · `handoff/data_analy-compact.md` · `specs/_data-analy/nghiem-thu-{control-hint,real-data,bff-endpoints,action-tree}.md` · contentHash `sha256:a635f3f55a8bedd952c4449056cf072a8eda890eda2b30a45e84bda5d7bf3859` · **hash skip** · **cấm** re-scan demo (**GAP-PO-DEMO-RESCAN-01**) |
+| keepPrior | web PO/Design/SA/TL/Dev/QA/Review **confirmed** (`task_8d642b15`…`task_1b121e02`) · Full-page form · FileService · TMPL/STATUS/DOMAIN/API CLOSED · **delta = mobile list only** |
+| `devSlash` | `/agent-dev-ios` + `/agent-dev-android` |
+| updatedAt | `2026-09-19T15:45:00.000Z` |
+| taskId | `task_da538308` |
+
+**Cấm:** invent `api/v1/nghiem-thu` / `files-nt` / `NghiemThuController` trên Bff · Grid AC web / Report AC Lin* · ERP.* · WebView HTML · `mfeStdUrl` · native alert · watermark «Gói N» / «gen realapp» · device label · AC tap-cycle tín hiệu · reimplement kit (`GAP-MOB-ACT-05`) · start sibling create/detail trước Approve (`GAP-MOB-ACT-06`) · enqueue search/GET (`GAP-MOB-ACT-07`) · demoItems SSOT · gộp WO / `rmms_patrol_sessions` · re-scan demo (**GAP-PO-DEMO-RESCAN-01**) · Step 4b / MIG ở role này.
 
 ## 1. Goal
 
-Greenfield Field module **Công tác nghiệm thu**: Kind B list + Create/Edit/View/Copy **full-page** + **10 mẫu NT** + upload ảnh/video hiện trường + thông tin hiện trường. Persona = **cán bộ nghiệm thu** (≠ tuần đường / tuần kiểm). Clone UX shell từ `patrol` — **không** reuse entity `rmms_patrol_sessions` · **cấm** gộp `maintenance` WO / P2 stub.
+Native dual **Công tác nghiệm thu** list: mở từ hub `#row-nghiem-thu` · search · badge status · empty/fail chrome · CTA **Tạo** + row → siblings. Persona = **cán bộ nghiệm thu**. App **chỉ** `{BffBase}/mobile-bff/api/v1/…`.
 
-## 2. DoD (đo được)
+**1 action = 1 feature.** Slug `nghiem-thu` = list `#sc-nghiem-thu` only. Create/detail = **navigate only** · **cấm** gộp form (`GAP-MOB-ACT-01/02`).
 
-1. List `/nghiem-thu` mở Kind B A–D · filter `LinErpListFilterBar` · 🔍 mép phải · **lấp hàng rồi wrap** (**GAP-FILTER-WRAP-02**).
-2. Toolbar FULL: Làm mới · Lịch sử · Config · View/Edit/Delete theo chọn · **+ Thêm mới** trên Zone B — **cấm** Thêm mới trên Header A.
-3. Grid: sort · filter cột · row menu Xem/Sửa/Sao chép/Lịch sử/Xóa · kéo cột default ON · pagination 50/100/200/500.
-4. Form full-page `/nghiem-thu/new` · `/nghiem-thu/:id` · Copy · View=`<dl>` · footer Lưu/Hủy · **LeaveConfirmModal** khi dirty.
-5. Chọn **1/10 mẫu** (`templateType`) trước/khi tạo · LOOKUP_STATIC §6.
-6. Upload `mediaIds[]` qua FileService `web-bff/api/v1/files/*` · persist **guid only** · resign mỗi xem · MIME: image jpeg/png/webp ≤10MB · video mp4/webm ≤50MB · max 10 file/record · fail → toast (**cấm** alert).
-7. API proposed `api/v1/patrol/nghiem-thu` (+ BFF cùng resource) sau SA DOMAIN-MAP · empty/error per real-data · **cấm** mock-only SSOT.
-8. Lane **web only** · mobile = enqueue_later · FE/BE build = Dev/QA gates (**cấm** yarn build ở PO).
+**edit_page Delta:** ship native list bind live BFF — **không** đổi web Kind B / Full-page artifacts.
 
-## 3. CTX / DEM / DI inventory
+## 2. changeScope `edit_page` — Current vs New
+
+| Zone / behavior | Current | New (DoD) |
+|-----------------|---------|-----------|
+| List surface | Web Kind B done · native demo 2 rows + toast | Native `#sc-nghiem-thu` · `GET patrol/nghiem-thu` · EmptyChrome · **cấm** demoItems |
+| Row tap | demo `toast(NT-*)` | push sibling `nghiem-thu-detail` + `Id` |
+| Nav **Tạo** | demo `go('nghiem-thu-create')` | push sibling `nghiem-thu-create` · **cấm** form trên list |
+| Search | placeholder demo | `LinmSearchField` · query `?search=` |
+| Badge | demo «Nháp»/«Xong» | map init-data · ship **Hoàn thành** (không «Xong») |
+| BFF | CTX «chưa proxy» | catch-all covers `patrol/nghiem-thu*` · **cấm** invent controller |
+| Filter status/route/template | demo none | **P1 optional** sheet · **Must** search; optional filters = P1 sheet OK |
+
+**Keep:** web Full form · FileService · 10 mẫu `mau-01`…`10` · status enum CLOSED · DOMAIN Patrol · siblings create/detail `pending_confirm`.
+
+## 3. DoD (đo được)
+
+1. Dual `#sc-nghiem-thu` `DES-MOB-NGHIEM-THU`: TopBar back **Tuần đường** · title **Công tác nghiệm thu** · trailing **Tạo** · SearchField · list rows. Frame proto iOS 390×844 · Android 412×915.
+2. Hub `#row-nghiem-thu` (patrol-home) → push list · copy «Công tác nghiệm thu» · sub «10 mẫu · ảnh / video hiện trường» · `#i-check` · **cấm** invent icon.
+3. Appear: `GET mobile-bff/api/v1/patrol/nghiem-thu` (+ optional `?search=`) · map rows. 0 Items + OK → **EmptyChrome** · **cấm** inject demo rows.
+4. Fail / offline GET → empty + `LinmToast` · **cấm** native alert · **cấm** fake NT-*.
+5. Row bind §B:
+
+   | uiField | Source |
+   |---------|--------|
+   | rowCode | `Code` |
+   | rowSub | `TemplateType` · `Route` · `KmFrom` (± media hint) |
+   | rowStatus | `Status` → Nháp / Đang NT / Hoàn thành / Hủy |
+   | rowIcon / chevron | `#i-check` · `#i-chevron-right` |
+
+6. Row tap → push `nghiem-thu-detail` + `Id` · **cấm** toast code dead-end.
+7. **Tạo** → push `nghiem-thu-create` · **cấm** implement form trong slug list · **cấm** start sibling pipeline trước Approve.
+8. `GET …/init-data` map Statuses + TemplateTypes · fallback CLOSED labels nếu fail catalog.
+9. Kit **reuse map**: `LinmTopBar` · `LinmSearchField` · `LinmListRow` · StatusBadge · `LinmToast` · EmptyChrome · `#i-search` · `#i-chevron-left/right` · `#i-check`. **Cấm** reimplement (`GAP-MOB-ACT-05`).
+10. Typography: label/badge **13** · field/search ≥**16** · dual copy/`#i-*` parity · tab shell `field` active · `tabs: none` trên list.
+11. Device AC list: GPS **n/a** · Camera **n/a** · Leave dirty **n/a** (no CRUD form) · Offline = toast+empty · **cấm** alert.
+12. App chỉ `{BffPrefix}` · token Keychain/Encrypted · **cấm** `:5101` / ERP.*.
+13. Dev (sau): dual build PASS · Mobile.Bff build PASS — **cấm** `yarn start:std` / Step 4b ở PO.
+14. QA (sau): Maestro `nghiem-thu` · `yarn e2e-qa-mobile` · store PNG — **cấm** e2e ở role này.
+15. Step 4b **N/A** — path live · catch-all proxy · **cấm** invent API / MIG.
+
+## 4. CTX / DEM / DI inventory (hash skip — copy analy)
 
 | ID | Path | Loại |
 |----|------|------|
-| CTX-01 | `docs/context/features/nghiem-thu.md` | feature P0 · hash `41b14359…` |
-| CTX-02 | `docs/context/features/patrol.md` | peer clone UX |
-| DEM-01 | **N/A** (web) · mobile seed `#sc-nghiem-thu` only — **cấm** demo-json SSOT |
-| DI-01 | `specs/_data-analy/features/nghiem-thu-control-hint.md` | controlHint |
-| DI-02 | `specs/_data-analy/features/nghiem-thu-real-data.md` | real-data §A+§B |
-| DI-03 | `specs/_data-analy/features/nghiem-thu-filter-bar.md` | filter-bar HARD |
-| DI-04 | `specs/_form-type-mobile/MEETING-1-5.md` | họp 1 · 10 mẫu · mobile later |
-| MFE | `Linm.Web.RMMS.Field` `/nghiem-thu` | UI |
-| BE | `Linm.RMMS.WebService` · DOMAIN-MAP · FileService Bff | API |
-| BFF files | `web-bff/api/v1/files/*` | upload/resign |
+| CTX-01 | `docs/context/features/nghiem-thu.md` | feature P0 |
+| CTX-02 | `docs/context/features/patrol.md` | domain peer |
+| CTX-03 | `docs/context/features/patrol-home.md` | hub entry |
+| DEM-01 | `specs/mobile-p1/ui/prototype/{ios,android}/index.html` `#sc-nghiem-thu` | zone ids · **cấm** re-scan |
+| DEM-02 | hub `#row-nghiem-thu` | entry |
+| DI-01 | — | **no Excel** |
+| DA-01 | `specs/_data-analy/nghiem-thu-control-hint.md` | controlHint + § Delta |
+| DA-02 | `specs/_data-analy/nghiem-thu-real-data.md` | §A+§B PASS |
+| DA-03 | `specs/_data-analy/nghiem-thu-bff-endpoints.md` | BFF |
+| DA-04 | `specs/_data-analy/nghiem-thu-action-tree.md` | action-tree |
+| WEB-KEEP | `specs/nghiem-thu/po` prior web · `ui/` · `be/` · `task/` · `implement/` · `qa/` · `review/` | keep confirmed |
+| IOS | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS` | native |
+| AND | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android` | native |
+| BFF | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Bff` | catch-all proxy |
+| BE | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.WebService` | Patrol · **cấm ERP.*** |
 
-## 4. controlHint (PO chốt — Design map UI · SA map API)
+## 5. controlHint (PO chốt — cite DA-01)
 
-### List filters (Zone B)
+| Field | VN | controlHint | Size | Kit | Notes |
+|-------|----|-------------|------|-----|-------|
+| navBack | Tuần đường | BackButton | 16 | `LinmTopBar` `#i-chevron-left` | `go('patrol-home')` |
+| title | Công tác nghiệm thu | TopBar title | 17 | `LinmTopBar` | fixed |
+| navCreate | Tạo | TextButton | 16 | trailing | → `nghiem-thu-create` |
+| search | Tìm mẫu nghiệm thu… | SearchField | ≥16 | `LinmSearchField` `#i-search` | `?search=` |
+| rowIcon | (check) | Icon | — | `#i-check` | status color |
+| rowCode | NT-* | Text title | ≥16 | `LinmListRow` | `Code` |
+| rowSub | Mẫu · tuyến · Km | Text subtitle | 13 | | Template · Route · Km |
+| rowStatus | Nháp/Đang NT/Hoàn thành/Hủy | Badge | 13 | StatusBadge | init-data |
+| rowChevron | (chev) | Chevron | — | `#i-chevron-right` | detail |
+| empty | (trống) | EmptyChrome | 13–16 | | 0 items |
+| toastFail | (fail) | Toast | 13–16 | `LinmToast` | 4xx/offline |
 
-| Field key | Label | controlHint | catalogKind | Notes |
-|-----------|-------|-------------|-------------|-------|
-| search | Tìm kiếm | `SearchTextInput` | text | mã · tuyến · mẫu · ghi chú — **không** nút Tìm riêng |
-| status | Trạng thái | `SearchInput` | enum VN | §6 |
-| route | Tuyến đường | `SearchInput` | **road-route** | persist **code** · **cấm** free-text |
-| templateType | Mẫu NT | `SearchInput` | LOOKUP_STATIC | 10 mẫu §6 |
-| fromDate / toDate | Từ / Đến | `Date` | | kỳ nghiệm thu |
+UNCLEAR = **none**.
 
-### Form fields
+### Status map (CLOSED)
 
-| Field key | Label | controlHint | required | Notes |
-|-----------|-------|-------------|----------|-------|
-| code | Mã nghiệm thu | `Text` | auto | IdCode `NT-yyyyMMdd-nnn` · Create readOnly |
-| templateType | Mẫu nghiệm thu | `SearchInput` | * | LOOKUP_STATIC 10 |
-| route | Tuyến đường | `SearchInput` | * | `catalogKind=road-route` |
-| zoneOrgCode / zoneOrgName | Khu / Chi cục | `SearchInput` | | `org-unit` · RmmsOrgFormFields |
-| vpOrgCode / vpOrgName | VP | `SearchInput` | | org-unit |
-| assigneeCode / assigneeName | Cán bộ NT | `SearchInput` | * | persona NT |
-| inspectedAt | Ngày nghiệm thu | `Date` | * | |
-| kmFrom / kmTo | Km đầu / Km cuối | `Text` (number) | | chainage |
-| fieldInfo | Thông tin hiện trường | `Text` | * | multiline |
-| status | Trạng thái | `SearchInput` | * | enum VN §6 |
-| note | Ghi chú | `Text` | | |
-| mediaIds | Ảnh / video hiện trường | `FileMulti` | | FileService guid[] · **cấm** persist URL |
-| updatedAt | Cập nhật | `Date` | | View readonly |
+| API | Label VN |
+|-----|----------|
+| `draft` | Nháp |
+| `in_progress` | Đang NT |
+| `done` | Hoàn thành |
+| `cancelled` | Hủy |
 
-## 5. Open questions — PO chốt (autoApprove)
+TemplateType: `mau-01`…`mau-10` · label `Mẫu nghiệm thu 01`…`10`.
 
-| ID | Question | Decision (PO) |
-|----|----------|----------------|
-| GAP-DA-NT-TMPL-01 | Tên 10 mẫu? | **CLOSED** LOOKUP_STATIC code=`mau-01`…`mau-10` · label=`Mẫu nghiệm thu 01`…`10` (interim P0 — rename copy P2 không block Design/SA) |
-| GAP-DA-NT-STATUS-01 | Enum trạng thái VN? | **CLOSED** `Nháp` · `Đang NT` · `Hoàn thành` · `Hủy` |
-| GAP-DA-NT-FORM-01 | Form Pattern? | **CLOSED** **Full page** (clone patrol) · URL `/new`·`:id` — **cấm** Modal/Slideout P1 |
-| GAP-DA-NT-DOMAIN-01 / API-01 | Domain + path? | **OPEN → SA** đề xuất Patrol sibling · `api/v1/patrol/nghiem-thu` · entity NT riêng · **cấm** sessions / WO / ERP.* / domain 16 |
-| missing_demo_context | Demo N/A? | **CLOSED** `continue_no_demo` · peerStdUrl patrol · Design prototype-only |
+## 6. BFF / API (PO chốt · **cấm** invent)
 
-## 6. LOOKUP_STATIC (PO)
+App `ApiClient.base` = `{BffBase}/mobile-bff/api/v1`.
 
-### templateType (10)
+| Action | Method | Path | In slug? |
+|--------|--------|------|----------|
+| List | GET | `patrol/nghiem-thu` | **yes** · ±`search` · opt status/route/templateType |
+| Init catalog | GET | `patrol/nghiem-thu/init-data` | **yes** |
+| Create form | — | sibling `nghiem-thu-create` | **navigate only** |
+| Detail | — | sibling `nghiem-thu-detail` + Id | **navigate only** |
+| Files | — | `files/*` FileService | **OUT** list |
 
-| code | label |
-|------|-------|
-| mau-01 | Mẫu nghiệm thu 01 |
-| mau-02 | Mẫu nghiệm thu 02 |
-| mau-03 | Mẫu nghiệm thu 03 |
-| mau-04 | Mẫu nghiệm thu 04 |
-| mau-05 | Mẫu nghiệm thu 05 |
-| mau-06 | Mẫu nghiệm thu 06 |
-| mau-07 | Mẫu nghiệm thu 07 |
-| mau-08 | Mẫu nghiệm thu 08 |
-| mau-09 | Mẫu nghiệm thu 09 |
-| mau-10 | Mẫu nghiệm thu 10 |
+**Cấm** invent root `nghiem-thu` path · DbContext trên Mobile.Bff · Step 4b.
 
-### status
+## 7. Screens / action-tree (1 action = 1 feature)
 
-| code | label |
-|------|-------|
-| draft | Nháp |
-| in_progress | Đang NT |
-| done | Hoàn thành |
-| cancelled | Hủy |
+```
+patrol-home
+└── nghiem-thu (#sc-nghiem-thu · list · this turn)
+    ├── back → patrol-home (reuse)
+    ├── Tạo → nghiem-thu-create (pending_confirm · navigate)
+    ├── row → nghiem-thu-detail (pending_confirm · navigate)
+    └── search / GET / init-data (same-slug · không enqueue)
+```
 
-## 7. Grid list AC (REQUIRED · Kind B / list)
+| feature | kind | enqueue |
+|---------|------|---------|
+| `nghiem-thu` | list | **this turn** |
+| `nghiem-thu-create` | sheet | **pending_confirm** — **cấm** start |
+| `nghiem-thu-detail` | sheet | **pending_confirm** — **cấm** start |
 
-| Area | Acceptance (Design phải prototype) |
-|------|-------------------------------------|
-| **Shell A–D** | Header · Toolbar · Grid card · Pagination footer |
-| **Toolbar FULL** | Làm mới · Lịch sử · Sửa config (`fa-cog`) · View/Edit/Delete theo chọn · **+ Thêm mới** |
-| **Grid menu** | Row menu: Xem/Sửa/Sao chép/Lịch sử/Xóa · help «nhấn đúp / Ctrl+chuột phải» |
-| **Config** | Sửa cấu hình lưới · kéo cột default ON |
-| **Grid flow** | Sort cột · filter cột (panel) · chọn dòng |
-| **Filter Zone B** | **`LinErpListFilterBar`** · 1 hàng wrap · field **lấp hàng rồi wrap** · 🔍 mép phải (`filter-bar-layout-hard` · **GAP-FILTER-WRAP-02**) — **không** nút Tìm · **cấm** `ErpListHeaderFilters` / stack |
-| **Form pair** | Create/Edit/View/Copy → **Full page** · Design clone `form-surface-prototype` + upload zone |
-| **Tree?** | none |
-| **SSOT Design** | `shared-grid-example` · `list-shell-prototype` · `po-design-grid-standard` |
-| **SSOT TL/Dev** | `tl-design-grid-component-map` · `tl-grid-full-flow` · `tl-filter-bar-task` (T-UI-FILTER-01) |
+## 8. Device AC
 
-**Handoff → Design:** clone `shared-grid-example.html` · giữ `data-des-id` DES-GRID-A…D — **cấm** gen list chỉ table giữa trang.
+| Factor | AC |
+|--------|-----|
+| GPS | **n/a** list |
+| Camera / Files | **n/a** list (create/detail) |
+| Offline | GET fail → EmptyChrome + toast · **cấm** fake rows |
+| Leave dirty | **n/a** (no form on list) |
+| Alert | **cấm** UIAlert / AlertDialog / window.alert |
+| Typography | label/tab 13 · field ≥16 |
+| Dual | cùng copy VN · cùng `#i-*` · iOS back text · Android icon-btn |
+| Store signup | **N/A** (no signup on this surface) · GAP-PO-STORE-01 n/a |
 
-## 8. Screens / Pattern / devSlash
+## 9. Open questions — PO chốt
 
-| Screen | Pattern | FormMode | Actions | Leave | devSlash |
-|--------|---------|----------|---------|-------|----------|
-| List `/nghiem-thu` | Kind B A–D | — | Toolbar + filter + grid | n/a | `/agent-dev` |
-| Create `/nghiem-thu/new` | **Full page** | Create | footer Lưu/Hủy · upload · chọn mẫu | dirty → LeaveConfirmModal | `/agent-dev` |
-| Edit `/nghiem-thu/:id` | **Full page** | Edit | Lưu/Hủy · upload | dirty → LeaveConfirmModal | `/agent-dev` |
-| View `/nghiem-thu/:id` (view) | **Full page** | View | `<dl>` + gallery resign · Đóng | no dirty | `/agent-dev` |
-| Copy | **Full page** | Copy | prefill · new code | dirty → LeaveConfirmModal | `/agent-dev` |
+| ID | Decision |
+|----|----------|
+| packKind | **Confirm `list`** |
+| changeScope | **`edit_page`** (re-confirm analy) |
+| Grid / Report AC | **N/A** native · web Grid keep on web lane only |
+| Leave | **N/A** list · fail = toast/empty (**GAP-PO-LEAVE-01** toast path) |
+| Optional filters | status/route/templateType = **P1 optional** sheet · search = **Must** |
+| Siblings | create/detail **pending_confirm** · navigate wire OK · **cấm** start pipeline |
+| Hash skip | **cấm** re-scan demo |
+| DOMAIN/API | **CLOSED** Patrol · `api/v1/patrol/nghiem-thu` |
+| FileService | **OUT** list · keep create path |
 
-## 9. Leave / alert (REQUIRED)
+UNCLEAR = **none**.
 
-| Case | Behavior |
-|------|----------|
-| Form dirty navigate/back | **`LeaveConfirmModal`** (`/implement-show-leave-confirm`) — **cấm** native `confirm` |
-| Xóa row / chặn thao tác | **`useAlert` / `Modal`** — **cấm** `alert` |
-| Upload/API fail | toast · **cấm** alert |
-| Empty / filtered empty / API gap | copy per real-data §A · skeleton · **cấm** blank body |
+## 10. KPI / DoD summary
 
-## 10. Tab index
+| KPI | Pass khi |
+|-----|----------|
+| Live list | màn mở = Items từ BFF · 0 = EmptyChrome |
+| Search | `?search=` rebinds list |
+| Nav | Tạo + row → đúng sibling slug |
+| Dual parity | iOS + Android cùng zones/copy |
+| No fake | **cấm** demoItems / toast-as-detail |
 
-| Surface | tabs |
-|---------|------|
-| List + form | `tabs: none` (1 surface mỗi route) |
-
-## 11. API / bind (proposed · SA confirm)
-
-| Method | Path |
-|--------|------|
-| GET/POST | `api/v1/patrol/nghiem-thu` |
-| GET/PUT/DELETE | `api/v1/patrol/nghiem-thu/{id}` |
-| BFF | `web-bff/api/v1/patrol/nghiem-thu` |
-| Files | `web-bff/api/v1/files/*` · `/init-bff-file` nếu thiếu · `/integrate-file-upload-web` |
-
-**Cấm:** ERP.* · invent `api/v1/nghiem-thu-files` · persist full URL · reuse `rmms_patrol_sessions` · gộp `api/v1/maintenance/work-orders/*/complete`.
-
-## 12. Out of scope (this pack)
-
-- Mobile native implement / queue `qlbd-mobile` (enqueue_later)
-- Map / Kind E+F / Excel export P1
-- Domain thứ 16 · ERP.WebService · Maintenance WO complete stub
-- Re-scan demo HTML / crawl DemoRoot
-
-## 13. Handoff → Design
+## 11. Handoff → Design (`/agent-design-mobile` khi tới lượt)
 
 | Field | Value |
 |-------|-------|
-| feature / packKind | `nghiem-thu` · **list** (PO confirm) |
-| phase_from / phase_to | po → design |
-| STATUS | po **confirmed** · design **pending** |
-| changeScope | `new_page` |
-| Context / Demo / DI | CTX-01 · DEM **N/A** · DI-01/02/03 |
-| controlHint | §4 · FileMulti `mediaIds` · road-route · 10 mẫu §6 |
-| Screens / Pattern / devSlash | §8 · Full page · `/agent-dev` |
-| Grid AC | §7 · `grid_standard` REQUIRED |
-| Leave | §9 · LeaveConfirmModal |
-| peerStdUrl | `http://localhost:9304/patrol` |
-| reviewUrl | *(Design gen)* |
-| APIs | proposed §11 · FileService HARD |
-| Open questions | DOMAIN/API → SA only |
-| Next AskQuestion | `design_confirm` (autoApprove ON → chain) |
-| autoApprove | **ON** |
+| feature | `nghiem-thu` |
+| packKind | `list` |
+| changeScope | `edit_page` |
+| zones | `DES-MOB-NGHIEM-THU` · `#sc-nghiem-thu` · hub `#row-nghiem-thu` |
+| Pattern | List + SearchField · **không** Full-page form trên slug này |
+| Grid AC | **N/A** |
+| Leave | **N/A** list |
+| controlHint | DA-01 cite |
+| real-data §A+§B | DA-02 |
+| dual proto | gen/update `ui/prototype/{ios,android}` sau PO · reviewUrl Design |
+| peerStdUrl | web ref only `http://localhost:9304/patrol` — **cấm** mfeStdUrl native |
+| siblings | create/detail pending_confirm · zone ids only |
+| keep web | Design web Full page **giữ** |
+| next | Design mobile → SA (proxy confirm · no MIG) → TL → Dev iOS+Android → QA mobile |
+| autoApprove | ON |
+| e2eQa | queued QA only |
+
+## Version meta
+
+| Field | Value |
+|-------|-------|
+| skillId | agent-po-mobile |
+| skillVersion | 2026.09.05.03 |
+| schemaVersion | 1 |
+| workflowVersion | 2026.09.19.3 |
+| rulesVersion | 2026.09.19.6 |
+| generatedAt | 2026-09-19T15:45:00.000Z |
+| versionGate | ok |
+| contentHash | sha256:a635f3f55a8bedd952c4449056cf072a8eda890eda2b30a45e84bda5d7bf3859 |
+| priorRole | data_analy · done · task_1bd5874a |
+| taskId | task_da538308 |
 
 ---
-<!-- Version meta: skillId=agent-po · skillVersion=2026.09.05.03 · schemaVersion=1 · workflowVersion=2026.09.05.03 · rulesVersion=2026.09.12.2 · versionGate=ok · contentHashPriorDataAnaly=sha256:41b14359b00a0bacbd2f5e88ab9ed8f7604f962c4e4e58219bf9c1145b5ef4ea · taskId=task_8d642b15 -->
+<!-- Version meta: skillId=agent-po-mobile skillVersion=2026.09.05.03 schemaVersion=1 workflowVersion=2026.09.19.3 rulesVersion=2026.09.19.6 versionGate=ok -->
