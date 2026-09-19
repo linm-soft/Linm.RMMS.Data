@@ -11,7 +11,7 @@
 | stackSkill | `/implement-map-stack` |
 | context | `docs/context/features/map-service.md` |
 | backend | `D:/API-CORE/Linm.Platform.MapService` · `api/v1/gis/*` |
-| mfe | `Linm.Web.RMMS.Gis` — clip BFF MVT · OpenMapTiles streets + place · maxBounds 6.8–23.5 · **0** OSM.org trên Gis*Page |
+| mfe | `Linm.Web.RMMS.Gis` — clip BFF MVT · OpenMapTiles streets + place · maxBounds 6.8–23.5 · **0** OSM.org trên Gis*Page · **consumer** Report/AiVision/Asset reuse `webpack.gis-map-alias.js` (2026-09-19) |
 | mfeStdRoute | `/map-service` |
 | mfeStdUrl | `http://localhost:9301/map-service` |
 | mobileBff | `specs/mobile-bff-map/STATUS.md` |
@@ -432,6 +432,17 @@ View vùng (vd. `pin 788`) có data, zoom vào góc **trống**. Detail dừng ~
 | `/review-map-release` | Store law — **sau** HTTPS OSRM live · **không** auto-done |
 | `/data-gov-integration` | overlay routes/assets |
 | P2 z14 | `pwsh ./local-script/render-osm-mvt.ps1 -MaxZoom 14` nếu cần phố nhỏ (hiện z12) |
+
+## Notes — OSRM client public ban (2026-09-19)
+
+- Asset `CsdlSo10MapPanel` reuse GIS `routeAlongStreets` via webpack `@rmms/gis-osrm` (cấm hardcode public · cấm tsc GIS Leaflet từ Asset).
+- Demo `_shared/osrm-route.js` · `map-layout.js` · `snap-to-street.js` default `http://127.0.0.1:5000` (`window.__LINM_OSRM_URL__` override) · **fail-closed** `project-osrm.org`.
+- Specs prototype `map-oms.js` (gis-map / patrol-map / mobile-p1) cùng gate.
+- Report / AiVision `.env.template` `VITE_OSRM_URL=http://127.0.0.1:5000`.
+- BE `Gis:OsrmUrl` chứa `project-osrm.org` → throw startup.
+- FE `fetchOsrmJson` fail-closed cùng host.
+- Native iOS Debug `OsrmBase` public **không** trong workspace này — **còn** (cấm public khi `net.osrmPublic=false`).
+- Runtime extract + Nginx TLS **vẫn DEFER** Linux.
 
 ## Notes — OSRM self-host (`GAP-MAP-OSRM-SELFHOST-01`) — 2026-09-17
 

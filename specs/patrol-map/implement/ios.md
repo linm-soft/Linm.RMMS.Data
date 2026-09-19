@@ -28,13 +28,13 @@
 - **Cấm** `PatrolMapOverlay` mock track/pins (cleanup_mock · GAP-MOB-PAT-MAP-LIVE-01)
 - First open: seed track/pins ngay, re-apply overlay khi MapLibre `didFinishLoading` (GAP-MOB-IOS-FIRST-OVERLAY-01)
 - HITL `photo-geo-capture` confirm map → cùng `GisClipMapView` · pin focus kéo HITL
-- OSRM: Debug `OsrmBase` = `https://router.project-osrm.org` (xcconfig `$()`). Empty + `net.osrmPublic=false` → nét đứt + toast `patrol.map.osrmFallback` (**GAP-MAP-OSRM-CONFIG-01**). HTTP fail same. Track path vẫn live.
+- OSRM: Debug `OsrmBase` = self-host / empty (`net.osrmPublic=false`). **Cấm** `https://router.project-osrm.org`. Empty + `net.osrmPublic=false` → nét đứt + toast `patrol.map.osrmFallback` (**GAP-MAP-OSRM-CONFIG-01**). HTTP fail same. Track path vẫn live.
 - **Ghim vị trí hiện tại** → snap · pin `.here` · toast · deny modal **chỉ khi chưa cấp**
 - CoreLocation: services off / authorized+error → `unavailable` (**GAP-MOB-EDIT-PERM-01**)
 - **Cấm** fork `VnClipStyle` / tile URL khác `#sc-gis-map`
 
 ## Notes (2026-09-16)
 
-Android host now matches this packet: `GisClipMapView` MapLibre + BFF MVT. **Cấm** revert iOS MapKit world. GAP-MOB-PIN-OVER-LINE-01: corridor GeoJSON line **below** pin layers (cấm MLNPolyline annotation trên pin). **GAP-MAP-OSRM-CONFIG-01:** Debug `OsrmBase` public · router no longer requires `netOsrmPublic` when base is set · fail = dashed corridor.
+Android host now matches this packet: `GisClipMapView` MapLibre + BFF MVT. **Cấm** revert iOS MapKit world. GAP-MOB-PIN-OVER-LINE-01: corridor GeoJSON line **below** pin layers (cấm MLNPolyline annotation trên pin). **GAP-MAP-OSRM-CONFIG-01:** Debug `OsrmBase` self-host/empty · **cấm** public · router no longer requires `netOsrmPublic` when base is set · fail = dashed corridor.
 
 **GAP-MOB-EDIT-SIL-01:** `AppRouter` `$showPatrolMapFromField` / `$showPatrolMapFromHome` — **cấm** `Binding(get: { staffPatrolMap && state })`. Hide = `guard staffPatrolMap`. dest iPhone 17 Pro Max **PASS**.

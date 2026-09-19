@@ -122,3 +122,7 @@
 - qa: `D:/AI-QLBD/Linm.RMMS.Data/specs/dashboard/qa/scenarios.md`
 - review: `D:/AI-QLBD/Linm.RMMS.Data/specs/dashboard/review/findings.md`
 - compact: `D:/AI-QLBD/Linm.RMMS.Data/specs/dashboard/handoff/review-compact.md`
+
+## Follow-up 2026-09-19 — GAP-MAP-OSM-CDN-01 dashboard
+
+Mini-map `/bao-cao/dashboard` reuse `{MfeGis}` `attachVnClipBasemap` via `@rmms/gis-clip` · tiles BFF · **cấm** `tile.openstreetmap.org`. Phase vẫn `done` (gap map chrome, không re-open pipeline).

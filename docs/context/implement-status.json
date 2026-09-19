@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-18T17:45:00.000Z",
+  "updatedAt": "2026-09-18T20:13:17.140Z",
   "features": {
     "ai-asset-detect": {
       "web": {
@@ -35,8 +35,8 @@
     "asset": {
       "mobile": {
         "phase": "qa",
-        "status": "await_confirm",
-        "updatedAt": "2026-09-01T16:24:14.270Z",
+        "status": "blocked",
+        "updatedAt": "2026-09-18T18:41:36.221Z",
         "statusRel": "specs/asset/STATUS.md"
       },
       "web": {
@@ -862,9 +862,9 @@
     },
     "platform-task": {
       "web": {
-        "phase": "qa",
-        "status": "paused",
-        "updatedAt": "2026-08-29T02:12:27.249Z",
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-18T19:14:37.890Z",
         "statusRel": "specs/platform-task/STATUS.md"
       }
     },
@@ -894,9 +894,9 @@
     },
     "rmms-task-integrate": {
       "web": {
-        "phase": "done",
-        "status": "done",
-        "updatedAt": "2026-09-18T17:28:36.015Z",
+        "phase": "data_analy",
+        "status": "draft",
+        "updatedAt": "2026-09-18T17:56:06.533Z",
         "statusRel": "specs/rmms-task-integrate/STATUS.md"
       }
     },
@@ -974,9 +974,9 @@
     },
     "rpt-nhat-ky-tuan-duong": {
       "web": {
-        "phase": "qa",
-        "status": "pending",
-        "updatedAt": "2026-09-18T17:39:19.524Z",
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-18T17:52:24.432Z",
         "statusRel": "specs/rpt-nhat-ky-tuan-duong/STATUS.md"
       }
     },
@@ -1318,9 +1318,9 @@
     },
     "so-ts-type-grid": {
       "web": {
-        "phase": "data_analy",
-        "status": "blocked",
-        "updatedAt": "2026-08-31T18:54:36.628Z",
+        "phase": "qa",
+        "status": "await_confirm",
+        "updatedAt": "2026-09-18T18:41:51.740Z",
         "statusRel": "specs/so-ts-type-grid/STATUS.md"
       }
     },
@@ -1390,9 +1390,9 @@
     },
     "job-title": {
       "web": {
-        "phase": "data_analy",
-        "status": "blocked",
-        "updatedAt": "2026-09-18T15:51:50.100Z",
+        "phase": "qa",
+        "status": "await_confirm",
+        "updatedAt": "2026-09-18T20:13:17.140Z",
         "statusRel": "specs/job-title/STATUS.md"
       }
     }

@@ -3,9 +3,10 @@
 | Field | Value |
 |-------|-------|
 | feature | `rpt-nhat-ky-tuan-duong` |
-| phase | `qa` |
+| phase | `dev` |
 | status | `in_progress` |
-| taskIdActive | `task_5d079e3e` |
+| qa.compact | `specs/rpt-nhat-ky-tuan-duong/handoff/qa-compact.md` |
+| review.compact | `specs/rpt-nhat-ky-tuan-duong/handoff/review-compact.md` |
 | packKind | `report` |
 | changeScope | `edit_page` |
 | cr | `nktd-pdf-20260917` · Wave B · cite `SRC-NKTD-PDF` |
@@ -34,8 +35,8 @@
 | implement.compact | `specs/rpt-nhat-ky-tuan-duong/handoff/dev-compact.md` |
 | qa.artifact | `specs/rpt-nhat-ky-tuan-duong/qa/scenarios.md` |
 | review.artifact | `specs/rpt-nhat-ky-tuan-duong/review/findings.md` |
-| taskId | `task_0d18fcc7` |
-| updatedAt | `2026-09-18T17:39:29.775Z` |
+| taskId | `task_792e0c6b` |
+| updatedAt | `2026-09-18T20:13:27.356Z` |
 | skillVersion | `2026.08.15.5` |
 | schemaVersion | `1` |
 | workflowVersion | `2026.08.15.5` |
@@ -46,7 +47,7 @@
 
 | agent | scope | id | at |
 |-------|-------|-----|-----|
-| agent-qa | `rpt-nhat-ky-tuan-duong` | `task_5d079e3e` | `2026-09-18T17:40:00.000Z` |
+| — | — | — | released (review DoR PASS · `task_792e0c6b`) |
 
 ## Pipeline
 
@@ -57,9 +58,9 @@
 | 2.1 | design | ui/design.md + prototype + reviewUrl + design-compact | **confirmed** |
 | 2.2 | sa | be/solution-discovery.md + handoff/sa-compact.md | **confirmed** |
 | 3 | team-lead | task/rpt-nhat-ky-tuan-duong.md + cr-pdf delta + team_lead-compact | **confirmed** |
-| 4 | dev | implement/rpt-nhat-ky-tuan-duong.md + handoff/dev-compact | **confirmed** |
-| 5 | qa | qa/scenarios.md | **in_progress** |
-| 6 | review | review/findings.md | pending |
+| 4 | dev | implement/rpt-nhat-ky-tuan-duong.md + handoff/dev-compact | **in_progress** |
+| 5 | qa | qa/scenarios.md + handoff/qa-compact + screens S0/S1/QA-20 | **confirmed** |
+| 6 | review | review/findings.md + handoff/review-compact | **done** |
 ## Confirms
 
 | Gate | Value |
@@ -73,11 +74,11 @@
 | be_repo_confirm | `Linm.RMMS.WebService` — user tick board |
 | ui_repo_confirm | `Linm.Web.RMMS.Report` — user tick board |
 | route_confirm | **route_a** `/bao-cao/nhat-ky-tuan-duong` (**giữ**) |
-| review_confirm | **pending** (edit_page Wave B) |
+| review_confirm | **confirmed** (user Approve board) |
 | autoApprove | **ON** |
 | sourceFormReady | **yes** (Wave A `csdl-so-02` done · LocationText) |
 | chain | **ON** · pipeline edit_page CR |
-| e2eQa | **ON** — queued `/agent-qa*` |
+| e2eQa | **ON** — QA PASS · PNG S0/S1/QA-20 |
 
 ## Tasks
 
@@ -96,7 +97,9 @@
 | task_6d170bb5 | `/bao-cao/nk-td` | design | po | completed | roleOnly · `/agent-design` · Wave B delta |
 | task_5f0a988e | `/bao-cao/nk-td` | sa | design | completed | roleOnly · `/agent-sa` · Wave B load-join sổ · solution+compact PASS |
 | task_8cbb2073 | `/bao-cao/nk-td` | team_lead | sa | completed | roleOnly · `/agent-team-lead` · Wave B T-* + compact PASS · enqueue **dev** |
-| **task_0d18fcc7** | `/bao-cao/nk-td` | **dev** | team_lead | **completed** | roleOnly · `/agent-dev` · Wave B sổ load + drill + SIGN · build PASS · enqueue **qa** |
+| task_0d18fcc7 | `/bao-cao/nk-td` | dev | team_lead | completed | roleOnly · `/agent-dev` · Wave B sổ load + drill + SIGN · build PASS · enqueue **qa** |
+| task_5d079e3e | `/bao-cao/nk-td` | qa | dev | completed | roleOnly · `/agent-qa` · e2e S0/S1/QA-20 PASS · T-QA-RPT-01 · compact PASS · enqueue **review** |
+| **task_792e0c6b** | `/bao-cao/nk-td` | **review** | qa | **completed** | roleOnly · `/agent-review` · Wave B findings PASS · review_confirm approve · compact PASS · pipeline **done** |
 
 ## Blockers / open questions
 
@@ -109,14 +112,16 @@
 
 ## Links
 
-- data-analy → po → design → sa → team_lead → **dev confirmed** → qa → review
+- data-analy → po → design → sa → team_lead → dev → qa → **review confirmed** · phase=`done`
 - mfeStdUrl: `http://localhost:9311/bao-cao/nhat-ky-tuan-duong`
 - mfeStdRoute: `/bao-cao/nhat-ky-tuan-duong`
 - reviewUrl: `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/rpt-nhat-ky-tuan-duong/ui/prototype/rpt-nhat-ky-tuan-duong-prototype.html`
 - closeout sa: `task_5f0a988e` · roleOnly=`sa` · `/agent-sa` · solution+compact PASS · at: `2026-09-18T17:45:00.000Z`
 - closeout team_lead: `task_8cbb2073` · roleOnly=`team_lead` · `/agent-team-lead` · task+delta+compact PASS · at: `2026-09-18T17:55:00.000Z`
 - closeout dev: `task_0d18fcc7` · roleOnly=`dev` · `/agent-dev` · implement+compact PASS · MFE+BE build PASS · at: `2026-09-18T18:40:00.000Z`
-- CR: `specs/_cr/nktd-pdf-20260917/` · form Wave A `csdl-so-02` done
+- closeout qa: `task_5d079e3e` · roleOnly=`qa` · `/agent-qa` · e2e+scenarios+compact PASS · at: `2026-09-18T17:46:30.000Z`
+- closeout review: `task_792e0c6b` · roleOnly=`review` · `/agent-review` · findings+compact PASS · review_confirm approve · phase=`done` · at: `2026-09-18T17:50:00.000Z`
+- CR: `specs/_cr/nktd-pdf-20260917/` · form Wave A `csdl-so-02` done · Wave B closed
 
 ---
 <!-- Version meta: skillVersion=2026.08.15.5 · schemaVersion=1 · workflowVersion=2026.08.15.5 · rulesVersion=2026.08.15.8 · versionGate=keep_current · changeScope=edit_page · cr=nktd-pdf-20260917 -->

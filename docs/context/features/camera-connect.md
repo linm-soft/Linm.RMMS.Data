@@ -6,7 +6,7 @@
 > **Sources:** [Hikvision iDS-TCM403-GIR](https://www.hikvision.com/en/products/ITS-Products/traffic-cameras/urban-road-anpr-cameras/ids-tcm403-gir/) · `camera-model.md` · **map loại xe** [`camera-vehicle-type.md`](camera-vehicle-type.md) · `22-CAMERA-TCM403-SDK-RESEARCH.md` · [`31-CAMERA-TCM403-LAB-RADAR.md`](../31-CAMERA-TCM403-LAB-RADAR.md) · `21-CAMERA-HLS-WEBRTC-GATEWAY.md` · [`28-CAMERA-SECURITY.md`](../28-CAMERA-SECURITY.md) · HĐ [`../../../../Linm.RMMS.Contract/out/camera-gtvt-dinh-nghia.md`](../../../../Linm.RMMS.Contract/out/camera-gtvt-dinh-nghia.md)  
 > **Demo HTML:** `Linm.RMMS.Demo/src/demo/features/camera-connect-demo.html` · **pilot wall+map:** [`camera-ops-dashboard-demo.html`](../../../Linm.RMMS.Demo/src/demo/features/camera-ops-dashboard-demo.html)  
 > **MFE:** `Linm.Web.RMMS.Camera` · route `/camera` · ports **9216** / **9316** (`yarn start:std` → `http://localhost:9316/camera`)  
-> **GIS wall+map:** `Linm.Web.RMMS.Gis` · **`/gis/camera`** (`gis-camera-map`) — Kind F · clip stack · **không** `/camera/wall` MFE Camera  
+> **GIS wall+map:** `Linm.Web.RMMS.Gis` · **`/gis/camera`** (`gis-camera-map`) — Kind F · list `GET /cameras` · HLS mặc định · **không** `/camera/wall` MFE Camera  
 > **Peer Anco nút đèn:** [`its-anco-signal.md`](its-anco-signal.md) — list Anco + pane live/đếm · **cấm** gộp slug / Config_* Wave 1  
 > **Pilot HTML:** [`camera-ops-dashboard-demo.html`](../../../Linm.RMMS.Demo/src/demo/features/camera-ops-dashboard-demo.html)  
 > **BE:** `api/v1/cameras` · CRUD `CameraDevice` · SDK-first TCM403 · CaptureJPEG · ISAPI Digest · ingest · `Linm.RMMS.WebService`  

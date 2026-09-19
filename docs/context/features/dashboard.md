@@ -68,7 +68,7 @@ Subscribe: `patrol.*` · `incident.*` · `defect.detected` · `predict.updated` 
 | Hub | `/demo/bao-cao/dashboard.html` · catalog slug `dashboard` · `/dev` via `demoCatalog.ts` |
 | Kind | E (report / KPI home) · Linm shell · **cấm** GOVOne chrome · **cấm** BE |
 | Fields | 12 mapped · Actions product 22 (chrome skip) |
-| Map | Leaflet OSM mini map · 5 incident markers |
+| Map | Leaflet **clip BFF** mini map · 5 incident markers · **cấm** OSM.org (`mfe-map-gis-stack.md`) |
 | AI | — (15-SCREEN row 17: KPI P1 / SignalR P2 · no LLM engine) |
 
 <!-- LEGACY-GOVONE-CAPTURE:START -->

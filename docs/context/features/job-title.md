@@ -86,3 +86,10 @@ Menu **không** theo node Cục/VP. Org scope = `OrgCode` trên `/mas/co-cau-tc`
 ## 7. Pipeline
 
 `/agent-qldb-workflow` · `changeScope=new_page` · `packKind=master` · skip demo · `/add-task` `--features=job-title`.
+
+## Implement tracking
+
+| lane | phase | status | updatedAt |
+|------|-------|--------|-----------|
+| web | `qa` | `await_confirm` | `2026-09-18T20:13:17.140Z` |
+| mobile | — | — | — |

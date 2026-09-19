@@ -77,5 +77,5 @@ Không publish. Subscribe tùy domain nguồn (P2 push). Dashboard KPI không g�
 
 | lane | phase | status | updatedAt |
 |------|-------|--------|-----------|
-| web | `qa` | `pending` | `2026-09-18T17:39:19.524Z` |
+| web | `done` | `done` | `2026-09-18T17:52:24.432Z` |
 | mobile | — | — | — |

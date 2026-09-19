@@ -3,7 +3,12 @@
  * Gate: /agent-dev-oms-map · R1–R11 (basemap OSM · Fit overview · OSRM · line levels · isolate)
  */
 (function (global) {
-  const OSRM = 'https://router.project-osrm.org/route/v1/driving';
+  const OSRM = 'http://127.0.0.1:5000/route/v1/driving';
+  function assertSelfHostOsrm(url) {
+    if (/project-osrm\.org/i.test(String(url))) {
+      throw new Error('Cấm router.project-osrm.org');
+    }
+  }
   const OVERVIEW_FIT_MAX_ZOOM = 13;
 
   /** QL.1 Khu IV · VP-IV.1 — Xuân Hải → Phước Dinh (Sau-sat-nhap · Km 1551+200–1561+134) */
@@ -69,6 +74,7 @@
     const coords = latLngs.map((p) => `${p[1]},${p[0]}`).join(';');
     const url = `${OSRM}/${coords}?overview=full&geometries=polyline`;
     try {
+      assertSelfHostOsrm(url);
       const res = await fetch(url);
       if (!res.ok) throw new Error('OSRM ' + res.status);
       const data = await res.json();

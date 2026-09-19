@@ -3,8 +3,8 @@
 | Field | Value |
 |-------|-------|
 | feature | `rmms-task-integrate` |
-| phase | `done` |
-| status | `done` |
+| phase | `data_analy` |
+| status | `draft` |
 | changeScope | `edit_page` |
 | packKind | `platform` (PO confirm) |
 | runMode | `implement` |
@@ -27,7 +27,7 @@
 | versionGate | `rechecked` |
 | contentHash | `sha256:49011e5dfcb8bbbb15adc781a60d62ba44446985c9dbf397806ba69dda786c54` |
 | reviewHash | `sha256:f1bff805a575abd36c0771927919b3829f83128d01952d61a6ef6942e4bde9dd` |
-| updatedAt | `2026-09-18T17:28:36.008Z` |
+| updatedAt | `2026-09-18T17:56:06.525Z` |
 ## Lock
 
 | agent | scope | id | at |

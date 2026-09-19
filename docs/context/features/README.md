@@ -51,7 +51,7 @@
 | 2v | `directions` | Chỉ đường / HD điện tử guest | Integration | P1 | — (chưa OSRM Signed) | Context | [directions.md](directions.md) · `/implement-directions-app` |
 | 2a | `gis-draw-google` | Vẽ tài sản trên Google Map | Gis+Asset | P1 | GOVOne `1-ban-do.png` | Demo | [gis-draw-google.md](gis-draw-google.md) |
 | 2b | `gis-draw-live` | Vẽ tài sản live (Leaflet rút gọn) | Gis+Asset | P1 | HĐ PL01 mã 02 | Demo | [gis-draw-live.md](gis-draw-live.md) |
-| 2c | `gis-camera-map` | Bản đồ camera (wall + clip ANPR) | Gis×Camera | P1 mock | `/gis/camera` · seed Vinh | Dev | [gis-camera-map.md](gis-camera-map.md) |
+| 2c | `gis-camera-map` | Bản đồ camera (wall HLS + clip) | Gis×Camera | list thật | `/gis/camera` · `GET /cameras` | Dev | [gis-camera-map.md](gis-camera-map.md) |
 | 3s | `ai-vision-service` | Host `Linm.RMMS.Vision` (mọi slug AiVision) | Vision | V1 P1 GPT / P2 ONNX **cùng host** | Wave **0p done** · next Wave 1 | Context | [ai-vision-service.md](ai-vision-service.md) · plan [ai-vision-service](../../plan/ai-vision-service/README.md) · skill `/implement-ai-vision-stack` |
 | 3 | `ai-vision` | AI kiểm định mặt đường | AiVision | P1 online / P2 local | Overlay **Vấn đề** / Sự cố | Demo | [ai-vision.md](ai-vision.md) · host [ai-vision-service](ai-vision-service.md) |
 | 3b | `ai-asset-detect` | AI phát hiện TS/thiết bị mới (camera tuần đường) | AiVision×Asset×Patrol | P1 online / P2 local | Camera xe → loại TS · tọa độ · tuyến → bản ghi Asset | Demo | [ai-asset-detect.md](ai-asset-detect.md) |

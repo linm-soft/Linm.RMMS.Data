@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Prototype — Sổ TS shell (so-ts-type-grid) · Kind B A–D+F + full-page 5 cột</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    :root { --bg:#f5f7fa; --card:#fff; --border:#BABCBE; --soft:#e9ecef; --txt:#1A1A1A; --muted:#6c757d; --primary:#0d6efd; --btn:#EEEEEE; --r:4px; }
+    *{box-sizing:border-box}
+    body{margin:0;font:13px/1.4 "Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--txt)}
+    .page{max-width:1280px;margin:0 auto;padding:8px 16px 24px;min-height:100vh;display:flex;flex-direction:column;gap:8px}
+    .screen{display:none}.screen.active{display:flex;flex-direction:column;gap:8px}
+    .zone-a{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+    .zone-a h1{margin:0;font-size:22px;font-weight:700;display:flex;align-items:center;gap:10px}
+    .zone-a h1 i{color:var(--primary);font-size:20px}
+    .badge{font-size:11px;font-weight:700;padding:2px 8px;border-radius:4px;background:#e7f1ff;color:#0b5ed7}
+    .zone-b{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:8px 0;position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--soft)}
+    .zone-b-left,.zone-b-right{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .tb{display:inline-flex;align-items:center;gap:4px;height:32px;padding:6px 8px;border:0;border-radius:var(--r);background:var(--btn);font-size:12px;font-weight:600;cursor:pointer}
+    .tb:hover{background:#BABCBE}.tb.primary{background:var(--primary);color:#fff}.tb:disabled{opacity:.55;cursor:not-allowed}
+    .filter-bar{display:flex;flex-wrap:wrap;gap:8px;align-items:flex-end;padding:8px 0 4px}
+    .filter-bar .fld{display:flex;flex-direction:column;gap:4px}
+    .filter-bar .fld > span.lbl{font-size:12px;color:var(--muted)}
+    .filter-bar input,.filter-bar select{height:32px;padding:4px 8px;border:1px solid var(--border);border-radius:var(--r);font:inherit;min-width:120px}
+    .search-wrap{display:flex;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;height:32px;background:#fff;min-width:220px}
+    .search-wrap input{border:0;outline:0;padding:6px 10px;flex:1;font-size:13px;min-width:0}
+    .search-wrap .ico{border:0;border-left:1px solid var(--border);background:#f8fafc;padding:0 10px;color:var(--muted);display:inline-flex;align-items:center}
+    .si{position:relative;display:inline-flex}.si input{padding-right:28px;min-width:140px}
+    .si > i{position:absolute;right:8px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none;font-size:12px}
+    .card{background:var(--card);border:1px solid var(--soft);border-radius:var(--r);flex:1;display:flex;flex-direction:column;min-height:0;overflow:hidden}
+    .grid-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 16px 8px}
+    .grid-title{margin:0;font-size:15px;font-weight:700}.grid-help{margin:4px 0 0;font-size:12px;color:var(--muted)}
+    .table-wrap{overflow:auto;flex:1;min-height:200px;border-top:1px solid var(--soft)}
+    table{width:100%;border-collapse:collapse;table-layout:fixed}
+    th,td{padding:8px 10px;border-bottom:1px solid var(--soft);text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    th{background:#f8fafc;font-size:12px;color:var(--muted);position:sticky;top:0}
+    th.num,td.num{text-align:center;width:48px}
+    tbody tr:nth-child(even){background:#fafbfc}tbody tr:hover,tbody tr.sel{background:#eff6ff}
+    .link{border:0;background:0;color:var(--primary);text-decoration:underline;cursor:pointer;font:inherit;padding:0}
+    .zone-d{display:flex;flex-direction:column;align-items:center;gap:10px;padding:12px 16px;border-top:1px solid var(--soft)}
+    .zone-d-total{color:var(--muted)}.zone-d-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center}
+    .pager-btn{width:32px;height:32px;border:1px solid var(--soft);border-radius:var(--r);background:#fff;color:var(--muted);cursor:pointer}
+    .menu{position:relative}.menu summary{list-style:none;cursor:pointer;padding:4px 8px;border:1px solid var(--border);border-radius:var(--r);background:#fff}
+    .menu summary::-webkit-details-marker{display:none}
+    .menu-panel{display:none;position:absolute;right:0;z-index:5;background:#fff;border:1px solid var(--border);border-radius:6px;min-width:140px;box-shadow:0 8px 24px rgba(0,0,0,.12)}
+    .menu[open] .menu-panel{display:block}
+    .menu-panel button{display:block;width:100%;text-align:left;border:0;background:0;padding:8px 12px;cursor:pointer;font-size:13px}
+    .menu-panel button:hover{background:#f1f5f9}
+    .backdrop{display:none;position:fixed;inset:0;background:rgba(15,23,42,.35);z-index:40;align-items:center;justify-content:center;padding:16px}
+    .backdrop.on{display:flex}
+    .modal{width:min(520px,96vw);background:#fff;border-radius:8px;border:1px solid var(--soft);max-height:90vh;overflow:auto}
+    .modal.wide{width:min(720px,96vw)}
+    .modal-h{padding:12px 16px;border-bottom:1px solid var(--soft);font-weight:700}
+    .modal-b{padding:16px;font-size:13px;color:var(--muted)}
+    .modal-f{padding:12px 16px;border-top:1px solid var(--soft);display:flex;justify-content:flex-end;gap:8px}
+    .toast{position:fixed;right:16px;bottom:16px;z-index:50;background:#1e293b;color:#fff;padding:10px 14px;border-radius:6px;font-size:13px;display:none}
+    .toast.on{display:block}
+    .form-page{display:grid;grid-template-rows:auto minmax(0,1fr);height:100vh;max-width:1280px;margin:0 auto}
+    .chrome{border:1px solid var(--soft);border-radius:8px;background:var(--card);margin:16px 16px 0;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+    .form-toolbar{display:flex;align-items:center;gap:8px;padding:16px 20px 12px;border-bottom:1px solid var(--soft);flex-wrap:wrap}
+    .form-toolbar .crud{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
+    .title-block{padding:12px 20px 16px}.title-block h1{margin:0;font-size:18px}
+    .hint-chip{display:inline-flex;margin-top:8px;padding:4px 8px;font-size:12px;color:var(--muted);background:#f3f4f6;border:1px dashed #e5e7eb;border-radius:6px}
+    .scroll{margin:16px;overflow:auto;display:flex;flex-direction:column;gap:16px;padding-bottom:16px}
+    .section{padding:16px;background:var(--card);border:1px solid var(--soft);border-radius:8px}
+    .section h3{margin:0 0 12px;font-size:13px;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:.5px;padding-bottom:8px;border-bottom:1px solid var(--soft)}
+    .fields{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px;align-items:start}
+    .field{display:flex;flex-direction:column;gap:4px;min-width:0}.field label{font-size:12px;color:var(--muted)}
+    .req::after{content:" *";color:#dc2626}.span2{grid-column:span 2}.span-full{grid-column:1 / -1}
+    .fields input,.fields select,.fields textarea{width:100%;min-height:32px;padding:6px 10px;border:1px solid #bababe;border-radius:4px;font:inherit}
+    .fields textarea{min-height:72px;resize:vertical}
+    .dl{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px}
+    .dl div{border-bottom:1px dashed var(--soft);padding-bottom:6px}.dl dt{font-size:12px;color:var(--muted)}.dl dd{margin:2px 0 0;font-size:13px}
+    .hidden{display:none!important}
+    @media (max-width:1200px){.fields,.dl{grid-template-columns:repeat(3,minmax(0,1fr))}}
+    @media (max-width:720px){.fields,.dl{grid-template-columns:1fr 1fr}.span2{grid-column:1 / -1}}
+  </style>
+</head>
+<body>
+  <!-- LIST -->
+  <div id="screen-list" class="page screen active" data-testid="rmms-so-ts-type-grid-list-prototype" data-shared-grid="v1" data-real-view-parity="v1">
+    <header class="zone-a" data-des-id="DES-GRID-A">
+      <h1><i class="fas fa-road" aria-hidden="true"></i> Sổ tài sản</h1>
+      <span class="badge">shell · ?type=</span>
+    </header>
+    <div class="zone-b" data-des-id="DES-GRID-B">
+      <div class="zone-b-left">
+        <button type="button" class="tb" data-action="refresh" title="Làm mới"><i class="fas fa-sync-alt" aria-hidden="true"></i> Làm mới</button>
+        <button type="button" class="tb" data-action="history" title="Lịch sử"><i class="fas fa-history" aria-hidden="true"></i> Lịch sử</button>
+        <button type="button" class="tb" data-action="config" title="Sửa config"><i class="fas fa-cog" aria-hidden="true"></i> Sửa config</button>
+        <button type="button" class="tb" id="btn-view" disabled title="Xem"><i class="fas fa-eye" aria-hidden="true"></i> Xem</button>
+        <button type="button" class="tb" id="btn-edit" disabled title="Sửa"><i class="fas fa-pen" aria-hidden="true"></i> Sửa</button>
+        <button type="button" class="tb" id="btn-del" disabled title="Xóa"><i class="fas fa-trash" aria-hidden="true"></i> Xóa</button>
+      </div>
+      <div class="zone-b-right">
+        <button type="button" class="tb primary" data-action="create" title="Tạo mới"><i class="fas fa-plus" aria-hidden="true"></i> Tạo mới</button>
+      </div>
+    </div>
+    <div class="filter-bar" data-des-id="DES-GRID-B-FILTER" data-filter="LinErpListFilterBar">
+      <div class="fld"><span class="lbl">Tìm kiếm</span><div class="search-wrap"><input type="search" id="q" placeholder="Mã · tên · tuyến · QR" aria-label="Tìm kiếm" /><span class="ico" aria-hidden="true"><i class="fas fa-search"></i></span></div></div>
+      <div class="fld" id="fld-type"><span class="lbl">Loại tài sản</span><span class="si"><input id="fType" list="dl-type" placeholder="SearchInput asset-type" /><i class="fas fa-search"></i></span></div>
+      <div class="fld"><span class="lbl">Cao tốc / QL</span><span class="si"><input id="fRoute" list="dl-route" placeholder="road-route" /><i class="fas fa-search"></i></span></div>
+      <div class="fld"><span class="lbl">Tuyến</span><span class="si"><input id="fRouteNamed" placeholder="parentCode=route" /><i class="fas fa-search"></i></span></div>
+      <div class="fld"><span class="lbl">Đoạn</span><span class="si"><input id="fRouteSeg" placeholder="cascade" /><i class="fas fa-search"></i></span></div>
+      <div class="fld"><span class="lbl">Lý trình từ</span><input id="fKmFrom" placeholder="Km+" /></div>
+      <div class="fld"><span class="lbl">Lý trình đến</span><input id="fKmTo" placeholder="Km+" /></div>
+      <div class="fld"><span class="lbl">Đơn vị</span><span class="si"><input id="fOrg" list="dl-org" placeholder="org-unit tree" /><i class="fas fa-search"></i></span></div>
+      <!-- cấm nút Tìm riêng — search apply qua 🔍 cụm phải / change -->
+    </div>
+    <datalist id="dl-type"><option value="TRAFFIC_SIGN — Biển báo"><option value="GUARDRAIL — Hộ lan"><option value="CULVERT_X — Cống ngang (gap-no-source)"></datalist>
+    <datalist id="dl-route"><option value="CT.01"><option value="QL.1A"></datalist>
+    <datalist id="dl-org"><option value="Khu QLĐB I"><option value="Khu QLĐB II"></datalist>
+
+    <section class="card" data-des-id="DES-GRID-C0">
+      <div class="grid-head">
+        <div>
+          <h2 class="grid-title">Danh sách tài sản đường</h2>
+          <p class="grid-help">typeColumnProfiles · hide-empty fill% · 3 tầng tuyến tách cột · kéo cột ON</p>
+        </div>
+      </div>
+      <div class="table-wrap" data-des-id="DES-GRID-C2">
+        <table>
+          <thead>
+            <tr>
+              <th class="num">STT</th>
+              <th>Mã</th>
+              <th>Tên</th>
+              <th id="col-type">Loại</th>
+              <th>Cao tốc/QL</th>
+              <th>Tuyến</th>
+              <th>Đoạn</th>
+              <th>Km từ</th>
+              <th id="col-kmTo">Km đến</th>
+              <th>TT KT</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="grid-body" data-des-id="DES-GRID-C3"></tbody>
+        </table>
+      </div>
+      <div class="zone-d" data-des-id="DES-GRID-D">
+        <div class="zone-d-total" id="total-label">Tổng: 0</div>
+        <div class="zone-d-row">
+          <button type="button" class="pager-btn" title="Trước"><i class="fas fa-chevron-left"></i></button>
+          <span>Trang 1 / 1</span>
+          <button type="button" class="pager-btn" title="Sau"><i class="fas fa-chevron-right"></i></button>
+          <select aria-label="pageSize"><option>20</option><option>50</option></select>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- FORM -->
+  <div id="screen-form" class="screen form-page" data-testid="rmms-so-ts-type-grid-form-prototype">
+    <div class="chrome" data-des-id="DES-FORM-Z1">
+      <div class="form-toolbar">
+        <button type="button" class="tb" data-action="back" title="Quay lại"><i class="fas fa-arrow-left"></i> Quay lại</button>
+        <div class="crud">
+          <button type="button" class="tb primary" id="btn-save" title="Lưu"><i class="fas fa-save"></i> Lưu</button>
+          <button type="button" class="tb" data-action="cancel" title="Hủy"><i class="fas fa-times"></i> Hủy</button>
+        </div>
+      </div>
+      <div class="title-block">
+        <h1 id="form-title">Tạo mới tài sản</h1>
+        <span class="hint-chip">CatalogFormShell · data-form-cols=5 · chỉ Thông tin chung · cấm tab legacy</span>
+      </div>
+    </div>
+    <div class="scroll" data-des-id="DES-FORM-Z2" data-form-cols="5">
+      <div class="section" data-sec="S-META">
+        <h3>S-META · Định danh</h3>
+        <div class="fields">
+          <div class="field"><label>Mã</label><input id="f-code" readonly value="(auto)" /></div>
+          <div class="field"><label class="req">Loại tài sản</label><input id="f-type" list="dl-type" /></div>
+          <div class="field"><label class="req">Tình trạng KT</label><select id="f-status"><option>Tốt</option><option>Trung bình</option><option>Kém</option></select></div>
+          <div class="field"><label>Nguồn</label><select><option>Import</option><option>Nhập tay</option></select></div>
+        </div>
+      </div>
+      <div class="section" data-sec="S-ROUTE">
+        <h3>S-ROUTE · Thông tin tuyến</h3>
+        <div class="fields">
+          <div class="field"><label class="req">Cao tốc / QL</label><input list="dl-route" /></div>
+          <div class="field"><label>Tuyến</label><input placeholder="routeNamed" /></div>
+          <div class="field"><label>Đoạn</label><input placeholder="routeSegment" /></div>
+        </div>
+      </div>
+      <div class="section" data-sec="S-LOC-POINT" id="sec-point">
+        <h3>S-LOC-POINT · Vị trí điểm</h3>
+        <div class="fields">
+          <div class="field"><label class="req">Lý trình (Km+)</label><input placeholder="kmFrom" /></div>
+          <div class="field"><label>X</label><input type="number" step="any" /></div>
+          <div class="field"><label>Y</label><input type="number" step="any" /></div>
+          <div class="field"><label>Vị trí mặt cắt</label><select><option>L</option><option>R</option><option>C</option></select></div>
+          <!-- cấm required kmTo trên POINT -->
+        </div>
+      </div>
+      <div class="section hidden" data-sec="S-LOC-RANGE" id="sec-range">
+        <h3>S-LOC-RANGE · Vị trí đoạn</h3>
+        <div class="fields">
+          <div class="field"><label class="req">Km đầu</label><input /></div>
+          <div class="field"><label class="req">Km cuối</label><input /></div>
+          <div class="field"><label>X đầu</label><input type="number" step="any" /></div>
+          <div class="field"><label>Y đầu</label><input type="number" step="any" /></div>
+          <div class="field"><label>X cuối</label><input type="number" step="any" /></div>
+          <div class="field"><label>Y cuối</label><input type="number" step="any" /></div>
+        </div>
+      </div>
+      <div class="section" data-sec="S-NAME">
+        <h3>S-NAME · Tên official</h3>
+        <div class="fields">
+          <div class="field span2"><label>Tên</label><input id="f-name" placeholder="Text hoặc SearchInput traffic-sign-type" /></div>
+        </div>
+      </div>
+      <div class="section" data-sec="S-ATTR">
+        <h3>S-ATTR · Thuộc tính loại (dumpSpecs)</h3>
+        <div class="fields">
+          <div class="field"><label>ATTR mẫu 1</label><input placeholder="Select/Number/Text per dump" /></div>
+          <div class="field"><label>ATTR mẫu 2</label><select><option>—</option><option>LOOKUP_STATIC</option></select></div>
+          <div class="field span2"><label>Ghi chú ATTR</label><input placeholder="children override · cấm bịa field" /></div>
+        </div>
+      </div>
+      <div class="section" data-sec="S-GPS">
+        <h3>S-GPS · GPS / hồ sơ</h3>
+        <div class="fields">
+          <div class="field"><label>Lat</label><input type="number" step="any" /></div>
+          <div class="field"><label>Lng</label><input type="number" step="any" /></div>
+          <div class="field"><label>QR</label><input /></div>
+          <div class="field"><label>Giá trị</label><input type="number" placeholder="MoneyInput" /></div>
+          <div class="field span-full"><label>Ghi chú</label><textarea rows="2"></textarea></div>
+        </div>
+      </div>
+      <div class="section hidden" id="view-dl">
+        <h3>View · display / &lt;dl&gt; (cấm Input disabled xám)</h3>
+        <div class="dl" id="view-body"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modals -->
+  <div class="backdrop" id="modal-config" data-des-id="DES-GRID-F">
+    <div class="modal wide">
+      <div class="modal-h">Cấu hình hiển thị danh mục · road-assets</div>
+      <div class="modal-b">LinCatalogUiSchemaEditorModal · catalogKind=road-assets · typeColumnProfiles override per ?type=</div>
+      <div class="modal-f"><button type="button" class="tb" data-close="config">Đóng</button></div>
+    </div>
+  </div>
+  <div class="backdrop" id="modal-hist" data-des-id="DES-GRID-H">
+    <div class="modal">
+      <div class="modal-h">Lịch sử</div>
+      <div class="modal-b">LinCatalogHistoryModal · stub OK</div>
+      <div class="modal-f"><button type="button" class="tb" data-close="hist">Đóng</button></div>
+    </div>
+  </div>
+  <div class="backdrop" id="modal-del">
+    <div class="modal">
+      <div class="modal-h">Xóa tài sản?</div>
+      <div class="modal-b">Soft delete · useAlert/Modal · cấm window.alert</div>
+      <div class="modal-f">
+        <button type="button" class="tb" data-close="del">Hủy</button>
+        <button type="button" class="tb primary" id="confirm-del">Xóa</button>
+      </div>
+    </div>
+  </div>
+  <div class="backdrop" id="modal-leave" data-des-id="DES-LEAVE">
+    <div class="modal">
+      <div class="modal-h">Rời trang?</div>
+      <div class="modal-b">LeaveConfirmModal · có thay đổi chưa lưu · cấm window.confirm</div>
+      <div class="modal-f">
+        <button type="button" class="tb" data-close="leave">Ở lại</button>
+        <button type="button" class="tb primary" id="confirm-leave">Rời trang</button>
+      </div>
+    </div>
+  </div>
+  <div class="toast" id="toast"></div>
+
+  <script>
+    (function () {
+      var ROWS = [
+        { id:1, code:'BB-001', name:'Biển P.123', type:'TRAFFIC_SIGN', cluster:'atgt_point', route:'CT.01', routeNamed:'Tuyến A', routeSegment:'Đoạn 1', kmFrom:'12+350', kmTo:'', status:'Tốt' },
+        { id:2, code:'HL-014', name:'Hộ lan thép', type:'GUARDRAIL', cluster:'linear_protect', route:'QL.1A', routeNamed:'Tuyến B', routeSegment:'Đoạn 3', kmFrom:'45+000', kmTo:'45+200', status:'Tốt' },
+        { id:3, code:'—', name:'—', type:'CULVERT_X', cluster:'crossing', route:'', routeNamed:'', routeSegment:'', kmFrom:'', kmTo:'', status:'', gap:true }
+      ];
+      var selected = null, dirty = false, formMode = 'create';
+
+      function $(id){ return document.getElementById(id); }
+      function showToast(msg){ var t=$('toast'); t.textContent=msg; t.classList.add('on'); setTimeout(function(){ t.classList.remove('on'); }, 2800); }
+      function showScreen(name){
+        document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
+        if(name==='list'){ $('screen-list').classList.add('active'); }
+        else { $('screen-form').classList.add('active'); }
+      }
+      function setDirty(v){ dirty=v; }
+
+      function filtered(){
+        var q=($('q').value||'').toLowerCase();
+        var ty=($('fType').value||'').toUpperCase();
+        return ROWS.filter(function(r){
+          if(r.gap && ty.indexOf('CULVERT')>=0) return true;
+          if(r.gap) return false;
+          if(ty && r.type.indexOf(ty.split(' ')[0])<0 && ty.indexOf(r.type)<0) return false;
+          if(!q) return true;
+          return (r.code+r.name+r.route+r.routeNamed).toLowerCase().indexOf(q)>=0;
+        });
+      }
+
+      function renderGrid(){
+        var rows=filtered();
+        var tyLock = ($('fType').value||'').trim().length>0 && ($('fType').value||'').indexOf('CULVERT')<0;
+        $('col-type').classList.toggle('hidden', !!($('fType').dataset.lock==='1'));
+        var tb=$('grid-body'); tb.innerHTML='';
+        if(rows.length===1 && rows[0].gap){
+          tb.innerHTML='<tr><td colspan="11" style="text-align:center;padding:24px;color:#6c757d">Không có dữ liệu (gap-no-source) · cấm seed</td></tr>';
+          $('total-label').textContent='Tổng: 0';
+          showToast('CULVERT_X · CSV/import 0 · empty OK');
+          selected=null; syncCrud(); return;
+        }
+        var showKmTo = rows.some(function(r){ return r.cluster==='linear_protect' || r.cluster==='land' || (r.kmTo&&r.kmTo.length); });
+        $('col-kmTo').classList.toggle('hidden', !showKmTo);
+        rows.forEach(function(r,i){
+          if(r.gap) return;
+          var tr=document.createElement('tr');
+          tr.dataset.id=r.id;
+          tr.innerHTML=
+            '<td class="num">'+(i+1)+'</td>'+
+            '<td><button type="button" class="link" data-open="view">'+r.code+'</button></td>'+
+            '<td>'+r.name+'</td>'+
+            '<td class="'+(tyLock?'hidden':'')+'">'+r.type+'</td>'+
+            '<td>'+r.route+'</td><td>'+r.routeNamed+'</td><td>'+r.routeSegment+'</td>'+
+            '<td>'+r.kmFrom+'</td>'+
+            '<td class="'+(showKmTo?'':'hidden')+'">'+(r.kmTo||'—')+'</td>'+
+            '<td>'+r.status+'</td>'+
+            '<td><details class="menu"><summary>⋮</summary><div class="menu-panel">'+
+            '<button type="button" data-open="view">Xem</button>'+
+            '<button type="button" data-open="edit">Sửa</button>'+
+            '<button type="button" data-open="copy">Copy</button>'+
+            '<button type="button" data-open="hist">Lịch sử</button>'+
+            '</div></details></td>';
+          tr.addEventListener('click', function(e){
+            if(e.target.closest('.menu')) return;
+            selected=r; document.querySelectorAll('#grid-body tr').forEach(function(x){ x.classList.remove('sel'); });
+            tr.classList.add('sel'); syncCrud();
+          });
+          tb.appendChild(tr);
+        });
+        $('total-label').textContent='Tổng: '+rows.filter(function(r){return !r.gap;}).length;
+      }
+
+      function syncCrud(){
+        var on=!!selected;
+        $('btn-view').disabled=!on; $('btn-edit').disabled=!on; $('btn-del').disabled=!on;
+      }
+
+      function mountSections(cluster){
+        var range = cluster==='linear_protect' || cluster==='land';
+        $('sec-point').classList.toggle('hidden', range);
+        $('sec-range').classList.toggle('hidden', !range);
+      }
+
+      function openForm(mode, row){
+        formMode=mode; setDirty(false);
+        $('view-dl').classList.add('hidden');
+        document.querySelectorAll('[data-sec]').forEach(function(s){ s.classList.remove('hidden'); });
+        if(mode==='create'){
+          $('form-title').textContent='Tạo mới tài sản';
+          $('f-code').value='(auto)'; $('f-type').value=$('fType').value||''; $('f-name').value='';
+          mountSections('atgt_point');
+        } else if(mode==='copy'){
+          $('form-title').textContent='Copy tài sản';
+          $('f-code').value='(auto)'; $('f-type').value=row.type; $('f-name').value=row.name;
+          mountSections(row.cluster);
+        } else if(mode==='edit'){
+          $('form-title').textContent='Sửa · '+row.code;
+          $('f-code').value=row.code; $('f-type').value=row.type; $('f-name').value=row.name;
+          mountSections(row.cluster);
+        } else {
+          $('form-title').textContent='Xem · '+row.code;
+          document.querySelectorAll('[data-sec]').forEach(function(s){ s.classList.add('hidden'); });
+          $('view-dl').classList.remove('hidden');
+          $('view-body').innerHTML=
+            '<div><dt>Mã</dt><dd>'+row.code+'</dd></div>'+
+            '<div><dt>Loại</dt><dd>'+row.type+'</dd></div>'+
+            '<div><dt>Tên</dt><dd>'+row.name+'</dd></div>'+
+            '<div><dt>Tuyến</dt><dd>'+row.route+' / '+row.routeNamed+' / '+row.routeSegment+'</dd></div>'+
+            '<div><dt>Lý trình</dt><dd>'+row.kmFrom+(row.kmTo?' → '+row.kmTo:'')+'</dd></div>';
+          $('btn-save').classList.add('hidden');
+          showScreen('form'); return;
+        }
+        $('btn-save').classList.remove('hidden');
+        showScreen('form');
+      }
+
+      function tryLeave(cb){
+        if(!dirty){ cb(); return; }
+        $('modal-leave').classList.add('on');
+        $('confirm-leave').onclick=function(){ $('modal-leave').classList.remove('on'); setDirty(false); cb(); };
+      }
+
+      document.querySelectorAll('[data-action]').forEach(function(btn){
+        btn.addEventListener('click', function(){
+          var a=btn.getAttribute('data-action');
+          if(a==='refresh'){ renderGrid(); showToast('Đã làm mới'); }
+          if(a==='history'){ $('modal-hist').classList.add('on'); }
+          if(a==='config'){ $('modal-config').classList.add('on'); }
+          if(a==='create'){ openForm('create'); }
+          if(a==='back' || a==='cancel'){ tryLeave(function(){ showScreen('list'); renderGrid(); }); }
+        });
+      });
+      $('btn-view').addEventListener('click', function(){ if(selected) openForm('view', selected); });
+      $('btn-edit').addEventListener('click', function(){ if(selected) openForm('edit', selected); });
+      $('btn-del').addEventListener('click', function(){ if(selected) $('modal-del').classList.add('on'); });
+      $('confirm-del').addEventListener('click', function(){ $('modal-del').classList.remove('on'); showToast('Đã xóa (soft)'); selected=null; syncCrud(); renderGrid(); });
+      $('btn-save').addEventListener('click', function(){ setDirty(false); showToast('Đã lưu (prototype)'); showScreen('list'); renderGrid(); });
+
+      document.querySelectorAll('[data-close]').forEach(function(b){
+        b.addEventListener('click', function(){
+          var k=b.getAttribute('data-close');
+          if(k==='config') $('modal-config').classList.remove('on');
+          if(k==='hist') $('modal-hist').classList.remove('on');
+          if(k==='del') $('modal-del').classList.remove('on');
+          if(k==='leave') $('modal-leave').classList.remove('on');
+        });
+      });
+
+      $('grid-body').addEventListener('click', function(e){
+        var open=e.target.getAttribute('data-open');
+        if(!open) return;
+        var tr=e.target.closest('tr'); if(!tr) return;
+        var row=ROWS.find(function(r){ return String(r.id)===tr.dataset.id; });
+        if(!row) return;
+        selected=row;
+        if(open==='hist'){ $('modal-hist').classList.add('on'); return; }
+        openForm(open, row);
+      });
+
+      ['q','fType','fRoute','fKmFrom','fKmTo','fOrg'].forEach(function(id){
+        $(id).addEventListener('change', renderGrid);
+        $(id).addEventListener('input', function(){ if(id==='q') renderGrid(); });
+      });
+      $('screen-form').addEventListener('input', function(){ if(formMode!=='view') setDirty(true); });
+
+      // deep-link sim: ?type= hides type filter
+      var params=new URLSearchParams(location.search);
+      if(params.get('type')){
+        $('fType').value=params.get('type');
+        $('fType').dataset.lock='1';
+        $('fld-type').classList.add('hidden');
+        $('col-type').classList.add('hidden');
+        document.querySelector('.zone-a .badge').textContent='type='+params.get('type');
+      }
+
+      renderGrid();
+    })();
+  </script>
+</body>
+</html>

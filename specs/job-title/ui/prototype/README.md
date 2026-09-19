@@ -1,11 +1,10 @@
 # Prototype — job-title
 
-Design gate: **prototype + reviewUrl** — board Approve (**không auto**).
-Repo confirm: user tick BE+UI trên `/qldb-workflow` Progress trước Dev (**không auto** · cấm ERP.*).
+| | |
+|--|--|
+| Artifact | `job-title-list-prototype.html` |
+| Base | `shared-grid-example.html` |
+| Form | Slideout · `data-form-cols="2"` |
+| reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/job-title/ui/prototype/job-title-list-prototype.html` |
 
-- Demo SSOT: `N/A (packKind=master)`
-- Title: Danh mục chức vụ (job-title)
-- Pack kind: `master`
-- MFE: `Linm.Web.RMMS.Master`
-
-Put HTML prototype / screenshot link here; update `ui/design.md` with a browser-openable **reviewUrl**.
+Open file in browser to review zones DES-GRID-A…D · Z · LeaveConfirmModal.

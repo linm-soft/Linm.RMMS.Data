@@ -1,0 +1,22 @@
+{
+  "url": "http://localhost:8608/platform-task",
+  "capturedAt": "2026-09-18T18:58:02.916Z",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png"
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png"
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png"
+    }
+  ],
+  "ok": true
+}

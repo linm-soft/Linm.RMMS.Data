@@ -29,7 +29,7 @@
 
 ## 2. Design / UI
 
-Không MFE riêng. Admin ingest = hosted `Map:IngestOnStartup` (file mount `/clip/vietnam-34.geojson`). User map → [`gis-osm-clip.md`](gis-osm-clip.md) — MFE Gis*Page **clip BFF** (MapLibre MVT) · **0** OSM.org · chip **Tiêu chuẩn / Vệ tinh** = **OSM Carto muted** (đất `#e8e4dc` · biển `#8eb8c8` · nước `#aad3df` · đường **nền + biên**) · stack sea-fill → water (ocean/`sea`=`theme.sea`) → vn-land → landcover → **clip-mask** → vn-line → **labels** — **cấm** Default/Streets EN · **cấm** clip-mask trên symbol · **cấm** đổi sang CDN. Native chrome copy [`patrol-map.md`](patrol-map.md). **iOS/Android:** host clip = [`gis-map.md`](gis-map.md) `GisClipMapView` — **mọi** map native reuse (GAP-MOB-IOS-MAP-HOST-01 · Wave 4 ios+android **done**).
+Không MFE riêng. Admin ingest = hosted `Map:IngestOnStartup` (file mount `/clip/vietnam-34.geojson`). User map → [`gis-osm-clip.md`](gis-osm-clip.md) — MFE Gis*Page **clip BFF** (MapLibre MVT) · **0** OSM.org · chip **Tiêu chuẩn / Vệ tinh** = **OSM Carto muted** (đất `#e8e4dc` · biển `#8eb8c8` · nước `#aad3df` · đường **nền + biên**) · stack sea-fill → water (ocean/`sea`=`theme.sea`) → vn-land → landcover → **clip-mask** → vn-line → **labels** — **cấm** Default/Streets EN · **cấm** clip-mask trên symbol · **cấm** đổi sang CDN. **MFE Report/AiVision/Asset** reuse `{MfeGis}/shared/map` (`webpack.gis-map-alias.js`) — **cấm** OSM.org per-page. Native chrome copy [`patrol-map.md`](patrol-map.md). **iOS/Android:** host clip = [`gis-map.md`](gis-map.md) `GisClipMapView` — **mọi** map native reuse (GAP-MOB-IOS-MAP-HOST-01 · Wave 4 ios+android **done**).
 
 ## 3. API
 
@@ -112,7 +112,7 @@ Import gov xong → rebuild overlay MVT. Clip PBF mới → invalidate tile cach
 | GAP-MAP-LABEL-CLIP | **CLOSED 2026-09-03** — crop đất/đường, **không** crop nhãn (Phú Quốc / Rạch Giá) |
 | GAP-MAP-TILE-EMPTY-ZOOM | **CLOSED 2026-09-03** — OSM empty native **200 no-store** (cấm 404 z≤12) · z>12 **404** · MFE Live `?v=` — [`gis-osm-clip.md`](gis-osm-clip.md) |
 | GAP-MAP-MVT-SIMP | **CLOSED 2026-09-03** — boundaries simp/pad nhỏ + MVT buffer **256** (GL = Leaflet−1) |
-| GAP-MAP-OSRM-SELFHOST-01 | **OPEN runtime** — compose+script+nginx example+client URL **done** 2026-09-17 · extract/HTTPS smoke = Linux server DEFER |
+| GAP-MAP-OSRM-SELFHOST-01 | **OPEN runtime** — client **0** `project-osrm.org` (GIS + Asset sổ 10 + Demo HTML fail-closed · 2026-09-19) · compose+script+nginx **done** · extract/HTTPS smoke = Linux **DEFER** · native iOS Debug public **còn** |
 
 ## 7. Demo checklist
 
@@ -126,8 +126,10 @@ Import gov xong → rebuild overlay MVT. Clip PBF mới → invalidate tile cach
 - [x] Không gọi `tile.openstreetmap.org` (MFE Gis*Page source)
 - [x] Chip **Tiêu chuẩn / Vệ tinh** OSM Carto muted (`GAP-MAP-OSM-TONE-01`) · **cấm** Default/Streets EN
 - [x] OSM miss z≤12 **200 no-store** · z>12 **404** · MBTiles `/cache` (`GAP-MAP-TILE-EMPTY-ZOOM`)
+- [x] Web MFE + Asset sổ 10 + Demo HTML **0** `router.project-osrm.org` (default `127.0.0.1:5000` · fail-closed URL · Demo `assertSelfHostOsrm`)  
+- [ ] Native iOS Debug `OsrmBase` — **cấm** public (repo native không trong workspace)  
 - [ ] OSRM self-host graph extract trên Linux (~4 GB) · `docker compose --profile osrm up` · smoke `/nearest` `code=Ok`
-- [ ] Nginx TLS `/route/v1/` + `/nearest/v1/` · MFE/prod `VITE_OSRM_URL` HTTPS · **0** `router.project-osrm.org`
+- [ ] Nginx TLS `/route/v1/` + `/nearest/v1/` · MFE/prod `VITE_OSRM_URL` HTTPS
 
 ## Implement tracking
 

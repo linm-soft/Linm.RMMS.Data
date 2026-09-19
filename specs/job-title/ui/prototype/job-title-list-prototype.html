@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Prototype — Danh mục chức vụ (job-title)</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
+  <style>
+    :root {
+      --bg:#f5f7fa; --card:#fff; --border:#BABCBE; --soft:#e9ecef; --txt:#1A1A1A;
+      --muted:#6c757d; --primary:#0d6efd; --btn:#EEEEEE; --r:4px;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font:13px/1.4 "Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--txt)}
+    .page{max-width:1200px;margin:0 auto;padding:8px;display:flex;flex-direction:column;gap:8px;min-height:100vh}
+    .note{font-size:11px;color:var(--muted);padding:4px 0}
+    .zone-a{display:flex;align-items:center;gap:10px}
+    .zone-a h1{margin:0;font-size:22px;font-weight:700;display:flex;align-items:center;gap:10px}
+    .zone-a h1 i{color:var(--primary);font-size:20px}
+    .zone-b{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:8px 0;position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--soft)}
+    .zone-b-left,.zone-b-right{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .tb{display:inline-flex;align-items:center;gap:4px;height:32px;padding:6px 8px;border:0;border-radius:var(--r);background:var(--btn);font-size:12px;font-weight:600;cursor:pointer}
+    .tb:hover{background:#BABCBE}
+    .tb.primary{background:var(--primary);color:#fff}
+    .tb.primary:hover{background:#0b5ed7}
+    .tb:disabled{opacity:.55;cursor:not-allowed}
+    .card{background:var(--card);border:1px solid var(--soft);border-radius:var(--r);flex:1;display:flex;flex-direction:column;min-height:0;overflow:hidden}
+    .grid-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 16px 8px;align-items:flex-start}
+    .grid-title{margin:0;font-size:15px;font-weight:700}
+    .grid-help{margin:4px 0 0;font-size:12px;color:var(--muted)}
+    /* LinErpListFilterBar mock — 1 hàng wrap · lấp hàng rồi wrap · 🔍 mép phải · cấm nút Tìm */
+    .filter-bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;flex:1;min-width:280px;justify-content:flex-end}
+    .filter-bar .fb-field{display:flex;align-items:center;height:32px;border:1px solid var(--border);border-radius:var(--r);background:#fff;overflow:hidden}
+    .filter-bar .fb-field input,.filter-bar .fb-field select{border:0;outline:0;padding:6px 10px;font-size:13px;min-width:140px;background:transparent}
+    .filter-bar .fb-search{display:flex;align-items:center;height:32px;border:1px solid var(--border);border-radius:var(--r);background:#fff;overflow:hidden;min-width:220px;flex:1;max-width:320px}
+    .filter-bar .fb-search input{border:0;outline:0;padding:6px 10px;flex:1;font-size:13px}
+    .filter-bar .fb-search .fb-ico{border:0;border-left:1px solid var(--border);background:#f8fafc;padding:0 10px;height:100%;color:var(--muted);display:inline-flex;align-items:center}
+    .table-wrap{overflow:auto;flex:1;min-height:200px;border-top:1px solid var(--soft)}
+    table{width:100%;border-collapse:collapse;table-layout:fixed}
+    th,td{padding:8px 12px;border-bottom:1px solid var(--soft);text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    th{background:#f8fafc;font-size:12px;color:var(--muted);position:sticky;top:0}
+    th.num,td.num{text-align:center;width:48px}
+    tbody tr:nth-child(even){background:#fafbfc}
+    tbody tr:hover,tbody tr.sel{background:#eff6ff}
+    .col-tools{display:inline-flex;gap:4px;margin-left:6px;vertical-align:middle}
+    .col-tools button{border:0;background:transparent;cursor:pointer;color:var(--muted);padding:0 2px;font-size:11px}
+    .col-tools button.on{color:var(--primary)}
+    .badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;background:#e3f2fd;color:#0d47a1}
+    .badge.off{background:#eceff1;color:#546e7a}
+    .filter-pop{display:none;position:absolute;z-index:30;width:260px;background:#fff;border:1px solid var(--soft);border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.12);padding:10px}
+    .filter-pop.on{display:block}
+    .filter-pop input[type=text]{width:100%;margin-bottom:8px;padding:6px 8px;border:1px solid var(--border);border-radius:var(--r)}
+    .filter-field{display:flex;align-items:center;gap:8px;padding:6px 8px;border:1px solid var(--soft);border-radius:6px;margin-bottom:8px}
+    .filter-hint{font-size:12px;color:var(--muted);margin-bottom:8px}
+    .filter-list{max-height:140px;overflow:auto;display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
+    .filter-list label{display:flex;align-items:center;gap:8px;padding:4px 6px;border-radius:4px}
+    .filter-list label.on{background:#eff6ff}
+    .filter-acts{display:flex;justify-content:flex-end;gap:8px}
+    .zone-d{display:flex;flex-direction:column;align-items:center;gap:10px;padding:12px 16px;border-top:1px solid var(--soft)}
+    .zone-d-total{color:var(--muted)}
+    .zone-d-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center}
+    .pager-btn{width:32px;height:32px;border:1px solid var(--soft);border-radius:var(--r);background:#fff;color:var(--muted);cursor:pointer}
+    .menu{position:relative}
+    .menu summary{list-style:none;cursor:pointer;padding:4px 8px;border:1px solid var(--border);border-radius:var(--r);background:#fff}
+    .menu summary::-webkit-details-marker{display:none}
+    .menu-panel{display:none;position:absolute;right:0;z-index:5;background:#fff;border:1px solid var(--border);border-radius:6px;min-width:140px;box-shadow:0 8px 24px rgba(0,0,0,.12)}
+    .menu[open] .menu-panel{display:block}
+    .menu-panel button{display:block;width:100%;text-align:left;border:0;background:0;padding:8px 12px;cursor:pointer;font-size:13px}
+    .menu-panel button:hover{background:#f1f5f9}
+    .backdrop{display:none;position:fixed;inset:0;background:rgba(15,23,42,.35);z-index:40}
+    .backdrop.on{display:block}
+    .modal{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);width:min(420px,94vw);background:#fff;border-radius:8px;border:1px solid var(--soft);z-index:50}
+    .modal-h{padding:12px 16px;border-bottom:1px solid var(--soft);font-weight:700;display:flex;justify-content:space-between;align-items:center}
+    .modal-b{padding:16px;font-size:13px;color:var(--muted)}
+    .modal-f{padding:12px 16px;border-top:1px solid var(--soft);display:flex;justify-content:flex-end;gap:8px}
+    /* DES-GRID-Z Slideout — 2 cột · footer only */
+    .slide-backdrop{display:none;position:fixed;inset:0;background:rgba(15,23,42,.35);z-index:45}
+    .slide-backdrop.on{display:block}
+    .slideout{position:fixed;top:0;right:0;height:100vh;width:min(480px,96vw);background:#fff;z-index:46;display:flex;flex-direction:column;box-shadow:-8px 0 24px rgba(0,0,0,.12);transform:translateX(100%);transition:transform .2s}
+    .slide-backdrop.on .slideout{transform:translateX(0)}
+    .slide-h{padding:12px 16px;border-bottom:1px solid var(--soft);display:flex;justify-content:space-between;align-items:center;gap:8px}
+    .slide-h h2{margin:0;font-size:16px}
+    .slide-badge{font-size:11px;padding:2px 8px;border-radius:4px;background:#e3f2fd;color:#0d47a1;font-weight:600}
+    .slide-b{padding:16px;flex:1;overflow:auto}
+    .fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .field{display:flex;flex-direction:column;gap:4px}
+    .field.wide{grid-column:1 / -1}
+    .field label{font-size:13px;font-weight:600;color:#37474f}
+    .field input,.field select,.field textarea{padding:7px 8px;border:1px solid var(--border);border-radius:var(--r);font-size:14px}
+    .field input:read-only,.field.viewDisabled input,.field.viewDisabled select,.field.viewDisabled textarea{background:#f8fafc;color:var(--txt);opacity:1}
+    .slide-f{padding:12px 16px;border-top:1px solid var(--soft);display:flex;justify-content:flex-end;gap:8px}
+    .xbtn{border:0;background:transparent;cursor:pointer;font-size:16px;color:var(--muted)}
+  </style>
+</head>
+<body>
+  <div class="page">
+    <p class="note">SSOT: <code>shared-grid-example</code> · feature <code>job-title</code> · formSurface=<strong>Slideout</strong> · <code>data-form-cols="2"</code> · packKind=master · DEM N/A · cấm chrome demo</p>
+
+    <header class="zone-a" data-des-id="DES-GRID-A">
+      <h1><i class="fas fa-id-badge" aria-hidden="true"></i> Danh mục chức vụ</h1>
+    </header>
+
+    <div class="zone-b" data-des-id="DES-GRID-B">
+      <div class="zone-b-left">
+        <button type="button" class="tb" data-action="refresh" title="Làm mới"><i class="fas fa-sync-alt"></i> Làm mới</button>
+        <button type="button" class="tb" data-action="history" title="Lịch sử"><i class="fas fa-history"></i> Lịch sử</button>
+        <button type="button" class="tb" data-action="config" title="Sửa config"><i class="fas fa-cog"></i> Sửa config</button>
+        <button type="button" class="tb" id="btn-view" disabled title="Xem"><i class="fas fa-eye"></i> Xem</button>
+        <button type="button" class="tb" id="btn-edit" disabled title="Sửa"><i class="fas fa-pen"></i> Sửa</button>
+        <button type="button" class="tb" id="btn-del" disabled title="Xóa"><i class="fas fa-trash"></i> Xóa</button>
+      </div>
+      <div class="zone-b-right">
+        <button type="button" class="tb primary" data-action="create" title="Thêm mới"><i class="fas fa-plus"></i> Thêm mới</button>
+      </div>
+    </div>
+
+    <section class="card">
+      <div class="grid-head" data-des-id="DES-GRID-C0">
+        <div>
+          <h2 class="grid-title">Danh sách chức vụ</h2>
+          <p class="grid-help" data-des-id="DES-GRID-C3-help">Nhấn đúp · Ctrl + chuột phải · giữ chạm (mobile) để mở menu dòng</p>
+        </div>
+        <div class="filter-bar" data-des-id="DES-GRID-C1" data-filter="LinErpListFilterBar" aria-label="Bộ lọc danh sách">
+          <div class="fb-field">
+            <select id="f-group" aria-label="Nhóm chức vụ" title="Nhóm">
+              <option value="">Tất cả nhóm</option>
+              <option value="LEAD">Lãnh đạo (LEAD)</option>
+              <option value="TECH">Kỹ thuật (TECH)</option>
+              <option value="PATROL">Tuần kiểm (PATROL)</option>
+            </select>
+          </div>
+          <div class="fb-search">
+            <input type="search" id="q" placeholder="Tìm mã / tên / alias…" aria-label="Tìm kiếm" />
+            <span class="fb-ico" aria-hidden="true" title="Tìm"><i class="fas fa-search"></i></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="table-wrap" data-des-id="DES-GRID-C2" style="position:relative">
+        <table>
+          <thead>
+            <tr>
+              <th class="num">STT</th>
+              <th class="num"><input type="checkbox" id="chk-all" aria-label="Chọn tất cả trang" /></th>
+              <th>
+                Mã chức vụ
+                <span class="col-tools">
+                  <button type="button" class="on" title="Sắp xếp" data-sort="code"><i class="fas fa-sort-alpha-down"></i></button>
+                  <button type="button" title="Lọc" id="btn-filter-code"><i class="fas fa-filter"></i></button>
+                </span>
+              </th>
+              <th>Tên chức vụ</th>
+              <th>Nhóm</th>
+              <th>Package gợi ý</th>
+              <th>Hiệu lực</th>
+              <th class="num"></th>
+            </tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+        <div class="filter-pop" id="filter-pop" data-des-id="DES-GRID-C2a" style="top:40px;left:180px">
+          <input type="text" id="filter-q" placeholder="Tìm trong danh sách…" />
+          <div class="filter-field">
+            <input type="checkbox" id="filter-select-all" />
+            <label for="filter-select-all" style="flex:1;cursor:pointer">Chọn tất cả</label>
+          </div>
+          <div class="filter-hint" id="filter-count">Đã chọn 0 mục</div>
+          <div class="filter-list" id="filter-list"></div>
+          <div class="filter-acts">
+            <button type="button" class="tb" id="filter-cancel">Hủy</button>
+            <button type="button" class="tb primary" id="filter-ok">Xác nhận</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="zone-d" data-des-id="DES-GRID-D">
+        <div class="zone-d-total">Tổng: <span id="total">0</span> · Trang <span id="page">1</span>/1</div>
+        <div class="zone-d-row">
+          <label>Hiển thị
+            <select id="pageSize"><option>50</option><option>100</option><option>200</option><option>500</option></select>
+          </label>
+          <button type="button" class="pager-btn" disabled><i class="fas fa-angle-double-left"></i></button>
+          <button type="button" class="pager-btn" disabled><i class="fas fa-angle-left"></i></button>
+          <span>1/1</span>
+          <button type="button" class="pager-btn" disabled><i class="fas fa-angle-right"></i></button>
+          <button type="button" class="pager-btn" disabled><i class="fas fa-angle-double-right"></i></button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="backdrop" id="modal-config" data-des-id="DES-GRID-F">
+    <div class="modal">
+      <div class="modal-h"><i class="fas fa-cog"></i> Sửa cấu hình lưới</div>
+      <div class="modal-b">Kéo cột: <strong>ON</strong> (default) · Zone F / ui-schema — mock Design.</div>
+      <div class="modal-f"><button type="button" class="tb" data-close="modal-config">Đóng</button></div>
+    </div>
+  </div>
+  <div class="backdrop" id="modal-history" data-des-id="DES-GRID-H">
+    <div class="modal">
+      <div class="modal-h"><i class="fas fa-history"></i> Lịch sử</div>
+      <div class="modal-b">Timeline mock theo mã chức vụ đã chọn.</div>
+      <div class="modal-f"><button type="button" class="tb" data-close="modal-history">Đóng</button></div>
+    </div>
+  </div>
+  <div class="backdrop" id="modal-leave" data-des-id="DES-LEAVE">
+    <div class="modal" role="dialog" aria-label="LeaveConfirmModal">
+      <div class="modal-h">Chưa lưu</div>
+      <div class="modal-b">Bạn có thay đổi chưa lưu. Rời khỏi form?</div>
+      <div class="modal-f">
+        <button type="button" class="tb" id="leave-stay">Ở lại</button>
+        <button type="button" class="tb primary" id="leave-go">Rời đi</button>
+      </div>
+    </div>
+  </div>
+  <div class="backdrop" id="modal-alert" data-des-id="DES-ALERT">
+    <div class="modal">
+      <div class="modal-h" id="alert-title">Xác nhận</div>
+      <div class="modal-b" id="alert-body">Xóa chức vụ đã chọn?</div>
+      <div class="modal-f">
+        <button type="button" class="tb" data-close="modal-alert">Hủy</button>
+        <button type="button" class="tb primary" data-close="modal-alert">Đồng ý</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-backdrop" id="slide-form" data-des-id="DES-GRID-Z" data-form-surface="slideout" data-form-cols="2">
+    <aside class="slideout" role="dialog" aria-label="Form chức vụ">
+      <div class="slide-h">
+        <div style="display:flex;align-items:center;gap:8px">
+          <h2 id="form-title">Thêm chức vụ</h2>
+          <span class="slide-badge" id="form-badge">Tạo mới</span>
+        </div>
+        <button type="button" class="xbtn" id="form-x" title="Đóng" aria-label="Đóng"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="slide-b">
+        <div class="fields" id="form-fields">
+          <div class="field"><label for="f-code">Mã chức vụ *</label><input id="f-code" value="HAT-TRUONG" /></div>
+          <div class="field"><label for="f-tg">Nhóm *</label>
+            <select id="f-tg">
+              <option value="LEAD" selected>Lãnh đạo (LEAD)</option>
+              <option value="TECH">Kỹ thuật (TECH)</option>
+              <option value="PATROL">Tuần kiểm (PATROL)</option>
+            </select>
+          </div>
+          <div class="field wide"><label for="f-name">Tên chức vụ *</label><input id="f-name" value="Hạt trưởng" /></div>
+          <div class="field wide"><label for="f-pkg">Package gợi ý *</label>
+            <select id="f-pkg">
+              <option value="MANAGER-RMMS" selected>MANAGER-RMMS</option>
+              <option value="RMMS-TDTK">RMMS-TDTK</option>
+            </select>
+          </div>
+          <div class="field wide"><label for="f-alias">Alias Excel</label><input id="f-alias" placeholder="Tuần kiềm, PGĐ, …" /></div>
+          <div class="field"><label for="f-active">Hiệu lực</label>
+            <select id="f-active"><option value="1" selected>Đang dùng</option><option value="0">Ngừng</option></select>
+          </div>
+        </div>
+        <p class="note" style="margin-top:12px">Consumer staff/ProfileTab: <code>jobTitleCode</code> = <strong>SearchInput</strong> catalog (không thuộc form này).</p>
+      </div>
+      <div class="slide-f">
+        <button type="button" class="tb" id="form-cancel" title="Hủy">Hủy</button>
+        <button type="button" class="tb primary" id="form-save" title="Lưu">Lưu</button>
+      </div>
+    </aside>
+  </div>
+
+  <script>
+    const rows = [
+      { code: 'HAT-TRUONG', name: 'Hạt trưởng', titleGroup: 'LEAD', packageHint: 'MANAGER-RMMS', isActive: true },
+      { code: 'PHO-HAT', name: 'Phó hạt trưởng', titleGroup: 'LEAD', packageHint: 'MANAGER-RMMS', isActive: true },
+      { code: 'KY-THUAT', name: 'Kỹ thuật viên', titleGroup: 'TECH', packageHint: 'RMMS-TDTK', isActive: true },
+      { code: 'TUAN-DUONG', name: 'Tuần đường', titleGroup: 'PATROL', packageHint: 'RMMS-TDTK', isActive: true },
+      { code: 'TUAN-KIEM', name: 'Tuần kiểm', titleGroup: 'PATROL', packageHint: 'RMMS-TDTK', isActive: true },
+    ];
+    const groupLabel = { LEAD: 'Lãnh đạo', TECH: 'Kỹ thuật', PATROL: 'Tuần kiểm' };
+    let selected = null;
+    let formDirty = false;
+    let formMode = 'create';
+    const tbody = document.getElementById('tbody');
+    const filterVals = rows.map(r => r.code);
+    let filterChecked = new Set(filterVals);
+
+    const pkgMap = { LEAD: 'MANAGER-RMMS', TECH: 'RMMS-TDTK', PATROL: 'RMMS-TDTK' };
+    document.getElementById('f-tg').addEventListener('change', (e) => {
+      document.getElementById('f-pkg').value = pkgMap[e.target.value] || 'RMMS-TDTK';
+      formDirty = true;
+    });
+    ['f-code','f-name','f-pkg','f-alias','f-active'].forEach(id => {
+      document.getElementById(id).addEventListener('input', () => { formDirty = true; });
+      document.getElementById(id).addEventListener('change', () => { formDirty = true; });
+    });
+
+    function render() {
+      const q = (document.getElementById('q').value || '').trim().toLowerCase();
+      const g = document.getElementById('f-group').value;
+      const list = rows.filter(r => {
+        if (g && r.titleGroup !== g) return false;
+        if (!q) return true;
+        return r.code.toLowerCase().includes(q) || r.name.toLowerCase().includes(q);
+      });
+      tbody.innerHTML = list.map((r, i) => `
+        <tr data-code="${r.code}" class="${selected===r.code?'sel':''}">
+          <td class="num">${i + 1}</td>
+          <td class="num"><input type="checkbox" class="row-chk" ${selected===r.code?'checked':''} /></td>
+          <td><button type="button" class="code-link" style="border:0;background:0;color:#0d6efd;text-decoration:underline;cursor:pointer;font:inherit">${r.code}</button></td>
+          <td>${r.name}</td>
+          <td>${groupLabel[r.titleGroup] || r.titleGroup}</td>
+          <td><code>${r.packageHint}</code></td>
+          <td>${r.isActive ? '<span class="badge">Đang dùng</span>' : '<span class="badge off">Ngừng</span>'}</td>
+          <td class="num" data-des-id="DES-GRID-C3">
+            <details class="menu">
+              <summary>⋮</summary>
+              <div class="menu-panel">
+                <button type="button" data-menu="view">Xem</button>
+                <button type="button" data-menu="edit">Sửa</button>
+                <button type="button" data-menu="copy">Sao chép</button>
+                <button type="button" data-menu="history">Lịch sử</button>
+                <button type="button" data-menu="delete">Xóa</button>
+              </div>
+            </details>
+          </td>
+        </tr>`).join('');
+      document.getElementById('total').textContent = String(list.length);
+      syncSelBtns();
+    }
+
+    function syncSelBtns() {
+      const on = Boolean(selected);
+      ['btn-view','btn-edit','btn-del'].forEach(id => { document.getElementById(id).disabled = !on; });
+    }
+
+    function openModal(id) { document.getElementById(id).classList.add('on'); }
+    function closeModal(id) { document.getElementById(id).classList.remove('on'); }
+
+    function setFormMode(mode, row) {
+      formMode = mode;
+      formDirty = false;
+      const badge = { create: 'Tạo mới', edit: 'Sửa', view: 'Xem', copy: 'Sao chép' };
+      const title = { create: 'Thêm chức vụ', edit: 'Sửa chức vụ', view: 'Xem chức vụ', copy: 'Sao chép chức vụ' };
+      document.getElementById('form-badge').textContent = badge[mode];
+      document.getElementById('form-title').textContent = title[mode];
+      const r = row || { code: '', name: '', titleGroup: 'LEAD', packageHint: 'MANAGER-RMMS', isActive: true, alias: '' };
+      document.getElementById('f-code').value = mode === 'create' ? '' : (mode === 'copy' ? '' : r.code);
+      document.getElementById('f-name').value = r.name || '';
+      document.getElementById('f-tg').value = r.titleGroup || 'LEAD';
+      document.getElementById('f-pkg').value = r.packageHint || pkgMap[r.titleGroup] || 'MANAGER-RMMS';
+      document.getElementById('f-alias').value = r.alias || '';
+      document.getElementById('f-active').value = r.isActive === false ? '0' : '1';
+      const lockCode = mode === 'edit' || mode === 'view';
+      document.getElementById('f-code').readOnly = lockCode;
+      const view = mode === 'view';
+      document.getElementById('form-fields').classList.toggle('viewDisabled', view);
+      ['f-name','f-tg','f-pkg','f-alias','f-active'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el.tagName === 'SELECT') el.disabled = view;
+        else el.readOnly = view;
+      });
+      document.getElementById('form-save').style.display = view ? 'none' : '';
+      document.getElementById('slide-form').classList.add('on');
+    }
+
+    function requestCloseForm() {
+      if (formDirty && formMode !== 'view') {
+        openModal('modal-leave');
+        return;
+      }
+      closeForm();
+    }
+    function closeForm() {
+      document.getElementById('slide-form').classList.remove('on');
+      formDirty = false;
+      closeModal('modal-leave');
+    }
+
+    tbody.addEventListener('click', (e) => {
+      const tr = e.target.closest('tr');
+      if (!tr) return;
+      const code = tr.getAttribute('data-code');
+      const row = rows.find(r => r.code === code);
+      if (e.target.closest('[data-menu]')) {
+        const act = e.target.getAttribute('data-menu');
+        selected = code; syncSelBtns(); render();
+        if (act === 'history') openModal('modal-history');
+        else if (act === 'delete') openModal('modal-alert');
+        else if (act === 'view' || act === 'edit' || act === 'copy') setFormMode(act, row);
+        return;
+      }
+      if (e.target.classList.contains('code-link') || e.target.classList.contains('row-chk') || e.detail === 2) {
+        selected = code; syncSelBtns(); render();
+      }
+    });
+    tbody.addEventListener('dblclick', (e) => {
+      const tr = e.target.closest('tr');
+      if (!tr) return;
+      selected = tr.getAttribute('data-code'); syncSelBtns(); render();
+      setFormMode('edit', rows.find(r => r.code === selected));
+    });
+
+    document.getElementById('q').addEventListener('input', render);
+    document.getElementById('f-group').addEventListener('change', render);
+    document.querySelector('[data-action="config"]').addEventListener('click', () => openModal('modal-config'));
+    document.querySelector('[data-action="history"]').addEventListener('click', () => openModal('modal-history'));
+    document.querySelector('[data-action="create"]').addEventListener('click', () => setFormMode('create'));
+    document.querySelector('[data-action="refresh"]').addEventListener('click', render);
+    document.getElementById('btn-view').addEventListener('click', () => selected && setFormMode('view', rows.find(r => r.code === selected)));
+    document.getElementById('btn-edit').addEventListener('click', () => selected && setFormMode('edit', rows.find(r => r.code === selected)));
+    document.getElementById('btn-del').addEventListener('click', () => openModal('modal-alert'));
+    document.getElementById('form-x').addEventListener('click', requestCloseForm);
+    document.getElementById('form-cancel').addEventListener('click', requestCloseForm);
+    document.getElementById('form-save').addEventListener('click', () => { formDirty = false; closeForm(); });
+    document.getElementById('leave-stay').addEventListener('click', () => closeModal('modal-leave'));
+    document.getElementById('leave-go').addEventListener('click', closeForm);
+    document.querySelectorAll('[data-close]').forEach(btn => {
+      btn.addEventListener('click', () => closeModal(btn.getAttribute('data-close')));
+    });
+
+    function renderFilterList() {
+      const fq = (document.getElementById('filter-q').value || '').toLowerCase();
+      const visible = filterVals.filter(v => !fq || v.toLowerCase().includes(fq));
+      const box = document.getElementById('filter-list');
+      box.innerHTML = visible.map(v => `
+        <label class="${filterChecked.has(v)?'on':''}">
+          <input type="checkbox" data-fv="${v}" ${filterChecked.has(v)?'checked':''} /> ${v}
+        </label>`).join('');
+      const n = visible.filter(v => filterChecked.has(v)).length;
+      document.getElementById('filter-count').textContent = `Đã chọn ${n} mục`;
+      document.getElementById('filter-select-all').checked = visible.length > 0 && n === visible.length;
+    }
+    document.getElementById('btn-filter-code').addEventListener('click', (e) => {
+      e.stopPropagation();
+      document.getElementById('filter-pop').classList.toggle('on');
+      renderFilterList();
+    });
+    document.getElementById('filter-q').addEventListener('input', renderFilterList);
+    document.getElementById('filter-list').addEventListener('change', (e) => {
+      const t = e.target;
+      if (!t.matches('[data-fv]')) return;
+      if (t.checked) filterChecked.add(t.getAttribute('data-fv'));
+      else filterChecked.delete(t.getAttribute('data-fv'));
+      renderFilterList();
+    });
+    document.getElementById('filter-select-all').addEventListener('change', (e) => {
+      const fq = (document.getElementById('filter-q').value || '').toLowerCase();
+      const visible = filterVals.filter(v => !fq || v.toLowerCase().includes(fq));
+      if (e.target.checked) visible.forEach(v => filterChecked.add(v));
+      else visible.forEach(v => filterChecked.delete(v));
+      renderFilterList();
+    });
+    document.getElementById('filter-cancel').addEventListener('click', () => document.getElementById('filter-pop').classList.remove('on'));
+    document.getElementById('filter-ok').addEventListener('click', () => document.getElementById('filter-pop').classList.remove('on'));
+
+    render();
+  </script>
+</body>
+</html>
