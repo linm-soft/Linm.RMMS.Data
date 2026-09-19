@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-19T16:06:10.110Z",
+  "updatedAt": "2026-09-19T16:29:51.558Z",
   "features": {
     "ai-asset-detect": {
       "web": {
@@ -726,9 +726,9 @@
         "statusRel": "specs/nghiem-thu/STATUS.md"
       },
       "mobile": {
-        "phase": "qa",
+        "phase": "review",
         "status": "pending",
-        "updatedAt": "2026-09-19T16:06:10.110Z",
+        "updatedAt": "2026-09-19T16:29:51.558Z",
         "statusRel": "specs/nghiem-thu/STATUS.md"
       }
     },

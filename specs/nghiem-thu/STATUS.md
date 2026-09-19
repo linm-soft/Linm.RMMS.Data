@@ -3,9 +3,8 @@
 | Field | Value |
 |-------|-------|
 | feature | `nghiem-thu` |
-| phase | `qa` |
-| status | `in_progress` |
-| taskId | `task_61e48f31` |
+| phase | `done` |
+| status | `done` |
 | packKind | `list` |
 | demo | `specs/mobile-p1/ui/prototype/{ios,android}/index.html` `#sc-nghiem-thu` |
 | context | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/docs/context/features/nghiem-thu.md` |
@@ -13,10 +12,10 @@
 | mfeStdRoute | `/nghiem-thu` |
 | mfeStdUrl | `http://localhost:9304/nghiem-thu` |
 | backend | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.WebService` · DOMAIN-MAP — **cấm ERP.*** |
-| updatedAt | `2026-09-19T16:06:20.272Z` |
-| lastRole | `dev` · `done` · task `task_00546351` · dual iOS+Android list · build PASS · Step4b SKIP |
+| updatedAt | `2026-09-19T16:31:17.000Z` |
+| lastRole | `review` · `done` · task `task_600866a7` · review_confirm=accept · P0=0 · Aligned |
 | contentHash | `sha256:a635f3f55a8bedd952c4449056cf072a8eda890eda2b30a45e84bda5d7bf3859` |
-| reviewHash | `sha256:4472b6cd5498ba5a206c9c21463c4adffe19c1c26299ccdfbc21757d190f8e1a` |
+| reviewHash | `sha256:eba0d0dff9aa50f3b0202a5d6a1b7dabd8d36943f75828b988431a3bc4be0b67` |
 | reviewUrl | `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/nghiem-thu/ui/prototype/ios/index.html` · `…/android/index.html` |
 | peerStdUrl | `http://localhost:9304/patrol` |
 
@@ -24,7 +23,7 @@
 
 | agent | scope | id | at |
 |-------|-------|-----|-----|
-| qa | nghiem-thu | task_61e48f31 | 2026-09-19T16:10:00.000Z |
+| — | — | — | — |
 
 ## Pipeline (web)
 
@@ -36,8 +35,8 @@
 | 2.2 | sa | be/solution-discovery.md · handoff/sa-compact.md | **confirmed** (web keep · mobile BFF reuse 2026-09-19) |
 | 3 | team-lead | task/nghiem-thu.md · handoff/team_lead-compact.md | **confirmed** (web keep · mobile overlay 2026-09-19) |
 | 4 | dev | implement/nghiem-thu.md · handoff/dev-compact.md | **confirmed** (web keep · mobile dual 2026-09-19) |
-| 5 | qa | qa/scenarios.md · handoff/qa-compact.md | **in_progress** |
-| 6 | review | review/findings.md · handoff/review-compact.md | pending |
+| 5 | qa | qa/scenarios.md · handoff/qa-compact.md | **confirmed** (web keep · mobile e2e 2026-09-19) |
+| 6 | review | review/findings.md · handoff/review-compact.md | **confirmed** (web keep · mobile accept 2026-09-19) |
 
 ## Pipeline (mobile)
 
@@ -49,8 +48,8 @@
 | 2.2 | sa | be/solution-discovery.md · handoff/sa-compact.md | **done** |
 | 3 | team-lead | task/nghiem-thu.md · handoff/team_lead-compact.md | **done** |
 | 4 | dev | implement/ios.md · implement/android.md · handoff/dev-compact.md | **done** |
-| 5 | qa | qa/scenarios.md · qa/store/nghiem-thu/CAPTURE.md | **in_progress** |
-| 6 | review | review/findings.md | pending |
+| 5 | qa | qa/scenarios.md · qa/store/nghiem-thu/CAPTURE.md · handoff/qa-compact.md | **done** |
+| 6 | review | review/findings.md · handoff/review-compact.md | **done** |
 
 ## Tasks
 
@@ -71,6 +70,9 @@
 | task_b4b91c07 | nghiem-thu | team_lead | sa | **completed** | mobile list · route_a · T-IOS/T-AND · T-BE=n/a · compact · autoApprove |
 | task_00546351 | nghiem-thu | dev | team_lead | **completed** | dual iOS+Android list · xcodegen+assembleDebug+BFF PASS · compact · Step4b SKIP |
 
+| task_61e48f31 | nghiem-thu | qa | dev | **completed** | e2e-qa-mobile PASS · Pro Max+Pixel_2 · Must 0 · Aligned · compact |
+| task_600866a7 | nghiem-thu | review | qa | **completed** | mobile review_confirm=accept · P0=0 · Aligned · compact · **cấm** e2e |
+
 ## Blockers / open questions
 
 - CLOSED (SA): GAP-DA-NT-DOMAIN-01 · GAP-DA-NT-API-01 — DOMAIN-MAP `nghiem-thu`→Patrol · `api/v1/patrol/nghiem-thu`
@@ -87,9 +89,11 @@
 - MOBILE design `task_059c4327` **PASS** · DES-MOB-NGHIEM-THU dual · ux-analy §1–§9 · demo-parity Must=0 · design_confirm=approve · **cấm** re-scan / e2e / start:std
 - MOBILE sa `task_ca050f3a` **PASS** · solution_confirm=approve · Mobile.Bff catch-all · List→API-01 · init→API-00 · migration=no · Step 4b SKIP · **cấm** invent API / e2e / start:std
 - MOBILE team_lead `task_b4b91c07` **PASS** · route_confirm=route_a · T-IOS-NGHIEM-THU · T-AND-NGHIEM-THU · T-BE/T-BFF/T-KIT=n/a · siblings pending_confirm · **cấm** e2e/start:std/build · handoff Dev dual
+- MOBILE qa `task_61e48f31` **PASS** · e2e-qa-mobile · guest→login→hub scroll→`#sc-nghiem-thu` · Must 0 Aligned · **cấm** start:std
 - MOBILE dev `task_00546351` **PASS** · T-IOS/T-AND · build iOS+Android+BFF PASS · create/detail toast pending · Step4b SKIP · handoff QA · **cấm** e2e/start:std
+- MOBILE review `task_600866a7` **PASS** · review_confirm=accept · P0=0 · SEC/DTO/REAL/ALIGN PASS · debt P2/P3 KEEP · **cấm** e2e/start:std
 - Gates: TZ=required · XCO=required · SHARE=tenant_keep
-- Debt KEEP: Auth RequirePermission stub · migrate apply env · e2e npx flake P2 · Leave visual P3
+- Debt KEEP: Auth RequirePermission stub · migrate apply env · e2e npx flake P2 · Leave visual P3 · siblings create/detail pending_confirm
 
 ## Links
 
@@ -98,7 +102,8 @@
 - mfeStdRoute: `/nghiem-thu`
 - reviewUrlIos: `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/nghiem-thu/ui/prototype/ios/index.html`
 - reviewUrlAndroid: `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/nghiem-thu/ui/prototype/android/index.html`
-- handoff: `specs/nghiem-thu/handoff/dev-compact.md`
+- handoff: `specs/nghiem-thu/handoff/review-compact.md`
+- prior: `specs/nghiem-thu/handoff/qa-compact.md`
 - prior tl compact: `specs/nghiem-thu/handoff/team_lead-compact.md`
 - prior sa compact: `specs/nghiem-thu/handoff/sa-compact.md`
 - prior design compact: `specs/nghiem-thu/handoff/design-compact.md`

@@ -180,7 +180,7 @@
 | `so-ts-rescue-vehicle` | Sổ TS — Xe cứu hộ | — | support | `sa` / `pending` | none | [ctx](features/so-ts-rescue-vehicle.md) | [ST](../../specs/so-ts-rescue-vehicle/STATUS.md) |
 | `field-reflect` | [Mobile] [Tuần đường] -> Ghi nhận hư hỏng | — | support | `done` / `done` | none | [ctx](features/field-reflect.md) | [ST](../../specs/field-reflect/STATUS.md) |
 | `khu-1-pilot` | Pilot dữ liệu Khu I | — | support | `dev` / `pending` | none | [ctx](features/khu-1-pilot.md) | [ST](../../specs/khu-1-pilot/STATUS.md) |
-| `nghiem-thu` | Công tác nghiệm thu — clone tuần kiểm + 10 mẫu | — | support | `qa` / `in_progress` | proto | [ctx](features/nghiem-thu.md) | [ST](../../specs/nghiem-thu/STATUS.md) |
+| `nghiem-thu` | Công tác nghiệm thu — clone tuần kiểm + 10 mẫu | — | support | `review` / `in_progress` | proto | [ctx](features/nghiem-thu.md) | [ST](../../specs/nghiem-thu/STATUS.md) |
 | `nghiem-thu-create` | [Mobile] [Công tác nghiệm thu] -> Tạo nghiệm thu | — | support | `data_analy` / `pending_confirm` | proto | [ctx](features/nghiem-thu-create.md) | [ST](../../specs/nghiem-thu-create/STATUS.md) |
 | `nghiem-thu-detail` | [Mobile] [Công tác nghiệm thu] -> Chi tiết nghiệm thu | — | support | `data_analy` / `pending_confirm` | none | [ctx](features/nghiem-thu-detail.md) | [ST](../../specs/nghiem-thu-detail/STATUS.md) |
 | `mnt-list` | [Mobile] Công việc | — | support | `done` / `done` | none | [ctx](features/mnt-list.md) | [ST](../../specs/mnt-list/STATUS.md) |

@@ -60,4 +60,4 @@ Lookup: `mau-01`…`mau-10` · status `draft`/`in_progress`/`done`/`cancelled`.
 | lane | phase | status | updatedAt |
 |------|-------|--------|-----------|
 | web | `done` | `done` | `2026-09-12T10:10:11.580Z` |
-| mobile | `qa` | `pending` | `2026-09-19T16:06:10.110Z` |
+| mobile | `review` | `pending` | `2026-09-19T16:29:51.558Z` |

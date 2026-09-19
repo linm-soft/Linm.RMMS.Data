@@ -5,48 +5,51 @@ feature: nghiem-thu
 packKind: list
 role: qa
 status: done
-verdict: PASS
-skillVersion: 2026.09.05.03
-writtenAt: 2026-09-12T10:05:00.000Z
-changeScope: new_page
-taskId: task_7d0037b7
-contentHashPriorDev: sha256:41b14359b00a0bacbd2f5e88ab9ed8f7604f962c4e4e58219bf9c1145b5ef4ea
+skillVersion: 2026.08.19.26
+writtenAt: 2026-09-19T16:30:00.000Z
+taskId: task_61e48f31
+slash: /agent-qa-mobile
+e2eQa: ON
 autoApprove: ON
-e2eQa: ON · PASS
-mfeStdUrl: http://localhost:9304/nghiem-thu
+changeScope: edit_page
+contentHash: sha256:a635f3f55a8bedd952c4449056cf072a8eda890eda2b30a45e84bda5d7bf3859
 
 ## Decisions
-- changeScope: new_page · Kind B · Full `data-form-cols=5`
-- verdict: **PASS** · S0/S1/QA-20 + T-QA-CRUD/FORM/FILTER · handoff `/agent-review`
-- live port **:9304** (STATUS was :9301 — corrected)
-- docker rebuild api+bff · yarn start:std · local playwright capture (yarn e2e-qa npx FAIL)
-- CRUD real: create/list/view/delete · row NT-* · **cấm** empty-only
-- LeaveConfirmModal wired · LinCatalogUiSchemaEditorModal · **cấm ERP.***
-- **cấm** phase=done · **cấm** kill worker
-- next: `/agent-review`
+- changeScope: edit_page · native list `#sc-nghiem-thu` dual · keep web
+- verdict: **PASS** · Must 0 · visual A3/P6/P6-2 **Aligned** vs `#sc-nghiem-thu`
+- e2e: yarn e2e-qa-mobile · ok:true · phase1_iphone · Pro Max + Pixel_2
+- login: guest→`btn-home-login`→seed · scroll hub `#row-nghiem-thu`
+- body: EmptyChrome live-only (0 phiếu) · **cấm** demoItems
+- P6-DUP fixed: P6-2 = search fold `NT` · hash distinct
+- mfeStdUrl: — · **cấm** start:std
+- A4-IPAD: DEFER
+- align_confirm: **approve** (autoApprove ON)
+- open questions: none
 
 ## Inventory (slim)
-| id | controlHint | notes |
-|----|-------------|-------|
-| filters | Search*·Date | T-QA-FILTER-01/02 PASS D+T+M |
-| form fields | Text·SearchInput·FileMulti | Full 5col PASS |
-| mediaIds | FileMulti | FileService path PASS (not exercised upload binary) |
+| id | label | controlHint | notes |
+|----|-------|-------------|-------|
+| sc-nghiem-thu | Công tác nghiệm thu | TopBar+Search+Empty | A3/P6 |
+| row-nghiem-thu | hub | ListRow | scroll on patrol-home |
+| nghiem-thu-search | Tìm mẫu… | SearchField | P6-2 |
+| btn-nghiem-thu-create | Tạo | TextButton | toast pending |
 
 ## Screens / zones (ids only)
-- S0/S1/QA-20/QA-CRUD/QA-VIEW/QA-LEAVE/QA-FILTER-{D,T,M}.png
-- PNG: `specs/nghiem-thu/qa/screens/` · manifest ok=true
-- zones: DES-GRID-A…D · DES-LEAVE · form-page
+- `#sc-nghiem-thu` · DES-MOB-NGHIEM-THU · hub `#row-nghiem-thu`
+- shots: `qa/screens/{A11,A9,A3,P6,P6-2}.png` · `qa/store/nghiem-thu/`
+- reviewUrlIos=`…/prototype/ios/index.html#sc-nghiem-thu`
+- reviewUrlAndroid=`…/prototype/android/index.html#sc-nghiem-thu`
 
 ## API / tasks (ids only)
-- T-QA-CRUD-01 · T-QA-FORM-01 · T-QA-FILTER-01 · T-QA-FILTER-02 **PASS**
-- API `api/v1/patrol/nghiem-thu` · BFF 200 · **cấm ERP.***
-- debt P2: e2e npx flake · Auth stub · leave dialog visual
+- T-QA-NGHIEM-THU-* · T-QA-TAB-01 · T-QA-REAL-01 **PASS**
+- List→API-01 live · EmptyChrome OK
+- next: `/agent-review-mobile`
 
 ## UNCLEAR
-- none blocking QA→Review
+- none
 
 ## Full paths (Read only if needed)
-- scenarios: `D:/AI-QLBD/Linm.RMMS.Data/specs/nghiem-thu/qa/scenarios.md`
-- screens: `D:/AI-QLBD/Linm.RMMS.Data/specs/nghiem-thu/qa/screens/`
-- prior: `D:/AI-QLBD/Linm.RMMS.Data/specs/nghiem-thu/handoff/dev-compact.md`
-- STATUS: `D:/AI-QLBD/Linm.RMMS.Data/specs/nghiem-thu/STATUS.md`
+- scenarios: /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/nghiem-thu/qa/scenarios.md
+- CAPTURE: /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/nghiem-thu/qa/store/nghiem-thu/CAPTURE.md
+- STATUS: /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/nghiem-thu/STATUS.md
+- prior: /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/nghiem-thu/handoff/dev-compact.md

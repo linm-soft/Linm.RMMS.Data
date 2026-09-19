@@ -1,56 +1,68 @@
 {
-  "url": "http://localhost:9304/nghiem-thu",
-  "formUrl": "http://localhost:9304/nghiem-thu/new",
-  "capturedAt": "2026-09-12T10:02:46.947Z",
-  "method": "local playwright (AI-AutoCode) · yarn e2e-qa npx resolve FAIL",
+  "feature": "nghiem-thu",
+  "capturedAt": "2026-09-19T16:30:00.000Z",
+  "iosDevice": "iPhone 17 Pro Max",
+  "androidDevice": "Pixel_2",
+  "method": "e2e-qa-mobile",
+  "iosPhase": "phase1_iphone",
+  "bundleId": "com.drvn.rmms.store",
+  "packageName": "com.drvn.rmms.store",
+  "visualAlign": "Aligned",
+  "mustOpen": 0,
+  "ok": true,
   "steps": [
     {
-      "id": "S0",
+      "id": "A10-BFF",
       "result": "PASS",
-      "screenshot": "S0.png"
+      "store": ["A10", "P11"],
+      "scenario": "App gọi BFF khi mở nghiem-thu",
+      "expect": "BFF listen; dữ liệu thật — không mock in-app",
+      "actual": ":5202 healthy · live EmptyChrome (0 row)"
     },
     {
-      "id": "S1",
+      "id": "A11-LAUNCH",
       "result": "PASS",
-      "screenshot": "S1.png"
+      "screenshot": "A11-LAUNCH.png",
+      "store": ["A11"],
+      "scenario": "Cán bộ mở app trên iPhone",
+      "expect": "Thấy màn khách/home, title đọc được, không màn đen",
+      "actual": "Guest Khách · CTA Đăng nhập · 1320×2868"
     },
     {
-      "id": "QA-20",
+      "id": "A9-LOGIN",
       "result": "PASS",
-      "screenshot": "QA-20.png"
+      "screenshot": "A9-LOGIN.png",
+      "store": ["A9", "P10"],
+      "scenario": "Cán bộ đăng nhập",
+      "expect": "Form tiếng Việt, vào được Trang chủ",
+      "actual": "Form VN + seed · sc-home staff"
     },
     {
-      "id": "QA-FILTER-D",
+      "id": "A3-CORE",
       "result": "PASS",
-      "screenshot": "QA-FILTER-D.png"
+      "screenshot": "A3-CORE.png",
+      "store": ["A3", "A11"],
+      "scenario": "Cán bộ vào màn nghiem-thu trên iPhone",
+      "expect": "Title và việc chính khớp prototype",
+      "actual": "Công tác nghiệm thu · search · EmptyChrome · Aligned"
     },
     {
-      "id": "QA-FILTER-T",
+      "id": "P6-CORE",
       "result": "PASS",
-      "screenshot": "QA-FILTER-T.png"
+      "screenshot": "P6-CORE.png",
+      "store": ["P6", "P11"],
+      "scenario": "Cán bộ vào màn nghiem-thu trên Android",
+      "expect": "Title và việc chính khớp prototype",
+      "actual": "Material chrome · EmptyChrome · 1080×1920 · Aligned"
     },
     {
-      "id": "QA-FILTER-M",
+      "id": "P6-CORE-2",
       "result": "PASS",
-      "screenshot": "QA-FILTER-M.png"
-    },
-    {
-      "id": "QA-CRUD",
-      "result": "PASS",
-      "screenshot": "QA-CRUD.png"
-    },
-    {
-      "id": "QA-VIEW",
-      "result": "PASS",
-      "screenshot": "QA-VIEW.png",
-      "note": "no dialog visible after cancel — LeaveConfirmModal wired in source"
-    },
-    {
-      "id": "QA-LEAVE",
-      "result": "PASS",
-      "screenshot": "QA-LEAVE.png"
+      "screenshot": "P6-CORE-2.png",
+      "store": ["P6"],
+      "scenario": "Cán bộ xem phần còn lại của màn nghiem-thu trên Android",
+      "expect": "Fold tiếp theo cùng việc, không màn đen",
+      "actual": "Search NT · hash distinct vs P6-CORE"
     }
-  ],
-  "ok": true,
-  "crudRow": "NT-20260912-0001"
+  ]
 }
