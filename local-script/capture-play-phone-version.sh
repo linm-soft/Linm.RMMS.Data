@@ -10,7 +10,7 @@ if [[ ! "$SLOT" =~ ^0[1-9]$ ]]; then
 fi
 SERIAL="${ANDROID_SERIAL:-emulator-5554}"
 STORE_OUT="/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/docs/plan/release-mobile/store/out/android"
-VERSION_FOLDER="${PLAY_VERSION_FOLDER:-1.0.0-3}"
+VERSION_FOLDER="${PLAY_VERSION_FOLDER:-1.0.0-4}"
 DEST="${STORE_OUT}/${VERSION_FOLDER}"
 OUT="${DEST}/play-phone-1080x1920-${SLOT}.png"
 mkdir -p "$DEST"

@@ -168,8 +168,8 @@
   <header>
     <div class="wrap">
       <h1>RMMS 1.0.0 - Copy sang Google Play Console</h1>
-      <p>Gói công khai <code>com.drvn.rmms.store</code> · 1.0.0 (3). Tab 1 chỉ phần mới của bản này. Tab 2 là toàn bộ cấu hình đã gộp từ các bản trước. Không gửi thêm khi đang xem xét.</p>
-      <p class="meta">Snapshot <strong>v1.0.0</strong> Play · 18/09/2026 · versionCode 3 · targetSdk 36 · đang xem xét: phát hành đầy đủ, Việt Nam</p>
+      <p>Gói công khai <code>com.drvn.rmms.store</code> · 1.0.0 (3) đang xem xét. Tab 1 là bản tiếp 1.0.0 (4) R8/AGP 9. Tab 2 là cấu hình đã gộp. Không gửi 4 khi 3 còn In review trừ khi hủy bản 3.</p>
+      <p class="meta">Snapshot <strong>v1.0.0</strong> Play · 18/09/2026 · Gradle versionCode 4 · targetSdk 36 · AGP 9.0.1 · 3 đang xem xét</p>
       <nav class="store-tabs" aria-label="Cửa hàng">
         <a href="submit-info.html">Apple / iOS</a>
         <a class="is-on" href="submit-info-play.html">Google Play</a>
@@ -183,28 +183,28 @@
   </nav>
   <main class="wrap panel" id="tab-release">
     <section>
-      <h2>Phần mới của bản 1.0.0 (3)</h2>
-      <p class="hint">Chỉ cấu hình bắt buộc vì đổi versionCode. Listing, Data safety, App access không đổi: xem Tab 2. Đang xem xét: không sửa binary.</p>
+      <h2>Phần mới của bản 1.0.0 (4)</h2>
+      <p class="hint">Chỉ cấu hình bắt buộc vì đổi versionCode và R8. Listing, Data safety, App access không đổi: xem Tab 2. Binary 1.0.0 (3) đang xem xét: không sửa file đó.</p>
       <ul class="steps">
-        <li>Play đã khóa versionCode 2 nên AAB mới phải là mã 3 (versionName vẫn 1.0.0).</li>
-        <li>Gửi xem xét: phát hành công khai đầy đủ, quốc gia Việt Nam, thử nghiệm kín Alpha (nhóm email LINH), trang listing RMMS-VN.</li>
-        <li>Không tạo bản phát hành mới khi 1.0.0 (3) đã là Gần đây nhất.</li>
-        <li>Icon, feature, ảnh điện thoại: không đổi so với 1.0.0-2.</li>
+        <li>Play đã khóa mã 1, 2, 3 nên AAB tiếp theo phải là mã 4 (versionName vẫn 1.0.0).</li>
+        <li>R8 bật minify + shrink; AGP 9.0.1; Gradle 9.1.0; mapping nằm trong AAB.</li>
+        <li>Chờ 3 lên cửa hàng hoặc bị từ chối rồi mới tạo bản phát hành mới kéo 1.0.0-4. Không hủy 3 nếu Google đang duyệt.</li>
+        <li>Icon, feature, ảnh điện thoại: không đổi so với 1.0.0-2. Không copy vào folder 1.0.0-4.</li>
         <li>Data safety: không đổi so với bản đã khai trên Tab 2.</li>
       </ul>
     </section>
     <section data-field="play_version">
       <h2>versionName / versionCode</h2>
-      <p class="hint">Play Console - bản phát hành đang gửi. Gradle defaultConfig.</p>
-      <textarea id="play_version" readonly>1.0.0 (3)</textarea>
+      <p class="hint">Play Console - bản phát hành tiếp theo. Gradle defaultConfig.</p>
+      <textarea id="play_version" readonly>1.0.0 (4)</textarea>
       <div class="row">
         <button type="button" data-copy="play_version">Copy</button>
       </div>
     </section>
     <section data-field="play_aab_path">
-      <h2>AAB tải lên (mã 3)</h2>
-      <p class="hint">Kéo file này. Không tải lại 1.0.0-2. Không dán đường dẫn này vào listing cửa hàng.</p>
-      <textarea id="play_aab_path" readonly>docs/plan/release-mobile/store/out/android/1.0.0-3/rmms-w3-release-1.0.0-3.aab</textarea>
+      <h2>AAB tải lên (mã 4)</h2>
+      <p class="hint">Kéo file này khi tạo bản sau 1.0.0 (3). Không tải lại 1.0.0-2 hoặc 1.0.0-3. Không dán đường dẫn này vào listing cửa hàng.</p>
+      <textarea id="play_aab_path" readonly>docs/plan/release-mobile/store/out/android/1.0.0-4/rmms-w3-release-1.0.0-4.aab</textarea>
       <div class="row">
         <button type="button" data-copy="play_aab_path">Copy</button>
       </div>
@@ -212,7 +212,7 @@
     <section data-field="play_release_name">
       <h2>Tên bản phát hành <small>50</small></h2>
       <p class="hint">Play Console - Tạo bản phát hành - Tên bản phát hành. Tối đa 50. Nội bộ Console.</p>
-      <textarea id="play_release_name" maxlength="50" readonly>1.0.0 (3)</textarea>
+      <textarea id="play_release_name" maxlength="50" readonly>1.0.0 (4)</textarea>
       <div class="row">
         <button type="button" data-copy="play_release_name">Copy</button>
         <p class="count"><span data-count-for="play_release_name">0</span>/50</p>
@@ -222,7 +222,7 @@
       <h2>Ghi chú phát hành (vi) <small>500 Unicode giữa thẻ</small></h2>
       <p class="hint">Play Console - Ghi chú phát hành. Copy cả khối. Thẻ &lt;vi&gt; và &lt;/vi&gt; mỗi cái một dòng. Không mật khẩu, không kêu đánh giá.</p>
       <textarea id="play_release_notes" class="tall" readonly><vi>
-Bản 1.0.0 (3): AAB mới vì Play đã dùng mã 2.
+Bản 1.0.0 (4): tối ưu R8, thu nhỏ mã, Android Gradle Plugin 9.
 Trang Chủ khách: FAQ, đăng nhập, chính sách quyền riêng tư.
 Cán bộ: lưới nghiệp vụ, tuần đường, sự cố, tài sản.
 Hiện trường: GPS và camera khi bạn cho phép.
@@ -249,7 +249,8 @@ Hiện trường: GPS và camera khi bạn cho phép.
           <li>AAB: Generate Bundles hoặc ./gradlew :app:bundleW3Release</li>
           <li>Output Gradle: app/build/outputs/bundle/w3Release/*.aab</li>
           <li>BFF Release: https://rmms-mobile-bff.linm-soft.com - STORE_W1=false - targetSdk 36</li>
-          <li>versionCode +1 mỗi lần tải lên Play (đã dùng 1 và 2; hiện 3; lần sau 4). Build local / chụp màn không bắt buộc tăng</li>
+          <li>AGP 9.0.1, Gradle 9.1.0, R8 minify + shrink trên release. mapping.txt: app/build/outputs/mapping/w3Release/mapping.txt (Play đọc từ AAB)</li>
+          <li>versionCode +1 mỗi lần tải lên Play (đã dùng 1, 2, 3; Gradle hiện 4). Build local / chụp màn không bắt buộc tăng</li>
           <li>Chụp listing: emulator-5554 1080x1920, ANDROID_SERIAL một máy, tài khoản rmms-admin (không rmms-002)</li>
         </ul>
       </section>
@@ -257,7 +258,7 @@ Hiện trường: GPS và camera khi bạn cho phép.
     <div class="sub-panel" id="sub-store" hidden>
       <section>
         <h2>Cấu hình đã gộp (các bản trước + listing)</h2>
-        <p class="hint">Đây là SSOT sau khi merge Tab Release của 1.0.0 (2) và listing đã gửi. Bản 1.0.0 (3) không đổi các ô dưới. Data safety khớp binary w3Release.</p>
+        <p class="hint">Đây là SSOT sau khi merge listing đã gửi. Bản 1.0.0 (3) đang xem xét và 1.0.0 (4) không đổi các ô dưới. Data safety khớp binary w3Release.</p>
       </section>
 <section data-field="play_package">
         <h2>Tên gói</h2>
@@ -586,7 +587,7 @@ Không: video, SMS, lịch, danh bạ, âm thanh, tài chính, sức khỏe, qu�
       <p class="hint">Play Console - Nội dung ứng dụng - Quyền truy cập. Không dán lên listing công khai.</p>
       <textarea id="play_review_notes" class="tall" readonly>Public Google Play listing.
 Package name: com.drvn.rmms.store
-Version 1.0.0 (versionCode 3)
+Version 1.0.0 (versionCode 3 in review; next AAB versionCode 4)
 
 Demo login (staff):
 Android: username rmms-002 / password RMMS@2026
@@ -602,7 +603,7 @@ Forgot password: use the contact-admin line on that screen.</textarea>
     </section>
       <section>
         <h2>Play Console - menu</h2>
-        <p class="hint">Kiểm tra và phát hành. Bản 1.0.0 (3) = versionName 1.0.0 + versionCode 3.</p>
+        <p class="hint">Kiểm tra và phát hành. Bản đang xem xét: 1.0.0 (3). Bản Gradle tiếp: 1.0.0 (4).</p>
         <table class="limits">
           <thead>
             <tr><th>Muốn</th><th>Menu trái</th></tr>
@@ -628,9 +629,9 @@ Forgot password: use the contact-admin line on that screen.</textarea>
           <li>Mã phiên bản 2 đã dùng: tải AAB 1.0.0-3, không kéo lại file -2</li>
           <li>Cần tải APK/AAB + không thêm gói: bản phát hành trống - quay bước 1, Thêm từ thư viện mã 3</li>
           <li>Thử nghiệm mở không tự kéo gói từ kín - Thêm từ thư viện hoặc Promote</li>
-          <li>Không bấm Tạo bản phát hành mới khi 1.0.0 (3) đã là Gần đây nhất</li>
-          <li>Cảnh báo R8 / native symbols: không cần sửa wave này (minify đang tắt)</li>
-          <li>DEX ưu hóa: hạn 02/2027 - bỏ qua</li>
+          <li>Không bấm Tạo bản phát hành mới khi 1.0.0 (3) vẫn In review</li>
+          <li>Cảnh báo R8 / DEX / AGP 9: đã xử lý trên AAB 1.0.0 (4), không sửa binary 3</li>
+          <li>Tải 4: Thêm từ thư viện mã 4 hoặc kéo file 1.0.0-4, không kéo lại mã 2 hoặc 3</li>
         </ul>
       </section>
       <section>
@@ -644,7 +645,7 @@ Forgot password: use the contact-admin line on that screen.</textarea>
       </section>
       <section data-field="play_graphics_path">
         <h2>Icon / feature / ảnh điện thoại</h2>
-        <p class="hint">SSOT đã gộp. Bản 1.0.0 (3) không đổi ảnh. Không tải folder _bk.</p>
+        <p class="hint">SSOT đã gộp. Bản 1.0.0 (4) không đổi ảnh, không copy icon/feature vào folder version mới. Không tải folder _bk.</p>
         <textarea id="play_graphics_path" class="tall" readonly>Icon + feature: docs/plan/release-mobile/store/out/android/play-icon-512x512.png
 docs/plan/release-mobile/store/out/android/play-feature-1024x500.png
 Điện thoại: docs/plan/release-mobile/store/out/android/1.0.0-2/play-phone-1080x1920-01.png đến 04.png</textarea>

@@ -2,7 +2,7 @@
 
 > **Folder:** `store/out/ios/` · `store/out/android/{VersionFolder}/` · `upload=local_only` (user kéo Console — chưa presign).  
 > **Cấm** AI vẽ. **Cấm** pack iOS lên Play (sai px).  
-> Play pack **1.0.0 (3):** AAB `store/out/android/1.0.0-3/`. Listing phone/icon: `1.0.0-2/` + root SSOT. `move_aab=confirm_copy` · **cấm** copy icon folder mới trước `released_success`.
+> Play pack **1.0.0 (4):** AAB `store/out/android/1.0.0-4/` (R8 + AGP 9). In-review **(3):** `1.0.0-3/`. Listing phone/icon: `1.0.0-2/` + root SSOT. **cấm** copy icon folder mới trước `released_success`.
 
 ## iOS 6.9" (`out/ios/`)
 
@@ -32,17 +32,18 @@ Capture live emulator **1080×1920** · PNG RGB **no alpha**. Acc chụp **`rmms
 | play-icon | play-icon-512x512.png | Hi-res icon | 512×512 | image/png | yes | `1a4eccb961370edde173a7b733538723a8db2993f1055315f3b58ea850f058be` | — | 2026-09-18 |
 | play-feature | play-feature-1024x500.png | Feature graphic | 1024×500 | image/png | no | `8e5b574f53ddd40cdec90fa6da87bfb376256cf19884b07658922ab56ff976bb` | — | 2026-09-18 |
 | aab-w3-2 | rmms-w3-release-1.0.0-2.aab | Store binary (Play đã khóa code 2) | — | AAB | — | `922ad4fb320a68398a3ecc2d665cfcffd0609c3218794e3c190fe32884c03e43` | — | 2026-09-18 |
-| aab-w3-3 | rmms-w3-release-1.0.0-3.aab | Store binary **upload** | — | AAB | — | `b9d336c71df71676d4c43c227441c0035af84ad2fb21300676de07979de81b6b` | — | 2026-09-18 |
+| aab-w3-3 | rmms-w3-release-1.0.0-3.aab | Store binary **in review** | — | AAB | — | `b9d336c71df71676d4c43c227441c0035af84ad2fb21300676de07979de81b6b` | — | 2026-09-18 |
+| aab-w3-4 | rmms-w3-release-1.0.0-4.aab | Store binary **next** (R8 + AGP 9.0.1) | — | AAB | — | `2da3f8dda6e6c72d0c130ec22d1aa4625408b38855064863d1bd2f433f5120be` | — | 2026-09-18 |
 
-Upload AAB: `store/out/android/1.0.0-3/rmms-w3-release-1.0.0-3.aab`. Screenshots listing: `1.0.0-2/play-phone-01`…`04`. Listing: [`submit-info-play.html`](submit-info-play.html). Play notes: `rmms-002`.
+Upload AAB tiếp: `store/out/android/1.0.0-4/rmms-w3-release-1.0.0-4.aab` (sau khi 3 xong). Screenshots listing: `1.0.0-2/play-phone-01`…`04`. Listing: [`submit-info-play.html`](submit-info-play.html). Play notes: `rmms-002`.
 
 ## Play Dashboard pack (`/store-image-capture` Step 0b)
 
-`move_aab=confirm_copy` · `dashboard_prep=full_pack`. AAB `com.drvn.rmms.store` · `1.0.0` **(3)** · **targetSdk 36**. Phone **01–04** ở `1.0.0-2/`. Icon + feature root SSOT. **Cấm** Send for review. **Cấm** upload `_bk-recapture-*`.
+`move_aab=confirm_copy` · `dashboard_prep=full_pack`. AAB `com.drvn.rmms.store` · `1.0.0` **(4)** · **targetSdk 36** · R8. Phone **01–04** ở `1.0.0-2/`. Icon + feature root SSOT. **Cấm** Send for review. **Cấm** upload `_bk-recapture-*`. **Cấm** đụng AAB 3 đang In review.
 
 | Slot | File / nguồn | Status |
 |------|----------------|--------|
-| AAB | `out/android/1.0.0-3/rmms-w3-release-1.0.0-3.aab` | Copied · sha `b9d336c7…` · versionCode **3** · API 36 |
+| AAB | `out/android/1.0.0-4/rmms-w3-release-1.0.0-4.aab` | Copied · sha `2da3f8dd…` · versionCode **4** · API 36 · R8 9.0.32 |
 | Hi-res icon | `out/android/play-icon-512x512.png` **và** `1.0.0-2/` | PASS 512×512 RGBA alpha · 63.6 KB · full square · **không** bo góc |
 | Feature graphic | `out/android/play-feature-1024x500.png` **và** `1.0.0-2/` | PASS 1024×500 RGB **không** alpha |
 | Phone screenshot | `1.0.0-2/play-phone-1080x1920-01`…`04` | **PASS** 1080×1920 RGB · 0d AUTO `w3Release` + `rmms-admin` |

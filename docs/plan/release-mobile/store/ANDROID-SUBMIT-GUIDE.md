@@ -56,7 +56,7 @@ Repo: `Linm.RMMS.Mobile.Android` · `app/build.gradle.kts` — **không** `Linm.
 | Package name | `com.drvn.rmms.store` | Play Console → **App identity** · Gradle `applicationId` |
 | Kotlin `namespace` | `org.linmsoft.rmms` | Giữ — **không** đổi folder `.kt` vì Play package |
 | versionName | `1.0.0` | Version in-flight |
-| versionCode | `3` | Play đã khóa 1 và 2 · mỗi **upload** AAB mới phải +1 |
+| versionCode | `4` | Play đã khóa 1–3 · **(3)** In review · mỗi **upload** AAB mới phải +1 |
 | targetSdk / compileSdk | **36** | Play production 2026 |
 | BFF | `https://rmms-mobile-bff.linm-soft.com` | HTTPS reviewer gọi được · **Release** `BFF_BASE` đã khóa · Debug vẫn `local.properties` |
 | Prefix | `mobile-bff/api/v1` | Giữ |
@@ -141,9 +141,9 @@ SSOT px: [Play graphic assets](https://support.google.com/googleplay/android-dev
 
 Chụp **live** UI wave 3: guest · FAQ · staff lists · GPS · camera. **Cấm** GIS / patrol-map / directions / OTP SMS. **Cấm** AI vẽ / splash-only.
 
-Acc chụp local: **`rmms-admin`** (không `rmms-002`). Acc **App access** Play: `rmms-002` — [`REVIEW-ACCOUNTS.md`](REVIEW-ACCOUNTS.md). Binary chụp: **w3Release** prod BFF — **cấm** `w3Debug` (map ON). In-flight AAB `1.0.0 (3)`.
+Acc chụp local: **`rmms-admin`** (không `rmms-002`). Acc **App access** Play: `rmms-002` — [`REVIEW-ACCOUNTS.md`](REVIEW-ACCOUNTS.md). Binary chụp: **w3Release** prod BFF — **cấm** `w3Debug` (map ON). In-flight AAB `1.0.0 (3)`; pack tiếp `1.0.0 (4)`.
 
-Pack: `store/out/android/` (icon + feature SSOT) · `store/out/android/1.0.0-3/` (AAB in-flight) · `1.0.0-2/` (phone 01–04). Pack iOS **không** upload Play. Version folder **mới**: chỉ copy icon/feature khi confirm `released_success`.
+Pack: `store/out/android/` (icon + feature SSOT) · `store/out/android/1.0.0-4/` (AAB next R8) · `1.0.0-3/` (AAB in-review) · `1.0.0-2/` (phone 01–04). Pack iOS **không** upload Play. Version folder **mới**: chỉ copy icon/feature khi confirm `released_success`.
 
 ---
 
@@ -156,7 +156,7 @@ Android: `/fill-build-android-info` → `/plan-release-mobile` → `/build-relea
 2. `/plan-release-mobile` — flavor W3 skip map · **cấm** xóa code.  
 3. `/build-release-app` — `release_platform` **android** rồi `release_phase` **w3_camera**.  
 4. Artifact Gradle: `{AndroidRoot}/app/build/outputs/bundle/w3Release/*.aab`  
-   Pack Store (sau `/store-image-capture` AskQuestion `move_aab`): `store/out/android/1.0.0-3/rmms-w3-release-1.0.0-3.aab`
+   Pack Store (sau `/store-image-capture` AskQuestion `move_aab`): `store/out/android/1.0.0-4/rmms-w3-release-1.0.0-4.aab`
 
 ```bash
 cd /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android
@@ -209,7 +209,7 @@ Data safety: [Play help](https://support.google.com/googleplay/android-developer
 
 ### 6a. Sáu lỗi dashboard (2026-09-18) — form do user fill
 
-AAB **1.0.0 (3)** target **36** → `store/out/android/1.0.0-3/rmms-w3-release-1.0.0-3.aab`. Capture listing: **w3Release** + **`rmms-admin`**. PNG lab cũ ở `out/android/play-phone-*` **không** upload.
+AAB **1.0.0 (4)** target **36** R8 → `store/out/android/1.0.0-4/rmms-w3-release-1.0.0-4.aab`. **(3)** In review: không sửa. Capture listing: **w3Release** + **`rmms-admin`**. PNG lab cũ ở `out/android/play-phone-*` **không** upload.
 
 | # | Lỗi Console | Ai làm | Cách |
 |---|-------------|--------|------|
@@ -218,7 +218,7 @@ AAB **1.0.0 (3)** target **36** → `store/out/android/1.0.0-3/rmms-w3-release-1
 | 3 | Chưa chọn countries | User | **Store presence → Countries / regions** → chọn (VN tối thiểu) → Save |
 | 4 | Finance declaration | User | **App content → News apps / Government apps / Finance** → **No** (RMMS không phải app tài chính) |
 | 5 | Health declaration | User | **App content → Health** → **No** (không phải health app) |
-| 6 | Target API phải ≥ 36 | Agent + user | Upload `store/out/android/1.0.0-3/rmms-w3-release-1.0.0-3.aab` |
+| 6 | Target API phải ≥ 36 | Agent + user | Upload `store/out/android/1.0.0-4/rmms-w3-release-1.0.0-4.aab` sau khi 3 xong |
 
 **Cấm** Send for review trước `/review-app-submit` P1–P11.
 
