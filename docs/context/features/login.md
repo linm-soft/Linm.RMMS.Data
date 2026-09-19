@@ -81,6 +81,7 @@ Auth: JWT `company_id` · `[RequirePermission]`.
 | GAP-LOGIN-04 | 1 user nhiều HĐ? | **Cấm** — 1 mã HĐ / user |
 | GAP-LOGIN-05 | `RoutesCsv` / `RouteSegment` | Thay child table |
 | GAP-F-USR-01 | Auth host tách | **Đóng** — Platform + profile RMMS |
+| GAP-LOGIN-06 | SĐT Excel có `.` / `+84` | **P1 seed CSV xong** — chuẩn VN [`users.md`](users.md) §4b · Auth CSV + `UserCsvImporter` persist `0` + digits · DB cũ cần ReImportSeed |
 
 ## 7. Demo checklist (chốt khách)
 

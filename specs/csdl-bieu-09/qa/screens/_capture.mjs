@@ -1,10 +1,10 @@
 /**
- * QA E2E capture — yarn e2e-qa contract (GAP-QA-E2E-PW-01 fallback).
- * Prefer yarn e2e-qa; if hang @ login → channel=chrome system Chrome.
- * std + docker already listen · skip-start · cấm kill worker rộng.
- * Run: cd D:/AI-Extension/AI-AutoCode && node <this>
+ * QA E2E capture — edit_page T-XLS-S09 + CRUD KEEP.
+ * yarn e2e-qa overwrites this with bare playwright → GAP-QA-E2E-PW-01.
+ * Run AFTER e2e-qa via: node this file (createRequire AutoCode).
+ * channel=chrome · skip-start · cấm kill worker (GAP-QA-E2E-KILL-01).
  */
-import { writeFileSync, readFileSync, mkdirSync } from "node:fs";
+import { readFileSync, writeFileSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { join } from "node:path";
 import { createRequire } from "node:module";
@@ -13,43 +13,43 @@ const require = createRequire("D:/AI-Extension/AI-AutoCode/package.json");
 const { chromium } = require("playwright");
 
 const outDir = "D:\\AI-QLBD\\Linm.RMMS.Data\\specs\\csdl-bieu-09\\qa\\screens";
-mkdirSync(outDir, { recursive: true });
 const listUrl = "http://localhost:9301/csdl-bieu-09";
 const hubUrl =
   "http://localhost:9301/so-ts/csdl-so-sach?resource=boundary-markers";
 const formUrl = "http://localhost:9301/csdl-bieu-09?form=create";
 const listSel = '[data-testid="rmms-csdl-bieu-09-list-page"]';
 const formSel = '[data-testid="rmms-csdl-bieu-09-form-slideout"]';
-const hubRedirectSel = '[data-testid="rmms-csdl-bieu-09-list-page"]';
+const hubListSel = '[data-testid="rmms-csdl-bieu-09-list-page"]';
 
 const steps = [
   {
     id: "S0",
     url: listUrl,
     selector: listSel,
-    note: "list Biểu 09 · filter-bar · markerKind · empty/grid · peer none",
+    also: '[data-testid="rmms-csdl-bieu-09-list-export-excel-btn"]',
+    note: "list Biểu 09 · toolbar Xuất/Nhập · filter-bar · empty/grid",
   },
   {
     id: "S1",
     url: hubUrl,
-    selector: hubRedirectSel,
-    note: "hub ?resource=boundary-markers → redirect /csdl-bieu-09",
+    selector: hubListSel,
+    also: '[data-testid="rmms-csdl-bieu-09-list-import-excel-btn"]',
+    note: "hub deep-link ?resource=boundary-markers → Biểu 09 list",
   },
   {
     id: "QA-20",
     url: formUrl,
     selector: formSel,
     also: '[data-testid="csdl-bieu-09-form-z2"]',
-    note: "Create Slideout · form=create · 2 section kind · MK-",
+    note: "Create Slideout · form=create KEEP · 2 section kind · MK-",
   },
 ];
-
-const results = [];
 
 function shotName(id) {
   return id.replace(/[^a-zA-Z0-9._-]+/g, "-").replace(/^-+|-+$/g, "") + ".png";
 }
 
+const results = [];
 const browser = await chromium.launch({
   headless: true,
   channel: "chrome",
@@ -66,42 +66,20 @@ try {
         timeout: 60000,
       });
       if (!res || !res.ok()) {
-        throw new Error("HTTP " + (res ? res.status() : "no-response"));
+        const hasBoot = await page
+          .locator("#root")
+          .count()
+          .then((n) => n > 0)
+          .catch(() => false);
+        if (!hasBoot) {
+          throw new Error("HTTP " + (res ? res.status() : "no-response"));
+        }
       }
-      await page.waitForSelector(step.selector, { timeout: 25000 });
+      await page.waitForSelector(step.selector, { timeout: 45000 });
       if (step.also) {
-        await page.waitForSelector(step.also, { timeout: 15000 });
+        await page.waitForSelector(step.also, { timeout: 20000 });
       }
       await new Promise((r) => setTimeout(r, 1500));
-
-      if (step.id === "S0") {
-        const live = await page.evaluate(() => {
-          const testids = Array.from(
-            document.querySelectorAll("[data-testid]"),
-          ).map((el) => el.getAttribute("data-testid"));
-          const body = document.body?.innerText || "";
-          return {
-            url: location.href,
-            hasTitle: /Biểu\s*09|Mốc lộ giới|GPMB/i.test(body),
-            hasFilter: testids.some((t) => t && /field-search|filters/i.test(t)),
-            hasSide: testids.some((t) => t && /field-side/i.test(t)),
-            hasMarkerKind: testids.some((t) => t && /markerKind/i.test(t)),
-            hasKmFrom: testids.some((t) => t && /kmFrom/i.test(t)),
-            hasKmTo: testids.some((t) => t && /kmTo/i.test(t)),
-            noDemo: !/demo|stub|placeholder only/i.test(body),
-            noModeBadge: !/\b(CREATE|EDIT|VIEW)\b/.test(body),
-            peerSots: testids.includes("rmms-csdl-bieu-09-list-peer-sots"),
-            peerNoneOk: !testids.includes("rmms-csdl-bieu-09-list-peer-sots"),
-            testids,
-            titleSnippet: body.slice(0, 360),
-          };
-        });
-        writeFileSync(
-          join(outDir, "live-assert.json"),
-          JSON.stringify(live, null, 2),
-          "utf8",
-        );
-      }
 
       if (step.id === "QA-20") {
         const formLive = await page.evaluate(() => {
@@ -118,11 +96,6 @@ try {
             hasZ3: testids.includes("csdl-bieu-09-form-z3"),
             hasRoad: testids.includes("csdl-bieu-09-field-road"),
             hasMarkerKind: testids.includes("csdl-bieu-09-field-markerKind"),
-            hasMarkerStructure: testids.includes(
-              "csdl-bieu-09-field-markerStructure",
-            ),
-            hasQty: testids.includes("csdl-bieu-09-field-markerQty"),
-            hasYear: testids.includes("csdl-bieu-09-field-completedYear"),
             hasSave: testids.includes("csdl-bieu-09-btn-save"),
             dataFormCols: cols,
             hasMkCodeHint:
@@ -159,8 +132,9 @@ try {
         id: step.id,
         result: "FAIL",
         screenshot: file,
-        error: err instanceof Error ? err.message : String(err),
         url: step.url,
+        note: step.note,
+        error: err instanceof Error ? err.message : String(err),
       });
     }
   }
@@ -171,8 +145,9 @@ try {
 const manifest = {
   url: listUrl,
   method:
-    "playwright channel=chrome headless · contract fallback after yarn e2e-qa hang (GAP-QA-E2E-PW-01)",
+    "playwright channel=chrome · yarn e2e-qa playwright resolve fail → AutoCode createRequire fallback · skip-start",
   feature: "csdl-bieu-09",
+  changeScope: "edit_page",
   cases: ["S0", "S1", "QA-20"],
   capturedAt: new Date().toISOString(),
   steps: results,

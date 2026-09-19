@@ -1,0 +1,15 @@
+{
+  "schemaVersion": "1",
+  "skillId": "agent-review",
+  "skillVersion": "2026.09.19.01",
+  "workflowVersion": "2026.09.19.01",
+  "rulesVersion": "2026.09.19.2",
+  "versionGate": "keep_current",
+  "feature": "platform-task",
+  "status": "done",
+  "reviewHash": "sha256:57819cb14ad2bc32980174efe8a13ec205765ca288e74ed9ac5567c276bcb61a",
+  "contentHash": "sha256:3090b2b000bd6de1f400c259e6e737fcbb64e4aa6b6227c2828d9d77a5d65962",
+  "review_confirm": "done",
+  "generatedAt": "2026-09-18T19:15:00.000Z",
+  "taskId": "task_2e60c5ca"
+}

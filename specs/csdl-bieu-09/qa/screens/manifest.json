@@ -1,37 +1,38 @@
 {
   "url": "http://localhost:9301/csdl-bieu-09",
-  "method": "playwright channel=chrome headless · contract fallback after yarn e2e-qa hang (GAP-QA-E2E-PW-01)",
+  "method": "playwright channel=chrome · yarn e2e-qa playwright resolve fail → AutoCode createRequire fallback · skip-start",
   "feature": "csdl-bieu-09",
+  "changeScope": "edit_page",
   "cases": [
     "S0",
     "S1",
     "QA-20"
   ],
-  "capturedAt": "2026-09-05T11:18:20.627Z",
+  "capturedAt": "2026-09-17T22:59:46.264Z",
   "steps": [
     {
       "id": "S0",
       "result": "PASS",
       "screenshot": "S0.png",
-      "sha256_16": "c29f1b4070c71b98",
+      "sha256_16": "0523b566a450c15d",
       "url": "http://localhost:9301/csdl-bieu-09",
-      "note": "list Biểu 09 · filter-bar · markerKind · empty/grid · peer none"
+      "note": "list Biểu 09 · toolbar Xuất/Nhập · filter-bar · empty/grid"
     },
     {
       "id": "S1",
       "result": "PASS",
       "screenshot": "S1.png",
-      "sha256_16": "c29f1b4070c71b98",
+      "sha256_16": "0523b566a450c15d",
       "url": "http://localhost:9301/so-ts/csdl-so-sach?resource=boundary-markers",
-      "note": "hub ?resource=boundary-markers → redirect /csdl-bieu-09"
+      "note": "hub deep-link ?resource=boundary-markers → Biểu 09 list"
     },
     {
       "id": "QA-20",
       "result": "PASS",
       "screenshot": "QA-20.png",
-      "sha256_16": "aff91b0ac11e1e28",
+      "sha256_16": "0e5b0fbe05710bbc",
       "url": "http://localhost:9301/csdl-bieu-09?form=create",
-      "note": "Create Slideout · form=create · 2 section kind · MK-"
+      "note": "Create Slideout · form=create KEEP · 2 section kind · MK-"
     }
   ],
   "ok": true

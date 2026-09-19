@@ -23,10 +23,11 @@
 | Screen | Pattern | Zones |
 |--------|---------|-------|
 | QL Cơ quan (tree) | Zone C master | Cây TC · chọn node → `?orgCode=` · **không** CRUD org trên pack này |
-| QL Người dùng / Cấp | Kind B `LinPageLayout` A–D | Filter SearchText + SearchInput role/status/**route** · `LinCatalogDataGrid` · `LinCatalogListPagination` |
-| User form | Kind B dedicated page | Z1 header · Z2 fields SearchInput · View `<dl>` · `/admin/user/tao-moi` · `/:id` · **cấm** Slideout |
+| QL Người dùng / Cấp | Kind B `LinPageLayout` A–D | Filter SearchText + SearchInput role/status/**route**/`job-title` · cột **Chức vụ** · `LinCatalogDataGrid` · `LinCatalogListPagination` |
+| User form | Kind B dedicated page | Z1 header · Z2 SearchInput org · **chức vụ (`job-title`)** · role · status · View `<dl>` · `/admin/user/tao-moi` · `/:id` · **cấm** Slideout · **cấm** Input text chức vụ |
 | Đổi mật khẩu | Modal | MK cũ · MK mới · xác nhận · submit (legacy `doimatkhau`) |
-| Hồ sơ của tôi | Modal | Profile readonly + link đổi MK |
+| Hồ sơ / switch user | Home ProfileTab · Auth `Position` · modal hồ sơ | SearchInput catalog [`job-title.md`](job-title.md) (readonly trên modal xem) — **cấm** free text |
+| SĐT (Admin Chi tiết tài khoản · form user · ProfileTab) | Text | **Chuẩn VN** §4b — persist digits, bắt đầu `0`, **cấm** hiện `0976.258.792` |
 | Phân tuyến / Cán bộ QL | Modal | SearchInput multi `road-route` / `users` — **cấm** CSV thuần |
 | User menu chrome | — | **SKIP** P1 (Ban.TK · Hồ sơ · Đăng xuất · VỀ TRANG CHỦ) |
 
@@ -51,7 +52,20 @@ Auth: JWT admin scopes (stub `integration.users.*`).
 
 ## 4. Database
 
-**Identity:** `ApplicationUser` trên Auth. **Profile RMMS:** `AppUser` (`AuthUserId` · `OrgCode` · `ContractCode` · `AccountKind`) — **cấm** `PasswordHash`. Tuyến: `UserRoute` ⊆ `ContractRoute`. Chi tiết [`login.md`](login.md).
+**Identity:** `ApplicationUser` trên Auth. **Profile RMMS:** `AppUser` (`AuthUserId` · `OrgCode` · `ContractCode` · `AccountKind` · **`jobTitleCode`** → catalog [`job-title`](job-title.md)) — **cấm** `PasswordHash`. Tuyến: `UserRoute` ⊆ `ContractRoute`. Chi tiết [`login.md`](login.md). Auth `Position` = tên catalog (sync từ `jobTitleCode`), không SSOT riêng.
+
+### 4b. SĐT Việt Nam (chốt 18/09/2026)
+
+**SSOT persist** = chuỗi **chỉ số**, bắt đầu **`0`**. Display cùng giá trị — **cấm** nhóm bằng `.` `-` space.
+
+| Bước | |
+|------|--|
+| 1 | Bỏ mọi ký tự không phải `0–9` (`. ` `-` `()` `/` `+` …) |
+| 2 | Tiền tố `84` (sau khi bỏ `+`) → đổi thành `0` (`84976…` → `0976…`) |
+| 3 | Kết quả **phải** bắt đầu `0`. Rỗng nếu không còn số |
+| Ví dụ | `0976.258.792` · `0976 258 792` · `+84 976.258.792` → **`0976258792`** |
+
+Import: Auth `UserCsvImporter` (`cuc01_staff.csv` cột `phone`) + RMMS `AppUserCatalogHandler` — **normalize lúc ghi**. Generator `build-cuc-01-catalogs.mjs` `normalizeVnPhone`. Seed CSV **đã rewrite 19/09/2026** — Auth `cuc01_staff.csv` + Data/WebService `app_users.csv` (59/188 hàng đổi · 186 SĐT `0`+digits · 2 rỗng · **0** dấu `.`). Admin `AccountsManagementPage` Chi tiết tài khoản + `/admin/user` + Home `validatePhone` (hiện chỉ strip space/`-`, **không** strip `.`) — **DB Auth cũ vẫn raw** đến khi ReImportSeed.
 
 ## 5. Events / tích hợp
 
@@ -65,6 +79,8 @@ Auth: JWT admin scopes (stub `integration.users.*`).
 | GAP-F-USR-02 Deep demo | Done demo Kind B (task_ab9fcdec) · Signed → align |
 | GAP-F-USR-03 PasswordHash local | **P0** xóa — đổi MK / login chỉ Auth |
 | GAP-F-USR-04 `contractCode` + tuyến ⊆ HĐ | P1.5 — child `UserRoute` · **cấm** `RoutesCsv` parent |
+| GAP-F-USR-05 chức vụ | **P1** — SearchInput [`job-title`](job-title.md) trên list+form `/admin/user` + ProfileTab · persist `jobTitleCode` · **cấm** free text · `roleCode` ≠ chức vụ |
+| GAP-F-USR-06 SĐT VN | **P1 seed CSV xong** — §4b · `0976.258.792` → `0976258792` trên 3 CSV · importer update existing PhoneNumber · **Admin UI / DB** còn raw đến ReImportSeed Auth · Home `validatePhone` chưa strip `.` |
 
 ## 7. Demo checklist (chốt khách)
 
@@ -327,3 +343,10 @@ Auth: JWT admin scopes (stub `integration.users.*`).
 
 Gen demo: `/qlbd-analy-demo @users` — load control-map trên + `/erp-form-context` rules (2a-K · 2g · common controls).
 <!-- DEMO-MFE-MODERN:END -->
+
+## Implement tracking
+
+| lane | phase | status | updatedAt |
+|------|-------|--------|-----------|
+| web | `done` | `done` | `2026-09-18T16:51:45.837Z` |
+| mobile | — | — | — |

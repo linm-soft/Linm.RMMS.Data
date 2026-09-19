@@ -93,7 +93,7 @@
 </head>
 <body>
   <div class="page">
-    <p class="note" id="note">SSOT Design · <code>shared_grid_example v1</code> · pack <code>csdl-bieu-08</code> · resource <code>traffic-safety</code> · formNo <code>08</code> · mfeStdUrl <code>/csdl-bieu-08</code> · peer hub <code>?resource=traffic-safety</code> · skip chrome · <strong>cấm</strong> detail* only · wide 45 · map none · Q-CHILD child_tables · Q-TYPE-UX confirm · Q-LIST-COLS subset_by_type · Q-MARKER lookup_static · Q-REN with_typed · Q-PEER optional</p>
+    <p class="note" id="note">SSOT Design · <code>shared_grid_example v1</code> · pack <code>csdl-bieu-08</code> · edit_page T-XLS-S08 · resource <code>traffic-safety</code> · formNo <code>08</code> · mfeStdUrl <code>/so-ts/csdl-so-sach</code> alias <code>/csdl-bieu-08</code> · peer hub <code>?resource=traffic-safety</code> · catalogToolbar <strong>Xuất/Nhập Excel</strong> · filter <strong>không</strong> XLS (GAP-FILTER-BAR-08) · Q-XLS filtered · import_now · one_sheet_45 · filename Bieu08_HeThongATGT_{yyyyMMdd}.xls · skip chrome · typed 45/11 keep</p>
 
     <section id="list" style="display:flex;flex-direction:column;gap:8px;flex:1;min-height:0">
       <div class="zone-a" data-des-id="DES-GRID-A">
@@ -107,12 +107,13 @@
           <button type="button" class="tb" data-action="history" title="Lịch sử"><i class="fas fa-history"></i></button>
           <button type="button" class="tb" data-action="config" title="Cấu hình"><i class="fas fa-cog"></i></button>
           <button type="button" class="tb" id="btn-del" disabled title="Xóa"><i class="fas fa-trash"></i></button>
-          <button type="button" class="tb" data-action="import" title="Import stub OUT Biểu 8"><i class="fas fa-file-import"></i></button>
-          <button type="button" class="tb" data-action="export" title="Export stub OUT Biểu 8"><i class="fas fa-file-export"></i></button>
+          <button type="button" class="tb" data-action="import" title="Nhập Excel"><i class="fas fa-file-import" aria-hidden="true"></i> Nhập Excel</button>
+          <button type="button" class="tb" data-action="export" title="Xuất Excel"><i class="fas fa-file-excel" aria-hidden="true"></i> Xuất Excel</button>
+          <input type="file" id="importFile" accept=".xls,.xlsx,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" hidden />
           <button type="button" class="tb" data-action="peer" title="Sổ TS ATGT (optional)"><i class="fas fa-link"></i> Sổ TS</button>
         </div>
         <div class="zone-b-right">
-          <button type="button" class="tb primary" data-action="create"><i class="fas fa-plus"></i> Tạo mới</button>
+          <button type="button" class="tb primary" data-action="create" title="Tạo mới"><i class="fas fa-plus" aria-hidden="true"></i> Tạo mới</button>
         </div>
       </div>
 
@@ -502,8 +503,31 @@
     document.querySelector('[data-action="history"]').onclick = function(){ openModal('modal-history'); };
     document.querySelector('[data-action="create"]').onclick = function(){ openSlide('create'); };
     document.querySelector('[data-action="create-empty"]').onclick = function(){ openSlide('create'); };
-    document.querySelector('[data-action="import"]').onclick = function(){ /* OUT XLS Biểu 8 stub */ };
-    document.querySelector('[data-action="export"]').onclick = function(){ /* OUT XLS Biểu 8 stub */ };
+    var importInput = document.getElementById('importFile');
+    document.querySelector('[data-action="import"]').onclick = function(){ importInput.click(); };
+    importInput.onchange = function(){
+      var f = importInput.files && importInput.files[0];
+      if (!f) return;
+      document.getElementById('note').textContent =
+        'Nhập Excel (mock): ' + f.name + ' · skip-bridge áp dụng · POST …/csdl-records/import?resource=traffic-safety';
+      importInput.value = '';
+    };
+    document.querySelector('[data-action="export"]').onclick = function(){
+      var d = new Date();
+      var ymd = d.getFullYear() + String(d.getMonth()+1).padStart(2,'0') + String(d.getDate()).padStart(2,'0');
+      var name = 'Bieu08_HeThongATGT_' + ymd + '.xls';
+      var blob = new Blob(
+        ['Biểu 08 — Hệ thống ATGT (prototype mock · filtered QS · sheet Biểu 8 · one_sheet_45 · 45 cột)\n'],
+        { type: 'application/vnd.ms-excel' }
+      );
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = name;
+      a.click();
+      URL.revokeObjectURL(a.href);
+      document.getElementById('note').textContent =
+        'Xuất Excel (mock filtered): ' + name + ' · GET …/csdl-records/export?resource=traffic-safety';
+    };
     document.querySelector('[data-action="peer"]').onclick = function(){
       var t = document.getElementById('fType').value || 'TRAFFIC_SIGN';
       document.getElementById('note').textContent += ' · peer optional → /so-ts?type='+t+' (cấm merge form)';

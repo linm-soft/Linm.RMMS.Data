@@ -1,116 +1,119 @@
 # Review — Findings — csdl-bieu-09
 
-> Status: **confirmed** · `review_confirm=approve` (autoApprove ON) · task `task_a5fbb485`  
-> Hash skip: contentHashPrior unchanged · `sha256:863490daf95d2c19ddad660fc05f901eaeb0248fb65961f9e96747ebcf5b04e4`
+> Status: **confirmed** · `2026-09-18T06:15:00.000Z` · task `task_84d8fe34` · autoApprove=ON  
+> Verdict: **PASS** · `review_confirm=done`
 
 | | |
 |--|--|
 | Feature | `csdl-bieu-09` |
-| Title | CSDL Biểu 09 — Mốc lộ giới / GPMB |
-| Role | `review` · `/agent-review` |
+| Title | CSDL Biểu 09 — Xuất/Nhập Excel (T-XLS-S09) |
+| Role | `review` |
 | packKind | `list` |
-| changeScope | `new_page` |
+| changeScope | `edit_page` |
 | resource | `boundary-markers` |
 | formNo | `09` |
-| columns | `17` · **2 section kind** |
 | IdCode | `MK-` |
-| verdict | **PASS** |
-| review_confirm | **approve** |
-| writtenAt | `2026-09-05T11:25:00.000Z` |
-| skillVersion | `2026.08.29.03` |
-| workflowVersion | `2026.09.01.02` |
-| rulesVersion | `2026.08.31.2` |
+| columns | `17` · blocks `2` |
+| contentHash | `sha256:58c012cef8ad07ae7a6d5e8ab513668c51dc0755d1f209783beb41ba1c4ccc01` |
+| headerFingerprint | `sha256:765521dee151f2ded36c582ca1a0b7ec048237b88cfc5b27481f09e6787e9a77` |
+| prior QA | `confirmed` · S0/S1/QA-20 + T-XLS-QA-01 PASS · `ok=true` |
+| qaTaskId | `task_a1a1c430` |
+| priorDevTaskId | `task_6056af24` |
+| skillVersion | `2026.09.05.03` |
+| workflowVersion | `2026.09.05.03` |
+| rulesVersion | `2026.09.17.3` |
 
-## Prior chain
+## review_confirm
 
-| Role | Status | Compact |
-|------|--------|---------|
-| data_analy | confirmed | handoff/data_analy-compact.md |
-| po | confirmed | handoff/po-compact.md |
-| design | confirmed | handoff/design-compact.md |
-| sa | confirmed | handoff/sa-compact.md |
-| team_lead | confirmed · route_a | handoff/team_lead-compact.md |
-| dev | confirmed · buildMfe/Be PASS | handoff/dev-compact.md |
-| qa | confirmed · e2e S0/S1/QA-20 PASS | handoff/qa-compact.md |
+**done** (autoApprove ON) — không `fix_gaps`.
+
+## Summary
+
+Delta **edit_page** T-XLS-S09: catalogToolbar **Xuất/Nhập Excel** · BFF binary/multipart · filtered QS (+markerKind) · filename `Bieu09_MocLoGioiGPMB_{yyyyMMdd}.xls` · sheet «Biểu 9» · one_sheet_17 · import_now upsert by code · typed CRUD 17/2 **KEEP** · **cấm** filter-bar Xuất · **cấm** 12+8 / 2-sheet invent · **cấm** ERP.* · QA E2E PASS · contentHash pipeline unchanged → hash gate **skip**.
 
 ## QUERY
 
-| Check | Result | Notes |
-|-------|--------|-------|
-| API keep `api/v1/asset/csdl-records` | **PASS** | resource=`boundary-markers` · **cấm** invent / ERP.* |
-| BFF proxy | **PASS** | QS as-is · no orch |
-| Filter `markerKind` + road/km/side | **PASS** | FE→service list params · BE join `CsdlBieu9` |
-| LKP road-route | **PASS** | `/integration/road-routes/search` · SearchInput |
-| DOMAIN-MAP | **PASS** | `csdl-bieu-09` → Asset |
-| Hash / SSOT | **PASS** | contentHashPrior unchanged · skip re-analy |
-
-**Debt:** DB migrate apply (`Schema_CsdlBieu9`) — deploy ops (P2).
+| Check | Result | Evidence |
+|-------|--------|----------|
+| Export QS = list filters (+markerKind) | **PASS** | FE `exportExcel` → search/province/status/side/roadCode/kmFrom/kmTo + **markerKind** · **không** page |
+| Endpoint Asset-only | **PASS** | `BASE='/asset/csdl-records'` + `/export` · `/import` · **không** `ERP.*` |
+| Import sheetMap Biểu 9 | **PASS** | sheetMap Biểu 9 · import_now · upsert by code |
+| Empty export / toast | **PASS** | FE empty/fail/success · QA T-XLS-QA-01 |
+| List CRUD query KEEP | **PASS** | prior review new_page + QA smoke S0/S1 |
 
 ## SEC
 
 | Check | Result | Notes |
 |-------|--------|-------|
-| Perm reuse `asset.csdl-records.*` | **PASS** | `csdlListPermissions` FE · T-PERM-01 |
-| Soft DELETE | **PASS** | catalog soft-delete path |
-| Gates tz_na / xco_get_only / share_tenant | **PASS** | SA compact · no tenant invent |
-| Auth wire | **DEFER** | known · P2 |
-| ERP.* | **PASS** | none in FE/BE scope |
+| No ERP / foreign domain | **PASS** | FE+BE Asset `csdl-records` only |
+| Perm keys export/import | **PASS** | `canExportExcel: canRead` · `canImportExcel: canCreate` · Auth wire **DEFER** |
+| Soft delete / tenant | **PASS** | KEEP · `share_tenant` · tz_na · xco_get_only |
+| Secrets in artifacts | **PASS** | none |
+| Peer no-merge Sổ TS | **PASS** | sheet Biểu 9 only · typed KEEP |
 
 ## UI-FN
 
-| Check | Result | Notes |
-|-------|--------|-------|
-| Kind B list A–D+F | **PASS** | `CsdlBieu09Page` · LinErpListFilterBar · UiSchema grid |
-| Kind D Slideout 2col · Z1–Z3 | **PASS** | `CsdlBieu09FormSlideout` · footer_actions_only |
-| Typed 17 · 2 section kind | **PASS** | title RoadLimit↔GPMB · validate year/qty |
-| LeaveConfirm | **PASS** | `useLeaveConfirm` |
-| route_a `/csdl-bieu-09` + hub | **PASS** | index route · hub redirect map |
-| IdCode MK- | **PASS** | create placeholder · BE ResourceMap |
-| Peer Sổ TS | **PASS** | none · **cấm** merge |
-| E2E evidence | **PASS** | S0/S1/QA-20 · manifest ok · testid `rmms-csdl-bieu-09-list-page` / form-slideout |
-
-**Debt:** GAP-QA-E2E-PW-01 (P2) · GAP-QA-ROAD-TESTID (P3) · org/XLS OUT/DEFER.
+| Check | Result | Evidence |
+|-------|--------|----------|
+| Toolbar Xuất/Nhập | **PASS** | `fromCatalogToolbar` · `onExportExcel`/`onImportExcel` · testid `rmms-csdl-bieu-09-*-export-excel-btn` / `…-import-excel-btn` |
+| **cấm** filter-bar Xuất | **PASS** | GAP-FILTER-BAR-08 · `LinErpListFilterBar` không export |
+| Filename pattern | **PASS** | FE fallback + BE `Bieu09_MocLoGioiGPMB_{yyyyMMdd}.xls` |
+| Blob download + toast | **PASS** | success/fail/empty · xlsBusy gate |
+| Typed 17/2 Slideout KEEP | **PASS** | **cấm** reopen · QA-20 PASS |
+| Route alias + hub KEEP | **PASS** | `/csdl-bieu-09` · `?resource=boundary-markers` |
 
 ## BE-FN
 
-| Check | Result | Notes |
-|-------|--------|-------|
-| Entity `CsdlBieu9Entity` 1:1 shell | **PASS** | `rmms_csdl_bieu9` · **cấm** parent *Json / 2 entity |
-| Migration `Schema_CsdlBieu9` | **PASS** | `20260905111122_Schema_CsdlBieu9` (impl note timestamp drift vs `…180000` — P3 doc only) |
-| Typed DTO + Normalize | **PASS** | MarkerKind/Structure/Side · Qty≥1 · CompletedYear |
-| Create/Update validate | **PASS** | service Require* + FE validate |
-| UiSchema registry | **PASS** | catalogKind `boundary-markers` |
-| detail* SSOT | **PASS** | stopped · typed join |
+| Check | Result | Evidence |
+|-------|--------|----------|
+| API-XLS-01 export | **PASS** | `GET …/csdl-records/export?resource=boundary-markers` · `CsdlCatalogExcelService` |
+| API-XLS-02 import | **PASS** | `POST …/import` · multipart · sheetMap Biểu 9 |
+| Sheet «Biểu 9» · 17 cols | **PASS** | `Bieu9SheetName` · `Bieu9ExportHeaders` (17) · one_sheet_17 |
+| Filename + Content-Type | **PASS** | `.xls` name · OOXML content-type |
+| Migration | **PASS** | **none** @ XLS · Schema_CsdlBieu9 KEEP |
+| BFF binary/multipart | **PASS** | T-XLS-BFF-01 · QS/file forward |
+| **cấm** 12+8 / 2-sheet | **PASS** | GAP-BIEU09-XLS comments · RoadLimit+GPMB 1 sheet |
 
-## Blocking / fix_gaps
+## QA evidence (reuse — **cấm** re-e2e @ Review)
 
-- **none** (P0/P1 open = 0)
+| Case | Result | sha16 |
+|------|--------|-------|
+| S0 | PASS | `0523b566a450c15d` |
+| S1 | PASS | `0523b566a450c15d` |
+| QA-20 | PASS | `0e5b0fbe05710bbc` |
+| T-XLS-QA-01 export/import | PASS | toolbar + filtered · `Bieu09_MocLoGioiGPMB_*.xls` |
 
-## Non-blocking debt (carry)
+manifest `ok=true` · filter **0** Xuất on filter-bar.
 
-| Id | Sev | Note |
+## Debt (accepted · không block)
+
+| ID | Sev | Note |
 |----|-----|------|
-| DB migrate apply | P2 | ops `ef database update` |
-| Auth wire | P2 | DEFER |
-| GAP-QA-E2E-PW-01 | P2 | chrome channel fallback |
-| GAP-QA-ROAD-TESTID | P3 | road lookup testid |
-| org / XLS | P2/OUT | SearchInput org P2 · XLS stub OUT |
-| T-BE-02 timestamp note | P3 | migration id `111122` ≠ compact `180000` label |
+| getBlob CD strip | P2 | FE fallback filename · Dev debt |
+| T-PERM-01 Auth | P2 DEFER | RequirePermission runtime |
+| GAP-QA-E2E-PW-01 | P2 | chrome createRequire fallback |
+| DB migrate apply | P2 | ops `Schema_CsdlBieu9` (prior) |
 
-## review_confirm
+## Hash gate
 
-- **approve** (autoApprove ON) · verdict **PASS** · **không** fix_gaps
-- phase → **done** · chain closed (review = last role)
+contentHash `sha256:58c012cef8ad07ae7a6d5e8ab513668c51dc0755d1f209783beb41ba1c4ccc01` unchanged vs data_analy→qa compact → **skip** re-hash · **cấm** mở demo HTML.
 
-## Artifacts
+## Gaps
 
-| Kind | Path |
-|------|------|
-| findings | `specs/csdl-bieu-09/review/findings.md` |
-| compact | `specs/csdl-bieu-09/handoff/review-compact.md` |
-| STATUS | `specs/csdl-bieu-09/STATUS.md` |
-| QA screens | `specs/csdl-bieu-09/qa/screens/{S0,S1,QA-20}.png` |
+- **none** → `review_confirm=done`
+
+## Parity snapshot
+
+| Prior | Status | Align |
+|-------|--------|-------|
+| data_analy | confirmed | T-XLS-S09 · 17/2 · MK- |
+| po | confirmed | filtered · import_now · one_sheet_17 |
+| design | confirmed | toolbar +Xuất/Nhập |
+| sa | confirmed | API-XLS · Schema KEEP · no migration |
+| team_lead | confirmed | route_a · T-XLS-* |
+| dev | confirmed | yarn+dotnet PASS |
+| qa | confirmed | e2e + T-XLS-QA-01 PASS |
 
 ## Cấm kept
 
-ERP.* · invent API · detail* only · Guid IdCode · merge Sổ TS · e2e/start:std @ Review · implement @ Review · Step 4b/migration @ Review
+ERP.* · invent API · filter-bar export · 12+8 · 2-sheet invent · reopen typed · e2e/build/start:std @ Review · implement @ Review · phase reopen roles

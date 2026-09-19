@@ -1,71 +1,76 @@
-# Implement — csdl-bieu-08 (Dev)
+# Implement — csdl-bieu-08 (edit_page · T-XLS-S08)
 
 | Field | Value |
 |-------|-------|
 | feature | `csdl-bieu-08` |
-| title | CSDL Biểu 08 — Hệ thống ATGT |
-| role | `dev` · `/agent-dev` |
+| this role | `dev` · `/agent-dev` |
 | status | **done** |
-| changeScope | `new_page` |
+| changeScope | `edit_page` |
 | packKind | `list` |
 | resource | `traffic-safety` |
+| IdCode | `AT-` |
 | formNo | `08` |
-| IdCode | `AT-yyyyMMdd-nnnn` |
-| mfeStdUrl | `http://localhost:9301/csdl-bieu-08` |
-| hub | `/so-ts/csdl-so-sach?resource=traffic-safety` → alias `/csdl-bieu-08` |
-| taskId | `task_96940f90` |
-| contentHashPrior | `sha256:f972c82727726d256754d076435f9ef97c993b4f9844dc79e50b6415fcaf54be` |
-| writtenAt | `2026-09-05T10:30:00.000Z` |
-| autoApprove | ON |
-| e2eQa | ON (queued `/agent-qa*` only — **cấm** e2e @ Dev) |
+| columns | `45` · groups `11` |
+| route | `/csdl-bieu-08` · hub `/so-ts/csdl-so-sach` |
+| mfeStdUrl | `http://localhost:9301/so-ts/csdl-so-sach` · alias `/csdl-bieu-08` |
+| domain | Asset · `api/v1/asset/csdl-records` |
+| taskId | `task_ed6e77ce` |
+| tlTaskId | `task_21f9b30c` |
+| contentHash | `sha256:639566df4ddccc3927311d5618bf4e7c1dbad0dac80962c414f861dacc9d5e9c` |
+| headerFingerprint | `sha256:ba8b8db4f7637ee32cfd4a882b6abdc774c538f6c9812c3ecd1d13f6151cdd6f` |
+| skillVersion | `2026.09.05.03` |
+| workflowVersion | `2026.09.05.03` |
+| rulesVersion | `2026.09.17.3` |
+| writtenAt | `2026-09-18T05:35:00.000Z` |
+| yarnBuild | **PASS** |
+| dotnetBuild | **PASS** (API + Asset BFF) |
+| migration | **none** @ XLS (Schema_CsdlBieu8+11 KEEP) |
 
-## Done (T-*)
+## Summary
 
-| id | Result |
-|----|--------|
-| T-DM-01 | DOMAIN-MAP `csdl-bieu-08` → Asset |
-| T-REN-01 | hub formNo ATGT=**08** · mốc→09 · kè→10 |
-| T-CTX-01 | context sync · hub typed redirect |
-| T-BE-01 | `CsdlBieu8Entity` + **11** child entities |
-| T-BE-02 | Migration `Schema_CsdlBieu8` (`20260905102400`) |
-| T-BE-03 | typed DTO flatten + join · type-change clear children |
-| T-BE-04 | IdCode `AT-` via ResourceMap |
-| T-BE-05 | list filter side + `assetType`/`type` + road/km |
-| T-BFF-01 | proxy QS as-is (no orch) |
-| T-PERM-01 | reuse `asset.csdl-records.*` |
-| T-BE-UISCHEMA-01 | catalogKind `traffic-safety` registry |
-| T-UI-LIST/FILTER/CFG/FORM/LEAVE/ACT/LKP/FIELD/PROD/UX | `CsdlBieu08Page` + Slideout shared+1 child · subset_by_type · LeaveConfirm · Q-TYPE-UX |
-| T-OUT-01/02 | OUT/DEFER as pack |
+Closed GAP-BIEU08-XLS-01…06: filtered OOXML export sheet **Biểu 8** · **one_sheet_45** · filename `Bieu08_HeThongATGT_{yyyyMMdd}.xls` · typed import upsert shell+parent+1 child · catalogToolbar Xuất/Nhập on `CsdlBieu08Page`. Empty export = headers-only + toast. Filter QS includes `type`/`assetType`. **Cấm** Xuất trên `LinErpListFilterBar`.
 
-## FE
+## Tasks DoD
 
-- Route `/csdl-bieu-08` · Kind B list · Kind D Slideout 2col · **shared + 1 child** by `assetType`
-- Filters: search · province · status · side · assetType · road-route · km — **cấm** nút Tìm riêng
-- Hub card / `?resource=traffic-safety` → navigate alias (cấm generic `CsdlFormSlideout`)
-- Peer deep-link `/so-ts?type=` theo filter assetType
-- `LinCatalogUiSchemaEditorModal` + `buildDynamicGridColumns`
+| id | status | notes |
+|----|--------|-------|
+| T-XLS-BE-01 | **done** | ExportAsync widen · 45 cols · sheet Biểu 8 · filename locked · filter-all |
+| T-XLS-BE-02 | **done** | Import commit/preview · MapRow Biểu 8 typed+child · upsert by code · skipBridge |
+| T-XLS-BE-03 | **done** | Controller QS + `assetType`/`type` · 422 thiếu resource |
+| T-XLS-BFF-01 | **done** | QS + binary/multipart passthrough KEEP (Asset BFF) |
+| T-XLS-FE-01 | **done** | toolbar Xuất/Nhập · blob · file · toast · **cấm** alert |
+| T-XLS-FE-02 | **done** | filter QS (+type) → export · **0** Xuất on LinErpListFilterBar |
+| T-* KEEP | **keep** | typed CRUD 45/11 · Slideout · leave · schema editor |
+| T-XLS-QA-01 | **queued** | `/agent-qa*` only · **cấm** e2e @ Dev |
 
-## BE
+## APIs
 
-- API giữ `api/v1/asset/csdl-records?resource=traffic-safety`
-- Persist: shell + `rmms_csdl_bieu8` + 11 children · **cấm** parent `*Json` · **cấm** wide 45
-- Create/Update: require `assetType` + `side` (L/R/C/Both) · 1 matching child only
+| id | method | path |
+|----|--------|------|
+| API-XLS-01 | GET | `/api/v1/asset/csdl-records/export?resource=traffic-safety&…` (+assetType/type) |
+| API-XLS-02 | POST | `/api/v1/asset/csdl-records/import` multipart · skipBridge · sheetMap Biểu 8 |
+| API-XLS-03 | POST | `/api/v1/asset/csdl-records/import/preview` KEEP |
 
-## Build gate
+## Files touched
 
-| Gate | Result |
-|------|--------|
-| MFE `yarn build` | **PASS** (webpack size warnings only) |
-| BE `dotnet build` RMMS.Service.Api | **PASS** 0 err |
-| e2e / start:std | **skipped** (QA queue) |
+- BE: `CsdlCatalogExcelService.cs` · `CsdlCatalogRecordsController.cs`
+- BFF: `CsdlCatalogRecordsBffController.cs` (KEEP — no code change needed)
+- FE: `CsdlBieu08Page.tsx` · `csdlService.ts` · `endpoint.ts`
 
 ## Debt
 
-- Migration apply DB (`ef database update`) — deploy ops
-- CatalogUiSchema seed typed default — optional
-- Auth perm wire DEFER
-- org SearchInput / province master P2 · XLS OUT
+- `apiClient.getBlob` strips Content-Disposition → FE fallback filename = PO lock pattern
+- Auth RequirePermission DEFER (prior)
+- True BIFF `.xls` read unsupported — OOXML (incl. mislabeled `.xls`) OK
+- T-XLS-QA-01 queued E2E
 
-## Cấm kept
+## Gaps closed
 
-ERP.* · invent API · detail* SSOT · wide 45 · Guid IdCode · merge Sổ TS · e2e @ Dev
+- GAP-BIEU08-XLS-01 · 02 · 03 · 04 · 05 · 06
+
+## Next
+
+| Role | Need |
+|------|------|
+| **QA** | T-XLS-QA-01 · S-XLS-EXPORT/IMPORT · scenarios + handoff compact |
+| Review | after QA |

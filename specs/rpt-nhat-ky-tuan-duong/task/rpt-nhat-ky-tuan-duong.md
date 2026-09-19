@@ -1,5 +1,8 @@
 # Team-lead — task pack · rpt-nhat-ky-tuan-duong (Kind E)
 
+> **CR 2026-09-17 PDF Wave B:** delta pack [`rpt-nhat-ky-tuan-duong-cr-pdf.md`](./rpt-nhat-ky-tuan-duong-cr-pdf.md) · `task_8cbb2073` · **giữ** shell dưới · **cấm** overwrite Kind E scaffold bằng CRUD.
+> Wave A prior TL: `task_646fa977` (live PASS shell) — Wave B **chỉ** load sổ + drill + SIGN + HDSD.
+
 | Field | Value |
 |-------|-------|
 | feature | `rpt-nhat-ky-tuan-duong` |
@@ -9,23 +12,24 @@
 | packKind | **`report`** (Kind **E** AnalyticsReportShell) — packet board `list` **stale** (GAP-PO-NKTD-02) |
 | Feature Kind | **E** · leaf `/bao-cao/nhat-ky-tuan-duong` · **không** CRUD form |
 | mfeStdRoute | `/bao-cao/nhat-ky-tuan-duong` |
-| route_confirm | **route_a** `/bao-cao/nhat-ky-tuan-duong` |
+| route_confirm | **route_a** `/bao-cao/nhat-ky-tuan-duong` · alias `/bao-cao/nk-td` (**giữ** · URL không mới · autoApprove) |
 | autoApprove | **ON** |
-| design_confirm | **approve** (`task_a78a8a06`) |
-| solution_confirm | **approve** (`task_b2d605ba`) |
-| be_repo_confirm | **yes** — STATUS `Linm.RMMS.WebService` (user tick board) |
-| ui_repo_confirm | **yes** — STATUS `Linm.Web.RMMS.Report` (user tick board) |
-| taskId | `task_646fa977` |
+| design_confirm | **confirmed** (`task_6d170bb5` Wave B) |
+| solution_confirm | **confirmed** (`task_5f0a988e` Wave B) |
+| be_repo_confirm | **yes** — STATUS `Linm.RMMS.WebService` |
+| ui_repo_confirm | **yes** — STATUS `Linm.Web.RMMS.Report` |
+| taskId | `task_8cbb2073` |
+| cr | `nktd-pdf-20260917` · Wave B · cite `SRC-NKTD-PDF` |
 | prior | data_analy `confirmed` · PO `confirmed` · Design `confirmed` · SA `confirmed` |
 | skillVersion | `2026.08.15.5` |
 | schemaVersion | `1` |
 | workflowVersion | `2026.08.15.5` |
 | rulesVersion | `2026.08.15.8` |
 | versionGate | `keep_current` |
-| updatedAt | `2026-08-16T15:35:00.000Z` |
-| Recheck | **`tl-retry-ssot-rereview` HARD** trước Dev Write |
+| updatedAt | `2026-09-18T17:55:00.000Z` |
+| Recheck | Wave B: **không** full `tl-retry-ssot-rereview` rewrite · Dev verify shell + delta DoD CR |
 
-**Supersedes** TL stub ngắn (3 Dev slices). Pack này re-audit live `PatrolLogRoadReportPage` + Design/SA confirmed `task_a78a8a06` / `task_b2d605ba`.
+**Wave A** re-audit live Kind E shell (`task_646fa977`) — **PASS giữ**. **Wave B** Dev = CR delta pack (§ T-BE-RPT-01 · T-FE-02 · SIGN · HDSD).
 
 **Cấm ERP.*** · **cấm** `Domains/Master` · **cấm** `api/v1/rmms/*` · **cấm** `api/v1/reports` · **cấm** reuse `api/v1/report/checkins` · **cấm** InspectionLog / Mẫu 8 · **cấm** parent JSON · **cấm** copy CRUD `csdl-so-sach` · **cấm** path API mới P1 · **cấm** folder domain mới · **cấm** POST/PUT/DELETE PatrolLog* trên slug này.
 
@@ -55,7 +59,7 @@
 | HTTP | `apiClient` · `reportEndpoint` re-export · query **`q`** | fork ApiClient · reuse check-in / tuần kiểm |
 | Lookup | `ROAD_ROUTE_LOOKUP_CONFIG` + Integration search · `WORKLOG_STAFF_LOOKUP` FE | copy catalog road-route vào Report DTO · invent QL.22 |
 | BFF | proxy only | business in BFF |
-| Persist | in-memory 12 dòng CUC2 P1 | warehouse tables · parent JSON · EF join P1 |
+| Persist | Wave B: consume Csdl* sổ `patrol-logs` · empty=`[]` · **cấm** seed | warehouse tables · parent JSON · seed fallback |
 | Dropdown filter | SearchInput | native `<select>` · init-data |
 | Config | report table modal FULL | Kind B catalog schema editor |
 
@@ -69,9 +73,9 @@
 | `source.domain` | **Report** (DOMAIN-MAP slug `rpt-nhat-ky-tuan-duong` → kebab `report`) |
 | `source.api` | `api/src/RMMS.Service.Api/Domains/Report/` · `api/domains/report/LINM.RMMS.Report.Models/` |
 | `source.bff` | `bff/domains/report/` · `web-bff/api/v1/report/**` |
-| `source.persistence` | **không** P1 — in-memory 12 `PatrolLogBook`/`PatrolLogEntry` CUC2 |
-| `source.migrations` | **không** |
-| Lookup | seed CUC2 P1 · Integration road-route Type A consume · cán bộ enum FE |
+| `source.persistence` | Wave B: `rmms_csdl_*` + So02 entries · **cấm** check-in seed fallback |
+| `source.migrations` | **không** (migration=none) |
+| Lookup | Integration road-route Type A · staff SearchInput P1 |
 | FE BASE | `/report` |
 | reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/rpt-nhat-ky-tuan-duong/ui/prototype/rpt-nhat-ky-tuan-duong-prototype.html` |
 | `mfeStdUrl` | `http://localhost:9311/bao-cao/nhat-ky-tuan-duong` |
@@ -85,8 +89,8 @@ Base BE: `api/v1/report` · BFF: `web-bff/api/v1/report` · FE: `/report`.
 | id | Method | Path | Live | Dev |
 |----|--------|------|------|-----|
 | API-00 | GET | `/health` | DONE | keep |
-| API-01 | GET | `/patrol-log-road` | DONE in-memory 12 · query `staffId` `routeId` `from` `to` `q` `page` `pageSize` · alias `search` · `type` **ignored** | **keep** · FilterRoute **exact** · FE gửi **`q`** |
-| API-02 | GET | `/patrol-log-road/export` | DONE CSV UTF-8 BOM · filename **`patrol-log-road.csv`** · **không** page | **keep** BE · **FE** applied + `canExport: viewed` · subset cột đang hiện **gồm locationText** |
+| API-01 | GET | `/patrol-log-road` | Wave A DONE path · Wave B **đổi load** → sổ · query `staffId` `routeId` `from` `to` `q` `page` `pageSize` · `type` ignored | **keep path** · FilterRoute exact · FE **`q`** · empty=`[]` · **cấm** seed |
+| API-02 | GET | `/patrol-log-road/export` | CSV UTF-8 BOM · `patrol-log-road.csv` · **không** page | **keep** · cùng filter sổ · cột `locationText`/`supervisorNote` |
 | API-LKP-01 | GET | `/integration/road-routes/search` | FE consume + seed fallback · filter `QL.22` | keep · **không** copy catalog Report |
 | init-data | — | — | **OUT P1** | cán bộ enum tĩnh FE `nva`/`ttb`/`lvc`/`pmd` |
 
@@ -100,9 +104,9 @@ Export header P1 (live): `day,route,patrolStaff,locationKm,locationText,weatherA
 
 | Gate | Decision | Apply |
 |------|----------|-------|
-| TZ | **tz_day** | filter `from`/`to` date-only trên `day` · grid display `vi-VN` từ `day` · `checkedAt` ISO +07 seed |
-| XCO | **xco_na** | P1 in-memory |
-| SHARE | **share_na** P1 | EF join `PatrolLogBook`/`PatrolLogEntry` **P2** |
+| TZ | **tz_day** | filter `from`/`to` day bounds trên **`EventAt`** · display `vi-VN` |
+| XCO | **xco_na** | Wave B consume Csdl* |
+| SHARE | **share_na** P1 | lookup road-route `share_a` riêng |
 | parent_json | **cấm** | — |
 | lookup_share | **share_a** | road-route Integration Type A + FE seed CUC2 |
 
@@ -154,9 +158,9 @@ Audit `Linm.Web.RMMS.Report` `PatrolLogRoadReportPage.tsx` + `PatrolLogRoadFilte
 | 16 | ERP.* / plural reports | **none** | — |
 | 17 | `filterMaxWidthPx={null}` | **PASS** | — |
 | 18 | toast · **cấm** alert/confirm | `dispatchAppToast` **PASS** · print `window.print` sau modal | — |
-| 19 | Drill sổ | live `/asset/csdl-so-sach?kind=patrol-logs&id={bookId}&entry={entryId}` | **PASS keep** |
-| 20 | Chart SoCai client | **PASS** trend/by-status/by-route khi viewed + có dòng · KPI Dòng · Tuyến · Đã ký | keep |
-| 21 | Seed 12 · CUC2 · không QL.22 | **PASS** BE in-memory | keep |
+| 19 | Drill sổ | Wave A: `?kind=` · **Wave B FAIL** → T-FE-02 `/csdl-so-02` hoặc `?resource=patrol-logs&id=` · **cấm** `?kind=` | **GAP-NKTD-DRILL-01** |
+| 20 | Chart SoCai client | **PASS** trend/by-status/by-route khi viewed + có dòng · KPI Dòng · Tuyến · Đã ký | keep · live từ sổ items |
+| 21 | Seed 12 · CUC2 | Wave A PASS seed · **Wave B FAIL** nếu còn seed khi sổ query chạy | **GAP-NKTD-SRC-01** → T-BE-RPT-01 |
 | 22 | `FilterRoute` | live **exact** · empty/`all` = all | **PASS keep exact** |
 | 23 | leftover `const columns` / `LinCatalogDataColumn` | **OK** Kind E report (không Kind B `buildDynamicGridColumns`) | **cấm** đổi sang Kind B catalog schema |
 | 24 | Query canonical `q` | FE gửi `q` + `staffId` + `routeId` | **PASS** giữ |
@@ -164,7 +168,7 @@ Audit `Linm.Web.RMMS.Report` `PatrolLogRoadReportPage.tsx` + `PatrolLogRoadFilte
 | 26 | Cột lưới PO §5 | day · route · patrolStaff · locationKm · weatherAndEvent · onSiteAction · statusLabel · bookNo · locationText · drill | **PASS** |
 | 27 | `type` query | BE ignore · FE không gửi | **PASS** |
 
-**Không** GAP P1 cùng surface. Dev = verify build + ghi implement · **không** rewrite Kind E · **không** Kind B schema.
+**Wave A:** shell PASS. **Wave B GAP P1:** SRC-01 · DRILL-01 · SIGN-01 (PRINT-01 = P2). Dev = CR delta + yarn build · **không** rewrite Kind E · **không** Kind B schema.
 
 ## Screens (form-type-task-pack · report)
 
@@ -211,7 +215,7 @@ Audit `Linm.Web.RMMS.Report` `PatrolLogRoadReportPage.tsx` + `PatrolLogRoadFilte
 | In | toolbar | print scope modal | — |
 | Sửa config | toolbar | FULL modal | — |
 | **Xuất Excel** | toolbar | **chỉ** viewed · applied · subset cột hiện | API-02 |
-| Mở sổ | C | top window `/asset/csdl-so-sach?kind=patrol-logs&id=` (+ `entry`) | — (không Report GetById) |
+| Mở sổ | C | Wave B: `/csdl-so-02` **hoặc** hub `?resource=patrol-logs&id=` (+ entry) · **cấm** `?kind=` | — (T-FE-02) |
 | Đổi page/pageSize | D | refetch applied | API-01 |
 
 ## Build (Dev — không chạy ở role TL)
@@ -229,12 +233,14 @@ TL **không** sửa MFE/BE runtime. Verify = live SSOT re-review (page · filter
 
 CRUD `csdl-so-sach` / PatrolLog* trên slug này · Mẫu 8 tuần kiểm · `rpt-checkin` PatrolSession · KPI 4 · map InZone · GOVOne chrome · warehouse schema · EF join P1 · parent JSON · Kind B · `LinCatalogUiSchemaEditorModal` · `ERP.*` · `api/v1/rmms/*` · `api/v1/reports` · invent QL.22 · dashboard KPI slug khác · `[RequirePermission]` block P1 · API chart riêng · path API mới P1 · FilterRoute prefix.
 
-## Handoff Dev
+## Handoff Dev (Wave B · `task_8cbb2073`)
 
-- Live **PASS** Kind E — **không** rewrite · **không** Kind B schema · **không** path API mới · **không** migration · **không** FilterRoute prefix.
-- Dev: confirm `confirms.beRepo && uiRepo` (STATUS **yes**) · **yarn build** (+ typecheck) PASS · `dotnet build` **chỉ nếu** đụng API · ghi implement § Build + `retry.ssot_rereview`.
-- autoApprove **ON** → enqueue **dev** sau `completed` task TL. Roles QA/Review = **pending**. **Cấm** nhảy QA.
-- This task = `roleOnly=team_lead` · **không** chạy Dev trong `task_646fa977`.
+- Shell Kind E **giữ** — Dev làm **CR delta** [`rpt-nhat-ky-tuan-duong-cr-pdf.md`](./rpt-nhat-ky-tuan-duong-cr-pdf.md): **T-BE-RPT-01** → **T-BE-02** → **T-UI-RPT-*** / **T-FE-02** / **T-HDSD-01**.
+- **Cấm** rewrite Kind E · Kind B schema · path API mới · migration · FilterRoute prefix · ERP.* · seed fallback · drill `?kind=`.
+- `devSlash` = **`/agent-dev`** (+ `/erp-report-context` · `filter-bar-pipeline` trước Write filter).
+- Dev: STATUS be/ui repo **yes** · **yarn build** (+ typecheck) PASS · `dotnet build` khi đụng API · ghi implement.
+- autoApprove **ON** → enqueue **dev** sau TL `completed`. QA/Review **pending**. e2e **chỉ** `/agent-qa*`.
+- This task = `roleOnly=team_lead` · **không** chạy Dev trong `task_8cbb2073`.
 
 ---
-<!-- Version meta: skillVersion=2026.08.15.5 · schemaVersion=1 · workflowVersion=2026.08.15.5 · rulesVersion=2026.08.15.8 · versionGate=keep_current -->
+<!-- Version meta: skillVersion=2026.08.15.5 · schemaVersion=1 · workflowVersion=2026.08.15.5 · rulesVersion=2026.08.15.8 · versionGate=keep_current · changeScope=edit_page · cr=nktd-pdf-20260917 · taskId=task_8cbb2073 -->

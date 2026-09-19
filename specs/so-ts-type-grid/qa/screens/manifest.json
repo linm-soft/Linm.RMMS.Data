@@ -1,0 +1,81 @@
+{
+  "feature": "so-ts-type-grid",
+  "url": "http://localhost:9301/so-ts-type-grid",
+  "peerUrl": "http://localhost:9301/so-ts",
+  "formUrl": "http://localhost:9301/so-ts/tao-moi",
+  "ok": true,
+  "capturedAt": "2026-09-18T18:38:29.846Z",
+  "method": "playwright channel=chrome · createRequire AutoCode · dismiss wds overlay · skip-start",
+  "gap": "GAP-QA-E2E-PW-01",
+  "testid": "rmms-asset-list-page · rmms-asset-form-shell",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "ok": true,
+      "screenshot": "S0.png",
+      "sha16": "ef0675ba4e07a72c",
+      "bytes": 130325,
+      "overlayGone": true,
+      "finalUrl": "http://localhost:9301/so-ts",
+      "note": "alias → /so-ts shell list"
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "ok": true,
+      "screenshot": "S1.png",
+      "sha16": "cb1233e911c438c9",
+      "bytes": 131324,
+      "overlayGone": true,
+      "finalUrl": "http://localhost:9301/so-ts",
+      "note": "peer /so-ts"
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "ok": true,
+      "screenshot": "QA-20.png",
+      "sha16": "66efce580d205c55",
+      "bytes": 93866,
+      "overlayGone": true,
+      "finalUrl": "http://localhost:9301/so-ts/tao-moi",
+      "note": "Create CatalogFormShell 5col"
+    }
+  ],
+  "results": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "ok": true,
+      "screenshot": "S0.png",
+      "sha16": "ef0675ba4e07a72c",
+      "bytes": 130325,
+      "overlayGone": true,
+      "finalUrl": "http://localhost:9301/so-ts",
+      "note": "alias → /so-ts shell list"
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "ok": true,
+      "screenshot": "S1.png",
+      "sha16": "cb1233e911c438c9",
+      "bytes": 131324,
+      "overlayGone": true,
+      "finalUrl": "http://localhost:9301/so-ts",
+      "note": "peer /so-ts"
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "ok": true,
+      "screenshot": "QA-20.png",
+      "sha16": "66efce580d205c55",
+      "bytes": 93866,
+      "overlayGone": true,
+      "finalUrl": "http://localhost:9301/so-ts/tao-moi",
+      "note": "Create CatalogFormShell 5col"
+    }
+  ]
+}

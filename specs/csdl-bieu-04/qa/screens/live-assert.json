@@ -1,7 +1,23 @@
 {
   "url": "http://localhost:9301/csdl-bieu-04",
+  "changeScope": "edit_page",
   "hasTitle": true,
   "hasFilter": true,
+  "hasExportToolbar": true,
+  "hasImportToolbar": false,
+  "importDeferredHidden": true,
+  "filterBarHasNoExport": true,
+  "filterBarMeta": {
+    "foundFilter": true,
+    "hasXuat": false
+  },
+  "exportCheck": {
+    "attempted": true,
+    "ok": true,
+    "fileName": "Bieu04_CongCacLoai_20260918.xls",
+    "hasPath": true,
+    "error": ""
+  },
   "noDemo": true,
   "noModeBadge": true,
   "testids": [
@@ -14,6 +30,7 @@
     "rmms-csdl-bieu-04-list-peer-sots",
     "rmms-csdl-bieu-04-list-list-toolbar",
     "rmms-csdl-bieu-04-list-refresh-btn",
+    "rmms-csdl-bieu-04-list-export-excel-btn",
     "rmms-csdl-bieu-04-list-create-btn",
     "rmms-csdl-bieu-04-list-table-card",
     "rmms-csdl-bieu-04-list-list-title-help",
@@ -30,7 +47,7 @@
     "rmms-csdl-bieu-04-list-date-range-date-single",
     "rmms-csdl-bieu-04-list-date-range-date-expand-btn",
     "rmms-csdl-bieu-04-list-view-btn",
-    "catalog-table-skeleton"
-  ],
-  "titleSnippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nCSDL Biểu 01 — Phân loại mặt đường\nCSDL Biểu 04 — Cống các loại\nHạng mục KCHT\nDS\nDev Standalone\nDeveloper\nBiểu 04 — Cống c"
+    "rmms-csdl-bieu-04-list-grid-wrap",
+    "rmms-csdl-bieu-04-list-empty"
+  ]
 }

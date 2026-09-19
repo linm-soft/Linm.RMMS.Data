@@ -1,37 +1,37 @@
 {
   "url": "http://localhost:9301/csdl-bieu-05",
-  "method": "playwright channel=chrome headless · contract fallback after yarn e2e-qa playwright install hang risk",
+  "method": "playwright channel=chrome headless · createRequire AutoCode · skip-start after yarn e2e-qa playwright resolve fail",
   "feature": "csdl-bieu-05",
   "cases": [
     "S0",
     "S1",
     "QA-20"
   ],
-  "capturedAt": "2026-09-05T07:07:29.076Z",
+  "capturedAt": "2026-09-17T21:06:44.942Z",
   "steps": [
     {
       "id": "S0",
       "result": "PASS",
       "screenshot": "S0.png",
-      "sha256_16": "a23703a704e66bd1",
+      "sha256_16": "d06efdfff922db25",
       "url": "http://localhost:9301/csdl-bieu-05",
-      "note": "list Biểu 05 · filter-bar · empty/grid · peer Sổ TS"
+      "note": "list Biểu 05 · toolbar Xuất · filter-bar · 0 filter export · Import ẩn"
     },
     {
       "id": "S1",
       "result": "PASS",
       "screenshot": "S1.png",
-      "sha256_16": "ea9bebf5a586b1e3",
+      "sha256_16": "b03f59bbe2f24a08",
       "url": "http://localhost:9301/so-ts/csdl-so-sach?resource=ditches",
-      "note": "hub deep-link ?resource=ditches → list"
+      "note": "hub deep-link ?resource=ditches → Biểu 05 list"
     },
     {
       "id": "QA-20",
       "result": "PASS",
       "screenshot": "QA-20.png",
-      "sha256_16": "b8607424dc589ce0",
+      "sha256_16": "d8d9db75735bd595",
       "url": "http://localhost:9301/csdl-bieu-05?form=create",
-      "note": "Create Slideout · form=create"
+      "note": "Create Slideout · form=create KEEP · ditchKind/shape · RN-"
     }
   ],
   "ok": true

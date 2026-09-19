@@ -4,9 +4,11 @@
   "verdict": "PASS",
   "review_confirm": "approve",
   "fix_gaps": [],
-  "taskId": "task_d12c1bda",
-  "contentHash": "sha256:fd4e6899790aa98d6bc4cb628dc9c0bc5efc90acb3abf03a7b157cf123590117",
-  "hashSkip": true,
+  "taskId": "task_0a8478f7",
+  "changeScope": "edit_page",
+  "contentHash": "sha256:9e3e8cf8e90fb3a3e8252d1725b78ea2494b171d3b7507d0a57b13c7052da728",
+  "hashSkip": false,
+  "hashNote": "XLS wave first review · contentHash chain matches analy→qa · prior findings were typed new_page (superseded)",
   "layers": {
     "QUERY": "PASS",
     "SEC": "PASS",
@@ -14,14 +16,14 @@
     "BE-FN": "PASS"
   },
   "qaEvidence": {
-    "S0": "a23703a704e66bd1",
-    "S1": "ea9bebf5a586b1e3",
-    "QA-20": "b8607424dc589ce0",
+    "S0": "d06efdfff922db25",
+    "S1": "b03f59bbe2f24a08",
+    "QA-20": "d8d9db75735bd595",
     "ok": true
   },
   "autoApprove": true,
-  "reviewedAt": "2026-09-05T07:10:30.000Z",
-  "skillVersion": "2026.08.29.03",
-  "workflowVersion": "2026.09.01.02",
-  "rulesVersion": "2026.08.31.2"
+  "reviewedAt": "2026-09-18T04:09:28.640Z",
+  "skillVersion": "2026.09.05.03",
+  "workflowVersion": "2026.09.05.03",
+  "rulesVersion": "2026.09.17.3"
 }

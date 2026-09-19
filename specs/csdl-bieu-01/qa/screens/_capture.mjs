@@ -1,19 +1,16 @@
 /**
- * QA E2E capture — yarn e2e-qa contract (GAP-QA-E2E-PW-01 fallback).
- * `playwright install chromium` hung · use channel=chrome (system Chrome).
- * std + docker already listen · skip-start semantics · cấm kill worker.
+ * QA E2E capture — edit_page T-XLS-S01 + CRUD KEEP.
+ * yarn e2e-qa fails resolve playwright from screens cwd → run via createRequire(AutoCode).
+ * channel=chrome · skip-start · cấm kill worker.
  */
-import { writeFileSync, readFileSync } from "node:fs";
+import { readFileSync, writeFileSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { join } from "node:path";
-import { pathToFileURL } from "node:url";
+import { createRequire } from "node:module";
 
-const pw = await import(
-  pathToFileURL(
-    "D:/AI-Extension/AI-AutoCode/node_modules/playwright/index.mjs",
-  ).href,
-);
-const { chromium } = pw;
+const require = createRequire("D:/AI-Extension/AI-AutoCode/package.json");
+const { chromium } = require("playwright");
+
 const outDir = "D:\\AI-QLBD\\Linm.RMMS.Data\\specs\\csdl-bieu-01\\qa\\screens";
 const listUrl = "http://localhost:9301/csdl-bieu-01";
 const hubUrl =
@@ -21,37 +18,38 @@ const hubUrl =
 const formUrl = "http://localhost:9301/csdl-bieu-01?form=create";
 const listSel = '[data-testid="rmms-csdl-bieu-01-list-page"]';
 const formSel = '[data-testid="rmms-csdl-bieu-01-form-slideout"]';
-/** hub deep-link with resource → list (not hub cards) */
-const hubListSel = '[data-testid="rmms-csdl-so-sach-list-page"]';
+/** hub ?resource= now mounts Biểu 01 list (not hub cards) */
+const hubListSel = '[data-testid="rmms-csdl-bieu-01-list-page"]';
 
 const steps = [
   {
     id: "S0",
     url: listUrl,
     selector: listSel,
-    note: "list Biểu 01 · filter-bar · empty/grid",
+    also: '[data-testid="rmms-csdl-bieu-01-list-export-excel-btn"]',
+    note: "list Biểu 01 · toolbar Xuất/Nhập · filter-bar · empty/grid",
   },
   {
     id: "S1",
     url: hubUrl,
     selector: hubListSel,
-    note: "hub deep-link ?resource=pavement-sections → list",
+    also: '[data-testid="rmms-csdl-bieu-01-list-import-excel-btn"]',
+    note: "hub deep-link ?resource=pavement-sections → Biểu 01 list",
   },
   {
     id: "QA-20",
     url: formUrl,
     selector: formSel,
     also: '[data-testid="csdl-bieu-01-form-z2"]',
-    note: "Create Slideout · form=create",
+    note: "Create Slideout · form=create KEEP",
   },
 ];
-
-const results = [];
 
 function shotName(id) {
   return id.replace(/[^a-zA-Z0-9._-]+/g, "-").replace(/^-+|-+$/g, "") + ".png";
 }
 
+const results = [];
 const browser = await chromium.launch({
   headless: true,
   channel: "chrome",
@@ -98,8 +96,9 @@ try {
         id: step.id,
         result: "FAIL",
         screenshot: file,
-        error: err instanceof Error ? err.message : String(err),
         url: step.url,
+        note: step.note,
+        error: err instanceof Error ? err.message : String(err),
       });
     }
   }
@@ -110,7 +109,7 @@ try {
 const manifest = {
   url: listUrl,
   method:
-    "playwright channel=chrome headless · contract fallback after yarn e2e-qa playwright install hang",
+    "playwright channel=chrome · yarn e2e-qa playwright resolve fail → AutoCode createRequire fallback · skip-start",
   feature: "csdl-bieu-01",
   cases: ["S0", "S1", "QA-20"],
   capturedAt: new Date().toISOString(),

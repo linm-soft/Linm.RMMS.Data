@@ -3,11 +3,14 @@
   "status": "confirmed",
   "verdict": "PASS",
   "review_confirm": "approve",
-  "taskId": "task_50bbebc7",
+  "taskId": "task_d08de1b6",
+  "priorQaTaskId": "task_1df2c910",
+  "changeScope": "edit_page",
   "autoApprove": true,
-  "contentHashPrior": "sha256:2c03537918bbda56c29e1e1ef98cc081cc4e72c94447a1ac2f87f06bd6f9310e",
-  "writtenAt": "2026-09-05T09:15:00.000Z",
-  "skillVersion": "2026.08.29.03",
-  "workflowVersion": "2026.09.01.02",
-  "rulesVersion": "2026.08.31.2"
+  "contentHashPrior": "sha256:57fc9dab0df1bc69fa444e65b543c8bc14b7ef9b2f12d92f72b12fa40e5cc1d9",
+  "headerFingerprint": "sha256:3574a45ea4cc36f0f01b6cff9e5a7577f52fdb7a7b79508685c1038b473564d8",
+  "writtenAt": "2026-09-18T02:53:30.000Z",
+  "skillVersion": "2026.09.05.03",
+  "workflowVersion": "2026.09.05.03",
+  "rulesVersion": "2026.09.17.3"
 }

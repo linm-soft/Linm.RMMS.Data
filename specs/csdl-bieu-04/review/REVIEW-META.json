@@ -5,9 +5,13 @@
   "verdict": "PASS",
   "review_confirm": "approve",
   "autoApprove": true,
-  "taskId": "task_140e0d17",
-  "contentHash": "sha256:7498ad6644d0e599bc40afb7589db5335c18adb4b92f1573de3c1fae2e17d3d6",
-  "hashSkip": true,
+  "taskId": "task_87c39169",
+  "priorQaTaskId": "task_dfa20851",
+  "changeScope": "edit_page",
+  "contentHash": "sha256:eef182add5b68de5b3e27ec36ed9c099689831aeb77742814aa296bf286243f9",
+  "headerFingerprint": "sha256:8b98f7a22739bdad37b67a7ef869d6c465edc38061f0d5853fe2e69758d4ccea",
+  "hashSkip": false,
+  "hashNote": "re-review vs typed prior 7498… — XLS wave eef182…",
   "layers": {
     "QUERY": "PASS",
     "SEC": "PASS",
@@ -16,18 +20,18 @@
   },
   "qaEvidence": {
     "e2eQa": "PASS",
-    "cases": ["S0", "S1", "QA-20"],
+    "cases": ["S0", "S1", "QA-20", "T-XLS-QA-01"],
     "manifestOk": true
   },
   "debt": [
     "GAP-QA-E2E-PW-01",
     "T-PERM-01",
     "GAP-CSDL-ORG-01",
-    "GAP-CSDL-XLS-01"
+    "Import-Excel-P1"
   ],
   "fixGapsBlocking": false,
-  "reviewedAt": "2026-09-05T06:35:00.000Z",
-  "skillVersion": "2026.08.29.03",
-  "workflowVersion": "2026.09.01.02",
-  "rulesVersion": "2026.08.31.2"
+  "reviewedAt": "2026-09-18T03:35:00.000Z",
+  "skillVersion": "2026.09.05.03",
+  "workflowVersion": "2026.09.05.03",
+  "rulesVersion": "2026.09.17.3"
 }

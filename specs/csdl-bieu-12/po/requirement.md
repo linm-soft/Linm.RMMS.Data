@@ -1,98 +1,117 @@
-# PO requirement — csdl-bieu-12 (CSDL Biểu 12 — Cây xanh, thảm cỏ)
+# PO requirement — csdl-bieu-12 (edit_page · T-XLS-S12 · Xuất Excel)
 
 | Field | Value |
 |-------|-------|
 | feature | `csdl-bieu-12` |
-| title | CSDL Biểu 12 — Cây xanh, thảm cỏ |
+| title | CSDL Biểu 12 — Cây xanh, thảm cỏ · Xuất Excel |
 | packKind | `list` |
-| changeScope | `new_page` |
+| changeScope | `edit_page` |
 | status | `confirmed` |
-| taskId | `task_65010473` |
+| taskId | `task_3c0db9bf` |
+| priorTask | `task_65010473` (typed CRUD **done**) · analy `task_619ea74c` |
 | autoApprove | `ON` |
+| epic | `csdl-export-print` · Wave 1 `T-XLS-S12` |
 | resource | `green-assets` |
 | formNo | `12` |
 | IdCode prefix | `CX` |
 | columns | `15` |
-| peerSoTs | — (không peer · **cấm** invent so-ts-green) |
-| mfeStdRoute | `/csdl-bieu-12` |
-| mfeStdUrl | `http://localhost:9301/csdl-bieu-12` |
+| peerSoTs | — (**cấm** invent so-ts-green) |
+| mfeStdRoute | `/so-ts/csdl-so-sach` · alias `/csdl-bieu-12` |
+| mfeStdUrl | `http://localhost:9301/so-ts/csdl-so-sach` |
 | hub | `/so-ts/csdl-so-sach?resource=green-assets` |
-| API | `api/v1/asset/csdl-records?resource=green-assets` (+ BFF) |
-| contentHash | `sha256:6da498be3a84192c6f3e3c30a7e8032bf2753359591a9aabd3ad36d809f4c457` |
-| headerFingerprint | `sha256:54aef0c755530d138ecefa7a303b22c78c32ca1b6ae3555d5bb33492799b5af9` |
+| API CRUD | `api/v1/asset/csdl-records?resource=green-assets` (+ BFF) — **keep** |
+| API Export | `GET …/csdl-records/export?resource=green-assets` (+ BFF) |
+| API Import | `POST …/csdl-records/import?resource=green-assets` — **DEFER P1** |
+| contentHash | `sha256:f42502cee520105fb0a7f618c17b8b0f582884d7f779f638ec7310c26346e77a` |
+| headerFingerprint | `sha256:b6a541f8adc60a5badc72fc92c606631e5a1457fc119b9a6a546eb1f0acc437a` |
 | skillId | `agent-po` |
 | skillVersion | `2026.08.25.01` |
-| workflowVersion | `2026.09.01.02` |
-| rulesVersion | `2026.08.31.2` |
+| workflowVersion | `2026.09.05.03` |
+| rulesVersion | `2026.09.17.3` |
 | schemaVersion | `1` |
-| confirmedAt | `2026-09-05T13:05:00.000Z` |
-| prior | data_analy `confirmed` · control-hint + real-data · hash skip |
+| confirmedAt | `2026-09-18T00:30:00.000Z` |
+| prior | data_analy `confirmed` · control-hint + real-data · hash skip · **cấm** re-scan demo |
 
-> **Cấm** ERP.* · invent `api/v1/infra/*` · form chỉ 3 ô `detail*` · invent/merge so-ts-green · Guid IdCode · demo SSOT.  
-> Typography: label **13** · input D14 / M16 (**GAP-TYP-01**).
+> **Cấm** ERP.* · invent `api/v1/infra/*` · toast stub = export done · filter-bar export (**GAP-FILTER-BAR-08**) · golden hồ sơ 12+8 · invent 2 sheet · invent/merge so-ts-green · reopen `new_page` typed CRUD.  
+> Typography: label **13** · input D14 / M16 (**GAP-TYP-01**).  
+> Dev slash: `/implement-export-import-excel` · BFF binary.  
+> Typed artifacts prior **keep** — pack này **chỉ** § Delta export.
 
 ## Goal
 
-Trang CSDL Biểu 12 (list Kind B + form Kind D Slideout) cho cây xanh / thảm cỏ: typed **15 cột** Excel, resource `green-assets`, formNo **12**, alias route `/csdl-bieu-12` + hub entry. Khóm trúc đào/ngâu/cọ/khác + m² cỏ — **≠** Sổ TS.
+Bổ sung **Xuất Excel** binary đúng mẫu Cục sheet Biểu 12 (15 cột · 1 sheet · khóm + m² cỏ cùng hàng) trên `catalogToolbar` của list đã ship. Typed CRUD / Slideout / filter / route **không đổi**.
 
-## Open Q — PO decisions (autoApprove)
+## Open Q — PO decisions (autoApprove · T-XLS-S12)
 
 | ID | Decision | Rationale |
 |----|----------|-----------|
-| Q-ROUTE | **`alias_now`** | Ship Navigate `/csdl-bieu-12` cùng release; giữ hub deep-link |
-| Q-PROV | **`keep_static`** | P1 LOOKUP_STATIC 5 tỉnh; master province DEFER |
-| Q-OTHER-CLUMP | **`keep_other`** | Giữ `otherClumps` trong 15 cột Excel flatten · SA confirm DB |
-| Q-GRASS-REQ | **`allow_either`** | Cho phép chỉ khóm (cỏ=0) hoặc chỉ cỏ (khóm=0) · không bắt buộc cả hai |
-| Q-TALUY | **`side_only`** | `side` LOOKUP L/R/C/Both đủ · **cấm** free «taluy» riêng |
-| Q-LIST-COLS | **`subset`** | Grid mặc định: shared + 4 khóm + grassAreaM2 + status · manageUnit/notes qua schema-config |
-| Q-TITLE | **`keep_demo`** | Title «Biểu 12 — Cây xanh, thảm cỏ» (hub/demo/CTX) |
-| Q-DMAP | **`add_now`** | SA/Dev thêm slug `csdl-bieu-12` → Asset (cùng `csdl-so-sach`) |
+| Q-XLS-SCOPE | **`filtered`** | Export áp dụng filter/QS hiện tại (road/province/status/km/side/search); empty filter = all tenant resource |
+| Q-XLS-IMPORT | **`export_only_p0`** | Wave 1 P0 = Xuất binary; Import toolbar **DEFER P1** (giữ gap, không AC DoD P0) |
+| Q-XLS-FILENAME | **`Bieu12_CayXanh_{yyyyMMdd}.xlsx`** | Content-Disposition · SA chốt `.xls` vs `.xlsx` theo golden Cục |
+| Q-XLS-SHEET | **`one_sheet`** | 1 sheet 15 cột · khóm+cỏ cùng hàng · **cấm** split 2 sheet |
+
+### Prior typed Q (keep — không reopen)
+
+`alias_now` · `keep_static` · `keep_other` · `allow_either` · `side_only` · `subset` · `keep_demo` · `add_now` — **confirmed** `task_65010473`.
 
 ## Pack confirm
 
 | Item | Value |
 |------|-------|
 | packKind | `list` |
-| List | Kind **B** zones A/B/C/D |
-| Form | Kind **D** Slideout 2col Z1–Z3 · **2 section** (Khóm cây · Thảm cỏ) |
+| List | Kind **B** zones A/B/C/D — **keep** |
+| Form | Kind **D** Slideout · 2 section — **keep** · **cấm** `new_page` |
 | Map | `none` |
 | Layout | `LinPageLayout kind="catalog"` |
+| Export surface | **`catalogToolbar`** only · **cấm** `LinErpListFilterBar` |
 
 ## Header (15 — không thêm ngoài)
 
 `code|roadCode|roadName|province|kmFrom|kmTo|side|oleanderClumps|ngauClumps|palmClumps|otherClumps|grassAreaM2|status|manageUnit|notes`
 
+Golden = Cục **16-sheet** xls sheet **Biểu 12** · **cấm** hồ sơ 12+8.
+
+## § Delta Current vs New (`edit_page` · `T-XLS-S12`)
+
+| ID | Current | New (PO DoD) |
+|----|---------|--------------|
+| GAP-BIEU12-XLS-01 | Toolbar không Xuất binary | Nút **Xuất Excel** trên `catalogToolbar` · download sheet Biểu 12 |
+| GAP-BIEU12-XLS-02 | Toast/stub «có nút» | File binary qua BFF · mở được cạnh mẫu · **cấm** toast-only done |
+| GAP-BIEU12-XLS-03 | — | Golden Cục 16-sheet · checksum 15 cột |
+| GAP-BIEU12-XLS-04 | Filter field+🔍 | **Cấm** Xuất/Import trên filter bar |
+| GAP-BIEU12-XLS-05 | CRUD only | `GET …/export?resource=green-assets` (+ filter QS) · Import path DEFER P1 |
+| GAP-BIEU12-XLS-06 | 2 section UX form | Export **1 sheet** 15 · khóm+cỏ cùng hàng |
+| GAP-BIEU12-XLS-07 | No peer | **Cấm** invent/merge so-ts-green vào file |
+
+**Không đổi:** API prefix · resource · Kind B A–D · Kind D Slideout · filter slots · IdCode `CX` · formNo `12` · peer none.
+
 ## § Screens
 
-### S1 — List (Kind B)
+### S1 — List (Kind B) — delta toolbar
 
 | Zone | AC |
 |------|----|
-| A Header | Title «Biểu 12 — Cây xanh, thảm cỏ» · back hub `/so-ts/csdl-so-sach` · **cấm** slug trên card |
-| B Toolbar+filter | SearchTextInput (mã/đường/ghi chú) · province · status · road SearchInput · kmFrom/kmTo · side · Tạo mới · Refresh · Delete · History · SchemaConfig · Import/Export stub · **search must work** · **cấm** nút Tìm riêng |
-| C Grid | `LinCatalogDataGrid` typed subset · STT · row menu Xem/Sửa/Copy/Xóa/Lịch sử · kéo cột ON · empty «Chưa có cây xanh, thảm cỏ» |
-| D Footer | `LinCatalogListPagination` 50/100/200/500 |
+| A Header | **Keep** «Biểu 12 — Cây xanh, thảm cỏ» · back hub |
+| B Toolbar | **+ Xuất Excel** (`ToolbarButton` · icon `erp-control-icon-map`) · keep Refresh/Add/History/Schema/CRUD · Import **DEFER P1** (không AC P0) |
+| B Filter | **Unchanged** · 0 action Xuất (**GAP-FILTER-BAR-08**) |
+| C Grid | **Unchanged** typed subset |
+| D Footer | **Unchanged** pagination |
 
-### S2 — Form Slideout (Kind D)
+### S2 — Form Slideout — **unchanged**
 
-| Item | AC |
-|------|----|
-| Modes | Create / Edit / View(`readOnly`) / Copy |
-| Layout | 2col Z1–Z3 · footer Lưu/Hủy · LeaveConfirmModal dirty |
-| Shared (head) | road SearchInput* · province* · kmFrom/kmTo* · side* · status* |
-| Section 1 — Khóm cây | oleanderClumps · ngauClumps · palmClumps · otherClumps (Number int ≥0) |
-| Section 2 — Thảm cỏ | grassAreaM2 (Number decimal ≥0) — **optional** nếu có khóm · **allow_either** |
-| Trail | manageUnit (Text P1 → org SearchInput P2) · notes |
-| code | readonly auto IdCode `CX-yyyyMMdd-nnnn` · **cấm** Guid |
-| road | SearchInput `road-route` + roadCode/roadName |
+Cite prior `task_65010473` · 2 section khóm + thảm cỏ · LeaveConfirmModal · **cấm** đổi controlHint form.
 
-## Grid AC (list)
+## Grid AC (list) — keep + export
 
-1. Filter+search client/server theo controlHint · không nút Tìm riêng.  
-2. Cột mặc định = subset (Q-LIST-COLS); schema-config bật đủ 15.  
-3. Pagination 50/100/200/500 · soft-delete refresh.  
-4. Row actions + toolbar CRUD · history/import stub.  
-5. Empty/error toast VN · 404 đóng slideout.
+1. Filter+search theo controlHint · **cấm** nút Tìm riêng — **keep**.  
+2. Cột subset + schema-config 15 — **keep**.  
+3. Pagination 50/100/200/500 · soft-delete — **keep**.  
+4. Row/toolbar CRUD — **keep**.  
+5. Empty/error toast VN — **keep**.  
+6. **Xuất Excel** trên `catalogToolbar` → binary BFF · sheet Biểu 12 · 15 cột · merge-header · filtered set · **cấm** CSV generic · **cấm** filter-bar.  
+7. Empty list export → file vẫn tải · 0 data row · header đúng mẫu · toast info OK.  
+8. Export fail → toast · **cấm** silent · **cấm** fake blob.  
+9. Toast stub only → **FAIL** DoD.
 
 ## Report AC
 
@@ -102,91 +121,61 @@ N/A — packKind=`list`.
 
 | Case | Behavior |
 |------|----------|
-| Dirty form | LeaveConfirmModal trước đóng/navigate |
-| Cancel clean | đóng slideout không confirm |
-| After save | đóng · list refresh · toast OK |
+| Dirty form | LeaveConfirmModal — **keep** |
+| Cancel clean | đóng không confirm — **keep** |
+| After save | đóng · refresh · toast — **keep** |
+| During export | không navigate; download async · toast lỗi nếu fail |
 
 ## GAP accept (PO → Design/SA)
 
 | GAP | PO |
 |-----|-----|
-| GAP-BIEU12-TYPED-01 | Accept — typed 15 · **cấm** detail* |
-| GAP-BIEU12-ROUTE-01 | Accept — alias_now |
-| GAP-BIEU12-CLUMP-01 | Accept — 4 Number khóm · **cấm** 1 text loại cây |
-| GAP-BIEU12-GRASS-01 | Accept — grassAreaM2 tách · allow_either |
-| GAP-BIEU12-SIDE-01 | Accept — side_only L/R/C/Both |
-| GAP-BIEU12-DMAP-01 | Accept — add_now slug |
-| GAP-CSDL-ROAD-01 | Accept — SearchInput road-route |
-| GAP-CSDL-PROV-01 | Accept — keep_static P1 |
-| GAP-CSDL-ORG-01 | Accept — Text P1 · SearchInput org-unit P2 |
-| GAP-CSDL-XLS-01 | Accept — Import/Export stub · sheet Biểu 12 OUT Dev/XLS |
-| GAP-CSDL-CUC-11 | Accept — ≠ Sổ TS · **cấm** invent peer so-ts-green |
-| GAP-CSDL-CUC-03 | Accept — đóng khi typed PASS |
-
-## Control map (PO cite → Design chốt)
-
-### Filters (Zone B)
-
-| Field | controlHint | Notes |
-|-------|-------------|-------|
-| search | SearchTextInput | mã · đường · ghi chú |
-| province | Dropdown LOOKUP_STATIC | keep_static |
-| status | Dropdown LOOKUP_STATIC | tot/tb/kem/hong |
-| roadCode | SearchInput road-route | GAP-CSDL-ROAD-01 |
-| kmFrom / kmTo | Number | |
-| side | Dropdown LOOKUP_STATIC | L/R/C/Both |
-
-### Form fields
-
-| Field | controlHint | required | Notes |
-|-------|-------------|----------|-------|
-| code | Text ro | auto | CX- |
-| roadCode / roadName | SearchInput | * | road-route |
-| province | Dropdown | * | static P1 |
-| kmFrom / kmTo | Number | * | decimal |
-| side | Dropdown | * | side_only |
-| oleanderClumps | Number | | int ≥0 · section khóm |
-| ngauClumps | Number | | int ≥0 |
-| palmClumps | Number | | int ≥0 |
-| otherClumps | Number | | int ≥0 · keep_other |
-| grassAreaM2 | Number | | decimal ≥0 · section thảm cỏ · allow_either |
-| status | Dropdown | * | tot/tb/kem/hong |
-| manageUnit | Text → SearchInput P2 | | org-unit |
-| notes | Textarea | | |
-
-## Live bind (cite real-data)
-
-| Op | Path |
-|----|------|
-| List | `GET /web-bff/api/v1/asset/csdl-records?resource=green-assets` |
-| Detail | `GET …/csdl-records/{id}` |
-| CRUD | POST / PUT / soft DELETE · body `resource=green-assets` + typed |
-| Road | `GET /integration/road-routes/search` |
-| Org P2 | `GET /integration/org-units/search` |
-
-**Cấm** invent `api/v1/infra/*` · ERP.* · `api/v1/so-ts/*`.
+| GAP-BIEU12-XLS-01 | **Accept** — toolbar Xuất Excel binary |
+| GAP-BIEU12-XLS-02 | **Accept** — binary ≠ toast stub |
+| GAP-BIEU12-XLS-03 | **Accept** — golden Cục 16-sheet · cấm 12+8 |
+| GAP-BIEU12-XLS-04 | **Accept** — GAP-FILTER-BAR-08 |
+| GAP-BIEU12-XLS-05 | **Accept** — GET export path · Import DEFER P1 |
+| GAP-BIEU12-XLS-06 | **Accept** — one_sheet 15 |
+| GAP-BIEU12-XLS-07 | **Accept** — cấm invent so-ts-green |
+| Prior GAP-BIEU12-TYPED-* / ROUTE / CLUMP / GRASS / SIDE / DMAP / CUC-11 | **Keep** closed — **cấm** reopen |
 
 ## Handoff Design
 
-1. control-map khớp bảng trên · prototype list + slideout 2 section · reviewUrl.  
-2. Filter-bar HARD · typography GAP-TYP-01.  
-3. Grid subset mặc định · schema-config đủ 15.  
-4. **Cấm** demo-json SSOT · **cấm** 3 ô detail*.
+| Need | Value |
+|------|-------|
+| Prototype | **Giữ** typed · **chỉ** +nút Xuất trên `catalogToolbar` |
+| reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-12/ui/prototype/csdl-bieu-12-list-prototype.html` |
+| Filter | Unchanged · **cấm** export trên filter |
+| Form | Unchanged Kind D · 2 section |
+| Import | P1 visual optional · **không** P0 DoD |
 
 ## Handoff SA
 
-1. Typed DTO / UiSchema `green-assets` · Schema_CsdlBieu12 / GreenAsset.  
-2. DOMAIN-MAP slug `csdl-bieu-12` → Asset (**add_now**).  
-3. Confirm `OtherClumps` ↔ Excel «khác».  
-4. **Cấm** invent infra path.
+| Need | Value |
+|------|-------|
+| Export | `GET …/csdl-records/export?resource=green-assets` + filter QS · BFF binary |
+| Import | Path cite · **DEFER** implement P1 |
+| Golden | Cục 16-sheet Biểu 12 · checksum 15 · one_sheet |
+| Entity | **Cấm** đổi `Schema_CsdlBieu12` trừ gap map |
+| Filename | `Bieu12_CayXanh_{yyyyMMdd}.xlsx` (SA chốt extension) |
+| **Cấm** | ERP.* · infra · toast-stub done · 2 sheet · so-ts-green merge |
 
-## NFR / Out of scope P1
+## Live bind (1-liner)
 
-- yarn build / e2e — chỉ Dev/QA.  
-- Map canvas — none (gis deep-link only).  
-- History modal / Import XLS full — stub P1 · OUT pack Dev/XLS.  
-- org-unit SearchInput — P2 OK.  
-- Master province — DEFER.
+- CRUD keep: `api/v1/asset/csdl-records?resource=green-assets`
+- Export P0: `GET …/csdl-records/export?resource=green-assets` (+ filter QS)
+- Import P1 DEFER: `POST …/import?resource=green-assets`
+- **cấm** ERP.* · invent infra · invent so-ts-green
+
+## Cấm (HARD)
+
+- Reopen `new_page` typed CRUD / đổi 15 cột / formPattern  
+- Toast stub = export done  
+- Export trên `LinErpListFilterBar`  
+- Golden hồ sơ 12+8 · invent 2 sheet  
+- Invent/merge so-ts-green  
+- ERP.* / `api/v1/infra/*`  
+- yarn build / e2e / start:std @ PO  
 
 ## Version meta (REQUIRED)
 
@@ -195,15 +184,15 @@ N/A — packKind=`list`.
 | skillId | agent-po |
 | skillVersion | 2026.08.25.01 |
 | schemaVersion | 1 |
-| workflowVersion | 2026.09.01.02 |
-| rulesVersion | 2026.08.31.2 |
-| contentHash | `sha256:6da498be3a84192c6f3e3c30a7e8032bf2753359591a9aabd3ad36d809f4c457` |
-| headerFingerprint | `sha256:54aef0c755530d138ecefa7a303b22c78c32ca1b6ae3555d5bb33492799b5af9` |
-| generatedAt | 2026-09-05T13:05:00.000Z |
+| workflowVersion | 2026.09.05.03 |
+| rulesVersion | 2026.09.17.3 |
+| contentHash | `sha256:f42502cee520105fb0a7f618c17b8b0f582884d7f779f638ec7310c26346e77a` |
+| headerFingerprint | `sha256:b6a541f8adc60a5badc72fc92c606631e5a1457fc119b9a6a546eb1f0acc437a` |
+| generatedAt | 2026-09-18T00:30:00.000Z |
 | versionGate | ok |
-| taskId | task_65010473 |
+| taskId | task_3c0db9bf |
 | packKind | list |
-| changeScope | new_page |
+| changeScope | edit_page |
 
 ---
-<!-- Version meta: skillId=agent-po skillVersion=2026.08.25.01 schemaVersion=1 workflowVersion=2026.09.01.02 rulesVersion=2026.08.31.2 versionGate=ok contentHash=sha256:6da498be3a84192c6f3e3c30a7e8032bf2753359591a9aabd3ad36d809f4c457 -->
+<!-- Version meta: skillId=agent-po skillVersion=2026.08.25.01 schemaVersion=1 workflowVersion=2026.09.05.03 rulesVersion=2026.09.17.3 versionGate=ok contentHash=sha256:f42502cee520105fb0a7f618c17b8b0f582884d7f779f638ec7310c26346e77a changeScope=edit_page taskId=task_3c0db9bf -->

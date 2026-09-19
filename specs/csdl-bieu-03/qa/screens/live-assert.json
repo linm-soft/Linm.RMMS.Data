@@ -1,10 +1,23 @@
 {
   "url": "http://localhost:9301/csdl-bieu-03",
+  "changeScope": "edit_page",
   "hasTitle": true,
   "hasFilter": true,
-  "hasTunnelClass": true,
-  "hasTubeCount": true,
-  "hasKmFrom": true,
+  "hasExportToolbar": true,
+  "hasImportToolbar": false,
+  "importDeferredHidden": true,
+  "filterBarHasNoExport": true,
+  "filterBarMeta": {
+    "foundFilter": true,
+    "hasXuat": false
+  },
+  "exportCheck": {
+    "attempted": true,
+    "ok": true,
+    "fileName": "Bieu03_HamDuongBo_20260918.xls",
+    "hasPath": true,
+    "error": ""
+  },
   "noDemo": true,
   "noModeBadge": true,
   "testids": [
@@ -17,6 +30,7 @@
     "rmms-csdl-bieu-03-list-peer-sots",
     "rmms-csdl-bieu-03-list-list-toolbar",
     "rmms-csdl-bieu-03-list-refresh-btn",
+    "rmms-csdl-bieu-03-list-export-excel-btn",
     "rmms-csdl-bieu-03-list-create-btn",
     "rmms-csdl-bieu-03-list-table-card",
     "rmms-csdl-bieu-03-list-list-title-help",
@@ -38,7 +52,5 @@
     "rmms-csdl-bieu-03-list-view-btn",
     "rmms-csdl-bieu-03-list-grid-wrap",
     "rmms-csdl-bieu-03-list-empty"
-  ],
-  "titleSnippet": "RMMS · Tài sản\nDanh mục\nTài sản đường\nPhân loại mặt đường\nCSDL 12 biểu + 8 sổ\nCSDL Biểu 01 — Phân loại mặt đường\nCSDL Biểu 02 — Thống kê cầu\nCSDL Biểu 03 — Hầm đường bộ\nCSDL Biểu 04 — Cống các loại\nCSDL Biểu 05 — Rãnh các loại\nCSDL Biểu 06 — Hầm chui DS / hộp KT\nHạng mục KCHT\nDS\nDev Standalone\nDeveloper\nBiểu 03 — Hầm đường bộ\n← HubBiểu 03 — Hầm đường bộSổ QL",
-  "peerSots": true
+  ]
 }

@@ -1,85 +1,74 @@
-# handoff-compact — team_lead · csdl-bieu-11
+# Handoff compact — team_lead
 
-| | |
-|--|--|
-| schemaVersion | `1` |
-| role | `team_lead` |
-| feature | `csdl-bieu-11` |
-| title | CSDL Biểu 11 — Hệ thống chiếu sáng |
-| packKind | `list` |
-| changeScope | `new_page` |
-| status | `done` |
-| taskId | `task_345a7e07` |
-| saTaskId | `task_e96d7cf9` |
-| resource | `lighting-systems` |
-| formNo | `11` |
-| columns | `24` · **2 section** lưới + NLMT |
-| IdCode | `LT-` |
-| peerSoTs | `so-ts-lighting` (toolbar · ≠ merge · qty ≠ điểm) |
-| formPattern | **Kind D Slideout** 2col · **2 section** · **cấm** Full-page |
-| Kind | **B** A–D+F · **D** Slideout Z1–Z3 · Z2b NLMT |
-| cabinet | **split** · solar optional_flat 6 · LED allow_zero · gridStatus align_status |
-| route_confirm | **`route_a`** `/csdl-bieu-11` + hub |
-| team_lead_confirm | **approve** (autoApprove ON) |
-| design_confirm | approve |
-| solution_confirm | approve |
-| autoApprove | `ON` |
-| e2eQa | `ON` (queued `/agent-qa*` only) |
-| domain | **Asset** · `api/v1/asset/csdl-records` |
-| entity | shell + `CsdlBieu11Entity` · `Schema_CsdlBieu11` |
-| gates | tz_na · xco_get_only · share_tenant |
-| contentHashPrior | `sha256:7980db07b4712336ab0b675fa89feaab75c67fdaef3b54fe94647ab9ec1863d8` |
-| headerFingerprintPrior | `sha256:b37759a9224c09c7c63bc81583b4a9bcbca02e74cba8b63579819e90d57f1d1a` |
-| skillVersion | `2026.08.25.01` |
-| workflowVersion | `2026.09.01.02` |
-| rulesVersion | `2026.08.31.2` |
-| writtenAt | `2026-09-05T12:35:00.000Z` |
+schemaVersion: 1
+feature: csdl-bieu-11
+packKind: list
+role: team_lead
+status: done
+skillVersion: 2026.09.05.03
+workflowVersion: 2026.09.05.03
+rulesVersion: 2026.09.17.3
+contentHash: sha256:7f64b8dcea4265af23b9f2e5e1dae3ab1c933b0a4404b0f872d39029716b4d62
+headerFingerprint: sha256:b37759a9224c09c7c63bc81583b4a9bcbca02e74cba8b63579819e90d57f1d1a
+writtenAt: 2026-09-18T07:05:00.000Z
+taskId: task_c9c5462f
+saTaskId: task_bb1ffcd0
+resource: lighting-systems
+columns: 24
+blocks: 2
+IdCode: LT-
+formNo: 11
+peerSoTs: so-ts-lighting
+team_lead_confirm: approve
+route_confirm: route_a
+changeScope: edit_page
+formPattern: Slideout
+devSlash: /agent-dev
 
 ## Decisions
+- changeScope: edit_page (T-XLS-S11) · typed CRUD 24/2 **KEEP** · **cấm** reopen
+- route_confirm: route_a keep · hub `/so-ts/csdl-so-sach` + alias `/csdl-bieu-11`
+- Q-XLS: filtered · import_now · `Bieu11_ChieuSang_{yyyyMMdd}.xls` · one_sheet
+- export/import: catalogToolbar · BFF binary/multipart · `/implement-export-import-excel`
+- golden: Cục 16-sheet sheet Biểu 11 · **1 sheet 24** · LED+NLMT cùng hàng · **cấm** 12+8 · **cấm** 2 sheet
+- filter: **cấm** Xuất trên LinErpListFilterBar (GAP-FILTER-BAR-08)
+- peer: so-ts-lighting toolbar KEEP · qty bucket · **≠** merge · **cấm** dump điểm
+- cabinet split · solar flat KEEP · migration **none** @ XLS · Schema_CsdlBieu11 KEEP
+- Gaps: GAP-BIEU11-XLS-01…07
+- mfe: Linm.Web.RMMS.Asset · be: Linm.RMMS.WebService · **cấm ERP.***
+- open questions: none
 
-- changeScope=`new_page` · packKind=`list` · typed **24 cột** · 2 section lưới+NLMT · **cấm** detail* only · **cấm** 2 entity · **cấm** Solar child
-- route_confirm **route_a** alias `/csdl-bieu-11` + hub `?resource=lighting-systems`
-- Q-ROUTE alias_now · Q-PROV keep_static · Q-GRID-STATUS align_status · Q-LED-ZERO allow_zero · Q-SOLAR-REQ optional · Q-CABINET split · Q-LIST-COLS subset · Q-PEER toolbar · Q-TITLE keep_demo
-- Persist shell + Schema_CsdlBieu11 1:1 · solar flat · migration **Dev/4b** · **cấm** parent *Json
-- API **giữ** `asset/csdl-records` · BFF proxy · **cấm ERP.***
-- road-route SearchInput P1 · org/XLS **OUT/DEFER** · peer toolbar `so-ts-lighting` · **cấm** merge · **cấm** dump điểm→qty · map none · GAP-CSDL-CUC-11
-- Grid AC YES · Leave YES · Report N/A
-- open Q: **none**
-
-## Artifacts
-
-| Kind | Path |
-|------|------|
-| task | `specs/csdl-bieu-11/task/csdl-bieu-11.md` |
-| solution | `specs/csdl-bieu-11/be/solution-discovery.md` |
-| design | `specs/csdl-bieu-11/ui/design.md` |
-| STATUS | `specs/csdl-bieu-11/STATUS.md` |
-
-## Task matrix (ids)
-
-T-DM-01 · T-CTX-01 · T-BE-01..06 · T-BFF-01 · T-PERM-01 · T-BE-UISCHEMA-01 · T-UI-LIST/FILTER/CFG/FORM/LEAVE/ACT/LKP/FIELD/PROD/UX/RESP · T-OUT-01/02 · T-QA-CRUD/FORM/FILTER/LED/SOLAR/TYP/TAB/ROUTE
-
-SA map: T-FE-01→LIST · 02→FILTER · 03→FORM · 04→LKP · 05→PROD · 06→LEAVE+ACT · T-BE-01 entity · 02 migr · 03 DTO · 04 IdCode · 05 list · 06 soft/UiSchema
+## Inventory (slim)
+| id | label | controlHint | notes |
+|----|-------|-------------|-------|
+| (form 24/2) | typed prior | keep | **cấm** reopen |
+| exportExcel | Xuất Excel | ToolbarButton | filtered · binary · 1 sheet 24 · LED+NLMT |
+| importExcel | Nhập Excel | ToolbarButton+file | import_now · typed · LED/solar validate |
 
 ## Screens / zones (ids only)
+- S-LIST · S-FORM-* KEEP · S-XLS-EXPORT · S-XLS-IMPORT · S-PEER
+- mfeStdUrl=http://localhost:9301/so-ts/csdl-so-sach · alias /csdl-bieu-11
+- hub=?resource=lighting-systems · peer=/so-ts-lighting
 
-- S-LIST · S-FORM-C/E/V/Copy · S-ACT-DELETE · S-HUB-ENTRY · S-PEER · S-SKIP-MAP
-- mfeStdUrl=`http://localhost:9301/csdl-bieu-11`
-- hub=`http://localhost:9301/so-ts/csdl-so-sach?resource=lighting-systems`
-- peer=`/so-ts-lighting`
-
-## Next
-
-| Role | Need |
-|------|------|
-| **Dev** | implement · T-* · Schema_CsdlBieu11 @ 4b · typed 24 · 2 section |
-| QA | e2e queued `/agent-qa*` |
-| Review | after QA |
+## API / tasks (ids only)
+- FormMode↔API: list/C/E/V/Copy KEEP · export↔API-XLS-01 · import↔API-XLS-02
+- T-* KEEP: T-UI-LIST/FILTER/CFG/FORM/LEAVE/ACT/LKP/FIELD/PROD/UX/RESP · T-BE-CRUD/UISCHEMA · T-PERM · T-QA-*
+- T-XLS pending: T-XLS-BE-01..03 · T-XLS-BFF-01 · T-XLS-FE-01..02 · T-XLS-QA-01
+- deps: BE-01→BE-03→BFF→FE-01→FE-02→QA-01 · BE-02 ∥ BE-01
+- export QS: list filters + side · ignore page
+- header24: code|roadCode|roadName|province|kmFrom|kmTo|side|gridLed600|gridLed240|gridLed150|gridLed125|gridStatus|gridPoleCount|cabinetCount|substationCount|solarPoleCount|solarControllerCount|solarPanel240Wp|solarLamp100W|solarBattery145Ah|solarCabinetCount|status|manageUnit|notes
+- SA map: T-XLS-S11-BE-01/02 · BFF-01 · FE-01/02 · QA-01
+- devSlash: /agent-dev (+ /dev-web-responsive · /dev-ui-review · /implement-export-import-excel)
 
 ## UNCLEAR
-
 - none
 
-## Cấm (compact)
+## Full paths (Read only if needed)
+- task: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-11/task/csdl-bieu-11.md
+- solution: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-11/be/solution-discovery.md
+- design: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-11/ui/design.md
+- STATUS: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-11/STATUS.md
+- prior: handoff/sa-compact.md · design-compact.md · po-compact.md · data_analy-compact.md
 
-ERP.* · invent API · detail* only · Guid IdCode · merge Sổ TS · dump điểm→qty · parent *Json · Solar child · 2 entity · implement code ở TL · Step 4b/migration/e2e/build/start:std ở TL · start role khác
+## Cấm (compact)
+ERP.* · invent API · filter-bar export · 12+8 · 2-sheet invent · dump điểm Sổ TS · reopen typed · implement code · e2e · yarn build/start:std · Step4b @ TL

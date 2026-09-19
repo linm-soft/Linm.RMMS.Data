@@ -3,7 +3,12 @@
   "status": "confirmed",
   "verdict": "PASS",
   "review_confirm": "approve",
-  "taskId": "task_1b0469b6",
-  "writtenAt": "2026-09-05T15:15:00.000Z",
-  "autoApprove": true
+  "changeScope": "edit_page",
+  "taskId": "task_85081249",
+  "priorTypedTaskId": "task_1b0469b6",
+  "priorQaTaskId": "task_fae5cc8a",
+  "writtenAt": "2026-09-18T09:05:00.000Z",
+  "autoApprove": true,
+  "contentHash": "sha256:e9a062f1f9eecd6bf98748db0c3f839e2247a74ecb9bcd56273d4e48d729fa0a",
+  "headerFingerprint": "sha256:14cd156a898dcc971a072dd1cd1b92460a8b597558a90dc9854fead9d4c4de5c"
 }

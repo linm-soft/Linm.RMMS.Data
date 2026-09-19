@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Prototype — Quản lý người dùng (users) · Kind B A–D + full-page</title>
+  <title>Prototype — Quản lý người dùng (users) · Kind B A–D + job-title delta</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
     :root {
@@ -103,7 +103,7 @@
         <span class="badge">Kind B list</span>
         <span class="badge badge-warn">Auth tạm · Integration</span>
       </header>
-      <p class="hint">Prototype content-only · zones A–D + tree org · full-page form · SearchInput · không chrome/menu demo.</p>
+      <p class="hint">Prototype content-only · zones A–D + tree org · full-page form · SearchInput · delta chức vụ (job-title) · không chrome/menu demo.</p>
 
       <div class="zone-b" data-zone="B" data-testid="users-toolbar">
         <div class="zone-b-left">
@@ -144,6 +144,16 @@
               <div class="lkp-list" id="fltRouteList"></div>
             </div>
           </div>
+          <div class="field">
+            <label for="fltJobTitle">Chức vụ</label>
+            <div class="lkp" id="fltJobTitleLkp">
+              <div class="search-wrap">
+                <input id="fltJobTitle" type="search" placeholder="SearchInput · job-title" autocomplete="off" data-testid="filter-job-title" />
+                <button type="button" aria-label="Chọn chức vụ"><i class="fas fa-search"></i></button>
+              </div>
+              <div class="lkp-list" id="fltJobTitleList"></div>
+            </div>
+          </div>
           <button type="button" class="btn" title="Làm mới"><i class="fas fa-sync-alt"></i> Làm mới</button>
           <button type="button" class="btn" title="Lịch sử"><i class="fas fa-history"></i> Lịch sử</button>
           <button type="button" class="btn" title="Cấu hình"><i class="fas fa-cog"></i></button>
@@ -173,7 +183,7 @@
                 <tr>
                   <th class="col-stt">STT</th>
                   <th class="col-check"><input type="checkbox" aria-label="Chọn tất cả" /></th>
-                  <th>Mã</th><th>Họ tên</th><th>Tổ chức</th>
+                  <th>Mã</th><th>Họ tên</th><th>Tổ chức</th><th>Chức vụ</th>
                   <th>Vai trò / Cấp</th><th>Tuyến</th><th>Trạng thái</th><th>SĐT</th><th></th>
                 </tr>
               </thead>
@@ -182,7 +192,7 @@
                   <td class="col-stt">1</td>
                   <td class="col-check"><input type="checkbox" /></td>
                   <td><button type="button" class="code" data-mode="view">USR-20260815-0001</button></td>
-                  <td>Nguyễn Anh Phúc</td><td>VP-II.2</td><td>Ban.TK</td><td>QL.1</td><td>Đang dùng</td><td>0912…</td>
+                  <td>Nguyễn Anh Phúc</td><td>VP-II.2</td><td>Hạt trưởng</td><td>Ban.TK</td><td>QL.1</td><td>Đang dùng</td><td>0912…</td>
                   <td>
                     <details class="menu">
                       <summary>⋮</summary>
@@ -202,7 +212,7 @@
                   <td class="col-stt">2</td>
                   <td class="col-check"><input type="checkbox" /></td>
                   <td><button type="button" class="code" data-mode="view">USR-20260809-0003</button></td>
-                  <td>Trần Thị B</td><td>Khu II</td><td>Kỹ thuật</td><td>QL.14</td><td>Đang dùng</td><td>0987…</td>
+                  <td>Trần Thị B</td><td>Khu II</td><td>Chuyên viên</td><td>Kỹ thuật</td><td>QL.14</td><td>Đang dùng</td><td>0987…</td>
                   <td>
                     <details class="menu">
                       <summary>⋮</summary>
@@ -340,6 +350,14 @@
     const ROLES = [{v:'',l:'Tất cả'},{v:'admin',l:'Admin'},{v:'ban-tk',l:'Ban.TK'},{v:'ky-thuat',l:'Kỹ thuật'}];
     const STATUSES = [{v:'',l:'Tất cả'},{v:'active',l:'Đang dùng'},{v:'locked',l:'Khóa'}];
     const ROUTES = [{v:'',l:'Tất cả'},{v:'QL.1',l:'QL.1'},{v:'QL.14',l:'QL.14'},{v:'QL.1K',l:'QL.1K'}];
+    const JOBTITLES = [
+      {v:'',l:'Tất cả'},
+      {v:'HAT-TRUONG',l:'Hạt trưởng'},
+      {v:'CHUYEN-VIEN',l:'Chuyên viên'},
+      {v:'TUAN-DUONG',l:'Tuần đường'},
+      {v:'TUAN-KIEM',l:'Tuần kiểm'},
+      {v:'DOI-TRUONG',l:'Đội trưởng'}
+    ];
     const ORGS = [{v:'VP-II.2',l:'VP-II.2 Văn phòng QLĐB II.2'},{v:'KHU-II',l:'KHU-II Khu quản lý đường bộ II'},{v:'DRVN',l:'DRVN Cục QLĐB'}];
     const USERS = [{v:'USR-20260809-0003',l:'USR-20260809-0003 Trần Thị B'},{v:'USR-20260815-0001',l:'USR-20260815-0001 Nguyễn Anh Phúc'}];
 
@@ -365,6 +383,7 @@
     bindLkp('fltRoleLkp','fltRoleList',ROLES,'fltRole');
     bindLkp('fltStatusLkp','fltStatusList',STATUSES,'fltStatus');
     bindLkp('fltRouteLkp','fltRouteList',ROUTES,'fltRoute');
+    bindLkp('fltJobTitleLkp','fltJobTitleList',JOBTITLES,'fltJobTitle');
     bindLkp('assignRouteLkp','assignRouteList',ROUTES.filter(r=>r.v));
     bindLkp('assignUserLkp','assignUserList',USERS);
 
@@ -394,6 +413,7 @@
           <dt>Email</dt><dd>phuc@example.com</dd>
           <dt>Số điện thoại</dt><dd>0912…</dd>
           <dt>Tổ chức</dt><dd>VP-II.2</dd>
+          <dt>Chức vụ</dt><dd>Hạt trưởng</dd>
           <dt>Vai trò / Cấp</dt><dd>Ban.TK</dd>
           <dt>Trạng thái</dt><dd>Đang dùng</dd>
           <dt>Tuyến được phân</dt><dd>QL.1</dd>
@@ -408,6 +428,9 @@
         <div class="field"><label>Số điện thoại</label><input type="tel" value="${create && mode!=='copy' ? '' : '0912'}" /></div>
         <div class="field"><label class="req">Tổ chức</label>
           <div class="lkp" id="frmOrgLkp"><div class="search-wrap"><input id="frmOrg" type="search" placeholder="SearchInput · org-unit" value="${create && mode!=='copy' ? '' : 'VP-II.2'}" /><button type="button"><i class="fas fa-search"></i></button></div><div class="lkp-list" id="frmOrgList"></div></div>
+        </div>
+        <div class="field"><label>Chức vụ</label>
+          <div class="lkp" id="frmJobTitleLkp"><div class="search-wrap"><input id="frmJobTitle" type="search" placeholder="SearchInput · job-title" value="${create && mode!=='copy' ? '' : 'Hạt trưởng'}" data-testid="form-job-title" /><button type="button"><i class="fas fa-search"></i></button></div><div class="lkp-list" id="frmJobTitleList"></div></div>
         </div>
         <div class="field"><label>Vai trò / Cấp</label>
           <div class="lkp" id="frmRoleLkp"><div class="search-wrap"><input id="frmRole" type="search" placeholder="SearchInput" value="${create && mode!=='copy' ? '' : 'Ban.TK'}" /><button type="button"><i class="fas fa-search"></i></button></div><div class="lkp-list" id="frmRoleList"></div></div>
@@ -434,6 +457,7 @@
       page.classList.add('mode-form');
       if (mode !== 'view') {
         bindLkp('frmOrgLkp','frmOrgList',ORGS,'frmOrg');
+        bindLkp('frmJobTitleLkp','frmJobTitleList',JOBTITLES.filter(j=>j.v),'frmJobTitle');
         bindLkp('frmRoleLkp','frmRoleList',ROLES.filter(r=>r.v),'frmRole');
         bindLkp('frmStatusLkp','frmStatusList',STATUSES.filter(s=>s.v),'frmStatus');
         bindLkp('frmRouteLkp','frmRouteList',ROUTES.filter(r=>r.v),'frmRoute');

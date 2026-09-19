@@ -1,88 +1,70 @@
-# handoff-compact — review · csdl-bieu-05
+# Handoff compact — review
 
-| | |
-|--|--|
-| schemaVersion | `1` |
-| role | `review` |
-| feature | `csdl-bieu-05` |
-| title | CSDL Biểu 05 — Rãnh các loại |
-| packKind | `list` |
-| changeScope | `new_page` |
-| status | `done` |
-| verdict | **PASS** |
-| review_confirm | **approve** (autoApprove ON) |
-| fix_gaps | **none** (blocking) |
-| taskId | `task_d12c1bda` |
-| priorQaTaskId | `task_6983c8c2` |
-| resource | `ditches` |
-| formNo | `05` |
-| columns | `18` |
-| IdCode | `RN-` |
-| peerSoTs | `so-ts-ditch` |
-| formPattern | **Kind D Slideout** 2col |
-| Kind | **B** A–D+F · **D** Slideout Z1–Z3 |
-| route_confirm | `route_a` |
-| mfeStdUrl | `http://localhost:9301/csdl-bieu-05` |
-| hubDeepLink | `/so-ts/csdl-so-sach?resource=ditches` |
-| domain | **Asset** · `api/v1/asset/csdl-records` |
-| e2eQa | **PASS** |
-| yarnBuild | **PASS** |
-| yarnTypecheck | **PASS** |
-| dotnetBuild | **PASS** |
-| contentHashPrior | `sha256:fd4e6899790aa98d6bc4cb628dc9c0bc5efc90acb3abf03a7b157cf123590117` |
-| hashSkip | `true` |
-| skillVersion | `2026.08.29.03` |
-| workflowVersion | `2026.09.01.02` |
-| rulesVersion | `2026.08.31.2` |
-| writtenAt | `2026-09-05T07:10:30.000Z` |
+schemaVersion: 1
+feature: csdl-bieu-05
+packKind: list
+role: review
+status: confirmed
+verdict: PASS
+review_confirm: approve
+skillVersion: 2026.09.05.03
+workflowVersion: 2026.09.05.03
+rulesVersion: 2026.09.17.3
+contentHash: sha256:9e3e8cf8e90fb3a3e8252d1725b78ea2494b171d3b7507d0a57b13c7052da728
+headerFingerprint: sha256:008898723c0a5b94fae7de8810903b1dcc39ccfd0dfa5d4a36dd398eb088ac2f
+writtenAt: 2026-09-18T04:09:28.640Z
+taskId: task_0a8478f7
+priorQaTaskId: task_b9a2f418
+resource: ditches
+columns: 18
+IdCode: RN-
+changeScope: edit_page
+formPattern: Slideout
+autoApprove: ON
+e2eQa: ON
+mfeStdUrl: http://localhost:9301/so-ts/csdl-so-sach
+hubDeepLink: /so-ts/csdl-so-sach?resource=ditches
+peerSoTs: so-ts-ditch
 
 ## Decisions
+- changeScope: edit_page (T-XLS-S05) · typed CRUD **KEEP** · **cấm** reopen 18-col
+- review_confirm: **approve** (autoApprove ON) · verdict **PASS** · **0** fix_gaps
+- layers: QUERY/SEC/UI-FN/BE-FN **PASS**
+- Q-XLS-SCOPE: filtered · FILENAME: `Bieu05_RanhCacLoai_{yyyyMMdd}.xls` · Import **DEFER P1** ẩn
+- export: catalogToolbar · BFF binary · filter-all · **cấm** streaming P0
+- filter: **0** Xuất on LinErpListFilterBar (GAP-FILTER-BAR-08)
+- peer: **cấm** merge so-ts-ditch (GAP-BIEU05-XLS-PEER)
+- golden: sheet «Biểu 5» · 18 cols · **cấm** 12+8
+- QA evidence: T-XLS-QA-01 PASS · S0/S1/QA-20 PASS
+- **cấm** implement / e2e / start:std @ Review
+- open questions: none
 
-- QUERY/SEC/UI-FN/BE-FN **PASS** · review_confirm **approve**
-- Hash unchanged → skip re-open data-analy
-- Typed 18 + Schema_CsdlBieu5 + ditchKind + shape rect/trap/round · **cấm** detail*-only · **cấm ERP.***
-- Auth RequirePermission DEFER · ORG/XLS OUT/DEFER · GAP-QA-E2E-PW-01 P2
-- open Q: **none**
+## Inventory (slim)
+| id | label | controlHint | notes |
+|----|-------|-------------|-------|
+| exportExcel | Xuất Excel | ToolbarButton | filtered · PASS |
+| importExcel | Nhập Excel | ToolbarButton+file | DEFER P1 · ẩn · PASS |
+| (form 18) | typed prior | keep | KEEP |
+
+## Screens / zones (ids only)
+- S-LIST · S-XLS-EXPORT · S-XLS-IMPORT (hidden) · S-FORM-* KEEP · S-HUB-ENTRY
+- testid=`rmms-csdl-bieu-05-list-page` · `…-export-excel-btn`
 
 ## Layers
-
-| Layer | Result |
-|-------|--------|
+| Layer | Verdict |
+|-------|---------|
 | QUERY | PASS |
-| SEC | PASS (Auth DEFER) |
+| SEC | PASS (T-PERM-01 debt) |
 | UI-FN | PASS |
 | BE-FN | PASS |
 
-## Artifacts
-
-| Kind | Path |
-|------|------|
-| findings | `specs/csdl-bieu-05/review/findings.md` |
-| meta | `specs/csdl-bieu-05/review/REVIEW-META.json` |
-| STATUS | `specs/csdl-bieu-05/STATUS.md` |
-
-## Evidence (ids)
-
-| Case | Result | sha16 |
-|------|--------|-------|
-| S0 | PASS | `a23703a704e66bd1` |
-| S1 | PASS | `ea9bebf5a586b1e3` |
-| QA-20 | PASS | `b8607424dc589ce0` |
-
 ## Debt
-
-- GAP-QA-E2E-PW-01 P2 · T-PERM-01 Auth DEFER · GAP-CSDL-ORG-01 P2 · GAP-CSDL-XLS-01 OUT
-
-## Next
-
-| Role | Need |
-|------|------|
-| — | roleOnly=review **done** · task completed · **cấm** start role khác |
+- T-PERM-01 · Import P1 · GAP-CSDL-ORG-01 · GAP-QA-E2E-PW-01 P2 · docker rebuild ops
 
 ## UNCLEAR
-
 - none
 
-## Cấm (compact)
-
-ERP.* · implement · e2e/start:std/build ở Review · Step 4b/migration · invent API · merge Sổ TS · kill worker · start role khác
+## Full paths
+- findings: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-05/review/findings.md
+- STATUS: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-05/STATUS.md
+- prior: handoff/qa-compact.md

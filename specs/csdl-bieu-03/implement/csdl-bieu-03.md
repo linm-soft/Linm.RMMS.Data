@@ -1,68 +1,80 @@
-# Implement — csdl-bieu-03 (CSDL Biểu 03 — Hầm đường bộ)
+# Implement — csdl-bieu-03 (CSDL Biểu 03 — Xuất Excel T-XLS-S03)
 
 | Field | Value |
 |-------|-------|
 | feature | `csdl-bieu-03` |
 | this role | `dev` · `/agent-dev` |
 | status | **done** |
-| changeScope | `new_page` |
+| changeScope | **`edit_page`** · epic Wave 1 · **T-XLS-S03** |
 | packKind | `list` |
 | resource | `road-tunnels` |
 | formNo | `03` |
 | columns | `42` |
 | IdCode | `TN-yyyyMMdd-nnnn` |
-| mfeStdRoute | `/csdl-bieu-03` |
-| mfeStdUrl | `http://localhost:9301/csdl-bieu-03` |
+| mfeStdRoute | `/so-ts/csdl-so-sach` · alias `/csdl-bieu-03` |
+| mfeStdUrl | `http://localhost:9301/so-ts/csdl-so-sach` |
 | hubDeepLink | `/so-ts/csdl-so-sach?resource=road-tunnels` |
 | domain | Asset · `api/v1/asset/csdl-records` |
-| entity | shell + `CsdlBieu3Entity` · `Schema_CsdlBieu3` |
-| taskId | `task_8650b573` |
-| contentHashPrior | `sha256:2c03537918bbda56c29e1e1ef98cc081cc4e72c94447a1ac2f87f06bd6f9310e` |
-| writtenAt | `2026-09-05T09:20:00.000Z` |
+| entity | shell + `CsdlBieu3Entity` · **KEEP** · **no new migration** |
+| taskId | `task_310ad88c` |
+| tlTaskId | `task_28ddf784` |
+| contentHash | `sha256:57fc9dab0df1bc69fa444e65b543c8bc14b7ef9b2f12d92f72b12fa40e5cc1d9` |
+| headerFingerprint | `sha256:3574a45ea4cc36f0f01b6cff9e5a7577f52fdb7a7b79508685c1038b473564d8` |
+| writtenAt | `2026-09-18T02:50:00.000Z` |
 | yarn build | **PASS** |
 | dotnet build | **PASS** |
 
 ## Decisions locked (no controlHint change)
 
-- Q-GPS **six_numbers** · Q-TUBE **two_rows** · Q-VENT **text** · Q-SECTION **sectioned** · Q-ROUTE **alias_now** · Q-PROV **keep_static**
-- Kind B list + Kind D Slideout 2col · **cấm** Full-page · **cấm** detail* only
-- API giữ `asset/csdl-records` · BFF proxy · **cấm ERP.***
-- Peer Sổ 6 deep-link only · map none
+- changeScope **edit_page** · typed CRUD 42-col **KEEP** · **cấm** reopen
+- Q-XLS-SCOPE **filtered** · FILENAME `Bieu03_HamDuongBo_{yyyyMMdd}.xls` · Import **DEFER P1**
+- XLS-TUBE: **1 Excel row = 1 ống** (+ GPS) · keep two_rows CRUD
+- golden: sheet **Biểu 3** · 42 cols · GPS×3 · **cấm** 12+8
+- filter: **cấm** Xuất trên `LinErpListFilterBar` (GAP-FILTER-BAR-08)
+- API prefix KEEP `api/v1/asset/csdl-records` · BFF binary proxy · **cấm ERP.***
+- migration **none** @ XLS · gates tz_na / xco_get_only / share_tenant
 
 ## FE (Linm.Web.RMMS.Asset)
 
 | Item | Path / note |
 |------|-------------|
-| Page | `src/pages/CsdlBieu03Page/` |
-| Route | `src/index.tsx` → `/csdl-bieu-03` |
-| Dev menu | `src/dev/devRoutes.ts` |
-| Types/query | `responseModel` · `requestModel` · `csdlService` · `endpoint` (+ `tunnelClass`/`tubeCount`) |
-| List | `LinErpListFilterBar` · `buildDynamicGridColumns` · `LinCatalogUiSchemaEditorModal` · **no** leftover `const columns`/`configHint` |
-| Form | Slideout sectioned: chung · GPS · kết cấu · thoát+PCCC · thiết bị |
-| Copy/tube | Copy → ống 2 (`tubeCount=2`,`tubeIndex=2`) khi 1 ống; multi → increment `tubeIndex` |
-| Peer | deep-link `bridge-inspections` · hub `road-tunnels` |
+| Page | `src/pages/CsdlBieu03Page/CsdlBieu03Page.tsx` · `onExportExcel` + busy |
+| Service | `csdlService.exportExcel` · `endpoint.exportExcel` (+ `tunnelClass`/`tubeCount` · filename fallback) |
+| Toolbar | `fromCatalogToolbar` · catalogToolbar Xuất Excel · **cấm** Import P0 · **cấm** filter-bar export |
+| Typed KEEP | Slideout · filters · `buildDynamicGridColumns` · schema editor |
 
 ## BE (Linm.RMMS.WebService)
 
 | Item | Path / note |
 |------|-------------|
-| Entity | `CsdlBieu3Entity` · table `rmms_csdl_bieu3` |
-| DTO | `CsdlBieu3Dtos.cs` + flatten on `CsdlCatalogDtos` |
-| Service | `CsdlCatalogService` · `IsRoadTunnels` · join/CRUD/validate |
-| Filters | `tunnelClass` · `tubeCount` · search `TunnelName` |
-| Migration | `20260905085812_Schema_CsdlBieu3` |
-| DOMAIN-MAP | `csdl-bieu-03` → Asset (**T-DM-01**) |
-| BFF | proxy only (no logic change) |
+| Excel | `CsdlCatalogExcelService.ExportAsync` · branch `road-tunnels` · sheet Biểu 3 · 42 headers |
+| Controller | `CsdlCatalogRecordsController.Export` · QS `tunnelClass`/`tubeCount` |
+| Mode | filter-all · pageSize cap 10_000 · ignore client page |
+| Empty | headers-only OOXML · valid file |
+| Filename | `Bieu03_HamDuongBo_{yyyyMMdd}.xls` |
+| BFF | `CsdlCatalogRecordsBffController` binary pass-through **KEEP** (QS forward) |
+| Migration | **none** |
 
 ## Task matrix status
 
 | Task | Status |
 |------|--------|
-| T-DM-01 · T-CTX-01 | **done** |
-| T-BE-01..05 · T-BFF-01 · T-PERM-01 · T-BE-UISCHEMA-01 | **done** (perm reuse stub) |
-| T-UI-LIST/FILTER/CFG/FORM/LEAVE/ACT/LKP/FIELD/PROD/UX/RESP | **done** |
-| T-OUT-01 | OUT (XLS) |
-| T-QA-* | pending `/agent-qa*` |
+| T-CTX-XLS-01 · T-OUT-01 | **done** (Import UI ẩn) |
+| T-XLS-BE-01 · T-XLS-BE-02 | **done** |
+| T-XLS-BFF-01 | **done** (existing proxy) |
+| T-XLS-FE-01 · T-XLS-FE-02 | **done** |
+| T-XLS-QA-01 | pending `/agent-qa*` |
+| T-REG-GRID/TUBE | verify-only · typed unchanged |
+
+## Gaps
+
+| id | Status |
+|----|--------|
+| GAP-BIEU03-XLS-01 (toolbar) | **closed** |
+| GAP-BIEU03-XLS-02 (export binary) | **closed** |
+| GAP-BIEU03-XLS-03 (import) | DEFER P1 |
+| GAP-BIEU03-XLS-04 (filter-all) | **closed** |
+| GAP-BIEU03-XLS-05 (tube-row) | **closed** |
 
 ## Build gate
 
@@ -72,19 +84,18 @@
 
 ## Debt
 
-- Legacy `detail*` backfill → typed **optional** (not run)
-- LOOKUP tunnelClass/crossingType normalize-only (strict 422 DEFER)
+- getBlob may strip Content-Disposition · FE fallback filename OK
 - Auth wire `asset.csdl-records.*` DEFER
-- `dotnet ef database update` deploy gate for `Schema_CsdlBieu3`
-- GAP-CSDL-ORG-01 SearchInput org P2 · GAP-CSDL-XLS-01 OUT
+- Import Excel P1
+- GAP-CSDL-ORG-01 SearchInput org P2
 
 ## Version meta
 
 | Field | Value |
 |-------|-------|
 | skillId | agent-dev |
-| skillVersion | 2026.08.25.01 |
-| workflowVersion | 2026.09.01.02 |
-| rulesVersion | 2026.08.31.2 |
+| skillVersion | 2026.09.05.03 |
+| workflowVersion | 2026.09.05.03 |
+| rulesVersion | 2026.09.17.3 |
 | packKind | list |
-| changeScope | new_page |
+| next | QA `/agent-qa*` · T-XLS-QA-01 |

@@ -1,76 +1,84 @@
-# Implement — csdl-bieu-11
+# Implement — csdl-bieu-11 (CSDL Biểu 11 — Hệ thống chiếu sáng)
 
 | Field | Value |
 |-------|-------|
 | feature | `csdl-bieu-11` |
-| title | CSDL Biểu 11 — Hệ thống chiếu sáng |
-| this role | `dev` · `/agent-dev` |
+| role | `dev` · `/agent-dev` |
 | status | **done** |
-| changeScope | `new_page` |
+| changeScope | `edit_page` · `T-XLS-S11` |
 | packKind | `list` |
 | resource | `lighting-systems` |
 | formNo | `11` |
 | IdCode | `LT-yyyyMMdd-nnnn` |
-| route | `/csdl-bieu-11` + hub `?resource=lighting-systems` |
-| mfeStdUrl | `http://localhost:9301/csdl-bieu-11` |
-| peer | `/so-ts-lighting` (toolbar · ≠ merge) |
-| domain | Asset · `api/v1/asset/csdl-records` |
-| entity | shell + `CsdlBieu11Entity` · `rmms_csdl_bieu11` · `Schema_CsdlBieu11` |
-| taskId | `task_049ab5a3` |
-| tlTaskId | `task_345a7e07` |
-| contentHashPrior | `sha256:7980db07b4712336ab0b675fa89feaab75c67fdaef3b54fe94647ab9ec1863d8` |
+| mfeStdUrl | `http://localhost:9301/so-ts/csdl-so-sach` |
+| alias | `/csdl-bieu-11` |
+| hub | `/so-ts/csdl-so-sach?resource=lighting-systems` |
+| peer | `/so-ts-lighting` toolbar deep-link · ≠ merge |
+| taskId | `task_e7125d74` |
+| priorTyped | `task_049ab5a3` |
+| tlTaskId | `task_c9c5462f` |
+| contentHashPrior | `sha256:7f64b8dcea4265af23b9f2e5e1dae3ab1c933b0a4404b0f872d39029716b4d62` |
 | headerFingerprintPrior | `sha256:b37759a9224c09c7c63bc81583b4a9bcbca02e74cba8b63579819e90d57f1d1a` |
-| updatedAt | `2026-09-05T13:00:00.000Z` |
-| yarnBuild | **PASS** |
-| dotnetBuild | **PASS** |
+| buildMfe | **PASS** (`yarn build`) |
+| buildBe | **PASS** (`dotnet build` Api + Asset.Bff) |
+| writtenAt | `2026-09-18T07:10:00.000Z` |
 
-## Delivered
+## Delta delivered (edit_page T-XLS-S11)
 
-### FE (MFE Asset)
-- Page `CsdlBieu11Page` Kind B · `LinErpListFilterBar` · `buildDynamicGridColumns` · `LinCatalogUiSchemaEditorModal` (catalogKind=`lighting-systems`)
-- Form `CsdlBieu11FormSlideout` Kind D · 2col · **2 section** lưới + NLMT optional · LeaveConfirm · View readOnly
-- Route alias `/csdl-bieu-11` · hub redirect · peer toolbar `so-ts-lighting`
-- List subset: shared + LED4 + gridStatus + pole/cabinet + status
-- Filters: search · province · status · road-route SearchInput · km · side · gridStatus
-- DTO models + `gridStatus` list query on `csdlService`/`endpoint`
+| Area | Done |
+|------|------|
+| Export | GET `…/csdl-records/export?resource=lighting-systems` · sheet **Biểu 11** · **24 cols** · LED+NLMT cùng hàng · `Bieu11_ChieuSang_{yyyyMMdd}.xls` |
+| Import | POST `…/import` multipart · sheetMap Biểu 11 · upsert by code · import_now · validate `gridStatus` |
+| Filter QS | list filters + `side` + `gridStatus` · ignore page · filter-all cap |
+| Toolbar | catalogToolbar Xuất/Nhập · **cấm** LinErpListFilterBar export |
+| Typed keep | Schema_CsdlBieu11 · 24/2 Slideout · **cấm** reopen |
+| Migration | **none** @ XLS |
 
-### BE (Linm.RMMS.WebService)
-- `CsdlBieu11Entity` + migration `Schema_CsdlBieu11` · EF 1:1 cascade
-- Flattened typed fields on catalog DTO/create/update
-- `CsdlCatalogService` join/create/upsert/map + list filter `gridStatus`
-- UiSchema seed `lighting-systems`
-- DOMAIN-MAP `csdl-bieu-11` → Asset
-- BFF proxy unchanged (typed fields ride JSON)
+## FE
 
-## Task matrix (Dev)
+- `CsdlBieu11Page` — `onExportExcel` / `onImportExcel` via `fromCatalogToolbar`
+- `csdlService.exportExcel` + `endpoint.exportExcel` — `gridStatus` QS + filename fallback `Bieu11_ChieuSang_*`
+- Hidden file input `rmms-csdl-bieu-11-list-import-file`
+- Typed CRUD / Slideout / schema-config **unchanged**
 
-| ID | Status |
-|----|--------|
-| T-DM-01 | done |
-| T-CTX-01 | done (STATUS/context sync) |
-| T-BE-01..06 | done |
-| T-BFF-01 | done (proxy verify · no logic) |
-| T-PERM-01 | done (reuse) |
-| T-BE-UISCHEMA-01 | done |
-| T-UI-LIST/FILTER/CFG/FORM/LEAVE/ACT/LKP/FIELD/PROD/UX/RESP | done |
-| T-OUT-01/02 | done (XLS OUT stub · peer toolbar) |
+## BE
+
+- `CsdlCatalogExcelService` — Bieu11ExportHeaders (24) · ExportAsync branch · MapRowToCreate/Validate/ToUpdate · upsert lighting-systems
+- `CsdlCatalogRecordsController.Export` — `[FromQuery] gridStatus`
+- Interface `ICsdlCatalogExcelService.ExportAsync` + `gridStatus`
+- Entity/migration **KEEP** Schema_CsdlBieu11
+
+## BFF
+
+- `CsdlCatalogRecordsBffController` — proxy QS (incl. gridStatus) + multipart import + binary export · **no** business remap
 
 ## APIs
 
-| Method | Path |
-|--------|------|
-| GET/POST/PUT/DELETE | `/api/v1/asset/csdl-records` (+ BFF `web-bff/...`) · `resource=lighting-systems` |
-| GET | `/api/v1/integration/road-routes/search` |
-| GET/PUT | `/api/v1/integration/catalogs/lighting-systems/ui-schema` |
+| Method | Path | Notes |
+|--------|------|-------|
+| GET/POST/PUT/DELETE | `/api/v1/asset/csdl-records` | `resource=lighting-systems` · KEEP |
+| GET | `…/export?resource=lighting-systems` | binary OOXML · filtered · +gridStatus/side |
+| POST | `…/import` · `…/import/preview` | multipart · sheet Biểu 11 |
+| BFF | `/web-bff/api/v1/asset/csdl-records/**` | proxy only |
 
-## Debt / DEFER
+## Task matrix (Dev XLS)
 
-- Migration apply DB (runtime Step 4b / migrate-on-start)
-- Auth wire `asset.csdl-records.*` (reuse stub)
-- manageUnit SearchInput org-unit **P2**
-- XLS Biểu 11 **OUT**
-- Solar child entity **cấm P1**
+| id | status |
+|----|--------|
+| T-XLS-BE-01..03 | **done** |
+| T-XLS-BFF-01 | **done** (proxy keep) |
+| T-XLS-FE-01/02 | **done** |
+| T-XLS-QA-01 | queued `/agent-qa*` |
+| Typed T-* prior | KEEP done |
 
-## Cấm respected
+## Gates
 
-ERP.* · invent API · detail* only · Guid IdCode · merge Sổ TS · dump điểm→qty · parent *Json · Solar child · e2e/start:std @ Dev
+list-form quality · GAP-FILTER-BAR-08 · GAP-BIEU11-XLS-01…07 · yarn build PASS · dotnet build PASS · **cấm** e2e @ Dev
+
+## Debt
+
+- Auth wire DEFER · migrate apply env (prior) · GAP-QA-E2E-PW-01 · org SearchInput P2
+
+## Next
+
+- QA: scenarios + e2e S-XLS · review

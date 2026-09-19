@@ -1,86 +1,76 @@
-# Dev implement — csdl-so-02
+# Dev implement — csdl-so-02 (CR PDF Wave A)
 
 | Field | Value |
 |-------|-------|
 | feature | `csdl-so-02` |
-| title | CSDL Sổ 02 — Nhật ký tuần đường |
+| title | CSDL Sổ 02 — Nhật ký tuần đường (LocationText) |
 | this role | `dev` · `/agent-dev` |
 | status | **confirmed** |
-| changeScope | `new_page` |
+| changeScope | `edit_page` |
 | packKind | `list` |
+| cr | `nktd-pdf-20260917` · Wave A |
 | resource | `patrol-logs` |
 | formNo | `02` |
-| IdCode | `SO-yyyyMMdd-nnnn` |
+| IdCode | `SO-` |
 | route_confirm | `route_a` · `/csdl-so-02` + hub |
 | mfeStdUrl | `http://localhost:9301/csdl-so-02` |
 | hubDeepLink | `/so-ts/csdl-so-sach?resource=patrol-logs` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Asset` |
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` |
-| domain | **Asset** · `api/v1/asset/csdl-records` |
-| taskId | `task_d4e4f9fe` |
+| domain | **Asset** · `api/v1/asset/csdl-records?resource=patrol-logs` |
+| taskId | `task_00facaea` |
 | yarnBuild | **PASS** |
 | dotnetBuild | **PASS** |
 | e2eQa | ON (queued `/agent-qa*` only · **cấm** e2e ở Dev) |
-| contentHashPrior | `sha256:70538d9c9588d335aa43fd5a1fe28433d1138960d5954c5a7ef4cff33a5bd1c3` |
-| updatedAt | `2026-09-06T00:36:00.000Z` |
+| contentHashPrior | `sha256:3ddc42d7c4404f439925322953f28ffc9d3b263726ac6cf5216065751c19b4d6` |
+| updatedAt | `2026-09-18T04:15:00.000Z` |
 
 ## Summary
 
-Typed Kind B list + Kind D Slideout for Sổ 02 (`patrol-logs`): FE alias page, BE `CsdlSo02Entity` + widened book entries, UiSchema, DOMAIN-MAP. API prefix unchanged. Builds PASS.
+Wave A `edit_page`: thêm `LocationText` (nvarchar 512) trên entry · OR-rule Km\|text · weather Textarea · list cột «Vị trí» · migration `Schema_CsdlSo02LocationText` · **giữ** API path · **cấm** reuse Sổ01 `Location`.
 
 ## FE (MFE Asset)
 
-| Item | Path / note |
-|------|-------------|
-| Page | `src/pages/CsdlSo02Page/` — list + FormSlideout + css |
-| Route | `src/index.tsx` · `csdl-so-02` |
-| Hub redirect | `TYPED_RESOURCE_ROUTES['patrol-logs']` → `/csdl-so-02` |
-| Label | SO_RESOURCES formNo `2` · title «Sổ 02 — Nhật ký tuần đường» |
-| List | `uiColumns` + `buildDynamicGridColumns` · `LinCatalogUiSchemaEditorModal` kind `patrol-logs` |
-| Filter | search · province · status · road-route · fromDate/toDate |
-| Form | 2col typed header + entries inline_grid · LeaveConfirm · C/E/V/Copy/Delete · History reuse |
-| DTOs | `services/csdlSoSach` — patrolStaff/period* + typed entry fields |
-| File P1 | sketchRef + mediaIds as text ids · max 10 (BE validates) |
+| Item | Note |
+|------|------|
+| Form | `CsdlSo02FormSlideout` — `locationText` Text cạnh Km · weather Textarea rows=3 maxLength=2000 · OR soft |
+| List | `CsdlSo02Page` — cột `locationText` «Vị trí» luôn · empty «—» · `buildDynamicGridColumns` |
+| DTO | `responseModel` / `requestModel` — `entries[].locationText` + record list projection |
+| Filter-bar | Wrote `docs/context/features/csdl-so-02-filter-bar.md` từ live |
+| File | sketchRef/mediaIds text-id · **GAP-SO02-FILE-01** |
 
 ## BE (Linm.RMMS.WebService)
 
 | Item | Note |
 |------|------|
-| Entity | `CsdlSo02Entity` · table `rmms_csdl_so02` · PatrolStaff · PeriodStart/End |
-| Entries | widen EventAt · LocationKm · WeatherEvent · OnSiteAction · RemarkSign · SketchRef · MediaIds |
-| Migration | `20260905240000_Schema_CsdlSo02` |
-| Service | `CsdlCatalogService` branch IsPatrolLogs · join/filter/upsert · stop Col1–3 SSOT |
-| DTO | flatten PatrolStaff/Period* + typed entry on catalog DTOs |
-| UiSchema | Registry+Seed kind `patrol-logs` |
-| DOMAIN-MAP | `csdl-so-02` → Asset |
-| BFF | proxy only · no logic change |
-| IdCode | ResourceMap `SO` confirmed |
+| Entity | `CsdlBookEntryEntity.LocationText` · **không** map → `Location` |
+| DTO | entry + request `LocationText` · record list `LocationText` projection |
+| Validation | `ValidatePatrolLogEntries` — eventAt + (Km **OR** text) + weather |
+| Map / list | prefer text else formatted Km · first entry |
+| Migration | `20260918035504_Schema_CsdlSo02LocationText` (+ Designer) · AddColumn |
+| UiSchema | seed field `locationText` «Vị trí» trên list `patrol-logs` |
+| BFF | proxy only · path giữ |
 
-## Gates checked
+## Gates
 
 | Gate | Result |
 |------|--------|
-| List config FULL (no leftover `const columns`) | PASS |
-| Kind D Slideout · 2col · footer actions | PASS |
-| Lookup road-route · field types · view readOnly | PASS |
+| T-BE-LOC-01 / T-FE-LOC-* | PASS |
+| List config FULL · no leftover `const columns` | PASS |
+| Kind D Slideout · OR · Textarea | PASS |
 | yarn build | PASS |
 | dotnet build | PASS |
 | ERP.* / invent API | none |
 
-## Debt (non-blocking P1)
+## Debt
 
-- FileRef/FileMulti UI → text ids until Common File components wired
-- Hub `duty-logs` formNo still `2` (display collision with Sổ 02) — other-sổ pack
-- Auth permission wire · org/partner SearchInput · XLS — DEFER/OUT per TL
+- **GAP-SO02-FILE-01** text-id · Wave B report park · Auth/org/XLS DEFER|OUT
+- UiSchema DB đã save có thể cần Config reset để thấy seed `locationText` cột mới
 
 ## Verify
 
 ```
-MFE: yarn build → PASS (webpack warnings size only)
+MFE: yarn build → PASS
 BE:  dotnet build Linm.RMMS.WebService.sln → PASS (0 errors)
+Migration: Schema_CsdlSo02LocationText pair present
 ```
-
-## Next
-
-- QA: `/agent-qa*` · T-QA-* · mfeStdUrl
-- Review: after QA

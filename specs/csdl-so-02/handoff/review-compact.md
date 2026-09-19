@@ -5,15 +5,16 @@
 | schemaVersion | `1` |
 | role | `review` |
 | feature | `csdl-so-02` |
-| title | CSDL Sổ 02 — Nhật ký tuần đường |
+| title | CSDL Sổ 02 — Nhật ký tuần đường (CR PDF Wave A) |
 | packKind | `list` |
-| changeScope | `new_page` |
+| changeScope | `edit_page` |
 | status | `done` |
 | verdict | **PASS** |
 | review_confirm | **`done`** (autoApprove ON) |
-| taskId | `task_575d1ba6` |
-| priorQaTaskId | `task_50462aa5` |
-| priorDevTaskId | `task_d4e4f9fe` |
+| taskId | `task_635f47f8` |
+| priorQaTaskId | `task_2472bc94` |
+| priorDevTaskId | `task_00facaea` |
+| cr | `nktd-pdf-20260917` · Wave A |
 | resource | `patrol-logs` |
 | formNo | `02` |
 | IdCode | `SO-` |
@@ -23,20 +24,24 @@
 | mfeStdUrl | `http://localhost:9301/csdl-so-02` |
 | hubDeepLink | `/so-ts/csdl-so-sach?resource=patrol-logs` |
 | domain | **Asset** · `api/v1/asset/csdl-records` |
-| contentHashPrior | `sha256:70538d9c9588d335aa43fd5a1fe28433d1138960d5954c5a7ef4cff33a5bd1c3` |
-| headerFingerprintPrior | `sha256:5da56778e38ecc53807d424082520372c7bbed355257bdacfa0457dba0036e3c` |
-| hashGate | **SKIP** (unchanged) |
+| qa_verdict | **PASS** · S0/S1/QA-20 |
+| yarnBuild | **PASS** (prior Dev) |
+| dotnetBuild | **PASS** (prior Dev) |
+| e2eQa | **PASS** (prior QA · **cấm** re-run @ Review) |
+| contentHashPrior | `sha256:3ddc42d7c4404f439925322953f28ffc9d3b263726ac6cf5216065751c19b4d6` |
+| headerFingerprintPrior | `sha256:1b032f04f5154622239e0e2bdbebe6923ec76ba9ca33d283b51ebe0062c0d471` |
+| hashGate | **SKIP** (Wave A unchanged) |
 | skillVersion | `2026.08.25.01` |
 | workflowVersion | `2026.09.01.02` |
-| rulesVersion | `2026.08.31.2` |
-| writtenAt | `2026-09-06T00:47:09.122Z` |
+| rulesVersion | `2026.09.17.2` |
+| writtenAt | `2026-09-18T04:10:30.000Z` |
 
 ## Decisions
 
-- Gates QUERY/SEC/UI-FN/BE-FN **PASS** · no P0
-- QA e2e S0/S1/QA-20 + Dev yarn/dotnet prior **PASS** accepted
-- Typed So02 + Schema_CsdlSo02 + route_a + Asset API · **cấm ERP.***
-- FileRef text-ids P1 + E2E-PW/ROAD-TESTID + Auth/org/XLS = debt/DEFER/OUT (non-block)
+- Gates QUERY/SEC/UI-FN/BE-FN **PASS** · no P0 · fix_gaps **không**
+- Wave A: LocationText DTO+OR+Textarea+list col · Schema_CsdlSo02LocationText · API **giữ**
+- QA S0/S1/QA-20 + Dev yarn/dotnet **PASS** accepted · **cấm** ERP.* · **cấm** reuse `Location`
+- Debt: GAP-SO02-FILE-01 P1 · GAP-QA-E2E-PW-01 P2 · Wave B report park · Auth/org/XLS DEFER|OUT
 - review_confirm **done** · phase=`done` · open Q: **none**
 
 ## Gate scores
@@ -57,15 +62,23 @@
 | prior QA | `handoff/qa-compact.md` |
 | prior Dev | `handoff/dev-compact.md` |
 
+## Evidence (ids)
+
+| Case | Result | sha16 |
+|------|--------|-------|
+| S0 | PASS | `c12b2a18392a66a7` |
+| S1 | PASS | `c12b2a18392a66a7` |
+| QA-20 | PASS | `928baf1b8f3aed7f` |
+
 ## Debt
 
-- FileRef text ids P1 · GAP-QA-E2E-PW-01 P2 · GAP-QA-ROAD-TESTID P3 · Auth DEFER · org/XLS OUT/DEFER
+- GAP-SO02-FILE-01 P1 · GAP-QA-E2E-PW-01 P2 · GAP-NKTD-RPT-PARK OUT · Auth DEFER · org/XLS DEFER|OUT
 
 ## Next
 
 | Role | Need |
 |------|------|
-| — | Pipeline complete · no further role in chain |
+| — | Wave A pipeline complete · Wave B park · **cấm** start role khác trong task này |
 
 ## UNCLEAR
 
@@ -73,4 +86,4 @@
 
 ## Cấm (compact)
 
-ERP.* · invent API · re-open confirmed roles · yarn build/e2e/start:std ở Review · start role khác · merge Sổ TS · detail*-only
+ERP.* · invent API · reuse `Location` · implement · e2e/start:std/build @ Review · Step 4b · start role khác · merge Sổ TS · Wave B report

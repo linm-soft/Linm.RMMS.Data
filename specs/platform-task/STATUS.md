@@ -3,9 +3,9 @@
 | Field | Value |
 |-------|-------|
 | feature | `platform-task` |
-| phase | `qa` |
-| status | `paused` |
-| taskId | `task_6a5286b4` |
+| phase | `done` |
+| status | `done` |
+| taskId | `task_2e60c5ca` |
 | changeScope | `new_page` |
 | packKind | `platform` (PO confirm) |
 | demo | `N/A` (platform-pack-live-mfe · cite Medical `task/endpoint.ts` + `ITaskService` · **cấm** `task.html` SSOT) |
@@ -17,21 +17,20 @@
 | plan | `{RulesRoot}/docs/plan/linm-task-service/README.md` · `docs/plan/platform-task/PLAN.md` |
 | skill | `/implement-task-service` · `/integrate-task-service` · `/review-task-service` |
 | mfeStdRoute | `/platform-task` |
-| mfeStdUrl | `http://localhost:9301/platform-task` |
+| mfeStdUrl | `http://localhost:8608/platform-task` (standalone `yarn start:std`) |
 | hasAnaly | `1` |
 | task_kind | `consumer_cite_p1` |
-| taskId | `task_08b9a781` |
-| skillVersion | `2026.08.25.02` |
-| workflowVersion | `2026.08.25.02` |
-| rulesVersion | `2026.08.25.7` |
-| versionGate | `ok` |
+| skillVersion | `2026.09.19.01` |
+| workflowVersion | `2026.09.19.01` |
+| rulesVersion | `2026.09.19.2` |
+| versionGate | `keep_current` |
 | contentHash | `sha256:3090b2b000bd6de1f400c259e6e737fcbb64e4aa6b6227c2828d9d77a5d65962` |
-| updatedAt | `2026-08-26T23:47:36.155Z` |
+| updatedAt | `2026-09-18T19:14:37.885Z` |
 ## Lock
 
 | agent | scope | id | at |
 |-------|-------|-----|-----|
-| agent-qa | platform-task | task_6a5286b4 | 2026-08-27T06:43:00.000Z |
+| — | unlocked | task_2e60c5ca | 2026-09-18T19:15:00.000Z |
 
 ## Pipeline
 
@@ -43,8 +42,8 @@
 | 2.2 | sa | `be/solution-discovery.md` | **done** | 2026.08.24.01 | rechecked |
 | 3 | team-lead | `task/platform-task.md` | **done** | 2026.08.19.04 | ok |
 | 4 | dev | `implement/platform-task.md` | **done** | 2026.08.25.02 | ok |
-| 5 | qa | `qa/scenarios.md` | **paused** |  |  |
-| 6 | review | `review/findings.md` | pending |  |  |
+| 5 | qa | `qa/scenarios.md` + `handoff/qa-compact.md` | **done** | 2026.08.25.02 | ok |
+| 6 | review | `review/findings.md` + `handoff/review-compact.md` | **done** | 2026.09.19.01 | keep_current |
 
 ## Confirms
 
@@ -60,22 +59,23 @@
 | sa_shared_table | `share_tenant` |
 | be_repo_confirm | **approved** (cite Medical until extract · PO) |
 | ui_repo_confirm | **approved** (scaffold `@linm/task` · PO) |
-| build_verify | FE `yarn build` **PASS** (Linm.Web.Task + RMMS Master) · BE `dotnet build` **PASS** · Step 4b **N/A** · `2026-08-27T06:45:00.000Z` |
+| build_verify | FE `yarn typecheck` **PASS** · e2e S0/S1/QA-20 **PASS** · docker healthy · `2026-09-18T18:58:30.000Z` |
+| e2eQa | **ON** · PASS · screens `qa/screens/{S0,S1,QA-20}.png` |
 ## Notes
 
-Scaffold TaskService + chat parcel. **Không** gồm RMMS patrol/incident CreateTask — slug `rmms-task-integrate` **blocked**.
+Scaffold TaskService + chat parcel. **Không** gồm RMMS patrol/incident CreateTask — slug `rmms-task-integrate` **blocked**. Live std port **8608** (package.json) — legacy `:9301` superseded.
 
-## Handoff (Dev → QA)
+## Handoff (QA → Review)
 
 | Field | Value |
 |-------|-------|
-| task pack | `D:\AI-QLBD\Linm.RMMS.Data\specs\platform-task\task\platform-task.md` |
-| implement | `implement/platform-task.md` |
-| route_confirm | **route_a** locked |
-| mfeStdUrl | `http://localhost:9302/platform-task/cv` |
+| scenarios | `qa/scenarios.md` · verdict **PASS** |
+| compact | `handoff/qa-compact.md` |
+| e2e | S0 · S1 · QA-20 **PASS** · `qa/screens/manifest.json` |
+| mfeStdUrl | `http://localhost:8608/platform-task` |
 | MFE | `D:\MFE-CORE\Linm.Web.Task` (`@linm/platform-task`) |
-| Next role | `qa` · `/agent-qa*` · e2eQa ON |
-| GAP close | GAP-PT-REPO-01 · GAP-PT-UI-01 · GAP-PT-COMMENT-UI-01 · GAP-MSG-PARCEL-01 · GAP-MSG-ROUTE-01 · GAP-TYP-01 |
+| Next role | — · pipeline **done** |
+| review | `review/findings.md` · `review_confirm`=**done** · P0/P1=0 |
 
 ## Retry
 
@@ -86,17 +86,21 @@ Scaffold TaskService + chat parcel. **Không** gồm RMMS patrol/incident Create
 - completed: `sa` · at: `2026-08-27T06:20:00.000Z` · task `task_9e2b3742` · `be/solution-discovery.md` PASS · `solution_confirm=approve`
 - completed: `team_lead` · at: `2026-08-27T06:25:00.000Z` · task `task_be3ed3eb` · `task/platform-task.md` PASS · `route_confirm=route_a`
 - completed: `dev` · at: `2026-08-27T06:45:00.000Z` · task `task_08b9a781` · `implement/platform-task.md` PASS · build PASS
+- completed: `qa` · at: `2026-09-18T18:58:30.000Z` · task `task_de5e3170` · `qa/scenarios.md` PASS · e2e PASS
+- completed: `review` · at: `2026-09-18T19:15:00.000Z` · task `task_2e60c5ca` · findings+compact PASS · `review_confirm`=done · phase=`done`
 
 ## Version meta (STATUS)
 
 | Field | Value |
 |-------|-------|
-| skillId | agent-dev |
-| skillVersion | 2026.08.25.02 |
-| schemaVersion | 2 |
-| workflowVersion | 2026.08.25.02 |
-| rulesVersion | 2026.08.25.7 |
-| generatedAt | 2026-08-27T06:45:00.000Z |
-| versionGate | ok |
+| skillId | agent-review |
+| skillVersion | 2026.09.19.01 |
+| schemaVersion | 1 |
+| workflowVersion | 2026.09.19.01 |
+| rulesVersion | 2026.09.19.2 |
+| generatedAt | 2026-09-18T19:15:00.000Z |
+| versionGate | keep_current |
 | contentHash | sha256:3090b2b000bd6de1f400c259e6e737fcbb64e4aa6b6227c2828d9d77a5d65962 |
-| taskId | `task_08b9a781` |
+| reviewHash | sha256:57819cb14ad2bc32980174efe8a13ec205765ca288e74ed9ac5567c276bcb61a |
+| taskId | `task_2e60c5ca` |
+| review_confirm | done |

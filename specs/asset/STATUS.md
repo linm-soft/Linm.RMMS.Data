@@ -3,42 +3,39 @@
 | Field | Value |
 |-------|-------|
 | feature | `asset` |
-| phase | `qa` |
-| status | `await_confirm` |
+| lane | `web` |
+| phase | `done` |
+| status | `done` |
 | changeScope | `edit_page` |
-| packKind | `list` (**PO confirm mobile**) |
-| stack | `native_dual` |
-| demo | `specs/mobile-p1/ui/prototype/{ios,android}/index.html` `#sc-asset-list` · `DES-MOB-ASSET-LIST` |
+| packKind | `list` |
+| stack | `web` |
+| demo | `features/asset-demo.html` |
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/asset.md` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Asset` (web **shipped** · mobile **cấm** mfeStdUrl) |
 | mfeStdRoute | `/asset` |
 | mfeStdUrl | `http://localhost:9301/asset` |
-| ios | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS` · e2e-qa-mobile sim 6.9" |
-| android | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android` · e2e-qa-mobile emulator |
-| bff | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Bff` · `mobile-bff/api/v1/asset/road-assets` |
 | backend | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.WebService` · DOMAIN-MAP Asset · **cấm ERP.*** |
 | dataAnaly.cluster | `specs/_data-analy/clusters/cluster-asset-header-v1.md` |
 | dataAnaly.controlHint | `specs/_data-analy/features/asset-control-hint.md` |
 | dataAnaly.realData | `specs/_data-analy/features/asset-real-data.md` |
-| po.requirement | `specs/asset/po/requirement-mobile.md` |
-| po.requirementWeb | `specs/asset/po/requirement.md` (web Kind B **done**) |
+| po.requirement | `specs/asset/po/requirement.md` (web Kind B **done**) |
+| po.requirementMobile | `specs/asset/po/requirement-mobile.md` |
 | design.artifact | `specs/asset/ui/design.md` |
-| sa.artifact | `specs/asset/be/solution-discovery-mobile.md` |
-| sa.artifactWeb | `specs/asset/be/solution-discovery.md` (web Kind B **done**) |
+| sa.artifact | `specs/asset/be/solution-discovery.md` (web Kind B **done**) |
+| sa.artifactMobile | `specs/asset/be/solution-discovery-mobile.md` |
 | task.artifact | `specs/asset/task/asset.md` |
-| implement.artifact | `specs/asset/implement/ios.md` · `specs/asset/implement/android.md` |
-| qa.artifact | `specs/asset/qa/scenarios.md` · `qa/store/asset` · `ui/review/align-ux.md` |
+| implement.artifact | `specs/asset/implement/asset.md` |
+| qa.artifact | `specs/asset/qa/scenarios.md` |
 | review.artifact | `specs/asset/review/findings.md` |
-| taskId | `task_0aaf071e` |
-| skillVersion | `2026.08.29.1` (agent-qa-mobile) |
+| taskId | `task_bf4df098` |
+| skillVersion | `2026.08.14.5` |
 | schemaVersion | `1` |
-| workflowVersion | `2026.08.29.1` |
+| workflowVersion | `2026.08.14.5` |
 | rulesVersion | `2026.08.29.5` |
 | versionGate | `rechecked` |
-| contentHash | `sha256:asset-mobile-edit-list-20260823` |
-| bffContentHash | `sha256:asset-mobile-list-road-assets-proxy-20260823` |
-| updatedAt | `2026-09-01T16:24:14.269Z` |
-| verifyGate | QA e2e **FAIL** `task_0aaf071e` · GAP-QA-STORE-03 · `qa_fail_rollback` |
+| contentHash | `sha256:asset-web-kind-b-done-20260814` |
+| updatedAt | `2026-09-18T17:45:00.000Z` |
+| verifyGate | web Kind B **done** `task_bf4df098` · mobile list QA FAIL → § Pipeline (mobile) · **cấm** ingest lên `/qldb-workflow` |
 
 ## Lock
 
@@ -46,7 +43,24 @@
 |-------|-------|-----|-----|
 | — | — | — | — |
 
+## Pipeline (web)
+
+| Step | Agent | Artifact | Status |
+|------|-------|----------|--------|
+| 0 | data-analy | cluster + controlHint + real-data | **done** |
+| 1 | po | po/requirement.md | **done** |
+| 2.1 | design | ui/design.md | **confirmed** |
+| 2.2 | sa | be/solution-discovery.md | **confirmed** |
+| 3 | team-lead | task/asset.md | **done** |
+| 4 | dev | implement/asset.md | **done** |
+| 5 | qa | qa/scenarios.md | **done** |
+| 6 | review | review/findings.md | **done** (`task_bf4df098`) |
+
 ## Pipeline (mobile)
+
+> Board **`/qldb-workflow-mobile`** · `implement-status.json` lane `mobile` · **cấm** header/sync `/qldb-workflow`.  
+> stack `native_dual` · demo `specs/mobile-p1/ui/prototype/{ios,android}/index.html#sc-asset-list` · BFF `mobile-bff/api/v1/asset/road-assets` · iOS/Android `Linm.RMMS.Mobile.*`  
+> QA e2e **FAIL** `task_0aaf071e` · GAP-QA-STORE-03 · GAP-MOB-ASSET-AND-FETCH-01 · `qa_fail_rollback` · **cấm** Approve rollback trên board web.
 
 | Step | Agent | Artifact | Status |
 |------|-------|----------|--------|
@@ -58,11 +72,6 @@
 | 4 | dev | implement/ios.md · android.md · asset-qa-fix-plan.md | **confirmed** |
 | 5 | qa | qa/scenarios.md · qa/store/asset | **blocked** |
 | 6 | review | review/findings.md | **pending** |
-## Pipeline (web — prior done)
-
-| Step | Agent | Status |
-|------|-------|--------|
-| po → review | web Kind B MFE | **done** (`task_bf4df098`) |
 
 ## Confirms
 
@@ -112,6 +121,7 @@
 
 ## Blockers / open questions
 
+- **LANE 2026-09-18 `/hey-linm`:** header = MAIN3 **web done** · mobile QA FAIL **không** đè `/qldb-workflow` · **cấm** Approve `qa_fail_rollback` trên board web (sẽ pick `/agent-dev` MFE) · tiếp Android = `/qldb-workflow-mobile` · `yarn run-implement-mobile`
 - Mobile PO UNCLEAR = **none** (`GAP-F-ASSET-MOB-01..04` chốt)
 - Web GAP-RPT-SRC-ASSET-01 **CLOSED** (`task_67ce475b`)
 - **cấm ERP.*** · **cấm** mfeStdUrl / yarn start:std trên mobile chain
@@ -163,6 +173,7 @@
 - closeout QA FAIL: `task_0aaf071e` · roleOnly=`qa` · `/agent-qa-mobile` · e2e-qa-mobile **FAIL** · GAP-QA-STORE-03 · handoff `handoff/qa-compact.md` · `qa_fail_rollback` · at: `2026-09-01T16:22:00.000Z`
 - closeout PO web: `task_9ab7f74a` · `/agent-po` · web Kind B · at: `2026-08-14T15:00:00.000Z`
 - closeout Review web: `task_bf4df098` · web pipeline **done** · at: `2026-08-14T16:55:00.000Z`
+- `/hey-linm` Apply `status` 2026-09-18: restore header lane **web** `done`/`done` (không fake — closeout `task_bf4df098`) · Pipeline (web) đứng trước parseStatusMd · Pipeline (mobile) QA FAIL giữ nguyên · `implement-status.json` web=`done` mobile=`qa`/`await_confirm`
 
 ## Retry
 

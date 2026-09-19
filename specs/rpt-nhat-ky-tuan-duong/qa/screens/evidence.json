@@ -1,0 +1,50 @@
+{
+  "url": "http://localhost:9311/bao-cao/nhat-ky-tuan-duong",
+  "at": "2026-09-18T17:46:14.118Z",
+  "checks": [
+    {
+      "id": "S0-testid",
+      "result": "PASS",
+      "detail": "page present"
+    },
+    {
+      "id": "S0-title",
+      "result": "PASS",
+      "detail": "title UTF-8 OK"
+    },
+    {
+      "id": "S1-layout",
+      "result": "PASS",
+      "detail": "no Thêm mới"
+    },
+    {
+      "id": "FILTER-no-excel",
+      "result": "PASS",
+      "detail": {
+        "excelInFilter": 0,
+        "printInFilter": 0
+      }
+    },
+    {
+      "id": "empty-hint",
+      "result": "PASS",
+      "detail": {
+        "snippet": "RMMS · Báo cáo\nBáo cáo\nBáo cáo Web\nTổng hợp công tác QL & BDTX\nBC Tài sản\nTình trạng mặt đường\nBáo cáo công\nBC Check-in\nCông văn đi — đến\nĐếm xe\nHạng mục hư hỏng\nBC Sự cố\nÙn tắc / ngập úng\nTai nạn giao thông\nThiên tai, bão lũ\nKhối lượng thiệt hại\nGiấy phép thi công\nVi phạm HLATĐB\nKiểm tra cầu\nNhật ký công việc\nTổng hợp bảo trì\nBáo cáo tuần đường\nBáo cáo tuần kiểm\nNhật ký tuần đường\nNhật ký tuần kiểm\nDS\nDev Standalone\nDeveloper\nNhật ký tuần đường\nNhật ký tuần đường\nLàm mới\nIn\nSửa config\nKết quả n"
+      }
+    },
+    {
+      "id": "QA-view",
+      "result": "PASS",
+      "detail": {
+        "afterViewSnippet": "RMMS · Báo cáo\nBáo cáo\nBáo cáo Web\nTổng hợp công tác QL & BDTX\nBC Tài sản\nTình trạng mặt đường\nBáo cáo công\nBC Check-in\nCông văn đi — đến\nĐếm xe\nHạng mục hư hỏng\nBC Sự cố\nÙn tắc / ngập úng\nTai nạn giao thông\nThiên tai, bão lũ\nKhối lượng thiệt hại\nGiấy phép thi công\nVi phạm HLATĐB\nKiểm tra cầu\nNhật ký công việc\nTổng hợp bảo trì\nBáo cáo tuần đường\nBáo cáo tuần kiểm\nNhật ký tuần đường\nNhật ký tuần kiểm\nDS\nDev Standalone\nDeveloper\nNhật ký tuần đường\nNhật ký tuần đường\nLàm mới\nXem biểu đồ\nXuất Excel\nIn\nSửa config\nKết quả nhật ký tuần đường\nTìm kiếm\nKhu\nVăn phòng\nĐơn vị\nTuyến\nCán bộ\nTừ ngày / Đến ngày\n→\n​\nSTT\t\n\tNgày\n\tTuyến\n\tCán bộ\n\tKm\n\tVị trí\n\tNội dung nhật ký\n\tXử lý tại chỗ\n\tKý duyệt\n\tGhi chú\n\tTr",
+        "drillButtons": 5,
+        "emptyOrData": true
+      }
+    },
+    {
+      "id": "DRILL-code",
+      "result": "PASS",
+      "detail": "drillSource uses /csdl-so-02?form=view&id= (verified in source)"
+    }
+  ]
+}

@@ -1,84 +1,70 @@
-# handoff-compact — team_lead · csdl-bieu-05
+# Handoff compact — team_lead
 
-| | |
-|--|--|
-| schemaVersion | `1` |
-| role | `team_lead` |
-| feature | `csdl-bieu-05` |
-| title | CSDL Biểu 05 — Rãnh các loại |
-| packKind | `list` |
-| changeScope | `new_page` |
-| status | `done` |
-| taskId | `task_c0b3e6ef` |
-| saTaskId | `task_e5779496` |
-| resource | `ditches` |
-| formNo | `05` |
-| columns | `18` |
-| IdCode | `RN-` |
-| peerSoTs | `so-ts-ditch` |
-| formPattern | **Kind D Slideout** 2col · **cấm** Full-page |
-| Kind | **B** A–D+F · **D** Slideout Z1–Z3 |
-| route_confirm | **`route_a`** `/csdl-bieu-05` + hub |
-| team_lead_confirm | **approve** (autoApprove ON) |
-| design_confirm | approve |
-| solution_confirm | approve |
-| autoApprove | `ON` |
-| e2eQa | `ON` (queued `/agent-qa*` only) |
-| domain | **Asset** · `api/v1/asset/csdl-records` |
-| entity | shell + `CsdlBieu5Entity` · `Schema_CsdlBieu5` |
-| gates | tz_na · xco_get_only · share_tenant |
-| contentHashPrior | `sha256:fd4e6899790aa98d6bc4cb628dc9c0bc5efc90acb3abf03a7b157cf123590117` |
-| headerFingerprintPrior | `sha256:008898723c0a5b94fae7de8810903b1dcc39ccfd0dfa5d4a36dd398eb088ac2f` |
-| skillVersion | `2026.08.25.01` |
-| workflowVersion | `2026.09.01.02` |
-| rulesVersion | `2026.08.31.2` |
-| writtenAt | `2026-09-05T13:46:00.000Z` |
+schemaVersion: 1
+feature: csdl-bieu-05
+packKind: list
+role: team_lead
+status: done
+skillVersion: 2026.09.05.03
+workflowVersion: 2026.09.05.03
+rulesVersion: 2026.09.17.3
+contentHash: sha256:9e3e8cf8e90fb3a3e8252d1725b78ea2494b171d3b7507d0a57b13c7052da728
+headerFingerprint: sha256:008898723c0a5b94fae7de8810903b1dcc39ccfd0dfa5d4a36dd398eb088ac2f
+writtenAt: 2026-09-18T03:55:00.000Z
+taskId: task_1a82385e
+saTaskId: task_c949c568
+resource: ditches
+columns: 18
+IdCode: RN-
+changeScope: edit_page
+formPattern: Slideout
+team_lead_confirm: approve
+route_confirm: keep
+design_confirm: approve
+solution_confirm: approve
+autoApprove: ON
+e2eQa: ON
+peerSoTs: so-ts-ditch
 
 ## Decisions
+- changeScope: edit_page (T-XLS-S05) · typed CRUD **KEEP** · **cấm** reopen 18-col
+- route_confirm: **keep** `/csdl-bieu-05` + hub · no new URL
+- export: catalogToolbar Xuất Excel · BFF binary · filter-all · `/implement-export-import-excel`
+- Q-XLS-SCOPE: filtered · FILENAME: `Bieu05_RanhCacLoai_{yyyyMMdd}.xls` · Import **DEFER P1**
+- golden: Cục 16-sheet · Biểu 5 · 18 cols · ditchKind/shape/range · **cấm** 12+8
+- filter: **cấm** Xuất trên LinErpListFilterBar (GAP-FILTER-BAR-08)
+- peer: **cấm** gộp so-ts-ditch vào sheet (GAP-BIEU05-XLS-PEER)
+- migration: **none** @ XLS · gates tz_na · xco_get_only · share_tenant
+- API: GET `…/csdl-records/export?resource=ditches` · **cấm ERP.***
+- team_lead_confirm: approve (autoApprove ON) · open Q: none
 
-- changeScope=`new_page` · packKind=`list` · typed **18 cột** · **cấm** detail* only
-- route_confirm **route_a** alias `/csdl-bieu-05` + hub `?resource=ditches`
-- Q-SHAPE **rect_trap_round** · Q-APERTURE **free_text** · Q-DRAIN **free_text** · Q-PROV **keep_static** P1
-- ditchKind hở/kín · kmFrom/kmTo filter+form · road-route SearchInput P1
-- Persist shell + Schema_CsdlBieu5 · migration **Dev/4b** · **cấm** parent *Json
-- API **giữ** `asset/csdl-records` · BFF proxy · **cấm ERP.***
-- org/XLS **OUT/DEFER** · peer deep-link · **cấm** merge Sổ TS · map none
-- Grid AC YES · Leave YES · Report N/A
-- open Q: **none**
-
-## Artifacts
-
-| Kind | Path |
-|------|------|
-| task | `specs/csdl-bieu-05/task/csdl-bieu-05.md` |
-| solution | `specs/csdl-bieu-05/be/solution-discovery.md` |
-| design | `specs/csdl-bieu-05/ui/design.md` |
-| STATUS | `specs/csdl-bieu-05/STATUS.md` |
-
-## Task matrix (ids)
-
-T-DM-01 · T-CTX-01 · T-BE-01..05 · T-BFF-01 · T-PERM-01 · T-BE-UISCHEMA-01 · T-UI-LIST/FILTER/CFG/FORM/LEAVE/ACT/LKP/FIELD/PROD/UX/RESP · T-OUT-01 · T-QA-CRUD/FORM/FILTER/TYP/TAB/ROUTE
-
-SA map: T-FE-01→LIST · 02→FORM · 03→FILTER+LKP · 04→LEAVE+ACT · 05→PROD · 06→UISCHEMA
+## Inventory (slim)
+| id | label | controlHint | notes |
+|----|-------|-------------|-------|
+| (form 18) | typed prior | keep | ditchKind · shape · range · **cấm** reopen |
+| exportExcel | Xuất Excel | ToolbarButton | P0 · filtered · binary |
+| importExcel | Nhập Excel | ToolbarButton+file | DEFER P1 · ẩn |
 
 ## Screens / zones (ids only)
+- S-LIST DES-GRID KEEP · toolbar +export · S-XLS-EXPORT · S-XLS-IMPORT hidden
+- S-FORM-* KEEP · mfeStdUrl=http://localhost:9301/so-ts/csdl-so-sach · hub=?resource=ditches
 
-- S-LIST · S-FORM-C/E/V/Copy · S-ACT-DELETE · S-HUB-ENTRY · S-PEER-SOTS · S-SKIP-MAP
-- mfeStdUrl=`http://localhost:9301/csdl-bieu-05`
-- hub=`http://localhost:9301/so-ts/csdl-so-sach?resource=ditches`
+## Task matrix (ids)
+- T-CTX-XLS-01 · T-OUT-01 · T-XLS-BE-01..02 · T-XLS-BFF-01 · T-XLS-FE-01..02 · T-XLS-QA-01 · T-REG-GRID/PEER
+- AC-XLS-01..09 · AC-GRID-01..05 regression · GAP-BIEU05-XLS-01..05 · GAP-BIEU05-XLS-PEER
 
 ## Next
-
 | Role | Need |
 |------|------|
-| **Dev** | implement · T-* · Schema_CsdlBieu5 @ 4b |
-| QA | e2e queued `/agent-qa*` |
+| Dev | implement T-XLS-* · handoff/dev-compact.md |
+| QA | queued `/agent-qa*` · T-XLS-QA-01 |
 | Review | after QA |
 
 ## UNCLEAR
-
 - none
 
-## Cấm (compact)
-
-ERP.* · invent API · detail* only · Guid IdCode · merge Sổ TS · parent *Json · implement code ở TL · Step 4b/migration/e2e/build/start:std ở TL · start role khác
+## Full paths
+- task: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-05/task/csdl-bieu-05.md
+- solution: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-05/be/solution-discovery.md
+- design: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-05/ui/design.md
+- STATUS: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-05/STATUS.md

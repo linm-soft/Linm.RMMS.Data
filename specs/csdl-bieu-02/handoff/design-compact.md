@@ -1,91 +1,67 @@
-# handoff-compact — design · csdl-bieu-02
+# Handoff compact — design
 
-| | |
-|--|--|
-| schemaVersion | `1` |
-| role | `design` |
-| feature | `csdl-bieu-02` |
-| title | CSDL Biểu 02 — Thống kê cầu |
-| packKind | `list` |
-| changeScope | `new_page` |
-| status | `done` |
-| taskId | `task_388b210f` |
-| resource | `bridges` |
-| formNo | `02` |
-| columns | `48` |
-| IdCode | `BR-` |
-| peerSoTs | none (—) · Sổ 6 / passport deep-link only |
-| autoApprove | `ON` |
-| e2eQa | `ON` |
-| design_confirm | `approve` |
-| shared_grid_example | `v1` |
-| real_view_parity | `v1` |
-| contentHashPrior | `sha256:bd73974e607f886dd38736015cb5a6a3fb82aff9d6a63328963ceb5c4be436a2` |
-| headerFingerprintPrior | `sha256:34e1fcb051f6010fbe70ebdffab71df3d6f441a373d3be0249dd601e596d5591` |
-| skillVersion | `2026.08.29.03` |
-| workflowVersion | `2026.09.01.02` |
-| rulesVersion | `2026.08.31.2` |
-| writtenAt | `2026-09-05T08:20:00.000Z` |
+schemaVersion: 1
+feature: csdl-bieu-02
+packKind: list
+role: design
+status: done
+skillVersion: 2026.09.05.03
+workflowVersion: 2026.09.05.03
+rulesVersion: 2026.09.17.3
+contentHash: sha256:43c517bec9635b8c3ac292e54e566cf38f3ba97c86a8ce56e5b4c587427dcf40
+headerFingerprint: sha256:34e1fcb051f6010fbe70ebdffab71df3d6f441a373d3be0249dd601e596d5591
+writtenAt: 2026-09-18T01:55:00.000Z
+taskId: task_d763be35
+resource: bridges
+columns: 48
+IdCode: BR-
+design_confirm: approve
+shared_grid_example: v1
+real_view_parity: v1
+formPattern: Slideout
+changeScope: edit_page
 
 ## Decisions
-
-- Kind **B** A–D+F + Kind **D** Slideout · `data-form-cols=2` · footer_actions_only · **cấm** Full-page
-- form typed **48 cột** · **cấm** detail* only · Control = controlHint · **sectioned**
-- Q-GPS **six_numbers** · Q-LOAD **text** · Q-LEGACY **keep_hidden** · Q-ROUTE **alias_now** `/csdl-bieu-02` · Q-PROV **keep_static** · Q-SECTION **sectioned**
-- GAP-CSDL-ROAD-01 SearchInput road-route P1 · GAP-CSDL-ORG-01 DEFER P2
-- GAP-CSDL-XLS-01 OUT stub · peer deep-link · **cấm** merge passport/Sổ 6 · map none
-- API giữ `api/v1/asset/csdl-records` · catalogKind `bridges` · **cấm** ERP.*
-- design_confirm **approve** (autoApprove ON) · open Q: **none**
-- Report DES-RPT **N/A**
+- changeScope: edit_page (T-XLS-S02) · **cấm** new_page typed reopen
+- formPattern: Slideout · data-form-cols=2 · footer_actions_only (keep)
+- Kind B A–D+F keep · toolbar **+Xuất Excel** · Import **DEFER P1 ẩn**
+- Q-XLS-SCOPE: filtered · Q-XLS-IMPORT: export_only_p0 · Q-XLS-FILENAME: Bieu02_ThongKeCau_{yyyyMMdd}.xlsx (SA chốt ext)
+- export: catalogToolbar · BFF binary · `/implement-export-import-excel`
+- golden: Cục 16-sheet sheet Biểu 2 · 48 cột · GPS 3 điểm · **cấm** 12+8
+- filter: **cấm** Xuất trên LinErpListFilterBar (GAP-FILTER-BAR-08)
+- design_confirm: approve (autoApprove ON) · open Q Design: none
+- Report DES-RPT: N/A
+- mfe: Linm.Web.RMMS.Asset · be: Linm.RMMS.WebService · **cấm ERP.***
 
 ## Inventory (slim)
-
 | id | label | controlHint | notes |
 |----|-------|-------------|-------|
-| search | Tìm | SearchTextInput | Zone B · 🔍 cụm phải |
-| province/status/beamType | Tỉnh/TT/dầm | Dropdown | LOOKUP_STATIC |
-| roadCode | Đường | SearchInput | road-route |
-| kmFrom/kmTo | Km | Number | filter+form |
-| code | Mã | Text ro | BR- |
-| bridgeName | Tên cầu | Text | * |
-| gps* ×6 | GPS 3 điểm | Number | Q-GPS |
-| span*/beam* | Dầm | Number/Text/Dropdown | BEAM |
-| abutment*/pier* | Phần dưới | Dropdown/Text | SUB |
-| design/actualLoad | Tải | Text | Q-LOAD |
-| bearing*/railing*/drain*/PQ | Gối/lan can | Number/Text/Checkbox | FURN |
-| lengthM/carriageWidthM | Cdài/B xe | Number | * |
-| manageUnit | ĐV QL | Text | P2 SearchInput |
-| legacyCol64/69 | Legacy | Text hidden | Q-LEGACY |
+| (form 48) | typed prior | keep | GPS×3 · **cấm** reopen |
+| exportExcel | Xuất Excel | ToolbarButton | fa-file-excel · filtered · P0 |
+| importExcel | Nhập Excel | ToolbarButton+file | DEFER P1 · ẩn |
 
 ## Screens / zones (ids only)
+- S-LIST DES-GRID-A/B/C/D/F/H keep · toolbar +export
+- S-XLS-EXPORT · S-XLS-IMPORT (hidden P1)
+- S-FORM-* DES-GRID-Z keep · LeaveConfirmModal
+- reviewUrl=file:///D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-02/ui/prototype/csdl-bieu-02-list-prototype.html
+- peerStdUrl=http://localhost:9301/so-ts/csdl-so-sach?resource=bridges
+- mfeStdUrl=http://localhost:9301/so-ts/csdl-so-sach · alias /csdl-bieu-02
+- prototype=specs/csdl-bieu-02/ui/prototype/csdl-bieu-02-list-prototype.html
 
-- S-LIST DES-GRID-A · B · B-FILTER · C0–C3 · D · F · H
-- S-FORM-* DES-GRID-Z · DES-FORM-Z1–Z3 sectioned · LeaveConfirmModal
-- S-HUB-ENTRY · S-PEER-SO6 · S-SKIP-MAP
-- reviewUrl=`file:///D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-02/ui/prototype/csdl-bieu-02-list-prototype.html`
-- mfeStdUrl=`http://localhost:9301/csdl-bieu-02`
-- peerStdUrl=`http://localhost:9301/so-ts/csdl-so-sach?resource=bridges`
-- prototype=`specs/csdl-bieu-02/ui/prototype/csdl-bieu-02-list-prototype.html`
-
-## API / next
-
-- CRUD BFF `…/asset/csdl-records` · resource=bridges · typed DTO **SA**
-- road-route `…/integration/road-routes/search`
-- Next: **SA** Schema_CsdlBieu2 · GPS six_numbers · LOAD text · LEGACY keep_hidden · DOMAIN-MAP slug
-- e2e: queued `/agent-qa*` only · **cấm** e2e/start:std ở Design
+## API / tasks (ids only)
+- CRUD keep: …/csdl-records?resource=bridges
+- Export: GET …/csdl-records/export?resource=bridges (+ filter QS)
+- Import: POST …/import — DEFER P1
+- T-XLS-S02 · AC-XLS-01..08 · GAP-BIEU02-XLS-01..06
+- Next: SA path/BFF/golden · filename ext
 
 ## UNCLEAR
-
-- none
+- none (Design) · SA: ext .xls vs .xlsx · page-all vs streaming
 
 ## Full paths (Read only if needed)
-
-- design: `D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-02/ui/design.md`
-- control-hint: `D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/csdl-bieu-02-control-hint.md`
-- real-data: `D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/csdl-bieu-02-real-data.md`
-- prior po: `D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-02/handoff/po-compact.md`
-- STATUS: `D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-02/STATUS.md`
-
-## Cấm (compact)
-
-Demo/LS SSOT · ERP.* · Guid IdCode · form 3 ô only · invent map · merge passport/Sổ 6 · yarn build/e2e/start:std · re-scan demo · paste HTML vào compact
+- design: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-02/ui/design.md
+- control-hint: D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/csdl-bieu-02-control-hint.md
+- real-data: D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/csdl-bieu-02-real-data.md
+- prior po: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-02/handoff/po-compact.md
+- STATUS: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-02/STATUS.md

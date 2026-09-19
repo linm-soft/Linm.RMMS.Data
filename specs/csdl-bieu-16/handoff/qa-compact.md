@@ -1,88 +1,68 @@
-# handoff-compact — qa · csdl-bieu-16
+# Handoff compact — qa
 
-| | |
-|--|--|
-| schemaVersion | `1` |
-| role | `qa` |
-| feature | `csdl-bieu-16` |
-| title | CSDL Biểu 16 — Nút giao |
-| packKind | `list` |
-| changeScope | `new_page` |
-| status | `done` |
-| verdict | **PASS** |
-| taskId | `task_944da438` |
-| priorDevTaskId | `task_71eac21e` |
-| resource | `interchanges` |
-| formNo | `16` |
-| columns | `39` · header + child branches[] + ATGT |
-| IdCode | `IX-` |
-| peerSoTs | `so-ts-interchange` · **cấm** merge · none_p1 |
-| child | `branches[]` embed · min_1 · replace-all |
-| formPattern | **Kind D Slideout** 2col · 5 section + BRANCH |
-| Kind | **B** A–D+F · **D** Slideout Z1–Z3 + BRANCH |
-| route_confirm | `route_a` |
-| mfeStdUrl | `http://localhost:9301/csdl-bieu-16` |
-| hubDeepLink | `/so-ts/csdl-so-sach?resource=interchanges` |
-| domain | **Asset** · `api/v1/asset/csdl-records` |
-| e2eQa | **ON** · runtime PASS |
-| yarnTypecheck | **PASS** |
-| docker | api `:5111` · bff `:5201` healthy · API rebuild |
-| contentHashPrior | `sha256:56e2fb16e9bcde21f17d7e9639b72660666778f5393b1270cecc49d123beba4b` |
-| headerFingerprintPrior | `sha256:ec787bf2008ae89f1b6c085fe238f1b0d50b048f5c672b90b68d9ea102cf8fcc` |
-| skillVersion | `2026.08.25.01` |
-| workflowVersion | `2026.09.01.02` |
-| rulesVersion | `2026.08.31.2` |
-| writtenAt | `2026-09-05T16:58:00.000Z` |
+schemaVersion: 1
+feature: csdl-bieu-16
+packKind: list
+role: qa
+status: done
+verdict: PASS
+skillVersion: 2026.09.05.03
+workflowVersion: 2026.09.05.03
+rulesVersion: 2026.09.17.3
+contentHash: sha256:c71543b66c4f1d28f5dbae1743c1042e0bb9f12ab9c0efc55d9668af2a38e072
+headerFingerprint: sha256:ec787bf2008ae89f1b6c085fe238f1b0d50b048f5c672b90b68d9ea102cf8fcc
+writtenAt: 2026-09-18T03:22:00.000Z
+taskId: task_3b290f2f
+priorDevTaskId: task_ba6998df
+priorTypedQa: task_944da438 · keep
+resource: interchanges
+columns: 39
+IdCode: IX-
+formNo: 16
+changeScope: edit_page
+formPattern: Slideout
+e2eQa: ON
+mfeStdUrl: http://localhost:9301/so-ts/csdl-so-sach
+alias: /csdl-bieu-16
+hubDeepLink: /so-ts/csdl-so-sach?resource=interchanges
+peerSoTs: so-ts-interchange · cấm merge · none_p1
 
 ## Decisions
+- changeScope: edit_page (T-XLS-S16) · typed 39 KEEP · **cấm** reopen
+- T-XLS-S16-QA-01 **PASS**: export `Bieu16_NutGiao_{yyyyMMdd}.xls` · export_only_p0 · Import ẩn
+- filter: **0** Xuất on LinErpListFilterBar (GAP-FILTER-BAR-08)
+- E2E S0/S1/QA-20 **PASS** · PNG + manifest ok=true
+- yarn e2e-qa playwright resolve fail → chrome createRequire · **cấm** kill (GAP-QA-E2E-KILL-01)
+- docker API rebuild (pre: CSV stub → post: `.xls`) · BFF recreate · start:std reuse :9301
+- **cấm** phase=done · handoff Review
+- open questions: none
 
-- E2E S0/S1/QA-20 **PASS** · PNG + manifest `ok=true`
-- Hub `interchanges` **redirect** `/csdl-bieu-16` (route_a) · S1 assert list-page
-- `yarn e2e-qa` hang → chrome channel fallback (**GAP-QA-E2E-PW-01**) · **cấm** kill rộng · dừng riêng e2e tree
-- Pre-rebuild API 422 interchanges → `docker compose --build` API → 200
-- T-QA-CRUD/FORM/FILTER/BRANCH/MAIN/ATGT/ROUTE **PASS** (runtime + code)
-- interchangeType/kmMain live · peer none · IX- form create · BRANCH min_1 · ATGT qty · LeaveConfirm
-- **cấm** `phase=done` · handoff Review
-- open Q: **none**
+## Inventory (slim)
+| id | label | controlHint | notes |
+|----|-------|-------------|-------|
+| (form 39 + branches) | typed keep | — | CRUD KEEP |
+| exportExcel | Xuất Excel | ToolbarButton | P0 · filtered · flatten |
+| importExcel | — | — | DEFER P1 ẩn |
 
-## Artifacts
+## Screens / zones (ids only)
+- S0 list · S1 hub redirect · QA-20 Slideout · S-XLS-EXPORT
+- mfeStdUrl=http://localhost:9301/so-ts/csdl-so-sach · alias /csdl-bieu-16
 
-| Kind | Path |
-|------|------|
-| scenarios | `specs/csdl-bieu-16/qa/scenarios.md` |
-| screens | `specs/csdl-bieu-16/qa/screens/{S0,S1,QA-20}.png` |
-| manifest | `specs/csdl-bieu-16/qa/screens/manifest.json` |
-| live-assert | `specs/csdl-bieu-16/qa/screens/live-assert.json` |
-| form-assert | `specs/csdl-bieu-16/qa/screens/form-assert.json` |
-| STATUS | `specs/csdl-bieu-16/STATUS.md` |
+## Evidence
+- manifest ok=true · capturedAt 2026-09-18T03:21:27.481Z
+- SHA256_16 S0=9ae53c5ad4af44ff · S1=45e48c481fb1d05d · QA-20=750db6e448c043ba
+- live-assert exportCheck fileName=Bieu16_NutGiao_20260918.xls · hasImport=false · filterBarHasExport=false
+- form-assert Z2/BRANCH/Z3 · IX- · data-form-cols=2
 
-## Evidence (ids)
-
-| Case | Result | sha16 |
-|------|--------|-------|
-| S0 | PASS | `df8d6375dd104010` |
-| S1 | PASS | `df8d6375dd104010` |
-| QA-20 | PASS | `750db6e448c043ba` |
-
-## Screens / zones
-
-- S-LIST · S-FORM-C · S-HUB-ENTRY · S-SKIP-PEER · S-SKIP-MAP · DES-FORM-BRANCH
-- testid=`rmms-csdl-bieu-16-list-page` · form=`rmms-csdl-bieu-16-form-slideout`
-
-## Debt
-
-- GAP-QA-E2E-PW-01 P2 · GAP-QA-ROAD-TESTID P3 · Auth DEFER · org/XLS OUT/DEFER
+## Full paths
+- scenarios: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-16/qa/scenarios.md
+- screens: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-16/qa/screens/
+- STATUS: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-16/STATUS.md
 
 ## Next
-
 | Role | Need |
 |------|------|
-| **Review** | `/agent-review` · findings · **cấm** phase=done từ QA |
-
-## UNCLEAR
-
-- none
+| **Review** | `/agent-review` · findings · review_confirm |
 
 ## Cấm (compact)
-
-ERP.* · invent API · phase=done · kill worker rộng · start role khác · merge so-ts-interchange · detail*-only · flatten-only
+ERP.* · invent infra · phase=done · kill worker · toast stub=done · filter-bar export · merge peer · Import P0 · reopen typed

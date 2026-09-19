@@ -1,0 +1,23 @@
+{
+  "url": "http://localhost:9311/bao-cao/nhat-ky-tuan-duong",
+  "capturedAt": "2026-09-18T17:46:14.118Z",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png"
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png"
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png"
+    }
+  ],
+  "ok": true,
+  "method": "e2e runtime · yarn start:std + docker + playwright (AutoCode resolve after yarn e2e-qa npx playwright fail)"
+}

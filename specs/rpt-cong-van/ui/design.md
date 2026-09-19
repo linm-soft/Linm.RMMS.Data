@@ -95,7 +95,7 @@ Live MFE (`OfficialDocsReportPage`) đã Kind E: 1× `LinPageLayout` kind=`repor
 |--------|------|-----|
 | Làm mới | `fa-sync-alt` | chưa Xem → apply+view; đã Xem → refetch applied |
 | Biểu đồ | chart | **SoCai** khi `viewed` + có dòng — catalog: số CV theo ngày (line) · theo chiều đi/đến (bar) · theo đơn vị (donut) |
-| In | print | stub toast OK nếu chưa print engine (GAP-PO-CV-06) · không `window.confirm` |
+| In | print | **GAP-P2-PRINT-01** scoped: title page + filter đã apply + grid — **cấm** in sidebar/toolbar/filter controls · `triggerErpReportPrint` + `RmmsReportPrintSummary` |
 | Sửa config | `fa-cog` | **FULL** column prefs — **cấm** stub toast |
 
 Đổi filter draft **không** tự fetch đến **Xem**. Đổi page/pageSize sau viewed → refetch applied. Đổi filter rồi Xem → reset page=1.
@@ -152,7 +152,7 @@ Live MFE (`OfficialDocsReportPage`) đã Kind E: 1× `LinPageLayout` kind=`repor
 2. Chọn chiều/đơn vị/từ–đến/q → **Xem** → GET `api/v1/report/official-docs`.
 3. Xuất Excel (đã Xem) → GET `api/v1/report/official-docs/export` → `official-docs.csv` UTF-8 BOM theo cột hiện.
 4. Drill dòng → Ops `/ops?id=`.
-5. Chart SoCai khi đã Xem + có dòng · Config FULL · In stub.
+5. Chart SoCai khi đã Xem + có dòng · Config FULL · **In** scoped (title + filter snapshot + grid).
 6. Đổi page/pageSize sau viewed → refetch cùng applied filters.
 
 ## 5. Prototype
@@ -185,7 +185,7 @@ SA: lookup org-unit · query in-memory P1 seed 8–15 · entity OfficialDocument
 | GAP-DS-CV-02 | Pack **report** / Kind E — **không** Kind B CRUD / nested CatalogListShell |
 | GAP-DS-CV-03 | Prefix **`api/v1/report/official-docs`** (khớp GAP-PO-CV-01) — **cấm** `api/v1/reports` |
 | GAP-DS-CV-04 | Query **`direction` `orgUnitId` `q`** — đóng alias `type`/`search`/`routeId` trên leaf này |
-| GAP-DS-CV-05 | Config **FULL** P1 · Chart SoCai khi đã Xem + có dòng · In stub OK |
+| GAP-DS-CV-05 | Config **FULL** P1 · Chart SoCai khi đã Xem + có dòng · **In scoped** GAP-P2-PRINT-01 (title + filter đã apply + grid) |
 | GAP-DS-CV-06 | Form OUT · cấm Thêm mới A · cấm Resource/Slideout · drill `/ops?id=` |
 | GAP-DS-CV-07 | autoApprove OFF → Design **await_confirm** · **không** auto-confirm · SA **pending** đến user Approve board |
 | GAP-DS-CV-08 | controlHint SearchInput giữ nguyên — **cấm** đổi Select |

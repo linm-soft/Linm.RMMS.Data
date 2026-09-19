@@ -3,35 +3,38 @@
 | | |
 |--|--|
 | Feature | `csdl-bieu-15` |
-| Title | CSDL Biểu 15 — TMC / thu phí / hạt / kho |
+| Title | CSDL Biểu 15 — TMC / thu phí / hạt / kho · **T-XLS-S15** |
 | Role | `review` · `/agent-review` |
 | packKind | `list` |
-| changeScope | `new_page` |
+| changeScope | `edit_page` |
 | resource | `ops-facilities` |
 | formNo | `15` |
 | IdCode | `OF-` |
-| taskId | `task_0c28671f` |
-| priorQa | `task_cb969365` · verdict **PASS** |
-| priorDev | `task_e6ad9bf7` · yarn/dotnet **PASS** |
-| contentHash | `sha256:3bf356f00182dd6c0864bf5b88ae4d460ef8da73e5521f1b14756b7168dc20a7` |
+| taskId | `task_9dc96940` |
+| priorQa | `task_2d0725d3` · verdict **PASS** |
+| priorDev | `task_88a1f9c1` · yarn/dotnet **PASS** |
+| priorTypedReview | `task_0c28671f` · **keep** PASS |
+| contentHash | `sha256:8a85d68eaef24cf98c312f83a3a100de25b1212e8a751d6f1f42005d38dd0fc8` |
 | headerFingerprint | `sha256:0064a4903777f7ea8d51c7423d8451a20daf77a5934929001905edaa380f4fe4` |
-| hashGate | **SKIP** (unchanged vs data_analy → qa) |
+| hashGate | **SKIP** (unchanged vs data_analy → qa XLS chain) |
 | review_confirm | **approve** (autoApprove ON) |
 | verdict | **PASS** |
 | skillVersion | `2026.08.29.03` |
 | workflowVersion | `2026.09.01.02` |
-| rulesVersion | `2026.08.31.2` |
-| reviewedAt | `2026-09-05T16:05:00.000Z` |
+| rulesVersion | `2026.09.17.3` |
+| reviewedAt | `2026-09-18T02:50:00.000Z` |
 
 ## Scope checked
 
 | Layer | Evidence |
 |-------|----------|
-| Compact chain | data_analy → po → design → sa → team_lead → dev → qa (all confirmed) |
-| FE | `CsdlBieu15Page.tsx` · `CsdlBieu15FormSlideout.tsx` · route `/csdl-bieu-15` · hub redirect |
-| BE | `CsdlBieu15Entity` · `CsdlBieu15Dtos` · `CsdlCatalogService` ops-facilities · migration `Schema_CsdlBieu15` |
-| DOMAIN-MAP | `csdl-bieu-15` → Asset |
-| QA | S0/S1/QA-20 PASS · manifest `ok=true` · typecheck PASS |
+| Compact chain | data_analy → po → design → sa → team_lead → dev → qa (all **confirmed** · XLS) |
+| Delta | Toolbar **Xuất Excel** · Import **ẩn** · typed 20 KEEP · Schema_CsdlBieu15 KEEP |
+| FE | `CsdlBieu15Page.tsx` · `canExportExcel` + `handleExportExcel` · filter QS · **0** export trên `LinErpListFilterBar` |
+| FE svc | `endpoint.ts` `exportExcel` · fallback `Bieu15_TMC_Tram_Hat_{yyyyMMdd}.xls` · BASE `/asset/csdl-records` |
+| BE | `CsdlCatalogExcelService` ops-facilities · sheet `Biểu 15` · `Bieu15ExportHeaders` **20** · one_sheet flat |
+| BFF | `CsdlCatalogRecordsBffController` → `api/v1/asset/csdl-records/export` binary |
+| QA | S0/S1/QA-20 + S-XLS-EXPORT PASS · `Bieu15_TMC_Tram_Hat_20260918.xls` · hasImport=false · filterBarHasExport=false |
 
 ## Hash gate
 
@@ -44,12 +47,11 @@
 
 | ID | Sev | Finding | Verdict |
 |----|-----|---------|---------|
-| Q-01 | — | List filter: search / province / status / facilityKind / roadCode / kmFrom–kmTo · BE `facilityKind` normalize keep_5 + typed join `CsdlBieu15` | **PASS** |
-| Q-02 | — | CRUD qua `api/v1/asset/csdl-records?resource=ops-facilities` · BFF proxy only · **không** invent infra / ERP.* | **PASS** |
-| Q-03 | — | IdCode prefix `OF` · shell catalog + typed child 1:1 · **không** Guid làm IdCode | **PASS** |
-| Q-04 | — | Soft-delete reuse catalog · list không surface deleted | **PASS** (reuse path) |
-| Q-05 | — | LKP road-routes/search · SearchInput P1 | **PASS** |
-| Q-06 | info | Auth `RequirePermission` wire **DEFER** (đã ghi debt Dev/QA) | **ACCEPT** debt |
+| Q-01 | — | List filter keep · export QS forward search/province/status/facilityKind/roadCode/kmFrom–kmTo/from–to · **không** page | **PASS** |
+| Q-02 | — | Export GET `…/csdl-records/export?resource=ops-facilities` · BFF proxy · **không** ERP.* / invent infra | **PASS** |
+| Q-03 | — | Empty filter = all tenant resource · filtered scope Q-XLS-SCOPE | **PASS** |
+| Q-04 | — | CRUD typed keep · export không dirty Leave | **PASS** (reuse) |
+| Q-05 | info | Auth `RequirePermission` wire **DEFER** (carry typed) | **ACCEPT** debt |
 
 **QUERY summary:** 0 blocker · 0 major.
 
@@ -59,11 +61,11 @@
 
 | ID | Sev | Finding | Verdict |
 |----|-----|---------|---------|
-| S-01 | — | Domain Asset only · DOMAIN-MAP slug có · **cấm** ERP.* (FE page + Asset controller path sạch) | **PASS** |
-| S-02 | — | Tenant share_tenant · xco_get_only · tz_na (SA gates) — không mở write cross-org mới | **PASS** |
-| S-03 | — | Validation server: facilityKind keep_5 · qty/area ≥0 · yearBuilt range · status enum | **PASS** |
-| S-04 | info | Permission reuse `asset.csdl-records.*` · wire DEFER — cùng pattern peer Biểu | **ACCEPT** debt |
-| S-05 | — | **Không** merge so-ts-toll/rest/station/road-assets · peer cite only | **PASS** |
+| S-01 | — | Domain Asset only · **cấm** ERP.* (FE + Asset path sạch) | **PASS** |
+| S-02 | — | Gates tz_na · xco_get_only · share_tenant — export inherit list XCO | **PASS** |
+| S-03 | — | **Không** merge so-ts-toll/rest/station/road-assets | **PASS** |
+| S-04 | info | Permission reuse `asset.csdl-records.*` · wire DEFER | **ACCEPT** debt |
+| S-05 | — | Import POST **OUT P1** · không mở write surface mới @ P0 | **PASS** |
 
 **SEC summary:** 0 blocker · 0 major.
 
@@ -73,13 +75,14 @@
 
 | ID | Sev | Finding | Verdict |
 |----|-----|---------|---------|
-| U-01 | — | Kind B list A–D+F · FilterBar · `buildDynamicGridColumns` · subset list cols | **PASS** |
-| U-02 | — | Kind D Slideout 2col · Z2 cơ sở/công trình · Z3 TB+QL · footer_actions_only · LeaveConfirm | **PASS** |
-| U-03 | — | Typed 20 cột · **không** form 3 ô detail* | **PASS** |
-| U-04 | — | route_a `/csdl-bieu-15` + hub `?resource=ops-facilities` redirect (QA S1) | **PASS** |
-| U-05 | — | facilityKind keep_5 · equipmentKind free_text · empty copy TMC/thu phí/hạt/kho | **PASS** |
-| U-06 | — | Map none · peer toolbar none_p1 · XLS OUT | **PASS** (by design) |
-| U-07 | P3 | GAP-QA-ROAD-TESTID — road SearchInput testid trùng field (QA debt) | **ACCEPT** P3 |
+| U-01 | — | Kind B+D keep · Slideout 20 · typed CRUD **không** reopen | **PASS** |
+| U-02 | — | G-04 catalogToolbar `canExportExcel` / `onExportExcel` · binary download | **PASS** |
+| U-03 | — | GAP-FILTER-BAR-08 · **0** Xuất trên `LinErpListFilterBar` (QA assert) | **PASS** |
+| U-04 | — | Import **ẩn** · export_only_p0 · S-XLS-IMPORT hidden | **PASS** |
+| U-05 | — | Toast sau blob download · empty copy OK · fail toast · **≠** stub-done trước response | **PASS** |
+| U-06 | — | Filename `Bieu15_TMC_Tram_Hat_{yyyyMMdd}.xls` (QA live-assert) | **PASS** |
+| U-07 | — | route_a / hub alias keep · peer/map none_p1 | **PASS** |
+| U-08 | P3 | GAP-QA-ROAD-TESTID (carry typed) | **ACCEPT** P3 |
 
 **UI-FN summary:** 0 blocker · 0 major · 1 P3 debt.
 
@@ -89,27 +92,42 @@
 
 | ID | Sev | Finding | Verdict |
 |----|-----|---------|---------|
-| B-01 | — | `CsdlBieu15Entity` / `rmms_csdl_bieu15` · Facility*/Area*/Equipment* flat · **không** parent *Json | **PASS** |
-| B-02 | — | Migration `20260905160000_Schema_CsdlBieu15` present · Apply runtime Step 4b (đã Dev) | **PASS** artifact |
-| B-03 | — | DTO typed join catalog · UiSchema catalogKind `ops-facilities` seed list subset | **PASS** |
-| B-04 | — | RequireOpsFacilitiesTyped trên Create/Update · normalize VN aliases | **PASS** |
-| B-05 | — | status sync shell Status khi typed | **PASS** |
-| B-06 | — | **Không** 2 entity song song · shell + 1:1 child | **PASS** |
+| B-01 | — | `Bieu15ExportHeaders` = 20 · facility+area+equipment **cùng hàng** · **cấm** 12+8 / sheet CT/TB | **PASS** |
+| B-02 | — | Sheet name `Biểu 15` · `BuildXlsx` · filename `Bieu15_TMC_Tram_Hat_{yyyyMMdd}.xls` | **PASS** |
+| B-03 | — | Schema_CsdlBieu15 **KEEP** · **không** migration/entity change @ XLS | **PASS** |
+| B-04 | — | BFF binary proxy QS forward · ExportPageSizeCap | **PASS** |
+| B-05 | — | API-XLS-02 import **OUT P1** · BE-02 DEFER | **PASS** (by design) |
+| B-06 | — | Streaming **không** @ P0 | **PASS** |
 
 **BE-FN summary:** 0 blocker · 0 major.
 
 ---
 
-## QA evidence (cite)
+## GAP matrix (XLS) — closed
+
+| ID | Status |
+|----|--------|
+| GAP-BIEU15-XLS-01 | **CLOSED** Toolbar Xuất binary |
+| GAP-BIEU15-XLS-02 | **CLOSED** Toast stub ≠ done |
+| GAP-BIEU15-XLS-03 | **CLOSED** Golden 20 · cấm 12+8 |
+| GAP-BIEU15-XLS-04 | **CLOSED** Cấm filter-bar export |
+| GAP-BIEU15-XLS-05 | **CLOSED** GET export (+ QS) |
+| GAP-BIEU15-XLS-06 | **CLOSED** 1 sheet 20 flat |
+| GAP-BIEU15-XLS-07 | **CLOSED** Cấm merge peer |
+
+---
+
+## QA evidence (cite · không re-run e2e)
 
 | Case | Result | sha16 | Note |
 |------|--------|-------|------|
-| S0 | PASS | `bb3b71a3587cc57e` | list + filter-bar |
-| S1 | PASS | `bb3b71a3587cc57e` | hub → `/csdl-bieu-15` |
-| QA-20 | PASS | `1dd3e77a73d1388f` | Create Slideout Z2/Z3 · OF- |
+| S0 | PASS | `889e611b9d7ddb8d` | list |
+| S1 | PASS | `47b664218df534e0` | hub redirect |
+| QA-20 | PASS | `4d5914adbda87210` | Slideout Z2/Z3 · OF- |
+| S-XLS-EXPORT | PASS | — | `Bieu15_TMC_Tram_Hat_20260918.xls` · hasImport=false · filterBarHasExport=false |
 
-- yarnTypecheck **PASS** · e2eQa **PASS** (chrome fallback · GAP-QA-E2E-PW-01 P2)
-- **Cấm** re-run e2e / start:std @ Review
+- yarnBuild **PASS** · dotnetBuild **PASS** · e2eQa **PASS** (`task_2d0725d3`)
+- **Cấm** re-run e2e / yarn build / start:std @ Review
 
 ---
 
@@ -119,8 +137,8 @@
 |----|-----|------|
 | Auth wire | DEFER | RequirePermission |
 | GAP-CSDL-ORG-01 | P2 | manageUnit → org SearchInput |
-| GAP-CSDL-XLS-01 | OUT | Import sheet Biểu 15 |
-| GAP-QA-E2E-PW-01 | P2 | yarn e2e-qa hang → chrome fallback |
+| GAP-CSDL-XLS-01 / T-XLS-S15-BE-02 | OUT P1 | Import sheet Biểu 15 |
+| GAP-QA-E2E-PW-01 | P2 | yarn e2e-qa → chrome createRequire |
 | GAP-QA-ROAD-TESTID | P3 | duplicate road testid |
 | Peer/map | none_p1 | by PO/SA |
 
@@ -128,8 +146,8 @@
 
 - autoApprove=ON → **approve**
 - fix_gaps: **none**
-- phase: review **confirmed** · pipeline feature **done** (Review last role)
+- phase: review **confirmed** · pipeline feature **done** (Review last role · XLS Wave 1 T-XLS-S15)
 
 ## Verdict
 
-**PASS** — QUERY/SEC/UI-FN/BE-FN sạch blocker; QA + Dev builds PASS; hash unchanged; known debt deferred.
+**PASS** — QUERY/SEC/UI-FN/BE-FN sạch blocker; XLS GAPs CLOSED; QA + Dev builds PASS; hash unchanged; Import/Auth debt deferred P1.

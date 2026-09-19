@@ -1,223 +1,154 @@
-# Design — csdl-bieu-14 (Biểu 14 — Hệ thống ITS (GTTM))
+# Design — csdl-bieu-14 (Biểu 14 — Hệ thống ITS (GTTM) · edit_page T-XLS-S14)
 
 | Field | Value |
 |-------|-------|
 | feature | `csdl-bieu-14` |
 | title | CSDL Biểu 14 — Hệ thống ITS (GTTM) |
 | this role | `design` · `/agent-design` |
-| Feature Kind | **B** catalog A–D+F · **D** Slideout Z1–Z3 · **`data-form-cols="2"`** |
-| formSurface | **slideout** · `slideout_layout: footer_actions_only` · **cấm** Full-page / Modal form |
-| status | `confirmed` (`design_confirm=approve` · autoApprove ON · `task_d302ab8a`) |
-| changeScope | `new_page` |
+| Feature Kind | **B** catalog A–D+F · **D** Slideout Z1–Z3 · **`data-form-cols="2"`** (**keep** typed) |
+| formSurface | **slideout** · `footer_actions_only` · **cấm** Full-page / Modal form |
+| status | `confirmed` (`design_confirm=approve` · autoApprove ON · `task_7d1a980f`) |
+| changeScope | `edit_page` · Wave 1 `T-XLS-S14` · epic `csdl-export-print` |
 | packKind | `list` |
 | resource | `its-systems` |
-| formNo | `14` · title VN **Biểu 14 — Hệ thống ITS (GTTM)** (Q-TITLE ctx_its) |
-| columns | **21** · section **Vị trí tuyến** + **Thiết bị ITS** + **Hạ tầng gắn kèm** |
-| IdCode | prefix **`IT`** · `IT-yyyyMMdd-nnnn` · **cấm** Guid |
-| peerSoTs | `so-ts-its-camera` · **cấm** merge · Q-PEER-LINK **none_p1** · Q-SO09 **none_p1** |
-| prior · po | `confirmed` · `po/requirement.md` · `handoff/po-compact.md` · `task_475a3c19` |
-| prior · data_analy | `confirmed`/`done` · hash skip · `_data-analy/features/csdl-bieu-14-control-hint.md` · `csdl-bieu-14-real-data.md` · contentHash `sha256:6cfdefa3baaffcf2bd97c7a429bb5043e7f9d77b96bbb77eafaa34689007b112` · headerFingerprint `sha256:14cd156a898dcc971a072dd1cd1b92460a8b597558a90dc9854fead9d4c4de5c` · **cấm** re-scan demo (**GAP-DES-DEMO-RESCAN-01**) |
+| formNo | `14` · title VN **Biểu 14 — Hệ thống ITS (GTTM)** |
+| columns | **21** · device+infra+GPS cùng hàng (export) · form section TB + HT (**keep**) |
+| IdCode | prefix **`IT`** · **cấm** Guid |
+| peerSoTs | `so-ts-its-camera` · **cấm** merge vào export · **GAP-CSDL-CUC-11** |
+| prior · po | `confirmed` · `handoff/po-compact.md` · `task_23c0d73d` · Q-XLS-* chốt |
+| prior · data_analy | `done` · hash skip · contentHash `sha256:e9a062f1f9eecd6bf98748db0c3f839e2247a74ecb9bcd56273d4e48d729fa0a` · headerFingerprint `sha256:14cd156a898dcc971a072dd1cd1b92460a8b597558a90dc9854fead9d4c4de5c` · **cấm** re-scan demo (**GAP-DES-DEMO-RESCAN-01**) |
+| prior · design typed | `task_d302ab8a` · **keep** CRUD/list/form · **chỉ** delta toolbar export |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Asset` |
-| mfeStdRoute | **`/csdl-bieu-14`** (alias Navigate **now**) · hub `/so-ts/csdl-so-sach?resource=its-systems` |
-| mfeStdUrl | `http://localhost:9301/csdl-bieu-14` |
+| mfeStdRoute | `/so-ts/csdl-so-sach` · alias `/csdl-bieu-14` · hub `?resource=its-systems` |
+| mfeStdUrl | `http://localhost:9301/so-ts/csdl-so-sach` |
 | hubUrl | `http://localhost:9301/so-ts/csdl-so-sach?resource=its-systems` |
-| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · domain **Asset** · `api/v1/asset/csdl-records` · BFF `web-bff/api/v1/asset/csdl-records` — **cấm ERP.*** · **cấm** invent `api/v1/infra/*` |
-| catalogKind UI schema | **`its-systems`** (typed) |
-| ui_repo_confirm | `approve` (`Linm.Web.RMMS.Asset`) |
-| be_repo_confirm | `approve` (`Linm.RMMS.WebService`) — Design không chạy BE |
+| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · Asset · `api/v1/asset/csdl-records` — **cấm ERP.*** |
+| catalogKind UI schema | **`its-systems`** (typed keep) |
+| ui_repo_confirm | `approve` |
+| be_repo_confirm | `approve` — Design không chạy BE |
 | design_confirm | **approve** (autoApprove ON · reviewUrl mở được) |
 | shared_grid_example | `v1` |
 | real_view_parity | `v1` |
 | autoApprove | **ON** |
 | e2eQa | **ON** — queued `/agent-qa*` · **cấm** e2e/start:std ở Design |
-| taskId | `task_d302ab8a` · po `task_475a3c19` · analy `task_db0e2ea1` |
-| updatedAt | `2026-09-05T14:55:00.000Z` |
+| taskId | `task_7d1a980f` · po `task_23c0d73d` · analy `task_b92db6a6` · prior typed design `task_d302ab8a` **keep** |
+| updatedAt | `2026-09-18T08:45:00.000Z` |
 
-**Cấm:** re-scan demo · form chỉ 3 ô `detail*` · Full-page form · invent map canvas · merge so-ts-its-camera / road-assets / ITS AiVision · ERP.* · invent API · native alert/confirm · yarn build/e2e/start:std · start role SA/Dev trong task này (**GAP-PKT-ROLE-01**).
+**Cấm:** re-scan demo · toast stub = export done · filter-bar export (**GAP-FILTER-BAR-08**) · golden hồ sơ 12+8 · Import P0 · merge so-ts-its-camera / road-assets / ITS AiVision · ERP.* · new_page typed re-CRUD · yarn build/e2e/start:std · start role SA trong task này (**GAP-PKT-ROLE-01**).
 
 ## 0. Context & inventory (hash skip — **cấm** re-scan demo)
 
 | ID | Path | Notes |
 |----|------|-------|
-| CTX-01 | `docs/context/features/csdl-bieu-14.md` | feature |
-| DEM-01 | `…/csdl-so-sach-demo.html` → `…/asset/csdl-so-sach.html` | zone ref only · **cấm** SSOT data |
-| DA-HINT | `specs/_data-analy/features/csdl-bieu-14-control-hint.md` | controlHint SSOT |
-| DA-REAL | `specs/_data-analy/features/csdl-bieu-14-real-data.md` | §A+§B bind |
-| PO-01 | `specs/csdl-bieu-14/po/requirement.md` | Q chốt · DoD |
-| MFE | hub `CsdlSoSachPage` · form `CsdlFormSlideout` | generic → typed replace |
-| SVC | `services/csdlSoSach/endpoint.ts` | `BASE=/asset/csdl-records` |
-| DOMAIN | `Linm.RMMS.WebService/docs/DOMAIN-MAP.md` | Asset · `csdl-so-sach` · slug `csdl-bieu-14` add_now |
-| PEER | `so-ts-its-camera` | cite only · **cấm** merge · **≠** its-traffic-detect / its-anpr-overload |
+| CTX-01 | `docs/context/features/csdl-bieu-14.md` | feature · hash e9a062f1… |
+| EPIC | `docs/context/features/csdl-export-print.md` | Wave 1 `T-XLS-S14` |
+| DA-HINT | `specs/_data-analy/features/csdl-bieu-14-control-hint.md` | controlHint · § Delta XLS |
+| DA-REAL | `specs/_data-analy/features/csdl-bieu-14-real-data.md` | §A+§B bind export |
+| PO-01 | `specs/csdl-bieu-14/po/requirement.md` · `handoff/po-compact.md` | Q-XLS-* chốt |
+| DES-PRIOR | `specs/csdl-bieu-14/ui/design.md` (typed) | **keep** zones A–D · form Z1–Z3 |
+| LIVE | `CsdlBieu14Page` · `fromCatalogToolbar` | CRUD shipped · **thiếu** Xuất binary |
+| GOLDEN | Cục 16-sheet xls sheet Biểu 14 | **cấm** 12+8 |
 
 Persona: Khu QLĐB · Văn phòng Cục · Ban QLDA (web).
 
-**≠** Sổ TS · ≠ hub generic 3 ô `detail*` · ≠ bind `road-assets?type=ITS_CAMERA` · ≠ ITS AiVision MFEs.
+### § Delta Current vs New (`edit_page` · `T-XLS-S14`)
 
-### § Delta Current vs New (`new_page`)
+| Area | Current (live / typed design) | New (this Design) | GAP |
+|------|-------------------------------|-------------------|-----|
+| List / Form / Hub / Route | Kind B A–D · Slideout 21 · alias `/csdl-bieu-14` · hub card | **Unchanged** · **cấm** reopen new_page | — |
+| Toolbar | Refresh · History · Schema · Delete · **Import/Export stub toast** | **Xuất Excel** binary trên `catalogToolbar` · Import **ẩn** (P1 DEFER) | GAP-BIEU14-XLS-01 · 02 |
+| Filter | `LinErpListFilterBar` field+🔍 | **Unchanged** · **0** action Xuất | GAP-BIEU14-XLS-04 |
+| Export UX | Toast «OUT stub» | Download file · empty=0 row OK · fail toast · **cấm** fake blob | GAP-BIEU14-XLS-02 · G-05/G-06 |
+| Sheet | — | **1 sheet** 21 cột · device+infra+GPS cùng hàng | GAP-BIEU14-XLS-06 |
+| Filename | — | `Bieu14_HeThongITS_{yyyyMMdd}.xls(x)` · SA ext | Q-XLS-FILENAME |
+| Scope | — | **filtered** (QS filter · empty=all tenant resource) | Q-XLS-SCOPE |
+| Golden | stub / 12+8 STALE | Cục **16-sheet** Biểu 14 · checksum 21 | GAP-BIEU14-XLS-03 |
+| Peer | cite so-ts-its-camera | **cấm** merge/dump vào file | GAP-BIEU14-XLS-07 |
+| Import | stub on toolbar | **DEFER P1** · **ẩn** nút | Q-XLS-IMPORT |
 
-| Area | Current (live) | New (this Design) | GAP |
-|------|----------------|-------------------|-----|
-| Entry | Hub 12 biểu · MISSING Biểu 14 | Alias **`/csdl-bieu-14`** + hub NEW card formNo 14 | GAP-BIEU14-HUB-01 · GAP-BIEU14-ROUTE-01 |
-| List cols | generic / N/A | Shared + deviceType/brand/operatingStatus/infraKind subset | GAP-BIEU14-TYPED-01 · Q-LIST-COLS |
-| Form | 3 ô `detail*` nếu bootstrap | Typed **21 cột** Slideout 2col · section TB + HT | GAP-BIEU14-TYPED-01 · GAP-CSDL-CUC-03 |
-| Device | — | deviceType LOOKUP 5 · brand · techSpec · qtyOrLength Number · operatingStatus | GAP-BIEU14-DEV-01 |
-| Infra | — | infraKind LOOKUP 3 · clearanceM · infraQty · systemStatus · yearBuilt | GAP-BIEU14-INFRA-01 |
-| GPS / dir | — | gpsLat/gpsLng Number · direction LOOKUP · side LOOKUP | GAP-BIEU14-GPS-01 · GAP-BIEU14-DIR-01 |
-| road | Text free | **SearchInput** `road-route` filter+form | GAP-CSDL-ROAD-01 |
-| province | LOOKUP_STATIC | **keep_static** P1 | GAP-CSDL-PROV-01 |
-| manageUnit | Text | trail **P2** · không trong form P1 21 | GAP-CSDL-ORG-01 · Q-MANAGE trail_p2 |
-| Peer | so-ts-its-camera | **cấm** merge · none_p1 link | GAP-CSDL-CUC-11 · GAP-BIEU14-PEER-ITS-01 |
-| DOMAIN-MAP | thiếu slug | add_now `csdl-bieu-14` | GAP-BIEU14-DMAP-01 |
-| Import/Export | stub | stub OUT Biểu 14 | GAP-CSDL-XLS-01 |
+**Không đổi:** API prefix CRUD · resource `its-systems` · Kind B A–D · Kind D Slideout · filter slots · IdCode `IT` · formNo 14 · section TB+HT · map=`none` · **cấm ERP.***.
 
-**Không đổi:** Kind B A–D · Kind D Slideout · `LinPageLayout kind="catalog"` · pagination 50/100/200/500 · API prefix · resource key · formNo **14** · IdCode **cấm** Guid · map=`none` · **cấm ERP.***.
+**PO chốt (Design khóa):** Q-XLS-SCOPE=`filtered` · Q-XLS-IMPORT=`export_only_p0` · Q-XLS-FILENAME=`Bieu14_HeThongITS_{yyyyMMdd}` · Q-XLS-SHEET=`one_sheet` · typed Q-* **keep**.
 
-**PO chốt (Design khóa):** Q-ROUTE=`alias_now` · Q-PROV=`keep_static` · Q-DIR=`lookup` · Q-QTY-UNIT=`number` · Q-DEVICE-SET=`keep_5` · Q-INFRA-SET=`keep_3` · Q-MANAGE=`trail_p2` · Q-PREFIX=`IT` · Q-LIST-COLS=`subset` · Q-TITLE=`ctx_its` · Q-DMAP=`add_now` · Q-PEER-LINK=`none_p1` · Q-SO09=`none_p1` · open Q = **none**.
-
-## 1. Kind + UI pattern (HARD)
+## 1. Kind + UI pattern (HARD — keep + delta)
 
 | | |
 |--|--|
-| Feature Kind | **B+D** |
-| List pattern | **1×** `LinPageLayout` kind=`catalog` — **cấm** nested `CatalogListShell` |
-| Grid | `LinCatalogDataGrid` · kéo cột **default ON** · cols = shared + deviceType/brand/operatingStatus/infraKind |
-| Filter | **`LinErpListFilterBar`** **1 hàng wrap** · **input + 🔍 cụm phải** — **cấm** nút Tìm riêng · **cấm** stack (**filter-bar-layout-hard**) |
-| Footer | `LinCatalogListPagination` **50 / 100 / 200 / 500** |
-| Form pattern | **Slideout** · `formSurface: slideout` · **`data-form-cols="2"`** · `footer_actions_only` · section Vị trí tuyến + Thiết bị ITS + Hạ tầng gắn kèm |
-| Zone F | `LinCatalogUiSchemaEditorModal` catalogKind **`its-systems`** — **cấm** `LinListTableConfigModal` |
-| Zone H | `LinCatalogHistoryModal` — stub OK P2 · **cấm** invent History API |
-| Leave | Dirty → **`LeaveConfirmModal`** — **cấm** native alert/confirm (**GAP-DES-LEAVE-01**) |
-| Typography | label **13** · input D14/M16 (**GAP-TYP-01**) |
-| Toolbar icons | `erp-control-icon-map` §0 · config=`fa-cog` |
-| Map | `map: none` — gis deep-link only · **cấm** invent canvas |
-| Peer | **none_p1** · **cấm** toolbar merge so-ts-its-camera |
-| Skip chrome | GOVOne · demo sidebar/note |
-| Report | **N/A** — packKind `list` · DES-RPT skip |
-| Grid AC | **YES** · Leave **YES** · Report AC **N/A** |
+| Feature Kind | **B+D** (**keep**) |
+| List | `LinPageLayout` kind=`catalog` · **cấm** nested CatalogListShell |
+| Grid / Filter / Footer / Form / Zone F·H / Leave / Typography | **keep** typed design `task_d302ab8a` |
+| Toolbar icons | `erp-control-icon-map` · **+** export=`fa-file-excel` (or `fa-file-export`) trên **catalogToolbar** |
+| Export surface | **catalogToolbar / report-toolbar-actions** · **cấm** `LinErpListFilterBar` (**GAP-FILTER-BAR-08**) |
+| Import | **hidden** P0 · P1 DEFER |
+| Map | `none` |
+| Report | **N/A** packKind list · DES-RPT skip |
+| Grid AC | **YES** · Leave **YES** · Report **N/A** · Export AC **YES** (G-04…G-08) |
 
-### Routes (Design chốt)
+### Routes (keep)
 
 | Surface | Path |
 |---------|------|
-| Alias list | `/csdl-bieu-14` → same page as hub resource list |
-| Hub entry | `/so-ts/csdl-so-sach?resource=its-systems` · NEW card «Hệ thống ITS (GTTM)» · formNo **14** · **cấm** slug trên card |
-| Form | overlay Slideout · **cấm** Full-page |
-| Map | deep-link gis only |
+| Alias list | `/csdl-bieu-14` |
+| Hub | `/so-ts/csdl-so-sach?resource=its-systems` |
+| Form | Slideout overlay |
+| Export | same list · action toolbar · **không** route mới |
 
 ## 2. Screens / zones
 
 | Screen | FormMode | Zones | Controls / notes |
 |--------|----------|-------|------------------|
-| S-LIST | list | **DES-GRID-A · B · B-FILTER · C0–C3 · D · F · H** | Filter + toolbar FULL · typed grid subset |
-| S-FORM-CREATE | create | **DES-GRID-Z** Slideout 2col Z1–Z3 | footer Hủy/Lưu · leave |
-| S-FORM-EDIT | edit | DES-GRID-Z | footer Hủy/Lưu · leave dirty |
-| S-FORM-VIEW | view | DES-GRID-Z | readOnly · **cấm** disabled xám · footer Đóng/Sửa/Copy |
-| S-FORM-COPY | create | DES-GRID-Z | clear id · new `IT-` code |
-| S-ACT-DELETE | — | Confirm modal | soft delete |
-| S-HIST | — | DES-GRID-H | `LinCatalogHistoryModal` |
-| S-HUB-ENTRY | — | — | hub NEW card «Hệ thống ITS (GTTM)» · open resource |
-| S-SKIP-MAP | — | — | **Cấm** map canvas |
-| S-SKIP-PEER | — | — | **Cấm** merge / deep-link peer P1 · **cấm** SO09 P1 |
+| S-LIST | list | **DES-GRID-A · B · B-FILTER · C · D · F · H** | **+ export** trên B toolbar · filter unchanged |
+| S-FORM-* | create/edit/view/copy | DES-GRID-Z Z1–Z3 | **keep** · export **không** dirty Leave |
+| S-ACT-DELETE / S-HIST / S-HUB-ENTRY | — | keep | — |
+| S-EXPORT | — | DES-GRID-B | ToolbarButton **Xuất Excel** · binary download |
+| S-SKIP-IMPORT | — | — | Import **ẩn** P0 |
+| S-SKIP-MAP / S-SKIP-PEER | — | — | **keep** cấm |
 
-**devSlash:** `/agent-dev` (list + Slideout typed · **không** map / e2e ở Design).
+**devSlash (hand-off):** `/implement-export-import-excel` · **không** map / e2e ở Design.
 
-### Zone A — Header
+### Zone A — Header (**keep**)
 
-- Back hub `/so-ts/csdl-so-sach` · title «Biểu 14 — Hệ thống ITS (GTTM)» · **cấm** Thêm mới trên A · **cấm** slug trên title
+- Back hub · title «Biểu 14 — Hệ thống ITS (GTTM)» · **cấm** Thêm mới trên A
 
-### Zone B — Toolbar + filter (`LinErpListFilterBar`)
+### Zone B — Toolbar + filter
 
-| key | Label | Control | catalogKind |
-|-----|-------|---------|-------------|
-| search | Tìm kiếm | `SearchTextInput` | text · mã · đường · hãng · ghi chú · **🔍 cụm phải** |
-| province | Tỉnh/TP | `Dropdown` | LOOKUP_STATIC P1 |
-| operatingStatus | TT hoạt động | `Dropdown` | LOOKUP_STATIC |
-| deviceType | Loại TB | `Dropdown` | LOOKUP_STATIC · cáp/CCTV/ANPR/VMS/tủ |
-| roadCode | Đường | `SearchInput` | **road-route** |
-| kmFrom / kmTo | Lý trình từ–đến | `Number` | Line geom |
-| side | Vị trí | `Dropdown` | LOOKUP L/R/C/Both |
-| — | Làm mới / Lịch sử / Cấu hình / Xóa / Import·Export stub | `fa-sync-alt` · `fa-history` · `fa-cog` · `fa-trash` · stub toast OUT Biểu 14 | |
-| — | **Tạo mới** | primary Zone B phải | |
+| key / action | Label | Control | Notes |
+|--------------|-------|---------|-------|
+| refresh / history / config / delete / create | keep | ToolbarButton | typed keep |
+| **exportExcel** | **Xuất Excel** | `ToolbarButton` | **catalogToolbar** · binary · filter QS áp dụng · **GAP-BIEU14-XLS-01** |
+| importExcel | Nhập Excel | — | **hidden** P0 · DEFER P1 |
+| search…side | keep filter | per controlHint | **cấm** Xuất trên filter bar |
 
-Filter đổi → page=1 · **search must work** · **cấm** nút Tìm riêng · **cấm** nút Sổ TS peer.
+Filter đổi → page=1 · export dùng **current filter QS** (Q-XLS-SCOPE=filtered).
 
-### Zone C — Grid columns (typed · **subset** · shared+device+infraKind)
+### Zone C / D — Grid + pagination (**keep**)
 
-**Default:** STT · □ · **Mã** · **Đường** · **Tỉnh** · **Km từ** · **Km đến** · **Vị trí** · **Loại TB** · **Hãng** · **TT HĐ** · **Hạ tầng** · ⋯
+Typed subset cols · pagination 50/100/200/500 · empty «Chưa có hệ thống ITS».
 
-Schema-config có thể bổ sung: direction · gpsLat/gpsLng · techSpec · qtyOrLength · clearanceM · infraQty · systemStatus · yearBuilt · notes.
+## 3. Field inventory
 
-Row menu: Xem / Sửa / Copy / Xóa / Lịch sử · kéo cột ON.
+### 3.1–3.3 Form Z1–Z3 — **unchanged** (cite typed · 21)
 
-Empty: «Chưa có hệ thống ITS» · CTA Tạo mới.
+Control = controlHint prior · **cấm** đổi form controlHint trong pack này.
 
-### Zone D — Pagination
+### 3.4 Actions — **delta**
 
-`LinCatalogListPagination` 50/100/200/500.
+| Action | Surface | controlHint | Notes |
+|--------|---------|-------------|-------|
+| export-excel | catalogToolbar | ToolbarButton | Label **Xuất Excel** · GET export · filename `Bieu14_HeThongITS_{yyyyMMdd}` · 1 sheet 21 |
+| import-excel | — | — | **DEFER** · không mount P0 |
+| create/view/edit/copy/delete/history/schema/refresh | Toolbar | keep | Unchanged |
+| save/cancel | Form footer | keep | Unchanged · export không mở Leave dirty |
 
-## 3. Field inventory (Control = controlHint · **cấm** đoán)
+### 3.5 Export UX states
 
-### 3.1 Form Slideout — Z1 Vị trí tuyến
-
-| # | uiField | Label VN | Control | Required | FormMode | Notes |
-|---|---------|----------|---------|----------|----------|-------|
-| — | code | Mã | Text readonly | auto | all ro | IdCode `IT-` · **cấm** Guid |
-| 1–2 | roadCode / roadName | Mã/Tên đường | **SearchInput** | * | view=ro | catalogKind `road-route` · **GAP-CSDL-ROAD-01** |
-| 3 | province | Địa danh | Dropdown | * | view=ro | LOOKUP_STATIC P1 · **Q-PROV** keep_static |
-| 4–5 | kmFrom / kmTo | Lý trình từ–đến (Km) | Number | * | view=ro | decimal · Line |
-| 6 | side | Vị trí | Dropdown | * | view=ro | L/R/C/Both |
-| 7 | direction | Hướng tuyến | Dropdown | | view=ro | LOOKUP T/Đ/N/B · **Q-DIR** lookup · **GAP-BIEU14-DIR-01** |
-| 8–9 | gpsLat / gpsLng | GPS Lat / Lng | Number | | view=ro | decimal · Point · **GAP-BIEU14-GPS-01** |
-
-### 3.2 Form Slideout — Z2 Thiết bị ITS
-
-Section title cố định: **«Thiết bị ITS»** · **cấm** gộp 1 text detail*
-
-| # | uiField | Label VN | Control | Required | Notes |
-|---|---------|----------|---------|----------|-------|
-| 10 | deviceType | Loại thiết bị | Dropdown | * | cáp/CCTV/ANPR/VMS/tủ · **Q-DEVICE-SET** keep_5 · **GAP-BIEU14-DEV-01** |
-| 11 | brand | Hãng | Text | | |
-| 12 | techSpec | Thông số (TS) | Textarea | | full row OK |
-| 13 | qtyOrLength | SL / dài | Number | | decimal ≥0 · **Q-QTY-UNIT** number |
-| 14 | operatingStatus | TT hoạt động | Dropdown | * | LOOKUP_STATIC tot/tb/kem/hong |
-
-### 3.3 Form Slideout — Z3 Hạ tầng gắn kèm (+ trail)
-
-Section title cố định: **«Hạ tầng gắn kèm»**
-
-| # | uiField | Label VN | Control | Required | Notes |
-|---|---------|----------|---------|----------|-------|
-| 15 | infraKind | Hạ tầng | Dropdown | | cần vươn/long môn/đế BT · **Q-INFRA-SET** keep_3 · **GAP-BIEU14-INFRA-01** |
-| 16 | clearanceM | Khoảng cách / KC (m) | Number | | decimal ≥0 |
-| 17 | infraQty | SL hạ tầng | Number | | integer ≥0 |
-| 18 | systemStatus | TT hệ thống (HT) | Dropdown | | LOOKUP_STATIC align operatingStatus |
-| 19 | yearBuilt | Năm | Number | | year 1900–2100 |
-| 20 | notes | Ghi chú | Textarea | | trail trong 21 · full row |
-| — | updatedAt | Cập nhật | DateTime ro | | audit |
-| — | manageUnit | ĐV QL | — | | **Q-MANAGE** trail_p2 · **không** mount P1 · **GAP-CSDL-ORG-01** |
-
-**Cấm** mount `detailPrimary` / `detailSpec` / `detailExtra` làm form chính.  
-**Cấm** expand device/infra LOOKUP ngoài keep_5 / keep_3 không confirm.
-
-### 3.4 controlHint map (Design chốt)
-
-| Surface | Field | Control | catalogKind |
-|---------|-------|---------|-------------|
-| List B | search | SearchTextInput | — |
-| List B | province | Dropdown | LOOKUP_STATIC |
-| List B | operatingStatus | Dropdown | LOOKUP_STATIC |
-| List B | deviceType | Dropdown | LOOKUP_STATIC |
-| List B | roadCode | SearchInput | road-route |
-| List B | kmFrom / kmTo | Number | — |
-| List B | side | Dropdown | LOOKUP_STATIC |
-| Form | code | Text readonly | — |
-| Form | roadCode / roadName | SearchInput | road-route |
-| Form | province / side / direction | Dropdown | LOOKUP_STATIC |
-| Form | kmFrom / kmTo / gpsLat / gpsLng | Number | — |
-| Form | deviceType / operatingStatus / infraKind / systemStatus | Dropdown | LOOKUP_STATIC |
-| Form | brand | Text | — |
-| Form | techSpec / notes | Textarea | — |
-| Form | qtyOrLength / clearanceM / infraQty / yearBuilt | Number | — |
+| Case | UX |
+|------|-----|
+| Success | Browser download · Content-Disposition · **cấm** toast-only done |
+| Empty filtered set | File vẫn tải · 0 data row · header merge đúng mẫu · toast info OK (G-05) |
+| Fail | toast error · **cấm** silent · **cấm** CSV generic lưới (G-06) |
+| Golden | Cục 16-sheet sheet Biểu 14 · 21 cột · **cấm** 12+8 (G-07) |
+| Scope | filtered QS · empty filter = all tenant resource (G-08) |
 
 ## 4. Prototype + reviewUrl
 
@@ -226,31 +157,31 @@ Section title cố định: **«Hạ tầng gắn kèm»**
 | Prototype | `specs/csdl-bieu-14/ui/prototype/csdl-bieu-14-list-prototype.html` |
 | **reviewUrl** | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-14/ui/prototype/csdl-bieu-14-list-prototype.html` |
 | README | `specs/csdl-bieu-14/ui/prototype/README.md` |
-| Zones covered | DES-GRID-A · B · B-FILTER · C · D · Z (Slideout 2col · section vị trí + TB + HT) · LeaveConfirm · Delete confirm |
-| Sample rows | synthetic UI only · **cấm** demo-json SSOT |
+| Zones | DES-GRID-A · B(**+Xuất**) · B-FILTER(0 export) · C · D · Z · Leave · Delete |
+| Delta UI | Nút **Xuất Excel** visible · Import **removed/hidden** · click = download sim (**≠** stub OUT) |
+| Sample | synthetic UI only · **cấm** demo-json SSOT |
 
-## 5. API bind (Design cite · SA typed)
+## 5. API bind (Design cite · SA chốt binary)
 
 | Op | Path |
 |----|------|
-| List | `GET /web-bff/api/v1/asset/csdl-records?resource=its-systems` |
-| Detail | `GET …/csdl-records/{id}` |
-| Create/Update | `POST` / `PUT` body `resource=its-systems` + typed 21 |
-| Delete | soft `DELETE` |
-| road-route | `GET /integration/road-routes/search` |
+| CRUD | `…/web-bff/api/v1/asset/csdl-records` · resource=`its-systems` · **keep** |
+| **Export** | `GET …/csdl-records/export?resource=its-systems` (+ filter QS) → binary |
+| Import | `POST …/import` · **DEFER P1** · không wire UI P0 |
+| road-route | keep typed |
 
-**Cấm** ERP.* · invent `api/v1/infra/*` · invent `api/v1/so-ts/*` · bind peer `road-assets` · bind ITS AiVision APIs.
+**Cấm** ERP.* · invent `api/v1/infra/*` · bind peer `road-assets` / ITS AiVision · toast stub = done.
 
 ## 6. DoD / design_confirm
 
 | Check | Result |
 |-------|--------|
-| Control = controlHint (21 typed · section TB + HT · GPS · direction) | PASS |
-| Kind B A–D+F · Kind D Slideout 2col · filter-bar hard · hub NEW card | PASS |
-| reviewUrl browser-openable prototype | PASS |
-| Grid AC YES · Leave YES · Report N/A | PASS |
+| Control = controlHint · typed keep · export ToolbarButton | PASS |
+| catalogToolbar Xuất · **cấm** filter-bar export | PASS |
+| Import ẩn P0 · one_sheet 21 · filtered scope | PASS |
+| reviewUrl browser-openable · prototype +nút | PASS |
+| Grid AC YES · Leave YES · Export G-04…G-08 | PASS |
 | design_confirm (autoApprove ON) | **approve** |
-| ui_repo_confirm / be_repo_confirm | **approve** |
 | compact ≤5KB · zone ids · reviewUrl · **cấm** paste HTML | PASS |
 | **Cấm** e2e / start:std / yarn build / re-scan demo | PASS |
 
@@ -258,9 +189,9 @@ Section title cố định: **«Hạ tầng gắn kèm»**
 
 | Role | Need |
 |------|------|
-| **SA** | Schema_CsdlBieu14 · typed DTO/UiSchema `its-systems` · Device*/Infra*/Gps* · DOMAIN-MAP slug · **cấm** invent infra API · **cấm** merge road-assets / ITS AiVision |
-| TL/Dev | Wire controlHint · alias `/csdl-bieu-14` · hub NEW card · **cấm** đoán Text vs SearchInput · **cấm** detail* · **cấm** merge so-ts-its-camera |
-| QA | e2e queued `/agent-qa*` only |
+| **SA** | BFF binary path · Content-Disposition filename · checksum 21 · golden 16-sheet · **cấm** đổi typed entity · **cấm** invent infra |
+| TL/Dev | `/implement-export-import-excel` · wire `fromCatalogToolbar` export · **cấm** filter export · **cấm** toast-stub done · **cấm** merge peer |
+| QA | e2e queued `/agent-qa*` only · G-04…G-08 |
 
 ## Version meta (REQUIRED)
 
@@ -270,15 +201,16 @@ Section title cố định: **«Hạ tầng gắn kèm»**
 | skillVersion | 2026.08.29.03 |
 | schemaVersion | 1 |
 | workflowVersion | 2026.09.01.02 |
-| rulesVersion | 2026.08.31.2 |
-| contentHashPrior | `sha256:6cfdefa3baaffcf2bd97c7a429bb5043e7f9d77b96bbb77eafaa34689007b112` |
-| headerFingerprintPrior | `sha256:14cd156a898dcc971a072dd1cd1b92460a8b597558a90dc9854fead9d4c4de5c` |
-| generatedAt | 2026-09-05T14:55:00.000Z |
+| rulesVersion | 2026.09.17.3 |
+| contentHash | `sha256:e9a062f1f9eecd6bf98748db0c3f839e2247a74ecb9bcd56273d4e48d729fa0a` |
+| headerFingerprint | `sha256:14cd156a898dcc971a072dd1cd1b92460a8b597558a90dc9854fead9d4c4de5c` |
+| generatedAt | 2026-09-18T08:45:00.000Z |
 | versionGate | ok |
-| taskId | task_d302ab8a |
+| taskId | task_7d1a980f |
 | packKind | list |
-| changeScope | new_page |
+| changeScope | edit_page |
 | design_confirm | approve |
+| epic | csdl-export-print · T-XLS-S14 |
 
 ---
-<!-- Version meta: skillId=agent-design skillVersion=2026.08.29.03 schemaVersion=1 workflowVersion=2026.09.01.02 rulesVersion=2026.08.31.2 versionGate=ok design_confirm=approve taskId=task_d302ab8a -->
+<!-- Version meta: skillId=agent-design skillVersion=2026.08.29.03 schemaVersion=1 workflowVersion=2026.09.01.02 rulesVersion=2026.09.17.3 versionGate=ok design_confirm=approve changeScope=edit_page taskId=task_7d1a980f contentHash=sha256:e9a062f1f9eecd6bf98748db0c3f839e2247a74ecb9bcd56273d4e48d729fa0a -->

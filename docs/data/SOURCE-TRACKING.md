@@ -2,7 +2,7 @@
 
 > **Đọc file này trước** mọi `@` / `Read` binary trong `Linm.RMMS.Data/docs`.  
 > Gốc không move. Extract = `analyzed/`. Pipeline feature = [`FEATURE-TRACKING.md`](../context/FEATURE-TRACKING.md).  
-> **Cập nhật:** 2026-09-08
+> **Cập nhật:** 2026-09-18 · SRC-ANCO-ITS Anco đèn tín hiệu · prior 2026-09-17 SRC-NKTD-PDF
 
 ## Legend
 
@@ -29,8 +29,10 @@
 | SRC-HDSD | `docs/tai-lieu/Hướng dẫn sử dụng phần mềm.docx` (copy `mobile-legacy/` · `_extract/`) | customer | partial | hub 18 phân hệ · `15-SCREEN-AI-MAP` | [15-SCREEN-AI-MAP.md](../context/15-SCREEN-AI-MAP.md) · features/* |
 | SRC-GIAI-PHAP | `docs/tai-lieu/RMMS_Giaiphap_tinhnang.docx` | customer | partial | backlog 18 PH | [features/README.md](../context/features/README.md) |
 | SRC-TUAN-DC | `docs/tinh-nang/Dự thảo Đề cương Thiết kế Web-App Tuần Đường.pdf` | customer | analyzed | `patrol` · `road-route` | [24-TUAN-DUONG-DUONG-BO.md](../context/24-TUAN-DUONG-DUONG-BO.md) |
+| SRC-NKTD-PDF | `docs/tinh-nang/Nhat Ky Tuan duong.pdf` (4 trang scan · 23MB) | customer | analyzed | `csdl-so-02` · `rpt-nhat-ky-tuan-duong` | [nhat-ky-tuan-duong-pdf.md](analyzed/nhat-ky-tuan-duong-pdf.md) · CR `specs/_cr/nktd-pdf-20260917/` |
 | SRC-PMC-66 | `docs/gioi-thieu-ung-dung/tai-lieu-ky-thuat/5. Danh mục phong may chu_03092026 v2.doc` | customer | analyzed | infra on-prem | [29-ONPREM-SERVER-STT66.md](../context/29-ONPREM-SERVER-STT66.md) · **gửi khách** [danh-gia-phong-may-chu-rmms-gui-khach.md](../gioi-thieu-ung-dung/tai-lieu-ky-thuat/danh-gia-phong-may-chu-rmms-gui-khach.md) |
 | SRC-DEM-XE | `docs/tinh-nang/Đếm xe tự động.docx` | customer | pending | `rpt-dem-xe` · `its-anpr-overload` | — |
+| SRC-ANCO-ITS | `docs/tai-lieu/Anco-6. Tài liệu tích hợp cho bên thứ 3.docx` | customer | analyzed | `its-anco-signal` | [anco-its-integrate.md](analyzed/anco-its-integrate.md) · [its-anco-signal.md](../context/features/its-anco-signal.md) |
 | SRC-HS-01 | `docs/Hồ sơ…/1_Phiếu trình Lãnh đạo Cục xin ý kiến góp ý.docx` | customer | pending | `csdl-so-sach` | — |
 | SRC-HS-02 | `docs/Hồ sơ…/2_Cục. 4930- Xin ý kiến chuẩn hóa mẫu sổ sách.pdf` | customer | pending | `csdl-so-sach` | — |
 | SRC-HS-05 | `docs/Hồ sơ…/5_P. BT (sửa 1)- Chuẩn hoá hồ sơ quản lý, bảo dưỡng.docx` | customer | pending | `csdl-so-sach` · `maintenance` | — |
@@ -55,10 +57,13 @@
 | `pavement-section` | SRC-CSDL-41 Biểu 1 | done | Deep form Biểu 1 |
 | `asset` · `asset-kcht-32` | SRC-GOV-VN + 12 biểu | asset `data_analy` draft · 32 design confirm | Catalog ≠ dump |
 | `patrol` · `tuan-duong-web` | SRC-TUAN-DC · HDSD | patrol Dev leftover | TT 04 |
+| `csdl-so-02` | SRC-NKTD-PDF · SRC-CSDL-SO · T-SO-02 | done · **CR pdf-align** | Form tạo nhật ký — **trước** report live |
+| `rpt-nhat-ky-tuan-duong` | SRC-NKTD-PDF · `11-CSDL` §3.1 | done seed · **CR live-source** | Kind E **cấm** CRUD · đọc `patrol-logs` |
 | `contract` | HDSD / giải pháp · **không** = parent CT | done (mỏng) | Child HĐ của `kcht-cong-trinh` |
 | `reports` + `rpt-*` | HDSD GOVOne | done (hub P1) | **≠** PHỤ LỤC 03 giải ngân Khu IV |
 | `incident` | HDSD | `dev` / in_progress | — |
 | Còn lại 18 PH | SRC-HDSD · SRC-GIAI-PHAP · FEATURE-TRACKING Index | xem tracking | Không đọc lại docx 13MB |
+| `its-anco-signal` | SRC-ANCO-ITS | context / none | Anco đọc-only · cam+đếm peer · **cấm** đọc lại docx |
 
 **Khu 4 = hai việc khác nhau**
 
@@ -75,6 +80,8 @@
 | ID | size | scannedAt | hashMode |
 |----|------|-----------|----------|
 | SRC-KCT-GN03 | 135537 | 2026-08-29 | size+mtime · unzip 3 sheet |
+| SRC-ANCO-ITS | 31222 | 2026-09-18 | size+mtime · word/document.xml |
 | SRC-KCT-CV | 81920 (.doc) | 2026-08-27 | extract UTF-8 đã có |
+| SRC-NKTD-PDF | 23347991 | 2026-09-17 | 4 scan · OCR bìa · extract UTF-8 |
 
 Đổi size/mtime → bump extract version · **không** re-read nếu Unchanged.

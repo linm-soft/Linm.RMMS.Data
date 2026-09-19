@@ -64,6 +64,7 @@
 - **Cấm** `phase=done` tại QA · next Review.
 - Analy hash skip: contentHash `4652f633…` · **cấm** re-scan demo.
 - **Cấm** ERP.* · **cấm** start role khác trong cùng task (**GAP-PKT-ROLE-01**).
+- **Dashboard family:** sổ GN = **D4** `/:id/giai-ngan` (PH4 T-* đã giao TL) · login 10 KPI = **D5 PARK** · **cấm** enqueue slug `kcht-dashboard` / Kind E PH5 · **cấm** parallel task khi QA `task_719914fb` lock. KPI BDTX = slug `dashboard` D3.
 
 ## Tasks
 

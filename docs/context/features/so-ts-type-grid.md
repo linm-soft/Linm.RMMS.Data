@@ -143,9 +143,10 @@ Chỉ field **có trên tab Thông tin chung** + cột list có data. Đủ cộ
 
 ## 7. API / entity
 
-Giữ `api/v1/so-ts/road-assets?type=`. **Cấm** API mới ngoài DOMAIN-MAP.  
-List: query `type` + hide-empty từ **type column profile** (SSOT dump fill), không hardcode 12 cột.  
-Form: bind `dumpSpecs` + scalar đã có (`routeNamed` …). Cột phẳng mới → `/database-migration` `Schema_*` pair.
+Live: `api/v1/asset/road-assets` (+ `/{id}` · POST · PUT · soft DELETE · init-data) · BFF proxy Asset · **cấm** invent `api/v1/so-ts/*` · **cấm ERP.***  
+CTX slug `so-ts` / feature `so-ts-type-grid` = **alias doc** → same road-assets API (DOMAIN-MAP → Asset).  
+List: query `type` + hide-empty từ **typeColumnProfiles** (SSOT dump fill), không hardcode 12 cột.  
+Form: bind `dumpSpecs` + scalar đã có (`routeNamed` …). Cột phẳng mới → `/database-migration` `Schema_*` pair (**DEFER P2**).
 
 ## 8. Queue
 
@@ -168,3 +169,10 @@ Lock 1 feature / page `/so-ts` — children **reuse** component parent, không f
 | GAP-SOTS-REUSE-01 | P0 | Section S-* shared — cấm form rời không import section |
 | GAP-SOTS-TAB-01 | P0 | Không port tab legacy DRVN |
 | GAP-CULVERT-X-01 | P1 | `CULVERT_X` UI từ mẫu · CSV 0 đến khi có dump |
+
+## Implement tracking
+
+| lane | phase | status | updatedAt |
+|------|-------|--------|-----------|
+| web | `qa` | `await_confirm` | `2026-09-18T18:41:51.740Z` |
+| mobile | — | — | — |

@@ -1,84 +1,75 @@
-# handoff-compact — design · csdl-bieu-13
+# Handoff compact — design
 
-| | |
-|--|--|
-| schemaVersion | `1` |
-| role | `design` |
-| feature | `csdl-bieu-13` |
-| title | CSDL Biểu 13 — Tường chống ồn |
-| packKind | `list` |
-| changeScope | `new_page` |
-| status | `done` |
-| taskId | `task_ba6fcf2c` |
-| resource | `noise-barriers` |
-| formNo | `13` |
-| columns | `13` · section vị trí + kích thước |
-| IdCode | `TC-` |
-| peerSoTs | `so-ts-noise-barrier` · **cấm** merge · none_p1 |
-| autoApprove | `ON` |
-| e2eQa | `ON` |
-| design_confirm | `approve` |
-| shared_grid_example | `v1` |
-| real_view_parity | `v1` |
-| contentHashPrior | `sha256:39a45de0a9b834c65373e6c20d1664ab43144ff60d97bae4f0d886ad09d91e3a` |
-| headerFingerprintPrior | `sha256:31dbc83200b511c9d61333b1cdb94e2880778980a3b21970be414e926db29008` |
-| skillVersion | `2026.08.29.03` |
-| workflowVersion | `2026.09.01.02` |
-| rulesVersion | `2026.08.31.2` |
-| writtenAt | `2026-09-05T14:10:00.000Z` |
+schemaVersion: 1
+feature: csdl-bieu-13
+packKind: list
+role: design
+status: done
+skillVersion: 2026.09.05.03
+workflowVersion: 2026.09.05.03
+rulesVersion: 2026.09.17.3
+contentHash: sha256:800386bb8f86bfcc815b9c7d3a6dc246dc58b0a95b5132a317c5a094d0b4194f
+headerFingerprint: sha256:31dbc83200b511c9d61333b1cdb94e2880778980a3b21970be414e926db29008
+writtenAt: 2026-09-18T01:15:00.000Z
+taskId: task_82008258
+priorTyped: task_ba6fcf2c · keep
+priorPo: task_0a8bfa5d
+priorAnaly: task_4fec1f3f
+resource: noise-barriers
+columns: 13
+IdCode: TC-
+peerSoTs: so-ts-noise-barrier · cấm merge
+design_confirm: approve
+shared_grid_example: v1
+real_view_parity: v1
+formPattern: Slideout
+changeScope: edit_page
 
 ## Decisions
-
-- Kind **B** A–D+F + Kind **D** Slideout · `data-form-cols=2` · footer_actions_only · section Vị trí tuyến + Kích thước tường · **cấm** Full-page
-- form typed **13** · **cấm** detail* only · Control = controlHint · **cấm** barrierType ngoài 13
-- Q-ROUTE **alias_now** `/csdl-bieu-13` · Q-PROV **keep_static** · Q-BARRIER-TYPE **no_type_keep_13** · Q-AREA-DERIVE **manual** · Q-PREFIX **TC** · Q-LIST-COLS **subset** · Q-TITLE **ctx_tuong** · Q-DMAP **add_now** · Q-PEER-LINK **none_p1**
-- GAP-BIEU13-HUB/TYPED/ROUTE/DIM/SIDE/DMAP P1 · GAP-CSDL-ROAD-01 SearchInput P1 · ORG DEFER P2 · XLS OUT stub
-- peer cite only · map none · hub NEW card formNo 13
-- API giữ `api/v1/asset/csdl-records` · catalogKind `noise-barriers` · **cấm** ERP.* · **cấm** road-assets
-- design_confirm **approve** (autoApprove ON) · open Q: **none**
-- Report DES-RPT **N/A** · Grid AC YES · Leave YES
+- changeScope: edit_page (T-XLS-S13) · **cấm** new_page typed reopen
+- formPattern: Slideout · data-form-cols=2 · footer_actions_only · section kích thước (keep)
+- Kind B A–D+F keep · toolbar **+Xuất Excel** · Import **DEFER P1 ẩn**
+- Q-XLS-SCOPE: filtered · Q-XLS-IMPORT: export_only_p0 · Q-XLS-FILENAME: Bieu13_TuongChongOn_{yyyyMMdd}.xls(x) (SA chốt ext) · Q-XLS-SHEET: one_sheet
+- export: catalogToolbar · BFF binary · `/implement-export-import-excel`
+- golden: Cục 16-sheet sheet Biểu 13 · 13 cột · **cấm** 12+8 · **cấm** sheet riêng kích thước
+- filter: **cấm** Xuất trên LinErpListFilterBar (GAP-FILTER-BAR-08)
+- peer: so-ts-noise-barrier cite · **cấm** merge road-assets
+- design_confirm: approve (autoApprove ON) · open Q Design: none
+- Report DES-RPT: N/A
+- mfe: Linm.Web.RMMS.Asset · be: Linm.RMMS.WebService · **cấm ERP.***
 
 ## Inventory (slim)
-
 | id | label | controlHint | notes |
 |----|-------|-------------|-------|
-| search | Tìm | SearchTextInput | Zone B · 🔍 cụm phải |
-| province/status/side | Tỉnh/TT/Vị trí | Dropdown | LOOKUP_STATIC · L/R/C/Both |
-| roadCode | Đường | SearchInput | road-route |
-| kmFrom/kmTo | Km | Number | Line |
-| code | Mã | Text ro | TC- |
-| lengthM/heightM/areaM2 | Dài/Cao/DT | Number | area manual |
-| manageUnit/notes/status | … | Text/Textarea/Dropdown | org P2 |
+| (form 13) | typed prior | keep | section kích thước · **cấm** reopen |
+| exportExcel | Xuất Excel | ToolbarButton | fa-file-excel · filtered · P0 |
+| importExcel | Nhập Excel | ToolbarButton+file | DEFER P1 · ẩn |
 
 ## Screens / zones (ids only)
+- S-LIST DES-GRID-A/B/B-FILTER/C/D/F/H keep · toolbar +export
+- S-XLS-EXPORT · S-XLS-IMPORT (hidden P1)
+- S-FORM-* DES-GRID-Z keep · LeaveConfirmModal
+- reviewUrl=file:///D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-13/ui/prototype/csdl-bieu-13-list-prototype.html
+- mfeStdUrl=http://localhost:9301/so-ts/csdl-so-sach · alias /csdl-bieu-13
+- hubUrl=http://localhost:9301/so-ts/csdl-so-sach?resource=noise-barriers
+- prototype=specs/csdl-bieu-13/ui/prototype/csdl-bieu-13-list-prototype.html
 
-- S-LIST DES-GRID-A · B · B-FILTER · C · D · F · H
-- S-FORM-* DES-GRID-Z · DES-FORM-Z1–Z3 · Z2 Kích thước tường · LeaveConfirmModal
-- S-HUB-ENTRY · S-SKIP-MAP · S-SKIP-PEER
-- reviewUrl=`file:///D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-13/ui/prototype/csdl-bieu-13-list-prototype.html`
-- mfeStdUrl=`http://localhost:9301/csdl-bieu-13`
-- hubUrl=`http://localhost:9301/so-ts/csdl-so-sach?resource=noise-barriers`
-- prototype=`specs/csdl-bieu-13/ui/prototype/csdl-bieu-13-list-prototype.html`
-
-## API / next
-
-- CRUD BFF `…/asset/csdl-records` · resource=noise-barriers · typed DTO **SA**
-- road-route `…/integration/road-routes/search`
-- Next: **SA** Schema_CsdlBieu13 · UiSchema typed · LengthM/HeightM/AreaM2 · DOMAIN-MAP slug · **cấm** merge road-assets
-- e2e: queued `/agent-qa*` only · **cấm** e2e/start:std ở Design
+## API / tasks (ids only)
+- CRUD keep: …/csdl-records?resource=noise-barriers
+- Export: GET …/csdl-records/export?resource=noise-barriers (+ filter QS)
+- Import: POST …/import — DEFER P1
+- T-XLS-S13 · GAP-BIEU13-XLS-01..07
+- Next: SA path/BFF/golden · filename ext
 
 ## UNCLEAR
-
-- none
+- none (Design) · SA: ext .xls vs .xlsx · page-all vs streaming
 
 ## Full paths (Read only if needed)
-
-- design: `D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-13/ui/design.md`
-- control-hint: `D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/csdl-bieu-13-control-hint.md`
-- real-data: `D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/csdl-bieu-13-real-data.md`
-- prior po: `D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-13/handoff/po-compact.md`
-- STATUS: `D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-13/STATUS.md`
+- design: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-13/ui/design.md
+- control-hint: D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/csdl-bieu-13-control-hint.md
+- real-data: D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/csdl-bieu-13-real-data.md
+- prior po: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-13/handoff/po-compact.md
+- STATUS: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-13/STATUS.md
 
 ## Cấm (compact)
-
-Demo/LS SSOT · ERP.* · Guid IdCode · form 3 ô only · invent map · merge so-ts-noise-barrier/road-assets · yarn build/e2e/start:std · re-scan demo · paste HTML vào compact
+ERP.* · toast=done · filter-bar export · golden 12+8 · invent dim sheet · merge peer/road-assets · new_page typed re-CRUD · yarn build/e2e · re-scan demo · paste HTML

@@ -1,87 +1,68 @@
-# handoff-compact — qa · csdl-bieu-15
+# Handoff compact — qa
 
-| | |
-|--|--|
-| schemaVersion | `1` |
-| role | `qa` |
-| feature | `csdl-bieu-15` |
-| title | CSDL Biểu 15 — TMC / thu phí / hạt / kho |
-| packKind | `list` |
-| changeScope | `new_page` |
-| status | `done` |
-| verdict | **PASS** |
-| taskId | `task_cb969365` |
-| priorDevTaskId | `task_e6ad9bf7` |
-| resource | `ops-facilities` |
-| formNo | `15` |
-| columns | `20` · Z2 công trình · Z3 TB+QL |
-| IdCode | `OF-` |
-| peerSoTs | `so-ts-toll` · `so-ts-rest-area` · `so-ts-station-house` · **cấm** merge · none_p1 |
-| formPattern | **Kind D Slideout** 2col · Z2 công trình · Z3 TB+QL |
-| Kind | **B** A–D+F · **D** Slideout Z1–Z3 |
-| route_confirm | `route_a` |
-| mfeStdUrl | `http://localhost:9301/csdl-bieu-15` |
-| hubDeepLink | `/so-ts/csdl-so-sach?resource=ops-facilities` |
-| domain | **Asset** · `api/v1/asset/csdl-records` |
-| e2eQa | **ON** · runtime PASS |
-| yarnTypecheck | **PASS** |
-| docker | api `:5111` · bff `:5201` healthy · API rebuild |
-| contentHashPrior | `sha256:3bf356f00182dd6c0864bf5b88ae4d460ef8da73e5521f1b14756b7168dc20a7` |
-| headerFingerprintPrior | `sha256:0064a4903777f7ea8d51c7423d8451a20daf77a5934929001905edaa380f4fe4` |
-| skillVersion | `2026.08.29.03` |
-| workflowVersion | `2026.09.01.02` |
-| rulesVersion | `2026.08.31.2` |
-| writtenAt | `2026-09-05T15:56:00.000Z` |
+schemaVersion: 1
+feature: csdl-bieu-15
+packKind: list
+role: qa
+status: done
+verdict: PASS
+skillVersion: 2026.09.05.03
+workflowVersion: 2026.09.05.03
+rulesVersion: 2026.09.17.3
+contentHash: sha256:8a85d68eaef24cf98c312f83a3a100de25b1212e8a751d6f1f42005d38dd0fc8
+headerFingerprint: sha256:0064a4903777f7ea8d51c7423d8451a20daf77a5934929001905edaa380f4fe4
+writtenAt: 2026-09-18T02:41:00.000Z
+taskId: task_2d0725d3
+priorDevTaskId: task_88a1f9c1
+priorTypedQa: task_cb969365 · keep
+resource: ops-facilities
+columns: 20
+IdCode: OF-
+formNo: 15
+changeScope: edit_page
+formPattern: Slideout
+e2eQa: ON
+mfeStdUrl: http://localhost:9301/so-ts/csdl-so-sach
+alias: /csdl-bieu-15
+hubDeepLink: /so-ts/csdl-so-sach?resource=ops-facilities
+peerSoTs: so-ts-toll · so-ts-rest-area · so-ts-station-house · cấm merge · none_p1
 
 ## Decisions
+- changeScope: edit_page (T-XLS-S15) · typed 20 KEEP · **cấm** reopen
+- T-XLS-S15-QA-01 **PASS**: export `Bieu15_TMC_Tram_Hat_{yyyyMMdd}.xls` · export_only_p0 · Import ẩn
+- filter: **0** Xuất on LinErpListFilterBar (GAP-FILTER-BAR-08)
+- E2E S0/S1/QA-20 **PASS** · PNG + manifest ok=true
+- yarn e2e-qa playwright resolve fail → chrome createRequire · **cấm** kill (GAP-QA-E2E-KILL-01)
+- docker API+BFF rebuild (pre: CSV stub → post: `.xls`) · start:std reuse :9301
+- **cấm** phase=done · handoff Review
+- open questions: none
 
-- E2E S0/S1/QA-20 **PASS** · PNG + manifest `ok=true`
-- Hub `ops-facilities` **redirect** `/csdl-bieu-15` (route_a) · S1 assert list-page
-- `yarn e2e-qa` hang → chrome channel fallback (**GAP-QA-E2E-PW-01**) · **cấm** kill rộng · dừng riêng e2e tree
-- Pre-rebuild API 422 ops-facilities → `docker compose --build` API → 200
-- T-QA-CRUD/FORM/FILTER/ROUTE/FAC/AREA/EQ **PASS** (runtime + code)
-- facilityKind/km live · peer none · OF- form create · Z2 facility · Z3 TB+QL · LeaveConfirm
-- **cấm** `phase=done` · handoff Review
-- open Q: **none**
+## Inventory (slim)
+| id | label | controlHint | notes |
+|----|-------|-------------|-------|
+| (form 20) | typed keep | — | CRUD KEEP |
+| exportExcel | Xuất Excel | ToolbarButton | P0 · filtered |
+| importExcel | — | — | DEFER P1 ẩn |
 
-## Artifacts
+## Screens / zones (ids only)
+- S0 list · S1 hub redirect · QA-20 Slideout · S-XLS-EXPORT
+- mfeStdUrl=http://localhost:9301/so-ts/csdl-so-sach · alias /csdl-bieu-15
 
-| Kind | Path |
-|------|------|
-| scenarios | `specs/csdl-bieu-15/qa/scenarios.md` |
-| screens | `specs/csdl-bieu-15/qa/screens/{S0,S1,QA-20}.png` |
-| manifest | `specs/csdl-bieu-15/qa/screens/manifest.json` |
-| live-assert | `specs/csdl-bieu-15/qa/screens/live-assert.json` |
-| form-assert | `specs/csdl-bieu-15/qa/screens/form-assert.json` |
-| STATUS | `specs/csdl-bieu-15/STATUS.md` |
+## Evidence
+- manifest ok=true · capturedAt 2026-09-18T02:40:28.576Z
+- SHA256_16 S0=889e611b9d7ddb8d · S1=47b664218df534e0 · QA-20=4d5914adbda87210
+- live-assert exportCheck fileName=Bieu15_TMC_Tram_Hat_20260918.xls · hasImport=false · filterBarHasExport=false
+- form-assert Z2/Z3 · OF- · data-form-cols=2
 
-## Evidence (ids)
-
-| Case | Result | sha16 |
-|------|--------|-------|
-| S0 | PASS | `bb3b71a3587cc57e` |
-| S1 | PASS | `bb3b71a3587cc57e` |
-| QA-20 | PASS | `1dd3e77a73d1388f` |
-
-## Screens / zones
-
-- S-LIST · S-FORM-C · S-HUB-ENTRY · S-SKIP-PEER · S-SKIP-MAP
-- testid=`rmms-csdl-bieu-15-list-page` · form=`rmms-csdl-bieu-15-form-slideout`
-
-## Debt
-
-- GAP-QA-E2E-PW-01 P2 · GAP-QA-ROAD-TESTID P3 · Auth DEFER · org/XLS OUT/DEFER
+## Full paths
+- scenarios: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-15/qa/scenarios.md
+- screens: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-15/qa/screens/
+- STATUS: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-15/STATUS.md
 
 ## Next
-
 | Role | Need |
 |------|------|
-| **Review** | `/agent-review` · findings · **cấm** phase=done từ QA |
-
-## UNCLEAR
-
-- none
+| **Review** | `/agent-review` · findings · review_confirm |
 
 ## Cấm (compact)
-
-ERP.* · invent API · phase=done · kill worker rộng · start role khác · merge so-ts-toll/rest/station · detail*-only
+ERP.* · invent infra · phase=done · kill worker · toast stub=done · filter-bar export · merge peer · Import P0 · reopen typed

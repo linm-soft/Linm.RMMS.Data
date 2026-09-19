@@ -3,94 +3,85 @@
 | Field | Value |
 |-------|-------|
 | feature | `csdl-bieu-04` |
-| title | CSDL Biểu 04 — Cống các loại |
+| title | CSDL Biểu 04 — Xuất Excel (T-XLS-S04) |
 | this role | `dev` · `/agent-dev` |
 | status | **done** |
-| changeScope | `new_page` |
+| changeScope | **`edit_page`** · Wave 1 · **T-XLS-S04** |
 | packKind | `list` |
 | resource | `culverts` |
 | formNo | `04` |
 | columns | `17` |
 | IdCode | `CG-yyyyMMdd-nnnn` |
-| route | `/csdl-bieu-04` + hub `?resource=culverts` |
-| mfeStdUrl | `http://localhost:9301/csdl-bieu-04` |
+| route | **KEEP** `/csdl-bieu-04` + hub `?resource=culverts` |
+| mfeStdUrl | `http://localhost:9301/so-ts/csdl-so-sach` |
+| hubDeepLink | `/so-ts/csdl-so-sach?resource=culverts` |
 | domain | Asset · `api/v1/asset/csdl-records` |
-| taskId | `task_cd72c67e` |
-| contentHashPrior | `sha256:7498ad6644d0e599bc40afb7589db5335c18adb4b92f1573de3c1fae2e17d3d6` |
-| skillVersion | `2026.08.25.01` |
-| workflowVersion | `2026.09.01.02` |
-| rulesVersion | `2026.08.31.2` |
-| writtenAt | `2026-09-05T06:30:00.000Z` |
+| taskId | `task_421286ef` |
+| tlTaskId | `task_7925d902` |
+| contentHash | `sha256:eef182add5b68de5b3e27ec36ed9c099689831aeb77742814aa296bf286243f9` |
+| headerFingerprint | `sha256:8b98f7a22739bdad37b67a7ef869d6c465edc38061f0d5853fe2e69758d4ccea` |
+| skillVersion | `2026.09.05.03` |
+| workflowVersion | `2026.09.05.03` |
+| rulesVersion | `2026.09.17.3` |
+| writtenAt | `2026-09-18T03:45:00.000Z` |
 | yarn build | **PASS** |
 | dotnet build | **PASS** |
+| migration | **none** @ XLS |
+| import | **DEFER P1** · UI ẩn |
 
 ## Summary
 
-Typed Biểu 04 list+Slideout on alias `/csdl-bieu-04`. Shell `CsdlCatalogRecordEntity` + child `CsdlBieu4Entity` (`Schema_CsdlBieu4`). GPS **four_xy** · shape hộp/tròn · loadClass free_text. API kept `asset/csdl-records`; BFF proxy unchanged. Peer Sổ TS deep-link only · **cấm** merge.
+Delta Xuất Excel trên typed Biểu 04 (KEEP CRUD 17-col · GPS four_xy). Toolbar `catalogToolbar` +Xuất Excel · filter QS · filter-all · filename `Bieu04_CongCacLoai_{yyyyMMdd}.xls` · sheet «Biểu 4» · **cấm** merge `so-ts-culvert-x` · **cấm** Xuất trên `LinErpListFilterBar`. BFF binary proxy KEEP. Import P1 ẩn.
 
-## Tasks DoD
+## Tasks DoD (T-XLS-*)
 
 | id | status | notes |
 |----|--------|-------|
-| T-DM-01 | **done** | DOMAIN-MAP `csdl-bieu-04`→Asset |
-| T-CTX-01 | **done** | context feature sync |
-| T-BE-01 | **done** | `CsdlBieu4Entity` + EF 1:1 |
-| T-BE-02 | **done** | Migration `Schema_CsdlBieu4` (apply DB at deploy) |
-| T-BE-03 | **done** | typed DTO join · stop detail* write for culverts |
-| T-BE-04 | **done** | IdCode prefix `CG` |
-| T-BE-05 | **done** | filters roadCode + kmPoint→KmFrom |
-| T-BFF-01 | **done** | proxy QS as-is |
-| T-PERM-01 | **done** | reuse stub codes · Auth wire DEFER |
-| T-BE-UISCHEMA-01 | **done** | catalogKind `culverts` typed seed |
-| T-UI-LIST-01 | **done** | route alias + Kind B |
-| T-UI-FILTER-01 | **done** | FilterBar + road SearchInput + kmPoint |
-| T-UI-CFG-01 | **done** | LinCatalogUiSchemaEditorModal + buildDynamicGridColumns |
-| T-UI-FORM-01 | **done** | Slideout typed 17 · no detail*-only |
-| T-UI-LEAVE-01 | **done** | LeaveConfirmModal |
-| T-UI-ACT-01 | **done** | C/E/V/Copy/Delete |
-| T-UI-LKP-01 | **done** | road-route P1 |
-| T-UI-FIELD-01 | **done** | four_xy · shape · free_text load |
-| T-UI-PROD-01 | **done** | hub + peer deep-link |
-| T-UI-UX-01 | **done** | 2col footer_only |
-| T-UI-RESP-01 | **done** | CSS responsive fields |
-| T-OUT-01 | OUT | XLS/skip-bridge |
+| T-CTX-XLS-01 | **done** | STATUS + implement sync |
+| T-OUT-01 | **done** | Import UI ẩn · DEFER P1 |
+| T-XLS-BE-01 | **done** | `ExportAsync` branch `culverts` · OOXML · sheet Biểu 4 |
+| T-XLS-BE-02 | **done** | headers control-hint · GPS four_xy · filter-all · kmPoint QS |
+| T-XLS-BFF-01 | **done** | BFF `GET …/export` binary proxy KEEP |
+| T-XLS-FE-01 | **done** | `onExportExcel` on `fromCatalogToolbar` |
+| T-XLS-FE-02 | **done** | download blob + toast · empty=headers-only |
+| T-REG-GRID | **done** | typed list/form KEEP · no column reopen |
+| T-REG-PEER | **done** | peer deep-link only · no sheet merge |
+| T-XLS-QA-01 | pending | queued `/agent-qa*` |
 
 ## FE paths
 
-- `Linm.Web.RMMS.Asset/src/pages/CsdlBieu04Page/*`
-- route `src/index.tsx` · `csdl-bieu-04`
-- services `csdlSoSach/*` widened typed + kmPoint filter
+- `src/pages/CsdlBieu04Page/CsdlBieu04Page.tsx` — `handleExportExcel` · toolbar export
+- `src/services/csdlSoSach/endpoint.ts` · `csdlService.ts` — `exportExcel` + `kmPoint` + fallback filename
 
 ## BE paths
 
-- Entity `CsdlBieu4Entity` · migration `20260905061652_Schema_CsdlBieu4`
-- Service/Controller/DTO widen · CatalogUiSchemaSeed Culverts
-- DOMAIN-MAP row `csdl-bieu-04`
+- `CsdlCatalogExcelService.cs` — `Bieu4ExportHeaders` · culverts export · `kmPoint` param
+- `CsdlCatalogRecordsController.cs` — `[FromQuery] kmPoint`
+- BFF `CsdlCatalogRecordsBffController` — unchanged proxy
 
 ## APIs
 
-| id | Method | Path |
-|----|--------|------|
-| API-01 | GET | `/api/v1/asset/csdl-records?resource=culverts&…` |
-| API-02 | GET | `/api/v1/asset/csdl-records/{id}` |
-| API-03 | POST | `/api/v1/asset/csdl-records` |
-| API-04 | PUT | `/api/v1/asset/csdl-records/{id}` |
-| API-05 | DELETE | `/api/v1/asset/csdl-records/{id}` |
-| API-LKP-01 | GET | `/api/v1/integration/road-routes/search` |
+| id | Method | Path | Notes |
+|----|--------|------|-------|
+| API-01..05 | — | `…/csdl-records?resource=culverts` | CRUD **KEEP** |
+| API-XLS-01 | GET | `/api/v1/asset/csdl-records/export?resource=culverts&…` | binary · filter-all · ignore page |
+| API-XLS-02 | POST | `…/import` | **DEFER P1** |
 
-BFF: `/web-bff/api/v1/asset/csdl-records` proxy.
+Filename: `Bieu04_CongCacLoai_{yyyyMMdd}.xls` · Content-Type OOXML spreadsheet.
 
-## Debt
+## Debt / handoff QA
 
-- Auth RequirePermission wire DEFER
-- Migration apply at deploy (not run in Dev role)
-- manageUnit org SearchInput P2
-- Legacy detail* → typed backfill optional
-- XLS/skip-bridge OUT
+- GAP-QA-E2E-PW-01 P2 · prior
+- T-PERM-01 Auth RequirePermission DEFER
+- GAP-CSDL-ORG-01 P2
+- Import Excel P1
+- AC-XLS-01..09 · AC-GRID-01..05 regression → QA
 
-## Next
+## Build
 
-| Role | Need |
-|------|------|
-| **QA** | e2e T-QA-* · CRUD/form/filter/route · **cấm** Dev e2e |
-| Review | after QA |
+| Gate | Result |
+|------|--------|
+| `yarn build` (MFE Asset) | **PASS** (size warnings only) |
+| `dotnet build` (Linm.RMMS.WebService.sln) | **PASS** (1 pre-existing CS0105) |
+
+<!-- Version meta: skillId=agent-dev skillVersion=2026.09.05.03 schemaVersion=1 workflowVersion=2026.09.05.03 rulesVersion=2026.09.17.3 versionGate=ok contentHash=sha256:eef182add5b68de5b3e27ec36ed9c099689831aeb77742814aa296bf286243f9 changeScope=edit_page taskId=task_421286ef -->

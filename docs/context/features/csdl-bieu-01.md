@@ -1,12 +1,13 @@
 ﻿# Biểu 01 — Phân loại mặt đường
 
 > **Slug:** `csdl-bieu-01` · parent [`csdl-cuc-2026.md`](csdl-cuc-2026.md) · hub [`csdl-so-sach.md`](csdl-so-sach.md)  
-> **Status:** Implemented (Dev) · Pipeline `qa` / `pending`  
+> **Status:** Typed CRUD done · **edit_page** Wave 1 `T-XLS-S01` (Xuất Excel) · Pipeline `data_analy` → PO  
 > **packKind:** `list` · Kind B list + Kind D Slideout  
+> **changeScope:** `edit_page`  
 > **resource:** `pavement-sections` · cột/layout: 38  
-> **devSlash:** `/agent-dev`  
-> **Analy:** [`ANALYSIS-AND-TASKS.md`](../../../specs/_data-analy/csdl-cuc-2026/ANALYSIS-AND-TASKS.md)  
-> **API:** `api/v1/asset/csdl-records?resource=pavement-sections` · typed `CsdlBieu1Entity` · **cấm** invent `infra` / ERP.*
+> **devSlash:** `/implement-export-import-excel` (export) · prior `/agent-dev` typed  
+> **Analy:** [`ANALYSIS-AND-TASKS.md`](../../../specs/_data-analy/csdl-cuc-2026/ANALYSIS-AND-TASKS.md) · epic [`csdl-export-print.md`](csdl-export-print.md)  
+> **API:** `api/v1/asset/csdl-records?resource=pavement-sections` · export/import binary · typed `CsdlBieu1Entity` · **cấm** invent `infra` / ERP.*
 
 ## 1. Tổng quan
 
@@ -32,5 +33,5 @@ Typed 38 cột · alias `/csdl-bieu-01` · hub `?resource=pavement-sections` · 
 
 | lane | phase | status | updatedAt |
 |------|-------|--------|-----------|
-| web | `done` | `done` | `2026-09-05T05:51:30.340Z` |
+| web | `done` | `done` | `2026-09-17T18:42:51.349Z` |
 | mobile | — | — | — |

@@ -68,7 +68,7 @@ Subscribe: `patrol.*` · `incident.*` · `defect.detected` · `predict.updated` 
 | Hub | `/demo/bao-cao/dashboard.html` · catalog slug `dashboard` · `/dev` via `demoCatalog.ts` |
 | Kind | E (report / KPI home) · Linm shell · **cấm** GOVOne chrome · **cấm** BE |
 | Fields | 12 mapped · Actions product 22 (chrome skip) |
-| Map | Leaflet OSM mini map · 5 incident markers |
+| Map | Leaflet **clip BFF** mini map · 5 incident markers · **cấm** OSM.org (`mfe-map-gis-stack.md`) |
 | AI | — (15-SCREEN row 17: KPI P1 / SignalR P2 · no LLM engine) |
 
 <!-- LEGACY-GOVONE-CAPTURE:START -->
@@ -224,3 +224,10 @@ Subscribe: `patrol.*` · `incident.*` · `defect.detected` · `predict.updated` 
 
 Gen demo: `/qlbd-analy-demo @dashboard` — load control-map trên + `/erp-form-context` rules (2a-K · 2g · common controls).
 <!-- DEMO-MFE-MODERN:END -->
+
+## Implement tracking
+
+| lane | phase | status | updatedAt |
+|------|-------|--------|-----------|
+| web | `done` | `done` | `2026-09-17T17:36:16.421Z` |
+| mobile | — | — | — |

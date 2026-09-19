@@ -57,5 +57,5 @@ Xem [`../25-PLATFORM-TASK.md`](../25-PLATFORM-TASK.md) §6.
 
 | lane | phase | status | updatedAt |
 |------|-------|--------|-----------|
-| web | `po` | `in_progress` | `2026-08-26T23:01:00.000Z` |
-| mobile | — | — | RMMS later (`rmms-task-integrate`) |
+| web | `done` | `done` | `2026-09-18T19:14:37.890Z` |
+| mobile | — | — | — |

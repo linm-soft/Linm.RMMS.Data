@@ -111,6 +111,18 @@ routeMap={{ task: (id) => `/platform-task/cv/${id}` }}
 | AC | AC-T-01…10 · T-QA-TASK-01 |
 | **cấm** Dev | e2e · start:std · invent BE |
 
+## QA verdict
+
+| Field | Value |
+|-------|-------|
+| taskId | `task_de5e3170` |
+| verdict | **PASS** |
+| method | e2e runtime · start:std `:8608` + docker + Playwright |
+| cases | S0 · S1 · QA-20 **PASS** · `qa/screens/manifest.json` |
+| mfeStdUrl live | `http://localhost:8608/platform-task` |
+| next | Review · **cấm** phase=done |
+| at | `2026-09-18T18:58:30.000Z` |
+
 ---
 
 ## Version meta (REQUIRED)

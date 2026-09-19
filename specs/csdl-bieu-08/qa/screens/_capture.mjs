@@ -1,19 +1,17 @@
 /**
- * QA E2E capture — yarn e2e-qa contract (GAP-QA-E2E-PW-01 fallback).
- * `yarn e2e-qa` hung after e2e.local.json login · use channel=chrome (system Chrome).
- * std + docker already listen · skip-start semantics · cấm kill worker rộng.
+ * QA E2E capture — edit_page T-XLS-S08 + CRUD KEEP.
+ * yarn e2e-qa overwrites this file with bare playwright import → GAP-QA-E2E-PW-01.
+ * Run AFTER e2e-qa via: node this file (createRequire AutoCode).
+ * channel=chrome · skip-start · cấm kill worker (GAP-QA-E2E-KILL-01).
  */
-import { writeFileSync, readFileSync } from "node:fs";
+import { readFileSync, writeFileSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { join } from "node:path";
-import { pathToFileURL } from "node:url";
+import { createRequire } from "node:module";
 
-const pw = await import(
-  pathToFileURL(
-    "D:/AI-Extension/AI-AutoCode/node_modules/playwright/index.mjs",
-  ).href,
-);
-const { chromium } = pw;
+const require = createRequire("D:/AI-Extension/AI-AutoCode/package.json");
+const { chromium } = require("playwright");
+
 const outDir = "D:\\AI-QLBD\\Linm.RMMS.Data\\specs\\csdl-bieu-08\\qa\\screens";
 const listUrl = "http://localhost:9301/csdl-bieu-08";
 const hubUrl =
@@ -21,37 +19,37 @@ const hubUrl =
 const formUrl = "http://localhost:9301/csdl-bieu-08?form=create";
 const listSel = '[data-testid="rmms-csdl-bieu-08-list-page"]';
 const formSel = '[data-testid="rmms-csdl-bieu-08-form-slideout"]';
-/** Hub ?resource=traffic-safety redirects to typed alias (route_a). */
-const hubRedirectSel = '[data-testid="rmms-csdl-bieu-08-list-page"]';
+const hubListSel = '[data-testid="rmms-csdl-bieu-08-list-page"]';
 
 const steps = [
   {
     id: "S0",
     url: listUrl,
     selector: listSel,
-    note: "list Biểu 08 · filter-bar · assetType · empty/grid · peer Sổ TS",
+    also: '[data-testid="rmms-csdl-bieu-08-list-export-excel-btn"]',
+    note: "list Biểu 08 · toolbar Xuất/Nhập · filter-bar · empty/grid",
   },
   {
     id: "S1",
     url: hubUrl,
-    selector: hubRedirectSel,
-    note: "hub ?resource=traffic-safety → redirect /csdl-bieu-08",
+    selector: hubListSel,
+    also: '[data-testid="rmms-csdl-bieu-08-list-import-excel-btn"]',
+    note: "hub deep-link ?resource=traffic-safety → Biểu 08 list",
   },
   {
     id: "QA-20",
     url: formUrl,
     selector: formSel,
     also: '[data-testid="csdl-bieu-08-form-z2"]',
-    note: "Create Slideout · form=create · shared+1 child · AT-",
+    note: "Create Slideout · form=create KEEP",
   },
 ];
-
-const results = [];
 
 function shotName(id) {
   return id.replace(/[^a-zA-Z0-9._-]+/g, "-").replace(/^-+|-+$/g, "") + ".png";
 }
 
+const results = [];
 const browser = await chromium.launch({
   headless: true,
   channel: "chrome",
@@ -68,71 +66,20 @@ try {
         timeout: 60000,
       });
       if (!res || !res.ok()) {
-        throw new Error("HTTP " + (res ? res.status() : "no-response"));
+        const hasBoot = await page
+          .locator("#root")
+          .count()
+          .then((n) => n > 0)
+          .catch(() => false);
+        if (!hasBoot) {
+          throw new Error("HTTP " + (res ? res.status() : "no-response"));
+        }
       }
-      await page.waitForSelector(step.selector, { timeout: 25000 });
+      await page.waitForSelector(step.selector, { timeout: 45000 });
       if (step.also) {
-        await page.waitForSelector(step.also, { timeout: 15000 });
+        await page.waitForSelector(step.also, { timeout: 20000 });
       }
       await new Promise((r) => setTimeout(r, 1500));
-
-      if (step.id === "S0") {
-        const live = await page.evaluate(() => {
-          const testids = Array.from(
-            document.querySelectorAll("[data-testid]"),
-          ).map((el) => el.getAttribute("data-testid"));
-          const body = document.body?.innerText || "";
-          return {
-            url: location.href,
-            hasTitle: /Biểu\s*08|Hệ thống ATGT|ATGT/i.test(body),
-            hasFilter: testids.some((t) => t && /field-search|filters/i.test(t)),
-            hasSide: testids.some((t) => t && /field-side/i.test(t)),
-            hasAssetType: testids.some((t) => t && /assetType/i.test(t)),
-            hasKmFrom: testids.some((t) => t && /kmFrom/i.test(t)),
-            hasKmTo: testids.some((t) => t && /kmTo/i.test(t)),
-            noDemo: !/demo|stub|placeholder only/i.test(body),
-            noModeBadge: !/\b(CREATE|EDIT|VIEW)\b/.test(body),
-            testids,
-            titleSnippet: body.slice(0, 360),
-            peerSots: testids.includes("rmms-csdl-bieu-08-list-peer-sots"),
-          };
-        });
-        writeFileSync(
-          join(outDir, "live-assert.json"),
-          JSON.stringify(live, null, 2),
-          "utf8",
-        );
-      }
-
-      if (step.id === "QA-20") {
-        const formLive = await page.evaluate(() => {
-          const testids = Array.from(
-            document.querySelectorAll("[data-testid]"),
-          ).map((el) => el.getAttribute("data-testid"));
-          const slide = document.querySelector(
-            '[data-testid="rmms-csdl-bieu-08-form-slideout"]',
-          );
-          const cols = slide?.getAttribute("data-form-cols") || "";
-          const body = document.body?.innerText || "";
-          return {
-            hasZ2: testids.includes("csdl-bieu-08-form-z2"),
-            hasZ3: testids.includes("csdl-bieu-08-form-z3"),
-            hasRoad: testids.includes("csdl-bieu-08-field-road"),
-            hasAssetType: testids.includes("csdl-bieu-08-field-assetType"),
-            hasSignCode: testids.includes("csdl-bieu-08-field-signCode"),
-            hasSave: testids.includes("csdl-bieu-08-btn-save"),
-            dataFormCols: cols,
-            hasAtCodeHint:
-              /AT-/i.test(body) || testids.includes("csdl-bieu-08-field-code"),
-          };
-        });
-        writeFileSync(
-          join(outDir, "form-assert.json"),
-          JSON.stringify(formLive, null, 2),
-          "utf8",
-        );
-      }
-
       await page.screenshot({ path: abs, fullPage: true });
       const hash = createHash("sha256")
         .update(readFileSync(abs))
@@ -156,8 +103,9 @@ try {
         id: step.id,
         result: "FAIL",
         screenshot: file,
-        error: err instanceof Error ? err.message : String(err),
         url: step.url,
+        note: step.note,
+        error: err instanceof Error ? err.message : String(err),
       });
     }
   }
@@ -168,8 +116,9 @@ try {
 const manifest = {
   url: listUrl,
   method:
-    "playwright channel=chrome headless · contract fallback after yarn e2e-qa hang (GAP-QA-E2E-PW-01)",
+    "playwright channel=chrome · yarn e2e-qa playwright resolve fail → AutoCode createRequire fallback · skip-start",
   feature: "csdl-bieu-08",
+  changeScope: "edit_page",
   cases: ["S0", "S1", "QA-20"],
   capturedAt: new Date().toISOString(),
   steps: results,

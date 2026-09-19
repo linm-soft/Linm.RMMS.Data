@@ -97,7 +97,7 @@
 </head>
 <body>
   <div class="page">
-    <p class="note" id="note">SSOT Design · <code>shared_grid_example v1</code> · pack <code>csdl-bieu-16</code> · resource <code>interchanges</code> · formNo <code>16</code> · mfeStdUrl <code>/csdl-bieu-16</code> · hub NEW card <code>?resource=interchanges</code> · peer so-ts-interchange · <strong>cấm</strong> merge · skip chrome · <strong>cấm</strong> detail* only · <strong>cấm</strong> flatten-only · map none · Q-TYPE-SET cite_excel · Q-TRAFFIC-ORG lookup · Q-ATGT qty · Q-BRANCH-MIN min_1 · Q-KM point_main · Q-MANAGE in_39 · Q-LIST-COLS subset · Q-TITLE nut_giao · Q-DMAP add_now · Q-PEER-LINK none_p1 · Q-CHILD-API embed</p>
+    <p class="note" id="note">SSOT Design · edit_page <code>T-XLS-S16</code> · <code>shared_grid_example v1</code> · pack <code>csdl-bieu-16</code> · resource <code>interchanges</code> · formNo <code>16</code> · mfeStdUrl <code>/so-ts/csdl-so-sach</code> · alias <code>/csdl-bieu-16</code> · hub <code>?resource=interchanges</code> · peer so-ts-interchange · <strong>cấm</strong> merge · typed CRUD <strong>keep</strong> · delta <strong>Xuất Excel</strong> catalogToolbar · Import ẩn P0 · Q-XLS-SCOPE filtered · Q-XLS-SHEET name_cuc «Biểu 16» · Q-XLS-BRANCH header_blank · filename <code>Bieu16_NutGiao_{yyyyMMdd}</code> · flatten 1 row/nhánh · <strong>cấm</strong> filter-bar export · golden Cục 16-sheet</p>
 
     <section id="list" style="display:flex;flex-direction:column;gap:8px;flex:1;min-height:0">
       <div class="zone-a" data-des-id="DES-GRID-A">
@@ -111,8 +111,7 @@
           <button type="button" class="tb" data-action="history" title="Lịch sử"><i class="fas fa-history"></i></button>
           <button type="button" class="tb" data-action="config" title="Cấu hình"><i class="fas fa-cog"></i></button>
           <button type="button" class="tb" id="btn-del" disabled title="Xóa"><i class="fas fa-trash"></i></button>
-          <button type="button" class="tb" data-action="import" title="Import stub OUT Biểu 16"><i class="fas fa-file-import"></i></button>
-          <button type="button" class="tb" data-action="export" title="Export stub OUT Biểu 16"><i class="fas fa-file-export"></i></button>
+          <button type="button" class="tb" data-action="export" data-des-id="DES-EXPORT" title="Xuất Excel · Bieu16_NutGiao_{yyyyMMdd} · sheet Biểu 16 · 39 cột flatten · catalogToolbar · cấm filter-bar"><i class="fas fa-file-excel"></i> Xuất Excel</button>
         </div>
         <div class="zone-b-right">
           <button type="button" class="tb primary" data-action="create"><i class="fas fa-plus"></i> Tạo mới</button>
@@ -620,7 +619,14 @@
       if (t.dataset.action === "refresh") render();
       if (t.dataset.action === "history" || t.dataset.hist) toast("History modal stub P2");
       if (t.dataset.action === "config") toast("UiSchema editor · catalogKind interchanges");
-      if (t.dataset.action === "import" || t.dataset.action === "export") toast("XLS Biểu 16 OUT stub");
+      if (t.dataset.action === "export") {
+        /* Prototype sim binary download · ≠ toast-stub done · Dev wires GET …/export */
+        const a = document.createElement("a");
+        a.href = "data:application/vnd.ms-excel," + encodeURIComponent("Biểu 16 · 39 cột · flatten 1 row/nhánh · header_blank · filtered · golden Cục 16-sheet");
+        a.download = "Bieu16_NutGiao_" + new Date().toISOString().slice(0, 10).replace(/-/g, "") + ".xls";
+        a.click();
+        toast("Xuất Excel · download sim · empty=0 row OK · fail→toast · cấm filter-bar");
+      }
       if (t.dataset.view) {
         const row = rows.find((r) => String(r.id) === t.dataset.view);
         if (row) openSlide("view", row);

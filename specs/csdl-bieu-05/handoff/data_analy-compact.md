@@ -1,78 +1,58 @@
-# handoff-compact — data_analy · csdl-bieu-05
+# Handoff compact — data_analy
 
-| | |
-|--|--|
-| schemaVersion | `1` |
-| role | `data_analy` |
-| feature | `csdl-bieu-05` |
-| title | CSDL Biểu 05 — Rãnh các loại |
-| packKind | `list` |
-| changeScope | `new_page` |
-| status | `done` |
-| taskId | `task_fdcb7c28` |
-| resource | `ditches` |
-| formNo | `05` |
-| columns | `18` |
-| IdCode | `RN-` |
-| peerSoTs | `so-ts-ditch` |
-| contentHash | `sha256:fd4e6899790aa98d6bc4cb628dc9c0bc5efc90acb3abf03a7b157cf123590117` |
-| headerFingerprint | `sha256:008898723c0a5b94fae7de8810903b1dcc39ccfd0dfa5d4a36dd398eb088ac2f` |
-| skillVersion | `2026.08.25.01` |
-| workflowVersion | `2026.09.01.02` |
-| rulesVersion | `2026.08.31.2` |
-| analyzedAt | `2026-09-05T06:30:58.027Z` |
+schemaVersion: 1
+feature: csdl-bieu-05
+packKind: list
+role: data_analy
+status: done
+skillVersion: 2026.09.05.03
+workflowVersion: 2026.09.05.03
+rulesVersion: 2026.09.17.3
+contentHash: sha256:9e3e8cf8e90fb3a3e8252d1725b78ea2494b171d3b7507d0a57b13c7052da728
+headerFingerprint: sha256:008898723c0a5b94fae7de8810903b1dcc39ccfd0dfa5d4a36dd398eb088ac2f
+writtenAt: 2026-09-17T20:36:21.087Z
+taskId: task_a1caeb3f
+resource: ditches
+columns: 18
+IdCode: RN-
+peerSoTs: so-ts-ditch
 
-## Artifacts
+## Decisions
+- changeScope: edit_page (T-XLS-S05 · Wave 1)
+- formPattern: Slideout (keep typed · **cấm** new_page CRUD)
+- mfe: D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Asset · be: D:/AI-QLBD/Linm.RMMS.WebService
+- export: catalogToolbar Xuất Excel · BFF binary · `/implement-export-import-excel`
+- golden: Cục 16-sheet xls Biểu 5 · **cấm** hồ sơ 12+8
+- filter: **cấm** export trên LinErpListFilterBar (GAP-FILTER-BAR-08)
+- peer: **cấm** gộp Sổ TS so-ts-ditch vào sheet Biểu 5
+- open questions: Q-XLS-SCOPE · Q-XLS-IMPORT · Q-XLS-FILENAME
 
-| Kind | Path |
-|------|------|
-| control-hint | `specs/_data-analy/features/csdl-bieu-05-control-hint.md` |
-| real-data | `specs/_data-analy/features/csdl-bieu-05-real-data.md` |
-| CTX | `docs/context/features/csdl-bieu-05.md` |
-| cluster | `specs/_data-analy/csdl-cuc-2026/ANALYSIS-AND-TASKS.md` |
-| demo | `Linm.RMMS.Demo/src/demo/features/csdl-so-sach-demo.html` → `…/asset/csdl-so-sach.html` |
+## Inventory (slim)
+| id | label | controlHint | notes |
+|----|-------|-------------|-------|
+| (form 18) | typed prior | keep | **cấm** reopen |
+| exportExcel | Xuất Excel | ToolbarButton | catalogToolbar |
+| importExcel | Nhập Excel | ToolbarButton+file | P1 · Q-XLS-IMPORT |
 
-## Live bind (1-liner)
+## Screens / zones (ids only)
+- DES-GRID-A/B/C/D keep · toolbar **+export** · filter unchanged
+- Form Kind D Slideout keep (ditchKind · shape · range)
+- reviewUrl= prior prototype (Design cập nhật nút)
+- peerStdUrl= http://localhost:9301/so-ts/csdl-so-sach?resource=ditches
+- mfeStdUrl= http://localhost:9301/so-ts/csdl-so-sach · alias /csdl-bieu-05
 
-- API: `api/v1/asset/csdl-records?resource=ditches` (+ BFF) · **cấm ERP.*** · **cấm** invent `infra`
-- Entry: mfeStd `/csdl-bieu-05` · hub `/so-ts/csdl-so-sach?resource=ditches`
-- Form: Kind D Slideout typed 18 cột · **cấm** chỉ 3 ô `detail*`
-- Import: XLS OUT pack Biểu 5
-- Peer Sổ TS `so-ts-ditch` deep-link OK · **cấm** merge 1 form · **≠** so-ts-ditch
+## API / tasks (ids only)
+- CRUD keep: GET/POST/PUT/DELETE …/csdl-records?resource=ditches
+- Export: GET …/csdl-records/export?resource=ditches
+- Import: POST …/csdl-records/import?resource=ditches
+- T-XLS-S05 · real-data §A+§B PASS
 
-## GAP (PO must see)
+## UNCLEAR
+- Q-XLS-SCOPE filtered vs all · Q-XLS-IMPORT now vs defer · Q-XLS-FILENAME
 
-| ID | One-liner |
-|----|-----------|
-| GAP-BIEU05-TYPED-01 | Typed 18 cột thay generic detail* |
-| GAP-BIEU05-ROUTE-01 | Alias `/csdl-bieu-05` vs hub-only |
-| GAP-BIEU05-KIND-01 | ditchKind hở/kín LOOKUP |
-| GAP-BIEU05-SHAPE-01 | Hình + khẩu độ + KC typed |
-| GAP-BIEU05-DRAIN-01 | drainageCapacity khả năng thoát |
-| GAP-BIEU05-RANGE-01 | kmFrom/kmTo Từ–đến |
-| GAP-BIEU05-PEER-01 | Không merge form so-ts-ditch |
-| GAP-CSDL-ROAD-01 | SearchInput road-route |
-| GAP-CSDL-PROV-01 | Province static vs master |
-| GAP-CSDL-ORG-01 | manageUnit SearchInput org-unit P2 |
-| GAP-CSDL-XLS-01 | Import/export sheet Biểu 5 OUT |
-| GAP-CSDL-CUC-11 | 2 lớp vận hành vs biểu Cục |
-
-## Open Q
-
-Q-ROUTE · Q-PROV · Q-APERTURE · Q-DRAIN · Q-SHAPE
-
-## Zones
-
-List A/B/C/D Kind B · Form Kind D Slideout 2col Z1–Z3 · map: none
-
-## Next
-
-| Role | Need |
-|------|------|
-| **PO** | requirement từ Delta + open Q |
-| Design | control-map · prototype 18 cột · reviewUrl |
-| SA | typed DTO/UiSchema · Schema_CsdlBieu5 |
-
-## Cấm (compact)
-
-Demo/localStorage SSOT · ERP.* · Guid IdCode · form 3 ô only · invent map · merge Sổ TS form · yarn build/e2e ở analy
+## Full paths (Read only if needed)
+- control-hint: D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/csdl-bieu-05-control-hint.md
+- real-data: D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/csdl-bieu-05-real-data.md
+- CTX: docs/context/features/csdl-bieu-05.md
+- epic: docs/context/features/csdl-export-print.md
+- keep PO/Design/SA: specs/csdl-bieu-05/po|ui|be (delta only)

@@ -3,20 +3,33 @@
 | Field | Value |
 |-------|-------|
 | feature | `map-service` |
-| phase | `dev` |
-| status | `in_progress` |
-| changeScope | `new_svc` |
+| phase | `done` |
+| status | `done` |
+| changeScope | `edit_page` (gap `osrm_self_host` · 2026-09-17) · stack confirms vẫn `new_svc` |
 | packKind | `map` |
 | demo | none |
 | stackSkill | `/implement-map-stack` |
 | context | `docs/context/features/map-service.md` |
 | backend | `D:/API-CORE/Linm.Platform.MapService` · `api/v1/gis/*` |
-| mfe | `Linm.Web.RMMS.Gis` — clip BFF MVT · OpenMapTiles streets + place · maxBounds 6.8–23.5 · **0** OSM.org trên Gis*Page |
+| mfe | `Linm.Web.RMMS.Gis` — clip BFF MVT · OpenMapTiles streets + place · maxBounds 6.8–23.5 · **0** OSM.org trên Gis*Page · **consumer** Report/AiVision/Asset reuse `webpack.gis-map-alias.js` (2026-09-19) |
 | mfeStdRoute | `/map-service` |
 | mfeStdUrl | `http://localhost:9301/map-service` |
 | mobileBff | `specs/mobile-bff-map/STATUS.md` |
-| updatedAt | `2026-09-16T15:55:00.000Z` |
+| updatedAt | `2026-09-16T19:14:52.651Z` |
+| agent | `agent-review` (unlocked) |
+## Review (2026-09-17) — agent-review · task_1028a7b7 · PASS
 
+- mode: `review_only` · `review_confirm=accept` · autoApprove=ON · queue task **completed**
+- findings: **0 P0/P1** · P3 notes extract DEFER / HTTPS release / analy files missing · artifact `review/findings.md` · compact `handoff/review-compact.md`
+- reviewHash: `f59c7fa5afb6b70a28290c66773fb3e7bf3235a6e025bc84735d6fc234ea1512` · META `review/REVIEW-META.json` status=done
+- QUERY N/A (OSRM gap) · SEC guest tiles / Authorize geojson / OSRM loopback PASS · UI-FN R1/R2/R8/R11 PASS (QA PNG)
+- **Cấm** feature `phase=done` — next Linux OSRM extract + `/review-map-release` sau HTTPS · **cấm** e2e ở role review
+## QA (2026-09-17) — agent-qa · task_bb9a9dbb · PASS
+
+- method: e2e runtime · MapService docker :5021 + Gis `yarn start:std` :9302 + Playwright PNG S0/S1/QA-20
+- verdict: **PASS** · scenarios `specs/map-service/qa/scenarios.md` · compact `handoff/qa-compact.md`
+- OSRM: compose `--profile osrm` config PASS · defaults `127.0.0.1:5000` · runtime extract **DEFER** Linux
+- Handoff → Review · autoApprove=ON · **done**
 ## Stack waves
 
 | Wave | Name | Confirm | Status | at |
@@ -414,9 +427,30 @@ View vùng (vd. `pin 788`) có data, zoom vào góc **trống**. Detail dừng ~
 
 | Slash | Việc |
 |-------|------|
+| Linux server OSRM extract | `./local-script/setup_osrm.sh` (~4 GB RAM) rồi `docker compose --profile osrm up -d` — **DEFER** Windows agent (cấm giả PASS extract) |
+| Nginx TLS | copy `local-script/nginx-osrm.conf.example` · set `server_name` + certs · smoke HTTPS `/nearest` + `/route` |
+| `/review-map-release` | Store law — **sau** HTTPS OSRM live · **không** auto-done |
 | `/data-gov-integration` | overlay routes/assets |
 | P2 z14 | `pwsh ./local-script/render-osm-mvt.ps1 -MaxZoom 14` nếu cần phố nhỏ (hiện z12) |
-| `/review-map-release` | Store law — **không** auto-done |
+
+## Notes — OSRM client public ban (2026-09-19)
+
+- Asset `CsdlSo10MapPanel` reuse GIS `routeAlongStreets` via webpack `@rmms/gis-osrm` (cấm hardcode public · cấm tsc GIS Leaflet từ Asset).
+- Demo `_shared/osrm-route.js` · `map-layout.js` · `snap-to-street.js` default `http://127.0.0.1:5000` (`window.__LINM_OSRM_URL__` override) · **fail-closed** `project-osrm.org`.
+- Specs prototype `map-oms.js` (gis-map / patrol-map / mobile-p1) cùng gate.
+- Report / AiVision `.env.template` `VITE_OSRM_URL=http://127.0.0.1:5000`.
+- BE `Gis:OsrmUrl` chứa `project-osrm.org` → throw startup.
+- FE `fetchOsrmJson` fail-closed cùng host.
+- Native iOS Debug `OsrmBase` public **không** trong workspace này — **còn** (cấm public khi `net.osrmPublic=false`).
+- Runtime extract + Nginx TLS **vẫn DEFER** Linux.
+
+## Notes — OSRM self-host (`GAP-MAP-OSRM-SELFHOST-01`) — 2026-09-17
+
+- Compose `osrm-backend` profile `osrm` · image `osrm/osrm-backend:v5.27.1` · bind `127.0.0.1:${OSRM_HOST_PORT:-5000}` · `mem_limit: 2g` · net `linm-maps-net` · graph `osrm-data/vietnam-clipped.osrm`.
+- Script `local-script/setup_osrm.sh` · clip `vietnam.poly` · Nginx example `nginx-osrm.conf.example`.
+- Client: `VITE_OSRM_URL` + `Gis:OsrmUrl` = `http://127.0.0.1:5000` (local) / HTTPS Nginx (prod). **0** `router.project-osrm.org` trong env templates / defaults.
+- SSOT FE `osrmCenterline.ts` · bake RMMS `Gis:OsrmUrl` — **cấm** invent `fetchSecureRoute` · **cấm** Google Directions.
+- `docker compose --profile osrm config` **PASS** (agent). Extract/smoke runtime = Linux server.
 
 ## Notes (mobile Wave 2–4 · auto-dev 2026-09-16)
 

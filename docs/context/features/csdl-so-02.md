@@ -26,9 +26,11 @@ Entry: `/csdl-so-02` · hub `/so-ts/csdl-so-sach?resource=patrol-logs`. **≠** 
 
 Xem analy · residual: FileRef UI · duty-logs formNo display · Auth/org/XLS DEFER|OUT.
 
+**CR 2026-09-17 PDF sổ giấy** (`SRC-NKTD-PDF`): [review](../../../specs/_cr/nktd-pdf-20260917/review.md) · task [task-csdl-so-02.md](../../../specs/_cr/nktd-pdf-20260917/task-csdl-so-02.md) — `LocationText` · FileRef. **Trước** đổi report live.
+
 ## Implement tracking
 
 | lane | phase | status | updatedAt |
 |------|-------|--------|-----------|
-| web | `done` | `done` | `2026-09-05T17:49:29.240Z` |
+| web | `done` | `done` | `2026-09-18T04:12:40.990Z` |
 | mobile | — | — | — |

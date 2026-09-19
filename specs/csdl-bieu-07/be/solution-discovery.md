@@ -1,110 +1,90 @@
-# SA — Solution discovery — csdl-bieu-07 (CSDL Biểu 07 — Lề / taluy / hàng rào)
+# SA — Solution discovery — csdl-bieu-07 (edit_page · T-XLS-S07)
 
-> Status: **confirmed** (`solution_confirm=approve` · autoApprove=ON · `task_b41ac662`)  
-> Standards: api-endpoint · bff-api-structure · company-field · database-migration · api-permission-gate · repo-path-guard · **no-parent-json-field** · **ssot-no-duplicate** · **sa-implement-gates** · **form-type-task-pack** (`list`) · **filter-bar-layout-hard** · **slideout-form-layout**  
-> Requires: Design **confirmed** · controlHint + real-data §B · **cấm** re-scan demo · **cấm** invent API  
-> **Cấm:** Write MFE/native · ERP.* · `api/v1/so-ts/*` · `api/v1/infra/*` · `api/v1/rmms/*` · parent `*Json` · yarn build/e2e/start:std · Step 4b/migration ở role SA
+> Status: **confirmed** (`solution_confirm=approve` · autoApprove=ON · `task_8aedafae`)  
+> Standards: api-endpoint · bff-api-structure · company-field · no-parent-json-field · ssot-no-duplicate · sa-implement-gates · form-type-task-pack (`list`) · filter-bar-layout-hard · **/implement-export-import-excel**  
+> Requires: Design **confirmed** · PO compact · data_analy compact · **cấm** invent API · **cấm** re-scan demo  
+> **Cấm:** Write MFE/native · ERP.* · yarn build/e2e/start:std · Step 4b/migration @ SA
 
 | Field | Value |
 |-------|-------|
 | feature | `csdl-bieu-07` |
-| title | CSDL Biểu 07 — Lề / taluy / hàng rào |
+| title | CSDL Biểu 07 — Lề / taluy / hàng rào · **Xuất Excel** (Import DEFER P1) |
 | this role | `sa` · `/agent-sa` |
-| changeScope | **`new_page`** |
-| packKind | **`list`** (Kind **B** A–D+F · Kind **D** Slideout 2col · 3 section) |
+| changeScope | **`edit_page`** (T-XLS-S07 · Wave 1) |
+| packKind | **`list`** |
 | status | `confirmed` |
-| design_confirm | approve (`task_50b066b7`) |
-| solution_confirm | **approve** (autoApprove=ON · `task_b41ac662`) |
-| domain_map | **Asset** (`csdl-bieu-07` → `asset` · **T-DM-01** add slug — live map có `csdl-bieu-01`…`06` · `csdl-so-sach`) |
-| sa_tz_gate | **`tz_na`** |
-| sa_xco_gate | **`xco_get_only`** |
-| sa_shared_table | **`share_tenant`** |
+| design_confirm | approve (`task_a41905a5`) |
+| solution_confirm | **approve** (autoApprove=ON · `task_8aedafae`) |
+| domain_map | **Asset** (`csdl-bieu-07` → `asset` · **KEEP**) |
+| sa_tz_gate | **`tz_na`** (KEEP) |
+| sa_xco_gate | **`xco_get_only`** (KEEP) |
+| sa_shared_table | **`share_tenant`** (KEEP) |
 | be_repo_confirm | `Linm.RMMS.WebService` |
 | ui_repo_confirm | `Linm.Web.RMMS.Asset` |
 | productRoot | `D:/AI-QLBD/Linm.RMMS.Data` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Asset` |
-| mfeStdRoute | `/csdl-bieu-07` |
-| mfeStdUrl | `http://localhost:9301/csdl-bieu-07` |
+| mfeStdRoute | `/so-ts/csdl-so-sach` · alias `/csdl-bieu-07` |
+| mfeStdUrl | `http://localhost:9301/so-ts/csdl-so-sach` |
 | hubDeepLink | `/so-ts/csdl-so-sach?resource=shoulders-fences` |
-| peerSoTs | `SHOULDER` · deep-link only · **cấm** merge form · **≠** `road-assets` |
-| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · prefix **live** `api/v1/asset/csdl-records` |
+| peerSoTs | `SHOULDER` · deep-link only · **cấm** merge sheet |
+| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/asset/csdl-records` |
 | domain | **Asset** |
 | resource | `shoulders-fences` |
-| formNo | `07` (renumber 10→7 · T-REN-01) |
+| formNo | `07` |
 | columns | `20` |
-| IdCode | `LE-yyyyMMdd-nnnn` (BE generate · **cấm** Guid) |
-| catalogKind | `shoulders-fences` (typed UiSchema) |
-| controlHint | `specs/_data-analy/features/csdl-bieu-07-control-hint.md` |
-| realData | `specs/_data-analy/features/csdl-bieu-07-real-data.md` |
-| design | `specs/csdl-bieu-07/ui/design.md` (confirmed) |
-| contentHashPriorDataAnaly | `sha256:5634091e7ce3e5272c090320398a76d75f84ed7326366e93e088ff2154e8bf44` |
-| headerFingerprintPrior | `sha256:ba33856d00d23440b05be8c78c8b8a5462662c96a1067e702b791eb5020d64cf` |
-| analyReuse | **hash skip** — **cấm** re-scan demo / invent API |
+| IdCode | `LE-` (KEEP) |
+| contentHash | `sha256:1250b5799e9174b21429e60e57abef17cb7d6c568ae417840c57b598f204a69a` |
+| headerFingerprint | `sha256:ba33856d00d23440b05be8c78c8b8a5462662c96a1067e702b791eb5020d64cf` |
+| analyReuse | **hash match** · **cấm** reopen typed 20-col · delta XLS export only |
 | autoApprove | **ON** |
 | e2eQa | **ON** (queued — chỉ `/agent-qa*`) |
-| taskId | `task_b41ac662` |
-| priorTask | `task_50b066b7` (design completed) |
-| updatedAt | `2026-09-05T16:30:00.000Z` |
-| versionGate | `aligned` (contentHash match prior compact) |
+| taskId | `task_8aedafae` |
+| priorSa | `task_b41ac662` (typed CRUD · Schema_CsdlBieu7 · FenceLengthM↔km · SlopeClearingM · **KEEP**) |
+| updatedAt | `2026-09-18T04:35:00.000Z` |
+| versionGate | `aligned` (contentHash = prior PO/Design/data_analy) |
 
-## § Delta Current vs New (`new_page`)
+## § Delta Current vs Target (`edit_page` · export P0)
 
-| Area | Current live (hub generic) | New (Biểu 07 typed) | Action |
-|------|----------------------------|---------------------|--------|
-| Form | 3 ô `detail*` polymorphic | Typed **20 cột** Excel Biểu 7 · Kind D Slideout · **3 section** lề/taluy/HR | **GAP-BIEU07-TYPED-01** |
-| formNo / title | hub Biểu **10** | formNo **07** · title taluy | **GAP-BIEU07-REN-01** / T-REN-01 |
-| Shoulder block | missing | `shoulderStructure` + length/width/area | **GAP-BIEU07-SHOULDER-01** |
-| Slope block | missing | `slopeLengthM`↔`SlopeClearingM` + `slopeAreaM2` | **GAP-BIEU07-SLOPE-01** / Q-SLOPE |
-| Fence block | missing | `fenceKind` · `fencePostCount` · `fenceLengthKm` | **GAP-BIEU07-FENCE-01** |
-| Fence length unit | — | UI **km** · DB `FenceLengthM` (×1000) | **GAP-BIEU07-FENCE-LEN-01** / Q-FENCE-LEN |
-| FencePanelCount | — | **omit_p1** | **GAP-BIEU07-PANEL-01** |
-| Side | generic | shared L/R/Both · 1 field 3 khối | Q-SIDE |
-| Structure / kind | free | LOOKUP_STATIC seed | Q-STRUCT |
-| Route | hub-only `?resource=` | **alias_now** `/csdl-bieu-07` + hub | **GAP-BIEU07-ROUTE-01** |
-| Persist | shell `detail*` only | shell + **Schema_CsdlBieu7** pair · **cấm** `DetailJson` | migration Dev |
-| API prefix | `api/v1/asset/csdl-records` | **giữ** · widen typed DTO | keep |
-| road | Text / roadName | SearchInput `road-route` · `roadCode` (+ display `roadName`) | **GAP-CSDL-ROAD-01** |
-| province | FE LOOKUP_STATIC | **keep_static** P1 · master P2 | Q-PROV |
-| manageUnit | Text | Text P1 · SearchInput org P2 | **GAP-CSDL-ORG-01** DEFER |
-| Import/XLS | stub | OUT pack · skip-bridge | **GAP-CSDL-XLS-01** |
-| Peer Sổ TS | `SHOULDER` | deep-link only · **≠** road-assets | **GAP-BIEU07-PEER-01** |
-| Map | none | none · gis deep-link only | **cấm** invent |
+| Area | Current live | Target (T-XLS-S07) | Action |
+|------|--------------|--------------------|--------|
+| CRUD typed 20 | Schema_CsdlBieu7 · Slideout 3 khối lề/taluy/HR · FenceLengthM↔km · SlopeClearingM | **KEEP** | **cấm** reopen |
+| Filter bar | LinErpListFilterBar | **KEEP** · **cấm** nút Xuất trên filter | GAP-FILTER-BAR-08 |
+| Toolbar | CRUD actions | **+Xuất Excel** catalogToolbar · Import **ẩn** P1 | **GAP-BIEU07-XLS-01** |
+| Export API | `GET …/export?resource=` → stub / weak | filtered · golden Cục **Biểu 7** · `Bieu07_LeTaluyHangRao_{yyyyMMdd}.xls` · binary · **filter-all** | **GAP-BIEU07-XLS-02** |
+| Import API | `POST …/import[/preview]` | **DEFER P1** (`Q-XLS-IMPORT=export_only_p0`) · UI ẩn | **GAP-BIEU07-XLS-03** DEFER |
+| BFF | proxy export | **KEEP** proxy only · binary passthrough | T-XLS-BFF-01 |
+| Golden | stub / generic | Cục **16-sheet** · sheet **Biểu 7** only · **20 cột** · **cấm** 12+8 hồ sơ | cite epic · **GAP-BIEU07-XLS-05** |
+| Scope | ignores / partial filters | **Q-XLS-SCOPE=filtered** · same QS as list · empty = all visible tenant | pass-through |
+| Filename | stub / wrong ext | `Bieu07_LeTaluyHangRao_{yyyyMMdd}.xls` | **SA chốt `.xls`** (Cục golden + Wave1 peer Biểu 01–05 · override PO `.xlsx` draft) |
+| Export mode | unclear page vs stream | **filter-all** · ignore `page`/`pageSize` · service row cap · **cấm** HTTP streaming P0 | **GAP-BIEU07-XLS-04** |
+| Peer Sổ TS | `SHOULDER` deep-link | deep-link **KEEP** · **cấm** gộp vào sheet Biểu 7 | **GAP-BIEU07-XLS-PEER** |
+| Units on export | FenceLengthM / SlopeClearingM DB | sheet: fence length **km** · slope length per typed map | KEEP prior SA unit rules |
 
-**Không đổi:** BFF proxy · soft-delete · tenant `CompanyCode` · pageSize 50/100/200/500 · LeaveConfirm · filter-bar-layout-hard · **cấm** ERP.*.
+**Không đổi:** BFF proxy · soft-delete · tenant `CompanyCode` · pageSize list · LeaveConfirm · typed entity/migration · 3 khối · **cấm** ERP.*.
 
 ---
 
-## 1. Ownership
+## 1. Ownership (KEEP + XLS widen)
 
 | Layer | Repo / module |
 |-------|---------------|
-| MFE | `Linm.Web.RMMS.Asset` · route alias `/csdl-bieu-07` · hub reuse `CsdlSoSachPage` entry |
-| **BackendRoot** | `D:/AI-QLBD/Linm.RMMS.WebService` |
-| API domain | **Asset** — `api/src/RMMS.Service.Api/Domains/Asset/` |
-| Controller | `CsdlCatalogRecordsController` · `[Route("api/v1/asset/csdl-records")]` · **giữ** |
-| Service | `CsdlCatalogService` · branch `resource=shoulders-fences` → typed map |
-| Models / DTO | `CsdlCatalogDtos.cs` + **`CsdlBieu7Dtos.cs`** (typed create/update/detail) |
-| Persistence shell | `CsdlCatalogRecordEntity` · `rmms_csdl_catalog_records` |
-| Persistence typed | **`CsdlBieu7Entity`** · table **`rmms_csdl_bieu7`** · FK `CatalogRecordId` 1:1 |
-| Schema name | **`Schema_CsdlBieu7`** (migration Dev / Step 4b — **không** chạy ở SA) |
-| BFF | `CsdlCatalogRecordsBffController` · **proxy only = yes** |
-| FE service | `services/csdlSoSach/endpoint.ts` `BASE=/asset/csdl-records` · typed page **reuse** BASE |
-| DOMAIN-MAP | add row `csdl-bieu-07` → Asset |
-| Lookup | Integration `GET /integration/road-routes/search` |
-
-**Cấm** `ERP.Service.*` · invent `api/v1/infra/*` · invent parallel host · merge Sổ TS `SHOULDER` form · bind biểu Cục vào `road-assets`.
+| MFE | `Linm.Web.RMMS.Asset` · catalogToolbar **Xuất Excel** trên list Biểu 07 / hub `resource=shoulders-fences` |
+| BackendRoot | `D:/AI-QLBD/Linm.RMMS.WebService` |
+| API | `CsdlCatalogRecordsController` · `[Route("api/v1/asset/csdl-records")]` |
+| Excel service | `CsdlCatalogExcelService` — **widen** Export for `shoulders-fences` typed (Import widen = P1) |
+| Persist | shell `rmms_csdl_catalog_records` + typed `rmms_csdl_bieu7` (**KEEP** · **cấm** parent *Json) |
+| BFF | `CsdlCatalogRecordsBffController` · proxy only = **yes** |
+| FE BASE | `/asset/csdl-records` |
+| DOMAIN-MAP | `csdl-bieu-07` → Asset (**KEEP**) |
 
 ### Route / domain
 
 | Surface | Path |
 |---------|------|
-| UI alias | `/csdl-bieu-07` |
-| UI hub | `/so-ts/csdl-so-sach?resource=shoulders-fences` |
-| Peer Sổ TS | `/so-ts/...` `SHOULDER` deep-link |
-| API | `api/v1/asset/csdl-records` |
-| BFF | `web-bff/api/v1/asset/csdl-records` |
-| FE BASE | `/asset/csdl-records` |
-| road-route | `GET /integration/road-routes/search` |
+| UI | `/so-ts/csdl-so-sach?resource=shoulders-fences` · alias `/csdl-bieu-07` |
+| Export P0 | `GET api/v1/asset/csdl-records/export?resource=shoulders-fences&…filters` |
+| Import P1 | `POST api/v1/asset/csdl-records/import[/preview]` — **DEFER** · **cấm** FE wire P0 |
+| BFF | `web-bff/api/v1/asset/csdl-records/export` (P0) · import routes exist · unused P0 |
 
 ---
 
@@ -112,199 +92,134 @@
 
 | Layer | Choice |
 |-------|--------|
-| BackendRoot | `Linm.RMMS.WebService` · be_repo_confirm |
+| BackendRoot | `Linm.RMMS.WebService` |
 | Domain | **Asset** / `asset` |
-| API host | `Domains/Asset/` · widen existing controller |
-| BFF | proxy only = yes |
-| MFE | `Linm.Web.RMMS.Asset` · new list page alias + typed Slideout 3 section |
-| Persist | shell + typed child 1:1 · **cấm** parent `*Json` · **cấm** chỉ 3 ô detail* runtime |
-| Auth perm | `asset.csdl-records.read\|create\|update\|delete` (reuse hub · Auth debt) |
-| Out of pack | XLS import/export OUT · org SearchInput P2 · FencePanelCount · map canvas · Step 4b @ SA |
+| Export | same controller · Excel service · **binary** response · filter-all |
+| BFF | proxy only = yes · forward QS · binary passthrough · **cấm** remap |
+| MFE | catalogToolbar Xuất · blob download · toast · **cấm** filter-bar export |
+| Persist | typed read for export columns · **cấm** DetailJson dump |
+| Auth | reuse `asset.csdl-records.read` (export) |
+| Out of pack | Import P1 · Auth DEFER · org SearchInput P2 · map canvas · Step 4b @ SA |
 
-## SSOT / anti-duplicate
+### SSOT / anti-duplicate
 
 | Concern | Package / rule | Note |
 |---------|----------------|------|
-| UI | `@linm-soft-org/linm-web-common-components` | LinErpListFilterBar · LinCatalogDataGrid · LeaveConfirmModal · SearchInput — **cấm** local Lin* clone |
+| UI | `@linm-soft-org/linm-web-common-components` | LinErpListFilterBar · LinCatalogDataGrid — **cấm** local Lin* clone |
 | HTTP | `apiClient` SSOT | BFF only |
-| Persist | `no-parent-json-field` | typed table · **không** nhét 20 cột vào DetailSpec JSON |
-| BFF | proxy only | no business logic |
-| Filter | `filter-bar-layout-hard` | 1 hàng wrap · 🔍 cụm phải · **cấm** nút Tìm riêng |
-| Form | `slideout-form-layout` | footer_actions_only · `data-form-cols=2` · 3 section · **cấm** Full-page |
-
-## Implement gates (confirm) — RECORDED
-
-| Gate | Decision | Endpoints / surfaces | Note |
-|------|----------|----------------------|------|
-| TZ | **`tz_na`** | **không** filter `fromDate`/`toDate` business · UpdatedAt display-only | PO inventory không có date range |
-| XCO | **`xco_get_only`** | GET `/{id}` · View Slideout | AllowedCompanyIds |
-| SHARE | **`share_tenant`** | shell + `CsdlBieu7Entity` : tenant via parent | `CompanyCode` · **không** Type A master |
-
-AskQuestion (autoApprove=ON · agent confirm): `sa_tz_gate=tz_na` · `sa_xco_gate=xco_get_only` · `sa_shared_table=share_tenant` · `2026-09-05T16:30:00.000Z`
+| Excel | `/implement-export-import-excel` | golden Cục sheet Biểu 7 |
+| Filter | `filter-bar-layout-hard` | **cấm** Xuất trên LinErpListFilterBar (GAP-FILTER-BAR-08) |
+| Persist | `no-parent-json-field` | export from typed · **không** DetailJson |
+| Peer | deep-link only | **cấm** merge `SHOULDER` vào sheet |
+| Units | prior SA | FenceLengthM↔km · SlopeClearingM↔slopeLengthM · **cấm** invent |
 
 ---
 
-## FormType pack (`list`)
+## Implement gates (confirm) — RECORDED KEEP
+
+| Gate | Decision | Endpoints / surfaces | Note |
+|------|----------|----------------------|------|
+| TZ | **`tz_na`** | export **không** date-range business | KEEP |
+| XCO | **`xco_get_only`** | export/list tenant; detail GET view only | KEEP |
+| SHARE | **`share_tenant`** | shell + `CsdlBieu7Entity` | KEEP |
+
+AskQuestion (autoApprove=ON · agent confirm): `sa_tz_gate=tz_na` · `sa_xco_gate=xco_get_only` · `sa_shared_table=share_tenant` · `2026-09-18T04:35:00.000Z`
+
+---
+
+## FormType pack (`list`) — KEEP + export surface
 
 | Surface | Pattern | FormMode | API |
 |---------|---------|----------|-----|
-| S-LIST | Kind B A–D+F+H | list | API-01 list `?resource=shoulders-fences` |
-| S-FORM-CREATE | Kind D Slideout Z1–Z3 · 3 section | create | API-03 POST |
-| S-FORM-EDIT | Kind D Slideout | edit | API-02 GET + API-04 PUT |
-| S-FORM-VIEW | Kind D Slideout | view | API-02 GET |
-| S-FORM-COPY | Kind D Slideout | create | API-02 GET + API-03 POST (clear id · new LE- code) |
-| S-ACT-DELETE | Confirm modal | — | API-05 DELETE soft |
-| S-HUB-ENTRY | hub card | — | same list API · QS resource · label Biểu 07 |
-| S-PEER-SOTS | deep-link | — | **cấm** merge |
-| S-SKIP-MAP | toolbar → gis | — | deep-link only |
-| Lookup road | SearchInput | filter + form | API-LKP-01 |
+| S-LIST | Kind B A–D+F+H | list | API-01 KEEP |
+| S-FORM-* | Kind D Slideout 2col · 3 section | create/edit/view/copy | API-02..05 KEEP |
+| **S-XLS-EXPORT** | catalogToolbar | **export** | **API-XLS-01** |
+| S-XLS-IMPORT | catalogToolbar + file | import | API-XLS-02/03 — **DEFER P1 · ẩn** |
+| S-PEER-SOTS | deep-link SHOULDER | — | **cấm** merge sheet |
 
 ### FormMode ↔ API (REQUIRED)
 
 | FormMode | Load | Save / action | Notes |
 |----------|------|---------------|-------|
-| list | GET list `?resource=shoulders-fences` + filters | — | page=1 on filter change |
-| create | empty typed form | POST body `resource` + typed fields | IdCode `LE-` BE · convert fenceLengthKm→FenceLengthM |
-| edit | GET `/{id}` (shell+typed join) | PUT `/{id}` | replace typed row 1:1 · same unit convert |
-| view | GET `/{id}` | — | readOnly · **không** disabled xám · FenceLengthM→km display |
-| copy | GET → clear id/code | POST | new IdCode |
-| delete | — | DELETE soft | confirm · reload list |
+| list / create / edit / view / copy / delete | KEEP prior | KEEP | **cấm** reopen typed 20-col · 3 khối KEEP |
+| **export** | — | GET export + **same filter QS** | filtered · **filter-all** · binary · filename locked · **cấm** streaming P0 |
+| import | — | — | **DEFER P1** |
 
-### List filter query keys (`LinErpListFilterBar`)
+### List filter query keys (KEEP — also export QS)
 
-| Query key | UI control | Source |
-|-----------|------------|--------|
-| `resource` | const / QS | required `shoulders-fences` |
-| `search` | SearchTextInput | mã · đường · notes |
-| `province` | Dropdown LOOKUP_STATIC | FE PROVINCES P1 |
-| `status` | Dropdown LOOKUP_STATIC | tot/tb/kem/hong |
-| `roadCode` | SearchInput road-route | Integration search |
-| `kmFrom` / `kmTo` | Number | Line range filter |
-| `side` | Dropdown LOOKUP_STATIC | L / R / Both |
-| `fenceKind` | Dropdown LOOKUP_STATIC | lưới / tôn / bê tông / khác (opt) |
-| `page` / `pageSize` | pagination | 50/100/200/500 |
+| Query key | UI | Export |
+|-----------|-----|--------|
+| `resource` | const `shoulders-fences` | **required** |
+| `search` | SearchTextInput | pass |
+| `province` | Dropdown | pass |
+| `status` | Dropdown | pass |
+| `side` | Dropdown | pass |
+| `fenceKind` | Dropdown | pass |
+| `roadCode` | SearchInput | pass |
+| `kmFrom` | Number | pass |
+| `kmTo` | Number | pass |
+| `page` / `pageSize` | pagination | **export ignores page** · filter-all · service row cap · **cấm** stream |
 
 ---
 
-## 2. Form data analysis (shoulder · slope · fence · side · units)
+## 2. Form data analysis (XLS)
 
-### Header (20) — SSOT
+| Screen | Fields / payload | Source | Persist | Notes |
+|--------|------------------|--------|---------|-------|
+| S-XLS-EXPORT | filter QS only | derived list | — | **cấm** invent body |
+| S-XLS-IMPORT | — | — | — | **DEFER P1** · UI ẩn |
+| Typed columns | KEEP 20 | transaction | `rmms_csdl_bieu7` | real-data §B · shoulder/slope/fence · FenceLengthM↔km · SlopeClearingM · **cấm** invent |
 
-`code|roadCode|roadName|province|kmFrom|kmTo|side|shoulderStructure|shoulderLengthM|shoulderWidthM|shoulderAreaM2|slopeLengthM|slopeAreaM2|fenceKind|fencePostCount|fenceLengthKm|builtYear|status|manageUnit|notes`
+**controlHint:** `exportExcel` = ToolbarButton · `importExcel` = ToolbarButton+file **ẩn P1** — **không** SearchInput/Dropdown invent.
 
-### Q-SIDE → **shared** L/R/Both
+### Q-XLS decisions (SA locked)
 
-| uiField | DB column | Type | Values / note |
-|---------|-----------|------|---------------|
-| `side` | `Side` | `varchar(8)` | `L` · `R` · `Both` · 1 field dùng chung 3 khối |
-
-### GAP-BIEU07-SHOULDER-01
-
-| uiField | DB column | Type | Note |
-|---------|-----------|------|------|
-| `shoulderStructure` | `ShoulderStructure` | `varchar(64)` | LOOKUP cứng/mềm/khác · * |
-| `shoulderLengthM` | `ShoulderLengthM` | `decimal(18,3)` | * m |
-| `shoulderWidthM` | `ShoulderWidthM` | `decimal(18,3)` | * m |
-| `shoulderAreaM2` | `ShoulderAreaM2` | `decimal(18,3)?` | optional m² |
-
-### Q-SLOPE → **map_clearing**
-
-| uiField | DB column | Type | Note |
-|---------|-----------|------|------|
-| `slopeLengthM` | `SlopeClearingM` | `decimal(18,3)?` | UI name `slopeLengthM` ↔ DB `SlopeClearingM` |
-| `slopeAreaM2` | `SlopeAreaM2` | `decimal(18,3)?` | riêng · không map clearing |
-
-### GAP-BIEU07-FENCE-01 + Q-FENCE-LEN → **km**
-
-| uiField | DB column | Type | Note |
-|---------|-----------|------|------|
-| `fenceKind` | `FenceKind` | `varchar(64)` | LOOKUP lưới/tôn/bê tông/khác |
-| `fencePostCount` | `FencePostCount` | `int?` | ≥0 |
-| `fenceLengthKm` | `FenceLengthM` | `decimal(18,3)?` | **UI km** · persist **m** · API map `valueKm * 1000` write · `/1000` read |
-
-### Q-PANEL → **omit_p1**
-
-`FencePanelCount` **không** có cột UI/DTO P1 — Dev **cấm** expose field này trên form.
-
-### Q-STRUCT → **lookup_seed**
-
-`shoulderStructure` + `fenceKind` = LOOKUP_STATIC seed từ Excel Biểu 7 · **cấm** free-text khi đã LOOKUP.
-
-### Shell vs typed split
-
-| Store on shell (`rmms_csdl_catalog_records`) | Store on typed (`rmms_csdl_bieu7`) |
-|---------------------------------------------|-------------------------------------|
-| Resource, Code, RoadName (+ RoadCode), Province, KmFrom, KmTo, Status, ManageUnit, Notes, IsActive, timestamps | Side, ShoulderStructure, ShoulderLengthM, ShoulderWidthM, ShoulderAreaM2, SlopeClearingM, SlopeAreaM2, FenceKind, FencePostCount, FenceLengthM, BuiltYear |
-| DetailPrimary/Spec/Extra | **deprecated for this resource** — stop writing runtime; migrate legacy → typed when present |
-
-### Unit conversion (HARD · service layer)
-
-| Direction | Rule |
-|-----------|------|
-| Write (POST/PUT) | `FenceLengthM = fenceLengthKm * 1000` (null-safe) |
-| Read (GET list/detail) | `fenceLengthKm = FenceLengthM / 1000` |
-| Slope | `slopeLengthM` ↔ `SlopeClearingM` **1:1** (same unit m) — rename only |
-
-### Typed DTO shape (API body / response widen)
-
-`CsdlBieu7Dto` fields = real-data §B write fields (resource + 20-col inventory). List projection: code, roadCode/roadName, province, kmFrom, kmTo, side, shoulderStructure, shoulderLengthM, shoulderWidthM, shoulderAreaM2, slopeLengthM, slopeAreaM2, fenceKind, fencePostCount, fenceLengthKm, builtYear, status, manageUnit, updatedAt.
-
-### UiSchema
-
-catalogKind `shoulders-fences` typed — **cấm** generic 3-col-only schema làm SSOT form.
+| Q | Decision |
+|---|----------|
+| Q-XLS-SCOPE | **filtered** (QS · empty = all visible tenant) |
+| Q-XLS-IMPORT | **export_only_p0** · Import DEFER P1 |
+| Q-XLS-FILENAME | `Bieu07_LeTaluyHangRao_{yyyyMMdd}.xls` · **ext `.xls`** (Cục golden + peer Biểu 01–05 Wave1 · override PO `.xlsx` draft) |
+| Export mode | **filter-all** · ignore page · **cấm** HTTP streaming P0 |
+| Peer | **cấm** gộp `SHOULDER` vào sheet Biểu 7 |
 
 ---
 
-## 3. API catalog
+## 3. API catalog (XLS — P0 export)
 
-| ID | Method | Path | Notes |
-|----|--------|------|-------|
-| API-01 | GET | `/web-bff/api/v1/asset/csdl-records?resource=shoulders-fences&…` | list paged |
-| API-02 | GET | `/web-bff/api/v1/asset/csdl-records/{id}` | shell+typed |
-| API-03 | POST | `/web-bff/api/v1/asset/csdl-records` | body resource + typed |
-| API-04 | PUT | `/web-bff/api/v1/asset/csdl-records/{id}` | update shell+typed |
-| API-05 | DELETE | `/web-bff/api/v1/asset/csdl-records/{id}` | soft |
-| API-LKP-01 | GET | `/web-bff/api/v1/integration/road-routes/search` | SearchInput |
-| API-LKP-02 | GET | `/web-bff/api/v1/integration/org-units/search` | **DEFER P2** |
+### API-XLS-01: GET `/api/v1/asset/csdl-records/export`
 
-API mirror: `api/v1/asset/…`. **Cấm** invent mới prefix.
+| | |
+|--|--|
+| Purpose | Xuất Excel Biểu 7 theo **filter hiện tại** (binary · filter-all) |
+| Permission | `asset.csdl-records.read` |
+| Tenant | X-Company-Id · share_tenant |
+| Request | query: `resource=shoulders-fences` **required** + list filter keys (search, province, status, side, fenceKind, roadCode, kmFrom, kmTo) · **không** dùng page/pageSize |
+| Response | `File` binary · `Content-Disposition` filename=`Bieu07_LeTaluyHangRao_{yyyyMMdd}.xls` · content-type Excel (xls per implement skill) |
+| Errors | 422 thiếu resource · empty → file headers-only hoặc toast FE “không có dữ liệu” (Dev chốt 1 · AC-XLS empty OK) |
+| Form surfaces | S-XLS-EXPORT · catalogToolbar |
+| Field map | list projection / typed 20 → golden sheet **Biểu 7** · fenceLengthKm (DB FenceLengthM/1000) · slopeLengthM↔SlopeClearingM · shoulder* · fenceKind/PostCount |
+| Mode | **filter-all** · service row cap · **cấm** streaming P0 |
+| Context | `docs/context/features/csdl-export-print.md` · `csdl-bieu-07.md` |
+| Demo | N/A |
+| Gap live | stub / weak filter / wrong name / peer merge → **GAP-BIEU07-XLS-02** · **GAP-BIEU07-XLS-04** · **GAP-BIEU07-XLS-05** · **GAP-BIEU07-XLS-PEER** |
+
+### API-XLS-02 / API-XLS-03 — Import / preview — **DEFER P1**
+
+Document only · routes may exist on controller · **cấm** FE wire · **cấm** widen ImportAsync cho Biểu 7 ở P0.
+
+BFF mirror: `GET /web-bff/api/v1/asset/csdl-records/export` · proxy only.
+
+**Cấm** invent prefix · ERP.* · `api/v1/so-ts/*` · `api/v1/infra/*`.
 
 ---
 
-## 4. Entity / migration (plan only — Dev/Step 4b)
+## 4. Entity / migration
 
-| Item | Spec |
-|------|------|
-| Table | `rmms_csdl_bieu7` |
-| PK | Guid Id |
-| FK | `CatalogRecordId` unique → `rmms_csdl_catalog_records.Id` CASCADE soft via parent |
-| Indexes | (CatalogRecordId) unique · list filters via shell + typed Side / FenceKind |
-| Migration name | `Schema_CsdlBieu7` |
-| Backfill | optional: parse legacy detail* → typed when resource=shoulders-fences |
-| **SA** | document only · **cấm** chạy migration |
-
-### Typed columns (plan)
-
-| Column | CLR / SQL | Required |
-|--------|-----------|----------|
-| Side | varchar(8) | yes |
-| ShoulderStructure | varchar(64) | yes (*) |
-| ShoulderLengthM | decimal(18,3) | yes (*) |
-| ShoulderWidthM | decimal(18,3) | yes (*) |
-| ShoulderAreaM2 | decimal(18,3)? | no |
-| SlopeClearingM | decimal(18,3)? | no · ↔ slopeLengthM |
-| SlopeAreaM2 | decimal(18,3)? | no |
-| FenceKind | varchar(64) | no |
-| FencePostCount | int? | no · ≥0 |
-| FenceLengthM | decimal(18,3)? | no · UI fenceLengthKm |
-| BuiltYear | int? | no |
-
-### Shell columns (reuse / widen if missing — Dev)
-
-| Column | CLR / SQL | Note |
-|--------|-----------|------|
-| KmFrom / KmTo | decimal(18,3)? | Line range · filter+form |
-| RoadCode | varchar | SearchInput road-route |
+| Item | Decision |
+|------|----------|
+| Typed table | `rmms_csdl_bieu7` · Schema_CsdlBieu7 **KEEP** |
+| Migration @ XLS | **none mới** · export reads typed + shell |
+| Parent *Json | **cấm** |
 
 ---
 
@@ -312,10 +227,10 @@ API mirror: `api/v1/asset/…`. **Cấm** invent mới prefix.
 
 | Concern | Decision |
 |---------|----------|
-| BFF | **proxy only** — forward query/body · no remap business · **không** convert km↔m ở BFF |
-| Validation | API service (required resource, side, shoulderStructure/Length/Width, IdCode; fencePostCount ≥0; unit convert FenceLength) |
-| Permissions | reuse `asset.csdl-records.*` |
-| Errors | 422 thiếu resource · 404 detail · toast FE · **cấm** alert |
+| BFF | **proxy only** — forward QS · binary passthrough · **cấm** remap filename/cols |
+| Validation | API (resource required · tenant) |
+| Permissions | `asset.csdl-records.read` |
+| Errors | 422 / toast FE · **cấm** alert |
 
 ---
 
@@ -323,45 +238,42 @@ API mirror: `api/v1/asset/…`. **Cấm** invent mới prefix.
 
 | ID | Scope |
 |----|-------|
-| T-DM-01 | DOMAIN-MAP add `csdl-bieu-07` → Asset |
-| T-REN-01 | hub formNo 10→07 · title Biểu 07 taluy (cùng typed) |
-| T-BE-01 | Entity `CsdlBieu7Entity` + EF config |
-| T-BE-02 | Migration `Schema_CsdlBieu7` (Dev/4b) |
-| T-BE-03 | DTO typed + service map join shell↔typed · SlopeClearingM↔slopeLengthM · FenceLengthM↔km · stop detail* write |
-| T-BE-04 | IdCode `LE-` generator |
-| T-BE-05 | List filter `roadCode` + kmFrom/kmTo + side + fenceKind |
-| T-BFF-01 | verify proxy (no logic / no unit convert) |
-| T-FE-01 | route alias `/csdl-bieu-07` + page Kind B |
-| T-FE-02 | typed Slideout 20 cột · 3 section · FormMode↔API |
-| T-FE-03 | FilterBar · SearchInput road-route · LOOKUP_STATIC |
-| T-FE-04 | LeaveConfirm · Copy · soft delete |
-| T-FE-05 | hub deep-link + peer SHOULDER link · **cấm** merge |
-| T-FE-06 | UiSchema catalogKind `shoulders-fences` typed |
-| T-OUT-01 | XLS / skip-bridge — OUT pack (không block P1) |
-| T-OUT-02 | FencePanelCount · org SearchInput — P2 |
+| T-XLS-BE-01 | Widen `CsdlCatalogExcelService` Export `resource=shoulders-fences` · golden Biểu 7 · 20 cols · filter-all · unit map FenceLengthM/SlopeClearingM |
+| T-XLS-BE-02 | Filename `Bieu07_LeTaluyHangRao_{yyyyMMdd}.xls` · Content-Disposition · empty OK |
+| T-XLS-BFF-01 | Verify BFF export binary proxy (no remap) |
+| T-XLS-FE-01 | catalogToolbar Xuất Excel · blob download · toast · **cấm** filter-bar export |
+| T-XLS-FE-02 | Pass list filter QS · ignore page · Import UI ẩn P1 |
+| T-XLS-QA-01 | AC-XLS-01..09 · GAP-BIEU07-XLS-01..05 · GAP-BIEU07-XLS-PEER |
+| T-KEEP | typed CRUD / 3 khối / FenceLengthM↔km / SlopeClearingM / Slideout / Schema_CsdlBieu7 — **cấm** reopen |
 
 ---
 
-## 7. Open questions
+## 7. Gaps
 
-- **none** (Q-ROUTE · Q-PROV · Q-SIDE · Q-SLOPE · Q-FENCE-LEN · Q-PANEL · Q-STRUCT · Q-REN-LABEL chốt · autoApprove)
+| ID | Severity | Note |
+|----|----------|------|
+| GAP-BIEU07-XLS-01 | P0 | Toolbar +Xuất · Import ẩn |
+| GAP-BIEU07-XLS-02 | P0 | Export filtered binary · golden Biểu 7 · 20 cols |
+| GAP-BIEU07-XLS-03 | P1 | Import DEFER |
+| GAP-BIEU07-XLS-04 | P0 | filter-all · **cấm** streaming |
+| GAP-BIEU07-XLS-05 | P0 | Filename `.xls` · Cục sheet · **cấm** 12+8 |
+| GAP-BIEU07-XLS-PEER | P0 | **cấm** merge SHOULDER |
+| GAP-FILTER-BAR-08 | P0 | **cấm** Xuất trên filter bar |
 
-## 8. Cấm (SA)
+---
 
-- ERP.* · invent API · invent map · form 3 ô only · Guid IdCode · merge Sổ TS form · bind `road-assets`  
-- Write MFE/native · yarn build/e2e/start:std · Step 4b/migration/e2e ở role SA  
-- parent `*Json` · re-scan demo · DOMAIN invent ngoài Asset · expose FencePanelCount P1  
+## 8. Open questions
 
-## Version meta (REQUIRED)
+- **none** (Q-XLS-SCOPE=filtered · Q-XLS-IMPORT=export_only_p0 · Q-XLS-FILENAME `.xls` locked · export mode filter-all · Design approve · autoApprove ON)
 
-| Field | Value |
-|-------|-------|
-| skillId | agent-sa |
-| skillVersion | 2026.08.24.01 |
-| workflowVersion | 2026.09.01.02 |
-| rulesVersion | 2026.08.31.2 |
-| packKind | list |
-| changeScope | new_page |
-| solution_confirm | approve |
-| writtenAt | 2026-09-05T16:30:00.000Z |
-| contentHashPrior | sha256:5634091e7ce3e5272c090320398a76d75f84ed7326366e93e088ff2154e8bf44 |
+## 9. Handoff
+
+| Role | Need |
+|------|------|
+| **TL** | `task/csdl-bieu-07.md` · T-XLS-* · T-KEEP |
+| Dev | `/implement-export-import-excel` · export shoulders-fences only P0 |
+| QA | e2e queued `/agent-qa*` · **cấm** @ SA |
+
+## Cấm (SA)
+
+ERP.* · invent API · reopen typed 20-col · Guid IdCode · merge Sổ TS sheet · parent *Json · Step 4b/migration/e2e/build/start:std @ SA · Write MFE · re-scan demo · toast stub = done · filter-bar export

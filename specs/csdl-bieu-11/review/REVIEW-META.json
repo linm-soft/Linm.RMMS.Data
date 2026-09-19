@@ -1,5 +1,12 @@
 {
   "feature": "csdl-bieu-11",
-  "status": "draft",
-  "autoCreated": true
+  "status": "confirmed",
+  "verdict": "PASS",
+  "review_confirm": "done",
+  "changeScope": "edit_page",
+  "taskId": "task_79bbf628",
+  "priorTypedReview": "task_20e43f26",
+  "contentHash": "sha256:7f64b8dcea4265af23b9f2e5e1dae3ab1c933b0a4404b0f872d39029716b4d62",
+  "headerFingerprint": "sha256:b37759a9224c09c7c63bc81583b4a9bcbca02e74cba8b63579819e90d57f1d1a",
+  "reviewedAt": "2026-09-18T07:25:00.000Z"
 }

@@ -49,7 +49,7 @@ Align MFE: `http://localhost:9311/bao-cao/cong-van` (`yarn start:std` port **931
 
 1. **Xem** mới load lưới · đổi filter reset page=1 · chưa Xem → empty hint (không fetch).
 2. Zone A: title «Công văn đi — đến» — **cấm** Thêm mới / CRUD.
-3. Zone B: `LinErpListFilterBar` 1 hàng wrap · controlHint dưới · toolbar Làm mới · In · Config **FULL** (`LinReportTableConfigModal` — cấm stub) · Xuất Excel · chart SoCai khi đã Xem + có dòng.
+3. Zone B: `LinErpListFilterBar` 1 hàng wrap · controlHint dưới · toolbar Làm mới · **In scoped** (title + filter + grid) · Config **FULL** (`LinReportTableConfigModal` — cấm stub) · Xuất Excel · chart SoCai khi đã Xem + có dòng.
 4. Zone C: **1×** `LinPageLayout` kind=`report` — **cấm** nested CatalogListShell · `LinCatalogDataGrid` kéo cột default **ON** · cột: số CV · ngày · trích yếu · chiều · đơn vị · drill Ops `/ops?id=`.
 5. Zone D: `LinCatalogListPagination` 50/100/200/500 **luôn** hiện — **cấm** footerPagination / pageSizeBar / raw table.
 6. Excel theo cột đang hiện · CSV UTF-8 BOM (P1).
@@ -88,7 +88,7 @@ Context `api/v1/reports/official-docs` **stale**. BFF `web-bff/api/v1/report/...
 | GAP-PO-CV-03 | Route **`/bao-cao/cong-van`** · mfeStdUrl **`http://localhost:9311/bao-cao/cong-van`**. |
 | GAP-PO-CV-04 | Seed 8–15 dòng · chiều đi/đến · org-unit Chi cục II.*. |
 | GAP-PO-CV-05 | **Không** CRUD · **cấm** Thêm mới Zone A · drill `/ops?id=`. |
-| GAP-PO-CV-06 | Config FULL P1 · footer luôn · In stub OK P1. |
+| GAP-PO-CV-06 | Config FULL P1 · footer luôn · **In scoped** title + filter đã apply + grid (GAP-P2-PRINT-01). |
 | GAP-PO-CV-07 | P1 in-memory OK · EF OfficialDocument **P2**. |
 | GAP-PO-CV-08 | autoApprove **OFF** → Design/SA/Review **await_confirm** board — **không** auto-confirm. |
 | GAP-PO-CV-09 | Repo BE+UI **user tick** trước Dev — **không** auto. |

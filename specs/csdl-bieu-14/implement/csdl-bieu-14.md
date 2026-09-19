@@ -3,51 +3,62 @@
 | Field | Value |
 |-------|-------|
 | feature | `csdl-bieu-14` |
-| title | CSDL Biểu 14 — Hệ thống ITS (GTTM) |
-| this role | `dev` · `/agent-dev` |
+| title | CSDL Biểu 14 — Hệ thống ITS (GTTM) · T-XLS-S14 export |
+| this role | `dev` · `/agent-dev` · `/implement-export-import-excel` |
 | status | **done** |
-| changeScope | `new_page` |
+| changeScope | `edit_page` |
 | packKind | `list` |
 | resource | `its-systems` |
 | formNo | `14` |
 | IdCode | `IT-` |
-| mfeStdUrl | `http://localhost:9301/csdl-bieu-14` |
+| mfeStdUrl | `http://localhost:9301/so-ts/csdl-so-sach` |
+| alias | `/csdl-bieu-14` |
 | hub | `/so-ts/csdl-so-sach?resource=its-systems` |
-| taskId | `task_936065ca` |
-| contentHashPrior | `sha256:6cfdefa3baaffcf2bd97c7a429bb5043e7f9d77b96bbb77eafaa34689007b112` |
-| headerFingerprintPrior | `sha256:14cd156a898dcc971a072dd1cd1b92460a8b597558a90dc9854fead9d4c4de5c` |
-| updatedAt | `2026-09-05T15:00:00.000Z` |
+| taskId | `task_5163dcca` |
+| priorTyped | `task_936065ca` **keep** |
+| tlTaskId | `task_bb5bd3be` |
+| contentHash | `sha256:e9a062f1f9eecd6bf98748db0c3f839e2247a74ecb9bcd56273d4e48d729fa0a` |
+| headerFingerprint | `sha256:14cd156a898dcc971a072dd1cd1b92460a8b597558a90dc9854fead9d4c4de5c` |
+| updatedAt | `2026-09-18T09:00:00.000Z` |
 | yarnBuild | **PASS** |
-| dotnetBuild | **PASS** |
+| dotnetBuild | **PASS** (Api + Asset.Bff) |
 
-## Done (T-*)
+## Done (T-XLS-S14-*)
 
 | id | Result |
 |----|--------|
-| T-DM-01 | DOMAIN-MAP `csdl-bieu-14` → Asset |
-| T-CTX-01 | context sync (lane web · phase implement) |
-| T-BE-01 | `CsdlBieu14Entity` + EF 1:1 |
-| T-BE-02 | Migration `Schema_CsdlBieu14` (`rmms_csdl_bieu14`) |
-| T-BE-03..06 | Service branch `its-systems` · DTO typed · IdCode `IT-` · filters · soft-delete reuse · UiSchema seed |
-| T-BFF-01 | proxy only (no change) |
-| T-PERM-01 | reuse `asset.csdl-records.*` |
-| T-UI-* | Kind B list + Kind D Slideout Z1–Z3 · FilterBar · buildDynamicGridColumns · LeaveConfirm · hub NEW |
+| T-XLS-S14-BE-01 | `CsdlCatalogExcelService` branch `its-systems` · sheet **Biểu 14** · **21** cols · filter-all · `deviceType` QS · filename `Bieu14_HeThongITS_{yyyyMMdd}.xls` |
+| T-XLS-S14-BFF-01 | BFF export proxy reuse (`BuildExportPath` + QS) · no new logic |
+| T-XLS-S14-FE-01 | `CsdlBieu14Page` catalogToolbar **Xuất Excel** · binary download · filter QS (search/province/status/side/deviceType/road/km/date) |
+| T-XLS-S14-FE-02 | Import **ẩn** · **cấm** filter-bar export · toast success/fail (không stub) · empty-file OK toast |
+| typed KEEP | Schema_CsdlBieu14 · CRUD · UiSchema · Slideout · **cấm** reopen new_page |
+
+## Headers SSOT (21)
+
+`code|roadCode|roadName|province|kmFrom|kmTo|side|direction|gpsLat|gpsLng|deviceType|brand|techSpec|qtyOrLength|operatingStatus|infraKind|clearanceM|infraQty|systemStatus|yearBuilt|notes`
 
 ## APIs
 
-- `GET/POST/PUT/DELETE` `/api/v1/asset/csdl-records` · `resource=its-systems`
-- BFF `/web-bff/api/v1/asset/csdl-records` proxy
-- LKP `GET /api/v1/integration/road-routes/search`
+- CRUD keep: `GET/POST/PUT/DELETE` `/api/v1/asset/csdl-records?resource=its-systems`
+- Export: `GET /api/v1/asset/csdl-records/export?resource=its-systems` (+ filter QS · no page)
+- BFF: `/web-bff/api/v1/asset/csdl-records/export` proxy binary
+
+## Files touched
+
+| Layer | Path |
+|-------|------|
+| BE | `…/Services/CsdlCatalogExcelService.cs` · `…/Controllers/CsdlCatalogRecordsController.cs` |
+| FE | `src/pages/CsdlBieu14Page/CsdlBieu14Page.tsx` · `src/services/csdlSoSach/endpoint.ts` · `csdlService.ts` |
 
 ## Debt / defer
 
-- Auth RequirePermission wire DEFER
-- org SearchInput manageUnit P2
-- XLS OUT · peer toolbar none_p1 · map none
-- Snapshot EF full regen optional (hand migration present)
+- Import P1 (`T-XLS-S14-BE-02` OUT)
+- Auth RequirePermission stub
+- manageUnit P2 (không trong 21 export)
+- e2e → `/agent-qa*` only
 
 ## Verify
 
-- MFE `yarn build` PASS · chunk `csdl-bieu-14`
-- BE `dotnet build` PASS · 0 errors
-- **cấm** e2e / start:std @ Dev (queued QA)
+- MFE `yarn build` **PASS** · chunk `csdl-bieu-14`
+- BE `dotnet build` RMMS.Service.Api **PASS** · LINM.RMMS.Asset.Bff **PASS**
+- **cấm** e2e / start:std @ Dev

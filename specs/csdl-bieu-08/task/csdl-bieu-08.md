@@ -1,62 +1,58 @@
-# Team lead — tasks — csdl-bieu-08
+# Team lead — tasks — csdl-bieu-08 (edit_page · T-XLS-S08)
 
 | Field | Value |
 |-------|-------|
 | feature | `csdl-bieu-08` |
-| title | CSDL Biểu 08 — Hệ thống ATGT |
+| title | CSDL Biểu 08 — Xuất/Nhập Excel (Wave 1 · T-XLS-S08) |
 | this role | `team_lead` · `/agent-team-lead` |
 | status | **confirmed** |
-| changeScope | **`new_page`** |
-| packKind | **`list`** (Kind **B** A–D+F · Kind **D** Slideout 2col · **shared + 1 child**) |
+| changeScope | **`edit_page`** (T-XLS-S08) |
+| packKind | **`list`** (Kind **B** A–D+F KEEP · Kind **D** Slideout **shared + 1 child** KEEP) |
 | formType | `list` |
 | resource | `traffic-safety` |
-| formNo | `08` (renumber 7→8 · **T-REN-01**) |
+| formNo | `08` |
 | columns | `45` · **11 nhóm** child/`type=` |
 | IdCode | `AT-yyyyMMdd-nnnn` |
-| peerSoTs | ATGT types (sign/km/guardrail/median/…) · deep-link only · **cấm** merge · **≠** road-assets |
-| solution_confirm | **approve** (`task_53a8d473`) |
-| design_confirm | **approve** (`task_daa7f8e9`) |
+| peerSoTs | ATGT types · deep-link only · **cấm** merge form · **≠** road-assets |
+| solution_confirm | **approve** (`task_72b0354c`) |
+| design_confirm | **approve** (`task_b2622193`) |
+| team_lead_confirm | **approve** (autoApprove ON) |
 | autoApprove | **ON** |
 | e2eQa | **ON** (queued — chỉ `/agent-qa*`) |
-| route_confirm | **`route_a`** (autoApprove) — **`/csdl-bieu-08`** + hub entry |
+| route_confirm | **`route_a`** (keep) — hub `/so-ts/csdl-so-sach` + alias `/csdl-bieu-08` |
 | productRoot | `D:/AI-QLBD/Linm.RMMS.Data` |
 | reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-08/ui/prototype/csdl-bieu-08-list-prototype.html` |
-| prior · data_analy | **confirmed** · contentHash `sha256:f972c82727726d256754d076435f9ef97c993b4f9844dc79e50b6415fcaf54be` |
+| prior · data_analy | **confirmed** · `handoff/data_analy-compact.md` |
 | prior · po | **confirmed** · `po/requirement.md` · `handoff/po-compact.md` |
 | prior · design | **confirmed** · `ui/design.md` · `handoff/design-compact.md` |
 | prior · sa | **confirmed** · `be/solution-discovery.md` · `handoff/sa-compact.md` |
-| taskId | `task_b7d81208` |
-| saTaskId | `task_53a8d473` |
-| contentHashPrior | `sha256:f972c82727726d256754d076435f9ef97c993b4f9844dc79e50b6415fcaf54be` |
+| taskId | `task_21f9b30c` |
+| saTaskId | `task_72b0354c` |
+| contentHashPrior | `sha256:639566df4ddccc3927311d5618bf4e7c1dbad0dac80962c414f861dacc9d5e9c` |
 | headerFingerprintPrior | `sha256:ba8b8db4f7637ee32cfd4a882b6abdc774c538f6c9812c3ecd1d13f6151cdd6f` |
-| updatedAt | `2026-09-05T17:20:00.000Z` |
-| TL SSOT | `form-type-task-pack` · `agent-dev-assign` · `tl-grid-task-template` · `tl-design-grid-component-map` · `tl-filter-bar-task` · `tl-list-shell-height` · `tl-route-vn-abbrev-confirm` · `list-form-quality-gates` · `filter-bar-layout-hard` · `po-design-grid-standard` |
+| updatedAt | `2026-09-18T05:25:00.000Z` |
+| TL SSOT | `form-type-task-pack` · `agent-dev-assign` · `tl-grid-task-template` · `tl-design-grid-component-map` · `tl-filter-bar-task` · `tl-list-shell-height` · `list-form-quality-gates` · `filter-bar-layout-hard` · `po-design-grid-standard` · `/implement-export-import-excel` |
 
-**Cấm:** implement product code (trừ template task) · e2e · `yarn build` / `start:std` · Step 4b/migration · ERP.* · invent `api/v1/so-ts/*` / `infra/*` · start role khác (**GAP-PKT-ROLE-01**) · form 3 ô `detail*` only · wide 45 entity · Guid IdCode · merge Sổ TS form · parent `*Json`.
+**Cấm:** implement product code (trừ template task) · e2e · `yarn build` / `start:std` · Step 4b/migration · ERP.* · invent API prefix · export trên `LinErpListFilterBar` (**GAP-FILTER-BAR-08**) · reopen typed 45/11 as `new_page` · start role khác (**GAP-PKT-ROLE-01**) · golden 12+8 · wide-row · 11-sheet invent · parent `*Json`.
 
 ---
 
-## § Delta Current vs New (`new_page` · TL)
+## § Delta Current vs New (`edit_page` · T-XLS-S08)
 
-| Area | Current (hub generic) | New (Biểu 08 typed) | Action |
-|------|------------------------|---------------------|--------|
-| Route | hub-only `?resource=traffic-safety` | **alias** `/csdl-bieu-08` + hub | **route_confirm=route_a** · **T-FE-01** / **T-UI-LIST-01** |
-| formNo / title | hub Biểu **7** | formNo **08** · title ATGT | **T-REN-01** · **GAP-BIEU08-REN-01** |
-| Form | 3 ô `detail*` | Typed **45/11** Kind D Slideout · **shared + 1 child** | **T-FE-02** / **T-UI-FORM-01** · **GAP-BIEU08-TYPED-01** · **GAP-BIEU08-CHILD-01** |
-| Persist | shell detail* only | shell + **`Schema_CsdlBieu8`** parent + **11 children** | **T-BE-01** · **T-BE-02** (Dev/4b) · **cấm** 1 entity wide |
-| assetType | generic / missing | LOOKUP 11 · filter `?type=` · Q-TYPE-UX confirm clear | **T-BE-03** · **T-FE-03** · **GAP-BIEU08-TYPE-01** |
-| List cols | wide / generic | **subset_by_type** · **cấm** 45 cols cùng lúc | **T-FE-03** · Q-LIST-COLS |
-| Child 11 | missing | sign*/marker*/median*/… theo type | **T-BE-01/03** · GAP-BIEU08-SIGN-01…SIGNAL-01 |
-| road | Text | SearchInput `road-route` | **T-FE-03** / **T-UI-LKP-01** · **GAP-CSDL-ROAD-01** |
-| province | LOOKUP_STATIC | **keep_static** P1 | **T-UI-FILTER-01** |
-| manageUnit | Text | Text P1 · SearchInput P2 | **DEFER P2** · **GAP-CSDL-ORG-01** |
-| XLS | stub | **OUT** pack | **T-OUT-01** |
-| Peer Sổ TS | ATGT types | deep-link only | **T-FE-05** · **GAP-BIEU08-PEER-01** |
-| FE reuse | — | clone `CsdlBieu07Page` + `FormSlideout` + `assetType` child | **T-FE-02** · **cấm** `CsdlFormSlideout` |
-| BE scaffold | entity/DTO on disk | wire `CsdlCatalogService` + **Schema_CsdlBieu8** CLI | **T-BE-01/02** · **cấm** invent entity trùng |
-| DOMAIN-MAP | thiếu slug | add `csdl-bieu-08`→Asset | **T-DM-01** |
+| Area | Current (typed live) | New (Wave 1 XLS) | Action |
+|------|----------------------|------------------|--------|
+| Typed CRUD 45/11 | DONE prior | **KEEP** | **cấm** reopen · T-* CRUD = KEEP |
+| Route | hub + alias `/csdl-bieu-08` | **keep `route_a`** | no new route · **route_confirm=route_a** |
+| Toolbar | CRUD actions | **+Xuất Excel +Nhập Excel** | **T-XLS-FE-01** · **GAP-BIEU08-XLS-01** |
+| Export | stub / incomplete | filtered · golden Cục **Biểu 8** · `Bieu08_HeThongATGT_{yyyyMMdd}.xls` · **one_sheet_45** · binary | **T-XLS-BE-01/03** · **GAP-BIEU08-XLS-01/03/05** |
+| Import | missing / generic | import_now · sheet Biểu 8 → shell+parent+**1 child** · skipBridge | **T-XLS-BE-02** · **GAP-BIEU08-XLS-05** |
+| Toast | stub = done risk | real success/error | **GAP-BIEU08-XLS-02** · **T-XLS-FE-01** |
+| Filter bar | KEEP | **cấm** nút Xuất trên bar | **T-XLS-FE-02** · **GAP-BIEU08-XLS-04** · GAP-FILTER-BAR-08 |
+| Layout | KEEP | **cấm** 1 hàng kéo ngang lệch mẫu | **GAP-BIEU08-XLS-06** |
+| Migration | Schema_CsdlBieu8+11 KEEP | **none mới** @ XLS | **cấm** Step 4b @ TL |
+| BFF | proxy | binary + multipart passthrough | **T-XLS-BFF-01** |
 
-**Không đổi:** API prefix `api/v1/asset/csdl-records` · BFF proxy · soft-delete · pageSize 50/100/200/500 · LeaveConfirm · filter-bar-layout-hard · **cấm** ERP.*.
+**Không đổi:** API prefix `api/v1/asset/csdl-records` · typed entity + 11 children · subset_by_type · LeaveConfirm · pageSize · peer deep-link · **cấm** ERP.*.
 
 ---
 
@@ -64,87 +60,71 @@
 
 | Field | Value |
 |-------|-------|
-| `source.mfe` | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Asset` · `ui_repo_confirm` |
-| `source.routes` | **`/csdl-bieu-08`** · `route_confirm=route_a` (autoApprove · PO/Design/SA) |
-| `mfeStdRoute` | `/csdl-bieu-08` |
-| `mfeStdUrl` | `http://localhost:9301/csdl-bieu-08` |
+| `source.mfe` | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Asset` |
+| `source.routes` | hub `/so-ts/csdl-so-sach` · alias `/csdl-bieu-08` · `route_confirm=route_a` (keep) |
+| `mfeStdRoute` | `/so-ts/csdl-so-sach` · alias `/csdl-bieu-08` |
+| `mfeStdUrl` | `http://localhost:9301/so-ts/csdl-so-sach` |
 | `hubDeepLink` | `/so-ts/csdl-so-sach?resource=traffic-safety` |
 | `peerStdUrl` | `http://localhost:9301/so-ts/csdl-so-sach?resource=traffic-safety` |
-| `source.backend` | `D:/AI-QLBD/Linm.RMMS.WebService` · `be_repo_confirm` |
+| `source.backend` | `D:/AI-QLBD/Linm.RMMS.WebService` |
 | `source.domain` | **Asset** (`asset`) · DOMAIN-MAP |
 | `source.api` | `api/src/RMMS.Service.Api/Domains/Asset/` · `CsdlCatalogRecordsController` |
 | `source.bff` | `bff/domains/asset/` · **proxy only** |
 | `source.layout` | `micro-src` |
 | FE BASE | `/asset/csdl-records` (apiClient → BFF) |
 | API prefix | **`api/v1/asset/csdl-records`** · **cấm** invent |
-| catalogKind | `traffic-safety` (typed UiSchema) |
-| entity | shell `CsdlCatalogRecordEntity` + `CsdlBieu8Entity` · `rmms_csdl_bieu8` + **11 child tables** |
-| migration | `Schema_CsdlBieu8` · **Dev / Step 4b only** |
-| `devSlash` (default UI) | **`/agent-dev`** · + `/dev-web-responsive` · `/dev-ui-review` · **cấm** OMS/ai-detect (map=none) |
+| catalogKind | `traffic-safety` |
+| entity | shell + `CsdlBieu8Entity` + **11 child tables** · **KEEP** · XLS migration **none** |
+| implement skill | `/implement-export-import-excel` |
+| `devSlash` (default UI) | **`/agent-dev`** · + `/dev-web-responsive` · `/dev-ui-review` · **cấm** OMS/ai-detect |
 
-### Route confirm (autoApprove)
+### Route confirm (autoApprove · keep)
 
 | Option | Path | Decision |
 |--------|------|----------|
-| A | `/csdl-bieu-08` (+ hub entry) | **SELECTED** — Q-ROUTE `alias_now` · Design/SA locked |
-| B | hub-only `?resource=traffic-safety` | rejected — thiếu alias P1 |
-| C | custom / invent so-ts API | n/a · **cấm** |
+| A | hub `/so-ts/csdl-so-sach` + alias `/csdl-bieu-08` | **SELECTED** — keep |
+| B | invent new URL | rejected |
+| C | drop alias | rejected |
 
 ---
 
-## DES-GRID → Lin* map (`tl-design-grid-component-map` · PASS)
+## DES-GRID → Lin* map (`tl-design-grid-component-map` · KEEP + XLS delta)
 
-| Zone | Component |
-|------|-----------|
-| DES-GRID-A | `LinPageLayout` header · title Biểu 08 ATGT |
-| DES-GRID-B | `catalogToolbar` / `buildCatalogListToolbarActions` |
-| DES-GRID-C0 | listTitle · `listRowMenuHelp` |
-| DES-GRID-C1 / FILTER | `LinErpListFilterBar` · **T-UI-FILTER-01** · 🔍 cụm phải · **cấm** nút Tìm riêng |
-| DES-GRID-C2 | `LinCatalogDataGrid` · **subset_by_type** cols |
-| DES-GRID-C2a | `useLinCatalogColumnFilterSort` |
-| DES-GRID-C3 | `LinCatalogRowActionMenu` + `buildCatalogRowMenuItems` |
-| DES-GRID-D | `LinCatalogListPagination` 50/100/200/500 |
-| DES-GRID-F | `LinCatalogUiSchemaEditorModal` · catalogKind `traffic-safety` |
-| DES-GRID-H | History — **n/a P1** (không GAP HIST) · optional verify reuse |
-| DES-GRID-Z | Slideout · `data-form-cols="2"` · footer_actions_only · Z1–Z3 · **shared + 1 child** |
-| Tree / Map | **n/a** — map=none · gis deep-link only |
+| Zone | Component | Wave |
+|------|-----------|------|
+| DES-GRID-A..D/F/Z | prior Lin\* map · shared+1 child | **KEEP** |
+| DES-GRID-B toolbar | `catalogToolbar` / `buildCatalogListToolbarActions` | **+exportExcel +importExcel** |
+| DES-GRID-C1 FILTER | `LinErpListFilterBar` | **KEEP** · **cấm** Xuất trên bar |
+| DES-GRID-C2 | `LinCatalogDataGrid` · **subset_by_type** | **KEEP** · **cấm** wide-row 45 |
+| S-XLS-EXPORT | ToolbarButton `fa-file-excel` | **T-XLS-FE-01/02** |
+| S-XLS-IMPORT | ToolbarButton+file `fa-file-import` | **T-XLS-FE-01** |
 
 ---
 
-## API contract (cite SA)
+## API contract (cite SA · XLS)
 
 | id | Method | Path | Notes |
 |----|--------|------|-------|
-| API-01 | GET | `/api/v1/asset/csdl-records?resource=traffic-safety&…` | list paged · filters · optional `type=`/`assetType` |
-| API-02 | GET | `/api/v1/asset/csdl-records/{id}` | shell+parent+**1 child** join · XCO |
-| API-03 | POST | `/api/v1/asset/csdl-records` | create · typed · IdCode `AT-` · matching child only |
-| API-04 | PUT | `/api/v1/asset/csdl-records/{id}` | update · type-change clear other children |
-| API-05 | DELETE | `/api/v1/asset/csdl-records/{id}` | soft |
-| API-LKP-01 | GET | `/api/v1/integration/road-routes/search` | SearchInput road-route |
-| API-LKP-02 | GET | `/api/v1/integration/org-units/search` | **DEFER P2** |
+| API-XLS-01 | GET | `/api/v1/asset/csdl-records/export?resource=traffic-safety&…` | filtered · binary · **one_sheet_45** · filename locked |
+| API-XLS-02 | POST | `/api/v1/asset/csdl-records/import?resource=traffic-safety` | multipart · import_now · shell+parent+1 child |
+| API-XLS-03 | POST | `/api/v1/asset/csdl-records/import/preview?resource=traffic-safety` | optional preview · KEEP proxy |
+| API-01..05 · API-LKP · type | — | prior CRUD / type / road-route | **KEEP** |
 
-BFF mirror: `/web-bff/api/v1/asset/…` · **proxy only** · **không** child orchestration ở BFF. Permissions: `asset.csdl-records.read|create|update|delete` (reuse · Auth debt DEFER).
+BFF mirror: `/web-bff/api/v1/asset/…` · **proxy only** · binary + multipart passthrough.
 
-Gates (SA recorded): `sa_tz_gate=tz_na` · `sa_xco_gate=xco_get_only` · `sa_shared_table=share_tenant`.
+Gates (SA): `sa_tz_gate=tz_na` · `sa_xco_gate=xco_get_only` · `sa_shared_table=share_tenant`.
 
-### FormMode ↔ API
+### FormMode ↔ API (delta)
 
-| FormMode | Load | Save |
-|----------|------|------|
-| list | GET list + filters (+ optional type) | — |
-| create | empty shared + child by assetType | POST · 1 child block |
-| edit | GET `/{id}` | PUT · type-change confirm → clear other children |
-| view | GET `/{id}` | — readOnly |
-| copy | GET → clear id/code | POST (new `AT-`) |
-| delete | — | DELETE soft |
+| FormMode | Load | Save / action |
+|----------|------|---------------|
+| list / C/E/V/Copy/delete | KEEP | KEEP |
+| **export** | — | GET export + **same filter QS** (ignore page) · incl. `type` |
+| **import** | file (+ optional preview) | POST import multipart · skipBridge |
 
-### List filter query keys
+### Export filter QS (= list keys)
 
-`resource` · `search` · `province` · `status` · `roadCode` · `kmFrom`/`kmTo` · `side` · `type`/`assetType` · `page`/`pageSize`
-
-### assetType enum (11 · LOOKUP_STATIC)
-
-`TRAFFIC_SIGN` · `MARKER_POST` · `MEDIAN` · `ANTI_GLARE` · `TRAFFIC_ISLAND` · `ROAD_STUD` · `GUARDRAIL` · `ROAD_MARKING` · `CRASH_CUSHION` · `CONVEX_MIRROR` · `TRAFFIC_SIGNAL`
+`resource` · `search` · `province` · `status` · `roadCode` · `kmFrom`/`kmTo` · **`type`/`assetType`** · **export ignores `page`/`pageSize`**
 
 ---
 
@@ -152,172 +132,109 @@ Gates (SA recorded): `sa_tz_gate=tz_na` · `sa_xco_gate=xco_get_only` · `sa_sha
 
 | ID | Value |
 |----|-------|
-| SD-JOB | n/a |
-| SD-BFF | **required** · proxy only |
-| SD-AUTH | **gap** · reuse codes · wire DEFER |
-| SD-TOKEN | required (BFF) |
-| SD-HEADER | required · X-Company-Id |
-| SD-SPLIT | Asset ownership |
-| SD-NO-JSON | **required** · parent+children · **cấm** parent `*Json` / detail* SSOT · **cấm** wide 45 entity |
-| SD-LIB-UI | Common.Components only |
-| SD-LIB-BE | CommonLib envelope |
+| SD-BFF | **required** · proxy · binary/multipart |
+| SD-AUTH | reuse `asset.csdl-records.read|create|update` · Auth debt DEFER |
+| SD-NO-JSON | **required** · typed child · **cấm** DetailJson on import |
+| SD-LIB-UI | Common.Components · catalogToolbar |
+| SD-XLS | `/implement-export-import-excel` · golden Cục **16-sheet** sheet **Biểu 8** · **one_sheet_45** · **cấm** 12+8 · **cấm** wide-row |
 
 ---
 
-## FormType pack — task matrix (`list` · §2a)
+## FormType pack — task matrix (`list` · §2a KEEP + XLS delta)
 
 | Task id | Role | Status | deps | `devSlash` | Notes |
 |---------|------|--------|------|------------|-------|
-| T-DM-01 | Dev | **pending** | — | `/agent-dev` | DOMAIN-MAP `csdl-bieu-08`→Asset |
-| T-REN-01 | Dev | **pending** | — | `/agent-dev` | hub formNo 7→08 · title Biểu 08 ATGT |
-| T-CTX-01 | Dev | **pending** | — | `/agent-dev` | context sync feature page |
-| T-BE-01 | Dev | **pending** | T-DM-01 | `/agent-dev` | `CsdlBieu8Entity` + **11 child** entities + EF |
-| T-BE-02 | Dev | **pending** | T-BE-01 | `/agent-dev` | Migration `Schema_CsdlBieu8` · **Step 4b only** |
-| T-BE-03 | Dev | **pending** | T-BE-01 | `/agent-dev` | DTO typed + join shell↔parent↔1 child · stop detail* · type-change clear |
-| T-BE-04 | Dev | **pending** | T-BE-03 | `/agent-dev` | IdCode `AT-` generator · **cấm** Guid |
-| T-BE-05 | Dev | **pending** | T-BE-03 | `/agent-dev` | list filter `roadCode` + km + side + `type`/`assetType` |
-| T-BFF-01 | Dev | **pending** | T-BE-03 | `/agent-dev` | verify proxy (no logic / no child orch) |
-| T-PERM-01 | Dev | **pending** | T-BE-03 | `/agent-dev` | reuse `asset.csdl-records.*` stub |
-| T-BE-UISCHEMA-01 | Dev | **pending** | T-BE-03 | `/agent-dev` | = **T-FE-06** catalogKind typed |
-| T-BE-INIT-01 | — | **n/a P1** | — | — | LOOKUP_STATIC seed · **cấm** invent init-data |
-| T-UI-LIST-01 | Dev | **pending** | T-BFF-01 | `/agent-dev` | = **T-FE-01** route alias + Kind B shell |
-| T-UI-FILTER-01 | Dev | **pending** | T-BE-05 | `/agent-dev` | = **T-FE-03** FilterBar + assetType + road-route · subset_by_type |
-| T-UI-CFG-01 | Dev | **pending** | T-BE-UISCHEMA-01 | `/agent-dev` | Zone F full typed · **cấm** Zone F-only SSOT |
-| T-UI-FORM-01 | Dev | **pending** | T-UI-LIST-01 | `/agent-dev` | = **T-FE-02** Slideout shared+1 child · Q-TYPE-UX |
-| T-UI-LEAVE-01 | Dev | **pending** | T-UI-FORM-01 | `/agent-dev` | = part **T-FE-04** LeaveConfirmModal |
-| T-UI-ACT-01 | Dev | **pending** | T-UI-LIST-01 | `/agent-dev` | C/E/V/Copy/Delete · = **T-FE-04** |
-| T-UI-LKP-01 | Dev | **pending** | API-LKP-01 | `/agent-dev` | **GAP-CSDL-ROAD-01** SearchInput |
-| T-UI-FIELD-01 | Dev | **pending** | T-UI-FORM-01 | `/agent-dev` | controlHint 1:1 · 11 child sections · **cấm** detail* only |
-| T-UI-PROD-01 | Dev | **pending** | T-UI-LIST-01 | `/agent-dev` | = **T-FE-05** hub + peer ATGT · **cấm** merge |
-| T-UI-UX-01 | Dev | **pending** | T-UI-FORM-01 | `/agent-dev` | constitution · 2col · footer_only · shared+1 child |
-| T-UI-RESP-01 | Dev | **pending** | T-UI-LIST-01 | `/dev-web-responsive` | 1280/768/375 |
-| T-UI-HIST-01 | — | **n/a P1** | — | — | no HIST GAP |
-| T-UI-MAP-FORM | — | **n/a** | — | — | map=none |
-| T-OUT-01 | — | **OUT** | — | — | XLS / skip-bridge · không block P1 |
-| T-OUT-02 | — | **OUT/P2** | — | — | org SearchInput · province master |
-| T-QA-CRUD-01 | QA | **pending** | T-UI-* | `/agent-qa` | CRUD + soft delete |
-| T-QA-FORM-01 | QA | **pending** | T-UI-FORM-01 | `/agent-qa` | 45/11 typed · shared+1 child · **cấm** detail* / wide |
-| T-QA-FILTER-01 | QA | **pending** | T-UI-FILTER-01 | `/agent-qa` | V1–V5 + roadCode/km/side/assetType · subset_by_type |
-| T-QA-TYPE-01 | QA | **pending** | T-UI-FORM-01 | `/agent-qa` | Q-TYPE-UX confirm clear · 11 type switch |
-| T-QA-TYP-01 | QA | **pending** | T-UI-UX-01 | `/agent-qa` | typography |
-| T-QA-TAB-01 | QA | **pending** | T-UI-UX-01 | `/agent-qa` | tab index |
-| T-QA-ROUTE-01 | QA | **pending** | T-UI-LIST-01 | `/agent-qa` | alias `/csdl-bieu-08` + hub + T-REN-01 |
-| T-LIB-01 | — | **n/a** | — | — | Common đã export |
+| T-UI-LIST-01 | Dev | **KEEP** | — | `/agent-dev` | Kind B shell · LAYOUT-06 |
+| T-UI-FILTER-01 | Dev | **KEEP** | — | `/agent-dev` | FilterBar V1–V10 · **cấm** Xuất trên bar |
+| T-UI-CFG-01 | Dev | **KEEP** | — | `/agent-dev` | Zone F · catalogKind traffic-safety |
+| T-UI-FORM-01 | Dev | **KEEP** | — | `/agent-dev` | Slideout 45/11 shared+1 · **cấm** reopen |
+| T-UI-LEAVE-01 | Dev | **KEEP** | — | `/agent-dev` | LeaveConfirmModal |
+| T-UI-ACT-01 | Dev | **KEEP+delta** | T-XLS-FE-01 | `/agent-dev` | +export/+import handlers |
+| T-UI-LKP-01 | Dev | **KEEP** | — | `/agent-dev` | road-route |
+| T-UI-FIELD-01 | Dev | **KEEP** | — | `/agent-dev` | typed 45 · subset_by_type |
+| T-UI-PROD-01 | Dev | **KEEP** | — | `/agent-dev` | hub + peer · **cấm** merge |
+| T-UI-UX-01 | Dev | **KEEP** | — | `/agent-dev` | constitution |
+| T-UI-RESP-01 | Dev | **KEEP** | — | `/dev-web-responsive` | 1280/768/375 |
+| T-UI-HIST-01 | — | **n/a P1** | — | — | — |
+| T-BE-CRUD-01 | Dev | **KEEP** | — | `/agent-dev` | Schema_CsdlBieu8+11 |
+| T-BE-UISCHEMA-01 | Dev | **KEEP** | — | `/agent-dev` | catalogKind |
+| T-BE-INIT-01 | — | **n/a P1** | — | — | — |
+| T-PERM-01 | Dev | **KEEP** | — | `/agent-dev` | reuse codes + export/import |
+| T-QA-CRUD-01 | QA | **KEEP** | — | `/agent-qa` | prior CRUD |
+| T-QA-FORM-01 | QA | **KEEP** | — | `/agent-qa` | 45/11 |
+| T-QA-FILTER-01 | QA | **KEEP** | — | `/agent-qa` | V1–V5+V10 · no export on bar |
+| T-QA-FILTER-02 | QA | **KEEP** | — | `/agent-qa` | D+T+M |
+| **T-XLS-BE-01** | Dev | **pending** | — | `/agent-dev` | ExportAsync widen · 45 cols · golden · filename |
+| **T-XLS-BE-02** | Dev | **pending** | — | `/agent-dev` | Import commit/preview · shell+parent+1 child |
+| **T-XLS-BE-03** | Dev | **pending** | T-XLS-BE-01 | `/agent-dev` | Controller bind filter QS (+type) |
+| **T-XLS-BFF-01** | Dev | **pending** | T-XLS-BE-01 | `/agent-dev` | binary + multipart proxy |
+| **T-XLS-FE-01** | Dev | **pending** | T-XLS-BFF-01 | `/agent-dev` | toolbar Xuất/Nhập · blob · file · toast |
+| **T-XLS-FE-02** | Dev | **pending** | T-XLS-FE-01 | `/agent-dev` | pass filter QS · **cấm** filter-bar export |
+| **T-XLS-QA-01** | QA | **pending** | T-XLS-FE-* | `/agent-qa` | E2E S-XLS-EXPORT/IMPORT |
 
-**SA id map:** T-FE-01→T-UI-LIST-01 · T-FE-02→T-UI-FORM-01 · T-FE-03→T-UI-FILTER-01+LKP · T-FE-04→T-UI-LEAVE+ACT · T-FE-05→T-UI-PROD-01 · T-FE-06→T-BE-UISCHEMA-01.
+**SA id map:** T-XLS-BE-01..03 · T-XLS-BFF-01 · T-XLS-FE-01..02 · T-XLS-QA-01 (as above).
 
 ---
 
-### T-DM-01 — DOMAIN-MAP
+### T-XLS-BE-01 — ExportAsync widen
 
-- Add row `csdl-bieu-08` → **Asset** in `DOMAIN-MAP.md`.
-- DoD: slug resolve Asset · **cấm** ERP.* / invent domain.
+- Load `/implement-export-import-excel`.
+- Replace stub: apply **list filter QS** (incl. `type`) · project typed Biểu 8 (**45** cols · **one_sheet_45**) · golden Cục **16-sheet** sheet **Biểu 8** · **cấm** 12+8 · **cấm** wide-row.
+- Filename `Bieu08_HeThongATGT_{yyyyMMdd}.xls` via `Content-Disposition`.
+- Empty → headers-only file **or** FE toast (Dev chốt 1 · document in implement).
+- DoD: closes **GAP-BIEU08-XLS-01/03/05** · binary Excel · filter parity list (ignore page).
 
-### T-REN-01 — Renumber hub label
+### T-XLS-BE-02 — Import typed
 
-- Hub formNo **7→08** · title Biểu 08 (Hệ thống ATGT) cùng typed (**with_typed**).
-- DoD: hub card + alias title consistent · **GAP-BIEU08-REN-01**.
+- Multipart commit (+ preview KEEP): sheet **Biểu 8** → shell + `CsdlBieu8` + **matching 1 child** · `skipBridge` default true.
+- Response `CsdlImportResultDto` · row errors in DTO · **cấm** DetailJson / parent `*Json`.
+- DoD: closes **GAP-BIEU08-XLS-05** · import_now upsert typed+child.
 
-### T-BE-01 / T-BE-02 — Entity + migration
+### T-XLS-BE-03 — Controller filter bind
 
-- Parent `CsdlBieu8Entity` · table `rmms_csdl_bieu8` · FK `CatalogRecordId` unique 1:1 · cols: Side, AssetType, BuiltYear (+ shell fields).
-- **11 child tables** (1:0..1 per type) — sign / marker / median / antiGlare / island / stud / guardrail / mark / cushion / mirror / signal — theo SA child field map.
-- Shell: KmFrom/KmTo · RoadCode (ensure nếu thiếu).
-- Migration name **`Schema_CsdlBieu8`** — **chỉ Dev / Step 4b** · **cấm** TL chạy.
-- DoD: EF config · unique FK parent · child FKs · **cấm** parent `*Json` · **cấm** 1 entity wide 45.
+- Bind export query: `resource` required + `search` · `province` · `status` · `roadCode` · `kmFrom`/`kmTo` · **`type`/`assetType`**.
+- DoD: QS parity list filters · 422 thiếu resource.
 
-### T-BE-03 / T-BE-04 / T-BE-05 — Service + IdCode + filters
+### T-XLS-BFF-01 — BFF proxy
 
-- Widen DTO typed · join shell↔parent↔**exactly 1** child by `assetType`.
-- Reject payload with multiple/all children · **stop** writing detail* for this resource.
-- Type-change: clear other child rows (API) · FE confirm (Q-TYPE-UX).
-- IdCode `AT-yyyyMMdd-nnnn` BE generate.
-- List filters: `roadCode`, `kmFrom`/`kmTo`, `side`, `type`/`assetType`, search, province, status.
-- Gates: TZ **n/a** · XCO on GET detail · tenant `CompanyCode`.
-- DoD: FormMode↔API green · 11 child blocks · no wide entity.
+- Forward export QS · multipart · binary passthrough · **no business logic**.
+- DoD: path parity `/web-bff/api/v1/asset/csdl-records/export|import|/import/preview`.
 
-### T-BFF-01 — BFF proxy
+### T-XLS-FE-01 — Toolbar Xuất/Nhập (= UI-01)
 
-- Forward only · no remap · **không** child orchestration.
-- DoD: path parity `/web-bff/api/v1/asset/csdl-records`.
+- `catalogToolbar`: Xuất Excel (`fa-file-excel`) · Nhập Excel (`fa-file-import` + hidden file input).
+- Blob download dùng server filename · toast success/error · **cấm** toast-stub=done · **cấm** `window.alert`/`confirm`.
+- DoD: closes **GAP-BIEU08-XLS-01/02** · actions on DES-GRID-B only.
 
-### T-UI-LIST-01 (= T-FE-01) — List page
+### T-XLS-FE-02 — Filter QS → export
 
-- Register route **`/csdl-bieu-08`**.
-- Kind B A–D+F · `tl-grid-task-template` · LAYOUT-06 shell height.
-- Grid AC YES · pageSize 50/100/200/500 · **subset_by_type** columns.
-- DoD: mfeStdUrl opens · DES-GRID zones mapped · **cấm** demo chrome · **cấm** 45 cols cùng lúc.
+- Pass **current** filter state (incl. `type`) as export QS · **cấm** Xuất trên `LinErpListFilterBar` (**GAP-FILTER-BAR-08** / **GAP-BIEU08-XLS-04**).
+- After import success → reload list · **cấm** layout 1 hàng kéo ngang (**GAP-BIEU08-XLS-06**).
+- DoD: filtered export matches visible filter · filter-bar layout HARD unchanged.
 
-### T-UI-FILTER-01 + T-UI-LKP-01 (= T-FE-03)
+### T-XLS-QA-01 — E2E (queued `/agent-qa*` only)
 
-- `LinErpListFilterBar` 1 hàng wrap · 🔍 cụm phải · **cấm** nút Tìm riêng.
-- Controls: search · province · status · side · **assetType** · roadCode SearchInput · kmFrom/kmTo Line.
-- road-route → API-LKP-01 · `?type=` sync grid subset.
-- DoD: filter-bar-layout-hard V1–V5 · page=1 on change.
-
-### T-UI-FORM-01 + T-UI-FIELD-01 (= T-FE-02)
-
-- Kind D Slideout · `data-form-cols=2` · Z1–Z3 · footer_actions_only · **shared + 1 child** · **cấm** Full-page.
-- Shared: code (ro AT-) · roadCode · province · kmFrom/kmTo · side · assetType · builtYear · manageUnit · notes · status.
-- Child section: đúng 1 khối theo assetType (sign* | marker* | … | signal*) · controlHint 1:1.
-- Q-TYPE-UX: confirm trước khi đổi assetType → clear child fields.
-- FormMode create/edit/view/copy ↔ API.
-- DoD: all write fields bind typed DTO · view not disabled-grey · **cấm** detail* only · **cấm** show all 11 children.
-
-### T-UI-LEAVE-01 + T-UI-ACT-01 (= T-FE-04)
-
-- LeaveConfirmModal dirty.
-- Row/toolbar: Create · Edit · View · Copy · soft Delete confirm.
-- DoD: leave gate · copy clears id/code · reload list after delete.
-
-### T-UI-PROD-01 (= T-FE-05)
-
-- Hub card entry `?resource=traffic-safety` still works · label Biểu 08 (T-REN-01).
-- Peer Sổ TS ATGT types deep-link only · **cấm** merge form · **≠** road-assets.
-- Map: toolbar → gis deep-link only · **cấm** invent map.
-- DoD: alias + hub both list same resource.
-
-### T-UI-CFG-01 / T-BE-UISCHEMA-01 (= T-FE-06)
-
-- catalogKind `traffic-safety` typed UiSchema (shared + 11 child sections).
-- DoD: editor full typed · **cấm** generic 3-col SSOT.
-
-### T-OUT-01 / T-OUT-02 — OUT / P2
-
-- XLS import/export Biểu 8 + skip-bridge · **không block P1**.
-- org SearchInput · province master · **DEFER P2**.
-
-### T-QA-* (queued `/agent-qa*` only)
-
-- Cover CRUD · 45/11 form · shared+1 child · type switch confirm · filter V1–V5 · subset_by_type · route alias+hub · renumber · leave · copy · soft delete · **cấm** detail*-only / wide-entity regression.
-- **Cấm** e2e ở TL/Dev trừ QA role.
+- S-XLS-EXPORT: filter (+type) → Xuất → file name + binary · **fail** stub / wrong name / no filter / 12+8.
+- S-XLS-IMPORT: pick golden-like xls → import_now → list reflects typed+child · skipBridge soft.
+- **Cấm** e2e ở TL/Dev.
 
 ---
 
-## Inventory (slim · controlHint)
+## Inventory (slim · XLS + KEEP cite)
 
 | id | controlHint | notes |
 |----|-------------|-------|
-| search | SearchTextInput | filter |
-| province/status/side/assetType | Dropdown | LOOKUP_STATIC · 11 type |
-| roadCode | SearchInput | road-route P1 |
-| kmFrom/kmTo | Number | Line |
-| code | Text ro | AT- |
-| sign* | Text/Number | TRAFFIC_SIGN child |
-| marker* | Dropdown/Number | MARKER_POST · markerKind lookup_static |
-| median*/antiGlare*/island*/stud*/guardrail*/mark* | … | child 1 section |
-| cushionQty/mirrorQty | Number | CRASH_CUSHION / CONVEX_MIRROR |
-| signal*/lamp* | … | TRAFFIC_SIGNAL |
-| builtYear | Number | parent |
-| manageUnit | Text | org P2 DEFER |
-| notes/status | Textarea/Dropdown | shell |
+| exportExcel | ToolbarButton | catalogToolbar · filtered · one_sheet_45 |
+| importExcel | ToolbarButton+file | import_now · typed+child |
+| (form 45/11) | typed prior | **KEEP** · **cấm** reopen |
+| filter fields | prior + type | **KEEP** · **cấm** export btn |
 
 ---
 
 ## Screens / zones (ids)
 
-- S-LIST · S-FORM-C/E/V/Copy · S-ACT-DELETE · S-HUB-ENTRY · S-PEER-SOTS · S-SKIP-MAP
-- reviewUrl prototype · mfeStdUrl `/csdl-bieu-08`
+- S-LIST · S-FORM-* · **S-XLS-EXPORT** · **S-XLS-IMPORT** · S-HUB-ENTRY · S-PEER-SOTS
+- reviewUrl prototype · mfeStdUrl hub · alias `/csdl-bieu-08`
 
 ---
 
@@ -325,43 +242,43 @@ Gates (SA recorded): `sa_tz_gate=tz_na` · `sa_xco_gate=xco_get_only` · `sa_sha
 
 | Lane | Slash | Scope |
 |------|-------|-------|
-| BE | `/agent-dev` | T-DM · T-REN · T-BE-* · T-BFF · T-PERM · Schema_CsdlBieu8 @ 4b |
-| FE | `/agent-dev` | T-UI-* · typed page · FilterBar · Slideout shared+1 child |
-| Responsive | `/dev-web-responsive` | T-UI-RESP-01 |
-| UI review | `/dev-ui-review` | after FE DoD |
-| QA | `/agent-qa` | T-QA-* · e2e only here |
+| BE | `/agent-dev` | T-XLS-BE-01..03 · T-PERM reuse |
+| BFF | `/agent-dev` | T-XLS-BFF-01 |
+| FE | `/agent-dev` | T-XLS-FE-01..02 · T-UI-ACT delta |
+| Excel skill | `/implement-export-import-excel` | golden sheet Biểu 8 · binary · one_sheet_45 |
+| Responsive | `/dev-web-responsive` | KEEP T-UI-RESP-01 if touch layout |
+| QA | `/agent-qa` | T-XLS-QA-01 · e2e only here |
 
-**Parallel OK:** T-DM-01 ∥ T-REN-01 ∥ T-CTX-01 · T-BE-* after T-DM · T-UI-LIST after T-BFF · T-UI-FORM after LIST.
+**Parallel OK:** T-XLS-BE-01 ∥ T-XLS-BE-02 · T-XLS-BE-03 after BE-01 · T-XLS-FE after BFF · QA after FE.
+
+**Deps:** T-XLS-BE-01 → T-XLS-BE-03 → T-XLS-BFF-01 → T-XLS-FE-01 → T-XLS-FE-02 → T-XLS-QA-01.
 
 ---
 
-## Quality gates (list-form)
+## Quality gates
 
 | Gate | Expect |
 |------|--------|
-| Grid AC | YES |
-| Leave | YES |
+| Grid AC / Leave / Filter HARD | KEEP prior PASS |
 | Report AC | N/A |
-| Filter HARD | V1–V5 pass |
-| Form | Slideout 2col · typed 45/11 · shared+1 child · **cấm** Full-page / detail* only / wide 45 |
-| Route | alias + hub · renumber 08 |
-| Persist | shell+parent+children · **cấm** parent JSON |
-| Type UX | confirm clear on assetType change |
-| List cols | subset_by_type |
+| XLS | filtered · golden Biểu 8 · filename locked · one_sheet_45 · import_now typed+child |
+| Filter | **cấm** Xuất trên bar |
+| Persist | shell+parent+1 child · **cấm** parent JSON · **no new migration** |
 | API | keep `asset/csdl-records` · **cấm** ERP.* |
+| Shell height | KEEP LAYOUT-06 |
 
 ---
 
 ## Open questions
 
-- **none** (Q-ROUTE · Q-PROV · Q-CHILD · Q-TYPE-UX · Q-MARKER-KIND · Q-LIST-COLS · Q-REN-LABEL · Q-PEER chốt · autoApprove)
+- **none** (Q-XLS-SCOPE=filtered · Q-XLS-IMPORT=import_now · FILENAME locked · TYPE=one_sheet_45 · design/sa/route approve)
 
 ## Next
 
 | Role | Need |
 |------|------|
-| **Dev** | implement/csdl-bieu-08.md · T-* theo matrix · migration @ 4b |
-| QA | scenarios + e2e queued `/agent-qa*` |
+| **Dev** | `implement/csdl-bieu-08.md` · T-XLS-* · `/implement-export-import-excel` |
+| QA | T-XLS-QA-01 + e2e queued `/agent-qa*` |
 | Review | findings after QA |
 
 ## Version meta (REQUIRED)
@@ -369,13 +286,13 @@ Gates (SA recorded): `sa_tz_gate=tz_na` · `sa_xco_gate=xco_get_only` · `sa_sha
 | Field | Value |
 |-------|-------|
 | skillId | agent-team-lead |
-| skillVersion | 2026.08.25.01 |
-| workflowVersion | 2026.09.01.02 |
-| rulesVersion | 2026.08.31.2 |
+| skillVersion | 2026.09.05.03 |
+| workflowVersion | 2026.09.05.03 |
+| rulesVersion | 2026.09.17.3 |
 | packKind | list |
-| changeScope | new_page |
+| changeScope | edit_page |
 | route_confirm | route_a |
 | team_lead_confirm | approve |
-| writtenAt | 2026-09-05T17:20:00.000Z |
-| contentHashPrior | sha256:f972c82727726d256754d076435f9ef97c993b4f9844dc79e50b6415fcaf54be |
-| taskId | task_b7d81208 |
+| writtenAt | 2026-09-18T05:25:00.000Z |
+| contentHashPrior | sha256:639566df4ddccc3927311d5618bf4e7c1dbad0dac80962c414f861dacc9d5e9c |
+| taskId | task_21f9b30c |

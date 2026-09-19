@@ -1,37 +1,37 @@
 {
   "url": "http://localhost:9301/csdl-bieu-04",
-  "method": "playwright channel=chrome headless · contract fallback after yarn e2e-qa playwright install hang risk",
+  "method": "playwright channel=chrome headless · createRequire AutoCode · skip-start after yarn e2e-qa playwright resolve fail",
   "feature": "csdl-bieu-04",
   "cases": [
     "S0",
     "S1",
     "QA-20"
   ],
-  "capturedAt": "2026-09-05T06:23:42.475Z",
+  "capturedAt": "2026-09-17T20:28:45.702Z",
   "steps": [
     {
       "id": "S0",
       "result": "PASS",
       "screenshot": "S0.png",
-      "sha256_16": "d6e9f19589ae80d0",
+      "sha256_16": "7711d52bfb8f8a33",
       "url": "http://localhost:9301/csdl-bieu-04",
-      "note": "list Biểu 04 · filter-bar · empty/grid"
+      "note": "list Biểu 04 · toolbar Xuất · filter-bar · 0 filter export · Import ẩn"
     },
     {
       "id": "S1",
       "result": "PASS",
       "screenshot": "S1.png",
-      "sha256_16": "63c4bf383d9c23ad",
+      "sha256_16": "7711d52bfb8f8a33",
       "url": "http://localhost:9301/so-ts/csdl-so-sach?resource=culverts",
-      "note": "hub deep-link ?resource=culverts → list"
+      "note": "hub deep-link ?resource=culverts → Biểu 04 list"
     },
     {
       "id": "QA-20",
       "result": "PASS",
       "screenshot": "QA-20.png",
-      "sha256_16": "1640ba4607f56a43",
+      "sha256_16": "f05a1b2dcc83eeb0",
       "url": "http://localhost:9301/csdl-bieu-04?form=create",
-      "note": "Create Slideout · form=create"
+      "note": "Create Slideout · form=create KEEP · GPS four_xy · CG-"
     }
   ],
   "ok": true

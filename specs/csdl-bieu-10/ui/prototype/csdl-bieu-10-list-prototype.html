@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Prototype — Biểu 10 Kè, tường chắn (DES-GRID + Slideout typed 21)</title>
+  <title>Prototype — Biểu 10 Kè, tường chắn (edit_page T-XLS-S10 · Xuất/Nhập Excel)</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
   <style>
     :root {
@@ -90,7 +90,7 @@
 </head>
 <body>
   <div class="page">
-    <p class="note" id="note">SSOT Design · <code>shared_grid_example v1</code> · pack <code>csdl-bieu-10</code> · resource <code>retaining-walls</code> · formNo <code>10</code> · mfeStdUrl <code>/csdl-bieu-10</code> · hub <code>?resource=retaining-walls</code> · peer toolbar <code>so-ts-retaining</code> · skip chrome · <strong>cấm</strong> detail* only · 2 entity · map none · Q-KIND label_vn · Q-STRUCT excel_seed · Q-MAT lookup · Q-HEIGHT height_alias · Q-CREST optional_flat · Q-AREA optional · Q-LIST-COLS subset · Q-REN with_typed · Q-PEER toolbar</p>
+    <p class="note" id="note">SSOT Design · <code>shared_grid_example v1</code> · pack <code>csdl-bieu-10</code> · edit_page T-XLS-S10 · resource <code>retaining-walls</code> · formNo <code>10</code> · mfeStdUrl <code>/so-ts/csdl-so-sach</code> alias <code>/csdl-bieu-10</code> · hub <code>?resource=retaining-walls</code> · catalogToolbar <strong>Xuất/Nhập Excel</strong> · filter <strong>không</strong> XLS (GAP-FILTER-BAR-08) · Q-XLS filtered · import_now · height_alias · filename Bieu10_KeTuongChan_{yyyyMMdd}.xls · peer toolbar <code>so-ts-retaining</code> · skip chrome · typed 21/2 keep</p>
 
     <section id="list" style="display:flex;flex-direction:column;gap:8px;flex:1;min-height:0">
       <div class="zone-a" data-des-id="DES-GRID-A">
@@ -104,8 +104,9 @@
           <button type="button" class="tb" data-action="history" title="Lịch sử"><i class="fas fa-history"></i></button>
           <button type="button" class="tb" data-action="config" title="Cấu hình"><i class="fas fa-cog"></i></button>
           <button type="button" class="tb" id="btn-del" disabled title="Xóa"><i class="fas fa-trash"></i></button>
-          <button type="button" class="tb" data-action="import" title="Import stub OUT Biểu 10"><i class="fas fa-file-import"></i></button>
-          <button type="button" class="tb" data-action="export" title="Export stub OUT Biểu 10"><i class="fas fa-file-export"></i></button>
+          <button type="button" class="tb" data-action="import" title="Nhập Excel"><i class="fas fa-file-import" aria-hidden="true"></i> Nhập Excel</button>
+          <button type="button" class="tb" data-action="export" title="Xuất Excel"><i class="fas fa-file-excel" aria-hidden="true"></i> Xuất Excel</button>
+          <input type="file" id="importFile" accept=".xls,.xlsx" hidden />
           <button type="button" class="tb" data-action="peer" title="Sổ TS tường chắn — deep-link · cấm merge"><i class="fas fa-book"></i> Sổ TS</button>
         </div>
         <div class="zone-b-right">
@@ -508,7 +509,6 @@
       if (t.dataset.action === "refresh") render();
       if (t.dataset.action === "history" || t.dataset.hist) toast("History modal stub P2");
       if (t.dataset.action === "config") toast("UiSchema editor · catalogKind retaining-walls");
-      if (t.dataset.action === "import" || t.dataset.action === "export") toast("XLS Biểu 10 OUT stub");
       if (t.dataset.action === "peer") toast("Navigate → /so-ts-retaining · cấm merge form");
       if (t.dataset.view) {
         const row = rows.find((r) => String(r.id) === t.dataset.view);
@@ -530,6 +530,32 @@
     });
 
     $("#btnBack").addEventListener("click", () => toast("Navigate → /so-ts/csdl-so-sach"));
+    const importInput = $("#importFile");
+    document.querySelector('[data-action="import"]').addEventListener("click", () => importInput.click());
+    importInput.addEventListener("change", () => {
+      const f = importInput.files && importInput.files[0];
+      if (!f) return;
+      $("#note").textContent =
+        "Nhập Excel (mock): " + f.name + " · skip-bridge áp dụng · POST …/csdl-records/import?resource=retaining-walls";
+      importInput.value = "";
+    });
+    document.querySelector('[data-action="export"]').addEventListener("click", () => {
+      const d = new Date();
+      const ymd = d.getFullYear() + String(d.getMonth() + 1).padStart(2, "0") + String(d.getDate()).padStart(2, "0");
+      const name = "Bieu10_KeTuongChan_" + ymd + ".xls";
+      const kind = ($("#fKind") && $("#fKind").value) || "(all)";
+      const blob = new Blob(
+        ["Biểu 10 — Kè, tường chắn (prototype mock · filtered QS · wallKind=" + kind + " · sheet Biểu 10 · 21 cột · 1 sheet · heightM↔WidthM)\n"],
+        { type: "application/vnd.ms-excel" }
+      );
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = name;
+      a.click();
+      URL.revokeObjectURL(a.href);
+      $("#note").textContent =
+        "Xuất Excel (mock filtered): " + name + " · GET …/csdl-records/export?resource=retaining-walls · wallKind=" + kind;
+    });
     $("#btn-del").addEventListener("click", () => { if (selected.size) $("#delModal").classList.add("on"); });
     $("#delCancel").addEventListener("click", () => $("#delModal").classList.remove("on"));
     $("#delOk").addEventListener("click", () => {

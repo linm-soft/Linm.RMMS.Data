@@ -1,86 +1,74 @@
-# handoff-compact — team_lead · csdl-bieu-10
+# Handoff compact — team_lead
 
-| | |
-|--|--|
-| schemaVersion | `1` |
-| role | `team_lead` |
-| feature | `csdl-bieu-10` |
-| title | CSDL Biểu 10 — Kè, tường chắn |
-| packKind | `list` |
-| changeScope | `new_page` |
-| status | `done` |
-| taskId | `task_dbe17f40` |
-| saTaskId | `task_652dcd09` |
-| resource | `retaining-walls` |
-| formNo | `10` |
-| columns | `21` · **2 section** tường + rãnh đỉnh |
-| IdCode | `KE-` |
-| peerSoTs | `so-ts-retaining` (toolbar · ≠ merge) |
-| formPattern | **Kind D Slideout** 2col · **2 section** · **cấm** Full-page |
-| Kind | **B** A–D+F · **D** Slideout Z1–Z3 · Z2b crest |
-| heightAlias | UI `heightM` ↔ DB `WidthM` |
-| crest | optional_flat 4 · **cấm** CrestDitch child P1 |
-| route_confirm | **`route_a`** `/csdl-bieu-10` + hub |
-| team_lead_confirm | **approve** (autoApprove ON) |
-| design_confirm | approve |
-| solution_confirm | approve |
-| autoApprove | `ON` |
-| e2eQa | `ON` (queued `/agent-qa*` only) |
-| domain | **Asset** · `api/v1/asset/csdl-records` |
-| entity | shell + `CsdlBieu10Entity` · `Schema_CsdlBieu10` |
-| gates | tz_na · xco_get_only · share_tenant |
-| contentHashPrior | `sha256:56715ebbcfffd0589eab296a31137e79a82b49c672dc14582fc554f4ed262346` |
-| headerFingerprintPrior | `sha256:100df2f2285c57a909981f9248564af4f788a1ea653fd261122e9a64064773ad` |
-| skillVersion | `2026.08.25.01` |
-| workflowVersion | `2026.09.01.02` |
-| rulesVersion | `2026.08.31.2` |
-| writtenAt | `2026-09-05T18:45:00.000Z` |
+schemaVersion: 1
+feature: csdl-bieu-10
+packKind: list
+role: team_lead
+status: done
+skillVersion: 2026.09.05.03
+workflowVersion: 2026.09.05.03
+rulesVersion: 2026.09.17.3
+contentHash: sha256:49ea64d3b8f51e899c4bb36ae444444b4c0a805e64349f8e1f52677909ab0302
+headerFingerprint: sha256:9d4863dcab46439966e526cc7696f137695022911a3edc5066c852dc779fa598
+writtenAt: 2026-09-18T06:30:00.000Z
+taskId: task_71a5d419
+saTaskId: task_c2ecf0a6
+resource: retaining-walls
+columns: 21
+blocks: 2
+IdCode: KE-
+formNo: 10
+peerSoTs: so-ts-retaining
+team_lead_confirm: approve
+route_confirm: route_a
+changeScope: edit_page
+formPattern: Slideout
+devSlash: /agent-dev
 
 ## Decisions
+- changeScope: edit_page (T-XLS-S10) · typed CRUD 21/2 **KEEP** · **cấm** reopen
+- route_confirm: route_a keep · hub `/so-ts/csdl-so-sach` + alias `/csdl-bieu-10`
+- Q-XLS: filtered · import_now · `Bieu10_KeTuongChan_{yyyyMMdd}.xls` · height_alias
+- export/import: catalogToolbar · BFF binary/multipart · `/implement-export-import-excel`
+- golden: Cục 16-sheet sheet Biểu 10 · **1 sheet 21** · crest* cùng hàng · **cấm** 12+8 · **cấm** 2 sheet
+- filter: **cấm** Xuất trên LinErpListFilterBar (GAP-FILTER-BAR-08)
+- map: heightM↔WidthM trên export/import (GAP-BIEU10-XLS-07)
+- migration: **none mới** @ XLS · Schema_CsdlBieu10 KEEP
+- peer: so-ts-retaining toolbar KEEP · **≠** merge
+- Gaps: GAP-BIEU10-XLS-01…07
+- mfe: Linm.Web.RMMS.Asset · be: Linm.RMMS.WebService · **cấm ERP.***
+- open questions: none
 
-- changeScope=`new_page` · packKind=`list` · typed **21 cột** · 2 section tường+rãnh · **cấm** detail* only · **cấm** 2 entity · **cấm** CrestDitch child
-- route_confirm **route_a** alias `/csdl-bieu-10` + hub `?resource=retaining-walls`
-- T-REN-01 formNo 9→10 · Q-KIND **label_vn** Gravity/Gabion/RC/Retaining · Q-STRUCT **excel_seed** · Q-MAT **lookup** · Q-HEIGHT **height_alias** · Q-CREST **optional_flat** · Q-AREA **optional** · Q-LIST-COLS **subset** · Q-PROV **keep_static** · Q-REN-LABEL **with_typed** · Q-PEER **toolbar**
-- Persist shell + Schema_CsdlBieu10 1:1 · crest flat · migration **Dev/4b** · **cấm** parent *Json
-- API **giữ** `asset/csdl-records` · BFF proxy · **cấm** BFF remap heightM · **cấm ERP.***
-- road-route SearchInput P1 · org/XLS **OUT/DEFER** · peer toolbar `so-ts-retaining` · **cấm** merge · map none · GAP-CSDL-CUC-11
-- Grid AC YES · Leave YES · Report N/A
-- open Q: **none**
-
-## Artifacts
-
-| Kind | Path |
-|------|------|
-| task | `specs/csdl-bieu-10/task/csdl-bieu-10.md` |
-| solution | `specs/csdl-bieu-10/be/solution-discovery.md` |
-| design | `specs/csdl-bieu-10/ui/design.md` |
-| STATUS | `specs/csdl-bieu-10/STATUS.md` |
-
-## Task matrix (ids)
-
-T-DM-01 · T-REN-01 · T-CTX-01 · T-BE-01..06 · T-BFF-01 · T-PERM-01 · T-BE-UISCHEMA-01 · T-UI-LIST/FILTER/CFG/FORM/LEAVE/ACT/LKP/FIELD/PROD/UX/RESP · T-OUT-01/02 · T-QA-CRUD/FORM/FILTER/KIND/CREST/TYP/TAB/ROUTE
-
-SA map: T-FE-01→LIST · 02→FORM · 03→FILTER+LKP · 04→LEAVE+ACT · 05→PROD · 06→BE-06/UISCHEMA
+## Inventory (slim)
+| id | label | controlHint | notes |
+|----|-------|-------------|-------|
+| (form 21/2) | typed prior | keep | **cấm** reopen |
+| exportExcel | Xuất Excel | ToolbarButton | filtered · binary · 1 sheet 21 · height_alias |
+| importExcel | Nhập Excel | ToolbarButton+file | import_now · typed · height_alias |
 
 ## Screens / zones (ids only)
+- S-LIST · S-FORM-* KEEP · S-XLS-EXPORT · S-XLS-IMPORT · S-PEER
+- mfeStdUrl=http://localhost:9301/so-ts/csdl-so-sach · alias /csdl-bieu-10
+- hub=?resource=retaining-walls · peer=/so-ts-retaining
 
-- S-LIST · S-FORM-C/E/V/Copy · S-ACT-DELETE · S-HUB-ENTRY · S-PEER · S-SKIP-MAP
-- mfeStdUrl=`http://localhost:9301/csdl-bieu-10`
-- hub=`http://localhost:9301/so-ts/csdl-so-sach?resource=retaining-walls`
-- peer=`/so-ts-retaining`
-
-## Next
-
-| Role | Need |
-|------|------|
-| **Dev** | implement · T-* · Schema_CsdlBieu10 @ 4b · heightM↔WidthM |
-| QA | e2e queued `/agent-qa*` |
-| Review | after QA |
+## API / tasks (ids only)
+- FormMode↔API: list/C/E/V/Copy KEEP · export↔API-XLS-01 · import↔API-XLS-02
+- T-* KEEP: T-UI-LIST/FILTER/CFG/FORM/LEAVE/ACT/LKP/FIELD/PROD/UX/RESP · T-BE-CRUD/UISCHEMA · T-PERM · T-QA-*
+- T-XLS pending: T-XLS-BE-01..03 · T-XLS-BFF-01 · T-XLS-FE-01..02 · T-XLS-QA-01
+- deps: BE-01→BE-03→BFF→FE-01→FE-02→QA-01 · BE-02 ∥ BE-01
+- export QS: list filters + side/wallKind · ignore page · height_alias
+- SA map: T-XLS-S10-BE-01/02 · BFF-01 · FE-01/02 · QA-01
+- devSlash: /agent-dev (+ /dev-web-responsive · /dev-ui-review · /implement-export-import-excel)
 
 ## UNCLEAR
-
 - none
 
-## Cấm (compact)
+## Full paths (Read only if needed)
+- task: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-10/task/csdl-bieu-10.md
+- solution: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-10/be/solution-discovery.md
+- design: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-10/ui/design.md
+- STATUS: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-10/STATUS.md
+- prior: handoff/sa-compact.md · design-compact.md · po-compact.md · data_analy-compact.md
 
-ERP.* · invent API · detail* only · Guid IdCode · merge Sổ TS · parent *Json · CrestDitch child · 2 entity · BFF remap heightM · implement code ở TL · Step 4b/migration/e2e/build/start:std ở TL · start role khác
+## Cấm (compact)
+ERP.* · invent API · filter-bar export · 12+8 · 2-sheet invent · reopen typed · BFF height remap · implement code · e2e · yarn build/start:std · Step4b @ TL

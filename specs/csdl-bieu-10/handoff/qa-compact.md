@@ -1,86 +1,77 @@
-# handoff-compact — qa · csdl-bieu-10
+# Handoff compact — qa
 
-| | |
-|--|--|
-| schemaVersion | `1` |
-| role | `qa` |
-| feature | `csdl-bieu-10` |
-| title | CSDL Biểu 10 — Kè, tường chắn |
-| packKind | `list` |
-| changeScope | `new_page` |
-| status | `done` |
-| verdict | **PASS** |
-| taskId | `task_8ea2fe77` |
-| priorDevTaskId | `task_db0c0344` |
-| resource | `retaining-walls` |
-| formNo | `10` |
-| columns | `21` · **2 section** tường + rãnh đỉnh |
-| IdCode | `KE-` |
-| peerSoTs | `so-ts-retaining` (toolbar · ≠ merge) |
-| formPattern | **Kind D Slideout** 2col · **2 section** |
-| Kind | **B** A–D+F · **D** Slideout Z1–Z3 · Z2b crest |
-| heightAlias | UI `heightM` ↔ DB `WidthM` |
-| route_confirm | `route_a` |
-| mfeStdUrl | `http://localhost:9301/csdl-bieu-10` |
-| hubDeepLink | `/so-ts/csdl-so-sach?resource=retaining-walls` |
-| domain | **Asset** · `api/v1/asset/csdl-records` |
-| e2eQa | **ON** · runtime PASS |
-| yarnTypecheck | **PASS** |
-| docker | api `:5111` · bff `:5201` healthy |
-| contentHashPrior | `sha256:56715ebbcfffd0589eab296a31137e79a82b49c672dc14582fc554f4ed262346` |
-| skillVersion | `2026.08.29.03` |
-| workflowVersion | `2026.09.01.02` |
-| rulesVersion | `2026.08.31.2` |
-| writtenAt | `2026-09-05T12:06:00.000Z` |
+schemaVersion: 1
+feature: csdl-bieu-10
+packKind: list
+role: qa
+status: done
+verdict: PASS
+skillVersion: 2026.09.05.03
+workflowVersion: 2026.09.05.03
+rulesVersion: 2026.09.17.3
+contentHash: sha256:49ea64d3b8f51e899c4bb36ae444444b4c0a805e64349f8e1f52677909ab0302
+headerFingerprint: sha256:9d4863dcab46439966e526cc7696f137695022911a3edc5066c852dc779fa598
+writtenAt: 2026-09-18T06:45:00.000Z
+taskId: task_1269f635
+priorDevTaskId: task_4dfcfa0a
+resource: retaining-walls
+columns: 21
+blocks: 2
+IdCode: KE-
+formNo: 10
+changeScope: edit_page
+formPattern: Slideout
+e2eQa: ON
+mfeStdUrl: http://localhost:9301/so-ts/csdl-so-sach
+alias: /csdl-bieu-10
+hubDeepLink: /so-ts/csdl-so-sach?resource=retaining-walls
+peerSoTs: so-ts-retaining
 
 ## Decisions
+- changeScope: edit_page (T-XLS-S10) · typed 21/2 KEEP · **cấm** reopen
+- T-XLS-QA-01 **PASS**: export `Bieu10_KeTuongChan_{yyyyMMdd}.xls` · import_now · toolbar Xuất/Nhập
+- filter: **0** Xuất on LinErpListFilterBar (GAP-FILTER-BAR-08)
+- height_alias: export filename + FE map KEEP
+- E2E S0/S1/QA-20 **PASS** · PNG + manifest ok=true
+- yarn e2e-qa playwright resolve fail → chrome createRequire · **cấm** kill (GAP-QA-E2E-KILL-01)
+- yarn typecheck **PASS** · docker api/bff healthy
+- **cấm** phase=done · handoff Review
+- open questions: none
 
-- E2E S0/S1/QA-20 **PASS** · PNG + manifest `ok=true` · screenshot sạch
-- Hub `retaining-walls` **redirect** `/csdl-bieu-10` (route_a) · S1 assert list-page
-- `yarn e2e-qa` hang → chrome channel fallback (**GAP-QA-E2E-PW-01**) · **cấm** kill rộng
-- T-QA-CRUD/FORM/FILTER/ROUTE/KIND/CREST **PASS** (runtime + code)
-- wallKind/side/km live · peer toolbar · KE- form create · 2 section · crest flat · LeaveConfirm
-- **cấm** `phase=done` · handoff Review
-- open Q: **none**
+## Inventory (slim)
+| id | label | controlHint | notes |
+|----|-------|-------------|-------|
+| exportExcel | Xuất Excel | ToolbarButton | filtered+wallKind · PASS |
+| importExcel | Nhập Excel | ToolbarButton+file | import_now · PASS |
+| (form 21/2) | typed prior | keep | KEEP QA-20 |
 
-## Artifacts
+## Screens / zones (ids only)
+- S-LIST · S-XLS-EXPORT · S-XLS-IMPORT · S-FORM-C KEEP · S-HUB-ENTRY · S-PEER
+- testid=`rmms-csdl-bieu-10-list-page` · `…-export-excel-btn` · `…-import-excel-btn`
 
-| Kind | Path |
-|------|------|
-| scenarios | `specs/csdl-bieu-10/qa/scenarios.md` |
-| screens | `specs/csdl-bieu-10/qa/screens/{S0,S1,QA-20}.png` |
-| manifest | `specs/csdl-bieu-10/qa/screens/manifest.json` |
-| live-assert | `specs/csdl-bieu-10/qa/screens/live-assert.json` |
-| form-assert | `specs/csdl-bieu-10/qa/screens/form-assert.json` |
-| STATUS | `specs/csdl-bieu-10/STATUS.md` |
+## API / tasks (ids only)
+- T-XLS-QA-01 **PASS** · T-QA-* KEEP smoke
+- API-XLS-01/02 runtime via FE blob/file
 
 ## Evidence (ids)
-
 | Case | Result | sha16 |
 |------|--------|-------|
-| S0 | PASS | `578713d8b3334842` |
-| S1 | PASS | `578713d8b3334842` |
-| QA-20 | PASS | `ce780bb7f4d2d2f3` |
-
-## Screens / zones
-
-- S-LIST · S-FORM-C · S-HUB-ENTRY · S-PEER · S-SKIP-MAP
-- testid=`rmms-csdl-bieu-10-list-page` · form=`rmms-csdl-bieu-10-form-slideout`
+| S0 | PASS | 71d4adf9c5e61eb1 |
+| S1 | PASS | 71d4adf9c5e61eb1 |
+| QA-20 | PASS | f5c5632c921add62 |
+| export | PASS | Bieu10_KeTuongChan_20260918.xls |
 
 ## Debt
-
-- GAP-QA-E2E-PW-01 P2 · GAP-QA-ROAD-TESTID P3 · Auth DEFER · org/XLS OUT/DEFER · DB migrate apply
-
-## Next
-
-| Role | Need |
-|------|------|
-| **Review** | `/agent-review` · findings · **cấm** phase=done từ QA |
+- GAP-QA-E2E-PW-01 P2 · Auth DEFER · getBlob CD strip verified · BIFF N/A
 
 ## UNCLEAR
-
 - none
 
-## Cấm (compact)
+## Full paths (Read only if needed)
+- scenarios: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-10/qa/scenarios.md
+- screens: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-10/qa/screens/
+- STATUS: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-10/STATUS.md
+- prior: handoff/dev-compact.md
 
-ERP.* · invent API · phase=done · kill worker rộng · start role khác · merge Sổ TS · detail*-only · CrestDitch child
+## Cấm (compact)
+ERP.* · invent API · phase=done · kill worker rộng · start role khác · filter-bar export · reopen typed

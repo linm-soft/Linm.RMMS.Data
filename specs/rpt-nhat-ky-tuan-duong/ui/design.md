@@ -5,214 +5,191 @@
 | feature | `rpt-nhat-ky-tuan-duong` |
 | this role | `design` · `/agent-design` |
 | changeScope | `edit_page` |
-| packKind | **`report`** (Kind **E** AnalyticsReportShell) — packet board `list` **bỏ** (GAP-PO-NKTD-02) |
-| Feature Kind | **E** · leaf `/bao-cao/nhat-ky-tuan-duong` · **không** CRUD form |
+| packKind | **`report`** · Kind **E** AnalyticsReportShell |
+| Feature Kind | **E** · leaf `/bao-cao/nhat-ky-tuan-duong` · alias `/bao-cao/nk-td` · **không** CRUD |
 | status | `confirmed` |
-| design_confirm | **approve** (`autoApprove=ON` · `task_a78a8a06`) |
+| design_confirm | **approve** (`autoApprove=ON` · `task_6d170bb5`) |
+| cr | `nktd-pdf-20260917` · Wave B · cite `SRC-NKTD-PDF` |
 | reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/rpt-nhat-ky-tuan-duong/ui/prototype/rpt-nhat-ky-tuan-duong-prototype.html` |
+| peerStdUrl | `http://localhost:9311/bao-cao/nhat-ky-tuan-duong` |
+| real_view_parity | `v1` |
+| report_standard | `v1` |
+| shared_grid_example | `v1` (report shell · DES-RPT-*) |
 | prototype | `specs/rpt-nhat-ky-tuan-duong/ui/prototype/rpt-nhat-ky-tuan-duong-prototype.html` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Report` |
 | mfeStdRoute | `/bao-cao/nhat-ky-tuan-duong` |
 | mfeStdUrl | `http://localhost:9311/bao-cao/nhat-ky-tuan-duong` |
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/report/patrol-log-road` |
-| domain | **Report** |
-| prior · po | `confirmed` · `po/requirement.md` · `task_072cb5c8` · GAP-PO-NKTD-01..12 |
-| prior · data_analy | `confirmed` · `specs/_data-analy/features/rpt-nhat-ky-tuan-duong-control-hint.md` · hash `sha256:rpt-nhat-ky-tuan-duong-context-20260816` |
+| domain | **Report** · **cấm ERP.*** |
+| prior · po | `confirmed` · `po/requirement.md` · `handoff/po-compact.md` · `task_74fe0220` |
+| prior · data_analy | `confirmed` · control-hint + real-data · hash `sha256:c5bf1abeceee69764d8f365e1d599d92008faf28a01cb2a29c88520d8baa5703` · **hash skip** |
+| sourceFeature | `csdl-so-02` · `sourceFormReady=yes` |
 | autoApprove | **ON** |
 | skillVersion | `2026.08.15.5` |
 | schemaVersion | `1` |
 | workflowVersion | `2026.08.15.5` |
 | rulesVersion | `2026.08.15.8` |
-| versionGate | `keep_current` (khớp PO + data-analy stamp · SSOT live lệch — **không** regen) |
-| updatedAt | `2026-08-16T08:25:00.000Z` |
-| taskId | `task_a78a8a06` |
+| versionGate | `keep_current` |
+| updatedAt | `2026-09-18T17:30:00.000Z` |
+| taskId | `task_6d170bb5` |
 
-**Cấm ERP.*** · **cấm** `api/v1/rmms/*` · **cấm** `api/v1/reports` · **cấm** reuse tuần kiểm / check-in · **cấm** clone CRUD `csdl-so-sach`.
+**Cấm ERP.*** · **cấm** path API mới · **cấm** `api/v1/reports` · **cấm** CRUD new_page · **cấm** gộp `rpt-tuan-duong` GPS · **cấm** re-scan demo (GAP-DES-DEMO-RESCAN-01).
 
-## 0. Context & Demo (from PO)
+## 0. Context & Demo (from PO · hash skip)
 
 | ID | Path | Notes |
 |----|------|-------|
-| CTX-01 | `docs/context/features/rpt-nhat-ky-tuan-duong.md` | Kind E leaf · filter · Xem · lưới · drill · Excel — API plural **stale** |
-| CTX-02 | CSDL §3.1 + `docs/context/features/csdl-so-sach.md` | parent list / entity nguồn — **cấm** copy CRUD |
-| CTX-03 | hub `docs/context/features/reports.md` | tách leaf (GAP-F-RPT-LEAF-01) |
-| DEM-01 | — | **N/A** leaf demo — prototype này |
-| DEM-02 | hub `bao-cao/reports.html` | **skip** chrome / sidebar / menu |
-| DI-02 | `specs/_data-analy/features/rpt-nhat-ky-tuan-duong-control-hint.md` | controlHint SSOT · **confirmed** |
-| DI-03 | CUC2 `road-route-seed.json` | 38 tuyến Type A · **cấm QL.22** |
+| CTX-01 | `docs/context/features/rpt-nhat-ky-tuan-duong.md` | Kind E leaf |
+| CTX-02 | extract `docs/data/analyzed/nhat-ky-tuan-duong-pdf.md` | **SRC-NKTD-PDF** |
+| DEM-01 | — | **N/A** · **không** re-scan |
+| DI-01 | `specs/_data-analy/features/rpt-nhat-ky-tuan-duong-control-hint.md` | controlHint · done |
+| DI-02 | `specs/_data-analy/features/rpt-nhat-ky-tuan-duong-real-data.md` | §A+§B · done |
+| DI-03 | form `csdl-so-02` | sourceFormReady=yes |
 
-Persona: Hạt trưởng · Khu QLĐB · lãnh đạo. Prototype **content-only** zones **A–D** + chart SoCai (modal). **Không** full demo clone. **Không** gộp Mẫu 8 / `rpt-checkin`.
+Persona: Hạt trưởng · Khu QLĐB. Prototype **content-only** DES-RPT-A/C/F/CHART + Zone C/D. **Giữ** Kind E shell prior · delta Wave B dưới.
 
-Live MFE (`PatrolLogRoadReportPage`) đã Kind E: 1× `LinPageLayout` kind=`report` · `LinErpListFilterBar` + SearchInput tuyến/cán bộ · Date kỳ · Input tìm · **Xem** mới load · Excel · `LinCatalogDataGrid` kéo cột · `LinCatalogListPagination` luôn · Config `ReportDisplayConfigModal` FULL · chart/print · cột đủ PO §5 (kể cả Vị trí). Design **re-review** control-map + prototype (SearchInput analog, **không** native `<select>`) — **không** đổi Kind E → Kind B.
+## § Delta Wave B (`edit_page` · CR)
 
-## 1. Kind + UI pattern (UI-Ux P1–7)
+| ID | Prior design | New (this design) | Surface |
+|----|--------------|-------------------|---------|
+| **GAP-NKTD-SRC-01** | Seed 12 check-in OK P1 | Live empty=`[]` · **cấm** seed · proto mock = sổ form (không check-in) | BE+copy |
+| **GAP-NKTD-DRILL-01** | `?kind=patrol-logs` | `/csdl-so-02` **hoặc** hub `?resource=patrol-logs&id={bookId}` · **cấm** `?kind=` | FE drill |
+| **GAP-NKTD-SIGN-01** | MatchOk / SupervisorSignedAt | `RemarkSign` → `supervisorNote` · signed nếu RemarkSign ≠ rỗng | grid |
+| GAP-NKTD-LOC-RPT | locationText | **giữ** · fallback Km string | grid |
+| GAP-NKTD-NOTE-01 | thiếu Note | cột **Ghi chú** `note` · Config FULL · **default visible** | grid |
+| **GAP-NKTD-PRINT-01** | print-scope stub | P1 grid print · **P2** bìa TT41 = debt · không block | toolbar In |
+| GAP-DES-RPT-TB-01 | Excel trên filter cụm | Excel **chỉ** `reportToolbar` · filter **0** action | DES-RPT-A/C |
+
+## 1. Kind + UI pattern
 
 | # | Rule | Design chốt |
 |---|------|-------------|
-| 1 | 1 shell | **1×** `LinPageLayout` kind=`report` — **cấm** nested `CatalogListShell` |
-| 2 | Grid | `LinCatalogDataGrid` `resizable: true` (**DEFAULT + kéo cột ON**) |
-| 3 | Footer | **Luôn** `LinCatalogListPagination` 50/100/200/500 — **cấm** footerPagination / pageSizeBar / raw `<table>` production |
-| 4 | Flex + skeleton | `.page` flex column · `skeletonRows={8}` · **cấm** blank body / title-clip |
-| 5 | Toolbar | `reportToolbar`: Làm mới · Biểu đồ (SoCai khi đã Xem + có dòng) · In (scope modal) · Config **FULL** (`ReportDisplayConfigModal` / `LinReportTableConfigModal` — **cấm** stub/`configHint`) · Excel trên filter cụm hoặc toolbar |
-| 6 | list_parity | Filter **SearchInput** + **Date** + **Input** tìm · **cấm** native `<select>` MFE |
-| 7 | tree_master | **N/A** |
-| Form | OUT | **cấm** Thêm mới Zone A · **cấm** Resource/Slideout/View=`readOnly` giả form |
-| Confirm | toast | `dispatchAppToast` — **cấm** `window.alert` / `window.confirm` (In dùng `window.print` sau modal) |
-| View | grid + chart | Drill `/asset/csdl-so-sach?kind=patrol-logs&id={bookId}` (+ `entryId` nếu route hỗ trợ) |
-| Config Kind B | OUT | **Không** bắt `LinCatalogUiSchemaEditorModal` (GAP-PO-NKTD-11) |
+| 1 | 1 shell | **1×** `LinPageLayout` kind=`report` |
+| 2 | Grid | `LinCatalogDataGrid` resizable ON |
+| 3 | Footer | **Luôn** `LinCatalogListPagination` 50/100/200/500 |
+| 4 | Filter | `LinErpListFilterBar` 1 hàng wrap · 🔍 mép phải · **0** action button |
+| 5 | Toolbar | `reportToolbar`: Làm mới · Chart · **Xuất Excel** · In · Config FULL (`fa-cog`) |
+| 6 | Chart | SoCai live items · **cấm** stub toast |
+| 7 | Config | `LinReportTableConfigModal` FULL · **cấm** `configHint` / list-only modal |
+| Form | OUT | **cấm** Thêm mới Zone A |
+| Leave | N/A report | dirty leave N/A · toast `useAlert` / `dispatchAppToast` · **cấm** native alert |
+| Drill | form nguồn | `/csdl-so-02` hoặc hub resource+id |
+| map | `none` | |
 
-## 2. Screens / zones A–D
+## 2. Screens / zones
 
-| Screen | FormMode | Zones | Notes |
-|--------|----------|-------|-------|
-| Nhật ký tuần đường | report | **A Header · B Toolbar+filter · C Grid · D Pagination** + SoCai modal | 1 page leaf |
+| Screen | FormMode | Pattern | Zones |
+|--------|----------|---------|-------|
+| S-RPT Nhật ký tuần đường | report | Full page | **DES-RPT-A** toolbar · **DES-RPT-C** filter · Zone C grid · D pager |
+| S-CFG Config | — | Modal | **DES-RPT-F** |
+| S-CHART Biểu đồ | — | Modal | **DES-RPT-CHART** |
+| S-EXPORT Excel | — | Modal confirm (nếu 2 scope) / direct | toolbar onExport |
 | Form CRUD | — | — | **OUT** |
 
-### Zone A — Header
+### DES-RPT-A — reportToolbar (thứ tự)
 
-- Icon `fas fa-road` + title **Nhật ký tuần đường** (22px, không clip)
-- Badge tuỳ chọn Kind E — **không** bắt buộc
-- **Cấm** Thêm mới / Tạo mới trên A
-- **Cấm** clone demo topnav / user menu / theme / GOVOne chrome
+Làm mới (`fa-sync-alt`) · Xem biểu đồ (`fa-chart-bar`) · Xuất Excel (`fa-file-excel`) · In (`fa-print`) · Sửa config (`fa-cog`).
 
-### Zone B — Filter + reportToolbar
+### DES-RPT-C — filter (controlHint)
 
-**Trái (`LinErpListFilterBar` · title trái · input + tìm cụm phải · 1 hàng wrap GAP-FILTER-BAR):**
+| key | Label | Control | catalogKind |
+|-----|-------|---------|-------------|
+| routeId | Tuyến | `SearchInput` | road-route CUC2 · cấm QL.22 |
+| staffId | Cán bộ | `SearchInput` | nva/ttb/lvc/pmd P1 |
+| fromDate / toDate | Kỳ | `Date` | tz_day trên `EventAt` |
+| qSearch | Tìm | `Input` | |
+| onSearch | Xem | 🔍 primary | apply → load · **chưa Xem** = empty hint |
 
-| key | Label | Control (Design chốt) | catalogKind / rule |
-|-----|-------|------------------------|---------------------|
-| routeId | Tuyến | `SearchInput` | **road-route** 38 CUC2 + empty=Tất cả · **cấm** free-text · **cấm QL.22** |
-| staffId | Cán bộ | `SearchInput` | nva / ttb / lvc / pmd P1 — **cấm** native Select |
-| fromDate | Từ | `Date` | trên `CheckedAt` / `day` |
-| toDate | Đến | `Date` | |
-| qSearch | Tìm kiếm | `Input` | nội dung · tuyến · cán bộ · số sổ |
-| — | **Xem** | Button primary (`onSearch`) | apply draft → page=1 → load; **chưa Xem** = empty hint · **không** auto-fetch khi đổi draft |
+**Cấm** trên filter: Xuất Excel · In · Làm mới · Config · Chart · Thêm mới.
 
-**Phải / `reportToolbar` (Kind E):**
+### Zone C — Grid columns (controlHint)
 
-| Action | Icon | P1 |
-|--------|------|-----|
-| Làm mới | `fa-sync-alt` | **chưa Xem** → toast SSOT, **không** fetch · đã Xem → refetch applied |
-| Biểu đồ | chart | **SoCai** `ReportChartModal` khi `viewed` + ≥1 dòng + config `showCharts` — catalog: số dòng theo ngày (line) · tuyến (bar/donut) · trạng thái signed/pending |
-| In | print | `LinReportPrintScopeModal` rồi `window.print` · stub OK nếu chưa print engine |
-| Sửa config | `fa-cog` | **FULL** column prefs + chart/print/footer — **cấm** stub toast · **cấm** `LinListTableConfigModal` height-only |
-| Xuất Excel | export | CSV UTF-8 BOM theo cột đang hiện · file `patrol-log-road.csv` · chưa Xem = toast |
-
-Đổi filter draft **không** tự fetch đến **Xem**. Đổi page/pageSize sau viewed → refetch applied. Đổi filter sau Xem → page=1 khi Xem lại.
-
-**Cấm trên B:** Hồ sơ · Đăng xuất · Thêm mới · Áp dụng lọc / Xóa lọc demo.
-
-### Zone C — Grid
-
-- `listTitle`: **Kết quả nhật ký tuần đường**
-- Help: chưa Xem — «Chưa xem — nhấn «Xem» để tải nhật ký tuần đường.» · đã Xem 0 dòng — «Không có dòng phù hợp bộ lọc.»
-- Flex + skeleton 8 hàng khi fetch
-- **không** cột CRUD ⋯ / Thêm
-- Kéo cột default ON
-- Cột readonly
-
-**Grid columns** (PO §5 + live keys)
-
-| key | Label | Source | controlHint |
-|-----|-------|--------|-------------|
-| day | Ngày | `PatrolLogEntry.CheckedAt` → `day` | Date |
-| route | Tuyến | `PatrolLogBook.RoadCode` | Text |
-| patrolStaff | Cán bộ | `PatrolLogBook.PatrolStaff` | Text |
-| locationKm | Km | `PatrolLogEntry.Km` | Text |
-| weatherAndEvent | Nội dung nhật ký | `WeatherAndEvent` | Text |
-| onSiteAction | Xử lý tại chỗ | `OnSiteAction` | Text |
-| statusLabel | Trạng thái | `SupervisorSignedAt` → `signed`/`pending` | badge display |
-| bookNo | Số sổ | `PatrolLogBook.BookNo` | Text |
-| locationText | Vị trí | `LocationText` | Text — **GAP-DS-NKTD-01** prototype cũ thiếu; live MFE **đã có** |
-| drill | Nguồn | `bookId` / `entryId` | Button «Mở sổ» → `/asset/csdl-so-sach?kind=patrol-logs&id={bookId}` |
-
-**Chart SoCai:** chỉ khi `viewed === true` và có ≥1 dòng. **Không** KPI 4 card · **không** map.
+| key | Label | Source | notes |
+|-----|-------|--------|-------|
+| day / checkedAt | Ngày | `EventAt` | |
+| route | Tuyến | RoadCode/Name | |
+| patrolStaff | Cán bộ | PatrolStaff | |
+| locationKm | Km | LocationKm | |
+| locationText | Vị trí | LocationText \|\| Km | |
+| weatherAndEvent | Nội dung nhật ký | WeatherEvent | |
+| onSiteAction | Xử lý tại chỗ | OnSiteAction | |
+| supervisorNote | Nhận xét / ký | RemarkSign | **GAP-NKTD-SIGN-01** |
+| note | Ghi chú | Note | default visible |
+| statusLabel | Trạng thái | RemarkSign nonempty → signed | **cấm** MatchOk |
+| bookNo | Số sổ | BookNo | |
+| drill | Nguồn | bookId/entryId | Button «Mở sổ» |
 
 ### Zone D — Pagination
 
-`LinCatalogListPagination`: `Tổng: N · Trang x/y` · Hiển thị **50 / 100 / 200 / 500** · FA pager 32×32. `totalCount=0` khi chưa Xem. **Luôn render**.
+Luôn hiện · 50/100/200/500 · total=0 khi chưa Xem.
 
-## 3. Control-map (Design chốt — từ data-analy + PO §5)
+## 3. Interactions
 
-**Cấm** Dev đổi SearchInput → Select. Prototype combobox analog SearchInput.
-
-### Cán bộ (P1)
-
-| value | label |
-|-------|-------|
-| `` (empty) | Tất cả cán bộ |
-| `nva` | Nguyễn Văn A |
-| `ttb` | Trần Thị B |
-| `lvc` | Lê Văn C |
-| `pmd` | Phạm Minh D |
-
-### Tuyến (GAP-PO-NKTD-04)
-
-- Lookup UI = 38 CUC2 + «Tất cả» (empty) · Integration Type A `GET api/v1/integration/road-routes/search`.
-- Seed prototype: QL.1 / QL.15 / QL.217 / QL.7 / HCM **OK**.
-- **Cấm** invent `QL.22` / `ĐT.*` ngoài CUC2.
-
-## 4. Interactions
-
-1. Mở `/bao-cao/nhat-ky-tuan-duong` → empty hint, **không** auto-load lưới.
-2. Chọn tuyến/cán bộ/từ–đến/tìm → **Xem** → GET `api/v1/report/patrol-log-road`.
-3. Làm mới khi `!viewed` → toast, **không** fetch.
-4. Xuất Excel → GET `api/v1/report/patrol-log-road/export` → `patrol-log-road.csv` UTF-8 BOM theo cột hiện.
-5. Drill dòng → `/asset/csdl-so-sach?kind=patrol-logs&id={bookId}` (kèm `entryId` nếu route hỗ trợ).
-6. Chart / Print / Config theo §2 toolbar.
-7. Đổi page/pageSize sau viewed → refetch cùng applied filters.
-8. Enter trên ô tìm = **Xem**.
-
-Auth JWT · tenant · perm `report.nhat-ky-tuan-duong.read` (FE gate ON · BE stub OK P1).
-
-## 5. Prototype
-
-`specs/rpt-nhat-ky-tuan-duong/ui/prototype/rpt-nhat-ky-tuan-duong-prototype.html` — content-only A–D · SearchInput combobox (không native Select filter) · Input tìm · empty đến khi Xem · **12** dòng mẫu `PatrolLogBook`/`PatrolLogEntry` CUC2 · cột Vị trí · pagination 50/100/200/500 luôn · SoCai modal analog · Config FULL analog · **skip** chrome.
-
-**reviewUrl:** `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/rpt-nhat-ky-tuan-duong/ui/prototype/rpt-nhat-ky-tuan-duong-prototype.html`
-
-Align live: `http://localhost:9311/bao-cao/nhat-ky-tuan-duong` (`yarn start:std` **:9311**).
-
-## 6. API (handoff SA — Design không chốt contract mới)
-
-| Method | Path | Notes |
-|--------|------|-------|
-| GET | `/api/v1/report/patrol-log-road` | `routeId` `staffId` `from` `to` `q` `page` `pageSize` |
-| GET | `/api/v1/report/patrol-log-road/export` | CSV UTF-8 BOM |
-| GET | `/api/v1/integration/road-routes/search` | Type A — **không** copy catalog vào Report |
+1. Mở page → empty hint · **không** auto-load.
+2. **Xem** → `GET api/v1/report/patrol-log-road` · empty kỳ = `items=[]` (**cấm** seed).
+3. Làm mới `!viewed` → toast · không fetch.
+4. Excel → `/export` UTF-8 BOM · cùng filter · cột theo config (gồm supervisorNote nếu hiện).
+5. Drill → `/csdl-so-02` hoặc hub `?resource=patrol-logs&id={bookId}` · **cấm** `?kind=`.
+6. Chart / Print(P1) / Config FULL theo toolbar.
+7. Enter trên tìm = Xem.
 
 Perm: `report.nhat-ky-tuan-duong.read`.
 
-SA: lookup Type A tuyến · query in-memory P1 (12 CUC2) · read-model `PatrolLogBook`/`PatrolLogEntry` **P2** — **cấm** warehouse schema bắt buộc P1 · **cấm** `api/v1/reports` · **cấm** InspectionLog / PatrolSession.
+## Prototype (REQUIRED)
 
-## 7. GAP Design
+| | |
+|--|--|
+| Artifact | `ui/prototype/rpt-nhat-ky-tuan-duong-prototype.html` |
+| Report zones | **DES-RPT-A** · **DES-RPT-C** · **DES-RPT-F** · **DES-RPT-CHART** + Zone C/D |
+| SSOT | `po-design-report-standard` · `report-toolbar-actions` · `design-prototype-review` · `design-real-view-parity` |
+| **reviewUrl** | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/rpt-nhat-ky-tuan-duong/ui/prototype/rpt-nhat-ky-tuan-duong-prototype.html` |
+| **peerStdUrl** | `http://localhost:9311/bao-cao/nhat-ky-tuan-duong` |
+| **real_view_parity** | `v1` |
+| **report_standard** | `v1` |
+
+### Wire (report)
+
+```
+[DES-RPT-A] Làm mới · Chart · Xuất Excel · In · Config   ← toolbar ONLY
+[DES-RPT-C] Tuyến·Cán bộ·Từ·Đến·Tìm · 🔍 Xem            ← 0 action button
+[C] grid EventAt·Road·Staff·Km·LocationText·Weather·OnSite·RemarkSign·Note·Status·BookNo·Drill
+[D] pageSize 50/100/200/500 · Tổng
+[DES-RPT-F] Config FULL modal
+[DES-RPT-CHART] SoCai modal
+```
+
+## 4. API (handoff SA — giữ path)
+
+| Method | Path |
+|--------|------|
+| GET | `/api/v1/report/patrol-log-road` |
+| GET | `/api/v1/report/patrol-log-road/export` |
+| GET | `/api/v1/integration/road-routes/search` |
+
+**Cấm** invent path · **cấm** ERP.*. Load join sổ `patrol-logs` + So02 + entries · **cấm** PatrolSessions/check-in seed.
+
+## 5. GAP Design (Wave B)
 
 | ID | Decision |
 |----|----------|
-| GAP-DS-NKTD-01 | Prototype trước dùng native `<select>` + thiếu cột Vị trí — **đóng** ở prototype này. Live MFE đã SearchInput + `locationText`. |
-| GAP-DS-NKTD-02 | Zone D **luôn** `LinCatalogListPagination` — live đã luôn footer · **giữ** |
-| GAP-DS-NKTD-03 | Pack **report** / Kind E — **không** Kind B CRUD / nested CatalogListShell / `LinCatalogUiSchemaEditorModal` bắt buộc |
-| GAP-DS-NKTD-04 | Prefix **`api/v1/report/patrol-log-road`** (khớp GAP-PO-NKTD-01) — **đóng** context plural `reports` |
-| GAP-DS-NKTD-05 | Config **FULL** P1 · Chart SoCai khi có data · In = print-scope modal · **cấm** `configHint` |
-| GAP-DS-NKTD-06 | Form OUT · cấm Thêm mới A · cấm Resource/Slideout |
-| GAP-DS-NKTD-07 | autoApprove **ON** → Design **tự confirm** · enqueue SA cùng feature · **không** chạy SA trong `roleOnly=design` |
-| GAP-DS-NKTD-08 | controlHint SearchInput giữ nguyên — **cấm** đổi Select |
-| GAP-DS-NKTD-09 | Dashboard KPI **không** gộp slug này · **không** gộp Mẫu 8 / check-in |
-| GAP-DS-NKTD-10 | Làm mới `!viewed` = toast, **không** apply+view |
-| GAP-DS-NKTD-11 | Seed 12 CUC2 · **cấm QL.22** · P1 in-memory OK |
+| GAP-DS-NKTD-WB-01 | Drill `?kind=` **OUT** — `/csdl-so-02` / hub resource+id |
+| GAP-DS-NKTD-WB-02 | Cột `supervisorNote` + `note` visible · status từ RemarkSign |
+| GAP-DS-NKTD-WB-03 | Excel/In/Refresh/Chart/Config = toolbar · filter 0 action (**GAP-DES-RPT-TB-01**) |
+| GAP-DS-NKTD-WB-04 | Print P2 bìa = debt **GAP-NKTD-PRINT-01** · P1 grid OK |
+| GAP-DS-NKTD-WB-05 | Empty live = `[]` · proto mock sổ form · **cấm** check-in seed copy |
+| GAP-DS-NKTD-WB-06 | autoApprove ON → tự `design_confirm` · enqueue SA · **không** chạy SA trong role này |
+| GAP-DS-NKTD-03..08 | Prior Kind E / SearchInput / Config FULL / Form OUT — **giữ** |
 
-## 8. Out of pack
+## 6. Out of pack
 
-CRUD `csdl-so-sach` / PatrolLog* trên slug này · Mẫu 8 tuần kiểm · `rpt-checkin` PatrolSession · Dashboard KPI gộp · GOVOne chrome · warehouse schema · parent JSON · Kind B · `ERP.*` · `api/v1/rmms/*` · `api/v1/reports` · invent tuyến ngoài CUC2 38 · Leaflet · hub family trên leaf này.
+CRUD trên slug · GPS `rpt-tuan-duong` · CamScanner golden · warehouse · Kind B · ERP.* · yarn build/e2e role này.
 
-## 9. Handoff SA
+## 7. Handoff SA
 
-- Confirm lookup road-route Type A + query `patrol-log-road` in-memory P1 + export CSV.
-- Confirm row fields gồm `locationText` / `bookId` / `entryId` cho drill.
-- Roles sau Design = **pending** đến lượt (`sa` enqueue).
-- **Cấm** nhảy TL/Dev/QA trong task này.
-- Repo BE+UI tick = user (không auto) trước Dev.
-- Build gate: Design **không** sửa MFE/BE → `yarn build` / `dotnet build` **N/A** role này.
+- Confirm load join sổ · no seed · no new path.
+- Confirm DTO: locationText · supervisorNote · note · bookId/entryId · signed từ RemarkSign.
+- Roles sau = **pending**.
+- Build gate: Design **không** sửa MFE/BE.
 
 ---
-<!-- Version meta: skillVersion=2026.08.15.5 · schemaVersion=1 · workflowVersion=2026.08.15.5 · rulesVersion=2026.08.15.8 · versionGate=keep_current -->
+<!-- Version meta: skillVersion=2026.08.15.5 · schemaVersion=1 · workflowVersion=2026.08.15.5 · rulesVersion=2026.08.15.8 · versionGate=keep_current · changeScope=edit_page · cr=nktd-pdf-20260917 · report_standard=v1 · real_view_parity=v1 -->

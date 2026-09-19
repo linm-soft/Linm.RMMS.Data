@@ -5,62 +5,59 @@
 | schemaVersion | `1` |
 | role | `team_lead` |
 | feature | `csdl-so-02` |
-| title | CSDL Sổ 02 — Nhật ký tuần đường |
+| title | CSDL Sổ 02 — Nhật ký tuần đường (CR PDF Wave A) |
 | packKind | `list` |
-| changeScope | `new_page` |
+| changeScope | `edit_page` |
 | status | `done` |
-| taskId | `task_21de79e2` |
-| saTaskId | `task_c4f160af` |
+| taskId | `task_a6a264ff` |
+| cr | `nktd-pdf-20260917` · `SRC-NKTD-PDF` |
 | resource | `patrol-logs` |
 | formNo | `02` |
 | IdCode | `SO-` |
-| formPattern | **Kind D Slideout** 2col · entries `inline_grid` · **cấm** Full-page |
-| Kind | **B** A–D+F+H · **D** Slideout Z1–Z3 |
-| route_confirm | **`route_a`** `/csdl-so-02` + hub |
+| formPattern | **Kind D Slideout** 2col · entries `inline_grid` |
+| Kind | **B** A–D+F+H · **D** Slideout |
+| route_confirm | **`route_a` giữ** `/csdl-so-02` + hub |
 | team_lead_confirm | **approve** (autoApprove ON) |
-| design_confirm | approve |
-| solution_confirm | approve |
+| design_confirm | **approve** |
+| solution_confirm | **approve** |
 | autoApprove | `ON` |
 | e2eQa | `ON` (queued `/agent-qa*` only) |
-| domain | **Asset** · `api/v1/asset/csdl-records` |
-| entity | shell + `CsdlSo02Entity` · `Schema_CsdlSo02` · widen entries |
-| gates | tz_list_and_form · xco_get_only · share_tenant |
-| contentHashPrior | `sha256:70538d9c9588d335aa43fd5a1fe28433d1138960d5954c5a7ef4cff33a5bd1c3` |
-| headerFingerprintPrior | `sha256:5da56778e38ecc53807d424082520372c7bbed355257bdacfa0457dba0036e3c` |
-| skillVersion | `2026.08.25.01` |
+| domain | **Asset** · `api/v1/asset/csdl-records?resource=patrol-logs` |
+| entity | `CsdlBookEntryEntity.LocationText` · `Schema_CsdlSo02LocationText` @ Dev/4b |
+| gates | tz_list_and_form · xco_get_only · share_tenant **giữ** |
+| contentHashPrior | `sha256:3ddc42d7c4404f439925322953f28ffc9d3b263726ac6cf5216065751c19b4d6` |
+| headerFingerprintPrior | `sha256:1b032f04f5154622239e0e2bdbebe6923ec76ba9ca33d283b51ebe0062c0d471` |
+| skillVersion | `2026.09.05.03` |
 | workflowVersion | `2026.09.01.02` |
-| rulesVersion | `2026.08.31.2` |
-| writtenAt | `2026-09-06T00:20:00.000Z` |
+| rulesVersion | `2026.09.17.2` |
+| writtenAt | `2026-09-18T04:00:00.000Z` |
 
 ## Decisions
 
-- changeScope=`new_page` · packKind=`list` · typed T-SO-02 + entries · **cấm** detail*/col1–3 only
-- route_confirm **route_a** alias `/csdl-so-02` + hub `?resource=patrol-logs`
-- Persist shell + Schema_CsdlSo02 + widen entries · migration **Dev/4b** · **cấm** parent *Json
-- API **giữ** `asset/csdl-records` · BFF proxy · **cấm ERP.***
-- FileService sketch/media max 10 · road-route P1 · org/partner/XLS **OUT/DEFER**
-- Label «Sổ 02» · key patrol-logs giữ · map none · **cấm** merge Sổ TS
-- Grid AC YES · Leave YES · History reuse · Report N/A P1
-- open Q: **none**
+- changeScope=`edit_page` · **giữ** `task/csdl-so-02.md` · write CR `task/csdl-so-02-cr-pdf.md`
+- Wave A: `locationText` + OR Km\|text + weather Textarea · list cột «Vị trí»
+- Migration `Schema_CsdlSo02LocationText` **chỉ Dev/4b** · **cấm** reuse `Location`
+- API **giữ** · BFF proxy · **cấm ERP.*** · invent patrol-logs path
+- File **GAP-SO02-FILE-01** text-id · Report Wave B **park**
+- route_confirm **route_a** · open Q: **none**
 
 ## Artifacts
 
 | Kind | Path |
 |------|------|
-| task | `specs/csdl-so-02/task/csdl-so-02.md` |
+| task CR | `specs/csdl-so-02/task/csdl-so-02-cr-pdf.md` |
+| prior new_page | `specs/csdl-so-02/task/csdl-so-02.md` (**giữ**) |
 | solution | `specs/csdl-so-02/be/solution-discovery.md` |
 | design | `specs/csdl-so-02/ui/design.md` |
 | STATUS | `specs/csdl-so-02/STATUS.md` |
 
 ## Task matrix (ids)
 
-T-DM-01 · T-CTX-01 · T-BE-01..06 · T-BFF-01 · T-PERM-01 · T-BE-UISCHEMA-01 · T-UI-LIST/FILTER/CFG/FORM/ENTRIES/LEAVE/ACT/HIST/LKP/FIELD/PROD/UX/RESP · T-OUT-01 · T-QA-CRUD/FORM/FILTER/FILE/TYP/TAB/ROUTE
-
-SA map: T-FE-01→LIST · 02→FORM · 03→ENTRIES · 04→FILTER+LKP · 05→LEAVE+ACT+HIST · 06→PROD · 07→UISCHEMA
+T-CTX-CR-01 **done** · **T-BE-LOC-01**/T-BE-01 · T-BE-LOC-02/UISCHEMA · T-BE-CRUD/BFF/PERM reuse · **T-FE-LOC-01**/FORM · **T-FE-LOC-02**/FIELD · **T-FE-LOC-03**/LIST · FILTER/CFG/LEAVE/ACT/HIST/LKP/PROD/UX/RESP/ENTRIES · T-QA-* · T-OUT-* OUT
 
 ## Screens / zones (ids only)
 
-- S-LIST · S-FORM-C/E/V/Copy · S-ENTRIES · S-ACT-DELETE · S-HUB-ENTRY · S-SKIP-MAP
+- S-LIST · S-FORM · S-ENTRIES · S-HUB · S-SKIP-MAP · S-SKIP-RPT
 - mfeStdUrl=`http://localhost:9301/csdl-so-02`
 - hub=`http://localhost:9301/so-ts/csdl-so-sach?resource=patrol-logs`
 
@@ -68,9 +65,9 @@ SA map: T-FE-01→LIST · 02→FORM · 03→ENTRIES · 04→FILTER+LKP · 05→L
 
 | Role | Need |
 |------|------|
-| **Dev** | implement · T-* · Schema_CsdlSo02 @ 4b |
-| QA | e2e queued `/agent-qa*` |
-| Review | after QA |
+| **Dev** | T-BE-LOC-* · T-FE-LOC-* · Schema @ 4b · filter-bar.md |
+| QA | e2e queued `/agent-qa*` only |
+| Review | after QA · Wave B park |
 
 ## UNCLEAR
 
@@ -78,4 +75,4 @@ SA map: T-FE-01→LIST · 02→FORM · 03→ENTRIES · 04→FILTER+LKP · 05→L
 
 ## Cấm (compact)
 
-ERP.* · invent API · detail*/col1–3 only · Guid IdCode · merge Sổ TS · parent *Json · implement code ở TL · Step 4b/migration/e2e/build/start:std ở TL · start role khác
+ERP.* · invent API · reuse `Location` · overwrite new_page task · Wave B report · implement/e2e/build/start:std/Step4b @ TL · start role khác

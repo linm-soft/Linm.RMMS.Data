@@ -1,93 +1,68 @@
-# handoff-compact — sa · csdl-bieu-07
+# Handoff compact — sa
 
-| | |
-|--|--|
-| schemaVersion | `1` |
-| role | `sa` |
-| feature | `csdl-bieu-07` |
-| title | CSDL Biểu 07 — Lề / taluy / hàng rào |
-| packKind | `list` |
-| changeScope | `new_page` |
-| status | `done` |
-| taskId | `task_b41ac662` |
-| resource | `shoulders-fences` |
-| formNo | `07` |
-| columns | `20` |
-| IdCode | `LE-` |
-| peerSoTs | `SHOULDER` |
-| formPattern | **Kind D Slideout** 2col · 3 section · **cấm** Full-page |
-| Kind | **B** A–D+F · **D** Slideout Z1–Z3 |
-| solution_confirm | **approve** (autoApprove ON) |
-| domain | **Asset** · `api/v1/asset/csdl-records` |
-| bff | proxy only · `web-bff/api/v1/asset/csdl-records` |
-| entity | shell `CsdlCatalogRecordEntity` + typed `CsdlBieu7Entity` · `rmms_csdl_bieu7` · Schema_CsdlBieu7 |
-| sa_tz_gate | `tz_na` |
-| sa_xco_gate | `xco_get_only` |
-| sa_shared_table | `share_tenant` |
-| contentHashPrior | `sha256:5634091e7ce3e5272c090320398a76d75f84ed7326366e93e088ff2154e8bf44` |
-| headerFingerprintPrior | `sha256:ba33856d00d23440b05be8c78c8b8a5462662c96a1067e702b791eb5020d64cf` |
-| skillVersion | `2026.08.24.01` |
-| workflowVersion | `2026.09.01.02` |
-| rulesVersion | `2026.08.31.2` |
-| writtenAt | `2026-09-05T16:30:00.000Z` |
+schemaVersion: 1
+feature: csdl-bieu-07
+packKind: list
+role: sa
+status: done
+skillVersion: 2026.09.05.03
+workflowVersion: 2026.09.05.03
+rulesVersion: 2026.09.17.3
+contentHash: sha256:1250b5799e9174b21429e60e57abef17cb7d6c568ae417840c57b598f204a69a
+headerFingerprint: sha256:ba33856d00d23440b05be8c78c8b8a5462662c96a1067e702b791eb5020d64cf
+writtenAt: 2026-09-18T04:35:00.000Z
+taskId: task_8aedafae
+resource: shoulders-fences
+columns: 20
+IdCode: LE-
+solution_confirm: approve
+changeScope: edit_page
+formPattern: Slideout
+sa_tz_gate: tz_na
+sa_xco_gate: xco_get_only
+sa_shared_table: share_tenant
+peerSoTs: SHOULDER
 
 ## Decisions
-
-- changeScope=`new_page` · packKind=`list` · Kind B+D Slideout · typed **20 cột** · 3 section · **cấm** detail* only
-- API **giữ** `api/v1/asset/csdl-records` · BFF proxy · **cấm ERP.*** · **cấm** invent infra/so-ts
-- Persist: shell + **Schema_CsdlBieu7** 1:1 · **cấm** parent *Json · migration Dev/4b only
-- Q-SIDE **shared** L/R/Both · Q-SLOPE **map_clearing** slopeLengthM↔SlopeClearingM · Q-FENCE-LEN **km**↔FenceLengthM×1000 · Q-PANEL **omit_p1** · Q-STRUCT **lookup_seed**
-- Q-ROUTE **alias_now** `/csdl-bieu-07` + hub · Q-PROV **keep_static** P1 · Q-REN-LABEL **with_typed** (T-REN-01)
-- road-route SearchInput P1 · org **DEFER P2** · XLS **OUT** · FencePanelCount P2
-- Peer SHOULDER deep-link · **cấm** merge · **≠** road-assets · map none
+- changeScope: edit_page (T-XLS-S07) · typed CRUD **KEEP** · **cấm** reopen 20-col
+- export: catalogToolbar · BFF binary proxy · `/implement-export-import-excel`
+- Q-XLS-SCOPE: filtered · Q-XLS-IMPORT: export_only_p0 · FILENAME: `Bieu07_LeTaluyHangRao_{yyyyMMdd}.xls` (**SA chốt `.xls`** · override PO `.xlsx`)
+- export mode: **filter-all** · ignore page/pageSize · **cấm** streaming P0
+- golden: Cục 16-sheet · sheet Biểu 7 · 20 cols · FenceLengthM↔km · SlopeClearingM · **cấm** 12+8
+- filter: **cấm** Xuất trên LinErpListFilterBar (GAP-FILTER-BAR-08)
+- peer: **cấm** gộp SHOULDER vào sheet (GAP-BIEU07-XLS-PEER)
+- Import: DEFER P1 · UI ẩn
+- API keep prefix `api/v1/asset/csdl-records` · entity shell+typed KEEP · migration none mới
 - Gates: tz_na · xco_get_only · share_tenant
-- DOMAIN-MAP add `csdl-bieu-07`→Asset (T-DM-01)
-- open questions: **none**
+- Gaps: GAP-BIEU07-XLS-01..05 · GAP-BIEU07-XLS-PEER
+- mfe: Linm.Web.RMMS.Asset · be: Linm.RMMS.WebService · **cấm ERP.***
+- open questions: none
 
 ## Inventory (slim)
-
-| id | label | controlHint | write |
+| id | label | controlHint | notes |
 |----|-------|-------------|-------|
-| search | Tìm | SearchTextInput | filter |
-| province/status/side/fenceKind | Tỉnh/TT/Vị trí/HR | Dropdown | shell+typed LOOKUP |
-| roadCode | Đường | SearchInput | shell + road-route |
-| kmFrom/kmTo | Km | Number | shell Line |
-| code | Mã | Text ro | shell LE- |
-| shoulderStructure | KC lề | Dropdown | typed * |
-| shoulderLengthM/WidthM/AreaM2 | Lề | Number | typed * dài/rộng |
-| slopeLengthM/AreaM2 | Taluy | Number | typed · SlopeClearingM |
-| fencePostCount/fenceLengthKm | HR | Number | typed · km→FenceLengthM |
-| builtYear/manageUnit/notes/status | … | Number/Text/Textarea/Dropdown | typed / shell P2 |
+| (form 20) | typed prior | keep | 3 khối lề/taluy/HR · **cấm** reopen |
+| exportExcel | Xuất Excel | ToolbarButton | filtered · filter-all · binary |
+| importExcel | Nhập Excel | ToolbarButton+file | DEFER P1 · ẩn |
 
 ## Screens / zones (ids only)
-
-- S-LIST · S-FORM-C/E/V/Copy · S-ACT-DELETE · S-HUB-ENTRY · S-PEER-SOTS · S-SKIP-MAP
-- mfeStdUrl=`http://localhost:9301/csdl-bieu-07`
-- hub=`http://localhost:9301/so-ts/csdl-so-sach?resource=shoulders-fences`
+- S-LIST DES-GRID KEEP · S-FORM-* KEEP
+- S-XLS-EXPORT · S-XLS-IMPORT (hidden P1)
+- mfeStdUrl=http://localhost:9301/so-ts/csdl-so-sach · alias /csdl-bieu-07
+- hub=?resource=shoulders-fences
 
 ## API / tasks (ids only)
-
-- FormMode↔API: list/C/E/V/Copy ↔ GET/POST/PUT · soft DELETE · LKP road-route
-- T-DM-01 · T-REN-01 · T-BE-01..05 · T-BFF-01 · T-FE-01..06 · T-OUT-01/02 → TL
+- FormMode↔API: list/C/E/V/Copy KEEP · export↔API-XLS-01
+- Export QS = list filters · ignore page · Import DEFER
+- T-XLS-BE-01..02 · T-XLS-BFF-01 · T-XLS-FE-01..02 · T-XLS-QA-01 → TL
+- entity/migration: typed KEEP · **no new migration** @ XLS
 
 ## UNCLEAR
-
 - none
 
-## Full paths
-
-- solution: `specs/csdl-bieu-07/be/solution-discovery.md`
-- design: `specs/csdl-bieu-07/ui/design.md`
-- prior compact: `handoff/design-compact.md` · `po-compact.md` · `data_analy-compact.md`
-
-## Next
-
-| Role | Need |
-|------|------|
-| **TL** | task/csdl-bieu-07.md · T-* · gates |
-| Dev | Schema_CsdlBieu7 · typed DTO · alias page · Slideout 20 · 3 section |
-| QA | e2e queued `/agent-qa*` |
-
-## Cấm (compact)
-
-ERP.* · invent API · detail* only · Guid IdCode · merge Sổ TS · parent *Json · Step 4b/migration/e2e/build/start:std ở SA · Write MFE · re-scan demo · FencePanelCount P1
+## Full paths (Read only if needed)
+- solution: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-07/be/solution-discovery.md
+- design: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-07/ui/design.md
+- prior: handoff/design-compact.md · po-compact.md · data_analy-compact.md
+- control-hint: specs/_data-analy/features/csdl-bieu-07-control-hint.md
+- real-data: specs/_data-analy/features/csdl-bieu-07-real-data.md

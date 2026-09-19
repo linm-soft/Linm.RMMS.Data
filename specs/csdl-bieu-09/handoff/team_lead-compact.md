@@ -1,83 +1,70 @@
-# handoff-compact — team_lead · csdl-bieu-09
+# Handoff compact — team_lead
 
-| | |
-|--|--|
-| schemaVersion | `1` |
-| role | `team_lead` |
-| feature | `csdl-bieu-09` |
-| title | CSDL Biểu 09 — Mốc lộ giới / GPMB |
-| packKind | `list` |
-| changeScope | `new_page` |
-| status | `done` |
-| taskId | `task_f4dc1618` |
-| saTaskId | `task_fe29c657` |
-| resource | `boundary-markers` |
-| formNo | `09` |
-| columns | `17` · **2 section kind** |
-| IdCode | `MK-` |
-| peerSoTs | — (none · ≠ road-assets) |
-| formPattern | **Kind D Slideout** 2col · **2 section kind** · **cấm** Full-page |
-| Kind | **B** A–D+F · **D** Slideout Z1–Z3 |
-| route_confirm | **`route_a`** `/csdl-bieu-09` + hub |
-| team_lead_confirm | **approve** (autoApprove ON) |
-| design_confirm | approve |
-| solution_confirm | approve |
-| autoApprove | `ON` |
-| e2eQa | `ON` (queued `/agent-qa*` only) |
-| domain | **Asset** · `api/v1/asset/csdl-records` |
-| entity | shell + `CsdlBieu9Entity` · `Schema_CsdlBieu9` |
-| gates | tz_na · xco_get_only · share_tenant |
-| contentHashPrior | `sha256:863490daf95d2c19ddad660fc05f901eaeb0248fb65961f9e96747ebcf5b04e4` |
-| headerFingerprintPrior | `sha256:18fb135f880ed55afa6e9277e8980fd0458a24d85d87e69a753b805424f396bb` |
-| skillVersion | `2026.08.25.01` |
-| workflowVersion | `2026.09.01.02` |
-| rulesVersion | `2026.08.31.2` |
-| writtenAt | `2026-09-05T18:05:00.000Z` |
+schemaVersion: 1
+feature: csdl-bieu-09
+packKind: list
+role: team_lead
+status: done
+skillVersion: 2026.09.05.03
+workflowVersion: 2026.09.05.03
+rulesVersion: 2026.09.17.3
+contentHash: sha256:58c012cef8ad07ae7a6d5e8ab513668c51dc0755d1f209783beb41ba1c4ccc01
+headerFingerprint: sha256:765521dee151f2ded36c582ca1a0b7ec048237b88cfc5b27481f09e6787e9a77
+writtenAt: 2026-09-18T05:55:00.000Z
+taskId: task_a915ae19
+saTaskId: task_8ad5cfc2
+resource: boundary-markers
+columns: 17
+blocks: 2
+IdCode: MK-
+formNo: 09
+team_lead_confirm: approve
+route_confirm: route_a
+changeScope: edit_page
+formPattern: Slideout
+devSlash: /agent-dev
 
 ## Decisions
+- changeScope: edit_page (T-XLS-S09) · typed CRUD 17/2 **KEEP** · **cấm** reopen
+- route_confirm: route_a keep · hub `/so-ts/csdl-so-sach` + alias `/csdl-bieu-09`
+- Q-XLS: filtered · import_now · `Bieu09_MocLoGioiGPMB_{yyyyMMdd}.xls` · respect_filter
+- export/import: catalogToolbar · BFF binary/multipart · `/implement-export-import-excel`
+- golden: Cục 16-sheet sheet Biểu 9 · **cấm** 12+8 · **cấm** 2 sheet invent
+- filter: **cấm** Xuất trên LinErpListFilterBar (GAP-FILTER-BAR-08)
+- migration: **none mới** @ XLS · Schema_CsdlBieu9 KEEP
+- Gaps: GAP-BIEU09-XLS-01…06
+- mfe: Linm.Web.RMMS.Asset · be: Linm.RMMS.WebService · **cấm ERP.***
+- open questions: none
 
-- changeScope=`new_page` · packKind=`list` · typed **17 cột** · 2 section kind · **cấm** detail* only · **cấm** 2 entity
-- route_confirm **route_a** alias `/csdl-bieu-09` + hub `?resource=boundary-markers`
-- T-REN-01 formNo 8→09 · Q-KIND-LABEL **code_en** RoadLimit/GPMB · Q-STRUCT **excel_seed** · Q-DIM **full_dim** · Q-QTY **show_always** default 1 · Q-LIST-COLS **subset** · Q-PROV **keep_static** P1 · Q-REN-LABEL **with_typed**
-- Persist shell + Schema_CsdlBieu9 1:1 · migration **Dev/4b** · **cấm** parent *Json
-- API **giữ** `asset/csdl-records` · BFF proxy · **cấm ERP.***
-- road-route SearchInput P1 · org/XLS **OUT/DEFER** · peer **none** · **cấm** merge Sổ TS · map none · GAP-CSDL-CUC-11
-- Grid AC YES · Leave YES · Report N/A
-- open Q: **none**
-
-## Artifacts
-
-| Kind | Path |
-|------|------|
-| task | `specs/csdl-bieu-09/task/csdl-bieu-09.md` |
-| solution | `specs/csdl-bieu-09/be/solution-discovery.md` |
-| design | `specs/csdl-bieu-09/ui/design.md` |
-| STATUS | `specs/csdl-bieu-09/STATUS.md` |
-
-## Task matrix (ids)
-
-T-DM-01 · T-REN-01 · T-CTX-01 · T-BE-01..05 · T-BFF-01 · T-PERM-01 · T-BE-UISCHEMA-01 · T-UI-LIST/FILTER/CFG/FORM/LEAVE/ACT/LKP/FIELD/PROD/UX/RESP · T-OUT-01/02 · T-QA-CRUD/FORM/FILTER/KIND/TYP/TAB/ROUTE
-
-SA map: T-FE-01→LIST · 02→FORM · 03→FILTER+LKP · 04→LEAVE+ACT · 05→PROD · 06→UISCHEMA
+## Inventory (slim)
+| id | label | controlHint | notes |
+|----|-------|-------------|-------|
+| (form 17/2) | typed prior | keep | **cấm** reopen |
+| exportExcel | Xuất Excel | ToolbarButton | filtered · binary · 1 sheet 17 |
+| importExcel | Nhập Excel | ToolbarButton+file | import_now · typed |
 
 ## Screens / zones (ids only)
+- S-LIST · S-FORM-* KEEP · S-XLS-EXPORT · S-XLS-IMPORT
+- mfeStdUrl=http://localhost:9301/so-ts/csdl-so-sach · alias /csdl-bieu-09
+- hub=?resource=boundary-markers
 
-- S-LIST · S-FORM-C/E/V/Copy · S-ACT-DELETE · S-HUB-ENTRY · S-SKIP-MAP · **cấm** peer Sổ TS
-- mfeStdUrl=`http://localhost:9301/csdl-bieu-09`
-- hub=`http://localhost:9301/so-ts/csdl-so-sach?resource=boundary-markers`
-
-## Next
-
-| Role | Need |
-|------|------|
-| **Dev** | implement · T-* · Schema_CsdlBieu9 @ 4b |
-| QA | e2e queued `/agent-qa*` |
-| Review | after QA |
+## API / tasks (ids only)
+- FormMode↔API: list/C/E/V/Copy KEEP · export↔API-XLS-01 · import↔API-XLS-02
+- T-* KEEP: T-UI-LIST/FILTER/CFG/FORM/LEAVE/ACT/LKP/FIELD/PROD/UX/RESP · T-BE-CRUD/UISCHEMA · T-PERM · T-QA-*
+- T-XLS pending: T-XLS-BE-01..03 · T-XLS-BFF-01 · T-XLS-FE-01..02 · T-XLS-QA-01
+- deps: BE-01→BE-03→BFF→FE-01→FE-02→QA-01 · BE-02 ∥ BE-01
+- export QS: list filters + markerKind · ignore page
+- devSlash: /agent-dev (+ /dev-web-responsive · /dev-ui-review · /implement-export-import-excel)
 
 ## UNCLEAR
-
 - none
 
-## Cấm (compact)
+## Full paths (Read only if needed)
+- task: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-09/task/csdl-bieu-09.md
+- solution: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-09/be/solution-discovery.md
+- design: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-09/ui/design.md
+- STATUS: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-09/STATUS.md
+- prior: handoff/sa-compact.md · design-compact.md · po-compact.md · data_analy-compact.md
 
-ERP.* · invent API · detail* only · Guid IdCode · merge Sổ TS · parent *Json · 2 entity · implement code ở TL · Step 4b/migration/e2e/build/start:std ở TL · start role khác
+## Cấm (compact)
+ERP.* · invent API · filter-bar export · 12+8 · 2-sheet invent · reopen typed · implement code · e2e · yarn build/start:std · Step4b @ TL

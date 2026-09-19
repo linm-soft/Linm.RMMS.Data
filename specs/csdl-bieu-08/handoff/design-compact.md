@@ -1,84 +1,69 @@
-# handoff-compact — design · csdl-bieu-08
+# Handoff compact — design
 
-| | |
-|--|--|
-| schemaVersion | `1` |
-| role | `design` |
-| feature | `csdl-bieu-08` |
-| title | CSDL Biểu 08 — Hệ thống ATGT |
-| packKind | `list` |
-| changeScope | `new_page` |
-| status | `done` |
-| taskId | `task_daa7f8e9` |
-| resource | `traffic-safety` |
-| formNo | `08` |
-| columns | `45` · **11 nhóm** |
-| IdCode | `AT-` |
-| peerSoTs | ATGT types (optional deep-link) |
-| autoApprove | `ON` |
-| e2eQa | `ON` |
-| design_confirm | `approve` |
-| shared_grid_example | `v1` |
-| real_view_parity | `v1` |
-| contentHashPrior | `sha256:f972c82727726d256754d076435f9ef97c993b4f9844dc79e50b6415fcaf54be` |
-| headerFingerprintPrior | `sha256:ba8b8db4f7637ee32cfd4a882b6abdc774c538f6c9812c3ecd1d13f6151cdd6f` |
-| skillVersion | `2026.08.29.03` |
-| workflowVersion | `2026.09.01.02` |
-| rulesVersion | `2026.08.31.2` |
-| writtenAt | `2026-09-05T10:20:00.000Z` |
+schemaVersion: 1
+feature: csdl-bieu-08
+packKind: list
+role: design
+status: done
+skillVersion: 2026.09.05.03
+workflowVersion: 2026.09.05.03
+rulesVersion: 2026.09.17.3
+contentHash: sha256:639566df4ddccc3927311d5618bf4e7c1dbad0dac80962c414f861dacc9d5e9c
+headerFingerprint: sha256:ba8b8db4f7637ee32cfd4a882b6abdc774c538f6c9812c3ecd1d13f6151cdd6f
+writtenAt: 2026-09-18T05:10:00.000Z
+taskId: task_b2622193
+resource: traffic-safety
+columns: 45
+groups: 11
+IdCode: AT-
+formNo: 08
+design_confirm: approve
+shared_grid_example: v1
+real_view_parity: v1
+formPattern: Slideout
+changeScope: edit_page
 
 ## Decisions
-
-- Kind **B** A–D+F + Kind **D** Slideout · `data-form-cols=2` · footer_actions_only · **shared + 1 child** · **cấm** Full-page
-- form typed **45/11** · **cấm** detail* only · **cấm** wide 45 entity · Control = controlHint
-- Q-ROUTE **alias_now** `/csdl-bieu-08` · Q-PROV **keep_static** · Q-CHILD **child_tables** · Q-TYPE-UX **confirm** · Q-MARKER-KIND **lookup_static** · Q-LIST-COLS **subset_by_type** · Q-REN-LABEL **with_typed** · Q-PEER **optional**
-- GAP-CSDL-ROAD-01 SearchInput road-route P1 · GAP-CSDL-ORG-01 DEFER P2 · GAP-CSDL-XLS-01 OUT stub
-- peer deep-link optional · **cấm** merge Sổ TS · map none
-- API giữ `api/v1/asset/csdl-records` · catalogKind `traffic-safety` · **cấm** ERP.*
-- design_confirm **approve** (autoApprove ON) · open Q: **none**
-- Report DES-RPT **N/A**
+- changeScope: edit_page (T-XLS-S08) · **cấm** new_page typed reopen
+- formPattern: Slideout · data-form-cols=2 · footer_actions_only (keep)
+- Kind B A–D+F keep · toolbar **+Xuất Excel +Nhập Excel**
+- Q-XLS-SCOPE: filtered · Q-XLS-IMPORT: import_now · Q-XLS-FILENAME: Bieu08_HeThongATGT_{yyyyMMdd}.xls · Q-XLS-TYPE: one_sheet_45
+- export/import: catalogToolbar · BFF binary · `/implement-export-import-excel`
+- golden: Cục 16-sheet sheet Biểu 8 · **cấm** 12+8 · **cấm** wide-row
+- filter: **cấm** Xuất trên LinErpListFilterBar (GAP-FILTER-BAR-08)
+- design_confirm: approve (autoApprove ON) · open Q: none
+- Report DES-RPT: N/A
+- mfe: Linm.Web.RMMS.Asset · be: Linm.RMMS.WebService · **cấm ERP.***
 
 ## Inventory (slim)
-
 | id | label | controlHint | notes |
 |----|-------|-------------|-------|
-| search | Tìm | SearchTextInput | Zone B · 🔍 cụm phải |
-| province/status/side/assetType | Tỉnh/TT/Vị trí/Loại | Dropdown | LOOKUP_STATIC · 11 type |
-| roadCode | Đường | SearchInput | road-route |
-| kmFrom/kmTo | Km | Number | |
-| code | Mã | Text ro | AT- |
-| sign*/marker*/median*/… | Child 11 | Text/Number/Dropdown | 1 section · Q-TYPE-UX |
-| builtYear/manageUnit/notes/status | … | Number/Text/Textarea/Dropdown | org P2 |
+| (form 45/11) | typed prior | keep | **cấm** reopen |
+| exportExcel | Xuất Excel | ToolbarButton | fa-file-excel · filtered |
+| importExcel | Nhập Excel | ToolbarButton+file | fa-file-import · P1 |
 
 ## Screens / zones (ids only)
+- S-LIST DES-GRID-A/B/C/D/F/H keep · toolbar +export+import
+- S-XLS-EXPORT · S-XLS-IMPORT
+- S-FORM-* DES-GRID-Z keep · LeaveConfirmModal
+- reviewUrl=file:///D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-08/ui/prototype/csdl-bieu-08-list-prototype.html
+- peerStdUrl=http://localhost:9301/so-ts/csdl-so-sach?resource=traffic-safety
+- mfeStdUrl=http://localhost:9301/so-ts/csdl-so-sach · alias /csdl-bieu-08
+- prototype=specs/csdl-bieu-08/ui/prototype/csdl-bieu-08-list-prototype.html
 
-- S-LIST DES-GRID-A · B · B-FILTER · C0–C3 · D · F · H
-- S-FORM-* DES-GRID-Z · DES-FORM-Z1–Z3 · shared+1 child · LeaveConfirmModal · type-change confirm
-- S-HUB-ENTRY · S-PEER-SOTS · S-SKIP-MAP
-- reviewUrl=`file:///D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-08/ui/prototype/csdl-bieu-08-list-prototype.html`
-- mfeStdUrl=`http://localhost:9301/csdl-bieu-08`
-- peerStdUrl=`http://localhost:9301/so-ts/csdl-so-sach?resource=traffic-safety`
-- prototype=`specs/csdl-bieu-08/ui/prototype/csdl-bieu-08-list-prototype.html`
-
-## API / next
-
-- CRUD BFF `…/asset/csdl-records` · resource=traffic-safety · optional `type=` · typed DTO **SA**
-- road-route `…/integration/road-routes/search`
-- Next: **SA** Schema_CsdlBieu8 + children · UiSchema typed · renumber formNo
-- e2e: queued `/agent-qa*` only · **cấm** e2e/start:std ở Design
+## API / tasks (ids only)
+- CRUD keep: …/csdl-records?resource=traffic-safety
+- Export: GET …/csdl-records/export?resource=traffic-safety (+ filter QS)
+- Import: POST …/csdl-records/import?resource=traffic-safety
+- T-XLS-S08 · GAP-BIEU08-XLS-01…06 · real-data §A+§B PASS
+- Next: SA path/BFF/golden checksum 45
 
 ## UNCLEAR
-
 - none
 
 ## Full paths (Read only if needed)
-
-- design: `D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-08/ui/design.md`
-- control-hint: `D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/csdl-bieu-08-control-hint.md`
-- real-data: `D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/csdl-bieu-08-real-data.md`
-- prior po: `D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-08/handoff/po-compact.md`
-- STATUS: `D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-08/STATUS.md`
-
-## Cấm (compact)
-
-Demo/LS SSOT · ERP.* · Guid IdCode · form 3 ô only · wide 45 · invent map · merge Sổ TS · yarn build/e2e/start:std · re-scan demo · paste HTML vào compact
+- design: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-08/ui/design.md
+- control-hint: D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/csdl-bieu-08-control-hint.md
+- real-data: D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/csdl-bieu-08-real-data.md
+- prior po: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-08/handoff/po-compact.md
+- STATUS: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-08/STATUS.md

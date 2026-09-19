@@ -1,92 +1,78 @@
-# handoff-compact — sa · csdl-bieu-13
+# Handoff compact — sa
 
-| | |
-|--|--|
-| schemaVersion | `1` |
-| role | `sa` |
-| feature | `csdl-bieu-13` |
-| title | CSDL Biểu 13 — Tường chống ồn |
-| packKind | `list` |
-| changeScope | `new_page` |
-| status | `done` |
-| taskId | `task_66b443d8` |
-| resource | `noise-barriers` |
-| formNo | `13` |
-| columns | `13` · section vị trí + kích thước |
-| IdCode | `TC-` |
-| peerSoTs | `so-ts-noise-barrier` · **cấm** merge · none_p1 |
-| formPattern | **Kind D Slideout** 2col · Z2 Kích thước · **cấm** Full-page |
-| Kind | **B** A–D+F · **D** Slideout Z1–Z3 |
-| solution_confirm | **approve** (autoApprove ON) |
-| domain | **Asset** · `api/v1/asset/csdl-records` |
-| bff | proxy only · `web-bff/api/v1/asset/csdl-records` |
-| entity | shell `CsdlCatalogRecordEntity` + typed `CsdlBieu13Entity` · `rmms_csdl_bieu13` · Schema_CsdlBieu13 |
-| dim | lengthM/heightM/areaM2 decimal ≥0 · area **manual** · reject all-zero |
-| side | L/R/C/Both LOOKUP |
-| barrierType | **no_type_keep_13** |
-| sa_tz_gate | `tz_na` |
-| sa_xco_gate | `xco_get_only` |
-| sa_shared_table | `share_tenant` |
-| contentHashPrior | `sha256:39a45de0a9b834c65373e6c20d1664ab43144ff60d97bae4f0d886ad09d91e3a` |
-| headerFingerprintPrior | `sha256:31dbc83200b511c9d61333b1cdb94e2880778980a3b21970be414e926db29008` |
-| skillVersion | `2026.08.24.01` |
-| workflowVersion | `2026.09.01.02` |
-| rulesVersion | `2026.08.31.2` |
-| writtenAt | `2026-09-05T14:20:00.000Z` |
+schemaVersion: 1
+feature: csdl-bieu-13
+packKind: list
+role: sa
+status: done
+skillVersion: 2026.09.05.03
+workflowVersion: 2026.09.05.03
+rulesVersion: 2026.09.17.3
+contentHash: sha256:800386bb8f86bfcc815b9c7d3a6dc246dc58b0a95b5132a317c5a094d0b4194f
+headerFingerprint: sha256:31dbc83200b511c9d61333b1cdb94e2880778980a3b21970be414e926db29008
+writtenAt: 2026-09-18T01:30:00.000Z
+taskId: task_51c2f1f4
+priorDesign: task_82008258
+priorTyped: task_66b443d8 · keep
+resource: noise-barriers
+columns: 13
+IdCode: TC-
+formNo: 13
+peerSoTs: so-ts-noise-barrier · cấm merge
+solution_confirm: approve
+changeScope: edit_page
+formPattern: Slideout
+sa_tz_gate: tz_na
+sa_xco_gate: xco_get_only
+sa_shared_table: share_tenant
 
 ## Decisions
-
-- changeScope=`new_page` · packKind=`list` · Kind B+D Slideout · typed **13 cột** · section kích thước · **cấm** detail* only · **cấm** 2 entity
-- API **giữ** `api/v1/asset/csdl-records` · BFF proxy · **cấm ERP.*** · **cấm** invent infra · **cấm** merge road-assets/so-ts-noise-barrier
-- Persist: shell + **Schema_CsdlBieu13** 1:1 · LengthM/HeightM/AreaM2 flat · **cấm** parent *Json · migration Dev/4b only
-- Q-ROUTE **alias_now** · Q-PROV **keep_static** · Q-BARRIER-TYPE **no_type_keep_13** · Q-AREA-DERIVE **manual** · Q-PREFIX **TC** · Q-LIST-COLS **subset** · Q-TITLE **ctx_tuong** · Q-DMAP **add_now** · Q-PEER-LINK **none_p1**
-- road-route SearchInput P1 · org **DEFER P2** · XLS **OUT**
-- Peer cite only · map none · GAP-CSDL-CUC-11 · hub NEW card formNo 13
-- Gates: tz_na · xco_get_only · share_tenant
-- DOMAIN-MAP add `csdl-bieu-13`→Asset (T-DM-01) — map live thiếu `13`
-- open questions: **none**
+- changeScope: edit_page (T-XLS-S13) · **cấm** reopen typed new_page CRUD
+- keep: Schema_CsdlBieu13 · shell+typed 1:1 · 13 · Kind B+D Slideout · lengthM/heightM/areaM2 flat
+- export: GET …/csdl-records/export?resource=noise-barriers (+ filter QS · no page) · BFF binary proxy
+- import: **DEFER P1** · export_only_p0 · nút ẩn
+- Q-XLS-SCOPE: filtered · Q-XLS-FILENAME: Bieu13_TuongChongOn_{yyyyMMdd}.xls · **ext .xls** (override PO .xlsx · Cục+Wave1) · Q-XLS-SHEET: one_sheet
+- mode: **filter-all** · ignore page · **cấm** HTTP streaming P0
+- golden: Cục 16-sheet Biểu 13 · checksum 13 · 1 sheet · dài/cao/DT cùng hàng · **cấm** 12+8 · **cấm** dim sheet
+- filter: **cấm** Xuất trên LinErpListFilterBar (GAP-FILTER-BAR-08)
+- entity/migration: **none** · keep Schema_CsdlBieu13
+- BFF: proxy only · stream binary · FE BASE /asset/csdl-records
+- domain: Asset · **cấm ERP.*** · **cấm** invent infra
+- peer: so-ts-noise-barrier cite · **cấm** merge road-assets
+- gates: tz_na · xco_get_only · share_tenant (keep)
+- solution_confirm: approve (autoApprove ON) · open Q: none
+- mfe: Linm.Web.RMMS.Asset · be: Linm.RMMS.WebService
+- devSlash: /implement-export-import-excel
 
 ## Inventory (slim)
-
 | id | label | controlHint | write |
 |----|-------|-------------|-------|
-| search | Tìm | SearchTextInput | filter |
-| province/status/side | Tỉnh/TT/VT | Dropdown | shell LOOKUP |
-| roadCode | Đường | SearchInput | shell + road-route |
-| kmFrom/kmTo | Km | Number | shell Line |
-| code | Mã | Text ro | shell TC- |
-| lengthM/heightM/areaM2 | Dài/Cao/DT | Number | typed manual area |
-| manageUnit/notes/status | … | Text/Textarea/Dropdown | shell P2 |
+| (form 13) | typed prior | keep | **cấm** reopen |
+| exportExcel | Xuất Excel | ToolbarButton | GET export binary |
+| importExcel | Nhập Excel | ToolbarButton+file | DEFER P1 · ẩn |
 
 ## Screens / zones (ids only)
-
-- S-LIST · S-FORM-C/E/V/Copy · S-ACT-DELETE · S-HUB-ENTRY · S-SKIP-PEER · S-SKIP-MAP
-- mfeStdUrl=`http://localhost:9301/csdl-bieu-13`
-- hub=`http://localhost:9301/so-ts/csdl-so-sach?resource=noise-barriers`
+- S-LIST DES-GRID keep · toolbar +export · peer cite only
+- S-XLS-EXPORT · S-XLS-IMPORT (hidden P1)
+- S-FORM-* keep · LeaveConfirmModal
+- mfeStdUrl=http://localhost:9301/so-ts/csdl-so-sach · alias /csdl-bieu-13
+- hub=?resource=noise-barriers
 
 ## API / tasks (ids only)
-
-- FormMode↔API: list/C/E/V/Copy ↔ GET/POST/PUT · soft DELETE · LKP road-route
-- T-DM-01 · T-BE-01..06 · T-BFF-01 · T-FE-01..06 · T-OUT-01/02 → TL
+- CRUD keep: …/csdl-records?resource=noise-barriers
+- API-XLS-01 GET …/export · API-XLS-02 POST import DEFER P1
+- BFF mirror web-bff · FormMode list/CRUD keep · export = toolbar action
+- T-XLS-S13-BE-01 · BFF-01 · FE-01/02 · QA-01 → TL · BE-02 OUT P1
+- GAP-BIEU13-XLS-01…08
 
 ## UNCLEAR
-
 - none
 
-## Full paths
-
-- solution: `specs/csdl-bieu-13/be/solution-discovery.md`
-- design: `specs/csdl-bieu-13/ui/design.md`
-- prior compact: `handoff/design-compact.md` · `po-compact.md` · `data_analy-compact.md`
-
-## Next
-
-| Role | Need |
-|------|------|
-| **TL** | task/csdl-bieu-13.md · T-* · gates |
-| Dev | Schema_CsdlBieu13 · typed DTO · alias page · Slideout 13 · hub NEW |
-| QA | e2e queued `/agent-qa*` |
+## Full paths (Read only if needed)
+- solution: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-13/be/solution-discovery.md
+- design: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-13/ui/design.md
+- real-data: D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/csdl-bieu-13-real-data.md
+- STATUS: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-13/STATUS.md
 
 ## Cấm (compact)
-
-ERP.* · invent API · detail* only · Guid IdCode · merge so-ts-noise-barrier/road-assets · parent *Json · 2 entity · Step 4b/migration/e2e/build/start:std ở SA · Write MFE · re-scan demo
+ERP.* · invent infra · toast=done · filter-bar export · golden 12+8 · invent dim sheet · merge peer/road-assets · new_page typed re-CRUD · migration @ SA · Write MFE @ SA · yarn build/e2e/start:std @ SA · streaming P0 · Import wire P0

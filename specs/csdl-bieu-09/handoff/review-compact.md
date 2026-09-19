@@ -1,91 +1,76 @@
-# handoff-compact — review · csdl-bieu-09
+# Handoff compact — review
 
-| | |
-|--|--|
-| schemaVersion | `1` |
-| role | `review` |
-| feature | `csdl-bieu-09` |
-| title | CSDL Biểu 09 — Mốc lộ giới / GPMB |
-| packKind | `list` |
-| changeScope | `new_page` |
-| status | `done` |
-| verdict | **PASS** |
-| review_confirm | **approve** (autoApprove ON) |
-| taskId | `task_a5fbb485` |
-| priorQaTaskId | `task_54b4d1b6` |
-| resource | `boundary-markers` |
-| formNo | `09` |
-| columns | `17` · **2 section kind** |
-| IdCode | `MK-` |
-| peerSoTs | — (none) |
-| formPattern | Kind D Slideout 2col · 2 section kind |
-| Kind | B A–D+F · D Slideout Z1–Z3 |
-| route_confirm | `route_a` |
-| mfeStdUrl | `http://localhost:9301/csdl-bieu-09` |
-| hubDeepLink | `/so-ts/csdl-so-sach?resource=boundary-markers` |
-| domain | **Asset** · `api/v1/asset/csdl-records` |
-| entity | shell + `CsdlBieu9Entity` · `Schema_CsdlBieu9` |
-| contentHashPrior | `sha256:863490daf95d2c19ddad660fc05f901eaeb0248fb65961f9e96747ebcf5b04e4` |
-| hashSkip | `unchanged` |
-| skillVersion | `2026.08.29.03` |
-| workflowVersion | `2026.09.01.02` |
-| rulesVersion | `2026.08.31.2` |
-| writtenAt | `2026-09-05T11:25:00.000Z` |
+schemaVersion: 1
+feature: csdl-bieu-09
+packKind: list
+role: review
+status: done
+verdict: PASS
+review_confirm: done
+skillVersion: 2026.09.05.03
+workflowVersion: 2026.09.05.03
+rulesVersion: 2026.09.17.3
+contentHash: sha256:58c012cef8ad07ae7a6d5e8ab513668c51dc0755d1f209783beb41ba1c4ccc01
+headerFingerprint: sha256:765521dee151f2ded36c582ca1a0b7ec048237b88cfc5b27481f09e6787e9a77
+hashGate: skip
+writtenAt: 2026-09-18T06:15:00.000Z
+taskId: task_84d8fe34
+qaTaskId: task_a1a1c430
+resource: boundary-markers
+columns: 17
+blocks: 2
+IdCode: MK-
+formNo: 09
+changeScope: edit_page
+formPattern: Slideout
+autoApprove: ON
+e2eQa: ON (prior QA PASS · cấm re-e2e)
 
 ## Decisions
+- changeScope: edit_page (T-XLS-S09) · CRUD 17/2 KEEP · **cấm** reopen
+- review_confirm: **done** (autoApprove ON) · QUERY/SEC/UI-FN/BE-FN **PASS**
+- export: catalogToolbar · BFF binary · filtered (+markerKind) · `Bieu09_MocLoGioiGPMB_{yyyyMMdd}.xls` · sheet «Biểu 9» · one_sheet_17
+- import: import_now · toolbar Nhập · sheetMap Biểu 9
+- filter: **cấm** Xuất on LinErpListFilterBar (GAP-FILTER-BAR-08)
+- **cấm** 12+8 · 2-sheet invent · ERP.* · hash skip
+- open questions: none · gaps: none
+- phase → **done** · chain closed
 
-- QUERY/SEC/UI-FN/BE-FN **PASS** · open P0/P1 **none** · review_confirm **approve**
-- Hash unchanged → skip re-analy · prior QA e2e S0/S1/QA-20 PASS accepted
-- API keep `asset/csdl-records` · typed Schema_CsdlBieu9 · route_a + hub · peer **none**
-- phase **done** · chain closed · **cấm** ERP.* / invent API / merge Sổ TS
-- Debt carry: DB migrate · Auth DEFER · GAP-QA-E2E-PW-01 · GAP-QA-ROAD-TESTID · org/XLS
+## Inventory (slim)
+| id | label | controlHint | notes |
+|----|-------|-------------|-------|
+| exportExcel | Xuất Excel | ToolbarButton | filtered · PASS |
+| importExcel | Nhập Excel | ToolbarButton+file | import_now · PASS |
+| (form 17/2) | typed prior | keep | KEEP |
 
-## Gates (slim)
+## Screens / zones (ids only)
+- S-LIST · S-XLS-EXPORT · S-XLS-IMPORT · S-FORM-C KEEP · S-HUB-ENTRY
+- testid=`rmms-csdl-bieu-09-list-page` · `…-export-excel-btn` · `…-import-excel-btn`
 
+## API / tasks (ids only)
+- API-XLS-01/02 PASS · CRUD KEEP
+- T-XLS-* done · T-XLS-QA-01 PASS
+- Gates: QUERY/SEC/UI-FN/BE-FN PASS
+
+## Evidence (ids)
 | Gate | Result |
 |------|--------|
 | QUERY | PASS |
-| SEC | PASS (+ Auth DEFER P2) |
+| SEC | PASS |
 | UI-FN | PASS |
 | BE-FN | PASS |
-| fix_gaps | none |
-
-## Artifacts
-
-| Kind | Path |
-|------|------|
-| findings | `specs/csdl-bieu-09/review/findings.md` |
-| STATUS | `specs/csdl-bieu-09/STATUS.md` |
-| prior qa | `handoff/qa-compact.md` |
-| prior dev | `handoff/dev-compact.md` |
-
-## Evidence (ids)
-
-| Case | Result | sha16 |
-|------|--------|-------|
-| S0 | PASS | `c29f1b4070c71b98` |
-| S1 | PASS | `c29f1b4070c71b98` |
-| QA-20 | PASS | `aff91b0ac11e1e28` |
-
-## Screens / zones
-
-- S-LIST · S-FORM-C · S-HUB-ENTRY · S-SKIP-MAP · peer none
-- testid=`rmms-csdl-bieu-09-list-page` · form=`rmms-csdl-bieu-09-form-slideout`
+| QA S0/S1/QA-20/XLS | PASS |
 
 ## Debt
-
-- DB migrate apply P2 · Auth DEFER P2 · GAP-QA-E2E-PW-01 P2 · GAP-QA-ROAD-TESTID P3 · org/XLS OUT/DEFER · migration id note P3
-
-## Next
-
-| Role | Need |
-|------|------|
-| — | chain closed · ops: migrate apply / Auth / debt backlog |
+- getBlob CD strip P2 · Auth DEFER · GAP-QA-E2E-PW-01 P2 · DB migrate apply P2
 
 ## UNCLEAR
-
 - none
 
-## Cấm (compact)
+## Full paths (Read only if needed)
+- findings: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-09/review/findings.md
+- STATUS: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-09/STATUS.md
+- prior: handoff/qa-compact.md
 
-ERP.* · invent API · detail* only · Guid IdCode · merge Sổ TS · e2e/start:std @ Review · implement @ Review · Step 4b/migration @ Review · start role khác
+## Cấm (compact)
+ERP.* · filter-bar export · 12+8 · 2-sheet · reopen typed · e2e/build/start:std @ Review · implement @ Review

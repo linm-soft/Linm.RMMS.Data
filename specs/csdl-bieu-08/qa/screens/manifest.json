@@ -1,37 +1,38 @@
 {
   "url": "http://localhost:9301/csdl-bieu-08",
-  "method": "playwright channel=chrome headless · contract fallback after yarn e2e-qa hang (GAP-QA-E2E-PW-01)",
+  "method": "playwright channel=chrome · yarn e2e-qa playwright resolve fail → AutoCode createRequire fallback · skip-start",
   "feature": "csdl-bieu-08",
+  "changeScope": "edit_page",
   "cases": [
     "S0",
     "S1",
     "QA-20"
   ],
-  "capturedAt": "2026-09-05T10:36:11.056Z",
+  "capturedAt": "2026-09-17T22:24:11.656Z",
   "steps": [
     {
       "id": "S0",
       "result": "PASS",
       "screenshot": "S0.png",
-      "sha256_16": "4d575d82ee778423",
+      "sha256_16": "138dfa0deb89fe7c",
       "url": "http://localhost:9301/csdl-bieu-08",
-      "note": "list Biểu 08 · filter-bar · assetType · empty/grid · peer Sổ TS"
+      "note": "list Biểu 08 · toolbar Xuất/Nhập · filter-bar · empty/grid"
     },
     {
       "id": "S1",
       "result": "PASS",
       "screenshot": "S1.png",
-      "sha256_16": "4d575d82ee778423",
+      "sha256_16": "138dfa0deb89fe7c",
       "url": "http://localhost:9301/so-ts/csdl-so-sach?resource=traffic-safety",
-      "note": "hub ?resource=traffic-safety → redirect /csdl-bieu-08"
+      "note": "hub deep-link ?resource=traffic-safety → Biểu 08 list"
     },
     {
       "id": "QA-20",
       "result": "PASS",
       "screenshot": "QA-20.png",
-      "sha256_16": "18b9ab5e467f63c4",
+      "sha256_16": "d94fdfd692e4c929",
       "url": "http://localhost:9301/csdl-bieu-08?form=create",
-      "note": "Create Slideout · form=create · shared+1 child · AT-"
+      "note": "Create Slideout · form=create KEEP"
     }
   ],
   "ok": true

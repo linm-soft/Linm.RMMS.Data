@@ -1,81 +1,71 @@
-# handoff-compact — review · csdl-bieu-11
+# Handoff compact — review
 
-| | |
-|--|--|
-| schemaVersion | `1` |
-| role | `review` |
-| feature | `csdl-bieu-11` |
-| title | CSDL Biểu 11 — Hệ thống chiếu sáng |
-| packKind | `list` |
-| changeScope | `new_page` |
-| status | `done` |
-| verdict | **PASS** |
-| review_confirm | **done** |
-| taskId | `task_20e43f26` |
-| resource | `lighting-systems` |
-| formNo | `11` |
-| columns | `24` · **2 section** lưới + NLMT |
-| IdCode | `LT-` |
-| peerSoTs | `so-ts-lighting` (toolbar · ≠ merge) |
-| formPattern | Kind D Slideout 2col · 2 section |
-| Kind | B A–D+F · D Slideout Z1–Z3 · Z2b NLMT |
-| cabinet | **split** · solar optional_flat · LED allow_zero · gridStatus align_status |
-| route_confirm | `route_a` |
-| mfeStdUrl | `http://localhost:9301/csdl-bieu-11` |
-| hub | `/so-ts/csdl-so-sach?resource=lighting-systems` |
-| domain | **Asset** · `api/v1/asset/csdl-records` |
-| entity | shell + `CsdlBieu11Entity` · `Schema_CsdlBieu11` |
-| buildMfe | **PASS** |
-| buildBe | **PASS** |
-| e2eQa | **PASS** · S0/S1/QA-20 |
-| contentHash | `sha256:7980db07b4712336ab0b675fa89feaab75c67fdaef3b54fe94647ab9ec1863d8` |
-| headerFingerprint | `sha256:b37759a9224c09c7c63bc81583b4a9bcbca02e74cba8b63579819e90d57f1d1a` |
-| hashSkip | **yes** (unchanged) |
-| skillVersion | `2026.08.29.03` |
-| workflowVersion | `2026.09.01.02` |
-| rulesVersion | `2026.08.31.2` |
-| writtenAt | `2026-09-05T13:00:00.000Z` |
+schemaVersion: 1
+feature: csdl-bieu-11
+packKind: list
+role: review
+status: done
+verdict: PASS
+review_confirm: done
+skillVersion: 2026.09.05.03
+workflowVersion: 2026.09.05.03
+rulesVersion: 2026.09.17.3
+contentHash: sha256:7f64b8dcea4265af23b9f2e5e1dae3ab1c933b0a4404b0f872d39029716b4d62
+headerFingerprint: sha256:b37759a9224c09c7c63bc81583b4a9bcbca02e74cba8b63579819e90d57f1d1a
+writtenAt: 2026-09-18T07:25:00.000Z
+taskId: task_79bbf628
+priorQaTaskId: task_735d8dfc
+priorTypedReview: task_20e43f26
+resource: lighting-systems
+columns: 24
+blocks: 2
+IdCode: LT-
+formNo: 11
+changeScope: edit_page
+formPattern: Slideout
+e2eQa: PASS
+mfeStdUrl: http://localhost:9301/so-ts/csdl-so-sach
+alias: /csdl-bieu-11
+hubDeepLink: /so-ts/csdl-so-sach?resource=lighting-systems
+peerSoTs: so-ts-lighting
 
 ## Decisions
+- changeScope: edit_page (T-XLS-S11) · typed 24/2 KEEP · **cấm** reopen
+- review_confirm: **done** (autoApprove ON) · verdict **PASS**
+- gates: QUERY/SEC/UI-FN/BE-FN **PASS** · hash-skip (contentHash unchanged)
+- XLS: catalogToolbar Xuất/Nhập · filtered+gridStatus/side · `Bieu11_ChieuSang_{yyyyMMdd}.xls` · one_sheet 24 · LED+NLMT
+- filter: **0** Xuất on LinErpListFilterBar (GAP-FILTER-BAR-08)
+- import_now · sheet Biểu 11 · gridStatus validate · Schema_CsdlBieu11 KEEP · migration none
+- ERP.*: none · Auth DEFER debt
+- QA e2e XLS PASS keep · **cấm** re-run e2e/build @ Review
+- open questions: none · chain complete
 
-- review_confirm **done** (autoApprove ON) · QUERY/SEC/UI-FN/BE-FN **PASS**
-- Prior chain confirmed · contentHash unchanged · hash-skip
-- Alias `/csdl-bieu-11` + hub · typed 24 · cabinet split · solar flat · peer toolbar · **cấm** ERP.*
-- QA e2e PASS · no P0/P1 · pipeline Review **complete**
-- open Q: **none**
+## Inventory (slim)
+| id | label | controlHint | notes |
+|----|-------|-------------|-------|
+| exportExcel | Xuất Excel | ToolbarButton | PASS filtered |
+| importExcel | Nhập Excel | ToolbarButton+file | PASS import_now |
+| (form 24/2) | typed prior | keep | KEEP |
 
-## Gates
+## Screens / zones (ids only)
+- S-LIST · S-XLS-EXPORT · S-XLS-IMPORT · S-FORM-C KEEP · S-HUB-ENTRY · S-PEER
+- testid=`rmms-csdl-bieu-11-list-page` · `…-export-excel-btn` · `…-import-excel-btn`
 
-| Gate | Result |
-|------|--------|
-| QUERY | PASS |
-| SEC | PASS (Auth DEFER debt) |
-| UI-FN | PASS |
-| BE-FN | PASS |
-| Hash | skip |
+## API / tasks (ids only)
+- API-XLS-01/02 PASS · CRUD KEEP
+- T-XLS-* done · T-XLS-QA-01 PASS
+- prior typed review KEEP PASS
 
-## Artifacts
-
-| Kind | Path |
-|------|------|
-| findings | `specs/csdl-bieu-11/review/findings.md` |
-| prior qa | `handoff/qa-compact.md` |
-| STATUS | `specs/csdl-bieu-11/STATUS.md` |
-
-## Debt (carry)
-
-- GAP-QA-E2E-PW-01 P2 · GAP-QA-ROAD-TESTID P3 · DB migrate apply · Auth DEFER · org P2 · XLS OUT
-
-## Next
-
-| Role | Need |
-|------|------|
-| — | **end** · no further role in qldb chain |
+## Debt
+- Auth DEFER · GAP-QA-E2E-PW-01 P2 · migrate apply · org P2 · getBlob CD strip
 
 ## UNCLEAR
-
 - none
 
-## Cấm (compact)
+## Full paths (Read only if needed)
+- findings: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-11/review/findings.md
+- STATUS: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-11/STATUS.md
+- prior: handoff/qa-compact.md
 
-ERP.* · implement/e2e/build/start:std/Step4b @ Review · invent API · Solar child · merge Sổ TS · fix_gaps without P0/P1
+## Cấm (compact)
+ERP.* · invent API · reopen typed · filter-bar export · 12+8 · 2-sheet · yarn build/e2e/start:std @ Review · start role khác

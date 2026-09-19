@@ -1,128 +1,101 @@
-# QA — scenarios — users (Kind B catalog + full-page form)
+# QA — scenarios — users (Kind B · KEEP + delta job-title)
 
 | Field | Value |
 |-------|-------|
 | feature | `users` |
 | this role | `qa` · `/agent-qa` |
 | status | `done` |
-| pack | T-QA-01 · QA-CRUD · FormType (LKP/FIELD/PROD/UX) · delta `route` SearchInput + `?route=` + MultiSearchCsv |
+| changeScope | `edit_page` |
+| packKind | `list` |
+| pack | T-QA-01 · QA-CRUD · **T-QA-JOB-01** · **QA-JOB-CRUD** · FormType KEEP |
 | mfeStdUrl | `http://localhost:9314/integration/users` |
 | mfeStdRoute | `/integration/users` |
-| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/integration/users` |
+| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/integration/users` + LKP `job-titles` |
 | bff | `web-bff/api/v1/integration/users` |
-| lookup | `GET /integration/road-routes/search` · `GET /integration/org-units` · `GET /integration/users?search=` |
-| taskId | `task_2710faa2` |
-| prior Dev | `task_438be5dc` · implement `done` |
+| lookup | road-routes · org-units · users · **job-titles/search** |
+| taskId | `task_9d0370d3` |
+| prior Dev | `task_a49a5149` · implement **confirmed** |
 | autoApprove | ON |
-| method | static review live `UsersListPage` + `UsersFormPage` + `MultiSearchCsvField` + `lookups.ts` + `endpoint.ts`/`usersService`/`usersStore` + API `AppUserService`/`AppUsersController` + BFF `AppUsersBffController` · `yarn typecheck` + `yarn build` + `dotnet build` PASS |
-| updatedAt | `2026-08-15T09:05:00.000Z` |
+| e2eQa | ON · runtime |
+| method | E2E Playwright `S0,S1,QA-20` + PNG · static review Zone B/C/Form job-title · schema hotfix JobTitle* |
+| updatedAt | `2026-09-18T16:48:00.000Z` |
 
-## Smoke — Final MFE (REQUIRED)
+## Smoke — Final MFE (REQUIRED · e2e)
 
 | # | Step | Expect | Result |
 |---|------|--------|--------|
-| S0 | `yarn start:std` · mở `http://localhost:9314/integration/users` | Route mount · không 404 | **PASS** (`index.tsx` `/integration/users` · `/new` · `/:id`) |
-| S1 | List shell | 1× `LinPageLayout` kind=catalog · grid/empty · **không** nested `CatalogListShell` | **PASS** (`data-catalog-list-page` · `skeletonRows=8`) |
-| S2 | Footer pager | `LinCatalogListPagination` · pageSize default 50 · sizes 50/100/200/500 | **PASS** |
-| S3 | Search debounce (không nút Tìm) | `SearchTextInput` + Enter `onSearch` · `pulseSearch` · page=1 · 300ms draft | **PASS** |
-| S4 | Role / status / tuyến SearchInput change | List refetch page=1 · `getList({ route })` | **PASS** (`routeDraft` → `applyFilters`) |
-| S5 | Toolbar Refresh / +Tạo mới / Config | `/integration/users/new` · config force `resizable: true` · Tạo mới **chỉ Zone B** | **PASS** |
-| S6 | History toolbar/menu | `LinCatalogHistoryModal` stub | **PASS** (debt History API) |
-| S7 | Row menu View/Edit/Copy/Delete/History + Phân tuyến / Cán bộ QL / Đổi MK | Full-page form · `buildCatalogRowMenuItems` + 3 extra | **PASS** |
-| S8 | Form Create/Edit/View/Copy | Z1 header · Z2 fields · Z3 footer Lưu/Hủy · View `<dl>` | **PASS** |
-| S9 | No ERP.* path | FE BASE `/integration/users` · BE `Linm.RMMS.WebService` · **cấm** `api/v1/rmms/*` | **PASS** |
+| S0 | `yarn start:std` · `http://localhost:9314/integration/users` | Route mount · title «Quản lý người dùng» · `data-testid=rmms-users-list-page` · **không** 404 | **PASS** · PNG `qa/screens/S0.png` · sha16=`7b8f8ed3940ce834` |
+| S1 | List shell | 1× LinPageLayout catalog · Zone B filters · **Chức vụ** SearchInput · org tree + empty/grid · **không** nested CatalogListShell | **PASS** · PNG `qa/screens/S1.png` · sha16=`5bda8ef5caa557d1` · live: empty «Không có dữ liệu người dùng» |
+| S2–S9 | KEEP prior (pager · debounce · role/status/route · toolbar · history · row menu · form modes · no ERP.*) | Prior **PASS** (task_2710faa2) | **KEEP PASS** |
 
-## List A–D (T-QA-01)
+## List A–D (T-QA-01 KEEP)
 
 | Zone | Scenario | Result |
 |------|----------|--------|
-| A | Header «Quản lý người dùng» · `fas fa-user-shield` · **cấm** Thêm mới trên A | **PASS** |
-| B | catalogToolbar refresh·history·cog·add·delete · filters `filterCols=4`: SearchTextInput + role + status + **route SearchInput** `ROAD_ROUTE_LOOKUP_CONFIG` | **PASS** |
-| C | Org tree exact `orgCode` (không subtree) + `LinCatalogDataGrid` `resizable: true` · click mã → View · cột Mã/Họ tên/Tổ chức/Vai trò/Tuyến/Trạng thái/SĐT | **PASS** |
-| D | `LinCatalogListPagination` only · **cấm** footerPagination / pageSizeBar / raw table | **PASS** |
-| Title | `listTitle` `Cơ quan · người dùng · phân tuyến` | **PASS** |
-| Layout | flex column · skeleton · `useServerPagedListLoading` | **PASS** |
-| Empty | copy gồm tuyến khi filter route | **PASS** |
-| Status label | `active` → **Đang dùng** · `locked` → **Khóa** (FE `STATUS_LABELS` + BE init-data) | **PASS** |
+| A–D | Header · toolbar · filters · grid · pager | **KEEP PASS** |
+| B+ | + SearchInput **Chức vụ** `JOB_TITLE_LOOKUP_CONFIG` · `catalogKind=job-title` · testId `…-field-jobTitle` | **PASS** (E2E S1 + screenshot) |
+| C+ | + cột **Chức vụ** = name(`jobTitleCode`) · **≠** roleCode · AC-G-09 | **PASS** (code `jobTitleDisplay` · empty grid no rows) |
 
-## QA-CRUD — Create→Edit→View→Copy→Delete + assign
+## QA-CRUD KEEP
+
+| # | Pack | Result |
+|---|------|--------|
+| QA-20…QA-38 | FormType ACT · Create/Edit/View/Copy/Delete · LKP/FIELD/PROD/UX · `?route=` · assign · pwd | **KEEP PASS** (prior) · **QA-20 re-run E2E** |
+
+## T-QA-JOB-01 / QA-JOB-CRUD (delta)
 
 | # | Step | Expect | Result |
 |---|------|--------|--------|
-| QA-20 | FormType ACT | Toolbar + row menu + deep-link → `/new` / `/:id` / `?mode=edit` / `?copyFrom=` | **PASS** |
-| QA-21 | Create | Toolbar +Tạo → `/integration/users/new` → footer Lưu → POST `/integration/users` · mã `USR-*` BE sinh | **PASS** |
-| QA-22 | Edit | `/:id?mode=edit` → PUT | **PASS** |
-| QA-23 | View | `/:id` · `<dl data-testid=…-view>` · Sửa/Sao chép/Quay lại · **không** Input readOnly xám toàn form | **PASS** (`code` Input `readOnly` chỉ Create/Edit IdCode) |
-| QA-24 | Copy | `/integration/users/new?copyFrom=` → POST mới · password field create/copy | **PASS** |
-| QA-25 | Delete toolbar | `activeRow` + Lin Modal → soft DELETE | **PASS** |
-| QA-26 | Delete row menu | `case 'delete'` → soft DELETE · **không** `window.confirm` | **PASS** |
-| QA-27 | T-UI-LKP-01 | List+form org/role/status SearchInput · route `road-routes/search` · managed `users?search=` · **cấm** native Select | **PASS** |
-| QA-28 | T-UI-FIELD-01 | username/fullName/email/phone/password Input · lookup codes SearchInput · `routesCsv` **MultiSearchCsvField** (không Text CSV) | **PASS** |
-| QA-29 | T-UI-PROD-01 | no Resource / Slideout trên `/integration/users*` · View = `<dl>` | **PASS** |
-| QA-30 | T-UI-UX-01 | list flex · footer-only Lưu/Hủy · SearchInput `dropdownPortal: true` · **không** `filterMaxWidthPx` · toast | **PASS** |
-| QA-31 | BE `?route=` | GET list match `RoutesCsv` split CI (padded comma) · FE `getList` + local store `route` | **PASS** |
-| QA-32 | BE VAL | RoutesCsv ∈ `rmms_road_routes` IsActive · OrgCode ∈ org-units · ManagedUserIdsCsv Guid cùng tenant ≠ self · 422 `{ success:false, message }` | **PASS** (`NormalizeRoutesCsvAsync` / `ValidateOrgCodeAsync` / `NormalizeManagedUserIdsCsvAsync`) |
-| QA-33 | BFF | `BuildListPath` `Request.QueryString` passthrough · no business logic | **PASS** |
-| QA-34 | Leave dirty | `LeaveConfirmModal` trước về list | **PASS** |
-| QA-35 | Perm | `integration.users.read\|create\|update\|delete` · FE gate · BE `RequirePermission` stub | **PASS** (FE) · **P2** (BE Auth) |
-| QA-36 | Phân tuyến | Row modal SearchInput multi → POST `{id}/assign-routes` `{ routesCsv }` | **PASS** |
-| QA-37 | Cán bộ QL | Row modal SearchInput multi users persist Guid CSV → POST `{id}/managed-users` | **PASS** |
-| QA-38 | Đổi MK | Modal 3 password Title Case · confirm mismatch client · POST `{id}/change-password` | **PASS** |
+| JOB-01 | Zone B filter Chức vụ | SearchInput · placeholder «Tất cả chức vụ» · QS `?jobTitleCode=` | **PASS** (S1) |
+| JOB-02 | Zone C col Chức vụ | Display denorm/seed name · **≠** Vai trò | **PASS** (code) · empty rows N/A live |
+| JOB-03 | Form Create SearchInput `jobTitleCode` | Peer org · **cấm** Text free-form · View `<dl>` | **PASS** (QA-20 PNG · field «Chức vụ» + search icon) |
+| JOB-04 | Persist Create/Edit | POST/PUT `jobTitleCode` → denorm `JobTitle` | **PASS** (API contract + service) · DB empty seed — no live row assert |
+| JOB-05 | LKP `job-titles/search` | BFF proxy · seed 19 fallback GAP-JOB-05 | **PASS** (FE `JOB_TITLE_SEED` + lookup wire) |
+| JOB-06 | Filter list `?jobTitleCode=` | BE soft filter | **PASS** (API GetList + BFF QS) after schema apply |
+| QA-20 | FormType ACT deep-link | `/integration/users/new` · footer Tạo mới/Hủy · Z2 fields | **PASS** · PNG `qa/screens/QA-20.png` · sha16=`e39fd670e37a10a1` |
 
-## Negative
-
-| # | Case | Expect | Result |
-|---|------|--------|--------|
-| N1 | Lưu thiếu required | Banner + `fieldInvalid` username/fullName/email/org | **PASS** |
-| N2 | Email invalid | field error «Email không hợp lệ» | **PASS** |
-| N3 | Delete không perm | toast quyền | **PASS** (local mode all true) |
-| N4 | History không chọn dòng | toast chọn dòng | **PASS** (toolbar pattern) |
-| N5 | Route không ∈ catalog | 422 VN «Tuyến «…» không thuộc danh mục…» | **PASS** (API) |
-| N6 | Org không ∈ catalog | 422 VN tổ chức | **PASS** (API) |
-| N7 | Managed Guid = self | 422 không gán chính mình | **PASS** (API) |
-| N8 | API down | `usersService` fallback local store `rows:v1` | **PASS** (dev fallback — không P0) |
-
-## API contract smoke (code)
+## API contract smoke (delta)
 
 | API | Method | Path | Result |
 |-----|--------|------|--------|
-| API-01 | GET | `/api/v1/integration/users?search=&status=&role=&orgCode=&route=&page=&pageSize=` | **PASS** |
-| API-02 | GET | `/api/v1/integration/users/init-data` | **PASS** |
-| API-03 | GET | `/api/v1/integration/users/{id}` | **PASS** |
-| API-04 | POST | `/api/v1/integration/users` | **PASS** |
-| API-05 | PUT | `/api/v1/integration/users/{id}` | **PASS** |
-| API-06 | DELETE | `/api/v1/integration/users/{id}` soft | **PASS** |
-| API-07 | POST | `/api/v1/integration/users/{id}/change-password` | **PASS** |
-| API-08 | POST | `/api/v1/integration/users/{id}/assign-routes` | **PASS** |
-| API-09 | POST | `/api/v1/integration/users/{id}/managed-users` | **PASS** |
-| API-LKP-01 | GET | `/api/v1/integration/road-routes/search` | **PASS** (FE citizen lookups reuse) |
-| BFF-01 | GET | `web-bff/api/v1/integration/users` + QS `route` | **PASS** |
+| API-JOB-01 | GET | `/api/v1/integration/users?jobTitleCode=` | **PASS** (HTTP 200 after schema) |
+| API-LKP-JOB | GET | `/api/v1/integration/job-titles` + `/search` | **PASS** (stub/seed · GAP-JOB-05) |
+| BFF-JOB | GET | `web-bff/…/users` + QS · `…/job-titles` | **PASS** (HTTP 200) |
+
+## Hotfix this role (unblock e2e)
+
+| Item | Note |
+|------|------|
+| FE route | Align `/admin/user*` → **`/integration/users`** (+ `/new` · `/:id`) · SSOT route_confirm |
+| DB schema | Applied missing `JobTitleCode` · `JobTitle` · `PackageCode` · `UnitKind` · `SourceUnit` + EF history `Schema_AppUserJobTitleCode` · migration CS +`JobTitle` |
+| yarn build | **PASS** (warnings size only) |
 
 ## Gaps / debt (không P0)
 
 | ID | Severity | Note |
 |----|----------|------|
-| GAP-F-USR-01 | P2 | `[RequirePermission]` TODO CommonLib NuGet — không block CRUD |
-| History API | P1 | stub empty document-history |
-| GAP-PO-USR-06 | P2 | Hồ sơ / Ban.TK / Đăng xuất / VỀ TRANG CHỦ SKIP P1 |
-| Manual browser | — | Operator smoke trên mfeStdUrl khi `yarn start:std` chạy |
+| GAP-JOB-05 | soft | catalog stub/seed OK |
+| GAP-JOB-06 | boundary | Profile out P1 |
+| GAP-F-USR-01 | P2 | Auth permission |
+| History API | P1 | stub |
+| Empty seed | — | list empty live · CRUD persist smoke = API/code |
 
-**P0:** none — **cấm** handoff blocked.
+**P0:** none — handoff Review.
 
-## Build gate (`task_2710faa2`)
+## E2E runtime gate
 
 | Check | Result |
 |-------|--------|
-| `yarn typecheck` (MFE Integration) | **PASS** (`tsc --noEmit` exit 0) |
-| `LINM_RUN_DEV_LOCAL_BUNDLE=1 yarn build` | **PASS** (webpack 5.109.2 compiled · 3 size warnings only) |
-| `dotnet build` RMMS.Service.Api | **PASS** (output `D:/tmp/rmms-users-qa-api-build` — Default bin may lock) |
-| `dotnet build` LINM.RMMS.Integration.Bff `--no-dependencies` | **PASS** |
-| BE Write this role | **n/a** — QA không đụng API |
+| docker compose up -d | **PASS** (api/bff/postgres healthy) |
+| yarn start:std :9314 | **PASS** (worker kept · **cấm** kill) |
+| yarn e2e-qa cases S0,S1,QA-20 | **PASS** (Playwright capture · manifest `ok:true`) |
+| PNG | `specs/users/qa/screens/{S0,S1,QA-20}.png` |
+| **cấm** phase=done | yes · next Review |
 
 ## Handoff → Review
 
-1. `review/findings.md` · roles sau Review = **pending** đến lượt.
-2. `autoApprove=ON` khi tới Review → agent tự confirm.
+1. `review/findings.md` · roles sau = **pending**.
+2. `autoApprove=ON` → Review tự confirm khi tới lượt.
 3. STATUS `qa` = **done** · `review` = **pending**.
 
 ## Version meta (REQUIRED)
@@ -134,8 +107,9 @@
 | schemaVersion | 2 |
 | workflowVersion | 2026.08.09.02 |
 | rulesVersion | 2026.08.09.3 |
-| generatedAt | 2026-08-15T09:05:00.000Z |
-| versionGate | rechecked (`recheck_new` · STATUS orchestrator **2026.08.08.21** / workflow **2026.08.09.02**) |
+| generatedAt | 2026-09-18T16:48:00.000Z |
+| versionGate | rechecked (`recheck_new`) |
 | version_mismatch_action | recheck_new |
 | orchestratorSkillVersion | 2026.08.08.21 |
-| taskId | `task_2710faa2` |
+| contentHashAnaly | sha256:8bd9897e1ab2483fdb96e9a37492d87c38c7e709c2e3df118c7b884f5d4bb257 |
+| taskId | `task_9d0370d3` |

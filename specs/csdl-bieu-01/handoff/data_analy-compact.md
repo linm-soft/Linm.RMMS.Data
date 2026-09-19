@@ -1,76 +1,56 @@
-# handoff-compact — data_analy · csdl-bieu-01
+# Handoff compact — data_analy
 
-| | |
-|--|--|
-| schemaVersion | `1` |
-| role | `data_analy` |
-| feature | `csdl-bieu-01` |
-| title | CSDL Biểu 01 — Phân loại mặt đường |
-| packKind | `list` |
-| changeScope | `new_page` |
-| status | `done` |
-| taskId | `task_41122f1b` |
-| resource | `pavement-sections` |
-| formNo | `01` |
-| columns | `38` |
-| IdCode | `MD-` |
-| peerSoTs | `pavement-section` |
-| contentHash | `sha256:3545960f4006740c9dfe57b5f004fa4a1cd1b7befbcd51e35e2168e16821b65e` |
-| headerFingerprint | `sha256:6376475bbf48ca5b3e8cfd26688cd877fd1bc77d5b8d8c4c3d314cd0572f5cf2` |
-| skillVersion | `2026.08.25.01` |
-| workflowVersion | `2026.09.01.02` |
-| rulesVersion | `2026.08.31.2` |
-| analyzedAt | `2026-09-05T11:53:25.414Z` |
+schemaVersion: 1
+feature: csdl-bieu-01
+packKind: list
+role: data_analy
+status: done
+skillVersion: 2026.09.05.03
+workflowVersion: 2026.09.05.03
+rulesVersion: 2026.09.17.3
+contentHash: sha256:b48e58e637a1dd4fc9e14298a0063d34c89eadb1ea02ba756b561b4648d4b085
+headerFingerprint: sha256:6376475bbf48ca5b3e8cfd26688cd877fd1bc77d5b8d8c4c3d314cd0572f5cf2
+writtenAt: 2026-09-17T17:40:33.868Z
+taskId: task_7168eb6e
+resource: pavement-sections
+columns: 38
+IdCode: MD-
 
-## Artifacts
+## Decisions
+- changeScope: edit_page (T-XLS-S01 · Wave 1)
+- formPattern: Slideout (keep typed · **cấm** new_page CRUD)
+- mfe: D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Asset · be: D:/AI-QLBD/Linm.RMMS.WebService
+- export: catalogToolbar Xuất Excel · BFF binary · `/implement-export-import-excel`
+- golden: Cục 16-sheet xls Biểu 1 · **cấm** hồ sơ 12+8
+- filter: **cấm** export trên LinErpListFilterBar (GAP-FILTER-BAR-08)
+- open questions: Q-XLS-SCOPE · Q-XLS-IMPORT · Q-XLS-FILENAME
 
-| Kind | Path |
-|------|------|
-| control-hint | `specs/_data-analy/features/csdl-bieu-01-control-hint.md` |
-| real-data | `specs/_data-analy/features/csdl-bieu-01-real-data.md` |
-| CTX | `docs/context/features/csdl-bieu-01.md` |
-| cluster | `specs/_data-analy/csdl-cuc-2026/ANALYSIS-AND-TASKS.md` |
-| demo | `Linm.RMMS.Demo/src/demo/features/csdl-so-sach-demo.html` → `…/asset/csdl-so-sach.html` |
+## Inventory (slim)
+| id | label | controlHint | notes |
+|----|-------|-------------|-------|
+| (form 38) | typed prior | keep | **cấm** reopen |
+| exportExcel | Xuất Excel | ToolbarButton | catalogToolbar |
+| importExcel | Nhập Excel | ToolbarButton+file | P1 · Q-XLS-IMPORT |
 
-## Live bind (1-liner)
+## Screens / zones (ids only)
+- DES-GRID-A/B/C/D keep · toolbar **+export** · filter unchanged
+- Form Kind D Slideout keep
+- reviewUrl= prior prototype (Design cập nhật nút)
+- peerStdUrl= http://localhost:9301/so-ts/csdl-so-sach?resource=pavement-sections
+- mfeStdUrl= http://localhost:9301/so-ts/csdl-so-sach · alias /csdl-bieu-01
 
-- API: `api/v1/asset/csdl-records?resource=pavement-sections` (+ BFF) · **cấm ERP.*** · **cấm** invent `infra`
-- Entry: mfeStd `/csdl-bieu-01` · hub `/so-ts/csdl-so-sach?resource=pavement-sections`
-- Form: Kind D Slideout typed 38 cột · **cấm** chỉ 3 ô `detail*`
-- Import: skip hàng cầu âm (`skip-bridge`) · XLS OUT pack
-- Peer Sổ TS deep-link OK · **cấm** merge 1 form
+## API / tasks (ids only)
+- CRUD keep: GET/POST/PUT/DELETE …/csdl-records?resource=pavement-sections
+- Export: GET …/csdl-records/export?resource=pavement-sections
+- Import: POST …/csdl-records/import?resource=pavement-sections
+- T-XLS-S01 · skip-bridge · real-data §A+§B PASS
 
-## GAP (PO must see)
+## UNCLEAR
+- Q-XLS-SCOPE filtered vs all · Q-XLS-IMPORT now vs defer · Q-XLS-FILENAME
 
-| ID | One-liner |
-|----|-----------|
-| GAP-BIEU01-TYPED-01 | Typed 38 cột thay generic detail* |
-| GAP-BIEU01-ROUTE-01 | Alias `/csdl-bieu-01` vs hub-only |
-| GAP-BIEU01-WIDTH-01 | 4 bucket B mặt vs 1 width — SA |
-| GAP-BIEU01-STRUCT-01 | 4 flag vs 1 structureType enum — SA |
-| GAP-BIEU01-SKIP-01 | Import skip cầu length âm |
-| GAP-CSDL-ROAD-01 | SearchInput road-route |
-| GAP-CSDL-PROV-01 | Province static vs master |
-| GAP-CSDL-ORG-01 | manageUnit SearchInput org-unit P2 |
-| GAP-CSDL-XLS-01 | Import/export sheet Biểu 1 OUT |
-| GAP-BIEU01-PEER-01 | Không merge form pavement-section |
-
-## Open Q
-
-Q-WIDTH · Q-STRUCT · Q-ROUTE · Q-PROV
-
-## Zones
-
-List A/B/C/D Kind B · Form Kind D Slideout 2col Z1–Z3 · map: none
-
-## Next
-
-| Role | Need |
-|------|------|
-| **PO** | requirement từ Delta + open Q |
-| Design | control-map · prototype 38 cột · reviewUrl |
-| SA | typed DTO/UiSchema · Schema_CsdlBieu1 · WIDTH/STRUCT |
-
-## Cấm (compact)
-
-Demo/localStorage SSOT · ERP.* · Guid IdCode · form 3 ô only · invent map · merge Sổ TS form · yarn build/e2e ở analy
+## Full paths (Read only if needed)
+- control-hint: D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/csdl-bieu-01-control-hint.md
+- real-data: D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/csdl-bieu-01-real-data.md
+- CTX: docs/context/features/csdl-bieu-01.md
+- epic: docs/context/features/csdl-export-print.md
+- keep PO/Design/SA: specs/csdl-bieu-01/po|ui|be (delta only)

@@ -1,146 +1,127 @@
-# Real-data bind — csdl-bieu-13 (Kind B list + Kind D Slideout · noise-barriers)
+﻿# Real-data bind — csdl-bieu-13 (edit_page · T-XLS-S13 export/import)
 
 | | |
 |---|---|
 | feature | `csdl-bieu-13` |
 | packKind | `list` |
-| changeScope | `new_page` |
+| changeScope | `edit_page` |
 | status | `done` |
-| taskId | `task_3cec1103` |
+| taskId | `task_4fec1f3f` |
+| priorTask | `task_3cec1103` → review `task_bdbf3809` (typed CRUD **done** · **cấm** reopen new_page) |
 | resource | `noise-barriers` |
-| prefix | **live shell** `api/v1/asset/csdl-records` · BFF `web-bff/api/v1/asset/csdl-records` · typed DTO **SA** |
-| beRepo | `D:/AI-QLBD/Linm.RMMS.WebService` · **cấm ERP.*** · **cấm** `api/v1/rmms/*` · **cấm** invent `api/v1/infra/*` |
+| prefix | **live** `api/v1/asset/csdl-records` · BFF `web-bff/api/v1/asset/csdl-records` |
+| beRepo | `D:/AI-QLBD/Linm.RMMS.WebService` · **cấm ERP.*** · **cấm** `api/v1/infra/*` |
 | uiRepo | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Asset` |
-| mfeStdUrl | `http://localhost:9301/csdl-bieu-13` · hub `http://localhost:9301/so-ts/csdl-so-sach?resource=noise-barriers` |
-| map | `none` · **cấm** invent map canvas |
-| contentHash | `sha256:39a45de0a9b834c65373e6c20d1664ab43144ff60d97bae4f0d886ad09d91e3a` |
+| mfeStdUrl | `http://localhost:9301/so-ts/csdl-so-sach` · alias `/csdl-bieu-13` · hub `?resource=noise-barriers` |
+| map | `none` |
+| contentHash | `sha256:800386bb8f86bfcc815b9c7d3a6dc246dc58b0a95b5132a317c5a094d0b4194f` |
 | headerFingerprint | `sha256:31dbc83200b511c9d61333b1cdb94e2880778980a3b21970be414e926db29008` |
-| sourceTables | shell `rmms_csdl_catalog_records` · typed `Schema_CsdlBieu13` / `NoiseBarrier` (**SA/migration**) |
-| catalogKind UI schema | `noise-barriers` (typed) · fallback hub `csdl-records` |
-| IdCode prefix | `TC` (**Q-PREFIX**) |
-| peerSoTs | `so-ts-noise-barrier` · **cấm** merge so-ts-* · **cấm** reuse `road-assets` / dumpSpecs làm SSOT biểu |
+| sourceTables | typed `Schema_CsdlBieu13` / `NoiseBarrier` · **không** bảng report store P1 |
+| catalogKind UI schema | `noise-barriers` |
+| IdCode prefix | `TC` |
+| peerSoTs | `so-ts-noise-barrier` · **cấm** merge so-ts-* / `road-assets` vào export |
+| epicCite | `docs/context/features/csdl-export-print.md` · Wave 1 `T-XLS-S13` |
+| golden | Cục `1. Biểu mẫu CSDL.xls` sheet Biểu 13 · **cấm** hồ sơ 12+8 |
+| devSlash | `/implement-export-import-excel` · BFF binary |
 
-## § Delta Current vs New (`new_page` · `task_3cec1103`)
+## § Delta Current vs New (`edit_page` · `task_4fec1f3f`)
 
 | ID | Current live | New (this analy) |
 |----|--------------|------------------|
-| Hub | 12 biểu · **MISSING** Biểu 13 | NEW card · resource `noise-barriers` · formNo **13** |
-| Form | N/A / 3 ô `detail*` nếu bootstrap | Typed 13 cột · dài · cao · DT |
-| List cols | generic | Shared + lengthM/heightM/areaM2 |
-| formNo | — | **13** · title «Tường chống ồn» |
-| API | shell `csdl-records` · resource chưa đăng ký | **giữ prefix** · register `noise-barriers` + typed payload — SA |
-| DB SSOT | Doc chỉ Biểu 1–12 | Schema_CsdlBieu13 · **GAP-BIEU13-DB-01** |
-| Import | stub | Sheet 13 cột merge — OUT XLS |
-| Peer | `so-ts-noise-barrier` / `road-assets` | **cấm** merge · ROW riêng · **GAP-CSDL-CUC-11** |
+| Form / list | Typed 13 · section kích thước · Slideout + grid **shipped** | **Unchanged** |
+| Toolbar | Refresh · Add · History · Schema · View/Edit/Delete — **không** Xuất | **Xuất Excel** (+ Import P1) trên `catalogToolbar` |
+| Filter | `LinErpListFilterBar` field+🔍 | **Unchanged** · **cấm** action Xuất (**GAP-FILTER-BAR-08**) |
+| Export API | Missing / stub | `GET …/csdl-records/export?resource=noise-barriers` → binary (epic cite · SA) |
+| Import API | Missing / stub | `POST …/csdl-records/import?resource=noise-barriers` (P1) |
+| Golden | — | Cục 16-sheet · sheet Biểu 13 · checksum 13 cột · 1 sheet (dài/cao/DT cùng hàng) |
+| Peer | `so-ts-noise-barrier` cite | **cấm** merge/dump `road-assets` vào file · **GAP-CSDL-CUC-11** |
+| Done gate | Typed STATUS done | **≠** export xong · cần file mở được cạnh mẫu |
 
 ## §A — Nguồn
 
 | sourceKind | sourceCite | empty | error |
 |------------|------------|-------|-------|
-| `context` | `docs/context/features/csdl-bieu-13.md` | — | version mismatch → gate |
-| `analy` | `specs/_data-analy/csdl-cuc-2026/ANALYSIS-AND-TASKS.md` § Biểu 13 | — | 13 cột · dài/cao/DT · MISSING hub |
-| `db-ssot` | `docs/context/11-CSDL-SO-SACH-DATABASE-API.md` | **thiếu** § Biểu 13 | **GAP-BIEU13-DB-01** · SA viết entity |
-| `demo` | `Linm.RMMS.Demo/.../csdl-so-sach.html` (+ redirect · `csdl-so-sach-data.js`) | hub thiếu card | **UI only** · **cấm** SSOT data |
-| `api` · list | `GET …/csdl-records?resource=noise-barriers&…` | empty grid VN | 422 thiếu resource · toast |
-| `api` · detail | `GET …/csdl-records/{id}` | — | 404 → đóng slideout · toast |
-| `api` · CRUD | `POST` / `PUT` / soft `DELETE` | — | validation toast |
-| `entity` | `CsdlCatalogRecordEntity` (shell) | — | tenant `CompanyCode` |
-| `entity` | typed Biểu 13 / `NoiseBarrier` (**SA**) | — | Schema_CsdlBieu13 pair |
-| `mfe` | hub `CsdlSoSachPage` · form `CsdlFormSlideout` | generic / missing card | typed + hub card |
-| `catalog` | Integration ui-schema `noise-barriers` | bootstrap cols | toast |
-| `excel` | `1. Biểu mẫu CSDL.xls` sheet Biểu 13 | — | import cite · not runtime SSOT |
-| `peer` | `so-ts-noise-barrier` · `api/v1/asset/road-assets` | — | **cite only** · **cấm** bind runtime |
-| `derived` | IdCode `TC-yyyyMMdd-nnnn` | — | BE generate · **Q-PREFIX** |
-
-`sourceCite` = path/controller **có trong repo** hoặc analy Excel cite. **Cấm** invent `api/v1/so-ts/*` · **cấm** ERP.* · **cấm** invent `api/v1/infra/*` (doc legacy) · **cấm** bind peer `road-assets` làm list biểu.
+| `context` | `docs/context/features/csdl-bieu-13.md` | — | version gate |
+| `context` | `docs/context/features/csdl-export-print.md` § Wave 1 · API | — | golden / toolbar rules |
+| `analy` | `specs/_data-analy/csdl-cuc-2026/ANALYSIS-AND-TASKS.md` Biểu 13 | — | 13 cột · dài/cao/DT |
+| `db-ssot` | `docs/context/11-CSDL-SO-SACH-DATABASE-API.md` § NoiseBarrier / Schema_CsdlBieu13 | — | LengthM · HeightM · AreaM2 |
+| `api` · list/CRUD | `GET/POST/PUT/DELETE …/csdl-records?resource=noise-barriers` | empty grid VN | toast 4xx |
+| `api` · **export** | `GET …/csdl-records/export?resource=noise-barriers` (epic · SA chốt) | file 0 row OK | toast · **cấm** fake blob |
+| `api` · **import** | `POST …/csdl-records/import?resource=noise-barriers` | — | validation · dim ≥0 |
+| `entity` | `Schema_CsdlBieu13` / NoiseBarrier | — | CompanyCode tenant |
+| `mfe` | `CsdlBieu13Page` · `fromCatalogToolbar` | — | wire export action |
+| `excel` | `1. Biểu mẫu CSDL.xls` sheet Biểu 13 | — | golden · not runtime SSOT |
+| `excel` | Hồ sơ `4.1. In_Mẫu…xlsx` 12 biểu | — | **STALE** · so sánh only |
+| `peer` | `so-ts-noise-barrier` · `api/v1/asset/road-assets` | — | **cite only** · **cấm** bind export |
 
 ## §B — Bind field (HARD)
 
-| uiField | Label | controlHint | catalogKind | GET | write field | sameMfe |
-|---------|-------|-------------|-------------|-----|-------------|---------|
-| resource | Resource | QS / const | — | required `noise-barriers` | `resource` | yes |
-| search | Tìm | SearchTextInput | — | `?search=` | — | yes |
-| province | Tỉnh | Dropdown | LOOKUP_STATIC | `?province=` | `province` | yes |
-| status | TT | Dropdown | LOOKUP_STATIC | `?status=` | `status` | yes |
-| roadCode | Đường | SearchInput | road-route | `?roadCode=` / detail | `roadCode` (+ display `roadName`) | yes · **GAP-CSDL-ROAD-01** |
-| kmFrom / kmTo | Km từ–đến | Number | — | filter / detail | `kmFrom` / `kmTo` | yes |
-| side | Vị trí | Dropdown | LOOKUP_STATIC | filter / detail / list | `side` | yes |
-| code | Mã | Text ro | — | detail `code` | auto | yes |
-| lengthM | Chiều dài (m) | Number | — | detail / list | `lengthM` | yes · **GAP-BIEU13-DIM-01** |
-| heightM | Chiều cao (m) | Number | — | detail / list | `heightM` | yes |
-| areaM2 | Diện tích (m²) | Number | — | detail / list | `areaM2` | yes · **Q-AREA-DERIVE** |
-| manageUnit | ĐV QL | Text | — | detail / list | `manageUnit` | yes · **GAP-CSDL-ORG-01** |
-| notes | Ghi chú | Textarea | — | detail | `notes` | yes |
-| isActive | Active | — | — | detail | soft-delete | yes |
-| updatedAt | Cập nhật | DateTime ro | — | detail | — | yes |
+### B1 — CRUD fields (**unchanged** — keep prior bind)
 
-**Prefix map:**
+Reuse prior §B (`task_3cec1103`): `resource` · filters · typed 13 · soft-delete · lengthM/heightM/areaM2. **Cấm** đổi write paths typed trong pack này.
+
+### B2 — Export / import (**delta**)
+
+| uiField / action | Label | controlHint | catalogKind | GET / POST | write field | sameMfe |
+|------------------|-------|-------------|-------------|------------|-------------|---------|
+| exportExcel | Xuất Excel | ToolbarButton | — | `GET …/export?resource=noise-barriers` (+ filter QS nếu Q-XLS-SCOPE=filtered) | — (download) | **gap** (thiếu nút) |
+| importExcel | Nhập Excel | ToolbarButton + file | — | `POST …/import?resource=noise-barriers` multipart | upsert typed | **gap** P1 |
+| exportFileName | — | derived | — | Content-Disposition | — | SA |
+
+**Prefix map (keep + delta):**
 
 | Operation | Path |
 |-----------|------|
-| List | `GET /web-bff/api/v1/asset/csdl-records?resource=noise-barriers` |
-| Detail | `GET /web-bff/api/v1/asset/csdl-records/{id}` |
-| Create | `POST /web-bff/api/v1/asset/csdl-records` body `resource=noise-barriers` + typed fields |
-| Update | `PUT /web-bff/api/v1/asset/csdl-records/{id}` |
-| Delete | `DELETE /web-bff/api/v1/asset/csdl-records/{id}` (soft) |
+| List / Detail / CRUD | `/web-bff/api/v1/asset/csdl-records` (+ `/{id}`) — **keep** |
+| **Export** | `GET /web-bff/api/v1/asset/csdl-records/export?resource=noise-barriers` |
+| **Import** | `POST /web-bff/api/v1/asset/csdl-records/import?resource=noise-barriers` |
+| API mirror | `api/v1/asset/csdl-records[/export|/import]` · **cấm** invent `/infra/` |
 
-API mirror: `api/v1/asset/csdl-records`. FE cite hub: `services/csdlSoSach/endpoint.ts` `BASE=/asset/csdl-records` — typed page **reuse** cùng BASE.
-
-DB đề xuất map: `LengthM`↔`lengthM` · `HeightM`↔`heightM` · `AreaM2`↔`areaM2` (**SA** confirm Excel).
-
-**Cấm** bind: `api/v1/asset/road-assets?type=NOISE_BARRIER` · dumpSpecs peer · invent `api/v1/infra/noise-barriers`.
+DB SSOT map (export row): `LengthM`↔`lengthM` · `HeightM`↔`heightM` · `AreaM2`↔`areaM2` — **SA** giữ typed.
 
 ## §C — Catalog / lookup
 
-| catalogKind | search/list API | seed/import cite | Cấm |
-|-------------|-----------------|------------------|------|
-| LOOKUP_STATIC province | FE `PROVINCES` P1 | demo align | Dropdown demo-only làm SSOT quốc gia |
-| LOOKUP_STATIC status | tot/tb/kem/hong | — | — |
-| LOOKUP_STATIC side | L / R / C / Both | demo `sides` | invent side set |
-| road-route | `GET /integration/road-routes/search` | shared catalog READY | free-text khi đã chốt SearchInput |
-| org-unit | `GET /integration/org-units/search` | shared org · P2 | hardcode ĐV |
-| ui-schema | Integration `noise-barriers` | Schema editor | generic 3-col only |
-| asset-type peer | — | — | **cấm** dùng làm SSOT biểu Cục |
+Unchanged prior LOOKUP_STATIC (province/status/side) + `road-route` + `org-unit` P2. Export **không** thêm catalogKind.
 
 ## §D — Map / vẽ
 
-`none` — list pack. Toolbar map → gis deep-link only (`chong-on` optional). **Cấm** invent map canvas.
+`none`
 
-## §E — Empty / error / permission
+## §E — Empty / error / permission / export
 
 | Case | UX |
 |------|-----|
-| Empty list | Grid copy VN «Chưa có tường chống ồn» · CTA Tạo mới |
-| 422 thiếu resource | toast · không alert |
-| 404 detail | đóng slideout · toast |
-| Soft-delete | row biến mất · list refresh |
-| Permission | CommonLib Auth debt · **cấm** invent path |
+| Empty list export | File vẫn tải · 0 data row · header merge đúng mẫu · toast info OK |
+| Export fail | toast · **cấm** silent · **cấm** CSV generic lưới |
+| Import dim invalid (âm / all-zero) | toast · giữ map SA · **cấm** đổi entity |
+| Permission | Auth debt · **cấm** invent path |
+| Toast stub only | **FAIL** DoD · **GAP-BIEU13-XLS-02** |
 
 ## §F — Cấm
 
 - Demo / localStorage / seed giả làm SSOT runtime  
 - ERP.* / Domains/Master / `api/v1/infra/*` / invent `api/v1/so-ts/*`  
-- Form chỉ 3 ô `detail*`  
-- Merge / reuse `so-ts-noise-barrier` form · `road-assets` · dumpSpecs làm list biểu  
-- Guid làm IdCode  
-- yarn build / e2e ở role data_analy  
+- Toast stub = export done · filter-bar export (**GAP-FILTER-BAR-08**)  
+- Golden hồ sơ 12+8 · invent sheet riêng kích thước  
+- Merge peer so-ts-noise-barrier / `road-assets` vào export  
+- Re-open new_page typed CRUD · yarn build / e2e @ data_analy  
 
 ## Version meta (REQUIRED)
 
 | Field | Value |
 |-------|-------|
 | skillId | agent-data-analy |
-| skillVersion | 2026.08.25.01 |
+| skillVersion | 2026.09.05.03 |
 | schemaVersion | 1 |
-| workflowVersion | 2026.09.01.02 |
-| rulesVersion | 2026.08.31.2 |
-| contentHash | `sha256:39a45de0a9b834c65373e6c20d1664ab43144ff60d97bae4f0d886ad09d91e3a` |
+| workflowVersion | 2026.09.05.03 |
+| rulesVersion | 2026.09.17.3 |
+| contentHash | `sha256:800386bb8f86bfcc815b9c7d3a6dc246dc58b0a95b5132a317c5a094d0b4194f` |
 | headerFingerprint | `sha256:31dbc83200b511c9d61333b1cdb94e2880778980a3b21970be414e926db29008` |
-| generatedAt | 2026-09-05T13:50:00.000Z |
+| generatedAt | 2026-09-18T00:53:47.050Z |
 | versionGate | ok |
-| taskId | task_3cec1103 |
+| taskId | task_4fec1f3f |
 | packKind | list |
-| changeScope | new_page |
+| changeScope | edit_page |
 
 ---
-<!-- Version meta: skillId=agent-data-analy skillVersion=2026.08.25.01 schemaVersion=1 workflowVersion=2026.09.01.02 rulesVersion=2026.08.31.2 versionGate=ok contentHash=sha256:39a45de0a9b834c65373e6c20d1664ab43144ff60d97bae4f0d886ad09d91e3a -->
+<!-- Version meta: skillId=agent-data-analy skillVersion=2026.09.05.03 schemaVersion=1 workflowVersion=2026.09.05.03 rulesVersion=2026.09.17.3 versionGate=ok contentHash=sha256:800386bb8f86bfcc815b9c7d3a6dc246dc58b0a95b5132a317c5a094d0b4194f changeScope=edit_page taskId=task_4fec1f3f -->

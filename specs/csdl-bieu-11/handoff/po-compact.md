@@ -1,81 +1,74 @@
-# handoff-compact — po · csdl-bieu-11
+# Handoff compact — po
 
-| | |
-|--|--|
-| schemaVersion | `1` |
-| role | `po` |
-| feature | `csdl-bieu-11` |
-| title | CSDL Biểu 11 — Hệ thống chiếu sáng |
-| packKind | `list` |
-| changeScope | `new_page` |
-| status | `confirmed` |
-| taskId | `task_ec8df9b0` |
-| autoApprove | `ON` |
-| resource | `lighting-systems` |
-| formNo | `11` |
-| columns | `24` |
-| IdCode | `LT-` |
-| peerSoTs | `so-ts-lighting` (toolbar deep-link · ≠ merge · qty ≠ điểm) |
-| contentHash | `sha256:7980db07b4712336ab0b675fa89feaab75c67fdaef3b54fe94647ab9ec1863d8` |
-| headerFingerprint | `sha256:b37759a9224c09c7c63bc81583b4a9bcbca02e74cba8b63579819e90d57f1d1a` |
-| skillVersion | `2026.08.25.01` |
-| workflowVersion | `2026.09.01.02` |
-| rulesVersion | `2026.08.31.2` |
-| confirmedAt | `2026-09-05T12:20:00.000Z` |
+schemaVersion: 1
+feature: csdl-bieu-11
+packKind: list
+role: po
+status: done
+skillVersion: 2026.09.05.03
+workflowVersion: 2026.09.05.03
+rulesVersion: 2026.09.17.3
+contentHash: sha256:7f64b8dcea4265af23b9f2e5e1dae3ab1c933b0a4404b0f872d39029716b4d62
+headerFingerprint: sha256:b37759a9224c09c7c63bc81583b4a9bcbca02e74cba8b63579819e90d57f1d1a
+writtenAt: 2026-09-18T06:47:00.000Z
+taskId: task_b2950eab
+priorAnaly: task_55dac8de
+priorTyped: task_20e43f26
+resource: lighting-systems
+columns: 24
+blocks: 2
+IdCode: LT-
+formNo: 11
+peerSoTs: so-ts-lighting
 
-## Artifacts
+## Decisions
+- changeScope: edit_page (T-XLS-S11 · Wave 1)
+- formPattern: Slideout (keep typed · **cấm** new_page CRUD)
+- packKind: list (PO confirm)
+- Grid AC: keep + toolbar Xuất/Nhập · Leave: LeaveConfirmModal · Report AC: N/A
+- Q-XLS-SCOPE: filtered · Q-XLS-IMPORT: import_now · Q-XLS-FILENAME: Bieu11_ChieuSang_{yyyyMMdd}.xls · Q-XLS-SHEET: one_sheet
+- export: catalogToolbar · BFF binary · `/implement-export-import-excel`
+- golden: Cục 16-sheet sheet Biểu 11 · **cấm** 12+8
+- filter: **cấm** Xuất trên LinErpListFilterBar (GAP-FILTER-BAR-08)
+- layout: 1 sheet 24 · LED+NLMT cùng hàng · **cấm** 2 sheet invent
+- peer: qty bucket · **cấm** dump điểm so-ts-lighting
+- keep: typed 24/2 · Schema_CsdlBieu11 · peer deep-link
+- mfe: D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Asset · be: D:/AI-QLBD/Linm.RMMS.WebService
+- open questions: none (autopilot chốt)
 
-| Kind | Path |
-|------|------|
-| requirement | `specs/csdl-bieu-11/po/requirement.md` |
-| prior compact | `specs/csdl-bieu-11/handoff/data_analy-compact.md` |
-| control-hint | `specs/_data-analy/features/csdl-bieu-11-control-hint.md` |
-| real-data | `specs/_data-analy/features/csdl-bieu-11-real-data.md` |
+## Inventory (slim)
+| id | label | controlHint | notes |
+|----|-------|-------------|-------|
+| (form 24/2) | typed prior | keep | **cấm** reopen |
+| exportExcel | Xuất Excel | ToolbarButton | catalogToolbar · filtered |
+| importExcel | Nhập Excel | ToolbarButton+file | P1 import_now |
 
-## Live bind (1-liner)
+## Screens / zones (ids only)
+- DES-GRID-A/B/C/D keep · toolbar **+export+import** · filter unchanged
+- Form Kind D Slideout keep · 2 section lưới + NLMT
+- S-XLS-EXPORT / S-XLS-IMPORT
+- reviewUrl= prior prototype (Design delta nút)
+- peerStdUrl= http://localhost:9301/so-ts/csdl-so-sach?resource=lighting-systems
+- mfeStdUrl= http://localhost:9301/so-ts/csdl-so-sach · alias /csdl-bieu-11
+- Leave: LeaveConfirmModal · **cấm** native alert
+- controlHint cite: specs/_data-analy/features/csdl-bieu-11-control-hint.md
 
-- API: `api/v1/asset/csdl-records?resource=lighting-systems` (+ BFF) · **cấm ERP.***
-- Entry: `/csdl-bieu-11` (**alias_now**) · hub `?resource=lighting-systems`
-- Form: Kind D Slideout 2col · 2 section lưới + NLMT · typed 24 · **cấm** detail*
-- Import: XLS Biểu 11 stub P1 · peer toolbar deep-link
+## API / tasks (ids only)
+- CRUD keep: …/csdl-records?resource=lighting-systems
+- Export: GET …/csdl-records/export?resource=lighting-systems (+ filter QS)
+- Import: POST …/csdl-records/import?resource=lighting-systems
+- T-XLS-S11 · GAP-BIEU11-XLS-01…07 · real-data §A+§B PASS
+- Grid AC flags: PASS · Report AC: N/A
 
-## Header (24)
+## UNCLEAR
+- none
 
-`code|roadCode|roadName|province|kmFrom|kmTo|side|gridLed600|gridLed240|gridLed150|gridLed125|gridStatus|gridPoleCount|cabinetCount|substationCount|solarPoleCount|solarControllerCount|solarPanel240Wp|solarLamp100W|solarBattery145Ah|solarCabinetCount|status|manageUnit|notes`
-
-## PO decisions (autoApprove)
-
-| Q | Decision |
-|---|----------|
-| Q-ROUTE | alias_now |
-| Q-PROV | keep_static |
-| Q-GRID-STATUS | align_status (tot/tb/kem/hong) |
-| Q-LED-ZERO | allow_zero |
-| Q-SOLAR-REQ | optional |
-| Q-CABINET | split |
-| Q-LIST-COLS | subset |
-| Q-PEER | toolbar |
-| Q-TITLE | keep_demo («Biểu 11 — Hệ thống chiếu sáng») |
-
-## Zones / AC
-
-- List A/B/C/D Kind B · search must work · **cấm** nút Tìm · paginate 50/100/200/500
-- Form Kind D · LeaveConfirm dirty · View readOnly · IdCode LT auto
-- Grid subset: shared + LED4 + gridStatus + pole/cabinet + status · map: none
-- Empty: «Chưa có hệ thống chiếu sáng»
-
-## GAP (Design/SA)
-
-TYPED · ROUTE · GRID/LED/STATUS/QTY · SOLAR · BLOCK · ROAD · PROV static · ORG P2 · XLS stub · CUC-11 peer ≠ merge
-
-## Next
-
-| Role | Need |
-|------|------|
-| **Design** | control-map · prototype 24 · 2 section · reviewUrl · filter-bar HARD |
-| SA | typed DTO/UiSchema · Schema_CsdlBieu11 · **cấm** infra |
-| TL/Dev | wire controlHint · **cấm** guess Text vs SearchInput |
+## Full paths (Read only if needed)
+- requirement: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-11/po/requirement.md
+- control-hint: D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/csdl-bieu-11-control-hint.md
+- real-data: D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/csdl-bieu-11-real-data.md
+- epic: docs/context/features/csdl-export-print.md
+- keep Design/SA: specs/csdl-bieu-11/ui|be (delta only)
 
 ## Cấm (compact)
-
-ERP.* · invent infra · detail* form · merge so-ts-lighting · Guid IdCode · demo SSOT · dump điểm→qty · yarn build/e2e @ po
+ERP.* · invent infra · toast=done · filter-bar export · golden 12+8 · 2-sheet invent · dump điểm Sổ TS · new_page typed re-CRUD · yarn build/e2e/start:std @ PO

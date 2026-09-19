@@ -1,80 +1,56 @@
-# handoff-compact — data_analy · csdl-bieu-02
+# Handoff compact — data_analy
 
-| | |
-|--|--|
-| schemaVersion | `1` |
-| role | `data_analy` |
-| feature | `csdl-bieu-02` |
-| title | CSDL Biểu 02 — Thống kê cầu |
-| packKind | `list` |
-| changeScope | `new_page` |
-| status | `done` |
-| taskId | `task_dd8553f8` |
-| resource | `bridges` |
-| formNo | `02` |
-| columns | `48` |
-| IdCode | `BR-` |
-| peerSoTs | none (—) · link Sổ 6 / passport deep-link only |
-| contentHash | `sha256:bd73974e607f886dd38736015cb5a6a3fb82aff9d6a63328963ceb5c4be436a2` |
-| headerFingerprint | `sha256:34e1fcb051f6010fbe70ebdffab71df3d6f441a373d3be0249dd601e596d5591` |
-| skillVersion | `2026.08.25.01` |
-| workflowVersion | `2026.09.01.02` |
-| rulesVersion | `2026.08.31.2` |
-| analyzedAt | `2026-09-05T07:55:00.000Z` |
+schemaVersion: 1
+feature: csdl-bieu-02
+packKind: list
+role: data_analy
+status: done
+skillVersion: 2026.09.05.03
+workflowVersion: 2026.09.05.03
+rulesVersion: 2026.09.17.3
+contentHash: sha256:43c517bec9635b8c3ac292e54e566cf38f3ba97c86a8ce56e5b4c587427dcf40
+headerFingerprint: sha256:34e1fcb051f6010fbe70ebdffab71df3d6f441a373d3be0249dd601e596d5591
+writtenAt: 2026-09-17T18:43:48.000Z
+taskId: task_55ac6074
+resource: bridges
+columns: 48
+IdCode: BR-
 
-## Artifacts
+## Decisions
+- changeScope: edit_page (T-XLS-S02 · Wave 1)
+- formPattern: Slideout (keep typed · **cấm** new_page CRUD)
+- mfe: D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Asset · be: D:/AI-QLBD/Linm.RMMS.WebService
+- export: catalogToolbar Xuất Excel · BFF binary · `/implement-export-import-excel`
+- golden: Cục 16-sheet xls Biểu 2 · **cấm** hồ sơ 12+8
+- filter: **cấm** export trên LinErpListFilterBar (GAP-FILTER-BAR-08)
+- open questions: Q-XLS-SCOPE · Q-XLS-IMPORT · Q-XLS-FILENAME
 
-| Kind | Path |
-|------|------|
-| control-hint | `specs/_data-analy/features/csdl-bieu-02-control-hint.md` |
-| real-data | `specs/_data-analy/features/csdl-bieu-02-real-data.md` |
-| CTX | `docs/context/features/csdl-bieu-02.md` |
-| cluster | `specs/_data-analy/csdl-cuc-2026/ANALYSIS-AND-TASKS.md` |
-| demo | `Linm.RMMS.Demo/src/demo/features/csdl-so-sach-demo.html` → `…/asset/csdl-so-sach.html` |
+## Inventory (slim)
+| id | label | controlHint | notes |
+|----|-------|-------------|-------|
+| (form 48) | typed prior | keep | GPS×3 · **cấm** reopen |
+| exportExcel | Xuất Excel | ToolbarButton | catalogToolbar |
+| importExcel | Nhập Excel | ToolbarButton+file | P1 · Q-XLS-IMPORT |
 
-## Live bind (1-liner)
+## Screens / zones (ids only)
+- DES-GRID-A/B/C/D keep · toolbar **+export** · filter unchanged
+- Form Kind D Slideout keep
+- reviewUrl= prior prototype (Design cập nhật nút)
+- peerStdUrl= http://localhost:9301/so-ts/csdl-so-sach?resource=bridges
+- mfeStdUrl= http://localhost:9301/so-ts/csdl-so-sach · alias /csdl-bieu-02
 
-- API: `api/v1/asset/csdl-records?resource=bridges` (+ BFF) · **cấm ERP.*** · **cấm** invent `infra` · **cấm** CRUD qua `/bridges/{id}/passport`
-- Entry: mfeStd `/csdl-bieu-02` · hub `/so-ts/csdl-so-sach?resource=bridges`
-- Form: Kind D Slideout typed 48 cột · GPS 3 điểm · **cấm** chỉ 3 ô `detail*`
-- Import: sheet Biểu 2 · legacy 64–69 SA map/drop · XLS OUT pack
-- Peer Sổ 6 / passport deep-link OK · **cấm** merge 1 form
+## API / tasks (ids only)
+- CRUD keep: GET/POST/PUT/DELETE …/csdl-records?resource=bridges
+- Export: GET …/csdl-records/export?resource=bridges
+- Import: POST …/csdl-records/import?resource=bridges
+- T-XLS-S02 · GPS 3 điểm · real-data §A+§B PASS
 
-## GAP (PO must see)
+## UNCLEAR
+- Q-XLS-SCOPE filtered vs all · Q-XLS-IMPORT now vs defer · Q-XLS-FILENAME
 
-| ID | One-liner |
-|----|-----------|
-| GAP-BIEU02-TYPED-01 | Typed 48 cột thay generic detail* |
-| GAP-BIEU02-ROUTE-01 | Alias `/csdl-bieu-02` vs hub-only |
-| GAP-BIEU02-GPS-01 | GPS 3 điểm lat/lng×3 |
-| GAP-BIEU02-BEAM-01 | Dầm: nhịp · sơ đồ · dài · loại |
-| GAP-BIEU02-SUB-01 | Phần dưới mố/trụ |
-| GAP-BIEU02-LOAD-01 | Tải TK/TT shape — SA |
-| GAP-BIEU02-FURN-01 | Gối · lan can · ống thoát · PQ · đỉnh |
-| GAP-BIEU02-LEGACY-01 | Legacy cột 64–69 keep/drop — SA |
-| GAP-BIEU02-PEER-01 | Không merge passport/Sổ 6 |
-| GAP-BIEU02-DMAP-01 | DOMAIN-MAP thêm `csdl-bieu-02` |
-| GAP-CSDL-ROAD-01 | SearchInput road-route |
-| GAP-CSDL-PROV-01 | Province static vs master |
-| GAP-CSDL-ORG-01 | manageUnit org-unit P2 |
-| GAP-CSDL-XLS-01 | Import/export sheet Biểu 2 OUT |
-
-## Open Q
-
-Q-GPS · Q-LOAD · Q-LEGACY · Q-ROUTE · Q-PROV · Q-SECTION
-
-## Zones
-
-List A/B/C/D Kind B · Form Kind D Slideout 2col Z1–Z3 (sections GPS/dầm/phần dưới) · map: none
-
-## Next
-
-| Role | Need |
-|------|------|
-| **PO** | requirement từ Delta + open Q |
-| Design | control-map · prototype 48 cột · reviewUrl |
-| SA | typed DTO/UiSchema · Schema_CsdlBieu2 · GPS/LEGACY/LOAD |
-
-## Cấm (compact)
-
-Demo/localStorage SSOT · ERP.* · Guid IdCode · form 3 ô only · invent map · merge passport/Sổ 6 · yarn build/e2e ở analy
+## Full paths (Read only if needed)
+- control-hint: D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/csdl-bieu-02-control-hint.md
+- real-data: D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/csdl-bieu-02-real-data.md
+- CTX: docs/context/features/csdl-bieu-02.md
+- epic: docs/context/features/csdl-export-print.md
+- keep PO/Design/SA: specs/csdl-bieu-02/po|ui|be (delta only)

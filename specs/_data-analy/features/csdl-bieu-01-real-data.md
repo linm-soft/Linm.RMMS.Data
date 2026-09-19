@@ -1,135 +1,104 @@
-# Real-data bind — csdl-bieu-01 (Kind B list + Kind D Slideout · pavement-sections)
+# Real-data bind — csdl-bieu-01 (edit_page · T-XLS-S01 export/import)
 
 | | |
 |---|---|
 | feature | `csdl-bieu-01` |
 | packKind | `list` |
-| changeScope | `new_page` |
+| changeScope | `edit_page` |
 | status | `done` |
-| taskId | `task_41122f1b` |
+| taskId | `task_7168eb6e` |
+| priorTask | `task_41122f1b` (typed CRUD **done** · **cấm** reopen new_page) |
 | resource | `pavement-sections` |
-| prefix | **live shell** `api/v1/asset/csdl-records` · BFF `web-bff/api/v1/asset/csdl-records` · typed DTO **SA** |
-| beRepo | `D:/AI-QLBD/Linm.RMMS.WebService` · **cấm ERP.*** · **cấm** `api/v1/rmms/*` · **cấm** invent `api/v1/infra/*` |
+| prefix | **live** `api/v1/asset/csdl-records` · BFF `web-bff/api/v1/asset/csdl-records` |
+| beRepo | `D:/AI-QLBD/Linm.RMMS.WebService` · **cấm ERP.*** · **cấm** `api/v1/infra/*` |
 | uiRepo | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Asset` |
-| mfeStdUrl | `http://localhost:9301/csdl-bieu-01` · hub `http://localhost:9301/so-ts/csdl-so-sach?resource=pavement-sections` |
-| map | `none` · **cấm** invent map canvas |
-| contentHash | `sha256:3545960f4006740c9dfe57b5f004fa4a1cd1b7befbcd51e35e2168e16821b65e` |
+| mfeStdUrl | `http://localhost:9301/so-ts/csdl-so-sach` · alias `/csdl-bieu-01` · hub `?resource=pavement-sections` |
+| map | `none` |
+| contentHash | `sha256:b48e58e637a1dd4fc9e14298a0063d34c89eadb1ea02ba756b561b4648d4b085` |
 | headerFingerprint | `sha256:6376475bbf48ca5b3e8cfd26688cd877fd1bc77d5b8d8c4c3d314cd0572f5cf2` |
-| sourceTables | shell `rmms_csdl_catalog_records` · typed `Schema_CsdlBieu1` (**SA/migration**) |
-| catalogKind UI schema | `pavement-sections` (typed) · fallback hub `csdl-records` |
+| sourceTables | typed `rmms_csdl_bieu1` · shell catalog nếu còn · **không** bảng report store P1 |
+| catalogKind UI schema | `pavement-sections` |
 | IdCode prefix | `MD` |
+| epicCite | `docs/context/features/csdl-export-print.md` · Wave 1 `T-XLS-S01` |
+| golden | Cục `1. Biểu mẫu CSDL.xls` sheet Biểu 1 · **cấm** hồ sơ 12+8 |
+| devSlash | `/implement-export-import-excel` · BFF binary |
 
-## § Delta Current vs New (`new_page` · `task_41122f1b`)
+## § Delta Current vs New (`edit_page` · `task_7168eb6e`)
 
 | ID | Current live | New (this analy) |
 |----|--------------|------------------|
-| Form | 3 ô `detail*` polymorphic | Typed 38 cột Excel Biểu 1 |
-| List cols | generic road/km/detail | Cột typed bề rộng · kết cấu · cấp · năm SD |
-| API | `GET/POST/PUT/DELETE …/csdl-records?resource=pavement-sections` | **giữ prefix** · widen payload / typed table — SA |
-| Import | stub | Skip hàng cầu âm · sheet 38 cột — OUT XLS |
-| Peer | `pavement-section` Sổ TS | Deep-link · **cấm** merge form |
+| Form / list | Typed 38 cột Slideout + grid **shipped** | **Unchanged** |
+| Toolbar | Refresh · Add · History · Schema · View/Edit/Delete — **không** Xuất | **Xuất Excel** (+ Import P1) trên `catalogToolbar` |
+| Filter | `LinErpListFilterBar` field+🔍 | **Unchanged** · **cấm** action Xuất (**GAP-FILTER-BAR-08**) |
+| Export API | Missing / stub | `GET …/csdl-records/export?resource=pavement-sections` → binary (epic cite · SA) |
+| Import API | Missing / stub | `POST …/csdl-records/import?resource=pavement-sections` (P1) |
+| Golden | — | Cục 16-sheet · sheet Biểu 1 · checksum 38 cột · skip-bridge |
+| Done gate | Typed STATUS done | **≠** export xong · cần file mở được cạnh mẫu |
 
 ## §A — Nguồn
 
 | sourceKind | sourceCite | empty | error |
 |------------|------------|-------|-------|
-| `context` | `docs/context/features/csdl-bieu-01.md` | — | version mismatch → gate |
-| `analy` | `specs/_data-analy/csdl-cuc-2026/ANALYSIS-AND-TASKS.md` § Biểu 1 | — | 38 cột SSOT |
-| `demo` | `Linm.RMMS.Demo/.../csdl-so-sach.html` (+ redirect demo) | — | **UI only** · **cấm** SSOT data |
-| `api` · list | `GET …/csdl-records?resource=pavement-sections&…` | empty grid VN | 422 thiếu resource · toast |
-| `api` · detail | `GET …/csdl-records/{id}` | — | 404 → đóng slideout · toast |
-| `api` · CRUD | `POST` / `PUT` / soft `DELETE` | — | validation toast |
-| `entity` | `CsdlCatalogRecordEntity` (shell) | — | tenant `CompanyCode` |
-| `entity` | typed Biểu 1 (**SA**) | — | Schema_CsdlBieu1 pair |
-| `mfe` | hub `CsdlSoSachPage` · form `CsdlFormSlideout` | generic | typed replace |
-| `catalog` | Integration ui-schema `pavement-sections` | bootstrap cols | toast |
-| `excel` | `1. Biểu mẫu CSDL.xls` sheet Biểu 1 | — | import cite · not runtime SSOT |
-| `derived` | IdCode `MD-yyyyMMdd-nnnn` | — | BE generate |
-
-`sourceCite` = path/controller **có trong repo** hoặc analy Excel cite. **Cấm** invent `api/v1/so-ts/*` · **cấm** ERP.*.
+| `context` | `docs/context/features/csdl-bieu-01.md` | — | version gate |
+| `context` | `docs/context/features/csdl-export-print.md` § Wave 1 · API | — | golden / toolbar rules |
+| `analy` | `specs/_data-analy/csdl-cuc-2026/ANALYSIS-AND-TASKS.md` Biểu 1 | — | 38 cột |
+| `api` · list/CRUD | `GET/POST/PUT/DELETE …/csdl-records?resource=pavement-sections` | empty grid VN | toast 4xx |
+| `api` · **export** | `GET …/csdl-records/export?resource=pavement-sections` (epic · SA chốt) | file 0 row OK | toast · **cấm** fake blob |
+| `api` · **import** | `POST …/csdl-records/import?resource=pavement-sections` | — | validation · skip-bridge count |
+| `entity` | typed Biểu 1 / `rmms_csdl_bieu1` | — | CompanyCode tenant |
+| `mfe` | `CsdlBieu01Page` · `fromCatalogToolbar` | — | wire export action |
+| `excel` | `1. Biểu mẫu CSDL.xls` sheet Biểu 1 | — | golden · not runtime SSOT |
+| `excel` | Hồ sơ `4.1. In_Mẫu…xlsx` 12 biểu | — | **STALE** · so sánh only |
 
 ## §B — Bind field (HARD)
 
-| uiField | Label | controlHint | catalogKind | GET | write field | sameMfe |
-|---------|-------|-------------|-------------|-----|-------------|---------|
-| resource | Resource | QS / const | — | required `pavement-sections` | `resource` | yes |
-| search | Tìm | SearchTextInput | — | `?search=` | — | yes |
-| province | Tỉnh | Dropdown | LOOKUP_STATIC | `?province=` | `province` | yes |
-| status | TT | Dropdown | LOOKUP_STATIC | `?status=` | `status` | yes |
-| roadCode | Đường | SearchInput | road-route | `?roadCode=` / detail | `roadCode` (+ display `roadName`) | yes · **GAP-CSDL-ROAD-01** |
-| kmFrom | Từ Km | Number | — | filter / detail | `kmFrom` | yes |
-| kmTo | Đến Km | Number | — | filter / detail | `kmTo` | yes |
-| code | Mã | Text ro | — | detail `code` | auto | yes |
-| lengthKm | Cdài | Number | — | detail / list | `lengthKm` | yes |
-| baseWidthM | B nền | Number | — | detail | `baseWidthM` | yes |
-| surfWGe14 | B≥14 | Number | — | detail | `surfWGe14` | yes · **GAP-BIEU01-WIDTH-01** |
-| surfW14To10 | B 14–10 | Number | — | detail | `surfW14To10` | yes |
-| surfW10To5 | B 10–5 | Number | — | detail | `surfW10To5` | yes |
-| surfWLe5 | B≤5 | Number | — | detail | `surfWLe5` | yes |
-| structureType | Kết cấu | Dropdown | LOOKUP_STATIC | detail | `structureType` | yes · **GAP-BIEU01-STRUCT-01** |
-| surfaceThicknessCm | Dày mặt | Number | — | detail | `surfaceThicknessCm` | yes |
-| plainClass | Cấp ĐB | Dropdown | LOOKUP_STATIC | detail | `plainClass` | yes |
-| mountainClass | Cấp MN | Dropdown | LOOKUP_STATIC | detail | `mountainClass` | yes |
-| yearsInServiceBand | Năm SD | Dropdown | LOOKUP_STATIC | detail | `yearsInServiceBand` | yes |
-| handoverMinistry | BG T.BỘ | Checkbox | — | detail | `handoverMinistry` | yes |
-| handoverLocal | BG MĐ | Checkbox | — | detail | `handoverLocal` | yes |
-| lastMajorRehabYear | Năm ĐT | Number | — | detail | `lastMajorRehabYear` | yes |
-| lastSurfaceRepairYear | Năm SC | Number | — | detail | `lastSurfaceRepairYear` | yes |
-| updatedByName | Người | Text | — | detail | `updatedByName` | yes |
-| manageUnit | ĐV QL | Text | — | detail / list | `manageUnit` | yes · **GAP-CSDL-ORG-01** |
-| notes | Ghi chú | Textarea | — | detail | `notes` | yes |
-| side | Bên | Dropdown | LOOKUP_STATIC | detail | `side` | yes |
-| isActive | Active | — | — | detail | soft-delete | yes |
-| updatedAt | Cập nhật | DateTime ro | — | detail | — | yes |
+### B1 — CRUD fields (**unchanged** — keep prior bind)
 
-**Prefix map:**
+Reuse prior §B (`task_41122f1b`): `resource` · filters · typed 38 form fields · soft-delete. **Cấm** đổi write paths typed trong pack này.
+
+### B2 — Export / import (**delta**)
+
+| uiField / action | Label | controlHint | catalogKind | GET / POST | write field | sameMfe |
+|------------------|-------|-------------|-------------|------------|-------------|---------|
+| exportExcel | Xuất Excel | ToolbarButton | — | `GET …/export?resource=pavement-sections` (+ filter QS nếu Q-XLS-SCOPE=filtered) | — (download) | **gap** (thiếu nút) |
+| importExcel | Nhập Excel | ToolbarButton + file | — | `POST …/import?resource=pavement-sections` multipart | upsert typed rows | **gap** P1 |
+| exportFileName | — | derived | — | Content-Disposition | — | SA |
+| skipBridgeCount | Hàng bỏ qua | toast/summary | — | import response | — | yes (rule) |
+
+**Prefix map (keep + delta):**
 
 | Operation | Path |
 |-----------|------|
-| List | `GET /web-bff/api/v1/asset/csdl-records?resource=pavement-sections` |
-| Detail | `GET /web-bff/api/v1/asset/csdl-records/{id}` |
-| Create | `POST /web-bff/api/v1/asset/csdl-records` body `resource=pavement-sections` + typed fields |
-| Update | `PUT /web-bff/api/v1/asset/csdl-records/{id}` |
-| Delete | `DELETE /web-bff/api/v1/asset/csdl-records/{id}` (soft) |
-
-API mirror: `api/v1/asset/csdl-records`. FE cite hub: `services/csdlSoSach/endpoint.ts` `BASE=/asset/csdl-records` — typed page **reuse** cùng BASE.
+| List / Detail / CRUD | `/web-bff/api/v1/asset/csdl-records` (+ `/{id}`) — **keep** |
+| **Export** | `GET /web-bff/api/v1/asset/csdl-records/export?resource=pavement-sections` |
+| **Import** | `POST /web-bff/api/v1/asset/csdl-records/import?resource=pavement-sections` |
+| API mirror | `api/v1/asset/csdl-records[/export|/import]` · **cấm** invent `/infra/` |
 
 ## §C — Catalog / lookup
 
-| catalogKind | search/list API | seed/import cite | Cấm |
-|-------------|-----------------|------------------|------|
-| LOOKUP_STATIC province | FE `PROVINCES` P1 | demo align | Dropdown demo-only làm SSOT quốc gia |
-| LOOKUP_STATIC status | tot/tb/kem/hong | — | — |
-| LOOKUP_STATIC side | L/R/C/Both | — | — |
-| LOOKUP_STATIC structureType | BTXM/BTN/Đá nhựa/Cấp phối | Excel (13)–(16) | free-text kết cấu |
-| LOOKUP_STATIC plainClass / mountainClass | I–V | Excel | — |
-| LOOKUP_STATIC yearsInServiceBand | 1–3 / 4–6 / 7–9 / >9 | Excel | — |
-| road-route | `GET /integration/road-routes/search` | shared catalog READY | free-text khi đã chốt SearchInput |
-| org-unit | `GET /integration/org-units/search` | shared org · P2 | hardcode ĐV |
-| ui-schema | Integration `pavement-sections` | Schema editor | generic 3-col only |
+Unchanged prior LOOKUP_STATIC + `road-route` + `org-unit` P2. Export **không** thêm catalogKind.
 
 ## §D — Map / vẽ
 
-`none` — list pack. Toolbar map → gis deep-link only.
+`none`
 
-## §E — Empty / error / permission
+## §E — Empty / error / permission / export
 
 | Case | UX |
 |------|-----|
-| Empty list | Grid copy VN «Chưa có đoạn mặt đường» · CTA Tạo mới |
-| 422 thiếu resource | toast · không alert |
-| 404 detail | đóng slideout · toast |
-| Soft-delete | row biến mất · list refresh |
-| Import skip-bridge | log/count hàng bỏ qua · **cấm** ghi length âm |
-| Permission | CommonLib Auth debt · **cấm** invent path |
+| Empty list export | File vẫn tải · 0 data row · header merge đúng mẫu · toast info OK |
+| Export fail | toast · **cấm** silent · **cấm** CSV generic lưới |
+| Import skip-bridge | count hàng bỏ · **cấm** ghi length âm |
+| Permission | Auth debt · **cấm** invent path |
+| Toast stub only | **FAIL** DoD · **GAP-BIEU01-XLS-02** |
 
 ## §F — Cấm
 
-- Demo / localStorage / seed giả làm SSOT runtime  
-- ERP.* / Domains/Master / `api/v1/infra/*` / `api/v1/so-ts/*` invent  
-- Form chỉ 3 ô `detail*`  
-- Merge form Sổ TS `pavement-section` vào biểu Cục  
-- Guid làm IdCode  
+- Re-run typed CRUD `new_page` / đổi form 38 cột không gap  
+- Toast stub = done · STATUS typed done = export xong  
+- Xuất/Import trên filter bar (**GAP-FILTER-BAR-08**)  
+- Golden = hồ sơ 12+8  
+- Demo/localStorage SSOT · ERP.* · invent `infra`  
 - yarn build / e2e ở role data_analy  
 
 ## Version meta (REQUIRED)
@@ -137,17 +106,17 @@ API mirror: `api/v1/asset/csdl-records`. FE cite hub: `services/csdlSoSach/endpo
 | Field | Value |
 |-------|-------|
 | skillId | agent-data-analy |
-| skillVersion | 2026.08.25.01 |
-| schemaVersion | 1 |
-| workflowVersion | 2026.09.01.02 |
-| rulesVersion | 2026.08.31.2 |
-| contentHash | `sha256:3545960f4006740c9dfe57b5f004fa4a1cd1b7befbcd51e35e2168e16821b65e` |
+| skillVersion | 2026.09.05.03 |
+| schemaVersion | 2 |
+| workflowVersion | 2026.09.05.03 |
+| rulesVersion | 2026.09.17.3 |
+| contentHash | `sha256:b48e58e637a1dd4fc9e14298a0063d34c89eadb1ea02ba756b561b4648d4b085` |
 | headerFingerprint | `sha256:6376475bbf48ca5b3e8cfd26688cd877fd1bc77d5b8d8c4c3d314cd0572f5cf2` |
-| generatedAt | 2026-09-05T11:53:25.414Z |
+| generatedAt | 2026-09-17T17:40:33.868Z |
 | versionGate | ok |
-| taskId | task_41122f1b |
+| taskId | task_7168eb6e |
 | packKind | list |
-| changeScope | new_page |
+| changeScope | edit_page |
 
 ---
-<!-- Version meta: skillId=agent-data-analy skillVersion=2026.08.25.01 schemaVersion=1 workflowVersion=2026.09.01.02 rulesVersion=2026.08.31.2 versionGate=ok contentHash=sha256:3545960f4006740c9dfe57b5f004fa4a1cd1b7befbcd51e35e2168e16821b65e -->
+<!-- Version meta: skillId=agent-data-analy skillVersion=2026.09.05.03 schemaVersion=2 workflowVersion=2026.09.05.03 rulesVersion=2026.09.17.3 versionGate=ok contentHash=sha256:b48e58e637a1dd4fc9e14298a0063d34c89eadb1ea02ba756b561b4648d4b085 changeScope=edit_page taskId=task_7168eb6e -->

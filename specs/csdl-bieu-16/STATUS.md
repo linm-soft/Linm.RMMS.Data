@@ -6,42 +6,43 @@
 | phase | `done` |
 | status | `done` |
 | packKind | `list` |
-| demo | D:/AI-QLBD/Linm.RMMS.Demo/src/demo/features/csdl-so-sach-demo.html |
+| changeScope | `edit_page` |
+| demo | N/A |
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/csdl-bieu-16.md` |
+| epicCite | `docs/context/features/csdl-export-print.md` · Wave 1 `T-XLS-S16` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Asset` |
-| mfeStdRoute | `/csdl-bieu-16` |
-| mfeStdUrl | `http://localhost:9301/csdl-bieu-16` |
+| mfeStdRoute | `/so-ts/csdl-so-sach` |
+| mfeStdUrl | `http://localhost:9301/so-ts/csdl-so-sach` |
 | hubEntry | `/so-ts/csdl-so-sach?resource=interchanges` |
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · DOMAIN-MAP — **cấm ERP.*** |
-| updatedAt | `2026-09-05T17:02:51.195Z` |
-| dataAnalyAt | `2026-09-05T16:01:30.000Z` |
-| poAt | `2026-09-05T16:12:00.000Z` |
-| designAt | `2026-09-05T16:25:00.000Z` |
-| saAt | `2026-09-05T16:35:00.000Z` |
-| teamLeadAt | `2026-09-05T17:05:00.000Z` |
-| devAt | `2026-09-05T17:45:00.000Z` |
-| qaAt | `2026-09-05T16:58:00.000Z` |
-| reviewAt | `2026-09-05T17:10:00.000Z` |
-| contentHash | `sha256:56e2fb16e9bcde21f17d7e9639b72660666778f5393b1270cecc49d123beba4b` |
+| updatedAt | `2026-09-18T03:27:59.229Z` |
+| dataAnalyAt | `2026-09-18T02:50:00.000Z` |
+| poAt | `2026-09-18T03:00:00.000Z` |
+| designAt | `2026-09-18T03:10:00.000Z` |
+| saAt | `2026-09-18T03:20:00.000Z` |
+| teamLeadAt | `2026-09-18T03:30:00.000Z` |
+| devAt | `2026-09-18T03:15:00.000Z` |
+| qaAt | `2026-09-18T03:22:00.000Z` |
+| reviewAt | `2026-09-18T03:25:00.000Z` |
+| contentHash | `sha256:c71543b66c4f1d28f5dbae1743c1042e0bb9f12ab9c0efc55d9668af2a38e072` |
 | headerFingerprint | `sha256:ec787bf2008ae89f1b6c085fe238f1b0d50b048f5c672b90b68d9ea102cf8fcc` |
-| taskId | `task_628c95a5` |
+| taskId | `task_56742c1e` |
 | reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-16/ui/prototype/csdl-bieu-16-list-prototype.html` |
-| route_confirm | `route_a` |
-| team_lead_confirm | `approve` |
-| review_confirm | `approve` |
-| yarnBuild | `PASS` |
-| yarnTypecheck | `PASS` |
-| dotnetBuild | `PASS` |
-| e2eQa | **PASS** (S0/S1/QA-20 · chrome fallback) |
-| qaTaskId | `task_944da438` |
-| qa_verdict | **PASS** |
-| review_verdict | **PASS** |
+| priorPipeline | typed CRUD review **PASS** (`task_628c95a5`) · **cấm** reopen new_page |
+| yarnBuild | **PASS** |
+| yarnTypecheck | — |
+| dotnetBuild | **PASS** (Api + Asset.Bff) |
+| e2eQa | **PASS** · S0/S1/QA-20 · S-XLS-EXPORT `Bieu16_NutGiao_20260918.xls` |
+| qaVerdict | **PASS** |
+| reviewVerdict | **PASS** · review_confirm=approve |
+| next | — · pipeline complete |
+| devSlash | `/implement-export-import-excel` |
 
 ## Lock
 
 | agent | scope | id | at |
-|-------|-------|-----|-----|
-| — | — | — | — |
+|-------|-------|-----|----|
+| review | csdl-bieu-16 | task_56742c1e | 2026-09-18T03:25:00.000Z · **released** (DoR PASS · review_confirm=approve) |
 
 ## Pipeline
 
@@ -66,17 +67,26 @@
 | task_4dfa0ca5 | csdl-bieu-16 | team_lead | sa | **done** | route_a · T-* matrix · team_lead_confirm=approve |
 | task_71eac21e | csdl-bieu-16 | dev | team_lead | **done** | FE alias+Slideout+branches · BE Schema_CsdlBieu16 · build PASS |
 | task_944da438 | csdl-bieu-16 | qa | dev | **done** | scenarios + e2e S0/S1/QA-20 PASS · qa-compact · typecheck PASS |
-| task_628c95a5 | csdl-bieu-16 | review | qa | **done** | findings PASS · review_confirm=approve · review-compact · phase=done |
+| task_628c95a5 | csdl-bieu-16 | review | qa | **done** | findings PASS · review_confirm=approve · review-compact · typed done |
+| task_e344020d | csdl-bieu-16 | data_analy | — | **done** | changeScope=edit_page · T-XLS-S16 · Xuất Excel catalogToolbar · GAP-BIEU16-XLS-* |
+| task_de6499fc | csdl-bieu-16 | po | data_analy | **done** | edit_page · Q-XLS-* chốt · export_only_p0 · filtered · header_blank · name_cuc |
+| task_4db008e6 | csdl-bieu-16 | design | po | **done** | edit_page · +Xuất catalogToolbar · Import ẩn · design_confirm=approve · reviewUrl |
+| task_17aa79d5 | csdl-bieu-16 | sa | design | **done** | edit_page · T-XLS-S16 · solution_confirm=approve · BFF binary · flatten 39 · .xls |
+| task_1793bfbe | csdl-bieu-16 | team_lead | sa | **done** | edit_page · T-XLS-S16-* · route_a keep · team_lead_confirm=approve · compact |
+| task_ba6998df | csdl-bieu-16 | dev | team_lead | **done** | /implement-export-import-excel · T-XLS-S16-BE/BFF/FE · yarn+dotnet PASS |
+| task_3b290f2f | csdl-bieu-16 | qa | dev | **done** | edit_page · T-XLS-S16-QA-01 · e2e S0/S1/QA-20 PASS · XLS `Bieu16_NutGiao_20260918.xls` |
+| task_56742c1e | csdl-bieu-16 | review | qa | **done** | edit_page · findings PASS · review_confirm=approve · GAP-XLS CLOSED · compact |
 
 ## Blockers / open questions
 
-- (none) — Review **PASS** · pipeline complete · debt: Auth DEFER · org P2 · XLS OUT · GAP-QA-E2E-PW-01 P2 · GAP-QA-ROAD-TESTID P3
+- none @ Review · Import DEFER P1 · Auth DEFER · pipeline **done**
 
 ## Links
 
 - data-analy → po → ui → be → task → implement → qa → review
-- mfeStdUrl: `http://localhost:9301/csdl-bieu-16`
-- mfeStdRoute: `/csdl-bieu-16`
+- mfeStdUrl: `http://localhost:9301/so-ts/csdl-so-sach`
+- mfeStdRoute: `/so-ts/csdl-so-sach`
 - hub: `/so-ts/csdl-so-sach?resource=interchanges`
 - reviewUrl: `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-16/ui/prototype/csdl-bieu-16-list-prototype.html`
 - compact: `specs/csdl-bieu-16/handoff/review-compact.md`
+- epic: `docs/context/features/csdl-export-print.md` · T-XLS-S16

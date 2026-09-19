@@ -41,6 +41,7 @@ Cột **Confirm path**: đã chốt **in đậm**. Ô trống = chờ bạn.
 | Tuyến đường               | `/mas/tuyen-duong`    |                              |
 | Loại tài sản              | `/mas/loai-ts`        |                              |
 | Đơn vị đối tác            | `/mas/doi-tac`        |                              |
+| Chức vụ                   | `/mas/chuc-vu`        | `/add-task` 18/09/2026       |
 | Phân loại mặt đường       | `/so-ts/pl-mat-duong` |                              |
 | Chấm công                 | `/td-tk/cham-cong`    | `attendance`                 |
 | Bản đồ hạ tầng            | `/gis/ha-tang`        | **đè** `/gis/ban-do-ht`      |
@@ -109,6 +110,9 @@ Mount thêm (khi apply): `chi-dao` · `ai-its` · `th` · `nhan-dan` · `admin`.
 | Đơn vị đối tác                    | `/master/partner-unit`     | `/mas/doi-tac`             |
 | Tạo mới — Đơn vị đối tác          | `/master/partner-unit/new` | `/mas/doi-tac/tao-moi`     |
 | Xem — Đơn vị đối tác              | `/master/partner-unit/:id` | `/mas/doi-tac/:id`         |
+| Chức vụ                           | `/master/job-title`        | `/mas/chuc-vu`             |
+| Tạo mới — Chức vụ                 | `/master/job-title/new`    | `/mas/chuc-vu/tao-moi`     |
+| Xem — Chức vụ                     | `/master/job-title/:id`    | `/mas/chuc-vu/:id`         |
 
 
 ### 2. Asset — `:9301`
@@ -310,6 +314,7 @@ Rule: mọi title/path **Tổng hợp** → prefix `/th/` (hiện chỉ 1: Tổn
 | Hạng        | Title                                                            |
 | ----------- | ---------------------------------------------------------------- |
 | Prefix      | IoT · Báo cáo Web (hub)                                          |
+| Camera leaf | `its-anco-signal` đề xuất `/camera/nut-den` — **chưa** apply router |
 | GIS leaf    | *(đã apply `/gis/live` — typo `/dis/live` trong bảng cũ)*          |
 | Leaf        | CSDL sổ sách · import/jobs/feedback                              |
 | Report leaf | còn lại trừ Báo cáo công · Nhật ký tuần đường · Tổng hợp bảo trì |

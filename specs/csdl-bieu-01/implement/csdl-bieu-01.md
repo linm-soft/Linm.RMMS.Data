@@ -1,94 +1,74 @@
-# Implement — csdl-bieu-01
+# Implement — csdl-bieu-01 (edit_page · T-XLS-S01)
 
 | Field | Value |
 |-------|-------|
 | feature | `csdl-bieu-01` |
-| title | CSDL Biểu 01 — Phân loại mặt đường |
 | this role | `dev` · `/agent-dev` |
 | status | **done** |
-| changeScope | `new_page` |
+| changeScope | `edit_page` |
 | packKind | `list` |
 | resource | `pavement-sections` |
-| formNo | `01` |
-| IdCode | `MD-yyyyMMdd-nnnn` |
-| route | `/csdl-bieu-01` + hub `?resource=pavement-sections` |
-| mfeStdUrl | `http://localhost:9301/csdl-bieu-01` |
+| IdCode | `MD-` |
+| route | `/csdl-bieu-01` · hub `/so-ts/csdl-so-sach` |
+| mfeStdUrl | `http://localhost:9301/so-ts/csdl-so-sach` · alias `/csdl-bieu-01` |
 | domain | Asset · `api/v1/asset/csdl-records` |
-| taskId | `task_aefea7f3` |
-| contentHashPrior | `sha256:3545960f4006740c9dfe57b5f004fa4a1cd1b7befbcd51e35e2168e16821b65e` |
-| skillVersion | `2026.08.25.01` |
-| workflowVersion | `2026.09.01.02` |
-| rulesVersion | `2026.08.31.2` |
-| writtenAt | `2026-09-05T12:45:00.000Z` |
-| yarn build | **PASS** |
-| dotnet build | **PASS** |
+| taskId | `task_742f5820` |
+| contentHash | `sha256:b48e58e637a1dd4fc9e14298a0063d34c89eadb1ea02ba756b561b4648d4b085` |
+| skillVersion | `2026.09.05.03` |
+| workflowVersion | `2026.09.05.03` |
+| rulesVersion | `2026.09.17.3` |
+| writtenAt | `2026-09-18T01:25:00.000Z` |
+| yarnBuild | **PASS** |
+| dotnetBuild | **PASS** (API + Asset BFF) |
+| migration | **none** @ XLS (typed KEEP) |
 
 ## Summary
 
-Typed Biểu 01 list+Slideout on alias `/csdl-bieu-01`. Shell `CsdlCatalogRecordEntity` + child `CsdlBieu1Entity` (`Schema_CsdlBieu1`). API kept `asset/csdl-records`; BFF proxy unchanged. Hub peer entry retained; Sổ TS deep-link only.
+Closed GAP-BIEU01-XLS-EXP-01 / IMP-01 / UI-01: filtered OOXML export sheet **Biểu 1** · filename `Bieu01_PhanLoaiMatDuong_{yyyyMMdd}.xls` · typed import upsert · catalogToolbar Xuất/Nhập on `CsdlBieu01Page`. Empty export = headers-only + toast info.
 
 ## Tasks DoD
 
 | id | status | notes |
 |----|--------|-------|
-| T-DM-01 | **done** | DOMAIN-MAP `csdl-bieu-01`→Asset |
-| T-CTX-01 | **done** | context feature sync |
-| T-BE-01 | **done** | `CsdlBieu1Entity` + EF 1:1 |
-| T-BE-02 | **done** | Migration `Schema_CsdlBieu1` (apply DB at deploy) |
-| T-BE-03 | **done** | typed DTO join · stop detail* write for pavement-sections |
-| T-BE-04 | **done** | IdCode `MD-` keep |
-| T-BE-05 | **done** | filters roadCode + kmFrom/kmTo |
-| T-BFF-01 | **done** | proxy QS as-is |
-| T-PERM-01 | **done** | reuse stub codes · Auth wire DEFER |
-| T-BE-UISCHEMA-01 | **done** | catalogKind `pavement-sections` typed seed |
-| T-UI-LIST-01 | **done** | route alias + Kind B |
-| T-UI-FILTER-01 | **done** | FilterBar + road SearchInput |
-| T-UI-CFG-01 | **done** | LinCatalogUiSchemaEditorModal + buildDynamicGridColumns |
-| T-UI-FORM-01 | **done** | Slideout typed · no detail*-only |
-| T-UI-LEAVE-01 | **done** | LeaveConfirmModal |
-| T-UI-ACT-01 | **done** | C/E/V/Copy/Delete |
-| T-UI-LKP-01 | **done** | road-route P1 |
-| T-UI-FIELD-01 | **done** | four_buckets · one_enum |
-| T-UI-PROD-01 | **done** | hub + peer deep-link |
-| T-UI-UX-01 | **done** | 2col footer_only |
-| T-UI-RESP-01 | **done** | CSS responsive fields |
-| T-OUT-01 | OUT | XLS/skip-bridge |
-
-## FE paths
-
-- `Linm.Web.RMMS.Asset/src/pages/CsdlBieu01Page/*`
-- route `src/index.tsx` · `csdl-bieu-01`
-- services `csdlSoSach/*` widened typed + filters
-
-## BE paths
-
-- Entity `CsdlBieu1Entity` · migration `20260905052251_Schema_CsdlBieu1`
-- Service/Controller/DTO widen · CatalogUiSchemaSeed PavementSections
-- DOMAIN-MAP row `csdl-bieu-01`
+| T-XLS-BE-01 | **done** | ExportAsync · filter · typed cols · OOXML · filename locked |
+| T-XLS-BE-02 | **done** | Import commit upsert shell+typed · skipBridge · sheet Biểu 1 |
+| T-XLS-BE-03 | **done** | Controller QS search/province/status/roadCode/kmFrom/kmTo (+from/toDate) |
+| T-XLS-BFF-01 | **done** | QS + binary/multipart passthrough · ms-excel detect |
+| T-XLS-FE-01 | **done** | toolbar Xuất/Nhập · blob · file · toast · **cấm** alert |
+| T-XLS-FE-02 | **done** | filter QS → export · **0** Xuất on LinErpListFilterBar |
+| T-* KEEP | **keep** | typed CRUD / grid / filter / form / leave |
+| T-XLS-QA-01 | **done** | `/agent-qa` `task_795fd15b` · E2E PASS |
 
 ## APIs
 
-| id | Method | Path |
+| id | method | path |
 |----|--------|------|
-| API-01 | GET | `/api/v1/asset/csdl-records?resource=pavement-sections&…` |
-| API-02 | GET | `/api/v1/asset/csdl-records/{id}` |
-| API-03 | POST | `/api/v1/asset/csdl-records` |
-| API-04 | PUT | `/api/v1/asset/csdl-records/{id}` |
-| API-05 | DELETE | `/api/v1/asset/csdl-records/{id}` |
-| API-LKP-01 | GET | `/api/v1/integration/road-routes/search` |
+| API-XLS-01 | GET | `/api/v1/asset/csdl-records/export?resource=pavement-sections&…` |
+| API-XLS-02 | POST | `/api/v1/asset/csdl-records/import?resource=…` (multipart · skipBridge) |
+| API-XLS-03 | POST | `/api/v1/asset/csdl-records/import/preview` KEEP |
 
-BFF: `/web-bff/api/v1/asset/csdl-records` proxy.
+## Files touched
+
+- BE: `CsdlCatalogExcelService.cs` · `CsdlCatalogRecordsController.cs`
+- BFF: `CsdlCatalogRecordsBffController.cs`
+- FE: `CsdlBieu01Page.tsx` · `buildRmmsGenericToolbar.tsx` · `csdlService.ts` · `endpoint.ts`
 
 ## Debt
 
-- Auth RequirePermission still TODO (DEFER)
-- Migration not applied to runtime DB in this pass
-- UiSchema DB override may need clear if old Sổ TS schema saved
-- org SearchInput / province master / XLS — P2/OUT
+- `apiClient.getBlob` strips Content-Disposition → FE fallback filename = PO lock pattern
+- Auth RequirePermission DEFER (prior)
+- True BIFF `.xls` read unsupported — OOXML (incl. mislabeled `.xls`) OK
+- GAP-QA-E2E-PW-01 P2 prior
 
-## Next
+## Gaps closed
 
-| Role | Need |
-|------|------|
-| QA | e2e `/agent-qa*` · T-QA-* |
-| Review | after QA |
+- GAP-BIEU01-XLS-EXP-01 · IMP-01 · UI-01
+
+## QA verdict
+
+| Field | Value |
+|-------|-------|
+| taskId | `task_795fd15b` |
+| verdict | **PASS** |
+| e2e | S0/S1/QA-20 + S-XLS-EXPORT/IMPORT · `qa/scenarios.md` |
+| next | `/agent-review` · **cấm** phase=done @ QA |

@@ -1,0 +1,14 @@
+{
+  "feature": "users",
+  "status": "done",
+  "taskId": "task_e4c84ce6",
+  "review_confirm": "approve",
+  "changeScope": "edit_page",
+  "packKind": "list",
+  "contentHashAnaly": "sha256:8bd9897e1ab2483fdb96e9a37492d87c38c7e709c2e3df118c7b884f5d4bb257",
+  "priorQaTaskId": "task_9d0370d3",
+  "skillVersion": "2026.08.08.21",
+  "generatedAt": "2026-09-18T16:55:00.000Z",
+  "verdict": "approve",
+  "p0": "none"
+}

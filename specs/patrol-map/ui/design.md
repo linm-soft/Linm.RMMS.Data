@@ -139,7 +139,7 @@ Safe area: nav + map + overlay + tab không đè notch / home indicator.
 
 ## 9. BFF (Design cite — SA map)
 
-App `{BffBase}/mobile-bff/api/v1` · `GET patrol/sessions` + `GET patrol/sessions/{id}/plan-points` + `GET …/check-ins`. Overlay waypoints = plan-points · **paint** = `OsrmStreetRouter` `routeAlongStreets` (`OsrmBase` Debug = public `router.project-osrm.org` · Release empty until self-host · **cấm** default public khi `net.osrmPublic=false`). Pin done/next từ check-in label · pin = `projectToPath` / `snapPointToStreet`. Fail / empty base → nét đứt tạm + toast `patrol.map.osrmFallback`. **Cấm** `PatrolMapOverlay` mock · **cấm** invent `patrol-map` API.
+App `{BffBase}/mobile-bff/api/v1` · `GET patrol/sessions` + `GET patrol/sessions/{id}/plan-points` + `GET …/check-ins`. Overlay waypoints = plan-points · **paint** = `OsrmStreetRouter` `routeAlongStreets` (`OsrmBase` = self-host · empty until HTTPS Nginx · **cấm** `router.project-osrm.org` kể cả Debug · **cấm** default public khi `net.osrmPublic=false`). Pin done/next từ check-in label · pin = `projectToPath` / `snapPointToStreet`. Fail / empty base → nét đứt tạm + toast `patrol.map.osrmFallback`. **Cấm** `PatrolMapOverlay` mock · **cấm** invent `patrol-map` API.
 
 ## 10. Out of scope (board)
 

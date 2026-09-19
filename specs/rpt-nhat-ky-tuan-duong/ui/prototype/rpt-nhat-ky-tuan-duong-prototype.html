@@ -72,15 +72,15 @@
   </style>
 </head>
 <body>
-  <div class="page" data-catalog-list-page data-zones="A-B-C-D" data-kind="report" data-testid="rmms-patrol-log-road-report-prototype">
-    <header class="zone-a" data-zone="A">
+  <div class="page" data-catalog-list-page data-zones="A-B-C-D" data-kind="report" data-des-id="DES-RPT" data-cr="nktd-pdf-20260917" data-testid="rmms-patrol-log-road-report-prototype">
+    <header class="zone-a" data-zone="A" data-des-id="DES-RPT-HDR">
       <h1><i class="fas fa-road" aria-hidden="true"></i> Nhật ký tuần đường</h1>
       <span class="badge">Kind E</span>
     </header>
-    <p class="hint">Prototype content-only · A–D + SoCai · SearchInput · không chrome / Thêm mới trên A · không Mẫu 8 / check-in.</p>
+    <p class="hint">Prototype content-only · DES-RPT-A/C/F/CHART · Wave B CR · SearchInput · 0 action trên filter · không chrome / Thêm mới · không check-in seed.</p>
 
     <div class="zone-b" data-zone="B" data-testid="rmms-patrol-log-road-report-filters">
-      <div class="zone-b-left">
+      <div class="zone-b-left" data-des-id="DES-RPT-C" data-lin-list-layout="erp-filter-bar">
         <div class="field lkp" id="lkp-route">
           <label>Tuyến</label>
           <div class="search-wrap">
@@ -122,18 +122,18 @@
           <label>Tìm kiếm</label>
           <input type="text" id="qSearch" placeholder="Nội dung · tuyến · cán bộ · số sổ" />
         </div>
-        <button type="button" class="btn primary" id="btnView">Xem</button>
-        <button type="button" class="btn" id="btnExport">Xuất Excel</button>
+        <button type="button" class="btn primary" id="btnView" title="Xem"><i class="fas fa-search"></i> Xem</button>
       </div>
-      <div class="zone-b-right" data-testid="report-toolbar">
-        <button type="button" class="btn" id="btnRefresh" title="Làm mới"><i class="fas fa-sync-alt"></i></button>
-        <button type="button" class="btn" id="btnChart" title="Biểu đồ"><i class="fas fa-chart-line"></i></button>
-        <button type="button" class="btn" id="btnPrint" title="In"><i class="fas fa-print"></i></button>
-        <button type="button" class="btn" id="btnConfig" title="Config"><i class="fas fa-cog"></i></button>
+      <div class="zone-b-right" data-des-id="DES-RPT-A" data-testid="report-toolbar">
+        <button type="button" class="btn" id="btnRefresh" title="Làm mới"><i class="fas fa-sync-alt"></i> Làm mới</button>
+        <button type="button" class="btn" id="btnChart" title="Xem biểu đồ"><i class="fas fa-chart-bar"></i> Biểu đồ</button>
+        <button type="button" class="btn" id="btnExport" title="Xuất Excel"><i class="fas fa-file-excel"></i> Xuất Excel</button>
+        <button type="button" class="btn" id="btnPrint" title="In"><i class="fas fa-print"></i> In</button>
+        <button type="button" class="btn" id="btnConfig" title="Sửa config"><i class="fas fa-cog"></i> Config</button>
       </div>
     </div>
 
-    <section class="zone-c" data-zone="C">
+    <section class="zone-c" data-zone="C" data-des-id="DES-RPT-GRID">
       <div class="grid-head">
         <h2 class="grid-title">Kết quả nhật ký tuần đường</h2>
         <p class="grid-help" id="gridHelp">Chưa xem — nhấn «Xem» để tải nhật ký tuần đường.</p>
@@ -146,11 +146,13 @@
               <th>Tuyến</th>
               <th>Cán bộ</th>
               <th>Km</th>
+              <th>Vị trí</th>
               <th>Nội dung nhật ký</th>
               <th>Xử lý tại chỗ</th>
+              <th>Nhận xét / ký</th>
+              <th>Ghi chú</th>
               <th>Trạng thái</th>
               <th>Số sổ</th>
-              <th>Vị trí</th>
               <th>Nguồn</th>
             </tr>
           </thead>
@@ -174,38 +176,39 @@
     </section>
   </div>
   <div class="toast" id="toast"></div>
-  <div class="modal" id="chartModal" role="dialog" aria-labelledby="chartTitle">
+  <div class="modal" id="chartModal" role="dialog" aria-labelledby="chartTitle" data-des-id="DES-RPT-CHART">
     <div class="modal-card">
       <h3 id="chartTitle">Biểu đồ SoCai — Nhật ký tuần đường</h3>
-      <p class="hint">Số dòng theo tuyến (bar analog) · chỉ khi đã Xem + có dòng.</p>
+      <p class="hint">Số dòng theo tuyến (bar analog) · chỉ khi đã Xem + có dòng · live items (không stub).</p>
       <div class="bars" id="chartBars"></div>
       <button type="button" class="btn primary" id="btnChartClose">Đóng</button>
     </div>
   </div>
-  <div class="modal" id="configModal" role="dialog" aria-labelledby="configTitle">
+  <div class="modal" id="configModal" role="dialog" aria-labelledby="configTitle" data-des-id="DES-RPT-F">
     <div class="modal-card">
       <h3 id="configTitle">Cấu hình hiển thị báo cáo</h3>
-      <p class="hint">Analog ReportDisplayConfigModal — cột List / width / filter / sort · không height-only.</p>
+      <p class="hint">Analog LinReportTableConfigModal FULL — grid + footer + chart · cấm height-only / configHint.</p>
       <div id="cfgCols"></div>
       <button type="button" class="btn primary" id="btnConfigClose">Đóng</button>
     </div>
   </div>
   <script>
+    /* Mock = sổ csdl-so-02 sample (form Wave A) — live empty=[] · cấm check-in seed */
     const ALL = [
-      { day: "2026-08-01", route: "QL.1", staff: "nva", staffName: "Nguyễn Văn A", km: "12+200", content: "Nắng · ổ gà nhỏ", action: "Đánh dấu", status: "signed", statusLabel: "Đã ký", book: "BK-TD-001", bookId: "book-001", loc: "Km12+200 P", id: "e1" },
-      { day: "2026-08-01", route: "QL.15", staff: "ttb", staffName: "Trần Thị B", km: "8+000", content: "Cây ngã tầm nhìn", action: "Cắt cành", status: "signed", statusLabel: "Đã ký", book: "BK-TD-002", bookId: "book-002", loc: "Km8 taluy T", id: "e2" },
-      { day: "2026-07-31", route: "QL.217", staff: "lvc", staffName: "Lê Văn C", km: "4+100", content: "Mưa trơn", action: "Biển cảnh báo", status: "signed", statusLabel: "Đã ký", book: "BK-TD-003", bookId: "book-003", loc: "Km4+100", id: "e3" },
-      { day: "2026-07-31", route: "HCM", staff: "pmd", staffName: "Phạm Minh D", km: "3+000", content: "Lấn chiếm HL", action: "Biên bản", status: "pending", statusLabel: "Chờ ký", book: "BK-TD-004", bookId: "book-004", loc: "Km3 hành lang", id: "e4" },
-      { day: "2026-07-30", route: "QL.7", staff: "nva", staffName: "Nguyễn Văn A", km: "22+000", content: "Tắc rãnh", action: "Khơi thông", status: "signed", statusLabel: "Đã ký", book: "BK-TD-005", bookId: "book-005", loc: "Km22 rãnh T", id: "e5" },
-      { day: "2026-07-29", route: "QL.1", staff: "pmd", staffName: "Phạm Minh D", km: "1+200", content: "Biển mờ", action: "Lau biển", status: "signed", statusLabel: "Đã ký", book: "BK-TD-001", bookId: "book-001", loc: "Km1+200", id: "e6" },
-      { day: "2026-07-28", route: "QL.7", staff: "ttb", staffName: "Trần Thị B", km: "11+000", content: "Sạt nhỏ", action: "Rào tạm", status: "signed", statusLabel: "Đã ký", book: "BK-TD-007", bookId: "book-007", loc: "Km11 taluy", id: "e7" },
-      { day: "2026-07-28", route: "QL.15", staff: "nva", staffName: "Nguyễn Văn A", km: "5+200", content: "Nứt dọc", action: "Đánh dấu", status: "pending", statusLabel: "Chờ ký", book: "BK-TD-008", bookId: "book-008", loc: "Km5+200 làn 1", id: "e8" },
-      { day: "2026-07-27", route: "QL.217", staff: "pmd", staffName: "Phạm Minh D", km: "14+300", content: "Nước đọng", action: "Bơm thoát", status: "signed", statusLabel: "Đã ký", book: "BK-TD-003", bookId: "book-003", loc: "Km14 cống", id: "e9" },
-      { day: "2026-07-30", route: "QL.15", staff: "ttb", staffName: "Trần Thị B", km: "45+200", content: "Khe bẩn", action: "Vệ sinh", status: "signed", statusLabel: "Đã ký", book: "BK-TD-002", bookId: "book-002", loc: "Cầu Km45", id: "e10" },
-      { day: "2026-07-29", route: "HCM", staff: "lvc", staffName: "Lê Văn C", km: "9+100", content: "Hộ lan móp", action: "Ghi nhận", status: "pending", statusLabel: "Chờ ký", book: "BK-TD-006", bookId: "book-006", loc: "Km9 hộ lan P", id: "e11" },
-      { day: "2026-08-01", route: "QL.1", staff: "nva", staffName: "Nguyễn Văn A", km: "18+050", content: "Bồi lắng cống", action: "Nạo vét", status: "pending", statusLabel: "Chờ ký", book: "BK-TD-001", bookId: "book-001", loc: "Km18 cống ngang", id: "e12" }
+      { day: "2026-08-01", route: "QL.1", staff: "nva", staffName: "Nguyễn Văn A", km: "12+200", loc: "Km12+200 P", content: "Nắng · ổ gà nhỏ", action: "Đánh dấu", remark: "Đã kiểm", note: "", status: "signed", statusLabel: "Đã ký", book: "BK-TD-001", bookId: "book-001", id: "e1" },
+      { day: "2026-08-01", route: "QL.15", staff: "ttb", staffName: "Trần Thị B", km: "8+000", loc: "Km8 taluy T", content: "Cây ngã tầm nhìn", action: "Cắt cành", remark: "OK", note: "Ưu tiên P1", status: "signed", statusLabel: "Đã ký", book: "BK-TD-002", bookId: "book-002", id: "e2" },
+      { day: "2026-07-31", route: "QL.217", staff: "lvc", staffName: "Lê Văn C", km: "4+100", loc: "Km4+100", content: "Mưa trơn", action: "Biển cảnh báo", remark: "Đã ký", note: "", status: "signed", statusLabel: "Đã ký", book: "BK-TD-003", bookId: "book-003", id: "e3" },
+      { day: "2026-07-31", route: "HCM", staff: "pmd", staffName: "Phạm Minh D", km: "3+000", loc: "Km3 hành lang", content: "Lấn chiếm HL", action: "Biên bản", remark: "", note: "Chờ lãnh đạo", status: "pending", statusLabel: "Chờ ký", book: "BK-TD-004", bookId: "book-004", id: "e4" },
+      { day: "2026-07-30", route: "QL.7", staff: "nva", staffName: "Nguyễn Văn A", km: "22+000", loc: "Km22 rãnh T", content: "Tắc rãnh", action: "Khơi thông", remark: "Xong", note: "", status: "signed", statusLabel: "Đã ký", book: "BK-TD-005", bookId: "book-005", id: "e5" },
+      { day: "2026-07-29", route: "QL.1", staff: "pmd", staffName: "Phạm Minh D", km: "1+200", loc: "Km1+200", content: "Biển mờ", action: "Lau biển", remark: "OK", note: "", status: "signed", statusLabel: "Đã ký", book: "BK-TD-001", bookId: "book-001", id: "e6" },
+      { day: "2026-07-28", route: "QL.7", staff: "ttb", staffName: "Trần Thị B", km: "11+000", loc: "Km11 taluy", content: "Sạt nhỏ", action: "Rào tạm", remark: "Đã xem", note: "Theo dõi", status: "signed", statusLabel: "Đã ký", book: "BK-TD-007", bookId: "book-007", id: "e7" },
+      { day: "2026-07-28", route: "QL.15", staff: "nva", staffName: "Nguyễn Văn A", km: "5+200", loc: "Km5+200 làn 1", content: "Nứt dọc", action: "Đánh dấu", remark: "", note: "", status: "pending", statusLabel: "Chờ ký", book: "BK-TD-008", bookId: "book-008", id: "e8" },
+      { day: "2026-07-27", route: "QL.217", staff: "pmd", staffName: "Phạm Minh D", km: "14+300", loc: "Km14 cống", content: "Nước đọng", action: "Bơm thoát", remark: "OK", note: "", status: "signed", statusLabel: "Đã ký", book: "BK-TD-003", bookId: "book-003", id: "e9" },
+      { day: "2026-07-30", route: "QL.15", staff: "ttb", staffName: "Trần Thị B", km: "45+200", loc: "Cầu Km45", content: "Khe bẩn", action: "Vệ sinh", remark: "Đã ký", note: "", status: "signed", statusLabel: "Đã ký", book: "BK-TD-002", bookId: "book-002", id: "e10" },
+      { day: "2026-07-29", route: "HCM", staff: "lvc", staffName: "Lê Văn C", km: "9+100", loc: "Km9 hộ lan P", content: "Hộ lan móp", action: "Ghi nhận", remark: "", note: "Vật tư", status: "pending", statusLabel: "Chờ ký", book: "BK-TD-006", bookId: "book-006", id: "e11" },
+      { day: "2026-08-01", route: "QL.1", staff: "nva", staffName: "Nguyễn Văn A", km: "18+050", loc: "Km18 cống ngang", content: "Bồi lắng cống", action: "Nạo vét", remark: "", note: "", status: "pending", statusLabel: "Chờ ký", book: "BK-TD-001", bookId: "book-001", id: "e12" }
     ];
-    const COLS = ["Ngày","Tuyến","Cán bộ","Km","Nội dung nhật ký","Xử lý tại chỗ","Trạng thái","Số sổ","Vị trí","Nguồn"];
+    const COLS = ["Ngày","Tuyến","Cán bộ","Km","Vị trí","Nội dung nhật ký","Xử lý tại chỗ","Nhận xét / ký","Ghi chú","Trạng thái","Số sổ","Nguồn"];
     const state = { viewed: false, route: "", staff: "", page: 1, pageSize: 50 };
     const toastEl = document.getElementById("toast");
     function toast(msg) {
@@ -256,11 +259,11 @@
         help.textContent = empty.textContent;
       } else {
         empty.style.display = "none";
-        help.textContent = "Kéo cột ON (MFE) · drill «Mở sổ» · analog LinCatalogDataGrid.";
+        help.textContent = "Kéo cột ON · drill /csdl-so-02 hoặc hub ?resource=patrol-logs&id= · cấm ?kind=.";
         pageRows.forEach((r) => {
           const tr = document.createElement("tr");
           const stCls = r.status === "pending" ? "st-pending" : "";
-          tr.innerHTML = `<td>${fmtDay(r.day)}</td><td>${r.route}</td><td>${r.staffName}</td><td>${r.km}</td><td>${r.content}</td><td>${r.action}</td><td><span class="st ${stCls}">${r.statusLabel}</span></td><td>${r.book}</td><td>${r.loc}</td><td><button type="button" class="drill" data-book="${r.bookId}" data-entry="${r.id}">Mở sổ</button></td>`;
+          tr.innerHTML = `<td>${fmtDay(r.day)}</td><td>${r.route}</td><td>${r.staffName}</td><td>${r.km}</td><td>${r.loc}</td><td>${r.content}</td><td>${r.action}</td><td>${r.remark || ""}</td><td>${r.note || ""}</td><td><span class="st ${stCls}">${r.statusLabel}</span></td><td>${r.book}</td><td><button type="button" class="drill" data-book="${r.bookId}" data-entry="${r.id}">Mở sổ</button></td>`;
           tbody.appendChild(tr);
         });
       }
@@ -328,7 +331,7 @@
     document.getElementById("btnChartClose").addEventListener("click", () => document.getElementById("chartModal").classList.remove("on"));
     document.getElementById("btnPrint").addEventListener("click", () => {
       if (!state.viewed || filtered().length === 0) { toast("Nhấn Xem trước khi in"); return; }
-      toast("Print-scope modal → window.print");
+      toast("P1 print grid · P2 bìa TT41 PL VIII = GAP-NKTD-PRINT-01 (không block)");
     });
     document.getElementById("btnConfig").addEventListener("click", () => {
       const host = document.getElementById("cfgCols");
@@ -339,7 +342,7 @@
     document.getElementById("tbody").addEventListener("click", (e) => {
       const b = e.target.closest(".drill");
       if (!b) return;
-      toast("Drill /asset/csdl-so-sach?kind=patrol-logs&id=" + b.getAttribute("data-book") + "&entryId=" + b.getAttribute("data-entry"));
+      toast("Drill /csdl-so-02 · hoặc hub ?resource=patrol-logs&id=" + b.getAttribute("data-book") + " · entryId=" + b.getAttribute("data-entry") + " · cấm ?kind=");
     });
     document.getElementById("prev").addEventListener("click", () => { state.page -= 1; render(); });
     document.getElementById("next").addEventListener("click", () => { state.page += 1; render(); });

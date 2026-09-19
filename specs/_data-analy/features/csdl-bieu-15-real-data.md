@@ -1,154 +1,127 @@
-# Real-data bind — csdl-bieu-15 (Kind B list + Kind D Slideout · ops-facilities)
+﻿# Real-data bind â€” csdl-bieu-15 (edit_page Â· T-XLS-S15 export/import)
 
 | | |
 |---|---|
 | feature | `csdl-bieu-15` |
 | packKind | `list` |
-| changeScope | `new_page` |
+| changeScope | `edit_page` |
 | status | `done` |
-| taskId | `task_23453ac3` |
+| taskId | `task_4b6f0c6e` |
+| priorTask | `task_23453ac3` â†’ review `task_0c28671f` (typed CRUD **done** Â· **cáº¥m** reopen new_page) |
 | resource | `ops-facilities` |
-| prefix | **live shell** `api/v1/asset/csdl-records` · BFF `web-bff/api/v1/asset/csdl-records` · typed DTO **SA** |
-| beRepo | `D:/AI-QLBD/Linm.RMMS.WebService` · **cấm ERP.*** · **cấm** `api/v1/rmms/*` · **cấm** invent `api/v1/infra/*` |
+| prefix | **live** `api/v1/asset/csdl-records` Â· BFF `web-bff/api/v1/asset/csdl-records` |
+| beRepo | `D:/AI-QLBD/Linm.RMMS.WebService` Â· **cáº¥m ERP.*** Â· **cáº¥m** `api/v1/infra/*` |
 | uiRepo | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Asset` |
-| mfeStdUrl | `http://localhost:9301/csdl-bieu-15` · hub `http://localhost:9301/so-ts/csdl-so-sach?resource=ops-facilities` |
-| map | `none` · **cấm** invent map canvas |
-| contentHash | `sha256:3bf356f00182dd6c0864bf5b88ae4d460ef8da73e5521f1b14756b7168dc20a7` |
+| mfeStdUrl | `http://localhost:9301/so-ts/csdl-so-sach` Â· alias `/csdl-bieu-15` Â· hub `?resource=ops-facilities` |
+| map | `none` |
+| contentHash | `sha256:8a85d68eaef24cf98c312f83a3a100de25b1212e8a751d6f1f42005d38dd0fc8` |
 | headerFingerprint | `sha256:0064a4903777f7ea8d51c7423d8451a20daf77a5934929001905edaa380f4fe4` |
-| sourceTables | shell `rmms_csdl_catalog_records` · typed `Schema_CsdlBieu15` / `OpsFacility` (**SA/migration**) |
-| catalogKind UI schema | `ops-facilities` (typed) · fallback hub `csdl-records` |
-| IdCode prefix | `OF` (**Q-PREFIX**) |
-| peerSoTs | `so-ts-toll` · `so-ts-rest-area` · `so-ts-station-house` · **cấm** merge so-ts-* · **cấm** reuse `road-assets` / dumpSpecs làm SSOT biểu |
+| sourceTables | typed `Schema_CsdlBieu15` / `OpsFacility` Â· **khÃ´ng** báº£ng report store P1 |
+| catalogKind UI schema | `ops-facilities` |
+| IdCode prefix | `OF` |
+| peerSoTs | `so-ts-toll` Â· `so-ts-rest-area` Â· `so-ts-station-house` Â· **cáº¥m** merge so-ts-* / `road-assets` vÃ o export |
+| epicCite | `docs/context/features/csdl-export-print.md` Â· Wave 1 `T-XLS-S15` |
+| golden | Cá»¥c `1. Biá»ƒu máº«u CSDL.xls` sheet Biá»ƒu 15 Â· **cáº¥m** há»“ sÆ¡ 12+8 |
+| devSlash | `/implement-export-import-excel` Â· BFF binary |
 
-## § Delta Current vs New (`new_page` · `task_23453ac3`)
+## Â§ Delta Current vs New (`edit_page` Â· `task_4b6f0c6e`)
 
 | ID | Current live | New (this analy) |
 |----|--------------|------------------|
-| Hub | 12 biểu · **MISSING** Biểu 15 | NEW card · resource `ops-facilities` · formNo **15** |
-| Form | N/A / 3 ô `detail*` nếu bootstrap | Typed **20 cột** · facility + area + equipment |
-| List cols | generic | Shared + facilityKind/name/status/yearBuilt |
-| formNo | — | **15** · title «TMC / thu phí / hạt / kho» |
-| API | shell `csdl-records` · resource chưa đăng ký | **giữ prefix** · register `ops-facilities` + typed payload — SA |
-| DB SSOT | Doc chỉ Biểu 1–12 | Schema_CsdlBieu15 · **GAP-BIEU15-DB-01** |
-| Import | stub | Sheet 20 cột merge — OUT XLS |
-| Peer | so-ts-toll / rest-area / station-house · `road-assets?type=…` | **cấm** merge · ROW riêng · **GAP-CSDL-CUC-11** |
+| Form / list | Typed 20 Â· facility + area + equipment Â· Slideout + grid **shipped** | **Unchanged** |
+| Toolbar | Refresh Â· Add Â· History Â· Schema Â· View/Edit/Delete â€” **khÃ´ng** Xuáº¥t | **Xuáº¥t Excel** (+ Import P1) trÃªn `catalogToolbar` |
+| Filter | `LinErpListFilterBar` field+ðŸ” | **Unchanged** Â· **cáº¥m** action Xuáº¥t (**GAP-FILTER-BAR-08**) |
+| Export API | Missing / stub | `GET â€¦/csdl-records/export?resource=ops-facilities` â†’ binary (epic cite Â· SA) |
+| Import API | Missing / stub | `POST â€¦/csdl-records/import?resource=ops-facilities` (P1) |
+| Golden | â€” | Cá»¥c 16-sheet Â· sheet Biá»ƒu 15 Â· checksum 20 cá»™t Â· 1 sheet (facility+area+equipment cÃ¹ng hÃ ng) |
+| Peer | so-ts-toll / rest-area / station-house cite | **cáº¥m** merge/dump `road-assets` vÃ o file Â· **GAP-CSDL-CUC-11** |
+| Done gate | Typed STATUS done | **â‰ ** export xong Â· cáº§n file má»Ÿ Ä‘Æ°á»£c cáº¡nh máº«u |
 
-## §A — Nguồn
+## Â§A â€” Nguá»“n
 
 | sourceKind | sourceCite | empty | error |
 |------------|------------|-------|-------|
-| `context` | `docs/context/features/csdl-bieu-15.md` | — | version mismatch → gate |
-| `analy` | `specs/_data-analy/csdl-cuc-2026/ANALYSIS-AND-TASKS.md` § Biểu 15 | — | 20 cột · MISSING hub |
-| `db-ssot` | `docs/context/11-CSDL-SO-SACH-DATABASE-API.md` | **thiếu** § Biểu 15 | **GAP-BIEU15-DB-01** · SA viết entity |
-| `demo` | `Linm.RMMS.Demo/.../csdl-so-sach.html` (+ redirect · `csdl-so-sach-data.js`) | hub thiếu card | **UI only** · **cấm** SSOT data |
-| `api` · list | `GET …/csdl-records?resource=ops-facilities&…` | empty grid VN | 422 thiếu resource · toast |
-| `api` · detail | `GET …/csdl-records/{id}` | — | 404 → đóng slideout · toast |
-| `api` · CRUD | `POST` / `PUT` / soft `DELETE` | — | validation toast |
-| `entity` | `CsdlCatalogRecordEntity` (shell) | — | tenant `CompanyCode` |
-| `entity` | typed Biểu 15 / `OpsFacility` (**SA**) | — | Schema_CsdlBieu15 pair |
-| `mfe` | hub `CsdlSoSachPage` · form `CsdlFormSlideout` | generic / missing card | typed + hub card |
-| `catalog` | Integration ui-schema `ops-facilities` | bootstrap cols | toast |
-| `excel` | `1. Biểu mẫu CSDL.xls` sheet Biểu 15 | — | import cite · not runtime SSOT |
-| `peer` | so-ts-toll / rest-area / station-house · `api/v1/asset/road-assets` | — | **cite only** · **cấm** bind runtime |
-| `derived` | IdCode `OF-yyyyMMdd-nnnn` | — | BE generate · **Q-PREFIX** |
+| `context` | `docs/context/features/csdl-bieu-15.md` | â€” | version gate |
+| `context` | `docs/context/features/csdl-export-print.md` Â§ Wave 1 Â· API | â€” | golden / toolbar rules |
+| `analy` | `specs/_data-analy/csdl-cuc-2026/ANALYSIS-AND-TASKS.md` Biá»ƒu 15 | â€” | 20 cá»™t Â· 5 loáº¡i CT |
+| `db-ssot` | `docs/context/11-CSDL-SO-SACH-DATABASE-API.md` Â§ OpsFacility / Schema_CsdlBieu15 | â€” | FacilityKind Â· area Â· equipment |
+| `api` Â· list/CRUD | `GET/POST/PUT/DELETE â€¦/csdl-records?resource=ops-facilities` | empty grid VN | toast 4xx |
+| `api` Â· **export** | `GET â€¦/csdl-records/export?resource=ops-facilities` (epic Â· SA chá»‘t) | file 0 row OK | toast Â· **cáº¥m** fake blob |
+| `api` Â· **import** | `POST â€¦/csdl-records/import?resource=ops-facilities` | â€” | validation Â· typed fields |
+| `entity` | `Schema_CsdlBieu15` / OpsFacility | â€” | CompanyCode tenant |
+| `mfe` | `CsdlBieu15Page` Â· `fromCatalogToolbar` | â€” | wire export action |
+| `excel` | `1. Biá»ƒu máº«u CSDL.xls` sheet Biá»ƒu 15 | â€” | golden Â· not runtime SSOT |
+| `excel` | Há»“ sÆ¡ `4.1. In_Máº«uâ€¦xlsx` 12 biá»ƒu | â€” | **STALE** Â· so sÃ¡nh only |
+| `peer` | so-ts-toll / rest-area / station-house Â· `api/v1/asset/road-assets` | â€” | **cite only** Â· **cáº¥m** bind export |
 
-`sourceCite` = path/controller **có trong repo** hoặc analy Excel cite. **Cấm** invent `api/v1/so-ts/*` · **cấm** ERP.* · **cấm** invent `api/v1/infra/*` (doc legacy) · **cấm** bind peer `road-assets` làm list biểu.
+## Â§B â€” Bind field (HARD)
 
-## §B — Bind field (HARD)
+### B1 â€” CRUD fields (**unchanged** â€” keep prior bind)
 
-| uiField | Label | controlHint | catalogKind | GET | write field | sameMfe |
-|---------|-------|-------------|-------------|-----|-------------|---------|
-| resource | Resource | QS / const | — | required `ops-facilities` | `resource` | yes |
-| search | Tìm | SearchTextInput | — | `?search=` | — | yes |
-| province | Tỉnh | Dropdown | LOOKUP_STATIC | `?province=` | `province` | yes |
-| facilityKind | Loại CS | Dropdown | LOOKUP_STATIC | `?facilityKind=` | `facilityKind` | yes · **GAP-BIEU15-KIND-01** |
-| status | TT | Dropdown | LOOKUP_STATIC | `?status=` | `status` | yes · **GAP-BIEU15-STATUS-01** |
-| roadCode | Đường | SearchInput | road-route | `?roadCode=` / detail | `roadCode` (+ display `roadName`) | yes · **GAP-CSDL-ROAD-01** |
-| kmFrom / kmTo | Km từ–đến | Number | — | filter / detail | `kmFrom` / `kmTo` | yes · **Q-KM** |
-| code | Mã | Text ro | — | detail `code` | auto | yes |
-| facilityName | Tên CS | Text | — | detail / list | `facilityName` | yes |
-| courtyardAreaM2 | DT khuôn viên | Number | — | detail / list | `courtyardAreaM2` | yes · **GAP-BIEU15-AREA-01** |
-| buildingQty | Nhà SL | Number | — | detail / list | `buildingQty` | yes |
-| buildingAreaM2 | Nhà DT | Number | — | detail / list | `buildingAreaM2` | yes |
-| otherStructQty | KT khác SL | Number | — | detail / list | `otherStructQty` | yes |
-| otherStructAreaM2 | KT khác DT | Number | — | detail / list | `otherStructAreaM2` | yes |
-| yearBuilt | Năm | Number | — | detail / list | `yearBuilt` | yes |
-| equipmentKind | TB chủng | Text/Dropdown | — | detail / list | `equipmentKind` | yes · **GAP-BIEU15-EQ-01** |
-| equipmentQty | TB SL | Number | — | detail / list | `equipmentQty` | yes |
-| equipmentStatus | TB TT | Dropdown | LOOKUP_STATIC | detail / list | `equipmentStatus` | yes |
-| manageUnit | ĐV QL | Text | — | detail / list | `manageUnit` | yes · **GAP-CSDL-ORG-01** |
-| notes | Ghi chú | Textarea | — | detail | `notes` | yes |
-| isActive | Active | — | — | detail | soft-delete | yes |
-| updatedAt | Cập nhật | DateTime ro | — | detail | — | yes |
+Reuse prior Â§B (`task_23453ac3`): `resource` Â· filters Â· typed 20 Â· soft-delete Â· facilityKind/area/equipment*. **Cáº¥m** Ä‘á»•i write paths typed trong pack nÃ y.
 
-**Prefix map:**
+### B2 â€” Export / import (**delta**)
+
+| uiField / action | Label | controlHint | catalogKind | GET / POST | write field | sameMfe |
+|------------------|-------|-------------|-------------|------------|-------------|---------|
+| exportExcel | Xuáº¥t Excel | ToolbarButton | â€” | `GET â€¦/export?resource=ops-facilities` (+ filter QS náº¿u Q-XLS-SCOPE=filtered) | â€” (download) | **gap** (thiáº¿u nÃºt) |
+| importExcel | Nháº­p Excel | ToolbarButton + file | â€” | `POST â€¦/import?resource=ops-facilities` multipart | upsert typed | **gap** P1 |
+| exportFileName | â€” | derived | â€” | Content-Disposition | â€” | SA |
+
+**Prefix map (keep + delta):**
 
 | Operation | Path |
 |-----------|------|
-| List | `GET /web-bff/api/v1/asset/csdl-records?resource=ops-facilities` |
-| Detail | `GET /web-bff/api/v1/asset/csdl-records/{id}` |
-| Create | `POST /web-bff/api/v1/asset/csdl-records` body `resource=ops-facilities` + typed fields |
-| Update | `PUT /web-bff/api/v1/asset/csdl-records/{id}` |
-| Delete | `DELETE /web-bff/api/v1/asset/csdl-records/{id}` (soft) |
+| List / Detail / CRUD | `/web-bff/api/v1/asset/csdl-records` (+ `/{id}`) â€” **keep** |
+| **Export** | `GET /web-bff/api/v1/asset/csdl-records/export?resource=ops-facilities` |
+| **Import** | `POST /web-bff/api/v1/asset/csdl-records/import?resource=ops-facilities` |
+| API mirror | `api/v1/asset/csdl-records[/export|/import]` Â· **cáº¥m** invent `/infra/` |
 
-API mirror: `api/v1/asset/csdl-records`. FE cite hub: `services/csdlSoSach/endpoint.ts` `BASE=/asset/csdl-records` — typed page **reuse** cùng BASE.
+DB SSOT map (export row): `FacilityKind`â†”`facilityKind` Â· `FacilityName`â†”`facilityName` Â· `CourtyardAreaM2`â†”`courtyardAreaM2` Â· `BuildingQty`/`BuildingAreaM2` Â· `OtherStructQty`/`OtherStructAreaM2` Â· `Status`â†”`status` Â· `YearBuilt`â†”`yearBuilt` Â· `EquipmentKind`/`EquipmentQty`/`EquipmentStatus` â€” **SA** giá»¯ typed.
 
-DB đề xuất map: `FacilityKind`↔`facilityKind` · `FacilityName`↔`facilityName` · `CourtyardAreaM2`↔`courtyardAreaM2` · `BuildingQty`/`BuildingAreaM2` · `OtherStructQty`/`OtherStructAreaM2` · `Status`↔`status` · `YearBuilt`↔`yearBuilt` · `EquipmentKind`/`EquipmentQty`/`EquipmentStatus` — **SA** confirm Excel.
+## Â§C â€” Catalog / lookup
 
-**Cấm** bind: `api/v1/asset/road-assets?type=TOLL|REST_AREA|…` · dumpSpecs peer · invent `api/v1/infra/ops-facilities` · so-ts-* form APIs làm list biểu.
+Unchanged prior LOOKUP_STATIC (province/facilityKind/status/equipmentStatus) + `road-route` + `org-unit` P2. Export **khÃ´ng** thÃªm catalogKind.
 
-## §C — Catalog / lookup
+## Â§D â€” Map / váº½
 
-| catalogKind | search/list API | seed/import cite | Cấm |
-|-------------|-----------------|------------------|------|
-| LOOKUP_STATIC province | FE `PROVINCES` P1 | demo align | Dropdown demo-only làm SSOT quốc gia |
-| LOOKUP_STATIC facilityKind | tmc / toll_station / rest_area / station_house / warehouse | analy § Biểu 15 | expand không confirm |
-| LOOKUP_STATIC status | tot/tb/kem/hong hoặc align hub | — | invent set không cite Excel |
-| LOOKUP_STATIC equipmentStatus | align status hoặc riêng | **Q-EQ-SET** | invent |
-| road-route | `GET /integration/road-routes/search` | shared catalog READY | free-text khi đã chốt SearchInput |
-| org-unit | `GET /integration/org-units/search` | shared org · P2 | hardcode ĐV |
-| ui-schema | Integration `ops-facilities` | Schema editor | generic 3-col only |
-| asset-type peer | — | — | **cấm** dùng làm SSOT biểu Cục |
+`none`
 
-## §D — Map / vẽ
-
-`none` — list pack. Toolbar map → gis deep-link only. **Cấm** invent map canvas trên list.
-
-## §E — Empty / error / permission
+## Â§E â€” Empty / error / permission / export
 
 | Case | UX |
 |------|-----|
-| Empty list | Grid copy VN «Chưa có cơ sở TMC / thu phí / hạt / kho» · CTA Tạo mới |
-| 422 thiếu resource | toast · không alert |
-| 404 detail | đóng slideout · toast |
-| Soft-delete | row biến mất · list refresh |
-| Permission | CommonLib Auth debt · **cấm** invent path |
+| Empty list export | File váº«n táº£i Â· 0 data row Â· header merge Ä‘Ãºng máº«u Â· toast info OK |
+| Export fail | toast Â· **cáº¥m** silent Â· **cáº¥m** CSV generic lÆ°á»›i |
+| Import invalid typed | toast Â· giá»¯ map SA Â· **cáº¥m** Ä‘á»•i entity |
+| Permission | Auth debt Â· **cáº¥m** invent path |
+| Toast stub only | **FAIL** DoD Â· **GAP-BIEU15-XLS-02** |
 
-## §F — Cấm
+## Â§F â€” Cáº¥m
 
-- Demo / localStorage / seed giả làm SSOT runtime  
+- Demo / localStorage / seed giáº£ lÃ m SSOT runtime  
 - ERP.* / Domains/Master / `api/v1/infra/*` / invent `api/v1/so-ts/*`  
-- Form chỉ 3 ô `detail*`  
-- Merge / reuse so-ts-toll / rest-area / station-house form · `road-assets` · dumpSpecs làm list biểu  
-- Guid làm IdCode  
-- yarn build / e2e ở role data_analy  
+- Toast stub = export done Â· filter-bar export (**GAP-FILTER-BAR-08**)  
+- Golden há»“ sÆ¡ 12+8 Â· invent sheet riÃªng cÃ´ng trÃ¬nh/thiáº¿t bá»‹  
+- Merge peer so-ts-toll / rest-area / station-house / `road-assets` vÃ o export  
+- Re-open new_page typed CRUD Â· yarn build / e2e @ data_analy  
 
 ## Version meta (REQUIRED)
 
 | Field | Value |
 |-------|-------|
 | skillId | agent-data-analy |
-| skillVersion | 2026.08.25.01 |
+| skillVersion | 2026.09.05.03 |
 | schemaVersion | 1 |
-| workflowVersion | 2026.09.01.02 |
-| rulesVersion | 2026.08.31.2 |
-| contentHash | `sha256:3bf356f00182dd6c0864bf5b88ae4d460ef8da73e5521f1b14756b7168dc20a7` |
+| workflowVersion | 2026.09.05.03 |
+| rulesVersion | 2026.09.17.3 |
+| contentHash | `sha256:8a85d68eaef24cf98c312f83a3a100de25b1212e8a751d6f1f42005d38dd0fc8` |
 | headerFingerprint | `sha256:0064a4903777f7ea8d51c7423d8451a20daf77a5934929001905edaa380f4fe4` |
-| generatedAt | 2026-09-05T15:17:00.000Z |
+| generatedAt | 2026-09-18T02:10:00.000Z |
 | versionGate | ok |
-| taskId | task_23453ac3 |
+| taskId | task_4b6f0c6e |
 | packKind | list |
-| changeScope | new_page |
+| changeScope | edit_page |
 
 ---
-<!-- Version meta: skillId=agent-data-analy skillVersion=2026.08.25.01 schemaVersion=1 workflowVersion=2026.09.01.02 rulesVersion=2026.08.31.2 versionGate=ok contentHash=sha256:3bf356f00182dd6c0864bf5b88ae4d460ef8da73e5521f1b14756b7168dc20a7 -->
+<!-- Version meta: skillId=agent-data-analy skillVersion=2026.09.05.03 schemaVersion=1 workflowVersion=2026.09.05.03 rulesVersion=2026.09.17.3 versionGate=ok contentHash=sha256:8a85d68eaef24cf98c312f83a3a100de25b1212e8a751d6f1f42005d38dd0fc8 changeScope=edit_page taskId=task_4b6f0c6e -->

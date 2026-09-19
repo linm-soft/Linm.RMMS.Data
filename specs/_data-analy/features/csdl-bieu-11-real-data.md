@@ -1,154 +1,127 @@
-# Real-data bind — csdl-bieu-11 (Kind B list + Kind D Slideout · lighting-systems)
+# Real-data bind — csdl-bieu-11 (edit_page · T-XLS-S11 export/import)
 
 | | |
 |---|---|
 | feature | `csdl-bieu-11` |
 | packKind | `list` |
-| changeScope | `new_page` |
+| changeScope | `edit_page` |
 | status | `done` |
-| taskId | `task_ed491c32` |
+| taskId | `task_55dac8de` |
+| priorTask | `task_ed491c32` → review `task_20e43f26` (typed CRUD **done** · **cấm** reopen new_page) |
 | resource | `lighting-systems` |
-| prefix | **live shell** `api/v1/asset/csdl-records` · BFF `web-bff/api/v1/asset/csdl-records` · typed DTO **SA** |
-| beRepo | `D:/AI-QLBD/Linm.RMMS.WebService` · **cấm ERP.*** · **cấm** `api/v1/rmms/*` · **cấm** invent `api/v1/infra/*` |
+| prefix | **live** `api/v1/asset/csdl-records` · BFF `web-bff/api/v1/asset/csdl-records` |
+| beRepo | `D:/AI-QLBD/Linm.RMMS.WebService` · **cấm ERP.*** · **cấm** `api/v1/infra/*` |
 | uiRepo | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Asset` |
-| mfeStdUrl | `http://localhost:9301/csdl-bieu-11` · hub `http://localhost:9301/so-ts/csdl-so-sach?resource=lighting-systems` |
-| map | `none` · **cấm** invent map canvas |
-| contentHash | `sha256:7980db07b4712336ab0b675fa89feaab75c67fdaef3b54fe94647ab9ec1863d8` |
+| mfeStdUrl | `http://localhost:9301/so-ts/csdl-so-sach` · alias `/csdl-bieu-11` · hub `?resource=lighting-systems` |
+| map | `none` |
+| contentHash | `sha256:7f64b8dcea4265af23b9f2e5e1dae3ab1c933b0a4404b0f872d39029716b4d62` |
 | headerFingerprint | `sha256:b37759a9224c09c7c63bc81583b4a9bcbca02e74cba8b63579819e90d57f1d1a` |
-| sourceTables | shell `rmms_csdl_catalog_records` · typed `Schema_CsdlBieu11` / `LightingSystem` (**SA/migration**) |
-| catalogKind UI schema | `lighting-systems` (typed) · fallback hub `csdl-records` |
+| sourceTables | typed `Schema_CsdlBieu11` / `LightingSystem` · **không** bảng report store P1 |
+| catalogKind UI schema | `lighting-systems` |
 | IdCode prefix | `LT` |
-| peerSoTs | `so-ts-lighting` · type `LIGHTING` · deep-link only · bucket qty ≠ điểm |
+| peerSoTs | `so-ts-lighting` · type `LIGHTING` · deep-link only |
+| epicCite | `docs/context/features/csdl-export-print.md` · Wave 1 `T-XLS-S11` |
+| golden | Cục `1. Biểu mẫu CSDL.xls` sheet Biểu 11 · **cấm** hồ sơ 12+8 |
+| devSlash | `/implement-export-import-excel` · BFF binary |
 
-## § Delta Current vs New (`new_page` · `task_ed491c32`)
+## § Delta Current vs New (`edit_page` · `task_55dac8de`)
 
 | ID | Current live | New (this analy) |
 |----|--------------|------------------|
-| Form | 3 ô `detail*` polymorphic | Typed 24 cột · LED qty 4 mức · TT/cột/tủ/TBA · NLMT 6 field |
-| List cols | generic road/km/detail | Shared + typed grid/solar fields |
-| formNo | Demo/live **11** | **giữ 11** · title «Hệ thống chiếu sáng» |
-| API | `GET/POST/PUT/DELETE …/csdl-records?resource=lighting-systems` | **giữ prefix** · widen typed payload — SA |
-| Import | stub | Sheet 24 cột merge — OUT XLS |
-| Peer | `so-ts-lighting` | **≠** road-assets / merge form · **GAP-CSDL-CUC-11** |
+| Form / list | Typed 24 · 2 section lưới+NLMT · Slideout + grid **shipped** | **Unchanged** |
+| Toolbar | Refresh · Add · History · Schema · View/Edit/Delete — **không** Xuất | **Xuất Excel** (+ Import P1) trên `catalogToolbar` |
+| Filter | `LinErpListFilterBar` field+🔍 | **Unchanged** · **cấm** action Xuất (**GAP-FILTER-BAR-08**) |
+| Export API | Missing / stub | `GET …/csdl-records/export?resource=lighting-systems` → binary (epic cite · SA) |
+| Import API | Missing / stub | `POST …/csdl-records/import?resource=lighting-systems` (P1) |
+| Golden | — | Cục 16-sheet · sheet Biểu 11 · checksum 24 cột · 1 sheet (LED+NLMT cùng hàng) |
+| Peer qty | Sổ TS điểm ≠ bucket | Export chỉ qty biểu Cục · **cấm** dump điểm |
+| Done gate | Typed STATUS done | **≠** export xong · cần file mở được cạnh mẫu |
 
 ## §A — Nguồn
 
 | sourceKind | sourceCite | empty | error |
 |------------|------------|-------|-------|
-| `context` | `docs/context/features/csdl-bieu-11.md` | — | version mismatch → gate |
-| `analy` | `specs/_data-analy/csdl-cuc-2026/ANALYSIS-AND-TASKS.md` § Biểu 11 | — | 24 cột · LED + NLMT qty |
-| `db-ssot` | `docs/context/11-CSDL-SO-SACH-DATABASE-API.md` § LightingSystem | — | GridLed* · GridStatus · GridPoleCount · CabinetCount · SubstationCount · Solar* |
-| `demo` | `Linm.RMMS.Demo/.../csdl-so-sach.html` (+ redirect demo · `csdl-so-sach-data.js`) | — | **UI only** · **cấm** SSOT data |
-| `api` · list | `GET …/csdl-records?resource=lighting-systems&…` | empty grid VN | 422 thiếu resource · toast |
-| `api` · detail | `GET …/csdl-records/{id}` | — | 404 → đóng slideout · toast |
-| `api` · CRUD | `POST` / `PUT` / soft `DELETE` | — | validation toast |
-| `entity` | `CsdlCatalogRecordEntity` (shell) | — | tenant `CompanyCode` |
-| `entity` | typed Biểu 11 / `LightingSystem` (**SA**) | — | Schema_CsdlBieu11 pair |
-| `mfe` | hub `CsdlSoSachPage` · form `CsdlFormSlideout` | generic | typed replace |
-| `catalog` | Integration ui-schema `lighting-systems` | bootstrap cols | toast |
-| `excel` | `1. Biểu mẫu CSDL.xls` sheet Biểu 11 | — | import cite · not runtime SSOT |
-| `peer` | `so-ts-lighting` / type `LIGHTING` | — | deep-link · **cấm** share ROW |
-| `derived` | IdCode `LT-yyyyMMdd-nnnn` | — | BE generate |
-
-`sourceCite` = path/controller **có trong repo** hoặc analy Excel cite. **Cấm** invent `api/v1/so-ts/*` · **cấm** ERP.* · **cấm** invent `api/v1/infra/*` (doc legacy).
+| `context` | `docs/context/features/csdl-bieu-11.md` | — | version gate |
+| `context` | `docs/context/features/csdl-export-print.md` § Wave 1 · API | — | golden / toolbar rules |
+| `analy` | `specs/_data-analy/csdl-cuc-2026/ANALYSIS-AND-TASKS.md` Biểu 11 | — | 24 cột · LED + NLMT qty |
+| `db-ssot` | `docs/context/11-CSDL-SO-SACH-DATABASE-API.md` § LightingSystem | — | GridLed* · Solar* |
+| `api` · list/CRUD | `GET/POST/PUT/DELETE …/csdl-records?resource=lighting-systems` | empty grid VN | toast 4xx |
+| `api` · **export** | `GET …/csdl-records/export?resource=lighting-systems` (epic · SA chốt) | file 0 row OK | toast · **cấm** fake blob |
+| `api` · **import** | `POST …/csdl-records/import?resource=lighting-systems` | — | validation · LED/Solar qty |
+| `entity` | `Schema_CsdlBieu11` / LightingSystem | — | CompanyCode tenant |
+| `mfe` | `CsdlBieu11Page` · `fromCatalogToolbar` | — | wire export action |
+| `excel` | `1. Biểu mẫu CSDL.xls` sheet Biểu 11 | — | golden · not runtime SSOT |
+| `excel` | Hồ sơ `4.1. In_Mẫu…xlsx` 12 biểu | — | **STALE** · so sánh only |
+| `peer` | `so-ts-lighting` | — | deep-link · **≠** road-assets · **GAP-CSDL-CUC-11** |
 
 ## §B — Bind field (HARD)
 
-| uiField | Label | controlHint | catalogKind | GET | write field | sameMfe |
-|---------|-------|-------------|-------------|-----|-------------|---------|
-| resource | Resource | QS / const | — | required `lighting-systems` | `resource` | yes |
-| search | Tìm | SearchTextInput | — | `?search=` | — | yes |
-| province | Tỉnh | Dropdown | LOOKUP_STATIC | `?province=` | `province` | yes |
-| status | TT | Dropdown | LOOKUP_STATIC | `?status=` | `status` | yes |
-| roadCode | Đường | SearchInput | road-route | `?roadCode=` / detail | `roadCode` (+ display `roadName`) | yes · **GAP-CSDL-ROAD-01** |
-| kmFrom / kmTo | Km từ–đến | Number | — | filter / detail | `kmFrom` / `kmTo` | yes |
-| side | Vị trí | Dropdown | LOOKUP_STATIC | filter / detail / list | `side` | yes |
-| code | Mã | Text ro | — | detail `code` | auto | yes |
-| gridLed600 | LED 600W | Number | — | detail / list | `gridLed600` | yes · **GAP-BIEU11-GRID-01** |
-| gridLed240 | LED 240W | Number | — | detail / list | `gridLed240` | yes |
-| gridLed150 | LED 150W | Number | — | detail / list | `gridLed150` | yes |
-| gridLed125 | LED 125W | Number | — | detail / list | `gridLed125` | yes |
-| gridStatus | TT lưới | Dropdown | LOOKUP_STATIC | detail / list | `gridStatus` | yes |
-| gridPoleCount | Số cột lưới | Number | — | detail / list | `gridPoleCount` | yes |
-| cabinetCount | Số tủ lưới | Number | — | detail / list | `cabinetCount` | yes |
-| substationCount | Số TBA | Number | — | detail / list | `substationCount` | yes |
-| solarPoleCount | Cột THGT | Number | — | detail | `solarPoleCount` | yes · **GAP-BIEU11-SOLAR-01** |
-| solarControllerCount | Bộ ĐK | Number | — | detail | `solarControllerCount` | yes |
-| solarPanel240Wp | Pin 240Wp | Number | — | detail | `solarPanel240Wp` | yes |
-| solarLamp100W | Đèn pha 100W | Number | — | detail | `solarLamp100W` | yes |
-| solarBattery145Ah | Acquy 145Ah | Number | — | detail | `solarBattery145Ah` | yes |
-| solarCabinetCount | Tủ NLMT | Number | — | detail | `solarCabinetCount` | yes |
-| manageUnit | ĐV QL | Text | — | detail / list | `manageUnit` | yes · **GAP-CSDL-ORG-01** |
-| notes | Ghi chú | Textarea | — | detail | `notes` | yes |
-| isActive | Active | — | — | detail | soft-delete | yes |
-| updatedAt | Cập nhật | DateTime ro | — | detail | — | yes |
+### B1 — CRUD fields (**unchanged** — keep prior bind)
 
-**Prefix map:**
+Reuse prior §B (`task_ed491c32`): `resource` · filters · typed 24 · soft-delete · GridLed*/Solar*. **Cấm** đổi write paths typed trong pack này.
+
+### B2 — Export / import (**delta**)
+
+| uiField / action | Label | controlHint | catalogKind | GET / POST | write field | sameMfe |
+|------------------|-------|-------------|-------------|------------|-------------|---------|
+| exportExcel | Xuất Excel | ToolbarButton | — | `GET …/export?resource=lighting-systems` (+ filter QS nếu Q-XLS-SCOPE=filtered) | — (download) | **gap** (thiếu nút) |
+| importExcel | Nhập Excel | ToolbarButton + file | — | `POST …/import?resource=lighting-systems` multipart | upsert typed | **gap** P1 |
+| exportFileName | — | derived | — | Content-Disposition | — | SA |
+
+**Prefix map (keep + delta):**
 
 | Operation | Path |
 |-----------|------|
-| List | `GET /web-bff/api/v1/asset/csdl-records?resource=lighting-systems` |
-| Detail | `GET /web-bff/api/v1/asset/csdl-records/{id}` |
-| Create | `POST /web-bff/api/v1/asset/csdl-records` body `resource=lighting-systems` + typed fields |
-| Update | `PUT /web-bff/api/v1/asset/csdl-records/{id}` |
-| Delete | `DELETE /web-bff/api/v1/asset/csdl-records/{id}` (soft) |
+| List / Detail / CRUD | `/web-bff/api/v1/asset/csdl-records` (+ `/{id}`) — **keep** |
+| **Export** | `GET /web-bff/api/v1/asset/csdl-records/export?resource=lighting-systems` |
+| **Import** | `POST /web-bff/api/v1/asset/csdl-records/import?resource=lighting-systems` |
+| API mirror | `api/v1/asset/csdl-records[/export|/import]` · **cấm** invent `/infra/` |
 
-API mirror: `api/v1/asset/csdl-records`. FE cite hub: `services/csdlSoSach/endpoint.ts` `BASE=/asset/csdl-records` — typed page **reuse** cùng BASE.
-
-DB SSOT map: `GridLed600`↔`gridLed600` · `GridLed240`↔`gridLed240` · `GridLed150`↔`gridLed150` · `GridLed125`↔`gridLed125` · `GridStatus`↔`gridStatus` · `GridPoleCount`↔`gridPoleCount` · `CabinetCount`↔`cabinetCount` · `SubstationCount`↔`substationCount` · Solar* ↔ solar* camelCase (**SA** confirm exact Solar column names).
+DB SSOT map (export row): `GridLed600`↔`gridLed600` · … · `SolarCabinetCount`↔`solarCabinetCount` — **SA** giữ typed.
 
 ## §C — Catalog / lookup
 
-| catalogKind | search/list API | seed/import cite | Cấm |
-|-------------|-----------------|------------------|------|
-| LOOKUP_STATIC province | FE `PROVINCES` P1 | demo align | Dropdown demo-only làm SSOT quốc gia |
-| LOOKUP_STATIC status | tot/tb/kem/hong | — | — |
-| LOOKUP_STATIC side | L / R / C / Both | demo `sides` | invent side set |
-| LOOKUP_STATIC gridStatus | Excel / align status · **Q-GRID-STATUS** | analy | free-text TT lưới |
-| road-route | `GET /integration/road-routes/search` | shared catalog READY | free-text khi đã chốt SearchInput |
-| org-unit | `GET /integration/org-units/search` | shared org · P2 | hardcode ĐV |
-| ui-schema | Integration `lighting-systems` | Schema editor | generic 3-col only |
+Unchanged prior LOOKUP_STATIC (province/status/side/gridStatus) + `road-route` + `org-unit` P2. Export **không** thêm catalogKind.
 
 ## §D — Map / vẽ
 
-`none` — list pack. Toolbar map → gis deep-link only. **Cấm** invent map canvas.
+`none`
 
-## §E — Empty / error / permission
+## §E — Empty / error / permission / export
 
 | Case | UX |
 |------|-----|
-| Empty list | Grid copy VN «Chưa có hệ thống chiếu sáng» · CTA Tạo mới |
-| 422 thiếu resource | toast · không alert |
-| 404 detail | đóng slideout · toast |
-| Soft-delete | row biến mất · list refresh |
-| Permission | CommonLib Auth debt · **cấm** invent path |
+| Empty list export | File vẫn tải · 0 data row · header merge đúng mẫu · toast info OK |
+| Export fail | toast · **cấm** silent · **cấm** CSV generic lưới |
+| Import LED/Solar invalid | toast · giữ map SA · **cấm** đổi entity |
+| Permission | Auth debt · **cấm** invent path |
+| Toast stub only | **FAIL** DoD · **GAP-BIEU11-XLS-02** |
 
 ## §F — Cấm
 
 - Demo / localStorage / seed giả làm SSOT runtime  
 - ERP.* / Domains/Master / `api/v1/infra/*` / invent `api/v1/so-ts/*`  
-- Form chỉ 3 ô `detail*`  
-- Merge form Sổ TS `so-ts-lighting` / bind `road-assets` vào biểu Cục  
-- Dump điểm Sổ TS vào qty bucket LED/solar  
-- Guid làm IdCode  
-- yarn build / e2e ở role data_analy  
+- Toast stub = export done · filter-bar export (**GAP-FILTER-BAR-08**)  
+- Golden hồ sơ 12+8 · invent 2 sheet lưới/NLMT  
+- Dump điểm `so-ts-lighting` vào qty export  
+- Re-open new_page typed CRUD · yarn build / e2e @ data_analy  
 
 ## Version meta (REQUIRED)
 
 | Field | Value |
 |-------|-------|
 | skillId | agent-data-analy |
-| skillVersion | 2026.08.25.01 |
+| skillVersion | 2026.09.05.03 |
 | schemaVersion | 1 |
-| workflowVersion | 2026.09.01.02 |
-| rulesVersion | 2026.08.31.2 |
-| contentHash | `sha256:7980db07b4712336ab0b675fa89feaab75c67fdaef3b54fe94647ab9ec1863d8` |
+| workflowVersion | 2026.09.05.03 |
+| rulesVersion | 2026.09.17.3 |
+| contentHash | `sha256:7f64b8dcea4265af23b9f2e5e1dae3ab1c933b0a4404b0f872d39029716b4d62` |
 | headerFingerprint | `sha256:b37759a9224c09c7c63bc81583b4a9bcbca02e74cba8b63579819e90d57f1d1a` |
-| generatedAt | 2026-09-05T12:11:10.761Z |
+| generatedAt | 2026-09-18T06:44:00.000Z |
 | versionGate | ok |
-| taskId | task_ed491c32 |
+| taskId | task_55dac8de |
 | packKind | list |
-| changeScope | new_page |
+| changeScope | edit_page |
 
 ---
-<!-- Version meta: skillId=agent-data-analy skillVersion=2026.08.25.01 schemaVersion=1 workflowVersion=2026.09.01.02 rulesVersion=2026.08.31.2 versionGate=ok contentHash=sha256:7980db07b4712336ab0b675fa89feaab75c67fdaef3b54fe94647ab9ec1863d8 -->
+<!-- Version meta: skillId=agent-data-analy skillVersion=2026.09.05.03 schemaVersion=1 workflowVersion=2026.09.05.03 rulesVersion=2026.09.17.3 versionGate=ok contentHash=sha256:7f64b8dcea4265af23b9f2e5e1dae3ab1c933b0a4404b0f872d39029716b4d62 changeScope=edit_page taskId=task_55dac8de -->

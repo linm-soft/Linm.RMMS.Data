@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Prototype — Sổ 02 Nhật ký tuần đường (DES-GRID + Slideout typed)</title>
+  <title>Prototype — Sổ 02 Nhật ký tuần đường (CR Wave A · locationText + weather Textarea)</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
   <style>
     :root {
@@ -94,7 +94,7 @@
 </head>
 <body>
   <div class="page">
-    <p class="note">SSOT Design · <code>shared_grid_example v1</code> · pack <code>csdl-so-02</code> · resource <code>patrol-logs</code> · peerStdUrl <code>/so-ts/csdl-so-sach?resource=patrol-logs</code> · skip chrome · synthetic UI only</p>
+    <p class="note">SSOT Design · edit_page CR Wave A · <code>shared_grid_example v1</code> · pack <code>csdl-so-02</code> · resource <code>patrol-logs</code> · locationKm+locationText OR · weather Textarea · GAP-SO02-FILE-01 text-id · peerStdUrl hub · skip chrome · synthetic UI only · cấm re-scan demo</p>
 
     <header class="zone-a" data-des-id="DES-GRID-A">
       <button type="button" class="back" id="btnBack" title="Về hub">← Hub</button>
@@ -138,7 +138,7 @@
       <div class="grid-head">
         <div>
           <h2 class="grid-title">Danh sách nhật ký tuần đường</h2>
-          <p class="grid-help">LinCatalogDataGrid · kéo cột ON · typed cols (không Col1–3)</p>
+          <p class="grid-help">LinCatalogDataGrid · kéo cột ON · typed cols · luôn cột «Vị trí» (locationText)</p>
         </div>
       </div>
       <div class="table-wrap">
@@ -151,6 +151,7 @@
               <th>Nhà thầu</th>
               <th>Đường</th>
               <th>Km</th>
+              <th>Vị trí</th>
               <th>NV tuần</th>
               <th>Kỳ</th>
               <th>Tỉnh</th>
@@ -220,7 +221,7 @@
           <label class="full"><span>Ghi chú sổ</span><textarea id="fNotes" rows="2"></textarea></label>
         </div>
 
-        <div class="sec">Dòng nhật ký (entries · typed · cấm Col1–3)</div>
+        <div class="sec">Dòng nhật ký (entries · locationKm OR locationText · weather Textarea · cấm Col1–3)</div>
         <div style="margin-bottom:8px">
           <button type="button" class="tb" id="btnAddEntry"><i class="fas fa-plus"></i> Thêm dòng</button>
         </div>
@@ -230,13 +231,14 @@
               <tr>
                 <th>STT</th>
                 <th>Giờ / ngày *</th>
-                <th>Vị trí / Km *</th>
+                <th>Lý trình Km</th>
+                <th>Vị trí / SC-VP</th>
                 <th>Thời tiết + diễn biến *</th>
                 <th>XL tại chỗ</th>
                 <th>Nhận xét + ký</th>
                 <th>Ghi chú</th>
-                <th>Sketch</th>
-                <th>Media</th>
+                <th>Sketch id</th>
+                <th>Media id</th>
                 <th></th>
               </tr>
             </thead>
@@ -244,13 +246,14 @@
               <tr>
                 <td>1</td>
                 <td><input type="datetime-local" value="2026-09-02T07:30" /></td>
-                <td><input value="Km 14+200 (vai phải)" /></td>
-                <td><textarea rows="1">Mưa nhẹ · sạt lở nhỏ</textarea></td>
-                <td><textarea rows="1">Dọn đất · cảnh báo</textarea></td>
+                <td><input type="number" step="0.001" value="14.200" title="locationKm · soft OR" /></td>
+                <td><input value="Vai phải SC-VP" title="locationText · soft OR · GAP-NKTD-LOC-01" /></td>
+                <td><textarea rows="3" maxlength="2000">Mưa nhẹ · sạt lở nhỏ · diễn biến kéo dài</textarea></td>
+                <td><textarea rows="2">Dọn đất · cảnh báo</textarea></td>
                 <td><input value="OK / NV B" /></td>
                 <td><input value="" /></td>
-                <td><span class="file-chip" title="FileRef FileService"><i class="fas fa-paperclip"></i> sketch</span></td>
-                <td><span class="file-chip" title="FileMulti max 10"><i class="fas fa-images"></i> 0/10</span></td>
+                <td><input placeholder="text-id" title="GAP-SO02-FILE-01 · cấm invent file API" value="sk-demo-01" /></td>
+                <td><input placeholder="text-id" title="GAP-SO02-FILE-01" value="" /></td>
                 <td><button type="button" class="tb" title="Xóa dòng"><i class="fas fa-times"></i></button></td>
               </tr>
             </tbody>
@@ -266,8 +269,8 @@
 
   <script>
     const rows = [
-      { code:'SO-20260901-0003', bookNo:'Q-02/2026', contractor:'BDTX A', road:'QL1A', km:'12.5–18.2', staff:'Nguyễn Văn B', period:'01/09–07/09', province:'Nghệ An', status:'tot' },
-      { code:'SO-20260825-0011', bookNo:'Q-01/2026', contractor:'BDTX C', road:'QL7', km:'0.0–5.4', staff:'Trần Thị D', period:'18/08–24/08', province:'Hà Tĩnh', status:'tb' }
+      { code:'SO-20260901-0003', bookNo:'Q-02/2026', contractor:'BDTX A', road:'QL1A', km:'12.5–18.2', loc:'Vai phải SC-VP', staff:'Nguyễn Văn B', period:'01/09–07/09', province:'Nghệ An', status:'tot' },
+      { code:'SO-20260825-0011', bookNo:'Q-01/2026', contractor:'BDTX C', road:'QL7', km:'0.0–5.4', loc:'—', staff:'Trần Thị D', period:'18/08–24/08', province:'Hà Tĩnh', status:'tb' }
     ];
     const tbody = document.getElementById('tbody');
     const emptyMsg = document.getElementById('emptyMsg');
@@ -284,7 +287,7 @@
         const tr = document.createElement('tr');
         tr.innerHTML = `<td class="num">${i+1}</td>
           <td><button type="button" class="code" data-i="${i}">${r.code}</button></td>
-          <td>${r.bookNo}</td><td>${r.contractor}</td><td>${r.road}</td><td>${r.km}</td>
+          <td>${r.bookNo}</td><td>${r.contractor}</td><td>${r.road}</td><td>${r.km}</td><td>${r.loc||'—'}</td>
           <td>${r.staff}</td><td>${r.period}</td><td>${r.province}</td><td>${statusLabel(r.status)}</td>
           <td><details class="menu"><summary>⋮</summary><div class="menu-panel">
             <button type="button" data-act="view" data-i="${i}">Xem</button>
@@ -327,7 +330,7 @@
     document.getElementById('btnAddEntry').onclick = () => {
       const n = document.getElementById('entryBody').rows.length + 1;
       const tr = document.createElement('tr');
-      tr.innerHTML = `<td>${n}</td><td><input type="datetime-local" /></td><td><input /></td><td><textarea rows="1"></textarea></td><td><textarea rows="1"></textarea></td><td><input /></td><td><input /></td><td><span class="file-chip"><i class="fas fa-paperclip"></i> sketch</span></td><td><span class="file-chip"><i class="fas fa-images"></i> 0/10</span></td><td><button type="button" class="tb"><i class="fas fa-times"></i></button></td>`;
+      tr.innerHTML = `<td>${n}</td><td><input type="datetime-local" /></td><td><input type="number" step="0.001" title="locationKm" /></td><td><input title="locationText" /></td><td><textarea rows="3" maxlength="2000"></textarea></td><td><textarea rows="2"></textarea></td><td><input /></td><td><input /></td><td><input placeholder="text-id" /></td><td><input placeholder="text-id" /></td><td><button type="button" class="tb"><i class="fas fa-times"></i></button></td>`;
       document.getElementById('entryBody').appendChild(tr);
       dirty = true;
     };

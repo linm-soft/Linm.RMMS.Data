@@ -5,73 +5,75 @@
 | feature | `rpt-nhat-ky-tuan-duong` |
 | this role | `dev` · `/agent-dev` |
 | status | `done` |
-| changeScope | `edit_page` |
+| changeScope | `edit_page` · Wave B `nktd-pdf-20260917` |
 | packKind | **`report`** · Kind **E** |
 | mfe | `Linm.Web.RMMS.Report` · `PatrolLogRoadReportPage` |
-| mfeStdRoute | `/bao-cao/nhat-ky-tuan-duong` |
-| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/report/patrol-log-road` |
+| mfeStdRoute | `/bao-cao/nhat-ky-tuan-duong` · alias `/bao-cao/nk-td` |
+| mfeStdUrl | `http://localhost:9311/bao-cao/nhat-ky-tuan-duong` |
+| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `GET api/v1/report/patrol-log-road` (+ `/export`) |
+| source | `csdl-so-02` · `sourceFormReady=yes` · **cấm** seed |
 | skillVersion | `2026.08.15.5` |
 | schemaVersion | `1` |
 | workflowVersion | `2026.08.15.5` |
 | rulesVersion | `2026.08.15.8` |
 | versionGate | `keep_current` |
-| taskId | `task_416ac86e` |
-| prior | TL `task_646fa977` **confirmed** · live Kind E PASS |
-| updatedAt | `2026-08-16T15:45:00.000Z` |
+| taskId | `task_0d18fcc7` |
+| prior | TL `task_8cbb2073` **confirmed** · compact `handoff/team_lead-compact.md` |
+| updatedAt | `2026-09-18T18:40:00.000Z` |
 
-## retry.ssot_rereview (Dev live 2026-08-16)
+## Wave B delta (code)
 
-Re-audit `PatrolLogRoadReportPage.tsx` + `PatrolLogRoadFilterBar.tsx` + `reportEndpoint` + BE `GET patrol-log-road` / export + BFF Forward — **không** rewrite Kind E (TL: không GAP P1).
+| GAP / Task | Change |
+|------------|--------|
+| **T-BE-RPT-01** · SRC-01 | `LoadPatrolLogRoadAsync` → **chỉ** `LoadCsdlPatrolLogRoadAsync` · **cấm** check-in fallback |
+| Get/Export | **cấm** seed `FilterPatrolLogRoad` khi 0 rows → `items=[]` |
+| EventAt `tz_day` | Filter entry `EventAt` (fallback `CreatedAt`) trong `[from,to]` |
+| **SIGN-01** | `RemarkSign` → `supervisorNote` · signed nếu RemarkSign ≠ rỗng |
+| `locationText` / `note` | LocationText else Km · DTO + map `Note` |
+| **T-BE-02** | CSV UTF-8 BOM + `supervisorNote`/`note` |
+| **T-FE-02** · DRILL-01 | Drill `/csdl-so-02?form=view&id=` · **cấm** `?kind=` |
+| Grid | + Ký duyệt · Ghi chú · Vị trí · route chuẩn `nhat-ky-tuan-duong` |
+| **T-HDSD-01** | Empty hint → tạo data `/csdl-so-02` · **không** «Tạo mới» trên report |
+| **T-UI-RPT-*** | Keep Kind E shell · filter 0 action · `reportToolbar` |
+| Print bìa | **P2** · không block |
+| Step 4b | **migration=none** · path API **giữ** · BFF Forward keep · **cấm** ERP.* |
 
-| # | Check | Live | Gap |
-|---|-------|------|-----|
-| 1 | 1× `LinPageLayout` · cấm nested CatalogListShell | **PASS** kind=`report` | — |
-| 2 | `LinCatalogDataGrid` kéo cột default ON | **PASS** `tableConfig.resizable: true` | — |
-| 3 | Footer `LinCatalogListPagination` | **PASS** luôn render | — |
-| 4 | flex + skeleton | **PASS** `.page` + `skeletonRows={8}` | — |
-| 5 | reportToolbar + config FULL | **PASS** `ReportDisplayConfigModal` + `columnPrefs` · **cấm** `LinListTableConfigModal` / `configHint` / Kind B schema editor | — |
-| 6 | Filter `LinErpListFilterBar` SearchInput ×2 + Date + Input | **PASS** | — |
-| 7 | Form OUT · cấm Resource/Slideout/View=readOnly | **PASS** | — |
-| 8 | Xem mới load · empty hint | **PASS** `viewed` | — |
-| 9 | Làm mới `!viewed` toast, không fetch | **PASS** | — |
-| 10 | Excel viewed + `q` + `locationText` | **PASS** `CSV_COL_BY_GRID` | — |
-| 11 | Lookup road-route + cán bộ · cấm QL.22 · cấm native select | **PASS** | — |
-| 12 | Query canonical `q` | **PASS** | — |
-| 13 | Cột Vị trí `locationText` | **PASS** | — |
-| 14 | ERP.* / `api/v1/rmms` / Kind B | **none** | — |
+## Code paths
 
-**Không** GAP P1 cùng surface → **không** đổi FE/BE runtime.
-
-## Code (keep)
-
-- FE: `src/pages/PatrolLogRoadReportPage/*` · route `bao-cao/nhat-ky-tuan-duong` · `reportService.getPatrolLogRoad` / `exportPatrolLogRoad`.
-- BE: `ReportQueryController` `GET api/v1/report/patrol-log-road` + `/export` · seed in-memory · DTO `locationText`.
-- BFF: `ReportBffController` Forward list + export bytes.
-- Step 4b: **không** path mới · **không** migration · **không** `ERP.*`.
+- FE: `src/pages/PatrolLogRoadReportPage/*` · `src/index.tsx` route · `responseModel.ReportPatrolLogRoadRowDto.note`
+- BE: `ReportService.CsdlLive` · `ReportService.PatrolLive` · `ReportService` Get/Export · `ReportPatrolLogRoadRowDto.Note`
+- BFF: `ReportBffController` Forward — **reuse** · không business
 
 ## T-pack Dev
 
 | id | Result |
 |----|--------|
-| T-UI-LIST-01 | **PASS keep** |
-| T-UI-FORM-01 | **OUT PASS** |
-| T-UI-RPT-01 / CONFIG / CHART | **PASS** |
-| T-UI-ACT-01 / LKP / FIELD / PROD / UX | **PASS** |
-| T-BE-01 / T-BE-02 / T-BFF-01 / T-LKP-01 | **PASS keep** · không đụng API |
+| T-BE-RPT-01 | **PASS** |
+| T-BE-02 | **PASS** |
+| T-BFF-01 / T-PERM-01 | **reuse PASS** |
+| T-UI-RPT-01 / TB / CONFIG / EXPORT / CHART | **PASS** (shell keep) |
+| T-UI-RPT-PRINT-01 | **P2** debt |
+| T-FE-02 | **PASS** |
+| T-HDSD-01 | **PASS** |
 
 ## Build
 
 | Cmd | Result |
 |-----|--------|
-| MFE `yarn typecheck` | **PASS** (`tsc --noEmit` exit 0) |
-| MFE `yarn build` | **PASS** webpack 5.109.2 compiled · 3 size warnings only |
-| BE `dotnet build` | **N/A** — Dev không sửa API/BFF (TL keep) |
+| MFE `yarn typecheck` | **PASS** |
+| MFE `yarn build` | **PASS** webpack 5.109.2 |
+| BE `dotnet build` RMMS.Service.Api `-m:1` | **PASS** (1 pre-existing CS0105 warning) |
+
+## Debt
+
+- Print bìa PDF = **P2** `GAP-NKTD-PRINT-01`
+- E2E / `start:std` = **queued** `/agent-qa*` only — **cấm** Dev
 
 ## Handoff QA
 
-- autoApprove **ON** · roleOnly **dev** xong → enqueue **qa** (`qa/scenarios.md` pending).
-- **Cấm** Review trước QA.
+- autoApprove **ON** · roleOnly **dev** xong → enqueue **qa**
 - mfeStdUrl: `http://localhost:9311/bao-cao/nhat-ky-tuan-duong`
+- Verify: kỳ có sổ → lưới khớp · kỳ trống → empty **không** 12 CUC2 · drill không `?kind=`
 
 ---
-<!-- Version meta: skillVersion=2026.08.15.5 · schemaVersion=1 · workflowVersion=2026.08.15.5 · rulesVersion=2026.08.15.8 · versionGate=keep_current -->
+<!-- Version meta: skillVersion=2026.08.15.5 · schemaVersion=1 · workflowVersion=2026.08.15.5 · rulesVersion=2026.08.15.8 · versionGate=keep_current · changeScope=edit_page · cr=nktd-pdf-20260917 -->

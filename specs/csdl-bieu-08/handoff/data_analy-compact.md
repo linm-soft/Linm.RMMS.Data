@@ -1,85 +1,78 @@
-# handoff-compact — data_analy · csdl-bieu-08
+# Handoff compact — data_analy
 
-| | |
-|--|--|
-| schemaVersion | `1` |
-| role | `data_analy` |
-| feature | `csdl-bieu-08` |
-| title | CSDL Biểu 08 — Hệ thống ATGT |
-| packKind | `list` |
-| changeScope | `new_page` |
-| status | `done` |
-| taskId | `task_a21c4937` |
-| resource | `traffic-safety` |
-| formNo | `08` (live hub còn **7** · renumber) |
-| columns | `45` · **11 nhóm** child/`type=` |
-| IdCode | `AT-` |
-| peerSoTs | ATGT types (sign/km/guardrail/median/…) deep-link · **cấm** merge |
-| contentHash | `sha256:f972c82727726d256754d076435f9ef97c993b4f9844dc79e50b6415fcaf54be` |
-| headerFingerprint | `sha256:ba8b8db4f7637ee32cfd4a882b6abdc774c538f6c9812c3ecd1d13f6151cdd6f` |
-| demoHash | `sha256:c2c9f8194cb104b3202bcaa46a589c9baba5cf8062aa12e7d0872a9e96eba7ae` |
-| skillVersion | `2026.08.25.01` |
-| workflowVersion | `2026.09.01.02` |
-| rulesVersion | `2026.08.31.2` |
-| analyzedAt | `2026-09-05T16:58:08.958Z` |
+schemaVersion: 1
+feature: csdl-bieu-08
+packKind: list
+role: data_analy
+status: done
+skillVersion: 2026.09.05.03
+workflowVersion: 2026.09.05.03
+rulesVersion: 2026.09.17.3
+contentHash: sha256:639566df4ddccc3927311d5618bf4e7c1dbad0dac80962c414f861dacc9d5e9c
+headerFingerprint: sha256:ba8b8db4f7637ee32cfd4a882b6abdc774c538f6c9812c3ecd1d13f6151cdd6f
+writtenAt: 2026-09-18T04:55:00.000Z
+taskId: task_774ebbde
+priorTask: task_a21c4937
+resource: traffic-safety
+columns: 45
+groups: 11
+IdCode: AT-
+formNo: 08
+
+## Decisions
+- changeScope: edit_page (T-XLS-S08 · Wave 1 · pilot with S01)
+- formPattern: Slideout (keep typed · **cấm** new_page CRUD)
+- mfe: D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Asset · be: D:/AI-QLBD/Linm.RMMS.WebService
+- export: catalogToolbar Xuất Excel · BFF binary · `/implement-export-import-excel`
+- golden: Cục 16-sheet xls Biểu 8 · **cấm** hồ sơ 12+8
+- filter: **cấm** export trên LinErpListFilterBar (GAP-FILTER-BAR-08)
+- layout: **cấm** 1 hàng kéo ngang lệch mẫu
+- keep: PO/Design/SA typed artifacts · only § Delta export
+- open questions: Q-XLS-SCOPE · Q-XLS-IMPORT · Q-XLS-FILENAME · Q-XLS-TYPE
 
 ## Artifacts
-
 | Kind | Path |
 |------|------|
-| control-hint | `specs/_data-analy/features/csdl-bieu-08-control-hint.md` |
-| real-data | `specs/_data-analy/features/csdl-bieu-08-real-data.md` |
-| CTX | `docs/context/features/csdl-bieu-08.md` |
-| cluster | `specs/_data-analy/csdl-cuc-2026/ANALYSIS-AND-TASKS.md` |
-| demo | `Linm.RMMS.Demo/src/demo/features/csdl-so-sach-demo.html` → `…/asset/csdl-so-sach.html` |
+| control-hint | specs/_data-analy/features/csdl-bieu-08-control-hint.md |
+| real-data | specs/_data-analy/features/csdl-bieu-08-real-data.md |
+| CTX | docs/context/features/csdl-bieu-08.md |
+| epic | docs/context/features/csdl-export-print.md |
+
+## Inventory (slim)
+| id | label | controlHint | notes |
+|----|-------|-------------|-------|
+| (form 45/11) | typed prior | keep | **cấm** reopen |
+| exportExcel | Xuất Excel | ToolbarButton | catalogToolbar |
+| importExcel | Nhập Excel | ToolbarButton+file | P1 · Q-XLS-IMPORT |
+
+## Screens / zones (ids only)
+- DES-GRID-A/B/C/D keep · toolbar **+export** · filter unchanged
+- Form Kind D Slideout keep · shared+1 child
+- reviewUrl= prior prototype (Design cập nhật nút)
+- peerStdUrl= http://localhost:9301/so-ts/csdl-so-sach?resource=traffic-safety
+- mfeStdUrl= http://localhost:9301/so-ts/csdl-so-sach · alias /csdl-bieu-08
 
 ## Live bind (1-liner)
-
-- API: `api/v1/asset/csdl-records?resource=traffic-safety` (+ optional `type=`) · **cấm ERP.*** · **cấm** invent `infra`
-- Entry: mfeStd `/csdl-bieu-08` · hub `/so-ts/csdl-so-sach?resource=traffic-safety`
-- Form: Kind D Slideout · shared + **1 child** theo `assetType` · **cấm** wide 45 · **cấm** chỉ 3 ô `detail*`
-- Import: XLS OUT pack Biểu 8
-- Peer so-ts ATGT deep-link OK · **cấm** merge 1 form · **≠** road-assets
-
-## Header (45)
-
-`code|roadCode|roadName|province|kmFrom|kmTo|side|assetType|signCode|signSize|signPoleCount|signPoleHeightM|markerKind|markerQty|markerStructure|markerAreaM2|medianKind|medianStructure|medianLengthM|medianHeightM|antiGlareKind|antiGlareStructure|antiGlareQty|antiGlareLengthM|islandType|islandStructure|islandAreaM2|studSize|studQty|guardrailKind|guardrailStructure|guardrailLengthM|guardrailReflector|markCode|markLengthM|markWidthM|markAreaM2|cushionQty|mirrorQty|signalPoleKind|signalHeightM|lampKind|lampQty|builtYear|status`
-
-Trail: `manageUnit` · `notes`
+- CRUD keep: api/v1/asset/csdl-records?resource=traffic-safety
+- Export: GET …/csdl-records/export?resource=traffic-safety · Import POST …/import
+- **cấm** ERP.* · invent infra · toast-stub=done
 
 ## GAP (PO must see)
-
 | ID | One-liner |
 |----|-----------|
-| GAP-BIEU08-TYPED-01 | Typed 45/11 nhóm thay generic detail* |
-| GAP-BIEU08-CHILD-01 | Child/`type=` · cấm 1 entity wide · GAP-CSDL-01/CUC-08 |
-| GAP-BIEU08-REN-01 | formNo 7→8 · T-REN-01 · giữ resource |
-| GAP-BIEU08-ROUTE-01 | Alias `/csdl-bieu-08` vs hub-only |
-| GAP-BIEU08-TYPE-01 | assetType LOOKUP 11 + filter |
-| GAP-BIEU08-SIGN-01…SIGNAL-01 | 11 child sections field keys |
-| GAP-BIEU08-PEER-01 | Không merge form so-ts ATGT |
-| GAP-CSDL-ROAD-01 | SearchInput road-route |
-| GAP-CSDL-PROV-01 | Province static vs master |
-| GAP-CSDL-ORG-01 | manageUnit SearchInput org-unit P2 |
-| GAP-CSDL-XLS-01 | Import/export sheet Biểu 8 OUT |
-| GAP-CSDL-CUC-11 | 2 lớp vận hành vs biểu Cục |
-
-## Open Q
-
-Q-ROUTE · Q-PROV · Q-CHILD · Q-TYPE-UX · Q-MARKER-KIND · Q-LIST-COLS · Q-REN-LABEL · Q-PEER
-
-## Zones
-
-List A/B/C/D Kind B · Form Kind D Slideout 2col Z1–Z3 · shared + 1 child · map: none
+| GAP-BIEU08-XLS-01 | Toolbar Xuất Excel binary sheet Biểu 8 |
+| GAP-BIEU08-XLS-02 | Toast stub ≠ done |
+| GAP-BIEU08-XLS-03 | Golden Cục 16-sheet · cấm 12+8 |
+| GAP-BIEU08-XLS-04 | GAP-FILTER-BAR-08 · cấm filter export |
+| GAP-BIEU08-XLS-05 | GET export / POST import path |
+| GAP-BIEU08-XLS-06 | Cấm 1 hàng kéo ngang lệch mẫu |
 
 ## Next
-
 | Role | Need |
 |------|------|
-| **PO** | requirement từ Delta + open Q |
-| Design | control-map · prototype · reviewUrl |
-| SA | typed DTO/UiSchema · Schema_CsdlBieu8 + children · renumber |
+| **PO** | requirement từ § Delta T-XLS-S08 · chốt Q-XLS-* · giữ AC typed |
+| Design | giữ prototype · +nút Xuất trên catalogToolbar · reviewUrl |
+| SA | BFF binary path · golden checksum 45 · cấm wide |
 
 ## Cấm (compact)
-
-ERP.* · invent `infra` · demo SSOT · form 3 ô detail* · wide 45 entity · Guid IdCode · yarn build/e2e @ data_analy
+ERP.* · invent infra · toast=done · filter-bar export · golden 12+8 · new_page typed re-CRUD · yarn build/e2e @ data_analy

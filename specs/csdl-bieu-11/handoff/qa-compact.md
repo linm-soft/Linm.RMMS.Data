@@ -1,86 +1,76 @@
-# handoff-compact — qa · csdl-bieu-11
+﻿# Handoff compact — qa
 
-| | |
-|--|--|
-| schemaVersion | `1` |
-| role | `qa` |
-| feature | `csdl-bieu-11` |
-| title | CSDL Biểu 11 — Hệ thống chiếu sáng |
-| packKind | `list` |
-| changeScope | `new_page` |
-| status | `done` |
-| verdict | **PASS** |
-| taskId | `task_77e7482f` |
-| priorDevTaskId | `task_049ab5a3` |
-| resource | `lighting-systems` |
-| formNo | `11` |
-| columns | `24` · **2 section** lưới + NLMT |
-| IdCode | `LT-` |
-| peerSoTs | `so-ts-lighting` (toolbar · ≠ merge) |
-| formPattern | **Kind D Slideout** 2col · **2 section** |
-| Kind | **B** A–D+F · **D** Slideout Z1–Z3 · Z2b NLMT |
-| route_confirm | `route_a` |
-| mfeStdUrl | `http://localhost:9301/csdl-bieu-11` |
-| hubDeepLink | `/so-ts/csdl-so-sach?resource=lighting-systems` |
-| domain | **Asset** · `api/v1/asset/csdl-records` |
-| e2eQa | **ON** · runtime PASS |
-| yarnTypecheck | **PASS** |
-| docker | api `:5111` · bff `:5201` healthy |
-| contentHashPrior | `sha256:7980db07b4712336ab0b675fa89feaab75c67fdaef3b54fe94647ab9ec1863d8` |
-| headerFingerprintPrior | `sha256:b37759a9224c09c7c63bc81583b4a9bcbca02e74cba8b63579819e90d57f1d1a` |
-| skillVersion | `2026.08.29.03` |
-| workflowVersion | `2026.09.01.02` |
-| rulesVersion | `2026.08.31.2` |
-| writtenAt | `2026-09-05T12:51:00.000Z` |
+schemaVersion: 1
+feature: csdl-bieu-11
+packKind: list
+role: qa
+status: done
+verdict: PASS
+skillVersion: 2026.09.05.03
+workflowVersion: 2026.09.05.03
+rulesVersion: 2026.09.17.3
+contentHash: sha256:7f64b8dcea4265af23b9f2e5e1dae3ab1c933b0a4404b0f872d39029716b4d62
+headerFingerprint: sha256:b37759a9224c09c7c63bc81583b4a9bcbca02e74cba8b63579819e90d57f1d1a
+writtenAt: 2026-09-18T07:20:00.000Z
+taskId: task_735d8dfc
+priorDevTaskId: task_e7125d74
+resource: lighting-systems
+columns: 24
+blocks: 2
+IdCode: LT-
+formNo: 11
+changeScope: edit_page
+formPattern: Slideout
+e2eQa: ON
+mfeStdUrl: http://localhost:9301/so-ts/csdl-so-sach
+alias: /csdl-bieu-11
+hubDeepLink: /so-ts/csdl-so-sach?resource=lighting-systems
+peerSoTs: so-ts-lighting
 
 ## Decisions
+- changeScope: edit_page (T-XLS-S11) · typed 24/2 KEEP · **cấm** reopen
+- T-XLS-QA-01 **PASS**: export `Bieu11_ChieuSang_{yyyyMMdd}.xls` · import_now · toolbar Xuất/Nhập
+- filter: **0** Xuất on LinErpListFilterBar (GAP-FILTER-BAR-08)
+- E2E S0/S1/QA-20 **PASS** · PNG + manifest ok=true
+- yarn e2e-qa playwright resolve fail → chrome createRequire · **cấm** kill (GAP-QA-E2E-KILL-01)
+- yarn typecheck **PASS** · docker api/bff healthy
+- **cấm** phase=done · handoff Review
+- open questions: none
 
-- E2E S0/S1/QA-20 **PASS** · PNG + manifest `ok=true` · screenshot sạch
-- Hub `lighting-systems` **redirect** `/csdl-bieu-11` (route_a) · S1 assert list-page
-- `yarn e2e-qa` hang → chrome channel fallback (**GAP-QA-E2E-PW-01**) · **cấm** kill rộng
-- T-QA-CRUD/FORM/FILTER/ROUTE/LED/SOLAR **PASS** (runtime + code)
-- gridStatus/side/km live · peer toolbar · LT- form create · 2 section · solar flat · LeaveConfirm
-- **cấm** `phase=done` · handoff Review
-- open Q: **none**
+## Inventory (slim)
+| id | label | controlHint | notes |
+|----|-------|-------------|-------|
+| exportExcel | Xuất Excel | ToolbarButton | filtered+gridStatus/side · PASS |
+| importExcel | Nhập Excel | ToolbarButton+file | import_now · PASS |
+| (form 24/2) | typed prior | keep | KEEP QA-20 |
 
-## Artifacts
+## Screens / zones (ids only)
+- S-LIST · S-XLS-EXPORT · S-XLS-IMPORT · S-FORM-C KEEP · S-HUB-ENTRY · S-PEER
+- testid=`rmms-csdl-bieu-11-list-page` · `…-export-excel-btn` · `…-import-excel-btn`
 
-| Kind | Path |
-|------|------|
-| scenarios | `specs/csdl-bieu-11/qa/scenarios.md` |
-| screens | `specs/csdl-bieu-11/qa/screens/{S0,S1,QA-20}.png` |
-| manifest | `specs/csdl-bieu-11/qa/screens/manifest.json` |
-| live-assert | `specs/csdl-bieu-11/qa/screens/live-assert.json` |
-| form-assert | `specs/csdl-bieu-11/qa/screens/form-assert.json` |
-| STATUS | `specs/csdl-bieu-11/STATUS.md` |
+## API / tasks (ids only)
+- T-XLS-QA-01 **PASS** · T-QA-* KEEP smoke
+- API-XLS-01/02 runtime via FE blob/file
 
 ## Evidence (ids)
-
 | Case | Result | sha16 |
 |------|--------|-------|
-| S0 | PASS | `4c7adb31b6e963ca` |
-| S1 | PASS | `4c7adb31b6e963ca` |
-| QA-20 | PASS | `65da20993bf4b641` |
-
-## Screens / zones
-
-- S-LIST · S-FORM-C · S-HUB-ENTRY · S-PEER · S-SKIP-MAP
-- testid=`rmms-csdl-bieu-11-list-page` · form=`rmms-csdl-bieu-11-form-slideout`
+| S0 | PASS | eb9095e8f2a9561a |
+| S1 | PASS | eb9095e8f2a9561a |
+| QA-20 | PASS | 36c894b5eb9d6271 |
+| export | PASS | Bieu11_ChieuSang_20260918.xls |
 
 ## Debt
-
-- GAP-QA-E2E-PW-01 P2 · GAP-QA-ROAD-TESTID P3 · Auth DEFER · org/XLS OUT/DEFER · DB migrate apply
-
-## Next
-
-| Role | Need |
-|------|------|
-| **Review** | `/agent-review` · findings · **cấm** phase=done từ QA |
+- GAP-QA-E2E-PW-01 P2 · Auth DEFER · getBlob CD strip / docker CSV CD redeploy · BIFF N/A
 
 ## UNCLEAR
-
 - none
 
-## Cấm (compact)
+## Full paths (Read only if needed)
+- scenarios: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-11/qa/scenarios.md
+- screens: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-11/qa/screens/
+- STATUS: D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-11/STATUS.md
+- prior: handoff/dev-compact.md
 
-ERP.* · invent API · phase=done · kill worker rộng · start role khác · merge Sổ TS · detail*-only · Solar child
+## Cấm (compact)
+ERP.* · invent API · phase=done · kill worker rộng · start role khác · filter-bar export · reopen typed

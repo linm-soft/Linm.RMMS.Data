@@ -1,58 +1,56 @@
-# Team lead — tasks — csdl-bieu-01
+# Team lead — tasks — csdl-bieu-01 (edit_page · T-XLS-S01)
 
 | Field | Value |
 |-------|-------|
 | feature | `csdl-bieu-01` |
-| title | CSDL Biểu 01 — Phân loại mặt đường |
+| title | CSDL Biểu 01 — Xuất/Nhập Excel (Wave 1) |
 | this role | `team_lead` · `/agent-team-lead` |
 | status | **confirmed** |
-| changeScope | **`new_page`** |
-| packKind | **`list`** (Kind **B** A–D+F+H · Kind **D** Slideout 2col) |
+| changeScope | **`edit_page`** (T-XLS-S01) |
+| packKind | **`list`** (Kind **B** A–D+F+H KEEP · Kind **D** Slideout KEEP) |
 | formType | `list` |
 | resource | `pavement-sections` |
 | formNo | `01` |
 | columns | `38` |
 | IdCode | `MD-yyyyMMdd-nnnn` |
 | peerSoTs | `pavement-section` · deep-link only · **cấm** merge form |
-| solution_confirm | **approve** (`task_2a18844f`) |
-| design_confirm | **approve** (`task_4d4cd4ac`) |
+| solution_confirm | **approve** (`task_24cf3664`) |
+| design_confirm | **approve** (`task_8009a294`) |
+| team_lead_confirm | **approve** (autoApprove ON) |
 | autoApprove | **ON** |
 | e2eQa | **ON** (queued — chỉ `/agent-qa*`) |
-| route_confirm | **`route_a`** (autoApprove) — **`/csdl-bieu-01`** + hub entry |
+| route_confirm | **`route_a`** (keep) — hub `/so-ts/csdl-so-sach` + alias `/csdl-bieu-01` |
 | productRoot | `D:/AI-QLBD/Linm.RMMS.Data` |
 | reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/csdl-bieu-01/ui/prototype/csdl-bieu-01-list-prototype.html` |
-| prior · data_analy | **confirmed** · contentHash `sha256:3545960f4006740c9dfe57b5f004fa4a1cd1b7befbcd51e35e2168e16821b65e` |
+| prior · data_analy | **confirmed** · `handoff/data_analy-compact.md` |
 | prior · po | **confirmed** · `po/requirement.md` · `handoff/po-compact.md` |
 | prior · design | **confirmed** · `ui/design.md` · `handoff/design-compact.md` |
 | prior · sa | **confirmed** · `be/solution-discovery.md` · `handoff/sa-compact.md` |
-| taskId | `task_b3159dbc` |
-| saTaskId | `task_2a18844f` |
-| contentHashPrior | `sha256:3545960f4006740c9dfe57b5f004fa4a1cd1b7befbcd51e35e2168e16821b65e` |
+| taskId | `task_56b657af` |
+| saTaskId | `task_24cf3664` |
+| contentHashPrior | `sha256:b48e58e637a1dd4fc9e14298a0063d34c89eadb1ea02ba756b561b4648d4b085` |
 | headerFingerprintPrior | `sha256:6376475bbf48ca5b3e8cfd26688cd877fd1bc77d5b8d8c4c3d314cd0572f5cf2` |
-| updatedAt | `2026-09-05T12:30:00.000Z` |
-| TL SSOT | `form-type-task-pack` · `agent-dev-assign` · `tl-grid-task-template` · `tl-design-grid-component-map` · `tl-filter-bar-task` · `tl-list-shell-height` · `tl-route-vn-abbrev-confirm` · `list-form-quality-gates` · `filter-bar-layout-hard` · `po-design-grid-standard` |
+| updatedAt | `2026-09-18T01:12:11.784Z` |
+| TL SSOT | `form-type-task-pack` · `agent-dev-assign` · `tl-grid-task-template` · `tl-design-grid-component-map` · `tl-filter-bar-task` · `tl-list-shell-height` · `list-form-quality-gates` · `filter-bar-layout-hard` · `po-design-grid-standard` · `/implement-export-import-excel` |
 
-**Cấm:** implement product code (trừ template task) · e2e · `yarn build` / `start:std` · Step 4b/migration · ERP.* · invent `api/v1/so-ts/*` / `infra/*` · start role khác (**GAP-PKT-ROLE-01**) · form 3 ô `detail*` only · Guid IdCode · merge Sổ TS form · parent `*Json`.
+**Cấm:** implement product code (trừ template task) · e2e · `yarn build` / `start:std` · Step 4b/migration · ERP.* · invent API prefix · export trên `LinErpListFilterBar` (**GAP-FILTER-BAR-08**) · reopen typed 38 as `new_page` · start role khác (**GAP-PKT-ROLE-01**) · golden 12+8 hồ sơ · parent `*Json`.
 
 ---
 
-## § Delta Current vs New (`new_page` · TL)
+## § Delta Current vs New (`edit_page` · T-XLS-S01)
 
-| Area | Current (hub generic) | New (Biểu 01 typed) | Action |
-|------|------------------------|---------------------|--------|
-| Route | hub-only `?resource=pavement-sections` | **alias** `/csdl-bieu-01` + hub | **route_confirm=route_a** · **T-FE-01** / **T-UI-LIST-01** |
-| Form | 3 ô `detail*` | Typed **38 cột** Kind D Slideout | **T-FE-02** / **T-UI-FORM-01** · **GAP-BIEU01-TYPED-01** |
-| WIDTH | N/A | **four_buckets** surfW*×4 | **T-BE-01..03** · **GAP-BIEU01-WIDTH-01** |
-| STRUCT | free-text / flags | **one_enum** `structureType` | **T-BE-03** · **GAP-BIEU01-STRUCT-01** |
-| Persist | shell detail* only | shell + **`Schema_CsdlBieu1`** 1:1 | **T-BE-01** · **T-BE-02** (Dev/4b) |
-| road | Text | SearchInput `road-route` | **T-FE-03** / **T-UI-LKP-01** · **GAP-CSDL-ROAD-01** |
-| province | LOOKUP_STATIC | **keep_static** P1 | **T-UI-FILTER-01** |
-| manageUnit | Text | Text P1 · SearchInput P2 | **DEFER P2** · **GAP-CSDL-ORG-01** |
-| XLS / skip-bridge | stub | **OUT** pack | **T-OUT-01** |
-| Peer Sổ TS | — | deep-link only | **T-FE-05** · **GAP-BIEU01-PEER-01** |
-| DOMAIN-MAP | thiếu slug | add `csdl-bieu-01`→Asset | **T-DM-01** |
+| Area | Current (typed live) | New (Wave 1 XLS) | Action |
+|------|----------------------|------------------|--------|
+| Typed CRUD 38-col | DONE prior | **KEEP** | **cấm** reopen · T-* CRUD = KEEP |
+| Route | hub + alias `/csdl-bieu-01` | **keep `route_a`** | no new route · **route_confirm=route_a** |
+| Toolbar | CRUD actions | **+Xuất Excel +Nhập Excel** | **T-XLS-FE-01** · **GAP-BIEU01-XLS-UI-01** |
+| Export | CSV stub · no filter QS · wrong name | filtered · golden Cục **Biểu 1** · `Bieu01_PhanLoaiMatDuong_{yyyyMMdd}.xls` · binary | **T-XLS-BE-01/03** · **GAP-BIEU01-XLS-EXP-01** |
+| Import | generic shell | import_now · sheet Biểu 1 → shell+typed · skipBridge | **T-XLS-BE-02** · **GAP-BIEU01-XLS-IMP-01** |
+| Filter bar | KEEP | **cấm** nút Xuất trên bar | **T-XLS-FE-02** · GAP-FILTER-BAR-08 |
+| Migration | Schema_CsdlBieu1 KEEP | **none mới** @ XLS | **cấm** Step 4b @ TL |
+| BFF | proxy | binary + multipart passthrough | **T-XLS-BFF-01** |
 
-**Không đổi:** API prefix `api/v1/asset/csdl-records` · BFF proxy · soft-delete · pageSize 50/100/200/500 · LeaveConfirm · filter-bar-layout-hard · **cấm** ERP.*.
+**Không đổi:** API prefix `api/v1/asset/csdl-records` · typed entity · filter keys · LeaveConfirm · pageSize · peer deep-link · **cấm** ERP.*.
 
 ---
 
@@ -60,83 +58,70 @@
 
 | Field | Value |
 |-------|-------|
-| `source.mfe` | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Asset` · `ui_repo_confirm` |
-| `source.routes` | **`/csdl-bieu-01`** · `route_confirm=route_a` (autoApprove · PO/Design/SA) |
-| `mfeStdRoute` | `/csdl-bieu-01` |
-| `mfeStdUrl` | `http://localhost:9301/csdl-bieu-01` |
+| `source.mfe` | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Asset` |
+| `source.routes` | hub `/so-ts/csdl-so-sach` · alias `/csdl-bieu-01` · `route_confirm=route_a` (keep) |
+| `mfeStdRoute` | `/so-ts/csdl-so-sach` · alias `/csdl-bieu-01` |
+| `mfeStdUrl` | `http://localhost:9301/so-ts/csdl-so-sach` |
 | `hubDeepLink` | `/so-ts/csdl-so-sach?resource=pavement-sections` |
 | `peerStdUrl` | `http://localhost:9301/so-ts/csdl-so-sach?resource=pavement-sections` |
-| `source.backend` | `D:/AI-QLBD/Linm.RMMS.WebService` · `be_repo_confirm` |
+| `source.backend` | `D:/AI-QLBD/Linm.RMMS.WebService` |
 | `source.domain` | **Asset** (`asset`) · DOMAIN-MAP |
 | `source.api` | `api/src/RMMS.Service.Api/Domains/Asset/` · `CsdlCatalogRecordsController` |
 | `source.bff` | `bff/domains/asset/` · **proxy only** |
 | `source.layout` | `micro-src` |
 | FE BASE | `/asset/csdl-records` (apiClient → BFF) |
 | API prefix | **`api/v1/asset/csdl-records`** · **cấm** invent |
-| catalogKind | `pavement-sections` (typed UiSchema) |
-| entity | shell `CsdlCatalogRecordEntity` + typed `CsdlBieu1Entity` · `rmms_csdl_bieu1` |
-| migration | `Schema_CsdlBieu1` · **Dev / Step 4b only** |
-| `devSlash` (default UI) | **`/agent-dev`** · + `/dev-web-responsive` · `/dev-ui-review` · **cấm** OMS/ai-detect (map=none) |
+| catalogKind | `pavement-sections` |
+| entity | shell + `CsdlBieu1Entity` · **KEEP** · XLS migration **none** |
+| implement skill | `/implement-export-import-excel` |
+| `devSlash` (default UI) | **`/agent-dev`** · + `/dev-web-responsive` · `/dev-ui-review` · **cấm** OMS/ai-detect |
 
-### Route confirm (autoApprove)
+### Route confirm (autoApprove · keep)
 
 | Option | Path | Decision |
 |--------|------|----------|
-| A | `/csdl-bieu-01` (+ hub entry) | **SELECTED** — Q-ROUTE `alias_now` · Design/SA locked |
-| B | hub-only `?resource=pavement-sections` | rejected — thiếu alias P1 |
-| C | custom / invent so-ts API | n/a · **cấm** |
+| A | hub `/so-ts/csdl-so-sach` + alias `/csdl-bieu-01` | **SELECTED** — keep |
+| B | invent new URL | rejected |
+| C | drop alias | rejected |
 
 ---
 
-## DES-GRID → Lin* map (`tl-design-grid-component-map` · PASS)
+## DES-GRID → Lin* map (`tl-design-grid-component-map` · KEEP + XLS delta)
 
-| Zone | Component |
-|------|-----------|
-| DES-GRID-A | `LinPageLayout` header · title Biểu 01 |
-| DES-GRID-B | `catalogToolbar` / `buildCatalogListToolbarActions` |
-| DES-GRID-C0 | listTitle · `listRowMenuHelp` |
-| DES-GRID-C1 / FILTER | `LinErpListFilterBar` · **T-UI-FILTER-01** · 🔍 cụm phải · **cấm** nút Tìm riêng |
-| DES-GRID-C2 | `LinCatalogDataGrid` |
-| DES-GRID-C2a | `useLinCatalogColumnFilterSort` |
-| DES-GRID-C3 | `LinCatalogRowActionMenu` + `buildCatalogRowMenuItems` |
-| DES-GRID-D | `LinCatalogListPagination` 50/100/200/500 |
-| DES-GRID-F | `LinCatalogUiSchemaEditorModal` · catalogKind `pavement-sections` |
-| DES-GRID-H | History — **n/a P1** (không GAP HIST) · optional verify reuse |
-| DES-GRID-Z | Slideout · `data-form-cols="2"` · footer_actions_only · Z1–Z3 |
-| Tree / Map | **n/a** — map=none · gis deep-link only |
+| Zone | Component | Wave |
+|------|-----------|------|
+| DES-GRID-A..D/F/H/Z | prior Lin\* map | **KEEP** |
+| DES-GRID-B toolbar | `catalogToolbar` / `buildCatalogListToolbarActions` | **+exportExcel +importExcel** |
+| DES-GRID-C1 FILTER | `LinErpListFilterBar` | **KEEP** · **cấm** Xuất trên bar |
+| S-XLS-EXPORT | ToolbarButton `fa-file-excel` | **T-XLS-FE-01/02** |
+| S-XLS-IMPORT | ToolbarButton+file `fa-file-import` | **T-XLS-FE-01** |
 
 ---
 
-## API contract (cite SA)
+## API contract (cite SA · XLS)
 
 | id | Method | Path | Notes |
 |----|--------|------|-------|
-| API-01 | GET | `/api/v1/asset/csdl-records?resource=pavement-sections&…` | list paged · filters |
-| API-02 | GET | `/api/v1/asset/csdl-records/{id}` | shell+typed join · XCO |
-| API-03 | POST | `/api/v1/asset/csdl-records` | create · typed · IdCode `MD-` |
-| API-04 | PUT | `/api/v1/asset/csdl-records/{id}` | update shell+typed |
-| API-05 | DELETE | `/api/v1/asset/csdl-records/{id}` | soft |
-| API-LKP-01 | GET | `/api/v1/integration/road-routes/search` | SearchInput road-route |
-| API-LKP-02 | GET | `/api/v1/integration/org-units/search` | **DEFER P2** |
+| API-XLS-01 | GET | `/api/v1/asset/csdl-records/export?resource=pavement-sections&…` | filtered · binary · filename locked |
+| API-XLS-02 | POST | `/api/v1/asset/csdl-records/import?resource=pavement-sections` | multipart · import_now · typed |
+| API-XLS-03 | POST | `/api/v1/asset/csdl-records/import/preview?resource=…` | optional preview · KEEP proxy |
+| API-01..05 · API-LKP-01 | — | prior CRUD / road-route | **KEEP** |
 
-BFF mirror: `/web-bff/api/v1/asset/…` · **proxy only**. Permissions: `asset.csdl-records.read|create|update|delete` (reuse · Auth debt DEFER).
+BFF mirror: `/web-bff/api/v1/asset/…` · **proxy only** · binary + multipart passthrough.
 
-Gates (SA recorded): `sa_tz_gate=tz_na` · `sa_xco_gate=xco_get_only` · `sa_shared_table=share_tenant`.
+Gates (SA): `sa_tz_gate=tz_na` · `sa_xco_gate=xco_get_only` · `sa_shared_table=share_tenant`.
 
-### FormMode ↔ API
+### FormMode ↔ API (delta)
 
-| FormMode | Load | Save |
-|----------|------|------|
-| list | GET list + filters | — |
-| create | empty typed | POST |
-| edit | GET `/{id}` | PUT |
-| view | GET `/{id}` | — readOnly |
-| copy | GET → clear id/code | POST (new `MD-`) |
-| delete | — | DELETE soft |
+| FormMode | Load | Save / action |
+|----------|------|---------------|
+| list / C/E/V/Copy/delete | KEEP | KEEP |
+| **export** | — | GET export + **same filter QS** (ignore page) |
+| **import** | file (+ optional preview) | POST import multipart · skipBridge |
 
-### List filter query keys
+### Export filter QS (= list keys)
 
-`resource` · `search` · `province` · `status` · `roadCode` · `kmFrom`/`kmTo` · `page`/`pageSize`
+`resource` · `search` · `province` · `status` · `roadCode` · `kmFrom`/`kmTo` · **export ignores `page`/`pageSize`**
 
 ---
 
@@ -144,162 +129,109 @@ Gates (SA recorded): `sa_tz_gate=tz_na` · `sa_xco_gate=xco_get_only` · `sa_sha
 
 | ID | Value |
 |----|-------|
-| SD-JOB | n/a |
-| SD-BFF | **required** · proxy only |
-| SD-AUTH | **gap** · reuse codes · wire DEFER |
-| SD-TOKEN | required (BFF) |
-| SD-HEADER | required · X-Company-Id |
-| SD-SPLIT | Asset ownership |
-| SD-NO-JSON | **required** · typed child · **cấm** parent `*Json` / detail* SSOT |
-| SD-LIB-UI | Common.Components only |
-| SD-LIB-BE | CommonLib envelope |
+| SD-BFF | **required** · proxy · binary/multipart |
+| SD-AUTH | reuse `asset.csdl-records.read|create|update` · Auth debt DEFER |
+| SD-NO-JSON | **required** · typed child · **cấm** DetailJson on import |
+| SD-LIB-UI | Common.Components · catalogToolbar |
+| SD-XLS | `/implement-export-import-excel` · golden Cục sheet **Biểu 1** · **cấm** 12+8 |
 
 ---
 
-## FormType pack — task matrix (`list` · §2a)
+## FormType pack — task matrix (`list` · §2a KEEP + XLS delta)
 
 | Task id | Role | Status | deps | `devSlash` | Notes |
 |---------|------|--------|------|------------|-------|
-| T-DM-01 | Dev | **pending** | — | `/agent-dev` | DOMAIN-MAP `csdl-bieu-01`→Asset |
-| T-CTX-01 | Dev | **pending** | — | `/agent-dev` | context sync feature page |
-| T-BE-01 | Dev | **pending** | T-DM-01 | `/agent-dev` | `CsdlBieu1Entity` + EF config |
-| T-BE-02 | Dev | **pending** | T-BE-01 | `/agent-dev` | Migration `Schema_CsdlBieu1` · **Step 4b only** |
-| T-BE-03 | Dev | **pending** | T-BE-01 | `/agent-dev` | DTO typed + service join · **stop detail* write** |
-| T-BE-04 | Dev | **pending** | T-BE-03 | `/agent-dev` | IdCode `MD-` generator · **cấm** Guid |
-| T-BE-05 | Dev | **pending** | T-BE-03 | `/agent-dev` | list filter `roadCode` + km range |
-| T-BFF-01 | Dev | **pending** | T-BE-03 | `/agent-dev` | verify proxy (no logic) |
-| T-PERM-01 | Dev | **pending** | T-BE-03 | `/agent-dev` | reuse `asset.csdl-records.*` stub |
-| T-BE-UISCHEMA-01 | Dev | **pending** | T-BE-03 | `/agent-dev` | = **T-FE-06** catalogKind typed |
-| T-BE-INIT-01 | — | **n/a P1** | — | — | province/status LOOKUP_STATIC · **cấm** invent init-data |
-| T-UI-LIST-01 | Dev | **pending** | T-BFF-01 | `/agent-dev` | = **T-FE-01** route alias + Kind B shell |
-| T-UI-FILTER-01 | Dev | **pending** | T-BE-05 | `/agent-dev` | = **T-FE-03** FilterBar + road-route |
-| T-UI-CFG-01 | Dev | **pending** | T-BE-UISCHEMA-01 | `/agent-dev` | Zone F full cột · **cấm** Zone F-only SSOT |
-| T-UI-FORM-01 | Dev | **pending** | T-UI-LIST-01 | `/agent-dev` | = **T-FE-02** Slideout 38 cột typed |
-| T-UI-LEAVE-01 | Dev | **pending** | T-UI-FORM-01 | `/agent-dev` | = part **T-FE-04** LeaveConfirmModal |
-| T-UI-ACT-01 | Dev | **pending** | T-UI-LIST-01 | `/agent-dev` | C/E/V/Copy/Delete · = **T-FE-04** |
-| T-UI-LKP-01 | Dev | **pending** | API-LKP-01 | `/agent-dev` | **GAP-CSDL-ROAD-01** SearchInput |
-| T-UI-FIELD-01 | Dev | **pending** | T-UI-FORM-01 | `/agent-dev` | controlHint 1:1 · four_buckets · one_enum |
-| T-UI-PROD-01 | Dev | **pending** | T-UI-LIST-01 | `/agent-dev` | = **T-FE-05** hub + peer deep-link · **cấm** merge |
-| T-UI-UX-01 | Dev | **pending** | T-UI-FORM-01 | `/agent-dev` | constitution · 2col · footer_only |
-| T-UI-RESP-01 | Dev | **pending** | T-UI-LIST-01 | `/dev-web-responsive` | 1280/768/375 |
-| T-UI-HIST-01 | — | **n/a P1** | — | — | no HIST GAP |
-| T-UI-MAP-FORM | — | **n/a** | — | — | map=none |
-| T-OUT-01 | — | **OUT** | — | — | XLS / skip-bridge · không block P1 |
-| T-QA-CRUD-01 | QA | **pending** | T-UI-* | `/agent-qa` | CRUD + soft delete |
-| T-QA-FORM-01 | QA | **pending** | T-UI-FORM-01 | `/agent-qa` | 38 cột typed · **cấm** detail* only |
-| T-QA-FILTER-01 | QA | **pending** | T-UI-FILTER-01 | `/agent-qa` | V1–V5 + roadCode/km |
-| T-QA-TYP-01 | QA | **pending** | T-UI-UX-01 | `/agent-qa` | typography |
-| T-QA-TAB-01 | QA | **pending** | T-UI-UX-01 | `/agent-qa` | tab index |
-| T-QA-ROUTE-01 | QA | **pending** | T-UI-LIST-01 | `/agent-qa` | alias `/csdl-bieu-01` + hub |
-| T-LIB-01 | — | **n/a** | — | — | Common đã export |
+| T-UI-LIST-01 | Dev | **KEEP** | — | `/agent-dev` | Kind B shell · LAYOUT-06 |
+| T-UI-FILTER-01 | Dev | **KEEP** | — | `/agent-dev` | FilterBar V1–V10 · **cấm** Xuất trên bar |
+| T-UI-CFG-01 | Dev | **KEEP** | — | `/agent-dev` | Zone F full cột |
+| T-UI-FORM-01 | Dev | **KEEP** | — | `/agent-dev` | Slideout 38 · **cấm** reopen |
+| T-UI-LEAVE-01 | Dev | **KEEP** | — | `/agent-dev` | LeaveConfirmModal |
+| T-UI-ACT-01 | Dev | **KEEP+delta** | T-XLS-FE-01 | `/agent-dev` | +export/+import handlers |
+| T-UI-LKP-01 | Dev | **KEEP** | — | `/agent-dev` | road-route |
+| T-UI-FIELD-01 | Dev | **KEEP** | — | `/agent-dev` | typed 38 |
+| T-UI-PROD-01 | Dev | **KEEP** | — | `/agent-dev` | hub + peer · **cấm** merge |
+| T-UI-UX-01 | Dev | **KEEP** | — | `/agent-dev` | constitution |
+| T-UI-RESP-01 | Dev | **KEEP** | — | `/dev-web-responsive` | 1280/768/375 |
+| T-UI-HIST-01 | — | **n/a P1** | — | — | — |
+| T-BE-CRUD-01 | Dev | **KEEP** | — | `/agent-dev` | typed CRUD |
+| T-BE-UISCHEMA-01 | Dev | **KEEP** | — | `/agent-dev` | catalogKind |
+| T-BE-INIT-01 | — | **n/a P1** | — | — | LOOKUP_STATIC |
+| T-PERM-01 | Dev | **KEEP** | — | `/agent-dev` | reuse codes + export/import |
+| T-QA-CRUD-01 | QA | **KEEP** | — | `/agent-qa` | prior CRUD |
+| T-QA-FORM-01 | QA | **KEEP** | — | `/agent-qa` | 38-col |
+| T-QA-FILTER-01 | QA | **KEEP** | — | `/agent-qa` | V1–V5+V10 · no export on bar |
+| T-QA-FILTER-02 | QA | **KEEP** | — | `/agent-qa` | D+T+M |
+| **T-XLS-BE-01** | Dev | **pending** | — | `/agent-dev` | ExportAsync widen · golden · filename |
+| **T-XLS-BE-02** | Dev | **pending** | — | `/agent-dev` | Import commit/preview typed |
+| **T-XLS-BE-03** | Dev | **pending** | T-XLS-BE-01 | `/agent-dev` | Controller bind filter QS |
+| **T-XLS-BFF-01** | Dev | **pending** | T-XLS-BE-01 | `/agent-dev` | binary + multipart proxy |
+| **T-XLS-FE-01** | Dev | **pending** | T-XLS-BFF-01 | `/agent-dev` | toolbar Xuất/Nhập · blob · file · toast |
+| **T-XLS-FE-02** | Dev | **pending** | T-XLS-FE-01 | `/agent-dev` | pass filter QS · **cấm** filter-bar export |
+| **T-XLS-QA-01** | QA | **pending** | T-XLS-FE-* | `/agent-qa` | E2E S-XLS-EXPORT/IMPORT |
 
-**SA id map:** T-FE-01→T-UI-LIST-01 · T-FE-02→T-UI-FORM-01 · T-FE-03→T-UI-FILTER-01+LKP · T-FE-04→T-UI-LEAVE+ACT · T-FE-05→T-UI-PROD-01 · T-FE-06→T-BE-UISCHEMA-01.
+**SA id map:** T-XLS-BE-01..03 · T-XLS-BFF-01 · T-XLS-FE-01..02 · T-XLS-QA-01 (as above).
 
 ---
 
-### T-DM-01 — DOMAIN-MAP
+### T-XLS-BE-01 — ExportAsync widen
 
-- Add row `csdl-bieu-01` → **Asset** in `DOMAIN-MAP.md`.
-- DoD: slug resolve Asset · **cấm** ERP.* / invent domain.
+- Load `/implement-export-import-excel`.
+- Replace CSV stub: apply **list filter QS** · project typed Biểu 1 (38-col) · golden Cục sheet **Biểu 1** · **cấm** 12+8.
+- Filename `Bieu01_PhanLoaiMatDuong_{yyyyMMdd}.xls` via `Content-Disposition`.
+- Empty → headers-only file **or** FE toast (Dev chốt 1 · document in implement).
+- DoD: closes **GAP-BIEU01-XLS-EXP-01** · binary Excel · filter parity list (ignore page).
 
-### T-BE-01 / T-BE-02 — Entity + migration
+### T-XLS-BE-02 — Import typed
 
-- `CsdlBieu1Entity` · table `rmms_csdl_bieu1` · FK `CatalogRecordId` unique 1:1.
-- Columns: lengthKm, baseWidthM, surfWGe14, surfW14To10, surfW10To5, surfWLe5, structureType, surfaceThicknessCm, plainClass, mountainClass, yearsInServiceBand, handoverMinistry, handoverLocal, lastMajorRehabYear, lastSurfaceRepairYear, updatedByName (+ SA types).
-- Migration name **`Schema_CsdlBieu1`** — **chỉ Dev / Step 4b** · **cấm** TL chạy.
-- DoD: EF config · unique FK · **cấm** parent `*Json`.
+- Multipart commit (+ preview KEEP): sheet **Biểu 1** → shell + `CsdlBieu1` · `skipBridge` default true.
+- Response `CsdlImportResultDto` · row errors in DTO · **cấm** DetailJson / parent `*Json`.
+- DoD: closes **GAP-BIEU01-XLS-IMP-01** · import_now upsert typed.
 
-### T-BE-03 / T-BE-04 / T-BE-05 — Service + IdCode + filters
+### T-XLS-BE-03 — Controller filter bind
 
-- Widen DTO `CsdlBieu1Dtos` · join shell↔typed on `resource=pavement-sections`.
-- **Stop** writing detail* for this resource at runtime.
-- IdCode `MD-yyyyMMdd-nnnn` BE generate.
-- List filters: `roadCode`, `kmFrom`/`kmTo`, search, province, status.
-- Gates: TZ **n/a** · XCO on GET detail · tenant `CompanyCode`.
-- DoD: FormMode↔API green · enum structureType · four_buckets decimal.
+- Bind export query: `resource` required + `search` · `province` · `status` · `roadCode` · `kmFrom`/`kmTo`.
+- DoD: QS parity list filters · 422 thiếu resource.
 
-### T-BFF-01 — BFF proxy
+### T-XLS-BFF-01 — BFF proxy
 
-- Forward only · no remap business.
-- DoD: path parity `/web-bff/api/v1/asset/csdl-records`.
+- Forward export QS · multipart · binary passthrough · **no business logic**.
+- DoD: path parity `/web-bff/api/v1/asset/csdl-records/export|import|/import/preview`.
 
-### T-UI-LIST-01 (= T-FE-01) — List page
+### T-XLS-FE-01 — Toolbar Xuất/Nhập (= UI-01)
 
-- Register route **`/csdl-bieu-01`**.
-- Kind B A–D+F · `tl-grid-task-template` · LAYOUT-06 shell height.
-- Grid AC YES · pageSize 50/100/200/500.
-- DoD: mfeStdUrl opens · DES-GRID zones mapped · **cấm** demo chrome.
+- `catalogToolbar`: Xuất Excel (`fa-file-excel`) · Nhập Excel (`fa-file-import` + hidden file input).
+- Blob download dùng server filename · toast success/error · **cấm** `window.alert`/`confirm`.
+- DoD: closes **GAP-BIEU01-XLS-UI-01** · actions on DES-GRID-B only.
 
-### T-UI-FILTER-01 + T-UI-LKP-01 (= T-FE-03)
+### T-XLS-FE-02 — Filter QS → export
 
-- `LinErpListFilterBar` 1 hàng wrap · 🔍 cụm phải · **cấm** nút Tìm riêng.
-- Controls: search · province · status · roadCode SearchInput · kmFrom/kmTo.
-- road-route → API-LKP-01.
-- DoD: filter-bar-layout-hard V1–V5 · page=1 on change.
+- Pass **current** filter state as export QS · **cấm** Xuất trên `LinErpListFilterBar` (**GAP-FILTER-BAR-08**).
+- After import success → reload list.
+- DoD: filtered export matches visible filter · filter-bar layout HARD unchanged.
 
-### T-UI-FORM-01 + T-UI-FIELD-01 (= T-FE-02)
+### T-XLS-QA-01 — E2E (queued `/agent-qa*` only)
 
-- Kind D Slideout · `data-form-cols=2` · Z1–Z3 · footer_actions_only · **cấm** Full-page.
-- Typed **38 cột** · controlHint 1:1 · **cấm** 3 ô detail* only.
-- WIDTH four_buckets · STRUCT one_enum.
-- FormMode create/edit/view/copy ↔ API.
-- DoD: all write fields bind typed DTO · view not disabled-grey.
-
-### T-UI-LEAVE-01 + T-UI-ACT-01 (= T-FE-04)
-
-- LeaveConfirmModal dirty.
-- Row/toolbar: Create · Edit · View · Copy · soft Delete confirm.
-- DoD: leave gate · copy clears id/code · reload list after delete.
-
-### T-UI-PROD-01 (= T-FE-05)
-
-- Hub card entry `?resource=pavement-sections` still works.
-- Peer Sổ TS deep-link only · **cấm** merge form.
-- Map: toolbar → gis deep-link only · **cấm** invent map.
-- DoD: alias + hub both list same resource.
-
-### T-UI-CFG-01 / T-BE-UISCHEMA-01 (= T-FE-06)
-
-- catalogKind `pavement-sections` typed UiSchema.
-- DoD: editor full cột · **cấm** generic 3-col SSOT.
-
-### T-OUT-01 — OUT pack
-
-- XLS import/export + skip-bridge · **không block P1**.
-- org SearchInput · province master · **DEFER P2**.
-
-### T-QA-* (queued `/agent-qa*` only)
-
-- Cover CRUD · 38-col form · filter V1–V5 · route alias+hub · leave · copy · soft delete · **cấm** detail*-only regression.
-- **Cấm** e2e ở TL/Dev trừ QA role.
+- S-XLS-EXPORT: filter → Xuất → file name + binary · **fail** CSV stub / wrong name / no filter.
+- S-XLS-IMPORT: pick golden-like xls → import_now → list reflects typed rows · skipBridge soft.
+- **Cấm** e2e ở TL/Dev.
 
 ---
 
-## Inventory (slim · controlHint)
+## Inventory (slim · XLS + KEEP cite)
 
 | id | controlHint | notes |
 |----|-------------|-------|
-| search | SearchTextInput | filter |
-| province/status | Dropdown | LOOKUP_STATIC |
-| roadCode | SearchInput | road-route P1 |
-| kmFrom/kmTo | Number | filter+form |
-| code | Text ro | MD- |
-| lengthKm/baseWidthM | Number | typed |
-| surfW* ×4 | Number | four_buckets |
-| structureType | Dropdown | one_enum |
-| plain/mountainClass | Dropdown | I–V |
-| yearsInServiceBand | Dropdown | |
-| handover* | Checkbox | |
-| last*Year | Number | |
-| manageUnit | Text | P2 SearchInput DEFER |
-| notes/side/status | Textarea/Dropdown | shell |
+| exportExcel | ToolbarButton | catalogToolbar · filtered |
+| importExcel | ToolbarButton+file | import_now · P1 |
+| (form 38) | typed prior | **KEEP** · **cấm** reopen |
+| filter fields | prior | **KEEP** · **cấm** export btn |
 
 ---
 
 ## Screens / zones (ids)
 
-- S-LIST · S-FORM-C/E/V/Copy · S-ACT-DELETE · S-HUB-ENTRY · S-PEER-SOTS · S-SKIP-MAP
-- reviewUrl prototype · mfeStdUrl `/csdl-bieu-01`
+- S-LIST · S-FORM-* · **S-XLS-EXPORT** · **S-XLS-IMPORT** · S-HUB-ENTRY · S-PEER-SOTS
+- reviewUrl prototype · mfeStdUrl hub · alias `/csdl-bieu-01`
 
 ---
 
@@ -307,41 +239,43 @@ Gates (SA recorded): `sa_tz_gate=tz_na` · `sa_xco_gate=xco_get_only` · `sa_sha
 
 | Lane | Slash | Scope |
 |------|-------|-------|
-| BE | `/agent-dev` | T-DM · T-BE-* · T-BFF · T-PERM · Schema_CsdlBieu1 @ 4b |
-| FE | `/agent-dev` | T-UI-* · typed page · FilterBar · Slideout |
-| Responsive | `/dev-web-responsive` | T-UI-RESP-01 |
-| UI review | `/dev-ui-review` | after FE DoD |
-| QA | `/agent-qa` | T-QA-* · e2e only here |
+| BE | `/agent-dev` | T-XLS-BE-01..03 · T-PERM reuse |
+| BFF | `/agent-dev` | T-XLS-BFF-01 |
+| FE | `/agent-dev` | T-XLS-FE-01..02 · T-UI-ACT delta |
+| Excel skill | `/implement-export-import-excel` | golden sheet · binary |
+| Responsive | `/dev-web-responsive` | KEEP T-UI-RESP-01 if touch layout |
+| QA | `/agent-qa` | T-XLS-QA-01 · e2e only here |
 
-**Parallel OK:** T-DM-01 ∥ T-CTX-01 · T-BE-* after T-DM · T-UI-LIST after T-BFF · T-UI-FORM after LIST.
+**Parallel OK:** T-XLS-BE-01 ∥ T-XLS-BE-02 · T-XLS-BE-03 after BE-01 · T-XLS-FE after BFF · QA after FE.
+
+**Deps:** T-XLS-BE-01 → T-XLS-BE-03 → T-XLS-BFF-01 → T-XLS-FE-01 → T-XLS-FE-02 → T-XLS-QA-01.
 
 ---
 
-## Quality gates (list-form)
+## Quality gates
 
 | Gate | Expect |
 |------|--------|
-| Grid AC | YES |
-| Leave | YES |
+| Grid AC / Leave / Filter HARD | KEEP prior PASS |
 | Report AC | N/A |
-| Filter HARD | V1–V5 pass |
-| Form | Slideout 2col · typed 38 · **cấm** Full-page / detail* only |
-| Route | alias + hub |
-| Persist | shell+typed · **cấm** parent JSON |
+| XLS | filtered · golden Biểu 1 · filename locked · import_now typed |
+| Filter | **cấm** Xuất trên bar |
+| Persist | shell+typed · **cấm** parent JSON · **no new migration** |
 | API | keep `asset/csdl-records` · **cấm** ERP.* |
+| Shell height | KEEP LAYOUT-06 |
 
 ---
 
 ## Open questions
 
-- **none** (Q-WIDTH · Q-STRUCT · Q-ROUTE · Q-PROV chốt · autoApprove)
+- **none** (Q-XLS-SCOPE=filtered · Q-XLS-IMPORT=import_now · FILENAME locked · design/sa/route approve)
 
 ## Next
 
 | Role | Need |
 |------|------|
-| **Dev** | implement/csdl-bieu-01.md · T-* theo matrix · migration @ 4b |
-| QA | scenarios + e2e queued `/agent-qa*` |
+| **Dev** | `implement/csdl-bieu-01.md` · T-XLS-* · `/implement-export-import-excel` |
+| QA | T-XLS-QA-01 + e2e queued `/agent-qa*` |
 | Review | findings after QA |
 
 ## Version meta (REQUIRED)
@@ -349,13 +283,13 @@ Gates (SA recorded): `sa_tz_gate=tz_na` · `sa_xco_gate=xco_get_only` · `sa_sha
 | Field | Value |
 |-------|-------|
 | skillId | agent-team-lead |
-| skillVersion | 2026.08.25.01 |
-| workflowVersion | 2026.09.01.02 |
-| rulesVersion | 2026.08.31.2 |
+| skillVersion | 2026.09.05.03 |
+| workflowVersion | 2026.09.05.03 |
+| rulesVersion | 2026.09.17.3 |
 | packKind | list |
-| changeScope | new_page |
+| changeScope | edit_page |
 | route_confirm | route_a |
 | team_lead_confirm | approve |
-| writtenAt | 2026-09-05T12:30:00.000Z |
-| contentHashPrior | sha256:3545960f4006740c9dfe57b5f004fa4a1cd1b7befbcd51e35e2168e16821b65e |
-| taskId | task_b3159dbc |
+| writtenAt | 2026-09-18T01:12:11.784Z |
+| contentHashPrior | sha256:b48e58e637a1dd4fc9e14298a0063d34c89eadb1ea02ba756b561b4648d4b085 |
+| taskId | task_56b657af |
