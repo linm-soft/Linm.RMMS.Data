@@ -6,38 +6,42 @@ packKind: list
 role: data_analy
 status: done
 skillVersion: 2026.08.31.2
-writtenAt: 2026-09-19T15:29:13.000Z
+writtenAt: 2026-09-20T00:39:00.000Z
 changeScope: edit_page
-contentHash: sha256:a635f3f55a8bedd952c4449056cf072a8eda890eda2b30a45e84bda5d7bf3859
+taskId: task_b82ebc4c
+contentHash: sha256:1044ba719edda88d256d5c2a780cd2293f2fab87e2a39acdbb86001fad6ff659
+planCite: docs/plan/nghiem-thu-mau/{README,MAU-10,CHI-SO,SCHEMA}.md · features/nghiem-thu-mau.md
 
 ## Decisions
-- changeScope: edit_page · NEW task `task_1bd5874a` · keep web PO/Design/SA confirmed
-- formPattern: N/A on list · create/detail = sibling sheets · web Full page kept
-- packKind: list · demo `#sc-nghiem-thu` · `DES-MOB-NGHIEM-THU` · hub `#row-nghiem-thu`
-- mfe / be: web Field done · BE `api/v1/patrol/nghiem-thu` live · Mobile.Bff catch-all proxy · **cấm ERP.***
-- real-data §A+§B: yes · sameMobile=yes · **cấm** demoItems SSOT
-- open questions: none (web TMPL/STATUS/DOMAIN/API CLOSED)
+- changeScope: edit_page · NEW AutocodeTask `task_b82ebc4c` · keep prior PO/Design/SA/mobile ship · § Delta MAU+Result
+- TemplateType value mau-01…10 GIỮ · Label = TT 41 PL IV Mẫu 01 §1.2.1 (cấm «Mẫu nghiệm thu NN»)
+- P1: ResultCode pass/fail/deduct + ResultNote + scores[] criteria từ init-data — list chỉ badge ResultCode; scores owner create/detail
+- Schema_NghiemThuMau pair CLI → SA · data_analy SKIP Step 4b
+- Lane: native dual + Mobile.Bff catch-all + Patrol path · FileService mediaIds giữ · cấm files-nt · ERP.* · csdl-so-08 · kcht-cong-trinh
+- Web Field /nghiem-thu OUT queue · 1 slug=1 action
+- packKind: list · formPattern N/A on list
+- open questions: none
 
 ## Inventory (slim)
 | id | label | controlHint | notes |
 |----|-------|-------------|-------|
 | search | Tìm mẫu nghiệm thu… | SearchField | ?search= |
 | rowCode | NT-* | Text | Code |
-| rowSub | Mẫu · tuyến · Km | Text | TemplateType·Route·KmFrom |
-| rowStatus | Nháp/Đang NT/Hoàn thành/Hủy | Badge | init-data |
+| rowSub | Label MAU-10 · tuyến · Km | Text | TemplateLabel·Route·KmFrom |
+| rowStatus | Nháp/Đang NT/Hoàn thành/Hủy | Badge | Status |
+| rowResult | Đạt/Không đạt/Khấu trừ | Badge | ResultCode · ẩn null |
 | navCreate | Tạo | TextButton | → nghiem-thu-create |
 | rowTap | Chi tiết | ListRow | → nghiem-thu-detail + Id |
 
 ## Screens / zones (ids only)
 - DES-MOB-NGHIEM-THU · `#sc-nghiem-thu` · `#row-nghiem-thu`
-- siblings: `#sc-nghiem-thu-create` · detail (pending_confirm)
-- peerStdUrl= http://localhost:9304/patrol (web clone ref only)
-- reviewUrl= (Design mobile sau PO)
+- siblings: create/detail (scores · MAU picker) · **cấm** start trong task này
+- reviewUrl= prior dual prototype · Design overlay sau PO
 
 ## API / tasks (ids only)
-- GET `mobile-bff/api/v1/patrol/nghiem-thu` · init-data · **cấm invent**
-- Files: create/detail only · FileService guid
-- Siblings: nghiem-thu-create · nghiem-thu-detail = pending_confirm · **cấm** start
+- GET `mobile-bff/api/v1/patrol/nghiem-thu` · init-data (MAU-10+criteria+ResultCodes) · **cấm invent**
+- DTO + ResultCode · Schema_NghiemThuMau → SA
+- Files: FileService guid · create/detail only
 
 ## UNCLEAR
 - none
@@ -48,4 +52,5 @@ contentHash: sha256:a635f3f55a8bedd952c4449056cf072a8eda890eda2b30a45e84bda5d7bf
 - bff: `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/nghiem-thu-bff-endpoints.md`
 - action-tree: `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/nghiem-thu-action-tree.md`
 - context: `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/docs/context/features/nghiem-thu.md`
+- plan: `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/docs/plan/nghiem-thu-mau/README.md`
 - STATUS: `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/nghiem-thu/STATUS.md`

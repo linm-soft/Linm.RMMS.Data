@@ -38,3 +38,9 @@
 Android host now matches this packet: `GisClipMapView` MapLibre + BFF MVT. **Cấm** revert iOS MapKit world. GAP-MOB-PIN-OVER-LINE-01: corridor GeoJSON line **below** pin layers (cấm MLNPolyline annotation trên pin). **GAP-MAP-OSRM-CONFIG-01:** Debug `OsrmBase` public · router no longer requires `netOsrmPublic` when base is set · fail = dashed corridor.
 
 **GAP-MOB-EDIT-SIL-01:** `AppRouter` `$showPatrolMapFromField` / `$showPatrolMapFromHome` — **cấm** `Binding(get: { staffPatrolMap && state })`. Hide = `guard staffPatrolMap`. dest iPhone 17 Pro Max **PASS**.
+
+## Notes — MOB-PERM-OS-01 (2026-09-20)
+
+- OS location/camera dialog **trước** GPS read / capture (`LaunchLocationPermissionOnStart` / `rememberAskLocationPermission` · iOS `requestWhenInUseAuthorization` / `requestAccess`).
+- GPS deny modal primary **Mở Cài đặt** · secondary **Để sau** · **cấm** Sao chép hướng dẫn / clipboard.
+- iOS already-denied camera → `AppSettingsOpener` (không re-prompt). Android camera Don't ask again → app Settings.

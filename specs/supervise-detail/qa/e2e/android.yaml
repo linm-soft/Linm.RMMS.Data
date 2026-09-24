@@ -1,4 +1,4 @@
-appId: org.linmsoft.rmms
+appId: com.drvn.rmms.store
 ---
 # supervise-detail · store P6 ×2 · guest → login → tile Giám sát → card → #sc-supervise-detail (Pixel 1080×1920)
 # P6-CORE = detail hero+rows · P6-CORE-2 = scroll CTA fold · cấm hideKeyboard
@@ -57,13 +57,13 @@ appId: org.linmsoft.rmms
     timeout: 20000
 - waitForAnimationToEnd:
     timeout: 2000
-# live seed Id CompanyCode=LINM (cleanup_mock · **cấm** demo-1 OfflineDemo)
-- extendedWaitUntil:
-    visible:
-      id: "sup-card-a0000001-2026-0810-0001-000000000001"
-    timeout: 30000
+- scrollUntilVisible:
+    element:
+      text: "Nguyễn Văn A"
+    direction: DOWN
+    timeout: 20000
 - tapOn:
-    id: "sup-card-a0000001-2026-0810-0001-000000000001"
+    text: "Nguyễn Văn A"
 - waitForAnimationToEnd:
     timeout: 3000
 - extendedWaitUntil:

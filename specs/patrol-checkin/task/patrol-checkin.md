@@ -177,5 +177,10 @@
 | contentHash | sha256:patrol-checkin-control-hint-20260912-edit |
 | bffContentHash | sha256:patrol-checkin-mobile-bff-20260912-edit |
 
+
+## UI notes Dev — MOB-PERM-OS-01 (2026-09-20)
+
+OS location/camera dialog first. GPS deny CTA **Mở Cài đặt** / **Để sau**. **Cấm** Sao chép hướng dẫn / clipboard. iOS already-denied camera → Settings only.
+
 ---
 <!-- Version meta: skillId=agent-tl-mobile skillVersion=2026.08.20.03 schemaVersion=1 workflowVersion=2026.08.25.01 rulesVersion=2026.08.29.4 versionGate=rechecked -->

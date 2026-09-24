@@ -42,7 +42,9 @@
 | SRC-HS-11 | `docs/Hồ sơ…/11_Cục. 3858- Rà soát đánh giá sự thống nhất….pdf` | customer | pending | `csdl-so-sach` | — |
 | SRC-MAU-IMP | `docs/Mẫu import/temp_*.xlsx` (18 file) | skip | skip | demo archive | [import-gov-ssot.md](../context/features/import-gov-ssot.md) |
 | SRC-GOV-VN | `data-import/Sau-sat-nhap/gov/*.xlsx` | dump | skip | `asset` · `road-route` | [import-gov-ssot.md](../context/features/import-gov-ssot.md) — **không** khu-2/khu-4 |
-| SRC-ARC-K4 | `data-import/_archive/19. Khu Quản lý đường bộ IV.xlsx` | dump | skip | archive | không seed live |
+| SRC-NT-TT41 | `docs/plan/nghiem-thu-mau/extract/tt41-2024-phuluc-iv-mau-01.md` | internal | analyzed | `nghiem-thu` · `nghiem-thu-mau` | [plan](../plan/nghiem-thu-mau/README.md) · Công báo PDF 302/403 |
+| SRC-NT-TCVN | `docs/plan/nghiem-thu-mau/extract/tcvn-14182-2024-cong-viec-bdtx.md` | internal | analyzed | `nghiem-thu-mau` | TCVN 14182 §4.1 |
+| SRC-NT-CV6553 | `docs/plan/nghiem-thu-mau/extract/cv-6553-bgtvt-cqlxd-2022-bm.md` | internal | analyzed | `kcht-cong-trinh` (OUT NT field) | QLDA BM 01–04 |
 
 ---
 
@@ -55,6 +57,7 @@
 | `pavement-section` | SRC-CSDL-41 Biểu 1 | done | Deep form Biểu 1 |
 | `asset` · `asset-kcht-32` | SRC-GOV-VN + 12 biểu | asset `data_analy` draft · 32 design confirm | Catalog ≠ dump |
 | `patrol` · `tuan-duong-web` | SRC-TUAN-DC · HDSD | patrol Dev leftover | TT 04 |
+| `nghiem-thu` · `nghiem-thu-mau` | **SRC-NT-TT41** · SRC-NT-TCVN | mobile `edit_page` pending `/add-task` | 10 công việc BDTX · **≠** QLDA CV6553 · **≠** `csdl-so-08` |
 | `contract` | HDSD / giải pháp · **không** = parent CT | done (mỏng) | Child HĐ của `kcht-cong-trinh` |
 | `reports` + `rpt-*` | HDSD GOVOne | done (hub P1) | **≠** PHỤ LỤC 03 giải ngân Khu IV |
 | `incident` | HDSD | `dev` / in_progress | — |

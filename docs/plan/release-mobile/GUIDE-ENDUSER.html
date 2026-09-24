@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>RMMS — Hướng dẫn cán bộ hiện trường</title>
+  <style>
+    :root {
+      --deep: #086A9A;
+      --ink: #1C1C1E;
+      --muted: #5C5C5E;
+      --line: #D8E6EE;
+      --paper: #F4F7F9;
+      --card: #fff;
+      --ok: #0F6B4C;
+      --ok-bg: #E8F6F0;
+      --wait: #8A5800;
+      --later: #3D4A66;
+    }
+    * { box-sizing: border-box; }
+    html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Arial, sans-serif;
+    }
+    .sheet { max-width: 900px; margin: 0 auto; padding: 20px 18px 40px; }
+    .toolbar { display: flex; justify-content: flex-end; margin-bottom: 14px; }
+    .toolbar button {
+      min-height: 40px; padding: 8px 14px; border: 0; border-radius: 8px;
+      background: var(--deep); color: #fff; font: 650 14px inherit; cursor: pointer;
+    }
+    header.doc {
+      background: var(--deep); color: #fff; border-radius: 14px; padding: 22px 24px;
+    }
+    header.doc .kicker {
+      margin: 0 0 6px; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; opacity: .88;
+    }
+    header.doc h1 { margin: 0 0 8px; font-size: 24px; line-height: 1.25; }
+    header.doc p { margin: 0; font-size: 14px; opacity: .95; max-width: 70ch; }
+    .nodes {
+      display: grid; grid-template-columns: 40px 1fr; gap: 0 14px; margin: 18px 0 4px;
+    }
+    .nodes .dot {
+      width: 40px; height: 40px; border-radius: 50%; background: var(--deep); color: #fff;
+      display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 11px;
+      letter-spacing: -0.2px;
+    }
+    .nodes .rail { position: relative; }
+    .nodes .row { display: contents; }
+    .nodes .row:not(:last-child) .rail::after {
+      content: ""; position: absolute; left: 19px; top: 40px; bottom: -18px; width: 2px; background: var(--line);
+    }
+    .node-card {
+      background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+      padding: 12px 14px; margin-bottom: 18px;
+    }
+    .node-card h2 { margin: 0 0 6px; font-size: 16px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .chips span {
+      background: #EAF4F9; color: var(--deep); border-radius: 999px;
+      padding: 4px 10px; font-size: 12px; font-weight: 700;
+    }
+    .phone { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 8px 0 14px; }
+    .panel {
+      background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px;
+    }
+    .tabs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-top: 8px; }
+    .tabs span {
+      min-height: 48px; border: 1px solid var(--line); border-radius: 8px; background: #EAF4F9;
+      display: flex; align-items: center; justify-content: center; text-align: center;
+      font-size: 11px; font-weight: 700; padding: 4px;
+    }
+    .grid6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 8px; }
+    .grid6 span {
+      border: 1px solid var(--line); border-radius: 8px; padding: 10px 6px;
+      text-align: center; font-size: 12px; font-weight: 700;
+    }
+    .quick { display: flex; gap: 8px; margin: 8px 0; }
+    .quick span {
+      flex: 1; background: var(--deep); color: #fff; border-radius: 8px;
+      padding: 8px; text-align: center; font-size: 12px; font-weight: 700;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; background: var(--card); border: 1px solid var(--line); }
+    thead { display: table-header-group; }
+    th, td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+    th { background: #EAF4F9; color: var(--deep); font-size: 11px; letter-spacing: .04em; text-transform: uppercase; }
+    tr:last-child td { border-bottom: 0; }
+    .st { font-weight: 700; white-space: nowrap; }
+    .st.d1 { color: var(--ok); }
+    .st.d2 { color: var(--wait); }
+    .st.d3 { color: var(--later); }
+    h3.sec { margin: 0 0 10px; font-size: 16px; }
+    .detail h2 { margin: 0 0 6px; font-size: 20px; }
+    .detail .lead { margin: 0 0 12px; color: var(--muted); font-size: 14px; }
+    .block {
+      background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+      padding: 14px 16px; margin: 0 0 12px;
+    }
+    .block h3 { margin: 0 0 6px; font-size: 15px; }
+    .why { margin: 0 0 8px; color: var(--muted); font-size: 13px; }
+    .path { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 0 0 8px; }
+    .path b {
+      background: #EAF4F9; color: var(--deep); border-radius: 999px;
+      padding: 3px 9px; font-size: 12px; font-weight: 750;
+    }
+    .path i { color: var(--muted); font-style: normal; font-size: 12px; }
+    ol { margin: 0; padding-left: 18px; }
+    ol li { margin: 0 0 5px; font-size: 14px; }
+    @media (max-width: 720px) {
+      .phone { grid-template-columns: 1fr; }
+      .tabs { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media print {
+      .toolbar, .internal, .no-print { display: none !important; }
+      body { background: #fff; }
+      .sheet { max-width: none; padding: 0; }
+      .page { break-after: auto; page-break-after: auto; }
+      .page.detail {
+        break-before: page;
+        page-break-before: always;
+      }
+      header.doc, .node-card, .block, .panel {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+      h2, h3.sec, .detail h2, .detail .lead {
+        break-after: avoid;
+        page-break-after: avoid;
+      }
+      table {
+        break-inside: auto;
+        page-break-inside: auto;
+      }
+      thead { display: table-header-group; }
+      tr {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+      a { color: inherit; text-decoration: none; }
+      @page { size: A4; margin: 12mm 11mm; }
+    }
+  </style>
+</head>
+<body>
+  <div class="sheet">
+    <div class="toolbar no-print">
+      <button type="button" onclick="window.print()">In / Lưu PDF</button>
+    </div>
+
+    <section class="page">
+      <header class="doc">
+        <p class="kicker">Hướng dẫn cán bộ · iOS và Android</p>
+        <h1>RMMS — Làm việc trên điện thoại</h1>
+        <p>Vào việc từ thanh 5 mục dưới cùng hoặc từ Trang Chủ. GPS và camera chỉ hỏi khi bạn đang chụp hoặc ghim vị trí.</p>
+      </header>
+
+      <div class="nodes">
+        <div class="row">
+          <div class="rail"><div class="dot">1.0</div></div>
+          <div class="node-card">
+            <h2>1.0.0 — Hiện trường</h2>
+            <div class="chips">
+              <span>Đăng nhập</span><span>Tuần đường</span><span>Chấm công</span>
+              <span>Chụp + GPS</span><span>Sự cố</span><span>Công việc</span><span>Tài sản</span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="rail"><div class="dot">2.0</div></div>
+          <div class="node-card">
+            <h2>2.0.0 — Bản đồ</h2>
+            <div class="chips">
+              <span>Bản đồ tuần</span><span>Bản đồ tài sản</span><span>Vị trí của bạn</span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="rail"><div class="dot">3.0</div></div>
+          <div class="node-card">
+            <h2>3.0.0 — Hỗ trợ AI</h2>
+            <div class="chips">
+              <span>Nhận diện mặt đường</span><span>Camera AI</span><span>Ước lượng</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phone">
+        <div class="panel">
+          <strong>Thanh dưới</strong>
+          <div class="tabs">
+            <span>Trang Chủ</span><span>Tuần đường</span><span>Vấn đề</span><span>Công việc</span><span>Tôi</span>
+          </div>
+        </div>
+        <div class="panel">
+          <strong>Trang Chủ</strong>
+          <div class="quick"><span>Điểm tuần</span><span>Ghi sự cố</span></div>
+          <div class="grid6">
+            <span>Giám sát</span><span>Tuần đường</span><span>Công việc</span>
+            <span>Vấn đề</span><span>Tài sản</span><span>Lưu trữ</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page">
+      <h3 class="sec">Mọi việc — vào từ đâu</h3>
+      <table>
+        <thead>
+          <tr><th>Bạn muốn</th><th>Bấm</th><th>Phiên bản</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Xem hướng dẫn, chưa làm hiện trường</td><td>Mở app → Trang Chủ (FAQ, chính sách)</td><td class="st d1">1.0.0</td></tr>
+          <tr><td>Đăng nhập</td><td>Trang Chủ → Đăng nhập</td><td class="st d1">1.0.0</td></tr>
+          <tr><td>Mở ca, ghi điểm tuần, ghim GPS</td><td>Tab Tuần đường</td><td class="st d1">1.0.0</td></tr>
+          <tr><td>Chấm công</td><td>Tuần đường → Chấm công</td><td class="st d1">1.0.0</td></tr>
+          <tr><td>Chụp ảnh kèm tọa độ</td><td>Hàng Ảnh trong form → Chụp</td><td class="st d1">1.0.0</td></tr>
+          <tr><td>Ghi sự cố</td><td>Trang Chủ → Ghi sự cố · Tab Vấn đề</td><td class="st d1">1.0.0</td></tr>
+          <tr><td>Ghi nhận hư hỏng</td><td>Tuần đường → Ghi nhận hư hỏng</td><td class="st d1">1.0.0</td></tr>
+          <tr><td>Nghiệm thu</td><td>Tuần đường → Công tác nghiệm thu</td><td class="st d1">1.0.0</td></tr>
+          <tr><td>Công việc, trao đổi, nhật ký</td><td>Tab Công việc</td><td class="st d1">1.0.0</td></tr>
+          <tr><td>Tài sản — thu thập thủ công</td><td>Trang Chủ → Tài sản</td><td class="st d1">1.0.0</td></tr>
+          <tr><td>Giám sát check-in</td><td>Trang Chủ → Giám sát</td><td class="st d1">1.0.0</td></tr>
+          <tr><td>Xem camera / thu thập camera tuần</td><td>Tôi · Tuần đường</td><td class="st d1">1.0.0</td></tr>
+          <tr><td>Đồng bộ khi mất sóng</td><td>Trang Chủ → Lưu trữ</td><td class="st d1">1.0.0</td></tr>
+          <tr><td>Hồ sơ, góp ý, thông báo, thoát</td><td>Tab Tôi</td><td class="st d1">1.0.0</td></tr>
+          <tr><td>Bản đồ tuần / tài sản</td><td>Tuần đường → Bản đồ · Tài sản → Bản đồ</td><td class="st d2">2.0.0</td></tr>
+          <tr><td>Nhận diện mặt đường</td><td>Vấn đề → Nhận diện mặt đường</td><td class="st d3">3.0.0</td></tr>
+          <tr><td>Camera AI tài sản</td><td>Tài sản → Camera AI</td><td class="st d3">3.0.0</td></tr>
+          <tr><td>Ước lượng</td><td>Công việc → Giao việc xử lý</td><td class="st d3">3.0.0</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="page detail">
+      <h2>1.0.0 — Đăng nhập và tuần đường</h2>
+      <p class="lead">Việc hàng ngày trên hiện trường.</p>
+      <div class="block">
+        <h3>Đăng nhập</h3>
+        <div class="path"><b>Mở RMMS</b><i>→</i><b>Trang Chủ</b><i>→</i><b>Đăng nhập</b></div>
+        <ol>
+          <li>Nhập tài khoản đơn vị cấp.</li>
+          <li>Vào Trang Chủ — hiện tên bạn, 6 ô nghiệp vụ, Điểm tuần và Ghi sự cố.</li>
+          <li>Quên mật khẩu: liên hệ quản trị đơn vị.</li>
+        </ol>
+      </div>
+      <div class="block">
+        <h3>Mở ca và ghi điểm tuần</h3>
+        <p class="why">Ghi nhận bạn đang tuần trên tuyến.</p>
+        <div class="path"><b>Tab Tuần đường</b> <i>hoặc</i> <b>Trang Chủ</b><i>→</i><b>Điểm tuần</b></div>
+        <ol>
+          <li>Mở ca. Thẻ ca đang chạy hiện trên màn.</li>
+          <li>Bấm Ghi điểm tuần. Cho phép vị trí lúc đang dùng.</li>
+          <li>Xác nhận. Ô Đã ghi / Còn lại / Độ phủ cập nhật ngay.</li>
+        </ol>
+      </div>
+      <div class="block">
+        <h3>Ghim vị trí hiện tại</h3>
+        <div class="path"><b>Tab Tuần đường</b><i>→</i><b>Ghim vị trí hiện tại</b></div>
+        <ol>
+          <li>Đứng đúng chỗ cần ghi → bấm Ghim → cho phép GPS → lưu.</li>
+        </ol>
+      </div>
+      <div class="block">
+        <h3>Chấm công GPS</h3>
+        <div class="path"><b>Tab Tuần đường</b><i>→</i><b>Chấm công</b></div>
+        <ol>
+          <li>Chọn segment Chấm công. Chấm tại hiện trường. Cho phép vị trí.</li>
+          <li>Xem các lần chấm trong ngày trên danh sách.</li>
+        </ol>
+      </div>
+      <div class="block">
+        <h3>Lịch sử ca</h3>
+        <div class="path"><b>Tuần đường</b><i>→</i><b>Lịch sử phiên</b></div>
+        <ol>
+          <li>Mở ca đã làm, xem chi tiết.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="page detail">
+      <h2>1.0.0 — Ảnh, sự cố, nghiệm thu, công việc</h2>
+      <div class="block">
+        <h3>Chụp ảnh kèm tọa độ</h3>
+        <div class="path"><b>Form đang làm</b><i>→</i><b>hàng Ảnh</b><i>→</i><b>Chụp</b></div>
+        <ol>
+          <li>Dùng khi ghi sự cố, hư hỏng hoặc nhận diện — không có menu Chụp riêng.</li>
+          <li>Bấm Chụp. Cho phép Camera và Vị trí. Xem lại → Dùng ảnh.</li>
+        </ol>
+      </div>
+      <div class="block">
+        <h3>Ghi sự cố</h3>
+        <div class="path"><b>Trang Chủ</b><i>→</i><b>Ghi sự cố</b> <i>hoặc</i> <b>Tab Vấn đề</b></div>
+        <ol>
+          <li>Chọn loại → mô tả → ảnh → gửi. Phiếu vào danh sách Vấn đề.</li>
+          <li>Mở phiếu để xem chi tiết và trao đổi.</li>
+        </ol>
+      </div>
+      <div class="block">
+        <h3>Ghi nhận hư hỏng</h3>
+        <div class="path"><b>Tab Tuần đường</b><i>→</i><b>Ghi nhận hư hỏng</b></div>
+        <ol>
+          <li>Trong ca: chụp + mô tả ngắn → gửi. Mất sóng: vào Lưu trữ, đồng bộ sau.</li>
+        </ol>
+      </div>
+      <div class="block">
+        <h3>Công tác nghiệm thu</h3>
+        <div class="path"><b>Tab Tuần đường</b><i>→</i><b>Công tác nghiệm thu</b><i>→</i><b>Tạo</b></div>
+        <ol>
+          <li>Mở danh sách → Tạo → điền phiếu, đính ảnh → lưu.</li>
+        </ol>
+      </div>
+      <div class="block">
+        <h3>Công việc</h3>
+        <div class="path"><b>Tab Công việc</b></div>
+        <ol>
+          <li>Mở việc được giao.</li>
+          <li>Trao đổi. Cập nhật trạng thái. Ghi nhật ký xử lý.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="page detail">
+      <h2>1.0.0 — Tài sản, camera, đồng bộ, Tôi</h2>
+      <div class="block">
+        <h3>Tài sản</h3>
+        <div class="path"><b>Trang Chủ</b><i>→</i><b>Tài sản</b></div>
+        <ol>
+          <li>Thu thập thủ công: nhập hạng mục tại hiện trường.</li>
+          <li>Xem danh sách hạng mục trên tuyến.</li>
+        </ol>
+      </div>
+      <div class="block">
+        <h3>Giám sát</h3>
+        <div class="path"><b>Trang Chủ</b><i>→</i><b>Giám sát</b></div>
+        <ol>
+          <li>Xem danh sách check-in theo quyền của bạn.</li>
+        </ol>
+      </div>
+      <div class="block">
+        <h3>Camera</h3>
+        <div class="path"><b>Tôi</b><i>→</i><b>Camera xem</b> <i>·</i> <b>Tuần đường</b><i>→</i><b>Thu thập camera</b></div>
+        <ol>
+          <li>Camera xem: xem hình camera đơn vị.</li>
+          <li>Thu thập camera: lấy khung hình phục vụ ca tuần.</li>
+        </ol>
+      </div>
+      <div class="block">
+        <h3>Lưu trữ khi mất sóng</h3>
+        <div class="path"><b>Trang Chủ</b><i>→</i><b>Lưu trữ</b></div>
+        <ol>
+          <li>Vẫn ghi điểm, sự cố, ảnh — máy giữ hàng đợi.</li>
+          <li>Có mạng: mở Lưu trữ, đồng bộ. Đừng xóa hàng đợi trước khi gửi xong.</li>
+        </ol>
+      </div>
+      <div class="block">
+        <h3>Tôi</h3>
+        <div class="path"><b>Tab Tôi</b></div>
+        <ol>
+          <li>Hồ sơ, thông báo, góp ý, cài đặt.</li>
+          <li>Đăng xuất khi hết ca hoặc đổi người dùng máy.</li>
+        </ol>
+      </div>
+      <div class="block">
+        <h3>Khi máy hỏi quyền</h3>
+        <ol>
+          <li>Vị trí — khi ghim, ghi điểm, chấm công, chụp kèm tọa độ: Cho phép lúc đang dùng.</li>
+          <li>Camera — khi chụp hiện trường: Cho phép.</li>
+          <li>Đã từ chối: Cài đặt máy → RMMS → bật lại, rồi vào đúng nút.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="page detail">
+      <h2>2.0.0 — Bản đồ</h2>
+      <p class="lead">Khi đơn vị bật bản đồ trên máy. Cùng app, không cài lại.</p>
+      <div class="block">
+        <h3>Bản đồ tuần</h3>
+        <div class="path"><b>Tab Tuần đường</b><i>→</i><b>Tiếp tục bản đồ</b></div>
+        <ol>
+          <li>Xem tuyến, pin check-in, thẻ Vị trí của bạn.</li>
+        </ol>
+      </div>
+      <div class="block">
+        <h3>Bản đồ tài sản</h3>
+        <div class="path"><b>Trang Chủ</b><i>→</i><b>Tài sản</b><i>→</i><b>Xem trên bản đồ</b></div>
+        <ol>
+          <li>Xem vị trí hạng mục trên nền bản đồ Việt Nam.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="page detail">
+      <h2>3.0.0 — Hỗ trợ AI</h2>
+      <p class="lead">AI gợi ý. Bạn xác nhận mới thành dữ liệu chính thức.</p>
+      <div class="block">
+        <h3>Nhận diện mặt đường</h3>
+        <div class="path"><b>Tab Vấn đề</b><i>→</i><b>Nhận diện mặt đường</b></div>
+        <ol>
+          <li>Chụp hiện trường → xem gợi ý hư hỏng → xác nhận hoặc bỏ.</li>
+        </ol>
+      </div>
+      <div class="block">
+        <h3>Camera AI tài sản</h3>
+        <div class="path"><b>Trang Chủ</b><i>→</i><b>Tài sản</b><i>→</i><b>Camera AI</b></div>
+        <ol>
+          <li>Chụp hạng mục → gợi ý loại → duyệt Chờ xác nhận AI.</li>
+        </ol>
+      </div>
+      <div class="block">
+        <h3>Ước lượng</h3>
+        <div class="path"><b>Tab Công việc</b><i>→</i><b>Giao việc xử lý</b></div>
+        <ol>
+          <li>Xem gợi ý khối lượng → xác nhận trước khi dùng.</li>
+        </ol>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

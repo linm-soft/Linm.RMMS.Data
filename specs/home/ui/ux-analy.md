@@ -55,9 +55,9 @@ Cold start → #sc-home guest · **ẩn tab 5**
 
 | State | Hành vi |
 |-------|---------|
-| default | GET profile (staff) · GET `notification/overview` guest+staff · `.who` · badge live 0 ẩn |
+| default | GET profile (staff) **chỉ khi `.who` / `lastDisplayName` trống** · back Home = cache · GET `notification/overview` guest+staff · `.who` · badge live 0 ẩn |
 | empty name | fallback login `user.fullName` / JWT `full_name` / `lastUserName` / «Tài khoản» · hub vẫn mở |
-| loading | staff GET `auth/profile` · `.who` empty = bone pulse `home-who-skeleton` (`brandLogo`×`heroWho` · `onPrimary` × `overlayScrim`) · **cấm** flash Khách · **cấm** `LinmBusyOverlay` / full-screen block hub · refresh khi đã có tên: giữ `.who` (không bone) |
+| loading | staff GET `auth/profile` **lần đầu** · `.who` empty = bone pulse `home-who-skeleton` (`brandLogo`×`heroWho` · `onPrimary` × `overlayScrim`) · **cấm** flash Khách · **cấm** `LinmBusyOverlay` / full-screen block hub · back Home / refresh khi đã có tên: giữ `.who` từ cache (không bone · **cấm** GET lại) |
 | error / offline | toast in-app · `.who` = `lastUserName` · **cấm** block tab |
 | permission | GPS/camera **N/A** trên hub |
 | leave dirty | **N/A** (không form) |
@@ -66,7 +66,7 @@ Cold start → #sc-home guest · **ẩn tab 5**
 
 Trang Chủ · Hồ sơ · Thông báo · Điểm tuần · Ghim định vị · lý trình · Ghi sự cố · Chọn tài sản · mẫu sự cố · Nghiệp vụ thường dùng · Giám sát · Tuần đường · Công việc · Vấn đề · Tài sản · Lưu trữ · HỒ SƠ TÀI SẢN · QL.1 · Khu IV · 32 loại KCHT · thông số + checklist sự cố · Tốt / Trung bình / Yếu · Đã làm mới · (toast sibling đúng nhãn control)
 
-**Copy `#sc-privacy` (2026-09-12):** `home.privacy.body` user-facing — Khách (FAQ + thông báo chung, không GPS/cam lúc mở) · cán bộ tài khoản đơn vị · quyền vị trí/camera/thông báo khi dùng tính năng · không bán/quảng cáo · liên hệ pháp nhân Miền Trung + SĐT. **Cấm** ghi chú nội bộ landing HTTPS / Store URL. GAP-MOB-MESET-PRIVACY-01 Store HTTPS **vẫn** chờ khách giao — **không** invent URL in-app.
+**Copy `#sc-privacy` (2026-09-21):** `home.privacy.body` user-facing - Khách (FAQ + thông báo chung, không GPS/cam lúc mở) - đăng nhập tùy chọn nếu đã có tài khoản - quyền vị trí/camera/thông báo khi dùng tính năng - không bán/quảng cáo - liên hệ pháp nhân Miền Trung + SĐT. **Cấm** copy «dành cho cán bộ / một đơn vị» trên guest Home (Guideline 3.2). **Cấm** ghi chú nội bộ landing HTTPS / Store URL. GAP-MOB-MESET-PRIVACY-01 Store HTTPS **vẫn** chờ khách giao - **không** invent URL in-app.
 
 **Cấm trên máy:** «Có mạng» · «Hiện trường · iPhone» · «· Android» title · «Phiên bản Gói N» / foot Gói · badge hardcode `3` · device label · proto tap-cycle tín hiệu · «gen realapp» · «URL Privacy / Support Store sẽ gắn khi khách giao landing HTTPS».
 
@@ -121,6 +121,7 @@ Không `/wf-anim` trên hub `home`.
 | GAP-MOB-EDIT-GUEST-BRAND | Logo hero nhỏ · back `#sc-ops` hiện tab guest | **PASS** `home-brand` giữa page · guest `#sc-ops` fullScreenCover · ẩn tab khi ops · back **không** hiện `LinmTabBar` · **cấm** revert |
 | GAP-MOB-EDIT-PRIVACY-COPY | Body privacy ghi chú nội bộ Store/landing | **PASS** `home.privacy.body` user-facing khớp app (Khách · cán bộ · quyền · liên hệ) · **cấm** invent HTTPS · **cấm** revert placeholder |
 | GAP-MOB-EDIT-HOME-WHO-SKEL | Staff `.who` flash **Khách** lúc GET profile | **PASS** bone pulse dual · hub không block · **cấm** revert |
+| GAP-MOB-EDIT-HOME-WHO-CACHE | Back Home reload GET `auth/profile` mỗi lần | **PASS** `.who` từ `lastDisplayName` / in-memory · GET **chỉ** lần đầu (cache trống) hoặc tap tín hiệu · **cấm** revert |
 | GAP-MOB-EDIT-FAQ-SEARCH | Android `#f-faq-search` M3 `TextField` clip 44 · placeholder extra alpha · Material Search | **PASS** capsule `card` dual · `BasicTextField` / iOS `TextField` · `fieldText` 16 · `LinmSearchGlyph` trailing · placeholder `muted` · **cấm** M3 `TextField` / SF `magnifyingglass` · **cấm** revert |
 
 ## Version meta (REQUIRED)

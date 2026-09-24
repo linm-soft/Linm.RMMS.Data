@@ -9,7 +9,7 @@ Cite SSOT `docs/html-to-native-map.md`. Feature deltas (`#sc-home`):
 | `.hero-ico` bell | `LinmNotifyButton` · `LinmNotifyCountBadge` | tap → `#sc-ops` cùng Me `row-ops` · GET `notification/overview` · guest **AllowAnonymous** · **cấm** hardcode `3` |
 | `.guest-mid` · `#home-brand` | `AppLogo` / `app_logo` | `brandLogoSm` 96 · giữa FAQ ↔ dock · a11y `brand.appName` |
 | `.role` + `data-net-signal` | `LinmStatusCapsule` · `LinmNetSignalMark` | role **ẩn live** · 4 cột · Tốt/TB/Yếu · **cấm** wifi glyph · **cấm** «Có mạng» |
-| `.who` | typography hero | guest `home.guest.who` · staff GET profile · loading empty = `home-who-skeleton` bone (`brandLogo`×`heroWho`) · **cấm** `LinmBusyOverlay` |
+| `.who` | typography hero | guest `home.guest.who` · staff GET profile **lần đầu** · back Home = `lastDisplayName` cache · loading empty = `home-who-skeleton` bone (`brandLogo`×`heroWho`) · **cấm** GET lại khi đã có tên · **cấm** `LinmBusyOverlay` |
 | `#btn-home-login` | Button card **guest dock** (không hero) | `home.login` + `home.login.sub` · ẩn staff · e2e `btn-home-login` · pin đáy |
 | `#btn-home-faq` / `#sc-faq` | overlay FAQ | pills `chip-faq-*` · `row-faq-*` · static `LinmCopy` · **cấm** invent API |
 | `.faq-search` / `#f-faq-search` | capsule search | height `controlHeight` · pad 14 · `card` · `fieldText` · trailing `LinmSearchGlyph` `#i-search` · Android `BasicTextField` · iOS `TextField` + glyph · **cấm** M3 `TextField` / SF `magnifyingglass` / list `LinmSearchField` (leading + surface + «Tìm») · **GAP-MOB-EDIT-FAQ-SEARCH** |

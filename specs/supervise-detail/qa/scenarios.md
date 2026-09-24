@@ -4,69 +4,52 @@
 |-------|-------|
 | feature | `supervise-detail` |
 | this role | `qa` · `/agent-qa-mobile` |
-| status | **blocked** |
+| status | **pass** · `phase=review` |
 | packKind | **`screen`** |
-| changeScope | `edit_page` · gap=`cleanup_mock` · qaFailFix re-QA |
-| taskId | `task_4063c6a2` |
+| changeScope | `edit_page` |
+| taskId | `task_94ee2d50` |
 | e2eQa | **ON** · `yarn e2e-qa-mobile` · `ios_test_phase=phase1_iphone` · **A4-IPAD DEFER** |
-| store_qa | **run_store** (autoApprove=ON) |
-| e2e result | **ok:false** · iOS Maestro **PASS** · Android Maestro **FAIL** |
+| store_qa | **run_store** |
+| e2e result | **ok:true** · Maestro iOS+Android · bundle `com.drvn.rmms.store` |
 | method | e2e runtime · yarn e2e-qa-mobile · Maestro + simctl/adb · **cấm** GenerateImage · **cấm** yarn start:std / mfeStdUrl |
-| align | iOS A3 vs demo `#sc-supervise-detail` **Aligned** · Android P6 **blocked** (`sup-empty`) |
-| updatedAt | `2026-09-01T15:47:20.000Z` |
+| align | A3 + P6 **Aligned** vs `#sc-supervise-detail` · Must **0** |
+| updatedAt | `2026-09-20T00:50:00.000Z` |
 
-**Scope:** `#sc-supervise-detail` only. Entry via list card. Seed Id=`a0000001-2026-0810-0001-000000000001` · CompanyCode=`LINM` · CC-20260810-001.
+**Scope:** `#sc-supervise-detail` · entry list card. Live row tên `Nguyễn Văn A` · id `57ce2700-4eea-4ab7-b5a4-1e3b03599165` · mã `CC-DEMO-202609-001` (seed guid cũ `a0000001-…` không còn trên list).
 
 ## VERIFY GATE
 
 | Gate | Result |
 |------|--------|
-| iOS Maestro iPhone 17 Pro Max | **PASS** · live detail (Nguyễn Văn A · CC-20260810-001) |
-| Android Maestro | **FAIL** · `#sc-supervise` → `sup-empty` · no GET `attendance-logs` from `10.0.2.2` |
-| BFF :5202 / API :5111 | **PASS** · seed list 200 via curl · iOS GET by id 200 |
-| `yarn e2e-qa-mobile` | **FAIL** · ok:false · GAP-QA-STORE-03 |
+| iOS xcodegen + xcodebuild iPhone 17 Pro Max | **PASS** (app `build/e2e-dd` · run đầu) |
+| Android `:app:assembleW3Debug` | **PASS** (CLI cài APK trước Maestro) |
+| BFF `dotnet build` | **PASS** · 0 warning |
+| API :5101 / BFF :5202 | **PASS** · `--skip-start` (đã listen) |
+| `yarn e2e-qa-mobile` | **PASS** · ok:true · 2026-09-20T00:47:41Z |
 
-## Device AC
+## E2E screenshots
 
-| ID | Expect | Result |
-|----|--------|--------|
-| AC-D-01 | tile → list → detail | **iOS PASS** · **Android FAIL** |
-| AC-F-01 | live hero+rows | **iOS PASS** · Android **FAIL** |
-| AC-F-03 | GET by id live-only | **iOS PASS** |
-| AC-F-06 | orgFallback | **iOS PASS** |
-
-## Store Must
-
-| Case | Store | Evidence | Result |
-|------|-------|----------|--------|
-| A11-LAUNCH | A11 | ![A11-LAUNCH](screens/A11-LAUNCH.png) | **PASS** |
-| A10-BFF | A10 · P11 | — | **PASS** |
-| A9-LOGIN | A9 · P10 | ![A9-LOGIN](screens/A9-LOGIN.png) | **PASS** |
-| A3-CORE | A3 · A11 | ![A3-CORE](screens/A3-CORE.png) | **PASS** · visual Aligned |
-| P6-CORE | P6 · P11 | ![P6-CORE](screens/P6-CORE.png) | **FAIL** · Maestro-AND · empty list (CLI adb shot ≠ harvest) |
-| P6-CORE-2 | P6 | ![P6-CORE-2](screens/P6-CORE-2.png) | **FAIL** |
-| A4-IPAD | A4 | DEFER Phase 1 | DEFER |
-
-## Maestro
-
-| Flow | Path | Result |
-|------|------|--------|
-| iOS | `qa/e2e/ios.yaml` | **PASS** |
-| Android | `qa/e2e/android.yaml` | **FAIL** · assert `sup-card-a0000001-…` · GAP-QA-SUP-DET-AND-LIST-01 |
-
-Login flaky (keyboard) **mitigated** in `android.yaml` (pressKey Enter · sibling supervise pattern). List GET still missing on BFF from emulator.
+| Case | Scenario | Expect | Actual | Result | Evidence |
+|------|----------|--------|--------|--------|----------|
+| A11-LAUNCH | Cán bộ mở app trên iPhone | Màn khách, chữ đọc được, không đen | Khách · FAQ · thẻ «Đăng nhập / Dành cho cán bộ» · 1320×2868 · 07:46 | **PASS** | ![A11-LAUNCH](screens/A11-LAUNCH.png) |
+| A10-BFF | App gọi BFF | :5202 listen; list/detail không mock | BFF listen · list có card live (không `sup-empty`) · detail mã `CC-DEMO-202609-001` | **PASS** | — |
+| A9-LOGIN | Cán bộ đăng nhập | Form tiếng Việt | «QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ» · user `linm-soft` · nút Đăng nhập · 1320×2868 · 07:45 | **PASS** | ![A9-LOGIN](screens/A9-LOGIN.png) |
+| A3-CORE | Cán bộ mở chi tiết check-in trên iPhone | Title + việc chính khớp prototype | Title «Chi tiết check-in» · back «Giám sát» · Nguyễn Văn A · hàng org/tuyến/giờ/trạng thái/tọa độ/trong vùng · CTA «Xem trên bản đồ» · tab Trang Chủ · 1320×2868 | **PASS** | ![A3-CORE](screens/A3-CORE.png) |
+| P6-CORE | Cùng việc trên Android | Title + hero + hàng | Cùng title/hero/6 hàng · 1080×1920 · CTA nằm fold sau | **PASS** | ![P6-CORE](screens/P6-CORE.png) |
+| P6-CORE-2 | Fold còn lại Android | CTA bản đồ, không đen | Nút «Xem trên bản đồ» · hash ≠ P6-CORE | **PASS** | ![P6-CORE-2](screens/P6-CORE-2.png) |
+| A4-IPAD | Listing iPad | Phase 2 | DEFER | DEFER | — |
 
 ## Visual align
 
-iOS A3 **Aligned** vs demo `#sc-supervise-detail` (hero + rows + map CTA). Android CORE **blocked**. Must open **1**.
+Read A3 + P6 + P6-2 vs prototype `#sc-supervise-detail`. Prototype không có `.row-icon` trên row detail — live cũng không. Giá trị live (mã, tổ `demo-seed`, status raw `in`) khác chuỗi demo; map status `other` → raw. Must **0**.
 
 ## Gaps
 
-| ID | Note | Block complete? |
-|----|------|-----------------|
-| GAP-QA-SUP-DET-AND-LIST-01 | Android `#sc-supervise` `sup-empty`. Logcat may show `SuperviseList: GET…` but BFF **0** GET from `10.0.2.2`. Seed OK via BFF curl. Dev ON_RESUME claim **not closed**. | **Yes** |
-| GAP-QA-STORE-03 | Maestro-AND / P6 FAIL | **Yes** |
+| ID | Note | Status |
+|----|------|--------|
+| GAP-QA-SUP-DET-AND-LIST-01 | List không còn `sup-empty`; card live mở được detail | **closed** |
+| GAP-QA-STORE-03 | P6-CORE + P6-CORE-2 harvest lần này | **closed** |
 
 ## Handoff → review
 
-**Blocked** — queue `failed` → `qa_fail_rollback` · Dev: ensure Appear/`LaunchedEffect` emits OkHttp `GET …/attendance-logs` from emulator before re-QA.
+**Pass** — `phase=review` · **cấm** `done`. PNG `qa/screens/{caseId}.png`.

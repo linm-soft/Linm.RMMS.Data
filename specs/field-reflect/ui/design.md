@@ -106,7 +106,7 @@
 | Toast no active | **Không có ca đang tuần** |
 | Modal title | **Định vị bị tắt** |
 | Modal body | **Cần vị trí để chấm công / chấm điểm tuần. Mở Cài đặt → Quyền vị trí cho RMMS.** |
-| Modal primary | **Sao chép hướng dẫn** |
+| Modal primary | **Mở Cài đặt** |
 | Modal secondary | **Để sau** |
 | Tabs | Trang Chủ · Tuần đường · Vấn đề · Công việc · Tôi |
 

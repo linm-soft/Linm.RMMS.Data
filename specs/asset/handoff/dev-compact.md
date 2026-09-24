@@ -4,41 +4,42 @@ schemaVersion: 1
 feature: asset
 packKind: list
 role: dev
-status: done
+status: pending_confirm
 skillVersion: 2026.08.29.1
-writtenAt: 2026-09-01T16:15:30.000Z
-taskId: task_fa241430
+writtenAt: 2026-09-20T04:15:00.000Z
+taskId: task_ad15226f
 
 ## Decisions
 - changeScope: edit_page
 - formPattern: N/A (list)
-- mode: qaFixPhase=implement · qa_fix_plan **approved** (autopilot)
+- mode: qaFixPhase=**plan** · qa_fail_rollback từ `task_0aaf071e`
+- autoApprove: **OFF** trên `qa_fix_plan` (cấm skip)
 - mfeStdUrl: **cấm** mobile AC
 - open questions: none
-- root-cause fix: Android SideEffect handlers + LaunchedEffect(Unit) Appear
+- root-cause hyp: Appear fix `task_fa241430` chưa đóng runtime · disk `LaunchedEffect(typeFilter)` + `isLoading=false` default → EmptyChrome / 0 GET `road-assets`
 - Step 4b: N/A · reuse GET road-assets
+- code this turn: **none**
 
 ## Inventory (slim)
 | id | label | controlHint | notes |
 |----|-------|-------------|-------|
-| appear | Appear/fetch | List | fixed Android |
-| rows | live rows | ListRow | EmptyChrome only real empty |
-| ios | list | List | no code delta |
+| plan | qa-fix-plan | List | pending_confirm |
+| and-fetch | 0 GET road-assets | List | GAP-MOB-ASSET-AND-FETCH-01 |
+| store | row-asset-0 | List | GAP-QA-STORE-03 |
+| dual | iOS rows / And empty | List | GAP-MOB-UX-DUAL-01 |
 
 ## Screens / zones (ids only)
 - `#sc-asset-list` · DES-MOB-ASSET-LIST
-- closed wire: STORE-03 · AND-FETCH-01 · UX-DUAL-01
+- open: STORE-03 · AND-FETCH-01 · UX-DUAL-01
 
 ## API / tasks (ids only)
-- GET `mobile-bff/api/v1/asset/road-assets` — dual live
-- T-AND-LIST-01 qa-fix **done** · T-QA-01 pending re-run
-- task_7e0b31e2 plan approved · task_fa241430 implement done
+- GET `mobile-bff/api/v1/asset/road-assets` — iOS OK · And **0** call
+- T-AND-LIST-01 qa-fix **plan** · T-QA-01 fail blocked
+- task_0aaf071e FAIL · task_ad15226f plan
 
 ## VERIFY
-- iOS xcodegen + xcodebuild iPhone 17 Pro: **PASS**
-- Android assembleDebug: **PASS**
-- Mobile.Bff dotnet build: **PASS**
-- e2e: **cấm** Dev · next `/agent-qa-mobile`
+- builds: **cấm** claim plan turn · re-run ở implement
+- e2e: **cấm** Dev · sau implement → `/agent-qa-mobile`
 
 ## Debt
 - auth/profile Android → web-bff 500 (note · non-block)
@@ -49,6 +50,6 @@ taskId: task_fa241430
 
 ## Full paths (Read only if needed)
 - plan: specs/asset/implement/asset-qa-fix-plan.md
-- ios: specs/asset/implement/ios.md
-- android: specs/asset/implement/android.md
+- bugs: specs/asset/qa/bugs/task_0aaf071e.md
+- scenarios: specs/asset/qa/scenarios.md
 - STATUS: specs/asset/STATUS.md

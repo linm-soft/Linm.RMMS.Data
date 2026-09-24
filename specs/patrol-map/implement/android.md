@@ -34,3 +34,9 @@
 ## Build (VERIFY GATE)
 
 **PASS** — `./gradlew :app:assembleDebug` · `2026-09-16` (OSRM Debug `OSRM_BASE` public · GAP-MAP-OSRM-CONFIG-01).
+
+## Notes — MOB-PERM-OS-01 (2026-09-20)
+
+- OS location/camera dialog **trước** GPS read / capture (`LaunchLocationPermissionOnStart` / `rememberAskLocationPermission` · iOS `requestWhenInUseAuthorization` / `requestAccess`).
+- GPS deny modal primary **Mở Cài đặt** · secondary **Để sau** · **cấm** Sao chép hướng dẫn / clipboard.
+- iOS already-denied camera → `AppSettingsOpener` (không re-prompt). Android camera Don't ask again → app Settings.

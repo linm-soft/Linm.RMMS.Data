@@ -1,68 +1,80 @@
 {
   "feature": "nghiem-thu",
-  "capturedAt": "2026-09-19T16:30:00.000Z",
+  "capturedAt": "2026-09-19T18:41:42.093Z",
   "iosDevice": "iPhone 17 Pro Max",
-  "androidDevice": "Pixel_2",
   "method": "e2e-qa-mobile",
-  "iosPhase": "phase1_iphone",
-  "bundleId": "com.drvn.rmms.store",
-  "packageName": "com.drvn.rmms.store",
-  "visualAlign": "Aligned",
-  "mustOpen": 0,
-  "ok": true,
   "steps": [
     {
       "id": "A10-BFF",
       "result": "PASS",
-      "store": ["A10", "P11"],
+      "store": [
+        "A10",
+        "P11"
+      ],
       "scenario": "App gọi BFF khi mở nghiem-thu",
       "expect": "BFF listen; dữ liệu thật — không mock in-app",
-      "actual": ":5202 healthy · live EmptyChrome (0 row)"
+      "actual": "Mobile.Bff listen :5202; list live empty, không hàng mẫu"
     },
     {
       "id": "A11-LAUNCH",
       "result": "PASS",
       "screenshot": "A11-LAUNCH.png",
-      "store": ["A11"],
+      "store": [
+        "A11"
+      ],
+      "actual": "Title Khách, nút Đăng nhập, không màn đen · 1320×2868",
       "scenario": "Cán bộ mở app trên iPhone",
-      "expect": "Thấy màn khách/home, title đọc được, không màn đen",
-      "actual": "Guest Khách · CTA Đăng nhập · 1320×2868"
+      "expect": "Thấy màn khách/home, title đọc được, không màn đen"
     },
     {
       "id": "A9-LOGIN",
       "result": "PASS",
       "screenshot": "A9-LOGIN.png",
-      "store": ["A9", "P10"],
+      "store": [
+        "A9",
+        "P10"
+      ],
+      "actual": "Form tiếng Việt, linm-soft, nút Đăng nhập; login vào được nghiệp vụ",
       "scenario": "Cán bộ đăng nhập",
-      "expect": "Form tiếng Việt, vào được Trang chủ",
-      "actual": "Form VN + seed · sc-home staff"
+      "expect": "Form tiếng Việt, vào được Trang chủ"
     },
     {
       "id": "A3-CORE",
       "result": "PASS",
       "screenshot": "A3-CORE.png",
-      "store": ["A3", "A11"],
+      "store": [
+        "A3",
+        "A11"
+      ],
+      "actual": "Title Công tác nghiệm thu, Back Tuần đường, Tạo, ô tìm, empty",
       "scenario": "Cán bộ vào màn nghiem-thu trên iPhone",
-      "expect": "Title và việc chính khớp prototype",
-      "actual": "Công tác nghiệm thu · search · EmptyChrome · Aligned"
+      "expect": "Title và việc chính khớp prototype; làm được việc như người dùng cuối"
     },
     {
       "id": "P6-CORE",
       "result": "PASS",
       "screenshot": "P6-CORE.png",
-      "store": ["P6", "P11"],
+      "store": [
+        "P6",
+        "P11"
+      ],
+      "actual": "Cùng title, Back icon, Tạo, ô tìm, empty · 1080×1920",
       "scenario": "Cán bộ vào màn nghiem-thu trên Android",
-      "expect": "Title và việc chính khớp prototype",
-      "actual": "Material chrome · EmptyChrome · 1080×1920 · Aligned"
+      "expect": "Title và việc chính khớp prototype; làm được việc như người dùng cuối"
     },
     {
       "id": "P6-CORE-2",
       "result": "PASS",
       "screenshot": "P6-CORE-2.png",
-      "store": ["P6"],
+      "store": [
+        "P6"
+      ],
+      "actual": "Ô tìm hiện NT; hash khác P6-CORE",
       "scenario": "Cán bộ xem phần còn lại của màn nghiem-thu trên Android",
-      "expect": "Fold tiếp theo cùng việc, không màn đen",
-      "actual": "Search NT · hash distinct vs P6-CORE"
+      "expect": "Fold tiếp theo cùng việc, không màn đen"
     }
-  ]
+  ],
+  "ok": true,
+  "visual": "Aligned",
+  "mustOpen": 0
 }

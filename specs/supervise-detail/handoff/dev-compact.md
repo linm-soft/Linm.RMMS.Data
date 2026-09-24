@@ -4,44 +4,43 @@ schemaVersion: 1
 feature: supervise-detail
 packKind: screen
 role: dev
-status: completed
+status: await_confirm
 skillVersion: 2026.08.19.26
-writtenAt: 2026-09-01T15:25:00.000Z
-qaFixPhase: implement
-taskId: task_112638ae
-qaFailFrom: task_02d20b55
+writtenAt: 2026-09-20T00:22:25.000Z
+qaFixPhase: plan
+taskId: task_1fd8b207
+qaFailFrom: task_4063c6a2
 
 ## Decisions
-- changeScope: edit_page · qaFailFix Android list GET (Plan §1–6)
-- formPattern: view-only detail · entry list TapItem
-- mfeStdUrl: — (native · **cấm**)
-- build PASS: iOS xcodegen+LinmRmms iPhone 17 Pro · Android assembleDebug · BFF dotnet
-- open questions: none · re-QA Plan §7
-- debt: none code · blockers await QA close
-- Step 4b: N/A · cấm OfflineDemo / invent / ERP.*
+- changeScope: edit_page
+- formPattern: view-only detail
+- mfeStdUrl: —
+- build PASS: SKIP (plan-only · no native/BFF write) · implement must xcodegen + iPhone 17 Pro Max + assembleDebug + BFF dotnet
+- open questions: none
+- debt: GAP-QA-SUP-DET-AND-LIST-01 OPEN · GAP-QA-STORE-03 OPEN · round-1 ON_RESUME log ≠ OkHttp
+- Step 4b: N/A
 
 ## Inventory (slim)
 | id | label | controlHint | notes |
 |----|-------|-------------|-------|
-| GAP-QA-SUP-DET-AND-LIST-01 | Android list GET | — | **fixed emit** ON_RESUME Appear · claim Dev · re-QA |
-| GAP-QA-STORE-03 | Maestro P6 | — | **unblocked** by list · re-QA |
-| sc-supervise-detail | Chi tiết check-in | TopBar+hero+rows | iOS verify-only · Android live path |
+| GAP-QA-SUP-DET-AND-LIST-01 | Android list GET | — | OPEN · prove OkHttp + BFF 10.0.2.2 |
+| GAP-QA-STORE-03 | Maestro P6 | — | OPEN · blocked by empty list |
+| sc-supervise-detail | Chi tiết check-in | TopBar+hero+rows | iOS A3 PASS freeze |
 
 ## Screens / zones (ids only)
-- `#sc-supervise` · `sup-empty` · `sup-card-*` · `#sc-supervise-detail` · `btn-sup-detail-back`
-- reviewUrl= `ui/review/align-ux.md` · peerStdUrl= —
+- `#sc-supervise` · `sup-empty` · `sup-card-a0000001-2026-0810-0001-000000000001` · `#sc-supervise-detail`
+- reviewUrl= specs/supervise-detail/ui/review/align-ux.md · peerStdUrl= —
 
 ## API / tasks (ids only)
-- GET `patrol/attendance-logs` · GET `patrol/attendance-logs/{id}` · Bearer + `X-Company-Id: LINM`
-- seed `a0000001-2026-0810-0001-000000000001`
-- Android: SuperviseScreen ON_RESUME · Home/PatrolHome SideEffect · UC cancel-safe
-- Step 4b: N/A
-- next: `/agent-qa-mobile` · e2eQa ON · **cấm** start:std
+- GET patrol/attendance-logs?page=1&pageSize=50 · GET patrol/attendance-logs/{id}
+- seed a0000001-2026-0810-0001-000000000001 · X-Company-Id LINM
+- Plan §1–8 in implement/supervise-detail-qa-fix-plan.md
+- next: board qa_fix_plan Approve → implement · **cấm** e2e ở Dev
 
 ## UNCLEAR
-- none
+- none (gap = swallowed exception / no proceed; 200-empty only if OkHttp code 200)
 
 ## Full paths (Read only if needed)
-- plan: `specs/supervise-detail/implement/supervise-detail-qa-fix-plan.md`
-- implement: `implement/ios.md` · `implement/android.md`
-- STATUS: `specs/supervise-detail/STATUS.md`
+- plan: /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/supervise-detail/implement/supervise-detail-qa-fix-plan.md
+- qa: specs/supervise-detail/qa/scenarios.md · qa/bugs/supervise-detail.md
+- prior compact missing on disk — STATUS confirmed: specs/_data-analy/supervise-detail-control-hint.md · supervise-detail-real-data.md · po/requirement.md · ui/design.md · be/solution-discovery.md · task/supervise-detail.md

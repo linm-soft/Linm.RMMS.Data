@@ -3,8 +3,8 @@
 | Field | Value |
 |-------|-------|
 | feature | `asset-adjust` |
-| phase | `qa` |
-| status | `await_confirm` |
+| phase | `dev` |
+| status | `blocked` |
 | packKind | **`screen`** (PO chốt · đóng GAP-MOB-ASSET-ADJUST-PACK-01 · scan meta `sheet` = mislabel) |
 | demo | `specs/asset-adjust/ui/prototype/{ios,android}/index.html` `#sc-asset-adjust` (SSOT cite mobile-p1 · hash skip) |
 | context | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/docs/context/features/asset-adjust.md` |
@@ -18,7 +18,7 @@
 | lastRole | `qa` · `/agent-qa-mobile` · visual **FAIL** · GAP-QA-REAL-01 OPEN |
 | autoApprove | `ON` · **cấm** skip `qa_fail_rollback` / `qa_fix_plan` |
 | e2eQa | ON · CLI PASS · visual **FAIL** · **cấm** start:std / mfeStdUrl |
-| updatedAt | `2026-09-01T16:13:25.493Z` |
+| updatedAt | `2026-09-20T04:10:58.037Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -34,9 +34,9 @@
 | 2.1 | design | ui/design.md · ui/ux-analy.md · ui/html-to-native-map.md · ui/review/demo-parity.md · prototype/ios/index.html · prototype/android/index.html | **confirmed** |
 | 2.2 | sa | be/solution-discovery.md | **confirmed** |
 | 3 | team-lead | task/asset-adjust.md | **confirmed** |
-| 4 | dev | implement/ios.md · implement/android.md · **`implement/asset-adjust-qa-fix-plan.md`** | **confirmed** |
-| 5 | qa | qa/scenarios.md · qa/store/asset-adjust/CAPTURE.md · qa/bugs/asset-adjust.md · ui/review/align-ux.md | **blocked** |
-| 6 | review | review/findings.md | **pending** |
+| 4 | dev | implement/ios.md · implement/android.md · **`implement/asset-adjust-qa-fix-plan.md`** | **blocked** (failed) |
+| 5 | qa | qa/scenarios.md · qa/store/asset-adjust/CAPTURE.md · qa/bugs/asset-adjust.md · ui/review/align-ux.md | pending |
+| 6 | review | review/findings.md | pending |
 ## Tasks
 
 | id | page | role | deps | status | notes |
@@ -51,6 +51,7 @@
 | task_c02a17d5 | asset-adjust | dev | task_74581051 | **completed** | qaFailFix=1 · qaFixPhase=**plan** · plan Approved (autopilot chain → implement) · **cấm** skip plan |
 | task_d8ada3bb | asset-adjust | dev | task_c02a17d5 | **completed** | qaFailFix=1 · qaFixPhase=implement · Plan §1–6 · tenant harden dual · VERIFY **PASS** · next `/agent-qa*` |
 | task_385e599f | asset-adjust | qa | task_d8ada3bb | **failed** | `/agent-qa-mobile` · e2e CLI PASS · visual **FAIL** · GAP-QA-REAL-01 Android LoadFailed · `qa_fail_rollback` await_confirm · **cấm** completed |
+| task_4e21b4c3 | asset-adjust | dev | task_385e599f | **pending** | qaFailFix=1 · qaFixPhase=plan · `asset-adjust-qa-fix-plan.md` · from task_385e599f |
 
 ## Blockers / open questions
 

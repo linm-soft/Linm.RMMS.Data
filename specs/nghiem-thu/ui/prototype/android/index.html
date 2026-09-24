@@ -67,13 +67,16 @@
     .row-body { flex: 1; min-width: 0; }
     .row-title { font-size: 16px; font-weight: 600; }
     .row-sub { font-size: 13px; color: var(--muted); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .badges { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex-shrink: 0; }
     .badge {
-      font-size: 13px; font-weight: 650; padding: 4px 8px; border-radius: 8px; flex-shrink: 0;
+      font-size: 13px; font-weight: 650; padding: 4px 8px; border-radius: 8px; white-space: nowrap;
     }
     .badge.blue { background: rgba(12,132,192,.15); color: var(--blue); }
     .badge.green { background: rgba(52,199,89,.15); color: #1f8f3a; }
     .badge.info { background: rgba(12,132,192,.12); color: #086A9A; }
     .badge.gray { background: rgba(142,142,147,.18); color: #636366; }
+    .badge.orange { background: rgba(255,149,0,.18); color: #C56A00; }
+    .badge.red { background: rgba(229,57,53,.15); color: var(--danger); }
     .chev { width: 18px; height: 18px; stroke: var(--gray3); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
     .empty {
       margin: 48px 24px; text-align: center; color: var(--muted); font-size: 16px; display: none;
@@ -104,7 +107,7 @@
   <div class="phone">
     <div class="status-bar" aria-hidden="true"></div>
 
-    <!-- #sc-nghiem-thu · DES-MOB-NGHIEM-THU · data-tab=field · SSOT control-hint (hash skip) -->
+    <!-- #sc-nghiem-thu · DES-MOB-NGHIEM-THU · MAU-10 + ResultCode overlay · hash skip -->
     <div class="screen active" id="sc-nghiem-thu" data-des-id="DES-MOB-NGHIEM-THU" data-tab="field">
       <div class="top-bar">
         <button type="button" class="icon-btn" onclick="goBack()" aria-label="Quay lại">
@@ -150,10 +153,20 @@
   </svg>
 
   <script>
-    /** Proto only — ship = GET mobile-bff/api/v1/patrol/nghiem-thu · cấm demoItems SSOT */
+    /** Proto only — ship GET mobile-bff/api/v1/patrol/nghiem-thu · MAU-10 Label · ResultCode · cấm demoItems SSOT */
     const DEMO = [
-      { id: '1', code: 'NT-20260906-0001', sub: 'Mẫu 03 · QL.1 Km 12+100 · Khu I', status: 'draft', label: 'Nháp', tone: 'blue' },
-      { id: '2', code: 'NT-20260905-0012', sub: 'Mẫu 07 · ảnh + video hiện trường', status: 'done', label: 'Hoàn thành', tone: 'green' }
+      {
+        id: '1', code: 'NT-20260906-0001',
+        sub: 'Vệ sinh / vá ổ gà mặt đường · QL.1 Km 12+100',
+        status: 'draft', statusLabel: 'Nháp', statusTone: 'blue',
+        result: null, resultLabel: null, resultTone: null, icoTone: 'blue'
+      },
+      {
+        id: '2', code: 'NT-20260905-0012',
+        sub: 'Hót sụt · ảnh + video hiện trường',
+        status: 'done', statusLabel: 'Hoàn thành', statusTone: 'green',
+        result: 'pass', resultLabel: 'Đạt', resultTone: 'green', icoTone: 'green'
+      }
     ];
     const emptyMode = location.search.includes('empty=1');
     const failMode = location.search.includes('fail=1');
@@ -174,20 +187,28 @@
         return;
       }
       empty.classList.remove('show');
-      list.innerHTML = rows.map((r) =>
-        '<button type="button" class="list-row" role="listitem" data-id="' + r.id + '" onclick="goDetail(\'' + r.id + '\')">' +
-        '<div class="row-ico' + (r.tone === 'blue' ? ' blue' : '') + '"><svg viewBox="0 0 24 24"><use href="#i-check"/></svg></div>' +
-        '<div class="row-body"><div class="row-title">' + r.code + '</div><div class="row-sub">' + r.sub + '</div></div>' +
-        '<span class="badge ' + r.tone + '">' + r.label + '</span>' +
-        '<svg class="chev" viewBox="0 0 24 24"><use href="#i-chevron-right"/></svg></button>'
-      ).join('');
+      list.innerHTML = rows.map((r) => {
+        const resultBadge = r.result
+          ? '<span class="badge ' + r.resultTone + '" data-des-id="DES-MOB-NT-RESULT">' + r.resultLabel + '</span>'
+          : '';
+        return '<button type="button" class="list-row" role="listitem" data-id="' + r.id + '" onclick="goDetail(\'' + r.id + '\')">' +
+          '<div class="row-ico' + (r.icoTone === 'blue' ? ' blue' : '') + '"><svg viewBox="0 0 24 24"><use href="#i-check"/></svg></div>' +
+          '<div class="row-body"><div class="row-title">' + r.code + '</div><div class="row-sub">' + r.sub + '</div></div>' +
+          '<div class="badges">' +
+            '<span class="badge ' + r.statusTone + '" data-des-id="DES-MOB-NT-STATUS">' + r.statusLabel + '</span>' +
+            resultBadge +
+          '</div>' +
+          '<svg class="chev" viewBox="0 0 24 24"><use href="#i-chevron-right"/></svg></button>';
+      }).join('');
     }
 
     function filter() {
       const q = (document.getElementById('search').value || '').trim().toLowerCase();
       const base = emptyMode || failMode ? [] : DEMO;
       if (!q) { render(base); return; }
-      render(base.filter((r) => (r.code + ' ' + r.sub + ' ' + r.label).toLowerCase().includes(q)));
+      render(base.filter((r) =>
+        (r.code + ' ' + r.sub + ' ' + r.statusLabel + ' ' + (r.resultLabel || '')).toLowerCase().includes(q)
+      ));
     }
 
     document.getElementById('search').addEventListener('input', filter);

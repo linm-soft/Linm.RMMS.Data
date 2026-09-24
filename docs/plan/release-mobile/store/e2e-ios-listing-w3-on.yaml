@@ -1,6 +1,7 @@
-appId: com.drvn.rmms
+appId: com.drvn.rmms.store
 ---
-# Listing 6.9" StoreW3 skip-map · acc rmms-admin · KHÔNG GIS / patrol-map
+# Listing 6.9" StoreW3 skip-map · Release bundle · acc rmms-admin · KHÔNG GIS / patrol-map
+# Debug bundle com.drvn.rmms → e2e-ios-listing.yaml (lab). Capture Store = Release only.
 - launchApp:
     clearState: true
     clearKeychain: true
@@ -21,7 +22,7 @@ appId: com.drvn.rmms
     text: "Về Trang Chủ"
     optional: true
 - tapOn:
-    text: "Dành cho cán bộ"
+    text: "Đăng nhập"
 - extendedWaitUntil:
     visible:
       id: "f-user"
@@ -34,6 +35,9 @@ appId: com.drvn.rmms
     id: "f-pass"
 - eraseText
 - inputText: "RMMS@2026"
+- hideKeyboard:
+    optional: true
+- pressKey: Enter
 - tapOn:
     id: "btn-login"
     optional: true

@@ -8,12 +8,13 @@
 > **Mobile:** `Linm.RMMS.Mobile.iOS` + Android · parent `patrol-home` · `#row-nghiem-thu` · `#sc-nghiem-thu`  
 > **BE:** `Linm.RMMS.WebService` · `api/v1/patrol/nghiem-thu` · **cấm ERP.***  
 > **Persona:** cán bộ nghiệm thu (≠ tuần đường / tuần kiểm)  
-> **Peer:** [`patrol.md`](patrol.md) · [`nghiem-thu-create.md`](nghiem-thu-create.md) · [`nghiem-thu-detail.md`](nghiem-thu-detail.md)  
+> **Peer:** [`patrol.md`](patrol.md) · [`nghiem-thu-create.md`](nghiem-thu-create.md) · [`nghiem-thu-detail.md`](nghiem-thu-detail.md) · [`nghiem-thu-mau.md`](nghiem-thu-mau.md)  
+> **Mẫu SSOT:** [`../../plan/nghiem-thu-mau/README.md`](../../plan/nghiem-thu-mau/README.md) · TT 41 PL IV Mẫu 01  
 > **Scan mobile:** `/scan-mobile-feature` `run_selected` · queue `qlbd-mobile` · slash `/agent-qldb-workflow-mobile`
 
 ## 1. Mục tiêu
 
-Module riêng giống tuần kiểm: list + Create/Edit + **10 mẫu nghiệm thu** + upload ảnh/video + thông tin hiện trường. **Cấm** gộp `maintenance` WO / P2 stub.
+Module riêng giống tuần kiểm: list + Create/Edit + **10 công việc BDTX** (`mau-01`…`10` · label pháp lý MAU-10) + chỉ số Đạt/Không đạt/Khấu trừ + upload ảnh/video + thông tin hiện trường. **Cấm** gộp `maintenance` WO / P2 stub / `kcht-cong-trinh` / `csdl-so-08`.
 
 ## 2. Upload (HARD)
 
@@ -53,11 +54,11 @@ API web **live**. Mobile.Bff **chưa** proxy NT — SA thêm proxy cùng resourc
 | Web BFF | `web-bff/api/v1/patrol/nghiem-thu` |
 | Mobile BFF | `mobile-bff/api/v1/patrol/nghiem-thu` (SA proxy) |
 
-Lookup: `mau-01`…`mau-10` · status `draft`/`in_progress`/`done`/`cancelled`.
+Lookup: `mau-01`…`mau-10` label = [`MAU-10.md`](../../plan/nghiem-thu-mau/MAU-10.md) · status `draft`/`in_progress`/`done`/`cancelled` · ResultCode `pass`/`fail`/`deduct`. **Cấm** label «Mẫu nghiệm thu NN».
 
 ## Implement tracking
 
 | lane | phase | status | updatedAt |
 |------|-------|--------|-----------|
 | web | `done` | `done` | `2026-09-12T10:10:11.580Z` |
-| mobile | `review` | `pending` | `2026-09-19T16:29:51.558Z` |
+| mobile | `done` | `done` | `2026-09-19T18:46:56.091Z` |

@@ -1,50 +1,37 @@
-# Demo parity — nghiem-thu
+# Demo-parity — nghiem-thu (mobile list)
 
-**Slash:** `/review-demo-design-mobile`  
-**DemoRoot:** `specs/nghiem-thu/ui/prototype/{ios,android}/index.html`  
-**taskId:** `task_059c4327` · `2026-09-19T15:50:00.000Z`  
-**SSOT:** DA control-hint + real-data · hash skip · **cấm** re-scan (`GAP-DES-DEMO-RESCAN-01`)  
-**Delta:** mobile list · GAP-MOB-NT-LIST/DATA/ROW/CREATE/FILTER
+| Field | Value |
+|-------|-------|
+| feature | `nghiem-thu` |
+| taskId | `task_5999afb9` |
+| changeScope | `edit_page` · MAU-10 + ResultCode |
+| contentHash | `sha256:1044ba719edda88d256d5c2a780cd2293f2fab87e2a39acdbb86001fad6ff659` |
+| hashSkip | yes · **cấm** re-scan DemoRoot |
+| generatedAt | `2026-09-20T00:55:00.000Z` |
 
-## Must
+## Must checklist
 
-| Check | iOS | Android | Status |
-|-------|-----|---------|--------|
-| Title **Công tác nghiệm thu** | yes | yes | OK |
-| Trailing **Tạo** | yes | yes | OK |
-| Search placeholder **Tìm mẫu nghiệm thu…** | yes | yes | OK |
-| `#i-search` · `#i-check` · `#i-chevron-left` · `#i-chevron-right` cùng `d=` | yes | yes | OK |
-| Row Code ≥16 · sub 13 · Badge | yes | yes | OK |
-| Badge ship labels **Nháp** / **Hoàn thành** (không «Xong») | yes | yes | OK |
-| Empty **Chưa có phiếu nghiệm thu** · hint Tạo | yes | yes | OK |
-| Toast fail **Không tải được danh sách nghiệm thu** | yes | yes | OK |
-| Shell Tab 5 nhãn Trang Chủ · Tuần đường · Vấn đề · Công việc · Tôi | yes | yes | OK |
-| Tab **field** active | yes | yes | OK |
-| Frame 390×844 / 412×915 | 390×844 | 412×915 | OK |
-| Type: label/sub 13 · field/title ≥16 · title 17 (Android ~20 OK) | yes | yes | OK |
-| `tabs: none` · không invent segment | yes | yes | OK |
-| Full screen · không sheet chrome | yes | yes | OK |
-| Không watermark / device label | yes | yes | OK |
-| `data-des-id` DES-MOB-NGHIEM-THU / DES-MOB-NT-SEARCH | yes | yes | OK |
-| `?empty=1` / `?fail=1` dual | yes | yes | OK |
+| ID | Check | Result |
+|----|-------|--------|
+| M1 | Dual iOS↔Android copy VN khớp (trừ back text iOS) | PASS |
+| M2 | rowSub = MAU-10 Label · **không** «Mẫu 0N» / «Mẫu nghiệm thu NN» | PASS |
+| M3 | ResultBadge chỉ khi ResultCode có · draft ẩn | PASS |
+| M4 | StatusBadge map draft/done VN | PASS |
+| M5 | Empty `?empty=1` · Fail `?fail=1` toast | PASS |
+| M6 | Tab shell `field` · pack tabs none | PASS |
+| M7 | Zone ids `#sc-nghiem-thu` · DES-MOB-NT-RESULT | PASS |
+| M8 | **Cấm** invent API / ERP.* / scores on list | PASS |
 
-## Should
+**Must fail count = 0** · `design_confirm=approve`
 
-| Check | Status |
-|-------|--------|
-| Back iOS có chữ «Tuần đường» · Android icon-only | OK (platform chrome) |
-| Proto 2 rows preview only · ship GET BFF | OK (documented) |
+## Proto preview (không ship)
 
-## DEFER
+| Code | Sub | Status | Result |
+|------|-----|--------|--------|
+| NT-20260906-0001 | Vệ sinh / vá ổ gà mặt đường · QL.1 Km 12+100 | Nháp | — |
+| NT-20260905-0012 | Hót sụt · ảnh + video hiện trường | Hoàn thành | Đạt |
 
-| Item | Reason |
-|------|--------|
-| Sibling create/detail UI | pending_confirm · **cấm** start |
-| Optional status/route/template filter sheet | P1 PO |
+## reviewUrl
 
-## Verdict
-
-**Must = 0 open** → `design_confirm` **approve** (autoApprove ON).
-
----
-<!-- Version meta: skillId=review-demo-design-mobile taskId=task_059c4327 -->
+- iOS: `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/nghiem-thu/ui/prototype/ios/index.html`
+- Android: `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/nghiem-thu/ui/prototype/android/index.html`

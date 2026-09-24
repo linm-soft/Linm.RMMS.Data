@@ -91,7 +91,7 @@
 | Toast OK | **Đã thêm tài sản · TS-20260818-021** (bind `{Code}`) |
 | Modal title | **Định vị bị tắt** |
 | Modal body | **Cần vị trí để chấm công / chấm điểm tuần. Mở Cài đặt → Quyền vị trí cho RMMS.** |
-| Modal primary | **Sao chép hướng dẫn** |
+| Modal primary | **Mở Cài đặt** |
 | Modal secondary | **Để sau** |
 | Leave title / body | **Bỏ thay đổi?** / **Nội dung chưa lưu sẽ mất…** |
 | Leave primary / secondary | **Bỏ thay đổi** / **Tiếp tục sửa** |

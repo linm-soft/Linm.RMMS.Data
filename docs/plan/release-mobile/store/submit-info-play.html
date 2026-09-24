@@ -172,11 +172,13 @@
       <p class="meta">Snapshot <strong>v1.0.0</strong> Play · 18/09/2026 · Gradle versionCode 4 · targetSdk 36 · AGP 9.0.1 · 3 đang xem xét</p>
       <nav class="store-tabs" aria-label="Cửa hàng">
         <a href="submit-info.html">Apple / iOS</a>
+        <a href="submit-unlisted-app.html">Unlisted</a>
+        <a href="submit-org-app.html">Org app</a>
         <a class="is-on" href="submit-info-play.html">Google Play</a>
       </nav>
     </div>
   </header>
-  <p class="banner">Quyền riêng tư / hỗ trợ: https://rmms.vn/privacy (HTTPS 200). Không dùng app.rmms.vn. Wave 3: GPS + camera bật, không bản đồ / OTP SMS. Data safety và listing nằm ở Tab 2.</p>
+  <p class="banner">Quyền riêng tư / hỗ trợ: https://rmms.vn/privacy (HTTPS 200). Listing khách: Báo cáo sự cố đèn giao thông hoặc biển báo, không cần tài khoản. Chỉ dán mô tả này khi AAB đã có menu đó. AAB 1.0.0 (4) chưa có. Wave 3: GPS + camera bật, không bản đồ / OTP SMS.</p>
   <nav class="page-tabs" aria-label="Trang Play">
     <button type="button" class="tab is-on" data-tab="release">Tab 1 - Release</button>
     <button type="button" class="tab" data-tab="overview">Tab 2 - Tổng quan và cấu hình</button>
@@ -221,7 +223,7 @@
     </section>
     <section data-field="play_release_notes">
       <h2>Ghi chú phát hành (vi) <small>500 Unicode giữa thẻ</small></h2>
-      <p class="hint">Play Console - Ghi chú phát hành. Copy cả khối. Thẻ &lt;vi&gt; và &lt;/vi&gt; mỗi cái một dòng. Không mật khẩu, không kêu đánh giá.</p>
+      <p class="hint">Play Console - Ghi chú phát hành của AAB 1.0.0 (4). AAB này chưa có Báo cáo sự cố. Khi có AAB mới, dùng mô tả Tab 2, đừng dán ghi chú này nếu binary chưa có menu.</p>
       <textarea id="play_release_notes" class="tall" readonly><vi>
 Bản 1.0.0 (4): tối ưu R8, thu nhỏ mã, Android Gradle Plugin 9.
 Trang Chủ khách: FAQ, đăng nhập, chính sách quyền riêng tư.
@@ -330,7 +332,7 @@ Hiện trường: GPS và camera khi bạn cho phép.
     <section data-field="play_short">
       <h2>Mô tả ngắn <small>80</small></h2>
       <p class="hint">Play Console - Trang thông tin cửa hàng - Mô tả ngắn. Tối thiểu 1 / tối đa 80. Bắt buộc để xuất bản listing.</p>
-      <textarea id="play_short" maxlength="80" readonly>RMMS: FAQ khách. Cán bộ tuần đường, sự cố, tài sản, hiện trường GPS và camera.</textarea>
+      <textarea id="play_short" maxlength="80" readonly>Báo cáo sự cố đèn giao thông, biển báo. FAQ và chính sách, không cần tài khoản.</textarea>
       <div class="row">
         <button type="button" data-copy="play_short">Copy</button>
         <p class="count"><span data-count-for="play_short">0</span>/80</p>
@@ -340,17 +342,15 @@ Hiện trường: GPS và camera khi bạn cho phép.
     <section data-field="play_full">
       <h2>Mô tả đầy đủ <small>4000</small></h2>
       <p class="hint">Play Console - Trang thông tin cửa hàng - Mô tả đầy đủ. Tối đa 4000. Không lặp mô tả ngắn.</p>
-      <textarea id="play_full" class="tall" maxlength="4000" readonly>Ứng dụng di động RMMS (Hệ thống quản lý bảo trì đường bộ) do CÔNG TY CỔ PHẦN CÔNG NGHỆ VÀ THƯƠNG MẠI MIỀN TRUNG (Việt Nam) phát hành. Dành cho cán bộ được đơn vị cấp tài khoản.
+      <textarea id="play_full" class="tall" maxlength="4000" readonly>Ứng dụng di động RMMS (Hệ thống quản lý bảo trì đường bộ) do CÔNG TY CỔ PHẦN CÔNG NGHỆ VÀ THƯƠNG MẠI MIỀN TRUNG (Việt Nam) phát hành cho mọi người dùng trên Google Play.
 
-Phiên bản đầu trên Google Play, với các tính năng chi tiết trên app:
+Không cần tài khoản. Trên Trang Chủ, chọn Báo cáo sự cố rồi chọn Đèn giao thông hoặc Biển báo. Nhập họ tên, số điện thoại, mô tả và địa chỉ. Gửi xong, app hiện mã theo dõi. Không bắt ảnh và không lấy GPS trên form này.
 
-• Khách - không cần tài khoản. Trang Chủ, câu hỏi thường gặp, tài liệu thủ tục, cấp phép và chính sách quyền riêng tư. Không lấy vị trí hay camera lúc mở app.
+Cùng Trang Chủ còn câu hỏi thường gặp, tài liệu thủ tục, cấp phép và chính sách quyền riêng tư. App không lấy vị trí hay camera lúc mở.
 
-• Cán bộ - đăng nhập bằng tài khoản đơn vị. Lưới nghiệp vụ: giám sát, tuần đường, sự cố, công việc, tài sản, góp ý, thông báo, hàng đợi mất sóng. Mở nhanh Điểm tuần và Ghi sự cố từ Trang Chủ.
+Đăng nhập là tùy chọn nếu bạn đã có tài khoản. Sau khi đăng nhập có thêm giám sát, tuần đường, sự cố, công việc, tài sản, góp ý, thông báo và hàng đợi mất sóng. GPS và camera chỉ khi bạn cho phép, khi đang dùng tính năng đó.
 
-• Hiện trường - ghim tọa độ, chấm công GPS, chụp hiện trường và nhận diện hư hỏng mặt đường. GPS và camera chỉ khi bạn cho phép, khi đang dùng tính năng đó.
-
-Không bán dữ liệu, không quảng cáo. Quên mật khẩu: liên hệ quản trị đơn vị (không gửi OTP SMS trên cửa hàng).
+Không bán dữ liệu, không quảng cáo. Quên mật khẩu: liên hệ hỗ trợ (không gửi OTP SMS trên cửa hàng).
 
 Hỗ trợ: CÔNG TY CỔ PHẦN CÔNG NGHỆ VÀ THƯƠNG MẠI MIỀN TRUNG, Số 18/43A đường Phan Chu Trinh, Khu đô thị SaigonSky, Tỉnh Nghệ An. Điện thoại 0238 358 8668.</textarea>
       <div class="row">
@@ -398,7 +398,7 @@ Hỗ trợ: CÔNG TY CỔ PHẦN CÔNG NGHỆ VÀ THƯƠNG MẠI MIỀN TRUNG, S
     <section data-field="play_access_extra">
       <h2>Quyền truy cập ứng dụng - thông tin khác <small>500</small></h2>
       <p class="hint">Play Console - Mọi thông tin cần thiết khác. Tối đa 500 Unicode. Tick toàn quyền. Chỉ mô tả tính năng đang có.</p>
-      <textarea id="play_access_extra" maxlength="500" class="tall" readonly>Trang Chủ khách (FAQ, chính sách quyền riêng tư) dùng được trước khi đăng nhập. Sau Đăng nhập: Trang Chủ cán bộ - tuần đường, sự cố, tài sản, chấm công. Khi hệ thống hỏi, cho phép Vị trí chính xác và Camera cho chấm công và thu thập hiện trường. Quên mật khẩu: liên hệ admin trên màn hình.</textarea>
+      <textarea id="play_access_extra" maxlength="500" class="tall" readonly>Không cần đăng nhập: Trang Chủ - Báo cáo sự cố - chọn Đèn giao thông hoặc Biển báo - nhập họ tên, số điện thoại, mô tả, địa chỉ - Gửi báo cáo - hiện mã theo dõi. FAQ và chính sách cũng mở trước khi đăng nhập. Form báo cáo không dùng GPS và không chụp ảnh. Sau Đăng nhập (tùy chọn): tuần đường, sự cố, tài sản, chấm công. Vị trí và Camera chỉ khi app hỏi, cho nghiệp vụ sau đăng nhập. Quên mật khẩu: liên hệ admin trên màn hình.</textarea>
       <div class="row">
         <button type="button" data-copy="play_access_extra">Copy</button>
         <p class="count"><span data-count-for="play_access_extra">0</span>/500</p>
@@ -570,11 +570,14 @@ Hỗ trợ: CÔNG TY CỔ PHẦN CÔNG NGHỆ VÀ THƯƠNG MẠI MIỀN TRUNG, S
     <section data-field="play_data_safety_notes">
       <h2>Bảo mật dữ liệu - ghi chú nội bộ (không dán listing)</h2>
       <p class="hint">Wave 3 bỏ bản đồ: STORE_W1=false - không khai OSRM. Click-to-call / danh bạ / lịch = bản sau, khai lại khi có quyền.</p>
-      <textarea id="play_data_safety_notes" class="tall" readonly>Thu thập (không chia sẻ, không bán): vị trí gần đúng + chính xác; tên; email; user ID; số điện thoại; thông tin khác (CCCD chỉ đọc); tin nhắn trong ứng dụng; ảnh JPEG; nội dung do người dùng tạo (sự cố, góp ý).
+      <textarea id="play_data_safety_notes" class="tall" readonly>Thu thập (không chia sẻ, không bán): vị trí gần đúng + chính xác; tên; email; user ID; số điện thoại; thông tin khác (CCCD chỉ đọc); tin nhắn trong ứng dụng; ảnh JPEG; nội dung do người dùng tạo (sự cố, góp ý, báo cáo khách).
+
+Khách báo cáo sự cố (không đăng nhập): họ tên, số điện thoại, mô tả, địa chỉ. Không GPS, không ảnh trên form này.
 
 Mục đích: chức năng ứng dụng. Tên / email / user ID / SĐT thêm quản lý tài khoản.
 
 Tùy chọn: vị trí, ảnh, chat, UGC, email, SĐT, CCCD.
+Bắt buộc trên form báo cáo khách: họ tên, số điện thoại, mô tả.
 Bắt buộc (cán bộ): tên, user ID.
 
 Không: video, SMS, lịch, danh bạ, âm thanh, tài chính, sức khỏe, quảng cáo, analytics, mã thiết bị, map/OSRM.</textarea>
@@ -593,11 +596,13 @@ Version 1.0.0 (versionCode 3 in review; next AAB versionCode 4)
 Demo login (staff):
 Android: username rmms-002 / password RMMS@2026
 
-Open the app - Dang nhap - use the account above.
-Guest home: FAQ and privacy before login.
-After login: staff home (patrol, incidents, assets, attendance).
-When prompted, allow Location (precise) and Camera for attendance and field capture.
-Forgot password: use the contact-admin line on that screen.</textarea>
+Open the app. No login required.
+Guest job: Home - Bao cao su co - choose Den giao thong or Bien bao - enter name, phone, description, address - Gui bao cao - tracking code. No photo and no GPS on this form.
+FAQ and privacy are also available before login.
+Optional login: Dang nhap - username rmms-002 / password RMMS@2026 - staff home (patrol, incidents, assets, attendance).
+When prompted, allow Location (precise) and Camera only for those signed-in field features.
+Forgot password: use the contact-admin line on that screen.
+Do not expect this flow on AAB 1.0.0 (4). Attach an AAB that includes the guest report menu.</textarea>
       <div class="row">
         <button type="button" data-copy="play_review_notes">Copy</button>
       </div>

@@ -1,0 +1,11 @@
+{
+  "feature": "nghiem-thu-create",
+  "status": "confirmed",
+  "verdict": "PASS",
+  "review_confirm": "approve",
+  "taskId": "task_73f7aa6d",
+  "writtenAt": "2026-09-19T17:36:30.000Z",
+  "mustOpen": 0,
+  "visualAlign": "Aligned",
+  "autoApprove": true
+}

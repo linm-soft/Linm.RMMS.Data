@@ -28,7 +28,7 @@ Login → Tab Tuần đường (shell Tab 5 · index giữ)
 |------------|--------|------------|----------------|-----|
 | DES-MOB-CI-PIN-HERE / `#sc-patrol-home` | Ghim · hub | Large title Tuần đường · Tab 5 | TopAppBar · Nav 5 | Ghim vị trí hiện tại |
 | DES-MOB-CI-PIN-HERE / `#sc-patrol-map` | Ghim · map | Large title Bản đồ ca · overlay card | TopAppBar Bản đồ ca · card | cùng CTA · pin `.here` |
-| DES-MOB-GPS-DENY / `#modal-gps` | Định vị bị tắt | in-app modal card | Material dialog card | Sao chép hướng dẫn / Để sau |
+| DES-MOB-GPS-DENY / `#modal-gps` | Định vị bị tắt | in-app modal card | Material dialog card | Mở Cài đặt / Để sau |
 | DES-MOB-HANDOFF-CHECKIN / `#sheet-handoff-checkin` | Handoff Ghi điểm tuần | bottom sheet | Material bottom sheet | Tiếp tục / Để sau · **không** form |
 
 ## 3. Zone
@@ -59,7 +59,7 @@ Login → Tab Tuần đường (shell Tab 5 · index giữ)
 |------|------|---------|---------|---------|
 | Title | Định vị bị tắt | `h3` 17 | Text 17 semibold | same |
 | Body | Cần vị trí… RMMS. | `p` 13 | Text 13 | same |
-| Primary | Sao chép hướng dẫn | `.btn` | `LinmPrimaryButton` | same |
+| Primary | Mở Cài đặt | `.btn` | `LinmPrimaryButton` | same |
 | Secondary | Để sau | `.btn.secondary` | `LinmSecondaryButton` | same |
 
 **Cấm** `UIAlertController` / `AlertDialog` hệ thống (`AC-D-04`).

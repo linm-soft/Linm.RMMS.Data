@@ -11,13 +11,13 @@
 | domain | Patrol · `NghiemThu` / `rmms_nghiem_thu` — CTX [`nghiem-thu.md`](nghiem-thu.md) |
 | BE | `Linm.RMMS.WebService` · `api/v1/patrol/nghiem-thu` — **cấm ERP.*** |
 | BFF | `Linm.RMMS.Mobile.Bff` · `mobile-bff/api/v1/patrol/nghiem-thu` proxy (SA) |
-| peers | `nghiem-thu.md` · `nghiem-thu-detail.md` · `patrol-home.md` · `mobile-bff-file.md` |
+| peers | `nghiem-thu.md` · `nghiem-thu-detail.md` · `nghiem-thu-mau.md` · `patrol-home.md` · `mobile-bff-file.md` |
 
 ## 1. Tổng quan
 
 | | |
 |--|--|
-| Mục tiêu | Sheet **Tạo nghiệm thu**: chọn 1/10 mẫu · vị trí/GPS · đính kèm ảnh+video FileService · Lưu nháp |
+| Mục tiêu | Sheet **Tạo nghiệm thu**: chọn 1/10 công việc BDTX (MAU-10) · vị trí/GPS · đính kèm ảnh+video · **Kết quả** Đạt/Không đạt/Khấu trừ + checklist tiêu chí · Lưu nháp |
 | Persona | Cán bộ nghiệm thu |
 | Entry | List `#sc-nghiem-thu` nav **Tạo** |
 | DoD P1 | Dual · POST create · persist `mediaIds` guid[] · **cấm** mfeStdUrl · **cấm** invent `nghiem-thu-files` · **cấm** gộp slug list/detail |
@@ -27,7 +27,9 @@
 | Zone | Pattern | DES-ID | Notes |
 |------|---------|--------|-------|
 | Nav | Hủy / title / Lưu | `DES-MOB-NGHIEM-THU-CREATE` | Hủy → list · Lưu = submit **cùng slug** (không enqueue sibling) |
-| Mẫu | ListRow | — | LOOKUP_STATIC `mau-01`…`mau-10` |
+| Mẫu | ListRow | — | LOOKUP_STATIC `mau-01`…`mau-10` · **Label MAU-10** · **cấm** «Mẫu nghiệm thu NN» |
+| Kết quả | ListRow | — | `pass` / `fail` / `deduct` + `ResultNote` |
+| Tiêu chí | Checklist | — | `scores[]` theo `TemplateTypes[].criteria` |
 | Vị trí | ListRow | — | Khu + GPS hiện trường · `route` / `zoneOrgCode` |
 | Đính kèm | ListRow | — | Ảnh + video · FileService · max 10 |
 
@@ -50,3 +52,10 @@ App base: `{BffBase}/mobile-bff/api/v1`. **Cấm** persist presigned URL.
 | `nghiem-thu` | Parent list / back |
 | `nghiem-thu-detail` | Xem/Sửa sau tạo |
 | `patrol-home` | Hub Tuần đường |
+
+## Implement tracking
+
+| lane | phase | status | updatedAt |
+|------|-------|--------|-----------|
+| web | — | — | — |
+| mobile | `done` | `done` | `2026-09-19T17:38:40.427Z` |

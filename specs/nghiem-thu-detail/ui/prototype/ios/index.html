@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RMMS · Chi tiết nghiệm thu · iOS</title>
+  <style>
+    :root {
+      --blue: #0C84C0; --green: #34C759; --orange: #FF9500; --danger: #FF3B30;
+      --surface: #F2F2F7; --card: #fff; --label: #1C1C1E; --muted: #8E8E93;
+      --sep: rgba(60,60,67,.29); --gray3: #C7C7CC;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+      background: #1c1c1e; color: var(--label);
+    }
+    .phone {
+      width: 390px; height: 844px; background: var(--surface); border-radius: 44px;
+      overflow: hidden; position: relative; box-shadow: 0 20px 60px rgba(0,0,0,.45);
+      display: flex; flex-direction: column;
+    }
+    .status-bar { height: 54px; flex-shrink: 0; }
+    .nav-bar {
+      display: flex; align-items: center; padding: 0 8px 8px; min-height: 44px;
+      background: rgba(242,242,247,.92); border-bottom: 1px solid var(--sep);
+    }
+    .nav-btn, .nav-trail {
+      border: 0; background: none; color: var(--blue); font-size: 17px; font-weight: 400;
+      cursor: pointer; padding: 8px; white-space: nowrap; font-family: inherit;
+    }
+    .nav-btn { min-width: 56px; text-align: left; }
+    .nav-trail { min-width: 56px; text-align: right; font-weight: 600; }
+    .nav-trail:disabled { opacity: .4; cursor: not-allowed; }
+    .nav-title { flex: 1; text-align: center; font-size: 17px; font-weight: 600; }
+    .content { flex: 1; overflow: auto; padding-bottom: 96px; }
+    .content.gone { display: none; }
+    .list { margin: 12px 16px; background: var(--card); border-radius: 12px; overflow: hidden; }
+    .list-row {
+      display: flex; align-items: center; gap: 10px; padding: 12px 14px;
+      border-bottom: 1px solid var(--sep); cursor: pointer; background: none; width: 100%;
+      text-align: left; font-family: inherit; color: inherit;
+    }
+    .list-row:last-child { border-bottom: 0; }
+    .list-row.static { cursor: default; }
+    .list-row svg.leading {
+      width: 22px; height: 22px; stroke: var(--blue); fill: none; stroke-width: 1.8;
+      stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0;
+    }
+    .row-body { flex: 1; min-width: 0; }
+    .row-sub { font-size: 13px; color: var(--muted); }
+    .row-title { font-size: 16px; font-weight: 600; margin-top: 2px; }
+    input.row-title, textarea.row-title {
+      width: 100%; border: 0; background: transparent; font: inherit; font-size: 16px;
+      font-weight: 600; color: inherit; padding: 0; margin-top: 2px; resize: none;
+    }
+    input.row-title:disabled, textarea.row-title:disabled { color: var(--label); opacity: 1; -webkit-text-fill-color: var(--label); }
+    .list-row svg.chev {
+      width: 18px; height: 18px; stroke: var(--gray3); fill: none; stroke-width: 2;
+      stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; display: none;
+    }
+    .is-edit .list-row svg.chev { display: block; }
+    .verdict { font-size: 16px; font-weight: 600; flex-shrink: 0; }
+    .verdict.pass { color: var(--green); }
+    .verdict.fail { color: var(--danger); }
+    .verdict.deduct { color: var(--orange); }
+    .verdict.na { color: var(--muted); }
+    .section-label {
+      font-size: 13px; color: var(--muted); text-transform: uppercase;
+      letter-spacing: -0.08px; padding: 16px 32px 6px;
+    }
+    .photo-row { display: flex; gap: 10px; margin: 0 16px 12px; overflow-x: auto; }
+    .photo-slot {
+      width: 88px; height: 88px; flex-shrink: 0; border-radius: 12px; background: var(--card);
+      border: 1.5px dashed var(--gray3); display: none; place-items: center; color: var(--blue);
+      font-size: 13px; font-weight: 600; cursor: pointer;
+    }
+    .is-edit .photo-slot.cam { display: grid; }
+    .photo-slot.filled {
+      display: grid; border: 0; background: linear-gradient(135deg, #5ac8fa, #007aff); color: #fff;
+    }
+    .photo-slot svg { width: 28px; height: 28px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .toast {
+      position: absolute; left: 24px; right: 24px; bottom: 110px; z-index: 20;
+      background: rgba(28,28,30,.92); color: #fff; font-size: 14px;
+      padding: 12px 14px; border-radius: 12px; opacity: 0; transition: opacity .2s;
+      pointer-events: none; text-align: center;
+    }
+    .toast.show { opacity: 1; }
+    .backdrop {
+      position: absolute; inset: 0; background: rgba(0,0,0,.4); display: none;
+      align-items: flex-end; justify-content: center; z-index: 30;
+    }
+    .backdrop.center { align-items: center; padding: 24px; }
+    .backdrop.open { display: flex; }
+    .modal { background: var(--card); border-radius: 14px; padding: 20px 16px 16px; width: 100%; }
+    .sheet {
+      background: var(--card); border-radius: 14px 14px 0 0; padding: 12px 0 28px; width: 100%;
+      max-height: 70%; overflow: auto;
+    }
+    .sheet h3, .modal h3 { font-size: 17px; margin: 0 16px 8px; font-weight: 600; }
+    .modal p { font-size: 13px; color: var(--muted); margin: 0 0 16px; line-height: 1.4; }
+    .modal .btn { margin: 0 0 8px; width: 100%; }
+    .btn {
+      border: 0; border-radius: 12px; padding: 14px 16px; font-size: 16px; font-weight: 600;
+      cursor: pointer; font-family: inherit;
+    }
+    .btn-primary { background: var(--blue); color: #fff; }
+    .btn-secondary { background: var(--surface); color: var(--label); }
+    .btn-danger { background: var(--danger); color: #fff; }
+    .opt {
+      display: block; width: 100%; border: 0; background: none; text-align: left;
+      padding: 14px 16px; font-size: 16px; font-family: inherit; color: var(--label);
+      border-bottom: 1px solid var(--sep); cursor: pointer;
+    }
+    .opt.on { color: var(--blue); font-weight: 600; }
+    .opt:last-child { border-bottom: 0; }
+    .tabbar {
+      position: absolute; left: 0; right: 0; bottom: 0; height: 83px;
+      background: rgba(249,249,249,.94); border-top: 1px solid var(--sep);
+      display: flex; padding: 6px 0 22px; z-index: 10;
+    }
+    .tab {
+      flex: 1; display: flex; flex-direction: column; align-items: center; gap: 2px;
+      font-size: 10px; color: var(--muted); background: none; border: 0; cursor: pointer;
+    }
+    .tab.on { color: var(--blue); }
+    .tab svg { width: 24px; height: 24px; fill: currentColor; stroke: none; }
+  </style>
+</head>
+<body data-platform="ios">
+  <div class="phone">
+    <div class="status-bar" aria-hidden="true"></div>
+    <div class="screen" id="sc-nghiem-thu-detail" data-des-id="DES-MOB-NGHIEM-THU-DETAIL" data-tab="field">
+      <div class="nav-bar">
+        <button type="button" class="nav-btn" id="btn-leading" onclick="onLeading()" aria-label="Đóng">Đóng</button>
+        <div class="nav-title" id="nav-title">NT-20260906-0001</div>
+        <button type="button" class="nav-trail" id="btn-trail" onclick="onTrail()">Sửa</button>
+      </div>
+      <div class="content" id="content">
+        <div class="section-label">Phiếu</div>
+        <div class="list">
+          <button type="button" class="list-row" id="templateRow" onclick="openMau()">
+            <div class="row-body">
+              <div class="row-sub">Mẫu</div>
+              <div class="row-title" id="val-template">Vệ sinh / vá ổ gà mặt đường</div>
+            </div>
+            <svg class="chev" viewBox="0 0 24 24"><use href="#i-chevron-right"/></svg>
+          </button>
+          <button type="button" class="list-row" id="resultRow" onclick="openResult()">
+            <div class="row-body">
+              <div class="row-sub">Kết quả</div>
+              <div class="row-title" id="val-result">Đạt</div>
+            </div>
+            <svg class="chev" viewBox="0 0 24 24"><use href="#i-chevron-right"/></svg>
+          </button>
+          <div class="list-row static" id="resultNote">
+            <div class="row-body">
+              <div class="row-sub">Ghi chú kết quả</div>
+              <input class="row-title field-input" id="val-result-note" value="Đạt yêu cầu mặt đường sau vá" />
+            </div>
+          </div>
+          <button type="button" class="list-row" id="statusRow" onclick="openStatus()">
+            <div class="row-body">
+              <div class="row-sub">Trạng thái</div>
+              <div class="row-title" id="val-status">Đang NT</div>
+            </div>
+            <svg class="chev" viewBox="0 0 24 24"><use href="#i-chevron-right"/></svg>
+          </button>
+        </div>
+        <div class="section-label">Tiêu chí</div>
+        <div class="list" id="score-list">
+          <button type="button" class="list-row score-row" data-code="2.1.1" data-verdict="pass" onclick="cycleScore(this)">
+            <div class="row-body">
+              <div class="row-sub">2.1.1</div>
+              <div class="row-title">Vá ổ gà — cao độ ±5 mm, không khe &gt;3 mm</div>
+            </div>
+            <span class="verdict pass">Đạt</span>
+          </button>
+          <button type="button" class="list-row score-row" data-code="2.1.2" data-verdict="pass" onclick="cycleScore(this)">
+            <div class="row-body">
+              <div class="row-sub">2.1.2</div>
+              <div class="row-title">Không vết nứt rộng &gt;5 mm</div>
+            </div>
+            <span class="verdict pass">Đạt</span>
+          </button>
+          <button type="button" class="list-row score-row" data-code="2.1.vs" data-verdict="n_a" onclick="cycleScore(this)">
+            <div class="row-body">
+              <div class="row-sub">2.1.vs</div>
+              <div class="row-title">Vệ sinh mặt — không rác/chướng ngại</div>
+            </div>
+            <span class="verdict na">Không áp dụng</span>
+          </button>
+        </div>
+        <div class="section-label">Hiện trường</div>
+        <div class="list">
+          <div class="list-row static" id="routeRow">
+            <div class="row-body">
+              <div class="row-sub">Tuyến</div>
+              <input class="row-title field-input" id="val-route" value="QL.1" />
+            </div>
+          </div>
+          <div class="list-row static" id="kmRow">
+            <div class="row-body">
+              <div class="row-sub">Km</div>
+              <input class="row-title field-input" id="val-km" value="Km 12+200 – 12+450" />
+            </div>
+          </div>
+          <button type="button" class="list-row" id="fieldRow" onclick="onLoc()">
+            <svg class="leading" viewBox="0 0 24 24"><use href="#i-mappin"/></svg>
+            <div class="row-body">
+              <div class="row-sub">Hiện trường</div>
+              <div class="row-title" id="val-field">Khu I · GPS hiện trường</div>
+            </div>
+            <svg class="chev" viewBox="0 0 24 24"><use href="#i-chevron-right"/></svg>
+          </button>
+          <button type="button" class="list-row" id="workTime" onclick="onWork()">
+            <div class="row-body">
+              <div class="row-sub">Thời gian việc</div>
+              <div class="row-title" id="val-work">06/09/2026 07:30 – 11:00</div>
+            </div>
+          </button>
+          <div class="list-row static" id="note">
+            <div class="row-body">
+              <div class="row-sub">Ghi chú</div>
+              <input class="row-title field-input" id="val-note" value="Vá ổ gà mặt đường" />
+            </div>
+          </div>
+        </div>
+        <div class="section-label">Đính kèm</div>
+        <div class="list">
+          <button type="button" class="list-row" id="attachRow" onclick="openCapture()">
+            <div class="row-body">
+              <div class="row-sub">Đính kèm</div>
+              <div class="row-title" id="val-attach">2 ảnh</div>
+            </div>
+            <svg class="chev" viewBox="0 0 24 24"><use href="#i-chevron-right"/></svg>
+          </button>
+        </div>
+        <div class="photo-row" id="photo-row">
+          <div class="photo-slot filled">Ảnh</div>
+          <div class="photo-slot filled">Ảnh</div>
+          <div class="photo-slot cam" onclick="openCapture()" aria-label="Chụp ảnh">
+            <svg viewBox="0 0 24 24"><use href="#i-camera"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="toast" id="toast" role="status"></div>
+    <div class="backdrop center" id="modal-gps" data-des-id="DES-MOB-GPS-DENY">
+      <div class="modal">
+        <h3>Định vị bị tắt</h3>
+        <p>Cần vị trí để chấm công / chấm điểm tuần. Mở Cài đặt → Quyền vị trí cho RMMS.</p>
+        <button type="button" class="btn btn-primary" onclick="openSettings()">Mở Cài đặt</button>
+        <button type="button" class="btn btn-secondary" onclick="closeGps()">Để sau</button>
+      </div>
+    </div>
+    <div class="backdrop center" id="modal-leave" data-des-id="DES-MOB-LEAVE">
+      <div class="modal">
+        <h3>Huỷ thay đổi?</h3>
+        <p>Bạn có thay đổi chưa lưu. Thoát sẽ mất dữ liệu.</p>
+        <button type="button" class="btn btn-secondary" onclick="closeLeave()">Ở lại</button>
+        <button type="button" class="btn btn-danger" onclick="confirmLeave()">Thoát</button>
+      </div>
+    </div>
+    <div class="backdrop" id="sheet-mau"><div class="sheet"><h3>Chọn mẫu nghiệm thu</h3><div id="mau-list"></div></div></div>
+    <div class="backdrop" id="sheet-result"><div class="sheet"><h3>Chọn kết quả</h3><div id="result-list"></div></div></div>
+    <div class="backdrop" id="sheet-status"><div class="sheet"><h3>Chọn trạng thái</h3><div id="status-list"></div></div></div>
+    <nav class="tabbar" aria-label="Shell Tab 5">
+      <button type="button" class="tab" data-tab="home"><svg viewBox="0 0 24 24"><use href="#i-home"/></svg>Trang Chủ</button>
+      <button type="button" class="tab on" data-tab="field"><svg viewBox="0 0 24 24"><use href="#i-mappin"/></svg>Tuần đường</button>
+      <button type="button" class="tab" data-tab="incident"><svg viewBox="0 0 24 24"><use href="#i-warning"/></svg>Vấn đề</button>
+      <button type="button" class="tab" data-tab="work"><svg viewBox="0 0 24 24"><use href="#i-wrench"/></svg>Công việc</button>
+      <button type="button" class="tab" data-tab="me"><svg viewBox="0 0 24 24"><use href="#i-person"/></svg>Tôi</button>
+    </nav>
+  </div>
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+    <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+    <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol>
+    <symbol id="i-camera" viewBox="0 0 24 24"><path d="M4 8h3l2-2h6l2 2h3v11H4V8z"/><circle cx="12" cy="13" r="3.5"/></symbol>
+    <symbol id="i-mappin" viewBox="0 0 24 24"><path d="M12 21s7-5.2 7-11a7 7 0 1 0-14 0c0 5.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.2"/></symbol>
+    <symbol id="i-warning" viewBox="0 0 24 24"><path d="M12 3.5 22 20H2L12 3.5z"/><path d="M12 10v5"/><path d="M12 17.5h.01"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11.5 12 4l8 7.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1v-8.5z"/></symbol>
+    <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.5 6.5a4 4 0 0 0-5.6 5.6L3 18v3h3l5.9-5.9a4 4 0 0 0 5.6-5.6l-2.5 2.5-2.5-2.5 2.5-2.5z"/></symbol>
+    <symbol id="i-person" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 19.5c1.8-3.2 4.2-4.5 7-4.5s5.2 1.3 7 4.5"/></symbol>
+  </svg>
+  <script>
+    const q = new URLSearchParams(location.search);
+    const ios = document.body.dataset.platform === 'ios';
+    const CODE = 'NT-20260906-0001';
+    const VERDICT = ['pass', 'fail', 'n_a'];
+    const VERDICT_LABEL = { pass: 'Đạt', fail: 'Không đạt', n_a: 'Không áp dụng' };
+    const VERDICT_CLASS = { pass: 'pass', fail: 'fail', n_a: 'na' };
+    const RESULTS = [
+      { id: '', label: 'Chưa đánh giá' },
+      { id: 'pass', label: 'Đạt' },
+      { id: 'fail', label: 'Không đạt' },
+      { id: 'deduct', label: 'Khấu trừ' }
+    ];
+    const STATUSES = [
+      { id: 'draft', label: 'Nháp' },
+      { id: 'in_progress', label: 'Đang NT' },
+      { id: 'done', label: 'Hoàn thành' },
+      { id: 'cancelled', label: 'Hủy' }
+    ];
+    const MAU = [
+      { id: 'mau-01', label: 'Cắt cỏ lề / cắt cây', criteria: [{ code: '1.1', label: 'Cắt cỏ lề / cắt cây — đoạn đường · kết quả chủ yếu' }] },
+      { id: 'mau-02', label: 'Vệ sinh / vá ổ gà mặt đường', criteria: [
+        { code: '2.1.1', label: 'Vá ổ gà — cao độ ±5 mm, không khe >3 mm' },
+        { code: '2.1.2', label: 'Không vết nứt rộng >5 mm' },
+        { code: '2.1.vs', label: 'Vệ sinh mặt — không rác/chướng ngại' }
+      ] },
+      { id: 'mau-03', label: 'Nạo vét rãnh', criteria: [{ code: '3.1', label: 'Nạo vét rãnh — đoạn rãnh · thời gian · kết quả' }] },
+      { id: 'mau-04', label: 'Sơn bổ sung báo hiệu', criteria: [{ code: '4.1', label: 'Sơn bổ sung báo hiệu — vị trí sơn · kết quả' }] },
+      { id: 'mau-05', label: 'Khơi thông cống / rãnh', criteria: [{ code: '5.1', label: 'Khơi thông cống / rãnh — thời gian · kết quả' }] },
+      { id: 'mau-06', label: 'Sửa chữa lề đường', criteria: [{ code: '6.1', label: 'Sửa chữa lề đường — thời gian · đoạn tuyến · kết quả' }] },
+      { id: 'mau-07', label: 'Hót sụt', criteria: [{ code: '7.1', label: 'Hót sụt — thời gian · đoạn · vị trí · khối lượng · kết quả' }] },
+      { id: 'mau-08', label: 'Bảo dưỡng báo hiệu đường bộ', criteria: [{ code: '8.1', label: 'Bảo dưỡng báo hiệu đường bộ — biển/cọc · kết quả' }] },
+      { id: 'mau-09', label: 'Hạng mục công trình khác', criteria: [{ code: '9.1', label: 'Hạng mục công trình khác — ghi tương tự (1)–(8)' }] },
+      { id: 'mau-10', label: 'Bảo dưỡng thiết bị', criteria: [{ code: '10.1', label: 'Bảo dưỡng thiết bị — thời gian + việc (bôi mỡ gối cầu, điện…)' }] }
+    ];
+    const screen = document.getElementById('sc-nghiem-thu-detail');
+    let mode = (q.has('edit') || q.has('deny') || q.has('fail') || q.has('dirty')) ? 'edit' : 'view';
+    let gpsOk = !q.has('deny');
+    let forceFail = q.has('fail');
+    let dirty = q.has('dirty');
+    let missing = q.has('missing');
+    let templateType = 'mau-02';
+    let resultCode = 'pass';
+    let statusCode = 'in_progress';
+    let mediaCount = 2;
+
+    function toast(msg) {
+      const el = document.getElementById('toast');
+      el.textContent = msg;
+      el.classList.add('show');
+      clearTimeout(toast._t);
+      toast._t = setTimeout(() => el.classList.remove('show'), 2400);
+    }
+    function applyMode() {
+      const edit = mode === 'edit';
+      screen.classList.toggle('is-edit', edit);
+      const lead = document.getElementById('btn-leading');
+      lead.setAttribute('aria-label', edit ? 'Hủy' : 'Đóng');
+      if (ios) lead.textContent = edit ? 'Hủy' : 'Đóng';
+      const trail = document.getElementById('btn-trail');
+      trail.textContent = edit ? 'Lưu' : 'Sửa';
+      trail.disabled = edit && !gpsOk;
+      document.querySelectorAll('.field-input').forEach((el) => { el.disabled = !edit; });
+    }
+    function markDirty() { if (mode === 'edit') dirty = true; }
+    function fillOpts(id, items, current, onPick) {
+      const box = document.getElementById(id);
+      box.innerHTML = '';
+      items.forEach((m) => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'opt' + (m.id === current ? ' on' : '');
+        b.textContent = m.label;
+        b.onclick = () => onPick(m);
+        box.appendChild(b);
+      });
+    }
+    function renderScores(list, keep) {
+      const box = document.getElementById('score-list');
+      box.innerHTML = '';
+      list.forEach((c) => {
+        const v = keep && keep[c.code] ? keep[c.code] : 'n_a';
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'list-row score-row';
+        b.dataset.code = c.code;
+        b.dataset.verdict = v;
+        b.onclick = () => cycleScore(b);
+        b.innerHTML = '<div class="row-body"><div class="row-sub"></div><div class="row-title"></div></div><span class="verdict"></span>';
+        b.querySelector('.row-sub').textContent = c.code;
+        b.querySelector('.row-title').textContent = c.label;
+        const badge = b.querySelector('.verdict');
+        badge.textContent = VERDICT_LABEL[v];
+        badge.className = 'verdict ' + VERDICT_CLASS[v];
+        box.appendChild(b);
+      });
+    }
+    function openSheet(id) {
+      if (mode !== 'edit') return;
+      document.getElementById(id).classList.add('open');
+    }
+    function openMau() {
+      fillOpts('mau-list', MAU, templateType, pickMau);
+      openSheet('sheet-mau');
+    }
+    function pickMau(m) {
+      templateType = m.id;
+      document.getElementById('val-template').textContent = m.label;
+      const keep = m.id === 'mau-02' ? { '2.1.1': 'pass', '2.1.2': 'pass', '2.1.vs': 'n_a' } : null;
+      renderScores(m.criteria, keep);
+      markDirty();
+      document.getElementById('sheet-mau').classList.remove('open');
+    }
+    function openResult() {
+      fillOpts('result-list', RESULTS, resultCode, (m) => {
+        resultCode = m.id;
+        document.getElementById('val-result').textContent = m.label;
+        markDirty();
+        document.getElementById('sheet-result').classList.remove('open');
+      });
+      openSheet('sheet-result');
+    }
+    function openStatus() {
+      fillOpts('status-list', STATUSES, statusCode, (m) => {
+        statusCode = m.id;
+        document.getElementById('val-status').textContent = m.label;
+        markDirty();
+        document.getElementById('sheet-status').classList.remove('open');
+      });
+      openSheet('sheet-status');
+    }
+    document.querySelectorAll('.backdrop').forEach((el) => {
+      el.addEventListener('click', (e) => { if (e.target === el && !el.classList.contains('center')) el.classList.remove('open'); });
+    });
+    function cycleScore(row) {
+      if (mode !== 'edit') return;
+      const i = VERDICT.indexOf(row.dataset.verdict);
+      const next = VERDICT[(i + 1) % VERDICT.length];
+      row.dataset.verdict = next;
+      const badge = row.querySelector('.verdict');
+      badge.textContent = VERDICT_LABEL[next];
+      badge.className = 'verdict ' + VERDICT_CLASS[next];
+      markDirty();
+    }
+    function onLoc() {
+      if (mode !== 'edit') return;
+      if (!gpsOk) { document.getElementById('modal-gps').classList.add('open'); return; }
+      markDirty();
+      document.getElementById('val-field').textContent = 'Khu I · GPS hiện trường';
+      toast('Đã cập nhật vị trí hiện trường');
+    }
+    function onWork() {
+      if (mode !== 'edit') return;
+      markDirty();
+      toast('Chọn thời gian việc');
+    }
+    function openCapture() {
+      if (mode !== 'edit') return;
+      if (mediaCount >= 10) { toast('Tối đa 10 ảnh'); return; }
+      mediaCount += 1;
+      document.getElementById('val-attach').textContent = mediaCount + ' ảnh';
+      const row = document.getElementById('photo-row');
+      const slot = document.createElement('div');
+      slot.className = 'photo-slot filled';
+      slot.textContent = 'Ảnh';
+      row.insertBefore(slot, row.querySelector('.cam'));
+      markDirty();
+      toast('Đính kèm · FileService (max 10)');
+    }
+    function onTrail() {
+      if (mode === 'view') { mode = 'edit'; applyMode(); return; }
+      if (!gpsOk) { document.getElementById('modal-gps').classList.add('open'); return; }
+      if (statusCode === 'done' && !resultCode) { toast('Cần kết quả khi hoàn thành'); return; }
+      if (forceFail) { toast('Không lưu được phiếu nghiệm thu'); return; }
+      dirty = false;
+      mode = 'view';
+      applyMode();
+      toast('Đã lưu · ' + CODE);
+    }
+    function onLeading() {
+      if (mode === 'view') { toast('← Công tác nghiệm thu'); return; }
+      if (dirty) { document.getElementById('modal-leave').classList.add('open'); return; }
+      mode = 'view';
+      applyMode();
+    }
+    function closeLeave() { document.getElementById('modal-leave').classList.remove('open'); }
+    function confirmLeave() {
+      closeLeave();
+      dirty = false;
+      mode = 'view';
+      applyMode();
+      toast('Đã huỷ thay đổi');
+    }
+    function openSettings() { closeGps(); toast('Mở Cài đặt → Quyền vị trí'); }
+    function closeGps() { document.getElementById('modal-gps').classList.remove('open'); }
+    document.querySelectorAll('.field-input').forEach((el) => el.addEventListener('input', markDirty));
+    applyMode();
+    if (!gpsOk) {
+      document.getElementById('val-field').textContent = '— · chưa chốt';
+      document.getElementById('modal-gps').classList.add('open');
+    }
+    if (missing) {
+      document.getElementById('nav-title').textContent = '—';
+      document.getElementById('content').classList.add('gone');
+      toast('Phiếu không tồn tại');
+    }
+  </script>
+</body>
+</html>

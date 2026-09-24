@@ -75,7 +75,7 @@ Demo states: `?deny=1` · `?timeout=1` · `?offline=1` (cùng dual). **peerStdUr
 | Toast OK | **Đã ghim vị trí hiện tại · {live Route} · ±N m** |
 | Modal title | **Định vị bị tắt** |
 | Modal body | **Cần vị trí để chấm công / chấm điểm tuần. Mở Cài đặt → Quyền vị trí cho RMMS.** |
-| Modal primary | **Sao chép hướng dẫn** |
+| Modal primary | **Mở Cài đặt** |
 | Modal secondary | **Để sau** |
 | Toast timeout | **Chưa lấy được vị trí. Thử lại.** |
 | Copy toast | **Đã sao chép: Cài đặt → Quyền vị trí** |

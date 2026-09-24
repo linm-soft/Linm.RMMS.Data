@@ -6,9 +6,9 @@
 | bff | `Linm.RMMS.Mobile.Bff` · `MobileApiProxyController` catch-all |
 | prefix | `mobile-bff/api/v1` |
 | downstream | `ApiBase` → `RMMS.Service.Api` · `NghiemThuController` |
-| changeScope | `edit_page` · task `task_1bd5874a` |
-| source | CTX `nghiem-thu.md` · `NghiemThuController` · `NghiemThuDtos` · demo `#sc-nghiem-thu` |
-| **cấm** | invent `api/v1/nghiem-thu` · invent Mobile NghiemThuController · ERP.* · app `:5101` · DbContext trên BFF |
+| changeScope | `edit_page` · task `task_b82ebc4c` |
+| source | CTX `nghiem-thu.md` · plan `nghiem-thu-mau/SCHEMA.md` · demo `#sc-nghiem-thu` |
+| **cấm** | invent `api/v1/nghiem-thu` · invent Mobile NghiemThuController · ERP.* · app `:5101` · DbContext trên BFF · invent `files-nt` |
 
 App `ApiClient.base` = `{BffBase}/mobile-bff/api/v1`.
 
@@ -16,11 +16,13 @@ App `ApiClient.base` = `{BffBase}/mobile-bff/api/v1`.
 
 | Item | Current | New |
 |------|---------|-----|
-| Domain API | **Live** `api/v1/patrol/nghiem-thu` (web done) | **Giữ** path · mobile app gọi qua Mobile.Bff |
-| Mobile.Bff | Catch-all `{**path}` → `api/v1/{path}` | Verify `patrol/nghiem-thu*` · **cấm** dedicated NT controller |
-| Web BFF | `web-bff/api/v1/patrol/nghiem-thu` | **OUT** native — dùng `mobile-bff` |
-| Files | `mobile-bff/api/v1/files/*` (rewrite) | List **không** upload · create/detail reuse FileService |
-| Step 4b / MIG | Schema_NghiemThu **đã** apply (web) | **SKIP** data_analy |
+| Domain API | Live `api/v1/patrol/nghiem-thu` | **Giữ** path · DTO + init-data expand (Result* · Scores · MAU-10 Label) |
+| Mobile.Bff | Catch-all `{**path}` | **Giữ** · **cấm** dedicated NT controller |
+| init-data | Statuses + TemplateTypes interim | Label MAU-10 · `criteria[]` · `ResultCodes[]` |
+| List DTO | Code · TemplateType · Status · … | + `ResultCode` (nullable) · TemplateLabel resolve client/init |
+| Schema | Schema_NghiemThu | SA `Schema_NghiemThuMau` pair CLI · data_analy **SKIP** Step 4b |
+| Files | `mobile-bff/api/v1/files/*` | **Giữ** · list **không** upload |
+| Web BFF / Field form | live | **OUT** queue `qlbd-mobile` turn này |
 
 ## Như thế nào (skill step 6)
 
@@ -35,60 +37,62 @@ App `ApiClient.base` = `{BffBase}/mobile-bff/api/v1`.
 
 | Action / zone | Method | `{BffPrefix}` path | BFF | Downstream | Source | Gap |
 |---------------|--------|--------------------|-----|------------|--------|-----|
-| List NT | GET | `patrol/nghiem-thu` | proxy | `NghiemThuController.GetList` | CTX · live | GAP-MOB-NT-DATA-01 |
-| Init lookups | GET | `patrol/nghiem-thu/init-data` | proxy | `GetInitData` | status + templateType | filter/badge map |
-| Prefetch detail (opt) | GET | `patrol/nghiem-thu/{id}` | proxy | `GetById` | sibling detail | **OUT** slug list UI |
+| List NT | GET | `patrol/nghiem-thu` | proxy | `GetList` | + ResultCode | GAP-MOB-NT-RESULT-01 |
+| Init lookups | GET | `patrol/nghiem-thu/init-data` | proxy | `GetInitData` | MAU-10 · criteria · ResultCodes | GAP-MOB-NT-MAU-01 · INIT-01 |
+| Prefetch detail (opt) | GET | `patrol/nghiem-thu/{id}` | proxy | `GetById` | scores bind | **OUT** list UI · sibling |
 | Nav create | — | — | — | local | `go('nghiem-thu-create')` | **không** API |
-| Row → detail | — | — | — | local | `go('nghiem-thu-detail')` + `Id` | **không** API list |
-| Search / filter UI | — | query on GET | — | | `search`·`status`·`route`·`templateType`·`fromDate`·`toDate` | chrome |
-| Upload media | — | — | — | | FileService | **OUT** list · create |
+| Row → detail | — | — | — | local | detail + `Id` | **không** API list |
+| Search / filter | — | query on GET | — | | `search`·`status`·`route`·`templateType`·dates | chrome |
+| Upload media | — | — | — | | FileService | **OUT** list |
 
-## Query (list) — passthrough live
+## Query (list) — passthrough
 
 `search` · `status` · `route` · `templateType` · `fromDate` · `toDate` · `page` · `pageSize`  
-Mobile P1: `page=1` · `pageSize=50`.
+Mobile P1: `page=1` · `pageSize=50`. Optional later: `?resultCode=` — **không** bắt buộc P1.
 
-## DTO bind (live `NghiemThuDto`)
+## DTO bind (list)
 
 | Field | List zone |
 |-------|-----------|
-| `Id` | nav key → detail |
-| `Code` | rowCode NT-* |
-| `TemplateType` | rowSub (label via init-data) |
-| `Route` · `KmFrom` | rowSub tuyến · Km |
-| `Status` | rowStatus badge VN |
-| `ZoneOrgCode` | optional rowSub Khu |
-| `MediaIds` | optional «ảnh + video» hint nếu Count>0 |
-| `InspectedAt` · `UpdatedAt` | optional caption P2 |
+| `Id` | nav → detail |
+| `Code` | rowCode |
+| `TemplateType` | resolve Label via init-data **MAU-10** |
+| `Route` · `KmFrom` | rowSub |
+| `Status` | rowStatus |
+| `ResultCode` | rowResult · nullable |
+| `ZoneOrgCode` | optional |
+| `MediaIds` / Count | media hint |
+| `Scores` | **OUT** list · detail/create |
 
 **Cấm** app fork DTO khác BFF table.
 
-## Có trên domain — **không** thuộc slug list P1
+## Có trên domain — **không** thuộc slug list P1 UI
 
 | Method | Path | Ghi |
 |--------|------|-----|
-| POST | `patrol/nghiem-thu` | create — owner `nghiem-thu-create` |
-| PUT/DELETE | `patrol/nghiem-thu/{id}` | detail / web |
-| Web BFF | `web-bff/api/v1/patrol/nghiem-thu` | web only |
-| Files | `mobile-bff/api/v1/files/*` | create/detail |
+| POST | `patrol/nghiem-thu` | create + Result*/Scores — owner create |
+| PUT/DELETE | `patrol/nghiem-thu/{id}` | detail |
+| Web BFF | `web-bff/api/v1/patrol/nghiem-thu` | web only · OUT mobile queue |
+| Files | `mobile-bff/api/v1/files/*` | create/detail · **cấm** invent |
 
 ## Verify live (không invent)
 
 | Check | Result |
 |-------|--------|
-| `NghiemThuController` | `[Route("api/v1/patrol/nghiem-thu")]` GET list · init-data · CRUD |
-| Entity | `NghiemThuEntity` / `rmms_nghiem_thu` · media `NghiemThuMediaEntity` |
-| Mobile.Bff | catch-all proxy · **không** NT-specific controller |
+| Path | `[Route("api/v1/patrol/nghiem-thu")]` **giữ** |
+| Mobile.Bff | catch-all · **không** NT-specific controller |
 | DOMAIN-MAP | Patrol · **cấm** ERP.* |
-| `api/v1/nghiem-thu` (root) | **không** — **cấm invent** |
-| Step 4b | **SKIP** — schema live |
+| Schema_NghiemThuMau | SA · pair Migrations + Api · **SKIP** data_analy Step 4b |
+| `api/v1/nghiem-thu` root | **không** — **cấm invent** |
+| files-nt | **không** — FileService giữ |
 
 ## Cấm
 
-- App biết RMMS `:5101` trực tiếp  
+- App → RMMS `:5101` trực tiếp  
 - DbContext trên Mobile.Bff  
 - Invent mobile-only NT path / DTO fork  
 - Persist FileService full URL  
+- Enqueue web Field trong pack này  
 
 ## Version meta
 
@@ -99,10 +103,9 @@ Mobile P1: `page=1` · `pageSize=50`.
 | schemaVersion | 2 |
 | workflowVersion | 2026.09.19.3 |
 | rulesVersion | 2026.09.19.6 |
-| generatedAt | 2026-09-19T15:29:13.000Z |
+| generatedAt | 2026-09-20T00:39:00.000Z |
 | versionGate | ok |
-| contentHash | sha256:a635f3f55a8bedd952c4449056cf072a8eda890eda2b30a45e84bda5d7bf3859 |
-| bffContentHash | sha256:nghiem-thu-mobile-bff-20260919 |
+| contentHash | sha256:1044ba719edda88d256d5c2a780cd2293f2fab87e2a39acdbb86001fad6ff659 |
 
 ---
 <!-- Version meta: skillId=agent-data-analy-mobile skillVersion=2026.08.31.2 schemaVersion=2 workflowVersion=2026.09.19.3 rulesVersion=2026.09.19.6 versionGate=ok -->

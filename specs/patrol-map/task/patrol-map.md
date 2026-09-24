@@ -245,5 +245,10 @@ Query: `search` · `status` · `route` · `page` (default 1) · `pageSize` (defa
 | contentHash | sha256:patrol-map-control-hint-20260820 |
 | bffContentHash | sha256:patrol-map-mobile-bff-20260820 |
 
+
+## UI notes Dev — MOB-PERM-OS-01 (2026-09-20)
+
+OS location/camera dialog first. GPS deny CTA **Mở Cài đặt** / **Để sau**. **Cấm** Sao chép hướng dẫn / clipboard. iOS already-denied camera → Settings only.
+
 ---
 <!-- Version meta: skillId=agent-tl-mobile skillVersion=2026.08.19.23 schemaVersion=1 workflowVersion=2026.08.19.29 rulesVersion=2026.08.19.34 versionGate=rechecked -->

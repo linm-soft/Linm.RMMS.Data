@@ -102,7 +102,7 @@ IA lock (design §2): `(auth) Login (ngoài tab) → Tab 5 · Trang Chủ = this
 | brandLogo | `AppLogo` | giữa khoảng trống guest `home-brand` · `brandLogoSm` |
 | roleLine | `LinmStatusCapsule` `area` | **ẩn live** (`GAP-F-HOME-01`) |
 | signal | `LinmStatusCapsule` / `LinmNetSignalMark` | OS `NWPathMonitor` · Tốt/TB/Yếu · tap toast **Đã làm mới** + refresh · **cấm** cycle · **cấm** «Có mạng» |
-| who | typography hero | `fullName` trim từ profile · fail → `lastUserName` · **cấm** hardcode production |
+| who | typography hero | `fullName` trim từ profile **lần đầu** · back Home = `lastDisplayName` · fail → `lastUserName` · **cấm** GET lại khi đã có tên · **cấm** hardcode production |
 | quickPatrol | `LinmQuickItem` trong `LinmQuickActions` | title **Điểm tuần** · phụ **Ghim định vị · lý trình** · toast |
 | quickIncident | `LinmQuickItem` | title **Ghi sự cố** · phụ **Chọn tài sản · mẫu sự cố** · toast |
 | sectionBiz | `LinmSectionLabel` | **Nghiệp vụ thường dùng** · không route |
@@ -125,7 +125,7 @@ IA lock (design §2): `(auth) Login (ngoài tab) → Tab 5 · Trang Chủ = this
 
 | Step | Spec |
 |------|------|
-| Appear / refresh | `FetchProfileUseCase` → `GET auth/profile` Bearer |
+| Appear / refresh | `FetchProfileUseCase` → `GET auth/profile` Bearer **chỉ khi `lastDisplayName` / `.who` trống** · back Home = cache (`GAP-MOB-EDIT-HOME-WHO-CACHE`) · tap tín hiệu = force GET |
 | Bind | `.who` = `fullName` trim · ignore `id` / `phoneNumber` trên UI hub |
 | Loading | `isProfileLoading` + `.who` empty → `home-who-skeleton` bone pulse · **cấm** flash Khách · **cấm** `LinmBusyOverlay` (`GAP-MOB-EDIT-HOME-WHO-SKEL`) |
 | Fail / offline | `.who` = `auth.lastUserName()` · hub **vẫn mở** · toast không block tab · **cấm** enqueue «home» |
@@ -145,6 +145,8 @@ IA lock (design §2): `(auth) Login (ngoài tab) → Tab 5 · Trang Chủ = this
 **UI notes T-IOS (2026-09-12):** Logo RMMS **giữa page** (không hero) · guest `#sc-ops` fullScreenCover · back **không** hiện tab (`GAP-MOB-EDIT-GUEST-BRAND`).
 
 **UI notes T-IOS (2026-09-16):** GET `auth/profile` · `.who` empty → bone `home-who-skeleton` (`brandLogo`×`heroWho`) · hub không block · **cấm** revert flash Khách (`GAP-MOB-EDIT-HOME-WHO-SKEL`).
+
+**UI notes T-IOS (2026-09-20):** Back Home · `.who` từ `lastDisplayName` cache · **cấm** GET `auth/profile` lại · tap tín hiệu mới force (`GAP-MOB-EDIT-HOME-WHO-CACHE`).
 
 **UI notes T-IOS (2026-09-18):** `#f-faq-search` capsule `card` · `fieldText` · trailing `LinmSearchGlyph` · **cấm** SF `magnifyingglass` (`GAP-MOB-EDIT-FAQ-SEARCH`).
 
@@ -181,6 +183,8 @@ Cùng bảng field + API như T-IOS. Kit dual Compose. Signal bind Connectivity 
 **UI notes T-AND (2026-09-12):** `app_logo` giữa page · ẩn `LinmTabBar` khi route `ops` · guest back **không** hiện tab (`GAP-MOB-EDIT-GUEST-BRAND`).
 
 **UI notes T-AND (2026-09-16):** GET `auth/profile` · `.who` empty → bone `home-who-skeleton` dual iOS · hub không block · **cấm** revert (`GAP-MOB-EDIT-HOME-WHO-SKEL`).
+
+**UI notes T-AND (2026-09-20):** Back Home · `.who` từ `lastDisplayName` cache dual iOS · **cấm** GET lại · tap tín hiệu force (`GAP-MOB-EDIT-HOME-WHO-CACHE`).
 
 **UI notes T-AND (2026-09-18):** `#f-faq-search` `BasicTextField` capsule `card` · `fieldText` 16 · placeholder `muted` (no M3 alpha) · trailing `LinmSearchGlyph` · **cấm** M3 `TextField` / Material Search (`GAP-MOB-EDIT-FAQ-SEARCH`).
 

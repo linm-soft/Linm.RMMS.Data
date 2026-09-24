@@ -16,7 +16,7 @@
 ## IA / API
 
 - Tab **Trang Chủ** = `#sc-home` hub · **không required login**. Guest **Khách** + FAQ · dock đáy `btn-home-login` + privacy · **ẩn** `LinmTabBar`.
-- Staff GET `auth/profile` · **cấm** GET profile khi guest.
+- Staff GET `auth/profile` **lần đầu** · back Home = `lastDisplayName` cache · **cấm** GET lại khi đã có tên · **cấm** GET profile khi guest.
 - Role **ẩn live** · wallet **live** `searchRoutes` + count · fail/empty trống · badge live 0 ẩn · GET overview/inbox guest **AllowAnonymous**.
 - Hồ sơ → tab **Tôi**. Notify → **cùng** `OpsScreen` · mark-read staff only. Sibling / signal / wallet = toast nhãn.
 - Grid 3×2 = 2× `LinmHomeGrid` (kit Row). Foot Gói **cấm ship**.
@@ -28,6 +28,7 @@
 - `/edit-mobile-feature` 2026-09-12: **GAP-MOB-EDIT-GUEST-OPS** — `app_logo` giữa hero · chuông → `OpsScreen` · guest GET inbox/overview · `assembleDebug` **PASS**.
 - `/edit-mobile-feature` 2026-09-12: **GAP-MOB-EDIT-PRIVACY-COPY** — `#sc-privacy` `home.privacy.body` user-facing dual iOS · `fieldText` · **cấm** invent HTTPS.
 - `/edit-mobile-feature` 2026-09-16: **GAP-MOB-EDIT-HOME-WHO-SKEL** — staff GET `auth/profile` · `.who` empty = bone pulse `home-who-skeleton` · **cấm** flash Khách · **cấm** `LinmBusyOverlay` hub · `assembleDebug` **PASS**.
+- `/edit-mobile-feature` 2026-09-21: Guideline 3.2 Public - guest `home.login.sub` **Đã có tài khoản** · FAQ/privacy dual iOS.
 
 `/edit-mobile-feature` 2026-09-18: **GAP-MOB-EDIT-FAQ-SEARCH** — `#f-faq-search` `BasicTextField` capsule · `LinmSearchGlyph` trailing · **cấm** M3 `TextField` / Material Search · `assembleW0Debug` **PASS**.
 
@@ -46,3 +47,5 @@ Step 4b / T-BE **N/A** — reuse Auth profile only. Dual parity iOS.
 `/edit-mobile-feature` 2026-09-16: **GAP-MOB-EDIT-HOME-WHO-SKEL** — dual iOS · `assembleDebug`.
 
 `/edit-mobile-feature` 2026-09-18: **GAP-MOB-EDIT-FAQ-SEARCH** — `#f-faq-search` `BasicTextField` capsule `card` · `fieldText` · trailing `LinmSearchGlyph` · **cấm** M3 `TextField` · `./gradlew :app:assembleW0Debug` **PASS**.
+
+`/edit-mobile-feature` 2026-09-20: **GAP-MOB-EDIT-HOME-WHO-CACHE** — back Home `.who` từ `lastDisplayName` dual iOS · **cấm** GET `auth/profile` lại · tap tín hiệu force · `assembleDebug` **PASS**.

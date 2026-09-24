@@ -4,8 +4,8 @@
 |-------|-------|
 | feature | `asset-detail` |
 | phase | `dev` |
-| status | `await_confirm` |
-| taskId | `task_512c67ce` |
+| status | `blocked` |
+| taskId | `task_ae991aa3` |
 | packKind | **`screen`** (PO chốt · đóng GAP-MOB-ASSET-DET-PACK-01 · surface full `#sc-asset-detail`) |
 | changeScope | `new_page` |
 | stack | `native_dual` |
@@ -57,7 +57,7 @@
 | verifyGate | roleOnly=dev plan · builds **SKIP** plan turn · implement requires PASS |
 | reviewUrlIos | `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/asset-detail/ui/prototype/ios/index.html#sc-asset-detail` |
 | reviewUrlAndroid | `file:///Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/asset-detail/ui/prototype/android/index.html#sc-asset-detail` |
-| updatedAt | `2026-09-01T16:52:11.960Z` |
+| updatedAt | `2026-09-20T03:10:33.788Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -73,9 +73,9 @@
 | 2.1 | design | ui/design.md · ui/ux-analy.md · prototype/ios/index.html · prototype/android/index.html | **confirmed** |
 | 2.2 | sa | be/solution-discovery.md | **confirmed** |
 | 3 | team-lead | task/asset-detail.md | **confirmed** |
-| 4 | dev | implement/ios.md · implement/android.md · **`implement/asset-detail-qa-fix-plan.md`** | **await_confirm** |
-| 5 | qa | qa/scenarios.md · qa/store/asset-detail/CAPTURE.md · qa/bugs/asset-detail.md | **blocked** |
-| 6 | review | review/findings.md | **pending** |
+| 4 | dev | implement/ios.md · implement/android.md · **`implement/asset-detail-qa-fix-plan.md`** | **blocked** (failed) |
+| 5 | qa | qa/scenarios.md · qa/store/asset-detail/CAPTURE.md · qa/bugs/asset-detail.md | pending |
+| 6 | review | review/findings.md | pending |
 ## Tasks
 
 | id | page | role | deps | status | notes |
@@ -91,6 +91,7 @@
 | task_714bba2c | asset-detail | dev | task_24109163 | **completed** | qaFailFix=1 · qaFixPhase=implement · Plan §1–6 · VERIFY PASS · handoff `/agent-qa*` · **cấm** e2e Dev |
 | task_20e8f629 | asset-detail | qa | task_714bba2c | **failed** | roleOnly=`qa` · e2e FAIL · GAP-QA-STORE-03 · GAP-QA-REAL-01 (Android) · iOS Maestro PASS · `qa_fail_rollback` |
 | task_512c67ce | asset-detail | dev | task_20e8f629 | **completed** | qaFailFix=1 · qaFixPhase=plan · plan round 2 written · board `pending_confirm` qa_fix_plan |
+| task_ae991aa3 | asset-detail | dev | task_512c67ce | **pending** | qaFailFix=1 · qaFixPhase=implement · `asset-detail-qa-fix-plan.md` · from task_512c67ce |
 
 ## Confirms
 

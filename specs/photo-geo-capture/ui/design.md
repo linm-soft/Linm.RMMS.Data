@@ -108,7 +108,7 @@
 | Toast fail | **Không tải được ảnh** |
 | Modal title | **Định vị bị tắt** |
 | Modal body | **Cần vị trí để chấm công / chấm điểm tuần. Mở Cài đặt → Quyền vị trí cho RMMS.** |
-| Modal primary | **Sao chép hướng dẫn** |
+| Modal primary | **Mở Cài đặt** |
 | Modal secondary | **Để sau** |
 | Host PhotoRow | **Ảnh hiện trường** + camera slot |
 

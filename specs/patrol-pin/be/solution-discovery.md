@@ -208,7 +208,7 @@ AskQuestion (autoApprove=ON · không chờ board): `be_repo_confirm`=`/Users/ma
 | Control | Behavior | Owner |
 |---------|----------|-------|
 | Hub/Map **Ghim** | loc → toast → open `#sheet-handoff-checkin` (payload) · deny/timeout stop | `patrol-pin` |
-| Deny Sao chép / Để sau | clipboard / dismiss | owner |
+| Deny Mở Cài đặt / Để sau | clipboard / dismiss | owner |
 | Sheet handoff confirm → sibling | navigate payload only | bridge → `patrol-checkin` |
 | POST check-ins | **không** | sibling |
 | Tab 5 shell | giữ | **cấm** invent tab |

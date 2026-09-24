@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-19T16:29:51.558Z",
+  "updatedAt": "2026-09-21T04:13:10.984Z",
   "features": {
     "ai-asset-detect": {
       "web": {
@@ -34,17 +34,17 @@
     },
     "asset": {
       "mobile": {
-        "phase": "qa",
-        "status": "blocked",
-        "updatedAt": "2026-09-19T06:01:55.453Z",
+        "phase": "dev",
+        "status": "pending",
+        "updatedAt": "2026-09-21T04:13:10.942Z",
         "statusRel": "specs/asset/STATUS.md"
       }
     },
     "asset-adjust": {
       "mobile": {
-        "phase": "qa",
-        "status": "await_confirm",
-        "updatedAt": "2026-09-01T16:13:25.494Z",
+        "phase": "dev",
+        "status": "blocked",
+        "updatedAt": "2026-09-21T04:13:10.943Z",
         "statusRel": "specs/asset-adjust/STATUS.md"
       }
     },
@@ -67,8 +67,8 @@
     "asset-detail": {
       "mobile": {
         "phase": "dev",
-        "status": "await_confirm",
-        "updatedAt": "2026-09-01T16:52:11.961Z",
+        "status": "blocked",
+        "updatedAt": "2026-09-21T04:13:10.945Z",
         "statusRel": "specs/asset-detail/STATUS.md"
       }
     },
@@ -122,9 +122,9 @@
     },
     "attendance-report": {
       "mobile": {
-        "phase": "done",
-        "status": "done",
-        "updatedAt": "2026-09-16T12:51:00.000Z",
+        "phase": "dev",
+        "status": "in_progress",
+        "updatedAt": "2026-09-21T04:13:10.949Z",
         "statusRel": "specs/attendance-report/STATUS.md"
       }
     },
@@ -682,7 +682,7 @@
       "mobile": {
         "phase": "done",
         "status": "done",
-        "updatedAt": "2026-09-19T16:00:40.784Z",
+        "updatedAt": "2026-09-20T00:27:23.016Z",
         "statusRel": "specs/mnt-progress/STATUS.md"
       }
     },
@@ -720,31 +720,31 @@
     },
     "nghiem-thu": {
       "web": {
-        "phase": "done",
-        "status": "done",
-        "updatedAt": "2026-09-12T10:10:11.580Z",
+        "phase": "dev",
+        "status": "in_progress",
+        "updatedAt": "2026-09-21T04:13:10.983Z",
         "statusRel": "specs/nghiem-thu/STATUS.md"
       },
       "mobile": {
-        "phase": "review",
-        "status": "pending",
-        "updatedAt": "2026-09-19T16:29:51.558Z",
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-19T18:46:56.091Z",
         "statusRel": "specs/nghiem-thu/STATUS.md"
       }
     },
     "nghiem-thu-create": {
       "mobile": {
-        "phase": "data_analy",
-        "status": "draft",
-        "updatedAt": "2026-09-19T13:51:16.768Z",
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-19T17:38:40.427Z",
         "statusRel": "specs/nghiem-thu-create/STATUS.md"
       }
     },
     "nghiem-thu-detail": {
       "mobile": {
-        "phase": "data_analy",
-        "status": "draft",
-        "updatedAt": "2026-09-19T13:51:16.806Z",
+        "phase": "dev",
+        "status": "blocked",
+        "updatedAt": "2026-09-21T04:13:10.984Z",
         "statusRel": "specs/nghiem-thu-detail/STATUS.md"
       }
     },
@@ -1360,7 +1360,7 @@
       "mobile": {
         "phase": "qa",
         "status": "await_confirm",
-        "updatedAt": "2026-09-01T15:53:21.880Z",
+        "updatedAt": "2026-09-20T01:35:29.275Z",
         "statusRel": "specs/supervise-detail/STATUS.md"
       }
     },

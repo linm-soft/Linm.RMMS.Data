@@ -11,7 +11,7 @@
 | domain | Patrol · `NghiemThuDto` / `rmms_nghiem_thu` — CTX [`nghiem-thu.md`](nghiem-thu.md) |
 | BE | `Linm.RMMS.WebService` · `api/v1/patrol/nghiem-thu/{id}` — **cấm ERP.*** |
 | BFF | `Linm.RMMS.Mobile.Bff` · `mobile-bff/api/v1/patrol/nghiem-thu/{id}` proxy (SA) |
-| peers | `nghiem-thu.md` · `nghiem-thu-create.md` · `incident-detail.md` |
+| peers | `nghiem-thu.md` · `nghiem-thu-create.md` · `nghiem-thu-mau.md` · `incident-detail.md` |
 
 ## 1. Tổng quan
 
@@ -29,7 +29,7 @@ Design mobile **phải** gen `#sc-nghiem-thu-detail` dual iOS+Android (peer web 
 | Zone | Pattern | Notes |
 |------|---------|-------|
 | Nav | Back list · title mã NT-* | View: Đóng · Edit: Lưu/Hủy |
-| Body | Mẫu · tuyến · km · hiện trường · status | Clone field web form, kit mobile |
+| Body | Mẫu (MAU-10) · Kết quả · tiêu chí · tuyến · km · hiện trường · status | Clone field web form + scores, kit mobile |
 | Media | Gallery | FileService guid[] · max 10 |
 
 ## 3. API (cấm invent path `nghiem-thu-detail`)
@@ -56,3 +56,10 @@ App base: `{BffBase}/mobile-bff/api/v1`.
 |----|---------|
 | GAP-MOB-NT-DETAIL-01 | Demo row = toast — Design gen screen dual · **cấm** Dev theo toast |
 | GAP-MOB-NT-BFF-01 | Mobile.Bff chưa proxy `patrol/nghiem-thu` — SA proxy cùng resource web |
+
+## Implement tracking
+
+| lane | phase | status | updatedAt |
+|------|-------|--------|-----------|
+| web | — | — | — |
+| mobile | `dev` | `pending` | `2026-09-20T00:24:56.838Z` |

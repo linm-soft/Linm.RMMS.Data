@@ -25,7 +25,7 @@
 | Draft | CTA | `.btn-secondary` | `LinmSecondaryButton` | same | queue **chỉ** mất sóng |
 | Toast OK/Draft/Pick | Banner | `#toast` | `LinmToast` | same | **cấm** alert |
 | DES-MOB-GPS-DENY | Modal | `#modal-gps` | feature overlay | Material dialog card | chặn Create |
-| Deny primary | Button | Sao chép hướng dẫn | `LinmPrimaryButton` | same | clipboard + toast |
+| Deny primary | Button | Mở Cài đặt | `LinmPrimaryButton` | same | open Settings |
 | Deny secondary | Button | Để sau | `LinmSecondaryButton` | same | dismiss |
 | Shell Tab 5 | Chrome | `.tabbar` / `.nav` · `data-tab=home` | `LinmTabBar` | NavigationBar | **giữ** · không invent |
 | Entry home / FAB | — | quick / FAB | `LinmQuickItem` / FAB | reuse | **không** reimplement trên pack |

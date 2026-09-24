@@ -48,7 +48,7 @@
 | Section | 7 ngày gần đây | A `.section-label` | `LinmSectionLabel` | same |
 | Day rows | CN/T7/T6 + badge | A `.row` | `LinmListRow` | same |
 | Toast | checkInOk · locTimeout · offline · checkInFail | A `.toast` | `LinmToast` | same |
-| GPS deny | Định vị bị tắt · copy / Để sau | `DES-MOB-GPS-DENY` | `GpsDenyModal` | `GpsDenyDialog` |
+| GPS deny | Định vị bị tắt · Mở Cài đặt / Để sau | `DES-MOB-GPS-DENY` | `GpsDenyModal` | `GpsDenyDialog` |
 
 **Không** zone: report screen · day detail · tab invent · «Có mạng» · watermark Gói · device label.
 

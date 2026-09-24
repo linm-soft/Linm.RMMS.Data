@@ -298,5 +298,10 @@ Client P1 (**T-IOS** / **T-AND**) **không** chờ Signed engine — stub đủ 
 | priorSaHash | sha256:vis-capture-sa-solution-20260829 |
 | taskId | `task_47d8e017` |
 
+
+## UI notes Dev — MOB-PERM-OS-01 (2026-09-20)
+
+OS location/camera dialog first. GPS deny CTA **Mở Cài đặt** / **Để sau**. **Cấm** Sao chép hướng dẫn / clipboard. iOS already-denied camera → Settings only.
+
 ---
 <!-- Version meta: skillId=agent-tl-mobile skillVersion=2026.08.29.1 schemaVersion=1 workflowVersion=2026.08.29.1 rulesVersion=2026.08.29.5 versionGate=rechecked -->

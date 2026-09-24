@@ -261,5 +261,10 @@ AskQuestion: `route_confirm=route_a` · `ios_repo_confirm` · `android_repo_conf
 | priorSaHash | sha256:asset-ai-sa-solution-20260901 |
 | dorGate | PASS |
 
+
+## UI notes Dev — MOB-PERM-OS-01 (2026-09-20)
+
+OS location/camera dialog first. GPS deny CTA **Mở Cài đặt** / **Để sau**. **Cấm** Sao chép hướng dẫn / clipboard. iOS already-denied camera → Settings only.
+
 ---
 <!-- Version meta: skillId=agent-tl-mobile skillVersion=2026.08.25.01 schemaVersion=1 workflowVersion=2026.08.29.1 rulesVersion=2026.08.29.5 versionGate=rechecked dorGate=PASS -->

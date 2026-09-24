@@ -14,7 +14,7 @@
 | Toast timeout `Chưa lấy được vị trí. Thử lại.` | yes | yes | OK |
 | Deny title **Định vị bị tắt** | yes | yes | OK |
 | Deny body demo copy | yes | yes | OK |
-| Primary **Sao chép hướng dẫn** · Secondary **Để sau** | yes | yes | OK |
+| Primary **Mở Cài đặt** · Secondary **Để sau** | yes | yes | OK |
 | Real handoff sheet `#sheet-handoff-checkin` · title **Ghi điểm tuần** | yes | yes | OK |
 | Handoff **Tiếp tục** / **Để sau** · **không** form fields | yes | yes | OK |
 | Frame 390×844 / 412×915 | 390×844 | 412×915 | OK |

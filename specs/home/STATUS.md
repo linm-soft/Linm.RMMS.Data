@@ -144,6 +144,8 @@
 - data-analy → po → ui → be → task → implement → qa → review → **done**
 - native: e2eQa ON → `yarn e2e-qa-mobile` (sim + emulator + Maestro) — **cấm** mfeStdUrl
 - Visual sau done → `/edit-mobile-feature` — **cấm** re-run full pipeline
+- `/edit-mobile-feature` 2026-09-20: **GAP-MOB-EDIT-HOME-WHO-CACHE** — `.who` cache `lastDisplayName` khi back Home
+- `/edit-mobile-feature` 2026-09-21: Guideline 3.2 Public - guest `home.login.sub` **Đã có tài khoản** · FAQ/privacy · iOS build **1.0.0 (2)**
 
 ## Retry
 

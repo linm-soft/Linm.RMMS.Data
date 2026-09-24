@@ -1,43 +1,44 @@
 # Solution discovery — nghiem-thu
 
 > Status: **confirmed** (autoApprove ON · `solution_confirm=approve`)  
-> Lane: **mobile** · slash `/agent-sa-mobile` · taskId `task_ca050f3a`  
-> Prior web SA: **keep** (`task_25cd95bb` · Schema_NghiemThu live) · **delta = native list + Mobile.Bff reuse**  
+> Lane: **mobile** · slash `/agent-sa-mobile` · taskId `task_1791e2ed`  
+> Prior SA keep: `task_ca050f3a` (native list + Mobile.Bff) · **§ Delta = MAU-10 Label + ResultCode + Schema_NghiemThuMau**  
 > Standards: api-endpoint · bff-api-structure · no-parent-json-field · ios networking · android api-client · offline-sync  
-> Requires: design **confirmed** · compact data_analy/po/design · `_data-analy/nghiem-thu-bff-endpoints.md`  
-> **Cấm:** invent API · fork DTO · ERP.* · Step 4b/MIG · e2e/start:std · Write MFE/native · mfeStdUrl native
+> Requires: design **confirmed** · compact data_analy/po/design · plan `docs/plan/nghiem-thu-mau/SCHEMA.md`  
+> **Cấm:** invent API · fork DTO · ERP.* · run Step 4b/MIG this role · e2e/start:std · Write MFE/native · mfeStdUrl native · JSON blob scores trên parent
 
 | Field | Value |
 |-------|-------|
 | feature | `nghiem-thu` |
-| title | Công tác nghiệm thu — mobile list |
+| title | Công tác nghiệm thu — mobile list · MAU-10+Result |
 | Role | `sa` · `/agent-sa-mobile` |
 | packKind | `list` |
-| featureKind | **B** — web Full kept · mobile list P1 |
+| featureKind | **B** — web Full kept · mobile list P1 + schema delta |
 | changeScope | `edit_page` |
-| formPattern | **N/A** on slug list · create/detail = sibling sheets (pending_confirm) |
-| demo | `#sc-nghiem-thu` · DES-MOB-NGHIEM-THU · **cấm** re-scan |
-| contentHash | `sha256:a635f3f55a8bedd952c4449056cf072a8eda890eda2b30a45e84bda5d7bf3859` |
+| formPattern | **N/A** on slug list · scores/Result write → create/detail siblings (pending_confirm) |
+| demo | `#sc-nghiem-thu` · DES-MOB-NGHIEM-THU · DES-MOB-NT-RESULT · **cấm** re-scan |
+| contentHash | `sha256:1044ba719edda88d256d5c2a780cd2293f2fab87e2a39acdbb86001fad6ff659` |
 | skillVersion | `2026.08.25.01` (agent-sa-mobile) |
 | schemaVersion | `1` |
 | workflowVersion | `2026.09.19.3` |
 | rulesVersion | `2026.09.19.6` |
-| updatedAt | `2026-09-19T15:55:00.000Z` |
-| solution_confirm | **approve** · `2026-09-19T15:55:00.000Z` |
+| updatedAt | `2026-09-20T01:00:00.000Z` |
+| solution_confirm | **approve** · `2026-09-20T01:00:00.000Z` |
 
-## 0. § Delta Mobile (edit_page) — REQUIRED
+## 0. § Delta MAU-10 + Result (edit_page) — REQUIRED
 
-| Item | Web (keep) | Mobile (this task) |
-|------|------------|---------------------|
-| UI | MFE Field `/nghiem-thu` Kind B Full | iOS + Android list · DES-MOB-NGHIEM-THU |
-| BFF | `web-bff/api/v1/patrol/nghiem-thu` | **`mobile-bff/api/v1/patrol/nghiem-thu`** · catch-all proxy |
-| Domain API | `api/v1/patrol/nghiem-thu` **live** | **reuse** · app **không** gọi `:5101` |
-| FormMode on slug | List+C/E/V/Copy/Delete | **List only** · SearchField + row → sibling |
-| Files | FileService web-bff | **OUT** list · create/detail siblings |
-| Migration | Schema_NghiemThu applied | **SKIP** Step 4b · **cấm** new MIG |
-| Gates TZ/XCO/SHARE | required / required / tenant_keep | **keep** (list TZ bounds · detail XCO on sibling) |
+| Item | Keep (prior mobile SA) | This task (SA) |
+|------|------------------------|----------------|
+| UI list | DES-MOB-NGHIEM-THU chrome | **+** rowSub = **TemplateLabel** MAU-10 · **+** DES-MOB-NT-RESULT badge |
+| BFF | Mobile.Bff catch-all | **keep** · proxy only · **cấm** NT controller |
+| Domain API | `api/v1/patrol/nghiem-thu` | **reuse** · extend DTO + init-data · **cấm invent path** |
+| init-data | statuses + templateTypes | **+** TemplateTypes.label MAU-10 + criteria[] · **+** ResultCodes[] |
+| List DTO | Code · TemplateType · Route · Km · Status | **+** `TemplateLabel` · **+** `ResultCode` (null ẩn) · scores **OUT** list |
+| Persist | Schema_NghiemThu | **+ Schema_NghiemThuMau** (pair CLI · TL/Dev) · **cấm** run MIG this role |
+| Files / GPS | OUT list | **keep** · FileService guid siblings only |
+| Gates TZ/XCO/SHARE | required / required / tenant_keep | **keep** |
 
-AskQuestion (autoApprove ON): `be_repo_confirm=yes` · `solution_confirm=approve` · no new TZ/XCO/SHARE Ask (keep web gates).
+AskQuestion (autoApprove ON): `be_repo_confirm=yes` · `solution_confirm=approve` · schema_choice=**child_table** · migration_flag=**yes** · Step4b=**SKIP** this role.
 
 ## 1. Ownership (mobile)
 
@@ -45,11 +46,11 @@ AskQuestion (autoApprove ON): `be_repo_confirm=yes` · `solution_confirm=approve
 |-------|----------------|
 | **iOS** | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS` · ApiClient → `{BffBase}/mobile-bff/api/v1` |
 | **Android** | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android` · same prefix |
-| **Mobile.Bff** | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Bff` · `MobileApiProxyController` `{**path}` → `api/v1/{path}` · **proxy only** · **cấm** dedicated NT controller · **cấm** DbContext |
+| **Mobile.Bff** | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Bff` · catch-all `{**path}` → `api/v1/{path}` · **proxy only** · **cấm** dedicated NT controller · **cấm** DbContext |
 | **BackendRoot** | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.WebService` · **be_repo_confirm=yes** · Domain **Patrol** · `NghiemThuController` · **cấm ERP.*** |
-| MFE (ref only) | Field `/nghiem-thu` · peerStdUrl `http://localhost:9304/patrol` · **cấm** mfeStdUrl native runtime |
+| MFE (ref only) | Field `/nghiem-thu` · peerStdUrl `http://localhost:9304/patrol` · **OUT** qlbd-mobile · **cấm** mfeStdUrl native |
 | DocsRoot | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/docs` |
-| DataImportRoot | N/A |
+| Plan cite | `docs/plan/nghiem-thu-mau/{README,MAU-10,CHI-SO,SCHEMA}.md` |
 
 ### Architecture
 
@@ -58,20 +59,23 @@ AskQuestion (autoApprove ON): `be_repo_confirm=yes` · `solution_confirm=approve
 | Domain | Patrol · DOMAIN-MAP `nghiem-thu`→Patrol (**CLOSED**) |
 | App base | `{BffPrefix}` = `mobile-bff/api/v1` |
 | List path | `GET patrol/nghiem-thu` · query passthrough |
-| Init | `GET patrol/nghiem-thu/init-data` · badge/status labels |
+| Init | `GET patrol/nghiem-thu/init-data` · MAU-10 + ResultCodes + statuses |
 | Auth | JWT + `X-Company-Id` · perm `patrol.nghiem-thu.read` (list) |
-| Persist | **none** on this slug · entity already `NghiemThu` + `NghiemThuMedia` |
-| Out of pack | POST/PUT/DELETE · files · GPS capture · camera — **siblings** or P2 |
+| Persist | Schema_NghiemThuMau · parent Result* + child scores · **no** parent JSON |
+| Out of pack | POST/PUT/DELETE · scores write · files · GPS — **siblings** |
 
 ## 2. Form data analysis (mobile list)
 
 | Screen / FormMode | Fields (UI) | Source type | Entity | notes |
 |-------------------|-------------|-------------|--------|-------|
 | List | search | query | — | `?search=` CI |
-| List | rowCode · rowSub · rowStatus | transaction | NghiemThu | Code · Template·Route·Km · Status badge |
+| List | rowCode | transaction | NghiemThu | `Code` NT-* |
+| List | rowSub | transaction + lookup | NghiemThu | **TemplateLabel** (MAU-10) · Route · KmFrom — **cấm** raw `mau-0N` as display |
+| List | rowStatus | transaction | NghiemThu | Status ↔ API-00 statuses |
+| List | rowResult | transaction | NghiemThu | **ResultCode** pass/fail/deduct · **null ẩn** |
 | List | empty / toastFail | chrome | — | 0 items · offline/4xx |
-| Init | status labels | LOOKUP_STATIC | — | API-00 → badge map |
-| Nav | navCreate · rowTap | local nav | — | → create/detail siblings · **không** API list |
+| Init | TemplateTypes · ResultCodes · statuses | LOOKUP_STATIC | — | API-00 |
+| Nav | navCreate · rowTap | local nav | — | → create/detail · **không** API list |
 
 ### controlHint → API shape (list)
 
@@ -79,13 +83,14 @@ AskQuestion (autoApprove ON): `be_repo_confirm=yes` · `solution_confirm=approve
 |---------|-------------|--------|
 | search | SearchField | API-01 `?search=` |
 | rowCode | Text | DTO `Code` |
-| rowSub | Text | `TemplateType`·`Route`·`KmFrom` (+ label via init) |
+| rowSub | Text | DTO `TemplateLabel` + `Route` + `KmFrom` |
 | rowStatus | Badge | DTO `Status` ↔ API-00 `statuses[]` |
+| rowResult | Badge | DTO `ResultCode` ↔ API-00 `resultCodes[]` · omit when null |
 | navCreate / rowTap | TextButton / ListRow | local route only |
 
-**Cấm** invent filter APIs · **cấm** demoItems SSOT · optional status/route/template filter = P1 sheet (PO).
+**Cấm** invent filter APIs · **cấm** demoItems · **cấm** hardcode 100+ criteria trên client · optional status/route/template filter = P1 sheet (PO).
 
-## 3. API catalog — mobile bind (reuse live)
+## 3. API catalog — mobile bind (reuse + extend)
 
 Base domain: `api/v1/patrol/nghiem-thu`  
 App calls: `mobile-bff/api/v1/patrol/nghiem-thu*` (BFF rewrite → domain)
@@ -94,60 +99,66 @@ App calls: `mobile-bff/api/v1/patrol/nghiem-thu*` (BFF rewrite → domain)
 
 | | |
 |--|--|
-| Purpose | LOOKUP_STATIC status (+ templateType) for badges |
+| Purpose | LOOKUP_STATIC for list badges + MAU catalog |
 | Permission | `patrol.nghiem-thu.read` |
 | Tenant | X-Company-Id |
 | Request | — |
-| Response | `{ statuses:[{value,label}], templateTypes:[{value,label}] }` |
-| Form surfaces | **List** badge bind |
-| Migration | **none** (live) |
+| Response | `{ statuses:[{value,label}], templateTypes:[{value,label,criteria:[{code,label,slaHint}]}], resultCodes:[{value,label}] }` |
+| Notes | TemplateType **value** `mau-01`…`mau-10` **GIỮ** · **label** = TT 41 PL IV Mẫu 01 §1.2.1 (MAU-10) · ResultCodes = `pass`/`fail`/`deduct` · criteria bind create/detail only |
+| Form surfaces | **List** badge/label bind |
+| Migration | Schema_NghiemThuMau (catalog in code/seed — not JSON parent) |
 | Mobile | **IN** list P1 |
 
 ### API-01: GET …/patrol/nghiem-thu
 
 | | |
 |--|--|
-| Purpose | Paged list + search/filter |
+| Purpose | Paged list + search |
 | Permission | `patrol.nghiem-thu.read` |
 | Tenant | X-Company-Id |
 | Request | `search?` · `status?` · `route?` · `templateType?` · `fromDate?` · `toDate?` · `page` · `pageSize` — P1 default `page=1` · `pageSize=50` |
-| Response | paged items: `Id` · `Code` · `TemplateType` · `Route` · `KmFrom` · `Status` · (+ optional ZoneOrgCode · MediaIds count · dates P2) |
+| Response | items: `Id` · `Code` · `TemplateType` · **`TemplateLabel`** · `Route` · `KmFrom` · `Status` · **`ResultCode`** (nullable) · (+ ZoneOrgCode · dates P2) · **scores[] OUT list** |
 | Form surfaces | **List** |
-| gates.tz | **yes** (fromDate/toDate bounds if used) |
-| Migration | **none** |
+| gates.tz | **yes** (fromDate/toDate if used) |
+| Migration | Schema_NghiemThuMau columns on list projection |
 | Mobile | **IN** list P1 · fail → EmptyChrome + toast |
 
 ### OUT slug list (owner = siblings / web)
 
 | API | Path | Owner |
 |-----|------|-------|
-| API-02 GET/{id} | `patrol/nghiem-thu/{id}` | nghiem-thu-detail (pending_confirm) · optional prefetch OUT UI |
-| API-03 POST | `patrol/nghiem-thu` | nghiem-thu-create |
-| API-04 PUT | `patrol/nghiem-thu/{id}` | detail |
+| API-02 GET/{id} | `patrol/nghiem-thu/{id}` | nghiem-thu-detail · includes Result* · Scores[] |
+| API-03 POST | `patrol/nghiem-thu` | nghiem-thu-create · Result* · Scores[] · Work* |
+| API-04 PUT | `patrol/nghiem-thu/{id}` | detail · Result* · Scores[] |
 | API-05 DELETE | `patrol/nghiem-thu/{id}` | detail / web |
-| API-FILE | `mobile-bff/api/v1/files/*` | create/detail · FileService reuse · **cấm** invent NT file API |
+| API-FILE | `mobile-bff/api/v1/files/*` | create/detail · FileService · **cấm** files-nt |
 
-**GAP-MOB-ACT-02:** **cấm** nhét create/detail actions vào solution list slug.
+**GAP-MOB-ACT-02:** **cấm** nhét create/detail/scores actions vào solution list slug.
 
 ## 4. BFF vs API · tenant · store
 
 | Decision | Value |
 |----------|-------|
 | BFF | Mobile.Bff **proxy only** · verify `patrol/nghiem-thu*` · **cấm** mobile-only NT path |
-| App | **cấm** hardcode `localhost` / LAN IP in solution · use configured BffBase |
+| App | **cấm** hardcode `localhost` / LAN IP · use configured BffBase |
 | Tenant | `X-Company-Id` on every call |
-| Id | nav key = DTO `Id` (guid) · display `Code` `NT-*` |
-| Privacy | list = network content · no new camera/GPS on this slug · signup delete-TK N/A · family `1` → **cấm** iPad listing claim |
-| Offline | no dedicated offline queue on list P1 · fail network → toast · **cấm** invent local NT store as SSOT |
-| GPS / camera / push | **OUT** list · create/detail later · **cấm** invent mobile-only upload endpoint |
+| Id | nav key = DTO `Id` · display `Code` `NT-*` |
+| Privacy | list = network content · no new camera/GPS on this slug |
+| Offline | no dedicated offline queue on list P1 · fail → toast |
+| GPS / camera / push | **OUT** list · siblings later |
 
-## 5. Data model / EF
+## 5. Data model / EF — Schema_NghiemThuMau
 
-| Entity | Status |
-|--------|--------|
-| `NghiemThu` / `rmms_nghiem_thu` | **live** · Schema_NghiemThu applied (web) |
-| `NghiemThuMedia` | **live** · mediaIds guid[] · **cấm** parent JSON |
-| New migration | **SKIP** · Step 4b **cấm** this role |
+| Entity / table | Decision |
+|----------------|----------|
+| `NghiemThu` / `rmms_nghiem_thu` | **keep** Code · Status · TemplateType · Route · Km · Media · tenant |
+| **Parent ADD** | `ResultCode` varchar(16) null · `ResultNote` varchar(2000) null · `WorkStartedAt` timestamptz null · `WorkEndedAt` timestamptz null |
+| **Child NEW** `NghiemThuScore` / `rmms_nghiem_thu_score` | Id guid · NghiemThuId FK · CriterionCode varchar(32) · Verdict `pass`/`fail`/`n_a` · Note varchar(500) · SortOrder int |
+| JSON blob parent | **cấm** (query/filter theo verdict) |
+| `NghiemThuMedia` | **keep** · FileService guid · **cấm** parent JSON media |
+| Migration name | **`Schema_NghiemThuMau`** · pair Migrations + Api · **migration flag = yes** |
+| Step 4b this role | **SKIP** · TL/Dev pair CLI · SA **cấm** run `dotnet ef` |
+| Validate | TemplateType ∈ mau-01…10 · ResultCode ∈ pass/fail/deduct khi Status=`done` · draft ResultCode null OK · Scores.CriterionCode ∈ catalog của đúng TemplateType |
 
 Gates keep: TZ=**required** · XCO=**required** · SHARE=**tenant_keep**.
 
@@ -156,30 +167,35 @@ Gates keep: TZ=**required** · XCO=**required** · SHARE=**tenant_keep**.
 | Code | Mobile list |
 |------|-------------|
 | `patrol.nghiem-thu.read` | API-00 · API-01 |
-| `patrol.nghiem-thu.write` | **OUT** list (siblings) |
+| `patrol.nghiem-thu.write` | **OUT** list (siblings — Result/Scores write) |
 
 ## 7. Gaps closed / open
 
 | Gap | Status |
 |-----|--------|
 | GAP-DA-NT-DOMAIN-01 / API-01 | CLOSED · Patrol path |
-| GAP-MOB-NT-DATA/BFF/LIST | CLOSED · proxy keep · live DTO |
-| GAP-MOB-ACT-02 | CLOSED · siblings own write APIs |
-| GAP-SA-STORE-01 | CLOSED · no localhost/IP in solution; list no new privacy claim |
-| New BFF/MIG | **none** |
+| GAP-MOB-NT-DATA/BFF/LIST | CLOSED · proxy keep |
+| GAP-MOB-ACT-02 | CLOSED · siblings own write + scores |
+| GAP-SA-MAU-01 | CLOSED · schema_choice=**child_table** · Schema_NghiemThuMau |
+| GAP-SA-RESULT-01 | CLOSED · list ResultCode + init ResultCodes · null ẩn |
+| GAP-SA-LABEL-01 | CLOSED · TemplateLabel MAU-10 · value mau-* GIỮ |
+| New BFF controller | **none** |
 | open questions | **none** |
 
 ## 8. Handoff → Team lead
 
 | Item | Value |
 |------|-------|
-| FormMode↔API | List→API-01 · Lookups→API-00 · (Create/Edit/View/Delete/Files → sibling/web OUT) |
-| Entity/migration | Schema_NghiemThu **exists** · migration flag=**no** |
+| FormMode↔API | List→API-01 · Lookups→API-00 · C/E/V/D/Files/Scores→sibling OUT |
+| Entity/migration | Schema_NghiemThuMau · migration flag=**yes** · Step4b=TL/Dev · SA SKIP |
+| DTO list delta | TemplateLabel · ResultCode |
+| init-data delta | templateTypes.label+criteria · resultCodes |
 | TZ/XCO/SHARE | required / required / tenant_keep |
 | Perm | patrol.nghiem-thu.read (list) |
+| next | `/agent-team-lead-mobile` |
 | devSlash | `/agent-dev-ios` + `/agent-dev-android` |
 | e2eQa | queued `/agent-qa*` only · **cấm** e2e this role |
-| **Cấm TL/Dev** | invent API · ERP.* · WO · sessions · DbContext on BFF · fork DTO · start create/detail trước Approve |
+| **Cấm TL/Dev** | invent API · ERP.* · WO · sessions · DbContext on BFF · fork DTO · JSON scores parent · start create/detail trước Approve · files-nt |
 
 ## Version meta (REQUIRED)
 
@@ -190,11 +206,11 @@ Gates keep: TZ=**required** · XCO=**required** · SHARE=**tenant_keep**.
 | schemaVersion | 1 |
 | workflowVersion | 2026.09.19.3 |
 | rulesVersion | 2026.09.19.6 |
-| generatedAt | 2026-09-19T15:55:00.000Z |
+| generatedAt | 2026-09-20T01:00:00.000Z |
 | versionGate | ok |
-| contentHash | sha256:a635f3f55a8bedd952c4449056cf072a8eda890eda2b30a45e84bda5d7bf3859 |
+| contentHash | sha256:1044ba719edda88d256d5c2a780cd2293f2fab87e2a39acdbb86001fad6ff659 |
 | solution_confirm | **approve** (autoApprove) |
-| taskId | task_ca050f3a |
+| taskId | task_1791e2ed |
 
 ---
 <!-- Version meta: skillId=agent-sa-mobile skillVersion=2026.08.25.01 schemaVersion=1 workflowVersion=2026.09.19.3 versionGate=ok solution_confirm=approve -->

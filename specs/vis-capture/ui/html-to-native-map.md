@@ -18,7 +18,7 @@
 | Skip | CTA | `.btn-secondary` | `LinmSecondaryButton` | same | local · dual **bắt buộc** |
 | Toast OK / GPS | Banner | `#toast` | `LinmToast` | same | **cấm** alert |
 | DES-MOB-GPS-DENY | Modal | `#modal-gps` | feature overlay | Material dialog card | chặn detect + Attach |
-| Deny primary | Button | Sao chép hướng dẫn | `LinmPrimaryButton` | same | clipboard + toast |
+| Deny primary | Button | Mở Cài đặt | `LinmPrimaryButton` | same | open Settings |
 | Deny secondary | Button | Để sau | `LinmSecondaryButton` | same | dismiss |
 | Shell Tab 5 | Chrome | `.tabbar` / `.nav` · `data-tab=incident` | `LinmTabBar` | NavigationBar | **giữ** · không invent |
 | Entry banner | — | `.vn-banner` `#i-camera` trên incident-list | reuse | reuse | **không** reimplement trên pack |

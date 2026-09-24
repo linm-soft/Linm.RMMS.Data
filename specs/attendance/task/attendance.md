@@ -78,7 +78,7 @@ AskQuestion: `route_confirm=route_a` · `2026-08-19T20:40:00.000Z`.
 | `source.repo` | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.iOS` |
 | `ssot.zones` | `DES-MOB-ATT` · `#sc-attendance` |
 | Files | `Presentation/Features/Attendance/AttendanceView.swift` · `AttendanceViewModel.swift` · `Domain/UseCases/AttendanceUseCases.swift` · `Domain/Entities/AttendanceModels.swift` · `Data/Repositories/AttendanceRepositoryImpl.swift` · `AppRouter` `showAttendanceFromField` · `AppContainer` DI |
-| UI notes | GPS deny = overlay `GpsDenyModal` `DES-MOB-GPS-DENY` (copy / Để sau) · CoreLocation `requestWhenInUseAuthorization` nếu notDetermined · **cấm** toast `patrol.map.locDeny` |
+| UI notes | GPS deny = overlay `GpsDenyModal` `DES-MOB-GPS-DENY` (Mở Cài đặt / Để sau) · CoreLocation `requestWhenInUseAuthorization` nếu notDetermined · **cấm** toast `patrol.map.locDeny` |
 
 ### Build DoD
 
@@ -155,6 +155,11 @@ Reuse live GET/POST `api/v1/patrol/attendance-logs` via BFF proxy. **Cấm** inv
 | versionGate | rechecked |
 | contentHash | sha256:attendance-mobile-hub-20260819 |
 | bffContentHash | sha256:attendance-mobile-bff-20260819 |
+
+
+## UI notes Dev — MOB-PERM-OS-01 (2026-09-20)
+
+OS location/camera dialog first. GPS deny CTA **Mở Cài đặt** / **Để sau**. **Cấm** Sao chép hướng dẫn / clipboard. iOS already-denied camera → Settings only.
 
 ---
 <!-- Version meta: skillId=agent-tl-mobile skillVersion=2026.08.19.22 schemaVersion=1 workflowVersion=2026.08.19.29 rulesVersion=2026.08.19.34 versionGate=rechecked -->

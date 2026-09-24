@@ -35,27 +35,29 @@ appId: com.drvn.rmms.store
     optional: true
 - tapOn:
     id: "f-pass"
-- eraseText
+- eraseText: 40
 - inputText: "Linm@2026"
+- hideKeyboard
+- tapOn:
+    text: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
+    optional: true
 - tapOn:
     text: "Not Now"
     optional: true
 - takeScreenshot: A9-LOGIN
 - tapOn:
     id: "btn-login"
-    optional: true
 - tapOn:
     text: "Đăng nhập"
     optional: true
 - tapOn:
     text: "Not Now"
     optional: true
-- pressKey: Enter
 - waitForAnimationToEnd:
     timeout: 4000
 - extendedWaitUntil:
     visible:
-      id: "sc-home"
+      id: "tab-field"
     timeout: 45000
 - tapOn:
     id: "tab-field"

@@ -1,0 +1,139 @@
+appId: com.drvn.rmms.store
+---
+# nghiem-thu-create · store P6 ×2 · guest → Auth → patrol → list → Tạo → #sc-nghiem-thu-create
+# Android · sheet→screen · P6-CORE-2 = sheet-mau (tránh DUP) · cấm mfeStdUrl
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 20000
+- takeScreenshot: A11-LAUNCH
+- tapOn:
+    id: "btn-home-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
+- tapOn:
+    text: "Dành cho cán bộ"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "f-user"
+    timeout: 15000
+- tapOn:
+    id: "f-user"
+- eraseText
+- inputText: "linm-soft"
+- tapOn:
+    text: "QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ"
+    optional: true
+- tapOn:
+    text: "RMMS"
+    optional: true
+- tapOn:
+    id: "f-pass"
+- eraseText
+- inputText: "Linm@2026"
+- tapOn:
+    text: "Not Now"
+    optional: true
+- takeScreenshot: A9-LOGIN
+- tapOn:
+    id: "btn-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
+- tapOn:
+    text: "Not Now"
+    optional: true
+- pressKey: Enter
+- waitForAnimationToEnd:
+    timeout: 4000
+- extendedWaitUntil:
+    visible:
+      id: "sc-home"
+    timeout: 45000
+- tapOn:
+    id: "tab-field"
+    optional: true
+- tapOn:
+    id: "tile-patrol"
+    optional: true
+- tapOn:
+    text: "Tuần đường"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-patrol-home"
+    timeout: 20000
+- scrollUntilVisible:
+    element:
+      id: "row-nghiem-thu"
+    direction: DOWN
+    timeout: 20000
+    optional: true
+- scrollUntilVisible:
+    element:
+      text: "Công tác nghiệm thu"
+    direction: DOWN
+    timeout: 20000
+- tapOn:
+    id: "row-nghiem-thu"
+    optional: true
+- tapOn:
+    text: "Công tác nghiệm thu"
+- extendedWaitUntil:
+    visible:
+      id: "sc-nghiem-thu"
+    timeout: 20000
+- tapOn:
+    id: "btn-nghiem-thu-create"
+    optional: true
+- tapOn:
+    text: "Tạo"
+    optional: true
+- tapOn:
+    text: "While using the app"
+    optional: true
+- tapOn:
+    text: "Allow"
+    optional: true
+- tapOn:
+    text: "ONLY THIS TIME"
+    optional: true
+- tapOn:
+    text: "While using the app"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "sc-nghiem-thu-create"
+    timeout: 25000
+- assertVisible: "Tạo nghiệm thu"
+- assertVisible:
+    id: "row-template"
+- assertVisible:
+    id: "row-location"
+- assertVisible:
+    id: "row-attach"
+- waitForAnimationToEnd:
+    timeout: 2000
+- takeScreenshot: A3-CORE
+- takeScreenshot: P6-CORE
+- tapOn:
+    id: "row-template"
+- extendedWaitUntil:
+    visible:
+      id: "sheet-mau"
+    timeout: 10000
+- assertVisible: "Chọn mẫu"
+- takeScreenshot: P6-CORE-2
+- tapOn:
+    id: "btn-sheet-mau-close"
+    optional: true
+- tapOn:
+    text: "Đóng"
+    optional: true

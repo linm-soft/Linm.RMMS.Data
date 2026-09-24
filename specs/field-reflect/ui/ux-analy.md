@@ -35,7 +35,7 @@ Login → Tab Tuần đường (shell Tab 5 · index field)
 |------------|--------|------------|----------------|-----|
 | DES-MOB-FIELD-REFLECT / `#sc-field-reflect` | Ghi nhận hư hỏng | nav back «Tuần đường» + chevron · title 17 · Tab 5 field | icon-btn chevron · TopAppBar title · Nav 5 field | Tạo vấn đề / Lưu nháp mất sóng |
 | DES-MOB-FIELD-KIND | Loại phản ánh | pills Hư/Mất/Hỏng | same | — |
-| DES-MOB-GPS-DENY / `#modal-gps` | Định vị bị tắt | in-app modal | Material dialog card | Sao chép hướng dẫn / Để sau |
+| DES-MOB-GPS-DENY / `#modal-gps` | Định vị bị tắt | in-app modal | Material dialog card | Mở Cài đặt / Để sau |
 
 ## 3. Zone
 
@@ -74,7 +74,7 @@ Login → Tab Tuần đường (shell Tab 5 · index field)
 |------|------|---------|---------|---------|
 | Title | Định vị bị tắt | `h3` 17 | Text 17 semibold | same |
 | Body | Cần vị trí… RMMS. | `p` 13 | Text 13 | same |
-| Primary | Sao chép hướng dẫn | `.btn-primary` | `LinmPrimaryButton` | same |
+| Primary | Mở Cài đặt | `.btn-primary` | `LinmPrimaryButton` | same |
 | Secondary | Để sau | `.btn-secondary` | `LinmSecondaryButton` | same |
 
 **Cấm** `UIAlertController` / `AlertDialog` hệ thống (`AC-D-04`).

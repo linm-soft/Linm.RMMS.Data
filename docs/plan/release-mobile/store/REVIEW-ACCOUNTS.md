@@ -30,7 +30,7 @@ iOS: username rmms-001 / password RMMS@2026
 Android: username rmms-002 / password RMMS@2026
 
 Open the app → Đăng nhập → use the account above.
-Guest home is available without login (FAQ / privacy).
+Guest home is available without login: Bao cao su co (Den giao thong or Bien bao), FAQ, privacy.
 Staff lists (patrol, incidents, work orders) appear after login.
 Forgot-password OTP is contact-admin only (no SMS).
 ```

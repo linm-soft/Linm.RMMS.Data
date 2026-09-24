@@ -3,8 +3,8 @@
 | Field | Value |
 |-------|-------|
 | feature | `attendance-report` |
-| phase | `done` |
-| status | `done` |
+| phase | `dev` |
+| status | `in_progress` |
 | packKind | `screen` |
 | changeScope | `new_page` |
 | editScope | `complete_cham_cong` · `/edit-mobile-feature` · 2026-09-16 |
@@ -13,8 +13,9 @@
 | ios | `Linm.RMMS.Mobile.iOS` · dest iPhone 17 Pro **BUILD SUCCEEDED** |
 | android | `Linm.RMMS.Mobile.Android` · assembleDebug **PASS** |
 | bff | reuse GET `patrol/attendance-logs` |
-| updatedAt | `2026-09-16T12:51:00.000Z` |
-| taskId | `edit-mobile-feature-att-rpt` |
+| updatedAt | `2026-09-20T01:35:39.328Z` |
+| taskId | `task_88dc1e38` |
+| editTaskId | `edit-mobile-feature-att-rpt` |
 
 ## Pipeline
 
@@ -23,12 +24,11 @@
 | 0 | data-analy | _data-analy/* | **confirmed** |
 | 1 | po | po/requirement.md | **confirmed** |
 | 2.1 | design | ui/* | **confirmed** |
-| 2.2 | sa | be/solution-discovery.md | **confirmed** (`/edit-mobile-feature`) |
-| 3 | team-lead | task/attendance-report.md | **confirmed** (`/edit-mobile-feature`) |
-| 4 | dev | implement/{ios,android}.md | **confirmed** · dual build PASS |
-| 5 | qa | — | **pending** e2e (not re-run this turn) |
-| 6 | review | — | **pending** |
-
+| 2.2 | sa | be/solution-discovery.md | **confirmed** |
+| 3 | team-lead | task/attendance-report.md | **confirmed** |
+| 4 | dev | implement/{ios,android}.md | **in_progress** |
+| 5 | qa | — | pending |
+| 6 | review | — | pending |
 ## VERIFY GATE
 
 | Check | Result |
@@ -37,3 +37,12 @@
 | Android assembleDebug | **BUILD SUCCESSFUL** |
 | Hub Báo cáo push | **wired** dual |
 | Invent `/attendance/report` | **none** |
+| team_lead artifact + compact | **PASS** |
+
+## tasks
+
+| id | devSlash | deps | status |
+|----|----------|------|--------|
+| T-IOS-ATT-RPT | `/agent-dev-ios` | none | assigned |
+| T-AND-ATT-RPT | `/agent-dev-android` | none | assigned |
+| T-BE | — | n/a | n/a |

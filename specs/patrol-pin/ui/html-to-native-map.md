@@ -9,7 +9,7 @@
 | Toast timeout | banner | `#toast` | `LinmToast` | same | `patrol.map.locTimeout` · **không** handoff |
 | Toast offline queue | banner | `#toast` | `LinmToast` | same | `?offline=1` · queue handoff payload |
 | DES-MOB-GPS-DENY | modal | `#modal-gps` | feature overlay | same | **cấm** system alert · **không** handoff |
-| Deny primary | button | Sao chép hướng dẫn | `LinmPrimaryButton` | same | clipboard + toast |
+| Deny primary | button | Mở Cài đặt | `LinmPrimaryButton` | same | open Settings |
 | Deny secondary | button | Để sau | `LinmSecondaryButton` | same | dismiss |
 | DES-MOB-HANDOFF-CHECKIN | sheet | `#sheet-handoff-checkin` | bottom sheet | Material bottom sheet | payload `sessionId`+`LocationFix` · **cấm** form fields |
 | Handoff primary | button | Tiếp tục | `LinmPrimaryButton` | same | openSheet/navigate `patrol-checkin` |

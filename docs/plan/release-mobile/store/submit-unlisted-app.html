@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>RMMS 1.0.0 - Form Unlisted</title>
+  <style>
+    :root {
+      --blue: #0C84C0;
+      --deep: #086A9A;
+      --sky: #2A9AD4;
+      --surface: #F2F2F7;
+      --card: #fff;
+      --muted: #8E8E93;
+      --label: #1C1C1E;
+      --warn: #9a5b00;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      font-size: 16px;
+      line-height: 1.45;
+      color: var(--label);
+      background: var(--surface);
+    }
+    header {
+      background: linear-gradient(165deg, #086A9A 0%, #0C84C0 55%, #2A9AD4 100%);
+      color: #fff;
+      padding: 28px 20px 32px;
+    }
+    .wrap { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+    header h1 { margin: 0 0 8px; font-size: 22px; letter-spacing: -0.3px; }
+    header p { margin: 0; opacity: .95; font-size: 15px; }
+    .meta { margin-top: 12px; font-size: 13px; opacity: .9; }
+    .banner {
+      margin: 16px 20px 0;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+      background: #fff8e8;
+      color: var(--warn);
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-size: 14px;
+    }
+    section {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 16px;
+      margin: 16px 0;
+      box-shadow: 0 1px 4px rgba(0,0,0,.05);
+    }
+    h2 { margin: 0 0 4px; font-size: 16px; }
+    h2 small { color: var(--muted); font-weight: 600; }
+    .hint { margin: 0 0 10px; color: var(--muted); font-size: 13px; }
+    textarea {
+      width: 100%;
+      min-height: 72px;
+      font: 15px/1.45 ui-monospace, SFMono-Regular, Menlo, monospace;
+      border: 1px solid #e5e5ea;
+      border-radius: 10px;
+      padding: 10px 12px;
+      resize: vertical;
+      background: #fafafa;
+    }
+    textarea.tall { min-height: 180px; }
+    textarea.short { min-height: 44px; }
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    button {
+      min-height: 44px;
+      padding: 8px 16px;
+      border: 0;
+      border-radius: 10px;
+      background: var(--deep);
+      color: #fff;
+      font: 700 15px inherit;
+      cursor: pointer;
+    }
+    button:active { opacity: .85; }
+    .count { color: var(--muted); font-size: 13px; margin: 0; }
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--deep);
+      color: #fff;
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-weight: 600;
+      display: none;
+    }
+    footer { padding: 8px 0 40px; color: var(--muted); font-size: 13px; }
+    .store-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+    .store-tabs a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 8px 16px;
+      border-radius: 10px;
+      background: rgba(255,255,255,.18);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .store-tabs a.is-on {
+      background: #fff;
+      color: var(--deep);
+    }
+    .steps { margin: 8px 0 0; padding-left: 1.2em; }
+    .steps li { margin: 6px 0; }
+    a.ext { color: var(--deep); }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <h1>RMMS 1.0.0 - Form xin Unlisted</h1>
+      <p>Record public com.drvn.rmms.store. Account Holder dien form. Khong bam Release khi distribution van Public.</p>
+      <p class="meta">Snapshot <strong>v1.0.0</strong> · 2026-09-23 · Apple ID 6812959209 · build da review 1.0.0 (3) · khong dung record Custom 1510513131</p>
+      <nav class="store-tabs" aria-label="Store">
+        <a href="submit-info.html">Apple / iOS</a>
+        <a class="is-on" href="submit-unlisted-app.html">Unlisted</a>
+        <a href="submit-org-app.html">Org app</a>
+        <a href="submit-info-play.html">Google Play</a>
+      </nav>
+    </div>
+  </header>
+  <p class="banner">Form: <a class="ext" href="https://developer.apple.com/contact/request/unlisted-app/">developer.apple.com/contact/request/unlisted-app</a>. Chi Account Holder gui. Sau khi duyet, Pricing and Availability doi sang Unlisted va co link. Cac ban sau cua record nay van Unlisted. Muon Public Search sau nay phai Bundle ID moi. Khong Release ban dang Public.</p>
+  <main class="wrap">
+    <section>
+      <h2>Thu tu</h2>
+      <ol class="steps">
+        <li>Distribution van de Public. Khong doi tay sang Unlisted truoc khi Apple duyet form.</li>
+        <li>Version 1.0.0 da nop review (build 1.0.0 (3), reject 3.2 ngay 22/09/2026). O form: Submitted = Yes.</li>
+        <li>Sua Review Notes (o duoi) roi Reply thread 3.2. Khong dan reply cu tren submit-info.html (reply do noi khong xin Unlisted).</li>
+        <li>Account Holder mo form, copy tung o duoi, gui.</li>
+        <li>Cho Pricing and Availability hien Unlisted App, roi moi Release.</li>
+      </ol>
+    </section>
+
+    <section data-field="app_name">
+      <h2>App Name</h2>
+      <p class="hint">Form → App Details → App Name</p>
+      <textarea id="app_name" class="short" readonly>RMMS</textarea>
+      <div class="row">
+        <button type="button" data-copy="app_name">Copy</button>
+      </div>
+    </section>
+
+    <section data-field="apple_id">
+      <h2>Apple ID of App</h2>
+      <p class="hint">Record public. Khong dien 1510513131.</p>
+      <textarea id="apple_id" class="short" readonly>6812959209</textarea>
+      <div class="row">
+        <button type="button" data-copy="apple_id">Copy</button>
+      </div>
+    </section>
+
+    <section data-field="submitted">
+      <h2>Have you submitted your app to the App Store for review?</h2>
+      <p class="hint">Dropdown. Khong copy cau dai.</p>
+      <textarea id="submitted" class="short" readonly>Yes</textarea>
+      <div class="row">
+        <button type="button" data-copy="submitted">Copy</button>
+      </div>
+    </section>
+
+    <section data-field="problem">
+      <h2>Business problem and why unlisted</h2>
+      <p class="hint">Describe in detail the business problem your app solves and why unlisted app distribution helps solve this problem.</p>
+      <textarea id="problem" class="tall" readonly>RMMS is a road-maintenance operations app for Vietnam. Maintenance units use it to patrol roads, record incidents, track assets, assign work, and capture field photos with GPS when the user allows it. People who are not staff can also report a broken traffic light or a damaged traffic sign without an account, and they receive a tracking code.
+
+Staff accounts are issued by each road-maintenance unit. Those users are employees and contractors of the units, not a general App Store audience. The report exists so a road user who receives the link can send a traffic-light or traffic-sign report to the unit that maintains that road.
+
+Unlisted distribution gives one App Store link we can send to unit staff and to road users. The app stays out of App Store search, charts, and categories. Version 1.0.0 (3) was submitted and rejected under Guideline 3.2 on 22 September 2026 (submission 39eace99-30d9-4577-b302-958229a29d42) because public distribution does not fit this operations app.</textarea>
+      <div class="row">
+        <button type="button" data-copy="problem">Copy</button>
+        <p class="count"><span data-count-for="problem">0</span></p>
+      </div>
+    </section>
+
+    <section data-field="why_public">
+      <h2>Why unlisted instead of public</h2>
+      <p class="hint">Why do you prefer unlisted app distribution over public distribution on the App Store?</p>
+      <textarea id="why_public" class="tall" readonly>The core of the app is daily road-maintenance work for specific units: login, patrol, incidents, assets, and field capture. App Review has rejected public distribution three times under Guideline 3.2, including build 1.0.0 (3). A public search listing presents the app as a general consumer product. Unlisted matches how it is actually shared: a direct link to the units and to people reporting a traffic light or traffic sign.</textarea>
+      <div class="row">
+        <button type="button" data-copy="why_public">Copy</button>
+        <p class="count"><span data-count-for="why_public">0</span></p>
+      </div>
+    </section>
+
+    <section data-field="why_abm">
+      <h2>Why unlisted instead of Apple Business or School Manager</h2>
+      <p class="hint">Why do you prefer unlisted app distribution over private distribution to specific organizations via Apple Business or Apple School Manager?</p>
+      <textarea id="why_abm" class="tall" readonly>Private distribution only reaches organizations enrolled in Apple Business Manager or Apple School Manager. Road users who report a traffic light or traffic sign are not members of those organizations, and many field staff use their own iPhones, which are not enrolled. We cannot ask every road user to join Apple Business Manager before they can submit a report. Unlisted lets anyone with the link install the app, while staff still sign in with the account their unit issued.</textarea>
+      <div class="row">
+        <button type="button" data-copy="why_abm">Copy</button>
+        <p class="count"><span data-count-for="why_abm">0</span></p>
+      </div>
+    </section>
+
+    <section data-field="audience">
+      <h2>Distribution, audience, category, devices, regions</h2>
+      <p class="hint">Tick tren form. Khong co o "general public": giai thich nguoi dan o hai cau why.</p>
+      <textarea id="audience" class="tall" readonly>Internally and Externally: both.
+
+How many people will use this app?
+Field staff of road-maintenance units in Vietnam, plus road users who receive the link to report a traffic light or traffic sign. Staff use is limited to accounts each unit issues. Reports are only from people who have the link.
+
+How many organizations will use this app?
+Road-maintenance organizations in Vietnam that operate RMMS. Each organization issues its own staff accounts. The count increases as units are onboarded. This is not a single-school or single-company device rollout.
+
+Who is your app designed for?
+Full-time employees, Part-time employees, Third-party contractors, Corporate customers.
+Leave Franchise operators and Faculty, staff, or students unticked.
+
+Category:
+Business operations (delivery, warehouse management, ERP, CRM).
+
+Devices:
+Managed and Unmanaged.
+
+Regions:
+Vietnam only. Do not tick Select all.</textarea>
+      <div class="row">
+        <button type="button" data-copy="audience">Copy</button>
+      </div>
+    </section>
+
+    <section data-field="unmanaged">
+      <h2>How many devices will be unmanaged?</h2>
+      <p class="hint">Ban ngan. So 500 la uoc tinh da chot khi dien form.</p>
+      <textarea id="unmanaged" class="short" readonly>500. Nearly all are personal iPhones, not in MDM.</textarea>
+      <div class="row">
+        <button type="button" data-copy="unmanaged">Copy</button>
+        <p class="count"><span data-count-for="unmanaged">0</span></p>
+      </div>
+    </section>
+
+    <section data-field="review_notes_unlisted">
+      <h2>Review Notes - cau Unlisted</h2>
+      <p class="hint">App Store Connect → version 1.0.0 → App Review Information → Notes. Thay cau public cu. Buoc demo van giu.</p>
+      <textarea id="review_notes_unlisted" class="tall" readonly>This app is intended for unlisted distribution. It is not for public App Store search. The Account Holder has already submitted the unlisted app distribution request. Please review it for an unlisted App Store link.
+Bundle ID: com.drvn.rmms.store
+Apple ID: 6812959209
+SKU: rmms-vn-public
+Version 1.0.0
+Build under review: 1.0.0 (3)
+
+Anyone with the link can complete this job with no account:
+1. Open the app. Guest Home, no login.
+2. Tap Bao cao su co (Report an incident).
+3. Choose Den giao thong (traffic light) or Bien bao (traffic sign).
+4. Enter name, phone, description, and address. No photo and no GPS on this form.
+5. Tap Gui bao cao. The app shows a tracking code.
+
+FAQ, procedures, and privacy are also on Guest Home. Login is optional.
+
+Optional login (not required):
+username rmms-001 / password RMMS@2026
+Tap Dang nhap - staff lists (patrol, incidents, work orders).
+
+Forgot-password is contact-support only (no SMS).
+Location When In Use and Camera are only for optional field features after login.
+This version does not include in-app map or turn-by-turn directions.</textarea>
+      <div class="row">
+        <button type="button" data-copy="review_notes_unlisted">Copy</button>
+        <p class="count"><span data-count-for="review_notes_unlisted">0</span></p>
+      </div>
+    </section>
+
+    <section data-field="resolution_unlisted">
+      <h2>Resolution Center reply - xin Unlisted</h2>
+      <p class="hint">App Review → Reply thread reject 3.2 cua 1.0.0 (3). Khong dung reply tren submit-info.html.</p>
+      <textarea id="resolution_unlisted" class="tall" readonly>Hello App Review,
+
+The Account Holder has already submitted the request for unlisted App Store distribution for RMMS (Apple ID 6812959209, bundle com.drvn.rmms.store). Please review version 1.0.0 for an unlisted link. This app is not for public App Store search.
+
+The screenshot from 22 September shows the optional staff home after login. That home is for road-maintenance units. Anyone with the unlisted link can also open Guest Home with no account, tap Bao cao su co, choose Den giao thong or Bien bao, and receive a tracking code.
+
+Please review build 1.0.0 (3), already attached to version 1.0.0. We are not requesting a custom app via Apple Business Manager.
+
+Thank you.</textarea>
+      <div class="row">
+        <button type="button" data-copy="resolution_unlisted">Copy</button>
+        <p class="count"><span data-count-for="resolution_unlisted">0</span></p>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <div class="wrap">RMMS · snapshot v1.0.0 · com.drvn.rmms.store · pack noi bo · khong deploy lam landing khach · listing: submit-info.html</div>
+  </footer>
+  <div class="toast" id="toast">Da copy</div>
+  <script>
+    (function () {
+      var toast = document.getElementById('toast');
+      var hide;
+      function show() {
+        toast.style.display = 'block';
+        clearTimeout(hide);
+        hide = setTimeout(function () { toast.style.display = 'none'; }, 1400);
+      }
+      document.querySelectorAll('textarea[id]').forEach(function (el) {
+        var span = document.querySelector('[data-count-for="' + el.id + '"]');
+        if (span) span.textContent = String(el.value.length);
+      });
+      document.querySelectorAll('[data-copy]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var id = btn.getAttribute('data-copy');
+          var el = document.getElementById(id);
+          if (!el) return;
+          var text = el.value;
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(show).catch(function () {
+              el.select();
+              document.execCommand('copy');
+              show();
+            });
+          } else {
+            el.select();
+            document.execCommand('copy');
+            show();
+          }
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -18,7 +18,7 @@
 | btnAdd | CTA | `.btn-primary` | `LinmPrimaryButton` | same | POST `asset/road-assets` |
 | Toast OK/Err | Banner | `#toast` | `LinmToast` | same | **cấm** alert · **cấm** fake 200 |
 | DES-MOB-GPS-DENY | Modal | `#modal-gps` | feature overlay | Material dialog card | CTA off |
-| Deny primary | Button | Sao chép hướng dẫn | `LinmPrimaryButton` | same | clipboard + toast |
+| Deny primary | Button | Mở Cài đặt | `LinmPrimaryButton` | same | open Settings |
 | Deny secondary | Button | Để sau | `LinmSecondaryButton` | same | dismiss |
 | DES-MOB-LEAVE | Modal | `#modal-leave` | feature overlay | same | dirty leave |
 | Shell Tab 5 | Chrome | `.tabbar` / `.nav` · `data-tab=home` | `LinmTabBar` | NavigationBar | **giữ** · không invent |

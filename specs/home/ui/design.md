@@ -73,8 +73,8 @@ Cold start → #sc-home guest (Khách + FAQ) · **ẩn** DES-MOB-TABBAR
 | brandLogo | RMMS | `AppLogo` / `app_logo` | — | giữa khoảng trống guest (FAQ ↔ dock) · `home-brand` · `brandLogoSm` 96 · **cấm** hero · **cấm** kit bump |
 | roleLine | Khu QLĐB IV | `LinmStatusCapsule` `area` | — | **ẩn live** (GAP-F-HOME-01) · demo SSOT only |
 | signal | Tín hiệu | `LinmStatusCapsule` / `LinmNetSignalMark` | bars only | Tốt/TB/Yếu · OS path · tap toast **Đã làm mới** · **cấm** cycle |
-| who | Khách / FullName | typography hero | — | guest copy · staff GET profile · loading `.who` empty = bone pulse `home-who-skeleton` (`brandLogo`×`heroWho`) · **cấm** flash Khách · **cấm** `LinmBusyOverlay` hub · **cấm** hardcode production |
-| loginBtn | Đăng nhập | Button card | — | `btn-home-login` · phụ Dành cho cán bộ · **pin bottom** guest · ẩn staff |
+| who | Khách / FullName | typography hero | — | guest copy · staff GET profile **lần đầu** · back Home = `lastDisplayName` cache · **cấm** GET lại · loading `.who` empty = bone pulse `home-who-skeleton` (`brandLogo`×`heroWho`) · **cấm** flash Khách · **cấm** `LinmBusyOverlay` hub · **cấm** hardcode production |
+| loginBtn | Đăng nhập | Button card | — | `btn-home-login` · phụ Đã có tài khoản · **pin bottom** guest · ẩn staff |
 | guestFaq | Câu hỏi thường gặp | row card | chevron | `btn-home-faq` · guest only · overlay `#sc-faq` |
 | faqSearch | Tìm kiếm câu hỏi | capsule `card` + `LinmSearchGlyph` | **cấm** M3 `TextField` / SF `magnifyingglass` | `#f-faq-search` · height `controlHeight` 44 · pad 14 · `fieldText` 16 · placeholder `muted` (no extra alpha) · trailing `#i-search` glyph · IME Search · **GAP-MOB-EDIT-FAQ-SEARCH** |
 | guestPrivacy | Chính sách quyền riêng tư | underline link | — | `btn-home-privacy` · guest only · **pin bottom dưới login** · overlay `#sc-privacy` · body `home.privacy.body` user-facing · **cấm** invent HTTPS |
@@ -118,6 +118,7 @@ Toast / banner → `LinmToast`. **Cấm** raw `LazyVGrid` / `LazyVerticalGrid` /
 - Gộp sibling screens · start `pending_confirm`
 - Ship `LinmKitGallery` trên production Trang Chủ
 - Flash **Khách** lúc staff GET `auth/profile` · `LinmBusyOverlay` trên hub (`GAP-MOB-EDIT-HOME-WHO-SKEL`) — loading = bone `home-who-skeleton` dual
+- Reload `.who` mỗi lần back Home khi `lastDisplayName` đã có (`GAP-MOB-EDIT-HOME-WHO-CACHE`) — cache · GET chỉ lần đầu / tap tín hiệu
 - `#f-faq-search` M3 `TextField` / SF `magnifyingglass` / Material Search (`GAP-MOB-EDIT-FAQ-SEARCH`) — capsule `BasicTextField` + `LinmSearchGlyph` dual
 
 ## 6. Handoff → SA

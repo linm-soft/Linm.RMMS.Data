@@ -3,15 +3,16 @@
   "feature": "nghiem-thu",
   "lane": "mobile",
   "packKind": "list",
-  "reviewHash": "sha256:eba0d0dff9aa50f3b0202a5d6a1b7dabd8d36943f75828b988431a3bc4be0b67",
-  "contentHashPrior": "sha256:a635f3f55a8bedd952c4449056cf072a8eda890eda2b30a45e84bda5d7bf3859",
+  "reviewHash": "sha256:ce24777c87b1c352e86b2db3ffb3fadd30dae294493d91133a6c87808021c128",
+  "contentHashPrior": "sha256:1044ba719edda88d256d5c2a780cd2293f2fab87e2a39acdbb86001fad6ff659",
   "rulesVersion": "2026.08.31.2",
   "skillVersion": "2026.08.31.2",
   "skillId": "agent-review-mobile",
   "status": "done",
   "review_confirm": "accept",
   "mode": "review_only",
-  "taskId": "task_600866a7",
+  "taskId": "task_b7626142",
+  "changeScope": "edit_page",
   "findings": {
     "P0": 0,
     "P1": 0,
@@ -20,5 +21,5 @@
   },
   "alignMustOpen": 0,
   "visualAlign": "Aligned",
-  "updatedAt": "2026-09-19T16:31:17.000Z"
+  "updatedAt": "2026-09-19T18:45:50.000Z"
 }

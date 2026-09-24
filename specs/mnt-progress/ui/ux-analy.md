@@ -31,7 +31,7 @@ Login → Tab Công việc (shell Tab 5 · index work)
 |------------|--------|------------|----------------|-----|
 | DES-MOB-MNT-PROGRESS / `#sc-mnt-progress` | Cập nhật trạng thái | nav back «Công việc» + chevron · title 17 · Tab 5 work | icon-btn chevron · TopAppBar title ~20 · Nav 5 work | Cập nhật |
 | Banner missing (`?missing=1`) | Thiếu công việc… | in-app banner | same | chặn primary |
-| GPS deny (`?deny=1`) | Định vị bị tắt | modal reuse | same | Để sau / Sao chép |
+| GPS deny (`?deny=1`) | Định vị bị tắt | modal reuse | same | Mở Cài đặt / Để sau |
 
 ## 3. Zone
 

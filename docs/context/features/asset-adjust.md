@@ -101,4 +101,4 @@ App base: `{BffBase}/mobile-bff/api/v1`. **Cấm** app `:5101` · invent `api/v1
 | lane | phase | status | updatedAt |
 |------|-------|--------|-----------|
 | web | — | — | — |
-| mobile | `qa` | `await_confirm` | `2026-09-01T16:13:25.494Z` |
+| mobile | `dev` | `pending` | `2026-09-20T00:26:47.448Z` |
