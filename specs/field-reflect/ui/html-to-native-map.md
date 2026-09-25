@@ -26,7 +26,7 @@
 | Toast OK/Draft | Banner | `#toast` | `LinmToast` | same | **cấm** alert |
 | **toastSessionsFail** | Toast | `#toast` | `LinmToast` | same | **NEW** · `?fail=1` / `?empty=1` · **cấm** system alert |
 | DES-MOB-GPS-DENY | Modal | `#modal-gps` | feature overlay | Material dialog card | chặn Create |
-| Deny primary | Button | Sao chép hướng dẫn | `LinmPrimaryButton` | same | clipboard + toast |
+| Deny primary | Button | Mở Cài đặt | `LinmPrimaryButton` | same | open Settings |
 | Deny secondary | Button | Để sau | `LinmSecondaryButton` | same | dismiss |
 | Shell Tab 5 | Chrome | `.tabbar` / `.nav` · `data-tab=field` | `LinmTabBar` | NavigationBar | **giữ** · không invent |
 | Entry hub | — | `#row-reflect` `#i-camera` trên patrol-home | reuse | reuse | **không** reimplement trên pack |

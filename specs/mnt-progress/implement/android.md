@@ -61,5 +61,12 @@
 | demoContentHash | sha256:394ab44597648f04b25e6d58476378c16141feb53d3b58d39923b3defcff8328 |
 | taskId | `task_e4368753` |
 
+
+## Notes — MOB-PERM-OS-01 (2026-09-20)
+
+- OS location/camera dialog **trước** GPS read / capture (`LaunchLocationPermissionOnStart` / `rememberAskLocationPermission` · iOS `requestWhenInUseAuthorization` / `requestAccess`).
+- GPS deny modal primary **Mở Cài đặt** · secondary **Để sau** · **cấm** Sao chép hướng dẫn / clipboard.
+- iOS already-denied camera → `AppSettingsOpener` (không re-prompt). Android camera Don't ask again → app Settings.
+
 ---
 <!-- Version meta: skillId=agent-dev-android skillVersion=2026.08.25.01 schemaVersion=2 workflowVersion=2026.08.25.01 versionGate=rechecked -->

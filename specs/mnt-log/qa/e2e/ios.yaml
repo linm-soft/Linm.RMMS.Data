@@ -1,8 +1,6 @@
-appId: org.linmsoft.rmms
+appId: com.drvn.rmms.store
 ---
-# mnt-log · store A11/A9/A3 · guest → login → tile-mnt → #sc-mnt-list → log btn → #sc-mnt-log
-# iOS LinmStrokeGlyph list chưa expose resource-id (GAP-MOB-A11Y-01) — tap middle action trên card demo-wo-2
-# cấm scroll text "Đã hoàn thành" (NFC/NFD a11y) · dùng card id
+# mnt-log · A11/A9/A3 · LIVE BFF · assert wo-header (LinmListRow hides wo-title id)
 - launchApp:
     clearState: true
     clearKeychain: true
@@ -13,6 +11,13 @@ appId: org.linmsoft.rmms
 - takeScreenshot: A11-LAUNCH
 - tapOn:
     id: "btn-home-login"
+    optional: true
+- tapOn:
+    text: "Đăng nhập"
+    optional: true
+- tapOn:
+    text: "Dành cho cán bộ"
+    optional: true
 - extendedWaitUntil:
     visible:
       id: "f-user"
@@ -69,32 +74,26 @@ appId: org.linmsoft.rmms
     id: "row-mnt-hub"
 - scrollUntilVisible:
     element:
-      id: "card-mnt-demo-wo-2"
+      id: "btn-mnt-log-b59fd74d-8b46-4bff-9127-5dc889c8174c"
     direction: DOWN
-    timeout: 15000
-- assertVisible: "Nạo cống"
-- assertVisible:
-    id: "card-mnt-demo-wo-2"
-- tapOn:
-    id: "btn-mnt-log-demo-wo-2"
+    timeout: 20000
     optional: true
-# middle action on done card ≈ 50% x · ~72% y (Pro Max hierarchy)
 - tapOn:
-    point: "50%,72%"
+    id: "btn-mnt-log-b59fd74d-8b46-4bff-9127-5dc889c8174c"
+    optional: true
+- tapOn:
+    id: "btn-mnt-log-f9d4817e-56a1-467d-a17d-443b6f2e8838"
+    optional: true
+- tapOn:
+    text: "Nhật ký xử lý"
+    optional: true
 - extendedWaitUntil:
     visible:
       id: "sc-mnt-log"
     timeout: 25000
 - assertVisible: "Nhật ký xử lý"
 - assertVisible:
-    id: "wo-title"
-- assertVisible:
-    id: "wo-code"
-- assertVisible:
-    id: "wo-status"
+    id: "wo-header"
 - assertVisible:
     id: "section-log"
 - takeScreenshot: A3-CORE
-- scroll
-- takeScreenshot: P6-CORE
-- takeScreenshot: P6-CORE-2

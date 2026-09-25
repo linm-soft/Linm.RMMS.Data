@@ -1,18 +1,20 @@
 # Công tác nghiệm thu
 
 > **Slug:** `nghiem-thu` · **Module:** Field · **Phase:** P1  
-> **Status:** Draft · họp 04/09/2026 hạng 1  
-> **Kind:** B list + D form (clone tuần kiểm)  
-> **MFE:** `Linm.Web.RMMS.Field`  
-> **Mobile:** `Linm.RMMS.Mobile.iOS` + Android · pack `nghiem-thu` · `nghiem-thu-create`  
-> **BE:** `Linm.RMMS.WebService` · **cấm ERP.***  
+> **Status:** Web **done** · Mobile **pending_confirm** (scan 19/09/2026 `run_selected`)  
+> **Kind web:** B list + D form (clone tuần kiểm)  
+> **Kind mobile:** `list` · pack `nghiem-thu`  
+> **MFE:** `Linm.Web.RMMS.Field` · route `/nghiem-thu`  
+> **Mobile:** `Linm.RMMS.Mobile.iOS` + Android · parent `patrol-home` · `#row-nghiem-thu` · `#sc-nghiem-thu`  
+> **BE:** `Linm.RMMS.WebService` · `api/v1/patrol/nghiem-thu` · **cấm ERP.***  
 > **Persona:** cán bộ nghiệm thu (≠ tuần đường / tuần kiểm)  
-> **Peer:** [`patrol.md`](patrol.md) · [`csdl-so-01.md`](csdl-so-01.md)  
-> **Scan mobile:** `/scan-mobile-feature` · seed `MEETING-1-5.md` · **enqueue_later**
+> **Peer:** [`patrol.md`](patrol.md) · [`nghiem-thu-create.md`](nghiem-thu-create.md) · [`nghiem-thu-detail.md`](nghiem-thu-detail.md) · [`nghiem-thu-mau.md`](nghiem-thu-mau.md)  
+> **Mẫu SSOT:** [`../../plan/nghiem-thu-mau/README.md`](../../plan/nghiem-thu-mau/README.md) · TT 41 PL IV Mẫu 01  
+> **Scan mobile:** `/scan-mobile-feature` `run_selected` · queue `qlbd-mobile` · slash `/agent-qldb-workflow-mobile`
 
 ## 1. Mục tiêu
 
-Module riêng giống tuần kiểm: list + Create/Edit + **10 mẫu nghiệm thu** + upload ảnh/video + thông tin hiện trường. **Cấm** gộp `maintenance` WO / P2 stub.
+Module riêng giống tuần kiểm: list + Create/Edit + **10 công việc BDTX** (`mau-01`…`10` · label pháp lý MAU-10) + chỉ số Đạt/Không đạt/Khấu trừ + upload ảnh/video + thông tin hiện trường. **Cấm** gộp `maintenance` WO / P2 stub / `kcht-cong-trinh` / `csdl-so-08`.
 
 ## 2. Upload (HARD)
 
@@ -29,20 +31,34 @@ Reuse FileService đang có — **không** API file mới.
 
 - Fork Linm · ERP.*
 - Gộp NT vào queue web khi đang chạy native (và ngược lại)
-- Enqueue mobile trước `/scan-mobile-feature` `run_selected`
+- Invent mobile-only endpoint khi Web đã có `api/v1/patrol/nghiem-thu`
+- Reuse entity `rmms_patrol_sessions`
 
 ## 4. Native (scan)
 
-| Slug | Kind | Demo |
-|------|------|------|
-| `nghiem-thu` | list | `#sc-nghiem-thu` · `#row-nghiem-thu` |
-| `nghiem-thu-create` | sheet | `#sc-nghiem-thu-create` |
+| Slug | Kind | Demo | Queue |
+|------|------|------|-------|
+| `nghiem-thu` | list | `#sc-nghiem-thu` · `#row-nghiem-thu` | `qlbd-mobile` · `pending_confirm` |
+| `nghiem-thu-create` | sheet | `#sc-nghiem-thu-create` · nav Tạo | `qlbd-mobile` · `pending_confirm` |
+| `nghiem-thu-detail` | sheet | row tap list (HTML hiện toast) · web GET/PUT `/{id}` | `qlbd-mobile` · `pending_confirm` |
 
-Chờ API web `nghiem-thu`. Queue `qlbd-mobile` · slash `/agent-qldb-workflow-mobile`.
+API web **live**. Mobile.Bff **chưa** proxy NT — SA thêm proxy cùng resource, **cấm** invent path.
+
+## 5. API (reuse — cấm invent)
+
+| Method | Path |
+|--------|------|
+| GET/POST | `api/v1/patrol/nghiem-thu` |
+| GET/PUT/DELETE | `api/v1/patrol/nghiem-thu/{id}` |
+| GET | `api/v1/patrol/nghiem-thu/init-data` |
+| Web BFF | `web-bff/api/v1/patrol/nghiem-thu` |
+| Mobile BFF | `mobile-bff/api/v1/patrol/nghiem-thu` (SA proxy) |
+
+Lookup: `mau-01`…`mau-10` label = [`MAU-10.md`](../../plan/nghiem-thu-mau/MAU-10.md) · status `draft`/`in_progress`/`done`/`cancelled` · ResultCode `pass`/`fail`/`deduct`. **Cấm** label «Mẫu nghiệm thu NN».
 
 ## Implement tracking
 
 | lane | phase | status | updatedAt |
 |------|-------|--------|-----------|
 | web | `done` | `done` | `2026-09-12T10:10:11.580Z` |
-| mobile | — | — | — |
+| mobile | `done` | `done` | `2026-09-19T18:46:56.091Z` |

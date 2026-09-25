@@ -49,7 +49,7 @@ Pack **sheet/CTA** đã ship (GPS+toast) — **edit** DoD persist theo GAP-MOB-P
 
 1. Hub `#sc-patrol-home` nút **Ghim vị trí hiện tại** (`#i-mappin`) → xin quyền vị trí → fix live → toast **Đã ghim vị trí hiện tại · {route} · ±N m** (route từ active session / empty-route copy live khi thiếu ca).
 2. Map `#sc-patrol-map` cùng CTA → cùng toast + pin `.here` + camera follow (reuse owner · **cấm** fake lat/lng).
-3. Deny → in-app modal `DES-MOB-GPS-DENY` (title **Định vị bị tắt** · body demo · **Sao chép hướng dẫn** / **Để sau**) · **không** handoff · **cấm** `UIAlert` / `AlertDialog` hệ thống.
+3. Deny → in-app modal `DES-MOB-GPS-DENY` (title **Định vị bị tắt** · body demo · **Mở Cài đặt** / **Để sau**) · **không** handoff · **cấm** `UIAlert` / `AlertDialog` hệ thống.
 4. Timeout/unavailable → toast `Chưa lấy được vị trí. Thử lại.` · **không** handoff.
 5. GPS OK + active session → toast pin → **real** handoff `patrol-checkin` với payload `sessionId` + `LocationFix` `{lat,lng,accuracyM}` (+ route prefill) · **cấm** fields check-in / MatchOk UI trên pack này.
 6. Persist = sibling POST `patrol/sessions/{id}/check-ins` · **cấm** invent `/pins` · **cấm** pin auto-POST.
@@ -94,7 +94,7 @@ Nguồn DA-01 + DEM (hash skip copy). UNCLEAR field = **none**. `tabs: none` —
 | pinToast | Đã ghim vị trí hiện tại · {route} · ±N m | Toast | * | `LinmToast` | Success sau fix OK · **trước** handoff · label 13–16 |
 | locDenyTitle | Định vị bị tắt | ModalTitle | * | in-app modal | `DES-MOB-GPS-DENY` |
 | locDenyBody | Cần vị trí để chấm công / chấm điểm tuần. Mở Cài đặt → Quyền vị trí cho RMMS. | ModalBody | * | in-app modal | copy demo |
-| locDenyCopy | Sao chép hướng dẫn | PrimaryButton | * | `LinmPrimaryButton` | toast hướng dẫn sau copy |
+| locDenyCopy | Mở Cài đặt | PrimaryButton | * | `LinmPrimaryButton` | open Settings |
 | locDenyLater | Để sau | SecondaryButton | * | `LinmSecondaryButton` | đóng modal |
 | locTimeout | Chưa lấy được vị trí. Thử lại. | Toast | * | `LinmToast` | warning · **không** handoff · **cấm** fake coords |
 | handoffCheckin | Ghi điểm tuần | Route / Sheet | — | sibling `patrol-checkin` | **real** openSheet/navigate · payload `sessionId`+`LocationFix` · **cấm** form trên pack này |
@@ -151,7 +151,7 @@ Frame: iOS 390×844 · Android 412×915 · safe area · CTA/modal không đè no
 |----|----------|-----|
 | AC-GPS-01 | Allow + active session | Toast success có route + ±m · rồi **real** handoff `sessionId`+`LocationFix` · **cấm** fake coords |
 | AC-GPS-01b | Allow · no active session | Toast pin / empty-route copy · **không** POST · **không** bắt buộc openSheet nếu thiếu sessionId |
-| AC-GPS-02 | Deny | Modal `DES-MOB-GPS-DENY` · Sao chép hướng dẫn / Để sau · **không** handoff · **cấm** `UIAlert` / `AlertDialog` |
+| AC-GPS-02 | Deny | Modal `DES-MOB-GPS-DENY` · Mở Cài đặt / Để sau · **không** handoff · **cấm** `UIAlert` / `AlertDialog` |
 | AC-GPS-03 | Timeout | Toast timeout · **không** handoff · **cấm** fake coords · không crash |
 | AC-OFF-01 | Offline | Vẫn ghim (GPS local) · toast pin · **queue** handoff payload · **cấm** full-screen block |
 | AC-PERSIST-01 | Persist ownership | Pin **không** gọi POST check-ins · sibling owner · **cấm** invent `/pins` · **cấm** auto-POST |

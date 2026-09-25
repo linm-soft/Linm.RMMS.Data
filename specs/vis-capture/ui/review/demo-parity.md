@@ -21,7 +21,7 @@
 | Toast OK **Đã gắn sự cố** | yes | yes | OK |
 | Deny title **Định vị bị tắt** | yes | yes | OK |
 | Deny body mobile-p1 copy | yes | yes | OK |
-| Primary **Sao chép hướng dẫn** · Secondary **Để sau** | yes | yes | OK |
+| Primary **Mở Cài đặt** · Secondary **Để sau** | yes | yes | OK |
 | `#i-chevron-left` cùng `d=` | yes | yes | OK |
 | `#i-camera` cùng motif | yes | yes | OK |
 | Shell Tab 5 cùng 5 nhãn (Trang Chủ · Tuần đường · Vấn đề · Công việc · Tôi) | yes | yes | OK |

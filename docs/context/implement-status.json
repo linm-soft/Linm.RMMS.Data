@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-18T20:13:17.140Z",
+  "updatedAt": "2026-09-21T04:13:10.984Z",
   "features": {
     "ai-asset-detect": {
       "web": {
@@ -12,15 +12,15 @@
     },
     "ai-vision": {
       "web": {
-        "phase": "qa (web) · done (mobile lane)",
-        "status": "await_confirm (web QA) · in_progress (mobile)",
-        "updatedAt": "2026-09-16T18:19:00.079Z",
+        "phase": "done",
+        "status": "await_confirm",
+        "updatedAt": "2026-09-19T06:06:37.586Z",
         "statusRel": "specs/ai-vision/STATUS.md"
       },
       "mobile": {
         "phase": "done",
-        "status": "in_progress",
-        "updatedAt": "2026-09-01T00:42:01.265Z",
+        "status": "await_confirm",
+        "updatedAt": "2026-09-19T06:04:35.052Z",
         "statusRel": "specs/ai-vision/STATUS.md"
       }
     },
@@ -34,9 +34,9 @@
     },
     "asset": {
       "mobile": {
-        "phase": "qa",
-        "status": "blocked",
-        "updatedAt": "2026-09-18T18:41:36.221Z",
+        "phase": "dev",
+        "status": "pending",
+        "updatedAt": "2026-09-21T04:13:10.942Z",
         "statusRel": "specs/asset/STATUS.md"
       },
       "web": {
@@ -48,9 +48,9 @@
     },
     "asset-adjust": {
       "mobile": {
-        "phase": "qa",
-        "status": "await_confirm",
-        "updatedAt": "2026-09-01T16:13:25.494Z",
+        "phase": "dev",
+        "status": "blocked",
+        "updatedAt": "2026-09-21T04:13:10.943Z",
         "statusRel": "specs/asset-adjust/STATUS.md"
       }
     },
@@ -73,8 +73,8 @@
     "asset-detail": {
       "mobile": {
         "phase": "dev",
-        "status": "await_confirm",
-        "updatedAt": "2026-09-01T16:52:11.961Z",
+        "status": "blocked",
+        "updatedAt": "2026-09-21T04:13:10.945Z",
         "statusRel": "specs/asset-detail/STATUS.md"
       }
     },
@@ -128,9 +128,9 @@
     },
     "attendance-report": {
       "mobile": {
-        "phase": "done",
-        "status": "done",
-        "updatedAt": "2026-09-16T12:51:00.000Z",
+        "phase": "dev",
+        "status": "in_progress",
+        "updatedAt": "2026-09-21T04:13:10.949Z",
         "statusRel": "specs/attendance-report/STATUS.md"
       }
     },
@@ -688,7 +688,7 @@
       "mobile": {
         "phase": "done",
         "status": "done",
-        "updatedAt": "2026-08-29T08:26:55.146Z",
+        "updatedAt": "2026-09-19T15:28:19.991Z",
         "statusRel": "specs/mnt-log/STATUS.md"
       }
     },
@@ -696,7 +696,7 @@
       "mobile": {
         "phase": "done",
         "status": "done",
-        "updatedAt": "2026-09-16T03:20:49.793Z",
+        "updatedAt": "2026-09-20T00:27:23.016Z",
         "statusRel": "specs/mnt-progress/STATUS.md"
       }
     },
@@ -734,10 +734,32 @@
     },
     "nghiem-thu": {
       "web": {
+        "phase": "dev",
+        "status": "in_progress",
+        "updatedAt": "2026-09-21T04:13:10.983Z",
+        "statusRel": "specs/nghiem-thu/STATUS.md"
+      },
+      "mobile": {
         "phase": "done",
         "status": "done",
-        "updatedAt": "2026-09-12T10:10:11.580Z",
+        "updatedAt": "2026-09-19T18:46:56.091Z",
         "statusRel": "specs/nghiem-thu/STATUS.md"
+      }
+    },
+    "nghiem-thu-create": {
+      "mobile": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-19T17:38:40.427Z",
+        "statusRel": "specs/nghiem-thu-create/STATUS.md"
+      }
+    },
+    "nghiem-thu-detail": {
+      "mobile": {
+        "phase": "dev",
+        "status": "blocked",
+        "updatedAt": "2026-09-21T04:13:10.984Z",
+        "statusRel": "specs/nghiem-thu-detail/STATUS.md"
       }
     },
     "ops": {
@@ -1352,7 +1374,7 @@
       "mobile": {
         "phase": "qa",
         "status": "await_confirm",
-        "updatedAt": "2026-09-01T15:53:21.880Z",
+        "updatedAt": "2026-09-20T01:35:29.275Z",
         "statusRel": "specs/supervise-detail/STATUS.md"
       }
     },
@@ -1384,7 +1406,7 @@
       "mobile": {
         "phase": "dev",
         "status": "done",
-        "updatedAt": "2026-09-16T18:19:00.093Z",
+        "updatedAt": "2026-09-19T06:01:55.457Z",
         "statusRel": "specs/attendance-log/STATUS.md"
       }
     },

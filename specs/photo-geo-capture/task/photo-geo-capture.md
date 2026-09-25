@@ -174,3 +174,7 @@ AskQuestion (autoApprove=ON · không chờ board): `ios_repo_confirm` · `andro
 - map: `specs/photo-geo-capture/ui/html-to-native-map.md`
 - solution: `specs/photo-geo-capture/be/solution-discovery.md`
 - STATUS: `specs/photo-geo-capture/STATUS.md`
+
+## UI notes Dev — MOB-PERM-OS-01 (2026-09-20)
+
+OS location/camera dialog first. GPS deny CTA **Mở Cài đặt** / **Để sau**. **Cấm** Sao chép hướng dẫn / clipboard. iOS already-denied camera → Settings only.

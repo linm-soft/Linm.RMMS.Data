@@ -44,5 +44,12 @@
 
 `/edit-mobile-feature` 2026-09-18: **GAP-MOB-EDIT-FIELD-CHROME** — `#input-desc` `LinmTextArea` · **cấm** raw `BasicTextField` `onSurface 0.12` · `assembleW0Debug` **PASS**.
 
+
+## Notes — MOB-PERM-OS-01 (2026-09-20)
+
+- OS location/camera dialog **trước** GPS read / capture (`LaunchLocationPermissionOnStart` / `rememberAskLocationPermission` · iOS `requestWhenInUseAuthorization` / `requestAccess`).
+- GPS deny modal primary **Mở Cài đặt** · secondary **Để sau** · **cấm** Sao chép hướng dẫn / clipboard.
+- iOS already-denied camera → `AppSettingsOpener` (không re-prompt). Android camera Don't ask again → app Settings.
+
 ---
 <!-- Version meta: skillId=agent-dev-android skillVersion=2026.09.05.03 schemaVersion=1 -->

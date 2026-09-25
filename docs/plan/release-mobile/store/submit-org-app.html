@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>RMMS Org app - Apple Business</title>
+  <style>
+    :root {
+      --blue: #0C84C0;
+      --deep: #086A9A;
+      --sky: #2A9AD4;
+      --surface: #F2F2F7;
+      --card: #fff;
+      --muted: #8E8E93;
+      --label: #1C1C1E;
+      --warn: #9a5b00;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      font-size: 16px;
+      line-height: 1.45;
+      color: var(--label);
+      background: var(--surface);
+    }
+    header {
+      background: linear-gradient(165deg, #086A9A 0%, #0C84C0 55%, #2A9AD4 100%);
+      color: #fff;
+      padding: 28px 20px 32px;
+    }
+    .wrap { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+    header h1 { margin: 0 0 8px; font-size: 22px; letter-spacing: -0.3px; }
+    header p { margin: 0; opacity: .95; font-size: 15px; }
+    .meta { margin-top: 12px; font-size: 13px; opacity: .9; }
+    .banner {
+      margin: 16px 20px 0;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+      background: #fff8e8;
+      color: var(--warn);
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-size: 14px;
+    }
+    section {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 16px;
+      margin: 16px 0;
+      box-shadow: 0 1px 4px rgba(0,0,0,.05);
+    }
+    h2 { margin: 0 0 4px; font-size: 16px; }
+    .hint { margin: 0 0 10px; color: var(--muted); font-size: 13px; }
+    textarea {
+      width: 100%;
+      min-height: 72px;
+      font: 15px/1.45 ui-monospace, SFMono-Regular, Menlo, monospace;
+      border: 1px solid #e5e5ea;
+      border-radius: 10px;
+      padding: 10px 12px;
+      resize: vertical;
+      background: #fafafa;
+    }
+    textarea.tall { min-height: 180px; }
+    textarea.short { min-height: 44px; }
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    button.copy {
+      min-height: 44px;
+      padding: 8px 16px;
+      border: 0;
+      border-radius: 10px;
+      background: var(--deep);
+      color: #fff;
+      font: 700 15px inherit;
+      cursor: pointer;
+    }
+    button.copy:active { opacity: .85; }
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--deep);
+      color: #fff;
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-weight: 600;
+      display: none;
+    }
+    footer { padding: 8px 0 40px; color: var(--muted); font-size: 13px; }
+    .store-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+    .store-tabs a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 8px 16px;
+      border-radius: 10px;
+      background: rgba(255,255,255,.18);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .store-tabs a.is-on {
+      background: #fff;
+      color: var(--deep);
+    }
+    .page-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      max-width: 760px;
+      margin: 16px auto 0;
+      padding: 0 20px;
+    }
+    .page-tabs .tab {
+      min-height: 44px;
+      padding: 8px 16px;
+      border: 0;
+      border-radius: 10px;
+      background: #e5e5ea;
+      color: var(--label);
+      font: 700 14px inherit;
+      cursor: pointer;
+    }
+    .page-tabs .tab.is-on {
+      background: var(--deep);
+      color: #fff;
+    }
+    .panel[hidden] { display: none !important; }
+    .steps { margin: 8px 0 0; padding-left: 1.2em; }
+    .steps li { margin: 6px 0; }
+    a.ext { color: var(--deep); }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <h1>RMMS (VN) — Org app</h1>
+      <p>Record Custom cho tổ chức. Không có link App Store công khai. Gửi nhân viên qua Apple Business sau khi tổ chức được duyệt.</p>
+      <p class="meta">Snapshot <strong>2026-09-23</strong> · Apple ID 1510513131 · bundle <code>com.drvn.rmms</code> · 1.0.7 Ready for Distribution · không dùng record public 6812959209</p>
+      <nav class="store-tabs" aria-label="Store">
+        <a href="submit-info.html">Apple / iOS</a>
+        <a href="submit-unlisted-app.html">Unlisted</a>
+        <a class="is-on" href="submit-org-app.html">Org app</a>
+        <a href="submit-info-play.html">Google Play</a>
+      </nav>
+    </div>
+  </header>
+  <p class="banner">Apple Business CENTRAL TRADING đang <strong>In Review</strong> từ 23/09/2026. Organization ID <strong>686811167860</strong>. App Store Connect báo <strong>could not be found</strong> khi dán ID này vào RMMS (VN) <code>1510513131</code> — chưa nhận ID khi tổ chức chưa duyệt xong. Tổ chức đã gắn sẵn trên app: MIEN TRUNG, Organization ID <strong>49676641</strong>. Link <code>https://apps.apple.com/vn/app/id1510513131</code> trả 404.</p>
+  <nav class="page-tabs" aria-label="Org app">
+    <button type="button" class="tab is-on" data-tab="org">Tab 1 - Tổ chức</button>
+    <button type="button" class="tab" data-tab="staff">Tab 2 - Gửi app cho nhân viên</button>
+  </nav>
+
+  <main class="wrap panel" id="tab-org">
+    <section data-field="org_name">
+      <h2>Organization Name</h2>
+      <p class="hint">Khớp D-U-N-S 55-539-4211. Không đổi sang tên tiếng Việt.</p>
+      <textarea id="org_name" class="short" readonly>CENTRAL TRADING AND TECHNOLOGY JOINT STOCK COMPANY</textarea>
+      <div class="row"><button type="button" class="copy" data-copy="org_name">Copy</button></div>
+    </section>
+
+    <section data-field="duns">
+      <h2>D-U-N-S</h2>
+      <p class="hint">Form Apple đang hiện có gạch. Nếu Send vẫn tắt, thử 9 số không gạch.</p>
+      <textarea id="duns" class="short" readonly>55-539-4211
+555394211</textarea>
+      <div class="row"><button type="button" class="copy" data-copy="duns">Copy</button></div>
+    </section>
+
+    <section data-field="address">
+      <h2>Địa chỉ đã điền</h2>
+      <p class="hint">Country là Vietnam, không phải United States. Website để trống. Không tick agency.</p>
+      <textarea id="address" class="tall" readonly>Country/Region: Vietnam
+Address Line 1: No. 18/43A, Phan Chu Trinh Street, Saigonsky Urban Area
+Address Line 2: (trống)
+City: Thanh Vinh Ward
+State: Nghe An
+Zip Code: hồ sơ D&amp;B không có — không tự điền
+Telephone: (84) (238) (3588668)
+Business Email: lephucjcnet@gmail.com</textarea>
+      <div class="row"><button type="button" class="copy" data-copy="address">Copy</button></div>
+    </section>
+
+    <section data-field="enroll">
+      <h2>Lựa chọn lúc tạo</h2>
+      <textarea id="enroll" class="tall" readonly>Customize your experience: chỉ tick Manage IT needs.
+Employees: 10-500 (số người của công ty này, không phải ước lượng 500 máy hiện trường).
+Agency / third-party partner: không tick.
+Apple Business: business.apple.com — Welcome, Le Phuc.
+Account Holder: lephucjcnet@gmail.com
+Team Developer: H2T7CM4NFF</textarea>
+      <div class="row"><button type="button" class="copy" data-copy="enroll">Copy</button></div>
+    </section>
+
+    <section data-field="legal">
+      <h2>Tên trên ĐKKD và membership</h2>
+      <p class="hint">Khác tên D&amp;B đang dùng cho Apple Business. Không trộn hai D-U-N-S.</p>
+      <textarea id="legal" class="tall" readonly>ĐKKD: CÔNG TY CỔ PHẦN CÔNG NGHỆ VÀ THƯƠNG MẠI MIỀN TRUNG
+MST: 2900765654
+Người đại diện trên ĐKKD: NGUYỄN THỊ THỦY
+Apple Developer membership: MIEN TRUNG TECHNOLOGY AND TRADING JOINT STOCK COMPANY
+D-U-N-S trên membership: 89599831
+File ĐKKD đã thử upload (ĐKKD L11.pdf) nhưng Send for Review không sáng. Đã chuyển Method 2 sang domain.</textarea>
+      <div class="row"><button type="button" class="copy" data-copy="legal">Copy</button></div>
+    </section>
+
+    <section data-field="verify">
+      <h2>Xác minh tổ chức — trạng thái 2026-09-23</h2>
+      <textarea id="verify" class="tall" readonly>Method 1: Business ID → D-U-N-S 555394211.
+Method 2: Domain Validation → rmms.vn. Đã Verified.
+TXT name/host: @
+TXT value: apple-domain-verification=aqodi9u2iMzwwTVp
+Đã gửi review 23/09/2026. Trạng thái: In Review. Có thể đến 5 ngày làm việc. Apple gửi email khi xong.
+Organization ID: 686811167860
+Trang: business.apple.com → Settings → Organization</textarea>
+      <div class="row"><button type="button" class="copy" data-copy="verify">Copy</button></div>
+    </section>
+
+    <section>
+      <h2>App Custom gắn với tổ chức này</h2>
+      <textarea id="app_record" class="tall" readonly>Name: RMMS (VN)
+Bundle ID: com.drvn.rmms
+SKU: RoadCheck
+Apple ID: 1510513131
+Version: 1.0.7 Ready for Distribution
+Phân phối: Custom / Apple Business. Không đổi record này sang Public.
+Record public khác: RMMS · com.drvn.rmms.store · Apple ID 6812959209 · đường Unlisted.</textarea>
+      <div class="row"><button type="button" class="copy" data-copy="app_record">Copy</button></div>
+    </section>
+  </main>
+
+  <main class="wrap panel" id="tab-staff" hidden>
+    <section>
+      <h2>Chưa gửi link</h2>
+      <ol class="steps">
+        <li>Tổ chức phải được Apple duyệt (Send for Review xong và trạng thái đã xác minh).</li>
+        <li>Settings → Organization → bật Custom Apps.</li>
+        <li>Settings → Organization → Details. Organization ID đã có: 686811167860.</li>
+        <li>Chỉ dán 686811167860 sau khi Apple Business hết In Review. Dán khi còn In Review thì App Store Connect báo: The Organization ID or Name you entered could not be found.</li>
+        <li>App Store Connect → RMMS (VN) 1510513131 → Pricing and Availability → Private → thêm Organization ID → Save. Xóa dòng trống Required trước khi Save.</li>
+        <li>Đợi app hiện trong Apple Business, thường trong ngày sau khi ID được nhận.</li>
+      </ol>
+    </section>
+
+    <section data-field="no_link">
+      <h2>Link không dùng</h2>
+      <p class="hint">Record Custom không có trang Store công khai.</p>
+      <textarea id="no_link" class="short" readonly>https://apps.apple.com/vn/app/id1510513131</textarea>
+      <div class="row"><button type="button" class="copy" data-copy="no_link">Copy</button></div>
+    </section>
+
+    <section data-field="asc_add">
+      <h2>Chỗ gắn Organization ID</h2>
+      <textarea id="asc_add" class="tall" readonly>App Store Connect
+App: RMMS (VN)
+Apple ID: 1510513131
+Bundle: com.drvn.rmms
+Menu: Pricing and Availability
+App Distribution Methods: Private
+Type: Organization ID
+Value: 686811167860
+Chỉ dán khi trạng thái Apple Business không còn In Review.
+23/09/2026: dán lúc In Review bị lỗi could not be found.
+Tổ chức đã có trên app: 49676641 · MIEN TRUNG TECHNOLOGY AND TRADING JOINT STOCK COMPANY</textarea>
+      <div class="row"><button type="button" class="copy" data-copy="asc_add">Copy</button></div>
+    </section>
+
+    <section>
+      <h2>Lấy mã gửi nhân viên</h2>
+      <ol class="steps">
+        <li>Apple Business → Apps &amp; Services → Apps and Books → App Store → View Store → Custom Apps.</li>
+        <li>Chọn RMMS (VN).</li>
+        <li>App có giá: License Type = Redemption Codes, số lượng bằng số nhân viên, tải file mã. Mỗi mã một lần. Apple ID của nhân viên phải vùng Việt Nam.</li>
+        <li>App miễn phí: Apple không phát mã đổi. Gán license qua MDM. Không có một link cài chung.</li>
+        <li>Gửi từng link mã cho từng nhân viên. Họ mở trên iPhone, đăng nhập Apple ID, cài. App không hiện khi tìm trên Store.</li>
+        <li>Cài xong, đăng nhập RMMS bằng tài khoản do đơn vị cấp. Apple ID chỉ dùng để cài.</li>
+      </ol>
+    </section>
+
+    <section data-field="staff_note">
+      <h2>Ghi nhớ khi gửi</h2>
+      <textarea id="staff_note" class="tall" readonly>Tổ chức nhận app: CENTRAL TRADING AND TECHNOLOGY JOINT STOCK COMPANY
+Cổng: https://business.apple.com
+App: RMMS (VN) · 1510513131 · com.drvn.rmms · 1.0.7
+Không gửi link apps.apple.com/id1510513131.
+Không dùng record Unlisted 6812959209 cho đường này.
+Máy công ty đã enrol MDM thì gán managed distribution, không cần mã đổi.</textarea>
+      <div class="row"><button type="button" class="copy" data-copy="staff_note">Copy</button></div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">RMMS · org app · com.drvn.rmms · pack nội bộ · không deploy làm landing khách · listing public: submit-info.html</div>
+  </footer>
+  <div class="toast" id="toast">Đã copy</div>
+  <script>
+    (function () {
+      var toast = document.getElementById('toast');
+      var hide;
+      function show() {
+        toast.style.display = 'block';
+        clearTimeout(hide);
+        hide = setTimeout(function () { toast.style.display = 'none'; }, 1400);
+      }
+      document.querySelectorAll('[data-copy]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var el = document.getElementById(btn.getAttribute('data-copy'));
+          if (!el) return;
+          var text = el.value;
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(show).catch(function () {
+              el.select();
+              document.execCommand('copy');
+              show();
+            });
+          } else {
+            el.select();
+            document.execCommand('copy');
+            show();
+          }
+        });
+      });
+      document.querySelectorAll('.page-tabs [data-tab]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var id = btn.getAttribute('data-tab');
+          document.querySelectorAll('.page-tabs [data-tab]').forEach(function (b) {
+            b.classList.toggle('is-on', b === btn);
+          });
+          document.getElementById('tab-org').hidden = id !== 'org';
+          document.getElementById('tab-staff').hidden = id !== 'staff';
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

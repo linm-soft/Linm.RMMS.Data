@@ -2,9 +2,9 @@
 
 **Sources:** `ui/prototype/ios/index.html` · `ui/prototype/android/index.html` · `ui/design.md` · PO · DA controlHint + real-data  
 **Gate:** `/mobile-ui-ux-analy` §1–§9 · **REQUIRED** trước Dev  
-**Slash:** `/mobile-ui-ux-analy` · `task_bda2e253` · `2026-08-29T07:22:00.000Z`  
+**Slash:** `/mobile-ui-ux-analy` · `task_7451543a` · `2026-09-19T13:45:28.000Z`  
 **Brand tokens:** Primary `#0C84C0` · deep `#086A9A` · success `#34C759` · orange `#FF9500` · surface `#F2F2F7` · label `#1C1C1E` · muted `#8E8E93`  
-**Hash skip:** DA contentHash `sha256:mnt-log-mobile-control-hint-20260829` · **cấm** re-scan DemoRoot (`GAP-DES-DEMO-RESCAN-01`)
+**Hash skip:** DA contentHash `sha256:5c74f801620d6dabea7e29b3591c3298a358205a64070a14c4d371d3098a3dd3` · demo `sha256:d3ecd6203f20b49c25a282887298b7cf657385f1d610b3304da5a5bb393323d0` · **cấm** re-scan DemoRoot (`GAP-DES-DEMO-RESCAN-01`)
 
 ## 1. IA
 
@@ -139,9 +139,13 @@ Must open = **0** · packet §1–§9 đủ · handoff SA (`be/solution-discover
 | skillId | mobile-ui-ux-analy |
 | skillVersion | 2026.08.25.01 |
 | schemaVersion | 2 |
-| generatedAt | 2026-08-29T07:22:00.000Z |
-| contentHash | sha256:mnt-log-mobile-control-hint-20260829 |
-| taskId | `task_bda2e253` |
+| workflowVersion | 2026.09.19.2 |
+| rulesVersion | 2026.09.19.5 |
+| generatedAt | 2026-09-19T13:45:28.000Z |
+| versionGate | recheck_new |
+| contentHash | sha256:5c74f801620d6dabea7e29b3591c3298a358205a64070a14c4d371d3098a3dd3 |
+| demoContentHash | sha256:d3ecd6203f20b49c25a282887298b7cf657385f1d610b3304da5a5bb393323d0 |
+| taskId | `task_7451543a` |
 
 ---
-<!-- Version meta: skillId=mobile-ui-ux-analy skillVersion=2026.08.25.01 schemaVersion=2 -->
+<!-- Version meta: skillId=mobile-ui-ux-analy skillVersion=2026.08.25.01 schemaVersion=2 workflowVersion=2026.09.19.2 rulesVersion=2026.09.19.5 versionGate=recheck_new -->

@@ -17,7 +17,7 @@
 ## IA / API
 
 - Tab **Trang Chủ** = `#sc-home` hub · **không required login**. Guest `.who` **Khách** + FAQ · dock đáy `btn-home-login` + privacy · **ẩn** `LinmTabBar`.
-- Staff GET `auth/profile` · `.who` = `fullName` · **cấm** GET profile khi guest.
+- Staff GET `auth/profile` · `.who` = `fullName` · back Home = `lastDisplayName` cache · **cấm** GET lại khi đã có tên · **cấm** GET profile khi guest.
 - Role **ẩn live** (GAP-F-HOME-01) · wallet **live** `searchRoutes` + types count · fail/empty trống · `notifyCount=0` ẩn · **cấm** GET inbox.
 - Hồ sơ → tab **Tôi**. Notify → **cùng** `#sc-ops` (Tôi → Thông báo) · GET overview/inbox guest **AllowAnonymous** · mark-read staff only. Sibling / signal / wallet = `LinmToast` nhãn.
 - Foot Gói **cấm ship** (GAP-F-HOME-03).
@@ -49,4 +49,8 @@ Step 4b / T-BE **N/A** — reuse Auth profile only.
 
 `/edit-mobile-feature` 2026-09-16: **GAP-MOB-EDIT-HOME-WHO-SKEL** — staff GET `auth/profile` · `.who` empty = bone pulse `home-who-skeleton` · **cấm** flash Khách · **cấm** `linmBusyOverlay` hub · dest **iPhone 17 Pro** **PASS**.
 
+`/edit-mobile-feature` 2026-09-21: Guideline 3.2 Public - guest dock `home.login.sub` **Đã có tài khoản** · FAQ/privacy không «cán bộ / đơn vị». Store build **1.0.0 (2)**. **Cấm** Archive trong skill này.
+
 `/edit-mobile-feature` 2026-09-18: **GAP-MOB-EDIT-FAQ-SEARCH** — `#f-faq-search` capsule `card` · `fieldText` · trailing `LinmSearchGlyph` · **cấm** SF `magnifyingglass` · dest **iPhone 17 Pro Max** **PASS**.
+
+`/edit-mobile-feature` 2026-09-20: **GAP-MOB-EDIT-HOME-WHO-CACHE** — back Home `.who` từ `lastDisplayName` · **cấm** GET `auth/profile` lại · tap tín hiệu force refresh · dest **iPhone 17 Pro Max** **PASS**.

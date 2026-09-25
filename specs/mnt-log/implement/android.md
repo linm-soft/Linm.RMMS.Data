@@ -8,30 +8,28 @@
 | status | **PASS** |
 | changeScope | `new_page` |
 | packKind | **sheet** → surface **screen** `#sc-mnt-log` · **cấm** bottom-sheet |
-| taskId | `task_3af3ded6` · T-AND-MNT-LOG |
-| updatedAt | `2026-08-29T07:45:00.000Z` |
+| taskId | `task_5e1ef0bb` · T-AND-MNT-LOG |
+| updatedAt | `2026-09-19T14:00:00.000Z` |
 
 ## Summary
 
-Ship readonly **Nhật ký xử lý** Compose screen · dual parity iOS (back = icon-only). Entry mnt-list Log (**done** only) navigate `mnt-log/{id}` thay toast. Same GetById + client derive · **cấm** invent logs API · Step 4b **N/A**.
+Readonly **Nhật ký xử lý** Compose · dual parity iOS (back icon-only) · `mnt-log/{id}` · GetById + client derive · **cấm** invent logs · Step 4b **N/A**. Hash-refresh + A11Y log glyph `contentDescription`.
 
 ## Files
 
 | Path | Change |
 |------|--------|
-| `presentation/feature/mntlog/MntLogScreen.kt` | **NEW** · TopBar · banner · ListRow×3 · SectionLabel · timeline · EmptyChrome |
-| `presentation/feature/mntlog/MntLogViewModel.kt` | **NEW** · Hilt · Appear / GetWO / derive / toast |
-| `presentation/feature/mntlog/MntLogUiState.kt` | **NEW** · Seed · state · intents |
-| `domain/usecase/DeriveWorkOrderTimelineUseCase.kt` | **NEW** · same derive map as iOS |
-| `data/remote/MntProgressDto.kt` | extend DTO/domain detail fields |
-| `presentation/feature/mntlist/MntListViewModel.kt` | `Log` → `onOpenLog` |
-| `presentation/feature/mntlist/MntListScreen.kt` | wire `onOpenLog` |
-| `presentation/navigation/MainTabScreen.kt` | WorkStack route `mnt-log/{id}` |
-| `presentation/copy/LinmCopy.kt` | VN keys `mnt.log.*` |
+| `presentation/feature/mntlog/MntLogScreen.kt` | Screen · zone ids `#wo-header` `#empty` `#wo-status-badge` |
+| `presentation/feature/mntlog/MntLogViewModel.kt` | Hilt · Appear / GetWO / derive / toast |
+| `presentation/feature/mntlog/MntLogUiState.kt` | Seed · state · intents |
+| `domain/usecase/DeriveWorkOrderTimelineUseCase.kt` | same derive map as iOS |
+| `presentation/feature/mntlist/MntListScreen.kt` | Log a11y · navigate |
+| `presentation/copy/LinmCopy.kt` | `mnt.log.*` + `mnt.log.a11y` |
+| `presentation/navigation/MainTabScreen.kt` | WorkStack `mnt-log/{id}` (prior) |
 
 ## API / behavior
 
-Parity iOS: missing-id banner · GET fail toast+empty · derive newest-first · Back → mnt-list · readonly · shell tab **work**.
+Parity iOS: missing-id banner · GET fail toast+empty · derive newest-first · Back → mnt-list · readonly · tab **work**.
 
 ## VERIFY GATE
 
@@ -41,8 +39,8 @@ cd /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android && ./gradlew :app:assemb
 
 | Check | Result |
 |-------|--------|
-| assembleDebug | **PASS** |
-| BFF `dotnet build` | **PASS** (Mobile.Bff · no code change · verify gate) |
+| assembleDebug | **PASS** (retry +Xmx6g after OOM) |
+| BFF `dotnet build` | **PASS** |
 | Step 4b | **N/A** |
 | e2e | **SKIP** · queued `/agent-qa*` |
 
@@ -53,16 +51,16 @@ cd /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android && ./gradlew :app:assemb
 | skillId | agent-dev-android |
 | skillVersion | 2026.08.25.01 |
 | schemaVersion | 1 |
-| workflowVersion | 2026.08.25.01 |
-| rulesVersion | 2026.08.25.2 |
-| versionGate | rechecked |
-| contentHash | sha256:mnt-log-mobile-control-hint-20260829 |
-| realDataHash | sha256:mnt-log-mobile-real-data-20260829 |
-| bffContentHash | sha256:mnt-log-mobile-bff-20260829 |
-| actionTreeHash | sha256:mnt-log-mobile-action-tree-20260829 |
-| ctxContentHash | sha256:87761a7752a493d6ad176d96d76ccaf6116ea407ec5ec5513b6e12372a58d701 |
-| demoContentHash | sha256:394ab44597648f04b25e6d58476378c16141feb53d3b58d39923b3defcff8328 |
-| taskId | `task_3af3ded6` |
+| workflowVersion | 2026.09.19.2 |
+| rulesVersion | 2026.09.19.5 |
+| versionGate | recheck_new |
+| contentHash | sha256:5c74f801620d6dabea7e29b3591c3298a358205a64070a14c4d371d3098a3dd3 |
+| realDataHash | sha256:5c74f801620d6dabea7e29b3591c3298a358205a64070a14c4d371d3098a3dd3 |
+| bffContentHash | sha256:maintenance-work-orders-getbyid-proxy-passthrough |
+| actionTreeHash | sha256:5c74f801620d6dabea7e29b3591c3298a358205a64070a14c4d371d3098a3dd3 |
+| ctxContentHash | sha256:5c74f801620d6dabea7e29b3591c3298a358205a64070a14c4d371d3098a3dd3 |
+| demoContentHash | sha256:d3ecd6203f20b49c25a282887298b7cf657385f1d610b3304da5a5bb393323d0 |
+| taskId | `task_5e1ef0bb` |
 
 ---
-<!-- Version meta: skillId=agent-dev-android skillVersion=2026.08.25.01 schemaVersion=1 workflowVersion=2026.08.25.01 rulesVersion=2026.08.25.2 versionGate=rechecked -->
+<!-- Version meta: skillId=agent-dev-android skillVersion=2026.08.25.01 schemaVersion=1 workflowVersion=2026.09.19.2 rulesVersion=2026.09.19.5 versionGate=recheck_new -->

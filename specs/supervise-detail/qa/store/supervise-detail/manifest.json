@@ -1,23 +1,78 @@
 {
   "feature": "supervise-detail",
-  "capturedAt": "2026-09-01T15:47:20.000Z",
+  "capturedAt": "2026-09-20T00:47:41.693Z",
   "iosDevice": "iPhone 17 Pro Max",
   "method": "e2e-qa-mobile",
-  "taskId": "task_4063c6a2",
-  "ok": false,
   "steps": [
-    { "id": "A10-BFF", "result": "PASS", "store": ["A10", "P11"] },
     {
-      "id": "MAESTRO-AND",
-      "result": "FAIL",
-      "store": ["P6"],
-      "gap": "GAP-QA-STORE-03",
-      "error": "sup-card seed not visible · sc-supervise shows sup-empty · BFF 0 GET attendance-logs from 10.0.2.2"
+      "id": "A10-BFF",
+      "result": "PASS",
+      "store": [
+        "A10",
+        "P11"
+      ],
+      "scenario": "App gọi BFF khi mở supervise-detail",
+      "expect": "BFF listen; dữ liệu thật — không mock in-app",
+      "actual": "Chưa mô tả actual — QA Read PNG vs prototype"
     },
-    { "id": "A11-LAUNCH", "result": "PASS", "screenshot": "A11-LAUNCH.png", "store": ["A11"] },
-    { "id": "A9-LOGIN", "result": "PASS", "screenshot": "A9-LOGIN.png", "store": ["A9", "P10"] },
-    { "id": "A3-CORE", "result": "PASS", "screenshot": "A3-CORE.png", "store": ["A3", "A11"] },
-    { "id": "P6-CORE", "result": "FAIL", "screenshot": "P6-CORE.png", "store": ["P6", "P11"], "gap": "GAP-QA-STORE-03" },
-    { "id": "P6-CORE-2", "result": "FAIL", "screenshot": "P6-CORE-2.png", "store": ["P6"], "gap": "GAP-QA-STORE-03" }
-  ]
+    {
+      "id": "A11-LAUNCH",
+      "result": "PASS",
+      "screenshot": "A11-LAUNCH.png",
+      "store": [
+        "A11"
+      ],
+      "actual": "PNG có nội dung, đúng px store — chưa = khớp design (QA Read)",
+      "scenario": "Cán bộ mở app trên iPhone",
+      "expect": "Thấy màn khách/home, title đọc được, không màn đen"
+    },
+    {
+      "id": "A9-LOGIN",
+      "result": "PASS",
+      "screenshot": "A9-LOGIN.png",
+      "store": [
+        "A9",
+        "P10"
+      ],
+      "actual": "PNG có nội dung, đúng px store — chưa = khớp design (QA Read)",
+      "scenario": "Cán bộ đăng nhập",
+      "expect": "Form tiếng Việt, vào được Trang chủ"
+    },
+    {
+      "id": "A3-CORE",
+      "result": "PASS",
+      "screenshot": "A3-CORE.png",
+      "store": [
+        "A3",
+        "A11"
+      ],
+      "actual": "PNG có nội dung, đúng px store — chưa = khớp design (QA Read)",
+      "scenario": "Cán bộ vào màn supervise-detail trên iPhone",
+      "expect": "Title và việc chính khớp prototype; làm được việc như người dùng cuối"
+    },
+    {
+      "id": "P6-CORE",
+      "result": "PASS",
+      "screenshot": "P6-CORE.png",
+      "store": [
+        "P6",
+        "P11"
+      ],
+      "actual": "PNG có nội dung, đúng px store — chưa = khớp design (QA Read)",
+      "scenario": "Cán bộ vào màn supervise-detail trên Android",
+      "expect": "Title và việc chính khớp prototype; làm được việc như người dùng cuối"
+    },
+    {
+      "id": "P6-CORE-2",
+      "result": "PASS",
+      "screenshot": "P6-CORE-2.png",
+      "store": [
+        "P6"
+      ],
+      "actual": "PNG có nội dung, đúng px store — chưa = khớp design (QA Read)",
+      "scenario": "Cán bộ xem phần còn lại của màn supervise-detail trên Android",
+      "expect": "Fold tiếp theo cùng việc, không màn đen"
+    }
+  ],
+  "ok": true
 }

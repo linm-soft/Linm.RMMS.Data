@@ -33,7 +33,7 @@ Login → Tab Trang Chủ (shell Tab 5 · index home)
 |------------|--------|------------|----------------|-----|
 | DES-MOB-INC-FORM / `#sc-inc-form` | Ghi sự cố | nav back «Thông tin tài sản» + chevron · title 17 · Tab 5 home | icon-btn chevron · TopAppBar title · Nav 5 home | Tạo vấn đề / cam / estimate / nháp |
 | DES-MOB-INC-KIND | Loại ghi nhận | pills Hư/Mất/Hỏng | same | — |
-| DES-MOB-GPS-DENY / `#modal-gps` | Định vị bị tắt | in-app modal | Material dialog card | Sao chép hướng dẫn / Để sau |
+| DES-MOB-GPS-DENY / `#modal-gps` | Định vị bị tắt | in-app modal | Material dialog card | Mở Cài đặt / Để sau |
 | Entry pick (cùng flow) | Chọn loại tài sản… | banner + grid 3 cột stretch · pict 36 QCVN | same | toast pick nếu thiếu |
 
 ## 3. Zone
@@ -72,7 +72,7 @@ Login → Tab Trang Chủ (shell Tab 5 · index home)
 |------|------|---------|---------|---------|
 | Title | Định vị bị tắt | `h3` 17 | Text 17 semibold | same |
 | Body | Cần vị trí… RMMS. | `p` 13 | Text 13 | same |
-| Primary | Sao chép hướng dẫn | `.btn-primary` | `LinmPrimaryButton` | same |
+| Primary | Mở Cài đặt | `.btn-primary` | `LinmPrimaryButton` | same |
 | Secondary | Để sau | `.btn-secondary` | `LinmSecondaryButton` | same |
 
 **Cấm** `UIAlertController` / `AlertDialog` hệ thống (`AC-D-04`).

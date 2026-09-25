@@ -31,7 +31,8 @@ Login → Tab Tuần đường (shell Tab 5 · index field)
 |------------|--------|------------|----------------|-----|
 | DES-MOB-CAM-PATROL / `#sc-cam-patrol` | Thu thập bằng camera | back «Tuần đường» · title 17 · Tab 5 field | icon-btn · TopAppBar · Nav 5 field | Xác nhận · tạo vấn đề / Bỏ qua |
 | DES-MOB-CAM-FINDER | (viewfinder) | AVCapture + FOV + stamp + frame JPEG | CameraX + FOV + stamp + frame | — |
-| DES-MOB-GPS-DENY / `#modal-gps` | Định vị bị tắt | in-app modal | Material dialog | Sao chép hướng dẫn / Để sau |
+| DES-MOB-GPS-DENY / `#modal-gps` | Định vị bị tắt | in-app modal | Material dialog | Mở Cài đặt / Để sau |
+| DES-MOB-CAM-DENY / `#modal-camera-deny` | Camera bị tắt | in-app modal | Material dialog | Mở Cài đặt / Để sau · **cấm** OS dialog khi `denied` |
 
 ## 3. Zone
 
@@ -68,6 +69,13 @@ Login → Tab Tuần đường (shell Tab 5 · index field)
 | Zone | Demo | Map | Native |
 |------|------|-----|--------|
 | Title / body / CTAs | Định vị bị tắt · copy SSOT | `#modal-gps` | modal · **cấm** system alert |
+
+### DES-MOB-CAM-DENY
+
+| Zone | Demo | Map | Native |
+|------|------|-----|--------|
+| Detect | iOS `DeviceCameraAuth.canAskOsDialog` (`notDetermined`) · Android `canAskCameraOsDialog` | — | OS dialog **chỉ** khi còn hỏi được |
+| Guide | Camera bị tắt · Mở Cài đặt | `#modal-camera-deny` | `CameraDenyModal` / `CameraDenyDialog` · resume Settings → granted đóng modal |
 
 ## 4. Copy SSOT
 
@@ -115,7 +123,7 @@ Toast fade ~2.4s · modal backdrop · Skip ẩn card · Confirm toast SC-* · fa
 | GAP-MOB-CAM-SCORE-01 | demo 91% | ship **ẩn** |
 | AC-D-02 | GPS deny | modal · chặn Confirm |
 | AC-D-04 | alert | **cấm** system |
-| AC-D-11 | camera deny | toast · **cấm** fake detection |
+| AC-D-11 | camera deny | `#modal-camera-deny` · OS chỉ khi `canAskOsDialog` · **cấm** fake detection · **GAP-MOB-EDIT-CAM-DENY** |
 | AC-F-02 / AC-F-08 | frame+fail | Must |
 | AC-F-06 | score | không % ship |
 | kit_missing | CameraFinder | **approve** |

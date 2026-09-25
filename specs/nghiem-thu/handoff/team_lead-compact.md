@@ -5,49 +5,63 @@ feature: nghiem-thu
 packKind: list
 role: team_lead
 status: done
-skillVersion: 2026.09.05.03
-writtenAt: 2026-09-12T09:27:42.000Z
-changeScope: new_page
-taskId: task_9bf1287f
-contentHash: sha256:41b14359b00a0bacbd2f5e88ab9ed8f7604f962c4e4e58219bf9c1145b5ef4ea
-featureKind: B
-route_confirm: approve
-formPattern: Full page
+skillVersion: 2026.08.25.01
+writtenAt: 2026-09-19T18:10:00.000Z
+taskId: task_e1131e78
+autoApprove: ON
+changeScope: edit_page
+contentHash: sha256:1044ba719edda88d256d5c2a780cd2293f2fab87e2a39acdbb86001fad6ff659
+formPattern: N/A
+route_confirm: route_a
+featureKind: list-screen
+planCite: docs/plan/nghiem-thu-mau/{README,MAU-10,CHI-SO,SCHEMA}.md
 
 ## Decisions
-- changeScope: new_page · Kind B list · Full page `data-form-cols=5`
-- route: `/nghiem-thu` · `/nghiem-thu/new` · `/nghiem-thu/:id` (autoApprove A)
-- mfe: `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Field` · mfeStdUrl `http://localhost:9301/nghiem-thu`
-- be: `D:/AI-QLBD/Linm.RMMS.WebService` · Patrol · `api/v1/patrol/nghiem-thu` · **cấm ERP.*** · **cấm** WO
-- files: FileService `web-bff/api/v1/files/*` · Schema_NghiemThu · mediaIds guid[]
-- filter: LinErpListFilterBar · `nghiem-thu-filter-bar.md` · lấp hàng rồi wrap · 🔍 right
-- Leave: LeaveConfirmModal · **cấm** native confirm
-- autoApprove ON · e2eQa queued QA only
-- next: `/agent-dev`
+- changeScope: edit_page · keep web Kind B + list chrome ship · § Delta = MAU-10 Label + ResultCode + Schema_NghiemThuMau
+- formPattern: N/A list · scores/write → create/detail siblings pending_confirm · navigate only
+- route_a: **keep** · không URL mới · hub `#row-nghiem-thu` → push list · Back patrol-home · tab patrol · **cấm** mfeStdUrl
+- ios/android_repo: reuse dual · scaffold **không** `/mobile-app-architecture` · kit_missing_confirm=N/A · T-KIT **n/a**
+- schema_choice: **child_table** · migration=**yes** · T-BE-MIG + T-BE-API **pending Dev** · Step 4b **SKIP TL** · T-BFF **n/a** · **cấm ERP.***
+- list bind: TemplateLabel (cấm raw mau-0N / «Mẫu nghiệm thu NN») · ResultCode badge null ẩn · scores OUT list
+- autoApprove ON · e2eQa ON queued `/agent-qa*` only · **cấm** e2e/start:std/build ở TL
+- open questions: none
+- chain: không (roleOnly=team_lead · GAP-PKT-ROLE-01)
 
 ## Inventory (slim)
 | id | label | controlHint | notes |
 |----|-------|-------------|-------|
-| search/status/route/templateType/fromDate/toDate | filter | Search*·Date | T-UI-FILTER-01 |
-| code…mediaIds | form | Text·SearchInput·FileMulti | T-UI-FORM-01 Full 5col |
-| updatedAt | Cập nhật | Date | readonly |
+| navBack | Tuần đường | BackButton | patrol-home |
+| title | Công tác nghiệm thu | TopBar | fixed |
+| navCreate | Tạo | TextButton | → create sibling |
+| search | Tìm mẫu nghiệm thu… | SearchField | ?search= |
+| rowCode | NT-* | Text | Code |
+| rowSub | Label MAU-10 · tuyến · Km | Text | TemplateLabel·Route·KmFrom |
+| rowStatus | Nháp/… | Badge | init-data |
+| rowResult | Đạt/Không đạt/Khấu trừ | Badge | ResultCode · ẩn null |
+| rowTap | Chi tiết | ListRow | → detail + Id |
+| empty/toast | — | EmptyChrome/Toast | 0 / fail |
 
 ## Screens / zones (ids only)
-- DES-GRID-A…D · C2a · C3 · F · H · Z · DES-NT-UPLOAD · DES-LEAVE
-- reviewUrl=`file:///D:/AI-QLBD/Linm.RMMS.Data/specs/nghiem-thu/ui/prototype/index.html`
+- DES-MOB-NGHIEM-THU · `#sc-nghiem-thu` · DES-MOB-NT-SEARCH · DES-MOB-NT-STATUS · DES-MOB-NT-RESULT · hub `#row-nghiem-thu`
+- reviewUrlIos=`…/prototype/ios/index.html` · reviewUrlAndroid=`…/prototype/android/index.html`
 - peerStdUrl=`http://localhost:9304/patrol`
 
 ## API / tasks (ids only)
-- FormMode↔API: List→01 · V/E/Copy→02 · C→03 · E-save→04 · Del→05 · init→00 · Files→FILE
-- T-*: T-PERM-01 · T-BE-MIG-01 · T-BE-CRUD-01 · T-BE-INIT-01 · T-BE-UISCHEMA-01 · T-BFF-01 · T-FE-API-01 · T-UI-LIST-01 · T-UI-FILTER-01 · T-UI-CFG-01 · T-UI-FORM-01 · T-UI-LEAVE-01 · T-UI-ACT-01 · T-UI-LKP-01 · T-UI-FIELD-01 · T-UI-PROD-01 · T-UI-UX-01 · T-UI-RESP-01 · T-UI-HIST-01 · T-QA-CRUD-01 · T-QA-FORM-01 · T-QA-FILTER-01 · T-QA-FILTER-02
-- deps: T-BE-MIG → T-BE-CRUD → T-BFF → T-FE-API → T-UI-* · T-BE before T-UI
-- devSlash: `/agent-dev` · T-UI-RESP-01=`/dev-web-responsive`+`/dev-ui-review` · QA=`/agent-qa`
+- FormMode↔API: List→API-01 · Lookups→API-00 · C/E/V/D/Files/Scores→OUT siblings
+- **T-BE-MIG** · Schema_NghiemThuMau · `/database-migration` · Dev Step 4b · `dotnet build` WebService
+- **T-BE-API** · deps T-BE-MIG · TemplateLabel + ResultCode · init resultCodes + MAU-10 label
+- **T-IOS-NGHIEM-THU** · deps T-BE-API+route_a · **devSlash** `/agent-dev-ios` · `/edit-mobile-feature` · `/dev-ios-swiftui`
+- **T-AND-NGHIEM-THU** · deps T-IOS · **devSlash** `/agent-dev-android` · `/edit-mobile-feature` · `/dev-android-compose`
+- T-BFF / T-KIT: **n/a**
+- T-QA-NGHIEM-THU · T-QA-TAB-01 (cite) · serial BE → iOS → Android
+- enqueue sibling: none (pending_confirm)
 
 ## UNCLEAR
-- none blocking TL→Dev
+- none
 
 ## Full paths (Read only if needed)
-- task: `D:/AI-QLBD/Linm.RMMS.Data/specs/nghiem-thu/task/nghiem-thu.md`
-- solution: `D:/AI-QLBD/Linm.RMMS.Data/specs/nghiem-thu/be/solution-discovery.md`
-- filter-bar: `D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/nghiem-thu-filter-bar.md`
-- STATUS: `D:/AI-QLBD/Linm.RMMS.Data/specs/nghiem-thu/STATUS.md`
+- task: /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/nghiem-thu/task/nghiem-thu.md
+- sa compact: /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/nghiem-thu/handoff/sa-compact.md
+- design compact: /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/nghiem-thu/handoff/design-compact.md
+- solution: /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/nghiem-thu/be/solution-discovery.md
+- STATUS: /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/nghiem-thu/STATUS.md

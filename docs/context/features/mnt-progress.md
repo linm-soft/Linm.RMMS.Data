@@ -71,4 +71,4 @@ Mobile list chrome giữ copy **mnt-list**; init-data labels dùng cho Select n�
 | lane | phase | status | updatedAt |
 |------|-------|--------|-----------|
 | web | — | — | — |
-| mobile | `done` | `done` | `2026-09-16T03:20:49.793Z` |
+| mobile | `done` | `done` | `2026-09-20T00:27:23.016Z` |

@@ -1,90 +1,84 @@
-# QA — scenarios — nghiem-thu (e2eQa=ON)
+# QA — scenarios — nghiem-thu (mobile · e2eQa=ON)
 
 | Field | Value |
 |-------|-------|
 | feature | `nghiem-thu` |
-| this role | `qa` · `/agent-qa` |
+| this role | `qa` · `/agent-qa-mobile` |
 | status | `confirmed` |
 | verdict | **PASS** · handoff Review |
-| packKind | `list` · Kind B · Full page `data-form-cols=5` |
-| changeScope | `new_page` |
-| liveStdUrl | `http://localhost:9304/nghiem-thu` · `/nghiem-thu/new` · `/:id` |
-| mfeStdUrl STATUS fix | was `:9301` → **chốt `:9304`** (Field `start:std` / webpack) |
-| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · `api/v1/patrol/nghiem-thu` · files `web-bff/api/v1/files/*` · **cấm ERP.*** |
-| taskId | `task_7d0037b7` |
-| prior Dev | `task_dda12f30` · contentHash `sha256:41b14359b00a0bacbd2f5e88ab9ed8f7604f962c4e4e58219bf9c1145b5ef4ea` |
+| packKind | `list` · native list `#sc-nghiem-thu` |
+| changeScope | `edit_page` · MAU-10 Label + ResultCode · keep web |
+| lane | `mobile` · dual iOS+Android |
+| contentHash | `sha256:1044ba719edda88d256d5c2a780cd2293f2fab87e2a39acdbb86001fad6ff659` |
+| taskId | `task_4b20206f` |
+| prior Dev | `task_cdb487a6` · compact `handoff/dev-compact.md` |
 | autoApprove | ON |
 | e2eQa | ON |
-| method | e2e runtime · docker + `yarn start:std` :9304 · `yarn e2e-qa` npx FAIL → local playwright (AI-AutoCode) · **cấm** kill worker |
-| updatedAt | `2026-09-12T10:05:00.000Z` |
+| ios_test_phase | `phase1_iphone` · iPhone 17 Pro Max · **A4-IPAD DEFER** |
+| method | e2e runtime · `yarn e2e-qa-mobile` · Maestro · **cấm** `start:std` / mfeStdUrl / kill worker |
+| updatedAt | `2026-09-19T18:42:00.000Z` |
 
-## Smoke — Final MFE (e2eQa REQUIRED)
+## Device AC — Scenario / Expect / Actual (VN)
 
-| # | Step | Expect | Result | Evidence |
-|---|------|--------|--------|----------|
-| S0 | mở `http://localhost:9304/nghiem-thu` | `[data-testid=rmms-nghiem-thu-list-page]` | **PASS** | ![S0](screens/S0.png) |
-| S1 | List Zone A–D · filters | `rmms-nghiem-thu-list-filters` · search/status/route/templateType/date | **PASS** | ![S1](screens/S1.png) |
-| QA-20 | Form `/nghiem-thu/new` | `[data-testid=rmms-nghiem-thu-form-page]` · `data-form-cols=5` | **PASS** | ![QA-20](screens/QA-20.png) |
+| # | Scenario | Expect | Actual | Result |
+|---|----------|--------|--------|--------|
+| T-QA-NGHIEM-THU-01 | Cán bộ mở app ở màn khách | Thấy title Khách và nút Đăng nhập, không màn đen | A11: header Khách, Hỗ trợ người dân, nút Đăng nhập, link Chính sách quyền riêng tư · 1320×2868 | **PASS** |
+| T-QA-NGHIEM-THU-02 | Cán bộ đăng nhập tài khoản seed | Form tiếng Việt, vào được app sau login | A9: title QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ, ô linm-soft, nút Đăng nhập; iOS vào list, Android vào hub Tài sản rồi tab Tuần đường | **PASS** |
+| T-QA-NGHIEM-THU-03 | Từ hub Tuần đường mở Công tác nghiệm thu | Title Công tác nghiệm thu, ô tìm, empty hoặc dòng NT-* live | A3 và P6: Back, title đúng, nút Tạo, placeholder Tìm mẫu nghiệm thu…, empty «Chưa có phiếu nghiệm thu» | **PASS** |
+| T-QA-NGHIEM-THU-04 | Gõ tìm trên Android | Fold tìm khác ảnh list trống | P6-2 ô tìm hiện NT; hash khác P6-CORE; title và empty vẫn thấy | **PASS** |
+| T-QA-TAB-01 | Tab đang đứng khi xem list | Tab Tuần đường được chọn | A3 và P6 tab Tuần đường màu xanh; P6-2 IME che tab vì ô tìm đang focus | **PASS** |
+| T-QA-REAL-01 | Danh sách lấy từ BFF, không hàng mẫu | 0 phiếu thì empty; cấm demoItems | BFF :5202 listen; màn empty đúng copy, không hàng NT-* giả | **PASS** |
 
-## T-QA-* (DoD)
+## E2E screenshots
 
-| # | Step | Expect | Result | Evidence |
-|---|------|--------|--------|----------|
-| T-QA-CRUD-01 | POST create + list + GET view + DELETE | row `NT-*` trên grid · **cấm** empty-only | **PASS** · API create `NT-20260912-0001` · delete 200 · recreate `NT-20260912-0002` | ![QA-CRUD](screens/QA-CRUD.png) · ![QA-VIEW](screens/QA-VIEW.png) |
-| T-QA-FORM-01 | Full 5col · required · LeaveConfirmModal | `data-form-cols=5` · Leave wired · **0** `window.confirm` | **PASS** (live form + source) | ![QA-20](screens/QA-20.png) · ![QA-LEAVE](screens/QA-LEAVE.png) |
-| T-QA-FILTER-01 | filter headed 1280 | filters mount · 🔍 search btn present | **PASS** | ![QA-FILTER-D](screens/QA-FILTER-D.png) |
-| T-QA-FILTER-02 | D+T+M 1280/768/375 | list page mount · 0 crash | **PASS** | ![QA-FILTER-D](screens/QA-FILTER-D.png) · ![QA-FILTER-T](screens/QA-FILTER-T.png) · ![QA-FILTER-M](screens/QA-FILTER-M.png) |
+Viewer: `/api/qldb/artifact?id=&rel=qa/scenarios.md` rewrite `screens/{caseId}.png`.
 
-## Chrome / gates (static+live)
+CLI **PASS** = Maestro + PNG không đen + store px + ảnh không trùng. Visual = Read CORE vs `#sc-nghiem-thu`.
 
-| Gate | Result |
-|------|--------|
-| Demo note / badge CREATE / Cổng người dân | **PASS** — UI VN «Nghiệm thu» · toolbar Làm mới/Lịch sử/Sửa config/Tạo mới |
-| Kind B config | **PASS** — `LinCatalogUiSchemaEditorModal` · **0** configHint |
-| Leave / alert | **PASS** — `LeaveConfirmModal` + `useFormLeaveGuard` · **0** native confirm |
-| Form grid | **PASS** — live `data-form-cols="5"` |
-| API/BFF | **PASS** — list/init/create/get/delete 200 after docker rebuild |
-| **cấm ERP.*** / WO / sessions reuse | **PASS** (path `patrol/nghiem-thu`) |
+| Case | Scenario | Expect | Actual | Result | Evidence |
+|------|----------|--------|--------|--------|----------|
+| A10-BFF | App gọi BFF khi mở nghiem-thu | BFF listen; dữ liệu thật — không mock in-app | Mobile.Bff listen :5202; list live empty, không hàng mẫu | **PASS** | — |
+| A11-LAUNCH | Cán bộ mở app trên iPhone | Thấy màn khách/home, title đọc được, không màn đen | Title Khách, nút Đăng nhập, không màn đen · 1320×2868 | **PASS** | ![A11-LAUNCH](screens/A11-LAUNCH.png) |
+| A9-LOGIN | Cán bộ đăng nhập | Form tiếng Việt, vào được Trang chủ | Form QUẢN LÝ BẢO TRÌ ĐƯỜNG BỘ, tài khoản linm-soft, nút Đăng nhập; login xong vào được nghiệp vụ | **PASS** | ![A9-LOGIN](screens/A9-LOGIN.png) |
+| A3-CORE | Cán bộ vào màn nghiem-thu trên iPhone | Title và việc chính khớp prototype; làm được việc như người dùng cuối | Title Công tác nghiệm thu, Back Tuần đường, Tạo, ô tìm, empty Chưa có phiếu nghiệm thu, tab Tuần đường | **PASS** | ![A3-CORE](screens/A3-CORE.png) |
+| P6-CORE | Cán bộ vào màn nghiem-thu trên Android | Title và việc chính khớp prototype; làm được việc như người dùng cuối | Cùng title, mũi tên Back, Tạo, ô tìm, empty cùng câu; tab Tuần đường · 1080×1920 | **PASS** | ![P6-CORE](screens/P6-CORE.png) |
+| P6-CORE-2 | Cán bộ gõ tìm trên Android | Fold tìm khác ảnh list, không màn đen | Ô tìm hiện NT; empty vẫn đúng câu; hash khác P6-CORE; thanh IME che tab dưới | **PASS** | ![P6-CORE-2](screens/P6-CORE-2.png) |
 
-## E2E runtime log
+## Align UX (Read CORE vs demo)
 
-| Check | Result |
-|-------|--------|
-| docker compose up -d | **PASS** |
-| docker rebuild api+bff (Schema_NghiemThu) | **PASS** (404→200) |
-| yarn start:std :9304 | **PASS** (compiled) · **cấm** kill worker |
-| yarn e2e-qa CLI | **FAIL** npx `playwright` resolve from screens cwd → fallback local node+playwright |
-| local capture S0,S1,QA-20 + FILTER D/T/M + CRUD/VIEW/LEAVE | **PASS** · `manifest.json` ok=true |
-| Screens | `specs/nghiem-thu/qa/screens/{caseId}.png` |
+| Shot | vs demo `#sc-nghiem-thu` | Verdict |
+|------|--------------------------|---------|
+| A3-CORE iOS | Title Công tác nghiệm thu · Back Tuần đường · Tạo · DES-MOB-NT-SEARCH · empty · tab Tuần đường | **Aligned** |
+| P6-CORE Android | Cùng title/Tạo/search/empty · Back icon Material · tab Tuần đường | **Aligned** |
+| P6-CORE-2 | Search `NT` · không trùng bytes P6 · IME che tab (focus ô tìm) | **Aligned** |
+| ResultCode | Badge Đạt/Không đạt/Khấu trừ chỉ khi có dòng; 0 phiếu → empty, không vẽ demo | **Aligned** · không GAP-QA-REAL-01 |
+| Must mở | design / title / feat / end-user | **0** · autoApprove `align_confirm=approve` |
 
-## Gaps / debt (non-blocking → Review)
-
-| ID | Severity | Note |
-|----|----------|------|
-| GAP-QA-E2E-NPX | P2 | `yarn e2e-qa` npx install/resolve flake — fallback local playwright OK |
-| SD-AUTH | P2 | Auth RequirePermission stub (Dev debt) |
-| GAP-QA-LEAVE-UI | P3 | Cancel dirty không luôn hiện dialog headed — LeaveConfirmModal wired; Review visual OK |
-| migrate apply env | P2 | KEEP Dev debt |
-
-**P0:** none — **PASS** handoff Review · **cấm** `phase=done`.
-
-## Build / runtime gate
+## Runtime log
 
 | Check | Result |
 |-------|--------|
-| MFE start:std listen :9304 | **PASS** |
-| BFF init/list/create/delete | **PASS** |
-| BE Write this role | **n/a** |
+| BFF `dotnet build` | **PASS** · 0 error |
+| docker API :5101 + Mobile.Bff :5202 | **PASS** |
+| iOS xcodegen + xcodebuild · iPhone 17 Pro Max | **PASS** · bundle `com.drvn.rmms.store` |
+| Android assembleW3Debug · emulator 1080×1920 | **PASS** |
+| Maestro iOS+Android | **PASS** · guest → login → `#row-nghiem-thu` → `#sc-nghiem-thu` |
+| PNG blank / DUP | **PASS** · 6 hash khác nhau · luma không đen |
+| **cấm** start:std / mfeStdUrl / kill worker | **PASS** |
 
-## Version meta (REQUIRED)
+## Debt / notes
+
+- 0 phiếu trên tenant → empty đúng design; badge ResultCode chưa có dòng để hiện
+- create/detail `pending_confirm` — Tạo không mở sibling trong task này
+- A4-IPAD **DEFER** Phase 1
+- Android sau login vào `sc-asset-hub` rồi tab Tuần đường (không dừng ở `sc-home`)
+
+## Handoff → review
 
 | Field | Value |
 |-------|-------|
-| skillId | agent-qa |
-| skillVersion | 2026.09.05.03 |
-| schemaVersion | 1 |
-| workflowVersion | 2026.09.05.03 |
-| rulesVersion | 2026.09.05.03 |
-| contentHashPriorDev | sha256:41b14359b00a0bacbd2f5e88ab9ed8f7604f962c4e4e58219bf9c1145b5ef4ea |
-| generatedAt | 2026-09-12T10:05:00.000Z |
-| phase | `review` (**cấm** `phase=done`) |
+| phase_to | `review` · `/agent-review-mobile` |
+| verdict | PASS · Must 0 |
+| T-QA-* | T-QA-NGHIEM-THU-* · T-QA-TAB-01 · T-QA-REAL-01 |
+| PNG | `qa/screens/{A11,A9,A3,P6,P6-2}.png` · `qa/store/nghiem-thu/` |
+| Open questions | none |

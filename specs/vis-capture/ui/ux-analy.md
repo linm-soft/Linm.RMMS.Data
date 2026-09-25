@@ -28,7 +28,7 @@ Login → Tab Vấn đề (shell Tab 5 · index incident)
 | DES / sc-* | Tên VN | iOS chrome | Android chrome | CTA |
 |------------|--------|------------|----------------|-----|
 | DES-MOB-VIS-CAPTURE / `#sc-vis-capture` | Nhận diện mặt đường | nav back «Vấn đề» + chevron · title 17 · Tab 5 incident | icon-btn chevron · TopAppBar title · Nav 5 incident | Gắn sự cố / Bỏ qua |
-| DES-MOB-GPS-DENY / `#modal-gps` | Định vị bị tắt | in-app modal | Material dialog card | Sao chép hướng dẫn / Để sau |
+| DES-MOB-GPS-DENY / `#modal-gps` | Định vị bị tắt | in-app modal | Material dialog card | Mở Cài đặt / Để sau |
 
 **Cấm** sheet / `#sheet-*` · **cấm** gộp cam-patrol finder.
 
@@ -58,7 +58,7 @@ Login → Tab Vấn đề (shell Tab 5 · index incident)
 |------|------|---------|---------|---------|
 | Title | Định vị bị tắt | `h3` 17 | Text 17 semibold | same |
 | Body | Cần vị trí… RMMS. | `p` 13 | Text 13 | same |
-| Primary | Sao chép hướng dẫn | `.btn-primary` | `LinmPrimaryButton` | same |
+| Primary | Mở Cài đặt | `.btn-primary` | `LinmPrimaryButton` | same |
 | Secondary | Để sau | `.btn-secondary` | `LinmSecondaryButton` | same |
 
 **Cấm** `UIAlertController` / `AlertDialog` hệ thống (`AC-D-04`).

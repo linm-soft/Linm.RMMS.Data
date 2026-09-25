@@ -5,46 +5,52 @@ feature: nghiem-thu
 packKind: list
 role: review
 status: done
-skillVersion: 2026.09.05.03
-writtenAt: 2026-09-12T10:10:00.000Z
-changeScope: new_page
-taskId: task_1b121e02
-contentHashPrior: sha256:41b14359b00a0bacbd2f5e88ab9ed8f7604f962c4e4e58219bf9c1145b5ef4ea
-reviewHash: sha256:4472b6cd5498ba5a206c9c21463c4adffe19c1c26299ccdfbc21757d190f8e1a
+skillVersion: 2026.08.31.2
+writtenAt: 2026-09-19T18:45:50.000Z
+taskId: task_b7626142
+slash: /agent-review-mobile
 autoApprove: ON
+changeScope: edit_page
+contentHash: sha256:1044ba719edda88d256d5c2a780cd2293f2fab87e2a39acdbb86001fad6ff659
+reviewHash: sha256:ce24777c87b1c352e86b2db3ffb3fadd30dae294493d91133a6c87808021c128
 review_confirm: accept
-mfeStdUrl: http://localhost:9304/nghiem-thu
+lane: mobile
 
 ## Decisions
-- changeScope: new_page · Kind B · Full `data-form-cols=5`
-- mode: review_only · **cấm** start:std/e2e/build this role
-- evidence: QA screens + static FE/BE · manifest ok · CRUD `NT-*`
-- findings: P0=0 · P1=0 · P2=2 · P3=1 · **accept**
-- debt KEEP: Auth stub · e2e npx flake · Leave visual P3
-- **cấm** ERP.* / WO / sessions · Patrol `api/v1/patrol/nghiem-thu`
-- next: chain done (roleOnly=review) · no further role this task
+- changeScope: edit_page · native list `#sc-nghiem-thu` dual · MAU-10 Label + ResultCode · keep web
+- hash: prior META `a635f3…` lệch → **RUN** (không skip)
+- mode: review_only · **cấm** e2e/start:std/build this role
+- evidence: vision A3/P6/P6-2 Aligned · Must 0 · DTO dual · BFF live · **0** demoItems
+- findings: P0=0 · P1=0 · P2=1 · P3=1 · **accept** · **không** fix_gaps
+- SEC/DTO/REAL/ALIGN **PASS** · GAP-MOB-REAL-02 / GAP-QA-REAL-01 / GAP-TYP-01 / GAP-TAB-01 closed
+- debt KEEP: REV-S-01 Auth stub P2 · REV-MOB-DEBT-01 siblings toast P3
+- siblings create/detail **pending_confirm** · **cấm** start (GAP-MOB-ACT-06)
+- **cấm** ERP.* / demoItems · Patrol `mobile-bff/api/v1/patrol/nghiem-thu`
+- open questions: none
 
 ## Inventory (slim)
 | id | class | sev | notes |
 |----|-------|-----|-------|
-| REV-S-01 | security | P2 | RequirePermission stub |
-| REV-QA-01 | ui-fn | P2 | e2e-qa npx flake |
-| REV-UI-02 | ui-fn | P3 | Leave dialog headed |
+| REV-S-01 | security | P2 | RequirePermission stub (web KEEP) |
+| REV-MOB-DEBT-01 | product | P3 | create/detail toast pending_confirm |
 
 ## Screens / zones (ids only)
-- QA: S0/S1/QA-20/QA-CRUD/QA-VIEW/QA-LEAVE/QA-FILTER-{D,T,M}
-- zones: DES-GRID-A…D · form Full · DES-LEAVE · DES-NT-UPLOAD
-- reviewUrl=file:///D:/AI-QLBD/Linm.RMMS.Data/specs/nghiem-thu/ui/prototype/index.html
+- `#sc-nghiem-thu` · DES-MOB-NGHIEM-THU · DES-MOB-NT-RESULT · hub `#row-nghiem-thu`
+- shots: `qa/store/nghiem-thu/{A11,A9,A3,P6,P6-2}.png`
+- reviewUrlIos=`…/prototype/ios/index.html#sc-nghiem-thu`
+- reviewUrlAndroid=`…/prototype/android/index.html#sc-nghiem-thu`
+- peerStdUrl=`http://localhost:9304/patrol`
 
 ## API / tasks (ids only)
-- FormMode↔API: List→01 · V/E/Copy→02 · C→03 · E→04 · Del→05 · init→00 · Files→FILE **PASS**
-- QUERY/SEC/UI/BE gates **PASS** (P2/P3 debt only)
+- List→API-01 TemplateLabel+ResultCode · init→API-00 · C/E/V/D/Scores→OUT siblings
+- T-QA-* PASS · review_confirm=accept
+- next: mark `task_b7626142` completed · no further role this task
 
 ## UNCLEAR
-- none blocking
+- none
 
 ## Full paths (Read only if needed)
-- findings: `D:/AI-QLBD/Linm.RMMS.Data/specs/nghiem-thu/review/findings.md`
-- META: `D:/AI-QLBD/Linm.RMMS.Data/specs/nghiem-thu/review/REVIEW-META.json`
-- prior qa: `D:/AI-QLBD/Linm.RMMS.Data/specs/nghiem-thu/handoff/qa-compact.md`
-- STATUS: `D:/AI-QLBD/Linm.RMMS.Data/specs/nghiem-thu/STATUS.md`
+- findings: /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/nghiem-thu/review/findings.md
+- META: /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/nghiem-thu/review/REVIEW-META.json
+- prior qa: /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/nghiem-thu/handoff/qa-compact.md
+- STATUS: /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/nghiem-thu/STATUS.md

@@ -3,7 +3,9 @@
 > **SSOT theo dõi.** Backlog mô tả: [`features/README.md`](features/README.md). Pipeline scan: [`implement-status.json`](implement-status.json) (có thể lệch — **ưu tiên** `specs/{slug}/STATUS.md`).  
 > **HĐ:** `37001-08/2026-LIC/LINM-JNET` · PL01 P1 CAPEX 900tr (A 450 + B 300 + C 150). Spec: [`Linm.RMMS.Contract/analy/PROMPT-SPEC-P1-P2-PHU-LUC-RELEASE.md`](../../../Linm.RMMS.Contract/analy/PROMPT-SPEC-P1-P2-PHU-LUC-RELEASE.md).  
 > **Demo hub:** `Linm.RMMS.Demo` · `npm run start:std` → http://localhost:5180 · catalog [`demoCatalog.ts`](../../../Linm.RMMS.Demo/src/demoCatalog.ts).  
-> **Cập nhật:** 2026-09-19 · OSRM client: MFE/Demo/specs **0** `project-osrm.org` (Asset `@rmms/gis-osrm` + Demo fail-closed) · extract Linux **còn** — [map-service](features/map-service.md)  
+> **Cập nhật:** 2026-09-20 · `/add-task` plan `nghiem-thu-mau` TT 41 10 công việc BDTX + chỉ số · lane mobile+BFF+API · web later  
+> **Prior:** 2026-09-19 · `/scan-mobile-feature` `run_selected` Công tác nghiệm thu · `nghiem-thu` + `nghiem-thu-create` + `nghiem-thu-detail` · queue `qlbd-mobile` `pending_confirm`  
+> **Prior:** 2026-09-19 · OSRM client: MFE/Demo/specs **0** `project-osrm.org` (Asset `@rmms/gis-osrm` + Demo fail-closed) · extract Linux **còn** — [map-service](features/map-service.md)  
 > **Prior:** 2026-09-19 · `/hey-linm` dashboard+map: mọi MFE map = GIS clip BFF (**cấm** OSM.org) — [dashboard](features/dashboard.md) · [map-service](features/map-service.md)  
 > **Prior:** 2026-09-19 · seed SĐT VN rewrite `cuc01_staff.csv` + `app_users.csv` (59 hàng · `0976258792`) — **không** queue · [users](features/users.md) §4b  
 > **Prior:** 2026-09-18 · `/add-task` `job-title` `/mas/chuc-vu` · prior /hey-linm `its-anco-signal`  
@@ -55,7 +57,7 @@
 | `partner-unit` | Sở / BOT / Cty | — | support | done | none | [ctx](features/partner-unit.md) | [ST](../../specs/partner-unit/STATUS.md) |
 | `job-title` | Danh mục chức vụ `/mas/chuc-vu` | — | support | `qa` / `await_confirm` | none | [ctx](features/job-title.md) | [ST](../../specs/job-title/STATUS.md) |
 | `org-route-scope` | Zone km Khu↔tuyến/đoạn | — | support | `done` / `done` | none | [ctx](features/org-route-scope.md) | [ST](../../specs/org-route-scope/STATUS.md) |
-| `asset` | QL tài sản ĐB | 01 | P1-900 | `data_analy` / `draft` | catalog | [ctx](features/asset.md) | [ST](../../specs/asset/STATUS.md) |
+| `asset` | QL tài sản ĐB | 01 | P1-900 | `done` / `done` | catalog | [ctx](features/asset.md) | [ST](../../specs/asset/STATUS.md) |
 | `asset-kcht-32` | 36 loại TS | 01 | P1-900 | `qa` / `await_confirm` | proto mobile-p1 | [ctx](features/asset-kcht-32.md) | [ST](../../specs/asset-kcht-32/STATUS.md) |
 | `csdl-so-sach` | Hub CSDL · Kind G · `/so-ts/csdl-so-sach` · **≠** hang-muc | 01 | P1-900 | `done` / `done` (shell) | catalog | [ctx](features/csdl-so-sach.md) | [ST](../../specs/csdl-so-sach/STATUS.md) |
 | `csdl-cuc-2026` | Epic typed 16 biểu + 10 sổ (Cục 08/2026) | 01 | P1-900 | `done` / `done` | none | [ctx](features/csdl-cuc-2026.md) | — |
@@ -105,7 +107,7 @@
 | `android-store-submit` | Android CH Play AAB / listing | — | support | context / lab (chưa AAB Store) | none | [ctx](features/android-store-submit.md) | — |
 | `directions` | Chỉ đường guest | — | support | no STATUS | none | [ctx](features/directions.md) | — |
 | `ai-vision-service` | Host `Linm.RMMS.Vision` | 03 / 03-P2 | support | `qa` / `await_confirm` | none | [ctx](features/ai-vision-service.md) · [plan](../plan/ai-vision-service/README.md) | [ST](../../specs/ai-vision-service/STATUS.md) |
-| `ai-vision` | AI kiểm định MD | 03 / 03-P2 | P1-900 online · P2-CR local | `data_analy` / `draft` | catalog | [ctx](features/ai-vision.md) · [host](features/ai-vision-service.md) | [ST](../../specs/ai-vision/STATUS.md) |
+| `ai-vision` | AI kiểm định MD | 03 / 03-P2 | P1-900 online · P2-CR local | `done` / `await_confirm` | catalog | [ctx](features/ai-vision.md) · [host](features/ai-vision-service.md) | [ST](../../specs/ai-vision/STATUS.md) |
 | `ai-asset-detect` | AI phát hiện TS | 03b / 03b-P2 | P1-900 · edge P2-CR | `qa` / `await_confirm` | catalog | [ctx](features/ai-asset-detect.md) | [ST](../../specs/ai-asset-detect/STATUS.md) |
 | `its-traffic-detect` | ITS biển/cọc | 03c-P2 | P2-CR | done | catalog | [ctx](features/its-traffic-detect.md) | [ST](../../specs/its-traffic-detect/STATUS.md) |
 | `its-anpr-overload` | ITS ANPR/WIM | 03c-P2 | P2-CR | done | catalog | [ctx](features/its-anpr-overload.md) | [ST](../../specs/its-anpr-overload/STATUS.md) |
@@ -122,8 +124,8 @@
 | `incident` | Quản lý sự cố | 06 | P1-900 | `done` / `done` | catalog | [ctx](features/incident.md) | [ST](../../specs/incident/STATUS.md) |
 | `maintenance` | Bảo trì khung + WO P2 | 07 / 07-P2 | P1-900 khung · P2-CR full | done | catalog | [ctx](features/maintenance.md) | [ST](../../specs/maintenance/STATUS.md) |
 | `predict` | AI dự báo | 08 / 08-P2 | P1-900 · P2-CR | done | catalog | [ctx](features/predict.md) | [ST](../../specs/predict/STATUS.md) |
-| `ops` | Điều hành | 09 / 09-P2 | P1-900 board · P2-CR full | done | catalog | [ctx](features/ops.md) | [ST](../../specs/ops/STATUS.md) |
-| `estimate` | AI ước lượng | 10 / 10-P2 | P1-900 · P2-CR | done | catalog | [ctx](features/estimate.md) | [ST](../../specs/estimate/STATUS.md) |
+| `ops` | Điều hành | 09 / 09-P2 | P1-900 board · P2-CR full | `qa` / `idle_review` | catalog | [ctx](features/ops.md) | [ST](../../specs/ops/STATUS.md) |
+| `estimate` | AI ước lượng | 10 / 10-P2 | P1-900 · P2-CR | `review` / `idle_review` | catalog | [ctx](features/estimate.md) | [ST](../../specs/estimate/STATUS.md) |
 | `contract` | HĐ & ngân sách | 11 / 11-P2 | P1-900 thin · P2-CR | done | catalog | [ctx](features/contract.md) | [ST](../../specs/contract/STATUS.md) |
 | `kcht-cong-trinh` | Công trình KCHT (Khu IV) | — | CR-Khu-IV | `qa` / `await_confirm` | none | [ctx](features/kcht-cong-trinh.md) | [ST](../../specs/kcht-cong-trinh/STATUS.md) |
 | `inventory` | Vật tư | 12 | P3-CR | Dev pending | catalog | [ctx](features/inventory.md) | [ST](../../specs/inventory/STATUS.md) |
@@ -136,20 +138,20 @@
 | `reports` | Hub báo cáo | 17 | P1-900 | done | catalog | [ctx](features/reports.md) | [ST](../../specs/reports/STATUS.md) |
 | `reports-filter-bar` | Edit filter `/bao-cao` | 17 | P1-900 | `done` / `done` | catalog | [ctx](features/reports-filter-bar.md) | [ST](../../specs/reports-filter-bar/STATUS.md) |
 | `integration` | Open API | 18 / 18-P2 | P1-900 khung · P2-CR | done | catalog | [ctx](features/integration.md) | [ST](../../specs/integration/STATUS.md) |
-| `feedback` | Góp ý nội bộ | — | support P1 | data_analy draft | catalog | [ctx](features/feedback.md) | [ST](../../specs/feedback/STATUS.md) |
+| `feedback` | Góp ý nội bộ | — | support P1 | `done` / `done` | catalog | [ctx](features/feedback.md) | [ST](../../specs/feedback/STATUS.md) |
 | `users` | QL user / TC | — | support P1 | `done` / `done` | catalog | [ctx](features/users.md) | [ST](../../specs/users/STATUS.md) |
-| `login` | Login + HĐ TK | — | P1 / P1.5 | done · run L0–L6 done | none | [ctx](features/login.md) | [ST](../../specs/login/STATUS.md) |
+| `login` | Login + HĐ TK | — | P1 / P1.5 | `data_analy` / `paused` | none | [ctx](features/login.md) | [ST](../../specs/login/STATUS.md) |
 | `login-forgot` | Quên MK | — | P1-900 | done | none | [ctx](features/login-forgot.md) | [ST](../../specs/login-forgot/STATUS.md) |
 | `home` | Home mobile | B | P1-900 | done | none | [ctx](features/home.md) | [ST](../../specs/home/STATUS.md) |
 | `me` | Profile mobile | B | P1-900 | done | none | [ctx](features/me.md) | [ST](../../specs/me/STATUS.md) |
 | `supervise` | Giám sát mobile | B | P1-900 | done | none | [ctx](features/supervise.md) | [ST](../../specs/supervise/STATUS.md) |
 | `mobile-p1` | IA mobile P1 | B | P1-900 | design await_confirm | proto | [brief](../../map-feature/mobile-design-brief.md) | [ST](../../specs/mobile-p1/STATUS.md) |
-| `patrol-home` | Patrol home | 04 | P1-900 | done | proto | [ctx](features/patrol-home.md) | [ST](../../specs/patrol-home/STATUS.md) |
-| `patrol-history` | Lịch sử tuần | 04 | P1-900 | done | proto | [ctx](features/patrol-history.md) | [ST](../../specs/patrol-history/STATUS.md) |
-| `patrol-offline` | Offline tuần | 04 | P1-900 | done | proto | [ctx](features/patrol-offline.md) | [ST](../../specs/patrol-offline/STATUS.md) |
-| `patrol-map` | Bản đồ tuần | 04 | P1-900 | `done` / `done` | proto | [ctx](features/patrol-map.md) | [ST](../../specs/patrol-map/STATUS.md) |
-| `patrol-pin` | GPS pin sheet | 04 | P1-900 | Review in_progress | proto | [ctx](features/patrol-pin.md) | [ST](../../specs/patrol-pin/STATUS.md) |
-| `patrol-checkin` | Check-in | 05 | P1-900 | data_analy draft | none | — | [ST](../../specs/patrol-checkin/STATUS.md) |
+| `patrol-home` | Patrol home | 04 | P1-900 | `qa` / `idle_review` | proto | [ctx](features/patrol-home.md) | [ST](../../specs/patrol-home/STATUS.md) |
+| `patrol-history` | Lịch sử tuần | 04 | P1-900 | `qa` / `idle_review` | proto | [ctx](features/patrol-history.md) | [ST](../../specs/patrol-history/STATUS.md) |
+| `patrol-offline` | Offline tuần | 04 | P1-900 | `review` / `idle_review` | proto | [ctx](features/patrol-offline.md) | [ST](../../specs/patrol-offline/STATUS.md) |
+| `patrol-map` | Bản đồ tuần | 04 | P1-900 | `qa` / `idle_review` | proto | [ctx](features/patrol-map.md) | [ST](../../specs/patrol-map/STATUS.md) |
+| `patrol-pin` | GPS pin sheet | 04 | P1-900 | `qa` / `idle_review` | proto | [ctx](features/patrol-pin.md) | [ST](../../specs/patrol-pin/STATUS.md) |
+| `patrol-checkin` | Check-in | 05 | P1-900 | `qa` / `idle_review` | none | — | [ST](../../specs/patrol-checkin/STATUS.md) |
 
 | `reports-filter-bar` | Edit /bao-cao filter bar | — | support | `data_analy` / `draft` | none | [ctx](features/reports-filter-bar.md) | [ST](../../specs/reports-filter-bar/STATUS.md) |
 | `so-ts-km-post` | Sổ TS — Cột Km | — | support | `done` / `done` | none | [ctx](features/so-ts-km-post.md) | [ST](../../specs/so-ts-km-post/STATUS.md) |
@@ -184,36 +186,52 @@
 | `so-ts-lighting` | Sổ TS — Chiếu sáng đường | — | support | `done` / `done` | none | [ctx](features/so-ts-lighting.md) | [ST](../../specs/so-ts-lighting/STATUS.md) |
 | `so-ts-its-camera` | Sổ TS — Hệ thống ITS | — | support | `done` / `done` | none | [ctx](features/so-ts-its-camera.md) | [ST](../../specs/so-ts-its-camera/STATUS.md) |
 | `so-ts-rescue-vehicle` | Sổ TS — Xe cứu hộ | — | support | `sa` / `pending` | none | [ctx](features/so-ts-rescue-vehicle.md) | [ST](../../specs/so-ts-rescue-vehicle/STATUS.md) |
-| `field-reflect` | [Mobile] [Tuần đường] -> Ghi nhận hư hỏng | — | support | `done` / `done` | none | [ctx](features/field-reflect.md) | [ST](../../specs/field-reflect/STATUS.md) |
+| `field-reflect` | [Mobile] [Tuần đường] -> Ghi nhận hư hỏng | — | support | `qa` / `idle_review` | none | [ctx](features/field-reflect.md) | [ST](../../specs/field-reflect/STATUS.md) |
 | `khu-1-pilot` | Pilot dữ liệu Khu I | — | support | `dev` / `pending` | none | [ctx](features/khu-1-pilot.md) | [ST](../../specs/khu-1-pilot/STATUS.md) |
-| `nghiem-thu` | Công tác nghiệm thu — clone tuần kiểm + 10 mẫu | — | support | `done` / `done` | none | [ctx](features/nghiem-thu.md) | [ST](../../specs/nghiem-thu/STATUS.md) |
-| `mnt-list` | [Mobile] Công việc | — | support | `done` / `done` | none | [ctx](features/mnt-list.md) | [ST](../../specs/mnt-list/STATUS.md) |
-| `cam-view` | [Mobile] Camera xem | — | support | `done` / `done` | data_analy PASS · handoff PO | [ctx](features/cam-view.md) | [ST](../../specs/cam-view/STATUS.md) |
-| `cam-patrol` | [Mobile] [Tuần đường] -> Thu thập camera | — | support | `done` / `done` | none | [ctx](features/cam-patrol.md) | [ST](../../specs/cam-patrol/STATUS.md) |
-| `photo-geo-capture` | [Mobile] [Tuần đường] -> Chụp ảnh kèm tọa độ | — | support | `done` / `done` | none | [ctx](features/photo-geo-capture.md) | [ST](../../specs/photo-geo-capture/STATUS.md) |
-| `mnt-chat` | Trao đổi công việc | — | support | `done` / `done` | none | [ctx](features/mnt-chat.md) | [ST](../../specs/mnt-chat/STATUS.md) |
-| `mnt-progress` | Cập nhật trạng thái | — | support | `done` / `done` | none | [ctx](features/mnt-progress.md) | [ST](../../specs/mnt-progress/STATUS.md) |
-| `mnt-log` | Nhật ký xử lý | — | support | `done` / `done` | none | [ctx](features/mnt-log.md) | [ST](../../specs/mnt-log/STATUS.md) |
-| `incident-create` | [Mobile] Ghi sự cố | — | support | `done` / `done` | none | [ctx](features/incident-create.md) | [ST](../../specs/incident-create/STATUS.md) |
-| `incident-list` | [Mobile] Vấn đề | — | support | `done` / `done` | none | [ctx](features/incident-list.md) | [ST](../../specs/incident-list/STATUS.md) |
-| `incident-chat` | Trao đổi sự cố | — | support | `dev` / `implemented` | none | [ctx](features/incident-chat.md) | [ST](../../specs/incident-chat/STATUS.md) |
-| `vis-capture` | Nhận diện mặt đường | — | support | `done` / `done` | data_analy PASS · dual/pack GAP | [ctx](features/vis-capture.md) | [ST](../../specs/vis-capture/STATUS.md) |
-| `incident-detail` | Chi tiết | — | support | `done` / `done` | none | [ctx](features/incident-detail.md) | [ST](../../specs/incident-detail/STATUS.md) |
-| `me-profile` | Hồ sơ | — | support | `done` / `done` | data_analy PASS · handoff PO | [ctx](features/me-profile.md) | [ST](../../specs/me-profile/STATUS.md) |
-| `me-settings` | Cài đặt | — | support | `done` / `done` | data_analy PASS · handoff PO | [ctx](features/me-settings.md) | [ST](../../specs/me-settings/STATUS.md) |
-| `asset-detail` | Chi tiết tài sản | — | support | `dev` / `await_confirm` | data_analy **PASS** | [ctx](features/asset-detail.md) | [ST](../../specs/asset-detail/STATUS.md) |
-| `asset-collect` | Thủ công | — | support | `done` / `done` | data_analy **PASS** · handoff PO | [ctx](features/asset-collect.md) | [ST](../../specs/asset-collect/STATUS.md) |
-| `asset-adjust` | Cập nhật / bớt | — | support | `qa` / `await_confirm` | none | [ctx](features/asset-adjust.md) | [ST](../../specs/asset-adjust/STATUS.md) |
-| `gis-map` | Xem trên bản đồ | — | support | `done` / `done` · clip iOS shipped · twins MapKit **pending** | data_analy **PASS** · host `GisClipMapView` | [ctx](features/gis-map.md) | [ST](../../specs/gis-map/STATUS.md) |
-| `asset-ai` | Camera AI | — | support | `done` / `done` | none | [ctx](features/asset-ai.md) | [ST](../../specs/asset-ai/STATUS.md) |
-| `supervise-detail` | Chi tiết check-in | — | support | `qa` / `await_confirm` | none | [ctx](features/supervise-detail.md) | [ST](../../specs/supervise-detail/STATUS.md) |
-| `attendance-report` | Báo cáo công | — | support | `done` / `done` | none | [ctx](features/attendance-report.md) | [ST](../../specs/attendance-report/STATUS.md) |
-| `attendance-day` | Chi tiết ngày công | — | support | `done` / `done` | data_analy **PASS** | [ctx](features/attendance-day.md) | [ST](../../specs/attendance-day/STATUS.md) |
+| `nghiem-thu` | Công tác nghiệm thu — 10 công việc BDTX + chỉ số | — | support | `review` / `idle_review` | proto | [ctx](features/nghiem-thu.md) | [ST](../../specs/nghiem-thu/STATUS.md) |
+| `nghiem-thu-mau` | Catalog mẫu NT TT 41 + criteria | — | support | `data_analy` / `pending_confirm` | none | [ctx](features/nghiem-thu-mau.md) | — |
+| `nghiem-thu-create` | [Mobile] [Công tác nghiệm thu] -> Tạo nghiệm thu | — | support | `review` / `idle_review` | proto | [ctx](features/nghiem-thu-create.md) | [ST](../../specs/nghiem-thu-create/STATUS.md) |
+| `nghiem-thu-detail` | [Mobile] [Công tác nghiệm thu] -> Chi tiết nghiệm thu | — | support | `dev` / `idle_review` | none | [ctx](features/nghiem-thu-detail.md) | [ST](../../specs/nghiem-thu-detail/STATUS.md) |
+| `mnt-list` | [Mobile] Công việc | — | support | `qa` / `idle_review` | none | [ctx](features/mnt-list.md) | [ST](../../specs/mnt-list/STATUS.md) |
+| `cam-view` | [Mobile] Camera xem | — | support | `qa` / `idle_review` | data_analy PASS · handoff PO | [ctx](features/cam-view.md) | [ST](../../specs/cam-view/STATUS.md) |
+| `cam-patrol` | [Mobile] [Tuần đường] -> Thu thập camera | — | support | `qa` / `idle_review` | none | [ctx](features/cam-patrol.md) | [ST](../../specs/cam-patrol/STATUS.md) |
+| `photo-geo-capture` | [Mobile] [Tuần đường] -> Chụp ảnh kèm tọa độ | — | support | `review` / `idle_review` | none | [ctx](features/photo-geo-capture.md) | [ST](../../specs/photo-geo-capture/STATUS.md) |
+| `mnt-chat` | Trao đổi công việc | — | support | `qa` / `idle_review` | none | [ctx](features/mnt-chat.md) | [ST](../../specs/mnt-chat/STATUS.md) |
+| `mnt-progress` | Cập nhật trạng thái | — | support | `qa` / `idle_review` | none | [ctx](features/mnt-progress.md) | [ST](../../specs/mnt-progress/STATUS.md) |
+| `mnt-log` | Nhật ký xử lý | — | support | `qa` / `idle_review` | none | [ctx](features/mnt-log.md) | [ST](../../specs/mnt-log/STATUS.md) |
+| `incident-create` | [Mobile] Ghi sự cố | — | support | `qa` / `idle_review` | none | [ctx](features/incident-create.md) | [ST](../../specs/incident-create/STATUS.md) |
+| `incident-list` | [Mobile] Vấn đề | — | support | `qa` / `idle_review` | none | [ctx](features/incident-list.md) | [ST](../../specs/incident-list/STATUS.md) |
+| `incident-chat` | Trao đổi sự cố | — | support | `dev` / `idle_review` | none | [ctx](features/incident-chat.md) | [ST](../../specs/incident-chat/STATUS.md) |
+| `vis-capture` | Nhận diện mặt đường | — | support | `review` / `idle_review` | data_analy PASS · dual/pack GAP | [ctx](features/vis-capture.md) | [ST](../../specs/vis-capture/STATUS.md) |
+| `incident-detail` | Chi tiết | — | support | `qa` / `idle_review` | none | [ctx](features/incident-detail.md) | [ST](../../specs/incident-detail/STATUS.md) |
+| `me-profile` | Hồ sơ | — | support | `qa` / `idle_review` | data_analy PASS · handoff PO | [ctx](features/me-profile.md) | [ST](../../specs/me-profile/STATUS.md) |
+| `me-settings` | Cài đặt | — | support | `qa` / `idle_review` | data_analy PASS · handoff PO | [ctx](features/me-settings.md) | [ST](../../specs/me-settings/STATUS.md) |
+| `asset-detail` | Chi tiết tài sản | — | support | `dev` / `idle_review` | data_analy **PASS** | [ctx](features/asset-detail.md) | [ST](../../specs/asset-detail/STATUS.md) |
+| `asset-collect` | Thủ công | — | support | `review` / `idle_review` | data_analy **PASS** · handoff PO | [ctx](features/asset-collect.md) | [ST](../../specs/asset-collect/STATUS.md) |
+| `asset-adjust` | Cập nhật / bớt | — | support | `dev` / `idle_review` | none | [ctx](features/asset-adjust.md) | [ST](../../specs/asset-adjust/STATUS.md) |
+| `gis-map` | Xem trên bản đồ | — | support | `qa` / `idle_review` | data_analy **PASS** · host `GisClipMapView` | [ctx](features/gis-map.md) | [ST](../../specs/gis-map/STATUS.md) |
+| `asset-ai` | Camera AI | — | support | `review` / `idle_review` | none | [ctx](features/asset-ai.md) | [ST](../../specs/asset-ai/STATUS.md) |
+| `supervise-detail` | Chi tiết check-in | — | support | `qa` / `idle_review` | none | [ctx](features/supervise-detail.md) | [ST](../../specs/supervise-detail/STATUS.md) |
+| `attendance-report` | Báo cáo công | — | support | `dev` / `idle_review` | none | [ctx](features/attendance-report.md) | [ST](../../specs/attendance-report/STATUS.md) |
+| `attendance-day` | Chi tiết ngày công | — | support | `review` / `idle_review` | data_analy **PASS** | [ctx](features/attendance-day.md) | [ST](../../specs/attendance-day/STATUS.md) |
 | `attendance-log` | Chi tiết chấm công | — | support | `done` / `done` | `/edit-mobile-feature` 2026-09-16 | [ctx](features/attendance-log.md) | [ST](../../specs/attendance-log/STATUS.md) |
 | `patrol-history-detail` | Chi tiết ca | — | support | `done` / `done` | none | [ctx](features/patrol-history-detail.md) | [ST](../../specs/patrol-history-detail/STATUS.md) |
 | `mobile-bff-map` | [Mobile] Mobile.Bff MapService | — | support | `done` / `done` | none | [ctx](features/mobile-bff-map.md) | [ST](../../specs/mobile-bff-map/STATUS.md) |
 | `mobile-bff-file` | [Mobile] Mobile.Bff FileService | — | support | `done` / `done` | none | [ctx](features/mobile-bff-file.md) | [ST](../../specs/mobile-bff-file/STATUS.md) |
 | `rpt-nhat-ky-tuan-duong` | rpt-nhat-ky-tuan-duong | — | support | `dev` / `in_progress` | none | [ctx](features/rpt-nhat-ky-tuan-duong.md) | [ST](../../specs/rpt-nhat-ky-tuan-duong/STATUS.md) |
+| `mobile-bff-task` | Mobile.Bff TaskService | — | support | `data_analy` / `draft` | none | [ctx](features/mobile-bff-task.md) | [ST](../../specs/mobile-bff-task/STATUS.md) |
+| `home-faq` | home-faq | — | support | `data_analy` / `idle_review` | none | [ctx](features/home-faq.md) | [ST](../../specs/home-faq/STATUS.md) |
+| `home-privacy` | home-privacy | — | support | `data_analy` / `idle_review` | none | [ctx](features/home-privacy.md) | [ST](../../specs/home-privacy/STATUS.md) |
+| `login-logout` | login-logout | — | support | `data_analy` / `idle_review` | none | [ctx](features/login-logout.md) | [ST](../../specs/login-logout/STATUS.md) |
+| `det-hitl` | det-hitl | — | support | `data_analy` / `idle_review` | none | [ctx](features/det-hitl.md) | [ST](../../specs/det-hitl/STATUS.md) |
+| `asset-types` | asset-types | — | support | `data_analy` / `idle_review` | none | [ctx](features/asset-types.md) | [ST](../../specs/asset-types/STATUS.md) |
+| `asset-list` | asset-list | — | support | `data_analy` / `idle_review` | none | [ctx](features/asset-list.md) | [ST](../../specs/asset-list/STATUS.md) |
+| `attendance-day-detail` | attendance-day-detail | — | support | `data_analy` / `idle_review` | none | [ctx](features/attendance-day-detail.md) | [ST](../../specs/attendance-day-detail/STATUS.md) |
+| `mnt-estimate` | mnt-estimate | — | support | `data_analy` / `idle_review` | none | [ctx](features/mnt-estimate.md) | [ST](../../specs/mnt-estimate/STATUS.md) |
+| `checkin-detail` | checkin-detail | — | support | `data_analy` / `idle_review` | none | [ctx](features/checkin-detail.md) | [ST](../../specs/checkin-detail/STATUS.md) |
+| `patrol-detail` | patrol-detail | — | support | `data_analy` / `idle_review` | none | [ctx](features/patrol-detail.md) | [ST](../../specs/patrol-detail/STATUS.md) |
+| `open-session` | open-session | — | support | `data_analy` / `idle_review` | none | [ctx](features/open-session.md) | [ST](../../specs/open-session/STATUS.md) |
+| `end-session` | end-session | — | support | `data_analy` / `idle_review` | none | [ctx](features/end-session.md) | [ST](../../specs/end-session/STATUS.md) |
 **Báo cáo `rpt-*`:** xem [§ Reports](#17--dashboard--báo-cáo). Pipeline STATUS **done** hết (release: P1 / P1.5 / P2 / P3 theo từng slug).
 
 **Draft mobile (CTX/analy):** `incident-list` — [STATUS](../../specs/). `cam-view` data_analy **PASS** → PO pending. `incident-create` · `field-reflect` · `cam-patrol` · `mnt-list` đã có CTX + data_analy (hoặc done).
@@ -798,7 +816,7 @@ Blocked / later — [STATUS](../../specs/rmms-task-integrate/STATUS.md) · [RMMS
 | `patrol-map` | `done` · reuse `GisClipMapView` · copy **web live** locked · họp 5 inspect ảnh **enqueue_later** | [patrol-map.md](features/patrol-map.md) |
 | `patrol-pin` | Review in_progress | [patrol-pin.md](features/patrol-pin.md) |
 | `patrol-checkin` | draft · họp 4 upload/AI **enqueue_later** | STATUS only |
-| `nghiem-thu` · `nghiem-thu-create` | scan seed họp 1 · **enqueue_later** `/scan-mobile-feature` | [nghiem-thu.md](features/nghiem-thu.md) |
+| `nghiem-thu` · `nghiem-thu-create` · `nghiem-thu-detail` · `nghiem-thu-mau` | 20/09 TT 41 MAU-10 + scores · `/add-task` `qlbd-mobile` `edit_page` · web later | [nghiem-thu.md](features/nghiem-thu.md) · [mau](features/nghiem-thu-mau.md) · [plan](../plan/nghiem-thu-mau/README.md) |
 | `photo-geo-capture` | done · live HUD + in-app fullscreen | [photo-geo-capture.md](features/photo-geo-capture.md) |
 
 `home` · `me` · `login` · `login-forgot` · `supervise` · `asset-hub` · `attendance` (mobile lane) — STATUS **done**.

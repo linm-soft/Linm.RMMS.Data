@@ -4,44 +4,41 @@ schemaVersion: 1
 feature: supervise-detail
 packKind: screen
 role: qa
-status: blocked
+status: done
 skillVersion: 2026.08.19.26
-writtenAt: 2026-09-01T15:47:20.000Z
-taskId: task_4063c6a2
-slash: /agent-qa-mobile
-qaFailFrom: task_02d20b55
+writtenAt: 2026-09-20T00:50:00.000Z
 
 ## Decisions
-- changeScope: edit_page · cleanup_mock · qaFailFix re-QA
+- changeScope: edit_page
 - formPattern: view-only detail
-- e2eQa: ON · phase1_iphone · A4-IPAD DEFER
-- verdict: FAIL · ok:false · MAESTRO-AND · P6 FAIL
-- seed: a0000001-2026-0810-0001-000000000001 · CompanyCode=LINM · BFF curl list 200
-- open questions: none — Dev must emit OkHttp GET list from 10.0.2.2
+- verdict: pass · phase=review · cấm done
+- e2e: yarn e2e-qa-mobile ok:true · ios_test_phase=phase1_iphone · A4-IPAD DEFER
+- align: A3+P6 Aligned · Must 0 · align_confirm approve
+- open questions: none
+- mfeStdUrl: —
 
 ## Inventory (slim)
 | id | label | controlHint | notes |
 |----|-------|-------------|-------|
-| T-QA-E2E-01 | e2e mobile | Maestro | iOS PASS · Android FAIL |
-| T-QA-A3 | A3-CORE | store | iOS live Aligned |
-| T-QA-P6 | P6-CORE | store | FAIL · empty list |
-| GAP-QA-SUP-DET-AND-LIST-01 | Android list GET | — | OPEN · BFF 0 from emulator |
-| GAP-QA-STORE-03 | Maestro P6 | — | OPEN |
+| T-QA-A3 | Chi tiết iPhone | TopBar+hero+rows+CTA | PASS · 1320×2868 |
+| T-QA-P6 | Chi tiết Android | cùng zone | PASS · 1080×1920 · fold CTA = P6-CORE-2 |
+| T-QA-TAB-01 | Tab Trang Chủ | index home | selected trên CORE |
+| T-IOS-SUP-DETAIL | iOS detail | — | covered by A3 |
+| T-AND-SUP-DETAIL | Android detail | — | covered by P6 |
 
 ## Screens / zones (ids only)
-- DES-MOB-SUP-DETAIL / #sc-supervise-detail
-- PNG: qa/screens/A3-CORE.png (PASS Aligned) · P6-CORE.png (FAIL)
+- `#sc-supervise` → `#sc-supervise-detail` · `DES-MOB-SUP-DETAIL`
+- reviewUrl= specs/supervise-detail/ui/review/align-ux.md · peerStdUrl= —
 
 ## API / tasks (ids only)
-- GET patrol/attendance-logs/{id} iOS 200
-- Android list GET attendance-logs not on BFF from 10.0.2.2
-- next: qa_fail_rollback → Dev · **cấm** OfflineDemo
+- GET patrol/attendance-logs · GET patrol/attendance-logs/{id}
+- live card 57ce2700-4eea-4ab7-b5a4-1e3b03599165 · Nguyễn Văn A · CC-DEMO-202609-001
+- PNG: qa/screens/A11-LAUNCH.png · A9-LOGIN.png · A3-CORE.png · P6-CORE.png · P6-CORE-2.png
 
 ## UNCLEAR
 - none
 
 ## Full paths (Read only if needed)
-- scenarios: specs/supervise-detail/qa/scenarios.md
-- bugs: specs/supervise-detail/qa/bugs/supervise-detail.md
-- align: specs/supervise-detail/ui/review/align-ux.md
-- CAPTURE: specs/supervise-detail/qa/store/supervise-detail/CAPTURE.md
+- qa: /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/supervise-detail/qa/scenarios.md
+- store: /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/supervise-detail/qa/store/supervise-detail/CAPTURE.md
+- align: /Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/supervise-detail/ui/review/align-ux.md

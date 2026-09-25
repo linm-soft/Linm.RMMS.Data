@@ -7,7 +7,9 @@
 > **Chốt wave hiện tại:** **3** (`w3_camera`) · **skip map** submit 2026-09-16 (`guest.directions` + `staff.patrolMap` OFF · camera + GPS ON)  
 > **OTP quên MK:** `guest.forgotOtp` = **false** đến khi SMS OTP prod gửi được — màn forgot chỉ dòng liên hệ admin, **không** xóa code · **cấm** public OSRM (`net.osrmPublic` = false)  
 > **iOS ASC (Archive → Review):** [`store/IOS-SUBMIT-GUIDE.md`](store/IOS-SUBMIT-GUIDE.md) · context [`ios-store-submit.md`](../../context/features/ios-store-submit.md)  
-> **CH Play (AAB → Review):** [`store/ANDROID-SUBMIT-GUIDE.md`](store/ANDROID-SUBMIT-GUIDE.md) · Studio: [`store/ANDROID-STUDIO-RELEASE.md`](store/ANDROID-STUDIO-RELEASE.md) · context [`android-store-submit.md`](../../context/features/android-store-submit.md)
+> **CH Play (AAB → Review):** [`store/ANDROID-SUBMIT-GUIDE.md`](store/ANDROID-SUBMIT-GUIDE.md) · Studio: [`store/ANDROID-STUDIO-RELEASE.md`](store/ANDROID-STUDIO-RELEASE.md) · context [`android-store-submit.md`](../../context/features/android-store-submit.md)  
+> **Gửi khách (timeline HTML, in/PDF):** [`TIMELINE-GOLIVE-KHACH.html`](TIMELINE-GOLIVE-KHACH.html) — **1.0.0** hiện trường · **2.0.0** bản đồ · **3.0.0** AI · **1.1.0** cùng phase · **cấm** dùng file này làm READY_TO_SUBMIT  
+> **Cán bộ hiện trường (HDSD, không HĐ):** [`GUIDE-ENDUSER.html`](GUIDE-ENDUSER.html) — menu → use case · in/PDF
 
 ## HARD
 
@@ -41,7 +43,7 @@ Gaps: `GAP-REL-DELETE-01` · `GAP-REL-LEAK-01` · `GAP-REL-SHOT-01` · `GAP-REL-
 
 | Key | Wave 3 | Ghi chú |
 |-----|--------|---------|
-| `guest.home` / `guest.faq` / `guest.privacy` / `guest.login` | true | Guest + login password |
+| `guest.home` / `guest.faq` / `guest.report` / `guest.privacy` / `guest.login` | true | Guest + báo cáo sự cố (đèn giao thông, biển báo) + login password |
 | `guest.forgotOtp` | **false** | OTP quên MK **OFF** đến SMS live · màn contact-admin |
 | `staff.lists` | true | List staff |
 | `guest.directions` | **false** | Skip map hôm nay — clip GIS OFF |

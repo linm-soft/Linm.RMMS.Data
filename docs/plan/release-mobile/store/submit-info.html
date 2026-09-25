@@ -120,6 +120,31 @@
       background: #fff;
       color: var(--deep);
     }
+    .page-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      max-width: 760px;
+      margin: 16px auto 0;
+      padding: 0 20px;
+    }
+    .page-tabs .tab {
+      min-height: 44px;
+      padding: 8px 16px;
+      border: 0;
+      border-radius: 10px;
+      background: #e5e5ea;
+      color: var(--label);
+      font: 700 14px inherit;
+      cursor: pointer;
+    }
+    .page-tabs .tab.is-on {
+      background: var(--deep);
+      color: #fff;
+    }
+    .panel[hidden] { display: none !important; }
+    .steps { margin: 8px 0 0; padding-left: 1.2em; }
+    .steps li { margin: 6px 0; }
   </style>
 </head>
 <body>
@@ -127,19 +152,25 @@
     <div class="wrap">
       <h1>RMMS 1.0.0 - Copy sang App Store Connect</h1>
       <p>App Public: Bundle com.drvn.rmms.store. Copy tung o - dan Version Information. Khong bam Submit ho.</p>
-      <p class="meta">Snapshot <strong>v1.0.0</strong> · 2026-09-19 · Guideline 3.2 public audience · <code>submit-info/v*.html</code> · khong dung record Custom 1510513131</p>
+      <p class="meta">Snapshot <strong>v1.0.0</strong> · 2026-09-22 · Guideline 3.2 · guest báo cáo sự cố · không gắn lại build 1.0.0 (2) · <code>submit-info/v*.html</code> · không dùng record Custom 1510513131</p>
       <nav class="store-tabs" aria-label="Store">
         <a class="is-on" href="submit-info.html">Apple / iOS</a>
+        <a href="submit-unlisted-app.html">Unlisted</a>
+        <a href="submit-org-app.html">Org app</a>
         <a href="submit-info-play.html">Google Play</a>
       </nav>
     </div>
   </header>
-  <p class="banner">Guideline 3.2: dan copy vao version <strong>1.0.0 Rejected</strong> (Version Information + Review Notes), khong tab App Information. Reply o <strong>App Review</strong>. Privacy: https://rmms.vn/privacy. Record public <code>com.drvn.rmms.store</code>, khong Custom 1510513131.</p>
-  <main class="wrap">
+  <p class="banner">Guideline 3.2: dán copy vào version <strong>1.0.0</strong> và gắn binary mới có menu Báo cáo sự cố. Không dùng lại build 1.0.0 (2). Version Information + Review Notes, không tab App Information. Reply ở <strong>App Review</strong>. Privacy: https://rmms.vn/privacy. Record public <code>com.drvn.rmms.store</code>. Đường Unlisted: <a href="submit-unlisted-app.html">submit-unlisted-app.html</a>. Reply trên trang này nói không xin Unlisted, đừng dán reply đó khi đã chuyển form Unlisted.</p>
+  <nav class="page-tabs" aria-label="Trang Apple">
+    <button type="button" class="tab is-on" data-tab="listing">Tab 1 - Listing</button>
+    <button type="button" class="tab" data-tab="lessons">Tab 2 - Bai hoc theo version</button>
+  </nav>
+  <main class="wrap panel" id="tab-listing">
     <section data-field="promo">
       <h2>Promotional text <small>170</small></h2>
       <p class="hint">App Store Connect → Version Information → Promotional text</p>
-      <textarea id="promo" maxlength="170" readonly>RMMS miễn phí trên App Store. Ai cũng xem FAQ, thủ tục và chính sách. Cán bộ có thể đăng nhập thêm để tuần đường, sự cố và hiện trường.</textarea>
+      <textarea id="promo" maxlength="170" readonly>RMMS miễn phí trên App Store. Báo cáo sự cố đèn giao thông hoặc biển báo, xem FAQ và chính sách, không cần tài khoản.</textarea>
       <div class="row">
         <button type="button" data-copy="promo">Copy</button>
         <p class="count"><span data-count-for="promo">0</span>/170</p>
@@ -151,11 +182,13 @@
       <p class="hint">App Store Connect → Version Information → Description</p>
       <textarea id="description" class="tall" maxlength="4000" readonly>RMMS (Hệ thống quản lý bảo trì đường bộ) do CÔNG TY CỔ PHẦN CÔNG NGHỆ VÀ THƯƠNG MẠI MIỀN TRUNG phát hành trên App Store cho mọi người dùng tại Việt Nam.
 
-Không cần tài khoản. Mở app là dùng được Trang Chủ, câu hỏi thường gặp, tài liệu thủ tục, cấp phép và chính sách quyền riêng tư. App không lấy vị trí hay camera lúc mở.
+Không cần tài khoản. Trên Trang Chủ, chọn Báo cáo sự cố rồi chọn Đèn giao thông hoặc Biển báo. Nhập họ tên, số điện thoại, mô tả và địa chỉ. Gửi xong, app hiện mã theo dõi.
 
-Nếu bạn là cán bộ hiện trường và đơn vị đã cấp tài khoản, bạn có thể đăng nhập thêm để dùng lưới nghiệp vụ: giám sát, tuần đường, sự cố, công việc, tài sản, góp ý, thông báo, hàng đợi mất sóng. Mở nhanh Điểm tuần và Ghi sự cố từ Trang Chủ. GPS và camera chỉ khi bạn cho phép, khi đang dùng tính năng đó.
+Cùng Trang Chủ còn câu hỏi thường gặp, tài liệu thủ tục, cấp phép và chính sách quyền riêng tư. App không lấy vị trí hay camera lúc mở, và không bắt ảnh khi báo cáo.
 
-Tài khoản nhân viên là tùy chọn. Mọi người vẫn tải và dùng phần công khai. Không bán dữ liệu, không quảng cáo. Quên mật khẩu: liên hệ quản trị đơn vị (không gửi OTP SMS trên cửa hàng).
+Đăng nhập là tùy chọn nếu bạn đã có tài khoản. Sau khi đăng nhập có thêm tuần đường, sự cố, công việc, tài sản và hiện trường. GPS và camera chỉ khi bạn cho phép, khi đang dùng tính năng đó.
+
+Không bán dữ liệu, không quảng cáo. Quên mật khẩu: liên hệ hỗ trợ (không gửi OTP SMS trên cửa hàng).
 
 Hỗ trợ: CÔNG TY CỔ PHẦN CÔNG NGHỆ VÀ THƯƠNG MẠI MIỀN TRUNG, Số 18/43A đường Phan Chu Trinh, Khu đô thị SaigonSky, Tỉnh Nghệ An. Điện thoại 0238 358 8668.</textarea>
       <div class="row">
@@ -167,7 +200,7 @@ Hỗ trợ: CÔNG TY CỔ PHẦN CÔNG NGHỆ VÀ THƯƠNG MẠI MIỀN TRUNG, S
     <section data-field="whats_new">
       <h2>What's New in This Version <small>4000</small></h2>
       <p class="hint">App Store Connect → Version Information → What's New</p>
-      <textarea id="whats_new" maxlength="4000" readonly>Phiên bản đầu trên App Store công khai. Mọi người dùng Trang Chủ, FAQ và chính sách quyền riêng tư không cần đăng nhập. Cán bộ có tài khoản có thể đăng nhập thêm để dùng tuần đường, sự cố, tài sản và hiện trường GPS/camera khi cho phép.</textarea>
+      <textarea id="whats_new" maxlength="4000" readonly>Người dùng không cần tài khoản có thể báo cáo sự cố đèn giao thông hoặc biển báo ngay trên Trang Chủ. Chọn loại, nhập họ tên, số điện thoại, mô tả và địa chỉ, rồi nhận mã theo dõi. FAQ và chính sách quyền riêng tư vẫn mở không cần đăng nhập.</textarea>
       <div class="row">
         <button type="button" data-copy="whats_new">Copy</button>
         <p class="count"><span data-count-for="whats_new">0</span>/4000</p>
@@ -177,7 +210,7 @@ Hỗ trợ: CÔNG TY CỔ PHẦN CÔNG NGHỆ VÀ THƯƠNG MẠI MIỀN TRUNG, S
     <section data-field="keywords">
       <h2>Keywords <small>100</small></h2>
       <p class="hint">App Store Connect → Version Information → Keywords</p>
-      <textarea id="keywords" maxlength="100" readonly>RMMS,baotri,duongbo,tuanduong,suco,taisan,hientruong,canbo</textarea>
+      <textarea id="keywords" maxlength="100" readonly>RMMS,baosuco,dengiaothong,bienbao,duongbo,FAQ,quyenriengtu</textarea>
       <div class="row">
         <button type="button" data-copy="keywords">Copy</button>
         <p class="count"><span data-count-for="keywords">0</span>/100</p>
@@ -218,20 +251,27 @@ Hỗ trợ: CÔNG TY CỔ PHẦN CÔNG NGHỆ VÀ THƯƠNG MẠI MIỀN TRUNG, S
 Bundle ID: com.drvn.rmms.store
 Apple ID: 6812959209
 SKU: rmms-vn-public
-Version 1.0.0 (1)
+Version 1.0.0
+Do not review build 1.0.0 (2). Attach the new build that includes Guest incident report.
 
-Anyone can download and use the app without an account:
-open the app - Guest Home - FAQ / procedures / privacy. No login required.
+Anyone can complete this job with no account:
+1. Open the app. Guest Home, no login.
+2. Tap Bao cao su co (Report an incident).
+3. Choose Den giao thong (traffic light) or Bien bao (traffic sign).
+4. Enter name, phone, description, and address. No photo and no GPS on this form.
+5. Tap Gui bao cao. The app shows a tracking code.
 
-Optional staff login (not required to use the app):
+FAQ, procedures, and privacy are also on Guest Home. Login is optional.
+
+Optional login (not required):
 username rmms-001 / password RMMS@2026
-Dang nhap - staff lists (patrol, incidents, work orders).
+Tap Dang nhap - staff lists (patrol, incidents, work orders).
 
-Forgot-password is contact-admin only (no SMS).
+Forgot-password is contact-support only (no SMS).
 Location When In Use and Camera are only for optional field features after login.
 This version does not include in-app map or turn-by-turn directions.
 
-This submission is public distribution because guest features are available to all App Store users. Staff login is additional, not the only audience.</textarea>
+This submission is public distribution because any App Store user can file a traffic-light or traffic-sign report without an account.</textarea>
       <div class="row">
         <button type="button" data-copy="review_notes">Copy</button>
       </div>
@@ -242,11 +282,13 @@ This submission is public distribution because guest features are available to a
       <p class="hint">App Store Connect → App Review (cham do) → Reply dung thread reject Guideline 3.2. Khong dan App Information.</p>
       <textarea id="resolution_reply" class="tall" readonly>Hello App Review,
 
-This app is intended for a public audience on the App Store, not only for one business or its employees.
+This app is for a public audience on the App Store, not only for one business or its employees.
 
-Anyone can download RMMS and use Guest Home, FAQ, procedures, and the privacy policy with no account. Login is optional for field staff who already have an organization account. We have updated the Description, Promotional text, What's New, and Review Notes to make this clear.
+Anyone can download RMMS and, without an account, report a road incident. On Guest Home, tap Bao cao su co, choose Den giao thong (traffic light) or Bien bao (traffic sign), enter name, phone, description, and address, then submit. The app returns a tracking code. FAQ and the privacy policy remain available with no login. Login is optional if the user already has an account.
 
-We are not requesting custom app or unlisted distribution. Please continue review of version 1.0.0 under public App Store distribution.
+Please review build 1.0.0 (3), attached to version 1.0.0. This build adds the guest incident report on the public App Store binary. Build 1.0.0 (2) does not include this flow. Description, Promotional text, What's New, and Review Notes lead with this guest job.
+
+We are not requesting custom app or unlisted distribution. Please continue review under public App Store distribution.
 
 Thank you.</textarea>
       <div class="row">
@@ -254,6 +296,39 @@ Thank you.</textarea>
       </div>
     </section>
   </main>
+  <div class="wrap panel" id="tab-lessons" hidden>
+    <section>
+      <h2>Bai hoc Apple 1.0.0 (1) va pack 1.0.0 (2)</h2>
+      <p class="hint">Noi bo. Khong dan len Product Page. SSOT: review-lessons/apple-1.0.0-1.md · apple-1.0.0-2.md</p>
+      <ul class="steps">
+        <li>Guideline 3.2 trên build 1.0.0 (2): FAQ không đủ. Binary nộp tiếp phải có Báo cáo sự cố (Đèn giao thông, Biển báo)</li>
+        <li>Không gắn lại build 1.0.0 (2)</li>
+        <li>Lead guest trước, login tùy chọn - cấm mở đầu «Dành cho cán bộ»</li>
+        <li>Reply o App Review, khong tab App Information</li>
+        <li>Khong dung record Custom 1510513131</li>
+      </ul>
+    </section>
+    <section data-field="apple_lessons_index">
+      <h2>Index file</h2>
+      <textarea id="apple_lessons_index" class="tall" readonly>review-lessons/README.md
+review-lessons/apple-1.0.0-1.md
+review-lessons/apple-1.0.0-2.md</textarea>
+      <div class="row">
+        <button type="button" data-copy="apple_lessons_index">Copy</button>
+      </div>
+    </section>
+    <section data-field="apple_lessons_1">
+      <h2>1.0.0 (1) - khong lam lai</h2>
+      <textarea id="apple_lessons_1" class="tall" readonly>Khong mo dau Description bang danh cho can bo / mot don vi.
+Khong dan Description vao tab App Information khi reject 3.2.
+Khong dung URL HTTP hoac app.rmms.vn. Dung https://rmms.vn/privacy.
+Khong resubmit cung binary 1.0.0 (1) khi guest Home van ghi Danh cho can bo.
+Build 2: home.login.sub = Da co tai khoan. Archive 1.0.0 (2) roi Reply thread 3.2.</textarea>
+      <div class="row">
+        <button type="button" data-copy="apple_lessons_1">Copy</button>
+      </div>
+    </section>
+  </div>
   <footer>
     <div class="wrap">RMMS · snapshot v1.0.0 · com.drvn.rmms.store · pack noi bo · khong deploy lam landing khach</div>
   </footer>
@@ -288,6 +363,16 @@ Thank you.</textarea>
             document.execCommand('copy');
             show();
           }
+        });
+      });
+      document.querySelectorAll('.page-tabs [data-tab]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var id = btn.getAttribute('data-tab');
+          document.querySelectorAll('.page-tabs [data-tab]').forEach(function (b) {
+            b.classList.toggle('is-on', b === btn);
+          });
+          document.getElementById('tab-listing').hidden = id !== 'listing';
+          document.getElementById('tab-lessons').hidden = id !== 'lessons';
         });
       });
     })();

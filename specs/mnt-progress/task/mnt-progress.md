@@ -359,5 +359,10 @@ Optional verify (Dev, **không** TL): Mobile.Bff `dotnet build` PASS.
 | demoContentHash | sha256:394ab44597648f04b25e6d58476378c16141feb53d3b58d39923b3defcff8328 |
 | taskId | `task_5e103912` |
 
+
+## UI notes Dev — MOB-PERM-OS-01 (2026-09-20)
+
+OS location/camera dialog first. GPS deny CTA **Mở Cài đặt** / **Để sau**. **Cấm** Sao chép hướng dẫn / clipboard. iOS already-denied camera → Settings only.
+
 ---
 <!-- Version meta: skillId=agent-tl-mobile skillVersion=2026.08.25.01 schemaVersion=1 workflowVersion=2026.08.25.01 rulesVersion=2026.08.25.2 versionGate=rechecked -->

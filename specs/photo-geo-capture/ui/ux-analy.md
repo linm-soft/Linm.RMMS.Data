@@ -36,7 +36,7 @@ Host (field-reflect | vis-capture | incident-create)
 | Host dim `#sc-field-reflect` (demo) | Ảnh hiện trường | large title host · Tab 5 field | TopAppBar · Nav 5 | PhotoRow camera |
 | `DES-MOB-PGC` / `#sheet-pgc` | Chụp ảnh kèm tọa độ | bottom sheet 17 | Material sheet ~20 | Chụp / Dùng ảnh / Hủy |
 | Map step `#map-confirm` | Xác nhận vị trí | MapPinSheet trong sheet | same | Xác nhận vị trí |
-| `DES-MOB-GPS-DENY` / `#modal-gps` | Định vị bị tắt | in-app modal | Material dialog | Sao chép / Để sau |
+| `DES-MOB-GPS-DENY` / `#modal-gps` | Định vị bị tắt | in-app modal | Material dialog | Mở Cài đặt / Để sau |
 
 ## 3. Zone
 
@@ -73,7 +73,7 @@ Host (field-reflect | vis-capture | incident-create)
 |------|------|---------|---------|---------|
 | Title | Định vị bị tắt | `h3` 17 | Text | same |
 | Body | Cần vị trí… RMMS. | `p` 13 | Text | same |
-| Primary | Sao chép hướng dẫn | `.btn` | `LinmPrimaryButton` | same |
+| Primary | Mở Cài đặt | `.btn` | `LinmPrimaryButton` | same |
 | Secondary | Để sau | `.btn.secondary` | `LinmSecondaryButton` | same |
 
 **Cấm** `UIAlertController` / `AlertDialog` hệ thống (`AC-D-04`).

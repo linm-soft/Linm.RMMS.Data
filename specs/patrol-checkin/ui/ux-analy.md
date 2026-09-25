@@ -39,7 +39,7 @@ Login → Tab Tuần đường (shell Tab 5 · index giữ)
 | DES-MOB-PAT-CHECKIN-SHEET / `#sheet-checkin` | Ghi điểm tuần | Bottom sheet nav Hủy/Lưu | Modal bottom sheet | Ghi nhận điểm tuần |
 | DES-MOB-LOC-MISMATCH | Banner đúng/sai | Banner 13 | same | gate vs BE plan |
 | DES-MOB-LEAVE / `#modal-leave` | Bỏ thay đổi? | in-app card | Material dialog | Bỏ / Tiếp tục sửa |
-| DES-MOB-GPS-DENY / `#modal-gps` | Định vị bị tắt | in-app (reuse) | same | Sao chép / Để sau |
+| DES-MOB-GPS-DENY / `#modal-gps` | Định vị bị tắt | in-app (reuse) | same | Mở Cài đặt / Để sau |
 | DES-MOB-CI-DETAIL / `#sc-checkin-detail` | Ghi điểm tuần | TopBar + back Ca | TopAppBar | back · photo object |
 
 ## 3. Zone

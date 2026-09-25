@@ -117,7 +117,7 @@ Toast → `LinmToast` (success / timeout / offline / HTTP fail). GPS deny → in
 | Appear | GET `patrol/attendance-logs` · map days · fail → demo SSOT · **mở** |
 | Seg 0 | pop `#sc-patrol-home` |
 | Chấm vào | GPS usable → POST · HTTP 2xx = success (không phụ thuộc decode body) · `userName` = `lastWho()` (Keychain · JWT `full_name` / login id) · toast success · hero Đã chấm |
-| GPS deny | OS permission confirm (notDetermined) · đã deny → in-app `GpsDenyModal` `DES-MOB-GPS-DENY` (copy / Để sau) · **không** POST · **cấm** toast locDeny |
+| GPS deny | OS permission confirm (notDetermined) · đã deny → in-app `GpsDenyModal` `DES-MOB-GPS-DENY` (Mở Cài đặt / Để sau) · **không** POST · **cấm** toast locDeny |
 | GPS invalid / timeout | toast locTimeout · no POST |
 | Offline POST | toast `common.offline` · **cấm** «Không chấm được» generic |
 | POST 4xx/5xx | toast checkInFail |

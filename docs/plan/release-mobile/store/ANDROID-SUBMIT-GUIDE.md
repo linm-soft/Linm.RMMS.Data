@@ -6,7 +6,7 @@
 > **Cấm** agent bấm **Send for review**. **Cấm** dán mật khẩu demo vào file này — xem [`REVIEW-ACCOUNTS.md`](REVIEW-ACCOUNTS.md).  
 > **Context:** [`../../context/features/android-store-submit.md`](../../context/features/android-store-submit.md) · peer iOS [`IOS-SUBMIT-GUIDE.md`](IOS-SUBMIT-GUIDE.md)
 
-Listing copy: [`submit-info.html`](submit-info.html) (Play: Short / Full description). Screenshot Play: Pixel 2 **1080×1920** — `/store-image-capture`. Flags: [`../flags.json`](../flags.json).
+Listing copy: [`submit-info-play.html`](submit-info-play.html) Tab 1 = version đang pack · Tab 3 bài học. SSOT lỗi theo version: [`review-lessons/README.md`](review-lessons/README.md). Screenshot Play: Pixel 2 **1080×1920** - `/store-image-capture`. Flags: [`../flags.json`](../flags.json).
 
 **CH Play** = Google Play (tên VN). Console: [play.google.com/console](https://play.google.com/console).
 

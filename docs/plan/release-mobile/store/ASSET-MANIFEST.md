@@ -1,23 +1,27 @@
 # Store assets — RMMS wave 3
 
-> **Folder:** `store/out/ios/` · `store/out/android/{VersionFolder}/` · `upload=local_only` (user kéo Console — chưa presign).  
-> **Cấm** AI vẽ. **Cấm** pack iOS lên Play (sai px).  
+> **Folder:** `store/out/ios/1.0.0-2/` · `store/out/android/{VersionFolder}/`.  
+> iOS 6.9" **1.0.0-2:** `upload=presign_now` 2026-09-21 (init→PUT BFF `/files/{id}/object`→complete→commit · `purpose=store-listing`). Play pack vẫn kéo Console.  
+> **Cấm** AI vẽ. **Cấm** pack iOS lên Play (sai px). **Cấm** upload `bk-recapture-*`.  
 > Play pack **1.0.0 (4):** AAB `store/out/android/1.0.0-4/` (R8 + AGP 9). In-review **(3):** `1.0.0-3/`. Listing phone/icon: `1.0.0-2/` + root SSOT. **cấm** copy icon folder mới trước `released_success`.
 
-## iOS 6.9" (`out/ios/`)
+## iOS 6.9" (`out/ios/1.0.0-2/`)
 
-Capture live StoreW3 sim (1320×2868 · RGB no alpha). Acc **`rmms-admin`**.
+`recapture_all` 2026-09-21 · live **iPhone 17 Pro Max** 1320×2868 · RGB **no alpha** · Release `com.drvn.rmms.store` 1.0.0 (2) · acc **`rmms-admin`**. Cũ 2026-09-17 → `1.0.0-2/bk-recapture-20260921/`. **Cấm** Debug `com.drvn.rmms`.
 
-| Slot | File | Màn | Px | MIME | Alpha | SHA-256 | Locale | Captured |
-|------|------|-----|----|------|-------|---------|--------|----------|
-| ss-iphone-69-01 | ss-iphone-1320x2868-01.png | Guest home | 1320×2868 | image/png | no | `46b70aae49c70dbcd1880ec1b9289f1e5fd75bfb7fc779f92338b605559541e4` | vi | 2026-09-17 |
-| ss-iphone-69-02 | ss-iphone-1320x2868-02.png | FAQ | 1320×2868 | image/png | no | `cf230dfed374abfcaff8a522420ea988fa5eb6e099c3a69713ddcb56cae724dc` | vi | 2026-09-17 |
-| ss-iphone-69-03 | ss-iphone-1320x2868-03.png | Staff home | 1320×2868 | image/png | no | `719e3e9adc8453a20739409ebdc89e2d7cf93cb986a7ee938e92ecde32d9b6fd` | vi | 2026-09-17 |
-| ss-iphone-69-04 | ss-iphone-1320x2868-04.png | Tuần đường + ghim GPS | 1320×2868 | image/png | no | `eeda3e2f4a834eb766a6cb96a37553bea636dde4066c4756d4c9861cbfb16b07` | vi | 2026-09-17 |
-| ss-iphone-69-05 | ss-iphone-1320x2868-05.png | Chấm công GPS | 1320×2868 | image/png | no | `028eccce6e58885f822909c5e956892d769ee01acf499b4f77c6fa17f29f36f5` | vi | 2026-09-17 |
-| ss-iphone-69-06 | ss-iphone-1320x2868-06.png | Thu thập camera | 1320×2868 | image/png | no | `06408ceac0672d134aae64b555007567f14668f4a2a54d56141fd1bf4d1a81b0` | vi | 2026-09-17 |
+| Slot | File | Màn | Px | MIME | Alpha | SHA-256 | ObjectKey | Locale | Captured |
+|------|------|-----|----|------|-------|---------|-----------|--------|----------|
+| ss-iphone-69-01 | ss-iphone-1320x2868-01.png | Guest home (Đã có tài khoản) | 1320×2868 | image/png | no | `93ed1d2f6468f9153db87282de1bcc1e2c0eeb9951c3a0319366625897544d4b` | `data/rmms/2026/LINM/store-listing/4b1e451f-d2b0-41d1-b0e1-0495d81f199b.png` | vi | 2026-09-21 |
+| ss-iphone-69-02 | ss-iphone-1320x2868-02.png | FAQ | 1320×2868 | image/png | no | `c685ccc3fdb631cfd10499767da90dd5e275a624a39907b7246d07ed4e1d3d41` | `data/rmms/2026/LINM/store-listing/6bf4876d-8ce4-42c0-9e9f-973632935576.png` | vi | 2026-09-21 |
+| ss-iphone-69-03 | ss-iphone-1320x2868-03.png | Staff home | 1320×2868 | image/png | no | `6abfb1bdffb0039d45c87fa40afc072b2dd7f1c2e9ce2112b9f5c53909c4c9fc` | `data/rmms/2026/LINM/store-listing/f97aae9b-e3c9-416f-ae98-e803818125bd.png` | vi | 2026-09-21 |
+| ss-iphone-69-04 | ss-iphone-1320x2868-04.png | Tuần đường | 1320×2868 | image/png | no | `9492e8064649f92db15f3f2d1c0923b79f4bc7e20ac5e708d68c19678f89583a` | `data/rmms/2026/LINM/store-listing/f5b964b9-aa50-409b-be77-54fc256efa35.png` | vi | 2026-09-21 |
+| ss-iphone-69-05 | ss-iphone-1320x2868-05.png | Chấm công GPS | 1320×2868 | image/png | no | `5184238986818346648221bca6f09c48b97f661a0f6b4ea82357bd548de4f24d` | `data/rmms/2026/LINM/store-listing/bf0f4f3f-93f4-42e7-87da-3f67a7a92af5.png` | vi | 2026-09-21 |
+| ss-iphone-69-06 | — | Thu thập camera | — | — | — | — | — | vi | **skip** · overlay `linmBusyOverlay` (detect hang) · **cấm** ghi spinner |
+| ss-iphone-69-07 | ss-iphone-1320x2868-07.png | Guest home (Báo cáo sự cố) | 1320×2868 | image/png | no | `aa982789579974f4b2f25617ef0cf4fec6dee898f097e0ab291a7c07cec30011` | local | vi | 2026-09-22 |
+| ss-iphone-69-08 | ss-iphone-1320x2868-08.png | Chọn loại: Đèn giao thông / Biển báo | 1320×2868 | image/png | no | `cdd69313bd3ab8a4245c57337aad75b45dbe81f4e922bfcd187c3d80b17c0047` | local | vi | 2026-09-22 |
+| ss-iphone-69-09 | ss-iphone-1320x2868-09.png | Form Đèn giao thông | 1320×2868 | image/png | no | `96996dab98a43473f49bacb84b8a8698686d79134e8216eed498276ef97ee29d` | local | vi | 2026-09-22 |
 
-Family `1` — **cấm** iPad 13". Upload ASC: kéo 01–06 từ `store/out/ios/`. Listing: [`submit-info.html`](submit-info.html). Demo notes: `rmms-001`.
+Family `1` — **cấm** iPad 13". Ảnh 01–05 đã upload (home 01 chưa có menu báo cáo). Presign attachmentId: `905fb8cc` · `761a2fa6` · `0dfd2ee8` · `d44fb485` · `a83c023d`. Nộp tiếp: kéo **07, 08, 09** (chưa presign) rồi 03–05 từ `store/out/ios/1.0.0-2/`. Listing: [`submit-info.html`](submit-info.html). Demo notes: `rmms-001`.
 
 ## Android Play phone (`out/android/1.0.0-2/`)
 
@@ -35,7 +39,7 @@ Capture live emulator **1080×1920** · PNG RGB **no alpha**. Acc chụp **`rmms
 | aab-w3-3 | rmms-w3-release-1.0.0-3.aab | Store binary **in review** | — | AAB | — | `b9d336c71df71676d4c43c227441c0035af84ad2fb21300676de07979de81b6b` | — | 2026-09-18 |
 | aab-w3-4 | rmms-w3-release-1.0.0-4.aab | Store binary **next** (R8 + AGP 9.0.1) | — | AAB | — | `2da3f8dda6e6c72d0c130ec22d1aa4625408b38855064863d1bd2f433f5120be` | — | 2026-09-18 |
 
-Upload AAB tiếp: `store/out/android/1.0.0-4/rmms-w3-release-1.0.0-4.aab` (sau khi 3 xong). Screenshots listing: `1.0.0-2/play-phone-01`…`04`. Listing: [`submit-info-play.html`](submit-info-play.html). Play notes: `rmms-002`.
+Upload AAB tiếp: `store/out/android/1.0.0-4/rmms-w3-release-1.0.0-4.aab` (sau khi 3 xong). Screenshots listing: `1.0.0-2/play-phone-01`…`04`. Listing: [`submit-info-play.html`](submit-info-play.html). Bài học: [`review-lessons/README.md`](review-lessons/README.md). Play notes: `rmms-002`.
 
 ## Play Dashboard pack (`/store-image-capture` Step 0b)
 

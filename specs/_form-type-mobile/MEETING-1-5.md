@@ -5,7 +5,7 @@
 | skill | `scan-qlbd-form-type-mobile` · `/scan-mobile-feature` |
 | queue | `qlbd-mobile` |
 | slash | `/agent-qldb-workflow-mobile` |
-| enqueue_later | **true** — chưa gen task queue |
+| enqueue_later | **false** cho NT (19/09 `run_selected`) · còn true cho họp 3–5 leftover |
 | generated | 2026-09-06 |
 
 Upload: `/init-bff-file` trên `{MobileBff}` + `/integrate-file-upload-mobile` · persist file **id**.  
@@ -15,8 +15,9 @@ Vision Wave 2 BFF = web queue; native gọi `api/v1/ai-vision/**`.
 
 | meeting | feature | kind | parent | share | scope |
 |---------|---------|------|--------|-------|-------|
-| 1 | `nghiem-thu` | list | `patrol-home` | unique | Clone tuần kiểm · 10 mẫu · dual OS · chờ API web |
-| 1 | `nghiem-thu-create` | sheet | `nghiem-thu` | unique | Tạo NT + upload ảnh/video |
+| 1 | `nghiem-thu` | list | `patrol-home` | unique | Clone tuần kiểm · 10 mẫu · dual OS · **run_selected** (API web done) |
+| 1 | `nghiem-thu-create` | sheet | `nghiem-thu` | unique | Tạo NT + upload ảnh/video · **run_selected** |
+| 1 | `nghiem-thu-detail` | sheet | `nghiem-thu` | unique | Xem/Sửa `/{id}` · plus_detail · **run_selected** |
 | 3 | `patrol-home` | hub | `home` | unique | **edit** scope Khu I (cùng JWT org) |
 | 4 | `patrol-checkin` | sheet | `patrol-home` | unique | Camera/GPS + FileService + AI mất TS |
 | 4 | `field-reflect` | sheet | `patrol-home` | unique | Hư hỏng từ ảnh hiện trạng |

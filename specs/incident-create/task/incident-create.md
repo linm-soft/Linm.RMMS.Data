@@ -286,5 +286,10 @@ AskQuestion: `route_confirm=route_a` · `ios_repo_confirm` · `android_repo_conf
 | bffContentHash | sha256:incident-create-mobile-bff-20260829 |
 | actionTreeHash | sha256:incident-create-action-tree-20260829 |
 
+
+## UI notes Dev — MOB-PERM-OS-01 (2026-09-20)
+
+OS location/camera dialog first. GPS deny CTA **Mở Cài đặt** / **Để sau**. **Cấm** Sao chép hướng dẫn / clipboard. iOS already-denied camera → Settings only.
+
 ---
 <!-- Version meta: skillId=agent-tl-mobile skillVersion=2026.08.20.03 schemaVersion=1 workflowVersion=2026.08.25.01 rulesVersion=2026.08.25.2 versionGate=rechecked -->

@@ -55,7 +55,7 @@ Cùng copy VN · cùng `#i-mappin` · toast `Đã ghim vị trí hiện tại ·
 | pinToast | Đã ghim vị trí hiện tại · {route} · ±N m | Toast | 13–16 | `LinmToast` | Success sau fix OK · **trước** handoff |
 | locDenyTitle | Định vị bị tắt | ModalTitle | 17 | in-app modal | `DES-MOB-GPS-DENY` |
 | locDenyBody | Cần vị trí để chấm công / chấm điểm tuần… | ModalBody | 13 | in-app modal | copy demo |
-| locDenyCopy | Sao chép hướng dẫn | PrimaryButton | 16 | `LinmPrimaryButton` | toast hướng dẫn |
+| locDenyCopy | Mở Cài đặt | PrimaryButton | 16 | `LinmPrimaryButton` | open Settings |
 | locDenyLater | Để sau | SecondaryButton | 16 | `LinmSecondaryButton` | đóng |
 | locTimeout | Chưa lấy được vị trí. Thử lại. | Toast | 13–16 | `LinmToast` | warning · **không** handoff |
 | handoffCheckin | Ghi điểm tuần | Route / Sheet | — | sibling `patrol-checkin` | **real** openSheet · payload `sessionId`+`LocationFix` · **cấm** form trên pack này |

@@ -32,7 +32,7 @@ Login → Tab Trang Chủ (shell Tab 5 · index home)
 | DES / sc-* | Tên VN | iOS chrome | Android chrome | CTA |
 |------------|--------|------------|----------------|-----|
 | DES-MOB-ASSET-COLLECT / `#sc-asset-collect` | Thu thập thủ công | nav back «Tài sản» + chevron · title 17 · Tab 5 home | icon-btn chevron · TopAppBar title ~20 · Nav 5 home | Thêm tài sản |
-| DES-MOB-GPS-DENY / `#modal-gps` | Định vị bị tắt | in-app modal | Material dialog card | Sao chép hướng dẫn / Để sau |
+| DES-MOB-GPS-DENY / `#modal-gps` | Định vị bị tắt | in-app modal | Material dialog card | Mở Cài đặt / Để sau |
 | DES-MOB-LEAVE / `#modal-leave` | Bỏ thay đổi? | in-app modal | same | Bỏ thay đổi / Tiếp tục sửa |
 | Entry (parent) | Thủ công | hub tile `#i-plus` | same | wire push · không toast-only |
 
@@ -63,7 +63,7 @@ Login → Tab Trang Chủ (shell Tab 5 · index home)
 |------|------|---------|---------|---------|
 | Title | Định vị bị tắt | `h3` 17 | Text 17 semibold | ~20 |
 | Body | Cần vị trí… RMMS. | `p` 13 | Text 13 | same |
-| Primary | Sao chép hướng dẫn | `.btn-primary` | `LinmPrimaryButton` | same |
+| Primary | Mở Cài đặt | `.btn-primary` | `LinmPrimaryButton` | same |
 | Secondary | Để sau | `.btn-secondary` | `LinmSecondaryButton` | same |
 
 **Cấm** `UIAlertController` / `AlertDialog` hệ thống (`AC-D-04`).

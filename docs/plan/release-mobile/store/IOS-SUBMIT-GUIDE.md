@@ -5,7 +5,7 @@
 > **Context SSOT (app mới):** [`../../context/features/ios-store-submit.md`](../../context/features/ios-store-submit.md)  
 > **Android / CH Play:** [`ANDROID-SUBMIT-GUIDE.md`](ANDROID-SUBMIT-GUIDE.md) · Studio: [`ANDROID-STUDIO-RELEASE.md`](ANDROID-STUDIO-RELEASE.md)
 
-Listing copy: [`submit-info.html`](submit-info.html). Screenshot 6.9": [`ASSET-MANIFEST.md`](ASSET-MANIFEST.md) + `store/out/ios/`. Flags: [`../flags.json`](../flags.json).
+Listing copy: [`submit-info.html`](submit-info.html) Tab 1 listing · Tab 2 bài học. Lỗi theo version: [`review-lessons/README.md`](review-lessons/README.md). Screenshot 6.9": [`ASSET-MANIFEST.md`](ASSET-MANIFEST.md) + `store/out/ios/`. Flags: [`../flags.json`](../flags.json).
 
 ---
 

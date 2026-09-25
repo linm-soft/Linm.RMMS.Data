@@ -24,8 +24,8 @@
 |------|---------|-----|
 | Hero tools | Hồ sơ · Thông báo (+ badge) | `LinmHeroTools` · `go('me')` · `go('ops')` |
 | Role + tín hiệu | Khu QLĐB IV · `data-net-signal` | Role demo mock · tín hiệu `shared_kit` · **cấm** «Có mạng» |
-| Who | Khách / tên phiên | Guest copy **Khách** · staff `fullName` `auth/profile` |
-| Login CTA | Đăng nhập · Dành cho cán bộ | `btn-home-login` · overlay slug `login` · ẩn khi staff |
+| Who | Khách / tên phiên | Guest copy **Khách** · staff `fullName` `auth/profile` **lần đầu** · back Home = `lastDisplayName` cache · **cấm** GET lại khi đã có tên |
+| Login CTA | Đăng nhập · Đã có tài khoản | `btn-home-login` · overlay slug `login` · ẩn khi staff |
 | Guest FAQ | Câu hỏi thường gặp | `btn-home-faq` → `#sc-faq` · pills + capsule `#f-faq-search` (`LinmSearchGlyph` trailing · **cấm** M3 `TextField`) + list · static `LinmCopy` · **cấm** invent API |
 | Guest privacy | Chính sách quyền riêng tư | `btn-home-privacy` → `#sc-privacy` · static `home.privacy.body` user-facing · **cấm** invent HTTPS |
 | Quick | Điểm tuần · Ghi sự cố | **staff only** · `LinmQuickActions` → `patrol-home` · `incident-create` |
@@ -41,7 +41,7 @@ iOS + Android `#sc-home` **parity** (dual copy) — không lệch chrome như `m
 
 | Method | `{BffPrefix}` path | Host | Thuộc slug |
 |--------|--------------------|------|------------|
-| GET | `auth/profile` | Auth NuGet `GetProfile` → `users/me` | **`home`** (display `.who`) |
+| GET | `auth/profile` | Auth NuGet `GetProfile` → `users/me` | **`home`** (display `.who` · **lần đầu** / tap tín hiệu · cache `lastDisplayName` khi back) |
 | GET | `notification/inbox` (+ unread) | proxy → Notification | sibling **`ops`** — badge hero |
 | — | `patrol/*` · `incident/*` · `maintenance/*` · `asset/*` | proxy | sibling packs — **không** gọi turn `home` |
 | — | wallet / route card / «QL.1 · Khu IV» | **không** controller home | demo copy · ẩn hoặc static placeholder **không** invent |

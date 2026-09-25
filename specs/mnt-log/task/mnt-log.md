@@ -18,12 +18,12 @@
 | thisAction | **Nhật ký xử lý** `#sc-mnt-log` only · entry mnt-list `#i-list` (**done** only) · **1 action = 1 feature** · **cấm** gộp `mnt-chat` / `mnt-progress` / `estimate` / list (`GAP-MOB-ACT-01/02`) |
 | autoApprove | **ON** |
 | e2eQa | ON khi QA · `yarn e2e-qa-mobile` · sim 6.9" + emulator + Maestro · PNG `qa/screens` + `qa/store/mnt-log` · **cấm** `yarn start:std` / `mfeStdUrl` / `yarn e2e-qa` web / e2e ở role TL |
-| prior · data_analy | **confirmed** · `_data-analy/mnt-log-control-hint.md` · `mnt-log-bff-endpoints.md` · `mnt-log-action-tree.md` · `mnt-log-real-data.md` · contentHash `sha256:mnt-log-mobile-control-hint-20260829` · realDataHash `sha256:mnt-log-mobile-real-data-20260829` · bffContentHash `sha256:mnt-log-mobile-bff-20260829` · actionTreeHash `sha256:mnt-log-mobile-action-tree-20260829` · ctxContentHash `sha256:87761a7752a493d6ad176d96d76ccaf6116ea407ec5ec5513b6e12372a58d701` · demoContentHash `sha256:394ab44597648f04b25e6d58476378c16141feb53d3b58d39923b3defcff8328` |
-| prior · po | **confirmed** · `po/requirement.md` · `task_d21ff1dc` |
-| prior · design | **confirmed** · `ui/design.md` · `ui/ux-analy.md` · `ui/html-to-native-map.md` · dual `#sc-mnt-log` · `ui/review/demo-parity.md` · `task_bda2e253` · `design_confirm` |
-| prior · sa | **confirmed** · `be/solution-discovery.md` · `solution_confirm=approve` · Step 4b **N/A** · GAP HIST closed P1 · `task_a5028152` |
-| taskId | `task_48352a56` |
-| updatedAt | `2026-08-29T07:32:28.000Z` |
+| prior · data_analy | **confirmed** · compact `handoff/data_analy-compact.md` · `_data-analy/mnt-log-*` · contentHash `sha256:5c74f801620d6dabea7e29b3591c3298a358205a64070a14c4d371d3098a3dd3` · realDataHash `sha256:5c74f801620d6dabea7e29b3591c3298a358205a64070a14c4d371d3098a3dd3` · bffContentHash `sha256:maintenance-work-orders-getbyid-proxy-passthrough` · actionTreeHash `sha256:5c74f801620d6dabea7e29b3591c3298a358205a64070a14c4d371d3098a3dd3` · ctxContentHash `sha256:5c74f801620d6dabea7e29b3591c3298a358205a64070a14c4d371d3098a3dd3` · demoContentHash `sha256:d3ecd6203f20b49c25a282887298b7cf657385f1d610b3304da5a5bb393323d0` · `task_6e7aa15d` |
+| prior · po | **confirmed** · compact `handoff/po-compact.md` · `po/requirement.md` · `task_5751a874` |
+| prior · design | **confirmed** · compact `handoff/design-compact.md` · `ui/design.md` · dual `#sc-mnt-log` · `task_7451543a` · `design_confirm` |
+| prior · sa | **confirmed** · compact `handoff/sa-compact.md` · `be/solution-discovery.md` · `solution_confirm=approve` · Step 4b **N/A** · HIST-01 CLOSED P1 · `task_217b18b0` |
+| taskId | `task_0501aefa` |
+| updatedAt | `2026-09-19T13:52:04.000Z` |
 
 **Cấm:** gộp sibling (`GAP-MOB-ACT-01/02`) · invent `api/v1/mnt-log` / `…/logs` / `…/progress-history` · invent `LogController` trên Mobile.Bff · invent history collection · ERP.* · WebView HTML · `mfeStdUrl` · `UIAlert` / `AlertDialog` · watermark Gói · device label · badge P1/P2 header · Primary write CTA · composer chat · POST progress · fake timeline khi GET fail · enqueue timeline / header / empty / back (`GAP-MOB-ACT-07`) · start sibling `pending_confirm` (`GAP-MOB-ACT-06`) · gộp iOS+Android 1 task id · `scaffold_new` / `/mobile-app-architecture` · Step 4b / migration · TL chạy e2e / `yarn build` / `yarn start:std` · implement native code ở role TL.
 
@@ -51,7 +51,7 @@
 
 IA lock (design · ux-analy): `(auth) → Tab 5 · Công việc / mnt-list → #i-list (done) = this pack · Back = mnt-list`. In-screen tabs **none** (`GAP-TAB-01`). **Cấm** invent tab · **cấm** `TabView` / M3 `NavigationBar` thay `LinmTabBar`.
 
-AskQuestion: `route_confirm=route_a` · `ios_repo_confirm` · `android_repo_confirm` · `be_repo_confirm` · `kit_missing_confirm=N/A` · `2026-08-29T07:32:28.000Z`.
+AskQuestion: `route_confirm=route_a` · `ios_repo_confirm` · `android_repo_confirm` · `be_repo_confirm` · `kit_missing_confirm=N/A` · `2026-09-19T13:52:04.000Z` (autoApprove ON).
 
 ---
 
@@ -74,19 +74,18 @@ AskQuestion: `route_confirm=route_a` · `ios_repo_confirm` · `android_repo_conf
 
 ---
 
-## Live gap (TL audit 2026-08-29)
+## Live gap (TL audit 2026-09-19 · hash refresh)
 
 | Surface | Live | TL task |
 |---------|------|---------|
-| iOS `#sc-mnt-log` | **DELTA** — no `Presentation/Features/MntLog/*` · `MntListViewModel` `.log` → toast only (`mnt.list.toast.log`) · `showsLogAction` đã gate done | **T-IOS-MNT-LOG** |
-| Android `#sc-mnt-log` | **DELTA** — no `presentation/feature/mntlog/*` · `MntListViewModel` `Log` → toast only · `showsLogAction` gate done | **T-AND-MNT-LOG** |
-| `GET …/work-orders/{id}` | BE `WorkOrdersController.GetById` + Mobile.Bff proxy live · peer `GetWorkOrderUseCase` (mnt-progress) | **reuse** · app path only · **cấm** invent `mnt-log` path |
-| Timeline derive | **không** live feature mapper | ship `DeriveWorkOrderTimelineUseCase` shared map · **cấm** invent history API |
-| `GET …/logs` / history | **không** | **cấm invent** · HIST **DEFER** |
-| mnt-list `#i-list` entry | toast stub · done-only UI gate live | wire push → log screen · **cấm** reimplement list |
+| iOS `#sc-mnt-log` | **recheck_new** — Dev re-verify `Presentation/Features/MntLog/*` + mnt-list `#i-list` push (done-only) · parity dual hash | **T-IOS-MNT-LOG** |
+| Android `#sc-mnt-log` | **recheck_new** — Dev re-verify `presentation/feature/mntlog/*` + Log navigate | **T-AND-MNT-LOG** |
+| `GET …/work-orders/{id}` | BE `WorkOrdersController.GetById` + Mobile.Bff proxy live · peer `GetWorkOrderUseCase` | **reuse** · **cấm** invent `mnt-log` / `…/logs` |
+| Timeline derive | client derive `WorkOrderDto` newest-first (SA) | `DeriveWorkOrderTimelineUseCase` · HIST **DEFER** |
+| mnt-list `#i-list` entry | done-only · push `#sc-mnt-log` | wire/keep · **cấm** reimplement list |
 | Sibling estimate/chat/progress | separate packs | **cấm** start / gộp |
-| New BE endpoint / Schema_* | **không** | **T-BE-API** / **T-BE-MIG** = **n/a** · HIST expand **DEFER** |
-| Kit TopBar + List + Empty + Toast | dual map Design | Dev **cấm** raw chrome · **cấm** `T-KIT-*` |
+| New BE endpoint / Schema_* | **không** | **T-BE-API** / **T-BE-MIG** = **n/a** |
+| Kit TopBar + List + Empty + Toast | dual map Design | **cấm** `T-KIT-*` |
 | Foot «Phiên bản Gói…» / device label | demo chrome | **cấm ship** |
 
 ---
@@ -342,17 +341,17 @@ Optional verify (Dev, **không** TL): Mobile.Bff `dotnet build` PASS.
 | skillId | agent-tl-mobile |
 | skillVersion | 2026.08.25.01 |
 | schemaVersion | 1 |
-| workflowVersion | 2026.08.25.01 |
-| rulesVersion | 2026.08.25.2 |
-| generatedAt | 2026-08-29T07:32:28.000Z |
-| versionGate | rechecked |
-| contentHash | sha256:mnt-log-mobile-control-hint-20260829 |
-| realDataHash | sha256:mnt-log-mobile-real-data-20260829 |
-| bffContentHash | sha256:mnt-log-mobile-bff-20260829 |
-| actionTreeHash | sha256:mnt-log-mobile-action-tree-20260829 |
-| ctxContentHash | sha256:87761a7752a493d6ad176d96d76ccaf6116ea407ec5ec5513b6e12372a58d701 |
-| demoContentHash | sha256:394ab44597648f04b25e6d58476378c16141feb53d3b58d39923b3defcff8328 |
-| taskId | `task_48352a56` |
+| workflowVersion | 2026.09.19.2 |
+| rulesVersion | 2026.09.19.5 |
+| generatedAt | 2026-09-19T13:52:04.000Z |
+| versionGate | recheck_new |
+| contentHash | sha256:5c74f801620d6dabea7e29b3591c3298a358205a64070a14c4d371d3098a3dd3 |
+| realDataHash | sha256:5c74f801620d6dabea7e29b3591c3298a358205a64070a14c4d371d3098a3dd3 |
+| bffContentHash | sha256:maintenance-work-orders-getbyid-proxy-passthrough |
+| actionTreeHash | sha256:5c74f801620d6dabea7e29b3591c3298a358205a64070a14c4d371d3098a3dd3 |
+| ctxContentHash | sha256:5c74f801620d6dabea7e29b3591c3298a358205a64070a14c4d371d3098a3dd3 |
+| demoContentHash | sha256:d3ecd6203f20b49c25a282887298b7cf657385f1d610b3304da5a5bb393323d0 |
+| taskId | `task_0501aefa` |
 
 ---
-<!-- Version meta: skillId=agent-tl-mobile skillVersion=2026.08.25.01 schemaVersion=1 workflowVersion=2026.08.25.01 rulesVersion=2026.08.25.2 versionGate=rechecked -->
+<!-- Version meta: skillId=agent-tl-mobile skillVersion=2026.08.25.01 schemaVersion=1 workflowVersion=2026.09.19.2 rulesVersion=2026.09.19.5 versionGate=recheck_new -->

@@ -22,8 +22,9 @@ Pilot: `home` (new · high) — tab Trang Chủ trên `DES-MOB-TABBAR`.
 | `attendance` | `patrol-home` | new | unique | — | `LinmSegment` | patrol segment | high | chấm công | `#sc-patrol-home` `.seg` | sibling `pending_confirm` |
 | `patrol-map` | `patrol-home` | new | unique | — | `LinmListRow` `#i-map` | quick | high | bản đồ ca · họp 5 inspect ảnh | `#row-map` | `/scan-mobile-feature` enqueue_later |
 | `field-reflect` | `patrol-home` | new | unique | — | `LinmListRow` `#i-camera` | quick | high | hư hỏng · họp 4 | `#row-reflect` | **analy done** `task_d7dd64c8` · handoff PO |
-| `nghiem-thu` | `patrol-home` | new | unique | — | `LinmListRow` `#i-check` | quick | high | họp 1 NT | `#row-nghiem-thu` · `#sc-nghiem-thu` | `/scan-mobile-feature` enqueue_later |
-| `nghiem-thu-create` | `nghiem-thu` | new | unique | — | `LinmPrimaryButton` | NT Tạo | high | họp 1 form + upload | `#sc-nghiem-thu` nav Tạo | `/scan-mobile-feature` enqueue_later |
+| `nghiem-thu` | `patrol-home` | new | unique | — | `LinmListRow` `#i-check` | quick | high | họp 1 NT | `#row-nghiem-thu` · `#sc-nghiem-thu` | `run_selected` `pending_confirm` |
+| `nghiem-thu-create` | `nghiem-thu` | new | unique | — | `LinmPrimaryButton` | NT Tạo | high | họp 1 form + upload | `#sc-nghiem-thu` nav Tạo | `run_selected` `pending_confirm` |
+| `nghiem-thu-detail` | `nghiem-thu` | new | unique | — | `LinmListRow` | NT row | high | plus_detail Xem/Sửa · web `/{id}` | row tap (HTML toast) | `run_selected` `pending_confirm` |
 | `cam-patrol` | `patrol-home` | new | unique | — | `LinmListRow` `#i-video` | quick | high | camera tuần | `#row-cam` | sibling `pending_confirm` |
 | `patrol-history` | `patrol-home` | new | unique | — | `LinmListRow` `#i-list` | quick | high | lịch sử | `#row-history` | sibling `pending_confirm` |
 | `patrol-checkin` | `patrol-home` | new | unique | — | `LinmPrimaryButton` | hero CTA | high | họp 4 camera/GPS/upload | hero `.btn` | `/scan-mobile-feature` enqueue_later |

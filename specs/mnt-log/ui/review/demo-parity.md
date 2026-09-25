@@ -2,8 +2,9 @@
 
 **Slash:** `/review-demo-design-mobile`  
 **DemoRoot:** `specs/mnt-log/ui/prototype/{ios,android}/index.html`  
-**taskId:** `task_bda2e253` · `2026-08-29T07:22:00.000Z`  
-**SSOT:** DA controlHint + PO + real-data · mobile-p1 entry `#i-list` cite only · hash skip · **cấm** re-scan (`GAP-DES-DEMO-RESCAN-01`)
+**taskId:** `task_7451543a` · `2026-09-19T13:45:28.000Z`  
+**SSOT:** DA controlHint + PO + real-data · mobile-p1 entry `#i-list` cite only · hash skip · **cấm** re-scan (`GAP-DES-DEMO-RESCAN-01`)  
+**demoContentHash:** `sha256:d3ecd6203f20b49c25a282887298b7cf657385f1d610b3304da5a5bb393323d0` (iOS `8cf282…` · Android `fdff13…` · khớp DA)
 
 ## Must
 
@@ -64,8 +65,15 @@
 | Field | Value |
 |-------|-------|
 | skillId | review-demo-design-mobile |
-| generatedAt | 2026-08-29T07:22:00.000Z |
-| taskId | `task_bda2e253` |
+| skillVersion | 2026.08.25.01 |
+| schemaVersion | 2 |
+| workflowVersion | 2026.09.19.2 |
+| rulesVersion | 2026.09.19.5 |
+| generatedAt | 2026-09-19T13:45:28.000Z |
+| versionGate | recheck_new |
+| contentHash | sha256:5c74f801620d6dabea7e29b3591c3298a358205a64070a14c4d371d3098a3dd3 |
+| demoContentHash | sha256:d3ecd6203f20b49c25a282887298b7cf657385f1d610b3304da5a5bb393323d0 |
+| taskId | `task_7451543a` |
 
 ---
-<!-- Version meta: skillId=review-demo-design-mobile -->
+<!-- Version meta: skillId=review-demo-design-mobile skillVersion=2026.08.25.01 schemaVersion=2 workflowVersion=2026.09.19.2 rulesVersion=2026.09.19.5 versionGate=recheck_new -->

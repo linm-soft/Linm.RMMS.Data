@@ -26,7 +26,7 @@
 | Toast pick **Chọn loại tài sản để ghi sự cố** (`?pick=1`) | yes | yes | OK |
 | Deny title **Định vị bị tắt** | yes | yes | OK |
 | Deny body mobile-p1 copy | yes | yes | OK |
-| Primary **Sao chép hướng dẫn** · Secondary **Để sau** | yes | yes | OK |
+| Primary **Mở Cài đặt** · Secondary **Để sau** | yes | yes | OK |
 | `#i-chevron-left` · `#i-camera` cùng `d=` | yes | yes | OK |
 | Pick `.ak32-ico` 36 pict QCVN (`LinmAssetKchtPict`) · 3 cột stretch | yes | yes | OK |
 | Shell Tab 5 cùng 5 nhãn (Trang Chủ · Tuần đường · Vấn đề · Công việc · Tôi) | yes | yes | OK |

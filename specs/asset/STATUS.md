@@ -24,8 +24,8 @@
 | sa.artifact | `specs/asset/be/solution-discovery.md` (web Kind B **done**) |
 | sa.artifactMobile | `specs/asset/be/solution-discovery-mobile.md` |
 | task.artifact | `specs/asset/task/asset.md` |
-| implement.artifact | `specs/asset/implement/asset.md` |
-| qa.artifact | `specs/asset/qa/scenarios.md` |
+| implement.artifact | `specs/asset/implement/asset.md` · `asset-qa-fix-plan.md` · `ios.md` · `android.md` |
+| qa.artifact | `specs/asset/qa/scenarios.md` · `qa/store/asset` · `ui/review/align-ux.md` |
 | review.artifact | `specs/asset/review/findings.md` |
 | taskId | `task_bf4df098` |
 | skillVersion | `2026.08.14.5` |
@@ -34,8 +34,9 @@
 | rulesVersion | `2026.08.29.5` |
 | versionGate | `rechecked` |
 | contentHash | `sha256:asset-web-kind-b-done-20260814` |
-| updatedAt | `2026-09-18T17:45:00.000Z` |
-| verifyGate | web Kind B **done** `task_bf4df098` · mobile list QA FAIL → § Pipeline (mobile) · **cấm** ingest lên `/qldb-workflow` |
+| bffContentHash | `sha256:asset-mobile-list-road-assets-proxy-20260823` |
+| updatedAt | `2026-09-20T04:13:21.474Z` |
+| verifyGate | web Kind B **done** `task_bf4df098` · mobile QA e2e **FAIL** `task_0aaf071e` · Dev plan `task_ad15226f` `qa_fix_plan` pending_confirm · **cấm** ingest lên `/qldb-workflow` |
 
 ## Lock
 
@@ -69,9 +70,9 @@
 | 2.1 | design | ui/design.md + dual prototype + ux-analy + reviewUrl | **confirmed** |
 | 2.2 | sa | be/solution-discovery-mobile.md | **confirmed** |
 | 3 | team-lead | task/asset.md | **confirmed** |
-| 4 | dev | implement/ios.md · android.md · asset-qa-fix-plan.md | **confirmed** |
-| 5 | qa | qa/scenarios.md · qa/store/asset | **blocked** |
-| 6 | review | review/findings.md | **pending** |
+| 4 | dev | implement/asset-qa-fix-plan.md (plan) · ios/android implement sau Approve | **pending_confirm** |
+| 5 | qa | qa/scenarios.md · qa/store/asset | pending (blocked · await plan Approve + implement) |
+| 6 | review | review/findings.md | pending |
 
 ## Confirms
 
@@ -90,9 +91,9 @@
 | android_repo_confirm | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Mobile.Android` |
 | route_confirm | **route_a** (autoApprove TL · hub tile Danh sách → `#sc-asset-list`) |
 | ui_repo_confirm | `Linm.Web.RMMS.Asset` (web only) |
-| autoApprove | **ON** implement · `qa_fix_plan` **approved** (autopilot) |
+| autoApprove | **OFF** trên `qa_fix_plan` / `qa_fail_rollback` (HARD) |
 | e2eQa | **ON** · re-QA `task_0aaf071e` **FAIL** · Appear fix chưa đóng runtime |
-| qa_fix_plan | **approved** · `implement/asset-qa-fix-plan.md` · plan `task_7e0b31e2` · implement `task_fa241430` |
+| qa_fix_plan | **pending_confirm** · `implement/asset-qa-fix-plan.md` · plan `task_ad15226f` · from `task_0aaf071e` |
 | ios_test_phase | **phase1_iphone** · dest **iPhone 17 Pro Max** · A4 **DEFER** |
 | align_confirm | **reject** · Android EmptyChrome vs iOS rows |
 | Step 4b | **N/A** PO — reuse `GET asset/road-assets` |
@@ -115,9 +116,10 @@
 | T-QA-01 | qa | **fail** (`task_0aaf071e` · GAP-QA-STORE-03) |
 | T-UD-BUG-01 | ui | **done** | confirmed `/run-user-doc` 2026-08-29 · UD-P0-09 Lat/Lng |
 | T-REVIEW-01 | review | pending (blocked · QA FAIL) |
-| task_7e0b31e2 | asset | dev | **confirmed** | qaFailFix=1 · qaFixPhase=plan · `qa_fix_plan` approved |
+| task_7e0b31e2 | asset | dev | **confirmed** | prior plan Appear · superseded |
 | task_fa241430 | asset | dev | **done** | Appear fix build PASS · runtime gap còn |
-| task_0aaf071e | asset | qa | **failed** | e2e FAIL · `qa_fail_rollback` await_confirm |
+| task_0aaf071e | asset | qa | **failed** | e2e FAIL · `qa_fail_rollback` |
+| task_ad15226f | asset | dev | **pending_confirm** | qaFailFix=1 · qaFixPhase=plan · `asset-qa-fix-plan.md` · from task_0aaf071e |
 
 ## Blockers / open questions
 
@@ -133,6 +135,7 @@
 - Dev plan (`task_7e0b31e2`): **approved** · root-cause `LaunchedEffect(onBack,onOpenDetail)`
 - Dev implement (`task_fa241430`): **done** · Appear build PASS · re-QA `task_0aaf071e` **FAIL** (And vẫn 0 `road-assets`)
 - QA re-run (`task_0aaf071e`): **FAIL** · EmptyChrome · GAP-QA-STORE-03 · `qa_fail_rollback`
+- Dev plan (`task_ad15226f`): **pending_confirm** · root-cause hyp `LaunchedEffect(typeFilter)` + `isLoading=false` default · 0 GET `road-assets` · **cấm** code tới Approve
 
 ## Links
 - mfeStdUrl: `http://localhost:9301/asset` (web only · **cấm** mobile AC)
@@ -171,6 +174,7 @@
 - closeout Dev qa_fix_plan: `task_7e0b31e2` · roleOnly=`dev` · qaFixPhase=plan · `implement/asset-qa-fix-plan.md` · **approved** · at: `2026-09-01T09:58:56.000Z`
 - closeout Dev qa_fix implement: `task_fa241430` · roleOnly=`dev` · Appear fix Android · VERIFY PASS · handoff `handoff/dev-compact.md` · at: `2026-09-01T16:15:30.000Z`
 - closeout QA FAIL: `task_0aaf071e` · roleOnly=`qa` · `/agent-qa-mobile` · e2e-qa-mobile **FAIL** · GAP-QA-STORE-03 · handoff `handoff/qa-compact.md` · `qa_fail_rollback` · at: `2026-09-01T16:22:00.000Z`
+- closeout Dev qa_fix_plan: `task_ad15226f` · roleOnly=`dev` · qaFixPhase=plan · `implement/asset-qa-fix-plan.md` · **pending_confirm** · handoff `handoff/dev-compact.md` · at: `2026-09-20T04:15:00.000Z`
 - closeout PO web: `task_9ab7f74a` · `/agent-po` · web Kind B · at: `2026-08-14T15:00:00.000Z`
 - closeout Review web: `task_bf4df098` · web pipeline **done** · at: `2026-08-14T16:55:00.000Z`
 - `/hey-linm` Apply `status` 2026-09-18: restore header lane **web** `done`/`done` (không fake — closeout `task_bf4df098`) · Pipeline (web) đứng trước parseStatusMd · Pipeline (mobile) QA FAIL giữ nguyên · `implement-status.json` web=`done` mobile=`qa`/`await_confirm`
@@ -199,15 +203,16 @@
 
 | Field | Value |
 |-------|-------|
-| skillId | agent-qa-mobile |
+| skillId | agent-dev-ios + agent-dev-android |
 | skillVersion | 2026.08.29.1 |
 | schemaVersion | 1 |
 | workflowVersion | 2026.08.29.1 |
 | rulesVersion | 2026.08.29.5 |
-| generatedAt | 2026-09-01T16:22:00.000Z |
+| generatedAt | 2026-09-20T04:15:00.000Z |
 | versionGate | rechecked |
-| contentHash | sha256:asset-qa-fix-appear-20260901 |
+| contentHash | sha256:asset-qa-fix-plan-fetch-20260920 |
 | bffContentHash | sha256:asset-mobile-list-road-assets-proxy-20260823 |
-| taskId | task_0aaf071e |
-| qaVerdict | FAIL |
-| qa_fail_rollback | await_confirm |
+| taskId | task_ad15226f |
+| qaVerdict | FAIL (prior `task_0aaf071e`) |
+| qaFixPhase | plan |
+| qa_fail_rollback | plan_written · pending_confirm |

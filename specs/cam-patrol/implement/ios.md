@@ -52,5 +52,12 @@
 | generatedAt | `2026-09-12T11:40:00.000Z` |
 | versionGate | rechecked |
 
+
+## Notes — MOB-PERM-OS-01 (2026-09-20)
+
+- OS location/camera dialog **trước** GPS read / capture (`LaunchLocationPermissionOnStart` / `rememberAskLocationPermission` · iOS `requestWhenInUseAuthorization` / `requestAccess`).
+- GPS deny modal primary **Mở Cài đặt** · secondary **Để sau** · **cấm** Sao chép hướng dẫn / clipboard.
+- **GAP-MOB-EDIT-CAM-DENY** — `DeviceCameraAuth.canAskOsDialog` (`notDetermined`) → OS dialog · `denied`/`restricted` → `#modal-camera-deny` · tap **Mở Cài đặt** · **cấm** nhảy Settings không hỏi · **cấm** `requestAccess` lại.
+
 ---
 <!-- Version meta: skillId=agent-dev-ios skillVersion=2026.08.20.03 schemaVersion=1 workflowVersion=2026.08.25.01 rulesVersion=2026.08.29.4 versionGate=rechecked -->

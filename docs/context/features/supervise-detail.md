@@ -102,4 +102,4 @@ mobile-p1 `#sc-supervise` rich-card → `go('checkin-detail')` / `#sc-checkin-de
 | lane | phase | status | updatedAt |
 |------|-------|--------|-----------|
 | web | — | — | — |
-| mobile | `qa` | `await_confirm` | `2026-09-01T15:53:21.880Z` |
+| mobile | `qa` | `await_confirm` | `2026-09-20T01:35:29.275Z` |

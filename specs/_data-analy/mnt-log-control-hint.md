@@ -5,14 +5,15 @@
 | feature | `mnt-log` |
 | title | [Mobile] [Công việc] -> Nhật ký xử lý |
 | role | `data_analy` · `/agent-data-analy-mobile` · mode `feature_context` |
-| packKind | **`sheet`** (packet · `_form-type-mobile` · mnt-list tree) · surface = **screen** `#sc-mnt-log` (Design tạo · demo P1 = toast) |
-| changeScope | `new_page` |
+| packKind | **`sheet`** (PO **confirmed** · surface screen `#sc-mnt-log`) |
+| changeScope | `new_page` (shipped · this turn = hash refresh · Must **0**) |
 | status | **confirmed** |
-| taskId | `task_60cc0721` |
+| taskId | `task_6e7aa15d` |
 | autoApprove | `ON` |
-| demo | `specs/mobile-p1/ui/prototype/{ios,android}/index.html` · entry `#sc-mnt-list` `#i-list` toast «Nhật ký xử lý» · **chưa** `#sc-mnt-log` |
+| demo | `specs/mnt-log/ui/prototype/{ios,android}/index.html` `#sc-mnt-log` · `DES-MOB-MNT-LOG` |
 | ctx | `docs/context/features/mnt-log.md` · `mnt-list.md` · `maintenance.md` |
-| generatedAt | `2026-08-29T07:13:00.000Z` |
+| generatedAt | `2026-09-19T13:38:11.000Z` |
+| versionGate | `recheck_new` (Autopilot · CTX+demo+skillVersion lệch artifact cũ) |
 
 **Cấm:** watermark Gói · invent `api/v1/mnt-log` / `…/logs` · gộp `mnt-chat` composer · gộp `mnt-progress` write · ERP.* · mfeStdUrl · fake timeline khi GET fail · system alert.
 
@@ -25,32 +26,31 @@
 | [`mnt-log-action-tree.md`](mnt-log-action-tree.md) | 7 tree + share/reuse |
 | [`mnt-log-real-data.md`](mnt-log-real-data.md) | 6b real-data bind |
 
-## § Delta Current vs New (`new_page`)
+## § Delta Current vs New
 
-| ID | Current (native / demo) | New (SSOT mobile + CTX) | Surface |
-|----|-------------------------|-------------------------|---------|
-| GAP-MOB-MNT-LOG-NAV-01 | mnt-list `#i-list` → **toast only** (done card) | Nav push `#sc-mnt-log` «Nhật ký xử lý» · back → `mnt-list` | mnt-list · mnt-log |
-| GAP-MOB-MNT-LOG-SCR-01 | Không màn log | Full screen/sheet · `DES-MOB-MNT-LOG` (Design) | screen |
-| GAP-MOB-MNT-LOG-HDR-01 | — | Header WO title · code · status (readonly) | card rows |
-| GAP-MOB-MNT-LOG-TL-01 | — | Timeline dọc mốc xử lý (tạo · hạn · tiến độ · note · hoàn thành) | timeline list |
-| GAP-MOB-MNT-LOG-EMPTY-01 | — | Empty «Chưa có nhật ký» khi thiếu data | empty |
-| GAP-MOB-MNT-LOG-DATA-01 | — | Mobile.Bff `GET maintenance/work-orders/{id}` + **client derive** | BFF |
-| GAP-MOB-MNT-LOG-HIST-01 | — | Không GET history live · P1 derive · SA nếu Signed | GAP |
-| GAP-MOB-MNT-LOG-PACK-01 | scan `sheet` · demo toast | packKind=`sheet` · surface screen — Design/PO chốt | meta |
-| GAP-MOB-MNT-LOG-ENTRY-01 | Demo `#i-list` chỉ card `done` | PO chốt entry mọi status hay chỉ done | entry |
-| GAP-MOB-MNT-LOG-CMT-01 | — | Comments = `mnt-chat` · **cấm** composer trên slug này | scope |
+| ID | Current | New / status | Surface |
+|----|---------|--------------|---------|
+| GAP-MOB-MNT-LOG-NAV-01 | Entry `#i-list` → `#sc-mnt-log` | **shipped** | mnt-list · mnt-log |
+| GAP-MOB-MNT-LOG-SCR-01 | `#sc-mnt-log` · `DES-MOB-MNT-LOG` dual demo | **CLOSED** (demo live) | screen |
+| GAP-MOB-MNT-LOG-HDR-01 | Header WO title · code · status | shipped readonly | `#wo-header` |
+| GAP-MOB-MNT-LOG-TL-01 | Timeline dọc | shipped · client derive | `#timeline` |
+| GAP-MOB-MNT-LOG-EMPTY-01 | Empty «Chưa có nhật ký» | shipped | `#empty` |
+| GAP-MOB-MNT-LOG-DATA-01 | BFF `GET maintenance/work-orders/{id}` | **confirmed** | BFF |
+| GAP-MOB-MNT-LOG-HIST-01 | History API | **CLOSED P1** · derive GetById · DEFER history | GAP |
+| GAP-MOB-MNT-LOG-PACK-01 | packKind=`sheet` · surface screen | **PO confirmed** | meta |
+| GAP-MOB-MNT-LOG-ENTRY-01 | Entry done card `#i-list` | **confirmed** demo = done | entry |
+| GAP-MOB-MNT-LOG-CMT-01 | Comments = `mnt-chat` | **cấm** composer | scope |
+| GAP-MOB-A11Y-01 | iOS log glyph a11y | **Should OPEN** · Must **0** · `/edit-mobile-feature` optional | iOS |
 
 **Không** đổi (OUT pack): `mnt-list` cards · `estimate` · `mnt-chat` · `mnt-progress` write · web Kind B/form WO · Kind E summary.
-
-**Reuse web:** domain Maintenance · `GET …/work-orders/{id}` · status enum `new` / `in_progress` / `done` / `cancelled` · demo web `progressTimeline` derive pattern.
 
 ## Tech factors
 
 | Factor | P1 | Notes |
 |--------|----|-------|
-| GPS | n/a | Readonly nhật ký — **không** capture |
+| GPS | n/a | Readonly — **không** capture |
 | Camera | n/a | |
-| Offline | optional | GET fail → empty/toast lỗi · demo fallback chỉ khi Design gate · **cấm** fake rows |
+| Offline | optional | GET fail → empty/toast · **cấm** fake rows |
 | Map | n/a | |
 | Biometric | n/a | |
 | Push | n/a | |
@@ -61,25 +61,26 @@
 
 ## § Demo dual
 
-Entry dual: cùng toast «Nhật ký xử lý» · cùng `#i-list` trên card «Nạo cống» (status Đã hoàn thành). **Chưa** có `#sc-mnt-log` — Design tạo dual parity cùng copy VN · cùng timeline rows · **không** CTA write. **Cấm** invent icon ngoài kit map.
+Dual `#sc-mnt-log` · `DES-MOB-MNT-LOG` · cùng copy VN · cùng zone ids (`#wo-header` · `#wo-title` · `#wo-code` · `#wo-status-text` · `#wo-status-badge` · `#section-log` · `#timeline` · `#empty` · `#banner-missing`). **Không** CTA write. **Cấm** invent icon ngoài kit.
 
-## controlHint — `#sc-mnt-log` (proposed · Design chốt)
+## controlHint — `#sc-mnt-log` (Design chốt · ship)
 
-| Field | VN | controlHint | Size | Kit | Notes |
-|-------|----|-------------|------|-----|-------|
-| screenTitle | Nhật ký xử lý | TopBar title | 17 | `LinmTopBar` | `DES-MOB-MNT-LOG` |
+| Field | VN | controlHint | Size | Kit / zone | Notes |
+|-------|----|-------------|------|------------|-------|
+| screenTitle | Nhật ký xử lý | TopBar title | 17 | `LinmTopBar` · `.nav-title` | `DES-MOB-MNT-LOG` |
 | navBack | Công việc | BackButton | 16 | chevron / icon-btn | `go('mnt-list')` |
-| woTitle | (tên CV) | ListRow / Text readonly | 13 / ≥16 | | nav / GET detail `title` |
-| woCode | WO-* / CV-* | Text readonly | 13 / ≥16 | | `code` |
-| woStatus | Tình trạng hiện tại | Badge / Status readonly | 13 / ≥16 | | status → VN map mnt-list |
-| sectionLog | Nhật ký | SectionLabel | **13** | | |
-| timeline | (các mốc) | TimelineList / List | 13 / ≥16 | vertical | derive P1 · **GAP-MOB-MNT-LOG-TL-01** |
-| logAt | (thời điểm) | Text caption | 13 | | `CreatedAt` / `DueAt` / `UpdatedAt` |
-| logBody | (nội dung mốc) | Text | ≥16 | | title + body row |
-| empty | Chưa có nhật ký | EmptyChrome | 13–16 | | thiếu id / 0 derive + no fallback |
+| woTitle | (tên CV) | ListRow / Text readonly | 13 / ≥16 | `#wo-title` | nav / GET `title` |
+| woCode | WO-* / CV-* | Text readonly | 13 / ≥16 | `#wo-code` | `code` |
+| woStatus | Tình trạng hiện tại | Badge / Status readonly | 13 / ≥16 | `#wo-status-badge` | status → VN |
+| sectionLog | Nhật ký | SectionLabel | **13** | `#section-log` | |
+| timeline | (các mốc) | TimelineList / List | 13 / ≥16 | `#timeline` | derive P1 |
+| logAt | (thời điểm) | Text caption | 13 | timeline row | `CreatedAt` / `DueAt` / `UpdatedAt` |
+| logBody | (nội dung mốc) | Text | ≥16 | timeline row | title + body |
+| empty | Chưa có nhật ký | EmptyChrome | 13–16 | `#empty` | thiếu id / 0 derive |
+| bannerMissing | Thiếu công việc… | Banner | 13–16 | `#banner-missing` | thiếu nav id |
 | toastErr | (lỗi mạng / 404) | Toast | 13–16 | `LinmToast` | **cấm** fake timeline |
 
-### Entry (parent chrome — không control riêng slug)
+### Entry (parent chrome)
 
 | Field | VN | controlHint | Kit | Notes |
 |-------|----|-------------|-----|-------|
@@ -114,66 +115,65 @@ Label **13** · field value **≥16** · tab shell **13** — `typography-web-mo
 | Demo / proposed | Kit dual |
 |-----------------|----------|
 | `.nav-bar` / top bar | `LinmTopBar` |
-| Header WO | `LinmListRow` / card-group |
-| Timeline | `LinmList` / timeline group (Design) |
-| Empty | EmptyChrome kit |
+| `#wo-header` | `LinmListRow` / card-group |
+| `#timeline` | `LinmList` / timeline group |
+| `#empty` | EmptyChrome kit |
 | Entry `#i-list` | `LinmIconButton` |
 | Toast | `LinmToast` |
 
-## Gaps (handoff PO → Design/SA)
+## Gaps (handoff)
 
 | ID | Note | Default |
 |----|------|---------|
-| GAP-MOB-MNT-LOG-SCR-01 | Toast → real `#sc-mnt-log` | **must** Design |
-| GAP-MOB-MNT-LOG-HIST-01 | Không history API / Progress table | P1 derive GetById · SA nếu Signed |
-| GAP-MOB-MNT-LOG-PACK-01 | sheet vs screen | PO/Design chốt |
-| GAP-MOB-MNT-LOG-ENTRY-01 | chỉ done card vs mọi status | demo = done · PO chốt |
+| GAP-MOB-MNT-LOG-HIST-01 | History API | **CLOSED P1** · DEFER |
+| GAP-MOB-A11Y-01 | iOS a11y id | Should · Must **0** · optional edit |
 | GAP-MOB-MNT-LOG-CMT-01 | comments ≠ nhật ký | giữ `mnt-chat` |
-| GAP-MOB-MNT-LOG-SORT-01 | newest-first vs oldest-first | default newest-first |
+| GAP-MOB-MNT-LOG-SORT-01 | newest-first | **confirmed** default |
 
 ## Sources / hash
 
 | Source | Path | sha256 |
 |--------|------|--------|
-| CTX (new) | `docs/context/features/mnt-log.md` | `sha256:87761a7752a493d6ad176d96d76ccaf6116ea407ec5ec5513b6e12372a58d701` |
-| Parent CTX | `docs/context/features/mnt-list.md` | `sha256:1df1005f6c0810be8e03a28e3c5c0e5dcb216234db9101f1571348000d11ae1f` |
+| CTX | `docs/context/features/mnt-log.md` | `sha256:5c74f801620d6dabea7e29b3591c3298a358205a64070a14c4d371d3098a3dd3` |
+| Parent CTX | `docs/context/features/mnt-list.md` | `sha256:99b41731e67d7c0b661a0a053349f2975f22e7e2d67c417d640905e57006f0d2` |
 | Domain CTX | `docs/context/features/maintenance.md` | `sha256:05d3f91d52fd921af4a25798cd487c403563987e7b2689fec85f958b6357fa0f` |
-| Demo iOS | `specs/mobile-p1/ui/prototype/ios/index.html` `#i-list` toast | `sha256:394ab44597648f04b25e6d58476378c16141feb53d3b58d39923b3defcff8328` |
-| Demo Android | `specs/mobile-p1/ui/prototype/android/index.html` | `sha256:cbb3af57cc4c8feebf8d80472f926933345acb478c280e55e83214ec125fdb91` |
-| Scan | `_form-type-mobile/ACTION-TREE.md` · `mnt-log` sheet | pending_confirm → **this turn** |
+| Demo iOS | `specs/mnt-log/ui/prototype/ios/index.html` | `sha256:8cf282beb30f5a470dda3628b489b70a3afa2622f9d15074037de4761dae9292` |
+| Demo Android | `specs/mnt-log/ui/prototype/android/index.html` | `sha256:fdff13262cfbb6fd2d0afd81dd66467335c8d461a3696c7d45dddbe453d7d409` |
+| Demo concat | ios+android bytes | `sha256:d3ecd6203f20b49c25a282887298b7cf657385f1d610b3304da5a5bb393323d0` |
 | Live API | `WorkOrdersController.GetById` · `WorkOrderDto` | Signed · **không** logs endpoint |
+| Bugs | `specs/mnt-log/qa/bugs/mnt-log.md` | Must open **0** |
 
 ## UNCLEAR
 
-**none** — toast entry + live GetById + maintenance CTX chốt · history API = GAP (không UNCLEAR UI).
+**none** — `#sc-mnt-log` dual + live GetById + packKind sheet confirmed · history = CLOSED P1 · Must 0.
 
 ## Handoff → PO
 
 | Field | Value |
 |-------|-------|
-| feature / packKind | `mnt-log` / **sheet** (GAP-MOB-MNT-LOG-PACK-01) |
-| phase_from / phase_to | `data_analy` **done** → `po` |
+| feature / packKind | `mnt-log` / **sheet** |
+| phase_from / phase_to | `data_analy` **done** · pipeline prior roles **giữ confirmed** · **cấm** reset → po |
 | BFF | `mnt-log-bff-endpoints.md` |
 | Action tree | `mnt-log-action-tree.md` |
 | Real-data | `mnt-log-real-data.md` |
-| Next | `/agent-po-mobile` |
-| autoApprove | ON → chain PO (không chờ board) · **cấm** start PO trong task data_analy này |
+| Next | **không** start PO trong task này · optional `/edit-mobile-feature` (A11Y Should) |
+| autoApprove | ON · **GAP-PKT-ROLE-01** roleOnly |
 
 ## Version meta (REQUIRED)
 
 | Field | Value |
 |-------|-------|
 | skillId | agent-data-analy-mobile |
-| skillVersion | 2026.08.25.01 |
+| skillVersion | 2026.08.31.2 |
 | schemaVersion | 2 |
-| workflowVersion | 2026.08.25.01 |
-| rulesVersion | 2026.08.25.2 |
-| generatedAt | 2026-08-29T07:13:00.000Z |
-| versionGate | rechecked |
-| contentHash | sha256:mnt-log-mobile-control-hint-20260829 |
-| demoContentHash | sha256:394ab44597648f04b25e6d58476378c16141feb53d3b58d39923b3defcff8328 |
-| parentCtxHash | sha256:1df1005f6c0810be8e03a28e3c5c0e5dcb216234db9101f1571348000d11ae1f |
-| taskId | `task_60cc0721` |
+| workflowVersion | 2026.09.19.2 |
+| rulesVersion | 2026.09.19.5 |
+| generatedAt | 2026-09-19T13:38:11.000Z |
+| versionGate | recheck_new |
+| contentHash | sha256:5c74f801620d6dabea7e29b3591c3298a358205a64070a14c4d371d3098a3dd3 |
+| demoContentHash | sha256:d3ecd6203f20b49c25a282887298b7cf657385f1d610b3304da5a5bb393323d0 |
+| parentCtxHash | sha256:99b41731e67d7c0b661a0a053349f2975f22e7e2d67c417d640905e57006f0d2 |
+| taskId | `task_6e7aa15d` |
 
 ---
-<!-- Version meta: skillId=agent-data-analy-mobile skillVersion=2026.08.25.01 schemaVersion=2 workflowVersion=2026.08.25.01 rulesVersion=2026.08.25.2 versionGate=rechecked -->
+<!-- Version meta: skillId=agent-data-analy-mobile skillVersion=2026.08.31.2 schemaVersion=2 workflowVersion=2026.09.19.2 rulesVersion=2026.09.19.5 versionGate=recheck_new -->

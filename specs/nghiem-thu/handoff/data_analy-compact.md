@@ -5,60 +5,52 @@ feature: nghiem-thu
 packKind: list
 role: data_analy
 status: done
-skillVersion: 2026.09.05.03
-writtenAt: 2026-09-12T09:00:00.000Z
-changeScope: new_page
-contentHash: sha256:41b14359b00a0bacbd2f5e88ab9ed8f7604f962c4e4e58219bf9c1145b5ef4ea
+skillVersion: 2026.08.31.2
+writtenAt: 2026-09-20T00:39:00.000Z
+changeScope: edit_page
+taskId: task_b82ebc4c
+contentHash: sha256:1044ba719edda88d256d5c2a780cd2293f2fab87e2a39acdbb86001fad6ff659
+planCite: docs/plan/nghiem-thu-mau/{README,MAU-10,CHI-SO,SCHEMA}.md · features/nghiem-thu-mau.md
 
 ## Decisions
-- changeScope: new_page (greenfield Field `/nghiem-thu`)
-- formPattern: Full page (clone patrol Kind B)
-- packKind: list · demo N/A
-- mfe: `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Field` · mfeStdUrl `http://localhost:9301/nghiem-thu`
-- be: `D:/AI-QLBD/Linm.RMMS.WebService` · proposed domain Patrol sibling · **cấm ERP.*** · **cấm** maintenance WO
-- upload: FileService `web-bff/api/v1/files/*` · persist guid · resign · **cấm** invent file API
-- real-data §A+§B: yes (proposed API · sameMfe=gap until Dev)
-- open questions: GAP-DA-NT-TMPL-01 (10 mẫu names) · GAP-DA-NT-STATUS-01 · GAP-DA-NT-DOMAIN-01 · GAP-DA-NT-API-01 · GAP-DA-NT-FORM-01
+- changeScope: edit_page · NEW AutocodeTask `task_b82ebc4c` · keep prior PO/Design/SA/mobile ship · § Delta MAU+Result
+- TemplateType value mau-01…10 GIỮ · Label = TT 41 PL IV Mẫu 01 §1.2.1 (cấm «Mẫu nghiệm thu NN»)
+- P1: ResultCode pass/fail/deduct + ResultNote + scores[] criteria từ init-data — list chỉ badge ResultCode; scores owner create/detail
+- Schema_NghiemThuMau pair CLI → SA · data_analy SKIP Step 4b
+- Lane: native dual + Mobile.Bff catch-all + Patrol path · FileService mediaIds giữ · cấm files-nt · ERP.* · csdl-so-08 · kcht-cong-trinh
+- Web Field /nghiem-thu OUT queue · 1 slug=1 action
+- packKind: list · formPattern N/A on list
+- open questions: none
 
 ## Inventory (slim)
 | id | label | controlHint | notes |
 |----|-------|-------------|-------|
-| search | Tìm | SearchTextInput | filter leading |
-| status | Trạng thái | SearchInput | enum VN |
-| route | Tuyến | SearchInput | road-route |
-| templateType | Mẫu NT | SearchInput | 10 mẫu · UNCLEAR names |
-| fromDate/toDate | Kỳ | Date | filter |
-| code | Mã NT | Text | auto NT-* |
-| zoneOrgCode | Khu | SearchInput | org-unit |
-| vpOrgCode | VP | SearchInput | org-unit |
-| assigneeCode | Cán bộ NT | SearchInput | org |
-| inspectedAt | Ngày NT | Date | required |
-| kmFrom/kmTo | Km | Number | chainage |
-| fieldInfo | Hiện trường | Text | required |
-| note | Ghi chú | Text | |
-| mediaIds | Ảnh/video | FileMulti | FileService guid |
-| updatedAt | Cập nhật | Date | readonly |
+| search | Tìm mẫu nghiệm thu… | SearchField | ?search= |
+| rowCode | NT-* | Text | Code |
+| rowSub | Label MAU-10 · tuyến · Km | Text | TemplateLabel·Route·KmFrom |
+| rowStatus | Nháp/Đang NT/Hoàn thành/Hủy | Badge | Status |
+| rowResult | Đạt/Không đạt/Khấu trừ | Badge | ResultCode · ẩn null |
+| navCreate | Tạo | TextButton | → nghiem-thu-create |
+| rowTap | Chi tiết | ListRow | → nghiem-thu-detail + Id |
 
 ## Screens / zones (ids only)
-- DES-GRID-A Header · B Toolbar+filter · C Grid · D Pagination
-- Form full-page `/nghiem-thu/new` · `/nghiem-thu/:id` · upload zone
-- reviewUrl= (Design)
-- peerStdUrl= http://localhost:9304/patrol (clone ref)
-- filter-bar: LinErpListFilterBar wrap · 🔍 right
+- DES-MOB-NGHIEM-THU · `#sc-nghiem-thu` · `#row-nghiem-thu`
+- siblings: create/detail (scores · MAU picker) · **cấm** start trong task này
+- reviewUrl= prior dual prototype · Design overlay sau PO
 
 ## API / tasks (ids only)
-- Proposed: `api/v1/patrol/nghiem-thu` + BFF same resource · SA confirm DOMAIN-MAP row
-- Files: `web-bff/api/v1/files/*`
-- Mobile: enqueue_later — **not** this lane
+- GET `mobile-bff/api/v1/patrol/nghiem-thu` · init-data (MAU-10+criteria+ResultCodes) · **cấm invent**
+- DTO + ResultCode · Schema_NghiemThuMau → SA
+- Files: FileService guid · create/detail only
 
 ## UNCLEAR
-- GAP-DA-NT-TMPL-01: exact names of 10 mẫu
-- GAP-DA-NT-STATUS-01: final VN status labels
-- GAP-DA-NT-DOMAIN-01 / API-01: SA confirm Patrol path (no live controller yet)
+- none
 
 ## Full paths (Read only if needed)
-- control-hint: `D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/nghiem-thu-control-hint.md`
-- real-data: `D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/nghiem-thu-real-data.md`
-- filter-bar: `D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/nghiem-thu-filter-bar.md`
-- context: `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/nghiem-thu.md`
-- STATUS: `D:/AI-QLBD/Linm.RMMS.Data/specs/nghiem-thu/STATUS.md`
+- control-hint: `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/nghiem-thu-control-hint.md`
+- real-data: `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/nghiem-thu-real-data.md`
+- bff: `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/nghiem-thu-bff-endpoints.md`
+- action-tree: `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/nghiem-thu-action-tree.md`
+- context: `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/docs/context/features/nghiem-thu.md`
+- plan: `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/docs/plan/nghiem-thu-mau/README.md`
+- STATUS: `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.Data/specs/nghiem-thu/STATUS.md`

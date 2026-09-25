@@ -1,93 +1,118 @@
-# Review — Findings — nghiem-thu
+# Review — Findings — nghiem-thu (mobile)
 
 > Status: **done** · Mode: `review_only` · `review_confirm=accept` (autoApprove ON)  
-> reviewHash: `sha256:4472b6cd5498ba5a206c9c21463c4adffe19c1c26299ccdfbc21757d190f8e1a` · rulesVersion: `2026.09.05.03`  
-> task: `task_1b121e02` · prior contentHash: `sha256:41b14359b00a0bacbd2f5e88ab9ed8f7604f962c4e4e58219bf9c1145b5ef4ea`
+> reviewHash: `sha256:ce24777c87b1c352e86b2db3ffb3fadd30dae294493d91133a6c87808021c128` · skillVersion: `2026.08.31.2`  
+> task: `task_b7626142` · contentHash: `sha256:1044ba719edda88d256d5c2a780cd2293f2fab87e2a39acdbb86001fad6ff659`  
+> lane: **mobile** · slash `/agent-review-mobile` · **cấm** e2e/start:std/build this role
 
 | | |
 |--|--|
 | Feature | `nghiem-thu` |
-| Title | Công tác nghiệm thu — Kind B list + Full form |
-| Role | `review` · `/agent-review` |
-| Surfaces | list · form · api |
-| mfeStdUrl | `http://localhost:9304/nghiem-thu` (QA chốt; packet `:9301` lệch — STATUS authoritative) |
-| Live smoke | **cấm** start:std this role · evidence = QA screens + static code |
+| Title | Công tác nghiệm thu — native list `#sc-nghiem-thu` · MAU-10 + ResultCode |
+| Role | `review` · `/agent-review-mobile` |
+| Surfaces | list iOS + Android · BFF proxy · QA store CORE |
+| peerStdUrl | `http://localhost:9304/patrol` (web ref only) |
+| Evidence | QA CAPTURE + vision A3/P6/P6-2 + static dual · **không** re-run e2e |
 
 ## Scope
 
 | Surface | Repo / path |
 |---------|-------------|
-| FE list/form | `Linm.Web.RMMS.Field` · `NghiemThuListPage` · `NghiemThuFormPage` · `services/nghiemThu/*` |
-| BE/BFF | `Linm.RMMS.WebService` · Patrol · `api/v1/patrol/nghiem-thu` · BFF proxy |
-| QA evidence | `specs/nghiem-thu/qa/scenarios.md` · `qa/screens/*` · manifest `ok=true` · row `NT-*` |
+| iOS list | `Linm.RMMS.Mobile.iOS` · `Presentation/Features/NghiemThu/*` · `Data/Dto/NghiemThuDto.swift` |
+| Android list | `Linm.RMMS.Mobile.Android` · `…/feature/nghiemthu/*` · `NghiemThuDto.kt` |
+| BFF/BE | Mobile.Bff catch-all · `patrol/nghiem-thu` · **cấm ERP.*** · Step 4b SKIP this role |
+| QA evidence | `qa/store/nghiem-thu/{CAPTURE,manifest}` · A3/P6 Aligned · Must 0 |
+| Prior web review | KEEP debt REV-S-01 (web) — không reopen mobile |
+
+## Hash gate
+
+| Field | Value |
+|-------|-------|
+| prior REVIEW-META | task `task_600866a7` · contentHashPrior `a635f3…` · reviewHash `eba0d0…` |
+| this contentHash | `sha256:1044ba719edda88d256d5c2a780cd2293f2fab87e2a39acdbb86001fad6ff659` |
+| action | **RUN** — hash lệch (MAU-10 + Result overlay) |
 
 ## Findings
 
 | ID | Class | Sev | Where | Repro | Fix hint |
 |----|-------|-----|-------|-------|----------|
-| REV-S-01 | security | P2 | `NghiemThuController` | `[RequirePermission]` commented TODO Auth stub | Enable when CommonLib ≥1.4.0 · debt KEEP |
-| REV-QA-01 | ui-fn | P2 | e2e harness | `yarn e2e-qa` npx resolve flake | GAP-QA-E2E-NPX · local playwright OK |
-| REV-UI-02 | ui-fn | P3 | Leave headed | dirty cancel không luôn hiện dialog | LeaveConfirmModal + useFormLeaveGuard wired · visual follow-up |
+| REV-MOB-DEBT-01 | product | P3 | create/detail | Tạo / row → toast sibling pending_confirm | Approve siblings · **cấm** start trước Approve (GAP-MOB-ACT-06) |
+| REV-S-01 | security | P2 | BE `NghiemThuController` | `[RequirePermission]` stub (web KEEP) | Enable when CommonLib ≥1.4.0 · **không** fix_gaps mobile |
 
-**P0 / blocking:** none.
+**P0 / Must align / GAP-MOB-ALIGN-* / GAP-MOB-REAL-02 / GAP-QA-REAL-01 / GAP-TYP-01 / GAP-TAB-01:** none open.
 
-## Query (`/review-query`)
+## Security (mobile)
 
-- List: `AsNoTracking` + filter status/route/templateType/from–to + search `ILike` multi-field · pageSize whitelist · **0** N+1 media on list (media only on GetById Include).
-- Lookups: `init-data` status/template enum · road-route / org via Integration SearchInput · route exists check on write.
-- FE endpoint: `/patrol/nghiem-thu` only · **0** `ERP.*`.
-- Verdict: **PASS** · no `QUERY-*` P0.
+| Check | Result | Evidence |
+|-------|--------|----------|
+| Keychain JWT | PASS | `KeychainTokenStore` · **cấm** UserDefaults token |
+| `X-Company-Id` | PASS | `ApiClient` + `CompanyContextStore` |
+| IDOR `{id}` | N/A list | list không get-by-id · detail OUT sibling |
+| alert / plaintext token | PASS | toast only · **0** UIAlert in feature |
+| Forked API / ERP.* | PASS | iOS+Android `patrol/nghiem-thu` + init-data |
+| PrivacyInfo.xcprivacy | PASS | present |
+| Location/camera copy | N/A list P1 | OUT list · siblings later |
+| Store A4 / GAP-SUBMIT-IMG-08 | N/A | A4-IPAD DEFER · không listing role này |
 
-## Security
+Verdict: **PASS** · P2 web Auth debt KEEP.
 
-- Tenant: GetById cross-company → 403 `NghiemThuForbiddenException` + `allowed_company_ids` · SHARE=tenant_keep.
-- Auth attribute stub → **REV-S-01** P2 (documented Dev/QA debt) · **không** escalate fix_gaps.
-- FE services: **0** token/secret in repo · files via FileService BFF.
-- Injection: parameterized EF · path id `guid` · upload purpose scoped.
-- Verdict: **PASS** with P2 debt.
+## DTO / type parity
 
-## UI function
+| Field | iOS | Android | Verdict |
+|-------|-----|---------|---------|
+| templateLabel | String? · init overlay | String? · init overlay | PASS · MAU-10 · **cấm** «Mẫu nghiệm thu NN» |
+| resultCode / resultLabel | String · empty → badge nil | String · blank → badge nil | PASS · null ẩn |
+| resultCodes init | value+label | value+label | PASS |
+| kmFrom | Decimal→string | Double→string | PASS (display) |
+| scores[] | OUT list | OUT list | PASS |
+| tabs | none | none | PASS · **0** GAP-TAB-01 |
+
+## Real data
+
+| Gate | Result |
+|------|--------|
+| GAP-MOB-REAL-02 | **closed** — list live BFF · **0** `demoItems` · EmptyChrome OK (0 row) |
+| GAP-QA-REAL-01 | **closed** — A10-BFF PASS · `:5202` · T-QA-REAL-01 |
+| closedFallback | init label only when init fail · **không** fake list rows |
+
+## UI align / demo-parity
 
 | Gate | Result | Evidence |
 |------|--------|----------|
-| Kind B shell LAYOUT-06 | PASS | QA S0/S1 · list page + filters mount |
-| HDR / VI / badge | PASS | title «Nghiệm thu» · badge `Thêm`/`Sửa`/`Xem` (không `CREATE`) |
-| TB / config | PASS | catalog toolbar · `LinCatalogUiSchemaEditorModal` · **0** configHint |
-| FORM-GRID-05 | PASS | `data-form-cols="5"` live QA-20 + source |
-| FILTER-RIGHT / DTM / wrap | PASS | `LinErpListFilterBar` + `data-lin-list-layout="erp-filter-bar"` · fragment leading · QA-FILTER-D/T/M |
-| Leave | PASS (P3 visual) | `LeaveConfirmModal` · **0** `window.confirm` |
-| LKP / enum | PASS | org/route SearchInput · status/template Select ≤10 (gates §1 Dropdown OK) |
-| CRUD-EMPTY | PASS | QA-CRUD row `NT-20260912-0001` · **cấm** empty-only |
-| Demo note | PASS | **0** GAP/SSOT/stub copy on UI |
-
-## BE function
-
-- Catalog vs SA: List/init/get/create/update/delete + BFF forward · migration `Schema_NghiemThu` · media child guid[].
-- Domain Patrol · **cấm** WO / sessions / ERP.*.
-- Status codes: 200 / 404 / 422 / 403 aligned.
-- Verdict: **PASS**.
+| demo-parity Must | 0 open | `ui/review/demo-parity.md` · contentHash match |
+| align-ux | **Aligned** · Must 0 | vision A3/P6/P6-2 vs `#sc-nghiem-thu` empty |
+| QA visual | PASS | CAPTURE · manifest `ok:true` · `visualAlign=Aligned` |
+| A3 | Title · Back Tuần đường · Tạo · search · EmptyChrome | Aligned |
+| P6 | Title · back icon · Tạo · search · EmptyChrome | Aligned |
+| P6-2 | search `NT` · IME fold | Aligned · Result badge ẩn vì 0 dòng |
+| qa/bugs | none | **0** OPEN |
+| GAP-MOB-E2E-VIS-01 | N/A | vision Read CORE · không CLI-only |
+| GAP-MOB-ACT-03 | N/A | create/detail intentional pending_confirm · siblings **not** started |
+| e2e crawl this role | **SKIP** | packet VERIFY · **cấm** e2e · evidence QA đã có |
 
 ## Confirm
 
 `review_confirm` = **accept** (autoApprove ON) · **không** `fix_gaps` · P2/P3 debt KEEP.
 
-## Handoff → Dev (nếu fix)
+## Handoff
 
 | Gap | Task hint |
 |-----|-----------|
-| — | none blocking |
+| — | none blocking · roleOnly=review → mark `task_b7626142` completed |
+| siblings | stay `pending_confirm` until board Approve |
 
 ## Version meta (REQUIRED)
 
 | Field | Value |
 |-------|-------|
-| skillId | agent-review |
-| skillVersion | 2026.09.05.03 |
+| skillId | agent-review-mobile |
+| skillVersion | 2026.08.31.2 |
 | schemaVersion | 1 |
-| workflowVersion | qldb-list |
-| rulesVersion | 2026.09.05.03 |
-| reviewHash | sha256:4472b6cd5498ba5a206c9c21463c4adffe19c1c26299ccdfbc21757d190f8e1a |
-| contentHashPrior | sha256:41b14359b00a0bacbd2f5e88ab9ed8f7604f962c4e4e58219bf9c1145b5ef4ea |
-| generatedAt | 2026-09-12T10:10:00.000Z |
+| workflowVersion | qldb-mobile-list |
+| rulesVersion | 2026.08.31.2 |
+| reviewHash | sha256:ce24777c87b1c352e86b2db3ffb3fadd30dae294493d91133a6c87808021c128 |
+| contentHashPrior | sha256:1044ba719edda88d256d5c2a780cd2293f2fab87e2a39acdbb86001fad6ff659 |
+| generatedAt | 2026-09-19T18:45:50.000Z |
 | versionGate | ok |
 | review_confirm | accept |
+| lane | mobile |
