@@ -12,7 +12,7 @@
 | backend | peer `api/v1/cameras` + events + live HLS |
 | mfeStdRoute | `/gis/camera` |
 | mfeStdUrl | `http://localhost:9302/gis/camera` |
-| updatedAt | `2026-09-18T18:40:00.000Z` |
+| updatedAt | `2026-09-21T10:48:00.000Z` |
 
 ## Lock
 
@@ -29,6 +29,7 @@
 | form_pattern | Kind F map + wall |
 | map_split | default 50/50 · hide allowed |
 | live_default | `hls` |
+| live_aspect | **16:9 contain** (GAP-CAM-MAP-ASPECT-16-9) |
 | list_ssot | `GET /api/v1/cameras` (không CAM-VINH mock) |
 
 ## Wave map-stack
@@ -37,11 +38,11 @@ Reuse Wave 4 web clip (`attachVnClipBasemap`) — **không** đánh `map-service
 
 ## Notes
 
-Wall tile auto `POST …/live/start` `mode=hls`. KPI/inspect = event ISAPI hôm nay. Pin = mã lớp GIS cameras hoặc nội suy Km.
+Wall tile auto `POST …/live/start` `mode=hls`. KPI/inspect = event ISAPI hôm nay. Pin = mã lớp GIS cameras hoặc nội suy Km. Live **16:9 contain** (GAP-CAM-MAP-ASPECT-16-9) — **cấm** `object-fit: cover`.
 
 ## Blockers
 
 | | |
 |--|--|
-| GPS column on CameraDevice | OUT — không Schema turn này |
+| GPS column on CameraDevice | **DONE** `Latitude`/`Longitude` · `Schema_CameraDeviceGps` |
 | Menu Auth seed | `/gen-navigation-menu-import` |

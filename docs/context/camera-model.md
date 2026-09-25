@@ -6,6 +6,13 @@ Tất cả các thiết bị trong danh sách này đều hỗ trợ **Edge AI (
 
 ## 1. Danh sách Model theo Tuyến đường
 
+### Model đã chọn — trạm đếm QL1
+
+* **Model:** `iDS-TCM403-BI(G)/G`
+* **Trang:** [ids-tcm403-bi · BI(G)/G](https://www.hikvision.com/en/products/ITS-Products/traffic-cameras/urban-road-anpr-cameras/ids-tcm403-bi/?subName=iDS-TCM403-BI%28G%29%2FG)
+* **Nhận diện (hãng, 2026-09-23):** 9 loại Car / Van / Bus / Truck / Light Truck / SUV(MPV) / Pickup / Motorcycle / Tricycle · màu ban ngày · 212 hãng xe · biển (kể cả không biển và xe máy) · hướng · tới 3 làn · bắt xe > 99% · đọc biển > 98% · hướng > 98,5% · bắt nhầm < 2% · dải bắt 5–120 km/h. **Không** radar 77 GHz. Chi tiết và map nhãn: [`features/camera-vehicle-type.md`](features/camera-vehicle-type.md) §1b.
+* Lab ingest hiện tại vẫn là **iDS-TCM403-GIR** (có radar).
+
 ### 📡 Urban road / Radar-Assisted ANPR (ưu tiên ITS tốc độ + biển số)
 * **Model Đề xuất:** `iDS-TCM403-GIR`
 * **Loại thiết bị:** Bullet ANPR + radar mmWave 77 GHz (ITS Urban Road).
@@ -53,7 +60,8 @@ Tất cả các thiết bị trong danh sách này đều hỗ trợ **Edge AI (
 
 | Model (catalog RMMS) | Bắt xe (capture) | Đọc biển (LPR) | Hướng xe | Tốc độ | Đếm / phân loại | Ghi chú |
 |----------------------|------------------|----------------|----------|--------|-----------------|---------|
-| **iDS-TCM403-GIR** | **> 99%** | **> 98%** | **> 98.5%** | Radar 77 GHz · tới **~120 km/h** · sai số tham chiếu dự án **±2 km/h** · phủ tới 3 làn | Traffic flow / đếm trên cam; loại xe: Car, Van, Bus, Truck, Light Truck, SUV, Pickup, Motorcycle, Tricycle · màu (ban ngày) · **map ISAPI→nhãn** [`features/camera-vehicle-type.md`](features/camera-vehicle-type.md) | Mistaken capture **< 2%** · VN nằm vùng Asia-Pacific LPR · [product](https://www.hikvision.com/en/products/ITS-Products/traffic-cameras/urban-road-anpr-cameras/ids-tcm403-gir/) |
+| **iDS-TCM403-BI(G)/G** (đã chọn QL1) | **> 99%** | **> 98%** | **> 98.5%** | Dải bắt **5–120 km/h** · **không** radar · phủ tới **3 làn** | 9 loại như GIR · màu ban ngày · **212** hãng xe · sự cố ùn/dừng/đổi làn/ngược chiều/vượt tốc/tốc độ thấp — **không** % phân loại | Bắt nhầm **< 2%** · VN = Asia-Pacific · [BI(G)/G](https://www.hikvision.com/en/products/ITS-Products/traffic-cameras/urban-road-anpr-cameras/ids-tcm403-bi/?subName=iDS-TCM403-BI%28G%29%2FG) · map [`features/camera-vehicle-type.md`](features/camera-vehicle-type.md) §1b |
+| **iDS-TCM403-GIR** (lab) | **> 99%** | **> 98%** | **> 98.5%** | Radar 77 GHz · tới **~120 km/h** · sai số tham chiếu dự án **±2 km/h** · phủ tới 3 làn | Traffic flow / đếm trên cam; loại xe: Car, Van, Bus, Truck, Light Truck, SUV, Pickup, Motorcycle, Tricycle · màu (ban ngày) · **map ISAPI→nhãn** [`features/camera-vehicle-type.md`](features/camera-vehicle-type.md) | Mistaken capture **< 2%** · VN nằm vùng Asia-Pacific LPR · [product](https://www.hikvision.com/en/products/ITS-Products/traffic-cameras/urban-road-anpr-cameras/ids-tcm403-gir/) |
 | **iDS-2CD7A46G0/…** (QL tốc độ cao) | **≥ 99%** | **≥ 98%** | **≥ 98%** | Capture tới **120 km/h** (lắp trước) / **80 km/h** (lắp bên) — **không** radar tích hợp mặc định | Đếm xe + non-vehicle; loại/màu/hãng/hướng | Checkpoint scenario · DeepinView ANPR |
 | **iDS-2CD7A26G0/…** (liên tỉnh) | **≥ 99%** | **≥ 98%** | **≥ 98%** | Tới **120 / 80 km/h** (trước / bên) — như trên | Đếm xe + non-vehicle; loại/màu/hãng | 2 MP DarkFighter · tối ưu đêm |
 | **iDS-2CD7146G0-IZS** / **2CD7A46G0-IZHS** (đô thị hỗn hợp) | *Không công bố % LPR giống dòng ANPR checkpoint* | *Không công bố cùng bộ số ≥98%* | — | Không radar ANPR | Mixed-traffic / people+vehicle counting (Guanlan) — **không có % đếm công bố rõ trên datasheet** | Ưu tiên lọc false alarm (bóng cây, thú, thời tiết) hơn ANPR tốc độ cao |

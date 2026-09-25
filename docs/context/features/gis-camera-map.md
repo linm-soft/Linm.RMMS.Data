@@ -19,7 +19,7 @@
 |--|--|
 | Mục tiêu | Màn **Bản đồ camera** — pool + wall HLS mọi camera ITS đã lưu · pin GIS theo mã/tuyến+Km/lớp cameras · KPI + inspect từ event ISAPI hôm nay |
 | Persona | Vận hành Chi cục · ITS · điều hành giao thông |
-| DoD | Route `/gis/camera` · **cấm** mock CAM-VINH · list = `GET /api/v1/cameras` · events hôm nay · wall tile **HLS mặc định** · map 50/50 ẩn được · pool+wall kéo-thả · popup KPI · 3 tab inspect · **cấm** `alert` |
+| DoD | Route `/gis/camera` · **cấm** mock CAM-VINH · list = `GET /api/v1/cameras` · events hôm nay · wall tile **HLS mặc định** · live **16:9 contain** mọi bố cục + fullscreen · map 50/50 ẩn được · pool+wall kéo-thả · popup KPI · 3 tab inspect · **cấm** `alert` |
 
 **UI pattern:** Kind F map + wall (không form ≥10 field). `devSlash`: `/edit-web-feature` sau lock.
 
@@ -29,7 +29,7 @@
 |----------|--------------|-----|-----|
 | Screen / route | `/gis/tai-san` · `/gis/tuan-duong` · HTML wall demo | `/gis/camera` | GAP-CAM-MAP-01 closed |
 | Entity | `CameraDevice` CRUD `/camera` · ingest events | Wall+map **cùng** list + event | GAP-CAM-MAP-BE-01 **closed** (list/events) |
-| Map | Clip BFF · chip Tiêu chuẩn/Vệ tinh · `{MapPopup}` | Pin camera có tọa độ (mã GIS seed / tuyến+Km) | CameraDevice **không** cột GPS — không Schema |
+| Map | Clip BFF · chip Tiêu chuẩn/Vệ tinh · `{MapPopup}` | Pin camera **GPS lắp đặt** trên `CameraDevice` (fallback mã GIS / tuyến+Km) | GAP-WEB-NEW-05 **closed** Schema GPS |
 | Popup | Tên · Mã TS · KM · GPS · Tuyến | + tổng xe (event hôm nay) · vượt tốc (speed > 60) | — |
 | Wall | Kéo-thả localStorage | Tile **HLS** auto-start ô wall · heartbeat lease | JPEG fallback **không** auto trên wall |
 | Permission | Camera list `camera.*` | Đề xuất `gis.camera.map` xem | seed `/gen-navigation-menu-import` sau |
@@ -46,7 +46,7 @@
 |------|----------|
 | Toolbar | KPI (online · đếm xe · vượt tốc · mất tín hiệu) · **Select bố cục wall** · **Select bản đồ** (50/50 mặc định · Ẩn) |
 | Pool | List cam chưa gán wall · kéo vào ô / click thêm · drop-zone gỡ |
-| Wall | Lưới 2×2 / 3×2 / 1 cam / thêm tự do · kéo sắp xếp · Gỡ · Xem live · Toàn màn hình (**cấm** `alert`) |
+| Wall | Lưới 2×2 / 3×2 / 1 cam / thêm tự do · **khung live 16:9 contain** (HUD/footer ngoài khung) · kéo sắp xếp · Gỡ · Toàn màn hình 16:9 (**cấm** `alert` · **cấm** `object-fit: cover`) |
 | Map | Clip BFF · Tiêu chuẩn \| Vệ tinh · Vị trí của tôi · **cấm** Fit · **cấm** `setView` click pin · maxZoom 16 |
 | Popup default | `{MapPopup}` hàng: Tên · Mã TS · KM · GPS · Tuyến · **Tổng số phương tiện** · **Tổng số xe vượt tốc độ** · meta EPSG:4326 |
 | Inspect (click cam) | Tab 1 **Thông tin camera** · Tab 2 **Đếm phương tiện** · Tab 3 **Tốc độ** (event vượt) |
@@ -61,10 +61,10 @@
 | Bố cục wall | `Select` common | yes | Options local — GAP-CAM-MAP-LABEL-01 |
 | Bản đồ | `Select` common | yes | `split50` / `off` |
 | Mã TS | text | yes | `CameraDevice.code` |
-| Tên / vị trí | text | yes | `CameraDevice.name` · tuyến `roadRouteCode` · `kmMark` |
-| countToday | number | event | `GET /cameras/events?host=` `totalCount` hôm nay |
+| Tên / vị trí | text | yes | `{Tuyến} · Km {km}` · GPS `Latitude`/`Longitude` |
+| countToday | number | event | `GET /cameras/events` hôm nay · join **`cameraDeviceId`** (SSOT) **hoặc** Host / `isapiNotifyUrl?host=` / A-record DDNS — **cấm** invent `gis-camera-map` API · **cấm** `cameraDeviceId` trên URL cam |
 | speedEvents | list | event | `speedKmh` > 60 (mặc định QL) |
-| Live | HLS | yes | Wall + fullscreen auto `mode=hls` |
+| Live | HLS | yes | Wall + fullscreen auto `mode=hls` · **frame 16:9** `object-fit: contain` |
 
 **Cấm** hardcode nhãn form ERP. Chrome map = SSOT GIS live (`Tiêu chuẩn` · `Vệ tinh` · `Vị trí của tôi`).
 
@@ -74,7 +74,7 @@
 |--------|-----|--------|
 | Online / Offline | `CameraDevice.online` | Wall + pin màu |
 | Live | MediaMTX HLS | Auto-start ô wall online · heartbeat lease · stop khi gỡ/unmount |
-| Event KPI | ingest ISAPI | Refresh 15s · **cấm** tick mock +xe |
+| Event KPI | ingest ISAPI | Poll 15s GET `/cameras/events` hôm nay · **cấm** tick mock +xe · **GAP-CAM-MAP-PUSH-01 DEFER** SignalR/MQTT |
 | Layout persist | localStorage `rmms:gis-camera-map:layout` | Slot id = Guid device · bỏ slot CAM-VINH cũ |
 
 ## 7. API / DB (**cấm** invent `gis-camera-map`)
@@ -90,7 +90,7 @@
 | GET/PUT | `/api/v1/cameras/wall/layout` | Chưa — localStorage |
 | — | Invent `api/v1/gis-camera-map` | **Cấm** |
 
-Entity: reuse `CameraDevice` + `CameraEvent`. **Không** thêm cột GPS turn này (snap mã / Km). TenantEntity + `company_id`. DateTime UTC.
+Entity: reuse `CameraDevice` + `CameraEvent`. **GPS lắp đặt** = `Latitude`/`Longitude` (nullable). TenantEntity + `company_id`. DateTime UTC.
 
 ## 8. Perm + menu
 
@@ -109,9 +109,12 @@ Entity: reuse `CameraDevice` + `CameraEvent`. **Không** thêm cột GPS turn n�
 | GAP-CAM-MAP-BE-01 | List+events thật từ `camera-connect` | Schema GPS / wall layout |
 | GAP-CAM-MAP-POP-01 | Popup KPI 2 hàng + 3 tab inspect | **closed** — không title-only |
 | GAP-CAM-MAP-WALL-01 | Pool/wall HLS trên MFE | **closed** — JPEG không auto trên wall |
+| GAP-CAM-MAP-ASPECT-16-9 | Live wall + fullscreen + offline = **16:9 contain** | **closed** 2026-09-21 — **cấm** `cover` fill cột |
 | GAP-CAM-MAP-LABEL-01 | Select options local (không `useFormOptions` — Kind F GIS) | ERP form |
+| GAP-CAM-MAP-PUSH-01 | **DEFER** SignalR hoặc MQTT push event → KPI | Poll 15s UI — phân tích pros/cons sau |
+| GAP-CAM-HOST-ALIAS | KPI 0 vì Host DDNS ≠ ingest IP | **closed 2026-09-21** — BE list/ingest alias + GIS join notify `host=` |
 | GAP-MAP-CLICK-ZOOM | Click pin = popup only | `setView` |
-| GAP-WEB-NEW-05 | Không Schema GPS | CLI khi cột DB |
+| GAP-WEB-NEW-05 | `CameraDevice.Latitude`/`Longitude` Schema pair | **closed** 2026-09-19 |
 
 ## 10. Handoff
 

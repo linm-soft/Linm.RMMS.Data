@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Giải pháp phần mềm — Hệ thống đếm xe tự động trên Quốc lộ 1</title>
+  <style>
+    body { font-family: "Times New Roman", Times, serif; font-size: 13pt; line-height: 1.45; color: #111; max-width: 900px; margin: 24px auto; }
+    h1 { font-size: 16pt; text-align: center; text-transform: uppercase; }
+    h2 { font-size: 14pt; margin-top: 1.4em; }
+    h3 { font-size: 13pt; margin-top: 1.1em; }
+    p, li { margin: 0.35em 0; }
+    table { border-collapse: collapse; width: 100%; margin: 0.8em 0 1em; font-size: 11pt; }
+    th, td { border: 1px solid #222; padding: 4px 6px; vertical-align: top; }
+    th { background: #f3f3f3; }
+    .meta { margin: 0.2em 0; }
+    .note { font-size: 11pt; }
+  </style>
+</head>
+<body>
+  <h1>Giải pháp phần mềm<br />Hệ thống đếm xe tự động trên Quốc lộ 1</h1>
+  <p class="meta"><strong>Phạm vi:</strong> Hà Nội – Cà Mau, quy mô dự kiến 58 trạm</p>
+  <p class="meta"><strong>Kính gửi:</strong> Khu Quản lý đường bộ I</p>
+  <p class="meta"><strong>Căn cứ:</strong> Mục 9 tờ trình khảo sát (giải pháp phần mềm và kiến trúc dữ liệu); TCVN 14182:2024 (bảo dưỡng thường xuyên đường bộ); TCVN 4054:2005 (xe con quy đổi); phụ lục bảng quy đổi trong tài liệu đếm xe của Cục Đường bộ Việt Nam.</p>
+  <p class="meta"><strong>Phần mềm:</strong> Hệ thống quản lý kết cấu hạ tầng đường bộ RMMS, nguồn đếm tự động từ camera giao thông Hikvision.</p>
+  <h2>1. Mục đích</h2>
+  <p>Thu thập, lưu trữ và khai thác lưu lượng xe trên các trạm Quốc lộ 1, gắn với cơ sở dữ liệu kết cấu hạ tầng đường bộ đang vận hành. Số liệu đếm nằm trong cùng hệ thống với tuần đường, tuần kiểm và bảo dưỡng thường xuyên.</p>
+  <p>Trạm vận hành <strong>24/7</strong>. Mỗi xe qua vạch đếm tạo một lượt. Trực ban vừa xem hình camera, vừa thấy lưu lượng tăng theo đúng loại xe.</p>
+  <p>Đếm thủ công theo TCVN 14182:2024 thực hiện mỗi tháng một lần, một lần ba ngày (hai ngày 16 giờ và một ngày 24 giờ). Đếm camera bổ sung chuỗi lưu lượng 24/7, không thay sổ nhập tay.</p>
+
+  <h2>2. Điểm đặc biệt khi dùng camera Hikvision trên RMMS</h2>
+  <p>Camera làm nhận dạng tại hiện trường. RMMS không học lại loại xe. Model tham chiếu trạm QL1 là <strong>iDS-TCM403-BI(G)/G</strong> (hoặc thiết bị tương đương cùng tính năng).</p>
+  <table>
+    <thead><tr><th>Điểm đặc biệt</th><th>Nội dung</th></tr></thead>
+    <tbody>
+      <tr><td>Nhận dạng tại vạch</td><td>Camera phân loại theo hình dáng đúng lúc xe vào vạch đếm, rồi gửi một lượt về trung tâm</td></tr>
+      <tr><td>Chín loại xe của hãng</td><td>Xe con, van, xe khách, xe tải, xe tải nhẹ, SUV/MPV, bán tải, xe máy, xe ba bánh. Kèm biển số, hướng, màu xe ban ngày</td></tr>
+      <tr><td>Biển số tự động (ANPR)</td><td>Đọc biển ô tô, biển xe máy và trường hợp không có biển. Việt Nam thuộc vùng biển Asia-Pacific của hãng</td></tr>
+      <tr><td>Hai kênh độc lập</td><td>Hình trực tiếp luôn nối. Lượt đếm chỉ phát sinh khi xe vào vạch</td></tr>
+      <tr><td>Gắn với tài sản đường</td><td>Mỗi lượt gắn mã camera, tuyến, lý trình, tọa độ trong cơ sở dữ liệu đường bộ</td></tr>
+      <tr><td>Một xe một lượt</td><td>Hai tin của cùng một xe được gộp. Người đi bộ và xe thô sơ không cộng vào tổng ô tô</td></tr>
+      <tr><td>Quy đổi khi cần</td><td>Số gốc giữ 9 loại. Xe con quy đổi là bước tính sau, qua 19 loại TCVN 14182:2024, dùng bảng đối chiếu và số liệu Cục Đường bộ</td></tr>
+      <tr><td>Phục vụ hiện trường</td><td>Báo cáo lưu lượng thời gian thực dùng cho tuần đường, tuần kiểm và bảo dưỡng thường xuyên</td></tr>
+    </tbody>
+  </table>
+  <p>Chỉ số hãng, khi lắp đặt và chiếu sáng đúng khuyến nghị: nhận diện xe trên 99%, đọc biển trên 98%, nhận hướng trên 98,5%, nhận diện nhầm dưới 2%. Dải tốc độ nhận diện 5–120 km/h. Tốc độ chỉ lưu khi sự kiện có trường tốc độ. Một camera phủ tối đa 3 làn.</p>
+
+  <h2>3. Kết nối và đồng bộ thời gian thực</h2>
+  <h3>3.1. Kiến trúc</h3>
+  <p>Trạm đếm xe → camera tại trạm → phần mềm RMMS → cơ sở dữ liệu đếm xe → báo cáo và bản đồ → cơ sở dữ liệu kết cấu hạ tầng đường bộ.</p>
+  <p>Mỗi trạm một mã. Camera, làn, tuyến, lý trình và tọa độ dùng chung mã đó với các phân hệ tuần đường, tuần kiểm và bảo dưỡng.</p>
+  <table>
+    <thead><tr><th>Đối tượng</th><th>Thông tin quản lý</th></tr></thead>
+    <tbody>
+      <tr><td>Trạm đếm</td><td>Mã trạm, tuyến, lý trình, tọa độ, khu quản lý, địa hình đoạn (đồng bằng và đồi, hoặc miền núi)</td></tr>
+      <tr><td>Camera</td><td>Mã thiết bị, model, làn, trạng thái đường truyền</td></tr>
+      <tr><td>Lượt xe</td><td>Thời điểm, làn, loại xe theo camera, biển số, hướng</td></tr>
+      <tr><td>Hình trực tiếp</td><td>Cùng mã camera. Xem hình không tạo lượt đếm</td></tr>
+      <tr><td>Lớp quy đổi</td><td>Cơ cấu 19 loại và xe con quy đổi, tính riêng, không sửa lượt gốc</td></tr>
+      <tr><td>Báo cáo</td><td>Lưu lượng theo trạm, tuyến, làn và khoảng thời gian</td></tr>
+    </tbody>
+  </table>
+
+  <h3>3.2. Hai kênh</h3>
+  <table>
+    <thead><tr><th>Kênh</th><th>Cách nối</th><th>Trung tâm nhận được</th></tr></thead>
+    <tbody>
+      <tr><td>Camera Live</td><td>Luôn kết nối (HLS), 24/7, không chờ có xe</td><td>Tường hình và bản đồ</td></tr>
+      <tr><td>Đếm xe</td><td>Camera gửi một lần khi xe vào vạch đếm</td><td>Một bản ghi: thời điểm, loại xe, biển số, hướng</td></tr>
+    </tbody>
+  </table>
+  <p>Đồng bộ lượt đếm: sự kiện ghi vào cơ sở dữ liệu ngay khi đường truyền thông. Màn hình bản đồ và báo cáo làm mới theo chu kỳ ngắn, khoảng 15 giây, trong suốt ca trực. Mất liên lạc thì sự kiện lưu tại trạm và gửi bù khi có sóng trở lại; nhật ký ghi nhận khoảng thời gian mất đồng bộ.</p>
+  <p>Trạm có cáp quang hoặc VPN: máy chủ kéo luồng RTSP. Trạm chỉ có 4G/5G, không có địa chỉ IP tĩnh: thiết bị tại trạm đẩy luồng RTSP vào cổng nhận của máy chủ. Đường 4G/5G đủ cho lượt đếm. Xem hình nhiều trạm cùng lúc cần khoảng 2–4 Mb/giây mỗi camera trên cáp quang hoặc đường truyền riêng.</p>
+
+  <h3>3.3. Các bước người dùng thấy</h3>
+  <ol>
+    <li>Camera Live luôn kết nối (HLS), 24/7.</li>
+    <li>Xe đi vào làn. Chưa có lượt đếm.</li>
+    <li>Xe vào vạch đếm. Camera nhận loại xe và biển số.</li>
+    <li>Camera gửi một lần về phần mềm trung tâm.</li>
+    <li>Số đếm tăng theo đúng loại xe. Báo cáo và bản đồ cập nhật trong chu kỳ làm mới.</li>
+    <li>Camera Live luôn giữ kết nối thời gian thực.</li>
+  </ol>
+
+  <h2>4. Số liệu gốc: 9 loại camera</h2>
+  <p>Số tự động lưu theo 9 loại Hikvision. Đây là số gốc để đối soát và để tính các lớp sau.</p>
+  <table>
+    <thead><tr><th>STT</th><th>Loại camera</th><th>Nhãn trên RMMS</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Car</td><td>Xe con</td></tr>
+      <tr><td>2</td><td>Van</td><td>Xe van</td></tr>
+      <tr><td>3</td><td>Bus</td><td>Xe khách</td></tr>
+      <tr><td>4</td><td>Truck</td><td>Xe tải</td></tr>
+      <tr><td>5</td><td>Light Truck</td><td>Xe tải nhẹ</td></tr>
+      <tr><td>6</td><td>SUV (MPV)</td><td>SUV/MPV</td></tr>
+      <tr><td>7</td><td>Pickup</td><td>Xe bán tải</td></tr>
+      <tr><td>8</td><td>Motorcycle</td><td>Xe máy</td></tr>
+      <tr><td>9</td><td>Tricycle</td><td>Xe ba bánh</td></tr>
+    </tbody>
+  </table>
+  <p>Camera phân loại bằng hình dáng. Số chỗ ngồi, số trục, tải trọng và container 20 feet hay 40 feet không đọc từ ảnh. Những thông tin đó lấy từ số liệu Cục Đường bộ ở bước quy đổi.</p>
+
+  <h2>5. Bước tính riêng: 19 loại và xe con quy đổi</h2>
+  <p>Khi cần lưu lượng xe con quy đổi (PCU) theo TCVN 4054:2005, hệ thống chạy một bước tính riêng. Số gốc 9 loại và sổ đếm nhập tay giữ nguyên.</p>
+  <p>Ba nguồn đi cùng nhau:</p>
+  <ol>
+    <li>Sản lượng 24/7 theo 9 loại, lấy từ camera.</li>
+    <li>Cơ cấu đội xe theo 19 loại TCVN 14182:2024, lấy từ số liệu Cục Đường bộ Việt Nam (sổ đếm, điều tra lưu lượng, số liệu đoạn tuyến).</li>
+    <li>Bảng quy đổi trong tài liệu đếm xe: 19 loại sang 6 nhóm xe của TCVN 4054:2005, với hệ số đồng bằng và đồi, hoặc hệ số miền núi.</li>
+  </ol>
+  <p>Cách phân bổ từ 9 loại camera sang 19 loại:</p>
+  <table>
+    <thead><tr><th>Nhóm camera</th><th>Đưa vào loại TCVN 14182:2024</th><th>Cách chia</th></tr></thead>
+    <tbody>
+      <tr><td>Xe con, van, SUV/MPV, bán tải</td><td>Loại 1</td><td>Gộp vào loại 1. Camera không tách Jeep và không đếm số chỗ dưới 12</td></tr>
+      <tr><td>Xe khách</td><td>Loại 2, 3, 4, 5, 6</td><td>Chia theo tỷ lệ chỗ ngồi trong số liệu Cục Đường bộ trên cùng đoạn</td></tr>
+      <tr><td>Xe tải, xe tải nhẹ</td><td>Loại 7 đến 14</td><td>Chia theo tỷ lệ số trục và tải trọng trong số liệu Cục Đường bộ</td></tr>
+      <tr><td>Xe máy</td><td>Loại 18</td><td>Khớp trực tiếp</td></tr>
+      <tr><td>Xe ba bánh</td><td>Không có dòng riêng trong 19 loại</td><td>Giữ ở số gốc. Chỉ đưa vào quy đổi khi Cục có quy ước cho loại này</td></tr>
+      <tr><td>Container 20 feet, 40 feet, máy kéo</td><td>Loại 15, 16, 17</td><td>Camera này không tách container. Các loại này chỉ vào bước quy đổi khi Cục có số liệu đầu kéo hoặc trạm thu phí</td></tr>
+    </tbody>
+  </table>
+  <p>Hệ số áp theo địa hình đoạn đường trong cơ sở dữ liệu đường bộ:</p>
+  <ul>
+    <li>Đồng bằng và đồi: độ dốc ngang phổ biến không quá 30%.</li>
+    <li>Miền núi: độ dốc ngang phổ biến trên 30%.</li>
+  </ul>
+  <p>Đoạn có làn riêng cho xe thô sơ thì không quy đổi xe đạp, theo ghi chú TCVN 4054:2005.</p>
+  <p>TCVN 14182:2024 và TCVN 4054:2005 không ban hành bảng đối chiếu trực tiếp. Bảng dưới đây là bảng quy đổi kỹ thuật trong tài liệu đếm xe, dựa trên tính chất từng nhóm phương tiện.</p>
+
+  <h3>Bảng quy đổi phương tiện từ TCVN 14182:2024 sang xe con quy đổi theo TCVN 4054:2005</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>STT</th>
+        <th>Phân loại TCVN 14182:2024</th>
+        <th>Nhóm xe TCVN 4054:2005</th>
+        <th>Hệ số đồng bằng, đồi</th>
+        <th>Hệ số miền núi</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td>Xe con, xe Jeep, xe bán tải, xe dưới 12 chỗ</td><td>Xe con</td><td>1,0</td><td>1,0</td></tr>
+      <tr><td>2</td><td>Xe khách từ 12 đến dưới 25 chỗ</td><td>Xe buýt dưới 25 chỗ</td><td>2,0</td><td>2,5</td></tr>
+      <tr><td>3</td><td>Xe khách từ 25 đến dưới 30 chỗ</td><td>Xe buýt lớn</td><td>2,5</td><td>3,0</td></tr>
+      <tr><td>4</td><td>Xe khách từ 30 chỗ trở lên</td><td>Xe buýt lớn</td><td>2,5</td><td>3,0</td></tr>
+      <tr><td>5</td><td>Xe buýt dưới 25 chỗ</td><td>Xe buýt dưới 25 chỗ</td><td>2,0</td><td>2,5</td></tr>
+      <tr><td>6</td><td>Xe buýt từ 25 chỗ trở lên</td><td>Xe buýt lớn</td><td>2,5</td><td>3,0</td></tr>
+      <tr><td>7</td><td>Xe tải 2 trục 4 bánh dưới 2 tấn</td><td>Xe tải 2 trục</td><td>2,0</td><td>2,5</td></tr>
+      <tr><td>8</td><td>Xe tải 2 trục 4 bánh từ 2 đến dưới 4 tấn</td><td>Xe tải 2 trục</td><td>2,0</td><td>2,5</td></tr>
+      <tr><td>9</td><td>Xe tải 2 trục 6 bánh từ 2 đến dưới 4 tấn</td><td>Xe tải 2 trục</td><td>2,0</td><td>2,5</td></tr>
+      <tr><td>10</td><td>Xe tải 2 trục 6 bánh từ 4 đến dưới 10 tấn</td><td>Xe tải 2 trục</td><td>2,0</td><td>2,5</td></tr>
+      <tr><td>11</td><td>Xe tải 2 trục 6 bánh từ 10 tấn trở lên</td><td>Xe tải 2 trục</td><td>2,0</td><td>2,5</td></tr>
+      <tr><td>12</td><td>Xe tải 3 trục từ 4 đến dưới 10 tấn</td><td>Xe tải từ 3 trục trở lên</td><td>2,5</td><td>3,0</td></tr>
+      <tr><td>13</td><td>Xe tải 3 trục từ 10 đến dưới 18 tấn</td><td>Xe tải từ 3 trục trở lên</td><td>2,5</td><td>3,0</td></tr>
+      <tr><td>14</td><td>Xe tải từ 3 trục trở lên từ 18 tấn</td><td>Xe tải từ 3 trục trở lên</td><td>2,5</td><td>3,0</td></tr>
+      <tr><td>15</td><td>Xe đầu kéo + sơ mi rơ moóc (container 20 feet)</td><td>Xe kéo moóc</td><td>4,0</td><td>5,0</td></tr>
+      <tr><td>16</td><td>Xe đầu kéo + sơ mi rơ moóc (container 40 feet)</td><td>Xe kéo moóc</td><td>4,0</td><td>5,0</td></tr>
+      <tr><td>17</td><td>Máy kéo, xe chuyên dùng</td><td>Xe kéo moóc (để quy đổi lưu lượng)</td><td>4,0</td><td>5,0</td></tr>
+      <tr><td>18</td><td>Xe mô tô, xe máy</td><td>Xe máy</td><td>0,3</td><td>0,3</td></tr>
+      <tr><td>19</td><td>Xe đạp, xe đạp điện, xe thô sơ</td><td>Xe đạp</td><td>0,2</td><td>0,2</td></tr>
+    </tbody>
+  </table>
+  <p>Hệ số lấy theo Bảng 2 của TCVN 4054:2005. Hệ số 0,2 của xe đạp có điều kiện làn riêng nêu ở trên.</p>
+  <p>Kết quả bước này gồm hai lớp, cùng kỳ và cùng trạm: sản lượng theo 19 loại, và tổng xe con quy đổi. Lớp này phục vụ đánh giá năng lực khai thác và khảo sát thiết kế. Lớp số gốc 9 loại phục vụ đối soát camera.</p>
+
+  <h2>6. Báo cáo thời gian thực cho tuần đường, tuần kiểm và bảo dưỡng thường xuyên</h2>
+  <p>Hệ thống cho phép xem dữ liệu báo cáo đếm xe theo thời gian thực. Người dùng lọc theo tuyến, trạm đếm và khoảng thời gian, thấy lưu lượng đang tăng trong ca, không chờ khóa sổ cuối ngày.</p>
+  <table>
+    <thead><tr><th>Công tác</th><th>Số liệu đếm hỗ trợ</th></tr></thead>
+    <tbody>
+      <tr><td>Tuần đường</td><td>Lưu lượng theo đoạn và theo giờ trên đúng lý trình đang tuần. Ca trực thấy đoạn đông xe để bố trí người, chọn thời điểm tuần và đối chiếu với hiện trường</td></tr>
+      <tr><td>Tuần kiểm</td><td>Lưu lượng cùng vị trí kiểm tra mặt đường, công trình và an toàn giao thông. Đoạn lưu lượng cao được ưu tiên khi lập lịch kiểm tra</td></tr>
+      <tr><td>Bảo dưỡng thường xuyên</td><td>Chuỗi đếm 24/7 theo TCVN 14182:2024, thay cho cửa sổ đếm vài ngày trong tháng. Khi cần xe con quy đổi, dùng bước tính riêng để phục vụ đánh giá đoạn và lập kế hoạch bảo dưỡng</td></tr>
+    </tbody>
+  </table>
+  <p>Báo cáo đọc cùng mã tuyến và lý trình với nhật ký tuần đường, biên bản tuần kiểm và kế hoạch bảo dưỡng. Xuất bảng tính theo kỳ: sản lượng 9 loại, và khi đã chạy bước quy đổi thì thêm 19 loại cùng xe con quy đổi.</p>
+
+  <h2>7. Camera tham chiếu</h2>
+  <p>iDS-TCM403-BI, biến thể iDS-TCM403-BI(G)/G. Bản có LTE và định vị vệ tinh, phù hợp trạm không kéo cáp quang.</p>
+  <table>
+    <thead><tr><th>Hạng mục</th><th>Thông số</th></tr></thead>
+    <tbody>
+      <tr><td>Công dụng</td><td>Nhận biển số và đếm xe tại trạm</td></tr>
+      <tr><td>Độ phân giải</td><td>4 MP (2688 × 1520), cảm biến 1/1.8 inch</td></tr>
+      <tr><td>Chống ngược sáng</td><td>140 dB</td></tr>
+      <tr><td>Đèn hồng ngoại</td><td>850 nm, tới 50 m</td></tr>
+      <tr><td>Nhận diện được xe</td><td>Trên 99%</td></tr>
+      <tr><td>Đọc biển số</td><td>Trên 98%</td></tr>
+      <tr><td>Nhận hướng</td><td>Trên 98,5%</td></tr>
+      <tr><td>Nhận diện nhầm</td><td>Dưới 2%</td></tr>
+      <tr><td>Số làn</td><td>Tối đa 3 làn</td></tr>
+      <tr><td>Tốc độ xe khi nhận diện</td><td>5–120 km/h</td></tr>
+      <tr><td>Loại xe</td><td>9 loại nêu tại mục 4</td></tr>
+      <tr><td>Biển số</td><td>Ô tô, xe máy, xe không biển</td></tr>
+      <tr><td>Màu xe</td><td>Ban ngày</td></tr>
+      <tr><td>Thẻ nhớ tại trạm</td><td>Tới 512 GB</td></tr>
+      <tr><td>Nguồn</td><td>12–24 V hoặc PoE+, tối đa 15 W</td></tr>
+      <tr><td>Kích thước, khối lượng</td><td>428,5 × 120 × 132,8 mm; khoảng 2,98 kg</td></tr>
+      <tr><td>Vỏ, môi trường</td><td>IP67, IK10; −30 °C đến 70 °C; độ ẩm đến 95%</td></tr>
+    </tbody>
+  </table>
+  <p>Trang hãng: https://www.hikvision.com/en/products/ITS-Products/traffic-cameras/urban-road-anpr-cameras/ids-tcm403-bi/</p>
+
+  <h2>8. Máy chủ dự kiến cho 58 trạm</h2>
+  <p>Tách máy hình và máy số liệu. Luồng hình không được làm chậm ghi lượt đếm.</p>
+  <p><strong>Máy phần mềm RMMS và cơ sở dữ liệu đếm:</strong> 8 nhân, 32 GB RAM, SSD 2 TB. Nhận lượt đếm qua HTTPS. Không phát video.</p>
+  <p><strong>Máy cổng hình:</strong> 16 nhân, 32 GB RAM, SSD 500 GB, card mạng 1 Gb/giây. Phát HLS. Trạm 4G/5G đẩy hình vào cổng TCP riêng. Card 1 Gb/giây đủ cho 58 luồng phụ (khoảng 120–230 Mb/giây) và khoảng 20 người xem tường hình. Nhiều người xem cùng lúc gần hết 58 camera thì dùng card 10 Gb/giây.</p>
+  <p>Chỉ nhận lượt đếm của 58 trạm: dưới 5 Mb/giây. Xem lại video nhiều ngày để ở thẻ nhớ camera hoặc đầu ghi tại trạm. Phần mềm trung tâm xem hình trực tiếp.</p>
+
+  <h2>9. Kiểm tra khi nghiệm thu</h2>
+  <ul>
+    <li>Hệ thống đếm 24/7. Mỗi xe vào vạch có một lượt. Có sóng trở lại thì lượt đã lưu tại trạm được gửi bù.</li>
+    <li>Số gốc đúng 9 loại camera. Bước 19 loại và xe con quy đổi chỉ chạy khi có cơ cấu số liệu Cục Đường bộ, và không sửa số gốc.</li>
+    <li>Không nhân đôi cùng một xe. Người đi bộ và xe thô sơ không vào tổng ô tô.</li>
+    <li>Trong ca trực, báo cáo và bản đồ thấy lượt mới trong chu kỳ làm mới. Camera Live vẫn xem được trong lúc đang nhận lượt đếm.</li>
+    <li>Báo cáo lọc được theo tuyến, trạm, lý trình và thời gian, dùng cùng mã với tuần đường, tuần kiểm và bảo dưỡng thường xuyên.</li>
+  </ul>
+</body>
+</html>

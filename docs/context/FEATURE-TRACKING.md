@@ -3,7 +3,9 @@
 > **SSOT theo dõi.** Backlog mô tả: [`features/README.md`](features/README.md). Pipeline scan: [`implement-status.json`](implement-status.json) (có thể lệch — **ưu tiên** `specs/{slug}/STATUS.md`).  
 > **HĐ:** `37001-08/2026-LIC/LINM-JNET` · PL01 P1 CAPEX 900tr (A 450 + B 300 + C 150). Spec: [`Linm.RMMS.Contract/analy/PROMPT-SPEC-P1-P2-PHU-LUC-RELEASE.md`](../../../Linm.RMMS.Contract/analy/PROMPT-SPEC-P1-P2-PHU-LUC-RELEASE.md).  
 > **Demo hub:** `Linm.RMMS.Demo` · `npm run start:std` → http://localhost:5180 · catalog [`demoCatalog.ts`](../../../Linm.RMMS.Demo/src/demoCatalog.ts).  
-> **Cập nhật:** 2026-09-19 · OSRM client: MFE/Demo/specs **0** `project-osrm.org` (Asset `@rmms/gis-osrm` + Demo fail-closed) · extract Linux **còn** — [map-service](features/map-service.md)  
+> **Cập nhật:** 2026-09-22 · `/hey-linm` `feature_context` camera ingest: SSOT đếm = `CameraDeviceId` (BE gắn · **cấm** trên firmware URL) · alias DDNS/IP · Auth 403 `AUTH_SOURCE_IP_DENIED` khi WAN đổi (lab `14.224.100.170`) · allowlist IP **hoặc** DDNS — [camera-connect](features/camera-connect.md) · [23](23-CAMERA-HOST-NOTIFY-CONFIG.md) · [gis-camera-map](features/gis-camera-map.md)  
+> **Prior:** 2026-09-19 · GIS `/gis/camera` KPI đếm xe/event BE (1 GET events hôm nay) · poll 15s · **DEFER** SignalR/MQTT `GAP-CAM-MAP-PUSH-01` · GPS `Latitude`/`Longitude` — [gis-camera-map](features/gis-camera-map.md) · [camera-connect](features/camera-connect.md)  
+> **Prior:** 2026-09-19 · OSRM client: MFE/Demo/specs **0** `project-osrm.org` (Asset `@rmms/gis-osrm` + Demo fail-closed) · extract Linux **còn** — [map-service](features/map-service.md)  
 > **Prior:** 2026-09-19 · `/hey-linm` dashboard+map: mọi MFE map = GIS clip BFF (**cấm** OSM.org) — [dashboard](features/dashboard.md) · [map-service](features/map-service.md)  
 > **Prior:** 2026-09-19 · seed SĐT VN rewrite `cuc01_staff.csv` + `app_users.csv` (59 hàng · `0976258792`) — **không** queue · [users](features/users.md) §4b  
 > **Prior:** 2026-09-18 · `/add-task` `job-title` `/mas/chuc-vu` · prior /hey-linm `its-anco-signal`  
@@ -117,7 +119,7 @@
 | `tuan-duong-mobile` | TT 04 mobile demo | 04 | P1-900 | (gắn mobile-p1) | catalog | [24](24-TUAN-DUONG-DUONG-BO.md) | [mobile-p1](../../specs/mobile-p1/STATUS.md) |
 | `platform-task` | Platform QLCV | — | support P1 | `done` / `done` | catalog | [ctx](features/platform-task.md) | [ST](../../specs/platform-task/STATUS.md) |
 | `platform-message` | Chat parcel | — | support P1 | `dev` / `await_confirm` | none | [ctx](features/platform-message.md) | [ST](../../specs/platform-message/STATUS.md) |
-| `rmms-task-integrate` | Task × tuần đường | — | P2 later | `data_analy` / `draft` | none | [plan](../plan/platform-task/RMMS-TUAN-DUONG.md) | [ST](../../specs/rmms-task-integrate/STATUS.md) |
+| `rmms-task-integrate` | Task × tuần đường | — | P2 later | `design` / `done` | none | [plan](../plan/platform-task/RMMS-TUAN-DUONG.md) | [ST](../../specs/rmms-task-integrate/STATUS.md) |
 | `attendance` | Chấm công GPS | 05 | P1-900 | done | catalog | [ctx](features/attendance.md) | [ST](../../specs/attendance/STATUS.md) |
 | `incident` | Quản lý sự cố | 06 | P1-900 | `done` / `done` | catalog | [ctx](features/incident.md) | [ST](../../specs/incident/STATUS.md) |
 | `maintenance` | Bảo trì khung + WO P2 | 07 / 07-P2 | P1-900 khung · P2-CR full | done | catalog | [ctx](features/maintenance.md) | [ST](../../specs/maintenance/STATUS.md) |
@@ -213,7 +215,7 @@
 | `patrol-history-detail` | Chi tiết ca | — | support | `done` / `done` | none | [ctx](features/patrol-history-detail.md) | [ST](../../specs/patrol-history-detail/STATUS.md) |
 | `mobile-bff-map` | [Mobile] Mobile.Bff MapService | — | support | `done` / `done` | none | [ctx](features/mobile-bff-map.md) | [ST](../../specs/mobile-bff-map/STATUS.md) |
 | `mobile-bff-file` | [Mobile] Mobile.Bff FileService | — | support | `done` / `done` | none | [ctx](features/mobile-bff-file.md) | [ST](../../specs/mobile-bff-file/STATUS.md) |
-| `rpt-nhat-ky-tuan-duong` | rpt-nhat-ky-tuan-duong | — | support | `dev` / `in_progress` | none | [ctx](features/rpt-nhat-ky-tuan-duong.md) | [ST](../../specs/rpt-nhat-ky-tuan-duong/STATUS.md) |
+| `rpt-nhat-ky-tuan-duong` | rpt-nhat-ky-tuan-duong | — | support | `done` / `in_progress` | none | [ctx](features/rpt-nhat-ky-tuan-duong.md) | [ST](../../specs/rpt-nhat-ky-tuan-duong/STATUS.md) |
 **Báo cáo `rpt-*`:** xem [§ Reports](#17--dashboard--báo-cáo). Pipeline STATUS **done** hết (release: P1 / P1.5 / P2 / P3 theo từng slug).
 
 **Draft mobile (CTX/analy):** `incident-list` — [STATUS](../../specs/). `cam-view` data_analy **PASS** → PO pending. `incident-create` · `field-reflect` · `cam-patrol` · `mnt-list` đã có CTX + data_analy (hoặc done).
@@ -537,7 +539,7 @@ Ref demo: `asset-icons-legend` · `gis-draw-live-ref` · `patrol-centerline-ref`
 | MFE | `Linm.Web.RMMS.Camera` · `/camera` |
 | Railway SDK | **2026-09-05 kết nối OK** — Linux64 in API image · TCM403 `sdkPort` 8100 |
 | Pipeline | **qa / await_confirm** |
-| Next | **G3 5G publish** — khách đẩy RTSP vào MTX (ops [32](32-CAMERA-RTSP-PUBLISH-INGEST.md)) · Lab radar **Fused** trước khi coi ingest speed bug · tắt Multi-Way · QA ingest 401/403/429 — [31](31-CAMERA-TCM403-LAB-RADAR.md) · [23](23-CAMERA-HOST-NOTIFY-CONFIG.md) |
+| Next | **Ops ingest:** Admin key thêm WAN `14.224.100.170` **hoặc** DDNS (403 `AUTH_SOURCE_IP_DENIED`) · deploy Auth hostname + RMMS recover · **G3 5G publish** MTX · Lab radar **Fused** · tắt Multi-Way — [23](23-CAMERA-HOST-NOTIFY-CONFIG.md) · [31](31-CAMERA-TCM403-LAB-RADAR.md) · [32](32-CAMERA-RTSP-PUBLISH-INGEST.md) |
 | Ref | [`camera-model.md`](camera-model.md) · [`features/camera-vehicle-type.md`](features/camera-vehicle-type.md) · [`21-CAMERA-HLS-WEBRTC-GATEWAY.md`](21-CAMERA-HLS-WEBRTC-GATEWAY.md) · [`22-CAMERA-TCM403-SDK-RESEARCH.md`](22-CAMERA-TCM403-SDK-RESEARCH.md) · [`31-CAMERA-TCM403-LAB-RADAR.md`](31-CAMERA-TCM403-LAB-RADAR.md) · [`28-CAMERA-SECURITY.md`](28-CAMERA-SECURITY.md) · [`23-CAMERA-HOST-NOTIFY-CONFIG.md`](23-CAMERA-HOST-NOTIFY-CONFIG.md) · [`32-CAMERA-RTSP-PUBLISH-INGEST.md`](32-CAMERA-RTSP-PUBLISH-INGEST.md) · [`../plan/camera-live/PLAN-push-ingest.md`](../plan/camera-live/PLAN-push-ingest.md) |
 
 #### `camera-vehicle-type`

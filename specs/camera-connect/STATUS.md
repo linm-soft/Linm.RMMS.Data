@@ -146,6 +146,15 @@
 | docker rebuild | **FAIL** · TLS auth.docker.io |
 | ERP.* | **none** |
 
+## Workflow animation
+
+| Field | Value |
+|-------|-------|
+| artifact | `ui/prototype/workflow-tram-dem-xe/` |
+| status | `design` |
+| reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/camera-connect/ui/prototype/workflow-tram-dem-xe/index.html` |
+| scene | Trạm đếm cố định QL.1 · đường thẳng · đếm realtime + live HLS |
+
 ## Version meta
 
 skillVersion=`2026.08.15.19` · schemaVersion=`qldb-workflow-skill-v1` · workflowVersion=`2026.08.15.19`
