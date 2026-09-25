@@ -62,6 +62,7 @@ Main được H.265. Đổi Main **không** sửa HLS nếu Sub vẫn H.265 + 10
 | Hiện tượng | Nguyên nhân | Việc |
 |------------|-------------|------|
 | **Online** + JPEG + banner fallback HLS | TCP RTSP từ API/MTX không tới Host:rtspPort | NAT + port form = cam |
+| `MediaMTX unreachable: HTTP 401` | Control API auth (merge `authInternalUsers`) · `ControlUrl` public HLS · Railway IPv6 không RFC1918 | `ControlUrl` **private** `:9997` · Basic `rmms-api` · `PublicHlsBase=https://linm-rmms-mediamtx-production.up.railway.app` |
 | `gateway/health` `ok: true` | API ↔ MTX `:9997` | Không đủ cho video |
 | `live/start` `ok: true` + `index.m3u8` **pending** | MTX on-demand kéo RTSP (UDP RTP / auth) | RTSP/TCP · log MTX |
 | **LIVE · HLS** + khung **đen** | Playlist `CODECS=hvc1` (H.265) hoặc LL-HLS | Sub **H.264** · MTX `hlsVariant: fmp4` |

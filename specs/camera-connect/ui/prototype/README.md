@@ -11,7 +11,10 @@ Design gate: **prototype + reviewUrl** — `autoApprove=ON` → agent confirm (`
 **reviewUrl (content-only A–D + Zone F + Kind C):**  
 `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/camera-connect/ui/prototype/camera-connect-list-prototype.html`
 
-**reviewUrl (live):** http://localhost:9316/camera  
+**reviewUrl (live):** http://localhost:9316/camera
+
+**Workflow animation (đếm realtime + live):**  
+`file:///D:/AI-QLBD/Linm.RMMS.Data/specs/camera-connect/ui/prototype/workflow-tram-dem-xe/index.html`  
 
 Zones: A header · B toolbar+filter+schema cog · C grid · D pager · F «Cấu hình hiển thị danh mục» kind=`camera-devices`. Skip demo chrome.
 

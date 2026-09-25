@@ -1,4 +1,27 @@
+# Implement — camera-connect (GPS lắp đặt + tên tuyến·Km · 2026-09-19)
+
+| Field | Value |
+|-------|-------|
+| feature | `camera-connect` |
+| this role | `dev` · `/edit-web-feature` + `/agent-dev-camera-connect` |
+| status | `completed` |
+| changeScope | `edit_page` |
+| mode | `enhance` |
+| updatedAt | `2026-09-19T12:53:00.000+07:00` |
+
+## Notes — GPS + tên
+
+| Layer | What |
+|-------|------|
+| BE | `CameraDevice.Latitude` / `Longitude` (nullable decimal 10,7) · DTO create/update · `Schema_CameraDeviceGps` pair |
+| Tên | Auto `{Tuyến} · Km {km}` khi user sửa tuyến/Km · ví dụ `QL46 · Km 1+780` |
+| Form | GPS vĩ độ / kinh độ · paste `18.66842, 105.68478` vào 1 ô → tách cặp |
+| GIS | Pin ưu tiên GPS device · popup Tên = tuyến·Km · GPS từ cột lắp đặt |
+
+---
+
 # Implement — camera-connect (Dev · Z4 events pagination 2026-09-10)
+
 
 | Field | Value |
 |-------|-------|

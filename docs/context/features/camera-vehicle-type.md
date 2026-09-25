@@ -15,11 +15,43 @@
 | Trang sản phẩm | [ids-tcm403-gir](https://www.hikvision.com/en/products/ITS-Products/traffic-cameras/urban-road-anpr-cameras/ids-tcm403-gir/) |
 | Datasheet | [iDS-TCM403-GIR_Datasheet_20240801.pdf](https://www.hikvision.com/content/dam/hikvision/products/S000000001/S000000177/S000000188/S000000209/OFR000286/M000073503/Data_Sheet/iDS-TCM403-GIR_Datasheet_20240801.pdf) |
 | Tra cứu nội bộ | [`../camera-model.md`](../camera-model.md) · [`hikvision-document-research.md`](../../gioi-thieu-ung-dung/tai-lieu-ky-thuat/hikvision-document-research.md) |
-| Ngày tra mapping | 2026-09-12 |
+| Ngày tra mapping | 2026-09-12 · **BI(G)/G** 2026-09-23 |
+| Model lựa chọn QL1 | **iDS-TCM403-BI(G)/G** — chi tiết nhận diện §1b |
 
 Hãng **không** công bố % chính xác phân loại. Có % bắt xe / hướng / LPR khi lắp đúng khuyến nghị.
 
-Cùng họ TCM403 (BI / B): **cùng 9 Vehicle Type**. DeepinView `2CD7A*` = họ khác — §4.
+Cùng họ TCM403 (BI / B / GIR): **cùng 9 Vehicle Type**. DeepinView `2CD7A*` = họ khác — §4.
+
+## 1b. Model lựa chọn — `iDS-TCM403-BI(G)/G`
+
+Chốt 2026-09-23 cho trạm đếm QL1. Lab ingest vẫn **iDS-TCM403-GIR**. Cùng 9 loại §3. Bản `/G` có LTE + GPS; **không** có radar 77 GHz của GIR — tốc độ trên sự kiện không lấy từ radar tích hợp.
+
+| | |
+|--|--|
+| Trang Global (sub-model đã chọn) | [ids-tcm403-bi · BI(G)/G](https://www.hikvision.com/en/products/ITS-Products/traffic-cameras/urban-road-anpr-cameras/ids-tcm403-bi/?subName=iDS-TCM403-BI%28G%29%2FG) |
+| Spec đã đọc (cùng SKU) | [Hikvision HK ids-tcm403-bi](https://www.hikvision.com/hk/products/ITS-Products/traffic-cameras/urban-road-anpr-cameras/ids-tcm403-bi/) |
+| PDF đối chiếu | [iDS-TCM403-BI_Datasheet_20250424.pdf](https://www.hikvision.com/content/dam/hikvision/pt-br/iDS-TCM403-BI_Datasheet_20250424.pdf) |
+
+% dưới đây chỉ khi lắp đặt và chiếu sáng theo khuyến nghị hãng. Việt Nam nằm vùng biển **Asia-Pacific**.
+
+| Hạng mục | Hãng công bố | RMMS |
+|----------|----------------|------|
+| Phủ | Tới **3 làn** | Chưa có trường làn trên `CameraEvent` |
+| Loại xe | Car, Van, Bus, Truck, Light Truck, SUV(MPV), Pickup, Motorcycle, Tricycle | 9 `DisplayKey` §3 · **không** có % phân loại |
+| Màu | red, yellow, green, blue, pink, purple, cyan, brown, white, grey, black — **chỉ ban ngày** | Raw `Color` · GAP-CAM-VT-COLOR |
+| Hãng xe | **212** hãng (trang liệt kê đủ, có Toyota, Hyundai, Ford, Honda, Isuzu, VinFast) | **Chưa** parse · GAP-CAM-VT-MAKE |
+| Biển | Đọc biển, xe không biển, biển xe máy | `Plate` |
+| Hướng | Có | `Direction` §3.1 |
+| Bắt xe | **> 99%** | Event ingest |
+| Đọc biển | **> 98%** | |
+| Hướng | **> 98,5%** | |
+| Bắt nhầm | **< 2%** | |
+| Tốc độ bắt | **5–120 km/h** (không phải sai số radar) | `SpeedKmh` chỉ khi payload có tốc độ |
+| Danh sách biển | Blocklist / allowlist tối đa **50.000** | Không dùng cho đếm RMMS |
+| Dòng xe / ùn | Lưu lượng, tốc độ trung bình, chiều dài hàng, trạng thái; sự cố: ùn, dừng, đổi làn, ngược chiều, vượt tốc, tốc độ thấp | Ingest P1 **chưa** tách loại sự cố — vượt tốc = ANPR + `speedKmh` |
+| Mũ bảo hiểm / xe thô sơ có người | Có trên trang SKU | Ngoài 9 loại đếm ô tô |
+
+PDF `20250424` (nhánh pt-br) còn một bảng độ chính xác theo **120 km/h** và **200 km/h**. Trang SKU `BI(G)/G` đã đọc ghi dải bắt **5–120 km/h** và không lặp bảng 200 km/h. Khi trích thuyết minh QL1, lấy số của trang SKU đã chọn.
 
 ## 2. Loại sự kiện (`eventType` → `RawKind`)
 

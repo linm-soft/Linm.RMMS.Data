@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RMMS — Trạm đếm xe · đếm realtime và live</title>
+  <link rel="stylesheet" href="css/demo.css" />
+</head>
+<body>
+  <div class="banner">DEMO CHẠY ĐỘNG — không kết nối camera thật · mô phỏng trạm đếm QL.1 · iDS-TCM403-BI(G)/G</div>
+  <header class="top">
+    <div>
+      <h1>Trạm đếm xe cố định · đếm realtime và xem live</h1>
+      <p class="sub">RMMS · QL.1 · Camera Live luôn kết nối(HLS) · event chỉ khi xe vào vạch đếm</p>
+    </div>
+    <nav class="view-nav" aria-label="Chế độ demo">
+      <button type="button" class="on" data-view="field">Hiện trường</button>
+      <button type="button" data-view="workflow">Workflow 6 bước</button>
+    </nav>
+  </header>
+
+  <section class="kpis">
+    <div class="kpi"><div class="lbl">Đếm hôm nay</div><div class="val" id="kpiCount">0</div></div>
+    <div class="kpi"><div class="lbl">Loại xe vừa bắt</div><div class="val sm" id="kpiType">—</div></div>
+    <div class="kpi"><div class="lbl">Kênh đếm</div><div class="val sm" id="kpiPost">Chờ xe</div></div>
+    <div class="kpi"><div class="lbl">Camera Live</div><div class="val sm" id="kpiLive">Luôn kết nối(HLS)</div></div>
+  </section>
+
+  <section class="wf" id="wfPanel" hidden>
+    <div class="wf-head">
+      <div>
+        <h2>Workflow trạm đếm</h2>
+        <p>Camera Live luôn kết nối(HLS). Event chỉ gửi một lần khi xe vào vạch đếm trên camera, rồi số đếm tăng.</p>
+      </div>
+      <div class="wf-clock" id="wfClock">t = 0 s</div>
+    </div>
+    <ol class="wf-steps" id="wfSteps" data-des-id="DES-WF-ANIM-STEPS">
+      <li data-s="1"><b>1</b><span class="where">Camera</span><span class="title">Camera Live luôn kết nối(HLS)</span><small>Luồng hình chạy liên tục</small></li>
+      <li data-s="2"><b>2</b><span class="where">Xe</span><span class="title">Vào làn</span><small>Chưa gửi event</small></li>
+      <li data-s="3"><b>3</b><span class="where">Camera</span><span class="title">Xe vào vạch đếm</span><small>Chỉ vạch này mới bắt xe</small></li>
+      <li data-s="4"><b>4</b><span class="where">Camera</span><span class="title">Gửi event</span><small>POST một lần lúc vào vạch</small></li>
+      <li data-s="5"><b>5</b><span class="where">Hệ thống</span><span class="title">Tăng số đếm</span><small>Ghi ngay loại xe</small></li>
+      <li data-s="6"><b>6</b><span class="where">Trung tâm</span><span class="title">Camera Live luôn giữ kết nối realtime</span><small>Hình không tắt sau khi đếm xe</small></li>
+    </ol>
+    <p class="wf-note" id="wfNote">Bấm <strong>Chạy workflow</strong> — Camera Live luôn kết nối(HLS). Event chỉ bắn khi xe chạm vạch đếm.</p>
+  </section>
+
+  <section class="toolbar" id="tbField">
+    <span class="tb-lbl">Kịch bản</span>
+    <button type="button" data-sc="idle" class="on">0 · Chờ xe · Luôn kết nối(HLS)</button>
+    <button type="button" data-sc="count">1 · Xe vào vạch · gửi event</button>
+  </section>
+  <section class="toolbar" id="tbWorkflow" hidden>
+    <span class="tb-lbl">Chạy</span>
+    <button type="button" id="wfPlay" class="primary">▶ Chạy workflow</button>
+    <button type="button" id="wfStop">Dừng / reset</button>
+  </section>
+
+  <div class="grid">
+    <article class="card">
+      <h2>Hiện trường — QL.1 thẳng, 2 làn</h2>
+      <svg id="scene" viewBox="0 0 860 420" role="img" aria-label="Trạm đếm trên đường thẳng" data-des-id="DES-WF-ANIM-SCENE">
+        <rect width="860" height="420" fill="#c5d7b0"/>
+        <rect x="0" y="150" width="560" height="150" fill="#334155"/>
+        <rect x="0" y="150" width="560" height="4" fill="#f8fafc"/>
+        <rect x="0" y="296" width="560" height="4" fill="#f8fafc"/>
+        <path d="M20 223 H540" fill="none" stroke="#f8fafc" stroke-width="2.5" stroke-dasharray="16 12"/>
+        <path id="lanePath" d="M24 258 H530" fill="none" stroke="none"/>
+        <polygon id="fov" points="340,328 268,156 412,156" fill="#0C84C0" opacity="0.2"/>
+        <line id="countLine" x1="340" y1="158" x2="340" y2="296" stroke="#FCB43C" stroke-width="4"/>
+        <g id="pole">
+          <rect x="336" y="346" width="8" height="42" fill="#475569"/>
+          <g transform="translate(340 330)">
+            <rect x="-16" y="0" width="32" height="14" rx="2" fill="#0f172a"/>
+            <polygon points="-5,-1 5,-1 3,-7 -3,-7" fill="#0f172a"/>
+            <circle cx="0" cy="-2" r="3.2" fill="#FCB43C"/>
+          </g>
+        </g>
+        <g id="car">
+          <rect x="-16" y="-8" width="32" height="16" rx="3" fill="#e2e8f0" stroke="#0f172a"/>
+          <rect x="6" y="-6" width="8" height="12" fill="#7dd3fc"/>
+        </g>
+        <path id="postPath" d="M356 336 C 500 320, 580 130, 688 90" fill="none" stroke="#FCB43C" stroke-width="2" stroke-dasharray="6 6"/>
+        <path id="livePath" d="M356 348 C 520 370, 600 260, 688 212" fill="none" stroke="#7dd3fc" stroke-width="2" stroke-dasharray="6 6"/>
+        <circle id="postPkt" class="pkt" r="6" cx="356" cy="336" opacity="0"/>
+        <circle id="livePkt" class="pkt live" r="5" cx="356" cy="348" opacity="0"/>
+        <g id="apiBox">
+          <rect x="688" y="62" width="150" height="56" rx="8" fill="#fff" stroke="#0C84C0"/>
+          <text x="763" y="84" text-anchor="middle" font-size="12" font-weight="700" fill="#086A9A">API đếm</text>
+          <text x="763" y="102" text-anchor="middle" font-size="10" fill="#5a6b7d">Event lúc vào vạch</text>
+        </g>
+        <g id="hlsBox">
+          <rect x="688" y="184" width="150" height="56" rx="8" fill="#fff" stroke="#0284c7"/>
+          <text x="763" y="206" text-anchor="middle" font-size="12" font-weight="700" fill="#0369a1">Camera Live</text>
+          <text x="763" y="224" text-anchor="middle" font-size="10" fill="#5a6b7d">Luôn kết nối(HLS)</text>
+        </g>
+        <text x="348" y="140" text-anchor="middle" font-size="11" fill="#334155">Vạch đếm</text>
+        <text x="80" y="140" font-size="11" fill="#334155">Làn xe</text>
+      </svg>
+    </article>
+
+    <article class="card" data-des-id="DES-WF-ANIM-OPS">
+      <h2>Trung tâm điều hành</h2>
+      <div class="ops-count" id="opsCount">0 xe</div>
+      <p class="ops-meta" id="opsMeta">Chưa có xe qua vạch</p>
+      <div class="live-win on" id="liveWin">
+        <span class="live-badge" id="liveBadge">Camera Live</span>
+        <div class="scan" id="scan"></div>
+        <div class="live-label" id="liveLabel">Luôn kết nối(HLS) · hình không chờ xe</div>
+      </div>
+      <div class="log" data-des-id="DES-WF-ANIM-LOG">
+        <table>
+          <thead>
+            <tr><th>Giây</th><th>Kênh</th><th>Kết quả</th></tr>
+          </thead>
+          <tbody id="logBody">
+            <tr class="empty"><td colspan="3">Chưa có — chạy workflow hoặc chọn kịch bản.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="js/demo.js"></script>
+</body>
+</html>

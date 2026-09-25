@@ -916,9 +916,9 @@
     },
     "rmms-task-integrate": {
       "web": {
-        "phase": "data_analy",
-        "status": "draft",
-        "updatedAt": "2026-09-18T17:56:06.533Z",
+        "phase": "design",
+        "status": "done",
+        "updatedAt": "2026-09-19T16:45:00.641Z",
         "statusRel": "specs/rmms-task-integrate/STATUS.md"
       }
     },
@@ -997,8 +997,8 @@
     "rpt-nhat-ky-tuan-duong": {
       "web": {
         "phase": "done",
-        "status": "done",
-        "updatedAt": "2026-09-18T17:52:24.432Z",
+        "status": "in_progress",
+        "updatedAt": "2026-09-19T16:17:17.238Z",
         "statusRel": "specs/rpt-nhat-ky-tuan-duong/STATUS.md"
       }
     },

@@ -2,7 +2,7 @@
 
 File nội bộ. Dùng khi kiểm tra lại chỉ số trong `../phan-mem-cam-ai-tren-rmms.md`. Không gửi khách thay thuyết minh.
 
-Ngày tra: 2026-09-08. Chỉ lấy trang sản phẩm và PDF trên `hikvision.com`. Không lấy số đại lý nếu khác tài liệu hãng.
+Ngày tra: 2026-09-08 · bổ sung `iDS-TCM403-BI(G)/G` 2026-09-23. Chỉ lấy trang sản phẩm và PDF trên `hikvision.com`. Không lấy số đại lý nếu khác tài liệu hãng.
 
 ## Mục lục link tài liệu tham khảo
 
@@ -26,7 +26,7 @@ Chỉ số trên tài liệu hãng áp dụng khi lắp đặt và chiếu sáng
 | Model trên thuyết minh | Trang sản phẩm (Hikvision Global) | PDF tài liệu kỹ thuật | Ngày trên PDF |
 |------------------------|----------------------------------|------------------------|---------------|
 | iDS-TCM403-GIR (kể cả /POE/2812) | [ids-tcm403-gir](https://www.hikvision.com/en/products/ITS-Products/traffic-cameras/urban-road-anpr-cameras/ids-tcm403-gir/) | [iDS-TCM403-GIR_Datasheet_20240801.pdf](https://www.hikvision.com/content/dam/hikvision/products/S000000001/S000000177/S000000188/S000000209/OFR000286/M000073503/Data_Sheet/iDS-TCM403-GIR_Datasheet_20240801.pdf) | 2024-08-01 |
-| iDS-TCM403-BI | [ids-tcm403-bi](https://www.hikvision.com/en/products/ITS-Products/traffic-cameras/urban-road-anpr-cameras/ids-tcm403-bi/) | [iDS-TCM403-BI_Datasheet_20250424.pdf](https://www.hikvision.com/content/dam/hikvision/pt-br/iDS-TCM403-BI_Datasheet_20250424.pdf) | 2025-04-24 |
+| iDS-TCM403-BI(G)/G (đã chọn QL1) | [ids-tcm403-bi · BI(G)/G](https://www.hikvision.com/en/products/ITS-Products/traffic-cameras/urban-road-anpr-cameras/ids-tcm403-bi/?subName=iDS-TCM403-BI%28G%29%2FG) | [iDS-TCM403-BI_Datasheet_20250424.pdf](https://www.hikvision.com/content/dam/hikvision/pt-br/iDS-TCM403-BI_Datasheet_20250424.pdf) | 2025-04-24 |
 | iDS-2CD7A46G2/LM-IZHS | [ids-2cd7a46g2-lm-izhs-y-](https://www.hikvision.com/en/products/IP-Products/Network-Cameras/DeepinView-Series/ids-2cd7a46g2-lm-izhs-y-/) | PDF Data Sheet trên trang sản phẩm (mục Technical documents). Bản đối chiếu công khai: [iDS-2CD7A46G2_LM-IZHSY_en_Datasheet.pdf](https://www.maxalarm.sk/buxus/docs/datasheety/iDS-2CD7A46G2_LM-IZHSY_en_Datasheet.pdf) | Trang Global không gắn ngày trên URL; đối chiếu thêm PDF 2025-09-29 nếu hãng phát hành lại |
 
 Ghi chú PDF TCM403-BI: file nằm nhánh `pt-br` trên `hikvision.com` (cùng mã hiệu, tiếng Anh). Khi hãng đăng bản Global mới, ưu tiên PDF trên trang [ids-tcm403-bi](https://www.hikvision.com/en/products/ITS-Products/traffic-cameras/urban-road-anpr-cameras/ids-tcm403-bi/) mục Data Sheet.
@@ -49,16 +49,22 @@ Nguồn: PDF 20240801 và trang sản phẩm Global.
 | Phân loại loại xe (ô tô con, van, buýt, tải, …) | Vehicle type; hãng không công bố phần trăm đếm và phân loại |
 | Vùng nhận diện biển châu Á - Thái Bình Dương | LPR countries/regions: Asia-Pacific |
 
-### iDS-TCM403-BI
+### iDS-TCM403-BI(G)/G — model lựa chọn QL1 (2026-09-23)
 
-Nguồn: PDF 20250424 và trang sản phẩm Global.
+Nguồn spec đã đọc: trang [Hikvision HK](https://www.hikvision.com/hk/products/ITS-Products/traffic-cameras/urban-road-anpr-cameras/ids-tcm403-bi/) liệt kê SKU `iDS-TCM403-BI(G)/G`. Trang Global user chọn: [ids-tcm403-bi · subName BI(G)/G](https://www.hikvision.com/en/products/ITS-Products/traffic-cameras/urban-road-anpr-cameras/ids-tcm403-bi/?subName=iDS-TCM403-BI%28G%29%2FG). PDF: [iDS-TCM403-BI_Datasheet_20250424.pdf](https://www.hikvision.com/content/dam/hikvision/pt-br/iDS-TCM403-BI_Datasheet_20250424.pdf). Map nhãn: `docs/context/features/camera-vehicle-type.md` §1b.
 
-| Chỉ tiêu trên thuyết minh | Chỗ đối chiếu trên tài liệu hãng |
-|---------------------------|-----------------------------------|
-| Bắt xe / đọc biển / hướng tại 120 km/h và 200 km/h | Accuracy theo tốc độ bắt (120 km/h và 200 km/h) |
-| Bắt nhầm dưới 2% | Mistaken capture (bản vùng châu Âu trên PDF đã tra) |
-| Ùn tắc, dừng, đổi làn, ngược chiều, vượt tốc, tốc độ thấp | Incident / smart function: congestion, stopped vehicle, lane change, wrong-way, speeding, low-speed. Hãng không công bố phần trăm |
-| Không radar tích hợp như GIR | Không có mục Radar 77 GHz như GIR |
+| Chỉ tiêu | Chỗ đối chiếu trên tài liệu hãng |
+|----------|-----------------------------------|
+| 9 loại xe: Car, Van, Bus, Truck, Light Truck, SUV(MPV), Pickup, Motorcycle, Tricycle | Vehicle Type — không có % phân loại |
+| Màu 11 sắc, chỉ ban ngày | Vehicle Color |
+| 212 hãng xe (có VinFast) | Vehicle Manufacturer |
+| Bắt xe > 99%, đọc biển > 98%, hướng > 98,5%, bắt nhầm < 2% | Accuracy, recommended installation and lighting |
+| Dải bắt 5–120 km/h, tới 3 làn | Capture Speed Range · Coverage |
+| Xe không biển, biển xe máy | No License Plate Detection · Motorcycle LPR |
+| Việt Nam | LPR Countries/Regions · Asia-Pacific |
+| Ùn, dừng, đổi làn, ngược chiều, vượt tốc, tốc độ thấp; lưu lượng, tốc độ trung bình, hàng đợi | Smart Function / Incident — không có % |
+| Không radar 77 GHz như GIR | Không có mục Radar trên SKU BI |
+| PDF pt-br 20250424 còn bảng 120 km/h và 200 km/h | Không lấy bảng 200 km/h khi trích SKU `BI(G)/G` (trang SKU ghi 5–120 km/h) |
 
 ### iDS-2CD7A46G2/LM-IZHS
 

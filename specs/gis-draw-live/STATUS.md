@@ -21,6 +21,45 @@
 | versionGate | `rechecked` |
 | contentHash | `sha256:24f695fc96706b7876dffb8960f4186e34b439fb0d5b519d0fa282a01760de02` |
 | updatedAt | `2026-09-12T05:40:02.550Z` |
+
+## Fix (2026-09-22) — pin index drain hết rồi stop · high/low event
+
+- Restart: index **liên tiếp** tới `pending=0` rồi **stop** bulk (cấm nghỉ 6h / 2s).
+- High job: add/update/xóa 1 TS. Low job: reindex tuyến khi KM_POST đổi.
+
+## Fix (2026-09-22) — zoom query đúng tuyến + index realtime + search tuyến
+
+- Zoom z≥9: `bbox` + tuyến cắt viewport (centerline đoạn, không AABB cả QL). Cluster/detail **cùng** bbox+route — cấm cap zoom=8 / load cả nước. GroupBy `SnapLat` để count khớp pin.
+- `Gis__IndexPinsOnStartup=true`. Queue realtime khi Create/Update/Delete tài sản (KM_POST → reindex tuyến).
+- Search tuyến trên map: `GET /gis/routes` · default **Tất cả tuyến**.
+
+## Fix (2026-09-22) — pin index không cần OSRM (load map ổn định)
+
+- `GisAssetPinIndex`: bake OSRM nếu có, **không thì km-chain cùng `Route`**. Ghi `SnapLat/SnapLng` · `Ok`/`Chain`/`Miss`. Re-index `Miss` + nâng `Chain` khi bake về.
+- Query: GetGeoJson đọc cột đã ghim; GetClusters nhóm dump, marker = `SnapLat` khi có. `GET /health` → `pinSnapOk/Miss/Pending`. `POST /api/v1/gis/index-pins`.
+- `Gis__IndexPinsOnStartup=true` — **cấm** remap trên browser.
+
+## Fix (2026-09-21) — OSRM bake startup (Railway `127.0.0.1:5000` refused)
+
+- Production: `Gis:BakeRoutesOnStartup=false`. Probe `IsReachableAsync` trước bake — down = **1 WRN**, skip vòng, **cấm** stack từng tuyến.
+- Bake: Connection refused → abort, không ghi `Failed` hàng loạt. Bật lại: `Gis__OsrmUrl` self-host + `Gis__BakeRoutesOnStartup=true`.
+
+## Fix (2026-09-21) — zoom mất cụm + pin index theo tuyến
+
+- Zoom: không abort/vẽ lại giữa zoomstart–zoomend; giữ cụm khi zoom detail; 1 `GET /clusters?layer=A,B`; cấm live `router.project-osrm.org` (400).
+- Job `GisAssetPinIndex`: bake tuyến → `SnapLat/SnapLng` trên `rmms_road_assets`. Query đọc cột đã ghim — cấm remap trên map. `Gis__IndexPinsOnStartup=true` (không cần OSRM).
+
+## Fix (2026-09-21) — cụm chậm / pan trống / click cụm mất pin
+
+- **BE:** `GetClusters` giữ GPS dump, **cấm** snap mẫu. `GetGeoJson` snap chỉ bake cache — cấm KM_POST merge trên request.
+- **FE:** corridor refetch khi rời bbox pad (không reuse ô 0.2°). Pan cùng cụm quốc gia không abort request. Click cụm: skip moveend đè fetch; pin scope theo `dumpLat/Lng`; detail cho phép dump.
+
+## Fix (2026-09-21) — load snap đúng `Route` DB (`GAP-MAP-PIN-ROUTE-01` · viewport)
+
+- **BE:** `GetGeoJson` / clusters ghim pin lên bake `GisRouteGeoms` cùng `GisRouteCanon` (thiếu bake → km-chain cùng Route). Geometry trả về = vị trí đã ghim · `snapped` · `dumpLat/Lng`. Detail `OrderBy` tâm bbox (cấm alphabet tuyến thiếu góc zoom).
+- **FE:** `itemRouteSnapped` — UI đặt pin BE; có OSRM cùng mã thì tinh. **Cấm** dump lưới / nearest khi chưa ghim tuyến DB.
+- Dest: `GisRoutePinSnap.cs` · `GisService.cs` · `gisDrawHelpers.ts` · `GisDrawLivePage.tsx`
+
 ## Lock
 
 | agent | scope | id | at |

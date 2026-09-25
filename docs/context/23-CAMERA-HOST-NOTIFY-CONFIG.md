@@ -20,6 +20,11 @@
 |---------|--------|--------|
 | **Host / IP / Server** trên form camera (HTTP Host Notification) | Máy chủ **nhận** event = backend RMMS | `camera-event-api-rmms.vn` |
 | Query `?host=` trên URL ingest | **IP camera** gửi event (để RMMS gắn đúng thiết bị) | `113.179.52.55` |
+| **IP / Host** trên form RMMS (kết nối SDK) | DDNS hoặc IP **để RMMS gọi camera** — **có thể khác** `?host=` ingest | `hothonganninh.cameraaddns.net` vs `14.239.20.231` |
+
+`GET /camera-events` `?host=` form DDNS khớp event đã lưu bằng IP ingest qua `IsapiNotifyUrl` `host=` + **`CameraDeviceId`** (BE tự gắn — **cấm** `cameraDeviceId=` trên firmware) (**GAP-CAM-HOST-ALIAS**).
+
+**Đổi IP/WAN:** cam vẫn POST; Auth 403 `AUTH_SOURCE_IP_DENIED` nếu key còn IP cũ. Admin `/admin/api-keys` thêm IP WAN mới **hoặc** DDNS (A-record). Log lab 2026-09-21: `sourceIp=14.224.100.170` · `host=hethonganninh.cameraddns.net`.
 
 ```
   Camera ITS                    Máy chủ nhận (RMMS API)
@@ -149,10 +154,10 @@ Menu điển hình:
 | **API-key + IP camera** | **SSOT** |
 
 - Query `apiKey` (ghi trong Host URL) hoặc header **`X-Api-Key`** (alias `X-Camera-Api-Key`) hoặc form **Base64** (Password = key).
-- Query `host` = IP camera.
-- Prod: Auth introspect bắt buộc · `RequireSourceIpMatch=true` — TCP source IP phải = `host` hoặc `Camera:Ingest:HostAliases` hoặc `AllowedIpAddresses`.
-- Lab: `RequireSourceIpMatch=false` (curl từ máy dev). Auth Full seed key `rmms-cam-ingest-lab` · fallback env `Camera__Ingest__ApiKey` khi Auth down.
-- HTTP **401** sai key · **403** IP/host lệch (JSON có `sourceIp` + `host`, **không** `allowedIps` — **không** lấy query `host` làm IP allowlist) · **400** thiếu `host` · **429** vượt 120/min/key hoặc 60/min/IP hoặc 10× 401/min/IP (`Retry-After: 60`).
+- Query `host` = IP **hoặc DDNS** camera (chuỗi copy từ firmware — body **không** gửi domain).
+- Prod: Auth introspect bắt buộc · `AllowedIpAddresses` = IP **hoặc hostname**. `RequireSourceIpMatch=true` — TCP `sourceIp` vs `host=` / alias / A-record DDNS / device bound.
+- Lab: `RequireSourceIpMatch=false`. Key seed `rmms-cam-ingest-lab` vẫn **siết IP Auth** nếu CSV không rỗng.
+- HTTP **401** sai key · **403** `AUTH_SOURCE_IP_DENIED` (IP request ∉ allowlist) hoặc `INGEST_SOURCE_IP_MISMATCH` · JSON `sourceIp` + `host`, **không** `allowedIps` · **400** thiếu `host` · **429** …
 
 ### 4.1 Bảng điền (SSOT)
 
@@ -267,7 +272,8 @@ Mỗi POST thành công → **+1** event (đếm = `length` danh sách / HUD Eve
 |-------------|----------|
 | Events = 0 | Cam → DNS/IP server · port 80/443 · firewall · URL path đúng |
 | 401 | Thiếu/sai `apiKey` |
-| 403 | Source IP ≠ `host` (bật `RequireSourceIpMatch`) — thêm `HostAliases` LAN |
+| 403 `AUTH_SOURCE_IP_DENIED` | Allowlist key còn IP WAN cũ — Admin thêm IP mới hoặc DDNS |
+| 403 `INGEST_SOURCE_IP_MISMATCH` | `RequireSourceIpMatch` · TCP ≠ `host=` — `HostAliases` LAN hoặc `host=` DDNS + DNS |
 | 404 | Path thiếu `/api/v1/camera-events/ingest` |
 | Timeout | Cam không ra Internet / NAT; dùng IP LAN Edge |
 | Có POST nhưng thiếu biển | `licensePlate=unknown` → null. AID / pedestrian không có biển. |

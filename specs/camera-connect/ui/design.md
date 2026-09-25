@@ -73,7 +73,7 @@ Live MFE/BE sau `task_fc29c24c` **đã ship** GAP schema. Design **không** inve
 
 | Zone | Spec |
 |------|------|
-| Z1 Config | Model Dropdown · mã · tên · IP · HTTP · SDK · RTSP · User · Pass · tuyến · Km · protocolMode |
+| Z1 Config | Model Dropdown · mã · **tên = tuyến · Km** · IP · HTTP · SDK · RTSP · User · Pass · tuyến · Km · **GPS lat/lng lắp đặt** · protocolMode |
 | Z2 Protocols | Checkbox RTSP · ONVIF · ISAPI · HTTPS · Text Host notify URL |
 | Z3 Live | JPEG poll SDK CaptureJPEG · Test kết nối · **OUT** MediaMTX HLS/WebRTC |
 | Z4 Events | Filter default **Hôm nay** · pager server-side · stats loại xe VN theo model · feed plate · speed · type · direction · timestamp |
@@ -107,6 +107,8 @@ GET list: `?search=&online=&page=&pageSize=`
 | password | Pass | `Text` (password) | * | view mask · **cấm** plaintext |
 | roadRouteCode | Tuyến | `Text` | | P1 free-text · master road-route **later** |
 | kmMark | Km | `Text` | | |
+| latitude | GPS vĩ độ | `Number` | | WGS84 · ví dụ 18.66842 · optional |
+| longitude | GPS kinh độ | `Number` | | WGS84 · ví dụ 105.68478 · optional · đủ cặp |
 | protoRtsp / protoOnvif / protoIsapi / useHttps | Protocols | `Checkbox` | | |
 | isapiNotifyUrl | Host notify URL | `Text` | | |
 
@@ -122,6 +124,7 @@ GET list: `?search=&online=&page=&pageSize=`
 | host | IP / Host | `Text` | visible · sort |
 | sdkPort | SDK port | `Text` (number) | visible |
 | road | Tuyến / Km | `Text` | visible (computed `roadRouteCode` + `kmMark`) |
+| gps | GPS lắp đặt | `Text` | visible (`latitude`, `longitude`) |
 | online | Online | `Dropdown` | visible · sort · badge Online/Offline |
 
 Grid = `useCatalogUiSchema('camera-devices')` + `columns={buildDynamicGridColumns(schema, uiColumns)}`. **Cấm** leftover `const columns` / `LinCatalogDataColumn[]` static after import đổi.
@@ -147,6 +150,16 @@ Grid = `useCatalogUiSchema('camera-devices')` + `columns={buildDynamicGridColumn
 | design_confirm | **approve** (autoApprove=ON · agent · 2026-08-16) |
 
 Prototype **không** Modal form. Click Mã / +Thêm / Sửa → full-page `#screen-form`.
+
+### Workflow animation — trạm đếm
+
+| | |
+|--|--|
+| Artifact | `ui/prototype/workflow-tram-dem-xe/index.html` |
+| Trạng thái | design |
+| Chốt | Đường thẳng 2 làn · BI(G)/G · Camera Live luôn nối · event chỉ khi xe vào vạch đếm |
+| Zones | `DES-WF-ANIM-SCENE` · `DES-WF-ANIM-STEPS` · `DES-WF-ANIM-OPS` · `DES-WF-ANIM-LOG` |
+| **reviewUrl** | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/camera-connect/ui/prototype/workflow-tram-dem-xe/index.html` |
 
 ## 5. AC Design (align PO)
 

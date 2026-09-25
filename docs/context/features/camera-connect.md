@@ -42,10 +42,10 @@
 
 | Zone | Nội dung |
 |------|----------|
-| **Z1 Config** | Model · mã cam · tên · IP · HTTP port · RTSP port · SDK port · User · Pass · tuyến · Km · vị trí |
+| **Z1 Config** | Model · mã cam · **tên = tuyến · Km** · IP · HTTP port · RTSP port · SDK port · User · Pass · tuyến · Km · **GPS lat/lng lắp đặt** |
 | **Z2 Protocols** | Bật RTSP live · ONVIF discover · ISAPI HTTP Host notify (URL listener) · Digest auth |
 | **Z3 Live** | Mặc định **HLS** · JPEG poll tùy chọn · **ẩn WebRTC** · chu kỳ/timeout JPEG chỉ khi JPEG/fallback · guide luồng panel II · RTSP fail → fallback JPEG · KPI **Đang xem** = số lease |
-| **Z4 Events** | Feed DB ingest **phân trang server-side** (default **Hôm nay** VN) · filter khoảng ngày · stats loại xe tiếng Việt theo model — SSOT [`camera-vehicle-type.md`](camera-vehicle-type.md) (TCM403: 9 type hãng + AID người đi bộ · **cấm** 19 hạng TCVN) · plate · speed · hướng · nút **Info** → slide-out (config camera / config form) · ô Host notify URL = **copy tay** lên cam (RMMS **không** đẩy ISAPI Listening) · TCM403: XML `<speed>` chỉ khi radar **Fused** — [`../31-CAMERA-TCM403-LAB-RADAR.md`](../31-CAMERA-TCM403-LAB-RADAR.md) · dedup UUID — [`../../plan/camera-connect/PLAN-event-dedup.md`](../../plan/camera-connect/PLAN-event-dedup.md) |
+| **Z4 Events** | Feed DB ingest **phân trang server-side** (default **Hôm nay** VN) · filter khoảng ngày · stats loại xe tiếng Việt theo model — SSOT [`camera-vehicle-type.md`](camera-vehicle-type.md) · plate · speed · hướng · **SSOT đếm = `CameraDeviceId`** (BE gắn lúc ingest — **cấm** `cameraDeviceId=` trên firmware URL) · Host notify URL = **copy tay** lên cam · TCM403 XML `<speed>` khi radar **Fused** — [`../31`](../31-CAMERA-TCM403-LAB-RADAR.md) · dedup UUID — [`PLAN-event-dedup`](../../plan/camera-connect/PLAN-event-dedup.md) |
 
 **UI pattern:** Full page (workflow live + events). Wall = Kind F (kéo-thả · không form ≥10 field).  
 **Mock:** 1 camera seed TCM403-GIR trên QL.1 · Km 12+350.  
@@ -64,7 +64,7 @@ Không nhầm **wall nhiều cam** (GAP-CAM-WALL-02). Đây là **N browser / N 
 | OSD đồng bộ | hls.js seek `liveSyncPosition` (live − 3s) · RMMS↔RMMS ~1s · **không** khớp plugin Hikvision |
 | Count **Đang xem** | In-memory 1 process API · **rmms-api Replicas = 1** · poll status 3s · KPI cạnh Trạng thái |
 | UI mode | Form mặc định HLS · WebRTC ẩn · JPEG khi chọn hoặc fallback |
-| Host notify URL | Ghi nhớ path ingest (`/ingest?host={IP}&apiKey={Tên}`) — **apiKey = tên** trên Auth Admin; camera POST event; **không** ghi xuống firmware khi Lưu form |
+| Host notify URL | Path `/ingest?host={IP\|DDNS}&apiKey={Tên}` — **apiKey = tên** Auth Admin · **cấm** thêm `cameraDeviceId` · form đổi Host DDNS **giữ** `host=` IP đã lưu nếu có · RMMS **không** ghi firmware khi Lưu |
 
 API thêm: `POST /cameras/{id}/live/heartbeat` (JWT). PlayToken HMAC = G2 S5 **chưa**. `live/start` trả `source=publisher` khi MTX path sẵn (máy nhúng đã đẩy) — **không** invent route mới.
 
@@ -136,15 +136,26 @@ Hikvision Host notify **không JWT**. Secret trên camera **= Tên** dòng Auth 
 | Store | Auth `ApiKeys` · `KeyHash = SHA256(Name)` · scope `camera:ingest` |
 | Admin UI | `Linm.Web.Admin` `/admin/api-keys` — tạo / **bật** / **tắt** · sửa IP · hạn · trạng thái. Bảng = field DB (Tên, Đơn vị, Scope, IP, Trạng thái, Hết hạn, Dùng lần cuối) |
 | Tên | Bắt buộc · unique · **không đổi sau tạo**. Lab seed `rmms-cam-ingest-lab` |
-| Camera URL | `POST /api/v1/camera-events/ingest?host={IP_CAMERA}&apiKey={Tên}` · header `X-Api-Key` cùng giá trị |
+| Camera URL | `POST /api/v1/camera-events/ingest?host={IP_or_DDNS}&apiKey={Tên}` · **không** query `cameraDeviceId` |
 | Rotate | **Cấm.** `POST …/apikeys/{id}/rotate` → **410**. Tắt key = 401 trên cam; bật lại cùng tên |
-| Introspect | Auth `POST /api/v1/apikeys/introspect` (RMMS service JWT) · body `{ apiKey, sourceIp }` · cache ≤ 30s |
-| IP | `AllowedIpAddresses` CSV (public + LAN). 403 **không** lộ allowlist về cam |
+| Introspect | Auth `POST /api/v1/apikeys/introspect` · body `{ apiKey, sourceIp }` · cache ≤ 30s **theo** `(key, sourceIp)` |
+| IP / DDNS | `AllowedIpAddresses` CSV: IP WAN **hoặc hostname DDNS** (A-record). 403 `AUTH_SOURCE_IP_DENIED` khi WAN đổi mà list còn IP cũ (lab 2026-09-21: `14.224.100.170` vs seed `14.239.20.231`). Ops: Admin thêm IP mới **hoặc** DDNS. Deploy: Auth resolve hostname + RMMS recover nếu `host=` DDNS = `sourceIp`. **Không** lộ allowlist về cam |
 | Rate | 120/min/key · 60/min/IP · 10× 401/min/IP · body 2 MB — [`../06-SECURITY-RATELIMIT.md`](../06-SECURITY-RATELIMIT.md) §3 |
 | Prod | Auth bắt buộc. Env `Camera:Ingest:ApiKey` **chỉ** Dev/Docker khi Auth down |
 | Docker Auth | Image cũ + `SkipMigrationOnExistingDb` có thể **chưa** bảng `ApiKeys` — cần `Schema_ApiKeys` + rebuild rồi seed sync hash theo tên |
 
 Ops: [`../23-CAMERA-HOST-NOTIFY-CONFIG.md`](../23-CAMERA-HOST-NOTIFY-CONFIG.md) · lab radar/speed [`../31-CAMERA-TCM403-LAB-RADAR.md`](../31-CAMERA-TCM403-LAB-RADAR.md). Implement: `/agent-dev-camera-connect`.
+
+### Event identity (2026-09-21)
+
+Cam **không** gửi Guid RMMS. Body ISAPI = biển · loại · tốc độ · UUID · (JSON đôi khi `ipAddress` LAN — parser **bỏ**).
+
+| Lớp | SSOT |
+|-----|------|
+| Persist | `CameraEvent.CameraDeviceId` = `CameraDevice.Id` khi ingest khớp Host **hoặc** `IsapiNotifyUrl?host=` **hoặc** IP nguồn **hoặc** A-record DDNS |
+| List / GIS KPI | `CameraDeviceId == device` **hoặc** `CameraHost` ∈ alias (form Host + notify `host=` + DNS) |
+| Đổi IP/domain | **Không** đổi id device · **không** config id trên URL cam · Auth allowlist phải theo WAN/DDNS |
+| Event cũ `CameraDeviceId` null | Chỉ hiện nếu alias còn chứa `?host=` lúc ingest — backfill **chưa** job |
 
 ### Connect request (real)
 
@@ -218,7 +229,7 @@ Cấm sidecar Docker Linux để load DLL. Lab local Linux: `local-script/start-
 
 | Entity | Key columns | Notes |
 |--------|-------------|-------|
-| `CameraDevice` | Id, Code, Name, ModelCode, Host, HttpPort, RtspPort, SdkPort, Username, PasswordEnc, protocol flags, RoadRouteCode, KmMark, Online, IsActive | Tenant · table `rmms_camera_devices` · soft delete |
+| `CameraDevice` | Id, Code, Name, ModelCode, Host, …, RoadRouteCode, KmMark, **Latitude, Longitude**, Online, IsActive | Tenant · table `rmms_camera_devices` · soft delete · GPS Schema_CameraDeviceGps |
 | `CameraEvent` | EventCode, CameraDeviceId?, CameraHost, Plate, SpeedKmh, … | **DONE** table `rmms_camera_events` · migration `20260812160439_Schema_RmmsCameraEvents` |
 
 ## 5. Events / tích hợp
@@ -256,6 +267,8 @@ Site lab: `113.179.52.55:8100` = SDK TCP · không phải ISAPI.
 | GAP-CAM-WALL-02 | Live N **cam** cùng lúc (wall) | Demo JPEG mock · P2 N path MTX — **khác** N viewer **một** cam (G2b đã ship) |
 | GAP-CAM-SEC-* | Vault · tách service · resign exp/unlimit | Pointer [`../28-CAMERA-SECURITY.md`](../28-CAMERA-SECURITY.md) |
 | GAP-CAM-INGEST-KEY | Auto-gen + rotate secret → cam URL lệch tên | **Closed 2026-09-09:** secret = **Tên** · Admin bật/tắt · rotate **410** · [`23`](../23-CAMERA-HOST-NOTIFY-CONFIG.md) |
+| GAP-CAM-HOST-ALIAS | Form Host DDNS ≠ ingest `?host=` IP → Events/đếm 0 | **Closed 2026-09-21:** list + ingest resolve device by Host **or** `IsapiNotifyUrl` `host=` · GIS join cùng alias |
+| GAP-CAM-INGEST-AUTH-DDNS | Auth ingest **không** DNS / `AUTH_SOURCE_IP_DENIED` khi WAN đổi | **Closed 2026-09-21:** Auth `AllowedIpAddresses` chấp nhận hostname (A-record) · RMMS recover IP deny nếu `host=` DDNS resolve = `sourceIp`. Ops: Admin key thêm DDNS hoặc IP WAN mới. |
 
 ## 7. Demo checklist (chốt khách)
 
