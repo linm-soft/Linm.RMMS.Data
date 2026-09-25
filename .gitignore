@@ -35,3 +35,4 @@ _archive/
 specs/asset-hub/qa/screens/_maestro_android/android/logs
 *.log
 docs/plan/release-mobile/store/out
+local-script/
