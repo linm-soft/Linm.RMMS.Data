@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>web-rmms-work — Danh sách công việc</title>
+  <style>
+    :root {
+      --primary: #0C84C0;
+      --deep: #086A9A;
+      --success: #3CB448;
+      --warn: #FCB43C;
+      --danger: #F03C30;
+      --surface: #F2F2F7;
+      --card: #FFFFFF;
+      --on-surface: #1C1C1E;
+      --muted: #8E8E93;
+      --sep: #E5E5EA;
+      --warn-bg: #FFF6E5;
+      --ok-bg: #E8F8EC;
+      --info-bg: #E8F4FA;
+      --label: 13px;
+      --field: 16px;
+      --nav-title: 17px;
+      --phone-w: 430px;
+      --control-h: 44px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: #1a1a1e;
+      color: var(--on-surface);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px 8px 32px;
+    }
+    .meta {
+      max-width: var(--phone-w); width: 100%;
+      color: #aaa; font-size: 12px; margin-bottom: 8px; line-height: 1.4;
+    }
+    .phone {
+      width: min(100%, var(--phone-w));
+      min-height: 780px;
+      background: var(--surface);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,.45);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .topbar {
+      background: linear-gradient(135deg, var(--deep), var(--primary));
+      color: #fff;
+      min-height: 56px;
+      display: flex; align-items: center; gap: 4px;
+      padding: 10px 8px;
+    }
+    .icon-btn {
+      width: var(--control-h); height: var(--control-h);
+      border: 0; background: transparent; color: inherit;
+      border-radius: 12px; cursor: pointer;
+      display: grid; place-items: center;
+    }
+    .nav-title {
+      flex: 1; font-size: var(--nav-title); font-weight: 600;
+      padding-left: 4px;
+    }
+    .search {
+      margin: 12px 16px 8px;
+      background: var(--card);
+      border: 1px solid var(--sep);
+      border-radius: 22px;
+      padding: 10px 14px;
+      display: flex; align-items: center; gap: 10px;
+      color: var(--muted); font-size: var(--field);
+      min-height: var(--control-h);
+    }
+    .chips {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      padding: 0 16px 10px;
+    }
+    .chip {
+      border: 1px solid var(--sep);
+      background: var(--card);
+      color: var(--on-surface);
+      border-radius: 16px;
+      padding: 6px 12px;
+      font-size: var(--label);
+      cursor: pointer;
+      min-height: 32px;
+    }
+    .chip.on {
+      background: var(--info-bg);
+      border-color: var(--primary);
+      color: var(--deep);
+      font-weight: 600;
+    }
+    .content { flex: 1; overflow: auto; padding: 0 0 24px; }
+    .hub {
+      margin: 0 16px 10px;
+      background: var(--card);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 1px 2px rgba(0,0,0,.06);
+    }
+    .hub button {
+      display: flex; align-items: center; gap: 12px; width: 100%;
+      padding: 14px 16px; border: 0; background: transparent;
+      text-align: left; font: inherit; color: inherit; cursor: pointer;
+      min-height: 64px;
+    }
+    .hub-icon {
+      width: 40px; height: 40px; border-radius: 20px;
+      background: var(--success); color: #fff;
+      display: grid; place-items: center; flex: 0 0 40px;
+    }
+    .hub-title { font-size: var(--field); font-weight: 600; }
+    .hub-sub { font-size: var(--label); color: var(--muted); margin-top: 2px; }
+    .card {
+      margin: 0 16px 10px;
+      background: var(--card);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 1px 2px rgba(0,0,0,.06);
+    }
+    .card-body { padding: 14px 16px 10px; }
+    .card-title { font-size: 17px; font-weight: 700; }
+    .card-code {
+      display: inline-block; margin-top: 4px;
+      font-size: var(--label); color: var(--deep); font-weight: 600;
+    }
+    .card-line { font-size: var(--label); color: var(--muted); margin-top: 4px; line-height: 1.35; }
+    .badges { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+    .badge {
+      font-size: 11px; padding: 2px 8px; border-radius: 8px;
+      background: #E5E5EA; color: #3a3a3c;
+    }
+    .badge.wt { background: #E8F4FA; color: var(--deep); }
+    .status {
+      font-size: var(--label); font-weight: 600;
+      padding: 8px 16px; border-top: 1px solid var(--sep);
+    }
+    .status.warn { color: #B86B00; background: var(--warn-bg); }
+    .status.info { color: var(--deep); background: var(--info-bg); }
+    .status.ok { color: #1B7A2E; background: var(--ok-bg); }
+    .pct {
+      height: 4px; background: var(--sep); margin: 0 16px 8px; border-radius: 2px; overflow: hidden;
+    }
+    .pct > i {
+      display: block; height: 100%; background: var(--primary); border-radius: 2px;
+    }
+    .actions {
+      display: flex; gap: 4px; padding: 4px 8px 10px;
+      border-top: 1px solid var(--sep);
+    }
+    .actions button {
+      flex: 1; height: var(--control-h); border: 0; border-radius: 12px;
+      background: transparent; color: var(--primary); cursor: pointer;
+      display: grid; place-items: center;
+    }
+    .empty {
+      display: none; text-align: center; padding: 48px 24px; color: var(--muted);
+    }
+    .empty.show { display: block; }
+    .empty h2 { margin: 0 0 8px; font-size: var(--nav-title); color: var(--on-surface); }
+    .empty p { margin: 0; font-size: var(--label); line-height: 1.45; }
+    .toast {
+      position: absolute; left: 16px; right: 16px; bottom: 24px; z-index: 5;
+      background: #1C1C1E; color: #fff; border-radius: 12px;
+      padding: 12px 14px; font-size: var(--label); display: none;
+    }
+    .toast.show { display: block; }
+    .ic { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.75;
+      stroke-linecap: round; stroke-linejoin: round; }
+    .note {
+      max-width: var(--phone-w); width: 100%; margin-top: 12px;
+      color: #888; font-size: 11px; line-height: 1.4;
+    }
+  </style>
+</head>
+<body>
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+    <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16.5 16.5 21 21"/></symbol>
+    <symbol id="i-filter" viewBox="0 0 24 24"><path d="M4 6h16M7 12h10M10 18h4"/></symbol>
+    <symbol id="i-sum" viewBox="0 0 24 24"><path d="M6 6h12L10 12l8 6H6"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M5 6h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H9l-4 3v-3H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"/></symbol>
+    <symbol id="i-sync" viewBox="0 0 24 24"><path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0 1 15.5-6.4L21 8"/><path d="M3 22v-6h6"/><path d="M21 12a9 9 0 0 1-15.5 6.4L3 16"/></symbol>
+    <symbol id="i-list" viewBox="0 0 24 24"><path d="M8 7h12M8 12h12M8 17h12"/><path d="M4 7h.01M4 12h.01M4 17h.01"/></symbol>
+  </svg>
+
+  <div class="meta">
+    reviewUrl · WORK-L · zone <code>#sc-mnt-list</code> · phone 430 · chips live · no FAB<br/>
+    std <code>/web-rmms-work</code> · product <code>/work</code> · peer nest <code>/work/{progress|log|chat}?id=</code>
+  </div>
+
+  <div class="phone" id="sc-mnt-list" data-zone="WORK-L" data-des-id="DES-WEB-WORK-L">
+    <header class="topbar">
+      <button type="button" class="icon-btn" aria-label="Back" data-field="back" onclick="toast('nav → Home / shell')">
+        <svg class="ic" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg>
+      </button>
+      <div class="nav-title" data-field="screenTitle">Danh sách công việc</div>
+      <button type="button" class="icon-btn" aria-label="Lọc" data-field="filter.open" onclick="toast('sheet optional · chips vẫn primary')">
+        <svg class="ic" viewBox="0 0 24 24"><use href="#i-filter"/></svg>
+      </button>
+    </header>
+
+    <div class="search" data-field="search" role="search">
+      <svg class="ic" viewBox="0 0 24 24"><use href="#i-search"/></svg>
+      <span>Tìm kiếm công việc…</span>
+    </div>
+
+    <div class="chips" data-field="filter.status" aria-label="status">
+      <button type="button" class="chip on" data-status="">Tất cả</button>
+      <button type="button" class="chip" data-status="new">Chờ xử lý</button>
+      <button type="button" class="chip" data-status="in_progress">Đang xử lý</button>
+      <button type="button" class="chip" data-status="done">Hoàn thành</button>
+    </div>
+    <div class="chips" data-field="filter.workType" aria-label="workType">
+      <button type="button" class="chip on" data-worktype="">Mọi loại</button>
+      <button type="button" class="chip" data-worktype="repair">Sửa chữa</button>
+      <button type="button" class="chip" data-worktype="inspect">Kiểm tra</button>
+      <button type="button" class="chip" data-worktype="emergency">Khẩn cấp</button>
+    </div>
+
+    <div class="content" id="list-root">
+      <div class="hub" data-field="hub.estimate">
+        <button type="button" onclick="toast('nav → /work/estimate/:id (peer)')">
+          <div class="hub-icon"><svg class="ic" viewBox="0 0 24 24"><use href="#i-sum"/></svg></div>
+          <div>
+            <div class="hub-title">Giao việc xử lý</div>
+            <div class="hub-sub">Khối lượng · thời hạn · giao việc</div>
+          </div>
+        </button>
+      </div>
+
+      <article class="card" data-field="list.card" data-wo="WO-2401">
+        <div class="card-body">
+          <div class="card-title" data-bind="Title">Vá mặt đường</div>
+          <span class="card-code" data-bind="Code">WO-2401</span>
+          <div class="card-line" data-bind="AssigneeName">Nguyễn Văn A · Tổ tuần đường</div>
+          <div class="card-line" data-bind="DueAt">Hạn: 2026-08-12 17:00</div>
+          <div class="card-line" data-bind="RouteName">Từ sự cố SC-2401 · QL.1 Km 1556+080</div>
+          <div class="badges">
+            <span class="badge wt" data-bind="WorkType">repair</span>
+          </div>
+        </div>
+        <div class="pct" aria-hidden="true"><i style="width:15%"></i></div>
+        <div class="status warn" data-bind="Status">Tình trạng: Chờ xử lý · 15%</div>
+        <div class="actions">
+          <button type="button" data-field="action.chat" title="chat" onclick="toast('nav → /work/chat?id=WO-2401')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chat"/></svg></button>
+          <button type="button" data-field="action.progress" title="progress" onclick="toast('nav → /work/progress?id=WO-2401')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-sync"/></svg></button>
+          <button type="button" data-field="action.log" title="log" onclick="toast('nav → /work/log?id=WO-2401')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-list"/></svg></button>
+          <button type="button" data-field="action.estimate" title="estimate" onclick="toast('nav → /work/estimate/WO-2401')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-sum"/></svg></button>
+        </div>
+      </article>
+
+      <article class="card" data-field="list.card" data-wo="WO-2398">
+        <div class="card-body">
+          <div class="card-title" data-bind="Title">Nạo cống</div>
+          <span class="card-code" data-bind="Code">WO-2398</span>
+          <div class="card-line" data-bind="AssigneeName">Trần Khánh · Chi cục II.2</div>
+          <div class="card-line" data-bind="DueAt">Hạn: 2026-08-09 16:00</div>
+          <div class="card-line" data-bind="RouteName">Tuyến HCM</div>
+          <div class="badges">
+            <span class="badge wt" data-bind="WorkType">inspect</span>
+          </div>
+        </div>
+        <div class="pct" aria-hidden="true"><i style="width:100%"></i></div>
+        <div class="status ok" data-bind="Status">Tình trạng: Đã hoàn thành · 100%</div>
+        <div class="actions">
+          <button type="button" data-field="action.chat" title="chat" onclick="toast('nav → /work/chat?id=WO-2398')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chat"/></svg></button>
+          <button type="button" data-field="action.progress" title="progress" onclick="toast('nav → /work/progress?id=WO-2398')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-sync"/></svg></button>
+          <button type="button" data-field="action.log" title="log" onclick="toast('nav → /work/log?id=WO-2398')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-list"/></svg></button>
+          <button type="button" data-field="action.estimate" title="estimate" onclick="toast('nav → /work/estimate/WO-2398')"><svg class="ic" viewBox="0 0 24 24"><use href="#i-sum"/></svg></button>
+        </div>
+      </article>
+
+      <div class="empty" id="empty" data-field="empty">
+        <h2>Không có công việc</h2>
+        <p>Thử đổi bộ lọc hoặc tìm kiếm khác.</p>
+      </div>
+    </div>
+
+    <div id="toast" class="toast" role="status" data-field="toast.fail"></div>
+  </div>
+
+  <p class="note">
+    Prototype review only · labels via useFormOptions at Dev · live GET maintenance/work-orders ·
+    cấm FAB create · cấm fake GPS · cấm ERP.* · TabBar = shell peer.
+  </p>
+
+  <script>
+    let t;
+    function toast(msg) {
+      const el = document.getElementById('toast');
+      el.textContent = msg;
+      el.classList.add('show');
+      clearTimeout(t);
+      t = setTimeout(() => el.classList.remove('show'), 2200);
+    }
+    document.querySelectorAll('[data-field="filter.status"] .chip').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        btn.parentElement.querySelectorAll('.chip').forEach((c) => c.classList.remove('on'));
+        btn.classList.add('on');
+        toast('live filter status=' + (btn.dataset.status || 'all'));
+      });
+    });
+    document.querySelectorAll('[data-field="filter.workType"] .chip').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        btn.parentElement.querySelectorAll('.chip').forEach((c) => c.classList.remove('on'));
+        btn.classList.add('on');
+        toast('live filter workType=' + (btn.dataset.worktype || 'all'));
+      });
+    });
+  </script>
+</body>
+</html>

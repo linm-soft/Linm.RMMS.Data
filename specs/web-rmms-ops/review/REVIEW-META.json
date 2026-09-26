@@ -1,0 +1,19 @@
+{
+  "feature": "web-rmms-ops",
+  "status": "confirmed",
+  "review_confirm": "approve",
+  "autoApprove": true,
+  "taskId": "task_ec7dfc02",
+  "contentHash": "sha256:6f74282b807da7f2cc1aa57ac64848cd1d75ff3383c0f432eaad7bea53fff80e",
+  "skillVersion": "2026.09.05.03",
+  "must": 0,
+  "should": 0,
+  "soft": 4,
+  "gates": {
+    "QUERY": "PASS",
+    "SEC": "PASS",
+    "UI-FN": "PASS",
+    "BE-FN": "PASS"
+  },
+  "writtenAt": "2026-09-25T13:10:00.000Z"
+}

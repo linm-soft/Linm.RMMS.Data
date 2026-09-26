@@ -1,0 +1,26 @@
+﻿{
+    "url":  "http://localhost:9301/web-rmms-mobile-e",
+    "capturedAt":  "2026-09-25T10:50:52.2910231Z",
+    "method":  "capture_e Â· MFE /login Â· phone 430 Â· S0 TK-07 Â· S1 TK-00 entry Â· QA-20 clickâ†’TK-07 Â· stock e2e playwright junction",
+    "steps":  [
+                  {
+                      "id":  "S0",
+                      "result":  "PASS",
+                      "screenshot":  "S0.png",
+                      "href":  "http://localhost:9301/web-rmms-mobile-e"
+                  },
+                  {
+                      "id":  "S1",
+                      "result":  "PASS",
+                      "screenshot":  "S1.png",
+                      "href":  "http://localhost:9301/web-rmms-mobile-a/tuan-kiem"
+                  },
+                  {
+                      "id":  "QA-20",
+                      "result":  "PASS",
+                      "screenshot":  "QA-20.png",
+                      "href":  "http://localhost:9301/web-rmms-mobile-e"
+                  }
+              ],
+    "ok":  true
+}

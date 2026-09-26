@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>web-rmms-bien-ban — Đề nghị lập biên bản</title>
+  <style>
+    :root {
+      --primary: #0C84C0;
+      --header-start: #086A9A;
+      --header-end: #0C84C0;
+      --success: #3CB448;
+      --warning: #FCB43C;
+      --danger: #F03C30;
+      --surface: #F2F2F7;
+      --card: #FFFFFF;
+      --on-primary: #FFFFFF;
+      --on-surface: #1C1C1E;
+      --border: #C7C7CC;
+      --muted: #8E8E93;
+      --radius-card: 16px;
+      --radius-control: 12px;
+      --label: 13px;
+      --field: 16px;
+      --nav-title: 17px;
+      --control-h: 44px;
+      --field-h: 52px;
+      --phone-w: 430px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: #1a1a1e;
+      color: var(--on-surface);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px 8px 32px;
+    }
+    .board-nav {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      max-width: var(--phone-w); width: 100%; margin-bottom: 12px;
+    }
+    .board-nav button {
+      border: 1px solid var(--border); background: #2a2a2e; color: #eee;
+      border-radius: 8px; padding: 6px 10px; font-size: 12px; cursor: pointer;
+    }
+    .board-nav button.active { background: var(--primary); border-color: var(--primary); }
+    .phone {
+      width: min(100%, var(--phone-w));
+      min-height: 780px;
+      background: var(--surface);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,.45);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .topbar {
+      background: linear-gradient(135deg, var(--header-start), var(--header-end));
+      color: var(--on-primary);
+      min-height: 56px;
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 14px;
+    }
+    .topbar .back, .topbar .icon-btn {
+      width: 44px; height: 44px; border: 0; background: transparent;
+      color: inherit; font-size: 28px; line-height: 1; padding: 0;
+      display: grid; place-items: center;
+      cursor: pointer; border-radius: 12px;
+    }
+    .topbar .title {
+      flex: 1; font-size: var(--nav-title); font-weight: 600; text-align: center;
+    }
+    .topbar .spacer { width: 44px; }
+    .content { flex: 1; overflow: auto; padding: 12px 14px 88px; }
+    .screen { display: none; flex-direction: column; flex: 1; min-height: 0; }
+    .screen.active { display: flex; }
+    .btn {
+      height: var(--control-h); border-radius: var(--radius-control); border: 0;
+      padding: 0 16px; font-size: 15px; font-weight: 600; cursor: pointer;
+    }
+    .btn-primary { background: var(--primary); color: var(--on-primary); }
+    .btn-secondary { background: #E5E5EA; color: var(--on-surface); }
+    .btn-ghost { background: transparent; color: var(--primary); border: 1px solid var(--primary); }
+    .btn-block { width: 100%; margin-top: 8px; }
+    .btn:disabled { opacity: .45; cursor: not-allowed; }
+    .toolbar-form { display: flex; gap: 8px; margin-bottom: 12px; }
+    .toolbar-form .btn { flex: 1; }
+    .card {
+      background: var(--card); border-radius: var(--radius-card);
+      border: 1px solid var(--border); padding: 14px; margin-bottom: 10px; cursor: pointer;
+    }
+    .card .meta { color: var(--muted); font-size: 13px; margin-top: 4px; }
+    .card .row { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+    .chip {
+      display: inline-block; font-size: 12px; padding: 3px 8px;
+      border-radius: 6px; background: #E8F6FC; color: var(--primary); margin-right: 4px;
+    }
+    .chip.status-moi { background: #FFF4E0; color: #9A6200; }
+    .chip.flag { background: #FFE8E6; color: #B3261E; cursor: pointer; }
+    .field { margin-bottom: 12px; }
+    .field label {
+      display: block; font-size: var(--label); color: var(--muted); margin-bottom: 4px;
+    }
+    .field input:not([type="radio"]):not([type="checkbox"]), .field select, .field textarea {
+      width: 100%; min-height: var(--field-h); font-size: var(--field);
+      border: 1px solid var(--border); border-radius: var(--radius-control);
+      padding: 12px 14px; background: var(--card); color: var(--on-surface);
+    }
+    .field textarea { min-height: 96px; resize: vertical; }
+    .field input[readonly], .field .ro {
+      background: #EFEFF4; color: #3A3A3C;
+    }
+    .choiceStack { display: flex; flex-direction: column; gap: 8px; }
+    .choiceRow {
+      display: flex; align-items: center; gap: 12px;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius-control); padding: 12px 14px; min-height: 48px;
+      cursor: pointer;
+    }
+    .choiceRow input { width: 20px; height: 20px; accent-color: var(--primary); }
+    .choiceRow.selected { border-color: var(--primary); background: #E8F6FC; }
+    .search {
+      width: 100%; height: var(--control-h); border-radius: var(--radius-control);
+      border: 1px solid var(--border); padding: 0 14px; font-size: var(--field);
+      margin-bottom: 12px; background: var(--card);
+    }
+    .empty {
+      text-align: center; padding: 48px 16px; color: var(--muted);
+    }
+    .empty h3 { color: var(--on-surface); margin: 0 0 8px; font-size: 17px; }
+    .dual-cta { display: flex; flex-direction: column; gap: 8px; margin-top: 16px; }
+    .banner {
+      background: #FFF4E0; color: #9A6200; border-radius: 12px;
+      padding: 10px 12px; font-size: 13px; margin-bottom: 12px;
+    }
+    .banner.danger { background: #FFE8E6; color: #B3261E; }
+    .banner.ok { background: #E8F8EA; color: #1B7A28; }
+    .gps-box {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius-card); padding: 12px; margin-bottom: 12px;
+    }
+    .gps-coords { font-size: 13px; color: var(--muted); margin-top: 8px; }
+    .fab-row { display: flex; gap: 8px; margin-top: 8px; }
+    .fab-row .btn { flex: 1; font-size: 13px; }
+    .detail-block {
+      background: var(--card); border-radius: var(--radius-card);
+      border: 1px solid var(--border); padding: 14px; margin-bottom: 12px;
+    }
+    .detail-block dt { font-size: var(--label); color: var(--muted); margin-top: 10px; }
+    .detail-block dd { margin: 2px 0 0; font-size: var(--field); }
+    .link-so07 {
+      display: block; text-align: center; padding: 14px;
+      color: var(--primary); font-weight: 600; text-decoration: none;
+      border: 1px dashed var(--primary); border-radius: var(--radius-control);
+    }
+    .link-so07.disabled { opacity: .5; pointer-events: none; }
+    .modal-backdrop {
+      display: none; position: absolute; inset: 0;
+      background: rgba(0,0,0,.45); align-items: flex-end; justify-content: center;
+      z-index: 20;
+    }
+    .modal-backdrop.show { display: flex; }
+    .modal {
+      width: 100%; background: var(--card); border-radius: 16px 16px 0 0;
+      padding: 20px 16px 24px;
+    }
+    .modal h3 { margin: 0 0 8px; font-size: 17px; }
+    .modal p { margin: 0 0 16px; color: var(--muted); font-size: 14px; }
+    .modal .actions { display: flex; gap: 8px; }
+    .modal .actions .btn { flex: 1; }
+    .hint { font-size: 12px; color: var(--muted); margin-top: 4px; }
+    .zone-tag {
+      position: absolute; top: 8px; right: 12px; font-size: 10px;
+      background: rgba(0,0,0,.55); color: #fff; padding: 2px 6px; border-radius: 4px;
+      z-index: 5;
+    }
+  </style>
+</head>
+<body>
+  <nav class="board-nav" id="boardNav" aria-label="zones">
+    <button type="button" data-screen="bb01" class="active">BB-01 list</button>
+    <button type="button" data-screen="bb07">BB-07 empty</button>
+    <button type="button" data-screen="bb02">BB-02 TD</button>
+    <button type="button" data-screen="bb03">BB-03 TK</button>
+    <button type="button" data-screen="bb05">BB-05 GPS deny</button>
+    <button type="button" data-screen="bb04">BB-04 detail</button>
+    <button type="button" data-screen="bb06">BB-06 Field</button>
+    <button type="button" data-screen="leave">DES-LEAVE</button>
+  </nav>
+
+  <div class="phone" id="phone" data-zone="BB-00">
+    <span class="zone-tag" id="zoneTag">BB-01</span>
+
+    <!-- BB-01 list -->
+    <section class="screen active" id="bb01" data-zone="BB-01">
+      <header class="topbar">
+        <button type="button" class="back" aria-label="Back">‹</button>
+        <div class="title">Đề nghị lập biên bản</div>
+        <span class="spacer"></span>
+      </header>
+      <div class="content">
+        <input class="search" type="search" placeholder="Tìm tuyến / trạng thái…" aria-label="search" />
+        <div class="fab-row">
+          <button type="button" class="btn btn-primary" data-go="bb02">Từ tuần đường</button>
+          <button type="button" class="btn btn-ghost" data-go="bb03">Từ tuần kiểm</button>
+        </div>
+        <p class="hint" style="margin:10px 0 8px">P1: petitions kind=hanh-lang · chip cờ peer (optional)</p>
+        <div class="chip flag" data-go="bb02" title="journal ViolationFlag">Cờ TD · JL-1042</div>
+        <div class="chip flag" data-go="bb03" title="finding ViolationAction">Cờ TK · FD-2201</div>
+        <article class="card" data-go="bb04">
+          <div class="row">
+            <strong>KN-20260926-001</strong>
+            <span class="chip status-moi">moi</span>
+          </div>
+          <div class="meta">QL1 · Km 12+300 · hành lang</div>
+        </article>
+        <article class="card" data-go="bb04">
+          <div class="row">
+            <strong>KN-20260925-014</strong>
+            <span class="chip status-moi">moi</span>
+          </div>
+          <div class="meta">ĐT.754 · Km 3+100 · hành lang</div>
+        </article>
+      </div>
+    </section>
+
+    <!-- BB-07 empty -->
+    <section class="screen" id="bb07" data-zone="BB-07">
+      <header class="topbar">
+        <button type="button" class="back" aria-label="Back">‹</button>
+        <div class="title">Đề nghị lập biên bản</div>
+        <span class="spacer"></span>
+      </header>
+      <div class="content">
+        <input class="search" type="search" placeholder="Tìm tuyến / trạng thái…" />
+        <div class="empty">
+          <h3>Chưa có đề nghị</h3>
+          <p>Tạo đề nghị từ tuần đường (BDTX) hoặc tuần kiểm (Khu/VP).</p>
+          <div class="dual-cta">
+            <button type="button" class="btn btn-primary" data-go="bb02">Tuần đường</button>
+            <button type="button" class="btn btn-ghost" data-go="bb03">Tuần kiểm</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BB-02 create TD -->
+    <section class="screen" id="bb02" data-zone="BB-02">
+      <header class="topbar">
+        <button type="button" class="back dirty-back" aria-label="Back">‹</button>
+        <div class="title">Đề nghị · Tuần đường</div>
+        <span class="spacer"></span>
+      </header>
+      <div class="content">
+        <div class="toolbar-form">
+          <button type="button" class="btn btn-secondary dirty-back">Hủy</button>
+          <button type="button" class="btn btn-primary" id="saveTd">Lưu</button>
+        </div>
+        <div class="field">
+          <label>Lối vào</label>
+          <input class="ro" readonly value="tuan-duong" />
+        </div>
+        <div class="field">
+          <label>Dòng nhật ký (parent)</label>
+          <input class="ro" readonly value="JL-1042 · hành lang · Km 12+300" />
+        </div>
+        <div class="field">
+          <label>Cờ đề nghị (ViolationFlag)</label>
+          <div class="choiceRow selected">
+            <input type="checkbox" checked disabled />
+            <span>de-nghi-bien-ban → ViolationFlag=true</span>
+          </div>
+          <p class="hint">Không mở sổ 07 · chỉ đề nghị</p>
+        </div>
+        <div class="field">
+          <label>Đơn vị gửi *</label>
+          <input type="text" value="Đội QLĐT 1" />
+        </div>
+        <div class="field">
+          <label>Tuyến *</label>
+          <input type="text" value="QL1" />
+        </div>
+        <div class="field">
+          <label>Km *</label>
+          <input type="text" value="12+300" />
+        </div>
+        <div class="field">
+          <label>Nội dung đề nghị *</label>
+          <textarea>Đề nghị lập biên bản xâm phạm hành lang tại vị trí nêu trên.</textarea>
+        </div>
+        <div class="field">
+          <label>Loại kiến nghị *</label>
+          <select><option selected>hanh-lang</option></select>
+        </div>
+        <div class="gps-box" data-zone="BB-05">
+          <button type="button" class="btn btn-ghost btn-block">Ghim vị trí hiện tại</button>
+          <div class="gps-coords">lat 10.823 · lng 106.629 · ±12m</div>
+          <label class="choiceRow" style="margin-top:10px">
+            <input type="checkbox" />
+            <span>Không có mặt / không GPS (noFace)</span>
+          </label>
+        </div>
+        <p class="hint">Lưu: POST petitions + PUT journal-lines ViolationFlag</p>
+      </div>
+    </section>
+
+    <!-- BB-03 create TK -->
+    <section class="screen" id="bb03" data-zone="BB-03">
+      <header class="topbar">
+        <button type="button" class="back dirty-back" aria-label="Back">‹</button>
+        <div class="title">Đề nghị · Tuần kiểm</div>
+        <span class="spacer"></span>
+      </header>
+      <div class="content">
+        <div class="toolbar-form">
+          <button type="button" class="btn btn-secondary dirty-back">Hủy</button>
+          <button type="button" class="btn btn-primary" id="saveTk">Lưu</button>
+        </div>
+        <div class="field">
+          <label>Lối vào</label>
+          <input class="ro" readonly value="tuan-kiem" />
+        </div>
+        <div class="field">
+          <label>Phiếu tồn tại (parent)</label>
+          <input class="ro" readonly value="FD-2201 · hành lang" />
+        </div>
+        <div class="field">
+          <label>Hành động vi phạm *</label>
+          <div class="choiceStack">
+            <label class="choiceRow selected">
+              <input type="radio" name="tkAction" checked />
+              <span>lap-bien-ban</span>
+            </label>
+            <label class="choiceRow">
+              <input type="radio" name="tkAction" />
+              <span>de-nghi-vphc</span>
+            </label>
+          </div>
+          <p class="hint">Không embed sổ 07</p>
+        </div>
+        <div class="field">
+          <label>Đơn vị gửi *</label>
+          <input type="text" value="Tổ kiểm tra Khu 2" />
+        </div>
+        <div class="field">
+          <label>Tuyến *</label>
+          <input type="text" value="ĐT.754" />
+        </div>
+        <div class="field">
+          <label>Km *</label>
+          <input type="text" value="3+100" />
+        </div>
+        <div class="field">
+          <label>Nội dung đề nghị *</label>
+          <textarea>Đề nghị xử lý VPHC / lập biên bản theo phiếu tồn tại.</textarea>
+        </div>
+        <div class="field">
+          <label>Loại kiến nghị *</label>
+          <select><option selected>hanh-lang</option></select>
+        </div>
+        <div class="gps-box">
+          <button type="button" class="btn btn-ghost btn-block">Ghim vị trí hiện tại</button>
+          <div class="gps-coords">Chưa ghim · dùng noFace nếu deny</div>
+          <label class="choiceRow" style="margin-top:10px">
+            <input type="checkbox" />
+            <span>Không có mặt / không GPS (noFace)</span>
+          </label>
+        </div>
+        <p class="hint">Lưu: POST petitions + persist ViolationAction</p>
+      </div>
+    </section>
+
+    <!-- BB-05 GPS deny -->
+    <section class="screen" id="bb05" data-zone="BB-05">
+      <header class="topbar">
+        <button type="button" class="back" data-go="bb02" aria-label="Back">‹</button>
+        <div class="title">GPS deny · noFace</div>
+        <span class="spacer"></span>
+      </header>
+      <div class="content">
+        <div class="banner danger">Trình duyệt từ chối vị trí · không fake GPS · Lưu bị chặn trừ khi chọn noFace.</div>
+        <div class="gps-box">
+          <button type="button" class="btn btn-ghost btn-block" disabled>Ghim vị trí hiện tại</button>
+          <div class="gps-coords">lat/lng/accuracyM = —</div>
+          <label class="choiceRow" style="margin-top:10px" id="noFaceToggle">
+            <input type="checkbox" id="noFaceChk" />
+            <span>Không có mặt / không GPS (noFace)</span>
+          </label>
+        </div>
+        <button type="button" class="btn btn-primary btn-block" id="saveGpsDeny" disabled>Lưu</button>
+        <p class="hint">List/detail không bắt GPS mới</p>
+      </div>
+    </section>
+
+    <!-- BB-04 detail -->
+    <section class="screen" id="bb04" data-zone="BB-04">
+      <header class="topbar">
+        <button type="button" class="back" data-go="bb01" aria-label="Back">‹</button>
+        <div class="title">Chi tiết đề nghị</div>
+        <span class="spacer"></span>
+      </header>
+      <div class="content">
+        <div class="detail-block">
+          <div class="row" style="display:flex;justify-content:space-between">
+            <strong>KN-20260926-001</strong>
+            <span class="chip status-moi">moi</span>
+          </div>
+          <dl>
+            <dt>Đơn vị</dt><dd>Đội QLĐT 1</dd>
+            <dt>Tuyến / Km</dt><dd>QL1 · 12+300</dd>
+            <dt>Loại</dt><dd>hanh-lang</dd>
+            <dt>Nội dung</dt><dd>Đề nghị lập biên bản xâm phạm hành lang tại vị trí nêu trên.</dd>
+            <dt>GPS</dt><dd>10.823, 106.629 (±12m)</dd>
+          </dl>
+        </div>
+        <a class="link-so07" href="#" title="csdl-bieu-07 nav only">Dẫn sang sổ 07 (csdl-bieu-07)</a>
+        <p class="hint">Nav only · cấm embed form · disable+copy nếu Mobile không host</p>
+      </div>
+    </section>
+
+    <!-- BB-06 Field entry -->
+    <section class="screen" id="bb06" data-zone="BB-06">
+      <header class="topbar">
+        <button type="button" class="back" data-go="bb01" aria-label="Back">‹</button>
+        <div class="title">Field · lối vào</div>
+        <span class="spacer"></span>
+      </header>
+      <div class="content">
+        <div class="banner ok">Deep từ peer Field — không clone form sổ nhật ký / kết ca / tồn tại.</div>
+        <article class="card" data-go="bb02">
+          <strong>TD-05 · Đề nghị biên bản</strong>
+          <div class="meta">Tuần đường (BDTX) → BB-02 · ViolationFlag</div>
+        </article>
+        <article class="card" data-go="bb03">
+          <strong>TK-03 · Hành động VPHC</strong>
+          <div class="meta">Tuần kiểm (Khu/VP) → BB-03 · ViolationAction</div>
+        </article>
+        <p class="hint">STD route `/web-rmms-bien-ban` + deep BB-06</p>
+      </div>
+    </section>
+
+    <!-- DES-LEAVE -->
+    <div class="modal-backdrop" id="leaveModal" data-zone="DES-LEAVE">
+      <div class="modal" role="dialog" aria-labelledby="leaveTitle">
+        <h3 id="leaveTitle">Rời form chưa lưu?</h3>
+        <p>Thay đổi chưa được lưu. Ở lại để tiếp tục, hoặc rời mà không ghi.</p>
+        <div class="actions">
+          <button type="button" class="btn btn-secondary" id="leaveStay">Ở lại</button>
+          <button type="button" class="btn btn-primary" id="leaveGo">Rời</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var screens = document.querySelectorAll(".screen");
+      var navBtns = document.querySelectorAll("#boardNav button");
+      var zoneTag = document.getElementById("zoneTag");
+      var leaveModal = document.getElementById("leaveModal");
+      var pendingLeave = null;
+
+      function show(id) {
+        screens.forEach(function (s) {
+          s.classList.toggle("active", s.id === id);
+        });
+        navBtns.forEach(function (b) {
+          b.classList.toggle("active", b.getAttribute("data-screen") === id || (id === "leave" && b.getAttribute("data-screen") === "leave"));
+        });
+        var active = document.getElementById(id);
+        zoneTag.textContent = active ? active.getAttribute("data-zone") : id.toUpperCase();
+        if (id !== "leave") leaveModal.classList.remove("show");
+      }
+
+      navBtns.forEach(function (b) {
+        b.addEventListener("click", function () {
+          var id = b.getAttribute("data-screen");
+          if (id === "leave") {
+            leaveModal.classList.add("show");
+            zoneTag.textContent = "DES-LEAVE";
+            navBtns.forEach(function (x) {
+              x.classList.toggle("active", x.getAttribute("data-screen") === "leave");
+            });
+            return;
+          }
+          show(id);
+        });
+      });
+
+      document.querySelectorAll("[data-go]").forEach(function (el) {
+        el.addEventListener("click", function (e) {
+          e.preventDefault();
+          show(el.getAttribute("data-go"));
+        });
+      });
+
+      document.querySelectorAll(".dirty-back").forEach(function (el) {
+        el.addEventListener("click", function () {
+          pendingLeave = "bb01";
+          leaveModal.classList.add("show");
+          zoneTag.textContent = "DES-LEAVE";
+        });
+      });
+
+      document.getElementById("leaveStay").addEventListener("click", function () {
+        leaveModal.classList.remove("show");
+        pendingLeave = null;
+        var active = document.querySelector(".screen.active");
+        zoneTag.textContent = active ? active.getAttribute("data-zone") : "BB-01";
+      });
+
+      document.getElementById("leaveGo").addEventListener("click", function () {
+        leaveModal.classList.remove("show");
+        show(pendingLeave || "bb01");
+        pendingLeave = null;
+      });
+
+      var noFaceChk = document.getElementById("noFaceChk");
+      var saveGpsDeny = document.getElementById("saveGpsDeny");
+      noFaceChk.addEventListener("change", function () {
+        saveGpsDeny.disabled = !noFaceChk.checked;
+      });
+
+      document.querySelectorAll('input[name="tkAction"]').forEach(function (r) {
+        r.addEventListener("change", function () {
+          document.querySelectorAll("#bb03 .choiceRow").forEach(function (row) {
+            row.classList.toggle("selected", row.querySelector("input").checked);
+          });
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

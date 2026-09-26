@@ -1,0 +1,77 @@
+[
+  {
+    "id": "S0",
+    "url": "http://localhost:9301/web-rmms-shell",
+    "zones": [
+      {
+        "z": "SH-00",
+        "f": "web-rmms-shell",
+        "mode": null,
+        "id": null
+      },
+      {
+        "z": "SH-03",
+        "f": null,
+        "mode": "guest",
+        "id": null
+      },
+      {
+        "z": "SH-01",
+        "f": null,
+        "mode": null,
+        "id": "tabBar"
+      }
+    ],
+    "tabs": [
+      "🏠Trang chủ",
+      "🛣Hiện trường",
+      "⚠️Sự cố",
+      "🧰Công việc"
+    ],
+    "text": "RMMS · Mobile Shell chrome Home Field Incident Work Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile DS Dev Standalone Developer RMMS Mobile ‹ Trang chủ 🔔 Khách Bạn đang xem chế độ khách. Đăng nhập để dùng tuần đường, sự cố và công việc. Đăng nhập 🏠 Trang chủ 🛣 Hiện trường ⚠️ Sự cố 🧰 Công việc"
+  },
+  {
+    "id": "S1",
+    "url": "http://localhost:9301/web-rmms-shell/field",
+    "zones": [
+      {
+        "z": "SH-00",
+        "f": "web-rmms-shell",
+        "mode": null,
+        "id": null
+      },
+      {
+        "z": "SH-04",
+        "f": null,
+        "mode": null,
+        "id": null
+      },
+      {
+        "z": "SH-01",
+        "f": null,
+        "mode": null,
+        "id": "tabBar"
+      }
+    ],
+    "tabs": [
+      "🏠Trang chủ",
+      "🛣Hiện trường",
+      "⚠️Sự cố",
+      "🧰Công việc"
+    ],
+    "text": "RMMS · Mobile Shell chrome Home Field Incident Work Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile DS Dev Standalone Developer RMMS Mobile ‹ Hiện trường 🔔 Tuần đường (BDTX) Mở ca · check-in · lịch sử Tuần kiểm (Khu/VP) Mở đợt · theo dõi đợt đang kiểm Đồng bộ offline 🏠 Trang chủ 🛣 Hiện trường ⚠️ Sự cố 🧰 Công việc"
+  },
+  {
+    "id": "QA-20",
+    "url": "http://localhost:9301/web-rmms-shell",
+    "zones": [
+      "SH-00",
+      "SH-03",
+      "SH-01",
+      "SH-02"
+    ],
+    "loginUser": 1,
+    "loginPass": 1,
+    "text": "RMMS · Mobile Shell chrome Home Field Incident Work Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile DS Dev Standalone Developer RMMS Mobile ‹ Trang chủ 🔔 Khách Bạn đang xem chế độ khách. Đăng nhập để dùng tuần đường, sự cố và công việc. Đăng nhập 🏠 Trang chủ 🛣 Hiện trường ⚠️ Sự cố 🧰 Công việc Đăng nhập Hủy Tài khoản Mật khẩu Đăng nhập"
+  }
+]

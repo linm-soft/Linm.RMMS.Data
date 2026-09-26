@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>web-rmms-mnt-log — Nhật ký công việc</title>
+  <style>
+    :root {
+      --primary: #0C84C0;
+      --deep: #086A9A;
+      --success: #3CB448;
+      --warn: #FCB43C;
+      --danger: #F03C30;
+      --surface: #F2F2F7;
+      --card: #FFFFFF;
+      --on-surface: #1C1C1E;
+      --muted: #8E8E93;
+      --sep: #E5E5EA;
+      --ok-bg: #E8F8EC;
+      --info-bg: #E8F4FA;
+      --warn-bg: #FFF6E5;
+      --danger-bg: #FDECEA;
+      --label: 13px;
+      --field: 16px;
+      --nav-title: 17px;
+      --phone-w: 430px;
+      --control-h: 44px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: #1a1a1e;
+      color: var(--on-surface);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px 8px 32px;
+    }
+    .meta {
+      max-width: var(--phone-w); width: 100%;
+      color: #aaa; font-size: 12px; margin-bottom: 8px; line-height: 1.4;
+    }
+    .board-nav {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      max-width: var(--phone-w); width: 100%; margin-bottom: 12px;
+    }
+    .board-nav a {
+      border: 1px solid #555; background: #2a2a2e; color: #eee;
+      border-radius: 8px; padding: 6px 10px; font-size: 12px;
+      text-decoration: none;
+    }
+    .board-nav a.active { background: var(--primary); border-color: var(--primary); }
+    .phone {
+      width: min(100%, var(--phone-w));
+      min-height: 780px;
+      background: var(--surface);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,.45);
+      display: flex;
+      flex-direction: column;
+    }
+    .topbar {
+      background: linear-gradient(135deg, var(--deep), var(--primary));
+      color: #fff;
+      min-height: 56px;
+      display: flex; align-items: center; gap: 4px;
+      padding: 10px 8px;
+    }
+    .icon-btn {
+      width: var(--control-h); height: var(--control-h);
+      border: 0; background: transparent; color: inherit;
+      border-radius: 12px; cursor: pointer;
+      display: grid; place-items: center; font-size: 22px;
+    }
+    .nav-title {
+      flex: 1; font-size: var(--nav-title); font-weight: 600;
+      text-align: center; padding-right: 44px;
+    }
+    .content { flex: 1; overflow: auto; padding: 12px 16px 24px; }
+    .toast {
+      display: none;
+      position: absolute; left: 16px; right: 16px; bottom: 24px;
+      background: #2c2c2e; color: #fff; border-radius: 12px;
+      padding: 12px 14px; font-size: var(--label); z-index: 5;
+      box-shadow: 0 8px 24px rgba(0,0,0,.35);
+    }
+    .toast.show { display: block; }
+    .phone { position: relative; }
+    .card {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 14px 16px;
+      margin-bottom: 12px;
+      border: 1px solid var(--sep);
+    }
+    .code { font-size: var(--label); color: var(--primary); font-weight: 600; }
+    .title { font-size: var(--field); font-weight: 600; margin: 4px 0 8px; line-height: 1.35; }
+    .meta-row {
+      display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+      font-size: var(--label); color: var(--muted);
+    }
+    .badge {
+      display: inline-flex; align-items: center;
+      padding: 2px 8px; border-radius: 999px;
+      font-size: 12px; font-weight: 600;
+      background: var(--info-bg); color: var(--deep);
+    }
+    .badge.done { background: var(--ok-bg); color: #1B7A2A; }
+    .badge.warn { background: var(--warn-bg); color: #9A6B00; }
+    .section-label {
+      font-size: var(--label); color: var(--muted);
+      margin: 4px 0 10px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: .02em;
+    }
+    .timeline { position: relative; padding-left: 18px; }
+    .timeline::before {
+      content: "";
+      position: absolute; left: 5px; top: 6px; bottom: 6px;
+      width: 2px; background: var(--sep);
+    }
+    .tl-item {
+      position: relative;
+      padding: 0 0 16px 12px;
+    }
+    .tl-item:last-child { padding-bottom: 0; }
+    .tl-item::before {
+      content: "";
+      position: absolute; left: -16px; top: 6px;
+      width: 12px; height: 12px; border-radius: 50%;
+      background: var(--card); border: 2px solid var(--primary);
+    }
+    .tl-item.done::before { border-color: var(--success); background: var(--ok-bg); }
+    .tl-item.warn::before { border-color: var(--warn); }
+    .tl-title { font-size: var(--field); font-weight: 600; line-height: 1.3; }
+    .tl-body { font-size: var(--label); color: var(--on-surface); margin-top: 4px; line-height: 1.4; white-space: pre-wrap; }
+    .tl-at { font-size: 12px; color: var(--muted); margin-top: 4px; }
+    .empty {
+      display: none;
+      text-align: center;
+      padding: 48px 16px;
+      color: var(--muted);
+    }
+    .empty.show { display: block; }
+    .empty h2 {
+      font-size: 17px; color: var(--on-surface); margin: 0 0 8px; font-weight: 600;
+    }
+    .empty p { font-size: var(--label); margin: 0 0 20px; line-height: 1.45; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-height: var(--control-h); padding: 0 18px;
+      border-radius: 12px; border: 0; cursor: pointer;
+      font-size: var(--field); font-weight: 600;
+      background: var(--primary); color: #fff;
+    }
+    .btn.ghost {
+      background: transparent; color: var(--primary);
+      border: 1px solid var(--primary);
+    }
+    #view-main { display: block; }
+    #view-main.hidden { display: none; }
+    .note-ro {
+      margin-top: 8px; font-size: 12px; color: var(--muted);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="meta">
+    <strong>DES-MOB-MNT-LOG</strong> · #sc-mnt-log · WORK-G readonly timeline<br />
+    reviewUrl · phone 430 · newest-first · cấm write CTA · cấm GPS · hash skip demo N/A
+  </div>
+  <nav class="board-nav" aria-label="Prototype modes">
+    <a href="?" id="nav-default">Default</a>
+    <a href="?empty=1" id="nav-empty">Empty (no id)</a>
+    <a href="?fail=1" id="nav-fail">404 fail</a>
+    <a href="?done=1" id="nav-done">Done WO</a>
+  </nav>
+
+  <div class="phone" id="sc-mnt-log" data-zone="WORK-G" data-des="DES-MOB-MNT-LOG">
+    <header class="topbar">
+      <button type="button" class="icon-btn" id="backNav" aria-label="Back" title="→ web-rmms-work">←</button>
+      <div class="nav-title" id="topBarTitle">Nhật ký công việc</div>
+    </header>
+
+    <main class="content">
+      <div id="view-main">
+        <section class="card" aria-label="WO header">
+          <div class="code" id="woCode">WO-2026-0142</div>
+          <div class="title" id="woTitle">Vá ổ gà Km12+350 — QL1A</div>
+          <div class="meta-row">
+            <span class="badge" id="woStatus">Đang xử lý</span>
+            <span id="woRouteName">Tuyến QL1A</span>
+            <span>·</span>
+            <span id="woWorkType">Bảo dưỡng thường xuyên</span>
+          </div>
+        </section>
+
+        <div class="section-label">Nhật ký xử lý</div>
+        <div class="timeline" id="timeline" role="list"></div>
+        <p class="note-ro">Readonly · derive từ GET work-orders/{id} · không POST</p>
+      </div>
+
+      <div class="empty" id="emptyState" role="status">
+        <h2>Chưa có nhật ký</h2>
+        <p id="emptyHint">Thiếu mã công việc hoặc không tải được dữ liệu.</p>
+        <button type="button" class="btn ghost" id="emptyBack">Về danh sách</button>
+      </div>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </div>
+
+  <script>
+    (function () {
+      var params = new URLSearchParams(location.search);
+      var modeEmpty = params.get("empty") === "1";
+      var modeFail = params.get("fail") === "1";
+      var modeDone = params.get("done") === "1";
+
+      function markActive() {
+        var id = modeEmpty ? "nav-empty" : modeFail ? "nav-fail" : modeDone ? "nav-done" : "nav-default";
+        var el = document.getElementById(id);
+        if (el) el.classList.add("active");
+      }
+
+      function showToast(msg) {
+        var t = document.getElementById("toast");
+        t.textContent = msg;
+        t.classList.add("show");
+        setTimeout(function () { t.classList.remove("show"); }, 3200);
+      }
+
+      function fmt(iso) {
+        try {
+          var d = new Date(iso);
+          return d.toLocaleString("vi-VN", {
+            day: "2-digit", month: "2-digit", year: "numeric",
+            hour: "2-digit", minute: "2-digit"
+          });
+        } catch (e) { return iso; }
+      }
+
+      /** Sample Signed fields — prototype only (not demo SSOT for FE). */
+      var dto = modeDone ? {
+        Code: "WO-2026-0098",
+        Title: "Phát quang lề đường Km8 — ĐT746",
+        Status: "done",
+        StatusLabel: "Đã hoàn thành",
+        RouteName: "ĐT746",
+        WorkType: "Bảo dưỡng thường xuyên",
+        CreatedAt: "2026-09-20T08:15:00+07:00",
+        DueAt: "2026-09-25T17:00:00+07:00",
+        Description: "Phát quang cỏ dại hai bên lề, thu gom rác.",
+        ProgressPercent: 100,
+        Note: "Hoàn tất trước hạn · ảnh chụp tại hiện trường.",
+        UpdatedAt: "2026-09-24T15:40:00+07:00"
+      } : {
+        Code: "WO-2026-0142",
+        Title: "Vá ổ gà Km12+350 — QL1A",
+        Status: "in_progress",
+        StatusLabel: "Đang xử lý",
+        RouteName: "Tuyến QL1A",
+        WorkType: "Bảo dưỡng thường xuyên",
+        CreatedAt: "2026-09-22T07:30:00+07:00",
+        DueAt: "2026-09-28T17:00:00+07:00",
+        Description: "Vá ổ gà đoạn Km12+350, ưu tiên làn phải.",
+        ProgressPercent: 45,
+        Note: "Đã rải lớp nhựa lần 1 · chờ lu.",
+        UpdatedAt: "2026-09-25T11:20:00+07:00"
+      };
+
+      function deriveRows(wo) {
+        var rows = [];
+        rows.push({ kind: "created", title: "Tạo công việc", body: wo.Title, at: wo.CreatedAt });
+        if (wo.DueAt) rows.push({ kind: "due", title: "Hạn", body: "Hạn hoàn thành", at: wo.DueAt, cls: "warn" });
+        if (wo.Description) rows.push({ kind: "description", title: "Mô tả", body: wo.Description, at: wo.CreatedAt });
+        if ((wo.ProgressPercent > 0) || wo.Status === "in_progress" || wo.Status === "done") {
+          rows.push({
+            kind: "progress",
+            title: "Tiến độ " + wo.ProgressPercent + "%",
+            body: "",
+            at: wo.UpdatedAt
+          });
+        }
+        if (wo.Note) rows.push({ kind: "note", title: "Ghi chú", body: wo.Note, at: wo.UpdatedAt });
+        if (wo.Status === "done") {
+          rows.push({ kind: "done", title: "Hoàn thành", body: "", at: wo.UpdatedAt, cls: "done" });
+        }
+        rows.sort(function (a, b) {
+          var ta = new Date(a.at).getTime();
+          var tb = new Date(b.at).getTime();
+          if (tb !== ta) return tb - ta;
+          return 0;
+        });
+        return rows;
+      }
+
+      function renderTimeline(wo) {
+        var root = document.getElementById("timeline");
+        root.innerHTML = "";
+        var rows = deriveRows(wo);
+        if (!rows.length) {
+          document.getElementById("view-main").classList.add("hidden");
+          document.getElementById("emptyState").classList.add("show");
+          document.getElementById("emptyHint").textContent = "Chưa có nhật ký";
+          return;
+        }
+        rows.forEach(function (r) {
+          var item = document.createElement("article");
+          item.className = "tl-item" + (r.cls ? " " + r.cls : "");
+          item.setAttribute("role", "listitem");
+          item.setAttribute("data-row", r.kind);
+          var html = '<div class="tl-title">' + r.title + '</div>';
+          if (r.body) html += '<div class="tl-body">' + r.body + '</div>';
+          html += '<div class="tl-at">' + fmt(r.at) + '</div>';
+          item.innerHTML = html;
+          root.appendChild(item);
+        });
+      }
+
+      function showEmpty(hint, toastMsg) {
+        document.getElementById("view-main").classList.add("hidden");
+        document.getElementById("emptyState").classList.add("show");
+        document.getElementById("emptyHint").textContent = hint;
+        if (toastMsg) showToast(toastMsg);
+      }
+
+      function wireBack() {
+        function goPeer() {
+          showToast("→ peer web-rmms-work (WORK-L)");
+        }
+        document.getElementById("backNav").addEventListener("click", goPeer);
+        document.getElementById("emptyBack").addEventListener("click", goPeer);
+      }
+
+      markActive();
+      wireBack();
+
+      if (modeEmpty) {
+        showEmpty("Thiếu mã công việc. Mở từ danh sách công việc để xem nhật ký.", null);
+        return;
+      }
+      if (modeFail) {
+        showEmpty("Không tải được công việc (404).", "Không tìm thấy công việc");
+        return;
+      }
+
+      document.getElementById("woCode").textContent = dto.Code;
+      document.getElementById("woTitle").textContent = dto.Title;
+      var badge = document.getElementById("woStatus");
+      badge.textContent = dto.StatusLabel;
+      badge.className = "badge" + (dto.Status === "done" ? " done" : "");
+      document.getElementById("woRouteName").textContent = dto.RouteName;
+      document.getElementById("woWorkType").textContent = dto.WorkType;
+      renderTimeline(dto);
+    })();
+  </script>
+</body>
+</html>

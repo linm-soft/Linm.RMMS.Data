@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RMMS Web · Chụp ảnh kèm tọa độ · PGC</title>
+  <style>
+    :root {
+      --blue: #0C84C0; --green: #34C759; --orange: #FF9500; --danger: #FF3B30;
+      --surface: #F2F2F7; --card: #fff; --label: #1C1C1E; --muted: #8E8E93;
+      --sep: rgba(60,60,67,.29); --nav: #FFFFFF; --gray3: #C7C7CC;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      font-family: "Roboto", "Noto Sans", sans-serif;
+      background: #121212; color: var(--label);
+    }
+    .phone {
+      width: 430px; max-width: 100%; height: 915px; background: var(--surface); border-radius: 28px;
+      overflow: hidden; position: relative; box-shadow: 0 20px 60px rgba(0,0,0,.45);
+      display: flex; flex-direction: column;
+    }
+    .status-bar { height: 28px; flex-shrink: 0; background: var(--nav); }
+    .top-bar {
+      display: flex; align-items: center; padding: 4px 4px 12px; min-height: 56px;
+      background: var(--nav); box-shadow: 0 1px 0 var(--sep);
+    }
+    .icon-btn {
+      width: 48px; height: 48px; border: 0; background: none; color: var(--label);
+      display: grid; place-items: center; cursor: pointer; border-radius: 24px;
+    }
+    .icon-btn svg { width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .top-title { flex: 1; font-size: 20px; font-weight: 500; padding-left: 4px; }
+    .content { flex: 1; overflow: auto; padding-bottom: 88px; }
+    .section-label {
+      font-size: 13px; color: var(--muted); text-transform: uppercase;
+      letter-spacing: .4px; padding: 16px 24px 8px;
+    }
+    .photo-row { display: flex; gap: 10px; margin: 0 16px 12px; }
+    .photo-slot {
+      width: 88px; height: 88px; border-radius: 12px; background: var(--card);
+      border: 1.5px dashed var(--gray3); display: grid; place-items: center; color: var(--blue);
+      font-size: 13px; font-weight: 600; cursor: pointer;
+    }
+    .photo-slot.filled {
+      border: 0; background: linear-gradient(135deg, #5ac8fa, #007aff); color: #fff;
+    }
+    .photo-slot svg { width: 28px; height: 28px; stroke: currentColor; fill: none; stroke-width: 1.8; }
+    .host-dim { filter: brightness(.55); pointer-events: none; }
+    .sheet-backdrop {
+      position: absolute; inset: 0; background: rgba(0,0,0,.4); z-index: 20; display: none;
+    }
+    .sheet-backdrop.open { display: block; }
+    .sheet {
+      position: absolute; left: 0; right: 0; bottom: 0; z-index: 25;
+      background: var(--card); border-radius: 28px 28px 0 0;
+      max-height: 92%; display: none; flex-direction: column;
+      padding-bottom: 24px; box-shadow: 0 -8px 32px rgba(0,0,0,.25);
+    }
+    .sheet.open { display: flex; }
+    .grabber {
+      width: 32px; height: 4px; border-radius: 2px; background: var(--gray3);
+      margin: 12px auto 4px;
+    }
+    .sheet-head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 4px 8px 12px 20px;
+    }
+    .sheet-title { font-size: 20px; font-weight: 500; }
+    .sheet-body { overflow: auto; flex: 1; }
+    .preview {
+      margin: 0 16px; height: 240px; border-radius: 16px; position: relative;
+      background: linear-gradient(160deg, #3a4a5c 0%, #1c2834 55%, #2d3a2a 100%);
+      overflow: hidden;
+    }
+    .preview .cross {
+      position: absolute; left: 50%; top: 50%; width: 28px; height: 28px;
+      transform: translate(-50%,-50%);
+      border: 1.5px solid rgba(255,255,255,.85); border-radius: 50%;
+    }
+    .preview .cross::before, .preview .cross::after {
+      content: ""; position: absolute; background: rgba(255,255,255,.85);
+    }
+    .preview .cross::before { left: 50%; top: 4px; bottom: 4px; width: 1.5px; transform: translateX(-50%); }
+    .preview .cross::after { top: 50%; left: 4px; right: 4px; height: 1.5px; transform: translateY(-50%); }
+    .gim {
+      position: absolute; width: 22px; height: 22px; margin: -11px 0 0 -11px;
+      border-radius: 50% 50% 50% 0; background: var(--danger);
+      transform: rotate(-45deg); border: 2px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,.35);
+      cursor: grab; display: none;
+    }
+    .gim.show { display: block; }
+    .shutter-wrap { display: flex; justify-content: center; padding: 16px; }
+    .shutter {
+      width: 68px; height: 68px; border-radius: 50%; border: 4px solid #fff;
+      background: var(--blue); box-shadow: 0 0 0 3px var(--blue); cursor: pointer;
+      display: grid; place-items: center; color: #fff;
+    }
+    .shutter svg { width: 28px; height: 28px; stroke: currentColor; fill: none; stroke-width: 1.8; }
+    .card-group {
+      margin: 8px 16px; background: var(--surface); border-radius: 16px; overflow: hidden;
+    }
+    .row { padding: 14px 16px; border-bottom: 1px solid var(--sep); }
+    .row:last-child { border-bottom: 0; }
+    .row-sub { font-size: 13px; color: var(--muted); }
+    .row-title { font-size: 16px; font-weight: 500; margin-top: 2px; }
+    .banner {
+      margin: 0 16px 8px; padding: 12px 14px; border-radius: 12px;
+      background: rgba(255,149,0,.16); color: #9a4d00; font-size: 13px; display: none;
+    }
+    .banner.show { display: block; }
+    .map {
+      margin: 0 16px 8px; height: 200px; border-radius: 16px; position: relative;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px) 0 0 / 28px 28px,
+        linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px) 0 0 / 28px 28px,
+        linear-gradient(135deg, #6b8f71, #4a6d78);
+      display: none;
+    }
+    .map.show { display: block; }
+    .map-pin {
+      position: absolute; left: 52%; top: 48%; width: 20px; height: 20px;
+      margin: -10px 0 0 -10px; border-radius: 50% 50% 50% 0; background: var(--danger);
+      transform: rotate(-45deg); border: 2px solid #fff; cursor: grab;
+    }
+    .map-hint {
+      position: absolute; left: 8px; right: 8px; bottom: 8px;
+      background: rgba(28,28,30,.72); color: #fff; font-size: 12px;
+      padding: 6px 8px; border-radius: 8px; text-align: center;
+    }
+    .cta-col { padding: 8px 16px; display: flex; flex-direction: column; gap: 8px; }
+    .btn {
+      width: 100%; border: 0; border-radius: 24px; padding: 14px 16px;
+      font-size: 16px; font-weight: 500; cursor: pointer;
+    }
+    .btn-primary { background: var(--blue); color: #fff; }
+    .btn-primary:disabled { opacity: .45; cursor: not-allowed; }
+    .btn-secondary { background: transparent; color: var(--blue); border: 1px solid var(--sep); }
+    .toast {
+      position: absolute; left: 24px; right: 24px; bottom: 100px; z-index: 40;
+      background: #323232; color: #fff; font-size: 14px;
+      padding: 14px 16px; border-radius: 8px; opacity: 0; transition: opacity .2s;
+      pointer-events: none; text-align: center;
+    }
+    .toast.show { opacity: 1; }
+    .backdrop {
+      position: absolute; inset: 0; background: rgba(0,0,0,.45); display: none;
+      align-items: center; justify-content: center; padding: 28px; z-index: 50;
+    }
+    .backdrop.open { display: flex; }
+    .modal {
+      background: var(--card); border-radius: 28px; padding: 24px 20px 16px; width: 100%;
+      box-shadow: 0 8px 28px rgba(0,0,0,.25);
+    }
+    .modal h3 { font-size: 20px; margin: 0 0 10px; font-weight: 500; }
+    .modal p { font-size: 14px; color: var(--muted); margin: 0 0 18px; line-height: 1.4; }
+    .modal .btn { margin: 0 0 8px; }
+    .nav {
+      position: absolute; left: 0; right: 0; bottom: 0; height: 80px;
+      background: var(--nav); border-top: 1px solid var(--sep);
+      display: flex; padding: 8px 0 16px; z-index: 10;
+    }
+    .tab {
+      flex: 1; display: flex; flex-direction: column; align-items: center; gap: 2px;
+      font-size: 11px; color: var(--muted); background: none; border: 0; cursor: pointer;
+    }
+    .tab.on { color: var(--blue); }
+    .tab svg { width: 24px; height: 24px; fill: currentColor; stroke: none; }
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+  <div class="phone">
+    <div class="status-bar" aria-hidden="true"></div>
+
+    <div id="sc-field-reflect" data-des-id="HOST-FIELD-REFLECT" data-tab="field">
+      <div class="top-bar">
+        <button type="button" class="icon-btn" aria-label="Back">
+          <svg viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg>
+        </button>
+        <div class="top-title">Phản ánh hiện trường</div>
+      </div>
+      <div class="content">
+        <div class="section-label">Ảnh hiện trường</div>
+        <div class="photo-row">
+          <div class="photo-slot" id="host-slot" onclick="openCapture('photo-geo')" aria-label="Chụp ảnh kèm tọa độ">
+            <svg viewBox="0 0 24 24"><use href="#i-camera"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sheet-backdrop" id="sheet-backdrop"></div>
+
+    <div class="sheet" id="sheet-pgc" data-des-id="DES-MOB-PGC" role="dialog" aria-labelledby="sheet-title">
+      <div class="grabber" aria-hidden="true"></div>
+      <div class="sheet-head">
+        <div class="sheet-title" id="sheet-title">Chụp ảnh kèm tọa độ</div>
+        <button type="button" class="icon-btn" onclick="closeSheet()" aria-label="Đóng">
+          <svg viewBox="0 0 24 24"><use href="#i-xmark"/></svg>
+        </button>
+      </div>
+      <div class="sheet-body">
+        <div class="preview" id="capture-preview" aria-label="Xem trước ảnh">
+          <div class="cross" aria-hidden="true"></div>
+          <div class="gim" id="gim-pin" style="left:58%;top:42%;" title="Gim 1 điểm"></div>
+        </div>
+        <div class="shutter-wrap" id="shutter-wrap">
+          <button type="button" class="shutter" id="btn-shutter" onclick="onShutter()" aria-label="Chụp">
+            <svg viewBox="0 0 24 24"><use href="#i-camera"/></svg>
+          </button>
+        </div>
+        <div class="banner" id="banner" role="status"></div>
+        <div class="card-group" id="meta-card">
+          <div class="row">
+            <div class="row-sub">Key</div>
+            <div class="row-title" id="row-key">—</div>
+          </div>
+          <div class="row">
+            <div class="row-sub">Vị trí đã chốt</div>
+            <div class="row-title" id="row-photog">±6 m</div>
+          </div>
+          <div class="row">
+            <div class="row-sub">Khoảng cách ước lượng</div>
+            <div class="row-title" id="row-distance">—</div>
+          </div>
+          <div class="row">
+            <div class="row-sub">Tọa độ vật thể</div>
+            <div class="row-title" id="row-object">—</div>
+          </div>
+        </div>
+        <div class="map" id="map-confirm" data-des-id="MAP-HITL">
+          <div class="map-pin" id="map-pin"></div>
+          <div class="map-hint">Kéo pin để xác nhận vị trí vật thể</div>
+        </div>
+        <div class="cta-col">
+          <button type="button" class="btn btn-primary hidden" id="btn-confirm-map" onclick="onConfirmMap()">Xác nhận vị trí</button>
+          <button type="button" class="btn btn-primary" id="btn-use" onclick="onUse()" disabled>Dùng ảnh</button>
+          <button type="button" class="btn btn-secondary" id="btn-cancel" onclick="closeSheet()">Hủy</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast" role="status"></div>
+
+    <div class="backdrop" id="modal-gps" data-des-id="DES-MOB-GPS-DENY">
+      <div class="modal">
+        <h3>Định vị bị tắt</h3>
+        <p>Cần vị trí để chấm công / chấm điểm tuần. Mở Cài đặt → Quyền vị trí cho RMMS.</p>
+        <button type="button" class="btn btn-primary" onclick="copyGuide()">Sao chép hướng dẫn</button>
+        <button type="button" class="btn btn-secondary" onclick="closeModal()">Để sau</button>
+      </div>
+    </div>
+
+    <nav class="nav" aria-label="NavigationBar 5">
+      <button type="button" class="tab"><svg viewBox="0 0 24 24"><use href="#i-home"/></svg>Trang Chủ</button>
+      <button type="button" class="tab on"><svg viewBox="0 0 24 24"><use href="#i-mappin"/></svg>Tuần đường</button>
+      <button type="button" class="tab"><svg viewBox="0 0 24 24"><use href="#i-warning"/></svg>Vấn đề</button>
+      <button type="button" class="tab"><svg viewBox="0 0 24 24"><use href="#i-wrench"/></svg>Công việc</button>
+      <button type="button" class="tab"><svg viewBox="0 0 24 24"><use href="#i-person"/></svg>Tôi</button>
+    </nav>
+  </div>
+
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+    <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+    <symbol id="i-camera" viewBox="0 0 24 24"><path d="M4 8h3l2-2h6l2 2h3v11H4V8z"/><circle cx="12" cy="13" r="3.5"/></symbol>
+    <symbol id="i-xmark" viewBox="0 0 24 24"><path d="M6 6l12 12"/><path d="M18 6L6 18"/></symbol>
+    <symbol id="i-mappin" viewBox="0 0 24 24"><path d="M12 21s7-5.2 7-11a7 7 0 1 0-14 0c0 5.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.2"/></symbol>
+    <symbol id="i-warning" viewBox="0 0 24 24"><path d="M12 3.5 22 20H2L12 3.5z"/><path d="M12 10v5"/><path d="M12 17.5h.01"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11.5 12 4l8 7.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1v-8.5z"/></symbol>
+    <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.5 6.5a4 4 0 0 0-5.6 5.6L3 18v3h3l5.9-5.9a4 4 0 0 0 5.6-5.6l-2.5 2.5-2.5-2.5 2.5-2.5z"/></symbol>
+    <symbol id="i-person" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 19.5c1.8-3.2 4.2-4.5 7-4.5s5.2 1.3 7 4.5"/></symbol>
+  </svg>
+
+  <script>
+    /** Android dual · cùng flow VN · Material sheet/dialog · ?deny=1 · ?conf=45 · ?compass=1 · ?step=map · ?fail=1 */
+    const params = new URLSearchParams(location.search);
+    const gpsOk = !params.has('deny');
+    const confM = params.has('conf') ? Number(params.get('conf')) : 12;
+    const compassBad = params.has('compass');
+    const forceFail = params.has('fail');
+    let captured = false;
+    let gimmed = false;
+    let mapConfirmed = false;
+    let attachmentId = null;
+
+    const el = (id) => document.getElementById(id);
+
+    function toast(msg) {
+      const t = el('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2200);
+    }
+
+    function openCapture(mode) {
+      if (mode !== 'photo-geo') return;
+      if (!gpsOk) {
+        el('modal-gps').classList.add('open');
+        return;
+      }
+      el('sc-field-reflect').classList.add('host-dim');
+      el('sheet-backdrop').classList.add('open');
+      el('sheet-pgc').classList.add('open');
+      refreshBanners();
+      if (params.get('step') === 'map') {
+        onShutter();
+        onGim(58, 42);
+        showMap();
+      }
+    }
+
+    function closeSheet() {
+      el('sheet-pgc').classList.remove('open');
+      el('sheet-backdrop').classList.remove('open');
+      el('sc-field-reflect').classList.remove('host-dim');
+      attachmentId = null;
+      mapConfirmed = false;
+    }
+
+    function closeModal() { el('modal-gps').classList.remove('open'); }
+    function copyGuide() { toast('Đã sao chép hướng dẫn'); }
+
+    function refreshBanners() {
+      const b = el('banner');
+      if (confM > 30) {
+        b.textContent = 'Sai số ước lượng cao · kéo pin trên bản đồ';
+        b.classList.add('show');
+      } else if (compassBad) {
+        b.textContent = 'Đứng lệch xe · kéo pin trên bản đồ';
+        b.classList.add('show');
+      } else {
+        b.classList.remove('show');
+      }
+    }
+
+    function onShutter() {
+      if (!gpsOk) { el('modal-gps').classList.add('open'); return; }
+      captured = true;
+      el('shutter-wrap').classList.add('hidden');
+      el('gim-pin').classList.add('show');
+      el('row-photog').textContent = '±6 m';
+      toast('Đã chụp · chạm 1 điểm trên ảnh');
+    }
+
+    function onGim(xPct, yPct) {
+      if (!captured) return;
+      gimmed = true;
+      const pin = el('gim-pin');
+      pin.style.left = xPct + '%';
+      pin.style.top = yPct + '%';
+      pin.classList.add('show');
+      el('row-distance').textContent = '18 m';
+      el('row-object').textContent = 'Đề xuất · chờ xác nhận';
+      showMap();
+    }
+
+    function showMap() {
+      el('map-confirm').classList.add('show');
+      el('btn-confirm-map').classList.remove('hidden');
+      el('btn-use').disabled = true;
+    }
+
+    function onConfirmMap() {
+      mapConfirmed = true;
+      el('row-object').textContent = '10.7769, 106.7009';
+      attachmentId = 'a1b2c3d4';
+      el('row-key').textContent = attachmentId;
+      el('btn-use').disabled = false;
+      toast('Đã gắn tọa độ vật thể');
+    }
+
+    function onUse() {
+      if (!mapConfirmed || !attachmentId) return;
+      if (forceFail) { toast('Không tải được ảnh'); return; }
+      el('host-slot').classList.add('filled');
+      el('host-slot').textContent = 'Ảnh';
+      closeSheet();
+      toast('Đã gắn tọa độ vật thể');
+    }
+
+    el('capture-preview').addEventListener('click', (e) => {
+      if (!captured || mapConfirmed) return;
+      const r = e.currentTarget.getBoundingClientRect();
+      const x = ((e.clientX - r.left) / r.width) * 100;
+      const y = ((e.clientY - r.top) / r.height) * 100;
+      onGim(x, y);
+    });
+
+    (function enableDrag(id, onMove) {
+      const node = el(id);
+      let dragging = false;
+      node.addEventListener('pointerdown', (e) => { dragging = true; node.setPointerCapture(e.pointerId); });
+      node.addEventListener('pointerup', () => { dragging = false; });
+      node.addEventListener('pointermove', (e) => {
+        if (!dragging) return;
+        const parent = node.parentElement.getBoundingClientRect();
+        const x = ((e.clientX - parent.left) / parent.width) * 100;
+        const y = ((e.clientY - parent.top) / parent.height) * 100;
+        onMove(Math.max(5, Math.min(95, x)), Math.max(5, Math.min(95, y)));
+      });
+    })('gim-pin', (x, y) => { if (gimmed) onGim(x, y); });
+
+    (function enableMapDrag() {
+      const pin = el('map-pin');
+      let dragging = false;
+      pin.addEventListener('pointerdown', (e) => { dragging = true; pin.setPointerCapture(e.pointerId); e.stopPropagation(); });
+      pin.addEventListener('pointerup', () => { dragging = false; });
+      pin.addEventListener('pointermove', (e) => {
+        if (!dragging) return;
+        const parent = el('map-confirm').getBoundingClientRect();
+        pin.style.left = Math.max(8, Math.min(92, ((e.clientX - parent.left) / parent.width) * 100)) + '%';
+        pin.style.top = Math.max(8, Math.min(92, ((e.clientY - parent.top) / parent.height) * 100)) + '%';
+      });
+    })();
+
+    if (gpsOk) openCapture('photo-geo');
+    else el('modal-gps').classList.add('open');
+  </script>
+</body>
+</html>

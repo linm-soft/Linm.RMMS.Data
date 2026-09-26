@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>web-rmms-home — Home guest · quick · grid6 · wallet</title>
+  <style>
+    :root {
+      --primary: #0C84C0;
+      --header-start: #086A9A;
+      --header-end: #0C84C0;
+      --danger: #F03C30;
+      --surface: #F2F2F7;
+      --card: #FFFFFF;
+      --on-primary: #FFFFFF;
+      --on-surface: #1C1C1E;
+      --border: #C7C7CC;
+      --muted: #8E8E93;
+      --quick-bg: #FFF8E8;
+      --radius-card: 16px;
+      --radius-control: 12px;
+      --label: 13px;
+      --field: 16px;
+      --nav-title: 17px;
+      --control-h: 44px;
+      --phone-w: 430px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: #1a1a1e;
+      color: var(--on-surface);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px 8px 32px;
+    }
+    .board-nav {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      max-width: var(--phone-w); width: 100%; margin-bottom: 12px;
+    }
+    .board-nav button {
+      border: 1px solid var(--border); background: #2a2a2e; color: #eee;
+      border-radius: 8px; padding: 6px 10px; font-size: 12px; cursor: pointer;
+    }
+    .board-nav button.active { background: var(--primary); border-color: var(--primary); }
+    .meta {
+      max-width: var(--phone-w); width: 100%; color: #aaa; font-size: 12px; margin-bottom: 8px;
+    }
+    .phone {
+      width: min(100%, var(--phone-w));
+      min-height: 780px;
+      background: var(--surface);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,.45);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .topbar {
+      background: linear-gradient(135deg, var(--header-start), var(--header-end));
+      color: var(--on-primary);
+      min-height: 56px;
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 14px;
+    }
+    .topbar .title { flex: 1; font-size: var(--nav-title); font-weight: 600; }
+    .topbar .icon-btn {
+      width: 44px; height: 44px; border: 0; background: transparent;
+      color: inherit; font-size: 20px; cursor: pointer; border-radius: 12px;
+      position: relative;
+    }
+    .badge {
+      position: absolute; top: 6px; right: 4px;
+      min-width: 18px; height: 18px; padding: 0 5px;
+      background: var(--danger); color: #fff; font-size: 11px;
+      border-radius: 10px; display: flex; align-items: center; justify-content: center;
+      border: 1.5px solid var(--on-primary);
+    }
+    .content { flex: 1; overflow: auto; padding: 12px 14px 88px; }
+    .screen { display: none; }
+    .screen.active { display: block; }
+    .card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius-card); padding: 14px 16px; margin-bottom: 12px;
+    }
+    .card h3 { margin: 0 0 6px; font-size: 17px; }
+    .card p { margin: 0; color: var(--muted); font-size: var(--label); line-height: 1.45; }
+    .btn {
+      height: var(--control-h); border: 0; border-radius: var(--radius-control);
+      padding: 0 16px; font-size: var(--field); cursor: pointer;
+    }
+    .btn-primary { background: var(--primary); color: var(--on-primary); width: 100%; margin-top: 12px; }
+    .quick { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 12px; }
+    .chip {
+      background: var(--quick-bg); color: var(--primary); border: 1px solid #F5E6C8;
+      border-radius: 14px; padding: 10px 14px; font-size: var(--label); cursor: pointer;
+      min-height: 44px;
+    }
+    .section-label {
+      font-size: var(--label); color: var(--muted); margin: 4px 0 8px; font-weight: 600;
+    }
+    .grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 12px;
+    }
+    .tile {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius-card); padding: 12px 8px; text-align: center;
+      font-size: 12px; cursor: pointer; min-height: 96px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+    }
+    .tile .ico {
+      width: 48px; height: 48px; border-radius: 14px;
+      background: #E8F4FA; color: var(--primary);
+      display: flex; align-items: center; justify-content: center; font-size: 22px;
+    }
+    .wallet {
+      background: linear-gradient(135deg, #086A9A, #0C84C0);
+      color: var(--on-primary); border: 0; cursor: pointer;
+      border-radius: var(--radius-card); padding: 16px; margin-bottom: 12px;
+      display: flex; align-items: center; gap: 12px; width: 100%; text-align: left;
+    }
+    .wallet .ico {
+      width: 44px; height: 44px; border-radius: 12px; background: rgba(255,255,255,.2);
+      display: flex; align-items: center; justify-content: center; font-size: 20px;
+    }
+    .wallet .lbl { font-size: 15px; font-weight: 600; }
+    .wallet .sub { font-size: 12px; opacity: .85; margin-top: 2px; }
+    .toast {
+      position: absolute; left: 12px; right: 12px; bottom: 76px;
+      background: #2c2c2e; color: #fff; border-radius: 12px; padding: 10px 14px;
+      font-size: 13px; display: none; z-index: 30;
+    }
+    .toast.show { display: block; }
+    .tabbar-ghost {
+      position: absolute; left: 0; right: 0; bottom: 0;
+      height: 64px; background: var(--card); border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted); font-size: 11px; opacity: .7;
+    }
+    .profile-line { font-size: 13px; opacity: .9; }
+  </style>
+</head>
+<body>
+  <div class="board-nav" role="navigation" aria-label="prototype modes">
+    <button type="button" class="active" data-mode="guest" id="btnGuest">Guest HM-01</button>
+    <button type="button" data-mode="staff" id="btnStaff">Staff HM-02…06</button>
+  </div>
+  <div class="meta">
+    zones HM-00…06 · reviewUrl file prototype · peerStdUrl http://localhost:9301/web-rmms-home · TabBar = peer shell
+  </div>
+
+  <div class="phone" id="HM-00" data-zone="HM-00">
+    <!-- GUEST -->
+    <div class="screen active" id="screen-guest" data-zone="HM-01">
+      <div class="topbar">
+        <div class="title">RMMS Home</div>
+      </div>
+      <div class="content">
+        <div class="card" data-field="guestFaq">
+          <h3>FAQ</h3>
+          <p>home.guest.faq — Hướng dẫn dùng app tuần đường / sự cố / công việc trên thiết bị di động.</p>
+        </div>
+        <div class="card" data-field="guestPrivacy">
+          <h3>Quyền riêng tư</h3>
+          <p>home.guest.privacy — Dữ liệu phiên và vị trí chỉ dùng khi bạn đăng nhập và vào màn nghiệp vụ cần GPS.</p>
+        </div>
+        <button type="button" class="btn btn-primary" data-field="guestLoginCta" id="guestLogin">
+          Đăng nhập
+        </button>
+      </div>
+    </div>
+
+    <!-- STAFF -->
+    <div class="screen" id="screen-staff">
+      <div class="topbar">
+        <div class="title">
+          <div>Trang chủ</div>
+          <div class="profile-line" data-zone="HM-06" data-field="profileName">Nguyễn Văn A</div>
+        </div>
+        <button type="button" class="icon-btn" data-zone="HM-05" data-field="notifyBadge" id="notifyBtn" title="home.notify.badge">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9a6 6 0 1 1 12 0c0 4.5 1.5 6 2.2 6.8.4.4.1 1.2-.6 1.2H4.4c-.7 0-1-.8-.6-1.2C4.5 15 6 13.5 6 9z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M10 18.5a2 2 0 0 0 4 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          <span class="badge" id="badgeVal">3</span>
+        </button>
+      </div>
+      <div class="content">
+        <div class="section-label" data-zone="HM-02">Truy cập nhanh</div>
+        <div class="quick" data-zone="HM-02">
+          <button type="button" class="chip" data-field="qaPatrolPoint" data-nav="tab:field">Điểm tuần</button>
+          <button type="button" class="chip" data-field="qaIncidentNew" data-nav="/incident/new">Ghi sự cố</button>
+        </div>
+
+        <div class="section-label" data-zone="HM-03">Chức năng</div>
+        <div class="grid" data-zone="HM-03">
+          <button type="button" class="tile" data-field="gridSupervise" data-nav="/supervise">
+            <span class="ico">👁</span>Giám sát
+          </button>
+          <button type="button" class="tile" data-field="gridPatrolMap" data-nav="/patrol-map">
+            <span class="ico">🗺</span>Bản đồ tuần
+          </button>
+          <button type="button" class="tile" data-field="gridWork" data-nav="tab:work">
+            <span class="ico">🛠</span>Công việc
+          </button>
+          <button type="button" class="tile" data-field="gridIncident" data-nav="tab:incident">
+            <span class="ico">⚠</span>Sự cố
+          </button>
+          <button type="button" class="tile" data-field="gridAsset" data-nav="/asset">
+            <span class="ico">📦</span>Tài sản
+          </button>
+          <button type="button" class="tile" data-field="gridOffline" data-nav="/offline">
+            <span class="ico">☁</span>Offline
+          </button>
+        </div>
+
+        <button type="button" class="wallet" data-zone="HM-04" data-field="walletAsset" data-nav="/asset">
+          <span class="ico">👛</span>
+          <span>
+            <div class="lbl">Hồ sơ tài sản</div>
+            <div class="sub">home.wallet.asset → /asset</div>
+          </span>
+        </button>
+      </div>
+    </div>
+
+    <div class="tabbar-ghost">TabBar · peer web-rmms-shell (không thuộc Home)</div>
+    <div class="toast" id="toast"></div>
+  </div>
+
+  <script>
+    (function () {
+      var guest = document.getElementById("screen-guest");
+      var staff = document.getElementById("screen-staff");
+      var btnGuest = document.getElementById("btnGuest");
+      var btnStaff = document.getElementById("btnStaff");
+      var toast = document.getElementById("toast");
+      var toastTimer;
+
+      function showToast(msg) {
+        toast.textContent = msg;
+        toast.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () { toast.classList.remove("show"); }, 2200);
+      }
+
+      function setMode(mode) {
+        var isGuest = mode === "guest";
+        guest.classList.toggle("active", isGuest);
+        staff.classList.toggle("active", !isGuest);
+        btnGuest.classList.toggle("active", isGuest);
+        btnStaff.classList.toggle("active", !isGuest);
+      }
+
+      btnGuest.addEventListener("click", function () { setMode("guest"); });
+      btnStaff.addEventListener("click", function () { setMode("staff"); });
+
+      document.getElementById("guestLogin").addEventListener("click", function () {
+        showToast("nav → /login (shell overlay)");
+      });
+      document.getElementById("notifyBtn").addEventListener("click", function () {
+        showToast("nav → /ops · GET notification/overview");
+      });
+
+      document.querySelectorAll("[data-nav]").forEach(function (el) {
+        el.addEventListener("click", function () {
+          showToast("nav → " + el.getAttribute("data-nav"));
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

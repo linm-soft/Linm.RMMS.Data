@@ -1,0 +1,115 @@
+{
+  "url": "http://localhost:9301/web-rmms-asset-ai",
+  "capturedAt": "2026-09-25T16:11:11.592Z",
+  "method": "capture_aai · MFE /login · phone 430 · S0 detect · S1 Hub #tileAi · QA-20 click→detect · geo grant Acc≤30 · dismiss overlay · no kill worker",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "href": "http://localhost:9301/web-rmms-asset-ai",
+      "dump": {
+        "feature": "web-rmms-asset-ai",
+        "zones": [
+          "AA-00",
+          "AA-01",
+          "AA-02",
+          "AA-03",
+          "AA-04",
+          "AA-05",
+          "AA-06",
+          "AA-08",
+          "AA-09"
+        ],
+        "ids": [
+          "AA-00",
+          "AA-01",
+          "AA-02",
+          "AA-03",
+          "AA-04",
+          "AA-05",
+          "AA-06",
+          "AA-08",
+          "AA-09",
+          "navBack",
+          "aaTitle",
+          "photoAdd",
+          "gpsCard",
+          "gpsCoords",
+          "btnGps",
+          "fldRoute",
+          "fldTrip"
+        ],
+        "text": "RMMS · Mobile Home Shell chrome Ops inbox Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera AI detect Alias /asset/ai Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Camera AI Nhận diện tài sản từ ảnh hiện trường Ảnh hiện trường * chưa có + uploads init+PUT → ImageUrl · cấm mock:// Vị trí GPS * 21.028500 · 105.854200 · Acc 12 m Chỉ đọc · Acc ≤ 30 m · không gõ tay / không fake Làm mới GPS Tuyến đường * — Tìm tuyến — KHAC — Khác QL.1-LANGSON(BOT) — QL.1 - Lạng Sơn (BOT) QL.1-LANGSON — QL.1-LANGSON QL.1-HANOI — QL.1-HANOI QL.1-NINHBINH(BOT) — QL.1 - Ninh Bình (BOT) QL.1-NINHBINH — QL.1-NINHBINH QL.1-THANHHOA — QL.1-THANHHOA QL.1-TINHTHANHHOA-KM315+492 — QL.1-TINHTHANHHOA-KM315+492 QL.1-THANHHOA(BOT) — QL.1 - Thanh Hóa (BOT) QL.1-TINHNGHEAN-KM382+500-KM402+330 — QL.1-TINHNGHEAN-KM382+500-KM402+3",
+        "href": "http://localhost:9301/web-rmms-asset-ai"
+      }
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "href": "http://localhost:9301/web-rmms-asset-hub",
+      "dump": {
+        "feature": "web-rmms-asset-hub",
+        "zones": [
+          "AH-00",
+          "AH-01",
+          "AH-02",
+          "AH-03",
+          "AH-04",
+          "AH-05",
+          "AH-06"
+        ],
+        "ids": [
+          "navBack",
+          "tileAi",
+          "walletTitle"
+        ],
+        "text": "RMMS · Mobile Home Shell chrome Ops inbox Asset hub Hub tài sản Alias /asset Asset KCHT Asset list Asset collect Asset AI + HITL Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Hub tài sản Hồ sơ tài sản KHAC — Khác 45 loại tài sản TRA CỨU H Hạng mục assetHub.tile.kcht L Danh sách assetHub.tile.list THU THẬP + Thêm thủ công assetHub.tile.collect AI Camera AI assetHub.tile.ai QUẢN LÝ ↻ Cập nhật / bớt assetHub.tile.adjust ⌖ Xem bản đồ ›",
+        "href": "http://localhost:9301/web-rmms-asset-hub"
+      }
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "href": "http://localhost:9301/web-rmms-asset-ai",
+      "dump": {
+        "feature": "web-rmms-asset-ai",
+        "zones": [
+          "AA-00",
+          "AA-01",
+          "AA-02",
+          "AA-03",
+          "AA-04",
+          "AA-05",
+          "AA-06",
+          "AA-08",
+          "AA-09"
+        ],
+        "ids": [
+          "AA-00",
+          "AA-01",
+          "AA-02",
+          "AA-03",
+          "AA-04",
+          "AA-05",
+          "AA-06",
+          "AA-08",
+          "AA-09",
+          "navBack",
+          "aaTitle",
+          "photoAdd",
+          "gpsCard",
+          "gpsCoords",
+          "btnGps",
+          "fldRoute",
+          "fldTrip"
+        ],
+        "text": "RMMS · Mobile Home Shell chrome Ops inbox Asset hub Hub tài sản Alias /asset Asset KCHT Asset list Asset collect Asset AI + HITL Camera AI detect Alias /asset/ai Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Camera AI Nhận diện tài sản từ ảnh hiện trường Ảnh hiện trường * chưa có + uploads init+PUT → ImageUrl · cấm mock:// Vị trí GPS * 21.028500 · 105.854200 · Acc 12 m Chỉ đọc · Acc ≤ 30 m · không gõ tay / không fake Làm mới GPS Tuyến đường * — Tìm tuyến — KHAC — Khác QL.1-LANGSON(BOT) — QL.1 - Lạng Sơn (BOT) QL.1-LANGSON — QL.1-LANGSON QL.1-HANOI — QL.1-HANOI QL.1-NINHBINH(BOT) — QL.1 - Ninh Bình (BOT) QL.1-NINHBINH — QL.1-NINHBINH QL.1-THANHHOA — QL.1-THANHHOA QL.1-TINHTHANHHOA-KM315+492 — QL.1-TINHTHANHHOA-KM315+492 QL.1-THANHHOA(BOT) — QL.1 - Thanh Hóa (BOT) QL.1-TINHNGHEAN-KM382+500-KM402+330 — QL.1-TIN",
+        "href": "http://localhost:9301/web-rmms-asset-ai"
+      }
+    }
+  ],
+  "ok": true
+}

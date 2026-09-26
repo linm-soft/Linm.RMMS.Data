@@ -1,0 +1,78 @@
+{
+  "url": "http://localhost:9301/web-rmms-ops",
+  "capturedAt": "2026-09-25T12:52:38.395Z",
+  "method": "capture_ops · phone 430 · S0 guest OP-* · S1 staff inbox · QA-20 SH-02 · playwright junction",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "href": "http://localhost:9301/web-rmms-ops",
+      "dump": {
+        "feature": "web-rmms-ops",
+        "mode": null,
+        "zones": [
+          "OP-00",
+          "OP-01",
+          "OP-02",
+          "OP-06"
+        ],
+        "fields": [],
+        "text": "RMMS · Mobile Home Shell chrome Home → Field Incident Work Ops → Ops inbox Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile DS Dev Standalone Developer RMMS Mobile ‹ Thông báo ↻ Đăng nhập để xem thông báo. Đăng nhập",
+        "href": "http://localhost:9301/web-rmms-ops"
+      }
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "href": "http://localhost:9301/web-rmms-ops",
+      "dump": {
+        "feature": "web-rmms-ops",
+        "mode": null,
+        "zones": [
+          "OP-00",
+          "OP-01",
+          "OP-02",
+          "OP-03",
+          "OP-04"
+        ],
+        "fields": [
+          "rowTitle",
+          "rowSentAt",
+          "rowPriority",
+          "rowType",
+          "rowUnread"
+        ],
+        "text": "RMMS · Mobile Home Shell chrome Home → Field Incident Work Ops → Ops inbox Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile DS Dev Standalone Developer RMMS Mobile ‹ Thông báo ↻ Thông báo chấm công mediumcanh-bao18:00 16/09/2026 Đã đọc — hoàn thành cắt cỏ lowcong-viec21:00 12/09/2026 Công văn điều hành tuần mediumchi-dao17:00 10/09/2026 Công việc bảo trì mới mediumcong-viec14:00 08/09/2026 Cảnh báo sạt taluy QL.15 highcanh-bao16:00 05/09/2026 Chỉ đạo xử lý ổ gà QL.1 highchi-dao15:00 03/09/2026",
+        "href": "http://localhost:9301/web-rmms-ops"
+      }
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "href": "http://localhost:9301/web-rmms-home",
+      "dump": {
+        "feature": "web-rmms-home",
+        "mode": null,
+        "zones": [
+          "SH-00",
+          "HM-00",
+          "HM-01",
+          "HM-02",
+          "SH-01",
+          "SH-02"
+        ],
+        "fields": [
+          "guestFaq",
+          "guestPrivacy",
+          "guestLoginCta"
+        ],
+        "text": "RMMS · Mobile Home Shell chrome Home → Field Incident Work Ops → Ops inbox Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile DS Dev Standalone Developer RMMS Mobile ‹ Trang chủ 🔔 FAQ Hướng dẫn dùng app tuần đường / sự cố / công việc trên thiết bị di động. Quyền riêng tư Dữ liệu phiên và vị trí chỉ dùng khi bạn đăng nhập và vào màn nghiệp vụ cần GPS. Đăng nhập 🏠 Trang chủ 🛣 Hiện trường ⚠️ Sự cố 🧰 Công việc Đăng nhập Hủy Tài khoản Mật khẩu Đăng nhập",
+        "href": "http://localhost:9301/web-rmms-home"
+      }
+    }
+  ],
+  "ok": true
+}

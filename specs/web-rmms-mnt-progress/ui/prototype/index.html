@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>web-rmms-mnt-progress — Tiến độ công việc</title>
+  <style>
+    :root {
+      --primary: #0C84C0;
+      --deep: #086A9A;
+      --success: #3CB448;
+      --warn: #FCB43C;
+      --danger: #F03C30;
+      --surface: #F2F2F7;
+      --card: #FFFFFF;
+      --on-surface: #1C1C1E;
+      --muted: #8E8E93;
+      --sep: #E5E5EA;
+      --warn-bg: #FFF6E5;
+      --ok-bg: #E8F8EC;
+      --info-bg: #E8F4FA;
+      --danger-bg: #FDECEA;
+      --label: 13px;
+      --field: 16px;
+      --nav-title: 17px;
+      --phone-w: 430px;
+      --control-h: 44px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: #1a1a1e;
+      color: var(--on-surface);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px 8px 32px;
+    }
+    .meta {
+      max-width: var(--phone-w); width: 100%;
+      color: #aaa; font-size: 12px; margin-bottom: 8px; line-height: 1.4;
+    }
+    .board-nav {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      max-width: var(--phone-w); width: 100%; margin-bottom: 12px;
+    }
+    .board-nav a, .board-nav button {
+      border: 1px solid #555; background: #2a2a2e; color: #eee;
+      border-radius: 8px; padding: 6px 10px; font-size: 12px;
+      cursor: pointer; text-decoration: none;
+    }
+    .board-nav a.active, .board-nav button.active {
+      background: var(--primary); border-color: var(--primary);
+    }
+    .phone {
+      width: min(100%, var(--phone-w));
+      min-height: 780px;
+      background: var(--surface);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,.45);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .topbar {
+      background: linear-gradient(135deg, var(--deep), var(--primary));
+      color: #fff;
+      min-height: 56px;
+      display: flex; align-items: center; gap: 4px;
+      padding: 10px 8px;
+    }
+    .icon-btn {
+      width: var(--control-h); height: var(--control-h);
+      border: 0; background: transparent; color: inherit;
+      border-radius: 12px; cursor: pointer;
+      display: grid; place-items: center; font-size: 22px;
+    }
+    .nav-title {
+      flex: 1; font-size: var(--nav-title); font-weight: 600;
+      text-align: center; padding-right: 44px;
+    }
+    .content { flex: 1; overflow: auto; padding: 12px 16px 24px; }
+    .banner {
+      display: none;
+      margin-bottom: 12px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      font-size: var(--label);
+      line-height: 1.4;
+      background: var(--danger-bg);
+      color: #8B1A12;
+      border: 1px solid #f5c2c0;
+    }
+    .banner.show { display: block; }
+    .card {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 14px 16px;
+      margin-bottom: 12px;
+      box-shadow: 0 1px 2px rgba(0,0,0,.06);
+    }
+    .wo-code {
+      font-size: var(--label); color: var(--deep); font-weight: 700;
+    }
+    .wo-title {
+      font-size: 17px; font-weight: 700; margin-top: 4px;
+    }
+    .wo-meta {
+      font-size: var(--label); color: var(--muted); margin-top: 6px; line-height: 1.4;
+    }
+    .badges { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+    .badge {
+      font-size: 11px; padding: 3px 8px; border-radius: 8px;
+      background: #E5E5EA; color: #3a3a3c; font-weight: 600;
+    }
+    .badge.info { background: var(--info-bg); color: var(--deep); }
+    .badge.warn { background: var(--warn-bg); color: #B86B00; }
+    .badge.ok { background: var(--ok-bg); color: #1B7A2E; }
+    .badge.wt { background: #E8F4FA; color: var(--deep); }
+    .field-label {
+      display: block; font-size: var(--label); color: var(--muted);
+      margin-bottom: 6px; font-weight: 600;
+    }
+    .pct-row {
+      display: flex; align-items: center; gap: 12px;
+    }
+    .pct-value {
+      min-width: 48px; text-align: right;
+      font-size: 20px; font-weight: 700; color: var(--deep);
+    }
+    input[type="range"] {
+      flex: 1; accent-color: var(--primary); height: 28px;
+    }
+    textarea, input[type="text"] {
+      width: 100%;
+      min-height: var(--control-h);
+      border: 1px solid var(--sep);
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-size: var(--field);
+      font-family: inherit;
+      background: #fff;
+      color: var(--on-surface);
+      resize: vertical;
+    }
+    textarea { min-height: 88px; }
+    .gps-chip {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: var(--ok-bg);
+      border: 1px solid #b7e4c0;
+      font-size: var(--label);
+      line-height: 1.35;
+    }
+    .gps-chip.deny {
+      background: var(--danger-bg);
+      border-color: #f5c2c0;
+    }
+    .gps-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--success); flex: 0 0 10px;
+    }
+    .gps-chip.deny .gps-dot { background: var(--danger); }
+    .photo-row {
+      display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px;
+    }
+    .photo-slot {
+      width: 72px; height: 72px; border-radius: 12px;
+      background: var(--surface); border: 1px dashed var(--sep);
+      display: grid; place-items: center;
+      color: var(--muted); font-size: 28px; flex: 0 0 72px;
+      cursor: pointer;
+    }
+    .photo-slot.has {
+      border-style: solid; background: linear-gradient(135deg, #cfe8f5, #e8f4fa);
+      color: var(--deep); font-size: 12px; font-weight: 600;
+    }
+    .actions {
+      display: flex; flex-direction: column; gap: 10px;
+      margin-top: 8px; padding-bottom: 8px;
+    }
+    .btn {
+      width: 100%;
+      min-height: var(--control-h);
+      border: 0; border-radius: 12px;
+      font-size: var(--field); font-weight: 600;
+      font-family: inherit; cursor: pointer;
+    }
+    .btn.primary { background: var(--primary); color: #fff; }
+    .btn.secondary {
+      background: var(--card); color: var(--deep);
+      border: 1.5px solid var(--primary);
+    }
+    .btn:disabled {
+      opacity: .45; cursor: not-allowed;
+    }
+    .hint {
+      font-size: 11px; color: var(--muted); margin-top: 8px; line-height: 1.35;
+    }
+    .toast {
+      position: absolute; left: 16px; right: 16px; bottom: 20px;
+      background: #323232; color: #fff; border-radius: 12px;
+      padding: 12px 14px; font-size: var(--label);
+      display: none; z-index: 5;
+    }
+    .toast.show { display: block; }
+  </style>
+</head>
+<body>
+  <div class="meta">
+    feature <code>web-rmms-mnt-progress</code> · zone <code>WORK-P</code> · phone 430 ·
+    reviewUrl prototype · GPS gate cả 2 nút · MediaUrl = cấm body
+  </div>
+  <div class="board-nav" id="boardNav">
+    <a href="?" data-q="">Default (GPS ok)</a>
+    <a href="?deny=1" data-q="deny">GPS deny</a>
+    <a href="?pct=100" data-q="pct">% = 100</a>
+    <a href="?done=1" data-q="done">Post-complete</a>
+  </div>
+
+  <div class="phone" id="sc-mnt-progress" data-zone="WORK-P">
+    <div class="topbar">
+      <button class="icon-btn" type="button" aria-label="back" title="→ WORK-L">‹</button>
+      <div class="nav-title">Cập nhật trạng thái</div>
+    </div>
+    <div class="content">
+      <div class="banner" id="gpsBanner">
+        Không có vị trí GPS. Bật định vị để Cập nhật / Hoàn thành. Không dùng tọa độ giả.
+      </div>
+
+      <div class="card" data-field="woHeader">
+        <div class="wo-code" data-field="woCode">WO-2026-0142</div>
+        <div class="wo-title" data-field="woTitle">Sửa ổ gà Km12+350 QL1</div>
+        <div class="wo-meta">
+          <span data-field="woRouteName">Tuyến QL1 — đoạn 12</span>
+          · <span data-field="woWorkType">Sửa chữa</span>
+        </div>
+        <div class="badges">
+          <span class="badge info" id="statusBadge" data-field="woStatus">Đang xử lý</span>
+          <span class="badge wt">repair</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <label class="field-label" for="pct">Tiến độ (%)</label>
+        <div class="pct-row">
+          <input id="pct" type="range" min="0" max="100" value="45" data-field="progressPercent" />
+          <div class="pct-value"><span id="pctVal">45</span>%</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <label class="field-label" for="note">Ghi chú</label>
+        <textarea id="note" data-field="note" placeholder="Mô tả tiến độ…">Đã vá lớp mặt · chờ lăn.</textarea>
+        <p class="hint" id="gpsNoteHint">GPS sẽ được ghi vào Note khi gửi (lat/lng/acc) — không gửi field body riêng.</p>
+      </div>
+
+      <div class="card">
+        <div class="field-label">Định vị</div>
+        <div class="gps-chip" id="gpsChip" data-field="gps">
+          <span class="gps-dot"></span>
+          <div>
+            <div id="gpsTitle"><strong>GPS OK</strong> · acc ±8 m</div>
+            <div id="gpsCoords" style="color:var(--muted)">21.0285, 105.8542</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="field-label">Ảnh (local · không MediaUrl body)</div>
+        <div class="photo-row" data-field="photoLocalIds">
+          <div class="photo-slot has">1</div>
+          <div class="photo-slot">+</div>
+        </div>
+        <p class="hint">P1 preview local only · persist media = SA Signed (GAP).</p>
+      </div>
+
+      <div class="actions">
+        <button class="btn primary" type="button" id="btnProgress" data-field="submitProgress">
+          Cập nhật tiến độ
+        </button>
+        <button class="btn secondary" type="button" id="btnComplete" data-field="submitComplete">
+          Hoàn thành
+        </button>
+      </div>
+    </div>
+    <div class="toast" id="toast"></div>
+  </div>
+
+  <script>
+    (function () {
+      var params = new URLSearchParams(location.search);
+      var deny = params.has("deny");
+      var done = params.has("done");
+      var pctQ = params.get("pct");
+      var pct = pctQ != null ? Math.min(100, Math.max(0, parseInt(pctQ, 10) || 0)) : (done ? 100 : 45);
+
+      var range = document.getElementById("pct");
+      var pctVal = document.getElementById("pctVal");
+      var btnP = document.getElementById("btnProgress");
+      var btnC = document.getElementById("btnComplete");
+      var chip = document.getElementById("gpsChip");
+      var banner = document.getElementById("gpsBanner");
+      var badge = document.getElementById("statusBadge");
+      var toast = document.getElementById("toast");
+      var note = document.getElementById("note");
+
+      range.value = String(pct);
+      pctVal.textContent = String(pct);
+
+      range.addEventListener("input", function () {
+        pctVal.textContent = range.value;
+      });
+
+      function showToast(msg) {
+        toast.textContent = msg;
+        toast.classList.add("show");
+        setTimeout(function () { toast.classList.remove("show"); }, 2200);
+      }
+
+      if (deny) {
+        chip.classList.add("deny");
+        document.getElementById("gpsTitle").innerHTML = "<strong>GPS bị từ chối</strong>";
+        document.getElementById("gpsCoords").textContent = "Không có tọa độ · cấm fake";
+        banner.classList.add("show");
+        btnP.disabled = true;
+        btnC.disabled = true;
+      } else {
+        note.value = note.value + "\n[GPS 21.0285,105.8542 ±8m]";
+      }
+
+      if (done) {
+        badge.textContent = "Đã hoàn thành";
+        badge.className = "badge ok";
+        btnP.disabled = true;
+        btnC.disabled = true;
+        showToast("Công việc đã hoàn thành (RO demo board)");
+      } else if (!deny && pct === 100) {
+        badge.textContent = "Đang xử lý";
+      }
+
+      btnP.addEventListener("click", function () {
+        if (btnP.disabled) return;
+        showToast("POST …/progress · ProgressPercent=" + range.value);
+      });
+      btnC.addEventListener("click", function () {
+        if (btnC.disabled) return;
+        showToast("POST …/complete · Note + GPS suffix");
+      });
+
+      document.querySelectorAll("#boardNav a").forEach(function (a) {
+        var q = a.getAttribute("data-q");
+        if ((q === "deny" && deny) || (q === "pct" && pctQ === "100") || (q === "done" && done) || (q === "" && !deny && !done && pctQ == null)) {
+          a.classList.add("active");
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

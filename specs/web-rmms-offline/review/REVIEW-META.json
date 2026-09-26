@@ -1,0 +1,12 @@
+{
+  "feature": "web-rmms-offline",
+  "status": "confirmed",
+  "review_confirm": "approve",
+  "verdict": "PASS",
+  "autoApprove": true,
+  "taskId": "task_9ae8b812",
+  "contentHash": "sha256:01ede8e7ff03f06a19e291b345d60faa95a7af42a43bae00efb799458a643cd1",
+  "skillVersion": "2026.09.05.03",
+  "writtenAt": "2026-09-25T17:55:00.000Z",
+  "fix_gaps": []
+}

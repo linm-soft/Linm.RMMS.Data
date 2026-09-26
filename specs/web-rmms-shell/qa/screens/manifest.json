@@ -1,0 +1,26 @@
+{
+  "url": "http://localhost:9301/web-rmms-shell",
+  "capturedAt": "2026-09-25T11:44:29.300Z",
+  "method": "capture_shell · MFE /login · phone 430 · S0 SH-00/03 · S1 SH-04 · QA-20 SH-02 · playwright junction",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "href": "http://localhost:9301/web-rmms-shell"
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "href": "http://localhost:9301/web-rmms-shell/field"
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "href": "http://localhost:9301/web-rmms-shell"
+    }
+  ],
+  "ok": true
+}

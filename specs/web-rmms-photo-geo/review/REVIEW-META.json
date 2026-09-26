@@ -1,0 +1,10 @@
+{
+  "feature": "web-rmms-photo-geo",
+  "status": "confirmed",
+  "review_confirm": "approve",
+  "verdict": "PASS",
+  "taskId": "task_db972d1e",
+  "contentHash": "sha256:2282c3b64ab8701681f5edbc548b5cf1a2221159d9ffb779dfe03d186010f7a4",
+  "writtenAt": "2026-09-26T07:18:12.363Z",
+  "autoApprove": true
+}

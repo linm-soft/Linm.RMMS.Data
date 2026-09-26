@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>web-rmms-vis-capture — VIS · DES-MOB-VIS-CAPTURE</title>
+  <style>
+    :root {
+      --primary: #0C84C0;
+      --header-start: #086A9A;
+      --header-end: #0C84C0;
+      --warn: #FCB43C;
+      --danger: #F03C30;
+      --surface: #F2F2F7;
+      --card: #FFFFFF;
+      --on-primary: #FFFFFF;
+      --on-surface: #1C1C1E;
+      --border: #C7C7CC;
+      --muted: #8E8E93;
+      --sep: rgba(60,60,67,.29);
+      --radius-card: 16px;
+      --label: 13px;
+      --field: 16px;
+      --nav-title: 17px;
+      --phone-w: 430px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: #1a1a1e;
+      color: var(--on-surface);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px 8px 32px;
+    }
+    .meta {
+      max-width: var(--phone-w); width: 100%;
+      color: #aaa; font-size: 11px; margin-bottom: 8px; text-align: center;
+    }
+    .board-nav {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      max-width: var(--phone-w); width: 100%; margin-bottom: 12px;
+    }
+    .board-nav button {
+      border: 1px solid var(--border); background: #2a2a2e; color: #eee;
+      border-radius: 8px; padding: 6px 10px; font-size: 12px; cursor: pointer;
+    }
+    .board-nav button.active { background: var(--primary); border-color: var(--primary); }
+    .phone {
+      width: min(100%, var(--phone-w));
+      min-height: 780px;
+      background: var(--surface);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,.45);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .topbar {
+      background: linear-gradient(135deg, var(--header-start), var(--header-end));
+      color: var(--on-primary);
+      min-height: 56px;
+      display: flex; align-items: center; gap: 4px;
+      padding: 8px 10px;
+    }
+    .topbar .title { flex: 1; font-size: var(--nav-title); font-weight: 600; }
+    .icon-btn {
+      width: 44px; height: 44px; border: 0; background: transparent;
+      color: inherit; display: grid; place-items: center; cursor: pointer; border-radius: 12px;
+    }
+    .icon-btn svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .content { flex: 1; overflow: auto; padding-bottom: 96px; }
+    .section-label {
+      font-size: var(--label); color: var(--muted); text-transform: uppercase;
+      letter-spacing: 0.04em; padding: 12px 16px 6px;
+    }
+    .photo-row { display: flex; gap: 10px; margin: 0 16px 12px; overflow-x: auto; }
+    .photo-slot {
+      width: 88px; height: 88px; flex-shrink: 0; border-radius: 12px; background: var(--card);
+      border: 1.5px dashed var(--border); display: grid; place-items: center; color: var(--primary);
+      font-size: 13px; font-weight: 600; cursor: pointer;
+    }
+    .photo-slot.filled {
+      border: 0; background: linear-gradient(135deg, #5ac8fa, #007aff); color: #fff;
+    }
+    .photo-slot svg { width: 28px; height: 28px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .card-group {
+      margin: 0 16px 8px; background: var(--card); border-radius: var(--radius-card); overflow: hidden;
+    }
+    .row {
+      padding: 12px 16px; border-bottom: 1px solid var(--sep);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .row:last-child { border-bottom: 0; }
+    .row-body { flex: 1; min-width: 0; }
+    .row-sub { font-size: var(--label); color: var(--muted); }
+    .row-title { font-size: var(--field); font-weight: 600; margin-top: 2px; }
+    .badge {
+      font-size: 12px; font-weight: 650; padding: 4px 8px; border-radius: 8px; flex-shrink: 0;
+    }
+    .badge.orange { background: rgba(252,180,60,.22); color: #c93400; }
+    .badge.hidden { display: none; }
+    .cta-col { padding: 8px 16px 24px; display: flex; flex-direction: column; gap: 8px; }
+    .btn {
+      width: 100%; border: 0; border-radius: 24px; padding: 14px 16px;
+      font-size: 16px; font-weight: 600; cursor: pointer; min-height: 44px;
+    }
+    .btn-primary { background: var(--primary); color: var(--on-primary); }
+    .btn-primary:disabled, .btn-detect:disabled { opacity: .45; cursor: not-allowed; }
+    .btn-detect { background: var(--card); color: var(--primary); border: 1.5px solid var(--primary); }
+    .btn-secondary { background: var(--card); color: var(--on-surface); }
+    .toast {
+      position: absolute; left: 24px; right: 24px; bottom: 120px; z-index: 20;
+      background: #323232; color: #fff; font-size: 14px;
+      padding: 14px 16px; border-radius: 8px; opacity: 0; transition: opacity .2s;
+      pointer-events: none; text-align: center;
+    }
+    .toast.show { opacity: 1; }
+    .backdrop {
+      position: absolute; inset: 0; background: rgba(0,0,0,.45); display: none;
+      align-items: center; justify-content: center; padding: 28px; z-index: 30;
+    }
+    .backdrop.open { display: flex; }
+    .modal {
+      background: var(--card); border-radius: 28px; padding: 24px 20px 16px; width: 100%;
+    }
+    .modal h3 { font-size: 17px; margin: 0 0 8px; font-weight: 600; }
+    .modal p { font-size: 13px; color: var(--muted); margin: 0 0 16px; line-height: 1.4; }
+    .modal .btn { margin: 0 0 8px; }
+    .nav {
+      position: absolute; left: 0; right: 0; bottom: 0; height: 80px;
+      background: var(--card); border-top: 1px solid var(--sep);
+      display: flex; padding: 8px 0 16px; z-index: 10;
+    }
+    .nav button {
+      flex: 1; display: flex; flex-direction: column; align-items: center; gap: 2px;
+      font-size: 11px; color: var(--muted); background: none; border: 0; cursor: pointer;
+    }
+    .nav button.on { color: var(--primary); }
+    .nav svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+</head>
+<body>
+  <div class="meta">
+    web-rmms-vis-capture · #sc-vis-capture · DES-MOB-VIS-CAPTURE · Android 1-1 (section + Skip) · TITLE-01 «Nhận diện sự cố»
+  </div>
+  <div class="board-nav" role="toolbar" aria-label="Prototype modes">
+    <button type="button" data-mode="ok" class="active">Default</button>
+    <button type="button" data-mode="deny">GPS deny</button>
+    <button type="button" data-mode="acc">Acc &gt;30</button>
+    <button type="button" data-mode="nophoto">No photo</button>
+    <button type="button" data-mode="nosession">No session</button>
+    <button type="button" data-mode="error">Error</button>
+  </div>
+
+  <div class="phone">
+    <!-- #sc-vis-capture · DES-MOB-VIS-CAPTURE · dual parity · đóng GAP-MOB-VIS-DUAL-01 -->
+    <div class="screen active" id="sc-vis-capture" data-des-id="DES-MOB-VIS-CAPTURE" data-tab="incident">
+      <div class="topbar">
+        <button type="button" class="icon-btn" id="navBack" onclick="goBack()" aria-label="Quay lại">
+          <svg viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg>
+        </button>
+        <div class="title" id="screenTitle">Nhận diện sự cố</div>
+      </div>
+      <div class="content">
+        <div class="section-label" id="sectionPhoto">Ảnh hiện trường</div>
+        <div class="photo-row" id="photos" data-control="PhotoRow">
+          <div class="photo-slot filled" id="slot-filled">Ảnh</div>
+          <div class="photo-slot" id="slot-camera" onclick="openCapture('vision')" aria-label="Chụp ảnh">
+            <svg viewBox="0 0 24 24"><use href="#i-camera"/></svg>
+          </div>
+        </div>
+        <div class="card-group" id="detect-card">
+          <div class="row" id="rowLoc" data-control="ListRow">
+            <div class="row-body">
+              <div class="row-sub">Vị trí đã chốt</div>
+              <div class="row-title" id="row-loc">QL.1 · Km 1556+050</div>
+            </div>
+          </div>
+          <div class="row" id="rowAcc" data-control="ListRow">
+            <div class="row-body">
+              <div class="row-sub">Sai số định vị</div>
+              <div class="row-title" id="row-acc">±4 m</div>
+            </div>
+          </div>
+          <div class="row" id="rowClass" data-control="ListRow">
+            <div class="row-body">
+              <div class="row-sub">Phân loại</div>
+              <div class="row-title" id="row-class">Nứt dọc</div>
+            </div>
+          </div>
+          <div class="row" id="rowSev" data-control="ListRow+Badge">
+            <div class="row-body">
+              <div class="row-sub">Mức</div>
+              <div class="row-title" id="row-sev">Cao</div>
+            </div>
+            <span class="badge orange" id="badge-sev">Cao</span>
+          </div>
+        </div>
+        <div class="cta-col">
+          <button type="button" class="btn btn-detect" id="detect" onclick="onDetect()">Nhận diện</button>
+          <button type="button" class="btn btn-primary" id="btnAttach" onclick="onAttach()">Gắn sự cố</button>
+          <button type="button" class="btn btn-secondary" id="btnSkip" onclick="onSkip()">Bỏ qua</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast" role="status"></div>
+
+    <div class="backdrop" id="modal-gps" data-des-id="DES-MOB-GPS-DENY">
+      <div class="modal">
+        <h3>Định vị bị tắt</h3>
+        <p>Cần vị trí để nhận diện và gắn sự cố. Mở Cài đặt → Quyền vị trí cho RMMS.</p>
+        <button type="button" class="btn btn-primary" onclick="copyGuide()">Mở Cài đặt</button>
+        <button type="button" class="btn btn-secondary" onclick="closeModal()">Để sau</button>
+      </div>
+    </div>
+
+    <nav class="nav" id="tabBar" data-des-id="DES-MOB-TABBAR" aria-label="Shell NavigationBar 5">
+      <button type="button" data-tab="home"><svg viewBox="0 0 24 24"><use href="#i-home"/></svg>Trang Chủ</button>
+      <button type="button" data-tab="field"><svg viewBox="0 0 24 24"><use href="#i-mappin"/></svg>Tuần đường</button>
+      <button type="button" class="on" data-tab="incident"><svg viewBox="0 0 24 24"><use href="#i-warning"/></svg>Vấn đề</button>
+      <button type="button" data-tab="work"><svg viewBox="0 0 24 24"><use href="#i-wrench"/></svg>Công việc</button>
+      <button type="button" data-tab="me"><svg viewBox="0 0 24 24"><use href="#i-person"/></svg>Tôi</button>
+    </nav>
+  </div>
+
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+    <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+    <symbol id="i-camera" viewBox="0 0 24 24"><path d="M4 8h3l2-2h6l2 2h3v11H4V8z"/><circle cx="12" cy="13" r="3.5"/></symbol>
+    <symbol id="i-mappin" viewBox="0 0 24 24"><path d="M12 21s7-5.2 7-11a7 7 0 1 0-14 0c0 5.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.2"/></symbol>
+    <symbol id="i-warning" viewBox="0 0 24 24"><path d="M12 3.5 22 20H2L12 3.5z"/><path d="M12 10v5"/><path d="M12 17.5h.01"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11.5 12 4l8 7.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1v-8.5z"/></symbol>
+    <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.5 6.5a4 4 0 0 0-5.6 5.6L3 18v3h3l5.9-5.9a4 4 0 0 0 5.6-5.6l-2.5 2.5-2.5-2.5 2.5-2.5z"/></symbol>
+    <symbol id="i-person" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 19.5c1.8-3.2 4.2-4.5 7-4.5s5.2 1.3 7 4.5"/></symbol>
+  </svg>
+
+  <script>
+    /** Modes: ?gps=deny|?deny=1 · ?acc=35 · ?nophoto=1 · ?nosession=1 · ?error=1 */
+    const params = new URLSearchParams(location.search);
+    let gpsOk = !(params.has('deny') || params.get('gps') === 'deny');
+    let accuracyM = params.has('acc') ? Number(params.get('acc')) : 4;
+    let hasPhoto = !params.has('nophoto');
+    let hasDetect = hasPhoto && gpsOk && accuracyM <= 30;
+    let noSession = params.has('nosession');
+    let forceError = params.has('error');
+
+    function toast(msg) {
+      const el = document.getElementById('toast');
+      el.textContent = msg;
+      el.classList.add('show');
+      setTimeout(() => el.classList.remove('show'), 2400);
+    }
+
+    function setDetectResult(ok) {
+      if (ok) {
+        document.getElementById('row-class').textContent = 'Nứt dọc';
+        document.getElementById('row-sev').textContent = 'Cao';
+        document.getElementById('badge-sev').classList.remove('hidden');
+        document.getElementById('btnAttach').disabled = false;
+        hasDetect = true;
+      } else {
+        document.getElementById('row-class').textContent = '—';
+        document.getElementById('row-sev').textContent = '—';
+        document.getElementById('badge-sev').classList.add('hidden');
+        document.getElementById('btnAttach').disabled = true;
+        hasDetect = false;
+      }
+    }
+
+    function applyGate() {
+      document.getElementById('row-acc').textContent = '±' + accuracyM + ' m';
+      if (noSession) {
+        document.getElementById('row-loc').textContent = 'GPS · chưa có ca';
+      }
+      if (!hasPhoto) {
+        document.getElementById('slot-filled').classList.remove('filled');
+        document.getElementById('slot-filled').textContent = '';
+      } else {
+        document.getElementById('slot-filled').classList.add('filled');
+        document.getElementById('slot-filled').textContent = 'Ảnh';
+      }
+      document.getElementById('detect').disabled = !gpsOk || accuracyM > 30 || !hasPhoto;
+      if (!gpsOk) {
+        document.getElementById('row-loc').textContent = '— · chưa chốt';
+        setDetectResult(false);
+        document.getElementById('modal-gps').classList.add('open');
+        return;
+      }
+      if (accuracyM > 30) {
+        setDetectResult(false);
+        toast('Sai số định vị quá lớn · cần ≤ 30 m trước khi nhận diện');
+        return;
+      }
+      if (!hasPhoto) {
+        setDetectResult(false);
+        return;
+      }
+      if (forceError) {
+        setDetectResult(false);
+        toast('Không nhận diện được · thử lại');
+        return;
+      }
+      setDetectResult(true);
+    }
+
+    applyGate();
+
+    document.querySelectorAll('.board-nav button').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const mode = btn.getAttribute('data-mode');
+        const q = new URLSearchParams();
+        if (mode === 'deny') q.set('gps', 'deny');
+        if (mode === 'acc') q.set('acc', '45');
+        if (mode === 'nophoto') q.set('nophoto', '1');
+        if (mode === 'nosession') q.set('nosession', '1');
+        if (mode === 'error') q.set('error', '1');
+        location.search = q.toString() ? '?' + q.toString() : '';
+      });
+    });
+
+    function openCapture() {
+      if (!gpsOk) {
+        document.getElementById('modal-gps').classList.add('open');
+        return;
+      }
+      if (accuracyM > 30) {
+        toast('Sai số định vị quá lớn · cần ≤ 30 m trước khi nhận diện');
+        return;
+      }
+      hasPhoto = true;
+      document.getElementById('slot-filled').classList.add('filled');
+      document.getElementById('slot-filled').textContent = 'Ảnh';
+      document.getElementById('detect').disabled = false;
+      toast('Đã chụp · sẵn sàng nhận diện');
+    }
+
+    function onDetect() {
+      if (!gpsOk) {
+        document.getElementById('modal-gps').classList.add('open');
+        return;
+      }
+      if (accuracyM > 30 || !hasPhoto) {
+        toast('Sai số định vị quá lớn · cần ≤ 30 m trước khi nhận diện');
+        return;
+      }
+      if (forceError) {
+        setDetectResult(false);
+        toast('Không nhận diện được · thử lại');
+        return;
+      }
+      setDetectResult(true);
+      toast('Đã nhận diện');
+    }
+
+    function onAttach() {
+      if (!gpsOk) {
+        document.getElementById('modal-gps').classList.add('open');
+        return;
+      }
+      if (accuracyM > 30 || !hasDetect || !hasPhoto) {
+        toast('Sai số định vị quá lớn · cần ≤ 30 m trước khi nhận diện');
+        return;
+      }
+      toast('Đã gắn sự cố');
+    }
+
+    function onSkip() {
+      toast('← Vấn đề (incident-list)');
+    }
+
+    function copyGuide() {
+      closeModal();
+      toast('Đã sao chép: Cài đặt → Quyền vị trí');
+    }
+
+    function closeModal() {
+      document.getElementById('modal-gps').classList.remove('open');
+    }
+
+    function goBack() {
+      toast('← Vấn đề (incident-list)');
+    }
+  </script>
+</body>
+</html>

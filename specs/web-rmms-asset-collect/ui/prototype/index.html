@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>web-rmms-asset-collect — Thêm tài sản thủ công</title>
+  <style>
+    :root {
+      --primary: #0C84C0;
+      --header-start: #086A9A;
+      --header-end: #0C84C0;
+      --danger: #F03C30;
+      --success: #34C759;
+      --surface: #F2F2F7;
+      --card: #FFFFFF;
+      --on-primary: #FFFFFF;
+      --on-surface: #1C1C1E;
+      --border: #C7C7CC;
+      --muted: #8E8E93;
+      --radius-card: 16px;
+      --radius-control: 12px;
+      --label: 13px;
+      --field: 16px;
+      --nav-title: 17px;
+      --control-h: 44px;
+      --phone-w: 430px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: #1a1a1e;
+      color: var(--on-surface);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px 8px 32px;
+    }
+    .board-nav {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      max-width: var(--phone-w); width: 100%; margin-bottom: 12px;
+    }
+    .board-nav button {
+      border: 1px solid var(--border); background: #2a2a2e; color: #eee;
+      border-radius: 8px; padding: 6px 10px; font-size: 12px; cursor: pointer;
+    }
+    .board-nav button.active { background: var(--primary); border-color: var(--primary); }
+    .meta {
+      max-width: var(--phone-w); width: 100%; color: #aaa; font-size: 12px; margin-bottom: 8px;
+    }
+    .phone {
+      width: min(100%, var(--phone-w));
+      min-height: 820px;
+      background: var(--surface);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,.45);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .topbar {
+      background: linear-gradient(135deg, var(--header-start), var(--header-end));
+      color: var(--on-primary);
+      min-height: 56px;
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 14px;
+    }
+    .topbar .icon-btn {
+      width: 44px; height: 44px; border: 0; background: transparent;
+      color: inherit; font-size: 22px; cursor: pointer; border-radius: 12px;
+    }
+    .topbar .title { flex: 1; font-size: var(--nav-title); font-weight: 600; }
+    .content { flex: 1; overflow: auto; padding: 12px 14px 20px; }
+    .field { margin-bottom: 14px; }
+    .field label {
+      display: block; font-size: var(--label); color: var(--muted);
+      margin-bottom: 6px; font-weight: 500;
+    }
+    .field label .req { color: var(--danger); }
+    .control {
+      width: 100%; min-height: var(--control-h);
+      border: 1px solid var(--border); border-radius: var(--radius-control);
+      background: var(--card); padding: 10px 12px;
+      font-size: var(--field); color: var(--on-surface);
+    }
+    .control:disabled, .control[readonly] {
+      background: #EFEFF4; color: #3A3A3C;
+    }
+    .control.invalid { border-color: var(--danger); }
+    .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .gps-card {
+      background: var(--card); border-radius: var(--radius-card);
+      border: 1px solid var(--border); padding: 12px;
+    }
+    .gps-card .coords {
+      font-size: var(--field); font-variant-numeric: tabular-nums;
+      margin: 8px 0;
+    }
+    .gps-card .hint { font-size: 12px; color: var(--muted); }
+    .gps-card.warn { border-color: var(--danger); background: #FFF5F5; }
+    .gps-actions { display: flex; gap: 8px; margin-top: 8px; }
+    .btn {
+      min-height: var(--control-h); border-radius: var(--radius-control);
+      border: 0; font-size: 16px; font-weight: 600; cursor: pointer;
+      padding: 0 16px;
+    }
+    .btn-primary { background: var(--primary); color: var(--on-primary); flex: 1; }
+    .btn-primary:disabled { background: #A0A0A5; cursor: not-allowed; }
+    .btn-ghost {
+      background: transparent; color: var(--primary);
+      border: 1px solid var(--primary);
+    }
+    .btn-secondary {
+      background: var(--card); color: var(--on-surface);
+      border: 1px solid var(--border); width: 100%; margin-top: 8px;
+    }
+    .photo-row {
+      display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
+    }
+    .photo-thumb {
+      width: 72px; height: 72px; border-radius: 12px;
+      background: #D1D1D6; display: flex; align-items: center; justify-content: center;
+      color: var(--muted); font-size: 12px; border: 1px dashed var(--border);
+    }
+    .photo-add {
+      width: 72px; height: 72px; border-radius: 12px;
+      border: 1px dashed var(--primary); color: var(--primary);
+      background: #E8F6FC; display: flex; align-items: center; justify-content: center;
+      font-size: 28px; cursor: pointer;
+    }
+    .actions { padding: 12px 14px 20px; background: var(--surface); }
+    .toast {
+      position: absolute; left: 16px; right: 16px; bottom: 88px;
+      background: #1C1C1E; color: #fff; border-radius: 12px;
+      padding: 12px 14px; font-size: 14px; display: none;
+      box-shadow: 0 8px 24px rgba(0,0,0,.35); z-index: 5;
+    }
+    .toast.show { display: block; }
+    .toast.ok { border-left: 4px solid var(--success); }
+    .toast.err { border-left: 4px solid var(--danger); }
+    .banner {
+      background: #FFF3CD; color: #664D03; border-radius: 10px;
+      padding: 8px 10px; font-size: 12px; margin-bottom: 12px; display: none;
+    }
+    .banner.show { display: block; }
+    .leave-modal {
+      display: none; position: absolute; inset: 0; background: rgba(0,0,0,.45);
+      align-items: center; justify-content: center; z-index: 10; padding: 24px;
+    }
+    .leave-modal.show { display: flex; }
+    .leave-card {
+      background: var(--card); border-radius: 16px; padding: 18px; width: 100%;
+    }
+    .leave-card h3 { margin: 0 0 8px; font-size: 17px; }
+    .leave-card p { margin: 0 0 16px; font-size: 14px; color: var(--muted); }
+    .leave-actions { display: flex; gap: 8px; }
+    .leave-actions .btn { flex: 1; }
+    .zone-tag {
+      position: absolute; top: 4px; right: 6px; font-size: 9px;
+      color: #999; opacity: .7; pointer-events: none;
+    }
+    .zone { position: relative; }
+  </style>
+</head>
+<body>
+  <div class="board-nav" role="tablist" aria-label="Board states">
+    <button type="button" class="active" data-board="gps-ok">GPS OK</button>
+    <button type="button" data-board="gps-deny">GPS deny</button>
+    <button type="button" data-board="missing">Missing required</button>
+    <button type="button" data-board="success">Success toast</button>
+  </div>
+  <div class="meta">
+    zones AC-00…10 · reviewUrl prototype · peerStdUrl http://localhost:9301/web-rmms-asset-collect · DES-GRID N/A
+  </div>
+
+  <div class="phone" id="AC-00" data-zone="AC-00">
+    <header class="topbar zone" id="AC-01" data-zone="AC-01">
+      <span class="zone-tag">AC-01</span>
+      <button type="button" class="icon-btn" id="btnBack" aria-label="Back">‹</button>
+      <div class="title">Thêm tài sản thủ công</div>
+    </header>
+
+    <div class="content">
+      <div class="banner" id="gpsBanner">GPS bị từ chối — không thể lưu. Bật định vị để tiếp tục.</div>
+
+      <div class="field zone" id="AC-02" data-zone="AC-02">
+        <span class="zone-tag">AC-02</span>
+        <label for="fldName">Tên tài sản <span class="req">*</span></label>
+        <input class="control" id="fldName" type="text" value="Biển báo KM12+300" autocomplete="off" />
+      </div>
+
+      <div class="field zone" id="AC-03" data-zone="AC-03">
+        <span class="zone-tag">AC-03</span>
+        <label for="fldType">Loại tài sản <span class="req">*</span></label>
+        <select class="control" id="fldType">
+          <option value="">— Chọn loại —</option>
+          <option value="bien-bao" selected>Biển báo</option>
+          <option value="lan-can">Lan can</option>
+          <option value="coc-tieu">Cọc tiêu</option>
+        </select>
+      </div>
+
+      <div class="field zone" id="AC-04" data-zone="AC-04">
+        <span class="zone-tag">AC-04</span>
+        <label for="fldRoute">Tuyến đường <span class="req">*</span></label>
+        <select class="control" id="fldRoute">
+          <option value="">— Tìm tuyến —</option>
+          <option value="QL1" selected>QL.1A — Hà Nội → TP.HCM</option>
+          <option value="CT01">CT.01 — Cao tốc Bắc Nam</option>
+        </select>
+        <div class="hint" style="font-size:12px;color:var(--muted);margin-top:4px">Prefill từ phiên tuần tra (sessions) nếu có</div>
+      </div>
+
+      <div class="row-2 zone" id="AC-05" data-zone="AC-05">
+        <span class="zone-tag">AC-05</span>
+        <div class="field">
+          <label for="fldKmFrom">Km từ <span class="req">*</span></label>
+          <input class="control" id="fldKmFrom" type="text" inputmode="decimal" value="12.300" />
+        </div>
+        <div class="field">
+          <label for="fldKmTo">Km đến</label>
+          <input class="control" id="fldKmTo" type="text" inputmode="decimal" value="" placeholder="Tuỳ chọn" />
+        </div>
+      </div>
+
+      <div class="field zone" id="AC-06" data-zone="AC-06">
+        <span class="zone-tag">AC-06</span>
+        <label for="fldStatus">Tình trạng <span class="req">*</span></label>
+        <select class="control" id="fldStatus">
+          <option value="tot" selected>Tốt</option>
+          <option value="hu-hong">Hư hỏng</option>
+          <option value="mat">Mất</option>
+        </select>
+      </div>
+
+      <div class="field zone" id="AC-07" data-zone="AC-07">
+        <span class="zone-tag">AC-07</span>
+        <label>Vị trí GPS <span class="req">*</span></label>
+        <div class="gps-card" id="gpsCard">
+          <div class="coords" id="gpsCoords">21.028511 · 105.804817</div>
+          <div class="hint" id="gpsHint">Chỉ đọc · lấy từ thiết bị · không gõ tay</div>
+          <div class="gps-actions">
+            <button type="button" class="btn btn-ghost" id="btnGps">Làm mới GPS</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="field zone" id="AC-08" data-zone="AC-08">
+        <span class="zone-tag">AC-08</span>
+        <label>Ảnh (thiết bị)</label>
+        <div class="photo-row">
+          <div class="photo-thumb">local</div>
+          <div class="photo-add" title="Camera local · media GAP" role="button" aria-label="Thêm ảnh">+</div>
+        </div>
+        <div class="hint" style="font-size:12px;color:var(--muted);margin-top:6px">P1 local only · GAP media upload</div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button type="button" class="btn btn-primary zone" id="AC-09" data-zone="AC-09">Lưu</button>
+      <button type="button" class="btn btn-secondary zone" id="AC-10" data-zone="AC-10">Hủy</button>
+    </div>
+
+    <div class="toast" id="toast" role="status"></div>
+
+    <div class="leave-modal" id="leaveModal">
+      <div class="leave-card">
+        <h3>Huỷ thay đổi?</h3>
+        <p>Form chưa lưu. Quay lại Hub sẽ mất dữ liệu nhập.</p>
+        <div class="leave-actions">
+          <button type="button" class="btn btn-ghost" id="leaveStay">Ở lại</button>
+          <button type="button" class="btn btn-primary" id="leaveGo">Về Hub</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var board = "gps-ok";
+      var gpsOk = true;
+      var dirty = true;
+      var els = {
+        name: document.getElementById("fldName"),
+        type: document.getElementById("fldType"),
+        route: document.getElementById("fldRoute"),
+        kmFrom: document.getElementById("fldKmFrom"),
+        status: document.getElementById("fldStatus"),
+        submit: document.getElementById("AC-09"),
+        toast: document.getElementById("toast"),
+        banner: document.getElementById("gpsBanner"),
+        gpsCard: document.getElementById("gpsCard"),
+        gpsCoords: document.getElementById("gpsCoords"),
+        gpsHint: document.getElementById("gpsHint"),
+        leave: document.getElementById("leaveModal")
+      };
+
+      function showToast(msg, ok) {
+        els.toast.textContent = msg;
+        els.toast.className = "toast show " + (ok ? "ok" : "err");
+        clearTimeout(showToast._t);
+        showToast._t = setTimeout(function () {
+          els.toast.className = "toast";
+        }, 2800);
+      }
+
+      function requiredOk() {
+        return !!(els.name.value.trim() && els.type.value && els.route.value &&
+          els.kmFrom.value.trim() && els.status.value);
+      }
+
+      function applyBoard(id) {
+        board = id;
+        document.querySelectorAll(".board-nav button").forEach(function (b) {
+          b.classList.toggle("active", b.getAttribute("data-board") === id);
+        });
+        [els.name, els.type, els.route, els.kmFrom].forEach(function (el) {
+          el.classList.remove("invalid");
+        });
+        els.banner.classList.remove("show");
+        els.gpsCard.classList.remove("warn");
+        els.toast.className = "toast";
+
+        if (id === "gps-ok") {
+          gpsOk = true;
+          els.name.value = "Biển báo KM12+300";
+          els.type.value = "bien-bao";
+          els.route.value = "QL1";
+          els.kmFrom.value = "12.300";
+          els.status.value = "tot";
+          els.gpsCoords.textContent = "21.028511 · 105.804817";
+          els.gpsHint.textContent = "Chỉ đọc · lấy từ thiết bị · không gõ tay";
+        } else if (id === "gps-deny") {
+          gpsOk = false;
+          els.gpsCoords.textContent = "— · —";
+          els.gpsHint.textContent = "Quyền định vị bị từ chối";
+          els.gpsCard.classList.add("warn");
+          els.banner.classList.add("show");
+        } else if (id === "missing") {
+          gpsOk = true;
+          els.name.value = "";
+          els.type.value = "";
+          els.route.value = "";
+          els.kmFrom.value = "";
+          els.gpsCoords.textContent = "21.028511 · 105.804817";
+          els.gpsHint.textContent = "Chỉ đọc · lấy từ thiết bị · không gõ tay";
+          [els.name, els.type, els.route, els.kmFrom].forEach(function (el) {
+            el.classList.add("invalid");
+          });
+        } else if (id === "success") {
+          gpsOk = true;
+          els.name.value = "Biển báo KM12+300";
+          els.type.value = "bien-bao";
+          els.route.value = "QL1";
+          els.kmFrom.value = "12.300";
+          els.status.value = "tot";
+          els.gpsCoords.textContent = "21.028511 · 105.804817";
+          showToast("Đã tạo · Code TS-20260925-001", true);
+        }
+        syncSubmit();
+      }
+
+      function syncSubmit() {
+        els.submit.disabled = !(gpsOk && requiredOk());
+      }
+
+      document.querySelectorAll(".board-nav button").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          applyBoard(btn.getAttribute("data-board"));
+        });
+      });
+
+      ["fldName", "fldType", "fldRoute", "fldKmFrom", "fldStatus"].forEach(function (id) {
+        document.getElementById(id).addEventListener("input", syncSubmit);
+        document.getElementById(id).addEventListener("change", syncSubmit);
+      });
+
+      document.getElementById("btnGps").addEventListener("click", function () {
+        if (board === "gps-deny") {
+          showToast("GPS deny — không fake / không gõ tay", false);
+          return;
+        }
+        els.gpsCoords.textContent = "21.028" + Math.floor(Math.random() * 900) +
+          " · 105.804" + Math.floor(Math.random() * 900);
+        gpsOk = true;
+        els.banner.classList.remove("show");
+        els.gpsCard.classList.remove("warn");
+        syncSubmit();
+      });
+
+      els.submit.addEventListener("click", function () {
+        if (els.submit.disabled) {
+          if (!gpsOk) showToast("Cần GPS hợp lệ để lưu", false);
+          else showToast("Điền đủ trường bắt buộc", false);
+          return;
+        }
+        showToast("Đã tạo · Code TS-20260925-001 · POST road-assets Source=manual", true);
+      });
+
+      function openLeave() {
+        if (!dirty) return;
+        els.leave.classList.add("show");
+      }
+      document.getElementById("btnBack").addEventListener("click", openLeave);
+      document.getElementById("AC-10").addEventListener("click", openLeave);
+      document.getElementById("leaveStay").addEventListener("click", function () {
+        els.leave.classList.remove("show");
+      });
+      document.getElementById("leaveGo").addEventListener("click", function () {
+        els.leave.classList.remove("show");
+        showToast("→ Hub /asset (peer)", true);
+      });
+
+      applyBoard("gps-ok");
+    })();
+  </script>
+</body>
+</html>

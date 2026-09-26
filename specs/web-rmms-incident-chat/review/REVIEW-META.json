@@ -1,0 +1,17 @@
+{
+  "feature": "web-rmms-incident-chat",
+  "status": "confirmed",
+  "review_confirm": "approve",
+  "writtenAt": "2026-09-26T10:01:28.289Z",
+  "taskId": "task_3eb555c0",
+  "skillVersion": "2026.09.05.03",
+  "contentHash": "sha256:6f74282b807da7f2cc1aa57ac64848cd1d75ff3383c0f432eaad7bea53fff80e",
+  "autoApprove": true,
+  "p0": 0,
+  "gates": {
+    "QUERY": "PASS",
+    "SEC": "PASS",
+    "UI-FN": "PASS",
+    "BE-FN": "PASS"
+  }
+}

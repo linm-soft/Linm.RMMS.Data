@@ -1,0 +1,89 @@
+{
+  "feature": "web-rmms-attendance",
+  "cases": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "href": "http://localhost:9301/web-rmms-attendance",
+      "dump": {
+        "feature": "web-rmms-attendance",
+        "zones": [
+          "ATT-00",
+          "ATT-01",
+          "ATT-08"
+        ],
+        "des": [
+          "DES-MOB-ATT"
+        ],
+        "ids": [
+          "ATT-00"
+        ],
+        "text": "RMMS · Mobile Home Shell chrome Ops inbox Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Chấm công (attendance) Hub ATT-01 Report Alias /field/attendance Asset adjust GIS map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Chấm công Đăng nhập để dùng Chấm công. Đăng nhập",
+        "href": "http://localhost:9301/web-rmms-attendance",
+        "guestGate": true
+      }
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "href": "http://localhost:9301/web-rmms-home",
+      "dump": {
+        "feature": "web-rmms-home",
+        "zones": [
+          "SH-00",
+          "HM-00",
+          "HM-01",
+          "HM-02",
+          "SH-01",
+          "SH-02"
+        ],
+        "des": [],
+        "ids": [
+          "loginUser",
+          "loginPass",
+          "loginSubmit",
+          "guestLogin"
+        ],
+        "text": "RMMS · Mobile Home Shell chrome Home → Field Incident Work Ops → Ops inbox Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Chấm công (attendance) Asset adjust GIS map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Trang chủ FAQ Hướng dẫn dùng app tuần đường / sự cố / công việc trên thiết bị di động. Quyền riêng tư Dữ liệu phiên và vị trí chỉ dùng khi bạn đăng nhập và vào màn nghiệp vụ cần GPS. Đăng nhập 🏠 Trang chủ 🛣 Hiện trường ⚠️ Sự cố 🧰 Công việc Đăng nhập Hủy Tài khoản Mật khẩu Đăng nhập",
+        "href": "http://localhost:9301/web-rmms-home",
+        "guestGate": false
+      }
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "href": "http://localhost:9301/web-rmms-attendance",
+      "dump": {
+        "feature": "web-rmms-attendance",
+        "zones": [
+          "ATT-00",
+          "ATT-08",
+          "ATT-01",
+          "ATT-02",
+          "ATT-03"
+        ],
+        "des": [
+          "DES-MOB-ATT",
+          "btnCheckIn",
+          "btnReport"
+        ],
+        "ids": [
+          "ATT-00",
+          "att-hero",
+          "hero-status",
+          "hero-gps",
+          "btn-checkin",
+          "btn-report"
+        ],
+        "text": "RMMS · Mobile Home Shell chrome Ops inbox Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Chấm công (attendance) Hub ATT-01 Report Alias /field/attendance Asset adjust GIS map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Chấm công Chấm công theo định vị Chưa chấm vào Vị trí: 21.02850 · 105.85420 · ±12 m Ca · QL.1-LANGSON(BOT) Chấm vào Báo cáo 7 ngày gần đây Chưa có lịch sử chấm công",
+        "href": "http://localhost:9301/web-rmms-attendance",
+        "guestGate": true
+      }
+    }
+  ],
+  "pass": true,
+  "at": "2026-09-25T18:54:58.415Z"
+}

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>web-rmms-ops — Thông báo inbox</title>
+  <style>
+    :root {
+      --primary: #0C84C0;
+      --header-start: #086A9A;
+      --header-end: #0C84C0;
+      --danger: #F03C30;
+      --surface: #F2F2F7;
+      --card: #FFFFFF;
+      --on-primary: #FFFFFF;
+      --on-surface: #1C1C1E;
+      --border: #C7C7CC;
+      --muted: #8E8E93;
+      --unread-bg: #E8F4FA;
+      --radius-card: 16px;
+      --radius-control: 12px;
+      --label: 13px;
+      --field: 16px;
+      --nav-title: 17px;
+      --control-h: 44px;
+      --phone-w: 430px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: #1a1a1e;
+      color: var(--on-surface);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px 8px 32px;
+    }
+    .board-nav {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      max-width: var(--phone-w); width: 100%; margin-bottom: 12px;
+    }
+    .board-nav button {
+      border: 1px solid var(--border); background: #2a2a2e; color: #eee;
+      border-radius: 8px; padding: 6px 10px; font-size: 12px; cursor: pointer;
+    }
+    .board-nav button.active { background: var(--primary); border-color: var(--primary); }
+    .meta {
+      max-width: var(--phone-w); width: 100%; color: #aaa; font-size: 12px; margin-bottom: 8px;
+    }
+    .phone {
+      width: min(100%, var(--phone-w));
+      min-height: 780px;
+      background: var(--surface);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,.45);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .topbar {
+      background: linear-gradient(135deg, var(--header-start), var(--header-end));
+      color: var(--on-primary);
+      min-height: 56px;
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 14px;
+    }
+    .topbar .icon-btn {
+      width: 44px; height: 44px; border: 0; background: transparent;
+      color: inherit; font-size: 22px; cursor: pointer; border-radius: 12px;
+    }
+    .topbar .title { flex: 1; font-size: var(--nav-title); font-weight: 600; }
+    .content { flex: 1; overflow: auto; padding: 8px 0 24px; }
+    .list { list-style: none; margin: 0; padding: 0; }
+    .row {
+      display: flex; gap: 12px; align-items: flex-start;
+      background: var(--card); border-bottom: 1px solid var(--border);
+      padding: 14px 16px; min-height: 72px; cursor: pointer;
+    }
+    .row.unread { background: var(--unread-bg); }
+    .row .dot {
+      width: 10px; height: 10px; border-radius: 50%; margin-top: 6px; flex-shrink: 0;
+      background: transparent;
+    }
+    .row.unread .dot { background: var(--primary); }
+    .row .body { flex: 1; min-width: 0; }
+    .row .title-text {
+      font-size: var(--field); font-weight: 600; line-height: 1.35;
+      margin: 0 0 4px; color: var(--on-surface);
+    }
+    .row.read .title-text { font-weight: 500; color: #3a3a3c; }
+    .row .meta-line {
+      font-size: var(--label); color: var(--muted);
+      display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+    }
+    .pill {
+      font-size: 11px; padding: 2px 8px; border-radius: 8px;
+      background: #E5E5EA; color: #3a3a3c;
+    }
+    .pill.hi { background: #FDECEA; color: var(--danger); }
+    .empty {
+      display: none; text-align: center; padding: 64px 24px; color: var(--muted);
+    }
+    .empty.show { display: block; }
+    .empty h2 { margin: 0 0 8px; font-size: 17px; color: var(--on-surface); font-weight: 600; }
+    .empty p { margin: 0; font-size: var(--label); line-height: 1.45; }
+    .toast {
+      position: absolute; left: 16px; right: 16px; bottom: 24px;
+      background: #1C1C1E; color: #fff; border-radius: 12px;
+      padding: 12px 14px; font-size: var(--label); display: none; z-index: 5;
+    }
+    .toast.show { display: block; }
+    .note {
+      max-width: var(--phone-w); width: 100%; margin-top: 12px;
+      color: #888; font-size: 11px; line-height: 1.4;
+    }
+  </style>
+</head>
+<body>
+  <!-- OP-00 phone frame · zones OP-01…05 · OP-06 badge = peer Home -->
+  <div class="board-nav" role="navigation" aria-label="Prototype boards">
+    <button type="button" class="active" data-board="list" id="btnList">OP-01 List</button>
+    <button type="button" data-board="empty" id="btnEmpty">OP-04 Empty</button>
+    <button type="button" data-board="error" id="btnError">Error toast</button>
+  </div>
+  <div class="meta">
+    feature=<code>web-rmms-ops</code> · route=<code>/ops</code> · peerStdUrl=<code>http://localhost:9301/web-rmms-ops</code><br />
+    reviewUrl=file:///D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-ops/ui/prototype/index.html · DES-GRID N/A · GPS none
+  </div>
+
+  <div class="phone" id="OP-00" data-zone="OP-00" aria-label="Phone frame max 430">
+    <!-- OP-05 chrome -->
+    <header class="topbar" data-zone="OP-05" id="OP-05">
+      <button type="button" class="icon-btn" id="navBack" data-field="chrome.back" title="ops.inbox.back" aria-label="Back">‹</button>
+      <div class="title" data-field="chrome.title" id="titleBar">Thông báo</div>
+      <button type="button" class="icon-btn" id="refresh" data-field="chrome.refresh" title="ops.inbox.refresh" aria-label="Refresh"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M20 4.5V9h-4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </header>
+
+    <main class="content">
+      <!-- OP-01 inbox list · OP-02 rows · OP-03 mark-read -->
+      <ul class="list" id="inboxList" data-zone="OP-01" data-field="inbox.items" aria-label="ops.inbox.list"></ul>
+      <!-- OP-04 empty -->
+      <div class="empty" id="emptyState" data-zone="OP-04" data-field="empty.state">
+        <h2>Không có thông báo</h2>
+        <p>Hộp thư trống. Nhấn làm mới để tải lại.</p>
+      </div>
+    </main>
+    <div class="toast" id="toast" role="status"></div>
+  </div>
+
+  <p class="note">
+    Prototype labels VN for review only — Dev wires <code>useFormOptions()</code> / copy keys <code>ops.*</code>.
+    Row tap unread → POST mark-read only · <strong>no</strong> detail page P1 · badge OP-06 = peer Home.
+    Cấm ERP.* · filter bar · DES-GRID · GPS trên /ops · invent me*/compose.
+  </p>
+
+  <script>
+    (function () {
+      var seed = [
+        { id: "n1", title: "Phiên tuần tra #PT-2401 cần xác nhận", sentAt: "25/09 14:20", unread: true, priority: "Cao", type: "Tuần tra" },
+        { id: "n2", title: "Sự cố SC-889 đã được phân công", sentAt: "25/09 11:05", unread: true, priority: "TB", type: "Sự cố" },
+        { id: "n3", title: "Nhắc kiểm tra GPS thiết bị", sentAt: "24/09 18:40", unread: false, priority: "Thấp", type: "Hệ thống" },
+        { id: "n4", title: "Báo cáo tuần đường đã duyệt", sentAt: "24/09 09:12", unread: false, priority: "TB", type: "Báo cáo" }
+      ];
+      var items = seed.map(function (x) { return Object.assign({}, x); });
+      var board = "list";
+      var listEl = document.getElementById("inboxList");
+      var emptyEl = document.getElementById("emptyState");
+      var toastEl = document.getElementById("toast");
+      var toastTimer;
+
+      function showToast(msg) {
+        toastEl.textContent = msg;
+        toastEl.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () { toastEl.classList.remove("show"); }, 2200);
+      }
+
+      function render() {
+        listEl.innerHTML = "";
+        var showEmpty = board === "empty" || (board === "list" && items.length === 0);
+        emptyEl.classList.toggle("show", showEmpty);
+        listEl.style.display = showEmpty ? "none" : "block";
+        if (showEmpty) return;
+        items.forEach(function (it) {
+          var li = document.createElement("li");
+          li.className = "row " + (it.unread ? "unread" : "read");
+          li.setAttribute("data-zone", "OP-02");
+          li.setAttribute("data-id", it.id);
+          li.setAttribute("data-field", "markRead");
+          li.innerHTML =
+            '<span class="dot" data-field="item.unread" aria-hidden="true"></span>' +
+            '<div class="body">' +
+              '<p class="title-text" data-field="item.title">' + it.title + "</p>" +
+              '<div class="meta-line">' +
+                '<span data-field="item.sentAt">' + it.sentAt + "</span>" +
+                (it.priority ? '<span class="pill' + (it.priority === "Cao" ? " hi" : "") + '" data-field="item.priority">' + it.priority + "</span>" : "") +
+                (it.type ? '<span class="pill" data-field="item.type">' + it.type + "</span>" : "") +
+              "</div>" +
+            "</div>";
+          li.addEventListener("click", function () {
+            if (!it.unread) {
+              showToast("Đã đọc · không mở detail P1");
+              return;
+            }
+            it.unread = false;
+            showToast("POST …/mark-read · " + it.id + " → read (OP-03)");
+            render();
+          });
+          listEl.appendChild(li);
+        });
+      }
+
+      function setBoard(next) {
+        board = next;
+        document.querySelectorAll(".board-nav button").forEach(function (b) {
+          b.classList.toggle("active", b.getAttribute("data-board") === next || (next === "error" && b.id === "btnError"));
+        });
+        if (next === "list") {
+          items = seed.map(function (x) { return Object.assign({}, x); });
+        }
+        if (next === "empty") {
+          items = [];
+        }
+        if (next === "error") {
+          items = seed.map(function (x) { return Object.assign({}, x); });
+          showToast("BFF 503 · thử làm mới (cấm window.alert)");
+        }
+        render();
+      }
+
+      document.getElementById("btnList").addEventListener("click", function () { setBoard("list"); });
+      document.getElementById("btnEmpty").addEventListener("click", function () { setBoard("empty"); });
+      document.getElementById("btnError").addEventListener("click", function () { setBoard("error"); });
+      document.getElementById("navBack").addEventListener("click", function () {
+        showToast("Nav stack → Home (shell) · OP-05 back");
+      });
+      document.getElementById("refresh").addEventListener("click", function () {
+        if (board === "empty") {
+          showToast("Reload inbox · vẫn empty");
+        } else {
+          items = seed.map(function (x) { return Object.assign({}, x); });
+          board = "list";
+          document.querySelectorAll(".board-nav button").forEach(function (b) {
+            b.classList.toggle("active", b.getAttribute("data-board") === "list");
+          });
+          showToast("GET notification/inbox · page=1 pageSize=50");
+          render();
+        }
+      });
+
+      render();
+    })();
+  </script>
+</body>
+</html>

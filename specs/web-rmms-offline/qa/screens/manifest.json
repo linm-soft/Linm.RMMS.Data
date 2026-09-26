@@ -1,0 +1,98 @@
+{
+  "feature": "web-rmms-offline",
+  "ok": true,
+  "method": "capture_offline · MFE /web-rmms-offline · phone 430 · S0 guest · S1 staff+seed CARD · QA-20 SH-02 · playwright junction",
+  "cases": [
+    {
+      "id": "S0",
+      "screenshot": "S0.png",
+      "sha16": "aaaab5bd843b65a6",
+      "bytes": 30281,
+      "blank": false,
+      "fatal": null,
+      "dump": {
+        "feature": "web-rmms-offline",
+        "desId": "DES-MOB-PAT-OFFLINE",
+        "scId": "sc-patrol-offline",
+        "zones": [
+          "OFF-00",
+          "NAV",
+          "SEG",
+          "empty"
+        ],
+        "fields": [],
+        "text": "RMMS · Mobile Home Shell chrome Ops inbox Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Asset adjust GIS map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Trang Chủ Dữ liệu lưu trữ Đồng bộ Điểm tuần mất sóng Sự cố mất sóng Đăng nhập để đồng bộ hàng đợi offline. Đăng nhập",
+        "hasSync": true,
+        "segCheckIn": true,
+        "segIncident": true,
+        "banner": false
+      },
+      "url": "http://localhost:9301/web-rmms-offline",
+      "pass": true
+    },
+    {
+      "id": "QA-20",
+      "screenshot": "QA-20.png",
+      "sha16": "409081393888edb4",
+      "bytes": 32390,
+      "blank": false,
+      "fatal": null,
+      "dump": {
+        "feature": null,
+        "desId": null,
+        "scId": null,
+        "zones": [
+          "SH-00",
+          "HM-00",
+          "HM-01",
+          "HM-01",
+          "HM-02",
+          "SH-01",
+          "SH-02"
+        ],
+        "fields": [
+          "guestFaq",
+          "guestPrivacy",
+          "guestLoginCta"
+        ],
+        "text": "RMMS · Mobile Home Shell chrome Home → Field Incident Work Ops → Ops inbox Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Asset adjust GIS map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Trang chủ FAQ Hướng dẫn dùng app tuần đường / sự cố / công việc trên thiết bị di động. Quyền riêng tư Dữ liệu phiên và vị trí chỉ dùng khi bạn đăng nhập và vào màn nghiệp vụ cần GPS. Đăng nhập 🏠 Trang chủ 🛣 Hiện trường ⚠️ Sự cố 🧰 Công việc Đăng nhập Hủy Tài khoản Mật khẩu Đăng nhập",
+        "hasSync": false,
+        "segCheckIn": false,
+        "segIncident": false,
+        "banner": false
+      },
+      "url": "http://localhost:9301/web-rmms-home",
+      "pass": true
+    },
+    {
+      "id": "S1",
+      "screenshot": "S1.png",
+      "sha16": "14eb1537be2e3d2c",
+      "bytes": 37567,
+      "blank": false,
+      "fatal": null,
+      "dump": {
+        "feature": "web-rmms-offline",
+        "desId": "DES-MOB-PAT-OFFLINE",
+        "scId": "sc-patrol-offline",
+        "zones": [
+          "OFF-00",
+          "NAV",
+          "SEG",
+          "BANNER",
+          "CARD"
+        ],
+        "fields": [],
+        "text": "RMMS · Mobile Home Shell chrome Ops inbox Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Asset adjust GIS map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Trang Chủ Dữ liệu lưu trữ Đồng bộ Điểm tuần mất sóng Sự cố mất sóng Có mạng — nhấn Đồng bộ để gửi hàng đợi · 1 bản ghi chờ gửi QA seed check-in Km 0+000 2026-09-25T17:43:05.826Z Chờ gửi",
+        "hasSync": true,
+        "segCheckIn": true,
+        "segIncident": true,
+        "banner": true
+      },
+      "url": "http://localhost:9301/web-rmms-offline",
+      "pass": true
+    }
+  ],
+  "distinctHashes": true,
+  "writtenAt": "2026-09-25T17:43:07.783Z"
+}

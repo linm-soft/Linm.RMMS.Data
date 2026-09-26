@@ -1,0 +1,26 @@
+{
+  "url": "http://localhost:9301/web-rmms-mobile-d",
+  "capturedAt": "2026-09-25T10:09:23.952Z",
+  "method": "capture_d · MFE /login · phone 430 · geo mock · S1 click→TD-06 · fallback TK-06 · stock e2e playwright junction",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "href": "http://localhost:9301/web-rmms-mobile-d"
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "href": "http://localhost:9301/web-rmms-mobile-a/tuan-duong/44fceb67-b83a-4fb5-b906-18d7e1009eb8"
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "href": "http://localhost:9301/web-rmms-mobile-d/44fceb67-b83a-4fb5-b906-18d7e1009eb8/ket-ca"
+    }
+  ],
+  "ok": true
+}

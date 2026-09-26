@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>web-rmms-shell — TabBar Home · Field · Incident · Work</title>
+  <style>
+    :root {
+      --primary: #0C84C0;
+      --header-start: #086A9A;
+      --header-end: #0C84C0;
+      --success: #3CB448;
+      --danger: #F03C30;
+      --surface: #F2F2F7;
+      --card: #FFFFFF;
+      --on-primary: #FFFFFF;
+      --on-surface: #1C1C1E;
+      --border: #C7C7CC;
+      --muted: #8E8E93;
+      --radius-card: 16px;
+      --radius-control: 12px;
+      --label: 13px;
+      --field: 16px;
+      --nav-title: 17px;
+      --control-h: 44px;
+      --phone-w: 430px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: #1a1a1e;
+      color: var(--on-surface);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px 8px 32px;
+    }
+    .board-nav {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      max-width: var(--phone-w); width: 100%; margin-bottom: 12px;
+    }
+    .board-nav button {
+      border: 1px solid var(--border); background: #2a2a2e; color: #eee;
+      border-radius: 8px; padding: 6px 10px; font-size: 12px; cursor: pointer;
+    }
+    .board-nav button.active { background: var(--primary); border-color: var(--primary); }
+    .meta {
+      max-width: var(--phone-w); width: 100%; color: #aaa; font-size: 12px; margin-bottom: 8px;
+    }
+    .phone {
+      width: min(100%, var(--phone-w));
+      min-height: 780px;
+      background: var(--surface);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,.45);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .topbar {
+      background: linear-gradient(135deg, var(--header-start), var(--header-end));
+      color: var(--on-primary);
+      min-height: 56px;
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 14px;
+    }
+    .topbar .back, .topbar .icon-btn {
+      width: 44px; height: 44px; border: 0; background: transparent;
+      color: inherit; font-size: 20px; cursor: pointer; border-radius: 12px;
+      display: grid; place-items: center; padding: 0; line-height: 1;
+    }
+    .topbar .title { flex: 1; font-size: var(--nav-title); font-weight: 600; text-align: center; }
+    .topbar .spacer { width: 44px; }
+    .content { flex: 1; overflow: auto; padding: 12px 14px 88px; }
+    .screen { display: none; }
+    .screen.active { display: block; }
+    .card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius-card); padding: 14px 16px; margin-bottom: 12px;
+    }
+    .door {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius-card); padding: 18px 16px; margin-bottom: 12px; cursor: pointer;
+    }
+    .door h3 { margin: 0 0 4px; font-size: 17px; }
+    .door p { margin: 0; color: var(--muted); font-size: var(--label); }
+    .badge {
+      display: inline-block; background: var(--danger); color: #fff;
+      font-size: 11px; border-radius: 10px; padding: 2px 7px; margin-left: 6px;
+    }
+    .btn {
+      height: var(--control-h); border: 0; border-radius: var(--radius-control);
+      padding: 0 16px; font-size: var(--field); cursor: pointer;
+    }
+    .btn-primary { background: var(--primary); color: var(--on-primary); width: 100%; }
+    .btn-ghost { background: transparent; color: var(--primary); border: 1px solid var(--primary); width: 100%; }
+    .btn-row { display: flex; gap: 8px; margin-top: 12px; }
+    .btn-row .btn { flex: 1; }
+    label { display: block; font-size: var(--label); color: var(--muted); margin: 10px 0 4px; }
+    input {
+      width: 100%; height: 52px; font-size: var(--field);
+      border: 1px solid var(--border); border-radius: var(--radius-control);
+      padding: 0 12px; background: #fff;
+    }
+    .grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 8px;
+    }
+    .tile {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius-card); padding: 12px 8px; text-align: center;
+      font-size: 12px; cursor: pointer; min-height: 88px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+    }
+    .tile .ico { font-size: 22px; color: var(--primary); }
+    .quick { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0; }
+    .chip {
+      background: #E8F4FA; color: var(--primary); border: 0; border-radius: 999px;
+      padding: 8px 12px; font-size: var(--label); cursor: pointer;
+    }
+    .tabbar {
+      position: absolute; left: 0; right: 0; bottom: 0;
+      height: 64px; background: var(--card); border-top: 1px solid var(--border);
+      display: flex; align-items: stretch;
+    }
+    .tab {
+      flex: 1; border: 0; background: transparent; cursor: pointer;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 2px; color: var(--muted); font-size: 11px;
+    }
+    .tab .ico { font-size: 22px; line-height: 1; }
+    .tab.active { color: var(--primary); font-weight: 600; }
+    .stub-list { color: var(--muted); font-size: var(--label); }
+    .stub-list li { margin: 8px 0; padding: 10px; background: var(--card); border-radius: 12px; border: 1px solid var(--border); color: var(--on-surface); list-style: none; }
+    .stub-list ul { padding: 0; margin: 0; }
+    .overlay {
+      position: absolute; inset: 0; background: rgba(0,0,0,.45);
+      display: none; align-items: flex-end; justify-content: center; z-index: 20;
+    }
+    .overlay.open { display: flex; }
+    .sheet {
+      width: 100%; background: var(--card); border-radius: 24px 24px 0 0;
+      padding: 16px 16px 24px; max-height: 90%;
+    }
+    .modal {
+      width: calc(100% - 32px); margin: auto; background: var(--card);
+      border-radius: 16px; padding: 18px; max-width: 360px;
+    }
+    .modal h3 { margin: 0 0 8px; }
+    .modal p { margin: 0 0 14px; color: var(--muted); font-size: var(--label); }
+    .faq { font-size: var(--label); color: var(--muted); line-height: 1.45; }
+    .profile { font-size: 15px; font-weight: 600; }
+    .hint { font-size: 11px; color: var(--muted); margin-top: 8px; }
+  </style>
+</head>
+<body>
+  <div class="meta">feature=web-rmms-shell · zones SH-00…06 · DES-LEAVE · review prototype · no tab.me</div>
+  <div class="board-nav" id="boardNav">
+    <button type="button" data-zone="SH-03g" class="active">SH-03 guest</button>
+    <button type="button" data-zone="SH-03s">SH-03 staff</button>
+    <button type="button" data-zone="SH-02">SH-02 login</button>
+    <button type="button" data-zone="SH-04">SH-04 Field</button>
+    <button type="button" data-zone="SH-05">SH-05 Incident</button>
+    <button type="button" data-zone="SH-06">SH-06 Work</button>
+    <button type="button" data-zone="DES-LEAVE">DES-LEAVE</button>
+  </div>
+
+  <div class="phone" id="phone" data-zone="SH-00">
+    <div class="topbar" id="topbar">
+      <button type="button" class="back" id="stackBack" title="stackBack" aria-label="Back"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14.5 5.5L8 12l6.5 6.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <div class="title" id="topTitle">Trang chủ</div>
+      <button type="button" class="icon-btn" id="opsBtn" title="qaOps" aria-label="Ops"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9a6 6 0 1 1 12 0c0 4.5 1.5 6 2.2 6.8.4.4.1 1.2-.6 1.2H4.4c-.7 0-1-.8-.6-1.2C4.5 15 6 13.5 6 9z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M10 18.5a2 2 0 0 0 4 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span class="badge" id="notifyBadge">3</span></button>
+    </div>
+
+    <div class="content">
+      <!-- SH-03 guest -->
+      <section class="screen active" id="scr-SH-03g" data-zone="SH-03">
+        <div class="card">
+          <div class="profile">Khách</div>
+          <p class="faq" id="guestFaq">Bạn đang xem chế độ khách. Đăng nhập để dùng tuần đường, sự cố và công việc.</p>
+          <button type="button" class="btn btn-primary" id="guestLoginCta" style="margin-top:12px">Đăng nhập</button>
+        </div>
+        <div class="hint">SH-03 guest · guestFaq · guestLoginCta</div>
+      </section>
+
+      <!-- SH-03 staff -->
+      <section class="screen" id="scr-SH-03s" data-zone="SH-03">
+        <div class="card">
+          <div class="profile" id="profileName">Nguyễn Văn A</div>
+          <div class="hint">profileName RO · GET auth/profile</div>
+        </div>
+        <div class="quick">
+          <button type="button" class="chip" id="qaPatrolPoint">Điểm tuần</button>
+          <button type="button" class="chip" id="qaIncidentNew">Sự cố mới</button>
+          <button type="button" class="chip" id="qaSupervise">Giám sát</button>
+          <button type="button" class="chip" id="qaPatrolMap">Bản đồ tuần</button>
+        </div>
+        <div class="grid">
+          <button type="button" class="tile" id="qaWork"><span class="ico">🧰</span>Công việc</button>
+          <button type="button" class="tile" id="qaIncident"><span class="ico">⚠️</span>Sự cố</button>
+          <button type="button" class="tile" id="qaAsset"><span class="ico">📦</span>Tài sản</button>
+          <button type="button" class="tile" id="qaOffline"><span class="ico">Offline</span>Đồng bộ</button>
+          <button type="button" class="tile" id="qaOps"><span class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9a6 6 0 1 1 12 0c0 4.5 1.5 6 2.2 6.8.4.4.1 1.2-.6 1.2H4.4c-.7 0-1-.8-.6-1.2C4.5 15 6 13.5 6 9z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M10 18.5a2 2 0 0 0 4 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>Thông báo</button>
+          <button type="button" class="tile"><span class="ico">🗺</span>GIS</button>
+        </div>
+        <div class="hint">SH-03 staff · quick + grid · labels via useFormOptions keys</div>
+      </section>
+
+      <!-- SH-04 Field hub -->
+      <section class="screen" id="scr-SH-04" data-zone="SH-04">
+        <div class="door" id="doorPatrol">
+          <h3>Tuần đường (BDTX)</h3>
+          <p>doorPatrol → /field/tuan-duong · peer web-rmms-mobile-a</p>
+        </div>
+        <div class="door" id="doorInspect">
+          <h3>Tuần kiểm (Khu/VP)</h3>
+          <p>doorInspect → /field/tuan-kiem · peer web-rmms-mobile-a</p>
+        </div>
+        <button type="button" class="btn btn-ghost" id="syncBtn">Đồng bộ offline</button>
+        <div class="hint">SH-04 · 2 cửa · syncBtn · GPS không capture trên shell</div>
+      </section>
+
+      <!-- SH-05 Incident stub -->
+      <section class="screen" id="scr-SH-05" data-zone="SH-05">
+        <div class="card stub-list" id="incidentRoot">
+          <strong>Sự cố</strong>
+          <ul>
+            <li>SC-001 · Đang xử lý · stub peer</li>
+            <li>SC-002 · Mới · stub peer</li>
+          </ul>
+          <div class="hint">SH-05 incidentRoot · shell mount only · cấm invent CRUD</div>
+        </div>
+      </section>
+
+      <!-- SH-06 Work stub -->
+      <section class="screen" id="scr-SH-06" data-zone="SH-06">
+        <div class="card stub-list" id="workRoot">
+          <strong>Công việc</strong>
+          <ul>
+            <li>WO-101 · Đang làm · stub peer</li>
+            <li>WO-102 · Chờ · stub peer</li>
+          </ul>
+          <div class="hint">SH-06 workRoot · shell mount only · cấm invent CRUD</div>
+        </div>
+      </section>
+    </div>
+
+    <!-- SH-01 TabBar -->
+    <nav class="tabbar" id="tabBar" data-zone="SH-01" aria-label="TabBar">
+      <button type="button" class="tab active" data-tab="home" id="tabHome"><span class="ico">🏠</span>Trang chủ</button>
+      <button type="button" class="tab" data-tab="field" id="tabField"><span class="ico">🛣</span>Hiện trường</button>
+      <button type="button" class="tab" data-tab="incident" id="tabIncident"><span class="ico">⚠️</span>Sự cố</button>
+      <button type="button" class="tab" data-tab="work" id="tabWork"><span class="ico">🧰</span>Công việc</button>
+    </nav>
+
+    <!-- SH-02 login overlay -->
+    <div class="overlay" id="loginOverlay" data-zone="SH-02">
+      <div class="sheet">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+          <strong style="font-size:var(--nav-title)">Đăng nhập</strong>
+          <button type="button" class="btn" id="loginCancel" style="width:auto;background:transparent;color:var(--primary)">Hủy</button>
+        </div>
+        <label for="loginUser">Tài khoản</label>
+        <input id="loginUser" type="text" autocomplete="username" />
+        <label for="loginPass">Mật khẩu</label>
+        <input id="loginPass" type="password" autocomplete="current-password" />
+        <div class="btn-row">
+          <button type="button" class="btn btn-primary" id="loginSubmit">Đăng nhập</button>
+        </div>
+        <div class="hint">SH-02 · POST auth/login · rồi session-window · dirty → DES-LEAVE</div>
+      </div>
+    </div>
+
+    <!-- DES-LEAVE -->
+    <div class="overlay" id="leaveOverlay" data-zone="DES-LEAVE" style="align-items:center">
+      <div class="modal">
+        <h3>Rời form?</h3>
+        <p>Thông tin đăng nhập chưa gửi. Ở lại hoặc rời?</p>
+        <div class="btn-row">
+          <button type="button" class="btn btn-ghost" id="leaveStay">Ở lại</button>
+          <button type="button" class="btn btn-primary" id="leaveGo">Rời</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var titles = {
+        "SH-03g": "Trang chủ",
+        "SH-03s": "Trang chủ",
+        "SH-04": "Hiện trường",
+        "SH-05": "Sự cố",
+        "SH-06": "Công việc"
+      };
+      var tabMap = {
+        home: "SH-03s",
+        field: "SH-04",
+        incident: "SH-05",
+        work: "SH-06"
+      };
+      var dirtyLogin = false;
+      var staffMode = false;
+
+      function hideScreens() {
+        document.querySelectorAll(".screen").forEach(function (el) { el.classList.remove("active"); });
+      }
+
+      function setTab(tab) {
+        document.querySelectorAll(".tab").forEach(function (t) {
+          t.classList.toggle("active", t.getAttribute("data-tab") === tab);
+        });
+      }
+
+      function showZone(zone) {
+        document.querySelectorAll("#boardNav button").forEach(function (b) {
+          b.classList.toggle("active", b.getAttribute("data-zone") === zone);
+        });
+        document.getElementById("loginOverlay").classList.remove("open");
+        document.getElementById("leaveOverlay").classList.remove("open");
+
+        if (zone === "SH-02") {
+          document.getElementById("loginOverlay").classList.add("open");
+          return;
+        }
+        if (zone === "DES-LEAVE") {
+          document.getElementById("leaveOverlay").classList.add("open");
+          return;
+        }
+
+        hideScreens();
+        var scr = document.getElementById("scr-" + zone);
+        if (scr) scr.classList.add("active");
+        document.getElementById("topTitle").textContent = titles[zone] || "Shell";
+
+        if (zone === "SH-03g" || zone === "SH-03s") setTab("home");
+        if (zone === "SH-04") setTab("field");
+        if (zone === "SH-05") setTab("incident");
+        if (zone === "SH-06") setTab("work");
+      }
+
+      document.getElementById("boardNav").addEventListener("click", function (e) {
+        var btn = e.target.closest("button[data-zone]");
+        if (!btn) return;
+        var z = btn.getAttribute("data-zone");
+        if (z === "SH-03s") staffMode = true;
+        if (z === "SH-03g") staffMode = false;
+        showZone(z);
+      });
+
+      document.getElementById("tabBar").addEventListener("click", function (e) {
+        var tab = e.target.closest(".tab");
+        if (!tab) return;
+        var key = tab.getAttribute("data-tab");
+        var zone = tabMap[key];
+        if (key === "home") zone = staffMode ? "SH-03s" : "SH-03g";
+        showZone(zone);
+      });
+
+      document.getElementById("guestLoginCta").addEventListener("click", function () {
+        showZone("SH-02");
+      });
+
+      ["loginUser", "loginPass"].forEach(function (id) {
+        document.getElementById(id).addEventListener("input", function () {
+          dirtyLogin = !!(document.getElementById("loginUser").value || document.getElementById("loginPass").value);
+        });
+      });
+
+      function closeLogin(force) {
+        if (dirtyLogin && !force) {
+          document.getElementById("leaveOverlay").classList.add("open");
+          return;
+        }
+        dirtyLogin = false;
+        document.getElementById("loginUser").value = "";
+        document.getElementById("loginPass").value = "";
+        document.getElementById("loginOverlay").classList.remove("open");
+        document.getElementById("leaveOverlay").classList.remove("open");
+      }
+
+      document.getElementById("loginCancel").addEventListener("click", function () {
+        closeLogin(false);
+      });
+
+      document.getElementById("loginSubmit").addEventListener("click", function () {
+        dirtyLogin = false;
+        staffMode = true;
+        document.getElementById("loginOverlay").classList.remove("open");
+        showZone("SH-03s");
+      });
+
+      document.getElementById("leaveStay").addEventListener("click", function () {
+        document.getElementById("leaveOverlay").classList.remove("open");
+      });
+
+      document.getElementById("leaveGo").addEventListener("click", function () {
+        closeLogin(true);
+        showZone(staffMode ? "SH-03s" : "SH-03g");
+      });
+
+      document.getElementById("qaPatrolPoint").addEventListener("click", function () { showZone("SH-04"); });
+      document.getElementById("qaWork").addEventListener("click", function () { showZone("SH-06"); });
+      document.getElementById("qaIncident").addEventListener("click", function () { showZone("SH-05"); });
+      document.getElementById("doorPatrol").addEventListener("click", function () {
+        document.getElementById("topTitle").textContent = "Tuần đường → peer A";
+      });
+      document.getElementById("doorInspect").addEventListener("click", function () {
+        document.getElementById("topTitle").textContent = "Tuần kiểm → peer A";
+      });
+
+      showZone("SH-03g");
+    })();
+  </script>
+</body>
+</html>

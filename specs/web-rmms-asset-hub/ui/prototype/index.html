@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>web-rmms-asset-hub — Hub tài sản</title>
+  <style>
+    :root {
+      --primary: #0C84C0;
+      --header-start: #086A9A;
+      --header-end: #0C84C0;
+      --danger: #F03C30;
+      --surface: #F2F2F7;
+      --card: #FFFFFF;
+      --on-primary: #FFFFFF;
+      --on-surface: #1C1C1E;
+      --border: #C7C7CC;
+      --muted: #8E8E93;
+      --wallet-bg: linear-gradient(145deg, #0A6FA3, #0C84C0 55%, #1490CC);
+      --radius-card: 16px;
+      --radius-control: 12px;
+      --label: 13px;
+      --field: 16px;
+      --nav-title: 17px;
+      --control-h: 44px;
+      --phone-w: 430px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: #1a1a1e;
+      color: var(--on-surface);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px 8px 32px;
+    }
+    .board-nav {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      max-width: var(--phone-w); width: 100%; margin-bottom: 12px;
+    }
+    .board-nav button {
+      border: 1px solid var(--border); background: #2a2a2e; color: #eee;
+      border-radius: 8px; padding: 6px 10px; font-size: 12px; cursor: pointer;
+    }
+    .board-nav button.active { background: var(--primary); border-color: var(--primary); }
+    .meta {
+      max-width: var(--phone-w); width: 100%; color: #aaa; font-size: 12px; margin-bottom: 8px;
+    }
+    .phone {
+      width: min(100%, var(--phone-w));
+      min-height: 780px;
+      background: var(--surface);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,.45);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .topbar {
+      background: linear-gradient(135deg, var(--header-start), var(--header-end));
+      color: var(--on-primary);
+      min-height: 56px;
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 14px;
+    }
+    .topbar .icon-btn {
+      width: 44px; height: 44px; border: 0; background: transparent;
+      color: inherit; font-size: 22px; cursor: pointer; border-radius: 12px;
+    }
+    .topbar .title { flex: 1; font-size: var(--nav-title); font-weight: 600; }
+    .content { flex: 1; overflow: auto; padding: 12px 14px 28px; }
+    .wallet {
+      background: var(--wallet-bg);
+      color: var(--on-primary);
+      border-radius: var(--radius-card);
+      padding: 16px 18px;
+      margin-bottom: 14px;
+      min-height: 96px;
+      cursor: default;
+      user-select: none;
+    }
+    .wallet .eyebrow { font-size: 12px; opacity: .9; margin-bottom: 4px; }
+    .wallet .w-title { font-size: 18px; font-weight: 650; margin: 0 0 6px; }
+    .wallet .w-sub { font-size: var(--label); opacity: .92; margin: 0; }
+    .section-label {
+      font-size: 12px; color: var(--muted); text-transform: uppercase;
+      letter-spacing: .04em; margin: 10px 2px 8px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .grid.one { grid-template-columns: 1fr; }
+    .tile {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      min-height: 88px;
+      padding: 14px;
+      display: flex; flex-direction: column; justify-content: center; gap: 6px;
+      cursor: pointer; text-align: left;
+    }
+    .tile:active { opacity: .88; }
+    .tile .ico {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: #E8F4FA; color: var(--primary);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; font-weight: 700;
+    }
+    .tile .lbl { font-size: var(--field); font-weight: 600; }
+    .tile .hint { font-size: 12px; color: var(--muted); }
+    .row-nav {
+      display: flex; align-items: center; gap: 12px;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius-card); padding: 14px 16px;
+      min-height: var(--control-h); cursor: pointer; margin: 8px 0 14px;
+    }
+    .row-nav .ico {
+      width: 40px; height: 40px; border-radius: 10px;
+      background: #E8F4FA; color: var(--primary);
+      display: flex; align-items: center; justify-content: center; font-size: 18px;
+    }
+    .row-nav .body { flex: 1; }
+    .row-nav .lbl { font-size: var(--field); font-weight: 600; }
+    .row-nav .chev { color: var(--muted); font-size: 20px; }
+    .pending { display: none; margin-top: 4px; }
+    .pending.show { display: block; }
+    .pending h3 {
+      margin: 0 0 8px; font-size: 15px; font-weight: 650;
+    }
+    .pending-list { list-style: none; margin: 0; padding: 0; }
+    .pending-list li {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 12px 14px; margin-bottom: 8px;
+      display: flex; gap: 10px; align-items: center; cursor: pointer;
+    }
+    .pending-list .dot {
+      width: 10px; height: 10px; border-radius: 50%; background: #F5A623; flex-shrink: 0;
+    }
+    .pending-list .t { font-size: var(--field); font-weight: 600; }
+    .pending-list .s { font-size: 12px; color: var(--muted); }
+    .btn-cta {
+      height: var(--control-h); width: 100%; border: 0;
+      border-radius: var(--radius-control); margin-top: 4px;
+      background: var(--primary); color: var(--on-primary);
+      font-size: var(--field); font-weight: 600; cursor: pointer;
+    }
+    .toast {
+      position: absolute; left: 12px; right: 12px; bottom: 16px;
+      background: #2c2c2e; color: #fff; border-radius: 12px;
+      padding: 12px 14px; font-size: 13px; display: none;
+      box-shadow: 0 8px 24px rgba(0,0,0,.35); z-index: 5;
+    }
+    .toast.show { display: block; }
+    .note { color: #888; font-size: 11px; margin-top: 10px; max-width: var(--phone-w); width: 100%; }
+  </style>
+</head>
+<body>
+  <div class="board-nav" role="tablist" aria-label="Prototype boards">
+    <button type="button" class="active" data-board="pending" id="btn-pending">Staff + AI pending</button>
+    <button type="button" data-board="empty" id="btn-empty">Empty AI (ẩn AH-07)</button>
+    <button type="button" data-board="error" id="btn-error">Wallet error toast</button>
+  </div>
+  <p class="meta">AH-00…07 · reviewUrl prototype · peerStdUrl http://localhost:9301/web-rmms-asset-hub · GPS: none</p>
+
+  <div class="phone" id="AH-00" data-zone="AH-00">
+    <header class="topbar" id="AH-01" data-zone="AH-01">
+      <button type="button" class="icon-btn" id="navBack" title="assetHub.nav.back" aria-label="Back">‹</button>
+      <div class="title">Hub tài sản</div>
+    </header>
+
+    <div class="content">
+      <section class="wallet" id="AH-02" data-zone="AH-02" title="RO — no nav">
+        <div class="eyebrow" id="walletEyebrow">Hồ sơ tài sản</div>
+        <p class="w-title" id="walletTitle">QLĐB — Tuyến mẫu A1</p>
+        <p class="w-sub" id="walletSubtitle">32 loại tài sản</p>
+      </section>
+
+      <div class="section-label">Tra cứu</div>
+      <div class="grid" id="AH-03" data-zone="AH-03">
+        <button type="button" class="tile" id="tileKcht" data-route="/asset/kcht">
+          <span class="ico">H</span>
+          <span class="lbl">Hạng mục</span>
+          <span class="hint">assetHub.tile.kcht</span>
+        </button>
+        <button type="button" class="tile" id="tileList" data-route="/asset/list">
+          <span class="ico">L</span>
+          <span class="lbl">Danh sách</span>
+          <span class="hint">assetHub.tile.list</span>
+        </button>
+      </div>
+
+      <div class="section-label">Thu thập</div>
+      <div class="grid" id="AH-04" data-zone="AH-04">
+        <button type="button" class="tile" id="tileCollect" data-route="/asset/collect">
+          <span class="ico">+</span>
+          <span class="lbl">Thêm thủ công</span>
+          <span class="hint">assetHub.tile.collect</span>
+        </button>
+        <button type="button" class="tile" id="tileAi" data-route="/asset/ai">
+          <span class="ico">AI</span>
+          <span class="lbl">Camera AI</span>
+          <span class="hint">assetHub.tile.ai</span>
+        </button>
+      </div>
+
+      <div class="section-label">Quản lý</div>
+      <div class="grid one" id="AH-05" data-zone="AH-05">
+        <button type="button" class="tile" id="tileAdjust" data-route="/asset/adjust">
+          <span class="ico">↻</span>
+          <span class="lbl">Cập nhật / bớt</span>
+          <span class="hint">assetHub.tile.adjust</span>
+        </button>
+      </div>
+
+      <div class="row-nav" id="AH-06" data-zone="AH-06" data-route="/gis" role="button" tabindex="0">
+        <span class="ico">⌖</span>
+        <div class="body"><div class="lbl">Xem bản đồ</div></div>
+        <span class="chev">›</span>
+      </div>
+
+      <section class="pending show" id="AH-07" data-zone="AH-07">
+        <h3>Chờ xác nhận AI</h3>
+        <ul class="pending-list" id="aiPendingList">
+          <li data-id="c1">
+            <span class="dot" aria-hidden="true"></span>
+            <div>
+              <div class="t">Biển báo — Draft</div>
+              <div class="s">asset-candidates · tap → HITL peer</div>
+            </div>
+          </li>
+          <li data-id="c2">
+            <span class="dot" aria-hidden="true"></span>
+            <div>
+              <div class="t">Lan can — Draft</div>
+              <div class="s">asset-candidates · tap → HITL peer</div>
+            </div>
+          </li>
+        </ul>
+        <button type="button" class="btn-cta" id="aiPendingCta">Xem danh sách chờ</button>
+      </section>
+    </div>
+
+    <div class="toast" id="toast" role="status"></div>
+  </div>
+
+  <p class="note">Labels prototype = review copy · Dev wire useFormOptions / assetHub.* · cấm invent hub CRUD · cấm ERP.* · Mobile.Bff :5202</p>
+
+  <script>
+    (function () {
+      var pending = document.getElementById("AH-07");
+      var toast = document.getElementById("toast");
+      var toastTimer;
+
+      function showToast(msg) {
+        toast.textContent = msg;
+        toast.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () { toast.classList.remove("show"); }, 2200);
+      }
+
+      function setBoard(name) {
+        document.querySelectorAll(".board-nav button").forEach(function (b) {
+          b.classList.toggle("active", b.getAttribute("data-board") === name);
+        });
+        if (name === "empty") {
+          pending.classList.remove("show");
+          document.getElementById("walletTitle").textContent = "QLĐB — Tuyến mẫu A1";
+          document.getElementById("walletSubtitle").textContent = "32 loại tài sản";
+          toast.classList.remove("show");
+        } else if (name === "error") {
+          pending.classList.add("show");
+          document.getElementById("walletTitle").textContent = "—";
+          document.getElementById("walletSubtitle").textContent = "Không tải được hồ sơ";
+          showToast("Không tải wallet (503). Thử lại — không dùng alert.");
+        } else {
+          pending.classList.add("show");
+          document.getElementById("walletTitle").textContent = "QLĐB — Tuyến mẫu A1";
+          document.getElementById("walletSubtitle").textContent = "32 loại tài sản";
+          toast.classList.remove("show");
+        }
+      }
+
+      document.querySelectorAll(".board-nav button").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          setBoard(btn.getAttribute("data-board"));
+        });
+      });
+
+      document.getElementById("navBack").addEventListener("click", function () {
+        showToast("Nav → Home (web-rmms-home)");
+      });
+
+      document.querySelectorAll("[data-route]").forEach(function (el) {
+        el.addEventListener("click", function () {
+          showToast("Nav peer → " + el.getAttribute("data-route"));
+        });
+        el.addEventListener("keydown", function (e) {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            el.click();
+          }
+        });
+      });
+
+      document.getElementById("aiPendingCta").addEventListener("click", function () {
+        showToast("Nav → HITL peer (asset-candidates Draft)");
+      });
+
+      document.querySelectorAll("#aiPendingList li").forEach(function (li) {
+        li.addEventListener("click", function () {
+          showToast("Tap Draft → HITL peer · id=" + li.getAttribute("data-id"));
+        });
+      });
+
+      document.getElementById("AH-02").addEventListener("click", function () {
+        showToast("Wallet RO — không nav (đã ở hub)");
+      });
+    })();
+  </script>
+</body>
+</html>

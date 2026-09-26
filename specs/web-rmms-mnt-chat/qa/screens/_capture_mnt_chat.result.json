@@ -1,0 +1,130 @@
+{
+  "feature": "web-rmms-mnt-chat",
+  "cases": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "href": "http://localhost:9301/web-rmms-mnt-chat?id=2a0b6ead-a87e-4df5-97ae-dd2962724781",
+      "dump": {
+        "feature": "web-rmms-mnt-chat",
+        "zones": [
+          "CH-00",
+          "CH-01",
+          "CH-02",
+          "CH-03"
+        ],
+        "des": [
+          "sc-mnt-chat"
+        ],
+        "fields": [
+          "topBarBack",
+          "topBarTitle",
+          "topBarSubtitle",
+          "threadItems",
+          "bubbleTheirs",
+          "composer",
+          "composerInput",
+          "composerSend"
+        ],
+        "ids": [
+          "topBarBack",
+          "topBarTitle",
+          "topBarSubtitle",
+          "sc-mnt-chat"
+        ],
+        "text": "RMMS · Mobile Home Field hub Shell chrome Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Incident Work (công việc) Work progress (WORK-P) Work log (WORK-G) Work chat (WORK-C) WORK-C STD Alias /work/chat VIS capture Chấm công (attendance) Asset adjust GIS map Patrol map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Trao đổi công việc WO-DEMO-202609-004 · Xử lý sạt lở Km3+400 · Đang thực hiện Đội hiện trường: đã ghi nhận WO-DEMO-202609-004. 16:00 ➤",
+        "href": "http://localhost:9301/web-rmms-mnt-chat?id=2a0b6ead-a87e-4df5-97ae-dd2962724781",
+        "hasGps": false,
+        "hasComposer": true,
+        "bubbleCount": 1,
+        "emptyThread": false,
+        "missingId": false,
+        "subtitle": "WO-DEMO-202609-004 · Xử lý sạt lở Km3+400 · Đang thực hiện",
+        "title": "Trao đổi công việc",
+        "entryChatPresent": false
+      }
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "href": "http://localhost:9301/web-rmms-home",
+      "dump": {
+        "feature": "web-rmms-home",
+        "zones": [
+          "SH-00",
+          "HM-00",
+          "HM-01",
+          "HM-02",
+          "SH-01",
+          "SH-02"
+        ],
+        "des": [],
+        "fields": [
+          "guestFaq",
+          "guestPrivacy",
+          "guestLoginCta"
+        ],
+        "ids": [
+          "loginUser",
+          "loginPass",
+          "loginSubmit",
+          "guestLogin"
+        ],
+        "text": "RMMS · Mobile Home Field hub Shell chrome Home → Field tab Incident Work tab Work list → Ops → Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Incident Work (công việc) Work progress (WORK-P) Work log (WORK-G) Work chat (WORK-C) VIS capture Chấm công (attendance) Asset adjust GIS map Patrol map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Trang chủ FAQ Hướng dẫn dùng app tuần đường / sự cố / công việc trên thiết bị di động. Quyền riêng tư Dữ liệu phiên và vị trí chỉ dùng khi bạn đăng nhập và vào màn nghiệp vụ cần GPS. Đăng nhập 🏠 Trang chủ 🛣 Hiện trường ⚠️ Sự cố 🧰 Công việc Đăng nhập Hủy Tài khoản Mật khẩu Đăng nhập",
+        "href": "http://localhost:9301/web-rmms-home",
+        "hasGps": false,
+        "hasComposer": false,
+        "bubbleCount": 0,
+        "emptyThread": false,
+        "missingId": false,
+        "subtitle": null,
+        "title": null,
+        "entryChatPresent": false
+      }
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "href": "http://localhost:9301/web-rmms-mnt-chat",
+      "dump": {
+        "feature": "web-rmms-mnt-chat",
+        "zones": [
+          "CH-00",
+          "CH-01"
+        ],
+        "des": [
+          "sc-mnt-chat"
+        ],
+        "fields": [
+          "topBarBack",
+          "topBarTitle",
+          "topBarSubtitle",
+          "retry",
+          "missingId",
+          "emptyBack"
+        ],
+        "ids": [
+          "topBarBack",
+          "topBarTitle",
+          "topBarSubtitle",
+          "sc-mnt-chat"
+        ],
+        "text": "RMMS · Mobile Home Field hub Shell chrome Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Incident Work (công việc) Work progress (WORK-P) Work log (WORK-G) Work chat (WORK-C) WORK-C STD Alias /work/chat VIS capture Chấm công (attendance) Asset adjust GIS map Patrol map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Trao đổi công việc Công việc Thiếu mã công việc. Mở từ danh sách công việc để chat. Thử lại Chưa có tin nhắn Thiếu mã công việc. Mở từ danh sách công việc để chat. Về danh sách",
+        "href": "http://localhost:9301/web-rmms-mnt-chat",
+        "hasGps": false,
+        "hasComposer": false,
+        "bubbleCount": 0,
+        "emptyThread": false,
+        "missingId": true,
+        "subtitle": "Công việc",
+        "title": "Trao đổi công việc",
+        "entryChatPresent": false
+      }
+    }
+  ],
+  "pass": true,
+  "at": "2026-09-25T23:40:53.584Z"
+}

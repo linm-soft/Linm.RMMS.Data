@@ -1,0 +1,99 @@
+{
+  "feature": "web-rmms-incident",
+  "cases": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "href": "http://localhost:9301/web-rmms-incident/new",
+      "dump": {
+        "feature": "web-rmms-incident",
+        "zones": [
+          "INC-L"
+        ],
+        "des": [
+          "DES-MOB-INCIDENT"
+        ],
+        "fields": [],
+        "actions": [],
+        "ids": [],
+        "text": "RMMS · Mobile Home Field hub Shell chrome Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Incident INC-L list INC-N create Alias /incident Alias /incident/new Chấm công (attendance) Asset adjust GIS map Patrol map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Ghi sự cố Đăng nhập để ghi sự cố. Đăng nhập",
+        "href": "http://localhost:9301/web-rmms-incident/new",
+        "guestGate": true
+      }
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "href": "http://localhost:9301/web-rmms-home",
+      "dump": {
+        "feature": "web-rmms-home",
+        "zones": [
+          "SH-00",
+          "HM-00",
+          "HM-01",
+          "HM-02",
+          "SH-01",
+          "SH-02"
+        ],
+        "des": [],
+        "fields": [
+          "guestFaq",
+          "guestPrivacy",
+          "guestLoginCta"
+        ],
+        "actions": [],
+        "ids": [
+          "loginUser",
+          "loginPass",
+          "loginSubmit",
+          "guestLogin"
+        ],
+        "text": "RMMS · Mobile Home Field hub Shell chrome Home → Field tab Incident Work Ops → Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Incident Chấm công (attendance) Asset adjust GIS map Patrol map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Trang chủ FAQ Hướng dẫn dùng app tuần đường / sự cố / công việc trên thiết bị di động. Quyền riêng tư Dữ liệu phiên và vị trí chỉ dùng khi bạn đăng nhập và vào màn nghiệp vụ cần GPS. Đăng nhập 🏠 Trang chủ 🛣 Hiện trường ⚠️ Sự cố 🧰 Công việc Đăng nhập Hủy Tài khoản Mật khẩu Đăng nhập",
+        "href": "http://localhost:9301/web-rmms-home",
+        "guestGate": false
+      }
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "href": "http://localhost:9301/web-rmms-incident",
+      "dump": {
+        "feature": "web-rmms-incident",
+        "zones": [
+          "INC-L"
+        ],
+        "des": [
+          "DES-MOB-INCIDENT"
+        ],
+        "fields": [
+          "search",
+          "filters",
+          "filter.status",
+          "filter.severity",
+          "banner.vis",
+          "list.card",
+          "card.title",
+          "card.type",
+          "card.code",
+          "card.route",
+          "card.person",
+          "card.requestedAt",
+          "card.hasGps",
+          "card.status",
+          "row.chat",
+          "fab"
+        ],
+        "actions": [],
+        "ids": [],
+        "text": "RMMS · Mobile Home Field hub Shell chrome Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Incident INC-L list INC-N create Alias /incident Alias /incident/new Chấm công (attendance) Asset adjust GIS map Patrol map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Vấn đề Tất cả TT Mới Cao TB 📷 Nhận diện mặt đường Chụp + định vị → gắn sự cố (peer INC-V) Ngập úng QL.46 phía tây Vinh ngap-ung · INC-DEMO-202609-004 QL.46 · Km Km 4+000 · QL.46 Lê Minh Tuấn 09:15:00 22/9/2026 HasGps Trạng thái: closed Chat Chi tiết Map Hộ lan tuyến tránh QL.1 Hưng Nguyên khac · INC-DEMO-202609-002 QL.1 · Km Km 468+200 · tuyến tránh Hưng Nguyên Nguyễn Văn A 10:05:00 21/9/2026 HasGps Trạng thái: in_progress Chat Chi tiết Map Biển báo mờ · ghi nhận không GPS bien-bao · INC-DEMO-202609-005 QL.1 · Km Km 461+000 · Cầu Bến Thủy 2 Nguyễn Văn A 07:28:00 21/9/2026 No GPS Trạng thái: new Chat Chi tiết Map Ổ gà mặt cầu QL.1 · Cầu Bến Thủy 2 o-ga · INC-DEMO-202609-001 QL.1 · Km Km 461+000 · Cầu Bến Thủy 2 Nguyễn Văn A 07:28:00 21/9/2026 HasGps Trạng thái: new Chat Chi tiết Map Cầu Hàm Rồng — đột xuất ktra-cau · CAU-DEMO-202609-003 QL.217 · Km Km8+050 Nguyễn Văn A 15:00:00 20/9/2026 HasGps Trạng thái: closed Chat Chi tiết Map Sạt taluy QL.15 · Nhân Sơn sat-taluy · IN",
+        "href": "http://localhost:9301/web-rmms-incident",
+        "guestGate": false
+      }
+    }
+  ],
+  "pass": true,
+  "at": "2026-09-25T21:20:04.211Z"
+}

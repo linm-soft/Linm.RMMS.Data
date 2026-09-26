@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>web-rmms-asset-kcht — Hạng mục tài sản</title>
+  <style>
+    :root {
+      --primary: #0C84C0;
+      --header-start: #086A9A;
+      --header-end: #0C84C0;
+      --surface: #F2F2F7;
+      --card: #FFFFFF;
+      --on-primary: #FFFFFF;
+      --on-surface: #1C1C1E;
+      --border: #C7C7CC;
+      --muted: #8E8E93;
+      --radius-card: 16px;
+      --radius-control: 12px;
+      --label: 13px;
+      --field: 16px;
+      --nav-title: 17px;
+      --control-h: 44px;
+      --phone-w: 430px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: #1a1a1e;
+      color: var(--on-surface);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px 8px 32px;
+    }
+    .board-nav {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      max-width: var(--phone-w); width: 100%; margin-bottom: 12px;
+    }
+    .board-nav button {
+      border: 1px solid var(--border); background: #2a2a2e; color: #eee;
+      border-radius: 8px; padding: 6px 10px; font-size: 12px; cursor: pointer;
+    }
+    .board-nav button.active { background: var(--primary); border-color: var(--primary); }
+    .meta {
+      max-width: var(--phone-w); width: 100%; color: #aaa; font-size: 12px; margin-bottom: 8px;
+    }
+    .phone {
+      width: min(100%, var(--phone-w));
+      min-height: 780px;
+      background: var(--surface);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,.45);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .topbar {
+      background: linear-gradient(135deg, var(--header-start), var(--header-end));
+      color: var(--on-primary);
+      min-height: 56px;
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 14px;
+    }
+    .topbar .icon-btn {
+      width: 44px; height: 44px; border: 0; background: transparent;
+      color: inherit; font-size: 22px; cursor: pointer; border-radius: 12px;
+    }
+    .topbar .title { flex: 1; font-size: var(--nav-title); font-weight: 600; }
+    .content { flex: 1; overflow: auto; padding: 12px 14px 28px; }
+    .search-wrap {
+      margin-bottom: 12px;
+    }
+    .search {
+      width: 100%;
+      height: var(--control-h);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-control);
+      padding: 0 14px;
+      font-size: var(--field);
+      background: var(--card);
+      color: var(--on-surface);
+    }
+    .search::placeholder { color: var(--muted); }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .tile {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      min-height: 96px;
+      padding: 14px;
+      display: flex; flex-direction: column; justify-content: center; gap: 6px;
+      cursor: pointer; text-align: left;
+    }
+    .tile:active { opacity: .88; }
+    .tile.hidden { display: none; }
+    .tile .ico {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: #E8F4FA;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; flex-shrink: 0;
+    }
+    .tile .ico svg { width: 26px; height: 32px; display: block; }
+    .tile .lbl { font-size: var(--field); font-weight: 600; }
+    .tile .code { font-size: 12px; color: var(--muted); }
+    .empty {
+      display: none;
+      text-align: center;
+      padding: 48px 16px;
+      color: var(--muted);
+    }
+    .empty.show { display: block; }
+    .empty .msg { font-size: var(--field); margin-bottom: 16px; color: var(--on-surface); }
+    .btn-retry {
+      height: var(--control-h);
+      min-width: 140px;
+      border: 0;
+      border-radius: var(--radius-control);
+      background: var(--primary);
+      color: var(--on-primary);
+      font-size: var(--field);
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .toast {
+      position: absolute; left: 12px; right: 12px; bottom: 16px;
+      background: #2c2c2e; color: #fff; border-radius: 12px;
+      padding: 12px 14px; font-size: 13px; display: none;
+      box-shadow: 0 8px 24px rgba(0,0,0,.35); z-index: 5;
+    }
+    .toast.show { display: block; }
+    .note { color: #888; font-size: 11px; margin-top: 10px; max-width: var(--phone-w); width: 100%; }
+  </style>
+</head>
+<body>
+  <div class="board-nav" role="tablist" aria-label="Prototype boards">
+    <button type="button" class="active" data-board="loaded" id="btn-loaded">Staff loaded</button>
+    <button type="button" data-board="empty" id="btn-empty">Empty</button>
+    <button type="button" data-board="error" id="btn-error">Error toast</button>
+    <button type="button" data-board="search" id="btn-search">Search filter</button>
+  </div>
+  <p class="meta">AK-00…06 · reviewUrl prototype · peerStdUrl http://localhost:9301/web-rmms-asset-kcht · GPS: none · tap → ?type=</p>
+
+  <div class="phone" id="AK-00" data-zone="AK-00">
+    <header class="topbar" id="AK-01" data-zone="AK-01">
+      <button type="button" class="icon-btn" id="navBack" title="assetKcht.nav.back" aria-label="Back">‹</button>
+      <div class="title" id="AK-02" data-zone="AK-02">Hạng mục tài sản</div>
+    </header>
+
+    <div class="content">
+      <div class="search-wrap" id="AK-03" data-zone="AK-03">
+        <input type="search" class="search" id="search" placeholder="Tìm loại tài sản…" title="assetKcht.search" aria-label="assetKcht.search" />
+      </div>
+
+      <div class="grid" id="AK-04" data-zone="AK-04" role="list">
+        <!-- sample tiles = review copy · Dev Live GET · cấm hardcode count SSOT -->
+      </div>
+
+      <div class="empty" id="AK-05" data-zone="AK-05">
+        <div class="msg" id="emptyMsg">Không có loại tài sản</div>
+        <button type="button" class="btn-retry" id="errorRetry" title="assetKcht.error.retry">Thử lại</button>
+      </div>
+    </div>
+
+    <div class="toast" id="toast" role="status"></div>
+  </div>
+
+  <p class="note">Pict tile = <code>assetIconBareHtml(iconCode)</code> · GIS <code>ASSET_CODE_META</code> · không badge 2 ký tự. Mở qua HTTP nếu module CORS (file://). ANTI_GLARE closest <code>GPC</code>.</p>
+
+  <script type="module">
+    const DEMO_ICONS = '../../../../../Linm.RMMS.Demo/src/demo/p/js/rmms-map-asset-icons.js';
+    const TYPES = [
+      { code: "PAVEMENT", name: "Mặt đường", iconCode: "KC" },
+      { code: "BRIDGE", name: "Cầu", iconCode: "CAU" },
+      { code: "TUNNEL", name: "Hầm", iconCode: "HAM" },
+      { code: "CULVERT_X", name: "Cống thoát nước ngang", iconCode: "CN" },
+      { code: "TRAFFIC_SIGN", name: "Biển báo", iconCode: "BB" },
+      { code: "ANTI_GLARE", name: "Tấm chống chói", iconCode: "GPC" }
+    ];
+    let bareHtml = null;
+    try {
+      const mod = await import(DEMO_ICONS);
+      bareHtml = mod.assetIconBareHtml;
+    } catch (e) {
+      document.querySelector(".note").textContent += " · Fallback mã (serve HTTP để load SVG GIS).";
+    }
+
+      var grid = document.getElementById("AK-04");
+      var empty = document.getElementById("AK-05");
+      var emptyMsg = document.getElementById("emptyMsg");
+      var search = document.getElementById("search");
+      var toast = document.getElementById("toast");
+      var toastTimer;
+      var board = "loaded";
+
+      function showToast(msg) {
+        toast.textContent = msg;
+        toast.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () { toast.classList.remove("show"); }, 2200);
+      }
+
+      function renderTiles(list) {
+        grid.innerHTML = "";
+        list.forEach(function (t) {
+          var btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "tile";
+          btn.setAttribute("data-zone", "AK-06");
+          btn.setAttribute("data-code", t.code);
+          btn.setAttribute("data-icon-code", t.iconCode);
+          btn.setAttribute("data-route", "/asset/list?type=" + encodeURIComponent(t.code));
+          var svg = bareHtml ? bareHtml(t.iconCode) : t.iconCode;
+          btn.innerHTML =
+            '<span class="ico" data-icon-code="' + t.iconCode + '">' + svg + "</span>" +
+            '<span class="lbl">' + t.name + "</span>" +
+            '<span class="code">' + t.code + "</span>";
+          btn.addEventListener("click", function () {
+            showToast("Nav peer → /asset/list?type=" + t.code);
+          });
+          grid.appendChild(btn);
+        });
+      }
+
+      function applyFilter() {
+        if (board === "empty" || board === "error") return;
+        var q = (search.value || "").trim().toLowerCase();
+        var filtered = TYPES.filter(function (t) {
+          if (!q) return true;
+          return t.name.toLowerCase().indexOf(q) >= 0 || t.code.toLowerCase().indexOf(q) >= 0;
+        });
+        renderTiles(filtered);
+        if (filtered.length === 0) {
+          empty.classList.add("show");
+          emptyMsg.textContent = "Không tìm thấy loại phù hợp";
+          document.getElementById("errorRetry").style.display = "none";
+          grid.style.display = "none";
+        } else {
+          empty.classList.remove("show");
+          grid.style.display = "grid";
+        }
+      }
+
+      function setBoard(name) {
+        board = name;
+        document.querySelectorAll(".board-nav button").forEach(function (b) {
+          b.classList.toggle("active", b.getAttribute("data-board") === name);
+        });
+        toast.classList.remove("show");
+        search.value = name === "search" ? "cầu" : "";
+        document.getElementById("errorRetry").style.display = name === "error" ? "inline-block" : "none";
+
+        if (name === "empty") {
+          grid.innerHTML = "";
+          grid.style.display = "none";
+          empty.classList.add("show");
+          emptyMsg.textContent = "Không có loại tài sản";
+        } else if (name === "error") {
+          grid.innerHTML = "";
+          grid.style.display = "none";
+          empty.classList.add("show");
+          emptyMsg.textContent = "Không tải được danh sách loại";
+          showToast("Không tải asset-types (503). Thử lại — không dùng alert.");
+        } else {
+          empty.classList.remove("show");
+          grid.style.display = "grid";
+          applyFilter();
+        }
+      }
+
+      document.querySelectorAll(".board-nav button").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          setBoard(btn.getAttribute("data-board"));
+        });
+      });
+
+      document.getElementById("navBack").addEventListener("click", function () {
+        showToast("Nav → Hub (web-rmms-asset-hub /asset)");
+      });
+
+      document.getElementById("errorRetry").addEventListener("click", function () {
+        showToast("Reload GET integration/asset-types");
+        setBoard("loaded");
+      });
+
+      search.addEventListener("input", function () {
+        if (board === "empty" || board === "error") return;
+        board = "search";
+        document.querySelectorAll(".board-nav button").forEach(function (b) {
+          b.classList.toggle("active", b.getAttribute("data-board") === "search");
+        });
+        applyFilter();
+      });
+
+      setBoard("loaded");
+  </script>
+</body>
+</html>

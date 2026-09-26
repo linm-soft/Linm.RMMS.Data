@@ -1,0 +1,109 @@
+{
+  "feature": "web-rmms-bien-ban",
+  "cases": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "href": "http://localhost:9301/web-rmms-bien-ban",
+      "dump": {
+        "feature": "web-rmms-bien-ban",
+        "zones": [
+          "BB-00"
+        ],
+        "des": [
+          "DES-MOB-BIEN-BAN"
+        ],
+        "fields": [],
+        "controls": [],
+        "ids": [
+          "BB-ROOT"
+        ],
+        "text": "RMMS · Mobile Home Field hub Shell chrome Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Incident Đề nghị biên bản BB-00 list BB-02 TD create BB-03 TK create Work (công việc) Work progress (WORK-P) Work log (WORK-G) Work chat (WORK-C) VIS capture Photo geo (PGC) Chấm công (attendance) Asset adjust GIS map Patrol map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Đề nghị biên bản Đăng nhập để xem đề nghị biên bản. Đăng nhập",
+        "href": "http://localhost:9301/web-rmms-bien-ban",
+        "guestGate": true,
+        "cardCount": 0,
+        "hasSearch": false,
+        "hasCreateTd": false,
+        "hasCreateTk": false,
+        "hasEmpty": false
+      }
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "href": "http://localhost:9301/web-rmms-home",
+      "dump": {
+        "feature": "web-rmms-home",
+        "zones": [
+          "SH-00",
+          "HM-00",
+          "HM-01",
+          "HM-02",
+          "SH-01",
+          "SH-02"
+        ],
+        "des": [],
+        "fields": [
+          "guestFaq",
+          "guestPrivacy",
+          "guestLoginCta"
+        ],
+        "controls": [],
+        "ids": [
+          "loginUser",
+          "loginPass",
+          "loginSubmit",
+          "guestLogin"
+        ],
+        "text": "RMMS · Mobile Home Field hub Shell chrome Home → Field tab Incident Work tab Work list → Ops → Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Incident Đề nghị biên bản Work (công việc) Work progress (WORK-P) Work log (WORK-G) Work chat (WORK-C) VIS capture Photo geo (PGC) Chấm công (attendance) Asset adjust GIS map Patrol map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Trang chủ FAQ Hướng dẫn dùng app tuần đường / sự cố / công việc trên thiết bị di động. Quyền riêng tư Dữ liệu phiên và vị trí chỉ dùng khi bạn đăng nhập và vào màn nghiệp vụ cần GPS. Đăng nhập 🏠 Trang chủ 🛣 Hiện trường ⚠️ Sự cố 🧰 Công việc Đăng nhập Hủy Tài khoản Mật khẩu Đăng nhập",
+        "href": "http://localhost:9301/web-rmms-home",
+        "guestGate": false,
+        "cardCount": 0,
+        "hasSearch": false,
+        "hasCreateTd": false,
+        "hasCreateTk": false,
+        "hasEmpty": false
+      }
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "href": "http://localhost:9301/web-rmms-bien-ban",
+      "dump": {
+        "feature": "web-rmms-bien-ban",
+        "zones": [
+          "BB-00",
+          "BB-01",
+          "BB-07"
+        ],
+        "des": [
+          "DES-MOB-BIEN-BAN",
+          "BB-01"
+        ],
+        "fields": [
+          "list.search",
+          "btnCreateTd",
+          "btnCreateTk",
+          "list.empty"
+        ],
+        "controls": [],
+        "ids": [
+          "BB-ROOT"
+        ],
+        "text": "RMMS · Mobile Home Field hub Shell chrome Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Incident Đề nghị biên bản BB-00 list BB-02 TD create BB-03 TK create Work (công việc) Work progress (WORK-P) Work log (WORK-G) Work chat (WORK-C) VIS capture Photo geo (PGC) Chấm công (attendance) Asset adjust GIS map Patrol map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Đề nghị biên bản Từ tuần đường Từ tuần kiểm Chưa có đề nghị hành lang Tạo từ tuần đường hoặc tuần kiểm.",
+        "href": "http://localhost:9301/web-rmms-bien-ban",
+        "guestGate": false,
+        "cardCount": 0,
+        "hasSearch": true,
+        "hasCreateTd": true,
+        "hasCreateTk": true,
+        "hasEmpty": true
+      }
+    }
+  ],
+  "pass": true,
+  "at": "2026-09-26T01:00:57.087Z"
+}

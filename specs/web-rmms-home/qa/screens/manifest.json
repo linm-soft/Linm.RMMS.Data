@@ -1,0 +1,91 @@
+{
+  "url": "http://localhost:9301/web-rmms-home",
+  "capturedAt": "2026-09-25T12:21:44.991Z",
+  "method": "capture_home · MFE /login · phone 430 · S0 guest HM-* · S1 staff HM-* · QA-20 SH-02 · playwright junction",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "href": "http://localhost:9301/web-rmms-home",
+      "dump": {
+        "feature": "web-rmms-home",
+        "mode": null,
+        "zones": [
+          "SH-00",
+          "HM-00",
+          "HM-01",
+          "HM-02",
+          "SH-01"
+        ],
+        "fields": [
+          "guestFaq",
+          "guestPrivacy",
+          "guestLoginCta"
+        ],
+        "text": "RMMS · Mobile Home Shell chrome Home → Field Incident Work Ops Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile DS Dev Standalone Developer RMMS Mobile ‹ Trang chủ 🔔 FAQ Hướng dẫn dùng app tuần đường / sự cố / công việc trên thiết bị di động. Quyền riêng tư Dữ liệu phiên và vị trí chỉ dùng khi bạn đăng nhập và vào màn nghiệp vụ cần GPS. Đăng nhập 🏠 Trang chủ 🛣 Hiện trường ⚠️ Sự cố 🧰 Công việc",
+        "href": "http://localhost:9301/web-rmms-home"
+      }
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "href": "http://localhost:9301/web-rmms-home",
+      "dump": {
+        "feature": "web-rmms-home",
+        "mode": null,
+        "zones": [
+          "SH-00",
+          "HM-00",
+          "HM-06",
+          "HM-03",
+          "HM-04",
+          "HM-05",
+          "SH-01"
+        ],
+        "fields": [
+          "profileName",
+          "qaPatrolPoint",
+          "qaIncidentNew",
+          "gridSupervise",
+          "gridPatrolMap",
+          "gridWork",
+          "gridIncident",
+          "gridAsset",
+          "gridOffline",
+          "walletAsset",
+          "notifyBadge"
+        ],
+        "text": "RMMS · Mobile Home Shell chrome Home → Field Incident Work Ops Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile DS Dev Standalone Developer RMMS Mobile ‹ Trang chủ 🔔 4 Linm Soft Admin Truy cập nhanh Điểm tuần Ghi sự cố Chức năng 👁 Giám sát 🗺 Bản đồ tuần 🛠 Công việc ⚠ Sự cố 📦 Tài sản ☁ Offline 👛 Hồ sơ tài sản Xem và quản lý tài sản 🔔 4 Thông báo 4 🏠 Trang chủ 🛣 Hiện trường ⚠️ Sự cố 🧰 Công việc",
+        "href": "http://localhost:9301/web-rmms-home"
+      }
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "href": "http://localhost:9301/web-rmms-home",
+      "dump": {
+        "feature": "web-rmms-home",
+        "mode": null,
+        "zones": [
+          "SH-00",
+          "HM-00",
+          "HM-01",
+          "HM-02",
+          "SH-01",
+          "SH-02"
+        ],
+        "fields": [
+          "guestFaq",
+          "guestPrivacy",
+          "guestLoginCta"
+        ],
+        "text": "RMMS · Mobile Home Shell chrome Home → Field Incident Work Ops Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile DS Dev Standalone Developer RMMS Mobile ‹ Trang chủ 🔔 FAQ Hướng dẫn dùng app tuần đường / sự cố / công việc trên thiết bị di động. Quyền riêng tư Dữ liệu phiên và vị trí chỉ dùng khi bạn đăng nhập và vào màn nghiệp vụ cần GPS. Đăng nhập 🏠 Trang chủ 🛣 Hiện trường ⚠️ Sự cố 🧰 Công việc Đăng nhập Hủy Tài khoản Mật khẩu Đăng nhập",
+        "href": "http://localhost:9301/web-rmms-home"
+      }
+    }
+  ],
+  "ok": true
+}

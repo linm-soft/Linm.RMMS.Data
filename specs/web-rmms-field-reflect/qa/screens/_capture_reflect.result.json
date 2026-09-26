@@ -1,0 +1,82 @@
+{
+  "feature": "web-rmms-field-reflect",
+  "cases": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "href": "http://localhost:9301/web-rmms-field-reflect",
+      "dump": {
+        "feature": "web-rmms-field-reflect",
+        "zones": [
+          "FR-00"
+        ],
+        "des": [
+          "DES-MOB-FIELD-REFLECT"
+        ],
+        "actions": [],
+        "ids": [
+          "FR-REFLECT"
+        ],
+        "text": "RMMS · Mobile Home Field hub Shell chrome Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Phản ánh FR-00…02 Alias /field/reflect Chấm công (attendance) Asset adjust GIS map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Phản ánh hiện trường Đăng nhập để phản ánh hiện trường. Đăng nhập",
+        "href": "http://localhost:9301/web-rmms-field-reflect",
+        "guestGate": true
+      }
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "href": "http://localhost:9301/web-rmms-home",
+      "dump": {
+        "feature": "web-rmms-home",
+        "zones": [
+          "SH-00",
+          "HM-00",
+          "HM-01",
+          "HM-02",
+          "SH-01",
+          "SH-02"
+        ],
+        "des": [],
+        "actions": [],
+        "ids": [
+          "loginUser",
+          "loginPass",
+          "loginSubmit",
+          "guestLogin"
+        ],
+        "text": "RMMS · Mobile Home Field hub Shell chrome Home → Field tab Incident Work Ops → Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Chấm công (attendance) Asset adjust GIS map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Trang chủ FAQ Hướng dẫn dùng app tuần đường / sự cố / công việc trên thiết bị di động. Quyền riêng tư Dữ liệu phiên và vị trí chỉ dùng khi bạn đăng nhập và vào màn nghiệp vụ cần GPS. Đăng nhập 🏠 Trang chủ 🛣 Hiện trường ⚠️ Sự cố 🧰 Công việc Đăng nhập Hủy Tài khoản Mật khẩu Đăng nhập",
+        "href": "http://localhost:9301/web-rmms-home",
+        "guestGate": false
+      }
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "href": "http://localhost:9301/web-rmms-field-reflect",
+      "dump": {
+        "feature": "web-rmms-field-reflect",
+        "zones": [
+          "FR-00"
+        ],
+        "des": [
+          "DES-MOB-FIELD-REFLECT",
+          "FR-00"
+        ],
+        "actions": [
+          "assetPick"
+        ],
+        "ids": [
+          "FR-REFLECT"
+        ],
+        "text": "RMMS · Mobile Home Field hub Shell chrome Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Phản ánh FR-00…02 Alias /field/reflect Chấm công (attendance) Asset adjust GIS map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Chọn loại tài sản FR-00 · LOOKUPGRID ASSET-TYPES Loại tài sản PAVEMENT Mặt đường BRIDGE Cầu TUNNEL Hầm CULVERT_X Cống thoát nước ngang DITCH Rãnh / cống dọc UNDERPASS Hầm chui dân sinh TRAFFIC_SIGN Biển báo DELINEATOR Cọc tiêu / cọc H KM_POST Cột Km MEDIAN Dải phân cách giữa ANTI_GLARE Tấm chống chói TRAFFIC_ISLAND Đảo giao thông ROAD_STUD Đinh phản quang GUARDRAIL Hộ lan / tôn sóng ROAD_MARKING Vạch sơn CRASH_CUSHION Thùng giảm chấn CONVEX_MIRROR Gương cầu TRAFFIC_SIGNAL Đèn tín hiệu BOUNDARY Mốc lộ giới / GPMB RETAINING Kè / tường chắn SHOULDER Lề đường / hàng rào LIGHTING Chiếu sáng đường GREEN Cây xanh / thảm cỏ INTERCHANGE Nút giao đường bộ SLOPE_PROTECT Bảo vệ mái dốc GANTRY_SIGN Giá long môn / cột cần ROW_UTIL CT HTKT trong HLATĐB STATION_HOUSE Nhà hạt QLĐB BUS_STATION Bến xe buýt / khách BUS_STOP Điểm đỗ /",
+        "href": "http://localhost:9301/web-rmms-field-reflect",
+        "guestGate": false
+      }
+    }
+  ],
+  "pass": true,
+  "at": "2026-09-25T20:23:49.910Z"
+}

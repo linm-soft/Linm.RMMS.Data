@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>web-rmms-mobile-d — Đợt D kết ca / giao việc / sổ KN</title>
+  <style>
+    :root {
+      --primary: #0C84C0;
+      --header-start: #086A9A;
+      --header-end: #0C84C0;
+      --success: #3CB448;
+      --warning: #FCB43C;
+      --danger: #F03C30;
+      --surface: #F2F2F7;
+      --card: #FFFFFF;
+      --on-primary: #FFFFFF;
+      --on-surface: #1C1C1E;
+      --border: #C7C7CC;
+      --muted: #8E8E93;
+      --radius-card: 16px;
+      --radius-control: 12px;
+      --label: 13px;
+      --field: 16px;
+      --nav-title: 17px;
+      --control-h: 44px;
+      --field-h: 52px;
+      --phone-w: 430px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: #1a1a1e;
+      color: var(--on-surface);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px 8px 32px;
+    }
+    .board-nav {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      max-width: var(--phone-w); width: 100%; margin-bottom: 12px;
+    }
+    .board-nav button {
+      border: 1px solid var(--border); background: #2a2a2e; color: #eee;
+      border-radius: 8px; padding: 6px 10px; font-size: 12px; cursor: pointer;
+    }
+    .board-nav button.active { background: var(--primary); border-color: var(--primary); }
+    .phone {
+      width: min(100%, var(--phone-w));
+      min-height: 780px;
+      background: var(--surface);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,.45);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .topbar {
+      background: linear-gradient(135deg, var(--header-start), var(--header-end));
+      color: var(--on-primary);
+      min-height: 56px;
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 14px;
+    }
+    .topbar .back, .topbar .icon-btn {
+      width: 44px; height: 44px; border: 0; background: transparent;
+      color: inherit; font-size: 36px; line-height: 1; padding: 0;
+      display: grid; place-items: center;
+      cursor: pointer; border-radius: 12px;
+    }
+    .topbar .title {
+      flex: 1; font-size: var(--nav-title); font-weight: 600; text-align: center;
+    }
+    .topbar .spacer { width: 44px; }
+    .content { flex: 1; overflow: auto; padding: 12px 14px 88px; }
+    .screen { display: none; flex-direction: column; flex: 1; min-height: 0; }
+    .screen.active { display: flex; }
+    .btn {
+      height: var(--control-h); border-radius: var(--radius-control); border: 0;
+      padding: 0 16px; font-size: 15px; font-weight: 600; cursor: pointer;
+    }
+    .btn-primary { background: var(--primary); color: var(--on-primary); }
+    .btn-secondary { background: #E5E5EA; color: var(--on-surface); }
+    .btn-ghost { background: transparent; color: var(--primary); border: 1px solid var(--primary); }
+    .btn-block { width: 100%; margin-top: 8px; }
+    .btn:disabled { opacity: .45; cursor: not-allowed; }
+    .toolbar-form { display: flex; gap: 8px; margin-bottom: 12px; }
+    .toolbar-form .btn { flex: 1; }
+    .card {
+      background: var(--card); border-radius: var(--radius-card);
+      border: 1px solid var(--border); padding: 14px; margin-bottom: 10px; cursor: pointer;
+    }
+    .card .meta { color: var(--muted); font-size: 13px; margin-top: 4px; }
+    .card .row { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+    .chip {
+      display: inline-block; font-size: 12px; padding: 3px 8px;
+      border-radius: 6px; background: #E8F6FC; color: var(--primary); margin-right: 4px;
+    }
+    .chip.status-moi { background: #FFF4E0; color: #9A6200; }
+    .chip.status-da-giao { background: #E8F6FC; color: var(--primary); }
+    .chip.status-cho-kiem-tra { background: #F0E8FF; color: #5B3FA8; }
+    .chip.status-xong { background: #E8F8EA; color: #1B7A28; }
+    .chip-open {
+      display: inline-block; font-size: 12px; padding: 4px 8px;
+      border-radius: 8px; background: #FFF4E0; color: #9A6200; margin: 2px 4px 2px 0;
+    }
+    .session-bar {
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 10px 12px; margin-bottom: 12px; font-size: 13px;
+    }
+    .session-bar strong { font-size: 14px; }
+    .field { margin-bottom: 12px; }
+    .field label {
+      display: block; font-size: var(--label); color: var(--muted); margin-bottom: 4px;
+    }
+    .field input:not([type="radio"]):not([type="checkbox"]), .field select, .field textarea {
+      width: 100%; min-height: var(--field-h); font-size: var(--field);
+      border: 1px solid var(--border); border-radius: var(--radius-control);
+      padding: 10px 12px; background: var(--card); color: var(--on-surface);
+    }
+    .field textarea { min-height: 96px; resize: vertical; }
+    .field input[type="radio"],
+    .field input[type="checkbox"],
+    .radio-stack input,
+    .radio-grid input,
+    .check-row input,
+    .toggle-row input {
+      width: 20px; height: 20px; min-width: 20px; min-height: 20px;
+      margin: 0; padding: 0; flex: 0 0 20px; accent-color: var(--primary);
+    }
+    .field .ro { background: #F2F2F7; color: var(--muted); }
+    .empty { text-align: center; padding: 48px 16px; color: var(--muted); }
+    .empty strong { display: block; color: var(--on-surface); margin-bottom: 8px; font-size: 16px; }
+    .fab {
+      position: absolute; right: 16px; bottom: 20px; z-index: 10;
+      height: 52px; padding: 0 20px; border-radius: 26px;
+      background: var(--primary); color: var(--on-primary); border: 0;
+      font-weight: 600; font-size: 15px; box-shadow: 0 6px 16px rgba(12,132,192,.4);
+      cursor: pointer;
+    }
+    .gps-ok { color: var(--success); font-size: 13px; }
+    .gps-deny { color: var(--danger); font-size: 13px; }
+    .banner-deny {
+      background: #FDECEA; color: var(--danger); border-radius: 12px;
+      padding: 10px 12px; margin-bottom: 12px; font-size: 13px;
+    }
+    .banner-ok {
+      background: #E8F8EA; color: #1B7A28; border-radius: 12px;
+      padding: 10px 12px; margin-bottom: 12px; font-size: 13px;
+    }
+    .photo-row { display: flex; gap: 8px; flex-wrap: wrap; }
+    .photo-add {
+      width: 72px; height: 72px; border: 1px dashed var(--border);
+      border-radius: 12px; display: flex; align-items: center; justify-content: center;
+      color: var(--muted); font-size: 28px; cursor: pointer; background: var(--card);
+    }
+    .leave-modal {
+      position: absolute; inset: 0; background: rgba(0,0,0,.45);
+      display: none; align-items: center; justify-content: center; z-index: 40; padding: 24px;
+    }
+    .leave-modal.open { display: flex; }
+    .leave-card {
+      background: var(--card); border-radius: 16px; padding: 18px; width: 100%; max-width: 320px;
+    }
+    .leave-card h3 { margin: 0 0 8px; font-size: 17px; }
+    .leave-card p { margin: 0 0 16px; color: var(--muted); font-size: 14px; }
+    .leave-actions { display: flex; gap: 8px; }
+    .leave-actions .btn { flex: 1; }
+    .hint { font-size: 12px; color: var(--muted); margin-top: 4px; }
+    .radio-stack label {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 12px; font-size: 15px; color: var(--on-surface); min-height: 48px; margin-bottom: 8px;
+    }
+    .radio-stack label.selected { border-color: var(--primary); background: #E8F6FC; }
+    .radio-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .radio-grid label {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 10px 12px; font-size: 14px; color: var(--on-surface); min-height: 44px;
+    }
+    .check-row label {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 10px 12px; font-size: 14px; color: var(--on-surface); min-height: 44px; margin-bottom: 8px;
+    }
+    .detail-block {
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 12px; margin-bottom: 12px; font-size: 14px;
+    }
+    .detail-block dt { color: var(--muted); font-size: 12px; margin-top: 8px; }
+    .detail-block dd { margin: 2px 0 0; }
+    .open-list {
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 10px 12px; margin-bottom: 12px; font-size: 13px;
+    }
+    .open-list li { margin: 6px 0; color: var(--on-surface); }
+    .cond { display: none; }
+    .cond.show { display: block; }
+  </style>
+</head>
+<body>
+  <nav class="board-nav" aria-label="Screens">
+    <button type="button" data-go="TD-06k" class="active">TD-06 kết ca</button>
+    <button type="button" data-go="TD-06b">TD-06 bàn giao</button>
+    <button type="button" data-go="TD-06p">TD-06 tạm dừng</button>
+    <button type="button" data-go="TK-03a">TK-03 assign</button>
+    <button type="button" data-go="TK-05f">TK-05 feedback</button>
+    <button type="button" data-go="TK-06e">TK-06 empty</button>
+    <button type="button" data-go="TK-06">TK-06 list</button>
+    <button type="button" data-go="TK-06c">TK-06 create</button>
+    <button type="button" data-go="TK-06g">TK-06 no-face</button>
+  </nav>
+
+  <div class="phone" id="phone" data-feature="web-rmms-mobile-d" data-phone-frame="430">
+    <!-- TD-06 kết ca -->
+    <section class="screen active" id="sc-TD-06k" data-des-id="TD-06" data-route="/field/tuan-duong/ket-ca" data-state="ket-ca">
+      <header class="topbar">
+        <button type="button" class="back" data-leave="1" aria-label="Quay lại">‹</button>
+        <div class="title">Kết ca</div>
+        <span class="spacer"></span>
+      </header>
+      <div class="content">
+        <div class="toolbar-form">
+          <button type="button" class="btn btn-secondary" data-field="cancel" data-leave="1">Hủy</button>
+          <button type="button" class="btn btn-primary" data-field="saveSession">Lưu</button>
+        </div>
+        <div class="session-bar" data-field="session.id">
+          <strong>TD-2026-118</strong> · QL.1 · Đang tuần · không GPS
+        </div>
+        <div class="field" data-field="summaryDone">
+          <label>Tóm tắt nhật ký</label>
+          <input class="ro" readonly value="12 xong · 2 chưa" />
+        </div>
+        <div class="field" data-field="actionKind">
+          <label>Việc *</label>
+          <div class="radio-stack" role="radiogroup">
+            <label class="selected"><input type="radio" name="ak-k" checked /> Kết ca</label>
+            <label><input type="radio" name="ak-k" disabled /> Bàn giao</label>
+            <label><input type="radio" name="ak-k" disabled /> Tạm dừng</label>
+          </div>
+          <p class="hint">Prototype zone ket-ca · Dev: Radio 1-of-3 useFormOptions</p>
+        </div>
+        <div class="open-list" data-field="openLinesList">
+          <strong>Dòng chưa xong (RO)</strong>
+          <ul>
+            <li>JL-041 · Km 12+200 · chưa xong</li>
+            <li>JL-044 · Km 14+010 · chưa xong</li>
+          </ul>
+          <p class="hint">Không xóa dòng · bàn giao mang theo</p>
+        </div>
+        <p class="banner-ok">Lưu → Status <strong>Hoàn thành</strong> · PUT sessions Live</p>
+      </div>
+    </section>
+
+    <!-- TD-06 bàn giao -->
+    <section class="screen" id="sc-TD-06b" data-des-id="TD-06" data-route="/field/tuan-duong/ket-ca" data-state="ban-giao">
+      <header class="topbar">
+        <button type="button" class="back" data-leave="1" aria-label="Quay lại">‹</button>
+        <div class="title">Kết ca</div>
+        <span class="spacer"></span>
+      </header>
+      <div class="content">
+        <div class="toolbar-form">
+          <button type="button" class="btn btn-secondary" data-field="cancel" data-leave="1">Hủy</button>
+          <button type="button" class="btn btn-primary" data-field="saveSession">Lưu</button>
+        </div>
+        <div class="session-bar"><strong>TD-2026-118</strong> · QL.1 · Đang tuần</div>
+        <div class="field" data-field="actionKind">
+          <label>Việc *</label>
+          <div class="radio-stack">
+            <label><input type="radio" name="ak-b" disabled /> Kết ca</label>
+            <label class="selected"><input type="radio" name="ak-b" checked /> Bàn giao</label>
+            <label><input type="radio" name="ak-b" disabled /> Tạm dừng</label>
+          </div>
+        </div>
+        <div class="field" data-field="handoverNote">
+          <label>Nội dung bàn giao *</label>
+          <textarea>Chuyển ca chiều · còn 2 dòng mở tại Km 12+200 và 14+010.</textarea>
+        </div>
+        <div class="field" data-field="handoverOpenIds">
+          <label>Dòng kèm theo</label>
+          <div>
+            <span class="chip-open">JL-041</span>
+            <span class="chip-open">JL-044</span>
+          </div>
+        </div>
+        <div class="field" data-field="receiverName">
+          <label>Người nhận</label>
+          <input type="text" placeholder="Nhập tên (Text tay · GAP Lookup)" value="Nguyễn Văn B" />
+        </div>
+        <p class="hint">Lưu giữ Status Đang tuần + Note tạm 1 format · Schema SA</p>
+      </div>
+    </section>
+
+    <!-- TD-06 tạm dừng -->
+    <section class="screen" id="sc-TD-06p" data-des-id="TD-06" data-route="/field/tuan-duong/ket-ca" data-state="tam-dung">
+      <header class="topbar">
+        <button type="button" class="back" data-leave="1" aria-label="Quay lại">‹</button>
+        <div class="title">Kết ca</div>
+        <span class="spacer"></span>
+      </header>
+      <div class="content">
+        <div class="toolbar-form">
+          <button type="button" class="btn btn-secondary" data-field="cancel" data-leave="1">Hủy</button>
+          <button type="button" class="btn btn-primary" data-field="saveSession">Lưu</button>
+        </div>
+        <div class="session-bar"><strong>TD-2026-118</strong> · QL.1 · Đang tuần</div>
+        <div class="field" data-field="actionKind">
+          <label>Việc *</label>
+          <div class="radio-stack">
+            <label><input type="radio" name="ak-p" disabled /> Kết ca</label>
+            <label><input type="radio" name="ak-p" disabled /> Bàn giao</label>
+            <label class="selected"><input type="radio" name="ak-p" checked /> Tạm dừng</label>
+          </div>
+        </div>
+        <div class="field" data-field="pauseReason">
+          <label>Lý do tạm dừng *</label>
+          <select>
+            <option selected>thời tiết</option>
+            <option>an toàn</option>
+            <option>thiết bị</option>
+            <option>chỉ đạo</option>
+            <option>khác</option>
+          </select>
+        </div>
+        <p class="hint">Flag pause trên Đang tuần · không tính thiếu lượt · SA chốt Status</p>
+      </div>
+    </section>
+
+    <!-- TK-03 assign (delta D) -->
+    <section class="screen" id="sc-TK-03a" data-des-id="TK-03" data-route="/field/tuan-kiem/phieu/moi" data-state="assign">
+      <header class="topbar">
+        <button type="button" class="back" aria-label="Quay lại">‹</button>
+        <div class="title">Lập phiếu</div>
+        <span class="spacer"></span>
+      </header>
+      <div class="content">
+        <div class="detail-block">
+          <strong data-field="card.code">TT-2026-001</strong>
+          <span class="chip status-da-giao" data-field="finding.status">đã giao</span>
+          <dl>
+            <dt>Mô tả</dt><dd>Ổ gà Km 12+100–12+150</dd>
+            <dt>Hạn</dt><dd>2026-09-30</dd>
+            <dt data-field="workOrderId">Mã WO</dt><dd class="ro">WO-2026-8841</dd>
+          </dl>
+        </div>
+        <p class="banner-ok">Sau có finding id · POST maintenance/work-orders Live · IncidentId trống · Title=code</p>
+        <button type="button" class="btn btn-primary btn-block" data-field="assignWo" disabled>Đã giao BDTX</button>
+        <p class="hint">Nút Giao BDTX enable khi chưa có workOrderId · GPS lúc tạo = peer C · không bắt GPS mới</p>
+        <button type="button" class="btn btn-ghost btn-block" data-go="TK-05f">Xem phản hồi (TK-05)</button>
+      </div>
+    </section>
+
+    <!-- TK-05 feedback -->
+    <section class="screen" id="sc-TK-05f" data-des-id="TK-05" data-route="/field/tuan-kiem/phieu/:id" data-state="feedback">
+      <header class="topbar">
+        <button type="button" class="back" aria-label="Quay lại">‹</button>
+        <div class="title">Chi tiết phiếu</div>
+        <span class="spacer"></span>
+      </header>
+      <div class="content">
+        <div class="detail-block" data-field="detailRO">
+          <strong>TT-2026-001</strong>
+          <span class="chip status-da-giao">đã giao</span>
+          <dl>
+            <dt>WO</dt><dd data-field="workOrderId">WO-2026-8841</dd>
+            <dt>Km</dt><dd>12+100–12+150</dd>
+          </dl>
+        </div>
+        <h3 style="font-size:15px;margin:0 0 8px">Phản hồi BDTX</h3>
+        <div class="field" data-field="feedbackQty">
+          <label>Khối lượng thực hiện</label>
+          <input type="text" value="4 m²" />
+        </div>
+        <div class="field" data-field="feedbackQuality">
+          <label>Chất lượng *</label>
+          <div class="radio-grid">
+            <label><input type="radio" name="fq" checked /> Đạt</label>
+            <label><input type="radio" name="fq" /> Chưa đạt</label>
+          </div>
+        </div>
+        <div class="field" data-field="feedbackAt">
+          <label>Thời điểm *</label>
+          <input type="datetime-local" value="2026-09-25T14:30" />
+        </div>
+        <div class="field" data-field="feedbackMedia">
+          <label>Ảnh sau</label>
+          <div class="photo-row">
+            <div class="photo-add" title="files/*">+</div>
+          </div>
+        </div>
+        <div class="field" data-field="feedbackNote">
+          <label>Ghi chú</label>
+          <textarea>Đã vá mặt đường · chờ kiểm tra lại.</textarea>
+        </div>
+        <button type="button" class="btn btn-primary btn-block" data-field="saveFeedback">Lưu phản hồi</button>
+        <p class="hint">POST …/feedback → status cho-kiem-tra · GPS không HARD trên feedback</p>
+      </div>
+    </section>
+
+    <!-- TK-06 empty -->
+    <section class="screen" id="sc-TK-06e" data-des-id="TK-06" data-route="/field/tuan-kiem/kien-nghi" data-state="empty">
+      <header class="topbar">
+        <button type="button" class="back" aria-label="Quay lại">‹</button>
+        <div class="title">Sổ kiến nghị</div>
+        <span class="spacer"></span>
+      </header>
+      <div class="content">
+        <div class="empty" data-field="emptyHint">
+          <strong>Chưa có kiến nghị</strong>
+          Không dùng notification/inbox · empty đến khi Schema_PatrolPetition Live.
+        </div>
+        <button type="button" class="btn btn-primary btn-block" data-field="createPetition" data-go="TK-06c">Tạo kiến nghị</button>
+      </div>
+    </section>
+
+    <!-- TK-06 list -->
+    <section class="screen" id="sc-TK-06" data-des-id="TK-06" data-route="/field/tuan-kiem/kien-nghi" data-state="list">
+      <header class="topbar">
+        <button type="button" class="back" aria-label="Quay lại">‹</button>
+        <div class="title">Sổ kiến nghị</div>
+        <span class="spacer"></span>
+      </header>
+      <div class="content" data-field="petitionList">
+        <div class="card">
+          <div class="row">
+            <div>
+              <strong>KN-2026-012</strong>
+              <span class="chip">mặt đường</span>
+            </div>
+            <span class="chip status-moi" data-field="petition.status">mới</span>
+          </div>
+          <div class="meta">QL.1 · Km 18+050 · Đơn vị BDTX Đông</div>
+          <div style="display:flex;gap:8px;margin-top:10px">
+            <button type="button" class="btn btn-ghost" style="flex:1;height:40px;font-size:13px" data-field="openFinding" data-go="TK-03a">Lập phiếu</button>
+            <button type="button" class="btn btn-secondary" style="flex:1;height:40px;font-size:13px" data-field="closePetition" disabled>Đóng</button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="row">
+            <div>
+              <strong>KN-2026-011</strong>
+              <span class="chip">ATGT</span>
+            </div>
+            <span class="chip status-moi">mới</span>
+          </div>
+          <div class="meta">ĐT.1 · Km 3+200 · không có mặt</div>
+        </div>
+        <p class="hint">Cards phone · cấm LinErpListFilterBar · ≠ inbox</p>
+      </div>
+      <button type="button" class="fab" data-field="createPetition" data-go="TK-06c">+ Tạo KN</button>
+    </section>
+
+    <!-- TK-06 create GPS ok -->
+    <section class="screen" id="sc-TK-06c" data-des-id="TK-06" data-route="/field/tuan-kiem/kien-nghi/moi" data-state="create">
+      <header class="topbar">
+        <button type="button" class="back" data-leave="1" aria-label="Hủy">‹</button>
+        <div class="title">Tạo kiến nghị</div>
+        <span class="spacer"></span>
+      </header>
+      <div class="content">
+        <div class="toolbar-form">
+          <button type="button" class="btn btn-secondary" data-leave="1">Hủy</button>
+          <button type="button" class="btn btn-primary" data-field="savePetition">Lưu</button>
+        </div>
+        <div class="field" data-field="senderUnit">
+          <label>Người / đơn vị *</label>
+          <input type="text" value="Tổ tuần kiểm 1 · BDTX Đông" />
+        </div>
+        <div class="field" data-field="route">
+          <label>Tuyến *</label>
+          <input type="text" value="QL.1" />
+        </div>
+        <div class="field" data-field="km">
+          <label>Km *</label>
+          <input type="text" value="18+050" />
+        </div>
+        <div class="field" data-field="content">
+          <label>Nội dung *</label>
+          <textarea>Đề nghị xử lý lún nhẹ mặt đường đoạn Km 18+050.</textarea>
+        </div>
+        <div class="field" data-field="petitionKind">
+          <label>Phân loại *</label>
+          <select>
+            <option selected>mặt đường</option>
+            <option>thoát nước</option>
+            <option>ATGT</option>
+            <option>hành lang</option>
+            <option>khác</option>
+          </select>
+        </div>
+        <div class="field" data-field="getGps">
+          <label>GPS hiện trường</label>
+          <button type="button" class="btn btn-ghost btn-block">Lấy tọa độ</button>
+          <p class="gps-ok" data-field="lat">[10.776900, 106.700900]</p>
+        </div>
+        <div class="check-row" data-field="noFaceFlag">
+          <label><input type="checkbox" /> Không có mặt tại hiện trường</label>
+        </div>
+        <p class="hint">POST petitions status moi · Schema trước form · cấm fake coords</p>
+      </div>
+    </section>
+
+    <!-- TK-06 GPS deny + no-face -->
+    <section class="screen" id="sc-TK-06g" data-des-id="TK-06" data-route="/field/tuan-kiem/kien-nghi/moi" data-state="no-face">
+      <header class="topbar">
+        <button type="button" class="back" data-leave="1" aria-label="Hủy">‹</button>
+        <div class="title">Tạo kiến nghị</div>
+        <span class="spacer"></span>
+      </header>
+      <div class="content">
+        <div class="toolbar-form">
+          <button type="button" class="btn btn-secondary" data-leave="1">Hủy</button>
+          <button type="button" class="btn btn-primary" data-field="savePetition">Lưu</button>
+        </div>
+        <div class="banner-deny">GPS bị từ chối · không điền tọa độ mẫu</div>
+        <div class="field" data-field="senderUnit">
+          <label>Người / đơn vị *</label>
+          <input type="text" value="Tổ tuần kiểm 1" />
+        </div>
+        <div class="field" data-field="route">
+          <label>Tuyến *</label>
+          <input type="text" value="ĐT.1" />
+        </div>
+        <div class="field" data-field="km">
+          <label>Km *</label>
+          <input type="text" value="3+200" />
+        </div>
+        <div class="field" data-field="content">
+          <label>Nội dung *</label>
+          <textarea>Kiến nghị từ văn phòng — không có mặt hiện trường.</textarea>
+        </div>
+        <div class="field" data-field="petitionKind">
+          <label>Phân loại *</label>
+          <select><option selected>ATGT</option></select>
+        </div>
+        <div class="field">
+          <label>GPS</label>
+          <button type="button" class="btn btn-ghost btn-block" disabled>Lấy tọa độ</button>
+          <p class="gps-deny" data-field="lat">— · deny · không fake</p>
+        </div>
+        <div class="check-row" data-field="noFaceFlag">
+          <label><input type="checkbox" checked /> Không có mặt tại hiện trường</label>
+        </div>
+        <p class="banner-ok">no-face + deny → Lưu <strong>không</strong> tọa độ + flag · TD-06 không GPS</p>
+      </div>
+    </section>
+
+    <div class="leave-modal" id="leaveModal" data-des-id="DES-LEAVE" aria-hidden="true">
+      <div class="leave-card" role="dialog" aria-labelledby="leaveTitle">
+        <h3 id="leaveTitle">Rời màn hình?</h3>
+        <p>Thay đổi chưa lưu sẽ mất. Không dùng dialog hệ thống.</p>
+        <div class="leave-actions">
+          <button type="button" class="btn btn-secondary" id="leaveStay">Ở lại</button>
+          <button type="button" class="btn btn-primary" id="leaveGo">Rời</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var screens = document.querySelectorAll(".screen");
+      var navBtns = document.querySelectorAll(".board-nav button");
+      var leave = document.getElementById("leaveModal");
+      var pendingLeave = false;
+
+      function show(id) {
+        screens.forEach(function (s) {
+          s.classList.toggle("active", s.id === "sc-" + id);
+        });
+        navBtns.forEach(function (b) {
+          b.classList.toggle("active", b.getAttribute("data-go") === id);
+        });
+        leave.classList.remove("open");
+        leave.setAttribute("aria-hidden", "true");
+      }
+
+      navBtns.forEach(function (b) {
+        b.addEventListener("click", function () {
+          show(b.getAttribute("data-go"));
+        });
+      });
+
+      document.querySelectorAll("[data-go]").forEach(function (el) {
+        if (el.closest(".board-nav")) return;
+        el.addEventListener("click", function (e) {
+          var id = el.getAttribute("data-go");
+          if (!id) return;
+          e.preventDefault();
+          show(id);
+        });
+      });
+
+      document.querySelectorAll("[data-leave]").forEach(function (el) {
+        el.addEventListener("click", function (e) {
+          e.preventDefault();
+          pendingLeave = true;
+          leave.classList.add("open");
+          leave.setAttribute("aria-hidden", "false");
+        });
+      });
+
+      document.getElementById("leaveStay").addEventListener("click", function () {
+        leave.classList.remove("open");
+        leave.setAttribute("aria-hidden", "true");
+        pendingLeave = false;
+      });
+      document.getElementById("leaveGo").addEventListener("click", function () {
+        leave.classList.remove("open");
+        leave.setAttribute("aria-hidden", "true");
+        pendingLeave = false;
+        show("TK-06");
+      });
+    })();
+  </script>
+</body>
+</html>

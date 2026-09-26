@@ -1,0 +1,18 @@
+{
+  "feature": "web-rmms-incident",
+  "zones": [
+    "INC-L",
+    "INC-N"
+  ],
+  "des": [
+    "DES-MOB-INCIDENT"
+  ],
+  "fields": [
+    "assetPick"
+  ],
+  "actions": [],
+  "ids": [],
+  "text": "RMMS · Mobile Home Field hub Shell chrome Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Incident INC-L list INC-N create Alias /incident Alias /incident/new Chấm công (attendance) Asset adjust GIS map Patrol map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Chọn loại tài sản PAVEMENT Mặt đường BRIDGE Cầu TUNNEL Hầm CULVERT_X Cống thoát nước ngang DITCH Rãnh / cống dọc UNDERPASS Hầm chui dân sinh TRAFFIC_SIGN Biển báo DELINEATOR Cọc tiêu / cọc H KM_POST Cột Km MEDIAN Dải phân cách giữa ANTI_GLARE Tấm chống chói TRAFFIC_ISLAND Đảo giao thông ROAD_STUD Đinh phản quang GUARDRAIL Hộ lan / tôn sóng ROAD_MARKING Vạch sơn CRASH_CUSHION Thùng giảm chấn CONVEX_MIRROR Gương cầu TRAFFIC_SIGNAL Đèn tín hiệu BOUNDARY Mốc lộ giới / GPMB RETAINING Kè / tường chắn SHOULDER Lề đường / hàng rào LIGHTING Chiếu sáng đường GREEN Cây xanh / thảm cỏ INTERCHANGE Nút giao đường bộ SLOPE_PROTECT Bảo vệ mái dốc GANTRY_SIGN Giá long môn / cột cần ROW_UTIL CT HTKT trong HLATĐB STATION_HOUSE Nhà hạt QLĐB BUS_STATION Bến xe buýt / khách BUS_STOP Điểm đỗ / dừng xe RAIL_CROSS Giao bằng đường sắt LAND_ROW Đất thuộc TS hạ tầng EMS_POST Trạm trực cấp cứu TOLL Trạm thu phí FERRY Bến phà REST_AREA Trạm dừng nghỉ WEIGH_STATION Trạm cân COUNT_STATION Trạm đếm xe RE",
+  "href": "http://localhost:9301/web-rmms-incident/new",
+  "guestGate": false
+}

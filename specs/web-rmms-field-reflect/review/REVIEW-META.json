@@ -1,0 +1,12 @@
+{
+  "feature": "web-rmms-field-reflect",
+  "status": "confirmed",
+  "review_confirm": "approve",
+  "verdict": "PASS",
+  "fix_gaps": "none",
+  "taskId": "task_b28df09c",
+  "contentHash": "sha256:e678be9152069e48f353f88e9f4d377e20e4fd4ad5c8d4aa2c86bd995bc1e667",
+  "skillVersion": "2026.09.05.03",
+  "writtenAt": "2026-09-26T03:30:00.000Z",
+  "autoApprove": true
+}

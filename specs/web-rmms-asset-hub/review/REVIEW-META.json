@@ -1,0 +1,11 @@
+{
+  "feature": "web-rmms-asset-hub",
+  "status": "confirmed",
+  "review_confirm": "approve",
+  "verdict": "PASS",
+  "mustCount": 0,
+  "autoApprove": true,
+  "taskId": "task_5bc57e1b",
+  "contentHash": "sha256:6f74282b807da7f2cc1aa57ac64848cd1d75ff3383c0f432eaad7bea53fff80e",
+  "writtenAt": "2026-09-25T13:28:04.680Z"
+}

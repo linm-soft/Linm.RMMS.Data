@@ -1,0 +1,26 @@
+{
+  "url": "http://localhost:9301/web-rmms-mobile-c",
+  "capturedAt": "2026-09-25T09:23:15.494Z",
+  "method": "capture_c · MFE /login · phone 430 · geolocation mock · stock e2e-qa blocked API:5101 vs :5111",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "href": "http://localhost:9301/web-rmms-mobile-c/94515321-d332-4a3b-832a-d86ff5716b2c"
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "href": "http://localhost:9301/web-rmms-mobile-a/tuan-kiem"
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "href": "http://localhost:9301/web-rmms-mobile-c/94515321-d332-4a3b-832a-d86ff5716b2c/moi"
+    }
+  ],
+  "ok": true
+}

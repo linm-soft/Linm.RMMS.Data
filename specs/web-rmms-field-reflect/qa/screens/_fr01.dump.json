@@ -1,0 +1,30 @@
+{
+  "feature": "web-rmms-field-reflect",
+  "zones": [
+    "FR-00"
+  ],
+  "des": [
+    "DES-MOB-FIELD-REFLECT",
+    "FR-01"
+  ],
+  "actions": [
+    "assetCard",
+    "kind",
+    "photos",
+    "detect",
+    "detectionHint",
+    "sessionStamp",
+    "gpsLock",
+    "severity",
+    "checklist",
+    "description",
+    "create",
+    "draftOffline"
+  ],
+  "ids": [
+    "FR-REFLECT"
+  ],
+  "text": "RMMS · Mobile Home Field hub Shell chrome Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Phản ánh FR-00…02 Alias /field/reflect Chấm công (attendance) Asset adjust GIS map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Phản ánh hiện trường FR-01 · FORM PHẢN ÁNH Mặt đường · PAVEMENT Đổi Loại phản ánh Hư Mất Hỏng Ảnh hiện trường ＋ Nhận diện Nhận diện — Ca / tuyến QL.1-LANGSON · Tuần kiểm GPS Đã chốt · ±0 m Làm mới GPS Mức Cao Trung bình Thấp Checklist theo loại tài sản hư Ổ gà hư Nứt dọc / ngang hỏng Bong tróc mặt hỏng Mờ vạch sơn Mô tả Tạo vấn đề Lưu nháp mất sóng",
+  "href": "http://localhost:9301/web-rmms-field-reflect",
+  "guestGate": false
+}

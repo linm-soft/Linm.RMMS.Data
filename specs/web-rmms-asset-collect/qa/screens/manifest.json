@@ -1,0 +1,115 @@
+{
+  "url": "http://localhost:9301/web-rmms-asset-collect",
+  "capturedAt": "2026-09-25T15:03:31.896Z",
+  "method": "capture_acollect · MFE /login · phone 430 · S0 collect · S1 Hub #tileCollect · QA-20 click→collect · geo grant · dismiss overlay · no kill worker",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "href": "http://localhost:9301/web-rmms-asset-collect",
+      "dump": {
+        "feature": "web-rmms-asset-collect",
+        "zones": [
+          "AC-00",
+          "AC-01",
+          "AC-02",
+          "AC-03",
+          "AC-04",
+          "AC-05",
+          "AC-06",
+          "AC-07",
+          "AC-08",
+          "AC-09",
+          "AC-10"
+        ],
+        "ids": [
+          "AC-00",
+          "AC-01",
+          "navBack",
+          "acTitle",
+          "fldName",
+          "fldType",
+          "fldRoute",
+          "fldKmFrom",
+          "fldStatus",
+          "gpsCard",
+          "gpsCoords",
+          "btnGps",
+          "btnPhotoAdd",
+          "AC-09",
+          "AC-10"
+        ],
+        "text": "RMMS · Mobile Home Shell chrome Ops inbox Asset hub Asset KCHT Asset list Asset collect Thêm tài sản thủ công Alias /asset/collect Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile DS Dev Standalone Developer RMMS Mobile ‹ Thêm tài sản thủ công Tên tài sản * Loại tài sản * — Chọn loại — PAVEMENT — Mặt đường BRIDGE — Cầu TUNNEL — Hầm CULVERT_X — Cống thoát nước ngang DITCH — Rãnh / cống dọc UNDERPASS — Hầm chui dân sinh TRAFFIC_SIGN — Biển báo DELINEATOR — Cọc tiêu / cọc H KM_POST — Cột Km MEDIAN — Dải phân cách giữa ANTI_GLARE — Tấm chống chói TRAFFIC_ISLAND — Đảo giao thông ROAD_STUD — Đinh phản quang GUARDRAIL — Hộ lan / tôn sóng ROAD_MARKING — Vạch sơn CRASH_CUSHION — Thùng giảm chấn CONVEX_MIRROR — Gương cầu TRAFFIC_SIGNAL — Đèn tín hiệu BOUNDARY — Mốc lộ giới / GPMB RETAINING — Kè / tường chắn SHOULDER — Lề đường / hàng rào LIGHTING — Chiếu sáng đường GREEN",
+        "href": "http://localhost:9301/web-rmms-asset-collect"
+      }
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "href": "http://localhost:9301/web-rmms-asset-hub",
+      "dump": {
+        "feature": "web-rmms-asset-hub",
+        "zones": [
+          "AH-00",
+          "AH-01",
+          "AH-02",
+          "AH-03",
+          "AH-04",
+          "AH-05",
+          "AH-06"
+        ],
+        "ids": [
+          "navBack",
+          "tileCollect",
+          "walletTitle"
+        ],
+        "text": "RMMS · Mobile Home Shell chrome Ops inbox Asset hub Hub tài sản Alias /asset Asset KCHT Asset list Asset collect Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile DS Dev Standalone Developer RMMS Mobile ‹ Hub tài sản Hồ sơ tài sản KHAC — Khác 45 loại tài sản TRA CỨU H Hạng mục assetHub.tile.kcht L Danh sách assetHub.tile.list THU THẬP + Thêm thủ công assetHub.tile.collect AI Camera AI assetHub.tile.ai QUẢN LÝ ↻ Cập nhật / bớt assetHub.tile.adjust ⌖ Xem bản đồ ›",
+        "href": "http://localhost:9301/web-rmms-asset-hub"
+      }
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "href": "http://localhost:9301/web-rmms-asset-collect",
+      "dump": {
+        "feature": "web-rmms-asset-collect",
+        "zones": [
+          "AC-00",
+          "AC-01",
+          "AC-02",
+          "AC-03",
+          "AC-04",
+          "AC-05",
+          "AC-06",
+          "AC-07",
+          "AC-08",
+          "AC-09",
+          "AC-10"
+        ],
+        "ids": [
+          "AC-00",
+          "AC-01",
+          "navBack",
+          "acTitle",
+          "fldName",
+          "fldType",
+          "fldRoute",
+          "fldKmFrom",
+          "fldStatus",
+          "gpsCard",
+          "gpsCoords",
+          "btnGps",
+          "btnPhotoAdd",
+          "AC-09",
+          "AC-10"
+        ],
+        "text": "RMMS · Mobile Home Shell chrome Ops inbox Asset hub Hub tài sản Alias /asset Asset KCHT Asset list Asset collect Thêm tài sản thủ công Alias /asset/collect Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile DS Dev Standalone Developer RMMS Mobile ‹ Thêm tài sản thủ công Tên tài sản * Loại tài sản * — Chọn loại — PAVEMENT — Mặt đường BRIDGE — Cầu TUNNEL — Hầm CULVERT_X — Cống thoát nước ngang DITCH — Rãnh / cống dọc UNDERPASS — Hầm chui dân sinh TRAFFIC_SIGN — Biển báo DELINEATOR — Cọc tiêu / cọc H KM_POST — Cột Km MEDIAN — Dải phân cách giữa ANTI_GLARE — Tấm chống chói TRAFFIC_ISLAND — Đảo giao thông ROAD_STUD — Đinh phản quang GUARDRAIL — Hộ lan / tôn sóng ROAD_MARKING — Vạch sơn CRASH_CUSHION — Thùng giảm chấn CONVEX_MIRROR — Gương cầu TRAFFIC_SIGNAL — Đèn tín hiệu BOUNDARY — Mốc lộ giới / GPMB RETAINING — Kè / tường chắn SHOULDER — Lề đường / hàng rào LIGHTING",
+        "href": "http://localhost:9301/web-rmms-asset-collect"
+      }
+    }
+  ],
+  "ok": true
+}

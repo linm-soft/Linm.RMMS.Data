@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>web-rmms-nghiem-thu — Nghiệm thu</title>
+  <style>
+    :root {
+      --primary: #0C84C0;
+      --header-start: #086A9A;
+      --header-end: #0C84C0;
+      --danger: #F03C30;
+      --success: #34C759;
+      --orange: #FF9500;
+      --surface: #F2F2F7;
+      --card: #FFFFFF;
+      --on-primary: #FFFFFF;
+      --on-surface: #1C1C1E;
+      --border: #C7C7CC;
+      --muted: #8E8E93;
+      --radius-card: 16px;
+      --radius-control: 12px;
+      --label: 13px;
+      --field: 16px;
+      --nav-title: 17px;
+      --control-h: 44px;
+      --phone-w: 430px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: #1a1a1e;
+      color: var(--on-surface);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px 8px 32px;
+    }
+    .board-nav {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      max-width: var(--phone-w); width: 100%; margin-bottom: 12px;
+    }
+    .board-nav button {
+      border: 1px solid var(--border); background: #2a2a2e; color: #eee;
+      border-radius: 8px; padding: 6px 10px; font-size: 12px; cursor: pointer;
+    }
+    .board-nav button.active { background: var(--primary); border-color: var(--primary); }
+    .meta {
+      max-width: var(--phone-w); width: 100%; color: #aaa; font-size: 12px; margin-bottom: 8px;
+      line-height: 1.4;
+    }
+    .phone {
+      width: min(100%, var(--phone-w));
+      min-height: 820px;
+      background: var(--surface);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,.45);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .topbar {
+      background: linear-gradient(135deg, var(--header-start), var(--header-end));
+      color: var(--on-primary);
+      min-height: 56px;
+      display: flex; align-items: center; gap: 4px;
+      padding: 10px 8px 10px 6px;
+    }
+    .topbar .icon-btn {
+      width: 44px; height: 44px; border: 0; background: transparent;
+      color: inherit; font-size: 22px; cursor: pointer; border-radius: 12px;
+    }
+    .topbar .title { flex: 1; font-size: var(--nav-title); font-weight: 600; }
+    .topbar .trail {
+      border: 0; background: transparent; color: inherit;
+      font-size: 15px; font-weight: 600; padding: 8px 12px; cursor: pointer;
+    }
+    .content { flex: 1; overflow: auto; padding: 0 0 20px; }
+    .content.pad { padding: 12px 14px 20px; }
+    .search-wrap {
+      margin: 12px 14px; display: flex; align-items: center; gap: 8px;
+      background: var(--card); border-radius: 28px; padding: 10px 14px;
+      border: 1px solid var(--border);
+    }
+    .search-wrap input {
+      flex: 1; border: 0; outline: 0; background: transparent;
+      font-size: var(--field); color: var(--on-surface);
+    }
+    .list { margin: 0 14px; background: var(--card); border-radius: var(--radius-card); overflow: hidden; list-style: none; padding: 0; }
+    .list-row {
+      display: flex; align-items: center; gap: 10px; padding: 14px 14px;
+      border-bottom: 1px solid rgba(60,60,67,.18); cursor: pointer; width: 100%;
+      background: none; border-left: 0; border-right: 0; border-top: 0;
+      text-align: left; font-family: inherit; color: inherit;
+    }
+    .list-row:last-child { border-bottom: 0; }
+    .row-ico {
+      width: 40px; height: 40px; border-radius: 20px; flex-shrink: 0;
+      display: grid; place-items: center;
+      background: rgba(52,199,89,.14); color: var(--success); font-size: 18px; font-weight: 700;
+    }
+    .row-body { flex: 1; min-width: 0; }
+    .row-title { font-size: 16px; font-weight: 600; }
+    .row-sub { font-size: 13px; color: var(--muted); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .badges { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex-shrink: 0; }
+    .badge {
+      font-size: 12px; font-weight: 650; padding: 3px 8px; border-radius: 8px; white-space: nowrap;
+    }
+    .badge.draft { background: rgba(142,142,147,.18); color: #636366; }
+    .badge.done { background: rgba(12,132,192,.15); color: var(--primary); }
+    .badge.pass { background: rgba(52,199,89,.15); color: #1f8f3a; }
+    .badge.fail { background: rgba(240,60,48,.15); color: var(--danger); }
+    .badge.deduct { background: rgba(255,149,0,.18); color: #C56A00; }
+    .empty {
+      margin: 48px 24px; text-align: center; color: var(--muted); font-size: 15px; display: none;
+    }
+    .empty.show { display: block; }
+    .field { margin-bottom: 14px; }
+    .field label {
+      display: block; font-size: var(--label); color: var(--muted);
+      margin-bottom: 6px; font-weight: 500;
+    }
+    .field label .req { color: var(--danger); }
+    .control {
+      width: 100%; min-height: var(--control-h);
+      border: 1px solid var(--border); border-radius: var(--radius-control);
+      background: var(--card); padding: 10px 12px;
+      font-size: var(--field); color: var(--on-surface);
+    }
+    .control:disabled, .control[readonly] { background: #EFEFF4; color: #3A3A3C; }
+    .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .gps-card {
+      background: var(--card); border-radius: var(--radius-card);
+      border: 1px solid var(--border); padding: 12px; margin-bottom: 14px;
+    }
+    .gps-card.warn { border-color: var(--danger); background: #FFF5F5; }
+    .gps-card .coords { font-size: var(--field); font-variant-numeric: tabular-nums; margin: 8px 0; }
+    .gps-card .hint { font-size: 12px; color: var(--muted); }
+    .gps-actions { display: flex; gap: 8px; margin-top: 8px; }
+    .btn {
+      min-height: var(--control-h); border-radius: var(--radius-control);
+      border: 0; font-size: 16px; font-weight: 600; cursor: pointer; padding: 0 16px;
+    }
+    .btn-primary { background: var(--primary); color: var(--on-primary); flex: 1; }
+    .btn-ghost {
+      background: transparent; color: var(--primary);
+      border: 1px solid var(--primary);
+    }
+    .btn-secondary {
+      background: var(--card); color: var(--on-surface);
+      border: 1px solid var(--border); width: 100%; margin-top: 8px;
+    }
+    .photo-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .photo-thumb, .photo-add {
+      width: 72px; height: 72px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .photo-thumb {
+      background: #D1D1D6; color: var(--muted); font-size: 12px;
+      border: 1px dashed var(--border);
+    }
+    .photo-add {
+      border: 1px dashed var(--primary); color: var(--primary);
+      background: #E8F6FC; font-size: 28px; cursor: pointer;
+    }
+    .scores { background: var(--card); border-radius: var(--radius-card); border: 1px solid var(--border); padding: 8px 12px; }
+    .score-item {
+      display: flex; align-items: center; gap: 10px; padding: 10px 0;
+      border-bottom: 1px solid rgba(60,60,67,.12); font-size: 15px;
+    }
+    .score-item:last-child { border-bottom: 0; }
+    .score-item input { width: 20px; height: 20px; }
+    .actions { padding: 12px 14px 20px; background: var(--surface); }
+    .toast {
+      position: absolute; left: 16px; right: 16px; bottom: 88px;
+      background: #1C1C1E; color: #fff; border-radius: 12px;
+      padding: 12px 14px; font-size: 14px; display: none;
+      box-shadow: 0 8px 24px rgba(0,0,0,.35); z-index: 5;
+    }
+    .toast.show { display: block; }
+    .toast.ok { border-left: 4px solid var(--success); }
+    .toast.err { border-left: 4px solid var(--danger); }
+    .leave-modal {
+      display: none; position: absolute; inset: 0; background: rgba(0,0,0,.45);
+      align-items: center; justify-content: center; z-index: 10; padding: 24px;
+    }
+    .leave-modal.show { display: flex; }
+    .leave-card {
+      background: var(--card); border-radius: 16px; padding: 20px; width: 100%;
+      max-width: 320px;
+    }
+    .leave-card h3 { margin: 0 0 8px; font-size: 17px; }
+    .leave-card p { margin: 0 0 16px; font-size: 14px; color: var(--muted); }
+    .leave-actions { display: flex; gap: 8px; }
+    .leave-actions .btn { flex: 1; }
+    .btn-danger { background: var(--danger); color: #fff; }
+    .screen { display: none; flex-direction: column; flex: 1; min-height: 0; }
+    .screen.active { display: flex; }
+    .hub-cite {
+      margin: 14px; padding: 12px; background: #E8F6FC; border-radius: 12px;
+      font-size: 13px; color: #086A9A;
+    }
+  </style>
+</head>
+<body>
+  <!-- NT-00 phone frame · zones NT-01…11 -->
+  <div class="board-nav" id="board-nav" data-zone="NT-00">
+    <button type="button" class="active" data-board="list">List</button>
+    <button type="button" data-board="empty">Empty</button>
+    <button type="button" data-board="create-ok">Create GPS OK</button>
+    <button type="button" data-board="create-deny">Create GPS deny</button>
+    <button type="button" data-board="detail">Detail</button>
+    <button type="button" data-board="leave">Leave dirty</button>
+  </div>
+  <div class="meta">
+    feature=<code>web-rmms-nghiem-thu</code> · zones NT-00…11 · phone 430 · Android 1-1 Check<br />
+    reviewUrl=this file · peerStdUrl=<code>http://localhost:9301/web-rmms-nghiem-thu</code><br />
+    FILTER P1=search only · DELETE OUT · Entry=Field hub (NT-11) · cấm ERP.* / fake GPS / «Mẫu nghiệm thu NN»
+  </div>
+
+  <div class="phone" id="phone" data-zone="NT-00">
+    <!-- LIST / EMPTY -->
+    <div class="screen active" id="screen-list" data-zones="NT-01 NT-02 NT-03 NT-04 NT-05 NT-11">
+      <div class="topbar" data-zone="NT-02">
+        <button type="button" class="icon-btn" title="Back Field hub" aria-label="back">‹</button>
+        <div class="title">Nghiệm thu</div>
+        <button type="button" class="trail" id="btn-create" data-zone="NT-02">Tạo</button>
+      </div>
+      <div class="hub-cite" data-zone="NT-11">NT-11 Entry: Field hub quick action · no new tab</div>
+      <div class="search-wrap" data-zone="NT-03">
+        <span aria-hidden="true">⌕</span>
+        <input id="search" type="search" placeholder="Tìm nghiệm thu…" autocomplete="off" />
+      </div>
+      <div class="content">
+        <div class="empty" id="empty" data-zone="NT-04">Chưa có phiếu nghiệm thu</div>
+        <ul class="list" id="list" data-zone="NT-01 NT-05">
+          <li>
+            <button type="button" class="list-row" data-id="NT-2401">
+              <span class="row-ico" data-zone="NT-05" title="Check success">✓</span>
+              <span class="row-body">
+                <div class="row-title">NT-2401</div>
+                <div class="row-sub">Kiểm tra mặt đường · QL1 · Km 12–14</div>
+              </span>
+              <span class="badges">
+                <span class="badge done">Hoàn thành</span>
+                <span class="badge pass">Đạt</span>
+              </span>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="list-row" data-id="NT-2402">
+              <span class="row-ico">✓</span>
+              <span class="row-body">
+                <div class="row-title">NT-2402</div>
+                <div class="row-sub">Cầu cống · DT747 · Km 3.2</div>
+              </span>
+              <span class="badges">
+                <span class="badge draft">Nháp</span>
+              </span>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="list-row" data-id="NT-2403">
+              <span class="row-ico">✓</span>
+              <span class="row-body">
+                <div class="row-title">NT-2403</div>
+                <div class="row-sub">An toàn giao thông · QL51</div>
+              </span>
+              <span class="badges">
+                <span class="badge done">Hoàn thành</span>
+                <span class="badge deduct">Khấu trừ</span>
+              </span>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- CREATE -->
+    <div class="screen" id="screen-create" data-zones="NT-06 NT-08 NT-09 NT-10">
+      <div class="topbar">
+        <button type="button" class="icon-btn" id="create-back" aria-label="back">‹</button>
+        <div class="title">Tạo nghiệm thu</div>
+      </div>
+      <div class="content pad">
+        <div class="field" data-zone="NT-06">
+          <label>Mẫu nghiệm thu <span class="req">*</span></label>
+          <select class="control" id="mau">
+            <option value="mau-01">Kiểm tra mặt đường</option>
+            <option value="mau-02">Cầu cống</option>
+            <option value="mau-03">An toàn giao thông</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Tuyến <span class="req">*</span></label>
+          <input class="control" id="route" type="text" value="QL1" />
+        </div>
+        <div class="row-2">
+          <div class="field">
+            <label>Km từ</label>
+            <input class="control" type="number" value="12" />
+          </div>
+          <div class="field">
+            <label>Km đến</label>
+            <input class="control" type="number" value="14" />
+          </div>
+        </div>
+        <div class="gps-card" id="gps-card" data-zone="NT-08">
+          <strong>GPS → FieldInfo / ZoneOrgCode</strong>
+          <div class="coords" id="gps-coords">FieldInfo: QL1 Km12+000 · Zone: Z-01</div>
+          <div class="hint" id="gps-hint">navigator.geolocation · deny = không bịa tọa độ</div>
+          <div class="gps-actions">
+            <button type="button" class="btn btn-ghost" id="gps-refresh">Làm mới GPS</button>
+          </div>
+        </div>
+        <div class="field">
+          <label>Kết quả</label>
+          <select class="control" id="result">
+            <option value="">—</option>
+            <option value="pass">Đạt</option>
+            <option value="fail">Không đạt</option>
+            <option value="deduct">Khấu trừ</option>
+          </select>
+        </div>
+        <div class="field" data-zone="NT-10">
+          <label>Chỉ số (Scores[])</label>
+          <div class="scores">
+            <label class="score-item"><input type="checkbox" checked /> Mặt đường êm thuận</label>
+            <label class="score-item"><input type="checkbox" /> Không ổ gà</label>
+            <label class="score-item"><input type="checkbox" checked /> Vạch kẻ rõ</label>
+          </div>
+        </div>
+        <div class="field" data-zone="NT-09">
+          <label>Ảnh (MediaIds ≤10)</label>
+          <div class="photo-row">
+            <div class="photo-thumb">1</div>
+            <div class="photo-thumb">2</div>
+            <div class="photo-add" title="files/*">+</div>
+          </div>
+        </div>
+        <div class="field">
+          <label>Ghi chú</label>
+          <textarea class="control" rows="2" placeholder="Note"></textarea>
+        </div>
+      </div>
+      <div class="actions">
+        <button type="button" class="btn btn-primary" id="btn-save-draft" style="width:100%">Lưu nháp</button>
+        <button type="button" class="btn btn-secondary" id="btn-cancel-create">Hủy</button>
+      </div>
+    </div>
+
+    <!-- DETAIL -->
+    <div class="screen" id="screen-detail" data-zones="NT-07">
+      <div class="topbar">
+        <button type="button" class="icon-btn" id="detail-back" aria-label="back">‹</button>
+        <div class="title">Chi tiết NT-2402</div>
+      </div>
+      <div class="content pad">
+        <div class="field">
+          <label>Mẫu nghiệm thu</label>
+          <select class="control">
+            <option selected>Cầu cống</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Tuyến</label>
+          <input class="control" type="text" value="DT747" />
+        </div>
+        <div class="field">
+          <label>Trạng thái</label>
+          <input class="control" readonly value="Nháp (draft)" />
+        </div>
+        <div class="field">
+          <label>Người thực hiện</label>
+          <input class="control" readonly value="NV001" />
+        </div>
+        <div class="gps-card">
+          <strong>GPS</strong>
+          <div class="coords">FieldInfo: DT747 Km3+200 · Zone: Z-02</div>
+        </div>
+        <div class="field">
+          <label>Kết quả</label>
+          <select class="control">
+            <option value="">—</option>
+            <option value="pass">Đạt</option>
+            <option value="fail">Không đạt</option>
+            <option value="deduct">Khấu trừ</option>
+          </select>
+        </div>
+      </div>
+      <div class="actions">
+        <button type="button" class="btn btn-primary" id="btn-save-edit" style="width:100%">Lưu</button>
+        <button type="button" class="btn btn-secondary" id="btn-cancel-detail">Hủy</button>
+      </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+    <div class="leave-modal" id="leave-modal" role="dialog" aria-modal="true">
+      <div class="leave-card">
+        <h3>Hủy thay đổi?</h3>
+        <p>Phiếu chưa lưu sẽ mất. DES-LEAVE · cấm native confirm.</p>
+        <div class="leave-actions">
+          <button type="button" class="btn btn-secondary" id="leave-stay">Ở lại</button>
+          <button type="button" class="btn btn-danger" id="leave-discard">Hủy phiếu</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var nav = document.getElementById("board-nav");
+      var listScreen = document.getElementById("screen-list");
+      var createScreen = document.getElementById("screen-create");
+      var detailScreen = document.getElementById("screen-detail");
+      var emptyEl = document.getElementById("empty");
+      var listEl = document.getElementById("list");
+      var gpsCard = document.getElementById("gps-card");
+      var gpsCoords = document.getElementById("gps-coords");
+      var gpsHint = document.getElementById("gps-hint");
+      var toast = document.getElementById("toast");
+      var leaveModal = document.getElementById("leave-modal");
+      var dirty = false;
+      var pendingLeave = null;
+
+      function showToast(msg, ok) {
+        toast.textContent = msg;
+        toast.className = "toast show " + (ok ? "ok" : "err");
+        setTimeout(function () { toast.className = "toast"; }, 2200);
+      }
+
+      function setScreen(name) {
+        listScreen.classList.toggle("active", name === "list" || name === "empty");
+        createScreen.classList.toggle("active", name === "create");
+        detailScreen.classList.toggle("active", name === "detail");
+        emptyEl.classList.toggle("show", name === "empty");
+        listEl.style.display = name === "empty" ? "none" : "";
+        leaveModal.classList.remove("show");
+      }
+
+      function setGps(ok) {
+        if (ok) {
+          gpsCard.classList.remove("warn");
+          gpsCoords.textContent = "FieldInfo: QL1 Km12+000 · Zone: Z-01";
+          gpsHint.textContent = "GPS OK · fill FieldInfo/ZoneOrgCode · không field Lat riêng DTO";
+        } else {
+          gpsCard.classList.add("warn");
+          gpsCoords.textContent = "FieldInfo: — · Zone: —";
+          gpsHint.textContent = "GPS deny · không bịa tọa độ · Lưu nháp vẫn OK";
+        }
+      }
+
+      function goList() {
+        dirty = false;
+        setScreen("list");
+        Array.prototype.forEach.call(nav.querySelectorAll("button"), function (b) {
+          b.classList.toggle("active", b.getAttribute("data-board") === "list");
+        });
+      }
+
+      function requestLeave(fn) {
+        if (!dirty) { fn(); return; }
+        pendingLeave = fn;
+        leaveModal.classList.add("show");
+      }
+
+      nav.addEventListener("click", function (e) {
+        var btn = e.target.closest("button[data-board]");
+        if (!btn) return;
+        Array.prototype.forEach.call(nav.querySelectorAll("button"), function (b) {
+          b.classList.toggle("active", b === btn);
+        });
+        var board = btn.getAttribute("data-board");
+        dirty = false;
+        if (board === "list") setScreen("list");
+        else if (board === "empty") setScreen("empty");
+        else if (board === "create-ok") { setScreen("create"); setGps(true); dirty = true; }
+        else if (board === "create-deny") { setScreen("create"); setGps(false); dirty = true; }
+        else if (board === "detail") { setScreen("detail"); dirty = true; }
+        else if (board === "leave") { setScreen("create"); setGps(true); dirty = true; leaveModal.classList.add("show"); pendingLeave = goList; }
+      });
+
+      document.getElementById("btn-create").addEventListener("click", function () {
+        setScreen("create"); setGps(true); dirty = true;
+      });
+      document.getElementById("create-back").addEventListener("click", function () {
+        requestLeave(goList);
+      });
+      document.getElementById("btn-cancel-create").addEventListener("click", function () {
+        requestLeave(goList);
+      });
+      document.getElementById("detail-back").addEventListener("click", function () {
+        requestLeave(goList);
+      });
+      document.getElementById("btn-cancel-detail").addEventListener("click", function () {
+        requestLeave(goList);
+      });
+      document.getElementById("leave-stay").addEventListener("click", function () {
+        leaveModal.classList.remove("show"); pendingLeave = null;
+      });
+      document.getElementById("leave-discard").addEventListener("click", function () {
+        leaveModal.classList.remove("show");
+        var fn = pendingLeave; pendingLeave = null; dirty = false;
+        if (fn) fn();
+      });
+      document.getElementById("btn-save-draft").addEventListener("click", function () {
+        dirty = false;
+        showToast("Đã lưu nháp · POST patrol/nghiem-thu Status=draft", true);
+        setTimeout(goList, 900);
+      });
+      document.getElementById("btn-save-edit").addEventListener("click", function () {
+        dirty = false;
+        showToast("Đã lưu · PUT patrol/nghiem-thu/{id}", true);
+        setTimeout(goList, 900);
+      });
+      document.getElementById("gps-refresh").addEventListener("click", function () {
+        setGps(!gpsCard.classList.contains("warn"));
+      });
+      listEl.addEventListener("click", function (e) {
+        var row = e.target.closest(".list-row");
+        if (!row) return;
+        setScreen("detail");
+        dirty = false;
+      });
+      document.getElementById("search").addEventListener("input", function (e) {
+        var q = (e.target.value || "").toLowerCase();
+        var rows = listEl.querySelectorAll(".list-row");
+        var visible = 0;
+        Array.prototype.forEach.call(rows, function (row) {
+          var text = row.textContent.toLowerCase();
+          var show = !q || text.indexOf(q) >= 0;
+          row.closest("li").style.display = show ? "" : "none";
+          if (show) visible++;
+        });
+        emptyEl.classList.toggle("show", visible === 0);
+        listEl.style.display = visible === 0 ? "none" : "";
+      });
+      ["mau", "route", "result"].forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) el.addEventListener("change", function () { dirty = true; });
+      });
+    })();
+  </script>
+</body>
+</html>

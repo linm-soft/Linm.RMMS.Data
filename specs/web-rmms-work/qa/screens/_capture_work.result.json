@@ -1,0 +1,136 @@
+{
+  "feature": "web-rmms-work",
+  "cases": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "href": "http://localhost:9301/web-rmms-work",
+      "dump": {
+        "feature": "web-rmms-work",
+        "zones": [
+          "WORK-L"
+        ],
+        "des": [
+          "sc-mnt-list"
+        ],
+        "fields": [
+          "search",
+          "filter.status",
+          "filter.workType",
+          "hub.estimate",
+          "list.card",
+          "card.title",
+          "card.code",
+          "card.workType",
+          "card.assignee",
+          "card.dueAt",
+          "card.route",
+          "card.status",
+          "card.progress",
+          "action.progress",
+          "action.log",
+          "action.chat",
+          "action.estimate"
+        ],
+        "controls": [
+          "SearchInput",
+          "Chip",
+          "HubRow"
+        ],
+        "ids": [
+          "WORK-ROOT"
+        ],
+        "text": "RMMS · Mobile Home Field hub Shell chrome Home → Field tab Incident Work tab Work list → Ops → Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Incident Work (công việc) WORK-L list Alias /work Peer progress Peer estimate VIS capture Chấm công (attendance) Asset adjust GIS map Patrol map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Công việc Tất cả TT Mới Đang thực hiện Hoàn thành Hủy Tất cả loại Sửa chữa Kiểm tra Khẩn cấp ✎ Giao việc Ước lượng → tạo WO (peer estimate · không FAB list) Thay biển báo Km8+200 WO-DEMO-202609-006 · Sửa chữa Trần Thị B · Đội QL.15 14:00:00 25/9/2026 QL.15 Trạng thái: Mới 0% Tiến độ Nhật ký Chat Ước lượng Vá ổ gà Km12+500 — chờ nhận việc WO-DEMO-202609-005 · Sửa chữa Nguyễn Văn A · Đội QL.1 02:00:00 24/9/2026 QL.1 Trạng thái: Mới 0% Tiến độ Nhật ký Chat Ước lượng Xử lý sạt lở Km3+400 WO-DEMO-202609-004 · Khẩn cấp Trần Thị B · Đội QL.15 02:00:00 21/9/2026 QL.46 Trạng thái: Đang thực hiện 60% Tiến độ Nhật ký Chat Ước lượng Vá ổ gà Km12+200 · ca hôm nay WO-DEMO-202609-ASOF · Sửa chữa Nguyễn Văn A · Đội QL.1 14:00:00 19/9/2026 QL.1 Trạng thái: Đang thực hiện 55% Tiến độ Nhật ký Chat Ước lượng Kiểm tra cống Km4+100 WO-DEMO-202609-003 · Kiểm tra Lê Văn C · Đội QL.217 14:00:00 18/9/2026 QL.217 Trạng thái: Đang thực hiện 45% Tiến độ Nhật ký Chat Ước lượng Cắt cỏ taluy Km8 WO-DEMO-202609-002 · Sửa chữa Trần Thị B · Đội QL.15 14:00:00 11/9/2026 QL.15 Trạng thái: Hoàn thành 100% Tiến độ Nhật ký Chat Ước lư",
+        "href": "http://localhost:9301/web-rmms-work",
+        "hasFab": false,
+        "cardCount": 7,
+        "chipCount": 9
+      }
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "href": "http://localhost:9301/web-rmms-home",
+      "dump": {
+        "feature": "web-rmms-home",
+        "zones": [
+          "SH-00",
+          "HM-00",
+          "HM-01",
+          "HM-02",
+          "SH-01",
+          "SH-02"
+        ],
+        "des": [],
+        "fields": [
+          "guestFaq",
+          "guestPrivacy",
+          "guestLoginCta"
+        ],
+        "controls": [],
+        "ids": [
+          "loginUser",
+          "loginPass",
+          "loginSubmit",
+          "guestLogin"
+        ],
+        "text": "RMMS · Mobile Home Field hub Shell chrome Home → Field tab Incident Work tab Work list → Ops → Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Incident Work (công việc) VIS capture Chấm công (attendance) Asset adjust GIS map Patrol map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Trang chủ FAQ Hướng dẫn dùng app tuần đường / sự cố / công việc trên thiết bị di động. Quyền riêng tư Dữ liệu phiên và vị trí chỉ dùng khi bạn đăng nhập và vào màn nghiệp vụ cần GPS. Đăng nhập 🏠 Trang chủ 🛣 Hiện trường ⚠️ Sự cố 🧰 Công việc Đăng nhập Hủy Tài khoản Mật khẩu Đăng nhập",
+        "href": "http://localhost:9301/web-rmms-home",
+        "hasFab": false,
+        "cardCount": 0,
+        "chipCount": 0
+      }
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "href": "http://localhost:9301/web-rmms-work",
+      "dump": {
+        "feature": "web-rmms-work",
+        "zones": [
+          "WORK-L"
+        ],
+        "des": [
+          "sc-mnt-list"
+        ],
+        "fields": [
+          "search",
+          "filter.status",
+          "filter.workType",
+          "hub.estimate",
+          "list.card",
+          "card.title",
+          "card.code",
+          "card.workType",
+          "card.assignee",
+          "card.dueAt",
+          "card.route",
+          "card.status",
+          "card.progress",
+          "action.progress",
+          "action.log",
+          "action.chat",
+          "action.estimate"
+        ],
+        "controls": [
+          "SearchInput",
+          "Chip",
+          "HubRow"
+        ],
+        "ids": [
+          "WORK-ROOT"
+        ],
+        "text": "RMMS · Mobile Home Field hub Shell chrome Home → Field tab Incident Work tab Work list → Ops → Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Incident Work (công việc) WORK-L list Alias /work Peer progress Peer estimate VIS capture Chấm công (attendance) Asset adjust GIS map Patrol map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Công việc Tất cả TT Mới Đang thực hiện Hoàn thành Hủy Tất cả loại Sửa chữa Kiểm tra Khẩn cấp ✎ Giao việc Ước lượng → tạo WO (peer estimate · không FAB list) Xử lý sạt lở Km3+400 WO-DEMO-202609-004 · Khẩn cấp Trần Thị B · Đội QL.15 02:00:00 21/9/2026 QL.46 Trạng thái: Đang thực hiện 60% Tiến độ Nhật ký Chat Ước lượng Vá ổ gà Km12+200 · ca hôm nay WO-DEMO-202609-ASOF · Sửa chữa Nguyễn Văn A · Đội QL.1 14:00:00 19/9/2026 QL.1 Trạng thái: Đang thực hiện 55% Tiến độ Nhật ký Chat Ước lượng Kiểm tra cống Km4+100 WO-DEMO-202609-003 · Kiểm tra Lê Văn C · Đội QL.217 14:00:00 18/9/2026 QL.217 Trạng thái: Đang thực hiện 45% Tiến độ Nhật ký Chat Ước lượng",
+        "href": "http://localhost:9301/web-rmms-work",
+        "hasFab": false,
+        "cardCount": 3,
+        "chipCount": 9
+      }
+    }
+  ],
+  "pass": true,
+  "at": "2026-09-25T22:18:55.425Z"
+}

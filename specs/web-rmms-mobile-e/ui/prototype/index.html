@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>web-rmms-mobile-e — TK-07 kế hoạch tần suất</title>
+  <style>
+    :root {
+      --primary: #0C84C0;
+      --header-start: #086A9A;
+      --header-end: #0C84C0;
+      --success: #3CB448;
+      --warning: #FCB43C;
+      --danger: #F03C30;
+      --surface: #F2F2F7;
+      --card: #FFFFFF;
+      --on-primary: #FFFFFF;
+      --on-surface: #1C1C1E;
+      --border: #C7C7CC;
+      --muted: #8E8E93;
+      --radius-card: 16px;
+      --radius-control: 12px;
+      --label: 13px;
+      --field: 16px;
+      --nav-title: 17px;
+      --control-h: 44px;
+      --phone-w: 430px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: #1a1a1e;
+      color: var(--on-surface);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px 8px 32px;
+    }
+    .board-nav {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      max-width: var(--phone-w); width: 100%; margin-bottom: 12px;
+    }
+    .board-nav button {
+      border: 1px solid var(--border); background: #2a2a2e; color: #eee;
+      border-radius: 8px; padding: 6px 10px; font-size: 12px; cursor: pointer;
+    }
+    .board-nav button.active { background: var(--primary); border-color: var(--primary); }
+    .phone {
+      width: min(100%, var(--phone-w));
+      min-height: 780px;
+      background: var(--surface);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,.45);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .topbar {
+      background: linear-gradient(135deg, var(--header-start), var(--header-end));
+      color: var(--on-primary);
+      min-height: 56px;
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 14px;
+    }
+    .topbar .back, .topbar .icon-btn {
+      width: 44px; height: 44px; border: 0; background: transparent;
+      color: inherit; font-size: 36px; line-height: 1; padding: 0;
+      display: grid; place-items: center;
+      cursor: pointer; border-radius: 12px;
+    }
+    .topbar .title {
+      flex: 1; font-size: var(--nav-title); font-weight: 600; text-align: center;
+    }
+    .topbar .spacer { width: 44px; }
+    .content { flex: 1; overflow: auto; padding: 12px 14px 24px; }
+    .screen { display: none; flex-direction: column; flex: 1; min-height: 0; }
+    .screen.active { display: flex; }
+    .btn {
+      height: var(--control-h); border-radius: var(--radius-control); border: 0;
+      padding: 0 16px; font-size: 15px; font-weight: 600; cursor: pointer;
+    }
+    .btn-primary { background: var(--primary); color: var(--on-primary); }
+    .btn-secondary { background: #E5E5EA; color: var(--on-surface); }
+    .btn-ghost { background: transparent; color: var(--primary); border: 1px solid var(--primary); }
+    .btn-block { width: 100%; margin-top: 8px; }
+    .card {
+      background: var(--card); border-radius: var(--radius-card);
+      border: 1px solid var(--border); padding: 14px; margin-bottom: 10px;
+    }
+    .card .route { font-size: var(--field); font-weight: 600; }
+    .card .meta { color: var(--muted); font-size: var(--label); margin-top: 4px; }
+    .card .row {
+      display: flex; justify-content: space-between; align-items: flex-start; gap: 8px;
+      margin-top: 8px;
+    }
+    .card .counts {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px;
+    }
+    .count-box {
+      background: #F8F8FA; border-radius: 10px; padding: 8px 10px;
+    }
+    .count-box .lbl { font-size: 11px; color: var(--muted); }
+    .count-box .val { font-size: var(--field); font-weight: 600; margin-top: 2px; }
+    .chip {
+      display: inline-block; font-size: 12px; padding: 3px 8px;
+      border-radius: 6px; background: #E8F6FC; color: var(--primary);
+    }
+    .chip.du { background: #E8F8EA; color: var(--success); }
+    .chip.thieu { background: #FFF4E0; color: #B86E00; }
+    .chip.class { background: #EEF1F6; color: #3A3A3C; }
+    .rule {
+      margin-top: 8px; font-size: 14px; line-height: 1.4;
+      color: var(--on-surface);
+    }
+    .empty {
+      text-align: center; padding: 48px 20px; color: var(--muted);
+    }
+    .empty .icon {
+      width: 64px; height: 64px; margin: 0 auto 16px; border-radius: 50%;
+      background: #E8F6FC; color: var(--primary);
+      display: flex; align-items: center; justify-content: center; font-size: 28px;
+    }
+    .empty h2 {
+      margin: 0 0 8px; font-size: 17px; color: var(--on-surface); font-weight: 600;
+    }
+    .empty p { margin: 0 0 16px; font-size: 14px; line-height: 1.45; }
+    .hint {
+      font-size: 12px; color: var(--muted); text-align: center; margin-top: 8px;
+    }
+    .asof {
+      font-size: 12px; color: var(--muted); margin-bottom: 10px;
+    }
+    .note-board {
+      max-width: var(--phone-w); width: 100%; margin-top: 12px;
+      color: #aaa; font-size: 11px; line-height: 1.4;
+    }
+  </style>
+</head>
+<body>
+  <nav class="board-nav" aria-label="prototype zones">
+    <button type="button" class="active" data-go="tk07-empty">TK-07 empty</button>
+    <button type="button" data-go="tk07-filled">TK-07 filled</button>
+  </nav>
+
+  <div class="phone" id="phone">
+    <!-- Zone: emptyHint + backHub + refresh -->
+    <section class="screen active" id="tk07-empty" data-zone="emptyHint">
+      <header class="topbar">
+        <button type="button" class="back" data-zone="backHub" title="backHub" aria-label="backHub">←</button>
+        <div class="title">Kế hoạch tuần</div>
+        <button type="button" class="icon-btn" data-zone="refresh" title="refresh" aria-label="refresh"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M20 4.5V9h-4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </header>
+      <div class="content">
+        <div class="empty" data-zone="emptyHint">
+          <div class="icon">📋</div>
+          <h2 data-copy-key="plan.empty.title">Chưa có kế hoạch</h2>
+          <p data-copy-key="plan.empty.body">
+            Bảng / API tần suất theo tuyến chưa sẵn sàng.
+            Không hiển thị số lượt giả.
+          </p>
+          <button type="button" class="btn btn-ghost btn-block" data-zone="refresh" data-copy-key="plan.refresh">
+            Tải lại
+          </button>
+          <button type="button" class="btn btn-secondary btn-block" data-zone="backHub" data-copy-key="plan.backHub">
+            Về hub tuần kiểm
+          </button>
+        </div>
+        <p class="hint">AC-LIST-02 · 0 mock row · schema trước filled</p>
+      </div>
+    </section>
+
+    <!-- Zone: planList + row fields -->
+    <section class="screen" id="tk07-filled" data-zone="planList">
+      <header class="topbar">
+        <button type="button" class="back" data-zone="backHub" title="backHub" aria-label="backHub">←</button>
+        <div class="title">Kế hoạch tuần</div>
+        <button type="button" class="icon-btn" data-zone="refresh" title="refresh" aria-label="refresh"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M20 4.5V9h-4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </header>
+      <div class="content">
+        <p class="asof" data-copy-key="plan.asOf">Cập nhật: 2026-09-25 · tuần bắt đầu 2026-09-22</p>
+        <div data-zone="planList">
+          <article class="card" data-row="1">
+            <div class="row">
+              <div>
+                <div class="route" data-zone="route">QL.1A · Km 120–145</div>
+                <div class="meta" data-zone="route">routeCode: QL1A-120-145</div>
+              </div>
+              <span class="chip thieu" data-zone="coverageStatus" data-value="thieu">Thiếu</span>
+            </div>
+            <div class="row">
+              <span class="chip class" data-zone="roadClass">Cấp III</span>
+            </div>
+            <p class="rule" data-zone="ruleText">Tuần đường mỗi ngày · tuần kiểm theo lịch tuyến (API).</p>
+            <div class="counts">
+              <div class="count-box">
+                <div class="lbl" data-copy-key="plan.patrolDay">Ca TD / ngày</div>
+                <div class="val" data-zone="patrolDayCount">1</div>
+              </div>
+              <div class="count-box">
+                <div class="lbl" data-copy-key="plan.inspectWeek">Đợt TK / tuần</div>
+                <div class="val" data-zone="inspectWeekCount">0</div>
+              </div>
+            </div>
+          </article>
+          <article class="card" data-row="2">
+            <div class="row">
+              <div>
+                <div class="route" data-zone="route">ĐT.754 · đoạn A</div>
+                <div class="meta" data-zone="route">routeCode: DT754-A</div>
+              </div>
+              <span class="chip du" data-zone="coverageStatus" data-value="du">Đủ</span>
+            </div>
+            <div class="row">
+              <span class="chip class" data-zone="roadClass">Cấp IV</span>
+            </div>
+            <p class="rule" data-zone="ruleText">Quy tắc theo cấp đường từ bảng tần suất (không hard-code FE).</p>
+            <div class="counts">
+              <div class="count-box">
+                <div class="lbl" data-copy-key="plan.patrolDay">Ca TD / ngày</div>
+                <div class="val" data-zone="patrolDayCount">2</div>
+              </div>
+              <div class="count-box">
+                <div class="lbl" data-copy-key="plan.inspectWeek">Đợt TK / tuần</div>
+                <div class="val" data-zone="inspectWeekCount">1</div>
+              </div>
+            </div>
+          </article>
+          <article class="card" data-row="3">
+            <div class="row">
+              <div>
+                <div class="route" data-zone="route">ĐT.756 · nhánh B</div>
+                <div class="meta" data-zone="route">routeCode: DT756-B</div>
+              </div>
+              <span class="chip thieu" data-zone="coverageStatus" data-value="thieu">Thiếu</span>
+            </div>
+            <div class="row">
+              <span class="chip class" data-zone="roadClass">—</span>
+              <span class="meta">GAP roadClass nếu thiếu field</span>
+            </div>
+            <p class="rule" data-zone="ruleText">ruleText từ API plan / rule-by-class.</p>
+            <div class="counts">
+              <div class="count-box">
+                <div class="lbl" data-copy-key="plan.patrolDay">Ca TD / ngày</div>
+                <div class="val" data-zone="patrolDayCount">0</div>
+              </div>
+              <div class="count-box">
+                <div class="lbl" data-copy-key="plan.inspectWeek">Đợt TK / tuần</div>
+                <div class="val" data-zone="inspectWeekCount">0</div>
+              </div>
+            </div>
+          </article>
+        </div>
+        <p class="hint">RO only · AC-LIST-01..08 · không edit · không GPS · không ERP filter bar</p>
+      </div>
+    </section>
+  </div>
+
+  <p class="note-board">
+    reviewUrl prototype · phone max-width 430 · labels Dev = useFormOptions() ·
+    filled cards chỉ minh họa wire khi API có schema — runtime empty nếu 404.
+  </p>
+
+  <script>
+    (function () {
+      var screens = document.querySelectorAll(".screen");
+      var navBtns = document.querySelectorAll(".board-nav button");
+      function show(id) {
+        screens.forEach(function (s) {
+          s.classList.toggle("active", s.id === id);
+        });
+        navBtns.forEach(function (b) {
+          b.classList.toggle("active", b.getAttribute("data-go") === id);
+        });
+      }
+      navBtns.forEach(function (b) {
+        b.addEventListener("click", function () {
+          show(b.getAttribute("data-go"));
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

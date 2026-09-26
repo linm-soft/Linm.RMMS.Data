@@ -1,0 +1,13 @@
+{
+  "feature": "web-rmms-asset-kcht",
+  "status": "confirmed",
+  "review_confirm": "approve",
+  "verdict": "PASS",
+  "must": 0,
+  "should": 1,
+  "autoApprove": true,
+  "contentHash": "sha256:6f74282b807da7f2cc1aa57ac64848cd1d75ff3383c0f432eaad7bea53fff80e",
+  "taskId": "task_f5ba672b",
+  "writtenAt": "2026-09-25T14:05:00.000Z",
+  "compact": "specs/web-rmms-asset-kcht/handoff/review-compact.md"
+}

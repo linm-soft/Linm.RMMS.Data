@@ -1,0 +1,90 @@
+{
+  "url": "http://localhost:9301/web-rmms-asset-kcht",
+  "capturedAt": "2026-09-25T13:54:51.585Z",
+  "method": "capture_kcht · MFE /login · phone 430 · S0 KCHT · S1 Hub peer #tileKcht · QA-20 click→KCHT · no kill worker",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "href": "http://localhost:9301/web-rmms-asset-kcht",
+      "dump": {
+        "feature": "web-rmms-asset-kcht",
+        "mode": null,
+        "zones": [
+          "AK-00",
+          "AK-01",
+          "AK-02",
+          "AK-03",
+          "AK-04",
+          "AK-06"
+        ],
+        "ids": [
+          "navBack",
+          "pageTitle",
+          "search",
+          "AK-03",
+          "AK-04"
+        ],
+        "tiles": 45,
+        "text": "RMMS · Mobile Home Shell chrome Ops inbox Asset hub Asset KCHT Hạng mục tài sản Alias /asset/kcht Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile DS Dev Standalone Developer RMMS Mobile ‹ Hạng mục tài sản PA Mặt đường PAVEMENT BR Cầu BRIDGE TU Hầm TUNNEL CU Cống thoát nước ngang CULVERT_X DI Rãnh / cống dọc DITCH UN Hầm chui dân sinh UNDERPASS TR Biển báo TRAFFIC_SIGN DE Cọc tiêu / cọc H DELINEATOR KM Cột Km KM_POST ME Dải phân cách giữa MEDIAN AN Tấm chống chói ANTI_GLARE TR Đảo giao thông TRAFFIC_ISLAND RO Đinh phản quang ROAD_STUD GU Hộ lan / tôn sóng GUARDRAIL RO Vạch sơn ROAD_MARKING CR Thùng giảm chấn CRASH_CUSHION CO Gương cầu CONVEX_MIRROR TR Đèn tín hiệu TRAFFIC_SIGNAL BO Mốc lộ giới / GPMB BOUNDARY RE Kè / tường chắn RETAINING SH Lề đường / hàng rào SHOULDER LI Chiếu sáng đường LIGHTING GR Cây xanh / thảm cỏ GREEN IN Nút giao đường bộ INTERCHANGE SL ",
+        "href": "http://localhost:9301/web-rmms-asset-kcht"
+      }
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "href": "http://localhost:9301/web-rmms-asset-hub",
+      "dump": {
+        "feature": "web-rmms-asset-hub",
+        "mode": null,
+        "zones": [
+          "AH-00",
+          "AH-01",
+          "AH-02",
+          "AH-03",
+          "AH-04",
+          "AH-05",
+          "AH-06"
+        ],
+        "ids": [
+          "navBack",
+          "tileKcht"
+        ],
+        "tiles": 0,
+        "text": "RMMS · Mobile Home Shell chrome Ops inbox Asset hub Hub tài sản Alias /asset Asset KCHT Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile DS Dev Standalone Developer RMMS Mobile ‹ Hub tài sản ↻ Hồ sơ tài sản KHAC — Khác 45 loại tài sản TRA CỨU H Hạng mục assetHub.tile.kcht L Danh sách assetHub.tile.list THU THẬP + Thêm thủ công assetHub.tile.collect AI Camera AI assetHub.tile.ai QUẢN LÝ ↻ Cập nhật / bớt assetHub.tile.adjust ⌖ Xem bản đồ ›",
+        "href": "http://localhost:9301/web-rmms-asset-hub"
+      }
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "href": "http://localhost:9301/web-rmms-asset-kcht",
+      "dump": {
+        "feature": "web-rmms-asset-kcht",
+        "mode": null,
+        "zones": [
+          "AK-00",
+          "AK-01",
+          "AK-02",
+          "AK-03",
+          "AK-04",
+          "AK-06"
+        ],
+        "ids": [
+          "navBack",
+          "pageTitle",
+          "search",
+          "AK-03",
+          "AK-04"
+        ],
+        "tiles": 45,
+        "text": "RMMS · Mobile Home Shell chrome Ops inbox Asset hub Hub tài sản Alias /asset Asset KCHT Hạng mục tài sản Alias /asset/kcht Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile DS Dev Standalone Developer RMMS Mobile ‹ Hạng mục tài sản PA Mặt đường PAVEMENT BR Cầu BRIDGE TU Hầm TUNNEL CU Cống thoát nước ngang CULVERT_X DI Rãnh / cống dọc DITCH UN Hầm chui dân sinh UNDERPASS TR Biển báo TRAFFIC_SIGN DE Cọc tiêu / cọc H DELINEATOR KM Cột Km KM_POST ME Dải phân cách giữa MEDIAN AN Tấm chống chói ANTI_GLARE TR Đảo giao thông TRAFFIC_ISLAND RO Đinh phản quang ROAD_STUD GU Hộ lan / tôn sóng GUARDRAIL RO Vạch sơn ROAD_MARKING CR Thùng giảm chấn CRASH_CUSHION CO Gương cầu CONVEX_MIRROR TR Đèn tín hiệu TRAFFIC_SIGNAL BO Mốc lộ giới / GPMB BOUNDARY RE Kè / tường chắn RETAINING SH Lề đường / hàng rào SHOULDER LI Chiếu sáng đường LIGHTING GR Cây xanh / thảm cỏ GREEN IN Nút giao",
+        "href": "http://localhost:9301/web-rmms-asset-kcht"
+      }
+    }
+  ],
+  "ok": true
+}

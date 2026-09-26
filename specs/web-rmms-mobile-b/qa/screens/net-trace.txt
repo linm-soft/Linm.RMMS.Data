@@ -1,0 +1,60 @@
+REQ GET http://localhost:9301/login
+RESP 200 http://localhost:9301/login :: <!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RMMS Mobile — Standalone
+REQ GET http://localhost:9301/login-page.linm-rmms-mobile.js
+RESP 200 http://localhost:9301/login-page.linm-rmms-mobile.js :: "use strict";
+(self["webpackChunkrmms_mobile"] = self["webpackChunkrmms_mobile"] || []).push([["login-page"],{
+
+/***/ "./src/pages/LoginPage/LoginPage.tsx"
+/*!*********************
+REQ POST http://localhost:5202/mobile-bff/api/v1/auth/login
+RESP 200 http://localhost:5202/mobile-bff/api/v1/auth/login :: {"token":"eyJhbGciOiJIUzI1NiIsImtpZCI6Imp3dC1rZXkiLCJ0eXAiOiJKV1QifQ.eyJzdWIiOiIxN2UwNmIyNS0yM2U0LTQzNGUtYjJkNy02ZjMwYTVkMTBiMjAiLCJqdGkiOiI1ZjA3NjY0Ni04YTliLTRlMWUtYTNkMC1jMWFlNTM
+REQ GET http://localhost:9301/src_router_useShellPageTitle_ts-src_services_auth_profile_ts-src_services_patrol_endpoint_ts--6cd948.linm-rmms-mobile.js
+RESP 200 http://localhost:9301/src_router_useShellPageTitle_ts-src_services_auth_profile_ts-src_services_patrol_endpoint_ts--6cd948.linm-rmms-mobile.js :: "use strict";
+(self["webpackChunkrmms_mobile"] = self["webpackChunkrmms_mobile"] || []).push([["src_router_useShellPageTitle_ts-src_services_auth_profile_ts-src_services_patrol_end
+REQ GET http://localhost:5202/mobile-bff/api/v1/patrol/sessions?status=%C4%90ang+tu%E1%BA%A7n&page=1&pageSize=50
+REQ GET http://localhost:5202/mobile-bff/api/v1/patrol/sessions?status=%C4%90ang+tu%E1%BA%A7n&page=1&pageSize=50
+RESP 200 http://localhost:5202/mobile-bff/api/v1/patrol/sessions?status=%C4%90ang+tu%E1%BA%A7n&page=1&pageSize=50 :: {"success":true,"message":"Success","data":{"items":[{"id":"94515321-d332-4a3b-832a-d86ff5716b2c","code":"TD-20260925-002","userName":"Quản trị RMMS","route":"QL.1-LANGSON","assign
+RESP 200 http://localhost:5202/mobile-bff/api/v1/patrol/sessions?status=%C4%90ang+tu%E1%BA%A7n&page=1&pageSize=50 :: {"success":true,"message":"Success","data":{"items":[{"id":"94515321-d332-4a3b-832a-d86ff5716b2c","code":"TD-20260925-002","userName":"Quản trị RMMS","route":"QL.1-LANGSON","assign
+AFTER_LOGIN url=http://localhost:9301/web-rmms-mobile-a body=RMMS · Mobile
+Field mobile
+Field hub
+Tuần đường
+Mở ca
+Lịch sử
+Tuần kiểm
+Mở đợt
+Journal mobile B
+DS
+Dev Standalone
+Develo
+REQ GET http://localhost:9301/src_router_useShellPageTitle_ts-src_services_auth_profile_ts-src_services_patrol_endpoint_ts--6cd948.linm-rmms-mobile.js
+RESP 200 http://localhost:9301/src_router_useShellPageTitle_ts-src_services_auth_profile_ts-src_services_patrol_endpoint_ts--6cd948.linm-rmms-mobile.js :: "use strict";
+(self["webpackChunkrmms_mobile"] = self["webpackChunkrmms_mobile"] || []).push([["src_router_useShellPageTitle_ts-src_services_auth_profile_ts-src_services_patrol_end
+REQ GET http://localhost:5202/mobile-bff/api/v1/patrol/sessions?status=%C4%90ang+tu%E1%BA%A7n&page=1&pageSize=50
+REQ GET http://localhost:5202/mobile-bff/api/v1/patrol/sessions?status=%C4%90ang+tu%E1%BA%A7n&page=1&pageSize=50
+RESP 200 http://localhost:5202/mobile-bff/api/v1/patrol/sessions?status=%C4%90ang+tu%E1%BA%A7n&page=1&pageSize=50 :: {"success":true,"message":"Success","data":{"items":[{"id":"94515321-d332-4a3b-832a-d86ff5716b2c","code":"TD-20260925-002","userName":"Quản trị RMMS","route":"QL.1-LANGSON","assign
+REQ GET http://localhost:5202/mobile-bff/api/v1/patrol/sessions/44fceb67-b83a-4fb5-b906-18d7e1009eb8
+REQ GET http://localhost:5202/mobile-bff/api/v1/patrol/sessions/44fceb67-b83a-4fb5-b906-18d7e1009eb8/journal-lines?page=1&pageSize=50
+REQ GET http://localhost:5202/mobile-bff/api/v1/patrol/sessions/44fceb67-b83a-4fb5-b906-18d7e1009eb8
+REQ GET http://localhost:5202/mobile-bff/api/v1/patrol/sessions/44fceb67-b83a-4fb5-b906-18d7e1009eb8/journal-lines?page=1&pageSize=50
+RESP 200 http://localhost:5202/mobile-bff/api/v1/patrol/sessions?status=%C4%90ang+tu%E1%BA%A7n&page=1&pageSize=50 :: {"success":true,"message":"Success","data":{"items":[{"id":"94515321-d332-4a3b-832a-d86ff5716b2c","code":"TD-20260925-002","userName":"Quản trị RMMS","route":"QL.1-LANGSON","assign
+RESP 404 http://localhost:5202/mobile-bff/api/v1/patrol/sessions/44fceb67-b83a-4fb5-b906-18d7e1009eb8/journal-lines?page=1&pageSize=50 :: 
+RESP 200 http://localhost:5202/mobile-bff/api/v1/patrol/sessions/44fceb67-b83a-4fb5-b906-18d7e1009eb8 :: {"success":true,"message":"Success","data":{"id":"44fceb67-b83a-4fb5-b906-18d7e1009eb8","code":"TD-20260925-001","userName":"Quản trị RMMS","route":"QL.1-LANGSON(BOT)","assigneeCod
+RESP 404 http://localhost:5202/mobile-bff/api/v1/patrol/sessions/44fceb67-b83a-4fb5-b906-18d7e1009eb8/journal-lines?page=1&pageSize=50 :: 
+RESP 200 http://localhost:5202/mobile-bff/api/v1/patrol/sessions/44fceb67-b83a-4fb5-b906-18d7e1009eb8 :: {"success":true,"message":"Success","data":{"id":"44fceb67-b83a-4fb5-b906-18d7e1009eb8","code":"TD-20260925-001","userName":"Quản trị RMMS","route":"QL.1-LANGSON(BOT)","assigneeCod
+AFTER_B url=http://localhost:9301/web-rmms-mobile-b/44fceb67-b83a-4fb5-b906-18d7e1009eb8 body=RMMS · Mobile
+Field mobile
+Journal mobile B
+DS
+Dev Standalone
+Developer
+RMMS Mobile
+‹
+Sổ nhật ký
++
+API request failed

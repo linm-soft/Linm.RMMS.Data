@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>web-rmms-patrol-map — Bản đồ tuần</title>
+  <style>
+    :root {
+      --primary: #0C84C0;
+      --header-start: #086A9A;
+      --header-end: #0C84C0;
+      --success: #3CB448;
+      --warning: #FCB43C;
+      --next: #E67E00;
+      --track: #0A84FF;
+      --done: #1B8A4A;
+      --me: #FCB43C;
+      --surface: #F2F2F7;
+      --card: #FFFFFF;
+      --on-primary: #FFFFFF;
+      --on-surface: #1C1C1E;
+      --border: #C7C7CC;
+      --muted: #8E8E93;
+      --radius-card: 16px;
+      --radius-control: 12px;
+      --label: 13px;
+      --field: 16px;
+      --nav-title: 17px;
+      --control-h: 44px;
+      --phone-w: 430px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: #1a1a1e;
+      color: var(--on-surface);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px 8px 32px;
+    }
+    .board-nav {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      max-width: var(--phone-w); width: 100%; margin-bottom: 12px;
+    }
+    .board-nav button {
+      border: 1px solid var(--border); background: #2a2a2e; color: #eee;
+      border-radius: 8px; padding: 6px 10px; font-size: 12px; cursor: pointer;
+    }
+    .board-nav button.active { background: var(--primary); border-color: var(--primary); }
+    .meta {
+      max-width: var(--phone-w); width: 100%; color: #aaa; font-size: 12px; margin-bottom: 8px;
+    }
+    .phone {
+      width: min(100%, var(--phone-w));
+      height: 780px;
+      background: var(--surface);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,.45);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .topbar {
+      background: linear-gradient(135deg, var(--header-start), var(--header-end));
+      color: var(--on-primary);
+      min-height: 56px;
+      display: flex; align-items: center; gap: 4px;
+      padding: 6px 8px;
+      flex-shrink: 0;
+      z-index: 5;
+    }
+    .topbar .icon-btn {
+      width: 44px; height: 44px; border: 0; background: transparent;
+      color: inherit; font-size: 22px; cursor: pointer; border-radius: 12px;
+      display: grid; place-items: center;
+    }
+    .topbar .title {
+      flex: 1; font-size: var(--nav-title); font-weight: 600;
+      text-align: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .topbar .trail-btn {
+      border: 0; background: transparent; color: inherit;
+      font-size: 13px; font-weight: 650; padding: 8px 10px; cursor: pointer;
+      border-radius: 10px; white-space: nowrap;
+    }
+    .map-host {
+      flex: 1; position: relative; min-height: 0; overflow: hidden;
+      background: #d4e4ef;
+    }
+    .map-svg { width: 100%; height: 100%; display: block; }
+    .me-dot {
+      position: absolute; width: 16px; height: 16px; border-radius: 50%;
+      background: var(--me); border: 3px solid #fff;
+      box-shadow: 0 0 0 6px rgba(252,180,60,.28);
+      transform: translate(-50%, -50%); z-index: 3;
+    }
+    .me-dot.hidden { display: none; }
+    .pin-next {
+      position: absolute; width: 28px; height: 28px;
+      border-radius: 50% 50% 50% 0;
+      background: var(--next); border: 2px solid #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,.25);
+      transform: rotate(-45deg) translate(-50%, -100%);
+      z-index: 2;
+    }
+    .pin-next.hidden { display: none; }
+    .pin-done {
+      position: absolute; width: 22px; height: 22px;
+      border-radius: 50% 50% 50% 0;
+      background: var(--done); border: 2px solid #fff;
+      transform: rotate(-45deg) translate(-50%, -100%);
+      z-index: 2;
+    }
+    .pin-done.hidden { display: none; }
+    .track-line.hidden { display: none; }
+    .popup {
+      position: absolute; left: 50%; top: 48%; transform: translate(-50%, -110%);
+      background: var(--card); border-radius: var(--radius-card);
+      box-shadow: 0 8px 24px rgba(0,0,0,.22); padding: 12px 14px;
+      min-width: 200px; max-width: 260px; z-index: 6; display: none;
+    }
+    .popup.show { display: block; }
+    .popup .name { font-size: var(--field); font-weight: 650; margin: 0 0 4px; }
+    .popup .meta-line { font-size: var(--label); color: var(--muted); margin: 0; }
+    .next-card {
+      position: absolute; left: 10px; right: 10px; top: 12px;
+      background: rgba(255,255,255,.96); border-radius: var(--radius-card);
+      border: 1px solid var(--border); padding: 12px 14px;
+      box-shadow: 0 6px 18px rgba(0,0,0,.12); z-index: 4;
+    }
+    .next-card.empty .next-title { color: var(--muted); font-weight: 500; }
+    .next-eyebrow { font-size: var(--label); color: var(--muted); margin: 0 0 2px; }
+    .next-title { font-size: var(--field); font-weight: 650; margin: 0 0 10px; }
+    .next-cta {
+      width: 100%; height: 44px; border: 0; border-radius: var(--radius-control);
+      background: var(--primary); color: var(--on-primary);
+      font-size: 15px; font-weight: 600; cursor: pointer;
+    }
+    .overlay-bar {
+      position: absolute; left: 10px; right: 10px; bottom: 12px;
+      display: flex; flex-direction: column; gap: 8px; z-index: 4; pointer-events: none;
+    }
+    .overlay-bar > * { pointer-events: auto; }
+    .chip-row {
+      display: flex; flex-wrap: wrap; gap: 6px; align-items: center;
+      background: rgba(255,255,255,.92); backdrop-filter: blur(8px);
+      border-radius: var(--radius-card); padding: 8px;
+      border: 1px solid var(--border);
+    }
+    .chip {
+      height: 32px; padding: 0 12px; border-radius: 999px;
+      border: 1px solid var(--border); background: var(--card);
+      font-size: 12px; font-weight: 600; cursor: pointer; color: var(--on-surface);
+    }
+    .chip.active { background: var(--primary); color: var(--on-primary); border-color: var(--primary); }
+    .chip:disabled { opacity: .45; cursor: not-allowed; }
+    .chip.locate { margin-left: auto; }
+    .legend .dot {
+      display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 4px;
+    }
+    .toast {
+      position: absolute; left: 16px; right: 16px; top: 72px;
+      background: rgba(28,28,30,.92); color: #fff; border-radius: 12px;
+      padding: 12px 14px; font-size: 14px; z-index: 10;
+      display: none; text-align: center;
+    }
+    .toast.show { display: block; }
+    .empty-hint {
+      position: absolute; left: 50%; top: 54%; transform: translate(-50%, -50%);
+      background: rgba(255,255,255,.94); border-radius: 12px; padding: 14px 18px;
+      font-size: 14px; color: var(--muted); z-index: 2; display: none;
+      border: 1px solid var(--border); text-align: center; max-width: 260px;
+    }
+    .empty-hint.show { display: block; }
+    .zone-tag {
+      position: absolute; font-size: 9px; font-weight: 700; color: rgba(255,255,255,.7);
+      background: rgba(0,0,0,.35); padding: 2px 5px; border-radius: 4px; z-index: 1;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="meta">
+    <strong>web-rmms-patrol-map</strong> · PM-00…08 · phone ≤430 · Android 1-1 · review prototype<br />
+    peerStdUrl: http://localhost:9301/web-rmms-patrol-map · Mobile.Bff patrol/sessions + gis/tiles · <strong>cấm</strong> ERP.* / invent tracks P1 / Fit
+  </div>
+  <div class="board-nav" id="boardNav">
+    <button type="button" data-board="live" class="active">Live + GPS</button>
+    <button type="button" data-board="gpsDeny">GPS deny</button>
+    <button type="button" data-board="empty">Empty session</button>
+    <button type="button" data-board="checkin">Check-in toast</button>
+    <button type="button" data-board="tilesErr">Tiles error</button>
+    <button type="button" data-board="sessErr">Sessions error</button>
+  </div>
+
+  <!-- PM-00 phone frame -->
+  <div class="phone" id="phone" data-zone="PM-00">
+    <span class="zone-tag" style="top:4px;left:10px">PM-00</span>
+
+    <!-- PM-01 top bar -->
+    <header class="topbar" data-zone="PM-01">
+      <button type="button" class="icon-btn" id="btnBack" title="patrolMap.nav.back" aria-label="Back">‹</button>
+      <div class="title" id="pageTitle">Ca đang chạy</div>
+      <button type="button" class="trail-btn" id="btnCheckin" title="patrolMap.nav.checkin">Ghi điểm tuần</button>
+    </header>
+
+    <!-- PM-02 map host -->
+    <div class="map-host" id="mapHost" data-zone="PM-02">
+      <span class="zone-tag" style="top:8px;left:8px">PM-02</span>
+      <svg class="map-svg" viewBox="0 0 430 560" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <defs>
+          <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path d="M40 0H0V40" fill="none" stroke="#b8c9d6" stroke-width="0.6"/>
+          </pattern>
+        </defs>
+        <rect width="430" height="560" fill="#c8dae8"/>
+        <rect width="430" height="560" fill="url(#grid)"/>
+        <path d="M40,480 Q120,360 200,300 T380,120" fill="none" stroke="#9bb4c6" stroke-width="16" opacity=".35"/>
+        <!-- P1: no invent track polyline SSOT — track layer empty until P2 -->
+        <polyline id="trackLine" class="track-line hidden"
+          points="60,460 120,380 180,320 240,260 300,200"
+          fill="none" stroke="#0A84FF" stroke-width="4" stroke-linecap="round" opacity="0.9"/>
+      </svg>
+
+      <!-- PM-05 next card -->
+      <div class="next-card" id="nextCard" data-zone="PM-05">
+        <p class="next-eyebrow">Điểm tiếp theo</p>
+        <p class="next-title" id="nextTitle">Km 1561+134 · Phước Dinh</p>
+        <button type="button" class="next-cta" id="btnNextCheckin">Ghi điểm tuần</button>
+      </div>
+
+      <div class="pin-done hidden" id="pinDone" style="left:36%;top:58%" data-legend="done"></div>
+      <div class="pin-next" id="pinNext" style="left:62%;top:38%" data-zone="PM-05" data-legend="next"></div>
+      <div class="me-dot" id="meDot" style="left:44%;top:66%" data-zone="PM-06"></div>
+
+      <div class="empty-hint" id="emptyHint">Chưa có ca Đang tuần · map vẫn mở</div>
+
+      <!-- PM-07 locate popup -->
+      <div class="popup" id="locatePopup" data-zone="PM-07">
+        <p class="name">Vị trí của bạn</p>
+        <p class="meta-line" id="gpsLine">GPS: 11.5678, 108.9912</p>
+      </div>
+
+      <!-- PM-03 basemap + locate · PM-04 legend -->
+      <div class="overlay-bar">
+        <div class="chip-row" data-zone="PM-03">
+          <button type="button" class="chip active" data-basemap="std">Tiêu chuẩn</button>
+          <button type="button" class="chip" data-basemap="sat">Vệ tinh</button>
+          <button type="button" class="chip locate" id="btnLocate">Vị trí của tôi</button>
+        </div>
+        <div class="chip-row legend" data-zone="PM-04">
+          <button type="button" class="chip active" data-legend="all">Tất cả</button>
+          <button type="button" class="chip" data-legend="track"><span class="dot" style="background:var(--track)"></span>Hành trình</button>
+          <button type="button" class="chip" data-legend="done"><span class="dot" style="background:var(--done)"></span>Đã ghi điểm tuần</button>
+          <button type="button" class="chip" data-legend="next"><span class="dot" style="background:var(--next)"></span>Điểm kế tiếp</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast" role="status"></div>
+  </div>
+
+  <script>
+    (function () {
+      var toastEl = document.getElementById("toast");
+      var meDot = document.getElementById("meDot");
+      var locatePopup = document.getElementById("locatePopup");
+      var emptyHint = document.getElementById("emptyHint");
+      var nextCard = document.getElementById("nextCard");
+      var nextTitle = document.getElementById("nextTitle");
+      var pinNext = document.getElementById("pinNext");
+      var pinDone = document.getElementById("pinDone");
+      var trackLine = document.getElementById("trackLine");
+      var btnLocate = document.getElementById("btnLocate");
+      var toastTimer;
+      var gpsOk = true;
+
+      function showToast(msg) {
+        toastEl.textContent = msg;
+        toastEl.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () { toastEl.classList.remove("show"); }, 2200);
+      }
+
+      function setLegend(mode) {
+        var showTrack = mode === "all" || mode === "track";
+        var showDone = mode === "all" || mode === "done";
+        var showNext = mode === "all" || mode === "next";
+        /* P1: track geom empty — line stays hidden (no invent tracks) */
+        trackLine.classList.add("hidden");
+        void showTrack;
+        pinDone.classList.toggle("hidden", !showDone || pinDone.dataset.absent === "1");
+        pinNext.classList.toggle("hidden", !showNext || pinNext.dataset.absent === "1");
+      }
+
+      function setLiveSession(on) {
+        if (on) {
+          nextCard.classList.remove("empty");
+          nextTitle.textContent = "Km 1561+134 · Phước Dinh";
+          pinNext.dataset.absent = "0";
+          pinNext.classList.remove("hidden");
+          pinDone.dataset.absent = "1";
+          pinDone.classList.add("hidden");
+          emptyHint.classList.remove("show");
+        } else {
+          nextCard.classList.add("empty");
+          nextTitle.textContent = "Chưa có điểm tiếp theo";
+          pinNext.dataset.absent = "1";
+          pinNext.classList.add("hidden");
+          pinDone.dataset.absent = "1";
+          pinDone.classList.add("hidden");
+          emptyHint.classList.add("show");
+        }
+        trackLine.classList.add("hidden");
+      }
+
+      function setGps(ok) {
+        gpsOk = ok;
+        btnLocate.disabled = !ok;
+        if (ok) {
+          meDot.classList.remove("hidden");
+        } else {
+          meDot.classList.add("hidden");
+          locatePopup.classList.remove("show");
+        }
+      }
+
+      function applyBoard(name) {
+        document.querySelectorAll(".board-nav button").forEach(function (b) {
+          b.classList.toggle("active", b.getAttribute("data-board") === name);
+        });
+        locatePopup.classList.remove("show");
+        document.getElementById("mapHost").style.background = "#d4e4ef";
+        document.querySelectorAll("[data-legend]").forEach(function (c) {
+          c.classList.toggle("active", c.getAttribute("data-legend") === "all");
+        });
+        document.querySelectorAll("[data-basemap]").forEach(function (c) {
+          c.classList.toggle("active", c.getAttribute("data-basemap") === "std");
+        });
+
+        if (name === "live") {
+          setGps(true);
+          setLiveSession(true);
+          setLegend("all");
+        } else if (name === "gpsDeny") {
+          setLiveSession(true);
+          setGps(false);
+          setLegend("all");
+          showToast("GPS từ chối · ẩn me · disable locate · map mở");
+        } else if (name === "empty") {
+          setGps(true);
+          setLiveSession(false);
+          setLegend("all");
+          showToast("Sessions trống · next-card empty · map mở");
+        } else if (name === "checkin") {
+          setGps(true);
+          setLiveSession(true);
+          setLegend("all");
+          showToast("Ghi điểm tuần · toast P1 · cấm sheet/POST");
+        } else if (name === "tilesErr") {
+          setGps(true);
+          setLiveSession(true);
+          setLegend("all");
+          document.getElementById("mapHost").style.background = "#c5c9ce";
+          showToast("Không tải tiles · thử lại · cấm OSM.org / alert");
+        } else if (name === "sessErr") {
+          setGps(true);
+          setLiveSession(false);
+          setLegend("all");
+          showToast("Không tải ca · toast · map vẫn mở");
+        }
+      }
+
+      document.getElementById("boardNav").addEventListener("click", function (e) {
+        var btn = e.target.closest("button[data-board]");
+        if (!btn) return;
+        applyBoard(btn.getAttribute("data-board"));
+      });
+
+      document.getElementById("btnBack").addEventListener("click", function () {
+        showToast("← Home / Field / Supervise (PM-08 entry)");
+      });
+      function toastCheckin() {
+        showToast("Ghi điểm tuần · toast P1 · cấm sheet/POST");
+      }
+      document.getElementById("btnCheckin").addEventListener("click", toastCheckin);
+      document.getElementById("btnNextCheckin").addEventListener("click", toastCheckin);
+
+      btnLocate.addEventListener("click", function () {
+        if (!gpsOk) {
+          showToast("GPS từ chối · locate disabled");
+          return;
+        }
+        locatePopup.classList.toggle("show");
+        if (locatePopup.classList.contains("show")) {
+          showToast("Popup Vị trí của bạn · Geolocation live");
+        }
+      });
+
+      document.querySelectorAll("[data-basemap]").forEach(function (c) {
+        c.addEventListener("click", function () {
+          document.querySelectorAll("[data-basemap]").forEach(function (x) { x.classList.remove("active"); });
+          c.classList.add("active");
+          var sat = c.getAttribute("data-basemap") === "sat";
+          document.getElementById("mapHost").style.background = sat ? "#2a3a2e" : "#d4e4ef";
+          showToast(sat ? "Basemap vệ tinh (local)" : "Basemap tiêu chuẩn (local)");
+        });
+      });
+
+      document.querySelectorAll("[data-legend]").forEach(function (c) {
+        c.addEventListener("click", function () {
+          document.querySelectorAll("[data-legend]").forEach(function (x) { x.classList.remove("active"); });
+          c.classList.add("active");
+          setLegend(c.getAttribute("data-legend"));
+        });
+      });
+
+      document.getElementById("mapHost").addEventListener("click", function (e) {
+        if (e.target.closest("#btnLocate") || e.target.closest(".popup") || e.target.closest(".next-card") || e.target.closest(".chip-row")) return;
+        locatePopup.classList.remove("show");
+      });
+      locatePopup.addEventListener("click", function (e) { e.stopPropagation(); });
+
+      applyBoard("live");
+    })();
+  </script>
+</body>
+</html>

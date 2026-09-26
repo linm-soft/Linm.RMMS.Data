@@ -1,0 +1,115 @@
+{
+  "feature": "web-rmms-mnt-log",
+  "cases": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "href": "http://localhost:9301/web-rmms-mnt-log?id=2a0b6ead-a87e-4df5-97ae-dd2962724781",
+      "dump": {
+        "feature": "web-rmms-mnt-log",
+        "zones": [
+          "WORK-G"
+        ],
+        "des": [
+          "sc-mnt-log"
+        ],
+        "fields": [
+          "woHeader",
+          "woCode",
+          "woTitle",
+          "woStatus",
+          "woRouteName",
+          "woWorkType",
+          "timeline"
+        ],
+        "ids": [
+          "sc-mnt-log"
+        ],
+        "text": "RMMS · Mobile Home Field hub Shell chrome Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Incident Work (công việc) Work progress (WORK-P) Work log (WORK-G) WORK-G STD Alias /work/log VIS capture Chấm công (attendance) Asset adjust GIS map Patrol map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Nhật ký công việc WO-DEMO-202609-004 Xử lý sạt lở Km3+400 Đang thực hiện QL.46 · Khẩn cấp NHẬT KÝ XỬ LÝ Hạn Hạn hoàn thành 02:00 21/09/2026 Tạo công việc Xử lý sạt lở Km3+400 14:00 20/09/2026 Mô tả qty=45|unit=m3|km=3+400|team=TEAM-2|contractor=Công ty CP QLĐB II.2|office=Hạt Nghệ An|method=Gia cố bao tải|result=Đã chặn dòng tạm|seq=4 14:00 20/09/2026 Tiến độ 60% 22:13 18/09/2026 Ghi chú demo-seed 22:13 18/09/2026 Readonly · derive từ GET work-orders/{id} · không POST",
+        "href": "http://localhost:9301/web-rmms-mnt-log?id=2a0b6ead-a87e-4df5-97ae-dd2962724781",
+        "hasWriteCta": false,
+        "hasGps": false,
+        "timelineCount": 5,
+        "timelineAts": [
+          "02:00 21/09/2026",
+          "14:00 20/09/2026",
+          "14:00 20/09/2026",
+          "22:13 18/09/2026",
+          "22:13 18/09/2026"
+        ],
+        "woCode": "WO-DEMO-202609-004",
+        "emptyState": false
+      }
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "href": "http://localhost:9301/web-rmms-home",
+      "dump": {
+        "feature": "web-rmms-home",
+        "zones": [
+          "SH-00",
+          "HM-00",
+          "HM-01",
+          "HM-02",
+          "SH-01",
+          "SH-02"
+        ],
+        "des": [],
+        "fields": [
+          "guestFaq",
+          "guestPrivacy",
+          "guestLoginCta"
+        ],
+        "ids": [
+          "loginUser",
+          "loginPass",
+          "loginSubmit",
+          "guestLogin"
+        ],
+        "text": "RMMS · Mobile Home Field hub Shell chrome Home → Field tab Incident Work tab Work list → Ops → Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Incident Work (công việc) Work progress (WORK-P) Work log (WORK-G) VIS capture Chấm công (attendance) Asset adjust GIS map Patrol map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Trang chủ FAQ Hướng dẫn dùng app tuần đường / sự cố / công việc trên thiết bị di động. Quyền riêng tư Dữ liệu phiên và vị trí chỉ dùng khi bạn đăng nhập và vào màn nghiệp vụ cần GPS. Đăng nhập 🏠 Trang chủ 🛣 Hiện trường ⚠️ Sự cố 🧰 Công việc Đăng nhập Hủy Tài khoản Mật khẩu Đăng nhập",
+        "href": "http://localhost:9301/web-rmms-home",
+        "hasWriteCta": true,
+        "hasGps": false,
+        "timelineCount": 0,
+        "timelineAts": [],
+        "woCode": null,
+        "emptyState": false
+      }
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "href": "http://localhost:9301/web-rmms-mnt-log",
+      "dump": {
+        "feature": "web-rmms-mnt-log",
+        "zones": [
+          "WORK-G"
+        ],
+        "des": [
+          "sc-mnt-log"
+        ],
+        "fields": [
+          "emptyState",
+          "emptyBack"
+        ],
+        "ids": [
+          "sc-mnt-log"
+        ],
+        "text": "RMMS · Mobile Home Field hub Shell chrome Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Incident Work (công việc) Work progress (WORK-P) Work log (WORK-G) WORK-G STD Alias /work/log VIS capture Chấm công (attendance) Asset adjust GIS map Patrol map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Nhật ký công việc Chưa có nhật ký Thiếu mã công việc. Mở từ danh sách công việc để xem nhật ký. Về danh sách",
+        "href": "http://localhost:9301/web-rmms-mnt-log",
+        "hasWriteCta": false,
+        "hasGps": false,
+        "timelineCount": 0,
+        "timelineAts": [],
+        "woCode": null,
+        "emptyState": true
+      }
+    }
+  ],
+  "pass": true,
+  "at": "2026-09-25T23:18:06.863Z"
+}

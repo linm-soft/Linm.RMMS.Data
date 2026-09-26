@@ -1,0 +1,83 @@
+{
+  "feature": "web-rmms-cam-patrol",
+  "cases": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "href": "http://localhost:9301/web-rmms-cam-patrol",
+      "dump": {
+        "feature": "web-rmms-cam-patrol",
+        "zones": [
+          "CP-01"
+        ],
+        "des": [
+          "DES-MOB-CAM-PATROL"
+        ],
+        "ids": [
+          "cpGuestGate",
+          "cpGuestLogin"
+        ],
+        "text": "RMMS · Mobile Home Shell chrome Ops inbox Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Camera tuần CP-01 Alias /field/cam Asset adjust GIS map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Camera tuần Đăng nhập để dùng Camera tuần. Đăng nhập",
+        "href": "http://localhost:9301/web-rmms-cam-patrol",
+        "scoreLeak": false
+      }
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "href": "http://localhost:9301/web-rmms-home",
+      "dump": {
+        "feature": "web-rmms-home",
+        "zones": [
+          "SH-00",
+          "HM-00",
+          "HM-01",
+          "HM-02",
+          "SH-01",
+          "SH-02"
+        ],
+        "des": [],
+        "ids": [
+          "loginUser",
+          "loginPass",
+          "loginSubmit",
+          "guestLogin"
+        ],
+        "text": "RMMS · Mobile Home Shell chrome Home → Field Incident Work Ops → Ops inbox Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Asset adjust GIS map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Trang chủ FAQ Hướng dẫn dùng app tuần đường / sự cố / công việc trên thiết bị di động. Quyền riêng tư Dữ liệu phiên và vị trí chỉ dùng khi bạn đăng nhập và vào màn nghiệp vụ cần GPS. Đăng nhập 🏠 Trang chủ 🛣 Hiện trường ⚠️ Sự cố 🧰 Công việc Đăng nhập Hủy Tài khoản Mật khẩu Đăng nhập",
+        "href": "http://localhost:9301/web-rmms-home",
+        "scoreLeak": false
+      }
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "href": "http://localhost:9301/web-rmms-cam-patrol",
+      "dump": {
+        "feature": "web-rmms-cam-patrol",
+        "zones": [
+          "CP-01"
+        ],
+        "des": [
+          "DES-MOB-CAM-PATROL",
+          "DES-MOB-CAM-FINDER"
+        ],
+        "ids": [
+          "sc-cam-patrol",
+          "mainCam",
+          "finder",
+          "stampRoute",
+          "stampGps",
+          "btnDetect"
+        ],
+        "text": "RMMS · Mobile Home Shell chrome Ops inbox Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Camera tuần CP-01 Alias /field/cam Asset adjust GIS map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Camera tuần QL.1-LANGSON · Tuần kiểm 21.0285, 105.8542 · ±12 m đã chốt Nhận diện",
+        "href": "http://localhost:9301/web-rmms-cam-patrol",
+        "scoreLeak": false
+      }
+    }
+  ],
+  "pass": true,
+  "at": "2026-09-25T18:23:36.599Z"
+}

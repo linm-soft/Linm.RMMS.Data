@@ -1,0 +1,12 @@
+{
+  "feature": "web-rmms-asset-ai",
+  "status": "done",
+  "role": "review",
+  "taskId": "task_5065b058",
+  "review_confirm": "approve",
+  "verdict": "PASS",
+  "contentHash": "sha256:6f74282b807da7f2cc1aa57ac64848cd1d75ff3383c0f432eaad7bea53fff80e",
+  "skillVersion": "2026.09.05.03",
+  "writtenAt": "2026-09-25T16:25:00.000Z",
+  "autoApprove": true
+}

@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "1",
+  "skillId": "agent-review",
+  "skillVersion": "2026.09.05.03",
+  "workflowVersion": "2026.09.05.03",
+  "rulesVersion": "2026.09.25.2",
+  "feature": "web-rmms-mobile-a",
+  "reviewHash": "sha256:8dfb19e3d9b2bc0b81efe259195a396d271f497d9ca6549ed332f0d00c36e8ee",
+  "contentHash": "sha256:c5b21efdd411635233b56b13ee0b1a318c182c0a488f10d8290481a3dbbd3c2e",
+  "status": "done",
+  "review_confirm": "accept",
+  "autoApprove": true,
+  "p0Count": 0,
+  "findings": "specs/web-rmms-mobile-a/review/findings.md",
+  "generatedAt": "2026-09-25T07:40:30.000Z",
+  "versionGate": "ok"
+}

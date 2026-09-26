@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>web-rmms-estimate — Ước lượng sự cố</title>
+  <style>
+    :root {
+      --primary: #0C84C0;
+      --header-start: #086A9A;
+      --header-end: #0C84C0;
+      --success: #3CB448;
+      --warning: #FCB43C;
+      --danger: #F03C30;
+      --surface: #F2F2F7;
+      --card: #FFFFFF;
+      --on-primary: #FFFFFF;
+      --on-surface: #1C1C1E;
+      --border: #C7C7CC;
+      --muted: #8E8E93;
+      --radius-card: 16px;
+      --radius-control: 12px;
+      --label: 13px;
+      --field: 16px;
+      --nav-title: 17px;
+      --control-h: 44px;
+      --phone-w: 430px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: #1a1a1e;
+      color: var(--on-surface);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px 8px 32px;
+    }
+    .board-nav {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      max-width: var(--phone-w); width: 100%; margin-bottom: 12px;
+    }
+    .board-nav button {
+      border: 1px solid var(--border); background: #2a2a2e; color: #eee;
+      border-radius: 8px; padding: 6px 10px; font-size: 12px; cursor: pointer;
+    }
+    .board-nav button.active { background: var(--primary); border-color: var(--primary); }
+    .phone {
+      width: min(100%, var(--phone-w));
+      min-height: 780px;
+      background: var(--surface);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,.45);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .topbar {
+      background: linear-gradient(135deg, var(--header-start), var(--header-end));
+      color: var(--on-primary);
+      min-height: 56px;
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 14px;
+    }
+    .topbar .back {
+      width: 44px; height: 44px; border: 0; background: transparent;
+      color: inherit; font-size: 28px; line-height: 1; padding: 0;
+      display: grid; place-items: center; cursor: pointer; border-radius: 12px;
+    }
+    .topbar .title {
+      flex: 1; font-size: var(--nav-title); font-weight: 600; text-align: center;
+    }
+    .topbar .spacer { width: 44px; }
+    .content { flex: 1; overflow: auto; padding: 12px 14px 108px; }
+    .screen { display: none; flex-direction: column; flex: 1; min-height: 0; }
+    .screen.active { display: flex; }
+    .btn {
+      height: var(--control-h); border-radius: var(--radius-control); border: 0;
+      padding: 0 16px; font-size: 15px; font-weight: 600; cursor: pointer;
+    }
+    .btn-primary { background: var(--primary); color: var(--on-primary); }
+    .btn-secondary { background: #E5E5EA; color: var(--on-surface); }
+    .btn-ghost { background: transparent; color: var(--primary); border: 1px solid var(--primary); }
+    .btn-success { background: var(--success); color: #fff; }
+    .btn-block { width: 100%; margin-top: 8px; }
+    .btn:disabled { opacity: .45; cursor: not-allowed; }
+    .card {
+      background: var(--card); border-radius: var(--radius-card);
+      border: 1px solid var(--border); padding: 14px; margin-bottom: 10px;
+    }
+    .card .meta { color: var(--muted); font-size: 13px; margin-top: 4px; }
+    .chip {
+      display: inline-block; font-size: 12px; padding: 3px 8px;
+      border-radius: 999px; background: #E8F4FB; color: var(--primary); font-weight: 600;
+    }
+    .chip.warn { background: #FFF4E0; color: #B86B00; }
+    .chip.ok { background: #E6F7E8; color: #1B7A28; }
+    .label {
+      display: block; font-size: var(--label); color: var(--muted);
+      margin: 10px 0 4px; font-weight: 600;
+    }
+    .field, .select, textarea {
+      width: 100%; min-height: 44px; border: 1px solid var(--border);
+      border-radius: var(--radius-control); padding: 10px 12px;
+      font-size: var(--field); background: #fff; color: var(--on-surface);
+    }
+    .field:disabled, .select:disabled, textarea:disabled {
+      background: #F2F2F7; color: var(--muted);
+    }
+    .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .line {
+      border: 1px dashed var(--border); border-radius: 12px;
+      padding: 10px; margin-bottom: 8px; background: #FAFAFA;
+    }
+    .line .amt { text-align: right; font-weight: 700; color: var(--primary); margin-top: 6px; }
+    .total {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 4px 4px; font-size: 17px; font-weight: 700;
+    }
+    .footer-sticky {
+      position: absolute; left: 0; right: 0; bottom: 0;
+      background: #fff; border-top: 1px solid var(--border);
+      padding: 10px 14px 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+    }
+    .footer-sticky .span2 { grid-column: 1 / -1; }
+    .empty {
+      text-align: center; padding: 48px 16px; color: var(--muted);
+    }
+    .empty h3 { color: var(--on-surface); margin: 0 0 8px; }
+    .hint {
+      font-size: 12px; color: var(--muted); margin-top: 6px; line-height: 1.4;
+    }
+    .modal-backdrop {
+      position: absolute; inset: 0; background: rgba(0,0,0,.45);
+      display: none; align-items: flex-end; justify-content: center; z-index: 20;
+    }
+    .modal-backdrop.show { display: flex; }
+    .modal {
+      width: 100%; background: #fff; border-radius: 16px 16px 0 0;
+      padding: 18px 16px 22px;
+    }
+    .modal h4 { margin: 0 0 8px; }
+    .modal .actions { display: flex; gap: 8px; margin-top: 14px; }
+    .modal .actions .btn { flex: 1; }
+    .toast {
+      position: absolute; left: 16px; right: 16px; top: 64px;
+      background: #1C1C1E; color: #fff; border-radius: 12px;
+      padding: 12px 14px; font-size: 14px; display: none; z-index: 30;
+    }
+    .toast.show { display: block; }
+    .toast.fail { background: var(--danger); }
+    .toast.ok { background: var(--success); }
+    .ro { color: var(--on-surface); font-size: var(--field); font-weight: 600; }
+  </style>
+</head>
+<body>
+  <!-- reviewUrl modes: ?screen=empty|open|edit|confirmed|work · ?leave=1 · ?woBlocked=1 -->
+  <div class="board-nav" id="boardNav">
+    <button type="button" data-screen="empty">EST-EMPTY</button>
+    <button type="button" data-screen="open">EST-OPEN</button>
+    <button type="button" data-screen="edit">EST-EDIT</button>
+    <button type="button" data-screen="confirmed">EST-LOCK+WO</button>
+    <button type="button" data-screen="work">EST-W</button>
+    <button type="button" id="btnLeave">DES-LEAVE</button>
+    <button type="button" id="btnWoBlocked">WO blocked</button>
+  </div>
+
+  <div class="phone" id="phone">
+    <div class="toast" id="toast"></div>
+
+    <!-- EST-EMPTY -->
+    <section class="screen" id="screen-empty" data-zone="EST-EMPTY">
+      <div class="topbar">
+        <button class="back" type="button" aria-label="back">‹</button>
+        <div class="title">Ước lượng</div>
+        <div class="spacer"></div>
+      </div>
+      <div class="content">
+        <div class="empty">
+          <h3>Thiếu sự cố</h3>
+          <p>Cần <code>incidentId</code> từ Incident detail hoặc Work hub.<br/>std: <code>/web-rmms-estimate?incidentId=…</code></p>
+          <button class="btn btn-secondary btn-block" type="button">Quay lại</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- EST-OPEN -->
+    <section class="screen" id="screen-open" data-zone="EST-OPEN">
+      <div class="topbar">
+        <button class="back" type="button" aria-label="back">‹</button>
+        <div class="title">Ước lượng</div>
+        <div class="spacer"></div>
+      </div>
+      <div class="content">
+        <div class="card" data-zone="header.incident">
+          <div style="display:flex;justify-content:space-between;gap:8px;align-items:flex-start;">
+            <div>
+              <div class="ro">SC-2026-0142</div>
+              <div class="meta">Nứt mặt đường · Km 12+350</div>
+            </div>
+            <span class="chip warn">Cao</span>
+          </div>
+          <div class="meta">Tuyến QL1A · Trạng thái: Đang xử lý</div>
+        </div>
+        <div class="card">
+          <p class="hint">Chưa có dự toán. Mở từ sự cố → <code>POST ai-vision/estimates/from-incident/{id}</code>.</p>
+          <button class="btn btn-primary btn-block" type="button" id="btnOpen" data-field="action.open">Mở dự toán</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- EST-EDIT -->
+    <section class="screen" id="screen-edit" data-zone="EST-EDIT">
+      <div class="topbar">
+        <button class="back" type="button" aria-label="back" id="btnBackDirty">‹</button>
+        <div class="title">Ước lượng</div>
+        <div class="spacer"></div>
+      </div>
+      <div class="content">
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span class="ro" data-field="header.code">EST-2026-0088</span>
+            <span class="chip" data-field="header.status">Nháp</span>
+          </div>
+          <div class="meta"><span class="chip" data-field="header.sourceType">from-incident</span> · Model v1.2</div>
+          <div class="meta">SC-2026-0142 · QL1A · Km 12+350</div>
+        </div>
+
+        <div class="card">
+          <label class="label">Loại hư hỏng</label>
+          <select class="select" data-field="header.defectType">
+            <option>Nứt</option>
+            <option>Ổ gà</option>
+          </select>
+          <div class="row2">
+            <div>
+              <label class="label">Diện tích (m²)</label>
+              <input class="field" type="number" value="12.5" data-field="header.defectArea" />
+            </div>
+            <div>
+              <label class="label">Mức độ</label>
+              <select class="select" data-field="header.severity">
+                <option>Cao</option>
+                <option>Trung bình</option>
+              </select>
+            </div>
+          </div>
+          <div class="row2">
+            <div>
+              <label class="label">Giờ NC</label>
+              <input class="field" type="number" value="8" data-field="header.laborHours" />
+            </div>
+            <div>
+              <label class="label">Ngày TC</label>
+              <input class="field" type="number" value="2" data-field="header.durationDays" />
+            </div>
+          </div>
+          <label class="label">Thiết bị</label>
+          <input class="field" value="Lu rung, xe tải" data-field="header.equipment" />
+        </div>
+
+        <div class="card" data-zone="lines">
+          <div style="font-weight:700;margin-bottom:8px;">Dòng dự toán</div>
+          <div class="line">
+            <label class="label">Mã / Tên HM</label>
+            <input class="field" value="VT-01 · Nhựa đường" data-field="line.itemName" />
+            <div class="row2">
+              <div>
+                <label class="label">KL</label>
+                <input class="field" type="number" value="10" data-field="line.qty" />
+              </div>
+              <div>
+                <label class="label">ĐVT</label>
+                <input class="field" value="kg" data-field="line.unit" />
+              </div>
+            </div>
+            <div class="row2">
+              <div>
+                <label class="label">Đơn giá</label>
+                <input class="field" type="number" value="150000" data-field="line.unitPrice" />
+              </div>
+              <div>
+                <label class="label">Thành tiền</label>
+                <div class="field" style="display:flex;align-items:center;" data-field="line.amount">1.500.000</div>
+              </div>
+            </div>
+          </div>
+          <div class="line">
+            <label class="label">Mã / Tên HM</label>
+            <input class="field" value="NC-01 · Nhân công" data-field="line.itemName" />
+            <div class="row2">
+              <div>
+                <label class="label">KL</label>
+                <input class="field" type="number" value="8" data-field="line.qty" />
+              </div>
+              <div>
+                <label class="label">Đơn giá</label>
+                <input class="field" type="number" value="200000" data-field="line.unitPrice" />
+              </div>
+            </div>
+            <div class="amt" data-field="line.amount">1.600.000</div>
+          </div>
+          <div class="total">
+            <span>Tổng</span>
+            <span data-field="totalAmount">3.100.000</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer-sticky" data-zone="actions">
+        <button class="btn btn-secondary" type="button" data-field="action.draft">Lưu nháp</button>
+        <button class="btn btn-primary" type="button" id="btnConfirm" data-field="action.confirm">Xác nhận</button>
+        <button class="btn btn-ghost span2" type="button" data-field="action.wo" disabled title="Chỉ sau confirm">Giao việc (WO)</button>
+        <p class="hint span2">WO chỉ sau xác nhận · không auto WO khi confirm.</p>
+      </div>
+    </section>
+
+    <!-- EST-LOCK + WO -->
+    <section class="screen" id="screen-confirmed" data-zone="EST-LOCK">
+      <div class="topbar">
+        <button class="back" type="button" aria-label="back">‹</button>
+        <div class="title">Ước lượng</div>
+        <div class="spacer"></div>
+      </div>
+      <div class="content">
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span class="ro">EST-2026-0088</span>
+            <span class="chip ok" data-field="header.status">Đã xác nhận</span>
+          </div>
+          <div class="meta">Confirmed · lock edit · Total 3.100.000</div>
+        </div>
+        <div class="card">
+          <div class="label">Dòng (RO)</div>
+          <div class="meta">VT-01 · 10 kg × 150.000 = 1.500.000</div>
+          <div class="meta">NC-01 · 8 h × 200.000 = 1.600.000</div>
+          <div class="total"><span>Tổng</span><span>3.100.000</span></div>
+          <p class="hint">Fields disabled sau confirm · Dev: readonly inputs.</p>
+        </div>
+      </div>
+      <div class="footer-sticky">
+        <button class="btn btn-secondary" type="button" disabled>Lưu nháp</button>
+        <button class="btn btn-secondary" type="button" disabled>Xác nhận</button>
+        <button class="btn btn-success span2" type="button" id="btnWo" data-field="action.wo">Giao việc (WO)</button>
+      </div>
+    </section>
+
+    <!-- EST-W -->
+    <section class="screen" id="screen-work" data-zone="EST-W">
+      <div class="topbar">
+        <button class="back" type="button" aria-label="back">‹</button>
+        <div class="title">Ước lượng · Work</div>
+        <div class="spacer"></div>
+      </div>
+      <div class="content">
+        <div class="empty">
+          <h3>Chọn sự cố</h3>
+          <p>Entry Work hub <code>/work/estimate</code> thiếu id → chọn SC hoặc quay lại danh sách việc.</p>
+          <button class="btn btn-primary btn-block" type="button" data-screen-jump="open">Mở với SC mẫu</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- DES-LEAVE -->
+    <div class="modal-backdrop" id="leaveModal" data-zone="DES-LEAVE">
+      <div class="modal">
+        <h4>Rời trang?</h4>
+        <p class="hint">Có thay đổi chưa lưu. Rời sẽ mất chỉnh sửa dòng/header.</p>
+        <div class="actions">
+          <button class="btn btn-secondary" type="button" id="leaveStay">Ở lại</button>
+          <button class="btn btn-primary" type="button" id="leaveGo">Rời</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var params = new URLSearchParams(location.search);
+      var screen = params.get("screen") || "edit";
+      var screens = ["empty", "open", "edit", "confirmed", "work"];
+
+      function showToast(msg, kind) {
+        var t = document.getElementById("toast");
+        t.textContent = msg;
+        t.className = "toast show" + (kind ? " " + kind : "");
+        setTimeout(function () { t.className = "toast"; }, 2200);
+      }
+
+      function setScreen(name) {
+        screens.forEach(function (s) {
+          var el = document.getElementById("screen-" + s);
+          if (el) el.classList.toggle("active", s === name);
+        });
+        document.querySelectorAll("#boardNav [data-screen]").forEach(function (b) {
+          b.classList.toggle("active", b.getAttribute("data-screen") === name);
+        });
+        screen = name;
+      }
+
+      document.querySelectorAll("#boardNav [data-screen]").forEach(function (b) {
+        b.addEventListener("click", function () {
+          setScreen(b.getAttribute("data-screen"));
+        });
+      });
+
+      document.querySelectorAll("[data-screen-jump]").forEach(function (b) {
+        b.addEventListener("click", function () {
+          setScreen(b.getAttribute("data-screen-jump"));
+        });
+      });
+
+      document.getElementById("btnLeave").addEventListener("click", function () {
+        setScreen("edit");
+        document.getElementById("leaveModal").classList.add("show");
+      });
+      document.getElementById("leaveStay").addEventListener("click", function () {
+        document.getElementById("leaveModal").classList.remove("show");
+      });
+      document.getElementById("leaveGo").addEventListener("click", function () {
+        document.getElementById("leaveModal").classList.remove("show");
+        setScreen("empty");
+        showToast("Đã rời · không lưu", "ok");
+      });
+      document.getElementById("btnBackDirty").addEventListener("click", function () {
+        document.getElementById("leaveModal").classList.add("show");
+      });
+
+      document.getElementById("btnOpen").addEventListener("click", function () {
+        setScreen("edit");
+        showToast("Đã tạo dự toán from-incident", "ok");
+      });
+      document.getElementById("btnConfirm").addEventListener("click", function () {
+        setScreen("confirmed");
+        showToast("Đã xác nhận · không auto WO", "ok");
+      });
+      document.getElementById("btnWo").addEventListener("click", function () {
+        showToast("POST maintenance/work-orders · OK", "ok");
+      });
+      document.getElementById("btnWoBlocked").addEventListener("click", function () {
+        setScreen("edit");
+        showToast("WO chỉ sau xác nhận", "fail");
+      });
+
+      if (params.get("leave") === "1") {
+        setScreen("edit");
+        document.getElementById("leaveModal").classList.add("show");
+      } else if (params.get("woBlocked") === "1") {
+        setScreen("edit");
+        showToast("WO chỉ sau xác nhận", "fail");
+      } else {
+        setScreen(screens.indexOf(screen) >= 0 ? screen : "edit");
+      }
+    })();
+  </script>
+</body>
+</html>

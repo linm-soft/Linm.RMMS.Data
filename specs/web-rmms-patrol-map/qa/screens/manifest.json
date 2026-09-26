@@ -1,0 +1,78 @@
+{
+  "url": "http://localhost:9301/web-rmms-patrol-map",
+  "capturedAt": "2026-09-25T20:48:59.708Z",
+  "method": "capture_patrol_map · MFE /login · phone 430 · S0 PM map · S1 Home #gridPatrolMap · QA-20 click→patrol-map · geo grant · deep-link fulfill · no kill worker",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "href": "http://localhost:9301/web-rmms-patrol-map",
+      "dump": {
+        "feature": "web-rmms-patrol-map",
+        "zones": [
+          "PM-00",
+          "PM-01",
+          "PM-08",
+          "PM-02",
+          "PM-06",
+          "PM-05",
+          "PM-03",
+          "PM-04"
+        ],
+        "ids": [],
+        "canvas": true,
+        "text": "RMMS · Mobile Home Field hub Shell chrome Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Chấm công (attendance) Asset adjust GIS map Patrol map Bản đồ tuần Alias /patrol-map Alias /field/map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Ca đang chạy Ghi điểm tuần Điểm tiếp theo QL.1-LANGSON Ghi điểm tuần Tiêu chuẩn Vệ tinh Vị trí của tôi Tất cả Hành trình Đã ghi điểm tuần Điểm kế tiếp",
+        "href": "http://localhost:9301/web-rmms-patrol-map"
+      }
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "href": "http://localhost:9301/web-rmms-home",
+      "dump": {
+        "feature": "web-rmms-home",
+        "zones": [
+          "SH-00",
+          "HM-00",
+          "HM-06",
+          "HM-03",
+          "HM-04",
+          "HM-05",
+          "SH-01"
+        ],
+        "ids": [
+          "gridPatrolMap"
+        ],
+        "canvas": false,
+        "text": "RMMS · Mobile Home Field hub Shell chrome Home → Field tab Incident Work Ops → Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Chấm công (attendance) Asset adjust GIS map Patrol map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Trang chủ Linm Soft Admin Truy cập nhanh Điểm tuần Ghi sự cố Chức năng 👁 Giám sát 🗺 Bản đồ tuần 🛠 Công việc ⚠ Sự cố 📦 Tài sản ☁ Offline 👛 Hồ sơ tài sản Xem và quản lý tài sản Thông báo — 🏠 Trang chủ 🛣 Hiện trường ⚠️ Sự cố 🧰 Công việc",
+        "href": "http://localhost:9301/web-rmms-home"
+      }
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "href": "http://localhost:9301/web-rmms-patrol-map",
+      "dump": {
+        "feature": "web-rmms-patrol-map",
+        "zones": [
+          "PM-00",
+          "PM-01",
+          "PM-08",
+          "PM-02",
+          "PM-06",
+          "PM-05",
+          "PM-03",
+          "PM-04"
+        ],
+        "ids": [],
+        "canvas": true,
+        "text": "RMMS · Mobile Home Field hub Shell chrome Home → Field tab Incident Work Ops → Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Chấm công (attendance) Asset adjust GIS map Patrol map Bản đồ tuần Alias /patrol-map Alias /field/map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Ca đang chạy Ghi điểm tuần Điểm tiếp theo QL.1-LANGSON Ghi điểm tuần Tiêu chuẩn Vệ tinh Vị trí của tôi Tất cả Hành trình Đã ghi điểm tuần Điểm kế tiếp",
+        "href": "http://localhost:9301/web-rmms-patrol-map"
+      }
+    }
+  ],
+  "ok": true
+}

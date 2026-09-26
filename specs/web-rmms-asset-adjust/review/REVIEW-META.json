@@ -1,0 +1,12 @@
+{
+  "feature": "web-rmms-asset-adjust",
+  "status": "done",
+  "role": "review",
+  "review_confirm": "approve",
+  "verdict": "PASS",
+  "P0": 0,
+  "taskId": "task_801c8901",
+  "contentHash": "sha256:6f74282b807da7f2cc1aa57ac64848cd1d75ff3383c0f432eaad7bea53fff80e",
+  "writtenAt": "2026-09-25T16:50:00.000Z",
+  "autoApprove": true
+}

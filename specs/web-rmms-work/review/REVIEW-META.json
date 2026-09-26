@@ -1,0 +1,11 @@
+{
+  "feature": "web-rmms-work",
+  "status": "confirmed",
+  "review_confirm": "done",
+  "taskId": "task_632e4943",
+  "contentHash": "sha256:56146b96759461d425413e7e27e31fc1a5a4ed0a5f376f6a526959f62eb62770",
+  "hashSkip": true,
+  "writtenAt": "2026-09-26T05:25:00.000Z",
+  "autoApprove": true,
+  "verdict": "PASS"
+}

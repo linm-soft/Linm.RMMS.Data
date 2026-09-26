@@ -1,0 +1,86 @@
+{
+  "feature": "web-rmms-estimate",
+  "cases": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "href": "http://localhost:9301/web-rmms-estimate",
+      "dump": {
+        "feature": "web-rmms-estimate",
+        "zones": [
+          "EST-00",
+          "EST-F",
+          "EST-EMPTY",
+          "DES-LEAVE"
+        ],
+        "fields": [],
+        "controls": [],
+        "ids": [],
+        "text": "RMMS · Mobile Home Field hub Shell chrome Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Incident Incident chat Estimate EST-F STD Alias /incident/estimate/:id Peer /work/estimate Đề nghị biên bản Work (công việc) Work progress (WORK-P) Work log (WORK-G) Work chat (WORK-C) VIS capture Photo geo (PGC) Chấm công (attendance) Asset adjust GIS map Patrol map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Ước lượng Thiếu sự cố Cần incidentId từ Incident detail hoặc Work hub. std: /web-rmms-estimate?incidentId=… Quay lại",
+        "href": "http://localhost:9301/web-rmms-estimate",
+        "woDisabled": false
+      }
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "href": "http://localhost:9301/web-rmms-home",
+      "dump": {
+        "feature": "web-rmms-home",
+        "zones": [
+          "SH-00",
+          "HM-00",
+          "HM-01",
+          "HM-02",
+          "SH-01",
+          "SH-02"
+        ],
+        "fields": [
+          "guestFaq",
+          "guestPrivacy",
+          "guestLoginCta"
+        ],
+        "controls": [],
+        "ids": [
+          "loginUser",
+          "loginPass",
+          "loginSubmit",
+          "guestLogin"
+        ],
+        "text": "RMMS · Mobile Home Field hub Shell chrome Home → Field tab Incident Work tab Work list → Ops → Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Incident Incident chat Estimate Đề nghị biên bản Work (công việc) Work progress (WORK-P) Work log (WORK-G) Work chat (WORK-C) VIS capture Photo geo (PGC) Chấm công (attendance) Asset adjust GIS map Patrol map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Trang chủ FAQ Hướng dẫn dùng app tuần đường / sự cố / công việc trên thiết bị di động. Quyền riêng tư Dữ liệu phiên và vị trí chỉ dùng khi bạn đăng nhập và vào màn nghiệp vụ cần GPS. Đăng nhập 🏠 Trang chủ 🛣 Hiện trường ⚠️ Sự cố 🧰 Công việc Đăng nhập Hủy Tài khoản Mật khẩu Đăng nhập",
+        "href": "http://localhost:9301/web-rmms-home",
+        "woDisabled": false
+      }
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "href": "http://localhost:9301/web-rmms-estimate?incidentId=3e0eac06-9253-4d61-8b2c-ea427f571c31",
+      "dump": {
+        "feature": "web-rmms-estimate",
+        "zones": [
+          "EST-00",
+          "EST-F",
+          "header.incident",
+          "EST-OPEN",
+          "DES-LEAVE"
+        ],
+        "fields": [
+          "header.incident.code",
+          "header.incident.title",
+          "action.open"
+        ],
+        "controls": [],
+        "ids": [],
+        "text": "RMMS · Mobile Home Field hub Shell chrome Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Incident Incident chat Estimate EST-F STD Alias /incident/estimate/:id Peer /work/estimate Đề nghị biên bản Work (công việc) Work progress (WORK-P) Work log (WORK-G) Work chat (WORK-C) VIS capture Photo geo (PGC) Chấm công (attendance) Asset adjust GIS map Patrol map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Ước lượng INC-DEMO-202609-001 Ổ gà mặt cầu QL.1 · Cầu Bến Thủy 2 · Km Km 461+000 · Cầu Bến Thủy 2 High QL.1 · new Chưa có dự toán. Mở từ sự cố để tạo nháp. Mở dự toán",
+        "href": "http://localhost:9301/web-rmms-estimate?incidentId=3e0eac06-9253-4d61-8b2c-ea427f571c31",
+        "woDisabled": false
+      }
+    }
+  ],
+  "pass": true,
+  "at": "2026-09-26T03:33:20.479Z"
+}

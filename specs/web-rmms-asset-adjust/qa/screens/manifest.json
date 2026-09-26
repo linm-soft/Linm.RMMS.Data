@@ -1,0 +1,100 @@
+{
+  "url": "http://localhost:9301/web-rmms-asset-adjust",
+  "capturedAt": "2026-09-25T16:40:10.105Z",
+  "method": "capture_aadjust · MFE /login · phone 430 · S0 adjust · S1 Hub #tileAdjust · QA-20 click→adjust · no kill worker · stock e2e-qa soft-fail :5101",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "href": "http://localhost:9301/web-rmms-asset-adjust",
+      "dump": {
+        "feature": "web-rmms-asset-adjust",
+        "zones": [
+          "AA-00",
+          "AA-01",
+          "AA-02",
+          "AA-03",
+          "AA-04",
+          "AA-07",
+          "AA-06"
+        ],
+        "ids": [
+          "navBack",
+          "pageTitle",
+          "search",
+          "AA-01",
+          "AA-03",
+          "AA-04",
+          "pager"
+        ],
+        "rowCount": 50,
+        "removeCount": 50,
+        "editCount": 50,
+        "text": "RMMS · Mobile Home Shell chrome Ops inbox Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Asset adjust Bớt hoặc sửa tài sản Alias /asset/adjust Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Bớt hoặc sửa tài sản HL-guardrail_424692 GUARDRAIL QL.80 Sửa Bớt CD-longitudinal_200146 DITCH QL.1D Sửa Bớt BB-road_sign_192419 TRAFFIC_SIGN QL.21B Sửa Bớt DX-bus_stops_763427 BUS_STOP QL.24 Sửa Bớt DX-bus_stops_251401 BUS_STOP QL.1 Sửa Bớt CD-longitudinal_294571 DITCH QL.279 Sửa Bớt CD-longitudinal_213875 DITCH QL.34 Sửa Bớt HL-guardrail_563379 GUARDRAIL QL.55 Sửa Bớt BB-road_sign_238173 TRAFFIC_SIGN QL.7 Sửa Bớt GL-road_sign_spherical_mirror_306139 CONVEX_MIRROR QL.279C Sửa Bớt BB-road_sign_257255 TRAFFIC_SIGN Khác Sửa Bớt CT-guide_post_290336 DELINEATOR QL.12 Sửa Bớt BB-road_sign_154664 TRAFFIC_SIGN QL.49",
+        "href": "http://localhost:9301/web-rmms-asset-adjust"
+      }
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "href": "http://localhost:9301/web-rmms-asset-hub",
+      "dump": {
+        "feature": "web-rmms-asset-hub",
+        "zones": [
+          "AH-00",
+          "AH-01",
+          "AH-02",
+          "AH-03",
+          "AH-04",
+          "AH-05",
+          "AH-06"
+        ],
+        "ids": [
+          "navBack",
+          "tileAdjust",
+          "walletTitle"
+        ],
+        "rowCount": 0,
+        "removeCount": 0,
+        "editCount": 0,
+        "text": "RMMS · Mobile Home Shell chrome Ops inbox Asset hub Hub tài sản Alias /asset Asset KCHT Asset list Asset collect Asset AI + HITL Asset adjust Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Hub tài sản Hồ sơ tài sản KHAC — Khác 45 loại tài sản TRA CỨU H Hạng mục assetHub.tile.kcht L Danh sách assetHub.tile.list THU THẬP + Thêm thủ công assetHub.tile.collect AI Camera AI assetHub.tile.ai QUẢN LÝ ↻ Cập nhật / bớt assetHub.tile.adjust ⌖ Xem bản đồ ›",
+        "href": "http://localhost:9301/web-rmms-asset-hub"
+      }
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "href": "http://localhost:9301/web-rmms-asset-adjust",
+      "dump": {
+        "feature": "web-rmms-asset-adjust",
+        "zones": [
+          "AA-00",
+          "AA-01",
+          "AA-02",
+          "AA-03",
+          "AA-04",
+          "AA-07",
+          "AA-06"
+        ],
+        "ids": [
+          "navBack",
+          "pageTitle",
+          "search",
+          "AA-01",
+          "AA-03",
+          "AA-04",
+          "pager"
+        ],
+        "rowCount": 50,
+        "removeCount": 50,
+        "editCount": 50,
+        "text": "RMMS · Mobile Home Shell chrome Ops inbox Asset hub Hub tài sản Alias /asset Asset KCHT Asset list Asset collect Asset AI + HITL Asset adjust Bớt hoặc sửa tài sản Alias /asset/adjust Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Bớt hoặc sửa tài sản HL-guardrail_424692 GUARDRAIL QL.80 Sửa Bớt CD-longitudinal_200146 DITCH QL.1D Sửa Bớt BB-road_sign_192419 TRAFFIC_SIGN QL.21B Sửa Bớt DX-bus_stops_763427 BUS_STOP QL.24 Sửa Bớt DX-bus_stops_251401 BUS_STOP QL.1 Sửa Bớt CD-longitudinal_294571 DITCH QL.279 Sửa Bớt CD-longitudinal_213875 DITCH QL.34 Sửa Bớt HL-guardrail_563379 GUARDRAIL QL.55 Sửa Bớt BB-road_sign_238173 TRAFFIC_SIGN QL.7 Sửa Bớt GL-road_sign_spherical_mirror_306139 CONVEX_MIRROR QL.279C Sửa Bớt BB-road_sign_257255 TRAFFIC_SIGN Khác Sửa Bớt CT-guide_post_290336 DELINEATOR QL.12 Sửa Bớt BB-road_sign_",
+        "href": "http://localhost:9301/web-rmms-asset-adjust"
+      }
+    }
+  ],
+  "ok": true
+}

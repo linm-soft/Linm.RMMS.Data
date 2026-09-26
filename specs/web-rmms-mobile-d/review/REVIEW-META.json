@@ -1,0 +1,14 @@
+{
+  "feature": "web-rmms-mobile-d",
+  "status": "done",
+  "role": "review",
+  "taskId": "task_5d79fa40",
+  "review_confirm": "done",
+  "verdict": "PASS",
+  "must": 0,
+  "contentHash": "sha256:7ea5a5b9a00060f5de09af3b8e3688b39fd566383859a8e73748b9d3885ea034",
+  "skillVersion": "2026.09.05.03",
+  "schemaVersion": "1",
+  "writtenAt": "2026-09-25T10:20:00.000Z",
+  "autoApprove": true
+}

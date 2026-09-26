@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>web-rmms-asset-list — Danh sách & chi tiết tài sản</title>
+  <style>
+    :root {
+      --primary: #0C84C0;
+      --header-start: #086A9A;
+      --header-end: #0C84C0;
+      --surface: #F2F2F7;
+      --card: #FFFFFF;
+      --on-primary: #FFFFFF;
+      --on-surface: #1C1C1E;
+      --border: #C7C7CC;
+      --muted: #8E8E93;
+      --radius-card: 16px;
+      --radius-control: 12px;
+      --label: 13px;
+      --field: 16px;
+      --nav-title: 17px;
+      --control-h: 44px;
+      --phone-w: 430px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: #1a1a1e;
+      color: var(--on-surface);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px 8px 32px;
+    }
+    .board-nav {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      max-width: var(--phone-w); width: 100%; margin-bottom: 12px;
+    }
+    .board-nav button {
+      border: 1px solid var(--border); background: #2a2a2e; color: #eee;
+      border-radius: 8px; padding: 6px 10px; font-size: 12px; cursor: pointer;
+    }
+    .board-nav button.active { background: var(--primary); border-color: var(--primary); }
+    .meta {
+      max-width: var(--phone-w); width: 100%; color: #aaa; font-size: 12px; margin-bottom: 8px;
+    }
+    .phone {
+      width: min(100%, var(--phone-w));
+      min-height: 780px;
+      background: var(--surface);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,.45);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .topbar {
+      background: linear-gradient(135deg, var(--header-start), var(--header-end));
+      color: var(--on-primary);
+      min-height: 56px;
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 14px;
+    }
+    .topbar .icon-btn {
+      width: 44px; height: 44px; border: 0; background: transparent;
+      color: inherit; font-size: 22px; cursor: pointer; border-radius: 12px;
+    }
+    .topbar .title { flex: 1; font-size: var(--nav-title); font-weight: 600; }
+    .content { flex: 1; overflow: auto; padding: 12px 14px 28px; }
+    .search-wrap { margin-bottom: 12px; }
+    .search {
+      width: 100%;
+      height: var(--control-h);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-control);
+      padding: 0 14px;
+      font-size: var(--field);
+      background: var(--card);
+      color: var(--on-surface);
+    }
+    .search::placeholder { color: var(--muted); }
+    .list { display: flex; flex-direction: column; gap: 8px; }
+    .row {
+      width: 100%;
+      text-align: left;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 14px 16px;
+      cursor: pointer;
+      min-height: 72px;
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .row:active { opacity: .88; }
+    .row .code { font-size: var(--field); font-weight: 650; }
+    .row .type { font-size: var(--label); color: var(--primary); }
+    .row .route { font-size: var(--label); color: var(--muted); }
+    .empty {
+      display: none;
+      text-align: center;
+      padding: 48px 16px;
+      color: var(--muted);
+    }
+    .empty.show { display: block; }
+    .empty .msg { font-size: var(--field); margin-bottom: 16px; color: var(--on-surface); }
+    .btn-retry, .btn-pin {
+      height: var(--control-h);
+      min-width: 140px;
+      border: 0;
+      border-radius: var(--radius-control);
+      background: var(--primary);
+      color: var(--on-primary);
+      font-size: var(--field);
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .btn-pin { width: 100%; margin-top: 16px; }
+    .btn-pin:disabled {
+      background: #C7C7CC;
+      color: #fff;
+      cursor: not-allowed;
+    }
+    .fields {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 8px 0;
+    }
+    .field {
+      display: flex; flex-direction: column; gap: 2px;
+      padding: 12px 16px;
+      border-bottom: 1px solid #E5E5EA;
+    }
+    .field:last-child { border-bottom: 0; }
+    .field.hidden { display: none; }
+    .field .lbl { font-size: var(--label); color: var(--muted); }
+    .field .val { font-size: var(--field); font-weight: 500; }
+    .pager {
+      display: flex; justify-content: center; gap: 8px; margin-top: 14px;
+    }
+    .pager button {
+      height: 36px; padding: 0 14px; border-radius: 10px;
+      border: 1px solid var(--border); background: var(--card);
+      font-size: 13px; cursor: pointer;
+    }
+    .toast {
+      position: absolute; left: 12px; right: 12px; bottom: 16px;
+      background: #2c2c2e; color: #fff; border-radius: 12px;
+      padding: 12px 14px; font-size: 13px; display: none;
+      box-shadow: 0 8px 24px rgba(0,0,0,.35); z-index: 5;
+    }
+    .toast.show { display: block; }
+    .view { display: none; flex: 1; flex-direction: column; min-height: 0; }
+    .view.show { display: flex; }
+    .note { color: #888; font-size: 11px; margin-top: 10px; max-width: var(--phone-w); width: 100%; }
+  </style>
+</head>
+<body>
+  <div class="board-nav" role="tablist" aria-label="Prototype boards">
+    <button type="button" class="active" data-board="list">List loaded</button>
+    <button type="button" data-board="empty">Empty</button>
+    <button type="button" data-board="error">Error toast</button>
+    <button type="button" data-board="search">Search</button>
+    <button type="button" data-board="detail">Detail + coords</button>
+    <button type="button" data-board="detail-noc">Detail no coords</button>
+    <button type="button" data-board="detail-404">Detail 404</button>
+  </div>
+  <p class="meta">AL-00…06 · AL-10…13 · same-slug ?id= · reviewUrl prototype · peerStdUrl http://localhost:9301/web-rmms-asset-list · GPS display-only · no PUT</p>
+
+  <div class="phone" id="AL-00" data-zone="AL-00">
+    <!-- LIST VIEW -->
+    <div class="view show" id="view-list">
+      <header class="topbar" id="AL-01" data-zone="AL-01">
+        <button type="button" class="icon-btn" id="navBack" title="assetList.nav.back" aria-label="Back">‹</button>
+        <div class="title" id="AL-02" data-zone="AL-02">Danh sách tài sản</div>
+      </header>
+      <div class="content">
+        <div class="search-wrap" id="AL-03" data-zone="AL-03">
+          <input type="search" class="search" id="search" placeholder="Tìm mã / loại / tuyến…" title="assetList.search" aria-label="assetList.search" />
+        </div>
+        <div class="list" id="AL-04" data-zone="AL-04" role="list"></div>
+        <div class="empty" id="AL-05" data-zone="AL-05">
+          <div class="msg" id="emptyMsg">Không có tài sản</div>
+          <button type="button" class="btn-retry" id="errorRetry" title="assetList.error.retry">Thử lại</button>
+        </div>
+        <div class="pager" id="pager">
+          <button type="button" id="pagePrev">Trước</button>
+          <button type="button" id="pageNext">Sau</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- DETAIL VIEW -->
+    <div class="view" id="view-detail">
+      <header class="topbar" id="AL-10" data-zone="AL-10">
+        <button type="button" class="icon-btn" id="detailBack" title="assetList.detail.back" aria-label="Back">‹</button>
+        <div class="title" id="detailTitle">Chi tiết tài sản</div>
+      </header>
+      <div class="content">
+        <div id="detailBody">
+          <div class="fields" id="AL-11" data-zone="AL-11">
+            <div class="field" data-field="code"><span class="lbl">Mã</span><span class="val" id="f-code">—</span></div>
+            <div class="field" data-field="type"><span class="lbl">Loại</span><span class="val" id="f-type">—</span></div>
+            <div class="field" data-field="route"><span class="lbl">Tuyến</span><span class="val" id="f-route">—</span></div>
+            <div class="field" data-field="kmFrom"><span class="lbl">Km từ</span><span class="val" id="f-kmFrom">—</span></div>
+            <div class="field" data-field="kmTo" id="wrap-kmTo"><span class="lbl">Km đến</span><span class="val" id="f-kmTo">—</span></div>
+            <div class="field" data-field="lat" id="wrap-lat"><span class="lbl">Vĩ độ</span><span class="val" id="f-lat">—</span></div>
+            <div class="field" data-field="lng" id="wrap-lng"><span class="lbl">Kinh độ</span><span class="val" id="f-lng">—</span></div>
+          </div>
+          <button type="button" class="btn-pin" id="AL-12" data-zone="AL-12" title="assetList.detail.pinMap">Xem trên bản đồ</button>
+        </div>
+        <div class="empty" id="AL-13" data-zone="AL-13">
+          <div class="msg" id="detailEmptyMsg">Không tìm thấy tài sản</div>
+          <button type="button" class="btn-retry" id="detailRetry" title="assetList.error.retry">Thử lại</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast" role="status"></div>
+  </div>
+
+  <p class="note">Labels prototype = review copy · Dev wire useFormOptions / assetList.* · Live GET asset/road-assets · detail same-slug ?id= · pin → /gis?focus= · cấm invent PUT · cấm ERP.* · Mobile.Bff :5202 · GPS display-only</p>
+
+  <script>
+    (function () {
+      var ASSETS = [
+        { id: "a1", code: "BB-012", type: "Biển báo", route: "QL1A", kmFrom: "12.3", kmTo: "12.3", lat: "10.772", lng: "106.698" },
+        { id: "a2", code: "LC-004", type: "Lan can", route: "QL51", kmFrom: "4.1", kmTo: "4.8", lat: "10.801", lng: "106.710" },
+        { id: "a3", code: "CD-021", type: "Cột đèn", route: "ĐT743", kmFrom: "0.5", kmTo: null, lat: null, lng: null },
+        { id: "a4", code: "CG-008", type: "Cống", route: "QL1A", kmFrom: "88.0", kmTo: "88.0", lat: "10.650", lng: "106.550" }
+      ];
+
+      var listEl = document.getElementById("AL-04");
+      var empty = document.getElementById("AL-05");
+      var emptyMsg = document.getElementById("emptyMsg");
+      var search = document.getElementById("search");
+      var toast = document.getElementById("toast");
+      var viewList = document.getElementById("view-list");
+      var viewDetail = document.getElementById("view-detail");
+      var detailBody = document.getElementById("detailBody");
+      var detailEmpty = document.getElementById("AL-13");
+      var pinBtn = document.getElementById("AL-12");
+      var toastTimer;
+      var board = "list";
+      var currentId = null;
+
+      function showToast(msg) {
+        toast.textContent = msg;
+        toast.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () { toast.classList.remove("show"); }, 2200);
+      }
+
+      function showList() {
+        viewList.classList.add("show");
+        viewDetail.classList.remove("show");
+        currentId = null;
+      }
+
+      function showDetail() {
+        viewList.classList.remove("show");
+        viewDetail.classList.add("show");
+      }
+
+      function setField(id, val, wrapId) {
+        var el = document.getElementById(id);
+        var wrap = wrapId ? document.getElementById(wrapId) : null;
+        if (val == null || val === "") {
+          if (wrap) wrap.classList.add("hidden");
+          el.textContent = "—";
+        } else {
+          if (wrap) wrap.classList.remove("hidden");
+          el.textContent = val;
+        }
+      }
+
+      function renderDetail(asset, notFound) {
+        showDetail();
+        if (notFound || !asset) {
+          detailBody.style.display = "none";
+          detailEmpty.classList.add("show");
+          document.getElementById("detailTitle").textContent = "Chi tiết tài sản";
+          return;
+        }
+        detailBody.style.display = "block";
+        detailEmpty.classList.remove("show");
+        currentId = asset.id;
+        document.getElementById("detailTitle").textContent = asset.code;
+        setField("f-code", asset.code);
+        setField("f-type", asset.type);
+        setField("f-route", asset.route);
+        setField("f-kmFrom", asset.kmFrom);
+        setField("f-kmTo", asset.kmTo, "wrap-kmTo");
+        setField("f-lat", asset.lat, "wrap-lat");
+        setField("f-lng", asset.lng, "wrap-lng");
+        var hasCoords = asset.lat != null && asset.lng != null;
+        pinBtn.disabled = !hasCoords;
+        pinBtn.setAttribute("data-focus", hasCoords ? asset.id : "");
+      }
+
+      function renderRows(list) {
+        listEl.innerHTML = "";
+        list.forEach(function (a) {
+          var btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "row";
+          btn.setAttribute("data-zone", "AL-06");
+          btn.setAttribute("data-id", a.id);
+          btn.setAttribute("data-route", "/web-rmms-asset-list?id=" + encodeURIComponent(a.id));
+          btn.innerHTML =
+            '<span class="code">' + a.code + "</span>" +
+            '<span class="type">' + a.type + "</span>" +
+            '<span class="route">' + a.route + " · Km " + a.kmFrom + "</span>";
+          btn.addEventListener("click", function () {
+            board = "detail";
+            syncBoardNav();
+            renderDetail(a, false);
+            showToast("Nav same-slug → ?id=" + a.id);
+          });
+          listEl.appendChild(btn);
+        });
+      }
+
+      function applyFilter() {
+        if (board === "empty" || board === "error") return;
+        var q = (search.value || "").trim().toLowerCase();
+        var filtered = ASSETS.filter(function (a) {
+          if (!q) return true;
+          return a.code.toLowerCase().indexOf(q) >= 0 ||
+            a.type.toLowerCase().indexOf(q) >= 0 ||
+            a.route.toLowerCase().indexOf(q) >= 0;
+        });
+        renderRows(filtered);
+        if (filtered.length === 0) {
+          empty.classList.add("show");
+          emptyMsg.textContent = "Không tìm thấy tài sản phù hợp";
+          document.getElementById("errorRetry").style.display = "none";
+          listEl.style.display = "none";
+          document.getElementById("pager").style.display = "none";
+        } else {
+          empty.classList.remove("show");
+          listEl.style.display = "flex";
+          document.getElementById("pager").style.display = "flex";
+        }
+      }
+
+      function syncBoardNav() {
+        document.querySelectorAll(".board-nav button").forEach(function (b) {
+          b.classList.toggle("active", b.getAttribute("data-board") === board);
+        });
+      }
+
+      function setBoard(name) {
+        board = name;
+        syncBoardNav();
+        toast.classList.remove("show");
+        search.value = name === "search" ? "lan can" : "";
+        document.getElementById("errorRetry").style.display = name === "error" ? "inline-block" : "none";
+
+        if (name === "detail") {
+          renderDetail(ASSETS[0], false);
+          return;
+        }
+        if (name === "detail-noc") {
+          renderDetail(ASSETS[2], false);
+          return;
+        }
+        if (name === "detail-404") {
+          renderDetail(null, true);
+          showToast("404 road-assets/{id} — thử lại, không dùng alert.");
+          return;
+        }
+
+        showList();
+        if (name === "empty") {
+          listEl.innerHTML = "";
+          listEl.style.display = "none";
+          document.getElementById("pager").style.display = "none";
+          empty.classList.add("show");
+          emptyMsg.textContent = "Không có tài sản";
+        } else if (name === "error") {
+          listEl.innerHTML = "";
+          listEl.style.display = "none";
+          document.getElementById("pager").style.display = "none";
+          empty.classList.add("show");
+          emptyMsg.textContent = "Không tải được danh sách";
+          showToast("Không tải road-assets (503). Thử lại — không dùng alert.");
+        } else {
+          empty.classList.remove("show");
+          listEl.style.display = "flex";
+          document.getElementById("pager").style.display = "flex";
+          applyFilter();
+        }
+      }
+
+      document.querySelectorAll(".board-nav button").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          setBoard(btn.getAttribute("data-board"));
+        });
+      });
+
+      document.getElementById("navBack").addEventListener("click", function () {
+        showToast("Nav → Hub (web-rmms-asset-hub /asset)");
+      });
+
+      document.getElementById("detailBack").addEventListener("click", function () {
+        setBoard("list");
+        showToast("Back list · clear ?id=");
+      });
+
+      document.getElementById("errorRetry").addEventListener("click", function () {
+        showToast("Reload GET asset/road-assets");
+        setBoard("list");
+      });
+
+      document.getElementById("detailRetry").addEventListener("click", function () {
+        showToast("Reload GET asset/road-assets/{id}");
+        setBoard("detail");
+      });
+
+      pinBtn.addEventListener("click", function () {
+        if (pinBtn.disabled) {
+          showToast("Pin disabled — thiếu Lat/Lng");
+          return;
+        }
+        showToast("Nav peer → /gis?focus=" + (currentId || pinBtn.getAttribute("data-focus")));
+      });
+
+      document.getElementById("pagePrev").addEventListener("click", function () {
+        showToast("page-- · GET road-assets?page");
+      });
+      document.getElementById("pageNext").addEventListener("click", function () {
+        showToast("page++ · GET road-assets?page");
+      });
+
+      search.addEventListener("input", function () {
+        if (board === "empty" || board === "error") return;
+        if (viewDetail.classList.contains("show")) return;
+        board = "search";
+        syncBoardNav();
+        applyFilter();
+      });
+
+      setBoard("list");
+    })();
+  </script>
+</body>
+</html>

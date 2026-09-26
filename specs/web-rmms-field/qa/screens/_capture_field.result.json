@@ -1,0 +1,100 @@
+{
+  "feature": "web-rmms-field",
+  "cases": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "href": "http://localhost:9301/web-rmms-field",
+      "dump": {
+        "feature": "web-rmms-field",
+        "zones": [
+          "FL-00"
+        ],
+        "des": [
+          "FL-00"
+        ],
+        "actions": [],
+        "ids": [
+          "FL-00"
+        ],
+        "text": "RMMS · Mobile Home Field hub Field hub Alias /field Alias tuan-duong Alias offline Shell chrome Ops inbox Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Chấm công (attendance) Asset adjust GIS map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Field Đăng nhập để dùng Field. Đăng nhập",
+        "href": "http://localhost:9301/web-rmms-field",
+        "guestGate": true
+      }
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "href": "http://localhost:9301/web-rmms-home",
+      "dump": {
+        "feature": "web-rmms-home",
+        "zones": [
+          "SH-00",
+          "HM-00",
+          "HM-01",
+          "HM-02",
+          "SH-01",
+          "SH-02"
+        ],
+        "des": [],
+        "actions": [],
+        "ids": [
+          "loginUser",
+          "loginPass",
+          "loginSubmit",
+          "guestLogin"
+        ],
+        "text": "RMMS · Mobile Home Field hub Shell chrome Home → Field tab Incident Work Ops → Ops inbox Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Chấm công (attendance) Asset adjust GIS map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Trang chủ FAQ Hướng dẫn dùng app tuần đường / sự cố / công việc trên thiết bị di động. Quyền riêng tư Dữ liệu phiên và vị trí chỉ dùng khi bạn đăng nhập và vào màn nghiệp vụ cần GPS. Đăng nhập 🏠 Trang chủ 🛣 Hiện trường ⚠️ Sự cố 🧰 Công việc Đăng nhập Hủy Tài khoản Mật khẩu Đăng nhập",
+        "href": "http://localhost:9301/web-rmms-home",
+        "guestGate": false
+      }
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "href": "http://localhost:9301/web-rmms-field",
+      "dump": {
+        "feature": "web-rmms-field",
+        "zones": [
+          "FL-00",
+          "FL-01",
+          "FL-03"
+        ],
+        "des": [
+          "FL-00",
+          "FL-02",
+          "FL-01",
+          "FL-03"
+        ],
+        "actions": [
+          "syncBtn",
+          "activeSessionHint",
+          "doorPatrol",
+          "doorInspect",
+          "tileAttendance",
+          "tileHistory",
+          "tileNghiemThu",
+          "tileCam",
+          "tileReflect",
+          "tileSupervise",
+          "tileMap"
+        ],
+        "ids": [
+          "FL-00",
+          "doorPatrol",
+          "doorInspect",
+          "syncBtn",
+          "sessionHint"
+        ],
+        "text": "RMMS · Mobile Home Field hub Field hub Alias /field Alias tuan-duong Alias offline Shell chrome Ops inbox Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Chấm công (attendance) Asset adjust GIS map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Field Ca đang tuần · QL.1-LANGSON(BOT) · TD-20260925-001 Tuần đường Mở ca · check-in · lịch sử Đang tuần · QL.1-LANGSON(BOT) · TD-20260925-001 Tuần kiểm Mở đợt · theo dõi đợt đang kiểm Đang tuần · QL.1-LANGSON · TD-20260925-002 Tiện ích Field ⏱ Chấm công ☰ Lịch sử ca ✓ Nghiệm thu 📷 Camera tuần ✎ Phản ánh 👁 Giám sát 🗺 Bản đồ tuần",
+        "href": "http://localhost:9301/web-rmms-field",
+        "guestGate": false
+      }
+    }
+  ],
+  "pass": true,
+  "at": "2026-09-25T19:21:02.176Z"
+}

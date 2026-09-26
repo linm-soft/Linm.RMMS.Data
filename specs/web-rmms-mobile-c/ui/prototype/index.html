@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>web-rmms-mobile-c — Tuần kiểm đợt C</title>
+  <style>
+    :root {
+      --primary: #0C84C0;
+      --header-start: #086A9A;
+      --header-end: #0C84C0;
+      --success: #3CB448;
+      --warning: #FCB43C;
+      --danger: #F03C30;
+      --surface: #F2F2F7;
+      --card: #FFFFFF;
+      --on-primary: #FFFFFF;
+      --on-surface: #1C1C1E;
+      --border: #C7C7CC;
+      --muted: #8E8E93;
+      --radius-card: 16px;
+      --radius-control: 12px;
+      --label: 13px;
+      --field: 16px;
+      --nav-title: 17px;
+      --control-h: 44px;
+      --field-h: 52px;
+      --phone-w: 430px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: #1a1a1e;
+      color: var(--on-surface);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px 8px 32px;
+    }
+    .board-nav {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      max-width: var(--phone-w); width: 100%; margin-bottom: 12px;
+    }
+    .board-nav button {
+      border: 1px solid var(--border); background: #2a2a2e; color: #eee;
+      border-radius: 8px; padding: 6px 10px; font-size: 12px; cursor: pointer;
+    }
+    .board-nav button.active { background: var(--primary); border-color: var(--primary); }
+    .phone {
+      width: min(100%, var(--phone-w));
+      min-height: 780px;
+      background: var(--surface);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,.45);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .topbar {
+      background: linear-gradient(135deg, var(--header-start), var(--header-end));
+      color: var(--on-primary);
+      min-height: 56px;
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 14px;
+    }
+    .topbar .back, .topbar .icon-btn {
+      width: 44px; height: 44px; border: 0; background: transparent;
+      color: inherit; font-size: 36px; line-height: 1; padding: 0;
+      display: grid; place-items: center;
+      cursor: pointer; border-radius: 12px;
+    }
+    .topbar .title {
+      flex: 1; font-size: var(--nav-title); font-weight: 600; text-align: center;
+    }
+    .topbar .spacer { width: 44px; }
+    .content { flex: 1; overflow: auto; padding: 12px 14px 88px; }
+    .screen { display: none; flex-direction: column; flex: 1; min-height: 0; }
+    .screen.active { display: flex; }
+    .btn {
+      height: var(--control-h); border-radius: var(--radius-control); border: 0;
+      padding: 0 16px; font-size: 15px; font-weight: 600; cursor: pointer;
+    }
+    .btn-primary { background: var(--primary); color: var(--on-primary); }
+    .btn-secondary { background: #E5E5EA; color: var(--on-surface); }
+    .btn-ghost { background: transparent; color: var(--primary); border: 1px solid var(--primary); }
+    .btn-block { width: 100%; margin-top: 8px; }
+    .btn:disabled { opacity: .45; cursor: not-allowed; }
+    .toolbar-form { display: flex; gap: 8px; margin-bottom: 12px; }
+    .toolbar-form .btn { flex: 1; }
+    .card {
+      background: var(--card); border-radius: var(--radius-card);
+      border: 1px solid var(--border); padding: 14px; margin-bottom: 10px; cursor: pointer;
+    }
+    .card .meta { color: var(--muted); font-size: 13px; margin-top: 4px; }
+    .card .row { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+    .chip {
+      display: inline-block; font-size: 12px; padding: 3px 8px;
+      border-radius: 6px; background: #E8F6FC; color: var(--primary); margin-right: 4px;
+    }
+    .chip.active { background: var(--primary); color: #fff; }
+    .chip.status-phat-hien { background: #FFF4E0; color: #9A6200; }
+    .chip.status-da-giao { background: #E8F6FC; color: var(--primary); }
+    .chip.status-cho-kiem-tra { background: #F0E8FF; color: #5B3FA8; }
+    .chip.status-xong { background: #E8F8EA; color: #1B7A28; }
+    .chip-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+    .chip-row button {
+      border: 0; background: #E5E5EA; color: var(--on-surface);
+      border-radius: 16px; padding: 6px 12px; font-size: 13px; cursor: pointer;
+      min-height: 36px;
+    }
+    .chip-row button.active { background: var(--primary); color: #fff; }
+    .field { margin-bottom: 12px; }
+    .field label {
+      display: block; font-size: var(--label); color: var(--muted); margin-bottom: 4px;
+    }
+    .field input:not([type="radio"]):not([type="checkbox"]), .field select, .field textarea {
+      width: 100%; min-height: var(--field-h); font-size: var(--field);
+      border: 1px solid var(--border); border-radius: var(--radius-control);
+      padding: 10px 12px; background: var(--card); color: var(--on-surface);
+    }
+    .field textarea { min-height: 96px; resize: vertical; }
+    .field input[type="radio"],
+    .field input[type="checkbox"],
+    .radio-stack input,
+    .radio-grid input,
+    .check-row input,
+    .toggle-row input {
+      width: 20px; height: 20px; min-width: 20px; min-height: 20px;
+      margin: 0; padding: 0; flex: 0 0 20px; accent-color: var(--primary);
+    }
+    .field .ro { background: #F2F2F7; color: var(--muted); }
+    .empty { text-align: center; padding: 48px 16px; color: var(--muted); }
+    .empty strong { display: block; color: var(--on-surface); margin-bottom: 8px; font-size: 16px; }
+    .session-bar {
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 10px 12px; margin-bottom: 12px; font-size: 13px;
+    }
+    .session-bar strong { font-size: 14px; }
+    .fab {
+      position: absolute; right: 16px; bottom: 20px; z-index: 10;
+      height: 52px; padding: 0 20px; border-radius: 26px;
+      background: var(--primary); color: var(--on-primary); border: 0;
+      font-weight: 600; font-size: 15px; box-shadow: 0 6px 16px rgba(12,132,192,.4);
+      cursor: pointer;
+    }
+    .gps-ok { color: var(--success); font-size: 13px; }
+    .gps-deny { color: var(--danger); font-size: 13px; }
+    .banner-deny {
+      background: #FDECEA; color: var(--danger); border-radius: 12px;
+      padding: 10px 12px; margin-bottom: 12px; font-size: 13px;
+    }
+    .photo-row { display: flex; gap: 8px; flex-wrap: wrap; }
+    .photo-add {
+      width: 72px; height: 72px; border: 1px dashed var(--border);
+      border-radius: 12px; display: flex; align-items: center; justify-content: center;
+      color: var(--muted); font-size: 28px; cursor: pointer; background: var(--card);
+    }
+    .leave-modal {
+      position: absolute; inset: 0; background: rgba(0,0,0,.45);
+      display: none; align-items: center; justify-content: center; z-index: 40; padding: 24px;
+    }
+    .leave-modal.open { display: flex; }
+    .leave-card {
+      background: var(--card); border-radius: 16px; padding: 18px; width: 100%; max-width: 320px;
+    }
+    .leave-card h3 { margin: 0 0 8px; font-size: 17px; }
+    .leave-card p { margin: 0 0 16px; color: var(--muted); font-size: 14px; }
+    .leave-actions { display: flex; gap: 8px; }
+    .leave-actions .btn { flex: 1; }
+    .hint { font-size: 12px; color: var(--muted); margin-top: 4px; }
+    .radio-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .radio-grid label {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 10px 12px; font-size: 14px; color: var(--on-surface); min-height: 44px;
+    }
+    .check-row label {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 10px 12px; font-size: 14px; min-height: 44px; margin-bottom: 8px;
+    }
+    .detail-block {
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 12px; margin-bottom: 12px; font-size: 14px;
+    }
+    .detail-block dt { color: var(--muted); font-size: 12px; margin-top: 8px; }
+    .detail-block dd { margin: 2px 0 0; }
+  </style>
+</head>
+<body>
+  <nav class="board-nav" aria-label="Screens">
+    <button type="button" data-go="TK-02e" class="active">TK-02 empty</button>
+    <button type="button" data-go="TK-02">TK-02 data</button>
+    <button type="button" data-go="TK-03">TK-03 form</button>
+    <button type="button" data-go="TK-03g">TK-03 GPS deny</button>
+    <button type="button" data-go="TK-04">TK-04 review</button>
+    <button type="button" data-go="TK-05">TK-05 recheck</button>
+  </nav>
+
+  <div class="phone" id="phone" data-feature="web-rmms-mobile-c" data-phone-frame="430">
+    <!-- TK-02 empty -->
+    <section class="screen active" id="sc-TK-02e" data-des-id="TK-02" data-route="/field/tuan-kiem/ton-tai" data-state="empty">
+      <header class="topbar">
+        <button type="button" class="back" aria-label="Quay lại" title="→ hub A">‹</button>
+        <div class="title">Tồn tại</div>
+        <span class="spacer"></span>
+      </header>
+      <div class="content">
+        <div class="session-bar" data-field="filter.sessionId">
+          <strong>TK-2026-042</strong> · QL.1 · Đang tuần kiểm
+        </div>
+        <div class="empty" data-field="emptyHint">
+          <strong>Chưa có tồn tại trong đợt</strong>
+          Lập phiếu phát hiện — không dùng mock list.
+        </div>
+        <button type="button" class="btn btn-primary btn-block" data-field="createFinding" data-go="TK-03">Lập phiếu</button>
+      </div>
+    </section>
+
+    <!-- TK-02 data -->
+    <section class="screen" id="sc-TK-02" data-des-id="TK-02" data-route="/field/tuan-kiem/ton-tai" data-state="data">
+      <header class="topbar">
+        <button type="button" class="back" aria-label="Quay lại" title="→ hub A">‹</button>
+        <div class="title">Tồn tại</div>
+        <span class="spacer"></span>
+      </header>
+      <div class="content" data-field="findingList">
+        <div class="session-bar">
+          <strong>TK-2026-042</strong> · QL.1 · Đang tuần kiểm
+        </div>
+        <div class="chip-row" data-field="filter.status" role="group" aria-label="Lọc trạng thái">
+          <button type="button" class="active">Tất cả</button>
+          <button type="button">Phát hiện</button>
+          <button type="button">Đã giao</button>
+          <button type="button">Chờ KT</button>
+          <button type="button">Xong</button>
+        </div>
+        <div class="field" data-field="filter.route">
+          <label>Tuyến</label>
+          <select>
+            <option selected>QL.1 (đợt)</option>
+            <option>ĐT.1</option>
+          </select>
+        </div>
+        <div class="card" data-field="card.tap" data-go="TK-05">
+          <div class="row">
+            <div>
+              <strong data-field="card.code">TT-2026-001</strong>
+              <span class="chip" data-field="card.kind">hư hỏng</span>
+            </div>
+            <span class="chip status-phat-hien" data-field="card.status">phát hiện</span>
+          </div>
+          <div class="meta">Km 12+100–12+150 · hạn 2026-09-30</div>
+        </div>
+        <div class="card" data-go="TK-05">
+          <div class="row">
+            <div>
+              <strong>TT-2026-002</strong>
+              <span class="chip">thi công</span>
+            </div>
+            <span class="chip status-cho-kiem-tra">chờ kiểm tra</span>
+          </div>
+          <div class="meta">Km 14+020 · hạn 2026-10-02</div>
+        </div>
+        <div class="card" data-go="TK-05">
+          <div class="row">
+            <div>
+              <strong>TT-2026-003</strong>
+              <span class="chip">hành lang</span>
+            </div>
+            <span class="chip status-xong">xong</span>
+          </div>
+          <div class="meta">Km 15+100 · đã recheck</div>
+        </div>
+        <p class="hint">Chip/Select phone · không LinErpListFilterBar</p>
+      </div>
+      <button type="button" class="fab" data-field="createFinding" data-go="TK-03">+ Lập phiếu</button>
+    </section>
+
+    <!-- TK-03 create -->
+    <section class="screen" id="sc-TK-03" data-des-id="TK-03" data-route="/field/tuan-kiem/phieu/moi" data-state="gps-ok">
+      <header class="topbar">
+        <button type="button" class="back" data-leave="1" aria-label="Hủy">‹</button>
+        <div class="title">Lập phiếu</div>
+        <span class="spacer"></span>
+      </header>
+      <div class="content">
+        <div class="toolbar-form">
+          <button type="button" class="btn btn-secondary" data-field="cancel" data-leave="1">Hủy</button>
+          <button type="button" class="btn btn-primary" data-field="saveFinding" data-go="TK-05">Lưu</button>
+        </div>
+        <div class="field" data-field="source">
+          <label>Nguồn *</label>
+          <select>
+            <option>tuần đường</option>
+            <option selected>tại chỗ</option>
+            <option>nhà thầu</option>
+            <option>trung tâm</option>
+            <option>người dân</option>
+          </select>
+        </div>
+        <div class="field" data-field="findingKind">
+          <label>Loại phiếu *</label>
+          <select>
+            <option selected>hư hỏng</option>
+            <option>tuần đường</option>
+            <option>hành lang</option>
+            <option>ATGT</option>
+            <option>thi công</option>
+            <option>TNGT</option>
+            <option>kiến nghị</option>
+          </select>
+        </div>
+        <div class="field" data-field="kmFrom">
+          <label>Từ km</label>
+          <input type="text" value="12+100" />
+        </div>
+        <div class="field" data-field="kmTo">
+          <label>Đến km</label>
+          <input type="text" value="12+150" />
+        </div>
+        <div class="field" data-field="side">
+          <label>Vị trí *</label>
+          <select>
+            <option selected>trái</option>
+            <option>phải</option>
+            <option>tim</option>
+            <option>hành lang</option>
+            <option>hai bên</option>
+          </select>
+        </div>
+        <div class="field" data-field="hangMuc">
+          <label>Hạng mục *</label>
+          <select>
+            <option selected>mặt đường</option>
+            <option>nền</option>
+            <option>cầu</option>
+            <option>cống</option>
+            <option>hầm</option>
+            <option>thoát nước</option>
+            <option>ATGT</option>
+            <option>hộ lan</option>
+            <option>biển</option>
+            <option>dải phân cách</option>
+            <option>thiết bị</option>
+            <option>thi công</option>
+          </select>
+        </div>
+        <div class="field" data-field="description">
+          <label>Mô tả *</label>
+          <textarea>Ổ gà mặt đường Km 12+100–12+150.</textarea>
+        </div>
+        <div class="field" data-field="qtyEstimate">
+          <label>KL ước tính</label>
+          <input type="text" placeholder="vd. 4 m²" />
+        </div>
+        <div class="field" data-field="scope">
+          <label>Phạm vi *</label>
+          <div class="radio-grid">
+            <label><input type="radio" name="scope" checked /> BĐTX</label>
+            <label><input type="radio" name="scope" /> Vượt BĐTX</label>
+          </div>
+        </div>
+        <div class="field" data-field="dueAt">
+          <label>Hạn xử lý (BĐTX) *</label>
+          <input type="date" value="2026-09-30" />
+        </div>
+        <div class="field" data-field="getGps">
+          <label>Định vị</label>
+          <p class="gps-ok" data-field="lat">[21.028500, 105.854200]</p>
+          <button type="button" class="btn btn-ghost btn-block" data-field="getGps">Ghim vị trí hiện tại</button>
+        </div>
+        <div class="field" data-field="mediaIds">
+          <label>Ảnh hiện trường</label>
+          <div class="photo-row">
+            <div class="photo-add" title="FileMulti">+</div>
+          </div>
+        </div>
+        <p class="hint" data-field="thiCongChecks">thi-cong → ≥1 checkbox biển/rào/phân luồng</p>
+        <p class="hint" data-field="violationAction">hanh-lang → violationAction · không mở sổ 07</p>
+        <p class="hint" data-field="assignWo">Giao BĐTX — OUT C (đợt D) · ẩn</p>
+      </div>
+    </section>
+
+    <!-- TK-03 GPS deny -->
+    <section class="screen" id="sc-TK-03g" data-des-id="TK-03" data-route="/field/tuan-kiem/phieu/moi" data-state="gps-deny">
+      <header class="topbar">
+        <button type="button" class="back" data-leave="1" aria-label="Hủy">‹</button>
+        <div class="title">Lập phiếu</div>
+        <span class="spacer"></span>
+      </header>
+      <div class="content">
+        <div class="toolbar-form">
+          <button type="button" class="btn btn-secondary" data-leave="1">Hủy</button>
+          <button type="button" class="btn btn-primary" data-field="saveFinding" disabled>Lưu</button>
+        </div>
+        <div class="banner-deny" data-field="gps-deny">
+          Chưa có GPS — cấp quyền vị trí để lưu. Cấm tọa độ mẫu.
+        </div>
+        <div class="field">
+          <label>GPS *</label>
+          <button type="button" class="btn btn-ghost btn-block" data-field="getGps">Ghim vị trí hiện tại</button>
+          <p class="gps-deny">Từ chối / chưa cấp quyền</p>
+        </div>
+        <div class="field" data-field="description">
+          <label>Mô tả *</label>
+          <textarea placeholder="Bắt buộc"></textarea>
+        </div>
+        <p class="hint">Lưu disabled khi thiếu GPS hoặc mô tả</p>
+      </div>
+    </section>
+
+    <!-- TK-04 đối chiếu -->
+    <section class="screen" id="sc-TK-04" data-des-id="TK-04" data-route="/field/tuan-kiem/doi-chieu" data-state="review">
+      <header class="topbar">
+        <button type="button" class="back" aria-label="Quay lại" title="→ hub A">‹</button>
+        <div class="title">Đối chiếu</div>
+        <span class="spacer"></span>
+      </header>
+      <div class="content">
+        <div class="field" data-field="tdSessionPick">
+          <label>Ca tuần đường</label>
+          <select>
+            <option selected>TD-2026-091 · QL.1 · Hoàn thành</option>
+            <option>TD-2026-090 · QL.1 · Đang tuần</option>
+          </select>
+        </div>
+        <div class="card" data-field="journalList">
+          <div class="row">
+            <strong>08:42 · hành lang</strong>
+            <span class="chip">chưa đối chiếu</span>
+          </div>
+          <div class="meta">Km 12+350 · chiều tăng</div>
+          <p class="hint">Narrative RO — không sửa tuần đường</p>
+          <div class="field" data-field="review" style="margin-top:10px">
+            <label>Kết quả đối chiếu *</label>
+            <div class="radio-grid">
+              <label><input type="radio" name="review" /> Khớp</label>
+              <label><input type="radio" name="review" checked /> Lệch</label>
+            </div>
+          </div>
+          <div class="field" data-field="reviewNote">
+            <label>Ghi chú lệch *</label>
+            <textarea>Vị trí lệch ~50 m so với thực tế hiện trường.</textarea>
+          </div>
+          <button type="button" class="btn btn-ghost btn-block" data-field="createFromLech" data-go="TK-03">Lập phiếu từ lệch</button>
+          <button type="button" class="btn btn-primary btn-block" data-field="reviewSave">Lưu đối chiếu</button>
+          <p class="hint">Prefill GPS/ảnh/km từ journal · không GPS mới trừ lấy lại</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TK-05 detail + recheck -->
+    <section class="screen" id="sc-TK-05" data-des-id="TK-05" data-route="/field/tuan-kiem/phieu/:id" data-state="recheck">
+      <header class="topbar">
+        <button type="button" class="back" data-go="TK-02" aria-label="Quay lại">‹</button>
+        <div class="title">Phiếu TT-2026-001</div>
+        <span class="spacer"></span>
+      </header>
+      <div class="content">
+        <div class="detail-block" data-field="detailRO">
+          <dt>Trạng thái</dt><dd><span class="chip status-cho-kiem-tra">chờ kiểm tra</span></dd>
+          <dt>Nguồn / loại</dt><dd>tại chỗ · hư hỏng</dd>
+          <dt>Km / vị trí</dt><dd>12+100–12+150 · trái · mặt đường</dd>
+          <dt>Mô tả</dt><dd>Ổ gà mặt đường Km 12+100–12+150.</dd>
+          <dt>Phạm vi / hạn</dt><dd>BĐTX · 2026-09-30</dd>
+          <dt>WO / phản hồi</dt><dd class="hint" data-field="feedbackBlock">OUT C (đợt D)</dd>
+        </div>
+        <div class="field" data-field="recheckResult">
+          <label>Kết luận kiểm tra lại *</label>
+          <div class="radio-grid">
+            <label><input type="radio" name="recheck" checked /> Đạt</label>
+            <label><input type="radio" name="recheck" /> Chưa đạt</label>
+          </div>
+        </div>
+        <div class="field" data-field="recheckGps">
+          <label>GPS recheck *</label>
+          <p class="gps-ok">[21.028700, 105.854000]</p>
+          <button type="button" class="btn btn-ghost btn-block">Ghim vị trí hiện tại</button>
+        </div>
+        <div class="field" data-field="recheckMedia">
+          <label>Ảnh sau xử lý (đạt) *</label>
+          <div class="photo-row">
+            <div class="photo-add">+</div>
+          </div>
+        </div>
+        <p class="hint" data-field="recheckNote">chua-dat → note + newDueAt bắt buộc</p>
+        <button type="button" class="btn btn-primary btn-block" data-field="confirmDone">Xác nhận xong</button>
+        <p class="hint">confirmDone chỉ khi dat · GPS deny → chặn</p>
+      </div>
+    </section>
+
+    <div class="leave-modal" id="leave" data-des-id="DES-LEAVE" aria-hidden="true">
+      <div class="leave-card">
+        <h3>Rời màn hình?</h3>
+        <p>Thay đổi chưa lưu sẽ mất.</p>
+        <div class="leave-actions">
+          <button type="button" class="btn btn-secondary" id="leave-stay">Ở lại</button>
+          <button type="button" class="btn btn-primary" id="leave-go" data-go="TK-02">Rời</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const screens = document.querySelectorAll(".screen");
+    const navBtns = document.querySelectorAll(".board-nav button");
+    const leave = document.getElementById("leave");
+
+    function show(id) {
+      screens.forEach((s) => s.classList.toggle("active", s.id === "sc-" + id));
+      navBtns.forEach((b) => b.classList.toggle("active", b.getAttribute("data-go") === id));
+      leave.classList.remove("open");
+    }
+
+    document.querySelectorAll("[data-go]").forEach((el) => {
+      el.addEventListener("click", (e) => {
+        if (el.hasAttribute("data-leave")) return;
+        const id = el.getAttribute("data-go");
+        if (!id || !document.getElementById("sc-" + id)) return;
+        e.preventDefault();
+        show(id);
+      });
+    });
+
+    document.querySelectorAll("[data-leave]").forEach((el) => {
+      el.addEventListener("click", (e) => {
+        e.preventDefault();
+        leave.classList.add("open");
+      });
+    });
+
+    document.getElementById("leave-stay").addEventListener("click", () => leave.classList.remove("open"));
+    document.getElementById("leave-go").addEventListener("click", () => show("TK-02"));
+  </script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "feature": "web-rmms-home",
+  "status": "done",
+  "review_confirm": "done",
+  "taskId": "task_7526a700",
+  "contentHash": "sha256:6f74282b807da7f2cc1aa57ac64848cd1d75ff3383c0f432eaad7bea53fff80e",
+  "skillVersion": "2026.09.05.03",
+  "schemaVersion": 1,
+  "writtenAt": "2026-09-25T19:28:00.000Z",
+  "verdict": "PASS",
+  "must": 0,
+  "p0": 0
+}

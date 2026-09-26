@@ -169,7 +169,7 @@ Empty: «Chưa ghi việc» + nút thêm. Check-in không hiện trong list này
 **Bố cục**
 
 1. Giờ (now, sửa được) · người readonly.
-2. GPS: nút «Lấy vị trí». Hiện accuracy. Deny thì không cho Lưu.
+2. GPS: nút «Ghim vị trí hiện tại». Hiện `[lat, lng]` (6 số). **Cấm** «Thử lại GPS» và «GPS OK · ±m». Accuracy vẫn lưu. Deny thì không cho Lưu.
 3. Km tay (`kmText`) + chiều (lấy từ ca, sửa được).
 4. Thời tiết: `nang` `mua` `mu` `lu` `bao` `khac`.
 5. Loại một chọn: `kcht` `hanh-lang` `tngt` `un-tac` `xe-hong` `chuong-ngai` `chay` `thoi-tiet` `atgt`.

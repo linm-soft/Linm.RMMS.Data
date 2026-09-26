@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>web-rmms-cam-patrol — Camera tuần</title>
+  <style>
+    :root {
+      --primary: #0C84C0;
+      --header-start: #086A9A;
+      --header-end: #0C84C0;
+      --warning: #FCB43C;
+      --danger: #F03C30;
+      --success: #3CB448;
+      --surface: #F2F2F7;
+      --card: #FFFFFF;
+      --on-primary: #FFFFFF;
+      --on-surface: #1C1C1E;
+      --muted: #8E8E93;
+      --border: #C7C7CC;
+      --radius-card: 16px;
+      --label: 13px;
+      --field: 16px;
+      --nav-title: 17px;
+      --phone-w: 430px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: #1a1a1e;
+      color: var(--on-surface);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px 8px 32px;
+    }
+    .meta {
+      max-width: var(--phone-w);
+      width: 100%;
+      color: #aaa;
+      font-size: 11px;
+      margin-bottom: 10px;
+      text-align: center;
+      line-height: 1.4;
+    }
+    .board-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      max-width: var(--phone-w);
+      width: 100%;
+      margin-bottom: 12px;
+    }
+    .board-nav button {
+      border: 1px solid var(--border);
+      background: #2a2a2e;
+      color: #eee;
+      border-radius: 8px;
+      padding: 6px 10px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    .board-nav button.active { background: var(--primary); border-color: var(--primary); }
+    .phone {
+      width: min(100%, var(--phone-w));
+      min-height: 780px;
+      background: #111;
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,.45);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .topbar {
+      background: linear-gradient(135deg, var(--header-start), var(--header-end));
+      color: var(--on-primary);
+      min-height: 56px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 10px 8px;
+      z-index: 2;
+    }
+    .topbar .back {
+      border: 0; background: transparent; color: inherit;
+      width: 44px; height: 44px; cursor: pointer; font-size: 22px;
+    }
+    .topbar .title {
+      flex: 1; font-size: var(--nav-title); font-weight: 600; text-align: center;
+      padding-right: 44px;
+    }
+    .content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: var(--surface);
+      overflow: auto;
+    }
+    .finder {
+      position: relative;
+      height: 320px;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.55)),
+        radial-gradient(ellipse at 40% 45%, #4a5560 0%, #2a3038 55%, #1a1e24 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .finder .box {
+      width: 72%;
+      height: 58%;
+      border: 2px solid rgba(255,255,255,.85);
+      border-radius: 8px;
+      box-shadow: 0 0 0 1px rgba(12,132,192,.35);
+    }
+    .finder .stamp {
+      position: absolute;
+      left: 12px; right: 12px; bottom: 12px;
+      color: #fff;
+      font-size: var(--label);
+      line-height: 1.45;
+      text-shadow: 0 1px 3px rgba(0,0,0,.7);
+      background: rgba(0,0,0,.35);
+      border-radius: 8px;
+      padding: 8px 10px;
+    }
+    .gps-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 4px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: rgba(60,180,72,.85);
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .gps-chip.bad { background: rgba(240,60,48,.9); }
+    .banner {
+      margin: 10px 14px 0;
+      padding: 10px 12px;
+      border-radius: 10px;
+      font-size: var(--label);
+      background: rgba(252,180,60,.18);
+      color: #8a5a00;
+    }
+    .banner.danger {
+      background: rgba(240,60,48,.12);
+      color: #8a1a14;
+    }
+    .empty {
+      margin: 16px 14px;
+      padding: 20px 14px;
+      background: var(--card);
+      border-radius: var(--radius-card);
+      text-align: center;
+      color: var(--muted);
+      font-size: var(--field);
+    }
+    .actions {
+      padding: 12px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .btn {
+      min-height: 44px;
+      border-radius: 12px;
+      border: 0;
+      font-size: var(--field);
+      font-weight: 600;
+      cursor: pointer;
+      padding: 10px 14px;
+    }
+    .btn:disabled { opacity: .45; cursor: not-allowed; }
+    .btn-primary { background: var(--primary); color: var(--on-primary); }
+    .btn-secondary { background: var(--card); color: var(--primary); border: 1px solid var(--border); }
+    .card-group {
+      margin: 12px 14px 0;
+      background: var(--card);
+      border-radius: var(--radius-card);
+      overflow: hidden;
+    }
+    .row {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    .row:last-child { border-bottom: 0; }
+    .row-sub { font-size: var(--label); color: var(--muted); }
+    .row-title { font-size: var(--field); font-weight: 600; margin-top: 2px; }
+    .toast {
+      position: absolute;
+      left: 16px; right: 16px; bottom: 24px;
+      background: rgba(28,28,30,.92);
+      color: #fff;
+      padding: 12px 14px;
+      border-radius: 12px;
+      font-size: 14px;
+      z-index: 20;
+      display: none;
+    }
+    .toast.show { display: block; }
+    .modal-backdrop {
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,.45);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      z-index: 30;
+    }
+    .modal-backdrop.show { display: flex; }
+    .modal-card {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 18px 16px;
+      width: 100%;
+      max-width: 340px;
+    }
+    .modal-card h3 { margin: 0 0 8px; font-size: 17px; }
+    .modal-card p { margin: 0 0 14px; font-size: 14px; color: var(--muted); line-height: 1.45; }
+    .modal-actions { display: flex; flex-direction: column; gap: 8px; }
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+  <div class="meta">
+    CP-01 · DES-MOB-CAM-PATROL / FINDER · phone 430 · Android 1-1 · score ẩn ship<br/>
+    review states: default · ?ship=1 · ?deny=1 · ?nosession=1 · ?fail=1 · ?offline=1
+  </div>
+  <div class="board-nav" id="boardNav">
+    <button type="button" data-q="">ready</button>
+    <button type="button" data-q="ship=1">ship (ẩn %)</button>
+    <button type="button" data-q="deny=1">GPS deny</button>
+    <button type="button" data-q="nosession=1">no session</button>
+    <button type="button" data-q="fail=1">frame fail</button>
+    <button type="button" data-q="offline=1">offline</button>
+  </div>
+
+  <div class="phone" id="phone" data-zone="CP-01" data-des-id="DES-MOB-CAM-PATROL">
+    <div class="topbar">
+      <button type="button" class="back" aria-label="back" onclick="toastCopy('nav.back')">‹</button>
+      <div class="title" data-copy-key="cam.title">Camera tuần</div>
+    </div>
+
+    <div class="content" id="sc-cam-patrol">
+      <div id="offlineBanner" class="banner hidden" data-des-id="DES-MOB-CAM-OFFLINE">Mất sóng — hàng đợi offline (peer). Không giả thành công.</div>
+      <div id="emptyNoSession" class="empty hidden" data-des-id="DES-MOB-CAM-EMPTY">Không có ca Đang tuần. Mở ca từ hub Field trước.</div>
+
+      <div id="mainCam" data-des-id="DES-MOB-CAM-FINDER">
+        <div class="finder">
+          <div class="box" aria-hidden="true"></div>
+          <div class="stamp" id="stampBlock">
+            <div id="stampRoute" data-copy-key="cam.stamp.route">QL.1 · Km 1556+040 · Tuần đường</div>
+            <div id="stampGps" data-copy-key="cam.stamp.gps">11.5308, 109.0082 · ±4 m <span class="gps-chip" id="gpsChip">đã chốt</span></div>
+          </div>
+        </div>
+
+        <div class="actions" id="detectActions">
+          <button type="button" class="btn btn-primary" id="btnDetect" data-copy-key="cam.action.detect" onclick="onDetect()">Nhận diện</button>
+        </div>
+
+        <div class="card-group hidden" id="detectCard" data-des-id="DES-MOB-CAM-RESULT">
+          <div class="row">
+            <div class="row-sub" data-copy-key="cam.result.kindLabel">Phát hiện</div>
+            <div class="row-title" id="detKind">Ổ gà · Mặt đường</div>
+          </div>
+          <div class="row" id="scoreRow">
+            <div class="row-sub">Độ tin cậy</div>
+            <div class="row-title">91%</div>
+          </div>
+          <div class="row">
+            <div class="row-sub" data-copy-key="cam.result.actionLabel">Hành động</div>
+            <div class="row-title" data-copy-key="cam.result.actionHint">Tạo sự cố sau xác nhận</div>
+          </div>
+        </div>
+
+        <div class="actions hidden" id="confirmActions">
+          <button type="button" class="btn btn-primary" id="btnConfirm" data-copy-key="cam.action.confirm" onclick="onConfirm()">Xác nhận · tạo sự cố</button>
+          <button type="button" class="btn btn-secondary" id="btnSkip" data-copy-key="cam.action.skip" onclick="onSkip()">Bỏ qua</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <div class="modal-backdrop" id="modalGps" data-des-id="DES-MOB-GPS-DENY">
+      <div class="modal-card">
+        <h3 data-copy-key="cam.gps.denyTitle">Định vị bị tắt</h3>
+        <p data-copy-key="cam.gps.denyBody">Cần vị trí để nhận diện / tạo sự cố. Mở Cài đặt → Quyền vị trí cho RMMS. Accuracy phải ≤ 30 m.</p>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-primary" onclick="closeModal()">Mở Cài đặt</button>
+          <button type="button" class="btn btn-secondary" onclick="closeModal()">Để sau</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const q = new URLSearchParams(location.search);
+    const ship = q.has('ship');
+    const deny = q.has('deny');
+    const nosession = q.has('nosession');
+    const fail = q.has('fail');
+    const offline = q.has('offline');
+
+    document.querySelectorAll('#boardNav button').forEach((btn) => {
+      const want = btn.getAttribute('data-q') || '';
+      const cur = location.search.replace(/^\?/, '');
+      if (want === cur || (!want && !cur)) btn.classList.add('active');
+      btn.addEventListener('click', () => {
+        location.search = want ? '?' + want : '';
+      });
+    });
+
+    function toastCopy(msg) {
+      const el = document.getElementById('toast');
+      el.textContent = msg;
+      el.classList.add('show');
+      clearTimeout(toastCopy._t);
+      toastCopy._t = setTimeout(() => el.classList.remove('show'), 2200);
+    }
+
+    function closeModal() {
+      document.getElementById('modalGps').classList.remove('show');
+    }
+
+    function setBlocked(blocked) {
+      document.getElementById('btnDetect').disabled = blocked;
+      document.getElementById('btnConfirm').disabled = blocked;
+    }
+
+    function showResult(show) {
+      document.getElementById('detectCard').classList.toggle('hidden', !show);
+      document.getElementById('confirmActions').classList.toggle('hidden', !show);
+      document.getElementById('detectActions').classList.toggle('hidden', show);
+    }
+
+    function onDetect() {
+      if (deny) {
+        document.getElementById('modalGps').classList.add('show');
+        toastCopy('cam.toast.gpsDeny');
+        return;
+      }
+      if (fail) {
+        showResult(false);
+        toastCopy('Không nhận diện được. Thử lại.');
+        return;
+      }
+      showResult(true);
+      toastCopy('cam.toast.detectOk');
+    }
+
+    function onConfirm() {
+      if (deny) {
+        document.getElementById('modalGps').classList.add('show');
+        return;
+      }
+      toastCopy('Đã tạo sự cố · định vị đã chốt');
+      showResult(false);
+    }
+
+    function onSkip() {
+      toastCopy('Đã bỏ · nhận nhầm');
+      showResult(false);
+    }
+
+    // Initial state from query
+    if (ship) {
+      document.getElementById('scoreRow').classList.add('hidden');
+      showResult(true);
+    }
+    if (deny) {
+      document.getElementById('gpsChip').textContent = 'GPS tắt';
+      document.getElementById('gpsChip').classList.add('bad');
+      document.getElementById('stampGps').innerHTML =
+        '— · ±— m <span class="gps-chip bad" id="gpsChip">GPS tắt</span>';
+      setBlocked(true);
+      document.getElementById('modalGps').classList.add('show');
+    }
+    if (nosession) {
+      document.getElementById('mainCam').classList.add('hidden');
+      document.getElementById('emptyNoSession').classList.remove('hidden');
+    }
+    if (offline) {
+      document.getElementById('offlineBanner').classList.remove('hidden');
+    }
+    if (fail && !nosession && !deny) {
+      // stay on ready; detect click shows fail toast
+      showResult(false);
+    }
+  </script>
+</body>
+</html>

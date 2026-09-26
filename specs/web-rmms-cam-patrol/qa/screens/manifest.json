@@ -1,0 +1,23 @@
+{
+  "url": "http://localhost:9301/web-rmms-cam-patrol",
+  "capturedAt": "2026-09-25T18:23:19.148Z",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png"
+    },
+    {
+      "id": "S1",
+      "result": "FAIL",
+      "screenshot": "S1.png",
+      "error": "GAP-QA-E2E-DUP-01 same as S0"
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png"
+    }
+  ],
+  "ok": false
+}

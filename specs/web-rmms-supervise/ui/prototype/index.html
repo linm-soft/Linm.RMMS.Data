@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>web-rmms-supervise — Giám sát</title>
+  <style>
+    :root {
+      --primary: #0C84C0;
+      --header-start: #086A9A;
+      --header-end: #0C84C0;
+      --success: #3CB448;
+      --surface: #FFFBFE;
+      --card: #FFFFFF;
+      --on-primary: #FFFFFF;
+      --on-surface: #1C1B1F;
+      --muted: #79747E;
+      --border: #E7E0EC;
+      --radius-card: 14px;
+      --radius-control: 12px;
+      --label: 13px;
+      --field: 16px;
+      --nav-title: 17px;
+      --control-h: 48px;
+      --phone-w: 430px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "Roboto", system-ui, sans-serif;
+      background: #1a1a1e;
+      color: var(--on-surface);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px 8px 32px;
+    }
+    .meta {
+      max-width: var(--phone-w); width: 100%;
+      color: #aaa; font-size: 11px; margin-bottom: 10px;
+      text-align: center; line-height: 1.4;
+    }
+    .board-nav {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      max-width: var(--phone-w); width: 100%; margin-bottom: 12px;
+    }
+    .board-nav button {
+      border: 1px solid #555; background: #2a2a2e; color: #eee;
+      border-radius: 8px; padding: 6px 10px; font-size: 12px; cursor: pointer;
+    }
+    .board-nav button.active { background: var(--primary); border-color: var(--primary); }
+    .phone {
+      width: min(100%, var(--phone-w));
+      min-height: 780px;
+      background: var(--surface);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,.45);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .topbar {
+      background: linear-gradient(135deg, var(--header-start), var(--header-end));
+      color: var(--on-primary);
+      min-height: 56px;
+      display: flex; align-items: center; gap: 4px;
+      padding: 10px 8px;
+      z-index: 2;
+    }
+    .topbar .icon-btn {
+      border: 0; background: transparent; color: inherit;
+      min-width: 44px; height: 44px; cursor: pointer; font-size: 15px; font-weight: 600;
+      font-family: inherit;
+    }
+    .topbar .back { font-size: 22px; }
+    .topbar .title {
+      flex: 1; font-size: var(--nav-title); font-weight: 600; text-align: center;
+    }
+    .screen { display: none; flex-direction: column; flex: 1; min-height: 0; }
+    .screen.active { display: flex; }
+    .seg {
+      display: flex; margin: 0; padding: 0 16px;
+      background: var(--card); border-bottom: 1px solid var(--border);
+    }
+    .seg button {
+      flex: 1; border: 0; border-radius: 0; padding: 12px 6px;
+      font-size: var(--label); font-weight: 500; background: transparent;
+      color: var(--muted); cursor: pointer; font-family: inherit;
+      border-bottom: 2px solid transparent;
+    }
+    .seg button.on {
+      color: var(--primary); font-weight: 600;
+      border-bottom-color: var(--primary);
+    }
+    .chip-row {
+      padding: 8px 16px 0; display: none; gap: 8px; flex-wrap: wrap;
+    }
+    .chip-row.show { display: flex; }
+    .chip {
+      font-size: 12px; padding: 4px 10px; border-radius: 999px;
+      background: #E8F4FA; color: #086A9A; border: 1px solid #B8DDF0;
+    }
+    .content { flex: 1; overflow: auto; padding: 12px 0 28px; }
+    .rich-card {
+      background: var(--card); border-radius: var(--radius-card); margin: 0 16px 12px;
+      overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,.10); cursor: pointer;
+    }
+    .rc-main { display: flex; align-items: flex-start; gap: 12px; padding: 14px; }
+    .rc-body { flex: 1; min-width: 0; }
+    .rc-title { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+    .rc-line {
+      font-size: var(--label); color: var(--muted); margin-bottom: 4px; line-height: 1.35;
+    }
+    .rc-time { font-size: var(--label); color: #9aa0a6; margin-top: 8px; }
+    .rc-thumb {
+      width: 56px; height: 56px; border-radius: 8px; flex-shrink: 0;
+      background: linear-gradient(145deg, #cbd5e1, #94a3b8);
+    }
+    .rc-thumb.alt { background: linear-gradient(145deg, #94a3b8, #64748b); }
+    .rc-status {
+      padding: 10px 14px; font-size: var(--label); font-weight: 650;
+      color: #1B5E20; border-top: 1px solid rgba(0,0,0,.08);
+      display: flex; justify-content: space-between; gap: 8px;
+    }
+    .badge {
+      display: inline-block; font-size: 11px; font-weight: 600;
+      padding: 2px 8px; border-radius: 6px; background: #E8F5E9; color: #1B5E20;
+    }
+    .badge.warn { background: #FFF3E0; color: #E65100; }
+    .empty {
+      text-align: center; padding: 48px 24px; color: var(--muted);
+    }
+    .empty h3 { color: var(--on-surface); font-size: 16px; margin: 0 0 8px; }
+    .empty p { margin: 0; font-size: var(--label); line-height: 1.45; }
+    .detail-hero {
+      padding: 16px; background: var(--card); border-bottom: 1px solid var(--border);
+    }
+    .detail-hero .name { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+    .detail-hero .code { font-size: var(--label); color: var(--muted); }
+    .detail-rows { padding: 8px 0 16px; }
+    .d-row {
+      display: flex; justify-content: space-between; gap: 12px;
+      padding: 12px 16px; border-bottom: 1px solid var(--border);
+      font-size: var(--field);
+    }
+    .d-row .k { color: var(--muted); font-size: var(--label); min-width: 110px; }
+    .d-row .v { text-align: right; font-weight: 500; }
+    .footer-cta {
+      padding: 12px 16px 20px; background: var(--card);
+      border-top: 1px solid var(--border);
+    }
+    .btn-primary {
+      width: 100%; border: 0; border-radius: var(--radius-control);
+      min-height: var(--control-h); font-size: var(--field); font-weight: 600;
+      background: var(--primary); color: var(--on-primary); cursor: pointer;
+      font-family: inherit;
+    }
+    .sheet-mask {
+      display: none; position: absolute; inset: 0; background: rgba(0,0,0,.4);
+      z-index: 10; align-items: flex-end;
+    }
+    .sheet-mask.open { display: flex; }
+    .sheet {
+      width: 100%; background: var(--card); border-radius: 20px 20px 0 0;
+      padding: 16px 16px 24px;
+    }
+    .sheet h2 { margin: 0 0 14px; font-size: 18px; }
+    .field { margin-bottom: 12px; }
+    .field label {
+      display: block; font-size: var(--label); color: var(--muted); margin-bottom: 6px;
+    }
+    .field input, .field select {
+      width: 100%; min-height: var(--control-h); font-size: var(--field);
+      border: 1px solid var(--border); border-radius: var(--radius-control);
+      padding: 0 12px; font-family: inherit; background: #fff;
+    }
+    .sheet-actions { display: flex; gap: 8px; margin-top: 8px; }
+    .btn-ghost {
+      flex: 1; border: 1px solid var(--border); background: #fff;
+      border-radius: var(--radius-control); min-height: var(--control-h);
+      font-size: var(--field); font-weight: 600; cursor: pointer; font-family: inherit;
+    }
+    .btn-primary.flex { flex: 1; }
+    .toast {
+      display: none; position: absolute; left: 16px; right: 16px; bottom: 24px;
+      background: #323232; color: #fff; padding: 12px 14px; border-radius: 10px;
+      font-size: 13px; z-index: 20; text-align: center;
+    }
+    .toast.show { display: block; }
+  </style>
+</head>
+<body>
+  <div class="meta">
+    web-rmms-supervise · phone ≤430 · DES-MOB-SUPERVISE / DES-MOB-SUP-DETAIL<br />
+    reviewUrl · zones SUP-00…08 · live GET only · cấm demo SSOT · cấm POST
+  </div>
+  <div class="board-nav" id="boardNav">
+    <button type="button" data-state="list" class="active">List</button>
+    <button type="button" data-state="empty">Empty</button>
+    <button type="button" data-state="filter">Filter</button>
+    <button type="button" data-state="detail">Detail</button>
+  </div>
+
+  <div class="phone" id="phone" data-zone="SUP-00">
+    <!-- LIST -->
+    <section class="screen active" id="sc-list" data-zone="SUP-01">
+      <header class="topbar">
+        <button type="button" class="icon-btn back" aria-label="Back" id="btnBackList">‹</button>
+        <div class="title">Giám sát tuần đường</div>
+        <button type="button" class="icon-btn" id="btnFilter" aria-label="Lọc">Lọc</button>
+      </header>
+      <div class="seg" data-zone="SUP-03" role="tablist">
+        <button type="button" class="on" id="segList" role="tab">Danh sách check in</button>
+        <button type="button" id="segMap" role="tab">Bản đồ</button>
+      </div>
+      <div class="chip-row" id="chipRow" data-zone="SUP-02">
+        <span class="chip" id="chipText">Tuyến · Ngày</span>
+      </div>
+      <div class="content" id="listContent" data-zone="SUP-04">
+        <article class="rich-card" data-id="1" tabindex="0">
+          <div class="rc-main">
+            <div class="rc-body">
+              <div class="rc-title">Nguyễn Văn A</div>
+              <div class="rc-line">Tổ tuần đường · VP-IV.1</div>
+              <div class="rc-line">QL.1 Km 1556+000</div>
+              <div class="rc-time">2026-08-10 08:40:12</div>
+            </div>
+            <div class="rc-thumb" aria-hidden="true"></div>
+          </div>
+          <div class="rc-status">
+            <span>Trạng thái: Đã ghi điểm tuần</span>
+            <span class="badge">Trong vùng</span>
+          </div>
+        </article>
+        <article class="rich-card" data-id="2" tabindex="0">
+          <div class="rc-main">
+            <div class="rc-body">
+              <div class="rc-title">Trần Khánh</div>
+              <div class="rc-line">Chi cục II.2</div>
+              <div class="rc-line">QL.1 Km 1561+134</div>
+              <div class="rc-time">2026-08-10 09:12:44</div>
+            </div>
+            <div class="rc-thumb alt" aria-hidden="true"></div>
+          </div>
+          <div class="rc-status">
+            <span>Trạng thái: Đã ghi điểm tuần</span>
+            <span class="badge warn">Ngoài vùng</span>
+          </div>
+        </article>
+      </div>
+      <div class="content" id="emptyContent" hidden data-zone="SUP-07">
+        <div class="empty">
+          <h3>Không có check-in</h3>
+          <p>GET live trả về [] · không dùng demo SSOT.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- DETAIL -->
+    <section class="screen" id="sc-detail" data-zone="SUP-05">
+      <header class="topbar">
+        <button type="button" class="icon-btn back" id="btnBackDetail" aria-label="Back">‹</button>
+        <div class="title">Chi tiết giám sát</div>
+        <span class="icon-btn" aria-hidden="true"></span>
+      </header>
+      <div class="detail-hero">
+        <div class="name" id="dName">Nguyễn Văn A</div>
+        <div class="code" id="dCode">Mã: ATT-001</div>
+      </div>
+      <div class="detail-rows" data-zone="SUP-06">
+        <div class="d-row"><span class="k">Tổ / Ghi chú</span><span class="v" id="dOrg">Tổ tuần đường · VP-IV.1</span></div>
+        <div class="d-row"><span class="k">Tuyến · Km</span><span class="v" id="dRoute">QL.1 · 1556</span></div>
+        <div class="d-row"><span class="k">Thời điểm</span><span class="v" id="dTime">2026-08-10 08:40:12</span></div>
+        <div class="d-row"><span class="k">Trạng thái</span><span class="v"><span class="badge">Đã ghi điểm tuần</span></span></div>
+        <div class="d-row"><span class="k">Tọa độ</span><span class="v" id="dGeo">10.123456 · 106.654321</span></div>
+        <div class="d-row"><span class="k">Trong vùng</span><span class="v"><span class="badge">Có</span></span></div>
+      </div>
+      <div class="footer-cta">
+        <button type="button" class="btn-primary" id="btnMap">Xem trên bản đồ</button>
+      </div>
+    </section>
+
+    <!-- FILTER SHEET -->
+    <div class="sheet-mask" id="sheetMask" data-zone="SUP-02">
+      <div class="sheet" role="dialog" aria-labelledby="sheetTitle">
+        <h2 id="sheetTitle">Lọc</h2>
+        <div class="field">
+          <label for="filterRoute">Tuyến</label>
+          <input id="filterRoute" type="text" placeholder="VD: QL.1" autocomplete="off" />
+        </div>
+        <div class="field">
+          <label for="filterDay">Ngày</label>
+          <input id="filterDay" type="date" value="2026-08-10" />
+        </div>
+        <div class="sheet-actions">
+          <button type="button" class="btn-ghost" id="btnClearFilter">Xóa lọc</button>
+          <button type="button" class="btn-primary flex" id="btnApplyFilter">Áp dụng</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast" role="status"></div>
+  </div>
+
+  <script>
+    (function () {
+      var params = new URLSearchParams(location.search);
+      var scList = document.getElementById("sc-list");
+      var scDetail = document.getElementById("sc-detail");
+      var listContent = document.getElementById("listContent");
+      var emptyContent = document.getElementById("emptyContent");
+      var sheetMask = document.getElementById("sheetMask");
+      var chipRow = document.getElementById("chipRow");
+      var chipText = document.getElementById("chipText");
+      var toast = document.getElementById("toast");
+      var filterRoute = document.getElementById("filterRoute");
+      var filterDay = document.getElementById("filterDay");
+      var toastTimer;
+
+      function showToast(msg) {
+        toast.textContent = msg;
+        toast.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () { toast.classList.remove("show"); }, 1800);
+      }
+
+      function setBoard(state) {
+        document.querySelectorAll("#boardNav button").forEach(function (b) {
+          b.classList.toggle("active", b.getAttribute("data-state") === state);
+        });
+      }
+
+      function showList() {
+        scList.classList.add("active");
+        scDetail.classList.remove("active");
+      }
+
+      function showDetail() {
+        scList.classList.remove("active");
+        scDetail.classList.add("active");
+        sheetMask.classList.remove("open");
+      }
+
+      function setEmpty(on) {
+        listContent.hidden = on;
+        emptyContent.hidden = !on;
+      }
+
+      function openSheet() {
+        showList();
+        sheetMask.classList.add("open");
+      }
+
+      function closeSheet() {
+        sheetMask.classList.remove("open");
+      }
+
+      function applyFilter() {
+        var route = (filterRoute.value || "").trim();
+        var day = filterDay.value || "";
+        if (route || day) {
+          chipText.textContent = [route || "Tất cả tuyến", day || "Tất cả ngày"].join(" · ");
+          chipRow.classList.add("show");
+        } else {
+          chipRow.classList.remove("show");
+        }
+        closeSheet();
+        setEmpty(false);
+        setBoard("list");
+        // Prototype: no fake success toast — live GET only in app
+      }
+
+      function clearFilter() {
+        filterRoute.value = "";
+        filterDay.value = "";
+        chipRow.classList.remove("show");
+        closeSheet();
+        setEmpty(false);
+        setBoard("list");
+      }
+
+      function applyState(state) {
+        setBoard(state);
+        if (state === "empty") {
+          showList();
+          closeSheet();
+          setEmpty(true);
+          return;
+        }
+        if (state === "filter") {
+          showList();
+          setEmpty(false);
+          openSheet();
+          return;
+        }
+        if (state === "detail") {
+          setEmpty(false);
+          showDetail();
+          return;
+        }
+        showList();
+        closeSheet();
+        setEmpty(false);
+      }
+
+      document.getElementById("boardNav").addEventListener("click", function (e) {
+        var btn = e.target.closest("button[data-state]");
+        if (!btn) return;
+        var state = btn.getAttribute("data-state");
+        var url = new URL(location.href);
+        url.search = state === "list" ? "" : "?" + state + "=1";
+        history.replaceState(null, "", url);
+        applyState(state);
+      });
+
+      document.getElementById("btnFilter").addEventListener("click", openSheet);
+      document.getElementById("btnApplyFilter").addEventListener("click", applyFilter);
+      document.getElementById("btnClearFilter").addEventListener("click", clearFilter);
+      sheetMask.addEventListener("click", function (e) {
+        if (e.target === sheetMask) closeSheet();
+      });
+
+      document.getElementById("segMap").addEventListener("click", function () {
+        document.getElementById("segList").classList.add("on");
+        document.getElementById("segMap").classList.remove("on");
+        showToast("Nav → /patrol-map (sibling · Dev wire)");
+      });
+
+      document.getElementById("btnMap").addEventListener("click", function () {
+        showToast("Nav map · pass Id/Lat/Lng (RO stored)");
+      });
+
+      document.getElementById("btnBackDetail").addEventListener("click", function () {
+        applyState("list");
+        history.replaceState(null, "", location.pathname);
+      });
+
+      document.getElementById("btnBackList").addEventListener("click", function () {
+        showToast("Back → Home / Field");
+      });
+
+      listContent.addEventListener("click", function (e) {
+        var card = e.target.closest(".rich-card");
+        if (!card) return;
+        showDetail();
+        setBoard("detail");
+        history.replaceState(null, "", "?detail=1");
+      });
+
+      if (params.has("empty")) applyState("empty");
+      else if (params.has("filter")) applyState("filter");
+      else if (params.has("detail")) applyState("detail");
+      else applyState("list");
+    })();
+  </script>
+</body>
+</html>

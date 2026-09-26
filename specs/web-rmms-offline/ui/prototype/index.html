@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>web-rmms-offline — Hàng đợi offline</title>
+  <style>
+    :root {
+      --primary: #0C84C0;
+      --header-start: #086A9A;
+      --header-end: #0C84C0;
+      --warning: #FCB43C;
+      --warn-bg: rgba(252, 180, 60, 0.15);
+      --warn-text: #8a5a00;
+      --surface: #F2F2F7;
+      --card: #FFFFFF;
+      --on-primary: #FFFFFF;
+      --on-surface: #1C1C1E;
+      --muted: #8E8E93;
+      --border: #C7C7CC;
+      --radius-card: 16px;
+      --label: 13px;
+      --field: 16px;
+      --nav-title: 17px;
+      --phone-w: 430px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: #1a1a1e;
+      color: var(--on-surface);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px 8px 32px;
+    }
+    .meta {
+      max-width: var(--phone-w);
+      width: 100%;
+      color: #aaa;
+      font-size: 11px;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+    .board-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      max-width: var(--phone-w);
+      width: 100%;
+      margin-bottom: 12px;
+    }
+    .board-nav button {
+      border: 1px solid var(--border);
+      background: #2a2a2e;
+      color: #eee;
+      border-radius: 8px;
+      padding: 6px 10px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    .board-nav button.active { background: var(--primary); border-color: var(--primary); }
+    .phone {
+      width: min(100%, var(--phone-w));
+      min-height: 780px;
+      background: var(--surface);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,.45);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .topbar {
+      background: linear-gradient(135deg, var(--header-start), var(--header-end));
+      color: var(--on-primary);
+      min-height: 56px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 10px 8px;
+    }
+    .topbar .back {
+      border: 0; background: transparent; color: inherit;
+      font-size: 14px; font-weight: 500; cursor: pointer;
+      padding: 8px 10px; min-height: 44px;
+      display: inline-flex; align-items: center; gap: 2px;
+    }
+    .topbar .title {
+      flex: 1; font-size: var(--nav-title); font-weight: 600; text-align: center;
+    }
+    .topbar .sync {
+      border: 0; background: transparent; color: inherit;
+      font-size: 14px; font-weight: 600; cursor: pointer;
+      padding: 8px 12px; min-height: 44px;
+    }
+    .seg {
+      display: flex; gap: 8px; padding: 10px 14px; background: var(--surface);
+    }
+    .seg button {
+      flex: 1; border: 0; border-radius: 20px; padding: 10px 8px;
+      font-size: var(--label); font-weight: 500;
+      background: rgba(28, 28, 30, 0.08); color: var(--on-surface); cursor: pointer;
+    }
+    .seg button.on { background: var(--primary); color: #fff; font-weight: 600; }
+    .content { flex: 1; overflow: auto; padding: 8px 0 28px; }
+    .banner {
+      display: flex; align-items: flex-start; gap: 8px;
+      margin: 0 14px 12px; padding: 12px; border-radius: 12px;
+      background: var(--warn-bg); font-size: var(--label); line-height: 1.35; color: var(--warn-text);
+    }
+    .banner svg { width: 20px; height: 20px; flex-shrink: 0; margin-top: 1px; }
+    .card {
+      margin: 0 14px 12px; background: var(--card); border-radius: var(--radius-card);
+      overflow: hidden; border: 1px solid rgba(0,0,0,.04);
+      box-shadow: 0 1px 2px rgba(0,0,0,.06);
+    }
+    .card-main { display: flex; gap: 12px; padding: 12px; }
+    .thumb {
+      width: 56px; height: 56px; border-radius: 8px; flex-shrink: 0;
+      background: linear-gradient(145deg, rgba(12,132,192,.35), rgba(42,154,212,.55));
+    }
+    .thumb.alt { background: linear-gradient(145deg, #f0c27a, #c77800); }
+    .thumb.inc { background: linear-gradient(145deg, #f5a3a0, #e0554a); }
+    .body { flex: 1; min-width: 0; }
+    .card-title { font-size: var(--field); font-weight: 600; margin-bottom: 4px; }
+    .line {
+      font-size: var(--label); color: var(--muted); margin-top: 2px;
+      display: flex; align-items: center; gap: 4px;
+    }
+    .line svg { width: 14px; height: 14px; flex-shrink: 0; }
+    .status {
+      padding: 8px 12px; font-size: var(--label); font-weight: 600;
+      background: var(--warn-bg); color: #b36b00;
+    }
+    .empty {
+      margin: 48px 24px; text-align: center; color: var(--muted); font-size: 14px; line-height: 1.45;
+    }
+    .empty strong { display: block; color: var(--on-surface); font-size: 16px; margin-bottom: 6px; }
+    .hidden { display: none !important; }
+    .toast {
+      position: absolute; left: 16px; right: 16px; bottom: 28px; z-index: 20;
+      background: #322F35; color: #fff; border-radius: 10px;
+      padding: 12px 16px; font-size: 14px; display: none; text-align: center;
+    }
+    .toast.on { display: block; }
+  </style>
+</head>
+<body>
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+    <symbol id="i-chevron-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></symbol>
+    <symbol id="i-wifi-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 8l20 20M5 12.5a12 12 0 0 1 2.5-2M9.5 15.5a7 7 0 0 1 2-1M12 19h.01M16 13a4 4 0 0 1 1 1M19.5 9.5a16 16 0 0 1 1.5 2"/></symbol>
+    <symbol id="i-mappin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-4.5 7-10a7 7 0 1 0-14 0c0 5.5 7 10 7 10z"/><circle cx="12" cy="11" r="2.5"/></symbol>
+  </svg>
+
+  <div class="meta">DES-MOB-PAT-OFFLINE · OFF-00 · phone 430 · UI 1-1 Android #sc-patrol-offline · hash skip · reviewUrl prototype</div>
+  <div class="board-nav" role="tablist" aria-label="Prototype states">
+    <button type="button" class="active" data-view="list" onclick="showView('list')">OFF-00 list</button>
+    <button type="button" data-view="empty" onclick="showView('empty')">EmptyChrome</button>
+    <button type="button" data-view="offline" onclick="showView('offline')">Sync offline fail</button>
+  </div>
+
+  <div class="phone" id="sc-patrol-offline" data-des-id="DES-MOB-PAT-OFFLINE" data-screen="OFF-00" data-sync-mode="replay-checkins">
+    <div class="topbar" data-des-id="DES-MOB-PAT-OFFLINE-NAV">
+      <button class="back" type="button" id="nav-back" onclick="toast('Quay Trang Chủ / Field hub')">
+        <svg width="18" height="18" viewBox="0 0 24 24"><use href="#i-chevron-left"/></svg>
+        Trang Chủ
+      </button>
+      <div class="title" data-copy-key="offline.title">Dữ liệu lưu trữ</div>
+      <button class="sync" type="button" id="btn-sync" data-action="replay-checkins" onclick="onSync()">Đồng bộ</button>
+    </div>
+
+    <div class="seg" data-des-id="DES-MOB-PAT-OFFLINE-SEG" role="tablist">
+      <button class="on" type="button" data-seg="checkIn" data-copy-key="offline.seg.checkIn" onclick="selectSeg('checkIn')">Điểm tuần mất sóng</button>
+      <button type="button" data-seg="incident" data-copy-key="offline.seg.incident" onclick="selectSeg('incident')">Sự cố mất sóng</button>
+    </div>
+
+    <div class="content">
+      <div id="panel-list">
+        <div class="banner" id="offline-banner" data-des-id="DES-MOB-PAT-OFFLINE-BANNER">
+          <svg viewBox="0 0 24 24"><use href="#i-wifi-off"/></svg>
+          <span data-copy-key="offline.banner.weak">Tín hiệu yếu — ghi cục bộ, đồng bộ khi tín hiệu tốt</span>
+        </div>
+
+        <div id="panel-checkin">
+          <div class="card" data-des-id="DES-MOB-PAT-OFFLINE-CARD" data-kind="checkIn"
+               data-session-id="a1b2c3d4-guid"
+               data-payload="sessionId+CreatePatrolCheckInRequest"
+               data-lat="10.7769" data-lng="106.7009">
+            <div class="card-main">
+              <div class="thumb" aria-hidden="true"></div>
+              <div class="body">
+                <div class="card-title" data-copy-key="offline.card.title">Điểm tuần · Km 12+300</div>
+                <div class="line"><svg viewBox="0 0 24 24"><use href="#i-mappin"/></svg><span data-copy-key="offline.card.location">QL.1 · Km 12+300</span></div>
+                <div class="line">Nội dung: mặt đường khô</div>
+                <div class="line">2026-09-25 09:15:00</div>
+              </div>
+            </div>
+            <div class="status" data-copy-key="offline.card.status">Chờ gửi</div>
+          </div>
+          <div class="card" data-kind="checkIn" data-session-id="a1b2c3d4-guid"
+               data-payload="sessionId+CreatePatrolCheckInRequest"
+               data-lat="10.7801" data-lng="106.7052">
+            <div class="card-main">
+              <div class="thumb alt" aria-hidden="true"></div>
+              <div class="body">
+                <div class="card-title">Điểm tuần · Km 12+450</div>
+                <div class="line"><svg viewBox="0 0 24 24"><use href="#i-mappin"/></svg>QL.1 · Km 12+450</div>
+                <div class="line">2026-09-25 09:28:44</div>
+              </div>
+            </div>
+            <div class="status">Chờ gửi</div>
+          </div>
+        </div>
+
+        <div id="panel-incident" class="hidden">
+          <div class="card" data-kind="incident" data-des-id="DES-MOB-PAT-OFFLINE-CARD">
+            <div class="card-main">
+              <div class="thumb inc" aria-hidden="true"></div>
+              <div class="body">
+                <div class="card-title">Sự cố · ổ gà Km 12+310</div>
+                <div class="line"><svg viewBox="0 0 24 24"><use href="#i-mappin"/></svg>QL.1 · Km 12+310</div>
+                <div class="line">2026-09-25 09:20:11</div>
+              </div>
+            </div>
+            <div class="status">Chờ gửi</div>
+          </div>
+          <p class="line" style="margin:8px 16px;color:var(--muted)">P1: filter-only · sync không xóa incident · P2 POST incident/incidents</p>
+        </div>
+      </div>
+
+      <div id="panel-empty" class="empty hidden">
+        <strong data-copy-key="offline.empty.title">Không có dữ liệu chờ gửi</strong>
+        <span data-copy-key="offline.empty.hint">Bản ghi offline sẽ hiện ở đây khi mất sóng lúc check-in.</span>
+      </div>
+    </div>
+
+    <div class="toast" id="toast" role="status"></div>
+  </div>
+
+  <script>
+    let seg = 'checkIn';
+    let view = 'list';
+    let online = true;
+
+    function toast(msg) {
+      const el = document.getElementById('toast');
+      el.textContent = msg;
+      el.classList.add('on');
+      clearTimeout(window._t);
+      window._t = setTimeout(() => el.classList.remove('on'), 2800);
+    }
+
+    function selectSeg(kind) {
+      seg = kind;
+      document.querySelectorAll('.seg button').forEach((b) => {
+        b.classList.toggle('on', b.getAttribute('data-seg') === kind);
+      });
+      document.getElementById('panel-checkin').classList.toggle('hidden', kind !== 'checkIn');
+      document.getElementById('panel-incident').classList.toggle('hidden', kind !== 'incident');
+      if (view === 'list' && kind === 'incident') {
+        /* keep incident sample visible for review */
+      }
+    }
+
+    function showView(v) {
+      view = v;
+      online = v !== 'offline';
+      document.querySelectorAll('.board-nav button').forEach((b) => {
+        b.classList.toggle('active', b.getAttribute('data-view') === v);
+      });
+      const empty = v === 'empty';
+      document.getElementById('panel-list').classList.toggle('hidden', empty);
+      document.getElementById('panel-empty').classList.toggle('hidden', !empty);
+      document.getElementById('offline-banner').classList.toggle('hidden', empty);
+      if (v === 'offline') toast('Không có mạng — giữ hàng đợi · cấm clear');
+      if (v === 'empty') toast('EmptyChrome · pendingCount=0');
+      if (v === 'list') selectSeg(seg);
+    }
+
+    // Design annotate: list=local · sync=POST …/check-ins · clear only 2xx · GPS=stored lat/lng · no invent GET queue
+    function onSync() {
+      if (view === 'empty') {
+        toast('Không có bản ghi để đồng bộ');
+        return;
+      }
+      if (!online) {
+        toast('Đồng bộ thất bại — offline · cấm clear');
+        return;
+      }
+      if (seg === 'checkIn') {
+        toast('Đã đồng bộ 2 bản ghi · optional offline-batch RecordCount=2');
+      } else {
+        toast('Sự cố · P1 filter-only · không clear khi sync check-in');
+      }
+    }
+  </script>
+</body>
+</html>

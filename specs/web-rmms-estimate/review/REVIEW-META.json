@@ -1,0 +1,12 @@
+{
+  "feature": "web-rmms-estimate",
+  "status": "confirmed",
+  "review_confirm": "approve",
+  "taskId": "task_5c0443ff",
+  "skillVersion": "2026.09.05.03",
+  "schemaVersion": 1,
+  "contentHash": "sha256:e1c8b123ebcdfe00a047c54870cd6811ade05101504bd5480c8302ce7834373a",
+  "hashGate": "skip",
+  "autoApprove": true,
+  "updatedAt": "2026-09-26T03:40:00.000Z"
+}

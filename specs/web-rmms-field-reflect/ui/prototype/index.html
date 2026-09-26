@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>web-rmms-field-reflect — Phản ánh hiện trường FR-00…02</title>
+  <style>
+    :root {
+      --primary: #0C84C0;
+      --header-start: #086A9A;
+      --header-end: #0C84C0;
+      --danger: #F03C30;
+      --success: #3CB448;
+      --warn: #FF9500;
+      --surface: #F2F2F7;
+      --card: #FFFFFF;
+      --on-primary: #FFFFFF;
+      --on-surface: #1C1C1E;
+      --border: #C7C7CC;
+      --muted: #8E8E93;
+      --radius-card: 16px;
+      --radius-control: 12px;
+      --label: 13px;
+      --field: 16px;
+      --nav-title: 17px;
+      --control-h: 48px;
+      --phone-w: 430px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "Roboto", system-ui, sans-serif;
+      background: #1a1a1e;
+      color: var(--on-surface);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px 8px 32px;
+    }
+    .meta {
+      max-width: var(--phone-w); width: 100%;
+      color: #aaa; font-size: 11px; margin-bottom: 10px;
+      text-align: center; line-height: 1.4;
+    }
+    .board-nav {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      max-width: var(--phone-w); width: 100%; margin-bottom: 12px;
+    }
+    .board-nav button {
+      border: 1px solid #555; background: #2a2a2e; color: #eee;
+      border-radius: 8px; padding: 6px 10px; font-size: 12px; cursor: pointer;
+    }
+    .board-nav button.active { background: var(--primary); border-color: var(--primary); }
+    .phone {
+      width: min(100%, var(--phone-w));
+      min-height: 820px;
+      background: var(--surface);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,.45);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .topbar {
+      background: linear-gradient(135deg, var(--header-start), var(--header-end));
+      color: var(--on-primary);
+      min-height: 56px;
+      display: flex; align-items: center; gap: 4px;
+      padding: 10px 8px;
+      z-index: 2;
+    }
+    .topbar .back {
+      border: 0; background: transparent; color: inherit;
+      width: 44px; height: 44px; cursor: pointer; font-size: 22px;
+    }
+    .topbar .title {
+      flex: 1; font-size: var(--nav-title); font-weight: 600;
+      text-align: center; padding-right: 44px;
+    }
+    .content { flex: 1; overflow: auto; padding: 12px 14px 28px; }
+    .screen { display: none; flex-direction: column; flex: 1; min-height: 0; }
+    .screen.active { display: flex; }
+    .zone-tag {
+      font-size: 10px; color: var(--muted); letter-spacing: .04em;
+      text-transform: uppercase; margin: 0 0 8px; font-weight: 600;
+    }
+    .section-label {
+      font-size: var(--label); color: var(--muted); margin: 12px 0 8px; font-weight: 600;
+    }
+    .asset-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;
+    }
+    .asset-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius-card); padding: 14px 12px; text-align: left;
+      cursor: pointer; min-height: 88px;
+    }
+    .asset-card .code { font-size: 11px; color: var(--primary); font-weight: 700; }
+    .asset-card .name { font-size: var(--field); font-weight: 600; margin-top: 4px; }
+    .asset-picked {
+      background: #E8F6FC; border-radius: 12px; padding: 10px 12px;
+      font-size: var(--label); margin-bottom: 10px; display: flex; justify-content: space-between; gap: 8px;
+    }
+    .asset-picked button {
+      border: 0; background: transparent; color: var(--primary); font-size: 12px; cursor: pointer;
+    }
+    .kind-pills { display: flex; gap: 8px; margin-bottom: 10px; }
+    .kind-pills button {
+      flex: 1; border: 0; border-radius: 20px; padding: 10px 6px;
+      font-family: inherit; font-weight: 650; font-size: 13px; cursor: pointer;
+      background: var(--card); color: var(--on-surface); min-height: 40px;
+    }
+    .kind-pills button.on { background: var(--primary); color: #fff; }
+    .photo-row { display: flex; gap: 10px; overflow-x: auto; margin-bottom: 10px; }
+    .photo-slot {
+      width: 88px; height: 88px; flex-shrink: 0; border-radius: 12px; background: var(--card);
+      border: 1.5px dashed var(--border); display: grid; place-items: center; color: var(--primary);
+      font-size: 13px; font-weight: 600; cursor: pointer;
+    }
+    .photo-slot.filled {
+      border: 0; background: linear-gradient(135deg, #5ac8fa, #0C84C0); color: #fff;
+    }
+    .card-group {
+      background: var(--card); border-radius: var(--radius-card); overflow: hidden; margin-bottom: 10px;
+      border: 1px solid var(--border);
+    }
+    .row {
+      padding: 12px 14px; border-bottom: 1px solid rgba(60,60,67,.12);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .row:last-child { border-bottom: 0; }
+    .row-body { flex: 1; min-width: 0; }
+    .row-sub { font-size: var(--label); color: var(--muted); }
+    .row-title { font-size: var(--field); font-weight: 600; margin-top: 2px; }
+    .badge {
+      font-size: 12px; font-weight: 650; padding: 4px 8px; border-radius: 8px; flex-shrink: 0;
+      background: rgba(255,149,0,.18); color: #c93400;
+    }
+    .gps-chip {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #E8F6FC; color: var(--primary); border-radius: 8px;
+      padding: 6px 10px; font-size: 12px; font-weight: 600;
+    }
+    .gps-chip.deny { background: #FDECEA; color: var(--danger); }
+    .chk-list { background: var(--card); border-radius: var(--radius-card); overflow: hidden; border: 1px solid var(--border); }
+    .chk-row {
+      display: flex; align-items: center; gap: 10px;
+      padding: 12px 14px; font-size: 15px; cursor: pointer;
+      border-bottom: 1px solid rgba(60,60,67,.12);
+    }
+    .chk-row:last-child { border-bottom: 0; }
+    .chk-k { font-size: 12px; font-weight: 700; color: var(--primary); min-width: 42px; text-transform: uppercase; }
+    select, textarea {
+      width: 100%; border: 1px solid var(--border); border-radius: var(--radius-control);
+      padding: 12px; font-size: var(--field); font-family: inherit; background: var(--card);
+      min-height: var(--control-h);
+    }
+    textarea { min-height: 88px; resize: vertical; }
+    .actions { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; }
+    .btn {
+      border: 0; border-radius: var(--radius-control); min-height: var(--control-h);
+      font-size: var(--field); font-weight: 600; cursor: pointer; font-family: inherit;
+    }
+    .btn:disabled { opacity: .45; cursor: not-allowed; }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-secondary { background: var(--card); color: var(--primary); border: 1px solid var(--primary); }
+    .btn-detect { background: #E8F6FC; color: var(--primary); border: 1px solid #B8E0F2; }
+    .banner {
+      display: none; background: #FFF8E8; color: #8A6A00; border-radius: 12px;
+      padding: 10px 12px; font-size: 13px; margin-bottom: 10px; line-height: 1.4;
+    }
+    .banner.show { display: block; }
+    .toast {
+      position: absolute; left: 12px; right: 12px; bottom: 20px;
+      background: #2c2c2e; color: #fff; border-radius: 12px; padding: 10px 14px;
+      font-size: 13px; display: none; z-index: 40;
+    }
+    .toast.show { display: block; }
+    .overlay {
+      display: none; position: absolute; inset: 0; z-index: 50;
+      background: #0a0a0c; color: #fff; flex-direction: column;
+    }
+    .overlay.show { display: flex; }
+    .overlay-top {
+      display: flex; align-items: center; padding: 12px 8px; gap: 4px;
+      background: rgba(0,0,0,.55);
+    }
+    .overlay-top .back {
+      border: 0; background: transparent; color: #fff; width: 44px; height: 44px;
+      font-size: 22px; cursor: pointer;
+    }
+    .overlay-top .title { flex: 1; font-size: 16px; font-weight: 600; }
+    .viewfinder {
+      flex: 1; margin: 16px; border-radius: 16px;
+      background: linear-gradient(160deg, #2a3a44, #0C84C0 60%, #1a1a1e);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,.85); font-size: 14px; text-align: center; padding: 20px;
+    }
+    .overlay-meta {
+      padding: 0 16px 12px; font-size: 12px; color: #bbb; line-height: 1.45;
+    }
+    .overlay-actions { padding: 12px 16px 24px; display: flex; gap: 10px; }
+    .overlay-actions .btn { flex: 1; }
+    .modal {
+      display: none; position: absolute; inset: 0; z-index: 60;
+      background: rgba(0,0,0,.45); align-items: flex-end; justify-content: center;
+    }
+    .modal.show { display: flex; }
+    .modal-card {
+      width: 100%; background: var(--card); border-radius: 20px 20px 0 0;
+      padding: 20px 16px 24px; color: var(--on-surface);
+    }
+    .modal-card h3 { margin: 0 0 8px; font-size: 18px; }
+    .modal-card p { margin: 0 0 16px; font-size: 14px; color: var(--muted); line-height: 1.45; }
+    .modal-actions { display: flex; gap: 8px; }
+  </style>
+</head>
+<body>
+  <div class="meta">
+    web-rmms-field-reflect · FR-00 pick · FR-01 form · FR-02 capture · phone 430<br />
+    Live: sessions · asset-types · uploads/files · detect · POST incidents · GPS HARD · DES-GRID N/A
+  </div>
+  <nav class="board-nav" aria-label="Prototype modes">
+    <button type="button" class="active" data-mode="default">Default</button>
+    <button type="button" data-mode="form">Form ready</button>
+    <button type="button" data-mode="capture">FR-02 capture</button>
+    <button type="button" data-mode="deny">GPS deny</button>
+    <button type="button" data-mode="empty">No session</button>
+    <button type="button" data-mode="acc">Accuracy &gt;30</button>
+  </nav>
+
+  <div class="phone" id="phone" data-feature="web-rmms-field-reflect" data-phone-frame="430">
+    <!-- FR-00 -->
+    <section class="screen active" id="sc-fr00" data-des-id="FR-00">
+      <header class="topbar">
+        <button type="button" class="back" id="backPick" aria-label="Back">‹</button>
+        <div class="title" data-copy-key="reflect.pick.title">Chọn loại tài sản</div>
+      </header>
+      <div class="content">
+        <p class="zone-tag">FR-00 · LookupGrid asset-types</p>
+        <div class="section-label" data-copy-key="reflect.pick.section">Loại tài sản (GET integration/asset-types)</div>
+        <div class="asset-grid" id="assetGrid" data-action="assetPick">
+          <button type="button" class="asset-card" data-code="PAVEMENT" data-label="Mặt đường">
+            <div class="code">PAVEMENT</div>
+            <div class="name">Mặt đường</div>
+          </button>
+          <button type="button" class="asset-card" data-code="BRIDGE" data-label="Cầu">
+            <div class="code">BRIDGE</div>
+            <div class="name">Cầu</div>
+          </button>
+          <button type="button" class="asset-card" data-code="SIGN" data-label="Biển báo">
+            <div class="code">SIGN</div>
+            <div class="name">Biển báo</div>
+          </button>
+          <button type="button" class="asset-card" data-code="DRAIN" data-label="Thoát nước">
+            <div class="code">DRAIN</div>
+            <div class="name">Thoát nước</div>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- FR-01 -->
+    <section class="screen" id="sc-fr01" data-des-id="FR-01">
+      <header class="topbar">
+        <button type="button" class="back" id="backForm" aria-label="Back">‹</button>
+        <div class="title" data-copy-key="reflect.title">Phản ánh hiện trường</div>
+      </header>
+      <div class="content">
+        <p class="zone-tag">FR-01 · form phản ánh</p>
+        <div class="banner" id="bannerEmpty" data-action="emptyNoSession">Không có ca đang tuần — vẫn lưu nháp; Create gắn Route bị chặn.</div>
+
+        <div class="asset-picked" id="assetCard" data-action="assetCard">
+          <span><strong id="assetLabel">Mặt đường</strong> · PAVEMENT</span>
+          <button type="button" id="changeAsset" data-copy-key="reflect.asset.change">Đổi</button>
+        </div>
+
+        <div class="section-label" data-copy-key="reflect.kind.label">Loại phản ánh</div>
+        <div class="kind-pills" data-action="kind" data-des="DES-MOB-FIELD-KIND">
+          <button type="button" class="on" data-kind="hu">Hư</button>
+          <button type="button" data-kind="mat">Mất</button>
+          <button type="button" data-kind="hong">Hỏng</button>
+        </div>
+
+        <div class="section-label" data-copy-key="reflect.photos.label">Ảnh hiện trường</div>
+        <div class="photo-row" data-action="photos">
+          <button type="button" class="photo-slot" id="photoAdd" title="Mở capture">📷</button>
+          <div class="photo-slot filled" id="photoFilled" style="display:none">Ảnh</div>
+        </div>
+        <button type="button" class="btn btn-detect" id="btnDetect" data-action="detect" style="width:100%;margin-bottom:10px">Nhận diện (ai-vision/detect · GPS≤30m)</button>
+
+        <div class="card-group">
+          <div class="row" data-action="detectionHint">
+            <div class="row-body">
+              <div class="row-sub" data-copy-key="reflect.detect.label">Nhận diện</div>
+              <div class="row-title" id="detectValue">—</div>
+            </div>
+          </div>
+          <div class="row" data-action="sessionStamp">
+            <div class="row-body">
+              <div class="row-sub" data-copy-key="reflect.session.label">Ca / tuyến</div>
+              <div class="row-title" id="sessionValue">QL.1 · Km 1556+040 · Tuần đường</div>
+            </div>
+          </div>
+          <div class="row" data-action="gpsLock">
+            <div class="row-body">
+              <div class="row-sub" data-copy-key="reflect.gps.label">GPS</div>
+              <div class="row-title"><span class="gps-chip" id="gpsChip">Đã chốt · ±4 m</span></div>
+            </div>
+          </div>
+          <div class="row" data-action="severity">
+            <div class="row-body">
+              <div class="row-sub" data-copy-key="reflect.severity.label">Mức</div>
+              <select id="severitySelect" aria-label="Severity">
+                <option value="high">Cao</option>
+                <option value="medium" selected>Trung bình</option>
+                <option value="low">Thấp</option>
+              </select>
+            </div>
+            <span class="badge" id="sevBadge">TB</span>
+          </div>
+        </div>
+
+        <div class="section-label" data-copy-key="reflect.chk.label">Checklist theo loại tài sản</div>
+        <div class="chk-list" data-action="checklist">
+          <label class="chk-row"><input type="checkbox" /> <span class="chk-k">hư</span> Ổ gà</label>
+          <label class="chk-row"><input type="checkbox" /> <span class="chk-k">hư</span> Nứt dọc / ngang</label>
+          <label class="chk-row"><input type="checkbox" /> <span class="chk-k">hỏng</span> Bong tróc mặt</label>
+          <label class="chk-row"><input type="checkbox" /> <span class="chk-k">hỏng</span> Mờ vạch sơn</label>
+        </div>
+
+        <div class="section-label" data-copy-key="reflect.desc.label">Mô tả</div>
+        <textarea id="description" data-action="description" data-copy-key="reflect.desc.placeholder" placeholder="Mô tả thêm (copy key)…"></textarea>
+
+        <div class="actions">
+          <button type="button" class="btn btn-primary" id="btnCreate" data-action="create">Tạo vấn đề</button>
+          <button type="button" class="btn btn-secondary" id="btnDraft" data-action="draftOffline">Lưu nháp mất sóng</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- FR-02 overlay -->
+    <div class="overlay" id="sc-fr02" data-des-id="FR-02" role="dialog" aria-label="Capture photo-geo">
+      <div class="overlay-top">
+        <button type="button" class="back" id="closeCapture" aria-label="Close">‹</button>
+        <div class="title" data-copy-key="reflect.capture.title">Chụp ảnh có tọa độ</div>
+      </div>
+      <div class="viewfinder">Viewfinder · peer photo-geo<br />GPS gate trước shutter</div>
+      <div class="overlay-meta" id="captureMeta">Lat/Lng + accuracy · purpose=photo-geo-capture · files/init→object→commit</div>
+      <div class="overlay-actions">
+        <button type="button" class="btn btn-secondary" id="cancelCapture" style="color:#fff;background:#333;border-color:#555">Hủy</button>
+        <button type="button" class="btn btn-primary" id="shutter">Chụp</button>
+      </div>
+    </div>
+
+    <!-- GPS deny modal -->
+    <div class="modal" id="modalGps" data-des="DES-MOB-GPS-DENY">
+      <div class="modal-card">
+        <h3 data-copy-key="reflect.gps.deny.title">Định vị bị tắt</h3>
+        <p data-copy-key="reflect.gps.deny.body">Cần vị trí để gắn GPS / nhận diện. Mở Cài đặt → Quyền vị trí cho RMMS. <strong>Cấm</strong> fake coords.</p>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" id="gpsLater">Để sau</button>
+          <button type="button" class="btn btn-primary" id="gpsSettings">Mở Cài đặt</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast" role="status"></div>
+  </div>
+
+  <script>
+    (function () {
+      var state = {
+        screen: "pick",
+        asset: null,
+        gps: "ok",
+        accuracy: 4,
+        hasPhoto: false,
+        session: "loaded",
+        kind: "hu"
+      };
+      var toastEl = document.getElementById("toast");
+      var toastTimer;
+
+      function showToast(msg) {
+        toastEl.textContent = msg;
+        toastEl.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () { toastEl.classList.remove("show"); }, 2400);
+      }
+
+      function setScreen(name) {
+        state.screen = name;
+        document.getElementById("sc-fr00").classList.toggle("active", name === "pick");
+        document.getElementById("sc-fr01").classList.toggle("active", name === "form");
+        document.getElementById("sc-fr02").classList.toggle("show", name === "capture");
+      }
+
+      function applyGpsUi() {
+        var chip = document.getElementById("gpsChip");
+        var create = document.getElementById("btnCreate");
+        var detect = document.getElementById("btnDetect");
+        var shutter = document.getElementById("shutter");
+        if (state.gps === "deny") {
+          chip.textContent = "Chưa cấp quyền";
+          chip.className = "gps-chip deny";
+          create.disabled = true;
+          detect.disabled = true;
+          shutter.disabled = true;
+        } else if (state.accuracy > 30) {
+          chip.textContent = "±" + state.accuracy + " m · chặn Detect";
+          chip.className = "gps-chip deny";
+          create.disabled = false;
+          detect.disabled = true;
+          shutter.disabled = false;
+        } else {
+          chip.textContent = "Đã chốt · ±" + state.accuracy + " m";
+          chip.className = "gps-chip";
+          create.disabled = false;
+          detect.disabled = !state.hasPhoto;
+          shutter.disabled = false;
+        }
+      }
+
+      function applySessionUi() {
+        var banner = document.getElementById("bannerEmpty");
+        var sess = document.getElementById("sessionValue");
+        if (state.session === "empty") {
+          banner.classList.add("show");
+          sess.textContent = "—";
+        } else {
+          banner.classList.remove("show");
+          sess.textContent = "QL.1 · Km 1556+040 · Tuần đường";
+        }
+      }
+
+      function setMode(mode) {
+        document.querySelectorAll(".board-nav button").forEach(function (b) {
+          b.classList.toggle("active", b.getAttribute("data-mode") === mode);
+        });
+        document.getElementById("modalGps").classList.remove("show");
+        state.gps = "ok";
+        state.accuracy = 4;
+        state.session = "loaded";
+        state.hasPhoto = false;
+        document.getElementById("photoFilled").style.display = "none";
+        document.getElementById("detectValue").textContent = "—";
+
+        if (mode === "default") {
+          setScreen("pick");
+        } else if (mode === "form") {
+          state.asset = { code: "PAVEMENT", label: "Mặt đường" };
+          document.getElementById("assetLabel").textContent = "Mặt đường";
+          setScreen("form");
+        } else if (mode === "capture") {
+          state.asset = { code: "PAVEMENT", label: "Mặt đường" };
+          setScreen("capture");
+        } else if (mode === "deny") {
+          state.asset = { code: "PAVEMENT", label: "Mặt đường" };
+          state.gps = "deny";
+          setScreen("form");
+          document.getElementById("modalGps").classList.add("show");
+        } else if (mode === "empty") {
+          state.asset = { code: "PAVEMENT", label: "Mặt đường" };
+          state.session = "empty";
+          setScreen("form");
+          showToast("Không có ca đang tuần");
+        } else if (mode === "acc") {
+          state.asset = { code: "PAVEMENT", label: "Mặt đường" };
+          state.hasPhoto = true;
+          state.accuracy = 48;
+          document.getElementById("photoFilled").style.display = "grid";
+          setScreen("form");
+          showToast("Accuracy >30 m — không POST detect");
+        }
+
+        applyGpsUi();
+        applySessionUi();
+        var q = mode === "default" ? "" : "?" + (
+          mode === "form" ? "form=1" :
+          mode === "capture" ? "capture=1" :
+          mode === "deny" ? "deny=1" :
+          mode === "empty" ? "empty=1" : "acc=1"
+        );
+        if (history.replaceState) history.replaceState(null, "", location.pathname + q);
+      }
+
+      document.querySelectorAll(".board-nav button").forEach(function (btn) {
+        btn.addEventListener("click", function () { setMode(btn.getAttribute("data-mode")); });
+      });
+
+      document.querySelectorAll("#assetGrid .asset-card").forEach(function (el) {
+        el.addEventListener("click", function () {
+          state.asset = { code: el.getAttribute("data-code"), label: el.getAttribute("data-label") };
+          document.getElementById("assetLabel").textContent = state.asset.label;
+          setScreen("form");
+          applyGpsUi();
+          applySessionUi();
+        });
+      });
+
+      document.getElementById("changeAsset").addEventListener("click", function () { setScreen("pick"); });
+      document.getElementById("backForm").addEventListener("click", function () { setScreen("pick"); });
+      document.getElementById("backPick").addEventListener("click", function () {
+        showToast("Nav → Field hub /peer web-rmms-field");
+      });
+
+      document.querySelectorAll(".kind-pills button").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          document.querySelectorAll(".kind-pills button").forEach(function (b) { b.classList.remove("on"); });
+          btn.classList.add("on");
+          state.kind = btn.getAttribute("data-kind");
+        });
+      });
+
+      function openCapture() {
+        if (state.gps === "deny") {
+          document.getElementById("modalGps").classList.add("show");
+          return;
+        }
+        setScreen("capture");
+      }
+      document.getElementById("photoAdd").addEventListener("click", openCapture);
+      document.getElementById("closeCapture").addEventListener("click", function () { setScreen("form"); });
+      document.getElementById("cancelCapture").addEventListener("click", function () { setScreen("form"); });
+      document.getElementById("shutter").addEventListener("click", function () {
+        if (state.gps === "deny") {
+          document.getElementById("modalGps").classList.add("show");
+          return;
+        }
+        state.hasPhoto = true;
+        document.getElementById("photoFilled").style.display = "grid";
+        setScreen("form");
+        applyGpsUi();
+        showToast("Đã gắn ảnh · MediaIds (files/ai-vision)");
+      });
+
+      document.getElementById("btnDetect").addEventListener("click", function () {
+        if (state.gps === "deny") {
+          document.getElementById("modalGps").classList.add("show");
+          return;
+        }
+        if (state.accuracy > 30) {
+          showToast("Accuracy >30 m — không POST detect");
+          return;
+        }
+        if (!state.hasPhoto) {
+          showToast("Cần ảnh trước khi nhận diện");
+          return;
+        }
+        document.getElementById("detectValue").textContent = "Ổ gà · Mặt đường";
+        showToast("POST ai-vision/detect OK (optional)");
+      });
+
+      document.getElementById("btnCreate").addEventListener("click", function () {
+        if (state.gps === "deny") {
+          document.getElementById("modalGps").classList.add("show");
+          return;
+        }
+        if (state.session === "empty") {
+          showToast("Không gắn Route — không có ca đang tuần");
+          return;
+        }
+        showToast("POST incident/incidents · HasGps · toast ok");
+      });
+
+      document.getElementById("btnDraft").addEventListener("click", function () {
+        showToast("Đã lưu nháp · peer web-rmms-offline");
+      });
+
+      document.getElementById("gpsLater").addEventListener("click", function () {
+        document.getElementById("modalGps").classList.remove("show");
+      });
+      document.getElementById("gpsSettings").addEventListener("click", function () {
+        document.getElementById("modalGps").classList.remove("show");
+        showToast("Mở Cài đặt vị trí (OS)");
+      });
+
+      document.getElementById("severitySelect").addEventListener("change", function () {
+        var map = { high: "Cao", medium: "TB", low: "Thấp" };
+        document.getElementById("sevBadge").textContent = map[this.value] || "TB";
+      });
+
+      var params = new URLSearchParams(location.search);
+      if (params.get("form") === "1") setMode("form");
+      else if (params.get("capture") === "1") setMode("capture");
+      else if (params.get("deny") === "1") setMode("deny");
+      else if (params.get("empty") === "1") setMode("empty");
+      else if (params.get("acc") === "1") setMode("acc");
+      else setMode("default");
+    })();
+  </script>
+</body>
+</html>

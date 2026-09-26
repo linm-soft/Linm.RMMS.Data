@@ -1,0 +1,65 @@
+{
+  "url": "http://localhost:9301/web-rmms-nghiem-thu",
+  "capturedAt": "2026-09-25T15:40:32.901Z",
+  "method": "capture_nghiemthu · MFE /login · phone 430 · S0 list · S1 Field hub NT-00 · QA-20 click→list · geo grant · dismiss overlay · no kill worker",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "href": "http://localhost:9301/web-rmms-nghiem-thu",
+      "dump": {
+        "feature": "web-rmms-nghiem-thu",
+        "zones": [
+          "NT-00",
+          "NT-04",
+          "NT-01",
+          "NT-03"
+        ],
+        "ids": [
+          "ntSearch"
+        ],
+        "text": "RMMS · Mobile Home Shell chrome Ops inbox Asset hub Asset KCHT Asset list Asset collect Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu Danh sách NT Tạo NT Alias field DS Dev Standalone Developer RMMS Mobile Nghiệm thu + Tìm kiếm Tìm kiếm ✓ NT-20260912-0002 · Nháp Cắt cỏ lề / cắt cây · KHAC QA keep row after delete Tạo nghiệm thu",
+        "href": "http://localhost:9301/web-rmms-nghiem-thu"
+      }
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "href": "http://localhost:9301/web-rmms-mobile-a",
+      "dump": {
+        "feature": "web-rmms-mobile-a",
+        "zones": [
+          "TD-00",
+          "D-00",
+          "NT-00"
+        ],
+        "ids": [],
+        "text": "RMMS · Mobile Home Shell chrome Ops inbox Asset hub Asset KCHT Asset list Asset collect Field mobile Field hub Tuần đường Mở ca Lịch sử Tuần kiểm Mở đợt Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Field Tuần đường Mở ca · check-in · lịch sử Đang tuần · QL.1-LANGSON(BOT) · TD-20260925-001 Tuần kiểm Mở đợt · theo dõi đợt đang kiểm Đợt D Kết ca · giao BDTX · sổ kiến nghị Nghiệm thu List · tạo · chi tiết phiếu NT",
+        "href": "http://localhost:9301/web-rmms-mobile-a"
+      }
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "href": "http://localhost:9301/web-rmms-nghiem-thu",
+      "dump": {
+        "feature": "web-rmms-nghiem-thu",
+        "zones": [
+          "NT-00",
+          "NT-04",
+          "NT-01",
+          "NT-03"
+        ],
+        "ids": [
+          "ntSearch"
+        ],
+        "text": "RMMS · Mobile Home Shell chrome Ops inbox Asset hub Asset KCHT Asset list Asset collect Field mobile Field hub Tuần đường Mở ca Lịch sử Tuần kiểm Mở đợt Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu Danh sách NT Tạo NT Alias field DS Dev Standalone Developer RMMS Mobile Nghiệm thu + Tìm kiếm Tìm kiếm ✓ NT-20260912-0002 · Nháp Cắt cỏ lề / cắt cây · KHAC QA keep row after delete Tạo nghiệm thu",
+        "href": "http://localhost:9301/web-rmms-nghiem-thu"
+      }
+    }
+  ],
+  "ok": true
+}

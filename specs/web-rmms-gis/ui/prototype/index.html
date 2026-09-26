@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>web-rmms-gis — Bản đồ tài sản</title>
+  <style>
+    :root {
+      --primary: #0C84C0;
+      --header-start: #086A9A;
+      --header-end: #0C84C0;
+      --danger: #F03C30;
+      --success: #3CB448;
+      --warning: #FCB43C;
+      --surface: #F2F2F7;
+      --card: #FFFFFF;
+      --on-primary: #FFFFFF;
+      --on-surface: #1C1C1E;
+      --border: #C7C7CC;
+      --muted: #8E8E93;
+      --radius-card: 16px;
+      --radius-control: 12px;
+      --label: 13px;
+      --field: 16px;
+      --nav-title: 17px;
+      --control-h: 44px;
+      --phone-w: 430px;
+      --ts: #0C84C0;
+      --sc: #F03C30;
+      --corridor: #3CB448;
+      --me: #FCB43C;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: #1a1a1e;
+      color: var(--on-surface);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px 8px 32px;
+    }
+    .board-nav {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      max-width: var(--phone-w); width: 100%; margin-bottom: 12px;
+    }
+    .board-nav button {
+      border: 1px solid var(--border); background: #2a2a2e; color: #eee;
+      border-radius: 8px; padding: 6px 10px; font-size: 12px; cursor: pointer;
+    }
+    .board-nav button.active { background: var(--primary); border-color: var(--primary); }
+    .meta {
+      max-width: var(--phone-w); width: 100%; color: #aaa; font-size: 12px; margin-bottom: 8px;
+    }
+    .phone {
+      width: min(100%, var(--phone-w));
+      height: 780px;
+      background: var(--surface);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,.45);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    /* GIS-01 top bar */
+    .topbar {
+      background: linear-gradient(135deg, var(--header-start), var(--header-end));
+      color: var(--on-primary);
+      min-height: 56px;
+      display: flex; align-items: center; gap: 4px;
+      padding: 6px 8px;
+      flex-shrink: 0;
+      z-index: 5;
+    }
+    .topbar .icon-btn {
+      width: 44px; height: 44px; border: 0; background: transparent;
+      color: inherit; font-size: 22px; cursor: pointer; border-radius: 12px;
+      display: grid; place-items: center;
+    }
+    .topbar .title {
+      flex: 1; font-size: var(--nav-title); font-weight: 600;
+      text-align: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .topbar .trail { display: flex; gap: 0; }
+    /* GIS-03 search */
+    .search-wrap {
+      padding: 8px 12px; background: var(--card); border-bottom: 1px solid var(--border);
+      flex-shrink: 0; z-index: 4;
+    }
+    .search-wrap input {
+      width: 100%; height: var(--control-h); border: 1px solid var(--border);
+      border-radius: var(--radius-control); padding: 0 14px; font-size: var(--field);
+      background: var(--surface);
+    }
+    /* GIS-04 map host */
+    .map-host {
+      flex: 1; position: relative; min-height: 0; overflow: hidden;
+      background: #d4e4ef;
+    }
+    .map-svg { width: 100%; height: 100%; display: block; }
+    .pin {
+      position: absolute; width: 28px; height: 28px; border-radius: 50% 50% 50% 0;
+      transform: rotate(-45deg) translate(-50%, -100%);
+      border: 2px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,.25);
+      cursor: pointer; z-index: 2;
+    }
+    .pin.ts { background: var(--ts); }
+    .pin.sc { background: var(--sc); }
+    .pin.focus {
+      background: var(--warning); width: 34px; height: 34px;
+      box-shadow: 0 0 0 4px rgba(252,180,60,.45);
+      z-index: 3;
+    }
+    .me-dot {
+      position: absolute; width: 16px; height: 16px; border-radius: 50%;
+      background: var(--me); border: 3px solid #fff;
+      box-shadow: 0 0 0 6px rgba(252,180,60,.28);
+      transform: translate(-50%, -50%); z-index: 3;
+    }
+    .me-dot.hidden { display: none; }
+    /* GIS-09 popup */
+    .popup {
+      position: absolute; left: 50%; top: 42%; transform: translate(-50%, -110%);
+      background: var(--card); border-radius: var(--radius-card);
+      box-shadow: 0 8px 24px rgba(0,0,0,.22); padding: 12px 14px;
+      min-width: 200px; max-width: 260px; z-index: 6; display: none;
+    }
+    .popup.show { display: block; }
+    .popup .code { font-size: 12px; color: var(--muted); margin: 0 0 2px; }
+    .popup .name { font-size: var(--field); font-weight: 650; margin: 0 0 4px; }
+    .popup .meta-line { font-size: var(--label); color: var(--muted); margin: 0 0 10px; }
+    .popup .btn {
+      width: 100%; height: 40px; border: 0; border-radius: var(--radius-control);
+      background: var(--primary); color: var(--on-primary);
+      font-size: 15px; font-weight: 600; cursor: pointer;
+    }
+    /* GIS-05 basemap + GIS-06 legend */
+    .overlay-bar {
+      position: absolute; left: 10px; right: 10px; bottom: 12px;
+      display: flex; flex-direction: column; gap: 8px; z-index: 4; pointer-events: none;
+    }
+    .overlay-bar > * { pointer-events: auto; }
+    .chip-row {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      background: rgba(255,255,255,.92); backdrop-filter: blur(8px);
+      border-radius: var(--radius-card); padding: 8px;
+      border: 1px solid var(--border);
+    }
+    .chip {
+      height: 32px; padding: 0 12px; border-radius: 999px;
+      border: 1px solid var(--border); background: var(--card);
+      font-size: 12px; font-weight: 600; cursor: pointer; color: var(--on-surface);
+    }
+    .chip.active { background: var(--primary); color: var(--on-primary); border-color: var(--primary); }
+    .chip.fit { margin-left: auto; }
+    .legend .dot {
+      display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 4px;
+    }
+    /* toast */
+    .toast {
+      position: absolute; left: 16px; right: 16px; top: 120px;
+      background: rgba(28,28,30,.92); color: #fff; border-radius: 12px;
+      padding: 12px 14px; font-size: 14px; z-index: 10;
+      display: none; text-align: center;
+    }
+    .toast.show { display: block; }
+    .empty-hint {
+      position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+      background: rgba(255,255,255,.94); border-radius: 12px; padding: 14px 18px;
+      font-size: 14px; color: var(--muted); z-index: 2; display: none;
+      border: 1px solid var(--border); text-align: center; max-width: 240px;
+    }
+    .empty-hint.show { display: block; }
+    .zone-tag {
+      position: absolute; font-size: 9px; font-weight: 700; color: rgba(255,255,255,.7);
+      background: rgba(0,0,0,.35); padding: 2px 5px; border-radius: 4px; z-index: 1;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="meta">
+    <strong>web-rmms-gis</strong> · GIS-00…09 · phone ≤430 · Android 1-1 · review prototype<br />
+    peerStdUrl: http://localhost:9301/web-rmms-gis · Mobile.Bff gis/* · <strong>cấm</strong> ERP.* / invent gis-map
+  </div>
+  <div class="board-nav" id="boardNav">
+    <button type="button" data-board="staff" class="active">Staff + GPS</button>
+    <button type="button" data-board="gpsDeny">GPS deny</button>
+    <button type="button" data-board="focus">Focus pin</button>
+    <button type="button" data-board="empty">Empty overlay</button>
+    <button type="button" data-board="layers">Layers toast</button>
+    <button type="button" data-board="err">Overlay error</button>
+  </div>
+
+  <!-- GIS-00 phone frame -->
+  <div class="phone" id="phone" data-zone="GIS-00">
+    <span class="zone-tag" style="top:4px;left:10px">GIS-00</span>
+
+    <!-- GIS-01 -->
+    <header class="topbar" data-zone="GIS-01">
+      <button type="button" class="icon-btn" id="btnBack" title="gisMap.nav.back" aria-label="Back">‹</button>
+      <div class="title" id="pageTitle">Bản đồ tài sản</div>
+      <div class="trail" data-zone="GIS-02">
+        <button type="button" class="icon-btn" id="btnList" title="gisMap.nav.list" aria-label="List">☰</button>
+        <button type="button" class="icon-btn" id="btnLayers" title="gisMap.nav.layers" aria-label="Layers">▦</button>
+      </div>
+    </header>
+
+    <!-- GIS-03 -->
+    <div class="search-wrap" data-zone="GIS-03">
+      <input type="search" id="search" placeholder="Tìm trên bản đồ…" aria-label="gisMap.search.placeholder" />
+    </div>
+
+    <!-- GIS-04 map -->
+    <div class="map-host" id="mapHost" data-zone="GIS-04">
+      <span class="zone-tag" style="top:8px;left:8px">GIS-04</span>
+      <svg class="map-svg" viewBox="0 0 430 520" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <defs>
+          <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path d="M40 0H0V40" fill="none" stroke="#b8c9d6" stroke-width="0.6"/>
+          </pattern>
+        </defs>
+        <rect width="430" height="520" fill="#c8dae8"/>
+        <rect width="430" height="520" fill="url(#grid)"/>
+        <!-- corridor polyline GIS-06 -->
+        <polyline id="corridorLine" class="corridor"
+          points="40,420 90,360 140,300 200,250 260,200 320,160 380,120"
+          fill="none" stroke="#3CB448" stroke-width="6" stroke-linecap="round" opacity="0.85"/>
+        <path d="M60,80 Q200,40 360,90" fill="none" stroke="#9bb4c6" stroke-width="18" opacity=".35"/>
+        <path d="M30,200 Q180,160 400,220" fill="none" stroke="#9bb4c6" stroke-width="14" opacity=".3"/>
+      </svg>
+
+      <!-- pins -->
+      <div class="pin ts" id="pinTs1" style="left:38%;top:48%" data-kind="ts" title="TS"></div>
+      <div class="pin ts" id="pinTs2" style="left:58%;top:36%" data-kind="ts"></div>
+      <div class="pin sc" id="pinSc1" style="left:48%;top:58%" data-kind="sc"></div>
+      <div class="pin focus hidden" id="pinFocus" style="left:62%;top:32%;display:none" data-zone="GIS-08"></div>
+      <div class="me-dot" id="meDot" style="left:44%;top:62%" data-zone="GIS-07"></div>
+
+      <div class="empty-hint" id="emptyHint">Không có lớp dữ liệu · map vẫn mở</div>
+
+      <!-- GIS-09 popup -->
+      <div class="popup" id="popup" data-zone="GIS-09">
+        <p class="code" id="popCode">TS-1042</p>
+        <p class="name" id="popName">Biển báo tốc độ</p>
+        <p class="meta-line" id="popMeta">QL.1 · Km 12+350</p>
+        <button type="button" class="btn" id="btnDetail">Xem chi tiết</button>
+      </div>
+
+      <!-- GIS-05 + GIS-06 -->
+      <div class="overlay-bar">
+        <div class="chip-row" data-zone="GIS-05">
+          <button type="button" class="chip active" data-basemap="std">Tiêu chuẩn</button>
+          <button type="button" class="chip" data-basemap="sat">Vệ tinh</button>
+          <button type="button" class="chip fit" id="btnFit">Fit</button>
+        </div>
+        <div class="chip-row legend" data-zone="GIS-06">
+          <button type="button" class="chip active" data-legend="all">Tất cả</button>
+          <button type="button" class="chip" data-legend="ts"><span class="dot" style="background:var(--ts)"></span>Tài sản</button>
+          <button type="button" class="chip" data-legend="sc"><span class="dot" style="background:var(--sc)"></span>Sự cố</button>
+          <button type="button" class="chip" data-legend="corridor"><span class="dot" style="background:var(--corridor)"></span>Hành lang</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast" role="status"></div>
+  </div>
+
+  <script>
+    (function () {
+      var toastEl = document.getElementById("toast");
+      var meDot = document.getElementById("meDot");
+      var popup = document.getElementById("popup");
+      var emptyHint = document.getElementById("emptyHint");
+      var pinFocus = document.getElementById("pinFocus");
+      var corridor = document.getElementById("corridorLine");
+      var pins = {
+        ts: [document.getElementById("pinTs1"), document.getElementById("pinTs2")],
+        sc: [document.getElementById("pinSc1")]
+      };
+      var legendMode = "all";
+      var toastTimer;
+
+      function showToast(msg) {
+        toastEl.textContent = msg;
+        toastEl.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () { toastEl.classList.remove("show"); }, 2200);
+      }
+
+      function setPinsVisible(mode) {
+        legendMode = mode;
+        pins.ts.forEach(function (p) {
+          p.style.display = (mode === "all" || mode === "ts") ? "" : "none";
+        });
+        pins.sc.forEach(function (p) {
+          p.style.display = (mode === "all" || mode === "sc") ? "" : "none";
+        });
+        corridor.style.display = (mode === "all" || mode === "corridor") ? "" : "none";
+        if (mode !== "all" && mode !== "ts" && mode !== "sc") popup.classList.remove("show");
+      }
+
+      function applyBoard(name) {
+        document.querySelectorAll(".board-nav button").forEach(function (b) {
+          b.classList.toggle("active", b.getAttribute("data-board") === name);
+        });
+        emptyHint.classList.remove("show");
+        pinFocus.style.display = "none";
+        popup.classList.remove("show");
+        meDot.classList.remove("hidden");
+        setPinsVisible("all");
+        document.querySelectorAll("[data-legend]").forEach(function (c) {
+          c.classList.toggle("active", c.getAttribute("data-legend") === "all");
+        });
+        document.getElementById("mapHost").style.background = "#d4e4ef";
+
+        if (name === "gpsDeny") {
+          meDot.classList.add("hidden");
+          showToast("GPS từ chối · map vẫn mở · không me-dot");
+        } else if (name === "focus") {
+          pinFocus.style.display = "";
+          showToast("?focus= → GET road-assets/{id} · center");
+        } else if (name === "empty") {
+          pins.ts.forEach(function (p) { p.style.display = "none"; });
+          pins.sc.forEach(function (p) { p.style.display = "none"; });
+          corridor.style.display = "none";
+          emptyHint.classList.add("show");
+          showToast("Overlay trống · toast · map mở");
+        } else if (name === "layers") {
+          showToast("Lớp (P1 toast) · GET gis/layers · sheet P2");
+        } else if (name === "err") {
+          showToast("Không tải được lớp · thử lại · cấm alert");
+        }
+      }
+
+      document.getElementById("boardNav").addEventListener("click", function (e) {
+        var btn = e.target.closest("button[data-board]");
+        if (!btn) return;
+        applyBoard(btn.getAttribute("data-board"));
+      });
+
+      document.getElementById("btnBack").addEventListener("click", function () {
+        showToast("← Hub / web-rmms-asset-hub");
+      });
+      document.getElementById("btnList").addEventListener("click", function () {
+        showToast("→ /asset/list");
+      });
+      document.getElementById("btnLayers").addEventListener("click", function () {
+        applyBoard("layers");
+      });
+      document.getElementById("btnFit").addEventListener("click", function () {
+        showToast("Fit toàn tuyến · local · no API");
+      });
+      document.getElementById("btnDetail").addEventListener("click", function () {
+        showToast("→ asset detail peer");
+      });
+
+      document.querySelectorAll("[data-basemap]").forEach(function (c) {
+        c.addEventListener("click", function () {
+          document.querySelectorAll("[data-basemap]").forEach(function (x) { x.classList.remove("active"); });
+          c.classList.add("active");
+          var sat = c.getAttribute("data-basemap") === "sat";
+          document.getElementById("mapHost").style.background = sat ? "#2a3a2e" : "#d4e4ef";
+          showToast(sat ? "Basemap vệ tinh (local)" : "Basemap tiêu chuẩn (local)");
+        });
+      });
+
+      document.querySelectorAll("[data-legend]").forEach(function (c) {
+        c.addEventListener("click", function () {
+          document.querySelectorAll("[data-legend]").forEach(function (x) { x.classList.remove("active"); });
+          c.classList.add("active");
+          setPinsVisible(c.getAttribute("data-legend"));
+        });
+      });
+
+      function openPopup(kind) {
+        if (kind === "sc") {
+          document.getElementById("popCode").textContent = "SC-221";
+          document.getElementById("popName").textContent = "Sụt lề đường";
+          document.getElementById("popMeta").textContent = "QL.1 · Km 14+020";
+        } else {
+          document.getElementById("popCode").textContent = "TS-1042";
+          document.getElementById("popName").textContent = "Biển báo tốc độ";
+          document.getElementById("popMeta").textContent = "QL.1 · Km 12+350";
+        }
+        popup.classList.add("show");
+      }
+
+      document.querySelectorAll(".pin").forEach(function (p) {
+        p.addEventListener("click", function (e) {
+          e.stopPropagation();
+          openPopup(p.getAttribute("data-kind") || "ts");
+        });
+      });
+      document.getElementById("mapHost").addEventListener("click", function () {
+        popup.classList.remove("show");
+      });
+      popup.addEventListener("click", function (e) { e.stopPropagation(); });
+
+      document.getElementById("search").addEventListener("keydown", function (e) {
+        if (e.key === "Enter") {
+          showToast("search → geojson ?search= / local · không invent API");
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

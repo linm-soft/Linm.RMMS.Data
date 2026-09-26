@@ -1,0 +1,15 @@
+{
+  "feature": "web-rmms-mnt-progress",
+  "status": "done",
+  "verdict": "PASS",
+  "review_confirm": "approve",
+  "autoApprove": true,
+  "taskId": "task_95a5dbdb",
+  "skillVersion": "2026.09.05.03",
+  "contentHash": "sha256:a7e3c91b4d2f6801e5a9b0c3d8f1472e6b5a0d9c4e1f2837a6b5c4d3e2f1098a",
+  "hashGate": "skip",
+  "writtenAt": "2026-09-26T05:51:19.743Z",
+  "findings": "specs/web-rmms-mnt-progress/review/findings.md",
+  "compact": "specs/web-rmms-mnt-progress/handoff/review-compact.md",
+  "p0": 0
+}

@@ -1,0 +1,83 @@
+{
+  "url": "http://localhost:9301/web-rmms-gis",
+  "capturedAt": "2026-09-25T17:09:35.915Z",
+  "method": "capture_gis · MFE /login · phone 430 · S0 GIS map · S1 Hub #rowGis · QA-20 click→gis · geo grant · dismiss overlay · no kill worker",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "href": "http://localhost:9301/web-rmms-gis",
+      "dump": {
+        "feature": "web-rmms-gis",
+        "zones": [
+          "GIS-00",
+          "GIS-01",
+          "GIS-02",
+          "GIS-03",
+          "GIS-04",
+          "GIS-05",
+          "GIS-06",
+          "GIS-09",
+          "GIS-07",
+          "GIS-08"
+        ],
+        "ids": [],
+        "canvas": true,
+        "text": "RMMS · Mobile Home Shell chrome Ops inbox Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Asset adjust GIS map Bản đồ tài sản Alias /gis Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Bản đồ tài sản ☰ ▦ Tiêu chuẩn Vệ tinh Fit Tất cả Tài sản Sự cố Hành lang",
+        "href": "http://localhost:9301/web-rmms-gis"
+      }
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "href": "http://localhost:9301/web-rmms-asset-hub",
+      "dump": {
+        "feature": "web-rmms-asset-hub",
+        "zones": [
+          "AH-00",
+          "AH-01",
+          "AH-02",
+          "AH-03",
+          "AH-04",
+          "AH-05",
+          "AH-06"
+        ],
+        "ids": [
+          "rowGis",
+          "navBack"
+        ],
+        "canvas": false,
+        "text": "RMMS · Mobile Home Shell chrome Ops inbox Asset hub Hub tài sản Alias /asset Asset KCHT Asset list Asset collect Asset AI + HITL Asset adjust GIS map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Hub tài sản Hồ sơ tài sản KHAC — Khác 45 loại tài sản TRA CỨU H Hạng mục assetHub.tile.kcht L Danh sách assetHub.tile.list THU THẬP + Thêm thủ công assetHub.tile.collect AI Camera AI assetHub.tile.ai QUẢN LÝ ↻ Cập nhật / bớt assetHub.tile.adjust ⌖ Xem bản đồ ›",
+        "href": "http://localhost:9301/web-rmms-asset-hub"
+      }
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "href": "http://localhost:9301/web-rmms-gis",
+      "dump": {
+        "feature": "web-rmms-gis",
+        "zones": [
+          "GIS-00",
+          "GIS-01",
+          "GIS-02",
+          "GIS-03",
+          "GIS-04",
+          "GIS-05",
+          "GIS-06",
+          "GIS-09",
+          "GIS-07",
+          "GIS-08"
+        ],
+        "ids": [],
+        "canvas": true,
+        "text": "RMMS · Mobile Home Shell chrome Ops inbox Asset hub Hub tài sản Alias /asset Asset KCHT Asset list Asset collect Asset AI + HITL Asset adjust GIS map Bản đồ tài sản Alias /gis Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Bản đồ tài sản ☰ ▦ Tiêu chuẩn Vệ tinh Fit Tất cả Tài sản Sự cố Hành lang",
+        "href": "http://localhost:9301/web-rmms-gis"
+      }
+    }
+  ],
+  "ok": true
+}

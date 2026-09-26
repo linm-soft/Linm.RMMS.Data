@@ -1,0 +1,10 @@
+{
+  "feature": "web-rmms-incident",
+  "status": "done",
+  "review_confirm": "approve",
+  "contentHash": "sha256:665f3697a399a948edb0ab14da5fc13716b477aa84b0b8e43f6ca33eb7216d2d",
+  "hashGate": "skip",
+  "taskId": "task_bc0e1942",
+  "skillVersion": "2026.09.05.03",
+  "updatedAt": "2026-09-25T21:22:07Z"
+}

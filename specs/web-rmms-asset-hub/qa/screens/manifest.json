@@ -1,0 +1,94 @@
+{
+  "url": "http://localhost:9301/web-rmms-asset-hub",
+  "capturedAt": "2026-09-25T13:25:03.149Z",
+  "method": "capture_ahub · MFE /login · phone 430 · S0 Hub · S1 Home peer · QA-20 click→Hub · no kill worker",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "href": "http://localhost:9301/web-rmms-asset-hub",
+      "dump": {
+        "feature": "web-rmms-asset-hub",
+        "mode": null,
+        "zones": [
+          "AH-00",
+          "AH-01",
+          "AH-02",
+          "AH-03",
+          "AH-04",
+          "AH-05",
+          "AH-06"
+        ],
+        "ids": [
+          "navBack",
+          "walletTitle",
+          "tileKcht",
+          "tileList",
+          "tileCollect",
+          "tileAi",
+          "tileAdjust",
+          "rowGis"
+        ],
+        "text": "RMMS · Mobile Home Shell chrome Ops inbox Asset hub Hub tài sản Alias /asset Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile DS Dev Standalone Developer RMMS Mobile ‹ Hub tài sản ↻ Hồ sơ tài sản KHAC — Khác 45 loại tài sản TRA CỨU H Hạng mục assetHub.tile.kcht L Danh sách assetHub.tile.list THU THẬP + Thêm thủ công assetHub.tile.collect AI Camera AI assetHub.tile.ai QUẢN LÝ ↻ Cập nhật / bớt assetHub.tile.adjust ⌖ Xem bản đồ ›",
+        "href": "http://localhost:9301/web-rmms-asset-hub"
+      }
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "href": "http://localhost:9301/web-rmms-home",
+      "dump": {
+        "feature": "web-rmms-home",
+        "mode": null,
+        "zones": [
+          "SH-00",
+          "HM-00",
+          "HM-06",
+          "HM-03",
+          "HM-04",
+          "HM-05",
+          "SH-01"
+        ],
+        "ids": [
+          "walletAsset"
+        ],
+        "text": "RMMS · Mobile Home Shell chrome Home → Field Incident Work Ops → Ops inbox Asset hub Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile DS Dev Standalone Developer RMMS Mobile ‹ Trang chủ 🔔 Linm Soft Admin Truy cập nhanh Điểm tuần Ghi sự cố Chức năng 👁 Giám sát 🗺 Bản đồ tuần 🛠 Công việc ⚠ Sự cố 📦 Tài sản ☁ Offline 👛 Hồ sơ tài sản Xem và quản lý tài sản 🔔 Thông báo — 🏠 Trang chủ 🛣 Hiện trường ⚠️ Sự cố 🧰 Công việc",
+        "href": "http://localhost:9301/web-rmms-home"
+      }
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "href": "http://localhost:9301/web-rmms-asset-hub",
+      "dump": {
+        "feature": "web-rmms-asset-hub",
+        "mode": null,
+        "zones": [
+          "AH-00",
+          "AH-01",
+          "AH-02",
+          "AH-03",
+          "AH-04",
+          "AH-05",
+          "AH-06"
+        ],
+        "ids": [
+          "navBack",
+          "walletTitle",
+          "tileKcht",
+          "tileList",
+          "tileCollect",
+          "tileAi",
+          "tileAdjust",
+          "rowGis"
+        ],
+        "text": "RMMS · Mobile Home Shell chrome Home → Field Incident Work Ops → Ops inbox Asset hub Hub tài sản Alias /asset Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile DS Dev Standalone Developer RMMS Mobile ‹ Hub tài sản ↻ Hồ sơ tài sản KHAC — Khác 45 loại tài sản TRA CỨU H Hạng mục assetHub.tile.kcht L Danh sách assetHub.tile.list THU THẬP + Thêm thủ công assetHub.tile.collect AI Camera AI assetHub.tile.ai QUẢN LÝ ↻ Cập nhật / bớt assetHub.tile.adjust ⌖ Xem bản đồ ›",
+        "href": "http://localhost:9301/web-rmms-asset-hub"
+      }
+    }
+  ],
+  "ok": true
+}

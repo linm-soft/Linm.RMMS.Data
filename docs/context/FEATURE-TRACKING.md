@@ -59,7 +59,7 @@
 | `partner-unit` | Sở / BOT / Cty | — | support | done | none | [ctx](features/partner-unit.md) | [ST](../../specs/partner-unit/STATUS.md) |
 | `job-title` | Danh mục chức vụ `/mas/chuc-vu` | — | support | `qa` / `await_confirm` | none | [ctx](features/job-title.md) | [ST](../../specs/job-title/STATUS.md) |
 | `org-route-scope` | Zone km Khu↔tuyến/đoạn | — | support | `done` / `done` | none | [ctx](features/org-route-scope.md) | [ST](../../specs/org-route-scope/STATUS.md) |
-| `asset` | QL tài sản ĐB | 01 | P1-900 | `done` / `done` | catalog | [ctx](features/asset.md) | [ST](../../specs/asset/STATUS.md) |
+| `asset` | QL tài sản ĐB | 01 | P1-900 | `data_analy` / `draft` | catalog | [ctx](features/asset.md) | [ST](../../specs/asset/STATUS.md) |
 | `asset-kcht-32` | 36 loại TS | 01 | P1-900 | `qa` / `await_confirm` | proto mobile-p1 | [ctx](features/asset-kcht-32.md) | [ST](../../specs/asset-kcht-32/STATUS.md) |
 | `csdl-so-sach` | Hub CSDL · Kind G · `/so-ts/csdl-so-sach` · **≠** hang-muc | 01 | P1-900 | `done` / `done` (shell) | catalog | [ctx](features/csdl-so-sach.md) | [ST](../../specs/csdl-so-sach/STATUS.md) |
 | `csdl-cuc-2026` | Epic typed 16 biểu + 10 sổ (Cục 08/2026) | 01 | P1-900 | `done` / `done` | none | [ctx](features/csdl-cuc-2026.md) | — |
@@ -109,7 +109,7 @@
 | `android-store-submit` | Android CH Play AAB / listing | — | support | context / lab (chưa AAB Store) | none | [ctx](features/android-store-submit.md) | — |
 | `directions` | Chỉ đường guest | — | support | no STATUS | none | [ctx](features/directions.md) | — |
 | `ai-vision-service` | Host `Linm.RMMS.Vision` | 03 / 03-P2 | support | `qa` / `await_confirm` | none | [ctx](features/ai-vision-service.md) · [plan](../plan/ai-vision-service/README.md) | [ST](../../specs/ai-vision-service/STATUS.md) |
-| `ai-vision` | AI kiểm định MD | 03 / 03-P2 | P1-900 online · P2-CR local | `done` / `await_confirm` | catalog | [ctx](features/ai-vision.md) · [host](features/ai-vision-service.md) | [ST](../../specs/ai-vision/STATUS.md) |
+| `ai-vision` | AI kiểm định MD | 03 / 03-P2 | P1-900 online · P2-CR local | `data_analy` / `draft` | catalog | [ctx](features/ai-vision.md) · [host](features/ai-vision-service.md) | [ST](../../specs/ai-vision/STATUS.md) |
 | `ai-asset-detect` | AI phát hiện TS | 03b / 03b-P2 | P1-900 · edge P2-CR | `qa` / `await_confirm` | catalog | [ctx](features/ai-asset-detect.md) | [ST](../../specs/ai-asset-detect/STATUS.md) |
 | `its-traffic-detect` | ITS biển/cọc | 03c-P2 | P2-CR | done | catalog | [ctx](features/its-traffic-detect.md) | [ST](../../specs/its-traffic-detect/STATUS.md) |
 | `its-anpr-overload` | ITS ANPR/WIM | 03c-P2 | P2-CR | done | catalog | [ctx](features/its-anpr-overload.md) | [ST](../../specs/its-anpr-overload/STATUS.md) |
@@ -190,7 +190,7 @@
 | `so-ts-rescue-vehicle` | Sổ TS — Xe cứu hộ | — | support | `sa` / `pending` | none | [ctx](features/so-ts-rescue-vehicle.md) | [ST](../../specs/so-ts-rescue-vehicle/STATUS.md) |
 | `field-reflect` | [Mobile] [Tuần đường] -> Ghi nhận hư hỏng | — | support | `qa` / `idle_review` | none | [ctx](features/field-reflect.md) | [ST](../../specs/field-reflect/STATUS.md) |
 | `khu-1-pilot` | Pilot dữ liệu Khu I | — | support | `dev` / `pending` | none | [ctx](features/khu-1-pilot.md) | [ST](../../specs/khu-1-pilot/STATUS.md) |
-| `nghiem-thu` | Công tác nghiệm thu — 10 công việc BDTX + chỉ số | — | support | `review` / `idle_review` | proto | [ctx](features/nghiem-thu.md) | [ST](../../specs/nghiem-thu/STATUS.md) |
+| `nghiem-thu` | Công tác nghiệm thu — 10 công việc BDTX + chỉ số | — | support | `done` / `in_progress` | proto | [ctx](features/nghiem-thu.md) | [ST](../../specs/nghiem-thu/STATUS.md) |
 | `nghiem-thu-mau` | Catalog mẫu NT TT 41 + criteria | — | support | `data_analy` / `pending_confirm` | none | [ctx](features/nghiem-thu-mau.md) | — |
 | `nghiem-thu-create` | [Mobile] [Công tác nghiệm thu] -> Tạo nghiệm thu | — | support | `review` / `idle_review` | proto | [ctx](features/nghiem-thu-create.md) | [ST](../../specs/nghiem-thu-create/STATUS.md) |
 | `nghiem-thu-detail` | [Mobile] [Công tác nghiệm thu] -> Chi tiết nghiệm thu | — | support | `dev` / `idle_review` | none | [ctx](features/nghiem-thu-detail.md) | [ST](../../specs/nghiem-thu-detail/STATUS.md) |
@@ -234,6 +234,39 @@
 | `patrol-detail` | patrol-detail | — | support | `data_analy` / `idle_review` | none | [ctx](features/patrol-detail.md) | [ST](../../specs/patrol-detail/STATUS.md) |
 | `open-session` | open-session | — | support | `data_analy` / `idle_review` | none | [ctx](features/open-session.md) | [ST](../../specs/open-session/STATUS.md) |
 | `end-session` | end-session | — | support | `data_analy` / `idle_review` | none | [ctx](features/end-session.md) | [ST](../../specs/end-session/STATUS.md) |
+| `web-rmms-mobile-a` | Tuần đường / Tuần kiểm đợt A — hub, mở ca, check-in, lịch sử | — | support | `done` / `done` | none | [ctx](features/web-rmms-mobile-a.md) | [ST](../../specs/web-rmms-mobile-a/STATUS.md) |
+| `web-rmms-mobile-b` | Tuần đường đợt B — sổ và dòng nhật ký | — | support | `done` / `done` | none | [ctx](features/web-rmms-mobile-b.md) | [ST](../../specs/web-rmms-mobile-b/STATUS.md) |
+| `web-rmms-mobile-c` | Tuần kiểm đợt C — danh mục, phiếu, đối chiếu, kiểm tra lại | — | support | `done` / `done` | none | [ctx](features/web-rmms-mobile-c.md) | [ST](../../specs/web-rmms-mobile-c/STATUS.md) |
+| `web-rmms-mobile-d` | Đợt D — kết ca, giao việc, sổ kiến nghị | — | support | `done` / `done` | none | [ctx](features/web-rmms-mobile-d.md) | [ST](../../specs/web-rmms-mobile-d/STATUS.md) |
+| `web-rmms-mobile-e` | Tuần kiểm đợt E — kế hoạch tần suất | — | support | `done` / `done` | none | [ctx](features/web-rmms-mobile-e.md) | [ST](../../specs/web-rmms-mobile-e/STATUS.md) |
+| `web-rmms-shell` | Tab bar Home · Field · Incident · Work | — | support | `done` / `done` | none | [ctx](features/web-rmms-shell.md) | [ST](../../specs/web-rmms-shell/STATUS.md) |
+| `web-rmms-home` | Home — guest, quick, lưới 6 ô, wallet | — | support | `done` / `done` | none | [ctx](features/web-rmms-home.md) | [ST](../../specs/web-rmms-home/STATUS.md) |
+| `web-rmms-ops` | Thông báo inbox | — | support | `done` / `done` | none | [ctx](features/web-rmms-ops.md) | [ST](../../specs/web-rmms-ops/STATUS.md) |
+| `web-rmms-asset-hub` | Hub tài sản | — | support | `done` / `done` | none | [ctx](features/web-rmms-asset-hub.md) | [ST](../../specs/web-rmms-asset-hub/STATUS.md) |
+| `web-rmms-asset-kcht` | Hạng mục tài sản | — | support | `done` / `done` | none | [ctx](features/web-rmms-asset-kcht.md) | [ST](../../specs/web-rmms-asset-kcht/STATUS.md) |
+| `web-rmms-asset-list` | Danh sách và chi tiết tài sản | — | support | `done` / `done` | none | [ctx](features/web-rmms-asset-list.md) | [ST](../../specs/web-rmms-asset-list/STATUS.md) |
+| `web-rmms-asset-collect` | Thêm tài sản thủ công | — | support | `done` / `done` | none | [ctx](features/web-rmms-asset-collect.md) | [ST](../../specs/web-rmms-asset-collect/STATUS.md) |
+| `web-rmms-asset-ai` | Camera AI và HITL | — | support | `done` / `done` | none | [ctx](features/web-rmms-asset-ai.md) | [ST](../../specs/web-rmms-asset-ai/STATUS.md) |
+| `web-rmms-asset-adjust` | Bớt hoặc sửa tài sản | — | support | `done` / `done` | none | [ctx](features/web-rmms-asset-adjust.md) | [ST](../../specs/web-rmms-asset-adjust/STATUS.md) |
+| `web-rmms-gis` | Bản đồ tài sản | — | support | `done` / `done` | none | [ctx](features/web-rmms-gis.md) | [ST](../../specs/web-rmms-gis/STATUS.md) |
+| `web-rmms-offline` | Hàng đợi offline | — | support | `done` / `done` | none | [ctx](features/web-rmms-offline.md) | [ST](../../specs/web-rmms-offline/STATUS.md) |
+| `web-rmms-supervise` | Giám sát và chi tiết | — | support | `done` / `done` | none | [ctx](features/web-rmms-supervise.md) | [ST](../../specs/web-rmms-supervise/STATUS.md) |
+| `web-rmms-field` | Hub Field — chrome native và hai lối | — | support | `done` / `done` | none | [ctx](features/web-rmms-field.md) | [ST](../../specs/web-rmms-field/STATUS.md) |
+| `web-rmms-attendance` | Chấm công | — | support | `done` / `done` | none | [ctx](features/web-rmms-attendance.md) | [ST](../../specs/web-rmms-attendance/STATUS.md) |
+| `web-rmms-nghiem-thu` | Nghiệm thu | — | support | `done` / `done` | none | [ctx](features/web-rmms-nghiem-thu.md) | [ST](../../specs/web-rmms-nghiem-thu/STATUS.md) |
+| `web-rmms-cam-patrol` | Camera tuần | — | support | `done` / `done` | none | [ctx](features/web-rmms-cam-patrol.md) | [ST](../../specs/web-rmms-cam-patrol/STATUS.md) |
+| `web-rmms-field-reflect` | Phản ánh hiện trường | — | support | `done` / `done` | none | [ctx](features/web-rmms-field-reflect.md) | [ST](../../specs/web-rmms-field-reflect/STATUS.md) |
+| `web-rmms-patrol-map` | Bản đồ tuần | — | support | `done` / `done` | none | [ctx](features/web-rmms-patrol-map.md) | [ST](../../specs/web-rmms-patrol-map/STATUS.md) |
+| `web-rmms-incident` | Sự cố list, tạo, chi tiết | — | support | `done` / `done` | none | [ctx](features/web-rmms-incident.md) | [ST](../../specs/web-rmms-incident/STATUS.md) |
+| `web-rmms-vis-capture` | Nhận diện sự cố | — | support | `done` / `done` | none | [ctx](features/web-rmms-vis-capture.md) | [ST](../../specs/web-rmms-vis-capture/STATUS.md) |
+| `web-rmms-incident-chat` | Chat sự cố | — | support | `done` / `done` | none | [ctx](features/web-rmms-incident-chat.md) | [ST](../../specs/web-rmms-incident-chat/STATUS.md) |
+| `web-rmms-estimate` | Ước lượng sự cố | — | support | `done` / `done` | none | [ctx](features/web-rmms-estimate.md) | [ST](../../specs/web-rmms-estimate/STATUS.md) |
+| `web-rmms-work` | Danh sách công việc | — | support | `done` / `done` | none | [ctx](features/web-rmms-work.md) | [ST](../../specs/web-rmms-work/STATUS.md) |
+| `web-rmms-mnt-progress` | Tiến độ công việc | — | support | `done` / `done` | none | [ctx](features/web-rmms-mnt-progress.md) | [ST](../../specs/web-rmms-mnt-progress/STATUS.md) |
+| `web-rmms-mnt-log` | Nhật ký công việc | — | support | `done` / `done` | none | [ctx](features/web-rmms-mnt-log.md) | [ST](../../specs/web-rmms-mnt-log/STATUS.md) |
+| `web-rmms-mnt-chat` | Chat công việc | — | support | `done` / `done` | none | [ctx](features/web-rmms-mnt-chat.md) | [ST](../../specs/web-rmms-mnt-chat/STATUS.md) |
+| `web-rmms-photo-geo` | Overlay chụp ảnh có tọa độ | — | support | `done` / `done` | none | [ctx](features/web-rmms-photo-geo.md) | [ST](../../specs/web-rmms-photo-geo/STATUS.md) |
+| `web-rmms-bien-ban` | Đề nghị lập biên bản | — | support | `done` / `done` | none | [ctx](features/web-rmms-bien-ban.md) | [ST](../../specs/web-rmms-bien-ban/STATUS.md) |
 **Báo cáo `rpt-*`:** xem [§ Reports](#17--dashboard--báo-cáo). Pipeline STATUS **done** hết (release: P1 / P1.5 / P2 / P3 theo từng slug).
 
 **Draft mobile (CTX/analy):** `incident-list` — [STATUS](../../specs/). `cam-view` data_analy **PASS** → PO pending. `incident-create` · `field-reflect` · `cam-patrol` · `mnt-list` đã có CTX + data_analy (hoặc done).

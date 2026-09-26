@@ -1,0 +1,26 @@
+{
+  "url": "http://localhost:9301/web-rmms-mobile-a",
+  "capturedAt": "2026-09-25T07:35:57.466Z",
+  "method": "e2e runtime · yarn start:std :9301 + docker (API:5111 BFF mobile:5202) + playwright · JWT inject auth_token · phone-hub routes · viewport 430",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "pathShown": "/web-rmms-mobile-a"
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "pathShown": "/web-rmms-mobile-a/tuan-duong/44fceb67-b83a-4fb5-b906-18d7e1009eb8"
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "pathShown": "/web-rmms-mobile-a/tuan-duong/mo-ca"
+    }
+  ],
+  "ok": true
+}

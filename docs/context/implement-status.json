@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-21T04:13:10.984Z",
+  "updatedAt": "2026-09-26T03:38:29.329Z",
   "features": {
     "ai-asset-detect": {
       "web": {
@@ -734,9 +734,9 @@
     },
     "nghiem-thu": {
       "web": {
-        "phase": "dev",
+        "phase": "done",
         "status": "in_progress",
-        "updatedAt": "2026-09-21T04:13:10.983Z",
+        "updatedAt": "2026-09-26T03:20:46.290Z",
         "statusRel": "specs/nghiem-thu/STATUS.md"
       },
       "mobile": {
@@ -1416,6 +1416,270 @@
         "status": "await_confirm",
         "updatedAt": "2026-09-18T20:13:17.140Z",
         "statusRel": "specs/job-title/STATUS.md"
+      }
+    },
+    "web-rmms-mobile-a": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-25T07:41:38.300Z",
+        "statusRel": "specs/web-rmms-mobile-a/STATUS.md"
+      }
+    },
+    "web-rmms-mobile-b": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-25T08:36:15.959Z",
+        "statusRel": "specs/web-rmms-mobile-b/STATUS.md"
+      }
+    },
+    "web-rmms-mobile-c": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-25T09:27:10.387Z",
+        "statusRel": "specs/web-rmms-mobile-c/STATUS.md"
+      }
+    },
+    "web-rmms-mobile-d": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-25T10:16:09.978Z",
+        "statusRel": "specs/web-rmms-mobile-d/STATUS.md"
+      }
+    },
+    "web-rmms-mobile-e": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-25T10:55:09.871Z",
+        "statusRel": "specs/web-rmms-mobile-e/STATUS.md"
+      }
+    },
+    "web-rmms-shell": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-25T11:49:49.432Z",
+        "statusRel": "specs/web-rmms-shell/STATUS.md"
+      }
+    },
+    "web-rmms-home": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-25T12:27:26.949Z",
+        "statusRel": "specs/web-rmms-home/STATUS.md"
+      }
+    },
+    "web-rmms-ops": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-25T12:57:46.191Z",
+        "statusRel": "specs/web-rmms-ops/STATUS.md"
+      }
+    },
+    "web-rmms-asset-hub": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-25T13:29:22.968Z",
+        "statusRel": "specs/web-rmms-asset-hub/STATUS.md"
+      }
+    },
+    "web-rmms-asset-kcht": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-25T14:01:30.522Z",
+        "statusRel": "specs/web-rmms-asset-kcht/STATUS.md"
+      }
+    },
+    "web-rmms-asset-list": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-25T14:32:16.972Z",
+        "statusRel": "specs/web-rmms-asset-list/STATUS.md"
+      }
+    },
+    "web-rmms-asset-collect": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-25T15:10:04.033Z",
+        "statusRel": "specs/web-rmms-asset-collect/STATUS.md"
+      }
+    },
+    "web-rmms-nghiem-thu": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-25T15:47:01.620Z",
+        "statusRel": "specs/web-rmms-nghiem-thu/STATUS.md"
+      }
+    },
+    "web-rmms-asset-ai": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-25T16:16:37.961Z",
+        "statusRel": "specs/web-rmms-asset-ai/STATUS.md"
+      }
+    },
+    "web-rmms-asset-adjust": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-25T16:45:32.465Z",
+        "statusRel": "specs/web-rmms-asset-adjust/STATUS.md"
+      }
+    },
+    "web-rmms-gis": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-25T17:14:32.910Z",
+        "statusRel": "specs/web-rmms-gis/STATUS.md"
+      }
+    },
+    "web-rmms-offline": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-25T17:48:29.092Z",
+        "statusRel": "specs/web-rmms-offline/STATUS.md"
+      }
+    },
+    "web-rmms-cam-patrol": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-25T18:28:47.148Z",
+        "statusRel": "specs/web-rmms-cam-patrol/STATUS.md"
+      }
+    },
+    "web-rmms-attendance": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-25T18:59:26.788Z",
+        "statusRel": "specs/web-rmms-attendance/STATUS.md"
+      }
+    },
+    "web-rmms-field": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-25T19:26:06.763Z",
+        "statusRel": "specs/web-rmms-field/STATUS.md"
+      }
+    },
+    "web-rmms-supervise": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-25T19:54:43.456Z",
+        "statusRel": "specs/web-rmms-supervise/STATUS.md"
+      }
+    },
+    "web-rmms-field-reflect": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-25T20:27:36.050Z",
+        "statusRel": "specs/web-rmms-field-reflect/STATUS.md"
+      }
+    },
+    "web-rmms-patrol-map": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-25T20:52:57.660Z",
+        "statusRel": "specs/web-rmms-patrol-map/STATUS.md"
+      }
+    },
+    "web-rmms-incident": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-25T21:23:17.970Z",
+        "statusRel": "specs/web-rmms-incident/STATUS.md"
+      }
+    },
+    "web-rmms-vis-capture": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-25T21:52:07.478Z",
+        "statusRel": "specs/web-rmms-vis-capture/STATUS.md"
+      }
+    },
+    "web-rmms-work": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-25T22:22:09.431Z",
+        "statusRel": "specs/web-rmms-work/STATUS.md"
+      }
+    },
+    "web-rmms-mnt-progress": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-25T22:53:34.265Z",
+        "statusRel": "specs/web-rmms-mnt-progress/STATUS.md"
+      }
+    },
+    "web-rmms-mnt-log": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-25T23:21:41.855Z",
+        "statusRel": "specs/web-rmms-mnt-log/STATUS.md"
+      }
+    },
+    "web-rmms-mnt-chat": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-25T23:46:24.532Z",
+        "statusRel": "specs/web-rmms-mnt-chat/STATUS.md"
+      }
+    },
+    "web-rmms-photo-geo": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-26T00:20:11.754Z",
+        "statusRel": "specs/web-rmms-photo-geo/STATUS.md"
+      }
+    },
+    "web-rmms-bien-ban": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-26T01:04:01.086Z",
+        "statusRel": "specs/web-rmms-bien-ban/STATUS.md"
+      }
+    },
+    "web-rmms-incident-chat": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-26T03:03:30.413Z",
+        "statusRel": "specs/web-rmms-incident-chat/STATUS.md"
+      }
+    },
+    "web-rmms-estimate": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-26T03:38:29.329Z",
+        "statusRel": "specs/web-rmms-estimate/STATUS.md"
       }
     }
   }

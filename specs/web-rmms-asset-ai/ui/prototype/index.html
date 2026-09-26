@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>web-rmms-asset-ai — Camera AI và HITL</title>
+  <style>
+    :root {
+      --primary: #0C84C0;
+      --header-start: #086A9A;
+      --header-end: #0C84C0;
+      --danger: #F03C30;
+      --success: #34C759;
+      --warning: #FCB43C;
+      --surface: #F2F2F7;
+      --card: #FFFFFF;
+      --on-primary: #FFFFFF;
+      --on-surface: #1C1C1E;
+      --border: #C7C7CC;
+      --muted: #8E8E93;
+      --radius-card: 16px;
+      --radius-control: 12px;
+      --label: 13px;
+      --field: 16px;
+      --nav-title: 17px;
+      --control-h: 44px;
+      --phone-w: 430px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: #1a1a1e;
+      color: var(--on-surface);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px 8px 32px;
+    }
+    .board-nav {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      max-width: var(--phone-w); width: 100%; margin-bottom: 12px;
+    }
+    .board-nav button {
+      border: 1px solid var(--border); background: #2a2a2e; color: #eee;
+      border-radius: 8px; padding: 6px 10px; font-size: 12px; cursor: pointer;
+    }
+    .board-nav button.active { background: var(--primary); border-color: var(--primary); }
+    .meta {
+      max-width: var(--phone-w); width: 100%; color: #aaa; font-size: 12px; margin-bottom: 8px;
+    }
+    .phone {
+      width: min(100%, var(--phone-w));
+      min-height: 820px;
+      background: var(--surface);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,.45);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .phone.hidden { display: none; }
+    .topbar {
+      background: linear-gradient(135deg, var(--header-start), var(--header-end));
+      color: var(--on-primary);
+      min-height: 56px;
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 14px;
+    }
+    .topbar .icon-btn {
+      width: 44px; height: 44px; border: 0; background: transparent;
+      color: inherit; font-size: 22px; cursor: pointer; border-radius: 12px;
+    }
+    .topbar .title { flex: 1; font-size: var(--nav-title); font-weight: 600; }
+    .content { flex: 1; overflow: auto; padding: 12px 14px 20px; }
+    .field { margin-bottom: 14px; }
+    .field label {
+      display: block; font-size: var(--label); color: var(--muted);
+      margin-bottom: 6px; font-weight: 500;
+    }
+    .field label .req { color: var(--danger); }
+    .control {
+      width: 100%; min-height: var(--control-h);
+      border: 1px solid var(--border); border-radius: var(--radius-control);
+      background: var(--card); padding: 10px 12px;
+      font-size: var(--field); color: var(--on-surface);
+    }
+    .control:disabled, .control[readonly] {
+      background: #EFEFF4; color: #3A3A3C;
+    }
+    .control.invalid { border-color: var(--danger); }
+    .gps-card, .map-card, .nearby-card, .score-pill {
+      background: var(--card); border-radius: var(--radius-card);
+      border: 1px solid var(--border); padding: 12px;
+    }
+    .gps-card .coords, .hitl-row {
+      font-size: var(--field); font-variant-numeric: tabular-nums;
+      margin: 8px 0;
+    }
+    .gps-card .hint, .hint { font-size: 12px; color: var(--muted); }
+    .gps-card.warn { border-color: var(--danger); background: #FFF5F5; }
+    .gps-actions { display: flex; gap: 8px; margin-top: 8px; }
+    .btn {
+      min-height: var(--control-h); border-radius: var(--radius-control);
+      border: 0; font-size: 16px; font-weight: 600; cursor: pointer;
+      padding: 0 16px;
+    }
+    .btn-primary { background: var(--primary); color: var(--on-primary); flex: 1; width: 100%; }
+    .btn-primary:disabled { background: #A0A0A5; cursor: not-allowed; }
+    .btn-ghost {
+      background: transparent; color: var(--primary);
+      border: 1px solid var(--primary);
+    }
+    .btn-secondary {
+      background: var(--card); color: var(--on-surface);
+      border: 1px solid var(--border); width: 100%; margin-top: 8px;
+    }
+    .btn-danger {
+      background: var(--card); color: var(--danger);
+      border: 1px solid var(--danger); width: 100%; margin-top: 8px;
+    }
+    .photo-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .photo-thumb {
+      width: 88px; height: 88px; border-radius: 12px;
+      background: linear-gradient(135deg, #c8e6f5, #e8f6fc);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--primary); font-size: 12px; border: 1px solid var(--border);
+    }
+    .photo-add {
+      width: 88px; height: 88px; border-radius: 12px;
+      border: 1px dashed var(--primary); color: var(--primary);
+      background: #E8F6FC; display: flex; align-items: center; justify-content: center;
+      font-size: 28px; cursor: pointer;
+    }
+    .photo-add.empty { border-color: var(--danger); background: #FFF5F5; color: var(--danger); }
+    .actions { padding: 12px 14px 20px; background: var(--surface); }
+    .toast {
+      position: absolute; left: 16px; right: 16px; bottom: 88px;
+      background: #1C1C1E; color: #fff; border-radius: 12px;
+      padding: 12px 14px; font-size: 14px; display: none;
+      box-shadow: 0 8px 24px rgba(0,0,0,.35); z-index: 5;
+    }
+    .toast.show { display: block; }
+    .toast.ok { border-left: 4px solid var(--success); }
+    .toast.err { border-left: 4px solid var(--danger); }
+    .banner {
+      background: #FFF3CD; color: #664D03; border-radius: 10px;
+      padding: 8px 10px; font-size: 12px; margin-bottom: 12px; display: none;
+    }
+    .banner.show { display: block; }
+    .banner.danger { background: #FFF5F5; color: #7A1F1A; }
+    .nearby-card { display: none; margin-bottom: 12px; border-color: var(--warning); background: #FFF9EE; }
+    .nearby-card.show { display: block; }
+    .nearby-card strong { display: block; margin-bottom: 4px; font-size: 13px; }
+    .leave-modal {
+      display: none; position: absolute; inset: 0; background: rgba(0,0,0,.45);
+      align-items: center; justify-content: center; z-index: 10; padding: 24px;
+    }
+    .leave-modal.show { display: flex; }
+    .leave-card {
+      background: var(--card); border-radius: 16px; padding: 18px; width: 100%;
+    }
+    .leave-card h3 { margin: 0 0 8px; font-size: 17px; }
+    .leave-card p { margin: 0 0 16px; font-size: 14px; color: var(--muted); }
+    .leave-actions { display: flex; gap: 8px; }
+    .leave-actions .btn { flex: 1; }
+    .zone-tag {
+      position: absolute; top: 4px; right: 6px; font-size: 9px;
+      color: #999; opacity: .7; pointer-events: none;
+    }
+    .zone { position: relative; }
+    .map-card {
+      height: 180px; position: relative; overflow: hidden;
+      background:
+        linear-gradient(90deg, rgba(12,132,192,.08) 1px, transparent 1px) 0 0 / 24px 24px,
+        linear-gradient(rgba(12,132,192,.08) 1px, transparent 1px) 0 0 / 24px 24px,
+        #E8F6FC;
+      cursor: grab; user-select: none;
+    }
+    .map-pin {
+      position: absolute; width: 28px; height: 28px; margin: -28px 0 0 -14px;
+      left: 55%; top: 48%;
+      background: var(--danger); border-radius: 50% 50% 50% 0;
+      transform: rotate(-45deg);
+      box-shadow: 0 4px 10px rgba(0,0,0,.25);
+      border: 2px solid #fff;
+    }
+    .map-pin::after {
+      content: ""; position: absolute; inset: 7px;
+      background: #fff; border-radius: 50%;
+    }
+    .hitl-meta { display: grid; gap: 8px; margin-bottom: 12px; }
+    .hitl-meta .row {
+      display: flex; justify-content: space-between; gap: 8px;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius-control); padding: 10px 12px; font-size: 14px;
+    }
+    .hitl-meta .row span { color: var(--muted); font-size: 12px; }
+    .score-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 10px; font-size: 14px; font-weight: 600;
+      border-color: #B8E0F2; background: #E8F6FC; color: var(--primary);
+    }
+    .section-label {
+      font-size: 13px; font-weight: 600; color: var(--on-surface);
+      margin: 4px 0 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="board-nav" role="tablist" aria-label="Board states">
+    <button type="button" class="active" data-board="detect-ok">Detect GPS OK</button>
+    <button type="button" data-board="gps-deny">GPS deny/poor</button>
+    <button type="button" data-board="missing">Missing required</button>
+    <button type="button" data-board="nearby">Nearby warn</button>
+    <button type="button" data-board="hitl">HITL draft</button>
+    <button type="button" data-board="confirm">Confirm toast</button>
+    <button type="button" data-board="dismiss">Dismiss toast</button>
+  </div>
+  <div class="meta">
+    zones AA-00…14 · reviewUrl prototype · peerStdUrl http://localhost:9301/web-rmms-asset-ai · score SHOW · DES-GRID N/A
+  </div>
+
+  <!-- DETECT -->
+  <div class="phone" id="AA-00" data-zone="AA-00">
+    <header class="topbar zone" id="AA-01" data-zone="AA-01">
+      <span class="zone-tag">AA-01</span>
+      <button type="button" class="icon-btn" id="btnBackDetect" aria-label="Back">‹</button>
+      <div class="title">Camera AI</div>
+    </header>
+
+    <div class="content">
+      <div class="banner danger" id="gpsBanner">GPS bị từ chối / Acc &gt; 30 m — không thể nhận diện. Bật định vị chính xác.</div>
+      <div class="section-label zone" id="AA-02" data-zone="AA-02">
+        <span class="zone-tag">AA-02</span>
+        Nhận diện tài sản từ ảnh hiện trường
+      </div>
+
+      <div class="field zone" id="AA-03" data-zone="AA-03">
+        <span class="zone-tag">AA-03</span>
+        <label>Ảnh hiện trường <span class="req">*</span></label>
+        <div class="photo-row">
+          <div class="photo-thumb" id="photoThumb">IMG · Live</div>
+          <div class="photo-add" id="photoAdd" title="uploads init+PUT" role="button" aria-label="Chụp/tải ảnh">+</div>
+        </div>
+        <div class="hint" style="margin-top:6px">uploads init+PUT → ImageUrl · cấm mock://</div>
+      </div>
+
+      <div class="field zone" id="AA-04" data-zone="AA-04">
+        <span class="zone-tag">AA-04</span>
+        <label>Vị trí GPS <span class="req">*</span></label>
+        <div class="gps-card" id="gpsCard">
+          <div class="coords" id="gpsCoords">21.028511 · 105.804817 · Acc 12 m</div>
+          <div class="hint" id="gpsHint">Chỉ đọc · Acc ≤ 30 m · không gõ tay / không fake</div>
+          <div class="gps-actions">
+            <button type="button" class="btn btn-ghost" id="btnGps">Làm mới GPS</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="field zone" id="AA-05" data-zone="AA-05">
+        <span class="zone-tag">AA-05</span>
+        <label for="fldRoute">Tuyến đường <span class="req">*</span></label>
+        <select class="control" id="fldRoute">
+          <option value="">— Tìm tuyến —</option>
+          <option value="QL1" selected>QL.1A — Hà Nội → TP.HCM</option>
+          <option value="CT01">CT.01 — Cao tốc Bắc Nam</option>
+        </select>
+        <div class="hint" style="margin-top:4px">Prefill từ phiên tuần tra (sessions) nếu có</div>
+      </div>
+
+      <div class="field zone" id="AA-06" data-zone="AA-06">
+        <span class="zone-tag">AA-06</span>
+        <label for="fldTrip">Chuyến tuần tra</label>
+        <select class="control" id="fldTrip">
+          <option value="">— Tuỳ chọn —</option>
+          <option value="trip-1" selected>Trip #2026-09-25-A</option>
+        </select>
+      </div>
+
+      <div class="nearby-card zone" id="AA-07" data-zone="AA-07">
+        <span class="zone-tag">AA-07</span>
+        <strong>Cảnh báo gần đây</strong>
+        <div class="hint">Có 2 ứng viên Draft trong bán kính gần — kiểm tra trùng trước khi nhận diện.</div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button type="button" class="btn btn-primary zone" id="AA-08" data-zone="AA-08">Nhận diện</button>
+      <button type="button" class="btn btn-secondary zone" id="AA-09" data-zone="AA-09">Hủy</button>
+    </div>
+
+    <div class="toast" id="toastDetect" role="status"></div>
+    <div class="leave-modal" id="leaveModal">
+      <div class="leave-card">
+        <h3>Huỷ thay đổi?</h3>
+        <p>Form nhận diện chưa gửi. Quay lại Hub sẽ mất ảnh/GPS đã chọn.</p>
+        <div class="leave-actions">
+          <button type="button" class="btn btn-ghost" id="leaveStay">Ở lại</button>
+          <button type="button" class="btn btn-primary" id="leaveGo">Về Hub</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HITL -->
+  <div class="phone hidden" id="AA-10" data-zone="AA-10">
+    <header class="topbar zone" id="hitlHeader">
+      <span class="zone-tag">AA-10</span>
+      <button type="button" class="icon-btn" id="btnBackHitl" aria-label="Back">‹</button>
+      <div class="title">Xác nhận AI (HITL)</div>
+    </header>
+
+    <div class="content">
+      <div class="field zone" id="AA-11" data-zone="AA-11">
+        <span class="zone-tag">AA-11</span>
+        <div class="hitl-meta">
+          <div class="row"><span>Loại đề xuất</span><strong id="hitlClass">Biển báo</strong></div>
+          <div class="row"><span>Tuyến</span><strong id="hitlRoute">QL.1A</strong></div>
+          <div class="row"><span>Km</span><strong id="hitlKm">12+300</strong></div>
+          <div class="row">
+            <span>Độ tin cậy</span>
+            <span class="score-pill" id="hitlScore">91%</span>
+          </div>
+        </div>
+        <div class="hint">Score SHOW ship · không gate Confirm/Dismiss</div>
+      </div>
+
+      <div class="field zone" id="AA-12" data-zone="AA-12">
+        <span class="zone-tag">AA-12</span>
+        <label>Ghim vị trí vật thể (kéo local)</label>
+        <div class="map-card" id="mapCard" title="Kéo pin — không API mới">
+          <div class="map-pin" id="mapPin"></div>
+        </div>
+        <div class="hint" id="pinHint" style="margin-top:6px">Lat/Lng object local · không invent GPS API</div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button type="button" class="btn btn-primary zone" id="AA-13" data-zone="AA-13">Xác nhận vào sổ</button>
+      <button type="button" class="btn btn-danger zone" id="AA-14" data-zone="AA-14">Bỏ qua (false positive)</button>
+    </div>
+
+    <div class="toast" id="toastHitl" role="status"></div>
+  </div>
+
+  <script>
+    (function () {
+      var board = "detect-ok";
+      var gpsOk = true;
+      var hasPhoto = true;
+      var dirty = true;
+      var detectPhone = document.getElementById("AA-00");
+      var hitlPhone = document.getElementById("AA-10");
+      var els = {
+        route: document.getElementById("fldRoute"),
+        detect: document.getElementById("AA-08"),
+        toastD: document.getElementById("toastDetect"),
+        toastH: document.getElementById("toastHitl"),
+        banner: document.getElementById("gpsBanner"),
+        gpsCard: document.getElementById("gpsCard"),
+        gpsCoords: document.getElementById("gpsCoords"),
+        gpsHint: document.getElementById("gpsHint"),
+        nearby: document.getElementById("AA-07"),
+        photoAdd: document.getElementById("photoAdd"),
+        photoThumb: document.getElementById("photoThumb"),
+        leave: document.getElementById("leaveModal"),
+        pin: document.getElementById("mapPin"),
+        pinHint: document.getElementById("pinHint"),
+        score: document.getElementById("hitlScore")
+      };
+
+      function showToast(el, msg, ok) {
+        el.textContent = msg;
+        el.className = "toast show " + (ok ? "ok" : "err");
+        clearTimeout(el._t);
+        el._t = setTimeout(function () { el.className = "toast"; }, 2800);
+      }
+
+      function requiredOk() {
+        return !!(hasPhoto && els.route.value);
+      }
+
+      function syncDetect() {
+        els.detect.disabled = !(gpsOk && requiredOk());
+      }
+
+      function showDetect() {
+        detectPhone.classList.remove("hidden");
+        hitlPhone.classList.add("hidden");
+      }
+
+      function showHitl() {
+        detectPhone.classList.add("hidden");
+        hitlPhone.classList.remove("hidden");
+      }
+
+      function applyBoard(id) {
+        board = id;
+        document.querySelectorAll(".board-nav button").forEach(function (b) {
+          b.classList.toggle("active", b.getAttribute("data-board") === id);
+        });
+        els.route.classList.remove("invalid");
+        els.banner.classList.remove("show");
+        els.gpsCard.classList.remove("warn");
+        els.nearby.classList.remove("show");
+        els.photoAdd.classList.remove("empty");
+        els.toastD.className = "toast";
+        els.toastH.className = "toast";
+        hasPhoto = true;
+        els.photoThumb.textContent = "IMG · Live";
+        els.score.textContent = "91%";
+
+        if (id === "detect-ok") {
+          showDetect();
+          gpsOk = true;
+          els.route.value = "QL1";
+          els.gpsCoords.textContent = "21.028511 · 105.804817 · Acc 12 m";
+          els.gpsHint.textContent = "Chỉ đọc · Acc ≤ 30 m · không gõ tay / không fake";
+        } else if (id === "gps-deny") {
+          showDetect();
+          gpsOk = false;
+          els.gpsCoords.textContent = "— · — · Acc —";
+          els.gpsHint.textContent = "Quyền định vị bị từ chối hoặc Acc > 30 m";
+          els.gpsCard.classList.add("warn");
+          els.banner.classList.add("show");
+        } else if (id === "missing") {
+          showDetect();
+          gpsOk = true;
+          hasPhoto = false;
+          els.route.value = "";
+          els.route.classList.add("invalid");
+          els.photoAdd.classList.add("empty");
+          els.photoThumb.textContent = "chưa có";
+          els.gpsCoords.textContent = "21.028511 · 105.804817 · Acc 12 m";
+        } else if (id === "nearby") {
+          showDetect();
+          gpsOk = true;
+          els.route.value = "QL1";
+          els.nearby.classList.add("show");
+          els.gpsCoords.textContent = "21.028511 · 105.804817 · Acc 12 m";
+        } else if (id === "hitl") {
+          showHitl();
+        } else if (id === "confirm") {
+          showHitl();
+          showToast(els.toastH, "Đã xác nhận vào sổ · POST confirm · → Hub /asset", true);
+        } else if (id === "dismiss") {
+          showHitl();
+          showToast(els.toastH, "Đã bỏ qua (false positive) · POST dismiss · → Hub /asset", true);
+        }
+        syncDetect();
+      }
+
+      document.querySelectorAll(".board-nav button").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          applyBoard(btn.getAttribute("data-board"));
+        });
+      });
+
+      els.route.addEventListener("change", syncDetect);
+
+      document.getElementById("btnGps").addEventListener("click", function () {
+        if (board === "gps-deny") {
+          showToast(els.toastD, "GPS deny/poor — không fake / không gõ tay", false);
+          return;
+        }
+        els.gpsCoords.textContent = "21.028" + Math.floor(Math.random() * 900) +
+          " · 105.804" + Math.floor(Math.random() * 900) + " · Acc 10 m";
+        gpsOk = true;
+        els.banner.classList.remove("show");
+        els.gpsCard.classList.remove("warn");
+        syncDetect();
+      });
+
+      els.photoAdd.addEventListener("click", function () {
+        hasPhoto = true;
+        els.photoAdd.classList.remove("empty");
+        els.photoThumb.textContent = "IMG · Live";
+        syncDetect();
+      });
+
+      els.detect.addEventListener("click", function () {
+        if (els.detect.disabled) {
+          if (!gpsOk) showToast(els.toastD, "Cần GPS Acc ≤ 30 m để nhận diện", false);
+          else showToast(els.toastD, "Cần ảnh + tuyến bắt buộc", false);
+          return;
+        }
+        showToast(els.toastD, "POST detect-assets → Draft · mở HITL (cấm auto-confirm)", true);
+        setTimeout(function () { applyBoard("hitl"); }, 600);
+      });
+
+      document.getElementById("AA-13").addEventListener("click", function () {
+        applyBoard("confirm");
+      });
+      document.getElementById("AA-14").addEventListener("click", function () {
+        applyBoard("dismiss");
+      });
+
+      function openLeave() {
+        if (!dirty) return;
+        els.leave.classList.add("show");
+      }
+      document.getElementById("btnBackDetect").addEventListener("click", openLeave);
+      document.getElementById("AA-09").addEventListener("click", openLeave);
+      document.getElementById("leaveStay").addEventListener("click", function () {
+        els.leave.classList.remove("show");
+      });
+      document.getElementById("leaveGo").addEventListener("click", function () {
+        els.leave.classList.remove("show");
+        showToast(els.toastD, "→ Hub /asset (peer)", true);
+      });
+      document.getElementById("btnBackHitl").addEventListener("click", function () {
+        applyBoard("detect-ok");
+      });
+
+      // Pin drag local (AA-12)
+      (function () {
+        var map = document.getElementById("mapCard");
+        var pin = els.pin;
+        var dragging = false;
+        function place(clientX, clientY) {
+          var r = map.getBoundingClientRect();
+          var x = Math.max(8, Math.min(r.width - 8, clientX - r.left));
+          var y = Math.max(8, Math.min(r.height - 8, clientY - r.top));
+          pin.style.left = x + "px";
+          pin.style.top = y + "px";
+          var lat = (21.028 + (0.5 - y / r.height) * 0.002).toFixed(6);
+          var lng = (105.804 + (x / r.width - 0.5) * 0.002).toFixed(6);
+          els.pinHint.textContent = "Object " + lat + " · " + lng + " (local drag · no API)";
+        }
+        map.addEventListener("pointerdown", function (e) {
+          dragging = true;
+          map.setPointerCapture(e.pointerId);
+          place(e.clientX, e.clientY);
+        });
+        map.addEventListener("pointermove", function (e) {
+          if (!dragging) return;
+          place(e.clientX, e.clientY);
+        });
+        map.addEventListener("pointerup", function () { dragging = false; });
+      })();
+
+      applyBoard("detect-ok");
+    })();
+  </script>
+</body>
+</html>

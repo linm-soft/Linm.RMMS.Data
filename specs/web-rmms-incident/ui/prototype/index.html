@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>web-rmms-incident — INC-L · INC-N · INC-D</title>
+  <style>
+    :root {
+      --primary: #0C84C0;
+      --header-start: #086A9A;
+      --header-end: #0C84C0;
+      --danger: #F03C30;
+      --warn: #FCB43C;
+      --ok: #1B8A4A;
+      --surface: #F2F2F7;
+      --card: #FFFFFF;
+      --on-primary: #FFFFFF;
+      --on-surface: #1C1C1E;
+      --border: #C7C7CC;
+      --muted: #8E8E93;
+      --radius-card: 16px;
+      --radius-control: 12px;
+      --label: 13px;
+      --field: 16px;
+      --nav-title: 17px;
+      --control-h: 44px;
+      --phone-w: 430px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: #1a1a1e;
+      color: var(--on-surface);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px 8px 32px;
+    }
+    .meta {
+      max-width: var(--phone-w); width: 100%;
+      color: #aaa; font-size: 11px; margin-bottom: 8px; text-align: center;
+    }
+    .board-nav {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      max-width: var(--phone-w); width: 100%; margin-bottom: 12px;
+    }
+    .board-nav button {
+      border: 1px solid var(--border); background: #2a2a2e; color: #eee;
+      border-radius: 8px; padding: 6px 10px; font-size: 12px; cursor: pointer;
+    }
+    .board-nav button.active { background: var(--primary); border-color: var(--primary); }
+    .phone {
+      width: min(100%, var(--phone-w));
+      min-height: 780px;
+      background: var(--surface);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,.45);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .topbar {
+      background: linear-gradient(135deg, var(--header-start), var(--header-end));
+      color: var(--on-primary);
+      min-height: 56px;
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 14px;
+    }
+    .topbar .title { flex: 1; font-size: var(--nav-title); font-weight: 600; }
+    .icon-btn {
+      width: 44px; height: 44px; border: 0; background: transparent;
+      color: inherit; font-size: 20px; cursor: pointer; border-radius: 12px;
+    }
+    .content { flex: 1; overflow: auto; padding: 12px 14px 88px; }
+    .screen { display: none; flex-direction: column; flex: 1; min-height: 0; }
+    .screen.active { display: flex; }
+    .search {
+      margin: 0 14px 8px; height: 44px; background: var(--card);
+      border: 1px solid var(--border); border-radius: 12px;
+      display: flex; align-items: center; gap: 8px; padding: 0 12px;
+      color: var(--muted); font-size: var(--field);
+    }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 14px 8px; }
+    .chip {
+      min-height: 36px; padding: 6px 12px; border-radius: 18px;
+      border: 1px solid var(--border); background: var(--card);
+      font-size: var(--label); cursor: pointer;
+    }
+    .chip.on { background: #E8F4FA; border-color: var(--primary); color: var(--primary); font-weight: 600; }
+    .banner {
+      margin: 0 0 12px; padding: 12px; border-radius: var(--radius-card);
+      background: linear-gradient(135deg, #E8F4FA, #fff);
+      border: 1px solid #B8DCEF; display: flex; gap: 10px; align-items: center; cursor: pointer;
+    }
+    .banner .t { font-weight: 600; font-size: 15px; }
+    .banner .s { font-size: var(--label); color: var(--muted); }
+    .card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius-card); padding: 12px 14px; margin-bottom: 10px; cursor: pointer;
+    }
+    .card .title { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+    .card .line { font-size: var(--label); color: var(--muted); display: flex; gap: 6px; margin: 2px 0; }
+    .card .status {
+      margin-top: 8px; font-size: 12px; font-weight: 600;
+      padding: 6px 8px; border-radius: 8px; background: #FFF4E5; color: #8a5a00;
+    }
+    .card .status.ok { background: #E8F5E9; color: var(--ok); }
+    .card .actions { display: flex; gap: 8px; margin-top: 8px; }
+    .card .actions button {
+      flex: 1; height: 36px; border: 1px solid var(--border); border-radius: 10px;
+      background: #fafafa; cursor: pointer; font-size: 12px;
+    }
+    .flag {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 11px; color: var(--ok); font-weight: 600;
+    }
+    .fab {
+      position: absolute; right: 18px; bottom: 24px;
+      width: 56px; height: 56px; border-radius: 18px; border: 0;
+      background: var(--primary); color: #fff; font-size: 28px;
+      box-shadow: 0 6px 16px rgba(12,132,192,.4); cursor: pointer; z-index: 5;
+    }
+    .section-label {
+      font-size: var(--label); color: var(--muted); margin: 8px 0 6px; font-weight: 600;
+    }
+    .wallet {
+      background: linear-gradient(135deg, var(--header-start), var(--header-end));
+      color: #fff; border-radius: var(--radius-card); padding: 14px 16px; margin-bottom: 10px;
+    }
+    .wallet .k { font-size: 11px; opacity: .85; letter-spacing: .04em; }
+    .wallet .t { font-size: 18px; font-weight: 700; margin-top: 4px; }
+    .wallet .m { font-size: var(--label); opacity: .9; margin-top: 2px; }
+    .kind-pills { display: flex; gap: 8px; margin-bottom: 8px; }
+    .kind-pills button {
+      flex: 1; height: 44px; border-radius: 22px; border: 1px solid var(--border);
+      background: var(--card); font-size: var(--field); cursor: pointer;
+    }
+    .kind-pills button.on { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .chk { background: var(--card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+    .chk label {
+      display: flex; align-items: center; gap: 10px; padding: 12px 14px;
+      border-bottom: 1px solid var(--border); font-size: var(--field); cursor: pointer;
+    }
+    .chk label:last-child { border-bottom: 0; }
+    .photo-row { display: flex; gap: 8px; margin-bottom: 8px; }
+    .photo-slot {
+      width: 72px; height: 72px; border-radius: 12px; border: 1.5px dashed var(--border);
+      background: #fff; display: flex; align-items: center; justify-content: center;
+      color: var(--muted); font-size: 24px; cursor: pointer;
+    }
+    .photo-slot.filled { border-style: solid; background: #E8F4FA; color: var(--primary); }
+    .field { margin-bottom: 10px; }
+    .field label { display: block; font-size: var(--label); color: var(--muted); margin-bottom: 4px; }
+    .field input, .field select, .field textarea {
+      width: 100%; min-height: var(--control-h); border: 1px solid var(--border);
+      border-radius: var(--radius-control); padding: 10px 12px; font-size: var(--field);
+      background: #fff;
+    }
+    .field textarea { min-height: 88px; resize: vertical; }
+    .btn {
+      height: var(--control-h); border: 0; border-radius: var(--radius-control);
+      padding: 0 16px; font-size: var(--field); cursor: pointer; width: 100%;
+    }
+    .btn:disabled { opacity: .45; cursor: not-allowed; }
+    .btn-primary { background: var(--primary); color: var(--on-primary); }
+    .btn-secondary { background: #fff; border: 1px solid var(--border); color: var(--on-surface); margin-top: 8px; }
+    .stack { display: flex; flex-direction: column; gap: 0; padding-bottom: 16px; }
+    .gps-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 12px; border-radius: 12px; background: #E8F5E9; color: var(--ok);
+      font-size: var(--label); font-weight: 600; margin-bottom: 10px;
+    }
+    .gps-bar.deny { background: #FFEBEE; color: var(--danger); }
+    .gps-bar.warn { background: #FFF4E5; color: #8a5a00; }
+    .empty {
+      text-align: center; padding: 48px 16px; color: var(--muted); font-size: var(--field);
+    }
+    .toast {
+      position: absolute; left: 16px; right: 16px; bottom: 90px;
+      background: #323232; color: #fff; border-radius: 12px; padding: 12px 14px;
+      font-size: 14px; display: none; z-index: 20;
+    }
+    .toast.show { display: block; }
+    .sheet {
+      position: absolute; inset: 0; background: rgba(0,0,0,.4);
+      display: none; align-items: flex-end; z-index: 30;
+    }
+    .sheet.show { display: flex; }
+    .sheet .panel {
+      width: 100%; background: #fff; border-radius: 16px 16px 0 0; padding: 16px;
+    }
+    .detail-code { font-size: 24px; font-weight: 700; }
+    .badge {
+      display: inline-block; margin-top: 8px; padding: 4px 10px; border-radius: 8px;
+      background: #FFEBEE; color: var(--danger); font-size: 12px; font-weight: 600;
+    }
+    .row-ro {
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 12px 14px; margin-bottom: 8px;
+    }
+    .row-ro .sub { font-size: var(--label); color: var(--muted); }
+    .row-ro .val { font-size: var(--field); font-weight: 600; margin-top: 2px; }
+  </style>
+</head>
+<body>
+  <div class="meta">
+    web-rmms-incident · zones INC-L / INC-N / INC-D · phone 430 · reviewUrl · real_view_parity=v1<br />
+    Control = controlHint · GPS HARD · HasGps only · nested /new /:id · cấm ERP.* / fake GPS / window.alert
+  </div>
+  <div class="board-nav" id="board">
+    <button type="button" data-mode="default" class="active">Default</button>
+    <button type="button" data-mode="create">Create</button>
+    <button type="button" data-mode="detail">Detail</button>
+    <button type="button" data-mode="empty">Empty list</button>
+    <button type="button" data-mode="gpsdeny">GPS deny</button>
+    <button type="button" data-mode="acc45">Detect &gt;30</button>
+    <button type="button" data-mode="nosession">No session</button>
+    <button type="button" data-mode="error">Error toast</button>
+  </div>
+  <div class="phone" id="phone">
+    <!-- INC-L -->
+    <div class="screen active" id="INC-L" data-zone="INC-L">
+      <div class="topbar">
+        <div class="title" data-field="screenTitle">Vấn đề</div>
+        <button class="icon-btn" type="button" data-field="nav.map" title="Bản đồ" onclick="toast('→ /gis peer')">🗺️</button>
+      </div>
+      <div class="search" data-field="search">🔎 Tìm kiếm vấn đề…</div>
+      <div class="chips">
+        <button type="button" class="chip on" data-field="filter.status">Tất cả TT</button>
+        <button type="button" class="chip" data-field="filter.status">Mới</button>
+        <button type="button" class="chip" data-field="filter.severity">Cao</button>
+        <button type="button" class="chip" data-field="filter.severity">TB</button>
+      </div>
+      <div class="content" id="list-body">
+        <div class="banner" data-field="banner.vis" onclick="toast('→ peer /incident/vis')">
+          <div style="font-size:22px">📷</div>
+          <div>
+            <div class="t">Nhận diện mặt đường</div>
+            <div class="s">Chụp + định vị → gắn sự cố (peer INC-V)</div>
+          </div>
+        </div>
+        <div id="list-cards">
+          <div class="card" data-field="list.card" onclick="go('INC-D')">
+            <div class="title" data-field="card.title">Nứt mặt đường</div>
+            <div class="line" data-field="card.type">⚠ Sự cố nhanh · <span data-field="card.code">SC-2401</span></div>
+            <div class="line" data-field="card.route">📍 QL.1 · Km 1556+080</div>
+            <div class="line" data-field="card.person">👤 Nguyễn Văn A</div>
+            <div class="line" data-field="card.requestedAt">🕒 2026-08-10 08:12:40</div>
+            <div class="line"><span class="flag" data-field="card.hasGps">📍 HasGps</span></div>
+            <div class="status" data-field="card.status">Trạng thái: Đợi phân công</div>
+            <div class="actions">
+              <button type="button" data-field="row.chat" onclick="event.stopPropagation();toast('→ peer chat')">Chat</button>
+              <button type="button" onclick="event.stopPropagation();go('INC-D')">Chi tiết</button>
+              <button type="button" onclick="event.stopPropagation();toast('→ /gis')">Map</button>
+            </div>
+          </div>
+          <div class="card" onclick="go('INC-D')">
+            <div class="title">Cống tắc</div>
+            <div class="line">⚠ Hệ thống an toàn · SC-2398</div>
+            <div class="line">📍 HCM · Km 12+400</div>
+            <div class="line">👤 Trần Khánh</div>
+            <div class="line">🕒 2026-08-09 14:40:13</div>
+            <div class="line"><span class="flag">📍 HasGps</span></div>
+            <div class="status ok">Trạng thái: Đang giám sát</div>
+            <div class="actions">
+              <button type="button" onclick="event.stopPropagation();toast('→ peer chat')">Chat</button>
+              <button type="button" onclick="event.stopPropagation();go('INC-D')">Chi tiết</button>
+              <button type="button" onclick="event.stopPropagation();toast('→ /gis')">Map</button>
+            </div>
+          </div>
+        </div>
+        <div class="empty" id="list-empty" style="display:none" data-field="empty">Chưa có vấn đề</div>
+      </div>
+      <button class="fab" type="button" data-field="fab" title="Tạo" onclick="go('INC-N')">＋</button>
+    </div>
+
+    <!-- INC-N -->
+    <div class="screen" id="INC-N" data-zone="INC-N">
+      <div class="topbar">
+        <button class="icon-btn" type="button" onclick="tryLeave()">‹</button>
+        <div class="title">Ghi sự cố</div>
+        <div style="width:44px"></div>
+      </div>
+      <div class="content">
+        <div class="wallet" data-field="assetCard">
+          <div class="k">TÀI SẢN ĐÃ CHỌN</div>
+          <div class="t" data-field="assetPick">Cầu</div>
+          <div class="m">BRIDGE · LookupGrid asset-types</div>
+        </div>
+        <div class="section-label">Loại ghi nhận</div>
+        <div class="kind-pills" data-field="kind" data-des-id="DES-MOB-INC-KIND">
+          <button type="button" class="on" onclick="setKind(this)">Hư</button>
+          <button type="button" onclick="setKind(this)">Mất</button>
+          <button type="button" onclick="setKind(this)">Hỏng</button>
+        </div>
+        <div class="section-label">Checklist (local → Description)</div>
+        <div class="chk" data-field="checklist">
+          <label><input type="checkbox" onchange="markDirty()" /> Nứt dọc mặt đường</label>
+          <label><input type="checkbox" onchange="markDirty()" /> Ổ gà / mất lớp phủ</label>
+          <label><input type="checkbox" onchange="markDirty()" /> Thấm / rò kết cấu</label>
+        </div>
+        <div class="section-label">Ảnh hiện trường</div>
+        <div class="photo-row" data-field="photos">
+          <div class="photo-slot" id="photo0" onclick="fillPhoto()">📷</div>
+        </div>
+        <button class="btn btn-secondary" type="button" data-field="detect" id="btn-detect" onclick="onDetect()" style="margin-bottom:10px">Nhận diện từ ảnh</button>
+        <div class="field">
+          <label>Ca / tuyến (RO)</label>
+          <input data-field="sessionStamp" id="sessionStamp" readonly value="QL.1 · Km 1556+080 · ca tuần PAT-0014" />
+        </div>
+        <div class="gps-bar" id="gpsBar" data-field="gpsLock">GPS OK · HasGps khi tạo · ±5 m</div>
+        <div class="field">
+          <label>Mức độ</label>
+          <select data-field="severity" onchange="markDirty()">
+            <option>Nghiêm trọng</option>
+            <option selected>Cao</option>
+            <option>Trung bình</option>
+            <option>Thấp</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Mô tả</label>
+          <textarea data-field="description" placeholder="Mô tả hiện trường…" oninput="markDirty()"></textarea>
+        </div>
+        <div class="stack">
+          <button class="btn btn-primary" type="button" data-field="create" id="btn-create" onclick="onCreate()">Tạo vấn đề</button>
+          <button class="btn btn-secondary" type="button" data-field="draftOffline" onclick="toast('→ peer offline draft')">Lưu nháp mất sóng</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- INC-D -->
+    <div class="screen" id="INC-D" data-zone="INC-D">
+      <div class="topbar">
+        <button class="icon-btn" type="button" onclick="go('INC-L')">‹</button>
+        <div class="title">Chi tiết sự cố</div>
+        <div style="width:44px"></div>
+      </div>
+      <div class="content">
+        <div data-field="header">
+          <div class="row-ro">
+            <div class="sub">Mã</div>
+            <div class="detail-code">SC-2401</div>
+            <span class="badge">Nghiêm trọng · Đang mở</span>
+          </div>
+          <div class="row-ro"><div class="sub">Tiêu đề</div><div class="val">Nứt mặt đường</div></div>
+        </div>
+        <div class="row-ro" data-field="routeKm">
+          <div class="sub">Tuyến · lý trình</div>
+          <div class="val">QL.1 · Km 1556+080</div>
+        </div>
+        <div class="row-ro" data-field="hasGps">
+          <div class="sub">Định vị</div>
+          <div class="val"><span class="flag">📍 HasGps = true</span> · không invent Lat/Lng DTO</div>
+        </div>
+        <div class="field">
+          <label>Ghi chú đóng (optional)</label>
+          <textarea data-field="note" id="closeNote" placeholder="Note optional — empty OK"></textarea>
+        </div>
+        <div class="stack">
+          <button class="btn btn-primary" type="button" data-field="nav.estimate" onclick="toast('→ peer estimate/WO')">Giao việc xử lý</button>
+          <button class="btn btn-secondary" type="button" data-field="nav.map" onclick="toast('→ /gis')">Xem trên bản đồ</button>
+          <button class="btn btn-secondary" type="button" data-field="close" onclick="onClose()">Đóng sự cố</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+    <div class="sheet" id="leaveSheet">
+      <div class="panel">
+        <div style="font-weight:600;margin-bottom:8px">Rời form?</div>
+        <div style="font-size:14px;color:var(--muted);margin-bottom:12px">Thay đổi chưa lưu sẽ mất. (DES-LEAVE · cấm window.confirm)</div>
+        <button class="btn btn-primary" type="button" onclick="confirmLeave()">Rời</button>
+        <button class="btn btn-secondary" type="button" onclick="hideLeave()">Ở lại</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(location.search);
+    let dirty = false;
+    let gpsOk = true;
+    let accuracy = 5;
+    let hasPhoto = false;
+    let hasSession = true;
+
+    function toast(msg) {
+      const el = document.getElementById('toast');
+      el.textContent = msg;
+      el.classList.add('show');
+      clearTimeout(toast._t);
+      toast._t = setTimeout(() => el.classList.remove('show'), 2600);
+    }
+
+    function go(id) {
+      document.querySelectorAll('.screen').forEach((s) => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      if (id === 'INC-N') applyGpsUi();
+    }
+
+    function markDirty() { dirty = true; }
+
+    function setKind(btn) {
+      document.querySelectorAll('.kind-pills button').forEach((b) => b.classList.remove('on'));
+      btn.classList.add('on');
+      markDirty();
+    }
+
+    function fillPhoto() {
+      hasPhoto = true;
+      document.getElementById('photo0').classList.add('filled');
+      document.getElementById('photo0').textContent = '✓';
+      markDirty();
+      toast('Ảnh local · uploads/files peer');
+    }
+
+    function applyGpsUi() {
+      const bar = document.getElementById('gpsBar');
+      const create = document.getElementById('btn-create');
+      const detect = document.getElementById('btn-detect');
+      if (!gpsOk) {
+        bar.className = 'gps-bar deny';
+        bar.textContent = 'GPS deny → chặn Create / Detect · cấm fake';
+        create.disabled = true;
+        detect.disabled = true;
+        return;
+      }
+      if (accuracy > 30) {
+        bar.className = 'gps-bar warn';
+        bar.textContent = 'GPS OK · accuracy ' + accuracy + ' m > 30 → Detect blocked';
+        create.disabled = false;
+        detect.disabled = true;
+        return;
+      }
+      bar.className = 'gps-bar';
+      bar.textContent = 'GPS OK · HasGps khi tạo · ±' + accuracy + ' m';
+      create.disabled = !hasSession;
+      detect.disabled = false;
+    }
+
+    function onDetect() {
+      if (!gpsOk) { toast('GPS deny — không detect'); return; }
+      if (accuracy > 30) { toast('accuracy > 30 m — không POST detect'); return; }
+      if (!hasPhoto) { toast('Cần ảnh trước khi detect'); return; }
+      toast('POST ai-vision/detect (mock review)');
+    }
+
+    function onCreate() {
+      if (!gpsOk) { toast('GPS deny — không tạo'); return; }
+      if (!hasSession) { toast('Không có ca — chặn gắn Route · cấm bịa'); return; }
+      dirty = false;
+      toast('POST incident/incidents · HasGps · no Lat');
+      setTimeout(() => go('INC-D'), 500);
+    }
+
+    function onClose() {
+      toast('POST …/close · Note ' + (document.getElementById('closeNote').value.trim() ? 'có' : 'empty OK'));
+      setTimeout(() => go('INC-L'), 600);
+    }
+
+    function tryLeave() {
+      if (dirty) {
+        document.getElementById('leaveSheet').classList.add('show');
+        return;
+      }
+      go('INC-L');
+    }
+    function hideLeave() { document.getElementById('leaveSheet').classList.remove('show'); }
+    function confirmLeave() { dirty = false; hideLeave(); go('INC-L'); }
+
+    function setListEmpty(on) {
+      document.getElementById('list-cards').style.display = on ? 'none' : 'block';
+      document.getElementById('list-empty').style.display = on ? 'block' : 'none';
+    }
+
+    function applyMode(mode) {
+      document.querySelectorAll('#board button').forEach((b) => {
+        b.classList.toggle('active', b.dataset.mode === mode);
+      });
+      gpsOk = true;
+      accuracy = 5;
+      hasSession = true;
+      setListEmpty(false);
+
+      if (mode === 'create' || mode === 'gpsdeny' || mode === 'acc45' || mode === 'nosession') {
+        if (mode === 'gpsdeny') gpsOk = false;
+        if (mode === 'acc45') accuracy = 45;
+        if (mode === 'nosession') {
+          hasSession = false;
+          document.getElementById('sessionStamp').value = '— không có ca —';
+          toast('Không có ca — chặn gắn Route');
+        } else {
+          document.getElementById('sessionStamp').value = 'QL.1 · Km 1556+080 · ca tuần PAT-0014';
+        }
+        go('INC-N');
+        applyGpsUi();
+        if (mode === 'gpsdeny') toast('GPS deny → Create/Detect disabled');
+        if (mode === 'acc45') toast('accuracy 45 m → Detect blocked');
+        return;
+      }
+      if (mode === 'detail') { go('INC-D'); return; }
+      if (mode === 'empty') { go('INC-L'); setListEmpty(true); return; }
+      if (mode === 'error') { go('INC-L'); toast('Không tải được danh sách · cấm window.alert'); return; }
+      go('INC-L');
+    }
+
+    document.getElementById('board').addEventListener('click', (e) => {
+      const btn = e.target.closest('button[data-mode]');
+      if (!btn) return;
+      applyMode(btn.dataset.mode);
+    });
+
+    document.querySelectorAll('.chips .chip').forEach((c) => {
+      c.addEventListener('click', () => {
+        c.parentElement.querySelectorAll('.chip').forEach((x) => x.classList.remove('on'));
+        c.classList.add('on');
+      });
+    });
+
+    // Query modes
+    if (params.get('screen') === 'create') applyMode('create');
+    else if (params.get('screen') === 'detail') applyMode('detail');
+    else if (params.get('empty') === '1') applyMode('empty');
+    else if (params.get('gps') === 'deny') applyMode('gpsdeny');
+    else if (params.get('acc')) { accuracy = Number(params.get('acc')) || 45; applyMode('acc45'); }
+    else if (params.get('nosession') === '1') applyMode('nosession');
+    else if (params.get('error') === '1') applyMode('error');
+  </script>
+</body>
+</html>

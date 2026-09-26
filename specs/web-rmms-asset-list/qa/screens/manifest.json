@@ -1,0 +1,84 @@
+{
+  "url": "http://localhost:9301/web-rmms-asset-list",
+  "capturedAt": "2026-09-25T14:28:30.953Z",
+  "method": "capture_alist · MFE /login · phone 430 · S0 list · S1 Hub #tileList · QA-20 click→list/detail · no kill worker",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "href": "http://localhost:9301/web-rmms-asset-list",
+      "dump": {
+        "feature": "web-rmms-asset-list",
+        "zones": [
+          "AL-00",
+          "AL-01",
+          "AL-02",
+          "AL-03",
+          "AL-04",
+          "AL-06"
+        ],
+        "ids": [
+          "navBack",
+          "pageTitle",
+          "search",
+          "AL-01",
+          "AL-03",
+          "AL-04"
+        ],
+        "rowCount": 50,
+        "text": "RMMS · Mobile Home Shell chrome Ops inbox Asset hub Asset KCHT Asset list Danh sách tài sản Alias /asset/list Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile DS Dev Standalone Developer RMMS Mobile ‹ Danh sách tài sản HL-guardrail_424692 GUARDRAIL QL.80 CD-longitudinal_200146 DITCH QL.1D BB-road_sign_192419 TRAFFIC_SIGN QL.21B · Km 77.598 DX-bus_stops_763427 BUS_STOP QL.24 DX-bus_stops_251401 BUS_STOP QL.1 CD-longitudinal_294571 DITCH QL.279 CD-longitudinal_213875 DITCH QL.34 HL-guardrail_563379 GUARDRAIL QL.55 BB-road_sign_238173 TRAFFIC_SIGN QL.7 · Km 106.67 GL-road_sign_spherical_mirror_306139 CONVEX_MIRROR QL.279C BB-road_sign_257255 TRAFFIC_SIGN Khác · Km 66.094 CT-guide_post_290336 DELINEATOR QL.12 BB-road_sign_154664 TRAFFIC_SIGN QL.49 · Km 46.935 GL-road_sign_spherical_mirror_289137 CONVEX_MIRROR QL.6C HL-guardrail_176010 GUARDRAIL QL.4A DX-bus_stops_7",
+        "href": "http://localhost:9301/web-rmms-asset-list"
+      }
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "href": "http://localhost:9301/web-rmms-asset-hub",
+      "dump": {
+        "feature": "web-rmms-asset-hub",
+        "zones": [
+          "AH-00",
+          "AH-01",
+          "AH-02",
+          "AH-03",
+          "AH-04",
+          "AH-05",
+          "AH-06"
+        ],
+        "ids": [
+          "navBack",
+          "tileList",
+          "walletTitle"
+        ],
+        "rowCount": 0,
+        "text": "RMMS · Mobile Home Shell chrome Ops inbox Asset hub Hub tài sản Alias /asset Asset KCHT Asset list Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile DS Dev Standalone Developer RMMS Mobile ‹ Hub tài sản ↻ Hồ sơ tài sản KHAC — Khác 45 loại tài sản TRA CỨU H Hạng mục assetHub.tile.kcht L Danh sách assetHub.tile.list THU THẬP + Thêm thủ công assetHub.tile.collect AI Camera AI assetHub.tile.ai QUẢN LÝ ↻ Cập nhật / bớt assetHub.tile.adjust ⌖ Xem bản đồ ›",
+        "href": "http://localhost:9301/web-rmms-asset-hub"
+      }
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "href": "http://localhost:9301/web-rmms-asset-list?id=ffffe198-fd9d-4eb8-9c71-eb3d62a7a28a",
+      "dump": {
+        "feature": "web-rmms-asset-list",
+        "zones": [
+          "AL-00",
+          "AL-10",
+          "AL-11",
+          "AL-12"
+        ],
+        "ids": [
+          "AL-11",
+          "AL-12"
+        ],
+        "rowCount": 0,
+        "text": "RMMS · Mobile Home Shell chrome Ops inbox Asset hub Hub tài sản Alias /asset Asset KCHT Asset list Danh sách tài sản Alias /asset/list Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile DS Dev Standalone Developer RMMS Mobile ‹ HL-guardrail_424692 Mã HL-guardrail_424692 Loại GUARDRAIL Tuyến QL.80 Km từ — Vĩ độ 10.28 Kinh độ 104.75 Xem trên bản đồ",
+        "href": "http://localhost:9301/web-rmms-asset-list?id=ffffe198-fd9d-4eb8-9c71-eb3d62a7a28a"
+      }
+    }
+  ],
+  "ok": true
+}

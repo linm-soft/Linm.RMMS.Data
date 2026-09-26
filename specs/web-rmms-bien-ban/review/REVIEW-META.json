@@ -1,0 +1,14 @@
+{
+  "feature": "web-rmms-bien-ban",
+  "status": "confirmed",
+  "review_confirm": "approve",
+  "autoApprove": true,
+  "skillVersion": "2026.09.05.03",
+  "schemaVersion": 1,
+  "taskId": "task_f17fb486",
+  "contentHash": "sha256:bc9070c4ab20da1960355a727eae18029943c2d95865aebd7d9bcb443ea60cd2",
+  "writtenAt": "2026-09-26T01:05:30.000Z",
+  "overall": "PASS",
+  "fix_gaps": "none",
+  "p0": 0
+}

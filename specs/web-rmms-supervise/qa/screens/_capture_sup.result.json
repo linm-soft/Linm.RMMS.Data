@@ -1,0 +1,84 @@
+{
+  "feature": "web-rmms-supervise",
+  "cases": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "href": "http://localhost:9301/web-rmms-supervise",
+      "dump": {
+        "feature": "web-rmms-supervise",
+        "zones": [
+          "SUP-00",
+          "SUP-01",
+          "SUP-03",
+          "SUP-08",
+          "SUP-02",
+          "SUP-04",
+          "SUP-07"
+        ],
+        "des": [
+          "DES-MOB-SUPERVISE",
+          "DES-MOB-SUP-FILTER"
+        ],
+        "text": "RMMS · Mobile Home Field hub Shell chrome Ops inbox Supervise Giám sát list Alias /supervise Alias /field/supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Chấm công (attendance) Asset adjust GIS map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Giám sát tuần đường Lọc Danh sách check in Bản đồ Tất cả tuyến · 2026-09-26 Không có check-in GET live trả về [] · không dùng demo SSOT.",
+        "href": "http://localhost:9301/web-rmms-supervise",
+        "cards": 0,
+        "empty": true,
+        "sheet": true
+      }
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "href": "http://localhost:9301/web-rmms-supervise",
+      "dump": {
+        "feature": "web-rmms-supervise",
+        "zones": [
+          "SUP-00",
+          "SUP-01",
+          "SUP-03",
+          "SUP-08",
+          "SUP-02",
+          "SUP-04",
+          "SUP-07"
+        ],
+        "des": [
+          "DES-MOB-SUPERVISE",
+          "DES-MOB-SUP-FILTER"
+        ],
+        "text": "RMMS · Mobile Home Field hub Shell chrome Ops inbox Supervise Giám sát list Alias /supervise Alias /field/supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Chấm công (attendance) Asset adjust GIS map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Giám sát tuần đường Lọc Danh sách check in Bản đồ Tất cả tuyến · 2026-09-26 Không có check-in GET live trả về [] · không dùng demo SSOT. Lọc Tuyến Tất cả tuyến QL.1 QL.15 QL.217 QL.46 Ngày Xóa lọc Áp dụng",
+        "href": "http://localhost:9301/web-rmms-supervise",
+        "cards": 0,
+        "empty": true,
+        "sheet": true
+      }
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "href": "http://localhost:9301/web-rmms-supervise/4455eea0-3711-4c9d-beaa-42e7de125554",
+      "dump": {
+        "feature": "web-rmms-supervise",
+        "zones": [
+          "SUP-00",
+          "SUP-05",
+          "SUP-06"
+        ],
+        "des": [
+          "DES-MOB-SUPERVISE",
+          "DES-MOB-SUP-DETAIL"
+        ],
+        "text": "RMMS · Mobile Home Field hub Shell chrome Ops inbox Supervise Giám sát list Alias /supervise Alias /field/supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Chấm công (attendance) Asset adjust GIS map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Chi tiết giám sát Phạm Minh D Mã: CC-DEMO-202609-004 Tổ / Ghi chú demo-seed Tuyến · Km QL.217 · Km12+000 Thời điểm 2026-09-18 14:00:00 Trạng thái in Tọa độ 19.32 · 105.43 Trong vùng Có Xem trên bản đồ",
+        "href": "http://localhost:9301/web-rmms-supervise/4455eea0-3711-4c9d-beaa-42e7de125554",
+        "cards": 0,
+        "empty": false,
+        "sheet": false
+      }
+    }
+  ],
+  "pass": true,
+  "at": "2026-09-25T19:50:57.839Z"
+}

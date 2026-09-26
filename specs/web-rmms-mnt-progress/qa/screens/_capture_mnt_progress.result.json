@@ -1,0 +1,124 @@
+{
+  "feature": "web-rmms-mnt-progress",
+  "cases": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "href": "http://localhost:9301/web-rmms-mnt-progress?id=2a0b6ead-a87e-4df5-97ae-dd2962724781",
+      "dump": {
+        "feature": "web-rmms-mnt-progress",
+        "zones": [
+          "WORK-P",
+          "WORK-P-GPS"
+        ],
+        "des": [
+          "sc-mnt-progress"
+        ],
+        "fields": [
+          "woHeader",
+          "woCode",
+          "woTitle",
+          "woRouteName",
+          "woWorkType",
+          "woStatus",
+          "progressPercent",
+          "note",
+          "gps",
+          "gpsPin",
+          "photoLocalIds",
+          "submitProgress",
+          "submitComplete"
+        ],
+        "ids": [
+          "sc-mnt-progress",
+          "mnt-pct",
+          "mnt-note"
+        ],
+        "text": "RMMS · Mobile Home Field hub Shell chrome Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Incident Work (công việc) Work progress (WORK-P) WORK-P STD Alias /work/progress VIS capture Chấm công (attendance) Asset adjust GIS map Patrol map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Cập nhật trạng thái WO-DEMO-202609-004 Xử lý sạt lở Km3+400 QL.46 · Khẩn cấp Đang thực hiện emergency Tiến độ (%) 60% Ghi chú GPS sẽ được ghi vào Note khi gửi (lat/lng/acc) — không gửi field body riêng. Định vị GPS OK · acc ±12 m 21.0285, 105.8542 Ghim vị trí hiện tại Ảnh (local · không MediaUrl body) + P1 preview local only · persist media = SA Signed (GAP). Cập nhật tiến độ Hoàn thành",
+        "href": "http://localhost:9301/web-rmms-mnt-progress?id=2a0b6ead-a87e-4df5-97ae-dd2962724781",
+        "ctaProgressDisabled": false,
+        "ctaCompleteDisabled": false,
+        "gpsText": "GPS OK · acc ±12 m21.0285, 105.8542"
+      }
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "href": "http://localhost:9301/web-rmms-home",
+      "dump": {
+        "feature": "web-rmms-home",
+        "zones": [
+          "SH-00",
+          "HM-00",
+          "HM-01",
+          "HM-02",
+          "SH-01",
+          "SH-02"
+        ],
+        "des": [],
+        "fields": [
+          "guestFaq",
+          "guestPrivacy",
+          "guestLoginCta"
+        ],
+        "ids": [
+          "loginUser",
+          "loginPass",
+          "loginSubmit",
+          "guestLogin"
+        ],
+        "text": "RMMS · Mobile Home Field hub Shell chrome Home → Field tab Incident Work tab Work list → Ops → Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Incident Work (công việc) Work progress (WORK-P) VIS capture Chấm công (attendance) Asset adjust GIS map Patrol map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Trang chủ FAQ Hướng dẫn dùng app tuần đường / sự cố / công việc trên thiết bị di động. Quyền riêng tư Dữ liệu phiên và vị trí chỉ dùng khi bạn đăng nhập và vào màn nghiệp vụ cần GPS. Đăng nhập 🏠 Trang chủ 🛣 Hiện trường ⚠️ Sự cố 🧰 Công việc Đăng nhập Hủy Tài khoản Mật khẩu Đăng nhập",
+        "href": "http://localhost:9301/web-rmms-home",
+        "ctaProgressDisabled": null,
+        "ctaCompleteDisabled": null,
+        "gpsText": null
+      }
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "href": "http://localhost:9301/web-rmms-mnt-progress?id=2a0b6ead-a87e-4df5-97ae-dd2962724781&deny=1",
+      "dump": {
+        "feature": "web-rmms-mnt-progress",
+        "zones": [
+          "WORK-P",
+          "WORK-P-GPS"
+        ],
+        "des": [
+          "sc-mnt-progress"
+        ],
+        "fields": [
+          "gpsBanner",
+          "woHeader",
+          "woCode",
+          "woTitle",
+          "woRouteName",
+          "woWorkType",
+          "woStatus",
+          "progressPercent",
+          "note",
+          "gps",
+          "gpsPin",
+          "photoLocalIds",
+          "submitProgress",
+          "submitComplete"
+        ],
+        "ids": [
+          "sc-mnt-progress",
+          "mnt-pct",
+          "mnt-note"
+        ],
+        "text": "RMMS · Mobile Home Field hub Shell chrome Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Incident Work (công việc) Work progress (WORK-P) WORK-P STD Alias /work/progress VIS capture Chấm công (attendance) Asset adjust GIS map Patrol map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Cập nhật trạng thái Không có vị trí GPS. Bật định vị để Cập nhật / Hoàn thành. Không dùng tọa độ giả. WO-DEMO-202609-004 Xử lý sạt lở Km3+400 QL.46 · Khẩn cấp Đang thực hiện emergency Tiến độ (%) 60% Ghi chú GPS sẽ được ghi vào Note khi gửi (lat/lng/acc) — không gửi field body riêng. Định vị GPS bị từ chối Ghim vị trí hiện tại Ảnh (local · không MediaUrl body) + P1 preview local only · persist media = SA Signed (GAP). Cập nhật tiến độ Hoàn thành",
+        "href": "http://localhost:9301/web-rmms-mnt-progress?id=2a0b6ead-a87e-4df5-97ae-dd2962724781&deny=1",
+        "ctaProgressDisabled": true,
+        "ctaCompleteDisabled": true,
+        "gpsText": "GPS bị từ chối"
+      }
+    }
+  ],
+  "pass": true,
+  "at": "2026-09-25T22:47:31.272Z"
+}

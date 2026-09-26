@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>web-rmms-field — Hub Field FL-00…03</title>
+  <style>
+    :root {
+      --primary: #0C84C0;
+      --header-start: #086A9A;
+      --header-end: #0C84C0;
+      --danger: #F03C30;
+      --success: #3CB448;
+      --surface: #F2F2F7;
+      --card: #FFFFFF;
+      --on-primary: #FFFFFF;
+      --on-surface: #1C1C1E;
+      --border: #C7C7CC;
+      --muted: #8E8E93;
+      --radius-card: 16px;
+      --radius-control: 12px;
+      --label: 13px;
+      --field: 16px;
+      --nav-title: 17px;
+      --control-h: 48px;
+      --phone-w: 430px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: #1a1a1e;
+      color: var(--on-surface);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px 8px 32px;
+    }
+    .meta {
+      max-width: var(--phone-w); width: 100%;
+      color: #aaa; font-size: 11px; margin-bottom: 10px;
+      text-align: center; line-height: 1.4;
+    }
+    .board-nav {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      max-width: var(--phone-w); width: 100%; margin-bottom: 12px;
+    }
+    .board-nav button {
+      border: 1px solid #555; background: #2a2a2e; color: #eee;
+      border-radius: 8px; padding: 6px 10px; font-size: 12px; cursor: pointer;
+    }
+    .board-nav button.active { background: var(--primary); border-color: var(--primary); }
+    .phone {
+      width: min(100%, var(--phone-w));
+      min-height: 780px;
+      background: var(--surface);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,.45);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .topbar {
+      background: linear-gradient(135deg, var(--header-start), var(--header-end));
+      color: var(--on-primary);
+      min-height: 56px;
+      display: flex; align-items: center; gap: 4px;
+      padding: 10px 8px 10px 14px;
+      z-index: 2;
+    }
+    .topbar .title {
+      flex: 1; font-size: var(--nav-title); font-weight: 600;
+    }
+    .topbar .icon-btn {
+      width: 44px; height: 44px; border: 0; background: transparent;
+      color: inherit; cursor: pointer; border-radius: 12px;
+      position: relative; display: flex; align-items: center; justify-content: center;
+    }
+    .sync-badge {
+      position: absolute; top: 4px; right: 2px;
+      min-width: 18px; height: 18px; padding: 0 5px;
+      background: var(--danger); color: #fff; font-size: 11px;
+      border-radius: 10px; display: none; align-items: center; justify-content: center;
+      border: 1.5px solid var(--on-primary);
+    }
+    .sync-badge.show { display: flex; }
+    .content { flex: 1; overflow: auto; padding: 12px 14px 88px; }
+    .zone-tag {
+      font-size: 10px; color: var(--muted); letter-spacing: .04em;
+      text-transform: uppercase; margin: 0 0 6px; font-weight: 600;
+    }
+    .session-hint {
+      display: none;
+      background: #E8F6FC; color: var(--primary);
+      border-radius: 12px; padding: 10px 12px; font-size: var(--label);
+      margin-bottom: 12px; line-height: 1.4;
+    }
+    .session-hint.show { display: block; }
+    .door {
+      background: var(--card);
+      border-radius: var(--radius-card);
+      padding: 16px;
+      margin-bottom: 10px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      text-align: left;
+      width: 100%;
+    }
+    .door h2 { margin: 0 0 6px; font-size: 18px; }
+    .door .sub { color: var(--muted); font-size: 13px; margin: 0; }
+    .door .badge {
+      display: none; margin-top: 10px;
+      background: #E8F6FC; color: var(--primary);
+      font-size: 12px; padding: 4px 8px; border-radius: 6px;
+    }
+    .door .badge.show { display: inline-block; }
+    .section-label {
+      font-size: var(--label); color: var(--muted); margin: 14px 0 8px; font-weight: 600;
+    }
+    .grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+    }
+    .tile {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius-card); padding: 12px 8px; text-align: center;
+      font-size: 12px; cursor: pointer; min-height: 96px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+    }
+    .tile .ico {
+      width: 48px; height: 48px; border-radius: 14px;
+      background: #E8F4FA; color: var(--primary);
+      display: flex; align-items: center; justify-content: center; font-size: 20px;
+    }
+    .toast {
+      position: absolute; left: 12px; right: 12px; bottom: 76px;
+      background: #2c2c2e; color: #fff; border-radius: 12px; padding: 10px 14px;
+      font-size: 13px; display: none; z-index: 30;
+    }
+    .toast.show { display: block; }
+    .tabbar-ghost {
+      position: absolute; left: 0; right: 0; bottom: 0;
+      height: 64px; background: var(--card); border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted); font-size: 11px; opacity: .75;
+    }
+    .peer-note {
+      margin-top: 14px; padding: 10px 12px; border-radius: 12px;
+      background: #FFF8E8; color: #8A6A00; font-size: 12px; line-height: 1.4;
+    }
+  </style>
+</head>
+<body>
+  <div class="meta">
+    web-rmms-field · FL-00…03 · phone 430 · reviewUrl prototype · peerStdUrl :9301/web-rmms-field<br />
+    Live: GET patrol/sessions badge only · nav-only writes · no GPS hub · DES-GRID N/A
+  </div>
+  <nav class="board-nav" aria-label="Prototype modes">
+    <button type="button" class="active" data-mode="default">Default</button>
+    <button type="button" data-mode="badge">Badge active</button>
+    <button type="button" data-mode="sync">Sync queue</button>
+    <button type="button" data-mode="empty">Empty sessions</button>
+    <button type="button" data-mode="error">Error toast</button>
+  </nav>
+
+  <div class="phone" id="phone" data-feature="web-rmms-field" data-phone-frame="430" data-des-id="FL-00">
+    <header class="topbar" data-des-id="FL-00">
+      <div class="title" data-copy-key="tab.field">Field</div>
+      <button type="button" class="icon-btn" id="syncBtn" data-des-id="FL-02" data-action="syncBtn" data-route="/field/offline" title="Đồng bộ" aria-label="Đồng bộ">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M20 12a8 8 0 1 1-2.3-5.7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          <path d="M20 4.5V9h-4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="sync-badge" id="syncBadge" data-des-id="FL-02" data-action="syncBadge">0</span>
+      </button>
+    </header>
+
+    <div class="content">
+      <p class="zone-tag">FL-00 · frame + session hint</p>
+      <div class="session-hint" id="sessionHint" data-des-id="FL-00" data-action="activeSessionHint" data-copy-key="field.session.hint">
+        Ca đang tuần · QL.1 · TD-2026-091 (GET patrol/sessions)
+      </div>
+
+      <p class="zone-tag">FL-01 · 2 cửa</p>
+      <button type="button" class="door" id="doorPatrol" data-des-id="FL-01" data-action="doorPatrol" data-route="/field/tuan-duong">
+        <h2 data-copy-key="field.door.patrol">Tuần đường</h2>
+        <p class="sub">Mở ca · check-in · lịch sử → peer A</p>
+        <span class="badge" id="badgePatrol">Đang tuần · Tuần đường</span>
+      </button>
+      <button type="button" class="door" id="doorInspect" data-des-id="FL-01" data-action="doorInspect" data-route="/field/tuan-kiem">
+        <h2 data-copy-key="field.door.inspect">Tuần kiểm</h2>
+        <p class="sub">Mở đợt · theo dõi đợt → peer A</p>
+        <span class="badge" id="badgeInspect">Tuần kiểm · Đang tuần</span>
+      </button>
+
+      <p class="zone-tag">FL-03 · tiles×7</p>
+      <div class="section-label" data-copy-key="field.tiles.title">Tiện ích Field</div>
+      <div class="grid" data-des-id="FL-03">
+        <button type="button" class="tile" data-action="tileAttendance" data-route="/field/attendance">
+          <span class="ico" aria-hidden="true">⏱</span>
+          <span data-copy-key="field.tile.attendance">Chấm công</span>
+        </button>
+        <button type="button" class="tile" data-action="tileHistory" data-route="/field/history">
+          <span class="ico" aria-hidden="true">☰</span>
+          <span data-copy-key="field.tile.history">Lịch sử ca</span>
+        </button>
+        <button type="button" class="tile" data-action="tileNghiemThu" data-route="/field/nghiem-thu">
+          <span class="ico" aria-hidden="true">✓</span>
+          <span data-copy-key="field.tile.nghiemThu">Nghiệm thu</span>
+        </button>
+        <button type="button" class="tile" data-action="tileCam" data-route="/field/cam">
+          <span class="ico" aria-hidden="true">📷</span>
+          <span data-copy-key="field.tile.cam">Camera tuần</span>
+        </button>
+        <button type="button" class="tile" data-action="tileReflect" data-route="/field/reflect">
+          <span class="ico" aria-hidden="true">✎</span>
+          <span data-copy-key="field.tile.reflect">Phản ánh</span>
+        </button>
+        <button type="button" class="tile" data-action="tileSupervise" data-route="/field/supervise">
+          <span class="ico" aria-hidden="true">👁</span>
+          <span data-copy-key="field.tile.supervise">Giám sát</span>
+        </button>
+        <button type="button" class="tile" data-action="tileMap" data-route="/field/map">
+          <span class="ico" aria-hidden="true">🗺</span>
+          <span data-copy-key="field.tile.map">Bản đồ tuần</span>
+        </button>
+      </div>
+
+      <div class="peer-note">
+        Hub mount doors only · deep CRUD = peer A / peer tiles · <strong>không</strong> GPS · <strong>không</strong> POST/PUT sessions từ hub.
+      </div>
+    </div>
+
+    <div class="toast" id="toast" role="status"></div>
+    <div class="tabbar-ghost">TabBar ghost · peer web-rmms-shell SH-04</div>
+  </div>
+
+  <script>
+    (function () {
+      var toastEl = document.getElementById("toast");
+      var hintEl = document.getElementById("sessionHint");
+      var badgePatrol = document.getElementById("badgePatrol");
+      var badgeInspect = document.getElementById("badgeInspect");
+      var syncBadge = document.getElementById("syncBadge");
+      var toastTimer;
+
+      function showToast(msg) {
+        toastEl.textContent = msg;
+        toastEl.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () { toastEl.classList.remove("show"); }, 2200);
+      }
+
+      function setMode(mode) {
+        document.querySelectorAll(".board-nav button").forEach(function (b) {
+          b.classList.toggle("active", b.getAttribute("data-mode") === mode);
+        });
+        hintEl.classList.remove("show");
+        badgePatrol.classList.remove("show");
+        badgeInspect.classList.remove("show");
+        syncBadge.classList.remove("show");
+        syncBadge.textContent = "0";
+        toastEl.classList.remove("show");
+
+        if (mode === "badge") {
+          badgePatrol.classList.add("show");
+          hintEl.classList.add("show");
+        } else if (mode === "sync") {
+          syncBadge.textContent = "3";
+          syncBadge.classList.add("show");
+        } else if (mode === "empty") {
+          /* doors no badge · hint ẩn · sync ẩn */
+        } else if (mode === "error") {
+          showToast("Không tải được ca tuần (GET sessions). Thử lại.");
+        }
+        var q = mode === "default" ? "" : "?" + (
+          mode === "badge" ? "badge=1" :
+          mode === "sync" ? "sync=3" :
+          mode === "empty" ? "empty=1" : "error=1"
+        );
+        if (history.replaceState) history.replaceState(null, "", location.pathname + q);
+      }
+
+      document.querySelectorAll(".board-nav button").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          setMode(btn.getAttribute("data-mode"));
+        });
+      });
+
+      document.getElementById("syncBtn").addEventListener("click", function () {
+        showToast("Nav → /field/offline (peer web-rmms-offline)");
+      });
+
+      document.querySelectorAll("[data-route]").forEach(function (el) {
+        if (el.id === "syncBtn") return;
+        el.addEventListener("click", function () {
+          var route = el.getAttribute("data-route");
+          var action = el.getAttribute("data-action") || "";
+          showToast("Nav → " + route + (action ? " · " + action : ""));
+        });
+      });
+
+      var params = new URLSearchParams(location.search);
+      if (params.get("badge") === "1") setMode("badge");
+      else if (params.get("sync")) setMode("sync");
+      else if (params.get("empty") === "1") setMode("empty");
+      else if (params.get("error") === "1") setMode("error");
+      else setMode("default");
+    })();
+  </script>
+</body>
+</html>

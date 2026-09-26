@@ -1,0 +1,244 @@
+{
+  "feature": "web-rmms-photo-geo",
+  "cases": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "href": "http://localhost:9301/web-rmms-photo-geo",
+      "dump": {
+        "feature": "web-rmms-photo-geo",
+        "zones": [
+          "PGC"
+        ],
+        "des": [
+          "DES-MOB-PGC"
+        ],
+        "ids": [
+          "PGC"
+        ],
+        "text": "RMMS · Mobile Home Field hub Shell chrome Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Incident Work (công việc) Work progress (WORK-P) Work log (WORK-G) Work chat (WORK-C) VIS capture Photo geo (PGC) Chụp ảnh kèm tọa độ Deny GPS HITL map Chấm công (attendance) Asset adjust GIS map Patrol map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Đăng nhập để dùng chụp ảnh kèm tọa độ. Đăng nhập",
+        "href": "http://localhost:9301/web-rmms-photo-geo",
+        "guestGate": true,
+        "titleOk": true,
+        "shutterDisabled": null,
+        "useDisabled": null,
+        "detectDisabled": null
+      }
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "href": "http://localhost:9301/web-rmms-home",
+      "dump": {
+        "feature": "web-rmms-home",
+        "zones": [
+          "SH-00",
+          "HM-00",
+          "HM-01",
+          "HM-02",
+          "SH-01",
+          "SH-02"
+        ],
+        "des": [],
+        "ids": [
+          "loginUser",
+          "loginPass",
+          "loginSubmit",
+          "guestLogin"
+        ],
+        "text": "RMMS · Mobile Home Field hub Shell chrome Home → Field tab Incident Work tab Work list → Ops → Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Incident Work (công việc) Work progress (WORK-P) Work log (WORK-G) Work chat (WORK-C) VIS capture Photo geo (PGC) Chấm công (attendance) Asset adjust GIS map Patrol map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Trang chủ FAQ Hướng dẫn dùng app tuần đường / sự cố / công việc trên thiết bị di động. Quyền riêng tư Dữ liệu phiên và vị trí chỉ dùng khi bạn đăng nhập và vào màn nghiệp vụ cần GPS. Đăng nhập 🏠 Trang chủ 🛣 Hiện trường ⚠️ Sự cố 🧰 Công việc Đăng nhập Hủy Tài khoản Mật khẩu Đăng nhập",
+        "href": "http://localhost:9301/web-rmms-home",
+        "guestGate": false,
+        "titleOk": false,
+        "shutterDisabled": null,
+        "useDisabled": null,
+        "detectDisabled": null
+      }
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "href": "http://localhost:9301/web-rmms-photo-geo",
+      "dump": {
+        "feature": "web-rmms-photo-geo",
+        "zones": [
+          "PGC"
+        ],
+        "des": [
+          "DES-MOB-PGC"
+        ],
+        "ids": [
+          "PGC",
+          "sheet-pgc",
+          "capture-preview",
+          "btn-shutter",
+          "shutter-wrap",
+          "meta-card",
+          "row-photog",
+          "row-distance",
+          "row-object",
+          "btn-use",
+          "btn-cancel"
+        ],
+        "text": "RMMS · Mobile Home Field hub Shell chrome Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Incident Work (công việc) Work progress (WORK-P) Work log (WORK-G) Work chat (WORK-C) VIS capture Photo geo (PGC) Chụp ảnh kèm tọa độ Deny GPS HITL map Chấm công (attendance) Asset adjust GIS map Patrol map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Chụp ảnh kèm tọa độ QL.1-LANGSON · Tuần kiểm Key — Vị trí đã chốt ±12 m · 21.02850, 105.85420 Khoảng cách ước lượng — Tọa độ vật thể — Dùng ảnh Hủy",
+        "href": "http://localhost:9301/web-rmms-photo-geo",
+        "guestGate": false,
+        "titleOk": true,
+        "shutterDisabled": true,
+        "useDisabled": true,
+        "detectDisabled": null
+      }
+    },
+    {
+      "id": "MODE-deny",
+      "result": "PASS",
+      "screenshot": "MODE-deny.png",
+      "href": "http://localhost:9301/web-rmms-photo-geo?deny=1",
+      "dump": {
+        "feature": "web-rmms-photo-geo",
+        "zones": [
+          "PGC"
+        ],
+        "des": [
+          "DES-MOB-PGC",
+          "DES-MOB-GPS-DENY"
+        ],
+        "ids": [
+          "PGC",
+          "sheet-pgc",
+          "capture-preview",
+          "btn-shutter",
+          "shutter-wrap",
+          "meta-card",
+          "row-photog",
+          "row-distance",
+          "row-object",
+          "btn-use",
+          "btn-cancel",
+          "modal-gps"
+        ],
+        "text": "RMMS · Mobile Home Field hub Shell chrome Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Incident Work (công việc) Work progress (WORK-P) Work log (WORK-G) Work chat (WORK-C) VIS capture Photo geo (PGC) Chụp ảnh kèm tọa độ Deny GPS HITL map Chấm công (attendance) Asset adjust GIS map Patrol map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Chụp ảnh kèm tọa độ QL.1-LANGSON · Tuần kiểm Key — Vị trí đã chốt — Khoảng cách ước lượng — Tọa độ vật thể — Dùng ảnh Hủy Làm mới GPS Định vị bị tắt Cần vị trí để chụp ảnh kèm tọa độ. Mở Cài đặt → Quyền vị trí cho RMMS. Accuracy phải ≤ 30 m khi nhận diện. Sao chép hướng dẫnĐể sau",
+        "href": "http://localhost:9301/web-rmms-photo-geo?deny=1",
+        "guestGate": false,
+        "titleOk": true,
+        "shutterDisabled": true,
+        "useDisabled": true,
+        "detectDisabled": null
+      }
+    },
+    {
+      "id": "MODE-compass",
+      "result": "PASS",
+      "screenshot": "MODE-compass.png",
+      "href": "http://localhost:9301/web-rmms-photo-geo?compass=1",
+      "dump": {
+        "feature": "web-rmms-photo-geo",
+        "zones": [
+          "PGC"
+        ],
+        "des": [
+          "DES-MOB-PGC"
+        ],
+        "ids": [
+          "PGC",
+          "sheet-pgc",
+          "capture-preview",
+          "btn-shutter",
+          "shutter-wrap",
+          "meta-card",
+          "row-photog",
+          "row-distance",
+          "row-object",
+          "btn-use",
+          "btn-cancel"
+        ],
+        "text": "RMMS · Mobile Home Field hub Shell chrome Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Incident Work (công việc) Work progress (WORK-P) Work log (WORK-G) Work chat (WORK-C) VIS capture Photo geo (PGC) Chụp ảnh kèm tọa độ Deny GPS HITL map Chấm công (attendance) Asset adjust GIS map Patrol map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Chụp ảnh kèm tọa độ QL.1-LANGSON · Tuần kiểm Đứng lệch xe · kéo pin trên bản đồ Key — Vị trí đã chốt ±12 m · 21.02850, 105.85420 Khoảng cách ước lượng — Tọa độ vật thể — Dùng ảnh Hủy",
+        "href": "http://localhost:9301/web-rmms-photo-geo?compass=1",
+        "guestGate": false,
+        "titleOk": true,
+        "shutterDisabled": true,
+        "useDisabled": true,
+        "detectDisabled": null
+      }
+    },
+    {
+      "id": "MODE-step-map",
+      "result": "PASS",
+      "screenshot": "MODE-step-map.png",
+      "href": "http://localhost:9301/web-rmms-photo-geo?step=map",
+      "dump": {
+        "feature": "web-rmms-photo-geo",
+        "zones": [
+          "PGC"
+        ],
+        "des": [
+          "DES-MOB-PGC",
+          "MAP-HITL"
+        ],
+        "ids": [
+          "PGC",
+          "sheet-pgc",
+          "capture-preview",
+          "gim-pin",
+          "meta-card",
+          "row-photog",
+          "row-distance",
+          "row-object",
+          "map-confirm",
+          "map-pin",
+          "btn-confirm-map",
+          "btn-use",
+          "btn-cancel"
+        ],
+        "text": "RMMS · Mobile Home Field hub Shell chrome Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Incident Work (công việc) Work progress (WORK-P) Work log (WORK-G) Work chat (WORK-C) VIS capture Photo geo (PGC) Chụp ảnh kèm tọa độ Deny GPS HITL map Chấm công (attendance) Asset adjust GIS map Patrol map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Chụp ảnh kèm tọa độ QL.1-LANGSON · Tuần kiểm Key — Vị trí đã chốt ±12 m · 21.02850, 105.85420 Khoảng cách ước lượng 24.9 m Tọa độ vật thể Đề xuất · chờ xác nhận Kéo pin để xác nhận vị trí vật thể Xác nhận vị trí Dùng ảnh Hủy",
+        "href": "http://localhost:9301/web-rmms-photo-geo?step=map",
+        "guestGate": false,
+        "titleOk": true,
+        "shutterDisabled": null,
+        "useDisabled": true,
+        "detectDisabled": null
+      }
+    },
+    {
+      "id": "MODE-fail",
+      "result": "PASS",
+      "screenshot": "MODE-fail.png",
+      "href": "http://localhost:9301/web-rmms-photo-geo?fail=1",
+      "dump": {
+        "feature": "web-rmms-photo-geo",
+        "zones": [
+          "PGC"
+        ],
+        "des": [
+          "DES-MOB-PGC"
+        ],
+        "ids": [
+          "PGC",
+          "sheet-pgc",
+          "capture-preview",
+          "btn-shutter",
+          "shutter-wrap",
+          "meta-card",
+          "row-photog",
+          "row-distance",
+          "row-object",
+          "btn-use",
+          "btn-cancel"
+        ],
+        "text": "RMMS · Mobile Home Field hub Shell chrome Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Incident Work (công việc) Work progress (WORK-P) Work log (WORK-G) Work chat (WORK-C) VIS capture Photo geo (PGC) Chụp ảnh kèm tọa độ Deny GPS HITL map Chấm công (attendance) Asset adjust GIS map Patrol map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Chụp ảnh kèm tọa độ QL.1-LANGSON · Tuần kiểm Key — Vị trí đã chốt ±12 m · 21.02850, 105.85420 Khoảng cách ước lượng — Tọa độ vật thể — Dùng ảnh Hủy",
+        "href": "http://localhost:9301/web-rmms-photo-geo?fail=1",
+        "guestGate": false,
+        "titleOk": true,
+        "shutterDisabled": true,
+        "useDisabled": true,
+        "detectDisabled": null
+      }
+    }
+  ],
+  "corePass": true,
+  "pass": true,
+  "at": "2026-09-26T00:16:05.005Z"
+}

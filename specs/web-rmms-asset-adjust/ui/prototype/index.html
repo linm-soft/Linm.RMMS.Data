@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>web-rmms-asset-adjust — Bớt hoặc sửa tài sản</title>
+  <style>
+    :root {
+      --primary: #0C84C0;
+      --header-start: #086A9A;
+      --header-end: #0C84C0;
+      --danger: #FF3B30;
+      --surface: #F2F2F7;
+      --card: #FFFFFF;
+      --on-primary: #FFFFFF;
+      --on-surface: #1C1C1E;
+      --border: #C7C7CC;
+      --muted: #8E8E93;
+      --radius-card: 16px;
+      --radius-control: 12px;
+      --label: 13px;
+      --field: 16px;
+      --nav-title: 17px;
+      --control-h: 44px;
+      --phone-w: 430px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: #1a1a1e;
+      color: var(--on-surface);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px 8px 32px;
+    }
+    .board-nav {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      max-width: var(--phone-w); width: 100%; margin-bottom: 12px;
+    }
+    .board-nav button {
+      border: 1px solid var(--border); background: #2a2a2e; color: #eee;
+      border-radius: 8px; padding: 6px 10px; font-size: 12px; cursor: pointer;
+    }
+    .board-nav button.active { background: var(--primary); border-color: var(--primary); }
+    .meta {
+      max-width: var(--phone-w); width: 100%; color: #aaa; font-size: 12px; margin-bottom: 8px;
+    }
+    .phone {
+      width: min(100%, var(--phone-w));
+      min-height: 780px;
+      background: var(--surface);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,.45);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .topbar {
+      background: linear-gradient(135deg, var(--header-start), var(--header-end));
+      color: var(--on-primary);
+      min-height: 56px;
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 14px;
+    }
+    .topbar .icon-btn {
+      width: 44px; height: 44px; border: 0; background: transparent;
+      color: inherit; font-size: 22px; cursor: pointer; border-radius: 12px;
+    }
+    .topbar .title { flex: 1; font-size: var(--nav-title); font-weight: 600; }
+    .content { flex: 1; overflow: auto; padding: 12px 14px 28px; }
+    .search-wrap { margin-bottom: 12px; }
+    .search {
+      width: 100%;
+      height: var(--control-h);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-control);
+      padding: 0 14px;
+      font-size: var(--field);
+      background: var(--card);
+      color: var(--on-surface);
+    }
+    .search::placeholder { color: var(--muted); }
+    .list { display: flex; flex-direction: column; gap: 8px; }
+    .row {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 12px 14px;
+      min-height: 88px;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .row .meta-block { display: flex; flex-direction: column; gap: 4px; }
+    .row .code { font-size: var(--field); font-weight: 650; }
+    .row .type { font-size: var(--label); color: var(--primary); }
+    .row .route { font-size: var(--label); color: var(--muted); }
+    .row .actions {
+      display: flex; gap: 8px; margin-top: 2px;
+    }
+    .btn-action {
+      flex: 1;
+      height: 40px;
+      border-radius: var(--radius-control);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      font-size: var(--label);
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--on-surface);
+    }
+    .btn-action.edit { border-color: var(--primary); color: var(--primary); }
+    .btn-action.remove { border-color: var(--danger); color: var(--danger); }
+    .empty {
+      display: none;
+      text-align: center;
+      padding: 48px 16px;
+      color: var(--muted);
+    }
+    .empty.show { display: block; }
+    .empty .msg { font-size: var(--field); margin-bottom: 16px; color: var(--on-surface); }
+    .btn-retry {
+      height: var(--control-h);
+      min-width: 140px;
+      border: 0;
+      border-radius: var(--radius-control);
+      background: var(--primary);
+      color: var(--on-primary);
+      font-size: var(--field);
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .pager {
+      display: flex; justify-content: center; gap: 8px; margin-top: 14px;
+    }
+    .pager button {
+      height: 36px; padding: 0 14px; border-radius: 10px;
+      border: 1px solid var(--border); background: var(--card);
+      font-size: 13px; cursor: pointer;
+    }
+    .toast {
+      position: absolute; left: 16px; right: 16px; bottom: 24px;
+      background: #1C1C1E; color: #fff; border-radius: 12px;
+      padding: 12px 16px; font-size: 14px;
+      opacity: 0; pointer-events: none; transition: opacity .2s;
+      z-index: 40;
+    }
+    .toast.show { opacity: 1; }
+    .overlay {
+      display: none;
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,.45);
+      align-items: flex-end; justify-content: center;
+      z-index: 30; padding: 16px;
+    }
+    .overlay.show { display: flex; }
+    .dialog {
+      width: 100%;
+      background: var(--card);
+      border-radius: 16px;
+      padding: 20px 16px 16px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.25);
+    }
+    .dialog h2 {
+      margin: 0 0 8px; font-size: 17px; font-weight: 650;
+    }
+    .dialog p {
+      margin: 0 0 18px; font-size: var(--field); color: var(--muted); line-height: 1.4;
+    }
+    .dialog .code-ref {
+      color: var(--on-surface); font-weight: 600;
+    }
+    .dialog .btns { display: flex; gap: 8px; }
+    .dialog .btns button {
+      flex: 1; height: var(--control-h);
+      border-radius: var(--radius-control); font-size: var(--field); font-weight: 600; cursor: pointer;
+    }
+    .btn-cancel {
+      border: 1px solid var(--border); background: var(--surface); color: var(--on-surface);
+    }
+    .btn-ok {
+      border: 0; background: var(--danger); color: #fff;
+    }
+    .nav-hint {
+      display: none; margin-top: 12px; padding: 12px; border-radius: 12px;
+      background: #E8F4FA; color: #086A9A; font-size: 13px;
+    }
+    .nav-hint.show { display: block; }
+  </style>
+</head>
+<body>
+  <div class="meta">
+    zones AA-00…08 · reviewUrl · Mobile phone ≤430 · soft DELETE confirm · Sửa → peer list detail · no Lat/Lng · no PUT P1
+  </div>
+  <div class="board-nav" id="boardNav">
+    <button type="button" data-board="loaded" class="active">List loaded</button>
+    <button type="button" data-board="empty">Empty</button>
+    <button type="button" data-board="error">Error</button>
+    <button type="button" data-board="search">Search</button>
+    <button type="button" data-board="confirm">Confirm delete</button>
+    <button type="button" data-board="deleted">After delete</button>
+    <button type="button" data-board="editNav">Edit → peer</button>
+  </div>
+
+  <div class="phone" id="AA-00" data-zone="AA-00">
+    <header class="topbar" id="AA-01" data-zone="AA-01">
+      <button type="button" class="icon-btn" id="navBack" aria-label="assetAdjust.nav.back" title="← Hub /asset">‹</button>
+      <div class="title" id="AA-02" data-zone="AA-02">Bớt hoặc sửa tài sản</div>
+    </header>
+    <main class="content">
+      <div class="search-wrap" id="AA-03" data-zone="AA-03">
+        <input class="search" id="search" type="search" placeholder="Tìm mã / loại / tuyến…" aria-label="assetAdjust.search" />
+      </div>
+      <div id="AA-04" data-zone="AA-04">
+        <div class="list" id="list"></div>
+        <div class="pager" id="pager">
+          <button type="button" id="prevPage">‹</button>
+          <button type="button" id="pageLabel">1</button>
+          <button type="button" id="nextPage">›</button>
+        </div>
+      </div>
+      <div class="empty" id="AA-05" data-zone="AA-05">
+        <div class="msg" id="emptyMsg">Không có tài sản đang hoạt động</div>
+        <button type="button" class="btn-retry" id="btnRetry">Thử lại</button>
+      </div>
+      <div class="nav-hint" id="editHint">Nav peer → web-rmms-asset-list detail /asset/:id · no PUT trên adjust P1</div>
+    </main>
+
+    <div class="overlay" id="AA-08" data-zone="AA-08" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+      <div class="dialog">
+        <h2 id="confirmTitle">Xác nhận bớt tài sản</h2>
+        <p id="confirmBody">Bớt (soft-delete) tài sản <span class="code-ref" id="confirmCode">—</span>? Tài sản sẽ không còn hiện trên danh sách active.</p>
+        <div class="btns">
+          <button type="button" class="btn-cancel" id="confirmCancel">Hủy</button>
+          <button type="button" class="btn-ok" id="confirmOk">Bớt</button>
+        </div>
+      </div>
+    </div>
+    <div class="toast" id="toast" role="status"></div>
+  </div>
+
+  <script>
+    (function () {
+      var seed = [
+        { id: "a1", code: "CT.01.012", type: "Cầu", route: "QL1A · Km 12+300" },
+        { id: "a2", code: "BG.02.004", type: "Biển báo", route: "QL1A · Km 14+050" },
+        { id: "a3", code: "CN.03.021", type: "Cống", route: "ĐT.768 · Km 3+100" }
+      ];
+      var rows = seed.slice();
+      var pendingId = null;
+      var board = "loaded";
+      var toastTimer = null;
+      var listEl = document.getElementById("list");
+      var emptyEl = document.getElementById("AA-05");
+      var emptyMsg = document.getElementById("emptyMsg");
+      var overlay = document.getElementById("AA-08");
+      var toast = document.getElementById("toast");
+      var search = document.getElementById("search");
+      var editHint = document.getElementById("editHint");
+      var pager = document.getElementById("pager");
+      var confirmCode = document.getElementById("confirmCode");
+
+      function showToast(msg) {
+        toast.textContent = msg;
+        toast.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () { toast.classList.remove("show"); }, 2200);
+      }
+
+      function closeConfirm() {
+        overlay.classList.remove("show");
+        pendingId = null;
+      }
+
+      function openConfirm(id) {
+        var row = rows.find(function (r) { return r.id === id; });
+        if (!row) return;
+        pendingId = id;
+        confirmCode.textContent = row.code;
+        overlay.classList.add("show");
+      }
+
+      function renderList() {
+        listEl.innerHTML = "";
+        editHint.classList.remove("show");
+        if (board === "error") {
+          emptyEl.classList.add("show");
+          emptyMsg.textContent = "Không tải được danh sách";
+          listEl.style.display = "none";
+          pager.style.display = "none";
+          return;
+        }
+        if (board === "empty" || rows.length === 0) {
+          emptyEl.classList.add("show");
+          emptyMsg.textContent = "Không có tài sản đang hoạt động";
+          listEl.style.display = "none";
+          pager.style.display = "none";
+          return;
+        }
+        emptyEl.classList.remove("show");
+        listEl.style.display = "flex";
+        pager.style.display = "flex";
+        var q = (search.value || "").trim().toLowerCase();
+        var filtered = rows.filter(function (r) {
+          if (!q) return true;
+          return (r.code + " " + r.type + " " + r.route).toLowerCase().indexOf(q) >= 0;
+        });
+        if (filtered.length === 0) {
+          emptyEl.classList.add("show");
+          emptyMsg.textContent = "Không có tài sản đang hoạt động";
+          listEl.style.display = "none";
+          pager.style.display = "none";
+          return;
+        }
+        filtered.forEach(function (r) {
+          var row = document.createElement("div");
+          row.className = "row";
+          row.setAttribute("data-id", r.id);
+          row.innerHTML =
+            '<div class="meta-block">' +
+              '<div class="code">' + r.code + '</div>' +
+              '<div class="type">' + r.type + '</div>' +
+              '<div class="route">' + r.route + '</div>' +
+            '</div>' +
+            '<div class="actions">' +
+              '<button type="button" class="btn-action edit" data-zone="AA-07" data-act="edit">Sửa</button>' +
+              '<button type="button" class="btn-action remove" data-zone="AA-06" data-act="remove">Bớt</button>' +
+            '</div>';
+          listEl.appendChild(row);
+        });
+      }
+
+      function setBoard(name) {
+        board = name;
+        document.querySelectorAll("#boardNav button").forEach(function (b) {
+          b.classList.toggle("active", b.getAttribute("data-board") === name);
+        });
+        closeConfirm();
+        editHint.classList.remove("show");
+        if (name === "loaded") {
+          rows = seed.slice();
+          search.value = "";
+        } else if (name === "empty") {
+          rows = [];
+          search.value = "";
+        } else if (name === "error") {
+          rows = seed.slice();
+          search.value = "";
+        } else if (name === "search") {
+          rows = seed.slice();
+          search.value = "Cầu";
+        } else if (name === "confirm") {
+          rows = seed.slice();
+          search.value = "";
+          renderList();
+          openConfirm("a1");
+          return;
+        } else if (name === "deleted") {
+          rows = seed.filter(function (r) { return r.id !== "a1"; });
+          search.value = "";
+          renderList();
+          showToast("Đã bớt tài sản");
+          return;
+        } else if (name === "editNav") {
+          rows = seed.slice();
+          search.value = "";
+          renderList();
+          editHint.classList.add("show");
+          showToast("→ /asset/a2 (peer list detail)");
+          return;
+        }
+        renderList();
+        if (name === "error") showToast("Lỗi tải · thử lại");
+      }
+
+      listEl.addEventListener("click", function (e) {
+        var btn = e.target.closest("[data-act]");
+        if (!btn) return;
+        var row = btn.closest(".row");
+        var id = row && row.getAttribute("data-id");
+        if (!id) return;
+        if (btn.getAttribute("data-act") === "remove") {
+          openConfirm(id);
+        } else if (btn.getAttribute("data-act") === "edit") {
+          editHint.classList.add("show");
+          showToast("→ /asset/" + id + " (peer web-rmms-asset-list)");
+        }
+      });
+
+      document.getElementById("confirmCancel").addEventListener("click", function () {
+        closeConfirm();
+        showToast("Đã hủy");
+      });
+      document.getElementById("confirmOk").addEventListener("click", function () {
+        if (!pendingId) return;
+        var id = pendingId;
+        closeConfirm();
+        rows = rows.filter(function (r) { return r.id !== id; });
+        renderList();
+        showToast("Đã bớt tài sản");
+      });
+      document.getElementById("btnRetry").addEventListener("click", function () {
+        setBoard("loaded");
+        showToast("Đã tải lại");
+      });
+      document.getElementById("navBack").addEventListener("click", function () {
+        showToast("← Hub /asset (web-rmms-asset-hub)");
+      });
+      search.addEventListener("input", function () {
+        if (board === "error") return;
+        renderList();
+      });
+      document.getElementById("boardNav").addEventListener("click", function (e) {
+        var b = e.target.closest("[data-board]");
+        if (b) setBoard(b.getAttribute("data-board"));
+      });
+
+      setBoard("loaded");
+    })();
+  </script>
+</body>
+</html>
