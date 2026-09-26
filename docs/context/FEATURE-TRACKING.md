@@ -267,6 +267,7 @@
 | `web-rmms-mnt-chat` | Chat công việc | — | support | `done` / `done` | none | [ctx](features/web-rmms-mnt-chat.md) | [ST](../../specs/web-rmms-mnt-chat/STATUS.md) |
 | `web-rmms-photo-geo` | Overlay chụp ảnh có tọa độ | — | support | `done` / `done` | none | [ctx](features/web-rmms-photo-geo.md) | [ST](../../specs/web-rmms-photo-geo/STATUS.md) |
 | `web-rmms-bien-ban` | Đề nghị lập biên bản | — | support | `done` / `done` | none | [ctx](features/web-rmms-bien-ban.md) | [ST](../../specs/web-rmms-bien-ban/STATUS.md) |
+| `web-rmms-ui-align` | Align UI Home · tab · Field theo prototype iOS | — | support | `po` / `in_progress` | none | [ctx](features/web-rmms-ui-align.md) | [ST](../../specs/web-rmms-ui-align/STATUS.md) |
 **Báo cáo `rpt-*`:** xem [§ Reports](#17--dashboard--báo-cáo). Pipeline STATUS **done** hết (release: P1 / P1.5 / P2 / P3 theo từng slug).
 
 **Draft mobile (CTX/analy):** `incident-list` — [STATUS](../../specs/). `cam-view` data_analy **PASS** → PO pending. `incident-create` · `field-reflect` · `cam-patrol` · `mnt-list` đã có CTX + data_analy (hoặc done).

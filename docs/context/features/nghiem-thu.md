@@ -60,5 +60,5 @@ Lookup: `mau-01`…`mau-10` label = [`MAU-10.md`](../../plan/nghiem-thu-mau/MAU-
 
 | lane | phase | status | updatedAt |
 |------|-------|--------|-----------|
-| web | `done` | `in_progress` | `2026-09-26T03:20:46.290Z` |
+| web | `done` | `in_progress` | `2026-09-26T06:34:06.786Z` |
 | mobile | `done` | `done` | `2026-09-19T18:46:56.091Z` |

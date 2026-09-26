@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-26T03:38:29.329Z",
+  "updatedAt": "2026-09-26T06:41:23.451Z",
   "features": {
     "ai-asset-detect": {
       "web": {
@@ -736,7 +736,7 @@
       "web": {
         "phase": "done",
         "status": "in_progress",
-        "updatedAt": "2026-09-26T03:20:46.290Z",
+        "updatedAt": "2026-09-26T06:34:06.786Z",
         "statusRel": "specs/nghiem-thu/STATUS.md"
       },
       "mobile": {
@@ -1680,6 +1680,14 @@
         "status": "done",
         "updatedAt": "2026-09-26T03:38:29.329Z",
         "statusRel": "specs/web-rmms-estimate/STATUS.md"
+      }
+    },
+    "web-rmms-ui-align": {
+      "web": {
+        "phase": "po",
+        "status": "pending",
+        "updatedAt": "2026-09-26T06:41:23.451Z",
+        "statusRel": "specs/web-rmms-ui-align/STATUS.md"
       }
     }
   }

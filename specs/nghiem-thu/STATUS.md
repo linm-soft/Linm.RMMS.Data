@@ -13,7 +13,7 @@
 | mfeStdRoute | `/nghiem-thu` |
 | mfeStdUrl | `http://localhost:9304/nghiem-thu` |
 | backend | `/Users/mac/LINM-ORG/AI-QLBD/Linm.RMMS.WebService` · DOMAIN-MAP — **cấm ERP.*** |
-| updatedAt | `2026-09-26T03:20:46.281Z` |
+| updatedAt | `2026-09-26T06:34:06.775Z` |
 | lastRole | `review` · `confirmed` · task `task_b7626142` · changeScope=edit_page · review_confirm=accept · P0=0 · Aligned · MAU-10+Result |
 | contentHash | `sha256:1044ba719edda88d256d5c2a780cd2293f2fab87e2a39acdbb86001fad6ff659` |
 | reviewHash | `sha256:ce24777c87b1c352e86b2db3ffb3fadd30dae294493d91133a6c87808021c128` |
